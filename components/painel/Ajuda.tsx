@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { MANUAL_DA_COORDENACAO } from "./manual-texto";
+import { Busca, CabecalhoDeSecao, Vazio } from "./ui";
 
 /** Tira o acento e põe em minúsculas, para a busca achar "seguranca" em "segurança". */
 const semAcento = (t: string) => t.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
@@ -41,19 +42,18 @@ export function Ajuda() {
   return (
     <section aria-labelledby="ajuda-titulo" className="grid gap-4">
       <div>
-        <h2 id="ajuda-titulo" className="font-serif text-xl font-semibold">Manual da coordenação</h2>
-        <div className="mt-1 max-w-3xl text-sm text-ink-soft">
+        <CabecalhoDeSecao nivel={2} id="ajuda-titulo" titulo="Manual da coordenação" />
+        <div className="pn-ajuda mt-1 max-w-3xl">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{introducao}</ReactMarkdown>
         </div>
-        <label className="mt-3 block max-w-md text-sm">
-          Procurar no manual
-          <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} className="pn-campo mt-1 w-full" placeholder="aprovar, interdição, Vale o Escrito…" />
-        </label>
-        <p className="mt-1 text-xs text-ink-soft" role="status">{q ? `${visiveis.length} de ${todas.length} partes têm "${busca.trim()}".` : `${todas.length} partes.`}</p>
+        <div className="mt-3 max-w-md">
+          <Busca rotulo="Procurar no manual" rotuloVisivel valor={busca} aoMudar={setBusca} placeholder="aprovar, interdição, Vale o Escrito…" />
+        </div>
+        <p className="pn-ajuda mt-1" role="status">{q ? `${visiveis.length} de ${todas.length} partes têm "${busca.trim()}".` : `${todas.length} partes.`}</p>
       </div>
       {visiveis.map((p, i) => (
-        <details key={p.titulo} open={Boolean(q) || i === 0} className="pn-ajuda border border-rule bg-parchment-deep p-4">
-          <summary className="cursor-pointer font-serif text-lg font-semibold">{p.titulo}</summary>
+        <details key={p.titulo} open={Boolean(q) || i === 0} className="pn-cartao">
+          <summary className="pn-cartao-titulo cursor-pointer">{p.titulo}</summary>
           <div className="pn-ajuda-texto mt-3 max-w-3xl text-sm leading-relaxed">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
@@ -64,9 +64,9 @@ export function Ajuda() {
                 ul: ({ children }) => <ul className="mt-2 list-disc space-y-1 pl-5">{children}</ul>,
                 ol: ({ children }) => <ol className="mt-2 list-decimal space-y-1 pl-5">{children}</ol>,
                 code: ({ children }) => <code className="font-mono text-[0.85em]">{children}</code>,
-                table: ({ children }) => <div className="mt-2 overflow-x-auto"><table className="w-full text-left text-sm">{children}</table></div>,
-                th: ({ children }) => <th className="border-b border-rule px-2 py-1 font-semibold">{children}</th>,
-                td: ({ children }) => <td className="border-b border-rule px-2 py-1 align-top">{children}</td>,
+                table: ({ children }) => <div className="pn-tabela-caixa mt-2 overflow-x-auto"><table className="pn-tabela pn-tabela-densa">{children}</table></div>,
+                th: ({ children }) => <th scope="col">{children}</th>,
+                td: ({ children }) => <td className="align-top">{children}</td>,
               }}
             >
               {p.corpo}
@@ -74,8 +74,8 @@ export function Ajuda() {
           </div>
         </details>
       ))}
-      {visiveis.length === 0 && <p className="text-sm text-ink-soft">Nada com essa palavra. Tente uma parte dela, ou abra a busca do painel (Ctrl K).</p>}
-      <p className="text-xs text-ink-soft">O mesmo texto está em <code>docs/MANUAL-DA-COORDENACAO.md</code>, no repositório.</p>
+      {visiveis.length === 0 && <Vazio titulo="Nada com essa palavra. Tente uma parte dela, ou abra a busca do painel (Ctrl K)." />}
+      <p className="pn-ajuda">O mesmo texto está em <code>docs/MANUAL-DA-COORDENACAO.md</code>, no repositório.</p>
     </section>
   );
 }

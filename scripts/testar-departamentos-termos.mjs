@@ -219,7 +219,7 @@ confere("comum.tsx: design aparece como parte da Comunicação", /design: "Comun
 confere("comum.tsx: função aposentada não é oferecida", /papelAposentado = \(papel: string\) => papel === "design"/.test(comum));
 for (const arquivo of ["Convites", "Avisos", "Pessoas"]) confere(`${arquivo}.tsx não oferece a função design`, /papelAposentado/.test(ler(`components/painel/${arquivo}.tsx`)));
 confere("a candidatura de voluntário não oferece design", !/volunteerRoles = \[[^\]]*"design"/.test(ler("components/VolunteerForm.tsx")));
-confere("Painel.tsx: pedir função não oferece design", !/pediveis = \(\[[^\]]*"design"/.test(ler("components/painel/Painel.tsx")));
+confere("Painel.tsx: pedir função não oferece design", !/pediveis = \(\[[^\]]*"design"/.test(ler("components/painel/Painel.tsx") + ler("components/painel/casca/Dentro.tsx")));
 confere("Equipe.tsx: pedido de ajuda vai para a Comunicação por padrão", /useState<Role\["papel"\]>\("marketing"\)/.test(ler("components/painel/Equipe.tsx")));
 confere("Departamentos.tsx: nomes novos", /desenvolvimento: "UI\/UX e Desenvolvimento"/.test(ler("components/painel/Departamentos.tsx")));
 confere("Termo.tsx explica o aceite de novo", /não ficou guardado/.test(ler("components/painel/Termo.tsx")));

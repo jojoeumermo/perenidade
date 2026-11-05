@@ -26,7 +26,7 @@ export function Avisos({ avisos }: { avisos: AvisoDoEstudio[] }) {
   return (
     <div className="pointer-events-none fixed bottom-20 left-1/2 z-[96] flex w-[min(92vw,30rem)] -translate-x-1/2 flex-col items-center gap-2 md:bottom-6" role="status" aria-live="polite">
       {avisos.map((a) => (
-        <p key={a.id} className={`estudio-surge pointer-events-auto flex items-start gap-2 rounded-lg px-4 py-2.5 text-sm shadow-xl ${a.tipo === "erro" ? "bg-[#c21f16] text-white" : "bg-[#1f1a14] text-[#f4ecd8]"}`}>
+        <p key={a.id} className={`estudio-surge pointer-events-auto flex items-start gap-2 rounded-lg px-4 py-2.5 text-sm shadow-xl ${a.tipo === "erro" ? "bg-[var(--e-erro)] text-[var(--e-sobre-erro)]" : "bg-[var(--e-tinta)] text-[var(--e-fundo)]"}`}>
           <Icone nome={a.tipo === "erro" ? "alerta" : a.tipo === "info" ? "info" : "check"} className="mt-0.5 h-4 w-4" />
           {a.mensagem}
         </p>
@@ -54,7 +54,7 @@ export function BarraFlutuante({ escala, esquerda, topo }: { escala: number; esq
   const corAtual = c.tipo === "texto" ? c.cor : c.tipo === "elemento" || c.tipo === "marca" ? c.cor : c.tipo === "imagem" ? c.borda : c.preenchimento;
   const mudarCor = (cor: string) => (c.tipo === "texto" || c.tipo === "elemento" || c.tipo === "marca" ? ed.mudar({ cor }) : c.tipo === "imagem" ? ed.mudar({ borda: cor, espessura: cor && !c.espessura ? 6 : c.espessura }) : ed.mudar({ preenchimento: cor || "transparent" }));
   return (
-    <div ref={ref} className="estudio-surge absolute z-20 flex h-12 items-center gap-0.5 rounded-xl border border-e-fio bg-e-painel px-1.5 text-e-tinta shadow-[0_10px_30px_rgba(0,0,0,0.35)]" style={{ left: x, top: y }} role="toolbar" aria-label="Ferramentas da camada" onPointerDown={(e) => e.stopPropagation()}>
+    <div ref={ref} className="estudio-surge absolute z-20 flex h-12 items-center gap-0.5 rounded-xl border border-e-fio bg-e-painel px-1.5 text-e-tinta [box-shadow:var(--e-sombra)]" style={{ left: x, top: y }} role="toolbar" aria-label="Ferramentas da camada" onPointerDown={(e) => e.stopPropagation()}>
       {c.tipo === "texto" && (
         <>
           <select value={c.fonte} onChange={(e) => ed.mudar({ fonte: e.target.value as Fonte })} aria-label="Fonte" className="h-9 cursor-pointer rounded-md border border-transparent bg-transparent px-1.5 font-serif text-sm hover:border-e-fio" style={{ fontFamily: c.fonte === "serifa" ? "var(--font-serif-display)" : c.fonte === "mono" ? "var(--font-archive)" : c.fonte === "manuscrita" ? "var(--font-hand)" : "var(--font-ui)" }}>
@@ -153,7 +153,7 @@ export function MenuDeContexto({ x, y, fechar }: { x: number; y: number; fechar:
   };
   const c = ed.camada;
   return (
-    <div ref={ref} role="menu" className="estudio-surge absolute z-40 w-64 rounded-lg border border-e-fio bg-e-painel p-1.5 text-sm text-e-tinta shadow-[0_12px_32px_rgba(0,0,0,0.35)]" style={{ left: x, top: y }} onPointerDown={(e) => e.stopPropagation()}>
+    <div ref={ref} role="menu" className="estudio-surge absolute z-40 w-64 rounded-lg border border-e-fio bg-e-painel p-1.5 text-sm text-e-tinta [box-shadow:var(--e-sombra)]" style={{ left: x, top: y }} onPointerDown={(e) => e.stopPropagation()}>
       {tem ? (
         <>
           {c?.tipo === "texto" && <ItemDeMenu icone="texto" rotulo="Editar o texto" atalho="Enter" onClick={() => { fechar(); ed.editarTexto(c.id); }} />}

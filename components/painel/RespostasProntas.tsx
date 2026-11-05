@@ -2,7 +2,11 @@
 "use client";
 
 // Respostas prontas para a mediação (uma das ideias do painel): as frases que mais se repetem ao recusar, banir ou
-// resolver uma denúncia. Escolher uma preenche o campo; dá para mudar o texto antes de mandar.
+// resolver uma denúncia. Escolher uma preenche o campo; dá para mudar o texto antes de mandar. No campo de escrever do
+// painel (ui/Composer), as mesmas frases viram comandos: "/resposta" no começo da linha lista todas.
+
+import { MessageSquareText } from "lucide-react";
+import type { ComandoDoComposer } from "./ui";
 
 export const RESPOSTAS = {
   banimento: [
@@ -28,6 +32,20 @@ export const RESPOSTAS = {
   ],
 } as const;
 
+/**
+ * As respostas prontas de um tipo como comandos do Composer ("/resposta-1", "/resposta-2"…; "/resposta" lista todas).
+ * Escolher uma põe a frase no campo (depois do que já estava escrito), para a pessoa ajustar antes de mandar.
+ */
+export function comandosDeRespostas(tipo: keyof typeof RESPOSTAS): ComandoDoComposer[] {
+  return RESPOSTAS[tipo].map((texto, i) => ({
+    id: `resposta-${i + 1}`,
+    nome: texto,
+    sobre: texto,
+    simbolo: MessageSquareText,
+    inserir: (atual: string) => (atual.trim() ? `${atual.replace(/\s+$/, "")} ${texto}` : texto),
+  }));
+}
+
 export function RespostasProntas({ tipo, usar }: { tipo: keyof typeof RESPOSTAS; usar: (texto: string) => void }) {
   return (
     <select
@@ -36,7 +54,7 @@ export function RespostasProntas({ tipo, usar }: { tipo: keyof typeof RESPOSTAS;
         if (e.target.value) usar(e.target.value);
       }}
       aria-label="Usar uma resposta pronta"
-      className="painel-campo mt-1 max-w-full border border-ink bg-parchment px-2 py-1 text-xs"
+      className="pn-campo mt-1 max-w-full text-xs"
     >
       <option value="">Resposta pronta…</option>
       {RESPOSTAS[tipo].map((texto) => (

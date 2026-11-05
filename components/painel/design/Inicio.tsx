@@ -1,9 +1,18 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { ImageOff, X } from "lucide-react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { can, rpc } from "@/lib/backend";
 import type { Me } from "@/lib/backend";
+// Arquivo por arquivo (e não o índice de ui/): esta tela também abre no Laboratório público, que não deve levar o resto
+// do kit do painel (paleta, tabela, diálogos) no pacote.
+import { Botao } from "../ui/Botao";
+import { CabecalhoDeSecao } from "../ui/CabecalhoDeSecao";
+import { Cartao } from "../ui/Cartao";
+import { Esqueleto } from "../ui/Esqueleto";
+import { Faixa } from "../ui/Faixa";
+import { Vazio } from "../ui/Vazio";
 import { type Abertura, CHAVE_DO_RASCUNHO, lerRascunho, type Rascunho } from "./Estudio";
 import { Icone } from "./Icone";
 import type { NomeDoIcone } from "./icones";
@@ -48,17 +57,34 @@ function MiniaturaDeModelo({ id, laboratorio }: { id: string; laboratorio: boole
     };
   }, [id, laboratorio]);
   // eslint-disable-next-line @next/next/no-img-element
-  return src ? <img src={src} alt="" className="h-full w-full object-contain" /> : <span className="block h-full w-full animate-pulse bg-rule/40" />;
+  return src ? <img src={src} alt="" className="h-full w-full object-contain" /> : <span className="block h-full w-full bg-rule/40 motion-safe:animate-pulse" />;
+}
+
+/** A miniatura guardada de um trabalho (ou um quadro vazio com ícone, quando ainda não há). */
+function MiniaturaDeTrabalho({ src }: { src?: string | null }) {
+  return src ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="" className="aspect-square w-full rounded-md border border-rule bg-parchment-deep object-contain" />
+  ) : (
+    <span className="flex aspect-square items-center justify-center rounded-md bg-parchment-deep text-ink-soft">
+      <ImageOff aria-hidden className="h-6 w-6" strokeWidth={1.4} />
+    </span>
+  );
 }
 
 /**
  * A tela de entrada do estúdio rápido: criar por formato, continuar o rascunho, as datas do calendário que vêm aí,
  * os modelos mais usados, os trabalhos recentes e, para a coordenação, o que espera aprovação.
+ *
+ * A mesma tela abre no Laboratório de Design (página pública), onde o tema do painel não está carregado: lá, as peças
+ * novas do painel ganham as classes do site por cima (o "lab" de cada uma) e os títulos ficam no desenho de antes.
  */
 export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: Abertura) => void; laboratorio?: boolean }) {
   const [rascunho, setRascunho] = useState<Rascunho | null>(null);
   const [trabalhos, setTrabalhos] = useState<Trabalho[] | null>(null);
   const [usados, setUsados] = useState<string[]>([]);
+  // A lista não veio (rede, sessão): diz isso, em vez de mostrar "nenhum trabalho" como se estivesse vazia.
+  const [falhou, setFalhou] = useState(false);
   const [primeiroUso, setPrimeiroUso] = useState(false);
   const [agora, setAgora] = useState(0);
   useEffect(() => {
@@ -75,7 +101,10 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
     if (!laboratorio) {
       rpc<Trabalho[]>("designs_listar", {})
         .then((l) => setTrabalhos(l ?? []))
-        .catch(() => setTrabalhos([]));
+        .catch(() => {
+          setFalhou(true);
+          setTrabalhos([]);
+        });
       rpc<{ modelo: string }[]>("design_modelos_mais_usados", {})
         .then((l) => setUsados((l ?? []).map((x) => x.modelo)))
         .catch(() => setUsados([]));
@@ -117,15 +146,31 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
       /* sem armazenamento */
     }
   };
+  // Fora do painel (laboratório), as classes do site no lugar do tema do painel.
+  const lab = (classes: string) => (laboratorio ? classes : undefined);
+  const titulo = (texto: string, rotulo?: string, acoes?: ReactNode) =>
+    laboratorio ? (
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          {rotulo && <p className="font-mono text-xs uppercase tracking-widest text-gold">{rotulo}</p>}
+          <h2 className="font-serif text-2xl font-semibold">{texto}</h2>
+        </div>
+        {acoes}
+      </div>
+    ) : (
+      <CabecalhoDeSecao nivel={2} titulo={texto} rotulo={rotulo} acoes={acoes} />
+    );
   return (
-    <div className="space-y-8">
+    <div className="grid gap-8">
       {primeiroUso && (
-        <section className="painel-cartao relative p-5" aria-label="Primeiro uso">
-          <button type="button" className="absolute top-3 right-3 cursor-pointer p-1 text-ink-soft hover:text-ink" onClick={fecharPrimeiroUso} aria-label="Fechar">
-            <Icone nome="fechar" className="h-5 w-5" />
-          </button>
-          <p className="font-mono text-xs uppercase tracking-widest text-gold">Primeira vez no estúdio?</p>
-          <h2 className="mt-1 font-serif text-2xl font-semibold">Uma arte em quatro passos</h2>
+        <Cartao aria-label="Primeiro uso" variante="destaque" className={lab("border border-rule p-5")}>
+          {titulo(
+            "Uma arte em quatro passos",
+            "Primeira vez no estúdio?",
+            <Botao variante="discreto" icone simbolo={laboratorio ? undefined : X} aria-label="Fechar" onClick={fecharPrimeiroUso} className={lab("cursor-pointer p-1 text-ink-soft hover:text-ink")}>
+              {laboratorio && <Icone nome="fechar" className="h-5 w-5" />}
+            </Botao>,
+          )}
           <ol className="mt-4 grid gap-4 text-sm sm:grid-cols-4">
             {(
               [
@@ -134,49 +179,55 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
                 ["verificar", "Confira", "O estúdio avisa de contraste, letra pequena e área cortada."],
                 ["baixar", "Guarde e baixe", laboratorio ? "Guardar fica neste aparelho; Baixar entrega o PNG." : "Guardar leva para a conta; Baixar entrega o PNG."],
               ] as [NomeDoIcone, string, string][]
-            ).map(([icone, titulo, texto], i) => (
-              <li key={titulo} className="flex gap-3">
+            ).map(([icone, nome, texto], i) => (
+              <li key={nome} className="flex gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-oxblood text-parchment">
                   <Icone nome={icone} className="h-5 w-5" />
                 </span>
                 <span>
                   <strong className="block">
-                    {i + 1}. {titulo}
+                    {i + 1}. {nome}
                   </strong>
                   <span className="text-ink-soft">{texto}</span>
                 </span>
               </li>
             ))}
           </ol>
-          <button type="button" className="painel-botao mt-4 cursor-pointer bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood" onClick={() => { fecharPrimeiroUso(); abrir({ tipo: "modelo", modelo: catalogo[0] }); }}>
+          <Botao variante="principal" className={`mt-4 ${lab("cursor-pointer bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood") ?? ""}`} onClick={() => { fecharPrimeiroUso(); abrir({ tipo: "modelo", modelo: catalogo[0] }); }}>
             Abrir um exemplo
-          </button>
-        </section>
+          </Botao>
+        </Cartao>
       )}
 
       {rascunho && (
-        <section className="flex flex-wrap items-center gap-3 border-l-4 border-gold bg-parchment-deep px-4 py-3">
-          <Icone nome="historico" className="h-5 w-5 text-gold" />
-          <p className="min-w-0 flex-1">
+        <Faixa
+          tom="bordo"
+          className={lab("flex flex-wrap items-center gap-3 border-l-4 border-gold bg-parchment-deep px-4 py-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-gold [&_.pn-faixa-texto]:min-w-0 [&_.pn-faixa-texto]:flex-1")}
+          acao={
+            <span className="flex flex-wrap items-center gap-3">
+              <Botao variante={primeiroUso ? "padrao" : "principal"} pequeno className={lab("cursor-pointer bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood")} onClick={() => abrir({ tipo: "rascunho" })}>
+                Continuar
+              </Botao>
+              <Botao variante="discreto" pequeno className={lab("cursor-pointer text-sm underline")} onClick={() => { try { window.localStorage.removeItem(CHAVE_DO_RASCUNHO(me.id)); } catch { /* sem armazenamento */ } setRascunho(null); }}>
+                Descartar
+              </Botao>
+            </span>
+          }
+        >
+          <p className="min-w-0">
             <strong>Continuar de onde parou:</strong> {rascunho.titulo} <span className="text-ink-soft">({quanto(agora - rascunho.quando)}, neste aparelho)</span>
           </p>
-          <button type="button" className="cursor-pointer bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood" onClick={() => abrir({ tipo: "rascunho" })}>
-            Continuar
-          </button>
-          <button type="button" className="cursor-pointer text-sm underline" onClick={() => { try { window.localStorage.removeItem(CHAVE_DO_RASCUNHO(me.id)); } catch { /* sem armazenamento */ } setRascunho(null); }}>
-            Descartar
-          </button>
-        </section>
+        </Faixa>
       )}
 
       <section>
-        <h2 className="font-serif text-2xl font-semibold">Criar</h2>
+        {titulo("Criar")}
         <ul className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-6">
           {CRIAR.map((c) => (
             <li key={c.formato}>
-              <button type="button" className="group flex w-full cursor-pointer flex-col items-center gap-2 text-sm" onClick={() => abrir({ tipo: "branco", formato: c.formato })}>
+              <button type="button" className="group flex w-full cursor-pointer flex-col items-center gap-2 rounded-md text-sm" onClick={() => abrir({ tipo: "branco", formato: c.formato })}>
                 <span className="flex h-24 w-full items-center justify-center">
-                  <span className={`flex h-full max-w-full items-center justify-center border-2 border-ink bg-parchment-deep text-ink-soft group-hover:border-oxblood group-hover:text-oxblood ${c.proporcao}`}>
+                  <span className={`flex h-full max-w-full items-center justify-center rounded-md border border-rule bg-parchment-deep text-ink-soft transition-colors group-hover:border-oxblood group-hover:text-oxblood ${c.proporcao}`}>
                     <Icone nome={c.icone} className="h-6 w-6" />
                   </span>
                 </span>
@@ -189,51 +240,54 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
           <summary className="cursor-pointer text-ink-soft">Mais formatos ({FORMATOS.length})</summary>
           <div className="mt-2 flex flex-wrap gap-2">
             {FORMATOS.map((f) => (
-              <button key={f.id} type="button" className="cursor-pointer border border-rule px-3 py-1.5 hover:border-ink" onClick={() => abrir({ tipo: "branco", formato: f.id })}>
+              <Botao key={f.id} pequeno className={lab("cursor-pointer border border-rule px-3 py-1.5 hover:border-ink")} onClick={() => abrir({ tipo: "branco", formato: f.id })}>
                 {f.nome}
-              </button>
+              </Botao>
             ))}
           </div>
         </details>
       </section>
 
       {!laboratorio && (
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Datas que vêm aí</h2>
-        <ul className="mt-3 grid gap-3 md:grid-cols-3">
-          {datas.map((d) => {
-            const modelo = MODELOS.find((m) => m.id === d.modelo) ?? MODELOS[0];
-            return (
-              <li key={d.nome} className="painel-cartao flex flex-col p-4">
-                <p className="font-mono text-xs uppercase tracking-widest text-gold">
-                  {d.quando.toLocaleDateString("pt-BR", { day: "2-digit", month: "long" })} · {d.faltam === 0 ? "hoje" : d.faltam === 1 ? "amanhã" : `em ${d.faltam} dias`}
-                </p>
-                <p className="mt-1 font-serif text-lg font-semibold">{d.nome}</p>
-                <p className="flex-1 text-sm text-ink-soft">{d.sugestao}</p>
-                <button type="button" className="mt-3 cursor-pointer self-start border-2 border-ink px-3 py-1.5 text-sm font-semibold hover:border-oxblood hover:text-oxblood" onClick={() => abrir({ tipo: "modelo", modelo })}>
-                  Criar arte · {modelo.nome}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+        <section>
+          {titulo("Datas que vêm aí")}
+          <ul className="mt-3 grid gap-3 md:grid-cols-3">
+            {datas.map((d) => {
+              const modelo = MODELOS.find((m) => m.id === d.modelo) ?? MODELOS[0];
+              return (
+                <li key={d.nome} className="flex">
+                  <Cartao as="article" className="flex flex-1 flex-col">
+                    <p className="pn-rotulo-mono text-gold">
+                      {d.quando.toLocaleDateString("pt-BR", { day: "2-digit", month: "long" })} · {d.faltam === 0 ? "hoje" : d.faltam === 1 ? "amanhã" : `em ${d.faltam} dias`}
+                    </p>
+                    <h3 className="pn-cartao-titulo mt-1">{d.nome}</h3>
+                    <p className="pn-cartao-sobre flex-1">{d.sugestao}</p>
+                    <div className="mt-3">
+                      <Botao pequeno onClick={() => abrir({ tipo: "modelo", modelo })}>
+                        Criar arte · {modelo.nome}
+                      </Botao>
+                    </div>
+                  </Cartao>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       )}
 
       {(paraAprovar.length > 0 || meus.length > 0) && (
         <section>
-          <h2 className="font-serif text-2xl font-semibold">{paraAprovar.length ? "Esperando a sua aprovação" : "Pedidos de ajuste"}</h2>
+          {titulo(paraAprovar.length ? "Esperando a sua aprovação" : "Pedidos de ajuste")}
           <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[...paraAprovar, ...meus].map((t) => (
               <li key={t.id}>
-                <button type="button" className="w-full cursor-pointer text-left" onClick={() => abrir({ tipo: "trabalho", id: t.id })}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {t.miniatura ? <img src={t.miniatura} alt="" className="aspect-square w-full border border-rule object-contain" /> : <span className="block aspect-square bg-parchment-deep" />}
-                  <span className="mt-1 block truncate text-sm font-semibold">{t.titulo}</span>
+                <Cartao as="div" interativo className="p-2" onClick={() => abrir({ tipo: "trabalho", id: t.id })}>
+                  <MiniaturaDeTrabalho src={t.miniatura} />
+                  <span className="mt-1.5 block truncate text-sm font-semibold">{t.titulo}</span>
                   <span className="block text-xs text-ink-soft">
                     {t.autor} · {NOMES_DO_STATUS[t.status ?? ""] ?? ""}
                   </span>
-                </button>
+                </Cartao>
               </li>
             ))}
           </ul>
@@ -241,45 +295,50 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
       )}
 
       <section>
-        <h2 className="font-serif text-2xl font-semibold">{usados.length ? "Os modelos mais usados" : "Para começar"}</h2>
+        {titulo(usados.length ? "Os modelos mais usados" : "Para começar")}
         <ul className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {sugeridos.map((m) => (
             <li key={m!.id}>
-              <button type="button" className="w-full cursor-pointer text-left" onClick={() => abrir({ tipo: "modelo", modelo: m! })}>
-                <span className="flex aspect-square items-center justify-center border border-rule bg-parchment-deep p-2 hover:border-ink">
+              <Cartao as="div" interativo className={`p-2 ${lab("cursor-pointer") ?? ""}`} onClick={() => abrir({ tipo: "modelo", modelo: m! })}>
+                <span className={`flex aspect-square items-center justify-center rounded-md bg-parchment-deep p-2 ${lab("border border-rule hover:border-ink") ?? ""}`}>
                   <MiniaturaDeModelo id={m!.id} laboratorio={laboratorio} />
                 </span>
-                <span className="mt-1 block truncate text-sm">{m!.nome}</span>
-              </button>
+                <span className="mt-1.5 block truncate text-sm">{m!.nome}</span>
+              </Cartao>
             </li>
           ))}
         </ul>
       </section>
 
       {!laboratorio && (
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Trabalhos recentes</h2>
-        {trabalhos === null ? (
-          <p className="mt-2 text-sm text-ink-soft">Carregando…</p>
-        ) : !trabalhos.length ? (
-          <p className="mt-2 text-sm text-ink-soft">Nenhum trabalho guardado ainda.</p>
-        ) : (
-          <ul className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
-            {trabalhos.slice(0, 12).map((t) => (
-              <li key={t.id}>
-                <button type="button" className="w-full cursor-pointer text-left" onClick={() => abrir({ tipo: "trabalho", id: t.id })} title={`${t.titulo} · ${t.autor}`}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {t.miniatura ? <img src={t.miniatura} alt="" className="aspect-square w-full border border-rule object-contain hover:border-ink" /> : <span className="block aspect-square bg-parchment-deep" />}
-                  <span className="mt-1 block truncate text-sm font-semibold">{t.titulo}</span>
-                  <span className="block truncate text-xs text-ink-soft">
-                    {t.autor} · {new Date(t.atualizado_em).toLocaleDateString("pt-BR")}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+        <section>
+          {titulo("Trabalhos recentes")}
+          <div className="mt-3">
+            {trabalhos === null ? (
+              <Esqueleto forma="cartoes" linhas={4} rotulo="Carregando…" />
+            ) : falhou ? (
+              <Faixa tom="erro">
+                <p>Não deu para carregar os trabalhos agora. Recarregue a página para tentar de novo.</p>
+              </Faixa>
+            ) : !trabalhos.length ? (
+              <Vazio titulo="Nenhum trabalho guardado ainda." />
+            ) : (
+              <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+                {trabalhos.slice(0, 12).map((t) => (
+                  <li key={t.id} title={`${t.titulo} · ${t.autor}`}>
+                    <Cartao as="div" interativo className="p-2" onClick={() => abrir({ tipo: "trabalho", id: t.id })}>
+                      <MiniaturaDeTrabalho src={t.miniatura} />
+                      <span className="mt-1.5 block truncate text-sm font-semibold">{t.titulo}</span>
+                      <span className="block truncate text-xs text-ink-soft">
+                        {t.autor} · {new Date(t.atualizado_em).toLocaleDateString("pt-BR")}
+                      </span>
+                    </Cartao>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
       )}
     </div>
   );

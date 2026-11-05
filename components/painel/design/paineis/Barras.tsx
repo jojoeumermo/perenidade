@@ -81,7 +81,7 @@ export function BarraDoAlto({ mexido, salvoEm, guardando, escala, podeRefazer, p
       </div>
       {!celular && (
         <span className={`hidden items-center gap-1.5 text-sm whitespace-nowrap xl:flex ${ok ? "text-e-suave" : "text-e-bordo"}`} role="status">
-          {ok ? <Icone nome="check" className="h-4 w-4 text-[#2f5d34]" /> : <span className="h-2 w-2 rounded-full bg-current" aria-hidden />}
+          {ok ? <Icone nome="check" className="h-4 w-4 text-[var(--e-ok)]" /> : <span className="h-2 w-2 rounded-full bg-current" aria-hidden />}
           {estado}
         </span>
       )}

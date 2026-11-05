@@ -5,7 +5,8 @@ import { useState } from "react";
 import { rpc } from "@/lib/backend";
 import { fraseDaAula } from "@/lib/operacao";
 import { textoDoErro, useLista } from "./comum";
-import { Botao, Marca, Selecao, notificar } from "./ui";
+import { RefreshCw } from "lucide-react";
+import { Botao, CabecalhoDeSecao, Cartao, Faixa, Marca, Selecao, notificar } from "./ui";
 
 interface Exemplo {
   exemplo: boolean;
@@ -32,7 +33,7 @@ export function Previa() {
     <div className="max-w-3xl space-y-8">
       <ResumoDiario />
       <section aria-labelledby="previa-exemplo" className="space-y-3">
-        <h2 id="previa-exemplo" className="pn-secao-titulo">Ver uma tela com dados de exemplo</h2>
+        <CabecalhoDeSecao nivel={2} id="previa-exemplo" titulo="Ver uma tela com dados de exemplo" />
         <Selecao rotulo="Tela" value={tela} onChange={(e) => setTela(e.target.value)}>
           {TELAS.map((t) => <option key={t.id} value={t.id}>{t.nome}</option>)}
         </Selecao>
@@ -59,9 +60,9 @@ function ResumoDiario() {
   }
   return (
     <section aria-labelledby="resumo-diario" className="space-y-3">
-      <h2 id="resumo-diario" className="pn-secao-titulo">Resumo diário por e-mail</h2>
+      <CabecalhoDeSecao nivel={2} id="resumo-diario" titulo="Resumo diário por e-mail" />
       <p className="pn-ajuda">Opcional e desligado até você ligar. De manhã, um e-mail curto com só contagens do que espera por você (revisões, pedidos de imprensa, lacunas importantes, aviso do token do Instagram para a coordenação). Sem nome de ninguém e sem conteúdo. Não chega em dia sem novidade. Você desliga aqui, quando quiser.</p>
-      {estado.erro && <p role="alert" className="text-oxblood">{estado.erro}</p>}
+      {estado.erro && <Faixa tom="erro" acao={<Botao pequeno onClick={estado.recarregar}>Tentar de novo</Botao>}>{estado.erro}</Faixa>}
       {estado.dados && (
         <Marca rotulo="Quero receber o resumo diário" checked={estado.dados.ativo} disabled={ocupado} onChange={(e) => void definir(e.target.checked)} />
       )}
@@ -71,12 +72,12 @@ function ResumoDiario() {
 
 function Exemplo({ tela }: { tela: string }) {
   const r = useLista<Exemplo>("previa_exemplo", { p_tela: tela }, { quieta: true });
-  if (r.erro) return <p role="alert" className="text-oxblood">{r.erro}</p>;
+  if (r.erro) return <Faixa tom="erro" acao={<Botao pequeno onClick={r.recarregar}>Tentar de novo</Botao>}>{r.erro}</Faixa>;
   if (!r.dados) return null;
   const d = r.dados.dados as never;
   return (
-    <div className="space-y-2 rounded-md border border-rule p-4">
-      <p className="font-semibold text-oxblood" role="note">EXEMPLO: nada abaixo é real.</p>
+    <Cartao as="div" variante="plano" className="grid gap-2">
+      <Faixa tom="bordo" titulo="EXEMPLO: nada abaixo é real." />
       {tela === "resumo_diario" && (
         <div>
           <p className="font-semibold">{(d as { assunto: string }).assunto}</p>
@@ -111,7 +112,9 @@ function Exemplo({ tela }: { tela: string }) {
           <li>Token do Instagram: vence em {(d as { instagram: { dias: number } }).instagram.dias} dias (aviso).</li>
         </ul>
       )}
-      <Botao variante="discreto" onClick={() => r.recarregar()}>Atualizar o exemplo</Botao>
-    </div>
+      <p>
+        <Botao variante="discreto" pequeno simbolo={RefreshCw} onClick={() => r.recarregar()}>Atualizar o exemplo</Botao>
+      </p>
+    </Cartao>
   );
 }

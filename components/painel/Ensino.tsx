@@ -7,7 +7,8 @@ import { fraseDaAula } from "@/lib/operacao";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { dia, textoDoErro, useLista } from "./comum";
-import { Abas, Area, Botao, Campo, Selecao, Tabela, Vazio, notificar, type ColumnDef } from "./ui";
+import { BookOpenCheck, NotebookPen, Plus } from "lucide-react";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Estatistica, Estatisticas, Faixa, Lista, notificar, Selecao, Selo, Tabela, Vazio, type ColumnDef } from "./ui";
 
 interface Minhas {
   todas: boolean;
@@ -71,14 +72,21 @@ export function Ensino() {
   const [slug, setSlug] = useState("");
   const atual = slug || disc.opcoes[0]?.slug || "";
   return (
-    <div className="space-y-4">
-      {disc.erro && <p role="alert" className="text-oxblood">{disc.erro}</p>}
-      {disc.pronto && disc.opcoes.length === 0 && <Vazio titulo="Nenhuma disciplina para você" texto="Esta tela mostra as disciplinas em que você tem a função de educação. Peça à coordenação para ligar uma." />}
+    <div className="pn-tela">
+      {disc.erro && <Faixa tom="erro">{disc.erro}</Faixa>}
+      {!disc.pronto && !disc.erro && <Esqueleto forma="linhas" linhas={3} />}
+      {disc.pronto && disc.opcoes.length === 0 && <Vazio simbolo={BookOpenCheck} titulo="Nenhuma disciplina para você" texto="Esta tela mostra as disciplinas em que você tem a função de educação. Peça à coordenação para ligar uma." />}
       {disc.opcoes.length > 0 && (
         <>
-          <Selecao rotulo="Disciplina" value={atual} onChange={(e) => setSlug(e.target.value)}>
-            {disc.opcoes.map((o) => <option key={o.slug} value={o.slug}>{o.nome}</option>)}
-          </Selecao>
+          <div className="max-w-md">
+            <Selecao rotulo="Disciplina" value={atual} onChange={(e) => setSlug(e.target.value)}>
+              {disc.opcoes.map((o) => (
+                <option key={o.slug} value={o.slug}>
+                  {o.nome}
+                </option>
+              ))}
+            </Selecao>
+          </div>
           <Abas
             rotulo="Ensino"
             valor={aba}
@@ -95,19 +103,44 @@ export function Ensino() {
 function Resultado({ trilha, aulas }: { trilha: string; aulas: { slug: string; title: string; ready: boolean }[] }) {
   const r = useLista<{ minimo: number; dias: number; aulas: AulaResultado[] }>("aulas_resultado_ensino", { p_trilha: trilha, p_dias: 90 }, { quieta: true });
   const titulo = (alvo: string) => aulas.find((a) => `${trilha}/${a.slug}` === alvo)?.title ?? alvo.slice(trilha.length + 1);
+  const comNumero = (r.dados?.aulas ?? []).filter((a) => !a.poucos);
+  const testes = comNumero.reduce((n, a) => n + (a.testes ?? 0), 0);
+  const dificeis = comNumero.filter((a) => a.dificil).length;
   return (
-    <section aria-labelledby="ens-resultado" className="max-w-3xl space-y-3">
-      <h2 id="ens-resultado" className="pn-secao-titulo">Resultado das aulas, últimos {r.dados?.dias ?? 90} dias</h2>
-      <p className="pn-ajuda">Quantas vezes o teste do fim de cada aula foi terminado e quantas com 70% ou mais. São somas anônimas: não dá para saber quem fez. Aula com menos de {r.dados?.minimo ?? 5} testes aparece sem número.</p>
-      {r.erro && <p role="alert" className="text-oxblood">{r.erro}</p>}
+    <section aria-labelledby="ens-resultado" className="pn-secao max-w-3xl">
+      <CabecalhoDeSecao id="ens-resultado" titulo={`Resultado das aulas, últimos ${r.dados?.dias ?? 90} dias`} sobre={`Quantas vezes o teste do fim de cada aula foi terminado e quantas com 70% ou mais. São somas anônimas: não dá para saber quem fez. Aula com menos de ${r.dados?.minimo ?? 5} testes aparece sem número.`} />
+      {r.erro && (
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao pequeno onClick={r.recarregar}>
+              Tentar de novo
+            </Botao>
+          }
+        >
+          {r.erro}
+        </Faixa>
+      )}
+      {r.dados === null && !r.erro && <Esqueleto forma="linhas" linhas={4} />}
       {r.dados && r.dados.aulas.length === 0 && <Vazio titulo="Sem testes ainda" texto="Quando alguém terminar o teste de uma aula desta disciplina, ela aparece aqui." />}
-      <ul className="space-y-2">
-        {r.dados?.aulas.map((a) => (
-          <li key={a.alvo}>
-            <strong>{titulo(a.alvo)}:</strong> <span className={a.dificil ? "text-oxblood" : ""}>{fraseDaAula(a)}</span>
-          </li>
-        ))}
-      </ul>
+      {comNumero.length > 0 && (
+        <Estatisticas rotulo="Resultado das aulas">
+          <Estatistica rotulo="testes" valor={testes} />
+          <Estatistica rotulo="difícil" valor={dificeis} tom={dificeis ? "bordo" : "neutro"} />
+        </Estatisticas>
+      )}
+      {(r.dados?.aulas.length ?? 0) > 0 && (
+        <Lista rotulo="Resultado das aulas">
+          {r.dados?.aulas.map((a) => (
+            <li key={a.alvo} className="pn-item flex-wrap" style={{ alignItems: "flex-start", paddingBlock: "0.55rem" }}>
+              <span className="min-w-0 flex-1">
+                <strong>{titulo(a.alvo)}:</strong> <span className={a.dificil ? "text-oxblood" : ""}>{fraseDaAula(a)}</span>
+              </span>
+              {a.dificil && <Selo tom="erro">difícil</Selo>}
+            </li>
+          ))}
+        </Lista>
+      )}
     </section>
   );
 }
@@ -140,11 +173,30 @@ function Lacunas({ disciplina }: { disciplina: string }) {
   ];
 
   return (
-    <section aria-labelledby="ens-lacunas" className="space-y-3">
-      <h2 id="ens-lacunas" className="pn-secao-titulo">Lacunas da disciplina</h2>
-      <p className="pn-ajuda">O que ainda falta cobrir (um tema, uma aula, exercícios). Fica no banco, visível a quem ensina a disciplina, à curadoria e à coordenação.</p>
-      {lista.erro && <p role="alert" className="text-oxblood">{lista.erro}</p>}
-      <Botao variante="principal" onClick={() => setEdita({ titulo: "", descricao: "", aula: "", prioridade: "media", status: "aberta" })}>Anotar uma lacuna</Botao>
+    <section aria-labelledby="ens-lacunas" className="pn-secao">
+      <CabecalhoDeSecao
+        id="ens-lacunas"
+        titulo="Lacunas da disciplina"
+        sobre="O que ainda falta cobrir (um tema, uma aula, exercícios). Fica no banco, visível a quem ensina a disciplina, à curadoria e à coordenação."
+        acoes={
+          <Botao variante="principal" simbolo={Plus} onClick={() => setEdita({ titulo: "", descricao: "", aula: "", prioridade: "media", status: "aberta" })}>
+            Anotar uma lacuna
+          </Botao>
+        }
+      />
+      {lista.erro && (
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao pequeno onClick={lista.recarregar}>
+              Tentar de novo
+            </Botao>
+          }
+        >
+          {lista.erro}
+        </Faixa>
+      )}
+      {lista.dados === null && !lista.erro && <Esqueleto forma="tabela" linhas={4} />}
       {lista.dados && (
         <Tabela
           dados={lista.dados}
@@ -153,11 +205,11 @@ function Lacunas({ disciplina }: { disciplina: string }) {
           busca
           porPagina={15}
           aoClicarLinha={(l) => setEdita(l)}
-          vazio={<Vazio titulo="Nenhuma lacuna anotada" texto="Quando você achar um buraco na disciplina, anote aqui." />}
+          vazio={<Vazio simbolo={NotebookPen} titulo="Nenhuma lacuna anotada" texto="Quando você achar um buraco na disciplina, anote aqui." />}
         />
       )}
       {edita && (
-        <div className="max-w-2xl space-y-3 rounded-md border border-rule p-4">
+        <Cartao as="div" variante="destaque" className="max-w-2xl space-y-3">
           <Campo rotulo="O que falta" value={edita.titulo ?? ""} maxLength={160} onChange={(e) => setEdita({ ...edita, titulo: e.target.value })} />
           <Area rotulo="Detalhe (opcional)" rows={3} maxLength={1500} value={edita.descricao ?? ""} onChange={(e) => setEdita({ ...edita, descricao: e.target.value })} />
           <Campo rotulo="Aula relacionada (opcional)" ajuda="Por exemplo, trilha/aula" value={edita.aula ?? ""} maxLength={120} onChange={(e) => setEdita({ ...edita, aula: e.target.value })} />
@@ -173,7 +225,7 @@ function Lacunas({ disciplina }: { disciplina: string }) {
             <Botao variante="principal" disabled={ocupado || (edita.titulo ?? "").trim().length < 3} onClick={() => void salvar()}>Guardar</Botao>
             <Botao onClick={() => setEdita(null)}>Cancelar</Botao>
           </div>
-        </div>
+        </Cartao>
       )}
     </section>
   );

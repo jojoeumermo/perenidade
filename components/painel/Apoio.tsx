@@ -1,11 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowDownRight, ArrowUpRight, Copy, ExternalLink, Plus, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { type Confirmavel, type ConfigDoApoio, type Custo, type Faixa, nomeDoMes, type NumerosDoSite, reais, type Relatorio, textoParaBenfeitoria } from "@/lib/apoio";
+import { type Confirmavel, type ConfigDoApoio, type Custo, type Faixa as FaixaDoApoio, nomeDoMes, type NumerosDoSite, reais, type Relatorio, textoParaBenfeitoria } from "@/lib/apoio";
 import { CampoData } from "./Campos";
-import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
-import { confirmarFrase } from "./ui";
+import { dataHora, useAcao, useLista } from "./comum";
+import { MoldeConfiguracao } from "./moldes";
+import { Abas, Area, Botao, Campo, Cartao, confirmarFrase, Esqueleto, Faixa, ItemDeLista, Lista, Marca, Selecao, Selo, Vazio } from "./ui";
 
 interface Painel {
   publicado: ConfigDoApoio;
@@ -23,172 +25,292 @@ interface Painel {
   voluntarios: number;
 }
 
-const ACONFIRMAR = <span className="ml-2 border border-gold px-1.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-gold">a confirmar pela coordenação</span>;
+const ACONFIRMAR = (
+  <Selo tom="ouro" className="ml-2">
+    a confirmar pela coordenação
+  </Selo>
+);
+
+/** O recado de uma ação (sucesso ou erro do banco), numa faixa que o leitor de tela anuncia com calma. */
+const Recado = ({ texto }: { texto: string }) => <div aria-live="polite">{texto && <Faixa tom="info">{texto}</Faixa>}</div>;
+
+type AbaDoApoio = "pagina" | "mural" | "contas" | "benfeitoria";
 
 /** Apoio e transparência (só coordenação): a página de Apoie, o mural, as contas do mês e o texto para a Benfeitoria. */
 export function Apoio() {
   const dados = useLista<Painel>("apoio_painel");
-  const [aba, setAba] = useState<"pagina" | "mural" | "contas" | "benfeitoria">("pagina");
+  const [aba, setAba] = useState<AbaDoApoio>("pagina");
   const d = dados.dados;
-  if (!d) return <Aviso texto={dados.erro || "Carregando…"} />;
+  if (!d) {
+    return dados.erro ? (
+      <Faixa
+        tom="erro"
+        acao={
+          <Botao pequeno onClick={dados.recarregar}>
+            Tentar de novo
+          </Botao>
+        }
+      >
+        {dados.erro}
+      </Faixa>
+    ) : (
+      <Esqueleto forma="cartoes" linhas={4} rotulo="Carregando…" />
+    );
+  }
   return (
-    <div>
-      <Abas
-        atual={aba}
-        escolher={setAba}
-        opcoes={[
-          { id: "pagina" as const, nome: "Página de Apoie" },
-          { id: "mural" as const, nome: "Mural", conta: d.pedidos.length },
-          { id: "contas" as const, nome: "Contas do mês", conta: d.relatorios.filter((r) => r.proposta).length },
-          { id: "benfeitoria" as const, nome: "Texto para a Benfeitoria" },
-        ]}
-      />
-      {aba === "pagina" && <EditorDaPagina key={`${d.publicado_em}-${d.pode_desfazer}`} d={d} recarregar={dados.recarregar} />}
-      {aba === "mural" && <Mural d={d} recarregar={dados.recarregar} />}
-      {aba === "contas" && <ContasDoMes d={d} recarregar={dados.recarregar} />}
-      {aba === "benfeitoria" && <TextoDaCampanha d={d} recarregar={dados.recarregar} />}
-    </div>
+    <Abas<AbaDoApoio>
+      rotulo="Apoio e transparência"
+      valor={aba}
+      aoMudar={setAba}
+      opcoes={[
+        { id: "pagina", nome: "Página de Apoie" },
+        { id: "mural", nome: "Mural", conta: d.pedidos.length },
+        { id: "contas", nome: "Contas do mês", conta: d.relatorios.filter((r) => r.proposta).length },
+        { id: "benfeitoria", nome: "Texto para a Benfeitoria" },
+      ]}
+      painel={(id) =>
+        id === "pagina" ? (
+          <EditorDaPagina key={`${d.publicado_em}-${d.pode_desfazer}`} d={d} recarregar={dados.recarregar} />
+        ) : id === "mural" ? (
+          <Mural d={d} recarregar={dados.recarregar} />
+        ) : id === "contas" ? (
+          <ContasDoMes d={d} recarregar={dados.recarregar} />
+        ) : (
+          <TextoDaCampanha d={d} recarregar={dados.recarregar} />
+        )
+      }
+    />
   );
 }
 
 function TextoConfirmavel({ titulo, ajuda, valor, mudar, linhas = 3 }: { titulo: string; ajuda: string; valor: Confirmavel; mudar: (v: Confirmavel) => void; linhas?: number }) {
   return (
-    <div className="painel-cartao p-4">
-      <p className="font-semibold">{titulo}{!valor.confirmado && ACONFIRMAR}</p>
-      <p className="text-xs text-ink-soft">{ajuda}</p>
-      <textarea value={valor.texto} onChange={(e) => mudar({ ...valor, texto: e.target.value })} rows={linhas} maxLength={1500} className={campo} aria-label={titulo} />
-      <label className="mt-2 flex cursor-pointer items-center gap-2 text-sm">
-        <input type="checkbox" checked={valor.confirmado} disabled={!valor.texto.trim()} onChange={(e) => mudar({ ...valor, confirmado: e.target.checked })} />
-        Conferido: pode aparecer na página pública
-      </label>
-    </div>
+    <Cartao as="div" variante={valor.confirmado ? "padrao" : "destaque"}>
+      <div className="pn-secao">
+        <div>
+          <p className="font-semibold">
+            {titulo}
+            {!valor.confirmado && ACONFIRMAR}
+          </p>
+          <p className="pn-ajuda">{ajuda}</p>
+        </div>
+        <textarea value={valor.texto} onChange={(e) => mudar({ ...valor, texto: e.target.value })} rows={linhas} maxLength={1500} className="pn-campo" aria-label={titulo} />
+        <Marca rotulo="Conferido: pode aparecer na página pública" checked={valor.confirmado} disabled={!valor.texto.trim()} onChange={(e) => mudar({ ...valor, confirmado: e.target.checked })} />
+      </div>
+    </Cartao>
   );
 }
 
+/** Uma linha que se repete (faixa, custo, pergunta): os campos e o "Tirar" alinhado embaixo. */
+const BotaoTirar = ({ desligado, tirar }: { desligado?: boolean; tirar: () => void }) => (
+  <Botao variante="discreto" pequeno simbolo={X} disabled={desligado} onClick={tirar}>
+    Tirar
+  </Botao>
+);
+
+/**
+ * A página de Apoie no molde Configuração: os grupos em cartões e o rodapé preso que guarda o rascunho (ou descarta). A
+ * publicação (com a prévia e o desfazer) fica num cartão à parte, no alto, porque é outro passo.
+ */
 function EditorDaPagina({ d, recarregar }: { d: Painel; recarregar: () => void }) {
   const [c, setC] = useState<ConfigDoApoio>(d.rascunho);
   const acao = useAcao(recarregar);
   const mudou = JSON.stringify(c) !== JSON.stringify(d.rascunho);
   const rascunhoDiferente = JSON.stringify(d.rascunho) !== JSON.stringify(d.publicado);
-  const faixa = (i: number, f: Partial<Faixa>) => setC({ ...c, faixas: c.faixas.map((x, j) => (j === i ? { ...x, ...f } : x)) });
+  const faixa = (i: number, f: Partial<FaixaDoApoio>) => setC({ ...c, faixas: c.faixas.map((x, j) => (j === i ? { ...x, ...f } : x)) });
   const custo = (i: number, f: Partial<Custo>) => setC({ ...c, custos: c.custos.map((x, j) => (j === i ? { ...x, ...f } : x)) });
   const num = (v: string) => (v === "" ? 0 : Number(v));
   const guardar = () => acao.agir("apoio_rascunho_salvar", { p: c }, "Rascunho guardado ✓ Veja a prévia antes de publicar.");
   return (
-    <div className="space-y-6">
-      <p className="text-sm text-ink-soft">
+    <div className="pn-tela">
+      <p className="pn-sobre">
         Tudo aqui vai primeiro para um rascunho. A página pública só muda quando você publica, e dá para desfazer a última publicação.
         {d.publicado_em ? ` Última publicação: ${dataHora(d.publicado_em)}.` : " A página mostra os valores iniciais da campanha."} Os textos ficam como você escrever, em todos os idiomas.
       </p>
 
-      <section className="painel-cartao p-4">
-        <h3 className="font-serif text-xl font-semibold">Campanha</h3>
-        <label className="mt-2 block text-sm">Link da campanha<input value={c.link} onChange={(e) => setC({ ...c, link: e.target.value.trim() })} className={campo} /></label>
-        <div className="mt-4">
-          <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold">
-            <input type="checkbox" checked={c.campanha !== null} onChange={(e) => setC({ ...c, campanha: e.target.checked ? { mensal: 0, apoiadores: 0, em: new Date().toISOString().slice(0, 10) } : null })} />
-            Informar os números da campanha (copiados da Benfeitoria, à mão)
-          </label>
-          {c.campanha && (
-            <div className="mt-2 grid gap-3 sm:grid-cols-3">
-              <label className="block text-sm">Arrecadado por mês (R$)<input type="number" min={0} step="0.01" value={c.campanha.mensal} onChange={(e) => setC({ ...c, campanha: { ...c.campanha!, mensal: num(e.target.value) } })} className={campo} /></label>
-              <label className="block text-sm">Número de apoios<input type="number" min={0} step={1} value={c.campanha.apoiadores} onChange={(e) => setC({ ...c, campanha: { ...c.campanha!, apoiadores: num(e.target.value) } })} className={campo} /></label>
-              <CampoData rotulo="Data da informação" valor={c.campanha.em} mudar={(v) => setC({ ...c, campanha: { ...c.campanha!, em: v } })} className="text-sm" />
-            </div>
+      <Cartao as="div" variante={rascunhoDiferente ? "destaque" : "padrao"}>
+        <div className="flex flex-wrap items-center gap-2">
+          <a href="/pt/apoie?previa=1" target="_blank" rel="noopener" className="pn-botao">
+            Ver a prévia
+            <ExternalLink aria-hidden />
+          </a>
+          <Botao
+            variante="principal"
+            disabled={acao.ocupado || mudou || !rascunhoDiferente}
+            title={mudou ? "Guarde o rascunho antes" : undefined}
+            onClick={async () => {
+              if (await confirmarFrase("Publicar o rascunho na página de Apoie?")) void acao.agir("apoio_publicar", {}, "Publicado ✓ A página de Apoie já mostra a versão nova.");
+            }}
+          >
+            Publicar
+          </Botao>
+          {d.pode_desfazer && (
+            <Botao
+              variante="discreto"
+              disabled={acao.ocupado}
+              onClick={async () => {
+                if (await confirmarFrase("Voltar a página ao que era antes da última publicação?")) void acao.agir("apoio_desfazer", {}, "Desfeito: a página voltou à versão anterior.");
+              }}
+            >
+              Desfazer a última publicação
+            </Botao>
           )}
-          <p className="mt-1 text-xs text-ink-soft">A página mostra a data e avisa que não é um número ao vivo. Sem números, as metas aparecem só com o valor a alcançar.</p>
         </div>
-      </section>
+      </Cartao>
+      <Recado texto={acao.aviso} />
 
-      <section className="painel-cartao p-4">
-        <h3 className="font-serif text-xl font-semibold">Faixas</h3>
-        <p className="text-xs text-ink-soft">Sem descrição, vale o texto padrão: “Apoio solidário, sem benefício exclusivo. Se quiser, seu nome aparece no mural.” Nunca prometa benefício que não existe.</p>
-        <ul className="mt-2 space-y-2">
-          {c.faixas.map((f, i) => (
-            <li key={i} className="grid gap-2 sm:grid-cols-[7rem_10rem_1fr_auto] sm:items-end">
-              <label className="block text-sm">R$ por mês<input type="number" min={1} step="1" value={f.valor} onChange={(e) => faixa(i, { valor: num(e.target.value) })} className={campo} /></label>
-              <label className="block text-sm">Nome<input value={f.nome} onChange={(e) => faixa(i, { nome: e.target.value })} maxLength={40} className={campo} /></label>
-              <label className="block text-sm">Descrição (opcional)<input value={f.descricao} onChange={(e) => faixa(i, { descricao: e.target.value })} maxLength={200} className={campo} /></label>
-              <button type="button" className={`${elo} pb-3 text-sm`} disabled={c.faixas.length <= 1} onClick={() => setC({ ...c, faixas: c.faixas.filter((_, j) => j !== i) })}>Tirar</button>
-            </li>
-          ))}
-        </ul>
-        {c.faixas.length < 8 && <button type="button" className={`${elo} mt-2 text-sm`} onClick={() => setC({ ...c, faixas: [...c.faixas, { valor: 10, nome: "", descricao: "" }] })}>+ Faixa</button>}
-      </section>
-
-      <section className="painel-cartao p-4">
-        <h3 className="font-serif text-xl font-semibold">Metas</h3>
-        <div className="mt-2 grid gap-3 sm:grid-cols-2">
-          <div>
-            <label className="block text-sm">Meta 1 (R$ por mês)<input type="number" min={1} value={c.metas.meta1.alvo} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta1: { ...c.metas.meta1, alvo: num(e.target.value) } } })} className={campo} /></label>
-            <label className="block text-sm">O que a Meta 1 cobre<input value={c.metas.meta1.texto} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta1: { ...c.metas.meta1, texto: e.target.value } } })} maxLength={140} className={campo} /></label>
-          </div>
-          <div>
-            <label className="flex cursor-pointer items-center gap-2 text-sm"><input type="checkbox" checked={c.metas.meta2 !== null} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta2: e.target.checked ? { alvo: 1000, texto: "" } : null } })} /> Meta 2</label>
-            {c.metas.meta2 && (
+      <MoldeConfiguracao
+        sujo={mudou}
+        salvando={acao.ocupado}
+        rotuloSalvar="Guardar rascunho"
+        aoSalvar={() => void guardar()}
+        aoDescartar={() => setC(d.rascunho)}
+        grupos={[
+          {
+            id: "campanha",
+            titulo: "Campanha",
+            campos: (
               <>
-                <label className="block text-sm">Meta 2 (R$ por mês)<input type="number" min={1} value={c.metas.meta2.alvo} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta2: { ...c.metas.meta2!, alvo: num(e.target.value) } } })} className={campo} /></label>
-                <label className="block text-sm">O que a Meta 2 cobre<input value={c.metas.meta2.texto} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta2: { ...c.metas.meta2!, texto: e.target.value } } })} maxLength={140} className={campo} /></label>
+                <Campo rotulo="Link da campanha" value={c.link} onChange={(e) => setC({ ...c, link: e.target.value.trim() })} />
+                <Marca rotulo="Informar os números da campanha (copiados da Benfeitoria, à mão)" checked={c.campanha !== null} onChange={(e) => setC({ ...c, campanha: e.target.checked ? { mensal: 0, apoiadores: 0, em: new Date().toISOString().slice(0, 10) } : null })} />
+                {c.campanha && (
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    <Campo rotulo="Arrecadado por mês (R$)" type="number" min={0} step="0.01" value={c.campanha.mensal} onChange={(e) => setC({ ...c, campanha: { ...c.campanha!, mensal: num(e.target.value) } })} />
+                    <Campo rotulo="Número de apoios" type="number" min={0} step={1} value={c.campanha.apoiadores} onChange={(e) => setC({ ...c, campanha: { ...c.campanha!, apoiadores: num(e.target.value) } })} />
+                    <CampoData rotulo="Data da informação" valor={c.campanha.em} mudar={(v) => setC({ ...c, campanha: { ...c.campanha!, em: v } })} className="text-sm" />
+                  </div>
+                )}
+                <p className="pn-ajuda">A página mostra a data e avisa que não é um número ao vivo. Sem números, as metas aparecem só com o valor a alcançar.</p>
               </>
-            )}
-          </div>
-        </div>
-        <label className="mt-3 flex cursor-pointer items-center gap-2 text-sm"><input type="checkbox" checked={c.metas.intermediaria !== null} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: e.target.checked ? { texto: "Primeiros 10 apoios", alvo: 10, unidade: "apoiadores" } : null } })} /> Meta do começo (por exemplo, “primeiros 10 apoios”)</label>
-        {c.metas.intermediaria && (
-          <div className="mt-2 grid gap-3 sm:grid-cols-3">
-            <label className="block text-sm">Texto<input value={c.metas.intermediaria.texto} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: { ...c.metas.intermediaria!, texto: e.target.value } } })} maxLength={140} className={campo} /></label>
-            <label className="block text-sm">Alvo<input type="number" min={1} value={c.metas.intermediaria.alvo} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: { ...c.metas.intermediaria!, alvo: num(e.target.value) } } })} className={campo} /></label>
-            <label className="block text-sm">Conta<select value={c.metas.intermediaria.unidade} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: { ...c.metas.intermediaria!, unidade: e.target.value as "apoiadores" | "reais" } } })} className={campo}><option value="apoiadores">número de apoios</option><option value="reais">reais por mês</option></select></label>
-          </div>
-        )}
-      </section>
-
-      <section className="painel-cartao p-4">
-        <h3 className="font-serif text-xl font-semibold">Custos recorrentes (“Para onde vai”)</h3>
-        <p className="text-xs text-ink-soft">Valor mensal real. Sem nenhum custo aqui, a página mostra só a explicação de cada gasto, sem números.</p>
-        <ul className="mt-2 space-y-2">
-          {c.custos.map((x, i) => (
-            <li key={i} className="grid gap-2 sm:grid-cols-[1fr_8rem_auto_1fr_auto] sm:items-end">
-              <label className="block text-sm">Categoria<input value={x.categoria} onChange={(e) => custo(i, { categoria: e.target.value })} maxLength={60} className={campo} /></label>
-              <label className="block text-sm">R$ por mês<input type="number" min={0} step="0.01" value={x.valor ?? ""} onChange={(e) => custo(i, { valor: e.target.value === "" ? null : Number(e.target.value) })} className={campo} /></label>
-              <label className="flex cursor-pointer items-center gap-1 pb-3 text-sm"><input type="checkbox" checked={x.dolar} onChange={(e) => custo(i, { dolar: e.target.checked })} /> parte em dólar</label>
-              <label className="block text-sm">Explicação (opcional)<input value={x.descricao} onChange={(e) => custo(i, { descricao: e.target.value })} maxLength={200} className={campo} /></label>
-              <button type="button" className={`${elo} pb-3 text-sm`} onClick={() => setC({ ...c, custos: c.custos.filter((_, j) => j !== i) })}>Tirar</button>
-            </li>
-          ))}
-        </ul>
-        {c.custos.length < 20 && <button type="button" className={`${elo} mt-2 text-sm`} onClick={() => setC({ ...c, custos: [...c.custos, { categoria: "", valor: null, dolar: false, descricao: "" }] })}>+ Custo</button>}
-      </section>
-
-      <div className="grid gap-3 lg:grid-cols-3">
-        <TextoConfirmavel titulo="Quem é responsável" ajuda="Nome e papel exatamente como constam na campanha, e como o dinheiro é administrado." valor={c.responsavel} mudar={(v) => setC({ ...c, responsavel: v })} linhas={5} />
-        <TextoConfirmavel titulo="Taxa da plataforma" ajuda="Quanto do apoio chega ao projeto. Só aparece (nas perguntas) depois de conferido." valor={c.taxa} mudar={(v) => setC({ ...c, taxa: v })} />
-        <TextoConfirmavel titulo="Como cancelar, passo a passo" ajuda="O caminho dentro da Benfeitoria. Até ser conferido, a página diz só que o cancelamento é feito lá." valor={c.cancelamento} mudar={(v) => setC({ ...c, cancelamento: v })} />
-      </div>
-
-      <section className="painel-cartao p-4">
-        <h3 className="font-serif text-xl font-semibold">Perguntas a mais</h3>
-        <p className="text-xs text-ink-soft">As perguntas padrão já estão na página (traduzidas). Aqui entram as que a coordenação quiser acrescentar.</p>
-        <ul className="mt-2 space-y-2">
-          {c.faq.map((x, i) => (
-            <li key={i} className="grid gap-2 sm:grid-cols-[1fr_2fr_auto] sm:items-end">
-              <label className="block text-sm">Pergunta<input value={x.p} onChange={(e) => setC({ ...c, faq: c.faq.map((y, j) => (j === i ? { ...y, p: e.target.value } : y)) })} maxLength={200} className={campo} /></label>
-              <label className="block text-sm">Resposta<textarea value={x.r} onChange={(e) => setC({ ...c, faq: c.faq.map((y, j) => (j === i ? { ...y, r: e.target.value } : y)) })} rows={2} maxLength={1500} className={campo} /></label>
-              <button type="button" className={`${elo} pb-3 text-sm`} onClick={() => setC({ ...c, faq: c.faq.filter((_, j) => j !== i) })}>Tirar</button>
-            </li>
-          ))}
-        </ul>
-        {c.faq.length < 20 && <button type="button" className={`${elo} mt-2 text-sm`} onClick={() => setC({ ...c, faq: [...c.faq, { p: "", r: "" }] })}>+ Pergunta</button>}
-      </section>
-
-      <div className="sticky bottom-0 z-10 flex flex-wrap items-center gap-3 border-t-2 border-ink bg-parchment py-3">
-        <button type="button" className={botao} disabled={acao.ocupado || !mudou} onClick={() => void guardar()}>Guardar rascunho</button>
-        <a href="/pt/apoie?previa=1" target="_blank" rel="noopener" className={botaoClaro}>Ver a prévia ↗</a>
-        <button type="button" className={botaoClaro} disabled={acao.ocupado || mudou || !rascunhoDiferente} title={mudou ? "Guarde o rascunho antes" : undefined} onClick={async () => { if ((await confirmarFrase("Publicar o rascunho na página de Apoie?"))) void acao.agir("apoio_publicar", {}, "Publicado ✓ A página de Apoie já mostra a versão nova."); }}>Publicar</button>
-        {d.pode_desfazer && <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Voltar a página ao que era antes da última publicação?"))) void acao.agir("apoio_desfazer", {}, "Desfeito: a página voltou à versão anterior."); }}>Desfazer a última publicação</button>}
-        {mudou && <span className="text-sm text-oxblood">Há mudanças não guardadas.</span>}
-        <Aviso texto={acao.aviso} />
-      </div>
+            ),
+          },
+          {
+            id: "faixas",
+            titulo: "Faixas",
+            sobre: "Sem descrição, vale o texto padrão: “Apoio solidário, sem benefício exclusivo. Se quiser, seu nome aparece no mural.” Nunca prometa benefício que não existe.",
+            campos: (
+              <>
+                <ul className="space-y-2">
+                  {c.faixas.map((f, i) => (
+                    <li key={i} className="grid gap-2 sm:grid-cols-[7rem_10rem_1fr_auto] sm:items-end">
+                      <Campo rotulo="R$ por mês" type="number" min={1} step="1" value={f.valor} onChange={(e) => faixa(i, { valor: num(e.target.value) })} />
+                      <Campo rotulo="Nome" value={f.nome} onChange={(e) => faixa(i, { nome: e.target.value })} maxLength={40} />
+                      <Campo rotulo="Descrição (opcional)" value={f.descricao} onChange={(e) => faixa(i, { descricao: e.target.value })} maxLength={200} />
+                      <BotaoTirar desligado={c.faixas.length <= 1} tirar={() => setC({ ...c, faixas: c.faixas.filter((_, j) => j !== i) })} />
+                    </li>
+                  ))}
+                </ul>
+                {c.faixas.length < 8 && (
+                  <div>
+                    <Botao variante="discreto" pequeno simbolo={Plus} onClick={() => setC({ ...c, faixas: [...c.faixas, { valor: 10, nome: "", descricao: "" }] })}>
+                      Faixa
+                    </Botao>
+                  </div>
+                )}
+              </>
+            ),
+          },
+          {
+            id: "metas",
+            titulo: "Metas",
+            campos: (
+              <>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="pn-secao" style={{ alignContent: "start" }}>
+                    <Campo rotulo="Meta 1 (R$ por mês)" type="number" min={1} value={c.metas.meta1.alvo} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta1: { ...c.metas.meta1, alvo: num(e.target.value) } } })} />
+                    <Campo rotulo="O que a Meta 1 cobre" value={c.metas.meta1.texto} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta1: { ...c.metas.meta1, texto: e.target.value } } })} maxLength={140} />
+                  </div>
+                  <div className="pn-secao" style={{ alignContent: "start" }}>
+                    <Marca rotulo="Meta 2" checked={c.metas.meta2 !== null} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta2: e.target.checked ? { alvo: 1000, texto: "" } : null } })} />
+                    {c.metas.meta2 && (
+                      <>
+                        <Campo rotulo="Meta 2 (R$ por mês)" type="number" min={1} value={c.metas.meta2.alvo} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta2: { ...c.metas.meta2!, alvo: num(e.target.value) } } })} />
+                        <Campo rotulo="O que a Meta 2 cobre" value={c.metas.meta2.texto} onChange={(e) => setC({ ...c, metas: { ...c.metas, meta2: { ...c.metas.meta2!, texto: e.target.value } } })} maxLength={140} />
+                      </>
+                    )}
+                  </div>
+                </div>
+                <Marca rotulo="Meta do começo (por exemplo, “primeiros 10 apoios”)" checked={c.metas.intermediaria !== null} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: e.target.checked ? { texto: "Primeiros 10 apoios", alvo: 10, unidade: "apoiadores" } : null } })} />
+                {c.metas.intermediaria && (
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    <Campo rotulo="Texto" value={c.metas.intermediaria.texto} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: { ...c.metas.intermediaria!, texto: e.target.value } } })} maxLength={140} />
+                    <Campo rotulo="Alvo" type="number" min={1} value={c.metas.intermediaria.alvo} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: { ...c.metas.intermediaria!, alvo: num(e.target.value) } } })} />
+                    <Selecao rotulo="Conta" value={c.metas.intermediaria.unidade} onChange={(e) => setC({ ...c, metas: { ...c.metas, intermediaria: { ...c.metas.intermediaria!, unidade: e.target.value as "apoiadores" | "reais" } } })}>
+                      <option value="apoiadores">número de apoios</option>
+                      <option value="reais">reais por mês</option>
+                    </Selecao>
+                  </div>
+                )}
+              </>
+            ),
+          },
+          {
+            id: "custos",
+            titulo: "Custos recorrentes (“Para onde vai”)",
+            sobre: "Valor mensal real. Sem nenhum custo aqui, a página mostra só a explicação de cada gasto, sem números.",
+            campos: (
+              <>
+                <ul className="space-y-2">
+                  {c.custos.map((x, i) => (
+                    <li key={i} className="grid gap-2 sm:grid-cols-[1fr_8rem_auto_1fr_auto] sm:items-end">
+                      <Campo rotulo="Categoria" value={x.categoria} onChange={(e) => custo(i, { categoria: e.target.value })} maxLength={60} />
+                      <Campo rotulo="R$ por mês" type="number" min={0} step="0.01" value={x.valor ?? ""} onChange={(e) => custo(i, { valor: e.target.value === "" ? null : Number(e.target.value) })} />
+                      <div className="sm:pb-2">
+                        <Marca rotulo="parte em dólar" checked={x.dolar} onChange={(e) => custo(i, { dolar: e.target.checked })} />
+                      </div>
+                      <Campo rotulo="Explicação (opcional)" value={x.descricao} onChange={(e) => custo(i, { descricao: e.target.value })} maxLength={200} />
+                      <BotaoTirar tirar={() => setC({ ...c, custos: c.custos.filter((_, j) => j !== i) })} />
+                    </li>
+                  ))}
+                </ul>
+                {c.custos.length < 20 && (
+                  <div>
+                    <Botao variante="discreto" pequeno simbolo={Plus} onClick={() => setC({ ...c, custos: [...c.custos, { categoria: "", valor: null, dolar: false, descricao: "" }] })}>
+                      Custo
+                    </Botao>
+                  </div>
+                )}
+              </>
+            ),
+          },
+          {
+            id: "confirmaveis",
+            titulo: "Responsável, taxa e cancelamento",
+            campos: (
+              <div className="grid gap-3 lg:grid-cols-3">
+                <TextoConfirmavel titulo="Quem é responsável" ajuda="Nome e papel exatamente como constam na campanha, e como o dinheiro é administrado." valor={c.responsavel} mudar={(v) => setC({ ...c, responsavel: v })} linhas={5} />
+                <TextoConfirmavel titulo="Taxa da plataforma" ajuda="Quanto do apoio chega ao projeto. Só aparece (nas perguntas) depois de conferido." valor={c.taxa} mudar={(v) => setC({ ...c, taxa: v })} />
+                <TextoConfirmavel titulo="Como cancelar, passo a passo" ajuda="O caminho dentro da Benfeitoria. Até ser conferido, a página diz só que o cancelamento é feito lá." valor={c.cancelamento} mudar={(v) => setC({ ...c, cancelamento: v })} />
+              </div>
+            ),
+          },
+          {
+            id: "perguntas",
+            titulo: "Perguntas a mais",
+            sobre: "As perguntas padrão já estão na página (traduzidas). Aqui entram as que a coordenação quiser acrescentar.",
+            campos: (
+              <>
+                <ul className="space-y-2">
+                  {c.faq.map((x, i) => (
+                    <li key={i} className="grid gap-2 sm:grid-cols-[1fr_2fr_auto] sm:items-end">
+                      <Campo rotulo="Pergunta" value={x.p} onChange={(e) => setC({ ...c, faq: c.faq.map((y, j) => (j === i ? { ...y, p: e.target.value } : y)) })} maxLength={200} />
+                      <Area rotulo="Resposta" value={x.r} onChange={(e) => setC({ ...c, faq: c.faq.map((y, j) => (j === i ? { ...y, r: e.target.value } : y)) })} rows={2} maxLength={1500} />
+                      <BotaoTirar tirar={() => setC({ ...c, faq: c.faq.filter((_, j) => j !== i) })} />
+                    </li>
+                  ))}
+                </ul>
+                {c.faq.length < 20 && (
+                  <div>
+                    <Botao variante="discreto" pequeno simbolo={Plus} onClick={() => setC({ ...c, faq: [...c.faq, { p: "", r: "" }] })}>
+                      Pergunta
+                    </Botao>
+                  </div>
+                )}
+              </>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }
@@ -197,56 +319,111 @@ function Mural({ d, recarregar }: { d: Painel; recarregar: () => void }) {
   const acao = useAcao(recarregar);
   const [novo, setNovo] = useState({ nome: "", mensagem: "", consentimento: "" });
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <section>
-        <h3 className="font-serif text-xl font-semibold">Pedidos para aparecer</h3>
-        <p className="text-sm text-ink-soft">Confira o nome na lista de apoiadores da Benfeitoria antes de aprovar. Nada além do nome e da mensagem é guardado.</p>
-        <ul className="mt-3 space-y-2">
-          {d.pedidos.map((x) => (
-            <li key={x.id} className="painel-cartao p-3">
-              <p className="font-semibold">{x.nome}</p>
-              {x.mensagem && <p className="text-sm italic">“{x.mensagem}”</p>}
-              <p className="text-xs text-ink-soft">pedido em {dataHora(x.criado_em)}</p>
-              <p className="mt-2 flex gap-3">
-                <button type="button" className={botao} disabled={acao.ocupado} onClick={() => void acao.agir("apoio_mural_decidir", { p_id: x.id, p_aprovar: true }, "Aprovado: o nome está no mural ✓")}>Aprovar</button>
-                <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => void acao.agir("apoio_mural_decidir", { p_id: x.id, p_aprovar: false }, "Recusado.")}>Recusar</button>
-              </p>
-            </li>
-          ))}
-          {d.pedidos.length === 0 && <li className="text-ink-soft">Nenhum pedido esperando.</li>}
-        </ul>
-        <div className="painel-cartao mt-4 space-y-2 p-4">
-          <p className="font-semibold">Acrescentar um nome</p>
-          <input value={novo.nome} onChange={(e) => setNovo({ ...novo, nome: e.target.value })} placeholder="Nome ou apelido" aria-label="Nome" maxLength={80} className={campo} />
-          <input value={novo.mensagem} onChange={(e) => setNovo({ ...novo, mensagem: e.target.value })} placeholder="Mensagem (opcional)" aria-label="Mensagem" maxLength={200} className={campo} />
-          <input value={novo.consentimento} onChange={(e) => setNovo({ ...novo, consentimento: e.target.value })} placeholder="Como a pessoa autorizou (ex.: mensagem no Instagram em 12/10)" aria-label="Consentimento" maxLength={200} className={campo} />
-          <button type="button" className={botao} disabled={acao.ocupado || novo.nome.trim().length < 2 || novo.consentimento.trim().length < 5} onClick={async () => { if (await acao.agir("apoio_mural_adicionar", { p_nome: novo.nome, p_mensagem: novo.mensagem, p_consentimento: novo.consentimento }, "Nome acrescentado ✓")) setNovo({ nome: "", mensagem: "", consentimento: "" }); }}>Acrescentar</button>
+    <div className="pn-tela">
+      <Recado texto={acao.aviso} />
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="pn-secao" style={{ alignContent: "start" }}>
+          <Cartao titulo="Pedidos para aparecer" nivelDoTitulo={3} sobre="Confira o nome na lista de apoiadores da Benfeitoria antes de aprovar. Nada além do nome e da mensagem é guardado.">
+            {d.pedidos.length === 0 ? (
+              <Vazio titulo="Nenhum pedido esperando." />
+            ) : (
+              <Lista rotulo="Pedidos para aparecer" plana>
+                {d.pedidos.map((x) => (
+                  <ItemDeLista
+                    key={x.id}
+                    titulo={<strong>{x.nome}</strong>}
+                    meta={
+                      <>
+                        {x.mensagem && <span className="italic">“{x.mensagem}” · </span>}
+                        pedido em {dataHora(x.criado_em)}
+                      </>
+                    }
+                    acoes={
+                      <>
+                        <Botao pequeno variante="principal" disabled={acao.ocupado} onClick={() => void acao.agir("apoio_mural_decidir", { p_id: x.id, p_aprovar: true }, "Aprovado: o nome está no mural ✓")}>
+                          Aprovar
+                        </Botao>
+                        <Botao pequeno disabled={acao.ocupado} onClick={() => void acao.agir("apoio_mural_decidir", { p_id: x.id, p_aprovar: false }, "Recusado.")}>
+                          Recusar
+                        </Botao>
+                      </>
+                    }
+                  />
+                ))}
+              </Lista>
+            )}
+          </Cartao>
+          <Cartao titulo="Acrescentar um nome" nivelDoTitulo={3}>
+            <div className="pn-secao">
+              <Campo rotulo="Nome" value={novo.nome} onChange={(e) => setNovo({ ...novo, nome: e.target.value })} placeholder="Nome ou apelido" maxLength={80} />
+              <Campo rotulo="Mensagem" value={novo.mensagem} onChange={(e) => setNovo({ ...novo, mensagem: e.target.value })} placeholder="Mensagem (opcional)" maxLength={200} />
+              <Campo rotulo="Consentimento" value={novo.consentimento} onChange={(e) => setNovo({ ...novo, consentimento: e.target.value })} placeholder="Como a pessoa autorizou (ex.: mensagem no Instagram em 12/10)" maxLength={200} />
+              <div>
+                <Botao
+                  disabled={acao.ocupado || novo.nome.trim().length < 2 || novo.consentimento.trim().length < 5}
+                  onClick={async () => {
+                    if (await acao.agir("apoio_mural_adicionar", { p_nome: novo.nome, p_mensagem: novo.mensagem, p_consentimento: novo.consentimento }, "Nome acrescentado ✓")) setNovo({ nome: "", mensagem: "", consentimento: "" });
+                  }}
+                >
+                  Acrescentar
+                </Botao>
+              </div>
+            </div>
+          </Cartao>
         </div>
-      </section>
-      <section>
-        <h3 className="font-serif text-xl font-semibold">No mural</h3>
-        <p className="text-sm text-ink-soft">Esconder tira da página sem apagar. Retirar apaga de vez (quando a pessoa pede).</p>
-        <ul className="mt-3 divide-y divide-rule border-y border-rule">
-          {d.mural.map((x) => (
-            <li key={x.id} className="py-2">
-              <p><strong className={x.visivel ? "" : "text-ink-soft line-through"}>{x.nome}</strong>{x.mensagem && <span className="text-ink-soft"> · “{x.mensagem}”</span>}</p>
-              <p className="text-xs text-ink-soft">{x.consentimento}</p>
-              <p className="mt-1 flex gap-3 text-sm">
-                <button type="button" className={elo} disabled={acao.ocupado} onClick={() => void acao.agir("apoio_mural_visivel", { p_id: x.id, p_visivel: !x.visivel }, x.visivel ? "Escondido do mural." : "De volta ao mural.")}>{x.visivel ? "Esconder" : "Mostrar"}</button>
-                <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Retirar ${x.nome} do mural de vez?`))) void acao.agir("apoiador_remover", { p_id: x.id }, "Nome retirado."); }}>Retirar</button>
-              </p>
-            </li>
-          ))}
-          {d.mural.length === 0 && <li className="py-2 text-ink-soft">O mural ainda não tem nomes: a página mostra “Quem já ajuda sem dinheiro”.</li>}
-        </ul>
-        <Aviso texto={acao.aviso} />
-      </section>
+        <Cartao titulo="No mural" nivelDoTitulo={3} sobre="Esconder tira da página sem apagar. Retirar apaga de vez (quando a pessoa pede).">
+          {d.mural.length === 0 ? (
+            <Vazio titulo="O mural ainda não tem nomes: a página mostra “Quem já ajuda sem dinheiro”." />
+          ) : (
+            <Lista rotulo="No mural" plana>
+              {d.mural.map((x) => (
+                <ItemDeLista
+                  key={x.id}
+                  titulo={
+                    <>
+                      <strong className={x.visivel ? "" : "text-ink-soft line-through"}>{x.nome}</strong>
+                      {x.mensagem && <span className="text-ink-soft"> · “{x.mensagem}”</span>}
+                    </>
+                  }
+                  meta={x.consentimento}
+                  acoes={
+                    <>
+                      <Botao pequeno variante="discreto" disabled={acao.ocupado} onClick={() => void acao.agir("apoio_mural_visivel", { p_id: x.id, p_visivel: !x.visivel }, x.visivel ? "Escondido do mural." : "De volta ao mural.")}>
+                        {x.visivel ? "Esconder" : "Mostrar"}
+                      </Botao>
+                      <Botao
+                        pequeno
+                        variante="discreto"
+                        perigo
+                        disabled={acao.ocupado}
+                        onClick={async () => {
+                          if (await confirmarFrase(`Retirar ${x.nome} do mural de vez?`)) void acao.agir("apoiador_remover", { p_id: x.id }, "Nome retirado.");
+                        }}
+                      >
+                        Retirar
+                      </Botao>
+                    </>
+                  }
+                />
+              ))}
+            </Lista>
+          )}
+        </Cartao>
+      </div>
     </div>
   );
 }
 
-const mesAtual = () => { const h = new Date(); return `${h.getFullYear()}-${String(h.getMonth() + 1).padStart(2, "0")}`; };
-const mesPassado = () => { const h = new Date(); h.setDate(1); h.setMonth(h.getMonth() - 1); return `${h.getFullYear()}-${String(h.getMonth() + 1).padStart(2, "0")}`; };
+const mesAtual = () => {
+  const h = new Date();
+  return `${h.getFullYear()}-${String(h.getMonth() + 1).padStart(2, "0")}`;
+};
+const mesPassado = () => {
+  const h = new Date();
+  h.setDate(1);
+  h.setMonth(h.getMonth() - 1);
+  return `${h.getFullYear()}-${String(h.getMonth() + 1).padStart(2, "0")}`;
+};
 
 function ContasDoMes({ d, recarregar }: { d: Painel; recarregar: () => void }) {
   const acao = useAcao(recarregar);
@@ -257,93 +434,201 @@ function ContasDoMes({ d, recarregar }: { d: Painel; recarregar: () => void }) {
   const jaPublicado = d.relatorios.some((r) => r.mes.slice(0, 7) === pedido.mes && r.publicado_em);
   const segunda = d.regras.segunda_pessoa;
   return (
-    <div className="space-y-6">
-      <section className="painel-cartao p-4">
-        <h3 className="font-serif text-xl font-semibold">{l.id ? "Corrigir lançamento" : "Novo lançamento"}</h3>
-        <div className="mt-2 grid gap-3 sm:grid-cols-3">
-          <label className="block text-sm">Mês<input type="month" max={mesAtual()} value={l.mes} onChange={(e) => setL({ ...l, mes: e.target.value })} className={campo} /></label>
-          <label className="block text-sm">Tipo<select value={l.tipo} onChange={(e) => setL({ ...l, tipo: e.target.value as "entrada" | "saida" })} className={campo}><option value="entrada">Entrada</option><option value="saida">Saída</option></select></label>
-          <label className="block text-sm">Valor (R$)<input type="number" min={0.01} step="0.01" value={l.valor} onChange={(e) => setL({ ...l, valor: e.target.value })} className={campo} /></label>
-          <label className="block text-sm">Categoria<input value={l.categoria} onChange={(e) => setL({ ...l, categoria: e.target.value })} list="apoio-categorias" maxLength={60} placeholder={l.tipo === "entrada" ? "Benfeitoria" : "Hospedagem"} className={campo} /></label>
-          <label className="block text-sm sm:col-span-2">Descrição (sai no relatório só como total da categoria)<input value={l.descricao} onChange={(e) => setL({ ...l, descricao: e.target.value })} maxLength={300} className={campo} /></label>
-          <label className="block text-sm sm:col-span-3">Onde está o comprovante (fica só no painel)<input value={l.comprovante} onChange={(e) => setL({ ...l, comprovante: e.target.value })} maxLength={300} placeholder="Ex.: pasta Financeiro/2026-09/fatura-hospedagem.pdf" className={campo} /></label>
+    <div className="pn-tela">
+      <Recado texto={acao.aviso} />
+      <Cartao titulo={l.id ? "Corrigir lançamento" : "Novo lançamento"} nivelDoTitulo={3} variante={l.id ? "destaque" : "padrao"}>
+        <div className="pn-secao">
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Campo rotulo="Mês" type="month" max={mesAtual()} value={l.mes} onChange={(e) => setL({ ...l, mes: e.target.value })} />
+            <Selecao rotulo="Tipo" value={l.tipo} onChange={(e) => setL({ ...l, tipo: e.target.value as "entrada" | "saida" })}>
+              <option value="entrada">Entrada</option>
+              <option value="saida">Saída</option>
+            </Selecao>
+            <Campo rotulo="Valor (R$)" type="number" min={0.01} step="0.01" value={l.valor} onChange={(e) => setL({ ...l, valor: e.target.value })} />
+            <Campo rotulo="Categoria" value={l.categoria} onChange={(e) => setL({ ...l, categoria: e.target.value })} list="apoio-categorias" maxLength={60} placeholder={l.tipo === "entrada" ? "Benfeitoria" : "Hospedagem"} />
+            <div className="sm:col-span-2">
+              <Campo rotulo="Descrição (sai no relatório só como total da categoria)" value={l.descricao} onChange={(e) => setL({ ...l, descricao: e.target.value })} maxLength={300} />
+            </div>
+            <div className="sm:col-span-3">
+              <Campo rotulo="Onde está o comprovante (fica só no painel)" value={l.comprovante} onChange={(e) => setL({ ...l, comprovante: e.target.value })} maxLength={300} placeholder="Ex.: pasta Financeiro/2026-09/fatura-hospedagem.pdf" />
+            </div>
+          </div>
+          <datalist id="apoio-categorias">
+            {[...new Set(d.lancamentos.map((x) => x.categoria))].map((x) => (
+              <option key={x} value={x} />
+            ))}
+          </datalist>
+          <p className="flex gap-2">
+            <Botao
+              variante="principal"
+              disabled={acao.ocupado || l.categoria.trim().length < 2 || !(Number(l.valor) > 0)}
+              onClick={async () => {
+                if (await acao.agir("apoio_lancamento_salvar", { p: { ...l, id: l.id || null, valor: Number(l.valor) } }, "Lançamento guardado ✓")) setL({ ...vazio, mes: l.mes, tipo: l.tipo });
+              }}
+            >
+              {l.id ? "Guardar a correção" : "Lançar"}
+            </Botao>
+            {l.id && (
+              <Botao variante="discreto" onClick={() => setL(vazio)}>
+                Cancelar
+              </Botao>
+            )}
+          </p>
         </div>
-        <datalist id="apoio-categorias">{[...new Set(d.lancamentos.map((x) => x.categoria))].map((x) => <option key={x} value={x} />)}</datalist>
-        <p className="mt-3 flex gap-3">
-          <button type="button" className={botao} disabled={acao.ocupado || l.categoria.trim().length < 2 || !(Number(l.valor) > 0)} onClick={async () => { if (await acao.agir("apoio_lancamento_salvar", { p: { ...l, id: l.id || null, valor: Number(l.valor) } }, "Lançamento guardado ✓")) setL({ ...vazio, mes: l.mes, tipo: l.tipo }); }}>{l.id ? "Guardar a correção" : "Lançar"}</button>
-          {l.id && <button type="button" className={elo} onClick={() => setL(vazio)}>Cancelar</button>}
-        </p>
-      </section>
+      </Cartao>
 
-      <section>
-        <h3 className="font-serif text-xl font-semibold">Lançamentos</h3>
-        {meses.length === 0 && <p className="text-ink-soft">Nenhum lançamento ainda.</p>}
-        {meses.map((m) => {
-          const doMes = d.lancamentos.filter((x) => x.mes.startsWith(m));
-          const saldo = doMes.reduce((s, x) => s + (x.tipo === "entrada" ? 1 : -1) * Number(x.valor), 0);
-          return (
-            <details key={m} className="painel-cartao mt-2 p-3" open={m === meses[0]}>
-              <summary className="cursor-pointer font-semibold capitalize">{nomeDoMes(m)} · saldo {reais(saldo)}</summary>
-              <table className="mt-2 w-full text-left text-sm">
-                <tbody className="divide-y divide-rule">
+      <Cartao titulo="Lançamentos" nivelDoTitulo={3}>
+        {meses.length === 0 && <Vazio titulo="Nenhum lançamento ainda." />}
+        <div className="pn-secao">
+          {meses.map((m) => {
+            const doMes = d.lancamentos.filter((x) => x.mes.startsWith(m));
+            const saldo = doMes.reduce((s, x) => s + (x.tipo === "entrada" ? 1 : -1) * Number(x.valor), 0);
+            return (
+              <details key={m} open={m === meses[0]}>
+                <summary className="cursor-pointer font-semibold capitalize">
+                  {nomeDoMes(m)} · saldo <span className="tabular-nums">{reais(saldo)}</span>
+                </summary>
+                <Lista rotulo={nomeDoMes(m)} plana className="mt-2">
                   {doMes.map((x) => (
-                    <tr key={x.id}>
-                      <td className="py-1">{x.tipo === "entrada" ? "↘ entrada" : "↗ saída"}</td>
-                      <td>{x.categoria}{x.descricao && <span className="text-ink-soft"> · {x.descricao}</span>}{x.comprovante && <span className="block text-xs text-ink-soft">comprovante: {x.comprovante}</span>}</td>
-                      <td className="text-right">{reais(Number(x.valor))}</td>
-                      <td className="text-right"><button type="button" className={elo} onClick={() => setL({ ...x, mes: x.mes.slice(0, 7), valor: String(x.valor) })}>Corrigir</button> <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Apagar este lançamento?"))) void acao.agir("apoio_lancamento_remover", { p_id: x.id }, "Lançamento apagado."); }}>Apagar</button></td>
-                    </tr>
+                    <ItemDeLista
+                      key={x.id}
+                      simbolo={x.tipo === "entrada" ? ArrowDownRight : ArrowUpRight}
+                      titulo={
+                        <>
+                          {x.categoria}
+                          {x.descricao && <span className="text-ink-soft"> · {x.descricao}</span>}
+                        </>
+                      }
+                      meta={x.comprovante ? `comprovante: ${x.comprovante}` : undefined}
+                      selo={
+                        <span className="flex items-center gap-2">
+                          <Selo tom={x.tipo === "entrada" ? "ok" : "neutro"}>{x.tipo === "entrada" ? "entrada" : "saída"}</Selo>
+                          <span className="tabular-nums">{reais(Number(x.valor))}</span>
+                        </span>
+                      }
+                      acoes={
+                        <>
+                          <Botao pequeno variante="discreto" onClick={() => setL({ ...x, mes: x.mes.slice(0, 7), valor: String(x.valor) })}>
+                            Corrigir
+                          </Botao>
+                          <Botao
+                            pequeno
+                            variante="discreto"
+                            perigo
+                            disabled={acao.ocupado}
+                            onClick={async () => {
+                              if (await confirmarFrase("Apagar este lançamento?")) void acao.agir("apoio_lancamento_remover", { p_id: x.id }, "Lançamento apagado.");
+                            }}
+                          >
+                            Apagar
+                          </Botao>
+                        </>
+                      }
+                    />
                   ))}
-                </tbody>
-              </table>
-            </details>
-          );
-        })}
-      </section>
-
-      <section className="painel-cartao p-4">
-        <h3 className="font-serif text-xl font-semibold">Publicar o relatório do mês</h3>
-        <p className="text-sm text-ink-soft">
-          O relatório soma os lançamentos do mês por categoria. {segunda ? "Outra pessoa da coordenação confirma antes de sair (regra ligada)." : "Sai na hora (a regra da segunda pessoa está desligada)."} Correção de relatório já publicado guarda a versão anterior, que fica visível na prestação de contas.
-        </p>
-        <div className="mt-2 grid gap-3 sm:grid-cols-3">
-          <label className="block text-sm">Mês<input type="month" max={mesPassado()} value={pedido.mes} onChange={(e) => setPedido({ ...pedido, mes: e.target.value })} className={campo} /></label>
-          <label className="block text-sm sm:col-span-2">Nota da coordenação (pública)<input value={pedido.nota} onChange={(e) => setPedido({ ...pedido, nota: e.target.value })} maxLength={2000} className={campo} /></label>
-          {jaPublicado && <label className="block text-sm sm:col-span-3">Motivo da correção (público, obrigatório)<input value={pedido.motivo} onChange={(e) => setPedido({ ...pedido, motivo: e.target.value })} maxLength={300} className={campo} /></label>}
+                </Lista>
+              </details>
+            );
+          })}
         </div>
-        <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado || (jaPublicado && pedido.motivo.trim().length < 5)} onClick={() => void acao.agir("apoio_relatorio_pedir", { p_mes: pedido.mes, p_nota: pedido.nota, p_motivo: pedido.motivo }, segunda ? "Pedido feito: outra pessoa da coordenação recebeu o aviso para confirmar." : "Relatório publicado ✓")}>{jaPublicado ? "Pedir a correção" : "Pedir a publicação"}</button>
-        <label className="mt-4 flex cursor-pointer items-center gap-2 text-sm">
-          <input type="checkbox" checked={segunda} disabled={acao.ocupado} onChange={(e) => void acao.agir("apoio_regras_salvar", { p: { segunda_pessoa: e.target.checked } }, "Regra guardada ✓")} />
-          Exigir a confirmação de uma segunda pessoa da coordenação {d.coordenacao < 2 && <span className="text-oxblood">(hoje a coordenação tem {d.coordenacao} pessoa)</span>}
-        </label>
-      </section>
+      </Cartao>
 
-      <section>
-        <h3 className="font-serif text-xl font-semibold">Relatórios</h3>
-        <ul className="mt-2 space-y-2">
-          {d.relatorios.map((r) => (
-            <li key={r.id} className={`painel-cartao p-3 ${r.proposta ? "border-2 border-gold" : ""}`}>
-              <p className="font-semibold capitalize">{nomeDoMes(r.mes)} {r.publicado_em ? <span className="text-sm font-normal text-ok">· publicado em {dataHora(r.publicado_em)}</span> : <span className="text-sm font-normal text-gold">· ainda não publicado</span>}</p>
-              {r.publicado_em && <p className="text-sm">Entradas {reais(Number(r.dados.total_entradas))} · saídas {reais(Number(r.dados.total_saidas))} · saldo {reais(Number(r.dados.saldo))}{r.historico && r.historico.length > 0 ? ` · ${r.historico.length} correção(ões)` : ""}</p>}
-              {r.proposta && (
-                <div className="mt-2 border-t border-rule pt-2 text-sm">
-                  <p className={rotulo}>{r.publicado_em ? "Correção esperando confirmação" : "Esperando confirmação"} · pedido por {r.pedido_nome ?? "alguém"}</p>
-                  <p>Entradas {reais(Number(r.proposta.dados.total_entradas))} · saídas {reais(Number(r.proposta.dados.total_saidas))} · saldo {reais(Number(r.proposta.dados.saldo))}</p>
-                  {r.proposta.nota && <p className="text-ink-soft">Nota: {r.proposta.nota}</p>}
-                  {r.proposta.motivo && <p className="text-ink-soft">Motivo: {r.proposta.motivo}</p>}
-                  <p className="mt-2 flex gap-3">
-                    <button type="button" className={botao} disabled={acao.ocupado || (segunda && r.pedido_por === d.eu)} title={segunda && r.pedido_por === d.eu ? "Quem pediu não confirma o próprio relatório" : undefined} onClick={() => void acao.agir("apoio_relatorio_confirmar", { p_id: r.id }, "Confirmado e publicado ✓")}>Confirmar e publicar</button>
-                    <button type="button" className={elo} disabled={acao.ocupado} onClick={() => void acao.agir("apoio_relatorio_descartar", { p_id: r.id }, "Pedido descartado.")}>Descartar o pedido</button>
-                  </p>
-                </div>
+      <Cartao
+        titulo="Publicar o relatório do mês"
+        nivelDoTitulo={3}
+        sobre={`O relatório soma os lançamentos do mês por categoria. ${segunda ? "Outra pessoa da coordenação confirma antes de sair (regra ligada)." : "Sai na hora (a regra da segunda pessoa está desligada)."} Correção de relatório já publicado guarda a versão anterior, que fica visível na prestação de contas.`}
+      >
+        <div className="pn-secao">
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Campo rotulo="Mês" type="month" max={mesPassado()} value={pedido.mes} onChange={(e) => setPedido({ ...pedido, mes: e.target.value })} />
+            <div className="sm:col-span-2">
+              <Campo rotulo="Nota da coordenação (pública)" value={pedido.nota} onChange={(e) => setPedido({ ...pedido, nota: e.target.value })} maxLength={2000} />
+            </div>
+            {jaPublicado && (
+              <div className="sm:col-span-3">
+                <Campo rotulo="Motivo da correção (público, obrigatório)" value={pedido.motivo} onChange={(e) => setPedido({ ...pedido, motivo: e.target.value })} maxLength={300} />
+              </div>
+            )}
+          </div>
+          <div>
+            <Botao disabled={acao.ocupado || (jaPublicado && pedido.motivo.trim().length < 5)} onClick={() => void acao.agir("apoio_relatorio_pedir", { p_mes: pedido.mes, p_nota: pedido.nota, p_motivo: pedido.motivo }, segunda ? "Pedido feito: outra pessoa da coordenação recebeu o aviso para confirmar." : "Relatório publicado ✓")}>
+              {jaPublicado ? "Pedir a correção" : "Pedir a publicação"}
+            </Botao>
+          </div>
+          <label className="pn-marca">
+            <input type="checkbox" checked={segunda} disabled={acao.ocupado} onChange={(e) => void acao.agir("apoio_regras_salvar", { p: { segunda_pessoa: e.target.checked } }, "Regra guardada ✓")} />
+            <span>
+              Exigir a confirmação de uma segunda pessoa da coordenação{" "}
+              {d.coordenacao < 2 && (
+                <Selo tom="aviso" ponto>
+                  (hoje a coordenação tem {d.coordenacao} pessoa)
+                </Selo>
               )}
-            </li>
+            </span>
+          </label>
+        </div>
+      </Cartao>
+
+      <Cartao
+        titulo="Relatórios"
+        nivelDoTitulo={3}
+        acoes={
+          <a href="/pt/apoie/contas" target="_blank" rel="noopener" className="pn-elo inline-flex items-center gap-1 text-sm">
+            Ver a prestação de contas pública
+            <ExternalLink aria-hidden className="h-3.5 w-3.5" />
+          </a>
+        }
+      >
+        {d.relatorios.length === 0 && <Vazio titulo="Nenhum relatório ainda." />}
+        <div className="pn-secao">
+          {d.relatorios.map((r) => (
+            <Cartao key={r.id} as="article" variante={r.proposta ? "destaque" : "plano"}>
+              <div className="pn-secao">
+                <p className="flex flex-wrap items-center gap-2 font-semibold capitalize">
+                  {nomeDoMes(r.mes)}
+                  {r.publicado_em ? (
+                    <Selo tom="ok" ponto>
+                      publicado em {dataHora(r.publicado_em)}
+                    </Selo>
+                  ) : (
+                    <Selo tom="ouro">ainda não publicado</Selo>
+                  )}
+                </p>
+                {r.publicado_em && (
+                  <p className="text-sm tabular-nums">
+                    Entradas {reais(Number(r.dados.total_entradas))} · saídas {reais(Number(r.dados.total_saidas))} · saldo {reais(Number(r.dados.saldo))}
+                    {r.historico && r.historico.length > 0 ? ` · ${r.historico.length} correção(ões)` : ""}
+                  </p>
+                )}
+                {r.proposta && (
+                  <div className="pn-secao border-t border-rule pt-2 text-sm">
+                    <p className="pn-rotulo-mono">
+                      {r.publicado_em ? "Correção esperando confirmação" : "Esperando confirmação"} · pedido por {r.pedido_nome ?? "alguém"}
+                    </p>
+                    <p className="tabular-nums">
+                      Entradas {reais(Number(r.proposta.dados.total_entradas))} · saídas {reais(Number(r.proposta.dados.total_saidas))} · saldo {reais(Number(r.proposta.dados.saldo))}
+                    </p>
+                    {r.proposta.nota && <p className="text-ink-soft">Nota: {r.proposta.nota}</p>}
+                    {r.proposta.motivo && <p className="text-ink-soft">Motivo: {r.proposta.motivo}</p>}
+                    <p className="flex gap-2">
+                      <Botao
+                        disabled={acao.ocupado || (segunda && r.pedido_por === d.eu)}
+                        title={segunda && r.pedido_por === d.eu ? "Quem pediu não confirma o próprio relatório" : undefined}
+                        onClick={() => void acao.agir("apoio_relatorio_confirmar", { p_id: r.id }, "Confirmado e publicado ✓")}
+                      >
+                        Confirmar e publicar
+                      </Botao>
+                      <Botao variante="discreto" disabled={acao.ocupado} onClick={() => void acao.agir("apoio_relatorio_descartar", { p_id: r.id }, "Pedido descartado.")}>
+                        Descartar o pedido
+                      </Botao>
+                    </p>
+                  </div>
+                )}
+              </div>
+            </Cartao>
           ))}
-          {d.relatorios.length === 0 && <li className="text-ink-soft">Nenhum relatório ainda.</li>}
-        </ul>
-        <p className="mt-2 text-sm"><a href="/pt/apoie/contas" target="_blank" rel="noopener" className={elo}>Ver a prestação de contas pública ↗</a></p>
-        <Aviso texto={acao.aviso} />
-      </section>
+        </div>
+      </Cartao>
     </div>
   );
 }
@@ -354,10 +639,15 @@ function TextoDaCampanha({ d, recarregar }: { d: Painel; recarregar: () => void 
   const [copiado, setCopiado] = useState("");
   useEffect(() => {
     let vivo = true;
-    fetch("/pt/apoio-numeros.json").then((r) => (r.ok ? r.json() : null)).then((n: NumerosDoSite | null) => vivo && setNumeros(n)).catch(() => null);
-    return () => { vivo = false; };
+    fetch("/pt/apoio-numeros.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((n: NumerosDoSite | null) => vivo && setNumeros(n))
+      .catch(() => null);
+    return () => {
+      vivo = false;
+    };
   }, []);
-  if (!numeros) return <p className="text-ink-soft">Lendo os números do site…</p>;
+  if (!numeros) return <Esqueleto linhas={4} rotulo="Lendo os números do site…" />;
   const ultimo = d.relatorios.find((r) => r.publicado_em) ?? null;
   const atuais: Record<string, number | string> = { ...numeros, voluntarios: d.voluntarios, relatorio: ultimo?.mes ?? "" };
   const textos = textoParaBenfeitoria({ ...numeros, voluntarios: d.voluntarios }, d.publicado, ultimo);
@@ -372,18 +662,25 @@ function TextoDaCampanha({ d, recarregar }: { d: Painel; recarregar: () => void 
     }
   }
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-ink-soft">O painel não mexe na Benfeitoria: ele monta o texto com os números reais do site e do último relatório, e você cola lá.</p>
-      {velho && <p className="border-2 border-gold p-3 text-sm" role="status">Os números mudaram desde a última cópia ({dataHora(d.texto!.em)}): o texto colado na campanha pode estar desatualizado.</p>}
-      {!d.texto && <p className="text-sm text-ink-soft">Nenhum texto foi copiado ainda.</p>}
+    <div className="pn-tela">
+      <p className="pn-sobre">O painel não mexe na Benfeitoria: ele monta o texto com os números reais do site e do último relatório, e você cola lá.</p>
+      {velho && <Faixa tom="aviso">Os números mudaram desde a última cópia ({dataHora(d.texto!.em)}): o texto colado na campanha pode estar desatualizado.</Faixa>}
+      {!d.texto && <p className="pn-ajuda">Nenhum texto foi copiado ainda.</p>}
       {(["descricao", "atualizacao"] as const).map((qual) => (
-        <section key={qual} className="painel-cartao p-4">
-          <h3 className="font-serif text-xl font-semibold">{qual === "descricao" ? "Descrição da campanha" : "Atualização do mês"}</h3>
-          <textarea readOnly value={textos[qual]} rows={qual === "descricao" ? 10 : 7} className={campo} aria-label={qual === "descricao" ? "Descrição da campanha" : "Atualização do mês"} />
-          <button type="button" className={`mt-2 ${botaoClaro}`} onClick={() => void copiar(qual)}>{copiado === qual ? "Copiado ✓" : "Copiar"}</button>
-        </section>
+        <Cartao
+          key={qual}
+          titulo={qual === "descricao" ? "Descrição da campanha" : "Atualização do mês"}
+          nivelDoTitulo={3}
+          acoes={
+            <Botao simbolo={Copy} onClick={() => void copiar(qual)}>
+              {copiado === qual ? "Copiado ✓" : "Copiar"}
+            </Botao>
+          }
+        >
+          <textarea readOnly value={textos[qual]} rows={qual === "descricao" ? 10 : 7} className="pn-campo w-full" aria-label={qual === "descricao" ? "Descrição da campanha" : "Atualização do mês"} />
+        </Cartao>
       ))}
-      <Aviso texto={acao.aviso} />
+      <Recado texto={acao.aviso} />
     </div>
   );
 }

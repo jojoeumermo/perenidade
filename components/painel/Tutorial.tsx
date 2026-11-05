@@ -1,8 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, Compass } from "lucide-react";
+import { type CSSProperties, useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { marcarVisto } from "./GuiaDaSecao";
+import { Botao, Selo } from "./ui";
 
 const VISTO = "lucia:tutorial-painel";
 const ABRIR = "lucia:abrir-tutorial";
@@ -172,7 +174,7 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
   const furo = caixa && experimente;
   // O quadro fica à direita do alvo quando cabe; senão embaixo; sem alvo, no meio.
   const largura = Math.min(360, window.innerWidth - 32);
-  let estilo: React.CSSProperties = { left: "50%", top: "50%", transform: "translate(-50%, -50%)", width: largura };
+  let estilo: CSSProperties = { left: "50%", top: "50%", transform: "translate(-50%, -50%)", width: largura };
   if (caixa) {
     const direita = caixa.right + 16 + largura < window.innerWidth;
     const top = Math.max(16, Math.min(caixa.top, window.innerHeight - 300));
@@ -181,17 +183,18 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
       : { left: Math.max(16, Math.min(caixa.left, window.innerWidth - largura - 16)), top: Math.min(caixa.bottom + 14, window.innerHeight - 280), width: largura };
   }
 
+  // Só tokens do tema: o véu é --pn-veu, o recorte é o fio bordô do foco e o quadro é a superfície dos cartões.
   return (
     <div className="tutorial no-print pointer-events-none fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-labelledby="tutorial-titulo">
       {/* O véu escuro com o recorte em volta do que está sendo mostrado. */}
       {caixa ? (
         <div
           aria-hidden
-          className="tutorial-veu fixed border-[3px] border-[#c21f16] transition-all duration-200"
-          style={{ left: caixa.left - margem, top: caixa.top - margem, width: caixa.width + margem * 2, height: caixa.height + margem * 2, boxShadow: "0 0 0 9999px rgb(23 19 14 / 0.62)" }}
+          className="tutorial-veu fixed rounded-[var(--pn-raio-cartao)] border-2 transition-all duration-200 motion-reduce:transition-none"
+          style={{ left: caixa.left - margem, top: caixa.top - margem, width: caixa.width + margem * 2, height: caixa.height + margem * 2, borderColor: "var(--pn-foco)", boxShadow: "0 0 0 9999px var(--pn-veu)" }}
         />
       ) : (
-        <div aria-hidden className="fixed inset-0 bg-[#17130e]/60" />
+        <div aria-hidden className="fixed inset-0" style={{ background: "var(--pn-veu)" }} />
       )}
       {/* O que fica fora do recorte não recebe clique; no passo de experimentar, o recorte recebe. */}
       {furo ? (
@@ -204,17 +207,21 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
       ) : (
         <div className="pointer-events-auto fixed inset-0" />
       )}
-      <div className="pointer-events-auto fixed border-2 border-ink bg-folha p-5 font-sans text-sm text-ink shadow-[6px_6px_0_#c21f16]" style={estilo}>
+      <div className="pn-cartao pn-cartao-destaque pointer-events-auto fixed text-sm" style={{ ...estilo, boxShadow: "var(--pn-sombra-flutuante)" }}>
         {ultimo && (
-          <span aria-hidden className="tutorial-carimbo absolute top-3 right-3 rotate-[-5deg] border-[3px] border-double border-[#c21f16] bg-folha px-2.5 py-0.5 font-mono text-[0.66rem] font-black uppercase tracking-[0.22em] text-prelo-texto">
-            Passeio feito
+          <span aria-hidden className="tutorial-carimbo absolute top-3 right-3">
+            <Selo tom="bordo">
+              <Check aria-hidden width={12} height={12} />
+              Passeio feito
+            </Selo>
           </span>
         )}
-        <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">
+        <p className="pn-rotulo-mono flex items-center gap-1.5">
+          <Compass aria-hidden width={13} height={13} />
           {`Tutorial · ${passo + 1} de ${passos.length}`}
         </p>
-        <h2 id="tutorial-titulo" className="mt-1.5 flex items-start gap-2.5 font-serif text-2xl font-semibold leading-tight">
-          <span aria-hidden className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center border-2 border-ink bg-[#c21f16] font-sans text-[0.8rem] font-black text-white">
+        <h2 id="tutorial-titulo" className="pn-dialogo-titulo mt-1.5 flex items-start gap-2.5">
+          <span aria-hidden className="pn-cabecalho-icone shrink-0 tabular-nums" style={{ fontFamily: "var(--pn-fonte)", fontSize: "0.85rem", fontWeight: 700 }}>
             {passo + 1}
           </span>
           {atual.titulo}
@@ -222,52 +229,48 @@ export function TutorialDoPainel({ pronto = true, extras = [] }: { pronto?: bool
         <p className="mt-2 leading-relaxed">{atual.texto}</p>
         {naReserva && atual.reserva && <p className="mt-2 font-semibold leading-snug">{atual.reserva.nota}</p>}
         {experimente && caixa && (
-          <p role="status" className={`mt-3 flex items-start gap-2 border-2 px-3 py-2 font-semibold leading-snug ${feito ? "tutorial-feito border-ink bg-ink text-parchment" : "border-dashed border-ink"}`}>
-            <span aria-hidden className={`mt-px flex h-4 w-4 shrink-0 items-center justify-center border-2 ${feito ? "border-[#c21f16] bg-[#c21f16] text-white" : "border-ink"}`}>
-              {feito && (
-                <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12.5l4.5 4.5L19 7" />
-                </svg>
-              )}
+          <p role="status" className={`pn-faixa mt-3 font-semibold leading-snug ${feito ? "pn-faixa-ok tutorial-feito" : "pn-faixa-info"}`}>
+            <span aria-hidden className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border-2 border-current">
+              {feito && <Check aria-hidden width={11} height={11} strokeWidth={3.5} />}
             </span>
-            {feito ? experimente.feito : experimente.convite}
+            <span className="pn-faixa-texto">{feito ? experimente.feito : experimente.convite}</span>
           </p>
         )}
         {ultimo && extras.length > 0 && (
-          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+          <p className="mt-3 flex flex-wrap gap-1.5">
             {extras.map((extra) => (
-              <button
+              <Botao
                 key={extra.rotulo}
-                type="button"
+                variante="discreto"
+                pequeno
                 onClick={() => {
                   fechar();
                   extra.fazer();
                 }}
-                className="cursor-pointer font-semibold underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto"
               >
                 {extra.rotulo}
-              </button>
+              </Botao>
             ))}
           </p>
         )}
         <div aria-hidden className="mt-4 flex gap-1">
           {passos.map((p, i) => (
-            <span key={p.titulo} className={`h-1.5 flex-1 ${i <= passo ? "bg-[#c21f16]" : "bg-rule"}`} />
+            <span key={p.titulo} className={`h-1 flex-1 rounded-full ${i <= passo ? "bg-oxblood" : "bg-rule"}`} />
           ))}
         </div>
         <div className="mt-4 flex flex-wrap items-center gap-2">
           {passo > 0 && (
-            <button type="button" onClick={() => andar(passo - 1)} className="cursor-pointer border-2 border-ink px-3 py-1.5 font-bold hover:bg-parchment">
-              ← Voltar
-            </button>
+            <Botao pequeno simbolo={ArrowLeft} onClick={() => andar(passo - 1)}>
+              Voltar
+            </Botao>
           )}
-          <button type="button" autoFocus onClick={() => (ultimo ? fechar() : andar(passo + 1))} className="cursor-pointer border-2 border-ink bg-[#c21f16] px-3.5 py-1.5 font-bold text-white shadow-[3px_3px_0_#1f1a14] hover:bg-[#a51810]">
-            {ultimo ? "Começar a trabalhar" : "Próximo →"}
-          </button>
+          <Botao variante="principal" pequeno autoFocus simboloFim={ultimo ? undefined : ArrowRight} onClick={() => (ultimo ? fechar() : andar(passo + 1))}>
+            {ultimo ? "Começar a trabalhar" : "Próximo"}
+          </Botao>
           {!ultimo && (
-            <button type="button" onClick={fechar} className="ml-auto cursor-pointer underline hover:text-prelo-texto">
+            <Botao variante="discreto" pequeno className="ml-auto" onClick={fechar}>
               Pular
-            </button>
+            </Botao>
           )}
         </div>
       </div>

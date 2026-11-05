@@ -1,11 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { CalendarDays, ChevronLeft, ChevronRight, Upload } from "lucide-react";
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 import { useI18n } from "../I18n";
 
 // Campos do painel que o navegador desenha mal ou em inglês: a data (dd/mm/aaaa, com calendário próprio no idioma da
-// página) e o arquivo (arrastar e soltar, sem o "Choose File"). Documentados em docs/PAINEL-COMPONENTES.md.
+// página) e o arquivo (arrastar e soltar, sem o "Choose File"). Documentados em docs/PAINEL-COMPONENTES.md. Desenho só
+// pelas classes pn-* e pelos tokens do tema; ícones Lucide (CalendarDays, Upload).
 
 /** As iniciais dos dias da semana, de domingo a sábado (1º de fevereiro de 2026 é um domingo). */
 const semana = (lang: string) => Array.from({ length: 7 }, (_, i) => new Date(2026, 1, 1 + i).toLocaleDateString(lang, { weekday: "narrow" }));
@@ -75,8 +77,8 @@ export function CampoData({ valor, mudar, rotulo, id, className = "" }: { valor:
 
   return (
     <div ref={caixa} className={`relative ${className}`}>
-      <label htmlFor={campoId} className="block">{rotulo}</label>
-      <div className="mt-1 flex">
+      <label htmlFor={campoId} className="pn-rotulo block">{rotulo}</label>
+      <div className="pn-campo-com-simbolo mt-1 flex">
         <input
           id={campoId}
           value={texto}
@@ -85,18 +87,19 @@ export function CampoData({ valor, mudar, rotulo, id, className = "" }: { valor:
           placeholder="dd/mm/aaaa"
           aria-invalid={invalido}
           aria-describedby={invalido ? `${campoId}-erro` : undefined}
-          className="painel-campo w-full min-w-0 border-2 border-r-0 border-ink bg-parchment-deep px-3 py-2 font-mono"
+          className="pn-campo w-full min-w-0 rounded-r-none font-mono tabular-nums"
         />
-        <button type="button" aria-label="Abrir o calendário" aria-expanded={aberto} onClick={() => setAberto((a) => !a)} className="cursor-pointer border-2 border-ink bg-parchment px-2.5 hover:text-oxblood">
-          <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3.5" y="5" width="17" height="15" /><path d="M3.5 9.5h17M8 3v4M16 3v4" /></svg>
+        <button type="button" aria-label="Abrir o calendário" aria-expanded={aberto} aria-haspopup="dialog" onClick={() => setAberto((a) => !a)} className="pn-botao pn-botao-icone -ml-px rounded-l-none">
+          <CalendarDays aria-hidden width={16} height={16} />
         </button>
       </div>
-      {invalido && <p id={`${campoId}-erro`} role="alert" className="mt-1 text-sm text-oxblood">Data que não existe.</p>}
+      {invalido && <p id={`${campoId}-erro`} role="alert" className="pn-erro mt-1">Data que não existe.</p>}
       {aberto && (
         <div
           role="dialog"
           aria-label="Calendário"
-          className="absolute z-30 mt-1 w-72 border-2 border-ink bg-parchment p-3 shadow-lg"
+          className="pn-cartao absolute z-30 mt-1 w-72 !p-3"
+          style={{ boxShadow: "var(--pn-sombra-flutuante)" }}
           onKeyDown={(e) => {
             if (e.key === "Escape") setAberto(false);
             else if (e.key === "ArrowLeft") { e.preventDefault(); andar(-1); }
@@ -107,12 +110,12 @@ export function CampoData({ valor, mudar, rotulo, id, className = "" }: { valor:
           }}
         >
           <div className="flex items-center justify-between">
-            <button type="button" aria-label="Mês anterior" className="cursor-pointer px-2" onClick={() => setMes(({ a, m }) => (m === 0 ? { a: a - 1, m: 11 } : { a, m: m - 1 }))}>‹</button>
-            <span className="font-semibold">{new Date(mes.a, mes.m, 1).toLocaleDateString(lang, { month: "long", year: "numeric" })}</span>
-            <button type="button" aria-label="Próximo mês" className="cursor-pointer px-2" onClick={() => setMes(({ a, m }) => (m === 11 ? { a: a + 1, m: 0 } : { a, m: m + 1 }))}>›</button>
+            <button type="button" aria-label="Mês anterior" className="pn-botao pn-botao-discreto pn-botao-icone pn-botao-pequeno" onClick={() => setMes(({ a, m }) => (m === 0 ? { a: a - 1, m: 11 } : { a, m: m - 1 }))}><ChevronLeft aria-hidden width={16} height={16} /></button>
+            <span className="font-semibold capitalize">{new Date(mes.a, mes.m, 1).toLocaleDateString(lang, { month: "long", year: "numeric" })}</span>
+            <button type="button" aria-label="Próximo mês" className="pn-botao pn-botao-discreto pn-botao-icone pn-botao-pequeno" onClick={() => setMes(({ a, m }) => (m === 11 ? { a: a + 1, m: 0 } : { a, m: m + 1 }))}><ChevronRight aria-hidden width={16} height={16} /></button>
           </div>
           <div className="mt-2 grid grid-cols-7 gap-1 text-center text-xs">
-            {semana(lang).map((d, i) => <span key={i} className="text-ink-soft" aria-hidden>{d}</span>)}
+            {semana(lang).map((d, i) => <span key={i} className="pn-rotulo-mono" aria-hidden>{d}</span>)}
             {Array.from({ length: primeiro }, (_, i) => <span key={`v${i}`} />)}
             {Array.from({ length: dias }, (_, i) => {
               const v = iso(mes.a, mes.m, i + 1);
@@ -127,16 +130,16 @@ export function CampoData({ valor, mudar, rotulo, id, className = "" }: { valor:
                   aria-pressed={marcado}
                   aria-label={new Date(mes.a, mes.m, i + 1).toLocaleDateString(lang, { dateStyle: "long" })}
                   onClick={() => escolher(v)}
-                  className={`cursor-pointer py-1 ${marcado ? "bg-ink text-parchment" : ehHoje ? "border border-oxblood" : "hover:bg-parchment-deep"} ${v === foco ? "outline outline-2 outline-gold" : ""}`}
+                  className={`cursor-pointer rounded-[var(--pn-raio)] py-1 tabular-nums ${marcado ? "bg-[var(--pn-destaque)] font-semibold text-[var(--pn-sobre-destaque)]" : ehHoje ? "border border-[var(--pn-destaque-vivo)]" : "hover:bg-[var(--pn-superficie-2)]"} ${v === foco ? "outline outline-2 outline-offset-1 outline-[var(--pn-foco)]" : ""}`}
                 >
                   {i + 1}
                 </button>
               );
             })}
           </div>
-          <p className="mt-2 flex justify-between text-xs">
-            <button type="button" className="cursor-pointer underline" onClick={() => escolher(iso(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()))}>Hoje</button>
-            <button type="button" className="cursor-pointer underline" onClick={() => { mudar(""); setTexto(""); setAberto(false); }}>Sem data</button>
+          <p className="mt-2 flex justify-between">
+            <button type="button" className="pn-botao pn-botao-discreto pn-botao-pequeno" onClick={() => escolher(iso(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()))}>Hoje</button>
+            <button type="button" className="pn-botao pn-botao-discreto pn-botao-pequeno" onClick={() => { mudar(""); setTexto(""); setAberto(false); }}>Sem data</button>
           </p>
         </div>
       )}
@@ -170,14 +173,14 @@ export function CampoArquivo({ aceita, maximoMb = 8, escolher, texto = "Arraste 
         onDragOver={(e) => { e.preventDefault(); setSobre(true); }}
         onDragLeave={() => setSobre(false)}
         onDrop={(e) => { e.preventDefault(); setSobre(false); if (!desligado) conferir(e.dataTransfer.files?.[0]); }}
-        className={`flex w-full cursor-pointer flex-col items-center justify-center gap-1 border-2 border-dashed px-4 py-6 text-center transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${sobre ? "border-oxblood bg-parchment-deep" : "border-rule hover:border-ink"}`}
+        className={`flex w-full cursor-pointer flex-col items-center justify-center gap-1 rounded-[var(--pn-raio-cartao)] border border-dashed px-4 py-6 text-center transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--pn-foco)] disabled:cursor-not-allowed disabled:opacity-50 ${sobre ? "border-[var(--pn-destaque-vivo)] bg-[var(--pn-ativo)]" : "border-[var(--pn-borda-forte)] bg-[var(--pn-superficie)] hover:border-[var(--pn-texto-suave)]"}`}
       >
-        {children}
+        {children ?? <Upload aria-hidden width={20} height={20} className="text-ink-soft" />}
         <span className="font-semibold">{texto}</span>
-        {dica && <span className="text-xs text-ink-soft">{dica}</span>}
+        {dica && <span className="pn-ajuda">{dica}</span>}
       </button>
       <input ref={entrada} type="file" accept={aceita} className="sr-only" tabIndex={-1} aria-hidden onChange={(e) => { conferir(e.target.files?.[0]); e.target.value = ""; }} />
-      {erro && <p role="alert" className="mt-1 text-sm text-oxblood">{erro}</p>}
+      {erro && <p role="alert" className="pn-erro mt-1">{erro}</p>}
     </div>
   );
 }

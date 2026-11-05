@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowDown, Check, ClipboardCheck, PenLine, Send, ShieldCheck, Undo2, UserPlus, Users, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { can, rpc, type Me } from "@/lib/backend";
 import { horaDoRascunho, useRascunho } from "@/lib/rascunho";
@@ -8,12 +9,14 @@ import tipos from "@/lib/tipos.json";
 import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { agirOtimista, data, dataHora, papeis, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
+import { MoldeFila } from "./moldes";
 import { SugestoesDaRevisao } from "./Sugestoes";
 import { Esteira, LadoALado } from "./Esteira";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, type ComandoDaSecao, Faixa, ItemDeLista, Lista, perguntarTexto, Selo, type TomDoSelo, useComandosDaSecao, Vazio } from "./ui";
 
 interface Resumo {
   id: string;
@@ -47,6 +50,9 @@ interface Completa extends Resumo {
   editado_por: string;
 }
 
+/** A lista que a tela mostra (a mesma chave do useLista), para a decisão otimista tirar o item dela na hora. */
+type ListaDaTela = { funcao: string; argumentos: Record<string, unknown> };
+
 const nomeDoTipo = (tipo: string) => (tipos as Record<string, { rotulo: string }>)[tipo]?.rotulo ?? (tipo === "correcao" ? "Correção" : tipo);
 /** Veio de fora e a mediação ainda não leu. */
 const naTriagem = (item: Resumo) => item.status === "pendente" && item.triagem === "aguardando";
@@ -59,60 +65,89 @@ const SITUACOES_DA_FILA = [
   { id: "resolvida", nome: "Resolvidas", vazia: "Nenhuma correção resolvida ainda." },
 ];
 const origem: Record<string, string> = { publico: "contribuição pública", educacao: "educador(a) da disciplina", jornalismo: "jornalismo", curadoria: "curadoria", revisao: "revisão", traducao: "tradução" };
+/** A cor do selo de cada situação (a palavra é sempre a de "situacoes"). */
+const TOM_DA_SITUACAO: Record<string, TomDoSelo> = { pendente: "bordo", aprovada: "info", publicada: "ok", resolvida: "ok", recusada: "erro" };
+
+/** O vazio fala em duas partes: a primeira frase vira o título e o resto, o texto. */
+function partir(frase: string): { titulo: string; texto?: string } {
+  const ponto = frase.indexOf(". ");
+  return ponto < 0 ? { titulo: frase } : { titulo: frase.slice(0, ponto + 1), texto: frase.slice(ponto + 2) };
+}
+
+/** O recado de uma ação (o que antes ia no "Aviso"): em faixa, só quando há o que dizer. */
+function Recado({ texto }: { texto: string }) {
+  return texto ? <Faixa tom="info">{texto}</Faixa> : null;
+}
 
 /**
  * A mesma lista em quatro usos: a fila de revisão (quem tem função lê e dá parecer; curadoria e coordenação decidem),
  * os envios da própria pessoa, as contribuições de colegas que a chamaram para trabalhar junto, e a triagem
- * (a mediação lê primeiro o que vem de fora e decide se segue para a fila de revisão).
+ * (a mediação lê primeiro o que vem de fora e decide se segue para a fila de revisão). Molde Fila: a lista de um lado e
+ * o envio aberto do outro (a divisória se arrasta; j/k percorrem; Ctrl K traz aprovar, devolver, recusar, chamar alguém
+ * e próximo).
  */
 export function Fila({ me, minhas = false, juntas = false, triagem = false }: { me: Me; minhas?: boolean; juntas?: boolean; triagem?: boolean }) {
   const { t } = useI18n();
   const [status, setStatus] = useState("pendente");
   const propria = minhas || juntas;
-  const lista = useLista<Resumo[]>(minhas ? "contribuicoes_minhas" : juntas ? "colaboracoes_minhas" : triagem ? "triagem_fila" : "fila", propria || triagem ? {} : { p_status: status });
-  const [aberta, setAberta] = useState<string | null>(null);
-
-  if (aberta) return <Detalhe id={aberta} me={me} semParecer={propria || triagem} triagem={triagem} voltar={() => { setAberta(null); lista.recarregar(); }} />;
+  const daTela: ListaDaTela = { funcao: minhas ? "contribuicoes_minhas" : juntas ? "colaboracoes_minhas" : triagem ? "triagem_fila" : "fila", argumentos: propria || triagem ? {} : { p_status: status } };
+  const lista = useLista<Resumo[]>(daTela.funcao, daTela.argumentos);
+  const vazia = minhas ? "Você ainda não enviou nada." : juntas ? "Ninguém chamou você para trabalhar junto por enquanto. Quando chamar, a contribuição aparece aqui e você recebe um recado na Mesa." : triagem ? "Nada esperando a triagem." : (SITUACOES_DA_FILA.find((s) => s.id === status)?.vazia ?? "Nada nesta situação.");
+  const nomeDaArea = (slug: string) => t.areas[slug as keyof typeof t.areas]?.[0] ?? slug;
 
   return (
-    <div>
+    <div className="pn-tela">
       {triagem && (
-        <p className="max-w-3xl text-ink-soft">
+        <p className="pn-sobre">
           Aqui chega tudo o que o público envia, antes de ir para a mesa de educadores e revisores. Barre propaganda, vandalismo, texto sem pé nem cabeça e envio repetido; acerte a forma se for
           só isso que falta; e libere o resto. Julgar se o conteúdo está certo não é desta etapa: isso é da fila de revisão.
         </p>
       )}
-      {!propria && !triagem && <Abas opcoes={SITUACOES_DA_FILA} atual={status} escolher={setStatus} />}
-      <Aviso texto={lista.erro} />
-      {lista.dados?.length === 0 && (
-        <p className="mt-4 border border-rule bg-parchment-deep px-4 py-6 text-center text-ink-soft">
-          {minhas ? "Você ainda não enviou nada." : juntas ? "Ninguém chamou você para trabalhar junto por enquanto. Quando chamar, a contribuição aparece aqui e você recebe um recado na Mesa." : triagem ? "Nada esperando a triagem." : (SITUACOES_DA_FILA.find((s) => s.id === status)?.vazia ?? "Nada nesta situação.")}
-        </p>
+      {!propria && !triagem && <Abas rotulo="Fila de revisão" opcoes={SITUACOES_DA_FILA.map(({ id, nome }) => ({ id, nome }))} valor={status} aoMudar={setStatus} />}
+      {lista.erro ? (
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao pequeno onClick={lista.recarregar}>
+              Tentar de novo
+            </Botao>
+          }
+        >
+          {lista.erro}
+        </Faixa>
+      ) : (
+        <MoldeFila
+          id="fila-revisao"
+          rotulo={minhas ? "Meus envios" : juntas ? "Trabalho em conjunto" : triagem ? "Triagem" : "Fila de revisão"}
+          itens={lista.dados ?? []}
+          chave={(item) => item.id}
+          carregando={lista.dados === null}
+          vazio={<Vazio simbolo={triagem ? ShieldCheck : minhas ? Send : juntas ? Users : ClipboardCheck} {...partir(vazia)} />}
+          linha={(item) => (
+            <span style={{ display: "grid", gap: "0.2rem", minWidth: 0 }}>
+              <span className="pn-rotulo-mono">
+                {nomeDoTipo(item.tipo)}
+                {item.disciplina && ` · ${nomeDaArea(item.disciplina)}`} · {data(item.criado_em)}
+              </span>
+              <span className="font-serif text-lg font-semibold leading-snug">{item.titulo}</span>
+              <span className="pn-item-meta" style={{ whiteSpace: "normal" }}>
+                {item.nome_autor || "sem nome"} · {origem[item.como] ?? item.como}
+                {item.pareceres > 0 && ` · ${item.pareceres} parecer(es)`}
+              </span>
+              <span style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                <Selo tom={naTriagem(item) ? "aviso" : (TOM_DA_SITUACAO[item.status] ?? "neutro")}>{naTriagem(item) ? "aguardando a triagem" : (situacoes[item.status] ?? item.status)}</Selo>
+              </span>
+              {minhas && item.nota && <span className="pn-item-meta" style={{ whiteSpace: "normal" }}>Recado da curadoria: {item.nota}</span>}
+            </span>
+          )}
+          detalhe={(item, proximo) => <Detalhe key={item.id} id={item.id} me={me} semParecer={propria || triagem} esteira={propria} triagem={triagem} daTela={daTela} proximo={proximo} voltar={lista.recarregar} />}
+        />
       )}
-      <ul className="mt-4 divide-y divide-rule border-y border-rule">
-        {lista.dados?.map((item) => (
-          <li key={item.id} className="py-4">
-            <p className={rotulo}>
-              {nomeDoTipo(item.tipo)}
-              {item.disciplina && ` · ${t.areas[item.disciplina as keyof typeof t.areas]?.[0] ?? item.disciplina}`} · {data(item.criado_em)}
-            </p>
-            <button type="button" onClick={() => setAberta(item.id)} className="mt-1 cursor-pointer text-left font-serif text-2xl font-semibold hover:text-oxblood">
-              {item.titulo}
-            </button>
-            <p className="mt-1 text-ink-soft">
-              {item.nome_autor || "sem nome"} · {origem[item.como] ?? item.como} · {naTriagem(item) ? "aguardando a triagem" : (situacoes[item.status] ?? item.status)}
-              {item.pareceres > 0 && ` · ${item.pareceres} parecer(es)`}
-            </p>
-            {propria && <Esteira status={item.status} triagem={item.triagem} pareceres={item.pareceres} publico={item.como === "publico"} />}
-            {minhas && item.nota && <p className="mt-1">Recado da curadoria: {item.nota}</p>}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
 
-function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; me: Me; semParecer: boolean; triagem?: boolean; voltar: () => void }) {
+function Detalhe({ id, me, semParecer, esteira, triagem = false, daTela, proximo, voltar }: { id: string; me: Me; semParecer: boolean; esteira: boolean; triagem?: boolean; daTela: ListaDaTela; proximo: () => void; voltar: () => void }) {
   const { lang, t } = useI18n();
   const item = useLista<Completa>("contribuicao_ver", { p_id: id });
   const { recarregar } = item;
@@ -130,63 +165,104 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
   }, [recarregar]);
 
   const c = item.dados;
-  if (!c) return <Aviso texto={item.erro || "Carregando…"} />;
-
   const decide = can(me, "coordenacao", "curadoria");
-  const pendente = c.status === "pendente";
+  const pendente = c?.status === "pendente";
   /** Esta pessoa está fazendo a triagem deste envio. */
-  const tria = triagem && pendente && c.triagem === "aguardando";
+  const tria = Boolean(c) && triagem && pendente && c?.triagem === "aguardando";
+  const decideAqui = decide && pendente && !semParecer;
+  const daParecer = !semParecer && pendente;
+
+  /** Decisão simples e otimista: o envio sai da lista na hora (e a fila anda); se o banco recusar, ele volta. */
+  async function triar(liberar: boolean, recado = nota) {
+    const ok = await agirOtimista<Resumo[]>({ lista: daTela, remendo: (dados) => dados.filter((e) => e.id !== id), funcao: "triagem_decidir", argumentos: { p_id: id, p_liberar: liberar, p_nota: recado } });
+    if (ok) voltar();
+  }
+
+  async function decidir(aprovar: boolean) {
+    const ok = await agirOtimista<Resumo[]>({ lista: daTela, remendo: (dados) => dados.filter((e) => e.id !== id), funcao: "contribuicao_decidir", argumentos: { p_id: id, p_aprovar: aprovar, p_nota: nota } });
+    if (ok) voltar();
+  }
+
+  async function darParecer(favoravel: boolean, texto = parecer) {
+    const ok = await acao.agir("parecer", { p_id: id, p_favoravel: favoravel, p_texto: texto }, "Parecer registrado.");
+    if (ok) setParecer("");
+  }
+
+  /** "Devolver com comentário" pela paleta: o parecer que pede ajustes; sem texto ainda, pergunta antes. */
+  async function devolver() {
+    const texto = parecer.trim().length >= 3 ? parecer : await perguntarTexto("Conferiu datas, contas e fontes? Diga o que viu.", "", { multilinha: true, obrigatorio: true });
+    if (texto && texto.trim().length >= 3) await darParecer(false, texto);
+  }
+
+  /** "Barrar" pela paleta: o recado é obrigatório, então pergunta se ainda não foi escrito. */
+  async function barrar() {
+    const recado = nota.trim().length >= 5 ? nota : await perguntarTexto("Recado para quem enviou (obrigatório ao barrar)", "", { multilinha: true, obrigatorio: true });
+    if (recado && recado.trim().length >= 5) await triar(false, recado);
+  }
+
+  const comandos: ComandoDaSecao[] = [
+    ...(decideAqui
+      ? [
+          { id: "aprovar", nome: "Aprovar", simbolo: Check, fazer: () => decidir(true) },
+          { id: "recusar", nome: "Recusar", sobre: "Não aprovar", simbolo: X, fazer: () => decidir(false) },
+        ]
+      : []),
+    ...(daParecer ? [{ id: "devolver", nome: "Devolver com comentário", sobre: "Pedir ajustes", simbolo: Undo2, fazer: devolver }] : []),
+    ...(tria
+      ? [
+          { id: "liberar", nome: "Liberar para a fila de revisão", simbolo: Check, fazer: () => triar(true) },
+          { id: "barrar", nome: "Barrar", simbolo: X, fazer: barrar },
+        ]
+      : []),
+    { id: "proximo", nome: "Próximo", simbolo: ArrowDown, atalho: "j", fazer: proximo },
+  ];
+  useComandosDaSecao(comandos, [id, decideAqui, daParecer, tria]);
+
+  if (!c) return item.erro ? <Faixa tom="erro" acao={<Botao pequeno onClick={recarregar}>Tentar de novo</Botao>}>{item.erro}</Faixa> : <p role="status" className="pn-ajuda">Carregando…</p>;
+
   const podeEditar = pendente && (decide || c.minha || c.colaboro || tria);
   /** Alguém guardou outra versão enquanto esta pessoa está com o editor aberto. */
   const mudou = edicao !== null && edicao.versao !== c.versao;
   const exigeFonte = (tipos as Record<string, { fonte: boolean }>)[c.tipo]?.fonte ?? false;
 
-  async function triar(liberar: boolean) {
-    try {
-      await rpc("triagem_decidir", { p_id: id, p_liberar: liberar, p_nota: nota });
-      window.dispatchEvent(new Event(PAINEL_MUDOU));
-      voltar();
-    } catch (erro) {
-      acao.setAviso(textoDoErro(erro));
-    }
-  }
-
-  async function decidir(aprovar: boolean) {
-    try {
-      await rpc("contribuicao_decidir", { p_id: id, p_aprovar: aprovar, p_nota: nota });
-      window.dispatchEvent(new Event(PAINEL_MUDOU));
-      voltar();
-    } catch (erro) {
-      acao.setAviso(textoDoErro(erro));
-    }
-  }
-
   return (
-    <div className="space-y-6">
-      <button type="button" onClick={voltar} className={elo}>← Voltar à lista</button>
-      <div>
-        <p className={rotulo}>
-          {nomeDoTipo(c.tipo)}
-          {c.disciplina && ` · ${t.areas[c.disciplina as keyof typeof t.areas]?.[0] ?? c.disciplina}`} · {naTriagem(c) ? "aguardando a triagem" : (situacoes[c.status] ?? c.status)}
-        </p>
-        <h2 className="mt-1 font-serif text-3xl font-semibold">{c.titulo}</h2>
-        <p className="mt-1 text-ink-soft">
-          {c.nome_autor || "sem nome"} · {origem[c.como] ?? c.como} · {data(c.criado_em)}
-        </p>
-        {c.alvo && <p className="mt-1 font-mono text-xs">página: {c.alvo}</p>}
-        {c.editado_em && <p className="mt-1 text-ink-soft">Última alteração: {c.editado_por || "alguém da equipe"}, {dataHora(c.editado_em)}</p>}
-        {c.minha && c.nota && <p className="mt-2 border-l-2 border-gold pl-3">Recado da curadoria: {c.nota}</p>}
-      </div>
+    <div className="pn-secao">
+      <CabecalhoDeSecao
+        rotulo={
+          <>
+            {nomeDoTipo(c.tipo)}
+            {c.disciplina && ` · ${t.areas[c.disciplina as keyof typeof t.areas]?.[0] ?? c.disciplina}`} · {naTriagem(c) ? "aguardando a triagem" : (situacoes[c.status] ?? c.status)}
+          </>
+        }
+        titulo={c.titulo}
+        sobre={
+          <>
+            {c.nome_autor || "sem nome"} · {origem[c.como] ?? c.como} · {data(c.criado_em)}
+          </>
+        }
+      />
+      {(c.alvo || c.editado_em) && (
+        <div className="pn-ajuda" style={{ display: "grid", gap: "0.2rem" }}>
+          {c.alvo && <p className="font-mono text-xs">página: {c.alvo}</p>}
+          {c.editado_em && <p>Última alteração: {c.editado_por || "alguém da equipe"}, {dataHora(c.editado_em)}</p>}
+        </div>
+      )}
+      {esteira && <Esteira status={c.status} triagem={c.triagem} pareceres={c.pareceres} publico={c.como === "publico"} />}
+      {c.minha && c.nota && <Faixa tom="info">Recado da curadoria: {c.nota}</Faixa>}
 
       {Object.keys(c.dados).length > 0 && (
-        <dl className="grid gap-x-6 gap-y-1 border border-rule bg-parchment-deep p-4 sm:grid-cols-[10rem_1fr]">
-          {Object.entries(c.dados).map(([chave, valor]) => (
-            <div key={chave} className="contents">
-              <dt className="font-mono text-xs text-gold">{chave}</dt>
-              <dd className="break-words whitespace-pre-line" data-original>{String(valor)}</dd>
-            </div>
-          ))}
-        </dl>
+        <Cartao as="div" variante="plano">
+          <dl className="pn-definicoes" style={{ marginTop: 0 }}>
+            {Object.entries(c.dados).map(([chave, valor]) => (
+              <div key={chave}>
+                <dt className="pn-rotulo-mono">{chave}</dt>
+                <dd className="break-words whitespace-pre-line" data-original>
+                  {String(valor)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Cartao>
       )}
 
       {edicao ? (
@@ -206,28 +282,40 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
         />
       ) : (
         <>
-          <div className="border border-rule bg-parchment p-5 font-serif" lang="pt-BR" translate="no">
+          <Cartao as="div" variante="plano" className="font-serif" lang="pt-BR" translate="no">
             <Markdown lang={lang}>{c.corpo || "*Sem texto.*"}</Markdown>
-          </div>
+          </Cartao>
           {c.fontes.length > 0 ? (
             <div>
-              <p className={rotulo}>Fontes</p>
+              <p className="pn-rotulo-mono">Fontes</p>
               <ul className="mt-2 list-disc space-y-1 pl-5">
                 {c.fontes.map((fonte) => (
                   <li key={`${fonte.titulo}${fonte.url ?? ""}`}>
                     {fonte.autor && `${fonte.autor}. `}
-                    {fonte.url ? <a href={fonte.url} target="_blank" rel="noopener noreferrer nofollow" className={elo}>{fonte.titulo}</a> : fonte.titulo}
+                    {fonte.url ? (
+                      <a href={fonte.url} target="_blank" rel="noopener noreferrer nofollow" className="pn-elo">
+                        {fonte.titulo}
+                      </a>
+                    ) : (
+                      fonte.titulo
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
-            exigeFonte && <p className="text-oxblood">Sem fontes.</p>
+            exigeFonte && (
+              <p>
+                <Selo tom="erro">Sem fontes.</Selo>
+              </p>
+            )
           )}
           {podeEditar && (
-            <button type="button" className={botaoClaro} onClick={() => setEdicao({ titulo: c.titulo, corpo: c.corpo, versao: c.versao, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] })}>
-              {c.minha || c.colaboro ? "Editar" : tria ? "Acertar a forma" : "Editar antes de decidir"}
-            </button>
+            <div>
+              <Botao simbolo={PenLine} onClick={() => setEdicao({ titulo: c.titulo, corpo: c.corpo, versao: c.versao, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] })}>
+                {c.minha || c.colaboro ? "Editar" : tria ? "Acertar a forma" : "Editar antes de decidir"}
+              </Botao>
+            </div>
           )}
           <SugestoesDaRevisao id={id} podeSugerir={pendente && !c.minha && !semParecer && !tria} podeResponder={pendente && (c.minha || c.colaboro || decide)} depois={recarregar} />
         </>
@@ -235,66 +323,71 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
 
       {pendente && me.papeis.length > 0 && (c.minha || c.colaboro || decide) && <Conjunto c={c} me={me} decide={decide} depois={recarregar} sair={voltar} />}
 
-      <section>
-        <p className={rotulo}>Pareceres</p>
-        {c.lista_pareceres.length === 0 && <p className="mt-2 text-ink-soft">Nenhum parecer ainda.</p>}
-        <ul className="mt-2 space-y-2">
-          {c.lista_pareceres.map((p, i) => (
-            <li key={i} className={`border-l-2 pl-3 ${p.favoravel ? "border-ok" : "border-oxblood"}`}>
-              <p>{p.texto}</p>
-              <p className="text-xs text-ink-soft">
-                {p.nome} · {p.favoravel ? "favorável" : "pede ajustes"} · {data(p.criado_em)}
-              </p>
-            </li>
-          ))}
-        </ul>
-        {!semParecer && pendente && (
-          <div className="mt-3">
-            <textarea value={parecer} onChange={(e) => setParecer(e.target.value)} rows={3} maxLength={2000} placeholder="Conferiu datas, contas e fontes? Diga o que viu." aria-label="Seu parecer" className={campo} />
-            <div className="mt-2 flex flex-wrap gap-3">
+      <Cartao titulo="Pareceres" nivelDoTitulo={3} variante="plano">
+        {c.lista_pareceres.length === 0 && <p className="pn-ajuda">Nenhum parecer ainda.</p>}
+        {c.lista_pareceres.length > 0 && (
+          <ul className="pn-lista">
+            {c.lista_pareceres.map((p, i) => (
+              <li key={i} className="pn-item" style={{ alignItems: "flex-start", paddingBlock: "0.6rem" }}>
+                <span className="pn-item-texto" style={{ display: "grid", gap: "0.2rem", minWidth: 0, flex: 1 }}>
+                  <span>{p.texto}</span>
+                  <span className="pn-item-meta">
+                    {p.nome} · {data(p.criado_em)}
+                  </span>
+                </span>
+                <Selo tom={p.favoravel ? "ok" : "aviso"}>{p.favoravel ? "favorável" : "pede ajustes"}</Selo>
+              </li>
+            ))}
+          </ul>
+        )}
+        {daParecer && (
+          <div className="mt-3 grid gap-2">
+            <Area rotulo="Seu parecer" value={parecer} onChange={(e) => setParecer(e.target.value)} rows={3} maxLength={2000} placeholder="Conferiu datas, contas e fontes? Diga o que viu." />
+            <div className="flex flex-wrap gap-2">
               {[true, false].map((favoravel) => (
-                <button
-                  key={String(favoravel)}
-                  type="button"
-                  className={botaoClaro}
-                  disabled={acao.ocupado || parecer.trim().length < 3}
-                  onClick={async () => {
-                    const ok = await acao.agir("parecer", { p_id: id, p_favoravel: favoravel, p_texto: parecer }, "Parecer registrado.");
-                    if (ok) setParecer("");
-                  }}
-                >
+                <Botao key={String(favoravel)} simbolo={favoravel ? Check : Undo2} disabled={acao.ocupado || parecer.trim().length < 3} onClick={() => void darParecer(favoravel)}>
                   {favoravel ? "Parecer favorável" : "Pedir ajustes"}
-                </button>
+                </Botao>
               ))}
             </div>
           </div>
         )}
-      </section>
+      </Cartao>
 
       {tria && (
-        <section className="border-2 border-ink p-5">
-          <p className={rotulo}>Triagem</p>
-          <textarea value={nota} onChange={(e) => setNota(e.target.value)} rows={2} maxLength={2000} placeholder="Recado para quem enviou (obrigatório ao barrar)" aria-label="Recado para quem enviou" className={campo} />
-          <div className="mt-3 flex flex-wrap gap-3">
-            <button type="button" className={botao} onClick={() => triar(true)}>Liberar para a fila de revisão</button>
-            <button type="button" className={botaoClaro} disabled={nota.trim().length < 5} onClick={() => triar(false)}>Barrar</button>
+        <Cartao titulo="Triagem" nivelDoTitulo={3} variante="destaque">
+          <div className="grid gap-3">
+            <Area rotulo="Recado para quem enviou" value={nota} onChange={(e) => setNota(e.target.value)} rows={2} maxLength={2000} placeholder="Recado para quem enviou (obrigatório ao barrar)" />
+            <div className="flex flex-wrap gap-2">
+              <Botao variante="principal" simbolo={Check} onClick={() => void triar(true)}>
+                Liberar para a fila de revisão
+              </Botao>
+              <Botao simbolo={X} disabled={nota.trim().length < 5} onClick={() => void triar(false)}>
+                Barrar
+              </Botao>
+            </div>
+            <p className="pn-ajuda">Liberar não aprova nem publica: o envio segue para educadores, revisores e curadoria. Barrar encerra o envio e manda o recado para quem enviou, se a pessoa tiver conta.</p>
           </div>
-          <p className="mt-2 text-ink-soft">Liberar não aprova nem publica: o envio segue para educadores, revisores e curadoria. Barrar encerra o envio e manda o recado para quem enviou, se a pessoa tiver conta.</p>
-        </section>
+        </Cartao>
       )}
 
-      {decide && pendente && !semParecer && (
-        <section className="border-2 border-ink p-5">
-          <p className={rotulo}>Decisão da curadoria</p>
-          <textarea value={nota} onChange={(e) => setNota(e.target.value)} rows={2} maxLength={2000} placeholder="Recado para quem enviou (opcional)" aria-label="Recado para quem enviou" className={campo} />
-          <div className="mt-3 flex flex-wrap gap-3">
-            <button type="button" className={botao} onClick={() => decidir(true)}>Aprovar</button>
-            <button type="button" className={botaoClaro} onClick={() => decidir(false)}>Não aprovar</button>
+      {decideAqui && (
+        <Cartao titulo="Decisão da curadoria" nivelDoTitulo={3} variante="destaque">
+          <div className="grid gap-3">
+            <Area rotulo="Recado para quem enviou" value={nota} onChange={(e) => setNota(e.target.value)} rows={2} maxLength={2000} placeholder="Recado para quem enviou (opcional)" />
+            <div className="flex flex-wrap gap-2">
+              <Botao variante="principal" simbolo={Check} onClick={() => void decidir(true)}>
+                Aprovar
+              </Botao>
+              <Botao simbolo={X} onClick={() => void decidir(false)}>
+                Não aprovar
+              </Botao>
+            </div>
+            <p className="pn-ajuda">Aprovar não publica na hora: o texto entra no site na próxima publicação e fica guardado no histórico.</p>
           </div>
-          <p className="mt-2 text-ink-soft">Aprovar não publica na hora: o texto entra no site na próxima publicação e fica guardado no histórico.</p>
-        </section>
+        </Cartao>
       )}
-      <Aviso texto={acao.aviso} />
+      <Recado texto={acao.aviso} />
     </div>
   );
 }
@@ -313,25 +406,39 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
     { vazio: (d) => d.titulo === c.titulo && d.corpo === c.corpo },
   );
   return (
-    <div className="space-y-4">
+    <div className="pn-secao">
       {mudou && (
-        <p role="alert" className="border-2 border-oxblood bg-parchment-deep p-4">
-          <strong>{c.editado_por || "Outra pessoa"}</strong> guardou alterações enquanto você editava. Copie o que você escreveu, abra a versão nova e aplique de novo: assim ninguém perde trabalho.{" "}
-          <button type="button" className={elo} onClick={() => setEdicao(null)}>Abrir a versão nova</button>
-        </p>
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao pequeno onClick={() => setEdicao(null)}>
+              Abrir a versão nova
+            </Botao>
+          }
+        >
+          <strong>{c.editado_por || "Outra pessoa"}</strong> guardou alterações enquanto você editava. Copie o que você escreveu, abra a versão nova e aplique de novo: assim ninguém perde trabalho.
+        </Faixa>
       )}
       {rascunho.restaurado && rascunho.salvoEm && (
-        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 border border-rule bg-parchment-deep px-4 py-2 text-ink-soft">
-          <span>Recuperamos a edição que você estava fazendo (guardada às {horaDoRascunho(rascunho.salvoEm)}).</span>
-          <button type="button" className={elo} onClick={() => { rascunho.limpar(); setEdicao({ ...edicao, titulo: c.titulo, corpo: c.corpo, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] }); }}>
-            Descartar e voltar à versão guardada
-          </button>
-        </p>
+        <Faixa
+          tom="info"
+          acao={
+            <Botao
+              pequeno
+              variante="discreto"
+              onClick={() => {
+                rascunho.limpar();
+                setEdicao({ ...edicao, titulo: c.titulo, corpo: c.corpo, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] });
+              }}
+            >
+              Descartar e voltar à versão guardada
+            </Botao>
+          }
+        >
+          Recuperamos a edição que você estava fazendo (guardada às {horaDoRascunho(rascunho.salvoEm)}).
+        </Faixa>
       )}
-      <label className="block">
-        Título
-        <input value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={160} className={campo} />
-      </label>
+      <Campo rotulo="Título" value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={160} />
       <MarkdownEditor id="edicao-corpo" value={edicao.corpo} onChange={(corpo) => setEdicao({ ...edicao, corpo })} labels={editorPt} upload={podeImagem} blocos />
       {exigeFonte && <SourcesField value={edicao.fontes} onChange={(fontes) => setEdicao({ ...edicao, fontes })} labels={fontesPt} />}
       <details>
@@ -340,12 +447,12 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
           <LadoALado antes={c.corpo} depois={edicao.corpo} />
         </div>
       </details>
-      <p className="font-mono text-xs text-ink-soft">{rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}.` : "O rascunho desta edição é guardado sozinho enquanto você escreve."}</p>
-      <div className="flex gap-4">
-        <button
-          type="button"
-          className={botao}
+      <p className="pn-ajuda font-mono text-xs">{rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}.` : "O rascunho desta edição é guardado sozinho enquanto você escreve."}</p>
+      <div className="flex flex-wrap gap-2">
+        <Botao
+          variante="principal"
           disabled={ocupado || mudou}
+          carregando={ocupado}
           onClick={async () => {
             if (await guardar()) {
               rascunho.limpar();
@@ -354,8 +461,16 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
           }}
         >
           Guardar alterações
-        </button>
-        <button type="button" className={elo} onClick={() => { rascunho.limpar(); setEdicao(null); }}>Cancelar</button>
+        </Botao>
+        <Botao
+          variante="discreto"
+          onClick={() => {
+            rascunho.limpar();
+            setEdicao(null);
+          }}
+        >
+          Cancelar
+        </Botao>
       </div>
     </div>
   );
@@ -363,7 +478,8 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
 
 /**
  * Trabalho em conjunto: quem enviou (ou a curadoria) chama um colega específico para mexer nesta contribuição.
- * O acesso vale só para ela, só enquanto está pendente, e é tirado quando quem liberou quiser.
+ * O acesso vale só para ela, só enquanto está pendente, e é tirado quando quem liberou quiser. Pela paleta (Ctrl K),
+ * "Chamar alguém para trabalhar junto" escolhe a pessoa sem mouse.
  */
 function Conjunto({ c, me, decide, depois, sair }: { c: Completa; me: Me; decide: boolean; depois: () => void; sair: () => void }) {
   const { t } = useI18n();
@@ -377,69 +493,87 @@ function Conjunto({ c, me, decide, depois, sair }: { c: Completa; me: Me; decide
     [...new Set(membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` de ${t.areas[papel.disciplina as keyof typeof t.areas]?.[0] ?? papel.disciplina}` : ""}`))].join(", ");
   const opcoes = livres.map((membro) => ({ id: membro.id, nome: membro.nome, email: funcoes(membro) }));
 
+  const chamar = (usuario: string) => acao.agir("colaboracao_abrir", { p_id: c.id, p_usuario: usuario }, "Acesso liberado. A pessoa já recebeu o recado.");
+  useComandosDaSecao(
+    manda
+      ? [
+          {
+            id: "chamar",
+            nome: "Chamar alguém para trabalhar junto",
+            simbolo: UserPlus,
+            pedePessoa: true,
+            fazer: async (pessoa) => {
+              if (pessoa) await chamar(pessoa.id);
+            },
+          },
+        ]
+      : [],
+    [c.id, manda],
+  );
+
   return (
-    <section className="border border-rule bg-parchment-deep p-5">
-      <p className={rotulo}>Trabalho em conjunto</p>
-      <p className="mt-1 text-ink-soft">
-        {manda
-          ? "Precisa de um gráfico, de uma imagem, de uma revisão? Chame um colega: ele recebe o recado na hora e passa a poder abrir e editar só esta contribuição, até você tirar o acesso ou ela ser decidida."
-          : "Você foi chamado para trabalhar nesta contribuição. Pode abrir e editar enquanto ela estiver pendente."}
-      </p>
-      {c.colaboradores.length > 0 && (
-        <ul className="mt-3 divide-y divide-rule border-y border-rule">
-          {c.colaboradores.map((pessoa) => (
-            <li key={pessoa.id} className="flex flex-wrap items-baseline justify-between gap-3 py-2">
-              <span>
-                <strong>{pessoa.nome}</strong>
-                {pessoa.id === me.id && " (você)"}
-              </span>
-              {pessoa.id === me.id ? (
-                <button
-                  type="button"
-                  className={elo}
-                  disabled={acao.ocupado}
-                  onClick={async () => {
-                    try {
-                      await rpc("colaboracao_fechar", { p_id: c.id, p_usuario: pessoa.id });
-                      sair();
-                    } catch (erro) {
-                      acao.setAviso(textoDoErro(erro));
-                    }
-                  }}
-                >
-                  Sair desta colaboração
-                </button>
-              ) : (
-                manda && (
-                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("colaboracao_fechar", { p_id: c.id, p_usuario: pessoa.id }, "Acesso retirado.")}>
-                    Tirar o acesso
-                  </button>
-                )
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
-      {manda && (
-        <div className="mt-3 flex flex-wrap items-end gap-3">
-          <div className="min-w-56 flex-1">
-            Chamar
-            <BuscaDePessoa rotulo="Chamar alguém da equipe" entre={opcoes} escolhida={opcoes.find((pessoa) => pessoa.id === escolha) ?? null} escolher={(pessoa) => setEscolha(pessoa?.id ?? "")} />
+    <Cartao titulo="Trabalho em conjunto" nivelDoTitulo={3} variante="plano" sobre={manda ? "Precisa de um gráfico, de uma imagem, de uma revisão? Chame um colega: ele recebe o recado na hora e passa a poder abrir e editar só esta contribuição, até você tirar o acesso ou ela ser decidida." : "Você foi chamado para trabalhar nesta contribuição. Pode abrir e editar enquanto ela estiver pendente."}>
+      <div className="mt-3 grid gap-3">
+        {c.colaboradores.length > 0 && (
+          <Lista rotulo="Trabalho em conjunto">
+            {c.colaboradores.map((pessoa) => (
+              <ItemDeLista
+                key={pessoa.id}
+                titulo={
+                  <>
+                    <strong>{pessoa.nome}</strong>
+                    {pessoa.id === me.id && " (você)"}
+                  </>
+                }
+                acoes={
+                  pessoa.id === me.id ? (
+                    <Botao
+                      pequeno
+                      variante="discreto"
+                      disabled={acao.ocupado}
+                      onClick={async () => {
+                        try {
+                          await rpc("colaboracao_fechar", { p_id: c.id, p_usuario: pessoa.id });
+                          sair();
+                        } catch (erro) {
+                          acao.setAviso(textoDoErro(erro));
+                        }
+                      }}
+                    >
+                      Sair desta colaboração
+                    </Botao>
+                  ) : (
+                    manda && (
+                      <Botao pequeno variante="discreto" perigo disabled={acao.ocupado} onClick={() => acao.agir("colaboracao_fechar", { p_id: c.id, p_usuario: pessoa.id }, "Acesso retirado.")}>
+                        Tirar o acesso
+                      </Botao>
+                    )
+                  )
+                }
+              />
+            ))}
+          </Lista>
+        )}
+        {manda && (
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="min-w-56 flex-1">
+              <span className="pn-rotulo">Chamar</span>
+              <BuscaDePessoa rotulo="Chamar alguém da equipe" entre={opcoes} escolhida={opcoes.find((pessoa) => pessoa.id === escolha) ?? null} escolher={(pessoa) => setEscolha(pessoa?.id ?? "")} />
+            </div>
+            <Botao
+              simbolo={UserPlus}
+              disabled={acao.ocupado || !escolha}
+              onClick={async () => {
+                const ok = await chamar(escolha);
+                if (ok) setEscolha("");
+              }}
+            >
+              Liberar acesso
+            </Botao>
           </div>
-          <button
-            type="button"
-            className={botao}
-            disabled={acao.ocupado || !escolha}
-            onClick={async () => {
-              const ok = await acao.agir("colaboracao_abrir", { p_id: c.id, p_usuario: escolha }, "Acesso liberado. A pessoa já recebeu o recado.");
-              if (ok) setEscolha("");
-            }}
-          >
-            Liberar acesso
-          </button>
-        </div>
-      )}
-      <Aviso texto={membros.erro || acao.aviso} />
-    </section>
+        )}
+        <Recado texto={membros.erro || acao.aviso} />
+      </div>
+    </Cartao>
   );
 }

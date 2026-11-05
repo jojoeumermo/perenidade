@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowBigUp, Bookmark, Check, ChevronDown, Ellipsis, House, Link2, List, type LucideIcon, MessageSquare, Pin, Plus, Rows3, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { rpc, type Role } from "@/lib/backend";
 import type { Aberto } from "@/lib/chaveiro";
@@ -11,10 +12,10 @@ import { previewFile } from "@/lib/upload";
 import { useI18n } from "../I18n";
 import { EstanteDoAprendizado } from "./Aprendizado";
 import { Avatar } from "./Avatar";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, localDoPainel, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, data, dataHora, localDoPainel, papeis, textoDoErro, useAcao, useLista } from "./comum";
 import { Formatado } from "./Formatado";
 import { AparelhoPendente, ComoFunciona, enviarCifrado, SEM_CHAVE, useAbertos, useChaveiro } from "./Sigilo";
-import { confirmarFrase } from "./ui";
+import { Botao, Busca, Cartao, confirmarFrase, Esqueleto, Estatistica, Estatisticas, Faixa, ItemDeLista, Lista, MenuSuspenso, Selo, type TomDoSelo, Vazio } from "./ui";
 
 type Etiqueta = "duvida" | "ideia" | "aviso" | "conquista" | "material" | "debate";
 
@@ -92,13 +93,14 @@ const comunidades: Record<string, { nome: string; sobre: string }> = {
   desenvolvimento: { nome: "UI/UX e Desenvolvimento", sobre: "O canal de quem desenha as telas e programa o site." },
 };
 
-const etiquetas: Record<Etiqueta, { nome: string; estilo: string }> = {
-  aviso: { nome: "Aviso", estilo: "bg-oxblood text-parchment" },
-  ideia: { nome: "Ideia", estilo: "bg-gold text-ink" },
-  duvida: { nome: "Dúvida", estilo: "border border-ink text-ink" },
-  conquista: { nome: "Conquista", estilo: "bg-ok text-parchment" },
-  material: { nome: "Material", estilo: "bg-ink text-parchment" },
-  debate: { nome: "Debate", estilo: "border border-oxblood text-oxblood" },
+/** Cada etiqueta é um Selo de ui/ com o seu tom (a palavra diz o que é; a cor só acompanha, nos dois temas). */
+const etiquetas: Record<Etiqueta, { nome: string; tom: TomDoSelo }> = {
+  aviso: { nome: "Aviso", tom: "bordo" },
+  ideia: { nome: "Ideia", tom: "ouro" },
+  duvida: { nome: "Dúvida", tom: "info" },
+  conquista: { nome: "Conquista", tom: "ok" },
+  material: { nome: "Material", tom: "neutro" },
+  debate: { nome: "Debate", tom: "aviso" },
 };
 
 type Ordem = "alta" | "novas" | "apoiadas" | "abertas";
@@ -168,52 +170,52 @@ function lerEndereco(): { canal: string | null; pub: string | null } {
   return { canal: canal && /^[a-z]{3,20}$/.test(canal) ? canal : null, pub: pub && /^[0-9a-f-]{36}$/.test(pub) ? pub : null };
 }
 
-const caminhos = {
-  apoio: "M12 4l7.5 8.5H15V20H9v-7.5H4.5z",
-  comentario: "M4 5h16v11H9.5L5 19.5V16H4z",
-  salvar: "M6.5 3.5h11v17L12 16.5l-5.5 4z",
-  elo: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
-  pino: "M9 3.5h6l-1 5.5 3.5 3.5h-11L10 9zM12 12.5V21",
-  mais: "M5.5 12h.01M12 12h.01M18.5 12h.01",
-  certo: "M5 12.5l4.5 4.5L19 7.5",
-  casa: "M4 11l8-7 8 7v9h-5.5v-6h-5v6H4z",
-  cartoes: "M4 4.5h16v7H4zM4 14.5h16v5H4z",
-  compacto: "M4 6h16M4 12h16M4 18h16",
-  lixo: "M5 7h14M10 7V4.5h4V7M7 7l1 13h8l1-13",
-  mais_um: "M12 5v14M5 12h14",
-};
+/** Os ícones do mural (Lucide; antes eram desenhos à mão). O nome continua o mesmo para quem chama. */
+const ICONES = {
+  apoio: ArrowBigUp,
+  comentario: MessageSquare,
+  salvar: Bookmark,
+  elo: Link2,
+  pino: Pin,
+  mais: Ellipsis,
+  certo: Check,
+  casa: House,
+  cartoes: Rows3,
+  compacto: List,
+  lixo: Trash2,
+  mais_um: Plus,
+} satisfies Record<string, LucideIcon>;
 
-function Icone({ nome, cheio = false, className = "h-4 w-4" }: { nome: keyof typeof caminhos; cheio?: boolean; className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden className={`shrink-0 ${className}`} fill={cheio ? "currentColor" : "none"} stroke="currentColor" strokeWidth={nome === "mais" ? 3.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
-      <path d={caminhos[nome]} />
-    </svg>
-  );
+function Icone({ nome, cheio = false, className = "h-4 w-4" }: { nome: keyof typeof ICONES; cheio?: boolean; className?: string }) {
+  const Simbolo = ICONES[nome];
+  return <Simbolo aria-hidden className={`shrink-0 ${className}`} fill={cheio ? "currentColor" : "none"} strokeWidth={1.8} />;
 }
 
-const corDaComunidade = (id: string) =>
-  id === "geral" ? "bg-oxblood text-parchment" : id === "pedidos" ? "bg-gold text-ink" : id === "aprendizado" ? "bg-ok text-parchment" : id === "inicio" || id === "salvas" ? "bg-parchment text-ink border border-ink" : "bg-ink text-parchment";
-
-const faixaDa = (id: string) => (id === "inicio" || id === "salvas" ? "bg-ink" : corDaComunidade(id));
+/** A cor de cada comunidade, sempre por token do tema (claro e escuro): a praça em bordô, os pedidos em ouro, o aprendizado em verde. */
+const tokenDaComunidade = (id: string) => (id === "geral" ? "--pn-destaque-vivo" : id === "pedidos" ? "--pn-ouro" : id === "aprendizado" ? "--pn-ok" : "--pn-texto-suave");
+const estiloDaComunidade = (id: string) => ({ background: `color-mix(in srgb, var(${tokenDaComunidade(id)}) 16%, var(--pn-superficie))`, color: `var(${tokenDaComunidade(id)})` });
+/** O fio de cima do cabeçalho: as cores das lutas no Início e nas Salvas; a cor da comunidade nas outras. */
+const faixaDa = (id: string) => (id === "inicio" || id === "salvas" ? { background: "var(--pn-lutas)" } : { background: `var(${tokenDaComunidade(id)})` });
 
 /** O selo redondo da comunidade (a inicial do nome), como o ícone de um fórum. */
-function Selo({ id, grande = false }: { id: string; grande?: boolean }) {
-  const tamanho = grande ? "h-16 w-16 border-4 border-parchment-deep text-3xl" : "h-6 w-6 text-[0.72rem]";
+function SeloDaComunidade({ id, grande = false }: { id: string; grande?: boolean }) {
+  const tamanho = grande ? "h-12 w-12 text-2xl" : "h-6 w-6 text-[0.72rem]";
   if (id === "inicio" || id === "salvas") {
     return (
-      <span aria-hidden className={`flex shrink-0 items-center justify-center rounded-full ${corDaComunidade(id)} ${tamanho}`}>
-        <Icone nome={id === "inicio" ? "casa" : "salvar"} className={grande ? "h-7 w-7" : "h-3.5 w-3.5"} />
+      <span aria-hidden className={`flex shrink-0 items-center justify-center rounded-full border border-rule ${tamanho}`} style={estiloDaComunidade(id)}>
+        <Icone nome={id === "inicio" ? "casa" : "salvar"} className={grande ? "h-6 w-6" : "h-3.5 w-3.5"} />
       </span>
     );
   }
   return (
-    <span aria-hidden className={`flex shrink-0 items-center justify-center rounded-full font-serif font-bold ${corDaComunidade(id)} ${tamanho}`}>
+    <span aria-hidden className={`flex shrink-0 items-center justify-center rounded-full font-bold ${tamanho}`} style={{ ...estiloDaComunidade(id), fontFamily: "var(--pn-fonte-titulo)" }}>
       {(comunidades[id]?.nome ?? id).slice(0, 1)}
     </span>
   );
 }
 
-const pilula = "inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-ink-soft hover:bg-parchment hover:text-ink disabled:cursor-default disabled:opacity-60";
+/** As ações de uma publicação: botões discretos, pequenos (do jeito do resto do painel). */
+const pilula = "pn-botao pn-botao-discreto pn-botao-pequeno";
 
 /** O apoio (o voto do mural, só para cima). A própria publicação não se apoia. */
 function BotaoDeApoio({ item, ocupado, apoiar, deitado = true }: { item: Resposta; ocupado: boolean; apoiar: (id: string, apoiar: boolean) => void; deitado?: boolean }) {
@@ -226,7 +228,9 @@ function BotaoDeApoio({ item, ocupado, apoiar, deitado = true }: { item: Respost
       onClick={() => apoiar(item.id, !ativo)}
       aria-pressed={ativo}
       title={item.meu ? "Os colegas apoiam o que você escreve" : ativo ? "Retirar o apoio" : "Apoiar"}
-      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-1 rounded-full font-bold disabled:cursor-default ${deitado ? "px-2.5 py-1.5 text-xs" : "w-11 flex-col py-1.5 text-xs"} ${ativo ? "bg-oxblood text-parchment" : "bg-parchment text-ink hover:text-oxblood disabled:hover:text-ink"}`}
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center gap-1 rounded-full border font-bold tabular-nums transition-colors disabled:cursor-default ${deitado ? "px-2.5 py-1 text-xs" : "w-11 flex-col py-1.5 text-xs"} ${ativo ? "" : "border-rule text-ink hover:text-oxblood disabled:hover:text-ink"}`}
+      // Apoiado: o bordô claro do tema, com a seta cheia (o número e o aria-pressed dizem o mesmo).
+      style={ativo ? { background: "var(--pn-destaque-suave)", color: "var(--pn-destaque-vivo)", borderColor: "color-mix(in srgb, var(--pn-destaque-vivo) 35%, transparent)" } : { background: "var(--pn-superficie-2)" }}
     >
       <Icone nome="apoio" cheio={ativo} />
       <span>{n}</span>
@@ -421,7 +425,15 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
   };
 
   if (erro) return <Aviso texto={erro} />;
-  if (!dados || !chaveiro) return <Aviso texto={canais.erro || "Preparando a chave deste aparelho…"} />;
+  if (!dados || !chaveiro)
+    return canais.erro ? (
+      <Aviso texto={canais.erro} />
+    ) : (
+      <div className="space-y-3">
+        <Esqueleto forma="cartoes" linhas={3} />
+        <p className="pn-ajuda">Preparando a chave deste aparelho…</p>
+      </div>
+    );
   if (chaveiro.estado !== "aprovado") return <AparelhoPendente chaveiro={chaveiro} />;
 
   const eu = membros.dados?.find((membro) => membro.eu);
@@ -442,19 +454,26 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
       <nav aria-label="Comunidades do mural" className="min-w-0 lg:row-span-2 xl:row-span-1">
         <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 lg:hidden">
           {["inicio", "salvas", ...dados.canais].map((id) => (
-            <button key={id} type="button" onClick={() => trocar(id)} aria-current={lugar === id ? "page" : undefined} className={`flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border py-1 pl-1 pr-3 text-sm ${lugar === id ? "border-ink bg-ink text-parchment" : "border-rule bg-parchment-deep hover:border-ink"}`}>
-              <Selo id={id} />
+            <button
+              key={id}
+              type="button"
+              onClick={() => trocar(id)}
+              aria-current={lugar === id ? "page" : undefined}
+              className={`pn-etiqueta shrink-0 cursor-pointer ${lugar === id ? "pn-etiqueta-bordo font-semibold" : ""}`}
+              style={{ padding: "0.25rem 0.75rem 0.25rem 0.25rem", fontSize: "0.875rem", minHeight: "2rem" }}
+            >
+              <SeloDaComunidade id={id} />
               {id === "inicio" ? "Início" : id === "salvas" ? "Salvas" : (comunidades[id]?.nome ?? id)}
             </button>
           ))}
         </div>
-        <div className="sticky top-4 hidden space-y-5 lg:block">
+        <div className="sticky top-16 hidden space-y-5 lg:block">
           <ul className="space-y-0.5">
             <ItemDoMenu id="inicio" nome="Início" ativo={lugar === "inicio"} trocar={trocar} />
             <ItemDoMenu id="salvas" nome="Salvas" ativo={lugar === "salvas"} trocar={trocar} conta={salvas.length} />
           </ul>
           <div>
-            <h2 className={`${rotulo} px-2`}>Comunidades</h2>
+            <h2 className="pn-rotulo-mono px-2">Comunidades</h2>
             <ul className="mt-1.5 space-y-0.5">
               {dados.canais.map((id) => (
                 <ItemDoMenu key={id} id={id} nome={comunidades[id]?.nome ?? id} ativo={lugar === id} trocar={trocar} />
@@ -465,21 +484,18 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
       </nav>
 
       <div className="min-w-0 space-y-3">
-        <header className="overflow-hidden border border-rule bg-parchment-deep">
-          <div aria-hidden className={`mural-faixa h-14 sm:h-16 ${faixaDa(lugar)}`} />
-          <div className="flex flex-wrap items-end gap-x-3 gap-y-2 px-4 pb-3">
-            <div className="-mt-7">
-              <Selo id={lugar} grande />
-            </div>
+        <header className="pn-cartao overflow-hidden" style={{ padding: 0 }}>
+          <div aria-hidden className="h-1" style={faixaDa(lugar)} />
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3">
+            <SeloDaComunidade id={lugar} grande />
             <div className="min-w-0 flex-1">
+              {!geral && <p className="pn-rotulo-mono">m/{lugar}</p>}
               <h2 className="font-serif text-2xl font-semibold leading-tight">{nomeDoLugar}</h2>
-              {!geral && <p className="font-mono text-xs text-ink-soft">m/{lugar}</p>}
             </div>
             {lugar !== "salvas" && (
-              <button type="button" className={`${botao} hidden items-center gap-2 rounded-full px-4 py-2 sm:inline-flex`} onClick={() => setEscrevendo(true)}>
-                <Icone nome="mais_um" />
+              <Botao variante="principal" className="hidden sm:inline-flex" simbolo={Plus} onClick={() => setEscrevendo(true)}>
                 Criar publicação
-              </button>
+              </Botao>
             )}
           </div>
           <p className="px-4 pb-3 text-sm text-ink-soft xl:hidden">{sobre}</p>
@@ -511,46 +527,47 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
           />
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-2 border border-rule bg-parchment-deep px-2 py-1.5">
-          <div role="tablist" aria-label="Ordenar as publicações" className="flex flex-wrap gap-1">
+        <div className="pn-barra-ferramentas flex flex-wrap items-center justify-between gap-2">
+          {/* A ordem é um grupo de botões (não abas: não há painel para cada uma); o escolhido fica com aria-pressed. */}
+          <div role="group" aria-label="Ordenar as publicações" className="flex flex-wrap gap-1">
             {ordens.map((item) => (
-              <button key={item.id} type="button" role="tab" aria-selected={ordem === item.id} onClick={() => setOrdem(item.id)} className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-semibold ${ordem === item.id ? "bg-ink text-parchment" : "text-ink-soft hover:bg-parchment hover:text-ink"}`}>
+              <Botao key={item.id} pequeno variante={ordem === item.id ? "padrao" : "discreto"} aria-pressed={ordem === item.id} onClick={() => setOrdem(item.id)}>
                 {item.nome}
-              </button>
+              </Botao>
             ))}
           </div>
           <div className="flex gap-0.5" role="group" aria-label="Jeito de ver">
             {(["cartoes", "compacto"] as const).map((jeito) => (
-              <button
+              <Botao
                 key={jeito}
-                type="button"
+                pequeno
+                icone
+                variante={vista === jeito ? "padrao" : "discreto"}
+                simbolo={ICONES[jeito]}
                 aria-pressed={vista === jeito}
-                title={jeito === "cartoes" ? "Cartões" : "Compacto"}
+                aria-label={jeito === "cartoes" ? "Cartões" : "Compacto"}
+                dica={jeito === "cartoes" ? "Cartões" : "Compacto"}
                 onClick={() => {
                   setVista(jeito);
                   guardar(CHAVE_DA_VISTA, JSON.stringify([jeito]));
                 }}
-                className={`cursor-pointer rounded-full p-2 ${vista === jeito ? "bg-parchment text-ink" : "text-ink-soft hover:text-ink"}`}
-              >
-                <Icone nome={jeito} />
-                <span className="sr-only">{jeito === "cartoes" ? "Cartões" : "Compacto"}</span>
-              </button>
+              />
             ))}
           </div>
         </div>
 
         <Aviso texto={lista.erro || acao.aviso || aviso} />
 
+        {!lista.dados && !lista.erro && <Esqueleto forma="cartoes" linhas={3} />}
         {lista.dados && visiveis.length === 0 && (
-          <div className="border border-dashed border-rule px-6 py-12 text-center">
-            <p className="font-serif text-xl font-semibold">{lugar === "salvas" ? "Nada salvo ainda" : ordem === "abertas" ? "Tudo respondido por aqui" : "Ninguém publicou aqui ainda"}</p>
-            <p className="mx-auto mt-1 max-w-sm text-ink-soft">
-              {lugar === "salvas" ? "Toque em “Salvar” numa publicação para guardá-la aqui." : ordem === "abertas" ? "Nenhuma publicação esperando a primeira resposta." : "Comece a conversa: uma ideia, um aviso ou um pedido de ajuda."}
-            </p>
-          </div>
+          <Vazio
+            simbolo={lugar === "salvas" ? Bookmark : MessageSquare}
+            titulo={lugar === "salvas" ? "Nada salvo ainda" : ordem === "abertas" ? "Tudo respondido por aqui" : "Ninguém publicou aqui ainda"}
+            texto={lugar === "salvas" ? "Toque em “Salvar” numa publicação para guardá-la aqui." : ordem === "abertas" ? "Nenhuma publicação esperando a primeira resposta." : "Comece a conversa: uma ideia, um aviso ou um pedido de ajuda."}
+          />
         )}
 
-        <div className={vista === "compacto" ? "border border-rule bg-parchment-deep" : "space-y-3"}>
+        <div className={vista === "compacto" ? "pn-cartao overflow-hidden" : "space-y-3"} style={vista === "compacto" ? { padding: 0 } : undefined}>
           {visiveis.map((recado) => (
             <Publicacao key={recado.id} recado={recado} canal={recado.canal ?? lugar} mostrarCanal={geral} compacto={vista === "compacto"} salva={salvas.includes(recado.id)} fioAberto={fios.includes(recado.id)} {...comum} />
           ))}
@@ -558,40 +575,39 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
       </div>
 
       <aside className="min-w-0 space-y-4 lg:col-start-2 xl:col-start-3 xl:row-start-1">
-        <section className="overflow-hidden border border-rule bg-parchment-deep">
-          <div aria-hidden className={`h-1.5 ${faixaDa(lugar)}`} />
-          <div className="p-4">
-            <h2 className="font-serif text-lg font-semibold">{nomeDoLugar}</h2>
-            <p className="mt-1 text-sm text-ink-soft">{sobre}</p>
-            <dl className="mt-3 grid grid-cols-3 gap-2 border-t border-rule pt-3 text-center">
-              <div>
-                <dt className="text-[0.65rem] uppercase tracking-wider text-ink-soft">Publicações</dt>
-                <dd className="font-serif text-xl font-semibold">{visiveis.length}</dd>
-              </div>
-              <div>
-                <dt className="text-[0.65rem] uppercase tracking-wider text-ink-soft">Comentários</dt>
-                <dd className="font-serif text-xl font-semibold">{comentarios}</dd>
-              </div>
-              <div>
-                <dt className="text-[0.65rem] uppercase tracking-wider text-ink-soft">Online</dt>
-                <dd className="flex items-center justify-center gap-1.5 font-serif text-xl font-semibold">
-                  <span aria-hidden className="h-2 w-2 rounded-full bg-ok" />
-                  {online}
-                </dd>
-              </div>
-            </dl>
-            <p className="mt-3 text-xs text-ink-soft">Cifrado de ponta a ponta neste aparelho · some em 30 dias</p>
+        <section className="pn-cartao overflow-hidden" style={{ padding: 0 }}>
+          <div aria-hidden className="h-1" style={faixaDa(lugar)} />
+          <div className="space-y-3 p-4">
+            <div>
+              <h2 className="font-serif text-lg font-semibold">{nomeDoLugar}</h2>
+              <p className="mt-1 text-sm text-ink-soft">{sobre}</p>
+            </div>
+            <Estatisticas>
+              <Estatistica rotulo="Publicações" valor={visiveis.length} />
+              <Estatistica rotulo="Comentários" valor={comentarios} />
+              <Estatistica
+                rotulo="Online"
+                tom={online ? "ok" : "neutro"}
+                valor={
+                  <span className="inline-flex items-center gap-1.5">
+                    <span aria-hidden className="h-2 w-2 rounded-full bg-ok" />
+                    {online}
+                  </span>
+                }
+              />
+            </Estatisticas>
+            <p className="pn-ajuda">Cifrado de ponta a ponta neste aparelho · some em 30 dias</p>
           </div>
         </section>
 
         <Apoios />
 
-        <details className="group border border-rule bg-parchment-deep" open>
-          <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-semibold">
+        <details className="group pn-cartao" style={{ padding: 0 }} open>
+          <summary className="flex cursor-pointer list-none items-center justify-between rounded-[var(--pn-raio-cartao)] px-4 py-3 font-semibold">
             Combinados do mural
-            <span aria-hidden className="text-ink-soft transition-transform group-open:rotate-180">▾</span>
+            <ChevronDown aria-hidden className="h-4 w-4 text-ink-soft transition-transform group-open:rotate-180" />
           </summary>
-          <ol className="list-decimal space-y-2 border-t border-rule py-3 pl-9 pr-4 text-sm text-ink-soft">
+          <ol className="list-decimal space-y-2 border-t border-rule py-3 pl-9 pr-4 text-sm text-ink-soft" style={{ borderTopColor: "var(--pn-borda)" }}>
             <li>Critique o trabalho, nunca a pessoa. Todo mundo aqui é voluntário.</li>
             <li>Nada de dados pessoais de estudantes ou de quem escreveu ao instituto.</li>
             <li>Pedido atendido? Marque como resolvido, para a fila andar.</li>
@@ -601,22 +617,24 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
 
         <Gente membros={membros.dados} erro={membros.erro} />
 
-        <section className="border border-rule bg-parchment-deep p-4 text-sm text-ink-soft">
-          <h2 className={rotulo}>Voz e vídeo</h2>
+        <Cartao as="section" className="text-sm text-ink-soft">
+          <h2 className="pn-rotulo-mono">Voz e vídeo</h2>
           <p className="mt-2">As reuniões da equipe agora ficam em Conversas e reuniões.</p>
           {safeLink(dados.sala) && (
             <p className="mt-1">
-              <a href={dados.sala} target="_blank" rel="noopener noreferrer" className={elo}>Abrir a sala da equipe</a>
+              <a href={dados.sala} target="_blank" rel="noopener noreferrer" className="pn-elo">
+                Abrir a sala da equipe
+              </a>
             </p>
           )}
-        </section>
+        </Cartao>
 
         <section className="space-y-2 px-1 text-xs text-ink-soft">
           <ComoFunciona />
           {lider && (
-            <button type="button" className={`${elo} block text-oxblood`} onClick={() => void apagarTudo()}>
+            <Botao variante="discreto" pequeno perigo simbolo={Trash2} onClick={() => void apagarTudo()}>
               Apagar todas as conversas agora
-            </button>
+            </Botao>
           )}
         </section>
       </aside>
@@ -627,10 +645,11 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
 function ItemDoMenu({ id, nome, ativo, trocar, conta }: { id: string; nome: string; ativo: boolean; trocar: (id: string) => void; conta?: number }) {
   return (
     <li>
-      <button type="button" onClick={() => trocar(id)} aria-current={ativo ? "page" : undefined} className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-sm ${ativo ? "bg-parchment-deep font-semibold text-ink shadow-[inset_3px_0_0_var(--oxblood)]" : "text-ink-soft hover:bg-parchment-deep hover:text-ink"}`}>
-        <Selo id={id} />
-        <span className="min-w-0 flex-1 truncate">{nome}</span>
-        {conta ? <span className="text-xs text-ink-soft">{conta}</span> : null}
+      {/* A linha escolhida segue a do menu do painel: fundo em realce e o fio bordô de 2 px à esquerda. */}
+      <button type="button" onClick={() => trocar(id)} aria-current={ativo ? "page" : undefined} className="pn-item pn-item-botao rounded-md" style={{ borderBottom: 0, minHeight: "2rem", padding: "0.3rem 0.5rem" }}>
+        <SeloDaComunidade id={id} />
+        <span className={`min-w-0 flex-1 truncate text-sm ${ativo ? "font-semibold text-ink" : "text-ink-soft"}`}>{nome}</span>
+        {conta ? <span className="text-xs text-ink-soft tabular-nums">{conta}</span> : null}
       </button>
     </li>
   );
@@ -659,18 +678,19 @@ function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, pub
 
   if (!aberto) {
     return (
-      <div className="flex items-center gap-3 border border-rule bg-parchment-deep p-2.5">
+      <Cartao as="div" className="flex items-center gap-3" style={{ padding: "0.6rem" }}>
         <Avatar nome={eu?.nome ?? "?"} avatar={eu?.avatar} className="h-9 w-9 rounded-full" />
-        <button type="button" onClick={() => setAberto(true)} className="min-w-0 flex-1 cursor-text rounded-full border border-rule bg-parchment px-4 py-2 text-left text-ink-soft hover:border-ink">
+        <button type="button" onClick={() => setAberto(true)} className="pn-campo min-w-0 flex-1 cursor-text text-left text-ink-soft">
           {pedido ? "Do que você precisa?" : "Criar publicação"}
         </button>
-      </div>
+      </Cartao>
     );
   }
 
   return (
     <form
-      className="border-2 border-ink bg-parchment-deep"
+      className="pn-cartao pn-cartao-destaque"
+      style={{ padding: 0 }}
       onSubmit={async (e) => {
         e.preventDefault();
         if (!titulo.trim() || corpo.length > MAXIMO) return;
@@ -688,21 +708,21 @@ function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, pub
       <div className="flex flex-wrap items-center gap-2 border-b border-rule px-4 py-2.5 text-sm">
         <span className="font-semibold">Publicar em</span>
         {escolher ? (
-          <select value={canal} onChange={(e) => setCanal(e.target.value)} className="cursor-pointer rounded-full border border-rule bg-parchment px-3 py-1" aria-label="Comunidade">
+          <select value={canal} onChange={(e) => setCanal(e.target.value)} className="pn-campo cursor-pointer" style={{ width: "auto" }} aria-label="Comunidade">
             {canais.map((id) => (
               <option key={id} value={id}>{comunidades[id]?.nome ?? id}</option>
             ))}
           </select>
         ) : (
-          <span className="flex items-center gap-1.5 rounded-full border border-rule bg-parchment py-0.5 pl-0.5 pr-3">
-            <Selo id={canal} />
+          <span className="pn-etiqueta inline-flex items-center gap-1.5">
+            <SeloDaComunidade id={canal} />
             {comunidades[canal]?.nome ?? canal}
           </span>
         )}
         {pedido && (
           <label className="flex items-center gap-2">
             <span className="font-semibold">para</span>
-            <select value={para} onChange={(e) => setPara(e.target.value as Role["papel"])} className="cursor-pointer rounded-full border border-rule bg-parchment px-3 py-1">
+            <select value={para} onChange={(e) => setPara(e.target.value as Role["papel"])} className="pn-campo cursor-pointer" style={{ width: "auto" }}>
               {funcoes.map((funcao) => (
                 <option key={funcao} value={funcao}>{papeis[funcao]}</option>
               ))}
@@ -720,30 +740,30 @@ function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, pub
           aria-label="Título"
           placeholder={pedido ? "Do que você precisa, numa linha" : "Título"}
           className="w-full border-0 border-b-2 border-rule bg-transparent pb-1.5 font-serif text-xl font-semibold placeholder:font-normal placeholder:text-ink-soft focus:border-ink focus:outline-none"
+          // O título da publicação é escrito em Garamond, como os títulos da tela (a classe font-serif só fica Garamond em h1-h3).
+          style={{ fontFamily: "var(--pn-fonte-titulo)" }}
         />
-        <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={4} aria-label="Texto" placeholder={pedido ? "Para quando, para qual aula ou matéria, o que já está pronto." : "Texto (opcional). *negrito*, _itálico_ e links funcionam."} className={`${campo} mt-0 bg-parchment`} />
+        <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={4} aria-label="Texto" placeholder={pedido ? "Para quando, para qual aula ou matéria, o que já está pronto." : "Texto (opcional). *negrito*, _itálico_ e links funcionam."} className="pn-campo" />
         <fieldset>
           <legend className="text-xs font-semibold text-ink-soft">Etiqueta (opcional)</legend>
           <div className="mt-1.5 flex flex-wrap gap-1.5">
             {(Object.keys(etiquetas) as Etiqueta[]).map((id) => (
-              <button key={id} type="button" aria-pressed={etiqueta === id} onClick={() => setEtiqueta(etiqueta === id ? null : id)} className={`cursor-pointer rounded-full px-2.5 py-1 text-xs font-semibold ${etiqueta === id ? etiquetas[id].estilo : "border border-rule text-ink-soft hover:border-ink hover:text-ink"}`}>
+              <Botao key={id} pequeno variante={etiqueta === id ? "padrao" : "discreto"} aria-pressed={etiqueta === id} onClick={() => setEtiqueta(etiqueta === id ? null : id)} simbolo={etiqueta === id ? Check : undefined}>
                 {etiquetas[id].nome}
-              </button>
+              </Botao>
             ))}
           </div>
         </fieldset>
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-rule px-4 py-2.5">
-        <span className={`text-xs ${corpo.length > MAXIMO ? "font-semibold text-oxblood" : "text-ink-soft"}`}>
+      <div className="pn-cartao-rodape flex flex-wrap items-center justify-between gap-2" style={{ margin: 0 }}>
+        <span className={`text-xs tabular-nums ${corpo.length > MAXIMO ? "pn-erro font-semibold" : "text-ink-soft"}`}>
           {corpo.length}/{MAXIMO} · cifrado neste aparelho
         </span>
         <span className="flex gap-2">
-          <button type="button" className={`${botaoClaro} rounded-full px-4 py-1.5`} onClick={() => setAberto(false)}>
-            Cancelar
-          </button>
-          <button type="submit" className={`${botao} rounded-full px-5 py-2`} disabled={ocupado || enviando || !titulo.trim() || corpo.length > MAXIMO}>
+          <Botao onClick={() => setAberto(false)}>Cancelar</Botao>
+          <Botao type="submit" variante="principal" carregando={enviando} disabled={ocupado || enviando || !titulo.trim() || corpo.length > MAXIMO}>
             {pedido ? "Pedir ajuda" : "Publicar"}
-          </button>
+          </Botao>
         </span>
       </div>
     </form>
@@ -753,14 +773,14 @@ function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, pub
 function Etiquetas({ recado }: { recado: Recado }) {
   if (!recado.etiqueta && !recado.para && !recado.resolvido) return null;
   return (
-    <p className="mt-1.5 flex flex-wrap gap-1.5 text-[0.7rem] font-semibold">
-      {recado.etiqueta && etiquetas[recado.etiqueta] && <span className={`rounded-full px-2 py-0.5 ${etiquetas[recado.etiqueta].estilo}`}>{etiquetas[recado.etiqueta].nome}</span>}
-      {recado.para && <span className="rounded-full border border-ink px-2 py-0.5">para {papeis[recado.para]}</span>}
+    <p className="mt-1.5 flex flex-wrap gap-1.5">
+      {recado.etiqueta && etiquetas[recado.etiqueta] && <Selo tom={etiquetas[recado.etiqueta].tom}>{etiquetas[recado.etiqueta].nome}</Selo>}
+      {recado.para && <Selo>para {papeis[recado.para]}</Selo>}
       {recado.resolvido && (
-        <span className="inline-flex items-center gap-1 rounded-full bg-ok px-2 py-0.5 text-parchment">
+        <Selo tom="ok">
           <Icone nome="certo" className="h-3 w-3" />
           resolvido
-        </span>
+        </Selo>
       )}
     </p>
   );
@@ -768,7 +788,6 @@ function Etiquetas({ recado }: { recado: Recado }) {
 
 function Publicacao({ recado, canal, mostrarCanal, compacto, salva, fioAberto, abertos, agora, modera, ocupado, acoes }: Comum & { recado: Recado; canal: string; mostrarCanal: boolean; compacto: boolean; salva: boolean; fioAberto: boolean }) {
   const [inteiro, setInteiro] = useState(false);
-  const menu = useRef<HTMLDetailsElement>(null);
   const aberto = abertos[recado.id];
   const antiga = recado.corpo.startsWith("c1.");
   const p = aberto && !antiga ? partes(aberto) : null;
@@ -778,15 +797,14 @@ function Publicacao({ recado, canal, mostrarCanal, compacto, salva, fioAberto, a
   const n = recado.respostas.length;
   const nome = recado.autor || "Alguém que saiu da equipe";
   const resolve = (recado.meu || modera) && (canal === "pedidos" || recado.etiqueta === "duvida" || recado.resolvido);
-  const fechar = () => menu.current?.removeAttribute("open");
   const comentarios = n === 0 ? "Comentar" : n === 1 ? "1 comentário" : `${n} comentários`;
 
   const meta = (
     <p className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs text-ink-soft">
       {mostrarCanal && (
         <>
-          <button type="button" onClick={() => acoes.abrirCanal(canal)} className="flex cursor-pointer items-center gap-1.5 font-semibold text-ink hover:underline">
-            <Selo id={canal} />
+          <button type="button" onClick={() => acoes.abrirCanal(canal)} className="flex cursor-pointer items-center gap-1.5 rounded-sm font-semibold text-ink hover:underline">
+            <SeloDaComunidade id={canal} />
             {comunidades[canal]?.nome ?? canal}
           </button>
           <span aria-hidden>•</span>
@@ -797,10 +815,10 @@ function Publicacao({ recado, canal, mostrarCanal, compacto, salva, fioAberto, a
       <span aria-hidden>•</span>
       <time dateTime={recado.criado_em} title={dataHora(recado.criado_em)}>{quando(recado.criado_em, agora)}</time>
       {recado.fixada && (
-        <span className="ml-1 inline-flex items-center gap-1 font-semibold text-ok">
-          <Icone nome="pino" className="h-3.5 w-3.5" />
+        <Selo tom="ok" className="ml-1">
+          <Icone nome="pino" className="h-3 w-3" />
           Fixada
-        </span>
+        </Selo>
       )}
       {compacto && (
         <>
@@ -815,11 +833,11 @@ function Publicacao({ recado, canal, mostrarCanal, compacto, salva, fioAberto, a
 
   if (compacto) {
     return (
-      <article id={`pub-${recado.id}`} className={`border-b border-rule last:border-b-0 ${recado.fixada && !mostrarCanal ? "bg-parchment" : ""}`}>
+      <article id={`pub-${recado.id}`} className="border-b border-rule last:border-b-0" style={recado.fixada && !mostrarCanal ? { background: "var(--pn-superficie-2)" } : undefined}>
         <div className="flex items-start gap-3 px-3 py-2.5">
           <BotaoDeApoio item={recado} ocupado={ocupado} apoiar={acoes.apoiar} deitado={false} />
           <div className="min-w-0 flex-1">
-            <button type="button" onClick={() => acoes.alternarFio(recado.id)} aria-expanded={fioAberto} className="cursor-pointer text-left font-serif text-[1.05rem] font-semibold leading-snug hover:underline" data-original>
+            <button type="button" onClick={() => acoes.alternarFio(recado.id)} aria-expanded={fioAberto} className="cursor-pointer rounded-sm text-left text-[1.05rem] font-semibold leading-snug hover:underline" style={{ fontFamily: "var(--pn-fonte-titulo)" }} data-original>
               {titulo || corpo.slice(0, 140)}
             </button>
             <Etiquetas recado={recado} />
@@ -832,7 +850,8 @@ function Publicacao({ recado, canal, mostrarCanal, compacto, salva, fioAberto, a
   }
 
   return (
-    <article id={`pub-${recado.id}`} className={`border bg-parchment-deep transition-colors ${recado.fixada && !mostrarCanal ? "border-ok" : "border-rule hover:border-ink-soft"}`}>
+    // Cada publicação é um Cartao (article): a fixada no alto do canal ganha a variante em destaque.
+    <Cartao as="article" id={`pub-${recado.id}`} variante={recado.fixada && !mostrarCanal ? "destaque" : "padrao"} style={{ padding: 0 }}>
       <div className="px-4 pt-3">{meta}</div>
       <div className={`px-4 pt-1.5 ${recado.resolvido ? "opacity-80" : ""}`}>
         {titulo && (
@@ -844,63 +863,50 @@ function Publicacao({ recado, canal, mostrarCanal, compacto, salva, fioAberto, a
         {corpo && (
           <div className={`relative mt-2 leading-relaxed ${longo && !inteiro ? "max-h-44 overflow-hidden" : ""}`} data-original>
             <Formatado texto={corpo} className="whitespace-pre-line break-words" />
-            {longo && !inteiro && <div aria-hidden className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-parchment-deep" />}
+            {/* O texto longo some aos poucos na cor do cartão (não é gradiente decorativo: é o corte do "Ver mais"). */}
+            {longo && !inteiro && <div aria-hidden className="absolute inset-x-0 bottom-0 h-12" style={{ background: "linear-gradient(to top, var(--pn-superficie), transparent)" }} />}
           </div>
         )}
         {longo && (
-          <button type="button" onClick={() => setInteiro(!inteiro)} className="mt-1 cursor-pointer text-xs font-semibold text-oxblood hover:underline">
+          <Botao variante="discreto" pequeno className="mt-1" aria-expanded={inteiro} onClick={() => setInteiro(!inteiro)}>
             {inteiro ? "Ver menos" : "Ver mais"}
-          </button>
+          </Botao>
         )}
         {aberto && !antiga && <Autoria aberto={aberto} />}
       </div>
       <div className="flex flex-wrap items-center gap-1 px-2.5 py-2">
         <BotaoDeApoio item={recado} ocupado={ocupado} apoiar={acoes.apoiar} />
-        <button type="button" className={`${pilula} ${fioAberto ? "bg-parchment text-ink" : ""}`} onClick={() => acoes.alternarFio(recado.id)} aria-expanded={fioAberto}>
-          <Icone nome="comentario" />
+        <Botao variante={fioAberto ? "padrao" : "discreto"} pequeno simbolo={ICONES.comentario} onClick={() => acoes.alternarFio(recado.id)} aria-expanded={fioAberto}>
           {comentarios}
-        </button>
+        </Botao>
         <button type="button" className={`${pilula} ${salva ? "text-oxblood" : ""}`} onClick={() => acoes.salvar(recado.id)} aria-pressed={salva}>
           <Icone nome="salvar" cheio={salva} />
           {salva ? "Salva" : "Salvar"}
         </button>
-        <button type="button" className={`${pilula} hidden sm:inline-flex`} onClick={() => acoes.copiar(recado)}>
-          <Icone nome="elo" />
+        <Botao variante="discreto" pequeno className="hidden sm:inline-flex" simbolo={ICONES.elo} onClick={() => acoes.copiar(recado)}>
           Copiar link
-        </button>
+        </Botao>
         {resolve && (
-          <button type="button" className={`${pilula} ${recado.resolvido ? "" : "text-ok"}`} disabled={ocupado} onClick={() => acoes.resolver(recado)}>
-            <Icone nome="certo" />
+          <Botao variante="discreto" pequeno simbolo={ICONES.certo} disabled={ocupado} onClick={() => acoes.resolver(recado)}>
             {recado.resolvido ? "Reabrir" : "Resolvido"}
-          </button>
+          </Botao>
         )}
-        <details ref={menu} className="relative ml-auto">
-          <summary className={`${pilula} list-none px-2`} aria-label="Mais opções">
-            <Icone nome="mais" />
-          </summary>
-          <div className="absolute right-0 z-20 mt-1 w-48 border border-ink bg-parchment py-1 text-sm shadow-[4px_4px_0_var(--ink)]">
-            <button type="button" className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-left hover:bg-parchment-deep sm:hidden" onClick={() => { fechar(); acoes.copiar(recado); }}>
-              <Icone nome="elo" />
-              Copiar link
-            </button>
-            {modera && !mostrarCanal && (
-              <button type="button" className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-left hover:bg-parchment-deep" onClick={() => { fechar(); acoes.fixar(recado); }}>
-                <Icone nome="pino" />
-                {recado.fixada ? "Soltar do alto" : "Fixar no alto"}
-              </button>
-            )}
-            {(recado.meu || modera) && (
-              <button type="button" className="flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-left text-oxblood hover:bg-parchment-deep" onClick={() => { fechar(); acoes.apagar(recado.id, true); }}>
-                <Icone nome="lixo" />
-                Apagar
-              </button>
-            )}
+        <span className="ml-auto">
+          {/* O "mais opções" é um MenuSuspenso (Radix): setas, Esc e o foco de volta ao botão. */}
+          <MenuSuspenso
+            alinhamento="end"
+            rotulo="Mais opções"
+            gatilho={<Botao variante="discreto" pequeno icone simbolo={ICONES.mais} aria-label="Mais opções" />}
+          >
+            <MenuSuspenso.Item rotulo="Copiar link" simbolo={ICONES.elo} fazer={() => acoes.copiar(recado)} />
+            {modera && !mostrarCanal && <MenuSuspenso.Item rotulo={recado.fixada ? "Soltar do alto" : "Fixar no alto"} simbolo={ICONES.pino} fazer={() => acoes.fixar(recado)} />}
+            {(recado.meu || modera) && <MenuSuspenso.Item rotulo="Apagar" simbolo={ICONES.lixo} perigo fazer={() => acoes.apagar(recado.id, true)} />}
             {!recado.meu && !modera && <p className="px-3 py-2 text-xs text-ink-soft">Só quem escreveu, a coordenação e a supervisão apagam.</p>}
-          </div>
-        </details>
+          </MenuSuspenso>
+        </span>
       </div>
       {fio}
-    </article>
+    </Cartao>
   );
 }
 
@@ -933,19 +939,19 @@ function Fio({ recado, canal, abertos, agora, modera, ocupado, acoes }: Comum & 
   };
 
   return (
-    <section aria-label="Comentários" className="border-t border-rule bg-parchment px-4 pb-4 pt-3">
+    <section aria-label="Comentários" className="border-t border-rule px-4 pb-4 pt-3" style={{ background: "var(--pn-superficie-2)", borderRadius: "0 0 var(--pn-raio-cartao) var(--pn-raio-cartao)" }}>
       <form
-        className="border border-rule bg-parchment-deep focus-within:border-ink"
+        className="grid gap-2"
         onSubmit={async (e) => {
           e.preventDefault();
           if (await acoes.comentar(recado, texto, null)) setTexto("");
         }}
       >
-        <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={2} maxLength={MAXIMO} aria-label={`Comentar em ${comunidades[canal]?.nome ?? canal}`} placeholder="Adicionar um comentário" className="block w-full resize-y bg-transparent px-3 py-2 focus:outline-none" />
-        <div className="flex justify-end px-2 pb-2">
-          <button type="submit" className={`${botao} rounded-full px-4 py-1.5 text-sm`} disabled={ocupado || !texto.trim()}>
+        <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={2} maxLength={MAXIMO} aria-label={`Comentar em ${comunidades[canal]?.nome ?? canal}`} placeholder="Adicionar um comentário" className="pn-campo resize-y" />
+        <div className="flex justify-end">
+          <Botao type="submit" pequeno disabled={ocupado || !texto.trim()}>
             Comentar
-          </button>
+          </Botao>
         </div>
       </form>
       {raiz.length === 0 ? (
@@ -998,13 +1004,13 @@ function Comentario({ item, nivel, contexto, abertos, agora, modera, ocupado, ac
       <div className="min-w-0 flex-1">
         <p className="flex flex-wrap items-center gap-x-1.5 text-xs text-ink-soft">
           <span className="font-semibold text-ink">{nome}</span>
-          {item.autor_id && item.autor_id === contexto.autorDaPublicacao && <span className="rounded-full bg-ink px-1.5 text-[0.6rem] font-bold uppercase tracking-wide text-parchment">autor</span>}
+          {item.autor_id && item.autor_id === contexto.autorDaPublicacao && <Selo tom="bordo">autor</Selo>}
           <span aria-hidden>•</span>
           <time dateTime={item.criado_em} title={dataHora(item.criado_em)}>{quando(item.criado_em, agora)}</time>
           {recolhido && (
-            <button type="button" onClick={() => contexto.recolher(item.id)} className="cursor-pointer font-semibold text-oxblood hover:underline">
-              + {contar(item.id, contexto.filhos)} no fio
-            </button>
+            <Botao variante="discreto" pequeno simbolo={ICONES.mais_um} aria-expanded={false} onClick={() => contexto.recolher(item.id)}>
+              {contar(item.id, contexto.filhos)} no fio
+            </Botao>
           )}
         </p>
         {!recolhido && (
@@ -1014,20 +1020,18 @@ function Comentario({ item, nivel, contexto, abertos, agora, modera, ocupado, ac
             </div>
             <div className="-ml-2 mt-0.5 flex flex-wrap items-center gap-0.5">
               <BotaoDeApoio item={item} ocupado={ocupado} apoiar={acoes.apoiar} />
-              <button type="button" className={pilula} onClick={() => contexto.responder(respondendo ? null : item.id)} aria-expanded={respondendo}>
-                <Icone nome="comentario" />
+              <Botao variante="discreto" pequeno simbolo={ICONES.comentario} onClick={() => contexto.responder(respondendo ? null : item.id)} aria-expanded={respondendo}>
                 Responder
-              </button>
+              </Botao>
               {(item.meu || modera) && (
-                <button type="button" className={pilula} onClick={() => acoes.apagar(item.id, false)}>
-                  <Icone nome="lixo" />
+                <Botao variante="discreto" pequeno perigo simbolo={ICONES.lixo} onClick={() => acoes.apagar(item.id, false)}>
                   Apagar
-                </button>
+                </Botao>
               )}
             </div>
             {respondendo && (
               <form
-                className="mt-1.5 border border-rule bg-parchment-deep focus-within:border-ink"
+                className="mt-1.5 grid gap-2"
                 onSubmit={async (e) => {
                   e.preventDefault();
                   if (await contexto.enviar(texto, acima)) {
@@ -1036,14 +1040,14 @@ function Comentario({ item, nivel, contexto, abertos, agora, modera, ocupado, ac
                   }
                 }}
               >
-                <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={2} maxLength={MAXIMO} autoFocus aria-label={`Responder a ${nome}`} placeholder={`Responder a ${nome}`} className="block w-full resize-y bg-transparent px-3 py-2 focus:outline-none" />
-                <div className="flex justify-end gap-2 px-2 pb-2">
-                  <button type="button" className="cursor-pointer rounded-full px-3 py-1.5 text-sm font-semibold text-ink-soft hover:text-ink" onClick={() => contexto.responder(null)}>
+                <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={2} maxLength={MAXIMO} autoFocus aria-label={`Responder a ${nome}`} placeholder={`Responder a ${nome}`} className="pn-campo resize-y" />
+                <div className="flex justify-end gap-2">
+                  <Botao variante="discreto" pequeno onClick={() => contexto.responder(null)}>
                     Cancelar
-                  </button>
-                  <button type="submit" className={`${botao} rounded-full px-4 py-1.5 text-sm`} disabled={ocupado || !texto.trim()}>
+                  </Botao>
+                  <Botao type="submit" pequeno disabled={ocupado || !texto.trim()}>
                     Responder
-                  </button>
+                  </Botao>
                 </div>
               </form>
             )}
@@ -1073,22 +1077,29 @@ function Gente({ membros, erro }: { membros: Membro[] | null; erro: string }) {
   const mostrados = todos || quem ? filtrados : filtrados.slice(0, 8);
 
   return (
-    <section className="border border-rule bg-parchment-deep p-4">
-      <h2 className={rotulo}>Quem está na equipe</h2>
+    <Cartao as="section" aria-label="Quem está na equipe">
+      <h2 className="pn-rotulo-mono">Quem está na equipe</h2>
       <Aviso texto={erro} />
-      {(membros?.length ?? 0) > 8 && <input type="search" value={quem} onChange={(e) => setQuem(e.target.value)} placeholder="Filtrar por nome" aria-label="Filtrar a equipe por nome" className={`${campo} rounded-full border px-3 py-1.5 text-sm`} />}
+      {(membros?.length ?? 0) > 8 && <Busca rotulo="Filtrar a equipe por nome" placeholder="Filtrar por nome" valor={quem} aoMudar={setQuem} className="mt-2" />}
       <ul className="mt-3 space-y-2.5">
         {mostrados.map((membro) => (
           <li key={membro.id} className="flex items-start gap-2.5" title={membro.bio || undefined}>
             <span className="relative shrink-0">
               <Avatar nome={membro.nome} avatar={membro.avatar} className="h-8 w-8 rounded-full text-[0.7rem]" />
-              {membro.online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-parchment-deep bg-ok" />}
+              {membro.online && <span aria-hidden title="online" className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 bg-ok" style={{ borderColor: "var(--pn-superficie)" }} />}
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-sm font-semibold">
-                {membro.nome}
-                {membro.eu && " (você)"}
-                {membro.ferias_ate && <span className="ml-1.5 rounded-sm bg-[#f9e7a6] px-1 text-[0.65rem] font-semibold text-[#1f1a14]" title={`De férias até ${new Date(`${membro.ferias_ate}T12:00:00`).toLocaleDateString()}`}>de férias</span>}
+              <span className="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
+                <span className="truncate">
+                  {membro.nome}
+                  {membro.eu && " (você)"}
+                  {membro.online && <span className="sr-only"> (online)</span>}
+                </span>
+                {membro.ferias_ate && (
+                  <Selo tom="ouro" titulo={`De férias até ${new Date(`${membro.ferias_ate}T12:00:00`).toLocaleDateString()}`}>
+                    de férias
+                  </Selo>
+                )}
               </span>
               <span className="block text-xs leading-snug text-ink-soft">{membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` · ${nomeDaArea(papel.disciplina)}` : ""}`).join(" · ")}</span>
               {membro.oficios && membro.oficios.length > 0 && <span className="block text-xs leading-snug text-prelo-texto">Sabe: {membro.oficios.join(", ")}</span>}
@@ -1097,11 +1108,11 @@ function Gente({ membros, erro }: { membros: Membro[] | null; erro: string }) {
         ))}
       </ul>
       {!quem && filtrados.length > 8 && (
-        <button type="button" className={`${elo} mt-3 text-sm`} onClick={() => setTodos(!todos)}>
+        <Botao variante="discreto" pequeno className="mt-3" aria-expanded={todos} onClick={() => setTodos(!todos)}>
           {todos ? "Mostrar menos" : `Ver as ${filtrados.length} pessoas`}
-        </button>
+        </Botao>
       )}
-    </section>
+    </Cartao>
   );
 }
 
@@ -1114,18 +1125,24 @@ function TermoDoAprendizado({ aceito, recarregar }: { aceito: boolean | undefine
   const acao = useAcao(recarregar);
   if (aceito === undefined) return null;
   return (
-    <section className={`border-l-4 px-4 py-3 ${aceito ? "border-ok bg-parchment-deep" : "border-oxblood bg-parchment-deep"}`}>
-      <p className="font-semibold">Aprendizado interno</p>
-      <p className="mt-1 text-ink-soft">
+    <Faixa tom={aceito ? "ok" : "bordo"} titulo="Aprendizado interno">
+      <p className="mt-1">
         Aqui a equipe ensina a equipe: alguém oferece uma oficina, um estudo dirigido ou uma troca de ofício, e quem quiser acompanha. Cada dia de participação registrada conta meia hora de voluntariado, só para quem aceitou este termo e assinou o termo de adesão em “Horas e certificados”.
       </p>
       {aceito ? (
-        <p className="mt-2 text-xs text-ink-soft">Você participa do aprendizado interno. <button type="button" className="cursor-pointer underline" disabled={acao.ocupado} onClick={() => acao.agir("aprendizado_aceitar", { p_aceito: false }, "Você saiu do aprendizado interno.")}>Sair</button></p>
+        <p className="mt-2 flex flex-wrap items-center gap-1 text-xs">
+          Você participa do aprendizado interno.{" "}
+          <Botao variante="discreto" pequeno disabled={acao.ocupado} onClick={() => acao.agir("aprendizado_aceitar", { p_aceito: false }, "Você saiu do aprendizado interno.")}>
+            Sair
+          </Botao>
+        </p>
       ) : (
-        <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado} onClick={() => acao.agir("aprendizado_aceitar", { p_aceito: true }, "Bem-vindo ao aprendizado interno.")}>Aceito participar</button>
+        <Botao className="mt-3" simbolo={Check} disabled={acao.ocupado} carregando={acao.ocupado} onClick={() => acao.agir("aprendizado_aceitar", { p_aceito: true }, "Bem-vindo ao aprendizado interno.")}>
+          Aceito participar
+        </Botao>
       )}
       <Aviso texto={acao.aviso} />
-    </section>
+    </Faixa>
   );
 }
 
@@ -1157,31 +1174,35 @@ function Apoios() {
 
   if (esperando.length === 0) return null;
   return (
-    <section className="border-2 border-ink bg-parchment-deep p-4">
-      <h2 className="font-serif text-lg font-semibold leading-snug">Imagens e arquivos esperando o apoio da equipe</h2>
-      <p className="mt-1 text-sm text-ink-soft">Nada que tenha imagem vai ao ar por decisão de uma pessoa só. Abra, olhe com calma e apoie se estiver correto. Com dois apoios, a coordenação pode aprovar.</p>
+    <Cartao
+      variante="destaque"
+      titulo="Imagens e arquivos esperando o apoio da equipe"
+      sobre="Nada que tenha imagem vai ao ar por decisão de uma pessoa só. Abra, olhe com calma e apoie se estiver correto. Com dois apoios, a coordenação pode aprovar."
+    >
       <Aviso texto={lista.erro || acao.aviso} />
-      <ul className="mt-2 divide-y divide-rule">
+      <Lista rotulo="Arquivos esperando apoio" plana>
         {esperando.map((arquivo) => (
-          <li key={arquivo.id} className="py-2.5 text-sm">
-            <p className="break-words font-semibold">{arquivo.nome}</p>
-            <p className="text-xs text-ink-soft">
-              {arquivo.caminho.split(".").pop()?.toUpperCase()} · {data(arquivo.criado_em)} · {arquivo.meu ? "enviado por você" : `de ${arquivo.de || "—"}`} · {arquivo.apoios} de 2 apoios
-            </p>
-            <p className="mt-1 flex gap-4">
-              <button type="button" className={elo} onClick={() => void ver(arquivo.caminho)}>
-                Ver
-              </button>
-              {!arquivo.meu && (
-                <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("arquivo_apoiar", { p_id: arquivo.id, p_apoiar: !arquivo.apoiei }, arquivo.apoiei ? "Apoio retirado." : "Apoio registrado.")}>
-                  {arquivo.apoiei ? "Retirar apoio" : "Apoiar"}
-                </button>
-              )}
-            </p>
-          </li>
+          <ItemDeLista
+            key={arquivo.id}
+            titulo={<span className="break-words">{arquivo.nome}</span>}
+            meta={`${arquivo.caminho.split(".").pop()?.toUpperCase()} · ${data(arquivo.criado_em)} · ${arquivo.meu ? "enviado por você" : `de ${arquivo.de || "—"}`}`}
+            selo={<Selo tom={arquivo.apoios >= 2 ? "ok" : "aviso"}>{arquivo.apoios} de 2 apoios</Selo>}
+            acoes={
+              <>
+                <Botao variante="discreto" pequeno onClick={() => void ver(arquivo.caminho)}>
+                  Ver
+                </Botao>
+                {!arquivo.meu && (
+                  <Botao pequeno simbolo={ICONES.apoio} disabled={acao.ocupado} onClick={() => acao.agir("arquivo_apoiar", { p_id: arquivo.id, p_apoiar: !arquivo.apoiei }, arquivo.apoiei ? "Apoio retirado." : "Apoio registrado.")}>
+                    {arquivo.apoiei ? "Retirar apoio" : "Apoiar"}
+                  </Botao>
+                )}
+              </>
+            }
+          />
         ))}
-      </ul>
-    </section>
+      </Lista>
+    </Cartao>
   );
 }
 

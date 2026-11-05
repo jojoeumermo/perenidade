@@ -1,9 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { LoaderCircle, Search, UserRound } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { rpc } from "@/lib/backend";
-import { campo } from "./comum";
+import { Botao, Selo } from "./ui";
 
 export interface PessoaAchada {
   id: string;
@@ -21,6 +22,7 @@ export interface PessoaAchada {
  * "reserva" é a lista já carregada na tela: serve de busca local se o serviço ainda não tiver a função de busca.
  * "entre" troca a busca no banco por uma busca só dentro da lista dada (os colegas da equipe, quem pode assinar…):
  * aí o campo já abre mostrando os primeiros nomes e afina conforme a pessoa digita.
+ * Desenho do painel: campo com a lupa (gira enquanto procura) e a lista no jeito do MenuSuspenso.
  */
 export function BuscaDePessoa({
   escolhida,
@@ -85,20 +87,22 @@ export function BuscaDePessoa({
 
   if (escolhida) {
     return (
-      <div className={`${campo} flex items-center justify-between gap-3`}>
-        <span className="min-w-0">
+      <div className="pn-campo mt-1 flex items-center justify-between gap-3">
+        <UserRound aria-hidden className="h-4 w-4 shrink-0 text-ink-soft" />
+        <span className="min-w-0 flex-1">
           <strong className="block truncate">{escolhida.nome}</strong>
-          <span className="block truncate font-mono text-xs text-ink-soft">{escolhida.email}</span>
+          <span className="pn-rotulo-mono block truncate normal-case tracking-normal">{escolhida.email}</span>
         </span>
-        <button type="button" className="shrink-0 cursor-pointer underline hover:text-oxblood" onClick={() => escolher(null)}>
+        <Botao variante="discreto" pequeno className="shrink-0" onClick={() => escolher(null)}>
           Trocar
-        </button>
+        </Botao>
       </div>
     );
   }
 
   return (
-    <div className="relative">
+    <div className="pn-campo-com-simbolo relative mt-1">
+      {buscando ? <LoaderCircle aria-hidden className="pn-girando" /> : <Search aria-hidden />}
       <input
         type="search"
         role="combobox"
@@ -111,7 +115,7 @@ export function BuscaDePessoa({
         maxLength={120}
         aria-label={rotulo}
         placeholder={local ? "Digite o nome para procurar" : "Digite o nome ou o e-mail"}
-        className={campo}
+        className="pn-campo"
         onChange={(e) => {
           setTexto(e.target.value);
           setAberta(true);
@@ -135,14 +139,16 @@ export function BuscaDePessoa({
         }}
       />
       {mostra && (
-        <ul id={`${id}-lista`} role="listbox" className="absolute left-0 right-0 z-20 mt-1 max-h-48 overflow-y-auto border-2 border-ink bg-parchment shadow-lg">
+        <ul id={`${id}-lista`} role="listbox" aria-label={rotulo} className="pn-menu-suspenso absolute top-full right-0 left-0 z-20 mt-1 max-h-48 max-w-none">
           {lista.map((pessoa, i) => (
             <li
               key={pessoa.id}
               id={`${id}-${pessoa.id}`}
               role="option"
               aria-selected={i === ativa}
-              className={`cursor-pointer px-3 py-2 ${i === ativa ? "bg-parchment-deep" : ""}`}
+              className="pn-menu-suspenso-item cursor-pointer"
+              // O destaque do item ativo é o mesmo do MenuSuspenso (data-highlighted pinta o fundo com --pn-ativo).
+              data-highlighted={i === ativa ? "" : undefined}
               onMouseEnter={() => setAtiva(i)}
               // mousedown, não click: o clique chegaria depois de o campo perder o foco e a lista fechar.
               onMouseDown={(e) => {
@@ -150,14 +156,17 @@ export function BuscaDePessoa({
                 confirmar(pessoa);
               }}
             >
-              <strong className="block truncate">
-                {pessoa.nome} {pessoa.suspenso && <span className="font-normal text-oxblood">(suspensa)</span>}
-              </strong>
-              <span className="block truncate font-mono text-xs text-ink-soft">{pessoa.email}</span>
+              {/* Um só filho em bloco: o item do menu é flex, e o nome e o e-mail ficam um embaixo do outro. */}
+              <span className="min-w-0">
+                <strong className="block truncate">
+                  {pessoa.nome} {pessoa.suspenso && <Selo tom="erro">(suspensa)</Selo>}
+                </strong>
+                <span className="pn-ajuda block truncate font-mono">{pessoa.email}</span>
+              </span>
             </li>
           ))}
-          {lista.length === 0 && <li className="px-3 py-2 text-ink-soft">{local ? "Ninguém com esse nome nesta lista." : buscando || achadas === null ? "Procurando…" : "Ninguém com esse nome ou e-mail. A pessoa precisa ter entrado no site pelo menos uma vez."}</li>}
-          {lista.length === 20 && <li className="border-t border-rule px-3 py-2 text-xs text-ink-soft">Mostrando os vinte primeiros. Digite mais para afinar a busca.</li>}
+          {lista.length === 0 && <li className="pn-ajuda px-3 py-2">{local ? "Ninguém com esse nome nesta lista." : buscando || achadas === null ? "Procurando…" : "Ninguém com esse nome ou e-mail. A pessoa precisa ter entrado no site pelo menos uma vez."}</li>}
+          {lista.length === 20 && <li className="pn-ajuda border-t border-rule px-3 py-2">Mostrando os vinte primeiros. Digite mais para afinar a busca.</li>}
         </ul>
       )}
     </div>

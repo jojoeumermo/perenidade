@@ -71,8 +71,10 @@ for (const nome of ["confirmar", "perguntar", "confirmarFrase", "perguntarTexto"
   confere(new RegExp(String.raw`export (async )?function ${nome}\b`).test(dialogo), `Dialogo.tsx não exporta ${nome}`);
   confere(new RegExp(String.raw`\b${nome}\b`).test(indice), `ui/index.ts não exporta ${nome}`);
 }
-const painel = fs.readFileSync(path.join(raiz, "components", "painel", "Painel.tsx"), "utf8");
-confere(/<DialogosDoPainel\s*\/>/.test(painel), "Painel.tsx não monta <DialogosDoPainel />");
+// No redesenho (docs/PAINEL-REDESENHO.md, seção 1) as confirmações passaram para as camadas da casca (casca/Camadas.tsx),
+// montadas uma vez pelo painel aberto: lemos Painel.tsx e a casca.
+const painel = ["Painel.tsx", "casca/Dentro.tsx", "casca/Camadas.tsx"].map((a) => fs.readFileSync(path.join(raiz, "components", "painel", a), "utf8")).join("\n");
+confere(/<DialogosDoPainel\s*\/>/.test(painel), "o painel (Painel.tsx ou casca/Camadas.tsx) não monta <DialogosDoPainel />");
 
 // 5. A palavra proibida não aparece nos textos novos.
 confere(!/universidade|diploma/i.test(dialogo), "Dialogo.tsx tem palavra proibida");

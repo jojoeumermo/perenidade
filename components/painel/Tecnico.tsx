@@ -1,8 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { Aviso, dataHora, rotulo, useLista } from "./comum";
+import { dataHora, useLista } from "./comum";
 import { PublicarAgora } from "./controles/PublicarAgora";
+import { Botao, Cartao, Esqueleto, Faixa, Selo } from "./ui";
 
 interface Diagnostico {
   aprovadas: number;
@@ -21,12 +22,28 @@ const horas = (iso: string | null) => (iso ? (Date.now() - new Date(iso).getTime
 
 /**
  * O estado técnico do que liga o banco ao site, para quem cuida do código: só contagens e datas, nenhum dado de pessoa.
- * Cada linha diz o que olhar quando algo parece parado.
+ * Cada linha diz o que olhar quando algo parece parado. O que pede atenção sobe para uma faixa no alto (e fica marcado
+ * na linha com um selo, nunca só pela cor).
  */
 export function Tecnico() {
   const estado = useLista<Diagnostico>("diagnostico");
   const d = estado.dados;
-  if (!d) return <Aviso texto={estado.erro || "Carregando…"} />;
+  if (!d) {
+    return estado.erro ? (
+      <Faixa
+        tom="erro"
+        acao={
+          <Botao pequeno onClick={estado.recarregar}>
+            Tentar de novo
+          </Botao>
+        }
+      >
+        {estado.erro}
+      </Faixa>
+    ) : (
+      <Esqueleto forma="linhas" linhas={8} rotulo="Carregando…" />
+    );
+  }
   // A rotina de publicação roda uma vez por dia: aprovado há mais de 26 horas (um dia e a folga do agendador do GitHub)
   // quer dizer que ela parou.
   const publicacaoParada = d.aprovadas > 0 && horas(d.aprovada_mais_antiga) > 26;
@@ -47,23 +64,36 @@ export function Tecnico() {
     ["Endereços-isca nas últimas 24 horas", String(d.iscas_24h), d.iscas_24h > 200, "Muitas visitas a iscas costumam ser varredura automática; o site não é afetado."],
     ["Funções-isca chamadas em 7 dias", String(d.armadilhas_7d), d.armadilhas_7d > 0, "Alguém com conta tentou vasculhar o banco: veja quem no Registro de atividades (a coordenação já foi avisada)."],
   ];
+  const alertas = linhas.filter(([, , alerta]) => alerta);
   return (
-    <div>
-      <p className="max-w-3xl text-ink-soft">O que liga o banco ao site. Nenhum dado de pessoa aparece aqui. Pedidos de ajuda para o desenvolvimento chegam pelo Mural da equipe, no canal Pedidos de ajuda.</p>
-      <p className="mt-3">
+    <div className="pn-tela">
+      <p className="pn-sobre">O que liga o banco ao site. Nenhum dado de pessoa aparece aqui. Pedidos de ajuda para o desenvolvimento chegam pelo Mural da equipe, no canal Pedidos de ajuda.</p>
+      <div>
         <PublicarAgora explicar />
-      </p>
-      <dl className="mt-4 divide-y divide-rule border-y border-rule">
-        {linhas.map(([nome, valor, alerta, dica]) => (
-          <div key={nome} className={`grid gap-1 py-3 sm:grid-cols-[18rem_minmax(0,1fr)] ${alerta ? "text-oxblood" : ""}`}>
-            <dt className={alerta ? "font-semibold" : rotulo}>{nome}</dt>
-            <dd>
-              {valor}
-              {alerta && dica && <span className="block text-sm">{dica}</span>}
-            </dd>
-          </div>
-        ))}
-      </dl>
+      </div>
+      {alertas.map(([nome, , , dica]) => (
+        <Faixa key={nome} tom="aviso" titulo={nome}>
+          {dica}
+        </Faixa>
+      ))}
+      <Cartao>
+        <dl className="pn-definicoes" style={{ marginTop: 0 }}>
+          {linhas.map(([nome, valor, alerta, dica]) => (
+            <div key={nome} className="sm:grid-cols-[18rem_minmax(0,1fr)]">
+              <dt className={alerta ? "" : "pn-rotulo-mono"}>{nome}</dt>
+              <dd>
+                {alerta && (
+                  <Selo tom="aviso" className="mr-2">
+                    Atenção
+                  </Selo>
+                )}
+                {valor}
+                {alerta && dica && <span className="block text-sm">{dica}</span>}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Cartao>
     </div>
   );
 }

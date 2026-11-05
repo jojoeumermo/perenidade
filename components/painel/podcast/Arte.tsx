@@ -2,7 +2,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { botao, botaoClaro, campo, rotulo } from "../comum";
+import { Download, ImagePlus, Lightbulb } from "lucide-react";
+import { Botao, Campo, Cartao, Faixa, Selecao } from "../ui";
 
 // Modelos de capa e de arte de divulgação com a identidade do instituto: as cores do jornal (pergaminho, vermelho da
 // gráfica, tinta), a estrela, a letra pesada dos cartazes e a serifa editorial. Quem produz só troca os textos.
@@ -406,73 +407,51 @@ export function EstudioDeArte({ inicial, aoUsarComoCapa, rotuloCapa = "Usar como
     }
   }
 
+  // A moldura segue o painel; a peça (o canvas) mantém as cores dela, que são as da arte do instituto.
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
+    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
       <div>
-        <div className="flex flex-wrap gap-2">
+        <div role="group" aria-label="Modelos de arte" className="flex flex-wrap gap-1.5">
           {MODELOS.map((item) => (
-            <button key={item.id} type="button" onClick={() => setModelo(item.id)} aria-pressed={modelo === item.id} className={`cursor-pointer border-2 px-3 py-1.5 ${modelo === item.id ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
+            <Botao key={item.id} pequeno variante={modelo === item.id ? "principal" : "padrao"} onClick={() => setModelo(item.id)} aria-pressed={modelo === item.id}>
               {item.nome}
-            </button>
+            </Botao>
           ))}
         </div>
-        <canvas ref={tela} className="mt-4 max-h-[70vh] w-full border-2 border-ink object-contain" style={{ aspectRatio: `${FORMATOS.find((f) => f.id === formato)!.w} / ${FORMATOS.find((f) => f.id === formato)!.h}` }} />
+        <canvas ref={tela} className="mt-4 max-h-[70vh] w-full rounded-[var(--pn-raio-cartao)] border border-[var(--pn-borda)] object-contain shadow-[var(--pn-sombra-cartao)]" style={{ aspectRatio: `${FORMATOS.find((f) => f.id === formato)!.w} / ${FORMATOS.find((f) => f.id === formato)!.h}` }} />
       </div>
-      <div className="space-y-3">
-        <label className="block">
-          Formato
-          <select value={formato} onChange={(e) => setFormato(e.target.value as Formato)} className={campo}>
-            {FORMATOS.map((f) => (
-              <option key={f.id} value={f.id}>{f.nome}</option>
-            ))}
-          </select>
-        </label>
-        <label className="block">
-          Título do episódio
-          <input value={dados.titulo} onChange={muda("titulo")} maxLength={140} className={campo} />
-        </label>
+      <Cartao as="div" className="space-y-3">
+        <Selecao rotulo="Formato" value={formato} onChange={(e) => setFormato(e.target.value as Formato)}>
+          {FORMATOS.map((f) => (
+            <option key={f.id} value={f.id}>{f.nome}</option>
+          ))}
+        </Selecao>
+        <Campo rotulo="Título do episódio" value={dados.titulo} onChange={muda("titulo")} maxLength={140} />
         <div className="grid grid-cols-3 gap-2">
-          <label className="block">
-            Nº
-            <input value={dados.numero} onChange={muda("numero")} maxLength={4} className={campo} />
-          </label>
-          <label className="block">
-            Temporada
-            <input value={dados.temporada} onChange={muda("temporada")} maxLength={2} className={campo} />
-          </label>
-          <label className="block">
-            Série
-            <input value={dados.serie} onChange={muda("serie")} maxLength={60} className={campo} />
-          </label>
+          <Campo rotulo="Nº" value={dados.numero} onChange={muda("numero")} maxLength={4} />
+          <Campo rotulo="Temporada" value={dados.temporada} onChange={muda("temporada")} maxLength={2} />
+          <Campo rotulo="Série" value={dados.serie} onChange={muda("serie")} maxLength={60} />
         </div>
-        <label className="block">
-          Convidado(a)
-          <input value={dados.convidado} onChange={muda("convidado")} maxLength={80} className={campo} />
-        </label>
-        <label className="block">
-          Chamada (opcional)
-          <input value={dados.chamada} onChange={muda("chamada")} maxLength={120} className={campo} />
-        </label>
-        <label className="block">
-          Nome do programa
-          <input value={dados.programa} onChange={muda("programa")} maxLength={60} className={campo} />
-        </label>
+        <Campo rotulo="Convidado(a)" value={dados.convidado} onChange={muda("convidado")} maxLength={80} />
+        <Campo rotulo="Chamada (opcional)" value={dados.chamada} onChange={muda("chamada")} maxLength={120} />
+        <Campo rotulo="Nome do programa" value={dados.programa} onChange={muda("programa")} maxLength={60} />
         {modelo === "retrato" && (
-          <label className="block">
-            Foto do convidado (só com autorização de imagem)
-            <input type="file" accept="image/*" onChange={(e) => void foto(e.target.files?.[0])} className="mt-1 block w-full" />
-          </label>
+          <Campo rotulo="Foto do convidado (só com autorização de imagem)" type="file" accept="image/*" onChange={(e) => void foto(e.target.files?.[0])} simbolo={ImagePlus} />
         )}
         <p className="flex flex-wrap gap-2 pt-2">
-          <button type="button" onClick={baixar} className={botaoClaro}>Baixar imagem</button>
+          <Botao simbolo={Download} onClick={baixar}>Baixar imagem</Botao>
           {aoUsarComoCapa && (
-            <button type="button" onClick={() => void usar()} disabled={ocupado} className={botao}>{ocupado ? "Salvando…" : rotuloCapa}</button>
+            <Botao variante="principal" carregando={ocupado} onClick={() => void usar()}>{ocupado ? "Salvando…" : rotuloCapa}</Botao>
           )}
         </p>
         <p role="status" className="min-h-5 text-oxblood">{aviso}</p>
-        <p className={rotulo}>Dica</p>
-        <p className="text-ink-soft">Para o Instagram, gere o post quadrado ou em pé; para Reels, TikTok e Shorts, o vertical. Quer algo diferente dos modelos? Peça ao design na aba Divulgação do episódio.</p>
-      </div>
+        <Faixa tom="info" titulo="Dica" semSimbolo>
+          <p className="flex gap-2">
+            <Lightbulb aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>Para o Instagram, gere o post quadrado ou em pé; para Reels, TikTok e Shorts, o vertical. Quer algo diferente dos modelos? Peça ao design na aba Divulgação do episódio.</span>
+          </p>
+        </Faixa>
+      </Cartao>
     </div>
   );
 }

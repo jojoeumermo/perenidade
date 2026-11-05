@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { rpc } from "@/lib/backend";
 import { caixaDeVarias, type Camada, novoId } from "../motor";
 import type { Editor } from "../ui";
-import { perguntarTexto } from "../../ui";
+import { perguntarTexto } from "../../ui/Dialogo";
 
 export interface ItemDaBiblioteca {
   id: string;

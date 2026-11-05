@@ -1,10 +1,11 @@
-﻿// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { dataHora, useLista } from "../comum";
 import { MoldeRegistro } from "../moldes";
-import { Abas, Botao, Esqueleto } from "../ui";
+import { Abas, Botao, Cartao, Esqueleto, Faixa, ItemDeLista, Lista } from "../ui";
 import { BloquearArquivo } from "./BloquearArquivo";
 import { CanaisDoCelular } from "./CanaisDoCelular";
 import { ModeradoresDaRede } from "./ModeradoresDaRede";
@@ -78,9 +79,16 @@ function Resumo({ irParaAba, ir }: { irParaAba: (aba: Aba) => void; ir?: (id: st
   const diagnostico = useLista<Diagnostico>("diagnostico", {}, { quieta: true });
   if (!resumo.dados) {
     return resumo.erro ? (
-      <p role="alert" className="pn-erro">
+      <Faixa
+        tom="erro"
+        acao={
+          <Botao pequeno onClick={resumo.recarregar}>
+            Tentar de novo
+          </Botao>
+        }
+      >
         {resumo.erro}
-      </p>
+      </Faixa>
     ) : (
       <Esqueleto linhas={4} rotulo="Carregando o resumo dos controles" />
     );
@@ -98,20 +106,25 @@ function Resumo({ irParaAba, ir }: { irParaAba: (aba: Aba) => void; ir?: (id: st
               {cartoes.map((c) => {
                 const destino = ABA_DO_CARTAO[c.id];
                 return (
-                  <li key={c.id} className={`pn-cartao ${c.atencao ? "pn-cartao-alerta" : ""}`} style={{ display: "grid", gap: "0.5rem", alignContent: "space-between" }}>
-                    <div>
-                      <h3 className="pn-secao-titulo">{c.titulo}</h3>
+                  <li key={c.id} style={{ display: "grid" }}>
+                    <Cartao
+                      as="div"
+                      titulo={c.titulo}
+                      nivelDoTitulo={3}
+                      variante={c.atencao ? "alerta" : "padrao"}
+                      style={{ display: "grid", gap: "0.5rem", alignContent: "space-between" }}
+                    >
                       <p className="pn-ajuda">{c.estado}</p>
-                    </div>
-                    <div>
-                      {destino ? (
-                        <Botao pequeno onClick={() => irParaAba(destino)}>
-                          Abrir
-                        </Botao>
-                      ) : (
-                        <PublicarAgora pequeno />
-                      )}
-                    </div>
+                      <div>
+                        {destino ? (
+                          <Botao pequeno simboloFim={ArrowRight} onClick={() => irParaAba(destino)}>
+                            Abrir
+                          </Botao>
+                        ) : (
+                          <PublicarAgora pequeno />
+                        )}
+                      </div>
+                    </Cartao>
                   </li>
                 );
               })}
@@ -141,23 +154,22 @@ function Resumo({ irParaAba, ir }: { irParaAba: (aba: Aba) => void; ir?: (id: st
           id: "outras",
           titulo: "Outros controles do site",
           conteudo: (
-            <ul style={{ display: "grid", gap: "0.5rem", listStyle: "none", padding: 0, margin: 0 }}>
+            <Lista rotulo="Outros controles do site" plana>
               {OUTRAS_SECOES.map((s) => (
-                <li key={s.id} className="pn-barra-ferramentas">
-                  <span style={{ flex: 1, minWidth: "12rem" }}>
-                    <strong>{s.nome}</strong>
-                    <span className="pn-ajuda" style={{ display: "block" }}>
-                      {s.sobre}
-                    </span>
-                  </span>
-                  {ir && (
-                    <Botao pequeno variante="discreto" onClick={() => ir(s.id)}>
-                      Ir para a seção
-                    </Botao>
-                  )}
-                </li>
+                <ItemDeLista
+                  key={s.id}
+                  titulo={<strong>{s.nome}</strong>}
+                  meta={s.sobre}
+                  acoes={
+                    ir && (
+                      <Botao pequeno variante="discreto" simboloFim={ArrowRight} onClick={() => ir(s.id)}>
+                        Ir para a seção
+                      </Botao>
+                    )
+                  }
+                />
               ))}
-            </ul>
+            </Lista>
           ),
         },
       ]}

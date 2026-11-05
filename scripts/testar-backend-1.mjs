@@ -12,7 +12,8 @@ import { carregarVivos, lerVivos } from "../lib/recursos-vivos.ts";
 const ler = (...p) => fs.readFileSync(path.join(process.cwd(), ...p), "utf8");
 const sql = ler("supabase", "migracoes", "2026-11-backend-1.sql");
 const tela = ler("components", "painel", "BackendUm.tsx");
-const painel = ler("components", "painel", "Painel.tsx");
+// O registro de seções e a casca saíram de Painel.tsx para casca/ no redesenho (docs/PAINEL-REDESENHO.md): lemos os dois.
+const painel = ler("components", "painel", "Painel.tsx") + "\n" + ler("components", "painel", "casca", "Dentro.tsx");
 const estrutura = ler("components", "painel", "estrutura.ts");
 const rotaConteudo = ler("app", "api", "painel", "conteudo", "route.ts");
 const rotaCorrecoes = ler("app", "api", "painel", "correcoes", "route.ts");

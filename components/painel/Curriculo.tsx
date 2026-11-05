@@ -1,13 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { type ReactNode, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { areaSlugs, groups, stageAreas, stages, type Stage } from "@/lib/areas";
 import { can, disciplinasQueEnsina, escreveEm, getClient, type Me } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { type TrackOption, useTrackOptions } from "../useTrackOptions";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
+import { ArrowDown, ArrowUp, ArrowUpRight, Check, ChevronLeft, ChevronRight, FolderInput, GitPullRequestArrow, Pencil, Plus, Send, Trash2, Undo2, UserPlus, X } from "lucide-react";
+import { dataHora, useAcao, useLista } from "./comum";
+import { Abas, Area, Botao, Busca, CabecalhoDeSecao, Campo, Cartao, Contador, Faixa, Marca, Selecao, Selo, Vazio } from "./ui";
 import type { Membro } from "./Equipe";
 
 interface Convite {
@@ -201,61 +203,101 @@ export function Curriculo({ me }: { me: Me }) {
   return (
     <div className="space-y-5">
       {/* Cabeçalho: os números do currículo, a busca e o que está a caminho do site. */}
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-ink pb-4">
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-4">
         <div className="min-w-0">
-          <p className={rotulo}>{decide ? "Currículo do site" : "As disciplinas que você ensina"}</p>
-          <p className="mt-1 text-sm text-ink-soft">
+          <p className="pn-rotulo-mono">{decide ? "Currículo do site" : "As disciplinas que você ensina"}</p>
+          <p className="tabular mt-1 text-sm text-ink-soft">
             {decide ? `${areaSlugs.length} disciplinas` : `${minhas.length} disciplina(s) sua(s)`} · {totalDeTrilhas} trilhas · {aulasProntas.toLocaleString("pt-BR")} aulas escritas de {aulasNoRoteiro.toLocaleString("pt-BR")} no roteiro
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <input value={busca} onChange={(e) => setBusca(e.target.value)} type="search" placeholder="Procurar disciplina ou trilha" aria-label="Procurar disciplina ou trilha" className={`${campo} mt-0 w-60 py-1.5`} />
-          <button type="button" className={`${botaoClaro} relative py-1.5`} aria-expanded={mudancas} onClick={() => setMudancas(!mudancas)}>
+          <Busca rotulo="Procurar disciplina ou trilha" placeholder="Procurar disciplina ou trilha" valor={busca} aoMudar={setBusca} className="w-60" />
+          <Botao simbolo={GitPullRequestArrow} aria-expanded={mudancas} onClick={() => setMudancas(!mudancas)}>
             Mudanças
-            {pendentes + falhas + perdidas.length > 0 && <span className="ml-2 bg-[#c21f16] px-1.5 py-0.5 font-mono text-[0.7rem] text-white">{pendentes + falhas + perdidas.length}</span>}
-            {aCaminho > 0 && <span className="ml-2 bg-gold px-1.5 py-0.5 font-mono text-[0.7rem] text-parchment" title="A caminho do site">{aCaminho}</span>}
-          </button>
+            <Contador n={pendentes + falhas + perdidas.length} />
+            {aCaminho > 0 && (
+              <Selo tom="ouro" titulo="A caminho do site">
+                {aCaminho}
+              </Selo>
+            )}
+          </Botao>
           {decide && publicarAgora && aCaminho > 0 && (
-            <button type="button" className={`${botaoClaro} py-1.5`} onClick={() => void pedirPublicacao()} title="Roda a rotina de publicação agora, sem esperar a da hora">
+            <Botao simbolo={Send} onClick={() => void pedirPublicacao()} title="Roda a rotina de publicação agora, sem esperar a da hora">
               Publicar agora
-            </button>
+            </Botao>
           )}
-          <button type="button" className={`${botao} py-2`} onClick={() => setDisciplina({ nova: true, slug: "", grupo: grupo === "todos" ? "humanidades" : grupo, etapas: ["medio"], nomes: {}, descricoes: {} })}>
-            {decide ? "+ Disciplina" : "Sugerir disciplina"}
-          </button>
+          <Botao variante="principal" simbolo={decide ? Plus : undefined} aria-label={decide ? "Nova disciplina" : undefined} onClick={() => setDisciplina({ nova: true, slug: "", grupo: grupo === "todos" ? "humanidades" : grupo, etapas: ["medio"], nomes: {}, descricoes: {} })}>
+            {decide ? "Disciplina" : "Sugerir disciplina"}
+          </Botao>
         </div>
       </header>
-      <Aviso texto={propostas.erro || acao.aviso} />
-      {perdidas.length > 0 && decide && (
-        <div className="border-l-4 border-[#c21f16] bg-parchment-deep px-4 py-3 text-sm">
-          <strong>{perdidas.length} mudança(s) marcada(s) como publicada(s) não chegaram ao site.</strong> A rotina de publicação não guardava as mudanças de disciplina (nome, descrição, criação e remoção); já está consertada.{" "}
-          <button type="button" className={elo} disabled={acao.ocupado} onClick={() => void Promise.all(perdidas.map((p) => acao.agir("curriculo_reaplicar", { p_id: p.id }, "Mandadas de novo: vão ao ar na próxima publicação.")))}>
-            Mandar todas de novo
-          </button>
-        </div>
+      {propostas.erro && (
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao pequeno onClick={propostas.recarregar}>
+              Tentar de novo
+            </Botao>
+          }
+        >
+          {propostas.erro}
+        </Faixa>
       )}
+      {!propostas.erro && acao.aviso && <Faixa tom="info">{acao.aviso}</Faixa>}
+      {perdidas.length > 0 && decide && (
+        <Faixa
+          tom="aviso"
+          titulo={`${perdidas.length} mudança(s) marcada(s) como publicada(s) não chegaram ao site.`}
+          acao={
+            <Botao pequeno disabled={acao.ocupado} onClick={() => void Promise.all(perdidas.map((p) => acao.agir("curriculo_reaplicar", { p_id: p.id }, "Mandadas de novo: vão ao ar na próxima publicação.")))}>
+              Mandar todas de novo
+            </Botao>
+          }
+        >
+          A rotina de publicação não guardava as mudanças de disciplina (nome, descrição, criação e remoção); já está consertada.
+        </Faixa>
+      )}
+      <Abas
+        rotulo="Currículo"
+        valor={vista}
+        aoMudar={(v) => {
+          setVista(v);
+          setAberta(null);
+        }}
+        opcoes={[
+          { id: "mapa", nome: "Disciplinas e trilhas" },
+          { id: "convites", nome: "Convites para ajudar", conta: (convites.dados ?? []).length },
+        ]}
+      />
 
       <div className="grid gap-6 lg:grid-cols-[13rem_minmax(0,1fr)]">
         {/* Grupos (filtro) e convites. */}
-        <nav aria-label="Grupos de disciplinas" className="space-y-1 text-sm lg:sticky lg:top-4 lg:self-start">
+        <nav aria-label="Grupos de disciplinas" className="pn-lista self-start text-sm lg:sticky lg:top-16">
           {[{ id: "todos", nome: "Todas" }, ...groups.map((g) => ({ id: g.id as string, nome: t.groups[g.id as keyof typeof t.groups] ?? g.id }))].map((g) => {
             const quantas = g.id === "todos" ? visiveisNoGrupo(null) : visiveisNoGrupo(g.id);
             if (!decide && quantas === 0 && g.id !== "todos") return null;
+            const atual = grupo === g.id && vista === "mapa";
             return (
-              <button key={g.id} type="button" onClick={() => { setGrupo(g.id); setVista("mapa"); setAberta(null); }} aria-pressed={grupo === g.id && vista === "mapa"} className={`flex w-full cursor-pointer items-center justify-between gap-2 px-2.5 py-1.5 text-left ${grupo === g.id && vista === "mapa" ? "bg-ink text-parchment" : "hover:bg-parchment-deep"}`}>
+              <button
+                key={g.id}
+                type="button"
+                onClick={() => {
+                  setGrupo(g.id);
+                  setVista("mapa");
+                  setAberta(null);
+                }}
+                aria-pressed={atual}
+                className="pn-item pn-item-botao justify-between"
+                style={atual ? { background: "var(--pn-ativo)", fontWeight: 600, boxShadow: "inset 2px 0 0 var(--pn-destaque-vivo)" } : undefined}
+              >
                 <span className="truncate">{g.nome}</span>
-                <span className="font-mono text-xs opacity-70">{quantas}</span>
+                <span className="tabular font-mono text-xs text-ink-soft">{quantas}</span>
               </button>
             );
           })}
-          <hr className="my-3 border-rule" />
-          <button type="button" onClick={() => { setVista("convites"); setAberta(null); }} aria-pressed={vista === "convites"} className={`flex w-full cursor-pointer items-center justify-between px-2.5 py-1.5 text-left ${vista === "convites" ? "bg-ink text-parchment" : "hover:bg-parchment-deep"}`}>
-            <span>Convites para ajudar</span>
-            <span className="font-mono text-xs opacity-70">{(convites.dados ?? []).length}</span>
-          </button>
         </nav>
 
-        <main className="min-w-0">
+        <div className="min-w-0">
           {vista === "convites" ? (
             <Convites decide={decide} minhas={minhas} convites={convites.dados ?? []} membros={membros.dados ?? []} tracks={tracks} nomeDaArea={nomeDaArea} acao={acao} />
           ) : aberta ? (
@@ -283,10 +325,14 @@ export function Curriculo({ me }: { me: Me }) {
           ) : (
             <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {novasDisciplinas.filter((p) => grupo === "todos" || p.dados.grupo === grupo).map((p) => (
-                <li key={p.id} className="border-2 border-dashed border-gold bg-parchment-deep p-4">
-                  <p className="font-mono text-[0.65rem] uppercase tracking-widest text-gold">{p.status === "pendente" ? "sugestão esperando decisão" : "nova · vai ao ar na próxima publicação"}</p>
-                  <p className="mt-1 font-serif text-xl font-semibold">{String((p.dados.nomes as Record<string, string> | undefined)?.pt ?? p.dados.slug)}</p>
-                  <p className="mt-2 text-xs"><button type="button" className={elo} onClick={() => void acao.agir("curriculo_cancelar", { p_id: p.id }, "Cancelada.")}>Desfazer</button></p>
+                <li key={p.id} className="pn-cartao" style={{ borderStyle: "dashed", borderColor: "var(--pn-ouro)" }}>
+                  <Selo tom="ouro">{p.status === "pendente" ? "sugestão esperando decisão" : "nova · vai ao ar na próxima publicação"}</Selo>
+                  <p className="mt-2 font-serif text-xl font-semibold">{String((p.dados.nomes as Record<string, string> | undefined)?.pt ?? p.dados.slug)}</p>
+                  <p className="mt-2 text-xs">
+                    <Botao pequeno variante="discreto" simbolo={Undo2} onClick={() => void acao.agir("curriculo_cancelar", { p_id: p.id }, "Cancelada.")}>
+                      Desfazer
+                    </Botao>
+                  </p>
                 </li>
               ))}
               {visiveis.map(({ slug }) => (
@@ -301,10 +347,14 @@ export function Curriculo({ me }: { me: Me }) {
                   abrir={() => setAberta(slug)}
                 />
               ))}
-              {visiveis.length === 0 && <li className="text-ink-soft">{termo ? "Nenhuma disciplina ou trilha com esse nome." : "Você ainda não ensina nenhuma disciplina: quem ensina pode convidar você para ajudar, ou peça à coordenação a função de educador."}</li>}
+              {visiveis.length === 0 && (
+                <li className="sm:col-span-2 xl:col-span-3">
+                  <Vazio titulo={termo ? "Nenhuma disciplina ou trilha com esse nome." : "Você ainda não ensina nenhuma disciplina: quem ensina pode convidar você para ajudar, ou peça à coordenação a função de educador."} />
+                </li>
+              )}
             </ul>
           )}
-        </main>
+        </div>
       </div>
 
       {mudancas && (
@@ -360,10 +410,12 @@ function Progresso({ prontas, total }: { prontas: number; total: number }) {
   const parte = total ? Math.round((prontas / total) * 100) : 0;
   return (
     <span className="flex items-center gap-2" title={`${prontas} de ${total} aulas escritas`}>
-      <span className="h-1.5 flex-1 bg-rule">
-        <span className="block h-full bg-oxblood" style={{ width: `${parte}%` }} />
+      <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-rule">
+        <span className="block h-full rounded-full bg-oxblood" style={{ width: `${parte}%` }} />
       </span>
-      <span className="font-mono text-[0.68rem] text-ink-soft">{prontas}/{total}</span>
+      <span className="tabular font-mono text-[0.68rem] text-ink-soft">
+        {prontas}/{total}
+      </span>
     </span>
   );
 }
@@ -375,23 +427,23 @@ function CartaoDaDisciplina({ slug, nome, etapas, trilhas, mudancas, convidado, 
   const nomeNovo = mudancas.find((p) => p.tipo === "editar_disciplina")?.dados.nomes as Record<string, string> | undefined;
   return (
     <li>
-      <button type="button" onClick={abrir} className={`painel-quadro group flex h-full w-full cursor-pointer flex-col gap-2 border border-rule border-t-4 border-t-ink bg-parchment-deep p-4 text-left transition hover:border-t-oxblood ${saindo ? "opacity-60" : ""}`}>
+      <button type="button" onClick={abrir} className={`pn-cartao pn-cartao-interativo group flex h-full w-full cursor-pointer flex-col gap-2 text-left ${saindo ? "opacity-60" : ""}`}>
         <span className="flex items-start justify-between gap-2">
           <span className="min-w-0">
             <span className={`block font-serif text-xl font-semibold leading-tight ${saindo ? "line-through" : ""}`}>{nomeNovo?.pt && nomeNovo.pt !== nome ? nomeNovo.pt : nome}</span>
             <span className="font-mono text-[0.68rem] text-ink-soft">{slug}</span>
           </span>
-          <span className="painel-seta text-ink-soft" aria-hidden="true">→</span>
+          <ChevronRight aria-hidden width={16} height={16} className="mt-1 flex-none text-ink-soft" />
         </span>
         <span className="flex flex-wrap gap-1">
           {etapas.map((e) => (
-            <span key={e} className="border border-rule px-1.5 py-0.5 font-mono text-[0.62rem] uppercase tracking-wider text-ink-soft">{ETAPA_CURTA[e]}</span>
+            <Selo key={e}>{ETAPA_CURTA[e]}</Selo>
           ))}
-          {convidado && <span className="bg-gold px-1.5 py-0.5 font-mono text-[0.62rem] uppercase text-parchment">convite</span>}
+          {convidado && <Selo tom="ouro">convite</Selo>}
         </span>
         <span className="mt-auto text-xs text-ink-soft">{trilhas.length} trilha(s)</span>
         <Progresso prontas={prontas} total={total} />
-        {mudancas.length > 0 && <span className="text-xs text-gold">{saindo ? "sai do site na próxima publicação" : nomeNovo ? "nome novo a caminho do site" : "mudança a caminho"}</span>}
+        {mudancas.length > 0 && <Selo tom="ouro">{saindo ? "sai do site na próxima publicação" : nomeNovo ? "nome novo a caminho do site" : "mudança a caminho"}</Selo>}
       </button>
     </li>
   );
@@ -458,31 +510,59 @@ function Detalhe({
 
   return (
     <article className="space-y-6">
-      <button type="button" className="cursor-pointer text-sm text-ink-soft hover:text-ink" onClick={voltar}>← Todas as disciplinas</button>
-      <header className="border-b-2 border-ink pb-4">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h2 className={`font-serif text-4xl font-semibold leading-tight ${saindo ? "line-through opacity-60" : ""}`}>{nome}</h2>
-            <p className="mt-1 max-w-2xl text-ink-soft">{descricao || "Sem descrição."}</p>
-            <p className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-              <span className="font-mono text-ink-soft">{slug}</span>
-              {etapas.map((e) => <span key={e} className="border border-rule px-1.5 py-0.5 font-mono uppercase tracking-wider text-ink-soft">{t.stages[e]}</span>)}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {posso && <button type="button" className={`${botaoClaro} py-1.5`} onClick={editar}>Editar nome e descrição</button>}
-            {posso && <button type="button" className={`${botao} py-2`} onClick={() => editarTrilha(null)}>+ Trilha</button>}
-            {decide && !saindo && <button type="button" className="cursor-pointer px-2 text-sm text-oxblood underline" onClick={() => setRemover("perguntar")}>Remover disciplina</button>}
-          </div>
-        </div>
+      <Botao pequeno variante="discreto" simbolo={ChevronLeft} onClick={voltar}>
+        Todas as disciplinas
+      </Botao>
+      <div className="space-y-3 border-b border-rule pb-4">
+        <CabecalhoDeSecao
+          titulo={<span className={saindo ? "line-through opacity-60" : ""}>{nome}</span>}
+          sobre={
+            <>
+              {descricao || "Sem descrição."}
+              <span className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                <span className="font-mono text-ink-soft">{slug}</span>
+                {etapas.map((e) => (
+                  <Selo key={e}>{t.stages[e]}</Selo>
+                ))}
+              </span>
+            </>
+          }
+          acoes={
+            <>
+              {posso && (
+                <Botao simbolo={Pencil} onClick={editar}>
+                  Editar nome e descrição
+                </Botao>
+              )}
+              {posso && (
+                <Botao variante="principal" simbolo={Plus} aria-label="Nova trilha" onClick={() => editarTrilha(null)}>
+                  Trilha
+                </Botao>
+              )}
+              {decide && !saindo && (
+                <Botao variante="discreto" perigo simbolo={Trash2} onClick={() => setRemover("perguntar")}>
+                  Remover disciplina
+                </Botao>
+              )}
+            </>
+          }
+        />
         {mudancasDaDisciplina.map((p) => (
-          <p key={p.id} className="mt-3 flex flex-wrap items-center gap-2 border-l-4 border-gold bg-parchment-deep px-3 py-2 text-sm">
-            <span>{TIPOS[p.tipo]} · {p.status === "pendente" ? "esperando decisão" : "vai ao ar na próxima publicação"}</span>
-            <button type="button" className={elo} onClick={() => cancelar(p)}>Desfazer</button>
-          </p>
+          <Faixa
+            key={p.id}
+            tom="aviso"
+            semSimbolo
+            acao={
+              <Botao pequeno variante="discreto" simbolo={Undo2} onClick={() => cancelar(p)}>
+                Desfazer
+              </Botao>
+            }
+          >
+            {TIPOS[p.tipo]} · {p.status === "pendente" ? "esperando decisão" : "vai ao ar na próxima publicação"}
+          </Faixa>
         ))}
         {remover === "perguntar" && (
-          <div className="mt-4 max-w-2xl border-2 border-oxblood bg-parchment p-4 text-sm">
+          <Cartao as="div" variante="alerta" className="max-w-2xl text-sm">
             <p className="font-semibold">Remover {nome} do site?</p>
             {trilhas.length === 0 ? (
               <p className="mt-1 text-ink-soft">A disciplina não tem trilhas: sai inteira na próxima publicação.</p>
@@ -490,7 +570,7 @@ function Detalhe({
               <fieldset className="mt-2 space-y-2">
                 <legend className="text-ink-soft">Ela tem {trilhas.length} trilha(s). O que fazer com elas?</legend>
                 <label className="flex items-center gap-2"><input type="radio" checked={modo === "mover"} onChange={() => setModo("mover")} /> Levar para outra disciplina:
-                  <select value={destino} onChange={(e) => setDestino(e.target.value)} className="border border-ink bg-parchment-deep px-2 py-1" disabled={modo !== "mover"}>
+                  <select value={destino} onChange={(e) => setDestino(e.target.value)} className="pn-campo w-auto" disabled={modo !== "mover"}>
                     <option value="">escolha…</option>
                     {outras.map((s) => <option key={s} value={s}>{nomeDaArea(s)}</option>)}
                   </select>
@@ -499,69 +579,147 @@ function Detalhe({
               </fieldset>
             )}
             <p className="mt-3 flex gap-2">
-              <button type="button" className={botao} disabled={ocupado || (trilhas.length > 0 && modo === "mover" && !destino)} onClick={async () => { await propor("remover_disciplina", trilhas.length === 0 ? { slug } : modo === "mover" ? { slug, destino } : { slug, arquivar: true }, "Remoção marcada."); setRemover(""); }}>Remover</button>
-              <button type="button" className={botaoClaro} onClick={() => setRemover("")}>Cancelar</button>
+              <Botao
+                perigo
+                simbolo={Trash2}
+                disabled={ocupado || (trilhas.length > 0 && modo === "mover" && !destino)}
+                onClick={async () => {
+                  await propor("remover_disciplina", trilhas.length === 0 ? { slug } : modo === "mover" ? { slug, destino } : { slug, arquivar: true }, "Remoção marcada.");
+                  setRemover("");
+                }}
+              >
+                Remover
+              </Botao>
+              <Botao variante="discreto" onClick={() => setRemover("")}>
+                Cancelar
+              </Botao>
             </p>
-          </div>
+          </Cartao>
         )}
-      </header>
+      </div>
 
-      {porEtapa.length === 0 && <p className="text-ink-soft">Nenhuma trilha ainda.{posso ? " Comece pela primeira: o roteiro pode ser só a lista de aulas que vão existir." : ""}</p>}
+      {porEtapa.length === 0 && <Vazio titulo="Nenhuma trilha ainda." texto={posso ? "Comece pela primeira: o roteiro pode ser só a lista de aulas que vão existir." : undefined} />}
       {porEtapa.map(({ etapa, lista }) => (
-        <section key={etapa}>
-          <h3 className="jornal-secao"><span className="jornal-editoria">{t.stages[etapa]}</span></h3>
-          <ol className="mt-3 divide-y divide-rule border border-rule bg-parchment-deep">
+        <section key={etapa} className="pn-secao">
+          <CabecalhoDeSecao titulo={t.stages[etapa]} />
+          <ol aria-label={t.stages[etapa]} className="pn-lista">
             {lista.map((x, i) => {
               const ms = mudancasDaTrilha(x.slug);
               const tirando = ms.find((p) => p.tipo === "remover_trilha" || p.tipo === "arquivar_trilha");
               const editada = ms.find((p) => p.tipo === "editar_trilha");
               const prontas = x.plan?.filter((p) => p.ready).length ?? 0;
               return (
-                <li key={x.slug} className={`grid gap-3 p-3 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:items-center ${tirando ? "opacity-60" : ""}`}>
+                <li key={x.slug} className={`grid gap-3 border-b border-rule p-3 last:border-b-0 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:items-center ${tirando ? "opacity-60" : ""}`}>
                   <span className="font-mono text-sm text-ink-soft">{String(i + 1).padStart(2, "0")}</span>
                   <span className="min-w-0">
                     <span className={`block font-semibold ${tirando ? "line-through" : ""}`}>{editada?.dados.titulo ? String(editada.dados.titulo) : x.title}</span>
                     {(editada?.dados.resumo || x.summary) && <span className="block truncate text-sm text-ink-soft">{editada?.dados.resumo ? String(editada.dados.resumo) : x.summary}</span>}
                     <span className="mt-1.5 block max-w-sm"><Progresso prontas={prontas} total={x.plan?.length ?? 0} /></span>
                     {ms.map((p) => (
-                      <span key={p.id} className="mt-1 flex flex-wrap gap-2 text-xs text-gold">
-                        {TIPOS[p.tipo]} · {p.status === "pendente" ? "esperando decisão" : "a caminho do site"}
-                        <button type="button" className={elo} onClick={() => cancelar(p)}>desfazer</button>
+                      <span key={p.id} className="mt-1 flex flex-wrap items-center gap-2 text-xs">
+                        <Selo tom="ouro">
+                          {TIPOS[p.tipo]} · {p.status === "pendente" ? "esperando decisão" : "a caminho do site"}
+                        </Selo>
+                        <Botao pequeno variante="discreto" onClick={() => cancelar(p)}>
+                          desfazer
+                        </Botao>
                       </span>
                     ))}
                   </span>
                   <span className="flex flex-wrap items-center gap-1 text-sm">
-                    {posso && <button type="button" aria-label="Subir" disabled={i === 0 || ocupado} className="cursor-pointer px-1.5 text-ink-soft hover:text-ink disabled:opacity-30" onClick={() => void reordenar(lista, i, -1)}>▲</button>}
-                    {posso && <button type="button" aria-label="Descer" disabled={i === lista.length - 1 || ocupado} className="cursor-pointer px-1.5 text-ink-soft hover:text-ink disabled:opacity-30" onClick={() => void reordenar(lista, i, 1)}>▼</button>}
-                    {posso && <button type="button" className={elo} onClick={() => editarTrilha(x)}>editar</button>}
-                    {decide && <button type="button" className={elo} onClick={() => { setMover(mover === x.slug ? null : x.slug); setDestinoDaTrilha(""); }}>mover</button>}
-                    {decide && !tirando && <button type="button" className={`${elo} text-oxblood`} onClick={() => setTirar(tirar === x.slug ? null : x.slug)}>{prontas ? "arquivar" : "remover"}</button>}
-                    <a className={elo} href={`/pt/trilhas/${x.slug}`} target="_blank" rel="noopener noreferrer">ver</a>
+                    {posso && <Botao pequeno icone variante="discreto" simbolo={ArrowUp} aria-label="Subir" dica="Subir" disabled={i === 0 || ocupado} onClick={() => void reordenar(lista, i, -1)} />}
+                    {posso && <Botao pequeno icone variante="discreto" simbolo={ArrowDown} aria-label="Descer" dica="Descer" disabled={i === lista.length - 1 || ocupado} onClick={() => void reordenar(lista, i, 1)} />}
+                    {posso && (
+                      <Botao pequeno variante="discreto" simbolo={Pencil} onClick={() => editarTrilha(x)}>
+                        editar
+                      </Botao>
+                    )}
+                    {decide && (
+                      <Botao
+                        pequeno
+                        variante="discreto"
+                        simbolo={FolderInput}
+                        aria-expanded={mover === x.slug}
+                        onClick={() => {
+                          setMover(mover === x.slug ? null : x.slug);
+                          setDestinoDaTrilha("");
+                        }}
+                      >
+                        mover
+                      </Botao>
+                    )}
+                    {decide && !tirando && (
+                      <Botao pequeno variante="discreto" perigo simbolo={Trash2} aria-expanded={tirar === x.slug} onClick={() => setTirar(tirar === x.slug ? null : x.slug)}>
+                        {prontas ? "arquivar" : "remover"}
+                      </Botao>
+                    )}
+                    <a className="pn-botao pn-botao-pequeno pn-botao-discreto" href={`/pt/trilhas/${x.slug}`} target="_blank" rel="noopener noreferrer">
+                      ver
+                      <ArrowUpRight aria-hidden />
+                    </a>
                   </span>
                   {mover === x.slug && (
                     <span className="flex flex-wrap items-center gap-2 text-sm sm:col-span-3">
                       Levar para
-                      <select value={destinoDaTrilha} onChange={(e) => setDestinoDaTrilha(e.target.value)} className="border border-ink bg-parchment px-2 py-1">
+                      <select value={destinoDaTrilha} onChange={(e) => setDestinoDaTrilha(e.target.value)} aria-label="Levar para" className="pn-campo w-auto">
                         <option value="">escolha a disciplina…</option>
-                        {outras.map((s) => <option key={s} value={s}>{nomeDaArea(s)}</option>)}
+                        {outras.map((s) => (
+                          <option key={s} value={s}>
+                            {nomeDaArea(s)}
+                          </option>
+                        ))}
                       </select>
-                      <button type="button" className={botaoClaro} disabled={!destinoDaTrilha || ocupado} onClick={async () => { await propor("editar_trilha", { slug: x.slug, disciplina: destinoDaTrilha, etapa: x.stage ?? "medio" }, "Trilha movida."); setMover(null); }}>Mover</button>
+                      <Botao
+                        pequeno
+                        disabled={!destinoDaTrilha || ocupado}
+                        onClick={async () => {
+                          await propor("editar_trilha", { slug: x.slug, disciplina: destinoDaTrilha, etapa: x.stage ?? "medio" }, "Trilha movida.");
+                          setMover(null);
+                        }}
+                      >
+                        Mover
+                      </Botao>
                     </span>
                   )}
                   {tirar === x.slug && (
-                    <span className="flex flex-wrap items-center gap-2 border-l-4 border-oxblood bg-parchment px-3 py-2 text-sm sm:col-span-3">
-                      {prontas ? `Arquivar “${x.title}”? Sai do site; as ${prontas} aula(s) escritas ficam guardadas em content/arquivo.` : `Remover “${x.title}”? Ela ainda não tem aulas escritas.`}
-                      <button type="button" className={botao} disabled={ocupado} onClick={async () => { await propor(prontas ? "arquivar_trilha" : "remover_trilha", { slug: x.slug, disciplina: x.area }, prontas ? "Trilha arquivada." : "Trilha removida."); setTirar(null); }}>{prontas ? "Arquivar" : "Remover"}</button>
-                      <button type="button" className={elo} onClick={() => setTirar(null)}>cancelar</button>
+                    <span className="sm:col-span-3">
+                      <Faixa
+                        tom="erro"
+                        acao={
+                          <>
+                            <Botao
+                              pequeno
+                              perigo
+                              disabled={ocupado}
+                              onClick={async () => {
+                                await propor(prontas ? "arquivar_trilha" : "remover_trilha", { slug: x.slug, disciplina: x.area }, prontas ? "Trilha arquivada." : "Trilha removida.");
+                                setTirar(null);
+                              }}
+                            >
+                              {prontas ? "Arquivar" : "Remover"}
+                            </Botao>
+                            <Botao pequeno variante="discreto" onClick={() => setTirar(null)}>
+                              cancelar
+                            </Botao>
+                          </>
+                        }
+                      >
+                        {prontas ? `Arquivar “${x.title}”? Sai do site; as ${prontas} aula(s) escritas ficam guardadas em content/arquivo.` : `Remover “${x.title}”? Ela ainda não tem aulas escritas.`}
+                      </Faixa>
                     </span>
                   )}
                 </li>
               );
             })}
             {novas.filter((p) => (p.dados.etapa ?? "medio") === etapa).map((p) => (
-              <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-l-4 border-gold p-3 text-sm">
-                <span><strong>{String(p.dados.titulo)}</strong> <span className="text-gold">· nova · {p.status === "pendente" ? "esperando decisão" : "a caminho do site"}</span></span>
-                <button type="button" className={elo} onClick={() => cancelar(p)}>desfazer</button>
+              <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-rule p-3 text-sm last:border-b-0" style={{ boxShadow: "inset 3px 0 0 var(--pn-ouro)" }}>
+                <span className="flex flex-wrap items-center gap-2">
+                  <strong>{String(p.dados.titulo)}</strong>
+                  <Selo tom="ouro">nova · {p.status === "pendente" ? "esperando decisão" : "a caminho do site"}</Selo>
+                </span>
+                <Botao pequeno variante="discreto" simbolo={Undo2} onClick={() => cancelar(p)}>
+                  desfazer
+                </Botao>
               </li>
             ))}
           </ol>
@@ -570,9 +728,16 @@ function Detalhe({
 
       {convites.length > 0 && (
         <section>
-          <h3 className={rotulo}>Quem ajuda por convite</h3>
+          <h3 className="pn-rotulo-mono">Quem ajuda por convite</h3>
           <ul className="mt-2 flex flex-wrap gap-2 text-sm">
-            {convites.map((c) => <li key={c.id} className="border border-rule px-2 py-1">{c.meu ? "Você" : c.convidado}{c.trilha ? ` · ${c.trilha}` : ""}</li>)}
+            {convites.map((c) => (
+              <li key={c.id}>
+                <Selo>
+                  {c.meu ? "Você" : c.convidado}
+                  {c.trilha ? ` · ${c.trilha}` : ""}
+                </Selo>
+              </li>
+            ))}
           </ul>
         </section>
       )}
@@ -593,64 +758,131 @@ function Mudancas({ lista, decide, naoChegou, nomeDaArea, fechar, acao }: { list
   ];
   const titulo = (p: Proposta) => String((p.dados.nomes as Record<string, string> | undefined)?.pt ?? p.dados.titulo ?? (p.tipo.includes("disciplina") ? nomeDaArea(String(p.dados.slug)) : p.dados.slug));
   // No body: a área de conteúdo do painel tem transform (da animação de entrada), que prenderia o "fixed" dentro dela.
-  return createPortal(
-    <div className="fixed inset-0 z-[90] flex justify-end bg-[rgba(23,19,14,0.45)]" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
-      <aside role="dialog" aria-label="Mudanças no currículo" className="flex h-full w-full max-w-lg flex-col border-l-4 border-ink bg-parchment shadow-2xl">
-        <div className="flex items-center justify-between border-b-2 border-ink px-5 py-4">
-          <h2 className="font-serif text-2xl font-semibold">Mudanças no currículo</h2>
-          <button type="button" className="cursor-pointer px-2 text-2xl leading-none text-ink-soft hover:text-ink" onClick={fechar} aria-label="Fechar">×</button>
-        </div>
-        <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-5 py-4">
-          <p className="text-sm text-ink-soft">A rotina de publicação escreve as mudanças nos arquivos do site (uma vez por dia, ou na hora pelo botão Publicar agora; o GitHub às vezes atrasa) e o build confere tudo antes de ir ao ar.</p>
-          {grupos.map((g) =>
-            g.itens.length === 0 ? null : (
-              <section key={g.titulo}>
-                <h3 className={rotulo}>{g.titulo} · {g.itens.length}</h3>
-                <ul className="mt-2 space-y-2">
-                  {g.itens.map((p) => (
-                    <li key={p.id} className="border border-rule bg-parchment-deep p-3 text-sm">
-                      <p className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{TIPOS[p.tipo]} · {p.autor}{p.minha ? " (você)" : ""} · {dataHora(p.criado_em)}</p>
-                      <p className="mt-0.5 font-semibold">{titulo(p)} <span className="font-mono text-xs font-normal text-ink-soft">{String(p.dados.slug)}</span></p>
-                      {p.status === "falhou" && <p className="mt-1 text-oxblood">{p.nota}</p>}
-                      {naoChegou(p) && <p className="mt-1 text-oxblood">Marcada como publicada, mas não chegou ao site.</p>}
-                      {p.status === "recusada" && p.nota && <p className="mt-1 text-ink-soft">Motivo: {p.nota}</p>}
-                      <p className="mt-2 flex flex-wrap gap-3">
-                        {decide && p.status === "pendente" && <button type="button" className={botao} disabled={acao.ocupado} onClick={() => void acao.agir("curriculo_decidir", { p_id: p.id, p_aprovar: true }, "Aprovada: vai ao ar na próxima publicação.")}>Aprovar</button>}
-                        {decide && p.status === "pendente" && <button type="button" className={botaoClaro} onClick={() => { setRecusando(p.id); setNota(""); }}>Recusar</button>}
-                        {decide && (p.status === "falhou" || naoChegou(p)) && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => void acao.agir("curriculo_reaplicar", { p_id: p.id }, "Mandada de novo para a publicação.")}>Tentar de novo</button>}
-                        {(p.status === "pendente" || p.status === "aprovada" || p.status === "falhou") && (decide || p.minha) && <button type="button" className={elo} disabled={acao.ocupado} onClick={() => void acao.agir("curriculo_cancelar", { p_id: p.id }, "Cancelada.")}>Cancelar</button>}
-                      </p>
-                      {recusando === p.id && (
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          <input value={nota} onChange={(e) => setNota(e.target.value)} maxLength={500} placeholder="Motivo (vai para quem propôs)" className={`${campo} mt-0 flex-1 py-1.5`} />
-                          <button type="button" className={botao} disabled={acao.ocupado} onClick={async () => { if (await acao.agir("curriculo_decidir", { p_id: p.id, p_aprovar: false, p_nota: nota }, "Recusada.")) setRecusando(null); }}>Recusar</button>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ),
-          )}
-          {lista.length === 0 && <p className="text-ink-soft">Nenhuma mudança ainda.</p>}
-        </div>
-      </aside>
-    </div>,
-    document.body,
+  return (
+    <Gaveta titulo="Mudanças no currículo" fechar={fechar}>
+      <p className="pn-ajuda text-sm">A rotina de publicação escreve as mudanças nos arquivos do site (uma vez por dia, ou na hora pelo botão Publicar agora; o GitHub às vezes atrasa) e o build confere tudo antes de ir ao ar.</p>
+      {grupos.map((g) =>
+        g.itens.length === 0 ? null : (
+          <section key={g.titulo}>
+            <h3 className="pn-rotulo-mono">
+              {g.titulo} · {g.itens.length}
+            </h3>
+            <ul className="mt-2 space-y-2">
+              {g.itens.map((p) => (
+                <li key={p.id} className="pn-cartao text-sm">
+                  <p className="pn-rotulo-mono">
+                    {TIPOS[p.tipo]} · {p.autor}
+                    {p.minha ? " (você)" : ""} · {dataHora(p.criado_em)}
+                  </p>
+                  <p className="mt-0.5 font-semibold">
+                    {titulo(p)} <span className="font-mono text-xs font-normal text-ink-soft">{String(p.dados.slug)}</span>
+                  </p>
+                  {p.status === "falhou" && <p className="pn-erro mt-1">{p.nota}</p>}
+                  {naoChegou(p) && <p className="pn-erro mt-1">Marcada como publicada, mas não chegou ao site.</p>}
+                  {p.status === "recusada" && p.nota && <p className="mt-1 text-ink-soft">Motivo: {p.nota}</p>}
+                  <p className="mt-2 flex flex-wrap gap-2">
+                    {decide && p.status === "pendente" && (
+                      <Botao pequeno variante="principal" simbolo={Check} disabled={acao.ocupado} onClick={() => void acao.agir("curriculo_decidir", { p_id: p.id, p_aprovar: true }, "Aprovada: vai ao ar na próxima publicação.")}>
+                        Aprovar
+                      </Botao>
+                    )}
+                    {decide && p.status === "pendente" && (
+                      <Botao
+                        pequeno
+                        simbolo={X}
+                        aria-expanded={recusando === p.id}
+                        onClick={() => {
+                          setRecusando(p.id);
+                          setNota("");
+                        }}
+                      >
+                        Recusar
+                      </Botao>
+                    )}
+                    {decide && (p.status === "falhou" || naoChegou(p)) && (
+                      <Botao pequeno disabled={acao.ocupado} onClick={() => void acao.agir("curriculo_reaplicar", { p_id: p.id }, "Mandada de novo para a publicação.")}>
+                        Tentar de novo
+                      </Botao>
+                    )}
+                    {(p.status === "pendente" || p.status === "aprovada" || p.status === "falhou") && (decide || p.minha) && (
+                      <Botao pequeno variante="discreto" disabled={acao.ocupado} onClick={() => void acao.agir("curriculo_cancelar", { p_id: p.id }, "Cancelada.")}>
+                        Cancelar
+                      </Botao>
+                    )}
+                  </p>
+                  {recusando === p.id && (
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <input value={nota} onChange={(e) => setNota(e.target.value)} maxLength={500} placeholder="Motivo (vai para quem propôs)" aria-label="Motivo (vai para quem propôs)" className="pn-campo min-w-48 flex-1" />
+                      <Botao
+                        pequeno
+                        perigo
+                        disabled={acao.ocupado}
+                        onClick={async () => {
+                          if (await acao.agir("curriculo_decidir", { p_id: p.id, p_aprovar: false, p_nota: nota }, "Recusada.")) setRecusando(null);
+                        }}
+                      >
+                        Recusar
+                      </Botao>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ),
+      )}
+      {lista.length === 0 && <Vazio titulo="Nenhuma mudança ainda." />}
+    </Gaveta>
   );
 }
 
-/** Uma gaveta lateral com o formulário (trilha ou disciplina). */
-function Gaveta({ titulo, fechar, children, rodape }: { titulo: string; fechar: () => void; children: ReactNode; rodape: ReactNode }) {
+/**
+ * Uma gaveta lateral (o formulário de trilha ou de disciplina, ou as mudanças). No body: a área de conteúdo do painel tem
+ * transform (da animação de entrada), que prenderia o "fixed" dentro dela. Esc fecha; o foco entra na gaveta ao abrir,
+ * fica preso nela (Tab e Shift+Tab dão a volta) e volta para onde estava ao fechar.
+ */
+function Gaveta({ titulo, fechar, children, rodape }: { titulo: string; fechar: () => void; children: ReactNode; rodape?: ReactNode }) {
+  const caixa = useRef<HTMLElement>(null);
+  const fecharAgora = useRef(fechar);
+  useEffect(() => {
+    fecharAgora.current = fechar;
+  });
+  useEffect(() => {
+    const antes = document.activeElement as HTMLElement | null;
+    caixa.current?.focus();
+    const tecla = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        fecharAgora.current();
+        return;
+      }
+      if (e.key !== "Tab" || !caixa.current) return;
+      const focaveis = [...caixa.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+      if (focaveis.length === 0) return;
+      const primeiro = focaveis[0];
+      const ultimo = focaveis[focaveis.length - 1];
+      if (e.shiftKey && (document.activeElement === primeiro || document.activeElement === caixa.current)) {
+        e.preventDefault();
+        ultimo.focus();
+      } else if (!e.shiftKey && document.activeElement === ultimo) {
+        e.preventDefault();
+        primeiro.focus();
+      }
+    };
+    document.addEventListener("keydown", tecla);
+    return () => {
+      document.removeEventListener("keydown", tecla);
+      antes?.focus?.();
+    };
+  }, []);
   return createPortal(
-    <div className="fixed inset-0 z-[90] flex justify-end bg-[rgba(23,19,14,0.45)]" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
-      <aside role="dialog" aria-label={titulo} className="flex h-full w-full max-w-2xl flex-col border-l-4 border-ink bg-parchment shadow-2xl">
-        <div className="flex items-center justify-between border-b-2 border-ink px-5 py-4">
-          <h2 className="font-serif text-2xl font-semibold">{titulo}</h2>
-          <button type="button" className="cursor-pointer px-2 text-2xl leading-none text-ink-soft hover:text-ink" onClick={fechar} aria-label="Fechar">×</button>
+    <div className="pn-portal fixed inset-0 z-[90] flex justify-end" style={{ background: "var(--pn-veu)" }} onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
+      <aside ref={caixa} tabIndex={-1} role="dialog" aria-modal="true" aria-label={titulo} className="flex h-full w-full max-w-2xl flex-col border-l border-rule bg-parchment outline-none" style={{ boxShadow: "var(--pn-sombra-flutuante)" }}>
+        <div className="flex items-center justify-between border-b border-rule px-5 py-4">
+          <h2 className="pn-secao-titulo">{titulo}</h2>
+          <Botao icone variante="discreto" simbolo={X} onClick={fechar} aria-label="Fechar" />
         </div>
         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-5 py-4">{children}</div>
-        <div className="flex flex-wrap items-center justify-end gap-2 border-t-2 border-ink px-5 py-3">{rodape}</div>
+        {rodape && <div className="flex flex-wrap items-center justify-end gap-2 border-t border-rule px-5 py-3">{rodape}</div>}
       </aside>
     </div>,
     document.body,
@@ -677,41 +909,63 @@ function EditorDeTrilha({ inicial, decide, disciplinas, nomeDaArea, fechar, salv
       rodape={
         <>
           <span className="mr-auto text-xs text-ink-soft">{decide ? "Vai ao ar na próxima publicação." : "Vira uma sugestão para a coordenação."}</span>
-          <button type="button" className={botaoClaro} onClick={fechar}>Cancelar</button>
-          <button type="button" className={botao} disabled={ocupado || !valida} onClick={() => salvar(e)}>{decide ? (e.nova ? "Criar trilha" : "Salvar") : "Enviar sugestão"}</button>
+          <Botao variante="discreto" onClick={fechar}>
+            Cancelar
+          </Botao>
+          <Botao variante="principal" disabled={ocupado || !valida} carregando={ocupado} onClick={() => salvar(e)}>
+            {decide ? (e.nova ? "Criar trilha" : "Salvar") : "Enviar sugestão"}
+          </Botao>
         </>
       }
     >
-      <label className="block">Título<input value={e.titulo} onChange={(ev) => mudar({ titulo: ev.target.value, slug: e.nova ? slugDe(ev.target.value) : e.slug })} maxLength={120} className={campo} /></label>
+      <Campo rotulo="Título" value={e.titulo} onChange={(ev) => mudar({ titulo: ev.target.value, slug: e.nova ? slugDe(ev.target.value) : e.slug })} maxLength={120} />
       <div className="grid gap-3 sm:grid-cols-2">
-        <label className="block">Disciplina<select value={e.disciplina} onChange={(ev) => mudar({ disciplina: ev.target.value })} className={campo}>{disciplinas.map((s) => <option key={s} value={s}>{nomeDaArea(s)}</option>)}</select></label>
-        <label className="block">Etapa<select value={e.etapa} onChange={(ev) => mudar({ etapa: ev.target.value as Stage })} className={campo}>{stages.map((s) => <option key={s} value={s}>{t.stages[s]}</option>)}</select></label>
+        <Selecao rotulo="Disciplina" value={e.disciplina} onChange={(ev) => mudar({ disciplina: ev.target.value })}>
+          {disciplinas.map((s) => (
+            <option key={s} value={s}>
+              {nomeDaArea(s)}
+            </option>
+          ))}
+        </Selecao>
+        <Selecao rotulo="Etapa" value={e.etapa} onChange={(ev) => mudar({ etapa: ev.target.value as Stage })}>
+          {stages.map((s) => (
+            <option key={s} value={s}>
+              {t.stages[s]}
+            </option>
+          ))}
+        </Selecao>
       </div>
-      <label className="block">Resumo (uma frase)<input value={e.resumo} onChange={(ev) => mudar({ resumo: ev.target.value })} maxLength={220} className={campo} /></label>
-      <label className="block text-sm text-ink-soft">Identificador no endereço (/trilhas/…)<input value={e.slug} disabled={!e.nova} onChange={(ev) => mudar({ slug: ev.target.value.toLowerCase() })} maxLength={60} className={`${campo} font-mono`} /></label>
+      <Campo rotulo="Resumo (uma frase)" value={e.resumo} onChange={(ev) => mudar({ resumo: ev.target.value })} maxLength={220} />
+      <Campo rotulo="Identificador no endereço (/trilhas/…)" value={e.slug} disabled={!e.nova} onChange={(ev) => mudar({ slug: ev.target.value.toLowerCase() })} maxLength={60} className="font-mono" />
       <section>
-        <p className="flex items-baseline justify-between">
-          <span className={rotulo}>Roteiro · {aulas.length} aula(s)</span>
+        <p className="flex items-baseline justify-between gap-2">
+          <span className="pn-rotulo-mono">Roteiro · {aulas.length} aula(s)</span>
           <span className="text-xs text-ink-soft">{prontas} escrita(s): não saem nem mudam de nome</span>
         </p>
-        <ol className="mt-2 divide-y divide-rule border border-rule bg-parchment-deep">
+        <ol aria-label="Roteiro" className="pn-lista mt-2">
           {aulas.map((a, i) => (
-            <li key={a.chave} className="flex items-center gap-2 px-2 py-1.5">
-              <span className="w-6 text-right font-mono text-xs text-ink-soft">{i + 1}</span>
+            <li key={a.chave} className="pn-item gap-2" style={{ paddingInline: "0.5rem" }}>
+              <span className="tabular w-6 text-right font-mono text-xs text-ink-soft">{i + 1}</span>
               {a.pronta ? (
-                <span className="flex-1 py-1"><span className="mr-2 text-[#2f5d34]" title="Escrita">✓</span>{a.titulo}</span>
+                <span className="flex flex-1 items-center gap-2 py-1">
+                  <Check aria-hidden width={14} height={14} className="text-ok" />
+                  <span className="sr-only">Escrita: </span>
+                  {a.titulo}
+                </span>
               ) : (
-                <input value={a.titulo} onChange={(ev) => mudar({ aulas: aulas.map((x) => (x.chave === a.chave ? { ...x, titulo: ev.target.value } : x)) })} placeholder="Título da aula" maxLength={120} className="flex-1 border border-rule bg-parchment px-2 py-1" />
+                <input value={a.titulo} onChange={(ev) => mudar({ aulas: aulas.map((x) => (x.chave === a.chave ? { ...x, titulo: ev.target.value } : x)) })} placeholder="Título da aula" aria-label={`Título da aula ${i + 1}`} maxLength={120} className="pn-campo flex-1" />
               )}
-              <button type="button" aria-label="Subir" disabled={i === 0} className="cursor-pointer px-1 text-ink-soft disabled:opacity-30" onClick={() => moverAula(i, -1)}>▲</button>
-              <button type="button" aria-label="Descer" disabled={i === aulas.length - 1} className="cursor-pointer px-1 text-ink-soft disabled:opacity-30" onClick={() => moverAula(i, 1)}>▼</button>
-              {!a.pronta && <button type="button" aria-label="Tirar do roteiro" className="cursor-pointer px-1 text-oxblood" onClick={() => mudar({ aulas: aulas.filter((x) => x.chave !== a.chave) })}>×</button>}
+              <Botao pequeno icone variante="discreto" simbolo={ArrowUp} aria-label="Subir" disabled={i === 0} onClick={() => moverAula(i, -1)} />
+              <Botao pequeno icone variante="discreto" simbolo={ArrowDown} aria-label="Descer" disabled={i === aulas.length - 1} onClick={() => moverAula(i, 1)} />
+              {!a.pronta && <Botao pequeno icone variante="discreto" perigo simbolo={X} aria-label="Tirar do roteiro" onClick={() => mudar({ aulas: aulas.filter((x) => x.chave !== a.chave) })} />}
             </li>
           ))}
         </ol>
-        <button type="button" className={`${elo} mt-2 text-sm`} onClick={() => mudar({ aulas: [...aulas, { chave: chave(), titulo: "", pronta: false }] })}>+ Aula no roteiro</button>
+        <Botao className="mt-2" pequeno variante="discreto" simbolo={Plus} onClick={() => mudar({ aulas: [...aulas, { chave: chave(), titulo: "", pronta: false }] })}>
+          Aula no roteiro
+        </Botao>
       </section>
-      {e.nova && <label className="block">Apresentação da trilha (opcional, Markdown)<textarea value={e.intro} onChange={(ev) => mudar({ intro: ev.target.value })} rows={4} maxLength={4000} className={campo} /></label>}
+      {e.nova && <Area rotulo="Apresentação da trilha (opcional, Markdown)" value={e.intro} onChange={(ev) => mudar({ intro: ev.target.value })} rows={4} maxLength={4000} />}
     </Gaveta>
   );
 }
@@ -728,35 +982,47 @@ function EditorDeDisciplina({ inicial, decide, grupos, etapasNomes, fechar, salv
       rodape={
         <>
           <span className="mr-auto text-xs text-ink-soft">{decide ? "Vai ao ar na próxima publicação." : "Vira uma sugestão para a coordenação."}</span>
-          <button type="button" className={botaoClaro} onClick={fechar}>Cancelar</button>
-          <button type="button" className={botao} disabled={ocupado || !valida} onClick={() => salvar(e)}>{decide ? "Salvar" : "Enviar sugestão"}</button>
+          <Botao variante="discreto" onClick={fechar}>
+            Cancelar
+          </Botao>
+          <Botao variante="principal" disabled={ocupado || !valida} carregando={ocupado} onClick={() => salvar(e)}>
+            {decide ? "Salvar" : "Enviar sugestão"}
+          </Botao>
         </>
       }
     >
-      <label className="block">Nome<input value={e.nomes.pt ?? ""} onChange={(ev) => mudar({ nomes: { ...e.nomes, pt: ev.target.value }, slug: e.nova ? slugDe(ev.target.value) : e.slug })} maxLength={60} className={campo} /></label>
-      <label className="block">Descrição em uma frase<input value={e.descricoes.pt ?? ""} onChange={(ev) => mudar({ descricoes: { ...e.descricoes, pt: ev.target.value } })} maxLength={300} className={campo} /></label>
+      <Campo rotulo="Nome" value={e.nomes.pt ?? ""} onChange={(ev) => mudar({ nomes: { ...e.nomes, pt: ev.target.value }, slug: e.nova ? slugDe(ev.target.value) : e.slug })} maxLength={60} />
+      <Campo rotulo="Descrição em uma frase" value={e.descricoes.pt ?? ""} onChange={(ev) => mudar({ descricoes: { ...e.descricoes, pt: ev.target.value } })} maxLength={300} />
       {e.nova && (
         <>
-          <label className="block text-sm text-ink-soft">Identificador no endereço<input value={e.slug} onChange={(ev) => mudar({ slug: ev.target.value.toLowerCase() })} maxLength={60} className={`${campo} font-mono`} /></label>
-          <label className="block">Grupo<select value={e.grupo} onChange={(ev) => mudar({ grupo: ev.target.value })} className={campo}>{grupos.map((g) => <option key={g.id} value={g.id}>{g.nome}</option>)}</select></label>
+          <Campo rotulo="Identificador no endereço" value={e.slug} onChange={(ev) => mudar({ slug: ev.target.value.toLowerCase() })} maxLength={60} className="font-mono" />
+          <Selecao rotulo="Grupo" value={e.grupo} onChange={(ev) => mudar({ grupo: ev.target.value })}>
+            {grupos.map((g) => (
+              <option key={g.id} value={g.id}>
+                {g.nome}
+              </option>
+            ))}
+          </Selecao>
           <fieldset>
-            <legend>Etapas</legend>
+            <legend className="pn-rotulo">Etapas</legend>
             <div className="mt-1 flex flex-wrap gap-4">
               {stages.map((s) => (
-                <label key={s} className="inline-flex items-center gap-2"><input type="checkbox" checked={e.etapas.includes(s)} onChange={(ev) => mudar({ etapas: ev.target.checked ? [...e.etapas, s] : e.etapas.filter((x) => x !== s) })} />{etapasNomes[s]}</label>
+                <Marca key={s} rotulo={etapasNomes[s]} checked={e.etapas.includes(s)} onChange={(ev) => mudar({ etapas: ev.target.checked ? [...e.etapas, s] : e.etapas.filter((x) => x !== s) })} />
               ))}
             </div>
           </fieldset>
         </>
       )}
-      <button type="button" className={`${elo} text-sm`} aria-expanded={idiomas} onClick={() => setIdiomas(!idiomas)}>{idiomas ? "Esconder" : "Nome e descrição nos outros idiomas"}</button>
+      <Botao pequeno variante="discreto" aria-expanded={idiomas} onClick={() => setIdiomas(!idiomas)}>
+        {idiomas ? "Esconder" : "Nome e descrição nos outros idiomas"}
+      </Botao>
       {idiomas &&
         IDIOMAS.filter(([k]) => k !== "pt").map(([k, nome]) => (
           <div key={k} className="grid gap-2 sm:grid-cols-[6rem_1fr]">
             <span className="pt-2 text-xs text-ink-soft">{nome}</span>
             <span className="space-y-1">
-              <input value={e.nomes[k] ?? ""} onChange={(ev) => mudar({ nomes: { ...e.nomes, [k]: ev.target.value } })} placeholder="Nome" maxLength={60} className={`${campo} mt-0`} />
-              <input value={e.descricoes[k] ?? ""} onChange={(ev) => mudar({ descricoes: { ...e.descricoes, [k]: ev.target.value } })} placeholder="Descrição" maxLength={300} className={`${campo} mt-0`} />
+              <input value={e.nomes[k] ?? ""} onChange={(ev) => mudar({ nomes: { ...e.nomes, [k]: ev.target.value } })} placeholder="Nome" aria-label={`Nome · ${nome}`} maxLength={60} className="pn-campo" />
+              <input value={e.descricoes[k] ?? ""} onChange={(ev) => mudar({ descricoes: { ...e.descricoes, [k]: ev.target.value } })} placeholder="Descrição" aria-label={`Descrição · ${nome}`} maxLength={300} className="pn-campo" />
             </span>
           </div>
         ))}
@@ -770,38 +1036,80 @@ function Convites({ decide, minhas, convites, membros, tracks, nomeDaArea, acao 
   const convidaEm = useMemo(() => (decide ? [...areaSlugs] : minhas), [decide, minhas]);
   return (
     <div className="space-y-6">
-      <p className="max-w-3xl text-ink-soft">Cada educador cuida da própria disciplina. Para alguém de outra disciplina ajudar numa aula ou numa trilha da sua, convide aqui: a pessoa passa a ver a sua disciplina em Escrever e aqui, até o convite acabar.</p>
+      <p className="pn-sobre">Cada educador cuida da própria disciplina. Para alguém de outra disciplina ajudar numa aula ou numa trilha da sua, convide aqui: a pessoa passa a ver a sua disciplina em Escrever e aqui, até o convite acabar.</p>
       {convidaEm.length > 0 && (
-        <section className="painel-cartao max-w-3xl p-5">
-          <h2 className="font-serif text-xl font-semibold">Convidar para ajudar</h2>
+        <Cartao titulo="Convidar para ajudar" className="max-w-3xl">
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <label className="block">Disciplina<select value={convite.disciplina} onChange={(e) => setConvite({ ...convite, disciplina: e.target.value, trilha: "" })} className={campo}><option value="">Escolha…</option>{convidaEm.map((s) => <option key={s} value={s}>{nomeDaArea(s)}</option>)}</select></label>
-            <label className="block">Trilha (vazio: a disciplina toda)<select value={convite.trilha} onChange={(e) => setConvite({ ...convite, trilha: e.target.value })} className={campo}><option value="">A disciplina toda</option>{tracks.filter((x) => x.area === convite.disciplina).map((x) => <option key={x.slug} value={x.slug}>{x.title}</option>)}</select></label>
-            <label className="block sm:col-span-2">Quem
-              <select value={convite.pessoa} onChange={(e) => setConvite({ ...convite, pessoa: e.target.value })} className={campo}>
-                <option value="">Escolha a pessoa…</option>
-                {membros.filter((m) => !m.eu && !m.papeis.some((p) => (p.papel === "educacao" || p.papel === "educacao_secundaria") && p.disciplina === convite.disciplina)).map((m) => (
-                  <option key={m.id} value={m.id}>{m.nome}</option>
+            <Selecao rotulo="Disciplina" value={convite.disciplina} onChange={(e) => setConvite({ ...convite, disciplina: e.target.value, trilha: "" })}>
+              <option value="">Escolha…</option>
+              {convidaEm.map((s) => (
+                <option key={s} value={s}>
+                  {nomeDaArea(s)}
+                </option>
+              ))}
+            </Selecao>
+            <Selecao rotulo="Trilha (vazio: a disciplina toda)" value={convite.trilha} onChange={(e) => setConvite({ ...convite, trilha: e.target.value })}>
+              <option value="">A disciplina toda</option>
+              {tracks
+                .filter((x) => x.area === convite.disciplina)
+                .map((x) => (
+                  <option key={x.slug} value={x.slug}>
+                    {x.title}
+                  </option>
                 ))}
-              </select>
-            </label>
-            <label className="block sm:col-span-2">Para quê (aparece para a pessoa)<input value={convite.nota} onChange={(e) => setConvite({ ...convite, nota: e.target.value })} maxLength={500} placeholder="Ex.: a aula de estatística das revoltas" className={campo} /></label>
+            </Selecao>
+            <div className="sm:col-span-2">
+              <Selecao rotulo="Quem" value={convite.pessoa} onChange={(e) => setConvite({ ...convite, pessoa: e.target.value })}>
+                <option value="">Escolha a pessoa…</option>
+                {membros
+                  .filter((m) => !m.eu && !m.papeis.some((p) => (p.papel === "educacao" || p.papel === "educacao_secundaria") && p.disciplina === convite.disciplina))
+                  .map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.nome}
+                    </option>
+                  ))}
+              </Selecao>
+            </div>
+            <div className="sm:col-span-2">
+              <Campo rotulo="Para quê (aparece para a pessoa)" value={convite.nota} onChange={(e) => setConvite({ ...convite, nota: e.target.value })} maxLength={500} placeholder="Ex.: a aula de estatística das revoltas" />
+            </div>
           </div>
-          <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado || !convite.disciplina || !convite.pessoa} onClick={async () => { if (await acao.agir("disciplina_convidar", { p_usuario: convite.pessoa, p_disciplina: convite.disciplina, p_trilha: convite.trilha || null, p_nota: convite.nota }, "Convite enviado: a pessoa foi avisada.")) setConvite({ disciplina: "", trilha: "", pessoa: "", nota: "" }); }}>Convidar</button>
-        </section>
+          <Botao
+            className="mt-3"
+            variante="principal"
+            simbolo={UserPlus}
+            disabled={acao.ocupado || !convite.disciplina || !convite.pessoa}
+            onClick={async () => {
+              if (await acao.agir("disciplina_convidar", { p_usuario: convite.pessoa, p_disciplina: convite.disciplina, p_trilha: convite.trilha || null, p_nota: convite.nota }, "Convite enviado: a pessoa foi avisada.")) setConvite({ disciplina: "", trilha: "", pessoa: "", nota: "" });
+            }}
+          >
+            Convidar
+          </Botao>
+        </Cartao>
       )}
-      <ul className="max-w-3xl space-y-2">
-        {convites.length === 0 && <li className="text-ink-soft">Nenhum convite ativo.</li>}
-        {convites.map((c) => (
-          <li key={c.id} className="painel-cartao flex flex-wrap items-start justify-between gap-2 p-3">
-            <span>
-              <strong>{c.meu ? "Você" : c.convidado}</strong> ajuda em <strong>{nomeDaArea(c.disciplina)}</strong>{c.trilha ? ` (trilha ${tracks.find((x) => x.slug === c.trilha)?.title ?? c.trilha})` : ""}
-              <span className="block text-xs text-ink-soft">convite de {c.por || "?"} · {dataHora(c.criado_em)}{c.nota ? ` · ${c.nota}` : ""}</span>
-            </span>
-            {c.posso_revogar && <button type="button" className={elo} onClick={() => void acao.agir("disciplina_convite_revogar", { p_id: c.id }, "Convite encerrado.")}>{c.meu ? "Sair" : "Encerrar"}</button>}
-          </li>
-        ))}
-      </ul>
+      {convites.length === 0 ? (
+        <Vazio simbolo={UserPlus} titulo="Nenhum convite ativo." />
+      ) : (
+        <ul aria-label="Convites para ajudar" className="pn-lista max-w-3xl">
+          {convites.map((c) => (
+            <li key={c.id} className="pn-item flex-wrap justify-between" style={{ alignItems: "flex-start", paddingBlock: "0.6rem" }}>
+              <span className="min-w-0 flex-1">
+                <strong>{c.meu ? "Você" : c.convidado}</strong> ajuda em <strong>{nomeDaArea(c.disciplina)}</strong>
+                {c.trilha ? ` (trilha ${tracks.find((x) => x.slug === c.trilha)?.title ?? c.trilha})` : ""}
+                <span className="block text-xs text-ink-soft">
+                  convite de {c.por || "?"} · {dataHora(c.criado_em)}
+                  {c.nota ? ` · ${c.nota}` : ""}
+                </span>
+              </span>
+              {c.posso_revogar && (
+                <Botao pequeno variante="discreto" perigo onClick={() => void acao.agir("disciplina_convite_revogar", { p_id: c.id }, "Convite encerrado.")}>
+                  {c.meu ? "Sair" : "Encerrar"}
+                </Botao>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

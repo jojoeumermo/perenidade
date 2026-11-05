@@ -1,7 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { ArrowDown, ArrowUp, FlaskConical, Plus, Send, Trash2, X } from "lucide-react";
+import { type ReactNode, useState } from "react";
 import pt from "@/i18n/pt.json";
 import type { Me } from "@/lib/backend";
 import { type Exercicio, linguaDe, TIPOS, type TipoDeExercicio, validarPratica } from "@/lib/pratica";
@@ -9,8 +10,9 @@ import { horaDoRascunho, useRascunho } from "@/lib/rascunho";
 import { useI18n } from "../I18n";
 import { Pratica } from "../Pratica";
 import { useTrackOptions } from "../useTrackOptions";
-import { Aviso, botao, botaoClaro, campo, elo, rotulo, useAcao } from "./comum";
+import { Aviso, useAcao } from "./comum";
 import { IDIOMAS } from "./GuiaDaAula";
+import { Botao, Cartao, Esqueleto, Faixa, Marca, Selecao, Selo } from "./ui";
 
 const NOME: Record<TipoDeExercicio, string> = {
   escolha: "Escolha múltipla",
@@ -67,34 +69,47 @@ function limpar(ex: Exercicio): Exercicio {
 const lista = (valor: string[] | undefined) => (valor ?? []).join("\n");
 const deLista = (texto: string) => texto.split("\n").map((l) => l.trim()).filter(Boolean);
 
-function Linha({ rotuloTexto, children }: { rotuloTexto: string; children: React.ReactNode }) {
+/** Um campo com o rótulo em cima (o campo vem de fora: pode ser linha ou caixa de texto). */
+function Linha({ rotuloTexto, children }: { rotuloTexto: string; children: ReactNode }) {
   return (
-    <label className="block">
-      <span className="text-xs text-ink-soft">{rotuloTexto}</span>
+    <label className="pn-campo-bloco">
+      <span className="pn-rotulo">{rotuloTexto}</span>
       {children}
     </label>
   );
 }
 
+/**
+ * O botão discreto de acrescentar ou tirar uma linha do exercício. O "+" e o "−" fazem parte da frase (é o que distingue
+ * "+ alternativa" de "− alternativa" para o leitor de tela e para a tradução), então ficam no texto, sem ícone.
+ */
+function Mais({ children, onClick }: { children: string; onClick: () => void }) {
+  return (
+    <Botao variante="discreto" pequeno onClick={onClick}>
+      {children}
+    </Botao>
+  );
+}
+
 /** O formulário de um exercício, conforme o tipo. */
 function Formulario({ ex, mudar, lingua }: { ex: Exercicio; mudar: (ex: Exercicio) => void; lingua: string }) {
-  const input = (valor: string, ao: (v: string) => void, extra: Record<string, unknown> = {}) => <input value={valor} onChange={(e) => ao(e.target.value)} maxLength={300} className={campo} {...extra} />;
+  const input = (valor: string, ao: (v: string) => void, extra: Record<string, unknown> = {}) => <input value={valor} onChange={(e) => ao(e.target.value)} maxLength={300} className="pn-campo" {...extra} />;
   switch (ex.tipo) {
     case "escolha":
       return (
-        <div className="grid gap-2">
+        <div className="grid gap-3">
           <Linha rotuloTexto="Pergunta">{input(ex.pergunta, (v) => mudar({ ...ex, pergunta: v }))}</Linha>
-          <div className="grid gap-1 sm:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-2">
             {ex.opcoes.map((o, i) => (
               <label key={i} className="flex items-center gap-2">
-                <input type="radio" checked={ex.resposta === i} onChange={() => mudar({ ...ex, resposta: i })} aria-label={`Alternativa ${i + 1} certa`} />
-                <input value={o} onChange={(e) => mudar({ ...ex, opcoes: ex.opcoes.map((x, j) => (j === i ? e.target.value : x)) })} maxLength={200} placeholder={`Alternativa ${i + 1}`} className={`${campo} mt-0`} lang={lingua} />
+                <input type="radio" checked={ex.resposta === i} onChange={() => mudar({ ...ex, resposta: i })} aria-label={`Alternativa ${i + 1} certa`} className="accent-oxblood" />
+                <input value={o} onChange={(e) => mudar({ ...ex, opcoes: ex.opcoes.map((x, j) => (j === i ? e.target.value : x)) })} maxLength={200} placeholder={`Alternativa ${i + 1}`} className="pn-campo" lang={lingua} />
               </label>
             ))}
           </div>
-          <p className="flex gap-4 text-xs">
-            {ex.opcoes.length < 6 && <button type="button" className={elo} onClick={() => mudar({ ...ex, opcoes: [...ex.opcoes, ""] })}>+ alternativa</button>}
-            {ex.opcoes.length > 2 && <button type="button" className={elo} onClick={() => mudar({ ...ex, opcoes: ex.opcoes.slice(0, -1), resposta: Math.min(ex.resposta, ex.opcoes.length - 2) })}>− alternativa</button>}
+          <p className="flex flex-wrap gap-2">
+            {ex.opcoes.length < 6 && <Mais onClick={() => mudar({ ...ex, opcoes: [...ex.opcoes, ""] })}>+ alternativa</Mais>}
+            {ex.opcoes.length > 2 && <Mais onClick={() => mudar({ ...ex, opcoes: ex.opcoes.slice(0, -1), resposta: Math.min(ex.resposta, ex.opcoes.length - 2) })}>− alternativa</Mais>}
           </p>
           <Linha rotuloTexto="Áudio: o que o botão de ouvir fala, na língua estudada (opcional)">{input(ex.audio ?? "", (v) => mudar({ ...ex, audio: v }), { lang: lingua })}</Linha>
           <Linha rotuloTexto="Dica (opcional)">{input(ex.dica ?? "", (v) => mudar({ ...ex, dica: v }))}</Linha>
@@ -102,59 +117,65 @@ function Formulario({ ex, mudar, lingua }: { ex: Exercicio; mudar: (ex: Exercici
       );
     case "traduzir":
       return (
-        <div className="grid gap-2">
+        <div className="grid gap-3">
           <Linha rotuloTexto="Frase a traduzir">{input(ex.frase, (v) => mudar({ ...ex, frase: v }), { lang: ex.na_lingua ? lingua : undefined })}</Linha>
-          <label className="flex items-center gap-2 text-xs">
-            <input type="checkbox" checked={Boolean(ex.na_lingua)} onChange={(e) => mudar({ ...ex, na_lingua: e.target.checked })} /> A frase está na língua estudada (a resposta é em português)
-          </label>
+          <Marca rotulo="A frase está na língua estudada (a resposta é em português)" checked={Boolean(ex.na_lingua)} onChange={(e) => mudar({ ...ex, na_lingua: e.target.checked })} />
           <Linha rotuloTexto="Traduções aceitas, uma por linha (qualquer uma vale)">
-            <textarea value={lista(ex.resposta)} onChange={(e) => mudar({ ...ex, resposta: deLista(e.target.value) })} rows={2} className={campo} lang={ex.na_lingua ? undefined : lingua} />
+            <textarea value={lista(ex.resposta)} onChange={(e) => mudar({ ...ex, resposta: deLista(e.target.value) })} rows={2} className="pn-campo" lang={ex.na_lingua ? undefined : lingua} />
           </Linha>
           <Linha rotuloTexto="Banco de palavras, uma por linha (opcional; inclua palavras a mais). Sem banco, a pessoa digita">
-            <textarea value={lista(ex.palavras)} onChange={(e) => mudar({ ...ex, palavras: deLista(e.target.value) })} rows={3} className={campo} />
+            <textarea value={lista(ex.palavras)} onChange={(e) => mudar({ ...ex, palavras: deLista(e.target.value) })} rows={3} className="pn-campo" />
           </Linha>
         </div>
       );
     case "pares":
       return (
-        <div className="grid gap-1">
+        <div className="grid gap-2">
           {ex.pares.map(([a, b], i) => (
-            <div key={i} className="grid grid-cols-[1fr_1fr_auto] gap-2">
-              <input value={a} onChange={(e) => mudar({ ...ex, pares: ex.pares.map((p, j) => (j === i ? [e.target.value, p[1]] : p)) })} maxLength={200} placeholder="Esquerda" aria-label={`Par ${i + 1}, esquerda`} className={`${campo} mt-0`} lang={lingua} />
-              <input value={b} onChange={(e) => mudar({ ...ex, pares: ex.pares.map((p, j) => (j === i ? [p[0], e.target.value] : p)) })} maxLength={200} placeholder="Direita" aria-label={`Par ${i + 1}, direita`} className={`${campo} mt-0`} />
-              <button type="button" className={elo} aria-label="Remover par" onClick={() => mudar({ ...ex, pares: ex.pares.filter((_, j) => j !== i) })}>✕</button>
+            <div key={i} className="grid grid-cols-[1fr_1fr_auto] items-center gap-2">
+              <input value={a} onChange={(e) => mudar({ ...ex, pares: ex.pares.map((p, j) => (j === i ? [e.target.value, p[1]] : p)) })} maxLength={200} placeholder="Esquerda" aria-label={`Par ${i + 1}, esquerda`} className="pn-campo" lang={lingua} />
+              <input value={b} onChange={(e) => mudar({ ...ex, pares: ex.pares.map((p, j) => (j === i ? [p[0], e.target.value] : p)) })} maxLength={200} placeholder="Direita" aria-label={`Par ${i + 1}, direita`} className="pn-campo" />
+              <Botao variante="discreto" pequeno icone perigo simbolo={X} aria-label="Remover par" onClick={() => mudar({ ...ex, pares: ex.pares.filter((_, j) => j !== i) })} />
             </div>
           ))}
-          {ex.pares.length < 8 && <button type="button" className={`${elo} text-xs`} onClick={() => mudar({ ...ex, pares: [...ex.pares, ["", ""]] })}>+ par</button>}
+          {ex.pares.length < 8 && (
+            <p>
+              <Mais onClick={() => mudar({ ...ex, pares: [...ex.pares, ["", ""]] })}>+ par</Mais>
+            </p>
+          )}
         </div>
       );
     case "lacuna":
       return (
-        <div className="grid gap-2">
+        <div className="grid gap-3">
           <Linha rotuloTexto="Frase, com ___ no lugar da palavra que falta">{input(ex.frase, (v) => mudar({ ...ex, frase: v }), { lang: lingua })}</Linha>
           <Linha rotuloTexto="Palavra certa">{input(ex.resposta, (v) => mudar({ ...ex, resposta: v }), { lang: lingua })}</Linha>
           <Linha rotuloTexto="Alternativas, uma por linha (opcional; inclua a certa). Sem elas, a pessoa digita">
-            <textarea value={lista(ex.opcoes)} onChange={(e) => mudar({ ...ex, opcoes: deLista(e.target.value) })} rows={3} className={campo} lang={lingua} />
+            <textarea value={lista(ex.opcoes)} onChange={(e) => mudar({ ...ex, opcoes: deLista(e.target.value) })} rows={3} className="pn-campo" lang={lingua} />
           </Linha>
           <Linha rotuloTexto="Dica (opcional)">{input(ex.dica ?? "", (v) => mudar({ ...ex, dica: v }))}</Linha>
         </div>
       );
     case "cartoes":
       return (
-        <div className="grid gap-1">
+        <div className="grid gap-2">
           {ex.cartoes.map((c, i) => (
-            <div key={i} className="grid grid-cols-[1fr_1fr_auto] gap-2">
-              <input value={c.frente} onChange={(e) => mudar({ ...ex, cartoes: ex.cartoes.map((x, j) => (j === i ? { ...x, frente: e.target.value } : x)) })} maxLength={200} placeholder="Frente (na língua estudada)" aria-label={`Cartão ${i + 1}, frente`} className={`${campo} mt-0`} lang={lingua} />
-              <input value={c.verso} onChange={(e) => mudar({ ...ex, cartoes: ex.cartoes.map((x, j) => (j === i ? { ...x, verso: e.target.value } : x)) })} maxLength={300} placeholder="Verso (tradução, explicação)" aria-label={`Cartão ${i + 1}, verso`} className={`${campo} mt-0`} />
-              <button type="button" className={elo} aria-label="Remover cartão" onClick={() => mudar({ ...ex, cartoes: ex.cartoes.filter((_, j) => j !== i) })}>✕</button>
+            <div key={i} className="grid grid-cols-[1fr_1fr_auto] items-center gap-2">
+              <input value={c.frente} onChange={(e) => mudar({ ...ex, cartoes: ex.cartoes.map((x, j) => (j === i ? { ...x, frente: e.target.value } : x)) })} maxLength={200} placeholder="Frente (na língua estudada)" aria-label={`Cartão ${i + 1}, frente`} className="pn-campo" lang={lingua} />
+              <input value={c.verso} onChange={(e) => mudar({ ...ex, cartoes: ex.cartoes.map((x, j) => (j === i ? { ...x, verso: e.target.value } : x)) })} maxLength={300} placeholder="Verso (tradução, explicação)" aria-label={`Cartão ${i + 1}, verso`} className="pn-campo" />
+              <Botao variante="discreto" pequeno icone perigo simbolo={X} aria-label="Remover cartão" onClick={() => mudar({ ...ex, cartoes: ex.cartoes.filter((_, j) => j !== i) })} />
             </div>
           ))}
-          {ex.cartoes.length < 30 && <button type="button" className={`${elo} text-xs`} onClick={() => mudar({ ...ex, cartoes: [...ex.cartoes, { frente: "", verso: "" }] })}>+ cartão</button>}
+          {ex.cartoes.length < 30 && (
+            <p>
+              <Mais onClick={() => mudar({ ...ex, cartoes: [...ex.cartoes, { frente: "", verso: "" }] })}>+ cartão</Mais>
+            </p>
+          )}
         </div>
       );
     default:
       return (
-        <div className="grid gap-2">
+        <div className="grid gap-3">
           <Linha rotuloTexto={ex.tipo === "ordenar" ? "Frase na língua estudada (as palavras serão embaralhadas)" : "Frase na língua estudada"}>{input(ex.frase, (v) => mudar({ ...ex, frase: v }), { lang: lingua })}</Linha>
           <Linha rotuloTexto={ex.tipo === "ordenar" ? "Tradução em português (serve de guia)" : "Tradução (opcional)"}>{input(ex.traducao ?? "", (v) => mudar({ ...ex, traducao: v }))}</Linha>
         </div>
@@ -229,73 +250,109 @@ export function EditorDePratica({ me }: { me: Me }) {
     }
   }
 
-  if (trilhas.length === 0) return <p className="text-ink-soft">Carregando as trilhas de idioma…</p>;
+  if (trilhas.length === 0) return <Esqueleto forma="linhas" linhas={3} rotulo="Carregando as trilhas de idioma…" />;
 
   return (
-    <div className="space-y-5">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="block">
-          Trilha
-          <select value={trilha?.slug ?? ""} onChange={(e) => { setTrilhaSlug(e.target.value); setAula(""); }} className={campo}>
+    <div className="pn-tela">
+      <Cartao as="div">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Selecao
+            rotulo="Trilha"
+            value={trilha?.slug ?? ""}
+            onChange={(e) => {
+              setTrilhaSlug(e.target.value);
+              setAula("");
+            }}
+          >
             {trilhas.map((x) => (
-              <option key={x.slug} value={x.slug}>{t.areas[x.area as keyof typeof t.areas]?.[0]} · {x.title}</option>
+              <option key={x.slug} value={x.slug}>
+                {t.areas[x.area as keyof typeof t.areas]?.[0]} · {x.title}
+              </option>
             ))}
-          </select>
-        </label>
-        <label className="block">
-          Aula (já escrita)
-          <select value={escolhida?.slug ?? ""} onChange={(e) => setAula(e.target.value)} className={campo}>
+          </Selecao>
+          <Selecao rotulo="Aula (já escrita)" value={escolhida?.slug ?? ""} onChange={(e) => setAula(e.target.value)}>
             {aulas.map((a) => (
-              <option key={a.slug} value={a.slug}>{a.title}</option>
+              <option key={a.slug} value={a.slug}>
+                {a.title}
+              </option>
             ))}
-          </select>
-        </label>
-      </div>
-      {escolhida && <p className="text-ink-soft">“{escolhida.summary}” · a língua falada pelo aparelho nesta trilha: <code className="font-mono">{lingua}</code></p>}
-      {rascunho.restaurado && rascunho.salvoEm && <p className="border border-rule bg-parchment-deep px-4 py-2 text-ink-soft">Recuperamos o rascunho guardado às {horaDoRascunho(rascunho.salvoEm)}.</p>}
-
-      <ol className="space-y-4">
-        {exercicios.map((ex, i) => (
-          <li key={i} className="painel-cartao p-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="font-semibold">
-                <span className="mr-2 font-mono text-xs text-gold">{i + 1}</span>
-                {NOME[ex.tipo]}
-              </p>
-              <p className="flex gap-3 text-xs">
-                <button type="button" className={elo} onClick={() => mover(i, -1)} disabled={i === 0}>↑</button>
-                <button type="button" className={elo} onClick={() => mover(i, 1)} disabled={i === exercicios.length - 1}>↓</button>
-                <button type="button" className={`${elo} text-oxblood`} onClick={() => setExercicios(exercicios.filter((_, j) => j !== i))}>Remover</button>
-              </p>
-            </div>
-            <p className="mb-3 text-xs text-ink-soft">{SOBRE[ex.tipo]}</p>
-            <Formulario ex={ex} mudar={(novo) => trocar(i, novo)} lingua={lingua} />
-          </li>
-        ))}
-      </ol>
-
-      <div className="flex flex-wrap items-end gap-3">
-        <label className="block min-w-64">
-          Acrescentar exercício
-          <select value={novoTipo} onChange={(e) => setNovoTipo(e.target.value as TipoDeExercicio)} className={campo}>
-            {TIPOS.map((tipo) => (
-              <option key={tipo} value={tipo}>{NOME[tipo]}</option>
-            ))}
-          </select>
-        </label>
-        <button type="button" className={botaoClaro} disabled={exercicios.length >= 60} onClick={() => setExercicios([...exercicios, novo[novoTipo]()])}>+ Acrescentar</button>
-      </div>
-      <p className="text-xs text-ink-soft">{SOBRE[novoTipo]}</p>
+          </Selecao>
+        </div>
+        {escolhida && (
+          <p className="pn-ajuda mt-3">
+            “{escolhida.summary}” · a língua falada pelo aparelho nesta trilha: <code className="font-mono">{lingua}</code>
+          </p>
+        )}
+      </Cartao>
+      {rascunho.restaurado && rascunho.salvoEm && <Faixa tom="info">Recuperamos o rascunho guardado às {horaDoRascunho(rascunho.salvoEm)}.</Faixa>}
 
       {exercicios.length > 0 && (
-        <p className={`${rotulo} pt-2`}>{prontos.length} exercícios · {problema ? <span className="normal-case tracking-normal text-oxblood">{problema}</span> : "tudo preenchido"}</p>
+        <ol className="grid gap-3" aria-label="Exercícios">
+          {exercicios.map((ex, i) => (
+            <li key={i}>
+              <Cartao
+                as="article"
+                titulo={
+                  <span className="flex items-baseline gap-2">
+                    <span className="pn-rotulo-mono tabular-nums">{i + 1}</span>
+                    {NOME[ex.tipo]}
+                  </span>
+                }
+                nivelDoTitulo={3}
+                sobre={SOBRE[ex.tipo]}
+                acoes={
+                  <>
+                    <Botao variante="discreto" pequeno icone simbolo={ArrowUp} aria-label="Subir" dica="Subir" onClick={() => mover(i, -1)} disabled={i === 0} />
+                    <Botao variante="discreto" pequeno icone simbolo={ArrowDown} aria-label="Descer" dica="Descer" onClick={() => mover(i, 1)} disabled={i === exercicios.length - 1} />
+                    <Botao variante="discreto" pequeno perigo simbolo={Trash2} onClick={() => setExercicios(exercicios.filter((_, j) => j !== i))}>
+                      Remover
+                    </Botao>
+                  </>
+                }
+              >
+                <div className="mt-3">
+                  <Formulario ex={ex} mudar={(novo) => trocar(i, novo)} lingua={lingua} />
+                </div>
+              </Cartao>
+            </li>
+          ))}
+        </ol>
       )}
 
-      <div className="flex flex-wrap gap-3">
-        <button type="button" className={botaoClaro} disabled={exercicios.length === 0 || Boolean(problema)} onClick={() => setTestando((v) => !v)}>{testando ? "Fechar o teste" : "Testar como estudante"}</button>
-        <button type="button" className={botao} disabled={acao.ocupado || exercicios.length === 0 || Boolean(problema)} onClick={() => void enviar()}>Enviar para revisão</button>
+      <Cartao as="div" variante="plano">
+        <div className="flex flex-wrap items-end gap-3">
+          <div className="min-w-64">
+            <Selecao rotulo="Acrescentar exercício" value={novoTipo} onChange={(e) => setNovoTipo(e.target.value as TipoDeExercicio)}>
+              {TIPOS.map((tipo) => (
+                <option key={tipo} value={tipo}>
+                  {NOME[tipo]}
+                </option>
+              ))}
+            </Selecao>
+          </div>
+          <Botao simbolo={Plus} disabled={exercicios.length >= 60} onClick={() => setExercicios([...exercicios, novo[novoTipo]()])}>
+            Acrescentar
+          </Botao>
+        </div>
+        <p className="pn-ajuda mt-2">{SOBRE[novoTipo]}</p>
+      </Cartao>
+
+      {exercicios.length > 0 && (
+        <p className="flex flex-wrap items-center gap-2" role="status">
+          <span className="pn-rotulo-mono">{prontos.length} exercícios</span>
+          {problema ? <Selo tom="aviso">{problema}</Selo> : <Selo tom="ok">tudo preenchido</Selo>}
+        </p>
+      )}
+
+      <div className="flex flex-wrap gap-2">
+        <Botao simbolo={FlaskConical} aria-pressed={testando} disabled={exercicios.length === 0 || Boolean(problema)} onClick={() => setTestando((v) => !v)}>
+          {testando ? "Fechar o teste" : "Testar como estudante"}
+        </Botao>
+        <Botao variante="principal" simbolo={Send} carregando={acao.ocupado} disabled={exercicios.length === 0 || Boolean(problema)} onClick={() => void enviar()}>
+          Enviar para revisão
+        </Botao>
       </div>
-      <p className="text-ink-soft">
+      <p className="pn-ajuda">
         Você assina como <strong>{me.nome}</strong>. {rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}.` : "O rascunho é guardado sozinho enquanto você monta."}
       </p>
       <Aviso texto={acao.aviso} />

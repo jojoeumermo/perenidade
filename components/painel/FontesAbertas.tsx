@@ -3,7 +3,8 @@
 
 import { useState } from "react";
 import { getClient } from "@/lib/backend";
-import { Aviso, botao, campo, rotulo } from "./comum";
+import { ArrowUpRight, Library, Search } from "lucide-react";
+import { Botao, Campo, Faixa, ItemDeLista, Lista, Selecao, Vazio } from "./ui";
 
 interface Achado {
   fonte: string;
@@ -65,53 +66,73 @@ export function FontesAbertas() {
 
   const grupos = [...new Set((achados ?? []).map((achado) => achado.fonte))];
   return (
-    <div>
-      <p className="max-w-3xl text-ink-soft">
+    <div className="pn-tela">
+      <p className="pn-sobre" style={{ marginTop: 0 }}>
         Para preencher fichas do acervo, verbetes do glossário e datas da linha do tempo com fonte à vista. Nada daqui vai ao ar sozinho: abra o link, confira a licença e os dados na própria
         fonte, e cite-a ao escrever. Obra com direitos de autor entra só como ficha de referência; no Brasil, o domínio público vale 70 anos depois da morte do autor.
       </p>
-      <form className="mt-4 flex flex-wrap items-end gap-3" onSubmit={(e) => { e.preventDefault(); void pesquisar(); }}>
-        <label className="block min-w-60 flex-1">
-          O que procurar
-          <input value={busca} onChange={(e) => setBusca(e.target.value)} maxLength={100} placeholder="Ex.: Manifesto Comunista, Rosa Luxemburgo, mais-valia" className={campo} />
-        </label>
-        <label className="block">
-          Onde
-          <select value={tipo} onChange={(e) => setTipo(e.target.value as Tipo)} className={campo}>
+      <form
+        className="pn-cartao flex flex-wrap items-end gap-3"
+        role="search"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void pesquisar();
+        }}
+      >
+        <div className="min-w-60 flex-1">
+          <Campo rotulo="O que procurar" simbolo={Search} value={busca} onChange={(e) => setBusca(e.target.value)} maxLength={100} placeholder="Ex.: Manifesto Comunista, Rosa Luxemburgo, mais-valia" />
+        </div>
+        <div className="min-w-0 max-w-full">
+          <Selecao rotulo="Onde" value={tipo} onChange={(e) => setTipo(e.target.value as Tipo)}>
             <option value="obras">Obras (Internet Archive, Open Library, Gutenberg, MEC Livros)</option>
             <option value="verbetes">Verbetes, datas e palavras (Wikipédia, Wikidata, Wikisource, Commons, Wikcionário)</option>
             <option value="estudos">Estudos e didáticos abertos (artigos e livros acadêmicos, Wikilivros)</option>
-          </select>
-        </label>
-        <button type="submit" className={botao} disabled={ocupado || busca.trim().length < 3}>{ocupado ? "Pesquisando…" : "Pesquisar"}</button>
+          </Selecao>
+        </div>
+        <Botao type="submit" variante="principal" simbolo={Search} carregando={ocupado} disabled={ocupado || busca.trim().length < 3}>
+          {ocupado ? "Pesquisando…" : "Pesquisar"}
+        </Botao>
       </form>
-      <Aviso texto={aviso} />
-      <details className="mt-3 max-w-3xl">
+      {aviso && achados?.length !== 0 && <Faixa tom="aviso">{aviso}</Faixa>}
+      <details className="pn-cartao max-w-3xl">
         <summary className="cursor-pointer font-semibold">Outras bibliotecas abertas, para procurar direto no site delas</summary>
         <ul className="mt-2 space-y-1">
           {atalhos.map((atalho) => (
             <li key={atalho.nome}>
-              <a href={atalho.link(busca.trim())} target="_blank" rel="noopener noreferrer nofollow" className="underline hover:text-oxblood">{atalho.nome}</a>
+              <a href={atalho.link(busca.trim())} target="_blank" rel="noopener noreferrer nofollow" className="pn-elo inline-flex items-center gap-1">
+                {atalho.nome}
+                <ArrowUpRight aria-hidden width={13} height={13} />
+              </a>
               <span className="text-ink-soft">: {atalho.sobre}</span>
             </li>
           ))}
         </ul>
-        <p className="mt-2 text-ink-soft">Obra do MEC Livros com direitos entra no acervo só como ficha, com o link para o empréstimo (conta gov.br).</p>
+        <p className="pn-ajuda mt-2">Obra do MEC Livros com direitos entra no acervo só como ficha, com o link para o empréstimo (conta gov.br).</p>
       </details>
+      {achados?.length === 0 && aviso && <Vazio simbolo={Library} titulo={aviso} />}
       {grupos.map((fonte) => (
-        <section key={fonte} className="mt-5">
-          <h3 className={rotulo}>{fonte}</h3>
-          <ul className="mt-2 divide-y divide-rule border-y border-rule">
+        <section key={fonte} className="pn-secao">
+          <h3 className="pn-rotulo-mono">{fonte}</h3>
+          <Lista rotulo={fonte}>
             {achados!
               .filter((achado) => achado.fonte === fonte)
               .map((achado) => (
-                <li key={achado.link} className="py-2">
-                  <a href={achado.link} target="_blank" rel="noopener noreferrer nofollow" className="font-semibold underline hover:text-oxblood">{achado.titulo}</a>
-                  {achado.detalhe && <span className="block text-ink-soft">{achado.detalhe}</span>}
-                  <span className="block text-xs text-ink-soft">Licença: {achado.licenca}</span>
-                </li>
+                <ItemDeLista
+                  key={achado.link}
+                  titulo={
+                    <a href={achado.link} target="_blank" rel="noopener noreferrer nofollow" className="hover:text-oxblood">
+                      {achado.titulo}
+                    </a>
+                  }
+                  meta={
+                    <>
+                      {achado.detalhe && <>{achado.detalhe} · </>}
+                      Licença: {achado.licenca}
+                    </>
+                  }
+                />
               ))}
-          </ul>
+          </Lista>
         </section>
       ))}
     </div>

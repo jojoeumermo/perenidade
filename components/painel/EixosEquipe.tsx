@@ -7,7 +7,8 @@ import { AVISO_DA_PESQUISA, MINIMO_DA_PESQUISA, VERSAO_DO_AVISO_EIXOS, vetorPara
 import { NIVEIS, ordemDoNivel, pontuarEixos, type Nivel } from "@/lib/eixos/pontuacao";
 import { getItem, setItem } from "@/lib/storage";
 import { textoDoErro } from "./comum";
-import { Botao, Marca, Vazio } from "./ui";
+import { ArrowRight, ChartColumn, Compass } from "lucide-react";
+import { Botao, CabecalhoDeSecao, Cartao, Esqueleto, Faixa, Marca, Vazio } from "./ui";
 
 interface Eixo {
   id: string;
@@ -71,13 +72,22 @@ export function ConviteEixos({ ir }: { ir: (id: string) => void }) {
     };
   }, []);
   if (!mostrar) return null;
+  // Antes era um aviso preso no canto da tela (fixed), por cima do conteúdo; agora é um cartão em destaque no fluxo da Mesa.
   return (
-    <aside role="region" aria-label="Convite para a pesquisa anônima" className="no-print fixed bottom-20 right-4 z-40 max-w-sm rounded-md border border-rule bg-folha p-4 text-ink lg:bottom-4">
-      <p className="font-semibold">{AVISO_DA_PESQUISA.titulo}</p>
-      <p className="mt-1 text-ink-soft">{AVISO_DA_PESQUISA.anonimo} {AVISO_DA_PESQUISA.opcional}</p>
+    <Cartao
+      as="div"
+      role="region"
+      aria-label="Convite para a pesquisa anônima"
+      variante="destaque"
+      className="no-print"
+      titulo={AVISO_DA_PESQUISA.titulo}
+      nivelDoTitulo={3}
+      sobre={`${AVISO_DA_PESQUISA.anonimo} ${AVISO_DA_PESQUISA.opcional}`}
+    >
       <div className="mt-3 flex flex-wrap gap-2">
         <Botao
           variante="principal"
+          simboloFim={ArrowRight}
           onClick={() => {
             setMostrar(false);
             ir("eixos-equipe");
@@ -98,7 +108,7 @@ export function ConviteEixos({ ir }: { ir: (id: string) => void }) {
           Não quero responder
         </Botao>
       </div>
-    </aside>
+    </Cartao>
   );
 }
 
@@ -166,12 +176,12 @@ export function EixosEquipe({ coordena }: { coordena: boolean }) {
   const fim = etapa === "perguntas" && atual >= lista.length && lista.length > 0;
   return (
     <div className="pn-tela">
-      <section aria-labelledby="eixos-equipe-titulo" className="max-w-2xl space-y-3">
-        <h2 id="eixos-equipe-titulo" className="pn-secao-titulo">{AVISO_DA_PESQUISA.titulo}</h2>
+      <Cartao aria-labelledby="eixos-equipe-titulo" className="max-w-2xl space-y-3">
+        <CabecalhoDeSecao id="eixos-equipe-titulo" titulo={AVISO_DA_PESQUISA.titulo} simbolo={Compass} />
         <p className="font-semibold">{AVISO_DA_PESQUISA.anonimo}</p>
-        {erro && <p role="alert" className="text-oxblood">{erro}</p>}
+        {erro && <Faixa tom="erro">{erro}</Faixa>}
 
-        {respondeu === null && <p className="pn-ajuda">Carregando…</p>}
+        {respondeu === null && <Esqueleto linhas={3} rotulo="Carregando…" />}
         {(respondeu || etapa === "enviado") && (
           <Vazio titulo="Você já respondeu. Obrigado." texto="Fica uma resposta por conta, e ela já entrou na soma da equipe, sem ligação com o seu nome." />
         )}
@@ -182,7 +192,7 @@ export function EixosEquipe({ coordena }: { coordena: boolean }) {
             <p>{AVISO_DA_PESQUISA.oQueGuarda}</p>
             <p>{AVISO_DA_PESQUISA.sensivel}</p>
             <p>{AVISO_DA_PESQUISA.limites}</p>
-            <p className="pn-ajuda">{AVISO_DA_PESQUISA.opcional}</p>
+            <Faixa tom="info">{AVISO_DA_PESQUISA.opcional}</Faixa>
             <Marca rotulo={AVISO_DA_PESQUISA.consentimento} checked={consenti} onChange={(e) => setConsenti(e.target.checked)} />
             <Botao variante="principal" disabled={!consenti} onClick={() => setEtapa("tamanho")}>Continuar</Botao>
           </>
@@ -193,10 +203,7 @@ export function EixosEquipe({ coordena }: { coordena: boolean }) {
             <p>Escolha o tamanho do teste. Os dois primeiros bastam para a pesquisa.</p>
             <div className="grid gap-2 sm:grid-cols-3">
               {NIVEIS.map((n) => (
-                <Botao key={n} variante={n === 1 ? "principal" : "padrao"} onClick={() => comecar(n)} style={{ display: "block", textAlign: "left", height: "auto" }}>
-                  <strong className="block">{TAMANHOS[n].nome}</strong>
-                  <span className="block text-sm">{TAMANHOS[n].sobre}</span>
-                </Botao>
+                <Cartao key={n} as="div" interativo variante={n === 1 ? "destaque" : "padrao"} onClick={() => comecar(n)} titulo={TAMANHOS[n].nome} nivelDoTitulo={3} sobre={TAMANHOS[n].sobre} />
               ))}
             </div>
           </>
@@ -206,7 +213,7 @@ export function EixosEquipe({ coordena }: { coordena: boolean }) {
           <div className="space-y-3">
             <p className="pn-ajuda">Pergunta {atual + 1} de {lista.length}. Nada é guardado enquanto você responde.</p>
             <progress className="w-full" max={lista.length} value={atual} aria-label="Andamento do teste" />
-            <p lang="pt-BR" className="font-serif text-xl leading-snug">{pergunta.texto}</p>
+            <p lang="pt-BR" className="text-xl leading-snug" style={{ fontFamily: "var(--pn-fonte-titulo)" }}>{pergunta.texto}</p>
             <div className="grid gap-2 sm:grid-cols-5">
               {RESPOSTAS.map((rotulo, i) => (
                 <Botao key={rotulo} onClick={() => responder(i)} aria-pressed={respostas[pergunta.id] === i}>{rotulo}</Botao>
@@ -223,12 +230,12 @@ export function EixosEquipe({ coordena }: { coordena: boolean }) {
           <div className="space-y-3">
             <p>Terminou. Ao enviar, só 12 números (um por eixo) entram na soma da equipe. Nada mais sai deste navegador.</p>
             <div className="flex gap-2">
-              <Botao variante="principal" disabled={enviando} onClick={enviar}>{enviando ? "Enviando…" : "Enviar de forma anônima"}</Botao>
+              <Botao variante="principal" carregando={enviando} onClick={enviar}>{enviando ? "Enviando…" : "Enviar de forma anônima"}</Botao>
               <Botao disabled={enviando} onClick={() => { setRespostas({}); setEtapa("aviso"); }}>Descartar sem enviar</Botao>
             </div>
           </div>
         )}
-      </section>
+      </Cartao>
 
       {coordena && <ResultadoDaEquipe />}
     </div>
@@ -254,11 +261,12 @@ function ResultadoDaEquipe() {
     };
   }, []);
   return (
-    <section aria-labelledby="eixos-equipe-resultado" className="mt-8 space-y-3">
-      <h2 id="eixos-equipe-resultado" className="pn-secao-titulo">Resultado da equipe (só coordenação)</h2>
-      {erro && <p role="alert" className="text-oxblood">{erro}</p>}
+    <Cartao aria-labelledby="eixos-equipe-resultado" className="mt-6 space-y-3">
+      <CabecalhoDeSecao id="eixos-equipe-resultado" titulo="Resultado da equipe (só coordenação)" simbolo={ChartColumn} />
+      {erro && <Faixa tom="erro">{erro}</Faixa>}
+      {!res && !erro && <Esqueleto linhas={4} />}
       {res && !res.liberado && (
-        <p>Ainda não há respostas suficientes para mostrar sem identificar ninguém (mínimo de {res.minimo ?? MINIMO_DA_PESQUISA}). O resultado aparece de 5 em 5 respostas.</p>
+        <Faixa tom="info">Ainda não há respostas suficientes para mostrar sem identificar ninguém (mínimo de {res.minimo ?? MINIMO_DA_PESQUISA}). O resultado aparece de 5 em 5 respostas.</Faixa>
       )}
       {res?.liberado && dados && res.media && res.distribuicao && (
         <>
@@ -273,7 +281,7 @@ function ResultadoDaEquipe() {
                   <div className="mt-1 grid grid-cols-5 gap-1" role="img" aria-label={`Distribuição de ${e.nome}: ${faixas.map((q, i) => `${FAIXAS[i]}: ${q}`).join("; ")}`}>
                     {faixas.map((q, i) => (
                       <div key={FAIXAS[i]} className="text-center text-xs">
-                        <div className="flex h-12 items-end"><div className="w-full bg-ink-soft" style={{ height: `${(100 * q) / maior}%`, minHeight: q ? 2 : 0 }} /></div>
+                        <div className="flex h-12 items-end"><div className="w-full rounded-sm bg-oxblood" style={{ height: `${(100 * q) / maior}%`, minHeight: q ? 2 : 0 }} /></div>
                         <span>{q}</span><br /><span className="pn-ajuda">{FAIXAS[i]}</span>
                       </div>
                     ))}
@@ -284,6 +292,6 @@ function ResultadoDaEquipe() {
           </ul>
         </>
       )}
-    </section>
+    </Cartao>
   );
 }

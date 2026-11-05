@@ -1,23 +1,31 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { Check, Copy, Link2, MessageSquare, Plus, UserPlus, X } from "lucide-react";
+import { type CSSProperties, useEffect, useState } from "react";
 import { type Me, rpc } from "@/lib/backend";
 import { EMOJIS_DO_INSTITUTO } from "@/lib/emojis-do-instituto";
 import { useI18n } from "../I18n";
 import { Avatar } from "./Avatar";
-import { papeis, textoDoErro } from "./comum";
+import { papeis, rotulo, textoDoErro } from "./comum";
 import { EmojiDoInstituto } from "./EmojiDoInstituto";
 import type { Membro } from "./Equipe";
+import { Botao, Selo } from "./ui";
 
 // As peças das Conversas no jeito do Stoat (gatilho "Chat Interno"): o cartão de perfil com capa, presença, frase e
 // emblemas; o "meu status"; os amigos (que liberam a conversa privada com o aceite dos dois); os convites para grupos;
 // e os comandos com barra, que fazem o papel dos robôs (o servidor não lê as conversas cifradas: quem "fala" é quem
 // digitou o comando, do próprio aparelho). O banco está em supabase/install.sql, "Conversas no jeito do Stoat".
+// Desenho: tokens do painel (dentro da sala, os --pn-* seguem as cores da sala) e os componentes de ui/.
 
 export type Presenca = "online" | "ausente" | "ocupado" | "invisivel";
-export const CORES_DE_PRESENCA: Record<Presenca, string> = { online: "#3abf7e", ausente: "#f39f00", ocupado: "#f84848", invisivel: "#a5a5a5" };
+/** A cor de cada presença, pelos tokens de estado (o nome da presença vai sempre junto, no title ou no texto). */
+export const CORES_DE_PRESENCA: Record<Presenca, string> = { online: "var(--pn-ok)", ausente: "var(--pn-aviso)", ocupado: "var(--pn-erro)", invisivel: "var(--pn-texto-mudo)" };
 export const NOMES_DE_PRESENCA: Record<Presenca, string> = { online: "Online", ausente: "Ausente", ocupado: "Não perturbe", invisivel: "Invisível" };
+/**
+ * As capas do cartão de perfil. São a arte que a pessoa escolhe para o próprio cartão (como as cores do Avatar), não a
+ * interface: por isso guardam as cores próprias. A chave fica igual (é o que o banco guarda).
+ */
 export const CAPAS: Record<string, string> = {
   vermelho: "linear-gradient(135deg, #c21f16, #fd6671)",
   noite: "linear-gradient(135deg, #141414, #3d3d3d)",
@@ -29,7 +37,10 @@ export const CAPAS: Record<string, string> = {
   pergaminho: "linear-gradient(135deg, #d5c398, #f6efdd)",
 };
 
-/** A bolinha de presença, com a cor do Stoat. */
+/** O véu atrás do cartão de perfil (o mesmo das janelas do painel). */
+const VEU: CSSProperties = { background: "var(--pn-veu)" };
+
+/** A bolinha de presença. */
 export function Bolinha({ presenca, online, borda = "border-s-lado", className = "h-3 w-3" }: { presenca?: string; online?: boolean | null; borda?: string; className?: string }) {
   if (!online) return null;
   const p = (presenca ?? "online") as Presenca;
@@ -65,58 +76,60 @@ export function CartaoDePerfil({ membro, me, fechar, conversar }: { membro: Memb
     }
   }
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" onClick={fechar}>
-      <div role="dialog" aria-modal="true" aria-label={`Perfil de ${membro.nome}`} className="w-full max-w-sm overflow-hidden rounded-xl bg-s-lado text-s-texto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4" style={VEU} onClick={fechar}>
+      <div role="dialog" aria-modal="true" aria-label={`Perfil de ${membro.nome}`} className="pn-menu-suspenso w-full max-w-sm overflow-hidden p-0" onClick={(e) => e.stopPropagation()}>
         <div className="h-24" style={{ background: CAPAS[membro.capa ?? "vermelho"] ?? CAPAS.vermelho }} />
         <div className="px-4 pb-4">
           <div className="-mt-10 flex items-end justify-between">
             <span className="relative">
-              <Avatar nome={membro.nome} avatar={membro.avatar} className="h-20 w-20 rounded-full border-[6px] border-[var(--s-lado)]" texto="text-xl" />
-              <Bolinha presenca={presenca} online={membro.online} borda="border-[var(--s-lado)]" className="h-5 w-5 right-1 bottom-1" />
+              <Avatar nome={membro.nome} avatar={membro.avatar} className="h-20 w-20 rounded-full border-[6px] border-[var(--pn-superficie)]" texto="text-xl" />
+              <Bolinha presenca={presenca} online={membro.online} borda="border-[var(--pn-superficie)]" className="h-5 w-5 right-1 bottom-1" />
             </span>
-            <button type="button" onClick={fechar} className="mb-1 cursor-pointer rounded-full bg-black/30 px-2.5 py-1 text-xs hover:bg-black/50" aria-label="Fechar">✕</button>
+            <Botao icone pequeno simbolo={X} onClick={fechar} aria-label="Fechar" className="mb-1" />
           </div>
-          <p className="mt-2 text-xl font-bold leading-tight">{membro.nome}</p>
-          <p className="text-sm text-s-suave">{membro.online ? NOMES_DE_PRESENCA[presenca] : "Fora agora"}</p>
+          <p className="pn-cartao-titulo mt-2 text-xl leading-tight">{membro.nome}</p>
+          <p className="pn-ajuda">{membro.online ? NOMES_DE_PRESENCA[presenca] : "Fora agora"}</p>
           {membro.frase && <p className="mt-1 text-sm">{membro.frase}</p>}
           {emblemas.length > 0 && (
-            <div className="mt-3 rounded-lg bg-s-trilho p-3">
-              <p className="text-[0.68rem] font-bold uppercase tracking-wider text-s-mudo">Emblemas</p>
+            <div className="pn-cartao pn-cartao-plano mt-3 p-3">
+              <p className={rotulo}>Emblemas</p>
               <ul className="mt-1.5 flex flex-wrap gap-1.5">
                 {emblemas.map((e) => (
-                  <li key={e} className="flex items-center gap-1 rounded-md bg-s-campo px-2 py-0.5 text-xs">
-                    <EmojiDoInstituto nome="estrela" className="h-3 w-3" />
-                    {e}
+                  <li key={e}>
+                    <Selo>
+                      <EmojiDoInstituto nome="estrela" className="h-3 w-3" />
+                      {e}
+                    </Selo>
                   </li>
                 ))}
-                {desde && <li className="rounded-md bg-s-campo px-2 py-0.5 text-xs">Na equipe desde {desde}</li>}
+                {desde && <li><Selo>Na equipe desde {desde}</Selo></li>}
               </ul>
             </div>
           )}
           {membro.bio && (
-            <div className="mt-3 rounded-lg bg-s-trilho p-3">
-              <p className="text-[0.68rem] font-bold uppercase tracking-wider text-s-mudo">Sobre</p>
+            <div className="pn-cartao pn-cartao-plano mt-3 p-3">
+              <p className={rotulo}>Sobre</p>
               <p className="mt-1 whitespace-pre-line text-sm" data-original>{membro.bio}</p>
             </div>
           )}
           {membro.oficios && membro.oficios.length > 0 && (
-            <div className="mt-3 rounded-lg bg-s-trilho p-3">
-              <p className="text-[0.68rem] font-bold uppercase tracking-wider text-s-mudo">Sabe fazer</p>
+            <div className="pn-cartao pn-cartao-plano mt-3 p-3">
+              <p className={rotulo}>Sabe fazer</p>
               <p className="mt-1 text-sm">{membro.oficios.join(" · ")}</p>
             </div>
           )}
           {!eu && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" className="flex-1 cursor-pointer rounded-md bg-s-acento px-3 py-2 text-sm font-semibold text-white hover:brightness-110" onClick={() => { fechar(); conversar(membro.id); }}>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <Botao variante="principal" simbolo={MessageSquare} className="flex-1" onClick={() => { fechar(); conversar(membro.id); }}>
                 Mandar mensagem
-              </button>
-              {amizade === "nada" && <button type="button" className="cursor-pointer rounded-md bg-s-campo px-3 py-2 text-sm font-semibold hover:bg-[var(--s-ativo)]" onClick={() => void pedir()}>Pedir amizade</button>}
-              {amizade === "recebido" && <button type="button" className="cursor-pointer rounded-md bg-s-ok px-3 py-2 text-sm font-semibold text-black" onClick={() => void pedir()}>Aceitar a amizade</button>}
-              {amizade === "pedido" && <span className="rounded-md bg-s-campo px-3 py-2 text-sm text-s-suave">Pedido enviado</span>}
-              {amizade === "amigos" && <span className="rounded-md bg-s-campo px-3 py-2 text-sm text-s-ok">Amigos</span>}
+              </Botao>
+              {amizade === "nada" && <Botao simbolo={UserPlus} onClick={() => void pedir()}>Pedir amizade</Botao>}
+              {amizade === "recebido" && <Botao simbolo={Check} onClick={() => void pedir()}>Aceitar a amizade</Botao>}
+              {amizade === "pedido" && <Selo>Pedido enviado</Selo>}
+              {amizade === "amigos" && <Selo tom="ok" ponto>Amigos</Selo>}
             </div>
           )}
-          {aviso && <p className="mt-2 text-xs text-s-acento-suave">{aviso}</p>}
+          {aviso && <p role="alert" className="pn-erro mt-2">{aviso}</p>}
         </div>
       </div>
     </div>
@@ -149,33 +162,35 @@ export function MeuStatus({ fechar, mudou }: { fechar: () => void; mudou: (prese
     }
   }
   return (
-    <div role="dialog" aria-label="Meu status" className="absolute bottom-14 left-2 z-40 w-72 rounded-xl bg-s-trilho p-3 text-sm shadow-2xl">
-      <p className="text-[0.68rem] font-bold uppercase tracking-wider text-s-mudo">Presença</p>
+    <div role="dialog" aria-label="Meu status" className="pn-menu-suspenso absolute bottom-14 left-2 z-40 w-72 p-3 text-sm">
+      <p className={rotulo}>Presença</p>
       <ul className="mt-1">
         {(Object.keys(NOMES_DE_PRESENCA) as Presenca[]).map((p) => (
           <li key={p}>
-            <button type="button" onClick={() => setPresenca(p)} aria-pressed={presenca === p} className={`flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left ${presenca === p ? "bg-[var(--s-ativo)]" : "hover:bg-[var(--s-hover)]"}`}>
-              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: CORES_DE_PRESENCA[p] }} />
-              {NOMES_DE_PRESENCA[p]}
-              {p === "invisivel" && <span className="ml-auto text-[0.68rem] text-s-mudo">aparece como fora</span>}
+            <button type="button" onClick={() => setPresenca(p)} aria-pressed={presenca === p} className={`pn-menu-suspenso-item w-full cursor-pointer text-left ${presenca === p ? "bg-[var(--pn-ativo)]" : "hover:bg-[var(--pn-ativo)]"}`}>
+              {/* <i>, não <span>: no item do menu o primeiro <span> estica (é o texto), e a bolinha viraria uma barra. */}
+              <i aria-hidden className="block h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: CORES_DE_PRESENCA[p] }} />
+              <span>{NOMES_DE_PRESENCA[p]}</span>
+              {p === "invisivel" && <span className="pn-ajuda ml-auto">aparece como fora</span>}
+              {presenca === p && <Check aria-hidden className="h-4 w-4 shrink-0" />}
             </button>
           </li>
         ))}
       </ul>
       <label className="mt-2 block">
-        <span className="text-[0.68rem] font-bold uppercase tracking-wider text-s-mudo">Frase de status</span>
-        <input value={frase} onChange={(e) => setFrase(e.target.value)} maxLength={80} placeholder="Escrevendo a aula de frações" className="mt-1 w-full rounded-md bg-s-campo px-2.5 py-1.5 text-s-texto outline-none placeholder:text-s-mudo focus:outline-2 focus:outline-s-acento" />
+        <span className={rotulo}>Frase de status</span>
+        <input value={frase} onChange={(e) => setFrase(e.target.value)} maxLength={80} placeholder="Escrevendo a aula de frações" className="pn-campo mt-1" />
       </label>
-      <p className="mt-2 text-[0.68rem] font-bold uppercase tracking-wider text-s-mudo">Capa do cartão</p>
+      <p className={`${rotulo} mt-2`}>Capa do cartão</p>
       <p className="mt-1 flex flex-wrap gap-1.5">
         {Object.entries(CAPAS).map(([id, fundo]) => (
-          <button key={id} type="button" onClick={() => setCapa(id)} aria-label={`Capa ${id}`} aria-pressed={capa === id} className={`h-7 w-7 cursor-pointer rounded-md ${capa === id ? "ring-2 ring-[var(--s-texto)] ring-offset-2 ring-offset-[var(--s-trilho)]" : ""}`} style={{ background: fundo }} />
+          <button key={id} type="button" onClick={() => setCapa(id)} aria-label={`Capa ${id}`} aria-pressed={capa === id} className={`h-7 w-7 cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--pn-foco)] ${capa === id ? "ring-2 ring-[var(--pn-texto)] ring-offset-2 ring-offset-[var(--pn-superficie)]" : ""}`} style={{ background: fundo }} />
         ))}
       </p>
-      {aviso && <p className="mt-2 text-xs text-s-acento-suave">{aviso}</p>}
+      {aviso && <p role="alert" className="pn-erro mt-2">{aviso}</p>}
       <p className="mt-3 flex justify-end gap-2">
-        <button type="button" className="cursor-pointer rounded-md px-3 py-1.5 text-s-suave hover:text-s-texto" onClick={fechar}>Cancelar</button>
-        <button type="button" className="cursor-pointer rounded-md bg-s-acento px-3 py-1.5 font-semibold text-white hover:brightness-110" onClick={() => void guardar()}>Guardar</button>
+        <Botao variante="discreto" pequeno onClick={fechar}>Cancelar</Botao>
+        <Botao variante="principal" pequeno simbolo={Check} onClick={() => void guardar()}>Guardar</Botao>
       </p>
     </div>
   );
@@ -216,13 +231,13 @@ export function Amigos({ equipe, conversar }: { equipe: Membro[]; conversar: (id
         <li key={`r-${a.id}`} className="flex items-center gap-2 rounded-md px-2 py-1.5">
           <Avatar nome={a.nome} avatar={a.avatar} className="h-7 w-7 rounded-full" />
           <span className="min-w-0 flex-1 truncate text-sm">{a.nome}<span className="block text-[0.66rem] text-s-mudo">quer ser seu amigo</span></span>
-          <button type="button" className="cursor-pointer rounded-md bg-s-ok px-2 py-0.5 text-xs font-semibold text-black" onClick={() => void fazer("amizade_responder", { p_de: a.id, p_aceitar: true }, `Você e ${a.nome} agora são amigos.`)}>Aceitar</button>
-          <button type="button" className="cursor-pointer rounded-md px-1.5 py-0.5 text-xs text-s-mudo hover:text-s-texto" aria-label={`Recusar ${a.nome}`} onClick={() => void fazer("amizade_responder", { p_de: a.id, p_aceitar: false }, "Pedido recusado.")}>✕</button>
+          <Botao pequeno simbolo={Check} onClick={() => void fazer("amizade_responder", { p_de: a.id, p_aceitar: true }, `Você e ${a.nome} agora são amigos.`)}>Aceitar</Botao>
+          <Botao variante="discreto" pequeno icone simbolo={X} aria-label={`Recusar ${a.nome}`} onClick={() => void fazer("amizade_responder", { p_de: a.id, p_aceitar: false }, "Pedido recusado.")} />
         </li>
       ))}
       {dados.amigos.map((a) => (
         <li key={`a-${a.id}`}>
-          <button type="button" onClick={() => conversar(a.id)} className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto">
+          <button type="button" onClick={() => conversar(a.id)} className="flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto focus-visible:outline-2 focus-visible:outline-[var(--pn-foco)]">
             <span className="relative shrink-0">
               <Avatar nome={a.nome} avatar={a.avatar} className="h-7 w-7 rounded-full" />
               <Bolinha presenca={a.presenca} online={a.online} />
@@ -238,26 +253,27 @@ export function Amigos({ equipe, conversar }: { equipe: Membro[]; conversar: (id
       {dados.amigos.length === 0 && dados.recebidos.length === 0 && <li className="px-2 py-1 text-xs text-s-mudo">Amizade aceita libera a conversa privada entre os dois.</li>}
       <li className="px-1 pt-1">
         {adicionando ? (
-          <div className="rounded-md bg-s-trilho p-2">
-            <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Procurar na equipe" aria-label="Procurar alguém para pedir amizade" className="h-7 w-full rounded bg-s-campo px-2 text-sm text-s-texto outline-none placeholder:text-s-mudo" />
+          <div className="pn-cartao pn-cartao-plano p-2">
+            <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Procurar na equipe" aria-label="Procurar alguém para pedir amizade" className="pn-campo text-sm" />
             <ul className="mt-1">
               {candidatos.map((m) => (
                 <li key={m.id}>
-                  <button type="button" className="flex w-full cursor-pointer items-center gap-2 rounded px-1.5 py-1 text-left text-sm hover:bg-[var(--s-ativo)]" onClick={() => void fazer("amizade_pedir", { p_para: m.id }, `Pedido de amizade enviado a ${m.nome}.`)}>
+                  {/* Sem a classe do item de menu: lá o primeiro <span> estica, e o Avatar (um span) sairia do tamanho. */}
+                  <button type="button" className="flex min-h-8 w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-left text-sm hover:bg-[var(--pn-ativo)] focus-visible:bg-[var(--pn-ativo)]" onClick={() => void fazer("amizade_pedir", { p_para: m.id }, `Pedido de amizade enviado a ${m.nome}.`)}>
                     <Avatar nome={m.nome} avatar={m.avatar} className="h-5 w-5 rounded-full" />
                     <span className="truncate">{m.nome}</span>
                   </button>
                 </li>
               ))}
             </ul>
-            <button type="button" className="mt-1 cursor-pointer text-xs text-s-mudo hover:text-s-texto" onClick={() => setAdicionando(false)}>Fechar</button>
+            <Botao variante="discreto" pequeno className="mt-1" onClick={() => setAdicionando(false)}>Fechar</Botao>
           </div>
         ) : (
-          <button type="button" className="w-full cursor-pointer rounded-md bg-s-trilho px-2 py-1.5 text-left text-xs font-semibold text-s-suave hover:text-s-texto" onClick={() => setAdicionando(true)}>
-            ＋ Adicionar amigo
-          </button>
+          <Botao variante="discreto" pequeno simbolo={Plus} className="w-full justify-start" onClick={() => setAdicionando(true)}>
+            Adicionar amigo
+          </Botao>
         )}
-        {aviso && <p className="mt-1 px-1 text-[0.68rem] text-s-suave">{aviso}</p>}
+        {aviso && <p role="status" className="mt-1 px-1 text-[0.68rem] text-s-suave">{aviso}</p>}
       </li>
     </>
   );
@@ -279,26 +295,26 @@ export function ConviteDoGrupo({ conversa }: { conversa: string }) {
     }
   }
   return (
-    <section className="rounded-lg border border-s-linha p-3">
-      <h4 className="font-semibold">Convidar com um link</h4>
-      <p className="mt-0.5 text-xs text-s-mudo">Quem é da equipe e abrir o link entra no grupo. As mensagens aparecem para a pessoa assim que alguém do grupo abrir o painel (a cifra repassa a chave).</p>
+    <section className="pn-cartao pn-cartao-plano p-3">
+      <h4 className="flex items-center gap-1.5 font-semibold"><Link2 aria-hidden className="h-4 w-4" />Convidar com um link</h4>
+      <p className="pn-ajuda mt-0.5">Quem é da equipe e abrir o link entra no grupo. As mensagens aparecem para a pessoa assim que alguém do grupo abrir o painel (a cifra repassa a chave).</p>
       {link ? (
         <p className="mt-2 flex items-center gap-2">
-          <code className="min-w-0 flex-1 truncate rounded bg-s-trilho px-2 py-1 text-xs">{link}</code>
-          <button type="button" className="cursor-pointer rounded-md bg-s-acento px-2.5 py-1 text-xs font-semibold text-white" onClick={() => void navigator.clipboard?.writeText(link).then(() => setAviso("Link copiado."), () => setAviso(link))}>Copiar</button>
+          <code className="pn-campo min-w-0 flex-1 truncate font-mono text-xs">{link}</code>
+          <Botao pequeno simbolo={Copy} onClick={() => void navigator.clipboard?.writeText(link).then(() => setAviso("Link copiado."), () => setAviso(link))}>Copiar</Botao>
         </p>
       ) : (
         <p className="mt-2 flex flex-wrap items-center gap-2 text-sm">
           Vale por
-          <select value={dias} onChange={(e) => setDias(Number(e.target.value))} className="rounded bg-s-trilho px-2 py-1">
+          <select value={dias} onChange={(e) => setDias(Number(e.target.value))} className="pn-campo w-auto">
             <option value={1}>1 dia</option>
             <option value={7}>7 dias</option>
             <option value={30}>30 dias</option>
           </select>
-          <button type="button" className="cursor-pointer rounded-md bg-s-acento px-3 py-1 text-xs font-semibold text-white" onClick={() => void gerar()}>Gerar o link</button>
+          <Botao pequeno simbolo={Link2} onClick={() => void gerar()}>Gerar o link</Botao>
         </p>
       )}
-      {aviso && <p className="mt-1 text-xs text-s-suave">{aviso}</p>}
+      {aviso && <p role="status" className="pn-ajuda mt-1">{aviso}</p>}
     </section>
   );
 }
@@ -320,20 +336,20 @@ export function EntrarPorConvite({ entrar }: { entrar: (conversa: string) => voi
     window.history.replaceState(null, "", url.toString());
   };
   return (
-    <div className="absolute inset-x-0 top-0 z-40 m-3 rounded-xl bg-s-trilho p-4 text-sm shadow-2xl">
+    <div role="status" className="pn-menu-suspenso absolute inset-x-0 top-0 z-40 m-3 max-w-none p-4 text-sm">
       {aviso ? (
         <p>{aviso}</p>
       ) : dados && !dados.valido ? (
         <p>Este convite venceu ou já foi usado até o limite. Peça outro a quem convidou.</p>
       ) : dados ? (
         <>
-          <p className="text-[0.68rem] font-bold uppercase tracking-wider text-s-mudo">Convite{dados.de ? ` de ${dados.de}` : ""}</p>
-          <p className="mt-1 text-lg font-bold">{dados.nome}</p>
-          <p className="text-s-suave">{dados.membros} {dados.membros === 1 ? "pessoa" : "pessoas"} no grupo</p>
+          <p className={rotulo}>Convite{dados.de ? ` de ${dados.de}` : ""}</p>
+          <p className="pn-cartao-titulo mt-1 text-lg">{dados.nome}</p>
+          <p className="pn-ajuda tabular-nums">{dados.membros} {dados.membros === 1 ? "pessoa" : "pessoas"} no grupo</p>
           <p className="mt-3 flex gap-2">
-            <button
-              type="button"
-              className="cursor-pointer rounded-md bg-s-acento px-4 py-2 font-semibold text-white hover:brightness-110"
+            <Botao
+              variante="principal"
+              simbolo={Check}
               onClick={async () => {
                 try {
                   const r = await rpc<{ conversa: string }>("chat_convite_usar", { p_codigo: codigo });
@@ -346,8 +362,8 @@ export function EntrarPorConvite({ entrar }: { entrar: (conversa: string) => voi
               }}
             >
               {dados.ja_estou ? "Abrir o grupo" : "Entrar no grupo"}
-            </button>
-            <button type="button" className="cursor-pointer rounded-md px-3 py-2 text-s-suave hover:text-s-texto" onClick={() => { tirarDoEndereco(); setFechado(true); }}>Agora não</button>
+            </Botao>
+            <Botao variante="discreto" onClick={() => { tirarDoEndereco(); setFechado(true); }}>Agora não</Botao>
           </p>
         </>
       ) : null}

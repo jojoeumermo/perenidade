@@ -5,7 +5,7 @@ import { useState } from "react";
 import { rpc } from "@/lib/backend";
 import { textoDoErro, useLista } from "../comum";
 import { MoldeTabela } from "../moldes";
-import { Botao, Campo, type ColumnDef, confirmar, Esqueleto, notificar, Selecao } from "../ui";
+import { Botao, Campo, type ColumnDef, confirmar, Esqueleto, Faixa, notificar, Selecao, Selo } from "../ui";
 import { useControle } from "./usarControle";
 
 interface Comunidade {
@@ -46,9 +46,16 @@ export function ModeradoresDaRede() {
   const dados = lista.dados;
   if (!dados) {
     return lista.erro ? (
-      <p role="alert" className="pn-erro">
+      <Faixa
+        tom="erro"
+        acao={
+          <Botao pequeno onClick={lista.recarregar}>
+            Tentar de novo
+          </Botao>
+        }
+      >
         {lista.erro}
-      </p>
+      </Faixa>
     ) : (
       <Esqueleto />
     );
@@ -98,7 +105,7 @@ export function ModeradoresDaRede() {
   return (
     <div style={{ display: "grid", gap: "1.25rem" }}>
       <section className="pn-cartao" aria-labelledby="mod-nomear" style={{ display: "grid", gap: "0.8rem" }}>
-        <h3 id="mod-nomear" className="pn-secao-titulo">
+        <h3 id="mod-nomear" className="pn-cartao-titulo">
           Nomear moderação
         </h3>
         <Selecao rotulo="Comunidade" value={ativa} onChange={(e) => setComunidade(e.target.value)}>
@@ -137,7 +144,7 @@ export function ModeradoresDaRede() {
               <li key={p.id} className="pn-barra-ferramentas" style={{ padding: "0.3rem 0" }}>
                 <span style={{ flex: 1 }}>
                   {p.nome}
-                  {p.suspenso && <span className="pn-selo-neutro pn-selo" style={{ marginLeft: "0.5rem" }}>suspensa</span>}
+                  {p.suspenso && <Selo className="ml-2">suspensa</Selo>}
                 </span>
                 {jaModeram.has(p.id) ? <span className="pn-ajuda">já modera esta comunidade</span> : (
                   <Botao pequeno disabled={ocupado || p.suspenso} onClick={() => void nomear(p)}>

@@ -1,11 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { BellRing, CheckCheck, KeyRound, LifeBuoy, Plus, RefreshCw, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getClient, rpc, signOut, type Me } from "@/lib/backend";
 import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, renameFingerprint, type Passkey } from "@/lib/passkey";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
-import { confirmarFrase } from "./ui";
+import { Aviso, dataHora, useAcao, useLista } from "./comum";
+import { Botao, CabecalhoDeSecao, Cartao, Contador, Esqueleto, ItemDeLista, Lista, confirmarFrase } from "./ui";
 
 interface Fator {
   id: string;
@@ -123,35 +124,36 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
       maxLength={7}
       placeholder="000000"
       aria-label="Código de seis números do aplicativo autenticador"
-      className={`${campo} max-w-40 text-center font-mono text-xl tracking-widest`}
+      className="pn-campo mt-1 max-w-40 text-center font-mono text-xl tracking-widest tabular-nums"
     />
   );
   const pronto = codigo.replace(/\D/g, "").length === 6;
 
-  if (fatores === null) return <p className="font-mono text-xs text-ink-soft">Carregando…</p>;
+  if (fatores === null) return <Esqueleto linhas={2} rotulo="Carregando…" />;
 
   if (cadastro) {
     return (
-      <div className="space-y-3">
+      <div className="grid gap-3">
         <ol className="list-decimal space-y-2 pl-5">
           <li>Instale no celular um aplicativo autenticador. Sugestões gratuitas e de código aberto: Aegis (Android) ou 2FAS (Android e iPhone).</li>
           <li>No aplicativo, toque em adicionar conta e aponte a câmera para o quadrado abaixo.</li>
           <li>Digite aqui o código de seis números que o aplicativo mostrar.</li>
         </ol>
         {/* O desenho vem do serviço de contas como imagem embutida; não é carregado de outro site. */}
+        {/* O QR fica sobre branco de propósito (é a peça a ser lida pela câmera, não a interface): nos dois fundos ele lê. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={cadastro.qr} alt="Código para o aplicativo autenticador" width={200} height={200} className="border border-rule bg-white p-2" />
-        <p className="text-ink-soft">
+        <img src={cadastro.qr} alt="Código para o aplicativo autenticador" width={200} height={200} className="rounded-[var(--pn-raio)] border border-rule bg-white p-2" />
+        <p className="pn-ajuda">
           Sem câmera? Digite esta chave no aplicativo: <code className="break-all font-mono">{cadastro.segredo}</code>
         </p>
         <div className="flex flex-wrap items-end gap-3">
           {entrada}
-          <button type="button" className={botao} disabled={ocupado || !pronto} onClick={() => confirmar(cadastro.id)}>
+          <Botao variante="principal" carregando={ocupado} disabled={!pronto} onClick={() => confirmar(cadastro.id)}>
             Confirmar
-          </button>
-          <button type="button" className={elo} onClick={() => { setCadastro(null); setTrocando(null); }}>
+          </Botao>
+          <Botao variante="discreto" onClick={() => { setCadastro(null); setTrocando(null); }}>
             Cancelar
-          </button>
+          </Botao>
         </div>
         <Aviso texto={aviso} />
       </div>
@@ -161,10 +163,12 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
   if (!confirmado) {
     return (
       <div>
-        <p className="text-ink-soft">Esta conta ainda não tem aplicativo autenticador. Leva dois minutos e protege a conta mesmo que a senha ou o e-mail vazem.</p>
-        <button type="button" className={`mt-3 ${botao}`} disabled={ocupado} onClick={comecar}>
-          Cadastrar aplicativo autenticador
-        </button>
+        <p className="pn-ajuda">Esta conta ainda não tem aplicativo autenticador. Leva dois minutos e protege a conta mesmo que a senha ou o e-mail vazem.</p>
+        <p className="mt-3">
+          <Botao variante="principal" simbolo={ShieldCheck} carregando={ocupado} onClick={comecar}>
+            Cadastrar aplicativo autenticador
+          </Botao>
+        </p>
         <Aviso texto={aviso} />
       </div>
     );
@@ -173,12 +177,12 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
   if (!me.segundo_fator) {
     return (
       <div>
-        <p className="text-ink-soft">Digite o código de seis números do seu aplicativo autenticador para confirmar esta sessão.</p>
+        <p className="pn-ajuda">Digite o código de seis números do seu aplicativo autenticador para confirmar esta sessão.</p>
         <div className="mt-3 flex flex-wrap items-end gap-3">
           {entrada}
-          <button type="button" className={botao} disabled={ocupado || !pronto} onClick={() => confirmar(confirmado.id)}>
+          <Botao variante="principal" carregando={ocupado} disabled={!pronto} onClick={() => confirmar(confirmado.id)}>
             Confirmar
-          </button>
+          </Botao>
         </div>
         <Aviso texto={aviso} />
         {recuperando ? (
@@ -200,14 +204,14 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
               });
             }}
           >
-            <label className="block text-sm">
+            <label className="pn-rotulo block">
               Código de recuperação (XXXXX-XXXXX)
-              <input value={codigoDeRecuperacao} onChange={(e) => setCodigoDeRecuperacao(e.target.value)} autoComplete="off" spellCheck={false} maxLength={14} className={`${campo} max-w-56 font-mono uppercase tracking-widest`} />
+              <input value={codigoDeRecuperacao} onChange={(e) => setCodigoDeRecuperacao(e.target.value)} autoComplete="off" spellCheck={false} maxLength={14} className="pn-campo mt-1 max-w-56 font-mono uppercase tracking-widest" />
             </label>
-            <button type="submit" className={`mt-2 ${botao}`} disabled={ocupado || codigoDeRecuperacao.replace(/[^0-9a-f]/gi, "").length !== 10}>Usar o código</button>
+            <p className="mt-2"><Botao type="submit" simbolo={KeyRound} disabled={ocupado || codigoDeRecuperacao.replace(/[^0-9a-f]/gi, "").length !== 10}>Usar o código</Botao></p>
           </form>
         ) : (
-          <button type="button" className={`mt-2 ${elo}`} onClick={() => setRecuperando(true)}>Perdi o celular: usar um código de recuperação</button>
+          <p className="mt-2"><Botao variante="discreto" pequeno simbolo={LifeBuoy} onClick={() => setRecuperando(true)}>Perdi o celular: usar um código de recuperação</Botao></p>
         )}
       </div>
     );
@@ -216,22 +220,22 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
   return (
     <div>
       <p>Aplicativo autenticador cadastrado e confirmado nesta sessão.</p>
-      <p className="mt-2 flex flex-wrap gap-4">
-        <button type="button" className={elo} disabled={ocupado} onClick={comecar}>Trocar de aplicativo ou de celular</button>
+      <p className="mt-2 flex flex-wrap gap-2">
+        <Botao variante="discreto" pequeno simbolo={RefreshCw} disabled={ocupado} onClick={comecar}>Trocar de aplicativo ou de celular</Botao>
         {!me.exige_segundo_fator && !desligando && (
-          <button type="button" className={elo} disabled={ocupado} onClick={() => setDesligando(true)}>
+          <Botao variante="discreto" pequeno perigo simbolo={ShieldOff} disabled={ocupado} onClick={() => setDesligando(true)}>
             Desligar o segundo fator
-          </button>
+          </Botao>
         )}
       </p>
-      {me.exige_segundo_fator && <p className="mt-1 text-xs text-ink-soft">A sua função exige o segundo fator: dá para trocar de aplicativo, mas não desligar.</p>}
+      {me.exige_segundo_fator && <p className="pn-ajuda mt-1">A sua função exige o segundo fator: dá para trocar de aplicativo, mas não desligar.</p>}
       {desligando && (
-        <div className="mt-3 border border-oxblood p-3">
+        <div className="mt-3 rounded-[var(--pn-raio)] border border-oxblood p-3">
           <p className="text-sm">Desligar deixa a conta protegida só pela senha. Para confirmar, digite o código atual do aplicativo.</p>
           <div className="mt-2 flex flex-wrap items-end gap-3">
             {entrada}
-            <button type="button" className="painel-botao cursor-pointer bg-oxblood px-5 py-2.5 font-semibold text-parchment disabled:opacity-50" disabled={ocupado || !pronto} onClick={() => remover(confirmado.id)}>Desligar</button>
-            <button type="button" className={elo} onClick={() => { setDesligando(false); setCodigo(""); }}>Cancelar</button>
+            <Botao perigo simbolo={ShieldOff} carregando={ocupado} disabled={!pronto} onClick={() => remover(confirmado.id)}>Desligar</Botao>
+            <Botao variante="discreto" onClick={() => { setDesligando(false); setCodigo(""); }}>Cancelar</Botao>
           </div>
         </div>
       )}
@@ -300,14 +304,14 @@ export function Digital() {
     }
   }
 
-  if (chaves === null || tem === null) return <p className="font-mono text-xs text-ink-soft">Carregando…</p>;
+  if (chaves === null || tem === null) return <Esqueleto linhas={2} rotulo="Carregando…" />;
 
   return (
     <div>
       {chaves.length > 0 && (
-        <ul className="divide-y divide-rule border-y border-rule">
+        <ul aria-label="Chaves de acesso" className="pn-lista">
           {chaves.map((chave) => (
-            <li key={chave.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+            <li key={chave.id} className="pn-item flex-wrap">
               <span className="min-w-0 flex-1">
                 <input
                   defaultValue={chave.nome || "Aparelho"}
@@ -317,27 +321,29 @@ export function Digital() {
                     const nome = e.target.value.trim();
                     if (nome && nome !== chave.nome) void renameFingerprint(chave.id, nome).then(() => setAviso("Nome guardado ✓"), () => setAviso("Não deu para guardar o nome."));
                   }}
-                  className="w-full max-w-64 border-b border-rule bg-transparent px-1 py-0.5 font-semibold focus:border-ink focus:outline-none"
+                  className="pn-campo max-w-64 font-semibold"
                 />
-                <span className="block text-sm text-ink-soft">
+                <span className="pn-item-meta block tabular-nums">
                   Cadastrada em {dataHora(chave.criada)}
                   {chave.usada && ` · usada em ${dataHora(chave.usada)}`}
                 </span>
               </span>
-              <button type="button" className={elo} disabled={ocupado} onClick={async () => { if ((await confirmarFrase(`Remover a chave “${chave.nome || "Aparelho"}”? Esse aparelho vai precisar da senha para entrar.`))) void remover(chave.id); }}>
+              <Botao variante="discreto" pequeno perigo simbolo={Trash2} disabled={ocupado} onClick={async () => { if ((await confirmarFrase(`Remover a chave “${chave.nome || "Aparelho"}”? Esse aparelho vai precisar da senha para entrar.`))) void remover(chave.id); }}>
                 Remover
-              </button>
+              </Botao>
             </li>
           ))}
         </ul>
       )}
-      {chaves.length === 0 && <p className="text-ink-soft">Nenhuma chave de acesso cadastrada ainda.</p>}
+      {chaves.length === 0 && <p className="pn-ajuda">Nenhuma chave de acesso cadastrada ainda.</p>}
       {tem ? (
-        <button type="button" className={`mt-3 ${botao}`} disabled={ocupado} onClick={cadastrar}>
-          Cadastrar uma chave de acesso neste aparelho
-        </button>
+        <p className="mt-3">
+          <Botao simbolo={Plus} carregando={ocupado} onClick={cadastrar}>
+            Cadastrar uma chave de acesso neste aparelho
+          </Botao>
+        </p>
       ) : (
-        <p className="mt-3 text-ink-soft">Este aparelho não tem leitor de digital configurado (ou o navegador não oferece o recurso). Abra o painel no celular para cadastrar.</p>
+        <p className="pn-ajuda mt-3">Este aparelho não tem leitor de digital configurado (ou o navegador não oferece o recurso). Abra o painel no celular para cadastrar.</p>
       )}
       <Aviso texto={aviso} />
     </div>
@@ -356,34 +362,38 @@ export function Aparelhos() {
   const lista = useLista<Aparelho[]>("aparelhos_meus");
   const acao = useAcao(lista.recarregar);
   return (
-    <div>
-      <ul className="divide-y divide-rule border-y border-rule">
-        {lista.dados?.map((aparelho) => (
-          <li key={aparelho.marca} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-            <span>
-              {aparelho.rotulo || "Navegador"} <span className="text-ink-soft">· primeira vez em {dataHora(aparelho.primeiro)} · última em {dataHora(aparelho.ultimo)}</span>
-            </span>
-            <button type="button" className={elo} onClick={() => acao.agir("aparelho_esquecer", { p_marca: aparelho.marca }, "Aparelho esquecido: se a conta for aberta nele de novo, você será avisado.")}>
-              Esquecer
-            </button>
-          </li>
-        ))}
-      </ul>
-      {lista.dados?.length === 0 && <p className="text-ink-soft">Nenhum aparelho registrado ainda.</p>}
-      <button
-        type="button"
-        className={`mt-3 ${botaoClaro}`}
-        onClick={async () => {
-          try {
-            const supabase = await getClient();
-            await supabase.auth.signOut({ scope: "global" });
-          } finally {
-            await signOut();
-          }
-        }}
-      >
-        Sair de todos os aparelhos
-      </button>
+    <div className="grid gap-3">
+      {lista.dados && lista.dados.length > 0 && (
+        <Lista rotulo="Aparelhos">
+          {lista.dados.map((aparelho) => (
+            <ItemDeLista
+              key={aparelho.marca}
+              titulo={aparelho.rotulo || "Navegador"}
+              meta={<span className="tabular-nums">primeira vez em {dataHora(aparelho.primeiro)} · última em {dataHora(aparelho.ultimo)}</span>}
+              acoes={
+                <Botao variante="discreto" pequeno onClick={() => acao.agir("aparelho_esquecer", { p_marca: aparelho.marca }, "Aparelho esquecido: se a conta for aberta nele de novo, você será avisado.")}>
+                  Esquecer
+                </Botao>
+              }
+            />
+          ))}
+        </Lista>
+      )}
+      {lista.dados?.length === 0 && <p className="pn-ajuda">Nenhum aparelho registrado ainda.</p>}
+      <p>
+        <Botao
+          onClick={async () => {
+            try {
+              const supabase = await getClient();
+              await supabase.auth.signOut({ scope: "global" });
+            } finally {
+              await signOut();
+            }
+          }}
+        >
+          Sair de todos os aparelhos
+        </Botao>
+      </p>
       <Aviso texto={lista.erro || acao.aviso} />
     </div>
   );
@@ -396,7 +406,7 @@ interface Recado {
   criado_em: string;
 }
 
-/** Recados do painel: papel recebido, contribuição decidida, conta aberta em aparelho novo. */
+/** Recados do painel: papel recebido, contribuição decidida, conta aberta em aparelho novo. O título mantém o id "recados". */
 export function Recados({ recarregar }: { recarregar: () => void }) {
   const lista = useLista<Recado[]>("avisos_meus");
   const acao = useAcao(() => {
@@ -406,23 +416,34 @@ export function Recados({ recarregar }: { recarregar: () => void }) {
   const novos = lista.dados?.filter((recado) => !recado.lido) ?? [];
   if (!lista.dados || lista.dados.length === 0) return null;
   return (
-    <section aria-labelledby="recados">
-      <h2 id="recados" className="font-serif text-2xl font-semibold">
-        Recados {novos.length > 0 && <span className="font-sans text-sm text-oxblood">({novos.length} sem ler)</span>}
-      </h2>
-      <ul className="mt-3 space-y-2">
-        {lista.dados.slice(0, novos.length > 0 ? 40 : 5).map((recado) => (
-          <li key={recado.id} className={`border-l-2 pl-3 ${recado.lido ? "border-rule text-ink-soft" : "border-oxblood"}`}>
-            <span className={rotulo}>{dataHora(recado.criado_em)}</span>
-            <p>{recado.texto}</p>
-          </li>
-        ))}
-      </ul>
-      {novos.length > 0 && (
-        <button type="button" className={`mt-3 ${elo}`} disabled={acao.ocupado} onClick={() => acao.agir("aviso_ler", { p_id: null }, "")}>
-          Marcar tudo como lido
-        </button>
-      )}
+    <section aria-labelledby="recados" className="grid gap-3">
+      <CabecalhoDeSecao
+        nivel={2}
+        id="recados"
+        simbolo={BellRing}
+        titulo={
+          <span className="inline-flex flex-wrap items-center gap-2">
+            Recados {novos.length > 0 && <Contador n={novos.length} rotulo="sem ler" />}
+          </span>
+        }
+        acoes={
+          novos.length > 0 && (
+            <Botao variante="discreto" pequeno simbolo={CheckCheck} disabled={acao.ocupado} onClick={() => acao.agir("aviso_ler", { p_id: null }, "")}>
+              Marcar tudo como lido
+            </Botao>
+          )
+        }
+      />
+      <Cartao as="div" className="!p-0">
+        <ul className="grid">
+          {lista.dados.slice(0, novos.length > 0 ? 40 : 5).map((recado) => (
+            <li key={recado.id} className={`border-b border-l-2 border-b-rule px-4 py-2.5 last:border-b-0 ${recado.lido ? "border-l-transparent text-ink-soft" : "border-l-oxblood"}`}>
+              <span className="pn-rotulo-mono tabular-nums">{dataHora(recado.criado_em)}</span>
+              <p>{recado.texto}</p>
+            </li>
+          ))}
+        </ul>
+      </Cartao>
     </section>
   );
 }

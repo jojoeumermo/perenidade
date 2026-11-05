@@ -1,11 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Ban, Check, Copy, Link2, Send } from "lucide-react";
 import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { leads, rpc, type Me, type Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, papelAposentado, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, dataHora, papelAposentado, papeis, textoDoErro, useAcao, useLista } from "./comum";
+import { Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, ItemDeLista, Lista, Selecao, Selo } from "./ui";
 
 interface Convite {
   id: string;
@@ -69,98 +71,118 @@ export function Convites({ me }: { me: Me }) {
   }
 
   return (
-    <section>
-      <h2 className="font-serif text-2xl font-semibold">Convites</h2>
-      <p className="mt-1 max-w-2xl text-ink-soft">
-        Ninguém se cadastra sozinho: a conta só é criada por quem abre um convite. Mande o endereço por um canal seguro. Ele vale até a data marcada e pode ser cancelado a qualquer momento.
-      </p>
-      <form className="mt-4 max-w-2xl space-y-3 border border-rule bg-parchment-deep p-4" onSubmit={(e) => { e.preventDefault(); void criar(); }}>
-        <fieldset className="flex flex-wrap gap-x-6 gap-y-2">
-          <legend className="sr-only">Tipo de convite</legend>
-          <label className="flex cursor-pointer items-center gap-2">
-            <input type="radio" name="tipo-convite" checked={tipo === "pessoal"} onChange={() => setTipo("pessoal")} /> Para uma pessoa (com ou sem função)
-          </label>
-          <label className="flex cursor-pointer items-center gap-2">
-            <input type="radio" name="tipo-convite" checked={tipo === "comunidade"} onChange={() => setTipo("comunidade")} /> Para um grupo da comunidade (sem função)
-          </label>
-        </fieldset>
-        {tipo === "pessoal" ? (
-          <>
-            <label className="block">
-              E-mail da pessoa
-              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={campo} />
+    <section aria-labelledby="convites-titulo" className="space-y-4">
+      <CabecalhoDeSecao
+        id="convites-titulo"
+        titulo="Convites"
+        simbolo={Send}
+        sobre="Ninguém se cadastra sozinho: a conta só é criada por quem abre um convite. Mande o endereço por um canal seguro. Ele vale até a data marcada e pode ser cancelado a qualquer momento."
+      />
+      <Cartao as="div" className="max-w-2xl">
+        <form
+          className="space-y-3"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void criar();
+          }}
+        >
+          <fieldset className="flex flex-wrap gap-x-6 gap-y-2">
+            <legend className="sr-only">Tipo de convite</legend>
+            <label className="pn-marca">
+              <input type="radio" name="tipo-convite" checked={tipo === "pessoal"} onChange={() => setTipo("pessoal")} /> <span>Para uma pessoa (com ou sem função)</span>
             </label>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <label className="block">
-                Função
-                <select value={papel} onChange={(e) => setPapel(e.target.value as Role["papel"] | "")} className={campo}>
+            <label className="pn-marca">
+              <input type="radio" name="tipo-convite" checked={tipo === "comunidade"} onChange={() => setTipo("comunidade")} /> <span>Para um grupo da comunidade (sem função)</span>
+            </label>
+          </fieldset>
+          {tipo === "pessoal" ? (
+            <>
+              <Campo rotulo="E-mail da pessoa" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Selecao rotulo="Função" value={papel} onChange={(e) => setPapel(e.target.value as Role["papel"] | "")}>
                   <option value="">Nenhuma (só participa da comunidade)</option>
                   {funcoes.map((p) => (
-                    <option key={p} value={p}>{papeis[p]}</option>
+                    <option key={p} value={p}>
+                      {papeis[p]}
+                    </option>
                   ))}
-                </select>
-              </label>
-              {porDisciplina && (
-                <label className="block">
-                  Disciplina
-                  <select required value={disciplina} onChange={(e) => setDisciplina(e.target.value)} className={campo}>
+                </Selecao>
+                {porDisciplina && (
+                  <Selecao rotulo="Disciplina" required value={disciplina} onChange={(e) => setDisciplina(e.target.value)}>
                     <option value="">Escolha…</option>
                     {areaSlugs.map((slug) => (
-                      <option key={slug} value={slug}>{nomeDaArea(slug)}</option>
+                      <option key={slug} value={slug}>
+                        {nomeDaArea(slug)}
+                      </option>
                     ))}
-                  </select>
-                </label>
-              )}
+                  </Selecao>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="max-w-xs">
+              <Campo rotulo="Para quantas pessoas (até 200)" type="number" min={2} max={200} required value={usos} onChange={(e) => setUsos(Number(e.target.value))} />
             </div>
-          </>
-        ) : (
-          <label className="block max-w-xs">
-            Para quantas pessoas (até 200)
-            <input type="number" min={2} max={200} required value={usos} onChange={(e) => setUsos(Number(e.target.value))} className={campo} />
-          </label>
-        )}
-        <div className="grid gap-3 sm:grid-cols-2">
-          <label className="block">
-            Vale por quantos dias (1 a 30)
-            <input type="number" min={1} max={30} required value={dias} onChange={(e) => setDias(Number(e.target.value))} className={campo} />
-          </label>
-          <label className="block">
-            Lembrete para a equipe (opcional)
-            <input value={nota} maxLength={120} onChange={(e) => setNota(e.target.value)} placeholder="Ex.: grupo do cursinho popular" className={campo} />
-          </label>
-        </div>
-        <button type="submit" disabled={ocupado} className={botao}>Criar convite</button>
-        <Aviso texto={erro} />
-      </form>
+          )}
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Campo rotulo="Vale por quantos dias (1 a 30)" type="number" min={1} max={30} required value={dias} onChange={(e) => setDias(Number(e.target.value))} />
+            <Campo rotulo="Lembrete para a equipe (opcional)" value={nota} maxLength={120} onChange={(e) => setNota(e.target.value)} placeholder="Ex.: grupo do cursinho popular" />
+          </div>
+          <Botao type="submit" variante="principal" simbolo={Link2} carregando={ocupado}>
+            Criar convite
+          </Botao>
+          <Aviso texto={erro} />
+        </form>
+      </Cartao>
       {link && (
-        <div role="status" className="mt-4 max-w-2xl border-2 border-ink bg-parchment p-4">
+        <Cartao as="div" variante="destaque" role="status" className="max-w-2xl">
           {enviado && <p className="mb-2">O convite entrou na fila de e-mails e sai sozinho para a pessoa (veja em Controles do site se o envio está funcionando). O endereço abaixo é para o caso de você querer mandar também por outro caminho.</p>}
           <p className="font-semibold">Copie agora: este endereço não será mostrado de novo.</p>
-          <p className="mt-2 break-all font-mono text-sm">{link}</p>
-          <button type="button" className={`${botaoClaro} mt-3`} onClick={() => { void navigator.clipboard.writeText(link).then(() => setCopiado(true)); }}>
+          <p className="mt-2 break-all rounded-md border border-rule bg-parchment-deep p-2 font-mono text-sm">{link}</p>
+          <Botao
+            className="mt-3"
+            simbolo={copiado ? Check : Copy}
+            onClick={() => {
+              void navigator.clipboard.writeText(link).then(() => setCopiado(true));
+            }}
+          >
             {copiado ? "Copiado" : "Copiar endereço"}
-          </button>
-        </div>
+          </Botao>
+        </Cartao>
       )}
       <Aviso texto={lista.erro || acao.aviso} />
+      {!lista.dados && !lista.erro && <Esqueleto forma="fila" linhas={3} rotulo="Carregando os convites" />}
       {lista.dados && lista.dados.length > 0 && (
-        <ul className="mt-4 space-y-2">
+        <Lista rotulo="Convites">
           {lista.dados.map((convite) => (
-            <li key={convite.id} className={`border border-rule p-3 ${convite.valido ? "bg-parchment-deep" : "opacity-60"}`}>
-              <p className={rotulo}>
-                {convite.email || "Comunidade"} · {convite.papel ? `${papeis[convite.papel]}${convite.disciplina ? ` de ${nomeDaArea(convite.disciplina)}` : ""}` : "sem função"} · usado {convite.usos} de {convite.usos_max}
-              </p>
-              <p className="mt-1 text-sm text-ink-soft">
-                {convite.nota && `${convite.nota} · `}criado por {convite.de || "coordenação"} em {dataHora(convite.criado_em)} · {convite.valido ? `vale até ${dataHora(convite.expira_em)}` : "não vale mais"}
-              </p>
-              {convite.valido && (
-                <button type="button" className={`${elo} mt-1 text-sm`} disabled={acao.ocupado} onClick={() => void acao.agir("convite_revogar", { p_id: convite.id }, "Convite cancelado.")}>
-                  Cancelar convite
-                </button>
-              )}
-            </li>
+            <ItemDeLista
+              key={convite.id}
+              className={convite.valido ? undefined : "opacity-60"}
+              titulo={
+                <>
+                  {convite.email || "Comunidade"} · {convite.papel ? `${papeis[convite.papel]}${convite.disciplina ? ` de ${nomeDaArea(convite.disciplina)}` : ""}` : "sem função"}
+                </>
+              }
+              meta={
+                <>
+                  {convite.nota && `${convite.nota} · `}criado por {convite.de || "coordenação"} em {dataHora(convite.criado_em)} · {convite.valido ? `vale até ${dataHora(convite.expira_em)}` : "não vale mais"}
+                </>
+              }
+              selo={
+                <Selo tom={convite.valido ? "ok" : "neutro"}>
+                  usado {convite.usos} de {convite.usos_max}
+                </Selo>
+              }
+              acoes={
+                convite.valido && (
+                  <Botao variante="discreto" pequeno perigo simbolo={Ban} disabled={acao.ocupado} onClick={() => void acao.agir("convite_revogar", { p_id: convite.id }, "Convite cancelado.")}>
+                    Cancelar convite
+                  </Botao>
+                )
+              }
+            />
           ))}
-        </ul>
+        </Lista>
       )}
     </section>
   );

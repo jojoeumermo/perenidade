@@ -1,4 +1,4 @@
-﻿// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Confere o pacote "controles" do painel (Etapa 8): regras puras, migração SQL, telas ligadas ao painel e ao mapa.
 // Rodar: npm run testar:controles
 import fs from "node:fs";
@@ -69,7 +69,8 @@ conferir("telas chamam funções", chamadas.size >= 12, `achei ${chamadas.size}`
 for (const f of chamadas) conferir(`função existe: ${f}`, existe(f));
 
 // 5. Painel e mapa.
-const painel = ler("components", "painel", "Painel.tsx");
+// O registro de seções saiu de Painel.tsx para casca/Dentro.tsx no redesenho (docs/PAINEL-REDESENHO.md): lemos os dois.
+const painel = ler("components", "painel", "Painel.tsx") + "\n" + ler("components", "painel", "casca", "Dentro.tsx");
 conferir("Centro de controle no registro", /\{ id: "centro", nome: "Centro de controle"/.test(painel));
 conferir("Centro desenhado", painel.includes("<CentroDeControle"));
 conferir("Rádio com canais e faixas", painel.includes("<RadioCanais />"));

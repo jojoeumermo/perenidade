@@ -3,7 +3,7 @@
 
 import { useLista } from "../comum";
 import { MoldeTabela } from "../moldes";
-import { Botao, type ColumnDef, confirmar, Esqueleto } from "../ui";
+import { Botao, type ColumnDef, confirmar, Esqueleto, Faixa } from "../ui";
 import { useControle } from "./usarControle";
 
 interface Nucleo {
@@ -26,9 +26,16 @@ export function NucleosFechados() {
   const { executar, ocupado } = useControle(lista.recarregar);
   if (!lista.dados) {
     return lista.erro ? (
-      <p role="alert" className="pn-erro">
+      <Faixa
+        tom="erro"
+        acao={
+          <Botao pequeno onClick={lista.recarregar}>
+            Tentar de novo
+          </Botao>
+        }
+      >
         {lista.erro}
-      </p>
+      </Faixa>
     ) : (
       <Esqueleto />
     );

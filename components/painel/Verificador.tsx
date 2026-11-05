@@ -4,6 +4,9 @@
 // O verificador antes de enviar (uma das ideias do painel): confere no próprio navegador o que costuma voltar da
 // revisão. "Falta" impede o envio (o formulário já barra); "atenção" só avisa: quem escreveu decide.
 
+import { CircleCheck, CircleX, ShieldCheck, TriangleAlert } from "lucide-react";
+import { Selo } from "./ui";
+
 export interface Conferencia {
   nivel: "ok" | "atencao" | "falta";
   texto: string;
@@ -94,17 +97,21 @@ export function Verificador(props: { titulo: string; corpo: string; fontes: numb
   const atencoes = lista.filter((c) => c.nivel === "atencao").length;
   const resumo = faltas ? `${faltas} ${faltas === 1 ? "coisa falta" : "coisas faltam"}` : atencoes ? `${atencoes} ${atencoes === 1 ? "ponto de atenção" : "pontos de atenção"}` : "tudo certo para a revisão";
   return (
-    <details className={`mt-4 border-2 p-3 ${faltas ? "border-oxblood" : atencoes ? "border-gold" : "border-ok"} bg-folha`} open={faltas + atencoes > 0}>
-      <summary className="cursor-pointer text-sm font-semibold">
-        Verificador antes de enviar: <span className={faltas ? "text-oxblood" : atencoes ? "" : "text-ok"}>{resumo}</span>
+    <details className={faltas ? "pn-cartao pn-cartao-alerta" : "pn-cartao"} open={faltas + atencoes > 0}>
+      <summary className="flex cursor-pointer flex-wrap items-center gap-2 text-sm font-semibold">
+        <ShieldCheck aria-hidden width={16} height={16} />
+        Verificador antes de enviar: <Selo tom={faltas ? "erro" : atencoes ? "aviso" : "ok"}>{resumo}</Selo>
       </summary>
-      <ul className="mt-2 space-y-1 text-sm">
-        {lista.map((c) => (
-          <li key={c.texto} className={c.nivel === "falta" ? "text-oxblood" : c.nivel === "ok" ? "text-ok" : ""}>
-            <span aria-hidden className="mr-1.5 inline-block w-3 font-bold">{c.nivel === "ok" ? "✓" : c.nivel === "falta" ? "✕" : "!"}</span>
-            {c.texto}
-          </li>
-        ))}
+      <ul className="mt-3 grid gap-1.5 text-sm">
+        {lista.map((c) => {
+          const Simbolo = c.nivel === "ok" ? CircleCheck : c.nivel === "falta" ? CircleX : TriangleAlert;
+          return (
+            <li key={c.texto} className={`flex items-start gap-2 ${c.nivel === "falta" ? "text-oxblood" : ""}`}>
+              <Simbolo aria-hidden width={15} height={15} className={`mt-0.5 flex-none ${c.nivel === "ok" ? "text-ok" : c.nivel === "atencao" ? "text-gold" : ""}`} />
+              <span>{c.texto}</span>
+            </li>
+          );
+        })}
       </ul>
     </details>
   );

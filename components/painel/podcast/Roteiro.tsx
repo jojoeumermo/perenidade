@@ -3,7 +3,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ObraCitada } from "@/lib/podcast";
-import { botao, botaoClaro, campo, elo, rotulo } from "../comum";
+import { BookOpen, ExternalLink, FileText, MonitorPlay, SearchCheck, X } from "lucide-react";
+import { Botao, Cartao, Esqueleto, ItemDeLista, Lista } from "../ui";
 
 interface ObraDoAcervo {
   id: string;
@@ -39,34 +40,29 @@ export function CitarObra({ aoCitar, fechar }: { aoCitar: (obra: ObraCitada, tex
   const termos = semAcento(busca).split(/\s+/).filter(Boolean);
   const achadas = (lista ?? []).filter((o) => termos.every((t) => semAcento(`${o.titulo} ${o.autor} ${o.area}`).includes(t))).slice(0, 25);
   return (
-    <div className="border-2 border-ink bg-parchment p-4">
-      <p className="flex items-center justify-between">
-        <span className={rotulo}>Citar obra do acervo</span>
-        <button type="button" className={elo} onClick={fechar}>Fechar</button>
-      </p>
-      <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Título, autor ou disciplina" className={campo} />
-      {lista === null && <p className="mt-2 text-ink-soft">Carregando o acervo…</p>}
-      <ul className="mt-2 max-h-72 divide-y divide-rule overflow-y-auto">
-        {achadas.map((o) => (
-          <li key={o.id}>
-            <button
-              type="button"
-              className="w-full cursor-pointer py-2 text-left hover:bg-parchment-deep"
-              onClick={() =>
+    <Cartao titulo="Citar obra do acervo" nivelDoTitulo={3} variante="destaque" acoes={<Botao variante="discreto" pequeno simbolo={X} onClick={fechar}>Fechar</Botao>}>
+      <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Título, autor ou disciplina" aria-label="Título, autor ou disciplina" className="pn-campo mt-1" />
+      {lista === null && <div className="mt-2"><Esqueleto linhas={2} rotulo="Carregando o acervo…" /></div>}
+      {achadas.length > 0 && (
+        <Lista rotulo="Obras do acervo" className="mt-2! max-h-72 overflow-y-auto!">
+          {achadas.map((o) => (
+            <ItemDeLista
+              key={o.id}
+              simbolo={BookOpen}
+              titulo={<><strong>{o.titulo}</strong> <span className="text-ink-soft">· {o.autor}{o.ano && ` · ${o.ano}`}</span></>}
+              meta={`${o.area} · ${o.licenca} · ${o.fonte}`}
+              aoClicar={() =>
                 aoCitar(
                   { id: o.id, titulo: o.titulo, autor: o.autor, licenca: o.licenca, fonte: o.fonte },
                   `> **Obra citada:** *${o.titulo}*, de ${o.autor}${o.ano ? ` (${o.ano})` : ""}. ${o.licenca}; fonte: ${o.fonte}. No acervo: institutolucia.org/pt/acervo/${o.id}`,
                 )
               }
-            >
-              <strong>{o.titulo}</strong> <span className="text-ink-soft">· {o.autor}{o.ano && ` · ${o.ano}`}</span>
-              <span className="block text-xs text-ink-soft">{o.area} · {o.licenca} · {o.fonte}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
+            />
+          ))}
+        </Lista>
+      )}
       {lista && termos.length > 0 && achadas.length === 0 && <p className="mt-2 text-ink-soft">Nenhuma obra do acervo com esses termos. Se for um livro de fora, cite nas fontes.</p>}
-    </div>
+    </Cartao>
   );
 }
 
@@ -115,19 +111,15 @@ export function ChecarAfirmacao({ inicial, fechar }: { inicial: string; fechar: 
     .slice(0, 8);
   const q = encodeURIComponent(texto.trim().slice(0, 200));
   return (
-    <div className="border-2 border-ink bg-parchment p-4">
-      <p className="flex items-center justify-between">
-        <span className={rotulo}>Checar afirmação</span>
-        <button type="button" className={elo} onClick={fechar}>Fechar</button>
-      </p>
-      <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={3} placeholder="Cole a frase do roteiro que precisa de base" className={campo} />
-      {lista === null && <p className="mt-2 text-ink-soft">Carregando as checagens e o acervo…</p>}
+    <Cartao titulo="Checar afirmação" nivelDoTitulo={3} variante="destaque" acoes={<Botao variante="discreto" pequeno simbolo={X} onClick={fechar}>Fechar</Botao>}>
+      <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={3} placeholder="Cole a frase do roteiro que precisa de base" aria-label="Cole a frase do roteiro que precisa de base" className="pn-campo mt-1" />
+      {lista === null && <div className="mt-2"><Esqueleto linhas={2} rotulo="Carregando as checagens e o acervo…" /></div>}
       {achados.length > 0 && (
         <ul className="mt-3 space-y-2">
           {achados.map(({ e }) => (
             <li key={e.href} className="border-l-2 border-gold pl-3">
-              <span className="font-mono text-[0.65rem] uppercase text-gold">{TIPOS[e.kind]}</span>
-              <a href={`/pt${e.href}`} target="_blank" rel="noopener noreferrer" className="block font-semibold underline hover:text-oxblood">{e.title}</a>
+              <span className="pn-rotulo-mono text-gold">{TIPOS[e.kind]}</span>
+              <a href={`/pt${e.href}`} target="_blank" rel="noopener noreferrer" className="pn-elo block font-semibold">{e.title}</a>
               {e.context && <span className="text-xs text-ink-soft">{e.context}</span>}
             </li>
           ))}
@@ -135,15 +127,15 @@ export function ChecarAfirmacao({ inicial, fechar }: { inicial: string; fechar: 
       )}
       {lista && palavras.length > 0 && achados.length === 0 && <p className="mt-2 text-ink-soft">Nada no site sobre isso. Confira nas fontes primárias e nas agências abaixo.</p>}
       <p className="mt-3 flex flex-wrap gap-3 text-sm">
-        <a href="/pt/guia" target="_blank" rel="noopener noreferrer" className={elo}>Guia de fontes do instituto ↗</a>
+        <a href="/pt/guia" target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">Guia de fontes do instituto <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a>
         {texto.trim() && (
           <>
-            <a href={`https://toolbox.google.com/factcheck/explorer/search/${q};hl=pt`} target="_blank" rel="noopener noreferrer" className={elo}>Checagens no mundo (Google Fact Check) ↗</a>
-            <a href={`https://duckduckgo.com/?q=${encodeURIComponent(`${texto.trim().slice(0, 150)} site:aosfatos.org OR site:lupa.uol.com.br OR site:projetocomprova.com.br`)}`} target="_blank" rel="noopener noreferrer" className={elo}>Agências brasileiras ↗</a>
+            <a href={`https://toolbox.google.com/factcheck/explorer/search/${q};hl=pt`} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">Checagens no mundo (Google Fact Check) <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a>
+            <a href={`https://duckduckgo.com/?q=${encodeURIComponent(`${texto.trim().slice(0, 150)} site:aosfatos.org OR site:lupa.uol.com.br OR site:projetocomprova.com.br`)}`} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">Agências brasileiras <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a>
           </>
         )}
       </p>
-    </div>
+    </Cartao>
   );
 }
 
@@ -195,9 +187,9 @@ export function Teleprompter({ texto, fechar }: { texto: string; fechar: () => v
 
   const limpo = texto.replace(/^#{1,6}\s+/gm, "").replace(/\*\*|__|\*|_/g, "").replace(/^>\s?/gm, "");
   return (
-    <div role="dialog" aria-label="Teleprompter" className="fixed inset-0 z-50 flex flex-col bg-black text-white">
-      <div className="flex flex-wrap items-center gap-4 border-b border-white/20 px-4 py-2 font-sans text-sm">
-        <button type="button" onClick={() => setRodando(!rodando)} className="cursor-pointer bg-[#c21f16] px-4 py-1.5 font-semibold">{rodando ? "Pausar (espaço)" : "Rolar (espaço)"}</button>
+    <div role="dialog" aria-modal="true" aria-label="Teleprompter" className="fixed inset-0 z-50 flex flex-col bg-[var(--pn-menu-fundo)] text-[var(--pn-menu-texto)]">
+      <div className="flex flex-wrap items-center gap-4 border-b border-[var(--pn-menu-borda)] px-4 py-2 font-sans text-sm">
+        <Botao variante="principal" onClick={() => setRodando(!rodando)}>{rodando ? "Pausar (espaço)" : "Rolar (espaço)"}</Botao>
         <label className="flex items-center gap-2">
           Velocidade <input type="range" min={10} max={200} value={velocidade} onChange={(e) => setVelocidade(Number(e.target.value))} />
         </label>
@@ -207,11 +199,11 @@ export function Teleprompter({ texto, fechar }: { texto: string; fechar: () => v
         <label className="flex items-center gap-2">
           <input type="checkbox" checked={espelho} onChange={(e) => setEspelho(e.target.checked)} /> Espelhar
         </label>
-        <button type="button" onClick={() => caixa.current?.scrollTo({ top: 0 })} className="cursor-pointer underline">Voltar ao começo</button>
-        <button type="button" onClick={fechar} className="ml-auto cursor-pointer underline">Fechar (Esc)</button>
+        <button type="button" onClick={() => caixa.current?.scrollTo({ top: 0 })} className="cursor-pointer rounded-[var(--pn-raio)] underline focus-visible:outline-2 focus-visible:outline-[var(--pn-menu-destaque)]">Voltar ao começo</button>
+        <button type="button" onClick={fechar} className="ml-auto inline-flex cursor-pointer items-center gap-1 rounded-[var(--pn-raio)] underline focus-visible:outline-2 focus-visible:outline-[var(--pn-menu-destaque)]"><X aria-hidden className="h-4 w-4" /> Fechar (Esc)</button>
       </div>
       <div ref={caixa} className="relative flex-1 overflow-y-auto px-[8vw]" style={{ transform: espelho ? "scaleX(-1)" : undefined }}>
-        <div aria-hidden className="pointer-events-none sticky top-[30%] z-10 h-0 border-t-2 border-[#c21f16]/70" />
+        <div aria-hidden className="pointer-events-none sticky top-[30%] z-10 h-0 border-t-2 border-[var(--pn-menu-destaque)]" />
         <div className="whitespace-pre-wrap py-[30vh] font-sans font-semibold leading-snug" style={{ fontSize: `${tamanho}px` }} data-original={limpo ? "" : undefined}>
           {limpo || "O roteiro está vazio."}
         </div>
@@ -223,11 +215,11 @@ export function Teleprompter({ texto, fechar }: { texto: string; fechar: () => v
 /** A barra de cima do editor de roteiro. */
 export function FerramentasDoRoteiro({ gabarito, citar, checar, prompter }: { gabarito: () => void; citar: () => void; checar: () => void; prompter: () => void }) {
   return (
-    <p className="flex flex-wrap gap-2">
-      <button type="button" className={botaoClaro} onClick={gabarito}>Usar gabarito</button>
-      <button type="button" className={botaoClaro} onClick={citar}>Citar obra do acervo</button>
-      <button type="button" className={botaoClaro} onClick={checar}>Checar afirmação</button>
-      <button type="button" className={botao} onClick={prompter}>Teleprompter</button>
-    </p>
+    <div className="flex flex-wrap gap-2">
+      <Botao simbolo={FileText} onClick={gabarito}>Usar gabarito</Botao>
+      <Botao simbolo={BookOpen} onClick={citar}>Citar obra do acervo</Botao>
+      <Botao simbolo={SearchCheck} onClick={checar}>Checar afirmação</Botao>
+      <Botao variante="principal" simbolo={MonitorPlay} onClick={prompter}>Teleprompter</Botao>
+    </div>
   );
 }

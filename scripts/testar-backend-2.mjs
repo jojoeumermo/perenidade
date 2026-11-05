@@ -210,7 +210,8 @@ ok("telas só chamam funções que o SQL cria", () => {
 
 // ── Registro das seções ──
 ok("seções registradas no painel e no mapa", () => {
-  const painel = ler("components", "painel", "Painel.tsx");
+  // O registro de seções e a casca saíram de Painel.tsx para casca/ no redesenho (docs/PAINEL-REDESENHO.md): lemos os dois.
+const painel = ler("components", "painel", "Painel.tsx") + "\n" + ler("components", "painel", "casca", "Dentro.tsx");
   const mapa = ler("components", "painel", "estrutura.ts");
   for (const id of ["operacao", "imprensa", "ensino", "previa"]) {
     assert.ok(painel.includes(`id: "${id}"`), `${id} sem registro no Painel`);

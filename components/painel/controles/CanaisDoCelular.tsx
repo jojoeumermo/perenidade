@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useLista } from "../comum";
 import { MoldeConfiguracao } from "../moldes";
-import { Campo, Esqueleto } from "../ui";
+import { Botao, Campo, Esqueleto, Faixa } from "../ui";
 import { erroDoTelegram, erroDoWhatsapp } from "./regras";
 import { useControle } from "./usarControle";
 
@@ -23,7 +23,22 @@ export function CanaisDoCelular() {
   const { executar, ocupado } = useControle(lista.recarregar);
   const [edicao, setEdicao] = useState<Partial<Canais>>({});
   const guardado = lista.dados;
-  if (!guardado) return lista.erro ? <p role="alert" className="pn-erro">{lista.erro}</p> : <Esqueleto />;
+  if (!guardado) {
+    return lista.erro ? (
+      <Faixa
+        tom="erro"
+        acao={
+          <Botao pequeno onClick={lista.recarregar}>
+            Tentar de novo
+          </Botao>
+        }
+      >
+        {lista.erro}
+      </Faixa>
+    ) : (
+      <Esqueleto />
+    );
+  }
   const whatsapp = edicao.whatsapp ?? guardado.whatsapp;
   const telegram = edicao.telegram ?? guardado.telegram;
   const erroW = erroDoWhatsapp(whatsapp);

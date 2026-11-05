@@ -1,9 +1,11 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ChevronDown, ChevronUp, Circle, CircleCheck, LayoutTemplate } from "lucide-react";
 import { useState } from "react";
 import { getItem, setItem } from "@/lib/storage";
 import type { TrackOption } from "../useTrackOptions";
+import { Area, Botao, Campo, Cartao, Marca, Selo } from "./ui";
 
 /**
  * Ferramentas de apoio a quem escreve a aula, todas no navegador e sem IA: contador de palavras e tempo de leitura,
@@ -12,9 +14,6 @@ import type { TrackOption } from "../useTrackOptions";
  * que vem depois no roteiro) e o assistente de roteiro (quatro perguntas que montam o esqueleto da aula).
  */
 
-const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
-const botao = "cursor-pointer bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood";
-const campo = "mt-1 w-full border border-rule bg-parchment px-2 py-1.5";
 
 /** Só a prosa: sem blocos de código, fórmulas, links, imagens e marcações. */
 export function prosa(md: string): string {
@@ -127,48 +126,53 @@ export function FerramentasDoAutor({ titulo, corpo, questoes, fontes, trilha, sl
   }
 
   return (
-    <section className="painel-cartao p-4" aria-label="Ferramentas de quem escreve">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className={rotulo}>Ferramentas de quem escreve</p>
-          <p className="mt-1 text-xs text-ink-soft">Tudo calculado aqui no navegador. Nada é enviado.</p>
-        </div>
-        <button type="button" className="cursor-pointer text-xs underline hover:text-oxblood" aria-expanded={aberto} onClick={() => setAberto((a) => !a)}>{aberto ? "Esconder" : "Mostrar"}</button>
-      </div>
+    <Cartao
+      aria-label="Ferramentas de quem escreve"
+      titulo="Ferramentas de quem escreve"
+      nivelDoTitulo={3}
+      sobre="Tudo calculado aqui no navegador. Nada é enviado."
+      acoes={
+        <Botao pequeno variante="discreto" simboloFim={aberto ? ChevronUp : ChevronDown} aria-expanded={aberto} onClick={() => setAberto((a) => !a)}>
+          {aberto ? "Esconder" : "Mostrar"}
+        </Botao>
+      }
+    >
       {aberto && (
         <div className="mt-3 space-y-5 text-sm">
           <div>
-            <p className="font-semibold">Leitura</p>
+            <p className="pn-rotulo-mono">Leitura</p>
             {leitura ? (
               <ul className="mt-1 space-y-0.5">
                 <li>{leitura.palavras} palavras · cerca de {minutos} min de leitura</li>
-                <li>
-                  Legibilidade: <strong>{Math.round(leitura.indice)}</strong> ({faixa?.[1]}, {faixa?.[2]})
-                  {meta !== undefined && (leitura.indice >= meta ? <span className="text-ok"> · dentro da meta da etapa ✓</span> : <span className="text-oxblood"> · acima da meta da etapa (alvo: {meta} ou mais)</span>)}
+                <li className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                  <span>
+                    Legibilidade: <strong className="tabular">{Math.round(leitura.indice)}</strong> ({faixa?.[1]}, {faixa?.[2]})
+                  </span>
+                  {meta !== undefined && (leitura.indice >= meta ? <Selo tom="ok">dentro da meta da etapa</Selo> : <Selo tom="aviso">acima da meta da etapa (alvo: {meta} ou mais)</Selo>)}
                 </li>
                 <li>{leitura.porFrase.toFixed(1).replace(".", ",")} palavras por frase · {Math.round(leitura.longas * 100)}% de palavras longas</li>
               </ul>
             ) : (
-              <p className="mt-1 text-ink-soft">Comece a escrever para ver as contas.</p>
+              <p className="pn-ajuda mt-1">Comece a escrever para ver as contas.</p>
             )}
-            <p className="mt-1 text-xs text-ink-soft">Frases curtas e palavras comuns sobem o número. Fórmulas, código e links ficam fora da conta.</p>
+            <p className="pn-ajuda mt-1 text-xs">Frases curtas e palavras comuns sobem o número. Fórmulas, código e links ficam fora da conta.</p>
           </div>
 
           <div>
-            <p className="font-semibold">Checklist</p>
+            <p className="pn-rotulo-mono">Checklist</p>
             <ul className="mt-1 space-y-1">
               {automaticos.map(([id, texto, ok]) => (
-                <li key={id} className="flex gap-2">
-                  <span aria-hidden className={ok ? "text-ok" : "text-ink-soft"}>{ok ? "✓" : "○"}</span>
-                  <span>{texto}<span className="sr-only">{ok ? ": feito" : ": falta"}</span></span>
+                <li key={id} className="flex items-start gap-2">
+                  {ok ? <CircleCheck aria-hidden width={15} height={15} className="mt-0.5 flex-none text-ok" /> : <Circle aria-hidden width={15} height={15} className="mt-0.5 flex-none text-ink-soft" />}
+                  <span>
+                    {texto}
+                    <span className="sr-only">{ok ? ": feito" : ": falta"}</span>
+                  </span>
                 </li>
               ))}
               {aMao.map(([id, texto]) => (
                 <li key={id}>
-                  <label className="flex cursor-pointer gap-2">
-                    <input type="checkbox" checked={Boolean(manuais[id])} onChange={(e) => setManuais((m) => ({ ...m, [id]: e.target.checked }))} className="accent-[var(--oxblood)]" />
-                    <span>{texto}</span>
-                  </label>
+                  <Marca rotulo={texto} checked={Boolean(manuais[id])} onChange={(e) => setManuais((m) => ({ ...m, [id]: e.target.checked }))} />
                 </li>
               ))}
             </ul>
@@ -176,7 +180,7 @@ export function FerramentasDoAutor({ titulo, corpo, questoes, fontes, trilha, sl
 
           {avisos.length > 0 && (
             <div>
-              <p className="font-semibold">Pré-requisitos</p>
+              <p className="pn-rotulo-mono">Pré-requisitos</p>
               <ul className="mt-1 list-disc space-y-0.5 pl-5">
                 {avisos.map((a) => (
                   <li key={a.numero}>O texto toca em “{a.titulo}”, que é a aula {a.numero} do roteiro, mais adiante. Explique o básico aqui ou indique que o assunto volta depois.</li>
@@ -186,43 +190,41 @@ export function FerramentasDoAutor({ titulo, corpo, questoes, fontes, trilha, sl
           )}
 
           <div>
-            <label className="block font-semibold">
-              Termos técnicos desta trilha
-              <textarea
-                value={jargao}
-                onChange={(e) => {
-                  setJargao(e.target.value);
-                  setItem(chaveJargao, e.target.value.trim() ? e.target.value.slice(0, 3000) : null);
-                }}
-                rows={2}
-                placeholder="mais-valia, proletariado, força de trabalho"
-                className={`${campo} font-normal`}
-              />
-            </label>
-            <p className="mt-1 text-xs text-ink-soft">Separe por vírgula. A lista fica neste navegador, por trilha.</p>
+            <Area
+              rotulo="Termos técnicos desta trilha"
+              ajuda="Separe por vírgula. A lista fica neste navegador, por trilha."
+              value={jargao}
+              onChange={(e) => {
+                setJargao(e.target.value);
+                setItem(chaveJargao, e.target.value.trim() ? e.target.value.slice(0, 3000) : null);
+              }}
+              rows={2}
+              placeholder="mais-valia, proletariado, força de trabalho"
+            />
             {semExplicacao.length > 0 && <p className="mt-1">Usados sem explicação logo depois: {semExplicacao.map((t) => `“${t}”`).join(", ")}.</p>}
           </div>
 
           <details>
             <summary className="cursor-pointer font-semibold">Assistente de roteiro</summary>
-            <p className="mt-1 text-xs text-ink-soft">Quatro perguntas que montam o esqueleto da aula (abertura, conceito, exemplo, erro comum e resumo). Se já houver texto, o esqueleto entra no fim.</p>
-            {(
-              [
-                ["final", "O que a pessoa vai conseguir fazer ao final?"],
-                ["erro", "Qual o erro mais comum?"],
-                ["exemplo", "Que exemplo do dia a dia serve?"],
-                ["antes", "O que precisa saber antes?"],
-              ] as const
-            ).map(([id, pergunta]) => (
-              <label key={id} className="mt-2 block">
-                {pergunta}
-                <input value={roteiro[id]} onChange={(e) => setRoteiro((r) => ({ ...r, [id]: e.target.value.slice(0, 300) }))} className={campo} />
-              </label>
-            ))}
-            <button type="button" className={`mt-3 ${botao}`} onClick={montarEsqueleto}>Montar o esqueleto</button>
+            <p className="pn-ajuda mt-1 text-xs">Quatro perguntas que montam o esqueleto da aula (abertura, conceito, exemplo, erro comum e resumo). Se já houver texto, o esqueleto entra no fim.</p>
+            <div className="mt-2 grid gap-2">
+              {(
+                [
+                  ["final", "O que a pessoa vai conseguir fazer ao final?"],
+                  ["erro", "Qual o erro mais comum?"],
+                  ["exemplo", "Que exemplo do dia a dia serve?"],
+                  ["antes", "O que precisa saber antes?"],
+                ] as const
+              ).map(([id, pergunta]) => (
+                <Campo key={id} rotulo={pergunta} value={roteiro[id]} onChange={(e) => setRoteiro((r) => ({ ...r, [id]: e.target.value.slice(0, 300) }))} />
+              ))}
+            </div>
+            <Botao className="mt-3" simbolo={LayoutTemplate} onClick={montarEsqueleto}>
+              Montar o esqueleto
+            </Botao>
           </details>
         </div>
       )}
-    </section>
+    </Cartao>
   );
 }

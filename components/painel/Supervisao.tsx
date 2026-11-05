@@ -1,11 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Pause, Play, RotateCcw, ShieldAlert, ShieldCheck, ShieldOff, UserX } from "lucide-react";
 import { useState } from "react";
 import type { Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, papeis, rotulo, useAcao, useLista } from "./comum";
-import { confirmarFrase } from "./ui";
+import { Aviso, data, papeis, useAcao, useLista } from "./comum";
+import { Abas, Botao, Busca, Campo, Cartao, confirmarFrase, Esqueleto, Faixa, Lista, Selo, Vazio } from "./ui";
 
 interface Protecoes {
   pausa: boolean;
@@ -42,46 +43,68 @@ function Freios() {
   const [motivo, setMotivo] = useState("");
   const acao = useAcao(estado.recarregar);
   const p = estado.dados;
-  if (!p) return <Aviso texto={estado.erro || "Carregando…"} />;
-  const cartao = "border border-rule bg-parchment-deep p-5";
-  const alerta = "border-2 border-oxblood bg-parchment-deep p-5";
-  const vermelho = "cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50";
+  if (!p) {
+    return estado.erro ? (
+      <Faixa tom="erro" acao={<Botao pequeno simbolo={RotateCcw} onClick={estado.recarregar}>Tentar de novo</Botao>}>
+        {estado.erro}
+      </Faixa>
+    ) : (
+      <Esqueleto forma="cartoes" linhas={2} rotulo="Carregando…" />
+    );
+  }
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <section className={p.pausa ? alerta : cartao}>
-        <h2 className="font-serif text-xl font-semibold">Pausa geral de envios</h2>
-        <p className="mt-1 text-ink-soft">Fecha na hora tudo o que o público envia (comunidade, mural, reforço, boletim, contribuições) e o cadastro. Ler e estudar continua normal, e a equipe continua trabalhando.</p>
-        <p className="mt-3 font-semibold">{p.pausa ? "Os envios estão pausados." : "Os envios estão abertos."}</p>
+      <Cartao
+        variante={p.pausa ? "alerta" : "padrao"}
+        titulo="Pausa geral de envios"
+        sobre="Fecha na hora tudo o que o público envia (comunidade, mural, reforço, boletim, contribuições) e o cadastro. Ler e estudar continua normal, e a equipe continua trabalhando."
+        acoes={p.pausa ? <Selo tom="erro" ponto>Os envios estão pausados.</Selo> : <Selo tom="ok" ponto>Os envios estão abertos.</Selo>}
+      >
         {!p.pausa && (
-          <label className="mt-3 block">
-            Recado para quem visita (opcional)
-            <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} placeholder="Ex.: Voltamos a receber mensagens em breve." className={campo} />
-          </label>
+          <div className="mt-3">
+            <Campo rotulo="Recado para quem visita (opcional)" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} placeholder="Ex.: Voltamos a receber mensagens em breve." />
+          </div>
         )}
         <p className="mt-3">
           {p.pausa ? (
-            <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("site_pausa", { p_pausa: false, p_motivo: "" }, "Envios reabertos. A coordenação foi avisada.")}>Reabrir os envios</button>
+            <Botao variante="principal" simbolo={Play} carregando={acao.ocupado} onClick={() => acao.agir("site_pausa", { p_pausa: false, p_motivo: "" }, "Envios reabertos. A coordenação foi avisada.")}>
+              Reabrir os envios
+            </Botao>
           ) : (
-            <button type="button" className={vermelho} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Pausar agora tudo o que o público pode enviar?"))) void acao.agir("site_pausa", { p_pausa: true, p_motivo: motivo.trim() }, "Envios pausados. A coordenação foi avisada."); }}>
+            <Botao
+              perigo
+              simbolo={Pause}
+              carregando={acao.ocupado}
+              onClick={async () => {
+                if (await confirmarFrase("Pausar agora tudo o que o público pode enviar?")) void acao.agir("site_pausa", { p_pausa: true, p_motivo: motivo.trim() }, "Envios pausados. A coordenação foi avisada.");
+              }}
+            >
               Pausar os envios
-            </button>
+            </Botao>
           )}
         </p>
-      </section>
+      </Cartao>
 
-      <section className={p.aprovacao_manual ? alerta : cartao}>
-        <h2 className="font-serif text-xl font-semibold">Modo de segurança da Comunidade</h2>
-        <p className="mt-1 text-ink-soft">Ligado, toda mensagem nova na Comunidade espera a leitura de quem cuida dela antes de aparecer. Não apaga nada do que já está no ar.</p>
-        <p className="mt-3 font-semibold">{p.aprovacao_manual ? "Ligado: só aprovação manual." : "Desligado: vale a avaliação automática."}</p>
+      <Cartao
+        variante={p.aprovacao_manual ? "alerta" : "padrao"}
+        titulo="Modo de segurança da Comunidade"
+        sobre="Ligado, toda mensagem nova na Comunidade espera a leitura de quem cuida dela antes de aparecer. Não apaga nada do que já está no ar."
+        acoes={p.aprovacao_manual ? <Selo tom="aviso" ponto>Ligado: só aprovação manual.</Selo> : <Selo ponto>Desligado: vale a avaliação automática.</Selo>}
+      >
         <p className="mt-3">
-          <button type="button" className={p.aprovacao_manual ? botaoClaro : vermelho} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_modo_seguranca", { p_ligar: !p.aprovacao_manual }, p.aprovacao_manual ? "Modo de segurança desligado. A coordenação foi avisada." : "Modo de segurança ligado. A coordenação foi avisada.")}>
+          <Botao
+            perigo={!p.aprovacao_manual}
+            simbolo={p.aprovacao_manual ? ShieldOff : ShieldCheck}
+            carregando={acao.ocupado}
+            onClick={() => acao.agir("comunidade_modo_seguranca", { p_ligar: !p.aprovacao_manual }, p.aprovacao_manual ? "Modo de segurança desligado. A coordenação foi avisada." : "Modo de segurança ligado. A coordenação foi avisada.")}
+          >
             {p.aprovacao_manual ? "Desligar o modo de segurança" : "Ligar o modo de segurança"}
-          </button>
+          </Botao>
         </p>
-      </section>
-      <div className="lg:col-span-2">
+      </Cartao>
+      <div className="space-y-2 lg:col-span-2">
         <Aviso texto={acao.aviso} />
-        <p className="text-ink-soft">A faixa do alto, o cadastro aberto, a interdição do site e o expurgo continuam com a coordenação; a interdição e o expurgo a supervisão pode pedir, em Interdição e expurgo.</p>
+        <Faixa tom="info">A faixa do alto, o cadastro aberto, a interdição do site e o expurgo continuam com a coordenação; a interdição e o expurgo a supervisão pode pedir, em Interdição e expurgo.</Faixa>
       </div>
     </div>
   );
@@ -102,53 +125,60 @@ function EquipeSupervisionada() {
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
   const visiveis = lista.dados?.filter((membro) => membro.nome.toLowerCase().includes(filtro.toLowerCase())) ?? [];
   return (
-    <div>
-      <p className="max-w-3xl text-ink-soft">
+    <div className="space-y-3">
+      <Faixa tom="aviso">
         Suspender é o freio de emergência para conta tomada, vazamento ou ataque: a conta continua lendo, mas não envia nada. Escreva o motivo (vai para o registro e para a coordenação, que é avisada na hora). A
         supervisão reativa só o que ela mesma suspendeu; o resto é com a coordenação.
-      </p>
+      </Faixa>
       <Aviso texto={lista.erro || acao.aviso} />
-      <input value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder="Filtrar por nome" aria-label="Filtrar a equipe" className={campo} />
-      <ul className="mt-3 divide-y divide-rule border-y border-rule">
+      <Busca rotulo="Filtrar a equipe" valor={filtro} aoMudar={setFiltro} placeholder="Filtrar por nome" />
+      {!lista.dados && !lista.erro && <Esqueleto forma="fila" linhas={5} />}
+      <Lista rotulo="Equipe">
         {visiveis.map((membro) => {
           const podeSuspender = !membro.eu && !membro.protegida && !membro.suspenso;
           const podeReativar = membro.suspenso && membro.suspensao === "supervisao";
           return (
-            <li key={membro.id} className="py-3">
-              <p className="font-serif text-xl font-semibold">
-                {membro.nome} {membro.eu && <span className="font-sans text-sm text-ink-soft">(você)</span>} {membro.suspenso && <span className="font-sans text-sm text-oxblood">(suspensa)</span>}
+            <li key={membro.id} className="pn-item" style={{ display: "block", height: "auto", paddingBlock: "0.7rem" }}>
+              <p className="flex flex-wrap items-center gap-2 font-semibold">
+                {membro.nome} {membro.eu && <Selo>(você)</Selo>} {membro.suspenso && <Selo tom="erro">(suspensa)</Selo>}
               </p>
-              <p className="text-ink-soft">
+              <p className="pn-item-meta">
                 {membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` · ${nomeDaArea(papel.disciplina)}` : ""}`).join(" · ")} · passou pelo painel em {data(membro.visto_em)}
               </p>
               {podeReativar && (
-                <button type="button" className={`mt-2 ${botaoClaro}`} disabled={acao.ocupado} onClick={() => acao.agir("usuario_suspender", { p_usuario: membro.id, p_suspenso: false, p_motivo: "Reativada pela supervisão" }, "Conta reativada. A coordenação foi avisada.")}>
+                <Botao pequeno className="mt-2" simbolo={RotateCcw} carregando={acao.ocupado} onClick={() => acao.agir("usuario_suspender", { p_usuario: membro.id, p_suspenso: false, p_motivo: "Reativada pela supervisão" }, "Conta reativada. A coordenação foi avisada.")}>
                   Reativar a conta
-                </button>
+                </Botao>
               )}
               {podeSuspender &&
                 (aberta === membro.id ? (
                   <div className="mt-2 max-w-xl">
-                    <label className="block">
-                      Motivo da suspensão (obrigatório)
-                      <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={300} className={campo} />
-                    </label>
+                    <Campo rotulo="Motivo da suspensão (obrigatório)" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={300} />
                     <p className="mt-2 flex gap-3">
-                      <button type="button" className="cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50" disabled={acao.ocupado || motivo.trim().length < 5} onClick={() => acao.agir("usuario_suspender", { p_usuario: membro.id, p_suspenso: true, p_motivo: motivo.trim() }, "Conta suspensa. A coordenação foi avisada.")}>
+                      <Botao perigo simbolo={UserX} disabled={motivo.trim().length < 5} carregando={acao.ocupado} onClick={() => acao.agir("usuario_suspender", { p_usuario: membro.id, p_suspenso: true, p_motivo: motivo.trim() }, "Conta suspensa. A coordenação foi avisada.")}>
                         Suspender agora
-                      </button>
-                      <button type="button" className={botaoClaro} onClick={() => setAberta(null)}>Cancelar</button>
+                      </Botao>
+                      <Botao onClick={() => setAberta(null)}>Cancelar</Botao>
                     </p>
                   </div>
                 ) : (
-                  <button type="button" className="mt-1 cursor-pointer underline hover:text-oxblood" onClick={() => { setAberta(membro.id); setMotivo(""); }}>
+                  <Botao
+                    variante="discreto"
+                    pequeno
+                    className="mt-1"
+                    simbolo={ShieldAlert}
+                    onClick={() => {
+                      setAberta(membro.id);
+                      setMotivo("");
+                    }}
+                  >
                     Suspender em emergência
-                  </button>
+                  </Botao>
                 ))}
             </li>
           );
         })}
-      </ul>
+      </Lista>
     </div>
   );
 }
@@ -159,18 +189,22 @@ function PedidosPendentes() {
   const lista = useLista<Pedido[]>("pedidos_supervisao");
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
   return (
-    <div>
-      <p className="max-w-3xl text-ink-soft">Só para acompanhar: quem aceita ou recusa é a coordenação. Se a fila crescer, lembre a coordenação pelo Mural da equipe.</p>
+    <div className="space-y-3">
+      <Faixa tom="info">Só para acompanhar: quem aceita ou recusa é a coordenação. Se a fila crescer, lembre a coordenação pelo Mural da equipe.</Faixa>
       <Aviso texto={lista.erro} />
-      {lista.dados?.length === 0 && <p className="mt-2 text-ink-soft">Nenhum pedido esperando.</p>}
-      <ul className="mt-3 space-y-3">
+      {!lista.dados && !lista.erro && <Esqueleto forma="cartoes" linhas={3} />}
+      {lista.dados?.length === 0 && <Vazio titulo="Nenhum pedido esperando." />}
+      <ul className="space-y-3">
         {lista.dados?.map((pedido) => (
-          <li key={pedido.id} className="border border-rule bg-parchment-deep p-4">
-            <p className={rotulo}>
-              {papeis[pedido.papel]} · {nomeDaArea(pedido.disciplina)} · {pedido.origem === "formulario" ? "formulário do site" : "pedido pelo painel"} · {data(pedido.criado_em)}
-            </p>
-            <p className="mt-1 font-serif text-xl font-semibold">{pedido.nome}</p>
-            <p className="mt-1 whitespace-pre-line" data-original>{pedido.mensagem}</p>
+          <li key={pedido.id}>
+            <Cartao as="article" titulo={pedido.nome} nivelDoTitulo={3}>
+              <p className="pn-rotulo-mono">
+                {papeis[pedido.papel]} · {nomeDaArea(pedido.disciplina)} · {pedido.origem === "formulario" ? "formulário do site" : "pedido pelo painel"} · {data(pedido.criado_em)}
+              </p>
+              <p className="mt-2 whitespace-pre-line" data-original>
+                {pedido.mensagem}
+              </p>
+            </Cartao>
           </li>
         ))}
       </ul>
@@ -186,19 +220,18 @@ export function Supervisao() {
   const [aba, setAba] = useState<"freios" | "equipe" | "pedidos">("freios");
   const pedidos = useLista<Pedido[]>("pedidos_supervisao");
   return (
-    <div>
+    <div className="pn-tela">
       <Abas
-        atual={aba}
-        escolher={setAba}
+        rotulo="Supervisão"
+        valor={aba}
+        aoMudar={setAba}
         opcoes={[
           { id: "freios" as const, nome: "Proteções" },
           { id: "equipe" as const, nome: "Equipe" },
           { id: "pedidos" as const, nome: "Pedidos de voluntariado", conta: pedidos.dados?.length },
         ]}
+        painel={(id) => (id === "freios" ? <Freios /> : id === "equipe" ? <EquipeSupervisionada /> : <PedidosPendentes />)}
       />
-      {aba === "freios" && <Freios />}
-      {aba === "equipe" && <EquipeSupervisionada />}
-      {aba === "pedidos" && <PedidosPendentes />}
     </div>
   );
 }

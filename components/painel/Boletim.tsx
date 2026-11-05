@@ -1,12 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowDown, ArrowUp, Copy, FilePlus2, FileText, FlaskConical, Monitor, Plus, RotateCcw, Save, Send, Smartphone, Trash2, UserMinus } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { rpc } from "@/lib/backend";
 import { site } from "@/lib/site";
 import { boletim as desenhoDoBoletim, textoDosBlocos } from "@/supabase/functions/_shared/emails.mjs";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
-import { confirmarFrase } from "./ui";
+import { Aviso, data, dataHora, textoDoErro, useAcao, useLista } from "./comum";
+import { MoldeTabela } from "./moldes";
+import { Abas, Botao, Campo, Cartao, type ColumnDef, confirmarFrase, Esqueleto, Faixa, ItemDeLista, Lista, Marca, Selo, Tabela, Vazio } from "./ui";
 
 type Aba = "nova" | "edicoes" | "lista" | "envio";
 type TipoDeBloco = "titulo" | "paragrafo" | "imagem" | "botao" | "materia" | "acervo";
@@ -60,6 +62,7 @@ const semChave = (blocos: Bloco[]) => blocos.map(({ chave: _chave, ...resto }) =
  * o próprio e-mail antes de enviar, rascunhos e histórico, a lista (com os endereços que falham pausados) e o guia de
  * entrega (SPF, DKIM e DMARC). Continua valendo: dupla confirmação, saída em todo e-mail, ninguém vê o endereço de
  * ninguém, uma edição a cada seis horas, cópia oculta no envio manual e o botão de copiar os confirmados.
+ * No desenho novo: a edição em cartão (com a prévia ao lado) e os inscritos no molde Tabela.
  */
 export function Boletim() {
   const [aba, setAba] = useState<Aba>("nova");
@@ -69,38 +72,54 @@ export function Boletim() {
   const confirmados = lista.dados?.filter((i) => i.confirmado !== false && !i.pausado) ?? [];
   const comProblema = lista.dados?.filter((i) => i.pausado || (i.falhas ?? 0) > 0) ?? [];
   return (
-    <section>
-      <p className="max-w-3xl text-ink-soft">
+    <section className="pn-tela">
+      <p className="pn-sobre">
         {confirmados.length} endereço(s) recebem o boletim. Quem pede recebe um e-mail para confirmar; sem o clique, o endereço não recebe nada e sai da lista em uma semana. Nenhuma abertura ou clique é rastreado.
       </p>
-      <div className="mt-4">
-        <Abas<Aba>
-          opcoes={[
-            { id: "nova", nome: aberta ? "Editar edição" : "Nova edição" },
-            { id: "edicoes", nome: "Rascunhos e enviadas", conta: edicoes.dados?.filter((e) => e.status === "rascunho").length },
-            { id: "lista", nome: "Lista", conta: comProblema.filter((i) => i.pausado).length },
-            { id: "envio", nome: "Configurar a entrega" },
-          ]}
-          atual={aba}
-          escolher={setAba}
-        />
-      </div>
-      {aba === "nova" && <Editor key={aberta?.id ?? "nova"} inicial={aberta} destinatarios={confirmados.length} depois={() => { edicoes.recarregar(); }} fechar={() => setAberta(null)} />}
-      {aba === "edicoes" && (
-        <Edicoes
-          edicoes={edicoes.dados}
-          erro={edicoes.erro}
-          recarregar={edicoes.recarregar}
-          abrir={(e) => { setAberta(e); setAba("nova"); }}
-        />
-      )}
-      {aba === "lista" && <Lista dados={lista.dados} erro={lista.erro} recarregar={lista.recarregar} />}
-      {aba === "envio" && <GuiaDeEntrega />}
+      <Abas<Aba>
+        rotulo="Boletim"
+        opcoes={[
+          { id: "nova", nome: aberta ? "Editar edição" : "Nova edição" },
+          { id: "edicoes", nome: "Rascunhos e enviadas", conta: edicoes.dados?.filter((e) => e.status === "rascunho").length },
+          { id: "lista", nome: "Lista", conta: comProblema.filter((i) => i.pausado).length },
+          { id: "envio", nome: "Configurar a entrega" },
+        ]}
+        valor={aba}
+        aoMudar={setAba}
+        painel={(atual) => (
+          <>
+            {atual === "nova" && <Editor key={aberta?.id ?? "nova"} inicial={aberta} destinatarios={confirmados.length} depois={() => { edicoes.recarregar(); }} fechar={() => setAberta(null)} />}
+            {atual === "edicoes" && (
+              <Edicoes
+                edicoes={edicoes.dados}
+                erro={edicoes.erro}
+                recarregar={edicoes.recarregar}
+                abrir={(e) => { setAberta(e); setAba("nova"); }}
+              />
+            )}
+            {atual === "lista" && <ListaDeInscritos dados={lista.dados} erro={lista.erro} recarregar={lista.recarregar} />}
+            {atual === "envio" && <GuiaDeEntrega />}
+          </>
+        )}
+      />
     </section>
   );
 }
 
 // ───────────── Editor ─────────────
+
+/** Os botões de escolha de uma vez só (prévia, filtro): o escolhido fica marcado, com aria-pressed. */
+function Escolhas<T extends string>({ rotulo, opcoes, valor, escolher }: { rotulo: string; opcoes: readonly (readonly [T, string, typeof Monitor?])[]; valor: T; escolher: (v: T) => void }) {
+  return (
+    <div role="group" aria-label={rotulo} className="flex flex-wrap gap-1">
+      {opcoes.map(([id, nome, simbolo]) => (
+        <Botao key={id} pequeno variante={valor === id ? "padrao" : "discreto"} aria-pressed={valor === id} simbolo={simbolo} onClick={() => escolher(id)}>
+          {nome}
+        </Botao>
+      ))}
+    </div>
+  );
+}
 
 function Editor({ inicial, destinatarios, depois, fechar }: { inicial: Edicao | null; destinatarios: number; depois: () => void; fechar: () => void }) {
   const base = inicial?.status === "enviada" ? null : inicial;
@@ -205,23 +224,25 @@ function Editor({ inicial, destinatarios, depois, fechar }: { inicial: Edicao | 
   const campoBloco = (b: Bloco) => {
     switch (b.tipo) {
       case "titulo":
-        return <input value={b.texto ?? ""} onChange={(e) => trocar(b.chave, { texto: e.target.value })} maxLength={200} placeholder="Título da seção" className={`${campo} font-semibold`} />;
+        return <input value={b.texto ?? ""} onChange={(e) => trocar(b.chave, { texto: e.target.value })} maxLength={200} placeholder="Título da seção" aria-label={NOMES.titulo} className="pn-campo font-semibold" />;
       case "paragrafo":
-        return <textarea value={b.texto ?? ""} onChange={(e) => trocar(b.chave, { texto: e.target.value })} rows={4} maxLength={6000} placeholder="Texto. Endereços https viram links. Linha em branco separa parágrafos." className={campo} />;
+        return <textarea value={b.texto ?? ""} onChange={(e) => trocar(b.chave, { texto: e.target.value })} rows={4} maxLength={6000} placeholder="Texto. Endereços https viram links. Linha em branco separa parágrafos." aria-label={NOMES.paragrafo} className="pn-campo" />;
       case "imagem":
         return (
           <div className="grid gap-2 sm:grid-cols-2">
-            <label className="block text-sm">Endereço da imagem no site<input value={b.src ?? ""} onChange={(e) => trocar(b.chave, { src: e.target.value.trim() })} placeholder="/arquivos/… ou /imagens/…" className={`${campo} font-mono`} /></label>
-            <label className="block text-sm">Descrição (para quem não vê a imagem)<input value={b.alt ?? ""} onChange={(e) => trocar(b.chave, { alt: e.target.value })} maxLength={300} className={campo} /></label>
-            <label className="block text-sm sm:col-span-2">Legenda ou crédito (opcional)<input value={b.legenda ?? ""} onChange={(e) => trocar(b.chave, { legenda: e.target.value })} maxLength={300} className={campo} /></label>
-            <p className="text-xs text-ink-soft sm:col-span-2">Só imagens já publicadas no site (Materiais e arquivos). Imagem de outro site não entra: serviria para rastrear quem abriu o e-mail.</p>
+            <Campo rotulo="Endereço da imagem no site" value={b.src ?? ""} onChange={(e) => trocar(b.chave, { src: e.target.value.trim() })} placeholder="/arquivos/… ou /imagens/…" className="font-mono" />
+            <Campo rotulo="Descrição (para quem não vê a imagem)" value={b.alt ?? ""} onChange={(e) => trocar(b.chave, { alt: e.target.value })} maxLength={300} />
+            <div className="sm:col-span-2">
+              <Campo rotulo="Legenda ou crédito (opcional)" value={b.legenda ?? ""} onChange={(e) => trocar(b.chave, { legenda: e.target.value })} maxLength={300} />
+            </div>
+            <p className="pn-ajuda sm:col-span-2">Só imagens já publicadas no site (Materiais e arquivos). Imagem de outro site não entra: serviria para rastrear quem abriu o e-mail.</p>
           </div>
         );
       case "botao":
         return (
           <div className="grid gap-2 sm:grid-cols-2">
-            <label className="block text-sm">Texto do botão<input value={b.texto ?? ""} onChange={(e) => trocar(b.chave, { texto: e.target.value })} maxLength={60} placeholder="Ler no site" className={campo} /></label>
-            <label className="block text-sm">Endereço<input value={b.url ?? ""} onChange={(e) => trocar(b.chave, { url: e.target.value.trim() })} placeholder="https://… ou /pt/…" className={`${campo} font-mono`} /></label>
+            <Campo rotulo="Texto do botão" value={b.texto ?? ""} onChange={(e) => trocar(b.chave, { texto: e.target.value })} maxLength={60} placeholder="Ler no site" />
+            <Campo rotulo="Endereço" value={b.url ?? ""} onChange={(e) => trocar(b.chave, { url: e.target.value.trim() })} placeholder="https://… ou /pt/…" className="font-mono" />
           </div>
         );
       case "materia":
@@ -235,17 +256,17 @@ function Editor({ inicial, destinatarios, depois, fechar }: { inicial: Edicao | 
                 const n = opcoes?.[Number(e.target.value)];
                 if (n) trocar(b.chave, { titulo: n.titulo, resumo: n.resumo, autor: n.autor, url: n.url });
               }}
-              className={campo}
+              className="pn-campo"
               aria-label={b.tipo === "materia" ? "Escolher uma matéria do jornal" : "Escolher uma obra nova do acervo"}
             >
               <option value="">{opcoes ? (b.tipo === "materia" ? "Escolher uma matéria recente…" : "Escolher uma obra que entrou no acervo…") : "Carregando a lista…"}</option>
               {opcoes?.map((n, i) => <option key={n.url} value={i}>{n.titulo}{n.data ? ` (${n.data.slice(0, 10).split("-").reverse().join("/")})` : ""}</option>)}
             </select>
             <div className="grid gap-2 sm:grid-cols-2">
-              <input value={b.titulo ?? ""} onChange={(e) => trocar(b.chave, { titulo: e.target.value })} maxLength={200} placeholder="Título" aria-label="Título" className={campo} />
-              <input value={b.autor ?? ""} onChange={(e) => trocar(b.chave, { autor: e.target.value })} maxLength={160} placeholder="Autor (opcional)" aria-label="Autor" className={campo} />
-              <textarea value={b.resumo ?? ""} onChange={(e) => trocar(b.chave, { resumo: e.target.value })} maxLength={600} rows={2} placeholder="Resumo curto" aria-label="Resumo" className={`${campo} sm:col-span-2`} />
-              <input value={b.url ?? ""} onChange={(e) => trocar(b.chave, { url: e.target.value.trim() })} placeholder="/pt/jornal/…" aria-label="Endereço" className={`${campo} font-mono sm:col-span-2`} />
+              <input value={b.titulo ?? ""} onChange={(e) => trocar(b.chave, { titulo: e.target.value })} maxLength={200} placeholder="Título" aria-label="Título" className="pn-campo" />
+              <input value={b.autor ?? ""} onChange={(e) => trocar(b.chave, { autor: e.target.value })} maxLength={160} placeholder="Autor (opcional)" aria-label="Autor" className="pn-campo" />
+              <textarea value={b.resumo ?? ""} onChange={(e) => trocar(b.chave, { resumo: e.target.value })} maxLength={600} rows={2} placeholder="Resumo curto" aria-label="Resumo" className="pn-campo sm:col-span-2" />
+              <input value={b.url ?? ""} onChange={(e) => trocar(b.chave, { url: e.target.value.trim() })} placeholder="/pt/jornal/…" aria-label="Endereço" className="pn-campo font-mono sm:col-span-2" />
             </div>
           </div>
         );
@@ -255,68 +276,89 @@ function Editor({ inicial, destinatarios, depois, fechar }: { inicial: Edicao | 
 
   return (
     <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <div>
-        {inicial?.status === "enviada" && <p className="mb-3 border-l-4 border-gold pl-3 text-sm">Esta é uma cópia da edição enviada em {inicial.enviada_em ? dataHora(inicial.enviada_em) : ""}: vira um rascunho novo quando você guardar.</p>}
-        <label className="block">
-          Assunto
-          <input value={assunto} onChange={(e) => { setAssunto(e.target.value); setSujo(true); }} maxLength={150} className={campo} />
-        </label>
-        <label className="mt-3 block">
-          Texto de pré-visualização <span className="text-ink-soft">(o que aparece ao lado do assunto na caixa de entrada)</span>
-          <input value={preheader} onChange={(e) => { setPreheader(e.target.value); setSujo(true); }} maxLength={140} className={campo} />
-        </label>
-        <ol className="mt-4 space-y-3">
-          {blocos.map((b, i) => (
-            <li key={b.chave} className="border border-rule bg-parchment-deep p-3">
-              <div className="mb-2 flex items-center gap-2 text-xs">
-                <span className={rotulo}>{NOMES[b.tipo]}</span>
-                <span className="ml-auto flex gap-1">
-                  <button type="button" aria-label="Subir" disabled={i === 0} onClick={() => { const n = [...blocos]; [n[i - 1], n[i]] = [n[i], n[i - 1]]; mudar(n); }} className="cursor-pointer border border-rule px-1.5 disabled:opacity-30">↑</button>
-                  <button type="button" aria-label="Descer" disabled={i === blocos.length - 1} onClick={() => { const n = [...blocos]; [n[i + 1], n[i]] = [n[i], n[i + 1]]; mudar(n); }} className="cursor-pointer border border-rule px-1.5 disabled:opacity-30">↓</button>
-                  <button type="button" aria-label="Apagar o bloco" onClick={() => mudar(blocos.filter((x) => x.chave !== b.chave))} className="cursor-pointer border border-rule px-1.5 hover:text-oxblood">✕</button>
-                </span>
+      <Cartao
+        as="div"
+        rodape={
+          <div className="pn-secao">
+            <div className="flex flex-wrap items-center gap-2">
+              <Botao simbolo={Save} disabled={ocupado} onClick={() => void salvar()}>Guardar rascunho</Botao>
+              <Botao simbolo={FlaskConical} disabled={ocupado || !pronto} onClick={() => void testar()}>Enviar teste para mim</Botao>
+              <Botao variante="principal" simbolo={Send} disabled={ocupado || !pronto || faltaDescricao || destinatarios === 0} onClick={() => void enviar()}>Enviar a edição ({destinatarios})</Botao>
+              <span role="status" className="pn-ajuda">{sujo ? "Mudanças ainda não guardadas" : salvo}</span>
+            </div>
+            {!pronto && <p className="pn-ajuda">Para enviar: assunto com 5 letras ou mais e pelo menos 50 letras de texto.</p>}
+            <p className="pn-ajuda">No máximo uma edição a cada seis horas. O teste vai só para o seu e-mail e não conta nesse limite.</p>
+            <Aviso texto={aviso} />
+            {inicial && (
+              <div>
+                <Botao variante="discreto" pequeno simbolo={FilePlus2} onClick={fechar}>Começar uma edição nova</Botao>
               </div>
-              {campoBloco(b)}
-            </li>
-          ))}
-        </ol>
-        <p className="mt-3 flex flex-wrap gap-2 text-sm">
-          {(Object.keys(NOMES) as TipoDeBloco[]).map((t) => (
-            <button key={t} type="button" className="cursor-pointer border border-dashed border-rule px-2 py-1 hover:border-oxblood" onClick={() => mudar([...blocos, { chave: novaChave(), tipo: t }])}>＋ {NOMES[t]}</button>
-          ))}
-        </p>
-        {faltaDescricao && <p className="mt-2 text-sm text-oxblood">Falta a descrição de uma imagem.</p>}
-        {imagemDeFora && <p className="mt-2 text-sm text-oxblood">Uma imagem não é do site (/arquivos ou /imagens): ela não vai aparecer.</p>}
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => void salvar()}>Guardar rascunho</button>
-          <button type="button" className={botaoClaro} disabled={ocupado || !pronto} onClick={() => void testar()}>Enviar teste para mim</button>
-          <button type="button" className={botao} disabled={ocupado || !pronto || faltaDescricao || destinatarios === 0} onClick={() => void enviar()}>Enviar a edição ({destinatarios})</button>
-          <span role="status" className="text-xs text-ink-soft">{sujo ? "Mudanças ainda não guardadas" : salvo}</span>
+            )}
+          </div>
+        }
+      >
+        <div className="pn-secao">
+          {inicial?.status === "enviada" && <Faixa tom="info">Esta é uma cópia da edição enviada em {inicial.enviada_em ? dataHora(inicial.enviada_em) : ""}: vira um rascunho novo quando você guardar.</Faixa>}
+          <Campo rotulo="Assunto" value={assunto} onChange={(e) => { setAssunto(e.target.value); setSujo(true); }} maxLength={150} />
+          <div>
+            <Campo rotulo="Texto de pré-visualização" value={preheader} onChange={(e) => { setPreheader(e.target.value); setSujo(true); }} maxLength={140} />
+            <p className="pn-ajuda">(o que aparece ao lado do assunto na caixa de entrada)</p>
+          </div>
+          <ol className="space-y-3">
+            {blocos.map((b, i) => (
+              <li key={b.chave}>
+                <Cartao as="div" variante="plano">
+                  <div className="pn-secao">
+                    <div className="flex items-center gap-2">
+                      <span className="pn-rotulo-mono">{NOMES[b.tipo]}</span>
+                      <span className="ml-auto flex gap-1">
+                        <Botao icone pequeno variante="discreto" simbolo={ArrowUp} aria-label="Subir" dica="Subir" disabled={i === 0} onClick={() => { const n = [...blocos]; [n[i - 1], n[i]] = [n[i], n[i - 1]]; mudar(n); }} />
+                        <Botao icone pequeno variante="discreto" simbolo={ArrowDown} aria-label="Descer" dica="Descer" disabled={i === blocos.length - 1} onClick={() => { const n = [...blocos]; [n[i + 1], n[i]] = [n[i], n[i + 1]]; mudar(n); }} />
+                        <Botao icone pequeno variante="discreto" perigo simbolo={Trash2} aria-label="Apagar o bloco" dica="Apagar o bloco" onClick={() => mudar(blocos.filter((x) => x.chave !== b.chave))} />
+                      </span>
+                    </div>
+                    {campoBloco(b)}
+                  </div>
+                </Cartao>
+              </li>
+            ))}
+          </ol>
+          <div className="flex flex-wrap gap-2">
+            {(Object.keys(NOMES) as TipoDeBloco[]).map((t) => (
+              <Botao key={t} pequeno variante="discreto" simbolo={Plus} onClick={() => mudar([...blocos, { chave: novaChave(), tipo: t }])}>
+                {NOMES[t]}
+              </Botao>
+            ))}
+          </div>
+          {faltaDescricao && <Faixa tom="aviso">Falta a descrição de uma imagem.</Faixa>}
+          {imagemDeFora && <Faixa tom="aviso">Uma imagem não é do site (/arquivos ou /imagens): ela não vai aparecer.</Faixa>}
         </div>
-        {!pronto && <p className="mt-2 text-xs text-ink-soft">Para enviar: assunto com 5 letras ou mais e pelo menos 50 letras de texto.</p>}
-        <p className="mt-1 text-xs text-ink-soft">No máximo uma edição a cada seis horas. O teste vai só para o seu e-mail e não conta nesse limite.</p>
-        <Aviso texto={aviso} />
-        {inicial && <button type="button" className={`mt-2 ${elo} text-sm`} onClick={fechar}>Começar uma edição nova</button>}
-      </div>
+      </Cartao>
 
-      <div>
-        <div className="mb-2 flex flex-wrap items-center gap-2 text-sm" role="group" aria-label="Prévia">
-          {(["computador", "celular", "texto"] as const).map((t) => (
-            <button key={t} type="button" aria-pressed={tela === t} onClick={() => setTela(t)} className={`cursor-pointer border px-2 py-1 ${tela === t ? "border-ink bg-ink text-parchment" : "border-rule"}`}>
-              {t === "computador" ? "Computador" : t === "celular" ? "Celular" : "Versão em texto"}
-            </button>
-          ))}
+      <div className="pn-secao">
+        <div className="flex flex-wrap items-center gap-2">
+          <Escolhas
+            rotulo="Prévia"
+            valor={tela}
+            escolher={setTela}
+            opcoes={[
+              ["computador", "Computador", Monitor],
+              ["celular", "Celular", Smartphone],
+              ["texto", "Versão em texto", FileText],
+            ] as const}
+          />
           {tela !== "texto" && (
-            <label className="ml-auto flex cursor-pointer items-center gap-1.5">
-              <input type="checkbox" checked={escuro} onChange={(e) => setEscuro(e.target.checked)} /> Leitor no modo escuro
-            </label>
+            <div className="ml-auto">
+              <Marca rotulo="Leitor no modo escuro" checked={escuro} onChange={(e) => setEscuro(e.target.checked)} />
+            </div>
           )}
         </div>
         {tela === "texto" ? (
-          <pre className="max-h-[75vh] overflow-auto whitespace-pre-wrap border border-rule bg-parchment p-4 font-mono text-xs">{`Assunto: ${assunto}\n\n${texto}\n\n---\nVocê recebe este boletim porque pediu no site do Instituto Lúcia. Para sair da lista: ${origem}/pt/jornal?boletim=sair&codigo=…`}</pre>
+          <pre className="pn-cartao max-h-[75vh] overflow-auto whitespace-pre-wrap font-mono text-xs">{`Assunto: ${assunto}\n\n${texto}\n\n---\nVocê recebe este boletim porque pediu no site do Instituto Lúcia. Para sair da lista: ${origem}/pt/jornal?boletim=sair&codigo=…`}</pre>
         ) : (
-          <div className="flex justify-center border border-rule bg-[#ddd3bc] p-3">
-            <iframe ref={quadro} title="Prévia do e-mail" sandbox="allow-same-origin" className="h-[75vh] border-0 bg-white" style={{ width: tela === "celular" ? 375 : 640, maxWidth: "100%", colorScheme: escuro ? "dark" : "light" }} />
+          // A moldura é do painel; o e-mail dentro do quadro é documento e mantém as cores dele.
+          <div className="pn-cartao flex justify-center bg-parchment-deep">
+            <iframe ref={quadro} title="Prévia do e-mail" sandbox="allow-same-origin" className="h-[75vh] border-0" style={{ width: tela === "celular" ? 375 : 640, maxWidth: "100%", colorScheme: escuro ? "dark" : "light" }} />
           </div>
         )}
       </div>
@@ -328,55 +370,74 @@ function Editor({ inicial, destinatarios, depois, fechar }: { inicial: Edicao | 
 
 function Edicoes({ edicoes, erro, recarregar, abrir }: { edicoes: Edicao[] | null; erro: string; recarregar: () => void; abrir: (e: Edicao) => void }) {
   const acao = useAcao(recarregar);
-  if (!edicoes) return <p className="text-xs text-ink-soft">{erro || "Carregando…"}</p>;
+  if (!edicoes) {
+    return erro ? (
+      <Faixa tom="erro" acao={<Botao pequeno onClick={recarregar}>Tentar de novo</Botao>}>
+        {erro}
+      </Faixa>
+    ) : (
+      <Esqueleto forma="cartoes" linhas={2} />
+    );
+  }
   const rascunhos = edicoes.filter((e) => e.status === "rascunho");
   const enviadas = edicoes.filter((e) => e.status === "enviada");
+  const colunas: ColumnDef<Edicao>[] = [
+    { id: "data", accessorFn: (e) => e.enviada_em ?? "", header: "Data", cell: ({ row }) => <span className="font-mono text-xs">{row.original.enviada_em ? data(row.original.enviada_em) : ""}</span> },
+    { accessorKey: "assunto", header: "Assunto" },
+    { accessorKey: "destinatarios", header: "Para", cell: ({ getValue }) => <span className="font-mono">{String(getValue())}</span> },
+    { accessorKey: "enviada_por", header: "Quem enviou" },
+    {
+      id: "acoes",
+      header: () => <span className="sr-only">Ações</span>,
+      enableSorting: false,
+      cell: ({ row }) => (
+        <Botao variante="discreto" pequeno simbolo={Copy} onClick={() => abrir(row.original)}>
+          Usar como base
+        </Botao>
+      ),
+    },
+  ];
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <section className="painel-cartao p-5">
-        <h2 className="font-serif text-xl font-semibold">Rascunhos</h2>
+      <Cartao titulo="Rascunhos">
         {rascunhos.length === 0 ? (
-          <p className="mt-2 text-ink-soft">Nenhum rascunho. Uma edição nova vira rascunho quando é guardada (ou sozinha, meio minuto depois da última mudança).</p>
+          <Vazio titulo="Nenhum rascunho. Uma edição nova vira rascunho quando é guardada (ou sozinha, meio minuto depois da última mudança)." />
         ) : (
-          <ul className="mt-3 divide-y divide-rule border-y border-rule">
+          <Lista rotulo="Rascunhos" plana>
             {rascunhos.map((e) => (
-              <li key={e.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-                <span>
-                  <span className="font-semibold">{e.assunto || "(sem assunto)"}</span>
-                  <span className="block text-xs text-ink-soft">{e.autor} · {dataHora(e.atualizado_em)}</span>
-                </span>
-                <span className="flex gap-3 text-sm">
-                  <button type="button" className={elo} onClick={() => abrir(e)}>Abrir</button>
-                  <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Apagar o rascunho “${e.assunto || "sem assunto"}”?`))) void acao.agir("boletim_edicao_apagar", { p_id: e.id }, "Rascunho apagado."); }}>Apagar</button>
-                </span>
-              </li>
+              <ItemDeLista
+                key={e.id}
+                titulo={e.assunto || "(sem assunto)"}
+                meta={
+                  <>
+                    {e.autor} · {dataHora(e.atualizado_em)}
+                  </>
+                }
+                acoes={
+                  <>
+                    <Botao variante="discreto" pequeno onClick={() => abrir(e)}>Abrir</Botao>
+                    <Botao
+                      variante="discreto"
+                      pequeno
+                      perigo
+                      simbolo={Trash2}
+                      disabled={acao.ocupado}
+                      onClick={async () => {
+                        if (await confirmarFrase(`Apagar o rascunho “${e.assunto || "sem assunto"}”?`)) void acao.agir("boletim_edicao_apagar", { p_id: e.id }, "Rascunho apagado.");
+                      }}
+                    >
+                      Apagar
+                    </Botao>
+                  </>
+                }
+              />
             ))}
-          </ul>
+          </Lista>
         )}
-      </section>
-      <section className="painel-cartao p-5">
-        <h2 className="font-serif text-xl font-semibold">Enviadas</h2>
-        {enviadas.length === 0 ? (
-          <p className="mt-2 text-ink-soft">Nenhuma edição enviada por aqui ainda.</p>
-        ) : (
-          <table className="mt-3 w-full text-left text-sm">
-            <thead className="text-xs text-ink-soft">
-              <tr><th className="py-1 font-normal">Data</th><th className="py-1 font-normal">Assunto</th><th className="py-1 text-right font-normal">Para</th><th className="py-1 font-normal">Quem enviou</th><th /></tr>
-            </thead>
-            <tbody className="divide-y divide-rule">
-              {enviadas.map((e) => (
-                <tr key={e.id}>
-                  <td className="py-2 pr-2 font-mono text-xs">{e.enviada_em ? data(e.enviada_em) : ""}</td>
-                  <td className="py-2 pr-2">{e.assunto}</td>
-                  <td className="py-2 pr-2 text-right font-mono">{e.destinatarios}</td>
-                  <td className="py-2 pr-2">{e.enviada_por}</td>
-                  <td className="py-2"><button type="button" className={elo} onClick={() => abrir(e)}>Usar como base</button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </section>
+      </Cartao>
+      <Cartao titulo="Enviadas">
+        <Tabela dados={enviadas} colunas={colunas} legenda="Enviadas" densa vazio={<Vazio titulo="Nenhuma edição enviada por aqui ainda." />} />
+      </Cartao>
       <Aviso texto={acao.aviso} />
     </div>
   );
@@ -384,46 +445,101 @@ function Edicoes({ edicoes, erro, recarregar, abrir }: { edicoes: Edicao[] | nul
 
 // ───────────── Lista ─────────────
 
-function Lista({ dados, erro, recarregar }: { dados: Inscrito[] | null; erro: string; recarregar: () => void }) {
+type FiltroDaLista = "confirmados" | "esperando" | "problema";
+
+/** Os inscritos no molde Tabela: busca, ordem por coluna e páginas; o filtro e o "copiar" ficam na barra de cima. */
+function ListaDeInscritos({ dados, erro, recarregar }: { dados: Inscrito[] | null; erro: string; recarregar: () => void }) {
   const acao = useAcao(recarregar);
   const [copiado, setCopiado] = useState(false);
-  const [filtro, setFiltro] = useState<"confirmados" | "esperando" | "problema">("confirmados");
+  const [filtro, setFiltro] = useState<FiltroDaLista>("confirmados");
   const confirmados = dados?.filter((i) => i.confirmado !== false && !i.pausado) ?? [];
   const esperando = dados?.filter((i) => i.confirmado === false) ?? [];
   const problema = dados?.filter((i) => i.pausado || (i.falhas ?? 0) > 0) ?? [];
   const vistos = filtro === "confirmados" ? confirmados : filtro === "esperando" ? esperando : problema;
+  const colunas: ColumnDef<Inscrito>[] = [
+    { accessorKey: "email", header: "E-mail" },
+    { accessorKey: "criado_em", header: "Desde", cell: ({ getValue }) => data(String(getValue())) },
+    {
+      id: "situacao",
+      header: "Situação",
+      accessorFn: (item) => (item.pausado ? "pausado" : item.confirmado === false ? "ainda não confirmou" : String(item.falhas ?? 0)),
+      cell: ({ row }) => {
+        const item = row.original;
+        if (item.pausado) return <Selo tom="erro">pausado</Selo>;
+        if (item.confirmado === false) return <Selo tom="aviso">ainda não confirmou</Selo>;
+        if ((item.falhas ?? 0) > 0) return <Selo tom="aviso">{`${item.falhas} falha(s) seguidas`}</Selo>;
+        return null;
+      },
+    },
+    {
+      id: "acoes",
+      header: () => <span className="sr-only">Ações</span>,
+      enableSorting: false,
+      cell: ({ row }) => {
+        const item = row.original;
+        return (
+          <span className="flex flex-wrap gap-1">
+            {item.pausado && (
+              <Botao variante="discreto" pequeno simbolo={RotateCcw} disabled={acao.ocupado} onClick={() => acao.agir("boletim_reativar", { p_email: item.email }, "Endereço reativado.")}>
+                Reativar
+              </Botao>
+            )}
+            <Botao
+              variante="discreto"
+              pequeno
+              perigo
+              simbolo={UserMinus}
+              disabled={acao.ocupado}
+              onClick={async () => {
+                if (await confirmarFrase(`Retirar ${item.email} da lista?`)) void acao.agir("boletim_remover", { p_email: item.email }, "Endereço retirado.");
+              }}
+            >
+              Retirar
+            </Botao>
+          </span>
+        );
+      },
+    },
+  ];
   return (
-    <section>
-      <p className="text-ink-soft">Se precisar mandar pelo e-mail do jornal ({site.newsletter}), use sempre a lista em <strong>cópia oculta</strong> (Cco): ninguém pode ver o endereço de ninguém.</p>
-      <button type="button" className={`${botaoClaro} mt-2`} disabled={confirmados.length === 0} onClick={() => { void navigator.clipboard.writeText(confirmados.map((i) => i.email).join(", ")).then(() => setCopiado(true)); }}>
-        {copiado ? "Lista copiada ✓" : `Copiar os ${confirmados.length} endereços confirmados`}
-      </button>
-      <div className="mt-4 flex flex-wrap gap-2 text-sm" role="group" aria-label="Filtro">
-        {([["confirmados", `Confirmados (${confirmados.length})`], ["esperando", `Esperando confirmação (${esperando.length})`], ["problema", `Com problema (${problema.length})`]] as const).map(([id, nome]) => (
-          <button key={id} type="button" aria-pressed={filtro === id} onClick={() => setFiltro(id)} className={`cursor-pointer border px-2 py-1 ${filtro === id ? "border-ink bg-ink text-parchment" : "border-rule"}`}>{nome}</button>
-        ))}
-      </div>
-      {filtro === "problema" && <p className="mt-2 text-sm text-ink-soft">Endereço que falha três vezes seguidas para de receber (caixa cheia, endereço que não existe mais). Reative quando souber que voltou a funcionar.</p>}
-      <Aviso texto={erro || acao.aviso} />
-      <ul className="mt-2 divide-y divide-rule border-y border-rule">
-        {vistos.map((item) => (
-          <li key={item.email} className="flex flex-wrap items-baseline justify-between gap-3 py-2">
-            <span>
-              {item.email}{" "}
-              <span className="text-sm text-ink-soft">
-                · desde {data(item.criado_em)}
-                {item.confirmado === false ? " · ainda não confirmou" : ""}
-                {item.pausado ? " · pausado" : (item.falhas ?? 0) > 0 ? ` · ${item.falhas} falha(s) seguidas` : ""}
-              </span>
+    <section className="pn-tela">
+      <p className="pn-ajuda">
+        Se precisar mandar pelo e-mail do jornal ({site.newsletter}), use sempre a lista em <strong>cópia oculta</strong> (Cco): ninguém pode ver o endereço de ninguém.
+      </p>
+      {erro && (
+        <Faixa tom="erro" acao={<Botao pequeno onClick={recarregar}>Tentar de novo</Botao>}>
+          {erro}
+        </Faixa>
+      )}
+      <Aviso texto={acao.aviso} />
+      {filtro === "problema" && <Faixa tom="info">Endereço que falha três vezes seguidas para de receber (caixa cheia, endereço que não existe mais). Reative quando souber que voltou a funcionar.</Faixa>}
+      <MoldeTabela<Inscrito>
+        dados={vistos}
+        colunas={colunas}
+        legenda="Inscritos"
+        carregando={!dados && !erro}
+        densa
+        vazio={<Vazio titulo="Ninguém aqui." />}
+        barra={
+          <>
+            <Escolhas<FiltroDaLista>
+              rotulo="Filtro"
+              valor={filtro}
+              escolher={setFiltro}
+              opcoes={[
+                ["confirmados", `Confirmados (${confirmados.length})`],
+                ["esperando", `Esperando confirmação (${esperando.length})`],
+                ["problema", `Com problema (${problema.length})`],
+              ] as const}
+            />
+            <span className="ml-auto">
+              <Botao simbolo={Copy} disabled={confirmados.length === 0} onClick={() => { void navigator.clipboard.writeText(confirmados.map((i) => i.email).join(", ")).then(() => setCopiado(true)); }}>
+                {copiado ? "Lista copiada ✓" : `Copiar os ${confirmados.length} endereços confirmados`}
+              </Botao>
             </span>
-            <span className="flex gap-3 text-sm">
-              {item.pausado && <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("boletim_reativar", { p_email: item.email }, "Endereço reativado.")}>Reativar</button>}
-              <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Retirar ${item.email} da lista?`))) void acao.agir("boletim_remover", { p_email: item.email }, "Endereço retirado."); }}>Retirar</button>
-            </span>
-          </li>
-        ))}
-      </ul>
-      {vistos.length === 0 && <p className="mt-2 text-ink-soft">Ninguém aqui.</p>}
+          </>
+        }
+      />
     </section>
   );
 }
@@ -432,9 +548,8 @@ function Lista({ dados, erro, recarregar }: { dados: Inscrito[] | null; erro: st
 
 function GuiaDeEntrega() {
   return (
-    <section className="painel-cartao max-w-3xl p-5 text-sm leading-relaxed">
-      <h2 className="font-serif text-xl font-semibold">Para os e-mails chegarem na caixa de entrada</h2>
-      <p className="mt-2 text-ink-soft">Os e-mails saem pelo Resend em nome de <code>institutolucia.org</code>. Três registros no DNS (na Cloudflare) dizem aos provedores que eles são nossos de verdade. Os valores exatos vêm do próprio Resend: copie de lá, não daqui.</p>
+    <Cartao className="max-w-3xl text-sm leading-relaxed" titulo="Para os e-mails chegarem na caixa de entrada">
+      <p className="pn-ajuda">Os e-mails saem pelo Resend em nome de <code>institutolucia.org</code>. Três registros no DNS (na Cloudflare) dizem aos provedores que eles são nossos de verdade. Os valores exatos vêm do próprio Resend: copie de lá, não daqui.</p>
       <ol className="mt-3 list-decimal space-y-3 pl-5">
         <li><strong>SPF e DKIM.</strong> No Resend, abra Domains → institutolucia.org. Ele mostra os registros (um TXT de SPF e um MX no subdomínio de envio, e um TXT de DKIM em <code>resend._domainkey</code>). Na Cloudflare, em DNS, crie cada um exatamente como está lá, com o proxy desligado (nuvem cinza, “DNS only”). Volte ao Resend e clique em Verify: os três precisam ficar “Verified”.</li>
         <li><strong>DMARC.</strong> Na Cloudflare, crie um TXT com o nome <code>_dmarc</code> e o valor <code>v=DMARC1; p=none; rua=mailto:institutolucia@tutamail.com</code>. Com <code>p=none</code> nada é bloqueado: os provedores só mandam relatórios. Depois de duas a quatro semanas sem falhas nos relatórios, troque para <code>p=quarantine</code>.</li>
@@ -442,7 +557,7 @@ function GuiaDeEntrega() {
         <li><strong>No provedor de envio.</strong> O remetente (EMAIL_REMETENTE) deve ser sempre do domínio verificado, e a resposta (EMAIL_RESPOSTA) uma caixa que alguém lê. Se o Resend mostrar reclamações de spam ou muitos endereços inválidos, limpe a lista em Lista → Com problema.</li>
         <li><strong>Boas práticas que já estão no código.</strong> Todo boletim leva o cabeçalho de descadastro (botão “cancelar inscrição” do leitor) e o link “Sair da lista”; vai junto uma versão em texto; não há imagem de fora nem rastreio de abertura; uma edição a cada seis horas no máximo.</li>
       </ol>
-      <p className="mt-4 text-xs text-ink-soft">O mesmo guia está em docs/EMAIL-ENTREGA.md.</p>
-    </section>
+      <p className="pn-ajuda mt-4">O mesmo guia está em docs/EMAIL-ENTREGA.md.</p>
+    </Cartao>
   );
 }

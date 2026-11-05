@@ -1,12 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 import { areaSlugs, essential, stages } from "@/lib/areas";
 import type { Me, Role } from "@/lib/backend";
 import { L, useI18n } from "../I18n";
 import { papeis, useLista } from "./comum";
 import type { Membro } from "./Equipe";
+import { Botao, CabecalhoDeSecao, Cartao, Selo } from "./ui";
 
 /** O que falta em cada disciplina (arquivo estático do site, refeito a cada publicação). */
 interface Trilha {
@@ -207,28 +209,33 @@ export function PorOndeComecar({ me, ir }: { me: Me; ir: (aba: string) => void }
 
   if (sugestoes.length === 0) return null;
   return (
-    <section>
-      <h2 className="jornal-secao">
-        <span className="jornal-editoria">Por onde começar</span>
-      </h2>
-      <p className="mt-3 max-w-3xl text-ink-soft">Sugestões tiradas do que falta no instituto agora, uma ou duas por função. Nada aqui é obrigatório: é só um ponto de partida.</p>
-      <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+    <section className="grid gap-3">
+      <CabecalhoDeSecao nivel={2} titulo="Por onde começar" sobre="Sugestões tiradas do que falta no instituto agora, uma ou duas por função. Nada aqui é obrigatório: é só um ponto de partida." />
+      <ul className="grid gap-4 sm:grid-cols-2">
         {sugestoes.map((sugestao, i) => (
-          <li key={`${sugestao.funcao}-${sugestao.titulo}`} style={{ animationDelay: `${i * 45}ms` }} className="painel-quadro painel-surge flex flex-col p-4">
-            <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-gold">{sugestao.funcao}</span>
-            <span className="mt-1 font-serif text-lg font-semibold leading-snug">{sugestao.titulo}</span>
-            <span className="mt-1 flex-1 text-ink-soft">{sugestao.detalhe}</span>
-            <span className="mt-3">
-              {sugestao.aba ? (
-                <button type="button" onClick={() => ir(sugestao.aba as string)} className="cursor-pointer font-semibold underline hover:text-oxblood">
-                  Começar →
-                </button>
-              ) : (
-                <L href={sugestao.link ?? "/"} className="font-semibold underline hover:text-oxblood">
-                  Abrir no site →
-                </L>
-              )}
-            </span>
+          <li key={`${sugestao.funcao}-${sugestao.titulo}`} style={{ animationDelay: `${i * 45}ms` }} className="painel-surge flex">
+            <Cartao
+              as="article"
+              className="flex w-full flex-col"
+              rodape={
+                sugestao.aba ? (
+                  <Botao variante="discreto" pequeno simboloFim={ArrowRight} onClick={() => ir(sugestao.aba as string)}>
+                    Começar
+                  </Botao>
+                ) : (
+                  <L href={sugestao.link ?? "/"} className="pn-elo inline-flex items-center gap-1 font-semibold">
+                    Abrir no site
+                    <ExternalLink aria-hidden width={13} height={13} />
+                  </L>
+                )
+              }
+            >
+              <span>
+                <Selo tom="ouro">{sugestao.funcao}</Selo>
+              </span>
+              <span className="pn-cartao-titulo mt-1.5">{sugestao.titulo}</span>
+              <span className="pn-ajuda mt-1 flex-1">{sugestao.detalhe}</span>
+            </Cartao>
           </li>
         ))}
       </ul>

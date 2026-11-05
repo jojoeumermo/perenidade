@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Check, CircleDot, Eye, FileText, type LucideIcon, Monitor, MonitorPlay, PictureInPicture2, Play, Radio, Square, Trash2, Upload, Video, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { can, getClient, type Me } from "@/lib/backend";
@@ -27,9 +28,9 @@ import { cleanSources, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { playerPt, VideoPlayer } from "../VideoPlayer";
-import { Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
+import { Aviso, data, useAcao, useLista } from "./comum";
 import { fontesPt } from "./Escrever";
-import { confirmarFrase } from "./ui";
+import { Abas, Area, Botao, Campo, Cartao, confirmarFrase, Esqueleto, Estatistica, Estatisticas, Faixa, Marca, Selecao, Selo, type TomDoSelo, Vazio } from "./ui";
 
 interface Videoaula {
   id: string;
@@ -67,15 +68,16 @@ function NoYoutube({ aula }: { aula: Videoaula }) {
     const link = linkDoYoutube(aula.youtube);
     return (
       <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
-        <span className="rounded-sm bg-[#c21f16] px-1.5 py-0.5 font-semibold text-white">YouTube</span>
-        <a href={link} target="_blank" rel="noopener noreferrer" className={`${elo} font-mono`}>{link.replace("https://", "")}</a>
+        <Selo tom="bordo" ponto>YouTube</Selo>
+        <a href={link} target="_blank" rel="noopener noreferrer" className="pn-elo font-mono">{link.replace("https://", "")}</a>
         <button
           type="button"
-          className={elo}
+          className="pn-elo inline-flex items-center gap-1"
           onClick={() => {
             navigator.clipboard?.writeText(link).then(() => setCopiado(true), () => undefined);
           }}
         >
+          {copiado && <Check aria-hidden className="h-3 w-3" />}
           {copiado ? "Copiado" : "Copiar o link (para pôr num bloco de vídeo de uma aula)"}
         </button>
       </p>
@@ -87,7 +89,7 @@ function NoYoutube({ aula }: { aula: Videoaula }) {
     erro: "Não foi para o YouTube. A curadoria pode tentar de novo em “No ar”.",
     "": "Ainda não foi para o YouTube do instituto.",
   };
-  return <p className="mt-2 text-xs text-ink-soft">{textos[situacao] ?? textos[""]}</p>;
+  return <p className={`mt-2 text-xs ${situacao === "erro" ? "text-oxblood" : "text-ink-soft"}`}>{textos[situacao] ?? textos[""]}</p>;
 }
 
 /** O vídeo pronto para enviar, gravado aqui ou escolhido no aparelho. */
@@ -104,26 +106,35 @@ const erroDe = (erro: unknown) => (erro instanceof VideoErro ? (mensagensDeVideo
 
 type Aba = "gravar" | "minhas" | "revisar" | "noar";
 
+/** Os ícones das vistas e do gravador (Lucide, no lugar dos desenhos feitos à mão). */
 const DESENHOS = {
-  gravar: "M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z",
-  minhas: "M4 5h16v11H4zM8 20h8M12 16v4",
-  revisar: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12zM12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
-  noar: "M5 12a7 7 0 0 1 14 0M8.5 12a3.5 3.5 0 0 1 7 0M12 12v8",
-  camera: "M3.5 7h11v10h-11zM14.5 10.5 20.5 7v10l-6-3.5",
-  tela: "M3.5 4.5h17v11h-17zM8 20h8M12 15.5V20",
-  ambos: "M3.5 4.5h17v11h-17zM13 9.5h5v4h-5zM8 20h8",
-  play: "M8 5.5v13l10.5-6.5z",
-  certo: "M5 12.5l4.5 4.5L19 7.5",
-};
+  gravar: CircleDot,
+  minhas: MonitorPlay,
+  revisar: Eye,
+  noar: Radio,
+  camera: Video,
+  tela: Monitor,
+  ambos: PictureInPicture2,
+  play: Play,
+  certo: Check,
+} satisfies Record<string, LucideIcon>;
 function Desenho({ nome, className = "h-4 w-4" }: { nome: keyof typeof DESENHOS; className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden className={`shrink-0 ${className}`} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
-      <path d={DESENHOS[nome]} />
-    </svg>
-  );
+  const Simbolo = DESENHOS[nome];
+  return <Simbolo aria-hidden className={`shrink-0 ${className}`} strokeWidth={1.7} />;
 }
 
-const TOM: Record<Videoaula["status"], string> = { pendente: "bg-gold/25 text-ink", aprovada: "bg-ok/20 text-ink", recusada: "bg-oxblood/15 text-oxblood" };
+/** O tom do selo de cada situação (a palavra diz a situação; a cor só acompanha). */
+const TOM: Record<Videoaula["status"], TomDoSelo> = { pendente: "aviso", aprovada: "ok", recusada: "erro" };
+
+/** O número de cada passo do formulário, num círculo bordô claro. */
+function Passo({ n, nome }: { n: number; nome: string }) {
+  return (
+    <span className="flex items-center gap-2">
+      <span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--pn-destaque-suave)] font-mono text-xs font-semibold text-oxblood">{n}</span>
+      {nome}
+    </span>
+  );
+}
 
 /** Aulas em vídeo, no jeito de um estúdio de canal: quem ensina grava ou envia; a curadoria revisa; a coordenação pode tirar do ar. */
 export function Videoaulas({ me }: { me: Me }) {
@@ -134,47 +145,29 @@ export function Videoaulas({ me }: { me: Me }) {
   const lista = minhas.dados ?? [];
   const paraRevisar = fila.dados?.filter((v) => !v.minha).length ?? 0;
   const minutos = Math.round(lista.filter((v) => v.status === "aprovada").reduce((soma, v) => soma + v.duracao, 0) / 60);
-  const opcoes: { id: Aba; nome: string; desenho: keyof typeof DESENHOS; conta?: number }[] = [
-    { id: "minhas", nome: "Conteúdo", desenho: "minhas" },
-    { id: "gravar", nome: "Gravar ou enviar", desenho: "gravar" },
-    ...(revisa ? [{ id: "revisar" as const, nome: "Para revisar", desenho: "revisar" as const, conta: paraRevisar }] : []),
-    ...(can(me, "coordenacao") ? [{ id: "noar" as const, nome: "No ar", desenho: "noar" as const }] : []),
+  const opcoes: { id: Aba; nome: string; conta?: number }[] = [
+    { id: "minhas", nome: "Conteúdo" },
+    { id: "gravar", nome: "Gravar ou enviar" },
+    ...(revisa ? [{ id: "revisar" as const, nome: "Para revisar", conta: paraRevisar }] : []),
+    ...(can(me, "coordenacao") ? [{ id: "noar" as const, nome: "No ar" }] : []),
   ];
   return (
-    <div>
-      <div className="flex flex-wrap items-end gap-x-8 gap-y-3 border-b border-rule pb-4">
-        <dl className="flex flex-wrap gap-x-8 gap-y-2">
-          <div>
-            <dt className="text-xs text-ink-soft">No ar</dt>
-            <dd className="font-serif text-2xl font-semibold">{lista.filter((v) => v.status === "aprovada").length}</dd>
-          </div>
-          <div>
-            <dt className="text-xs text-ink-soft">Esperando revisão</dt>
-            <dd className="font-serif text-2xl font-semibold">{lista.filter((v) => v.status === "pendente").length}</dd>
-          </div>
-          <div>
-            <dt className="text-xs text-ink-soft">Minutos publicados</dt>
-            <dd className="font-serif text-2xl font-semibold">{minutos}</dd>
-          </div>
-        </dl>
-        <button type="button" className={`${botao} ml-auto inline-flex items-center gap-2 rounded-md`} onClick={() => setAba("gravar")}>
-          <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-[#ff5a4f]" />
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
+        <Estatisticas className="min-w-0 flex-1">
+          <Estatistica rotulo="No ar" valor={lista.filter((v) => v.status === "aprovada").length} tom="ok" />
+          <Estatistica rotulo="Esperando revisão" valor={lista.filter((v) => v.status === "pendente").length} tom="aviso" />
+          <Estatistica rotulo="Minutos publicados" valor={minutos} />
+        </Estatisticas>
+        <Botao variante="principal" simbolo={CircleDot} onClick={() => setAba("gravar")}>
           Gravar uma aula
-        </button>
+        </Botao>
       </div>
-      <div role="tablist" aria-label="Vistas das aulas em vídeo" className="mt-2 flex flex-wrap gap-1 border-b border-rule">
-        {opcoes.map((opcao) => (
-          <button key={opcao.id} type="button" role="tab" aria-selected={aba === opcao.id} onClick={() => setAba(opcao.id)} className={`-mb-px flex cursor-pointer items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm ${aba === opcao.id ? "border-ink font-semibold" : "border-transparent text-ink-soft hover:text-ink"}`}>
-            <Desenho nome={opcao.desenho} />
-            {opcao.nome}
-            {opcao.conta ? <span className="rounded-full bg-oxblood px-1.5 text-[0.65rem] font-bold text-parchment">{opcao.conta}</span> : null}
-          </button>
-        ))}
-      </div>
-      <div className="mt-5">
+      <Abas rotulo="Vistas das aulas em vídeo" valor={aba} aoMudar={setAba} opcoes={opcoes} />
+      <div>
         {aba === "gravar" && <Gravar me={me} enviado={() => { minhas.recarregar(); setAba("minhas"); }} />}
         {aba === "minhas" && <Minhas lista={minhas.dados} erro={minhas.erro} recarregar={minhas.recarregar} gravar={() => setAba("gravar")} />}
-        {aba === "revisar" && <Revisar me={me} fila={fila.dados ?? []} erro={fila.erro} recarregar={fila.recarregar} />}
+        {aba === "revisar" && <Revisar me={me} fila={fila.dados} erro={fila.erro} recarregar={fila.recarregar} />}
         {aba === "noar" && <NoAr />}
       </div>
     </div>
@@ -264,7 +257,7 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
   }
 
   if (disciplinas.length === 0)
-    return <p className="text-ink-soft">Para gravar aulas em vídeo é preciso ter uma disciplina confiada (educação ou educação secundária). Peça à coordenação em Voluntários e convites.</p>;
+    return <Vazio simbolo={Video} titulo="Para gravar aulas em vídeo é preciso ter uma disciplina confiada (educação ou educação secundária)." texto="Peça à coordenação em Voluntários e convites." />;
 
   const fontesCertas = cleanSources(fontes).length > 0;
   const lista = [
@@ -275,24 +268,24 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
   ];
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-      <div className="min-w-0 space-y-4 xl:sticky xl:top-4 xl:self-start">
+    <div className="grid gap-5 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-4 xl:sticky xl:top-[calc(var(--pn-barra-altura)+1rem)] xl:self-start">
         {pronto ? (
-          <section className="overflow-hidden rounded-xl border border-rule bg-parchment-deep">
+          <Cartao className="overflow-hidden p-0!" aria-label="Prévia da aula">
             <VideoPlayer src={pronto.previa} titulo="Prévia da aula" labels={playerPt} />
             <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
               <p className="font-mono text-xs text-ink-soft">
                 {relogio(pronto.medidas.duracao)} · {pronto.medidas.largura}×{pronto.medidas.altura} · {megas(pronto.blob.size)}
               </p>
-              <button type="button" className={`${botaoClaro} rounded-md px-3 py-1.5 text-sm`} onClick={() => setPronto(null)}>
+              <Botao pequeno onClick={() => setPronto(null)}>
                 Descartar e gravar de novo
-              </button>
+              </Botao>
             </div>
-          </section>
+          </Cartao>
         ) : (
           <Gravador aoTerminar={setPronto} />
         )}
-        <details className="rounded-lg border border-rule p-4 text-sm text-ink-soft">
+        <details className="pn-cartao text-sm text-ink-soft">
           <summary className="cursor-pointer font-semibold text-ink">Como funciona e o que você autoriza</summary>
           <p className="mt-2">Aulas curtas em vídeo, de até 10 minutos e até 480p, para complementar as trilhas. Grave aqui mesmo (câmera ou tela, com o seu microfone) ou envie um vídeo pronto. Como toda aula, ela passa pela revisão antes de ir ao ar e precisa de pelo menos uma fonte. Escrever a transcrição deixa a aula acessível para quem não ouve.</p>
           <p className="mt-2">Ao enviar, você autoriza a publicação da sua imagem e da sua voz nesta aula, com o seu nome público, sob a mesma licença das aulas escritas (CC BY-SA 4.0). Não grave outras pessoas sem a autorização delas.</p>
@@ -300,63 +293,46 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
       </div>
 
       <div className="min-w-0 space-y-4">
-        <section className="rounded-xl border border-rule bg-parchment-deep p-5">
-          <h2 className="flex items-center gap-2 font-serif text-lg font-semibold"><span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs text-parchment">1</span>Detalhes</h2>
+        <Cartao titulo={<Passo n={1} nome="Detalhes" />}>
           <div className="mt-3 space-y-3">
-            <label className="block text-sm font-semibold">
-              Título
-              <input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} maxLength={160} className={campo} />
-            </label>
-            <label className="block text-sm font-semibold">
-              Do que a aula trata
-              <span className="block text-xs font-normal text-ink-soft">Aparece abaixo do vídeo.</span>
-              <textarea value={form.descricao} onChange={(e) => setForm({ ...form, descricao: e.target.value })} maxLength={2000} rows={3} className={campo} />
-            </label>
+            <Campo rotulo="Título" value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} maxLength={160} />
+            <Area rotulo="Do que a aula trata" ajuda="Aparece abaixo do vídeo." value={form.descricao} onChange={(e) => setForm({ ...form, descricao: e.target.value })} maxLength={2000} rows={3} />
             <div className="grid gap-3 sm:grid-cols-2">
-              <label className="block text-sm font-semibold">
-                Disciplina
-                <select value={form.disciplina} onChange={(e) => setForm({ ...form, disciplina: e.target.value, trilha: "" })} className={campo}>
-                  {disciplinas.map((area) => (
-                    <option key={area} value={area}>
-                      {t.areas[area as keyof typeof t.areas]?.[0] ?? area}
+              <Selecao rotulo="Disciplina" value={form.disciplina} onChange={(e) => setForm({ ...form, disciplina: e.target.value, trilha: "" })}>
+                {disciplinas.map((area) => (
+                  <option key={area} value={area}>
+                    {t.areas[area as keyof typeof t.areas]?.[0] ?? area}
+                  </option>
+                ))}
+              </Selecao>
+              <Selecao rotulo="Trilha (opcional)" value={form.trilha} onChange={(e) => setForm({ ...form, trilha: e.target.value })}>
+                <option value="">Nenhuma: aula avulsa da disciplina</option>
+                {tracks
+                  .filter((track) => track.area === form.disciplina)
+                  .map((track) => (
+                    <option key={track.slug} value={track.slug}>
+                      {track.title}
                     </option>
                   ))}
-                </select>
-              </label>
-              <label className="block text-sm font-semibold">
-                Trilha (opcional)
-                <select value={form.trilha} onChange={(e) => setForm({ ...form, trilha: e.target.value })} className={campo}>
-                  <option value="">Nenhuma: aula avulsa da disciplina</option>
-                  {tracks
-                    .filter((track) => track.area === form.disciplina)
-                    .map((track) => (
-                      <option key={track.slug} value={track.slug}>
-                        {track.title}
-                      </option>
-                    ))}
-                </select>
-              </label>
+              </Selecao>
             </div>
           </div>
-        </section>
+        </Cartao>
 
-        <section className="rounded-xl border border-rule bg-parchment-deep p-5">
-          <h2 className="flex items-center gap-2 font-serif text-lg font-semibold"><span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs text-parchment">2</span>Acessibilidade</h2>
-          <p className="mt-1 text-sm text-ink-soft">Quem não ouve acompanha a aula pelo texto e pelas legendas.</p>
-          <label className="mt-3 block text-sm font-semibold">
-            Transcrição
-            <textarea value={form.transcricao} onChange={(e) => setForm({ ...form, transcricao: e.target.value })} maxLength={60000} rows={6} className={campo} />
-          </label>
+        <Cartao titulo={<Passo n={2} nome="Acessibilidade" />} sobre="Quem não ouve acompanha a aula pelo texto e pelas legendas.">
+          <div className="mt-3">
+            <Area rotulo="Transcrição" value={form.transcricao} onChange={(e) => setForm({ ...form, transcricao: e.target.value })} maxLength={60000} rows={6} />
+          </div>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <button type="button" className={`${botaoClaro} rounded-md px-3 py-1.5 text-sm`} disabled={!pronto || transcrevendo} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</button>
+            <Botao pequeno carregando={transcrevendo} disabled={!pronto || transcrevendo} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</Botao>
             <span className="text-xs text-ink-soft">
               {pronto
                 ? "Manda o vídeo ao Whisper e preenche a transcrição e a legenda (vídeos de até 25 MB, uns 10 minutos). Revise antes de enviar."
                 : "Primeiro grave ou escolha o vídeo no passo 1: o botão acende quando o vídeo estiver pronto."}
             </span>
           </div>
-          <label className="mt-4 block text-sm font-semibold">
-            Legendas em WebVTT (opcional, arquivo .vtt)
+          <label className="pn-campo-bloco mt-4 block">
+            <span className="pn-rotulo">Legendas em WebVTT (opcional, arquivo .vtt)</span>
             <input
               type="file"
               accept=".vtt,text/vtt"
@@ -371,33 +347,37 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
                 }
                 setForm({ ...form, legenda: texto });
               }}
-              className="mt-1 block text-sm font-normal"
+              className="pn-campo text-sm"
             />
-            {form.legenda && <span className="mt-1 block text-xs font-normal text-ok">Legenda pronta ✓</span>}
+            {form.legenda && (
+              <span className="mt-1 block">
+                <Selo tom="ok" ponto>Legenda pronta</Selo>
+              </span>
+            )}
           </label>
-        </section>
+        </Cartao>
 
-        <section className="rounded-xl border border-rule bg-parchment-deep p-5">
-          <h2 className="flex items-center gap-2 font-serif text-lg font-semibold"><span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs text-parchment">3</span>Fontes</h2>
+        <Cartao titulo={<Passo n={3} nome="Fontes" />}>
           <div className="mt-3">
             <SourcesField value={fontes} onChange={setFontes} labels={fontesPt} />
           </div>
-        </section>
+        </Cartao>
 
-        <section className="rounded-xl border-2 border-ink p-5">
+        <Cartao variante="destaque" aria-label="Enviar para revisão">
           <ul className="space-y-1.5 text-sm">
             {lista.map((item) => (
               <li key={item.nome} className={`flex items-center gap-2 ${item.feito ? "" : "text-ink-soft"}`}>
-                <span aria-hidden className={`flex h-5 w-5 items-center justify-center rounded-full border ${item.feito ? "border-ok bg-ok text-parchment" : "border-rule"}`}>{item.feito && <Desenho nome="certo" className="h-3 w-3" />}</span>
+                <span aria-hidden className={`flex h-5 w-5 items-center justify-center rounded-full border ${item.feito ? "border-ok bg-ok text-[var(--pn-superficie)]" : "border-[var(--pn-borda-forte)]"}`}>{item.feito && <Desenho nome="certo" className="h-3 w-3" />}</span>
+                <span className="sr-only">{item.feito ? "✓" : ""}</span>
                 {item.nome}
               </li>
             ))}
           </ul>
-          <button type="button" className={`${botao} mt-4 w-full rounded-md`} disabled={!pronto || enviando || acao.ocupado} onClick={() => void enviar()}>
+          <Botao variante="principal" className="mt-4 w-full justify-center" carregando={enviando} disabled={!pronto || enviando || acao.ocupado} onClick={() => void enviar()}>
             {enviando ? "Enviando…" : "Enviar para revisão"}
-          </button>
+          </Botao>
           <Aviso texto={aviso || acao.aviso} />
-        </section>
+        </Cartao>
       </div>
     </div>
   );
@@ -578,10 +558,11 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
   }
 
   const ligado = estado === "pronto" || estado === "gravando";
+  // A área da imagem é escura como a tela de um estúdio: usa os tokens do menu em tinta, que valem nos dois temas.
   return (
-    <section className="overflow-hidden rounded-xl border border-rule bg-parchment-deep">
+    <Cartao as="div" className="overflow-hidden p-0!">
       {formato && estado !== "convertendo" && (
-        <div className="grid grid-cols-3 gap-px border-b border-rule bg-rule" role="radiogroup" aria-label="O que gravar">
+        <div className="grid grid-cols-3 gap-px border-b border-[var(--pn-borda)] bg-[var(--pn-borda)]" role="radiogroup" aria-label="O que gravar">
           {(
             [
               ["camera", "Câmera", "camera"],
@@ -589,7 +570,15 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
               ["ambos", "Tela e câmera", "ambos"],
             ] as const
           ).map(([id, nome, desenho]) => (
-            <button key={id} type="button" role="radio" aria-checked={modo === id} disabled={estado === "gravando"} onClick={() => setModo(id)} className={`flex cursor-pointer flex-col items-center gap-1 px-2 py-3 text-xs disabled:cursor-not-allowed ${modo === id ? "bg-parchment font-semibold text-ink" : "bg-parchment-deep text-ink-soft hover:text-ink"}`}>
+            <button
+              key={id}
+              type="button"
+              role="radio"
+              aria-checked={modo === id}
+              disabled={estado === "gravando"}
+              onClick={() => setModo(id)}
+              className={`flex cursor-pointer flex-col items-center gap-1 px-2 py-3 text-xs focus-visible:relative focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--pn-foco)] disabled:cursor-not-allowed ${modo === id ? "bg-[var(--pn-ativo)] font-semibold text-ink shadow-[inset_0_-2px_0_var(--pn-destaque-vivo)]" : "bg-[var(--pn-superficie)] text-ink-soft hover:text-ink"}`}
+            >
               <Desenho nome={desenho} className="h-5 w-5" />
               {nome}
             </button>
@@ -597,54 +586,52 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
         </div>
       )}
 
-      <div className="relative aspect-video w-full bg-[#0f0c09]">
+      <div className="relative aspect-video w-full bg-[var(--pn-menu-fundo)]">
         <video ref={espelho} playsInline className={`h-full w-full object-contain ${ligado ? "" : "hidden"}`} />
         {!ligado && estado !== "convertendo" && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-[#cdbb91]">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-[var(--pn-menu-texto-suave)]">
             <Desenho nome={modo === "camera" ? "camera" : modo === "tela" ? "tela" : "ambos"} className="h-10 w-10 opacity-70" />
             <p className="max-w-sm text-sm">{formato ? (modo === "camera" ? "Ligue a câmera para ver a imagem aqui antes de gravar." : "Escolha a tela (ou a aba com o PDF) para ver aqui antes de gravar.") : `${mensagensDeVideo.sem_gravador} Você ainda pode enviar um vídeo pronto, em MP4 ou WebM.`}</p>
           </div>
         )}
         {estado === "convertendo" && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-[#f3ead8]">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-[var(--pn-menu-texto)]">
             <p>Convertendo para 480p. Leva o mesmo tempo que o vídeo dura; deixe esta página aberta.</p>
-            <progress value={progresso} max={1} className="w-full max-w-sm" aria-label="Andamento da conversão" />
+            <progress value={progresso} max={1} className="w-full max-w-sm accent-[var(--pn-menu-destaque)]" aria-label="Andamento da conversão" />
             <p className="font-mono text-sm">{Math.round(progresso * 100)}%</p>
-            <button type="button" className="cursor-pointer text-sm underline" onClick={() => cancelar.current?.abort()}>Cancelar</button>
+            <button type="button" className="cursor-pointer rounded-[var(--pn-raio)] text-sm underline focus-visible:outline-2 focus-visible:outline-[var(--pn-menu-destaque)]" onClick={() => cancelar.current?.abort()}>Cancelar</button>
           </div>
         )}
         {estado === "gravando" && (
-          <p className="absolute left-3 top-3 flex items-center gap-2 rounded bg-black/60 px-2 py-1 font-mono text-xs font-bold text-white">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-[#ff3b30]" />
+          <p className="absolute left-3 top-3 flex items-center gap-2 rounded-[var(--pn-raio)] bg-[var(--pn-menu-fundo)]/80 px-2 py-1 font-mono text-xs font-bold text-[var(--pn-menu-texto)]">
+            <span aria-hidden className="h-2 w-2 rounded-full bg-[var(--pn-menu-destaque)] motion-safe:animate-pulse" />
             REC {relogio(segundos)}
           </p>
         )}
       </div>
 
       {ligado && (
-        <div className="h-1 bg-rule" role="progressbar" aria-label="Tempo de gravação" aria-valuemin={0} aria-valuemax={LIMITE_SEGUNDOS} aria-valuenow={segundos}>
-          <div className={`h-1 ${estado === "gravando" ? "bg-[#c21f16]" : "bg-ink-soft"}`} style={{ width: `${Math.min(100, (100 * segundos) / LIMITE_SEGUNDOS)}%` }} />
+        <div className="h-1 bg-[var(--pn-borda)]" role="progressbar" aria-label="Tempo de gravação" aria-valuemin={0} aria-valuemax={LIMITE_SEGUNDOS} aria-valuenow={segundos}>
+          <div className={`h-1 ${estado === "gravando" ? "bg-[var(--pn-destaque)]" : "bg-ink-soft"}`} style={{ width: `${Math.min(100, (100 * segundos) / LIMITE_SEGUNDOS)}%` }} />
         </div>
       )}
 
       {estado !== "convertendo" && (
         <div className="flex flex-wrap items-center gap-3 px-4 py-3">
           {formato && estado === "parado" && (
-            <button type="button" className={`${botao} rounded-md`} onClick={() => void ligar()}>
+            <Botao variante="principal" simbolo={modo === "camera" ? Video : Monitor} onClick={() => void ligar()}>
               {modo === "camera" ? "Ligar a câmera" : modo === "tela" ? "Escolher a tela" : "Escolher a tela e ligar a câmera"}
-            </button>
+            </Botao>
           )}
           {estado === "pronto" && (
-            <button type="button" onClick={gravar} className="flex cursor-pointer items-center gap-2 rounded-full bg-[#c21f16] py-2 pl-2 pr-4 font-semibold text-white hover:bg-[#a51912]">
-              <span aria-hidden className="h-6 w-6 rounded-full border-4 border-white/80 bg-[#ff3b30]" />
+            <Botao variante="principal" simbolo={CircleDot} onClick={gravar}>
               Começar a gravar
-            </button>
+            </Botao>
           )}
           {estado === "gravando" && (
-            <button type="button" onClick={() => gravador.current?.stop()} className="flex cursor-pointer items-center gap-2 rounded-full bg-ink py-2 pl-2 pr-4 font-semibold text-parchment">
-              <span aria-hidden className="h-6 w-6 rounded-md border-4 border-parchment/80 bg-parchment" />
+            <Botao simbolo={Square} onClick={() => gravador.current?.stop()}>
               Parar
-            </button>
+            </Botao>
           )}
           {ligado && (
             <span className="font-mono text-sm tabular-nums text-ink-soft" role="timer" aria-live="off">
@@ -652,16 +639,17 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
             </span>
           )}
           {formato && modo !== "camera" && estado !== "gravando" && (
-            <label className="cursor-pointer text-sm underline hover:text-oxblood">
+            <label className="pn-elo inline-flex cursor-pointer items-center gap-1 rounded-[var(--pn-raio)] text-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--pn-foco)]">
+              <FileText aria-hidden className="h-4 w-4" />
               {pdf ? "Trocar o PDF" : "Mostrar um PDF"}
               <input type="file" accept="application/pdf" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) { if (pdf) URL.revokeObjectURL(pdf); setPdf(URL.createObjectURL(f)); } }} />
             </label>
           )}
           {estado === "parado" && (
             <>
-              <button type="button" className="ml-auto cursor-pointer text-sm underline hover:text-oxblood" onClick={() => arquivo.current?.click()}>
+              <Botao variante="discreto" simbolo={Upload} className="ml-auto" onClick={() => arquivo.current?.click()}>
                 Enviar um vídeo pronto
-              </button>
+              </Botao>
               <input
                 ref={arquivo}
                 type="file"
@@ -679,18 +667,21 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
       )}
 
       {pdf && (
-        <div className="border-t border-rule p-4">
-          <p className="text-xs text-ink-soft">O PDF abre aqui embaixo. Ao escolher a tela, compartilhe <strong>esta aba</strong>: o que você rolar no PDF entra na gravação. <button type="button" className={elo} onClick={() => { URL.revokeObjectURL(pdf); setPdf(null); }}>Fechar o PDF</button></p>
-          <object data={pdf} type="application/pdf" className="mt-2 h-[60vh] w-full border border-rule" aria-label="PDF da aula">
+        <div className="border-t border-[var(--pn-borda)] p-4">
+          <p className="text-xs text-ink-soft">
+            O PDF abre aqui embaixo. Ao escolher a tela, compartilhe <strong>esta aba</strong>: o que você rolar no PDF entra na gravação.{" "}
+            <Botao variante="discreto" pequeno simbolo={X} onClick={() => { URL.revokeObjectURL(pdf); setPdf(null); }}>Fechar o PDF</Botao>
+          </p>
+          <object data={pdf} type="application/pdf" className="mt-2 h-[60vh] w-full rounded-[var(--pn-raio)] border border-[var(--pn-borda)]" aria-label="PDF da aula">
             <p className="p-3 text-ink-soft">Este navegador não mostra PDF aqui dentro: abra o arquivo em outra aba e compartilhe aquela aba.</p>
           </object>
         </div>
       )}
-      <p className="border-t border-rule px-4 py-3 text-xs text-ink-soft">Dica: um lugar silencioso e bem iluminado, a câmera na altura dos olhos e frases curtas. Se travar, pare e grave de novo: são só 10 minutos.</p>
+      <p className="border-t border-[var(--pn-borda)] px-4 py-3 text-xs text-ink-soft">Dica: um lugar silencioso e bem iluminado, a câmera na altura dos olhos e frases curtas. Se travar, pare e grave de novo: são só 10 minutos.</p>
       <div className="px-4 pb-3">
         <Aviso texto={aviso} />
       </div>
-    </section>
+    </Cartao>
   );
 }
 
@@ -707,8 +698,8 @@ function Assistir({ aula }: { aula: Videoaula }) {
       vivo = false;
     };
   }, [aula.caminho]);
-  if (erro) return <p className="text-oxblood">{erro}</p>;
-  if (!endereco) return <p className="painel-carregando text-ink-soft">Abrindo o vídeo…</p>;
+  if (erro) return <Faixa tom="erro">{erro}</Faixa>;
+  if (!endereco) return <Esqueleto linhas={2} rotulo="Abrindo o vídeo…" />;
   return <VideoPlayer src={endereco} titulo={aula.titulo} legenda={aula.legenda} transcricao={aula.transcricao} labels={playerPt} />;
 }
 
@@ -718,146 +709,154 @@ function Minhas({ lista, erro, recarregar, gravar }: { lista: Videoaula[] | null
   const [aberta, setAberta] = useState<string | null>(null);
   const tocando = lista?.find((aula) => aula.id === aberta) ?? null;
   return (
-    <section>
-      <Aviso texto={erro || acao.aviso} />
+    <section className="space-y-4">
+      {erro && <Faixa tom="erro" acao={<Botao pequeno onClick={recarregar}>Tentar de novo</Botao>}>{erro}</Faixa>}
+      <Aviso texto={acao.aviso} />
+      {lista === null && !erro && <Esqueleto forma="cartoes" />}
       {lista?.length === 0 && (
-        <div className="rounded-xl border border-dashed border-rule px-6 py-12 text-center">
-          <p aria-hidden className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ink text-parchment"><Desenho nome="play" className="h-5 w-5" /></p>
-          <p className="mt-4 font-serif text-2xl font-semibold">Sua primeira aula em vídeo</p>
-          <p className="mx-auto mt-1 max-w-md text-ink-soft">Até 10 minutos, gravada aqui mesmo com a câmera ou a tela. Passa pela revisão e entra nas trilhas.</p>
-          <button type="button" className={`${botao} mt-4 rounded-md`} onClick={gravar}>Gravar agora</button>
-        </div>
+        <Vazio
+          simbolo={Play}
+          titulo="Sua primeira aula em vídeo"
+          texto="Até 10 minutos, gravada aqui mesmo com a câmera ou a tela. Passa pela revisão e entra nas trilhas."
+          acao={<Botao variante="principal" simbolo={CircleDot} onClick={gravar}>Gravar agora</Botao>}
+        />
       )}
       {tocando && (
-        <div className="mb-6 overflow-hidden rounded-xl border border-ink bg-parchment-deep">
+        <Cartao className="overflow-hidden p-0!" aria-label={tocando.titulo}>
           <Assistir aula={tocando} />
           <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
             <p className="font-serif text-lg font-semibold">{tocando.titulo}</p>
-            <button type="button" className={elo} onClick={() => setAberta(null)}>Fechar</button>
+            <Botao variante="discreto" pequeno simbolo={X} onClick={() => setAberta(null)}>Fechar</Botao>
           </div>
-        </div>
+        </Cartao>
       )}
-      <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {lista?.map((aula) => (
-          <li key={aula.id} className="overflow-hidden rounded-xl border border-rule bg-parchment-deep">
-            <button type="button" onClick={() => setAberta(aula.id)} className="group relative block aspect-video w-full cursor-pointer bg-gradient-to-br from-[#2b2117] to-[#0f0c09]" aria-label={`Assistir: ${aula.titulo}`}>
-              <span aria-hidden className="absolute left-3 top-3 font-serif text-3xl font-bold text-[#f3ead8]/20">{(t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina).slice(0, 1)}</span>
-              <span aria-hidden className="absolute inset-0 m-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#f3ead8]/90 text-[#17130e] transition-transform group-hover:scale-110"><Desenho nome="play" className="h-5 w-5" /></span>
-              <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 font-mono text-xs text-white">{relogio(aula.duracao)}</span>
-            </button>
-            <div className="p-3">
-              <p className="flex flex-wrap items-center gap-1.5 text-xs">
-                <span className={`rounded-sm px-1.5 py-0.5 font-medium ${TOM[aula.status]}`}>{situacao[aula.status]}</span>
-                <span className="text-ink-soft">{t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {data(aula.criado_em)}</span>
-              </p>
-              <p className="mt-1 font-semibold leading-snug">{aula.titulo}</p>
-              {aula.nota && <p className="mt-2 border-l-2 border-gold pl-2 text-sm">Nota da curadoria: {aula.nota}</p>}
-              <NoYoutube aula={aula} />
-              {aula.status !== "aprovada" && (
-                <button
-                  type="button"
-                  className={`${elo} mt-2 text-sm text-ink-soft`}
-                  disabled={acao.ocupado}
-                  onClick={async () => {
-                    if (!(await confirmarFrase("Apagar esta aula em vídeo? O arquivo também é apagado."))) return;
-                    const resposta = (await acao.agir("videoaula_apagar", { p_id: aula.id }, "Aula apagada.")) as { caminho?: string } | null;
-                    if (resposta?.caminho) await apagarVideo(resposta.caminho).catch(() => undefined);
-                  }}
-                >
-                  Apagar
-                </button>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+      {(lista?.length ?? 0) > 0 && (
+        <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {lista?.map((aula) => (
+            <li key={aula.id} className="pn-cartao overflow-hidden p-0!">
+              <button type="button" onClick={() => setAberta(aula.id)} className="group relative block aspect-video w-full cursor-pointer bg-gradient-to-br from-[var(--pn-menu-superficie)] to-[var(--pn-menu-fundo)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--pn-foco)]" aria-label={`Assistir: ${aula.titulo}`}>
+                <span aria-hidden className="absolute left-3 top-3 font-serif text-3xl font-bold text-[var(--pn-menu-texto)] opacity-20">{(t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina).slice(0, 1)}</span>
+                <span aria-hidden className="absolute inset-0 m-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--pn-menu-texto)] text-[var(--pn-menu-fundo)] motion-safe:transition-transform motion-safe:group-hover:scale-110"><Desenho nome="play" className="h-5 w-5" /></span>
+                <span className="absolute bottom-2 right-2 rounded-[var(--pn-raio)] bg-[var(--pn-menu-fundo)]/85 px-1.5 py-0.5 font-mono text-xs text-[var(--pn-menu-texto)]">{relogio(aula.duracao)}</span>
+              </button>
+              <div className="p-3">
+                <p className="flex flex-wrap items-center gap-1.5 text-xs">
+                  <Selo tom={TOM[aula.status]} ponto>{situacao[aula.status]}</Selo>
+                  <span className="text-ink-soft">{t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {data(aula.criado_em)}</span>
+                </p>
+                <p className="mt-1 font-semibold leading-snug">{aula.titulo}</p>
+                {aula.nota && (
+                  <Faixa tom="aviso" semSimbolo className="mt-2 text-sm">
+                    Nota da curadoria: {aula.nota}
+                  </Faixa>
+                )}
+                <NoYoutube aula={aula} />
+                {aula.status !== "aprovada" && (
+                  <Botao
+                    variante="discreto"
+                    pequeno
+                    perigo
+                    simbolo={Trash2}
+                    className="mt-2"
+                    disabled={acao.ocupado}
+                    onClick={async () => {
+                      if (!(await confirmarFrase("Apagar esta aula em vídeo? O arquivo também é apagado."))) return;
+                      const resposta = (await acao.agir("videoaula_apagar", { p_id: aula.id }, "Aula apagada.")) as { caminho?: string } | null;
+                      if (resposta?.caminho) await apagarVideo(resposta.caminho).catch(() => undefined);
+                    }}
+                  >
+                    Apagar
+                  </Botao>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
 
-function Revisar({ me, fila, erro, recarregar }: { me: Me; fila: Videoaula[]; erro: string; recarregar: () => void }) {
+function Revisar({ me, fila, erro, recarregar }: { me: Me; fila: Videoaula[] | null; erro: string; recarregar: () => void }) {
   const { t } = useI18n();
   const acao = useAcao(recarregar);
   const [notas, setNotas] = useState<Record<string, string>>({});
   const [conferido, setConferido] = useState<Record<string, string[]>>({});
   const decide = can(me, "coordenacao", "curadoria");
-  const lista = fila.filter((aula) => !aula.minha || can(me, "coordenacao"));
+  const lista = (fila ?? []).filter((aula) => !aula.minha || can(me, "coordenacao"));
   const itens = ["O som está claro", "A imagem dá para ler", "O conteúdo está correto", "As fontes conferem", "Ninguém aparece sem autorização"];
   return (
-    <section>
-      {!decide && <p className="mb-4 text-ink-soft">Você vê as aulas da sua disciplina para dar a sua opinião à curadoria pelo Mural da equipe. Quem aprova ou recusa é a curadoria.</p>}
-      <Aviso texto={erro || acao.aviso} />
-      {lista.length === 0 && (
-        <div className="rounded-xl border border-dashed border-rule px-6 py-10 text-center">
-          <p className="font-serif text-xl font-semibold">Nada esperando revisão</p>
-          <p className="mt-1 text-ink-soft">Quando alguém enviar uma aula em vídeo da sua disciplina, ela aparece aqui.</p>
-        </div>
-      )}
-      <ul className="space-y-6">
+    <section className="space-y-4">
+      {!decide && <Faixa tom="info">Você vê as aulas da sua disciplina para dar a sua opinião à curadoria pelo Mural da equipe. Quem aprova ou recusa é a curadoria.</Faixa>}
+      {erro && <Faixa tom="erro" acao={<Botao pequeno onClick={recarregar}>Tentar de novo</Botao>}>{erro}</Faixa>}
+      <Aviso texto={acao.aviso} />
+      {fila === null && !erro && <Esqueleto forma="cartoes" />}
+      {fila !== null && lista.length === 0 && <Vazio simbolo={Eye} titulo="Nada esperando revisão" texto="Quando alguém enviar uma aula em vídeo da sua disciplina, ela aparece aqui." />}
+      <ul className="space-y-5">
         {lista.map((aula) => {
           const marcados = conferido[aula.id] ?? [];
           return (
-            <li key={aula.id} className="grid gap-5 rounded-xl border border-rule bg-parchment-deep p-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-              <div className="min-w-0 space-y-3">
-                <div className="overflow-hidden rounded-lg">
-                  <Assistir aula={aula} />
+            <li key={aula.id}>
+              <Cartao as="article" aria-label={aula.titulo} className="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+                <div className="min-w-0 space-y-3">
+                  <div className="overflow-hidden rounded-[var(--pn-raio)]">
+                    <Assistir aula={aula} />
+                  </div>
+                  <p className="font-mono text-xs text-ink-soft">{relogio(aula.duracao)} · {aula.largura}×{aula.altura} · {megas(aula.tamanho)}</p>
                 </div>
-                <p className="font-mono text-xs text-ink-soft">{relogio(aula.duracao)} · {aula.largura}×{aula.altura} · {megas(aula.tamanho)}</p>
-              </div>
-              <div className="min-w-0 space-y-3">
-                <p className={rotulo}>{t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor || "sem nome"}</p>
-                <h3 className="font-serif text-xl font-semibold leading-snug">{aula.titulo}</h3>
-                {aula.descricao && <p className="whitespace-pre-line text-sm" data-original>{aula.descricao}</p>}
-                {aula.fontes && aula.fontes.length > 0 && (
-                  <div className="text-sm">
-                    <p className="font-semibold">Fontes</p>
-                    <ul className="mt-1 list-disc pl-5 text-ink-soft">
-                      {aula.fontes.map((fonte) => (
-                        <li key={fonte.titulo}>
-                          {fonte.titulo}
-                          {fonte.autor ? ` (${fonte.autor})` : ""} {fonte.url && <a href={fonte.url} target="_blank" rel="noopener noreferrer" className={elo}>abrir</a>}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                <fieldset className="rounded-lg border border-rule p-3 text-sm">
-                  <legend className="px-1 font-semibold">O que conferir</legend>
-                  {itens.map((item) => (
-                    <label key={item} className="flex cursor-pointer items-center gap-2 py-0.5">
-                      <input type="checkbox" checked={marcados.includes(item)} onChange={(e) => setConferido({ ...conferido, [aula.id]: e.target.checked ? [...marcados, item] : marcados.filter((x) => x !== item) })} />
-                      {item}
-                    </label>
-                  ))}
-                  <p className="mt-1 text-xs text-ink-soft">Só para você se guiar: não fica guardado.</p>
-                </fieldset>
-                {decide && (
-                  <div className="space-y-2">
-                    <label className="block text-sm font-semibold">
-                      Nota para quem gravou
-                      <span className="block text-xs font-normal text-ink-soft">Obrigatória para recusar.</span>
-                      <textarea value={notas[aula.id] ?? ""} onChange={(e) => setNotas({ ...notas, [aula.id]: e.target.value })} maxLength={1000} rows={2} className={campo} />
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        className={`${botao} rounded-md`}
-                        disabled={acao.ocupado}
-                        onClick={async () => {
-                          const ok = await acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: true, p_nota: notas[aula.id] ?? "" }, "Aula aprovada. Ela já está no ar e vai também para o YouTube do instituto.");
-                          // O envio ao YouTube segue sozinho; se o canal não estiver ligado ou falhar, dá para tentar de novo em "No ar".
-                          if (ok !== null) void pedirAoCanal({ acao: "enviar", id: aula.id });
-                        }}
-                      >
-                        Aprovar e pôr no ar
-                      </button>
-                      <button type="button" className={`${botaoClaro} rounded-md`} disabled={acao.ocupado || (notas[aula.id] ?? "").trim().length < 5} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: false, p_nota: notas[aula.id] ?? "" }, "Aula recusada. Quem gravou lê a sua nota.")}>
-                        Recusar
-                      </button>
+                <div className="min-w-0 space-y-3">
+                  <p className="flex flex-wrap items-center gap-2">
+                    <Selo tom={TOM[aula.status]} ponto>{situacao[aula.status]}</Selo>
+                    <span className="pn-rotulo-mono">{t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor || "sem nome"}</span>
+                  </p>
+                  <h3 className="font-serif text-xl font-semibold leading-snug">{aula.titulo}</h3>
+                  {aula.descricao && <p className="whitespace-pre-line text-sm" data-original>{aula.descricao}</p>}
+                  {aula.fontes && aula.fontes.length > 0 && (
+                    <div className="text-sm">
+                      <p className="font-semibold">Fontes</p>
+                      <ul className="mt-1 list-disc pl-5 text-ink-soft">
+                        {aula.fontes.map((fonte) => (
+                          <li key={fonte.titulo}>
+                            {fonte.titulo}
+                            {fonte.autor ? ` (${fonte.autor})` : ""} {fonte.url && <a href={fonte.url} target="_blank" rel="noopener noreferrer" className="pn-elo">abrir</a>}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                  <fieldset className="rounded-[var(--pn-raio)] border border-[var(--pn-borda)] p-3 text-sm">
+                    <legend className="px-1 font-semibold">O que conferir</legend>
+                    <div className="space-y-1">
+                      {itens.map((item) => (
+                        <Marca key={item} rotulo={item} checked={marcados.includes(item)} onChange={(e) => setConferido({ ...conferido, [aula.id]: e.target.checked ? [...marcados, item] : marcados.filter((x) => x !== item) })} />
+                      ))}
+                    </div>
+                    <p className="mt-1 text-xs text-ink-soft">Só para você se guiar: não fica guardado.</p>
+                  </fieldset>
+                  {decide && (
+                    <div className="space-y-2">
+                      <Area rotulo="Nota para quem gravou" ajuda="Obrigatória para recusar." value={notas[aula.id] ?? ""} onChange={(e) => setNotas({ ...notas, [aula.id]: e.target.value })} maxLength={1000} rows={2} />
+                      <div className="flex flex-wrap gap-2">
+                        <Botao
+                          variante="principal"
+                          simbolo={Check}
+                          disabled={acao.ocupado}
+                          onClick={async () => {
+                            const ok = await acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: true, p_nota: notas[aula.id] ?? "" }, "Aula aprovada. Ela já está no ar e vai também para o YouTube do instituto.");
+                            // O envio ao YouTube segue sozinho; se o canal não estiver ligado ou falhar, dá para tentar de novo em "No ar".
+                            if (ok !== null) void pedirAoCanal({ acao: "enviar", id: aula.id });
+                          }}
+                        >
+                          Aprovar e pôr no ar
+                        </Botao>
+                        <Botao perigo disabled={acao.ocupado || (notas[aula.id] ?? "").trim().length < 5} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: false, p_nota: notas[aula.id] ?? "" }, "Aula recusada. Quem gravou lê a sua nota.")}>
+                          Recusar
+                        </Botao>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Cartao>
             </li>
           );
         })}
@@ -886,39 +885,42 @@ function NoAr() {
     lista.recarregar();
   }
   return (
-    <section>
-      <p className="mb-3 flex flex-wrap items-center gap-2 text-sm">
-        <span className={`inline-block h-2.5 w-2.5 rounded-full ${canal ? "bg-ok" : canal === false ? "bg-oxblood" : "bg-rule"}`} aria-hidden />
+    <section className="space-y-4">
+      <Faixa tom={canal ? "ok" : canal === false ? "aviso" : "info"}>
         {canal === null ? "Conferindo o canal do YouTube…" : canal ? "Canal do YouTube ligado: cada aula aprovada vai sozinha para lá, como não listada." : "Canal do YouTube desligado: as aulas tocam só pela cópia do instituto. Para ligar, veja docs/YOUTUBE.md."}
-      </p>
-      <Aviso texto={lista.erro || acao.aviso} />
-      {lista.dados?.length === 0 && <p className="text-ink-soft">Nenhuma aula em vídeo no ar ainda.</p>}
-      <ul className="divide-y divide-rule border-y border-rule">
-        {lista.dados?.map((aula) => (
-          <li key={aula.id} className="flex flex-wrap items-end justify-between gap-3 py-3">
-            <span className="min-w-0">
-              <strong>{aula.titulo}</strong> · {t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor}
-              <NoYoutube aula={aula} />
-              {canal && (aula.youtube_situacao === "" || aula.youtube_situacao === "erro" || (aula.youtube_situacao === "enviando" && !aula.youtube)) && (
-                <button type="button" className={`${elo} mt-1 text-sm`} disabled={Boolean(indo)} onClick={() => void aoCanal("enviar", aula.id)}>
-                  {indo === aula.id ? "Mandando…" : aula.youtube_situacao === "erro" ? "Tentar de novo no YouTube" : "Mandar ao YouTube"}
-                </button>
-              )}
-              {canal && aula.youtube_situacao === "travado" && (
-                <button type="button" className={`${elo} mt-1 text-sm`} disabled={Boolean(indo)} onClick={() => void aoCanal("liberar", aula.id)}>
-                  {indo === aula.id ? "Conferindo…" : "Conferir de novo se o Google liberou"}
-                </button>
-              )}
-            </span>
-            <span className="flex flex-wrap items-end gap-2">
-              <input value={nota[aula.id] ?? ""} onChange={(e) => setNota({ ...nota, [aula.id]: e.target.value })} placeholder="Motivo" aria-label={`Motivo para tirar do ar: ${aula.titulo}`} className="painel-campo border-2 border-ink bg-parchment-deep px-2 py-1" />
-              <button type="button" className={elo} disabled={acao.ocupado || (nota[aula.id] ?? "").trim().length < 5} onClick={() => acao.agir("videoaula_retirar", { p_id: aula.id, p_nota: nota[aula.id] }, "Aula retirada do ar.")}>
-                Tirar do ar
-              </button>
-            </span>
-          </li>
-        ))}
-      </ul>
+      </Faixa>
+      {lista.erro && <Faixa tom="erro" acao={<Botao pequeno onClick={lista.recarregar}>Tentar de novo</Botao>}>{lista.erro}</Faixa>}
+      <Aviso texto={acao.aviso} />
+      {lista.dados === null && !lista.erro && <Esqueleto forma="fila" />}
+      {lista.dados?.length === 0 && <Vazio simbolo={Radio} titulo="Nenhuma aula em vídeo no ar ainda." />}
+      {(lista.dados?.length ?? 0) > 0 && (
+        <ul aria-label="No ar" className="pn-lista">
+          {lista.dados?.map((aula) => (
+            <li key={aula.id} className="flex flex-wrap items-end justify-between gap-3 border-b border-[var(--pn-borda)] px-3.5 py-3 last:border-b-0">
+              <span className="min-w-0">
+                <strong>{aula.titulo}</strong> · {t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor}
+                <NoYoutube aula={aula} />
+                {canal && (aula.youtube_situacao === "" || aula.youtube_situacao === "erro" || (aula.youtube_situacao === "enviando" && !aula.youtube)) && (
+                  <Botao variante="discreto" pequeno className="mt-1" carregando={indo === aula.id} disabled={Boolean(indo)} onClick={() => void aoCanal("enviar", aula.id)}>
+                    {indo === aula.id ? "Mandando…" : aula.youtube_situacao === "erro" ? "Tentar de novo no YouTube" : "Mandar ao YouTube"}
+                  </Botao>
+                )}
+                {canal && aula.youtube_situacao === "travado" && (
+                  <Botao variante="discreto" pequeno className="mt-1" carregando={indo === aula.id} disabled={Boolean(indo)} onClick={() => void aoCanal("liberar", aula.id)}>
+                    {indo === aula.id ? "Conferindo…" : "Conferir de novo se o Google liberou"}
+                  </Botao>
+                )}
+              </span>
+              <span className="flex flex-wrap items-end gap-2">
+                <input value={nota[aula.id] ?? ""} onChange={(e) => setNota({ ...nota, [aula.id]: e.target.value })} placeholder="Motivo" aria-label={`Motivo para tirar do ar: ${aula.titulo}`} className="pn-campo w-48" />
+                <Botao variante="discreto" pequeno perigo disabled={acao.ocupado || (nota[aula.id] ?? "").trim().length < 5} onClick={() => acao.agir("videoaula_retirar", { p_id: aula.id, p_nota: nota[aula.id] }, "Aula retirada do ar.")}>
+                  Tirar do ar
+                </Botao>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

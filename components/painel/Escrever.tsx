@@ -1,7 +1,39 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { Selo } from "../Selo";
+import {
+  BadgeCheck,
+  BookA,
+  BookOpen,
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  Clapperboard,
+  Columns2,
+  FileText,
+  Flame,
+  Focus,
+  Globe,
+  History,
+  Languages,
+  Library,
+  Lightbulb,
+  type LucideIcon,
+  Map as Mapa,
+  MessageCircle,
+  Minus,
+  Newspaper,
+  Paperclip,
+  Plus,
+  Quote,
+  Save,
+  Send,
+  Trash2,
+  Upload,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { areaSlugs, licenses } from "@/lib/areas";
 import { sendFile, UploadError, uploadMessages } from "@/lib/upload";
@@ -14,7 +46,7 @@ import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
-import { Aviso, campo, elo, localDoPainel, papeis, useAcao, useLista } from "./comum";
+import { campo, localDoPainel, papeis, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { FerramentasDoAutor } from "./FerramentasDoAutor";
 import { GuiaDaAula } from "./GuiaDaAula";
@@ -43,7 +75,12 @@ interface Tipo {
 
 export { editorPt } from "../rotulosDoEditor";
 import { editorPt } from "../rotulosDoEditor";
-import { confirmarFrase } from "./ui";
+import { Botao, CabecalhoDeSecao, Campo as CampoDeTexto, Cartao, confirmarFrase, Faixa, Selo } from "./ui";
+
+/** O recado de uma ação (o que antes ia no "Aviso"): em faixa, só quando há o que dizer. */
+function Recado({ texto }: { texto: string }) {
+  return texto ? <Faixa tom="info">{texto}</Faixa> : null;
+}
 
 export const fontesPt: SourceLabels = {
   title: "Fontes",
@@ -79,16 +116,13 @@ export function limparQuestoes(lista: Questao[]): Questao[] {
 export function QuestoesEditor({ valor, mudar }: { valor: Questao[]; mudar: (lista: Questao[]) => void }) {
   const trocar = (i: number, q: Partial<Questao>) => mudar(valor.map((item, j) => (j === i ? { ...item, ...q } : item)));
   return (
-    <fieldset className="border border-rule bg-parchment-deep p-4">
-      <legend className="px-1 font-semibold">Teste o que você aprendeu (opcional)</legend>
-      <p className="text-ink-soft">De três a cinco questões de múltipla escolha. Entram no fim da aula e na prova da trilha. Marque a alternativa certa e explique por quê.</p>
+    <fieldset className="pn-cartao">
+      <legend className="pn-cartao-titulo px-1">Teste o que você aprendeu (opcional)</legend>
+      <p className="pn-ajuda">De três a cinco questões de múltipla escolha. Entram no fim da aula e na prova da trilha. Marque a alternativa certa e explique por quê.</p>
       <ol className="mt-3 space-y-4">
         {valor.map((q, i) => (
-          <li key={i} className="border-l-2 border-gold pl-3">
-            <label className="block">
-              Questão {i + 1}
-              <input value={q.pergunta} onChange={(e) => trocar(i, { pergunta: e.target.value })} maxLength={300} className={campo} />
-            </label>
+          <li key={i} className="rounded-md border border-rule bg-parchment p-3">
+            <CampoDeTexto rotulo={`Questão ${i + 1}`} value={q.pergunta} onChange={(e) => trocar(i, { pergunta: e.target.value })} maxLength={300} />
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {q.opcoes.map((opcao, j) => (
                 <label key={j} className="flex items-center gap-2">
@@ -97,22 +131,31 @@ export function QuestoesEditor({ valor, mudar }: { valor: Questao[]; mudar: (lis
                 </label>
               ))}
             </div>
-            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-              {q.opcoes.length < 6 && <button type="button" className={elo} onClick={() => trocar(i, { opcoes: [...q.opcoes, ""] })}>+ alternativa</button>}
-              {q.opcoes.length > 2 && <button type="button" className={elo} onClick={() => trocar(i, { opcoes: q.opcoes.slice(0, -1), resposta: Math.min(q.resposta, q.opcoes.length - 2) })}>− alternativa</button>}
-              <button type="button" className={`${elo} text-oxblood`} onClick={() => mudar(valor.filter((_, j) => j !== i))}>Remover a questão</button>
+            <div className="mt-2 flex flex-wrap items-center gap-1">
+              {q.opcoes.length < 6 && (
+                <Botao pequeno variante="discreto" simbolo={Plus} aria-label={`Mais uma alternativa na questão ${i + 1}`} onClick={() => trocar(i, { opcoes: [...q.opcoes, ""] })}>
+                  alternativa
+                </Botao>
+              )}
+              {q.opcoes.length > 2 && (
+                <Botao pequeno variante="discreto" simbolo={Minus} aria-label={`Uma alternativa a menos na questão ${i + 1}`} onClick={() => trocar(i, { opcoes: q.opcoes.slice(0, -1), resposta: Math.min(q.resposta, q.opcoes.length - 2) })}>
+                  alternativa
+                </Botao>
+              )}
+              <Botao pequeno variante="discreto" perigo simbolo={Trash2} onClick={() => mudar(valor.filter((_, j) => j !== i))}>
+                Remover a questão
+              </Botao>
             </div>
-            <label className="mt-2 block">
-              Explicação (aparece depois de responder)
-              <input value={q.explicacao} onChange={(e) => trocar(i, { explicacao: e.target.value })} maxLength={500} className={campo} />
-            </label>
+            <div className="mt-2">
+              <CampoDeTexto rotulo="Explicação (aparece depois de responder)" value={q.explicacao} onChange={(e) => trocar(i, { explicacao: e.target.value })} maxLength={500} />
+            </div>
           </li>
         ))}
       </ol>
       {valor.length < 10 && (
-        <button type="button" className={`mt-3 ${elo}`} onClick={() => mudar([...valor, questaoVazia()])}>
-          + {valor.length === 0 ? "Adicionar a primeira questão" : "Adicionar questão"}
-        </button>
+        <Botao className="mt-3" pequeno simbolo={Plus} onClick={() => mudar([...valor, questaoVazia()])}>
+          {valor.length === 0 ? "Adicionar a primeira questão" : "Adicionar questão"}
+        </Botao>
       )}
     </fieldset>
   );
@@ -127,22 +170,22 @@ interface Rascunho {
   questoes: Questao[];
 }
 
-/** Cada tipo em cartão: selo desenhado (components/Selo.tsx), nome curto e para que serve. */
-const CARTOES_DE_TIPO: Partial<Record<TipoId, [string, string, string]>> = {
-  aula: ["livro", "Aula de uma trilha", "Texto com blocos, jogos e testes, numa trilha da sua disciplina."],
-  avulso: ["clipe", "Material avulso", "Resumo, lista de exercícios, roteiro ou um PDF pronto, fora das trilhas."],
-  temas: ["mapa", "Próximas aulas", "Os temas que faltam numa trilha."],
-  video: ["claquete", "Vídeo indicado", "Um vídeo bom de outro lugar, com o porquê."],
-  pratica: ["fala", "Prática de idioma", "Exercícios curtos e lúdicos para uma aula de língua."],
-  verbete: ["letras", "Verbete do glossário", "Uma palavra explicada em linguagem simples."],
-  checagem: ["check", "Checagem de fato", "O que é verdade e o que não é, com fonte."],
-  debate: ["balao", "Resposta para debate", "Como responder a um argumento comum."],
-  frase: ["aspas", "Frase da página inicial", "Uma citação com autoria e fonte."],
-  memorial: ["vela", "Nome para o Memorial", "Alguém da luta do povo para lembrar."],
-  sugestao: ["lampada", "Sugestão", "Uma ideia para o site ou para uma disciplina."],
-  artigo: ["jornal", "Matéria para o jornal", "Texto jornalístico (jornalismo)."],
-  obra: ["livros", "Obra para o acervo", "A ficha de um livro (curadoria)."],
-  traducao: ["globo", "Tradução", "Uma aula em outro idioma."],
+/** Cada tipo em cartão: ícone (Lucide), nome curto e para que serve. */
+const CARTOES_DE_TIPO: Partial<Record<TipoId, [LucideIcon, string, string]>> = {
+  aula: [BookOpen, "Aula de uma trilha", "Texto com blocos, jogos e testes, numa trilha da sua disciplina."],
+  avulso: [Paperclip, "Material avulso", "Resumo, lista de exercícios, roteiro ou um PDF pronto, fora das trilhas."],
+  temas: [Mapa, "Próximas aulas", "Os temas que faltam numa trilha."],
+  video: [Clapperboard, "Vídeo indicado", "Um vídeo bom de outro lugar, com o porquê."],
+  pratica: [Languages, "Prática de idioma", "Exercícios curtos e lúdicos para uma aula de língua."],
+  verbete: [BookA, "Verbete do glossário", "Uma palavra explicada em linguagem simples."],
+  checagem: [BadgeCheck, "Checagem de fato", "O que é verdade e o que não é, com fonte."],
+  debate: [MessageCircle, "Resposta para debate", "Como responder a um argumento comum."],
+  frase: [Quote, "Frase da página inicial", "Uma citação com autoria e fonte."],
+  memorial: [Flame, "Nome para o Memorial", "Alguém da luta do povo para lembrar."],
+  sugestao: [Lightbulb, "Sugestão", "Uma ideia para o site ou para uma disciplina."],
+  artigo: [Newspaper, "Matéria para o jornal", "Texto jornalístico (jornalismo)."],
+  obra: [Library, "Obra para o acervo", "A ficha de um livro (curadoria)."],
+  traducao: [Globe, "Tradução", "Uma aula em outro idioma."],
 };
 const GRUPOS_DE_TIPOS: [string, TipoId[]][] = [
   ["Para a sua disciplina", ["aula", "avulso", "temas", "video", "pratica"] as TipoId[]],
@@ -150,9 +193,8 @@ const GRUPOS_DE_TIPOS: [string, TipoId[]][] = [
   ["Jornal, acervo e traduções", ["artigo", "obra", "traducao"] as TipoId[]],
 ];
 
-const rotuloPequeno = "block font-mono text-[0.7rem] uppercase tracking-widest text-ink-soft";
-const tarjaDoGrupo = "inline-block bg-ink px-2 py-0.5 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-parchment";
-const campoFino = "mt-1 w-full border border-rule bg-parchment px-3 py-2";
+const rotuloPequeno = "pn-rotulo-mono block";
+const campoFino = campo;
 const semFontes = (fontes: SourceDraft[]) => fontes.every((f) => !f.titulo.trim() && !f.autor.trim() && !f.url.trim());
 
 /** Formulário único para tudo o que entra no site. O que muda de um tipo para outro são os campos. */
@@ -328,10 +370,29 @@ export function Escrever({ me }: { me: Me }) {
       return (
         <div className="grid gap-2 sm:grid-cols-2">
           {valores.substitui && (
-            <p className="border-l-4 border-oxblood bg-parchment-deep px-3 py-2 sm:col-span-2">
-              Você está escrevendo a <strong>nova versão</strong> da aula publicada “{valores.substitui}”. Ela passa pela revisão como uma aula nova e, aprovada, substitui a atual.{" "}
-              <button type="button" className={elo} onClick={() => { setValores((antes) => { const resto = { ...antes }; delete resto.substitui; return resto; }); setTitulo(""); setCorpo(""); }}>Desistir</button>
-            </p>
+            <Faixa
+              tom="bordo"
+              className="sm:col-span-2"
+              acao={
+                <Botao
+                  pequeno
+                  variante="discreto"
+                  onClick={() => {
+                    setValores((antes) => {
+                      const resto = { ...antes };
+                      delete resto.substitui;
+                      return resto;
+                    });
+                    setTitulo("");
+                    setCorpo("");
+                  }}
+                >
+                  Desistir
+                </Botao>
+              }
+            >
+              Você está escrevendo a <strong>nova versão</strong> da aula publicada “{valores.substitui}”. Ela passa pela revisão como uma aula nova e, aprovada, substitui a atual.
+            </Faixa>
           )}
           <select
             aria-label="Disciplina da trilha"
@@ -356,12 +417,17 @@ export function Escrever({ me }: { me: Me }) {
           </select>
           {id === "aula" && !valores.substitui && (trilha?.lessons?.length ?? 0) > 0 && (
             <details className="sm:col-span-2">
-              <summary className="cursor-pointer text-sm underline hover:text-oxblood">Editar uma aula já publicada desta trilha</summary>
-              <p className="mt-1 text-xs text-ink-soft">Só as suas: aula de outro educador, peça a ele pelas Conversas. A nova versão passa pela revisão antes de substituir a atual.</p>
-              <ul className="mt-2 space-y-1 text-sm">
+              <summary className="cursor-pointer text-sm font-semibold hover:text-oxblood">Editar uma aula já publicada desta trilha</summary>
+              <p className="pn-ajuda mt-1 text-xs">Só as suas: aula de outro educador, peça a ele pelas Conversas. A nova versão passa pela revisão antes de substituir a atual.</p>
+              <ul className="pn-lista mt-2 text-sm">
                 {trilha!.lessons!.map((l) => (
                   <li key={l.slug}>
-                    <button type="button" className={elo} onClick={() => void carregarPublicada(trilha!.slug, l.slug)}>{l.title}</button>
+                    <button type="button" className="pn-item pn-item-botao" onClick={() => void carregarPublicada(trilha!.slug, l.slug)}>
+                      <FileText aria-hidden className="pn-item-simbolo" />
+                      <span className="pn-item-texto">
+                        <span className="pn-item-titulo">{l.title}</span>
+                      </span>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -376,12 +442,12 @@ export function Escrever({ me }: { me: Me }) {
       const marcadas = valor ? valor.split(",").filter(Boolean) : [];
       const daDisciplina = tracks.filter((track) => track.area === trilha?.area);
       return (
-        <details className="mt-1 border border-rule bg-parchment-deep p-2">
+        <details className="mt-1 rounded-md border border-rule bg-parchment p-2">
           <summary className="cursor-pointer">{marcadas.length ? `${marcadas.length} aula(s) marcada(s)` : "Nenhuma marcada: vale a aula anterior da trilha"}</summary>
           <div className="mt-2 max-h-56 space-y-2 overflow-y-auto">
             {daDisciplina.map((track) => (track.lessons?.length ?? 0) > 0 && (
               <fieldset key={track.slug}>
-                <legend className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{track.title}</legend>
+                <legend className="pn-rotulo-mono">{track.title}</legend>
                 {track.lessons!.filter((l) => !(track.slug === trilha?.slug && l.slug === valores.slug)).map((l) => {
                   const chave = `${track.slug}/${l.slug}`;
                   return (
@@ -454,21 +520,35 @@ export function Escrever({ me }: { me: Me }) {
   const seletor = (
     <section aria-label="O que você quer publicar" className="font-sans">
       {escolhendo ? (
-        <div className="space-y-4">
-          <p className="font-serif text-2xl font-semibold">O que você quer publicar hoje?</p>
+        <div className="space-y-5">
+          <CabecalhoDeSecao titulo="O que você quer publicar hoje?" />
           {GRUPOS_DE_TIPOS.map(([grupo, ids]) => {
             const daqui = ids.filter((tipoId) => disponiveis.includes(tipoId));
             if (!daqui.length) return null;
             return (
               <div key={grupo}>
-                <p className={tarjaDoGrupo}>{grupo}</p>
+                <p className="pn-rotulo-mono">{grupo}</p>
                 <div className="mt-2 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {daqui.map((tipoId) => {
-                    const [icone, curto, sobre] = CARTOES_DE_TIPO[tipoId] ?? ["folha", (tipos[tipoId] as Tipo).rotulo, ""];
+                    const [Icone, curto, sobre] = CARTOES_DE_TIPO[tipoId] ?? [FileText, (tipos[tipoId] as Tipo).rotulo, ""];
                     return (
-                      <button key={tipoId} type="button" aria-pressed={id === tipoId} onClick={() => { setId(tipoId); setEscolhendo(false); }} className={`group flex cursor-pointer items-start gap-3 border-2 p-3 text-left transition-[transform,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-ink hover:shadow-[4px_4px_0_var(--prelo)] ${id === tipoId ? "border-ink bg-folha shadow-[4px_4px_0_var(--prelo)]" : "border-ink/25 bg-parchment"}`}>
-                        <span className="selo h-11 w-11 group-hover:border-[#c21f16]"><Selo nome={icone} className="h-7 w-7" /></span>
-                        <span><span className="block font-bold">{curto}</span><span className="block text-xs text-ink-soft">{sobre}</span></span>
+                      <button
+                        key={tipoId}
+                        type="button"
+                        aria-pressed={id === tipoId}
+                        onClick={() => {
+                          setId(tipoId);
+                          setEscolhendo(false);
+                        }}
+                        className={`pn-cartao pn-cartao-interativo flex cursor-pointer items-start gap-3 text-left ${id === tipoId ? "pn-cartao-destaque" : ""}`}
+                      >
+                        <span aria-hidden className="pn-cabecalho-icone flex-none">
+                          <Icone />
+                        </span>
+                        <span>
+                          <span className="block font-semibold">{curto}</span>
+                          <span className="pn-ajuda block text-xs">{sobre}</span>
+                        </span>
                       </button>
                     );
                   })}
@@ -478,11 +558,23 @@ export function Escrever({ me }: { me: Me }) {
           })}
         </div>
       ) : (
-        <p className="flex flex-wrap items-center gap-3">
-          <span className="selo h-11 w-11"><Selo nome={CARTOES_DE_TIPO[id]?.[0] ?? "folha"} className="h-7 w-7" /></span>
-          <span><span className={rotuloPequeno}>Você está escrevendo</span><span className="font-bold">{CARTOES_DE_TIPO[id]?.[1] ?? tipo.rotulo}</span></span>
-          <button type="button" className={`${elo} ml-auto text-sm`} onClick={() => setEscolhendo(true)}>Trocar o tipo</button>
-        </p>
+        <div className="flex flex-wrap items-center gap-3">
+          {(() => {
+            const Icone = CARTOES_DE_TIPO[id]?.[0] ?? FileText;
+            return (
+              <span aria-hidden className="pn-cabecalho-icone flex-none">
+                <Icone />
+              </span>
+            );
+          })()}
+          <span>
+            <span className={rotuloPequeno}>Você está escrevendo</span>
+            <span className="font-semibold">{CARTOES_DE_TIPO[id]?.[1] ?? tipo.rotulo}</span>
+          </span>
+          <Botao className="ml-auto" pequeno variante="discreto" onClick={() => setEscolhendo(true)}>
+            Trocar o tipo
+          </Botao>
+        </div>
       )}
     </section>
   );
@@ -491,7 +583,7 @@ export function Escrever({ me }: { me: Me }) {
     return (
       <div className="space-y-5">
         {seletor}
-        <p className="border-l-2 border-gold pl-4 text-ink-soft">{tipo.ajuda}</p>
+        <p className="pn-sobre">{tipo.ajuda}</p>
         <EditorDePratica me={me} />
       </div>
     );
@@ -514,43 +606,73 @@ export function Escrever({ me }: { me: Me }) {
       {escolhendo ? (
         seletor
       ) : (
-        <div className="rounded-lg border-2 border-ink bg-parchment-deep">
+        <Cartao as="div" style={{ padding: 0 }}>
           <div className="px-4 py-3">{seletor}</div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-rule px-4 py-2">
             <ol className="flex flex-wrap items-center gap-1.5" aria-label="Etapas">
               {etapas.map(([nome, ok], i) => (
-                <li key={nome} aria-current={i === atual ? "step" : undefined} className={`rounded-full px-2 py-0.5 font-mono text-[0.68rem] ${ok ? "bg-ok/20 text-ink" : i === atual ? "bg-oxblood text-parchment" : "bg-rule text-ink-soft"}`}>
-                  {ok ? "✓ " : `${i + 1}. `}
-                  {nome}
+                <li key={nome} aria-current={i === atual ? "step" : undefined}>
+                  <Selo tom={ok ? "ok" : i === atual ? "bordo" : "neutro"} ponto={!ok && i === atual}>
+                    {ok ? <Check aria-hidden width={12} height={12} /> : `${i + 1}.`} {nome}
+                  </Selo>
                 </li>
               ))}
             </ol>
             <span className="ml-auto flex items-center gap-3 font-mono text-xs text-ink-soft">
               <span role="status">{rascunho.salvoEm ? `Salvo às ${horaDoRascunho(rascunho.salvoEm)}` : "Rascunho guardado sozinho"}</span>
-              <Versoes chave={`escrever:${id}`} titulo={titulo} corpo={corpo} restaurar={(v) => { setTitulo(v.titulo); setCorpo(v.corpo); }} />
+              <Versoes
+                chave={`escrever:${id}`}
+                titulo={titulo}
+                corpo={corpo}
+                restaurar={(v) => {
+                  setTitulo(v.titulo);
+                  setCorpo(v.corpo);
+                }}
+              />
             </span>
           </div>
           <button type="button" onClick={() => setDetalhes((d) => !d)} aria-expanded={detalhesVisiveis} className="flex w-full cursor-pointer items-center gap-2 border-t border-rule px-4 py-2 text-left text-sm hover:text-oxblood">
-            <span className={rotuloPequeno}>Detalhes</span>
+            <span className={rotuloPequeno} style={{ display: "inline" }}>
+              Detalhes
+            </span>
             <span className="min-w-0 flex-1 truncate font-medium">{faixa}</span>
-            <span aria-hidden className="text-ink-soft">{detalhesVisiveis ? "▴" : "▾"}</span>
+            {detalhesVisiveis ? <ChevronUp aria-hidden width={16} height={16} className="text-ink-soft" /> : <ChevronDown aria-hidden width={16} height={16} className="text-ink-soft" />}
           </button>
-        </div>
+        </Cartao>
       )}
 
       {rascunho.restaurado && rascunho.salvoEm && !faixaDispensada && (
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-soft">
-          <span>Recuperamos o rascunho guardado às {horaDoRascunho(rascunho.salvoEm)}.</span>
-          <button type="button" className={elo} onClick={() => { setTitulo(""); setCorpo(""); setFontes([{ titulo: "", autor: "", url: "" }]); setQuestoes([]); setValores({ trilha: valores.trilha }); rascunho.limpar(); }}>
-            Descartar e começar do zero
-          </button>
-          <button type="button" className={elo} aria-label="Fechar o aviso" onClick={() => setFaixaDispensada(true)}>✕</button>
-        </p>
+        <Faixa
+          tom="info"
+          acao={
+            <>
+              <Botao
+                pequeno
+                variante="discreto"
+                onClick={() => {
+                  setTitulo("");
+                  setCorpo("");
+                  setFontes([{ titulo: "", autor: "", url: "" }]);
+                  setQuestoes([]);
+                  setValores({ trilha: valores.trilha });
+                  rascunho.limpar();
+                }}
+              >
+                Descartar e começar do zero
+              </Botao>
+              <Botao pequeno variante="discreto" icone simbolo={X} aria-label="Fechar o aviso" onClick={() => setFaixaDispensada(true)} />
+            </>
+          }
+        >
+          Recuperamos o rascunho guardado às {horaDoRascunho(rascunho.salvoEm)}.
+        </Faixa>
       )}
 
       {detalhesVisiveis && (
-        <div className="space-y-4 border border-rule bg-parchment-deep p-4">
-          <p className="border-l-2 border-gold pl-3 text-sm text-ink-soft">{tipo.ajuda}</p>
+        <Cartao as="div" variante="plano" className="space-y-4">
+          <p className="pn-sobre" style={{ marginTop: 0 }}>
+            {tipo.ajuda}
+          </p>
           {tipo.campos
             .filter((c) => c.tipo === "trilha" || c.tipo === "plano")
             .map((c) => (
@@ -560,7 +682,7 @@ export function Escrever({ me }: { me: Me }) {
               </label>
             ))}
           {id === "temas" && trilha && (
-            <div className="border-l-2 border-rule pl-4">
+            <div className="rounded-md border border-rule bg-parchment px-4 py-3">
               <p>
                 Roteiro atual: <strong>{trilha.ready}</strong> {trilha.ready === 1 ? "aula pronta" : "aulas prontas"} de <strong>{trilha.ready + trilha.planned.length}</strong>.
                 {trilha.planned.length === 0 ? " A trilha está completa: os temas aprovados abrem a próxima etapa." : " Ainda em preparação:"}
@@ -587,20 +709,20 @@ export function Escrever({ me }: { me: Me }) {
               </select>
             </label>
           )}
-          {okTrilha && <button type="button" className={elo} onClick={() => setDetalhes(false)}>Fechar os detalhes e escrever</button>}
-        </div>
+          {okTrilha && (
+            <Botao pequeno variante="discreto" simboloFim={ChevronUp} onClick={() => setDetalhes(false)}>
+              Fechar os detalhes e escrever
+            </Botao>
+          )}
+        </Cartao>
       )}
-      {restrito && areasPermitidas.length === 0 && (
-        <p className="border-l-4 border-oxblood bg-parchment-deep px-3 py-2 text-sm">
-          Você ainda não tem disciplina para escrever. Quem ensina uma disciplina (ou a coordenação) pode convidar você para ajudar nela, em Disciplinas e trilhas › Convites.
-        </p>
-      )}
+      {restrito && areasPermitidas.length === 0 && <Faixa tom="aviso">Você ainda não tem disciplina para escrever. Quem ensina uma disciplina (ou a coordenação) pode convidar você para ajudar nela, em Disciplinas e trilhas › Convites.</Faixa>}
       {restrito && minhas.length > 0 && areasPermitidas.some((area) => !minhas.includes(area)) && !cuidaDeTudo(me) && (
         <p className="text-xs text-ink-soft">Além das suas disciplinas, aparecem as que você foi convidado a ajudar.</p>
       )}
 
       <div className={lado ? "grid gap-6 2xl:grid-cols-2" : ""}>
-        <div className="folha-de-escrita mx-auto w-full max-w-[680px] border border-rule bg-parchment px-5 py-7 shadow-sm sm:px-8">
+        <div className="folha-de-escrita pn-cartao mx-auto w-full max-w-[680px] px-5 py-7 sm:px-8">
           <input
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
@@ -630,10 +752,13 @@ export function Escrever({ me }: { me: Me }) {
             </div>
           )}
           {id === "avulso" && (
-            <div className="mt-5 border-2 border-dashed border-ink/40 bg-parchment-deep p-3 font-sans text-sm">
-              <p className="flex items-center gap-2 font-semibold"><Selo nome="clipe" className="h-5 w-5" /> Tem o material pronto num arquivo?</p>
-              <p className="text-ink-soft">Suba o PDF (resumo, lista de exercícios, apostila, mapa mental, até 8 MB) e escreva embaixo umas linhas dizendo o que é e para quem serve. O arquivo passa pela revisão junto com o texto.</p>
-              <label className={`mt-2 inline-block cursor-pointer border-2 border-ink px-3 py-1.5 font-bold hover:border-oxblood ${enviandoArquivo ? "opacity-50" : ""}`}>
+            <div className="pn-cartao pn-cartao-plano mt-5 font-sans text-sm">
+              <p className="flex items-center gap-2 font-semibold">
+                <Paperclip aria-hidden width={16} height={16} /> Tem o material pronto num arquivo?
+              </p>
+              <p className="pn-ajuda">Suba o PDF (resumo, lista de exercícios, apostila, mapa mental, até 8 MB) e escreva embaixo umas linhas dizendo o que é e para quem serve. O arquivo passa pela revisão junto com o texto.</p>
+              <label className={`pn-botao pn-botao-pequeno mt-2 cursor-pointer focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--pn-foco)] ${enviandoArquivo ? "opacity-50" : ""}`}>
+                <Upload aria-hidden />
                 {enviandoArquivo ? "Enviando…" : "Escolher o PDF"}
                 <input
                   type="file"
@@ -666,15 +791,17 @@ export function Escrever({ me }: { me: Me }) {
             {tipo.corpo.editor ? (
               <MarkdownEditor id="painel-corpo" value={corpo} onChange={setCorpo} labels={editorPt} upload={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")} blocos />
             ) : (
-              <textarea id="painel-corpo" aria-labelledby="rotulo-corpo" value={corpo} onChange={(e) => setCorpo(e.target.value)} rows={8} placeholder={tipo.corpo.rotulo} className="w-full border border-rule bg-parchment-deep px-3 py-2" />
+              <textarea id="painel-corpo" aria-labelledby="rotulo-corpo" value={corpo} onChange={(e) => setCorpo(e.target.value)} rows={8} placeholder={tipo.corpo.rotulo} className="pn-campo w-full" />
             )}
           </div>
           <p className="mt-2 font-mono text-xs text-ink-soft">{palavras} {palavras === 1 ? "palavra" : "palavras"} · cerca de {Math.max(1, Math.round(palavras / 200))} min de leitura</p>
         </div>
         {lado && (
-          <article className="mx-auto w-full max-w-[680px] border border-dashed border-rule bg-parchment-deep px-5 py-7 sm:px-8" aria-label="Pré-visualização">
+          <article className="pn-cartao pn-cartao-plano mx-auto w-full max-w-[680px] px-5 py-7 sm:px-8" aria-label="Pré-visualização">
             <p className={rotuloPequeno}>Como fica na aula</p>
-            <h1 className="mt-2 font-serif text-3xl font-semibold" data-original={titulo ? "" : undefined}>{titulo || tipo.titulo}</h1>
+            <h2 className="mt-2 font-serif text-3xl font-semibold" data-original={titulo ? "" : undefined}>
+              {titulo || tipo.titulo}
+            </h2>
             {valores.resumo && <p className="mt-2 font-serif text-lg italic text-ink-soft" data-original>{valores.resumo}</p>}
             <div className="mt-6" data-original={corpo ? "" : undefined}>
               <Markdown lang="pt">{corpo || "*Nada para mostrar ainda.*"}</Markdown>
@@ -694,20 +821,21 @@ export function Escrever({ me }: { me: Me }) {
         if (abas.length === 0) return null;
         const aberta = abas.some((a) => a.id === complemento) ? complemento : abas[0].id;
         return (
-          <section aria-label="Complementos" className="rounded-lg border border-rule">
+          <Cartao aria-label="Complementos" style={{ padding: 0 }}>
             {abas.length > 1 ? (
-              <div role="tablist" aria-label="Complementos da contribuição" className="flex flex-wrap gap-1 border-b border-rule px-2 pt-1">
+              <div role="tablist" aria-label="Complementos da contribuição" className="pn-abas px-2">
                 {abas.map((aba) => (
-                  <button key={aba.id} type="button" role="tab" aria-selected={aberta === aba.id} onClick={() => setComplemento(aba.id)} className={`-mb-px flex cursor-pointer items-center gap-1.5 border-b-2 px-3 py-2 text-sm ${aberta === aba.id ? "border-ink font-semibold" : "border-transparent text-ink-soft hover:text-ink"}`}>
+                  <button key={aba.id} type="button" role="tab" aria-selected={aberta === aba.id} data-state={aberta === aba.id ? "active" : "inactive"} onClick={() => setComplemento(aba.id)} className="pn-aba">
                     {aba.nome}
-                    {aba.conta && <span className={`rounded-full px-1.5 text-[0.65rem] font-bold ${aba.alerta ? "bg-oxblood text-parchment" : "bg-rule text-ink"}`}>{aba.conta}</span>}
+                    {aba.conta && (aba.alerta ? <Selo tom="bordo">{aba.conta}</Selo> : <Selo>{aba.conta}</Selo>)}
+                    {aberta === aba.id && <span aria-hidden className="pn-aba-indicador" />}
                   </button>
                 ))}
               </div>
             ) : (
               <p className="flex items-center gap-2 border-b border-rule px-4 py-2 text-sm font-semibold">
                 {abas[0].nome}
-                {abas[0].alerta && <span className="rounded-full bg-oxblood px-1.5 text-[0.65rem] font-bold text-parchment">obrigatória</span>}
+                {abas[0].alerta && <Selo tom="bordo">obrigatória</Selo>}
               </p>
             )}
             <div className="p-4">
@@ -716,15 +844,15 @@ export function Escrever({ me }: { me: Me }) {
               {aberta === "ferramentas" && <FerramentasDoAutor key={trilha?.slug ?? ""} titulo={titulo} corpo={corpo} questoes={questoes.length} fontes={fontes.filter((f) => f.titulo.trim()).length} trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} inserir={setCorpo} />}
               {aberta === "colegas" && (
                 <div>
-                  <p className="text-ink-soft">Chame outro educador ou educadora para esta aula: a pessoa recebe o recado na hora e pode editar o texto enquanto ele espera a revisão. Até cinco.</p>
+                  <p className="pn-ajuda">Chame outro educador ou educadora para esta aula: a pessoa recebe o recado na hora e pode editar o texto enquanto ele espera a revisão. Até cinco.</p>
                   {colegas.length > 0 && (
                     <ul className="mt-2 flex flex-wrap gap-2">
                       {colegas.map((pessoa) => (
-                        <li key={pessoa.id} className="flex items-center gap-2 border border-ink bg-parchment px-2 py-1">
+                        <li key={pessoa.id} className="flex items-center gap-2 rounded-md border border-rule bg-parchment py-1 pl-2.5 pr-1">
                           <span>
                             <strong>{pessoa.nome}</strong> <span className="text-xs text-ink-soft">{pessoa.email}</span>
                           </span>
-                          <button type="button" className={elo} aria-label={`Tirar ${pessoa.nome}`} onClick={() => setColegas(colegas.filter((c) => c.id !== pessoa.id))}>✕</button>
+                          <Botao pequeno icone variante="discreto" simbolo={X} aria-label={`Tirar ${pessoa.nome}`} onClick={() => setColegas(colegas.filter((c) => c.id !== pessoa.id))} />
                         </li>
                       ))}
                     </ul>
@@ -737,31 +865,37 @@ export function Escrever({ me }: { me: Me }) {
                 </div>
               )}
             </div>
-          </section>
+          </Cartao>
         );
       })()}
 
       <Verificador titulo={titulo} corpo={corpo} fontes={cleanSources(fontes).length} exigeFonte={tipo.fonte} minimo={tipo.corpo.min} />
 
-      <Aviso texto={aviso} />
+      <Recado texto={aviso} />
 
       {/* A barra de ação fica presa no rodapé enquanto a pessoa escreve. */}
-      <div className="no-print sticky bottom-0 z-20 -mx-1 flex flex-wrap items-center gap-2 border-t-2 border-ink bg-parchment-deep/95 px-3 py-3 backdrop-blur">
-        <button type="button" className="cursor-pointer border border-ink px-4 py-2 text-sm font-medium hover:border-oxblood hover:text-oxblood" onClick={() => { guardarVersao(`escrever:${id}`, titulo, corpo, true); setAviso("Rascunho salvo neste navegador e na sua conta. Ele também fica na lista de versões."); }}>
+      <div className="pn-config-rodape no-print" style={{ justifyContent: "flex-start" }}>
+        <Botao
+          simbolo={Save}
+          onClick={() => {
+            guardarVersao(`escrever:${id}`, titulo, corpo, true);
+            setAviso("Rascunho salvo neste navegador e na sua conta. Ele também fica na lista de versões.");
+          }}
+        >
           Salvar rascunho
-        </button>
-        <button type="button" aria-pressed={lado} className="cursor-pointer border border-ink px-4 py-2 text-sm font-medium hover:border-oxblood hover:text-oxblood" onClick={() => setLado((l) => !l)}>
+        </Botao>
+        <Botao simbolo={Columns2} aria-pressed={lado} onClick={() => setLado((l) => !l)}>
           {lado ? "Esconder a prévia" : "Pré-visualizar ao lado"}
-        </button>
-        <button type="button" aria-pressed={foco} title="Ctrl+Shift+F" className="cursor-pointer border border-ink px-4 py-2 text-sm font-medium hover:border-oxblood hover:text-oxblood" onClick={() => setFoco((f) => !f)}>
+        </Botao>
+        <Botao simbolo={Focus} aria-pressed={foco} title="Ctrl+Shift+F" onClick={() => setFoco((f) => !f)}>
           {foco ? "Sair do modo foco" : "Modo foco"}
-        </button>
+        </Botao>
         <span className="ml-auto hidden max-w-[16rem] text-right text-xs leading-snug text-ink-soft lg:block" title="Tudo passa pela revisão antes de ir ao ar: outro educador da disciplina, a revisão ou a coordenação põe no ar.">
           Você assina como <strong className="text-ink">{me.nome}</strong>. Passa pela revisão antes de ir ao ar.
         </span>
-        <button type="button" onClick={enviar} disabled={ocupado} className="ml-auto cursor-pointer bg-oxblood px-6 py-2.5 font-semibold text-parchment hover:bg-ink disabled:cursor-not-allowed disabled:opacity-50 lg:ml-0">
+        <Botao variante="principal" simbolo={Send} className="ml-auto lg:ml-0" onClick={enviar} disabled={ocupado} carregando={ocupado}>
           Enviar para revisão
-        </button>
+        </Botao>
       </div>
     </form>
   );
@@ -774,8 +908,9 @@ export function Escrever({ me }: { me: Me }) {
   if (!guiaAberto) {
     return (
       <div className="relative">
-        <button type="button" onClick={alternarGuia} className="absolute right-0 top-0 z-10 hidden cursor-pointer rounded-l-md border border-r-0 border-rule bg-parchment-deep px-2 py-3 text-xs font-semibold [writing-mode:vertical-rl] hover:text-oxblood xl:block" aria-label="Mostrar o guia da aula">
-          Guia da aula ‹
+        <button type="button" onClick={alternarGuia} className="absolute right-0 top-0 z-10 hidden cursor-pointer items-center gap-1 rounded-l-md border border-r-0 border-rule bg-folha px-2 py-3 text-xs font-semibold [writing-mode:vertical-rl] hover:text-oxblood xl:flex" aria-label="Mostrar o guia da aula">
+          <ChevronLeft aria-hidden width={14} height={14} className="rotate-90" />
+          Guia da aula
         </button>
         <div className="xl:pr-10">{formulario}</div>
       </div>
@@ -785,9 +920,12 @@ export function Escrever({ me }: { me: Me }) {
     <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_20rem]">
       {formulario}
       <div className="xl:sticky xl:top-6 xl:self-start">
-        <button type="button" onClick={alternarGuia} className="mb-2 hidden w-full cursor-pointer items-center justify-between rounded-md border border-rule px-3 py-1.5 text-xs text-ink-soft hover:text-ink xl:flex">
+        <button type="button" onClick={alternarGuia} className="pn-botao pn-botao-pequeno mb-2 hidden w-full justify-between xl:flex">
           <span className="font-semibold">Guia da aula</span>
-          <span>Recolher ›</span>
+          <span className="inline-flex items-center gap-1">
+            Recolher
+            <ChevronRight aria-hidden />
+          </span>
         </button>
         <GuiaDaAula trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} titulo={titulo} nomeDaArea={nomeDaArea(alvo)} tipo={id} temTexto={corpo.trim().length > 0} inserir={(texto) => setCorpo(texto)} comecarQuestoes={comQuestoes ? () => setQuestoes((q) => (q.length ? q : [questaoVazia(), questaoVazia(), questaoVazia()])) : undefined} />
       </div>
@@ -825,24 +963,45 @@ function Versoes({ chave, titulo, corpo, restaurar }: { chave: string; titulo: s
   }, [chave, titulo, corpo]);
   return (
     <span className="relative">
-      <button type="button" className="cursor-pointer underline hover:text-oxblood" aria-expanded={aberto} onClick={() => { setLista(lerVersoes(chave)); setAberto((a) => !a); }}>
+      <Botao
+        pequeno
+        variante="discreto"
+        simbolo={History}
+        aria-expanded={aberto}
+        onClick={() => {
+          setLista(lerVersoes(chave));
+          setAberto((a) => !a);
+        }}
+      >
         Versões
-      </button>
+      </Botao>
       {aberto && (
-        <div className="absolute right-0 top-6 z-30 w-72 border-2 border-ink bg-parchment p-2 font-sans text-xs shadow-lg">
+        <div className="pn-cartao absolute right-0 top-8 z-30 w-72 p-2 font-sans text-xs" style={{ boxShadow: "var(--pn-sombra-flutuante)" }}>
           {lista.length === 0 ? (
             <p className="text-ink-soft">Ainda não há versões guardadas. Elas aparecem enquanto você escreve.</p>
           ) : (
             <ul className="max-h-72 space-y-1 overflow-y-auto">
               {lista.map((v) => (
-                <li key={v.em} className="flex items-center justify-between gap-2 border-b border-rule py-1">
-                  <span>
+                <li key={v.em} className="flex items-center justify-between gap-2 border-b border-rule py-1 last:border-b-0">
+                  <span className="tabular">
                     {new Date(v.em).toLocaleString(localDoPainel(), { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
-                    <span className="block text-ink-soft">{v.titulo || "(sem título)"} · {v.corpo.split(/\s+/).filter(Boolean).length} palavras</span>
+                    <span className="block text-ink-soft">
+                      {v.titulo || "(sem título)"} · {v.corpo.split(/\s+/).filter(Boolean).length} palavras
+                    </span>
                   </span>
-                  <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={async () => { if ((await confirmarFrase("Trocar o texto atual por esta versão? O texto atual fica guardado na lista."))) { guardarVersao(chave, titulo, corpo, true); restaurar(v); setAberto(false); } }}>
+                  <Botao
+                    pequeno
+                    variante="discreto"
+                    onClick={async () => {
+                      if (await confirmarFrase("Trocar o texto atual por esta versão? O texto atual fica guardado na lista.")) {
+                        guardarVersao(chave, titulo, corpo, true);
+                        restaurar(v);
+                        setAberto(false);
+                      }
+                    }}
+                  >
                     Voltar a esta
-                  </button>
+                  </Botao>
                 </li>
               ))}
             </ul>

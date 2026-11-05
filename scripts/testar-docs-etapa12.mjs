@@ -135,7 +135,8 @@ for (const f of fnsSupabase) conferir(`MANUTENCAO cita a função do Supabase ${
 const rastreio = ler("scripts", "conferir-rastreio.mjs");
 const limiteTotal = Number(/LIMITE_TOTAL = ([\d_]+)/.exec(rastreio)?.[1].replaceAll("_", ""));
 const limiteFuncoes = Number(/LIMITE_FUNCOES_COM_PROJETO = (\d+)/.exec(rastreio)?.[1]);
-conferir("MANUTENCAO: o limite de 700 mil arquivos é o do script", limiteTotal === 700000 && texto.manutencao.includes("700 mil arquivos"));
+// O limite subiu de 700 mil para 760 mil no script; o teste lê o número de lá e cobra o mesmo na MANUTENCAO.
+conferir(`MANUTENCAO: o limite de ${limiteTotal / 1000} mil arquivos é o do script`, limiteTotal >= 700000 && texto.manutencao.includes(`${limiteTotal / 1000} mil arquivos`));
 conferir("MANUTENCAO: o limite de 6 funções é o do script", limiteFuncoes === 6 && /mais de 6 funções/.test(texto.manutencao));
 conferir("MANUTENCAO explica as regras do rastreio", ["caminho dinâmico", "layout raiz", "dynamic import", "módulo só de textos"].every((x) => texto.manutencao.includes(x)));
 conferir("MANUTENCAO e HOSPEDAGEM dão o mesmo número do rastreio (679 mil)", texto.manutencao.includes("679 mil") && texto.hospedagem.includes("679 mil"));
@@ -168,8 +169,9 @@ for (const token of new Set([...texto.painel.matchAll(/`--pn-([a-z-]+)`/g)].map(
 for (const cls of ["pn-botao", "pn-campo", "pn-rotulo"]) conferir(`classe ${cls} existe no tema`, tema.includes(`.${cls}`));
 const comum = ler("components", "painel", "comum.tsx");
 for (const nome of ["campo", "botao", "botaoClaro", "elo", "rotulo", "Aviso", "useLista", "useAcao"]) conferir(`comum.tsx ainda tem ${nome} (PAINEL-COMPONENTES o cita)`, new RegExp(`export (const|function) ${nome}\\b`).test(comum));
-conferir("PAINEL-COMPONENTES: Selo (local) e Avatar existem onde o catálogo diz", /function Selo\b/.test(ler("components", "painel", "MinhaConta.tsx")) && existe("components", "painel", "Avatar.tsx"));
-conferir("PAINEL-COMPONENTES: Painel.tsx monta os diálogos, os avisos e a paleta", ["<DialogosDoPainel", "<AvisosDoPainel", "<Paleta"].every((x) => ler("components", "painel", "Painel.tsx").includes(x)));
+// No redesenho (docs/PAINEL-REDESENHO.md) o Selo local de MinhaConta.tsx deu lugar ao Selo de ui/; o catálogo diz isso.
+conferir("PAINEL-COMPONENTES: Selo e Avatar existem onde o catálogo diz", /export function Selo\b/.test(ler("components", "painel", "ui", "Selo.tsx")) && texto.painel.includes("ui/Selo.tsx") && existe("components", "painel", "Avatar.tsx"));
+conferir("PAINEL-COMPONENTES: Painel.tsx monta os diálogos, os avisos e a paleta", ["<DialogosDoPainel", "<AvisosDoPainel", "<Paleta"].every((x) => ["Painel.tsx", "casca/Dentro.tsx", "casca/Camadas.tsx"].some((a) => ler("components", "painel", a).includes(x))));
 conferir("PAINEL-COMPONENTES: TanStack Table na versão 8", /"@tanstack\/react-table": "\^8/.test(ler("package.json")) && texto.painel.includes("TanStack Table 8"));
 
 // 7. DESENHO DAS PÁGINAS: as peças e as páginas novas existem.
@@ -189,7 +191,8 @@ conferir("DESENHO manda mudar o rastreio e os seis idiomas", texto.desenho.inclu
 // 8. PENDÊNCIAS: ordem, ids únicos e cobertura das fontes.
 const t = texto.pendencias;
 const secoes = [...t.matchAll(/^## (\d+)\. /gm)].map((m) => Number(m[1]));
-conferir("PENDENCIAS: seções numeradas de 1 a 10 em ordem", secoes.join(",") === "1,2,3,4,5,6,7,8,9,10", secoes.join(","));
+// Pelo menos 10 seções, numeradas de 1 em diante sem buraco (a lista ganhou a seção 11).
+conferir("PENDENCIAS: seções numeradas de 1 em diante, em ordem (10 ou mais)", secoes.length >= 10 && secoes.every((n, i) => n === i + 1), secoes.join(","));
 const itens = [...t.matchAll(/^- \[[ x]\] \*\*(\d+\.\d+)\b/gm)].map((m) => m[1]);
 conferir("PENDENCIAS: ids dos itens únicos", new Set(itens).size === itens.length);
 conferir("PENDENCIAS: todo item é uma caixa de marcar", (t.match(/^- \[ \]|^- \[x\]/gm) ?? []).length === itens.length);

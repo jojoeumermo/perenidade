@@ -648,7 +648,8 @@ await espera("o registro da Rede e o menu ligam as telas do pacote", async () =>
   return [["comunidades", "propor", "aula", "nucleos"].every((n) => new RegExp(`${n}: \\{ componente: dynamic\\(\\(\\) => import\\("\\./comunidades/`).test(registro)), /\/comunidades`/.test(casca), /\/nucleos`/.test(casca), /<PaginaDaComunidade \{\.\.\.props\} sc=\{sc\} \/>/.test(telas)];
 }, (r) => r.every(Boolean));
 await espera("o painel da coordenação tem a seção 'Rede: propostas de comunidade', com guia e só para coordenação", async () => {
-  const painel = lerTexto("components/painel/Painel.tsx");
+  // O registro de seções e a casca saíram de Painel.tsx para casca/ no redesenho (docs/PAINEL-REDESENHO.md): lemos os dois.
+const painel = lerTexto("components/painel/Painel.tsx") + "\n" + lerTexto("components/painel/casca/Dentro.tsx");
   return [/id: "rede-propostas", nome: "Rede: propostas de comunidade"[^}]*can\(eu, "coordenacao", "vice"\)/.test(painel), /atual\.id === "rede-propostas" && <RedePropostas \/>/.test(painel), /"rede-propostas": \{/.test(lerTexto("components/painel/guias.ts")), /rede_com_propostas_fila/.test(lerTexto("components/painel/RedePropostas.tsx")), /rede_com_decidir/.test(lerTexto("components/painel/RedePropostas.tsx"))];
 }, (r) => r.every(Boolean));
 await espera("a migração não mexe no install.sql nem cria tabela, e toda função nova é security definer com search_path", async () => {

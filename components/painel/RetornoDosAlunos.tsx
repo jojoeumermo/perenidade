@@ -4,7 +4,9 @@
 import { useMemo, useState } from "react";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
-import { Aviso, useLista } from "./comum";
+import { ArrowUpRight } from "lucide-react";
+import { useLista } from "./comum";
+import { Abas, Botao, CabecalhoDeSecao, Esqueleto, Estatistica, Estatisticas, Faixa, Selecao, Selo, Vazio } from "./ui";
 
 // O retorno dos alunos (uma das ideias do painel): as contagens anônimas de cada aula (abriu, terminou, fez o teste,
 // acertou, "ajudou" e "não ajudou"), que o site já guarda sem identificar ninguém (aulas_funcionam, docs/MEDIR-SE-AS-AULAS-FUNCIONAM.md).
@@ -41,57 +43,104 @@ export function RetornoDosAlunos() {
   );
   const cuidado = (l: Linha) => (pct(l.terminou, l.abriu) ?? 100) < 25 || (l.nao_ajudou >= 3 && l.nao_ajudou > l.ajudou);
 
+  const abertas = linhas.reduce((n, l) => n + l.abriu, 0);
+  const terminadas = linhas.reduce((n, l) => n + l.terminou, 0);
+  const comCuidado = linhas.filter(cuidado).length;
+
   return (
-    <section aria-labelledby="retorno" className="mt-10">
-      <h2 id="retorno" className="font-serif text-2xl font-semibold">Retorno dos alunos</h2>
-      <p className="mt-1 max-w-3xl text-sm text-ink-soft">
-        Contagens anônimas de cada aula: quantas vezes foi aberta, terminada, quantos fizeram o teste e acertaram, e quantos disseram que ajudou ou não. Ninguém é identificado. Só entram aulas abertas pelo menos cinco vezes.
-      </p>
-      <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
-        <label>
-          Período{" "}
-          <select value={dias} onChange={(e) => setDias(Number(e.target.value))} className="painel-campo border-2 border-ink bg-parchment-deep px-2 py-1">
+    <section aria-labelledby="retorno" className="pn-secao mt-10">
+      <CabecalhoDeSecao
+        id="retorno"
+        titulo="Retorno dos alunos"
+        sobre="Contagens anônimas de cada aula: quantas vezes foi aberta, terminada, quantos fizeram o teste e acertaram, e quantos disseram que ajudou ou não. Ninguém é identificado. Só entram aulas abertas pelo menos cinco vezes."
+      />
+      <div className="flex flex-wrap items-end gap-3 text-sm">
+        <div className="w-36">
+          <Selecao rotulo="Período" value={dias} onChange={(e) => setDias(Number(e.target.value))}>
             <option value={30}>30 dias</option>
             <option value={90}>90 dias</option>
             <option value={365}>1 ano</option>
-          </select>
-        </label>
-        <span role="group" aria-label="Ordenar" className="flex flex-wrap gap-1.5">
-          {([["abertas", "Mais abertas"], ["conclusao", "Menos terminadas"], ["nao_ajudou", "Mais “não ajudou”"]] as [Ordem, string][]).map(([id, nome]) => (
-            <button key={id} type="button" aria-pressed={ordem === id} onClick={() => setOrdem(id)} className={`cursor-pointer border-2 border-ink px-2.5 py-0.5 text-[0.8rem] font-semibold ${ordem === id ? "bg-ink text-parchment" : "bg-folha"}`}>
-              {nome}
-            </button>
-          ))}
-        </span>
+          </Selecao>
+        </div>
+        <div className="min-w-0 flex-1">
+          <Abas
+            rotulo="Ordenar"
+            valor={ordem}
+            aoMudar={setOrdem}
+            opcoes={[
+              { id: "abertas", nome: "Mais abertas" },
+              { id: "conclusao", nome: "Menos terminadas" },
+              { id: "nao_ajudou", nome: "Mais “não ajudou”" },
+            ]}
+          />
+        </div>
       </div>
-      <Aviso texto={lista.erro} />
-      {lista.dados && linhas.length === 0 && <p className="mt-3 text-ink-soft">Ainda não há aulas com cinco aberturas neste período.</p>}
+      {lista.erro && (
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao pequeno onClick={lista.recarregar}>
+              Tentar de novo
+            </Botao>
+          }
+        >
+          {lista.erro}
+        </Faixa>
+      )}
+      {lista.dados === null && !lista.erro && <Esqueleto forma="tabela" linhas={5} />}
+      {lista.dados && linhas.length === 0 && <Vazio titulo="Ainda não há aulas com cinco aberturas neste período." />}
       {linhas.length > 0 && (
-        <div className="mt-3 overflow-x-auto">
-          <table className="w-full min-w-[40rem] border-collapse text-sm">
+        <Estatisticas rotulo="Retorno dos alunos">
+          <Estatistica rotulo="Abriram" valor={abertas.toLocaleString(lang)} />
+          <Estatistica rotulo="Terminaram" valor={`${pct(terminadas, abertas) ?? "—"}%`} />
+          <Estatistica rotulo="precisa de cuidado" valor={comCuidado} tom={comCuidado ? "bordo" : "neutro"} />
+        </Estatisticas>
+      )}
+      {linhas.length > 0 && (
+        <div className="pn-tabela-caixa overflow-x-auto">
+          <table className="pn-tabela w-full min-w-[40rem] text-sm">
             <thead>
-              <tr className="border-b-2 border-ink text-left">
-                <th className="py-2 pr-3">Aula</th>
-                <th className="px-2 text-right">Abriram</th>
-                <th className="px-2 text-right">Terminaram</th>
-                <th className="px-2 text-right">Acertaram o teste</th>
-                <th className="px-2 text-right">Ajudou / não</th>
+              <tr className="text-left">
+                <th scope="col" className="py-2 pr-3">
+                  Aula
+                </th>
+                <th scope="col" className="px-2 text-right">
+                  Abriram
+                </th>
+                <th scope="col" className="px-2 text-right">
+                  Terminaram
+                </th>
+                <th scope="col" className="px-2 text-right">
+                  Acertaram o teste
+                </th>
+                <th scope="col" className="px-2 text-right">
+                  Ajudou / não
+                </th>
               </tr>
             </thead>
             <tbody>
               {linhas.slice(0, 60).map((l) => {
                 const t = titulos.get(l.aula);
                 return (
-                  <tr key={l.aula} className={`border-b border-rule ${cuidado(l) ? "bg-oxblood/5" : ""}`}>
+                  <tr key={l.aula}>
                     <td className="py-2 pr-3">
-                      <a href={`/${lang}/trilhas/${l.aula}`} target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-prelo-texto">{t?.aula ?? l.aula}</a>
+                      <a href={`/${lang}/trilhas/${l.aula}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold hover:text-prelo-texto">
+                        {t?.aula ?? l.aula}
+                        <ArrowUpRight aria-hidden width={13} height={13} />
+                      </a>
                       {t && <span className="block text-xs text-ink-soft">{t.trilha}</span>}
-                      {cuidado(l) && <span className="text-xs font-semibold text-oxblood">precisa de cuidado</span>}
+                      {cuidado(l) && (
+                        <Selo tom="erro" className="mt-1">
+                          precisa de cuidado
+                        </Selo>
+                      )}
                     </td>
                     <td className="px-2 text-right font-mono">{l.abriu}</td>
                     <td className="px-2 text-right font-mono">{pct(l.terminou, l.abriu) ?? "—"}%</td>
                     <td className="px-2 text-right font-mono">{l.teste ? `${pct(l.acertou, l.teste)}%` : "—"}</td>
-                    <td className="px-2 text-right font-mono">{l.ajudou} / {l.nao_ajudou}</td>
+                    <td className="px-2 text-right font-mono">
+                      {l.ajudou} / {l.nao_ajudou}
+                    </td>
                   </tr>
                 );
               })}

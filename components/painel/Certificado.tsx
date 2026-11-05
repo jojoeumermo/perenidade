@@ -4,7 +4,9 @@
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import { useI18n } from "../I18n";
-import { botao, botaoClaro, campo, diaBr, localDoPainel } from "./comum";
+import { ArrowLeft, Printer } from "lucide-react";
+import { diaBr, localDoPainel } from "./comum";
+import { Botao, Campo, Cartao, Faixa } from "./ui";
 
 export interface Assinatura {
   id: string;
@@ -45,23 +47,23 @@ export function Impresso({ certificado, fechar }: { certificado: Certificado; fe
     <div>
       {/* Enquanto a folha está na tela, a página de impressão é A4 deitada e sem margens. */}
       <style>{"@page { size: A4 landscape; margin: 0; }"}</style>
-      <div className="no-print mb-6 flex flex-wrap items-end gap-3">
-        <label className="block">
-          CPF de quem recebe (opcional, não é guardado)
-          <input value={cpf} onChange={(e) => setCpf(e.target.value)} maxLength={14} inputMode="numeric" placeholder="000.000.000-00" className={campo} />
-        </label>
-        <button type="button" className={botao} disabled={!emitido} onClick={() => window.print()}>
-          Salvar em PDF ou imprimir
-        </button>
-        <button type="button" className={botaoClaro} onClick={fechar}>
-          Voltar
-        </button>
-        <p className="w-full text-ink-soft">
+      {/* Só os controles da tela mudaram de desenho; a folha (abaixo) guarda as cores e a medida do documento. */}
+      <Cartao as="div" className="no-print mb-6">
+        <div className="flex flex-wrap items-end gap-3">
+          <Campo rotulo="CPF de quem recebe (opcional, não é guardado)" value={cpf} onChange={(e) => setCpf(e.target.value)} maxLength={14} inputMode="numeric" placeholder="000.000.000-00" />
+          <Botao variante="principal" simbolo={Printer} disabled={!emitido} onClick={() => window.print()}>
+            Salvar em PDF ou imprimir
+          </Botao>
+          <Botao simbolo={ArrowLeft} onClick={fechar}>
+            Voltar
+          </Botao>
+        </div>
+        <Faixa tom={emitido ? "info" : "aviso"} className="mt-3">
           {emitido
             ? "Na janela de impressão, escolha “Salvar como PDF”, papel A4 e ligue “Gráficos de plano de fundo”. A orientação e as margens já vêm certas."
             : "Esta é a prévia. O certificado só pode ser salvo depois das três assinaturas."}
-        </p>
-      </div>
+        </Faixa>
+      </Cartao>
       <Folha certificado={certificado} cpf={cpf} />
     </div>
   );

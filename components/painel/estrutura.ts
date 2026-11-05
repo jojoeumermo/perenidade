@@ -2,7 +2,7 @@
 //
 // A estrutura do painel novo: os 8 espaços do menu, os 4 moldes de tela e o mapa "seção, espaço, molde".
 // Só dados e funções puras (sem importar nada do site), para o menu, a paleta, o teste e a documentação lerem o mesmo mapa.
-// Nenhuma seção some: o teste (scripts/testar-painel-fundacao.mjs) confere que todo id do registro de Painel.tsx está aqui.
+// Nenhuma seção some: o teste (scripts/testar-painel-fundacao.mjs) confere que todo id do registro de seções (casca/Dentro.tsx) está aqui.
 
 export type IdDoEspaco = "mesa" | "producao" | "revisao" | "comunidade" | "equipe" | "site" | "seguranca" | "conta";
 export type Molde = "fila" | "tabela" | "registro" | "configuracao";
@@ -12,20 +12,25 @@ export interface Espaco {
   nome: string;
   /** Uma linha: para que serve o espaço. */
   sobre: string;
-  /** Traço do ícone (viewBox 24, traço de 2). */
+  /** Nome do ícone Lucide do espaço (o componente sai de icones.tsx: aqui ficam só dados, sem importar biblioteca). */
+  icone: NomeDoIconeDoEspaco;
+  /** Traço do ícone antigo (viewBox 24, traço de 2). Fica enquanto algo de fora ainda desenha por ele. */
   desenho: string;
 }
 
+/** Os ícones Lucide dos 8 espaços (contrato: docs/PAINEL-REDESENHO.md, seção 6). */
+export type NomeDoIconeDoEspaco = "House" | "PenTool" | "CheckCheck" | "HeartHandshake" | "Users" | "Settings2" | "Shield" | "UserRound";
+
 /** Os 8 espaços, na ordem do trabalho. */
 export const ESPACOS: Espaco[] = [
-  { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", desenho: "M4 11l8-7 8 7v9h-5.5v-6h-5v6H4z" },
-  { id: "producao", nome: "Escrever e produzir", sobre: "Aulas, matérias, vídeos, podcast, arte e tudo o que vai para o site.", desenho: "M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4" },
-  { id: "revisao", nome: "Revisar e publicar", sobre: "Filas de leitura, parecer e decisão do que vai ao ar.", desenho: "M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7" },
-  { id: "comunidade", nome: "Comunidade e atendimento", sobre: "Quem escreve ao instituto: denúncias, dúvidas, murais e boletim.", desenho: "M4 5h16v11H10l-4.5 4v-4H4z" },
-  { id: "equipe", nome: "Equipe", sobre: "Pessoas, departamentos, conversas, horas, termos e decisões coletivas.", desenho: "M9 11.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20c.7-3.5 3.3-5.5 6.5-5.5s5.8 2 6.5 5.5M16 4.5a3.2 3.2 0 0 1 0 6.3M18 14.5c2 .6 3.3 2.6 3.6 5.5" },
-  { id: "site", nome: "Site e operação", sobre: "Faixa, avisos de abertura, rádio, apoio e o estado técnico.", desenho: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" },
-  { id: "seguranca", nome: "Segurança", sobre: "Segundo fator, sucessão, interdição e o registro do que foi decidido.", desenho: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" },
-  { id: "conta", nome: "Minha conta", sobre: "Seu perfil, suas contribuições e a proteção da sua conta.", desenho: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" },
+  { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", icone: "House", desenho: "M4 11l8-7 8 7v9h-5.5v-6h-5v6H4z" },
+  { id: "producao", nome: "Escrever e produzir", sobre: "Aulas, matérias, vídeos, podcast, arte e tudo o que vai para o site.", icone: "PenTool", desenho: "M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4" },
+  { id: "revisao", nome: "Revisar e publicar", sobre: "Filas de leitura, parecer e decisão do que vai ao ar.", icone: "CheckCheck", desenho: "M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7" },
+  { id: "comunidade", nome: "Comunidade e atendimento", sobre: "Quem escreve ao instituto: denúncias, dúvidas, murais e boletim.", icone: "HeartHandshake", desenho: "M4 5h16v11H10l-4.5 4v-4H4z" },
+  { id: "equipe", nome: "Equipe", sobre: "Pessoas, departamentos, conversas, horas, termos e decisões coletivas.", icone: "Users", desenho: "M9 11.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20c.7-3.5 3.3-5.5 6.5-5.5s5.8 2 6.5 5.5M16 4.5a3.2 3.2 0 0 1 0 6.3M18 14.5c2 .6 3.3 2.6 3.6 5.5" },
+  { id: "site", nome: "Site e operação", sobre: "Faixa, avisos de abertura, rádio, apoio e o estado técnico.", icone: "Settings2", desenho: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" },
+  { id: "seguranca", nome: "Segurança", sobre: "Segundo fator, sucessão, interdição e o registro do que foi decidido.", icone: "Shield", desenho: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" },
+  { id: "conta", nome: "Minha conta", sobre: "Seu perfil, suas contribuições e a proteção da sua conta.", icone: "UserRound", desenho: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" },
 ];
 
 export interface Molde4 {
@@ -47,7 +52,7 @@ export interface Mapeamento {
   molde: Molde;
 }
 
-/** Id da seção (registro de components/painel/Painel.tsx) → espaço e molde. Os 55 ids do registro, sem exceção. */
+/** Id da seção (registro de components/painel/casca/Dentro.tsx) → espaço e molde. Os 55 ids do registro, sem exceção. */
 export const MAPA: Record<string, Mapeamento> = {
   // Mesa
   mesa: { espaco: "mesa", molde: "fila" },

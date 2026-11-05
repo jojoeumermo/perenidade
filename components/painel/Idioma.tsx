@@ -210,7 +210,11 @@ export function TraduzirPainel() {
   return null;
 }
 
-/** Escolha do idioma dentro do painel: troca o endereço e mantém a seção aberta. */
+/**
+ * Escolha do idioma dentro do painel: troca o endereço e mantém a seção aberta. É uma seleção compacta que serve em
+ * qualquer fundo (o pé do menu em tinta, a porta escura e os cartões claros): o texto e o fio herdam a cor de onde ela
+ * está, e a lista que abre usa o papel e a tinta do tema.
+ */
 export function IdiomaDoPainel({ className = "" }: { className?: string }) {
   const { lang, t } = useI18n();
   const router = useRouter();
@@ -221,10 +225,11 @@ export function IdiomaDoPainel({ className = "" }: { className?: string }) {
       value={lang}
       translate="no"
       onChange={(e) => router.replace(`/${e.target.value}/painel${window.location.search}`)}
-      className={`cursor-pointer border border-[#3a3226] bg-[#17130e] px-1.5 py-1 text-xs text-[#efe4c8] hover:border-[#d4a24c] ${className}`}
+      className={`pn-campo w-auto cursor-pointer ${className}`}
+      style={{ minHeight: "1.75rem", padding: "0.15rem 0.45rem", fontSize: "0.78rem", background: "transparent", color: "inherit", borderColor: "color-mix(in srgb, currentColor 45%, transparent)" }}
     >
       {locales.map((codigo) => (
-        <option key={codigo} value={codigo} lang={codigo}>
+        <option key={codigo} value={codigo} lang={codigo} style={{ background: "var(--pn-superficie)", color: "var(--pn-texto)" }}>
           {localeNames[codigo]}
         </option>
       ))}

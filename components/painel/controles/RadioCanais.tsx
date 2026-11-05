@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { useLista } from "../comum";
-import { Area, Botao, Campo, confirmar, Dialogo, Esqueleto, Vazio } from "../ui";
+import { Area, Botao, Campo, confirmar, Dialogo, Esqueleto, Faixa, Vazio } from "../ui";
 import { duracaoEmTexto, erroDaFaixa, erroDoCanalDaRadio, segundosDoTexto } from "./regras";
 import { useControle } from "./usarControle";
 
@@ -43,9 +43,16 @@ export function RadioCanais() {
   const [faixa, setFaixa] = useState<EdicaoDeFaixa | null>(null);
   if (!lista.dados) {
     return lista.erro ? (
-      <p role="alert" className="pn-erro">
+      <Faixa
+        tom="erro"
+        acao={
+          <Botao pequeno onClick={lista.recarregar}>
+            Tentar de novo
+          </Botao>
+        }
+      >
         {lista.erro}
-      </p>
+      </Faixa>
     ) : (
       <Esqueleto />
     );
@@ -106,7 +113,7 @@ export function RadioCanais() {
           <section key={c.id} className="pn-cartao" aria-labelledby={`canal-${c.id}`} style={{ display: "grid", gap: "0.7rem" }}>
             <div className="pn-barra-ferramentas">
               <div style={{ flex: 1, minWidth: 0 }}>
-                <h3 id={`canal-${c.id}`} className="pn-secao-titulo">
+                <h3 id={`canal-${c.id}`} className="pn-cartao-titulo">
                   {c.nome}
                 </h3>
                 {c.descricao && <p className="pn-ajuda">{c.descricao}</p>}

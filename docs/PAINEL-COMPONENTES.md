@@ -19,7 +19,7 @@ Regra da camada nova: componente novo **não escreve cor**. Só classes `pn-*` e
 | `Dialogo` | Janela com foco preso, Esc fecha e devolve o foco (Radix Dialog). |
 | `confirmar()`, `perguntar()`, `confirmarFrase()`, `perguntarTexto()` + `<DialogosDoPainel />` | No lugar de `window.confirm` e `window.prompt`. Veja "Confirmar e perguntar" abaixo. |
 | `notificar` + `<AvisosDoPainel />` | Aviso curto que some sozinho (Sonner): `notificar.ok`, `.erro`, `.info` e `.desfazer(texto, aoDesfazer)` (8 s para desfazer). |
-| `Paleta` | Ctrl K: seções por espaço, nome e descrição, mais comandos (cmdk). |
+| `Paleta` | Ctrl K: seções por espaço, nome e descrição, mais comandos (cmdk). `useFocoDeVolta(aberto)` guarda o elemento que tinha o foco e o devolve quando a janela fecha. |
 | `Abas` (de `ui/`) | Abas com setas do teclado (Radix Tabs): `opcoes`, `valor`, `aoMudar`, `rotulo` e, se quiser, `painel`. |
 | `Vazio`, `Esqueleto` | Estado vazio (título, texto e ação) e carregando (`rotulo` lido pelo leitor de tela). |
 
@@ -58,6 +58,20 @@ Os moldes não repetem o `h1`: o título e a descrição da seção ficam no cab
 
 `components/painel/Menu.tsx` desenha o menu lateral (recolhível no computador; folha inteira e barra de baixo no celular: Mesa, Escrever, Revisar, Atender, Mais). A fonte única de "qual seção mora em qual espaço" é `estrutura.ts` (`ESPACOS`, `MOLDES`, `MAPA`, `espacoDe`, `moldeDe`); o menu, a paleta e o teste leem o mesmo mapa. O que estava aberto fica guardado no aparelho (`lucia:painel-grupos`). Os atributos `data-tour` do tutorial precisam continuar no menu.
 
+## Redesenho de novembro de 2026 (fundação)
+
+O contrato completo está em `docs/PAINEL-REDESENHO.md` (vale sobre este arquivo onde os dois discordarem: Garamond volta aos títulos de seção e o mono volta aos rótulos). O painel aberto mora em `components/painel/casca/` (`Dentro.tsx`, `BarraSuperior.tsx`, `Camadas.tsx`, `Glossario.tsx`, `AtalhosDeTeclado.tsx`), carregado só no navegador; o estado da casca (menu recolhido, grupos, fixadas, recentes, larguras, modos, comandos da paleta, remendos otimistas) mora em `components/painel/estado.ts` (Zustand). Componentes novos de `ui/`, todos exportados por `ui/index.ts`:
+
+- `Cartao` (`PropsDoCartao`, `VarianteDoCartao`: padrão, destaque, alerta, plano; `interativo`), `CabecalhoDeSecao` (nível 1 só da casca; nas seções, nível 2), `Faixa` (`TomDaFaixa`), `Separador`.
+- `Selo` (`TomDoSelo`, sempre com palavra) e `Contador` (o número bordô do que espera, animado).
+- `Lista` e `ItemDeLista`; `Estatistica` e `Estatisticas` (`TomDaEstatistica`); `Kbd`; `Busca` (campo com lupa, Esc limpa).
+- `MenuSuspenso` (`ItemDoMenuSuspenso`, Radix Dropdown Menu) e `Dica` (Radix Tooltip).
+- `PaineisAjustaveis` (`PainelAjustavel`, react-resizable-panels 3: colunas que se arrastam, larguras guardadas).
+- `Composer` (`ComandoDoComposer`, `PropsDoComposer`): texto com comandos `/`, menção `@`, Ctrl B e Ctrl I; a saída é o mesmo texto simples.
+- Movimento (Framer Motion, só por `m.*` dentro do `MotionConfig` da casca): `mola`, `curva`, `Surgir`, `ListaAnimada`, `ContagemAnimada`.
+- `Esqueleto` ganhou `FormaDoEsqueleto` (linhas, cartões, tabela, fila); `Vazio` ganhou `simbolo`; `Botao` ganhou `simbolo`, `carregando`, `atalho` e `dica`; `cx` junta classes.
+- Paleta (Ctrl K): a seção registra os comandos dela com `useComandosDaSecao` (`ComandoDaSecao`: `perigo` passa pelo `confirmar()`, `pedePessoa` abre a lista da equipe). Ação simples e reversível pode usar `agirOtimista` (ou `useAcaoOtimista`) de `comum.tsx`.
+
 ## Estilos e componentes da camada de antes
 
 `comum.tsx` e `Campos.tsx` seguem em uso pelas telas que ainda não migraram:
@@ -72,7 +86,7 @@ Os moldes não repetem o `h1`: o título e a descrição da seção ficam no cab
 | `useAcao` | Executa uma ação, mostra "ocupado", a mensagem de sucesso ou o erro traduzido (`textoDoErro`). |
 | `CampoData` | Data digitada como dd/mm/aaaa, com calendário no idioma da página; valor AAAA-MM-DD. Teclado: setas, Enter, Esc. |
 | `CampoArquivo` | Arrastar e soltar (ou clicar), confere tipo e tamanho; nada de "Choose File". |
-| `Selo` (função local de `MinhaConta.tsx`, não exportada) | Estado com palavra e cor (ok, atenção, erro), nunca só cor. Em outro lugar, repita o padrão (palavra mais cor) ou exporte a função em vez de copiar. |
+| `Selo` (agora em `ui/Selo.tsx`; a função local de `MinhaConta.tsx` saiu no redesenho) | Estado com palavra e cor (ok, aviso, erro), nunca só cor. Use o de `ui/`. |
 | `Avatar` (`Avatar.tsx`) | Foto, desenho ou iniciais da pessoa. |
 
 ## Regras de escrita e acessibilidade

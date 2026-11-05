@@ -1,17 +1,21 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { BackendError, rpc, type Role } from "@/lib/backend";
 import { PAINEL_REMOTO, transmitir } from "@/lib/tempo-real";
+import { usePainel } from "./estado";
+import { notificar } from "./ui/Toast";
 
 // O painel é a mesa de trabalho da equipe e existe só em português.
 
-export const campo = "painel-campo mt-1 w-full border border-ink bg-folha px-3 py-2";
-export const botao = "painel-botao painel-botao-principal cursor-pointer px-5 py-2.5 font-semibold disabled:cursor-not-allowed disabled:opacity-50";
-export const botaoClaro = "painel-botao painel-botao-claro cursor-pointer border px-5 py-2 font-semibold disabled:cursor-not-allowed disabled:opacity-50";
-export const elo = "cursor-pointer underline hover:text-oxblood";
-export const rotulo = "painel-rotulo text-xs font-semibold uppercase text-ink-soft";
+// As classes de sempre agora apontam para o desenho novo (styles/painel-tema.css): o que ainda não migrou para os
+// componentes de ui/ já sai com a cara nova.
+export const campo = "pn-campo mt-1";
+export const botao = "pn-botao pn-botao-principal";
+export const botaoClaro = "pn-botao";
+export const elo = "pn-elo";
+export const rotulo = "pn-rotulo-mono";
 
 export const papeis: Record<Role["papel"], string> = {
   coordenacao: "Coordenação comunitária",
@@ -204,12 +208,20 @@ export function useLista<T>(funcao: string, argumentos: Record<string, unknown> 
   const [estado, setEstado] = useState<{ dados: T | null; erro: string }>({ dados: null, erro: "" });
   const [volta, setVolta] = useState(0);
   const chave = JSON.stringify(argumentos);
+  const chaveDaLista = chaveDe(funcao, argumentos);
+  // Os remendos da Optimistic UI (agirOtimista): a tela já mostra a mudança antes de o banco responder.
+  const remendos = usePainel((s) => s.remendos[chaveDaLista]);
+  const soltar = usePainel((s) => s.soltarRemendos);
 
   useEffect(() => {
     let cancelado = false;
+    const inicio = Date.now();
     rpc<T>(funcao, JSON.parse(chave) as Record<string, unknown>)
       .then((dados) => {
-        if (!cancelado) setEstado({ dados, erro: "" });
+        if (cancelado) return;
+        setEstado({ dados, erro: "" });
+        // Esta leitura começou depois de o banco confirmar os remendos mais velhos: eles já vêm nos dados.
+        soltar(chaveDe(funcao, JSON.parse(chave) as Record<string, unknown>), inicio);
       })
       .catch((erro: unknown) => {
         if (!cancelado) setEstado({ dados: null, erro: textoDoErro(erro) });
@@ -217,7 +229,29 @@ export function useLista<T>(funcao: string, argumentos: Record<string, unknown> 
     return () => {
       cancelado = true;
     };
-  }, [funcao, chave, volta]);
+  }, [funcao, chave, volta, soltar]);
+
+  // Quem agiu de forma otimista pede uma leitura nova desta lista (pela chave).
+  useEffect(() => {
+    const pedido = (e: Event) => {
+      if ((e as CustomEvent<string>).detail === chaveDaLista) setVolta((v) => v + 1);
+    };
+    window.addEventListener(RELER_LISTA, pedido);
+    return () => window.removeEventListener(RELER_LISTA, pedido);
+  }, [chaveDaLista]);
+
+  const dados = useMemo(() => {
+    if (estado.dados === null || !remendos?.length) return estado.dados;
+    let atual: unknown = estado.dados;
+    for (const r of remendos) {
+      try {
+        atual = r.aplicar(atual);
+      } catch {
+        // Um remendo que não cabe nos dados de agora é ignorado: a leitura nova acerta a tela.
+      }
+    }
+    return atual as T;
+  }, [estado.dados, remendos]);
 
   // Aviso de outro painel: refaz a lista, com uma pequena espera para juntar avisos que chegam em rajada.
   useEffect(() => {
@@ -235,11 +269,67 @@ export function useLista<T>(funcao: string, argumentos: Record<string, unknown> 
     };
   }, [quieta]);
 
-  return { ...estado, recarregar: useCallback(() => setVolta((v) => v + 1), []) };
+  return { dados, erro: estado.erro, recarregar: useCallback(() => setVolta((v) => v + 1), []) };
 }
 
 /** Evento disparado depois de toda ação que deu certo no painel. */
 export const PAINEL_MUDOU = "painel-mudou";
+/** Pedido de leitura nova de uma lista (detail: a chave da lista). */
+const RELER_LISTA = "painel-reler-lista";
+
+/** A chave de uma lista do useLista: o nome da função e os argumentos (a mesma que agirOtimista usa). */
+export const chaveDe = (funcao: string, argumentos: Record<string, unknown> = {}) => `${funcao}:${JSON.stringify(argumentos)}`;
+
+export interface AcaoOtimista<T> {
+  /** A lista que a tela mostra: a mesma função e os mesmos argumentos do useLista dela. */
+  lista: { funcao: string; argumentos?: Record<string, unknown> };
+  /** O que a tela mostra já, antes de o banco responder. */
+  remendo: (dados: T) => T;
+  funcao: string;
+  argumentos: Record<string, unknown>;
+  /** A frase do aviso de sucesso (vai para notificar.ok). Sem ela, nenhum aviso. */
+  sucesso?: string;
+}
+
+/**
+ * Optimistic UI: a tela muda na hora; depois chama o mesmo rpc, avisa o painel (PAINEL_MUDOU e o canal de tempo real,
+ * como o useAcao) e pede uma leitura nova da lista. Se falhar, a tela volta e aparece o erro. Devolve true se deu certo.
+ * Só para ação simples e reversível (mudar status, reservar, marcar como lida, fixar, apoiar, mover na fila). Apagar,
+ * publicar, banir e tudo o que pede confirmar() continua esperando o banco (useAcao).
+ */
+export async function agirOtimista<T>({ lista, remendo, funcao, argumentos, sucesso }: AcaoOtimista<T>): Promise<boolean> {
+  const chave = chaveDe(lista.funcao, lista.argumentos ?? {});
+  const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  const casca = usePainel.getState();
+  casca.remendar(chave, { id, desde: Number.POSITIVE_INFINITY, aplicar: (dados) => remendo(dados as T) });
+  try {
+    await rpc<unknown>(funcao, argumentos);
+    usePainel.getState().confirmarRemendo(chave, id);
+    window.dispatchEvent(new Event(PAINEL_MUDOU));
+    transmitir(funcao);
+    window.dispatchEvent(new CustomEvent(RELER_LISTA, { detail: chave }));
+    if (sucesso) notificar.ok(sucesso);
+    return true;
+  } catch (erro) {
+    usePainel.getState().tirarRemendo(chave, id);
+    notificar.erro(textoDoErro(erro));
+    return false;
+  }
+}
+
+/** A mesma ação otimista como hook, para telas que mostram "ocupado" enquanto o banco responde. */
+export function useAcaoOtimista() {
+  const [ocupado, setOcupado] = useState(false);
+  const agir = useCallback(async <T,>(acao: AcaoOtimista<T>) => {
+    setOcupado(true);
+    try {
+      return await agirOtimista(acao);
+    } finally {
+      setOcupado(false);
+    }
+  }, []);
+  return { agir, ocupado };
+}
 
 /** Executa uma ação e mostra o resultado em uma linha de aviso. */
 export function useAcao(depois?: () => void) {
@@ -275,21 +365,23 @@ export function Aviso({ texto }: { texto: string }) {
   );
 }
 
-/** Divisões dentro de uma seção do painel, para aparecer uma coisa de cada vez. */
+/**
+ * Divisões dentro de uma seção do painel, para aparecer uma coisa de cada vez. (A antiga, de botões; as seções migram
+ * para a Abas de ui/, com setas do teclado. Esta já sai no desenho novo enquanto isso.)
+ */
 export function Abas<T extends string>({ opcoes, atual, escolher }: { opcoes: { id: T; nome: string; conta?: number }[]; atual: T; escolher: (id: T) => void }) {
   return (
-    <div role="tablist" className="mb-6 flex flex-wrap gap-x-6 gap-y-1 border-b border-rule">
+    <div role="tablist" className="pn-abas mb-6">
       {opcoes.map((opcao) => (
-        <button
-          key={opcao.id}
-          type="button"
-          role="tab"
-          aria-selected={atual === opcao.id}
-          onClick={() => escolher(opcao.id)}
-          className={`painel-aba -mb-px cursor-pointer border-b-2 pb-2 ${atual === opcao.id ? "border-[#c21f16] font-semibold text-ink" : "border-transparent text-ink-soft hover:border-rule hover:text-ink"}`}
-        >
+        <button key={opcao.id} type="button" role="tab" aria-selected={atual === opcao.id} data-state={atual === opcao.id ? "active" : "inactive"} onClick={() => escolher(opcao.id)} className="pn-aba">
           {opcao.nome}
-          {Boolean(opcao.conta) && <span className="painel-pilula ml-1.5 bg-[#c21f16] px-1.5 py-0.5 text-[0.7rem] font-semibold text-white">{opcao.conta}</span>}
+          {Boolean(opcao.conta) && (
+            <span className="pn-contador">
+              {opcao.conta}
+              <span className="sr-only"> esperando</span>
+            </span>
+          )}
+          {atual === opcao.id && <span aria-hidden className="pn-aba-indicador" />}
         </button>
       ))}
     </div>
