@@ -254,8 +254,8 @@
   ],
   "entradas": [
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [
         "samarco",
         "vale",
@@ -294,8 +294,8 @@
           "papelNoCaso": "Segundo o MPF, absolvição mantida pelo TRF6 em setembro de 2026; o MPF avalia novos recursos."
         }
       ],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2015-mariana-fundao-acao-penal",
       "dossie": "crimes-ambientais",
       "titulo": "Rompimento da barragem de Fundão (Mariana, MG): TRF6 condena a Samarco e três ex-gerentes",
@@ -319,7 +319,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/prr6/noticias/trf6-condena-samarco-e-tres-ex-gerentes-por-rompimento-de-barragem-em-mariana-mg",
           "trecho": "condenou a empresa Samarco Mineração e três de seus ex-gerentes pelo rompimento da barragem de Fundão, em Mariana (MG)",
           "data": "2026-09-04",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260905204256/https://www.mpf.mp.br/o-mpf/unidades/prr6/noticias/trf6-condena-samarco-e-tres-ex-gerentes-por-rompimento-de-barragem-em-mariana-mg"
         }
       ],
       "etiquetas": [
@@ -333,8 +334,8 @@
       "notaDaCuradoria": "Condenação em 2ª instância por reversão de absolvição: o modelo não tem esse degrau; usamos 'réu' (sem trânsito) para os três e o resumo diz que há condenação. Absolvições entram com a data: o MPF disse que ainda vai analisar recursos, então reconferir. Fonte única (nota do MPF); pegar o acórdão do TRF6. A fonte fala em 19 mortes; a ficha não nomeia ninguém."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [
         "vale",
         "tuv-sud"
@@ -346,8 +347,8 @@
           "papelNoCaso": "Segundo o MPF, acusado de homicídio qualificado e crimes ambientais; segundo O Fator, mantido como réu pelo STJ em 2 de junho de 2026."
         }
       ],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2019-brumadinho-corrego-do-feijao-acao-penal",
       "dossie": "crimes-ambientais",
       "titulo": "Rompimento da barragem de Brumadinho (MG): ex-presidente da Vale volta a ser réu",
@@ -371,7 +372,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/stj-determina-que-ex-presidente-da-vale-volte-a-ser-reu-em-acoes-penais-pelo-rompimento-da-barragem-de-brumadinho-mg",
           "trecho": "determinou a reabertura das ações penais contra Fábio Schvartsman, ex-presidente da Vale, pelo rompimento da barragem de Brumadinho (MG), em 2019",
           "data": "2026-04-08",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260418201039/https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/stj-determina-que-ex-presidente-da-vale-volte-a-ser-reu-em-acoes-penais-pelo-rompimento-da-barragem-de-brumadinho-mg"
         },
         {
           "id": "f2",
@@ -381,7 +383,8 @@
           "url": "https://ofator.com.br/?p=65000",
           "trecho": "manteve o executivo no banco de réus na ação criminal que julga os responsáveis pela tragédia",
           "data": "2026-06-03",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105161921/https://ofator.com.br/informacao/stj-nega-recurso-e-mantem-ex-presidente-da-vale-como-reu-em-acoes-penais-por-brumadinho/"
         }
       ],
       "etiquetas": [
@@ -395,12 +398,12 @@
       "notaDaCuradoria": "A situação mudou várias vezes (réu em 2023, ação trancada pelo TRF6 em março de 2024, reaberta pelo STJ em abril de 2026): a curadoria reconfere e a ficha mostra a data. Os outros 14 réus pessoas físicas não são nomeados (as fontes lidas não os nomeiam). A Tüv Süd aparece como ré na matéria de O Fator; conferir na denúncia. Os 270 mortos vêm da nota do MPF; ninguém é nomeado."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2016-ti-geralda-toco-preto-madeira-ilegal",
       "dossie": "crimes-ambientais",
       "titulo": "Terra Indígena Geralda Toco Preto (MA): condenação por desmatamento e furto de madeira",
@@ -424,7 +427,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-ma/noticias/abril-indigena-mpf-obtem-condenacao-de-reu-por-extracao-ilegal-de-madeira-em-terra-indigena-no-maranhao",
           "trecho": "O réu foi condenado a seis anos de reclusão, em regime inicial semiaberto, além do pagamento de multa.",
           "data": "2026-04-23",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260516054854/https://www.mpf.mp.br/o-mpf/unidades/pr-ma/noticias/abril-indigena-mpf-obtem-condenacao-de-reu-por-extracao-ilegal-de-madeira-em-terra-indigena-no-maranhao"
         }
       ],
       "etiquetas": [
@@ -436,16 +440,16 @@
       "notaDaCuradoria": "A fonte não nomeia o condenado (ação penal 1095007-52.2024.4.01.3700, número que consta do texto): sem nó de pessoa. Os outros acusados respondem em processos separados, segundo o MPF. Notícia do MPF; reconferir o recurso."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2018-ti-rio-das-cobras-desmatamento",
       "dossie": "crimes-ambientais",
       "titulo": "Terra Indígena Rio das Cobras (PR): TRF4 condena sócios de empresa de cereais por desmatamento",
-      "resumo": "Segundo o MPF, o TRF4 acolheu em julho de 2026, por unanimidade, recurso do MPF e condenou dois sócios-administradores de uma empresa de cereais de Nova Laranjeiras (PR) por desmatamento de cerca de 551,1 hectares dentro da Terra Indígena Rio das Cobras, entre 13 de maio de 2018 e outubro de 2021, seguido de plantio de soja e milho geneticamente modificados. Segundo o MPF, a sentença de primeira instância havia absolvido os réus do desmatamento e condenado só um sócio e a empresa pelo uso de substância nociva; o TRF4 elevou a reparação mínima de R$ 359 mil para R$ 6 milhões. Ainda cabe recurso.",
+      "resumo": "Segundo o MPF (nota de 13 de julho de 2026), o TRF4 acolheu, por unanimidade, recurso do MPF e condenou dois sócios-administradores de uma empresa de cereais de Nova Laranjeiras (PR) por desmatamento de cerca de 551,1 hectares dentro da Terra Indígena Rio das Cobras, entre 13 de maio de 2018 e outubro de 2021, seguido de plantio de soja e milho geneticamente modificados. Segundo o MPF, a sentença de primeira instância havia absolvido os réus do desmatamento e condenado só um sócio e a empresa pelo uso de substância nociva; o TRF4 elevou a reparação mínima de R$ 359 mil para R$ 6 milhões. A fonte lida não informa se a decisão já é definitiva.",
       "dataDoFato": "2018-05-13",
       "lugar": {
         "pais": "BR",
@@ -465,7 +469,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/prr4/noticias/trf4-atende-mpf-e-condena-dois-socios-de-empresa-de-cereal-por-desmatamento-em-terra-indigena-no-parana",
           "trecho": "condenou dois sócios-administradores de uma empresa de cereais da região de Nova Laranjeiras, no Paraná, por desmatamento",
           "data": "2026-07-13",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260715030815/https://www.mpf.mp.br/o-mpf/unidades/prr4/noticias/trf4-atende-mpf-e-condena-dois-socios-de-empresa-de-cereal-por-desmatamento-em-terra-indigena-no-parana"
         }
       ],
       "etiquetas": [

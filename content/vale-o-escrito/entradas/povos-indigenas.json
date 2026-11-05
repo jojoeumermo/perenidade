@@ -82,12 +82,12 @@
   ],
   "entradas": [
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "1993-haximu-genocidio-yanomami",
       "dossie": "povos-indigenas",
       "titulo": "Massacre de Haximu: garimpeiros condenados por genocídio contra os Yanomami",
@@ -110,7 +110,8 @@
           "url": "https://noticias.stf.jus.br/postsnoticias/direto-do-plenario-justica-federal-e-competente-para-julgar-genocidio-dos-yanomamis/",
           "trecho": "O Plenário do Supremo Tribunal Federal (STF) decidiu que o crime conhecido como Massacre de Haximu foi um genocídio",
           "data": "2006-08-03",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260209200303/https://noticias.stf.jus.br/postsnoticias/direto-do-plenario-justica-federal-e-competente-para-julgar-genocidio-dos-yanomamis/"
         },
         {
           "id": "f2",
@@ -121,7 +122,8 @@
           "url": "https://noticias.stf.jus.br/?p=8612",
           "trecho": "condenou quatro dos 22 garimpeiros denunciados pelo Ministério Público Federal a penas que variam de 19 a 20 anos de prisão",
           "data": "2005-09-20",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105162236/https://noticias.stf.jus.br/postsnoticias/massacre-de-haximu-1a-turma-remete-ao-plenario-recurso-de-garimpeiros/"
         }
       ],
       "etiquetas": [
@@ -134,8 +136,8 @@
       "notaDaCuradoria": "Situação escrita como 'condenado em 1ª instância' porque nenhuma fonte lida diz que houve trânsito em julgado; o STF confirmou a condenação em 2006 (a ficha 'casos relevantes' do STF, RE 351487, diz que 'confirmou a condenação'). Conferir a certidão de trânsito: se existir, subir para 'condenado com trânsito em julgado'. Nenhuma pessoa nomeada: os nomes dos quatro condenados não constam das fontes lidas. O ataque ocorreu em área de fronteira; conferir o lugar exato."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [
         {
@@ -154,8 +156,8 @@
           "papelNoCaso": "Segundo o MPF, apontado como executor dos homicídios; júri transferido para Manaus (TRF1, fevereiro de 2026)."
         }
       ],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2022-vale-do-javari-mortes-indigenista-jornalista",
       "dossie": "povos-indigenas",
       "titulo": "Vale do Javari (AM): mortes de um indigenista e de um jornalista levam acusados a júri",
@@ -179,7 +181,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/caso-bruno-e-dom-justica-federal-acolhe-pedido-do-mpf-e-leva-2018colombia2019-a-juri-popular",
           "trecho": "pronunciou Rubens Villar Coelho, conhecido como ‘Colômbia’, para ser julgado por júri popular",
           "data": "2026-06-08",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260609133325/https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/caso-bruno-e-dom-justica-federal-acolhe-pedido-do-mpf-e-leva-2018colombia2019-a-juri-popular"
         },
         {
           "id": "f2",
@@ -190,7 +193,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/prr1/noticias/trf1-acolhe-pedido-do-mpf-e-transfere-julgamento-dos-executores-de-bruno-pereira-e-dom-phillips-para-manaus-am",
           "trecho": "determinou o desaforamento (a transferência do local) do julgamento de Amarildo da Costa Oliveira e Jefferson da Silva Lima",
           "data": "2026-02-04",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260214140428/https://www.mpf.mp.br/o-mpf/unidades/prr1/noticias/trf1-acolhe-pedido-do-mpf-e-transfere-julgamento-dos-executores-de-bruno-pereira-e-dom-phillips-para-manaus-am"
         }
       ],
       "etiquetas": [
@@ -202,12 +206,12 @@
       "notaDaCuradoria": "A ficha não nomeia quem foi morto (ECA e LGPD: regra da casa para vítimas). A fonte mais recente lida é de 08/06/2026; reconferir a data do júri e o desfecho do recurso de um terceiro denunciado que foi impronunciado (não incluído aqui). Notícias do MPF refletem a versão da acusação."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2017-garimpo-yanomami-financiadores-rr",
       "dossie": "povos-indigenas",
       "titulo": "Seis réus acusados de financiar o garimpo ilegal em território Yanomami",
@@ -230,7 +234,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/justica-federal-aceita-denuncia-contra-seis-acusados-de-movimentar-r-64-milhoes-para-financiar-garimpo-ilegal-em-roraima",
           "trecho": "recebeu denúncia oferecida pelo Ministério Público Federal (MPF) contra seis pessoas acusadas de financiamento de garimpo ilegal e lavagem de dinheiro",
           "data": "2026-05-06",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260516150359/https://www.mpf.mp.br/o-mpf/unidades/pr-rr/justica-federal-aceita-denuncia-contra-seis-acusados-de-movimentar-r-64-milhoes-para-financiar-garimpo-ilegal-em-roraima"
         }
       ],
       "etiquetas": [

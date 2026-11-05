@@ -83,8 +83,8 @@
   ],
   "entradas": [
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [
         {
@@ -103,8 +103,8 @@
           "papelNoCaso": "Segundo o STF, condenado na AP 470; trânsito em julgado (parcial) certificado em novembro de 2013."
         }
       ],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2005-mensalao-acao-penal-470",
       "dossie": "dinheiro-publico",
       "titulo": "Mensalão (Ação Penal 470): condenações transitaram em julgado em 2013",
@@ -128,7 +128,8 @@
           "url": "https://noticias.stf.jus.br/postsnoticias/stf-certifica-transito-em-julgado-para-condenados-na-ap-470/",
           "trecho": "foi certificado o trânsito em julgado (parcial) da ação para nove condenados: Simone Vasconcelos, Kátia Rabello, Cristiano Paz, Delúbio Soares, José Dirceu",
           "data": "2013-11-18",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105161947/https://noticias.stf.jus.br/postsnoticias/stf-certifica-transito-em-julgado-para-condenados-na-ap-470/"
         },
         {
           "id": "f2",
@@ -139,7 +140,8 @@
           "url": "https://noticias.stf.jus.br/postsnoticias/indulto-extingue-a-punibilidade-de-jose-dirceu-na-ap-470/",
           "trecho": "declarou extinta a punibilidade de José Dirceu de Oliveira, condenado na Ação Penal 470 por corrupção ativa à pena de 7 anos e 11 meses",
           "data": "2016-10-17",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105162015/https://noticias.stf.jus.br/postsnoticias/indulto-extingue-a-punibilidade-de-jose-dirceu-na-ap-470/"
         }
       ],
       "etiquetas": [
@@ -151,16 +153,16 @@
       "notaDaCuradoria": "O STF certificou trânsito PARCIAL para esses nove (outros pontos ainda tinham embargos): conferir, para cada pessoa, quais condenações são definitivas antes de aprovar. As fontes não dizem os cargos, então os papéis são genéricos. Há outros 20 e tantos condenados na AP 470 que não estão aqui. A Lava Jato (outra ação) não faz parte desta ficha. Dirceu: ficha mostra a extinção da punibilidade por indulto (2016) para não parecer que ainda cumpre pena."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2019-inss-descontos-associativos-sem-desconto",
       "dossie": "dinheiro-publico",
       "titulo": "Operação Sem Desconto: descontos associativos não autorizados em aposentadorias e pensões do INSS",
-      "resumo": "Segundo a CGU, a Controladoria-Geral da União e a Polícia Federal deflagraram em 23 de abril de 2025 a Operação Sem Desconto contra um esquema nacional de descontos associativos não autorizados em aposentadorias e pensões; segundo a CGU, as entidades investigadas descontaram cerca de R$ 6,3 bilhões entre 2019 e 2024. Segundo a CGU, uma nova fase em 18 de dezembro de 2025 cumpriu 52 mandados de busca e 16 de prisão, expedidos pelo STF. Há investigados, mas as fontes lidas não trazem denúncia aceita nem condenação.",
+      "resumo": "Segundo a CGU, a Controladoria-Geral da União e a Polícia Federal deflagraram em 23 de abril de 2025 a Operação Sem Desconto contra um esquema nacional de descontos associativos não autorizados em aposentadorias e pensões; segundo a CGU, as entidades cobraram de aposentados e pensionistas o valor estimado de R$ 6,3 bilhões entre 2019 e 2024. Segundo a CGU, uma nova fase em 18 de dezembro de 2025 cumpriu 52 mandados de busca e 16 de prisão, expedidos pelo STF. Há investigados, mas as fontes lidas não trazem denúncia aceita nem condenação.",
       "dataDoFato": "2019",
       "lugar": {
         "pais": "BR",
@@ -177,7 +179,8 @@
           "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/04/cgu-e-pf-combatem-descontos-nao-autorizados-em-beneficios-do-inss",
           "trecho": "Os investigados poderão responder pelos crimes de corrupção ativa, passiva, violação de sigilo funcional, falsificação de documento, organização criminosa e lavagem de capitais.",
           "data": "2025-04-23",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105162043/https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/04/cgu-e-pf-combatem-descontos-nao-autorizados-em-beneficios-do-inss"
         },
         {
           "id": "f2",
@@ -187,7 +190,8 @@
           "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/12/cgu-e-pf-deflagram-nova-fase-da-operacao-sem-desconto",
           "trecho": "Os mandados foram expedidos pelo Supremo Tribunal Federal, em procedimentos sob a relatoria do Ministro André Mendonça.",
           "data": "2025-12-18",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260327174050/https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/12/cgu-e-pf-deflagram-nova-fase-da-operacao-sem-desconto"
         }
       ],
       "etiquetas": [
@@ -199,12 +203,12 @@
       "notaDaCuradoria": "Sem pessoa nomeada de propósito: as fontes lidas (CGU) não nomeiam investigados e a imprensa já noticiou indiciamentos e denúncias depois de dezembro de 2025 que NÃO foram lidos aqui. Reconferir na PF, no MPF e no STF antes de aprovar (e então nomear só quem for denunciado e já público)."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2024-emendas-parlamentares-orcamento-secreto",
       "dossie": "dinheiro-publico",
       "titulo": "Orçamento secreto e emendas parlamentares: STF manda a Polícia Federal investigar",
@@ -228,7 +232,8 @@
           "url": "https://noticias.stf.jus.br/?p=94367",
           "trecho": "determinações do Plenário do STF, que considerou inconstitucional a prática do chamado “orçamento secreto”",
           "data": "2024-10-10",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105162126/https://noticias.stf.jus.br/postsnoticias/stf-mantem-suspensa-execucao-de-emendas-parlamentares-de-comissao-e-de-relator/"
         },
         {
           "id": "f2",
@@ -238,7 +243,8 @@
           "url": "https://www.jb.com.br/brasil/justica/2025/08/1056667-dino-determina-que-pf-investigue-rs-694-milhoes-em-emendas-parlamentares-sem-registro.html",
           "trecho": "determinou que a Polícia Federal abra inquéritos para apurar 964 planos de trabalho de emendas parlamentares individuais que não foram cadastrados corretamente",
           "data": "2025-08-25",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20250914025238/https://www.jb.com.br/brasil/justica/2025/08/1056667-dino-determina-que-pf-investigue-rs-694-milhoes-em-emendas-parlamentares-sem-registro.html"
         }
       ],
       "etiquetas": [

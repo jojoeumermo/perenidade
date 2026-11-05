@@ -60,8 +60,8 @@
   ],
   "entradas": [
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [
         {
@@ -75,8 +75,8 @@
           "papelNoCaso": "Segundo o Vermelho, condenado a 158 anos e 4 meses; condenação transitou em julgado em abril de 2012."
         }
       ],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "1996-eldorado-dos-carajas-massacre",
       "dossie": "conflitos-no-campo",
       "titulo": "Massacre de Eldorado do Carajás (PA): coronel e major da PM condenados",
@@ -100,7 +100,8 @@
           "url": "https://noticias.stf.jus.br/?p=28656",
           "trecho": "pedia a nulidade do processo que o condenou a 228 anos de reclusão pelo massacre ocorrido em Eldorado do Carajás (PA)",
           "data": "2011-06-29",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105161857/https://noticias.stf.jus.br/postsnoticias/negado-hc-a-coronel-condenado-sob-acusacao-de-comandar-o-massacre-de-eldorado-do-carajas/"
         },
         {
           "id": "f2",
@@ -110,7 +111,8 @@
           "url": "https://vermelho.org.br/2012/05/07/tj-pa-determina-prisao-de-envolvidos-em-massacre-de-carajas/",
           "trecho": "Em abril, o processo que os condenou transitou em julgado (fase em que não cabem mais recursos).",
           "data": "2012-05-07",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261007221431/https://vermelho.org.br/2012/05/07/tj-pa-determina-prisao-de-envolvidos-em-massacre-de-carajas/"
         },
         {
           "id": "f3",
@@ -120,7 +122,8 @@
           "url": "https://www.conjur.com.br/2009-ago-25/stj-mantem-condenacao-policiais-massacre-eldorado-carajas/",
           "trecho": "O Superior Tribunal de Justiça negou recursos dos policiais militares condenados pela morte de 19 trabalhadores sem-terra em 1996",
           "data": "2009-08-25",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20211207103638/https://www.conjur.com.br/2009-ago-25/stj-mantem-condenacao-policiais-massacre-eldorado-carajas/"
         }
       ],
       "etiquetas": [
@@ -133,12 +136,12 @@
       "notaDaCuradoria": "O trânsito em julgado vem de reportagem (Vermelho, com agências, 07/05/2012); a fonte primária lida (STF, HC 86604) confirma a condenação, não o trânsito. Procurar a certidão. Não foi possível conferir fato posterior a 2012 (cumprimento da pena, indulto, falecimento): a curadoria reconfere antes de aprovar. Situação escrita como 'condenado em 1ª instância' (degrau mais baixo de condenação do modelo) porque a regra do projeto só aceita 'trânsito em julgado' com fonte primária e aqui o trânsito consta só de reportagem; as condenações foram mantidas pelos tribunais superiores segundo as fontes. Subir para 'condenado com trânsito em julgado' quando a certidão for conferida."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2017-pau-darco-massacre-policiais-reus",
       "dossie": "conflitos-no-campo",
       "titulo": "Massacre de Pau D'Arco (PA): TJPA mantém pronúncia de policiais, que irão a júri",
@@ -162,7 +165,8 @@
           "url": "https://cptnacional.org.br/2026/05/26/decisao-pau-darco-tribunal/",
           "trecho": "Por unanimidade, os desembargadores rejeitaram os principais recursos apresentados pelas defesas e confirmaram a sentença de pronúncia dos acusados.",
           "data": "2026-05-26",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260606015308/https://cptnacional.org.br/2026/05/26/decisao-pau-darco-tribunal/"
         }
       ],
       "etiquetas": [

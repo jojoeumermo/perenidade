@@ -136,8 +136,8 @@
   ],
   "entradas": [
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [
         {
@@ -161,8 +161,8 @@
           "papelNoCaso": "Segundo O Povo, condenado por contratar os atiradores; segundo o TRF6, os condenados cumprem ou já cumpriram pena (janeiro de 2025)."
         }
       ],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2004-unai-chacina-auditores-fiscais",
       "dossie": "trabalho-escravo",
       "titulo": "Chacina de Unaí (MG, 2004): mandantes e intermediários condenados pela morte de auditores do trabalho",
@@ -185,7 +185,8 @@
           "url": "https://portal.trf6.jus.br/foragido-por-anos-norberto-manica-e-preso-em-cumprimento-de-ordem-do-tribunal-regional-federal-da-6a-regiao/",
           "trecho": "Antério Mânica teve sua condenação confirmada e a pena, atualmente em cumprimento, aumentada para mais de 90 anos de reclusão",
           "data": "2025-01-17",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260311094014/https://portal.trf6.jus.br/foragido-por-anos-norberto-manica-e-preso-em-cumprimento-de-ordem-do-tribunal-regional-federal-da-6a-regiao/"
         },
         {
           "id": "f2",
@@ -195,7 +196,8 @@
           "url": "https://www.opovo.com.br/noticias/brasil/2023/09/16/mandante-da-chacina-de-unai-entrega-se-a-pf-19-anos-apos-crime.html",
           "trecho": "Condenado como mandante da Chacina de Unaí, em Minas Gerais, em que auditores fiscais do trabalho foram assassinados em 2004",
           "data": "2023-09-16",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20240128191214/https://www.opovo.com.br/noticias/brasil/2023/09/16/mandante-da-chacina-de-unai-entrega-se-a-pf-19-anos-apos-crime.html"
         }
       ],
       "etiquetas": [
@@ -208,14 +210,14 @@
       "notaDaCuradoria": "Condenações pelo júri (2015 e 2022), mantidas nos tribunais; a pena é executada provisoriamente (STJ e TRF6, 2023). Nenhuma fonte lida certifica o trânsito em julgado: por isso 'condenado em 1ª instância' (o modelo não tem o degrau 'condenado em 2ª instância': pendência para a assessoria). A página do STJ sobre a execução provisória (12/09/2023) bloqueou a leitura automática: ler à mão. Os três executores condenados em 2013 não estão nesta ficha (só aparecem nomeados em fonte que não lemos por inteiro). Quem morreu não é nomeado."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [
         "fenix-servicos-administrativos"
       ],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2023-bento-goncalves-resgate-trabalhadores-fenix",
       "dossie": "trabalho-escravo",
       "titulo": "Bento Gonçalves (RS): terceirizada e donos condenados em ação do MPT por trabalhadores resgatados",
@@ -238,7 +240,8 @@
           "url": "https://www.prt4.mpt.mp.br/procuradorias/prt-porto-alegre/12495-mpt-obtem-condenacao-da-terceirizada-que-contratou-trabalhadores-encontrados-em-condicoes-analogas-a-escravidao-em-bento-goncalves",
           "trecho": "a Fênix, seus proprietários e outras empresas associadas aos donos foram condenados ao pagamento de R$ 3.009.000,00",
           "data": "2025-04-29",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoFalhou": true
         }
       ],
       "etiquetas": [
@@ -251,16 +254,16 @@
       "notaDaCuradoria": "Condenação de 1ª instância na Justiça do Trabalho (ACC 0020243-42.2023.5.04.0512, número que consta do texto do MPT); a situação usa o vocabulário criminal porque é o único do modelo: o resumo diz que é ação civil. Os proprietários da Fênix não são nomeados (a fonte lida não os nomeia); as vinícolas não são nomeadas na fonte lida. Reconferir se houve recurso ou pagamento depois de abril/2025."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2010-fazendas-buritis-unai-trabalho-escravo",
       "dossie": "trabalho-escravo",
       "titulo": "Fazendas entre Buritis e Unaí (MG): TRF6 reverte absolvição e condena três homens por trabalho escravo",
-      "resumo": "Segundo o MPF, uma fiscalização do Ministério do Trabalho e Emprego em 2010 encontrou 132 trabalhadores rurais em situação degradante nas fazendas São Miguel, Gado Bravo e Três Governadores, entre Buritis e Unaí (MG). Segundo o MPF, em março de 2026 o TRF6 acolheu recurso do MPF, reverteu a absolvição e condenou três homens a 5 anos e 6 meses de reclusão e 701 dias-multa. Os condenados ainda podem recorrer: a condenação é de segunda instância e não há trânsito em julgado.",
+      "resumo": "Segundo o MPF, uma fiscalização do Ministério do Trabalho e Emprego em 2010 encontrou 132 trabalhadores rurais em situação degradante nas fazendas São Miguel, Gado Bravo e Três Governadores, entre Buritis e Unaí (MG). Segundo o MPF (nota de 6 de março de 2026), o TRF6 acolheu recurso do MPF, reverteu a absolvição e condenou três homens a 5 anos e 6 meses de reclusão e 701 dias-multa. A condenação é de segunda instância e a fonte lida não informa trânsito em julgado.",
       "dataDoFato": "2010",
       "lugar": {
         "pais": "BR",
@@ -279,7 +282,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-mg/noticias/mpf-obtem-condenacao-de-tres-reus-por-trabalho-escravo-em-minas-gerais",
           "trecho": "condenou três homens pela prática de crime de redução à condição análoga à de escravo em fazendas de Minas Gerais",
           "data": "2026-03-06",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105162319/https://www.mpf.mp.br/o-mpf/unidades/pr-mg/noticias/mpf-obtem-condenacao-de-tres-reus-por-trabalho-escravo-em-minas-gerais"
         }
       ],
       "etiquetas": [
