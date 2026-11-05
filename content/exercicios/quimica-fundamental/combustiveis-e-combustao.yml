@@ -1,0 +1,50 @@
+# Exercícios da aula "Combustíveis e combustão" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-combustiveis-e-combustao-01
+  tema: "Triângulo do fogo"
+  dificuldade: 1
+  enunciado: "Quais são os três elementos do triângulo do fogo?"
+  alternativas:
+    - texto: "Combustível, comburente (oxigênio) e calor"
+      certa: true
+    - texto: "Água, terra e ar"
+      erro: "Não são os elementos do triângulo do fogo."
+    - texto: "Gás, fumaça e cinza"
+      erro: "Fumaça e cinza são produtos, e não condições para haver fogo."
+  explicacao: "Faltando um deles, não há fogo. É assim que se apaga um incêndio."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Combustíveis e combustão\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-combustiveis-e-combustao-02
+  tema: "Como apagar"
+  dificuldade: 2
+  enunciado: "Tampar a panela em chamas apaga o fogo porque retira o quê?"
+  alternativas:
+    - texto: "O calor"
+      erro: "Retirar o calor é resfriar, como jogar água na madeira."
+    - texto: "O oxigênio"
+      certa: true
+    - texto: "O combustível"
+      erro: "Isolar o combustível é fechar o registro do gás."
+  explicacao: "Resfriar retira o calor; abafar retira o oxigênio; isolar retira o combustível."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Combustíveis e combustão\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-combustiveis-e-combustao-03
+  tema: "Chama amarela"
+  dificuldade: 2
+  enunciado: "O que significa a chama do fogão amarela, com fuligem preta na panela?"
+  alternativas:
+    - texto: "Queima incompleta: queimadores sujos ou desregulados, que gastam mais gás e produzem monóxido de carbono"
+      certa: true
+    - texto: "Que o gás é de melhor qualidade"
+      erro: "A cor azul é a certa."
+    - texto: "Que o fogão está funcionando perfeitamente"
+      erro: "A chama azul indica queima completa."
+  explicacao: "Na queima completa formam-se CO₂ e água, com chama azul. Na incompleta, fuligem e monóxido de carbono."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Combustíveis e combustão\""
+  revisao:
+    status: em-revisao

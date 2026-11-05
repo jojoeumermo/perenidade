@@ -1,0 +1,50 @@
+# Exercícios da aula "Preparar uma fala: objetivo, público e roteiro" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-preparar-uma-fala-objetivo-publico-e-rot-01
+  tema: "Objetivos gerais"
+  dificuldade: 1
+  enunciado: "Quais são os três objetivos gerais de uma fala, segundo a aula?"
+  alternativas:
+    - texto: "Cobrar, ameaçar e agradecer"
+      erro: "Não são esses."
+    - texto: "Informar, convencer e animar"
+      certa: true
+    - texto: "Abrir, desenvolver e fechar"
+      erro: "Essas são partes da estrutura, e não objetivos."
+  explicacao: "Informar é explicar sem empurrar opinião; convencer é pedir que acreditem ou façam algo; animar é emocionar, celebrar ou homenagear."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preparar uma fala: objetivo, público e roteiro\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-preparar-uma-fala-objetivo-publico-e-rot-02
+  tema: "Objetivo claro"
+  dificuldade: 2
+  enunciado: "Qual destes é um objetivo específico claro, no sentido da aula?"
+  alternativas:
+    - texto: "\"Conscientizar sobre saúde.\""
+      erro: "A aula chama isso de vago."
+    - texto: "\"Pedir que cada um traga dois vizinhos para a reunião com a secretaria de saúde.\""
+      certa: true
+    - texto: "\"Falar de vários assuntos.\""
+      erro: "Um objetivo trata de um assunto só e cabe no tempo."
+  explicacao: "O objetivo é uma afirmação, clara, de um assunto só, que cabe no tempo que você tem."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preparar uma fala: objetivo, público e roteiro\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-preparar-uma-fala-objetivo-publico-e-rot-03
+  tema: "Análise do público"
+  dificuldade: 2
+  enunciado: "A análise do público que olha idade, trabalho e de onde vêm as pessoas chama-se o quê?"
+  alternativas:
+    - texto: "Análise demográfica"
+      certa: true
+    - texto: "Análise situacional"
+      erro: "A situacional olha a ocasião, o tempo, o lugar, o número de pessoas e o microfone."
+    - texto: "Análise psicográfica"
+      erro: "A psicográfica olha o que as pessoas pensam, já sabem e valorizam."
+  explicacao: "Para descobrir o público, pergunte a quem organiza, converse com algumas pessoas antes e lembre de reuniões anteriores."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preparar uma fala: objetivo, público e roteiro\""
+  revisao:
+    status: em-revisao

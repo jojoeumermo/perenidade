@@ -1,0 +1,109 @@
+# Exercícios da aula "Preço, salário e inflação" (Economia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ecof-inflacao-01
+  tema: "O que é inflação"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é inflação, segundo a aula?"
+  alternativas:
+    - texto: "Um aumento geral dos preços, que faz cada real comprar menos"
+      certa: true
+    - texto: "O aumento do preço de um único produto, como o tomate"
+      erro: "Um produto que sobe não é inflação. Inflação é o aumento geral do nível de preços da economia."
+    - texto: "A queda continuada dos preços"
+      erro: "Isso é deflação, o contrário da inflação. Na inflação os preços sobem e o dinheiro perde poder de compra."
+  explicacao: "Inflação é o aumento geral dos preços de bens e serviços. Quando o nível geral sobe, cada real compra menos: a inflação reduz o poder de compra do dinheiro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço, salário e inflação\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-inflacao-02
+  tipo: numero
+  tema: "Quanto a inflação custa"
+  dificuldade: 2
+  enunciado: "Uma cesta de compras custava R$ 600. A inflação desses produtos foi de 10%. Quanto a cesta passa a custar?"
+  resposta: "660"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "60"
+      explicacao: "R$ 60 é só o aumento (10% de 600). Falta somar ao preço antigo: 600 + 60 = 660."
+    - resposta: "610"
+      explicacao: "Você somou 10 reais, e não 10%. 10% de R$ 600 é R$ 60. A cesta passa a custar 600 + 60."
+  dica: "Calcule 10% de R$ 600 e some ao preço que a cesta tinha."
+  explicacao: "10% de R$ 600 é R$ 60. A cesta passa a custar 600 + 60 = R$ 660. Para comprar a mesma coisa, o salário precisaria subir pelo menos 10%."
+  conferir: "600 * 1.10"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Preço, salário e inflação\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-inflacao-03
+  tipo: numero
+  tema: "Salário e inflação"
+  dificuldade: 2
+  enunciado: "Uma trabalhadora ganha R$ 2.000 e a inflação do ano foi de 5%. De quanto precisaria ser o salário, no mínimo, para ela comprar o mesmo que comprava antes?"
+  resposta: "2100"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "100"
+      explicacao: "R$ 100 é só o aumento (5% de 2.000). O salário novo é o antigo mais esse aumento: 2.000 + 100."
+    - resposta: "2005"
+      explicacao: "Você somou 5 reais, e não 5%. 5% de R$ 2.000 é R$ 100."
+  dica: "Calcule 5% de R$ 2.000 e some ao salário atual."
+  explicacao: "5% de R$ 2.000 é R$ 100, então o salário precisaria ser de R$ 2.100 só para repor a inflação. Se continuar R$ 2.000, o salário real caiu. Por isso os sindicatos lutam por reajustes que reponham a inflação, de preferência com aumento real, acima dela."
+  conferir: "2000 * 1.05"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço, salário e inflação\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-inflacao-04
+  tema: "Salário real"
+  dificuldade: 2
+  enunciado: "Um salário de R$ 2.000 não teve reajuste num ano em que a inflação foi de 5%. O que aconteceu com o salário real?"
+  alternativas:
+    - texto: "Diminuiu, porque os preços subiram e o salário ficou igual"
+      certa: true
+    - texto: "Ficou igual, porque o número do contracheque não mudou"
+      erro: "O número é o mesmo, mas ele compra menos, porque os preços subiram. O que importa é o poder de compra, o salário real."
+    - texto: "Aumentou 5%"
+      erro: "Aumento de 5% seria se o salário subisse. Aqui o que subiu foram os preços; com o salário parado, o poder de compra caiu."
+  explicacao: "Se os preços sobem e o salário fica igual, o trabalhador compra menos com o mesmo dinheiro. Na prática, o salário real caiu. A inflação pesa mais sobre quem é mais pobre, que gasta quase tudo em comida, aluguel e transporte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço, salário e inflação\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-inflacao-05
+  tema: "Plano Real e hiperinflação"
+  dificuldade: 1
+  enunciado: "Segundo a aula, em que ano a inflação altíssima do Brasil foi interrompida pelo Plano Real, com a nova moeda, o real?"
+  alternativas:
+    - texto: "1994"
+      certa: true
+      valor: "1994"
+    - texto: "1964"
+      erro: "1964 é o ano do golpe militar. O Plano Real e a moeda real vieram em 1994, depois da hiperinflação dos anos 1980."
+      valor: "1964"
+    - texto: "2003"
+      erro: "Em 2003 a inflação já estava bem mais baixa há anos. O Plano Real é de 1994."
+      valor: "2003"
+  explicacao: "Até 1994 o Brasil sofreu com inflação alta, que virou hiperinflação nos anos 1980, com preços mudando quase todo dia. O processo foi interrompido em 1994 pelo Plano Real e pela nova moeda, o real (R$)."
+  conferir: "1994"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço, salário e inflação\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-inflacao-06
+  tema: "INPC e IPCA"
+  dificuldade: 3
+  enunciado: "Uma família tem renda de 3 salários mínimos e a pessoa de referência é assalariada. Segundo a aula, qual índice de inflação foi feito para famílias como a dela?"
+  alternativas:
+    - texto: "O INPC (famílias com renda de 1 a 5 salários mínimos e pessoa de referência assalariada)"
+      certa: true
+    - texto: "Nenhum: só famílias ricas têm índice de inflação"
+      erro: "Há índices para famílias de renda mais baixa. O INPC foi feito para renda de 1 a 5 salários mínimos."
+    - texto: "O IPCA, que só mede famílias com mais de 40 salários mínimos"
+      erro: "O IPCA cobre famílias com renda de 1 a 40 salários mínimos, qualquer que seja a fonte, e não só as de mais de 40."
+  explicacao: "No Brasil, o INPC acompanha famílias de 1 a 5 salários mínimos com pessoa de referência assalariada, e o IPCA, famílias de 1 a 40 salários mínimos, qualquer que seja a fonte de renda. A inflação é medida por índices de preços, que acompanham uma cesta de produtos e serviços."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preço, salário e inflação\""
+  revisao:
+    status: em-revisao

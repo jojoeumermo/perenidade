@@ -1,0 +1,50 @@
+# Exercícios da aula "Por que existe desemprego" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-por-que-existe-desemprego-01
+  tema: "Exército de reserva"
+  dificuldade: 1
+  enunciado: "O que Marx chama de exército industrial de reserva?"
+  alternativas:
+    - texto: "Soldados aposentados"
+      erro: "Não é militar. É o conjunto dos desempregados."
+    - texto: "O conjunto dos desempregados, mantidos à disposição do capital"
+      certa: true
+    - texto: "Os donos de fábricas"
+      erro: "São os desempregados, mantidos como \"reserva\" para serem chamados quando o capital precisar."
+  explicacao: "Ele cumpre duas funções para o capital: disponibilidade e disciplina, pois com fila de desempregados quem está empregado pensa duas vezes antes de reclamar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que existe desemprego\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-por-que-existe-desemprego-02
+  tema: "Culpa do desempregado"
+  dificuldade: 2
+  enunciado: "A explicação comum culpa o desempregado pela falta de qualificação. Que pergunta a aula faz contra isso?"
+  alternativas:
+    - texto: "Por que o desemprego sobe e desce para milhões de pessoas ao mesmo tempo, se ninguém fica preguiçoso em massa?"
+      certa: true
+    - texto: "Por que os desempregados não gostam de trabalhar?"
+      erro: "A aula faz o contrário: questiona a explicação que culpa o desempregado."
+    - texto: "Por que ninguém quer estudar?"
+      erro: "A pergunta da aula é sobre o desemprego subir e descer para muita gente ao mesmo tempo."
+  explicacao: "O desemprego aparece quando a maioria não tem meios de produção e depende de que um patrão compre a sua força de trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que existe desemprego\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-por-que-existe-desemprego-03
+  tema: "Camadas"
+  dificuldade: 2
+  enunciado: "Quem faz parte da camada \"estagnada\" do exército de reserva, segundo a aula?"
+  alternativas:
+    - texto: "Quem tem emprego fixo e bom salário"
+      erro: "Esse não é o caso. A estagnada vive de trabalho irregular, mal pago, sem garantia."
+    - texto: "Quem vive de trabalho irregular, mal pago, sem garantia"
+      certa: true
+    - texto: "Quem acabou de nascer"
+      erro: "A aula não fala disso. As camadas são flutuante, latente e estagnada."
+  explicacao: "No Brasil, essa camada é enorme: bicos, trabalho por aplicativo, ambulantes, diaristas sem registro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que existe desemprego\""
+  revisao:
+    status: em-revisao

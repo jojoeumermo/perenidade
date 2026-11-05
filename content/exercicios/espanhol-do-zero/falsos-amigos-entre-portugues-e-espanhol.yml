@@ -1,0 +1,67 @@
+# Exercícios da aula "Falsos amigos entre português e espanhol" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-falsos-01
+  tema: "Embarazada"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer \"embarazada\" em espanhol?"
+  alternativas:
+    - texto: "Envergonhada"
+      erro: "Parece \"embaraçada\", mas é um falso amigo. Para \"envergonhada\", o espanhol usa avergonzada."
+    - texto: "Grávida"
+      certa: true
+    - texto: "Atrapalhada"
+      erro: "Não é esse o sentido. Embarazada é \"grávida\"."
+  explicacao: "Embarazada quer dizer grávida. Para \"envergonhada\", usa-se avergonzada."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Falsos amigos entre português e espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-falsos-02
+  tema: "Oficina"
+  dificuldade: 1
+  enunciado: "\"La reunión es en mi oficina.\" Onde é a reunião?"
+  alternativas:
+    - texto: "Na minha oficina mecânica"
+      erro: "Oficina, em espanhol, é \"escritório\". A oficina mecânica é taller."
+    - texto: "No meu escritório"
+      certa: true
+    - texto: "Na minha casa"
+      erro: "Casa seria casa. Oficina é o lugar de trabalho, o escritório."
+  explicacao: "Oficina é escritório. A oficina mecânica é taller."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Falsos amigos entre português e espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-falsos-03
+  tema: "Pronto, todavía, acordarse"
+  dificuldade: 2
+  enunciado: "Como se diz \"Você ainda trabalha lá?\" em espanhol?"
+  alternativas:
+    - texto: "¿Todavía trabajas allí?"
+      certa: true
+    - texto: "¿Pronto trabajas allí?"
+      erro: "Pronto, em espanhol, é \"logo, em breve\". \"Pronto\" no sentido de \"preparado\" é listo."
+    - texto: "¿Acuerdas trabajar allí?"
+      erro: "Acordarse quer dizer \"lembrar-se\". Para \"ainda\", use todavía."
+  explicacao: "Todavía quer dizer \"ainda\". O \"todavia\" português (mas) corresponde a sin embargo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Falsos amigos entre português e espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-falsos-04
+  tema: "Polvo e pulpo"
+  dificuldade: 2
+  enunciado: "\"Hay mucho polvo en la casa.\" O que a frase quer dizer?"
+  alternativas:
+    - texto: "Tem muito polvo (o animal) na casa."
+      erro: "O polvo animal em espanhol é pulpo. Polvo, em espanhol, é \"pó, poeira\"."
+    - texto: "Tem muita poeira na casa."
+      certa: true
+    - texto: "Tem muito pó de café na casa."
+      erro: "Polvo é pó ou poeira em geral. Aqui, o sentido é de sujeira, poeira da casa."
+  explicacao: "Polvo, em espanhol, quer dizer pó ou poeira. O animal é pulpo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Falsos amigos entre português e espanhol\""
+  revisao:
+    status: em-revisao

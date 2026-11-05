@@ -1,0 +1,50 @@
+# Exercícios da aula "Hinduísmo e budismo" (religioes-do-mundo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-do-mundo-hinduismo-e-budismo-01
+  tema: "Carma"
+  dificuldade: 1
+  enunciado: "No hinduísmo, o que é carma, segundo a aula?"
+  alternativas:
+    - texto: "A ação, a intenção e as suas consequências"
+      certa: true
+    - texto: "O ciclo de nascimento, morte e renascimento"
+      erro: "Esse é o samsara."
+    - texto: "A libertação do ciclo"
+      erro: "Essa é o moksha."
+  explicacao: "Samsara é o ciclo de nascimento, morte e renascimento; moksha é a libertação dele."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Hinduísmo e budismo\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-hinduismo-e-budismo-02
+  tema: "Budismo"
+  dificuldade: 2
+  enunciado: "Por que o budismo é considerado uma fé \"não teísta\"?"
+  alternativas:
+    - texto: "Porque não gira em torno de um Deus criador todo-poderoso"
+      certa: true
+    - texto: "Porque proíbe qualquer crença"
+      erro: "Não é isso."
+    - texto: "Porque só existe na Índia moderna"
+      erro: "Sidarta Gautama viveu na Índia antiga, mas a razão do termo é outra."
+  explicacao: "As Quatro Nobres Verdades falam da superação do sofrimento, causado pelo desejo e pela ignorância sobre a natureza da realidade, que é impermanente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Hinduísmo e budismo\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-hinduismo-e-budismo-03
+  tema: "Números do budismo"
+  dificuldade: 2
+  enunciado: "Quantos budistas o Censo de 2010 contou no Brasil, segundo a aula?"
+  alternativas:
+    - texto: "Cerca de 245 milhões"
+      erro: "Seria mais que a população do país. Foram cerca de 245 mil."
+    - texto: "Cerca de 245 mil"
+      certa: true
+    - texto: "Cerca de 245"
+      erro: "É pouco demais. Foram cerca de 245 mil."
+  explicacao: "No mundo, cerca de 7% a 8% da população é budista."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Hinduísmo e budismo\""
+  revisao:
+    status: em-revisao

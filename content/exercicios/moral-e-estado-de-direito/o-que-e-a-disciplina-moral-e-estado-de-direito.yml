@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é a disciplina Moral e Estado de Direito" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-o-que-e-a-disciplina-moral-e-estado-de-d-01
+  tema: "A disciplina"
+  dificuldade: 1
+  enunciado: "O que é a disciplina chinesa Moral e Estado de Direito?"
+  alternativas:
+    - texto: "Uma disciplina optativa só do ensino médio"
+      erro: "A aula diz que ela é obrigatória, do 1º ao 9º ano."
+    - texto: "Uma disciplina obrigatória do 1º ao 9º ano em toda a China"
+      certa: true
+    - texto: "Um curso de culinária"
+      erro: "Não tem relação. É uma disciplina de formação moral e jurídica."
+  explicacao: "O nome atual passou a ser usado a partir de 2016, quando o Ministério da Educação reorganizou a disciplina e adotou livros unificados em todo o país."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a disciplina Moral e Estado de Direito\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-o-que-e-a-disciplina-moral-e-estado-de-d-02
+  tema: "Competências"
+  dificuldade: 2
+  enunciado: "Quantas competências centrais o padrão curricular de 2022 define para a disciplina?"
+  alternativas:
+    - texto: "Três"
+      erro: "A aula lista cinco competências."
+    - texto: "Dez"
+      erro: "São cinco: identificação política, cultivo moral, noção de Estado de direito, personalidade saudável e senso de responsabilidade."
+    - texto: "Cinco"
+      certa: true
+      valor: "5"
+  explicacao: "As cinco competências são identificação política, cultivo moral, noção de Estado de direito, personalidade saudável e senso de responsabilidade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a disciplina Moral e Estado de Direito\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-o-que-e-a-disciplina-moral-e-estado-de-d-03
+  tema: "Educação cívica no Brasil"
+  dificuldade: 2
+  enunciado: "Que disciplinas obrigatórias o Brasil teve durante a ditadura militar, extintas em 1993?"
+  alternativas:
+    - texto: "Educação Moral e Cívica e Organização Social e Política Brasileira"
+      certa: true
+    - texto: "Educação Física e Artes"
+      erro: "Essas continuam existindo. As extintas em 1993 foram Educação Moral e Cívica e Organização Social e Política Brasileira."
+    - texto: "Moral e Estado de Direito"
+      erro: "Esse é o nome da disciplina chinesa."
+  explicacao: "Elas tinham orientação conservadora e anticomunista. A experiência mostra que a formação cívica pode servir a projetos políticos muito diferentes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a disciplina Moral e Estado de Direito\""
+  revisao:
+    status: em-revisao

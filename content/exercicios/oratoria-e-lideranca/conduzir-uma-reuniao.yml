@@ -1,0 +1,50 @@
+# Exercícios da aula "Conduzir uma reunião" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-conduzir-uma-reuniao-01
+  tema: "Quórum"
+  dificuldade: 1
+  enunciado: "O que é quórum, segundo a aula?"
+  alternativas:
+    - texto: "O horário em que a reunião acaba"
+      erro: "Quórum não é horário."
+    - texto: "O número mínimo de presentes para decidir"
+      certa: true
+    - texto: "A ata da reunião"
+      erro: "A ata é a memória do grupo. Quórum é o número mínimo de presentes."
+  explicacao: "Para as associações, o Código Civil manda o estatuto definir o quórum. Sem quórum, só se pode encerrar ou marcar outra data."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conduzir uma reunião\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-conduzir-uma-reuniao-02
+  tema: "Ordem dos trabalhos"
+  dificuldade: 2
+  enunciado: "Quando o grupo não tem outra regra, qual é a ordem proposta pelo manual de Henry Robert?"
+  alternativas:
+    - texto: "Assuntos novos, informes, ata anterior e assuntos pendentes"
+      erro: "Essa ordem está trocada. O manual propõe começar pela ata anterior."
+    - texto: "Ata da reunião anterior, informes das comissões, assuntos pendentes e assuntos novos"
+      certa: true
+    - texto: "Votação, ata, informes e despedida"
+      erro: "Não é essa. A ordem começa pela leitura e aprovação da ata anterior."
+  explicacao: "Muitos grupos acrescentam uma rodada de informes curtos no começo e um momento de encaminhamentos no fim."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conduzir uma reunião\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-conduzir-uma-reuniao-03
+  tema: "Quem coordena"
+  dificuldade: 2
+  enunciado: "Qual é a ideia mais importante sobre quem coordena uma reunião, segundo a aula?"
+  alternativas:
+    - texto: "Ele representa a própria vontade"
+      erro: "A aula diz o contrário: ele representa a vontade do grupo."
+    - texto: "Ele representa a vontade do grupo, e não a própria"
+      certa: true
+    - texto: "Ele decide tudo sozinho"
+      erro: "Quem coordena fala em nome do grupo, obedecendo ao que o grupo decidiu."
+  explicacao: "A tarefa inclui abrir na hora, anunciar os assuntos, pôr as propostas em votação, manter o respeito e assinar as decisões."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Conduzir uma reunião\""
+  revisao:
+    status: em-revisao

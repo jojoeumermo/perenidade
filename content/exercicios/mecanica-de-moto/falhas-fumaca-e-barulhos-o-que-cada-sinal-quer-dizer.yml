@@ -1,0 +1,50 @@
+# Exercícios da aula "Falhas, fumaça e barulhos: o que cada sinal quer dizer" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-falhas-fumaca-e-barulhos-o-que-cada-sina-01
+  tema: "Fumaça azulada"
+  dificuldade: 1
+  enunciado: "A moto solta fumaça azulada. Segundo a aula, o que isso costuma indicar?"
+  alternativas:
+    - texto: "Gasolina demais na mistura"
+      erro: "Gasolina demais dá fumaça preta. A azulada é queima de óleo."
+    - texto: "Queima de óleo"
+      certa: true
+    - texto: "Que o motor está novo"
+      erro: "A fumaça azulada é sinal de queima de óleo e merece atenção, conferindo o nível e indo à oficina."
+  explicacao: "Fumaça azulada é queima de óleo, por desgaste de anéis ou retentores, por exemplo. Confira o nível de óleo e procure a oficina."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falhas, fumaça e barulhos: o que cada sinal quer dizer\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-falhas-fumaca-e-barulhos-o-que-cada-sina-02
+  tema: "Motor superaquecido"
+  dificuldade: 2
+  enunciado: "Você sente cheiro de queimado e a moto parece superaquecida. O que a aula manda fazer?"
+  alternativas:
+    - texto: "Parar, desligar e esperar esfriar; só conferir o óleo com o motor frio"
+      certa: true
+    - texto: "Abrir o óleo na hora para ver se está quente"
+      erro: "Abrir com o motor quente pode queimar. A aula manda esperar esfriar."
+    - texto: "Acelerar mais para esfriar com o vento"
+      erro: "Isso piora. Pare, desligue e espere esfriar."
+  explicacao: "Regra de ouro da aula: sinal forte e novo, parar. Sinal leve e conhecido, anotar e agendar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falhas, fumaça e barulhos: o que cada sinal quer dizer\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-falhas-fumaca-e-barulhos-o-que-cada-sina-03
+  tema: "Chiado ao frear"
+  dificuldade: 2
+  enunciado: "Aparece um chiado novo toda vez que você freia. Qual é a causa provável pela aula?"
+  alternativas:
+    - texto: "Corrente seca"
+      erro: "Corrente seca faz barulho de corrente ou matraca, não chiado ao frear."
+    - texto: "Pastilha gasta ou suja"
+      certa: true
+    - texto: "Bateria fraca"
+      erro: "A bateria não faz chiado ao frear. O chiado indica pastilha gasta ou suja."
+  explicacao: "Chiado ao frear costuma ser pastilha gasta ou suja. Veja a aula de freios e não espere o barulho de metal contra metal."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falhas, fumaça e barulhos: o que cada sinal quer dizer\""
+  revisao:
+    status: em-revisao

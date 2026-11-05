@@ -1,0 +1,67 @@
+# Exercícios da aula "Artigos e gênero das palavras" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-artigos-01
+  tema: "Contrações"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"Vou ao médico\" em espanhol?"
+  alternativas:
+    - texto: "Voy al médico."
+      certa: true
+    - texto: "Voy a lo médico."
+      erro: "O lo não acompanha substantivos masculinos. Para substantivos masculinos o artigo é el, e a + el vira al."
+    - texto: "Voy no médico."
+      erro: "Em espanhol, no quer dizer \"não\". Não existe a contração \"no\" como em português."
+  explicacao: "Em espanhol só existem duas contrações: a + el = al, e de + el = del. Voy al médico."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Artigos e gênero das palavras\""
+  revisao:
+    status: em-revisao
+
+- id: esp-artigos-02
+  tema: "Gênero diferente"
+  dificuldade: 2
+  enunciado: "Qual destas palavras é feminina em espanhol, mas masculina em português?"
+  alternativas:
+    - texto: "el árbol (a árvore)"
+      erro: "Árbol é masculina em espanhol, e árvore é feminina em português: aqui o contrário acontece."
+    - texto: "la leche (o leite)"
+      certa: true
+    - texto: "el viaje (a viagem)"
+      erro: "Viaje é masculina em espanhol e viagem é feminina em português: o contrário."
+  explicacao: "La leche, la sal, la sangre, la nariz e la miel são femininas em espanhol e masculinas em português."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Artigos e gênero das palavras\""
+  revisao:
+    status: em-revisao
+
+- id: esp-artigos-03
+  tema: "Plural"
+  dificuldade: 2
+  enunciado: "Qual é o plural de \"ciudad\" (cidade) e de \"luz\" (luz)?"
+  alternativas:
+    - texto: "ciudades e luces"
+      certa: true
+    - texto: "ciudads e luzs"
+      erro: "Palavras terminadas em consoante levam -es, e as terminadas em z trocam o z por -ces."
+    - texto: "ciudades e luzes"
+      erro: "Para o z, troca-se por -ces: luz vira luces. A forma \"luzes\" é do português."
+  explicacao: "Terminou em consoante: acrescente -es (ciudad, ciudades). Terminou em z: troque por -ces (luz, luces)."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Artigos e gênero das palavras\""
+  revisao:
+    status: em-revisao
+
+- id: esp-artigos-04
+  tema: "El agua"
+  dificuldade: 3
+  enunciado: "Qual frase está certa sobre a palavra \"agua\", que é feminina e usa el no singular?"
+  alternativas:
+    - texto: "El agua frío."
+      erro: "A palavra continua feminina: o adjetivo fica no feminino (fría)."
+    - texto: "El agua fría."
+      certa: true
+    - texto: "Los aguas frías."
+      erro: "No plural volta o artigo feminino: las aguas frías."
+  explicacao: "Palavras femininas que começam com a tônica (agua, aula, hambre) usam el no singular, mas continuam femininas: el agua fría, e no plural las aguas."
+  fonte: "Diccionario panhispánico de dudas (RAE), verbete \"el\", conforme a aula"
+  revisao:
+    status: em-revisao

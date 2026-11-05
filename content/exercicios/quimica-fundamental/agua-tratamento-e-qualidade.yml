@@ -1,0 +1,50 @@
+# Exercícios da aula "Água: tratamento e qualidade" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-agua-tratamento-e-qualidade-01
+  tema: "Limpa e potável"
+  dificuldade: 1
+  enunciado: "O que a aula diz sobre uma água cristalina?"
+  alternativas:
+    - texto: "Pode estar contaminada: bactérias, vírus e substâncias dissolvidas não se veem"
+      certa: true
+    - texto: "Se é cristalina, é sempre potável"
+      erro: "A aula diz que limpa não é potável."
+    - texto: "Se é cristalina, tem sempre cloro"
+      erro: "A aula não diz isso."
+  explicacao: "Água potável é a que pode ser bebida sem risco à saúde."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Água: tratamento e qualidade\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-agua-tratamento-e-qualidade-02
+  tema: "Quem fixa o padrão"
+  dificuldade: 2
+  enunciado: "No Brasil, quem fixa os padrões de potabilidade da água?"
+  alternativas:
+    - texto: "Uma portaria do Ministério da Saúde, que obriga análises periódicas e informar o resultado à população"
+      certa: true
+    - texto: "Cada morador, em casa"
+      erro: "Os padrões são fixados por portaria do Ministério da Saúde."
+    - texto: "A empresa que vende filtro"
+      erro: "O padrão é fixado pelo Ministério da Saúde."
+  explicacao: "O resultado das análises em geral vem resumido na conta de água."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Água: tratamento e qualidade\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-agua-tratamento-e-qualidade-03
+  tema: "Solvente universal"
+  dificuldade: 2
+  enunciado: "Por que a água é chamada de \"solvente universal\"?"
+  alternativas:
+    - texto: "Porque dissolve uma enorme quantidade de substâncias, o que é sua utilidade e seu problema"
+      certa: true
+    - texto: "Porque só dissolve sal"
+      erro: "Dissolve muitas substâncias."
+    - texto: "Porque nunca carrega poluentes"
+      erro: "Carrega sais, poluentes e microrganismos."
+  explicacao: "Quase toda a água da Terra é salgada. A água doce é uma parcela pequena."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Água: tratamento e qualidade\""
+  revisao:
+    status: em-revisao

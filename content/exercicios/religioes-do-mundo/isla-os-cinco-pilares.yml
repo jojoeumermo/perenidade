@@ -1,0 +1,50 @@
+# Exercícios da aula "Islã: os cinco pilares" (religioes-do-mundo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-do-mundo-isla-os-cinco-pilares-01
+  tema: "Os cinco pilares"
+  dificuldade: 1
+  enunciado: "Qual destas é a oração, um dos cinco pilares do islã?"
+  alternativas:
+    - texto: "Salah"
+      certa: true
+    - texto: "Zakat"
+      erro: "Zakat é a caridade, a doação aos que precisam."
+    - texto: "Hajj"
+      erro: "Hajj é a peregrinação a Meca."
+  explicacao: "Os cinco pilares: shahada (profissão de fé), salah (oração), zakat (caridade), sawm (jejum do Ramadã) e hajj (peregrinação a Meca)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Islã: os cinco pilares\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-isla-os-cinco-pilares-02
+  tema: "Maior cidade muçulmana"
+  dificuldade: 2
+  enunciado: "Qual é a cidade com a maior população muçulmana do mundo, segundo a aula?"
+  alternativas:
+    - texto: "Meca"
+      erro: "A aula diz que não é Meca."
+    - texto: "Carachi, no Paquistão"
+      certa: true
+    - texto: "Cairo, no Egito"
+      erro: "A aula diz que não fica no mundo árabe."
+  explicacao: "O islã é seguido por cerca de 1,9 bilhão de pessoas, cerca de 24% da população mundial."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Islã: os cinco pilares\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-isla-os-cinco-pilares-03
+  tema: "Diversidade"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre a prática dos cinco pilares entre os muçulmanos?"
+  alternativas:
+    - texto: "A participação varia: nem todo muçulmano reza todos os dias, jejua ou faz a peregrinação"
+      certa: true
+    - texto: "Todos cumprem todos os pilares sem exceção"
+      erro: "A aula diz que, como em toda religião, a participação varia."
+    - texto: "Só os sunitas reconhecem os pilares"
+      erro: "Os xiitas também os reconhecem, mas os detalham de outra forma."
+  explicacao: "Os cinco pilares são especialmente enfatizados no islã sunita."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Islã: os cinco pilares\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Trabalho e vida coletiva" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-trabalho-e-vida-coletiva-01
+  tema: "Disciplina Trabalho"
+  dificuldade: 2
+  enunciado: "Em 2022, o que o Ministério da Educação da China fez com a educação para o trabalho?"
+  alternativas:
+    - texto: "Acabou com ela"
+      erro: "A aula diz o contrário: passou a ser disciplina própria do ensino obrigatório."
+    - texto: "Publicou um padrão curricular próprio e o Trabalho passou a ser uma disciplina do ensino obrigatório"
+      certa: true
+    - texto: "Passou a vender produtos escolares"
+      erro: "A aula não fala nisso. Fala de trabalho doméstico, produtivo e de serviço."
+  explicacao: "O conteúdo inclui trabalho doméstico cotidiano, trabalho produtivo (agricultura simples, artesanato, uso de ferramentas) e trabalho de serviço (tarefas comunitárias e voluntariado)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Trabalho e vida coletiva\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-trabalho-e-vida-coletiva-02
+  tema: "Trabalho manual e intelectual"
+  dificuldade: 2
+  enunciado: "Qual é a divisão que a ideia socialista de ligar escola e trabalho quer superar?"
+  alternativas:
+    - texto: "A separação entre quem estuda e quem dorme"
+      erro: "Não é isso. É a separação entre trabalho manual e intelectual."
+    - texto: "A separação entre trabalho manual e intelectual, que divide quem pensa e manda e quem executa e obedece"
+      certa: true
+    - texto: "A separação entre homens e mulheres"
+      erro: "A aula trata da separação entre trabalho manual e intelectual."
+  explicacao: "Marx defendia uma educação que combinasse trabalho produtivo, instrução e educação física. Krupskaia desenvolveu a escola politécnica."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Trabalho e vida coletiva\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-trabalho-e-vida-coletiva-03
+  tema: "Trabalho manual no Brasil"
+  dificuldade: 2
+  enunciado: "Por que, segundo a aula, o trabalho manual é desvalorizado no Brasil?"
+  alternativas:
+    - texto: "Pela herança da escravidão, que fez do trabalho manual \"coisa de escravo\""
+      certa: true
+    - texto: "Porque ninguém precisa dele"
+      erro: "A aula mostra que profissões manuais continuam sendo desvalorizadas e mal pagas, apesar de necessárias."
+    - texto: "Porque a lei proíbe"
+      erro: "Não existe proibição. O desprezo vem da herança da escravidão."
+  explicacao: "Paulo Freire propôs partir da experiência de trabalho dos educandos (pedreiro, lavadeira, agricultor) e reconhecer nela um saber."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Trabalho e vida coletiva\""
+  revisao:
+    status: em-revisao

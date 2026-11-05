@@ -1,0 +1,50 @@
+# Exercícios da aula "Mãe Menininha, Mãe Stella e outras ialorixás" (religioes-de-matriz-africana). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-de-matriz-af-mae-menininha-mae-stella-e-outras-ialori-01
+  tema: "Ialorixá"
+  dificuldade: 1
+  enunciado: "O que é uma ialorixá?"
+  alternativas:
+    - texto: "A mãe de santo, sacerdotisa que lidera um terreiro de candomblé"
+      certa: true
+    - texto: "Uma festa do candomblé"
+      erro: "É a sacerdotisa que conduz os rituais, cuida dos filhos de santo e guarda os saberes."
+    - texto: "Uma comida típica"
+      erro: "Ialorixá é a mãe de santo."
+  explicacao: "Ela guarda os saberes da tradição e conduz o terreiro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mãe Menininha, Mãe Stella e outras ialorixás\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-mae-menininha-mae-stella-e-outras-ialori-02
+  tema: "Mãe Menininha"
+  dificuldade: 2
+  enunciado: "Qual destes dados sobre Mãe Menininha do Gantois está na aula?"
+  alternativas:
+    - texto: "Nasceu em São Paulo em 1925"
+      erro: "Essa data e lugar não batem. Ela nasceu em Salvador, em 10 de fevereiro de 1894."
+    - texto: "Nasceu em Salvador em 1894 e foi empossada ialorixá em 1922, aos 28 anos"
+      certa: true
+    - texto: "Foi eleita para a Academia de Letras da Bahia"
+      erro: "Essa eleição foi a de Mãe Stella de Oxóssi, em 2013."
+  explicacao: "Era filha de Oxum e morreu em 13 de agosto de 1986."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mãe Menininha, Mãe Stella e outras ialorixás\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-mae-menininha-mae-stella-e-outras-ialori-03
+  tema: "Mãe Stella"
+  dificuldade: 2
+  enunciado: "Que ideia Mãe Stella lançou em 1983, na II Conferência Mundial da Tradição dos Orixás e Cultura?"
+  alternativas:
+    - texto: "Ideias originais sobre o sincretismo, que os praticantes usaram como estratégia de resistência diante da perseguição"
+      certa: true
+    - texto: "A proibição do candomblé"
+      erro: "Foi ao contrário: ela defendeu a tradição."
+    - texto: "A criação da umbanda"
+      erro: "A umbanda surgiu no começo do século XX no Rio de Janeiro."
+  explicacao: "Foi a quinta ialorixá do Ilê Axé Opô Afonjá e a cadeira 33 da Academia de Letras da Bahia, em 2013."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mãe Menininha, Mãe Stella e outras ialorixás\""
+  revisao:
+    status: em-revisao

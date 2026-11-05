@@ -1,0 +1,71 @@
+# Exercícios da aula "Movimento e velocidade média" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-mov-01
+  tipo: numero
+  tema: "Velocidade média"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Um motoboy percorre 90 km em 1,5 hora. Qual foi a velocidade média dele?"
+  resposta: "60"
+  unidade: "km/h"
+  erros_comuns:
+    - resposta: "135"
+      explicacao: "Você multiplicou distância e tempo. A velocidade média é a distância dividida pelo tempo."
+  dica: "Velocidade média = distância ÷ tempo."
+  explicacao: "90 ÷ 1,5 = 60 km/h."
+  conferir: "90 / 1.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-mov-02
+  tipo: numero
+  tema: "Tempo de viagem"
+  dificuldade: 2
+  enunciado: "Um ônibus faz 300 km a 75 km/h de velocidade média. Quantas horas dura a viagem?"
+  resposta: "4"
+  unidade: "horas"
+  erros_comuns:
+    - resposta: "22500"
+      explicacao: "Você multiplicou as duas medidas. O tempo é a distância dividida pela velocidade."
+  dica: "Tempo = distância ÷ velocidade."
+  explicacao: "300 ÷ 75 = 4 horas."
+  conferir: "300 / 75"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-mov-03
+  tipo: numero
+  tema: "Distância percorrida"
+  dificuldade: 2
+  enunciado: "Uma caminhoneira anda a 60 km/h de velocidade média durante 3,5 horas. Quantos quilômetros percorre?"
+  resposta: "210"
+  unidade: "km"
+  erros_comuns:
+    - resposta: "17,14"
+      explicacao: "Você dividiu a velocidade pelo tempo. Para achar a distância, multiplique: velocidade × tempo."
+  dica: "Distância = velocidade × tempo."
+  explicacao: "60 × 3,5 = 210 km."
+  conferir: "60 * 3.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-mov-04
+  tipo: numero
+  tema: "Distração ao volante"
+  dificuldade: 3
+  enunciado: "Um carro anda a 90 km/h. Quantos metros ele percorre em 2 segundos de distração com o celular?"
+  resposta: "50"
+  unidade: "metros"
+  erros_comuns:
+    - resposta: "180"
+      explicacao: "180 é o dobro dos 90 km/h. Antes, passe a velocidade para metros por segundo (divida por 3,6) e depois multiplique pelos 2 segundos."
+  dica: "Passe 90 km/h para m/s e multiplique por 2."
+  explicacao: "90 ÷ 3,6 = 25 m/s. Em 2 segundos: 25 × 2 = 50 metros percorridos às cegas."
+  conferir: "90 / 3.6 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

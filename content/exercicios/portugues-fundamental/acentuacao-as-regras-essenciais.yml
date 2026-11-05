@@ -1,0 +1,50 @@
+# Exercícios da aula "Acentuação: as regras essenciais" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-acentuacao-as-regras-essenciais-01
+  tema: "Proparoxítonas"
+  dificuldade: 1
+  enunciado: "Segundo a aula, quais palavras são sempre acentuadas, sem exceção?"
+  alternativas:
+    - texto: "As oxítonas"
+      erro: "Só as oxítonas terminadas em a, e, o (e em, ens) levam acento."
+    - texto: "As proparoxítonas, como lâmpada, médico e último"
+      certa: true
+    - texto: "As paroxítonas"
+      erro: "Só as paroxítonas de certas terminações levam acento."
+  explicacao: "Proparoxítona é a palavra com a sílaba forte na antepenúltima sílaba. Todas levam acento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Acentuação: as regras essenciais\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-acentuacao-as-regras-essenciais-02
+  tema: "Oxítona"
+  dificuldade: 2
+  enunciado: "Qual destas oxítonas leva acento, segundo a regra da aula?"
+  alternativas:
+    - texto: "caqui"
+      erro: "As oxítonas terminadas em i e u não levam acento."
+    - texto: "sofá"
+      certa: true
+    - texto: "papel"
+      erro: "As oxítonas terminadas em consoante, como l, não levam acento."
+  explicacao: "Acentuam-se as oxítonas terminadas em a, e, o (seguidas ou não de s) e em em, ens: sofá, você, café, vovó, também, parabéns."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Acentuação: as regras essenciais\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-acentuacao-as-regras-essenciais-03
+  tema: "Paroxítona"
+  dificuldade: 2
+  enunciado: "Qual destas paroxítonas leva acento, por terminar em l?"
+  alternativas:
+    - texto: "mesa"
+      erro: "Terminada em a, não leva acento."
+    - texto: "fácil"
+      certa: true
+    - texto: "caderno"
+      erro: "Terminada em o, não leva acento."
+  explicacao: "Levam acento as paroxítonas terminadas em l, n, r, x; i, is, us; ã, ão; um, uns, ps; e ditongo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Acentuação: as regras essenciais\""
+  revisao:
+    status: em-revisao

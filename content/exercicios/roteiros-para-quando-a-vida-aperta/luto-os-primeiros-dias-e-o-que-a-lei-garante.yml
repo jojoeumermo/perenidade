@@ -1,0 +1,50 @@
+# Exercícios da aula "Luto: os primeiros dias e o que a lei garante" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-luto-os-primeiros-dias-e-o-que-a-lei-gar-01
+  tema: "Certidão de óbito"
+  dificuldade: 1
+  enunciado: "Segundo a aula, quanto se paga pela primeira certidão de óbito?"
+  alternativas:
+    - texto: "Nada: o assento de óbito e a primeira certidão não são cobrados (Lei 9.534/1997)"
+      certa: true
+    - texto: "Uma taxa fixa"
+      erro: "A lei diz que a primeira certidão é gratuita."
+    - texto: "Só se paga com o benefício do INSS"
+      erro: "Não há essa relação."
+  explicacao: "Peça algumas cópias, porque banco, INSS e seguro pedem."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Luto: os primeiros dias e o que a lei garante\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-luto-os-primeiros-dias-e-o-que-a-lei-gar-02
+  tema: "Faltar ao trabalho"
+  dificuldade: 2
+  enunciado: "Pela CLT (art. 473, I), por quantos dias consecutivos se pode faltar sem perder o salário por falecimento de cônjuge, pais, filhos ou irmãos?"
+  alternativas:
+    - texto: "1 dia"
+      erro: "A lei fala em até 2 dias consecutivos."
+    - texto: "Até 2 dias consecutivos"
+      certa: true
+    - texto: "30 dias"
+      erro: "Seria muito mais que a regra citada."
+  explicacao: "A convenção coletiva da sua categoria pode dar mais. Leve a certidão ao RH."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Luto: os primeiros dias e o que a lei garante\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-luto-os-primeiros-dias-e-o-que-a-lei-gar-03
+  tema: "Ajuda"
+  dificuldade: 1
+  enunciado: "Onde procurar o serviço funerário social e o auxílio por morte para famílias de baixa renda?"
+  alternativas:
+    - texto: "No CRAS ou na assistência social da prefeitura"
+      certa: true
+    - texto: "Só em funerária particular"
+      erro: "Funerárias particulares cobram."
+    - texto: "Só no INSS"
+      erro: "A aula cita o CRAS e a assistência social do município para o auxílio por morte."
+  explicacao: "A pensão por morte é pedida ao INSS pelo Meu INSS ou pelo 135."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Luto: os primeiros dias e o que a lei garante\""
+  revisao:
+    status: em-revisao

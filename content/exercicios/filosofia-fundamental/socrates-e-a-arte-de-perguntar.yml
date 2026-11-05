@@ -1,0 +1,71 @@
+# Exercícios da aula "Sócrates e a arte de perguntar" (Filosofia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fil-socrates-01
+  tema: "Como conhecemos Sócrates"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Sócrates não deixou nada escrito. Como conhecemos as ideias dele?"
+  alternativas:
+    - texto: "Pelos livros que ele publicou em Atenas"
+      erro: "Sócrates não escreveu livro nenhum. O que sabemos dele vem de relatos de outros, como Platão e Xenofonte."
+    - texto: "Pelos relatos de outras pessoas, sobretudo os alunos Platão e Xenofonte"
+      certa: true
+    - texto: "Por gravações feitas na praça"
+      erro: "Ele viveu há mais de dois mil anos, muito antes de qualquer gravação. Conhecemos suas ideias por textos de outros autores."
+  explicacao: "Sócrates não deixou nada escrito. Suas ideias chegaram até nós pelos relatos dos alunos Platão e Xenofonte e também pelas peças de teatro de Aristófanes."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Sócrates e a arte de perguntar\" (fonte da aula: Wikipédia, \"Sócrates\")"
+  revisao:
+    status: em-revisao
+
+- id: fil-socrates-02
+  tema: "Só sei que nada sei"
+  dificuldade: 2
+  enunciado: "O que Sócrates queria dizer com a frase \"só sei que nada sei\"?"
+  alternativas:
+    - texto: "Que ele não valia nada como pensador"
+      erro: "A frase não é desprezo por si mesmo. É o reconhecimento da própria ignorância, que é o ponto de partida para aprender."
+    - texto: "Que ninguém consegue aprender coisa alguma"
+      erro: "Sócrates não dizia que aprender é impossível. Ele achava que as pessoas são capazes de aprender por si mesmas, e queria levá-las a conhecer o que não sabiam."
+    - texto: "Que a sabedoria dele se limitava a reconhecer a própria ignorância"
+      certa: true
+    - texto: "Que os outros eram ignorantes e ele, não"
+      erro: "Pelo contrário: ele nunca disse ser sábio. Reconhecia a própria ignorância e convidava os outros a fazer o mesmo, junto com ele."
+  explicacao: "Sócrates dizia que a sua sabedoria se limitava a reconhecer a própria ignorância. Quem admite que não sabe fica aberto a perguntar e a aprender, seguindo o \"conhece-te a ti mesmo\"."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Sócrates e a arte de perguntar\""
+  revisao:
+    status: em-revisao
+
+- id: fil-socrates-03
+  tema: "Maiêutica"
+  dificuldade: 2
+  enunciado: "Sócrates comparava o seu método ao trabalho de uma parteira. Qual é o sentido da comparação?"
+  alternativas:
+    - texto: "Ele entregava o conhecimento pronto, como quem entrega um bebê"
+      erro: "Era o contrário: ele não entregava respostas prontas. Como a parteira, ajudava o nascimento, e quem \"dava à luz\" a ideia era a própria pessoa."
+    - texto: "Ele só ensinava a quem tinha estudado muito"
+      erro: "A comparação mostra que ele acreditava que todas as pessoas são capazes de aprender por si mesmas, e não só quem estudou."
+    - texto: "Ele ajudava a nascer o conhecimento que já estava dentro das pessoas, com perguntas"
+      certa: true
+  explicacao: "Maiêutica quer dizer \"parteira\" em grego. Para Sócrates, o conhecimento está dentro das pessoas, e o papel dele era ajudar no nascimento dele, com perguntas."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Sócrates e a arte de perguntar\""
+  revisao:
+    status: em-revisao
+
+- id: fil-socrates-04
+  tema: "O fim de Sócrates"
+  dificuldade: 1
+  enunciado: "Como e quando Sócrates morreu, segundo a aula?"
+  alternativas:
+    - texto: "Numa batalha, em 399 a.C."
+      erro: "Ele não morreu em batalha. Foi julgado e condenado à morte em Atenas."
+    - texto: "De velhice, sem nenhum julgamento"
+      erro: "Houve julgamento: Sócrates foi condenado e bebeu um veneno."
+    - texto: "Condenado à morte em Atenas, em 399 a.C., bebendo cicuta"
+      certa: true
+    - texto: "Fugiu de Atenas e viveu escondido"
+      erro: "Segundo Platão, ele poderia ter fugido com a ajuda de amigos, mas não quis."
+  explicacao: "Sócrates foi julgado e condenado à morte em Atenas, em 399 a.C., e bebeu um veneno chamado cicuta. Segundo Platão, ele poderia ter fugido, mas não quis."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Sócrates e a arte de perguntar\" (fonte da aula: Wikipédia, \"Sócrates\")"
+  revisao:
+    status: em-revisao

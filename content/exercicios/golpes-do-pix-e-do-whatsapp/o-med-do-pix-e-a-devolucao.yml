@@ -1,0 +1,67 @@
+# Exercícios da aula "O MED do Pix e a devolução" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-med-01
+  tema: "O que é o MED"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é o MED do Pix?"
+  alternativas:
+    - texto: "Um mecanismo do Banco Central que permite pedir o bloqueio e a devolução do valor quando há indício de fraude ou golpe"
+      certa: true
+    - texto: "Um seguro que devolve sempre todo o dinheiro"
+      erro: "O MED é uma chance, não uma garantia. Só dá para bloquear o que ainda está na conta de destino."
+    - texto: "Um tipo de chave Pix"
+      erro: "O MED é o Mecanismo Especial de Devolução, e não uma chave."
+  explicacao: "Quando há indício de fraude, o banco da vítima pede ao banco do recebedor o bloqueio e a devolução. Se a fraude se confirma, o valor bloqueado é devolvido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-med-02
+  tema: "Por que agir na hora"
+  dificuldade: 2
+  enunciado: "Por que é melhor pedir o MED na hora, e não no dia seguinte?"
+  alternativas:
+    - texto: "Porque o golpista costuma passar o dinheiro adiante em minutos, e só dá para bloquear o que ainda está na conta"
+      certa: true
+    - texto: "Porque o banco cobra mais depois"
+      erro: "O problema não é custo: é o dinheiro sair da conta de destino."
+    - texto: "Porque o Pix some depois de um dia"
+      erro: "O Pix não some; o que acontece é o dinheiro ser repassado a outras contas."
+  explicacao: "O golpista divide o valor entre contas laranja. A chance de recuperar cai a cada minuto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-med-03
+  tema: "O que o MED não garante"
+  dificuldade: 2
+  enunciado: "O golpista já sacou todo o dinheiro. O que acontece com o MED?"
+  alternativas:
+    - texto: "A recuperação fica mais difícil: o MED só bloqueia o que ainda está na conta"
+      certa: true
+    - texto: "O banco paga do próprio bolso, sempre"
+      erro: "Não há essa garantia automática. A devolução depende do que ainda estiver na conta e da análise."
+    - texto: "O MED desfaz o Pix e o dinheiro volta inteiro"
+      erro: "O MED não desfaz o Pix. Só o valor bloqueado pode ser devolvido, e pode ser parcial."
+  explicacao: "O MED é uma chance, e não uma garantia. Quanto antes e com mais provas, melhor."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-med-04
+  tema: "Passos do pedido"
+  dificuldade: 2
+  enunciado: "Qual é a ordem do pedido do MED, em linhas gerais?"
+  alternativas:
+    - texto: "A vítima avisa o banco, o banco abre o pedido e comunica o banco do recebedor, que bloqueia o valor e há uma análise"
+      certa: true
+    - texto: "A vítima avisa o golpista, que devolve o valor"
+      erro: "O golpista não devolve. O pedido corre entre os bancos."
+    - texto: "A vítima espera o banco do recebedor entrar em contato"
+      erro: "Quem começa é a vítima, avisando o seu banco pelo aplicativo ou pela central oficial."
+  explicacao: "1) avisar o seu banco; 2) o banco abre o pedido e comunica o do recebedor; 3) o valor que ainda estiver na conta é bloqueado; 4) há uma análise e, se a fraude se confirmar, a devolução."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

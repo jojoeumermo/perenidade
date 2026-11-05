@@ -1,0 +1,86 @@
+# Exercícios da aula "Reaproveitar tecidos" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-reaprov-01
+  tema: "Por que reaproveitar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para quem costura, por que reaproveitar tecido importa, além de ajudar a diminuir o lixo?"
+  alternativas:
+    - texto: "É economia: o retalho já foi pago"
+      certa: true
+    - texto: "Não importa: retalho não serve para nada"
+      erro: "Serve: ecobags, bolsas, aventais, patchwork, fuxico, viés e enchimento. A aula mostra vários usos."
+    - texto: "Só importa para quem tem fábrica"
+      erro: "Quem costura em casa também ganha: o retalho já foi pago, e reaproveitar reduz o gasto com tecido novo."
+  explicacao: "A aula lembra, citando a Wikipédia, que o consumo de roupas aumentou muito desde o fim dos anos 1990 e que estudos mostram que reusar e reciclar tecidos é mais vantajoso do que queimar ou mandar para o aterro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Reaproveitar tecidos\""
+  revisao:
+    status: em-revisao
+
+- id: cost-reaprov-02
+  tema: "Separar e guardar"
+  dificuldade: 1
+  enunciado: "Como separar os retalhos, segundo a aula?"
+  alternativas:
+    - texto: "Por tamanho, por fibra e por cor, limpos e dobrados, em caixas ou sacos transparentes"
+      certa: true
+    - texto: "Tudo misturado num saco só"
+      erro: "Fibras diferentes se comportam de forma diferente na lavagem. Separe por fibra e cor, e guarde limpo e à vista."
+    - texto: "Só por preço"
+      erro: "A separação útil é por tamanho (grandes, médios, pequenos), fibra e cor."
+  explicacao: "Retalhos grandes dão uma peça pequena; médios servem para bolsos, viés e patchwork; pequenos, para fuxico e enchimento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Reaproveitar tecidos\""
+  revisao:
+    status: em-revisao
+
+- id: cost-reaprov-03
+  tipo: numero
+  tema: "Quanto rende um retalho"
+  dificuldade: 3
+  enunciado: "Um retalho de 50 × 40 cm. Quantos quadrados de 12 cm (10 cm prontos mais 1 cm de margem de cada lado) saem dele? (Veja quantos cabem no comprimento e quantos na largura, só números inteiros, e multiplique.)"
+  resposta: "12"
+  unidade: "quadrados"
+  erros_comuns:
+    - resposta: "14"
+      explicacao: "14 vem de dividir a área toda (2.000 cm²) pela área de um quadrado (144 cm²). Mas as sobras das beiradas não formam quadrados inteiros: cabem 4 no comprimento e 3 na largura."
+    - resposta: "7"
+      explicacao: "Você somou 4 + 3. Quando se corta em fileiras e colunas, multiplica-se: 4 × 3."
+  dica: "Divida 50 por 12 e 40 por 12, ficando só com a parte inteira, e multiplique os dois resultados."
+  explicacao: "50 ÷ 12 = 4 (sobram 2 cm); 40 ÷ 12 = 3 (sobram 4 cm); 4 × 3 = 12 quadrados. Em círculos de 14 cm para fuxico, que ocupam cada um um quadrado de 14 cm, saem 3 × 2 = 6. As sobras ainda servem para viés ou enchimento."
+  conferir: "4 * 3"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Reaproveitar tecidos\""
+  revisao:
+    status: em-revisao
+
+- id: cost-reaprov-04
+  tema: "Fuxico e patchwork"
+  dificuldade: 2
+  enunciado: "O que é o fuxico, e o que é o patchwork?"
+  alternativas:
+    - texto: "O fuxico é um círculo de retalho alinhavado na beirada e franzido numa roseta; o patchwork junta pedaços de formas geométricas bem medidas num desenho maior"
+      certa: true
+    - texto: "O fuxico é um tipo de bainha; o patchwork é um zíper"
+      erro: "Os dois são técnicas de reaproveitar retalhos. Fuxico faz rosetas com círculos; patchwork junta pedaços geométricos num desenho."
+    - texto: "São a mesma coisa"
+      erro: "O fuxico usa círculos franzidos; o patchwork junta formas geométricas, como quadrados e triângulos, costuradas."
+  explicacao: "Unidas, as rosetas do fuxico viram colchas, bolsas, tapetes, colares e broches. Quadrados e triângulos são o jeito mais fácil de começar no patchwork."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Reaproveitar tecidos\""
+  revisao:
+    status: em-revisao
+
+- id: cost-reaprov-05
+  tema: "Misturar fibras"
+  dificuldade: 3
+  enunciado: "Você vai juntar retalhos de malha e de tricoline de algodão numa mesma colcha. Qual é o risco?"
+  alternativas:
+    - texto: "A malha estica e se comporta diferente do tecido plano, e a colcha pode deformar"
+      certa: true
+    - texto: "Nenhum"
+      erro: "Malha e tecido plano esticam de jeitos diferentes. Misturar na mesma peça pode deformar."
+    - texto: "A colcha fica mais leve, só isso"
+      erro: "O problema não é o peso: é o estica diferente dos dois tipos de tecido."
+  explicacao: "Antes de reaproveitar uma roupa usada, lave, desmanche as costuras com o desmanchador e passe: assim você vê quanto tecido tem de verdade. Camiseta de malha vira ecobag, calça jeans vira bolsa ou avental, camisa social vira almofada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Reaproveitar tecidos\""
+  revisao:
+    status: em-revisao

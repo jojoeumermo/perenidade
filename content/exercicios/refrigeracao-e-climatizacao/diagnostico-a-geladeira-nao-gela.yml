@@ -1,0 +1,50 @@
+# Exercícios da aula "Diagnóstico: a geladeira não gela" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-diagnostico-a-geladeira-nao-gela-01
+  tema: "Primeiro passo"
+  dificuldade: 1
+  enunciado: "Qual é o primeiro passo do roteiro da geladeira que não gela?"
+  alternativas:
+    - texto: "Ver se está ligada: tomada firme, energia na casa e luz interna acesa"
+      certa: true
+    - texto: "Trocar o compressor"
+      erro: "O roteiro vai do mais simples ao mais difícil."
+    - texto: "Chamar a assistência sem olhar nada"
+      erro: "O roteiro começa pelo mais simples."
+  explicacao: "Depois: regulagem, porta, ventilação, sujeira, carga, gelo e ruído."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Diagnóstico: a geladeira não gela\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-diagnostico-a-geladeira-nao-gela-02
+  tema: "Teste da folha"
+  dificuldade: 2
+  enunciado: "Para que serve o teste da folha de papel na porta da geladeira?"
+  alternativas:
+    - texto: "Para ver se a vedação está ruim: se o papel sai fácil, a vedação não segura"
+      certa: true
+    - texto: "Para medir a temperatura"
+      erro: "O teste verifica a vedação."
+    - texto: "Para testar o compressor"
+      erro: "O compressor não é testado assim."
+  explicacao: "Borracha ressecada ou rasgada atrapalha a geladeira a gelar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Diagnóstico: a geladeira não gela\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-diagnostico-a-geladeira-nao-gela-03
+  tema: "Limpar a serpentina"
+  dificuldade: 2
+  enunciado: "Antes de limpar a serpentina atrás da geladeira, o que se deve fazer?"
+  alternativas:
+    - texto: "Desligar a geladeira da tomada e usar escova macia ou aspirador"
+      certa: true
+    - texto: "Molhar com água para tirar a poeira"
+      erro: "A aula manda limpar com escova macia ou aspirador, com a geladeira desligada."
+    - texto: "Limpar com a geladeira ligada"
+      erro: "A aula manda desligar da tomada."
+  explicacao: "Se os passos de 1 a 6 não resolverem, o defeito pode estar em termostato, ventilador, degelo, placa, compressor ou gás: é com técnico formado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Diagnóstico: a geladeira não gela\""
+  revisao:
+    status: em-revisao

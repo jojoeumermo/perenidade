@@ -1,0 +1,67 @@
+# Exercícios da aula "Boletim de ocorrência do golpe digital" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-bo-01
+  tema: "Ordem depois do golpe"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a ordem mais segura depois de cair num golpe de Pix?"
+  alternativas:
+    - texto: "Avisar o banco na hora, guardar as provas e registrar o boletim em seguida"
+      certa: true
+    - texto: "Fazer o boletim e avisar o banco só depois, se der tempo"
+      erro: "O boletim não substitui avisar o banco na hora. Quanto mais cedo o banco souber, maior a chance de bloquear o valor."
+    - texto: "Esperar para ver se o dinheiro volta"
+      erro: "Esperar dá tempo ao golpista de passar o dinheiro adiante. Avise o banco logo."
+  explicacao: "Primeiro o banco, pelo canal oficial; depois guardar as provas e registrar o BO."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-bo-02
+  tema: "Provas para guardar"
+  dificuldade: 2
+  enunciado: "Qual destas atitudes ajuda a guardar as provas do golpe?"
+  alternativas:
+    - texto: "Tirar prints das conversas com data e hora, salvar o comprovante do Pix e não apagar nada antes disso"
+      certa: true
+    - texto: "Apagar a conversa para não ver mais o golpista"
+      erro: "Apagar destrói as provas. Salve prints, comprovante e protocolos antes de qualquer coisa."
+    - texto: "Clicar de novo no link do golpista para tirar print"
+      erro: "Não clique de novo nos links: guarde o endereço sem abrir."
+  explicacao: "Prints com data e hora visíveis, comprovante do Pix, números de telefone, links e e-mails usados e protocolos do banco. Não apague as conversas antes de salvar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-bo-03
+  tema: "O que diz a lei"
+  dificuldade: 2
+  enunciado: "Desde a Lei 14.155/2021, qual é a pena da fraude eletrônica prevista no art. 171, § 2º-A, do Código Penal?"
+  alternativas:
+    - texto: "Reclusão de 4 a 8 anos e multa"
+      certa: true
+    - texto: "Só uma multa, sem prisão"
+      erro: "A pena é de reclusão, de 4 a 8 anos, e multa, quando a fraude usa informações dadas pela vítima por redes sociais, telefone ou e-mail fraudulento."
+    - texto: "Prisão de alguns dias"
+      erro: "O crime é grave: a lei prevê reclusão de 4 a 8 anos e multa."
+  explicacao: "A fraude eletrônica, cometida com informações fornecidas pela vítima ou por terceiro induzido a erro por redes sociais, telefone ou e-mail fraudulento, tem pena de reclusão de 4 a 8 anos e multa."
+  fonte: "Código Penal, art. 171, § 2º-A (redação da Lei 14.155/2021), planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: gp-bo-04
+  tema: "Vale a pena registrar?"
+  dificuldade: 3
+  enunciado: "Um colega diz: 'Não adianta fazer BO, a polícia nunca recupera o dinheiro'. Qual resposta é a mais honesta e útil?"
+  alternativas:
+    - texto: "A investigação pode demorar, mas o BO é a prova oficial que o banco e a Justiça pedem e ajuda a identificar quadrilhas"
+      certa: true
+    - texto: "Ele tem razão: é perda de tempo"
+      erro: "A frustração tem fundamento, mas sem registro fica mais difícil contestar cobranças e o caso some das estatísticas."
+    - texto: "O BO garante que o dinheiro volta em poucos dias"
+      erro: "O BO não garante devolução. Ele é prova e ajuda na investigação; o banco deve ser avisado na hora."
+  explicacao: "Reconhecer a lentidão e lembrar do valor do registro: prova para o banco e a Justiça, direitos, e ajuda para a polícia ligar casos de uma mesma quadrilha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

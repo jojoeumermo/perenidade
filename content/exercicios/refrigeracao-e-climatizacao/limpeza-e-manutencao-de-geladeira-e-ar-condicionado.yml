@@ -1,0 +1,50 @@
+# Exercícios da aula "Limpeza e manutenção de geladeira e ar-condicionado" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-limpeza-e-manutencao-de-geladeira-e-ar-c-01
+  tema: "Filtros"
+  dificuldade: 1
+  enunciado: "Como a aula manda lavar os filtros do ar-condicionado?"
+  alternativas:
+    - texto: "Com água morna e sabão neutro, deixando secar à sombra"
+      certa: true
+    - texto: "Com solvente e secando ao sol forte"
+      erro: "O sol forte deforma o plástico."
+    - texto: "Sem desligar o aparelho"
+      erro: "A aula manda desligar da tomada ou do disjuntor."
+  explicacao: "Em uso diário, a cada 15 a 30 dias, ou conforme o manual."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Limpeza e manutenção de geladeira e ar-condicionado\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-limpeza-e-manutencao-de-geladeira-e-ar-c-02
+  tema: "Limpeza completa"
+  dificuldade: 2
+  enunciado: "A limpeza completa do ar (serpentina, bandeja, turbina, dreno) deve ser feita por quem?"
+  alternativas:
+    - texto: "Por técnico habilitado, em geral a cada 6 meses ou 1 ano"
+      certa: true
+    - texto: "Pelo morador, toda semana"
+      erro: "A aula diz que é serviço de técnico, por causa da altura e da parte elétrica."
+    - texto: "Nunca precisa"
+      erro: "A aula manda fazer periodicamente."
+  explicacao: "Aparelho sujo gasta mais energia, esfria menos e quebra mais cedo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Limpeza e manutenção de geladeira e ar-condicionado\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-limpeza-e-manutencao-de-geladeira-e-ar-c-03
+  tema: "Por que limpar"
+  dificuldade: 1
+  enunciado: "Por que limpar o ar-condicionado também ajuda a saúde?"
+  alternativas:
+    - texto: "O filtro entupido espalha poeira, mofo e fungos pelo ambiente"
+      certa: true
+    - texto: "Porque o gás faz mal ao respirar"
+      erro: "A aula cita poeira, mofo e fungos."
+    - texto: "Porque o filtro produz gás"
+      erro: "O filtro entupido espalha a sujeira."
+  explicacao: "Faz mal a quem tem alergia, asma ou bronquite."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Limpeza e manutenção de geladeira e ar-condicionado\""
+  revisao:
+    status: em-revisao

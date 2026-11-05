@@ -1,0 +1,50 @@
+# Exercícios da aula "O Estatuto da Criança e do Adolescente" (politica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: politica-fundamental-o-estatuto-da-crianca-e-do-adolescente-01
+  tema: "Quem é criança"
+  dificuldade: 1
+  enunciado: "Pelo artigo 2º do ECA, quem é criança?"
+  alternativas:
+    - texto: "A pessoa até 18 anos"
+      erro: "Até 18 anos é a faixa que vai até o fim da adolescência."
+    - texto: "A pessoa até 12 anos incompletos"
+      certa: true
+    - texto: "A pessoa até 6 anos"
+      erro: "A criança, no ECA, é a pessoa até 12 anos incompletos."
+  explicacao: "Adolescente é quem tem entre 12 e 18 anos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O Estatuto da Criança e do Adolescente\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-o-estatuto-da-crianca-e-do-adolescente-02
+  tema: "Lei do ECA"
+  dificuldade: 1
+  enunciado: "Qual é o número e a data do ECA?"
+  alternativas:
+    - texto: "Lei nº 8.069, de 13 de julho de 1990"
+      certa: true
+    - texto: "Lei nº 7.398, de 4 de novembro de 1985"
+      erro: "Essa é a Lei do Grêmio Livre."
+    - texto: "Lei nº 14.402, de 2022"
+      erro: "Essa é a lei que mudou o nome para Dia dos Povos Indígenas."
+  explicacao: "O art. 1º diz que o Estatuto trata da proteção integral à criança e ao adolescente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O Estatuto da Criança e do Adolescente\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-o-estatuto-da-crianca-e-do-adolescente-03
+  tema: "Quem protege"
+  dificuldade: 2
+  enunciado: "Pelo art. 227 da Constituição, de quem é o dever de assegurar os direitos da criança e do adolescente, com absoluta prioridade?"
+  alternativas:
+    - texto: "Só da família"
+      erro: "O art. 227 inclui a sociedade e o Estado."
+    - texto: "Da família, da sociedade e do Estado"
+      certa: true
+    - texto: "Só do Conselho Tutelar"
+      erro: "O Conselho Tutelar zela pelos direitos, mas o dever é de família, sociedade e Estado."
+  explicacao: "Em caso de suspeita de maus-tratos, a pessoa pode procurar o Conselho Tutelar, a polícia e o Disque 100."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O Estatuto da Criança e do Adolescente\""
+  revisao:
+    status: em-revisao

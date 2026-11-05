@@ -1,0 +1,50 @@
+# Exercícios da aula "Engasgo em adultos, crianças e bebês" (primeiros-socorros-basico). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: primeiros-socorros-bas-engasgo-01
+  tema: "Leve ou grave"
+  dificuldade: 1
+  enunciado: "Uma pessoa engasgada tosse e faz barulho, e consegue falar. Pela aula, o engasgo é leve ou grave?"
+  alternativas:
+    - texto: "Leve: o ar está passando"
+      certa: true
+    - texto: "Grave: ela precisa de manobra agora"
+      erro: "No engasgo grave a pessoa não consegue falar, tossir nem respirar."
+    - texto: "Não é engasgo"
+      erro: "Tosse e barulho são a reação do corpo ao engasgo. É um engasgo leve."
+  explicacao: "No engasgo leve, incentive a tossir e fique por perto. Não bata nas costas e não dê água, porque mexer pode empurrar o objeto para um lugar pior."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Engasgo em adultos, crianças e bebês\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-engasgo-02
+  tema: "Engasgo grave"
+  dificuldade: 1
+  enunciado: "Qual destes é um sinal de engasgo grave, segundo a aula?"
+  alternativas:
+    - texto: "A pessoa tosse forte e consegue falar"
+      erro: "Isso é engasgo leve."
+    - texto: "Silêncio, mãos no pescoço, olhos arregalados e lábios e rosto arroxeados"
+      certa: true
+    - texto: "A pessoa pede água"
+      erro: "No engasgo leve não se dá água, e o grave tem silêncio e falta de ar."
+  explicacao: "No engasgo grave aja agora e peça para alguém ligar 192."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Engasgo em adultos, crianças e bebês\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-engasgo-03
+  tema: "Heimlich"
+  dificuldade: 2
+  enunciado: "Na manobra de Heimlich em adulto, onde se encosta o lado do polegar do punho fechado?"
+  alternativas:
+    - texto: "No peito, em cima do osso do meio"
+      erro: "Esse é o local da massagem cardíaca, e não da manobra de Heimlich em adulto comum."
+    - texto: "Na barriga, acima do umbigo e abaixo das costelas"
+      certa: true
+    - texto: "Nas costas, entre os ombros"
+      erro: "A manobra é feita na barriga, por trás da pessoa."
+  explicacao: "Puxe com força para dentro e para cima, em um movimento só, como se desenhasse a letra J. Com criança, use menos força."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Engasgo em adultos, crianças e bebês\""
+  revisao:
+    status: em-revisao

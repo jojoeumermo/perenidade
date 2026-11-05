@@ -1,0 +1,73 @@
+# Exercícios da aula "Expressões e ordem das operações" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-exp-01
+  tema: "Multiplicar antes de somar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quanto é 6 + 4 × 5?"
+  alternativas:
+    - texto: "26"
+      certa: true
+    - texto: "50"
+      erro: "Você fez as contas na ordem em que leu: 6 + 4 = 10 e 10 × 5 = 50. A multiplicação vem antes da soma: 4 × 5 = 20 e, depois, 6 + 20."
+    - texto: "120"
+      erro: "Você multiplicou tudo. A conta tem uma soma e uma multiplicação: primeiro 4 × 5 = 20, depois 6 + 20."
+  explicacao: "A multiplicação vem antes da soma: 4 × 5 = 20. Depois, 6 + 20 = 26."
+  conferir: "6 + 4 * 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-exp-02
+  tema: "Divisão e subtração juntas"
+  dificuldade: 2
+  enunciado: "Quanto é 40 − 12 ÷ 4 + 5?"
+  alternativas:
+    - texto: "42"
+      certa: true
+    - texto: "12"
+      erro: "Você subtraiu 40 − 12 antes de dividir. A divisão tem prioridade: primeiro 12 ÷ 4 = 3."
+    - texto: "32"
+      erro: "Você somou 3 + 5 antes de tirar de 40. Soma e subtração têm a mesma prioridade: faça da esquerda para a direita (40 − 3 = 37, e 37 + 5 = 42)."
+  explicacao: "Primeiro a divisão: 12 ÷ 4 = 3. Depois, da esquerda para a direita: 40 − 3 = 37 e 37 + 5 = 42."
+  conferir: "40 - 12 / 4 + 5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-exp-03
+  tipo: numero
+  tema: "Da situação para a expressão"
+  dificuldade: 2
+  enunciado: "Paguei com uma nota de R$ 100 duas sacas de arroz a R$ 22 cada e três pacotes de feijão a R$ 9 cada. Qual foi o troco, em reais?"
+  resposta: "29"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "71"
+      explicacao: "71 é o gasto total, não o troco. Falta tirar o gasto dos R$ 100."
+    - resposta: "83"
+      explicacao: "Sem parênteses, você tirou só o arroz dos R$ 100 e somou o feijão. A compra inteira tem de ser calculada primeiro: 100 − (2 × 22 + 3 × 9)."
+  dica: "Calcule primeiro quanto gastou, depois tire de 100."
+  explicacao: "A compra: 2 × 22 + 3 × 9 = 44 + 27 = 71. Troco: 100 − 71 = 29."
+  conferir: "100 - (2 * 22 + 3 * 9)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-exp-04
+  tema: "Potência na ordem das operações"
+  dificuldade: 3
+  enunciado: "Quanto é 5 + 2 × 3²?"
+  alternativas:
+    - texto: "23"
+      certa: true
+    - texto: "63"
+      erro: "Você somou 5 + 2 antes de multiplicar. A ordem é: potência (3² = 9), multiplicação (2 × 9 = 18) e, por fim, a soma."
+    - texto: "121"
+      erro: "Você fez a conta toda e elevou o resultado ao quadrado. O expoente 2 vale só para o 3 que está embaixo dele."
+  explicacao: "Primeiro a potência: 3² = 9. Depois a multiplicação: 2 × 9 = 18. Por fim, a soma: 5 + 18 = 23."
+  conferir: "5 + 2 * 3^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

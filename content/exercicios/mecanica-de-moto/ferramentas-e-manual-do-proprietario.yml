@@ -1,0 +1,50 @@
+# Exercícios da aula "Ferramentas e manual do proprietário" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-ferramentas-e-manual-do-proprietario-01
+  tema: "O que o manual traz"
+  dificuldade: 1
+  enunciado: "Qual destas informações a aula diz que está no manual do proprietário?"
+  alternativas:
+    - texto: "O preço de cada peça na loja"
+      erro: "O manual não traz preço. Traz óleo, pressão do pneu, folga da corrente, revisões e lâmpadas."
+    - texto: "O tipo e a quantidade de óleo, a pressão dos pneus e a tabela de revisões"
+      certa: true
+    - texto: "A lista de oficinas da cidade"
+      erro: "O manual não lista oficinas. Ele é o guia da manutenção da própria moto."
+  explicacao: "O manual traz óleo, pressão dos pneus, folga da corrente, tabela de revisões e lâmpadas. Se a moto veio sem manual, quase sempre dá para achar o PDF no site do fabricante."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e manual do proprietário\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-ferramentas-e-manual-do-proprietario-02
+  tema: "Usar a chave"
+  dificuldade: 1
+  enunciado: "Qual é o cuidado de escolher a chave do tamanho exato para o parafuso?"
+  alternativas:
+    - texto: "Nenhum, qualquer chave serve"
+      erro: "Se a chave folgar, o parafuso arredonda."
+    - texto: "Evitar que o parafuso arredonde"
+      certa: true
+    - texto: "Deixar o parafuso mais apertado do que o manual manda"
+      erro: "O aperto correto é o torque do manual. A chave exata evita estragar o parafuso."
+  explicacao: "Escolha a chave do tamanho exato, encaixe até o fundo e puxe em sua direção. Se folgar, o parafuso arredonda."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e manual do proprietário\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-ferramentas-e-manual-do-proprietario-03
+  tema: "Peça paralela"
+  dificuldade: 2
+  enunciado: "Um mecânico vai usar peça paralela no conserto da moto de um cliente. Segundo a aula e o artigo 21 do Código de Defesa do Consumidor, o que ele deve fazer?"
+  alternativas:
+    - texto: "Usar sem avisar, porque o cliente não percebe"
+      erro: "A lei diz que se deve usar peça original ou que mantenha as especificações do fabricante, salvo autorização do consumidor."
+    - texto: "Avisar o cliente e anotar que ele concordou"
+      certa: true
+    - texto: "Cobrar o dobro"
+      erro: "A aula não fala em cobrar mais. Fala em avisar e anotar a concordância."
+  explicacao: "O CDC (art. 21) manda usar componentes de reposição originais ou que mantenham as especificações técnicas, a não ser que o consumidor autorize. Se for peça paralela, avise e anote."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e manual do proprietário\""
+  revisao:
+    status: em-revisao

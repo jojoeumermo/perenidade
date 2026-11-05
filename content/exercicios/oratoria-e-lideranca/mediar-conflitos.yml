@@ -1,0 +1,50 @@
+# Exercícios da aula "Mediar conflitos" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-mediar-conflitos-01
+  tema: "O que é mediar"
+  dificuldade: 1
+  enunciado: "O que a Lei 13.140/2015 diz que é mediação?"
+  alternativas:
+    - texto: "Um juiz decide quem tem razão"
+      erro: "Mediar não é julgar. Quem media não tem poder de decidir."
+    - texto: "A atividade de um terceiro imparcial, sem poder de decidir, que ajuda as partes a encontrar soluções de comum acordo"
+      certa: true
+    - texto: "Uma briga entre as partes"
+      erro: "A mediação ajuda a resolver o conflito por acordo."
+  explicacao: "Quem media não diz quem tem razão: ajuda os dois lados a conversar e a construir a saída."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mediar conflitos\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-mediar-conflitos-02
+  tema: "Observação ou juízo"
+  dificuldade: 2
+  enunciado: "Qual destas frases é uma observação, e não um juízo de valor, segundo a comunicação não violenta?"
+  alternativas:
+    - texto: "\"Você é folgado.\""
+      erro: "Isso é um juízo de valor."
+    - texto: "\"O som ficou alto até as 2h.\""
+      certa: true
+    - texto: "\"Você não liga para ninguém.\""
+      erro: "Isso é uma opinião, e não uma observação."
+  explicacao: "Distinções da aula: observação e juízo, sentimento e opinião, necessidade e estratégia, pedido e exigência ou ameaça."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mediar conflitos\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-mediar-conflitos-03
+  tema: "Revelar parentesco"
+  dificuldade: 2
+  enunciado: "Se você é parente ou amigo de um dos lados, o que a lei manda o mediador fazer?"
+  alternativas:
+    - texto: "Revelar isso antes de começar, ou pedir que outra pessoa medie"
+      certa: true
+    - texto: "Esconder, para não atrapalhar"
+      erro: "A lei manda revelar antes de começar qualquer coisa que possa pôr em dúvida a imparcialidade."
+    - texto: "Mediar mesmo assim, sem avisar"
+      erro: "A lei manda revelar ou passar a mediação a outra pessoa."
+  explicacao: "Os princípios da mediação são imparcialidade, isonomia, oralidade e informalidade, autonomia da vontade, busca do consenso, confidencialidade e boa-fé."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mediar conflitos\""
+  revisao:
+    status: em-revisao

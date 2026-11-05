@@ -1,0 +1,67 @@
+# Exercícios da aula "Ética no dia a dia" (Filosofia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fil-etica-01
+  tema: "Ética e moral"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Na filosofia, qual é a diferença entre moral e ética?"
+  alternativas:
+    - texto: "A moral é o conjunto de valores de um grupo ou pessoa sobre certo e errado; a ética estuda os fundamentos da ação moral"
+      certa: true
+    - texto: "A moral é a lei do governo; a ética é a lei da religião"
+      erro: "Nenhuma das duas é lei do governo ou da religião. A moral são os padrões de um grupo ou de uma pessoa; a ética é a disciplina que estuda por que uma ação é moral."
+    - texto: "Não há nenhuma diferença, são palavras de línguas diferentes e só isso"
+      erro: "No dia a dia as duas são usadas quase como sinônimos, e vêm de palavras que querem dizer costume (ethos, em grego; mos, em latim). Mas na filosofia a ética é o estudo dos fundamentos da moral."
+  explicacao: "A moral é o conjunto de padrões e valores sobre o que é certo e errado. A ética é a disciplina que estuda os fundamentos da ação moral e procura justificar por que uma ação é moral."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ética no dia a dia\" (fonte da aula: Wikipédia, \"Ética\")"
+  revisao:
+    status: em-revisao
+
+- id: fil-etica-02
+  tema: "Moral, imoral e amoral"
+  dificuldade: 2
+  enunciado: "Qual destas ações é amoral, isto é, não tem relação com certo e errado?"
+  alternativas:
+    - texto: "Espalhar um boato para humilhar alguém"
+      erro: "Prejudica alguém de propósito: vai contra a moral. É uma ação imoral."
+    - texto: "Escolher arroz em vez de macarrão no almoço"
+      certa: true
+    - texto: "Devolver uma carteira achada na rua"
+      erro: "Respeita o que é do outro: é uma ação moral, e não amoral."
+  explicacao: "Uma ação amoral não tem relação com a moral, como escolher entre arroz e macarrão. Mentir para prejudicar alguém é imoral; devolver uma carteira achada é moral."
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Ética no dia a dia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-etica-03
+  tema: "Perguntas da ética"
+  dificuldade: 1
+  enunciado: "Quais são as principais perguntas da ética?"
+  alternativas:
+    - texto: "Como devemos viver? Como devemos agir?"
+      certa: true
+    - texto: "Quanto vale cada coisa? Quem paga a conta?"
+      erro: "São perguntas de economia e de vida prática. A ética pergunta como devemos viver e como devemos agir."
+    - texto: "De que é feito o mundo? Quando ele nasceu?"
+      erro: "São perguntas sobre a natureza e a origem das coisas, que os primeiros filósofos faziam. A ética trata de como devemos viver e agir."
+  explicacao: "As principais perguntas da ética são \"como devemos viver?\" e \"como devemos agir?\"."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ética no dia a dia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-etica-04
+  tema: "Pensar eticamente"
+  dificuldade: 2
+  enunciado: "Você achou o troco errado a seu favor e decidiu devolver. Segundo a aula, o que significa pensar eticamente nessa escolha?"
+  alternativas:
+    - texto: "Devolver só se alguém estiver olhando"
+      erro: "Isso é agir por medo de ser pego. A aula diz que pensar eticamente é dar razões para a escolha, e não só seguir o costume ou o medo."
+    - texto: "Dar razões para a escolha, e não só seguir o costume ou o medo de ser pego"
+      certa: true
+    - texto: "Fazer o que todo mundo faz"
+      erro: "Seguir o costume sem examinar não é pensar eticamente. É preciso perguntar por que a ação é certa."
+  explicacao: "Pensar eticamente é dar razões para a escolha: por exemplo, devolver porque aquele dinheiro é do outro, e não porque alguém pode ver."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ética no dia a dia\""
+  revisao:
+    status: em-revisao

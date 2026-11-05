@@ -1,0 +1,50 @@
+# Exercícios da aula "Instalação do split e trabalho em altura" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-instalacao-do-split-e-trabalho-em-altura-01
+  tema: "NR-35"
+  dificuldade: 1
+  enunciado: "Pela NR-35, acima de qual altura toda atividade com risco de queda é considerada trabalho em altura?"
+  alternativas:
+    - texto: "Acima de 20 cm"
+      erro: "É bem menor que a altura da norma."
+    - texto: "Acima de 2,00 m do nível inferior"
+      certa: true
+    - texto: "Acima de 20 m"
+      erro: "É bem maior que a altura da norma."
+  explicacao: "Em instalação de ar-condicionado isso acontece o tempo todo: parede alta, janela de prédio, telhado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Instalação do split e trabalho em altura\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-instalacao-do-split-e-trabalho-em-altura-02
+  tema: "Ninguém sozinho"
+  dificuldade: 1
+  enunciado: "Qual destas é uma regra de segurança em altura da aula?"
+  alternativas:
+    - texto: "Ninguém trabalha sozinho em altura: alguém por perto"
+      certa: true
+    - texto: "Escada serve como ponto de trabalho em local alto"
+      erro: "A aula diz que escada só serve com apoio firme e nivelado, e nunca como ponto de trabalho em local alto."
+    - texto: "Vento e chuva não atrapalham"
+      erro: "A aula diz que vento, chuva e escuridão são motivos para parar."
+  explicacao: "Use cinto tipo paraquedista, talabarte e ponto de ancoragem seguros, e isole a área embaixo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Instalação do split e trabalho em altura\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-instalacao-do-split-e-trabalho-em-altura-03
+  tema: "Etapa de vácuo e gás"
+  dificuldade: 2
+  enunciado: "Na instalação do split, quem deve fazer o vácuo e o gás?"
+  alternativas:
+    - texto: "Um profissional com ferramenta e formação"
+      certa: true
+    - texto: "Qualquer pessoa com a bomba de vácuo"
+      erro: "A aula diz que é de profissional com formação."
+    - texto: "O morador, seguindo um vídeo"
+      erro: "A aula diz que é de profissional."
+  explicacao: "Siga sempre o manual do fabricante do modelo: ele traz distâncias, bitolas e disjuntores certos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Instalação do split e trabalho em altura\""
+  revisao:
+    status: em-revisao

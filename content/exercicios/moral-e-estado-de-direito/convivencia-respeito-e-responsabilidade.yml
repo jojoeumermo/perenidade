@@ -1,0 +1,50 @@
+# Exercícios da aula "Convivência, respeito e responsabilidade" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-convivencia-respeito-e-responsabilidade-01
+  tema: "ECA"
+  dificuldade: 2
+  enunciado: "O Estatuto da Criança e do Adolescente (1990) garante à criança o direito ao respeito. O que ele inclui, segundo a aula?"
+  alternativas:
+    - texto: "Só o direito de ser obediente"
+      erro: "A aula diz que o ECA parte dos direitos da criança como sujeito."
+    - texto: "A inviolabilidade da integridade física, psíquica e moral (art. 17)"
+      certa: true
+    - texto: "O direito de não ir à escola"
+      erro: "Não é isso. O art. 17 trata da integridade física, psíquica e moral."
+  explicacao: "O ECA também garante a liberdade de opinião e expressão (art. 16). Parte dos direitos da criança, enquanto a disciplina chinesa parte mais das responsabilidades em relação ao grupo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Convivência, respeito e responsabilidade\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-convivencia-respeito-e-responsabilidade-02
+  tema: "Confúcio"
+  dificuldade: 1
+  enunciado: "Que tradição antiga chinesa, ligada a Confúcio, o currículo atual retoma ao falar de convivência?"
+  alternativas:
+    - texto: "A ideia de que cada um deve ignorar os mais velhos"
+      erro: "É o contrário: Confúcio ensinava o respeito aos pais e aos mais velhos."
+    - texto: "A ênfase na benevolência, no respeito aos pais e aos mais velhos e no estudo"
+      certa: true
+    - texto: "A ideia de que cada um deve pensar só em si"
+      erro: "É o contrário: a formação moral chinesa enfatiza o coletivo."
+  explicacao: "Confúcio (séculos VI-V a.C.) ensinava a benevolência (rén), o respeito aos pais e mais velhos, o estudo e o autocultivo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Convivência, respeito e responsabilidade\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-convivencia-respeito-e-responsabilidade-03
+  tema: "Coletivo e indivíduo"
+  dificuldade: 2
+  enunciado: "Qual é a crítica que a aula registra à ênfase no coletivo na formação moral chinesa?"
+  alternativas:
+    - texto: "Que ela estimula demais a discordância"
+      erro: "A crítica é o oposto: pode desestimular a discordância e a expressão individual."
+    - texto: "Que ela pode desestimular a discordância e a expressão individual"
+      certa: true
+    - texto: "Que ela proíbe a convivência na escola"
+      erro: "A convivência é justamente o ponto de partida da disciplina."
+  explicacao: "Os defensores veem um antídoto ao individualismo e ao consumismo; os críticos veem risco de desestimular a discordância."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Convivência, respeito e responsabilidade\""
+  revisao:
+    status: em-revisao

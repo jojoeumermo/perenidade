@@ -1,0 +1,50 @@
+# Exercícios da aula "Consciência de classe: descobrir de que lado você está" (primeiros-passos-na-militancia). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: primeiros-passos-na-mi-consciencia-de-classe-descobrir-de-que-l-01
+  tema: "Classe e renda"
+  dificuldade: 2
+  enunciado: "Para Marx, de que depende a classe de uma pessoa?"
+  alternativas:
+    - texto: "Da faixa de renda"
+      erro: "A aula diz que a renda engana: classe é lugar na produção."
+    - texto: "Do lugar que ela ocupa na produção: ser dono dos meios de produção ou vender a força de trabalho"
+      certa: true
+    - texto: "Da cor do uniforme"
+      erro: "Não tem a ver com isso."
+  explicacao: "Um professor bem pago e uma diarista mal paga ganham muito diferente, mas os dois vivem do próprio trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Consciência de classe: descobrir de que lado você está\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-passos-na-mi-consciencia-de-classe-descobrir-de-que-l-02
+  tema: "Em si e para si"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre classe \"em si\" e \"para si\"?"
+  alternativas:
+    - texto: "Em si: pessoas na mesma situação que não se veem como grupo; para si: quando se reconhecem, se juntam e agem pelos seus interesses"
+      certa: true
+    - texto: "São palavras iguais"
+      erro: "Marx as distinguiu em A miséria da filosofia (1847)."
+    - texto: "Em si é a classe rica e para si é a pobre"
+      erro: "A distinção é sobre consciência, e não sobre renda."
+  explicacao: "O caminho de uma para a outra é a consciência de classe."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Consciência de classe: descobrir de que lado você está\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-passos-na-mi-consciencia-de-classe-descobrir-de-que-l-03
+  tema: "Entregador"
+  dificuldade: 2
+  enunciado: "Por que a aula usa o entregador de aplicativo como exemplo de quem vive do trabalho?"
+  alternativas:
+    - texto: "Porque o entregador manda na plataforma"
+      erro: "É o contrário: quem manda é a plataforma."
+    - texto: "Porque ele usa a própria moto, mas não decide o preço, não escolhe os clientes e pode ser desligado sem explicação"
+      certa: true
+    - texto: "Porque o entregador é dono dos meios de produção da plataforma"
+      erro: "A plataforma é que fica com uma parte de cada entrega e decide."
+  explicacao: "Quem vende a força de trabalho para sobreviver, mesmo por tarefa, está do lado de quem trabalha."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Consciência de classe: descobrir de que lado você está\""
+  revisao:
+    status: em-revisao

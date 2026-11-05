@@ -1,0 +1,108 @@
+# Exercícios da aula "O que é a CLT" (Direitos no trabalho). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: dtrab-clt-01
+  tema: "O que é a CLT"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer a sigla CLT e para quem ela vale, segundo a aula?"
+  alternativas:
+    - texto: "Consolidação das Leis do Trabalho; vale para quem é empregado, o trabalho de carteira assinada"
+      certa: true
+    - texto: "Central dos Lucros do Trabalhador; vale só para quem é dono de empresa"
+      erro: "A sigla é Consolidação das Leis do Trabalho. Ela não é para donos de empresa, mas para o empregado, que trabalha para outro de forma habitual, com salário e ordens."
+    - texto: "Consolidação das Leis do Trabalho; vale só para quem trabalha por conta própria"
+      erro: "A sigla está certa, mas a CLT não cobre quem trabalha por conta própria. Ela vale para o empregado: quem trabalha para outra pessoa ou empresa, com salário e ordens."
+  explicacao: "CLT é a Consolidação das Leis do Trabalho, assinada em 1º de maio de 1943. Ela reuniu em um só texto leis que já existiam espalhadas e vale para o empregado, o trabalhador de carteira assinada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a CLT\""
+  revisao:
+    status: em-revisao
+
+- id: dtrab-clt-02
+  tipo: numero
+  tema: "FGTS"
+  dificuldade: 1
+  enunciado: "Um empregado de carteira assinada ganha R$ 2.000 por mês. Quanto o empregador deve depositar de FGTS por mês na conta dele? (O depósito é de 8% do salário.)"
+  resposta: "160"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "16"
+      explicacao: "Você calculou 0,8% em vez de 8%. 8% é 0,08: 0,08 × 2.000 = 160."
+    - resposta: "1840"
+      explicacao: "Você tirou o FGTS do salário (2.000 menos 160). Mas o FGTS não é descontado do salário: quem paga é o empregador, em uma conta em nome do trabalhador."
+  dica: "Transforme 8% em número decimal e multiplique pelo salário."
+  explicacao: "8% de R$ 2.000 = 0,08 × 2.000 = R$ 160 por mês. Em 12 meses, R$ 1.920. O depósito é do empregador, e não sai do salário da pessoa."
+  conferir: "2000 * 0.08"
+  fonte: "Questão original do Instituto Lúcia; art. 15 da Lei nº 8.036/1990 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dtrab-clt-03
+  tipo: numero
+  tema: "Hora extra"
+  dificuldade: 2
+  enunciado: "Uma empregada ganha R$ 20 por hora normal. A hora extra deve valer, no mínimo, 50% a mais. Quanto vale, no mínimo, uma hora extra dela?"
+  resposta: "30"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "10"
+      explicacao: "R$ 10 é só o adicional (50% de 20). A hora extra é a hora normal mais esse adicional: 20 + 10."
+    - resposta: "25"
+      explicacao: "Você somou 5 reais, e não 50%. 50% de R$ 20 é R$ 10."
+  dica: "Calcule metade de R$ 20 e some à hora normal."
+  explicacao: "50% de R$ 20 é R$ 10, então a hora extra vale, no mínimo, 20 + 10 = R$ 30. A Constituição (art. 7º, XVI) fala em adicional de, no mínimo, cinquenta por cento."
+  conferir: "20 * 1.5"
+  fonte: "Questão original do Instituto Lúcia; Constituição Federal, art. 7º, XVI, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dtrab-clt-04
+  tipo: numero
+  tema: "Férias"
+  dificuldade: 2
+  enunciado: "Um empregado ganha R$ 1.800 por mês e vai tirar 30 dias de férias. Nas férias ele recebe o salário mais um terço a mais. Quanto ele recebe no total?"
+  resposta: "2400"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "600"
+      explicacao: "R$ 600 é só o terço a mais (1.800 ÷ 3). Falta somar o salário das férias: 1.800 + 600."
+    - resposta: "1800"
+      explicacao: "R$ 1.800 é só o salário. Nas férias, a lei garante ainda um terço a mais, que dá R$ 600."
+  dica: "Calcule um terço do salário e some ao salário."
+  explicacao: "Um terço de R$ 1.800 é R$ 600. Total: 1.800 + 600 = R$ 2.400. A Constituição (art. 7º, XVII) garante férias anuais remuneradas com, pelo menos, um terço a mais do que o salário normal."
+  conferir: "1800 + 1800 / 3"
+  fonte: "Questão original do Instituto Lúcia; Constituição Federal, art. 7º, XVII, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: dtrab-clt-05
+  tema: "Falso autônomo"
+  dificuldade: 3
+  enunciado: "Uma empresa chama uma costureira de \"parceira\" e não assina a carteira, mas ela cumpre horário fixo e recebe ordens todos os dias. O que a aula diz sobre isso?"
+  alternativas:
+    - texto: "A Justiça do Trabalho pode reconhecer o vínculo de emprego, porque na prática ela cumpre horário e recebe ordens"
+      certa: true
+    - texto: "Se a empresa chama de \"parceira\", ela perde todos os direitos"
+      erro: "O nome que a empresa dá não decide. Quando a pessoa cumpre horário e recebe ordens, a Justiça do Trabalho pode reconhecer o vínculo de emprego."
+    - texto: "A CLT nunca vale para quem não tem carteira assinada"
+      erro: "A carteira assinada é o registro do contrato, mas o vínculo existe pela realidade do trabalho. Guarde mensagens e registros de horário: eles ajudam a provar."
+  explicacao: "Muitas empresas contratam como \"autônomas\", \"parceiras\" ou \"pessoa jurídica\" para não pagar direitos. Quando, na prática, a pessoa cumpre horário e recebe ordens, a Justiça do Trabalho pode reconhecer o vínculo. Guarde contracheques, mensagens e registros de horário."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a CLT\""
+  revisao:
+    status: em-revisao
+
+- id: dtrab-clt-06
+  tema: "De onde vieram os direitos"
+  dificuldade: 2
+  enunciado: "É comum ouvir que os direitos trabalhistas foram \"dados\" por um presidente. O que a aula responde?"
+  alternativas:
+    - texto: "As leis vieram como resposta à pressão de operárias e operários, que faziam greves por jornada de oito horas, descanso semanal e fim do trabalho infantil"
+      certa: true
+    - texto: "Foi tudo um presente, sem nenhuma luta antes"
+      erro: "A aula mostra o contrário: desde o fim do século XIX houve greves, e a greve geral de 1917, em São Paulo, é o exemplo mais conhecido."
+    - texto: "Os direitos vieram dos patrões, que ofereceram por bondade"
+      erro: "Não foi bondade. As leis vieram como resposta à pressão de quem trabalhava, organizado em greves."
+  explicacao: "Desde o fim do século XIX, operárias e operários brasileiros faziam greves pela jornada de oito horas, pelo descanso semanal e pelo fim do trabalho infantil. A greve geral de 1917, em São Paulo, é o exemplo mais conhecido."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a CLT\""
+  revisao:
+    status: em-revisao

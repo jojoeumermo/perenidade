@@ -1,0 +1,67 @@
+# Exercícios da aula "Ferramentas e segurança na costura" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-seg-01
+  tema: "O kit básico"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para que serve a tesoura de tecido, e o que não se deve cortar com ela?"
+  alternativas:
+    - texto: "Serve para cortar tecido, e só tecido; papel e plástico tiram o fio dela"
+      certa: true
+    - texto: "Serve para cortar qualquer coisa, inclusive papel e plástico"
+      erro: "Papel e plástico tiram o fio da tesoura de tecido. Use outra tesoura para eles."
+    - texto: "Serve só para cortar linhas e pontas"
+      erro: "Para linhas e pontas existe a tesourinha. A de tecido corta o tecido."
+  explicacao: "Guarde a tesoura de tecido fechada e seca. Agulhas e alfinetes tortos ou enferrujados vão para o lixo, enrolados em papel ou numa caixinha fechada. A fita métrica de pano estica com o uso: confira com uma régua."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e segurança na costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-seg-02
+  tema: "Agulhas e alfinetes"
+  dificuldade: 1
+  enunciado: "Onde guardar agulhas e alfinetes com segurança?"
+  alternativas:
+    - texto: "Na almofada de alfinetes ou num ímã, nunca na boca; recolher os que caírem no chão, principalmente se houver crianças em casa"
+      certa: true
+    - texto: "Na boca, para ter sempre à mão"
+      erro: "Nunca na boca: dá para engolir ou se ferir. Use a almofada ou um ímã."
+    - texto: "Soltos no chão, perto da máquina"
+      erro: "Recolha os que caírem, principalmente se houver crianças em casa."
+  explicacao: "Passe a tesoura para outra pessoa sempre fechada, com o cabo para ela. Prenda o cabelo comprido e não use colares soltos perto do volante e da agulha."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e segurança na costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-seg-03
+  tema: "A máquina e a tomada"
+  dificuldade: 2
+  enunciado: "Você vai trocar a linha da bobina da máquina. Qual é o primeiro passo seguro?"
+  alternativas:
+    - texto: "Desligar a máquina da tomada"
+      certa: true
+    - texto: "Pisar no pedal para a agulha subir"
+      erro: "Com a máquina ligada, um toque no pedal faz a agulha descer e pode ferir. Desligue da tomada primeiro."
+    - texto: "Tirar o calcador com a máquina ligada"
+      erro: "Desligue da tomada antes de trocar a agulha, a linha de baixo ou limpar. Mantenha os dedos longe da agulha e do calcador."
+  explicacao: "Desligue da tomada para trocar a agulha, a linha de baixo ou limpar. O ferro de passar também: use apoiado em superfície firme, com o fio longe das pernas e das mãos, e desligue da tomada ao terminar ou ao sair de perto."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas e segurança na costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-seg-04
+  tema: "Rotina de fim do dia"
+  dificuldade: 2
+  enunciado: "Qual destas tarefas faz parte da rotina de fim do dia sugerida na aula?"
+  alternativas:
+    - texto: "Recolher os alfinetes, guardar a tesoura fechada, desligar o ferro e a máquina da tomada e tirar os fios e o pó da máquina"
+      certa: true
+    - texto: "Deixar o ferro ligado até o dia seguinte, para esquentar mais rápido"
+      erro: "O ferro deve ser desligado da tomada ao terminar, para evitar acidentes."
+    - texto: "Deixar os alfinetes soltos na mesa de corte"
+      erro: "Recolha os alfinetes e confira o chão. Alfinetes soltos ferem pessoas e crianças."
+  explicacao: "Um kit simples para começar em casa, sem gastar muito: tesoura de tecido e tesourinha, fita métrica e régua, giz de alfaiate (ou caneta que sai com água), caixa de alfinetes e uma almofada (pode ser feita com retalho), agulhas de mão e dedal, e desmanchador."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Ferramentas e segurança na costura\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,84 @@
+# Exercícios da aula "O dia a dia do cuidado: rotina, alimentação e autonomia" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação de profissional de saúde.
+
+- id: cuid-dia-01
+  tema: "Rotina"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que uma rotina simples ajuda muitas pessoas idosas, segundo a aula?"
+  alternativas:
+    - texto: "Porque horários e passos que se repetem dão segurança, principalmente a quem tem esquecimento ou doenças"
+      certa: true
+    - texto: "Porque a rotina deve ser seguida à força, mesmo que a pessoa não queira"
+      erro: "A aula diz que a rotina não é uma prisão. Se a pessoa não quer um dia, converse. Respeitar escolhas é parte do cuidado."
+    - texto: "Porque assim o cuidador não precisa conversar com ela"
+      erro: "A rotina inclui conversa, convivência e atividades de que a pessoa gosta. Conversar faz parte do cuidado."
+  explicacao: "A rotina pode ter hora de acordar e dormir, refeições regulares, higiene, movimento, sol com cuidado, conversa e uma atividade de que a pessoa gosta. O Estatuto (art. 10) fala em liberdade, respeito e dignidade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O dia a dia do cuidado: rotina, alimentação e autonomia\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-dia-02
+  tema: "Água e comida"
+  dificuldade: 2
+  enunciado: "Com a idade, a sede diminui. O que a aula recomenda sobre a água?"
+  alternativas:
+    - texto: "Oferecer água ao longo do dia, em pequenos goles, sem esperar a pessoa pedir; se houver doença do coração ou do rim, combinar a quantidade com a equipe de saúde"
+      certa: true
+    - texto: "Esperar a pessoa pedir, porque ela avisa quando tem sede"
+      erro: "Com a idade a sede diminui, e a pessoa pode não pedir. Ofereça água ao longo do dia."
+    - texto: "Dar o máximo de água possível, sempre, em qualquer caso"
+      erro: "Quem tem doença do coração, do rim ou outra deve combinar a quantidade certa com a equipe de saúde."
+  explicacao: "O Guia Alimentar para a População Brasileira, do Ministério da Saúde, recomenda como base alimentos frescos e pouco processados: arroz, feijão, legumes, verduras, frutas, ovos, carnes, leite. Dietas especiais (diabetes, pressão alta, rins) são com o médico ou o nutricionista da UBS; o cuidador não corta nem inventa restrições."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O dia a dia do cuidado: rotina, alimentação e autonomia\" (Guia Alimentar para a População Brasileira, Ministério da Saúde)"
+  revisao:
+    status: em-revisao
+
+- id: cuid-dia-03
+  tema: "Autonomia"
+  dificuldade: 2
+  enunciado: "Seu Antônio, de 82 anos, demora 15 minutos para abotoar a camisa, e a cuidadora está com pressa. O que é mais adequado, segundo a aula?"
+  alternativas:
+    - texto: "Dar tempo, ajudar só se ele pedir ou travar e, se possível, trocar por uma camisa de abertura mais fácil"
+      certa: true
+    - texto: "Abotoar logo, para economizar tempo"
+      erro: "Fazer tudo pela pessoa é o erro mais comum de quem cuida com amor: quanto mais ela deixa de fazer, mais perde a capacidade."
+    - texto: "Dizer que ele é lento, para ele se apressar"
+      erro: "Isso humilha, e não ajuda. A regra é deixar fazer o que consegue, mesmo que demore, e adaptar o ambiente (por exemplo, roupa com velcro no lugar de botão)."
+  explicacao: "A regra da autonomia: deixe fazer o que ela consegue, ajude só no que ela não consegue, adapte o ambiente, dê opções simples (\"a blusa azul ou a verde?\") e fale com ela, não sobre ela."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O dia a dia do cuidado: rotina, alimentação e autonomia\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-dia-04
+  tema: "Quando é urgência"
+  dificuldade: 3
+  enunciado: "Qual destes sinais pede ligar para o SAMU (192) ou ir a uma UPA, segundo a aula?"
+  alternativas:
+    - texto: "Fala enrolada ou boca torta de repente, com fraqueza em um lado do corpo"
+      certa: true
+    - texto: "A pessoa perdeu um pouco de apetite por um dia"
+      erro: "Perda de peso sem motivo ou recusa de comida por vários dias pedem a UBS. Não é, por si só, urgência."
+    - texto: "A pessoa está mais quieta depois de uma discussão"
+      erro: "Tristeza que não passa e isolamento pedem a UBS. Os sinais de urgência são, por exemplo, falta de ar forte, dor intensa no peito, desmaio, fala enrolada ou fraqueza de um lado do corpo."
+  explicacao: "SAMU (192) ou UPA/pronto-socorro: falta de ar forte, dor intensa no peito, desmaio, fala enrolada ou boca torta de repente, fraqueza em um lado do corpo, febre alta com confusão, sangramento que não para ou queda com forte dor e impossibilidade de mexer. O cuidador não diagnostica: observa, anota e avisa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O dia a dia do cuidado: rotina, alimentação e autonomia\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-dia-05
+  tema: "A caderneta do cuidado"
+  dificuldade: 2
+  enunciado: "Davi anota o que a avó comeu, bebeu, dormiu e sentiu, e leva à consulta. Por que isso ajuda, segundo a aula?"
+  alternativas:
+    - texto: "Porque a equipe de saúde recebe informação concreta, e a Caderneta de Saúde da Pessoa Idosa pode ser pedida na UBS"
+      certa: true
+    - texto: "Porque assim Davi passa a fazer diagnósticos em casa"
+      erro: "O cuidador não diagnostica. Ele observa, anota e avisa."
+    - texto: "Porque a UBS só atende quem leva anotações"
+      erro: "A UBS atende todos. As anotações apenas ajudam a equipe a entender o que mudou."
+  explicacao: "Uma caderneta com o que a pessoa comeu, bebeu, dormiu e sentiu ajuda muito a equipe de saúde. A Caderneta de Saúde da Pessoa Idosa, do Ministério da Saúde, existe para isso e pode ser pedida na UBS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O dia a dia do cuidado: rotina, alimentação e autonomia\""
+  revisao:
+    status: em-revisao

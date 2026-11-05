@@ -1,0 +1,50 @@
+# Exercícios da aula "Falar em uma assembleia" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-falar-em-uma-assembleia-01
+  tema: "Atacar a proposta"
+  dificuldade: 1
+  enunciado: "Segundo a regra de ouro do manual de Henry Robert, sobre o que se fala no debate?"
+  alternativas:
+    - texto: "Sobre a pessoa que fez a proposta"
+      erro: "A regra é o contrário: evitam-se os ataques pessoais."
+    - texto: "Sobre o assunto em discussão, sem ataques pessoais"
+      certa: true
+    - texto: "Sobre as intenções de cada um"
+      erro: "O manual diz que não se julgam as intenções de um membro."
+  explicacao: "A proposta e suas consequências podem ser criticadas com força, mas o debate é sobre a medida, não sobre quem a propôs."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar em uma assembleia\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-falar-em-uma-assembleia-02
+  tema: "Fala de três minutos"
+  dificuldade: 2
+  enunciado: "Na estrutura de uma fala de três minutos, qual é o primeiro passo?"
+  alternativas:
+    - texto: "A proposta numa frase"
+      certa: true
+    - texto: "Pedir desculpas pelo tempo"
+      erro: "A aula manda começar pela proposta numa frase."
+    - texto: "O pedido de votos"
+      erro: "O pedido (\"Peço que votem a favor\") é o último passo."
+  explicacao: "A estrutura: proposta, uma ou duas razões com apoio concreto, resposta à objeção principal e pedido."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar em uma assembleia\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-falar-em-uma-assembleia-03
+  tema: "Questão de ordem"
+  dificuldade: 2
+  enunciado: "Para que serve a questão de ordem?"
+  alternativas:
+    - texto: "Para pedir que a assembleia termine mais cedo"
+      erro: "Não é para isso."
+    - texto: "Para pedir que a mesa faça cumprir as regras, por exemplo quando alguém passou do tempo ou saiu do assunto"
+      certa: true
+    - texto: "Para ofender quem falou antes"
+      erro: "Ela serve para fazer cumprir as regras, e não para atacar pessoas."
+  explicacao: "Quem trouxe a proposta fala primeiro e fecha o debate. Sem outra regra, ninguém fala mais de duas vezes sobre a mesma questão, nem mais de dez minutos de cada vez."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar em uma assembleia\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Quem são os povos indígenas do Brasil" (os-primeiros-povos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: os-primeiros-povos-quem-sao-os-povos-indigenas-do-brasil-01
+  tema: "Quantos são"
+  dificuldade: 1
+  enunciado: "No Censo de 2022, quantas pessoas indígenas foram contadas no Brasil?"
+  alternativas:
+    - texto: "Cerca de 150 mil"
+      erro: "Esse é o número de meados do século XX, quando a população quase desapareceu."
+    - texto: "1.694.836, cerca de 0,83% da população"
+      certa: true
+    - texto: "Cerca de 50 milhões"
+      erro: "Está muito acima. Foram 1.694.836 pessoas."
+  explicacao: "É quase o dobro do registrado em 2010, em parte porque o IBGE melhorou a forma de perguntar e em parte porque mais pessoas passaram a afirmar a sua origem."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem são os povos indígenas do Brasil\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-quem-sao-os-povos-indigenas-do-brasil-02
+  tema: "Onde vivem"
+  dificuldade: 2
+  enunciado: "Segundo a aula, qual é o estado com mais indígenas?"
+  alternativas:
+    - texto: "O Amazonas, seguido pela Bahia"
+      certa: true
+    - texto: "São Paulo"
+      erro: "A aula cita o Amazonas, seguido pela Bahia."
+    - texto: "O Rio Grande do Sul"
+      erro: "O estado com mais indígenas é o Amazonas."
+  explicacao: "Pouco mais da metade vive na Amazônia Legal. Há indígenas em quase todos os municípios, e uma parte grande vive em cidades."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem são os povos indígenas do Brasil\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-quem-sao-os-povos-indigenas-do-brasil-03
+  tema: "Povos no plural"
+  dificuldade: 1
+  enunciado: "Por que se diz \"povos indígenas\" no plural?"
+  alternativas:
+    - texto: "Porque não existe um \"índio\" genérico: existem muitos povos, cada um com sua língua e sua história"
+      certa: true
+    - texto: "Porque são todos do mesmo povo"
+      erro: "É o contrário: são centenas de povos diferentes."
+    - texto: "Porque o IBGE só contou um povo"
+      erro: "O Censo de 2022 registrou 391 etnias."
+  explicacao: "Alguns povos têm contato com não indígenas há quinhentos anos, outros há poucas décadas, e há grupos que vivem isolados por escolha."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem são os povos indígenas do Brasil\""
+  revisao:
+    status: em-revisao

@@ -19,7 +19,7 @@ function conferir(nome, ok, detalhe = "") {
 const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8").replace(/^﻿/, "").replace(/\r\n/g, "\n");
 
 // ── install.sql ──
-const LOTE = ["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2"];
+const LOTE = ["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2", "progresso-qr"];
 let resto = ler("supabase", "install.sql").trim();
 for (const n of [...LOTE].reverse()) {
   const bloco = ler("supabase", "migracoes", `2026-11-${n}.sql`).trim();

@@ -1,0 +1,50 @@
+# Exercícios da aula "Corrente, coroa e pinhão: limpeza, folga e lubrificação" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-corrente-coroa-e-pinhao-limpeza-folga-e-01
+  tema: "Pinhão e coroa"
+  dificuldade: 1
+  enunciado: "Na transmissão da moto, qual peça fica presa à roda traseira?"
+  alternativas:
+    - texto: "O pinhão, a roda dentada pequena"
+      erro: "O pinhão é a roda pequena que o motor gira. A presa à roda traseira é a coroa."
+    - texto: "A coroa, a roda dentada grande"
+      certa: true
+    - texto: "O fusível"
+      erro: "O fusível é peça da parte elétrica. Na transmissão, a roda dentada grande da roda traseira é a coroa."
+  explicacao: "O motor gira o pinhão, a corrente passa por ele e leva a força até a coroa, presa à roda traseira."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Corrente, coroa e pinhão: limpeza, folga e lubrificação\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-corrente-coroa-e-pinhao-limpeza-folga-e-02
+  tema: "Trocar o kit"
+  dificuldade: 2
+  enunciado: "Por que a aula manda trocar corrente, coroa e pinhão juntos, como um kit?"
+  alternativas:
+    - texto: "Porque o desgaste alonga a corrente e deixa os dentes pontudos, e peça nova com peça gasta desgasta mais rápido"
+      certa: true
+    - texto: "Porque o fabricante cobra mais caro se for separado"
+      erro: "A aula não fala em preço do fabricante. O motivo é o desgaste: as peças gastam juntas e uma gasta a outra."
+    - texto: "Porque a corrente nunca se desgasta"
+      erro: "A corrente se alonga com poeira, chuva e falta de lubrificante, e por isso o kit inteiro é trocado."
+  explicacao: "Com o tempo a corrente se alonga e os dentes da coroa e do pinhão ficam pontudos, como dentes de tubarão. Por isso se troca o kit inteiro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Corrente, coroa e pinhão: limpeza, folga e lubrificação\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-corrente-coroa-e-pinhao-limpeza-folga-e-03
+  tema: "Lubrificar com cuidado"
+  dificuldade: 2
+  enunciado: "Ao lubrificar a corrente, qual cuidado a aula manda ter com o freio?"
+  alternativas:
+    - texto: "Passar lubrificante também no disco para ele não ranger"
+      erro: "Lubrificante no freio é perigo. A aula manda proteger disco e pastilha de respingos."
+    - texto: "Proteger o disco e a pastilha de respingos"
+      certa: true
+    - texto: "Nenhum, o lubrificante não chega no freio"
+      erro: "Pode chegar, com a roda girando. Por isso a aula manda proteger o freio e passar um pano no excesso."
+  explicacao: "Passe o lubrificante por dentro dos elos, gire a roda devagar, limpe o excesso com pano e proteja o freio de respingos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Corrente, coroa e pinhão: limpeza, folga e lubrificação\""
+  revisao:
+    status: em-revisao

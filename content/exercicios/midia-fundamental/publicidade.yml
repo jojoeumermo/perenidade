@@ -1,0 +1,50 @@
+# Exercícios da aula "Publicidade" (midia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: midia-fundamental-publicidade-01
+  tema: "Publicidade enganosa"
+  dificuldade: 1
+  enunciado: "Um anúncio diz \"celular com bateria de 3 dias\", mas a bateria dura 1 dia. Que tipo de publicidade é essa pelo Código de Defesa do Consumidor?"
+  alternativas:
+    - texto: "Publicidade abusiva"
+      erro: "A abusiva é, por exemplo, a discriminatória ou a que explora o medo. Informação falsa sobre o produto é enganosa."
+    - texto: "Publicidade enganosa, proibida pelo art. 37"
+      certa: true
+    - texto: "Publicidade permitida"
+      erro: "Informação falsa sobre uma característica do produto é proibida pelo art. 37 do CDC."
+  explicacao: "Enganosa é a inteira ou parcialmente falsa, ou que pode induzir o consumidor ao erro, até por omissão. Quem anunciou tem de provar que era verdade (art. 38)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Publicidade\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-publicidade-02
+  tema: "Quem prova"
+  dificuldade: 2
+  enunciado: "Segundo o artigo 38 do CDC, citado na aula, quem tem de provar que a informação da publicidade é verdadeira?"
+  alternativas:
+    - texto: "O consumidor que reclamou"
+      erro: "A lei inverte: quem paga pela publicidade é quem tem de provar."
+    - texto: "Quem patrocina, isto é, quem paga pela publicidade"
+      certa: true
+    - texto: "O Procon"
+      erro: "O Procon recebe a reclamação, mas a prova da verdade cabe a quem anunciou."
+  explicacao: "O ônus da prova é de quem patrocina o anúncio. O consumidor pode reclamar no Procon."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Publicidade\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-publicidade-03
+  tema: "Publicidade abusiva"
+  dificuldade: 2
+  enunciado: "Qual destas publicidades o CDC classifica como abusiva?"
+  alternativas:
+    - texto: "A que mostra o preço do produto"
+      erro: "Mostrar o preço é correto. Abusiva é, por exemplo, a que se aproveita da falta de experiência da criança."
+    - texto: "A que se aproveita da falta de julgamento e de experiência da criança"
+      certa: true
+    - texto: "A que fala bem das qualidades reais do produto"
+      erro: "Isso é publicidade comum. Abusiva é a discriminatória, a que incita violência, explora o medo ou aproveita a inexperiência da criança."
+  explicacao: "O artigo 37 proíbe a publicidade enganosa e a abusiva, entre elas a que desrespeita o meio ambiente ou induz a comportamento perigoso à saúde."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Publicidade\""
+  revisao:
+    status: em-revisao

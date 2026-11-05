@@ -1,0 +1,83 @@
+# Exercícios da aula "Como tirar medidas" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-medidas-01
+  tema: "Antes de medir"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como deve estar a pessoa e a fita na hora de tirar as medidas de contorno?"
+  alternativas:
+    - texto: "A pessoa de pé, reta e relaxada, com roupa fina e justa; a fita sem apertar e sem folgar, na horizontal"
+      certa: true
+    - texto: "A pessoa curvada, com a fita bem apertada para dar a medida \"justa\""
+      erro: "Fita apertada dá medida menor do que o corpo tem, e a roupa vai ficar apertada. Meça sem apertar e sem folgar, com a pessoa reta."
+    - texto: "A pessoa com casaco grosso, para a roupa nunca ficar apertada"
+      erro: "Roupa grossa aumenta a medida e engana. Use roupa fina e justa, ou a roupa de baixo que vai usar com a peça."
+  explicacao: "Use fita métrica confiável (a de pano estica: confira com uma régua), um barbante amarrado na cintura para marcar a linha natural e anote na hora, numa ficha."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como tirar medidas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-medidas-02
+  tema: "As medidas"
+  dificuldade: 2
+  enunciado: "Onde se mede a cintura, segundo a aula?"
+  alternativas:
+    - texto: "Na parte mais fina do tronco, na linha natural; a pessoa pode se inclinar de lado, e a dobra marca a cintura"
+      certa: true
+    - texto: "Na parte mais larga do quadril"
+      erro: "A parte mais larga, passando pelo bumbum, é o quadril. A cintura é a parte mais fina do tronco."
+    - texto: "Na base do pescoço"
+      erro: "A base do pescoço é onde se mede o pescoço. A cintura é a parte mais fina do tronco."
+  explicacao: "A cintura é a parte mais fina do tronco, na linha natural. O quadril é a parte mais larga, passando pelo bumbum, e deve ser conferido de lado para a fita ficar reta. O gancho vai da cintura da frente, passando entre as pernas, até a cintura de trás."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como tirar medidas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-medidas-03
+  tema: "A folga"
+  dificuldade: 2
+  enunciado: "Por que o molde acrescenta folga às medidas do corpo, numa peça de tecido plano?"
+  alternativas:
+    - texto: "Porque roupa feita exatamente na medida do corpo não deixa a pessoa respirar, sentar e mexer os braços"
+      certa: true
+    - texto: "Porque o tecido sempre encolhe no primeiro dia"
+      erro: "O tecido pode encolher, mas a folga existe para o conforto de quem veste: respirar, sentar e mexer os braços."
+    - texto: "Porque a costureira se engana na hora de medir"
+      erro: "A folga é decisão de projeto: peça justa tem pouca folga, solta tem muita. Em malha, que estica, às vezes a peça é até menor que o corpo."
+  explicacao: "A folga muda com o estilo: peça justa, pouca; solta, muita. Os moldes trazem a folga calculada. Se você faz o seu molde, decida a folga antes de cortar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como tirar medidas\""
+  revisao:
+    status: em-revisao
+
+- id: cost-medidas-04
+  tema: "A ficha de medidas"
+  dificuldade: 3
+  enunciado: "Por que a ficha de medidas precisa ser guardada com cuidado, segundo a aula?"
+  alternativas:
+    - texto: "Porque é um dado pessoal: deve ser usada só para o trabalho combinado, e o consentimento da pessoa é uma das bases da Lei Geral de Proteção de Dados"
+      certa: true
+    - texto: "Porque as medidas valem dinheiro para outras costureiras"
+      erro: "A razão não é comercial. As medidas e a roupa de medição são dados da pessoa, que merecem cuidado e uso só para o trabalho combinado."
+    - texto: "Não precisa de cuidado: é só um papel"
+      erro: "A ficha é um dado pessoal. Guarde com cuidado e não use para outro fim sem a pessoa saber."
+  explicacao: "A ficha traz nome, data, todas as medidas, a roupa com que a pessoa foi medida e observações (por exemplo, um ombro mais alto ou preferência por roupa solta)."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 13.709/2018 (LGPD), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-medidas-05
+  tema: "A fita na horizontal"
+  dificuldade: 2
+  enunciado: "Ao medir a cintura, a fita ficou mais baixa na frente do que atrás. O que acontece com a medida?"
+  alternativas:
+    - texto: "Fica errada: a fita inclinada mede uma volta diferente da cintura de verdade"
+      certa: true
+    - texto: "Fica certa, porque a fita deu a volta toda"
+      erro: "Medidas de contorno pedem a fita na horizontal, reta em toda a volta. Inclinada, ela mede outra volta."
+    - texto: "Não muda nada"
+      erro: "Muda: uma fita inclinada dá a medida de outro lugar do corpo, e a roupa pode ficar apertada ou larga."
+  explicacao: "Nas medidas de contorno, a fita fica sempre na horizontal, sem apertar e sem folgar. Se necessário, confira de lado, ou peça a alguém para ajudar a ver."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como tirar medidas\""
+  revisao:
+    status: em-revisao

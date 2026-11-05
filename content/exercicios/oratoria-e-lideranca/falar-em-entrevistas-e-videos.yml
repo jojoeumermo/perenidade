@@ -1,0 +1,50 @@
+# Exercícios da aula "Falar em entrevistas e vídeos" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-falar-em-entrevistas-e-videos-01
+  tema: "Resposta que fica de pé"
+  dificuldade: 2
+  enunciado: "Qual destas respostas faz sentido sozinha, como a aula pede?"
+  alternativas:
+    - texto: "\"É, por causa daquilo que eu falei.\""
+      erro: "Essa depende de algo que foi dito antes e pode ser cortado."
+    - texto: "\"A rua alaga toda chuva desde que a obra entupiu o bueiro.\""
+      certa: true
+    - texto: "\"Como eu disse, é isso.\""
+      erro: "Também depende de uma frase anterior. Se o trecho for cortado, não fará sentido."
+  explicacao: "No ar quase nunca vai a entrevista inteira, e sim um trecho curto. Por isso cada resposta precisa fazer sentido sozinha."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar em entrevistas e vídeos\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-falar-em-entrevistas-e-videos-02
+  tema: "Não sabe"
+  dificuldade: 1
+  enunciado: "O que a aula manda fazer quando você não sabe a resposta numa entrevista?"
+  alternativas:
+    - texto: "Chutar um número para não parecer ignorante"
+      erro: "A aula diz para não chutar números."
+    - texto: "Dizer que não sabe e que vai procurar"
+      certa: true
+    - texto: "Mudar de assunto sem avisar"
+      erro: "A aula manda ser honesto: dizer que não sabe e que vai procurar."
+  explicacao: "Também: comece pela conclusão, use frases curtas e completas, repita a pergunta se for gravado e fale do grupo, não de você."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar em entrevistas e vídeos\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-falar-em-entrevistas-e-videos-03
+  tema: "Câmera do celular"
+  dificuldade: 1
+  enunciado: "Na câmera do celular, para onde a aula manda olhar?"
+  alternativas:
+    - texto: "Para a lente, que é o olho de quem vai assistir"
+      certa: true
+    - texto: "Para a tela, para ver o próprio rosto"
+      erro: "A aula diz para olhar para a lente."
+    - texto: "Para baixo, para as anotações"
+      erro: "A aula orienta evitar olhar para baixo."
+  explicacao: "Em microfone de lapela, evite olhar para baixo; o de mão não deve ficar nem colado na boca nem longe demais."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar em entrevistas e vídeos\""
+  revisao:
+    status: em-revisao

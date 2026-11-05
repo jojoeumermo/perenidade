@@ -1,0 +1,70 @@
+# Exercícios da aula "Fusos horários" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-fus-01
+  tipo: numero
+  tema: "Hora em Manaus"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Quando são 15h em Brasília (UTC−3), que horas são em Manaus (UTC−4)?"
+  resposta: "14"
+  unidade: "h"
+  erros_comuns:
+    - resposta: "16"
+      explicacao: "Você somou 1 hora. Manaus fica a oeste de Brasília, e a oeste os relógios estão atrasados: subtrai-se."
+  dica: "Manaus está uma hora atrás de Brasília."
+  explicacao: "UTC−4 está uma hora atrás de UTC−3: 15 − 1 = 14h. Indo para o oeste, os relógios estão atrasados."
+  conferir: "15 - 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-fus-02
+  tipo: numero
+  tema: "Hora em Brasília"
+  dificuldade: 2
+  enunciado: "Uma reunião marcada para as 21h em Tóquio (UTC+9). Que horas são em Brasília (UTC−3), no mesmo dia?"
+  resposta: "9"
+  unidade: "h"
+  erros_comuns:
+    - resposta: "33"
+      explicacao: "Você somou 12. Tóquio está a leste: lá os relógios estão adiantados, então em Brasília é mais cedo, e se subtrai."
+  dica: "A diferença entre UTC+9 e UTC−3 é de 12 horas."
+  explicacao: "A diferença é 9 − (−3) = 12 horas. Tóquio está a leste, adiantada. Em Brasília: 21 − 12 = 9h da manhã."
+  conferir: "21 - 12"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-fus-03
+  tema: "A conta dos 15 graus"
+  dificuldade: 2
+  enunciado: "Quantos graus de longitude tem, em média, cada fuso horário?"
+  alternativas:
+    - texto: "15 graus"
+      certa: true
+    - texto: "24 graus"
+      erro: "24 é o número de horas do dia. A volta tem 360 graus e 360 ÷ 24 = 15 graus por hora."
+    - texto: "360 graus"
+      erro: "360 graus é a volta inteira. Dividida pelas 24 horas, dá 15 graus por fuso."
+  explicacao: "A Terra gira 360 graus em 24 horas: 360 ÷ 24 = 15 graus por hora. Cada fuso tem cerca de 15 graus e uma hora de diferença."
+  conferir: "360 / 24"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-fus-04
+  tema: "Fusos do Brasil"
+  dificuldade: 1
+  enunciado: "Quantos fusos horários tem o Brasil?"
+  alternativas:
+    - texto: "Quatro"
+      certa: true
+    - texto: "Um só, a hora de Brasília"
+      erro: "O Brasil é largo de leste a oeste e usa quatro fusos, de UTC−2 a UTC−5."
+    - texto: "Três"
+      erro: "São quatro: UTC−2 (ilhas oceânicas), UTC−3 (hora de Brasília), UTC−4 e UTC−5 (Acre)."
+  explicacao: "O Brasil tem quatro fusos, definidos no Decreto nº 2.784, de 1913, com as mudanças da Lei nº 12.876, de 2013."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,67 @@
+# Exercícios da aula "Pontos à mão" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-pontos-01
+  tema: "O ponto corrido e o alinhavo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o ponto básico da costura à mão, do qual todos os outros nascem, e o que é o alinhavo?"
+  alternativas:
+    - texto: "O ponto corrido; o alinhavo é um ponto corrido de pontos longos, para segurar as partes antes da costura definitiva, e depois é retirado"
+      certa: true
+    - texto: "O chuleado; o alinhavo é o acabamento final da peça"
+      erro: "O chuleado envolve a beirada crua para evitar que desfie. O ponto básico é o corrido, e o alinhavo é ele em pontos longos, temporário."
+    - texto: "O ponto invisível; o alinhavo é um ponto bonito que fica aparecendo"
+      erro: "O ponto invisível esconde a linha na dobra. O alinhavo é temporário, para segurar as partes, e é retirado."
+  explicacao: "No ponto corrido, a agulha entra e sai do tecido a intervalos regulares. Os outros pontos nascem dele, mudando o tamanho, o espaço e a direção. Comece com um nó na ponta da linha ou com dois pontinhos no mesmo lugar, no avesso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pontos à mão\""
+  revisao:
+    status: em-revisao
+
+- id: cost-pontos-02
+  tema: "O ponto atrás"
+  dificuldade: 2
+  enunciado: "Qual ponto à mão é o mais forte, usado para unir duas partes de forma firme e permanente, como uma costura de máquina feita à mão?"
+  alternativas:
+    - texto: "O ponto atrás, em que cada ponto volta para trás em relação ao sentido da costura"
+      certa: true
+    - texto: "O alinhavo"
+      erro: "O alinhavo é temporário e de pontos longos, só para segurar as partes. O mais forte é o ponto atrás."
+    - texto: "O ponto invisível"
+      erro: "O ponto invisível é feito para esconder a linha, e não para ser o mais forte. O mais forte é o ponto atrás."
+  explicacao: "No ponto atrás, você avança por baixo e volta por cima, encostando no ponto anterior. Esses pontinhos de vai e volta fazem dele o ponto básico mais forte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pontos à mão\""
+  revisao:
+    status: em-revisao
+
+- id: cost-pontos-03
+  tema: "O ponto invisível"
+  dificuldade: 2
+  enunciado: "Você precisa prender a barra de uma calça social sem que os pontos apareçam do lado de fora. Que ponto usar?"
+  alternativas:
+    - texto: "O ponto invisível, correndo dentro da dobra e pegando só alguns fios do tecido de fora"
+      certa: true
+    - texto: "O ponto atrás, que aparece nos dois lados"
+      erro: "O ponto atrás é forte, mas aparece. Para a barra, que não pode aparecer pelo direito, use o ponto invisível."
+    - texto: "O chuleado"
+      erro: "O chuleado envolve a beirada crua. Para esconder a linha na barra, o ponto invisível."
+  explicacao: "Para consertar à mão a barra descosturada de uma calça social: vire pelo avesso, dobre na marca antiga, alfinete ou alinhave, use linha da cor da calça, faça o ponto invisível pegando dois ou três fios do tecido da perna, arremate no avesso com três pontinhos no mesmo lugar, tire o alinhavo e passe a ferro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pontos à mão\""
+  revisao:
+    status: em-revisao
+
+- id: cost-pontos-04
+  tema: "Chuleado e caseado"
+  dificuldade: 2
+  enunciado: "Para que serve o chuleado, e para que serve o ponto de caseado?"
+  alternativas:
+    - texto: "O chuleado envolve a beirada crua e evita que desfie; o caseado faz as casas de botão à mão"
+      certa: true
+    - texto: "O chuleado esconde a linha na dobra; o caseado faz a bainha da calça"
+      erro: "Esconder a linha na dobra é o ponto invisível, o ponto das bainhas. O chuleado é o acabamento da beirada crua."
+    - texto: "Os dois servem só para bordar"
+      erro: "O chuleado é acabamento de quem não tem overloque, e o caseado faz as casas de botão à mão, formando um cordãozinho na beirada."
+  explicacao: "No fim da costura, faça o arremate no avesso: dois ou três pontinhos no mesmo lugar, passando a agulha por dentro da laçada antes de puxar. Corte a linha deixando uma pontinha."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pontos à mão\""
+  revisao:
+    status: em-revisao

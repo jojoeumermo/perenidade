@@ -1,0 +1,90 @@
+# Exercícios da aula "Cooperativas e economia solidária" (Economia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ecof-coop-01
+  tema: "O que é autogestão"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é autogestão, segundo a aula?"
+  alternativas:
+    - texto: "Os próprios trabalhadores decidem juntos e dividem os resultados"
+      certa: true
+    - texto: "O dono decide sozinho e fica com o lucro"
+      erro: "Isso é uma empresa comum. Na autogestão, quem trabalha é quem decide e divide o resultado."
+    - texto: "O governo decide tudo e paga os salários"
+      erro: "Autogestão não é gestão do governo. É quando o próprio grupo de trabalhadores decide junto."
+  explicacao: "Numa empresa comum, o dono decide e fica com o lucro. Na autogestão, os próprios trabalhadores decidem juntos e dividem os resultados. Por isso a finalidade não é maximizar o lucro, mas garantir trabalho em quantidade e qualidade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cooperativas e economia solidária\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-coop-02
+  tema: "Formas da economia solidária"
+  dificuldade: 1
+  enunciado: "Qual destas é uma forma de organização da economia solidária, segundo a aula?"
+  alternativas:
+    - texto: "Uma cooperativa de catadores de materiais recicláveis"
+      certa: true
+    - texto: "Uma empresa de um único dono que contrata empregados"
+      erro: "Empresa de um dono decide de cima para baixo. A economia solidária é organizada em autogestão, como as cooperativas, associações e clubes de troca."
+    - texto: "Uma bolsa de valores"
+      erro: "A bolsa é um mercado de ações, não é autogestão. A aula cita cooperativas, associações, clubes de troca, redes de cooperação, comércio justo e consumo solidário."
+  explicacao: "A economia solidária inclui cooperativas, associações, clubes de troca, empresas autogestionárias, redes de cooperação, finanças solidárias, comércio justo e consumo solidário. Uma cooperativa de catadores, em que eles decidem juntos, é um exemplo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cooperativas e economia solidária\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-coop-03
+  tipo: numero
+  tema: "Dividir as sobras"
+  dificuldade: 2
+  enunciado: "Uma cooperativa de costureiras teve R$ 12.000 de sobra num mês. Em assembleia, elas decidiram guardar 25% para comprar máquinas e dividir o resto igualmente entre as 9 associadas. Quanto cada uma recebe?"
+  resposta: "1000"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "1333"
+      explicacao: "R$ 1.333 é 12.000 dividido por 9, sem tirar o fundo das máquinas. Primeiro separe os 25% (R$ 3.000); só depois divida o que sobrou."
+    - resposta: "3000"
+      explicacao: "R$ 3.000 é o fundo para as máquinas (25% de 12.000). Falta dividir os R$ 9.000 que sobram pelas 9 associadas."
+  dica: "Tire primeiro os 25% do fundo e divida o restante por 9."
+  explicacao: "25% de R$ 12.000 são R$ 3.000 para as máquinas. Sobram R$ 9.000, e 9.000 ÷ 9 = R$ 1.000 para cada associada. Quem decidiu a divisão foram as próprias trabalhadoras."
+  conferir: "(12000 - 12000 * 0.25) / 9"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Cooperativas e economia solidária\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-coop-04
+  tema: "Paul Singer"
+  dificuldade: 2
+  enunciado: "Para o economista Paul Singer, para que serve a economia solidária?"
+  alternativas:
+    - texto: "É uma estratégia de luta contra as desigualdades sociais e o desemprego"
+      certa: true
+    - texto: "É uma forma de os donos pagarem menos imposto"
+      erro: "Singer propunha o contrário: uma forma de organizar a produção em que quem trabalha decide, para enfrentar desigualdade e desemprego."
+    - texto: "É um jeito de acabar com todo tipo de trabalho"
+      erro: "A economia solidária busca garantir trabalho em quantidade e qualidade, e não acabar com ele."
+  explicacao: "Paul Singer foi um dos principais autores do tema no Brasil. Ele propunha a economia solidária como estratégia de luta contra as desigualdades sociais e o desemprego, lançando as bases de novas formas de organização da produção."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cooperativas e economia solidária\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-coop-05
+  tema: "A economia solidária no Brasil"
+  dificuldade: 2
+  enunciado: "Segundo a aula, que ano marca a criação da Secretaria Nacional de Economia Solidária (SENAES) e do Fórum Brasileiro de Economia Solidária (FBES)?"
+  alternativas:
+    - texto: "2003"
+      certa: true
+      valor: "2003"
+    - texto: "1988"
+      erro: "1988 é o ano da Constituição. A SENAES e o FBES nasceram em 2003."
+      valor: "1988"
+    - texto: "2020"
+      erro: "O movimento já tinha secretaria e fórum bem antes disso. Foi em 2003 que nasceram a SENAES e o FBES."
+      valor: "2020"
+  explicacao: "O movimento cresceu e levou à criação, em 2003, da SENAES no governo federal. Ao mesmo tempo, na III Plenária Nacional de Economia Solidária, nasceu o FBES, que representa o movimento no país."
+  conferir: "2003"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cooperativas e economia solidária\""
+  revisao:
+    status: em-revisao

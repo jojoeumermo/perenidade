@@ -1,0 +1,50 @@
+# Exercícios da aula "Antes de tudo: a sua segurança e como pedir socorro" (primeiros-socorros-basico). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: primeiros-socorros-bas-seguranca-e-como-pedir-socorro-01
+  tema: "Três passos"
+  dificuldade: 1
+  enunciado: "Quais são os três passos de qualquer emergência, na ordem?"
+  alternativas:
+    - texto: "Chamar, avaliar e se proteger"
+      erro: "A ordem importa. O primeiro passo é se proteger."
+    - texto: "Proteger-se, avaliar e chamar"
+      certa: true
+    - texto: "Avaliar, tocar e levantar a pessoa"
+      erro: "Não é isso. Proteja-se, avalie e chame."
+  explicacao: "Quem pula o primeiro passo corre o risco de virar a segunda vítima."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Antes de tudo: a sua segurança e como pedir socorro\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-seguranca-e-como-pedir-socorro-02
+  tema: "Perigo que não afasta"
+  dificuldade: 2
+  enunciado: "Há um fio caído perto de uma pessoa e você não consegue afastar o perigo. O que a aula manda fazer?"
+  alternativas:
+    - texto: "Não entrar, ligar e avisar do risco: isso também é socorro"
+      certa: true
+    - texto: "Puxar a pessoa com as mãos"
+      erro: "Isso pode eletrocutar quem socorre. Ligue e avise do risco."
+    - texto: "Jogar água para esfriar o fio"
+      erro: "Não é o que a aula orienta."
+  explicacao: "Se for seguro, sinalize o local (pisca-alerta, triângulo, alguém acenando a distância)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Antes de tudo: a sua segurança e como pedir socorro\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-seguranca-e-como-pedir-socorro-03
+  tema: "Avaliar"
+  dificuldade: 1
+  enunciado: "Para avaliar a pessoa, o que a aula manda fazer?"
+  alternativas:
+    - texto: "Tocar nos ombros, falar alto \"Você está me ouvindo?\" e ver se o peito sobe e desce, por dez segundos"
+      certa: true
+    - texto: "Sacudir a pessoa com força"
+      erro: "A aula manda tocar os ombros e falar alto."
+    - texto: "Levantar a pessoa para ver se anda"
+      erro: "Peça para quem responde que não se levante."
+  explicacao: "Pessoa que não responde e não respira, ou só faz um movimento de boca aberta, está em parada cardíaca."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Antes de tudo: a sua segurança e como pedir socorro\""
+  revisao:
+    status: em-revisao

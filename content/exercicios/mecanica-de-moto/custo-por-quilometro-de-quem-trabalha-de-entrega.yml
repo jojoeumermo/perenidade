@@ -1,0 +1,54 @@
+# Exercícios da aula "Custo por quilômetro de quem trabalha de entrega" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-custo-por-quilometro-de-quem-trabalha-de-01
+  tema: "Fórmula do custo por km"
+  dificuldade: 1
+  enunciado: "Qual é a fórmula do custo por quilômetro da aula?"
+  alternativas:
+    - texto: "Ganho do dia dividido por quantas entregas fez"
+      erro: "Isso daria o ganho por entrega, não o custo. O custo por km é o custo total do mês dividido pelos km rodados."
+    - texto: "Custo total do mês dividido pelos quilômetros rodados no mês"
+      certa: true
+    - texto: "Preço da gasolina vezes os km rodados"
+      erro: "Isso só conta o combustível. O custo por km inclui também reservas de peças, revisão, documentos e imposto."
+  explicacao: "Custo por km = custo total do mês ÷ km rodados no mês, contando todos os quilômetros, inclusive os vazios."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Custo por quilômetro de quem trabalha de entrega\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-custo-por-quilometro-de-quem-trabalha-de-02
+  tema: "Reserva do pneu"
+  dificuldade: 2
+  enunciado: "Um jogo de pneus de R$ 600 dura 6 meses. Quanto entra por mês, de reserva, na conta do custo por km?"
+  alternativas:
+    - texto: "R$ 600"
+      erro: "Esse é o preço do jogo todo. A reserva mensal divide o preço pelos meses que a peça dura."
+    - texto: "R$ 3.600"
+      erro: "Aí você multiplicou por 6, em vez de dividir. A reserva é o preço da peça dividido pelos meses de duração."
+    - texto: "R$ 100"
+      certa: true
+      valor: "100"
+  explicacao: "A reserva mensal é o preço da peça dividido pelos meses que ela dura: 600 ÷ 6 = 100 reais por mês."
+  conferir: "600 / 6"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Custo por quilômetro de quem trabalha de entrega\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-custo-por-quilometro-de-quem-trabalha-de-03
+  tema: "Custo por km do Rafael"
+  dificuldade: 2
+  enunciado: "Rafael tem R$ 1.360 de custo total no mês e rodou 2.000 km. Quanto custa cada quilômetro?"
+  alternativas:
+    - texto: "R$ 1,47"
+      erro: "Aqui você dividiu os km pelo custo (2.000 ÷ 1.360). A conta certa é custo ÷ km: 1.360 ÷ 2.000."
+    - texto: "R$ 0,68"
+      certa: true
+      valor: "0.68"
+    - texto: "R$ 6,80"
+      erro: "A vírgula escorregou uma casa. 1.360 ÷ 2.000 dá 0,68, menos de um real por quilômetro."
+  explicacao: "1.360 ÷ 2.000 = 0,68. Cada quilômetro custa R$ 0,68 só do veículo, antes de contar o tempo dele."
+  conferir: "1360 / 2000"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Custo por quilômetro de quem trabalha de entrega\""
+  revisao:
+    status: em-revisao

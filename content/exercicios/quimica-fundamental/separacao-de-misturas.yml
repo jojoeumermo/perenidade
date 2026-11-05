@@ -1,0 +1,50 @@
+# Exercícios da aula "Separação de misturas" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-separacao-de-misturas-01
+  tema: "Método"
+  dificuldade: 1
+  enunciado: "Qual método separa uma mistura de areia e pedras na obra, usando o tamanho dos grãos?"
+  alternativas:
+    - texto: "Peneiração"
+      certa: true
+    - texto: "Decantação"
+      erro: "Decantação usa a densidade."
+    - texto: "Separação magnética"
+      erro: "Esta usa a atração pelo ímã."
+  explicacao: "Catação: à mão. Ventilação: peso. Filtração: o filtro retém o sólido."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Separação de misturas\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-separacao-de-misturas-02
+  tema: "Garimpo"
+  dificuldade: 2
+  enunciado: "Que princípio a bateia do garimpo artesanal usa, segundo a aula?"
+  alternativas:
+    - texto: "A decantação: a água leva a areia, e o ouro, muito mais denso, fica no fundo"
+      certa: true
+    - texto: "A separação magnética"
+      erro: "O ouro não é atraído por ímã."
+    - texto: "A destilação"
+      erro: "Não é o princípio descrito."
+  explicacao: "Na decantação, o mais denso vai para o fundo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Separação de misturas\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-separacao-de-misturas-03
+  tema: "Mistura homogênea"
+  dificuldade: 2
+  enunciado: "Por que, em misturas homogêneas, catar e peneirar não adianta?"
+  alternativas:
+    - texto: "Porque não se distinguem os componentes: é preciso recorrer a mudanças de estado"
+      certa: true
+    - texto: "Porque a mistura é sempre pesada"
+      erro: "A aula diz que não se distinguem os componentes."
+    - texto: "Porque o ímã é mais forte"
+      erro: "Não é o motivo."
+  explicacao: "Em toda separação, escolhe-se uma propriedade em que os componentes são diferentes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Separação de misturas\""
+  revisao:
+    status: em-revisao

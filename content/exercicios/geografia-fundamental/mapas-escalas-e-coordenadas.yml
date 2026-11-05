@@ -1,0 +1,70 @@
+# Exercícios da aula "Mapas, escalas e coordenadas" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-map-01
+  tipo: numero
+  tema: "Distância pela escala"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Duas cidades estão a 5 cm uma da outra num mapa de escala 1:200.000. Qual é a distância real, em quilômetros?"
+  resposta: "10"
+  unidade: "km"
+  erros_comuns:
+    - resposta: "1000000"
+      explicacao: "1.000.000 é a distância em centímetros (5 × 200.000). Falta passar para quilômetros: divida por 100.000."
+    - resposta: "1"
+      explicacao: "Você passou um zero a menos. 1.000.000 cm são 10.000 m, ou seja, 10 km."
+  dica: "Multiplique pela escala e depois passe de centímetros para quilômetros."
+  explicacao: "5 × 200.000 = 1.000.000 cm. 1.000.000 cm = 10.000 m = 10 km."
+  conferir: "5 * 200000 / 100000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-map-02
+  tema: "Latitude e longitude"
+  dificuldade: 1
+  enunciado: "A latitude é a distância, em graus, de um lugar até:"
+  alternativas:
+    - texto: "A Linha do Equador"
+      certa: true
+    - texto: "O Meridiano de Greenwich"
+      erro: "A distância até Greenwich é a longitude. A latitude é medida a partir do Equador."
+    - texto: "O Trópico de Capricórnio"
+      erro: "Os trópicos são paralelos importantes, mas a latitude se mede a partir do Equador."
+  explicacao: "Latitude é a distância até o Equador (0° a 90°, norte ou sul). Longitude é a distância até o Meridiano de Greenwich (0° a 180°, leste ou oeste)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-map-03
+  tema: "Escala grande e pequena"
+  dificuldade: 3
+  enunciado: "A planta de um bairro, na escala 1:5.000, é um mapa de escala:"
+  alternativas:
+    - texto: "Grande, porque mostra uma área pequena com muitos detalhes"
+      certa: true
+    - texto: "Pequena, porque o número 5.000 é pequeno"
+      erro: "O nome vai pelo detalhe: escala grande mostra pouca área com muito detalhe. A planta de bairro é de escala grande."
+    - texto: "Pequena, porque mostra pouco detalhe"
+      erro: "Um mapa de bairro mostra muito detalhe de uma área pequena. É o mapa-múndi que é de escala pequena."
+  explicacao: "Escala grande mostra uma área pequena com muitos detalhes (como uma planta de bairro). Escala pequena mostra uma área enorme com poucos detalhes (como um mapa-múndi)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-map-04
+  tema: "Mapas deformam"
+  dificuldade: 2
+  enunciado: "Por que todo mapa-múndi deforma alguma coisa?"
+  alternativas:
+    - texto: "Porque não dá para abrir a superfície de uma esfera num plano sem deformar, como a casca de uma laranja"
+      certa: true
+    - texto: "Porque quem desenha o mapa sempre erra na medida"
+      erro: "O erro não é de quem desenha: é impossível passar a esfera para o plano sem deformar áreas, formas ou ângulos."
+    - texto: "Porque a Terra é plana e o mapa a faz redonda"
+      erro: "A Terra é uma esfera, e por isso o mapa plano precisa de uma projeção, que deforma alguma coisa."
+  explicacao: "Toda projeção deforma algo. A de Mercator mantém as formas, mas aumenta as áreas longe do Equador: a Groenlândia parece do tamanho da África, que é cerca de catorze vezes maior."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

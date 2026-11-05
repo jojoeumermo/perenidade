@@ -1,0 +1,50 @@
+# Exercícios da aula "Como escrever um parágrafo" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-como-escrever-um-paragrafo-01
+  tema: "Tópico frasal"
+  dificuldade: 1
+  enunciado: "O que é o tópico frasal, segundo a aula?"
+  alternativas:
+    - texto: "Uma ou duas frases que apresentam a ideia central do parágrafo"
+      certa: true
+    - texto: "A última frase do texto"
+      erro: "A conclusão é que fecha. O tópico frasal abre."
+    - texto: "O título do livro"
+      erro: "É a frase que apresenta a ideia do parágrafo."
+  explicacao: "O parágrafo tem tópico frasal, desenvolvimento e, de forma opcional, conclusão (descrito por Othon M. Garcia)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como escrever um parágrafo\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-como-escrever-um-paragrafo-02
+  tema: "Quando mudar de parágrafo"
+  dificuldade: 1
+  enunciado: "Qual é a regra que resolve quase tudo sobre parágrafos?"
+  alternativas:
+    - texto: "Frase nova, parágrafo novo"
+      erro: "Isso deixa o texto picado. A regra é ideia nova, parágrafo novo."
+    - texto: "Ideia nova, parágrafo novo"
+      certa: true
+    - texto: "Um parágrafo por página"
+      erro: "Não é a regra da aula."
+  explicacao: "Um texto sem parágrafos cansa; um em que cada frase é um parágrafo não deixa ver o que se liga a quê."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como escrever um parágrafo\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-como-escrever-um-paragrafo-03
+  tema: "Sustentar a ideia"
+  dificuldade: 2
+  enunciado: "Para sustentar o tópico frasal, que perguntas a aula manda fazer ao próprio tópico?"
+  alternativas:
+    - texto: "Como assim? Por quê? Quem disse? Por exemplo?"
+      certa: true
+    - texto: "Quanto custa? Onde compro?"
+      erro: "Não são as perguntas da aula."
+    - texto: "Quem ganha? Quem perde?"
+      erro: "Não são as perguntas da aula."
+  explicacao: "Exemplo: \"A falta de creche no bairro impede muitas mães de trabalhar\" pede dados e exemplos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como escrever um parágrafo\""
+  revisao:
+    status: em-revisao

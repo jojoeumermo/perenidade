@@ -1,0 +1,70 @@
+# Exercícios da aula "Estudar com pouco tempo" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-pouco-tempo-01
+  tema: "Sessões curtas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a pesquisa citada na aula, o que fixa mais, com o mesmo tempo total de estudo?"
+  alternativas:
+    - texto: "Uma sessão longa na véspera"
+      erro: "A pesquisa diz quase o contrário: várias sessões curtas, espalhadas em vários dias, fixam mais."
+    - texto: "Várias sessões curtas, espalhadas em vários dias"
+      certa: true
+    - texto: "Reler o texto no mesmo dia, várias vezes"
+      erro: "Reler várias vezes dá a sensação de saber, mas rende pouco. O estudo em dias diferentes ajuda a lembrar por mais tempo."
+  explicacao: "Com o mesmo tempo total, estudar em dias diferentes (estudo distribuído) ajuda a lembrar por mais tempo. 20 a 30 minutos, várias vezes na semana, rendem mais do que se espera."
+  fonte: "Cepeda e colegas (2006), conforme a aula \"Estudar com pouco tempo\""
+  revisao:
+    status: em-revisao
+
+- id: estud-pouco-tempo-02
+  tema: "Recuperação"
+  dificuldade: 2
+  enunciado: "Qual destas é uma forma de praticar a recuperação, a técnica que a aula recomenda no lugar de reler?"
+  alternativas:
+    - texto: "Ler o resumo mais uma vez"
+      erro: "É reler. Deixa o texto familiar, mas não prova que você lembra."
+    - texto: "Grifar o texto todo de amarelo"
+      erro: "Grifar também rendeu pouco na pesquisa, apesar de ser muito usado."
+    - texto: "Fechar o caderno e escrever, de memória, o que aprendeu"
+      certa: true
+  explicacao: "Recuperar é fechar o material e tentar lembrar: responder perguntas, explicar em voz alta, escrever o que lembra. Se errar, ótimo: você descobriu o que voltar a estudar."
+  fonte: "Dunlosky e colegas (2013), conforme a aula \"Estudar com pouco tempo\""
+  revisao:
+    status: em-revisao
+
+- id: estud-pouco-tempo-03
+  tema: "Conta da semana de estudo"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "Seu Marcos tem 15 minutos de ônibus livres e 25 minutos em casa à noite, de segunda a sexta, e mais 40 minutos no sábado. Quantos minutos ele estuda por semana?"
+  resposta: "240"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "200"
+      explicacao: "200 é só a parte de segunda a sexta (5 × 40). Falta somar os 40 minutos de sábado."
+    - resposta: "40"
+      explicacao: "40 minutos é o que ele estuda em um dia da semana. Multiplique por 5 dias e some o sábado."
+  dica: "Primeiro some o que ele estuda em um dia (15 + 25), depois multiplique por 5 e some o sábado."
+  explicacao: "15 + 25 = 40 minutos por dia; 5 × 40 = 200; mais 40 no sábado dá 240 minutos, ou 4 horas por semana."
+  conferir: "5 * (15 + 25) + 40"
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Estudar com pouco tempo\""
+  revisao:
+    status: em-revisao
+
+- id: estud-pouco-tempo-04
+  tema: "Perdi um dia"
+  dificuldade: 1
+  enunciado: "Você perdeu um dia de estudo. O que a aula sugere?"
+  alternativas:
+    - texto: "Zerar tudo e começar de novo na próxima semana"
+      erro: "A aula diz para não zerar. Perder um dia não apaga o que você já fez."
+    - texto: "Retomar no dia seguinte, sem castigo"
+      certa: true
+    - texto: "Estudar o dobro no dia seguinte, para compensar"
+      erro: "Compensar de uma vez cansa e dificulta manter o hábito. Retome no ritmo possível, sem castigo."
+  explicacao: "Perdeu um dia? Não zere. Retome no dia seguinte, no seu ritmo, sem castigo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar com pouco tempo\""
+  revisao:
+    status: em-revisao

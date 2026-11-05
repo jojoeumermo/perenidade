@@ -1,0 +1,86 @@
+# Exercícios da aula "Equações do 1º grau" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-eq1-01
+  tipo: numero
+  tema: "Equação com soma e subtração"
+  dificuldade: 1
+  enunciado: "Resolva a equação x − 9 = 16. Quanto vale x?"
+  resposta: "25"
+  erros_comuns:
+    - resposta: "7"
+      explicacao: "Você tirou 9, mas a conta pede somar. Para desfazer uma subtração, use a soma: x = 16 + 9."
+  dica: "Desfaça a subtração com a operação contrária, dos dois lados."
+  explicacao: "Para deixar o x sozinho, some 9 aos dois lados: x − 9 + 9 = 16 + 9, então x = 25. Conferindo: 25 − 9 = 16."
+  conferir: "16 + 9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-eq1-02
+  tipo: numero
+  tema: "Equação com multiplicação"
+  dificuldade: 1
+  enunciado: "Resolva 6x = 54. Quanto vale x?"
+  resposta: "9"
+  erros_comuns:
+    - resposta: "324"
+      explicacao: "Você multiplicou 54 por 6. Como 6x é 6 vezes x, desfaça com a divisão: 54 ÷ 6."
+  dica: "6x quer dizer 6 vezes x. Qual é a operação contrária da multiplicação?"
+  explicacao: "Divida os dois lados por 6: x = 54 ÷ 6 = 9. Conferindo: 6 × 9 = 54."
+  conferir: "54 / 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-eq1-03
+  tema: "Equação em duas etapas"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Qual é a solução de 3x − 5 = 16?"
+  alternativas:
+    - texto: "7"
+      certa: true
+    - texto: "11/3"
+      erro: "Você tirou 5 dos dois lados, mas o certo era somar: 3x − 5 = 16 vira 3x = 16 + 5. Desfaça a subtração com a soma."
+    - texto: "21"
+      erro: "Você somou 5 e parou em 3x = 21. Falta dividir os dois lados por 3."
+  explicacao: "Primeiro desfaça a subtração: 3x = 16 + 5 = 21. Depois divida por 3: x = 7. Conferindo: 3 × 7 − 5 = 16."
+  conferir: "(16 + 5) / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-eq1-04
+  tipo: numero
+  tema: "Do problema à equação"
+  dificuldade: 2
+  enunciado: "Uma corrida de aplicativo custa R$ 5 de taxa fixa mais R$ 3 por quilômetro. Paguei R$ 32. Quantos quilômetros rodei?"
+  resposta: "9"
+  unidade: "quilômetros"
+  erros_comuns:
+    - resposta: "27"
+      explicacao: "Você tirou a taxa de R$ 5 e parou. Falta dividir por 3, o preço de cada quilômetro."
+  dica: "Escreva 3x + 5 = 32, em que x é o número de quilômetros."
+  explicacao: "Com x quilômetros, 3x + 5 = 32. Tirando 5: 3x = 27. Dividindo por 3: x = 9. Conferindo: 3 × 9 + 5 = 32."
+  conferir: "(32 - 5) / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-eq1-05
+  tema: "Incógnita dos dois lados"
+  dificuldade: 3
+  enunciado: "Qual é a solução de 7x − 4 = 3x + 20?"
+  alternativas:
+    - texto: "6"
+      certa: true
+    - texto: "4"
+      erro: "Ao juntar os números, você tirou 4 de 20, mas o certo era somar: 7x − 3x = 20 + 4, ou seja, 4x = 24."
+    - texto: "2,4"
+      erro: "Você somou 7x com 3x. Para juntar os x num lado só, tire 3x dos dois lados: 7x − 3x = 4x."
+  explicacao: "Tire 3x dos dois lados: 4x − 4 = 20. Some 4: 4x = 24. Divida por 4: x = 6. Conferindo: 7 × 6 − 4 = 38 e 3 × 6 + 20 = 38."
+  conferir: "(20 + 4) / (7 - 3)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

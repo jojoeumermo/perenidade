@@ -1,0 +1,52 @@
+# Exercícios da aula "Quem não tem religião: ateus, agnósticos e sem religião" (religioes-do-mundo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-do-mundo-quem-nao-tem-religiao-ateus-agnosticos-e-01
+  tema: "Crescimento"
+  dificuldade: 2
+  enunciado: "O Censo 2022 mostrou 9,3% de brasileiros sem religião; em 2010 eram 7,9%. Em quantos pontos percentuais o grupo cresceu?"
+  alternativas:
+    - texto: "17,2"
+      erro: "Aí você somou 9,3 e 7,9. Para saber o crescimento, subtraia."
+    - texto: "0,14"
+      erro: "A vírgula escorregou. 9,3 − 7,9 dá 1,4."
+    - texto: "1,4 ponto percentual"
+      certa: true
+      valor: "1.4"
+  explicacao: "9,3 − 7,9 = 1,4 ponto percentual."
+  conferir: "9.3 - 7.9"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem não tem religião: ateus, agnósticos e sem religião\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-quem-nao-tem-religiao-ateus-agnosticos-e-02
+  tema: "Ateu ou agnóstico"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre ateu e agnóstico, segundo a aula?"
+  alternativas:
+    - texto: "Ateus não acreditam na existência de deuses; agnósticos acham que não dá para saber se deuses existem"
+      certa: true
+    - texto: "São a mesma coisa"
+      erro: "A aula distingue as posições."
+    - texto: "Agnósticos seguem uma igreja"
+      erro: "Agnósticos consideram que não dá para saber se deuses existem."
+  explicacao: "Deístas acreditam num Deus, mas sem seguir uma religião."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem não tem religião: ateus, agnósticos e sem religião\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-do-mundo-quem-nao-tem-religiao-ateus-agnosticos-e-03
+  tema: "Direitos"
+  dificuldade: 1
+  enunciado: "O que a Constituição garante a quem não tem religião?"
+  alternativas:
+    - texto: "A liberdade de consciência e de crença, que inclui o direito de não crer; ninguém pode ser discriminado"
+      certa: true
+    - texto: "Nenhum direito especial"
+      erro: "A liberdade de consciência e de crença inclui o direito de não crer."
+    - texto: "O direito de impor a sua posição a todos"
+      erro: "A garantia é de igualdade: ninguém deve ser discriminado por ter ou não ter religião."
+  explicacao: "Em 2022, os católicos caíram para 56,7% e os evangélicos passaram de 21,6% para 26,9%."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem não tem religião: ateus, agnósticos e sem religião\""
+  revisao:
+    status: em-revisao

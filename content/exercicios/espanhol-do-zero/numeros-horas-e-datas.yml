@@ -1,0 +1,69 @@
+# Exercícios da aula "Números, horas e datas" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-numeros-01
+  tema: "Centenas"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Como se escreve por extenso o número 115 em espanhol?"
+  alternativas:
+    - texto: "ciento quince"
+      certa: true
+    - texto: "ciento y quince"
+      erro: "Em espanhol não há \"y\" depois da centena. O y só aparece entre dezena e unidade (treinta y dos)."
+    - texto: "cien quince"
+      erro: "Cien é só o 100 redondo. Do 101 ao 199, usa-se ciento."
+  explicacao: "Do 101 ao 199 usa-se ciento, sem y: ciento quince."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Números, horas e datas\""
+  revisao:
+    status: em-revisao
+
+- id: esp-numeros-02
+  tema: "As horas"
+  dificuldade: 2
+  enunciado: "Como se diz que são 3h45 em espanhol?"
+  alternativas:
+    - texto: "Son las cuatro menos cuarto."
+      certa: true
+    - texto: "Son las tres y media."
+      erro: "Y media é 3h30. Aqui faltam 15 minutos para as quatro."
+    - texto: "Es la una y cuarenta y cinco."
+      erro: "Para as 3h45 a hora é las tres ou las cuatro menos cuarto, e não la una. Além disso, a forma habitual usa menos cuarto."
+  explicacao: "Pelo \"menos\": 3h45 é las cuatro menos cuarto (um quarto para as quatro)."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Números, horas e datas\""
+  revisao:
+    status: em-revisao
+
+- id: esp-numeros-03
+  tema: "A que horas"
+  dificuldade: 1
+  enunciado: "Como se diz \"A aula começa às sete\" em espanhol?"
+  alternativas:
+    - texto: "La clase empieza a las siete."
+      certa: true
+    - texto: "La clase empieza en siete."
+      erro: "Para dizer a que horas, usa-se a las."
+    - texto: "La clase empieza las siete."
+      erro: "Falta o a: a las siete."
+  explicacao: "Para dizer a que horas algo acontece, usa-se a las: La clase empieza a las siete."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Números, horas e datas\""
+  revisao:
+    status: em-revisao
+
+- id: esp-numeros-04
+  tema: "Dezena e unidade"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "Do 31 em diante, dezena e unidade se ligam com y (treinta y uno, cuarenta y cinco). Em \"treinta y dos\", qual é o número, em algarismos?"
+  resposta: "32"
+  erros_comuns:
+    - resposta: "23"
+      explicacao: "Você inverteu a ordem. A dezena (treinta, 30) vem primeiro e a unidade (dos, 2) depois: 30 + 2."
+    - resposta: "302"
+      explicacao: "Treinta é 30, e não 300. Some a dezena com a unidade: 30 + 2."
+  dica: "Treinta é 30 e dos é 2."
+  explicacao: "Treinta (30) y dos (2): 30 + 2 = 32."
+  conferir: "30 + 2"
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Números, horas e datas\""
+  revisao:
+    status: em-revisao

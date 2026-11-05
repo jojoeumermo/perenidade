@@ -9,7 +9,7 @@ Texto: `content/paginas/privacidade.md` (só em português; a rota `app/[lang]/p
 | Teste dos 12 eixos no aparelho (`lucia:eixos`) | "Se você só estuda" | `components/estudo/DozeEixos.tsx` |
 | Jogos: nada sai do aparelho | "Se você só estuda" | `docs/jogos/` |
 | App e offline (caches `lucia-*`, fila, sem permissões) | "Se você só estuda" | `docs/APP.md`, `docs/APP-OFFLINE.md` |
-| Progresso por QR (cifrado) | "Se você só estuda" | plano, R1 4-5; **recurso ainda não existe no código** |
+| Progresso por QR (cifrado) | "Se você só estuda" | plano, R1 4-5; no ar em Meus dados (`lib/progresso-qr.ts`, `supabase/migracoes/2026-11-progresso-qr.sql`) |
 | Aula ao vivo na sala própria (Galène) e gravação | "Os serviços que mantêm o site no ar" | `docs/AULA-AO-VIVO.md` |
 | Rede Lúcia v2 (tabela, aviso no celular, e-mail) | seção própria "Rede Lúcia (a comunidade renovada)" | `docs/rede/PRIVACIDADE.md`, `docs/rede/AVISOS.md` |
 | Pesquisa anônima dos 12 eixos da equipe | "Se você é da equipe de voluntários" | `docs/eixos-equipe.md` |
@@ -25,5 +25,5 @@ LGPD (Lei 13.709/2018) arts. 5º II e XI, 7º I e IX, 8º, 11 I, 12, 14, 18; Lei
 
 - Não renomeie os títulos "Se você só estuda" e "Os serviços que mantêm o site no ar": `lib/selos.ts` (`ANCORAS`) e `testar:acesso` dependem das âncoras.
 - Mudou o texto de uma promessa? Mude a data no alto.
-- Quando o progresso por QR entrar no ar, confira o parágrafo (retransmissão, validade de um dia) contra o código; se divergir, corrija a página, não o código.
+- O progresso por QR está no ar (conferido em 05/11/2026 contra `lib/progresso-qr.ts` e a migração): QR com o pacote quando cabe, senão pacote cifrado no servidor por até um dia e apagado na leitura, chave sempre fora do servidor. Se o código mudar, confira o parágrafo de novo; se divergir, corrija a página, não o código.
 - Tradução: a página não tem versões por idioma; fazer `privacidade.en.md` etc. exige trocar o carregador em `app/[lang]/privacidade/page.tsx` (fora do escopo).

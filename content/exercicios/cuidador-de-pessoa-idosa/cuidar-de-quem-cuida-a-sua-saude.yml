@@ -1,0 +1,68 @@
+# Exercícios da aula "Cuidar de quem cuida: a sua saúde" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação de profissional de saúde.
+
+- id: cuid-cuidar-01
+  tema: "Sinais de cansaço de quem cuida"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destes é um sinal de que quem cuida precisa de apoio, segundo a aula?"
+  alternativas:
+    - texto: "Cansaço que não passa com o descanso, tristeza, isolamento e pensamento de que não aguenta mais"
+      certa: true
+    - texto: "Descansar bem e contar com a ajuda da família"
+      erro: "Isso é o que ajuda quem cuida, e não um sinal de alerta. Os sinais são cansaço constante, tristeza, sono ruim, isolamento e o pensamento de que não aguenta mais."
+    - texto: "Ter uma pausa com um café sentado"
+      erro: "Pausas pequenas fazem bem. O sinal de alerta é o cansaço que não passa e a falta de apoio."
+  explicacao: "Quem cuida sozinho, por muito tempo e sem folga pode adoecer. Isso não é fraqueza nem falta de amor: é um sinal de que o cuidador também precisa de cuidado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cuidar de quem cuida: a sua saúde\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-cuidar-02
+  tema: "De quem é a obrigação de cuidar"
+  dificuldade: 2
+  enunciado: "Em muitas famílias se diz que \"quem cuida é a filha, sempre foi assim\". O que o Estatuto da Pessoa Idosa (art. 3º) diz sobre a obrigação de assegurar os direitos da pessoa idosa?"
+  alternativas:
+    - texto: "É da família, da comunidade, da sociedade e do poder público, e não de uma pessoa só"
+      certa: true
+    - texto: "É só da filha mais velha"
+      erro: "O Estatuto não coloca a obrigação numa pessoa só. É da família, da comunidade, da sociedade e do poder público."
+    - texto: "É só do poder público, a família não tem obrigação"
+      erro: "O art. 3º cita também a família, a comunidade e a sociedade. A responsabilidade é dividida."
+  explicacao: "O art. 3º do Estatuto da Pessoa Idosa divide a obrigação entre família, comunidade, sociedade e poder público. Cuidar não deve custar a saúde de uma pessoa só. Dividir tarefas e cobrar serviços públicos é um direito."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, art. 3º (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-cuidar-03
+  tema: "Dividir as tarefas"
+  dificuldade: 2
+  enunciado: "Dona Raquel cuida sozinha da mãe e está esgotada. Qual atitude a aula mostra como um bom caminho?"
+  alternativas:
+    - texto: "Reunir os irmãos e combinar uma escala, em que cada um fica com algo (um dia, a farmácia, as consultas), e marcar consulta para ela mesma"
+      certa: true
+    - texto: "Aguentar calada, para não preocupar ninguém"
+      erro: "Dizer que está sobrecarregada é um ato de responsabilidade. Aguentar calada, sozinha e sem folga é o que faz o cuidador adoecer."
+    - texto: "Deixar a mãe sozinha e não voltar mais"
+      erro: "A aula mostra que a Raquel não largou a mãe: passou a ter ajuda. Dividir tarefas protege a cuidadora e quem é cuidado."
+  explicacao: "Dona Raquel reconheceu que estava sobrecarregada, marcou consulta para si, propôs uma escala aos irmãos, procurou o CRAS para saber de serviços e grupos de apoio e, nos dias difíceis, ligou para o CVV (188). Ela não largou a mãe e passou a ter ajuda."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Cuidar de quem cuida: a sua saúde\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-cuidar-04
+  tema: "Onde buscar apoio"
+  dificuldade: 1
+  enunciado: "Qual serviço oferece conversa de apoio emocional, gratuita, a qualquer hora, pelo telefone 188?"
+  alternativas:
+    - texto: "O CVV"
+      certa: true
+    - texto: "O SAMU"
+      erro: "O SAMU (192) é para perigo imediato, como um acidente ou mal-estar grave. O apoio emocional pelo 188 é do CVV."
+    - texto: "O CRAS"
+      erro: "O CRAS orienta sobre serviços e benefícios, mas não funciona por telefone 188. O CVV é a conversa de apoio emocional gratuita, a qualquer hora."
+  explicacao: "O CVV (188) é uma conversa de apoio emocional gratuita, a qualquer hora. O SAMU (192) é para perigo imediato. A UBS atende o cuidador, o CRAS orienta e o CAPS apoia em sofrimento emocional intenso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cuidar de quem cuida: a sua saúde\""
+  revisao:
+    status: em-revisao

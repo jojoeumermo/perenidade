@@ -1,0 +1,50 @@
+# Exercícios da aula "As peças de um computador" (montagem-de-computadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: montagem-de-computador-as-pecas-de-um-computador-01
+  tema: "A bancada"
+  dificuldade: 1
+  enunciado: "Na comparação com a cozinha, qual peça do computador faz o papel da bancada, onde fica o que está sendo usado agora?"
+  alternativas:
+    - texto: "O armazenamento (HD ou SSD)"
+      erro: "O armazenamento é a despensa: guarda tudo, mesmo com o computador desligado."
+    - texto: "A memória RAM"
+      certa: true
+    - texto: "A fonte"
+      erro: "A fonte é o gás e a luz: entrega energia para cada peça."
+  explicacao: "A RAM guarda os programas e arquivos abertos neste momento. É rápida, mas volátil: perde tudo quando falta energia."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As peças de um computador\""
+  revisao:
+    status: em-revisao
+
+- id: montagem-de-computador-as-pecas-de-um-computador-02
+  tema: "Compatibilidade"
+  dificuldade: 2
+  enunciado: "Antes de comprar o processador e a memória, o que a aula manda conferir primeiro?"
+  alternativas:
+    - texto: "Se a cor da caixa combina com o gabinete"
+      erro: "A cor não importa. O que importa é a compatibilidade com a placa-mãe."
+    - texto: "Se são compatíveis com a placa-mãe: o processador só entra no soquete feito para ele"
+      certa: true
+    - texto: "Só a frequência em GHz"
+      erro: "Comparar só núcleos e frequência engana. Primeiro confira o encaixe na placa-mãe."
+  explicacao: "A placa-mãe decide quais peças servem: cada processador tem seu soquete e cada geração de memória tem um encaixe diferente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As peças de um computador\""
+  revisao:
+    status: em-revisao
+
+- id: montagem-de-computador-as-pecas-de-um-computador-03
+  tema: "Computador lento"
+  dificuldade: 2
+  enunciado: "O computador engasga ao trocar de janela porque a bancada encheu e o sistema passa a guardar coisas no armazenamento, que é mais lento. Qual é a causa comum de lentidão que a aula aponta?"
+  alternativas:
+    - texto: "Pouca memória RAM"
+      certa: true
+    - texto: "Pouco espaço na prateleira da fonte"
+      erro: "A fonte só entrega energia. A lentidão por bancada cheia vem de pouca RAM."
+    - texto: "Pasta térmica demais"
+      erro: "A pasta térmica ajuda o calor a passar do processador ao dissipador e não causa essa lentidão."
+  explicacao: "Quando a RAM enche, o sistema usa o armazenamento como apoio, que é bem mais lento. Pouca RAM é uma das causas mais comuns de lentidão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"As peças de um computador\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,89 @@
+# Exercícios da aula "O Estatuto da Pessoa Idosa" (Envelhecer com direitos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Informação geral: para o caso concreto, CRAS, Defensoria Pública ou conselho da pessoa idosa.
+
+- id: idosa-estatuto-01
+  tema: "Quem é a pessoa idosa na lei"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "A partir de que idade o Estatuto da Pessoa Idosa (Lei 10.741/2003) vale para a pessoa?"
+  alternativas:
+    - texto: "60 anos"
+      certa: true
+    - texto: "65 anos"
+      erro: "65 anos é a idade da gratuidade garantida por lei no transporte urbano, e do BPC. O Estatuto, no geral, vale desde os 60 (art. 1º)."
+    - texto: "70 anos"
+      erro: "O Estatuto vale a partir dos 60 anos, e não dos 70 (art. 1º)."
+    - texto: "80 anos"
+      erro: "Aos 80 anos há uma prioridade especial, que passa à frente das outras pessoas idosas. Mas a lei vale desde os 60."
+  explicacao: "O art. 1º do Estatuto vale para pessoas com idade igual ou superior a 60 anos. Garantir esses direitos é obrigação da família, da comunidade, da sociedade e do poder público (art. 3º), e não favor."
+  fonte: "Lei nº 10.741/2003 (Estatuto da Pessoa Idosa), arts. 1º e 3º, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: idosa-estatuto-02
+  tema: "Transporte urbano"
+  dificuldade: 2
+  enunciado: "Dona Neide tem 62 anos e Seu Raimundo tem 68. Pela regra geral da lei, quem tem gratuidade garantida nos ônibus urbanos em todo o país?"
+  alternativas:
+    - texto: "Os dois, desde os 60 anos, em qualquer cidade"
+      erro: "Entre 60 e 65 anos, a gratuidade depende da lei de cada cidade (art. 39, § 3º)."
+    - texto: "Só o Seu Raimundo, porque a gratuidade garantida pelo Estatuto é para maiores de 65 anos"
+      certa: true
+    - texto: "Nenhum dos dois, porque é preciso comprovar renda"
+      erro: "No ônibus urbano, basta mostrar um documento com a idade. A comprovação de renda (até dois salários mínimos) vale para as vagas do ônibus interestadual."
+  explicacao: "O art. 39 assegura a gratuidade dos transportes coletivos urbanos aos maiores de 65 anos. Entre 60 e 65, a lei local decide. Basta mostrar um documento com a idade."
+  fonte: "Lei nº 10.741/2003, art. 39, caput e § 3º, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: idosa-estatuto-03
+  tema: "Vagas no ônibus interestadual"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "No ônibus interestadual, quantas vagas gratuitas cada veículo deve reservar para pessoas idosas com renda de até dois salários mínimos (art. 40)?"
+  resposta: "2"
+  unidade: "vagas"
+  erros_comuns:
+    - resposta: "10"
+      explicacao: "10% é a parte dos assentos reservados no transporte urbano, e não o número de vagas gratuitas no interestadual."
+    - resposta: "5"
+      explicacao: "5% é a reserva de vagas de estacionamento. No interestadual, são duas vagas gratuitas por veículo."
+  dica: "Veja o art. 40: é um número pequeno de vagas por veículo, além do desconto de pelo menos 50% para quem passar disso."
+  explicacao: "O art. 40 reserva 2 vagas gratuitas por veículo para pessoas idosas com renda de até 2 salários mínimos. Para quem exceder essas vagas, na mesma faixa de renda, há desconto de pelo menos 50% na passagem."
+  conferir: "2"
+  fonte: "Lei nº 10.741/2003, art. 40, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: idosa-estatuto-04
+  tema: "BPC"
+  dificuldade: 2
+  enunciado: "Dona Francisca tem 67 anos, nunca teve carteira assinada e mora sozinha, sem renda. A que ela pode ter direito, segundo a aula?"
+  alternativas:
+    - texto: "A nada, porque nunca contribuiu para o INSS"
+      erro: "O BPC não exige contribuição: é um benefício da assistência social para quem tem 65 anos ou mais e não tem como se manter."
+    - texto: "Ao BPC, de um salário mínimo por mês, pedido a partir do CRAS"
+      certa: true
+    - texto: "À aposentadoria por idade, com décimo terceiro e pensão"
+      erro: "O BPC não é aposentadoria: não paga décimo terceiro e não deixa pensão."
+  explicacao: "Quem tem 65 anos ou mais e não tem como se manter nem família que possa mantê-lo pode pedir o BPC, de um salário mínimo por mês. A regra geral exige renda familiar por pessoa de até um quarto do salário mínimo e inscrição no Cadastro Único. O pedido começa no CRAS."
+  fonte: "Lei nº 8.742/1993 (Lei Orgânica da Assistência Social), art. 20, e aula \"O Estatuto da Pessoa Idosa\""
+  revisao:
+    status: em-revisao
+
+- id: idosa-estatuto-05
+  tema: "Denunciar violência"
+  dificuldade: 1
+  enunciado: "Uma vizinha suspeita que o filho de uma idosa fica com o cartão e a aposentadoria dela, sem deixá-la usar. Que serviço da aula recebe denúncia gratuita, todos os dias, podendo ser anônima?"
+  alternativas:
+    - texto: "O Disque 100"
+      certa: true
+    - texto: "O Ligue 180"
+      erro: "O 180 é a Central de Atendimento à Mulher. Para violência, abandono ou exploração de pessoa idosa, a aula indica o Disque 100."
+    - texto: "O CRAS, só em horário comercial, com identificação obrigatória"
+      erro: "O CRAS ajuda com BPC e serviços de convivência, mas a denúncia gratuita, todos os dias e que pode ser anônima é o Disque 100."
+  explicacao: "O Disque 100 recebe denúncias de violência, abandono ou exploração. Ficar com a aposentadoria, o cartão ou os bens da pessoa idosa, dando-lhes destino diferente do que ela quer, pode ser crime (art. 102)."
+  fonte: "Lei nº 10.741/2003, art. 102, planalto.gov.br; Disque 100 (gov.br/mdh), conforme a aula"
+  revisao:
+    status: em-revisao

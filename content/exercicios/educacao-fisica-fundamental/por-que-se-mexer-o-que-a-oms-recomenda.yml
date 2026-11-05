@@ -1,0 +1,70 @@
+# Exercícios da aula "Por que se mexer: o que a OMS recomenda" (Educação física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: edfis-oms-01
+  tema: "Quanto movimento para adultos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a recomendação das diretrizes da OMS (2020) de atividade aeróbica por semana para adultos?"
+  alternativas:
+    - texto: "10 a 20 minutos"
+      erro: "É pouco: a recomendação é de 150 a 300 minutos por semana. Mas lembre que qualquer movimento é melhor do que nenhum."
+    - texto: "150 a 300 minutos, de intensidade moderada a vigorosa"
+      certa: true
+    - texto: "10 horas por dia"
+      erro: "Seria impossível para quase todo mundo. A recomendação é de 150 a 300 minutos por semana."
+  explicacao: "Adultos, inclusive os que vivem com doenças crônicas ou deficiência, devem fazer 150 a 300 minutos por semana de atividade aeróbica moderada a vigorosa."
+  fonte: "OMS, \"Every move counts towards better health\" (diretrizes de 2020), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: edfis-oms-02
+  tema: "Fazer a conta da semana"
+  tipo: numero
+  dificuldade: 1
+  enunciado: "Uma pessoa caminha em ritmo rápido por 30 minutos, em cinco dias da semana. Quantos minutos de atividade ela faz por semana?"
+  resposta: "150"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "35"
+      explicacao: "Você somou 30 + 5. Para achar o total da semana, multiplique os minutos de cada dia pelos dias: 30 × 5."
+    - resposta: "300"
+      explicacao: "300 é o limite de cima da recomendação. A conta é 30 minutos × 5 dias."
+  dica: "Multiplique os minutos de cada caminhada pelo número de dias."
+  explicacao: "30 minutos × 5 dias = 150 minutos por semana, que é o mínimo recomendado pela OMS para adultos."
+  conferir: "30 * 5"
+  fonte: "Questão original do Instituto Lúcia, a partir do exercício da aula"
+  revisao:
+    status: em-revisao
+
+- id: edfis-oms-03
+  tema: "Crianças e adolescentes"
+  dificuldade: 1
+  enunciado: "Qual é a recomendação da OMS de atividade física para crianças e adolescentes?"
+  alternativas:
+    - texto: "Uma média de 60 minutos por dia"
+      certa: true
+    - texto: "5 minutos por semana"
+      erro: "Seria muito pouco. A recomendação é de uma média de 60 minutos por dia."
+    - texto: "Nenhuma, porque brincar não conta"
+      erro: "Brincar conta, sim: todo movimento conta. A recomendação é uma média de 60 minutos por dia."
+  explicacao: "Para crianças e adolescentes, a recomendação é uma média de 60 minutos por dia. Segundo a OMS, quatro em cada cinco adolescentes não se mexem o suficiente."
+  fonte: "OMS, diretrizes de 2020 e fact sheet \"Physical activity\" (2024), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: edfis-oms-04
+  tema: "A mensagem principal"
+  dificuldade: 2
+  enunciado: "Uma pessoa trabalha o dia todo e só consegue 10 minutos de caminhada por dia. O que a mensagem principal das diretrizes diz sobre isso?"
+  alternativas:
+    - texto: "Que não adianta nada se não chegar a 150 minutos"
+      erro: "É o contrário: qualquer quantidade de atividade é melhor do que nenhuma. Os 150 minutos são uma meta, e cada minuto conta."
+    - texto: "Que qualquer movimento é melhor do que nenhum, e todo movimento conta"
+      certa: true
+    - texto: "Que só vale exercício de academia"
+      erro: "Todo movimento conta: andar rápido, dançar, pedalar, brincar. A academia é uma das opções, e não a única."
+  explicacao: "A mensagem principal da OMS é que qualquer quantidade de atividade é melhor do que nenhuma e que todo movimento conta. Também se deve limitar o tempo parado e fortalecer os músculos."
+  fonte: "OMS, \"Every move counts towards better health\" (2020), conforme a aula"
+  revisao:
+    status: em-revisao

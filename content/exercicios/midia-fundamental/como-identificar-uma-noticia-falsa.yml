@@ -1,0 +1,50 @@
+# Exercícios da aula "Como identificar uma notícia falsa" (midia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: midia-fundamental-como-identificar-uma-noticia-falsa-01
+  tema: "Tipos de conteúdo"
+  dificuldade: 1
+  enunciado: "Uma foto de enchente de 2011 é divulgada como se fosse de hoje. Que tipo de conteúdo enganoso é esse, segundo a aula?"
+  alternativas:
+    - texto: "Inventado, porque nunca aconteceu"
+      erro: "A enchente aconteceu, só que em outra data. Por isso é fora de contexto."
+    - texto: "Fora de contexto: é verdadeiro, mas com data, lugar ou sentido trocados"
+      certa: true
+    - texto: "Distorcido, porque cortaram a frase"
+      erro: "Distorcido é quando se exagera, corta ou torce um fato. Aqui a data foi trocada: é fora de contexto."
+  explicacao: "Inventado nunca aconteceu; fora de contexto é real com data, lugar ou sentido trocado; distorcido parte de um fato real e o exagera ou corta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como identificar uma notícia falsa\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-como-identificar-uma-noticia-falsa-02
+  tema: "Na dúvida"
+  dificuldade: 1
+  enunciado: "Qual é a regra final da aula quando você fica na dúvida sobre uma mensagem?"
+  alternativas:
+    - texto: "Repassar rápido, para os amigos decidirem"
+      erro: "Repassar espalha a mentira. A regra é: na dúvida, não compartilhe."
+    - texto: "Não compartilhar"
+      certa: true
+    - texto: "Apagar o celular"
+      erro: "Não é preciso. Basta não repassar e conferir a mensagem."
+  explicacao: "Cada pessoa que deixa de repassar uma mentira quebra a corrente. Se um conhecido compartilhar algo falso, responda em particular, com a fonte, sem humilhar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como identificar uma notícia falsa\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-como-identificar-uma-noticia-falsa-03
+  tema: "Mentira corre mais"
+  dificuldade: 2
+  enunciado: "Segundo o estudo de 2018 do MIT publicado na revista Science, citado na aula, o que aconteceu com as notícias falsas e as verdadeiras?"
+  alternativas:
+    - texto: "As falsas se espalharam mais longe e mais depressa, e quem as espalhou foram pessoas comuns, não robôs"
+      certa: true
+    - texto: "As verdadeiras se espalharam mais depressa"
+      erro: "O estudo achou o contrário: as falsas foram mais longe e mais depressa."
+    - texto: "Só robôs espalharam notícia falsa"
+      erro: "A aula diz que foram pessoas comuns, não robôs, que as espalharam."
+  explicacao: "A mentira pode ser feita sob medida para provocar espanto, raiva ou medo, e por isso corre mais do que a verdade, que costuma ser mais complicada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como identificar uma notícia falsa\""
+  revisao:
+    status: em-revisao

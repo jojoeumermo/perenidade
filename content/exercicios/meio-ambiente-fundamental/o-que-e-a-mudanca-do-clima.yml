@@ -1,0 +1,52 @@
+# Exercícios da aula "O que é a mudança do clima" (meio-ambiente-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: meio-ambiente-fundamen-o-que-e-a-mudanca-do-clima-01
+  tema: "Causa principal"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o aquecimento atual é impulsionado principalmente por quê?"
+  alternativas:
+    - texto: "Por mudanças no brilho do Sol"
+      erro: "A aula aponta atividades humanas, sobretudo a queima de combustíveis fósseis, e não o Sol."
+    - texto: "Por atividades humanas, principalmente a queima de carvão, petróleo e gás natural"
+      certa: true
+    - texto: "Por erupções de vulcões todo ano"
+      erro: "A causa principal destacada é a queima de combustíveis fósseis, além do desmatamento."
+  explicacao: "O uso de combustíveis fósseis e o desmatamento liberam gases de efeito estufa, que absorvem parte do calor que a Terra irradia."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a mudança do clima\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-o-que-e-a-mudanca-do-clima-02
+  tema: "Acordo de Paris"
+  dificuldade: 2
+  enunciado: "O Acordo de Paris quer o aquecimento bem abaixo de 2 °C. Os compromissos atuais levariam a cerca de 2,8 °C. Quantos graus acima de 2 °C isso representa?"
+  alternativas:
+    - texto: "2,8"
+      erro: "Esse é o valor total estimado. A pergunta é quanto passa de 2 °C: subtraia 2."
+    - texto: "4,8"
+      erro: "Aqui você somou 2,8 com 2. Para saber o que passa do limite, subtraia: 2,8 − 2."
+    - texto: "0,8"
+      certa: true
+      valor: "0.8"
+  explicacao: "2,8 − 2,0 = 0,8 °C acima do limite. Os compromissos atuais não bastam: seriam precisas metas mais ambiciosas."
+  conferir: "2.8 - 2"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a mudança do clima\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-o-que-e-a-mudanca-do-clima-03
+  tema: "Gases de efeito estufa"
+  dificuldade: 2
+  enunciado: "Como os gases de efeito estufa esquentam o planeta, segundo a aula?"
+  alternativas:
+    - texto: "Absorvem parte do calor que a Terra irradia depois de ser aquecida pelo Sol"
+      certa: true
+    - texto: "Criam calor do nada dentro da atmosfera"
+      erro: "Eles não criam calor: absorvem parte do calor que a Terra irradia."
+    - texto: "Bloqueiam toda a luz do Sol"
+      erro: "A luz do Sol chega. O problema é que parte do calor irradiado pela Terra fica retido."
+  explicacao: "Os gases absorvem parte do calor irradiado pela Terra e esquentam a parte de baixo da atmosfera."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a mudança do clima\""
+  revisao:
+    status: em-revisao

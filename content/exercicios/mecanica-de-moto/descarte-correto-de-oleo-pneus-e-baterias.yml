@@ -1,0 +1,50 @@
+# Exercícios da aula "Descarte correto de óleo, pneus e baterias" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-descarte-correto-de-oleo-pneus-e-bateria-01
+  tema: "Quem devolve"
+  dificuldade: 1
+  enunciado: "Pela Política Nacional de Resíduos Sólidos (Lei 12.305/2010, art. 33), quem deve devolver óleo, pneu e bateria aos comerciantes depois do uso?"
+  alternativas:
+    - texto: "Só o fabricante"
+      erro: "A responsabilidade é dividida: fabricantes, importadores, distribuidores e comerciantes organizam o retorno, e o consumidor deve devolver."
+    - texto: "O consumidor, e quem vende organiza o recebimento"
+      certa: true
+    - texto: "Ninguém, pode ir para o lixo comum"
+      erro: "Esses produtos não podem ir para o lixo comum. Quem usa devolve; quem vende recebe."
+  explicacao: "É a logística reversa: quem usa devolve o produto ao comerciante ou distribuidor, e quem vende recebe e organiza o retorno."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Descarte correto de óleo, pneus e baterias\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-descarte-correto-de-oleo-pneus-e-bateria-02
+  tema: "Guardar o óleo usado"
+  dificuldade: 1
+  enunciado: "Como a aula manda guardar o óleo usado até entregar?"
+  alternativas:
+    - texto: "Em recipiente de plástico com tampa, bem fechado e identificado, sem misturar com água ou solvente"
+      certa: true
+    - texto: "Despejado no ralo, com água corrente"
+      erro: "Nunca no ralo. Um litro de óleo pode poluir muita água."
+    - texto: "Misturado com solvente para render mais"
+      erro: "A aula manda não misturar com solvente nem com água."
+  explicacao: "O óleo usado vai numa garrafa plástica fechada e identificada, longe de crianças, calor e fogo, até a entrega em posto, oficina ou ponto de coleta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Descarte correto de óleo, pneus e baterias\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-descarte-correto-de-oleo-pneus-e-bateria-03
+  tema: "Pneu velho"
+  dificuldade: 1
+  enunciado: "O que NÃO se deve fazer com pneu velho, segundo a aula?"
+  alternativas:
+    - texto: "Devolver à borracharia ou ao ponto de coleta"
+      erro: "Isso é o certo. O que não se faz é largar ou queimar."
+    - texto: "Largar no terreno ou queimar"
+      certa: true
+    - texto: "Entregar na loja onde comprou a troca"
+      erro: "Isso também é o certo. Largar acumula água e cria foco de mosquito; queimar solta fumaça tóxica."
+  explicacao: "Pneu largado acumula água e vira foco de mosquito, e queimar solta fumaça tóxica. O caminho certo é a borracharia, a loja ou o ponto de coleta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Descarte correto de óleo, pneus e baterias\""
+  revisao:
+    status: em-revisao
