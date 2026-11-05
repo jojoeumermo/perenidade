@@ -59,6 +59,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sobre",
     "/quem-somos",
     "/questoes",
+    "/jogos",
     "/laboratorios",
     "/laboratorios/ide",
     "/laboratorios/redes",
@@ -69,6 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/laboratorios/design",
     "/laboratorios/seguranca",
     "/laboratorios/simulacoes",
+    "/laboratorios/externos",
     "/laboratorios/eletrica",
     "/laboratorios/modelos",
     "/laboratorios/quimica",
@@ -92,6 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/criancas/contas",
     "/criancas/robo",
     "/criancas/seguranca",
+    "/criancas/sons",
     "/criancas/imprimir",
   ];
   // O Vale o Escrito só entra no mapa com o recurso ligado pelo nome (enviar e correção ficam fora: noindex).
@@ -102,6 +105,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // A data real da última alteração, lida do histórico do Git, só para o que tem arquivo próprio (aula, trilha, obra, matéria).
   const datas = new Map<string, string>();
   const soEm = new Map<string, readonly Locale[]>();
+  // A página de imprensa só tem texto em português: entra só no idioma dela.
+  paths.push("/imprensa");
+  soEm.set("/imprensa", [defaultLocale]);
   const anotar = (path: string, file?: string) => {
     if (!file) return;
     const { updated } = fileHistory(file);

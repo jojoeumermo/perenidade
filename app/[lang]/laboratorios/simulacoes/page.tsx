@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
+import { LabsExternos } from "@/components/labs/LabsExternos";
 import { PhetLista } from "@/components/labs/Phet";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
@@ -18,6 +19,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios/s
         {t.labs.simulacoesLead}
       </PageHeading>
       <PhetLista />
+      <LabsExternos area="simulacoes" />
     </div>
   );
 }

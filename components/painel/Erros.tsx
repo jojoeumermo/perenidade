@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { Abas, Aviso, botaoClaro, dataHora, rotulo, useAcao, useLista } from "./comum";
+import { perguntarTexto } from "./ui";
 
 interface Relato {
   id: string;
@@ -43,7 +44,7 @@ export function ErrosRelatados() {
             {r.nota && <p className="mt-1 text-sm">Nota: {r.nota}</p>}
             <p className="mt-3 flex flex-wrap gap-2">
               {(["visto", "resolvido", "descartado", "novo"] as const).filter((s) => s !== r.status).map((s) => (
-                <button key={s} type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => { const nota = s === "resolvido" || s === "descartado" ? (window.prompt("Nota (opcional):", r.nota) ?? r.nota) : r.nota; void acao.agir("erro_mudar", { p_id: r.id, p_status: s, p_nota: nota }, "Feito."); }}>
+                <button key={s} type="button" className={botaoClaro} disabled={acao.ocupado} onClick={async () => { const nota = s === "resolvido" || s === "descartado" ? ((await perguntarTexto("Nota (opcional):", r.nota)) ?? r.nota) : r.nota; void acao.agir("erro_mudar", { p_id: r.id, p_status: s, p_nota: nota }, "Feito."); }}>
                   {s === "novo" ? "Voltar para novos" : `Marcar como ${s}`}
                 </button>
               ))}

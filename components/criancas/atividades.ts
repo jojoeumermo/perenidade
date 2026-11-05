@@ -7,6 +7,7 @@ export const ATIVIDADES = [
   { id: "contas", nome: "Tabuada e frações", idade: "8 a 12 anos", desenho: "✖️", cor: "#D6F0C8", texto: "Contas sem pressa e pizzas para dividir." },
   { id: "robo", nome: "Programe o robô", idade: "8 a 12 anos", desenho: "🤖", cor: "#E6D6FF", texto: "Monte os blocos e leve o robô até a estrela." },
   { id: "seguranca", nome: "Internet segura", idade: "8 a 12 anos", desenho: "🛡️", cor: "#FFD6DC", texto: "Histórias para saber se proteger na internet." },
+  { id: "sons", nome: "Música e sons", idade: "4 a 12 anos", desenho: "🎹", cor: "#FFE1B8", texto: "Piano dos bichos, bateria e melodias para repetir. Sem pontos." },
   { id: "imprimir", nome: "Para imprimir", idade: "4 a 12 anos", desenho: "🖨️", cor: "#F4EBDB", texto: "Caça-palavras e labirintos para o papel." },
 ] as const;
 export type AtividadeId = (typeof ATIVIDADES)[number]["id"];

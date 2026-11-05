@@ -1,0 +1,1234 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+
+   TEMA DO PAINEL — o único arquivo de estilo do painel interno (Etapa 8, pacote "painel-fundacao").
+   Substitui as cinco camadas que viviam em app/globals.css. Carregado só pelo painel (import em components/painel/Painel.tsx),
+   então o site público não paga por ele.
+
+   Regras do desenho (referência de tom: painéis profissionais, sóbrios):
+   - neutros quentes; o bordô só no botão principal, no item ativo e no foco;
+   - Garamond só no título da página; o resto é Inter;
+   - cantos de 6 px, bordas de 1 px, sem sombra deslocada, sem pontilhado;
+   - nenhum botão pula, afunda ou fica vermelho ao passar o mouse;
+   - uma linha de 2 px com as cores das lutas no topo do menu.
+
+   Toda cor do painel nasce aqui, como token "--pn-*". Os componentes novos (components/painel/ui, moldes e menu) usam só
+   estas classes "pn-*" e estes tokens: nenhuma cor escrita à mão neles. As seções antigas continuam com as classes do
+   site (parchment, ink, rule…): dentro de ".painel" essas variáveis apontam para os tokens, então mudam junto. */
+
+/* ───────── 1. Tokens ───────── */
+:root {
+  --pn-fundo: #f6f4ef;
+  --pn-superficie: #fdfcf9;
+  --pn-superficie-2: #efece4;
+  --pn-ativo: #ebe7dd;
+  --pn-borda: #e2ddd1;
+  --pn-borda-forte: #cdc6b6;
+  --pn-texto: #1d1b18;
+  --pn-texto-suave: #645e54;
+  --pn-destaque: #a51810;
+  --pn-destaque-hover: #8c130d;
+  --pn-destaque-vivo: #a51810;
+  --pn-sobre-destaque: #ffffff;
+  --pn-foco: #a51810;
+  --pn-ok: #2f6b3a;
+  --pn-aviso: #85580a;
+  --pn-erro: #b42318;
+  --pn-veu: rgb(29 27 24 / 0.45);
+  --pn-sombra-flutuante: 0 12px 32px rgb(29 27 24 / 0.16);
+  --pn-raio: 6px;
+  --pn-borda-largura: 1px;
+  --pn-fonte: var(--font-ui), system-ui, sans-serif;
+  --pn-fonte-titulo: var(--font-serif-display), "EB Garamond", Georgia, serif;
+  --pn-fonte-mono: var(--font-archive), ui-monospace, monospace;
+  /* A linha fina das lutas (as cores dos panos do site), no topo do menu. */
+  --pn-lutas: linear-gradient(90deg, #c21f16 0 22%, #f0b323 22% 30%, #23408e 30% 46%, #f4ecd8 46% 50%, #2e6b4f 50% 64%, #e4577f 64% 71%, #ea7a24 71% 82%, #1f8a85 82% 92%, #6e1f1a 92% 100%);
+  --pn-menu-largura: 17rem;
+  --pn-trilho-largura: 4.25rem;
+  --pn-barra-baixo: 3.5rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pn-fundo: #141310;
+    --pn-superficie: #1c1a17;
+    --pn-superficie-2: #25221e;
+    --pn-ativo: #2a2722;
+    --pn-borda: #35312b;
+    --pn-borda-forte: #4a453c;
+    --pn-texto: #ece7dc;
+    --pn-texto-suave: #a8a195;
+    --pn-destaque-vivo: #e0675c;
+    --pn-foco: #e0675c;
+    --pn-ok: #6fc07f;
+    --pn-aviso: #e3b04b;
+    --pn-erro: #f08277;
+    --pn-veu: rgb(0 0 0 / 0.6);
+    --pn-sombra-flutuante: 0 12px 32px rgb(0 0 0 / 0.5);
+  }
+}
+:root[data-theme="dark"] {
+  --pn-fundo: #141310;
+  --pn-superficie: #1c1a17;
+  --pn-superficie-2: #25221e;
+  --pn-ativo: #2a2722;
+  --pn-borda: #35312b;
+  --pn-borda-forte: #4a453c;
+  --pn-texto: #ece7dc;
+  --pn-texto-suave: #a8a195;
+  --pn-destaque-vivo: #e0675c;
+  --pn-foco: #e0675c;
+  --pn-ok: #6fc07f;
+  --pn-aviso: #e3b04b;
+  --pn-erro: #f08277;
+  --pn-veu: rgb(0 0 0 / 0.6);
+  --pn-sombra-flutuante: 0 12px 32px rgb(0 0 0 / 0.5);
+}
+/* Alto contraste e tinta eletrônica: o painel segue o modo escolhido (preto no branco, sem tom intermediário). */
+:root:is([data-contrast], [data-eink]) {
+  --pn-fundo: #fff;
+  --pn-superficie: #fff;
+  --pn-superficie-2: #fff;
+  --pn-ativo: #fff;
+  --pn-borda: #000;
+  --pn-borda-forte: #000;
+  --pn-texto: #000;
+  --pn-texto-suave: #000;
+  --pn-destaque: #000;
+  --pn-destaque-hover: #000;
+  --pn-destaque-vivo: #000;
+  --pn-sobre-destaque: #fff;
+  --pn-foco: #000;
+  --pn-sombra-flutuante: none;
+}
+
+/* ───────── 2. Base do painel ───────── */
+.painel:not(.painel-porta) {
+  font-family: var(--pn-fonte);
+  background-color: var(--pn-fundo);
+  color: var(--pn-texto);
+}
+.painel:not(.painel-porta) > div:last-child {
+  background-color: var(--pn-fundo);
+}
+/* Dentro do painel as cores do site apontam para os tokens: as seções antigas mudam sem ser reescritas. */
+:root:not([data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
+  --parchment: var(--pn-fundo);
+  --parchment-deep: var(--pn-superficie);
+  --folha: var(--pn-superficie);
+  --ink: var(--pn-texto);
+  --ink-soft: var(--pn-texto-suave);
+  --rule: var(--pn-borda);
+  --borda-forte: var(--pn-borda-forte);
+  --pontos: transparent;
+  --sombra: transparent;
+  --oxblood: var(--pn-destaque-vivo);
+  --prelo-texto: var(--pn-destaque-vivo);
+  --gold: var(--pn-aviso);
+  --linha-pauta: var(--pn-borda);
+}
+/* Letra: Inter em tudo; a serifa só no título da página (h1). Rótulos em letra de máquina viram Inter miúda. */
+.painel:not(.painel-porta) :is(.font-serif, .font-mono):not(h1, h1 *, .painel-titulo, .pn-titulo, kbd, code, pre, textarea) {
+  font-family: var(--pn-fonte);
+}
+.painel:not(.painel-porta) .font-mono[class*="uppercase"]:not(kbd, code) {
+  letter-spacing: 0.06em;
+}
+.painel:not(.painel-porta) h1 {
+  font-family: var(--pn-fonte-titulo);
+}
+/* Foco visível: o bordô, em anel fino e igual em todo lugar. */
+.painel:not(.painel-porta) :is(a, button, input, select, textarea, summary, [role="tab"], [role="option"], [tabindex]):focus-visible {
+  outline: 2px solid var(--pn-foco);
+  outline-offset: 2px;
+}
+/* Linhas finas: as molduras grossas de cartaz do site viram um fio de 1 px, e nada fica pontilhado. */
+.painel:not(.painel-porta) :is([class~="border-2"], [class*="border-[3px]"], [class*="border-[1.5px]"], [class*="border-[2.5px]"]) {
+  border-width: 1px;
+}
+.painel:not(.painel-porta) :is([class~="border-b-2"], [class*="border-b-[3px]"], [class~="border-b-4"]):not(.painel-aba) {
+  border-bottom-width: 1px;
+}
+.painel:not(.painel-porta) :is([class~="border-t-2"], [class*="border-t-[3px]"], [class~="border-t-4"], [class*="border-t-[5px]"], [class*="border-t-[6px]"]) {
+  border-top-width: 1px;
+}
+.painel:not(.painel-porta) :is([class~="border-r-2"], [class*="border-r-[3px]"]) {
+  border-right-width: 1px;
+}
+.painel:not(.painel-porta) .border-ink {
+  border-color: var(--pn-borda);
+}
+.painel:not(.painel-porta) :is([class~="border-dashed"], [class~="border-dotted"]) {
+  border-style: solid;
+}
+.painel:not(.painel-porta) :is([class~="divide-dashed"], [class~="divide-dotted"]) > * {
+  border-style: solid;
+}
+.painel:not(.painel-porta) .pont {
+  background-image: none;
+}
+.painel:not(.painel-porta) :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]), select, textarea, .painel-campo, .painel-botao-claro, button.border-ink) {
+  border-color: var(--pn-borda-forte);
+}
+/* Sem sombra deslocada. Só as janelas que abrem por cima têm uma sombra macia. */
+.painel:not(.painel-porta) :is([class*="shadow-["], .cartao, .cartao-v, .sombra, .sombra-v, .sombra-p, .sombra-pv, .botao, .selo, .painel-ir) {
+  box-shadow: none;
+}
+.painel:not(.painel-porta) [role="dialog"] {
+  box-shadow: var(--pn-sombra-flutuante);
+}
+/* Cantos de 6 px, sem especificidade, para um "rounded-..." da própria peça continuar mandando. */
+@layer utilities {
+  :where(.painel:not(.painel-porta)) :where([class~="border"], [class~="border-2"], [class~="border-[1.5px]"], .painel-quadro, .painel-cartao, .painel-campo, button, input:not([type="checkbox"], [type="radio"]), select, textarea, [role="dialog"], kbd) {
+    border-radius: var(--pn-raio);
+  }
+  :where(.painel:not(.painel-porta)) :where(span.painel-pilula, span[class*="bg-["][class~="px-1.5"], span[class*="bg-["][class~="px-2"], span[class*="bg-["][class~="px-1"]) {
+    border-radius: 999px;
+  }
+}
+
+/* ───────── 3. Classes antigas das seções (continuam valendo, no desenho novo) ───────── */
+.painel-cartao,
+.painel-quadro {
+  background: var(--pn-superficie);
+  border: var(--pn-borda-largura) solid var(--pn-borda);
+}
+.painel-quadro:hover {
+  border-color: var(--pn-borda-forte);
+}
+.painel-quadro-alerta {
+  border-color: color-mix(in srgb, var(--pn-destaque) 40%, var(--pn-borda));
+}
+.painel-seta {
+  transition: transform 0.15s;
+}
+.painel-campo {
+  background: var(--pn-superficie);
+  color: var(--pn-texto);
+}
+.painel-campo:focus {
+  border-color: var(--pn-texto-suave);
+  outline: 2px solid var(--pn-foco);
+  outline-offset: 0;
+}
+.painel-botao {
+  transition: background-color 0.12s ease-out, border-color 0.12s ease-out, color 0.12s ease-out;
+}
+/* O botão principal: bordô, e só escurece um pouco ao passar o mouse. O claro nunca vira vermelho. */
+.painel:not(.painel-porta) .painel-botao-principal {
+  background: var(--pn-destaque);
+  color: var(--pn-sobre-destaque);
+  border: 1px solid var(--pn-destaque);
+}
+.painel:not(.painel-porta) .painel-botao-principal:not(:disabled):hover {
+  background: var(--pn-destaque-hover);
+}
+.painel:not(.painel-porta) .painel-botao-claro {
+  background: var(--pn-superficie);
+  color: var(--pn-texto);
+}
+.painel:not(.painel-porta) .painel-botao-claro:not(:disabled):hover {
+  background: var(--pn-superficie-2);
+}
+.painel:not(.painel-porta) :is(.painel-botao, .botao, .painel-quadro):not(:disabled):is(:hover, :active) {
+  transform: none;
+  box-shadow: none;
+}
+.painel-aviso {
+  margin-top: 0.45rem;
+  border-left: 2px solid currentColor;
+  padding-left: 0.6rem;
+}
+.painel-rotulo {
+  letter-spacing: 0.06em;
+}
+.painel-conteudo [class~="divide-y"] > *:hover {
+  background: var(--pn-superficie);
+}
+.painel:not(.painel-porta) table th {
+  background: var(--pn-superficie-2);
+  border-bottom: 1px solid var(--pn-borda);
+  color: var(--pn-texto-suave);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+}
+.painel:not(.painel-porta) table td {
+  border-bottom: 1px solid var(--pn-borda);
+}
+.painel:not(.painel-porta) .painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+  background: var(--pn-superficie);
+}
+.painel:not(.painel-porta) .painel-procura:focus-within {
+  border-color: var(--pn-texto-suave);
+}
+.painel:not(.painel-porta) .painel-cabeca .selo {
+  border: 1px solid var(--pn-borda);
+}
+.painel:not(.painel-porta) .mesa .jornal-editoria {
+  background: transparent;
+  color: var(--pn-texto-suave);
+  font-family: var(--pn-fonte);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0;
+}
+.painel:not(.painel-porta) .mesa .jornal-secao::after {
+  height: 1px;
+  background: var(--pn-borda);
+}
+.painel-cabeca {
+  border: 0;
+  background-color: var(--pn-superficie);
+}
+
+/* ───────── 4. Componentes novos (components/painel/ui) ───────── */
+.pn-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--pn-borda-forte);
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie);
+  color: var(--pn-texto);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background-color 0.12s ease-out, border-color 0.12s ease-out, color 0.12s ease-out;
+}
+.pn-botao:hover:not(:disabled, [aria-disabled="true"]) {
+  background: var(--pn-superficie-2);
+}
+.pn-botao:disabled,
+.pn-botao[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.pn-botao-principal {
+  background: var(--pn-destaque);
+  border-color: var(--pn-destaque);
+  color: var(--pn-sobre-destaque);
+}
+.pn-botao-principal:hover:not(:disabled, [aria-disabled="true"]) {
+  background: var(--pn-destaque-hover);
+  border-color: var(--pn-destaque-hover);
+}
+.pn-botao-discreto {
+  border-color: transparent;
+  background: transparent;
+  color: var(--pn-texto-suave);
+}
+.pn-botao-discreto:hover:not(:disabled, [aria-disabled="true"]) {
+  background: var(--pn-ativo);
+  color: var(--pn-texto);
+}
+.pn-botao-perigo {
+  color: var(--pn-erro);
+}
+.pn-botao-pequeno {
+  min-height: 1.85rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+}
+.pn-botao-icone {
+  padding: 0.4rem;
+  min-width: 2.25rem;
+}
+@media (pointer: coarse) {
+  .pn-botao,
+  .pn-botao-pequeno {
+    min-height: 2.75rem;
+  }
+}
+
+.pn-campo-bloco {
+  display: grid;
+  gap: 0.3rem;
+}
+.pn-rotulo {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--pn-texto-suave);
+}
+.pn-ajuda {
+  font-size: 0.78rem;
+  color: var(--pn-texto-suave);
+}
+.pn-erro {
+  font-size: 0.8rem;
+  color: var(--pn-erro);
+}
+.pn-campo {
+  width: 100%;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--pn-borda-forte);
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie);
+  color: var(--pn-texto);
+  font: inherit;
+  font-size: 0.9rem;
+}
+textarea.pn-campo {
+  min-height: 5rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+.pn-campo::placeholder {
+  color: var(--pn-texto-suave);
+}
+.pn-campo:focus-visible {
+  outline: 2px solid var(--pn-foco);
+  outline-offset: 0;
+  border-color: var(--pn-texto-suave);
+}
+.pn-campo[aria-invalid="true"] {
+  border-color: var(--pn-erro);
+}
+.pn-marca {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+}
+.pn-marca input {
+  margin-top: 0.2rem;
+  accent-color: var(--pn-destaque);
+}
+
+.pn-cartao {
+  border: 1px solid var(--pn-borda);
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie);
+  padding: 1rem;
+}
+.pn-cartao-alerta {
+  border-color: color-mix(in srgb, var(--pn-destaque) 40%, var(--pn-borda));
+}
+
+.pn-tabela-caixa {
+  overflow-x: auto;
+  border: 1px solid var(--pn-borda);
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie);
+}
+.pn-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.pn-tabela th {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--pn-borda);
+  background: var(--pn-superficie-2);
+  color: var(--pn-texto-suave);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+.pn-tabela td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--pn-borda);
+  vertical-align: top;
+}
+.pn-tabela tbody tr:last-child td {
+  border-bottom: 0;
+}
+.pn-tabela tbody tr:hover {
+  background: var(--pn-superficie-2);
+}
+.pn-ordenar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.pn-pagina-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.2rem;
+  font-size: 0.8rem;
+  color: var(--pn-texto-suave);
+}
+
+.pn-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--pn-veu);
+}
+.pn-dialogo {
+  position: fixed;
+  z-index: 61;
+  top: 14vh;
+  left: 50%;
+  translate: -50% 0;
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: 80dvh;
+  overflow-y: auto;
+  padding: 1.25rem;
+  border: 1px solid var(--pn-borda-forte);
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie);
+  color: var(--pn-texto);
+  box-shadow: var(--pn-sombra-flutuante);
+}
+.pn-dialogo-titulo {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.pn-dialogo-texto {
+  white-space: pre-line;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--pn-texto-suave);
+}
+.pn-dialogo-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.pn-abas {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--pn-borda);
+}
+.pn-aba {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.8rem;
+  border: 0;
+  background: transparent;
+  color: var(--pn-texto-suave);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.pn-aba:hover {
+  color: var(--pn-texto);
+}
+.pn-aba[data-state="active"] {
+  color: var(--pn-texto);
+}
+.pn-aba[data-state="active"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0.4rem -1px 0.4rem;
+  height: 2px;
+  background: var(--pn-destaque-vivo);
+}
+
+.pn-vazio {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  padding: 2.5rem 1rem;
+  border: 1px solid var(--pn-borda);
+  border-radius: var(--pn-raio);
+  text-align: center;
+  color: var(--pn-texto-suave);
+}
+.pn-vazio-titulo {
+  font-weight: 700;
+  color: var(--pn-texto);
+}
+.pn-esqueleto {
+  display: block;
+  height: 1rem;
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie-2);
+}
+.pn-selo {
+  display: inline-flex;
+  align-items: center;
+  min-width: 1.25rem;
+  justify-content: center;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--pn-destaque);
+  color: var(--pn-sobre-destaque);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.pn-selo-neutro {
+  background: var(--pn-superficie-2);
+  color: var(--pn-texto-suave);
+  border: 1px solid var(--pn-borda);
+}
+
+/* A paleta de comandos (cmdk) */
+.pn-paleta {
+  overflow: hidden;
+  padding: 0;
+  top: 12vh;
+  width: min(36rem, calc(100vw - 2rem));
+}
+.pn-paleta [cmdk-input] {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--pn-borda);
+  background: transparent;
+  color: var(--pn-texto);
+  font: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+.pn-paleta [cmdk-list] {
+  max-height: 55vh;
+  overflow-y: auto;
+  padding: 0.3rem;
+}
+.pn-paleta [cmdk-group-heading] {
+  padding: 0.5rem 0.7rem 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pn-texto-suave);
+}
+.pn-paleta [cmdk-item] {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--pn-raio);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.pn-paleta [cmdk-item][data-selected="true"] {
+  background: var(--pn-ativo);
+}
+.pn-paleta [cmdk-empty] {
+  padding: 1rem;
+  text-align: center;
+  color: var(--pn-texto-suave);
+}
+
+/* ───────── 5. Moldes de tela (components/painel/moldes) ───────── */
+.pn-tela {
+  display: grid;
+  gap: 1.25rem;
+}
+.pn-tela-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.pn-titulo {
+  font-family: var(--pn-fonte-titulo);
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.pn-sobre {
+  margin-top: 0.4rem;
+  max-width: 42rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--pn-texto-suave);
+}
+.pn-barra-ferramentas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pn-fila {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 64rem) {
+  .pn-fila-com-detalhe {
+    grid-template-columns: minmax(18rem, 26rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+.pn-fila-lista {
+  display: grid;
+  border: 1px solid var(--pn-borda);
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie);
+  overflow: hidden;
+}
+.pn-fila-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 0;
+  border-bottom: 1px solid var(--pn-borda);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.pn-fila-item:last-child {
+  border-bottom: 0;
+}
+.pn-fila-item:hover {
+  background: var(--pn-superficie-2);
+}
+.pn-fila-item[aria-current="true"] {
+  background: var(--pn-ativo);
+  box-shadow: inset 2px 0 0 var(--pn-destaque-vivo);
+}
+.pn-registro {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 64rem) {
+  .pn-registro-com-lado {
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    align-items: start;
+  }
+}
+.pn-secao {
+  display: grid;
+  gap: 0.9rem;
+}
+.pn-secao-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.pn-config-grupo {
+  display: grid;
+  gap: 1rem;
+  padding: 1.1rem;
+  border: 1px solid var(--pn-borda);
+  border-radius: var(--pn-raio);
+  background: var(--pn-superficie);
+}
+.pn-config-rodape {
+  position: sticky;
+  bottom: calc(var(--pn-barra-baixo) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--pn-borda);
+  background: var(--pn-fundo);
+}
+@media (min-width: 64rem) {
+  .pn-config-rodape {
+    bottom: 0;
+  }
+}
+
+/* ───────── 6. Menu lateral (components/painel/Menu.tsx) ─────────
+   Abre e recolhe: a largura desliza, os nomes esmaecem e cada espaço abre como uma gaveta (altura 0fr para 1fr). */
+.pn-menu {
+  flex-direction: column;
+  width: var(--pn-menu-largura);
+  background: var(--pn-superficie);
+  color: var(--pn-texto);
+  border-right: 1px solid var(--pn-borda);
+  font-size: 0.9rem;
+  overflow: hidden;
+}
+@media (min-width: 64rem) {
+  .pn-menu {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    transition: width 0.22s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .pn-menu[data-recolhido="true"] {
+    width: var(--pn-trilho-largura);
+  }
+}
+.pn-menu-lutas {
+  flex: none;
+  height: 2px;
+  background: var(--pn-lutas);
+}
+.pn-menu-topo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0.9rem 0.75rem 0.6rem;
+}
+.pn-menu-marca {
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+.pn-menu-nome {
+  display: block;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.pn-menu-ambiente {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--pn-texto-suave);
+}
+.pn-menu-busca {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--pn-borda-forte);
+  border-radius: var(--pn-raio);
+  background: var(--pn-fundo);
+}
+.pn-menu-busca:focus-within {
+  outline: 2px solid var(--pn-foco);
+}
+.pn-menu-busca input {
+  min-width: 0;
+  flex: 1;
+  padding: 0.5rem 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+.pn-menu-nav {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0.25rem 0.5rem 0.75rem;
+  scrollbar-width: thin;
+}
+.pn-menu-lista {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pn-menu-espaco,
+.pn-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 0;
+  border-radius: var(--pn-raio);
+  background: transparent;
+  color: var(--pn-texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.12s ease-out, color 0.12s ease-out;
+}
+.pn-menu-espaco {
+  font-weight: 650;
+}
+.pn-menu-espaco:hover,
+.pn-menu-item:hover {
+  background: var(--pn-ativo);
+}
+.pn-menu-espaco svg:first-child,
+.pn-menu-item svg {
+  flex: none;
+  color: var(--pn-texto-suave);
+}
+.pn-menu-espaco[data-atual="true"] svg:first-child {
+  color: var(--pn-destaque-vivo);
+}
+.pn-menu-item {
+  padding-left: 2.15rem;
+  font-weight: 450;
+}
+.pn-menu-item[aria-current="page"] {
+  background: var(--pn-ativo);
+  font-weight: 650;
+  box-shadow: inset 2px 0 0 var(--pn-destaque-vivo);
+}
+.pn-menu-item[aria-current="page"] svg {
+  color: var(--pn-destaque-vivo);
+}
+.pn-menu-texto {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: opacity 0.15s ease-out;
+}
+.pn-menu-seta {
+  flex: none;
+  transition: transform 0.18s ease-out;
+}
+.pn-menu-espaco[aria-expanded="true"] .pn-menu-seta {
+  transform: rotate(90deg);
+}
+.pn-menu-gaveta {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.pn-menu-gaveta[data-aberta="true"] {
+  grid-template-rows: 1fr;
+}
+.pn-menu-gaveta > ul {
+  min-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pn-menu-pe {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border-top: 1px solid var(--pn-borda);
+}
+.pn-menu-pessoa {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+.pn-menu-ferramentas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+.pn-menu-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--pn-texto-suave);
+}
+.pn-menu-links :is(a, button) {
+  color: inherit;
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.pn-menu-links :is(a, button):hover {
+  color: var(--pn-texto);
+}
+/* Recolhido (computador): só os ícones dos espaços; nomes, gavetas, busca e pé enxutos. */
+@media (min-width: 64rem) {
+  .pn-menu[data-recolhido="true"] :is(.pn-menu-texto, .pn-menu-seta, .pn-menu-gaveta, .pn-menu-nome, .pn-menu-ambiente, .pn-menu-links, .pn-menu-pessoa-texto, .pn-menu-busca) {
+    display: none;
+  }
+  .pn-menu[data-recolhido="true"] .pn-menu-topo {
+    align-items: center;
+    padding-inline: 0.4rem;
+  }
+  .pn-menu[data-recolhido="true"] .pn-menu-espaco {
+    justify-content: center;
+    padding: 0.65rem 0;
+    position: relative;
+  }
+  .pn-menu[data-recolhido="true"] .pn-menu-espaco[data-atual="true"] {
+    background: var(--pn-ativo);
+    box-shadow: inset 2px 0 0 var(--pn-destaque-vivo);
+  }
+  .pn-menu[data-recolhido="true"] .pn-menu-selo {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.3rem;
+  }
+  .pn-menu[data-recolhido="true"] .pn-menu-pe {
+    justify-items: center;
+    padding-inline: 0.4rem;
+  }
+  .pn-menu[data-recolhido="true"] .pn-menu-ferramentas {
+    flex-direction: column;
+  }
+}
+
+/* Ajudantes de tamanho de tela (não usam as utilidades do Tailwind, que perdem para este arquivo). */
+.pn-so-computador {
+  display: none !important;
+}
+@media (min-width: 64rem) {
+  .pn-so-computador {
+    display: flex !important;
+  }
+}
+
+/* Barra de baixo, só no celular. */
+.pn-barra-baixo {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 40;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  min-height: var(--pn-barra-baixo);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  border-top: 1px solid var(--pn-borda);
+  background: var(--pn-superficie);
+}
+.pn-barra-baixo::before {
+  content: "";
+  position: absolute;
+  inset: -3px 0 auto 0;
+  height: 2px;
+  background: var(--pn-lutas);
+}
+.pn-barra-baixo-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.35rem 0.2rem;
+  border: 0;
+  background: transparent;
+  color: var(--pn-texto-suave);
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.pn-barra-baixo-item[aria-current="true"] {
+  color: var(--pn-destaque-vivo);
+}
+.pn-barra-baixo-item[aria-current="true"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: 30%;
+  height: 2px;
+  background: var(--pn-destaque-vivo);
+}
+.pn-barra-baixo-item .pn-selo {
+  position: absolute;
+  top: 0.2rem;
+  left: calc(50% + 0.5rem);
+}
+@media (min-width: 64rem) {
+  .pn-barra-baixo {
+    display: none;
+  }
+}
+@media (max-width: 63.99rem) {
+  /* Espaço para a barra de baixo não cobrir o fim da página. */
+  .painel:not(.painel-porta) > div:last-child {
+    padding-bottom: calc(var(--pn-barra-baixo) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ───────── 7. Movimento (curto; some com "menos movimento" e no modo leve) ───────── */
+@keyframes painel-surge {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes painel-veu {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes painel-pulso {
+  50% {
+    opacity: 0.3;
+  }
+}
+@keyframes painel-troca {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+@keyframes painel-folha {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes painel-gaveta {
+  from {
+    opacity: 0.4;
+    transform: translateX(2.5rem);
+  }
+}
+@keyframes painel-janela {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+@keyframes painel-abre {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .painel-surge,
+  .painel-conteudo {
+    animation: painel-surge 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-veu,
+  .pn-veu {
+    animation: painel-veu 0.15s ease-out;
+  }
+  .painel-ir,
+  .pn-dialogo {
+    animation: painel-janela 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-aviso {
+    animation: painel-surge 0.25s ease-out both;
+  }
+  .painel-pulso {
+    animation: painel-pulso 2s ease-in-out infinite;
+  }
+  .painel-carregando,
+  .pn-esqueleto {
+    animation: painel-pulso 1.2s ease-in-out infinite;
+  }
+  .painel-troca {
+    animation: painel-troca 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel details[open] > :not(summary) {
+    animation: painel-abre 0.16s ease-out both;
+  }
+  .painel [class~="fixed"][class~="inset-0"] {
+    animation: painel-veu 0.15s ease-out;
+  }
+  .painel [class~="fixed"][class~="inset-0"][class~="justify-end"] > :last-child {
+    animation: painel-gaveta 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel [class~="fixed"][class~="inset-0"][class~="justify-center"] > :not([aria-hidden]) {
+    animation: painel-janela 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 1023px) {
+  .pn-menu {
+    animation: painel-folha 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pn-menu,
+  .pn-menu-gaveta,
+  .pn-menu-texto,
+  .pn-menu-seta,
+  .pn-botao {
+    transition: none;
+  }
+}
+/* Modo leve (botão no rodapé do menu e Ctrl K): sem animação, sem sombra e sem textura. */
+.painel-leve *,
+.painel-leve *::before,
+.painel-leve *::after {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+.painel-leve .pont {
+  background-image: none !important;
+}
+.painel-leve .tutorial-veu {
+  box-shadow: 0 0 0 9999px var(--pn-veu) !important;
+}
+
+/* ───────── 8. Peças do painel que viviam no globals.css ───────── */
+/* A folha de escrever: a caixa de texto começa alta e cresce com a tela; no modo foco o menu some e a folha ocupa a janela. */
+#painel-corpo {
+  min-height: 26rem;
+  resize: vertical;
+  line-height: 1.65;
+}
+html[data-escrita-foco="1"] #menu-do-painel,
+html[data-escrita-foco="1"] .pn-barra-baixo {
+  display: none !important;
+}
+html[data-escrita-foco="1"] .painel {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+html[data-escrita-foco="1"] .painel-conteudo {
+  max-width: none !important;
+}
+html[data-escrita-foco="1"] #painel-corpo {
+  min-height: calc(100dvh - 16rem);
+  font-size: 1.05rem;
+}
+html[data-escrita-foco="1"] .painel-cabeca {
+  display: none;
+}
+/* O tutorial do painel: o "feito" dá um pulinho e o carimbo do fim cai na folha. */
+.tutorial-feito {
+  animation: tutorial-pulo 0.35s ease-out;
+}
+.tutorial-carimbo {
+  animation: tutorial-carimbo 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) 0.15s both;
+}
+@keyframes tutorial-pulo {
+  0% {
+    scale: 0.96;
+  }
+  60% {
+    scale: 1.02;
+  }
+}
+@keyframes tutorial-carimbo {
+  from {
+    opacity: 0;
+    scale: 1.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tutorial-feito,
+  .tutorial-carimbo {
+    animation: none;
+  }
+}
+
+/* Back-end 1 (Etapa 8): listas com ações à direita, usadas em components/painel/BackendUm.tsx. Só tokens, nenhuma cor escrita à mão. */
+.painel .pn-lista-simples {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.painel .pn-linha-simples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--pn-borda);
+}
+.painel .pn-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

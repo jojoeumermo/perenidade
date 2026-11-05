@@ -278,8 +278,11 @@ caso("a rota do arquivo confere o papel no banco, tem limite e não lê disco", 
 caso("o painel pede a confirmação antes de publicar, recusar e retirar; nada de nome de curador na ficha", () => {
   const editor = ler("components", "painel", "ValeOEscritoEditor.tsx");
   const tela = ler("components", "painel", "ValeOEscrito.tsx");
-  assert.ok((editor.match(/window\.confirm/g) ?? []).length >= 3);
-  assert.ok((tela.match(/window\.confirm/g) ?? []).length >= 3);
+  // As janelas do painel (ui/Dialogo) trocaram o window.confirm do navegador, com a mesma pergunta antes de cada ação.
+  const confirma = (texto) => (texto.match(/\b(?:await\s+)?confirm(?:ar|arFrase)\(/g) ?? []).length;
+  assert.ok(confirma(editor) >= 3, "editor: menos de 3 confirmações");
+  assert.ok(confirma(tela) >= 3, "tela: menos de 3 confirmações");
+  assert.doesNotMatch(editor + tela, /window\.confirm/);
   assert.match(editor, /vale_fila_decidir/);
   assert.match(tela, /vale_entrada_atualizar/);
   assert.match(tela, /vale_correcao_decidir/);

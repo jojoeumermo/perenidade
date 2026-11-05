@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { Abas, Aviso, botao, botaoClaro, campo, data, papeis, rotulo, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 interface Protecoes {
   pausa: boolean;
@@ -61,7 +62,7 @@ function Freios() {
           {p.pausa ? (
             <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("site_pausa", { p_pausa: false, p_motivo: "" }, "Envios reabertos. A coordenação foi avisada.")}>Reabrir os envios</button>
           ) : (
-            <button type="button" className={vermelho} disabled={acao.ocupado} onClick={() => { if (window.confirm("Pausar agora tudo o que o público pode enviar?")) void acao.agir("site_pausa", { p_pausa: true, p_motivo: motivo.trim() }, "Envios pausados. A coordenação foi avisada."); }}>
+            <button type="button" className={vermelho} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Pausar agora tudo o que o público pode enviar?"))) void acao.agir("site_pausa", { p_pausa: true, p_motivo: motivo.trim() }, "Envios pausados. A coordenação foi avisada."); }}>
               Pausar os envios
             </button>
           )}

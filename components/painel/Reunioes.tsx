@@ -9,6 +9,7 @@ import { useI18n } from "../I18n";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
+import { confirmarFrase } from "./ui";
 
 export interface Reuniao {
   id: string;
@@ -121,7 +122,7 @@ export function Reunioes({ me }: { me: Me }) {
           </div>
           <div className="flex flex-wrap gap-2">
             {naSala.conduzo && naSala.status === "agendada" && <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_estado", { p_id: naSala.id, p_status: "ao_vivo" }, "A reunião começou: a equipe foi avisada.").then(() => setNaSala({ ...naSala, status: "ao_vivo" }))}>Começar a reunião</button>}
-            {naSala.conduzo && naSala.status === "ao_vivo" && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={async () => { if (window.confirm("Encerrar a reunião para todos?")) { await acao.agir("reuniao_estado", { p_id: naSala.id, p_status: "encerrada" }, "Reunião encerrada."); void sair(); } }}>Encerrar para todos</button>}
+            {naSala.conduzo && naSala.status === "ao_vivo" && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Encerrar a reunião para todos?"))) { await acao.agir("reuniao_estado", { p_id: naSala.id, p_status: "encerrada" }, "Reunião encerrada."); void sair(); } }}>Encerrar para todos</button>}
             <button type="button" className={botaoClaro} onClick={() => void sair()}>Sair da sala</button>
           </div>
         </div>
@@ -148,7 +149,7 @@ export function Reunioes({ me }: { me: Me }) {
         {r.sala && (r.status === "ao_vivo" || r.conduzo) && <button type="button" className={r.status === "ao_vivo" ? botao : botaoClaro} onClick={() => void entrar(r)}>{r.status === "ao_vivo" ? "Entrar" : "Abrir a sala"}</button>}
         {r.status === "agendada" && <button type="button" className={elo} onClick={() => baixarIcs(r)}>Agenda (.ics)</button>}
         {r.conduzo && r.status === "agendada" && <button type="button" className={elo} onClick={() => { setEditando(r); setAba("nova"); }}>Editar</button>}
-        {r.conduzo && r.status !== "cancelada" && r.status !== "encerrada" && <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm("Cancelar esta reunião?")) void acao.agir("reuniao_estado", { p_id: r.id, p_status: "cancelada" }, "Reunião cancelada."); }}>Cancelar</button>}
+        {r.conduzo && r.status !== "cancelada" && r.status !== "encerrada" && <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Cancelar esta reunião?"))) void acao.agir("reuniao_estado", { p_id: r.id, p_status: "cancelada" }, "Reunião cancelada."); }}>Cancelar</button>}
       </p>
     </article>
   );

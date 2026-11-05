@@ -4,6 +4,7 @@ import type { Dict } from "@/i18n/types";
 import { textosDoPlantao } from "@/i18n/plantao";
 import { textosDaBase } from "@/lib/escola/textos";
 import { ligado } from "@/lib/recursos";
+import { menuDosJogos } from "@/lib/jogos/menu";
 import { menuDoObservatorio, ROTA_DO_OBSERVATORIO } from "@/lib/vale-o-escrito/menu";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 
@@ -50,6 +51,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [textosDoPlantao(lang).titulo, "/plantao", textosDoPlantao(lang).meta.descricao],
         [n.tools, "/ferramentas", d.tools],
         [n.labs, "/laboratorios", t.labs.lead],
+        [menuDosJogos(lang).rotulo, "/jogos", menuDosJogos(lang).descricao],
         [n.freeRoom, "/sala-livre", d.freeRoom],
         [n.questionBank, "/questoes", t.lists.bankLead],
         [n.glossary, "/glossario", d.glossary],

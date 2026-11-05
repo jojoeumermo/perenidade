@@ -2288,195 +2288,6 @@ body {
   }
 }
 
-/* ---- Painel interno: a mesa de trabalho da equipe ----
-   Mesmo desenho do site (cartaz, fio duplo, tarja vermelha), com movimento curto nas trocas de seção,
-   nos cartões e nos botões. Tudo some com prefers-reduced-motion. */
-.painel-item {
-  color: #d9cdb0;
-  border-left: 3px solid transparent;
-  transition: background-color 0.15s, color 0.15s, padding-left 0.15s, border-color 0.15s;
-}
-.painel-item svg {
-  color: #8f8468;
-  transition: color 0.15s;
-}
-.painel-item:hover {
-  background: #221c15;
-  color: #fff;
-  padding-left: 1rem;
-}
-.painel-item:hover svg {
-  color: #d4a24c;
-}
-.painel-item-ativo {
-  background: #2a231a;
-  color: #fff;
-  font-weight: 600;
-  border-left-color: #c21f16;
-}
-.painel-item-ativo svg {
-  color: #e0372b;
-}
-.painel-grupo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.painel-grupo::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #3a3226;
-}
-/* Menu recolhido (só ícones, no computador): reto e parado. Sem os nomes dos grupos (que vazavam cortados), sem o
-   empurrão para o lado ao passar o mouse e sem rolagem para os lados; só rola para cima e para baixo. */
-@media (min-width: 64rem) {
-  .painel-compacto .painel-grupo {
-    display: none;
-  }
-  .painel-compacto .painel-item,
-  .painel-compacto .painel-item:hover {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .painel-compacto,
-  .painel-compacto nav {
-    overflow-x: hidden;
-  }
-}
-.painel-cabeca {
-  border: 0;
-}
-.painel-cunha {
-  width: 18cqw;
-}
-.painel-cunha .jornal-cunha-estrela {
-  width: 7cqw;
-  height: 7cqw;
-}
-.painel-quadro {
-  background: var(--parchment-deep);
-  border: 2px solid var(--ink);
-  border-top: 5px solid var(--prelo);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.painel-quadro:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0 var(--ink);
-}
-.painel-quadro:active {
-  transform: none;
-  box-shadow: none;
-}
-.painel-quadro-alerta {
-  border-color: var(--oxblood);
-  border-top-color: var(--oxblood);
-}
-.painel-seta {
-  transition: transform 0.15s, color 0.15s;
-}
-.painel-quadro:hover .painel-seta {
-  transform: translateX(3px);
-  color: var(--oxblood);
-}
-.painel-cartao {
-  background: var(--parchment-deep);
-  border: 1px solid var(--rule);
-  border-top: 4px solid var(--ink);
-}
-.painel-campo {
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.painel-campo:focus {
-  border-color: var(--oxblood);
-  box-shadow: 3px 3px 0 var(--ink);
-  outline: none;
-}
-.painel-botao {
-  transition: transform 0.12s, box-shadow 0.12s, background-color 0.15s, color 0.15s, border-color 0.15s;
-}
-.painel-botao:not(:disabled):hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 var(--prelo);
-}
-.painel-botao:not(:disabled):active {
-  transform: none;
-  box-shadow: none;
-}
-.painel-aba {
-  transition: border-color 0.15s, color 0.15s;
-}
-.painel-aviso {
-  margin-top: 0.45rem;
-  border-left: 3px solid currentColor;
-  padding-left: 0.6rem;
-}
-.painel-ir {
-  box-shadow: 6px 6px 0 var(--prelo);
-}
-/* Dentro das seções: o título principal ganha a tarja vermelha, os cartões o fio grosso do jornal
-   e as linhas de lista respondem ao mouse. */
-.painel-conteudo h2[class~="font-serif"][class~="text-2xl"]::before {
-  content: "";
-  display: block;
-  width: 2rem;
-  height: 4px;
-  margin-bottom: 0.5rem;
-  background: var(--prelo);
-}
-.painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
-  border-top: 3px solid var(--ink);
-}
-.painel-conteudo [class~="divide-y"] > * {
-  transition: background-color 0.12s;
-}
-.painel-conteudo [class~="divide-y"] > *:hover {
-  background: color-mix(in srgb, var(--parchment-deep) 75%, transparent);
-}
-@keyframes painel-surge {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-}
-@keyframes painel-veu {
-  from {
-    opacity: 0;
-  }
-}
-@keyframes painel-pulso {
-  50% {
-    opacity: 0.3;
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .painel-surge {
-    animation: painel-surge 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-  .painel-conteudo {
-    animation: painel-surge 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-  .painel-cabeca h1,
-  .painel-cabeca p {
-    animation: painel-surge 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-  .painel-veu {
-    animation: painel-veu 0.15s ease-out;
-  }
-  .painel-ir {
-    animation: painel-surge 0.18s ease-out;
-  }
-  .painel-aviso {
-    animation: painel-surge 0.25s ease-out both;
-  }
-  .painel-pulso {
-    animation: painel-pulso 2s ease-in-out infinite;
-  }
-  .painel-carregando {
-    animation: painel-pulso 1.2s ease-in-out infinite;
-  }
-}
-
 /* Caixa de ferramentas aberta no computador: a página abre espaço à direita e a aula continua inteira à vista. */
 @media (min-width: 1024px) {
   html.caixa-aberta body {
@@ -2499,14 +2310,6 @@ body {
       align-items: center;
     }
   }
-}
-
-/* Modo foco do Escrever: some o menu do painel e fica só a folha de escrita. */
-html[data-escrita-foco="1"] #menu-do-painel {
-  display: none !important;
-}
-html[data-escrita-foco="1"] .painel {
-  grid-template-columns: minmax(0, 1fr) !important;
 }
 
 /* ---- Caderno de estudos: o caderno de quem estuda e luta, no desenho do jornal ---- */
@@ -3108,110 +2911,6 @@ main#conteudo:not(:has(.painel, .rede-lucia)) :is(input, textarea, select)[class
   border-radius: 0;
 }
 
-/* ───── A folha de escrever do painel ─────
-   Os voluntários pediram espaço: a caixa de texto começa alta e cresce com a tela; no modo foco o menu some, a
-   página inteira vira a folha (até 96rem de largura) e a caixa ocupa quase a altura toda da janela. */
-#painel-corpo {
-  min-height: 26rem;
-  resize: vertical;
-  line-height: 1.65;
-}
-html[data-escrita-foco="1"] .painel-conteudo {
-  max-width: none !important;
-}
-html[data-escrita-foco="1"] #painel-corpo {
-  min-height: calc(100dvh - 16rem);
-  font-size: 1.05rem;
-}
-html[data-escrita-foco="1"] .painel-cabeca {
-  display: none;
-}
-
-/* ───── Painel no desenho do Caderno do Povo ─────
-   O menu completo é a régua escura com a tarja vermelha na seção aberta. Recolhido, vira o trilho minimalista: só os
-   ícones, em quadrados de contorno, a seção aberta em vermelho cheio com a sombra dura e o número no canto. */
-.painel-lado {
-  background: #17130e;
-}
-.painel-item {
-  font-size: 0.9rem;
-  border-left-width: 4px;
-}
-.painel-item-ativo {
-  background: #2a231a;
-  border-left-color: #c21f16;
-  box-shadow: inset 0 0 0 1px #3a3226;
-}
-@media (min-width: 64rem) {
-  .painel-compacto nav {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  .painel-compacto .painel-item,
-  .painel-compacto .painel-item:hover {
-    width: 2.9rem;
-    height: 2.9rem;
-    margin: 0.35rem auto;
-    justify-content: center;
-    border: 2px solid #3a3226;
-    padding: 0;
-    gap: 0;
-  }
-  .painel-compacto .painel-item:hover {
-    border-color: #d4a24c;
-    background: #221c15;
-  }
-  .painel-compacto .painel-item-ativo,
-  .painel-compacto .painel-item-ativo:hover {
-    border-color: #c21f16;
-    background: #c21f16;
-    box-shadow: 3px 3px 0 #000;
-  }
-  .painel-compacto .painel-item-ativo svg {
-    color: #fff;
-  }
-  .painel-compacto .painel-item svg {
-    width: 1.3rem;
-    height: 1.3rem;
-  }
-  .painel-compacto .painel-conta {
-    position: absolute;
-    top: -0.45rem;
-    right: -0.45rem;
-    min-width: 1.15rem;
-    border: 2px solid #17130e;
-    padding: 0.05rem 0.25rem;
-    font-size: 0.6rem;
-  }
-}
-/* O miolo do painel no papel pontilhado; cartões e quadros com contorno de tinta e sombra dura. A Porta (carregando,
-   entrar, segundo fator) fica de fora: lá o fundo é escuro e o nome do instituto, claro. */
-.painel:not(.painel-porta) > div:last-child {
-  background-color: var(--parchment);
-}
-.painel-cartao {
-  background: var(--folha);
-  border: 2px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--sombra);
-}
-.painel-quadro {
-  background: var(--folha);
-  border: 2px solid var(--ink);
-  border-top: 5px solid var(--prelo);
-}
-.painel-quadro:hover {
-  box-shadow: 5px 5px 0 var(--sombra);
-}
-.painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
-  background-color: var(--folha);
-}
-.painel-conteudo :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl) {
-  border-radius: 0;
-}
-:root:is([data-contrast], [data-eink]) .painel-compacto .painel-item-ativo {
-  box-shadow: none;
-}
-
 /* A IDE no jeito do Replit: um espaço de trabalho escuro, com as cores do site trocadas só aqui dentro. Nos modos de
    alto contraste e de tinta eletrônica, a IDE segue o modo escolhido. */
 :root:not([data-contrast], [data-eink]) .ide-area {
@@ -3327,120 +3026,6 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
   }
 }
 
-/* ───── O menu do painel: o trilho escuro das áreas e a lista em papel (components/painel/Menu.tsx) ───── */
-.painel-menu .painel-item {
-  color: var(--ink);
-  border-left: 4px solid transparent;
-  font-size: 0.92rem;
-  transition: background-color 0.12s, padding-left 0.12s, box-shadow 0.12s;
-}
-.painel-menu .painel-item svg {
-  color: var(--ink-soft);
-}
-.painel-menu .painel-item:hover {
-  background: var(--parchment-deep);
-  color: var(--ink);
-  padding-left: 0.85rem;
-}
-.painel-menu .painel-item:hover svg {
-  color: var(--prelo-texto);
-}
-.painel-menu .painel-item-ativo,
-.painel-menu .painel-item-ativo:hover {
-  background: var(--ink);
-  color: var(--parchment);
-  font-weight: 600;
-  border-left-color: var(--prelo);
-  box-shadow: 3px 3px 0 var(--prelo);
-  padding-left: 0.625rem;
-}
-.painel-menu .painel-item-ativo svg,
-.painel-menu .painel-item-ativo:hover svg {
-  color: #e0837a;
-}
-.painel-menu .painel-grupo::after {
-  background: var(--rule);
-}
-.painel-menu .painel-area {
-  transition: background-color 0.12s, color 0.12s;
-}
-/* Os grupos do menu em árvore: o cabeçalho de cada área abre e fecha; a área da seção de agora, fechada, ganha o fio vermelho. */
-.painel-menu .painel-cabeca {
-  color: var(--ink);
-  transition: background-color 0.12s;
-}
-.painel-menu .painel-cabeca:hover {
-  background: var(--parchment-deep);
-}
-.painel-menu .painel-cabeca > svg:first-child {
-  color: var(--ink-soft);
-}
-.painel-menu .painel-cabeca[aria-expanded="true"] > svg:first-child {
-  color: var(--prelo-texto);
-}
-.painel-menu .painel-cabeca-atual {
-  box-shadow: inset 4px 0 0 var(--prelo);
-}
-.painel-menu .painel-seta {
-  color: var(--ink-soft);
-  transition: transform 0.15s;
-}
-:root:is([data-contrast], [data-eink]) .painel-menu .painel-item-ativo {
-  box-shadow: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .painel-menu .painel-item,
-  .painel-menu .painel-area,
-  .painel-menu .painel-cabeca,
-  .painel-menu .painel-seta {
-    transition: none;
-  }
-}
-
-/* O tutorial do painel: o "feito" do passo de experimentar dá um pulinho e o carimbo do fim cai na folha. O véu é uma
-   sombra só, e fica também no modo leve (que tira as sombras do resto). */
-.tutorial-feito {
-  animation: tutorial-pulo 0.35s ease-out;
-}
-.tutorial-carimbo {
-  animation: tutorial-carimbo 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) 0.15s both;
-}
-@keyframes tutorial-pulo {
-  0% {
-    scale: 0.96;
-  }
-  60% {
-    scale: 1.02;
-  }
-}
-@keyframes tutorial-carimbo {
-  from {
-    opacity: 0;
-    scale: 1.8;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .tutorial-feito,
-  .tutorial-carimbo {
-    animation: none;
-  }
-}
-.painel-leve .tutorial-veu {
-  box-shadow: 0 0 0 9999px rgb(23 19 14 / 0.62) !important;
-}
-
-/* Modo leve do painel (botão no rodapé do menu e Ctrl K): sem animação, sem sombra e sem textura de papel. */
-.painel-leve *,
-.painel-leve *::before,
-.painel-leve *::after {
-  animation: none !important;
-  transition: none !important;
-  box-shadow: none !important;
-}
-.painel-leve .pont {
-  background-image: none !important;
-}
-
 /* O cabeçalho das páginas antigas (components/PageHeading.tsx) vira a capa de papel do Caderno do Povo: a faixa vai de
    ponta a ponta, logo abaixo do cabeçalho do site, com o fio de tinta embaixo; o texto continua alinhado à coluna da
    página (margem negativa até a borda da tela e o mesmo tanto de recuo por dentro). */
@@ -3548,13 +3133,43 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
     transform: translateX(-50%);
   }
 }
+/* Para ao passar o mouse, ao focar o botão e quando a pessoa aperta o botão de pausa. */
+.letreiro:hover .letreiro-trilho,
+.letreiro:focus-within .letreiro-trilho,
+.letreiro[data-parado] .letreiro-trilho {
+  animation-play-state: paused;
+}
 @media (prefers-reduced-motion: reduce) {
   .letreiro-trilho {
     animation: none;
+    width: auto !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal !important;
+  }
+  .letreiro-trilho > p {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .letreiro-eco,
+  .letreiro-botao {
+    display: none !important;
   }
 }
 :root[data-light] .letreiro-trilho {
   animation: none;
+  width: auto !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  white-space: normal !important;
+}
+:root[data-light] .letreiro-trilho > p {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+:root[data-light] .letreiro-eco,
+:root[data-light] .letreiro-botao {
+  display: none !important;
 }
 
 /* A busca do alto se alonga para a esquerda, a partir da caixa de sempre. */
@@ -3706,62 +3321,6 @@ a.busca-campo:focus-visible {
 }
 :root[data-light] .radio-eq span {
   animation: none;
-}
-
-/* ── O painel com movimento ──
-   Resposta rápida ao toque, a troca de área do menu e de conversa deslizando, e janelas, gavetas e detalhes abrindo
-   suaves. Nada passa de um quinto de segundo. Tudo some no modo leve (fora de .painel-leve aqui, e lá a regra corta
-   animação e transição) e para quem pede menos movimento no sistema. A parte do toque fica na camada de componentes:
-   a transição ou a escala escrita nas classes do próprio elemento continua valendo. */
-@keyframes painel-troca {
-  from { opacity: 0; transform: translateX(10px); }
-}
-@keyframes painel-folha {
-  from { opacity: 0; transform: translateY(-8px); }
-}
-@keyframes painel-gaveta {
-  from { opacity: 0.4; transform: translateX(2.5rem); }
-}
-@keyframes painel-janela {
-  from { opacity: 0; transform: translateY(8px) scale(0.98); }
-}
-@keyframes painel-abre {
-  from { opacity: 0; transform: translateY(-4px); }
-}
-@layer components {
-  @media (prefers-reduced-motion: no-preference) {
-    .painel:not(.painel-leve) :is(button, a, summary, [role="tab"], [role="option"]) {
-      transition: scale 0.09s ease-out, transform 0.12s ease, translate 0.12s ease, background-color 0.12s ease-out, color 0.12s ease-out, border-color 0.12s ease-out, box-shadow 0.12s ease-out, opacity 0.12s ease-out;
-    }
-    .painel:not(.painel-leve) :is(button, summary, [role="tab"]):not(:disabled, .botao, [class*="w-full"]):active {
-      scale: 0.96;
-    }
-    .painel:not(.painel-leve) :is(a, button[class*="w-full"]):not(.botao):active {
-      translate: 0 1px;
-    }
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .painel-troca {
-    animation: painel-troca 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-  .painel details[open] > :not(summary) {
-    animation: painel-abre 0.16s ease-out both;
-  }
-  .painel [class~="fixed"][class~="inset-0"] {
-    animation: painel-veu 0.15s ease-out;
-  }
-  .painel [class~="fixed"][class~="inset-0"][class~="justify-end"] > :last-child {
-    animation: painel-gaveta 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-  .painel [class~="fixed"][class~="inset-0"][class~="justify-center"] > :not([aria-hidden]) {
-    animation: painel-janela 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-}
-@media (prefers-reduced-motion: no-preference) and (max-width: 1023px) {
-  .painel-menu {
-    animation: painel-folha 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
 }
 
 /* Na Mesa, os títulos dos blocos de dentro (Para você hoje, as filas, a saúde do acervo, os atalhos) seguem o desenho
@@ -4643,235 +4202,6 @@ a.busca-campo:focus-visible {
   font-style: italic;
   font-weight: 900;
   color: #fff;
-}
-
-/* ───── Painel da equipe, ambiente de trabalho (30/10/2026) ─────
-   Superfícies neutras, painéis brancos de fio fino e cantos de 4 px, Inter na interface e EB Garamond só no título da
-   página. A identidade fica no logo, no vermelho dos botões principais e no fio do item ativo do menu; a cor só aparece
-   onde informa. Dentro de .painel as cores do site (parchment, ink, rule...) apontam para esta paleta, então as seções
-   mudam sem reescrever cada uma. A porta de entrada (.painel-porta) continua com o desenho do site. */
-:root:not([data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
-  /* O mesmo bege claro do site; cartões um tom acima, para não sumirem no fundo. */
-  --parchment: #f8f5ee;
-  --parchment-deep: #fcfaf5;
-  --folha: #fffdf8;
-  --ink: #1c1b19;
-  --ink-soft: #6b6862;
-  --rule: #e6dfd0;
-  --borda-forte: #d8cfbd;
-  --pontos: transparent;
-  --sombra: transparent;
-  --oxblood: #a3201a;
-  --gold: #7a5410;
-  --linha-pauta: #ece5d6;
-  --painel-ativo: #f0eadc;
-  --painel-linha: #ece5d6;
-  font-family: var(--font-ui), system-ui, sans-serif;
-  background-image: none;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"], [data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
-    --parchment: #141310;
-    --parchment-deep: #1d1b17;
-    --folha: #1d1b17;
-    --ink: #ece6da;
-    --ink-soft: #a9a196;
-    --rule: #3a352d;
-    --borda-forte: #4a443a;
-    --oxblood: #e2584d;
-    --gold: #f0b323;
-    --linha-pauta: #2b2822;
-    --painel-ativo: #2b2822;
-    --painel-linha: #2b2822;
-  }
-}
-:root[data-theme="dark"]:not([data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) {
-  --parchment: #141310;
-  --parchment-deep: #1d1b17;
-  --folha: #1d1b17;
-  --ink: #ece6da;
-  --ink-soft: #a9a196;
-  --rule: #3a352d;
-  --borda-forte: #4a443a;
-  --oxblood: #e2584d;
-  --gold: #f0b323;
-  --linha-pauta: #2b2822;
-  --painel-ativo: #2b2822;
-  --painel-linha: #2b2822;
-}
-/* Menu, trilho e cabeçalho no mesmo bege do site (no tema claro); a linha da borda separa. */
-:root:not([data-theme="dark"], [data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) :is(.painel-menu, .painel-trilho, .painel-cabeca) {
-  background-color: var(--parchment);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"], [data-leitor], [data-eink], [data-contrast]) .painel:not(.painel-porta) :is(.painel-menu, .painel-trilho, .painel-cabeca) {
-    background-color: var(--folha);
-  }
-}
-/* Letra: Inter em tudo; a serifa fica só no título da página. Os rótulos em letra de máquina viram Inter miúda. */
-.painel:not(.painel-porta) :is(.font-serif, .font-mono):not(h1, h1 *, .painel-titulo, kbd, code, pre, textarea) {
-  font-family: var(--font-ui), system-ui, sans-serif;
-}
-.painel:not(.painel-porta) .font-mono[class*="uppercase"]:not(kbd, code) {
-  letter-spacing: 0.06em;
-}
-.painel:not(.painel-porta) h2.font-serif,
-.painel:not(.painel-porta) h3.font-serif {
-  letter-spacing: -0.01em;
-}
-.painel:not(.painel-porta) .painel-rotulo {
-  letter-spacing: 0.08em;
-}
-/* Fios finos: as molduras grossas de cartaz viram um fio de 1 px, nos mesmos lados. */
-.painel:not(.painel-porta) :is([class~="border-2"], [class*="border-[3px]"], [class*="border-[1.5px]"], [class*="border-[2.5px]"]) {
-  border-width: 1px;
-}
-.painel:not(.painel-porta) :is([class~="border-b-2"], [class*="border-b-[3px]"], [class~="border-b-4"]):not(.painel-aba) {
-  border-bottom-width: 1px;
-}
-.painel:not(.painel-porta) :is([class~="border-t-2"], [class*="border-t-[3px]"], [class~="border-t-4"], [class*="border-t-[5px]"], [class*="border-t-[6px]"]) {
-  border-top-width: 1px;
-}
-.painel:not(.painel-porta) :is([class~="border-r-2"], [class*="border-r-[3px]"]) {
-  border-right-width: 1px;
-}
-.painel:not(.painel-porta) .border-ink {
-  border-color: var(--rule);
-}
-.painel:not(.painel-porta) :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]), select, textarea, .painel-campo, .painel-botao-claro, button.border-ink) {
-  border-color: var(--borda-forte);
-}
-/* Sem sombra dura: no máximo uma sombra macia nas janelas que abrem por cima. */
-.painel:not(.painel-porta) :is([class*="shadow-["], .cartao, .cartao-v, .sombra, .sombra-v, .sombra-p, .sombra-pv, .botao, .selo, .painel-ir) {
-  box-shadow: none;
-}
-.painel:not(.painel-porta) [role="dialog"] {
-  box-shadow: 0 16px 40px rgb(28 27 25 / 0.16);
-}
-.painel:not(.painel-porta) .pont {
-  background-image: none;
-}
-/* Botões: o principal no vermelho do instituto, o secundário branco de fio fino; nenhum sobe nem afunda. */
-.painel:not(.painel-porta) .painel-botao-principal {
-  background: #c21f16;
-  color: #fff;
-}
-.painel:not(.painel-porta) .painel-botao-principal:not(:disabled):hover {
-  background: #a51810;
-}
-.painel:not(.painel-porta) .painel-botao-claro {
-  background: var(--folha);
-  color: var(--ink);
-}
-.painel:not(.painel-porta) .painel-botao-claro:not(:disabled):hover {
-  background: var(--parchment);
-}
-.painel:not(.painel-porta) :is(.painel-botao, .botao, .painel-quadro):not(:disabled):is(:hover, :active) {
-  transform: none;
-  box-shadow: none;
-}
-/* Os cartões e quadros: painel branco, fio fino, sem o fio grosso de jornal no alto. */
-.painel:not(.painel-porta) :is(.painel-quadro, .painel-cartao) {
-  background: var(--folha);
-  border: 1px solid var(--rule);
-}
-.painel:not(.painel-porta) .painel-quadro:hover {
-  border-color: var(--borda-forte);
-}
-.painel:not(.painel-porta) .painel-quadro-alerta {
-  border-color: color-mix(in srgb, #c21f16 35%, var(--rule));
-}
-.painel:not(.painel-porta) .painel-conteudo h2[class~="font-serif"][class~="text-2xl"]::before {
-  display: none;
-}
-.painel:not(.painel-porta) .painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
-  border-top-width: 1px;
-  border-top-color: var(--rule);
-  background: var(--folha);
-}
-.painel:not(.painel-porta) .painel-conteudo [class~="divide-y"] > *:hover {
-  background: var(--parchment-deep);
-}
-.painel:not(.painel-porta) .painel-campo:focus {
-  border-color: var(--ink-soft);
-  box-shadow: 0 0 0 3px color-mix(in srgb, #c21f16 15%, transparent);
-}
-.painel:not(.painel-porta) .painel-procura:focus-within {
-  border-color: var(--ink-soft);
-}
-.painel:not(.painel-porta) .mesa .jornal-editoria {
-  background: transparent;
-  color: var(--ink-soft);
-  font-family: var(--font-ui), system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 0;
-}
-.painel:not(.painel-porta) .mesa .jornal-secao::after {
-  height: 1px;
-  background: var(--rule);
-}
-/* Tabelas limpas: cabeçalho miúdo em cinza, linhas separadas por um fio claro. */
-.painel:not(.painel-porta) table th {
-  background: var(--parchment-deep);
-  border-bottom: 1px solid var(--rule);
-  color: var(--ink-soft);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-align: left;
-}
-.painel:not(.painel-porta) table td {
-  border-bottom: 1px solid var(--painel-linha);
-}
-/* O menu lateral: discreto, o item ativo no fundo cinza com o fio vermelho à esquerda. */
-.painel:not(.painel-porta) .painel-menu .painel-item {
-  border-left: 0;
-  color: var(--ink);
-  border-radius: 4px;
-}
-.painel:not(.painel-porta) .painel-menu .painel-item:hover {
-  background: var(--parchment);
-  padding-left: 2.25rem;
-}
-.painel:not(.painel-porta) .painel-menu .painel-item:hover svg {
-  color: var(--ink);
-}
-.painel:not(.painel-porta) .painel-menu :is(.painel-item-ativo, .painel-item-ativo:hover) {
-  background: var(--painel-ativo);
-  color: var(--ink);
-  font-weight: 600;
-  box-shadow: inset 3px 0 0 #c21f16;
-  padding-left: 2.25rem;
-}
-.painel:not(.painel-porta) .painel-menu .painel-item-ativo svg {
-  color: var(--prelo-texto);
-}
-.painel:not(.painel-porta) .painel-menu .painel-cabeca {
-  border-radius: 4px;
-}
-.painel:not(.painel-porta) .painel-menu .painel-cabeca:hover {
-  background: var(--parchment);
-}
-.painel:not(.painel-porta) .painel-area-ativa {
-  background: var(--painel-ativo);
-  box-shadow: inset 3px 0 0 #c21f16;
-}
-.painel:not(.painel-porta) .painel-cabeca .selo {
-  border: 1px solid var(--rule);
-}
-:root:is([data-contrast], [data-eink]) .painel:not(.painel-porta) .painel-menu .painel-item-ativo {
-  background: var(--ink);
-  color: var(--parchment);
-  box-shadow: none;
-}
-/* Cantos de 4 px e etiquetas em pílula: sem especificidade, para um "rounded-..." da própria peça continuar mandando. */
-@layer utilities {
-  :where(.painel:not(.painel-porta)) :where([class~="border"], [class~="border-2"], [class~="border-[1.5px]"], .painel-quadro, .painel-cartao, .painel-campo, button, input:not([type="checkbox"], [type="radio"]), select, textarea, [role="dialog"], kbd) {
-    border-radius: 4px;
-  }
-  :where(.painel:not(.painel-porta)) :where(span.painel-pilula, span[class*="bg-["][class~="px-1.5"], span[class*="bg-["][class~="px-2"], span[class*="bg-["][class~="px-1"]) {
-    border-radius: 999px;
-  }
 }
 
 /* ───── Tema escuro, as sobras (30/10/2026) ─────

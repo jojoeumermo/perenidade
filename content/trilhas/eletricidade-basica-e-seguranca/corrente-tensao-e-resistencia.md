@@ -101,6 +101,11 @@ Uma resposta possível: a experiência vale muito, mas a aula mostra que as pala
 **O chuveiro de duas posições.** Dentro dele há uma resistência com um trecho a mais. Na posição "verão", a corrente passa por um caminho mais longo, com mais resistência: passa menos corrente e a água esquenta menos. Na posição "inverno", o caminho fica mais curto, a resistência cai, passa mais corrente e a água sai mais quente. A tensão da casa é a mesma; quem muda é a resistência.
 ```
 
+```simulador
+lampadas
+# Tensão e corrente em lâmpadas, em série e em paralelo
+```
+
 ## Contínua e alternada
 
 Na **corrente contínua**, a dos aparelhos a pilha e das baterias, os elétrons andam sempre no mesmo sentido. Na **corrente alternada**, a que chega pela rede, o sentido se inverte muitas vezes por segundo. No Brasil, a rede é de **60 hertz**: o sentido da corrente vai e volta 60 vezes a cada segundo. O carregador de celular é justamente um aparelho que transforma a alternada da tomada na contínua de que a bateria precisa.

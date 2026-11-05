@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "titulo": "Jogos",
+    "descricao": "Palavras cruzadas, caça-palavras, sudoku, forca, memória, jogo da velha com perguntas e ditado feitos com o glossário e as aulas; jogos com música para crianças; e os jogos de formação (Rumos, Greve!). Sem pontos, sem placar, sem conta."
+  },
+  "pagina": {
+    "rotulo": "Jogar também é estudar",
+    "lead": "Jogos para treinar as palavras das aulas, para brincar com música e para decidir rumos na história. Nenhum tem pontos, placar nem sequência de dias: acabou, acabou. Nada do que você faz aqui sai do aparelho.",
+    "irTreino": "Treino de palavras",
+    "irCriancas": "Música para crianças",
+    "irFormacao": "Jogos de formação",
+    "aviso": "Os jogos de palavras usam o glossário do instituto, que está em português.",
+    "irProprios": "Jogos do Instituto"
+  },
+  "treino": {
+    "titulo": "Treino de palavras",
+    "lead": "Gerados na hora com os termos do glossário e as aulas onde eles aparecem. Cada partida é nova.",
+    "escolha": "Escolha um jogo",
+    "jogos": {
+      "cruzadas": {
+        "nome": "Palavras cruzadas",
+        "texto": "As dicas são as definições do glossário."
+      },
+      "caca": {
+        "nome": "Caça-palavras",
+        "texto": "Ache os termos escondidos na grade."
+      },
+      "sudoku": {
+        "nome": "Sudoku",
+        "texto": "Números sem repetir, em 4x4, 6x6 ou 9x9."
+      },
+      "forca": {
+        "nome": "Forca da flor",
+        "texto": "Adivinhe o termo antes de a flor perder as pétalas."
+      },
+      "memoria": {
+        "nome": "Jogo da memória",
+        "texto": "Junte cada termo à sua definição."
+      },
+      "quebra": {
+        "nome": "Quebra-cabeça de palavras",
+        "texto": "Ponha as letras ou as palavras na ordem."
+      },
+      "velha": {
+        "nome": "Jogo da velha com perguntas",
+        "texto": "Para marcar uma casa, acerte a pergunta."
+      },
+      "ditado": {
+        "nome": "Ditado",
+        "texto": "O navegador fala, você escreve."
+      }
+    },
+    "voltar": "Voltar aos jogos"
+  },
+  "comum": {
+    "novo": "Novo jogo",
+    "conferir": "Conferir",
+    "dica": "Dica",
+    "mostrar": "Mostrar a resposta",
+    "proxima": "Próxima",
+    "limpar": "Limpar",
+    "apagar": "Apagar",
+    "certo": "Certo!",
+    "errado": "Ainda não.",
+    "terminou": "Terminou! Se quiser, comece outro.",
+    "aula": "Ver a aula",
+    "facil": "Fácil",
+    "medio": "Médio",
+    "tamanho": "Tamanho",
+    "dificuldade": "Dificuldade",
+    "semPontos": "Sem pontos: é para treinar."
+  },
+  "cruzadas": {
+    "instrucao": "Digite as letras nas casas. As setas do teclado mudam de casa; a tecla Tab muda de palavra.",
+    "horizontais": "Horizontais",
+    "verticais": "Verticais",
+    "casa": "Linha {r}, coluna {c}",
+    "numero": "palavra número {n}",
+    "faltam": "Ainda há casas erradas ou vazias. As erradas ficam marcadas.",
+    "completo": "Cruzadas completas!",
+    "semPalavras": "Não foi possível montar as cruzadas agora. Tente um novo jogo."
+  },
+  "caca": {
+    "instrucao": "Toque na primeira letra e depois na última de cada palavra. No teclado, use as setas e a tecla Enter.",
+    "palavras": "Palavras a achar",
+    "achadas": "{n} de {total} achadas",
+    "achou": "Você achou {palavra}!",
+    "inicio": "Início marcado em {r}, {c}. Escolha a última letra.",
+    "tentou": "Essa linha não é uma das palavras.",
+    "celula": "Linha {r}, coluna {c}, letra {l}"
+  },
+  "sudoku": {
+    "instrucao": "Cada linha, cada coluna e cada bloco leva todos os números uma vez só. Escolha uma casa e um número.",
+    "numeros": "Números",
+    "apagarCasa": "Apagar a casa",
+    "casa": "Linha {r}, coluna {c}",
+    "vazia": "vazia",
+    "dada": "dada",
+    "conflito": "repetido",
+    "repetidos": "Há números repetidos; eles ficam marcados.",
+    "tudoCerto": "Até aqui está tudo certo.",
+    "resolvido": "Sudoku resolvido!",
+    "dicaFeita": "Uma casa foi preenchida para você."
+  },
+  "forca": {
+    "instrucao": "Escolha letras. Cada erro derruba uma pétala da flor; ela tem 6.",
+    "dicaTitulo": "Dica",
+    "erros": "Erros: {n} de {max}",
+    "letra": "Letra {l}",
+    "usada": "já usada",
+    "ganhou": "A flor está de pé! O termo é {termo}.",
+    "perdeu": "A flor perdeu as pétalas. O termo era {termo}.",
+    "palavra": "Palavra: {estado}"
+  },
+  "memoria": {
+    "instrucao": "Vire duas cartas: um termo e a definição dele formam um par.",
+    "pares": "Pares",
+    "carta": "Carta {n}",
+    "virada": "virada para baixo",
+    "par": "par já formado",
+    "achados": "{n} de {total} pares",
+    "completo": "Todos os pares foram achados!"
+  },
+  "quebra": {
+    "letras": "Letras",
+    "frase": "Frase",
+    "modo": "Modo",
+    "instrucaoLetras": "Ponha as letras na ordem para formar o termo. Dica: a definição, com o termo escondido.",
+    "instrucaoFrase": "Ponha as palavras na ordem para formar a definição do termo.",
+    "montagem": "Sua montagem",
+    "pecas": "Peças",
+    "vazia": "(vazia)",
+    "dicaDe": "Definição",
+    "termoDe": "Termo",
+    "certo": "Está certo!",
+    "errado": "Ainda não está na ordem certa."
+  },
+  "velha": {
+    "instrucao": "Para marcar uma casa, responda a pergunta. Errou: a vez passa.",
+    "modo": "Contra",
+    "computador": "o computador",
+    "dois": "outra pessoa",
+    "casa": "Casa {n}",
+    "livre": "livre",
+    "pergunta": "Que termo é definido assim?",
+    "vezDe": "Vez de {marca}",
+    "ganhou": "{marca} fez uma linha!",
+    "empate": "Deu velha: ninguém fez linha.",
+    "acertou": "Acertou! A casa é sua.",
+    "errou": "Não foi dessa vez. O termo era {termo}.",
+    "pensando": "O computador marcou a casa {n}.",
+    "cancelar": "Escolher outra casa"
+  },
+  "ditado": {
+    "instrucao": "Clique em Ouvir, escreva o que ouviu e confira. A voz é a do seu navegador.",
+    "palavras": "Palavras",
+    "frases": "Frases",
+    "modo": "Tipo",
+    "ouvir": "Ouvir",
+    "devagar": "Ouvir devagar",
+    "campo": "O que você ouviu",
+    "semVoz": "Este aparelho não tem voz para ler em voz alta. Você pode ver o texto e copiá-lo à mão.",
+    "verTexto": "Ver o texto",
+    "certo": "Certo, sem erro!",
+    "acento": "Quase: as letras estão certas, falta conferir acento ou pontuação. O certo é: {certa}",
+    "errado": "Ainda não. O certo é: {certa}",
+    "proximo": "Próximo ditado"
+  },
+  "criancas": {
+    "titulo": "Música e sons para crianças",
+    "lead": "Sons feitos no próprio aparelho, sem baixar nada. Sem pontos, sem tempo e sem errar: se a melodia sair diferente, ouvimos de novo. Se houver adulto por perto, melhor.",
+    "escolha": "Escolha uma brincadeira",
+    "somLigado": "Som ligado",
+    "somMudo": "Som desligado",
+    "semAudio": "Este aparelho não toca os sons do jogo.",
+    "ver": "Ver a área das crianças",
+    "jogos": {
+      "piano": {
+        "nome": "Piano dos bichos",
+        "texto": "Toque nas teclas coloridas e ouça."
+      },
+      "melodia": {
+        "nome": "Repita a melodia",
+        "texto": "Ouça as notas e toque na mesma ordem."
+      },
+      "bateria": {
+        "nome": "Bateria de panelas",
+        "texto": "Bata nos tambores ou ouça uma batida pronta."
+      },
+      "iguais": {
+        "nome": "Qual som é igual?",
+        "texto": "Ache os pares de sons iguais."
+      },
+      "altoBaixo": {
+        "nome": "Agudo ou grave?",
+        "texto": "Ouça dois sons e diga qual é o mais agudo."
+      }
+    },
+    "tecla": "Tecla {nome}",
+    "ouvir": "Ouvir a melodia",
+    "ouvindo": "Ouça com atenção...",
+    "suaVez": "Sua vez!",
+    "rodada": "Rodada {i} de {n}",
+    "denovo": "Quase! Vamos ouvir de novo.",
+    "muitoBem": "Muito bem! Você tocou toda a melodia.",
+    "fimMelodia": "Chega de melodias por agora. Que tal outra brincadeira?",
+    "comecar": "Começar",
+    "proximaRodada": "Próxima rodada",
+    "ritmo": "Tocar a batida pronta",
+    "parar": "Parar",
+    "batida": "Batida {nome}",
+    "cartaSom": "Carta {n}",
+    "paresAchados": "{n} de {total} pares",
+    "iguaisCompleto": "Você achou todos os pares!",
+    "doisSons": "Toque para ouvir os dois sons.",
+    "ouvirDois": "Ouvir os dois sons",
+    "primeiro": "O primeiro foi mais agudo",
+    "segundo": "O segundo foi mais agudo",
+    "agudoCerto": "Isso! O som mais agudo é o mais fino.",
+    "agudoErrado": "Não foi dessa vez. Escute de novo e compare.",
+    "outraVez": "Outro par de sons"
+  },
+  "proprios": {
+    "titulo": "Jogos do Instituto",
+    "lead": "Dezesseis jogos que o próprio instituto fez, sobre trabalho, direitos, dinheiro público, notícia falsa, cidade, saúde, eletricidade, costura e computador. Cada um tem fonte e termina: não há pontos acumulados nem sequência de dias.",
+    "escolha": "Escolha um jogo",
+    "voltar": "Voltar aos jogos",
+    "minutos": "{n} min",
+    "publico": {
+      "todos": "para todos",
+      "adultos": "adultos",
+      "jovens": "jovens",
+      "criancas": "crianças"
+    },
+    "aviso": "Estes jogos estão só em português."
+  }
+}

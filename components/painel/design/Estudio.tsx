@@ -52,6 +52,7 @@ import { FolhaDoCelular, PainelDireito } from "./paineis/Propriedades";
 import { RodapeDoPalco } from "./paineis/Rodape";
 import { aplicarEstilo, CAMPOS_DO_ESTILO, type Projeto, paraProjeto, projetoNovo, variaveisDaPagina } from "./projeto";
 import { type AjudasDaTela, ContextoDoEditor, type Editor, type Gaveta, type Janela, useEditor } from "./ui";
+import { confirmarFrase } from "../ui";
 
 /** Como o editor abre: um modelo, uma página em branco, um trabalho guardado, o rascunho do aparelho ou um projeto pronto. */
 export type Abertura =
@@ -1393,8 +1394,8 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
       setSelecao([id]);
       setEditando(id);
     },
-    abrir: (a) => {
-      if (mexido && !window.confirm("Trocar de trabalho? O que não foi guardado continua no rascunho deste aparelho só até a próxima mudança.")) return;
+    abrir: async (a) => {
+      if (mexido && !(await confirmarFrase("Trocar de trabalho? O que não foi guardado continua no rascunho deste aparelho só até a próxima mudança."))) return;
       void abrir(a);
     },
     mexido,

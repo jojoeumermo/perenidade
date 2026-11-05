@@ -5429,7 +5429,20 @@
     "podcastKicker": "播客 · 准备中",
     "launchKicker": "发布会 · 线下 · 日期待定",
     "followUpdates": "在 Instagram 关注",
-    "reels": "视频在 Instagram 上"
+    "reels": "视频在 Instagram 上",
+    "anuncioKicker": "公告视频",
+    "anuncioLoad": "加载 Instagram 视频",
+    "anuncioAviso": "点击后，此框会打开来自 Instagram（Meta）的内容，对方可能记录你的访问。在你点击之前，不会从外部加载任何内容。",
+    "anuncioAbrir": "在 Instagram 打开帖子",
+    "anuncioQuadro": "Instagram 上的公告视频",
+    "anuncioLocal": "公告视频",
+    "agendaKicker": "日程",
+    "agendaQuando": "时间",
+    "agendaOnde": "地点",
+    "letreiroRotulo": "该地域的主题",
+    "letreiroPausar": "暂停主题滚动条",
+    "letreiroRetomar": "继续主题滚动条",
+    "cartaoVer": "查看页面"
   },
   "rede": {
     "abaRede": "网络",
@@ -5962,7 +5975,7 @@
       "3": {
         "name": "完整",
         "count": "{n} 道题",
-        "desc": "最详细的画像：每条轴八道题。"
+        "desc": "最详细的画像：每条轴二十道题。"
       }
     },
     "privacy": "你的回答只保存在这台设备上，方便你随时暂停、以后继续。不会发送给本院。",

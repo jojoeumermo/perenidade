@@ -81,6 +81,17 @@ A diferença entre `print` e `return` confunde muita gente no início:
 - `print` **mostra** um valor para a pessoa que está usando o programa.
 - `return` **entrega** um valor para o resto do programa.
 
+```simulador
+execucao-python
+# Veja a função entrar e sair da pilha
+def dobro(n):
+    return n * 2
+
+a = dobro(4)
+b = dobro(a)
+print(a, b)
+```
+
 ## Por que usar funções
 
 - **Evitar repetição.** Escreva uma vez, use quantas vezes quiser.

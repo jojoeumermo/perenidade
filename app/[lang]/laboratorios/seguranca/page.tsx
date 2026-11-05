@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { LabSeguranca } from "@/components/labs/Seguranca";
+import { LabsExternos } from "@/components/labs/LabsExternos";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -18,6 +19,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios/s
         {t.labs.segurancaLead}
       </PageHeading>
       <LabSeguranca />
+      <LabsExternos area="seguranca" compacto />
     </div>
   );
 }

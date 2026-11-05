@@ -10,6 +10,7 @@ import { localePath } from "@/i18n/config";
 import { eInterativo } from "@/lib/interativos";
 import { Interativo } from "./blocos/Interativo";
 import { Agir, Escondido, Formula, Historia, Leve, NaVidaReal, OutroJeito, OutroLado, Provocacao, Realidade, Roda, SuaRealidade } from "./aula/Blocos";
+import { SimuladorDaAula } from "./aula/SimuladorDaAula";
 import { InlineCheck } from "./InlineCheck";
 import { AnexoPendente, PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
@@ -166,6 +167,7 @@ export function Markdown({ children, lang, terms, tryCode, sala, audio = false }
             if (language === "outrolado") return <OutroLado spec={source} />;
             if (language === "outrojeito") return <OutroJeito spec={source} />;
             if (language === "agir") return <Agir spec={source} />;
+            if (language === "simulador") return <SimuladorDaAula spec={source} />;
             if (eInterativo(language)) return <Interativo tipo={language} spec={source} />;
             const runnable = (language === "python" || language === "php") && tryCode;
             return (

@@ -10,7 +10,10 @@ import { BackendError, evaluatePost, hasBackend, rpc, useMe } from "@/lib/backen
 import { type Presente, Sala, temTempoReal, transmitir, useSinal } from "@/lib/tempo-real";
 import { lerSalaJitsi } from "@/lib/jitsi";
 import { safeLink } from "@/lib/text";
+import { idDoYoutube, tipoNoSite } from "@/lib/aula-sala";
 import { JitsiSala } from "../JitsiSala";
+import { SalaPropria } from "./SalaPropria";
+import { TocadorPeerTube } from "./TocadorPeerTube";
 import { TocadorYoutube } from "../TocadorYoutube";
 import { L, useI18n } from "../I18n";
 import { CartaoDeAula, type LiveStrings } from "./Agenda";
@@ -426,6 +429,12 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
   // A sala do Jitsi (se a aula tem uma no servidor configurado) abre aqui dentro, sem sair do site.
   const jitsi = aula.sala_externa ? lerSalaJitsi(aula.sala_externa) : null;
   const salaJitsi = jitsi?.sala ?? null;
+  // Sala própria do instituto (Galène) ou transmissão PeerTube marcada como "sala": ver lib/aula-sala.ts. Meet é só link.
+  const tipoSala = aula.sala_externa ? tipoNoSite(aula.sala_externa) : "nenhum";
+  const salaPropria = tipoSala === "propria";
+  const transmissaoPeerTube = tipoSala === "peertube" && aula.sala_externa ? aula.sala_externa : "";
+  const linkExterno = Boolean(aula.sala_externa) && !salaPropria && !transmissaoPeerTube && safeLink(aula.sala_externa);
+  const rotuloExterno = tipoSala === "meet" ? "Abrir no Google Meet" : s.externalRoom;
   const [naSala, setNaSala] = useState(false);
   const { lang } = useI18n();
   const educadores = presentes.filter((p) => p.papel === "educador");
@@ -449,6 +458,20 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
               </>
             )}
           </p>
+        )}
+        {aula.status === "encerrada" && aula.gravacao && tipoNoSite(aula.gravacao) === "peertube" && <TocadorPeerTube url={aula.gravacao} titulo={aula.titulo} />}
+        {aula.status === "encerrada" && aula.gravacao && tipoNoSite(aula.gravacao) === "youtube" && idDoYoutube(aula.gravacao) && (
+          <TocadorYoutube id={idDoYoutube(aula.gravacao) as string} titulo={aula.titulo} textos={{ assistir: s.youtubeWatch, aviso: s.youtubeNote }} />
+        )}
+
+        {salaPropria && (aula.status === "ao_vivo" || (conduzo && aula.status === "agendada")) && (
+          <SalaPropria aula={aula.id} nome={eu.current.nome} conduzo={conduzo} botao={vermelho} />
+        )}
+
+        {transmissaoPeerTube && (aula.status === "ao_vivo" || aula.status === "agendada") && (
+          <section aria-label="Transmissão" className="space-y-2">
+            <TocadorPeerTube url={transmissaoPeerTube} titulo={aula.titulo} aoVivo />
+          </section>
         )}
 
         {aula.youtube && (aula.status === "ao_vivo" || aula.status === "agendada") && (
@@ -489,14 +512,14 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
             ) : (
               <p>{s.notStarted}</p>
             )}
-            {aula.sala_externa && safeLink(aula.sala_externa) && (
-              <a href={aula.sala_externa} target="_blank" rel="noopener noreferrer" className={`${botao} mt-4`}>{s.externalRoom} ↗</a>
+            {linkExterno && (
+              <a href={aula.sala_externa} target="_blank" rel="noopener noreferrer" className={`${botao} mt-4`}>{rotuloExterno} ↗</a>
             )}
           </div>
         )}
-        {aula.sala_externa && safeLink(aula.sala_externa) && (local || videos.length > 0) && (
+        {linkExterno && (local || videos.length > 0) && (
           <p className="font-sans text-xs text-ink-soft">
-            <a href={aula.sala_externa} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">{s.externalRoom} ↗</a>
+            <a href={aula.sala_externa} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">{rotuloExterno} ↗</a>
           </p>
         )}
 

@@ -5,6 +5,7 @@ import { type ReactNode, useState } from "react";
 import { porNivel, type Role } from "@/lib/backend";
 import { Avatar } from "./Avatar";
 import { data, papeis } from "./comum";
+import { LIMITE_DE_POUCA_GENTE } from "./mesa-funcoes";
 
 // A lista de pessoas de "Voluntários e convites", como na prancheta "Painel — Pessoas": os números no alto, os filtros,
 // a tabela com o departamento por cor e a situação (ativa, nova, sumida, suspensa), a seleção em lote e a ficha ao lado.
@@ -30,7 +31,7 @@ const DEPARTAMENTO: Partial<Record<Role["papel"], [string, string]>> = {
   jornalismo: ["Comunicação", "#c21f16"],
   marketing: ["Comunicação", "#c21f16"],
   porta_voz: ["Comunicação", "#c21f16"],
-  design: ["Design", "#d4a24c"],
+  design: ["Comunicação", "#c21f16"],
   educacao: ["Pedagógico", "#2f6f4f"],
   educacao_secundaria: ["Pedagógico", "#2f6f4f"],
   mentoria: ["Reforço", "#4f8a6b"],
@@ -38,7 +39,7 @@ const DEPARTAMENTO: Partial<Record<Role["papel"], [string, string]>> = {
   revisao: ["Revisão", "#8a5a2b"],
   traducao: ["Tradução", "#3d5a80"],
   mediacao: ["Comunidade e mediação", "#7b4b94"],
-  desenvolvimento: ["Desenvolvimento", "#1f3a5f"],
+  desenvolvimento: ["UI/UX e Desenvolvimento", "#1f3a5f"],
   saude: ["Mural de Saúde", "#b5446e"],
 };
 const NOMES_REPRESENTANTE: Record<string, string> = { jornalismo: "jornalismo", marketing: "marketing", saude: "saude" };
@@ -107,6 +108,7 @@ export function ListaDePessoas({
   const [grupo, setGrupo] = useState<"equipe" | "comunidade">("equipe");
   const [escolhidas, setEscolhidas] = useState<string[]>([]);
   const [aberta, setAberta] = useState<string | null>(null);
+  const [vendoPoucos, setVendoPoucos] = useState(false);
 
   const equipe = pessoas.filter((p) => p.papeis.length > 0);
   const sumidas = equipe.filter((p) => situacaoDe(p, agora) === "sumida").length;
@@ -115,7 +117,7 @@ export function ListaDePessoas({
     const d = departamentoDa(p)?.[0];
     if (d) contagem.set(d, (contagem.get(d) ?? 0) + 1);
   }
-  const poucos = [...new Set(Object.values(DEPARTAMENTO).map((d) => d![0]))].filter((d) => (contagem.get(d) ?? 0) <= 1);
+  const poucos = [...new Set(Object.values(DEPARTAMENTO).map((d) => d![0]))].filter((d) => (contagem.get(d) ?? 0) <= LIMITE_DE_POUCA_GENTE);
 
   const termo = busca.trim().toLowerCase();
   const vistas = pessoas
@@ -139,7 +141,7 @@ export function ListaDePessoas({
             [String(equipe.length), "na equipe", null],
             [String(candidaturas), candidaturas === 1 ? "candidatura esperando" : "candidaturas esperando", verCandidaturas],
             [String(sumidas), "sumidas há mais de 30 dias", sumidas ? () => { setGrupo("equipe"); setSituacao("sumida"); } : null],
-            [String(poucos.length), poucos.length === 1 ? "departamento com pouca gente" : "departamentos com pouca gente", null],
+            [String(poucos.length), poucos.length === 1 ? "departamento com pouca gente" : "departamentos com pouca gente", poucos.length ? () => setVendoPoucos((v) => !v) : null],
           ] as [string, string, (() => void) | null][]
         ).map(([valor, nome, fazer]) => {
           const miolo = (
@@ -149,12 +151,30 @@ export function ListaDePessoas({
             </>
           );
           return fazer ? (
-            <button key={nome} type="button" onClick={fazer} className="cursor-pointer border-2 border-ink bg-folha p-3 text-left shadow-[3px_3px_0_var(--sombra)] hover:shadow-[3px_3px_0_var(--prelo)]">{miolo}</button>
+            <button key={nome} type="button" onClick={fazer} aria-expanded={nome.includes("pouca") ? vendoPoucos : undefined} aria-controls={nome.includes("pouca") ? "departamentos-com-pouca-gente" : undefined} className="cursor-pointer border-2 border-ink bg-folha p-3 text-left shadow-[3px_3px_0_var(--sombra)] hover:shadow-[3px_3px_0_var(--prelo)]">{miolo}</button>
           ) : (
             <div key={nome} className="border-2 border-ink bg-folha p-3 shadow-[3px_3px_0_var(--sombra)]" title={nome.includes("pouca") ? poucos.join(", ") : undefined}>{miolo}</div>
           );
         })}
       </dl>
+
+      {vendoPoucos && poucos.length > 0 && (
+        <section id="departamentos-com-pouca-gente" aria-label="Departamentos com pouca gente" className="mt-3 border-2 border-ink bg-folha p-3">
+          <p className="text-sm text-ink-soft">Departamentos com {LIMITE_DE_POUCA_GENTE === 1 ? "uma pessoa ou nenhuma" : `até ${LIMITE_DE_POUCA_GENTE} pessoas`} na equipe. Quem ajuda aqui faz diferença: escolha um para ver quem está lá.</p>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {poucos.map((d) => {
+              const n = contagem.get(d) ?? 0;
+              return (
+                <li key={d}>
+                  <button type="button" onClick={() => { setGrupo("equipe"); setSituacao(""); setFuncao(""); setBusca(""); setDepartamento(d); }} className="cursor-pointer rounded-full border-2 border-ink bg-parchment px-3 py-1 text-[0.82rem] font-semibold hover:bg-parchment-deep">
+                    {d} · {n === 0 ? "ninguém ainda" : n === 1 ? "1 pessoa" : `${n} pessoas`}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       <div className="mt-5 flex flex-wrap items-center gap-2">
         <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar pessoa" aria-label="Buscar pessoa" className={`${filtro} min-w-0 flex-1 font-normal`} />

@@ -19,7 +19,7 @@ const PAGINAS = [
   "/pt/laboratorios/escritorio",
   "/pt/laboratorios/ia",
   "/pt/laboratorios/ide",
-  "/pt/laboratorios/jogos",
+  "/pt/jogos",
   "/pt/laboratorios/linux",
   "/pt/laboratorios/modelos",
   "/pt/laboratorios/montador",

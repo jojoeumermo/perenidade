@@ -5,6 +5,7 @@ import { useState } from "react";
 import { can, type Me } from "@/lib/backend";
 import { areasDeExpurgo, areasPublicas } from "@/lib/interdicao";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, rotulo, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 interface Estado {
   geral: boolean;
@@ -69,7 +70,7 @@ function Interditar({ estado, coordena, recarregar }: { estado: Estado; coordena
   async function aplicar(reabrir: boolean) {
     const dados = reabrir ? { geral: false, areas: [], mensagem: "" } : { geral, areas, mensagem: mensagem.trim() };
     if (coordena) {
-      if (!reabrir && dados.geral && !window.confirm("Tirar o site inteiro do ar agora? Só a entrada e o painel vão continuar funcionando.")) return;
+      if (!reabrir && dados.geral && !(await confirmarFrase("Tirar o site inteiro do ar agora? Só a entrada e o painel vão continuar funcionando."))) return;
       if (await acao.agir("interdicao_definir", { p: { ...dados, motivo: motivo.trim() } }, reabrir ? "Site reaberto." : "Interdição aplicada.")) {
         if (reabrir) {
           setGeral(false);
@@ -301,7 +302,7 @@ function Pedidos({ coordena, depois }: { coordena: boolean; depois: () => void }
                     type="button"
                     className="cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={acao.ocupado}
-                    onClick={() => { if (window.confirm(`Aprovar e aplicar agora: ${descrever(pedido)}?`)) void acao.agir("pedido_decidir", { p_id: pedido.id, p_aprovar: true, p_nota: notas[pedido.id] ?? "" }, "Pedido aprovado e aplicado."); }}
+                    onClick={async () => { if ((await confirmarFrase(`Aprovar e aplicar agora: ${descrever(pedido)}?`))) void acao.agir("pedido_decidir", { p_id: pedido.id, p_aprovar: true, p_nota: notas[pedido.id] ?? "" }, "Pedido aprovado e aplicado."); }}
                   >
                     Aprovar e aplicar
                   </button>

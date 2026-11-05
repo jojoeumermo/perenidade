@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { expect, test } from "@playwright/test";
-import { abrir, entrarComo, rpc, vigiarErros } from "./ajuda";
+import { abrir, aceitarTermo, entrarComo, vigiarErros } from "./ajuda";
 
 // A fumaça das telas principais: cada uma abre, tem título e conteúdo, não cai na página "não encontrada", não solta
 // erro de JavaScript nem recebe resposta 5xx do site ou do banco de teste. Roda no projeto "computador" e no "s24"
@@ -26,7 +26,9 @@ const PAGINAS: [string, RegExp | null][] = [
   ["/pt/comunidade", null],
   ["/pt/territorios", null],
   ["/pt/territorios/na-atividade", null],
-  ["/pt/laboratorios/jogos", null],
+  ["/pt/territorios/noizocupa", /NoizOcupa/],
+  ["/pt/territorios/coletivo-kamikaze", /Kamikaze/],
+  ["/pt/jogos", null],
 ];
 
 async function capturar(page: import("@playwright/test").Page, nome: string, projeto: string) {
@@ -67,7 +69,7 @@ test("fumaça: painel logado com a conta de teste", async ({ page, isMobile }, i
   const erros = vigiarErros(page);
   const s = await entrarComo(page, "jornal@local");
   // Na primeira vez, o termo de voluntariado vem antes de tudo: aceito direto no banco local.
-  await rpc(s.access_token, "termo_voluntario_aceitar").catch(() => null);
+  await aceitarTermo(s.access_token);
   // O passeio do painel abre sozinho na primeira visita e cobre a tela; aqui ele já foi visto.
   await page.addInitScript(() => window.localStorage.setItem("lucia:tutorial-painel", String(Date.now())));
   await abrir(page, "/pt/painel");

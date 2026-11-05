@@ -1,0 +1,861 @@
+{
+ "formato": "rumos/1",
+ "id": "eletricista-autonomo",
+ "titulo": "Eletricista autônomo",
+ "resumo": "Dois anos de serviço por conta própria: orçamento, chuveiro, quadro de luz, MEI, ajudante e a conta de nunca trocar segurança por pressa.",
+ "papel": "Você é eletricista autônomo(a) numa cidade de porte médio, com a caixa de ferramentas no porta-malas e o telefone cheio de pedidos. As leis e normas citadas em cada carta são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica nem técnica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "clientela",
+   "nome": "Clientela",
+   "descricao": "A confiança de quem chama você. Sem ela o telefone para; com ela demais, você vira refém de poucos clientes."
+  },
+  {
+   "id": "seguranca",
+   "nome": "Segurança",
+   "descricao": "O cuidado com o seu corpo e com a casa dos outros. Perto de zero vem o acidente; no limite, o medo trava o trabalho."
+  },
+  {
+   "id": "caixa",
+   "nome": "Caixa",
+   "descricao": "O dinheiro do mês. Zerado, falta até material; cheio demais e parado, é sinal de que você está recusando serviço."
+  },
+  {
+   "id": "folego",
+   "nome": "Fôlego",
+   "descricao": "O corpo, o sono e o tempo para estudar. Esgotado, você erra; folga demais, o serviço some."
+  }
+ ],
+ "inicio": {
+  "clientela": 45,
+  "seguranca": 55,
+  "caixa": 40,
+  "folego": 58
+ },
+ "personagens": [
+  {
+   "id": "celia",
+   "nome": "Dona Célia",
+   "papel": "cliente antiga, moradora de casa de dois andares"
+  },
+  {
+   "id": "geraldo",
+   "nome": "Seu Geraldo",
+   "papel": "pedreiro que indica serviço"
+  },
+  {
+   "id": "beto",
+   "nome": "Beto",
+   "papel": "balconista da loja de material elétrico"
+  },
+  {
+   "id": "marcos",
+   "nome": "Marcos",
+   "papel": "síndico de um prédio pequeno"
+  },
+  {
+   "id": "thais",
+   "nome": "Thaís",
+   "papel": "jovem que quer aprender o ofício"
+  },
+  {
+   "id": "rogerio",
+   "nome": "Rogério",
+   "papel": "dono de uma empresa de instalações"
+  }
+ ],
+ "fases": [
+  {
+   "id": "primeiros-meses",
+   "nome": "Primeiros meses",
+   "cartas": 5
+  },
+  {
+   "id": "ano-dois",
+   "nome": "O segundo ano",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "el-orcamento",
+   "fase": "primeiros-meses",
+   "titulo": "O preço em áudio",
+   "personagem": "celia",
+   "texto": "Dona Célia manda áudio: quer trocar a fiação do chuveiro e pergunta \"quanto fica\". Você ainda não viu a casa. Ela insiste em resposta rápida.",
+   "esquerda": {
+    "texto": "Mandar orçamento por escrito",
+    "efeito": {
+     "clientela": 6,
+     "folego": -5,
+     "caixa": -3
+    },
+    "retorno": "Você olha a instalação e envia valor, material e prazo por escrito. Dá mais trabalho, mas ninguém discute depois o que foi combinado.",
+    "liga": [
+     "orcamento-escrito"
+    ]
+   },
+   "direita": {
+    "texto": "Dizer um valor de cabeça",
+    "efeito": {
+     "caixa": 8,
+     "clientela": -6
+    },
+    "retorno": "Sem ver a casa, você chuta. O serviço sai mais caro do que o falado e a conversa vira discussão."
+   },
+   "historia": {
+    "texto": "O Código de Defesa do Consumidor obriga o prestador de serviço a entregar orçamento prévio ao consumidor (art. 40) e proíbe executar serviço sem orçamento e sem autorização expressa dele (art. 39, VI). O valor orçado vale por dez dias, salvo combinação em contrário.",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), arts. 39 e 40",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Trabalhar como eletricista: orçamento, ética e segurança",
+    "href": "/trilhas/manutencao-e-diagnostico-eletrico/trabalhar-como-eletricista-orcamento-etica-e-seguranca"
+   }
+  },
+  {
+   "id": "el-disjuntor",
+   "fase": "primeiros-meses",
+   "titulo": "O quadro religado",
+   "personagem": "geraldo",
+   "texto": "Você desligou o disjuntor para trocar uma tomada. Seu Geraldo, chegando com o carrinho de cimento, diz: \"Deixa que eu fico de olho, ninguém mexe\". Você está com pressa.",
+   "esquerda": {
+    "texto": "Travar o quadro e colocar aviso",
+    "efeito": {
+     "seguranca": 12,
+     "folego": -4,
+     "clientela": 4
+    },
+    "retorno": "Cadeado ou fita e um aviso escrito no quadro: ninguém religa o que você deixou aberto. Leva um minuto e evita o pior."
+   },
+   "direita": {
+    "texto": "Confiar na palavra dele",
+    "efeito": {
+     "folego": 5,
+     "seguranca": -12,
+     "caixa": 3
+    },
+    "retorno": "Alguém religa sem saber que você está com a mão no fio. Foi só susto, desta vez."
+   },
+   "historia": {
+    "texto": "A NR-10 só considera desenergizada a instalação liberada para trabalho se forem seguidos, nesta ordem: seccionamento, impedimento de reenergização, constatação da ausência de tensão, aterramento temporário, proteção dos elementos energizados e sinalização de impedimento de reenergização (item 10.5.1).",
+    "fonte": {
+     "titulo": "NR-10: Segurança em instalações e serviços em eletricidade, item 10.5.1",
+     "autor": "Ministério do Trabalho e Emprego",
+     "ano": "2019",
+     "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/arquivos/normas-regulamentadoras/nr-10-atualizada-2019-1.pdf"
+    }
+   },
+   "aula": {
+    "titulo": "Segurança em eletricidade (NR-10) em linguagem simples",
+    "href": "/trilhas/eletricidade-basica-e-seguranca/seguranca-em-eletricidade-nr-10-em-linguagem-simples"
+   }
+  },
+  {
+   "id": "el-curso",
+   "fase": "primeiros-meses",
+   "titulo": "O curso à noite",
+   "personagem": "beto",
+   "texto": "Beto avisa que abriu turma de curso técnico de eletricista, três noites por semana, e a mensalidade cabe, mas aperta. Hoje você aprendeu tudo no braço, com colegas.",
+   "esquerda": {
+    "texto": "Pagar o curso e estudar",
+    "efeito": {
+     "seguranca": 10,
+     "clientela": 6,
+     "caixa": -8,
+     "folego": -12
+    },
+    "retorno": "Você chega cansado em algumas noites, mas passa a entender o porquê de cada regra, não só o como. O cliente nota.",
+    "liga": [
+     "fez-curso"
+    ]
+   },
+   "direita": {
+    "texto": "Seguir só com a prática",
+    "efeito": {
+     "caixa": 7,
+     "seguranca": -7,
+     "folego": 6
+    },
+    "retorno": "A rotina segue igual. Você acerta quase sempre, e é nos casos raros que falta base para explicar o erro."
+   },
+   "historia": {
+    "texto": "A NR-10 considera trabalhador qualificado quem comprovar conclusão de curso específico na área elétrica reconhecido pelo Sistema Oficial de Ensino (item 10.8.1). O profissional legalmente habilitado é o qualificado com registro no conselho de classe (item 10.8.2).",
+    "fonte": {
+     "titulo": "NR-10: Segurança em instalações e serviços em eletricidade, itens 10.8.1 e 10.8.2",
+     "autor": "Ministério do Trabalho e Emprego",
+     "ano": "2019",
+     "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/arquivos/normas-regulamentadoras/nr-10-atualizada-2019-1.pdf"
+    }
+   },
+   "aula": {
+    "titulo": "Segurança em eletricidade (NR-10) em linguagem simples",
+    "href": "/trilhas/eletricidade-basica-e-seguranca/seguranca-em-eletricidade-nr-10-em-linguagem-simples"
+   }
+  },
+  {
+   "id": "el-chuveiro",
+   "fase": "primeiros-meses",
+   "titulo": "O chuveiro que queimou",
+   "personagem": "celia",
+   "texto": "Três semanas depois do serviço, Dona Célia liga: o chuveiro novo queimou e o fio do disjuntor está quente. Ela não sabe se a culpa é do aparelho ou da instalação.",
+   "esquerda": {
+    "texto": "Ir lá, conferir e refazer",
+    "efeito": {
+     "clientela": 10,
+     "caixa": -8,
+     "folego": -6
+    },
+    "retorno": "A bitola do fio estava curta para a potência. Você refaz sem cobrar de novo e ela indica você para a vizinhança."
+   },
+   "direita": {
+    "texto": "Dizer que o chuveiro é ruim",
+    "efeito": {
+     "caixa": 5,
+     "clientela": -10,
+     "seguranca": -6
+    },
+    "retorno": "Sem conferir, você aposta que não é com você. Se for, o fio segue esquentando dentro da parede."
+   },
+   "historia": {
+    "texto": "Quando o serviço tem vício, o consumidor pode exigir a reexecução dos serviços, sem custo adicional e quando cabível (art. 20, I), ou o abatimento proporcional do preço (art. 20, III). Quem presta o serviço responde pelo defeito mesmo sem culpa quando ele causa dano (art. 14).",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), arts. 14 e 20",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Chuveiro elétrico: resistência e ligação",
+    "href": "/trilhas/manutencao-e-diagnostico-eletrico/chuveiro-eletrico-resistencia-e-ligacao"
+   }
+  },
+  {
+   "id": "el-mei",
+   "fase": "primeiros-meses",
+   "titulo": "MEI ou na informalidade",
+   "personagem": "geraldo",
+   "texto": "Seu Geraldo diz que uma construtora só contrata quem emite nota. Você nunca abriu empresa: trabalha por indicação e recebe em dinheiro e Pix.",
+   "esquerda": {
+    "texto": "Abrir o MEI",
+    "efeito": {
+     "caixa": -5,
+     "clientela": 9,
+     "folego": -4,
+     "seguranca": 4
+    },
+    "retorno": "Em poucos passos você tem CNPJ, pode emitir nota e contribui para o INSS. Ganha acesso a quem só compra com nota.",
+    "liga": [
+     "mei"
+    ]
+   },
+   "direita": {
+    "texto": "Continuar informal",
+    "efeito": {
+     "caixa": 6,
+     "clientela": -8,
+     "seguranca": -3
+    },
+    "retorno": "Não paga mensalidade, mas fica de fora das obras que exigem nota e sem proteção da Previdência se se machucar."
+   },
+   "historia": {
+    "texto": "A Lei Complementar 123/2006 define o MEI como quem teve, no ano anterior, receita bruta de até R$ 81.000,00 (art. 18-A, §1º, redação da LC 188/2021). O MEI paga valores fixos mensais, independentemente da receita do mês.",
+    "fonte": {
+     "titulo": "Lei Complementar nº 123, de 14 de dezembro de 2006 (Estatuto da Microempresa), redação da LC 188/2021, art. 18-A",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é o MEI e quem pode ser",
+    "href": "/trilhas/mei-passo-a-passo/o-que-e-o-mei-e-quem-pode-ser"
+   }
+  },
+  {
+   "id": "el-fioterra",
+   "fase": "primeiros-meses",
+   "titulo": "Tomada nova, parede velha",
+   "personagem": "celia",
+   "texto": "Dona Célia quer trocar as tomadas antigas de dois pinos por novas, de três. Mas a casa nunca teve fio terra. Ela pede só a troca, pelo preço mais baixo.",
+   "esquerda": {
+    "texto": "Explicar e propor o aterramento",
+    "efeito": {
+     "seguranca": 11,
+     "clientela": 4,
+     "caixa": -6,
+     "folego": -4
+    },
+    "retorno": "Você mostra o que o terceiro pino faz: leva a fuga de corrente para o chão, e não para o corpo de quem encosta no aparelho."
+   },
+   "direita": {
+    "texto": "Trocar só as tomadas",
+    "efeito": {
+     "caixa": 7,
+     "seguranca": -10,
+     "clientela": -4
+    },
+    "retorno": "A tomada fica bonita e parece de três pinos, mas o pino do meio não está ligado a nada."
+   },
+   "historia": {
+    "texto": "O Código de Defesa do Consumidor garante ao consumidor a informação adequada e clara sobre os diferentes produtos e serviços (art. 6º, III). Quem presta o serviço responde pelos defeitos mesmo sem culpa (art. 14).",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), arts. 6º e 14",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Aterramento e proteção contra surtos",
+    "href": "/trilhas/instalacoes-eletricas-residenciais/aterramento-e-protecao-contra-surtos"
+   }
+  },
+  {
+   "id": "el-quadro-predio",
+   "fase": "primeiros-meses",
+   "titulo": "O painel da bomba",
+   "personagem": "marcos",
+   "texto": "Marcos, síndico, pede para você mexer no painel trifásico da bomba d'água do prédio: \"É só trocar um contator, você dá conta\". Você nunca fez isso em carga trifásica.",
+   "esquerda": {
+    "texto": "Pedir profissional habilitado",
+    "efeito": {
+     "seguranca": 12,
+     "clientela": -4,
+     "caixa": -4
+    },
+    "retorno": "Você explica o limite e indica quem tem formação e responsabilidade técnica. O síndico reclama do preço, mas respeita."
+   },
+   "direita": {
+    "texto": "Aceitar e se virar",
+    "efeito": {
+     "caixa": 8,
+     "seguranca": -13,
+     "folego": -4
+    },
+    "retorno": "Você pesquisa no celular na hora. O contator troca, mas você sabia menos do que precisava saber."
+   },
+   "historia": {
+    "texto": "Pela NR-10, intervenções em instalações com tensão igual ou superior a 50 volts em corrente alternada (ou superior a 120 volts em corrente contínua) só podem ser feitas por trabalhadores que atendam ao item 10.8: qualificados, habilitados ou capacitados e autorizados (item 10.6.1).",
+    "fonte": {
+     "titulo": "NR-10: Segurança em instalações e serviços em eletricidade, item 10.6.1",
+     "autor": "Ministério do Trabalho e Emprego",
+     "ano": "2019",
+     "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/arquivos/normas-regulamentadoras/nr-10-atualizada-2019-1.pdf"
+    }
+   },
+   "aula": {
+    "titulo": "Segurança em eletricidade (NR-10) em linguagem simples",
+    "href": "/trilhas/eletricidade-basica-e-seguranca/seguranca-em-eletricidade-nr-10-em-linguagem-simples"
+   }
+  },
+  {
+   "id": "el-madrugada",
+   "fase": "ano-dois",
+   "titulo": "Sem luz às duas da manhã",
+   "personagem": "celia",
+   "texto": "Duas da manhã: Dona Célia liga dizendo que a casa ficou sem luz. A vizinha tem luz. Você está exausto, e ela tem uma idosa em casa.",
+   "esquerda": {
+    "texto": "Guiar por telefone",
+    "efeito": {
+     "seguranca": 8,
+     "clientela": 6,
+     "folego": 12,
+     "caixa": -3
+    },
+    "retorno": "Você pede que ela olhe o quadro: o disjuntor geral tinha desarmado. Religar é operação simples, e você a orienta com calma."
+   },
+   "direita": {
+    "texto": "Ir na hora e cobrar adicional",
+    "efeito": {
+     "caixa": 9,
+     "folego": -12,
+     "clientela": -4
+    },
+    "retorno": "Você chega às três, religa em um minuto e cobra a madrugada. Ela paga, mas fica com a sensação de ter sido enrolada."
+   },
+   "historia": {
+    "texto": "A NR-10 admite que operações elementares, como ligar e desligar circuitos elétricos em baixa tensão, com materiais e equipamentos em perfeito estado, sejam feitas por qualquer pessoa não advertida (item 10.6.1.2). O que exige formação é intervir na instalação.",
+    "fonte": {
+     "titulo": "NR-10: Segurança em instalações e serviços em eletricidade, item 10.6.1.2",
+     "autor": "Ministério do Trabalho e Emprego",
+     "ano": "2019",
+     "url": "https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/arquivos/normas-regulamentadoras/nr-10-atualizada-2019-1.pdf"
+    }
+   },
+   "aula": {
+    "titulo": "Choque elétrico: o que é e como evitar",
+    "href": "/trilhas/eletricidade-basica-e-seguranca/choque-eletrico-o-que-e-e-como-evitar"
+   }
+  },
+  {
+   "id": "el-garantia",
+   "fase": "ano-dois",
+   "titulo": "Voltou depois de dois meses",
+   "personagem": "celia",
+   "texto": "Dois meses depois do serviço, uma tomada da cozinha para de funcionar. Dona Célia acha que o problema é seu. Você acha que é desgaste, mas não tem certeza.",
+   "esquerda": {
+    "texto": "Ir ver e assumir se for seu",
+    "efeito": {
+     "clientela": 9,
+     "caixa": -5,
+     "folego": -4
+    },
+    "retorno": "O fio estava mal apertado no borne: falha sua. Você corrige na hora, e ela passa a chamar só você."
+   },
+   "direita": {
+    "texto": "Negar sem olhar",
+    "efeito": {
+     "caixa": 5,
+     "clientela": -10
+    },
+    "retorno": "Ela chama outro profissional, que mostra o aperto solto. A notícia corre mais rápido que a sua conta."
+   },
+   "historia": {
+    "texto": "O direito de reclamar de vícios aparentes ou de fácil constatação caduca em noventa dias, tratando-se de fornecimento de serviço e de produtos duráveis. O prazo conta a partir do término da execução dos serviços (art. 26, II e §1º).",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), art. 26",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Orçamento, garantia e Código de Defesa do Consumidor",
+    "href": "/trilhas/conserto-de-celular/orcamento-garantia-e-codigo-de-defesa-do-consumidor"
+   }
+  },
+  {
+   "id": "el-ajudante",
+   "fase": "ano-dois",
+   "titulo": "O ajudante",
+   "personagem": "geraldo",
+   "texto": "O serviço cresceu e você precisa de um ajudante fixo. Seu Geraldo indica o Wellington, 22 anos. Pagar por diária é o jeito mais comum entre os colegas.",
+   "esquerda": {
+    "texto": "Contratar com carteira",
+    "efeito": {
+     "caixa": -10,
+     "folego": 14,
+     "seguranca": 6,
+     "clientela": 3
+    },
+    "retorno": "Com carteira assinada, o salário e a proteção do trabalhador estão em ordem, e você divide o peso do serviço."
+   },
+   "direita": {
+    "texto": "Pagar por diária, sem registro",
+    "efeito": {
+     "caixa": 6,
+     "folego": 11,
+     "seguranca": -7,
+     "clientela": -3
+    },
+    "retorno": "Funciona até ele se machucar numa escada. Sem registro, não há seguro nem Previdência, e a responsabilidade volta para você."
+   },
+   "historia": {
+    "texto": "O MEI pode ter um único empregado, que receba exclusivamente um salário mínimo ou o piso salarial da categoria profissional (art. 18-C da Lei Complementar 123/2006). Passar disso exige sair do regime.",
+    "fonte": {
+     "titulo": "Lei Complementar nº 123, de 14 de dezembro de 2006 (Estatuto da Microempresa), redação da LC 188/2021, art. 18-C",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Contratar um empregado sendo MEI",
+    "href": "/trilhas/mei-passo-a-passo/contratar-um-empregado-sendo-mei"
+   }
+  },
+  {
+   "id": "el-sociedade",
+   "fase": "ano-dois",
+   "titulo": "A proposta do Rogério",
+   "personagem": "rogerio",
+   "texto": "Rogério, dono de empresa de instalações, convida você para ser sócio dele. Para isso, você teria que deixar de ser MEI e assumir contrato de grande porte.",
+   "esquerda": {
+    "texto": "Entrar de sócio",
+    "efeito": {
+     "caixa": 10,
+     "clientela": 5,
+     "folego": -10,
+     "seguranca": -4
+    },
+    "retorno": "A empresa dele traz obras maiores. Em troca, você deixa de ser MEI e passa a ter contador, impostos e ritmo de empresa."
+   },
+   "direita": {
+    "texto": "Ficar MEI e prestar serviço a ele",
+    "efeito": {
+     "caixa": -3,
+     "folego": 7,
+     "clientela": 3,
+     "seguranca": 4
+    },
+    "retorno": "Você segue dono do seu tempo e vende serviço para a empresa dele, sem ser sócio."
+   },
+   "historia": {
+    "texto": "Não pode optar pela sistemática do MEI quem tiver mais de um estabelecimento ou participar de outra empresa como titular, sócio ou administrador (art. 18-A, §4º da Lei Complementar 123/2006, redação da LC 188/2021).",
+    "fonte": {
+     "titulo": "Lei Complementar nº 123, de 14 de dezembro de 2006 (Estatuto da Microempresa), redação da LC 188/2021, art. 18-A, §4º",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Quando virar microempresa ou cooperativa",
+    "href": "/trilhas/mei-passo-a-passo/quando-virar-microempresa-ou-cooperativa"
+   }
+  },
+  {
+   "id": "el-aprendiz",
+   "fase": "ano-dois",
+   "titulo": "A aprendiz sem registro",
+   "personagem": "thais",
+   "texto": "Thaís quer aprender o ofício e pede para te acompanhar todos os dias. Ela sugere: \"Sem registro, só uma ajuda de custo\". Você precisa de mão de obra e ela precisa de renda.",
+   "esquerda": {
+    "texto": "Registrar e combinar a rotina",
+    "efeito": {
+     "caixa": -8,
+     "seguranca": 8,
+     "folego": 11,
+     "clientela": 3
+    },
+    "retorno": "Com vínculo claro, vocês fixam horário, função e quem a orienta. Ela aprende com segurança e você sabe o que deve."
+   },
+   "direita": {
+    "texto": "Combinar a ajuda de custo",
+    "efeito": {
+     "caixa": 6,
+     "seguranca": -6,
+     "clientela": -3,
+     "folego": 3
+    },
+    "retorno": "Todo dia, nos seus horários, no seu serviço: na prática vira emprego sem carteira. Se ela se machucar, a conversa muda."
+   },
+   "historia": {
+    "texto": "A CLT considera empregado toda pessoa física que presta serviços de natureza não eventual a empregador, sob a dependência dele e mediante salário (art. 3º). Rótulo como \"ajuda de custo\" não muda a realidade do trabalho.",
+    "fonte": {
+     "titulo": "Consolidação das Leis do Trabalho (Decreto-Lei nº 5.452/1943), art. 2º e 3º, art. 3º",
+     "autor": "Presidência da República",
+     "ano": "1943",
+     "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+    }
+   },
+   "aula": {
+    "titulo": "MEI ou emprego disfarçado",
+    "href": "/trilhas/mei-passo-a-passo/mei-ou-emprego-disfarcado"
+   }
+  },
+  {
+   "id": "el-fiofino",
+   "fase": "ano-dois",
+   "titulo": "O fio que o cliente comprou",
+   "personagem": "beto",
+   "texto": "Um cliente chega com o fio mais barato, que ele mesmo comprou, e pede para instalar no chuveiro: \"Está tudo no mesmo preço\". O fio parece fino para a potência.",
+   "esquerda": {
+    "texto": "Recusar esse fio",
+    "efeito": {
+     "seguranca": 10,
+     "caixa": -6,
+     "clientela": -4
+    },
+    "retorno": "Você explica que o fio fino esquenta e que o serviço leva o seu nome. Ele reclama, mas compra o fio certo."
+   },
+   "direita": {
+    "texto": "Instalar o fio dele",
+    "efeito": {
+     "caixa": 6,
+     "clientela": 4,
+     "seguranca": -12,
+     "folego": 3
+    },
+    "retorno": "O chuveiro funciona. Semanas depois, ele liga reclamando de cheiro de queimado.",
+    "proxima": "el-cheiro"
+   },
+   "historia": {
+    "texto": "O fornecedor de serviços responde, independentemente da existência de culpa, pela reparação dos danos causados aos consumidores por defeitos relativos à prestação dos serviços (art. 14 do Código de Defesa do Consumidor).",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), art. 14",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Fios e cabos: bitolas e cores",
+    "href": "/trilhas/instalacoes-eletricas-residenciais/fios-e-cabos-bitolas-e-cores"
+   }
+  },
+  {
+   "id": "el-cheiro",
+   "fase": "ano-dois",
+   "soEncadeada": true,
+   "titulo": "Cheiro de queimado",
+   "personagem": "beto",
+   "texto": "O cliente liga irritado: a capa do fio derreteu na parede. Ele quer que você pague o conserto e diz que vai falar com o Beto, que vendeu o fio.",
+   "esquerda": {
+    "texto": "Assumir e refazer tudo",
+    "efeito": {
+     "clientela": 6,
+     "caixa": -12,
+     "seguranca": 8,
+     "folego": -6
+    },
+    "retorno": "Você troca o fio, a parede é refeita e o cliente sai sem prejuízo. Você aprendeu a recusar o que não pode garantir."
+   },
+   "direita": {
+    "texto": "Jogar a culpa no Beto",
+    "efeito": {
+     "caixa": 4,
+     "clientela": -8,
+     "seguranca": -6
+    },
+    "retorno": "Beto e você trocam acusações. O cliente fica com a parede aberta e sem solução."
+   },
+   "historia": {
+    "texto": "Os fornecedores de produtos de consumo duráveis respondem solidariamente pelos vícios de qualidade que os tornem impróprios ou inadequados ao uso (art. 18 do Código de Defesa do Consumidor).",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), art. 18",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Curto-circuito e sobrecarga",
+    "href": "/trilhas/manutencao-e-diagnostico-eletrico/curto-circuito-e-sobrecarga"
+   }
+  },
+  {
+   "id": "el-cooperativa",
+   "fase": "ano-dois",
+   "titulo": "A cooperativa de eletricistas",
+   "personagem": "geraldo",
+   "texto": "Quatro eletricistas do bairro e um pedreiro propõem: montar uma cooperativa para pegar obras maiores sem patrão. Sozinhos, são seis ao todo, contando com você.",
+   "condicao": {
+    "partidas": 1
+   },
+   "esquerda": {
+    "texto": "Entrar e chamar mais um",
+    "efeito": {
+     "caixa": -4,
+     "clientela": 8,
+     "folego": 10,
+     "seguranca": 5
+    },
+    "retorno": "A cooperativa precisa de pessoas para existir, e vocês saem atrás de mais colegas. Cada um responde por parte do que é de todos."
+   },
+   "direita": {
+    "texto": "Seguir sozinho",
+    "efeito": {
+     "caixa": 4,
+     "folego": 9,
+     "clientela": -5,
+     "seguranca": -4
+    },
+    "retorno": "Você mantém a liberdade e perde a chance de obras que só quem tem equipe consegue pegar."
+   },
+   "historia": {
+    "texto": "A cooperativa de trabalho pode ser constituída com número mínimo de sete sócios (art. 6º da Lei 12.690/2012). Ela não pode ser usada para intermediar mão de obra subordinada (art. 5º).",
+    "fonte": {
+     "titulo": "Lei nº 12.690, de 19 de julho de 2012 (Cooperativas de Trabalho), arts. 5º e 6º",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Os pioneiros de Rochdale e os princípios do cooperativismo",
+    "href": "/trilhas/uberizacao-e-cooperativismo/os-pioneiros-de-rochdale-e-os-principios-do-cooperativismo"
+   }
+  },
+  {
+   "id": "el-nota",
+   "fase": "ano-dois",
+   "titulo": "A obra e o contrato",
+   "personagem": "marcos",
+   "texto": "Marcos aceita seu orçamento para uma reforma elétrica no prédio, mas depois contesta o valor: \"Eu entendi que era a metade\". A obra está parada.",
+   "condicao": {
+    "flags": [
+     "orcamento-escrito"
+    ]
+   },
+   "esquerda": {
+    "texto": "Mostrar o orçamento assinado",
+    "efeito": {
+     "clientela": 7,
+     "caixa": 8,
+     "folego": -3
+    },
+    "retorno": "O papel resolve: o que foi combinado está escrito, com validade e serviço. Marcos pede desculpa e paga."
+   },
+   "direita": {
+    "texto": "Dar um desconto para fechar",
+    "efeito": {
+     "caixa": -6,
+     "clientela": 4,
+     "folego": -3
+    },
+    "retorno": "A obra anda, mas você perde dinheiro e fica sem saber o que valia de fato o acordo."
+   },
+   "historia": {
+    "texto": "O fornecedor de serviço é obrigado a entregar ao consumidor orçamento prévio, e o valor orçado tem validade pelo prazo de dez dias contado do recebimento, salvo estipulação em contrário (art. 40 e §1º do Código de Defesa do Consumidor).",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), art. 40",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Orçamento, garantia e Código de Defesa do Consumidor",
+    "href": "/trilhas/conserto-de-celular/orcamento-garantia-e-codigo-de-defesa-do-consumidor"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "el-clientela-zero",
+   "tipo": "queda",
+   "medidor": "clientela",
+   "limite": "zero",
+   "titulo": "O telefone parou",
+   "texto": "Sem indicação, sem retorno e sem nota, o telefone deixa de tocar. Ofício bem feito também precisa de confiança, e confiança se constrói com combinado claro.",
+   "aula": {
+    "titulo": "Trabalhar como eletricista: orçamento, ética e segurança",
+    "href": "/trilhas/manutencao-e-diagnostico-eletrico/trabalhar-como-eletricista-orcamento-etica-e-seguranca"
+   }
+  },
+  {
+   "id": "el-clientela-cem",
+   "tipo": "queda",
+   "medidor": "clientela",
+   "limite": "cem",
+   "titulo": "Refém de poucos clientes",
+   "texto": "Meia dúzia de clientes ocupa toda a sua agenda e dita preço e horário. Quando um deles te troca, o mês inteiro some.",
+   "aula": {
+    "titulo": "Quando virar microempresa ou cooperativa",
+    "href": "/trilhas/mei-passo-a-passo/quando-virar-microempresa-ou-cooperativa"
+   }
+  },
+  {
+   "id": "el-seguranca-zero",
+   "tipo": "queda",
+   "medidor": "seguranca",
+   "limite": "zero",
+   "titulo": "O acidente",
+   "texto": "Uma gambiarra, uma pressa, um disjuntor religado. A segurança zerou e alguém levou o choque. Em eletricidade, o erro não costuma avisar antes.",
+   "aula": {
+    "titulo": "Choque elétrico: o que é e como evitar",
+    "href": "/trilhas/eletricidade-basica-e-seguranca/choque-eletrico-o-que-e-e-como-evitar"
+   }
+  },
+  {
+   "id": "el-seguranca-cem",
+   "tipo": "queda",
+   "medidor": "seguranca",
+   "limite": "cem",
+   "titulo": "Perfeição que não paga a conta",
+   "texto": "Você recusa quase tudo que não tem projeto completo, procedimento por escrito e três assinaturas. Cuidado demais virou trava, e os clientes procuram quem faça.",
+   "aula": {
+    "titulo": "O projeto elétrico de uma casa pequena",
+    "href": "/trilhas/instalacoes-eletricas-residenciais/o-projeto-eletrico-de-uma-casa-pequena"
+   }
+  },
+  {
+   "id": "el-caixa-zero",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "zero",
+   "titulo": "Sem material",
+   "texto": "O dinheiro acabou antes do mês. Sem material, as obras param e o cliente cobra o que você não consegue entregar.",
+   "aula": {
+    "titulo": "O DAS mensal: quanto e quando pagar",
+    "href": "/trilhas/mei-passo-a-passo/o-das-mensal-quanto-e-quando-pagar"
+   }
+  },
+  {
+   "id": "el-caixa-cem",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "cem",
+   "titulo": "Dinheiro parado",
+   "texto": "A caixa está cheia porque você parou de investir: nem curso, nem ferramenta, nem ajudante. Quem não renova a ferramenta fica para trás.",
+   "aula": {
+    "titulo": "Limite de faturamento: o que conta e o que fazer se passar",
+    "href": "/trilhas/mei-passo-a-passo/limite-de-faturamento-do-mei"
+   }
+  },
+  {
+   "id": "el-folego-zero",
+   "tipo": "queda",
+   "medidor": "folego",
+   "limite": "zero",
+   "titulo": "O corpo cobrou",
+   "texto": "Noites sem dormir, sábados de obra e escada demais. Cansado, você erra uma ligação simples e precisa parar por semanas.",
+   "aula": {
+    "titulo": "Estudar cansado: sono e descanso",
+    "href": "/trilhas/estudar-trabalhando/estudar-cansado-sono-e-descanso"
+   }
+  },
+  {
+   "id": "el-folego-cem",
+   "tipo": "queda",
+   "medidor": "folego",
+   "limite": "cem",
+   "titulo": "Tempo sobrando",
+   "texto": "Você descansou tanto que a agenda esvaziou. Folga não é problema, mas sem serviço o descanso vira preocupação.",
+   "aula": {
+    "titulo": "Nota fiscal e controle das vendas",
+    "href": "/trilhas/mei-passo-a-passo/nota-fiscal-e-controle-das-vendas"
+   }
+  },
+  {
+   "id": "el-fim-formada",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "fez-curso",
+     "mei"
+    ]
+   },
+   "titulo": "Ofício e responsabilidade",
+   "texto": "Você terminou os dois anos com curso feito, nota em dia e serviço combinado por escrito. Cada trabalho carrega o seu nome e a segurança de quem mora na casa.",
+   "aula": {
+    "titulo": "Segurança em eletricidade (NR-10) em linguagem simples",
+    "href": "/trilhas/eletricidade-basica-e-seguranca/seguranca-em-eletricidade-nr-10-em-linguagem-simples"
+   }
+  },
+  {
+   "id": "el-fim-mei",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "mei"
+    ]
+   },
+   "titulo": "Com nota e com pressa",
+   "texto": "Você formalizou o trabalho e ganhou clientes novos. Falta estudar mais para acompanhar o que o serviço pede, mas o caminho está aberto.",
+   "aula": {
+    "titulo": "Abrir o MEI no gov.br, passo a passo",
+    "href": "/trilhas/mei-passo-a-passo/abrir-o-mei-no-govbr"
+   }
+  },
+  {
+   "id": "el-fim-no-braco",
+   "tipo": "chegada",
+   "titulo": "No braço e na sorte",
+   "texto": "Dois anos de serviço bem-feito, aprendido no braço e pago em dinheiro. Funciona até o dia em que o cliente, a lei ou a instalação pedem papel, formação ou garantia.",
+   "aula": {
+    "titulo": "Trabalhar como eletricista: orçamento, ética e segurança",
+    "href": "/trilhas/manutencao-e-diagnostico-eletrico/trabalhar-como-eletricista-orcamento-etica-e-seguranca"
+   }
+  }
+ ]
+}

@@ -45,7 +45,7 @@ export const PREDIOS: readonly Predio[] = [
   },
   { id: "radio", tom: "radio", desenho: "predio-radio", secoes: ["/radio", "/podcasts", "/videos"], outras: [] },
   { id: "memorial", tom: "podcasts", desenho: "predio-memorial", secoes: ["/memorial", "/galeria", "/linha-do-tempo", "/dedicatoria"], outras: [] },
-  { id: "oficinas", tom: "labs", desenho: "predio-oficinas", secoes: ["/laboratorios", "/ferramentas", "/caderno"], outras: [] },
+  { id: "oficinas", tom: "labs", desenho: "predio-oficinas", secoes: ["/laboratorios", "/jogos", "/ferramentas", "/caderno"], outras: [] },
   {
     id: "praca",
     tom: "news",

@@ -2,6 +2,7 @@
 "use client";
 
 import { Aviso, dataHora, rotulo, useLista } from "./comum";
+import { PublicarAgora } from "./controles/PublicarAgora";
 
 interface Diagnostico {
   aprovadas: number;
@@ -49,6 +50,9 @@ export function Tecnico() {
   return (
     <div>
       <p className="max-w-3xl text-ink-soft">O que liga o banco ao site. Nenhum dado de pessoa aparece aqui. Pedidos de ajuda para o desenvolvimento chegam pelo Mural da equipe, no canal Pedidos de ajuda.</p>
+      <p className="mt-3">
+        <PublicarAgora explicar />
+      </p>
       <dl className="mt-4 divide-y divide-rule border-y border-rule">
         {linhas.map(([nome, valor, alerta, dica]) => (
           <div key={nome} className={`grid gap-1 py-3 sm:grid-cols-[18rem_minmax(0,1fr)] ${alerta ? "text-oxblood" : ""}`}>

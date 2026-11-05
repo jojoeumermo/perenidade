@@ -100,6 +100,14 @@ Há dois jeitos de ligar várias resistências.
 
 **Em paralelo**, cada uma num caminho próprio, todas ligadas aos mesmos dois pontos. Cada uma recebe a **tensão inteira** da rede e funciona sozinha. É assim que a casa é ligada: você apaga a luz da sala e a geladeira continua funcionando. Quanto mais aparelhos ligados em paralelo, **mais corrente total** passa pelo fio que alimenta todos eles.
 
+```simulador
+circuito
+# Mexa na conta de Ohm
+tensao 220
+disjuntor 32
+modo paralelo
+```
+
 ```verificar
 Num circuito de tomadas estão ligados, em paralelo, um aparelho que puxa 6 A e outro que puxa 4 A. Quanta corrente passa pelo fio que alimenta os dois?
 - 4 A

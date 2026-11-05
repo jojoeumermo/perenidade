@@ -47,30 +47,5 @@ export function MarcaNaAtividade({ className = "" }: { className?: string }) {
   );
 }
 
-/**
- * O letreiro: os temas do território passando sem parar, como faixa de evento. O texto vai duas vezes seguidas para o
- * giro não ter emenda; a segunda cópia fica escondida do leitor de tela. Para quem pede menos movimento (ou está no
- * modo leve), a faixa fica parada (globals.css, .letreiro).
- */
-export function Letreiro({ temas }: { temas: string[] }) {
-  const volta = (escondida: boolean) => (
-    <p aria-hidden={escondida || undefined} className="flex shrink-0 items-center">
-      {Array.from({ length: 3 }, () => temas)
-        .flat()
-        .map((tema, i) => (
-          <span key={i} className="flex items-center">
-            <span className="px-5">{tema}</span>
-            <span aria-hidden className="text-[#1f1a14]">✦</span>
-          </span>
-        ))}
-    </p>
-  );
-  return (
-    <div className="letreiro overflow-hidden border-y-2 border-[#1f1a14] bg-[#e01b22] py-3 text-white">
-      <div className="letreiro-trilho territorio-play flex w-max text-[1.375rem] font-black uppercase tracking-[0.06em] whitespace-nowrap">
-        {volta(false)}
-        {volta(true)}
-      </div>
-    </div>
-  );
-}
+/** O letreiro dos temas (marquee acessível, com pausa) agora mora em components/territorios/Letreiro.tsx. */
+export { Letreiro } from "@/components/territorios/Letreiro";

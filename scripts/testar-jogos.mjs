@@ -23,7 +23,7 @@ const arquivos = fs.readdirSync(path.join(raiz, "content/jogos")).filter((f) => 
 const ids = arquivos.map((f) => f.replace(/^rumos-|\.json$/g, ""));
 conferir("todo arquivo rumos-*.json está registrado em lib/laboratorios.ts", ids.every((id) => BARALHOS_DE_RUMOS.includes(id)), ids.join(", "));
 conferir("todo baralho registrado tem arquivo", BARALHOS_DE_RUMOS.every((id) => ids.includes(id)));
-const pagina = fs.readFileSync(path.join(raiz, "app/[lang]/laboratorios/jogos/page.tsx"), "utf8");
+const pagina = fs.readFileSync(path.join(raiz, "app/[lang]/jogos/page.tsx"), "utf8");
 for (const id of BARALHOS_DE_RUMOS) conferir(`a página de jogos importa o baralho ${id}`, pagina.includes(`@/content/jogos/rumos-${id}.json`) && pagina.includes(`"${id}":`));
 
 const baralhos = BARALHOS_DE_RUMOS.filter((id) => ids.includes(id)).map((id) => JSON.parse(fs.readFileSync(path.join(raiz, `content/jogos/rumos-${id}.json`), "utf8")));

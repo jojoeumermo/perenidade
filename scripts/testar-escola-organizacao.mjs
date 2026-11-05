@@ -391,8 +391,11 @@ const git = (...args) => {
     return null;
   }
 };
-const diffRecursos = git("diff", "--stat", "--", "lib/recursos.ts");
-conferir("lib/recursos.ts intocado", diffRecursos === null || diffRecursos.trim() === "");
+// Em E4-12 o lib/recursos.ts não podia mudar. Depois, o backend-1 acrescentou a decisão do painel (recursos vivos); o que
+// importa guardar é que a regra de antes continua igual: "todos" não liga os recursos que só ligam pelo nome, e o desligado vence.
+const recursosTs = ler("lib", "recursos.ts");
+conferir("lib/recursos.ts: escola, vale-o-escrito e rede-v2 seguem só pelo nome", recursosTs.includes('SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2"]'));
+conferir("lib/recursos.ts: a regra de lista explícita não mudou", recursosTs.includes('if (base.has("todos") && !SO_PELO_NOME.includes(recurso)) return true;') && recursosTs.includes('if (base.has(`-${recurso}`)) return false;'));
 const layout = ler("app", "[lang]", "escola", "layout.tsx");
 conferir("o layout da Escola continua com a flag", /ligado\(\s*["']escola["']\s*\)/.test(layout));
 const e2e = ler("e2e", "escola-organizacao.spec.ts");

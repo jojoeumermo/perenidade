@@ -8,6 +8,7 @@ import { can, type Me } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { CampoData } from "./Campos";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, dia, elo, rotulo, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 interface Item {
   id: string;
@@ -352,7 +353,7 @@ function PainelDoItem({ form, setForm, item, equipe, aprova, coordena, recarrega
             <p className="mt-4 flex flex-wrap gap-3">
               <button type="button" className={botao} disabled={acao.ocupado || form.titulo.trim().length < 3} onClick={() => void guardar()}>{form.id ? "Guardar" : "Criar a peça"}</button>
               <button type="button" className={botaoClaro} onClick={() => { try { window.sessionStorage.setItem("lucia:estudio-pedido", JSON.stringify({ titulo: form.titulo, legenda: form.legenda, formato: form.formato })); } catch { /* sem armazenamento */ } router.push("/pt/painel?aba=estudio"); }}>Criar arte no Estúdio de design</button>
-              {form.id && <button type="button" className={`${elo} text-oxblood`} disabled={acao.ocupado} onClick={async () => { if (window.confirm(`Apagar “${form.titulo}” do calendário? Não tem volta.`) && (await acao.agir("divulgacao_apagar", { p_id: form.id }, "Apagado."))) fechar(); }}>Apagar</button>}
+              {form.id && <button type="button" className={`${elo} text-oxblood`} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Apagar “${form.titulo}” do calendário? Não tem volta.`)) && (await acao.agir("divulgacao_apagar", { p_id: form.id }, "Apagado."))) fechar(); }}>Apagar</button>}
             </p>
             <Aviso texto={acao.aviso} />
             {item?.nota && <p className="mt-3 border-l-2 border-oxblood pl-3"><strong>{item.devolvido ? "Devolvido pela coordenação:" : "Nota da coordenação:"}</strong> {item.nota}</p>}
@@ -362,7 +363,7 @@ function PainelDoItem({ form, setForm, item, equipe, aprova, coordena, recarrega
                 <p className="mt-2 flex flex-wrap gap-3">
                   <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("divulgacao_comentar", { p_id: item.id, p_nota: nota, p_devolver: false }, "Nota guardada ✓")}>Guardar a nota</button>
                   {item.situacao !== "rascunho" && item.situacao !== "ideia" && (
-                    <button type="button" className={botaoClaro} disabled={acao.ocupado || nota.trim().length < 5} onClick={() => { if (window.confirm("Devolver para rascunho? Quem criou e quem mexeu por último recebem a nota.")) void acao.agir("divulgacao_comentar", { p_id: item.id, p_nota: nota, p_devolver: true }, "Devolvido para rascunho."); }}>Devolver para rascunho</button>
+                    <button type="button" className={botaoClaro} disabled={acao.ocupado || nota.trim().length < 5} onClick={async () => { if ((await confirmarFrase("Devolver para rascunho? Quem criou e quem mexeu por último recebem a nota."))) void acao.agir("divulgacao_comentar", { p_id: item.id, p_nota: nota, p_devolver: true }, "Devolvido para rascunho."); }}>Devolver para rascunho</button>
                   )}
                 </p>
               </div>

@@ -70,6 +70,7 @@ export function TermoDeVoluntario({ aceitou, sair }: { aceitou: () => void; sair
               )}
             </fieldset>
             <label className="mt-3 flex items-start gap-2"><input type="checkbox" checked={li} onChange={(e) => setLi(e.target.checked)} className="mt-1" />Li o termo inteiro e entendi que sou voluntário, sem remuneração nem vínculo de emprego.</label>
+            <p className="mt-3 text-sm text-ink-soft">Se você já tinha aceitado e o painel pede de novo, é porque o texto que você leu naquela vez não ficou guardado. Agora fica: leia e aceite mais uma vez, e nada do que você já fez muda.</p>
             <p className="mt-3 text-sm text-ink-soft">O aceite fica registrado com a data e o texto exato deste termo, e pode ser lido de novo em Minha conta › Privacidade.</p>
             {aviso && <p role="alert" className="mt-3 text-oxblood">{aviso}</p>}
             <p className="mt-5 flex flex-wrap gap-3">

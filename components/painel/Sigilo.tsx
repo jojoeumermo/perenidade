@@ -8,6 +8,7 @@ import { desempacotar } from "@/lib/mensagem";
 import { chaveDeRecuperacaoValida, codigoDeSeguranca, codigoEmGrupos, lerQrDaSeguranca, lerQrDoPedido, novaChaveDeRecuperacao, qrDaSeguranca, qrDoPedido } from "@/lib/sigilo";
 import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoErro, useLista } from "./comum";
 import { Formatado } from "./Formatado";
+import { confirmarFrase } from "./ui";
 
 /** O texto cifrado precisa caber no banco (4000 caracteres); acento e emoji ocupam mais do que uma letra simples. */
 export const LIMITE_CIFRADO = 12000;
@@ -332,7 +333,7 @@ export function Aparelhos({ chaveiro }: { chaveiro: Chaveiro }) {
   }, [recarregar]);
 
   async function remover(aparelho: Aparelho) {
-    if (!window.confirm(`Remover "${aparelho.rotulo || "aparelho sem nome"}"? Ele deixa de abrir as conversas, e as conversas trocam de chave.`)) return;
+    if (!(await confirmarFrase(`Remover "${aparelho.rotulo || "aparelho sem nome"}"? Ele deixa de abrir as conversas, e as conversas trocam de chave.`))) return;
     setAviso("");
     try {
       await rpc("chat_aparelho_remover", { p_id: aparelho.id });

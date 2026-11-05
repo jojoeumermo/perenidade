@@ -6,6 +6,7 @@ import { rpc, verifyAssistant, verifyModeration } from "@/lib/backend";
 import { KEYS, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, textoDoErro, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 export interface Controles {
   faixa: string;
@@ -191,8 +192,8 @@ function Formulario({ inicial, recarregar, aviso, setAviso, mudancas }: { inicia
             type="button"
             className={`mt-3 ${inicial.cadastro === false ? botao : botaoClaro}`}
             disabled={ocupado}
-            onClick={() => {
-              if (inicial.cadastro !== false && !window.confirm("Fechar o cadastro? A partir de agora só entra quem receber convite. Quem já tem conta continua entrando.")) return;
+            onClick={async () => {
+              if (inicial.cadastro !== false && !(await confirmarFrase("Fechar o cadastro? A partir de agora só entra quem receber convite. Quem já tem conta continua entrando."))) return;
               void salvar({ faixa: inicial.faixa, pausa: inicial.pausa, motivo: inicial.motivo, cadastro: inicial.cadastro === false }, inicial.cadastro === false ? "Cadastro reaberto ✓" : "Cadastro fechado: só por convite.");
             }}
           >
@@ -239,7 +240,7 @@ function Formulario({ inicial, recarregar, aviso, setAviso, mudancas }: { inicia
                 <button type="button" className={botaoClaro} disabled={ocupado || motivo.trim() === inicial.motivo} onClick={() => salvar({ faixa: inicial.faixa, pausa: true, motivo }, "Recado trocado ✓")}>Trocar o recado</button>
               </>
             ) : (
-              <button type="button" className="painel-botao cursor-pointer bg-oxblood px-5 py-2.5 font-semibold text-parchment disabled:cursor-not-allowed disabled:opacity-50" disabled={ocupado} onClick={() => { if (window.confirm("Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Comunidade, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.")) void salvar({ faixa: inicial.faixa, pausa: true, motivo }, "Envios pausados."); }}>
+              <button type="button" className="painel-botao cursor-pointer bg-oxblood px-5 py-2.5 font-semibold text-parchment disabled:cursor-not-allowed disabled:opacity-50" disabled={ocupado} onClick={async () => { if ((await confirmarFrase("Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Comunidade, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir."))) void salvar({ faixa: inicial.faixa, pausa: true, motivo }, "Envios pausados."); }}>
                 Pausar os envios
               </button>
             )}
@@ -289,7 +290,7 @@ function ModeracaoCartao({ mudanca }: { mudanca?: { nome: string; em: string } }
   if (!m) return null;
 
   async function trocar(ligar: boolean) {
-    if (ligar && !window.confirm("Ligar o modo de segurança? Toda conversa e resposta nova na Comunidade passa a esperar leitura humana antes de aparecer.")) return;
+    if (ligar && !(await confirmarFrase("Ligar o modo de segurança? Toda conversa e resposta nova na Comunidade passa a esperar leitura humana antes de aparecer."))) return;
     setOcupado(true);
     setAviso("");
     try {
@@ -405,9 +406,9 @@ function AssistenteDeReforco({ mudanca }: { mudanca?: { nome: string; em: string
           type="button"
           className={a.ligado ? botaoClaro : botao}
           disabled={ocupado}
-          onClick={() => {
-            if (a.ligado && !window.confirm("Desligar o assistente? O quadro some do site e as dúvidas voltam a ir só para os voluntários.")) return;
-            if (!a.ligado && !window.confirm("Ligar o assistente? Provedores pagos (como o Claude) cobram por pergunta; os gratuitos têm limites por dia.")) return;
+          onClick={async () => {
+            if (a.ligado && !(await confirmarFrase("Desligar o assistente? O quadro some do site e as dúvidas voltam a ir só para os voluntários."))) return;
+            if (!a.ligado && !(await confirmarFrase("Ligar o assistente? Provedores pagos (como o Claude) cobram por pergunta; os gratuitos têm limites por dia."))) return;
             void salvar({ ligado: !a.ligado }, a.ligado ? "Assistente desligado." : "Assistente ligado. Faça o teste abaixo.");
           }}
         >
@@ -491,7 +492,7 @@ function ControlesDoChat({ mudanca }: { mudanca?: { nome: string; em: string } }
               {!c.fechado && (
                 <label className="mt-2 block text-xs">Motivo (aparece para a equipe, opcional)<input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} className={campo} /></label>
               )}
-              <button type="button" className={`mt-3 ${c.fechado ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={() => { if (!c.fechado && !window.confirm("Fechar todas as conversas da equipe? Ninguém (fora a liderança) escreve até reabrir.")) return; void salvar(c.fechado ? { fechado: false, motivo: "" } : { fechado: true, motivo }, c.fechado ? "Conversas reabertas ✓" : "Conversas fechadas."); }}>
+              <button type="button" className={`mt-3 ${c.fechado ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={async () => { if (!c.fechado && !(await confirmarFrase("Fechar todas as conversas da equipe? Ninguém (fora a liderança) escreve até reabrir."))) return; void salvar(c.fechado ? { fechado: false, motivo: "" } : { fechado: true, motivo }, c.fechado ? "Conversas reabertas ✓" : "Conversas fechadas."); }}>
                 {c.fechado ? "Reabrir as conversas" : "Fechar todas as conversas"}
               </button>
             </div>

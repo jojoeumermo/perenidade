@@ -18,6 +18,7 @@ import {
 import { type Fonte, ROTULO_SITUACAO, SITUACOES, type Situacao, TIPOS_DE_FONTE } from "@/lib/vale-o-escrito/tipos";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, rotulo, textoDoErro, useLista } from "./comum";
 import { EditorDeEntrada, NOME_DO_DOSSIE, pedirArquivo } from "./ValeOEscritoEditor";
+import { confirmarFrase } from "./ui";
 
 // O painel existe só em português. Função "Vale o Escrito: curadoria" (docs/vale-o-escrito/ESPEC.md): fila de sugestões
 // do robô e envios do público, entrada manual, entradas publicadas (atualizar situação, refazer arquivo, retirar) e
@@ -221,7 +222,7 @@ function FichaPublicada({ linha, voltar, depois }: { linha: LinhaPublicada; volt
         setAviso("Falta coisa. Nada foi enviado.");
         return;
       }
-      if (!window.confirm(`Mudar a situação de “${doc.titulo}” de ${ROTULO_SITUACAO[doc.situacao]} para ${ROTULO_SITUACAO[nova]}? A ficha mostra a mudança, com a fonte, na hora.`)) return;
+      if (!(await confirmarFrase(`Mudar a situação de “${doc.titulo}” de ${ROTULO_SITUACAO[doc.situacao]} para ${ROTULO_SITUACAO[nova]}? A ficha mostra a mudança, com a fonte, na hora.`))) return;
       setAviso("Arquivando a fonte nova no Internet Archive…");
       const r = await pedirArquivo(base.url);
       const comArquivo: Fonte = r.arquivoUrl ? { ...base, arquivoUrl: r.arquivoUrl } : { ...base, arquivoFalhou: true };
@@ -255,7 +256,7 @@ function FichaPublicada({ linha, voltar, depois }: { linha: LinhaPublicada; volt
         setAviso("Diga o motivo (3 letras ou mais): correção procedente, ordem judicial…");
         return;
       }
-      if (!window.confirm(`Tirar “${doc.titulo}” do ar? Ela não é apagada: fica no banco e no histórico.`)) return;
+      if (!(await confirmarFrase(`Tirar “${doc.titulo}” do ar? Ela não é apagada: fica no banco e no histórico.`))) return;
       await rpc("vale_entrada_retirar", { p_id: linha.id, p_motivo: motivo.trim() });
       depois();
       voltar();
@@ -381,14 +382,14 @@ function Pedido({ c, hoje, depois }: { c: ItemDeCorrecao; hoje: string; depois: 
   const recusar = () =>
     rodar(async () => {
       if (nota.trim().length < 5) return setAviso("Diga o motivo da recusa na nota (5 letras ou mais): quem pediu tem direito a uma resposta.");
-      if (!window.confirm("Recusar este pedido?")) return;
+      if (!(await confirmarFrase("Recusar este pedido?"))) return;
       await rpc("vale_correcao_decidir", { p_id: c.id, p_estado: "recusada", p_resposta: "", p_nota: nota.trim() });
     });
   const aceitar = () =>
     rodar(async () => {
       const publica = c.tipo !== "remocao_de_dado";
       if (publica && resposta.trim().length < 10) return setAviso("Escreva a resposta ou a retificação que vai ao lado da ficha (10 letras ou mais).");
-      if (!window.confirm(publica ? "Aceitar e publicar esta resposta ao lado da ficha?" : "Aceitar o pedido? Depois, retire ou corrija a entrada em Publicadas.")) return;
+      if (!(await confirmarFrase(publica ? "Aceitar e publicar esta resposta ao lado da ficha?" : "Aceitar o pedido? Depois, retire ou corrija a entrada em Publicadas."))) return;
       if (publica) {
         // A resposta vai para a ficha (o documento é o que o público lê); a nota interna fica só no banco.
         const data = await rpc<{ doc: unknown } | null>("vale_publicada", { p_id: c.entrada });

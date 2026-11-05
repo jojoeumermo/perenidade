@@ -14,6 +14,7 @@ import { Avatar } from "./Avatar";
 import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, localDoPainel, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { Formatado } from "./Formatado";
 import { AparelhoPendente, ComoFunciona, enviarCifrado, SEM_CHAVE, useAbertos, useChaveiro } from "./Sigilo";
+import { confirmarFrase } from "./ui";
 
 type Etiqueta = "duvida" | "ideia" | "aviso" | "conquista" | "material" | "debate";
 
@@ -86,9 +87,9 @@ const comunidades: Record<string, { nome: string; sobre: string }> = {
   traducao: { nome: "Tradução", sobre: "O canal de quem traduz." },
   jornalismo: { nome: "Comunicação", sobre: "O canal do Departamento de Comunicação: jornal, rádio, podcast e marketing." },
   mentoria: { nome: "Reforço", sobre: "O canal de quem dá reforço escolar." },
-  design: { nome: "Design", sobre: "O canal de quem desenha as artes e as páginas." },
+  design: { nome: "Arte e design (Comunicação)", sobre: "O canal de quem faz as artes, hoje dentro da Comunicação. As conversas de antes continuam aqui." },
   marketing: { nome: "Comunicação · Marketing", sobre: "O canal de quem divulga o instituto, dentro do Departamento de Comunicação." },
-  desenvolvimento: { nome: "Desenvolvimento", sobre: "O canal de quem programa o site." },
+  desenvolvimento: { nome: "UI/UX e Desenvolvimento", sobre: "O canal de quem desenha as telas e programa o site." },
 };
 
 const etiquetas: Record<Etiqueta, { nome: string; estilo: string }> = {
@@ -108,7 +109,7 @@ const ordens: { id: Ordem; nome: string }[] = [
   { id: "abertas", nome: "Sem resposta" },
 ];
 
-const funcoes: Role["papel"][] = ["design", "marketing", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "supervisao", "coordenacao"];
+const funcoes: Role["papel"][] = ["marketing", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "supervisao", "coordenacao"];
 /** O texto cifrado ocupa mais espaço do que o aberto: este limite garante que ele cabe no banco. */
 const MAXIMO = 2000;
 /** O título é a primeira linha; uma primeira linha maior que isto é parágrafo (das publicações de antes do título). */
@@ -378,7 +379,7 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
   }
 
   async function apagarTudo() {
-    if (!window.confirm("Apagar agora todas as conversas da equipe, de todos os canais? Isso não tem volta.")) return;
+    if (!(await confirmarFrase("Apagar agora todas as conversas da equipe, de todos os canais? Isso não tem volta."))) return;
     try {
       const resposta = await rpc<{ apagadas: number }>("equipe_apagar_tudo");
       setAviso(`Tudo apagado (${resposta.apagadas} mensagens).`);
@@ -390,8 +391,8 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
 
   const acoes: Acoes = {
     apoiar: (id, apoiar) => void acao.agir("equipe_apoiar", { p_id: id, p_apoiar: apoiar }, ""),
-    apagar: (id, publicacao) => {
-      if (!window.confirm(publicacao ? "Apagar esta publicação e os comentários dela?" : "Apagar este comentário e as respostas a ele?")) return;
+    apagar: async (id, publicacao) => {
+      if (!(await confirmarFrase(publicacao ? "Apagar esta publicação e os comentários dela?" : "Apagar este comentário e as respostas a ele?"))) return;
       void acao.agir("equipe_apagar", { p_id: id }, publicacao ? "Publicação apagada." : "Comentário apagado.");
     },
     resolver: (recado) => void acao.agir("equipe_marcar", { p_id: recado.id, p_resolvido: !recado.resolvido }, ""),
@@ -651,7 +652,7 @@ function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, pub
   const [titulo, setTitulo] = useState(tituloInicial);
   const [texto, setTexto] = useState("");
   const [etiqueta, setEtiqueta] = useState<Etiqueta | null>(null);
-  const [para, setPara] = useState<Role["papel"]>("design");
+  const [para, setPara] = useState<Role["papel"]>("marketing");
   const [enviando, setEnviando] = useState(false);
   const corpo = texto.trim() ? `${titulo.trim()}\n\n${texto.trim()}` : titulo.trim();
   const pedido = canal === "pedidos";

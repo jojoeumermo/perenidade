@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "titulo": "Jeux",
+    "descricao": "Mots croisés, mots mêlés, sudoku, pendu, memory, morpion avec questions et dictée faits avec le glossaire et les cours ; jeux musicaux pour enfants ; et les jeux de formation (Rumos, Grève !). Sans points, sans classement, sans compte."
+  },
+  "pagina": {
+    "rotulo": "Jouer, c'est aussi étudier",
+    "lead": "Des jeux pour s'exercer avec les mots des cours, pour jouer avec la musique et pour choisir des chemins dans l'histoire. Aucun n'a de points, de classement ni de série de jours : quand c'est fini, c'est fini. Rien de ce que vous faites ici ne quitte votre appareil.",
+    "irTreino": "Entraînement aux mots",
+    "irCriancas": "Musique pour enfants",
+    "irFormacao": "Jeux de formation",
+    "aviso": "Les jeux de mots utilisent le glossaire de l'institut, qui est en portugais.",
+    "irProprios": "Jeux de l'Institut"
+  },
+  "treino": {
+    "titulo": "Entraînement aux mots",
+    "lead": "Générés à la volée avec les termes du glossaire et les cours où ils apparaissent. Chaque partie est nouvelle.",
+    "escolha": "Choisissez un jeu",
+    "jogos": {
+      "cruzadas": {
+        "nome": "Mots croisés",
+        "texto": "Les définitions sont celles du glossaire."
+      },
+      "caca": {
+        "nome": "Mots mêlés",
+        "texto": "Trouvez les termes cachés dans la grille."
+      },
+      "sudoku": {
+        "nome": "Sudoku",
+        "texto": "Des nombres sans répétition, en 4x4, 6x6 ou 9x9."
+      },
+      "forca": {
+        "nome": "Pendu de la fleur",
+        "texto": "Devinez le terme avant que la fleur perde ses pétales."
+      },
+      "memoria": {
+        "nome": "Jeu de mémoire",
+        "texto": "Associez chaque terme à sa définition."
+      },
+      "quebra": {
+        "nome": "Casse-tête de mots",
+        "texto": "Mettez les lettres ou les mots dans l'ordre."
+      },
+      "velha": {
+        "nome": "Morpion avec questions",
+        "texto": "Pour marquer une case, répondez à la question."
+      },
+      "ditado": {
+        "nome": "Dictée",
+        "texto": "Le navigateur parle, vous écrivez."
+      }
+    },
+    "voltar": "Retour aux jeux"
+  },
+  "comum": {
+    "novo": "Nouvelle partie",
+    "conferir": "Vérifier",
+    "dica": "Indice",
+    "mostrar": "Montrer la réponse",
+    "proxima": "Suivant",
+    "limpar": "Effacer tout",
+    "apagar": "Effacer",
+    "certo": "Juste !",
+    "errado": "Pas encore.",
+    "terminou": "Terminé ! Si vous voulez, recommencez.",
+    "aula": "Voir le cours",
+    "facil": "Facile",
+    "medio": "Moyen",
+    "tamanho": "Taille",
+    "dificuldade": "Difficulté",
+    "semPontos": "Sans points : c'est pour s'entraîner."
+  },
+  "cruzadas": {
+    "instrucao": "Tapez les lettres dans les cases. Les flèches changent de case ; la touche Tab change de mot.",
+    "horizontais": "Horizontalement",
+    "verticais": "Verticalement",
+    "casa": "Ligne {r}, colonne {c}",
+    "numero": "mot numéro {n}",
+    "faltam": "Il reste des cases fausses ou vides. Les fausses sont marquées.",
+    "completo": "Mots croisés terminés !",
+    "semPalavras": "Impossible de construire la grille maintenant. Essayez une nouvelle partie."
+  },
+  "caca": {
+    "instrucao": "Touchez la première lettre puis la dernière de chaque mot. Au clavier, utilisez les flèches et Entrée.",
+    "palavras": "Mots à trouver",
+    "achadas": "{n} sur {total} trouvés",
+    "achou": "Vous avez trouvé {palavra} !",
+    "inicio": "Début marqué en {r}, {c}. Choisissez la dernière lettre.",
+    "tentou": "Cette ligne n'est pas un des mots.",
+    "celula": "Ligne {r}, colonne {c}, lettre {l}"
+  },
+  "sudoku": {
+    "instrucao": "Chaque ligne, colonne et bloc contient chaque nombre une seule fois. Choisissez une case et un nombre.",
+    "numeros": "Nombres",
+    "apagarCasa": "Effacer la case",
+    "casa": "Ligne {r}, colonne {c}",
+    "vazia": "vide",
+    "dada": "donnée",
+    "conflito": "répété",
+    "repetidos": "Des nombres se répètent ; ils sont marqués.",
+    "tudoCerto": "Jusqu'ici, tout est bon.",
+    "resolvido": "Sudoku résolu !",
+    "dicaFeita": "Une case a été remplie pour vous."
+  },
+  "forca": {
+    "instrucao": "Choisissez des lettres. Chaque erreur fait tomber un pétale de la fleur ; elle en a 6.",
+    "dicaTitulo": "Indice",
+    "erros": "Erreurs : {n} sur {max}",
+    "letra": "Lettre {l}",
+    "usada": "déjà utilisée",
+    "ganhou": "La fleur tient bon ! Le terme est {termo}.",
+    "perdeu": "La fleur a perdu ses pétales. Le terme était {termo}.",
+    "palavra": "Mot : {estado}"
+  },
+  "memoria": {
+    "instrucao": "Retournez deux cartes : un terme et sa définition forment une paire.",
+    "pares": "Paires",
+    "carta": "Carte {n}",
+    "virada": "face cachée",
+    "par": "paire déjà formée",
+    "achados": "{n} paires sur {total}",
+    "completo": "Toutes les paires sont trouvées !"
+  },
+  "quebra": {
+    "letras": "Lettres",
+    "frase": "Phrase",
+    "modo": "Mode",
+    "instrucaoLetras": "Mettez les lettres dans l'ordre pour former le terme. Indice : la définition, avec le terme caché.",
+    "instrucaoFrase": "Mettez les mots dans l'ordre pour former la définition du terme.",
+    "montagem": "Votre assemblage",
+    "pecas": "Pièces",
+    "vazia": "(vide)",
+    "dicaDe": "Définition",
+    "termoDe": "Terme",
+    "certo": "C'est juste !",
+    "errado": "Ce n'est pas encore le bon ordre."
+  },
+  "velha": {
+    "instrucao": "Pour marquer une case, répondez à la question. Raté : le tour passe.",
+    "modo": "Contre",
+    "computador": "l'ordinateur",
+    "dois": "une autre personne",
+    "casa": "Case {n}",
+    "livre": "libre",
+    "pergunta": "Quel terme est défini ainsi ?",
+    "vezDe": "Tour de {marca}",
+    "ganhou": "{marca} a fait une ligne !",
+    "empate": "Match nul : personne n'a fait de ligne.",
+    "acertou": "Juste ! La case est à vous.",
+    "errou": "Pas cette fois. Le terme était {termo}.",
+    "pensando": "L'ordinateur a marqué la case {n}.",
+    "cancelar": "Choisir une autre case"
+  },
+  "ditado": {
+    "instrucao": "Cliquez sur Écouter, écrivez ce que vous avez entendu et vérifiez. La voix est celle de votre navigateur.",
+    "palavras": "Mots",
+    "frases": "Phrases",
+    "modo": "Type",
+    "ouvir": "Écouter",
+    "devagar": "Écouter lentement",
+    "campo": "Ce que vous avez entendu",
+    "semVoz": "Cet appareil n'a pas de voix pour lire à haute voix. Vous pouvez voir le texte et le recopier à la main.",
+    "verTexto": "Voir le texte",
+    "certo": "Juste, sans faute !",
+    "acento": "Presque : les lettres sont bonnes, vérifiez accents ou ponctuation. La bonne réponse : {certa}",
+    "errado": "Pas encore. La bonne réponse : {certa}",
+    "proximo": "Dictée suivante"
+  },
+  "criancas": {
+    "titulo": "Musique et sons pour enfants",
+    "lead": "Des sons produits sur l'appareil lui-même, rien à télécharger. Sans points, sans chrono et sans échec : si la mélodie est différente, on l'écoute à nouveau. Mieux avec un adulte à côté.",
+    "escolha": "Choisissez une activité",
+    "somLigado": "Son activé",
+    "somMudo": "Son coupé",
+    "semAudio": "Cet appareil ne peut pas jouer les sons du jeu.",
+    "ver": "Voir l'espace des enfants",
+    "jogos": {
+      "piano": {
+        "nome": "Piano des animaux",
+        "texto": "Touchez les touches colorées et écoutez."
+      },
+      "melodia": {
+        "nome": "Répétez la mélodie",
+        "texto": "Écoutez les notes et jouez-les dans le même ordre."
+      },
+      "bateria": {
+        "nome": "Batterie de casseroles",
+        "texto": "Frappez les tambours ou écoutez un rythme prêt."
+      },
+      "iguais": {
+        "nome": "Quel son est pareil ?",
+        "texto": "Trouvez les paires de sons identiques."
+      },
+      "altoBaixo": {
+        "nome": "Aigu ou grave ?",
+        "texto": "Écoutez deux sons et dites lequel est le plus aigu."
+      }
+    },
+    "tecla": "Touche {nome}",
+    "ouvir": "Écouter la mélodie",
+    "ouvindo": "Écoutez bien...",
+    "suaVez": "À vous !",
+    "rodada": "Manche {i} sur {n}",
+    "denovo": "Presque ! On l'écoute encore.",
+    "muitoBem": "Bravo ! Vous avez joué toute la mélodie.",
+    "fimMelodia": "Assez de mélodies pour l'instant. Une autre activité ?",
+    "comecar": "Commencer",
+    "proximaRodada": "Manche suivante",
+    "ritmo": "Jouer le rythme prêt",
+    "parar": "Arrêter",
+    "batida": "Tambour {nome}",
+    "cartaSom": "Carte {n}",
+    "paresAchados": "{n} paires sur {total}",
+    "iguaisCompleto": "Vous avez trouvé toutes les paires !",
+    "doisSons": "Touchez pour entendre les deux sons.",
+    "ouvirDois": "Écouter les deux sons",
+    "primeiro": "Le premier était plus aigu",
+    "segundo": "Le second était plus aigu",
+    "agudoCerto": "Oui ! Le son le plus aigu est le plus fin.",
+    "agudoErrado": "Pas cette fois. Écoutez encore et comparez.",
+    "outraVez": "Une autre paire de sons"
+  },
+  "proprios": {
+    "titulo": "Jeux de l'Institut",
+    "lead": "Seize jeux faits par l'institut lui-même, sur le travail, les droits, l'argent public, les fausses nouvelles, la ville, la santé, l'électricité, la couture et l'informatique. Chacun a ses sources et se termine : pas de points cumulés ni de série de jours.",
+    "escolha": "Choisissez un jeu",
+    "voltar": "Retour aux jeux",
+    "minutos": "{n} min",
+    "publico": {
+      "todos": "pour tous",
+      "adultos": "adultes",
+      "jovens": "jeunes",
+      "criancas": "enfants"
+    },
+    "aviso": "Ces jeux existent seulement en portugais."
+  }
+}

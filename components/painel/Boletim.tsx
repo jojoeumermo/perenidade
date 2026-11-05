@@ -6,6 +6,7 @@ import { rpc } from "@/lib/backend";
 import { site } from "@/lib/site";
 import { boletim as desenhoDoBoletim, textoDosBlocos } from "@/supabase/functions/_shared/emails.mjs";
 import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 type Aba = "nova" | "edicoes" | "lista" | "envio";
 type TipoDeBloco = "titulo" | "paragrafo" | "imagem" | "botao" | "materia" | "acervo";
@@ -190,7 +191,7 @@ function Editor({ inicial, destinatarios, depois, fechar }: { inicial: Edicao | 
   async function enviar() {
     const atual = sujo || !id ? await salvar(true) : id;
     if (!atual) return;
-    if (!window.confirm(`Enviar “${assunto.trim()}” para ${destinatarios} endereço(s)? Cada um recebe sozinho, com o link para sair. Não dá para desfazer.`)) return;
+    if (!(await confirmarFrase(`Enviar “${assunto.trim()}” para ${destinatarios} endereço(s)? Cada um recebe sozinho, com o link para sair. Não dá para desfazer.`))) return;
     try {
       const r = await rpc<{ emails: number }>("boletim_edicao_enviar", { p_id: atual });
       setAviso(`Edição na fila: ${r.emails} e-mail(s). Saem em até dez minutos. Ela foi para o histórico.`);
@@ -346,7 +347,7 @@ function Edicoes({ edicoes, erro, recarregar, abrir }: { edicoes: Edicao[] | nul
                 </span>
                 <span className="flex gap-3 text-sm">
                   <button type="button" className={elo} onClick={() => abrir(e)}>Abrir</button>
-                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm(`Apagar o rascunho “${e.assunto || "sem assunto"}”?`)) void acao.agir("boletim_edicao_apagar", { p_id: e.id }, "Rascunho apagado."); }}>Apagar</button>
+                  <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Apagar o rascunho “${e.assunto || "sem assunto"}”?`))) void acao.agir("boletim_edicao_apagar", { p_id: e.id }, "Rascunho apagado."); }}>Apagar</button>
                 </span>
               </li>
             ))}
@@ -417,7 +418,7 @@ function Lista({ dados, erro, recarregar }: { dados: Inscrito[] | null; erro: st
             </span>
             <span className="flex gap-3 text-sm">
               {item.pausado && <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("boletim_reativar", { p_email: item.email }, "Endereço reativado.")}>Reativar</button>}
-              <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm(`Retirar ${item.email} da lista?`)) void acao.agir("boletim_remover", { p_email: item.email }, "Endereço retirado."); }}>Retirar</button>
+              <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Retirar ${item.email} da lista?`))) void acao.agir("boletim_remover", { p_email: item.email }, "Endereço retirado."); }}>Retirar</button>
             </span>
           </li>
         ))}

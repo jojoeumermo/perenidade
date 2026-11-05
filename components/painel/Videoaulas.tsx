@@ -29,6 +29,7 @@ import { useTrackOptions } from "../useTrackOptions";
 import { playerPt, VideoPlayer } from "../VideoPlayer";
 import { Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
 import { fontesPt } from "./Escrever";
+import { confirmarFrase } from "./ui";
 
 interface Videoaula {
   id: string;
@@ -758,7 +759,7 @@ function Minhas({ lista, erro, recarregar, gravar }: { lista: Videoaula[] | null
                   className={`${elo} mt-2 text-sm text-ink-soft`}
                   disabled={acao.ocupado}
                   onClick={async () => {
-                    if (!window.confirm("Apagar esta aula em vídeo? O arquivo também é apagado.")) return;
+                    if (!(await confirmarFrase("Apagar esta aula em vídeo? O arquivo também é apagado."))) return;
                     const resposta = (await acao.agir("videoaula_apagar", { p_id: aula.id }, "Aula apagada.")) as { caminho?: string } | null;
                     if (resposta?.caminho) await apagarVideo(resposta.caminho).catch(() => undefined);
                   }}

@@ -550,32 +550,7 @@
       "minutos": "{n} min"
     },
     "tri": {
-      "titulo": "IRT lab",
-      "lead": "Why, in the Enem, can two people with the same number of correct answers get different scores? Change the answers and watch the Item Response Theory (IRT) model at work.",
-      "oficial": "In the Enem, the score for the multiple-choice tests is calculated",
-      "aviso": "This does NOT calculate your Enem score. The items here are made up for illustration, and Inep's scale, parameters and method are different.",
-      "preveja": "Predict",
-      "prevejaTexto": "Two people got 5 out of 10 right. One got the 5 easiest; the other, the 5 hardest. Who do you think the model ranks higher? Pick an example and check.",
-      "coerente": "Got the 5 easy ones right",
-      "incoerente": "Got the 5 hard ones right",
-      "alternado": "Got every other one right",
-      "rode": "Run",
-      "marque": "Mark the items the person got right",
-      "item": "Item",
-      "dificuldade": "Difficulty (b)",
-      "acertou": "Correct",
-      "acertouItem": "Got item {n} right",
-      "chance": "Chance of getting it right with θ = {t}",
-      "resultado": "{n} correct. Estimated proficiency: θ = {t}",
-      "compare": "Compare",
-      "explicacoes": [
-        "Someone who gets the easy ones right and the hard ones wrong has a pattern the model finds likely: the estimate comes out higher.",
-        "Someone who gets only the hard ones right has a pattern that is unlikely at any level; the model attributes many of those correct answers to chance (the c parameter).",
-        "That is why it pays to do the easy questions well and, on the ones left over, guess wisely: a wrong answer does not cost points, but a lucky guess counts for little.",
-        "The c parameter is the chance of getting it right without knowing; here it is 0.2, close to 1 in 5 options."
-      ],
-      "formula": "P(correct) = c + (1 − c) ÷ (1 + e^(−a·(θ − b))), with a = 1.5 and c = 0.2 for all ten items.",
-      "aula": "The lesson on IRT"
+      "titulo": "IRT lab"
     },
     "sisu": {
       "titulo": "Sisu weighted average",

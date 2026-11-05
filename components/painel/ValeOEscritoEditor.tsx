@@ -29,6 +29,7 @@ import {
   TIPOS_DE_ORGANIZACAO,
 } from "@/lib/vale-o-escrito/tipos";
 import { botao, botaoClaro, campo, rotulo, textoDoErro } from "./comum";
+import { confirmar, confirmarFrase } from "./ui";
 
 // O painel existe só em português. Nomes das listas do modelo (lib/vale-o-escrito/tipos.ts) para a curadoria ler.
 
@@ -248,7 +249,7 @@ export function EditorDeEntrada({ item, inicial, irmaos, fechar, depois }: { ite
         return;
       }
       const resumo =`${d.titulo}\nSituação jurídica: ${ROTULO_SITUACAO[d.situacao]}. Confiança: ${NOME_DA_CONFIANCA[d.confianca]}.\n${d.fontes.length} fonte(s); ${d.pessoas.length} pessoa(s).\n\nAprovar publica a ficha para todo mundo, com a curadoria anônima, e pede o arquivo de cada fonte no Internet Archive. Confirmar?`;
-      if (!window.confirm(resumo)) return;
+      if (!(await confirmar({ titulo: "Aprovar e publicar esta ficha?", texto: resumo.replace(/\s*Confirmar\?$/, ""), confirmar: "Aprovar" }))) return;
       // O Internet Archive primeiro: sem cópia (ou sem a marca de falha) a entrada não passa nas regras.
       const fontes = [...d.fontes];
       const falhas: string[] = [];
@@ -283,7 +284,7 @@ export function EditorDeEntrada({ item, inicial, irmaos, fechar, depois }: { ite
         setAviso(decisao === "recusar" ? "Diga o motivo da recusa (5 letras ou mais) na caixa Nota." : "Diga o que precisa mudar (5 letras ou mais) na caixa Nota.");
         return;
       }
-      if (!window.confirm(decisao === "recusar" ? "Recusar esta sugestão? Ela sai da fila." : "Devolver esta sugestão com a nota?")) return;
+      if (!(await confirmarFrase(decisao === "recusar" ? "Recusar esta sugestão? Ela sai da fila." : "Devolver esta sugestão com a nota?"))) return;
       const id = await garantirFila(pronto.d);
       await rpc("vale_fila_decidir", { p_id: id, p_decisao: decisao, p_nota: nota.trim() });
       depois();
@@ -294,7 +295,7 @@ export function EditorDeEntrada({ item, inicial, irmaos, fechar, depois }: { ite
     rodar(async () => {
       const outro = irmaos.find((x) => x.id === duplicata);
       if (!outro) return;
-      if (!window.confirm("Juntar as fontes e as pessoas da outra sugestão a esta e recusar a outra como duplicata?")) return;
+      if (!(await confirmarFrase("Juntar as fontes e as pessoas da outra sugestão a esta e recusar a outra como duplicata?"))) return;
       const juntado = mesclarDuplicata(doc, rascunhoDoItem(outro, hoje));
       setDoc(juntado);
       await rpc("vale_fila_decidir", { p_id: outro.id, p_decisao: "recusar", p_nota: `Duplicata de ${filaId ?? doc.id ?? "outra sugestão"}` });

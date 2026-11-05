@@ -5,7 +5,7 @@ import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { leads, rpc, type Me, type Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, dataHora, elo, papelAposentado, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 
 interface Convite {
   id: string;
@@ -44,7 +44,7 @@ export function Convites({ me }: { me: Me }) {
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
   // A coordenação não se convida (muda de mãos em Segurança e sucessão); vice e curadoria, só o coordenador convida.
-  const funcoes = (Object.keys(papeis) as Role["papel"][]).filter((p) => p !== "coordenacao" && (lider || (p !== "vice" && p !== "supervisao" && p !== "curadoria")));
+  const funcoes = (Object.keys(papeis) as Role["papel"][]).filter((p) => p !== "coordenacao" && !papelAposentado(p) && (lider || (p !== "vice" && p !== "supervisao" && p !== "curadoria")));
   const porDisciplina = papel === "educacao" || papel === "educacao_secundaria" || papel === "mentoria";
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
 

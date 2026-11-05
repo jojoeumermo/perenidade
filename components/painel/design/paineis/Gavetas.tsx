@@ -30,6 +30,7 @@ import {
 import { aplicarTema, TEMAS } from "../projeto";
 import { ATIVO, BOTAO, BOTAO_PRIMARIO, Chave, Cores, CAMPO, Dialogo, Faixa, Miniatura, ROTULO, useEditor } from "../ui";
 import { apagarDaBiblioteca, guardarPaleta, useBiblioteca, usarBloco } from "./Biblioteca";
+import { confirmarFrase, perguntarTexto } from "../../ui";
 
 const TITULOS = { modelos: "Modelos da marca", texto: "Texto", elementos: "Elementos", imagens: "Imagens", fundo: "Fundo", trabalhos: "Trabalhos" } as const;
 
@@ -689,7 +690,7 @@ function GavetaFundo() {
             </label>
           </div>
           {ed.projeto.paleta.length > 0 && (
-            <button type="button" className={`${BOTAO} h-8 text-xs`} onClick={() => { const nome = window.prompt("Nome da paleta:", ed.titulo)?.trim(); if (nome) void guardarPaleta(ed, nome); }}>
+            <button type="button" className={`${BOTAO} h-8 text-xs`} onClick={async () => { const nome = (await perguntarTexto("Nome da paleta:", ed.titulo))?.trim(); if (nome) void guardarPaleta(ed, nome); }}>
               Guardar na biblioteca da equipe
             </button>
           )}
@@ -777,10 +778,10 @@ function GavetaTrabalhos() {
       ed.avisar(textoDoErro(e), "erro");
     }
   };
-  const organizar = (t: Trabalho) => {
-    const novaPasta = window.prompt("Pasta (deixe vazio para tirar da pasta):", t.pasta ?? "");
+  const organizar = async (t: Trabalho) => {
+    const novaPasta = (await perguntarTexto("Pasta (deixe vazio para tirar da pasta):", t.pasta ?? ""));
     if (novaPasta === null) return;
-    const etiquetas = window.prompt("Etiquetas, separadas por vírgula:", (t.etiquetas ?? []).join(", "));
+    const etiquetas = (await perguntarTexto("Etiquetas, separadas por vírgula:", (t.etiquetas ?? []).join(", ")));
     if (etiquetas === null) return;
     void agir("design_organizar", { p_id: t.id, p_pasta: novaPasta.trim().slice(0, 60), p_etiquetas: etiquetas.split(",").map((e) => e.trim()).filter(Boolean).slice(0, 12) }, "Organizado.");
   };
@@ -848,7 +849,7 @@ function GavetaTrabalhos() {
                     <Icone nome="restaurar" className="h-3.5 w-3.5" /> Restaurar
                   </button>
                   {t.meu && (
-                    <button type="button" className={`${BOTAO} h-7 text-xs text-[#c21f16]`} onClick={() => window.confirm("Apagar de vez? Não dá para desfazer.") && void agir("design_apagar_de_vez", { p_id: t.id }, "Apagado de vez.")}>
+                    <button type="button" className={`${BOTAO} h-7 text-xs text-[#c21f16]`} onClick={async () => (await confirmarFrase("Apagar de vez? Não dá para desfazer.")) && void agir("design_apagar_de_vez", { p_id: t.id }, "Apagado de vez.")}>
                       Apagar de vez
                     </button>
                   )}
@@ -859,8 +860,8 @@ function GavetaTrabalhos() {
                   <button type="button" className={`${BOTAO} h-7 text-xs`} onClick={() => ed.abrir({ tipo: "trabalho", id: t.id, copia: true })} title="Uma cópia sua, para mexer sem mudar o original">Fazer cópia</button>
                   {t.meu && <button type="button" className={`${BOTAO} h-7 text-xs`} onClick={() => organizar(t)}>Pasta e etiquetas</button>}
                   {(t.status === "aprovado" || t.status === "publicado") && (
-                    <button type="button" className={`${BOTAO} h-7 text-xs`} title="Anote o alcance que o Instagram mostra, para saber o que funcionou" onClick={() => {
-                      const valor = window.prompt("Alcance do post (o número que o Instagram mostra em Insights):", String(t.alcance ?? ""));
+                    <button type="button" className={`${BOTAO} h-7 text-xs`} title="Anote o alcance que o Instagram mostra, para saber o que funcionou" onClick={async () => {
+                      const valor = (await perguntarTexto("Alcance do post (o número que o Instagram mostra em Insights):", String(t.alcance ?? "")));
                       const n = Number((valor ?? "").replace(/\D/g, ""));
                       if (valor !== null && Number.isFinite(n)) void agir("design_alcance", { p_id: t.id, p_alcance: n }, "Alcance anotado.");
                     }}>

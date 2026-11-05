@@ -43,6 +43,7 @@ interface Tipo {
 
 export { editorPt } from "../rotulosDoEditor";
 import { editorPt } from "../rotulosDoEditor";
+import { confirmarFrase } from "./ui";
 
 export const fontesPt: SourceLabels = {
   title: "Fontes",
@@ -839,7 +840,7 @@ function Versoes({ chave, titulo, corpo, restaurar }: { chave: string; titulo: s
                     {new Date(v.em).toLocaleString(localDoPainel(), { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
                     <span className="block text-ink-soft">{v.titulo || "(sem título)"} · {v.corpo.split(/\s+/).filter(Boolean).length} palavras</span>
                   </span>
-                  <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => { if (window.confirm("Trocar o texto atual por esta versão? O texto atual fica guardado na lista.")) { guardarVersao(chave, titulo, corpo, true); restaurar(v); setAberto(false); } }}>
+                  <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={async () => { if ((await confirmarFrase("Trocar o texto atual por esta versão? O texto atual fica guardado na lista."))) { guardarVersao(chave, titulo, corpo, true); restaurar(v); setAberto(false); } }}>
                     Voltar a esta
                   </button>
                 </li>

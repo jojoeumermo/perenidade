@@ -28,7 +28,9 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
     [s.design, s.designLead, "/laboratorios/design", "paleta"],
     [s.seguranca, s.segurancaLead, "/laboratorios/seguranca", "escudo"],
     [s.simulacoes, s.simulacoesLead, "/laboratorios/simulacoes", "microscopio"],
-    [s.jogos.title, s.jogos.card, "/laboratorios/jogos", "punho"],
+    lang === "pt"
+      ? ["Laboratórios abertos de fora", "LOOPY, NetLogo, GeoGebra, CyberChef e outros, com licença e crédito.", "/laboratorios/externos", "rede"]
+      : ["Open labs from elsewhere", "LOOPY, NetLogo, GeoGebra, CyberChef and more, licensed and credited.", "/laboratorios/externos", "rede"],
   ];
   return (
     <>

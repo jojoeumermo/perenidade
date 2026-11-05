@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "titulo": "Games",
+    "descricao": "Crosswords, word search, sudoku, hangman, memory, tic-tac-toe with questions and dictation built from the glossary and the lessons; music games for children; and the training games (Rumos, Strike!). No points, no leaderboard, no account."
+  },
+  "pagina": {
+    "rotulo": "Playing is studying too",
+    "lead": "Games to practise the words from the lessons, to play with music and to decide paths in history. None has points, a leaderboard or a daily streak: when it ends, it ends. Nothing you do here leaves your device.",
+    "irTreino": "Word practice",
+    "irCriancas": "Music for children",
+    "irFormacao": "Training games",
+    "aviso": "The word games use the institute's glossary, which is in Portuguese.",
+    "irProprios": "Institute games"
+  },
+  "treino": {
+    "titulo": "Word practice",
+    "lead": "Generated on the spot from the glossary terms and the lessons where they appear. Every game is new.",
+    "escolha": "Choose a game",
+    "jogos": {
+      "cruzadas": {
+        "nome": "Crossword",
+        "texto": "The clues are the glossary definitions."
+      },
+      "caca": {
+        "nome": "Word search",
+        "texto": "Find the hidden terms in the grid."
+      },
+      "sudoku": {
+        "nome": "Sudoku",
+        "texto": "Numbers without repeating, in 4x4, 6x6 or 9x9."
+      },
+      "forca": {
+        "nome": "Flower hangman",
+        "texto": "Guess the term before the flower loses its petals."
+      },
+      "memoria": {
+        "nome": "Memory game",
+        "texto": "Match each term with its definition."
+      },
+      "quebra": {
+        "nome": "Word puzzle",
+        "texto": "Put the letters or the words in order."
+      },
+      "velha": {
+        "nome": "Tic-tac-toe with questions",
+        "texto": "To mark a square, answer the question."
+      },
+      "ditado": {
+        "nome": "Dictation",
+        "texto": "The browser speaks, you write."
+      }
+    },
+    "voltar": "Back to the games"
+  },
+  "comum": {
+    "novo": "New game",
+    "conferir": "Check",
+    "dica": "Hint",
+    "mostrar": "Show the answer",
+    "proxima": "Next",
+    "limpar": "Clear",
+    "apagar": "Delete",
+    "certo": "Correct!",
+    "errado": "Not yet.",
+    "terminou": "Done! Start another if you like.",
+    "aula": "See the lesson",
+    "facil": "Easy",
+    "medio": "Medium",
+    "tamanho": "Size",
+    "dificuldade": "Difficulty",
+    "semPontos": "No points: this is for practice."
+  },
+  "cruzadas": {
+    "instrucao": "Type letters in the squares. Arrow keys move between squares; Tab moves to the next word.",
+    "horizontais": "Across",
+    "verticais": "Down",
+    "casa": "Row {r}, column {c}",
+    "numero": "word number {n}",
+    "faltam": "Some squares are wrong or empty. Wrong ones are marked.",
+    "completo": "Crossword complete!",
+    "semPalavras": "The crossword could not be built right now. Try a new game."
+  },
+  "caca": {
+    "instrucao": "Tap the first letter and then the last letter of each word. On a keyboard, use the arrow keys and Enter.",
+    "palavras": "Words to find",
+    "achadas": "{n} of {total} found",
+    "achou": "You found {palavra}!",
+    "inicio": "Start marked at {r}, {c}. Choose the last letter.",
+    "tentou": "That line is not one of the words.",
+    "celula": "Row {r}, column {c}, letter {l}"
+  },
+  "sudoku": {
+    "instrucao": "Each row, column and block holds every number once. Choose a square and a number.",
+    "numeros": "Numbers",
+    "apagarCasa": "Clear the square",
+    "casa": "Row {r}, column {c}",
+    "vazia": "empty",
+    "dada": "given",
+    "conflito": "repeated",
+    "repetidos": "Some numbers repeat; they are marked.",
+    "tudoCerto": "So far everything is right.",
+    "resolvido": "Sudoku solved!",
+    "dicaFeita": "One square was filled in for you."
+  },
+  "forca": {
+    "instrucao": "Choose letters. Each mistake drops a petal of the flower; it has 6.",
+    "dicaTitulo": "Hint",
+    "erros": "Mistakes: {n} of {max}",
+    "letra": "Letter {l}",
+    "usada": "already used",
+    "ganhou": "The flower is standing! The term is {termo}.",
+    "perdeu": "The flower lost its petals. The term was {termo}.",
+    "palavra": "Word: {estado}"
+  },
+  "memoria": {
+    "instrucao": "Flip two cards: a term and its definition make a pair.",
+    "pares": "Pairs",
+    "carta": "Card {n}",
+    "virada": "face down",
+    "par": "pair already made",
+    "achados": "{n} of {total} pairs",
+    "completo": "All pairs found!"
+  },
+  "quebra": {
+    "letras": "Letters",
+    "frase": "Sentence",
+    "modo": "Mode",
+    "instrucaoLetras": "Put the letters in order to make the term. Hint: the definition, with the term hidden.",
+    "instrucaoFrase": "Put the words in order to make the definition of the term.",
+    "montagem": "Your arrangement",
+    "pecas": "Pieces",
+    "vazia": "(empty)",
+    "dicaDe": "Definition",
+    "termoDe": "Term",
+    "certo": "That is right!",
+    "errado": "Not in the right order yet."
+  },
+  "velha": {
+    "instrucao": "To mark a square, answer the question. Wrong: the turn passes.",
+    "modo": "Against",
+    "computador": "the computer",
+    "dois": "another person",
+    "casa": "Square {n}",
+    "livre": "free",
+    "pergunta": "Which term is defined this way?",
+    "vezDe": "{marca}'s turn",
+    "ganhou": "{marca} made a line!",
+    "empate": "A draw: nobody made a line.",
+    "acertou": "Correct! The square is yours.",
+    "errou": "Not this time. The term was {termo}.",
+    "pensando": "The computer marked square {n}.",
+    "cancelar": "Choose another square"
+  },
+  "ditado": {
+    "instrucao": "Click Listen, write what you heard and check. The voice is your browser's.",
+    "palavras": "Words",
+    "frases": "Sentences",
+    "modo": "Type",
+    "ouvir": "Listen",
+    "devagar": "Listen slowly",
+    "campo": "What you heard",
+    "semVoz": "This device has no voice to read aloud. You can see the text and copy it by hand.",
+    "verTexto": "See the text",
+    "certo": "Correct, no mistakes!",
+    "acento": "Almost: the letters are right, check accents or punctuation. The right one is: {certa}",
+    "errado": "Not yet. The right one is: {certa}",
+    "proximo": "Next dictation"
+  },
+  "criancas": {
+    "titulo": "Music and sounds for children",
+    "lead": "Sounds made on the device itself, nothing to download. No points, no timer and no failing: if the melody comes out different, we listen again. Better with an adult nearby.",
+    "escolha": "Choose an activity",
+    "somLigado": "Sound on",
+    "somMudo": "Sound off",
+    "semAudio": "This device cannot play the game sounds.",
+    "ver": "See the children's area",
+    "jogos": {
+      "piano": {
+        "nome": "Animal piano",
+        "texto": "Tap the coloured keys and listen."
+      },
+      "melodia": {
+        "nome": "Repeat the melody",
+        "texto": "Listen to the notes and play them in the same order."
+      },
+      "bateria": {
+        "nome": "Pots and pans drums",
+        "texto": "Hit the drums or listen to a ready beat."
+      },
+      "iguais": {
+        "nome": "Which sound is the same?",
+        "texto": "Find the pairs of matching sounds."
+      },
+      "altoBaixo": {
+        "nome": "High or low?",
+        "texto": "Listen to two sounds and say which is higher."
+      }
+    },
+    "tecla": "Key {nome}",
+    "ouvir": "Listen to the melody",
+    "ouvindo": "Listen carefully...",
+    "suaVez": "Your turn!",
+    "rodada": "Round {i} of {n}",
+    "denovo": "Almost! Let's listen again.",
+    "muitoBem": "Well done! You played the whole melody.",
+    "fimMelodia": "That is enough melodies for now. How about another activity?",
+    "comecar": "Start",
+    "proximaRodada": "Next round",
+    "ritmo": "Play the ready beat",
+    "parar": "Stop",
+    "batida": "{nome} drum",
+    "cartaSom": "Card {n}",
+    "paresAchados": "{n} of {total} pairs",
+    "iguaisCompleto": "You found all the pairs!",
+    "doisSons": "Tap to hear the two sounds.",
+    "ouvirDois": "Listen to the two sounds",
+    "primeiro": "The first was higher",
+    "segundo": "The second was higher",
+    "agudoCerto": "Yes! The higher sound is the thinner one.",
+    "agudoErrado": "Not this time. Listen again and compare.",
+    "outraVez": "Another pair of sounds"
+  },
+  "proprios": {
+    "titulo": "Institute games",
+    "lead": "Sixteen games the institute made itself, about work, rights, public money, fake news, the city, health, electricity, sewing and computers. Each one has its sources and ends: no points pile up and there is no daily streak.",
+    "escolha": "Choose a game",
+    "voltar": "Back to the games",
+    "minutos": "{n} min",
+    "publico": {
+      "todos": "for everyone",
+      "adultos": "adults",
+      "jovens": "young people",
+      "criancas": "children"
+    },
+    "aviso": "These games are only in Portuguese."
+  }
+}

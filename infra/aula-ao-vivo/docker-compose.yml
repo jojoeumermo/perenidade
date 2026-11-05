@@ -1,0 +1,39 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Sala de aula ao vivo própria (Galène + Caddy para o HTTPS). Passo a passo em LEIA-ME.md.
+# Precisa de uma máquina COM endereço público (o vídeo é UDP e não passa pelo túnel do Cloudflare).
+#
+# O vídeo (UDP 10000) e o retransmissor TURN embutido (1194, UDP e TCP) saem direto da máquina: por isso o Galène usa a
+# rede do próprio servidor. O site (HTTP) fica atrás do Caddy, que cuida do certificado.
+services:
+  galene:
+    build:
+      context: .
+      args:
+        GALENE_REF: ${GALENE_REF:-galene-1.2.1}
+    restart: unless-stopped
+    network_mode: host
+    # O Caddy fala com o Galène em 127.0.0.1:8443, sem TLS (-insecure): o certificado é do Caddy.
+    command: ["-insecure", "-http", "127.0.0.1:8443", "-turn", "${IP_PUBLICO}:1194", "-udp-range", "10000"]
+    ulimits:
+      nofile: 65536
+    volumes:
+      - ./dados/data:/srv/data
+      - ./dados/groups:/srv/groups
+      - ./dados/recordings:/srv/recordings
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      DOMINIO: ${DOMINIO}
+      SITE: ${SITE:-https://institutolucia.org}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_dados:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_dados:
+  caddy_config:

@@ -7,6 +7,7 @@ import { EnvioError, enviarCapa, enviarComProgresso, extensaoDe, liberarEspaco, 
 import { Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, localDoPainel, rotulo, textoDoErro, useAcao, useLista } from "../comum";
 import { EstudioDeArte } from "./Arte";
 import { bytes, type Config, NOME_DA_ETAPA, type PainelDoPodcast, type Serie } from "./tipos";
+import { confirmarFrase } from "../ui";
 
 /** Botão de arquivo com barra de progresso. Envia para o depósito e devolve o caminho. */
 export function EnviarArquivo({ rotuloBotao, aceitar, deposito, pasta, prefixo, aoEnviar, desligado = false }: { rotuloBotao: string; aceitar: string; deposito: "podcast" | "podcast-producao"; pasta: string; prefixo: string; aoEnviar: (caminho: string, arquivo: File) => Promise<void>; desligado?: boolean }) {
@@ -460,7 +461,7 @@ export function Convidados({ podeEditar }: { podeEditar: boolean }) {
                     </label>
                   </>
                 )}
-                <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm(`Apagar a ficha de ${c.nome}?`)) void acao.agir("podcast_convidado_remover", { p_id: c.id }, "Ficha apagada.").then((r) => liberarEspaco(((r as { liberar?: { deposito: string; caminho: string }[] } | null)?.liberar) ?? [])); }}>Apagar</button>
+                <button type="button" className={`${elo} text-oxblood`} onClick={async () => { if ((await confirmarFrase(`Apagar a ficha de ${c.nome}?`))) void acao.agir("podcast_convidado_remover", { p_id: c.id }, "Ficha apagada.").then((r) => liberarEspaco(((r as { liberar?: { deposito: string; caminho: string }[] } | null)?.liberar) ?? [])); }}>Apagar</button>
               </p>
             )}
           </li>
@@ -779,7 +780,7 @@ export function Ajustes({ painel, recarregar }: { painel: PainelDoPodcast; recar
               </span>
               <span className="flex gap-3">
                 <button type="button" className={elo} onClick={() => setSerie({ id: s.id, titulo: s.titulo, descricao: s.descricao, ordem: String(s.ordem), ativa: s.ativa, capa: s.capa, capa_mini: s.capa_mini })}>Editar</button>
-                {eu.supervisao && <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm("Apagar a série? Os episódios continuam, sem série.")) void acao.agir("podcast_serie_remover", { p_id: s.id }, "Série apagada."); }}>Apagar</button>}
+                {eu.supervisao && <button type="button" className={`${elo} text-oxblood`} onClick={async () => { if ((await confirmarFrase("Apagar a série? Os episódios continuam, sem série."))) void acao.agir("podcast_serie_remover", { p_id: s.id }, "Série apagada."); }}>Apagar</button>}
               </span>
             </li>
           ))}

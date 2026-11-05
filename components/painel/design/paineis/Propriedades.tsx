@@ -23,6 +23,7 @@ import {
 } from "../motor";
 import { estiloDaCamada, LIMITE_DA_LEGENDA } from "../projeto";
 import { ATIVO, BOTAO, BotaoIcone, CAMPO, Chave, Cores, Faixa, Numero, Secao, useEditor } from "../ui";
+import { perguntarTexto } from "../../ui";
 
 const ICONE_DO_TIPO = (c: Camada): NomeDoIcone => (c.tipo === "texto" ? "texto" : c.tipo === "imagem" ? "imagens" : c.tipo === "marca" ? "marca" : c.tipo === "elemento" ? (c.desenho === "icone" && c.icone ? c.icone : c.desenho === "qr" ? "qr" : "elementos") : "forma");
 const NOME_DO_TIPO: Record<string, string> = { texto: "texto", imagem: "imagem", marca: "marca", elemento: "elemento" };
@@ -267,8 +268,8 @@ function PropriedadesTexto({ c }: { c: CamadaTexto }) {
                     </option>
                   ))}
                 </select>
-                <button type="button" className={`${BOTAO} h-8 text-xs`} onClick={() => {
-                  const nome = window.prompt("Nome do estilo novo:", c.nome || "Meu estilo")?.trim();
+                <button type="button" className={`${BOTAO} h-8 text-xs`} onClick={async () => {
+                  const nome = (await perguntarTexto("Nome do estilo novo:", c.nome || "Meu estilo"))?.trim();
                   if (!nome) return;
                   const novo = estiloDaCamada({ ...c, tamanho: c.tamanho / (ed.doc.w / 1080) }, nome.slice(0, 40));
                   ed.setProjeto((p) => ({ ...p, estilos: [...p.estilos, novo] }), true, `Estilo novo: ${nome}`);

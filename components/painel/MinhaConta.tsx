@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { getClient, leads, type Me, rpc, signOut } from "@/lib/backend";
 import { marcaDesteAparelho } from "@/lib/device";
@@ -15,8 +16,12 @@ import { FaixaDeEmail } from "./FaixaDeEmail";
 import { CuidadoNaConta } from "./Cuidado";
 import { Oficios } from "./Biblioteca";
 import { Digital, SegundoFator } from "./Seguranca";
+import { confirmarFrase } from "./ui";
 
-type Aba = "perfil" | "assinatura" | "seguranca" | "privacidade" | "aparelhos" | "atividade" | "cuidado";
+// O manual (Ajuda) só carrega quando a aba abre.
+const Ajuda = dynamic(() => import("./Ajuda").then((m) => m.Ajuda), { ssr: false });
+
+type Aba = "perfil" | "assinatura" | "seguranca" | "privacidade" | "aparelhos" | "atividade" | "cuidado" | "ajuda";
 
 interface Protecao {
   segundo_fator: boolean;
@@ -99,6 +104,7 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
           { id: "aparelhos", nome: "Aparelhos" },
           { id: "atividade", nome: "Atividade" },
           { id: "cuidado", nome: "Cuidado" },
+          { id: "ajuda", nome: "Ajuda" },
         ]}
         atual={aba}
         escolher={setAba}
@@ -111,6 +117,7 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
       {aba === "aparelhos" && <AparelhosDaConta dias={p?.sessao_dias ?? 60} />}
       {aba === "atividade" && <Atividade />}
       {aba === "cuidado" && <CuidadoNaConta me={me} sair={sair} />}
+      {aba === "ajuda" && <Ajuda />}
       <div className="mt-8 border-t border-rule pt-5">
         <button type="button" className={botaoClaro} onClick={sair}>Sair do painel</button>
       </div>
@@ -360,7 +367,7 @@ function SegurancaDaConta({ me, protecao, recarregar }: { me: Me; protecao: Prot
 
   async function gerarCodigos() {
     setAvisoCodigos("");
-    if (protecao?.codigos_restantes && !window.confirm("Gerar códigos novos? Os que você guardou antes deixam de valer.")) return;
+    if (protecao?.codigos_restantes && !(await confirmarFrase("Gerar códigos novos? Os que você guardou antes deixam de valer."))) return;
     try {
       const r = await rpc<{ codigos: string[] }>("conta_codigos_gerar");
       setCodigos(r.codigos);
@@ -710,7 +717,7 @@ function AparelhosDaConta({ dias }: { dias: number }) {
           type="button"
           className={botao}
           onClick={async () => {
-            if (!window.confirm("Sair de todos os outros aparelhos? Eles vão precisar entrar de novo com a senha. Este aparelho continua aberto.")) return;
+            if (!(await confirmarFrase("Sair de todos os outros aparelhos? Eles vão precisar entrar de novo com a senha. Este aparelho continua aberto."))) return;
             try {
               const supabase = await getClient();
               const { error } = await supabase.auth.signOut({ scope: "others" });
@@ -728,7 +735,7 @@ function AparelhosDaConta({ dias }: { dias: number }) {
           type="button"
           className={botaoClaro}
           onClick={async () => {
-            if (!window.confirm("Sair de todos os aparelhos, inclusive este?")) return;
+            if (!(await confirmarFrase("Sair de todos os aparelhos, inclusive este?"))) return;
             try {
               const supabase = await getClient();
               await supabase.auth.signOut({ scope: "global" });

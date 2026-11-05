@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { NextConfig } from "next";
 import { SERVIDORES_JITSI } from "./lib/jitsi";
+import { GALENE_URL } from "./lib/aula-sala";
 import { ligado } from "./lib/recursos";
 
 const dev = process.env.NODE_ENV !== "production";
@@ -23,7 +24,9 @@ const captcha = "https://challenges.cloudflare.com";
 // de tempo nem login de moderador); troca-se por um próprio em NEXT_PUBLIC_JITSI_DOMAIN.
 const jitsi = SERVIDORES_JITSI.map((d) => `https://${d}`).join(" ");
 // Na Permissions-Policy cada origem vai entre aspas.
-const jitsiPermitidos = SERVIDORES_JITSI.map((d) => `"https://${d}"`).join(" ");
+// A sala própria das aulas ao vivo (Galène, infra/aula-ao-vivo/): só com NEXT_PUBLIC_GALENE_URL; entra nos quadros e nas permissões de câmera.
+const galene = GALENE_URL;
+const jitsiPermitidos = [...SERVIDORES_JITSI.map((d) => `https://${d}`), ...(galene ? [galene] : [])].map((o) => `"${o}"`).join(" ");
 // Vídeos de aula ficam em outros sites e só carregam quando a pessoa clica. Servidores PeerTube entram por NEXT_PUBLIC_VIDEO_HOSTS.
 const videos = [
   "https://www.youtube-nocookie.com",
@@ -34,6 +37,9 @@ const videos = [
     .filter((host) => /^[a-z0-9.-]+\.[a-z]{2,}$/.test(host))
     .map((host) => `https://${host}`),
 ].join(" ");
+
+// As páginas dos coletivos (Territórios) trazem o vídeo do anúncio no quadro oficial do Instagram, que só é criado depois do clique.
+const instagram = "https://www.instagram.com";
 
 // O Estúdio de prática: os editores (FilmCraft, Blockbench…) abrem dentro das páginas do site, num quadro de outra
 // origem (estudio.institutolucia.org), para não alcançarem a sessão nem os dados do instituto.
@@ -59,6 +65,10 @@ const vlibras = ligado("vlibras") ? `${vlibrasCodigo} https://*.vlibras.gov.br` 
 const reportUrl = (process.env.CSP_REPORT_URL ?? "").trim();
 const reporting = /^https:\/\/[a-z0-9.-]+(:\d+)?(\/[^\s"';]*)?$/i.test(reportUrl) ? reportUrl : "";
 
+// Laboratórios externos (docs/LABS-EXTERNOS.md): só entram num quadro depois que a pessoa clica em "Abrir". The Evolution of Trust
+// (tradução em português do Bruno Lemos), NetLogo Web (modelos oficiais, sem cópia) e GeoGebra (calculadora, sem cópia).
+const labsExternos = "https://brunolemos.github.io https://netlogoweb.org https://www.geogebra.org";
+
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>
   [
@@ -77,7 +87,7 @@ const policy = (script: string) =>
     // 'self': os laboratórios e editores do próprio site abertos dentro da Sala livre e da caixa das aulas (sem ele, o
     // navegador recusava o quadro e mostrava "este conteúdo está bloqueado"). blob: é a prévia, no próprio aparelho, de um
     // PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src 'self' blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos} ${estudio}${vlibrasCodigo}`.trim(),
+    `frame-src 'self' blob: ${captcha} ${jitsi} ${galene} https://phet.colorado.edu ${labsExternos} ${videos} ${instagram} ${estudio}${vlibrasCodigo}`.trim(),
     // Só o próprio site embute as páginas dele (os laboratórios abrem dentro da caixa das aulas); ninguém de fora.
     "frame-ancestors 'self'",
     "base-uri 'self'",
@@ -155,6 +165,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/:lang(pt|en|es|fr|ru|zh)/consciencia-de-classe", destination: "/:lang/despertar", permanent: false },
       { source: "/consciencia-de-classe", destination: "/pt/despertar", permanent: false },
+      // Os jogos saíram de Laboratórios e ganharam página própria (Etapa 5): o endereço antigo leva ao novo, para sempre (308).
+      { source: "/:lang(pt|en|es|fr|ru|zh)/laboratorios/jogos", destination: "/:lang/jogos", permanent: true },
+      { source: "/laboratorios/jogos", destination: "/pt/jogos", permanent: true },
     ];
   },
   async headers() {

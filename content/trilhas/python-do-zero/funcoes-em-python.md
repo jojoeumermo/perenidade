@@ -99,6 +99,17 @@ print(preco_final(200))
 print(preco_final(200, 10))
 ```
 
+```simulador
+execucao-python
+# Variáveis locais: o que existe dentro da função
+def media(a, b):
+    soma = a + b
+    return soma / 2
+
+resultado = media(7, 9)
+print(resultado)
+```
+
 ## Variáveis locais
 
 O que é criado dentro da função fica dentro da função:

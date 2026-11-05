@@ -5506,7 +5506,20 @@
     "podcastKicker": "Podcast · in preparation",
     "launchKicker": "Launch · in person · date coming soon",
     "followUpdates": "Follow on Instagram",
-    "reels": "The videos are on Instagram"
+    "reels": "The videos are on Instagram",
+    "anuncioKicker": "The announcement video",
+    "anuncioLoad": "Load the Instagram video",
+    "anuncioAviso": "When you click, this frame opens content from Instagram (Meta), which may record your visit. Until you click, nothing is loaded from outside.",
+    "anuncioAbrir": "Open the post on Instagram",
+    "anuncioQuadro": "Announcement video on Instagram",
+    "anuncioLocal": "Announcement video",
+    "agendaKicker": "On the calendar",
+    "agendaQuando": "When",
+    "agendaOnde": "Where",
+    "letreiroRotulo": "Themes of the territory",
+    "letreiroPausar": "Pause the themes ticker",
+    "letreiroRetomar": "Resume the themes ticker",
+    "cartaoVer": "See the page"
   },
   "rede": {
     "abaRede": "Network",
@@ -6042,7 +6055,7 @@
       "3": {
         "name": "Full",
         "count": "{n} questions",
-        "desc": "The most detailed picture: eight questions per axis."
+        "desc": "The most detailed picture: twenty questions per axis."
       }
     },
     "privacy": "Your answers stay only on this device, so you can stop and continue later. Nothing is sent to the institute.",

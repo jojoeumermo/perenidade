@@ -84,6 +84,14 @@ O **disjuntor** protege os **fios** do circuito. Ele tem duas partes:
 
 Ele também serve de chave: dá para desligar só o circuito em que se vai trabalhar. O fusível faz a mesma proteção, mas queima e precisa ser trocado; o disjuntor desarma e é religado. Os disjuntores comuns são ligados **só nas fases**: monopolar para circuitos de 127 V (uma fase e o neutro) e bipolar para circuitos de 220 V entre duas fases.
 
+```simulador
+circuito
+# Quando o disjuntor desarma
+tensao 127
+disjuntor 10
+modo paralelo
+```
+
 ## O DR: proteção para as pessoas
 
 O dispositivo **diferencial residual** (DR) compara a corrente que vai pela fase com a que volta pelo neutro. Se a diferença passa do limite, é sinal de que uma parte da corrente está fugindo por outro caminho, que pode ser o corpo de alguém, e ele desliga. Ele percebe correntes de centésimos de ampère, que um disjuntor comum nem nota, mas que podem matar.

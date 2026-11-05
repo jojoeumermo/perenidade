@@ -185,6 +185,6 @@ export const chaveDoRascunho = (perfil: Perfil, exercicio?: string) => `lucia:la
 
 /**
  * Os baralhos do jogo Rumos (lib/rumos.ts), na ordem da página de jogos. Cada um mora em content/jogos/rumos-<id>.json,
- * é importado em app/[lang]/laboratorios/jogos/page.tsx e passa pelo validador no build e em `npm run testar:jogos`.
+ * é importado em app/[lang]/jogos/page.tsx e passa pelo validador no build e em `npm run testar:jogos`.
  */
-export const BARALHOS_DE_RUMOS = ["historia-do-brasil", "filosofia-e-sociologia", "politica-e-cidadania", "revisao-enem"] as const;
+export const BARALHOS_DE_RUMOS = ["historia-do-brasil", "filosofia-e-sociologia", "politica-e-cidadania", "revisao-enem", "eletricista-autonomo", "costureira-e-cooperativa", "desenvolvedor-de-software-livre", "sindicato-de-bairro", "radio-comunitaria", "cursinho-popular", "reforma-agraria-e-mutirao", "coletivo-de-artes-e-hip-hop"] as const;

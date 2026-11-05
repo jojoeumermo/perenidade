@@ -128,6 +128,79 @@
       "lancamento": {
         "titulo": "Mostra das fotos, roda de conversa e o primeiro núcleo do Coletivo"
       }
+    },
+    {
+      "slug": "noizocupa",
+      "numero": 2,
+      "nome": "NoizOcupa",
+      "linha": "Coletivo cultural de Itanhaém (SP): ocupar o território com arte, cultura e construção coletiva.",
+      "sobre": "A cultura acontece onde a vida acontece. O NoizOcupa ocupa o próprio bairro com arte, festa e educação popular gratuita e acessível, e agora caminha junto com o Instituto Lúcia.",
+      "quem": "Coletivo de Itanhaém, no litoral de São Paulo. A página que você vê é uma primeira versão, feita só com o que o coletivo já tornou público; os textos, as fotos e as pessoas que fazem o NoizOcupa entram aqui com o que o próprio coletivo mandar.",
+      "instagram": "noizocupa",
+      "pessoas": [],
+      "temas": [
+        "A cultura acontece onde a vida acontece",
+        "Cultura de quebrada",
+        "Educação popular",
+        "Festa das Crianças",
+        "Itanhaém",
+        "Ocupar com arte"
+      ],
+      "edicoes": [],
+      "editoria": "Cultura de Quebrada",
+      "pautas": [],
+      "trilhas": [
+        "educacao-popular-fundamental",
+        "comunicacao-popular",
+        "organizacao-de-base"
+      ],
+      "visual": "noizocupa",
+      "slogan": "A cultura acontece onde a vida acontece.",
+      "anuncio": {
+        "post": "DfQT6U0uJ2G",
+        "titulo": "O anúncio da parceria: NoizOcupa e Instituto Lúcia",
+        "texto": "O vídeo em que o Instituto Lúcia anuncia a parceria com o NoizOcupa e convida a apoiar a Festa das Crianças."
+      },
+      "agenda": {
+        "titulo": "Festa das Crianças",
+        "quando": "21 de novembro, às 13h",
+        "onde": "Escola de Samba Unidos do Guapurá, em Itanhaém (SP)",
+        "como": "Quem pode ajudar com doação, serviço ou material fala com o NoizOcupa por mensagem direta no Instagram."
+      },
+      "credito": "Texto feito a partir do que o NoizOcupa e o Instituto Lúcia publicaram no Instagram. O vídeo do anúncio é usado com a liberação dos coletivos."
+    },
+    {
+      "slug": "coletivo-kamikaze",
+      "numero": 3,
+      "nome": "Coletivo Kamikaze",
+      "linha": "Coletivo audiovisual: sonhando sem coleira.",
+      "sobre": "Audiovisual periférico, olhares negros e LGBTQIAPN+ e cultura de favela feita para os nossos.",
+      "quem": "Coletivo audiovisual que se apresenta com o lema “Sonhando sem coleira”. A página que você vê é uma primeira versão, feita só com o que o coletivo já tornou público; as pessoas, os filmes e os encontros entram aqui com o que o próprio coletivo mandar.",
+      "instagram": "coletivokamikaze",
+      "pessoas": [],
+      "temas": [
+        "Sonhando sem coleira",
+        "Audiovisual periférico",
+        "Olhares negros",
+        "LGBTQIAPN+",
+        "Cultura de favela para os nossos"
+      ],
+      "edicoes": [],
+      "editoria": "Audiovisual",
+      "pautas": [],
+      "trilhas": [
+        "comunicacao-popular",
+        "fotografia-documental",
+        "cultura-negra-e-cultura-brasileira"
+      ],
+      "visual": "kamikaze",
+      "slogan": "Sonhando sem coleira.",
+      "anuncio": {
+        "post": "DfQoZbIOMZt",
+        "titulo": "O anúncio da parceria: Coletivo Kamikaze e Instituto Lúcia",
+        "texto": "O vídeo de anúncio da parceria entre o Coletivo Kamikaze e o Instituto Lúcia."
+      },
+      "credito": "Texto feito a partir do que o Coletivo Kamikaze publicou no Instagram. O vídeo do anúncio é usado com a liberação dos coletivos."
     }
   ]
 }
