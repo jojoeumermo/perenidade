@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é som: altura, duração, intensidade e timbre" (teoria-musical-do-zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teoria-musical-do-zero-o-que-e-som-altura-duracao-intensidade-e-01
+  tema: "Quatro propriedades"
+  dificuldade: 1
+  enunciado: "Quais são as quatro propriedades do som na música, segundo a aula?"
+  alternativas:
+    - texto: "Altura, duração, intensidade e timbre"
+      certa: true
+    - texto: "Cor, forma, tamanho e peso"
+      erro: "Não são as propriedades do som."
+    - texto: "Letra, melodia, ritmo e harmonia"
+      erro: "Não são essas as quatro propriedades."
+  explicacao: "Toda a escrita musical serve para anotar essas quatro coisas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é som: altura, duração, intensidade e timbre\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-o-que-e-som-altura-duracao-intensidade-e-02
+  tema: "Alto e baixo"
+  dificuldade: 2
+  enunciado: "Em música, o que quer dizer um som \"alto\"?"
+  alternativas:
+    - texto: "Agudo; baixo quer dizer grave"
+      certa: true
+    - texto: "Forte, de muito volume"
+      erro: "No dia a dia \"alto\" é volume, mas em música é agudo."
+    - texto: "Longo"
+      erro: "Isso é duração."
+  explicacao: "A altura depende da frequência, em hertz (Hz). A nota lá de referência vibra 440 vezes por segundo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é som: altura, duração, intensidade e timbre\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-o-que-e-som-altura-duracao-intensidade-e-03
+  tema: "Intensidade"
+  dificuldade: 1
+  enunciado: "Bater de leve ou com força na mesma tecla muda o quê?"
+  alternativas:
+    - texto: "A intensidade, e não a nota"
+      certa: true
+    - texto: "A altura"
+      erro: "A altura é a mesma, pois a tecla é a mesma."
+    - texto: "O timbre do piano"
+      erro: "A mudança é de força."
+  explicacao: "Intensidade é o volume: quanto mais energia, mais forte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é som: altura, duração, intensidade e timbre\""
+  revisao:
+    status: em-revisao

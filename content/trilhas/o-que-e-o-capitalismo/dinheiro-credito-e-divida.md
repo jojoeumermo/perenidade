@@ -1,5 +1,6 @@
 ---
 titulo: "Dinheiro, crédito e dívida"
+modelo: 9
 resumo: "Para que serve o dinheiro, como os bancos ganham com o crédito e por que tanta família trabalhadora vive endividada."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 Ao fim desta aula você vai saber dizer o que o dinheiro faz, como o crédito e os juros funcionam e por que a dívida das famílias cresce como bola de neve.
 
 Dinheiro parece a coisa mais natural do mundo. Mas ele é uma relação social: só funciona porque todos aceitam que um papel ou um número na tela vale comida, casa e roupa. Esta aula explica o que é o dinheiro, o que é o crédito e por que a dívida virou uma forma de exploração a mais.
+
+```suarealidade
+Na sua casa, quais compras são parceladas ou no cartão? Quanto do que entra no mês já sai para pagar parcelas e juros?
+```
 
 ## As funções do dinheiro
 
@@ -92,9 +97,23 @@ Marx resume a lógica do capitalista em uma fórmula: **D – M – D'**. Dinhei
 
 O banco leva a lógica ao extremo: **D – D'**, dinheiro que parece gerar dinheiro sozinho. Parece, mas não gera: os juros sempre saem de algum trabalho, presente ou futuro.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dívida é falta de educação financeira. Quem se organiza, não compra o que não pode e não cai em juros." É a opinião de quem aprendeu a se controlar e vê o endividamento como erro de planejamento.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que educação financeira ajuda: comparar o custo efetivo total, fugir do rotativo do cartão e desconfiar do crédito fácil. Mas lembra que muita família se endivida para viver, para pagar aluguel atrasado, remédio ou geladeira, quando o salário real cai e o mês não fecha. Nesse caso, nenhuma planilha resolve um salário que não cobre o necessário. Planejar ajuda, mas a conta também depende de quanto se ganha e de quanto custa o básico.
+```
+
 ## Para conversar
 
 Na sua casa, quanto do salário vai para parcelas e juros? Se essa parte ficasse com a família, o que mudaria?
+
+```agir
+# Esta semana
+Pegue a fatura do cartão ou uma parcela que você paga e anote num papel: valor da compra, quanto já pagou e quanto vai pagar no total. Depois use a calculadora de juros compostos do site para conferir.
+```
 
 ## Resumo
 

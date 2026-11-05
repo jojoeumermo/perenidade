@@ -36,7 +36,7 @@ quiz:
   - pergunta: "Quantas famílias o INCRA assentou de 1970 até 2021?"
     opcoes: ["Mais de 1,2 milhão", "Cerca de 100", "Cerca de 50 mil"]
     resposta: 0
-    explicacao: "Numa área de mais de 92 milhões de hectares, mas a demanda ainda é grande."
+    explicacao: "Numa área de mais de 92 milhões de hectares, mas a demanda ainda é grande. O total varia conforme o critério (famílias registradas ou ainda na terra), por isso confira o dado mais recente do INCRA."
 ---
 
 ```provocacao

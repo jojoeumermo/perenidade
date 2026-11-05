@@ -31,7 +31,7 @@ quiz:
     resposta: 0
     explicacao: "Cabe à entidade sindical convocar, na forma do estatuto, a assembleia geral que definirá as reivindicações e deliberará sobre a paralisação. Na falta de sindicato, a assembleia dos trabalhadores constitui comissão."
   - pergunta: "O que os grevistas NÃO podem fazer, segundo o art. 6º, § 3º?"
-    opcoes: ["Os meios de persuasão não podem impedir o acesso ao trabalho nem causar ameaça ou dano à propriedade ou à pessoa", "Fazer assembleia", "Divulgar o movimento", "Arrecadar fundos"]
+    opcoes: ["Impedir o acesso ao trabalho ou causar ameaça ou dano à propriedade ou à pessoa", "Fazer assembleia", "Divulgar o movimento", "Arrecadar fundos"]
     resposta: 0
     explicacao: "Persuasão pacífica, divulgação e arrecadação de fundos são direitos (art. 6º, I e II). Impedir o acesso ao trabalho ou causar ameaça e dano é vedado."
 ---

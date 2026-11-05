@@ -1,5 +1,6 @@
 ---
 titulo: "\"Pelo telefone\" e o primeiro samba gravado"
+modelo: 9
 resumo: "Em 1916, Donga registrou \"Pelo Telefone\", criado no quintal de Tia Ciata. Virou o marco do primeiro samba gravado e também a primeira grande briga de autoria: a música era de quem?"
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Uma música nasce numa roda, com dez pessoas cantando e improvisando. Um deles v
 
 Ao fim desta aula você vai conhecer a história de "Pelo Telefone", por que ele é considerado o primeiro samba gravado e a briga de autoria que ele provocou.
 
+```suarealidade
+Você já participou de uma música, uma receita ou uma festa feita em grupo? Se alguém tivesse lucrado com ela, quem deveria receber?
+```
+
 ## Um samba nascido no quintal
 
 **"Pelo Telefone"** foi composto em **1916**, no **quintal da casa de Tia Ciata**, na **Praça Onze**. A melodia se chamava originalmente **"Roceiro"** e foi uma **criação coletiva**, com participação de **João da Baiana, Pixinguinha, Caninha, Hilário Jovino Ferreira e Sinhô**, entre outros.
@@ -73,6 +78,15 @@ Por que a autoria de "Pelo Telefone" é tão discutida?
 > Releia "O registro" e "A briga".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem registra primeiro é o dono. Se Donga registrou a música, ela é dele, e o resto é briga por dinheiro." É a opinião de quem confia no que está no papel.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+É verdade que Donga registrou a música em 27 de novembro de 1916 e que Mauro de Almeida fez a letra. Mas a aula mostra que "Pelo Telefone" nasceu em 1916, numa roda coletiva na casa de Tia Ciata, e que muitos diziam que era criação coletiva; por isso a autoria virou briga. A pergunta que a aula deixa continua de pé: como dividir o reconhecimento de uma criação coletiva?
+```
+
 ## Exemplo resolvido
 
 **Separe o que é fato, o que é versão e o que é disputa.**
@@ -83,6 +97,11 @@ Por que a autoria de "Pelo Telefone" é tão discutida?
 | Nasceu no quintal de Tia Ciata | versão mais aceita |
 | É o primeiro samba gravado | aceito pela maioria, com ressalvas |
 | A música é só de Donga | disputa |
+
+```agir
+# Esta semana
+Ouça "Pelo Telefone" e conte a alguém a história do registro. Pergunte o que essa pessoa acha: música feita em roda deveria ter um dono?
+```
 
 ## Resumo
 

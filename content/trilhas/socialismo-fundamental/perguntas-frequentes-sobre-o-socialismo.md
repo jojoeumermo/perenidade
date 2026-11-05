@@ -1,5 +1,6 @@
 ---
 titulo: "Perguntas frequentes sobre o socialismo"
+modelo: 9
 resumo: "Liberdade, religião, inovação, natureza humana, comunismo: respostas diretas às dúvidas mais comuns, sem propaganda."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 Ao fim desta aula você vai saber responder, com fatos e sem medo, às perguntas mais comuns sobre socialismo, como a diferença entre socialismo e comunismo, a liberdade, a religião e o lucro.
 
 Socialismo é um tema cercado de medo, mito e desinformação. Aqui estão algumas das perguntas mais comuns, com respostas diretas.
+
+```suarealidade
+Que pergunta ou dúvida sobre o socialismo você já ouviu, no trabalho, na família ou na igreja, e não soube responder?
+```
 
 ## "Socialismo e comunismo são a mesma coisa?"
 
@@ -80,6 +85,15 @@ Não necessariamente. Muitos governos de esquerda, no Brasil e no mundo, governa
 
 A União Soviética e o bloco do Leste Europeu acabaram entre 1989 e 1991. Mas o capitalismo também teve fracassos enormes: crises, guerras mundiais, fomes coloniais, desigualdade crescente, crise climática. A pergunta mais útil talvez não seja "qual sistema fracassou", e sim: **o que aprendemos com cada experiência, e que sociedade queremos construir?**
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O socialismo já fracassou em todo lugar onde foi tentado. Por que insistir?" É a opinião de quem olha os resultados de várias experiências.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece erros: vários países socialistas do século XX restringiram duramente as liberdades políticas, e muitos socialistas criticaram isso. Reconhecer erros não é o mesmo que dizer que o projeto de ampliar a liberdade econômica e dividir melhor o que se produz acabou. O que vale é discutir com fatos e dizer o que deu certo e o que deu errado em cada caso.
+```
+
 ## Exemplo resolvido
 
 **Alguém pergunta: "Socialismo e comunismo são a mesma coisa?" Como responder?**
@@ -94,6 +108,11 @@ Conclusão: a resposta curta, "não, são fases", precisa vir com a ressalva de 
 ## Para conversar
 
 Qual destas perguntas você já ouviu mais vezes? Que outra dúvida sobre o socialismo você gostaria de investigar?
+
+```agir
+# Esta semana
+Escolha uma das perguntas da aula que alguém já lhe fez e escreva, em três linhas, uma resposta honesta que reconheça os erros e dê um fato.
+```
 
 ## Resumo
 

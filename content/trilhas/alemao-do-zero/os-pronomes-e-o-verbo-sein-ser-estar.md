@@ -1,5 +1,6 @@
 ---
 titulo: "Os pronomes e o verbo sein (ser, estar)"
+modelo: 9
 resumo: "Ich, du, er, sie, es, wir, ihr, sie, Sie: os pronomes pessoais do alemão e o verbo mais usado da língua, sein, que serve para ser e para estar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Em português, "eu sou brasileiro" e "eu estou cansado" usam verbos diferentes. 
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer os pronomes pessoais do alemão e conjugar o verbo **sein** (ser, estar) para se descrever e descrever outras pessoas.
+
+```suarealidade
+Como você se apresenta quando conhece alguém novo no trabalho: o que você diz sobre você (nome, profissão, de onde é)? Quais dessas informações você escolhe contar primeiro?
+```
 
 ## Os pronomes pessoais
 
@@ -102,6 +107,20 @@ Complete: "Wir ___ aus Brasilien."
 3. ***Wir sind aus Belém.*** (Nós somos de Belém.)
 
 Repare: *meine* com palavra feminina (Mutter) e *mein* com masculina (Bruder). Isso aparece de novo na aula sobre artigos.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Eu prefiro aprender só o que preciso para o trabalho, e não perder tempo com pronomes e verbo ser. Isso é coisa de escola." É um argumento de quem tem pressa e pouco tempo para estudar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Os pronomes e o verbo sein são a base de toda apresentação: sem eles não se diz quem se é, de onde se vem nem como se está (Ich bin Lehrerin, Du bist müde). A aula mostra que o sein serve para ser e para estar, o que na prática poupa um verbo. É pouco conteúdo e rende em qualquer conversa, inclusive no trabalho.
+```
+
+```agir
+# Esta semana
+Escreva num papel três frases sobre você com ich bin (nome, profissão ou estudo, de onde você é). Diga as frases em voz alta uma vez por dia nesta semana.
+```
 
 ## Resumo
 

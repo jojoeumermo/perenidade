@@ -29,7 +29,7 @@ quiz:
     resposta: 0
     explicacao: "Conhecida como Primeira Internacional."
   - pergunta: "Quantos voluntários lutaram nas Brigadas Internacionais na Espanha?"
-    opcoes: ["Mais de 40 mil", "Cerca de 100", "Cerca de 1 milhão"]
+    opcoes: ["Dezenas de milhares (entre 35 mil e 60 mil, segundo as estimativas)", "Cerca de 100", "Cerca de 1 milhão"]
     resposta: 0
     explicacao: "Vieram de todo o mundo, inclusive brasileiros e portugueses."
 modelo: 9

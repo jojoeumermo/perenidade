@@ -1,0 +1,67 @@
+# Exercícios da aula "Variáveis e tipos" (Lógica de programação). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lp-var-01
+  tema: "Atribuição"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que o programa mostra?\n\nx = 4\nx = x * 3\nprint(x)"
+  alternativas:
+    - texto: "12"
+      certa: true
+    - texto: "7"
+      erro: "Você somou. O programa multiplica: 4 × 3 = 12."
+    - texto: "x * 3"
+      erro: "O print mostra o valor guardado em x, e não o texto da conta. O valor é 12."
+  explicacao: "Na segunda linha, o computador primeiro calcula x * 3 (que dá 12) e guarda de volta em x."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-var-02
+  tema: "O sinal de igual"
+  dificuldade: 1
+  enunciado: "O que o sinal = significa em x = 5?"
+  alternativas:
+    - texto: "Guarde: o valor 5 é guardado na variável x"
+      certa: true
+    - texto: "É igual a, como na matemática"
+      erro: "Em programação, = é atribuição: guarda um valor. Para comparar, usa-se ==."
+    - texto: "É diferente de"
+      erro: "Diferente de se escreve !=. O = guarda um valor."
+  explicacao: "O = chama-se atribuição. O valor pode mudar ao longo do programa, e daí vem o nome variável."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-var-03
+  tema: "Tipo de dado"
+  dificuldade: 2
+  enunciado: "Qual é o tipo do valor 3.5 em Python?"
+  alternativas:
+    - texto: "float, número com parte decimal"
+      certa: true
+    - texto: "int, número inteiro"
+      erro: "int é para números inteiros, como 3. O 3.5 tem parte decimal."
+    - texto: "str, texto"
+      erro: "Um texto vem entre aspas. O 3.5 sem aspas é um número."
+  explicacao: "Os quatro tipos básicos são int (inteiro), float (decimal), str (texto) e bool (verdadeiro ou falso)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-var-04
+  tema: "O que o input devolve"
+  dificuldade: 3
+  enunciado: "Quando a pessoa digita 20 em input(), que tipo de valor o programa recebe?"
+  alternativas:
+    - texto: "Um texto (str): para fazer contas, é preciso converter com int()"
+      certa: true
+    - texto: "Um número inteiro, pronto para somar"
+      erro: "O input sempre devolve texto, mesmo que a pessoa digite um número."
+    - texto: "Um valor verdadeiro ou falso"
+      erro: "O input devolve o que foi digitado, como texto."
+  explicacao: "Por isso se escreve int(input(...)) quando se espera um número."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

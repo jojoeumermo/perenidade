@@ -1,5 +1,6 @@
 ---
 titulo: "O que os comunistas defendem"
+modelo: 9
 resumo: "Do Manifesto aos programas atuais: os objetivos imediatos e o objetivo final dos comunistas, em linguagem direta."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer o que o Manifesto Comunista afirma sobre a posição dos comunistas, qual é o objetivo final deles e que bandeiras de cada momento defenderam.
+
+```suarealidade
+Das bandeiras da lista (jornada menor, salário digno, educação e saúde públicas, moradia, igualdade), qual faz mais falta na sua vida hoje?
+```
 
 Muita gente tem medo dos comunistas sem saber o que eles defendem. Esta aula apresenta, em linguagem direta, as ideias centrais, a partir dos textos fundadores.
 
@@ -83,6 +88,15 @@ Engels, nos *Princípios Básicos do Comunismo* (1847), perguntou se seria poss�
 
 Das bandeiras listadas nesta aula, quais você considera já conquistadas no Brasil? Quais ainda faltam? Quais estão ameaçadas?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Reforma, sim; revolução, não. Os comunistas querem acabar com a propriedade privada dos meios de produção, e isso ameaça quem trabalha por conta própria e quem tem um pequeno negócio." É a preocupação de quem vive do próprio trabalho e do que construiu.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra a diferença sem escondê-la: os comunistas defendem reformas, mas julgam que elas não bastam enquanto os meios de produção forem propriedade privada de poucos. Mas o assunto é a propriedade dos grandes meios de produção, e não dos bens pessoais (veja a aula sobre os mitos). Engels, nos Princípios Básicos do Comunismo (1847), respondeu que a propriedade privada não poderia ser abolida de uma só vez, e sim gradualmente. Como fazer a transformação é um debate antigo e vivo, entre os próprios comunistas e entre eles e outras correntes da esquerda. E muitas bandeiras que pareciam radicais quando foram levantadas hoje são consideradas direitos básicos.
+```
+
 ## Exemplo resolvido
 
 **Como os comunistas ligam o objetivo final às lutas de hoje? Siga o Manifesto.**
@@ -94,6 +108,11 @@ Das bandeiras listadas nesta aula, quais você considera já conquistadas no Bra
 5. **Conclua.** O Manifesto liga a liberdade individual à liberdade coletiva, e muitas bandeiras que pareciam radicais viraram direitos básicos.
 
 Confira: Engels (1847) respondeu que a propriedade privada não poderia ser abolida de uma só vez, e sim gradualmente.
+
+```agir
+# Esta semana
+Escolha uma bandeira da lista e anote num papel se ela já foi conquistada no Brasil, se ainda falta ou se está ameaçada. Converse sobre isso com alguém de casa e anote o que ele ou ela acha.
+```
 
 ## Resumo
 

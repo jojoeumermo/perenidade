@@ -1,5 +1,6 @@
 ---
 titulo: "Pronomes e o verbo 是 (ser)"
+modelo: 9
 resumo: "Eu, você, ele e ela em chinês, o verbo 是 que nunca muda e quando não usá-lo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ quiz:
 Ao fim desta aula você vai saber usar os pronomes, montar frases com o verbo 是 (shì), negar com 不是, dizer "também" com 也, saber quando não usar 是 e indicar posse com 的.
 
 Nesta aula você monta as primeiras frases completas em chinês. A boa notícia é que o verbo chinês **não se conjuga**: ele não muda com a pessoa (eu, você, ele) nem com o tempo (presente, passado). Uma vez aprendido, serve para tudo.
+
+```suarealidade
+Como você se apresenta quando conhece alguém: o que diz sobre você (nome, trabalho, de onde é)? O que isso diz sobre o que é importante para você?
+```
 
 ## Os pronomes
 
@@ -164,6 +169,20 @@ Respostas do 1: 我是巴西人。她是医生。我们不是老师。他也是�
 3. **他是三十岁。** Para a idade não se usa verbo nenhum. Correto: **他三十岁。** (Tā sānshí suì.) Ele tem trinta anos.
 
 Confira: 是 liga dois substantivos (我是学生, "eu sou estudante"); adjetivo, lugar e idade têm outro jeito.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Estudar uma língua sem conjugação é só uma esperteza para vender curso: sem conjugar verbo, não é língua de verdade." É um argumento de quem aprendeu línguas pelo método clássico.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o verbo chinês não se conjuga: não muda com a pessoa nem com o tempo, e os pronomes não mudam de forma (我 é eu, me e mim). Isso não torna o chinês menos língua: a dificuldade está em outros lugares, como os tons e os caracteres. O verbo 是 liga duas coisas, mas não se usa com adjetivos (usa-se 很), com lugar (usa-se 在) nem com idade.
+```
+
+```agir
+# Esta semana
+Escreva num papel três frases sobre você com 我是... (eu sou...), por exemplo, nacionalidade e profissão. Em seguida, escreva as mesmas frases na negativa com 不是.
+```
 
 ## Resumo
 

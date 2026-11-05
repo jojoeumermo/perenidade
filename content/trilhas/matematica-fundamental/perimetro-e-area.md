@@ -1,5 +1,6 @@
 ---
 titulo: "Perímetro e área"
+modelo: 9
 resumo: "Medir o contorno e medir a superfície: cerca, piso, terreno, hectare e alqueire."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber calcular perímetro e área de retângulos, triângulos e outras figuras e dizer quando usar cada um (cerca, piso, tinta).
+
+```suarealidade
+Você já precisou medir um espaço, como o quintal, o quarto ou o terreno, para comprar piso, tinta ou arame de cerca? O que você mediu: o contorno ou a superfície?
+```
 
 ## Duas medidas diferentes
 
@@ -125,6 +130,20 @@ No Brasil ainda se usa o **alqueire**, que muda de tamanho conforme a região. O
 5. Quantos metros quadrados têm 3 hectares? E 2 alqueires paulistas?
 
 **Respostas:** 1) 26 m e 40 m². 2) 18 m². 3) 18,84 m e 28,26 m². 4) 360 m². 5) 30.000 m² e 48.400 m².
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Na obra o pedreiro calcula no olho, sem fórmula. Perímetro e área são coisa de livro." É o respeito de quem vê a experiência do ofício.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A experiência de quem trabalha vale muito, e a aula a respeita: tem uma seção chamada "Na obra" e outra sobre "Medidas de terra". O que ela acrescenta é separar duas medidas diferentes: o perímetro (o contorno, para cerca, rodapé e meio-fio) e a área (a superfície, para piso, tinta e semente). Saber qual das duas pedir evita comprar material de menos ou de mais.
+```
+
+```agir
+# Esta semana
+Meça um cômodo ou um pedaço de chão da sua casa e calcule o perímetro e a área no papel. Escreva ao lado o que você compraria com cada medida (por exemplo, rodapé e piso).
+```
 
 ## Resumo
 

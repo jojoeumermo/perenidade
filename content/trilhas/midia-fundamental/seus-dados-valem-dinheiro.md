@@ -1,5 +1,6 @@
 ---
 titulo: "Seus dados valem dinheiro"
+modelo: 9
 resumo: "Cada clique, busca e curtida gera dados sobre você, e esses dados são usados para escolher anúncios e conteúdos. No Brasil, a Lei Geral de Proteção de Dados (LGPD), de 2018, garante direitos sobre os seus dados pessoais, como acessá-los, corrigi-los e revogar o consentimento."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ O aplicativo é de graça. A rede social é de graça. O buscador é de graça. 
 
 Ao fim desta aula você vai entender por que os seus dados valem dinheiro e quais direitos a lei brasileira garante sobre eles.
 
+```suarealidade
+Quantos aplicativos no seu celular pedem a sua localização, o microfone ou a câmera? Você lembra de ter autorizado?
+```
+
 ## Dados viram dinheiro
 
 Cada vez que você **clica**, **busca**, **curte**, **compartilha** ou fica parado vendo um vídeo, você deixa **rastros**: dados sobre o que gosta, onde está, com quem fala. Esses dados são usados para **escolher** o que aparece para você e para **direcionar anúncios**. Quanto mais a empresa sabe sobre você, mais "precisa" fica a publicidade, e mais ela consegue vender para os anunciantes.
@@ -71,6 +76,15 @@ Um aplicativo de lanterna pede acesso aos seus contatos e à sua localização. 
 > Releia a seção "Os seus direitos".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não deve não teme. Se o aplicativo é de graça e só quer saber o que eu gosto para mostrar anúncio melhor, não vejo problema. Eu não tenho nada a esconder." É a opinião de quem vê nos dados uma troca justa por um serviço gratuito.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que os dados valem dinheiro: quanto mais a empresa sabe sobre você, mais precisa fica a publicidade e mais ela consegue vender aos anunciantes. Nem tudo é "só gosto": há dados sensíveis, como raça, religião, opinião política e filiação a sindicato. E a Lei Geral de Proteção de Dados (Lei 13.709/2018, em vigor desde 2020, fiscalizada pela ANPD) garante direitos: acessar, corrigir e eliminar os dados, saber com quem foram compartilhados e revogar o consentimento. Ter o que esconder não é o ponto: o ponto é decidir quem usa o que é seu.
+```
+
 ## Exemplo resolvido
 
 **Uma loja guardou o seu endereço antigo e continua mandando cobranças para lá. Que direito da LGPD você pode usar?**
@@ -78,6 +92,11 @@ Um aplicativo de lanterna pede acesso aos seus contatos e à sua localização. 
 1. O dado está **desatualizado**.
 2. O artigo 18 garante o direito de **corrigir** dados incompletos, errados ou desatualizados.
 3. Você pode **pedir à loja** a correção.
+
+```agir
+# Esta semana
+Abra as configurações do seu celular e veja quais aplicativos usam a câmera, o microfone e a localização. Anote num papel um que você não lembrava de ter autorizado e desligue a permissão, se não precisar dela.
+```
 
 ## Resumo
 

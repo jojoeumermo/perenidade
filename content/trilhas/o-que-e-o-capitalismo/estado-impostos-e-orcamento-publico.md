@@ -1,5 +1,6 @@
 ---
 titulo: "Estado, impostos e orçamento público"
+modelo: 9
 resumo: "Quem paga imposto no Brasil, para onde vai o dinheiro público e por que o orçamento é campo de luta."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Ao fim desta aula você vai saber de onde vem o dinheiro do Estado, por que o si
 
 O Estado cobra impostos de todos e gasta em nome de todos. Mas quem paga mais, e quem recebe mais? Esta aula olha para o dinheiro público com os olhos de quem trabalha.
 
+```suarealidade
+Quando você compra comida, roupa ou paga uma conta, você sabe quanto daquilo é imposto? E você vê esse dinheiro voltar em algum serviço no seu bairro?
+```
+
 ## O Estado não está acima das classes
 
 Os manuais apresentam o Estado como um árbitro neutro. A tradição marxista discorda. Para Engels e para Lenin, em *O Estado e a Revolução*, o Estado nasce justamente porque a sociedade se dividiu em classes com interesses inconciliáveis, e ele tende a garantir a ordem que interessa à classe dominante.
@@ -71,6 +76,15 @@ Ana ganha R$ 2.000 e gasta tudo em consumo. Pedro ganha R$ 40.000 e gasta R$ 8.0
 - Os dois pagam 20%
 - Ana paga 4%; Pedro, 20%
 > Ana: 20% de 2.000 = 400, que é 20% da renda dela. Pedro: 20% de 8.000 = 1.600, que é 4% de 40.000.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Imposto é imposto: todo mundo paga na hora de comprar, então o sistema é igual para todos. O problema não é quem paga, é o desperdício do governo." É a opinião de quem vê o dinheiro público mal gasto.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que se possa gastar melhor. Mas mostra, com a conta do exemplo, que o mesmo imposto embutido no preço pesa mais para quem ganha menos: quem gasta quase toda a renda em consumo paga imposto sobre quase toda a renda. Num exemplo inventado de imposto de 20%, quem consome tudo paga 20% da renda e quem consome só uma parte paga bem menos em proporção. Por isso se fala em sistema regressivo. Gasto e arrecadação são discussões diferentes, e dá para conferir as duas no Portal da Transparência e nas leis do orçamento.
 ```
 
 ## Exemplo resolvido: quanto do salário vira imposto?
@@ -108,3 +122,9 @@ Em 1989, Porto Alegre começou a experimentar o **orçamento participativo**: as
 ## Para conversar
 
 Procure no Portal da Transparência quanto o governo federal gastou com a sua cidade no último ano. Em quê? Quem decidiu?
+
+
+```agir
+# Esta semana
+Abra o Portal da Transparência do governo federal e procure quanto foi gasto com a sua cidade no último ano. Anote num papel uma área (saúde, educação ou outra) e o valor.
+```

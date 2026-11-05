@@ -1,5 +1,6 @@
 ---
 titulo: "Por que, porque, por quê e porquê"
+modelo: 9
 resumo: "Quatro formas, quatro usos. Um teste rápido para cada uma."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber quando usar por que, por quê, porque e porquê, com um teste de troca para cada forma.
 
 
+
+```suarealidade
+Quando você escreve "por que", "porque" ou "porquê", você para para pensar? Qual dessas formas você mais erra?
+```
 
 ## O resumo
 
@@ -117,6 +122,15 @@ Qual frase está escrita corretamente?
 
 Na fala não há diferença: as quatro formas soam praticamente iguais. A distinção existe **só na escrita**, e é uma convenção. Ninguém fala errado por não distingui-las, e errar uma delas em uma mensagem não muda o sentido de nada. Mas em uma redação, em um concurso ou em um documento, a convenção é cobrada, e os quatro testes resolvem.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quatro formas para a mesma coisa é invenção de gramático. Escreve-se do jeito que se fala, que é igual, e pronto." É a opinião de quem acha a regra complicada demais.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula reconhece que as quatro formas soam iguais na fala e que a diferença existe só na escrita. Mas oferece um teste de troca para cada uma: "por que" em perguntas (troque por "por qual motivo"), "por quê" no fim da frase, "porque" na resposta (troque por "pois") e "porquê" quando é substantivo, depois de o, um ou os. Com o teste, a escolha deixa de ser decoreba. Se a forma muda o sentido, vale aprender, e o teste custa poucos segundos.
+```
+
 ## Exemplo resolvido: as quatro formas em quatro frases
 
 1. **"Quero saber ___ o aluguel subiu."** É pergunta indireta; dá para dizer "por qual motivo": **por que**, separado.
@@ -125,6 +139,11 @@ Na fala não há diferença: as quatro formas soam praticamente iguais. A distin
 4. **"Ninguém explicou o ___ da demissão."** Vem depois de "o" e quer dizer "o motivo": **porquê**, substantivo.
 
 Confira: "Explique porque você discorda" estaria fora da norma, porque é pergunta indireta: o certo é "por que".
+
+```agir
+# Esta semana
+Escreva num papel quatro frases curtas, uma com cada forma (por que, por quê, porque, porquê), aplicando o teste de troca. Releia uma mensagem sua e confira onde você usou cada uma.
+```
 
 ## Resumo
 

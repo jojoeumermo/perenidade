@@ -1,0 +1,50 @@
+# Exercícios da aula "Desigualdade social" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-desigualdade-social-01
+  tema: "Gini"
+  dificuldade: 1
+  enunciado: "Qual é o significado do coeficiente de Gini igual a 1?"
+  alternativas:
+    - texto: "Desigualdade máxima: uma só pessoa tem toda a renda"
+      certa: true
+    - texto: "Igualdade perfeita"
+      erro: "A igualdade perfeita é 0."
+    - texto: "Metade da população é rica"
+      erro: "Não é isso."
+  explicacao: "Quanto mais perto de 1, mais desigual é o país."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Desigualdade social\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-desigualdade-social-02
+  tema: "Interseccional"
+  dificuldade: 2
+  enunciado: "O que mostra a abordagem interseccional da desigualdade?"
+  alternativas:
+    - texto: "Como os eixos (classe, raça, gênero, idade e outros) se cruzam: uma mulher negra e pobre pode sofrer várias desigualdades ao mesmo tempo"
+      certa: true
+    - texto: "Que só a renda importa"
+      erro: "A aula lista vários eixos."
+    - texto: "Que a desigualdade não existe"
+      erro: "A abordagem mostra como ela acontece."
+  explicacao: "A desigualdade é ligada ao poder, à classe, à etnia e à raça, ao gênero, à idade, à orientação sexual, à religião e ao parentesco."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Desigualdade social\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-desigualdade-social-03
+  tema: "Resultados e oportunidades"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre desigualdade de resultados e de oportunidades?"
+  alternativas:
+    - texto: "Resultados: uns ganham muito, outros pouco; oportunidades: uns têm acesso à escola boa, outros não"
+      certa: true
+    - texto: "São a mesma coisa"
+      erro: "A aula distingue as duas."
+    - texto: "Oportunidades é ter mais renda"
+      erro: "Isso é resultado."
+  explicacao: "A desigualdade aparece no trabalho, na renda, na saúde, na educação, na moradia e na representação política."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Desigualdade social\""
+  revisao:
+    status: em-revisao

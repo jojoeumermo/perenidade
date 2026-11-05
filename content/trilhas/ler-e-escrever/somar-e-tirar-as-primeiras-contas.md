@@ -1,5 +1,6 @@
 ---
 titulo: "Somar e tirar: as primeiras contas no papel"
+modelo: 9
 resumo: "Escrever no papel as contas de mais e de menos que você já faz de cabeça, com os sinais +, − e =, e conferir uma pela outra."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Ao fim desta aula você vai escrever contas de somar e de tirar com os sinais **
 
 ```provocacao
 Você já fez conta de cabeça na feira ou no troco e acertou? Como você fez? Conte para quem está com você antes de ler.
+```
+
+```suarealidade
+Que conta você faz todo mês de cabeça: quanto sobra do salário depois das contas? Como você faz esse cálculo?
 ```
 
 ## Você já faz contas
@@ -150,6 +155,15 @@ Somar (+): chegou mais gente; total da compra; ganhei um bico
 Tirar (−): quanto sobrou do salário; quanto falta para a passagem; gastei na farmácia
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Eu já faço conta de cabeça. Escrever conta é perda de tempo e coisa de escola." É o orgulho de quem resolve a vida sem caderno.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula respeita o seu caminho: antes de mostrar qualquer conta, quem ajuda pergunta como você faz de cabeça, porque o saber da vida é o ponto de partida. Mas escrever ajuda em três coisas: fazer contas grandes que não cabem na cabeça, conferir depois (a prova real) e guardar o registro de quanto gastou e quanto recebeu. Escrever a conta é pôr no papel o que você já sabe fazer.
+```
+
 ## Exemplo resolvido
 
 **Seu Jorge recebeu R$ 85 de uma diária e mais R$ 47 de outra. Pagou R$ 60 de gás. Quanto ficou?**
@@ -175,6 +189,11 @@ Pense no que entrou e no que saiu de dinheiro na sua casa esta semana. Escreva u
 5. Você tinha R$ 50, gastou R$ 18 no mercado e R$ 12 na farmácia. Quanto sobrou?
 
 **Respostas:** 1) 7 + 2 = 9. 2) 63. 3) 44. 4) 45 + 45 = 90, está certo. 5) 18 + 12 = 30; 50 − 30 = R$ 20.
+
+```agir
+# Esta semana
+Anote num papel, durante uma semana, o que você gastou em cada dia. No fim, arme a conta de somar e confira pela prova real.
+```
 
 ## Resumo
 

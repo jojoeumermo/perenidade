@@ -1,0 +1,50 @@
+# Exercícios da aula "O lundu e o maxixe" (samba-a-historia-de-um-povo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: samba-a-historia-de-um-o-lundu-e-o-maxixe-01
+  tema: "Origem do lundu"
+  dificuldade: 1
+  enunciado: "De onde veio o lundu, segundo a aula?"
+  alternativas:
+    - texto: "Da África, trazido provavelmente por escravizados de Angola"
+      certa: true
+    - texto: "Da Europa, trazido por nobres"
+      erro: "É de origem africana."
+    - texto: "Do Japão"
+      erro: "É de origem africana, de Angola."
+  explicacao: "Começa a aparecer em documentos a partir de 1780. Em Portugal chegou a ser proibido por ser \"contrário aos bons costumes\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O lundu e o maxixe\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-o-lundu-e-o-maxixe-02
+  tema: "Primeiro gravado"
+  dificuldade: 2
+  enunciado: "Qual foi o primeiro gênero musical gravado no Brasil, segundo a aula?"
+  alternativas:
+    - texto: "O lundu, com \"Isto é bom\", na voz de Baiano, em 1902"
+      certa: true
+    - texto: "O samba, com \"Pelo Telefone\""
+      erro: "\"Pelo Telefone\" é de 1916 e é considerado o primeiro samba gravado."
+    - texto: "O maxixe, em 1850"
+      erro: "A aula diz que foi o lundu."
+  explicacao: "A gravação foi feita pela Casa Edison."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O lundu e o maxixe\""
+  revisao:
+    status: em-revisao
+
+- id: samba-a-historia-de-um-o-lundu-e-o-maxixe-03
+  tema: "Indecente"
+  dificuldade: 2
+  enunciado: "Por que as composições de maxixe passaram a ser chamadas de \"tango brasileiro\"?"
+  alternativas:
+    - texto: "Porque o maxixe foi tachado de indecente e o novo nome escondia a ligação com ele"
+      certa: true
+    - texto: "Porque o maxixe era dançado em roda"
+      erro: "O maxixe é dançado em pares, e o lundu é que era em roda."
+    - texto: "Porque vinha da Argentina"
+      erro: "Veio da mistura do lundu, polca e havaneira, na Cidade Nova do Rio."
+  explicacao: "Mesmo assim, a dança se espalhou e fez sucesso em Paris e nos Estados Unidos no começo do século XX."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O lundu e o maxixe\""
+  revisao:
+    status: em-revisao

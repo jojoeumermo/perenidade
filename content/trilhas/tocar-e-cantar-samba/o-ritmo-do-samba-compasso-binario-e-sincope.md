@@ -1,5 +1,6 @@
 ---
 titulo: "O ritmo do samba: compasso binário e síncope"
+modelo: 9
 resumo: "O samba é contado em dois tempos (2/4) e tem balanço porque o som cai fora do tempo forte: é a síncope. Aprenda a contar, a sentir e a bater esse ritmo com as mãos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Por que é quase impossível ficar parado ouvindo um samba? O segredo está num 
 
 Ao fim desta aula você vai saber contar o compasso do samba, entender o que é síncope e bater um ritmo sincopado com as mãos.
 
+```suarealidade
+Quando você ouve um samba, em que momento bate o pé ou balança o corpo? É o mesmo momento em que o surdo toca?
+```
+
 ## Dois tempos
 
 O samba urbano carioca tem ritmo **basicamente 2/4**: cada compasso tem **dois tempos**. O **primeiro** é o **forte**; o **segundo**, o **fraco**. Conte assim, sem parar: **UM**-dois, **UM**-dois. O **surdo** é quem faz essa **marcação**.
@@ -70,6 +75,15 @@ Na contagem UM-e-DOIS-e, onde cai um som sincopado?
 > Releia "A síncope".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Samba não se aprende com teoria. Quem nasce no samba já sabe o ritmo e não precisa dar nome a síncope ou compasso." É a opinião de quem aprendeu na roda.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não discorda de que o samba se aprende na roda. Mas dar nome ajuda a passar adiante: o samba urbano é basicamente 2/4, com dois tempos, um forte e um fraco, e o surdo faz a marcação. A síncope é quando o som cai na parte fraca e se prolonga até o forte, deslocando o acento; o contratempo é o silêncio no forte e o som no fraco. Dar nome é um jeito de ensinar a quem ainda não frequenta a roda.
+```
+
 ## Exemplo resolvido
 
 **Bata três exercícios com as mãos na mesa (ou palmas). Conte em voz alta: UM-e-DOIS-e.**
@@ -81,6 +95,11 @@ Na contagem UM-e-DOIS-e, onde cai um som sincopado?
 | 3. Síncope | no "e" depois do UM e segure o som (ou a mão na mesa) até o DOIS | o acento "escorrega" e o corpo balança |
 
 Agora junte: uma pessoa faz o exercício 1 (o surdo) e outra faz o 3 por cima. É o começo de uma batucada.
+
+```agir
+# Esta semana
+Ensine a alguém o exercício de marcação e síncope a dois, batendo palmas: um marca o tempo e o outro faz a síncope. Observe a diferença.
+```
 
 ## Resumo
 

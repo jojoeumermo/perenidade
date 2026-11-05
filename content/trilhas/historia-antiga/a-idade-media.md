@@ -1,5 +1,6 @@
 ---
 titulo: "A Idade Média"
+modelo: 9
 resumo: "Objetivo: entender como funcionava a sociedade feudal na Europa, o poder da Igreja, a vida dos camponeses e as revoltas que abalaram essa ordem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer o que foi a Idade Média, como funcionava a sociedade feudal, qual era o papel da Igreja, como as cidades renasceram e o que a crise do século XIV mudou.
+
+```suarealidade
+Você já ouviu dizer que "cada um nasceu para o seu lugar"? Quem decide o lugar de cada pessoa na sociedade de hoje?
+```
 
 
 ## Um nome inventado depois
@@ -116,6 +121,20 @@ O enfraquecimento dos senhores, o crescimento das cidades e do comércio e o for
 1. Que ideias de hoje cumprem o papel que a teoria das três ordens cumpria na Idade Média?
 2. Compare o servo, o escravizado e o trabalhador assalariado. O que cada um entrega, e a quem?
 3. Por que a falta de trabalhadores, depois da peste, fortaleceu os camponeses? Isso acontece hoje?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A Idade Média foi a Idade das Trevas: mil anos de atraso e ignorância."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que essa expressão não se sustenta. O nome Idade Média foi criado mais tarde, por pensadores que viam aquele tempo como um intervalo sem importância. Foi nesse período que surgiram as escolas de estudos superiores, as catedrais, as cidades com governo próprio e técnicas agrícolas novas, e que as cidades renasceram com suas corporações de ofício. E a divisão só faz sentido para a Europa: enquanto ela vivia a sua Idade Média, floresciam o mundo islâmico, a China, os reinos da África e as civilizações da América. Isso não apaga a exploração dos servos, que a aula também mostra.
+```
+
+```agir
+# Esta semana
+Escreva em três linhas o que o servo, o escravizado e o trabalhador assalariado entregam e a quem. Depois conte para alguém da sua casa o que você achou mais parecido e mais diferente.
+```
 
 ## Resumo
 

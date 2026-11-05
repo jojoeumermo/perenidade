@@ -1,5 +1,6 @@
 ---
 titulo: "Formalização e direitos de quem trabalha por conta própria"
+modelo: 9
 resumo: "O MEI para barbeiro, o que custa e o que garante no INSS, os limites de faturamento com a lei de 2026, o perdão das dívidas antigas, a parceria com a barbearia pela Lei 12.592 e os direitos de saúde de quem não tem carteira assinada."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -60,6 +61,10 @@ Se amanhã você quebrar o braço e ficar dois meses sem cortar, quem paga as su
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber como o barbeiro se formaliza como MEI, quanto custa e o que garante no INSS, os limites de faturamento e o perdão de dívidas da lei de 2026, os direitos de quem trabalha como parceiro numa barbearia e onde buscar atendimento de saúde ligado ao trabalho.
+
+```suarealidade
+Se amanhã você quebrar o braço e ficar dois meses sem cortar, quem paga as suas contas? O que você tem hoje para o caso de ficar doente?
+```
 
 ## O MEI do barbeiro
 
@@ -130,6 +135,20 @@ Faturamento anual: 9.000 × 12 = R$ 108.000
 ```
 
 Em 2026, com esse faturamento, ele **passaria do limite** do MEI e precisaria de outro enquadramento (com orientação de um contador). Em 2027, com o novo limite, **caberia**, mas por pouco. Guardar o registro de todos os atendimentos ajuda a acompanhar o faturamento do ano.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "MEI é burocracia e gasto: tem a conta do DAS todo mês e o governo não devolve nada. Quem trabalha por conta própria vive melhor sem CNPJ." É uma opinião de quem vê o imposto como peso.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que abrir o MEI não custa nada e que o DAS junta 5% do salário mínimo para o INSS e R$ 5 de ISS. Em dia, o MEI tem aposentadoria por idade, auxílio-doença e salário-maternidade, com carência, além de poder emitir nota. Sem formalização, quem se machuca fica sem renda e sem proteção. Na parceria com a barbearia, o contrato precisa ser por escrito e homologado; sem ele, pode haver vínculo de emprego.
+```
+
+```agir
+# Esta semana
+Escreva num papel o valor que você precisa receber por mês para viver e quanto desse valor iria para o DAS (5% do salário mínimo mais R$ 5). Confira o salário mínimo atual no site do governo.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Compasso e fórmula de compasso"
+modelo: 9
 resumo: "Como os tempos se agrupam e o que significam os dois números no começo da partitura."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são pulso e compasso, ler a fórmula de compasso e conferir se um compasso tem o número certo de tempos.
+
+```suarealidade
+Bata o pé no ritmo de uma música de que você gosta: em quantas batidas você sente que ela volta ao começo?
+```
 
 ## O pulso e os grupos
 
@@ -79,6 +84,15 @@ Em um compasso 2/4, quantas colcheias cabem?
 > O compasso tem dois tempos de semínima, e cada semínima vale duas colcheias.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Contar tempo é coisa de quem não tem ouvido. Quem sente a música não precisa de número." É a opinião de quem toca pelo sentimento.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que sentir e contar andam juntos: pulso são as batidas regulares, compasso é um grupo de tempos, e o primeiro tempo costuma ser o mais forte. A fórmula de compasso diz quantos tempos há em cada compasso e qual figura vale um tempo. O 2/4 aparece em marchas, samba, baião e frevo; o 3/4, em valsas; o 4/4, na maior parte da música popular. Quem conta consegue tocar junto com os outros.
+```
+
 ## Exemplo resolvido
 
 **Em um compasso 4/4, as figuras mínima, semínima e semínima estão certas?**
@@ -92,6 +106,11 @@ Conclusão: o compasso está certo, pois as figuras somam exatamente quatro temp
 ## Para praticar
 
 No [metrônomo](/ferramentas/metronomo), escolha três tempos por compasso e conte em voz alta, apoiando o "um": UM, dois, três. Troque para dois e para quatro tempos e repare como o "balanço" muda, mesmo com a velocidade igual.
+
+```agir
+# Esta semana
+Escolha três músicas de que você gosta e bata o pé para descobrir se são de 2, 3 ou 4 tempos. Anote o resultado.
+```
 
 ## Resumo
 

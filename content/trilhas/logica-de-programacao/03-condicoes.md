@@ -1,5 +1,6 @@
 ---
 titulo: "Condições"
+modelo: 9
 resumo: "Como fazer o programa tomar decisões com se, senão e os operadores de comparação."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -29,6 +30,10 @@ quiz:
 Ao fim desta aula você vai saber escolher caminhos num programa com `if`, `elif` e `else`, usar os operadores de comparação e combinar condições com `and`, `or` e `not`.
 
 Até aqui, os programas executavam todas as linhas, de cima para baixo. Com **condições**, o programa escolhe um caminho.
+
+```suarealidade
+Pense numa decisão que você toma todo dia seguindo uma regra: "se chover, levo guarda-chuva; senão, não levo". Quais outras "ses" fazem parte da sua rotina de trabalho?
+```
 
 ## Se... senão
 
@@ -94,6 +99,15 @@ if dia == "sábado" or dia == "domingo":
     print("Fim de semana")
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Programar é coisa de jovem de faculdade, de quem trabalha com computador. Trabalhador comum não precisa saber disso." É a impressão de quem acha que a tecnologia é só para especialistas.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que uma condição é uma ideia do dia a dia: o programa escolhe um caminho, como você escolhe entre aprovado e reprovado com base na nota. Com if, elif e else, dá para escrever essa lógica com poucas palavras, e a aula ensina passo a passo. Entender a lógica de um programa ajuda a conferir o que a tecnologia decide sobre a nossa vida, como o resultado de um cadastro ou de um sistema de ponto.
+```
+
 ## Exemplo resolvido
 
 **Qual caminho o programa toma com `nota = 9.5`?**
@@ -118,6 +132,11 @@ Confira: com `nota = 5`, a primeira e a segunda condições são falsas e a terc
 ## Pratique
 
 Escreva, em pseudocódigo ou em Python, um programa que recebe um número e diz se ele é positivo, negativo ou zero. Quantos caminhos ele precisa ter?
+
+```agir
+# Esta semana
+Escreva no papel, em português, uma regra do seu trabalho ou da sua casa com "se... senão" (por exemplo, "se o gás acabar, peço outro; senão, espero"). Depois reescreva usando if e else, como na aula.
+```
 
 ## Resumo
 

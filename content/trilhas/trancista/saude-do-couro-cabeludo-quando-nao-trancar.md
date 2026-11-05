@@ -1,5 +1,6 @@
 ---
 titulo: "Saúde do couro cabeludo: quando não trançar"
+modelo: 9
 resumo: "Os sinais de que o couro cabeludo precisa de cuidado antes de qualquer trança: alopecia de tração, micose, piolho, dermatite e feridas. Como olhar, o que perguntar, quando adiar e quando encaminhar para a unidade de saúde."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -59,6 +60,10 @@ A cliente quer tranças bem apertadas "para durar". Você vê que a linha da tes
 
 Ao fim desta aula você vai saber examinar o couro cabeludo antes de trançar, reconhecer os sinais de alopecia de tração, micose, piolho, dermatite e feridas, decidir quando adiar a trança e quando encaminhar a cliente para a unidade de saúde.
 
+```suarealidade
+Já aconteceu de uma cliente, ou de você, ter ferida, coceira ou queda de cabelo na hora de trançar? O que foi feito?
+```
+
 ## Olhar antes de trançar
 
 Antes de dividir o cabelo, **olhe o couro cabeludo inteiro**, com boa luz, abrindo o cabelo em várias partes. E pergunte:
@@ -110,6 +115,15 @@ Ao abrir o cabelo de uma menina de 8 anos, você vê uma falha redonda com desca
 > Falha redonda com descamação em criança pode ser micose, que é contagiosa e precisa de remédio receitado.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cliente que veio fazer trança quer fazer a trança. Se eu adiar ou recusar, perco o dinheiro, e ela vai a outra trancista." É a opinião de quem depende de cada atendimento.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que olhar antes evita agravar o problema: examine o couro cabeludo e pergunte antes de toda trança. Alopecia de tração é a queda por puxar o fio por muito tempo, aparece na testa, nas têmporas e nas laterais, e tratar é parar a tração. Micose e piolho passam para outras pessoas: adie a trança e encaminhe. A dermatite seborreica não é falta de higiene e não passa para os outros, então encaminhe sem constranger. A Lei 12.592/2012 manda cumprir as normas sanitárias e esterilizar os materiais.
+```
+
 ## Exemplo resolvido
 
 **Monte uma ficha de avaliação para usar antes de cada atendimento.**
@@ -125,6 +139,11 @@ Ao abrir o cabelo de uma menina de 8 anos, você vê uma falha redonda com desca
 | Química recente? | | | cuidado redobrado com a tração |
 
 Guarde a ficha da cliente: na próxima vez, dá para comparar.
+
+```agir
+# Esta semana
+Faça a ficha de avaliação do couro cabeludo do exemplo da aula e use no próximo atendimento.
+```
 
 ## Resumo
 

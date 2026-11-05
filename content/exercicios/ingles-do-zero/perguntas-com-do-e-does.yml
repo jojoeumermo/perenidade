@@ -1,0 +1,51 @@
+# Exercícios da aula "Perguntas com do e does" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-per-01
+  tema: "Does"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a pergunta certa?"
+  alternativas:
+    - texto: "Does she work at night?"
+      certa: true
+    - texto: "Does she works at night?"
+      erro: "Com does, o verbo volta à forma básica."
+    - texto: "Do she work at night?"
+      erro: "Com she, usa-se does."
+  explicacao: "O -s vai para o does, e o verbo principal volta à forma básica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-per-02
+  tema: "Resposta curta"
+  dificuldade: 2
+  enunciado: "Qual é a resposta curta certa para 'Do you like rice and beans?', dizendo que sim?"
+  alternativas:
+    - texto: "Yes, I do."
+      certa: true
+    - texto: "Yes, I like."
+      erro: "Não se repete o verbo principal: repete-se o auxiliar."
+    - texto: "Yes, I am."
+      erro: "Am é do verbo to be. A pergunta usa do."
+  explicacao: "Respostas curtas repetem o auxiliar: Yes, I do. / No, I don't."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-per-03
+  tema: "Pergunta com to be"
+  dificuldade: 3
+  enunciado: "Qual é a pergunta certa?"
+  alternativas:
+    - texto: "Are you tired?"
+      certa: true
+    - texto: "Do you are tired?"
+      erro: "Com to be não se usa do: basta inverter."
+    - texto: "You are tired do?"
+      erro: "O do não vai no fim."
+  explicacao: "O verbo to be continua sendo exceção: nele, basta inverter."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

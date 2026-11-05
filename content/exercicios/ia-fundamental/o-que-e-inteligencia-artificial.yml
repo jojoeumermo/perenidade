@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é inteligência artificial" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-oq-01
+  tema: "Programa tradicional e aprendizado de máquina"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a diferença entre um programa tradicional e um sistema de aprendizado de máquina?"
+  alternativas:
+    - texto: "O tradicional segue regras escritas por alguém; o de aprendizado de máquina ajusta números internos a partir de muitos exemplos"
+      certa: true
+    - texto: "Não há diferença"
+      erro: "No tradicional, alguém escreve as regras. No de aprendizado de máquina, o sistema acha padrões nos exemplos."
+    - texto: "O de aprendizado de máquina é sempre humano"
+      erro: "Não: é um programa de computador que aprende padrões com exemplos."
+  explicacao: "Para reconhecer um gato numa foto, ninguém consegue escrever todas as regras. Por isso se mostram milhões de exemplos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-oq-02
+  tema: "De onde vem o nome"
+  dificuldade: 1
+  enunciado: "Em que ano e por quem foi criada a expressão 'inteligência artificial'?"
+  alternativas:
+    - texto: "Em 1956, pelo cientista da computação John McCarthy"
+      certa: true
+    - texto: "Em 2017, pelo criador do transformer"
+      erro: "2017 é o ano do transformer, que é uma arquitetura de rede neural. A expressão é de 1956."
+    - texto: "Em 1990, por uma empresa de celular"
+      erro: "A expressão é de 1956, de John McCarthy, para um encontro de pesquisadores."
+  explicacao: "O nome impressiona, mas a definição é modesta: sistemas de computador que fazem tarefas que costumam exigir inteligência humana."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula 'O que é inteligência artificial'"
+  revisao:
+    status: em-revisao
+
+- id: ia-oq-03
+  tema: "O modelo não tem definição"
+  dificuldade: 2
+  enunciado: "O sistema que reconhece gatos recebeu uma definição de gato?"
+  alternativas:
+    - texto: "Não: ele encontrou padrões estatísticos nos exemplos"
+      certa: true
+    - texto: "Sim, uma definição escrita por biólogos"
+      erro: "Ninguém escreveu a definição. O modelo ajusta seus números até acertar os exemplos."
+    - texto: "Sim, copiada de um dicionário"
+      erro: "Dicionário não entra no treino. Ele aprende com fotos com e sem gato."
+  explicacao: "O modelo ajusta sozinho milhões de números internos até acertar a maioria dos casos, a partir de exemplos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "Frações"
+modelo: 9
 resumo: "O que é uma fração, como simplificar e como somar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -25,6 +26,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são numerador e denominador, achar frações equivalentes, simplificar e somar frações com denominadores diferentes.
+
+```suarealidade
+Onde frações aparecem no seu dia: na receita, na obra, na divisão da conta? Quando você diz "meio quilo" ou "um terço", o que está dividindo?
+```
 
 ## Partes de um todo
 
@@ -80,6 +85,15 @@ A subtração funciona do mesmo jeito: iguale os denominadores e subtraia os num
 
 A fração `3/4` é o mesmo que 3 dividido por 4, que dá 0,75. Essa ideia vai ser útil na próxima aula, sobre porcentagem.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Fração é coisa complicada. Hoje tudo é número com vírgula, e a calculadora resolve." É uma crítica que muita gente faz às contas escritas como 3/8.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que fração e vírgula são parentes: uma seção é dedicada a "Fração também é divisão", e a aula de números decimais liga decimais, frações e porcentagens. A fração é uma ideia de dia a dia: uma pizza cortada em 8 fatias, da qual você comeu 3, é 3/8. E a aula ensina a simplificar e a somar frações com denominadores diferentes, passo a passo.
+```
+
 ## Exemplo resolvido
 
 **Quanto é 1/4 + 1/2?**
@@ -99,6 +113,11 @@ Resolva e simplifique o resultado:
 3. `2/3 − 1/6`
 
 Respostas: `1/2`, `3/4` e `1/2`.
+
+```agir
+# Esta semana
+Pegue uma receita ou uma conta de casa que use meio, um quarto ou um terço (de xícara, de quilo, de litro) e escreva no papel quanto daria se você dobrasse a quantidade. Confira a conta.
+```
 
 ## Resumo
 

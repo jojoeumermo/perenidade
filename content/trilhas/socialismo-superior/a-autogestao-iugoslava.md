@@ -32,7 +32,7 @@ quiz:
     resposta: 0
     explicacao: "A Iugoslávia também teve papel de liderança no Movimento dos Não Alinhados."
   - pergunta: "Até quando durou o sistema?"
-    opcoes: ["Até 1990, pouco antes da desintegração da Iugoslávia em 1992", "Até 1960", "Ainda existe"]
+    opcoes: ["Até 1990, pouco antes da desintegração da Iugoslávia, a partir de 1991", "Até 1960", "Ainda existe"]
     resposta: 0
     explicacao: "Foi codificado pela Constituição de 1974."
 ---

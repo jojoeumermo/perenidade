@@ -1,5 +1,6 @@
 ---
 titulo: "Inteligência artificial e o seu trabalho"
+modelo: 9
 resumo: "A IA vai acabar com o seu emprego? O estudo da OIT de 2023: o trabalho de escritório é o mais exposto, o efeito mais provável é mudar tarefas (e a intensidade e a autonomia no trabalho), as mulheres são mais afetadas e o resultado depende de política e de organização."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -44,6 +45,10 @@ quiz:
 
 Ao fim desta aula você vai conhecer o que o estudo da Organização Internacional do Trabalho de 2023 diz sobre IA e emprego e por que o resultado depende de política e de organização dos trabalhadores.
 
+```suarealidade
+Que tarefas do seu trabalho (ou do trabalho de alguém da sua família) uma máquina já faz ou poderia fazer? Quem decidiu isso?
+```
+
 ## O que a OIT estudou
 
 Em **2023**, a **Organização Internacional do Trabalho** publicou o estudo *Generative AI and Jobs* ("IA generativa e empregos"), que analisou quanto das tarefas de cada ocupação poderia ser feito ou mudado pela IA generativa.
@@ -87,6 +92,20 @@ Segundo a OIT, qual é a preocupação principal, além da perda de empregos?
 | com negociação coletiva | metas discutidas, formação para as novas tarefas, ganho dividido (menos horas ou salário maior) |
 
 A máquina é a mesma; o que muda é **quem decide**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Tecnologia sempre criou mais emprego do que destruiu. Quem reclama da IA é contra o progresso. O trabalhador é que tem de se qualificar."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o estudo da Organização Internacional do Trabalho de 2023 concluiu que a IA generativa tende a mudar tarefas dentro dos empregos mais do que eliminar empregos inteiros. Mas o trabalho de escritório é o mais exposto (quase um quarto das tarefas altamente exposto), e a parcela do emprego feminino potencialmente afetada é mais que o dobro da masculina. Os autores apontam como preocupação a intensidade (o ritmo) e a autonomia de quem trabalha, e concluem que as políticas vão definir o resultado, pedindo uma transição ordenada, justa e com consulta aos trabalhadores. Qualificação ajuda, mas não responde sozinha a quem fica com o ganho.
+```
+
+```agir
+# Esta semana
+Leve a pergunta "como a IA vai mudar o nosso trabalho?" para uma conversa no trabalho, na associação ou no sindicato da sua categoria e anote duas ideias que surgirem.
+```
 
 ## Resumo
 

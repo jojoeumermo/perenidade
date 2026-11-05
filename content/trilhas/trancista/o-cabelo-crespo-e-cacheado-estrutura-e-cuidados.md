@@ -1,5 +1,6 @@
 ---
 titulo: "O cabelo crespo e cacheado: estrutura e cuidados"
+modelo: 9
 resumo: "Do que o fio é feito, por que um cabelo é liso e outro é crespo, como o cabelo cresce e cai, o que é o encolhimento e os cuidados que protegem o fio antes e depois de trançar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Por que o mesmo cabelo crespo parece ter um palmo quando está seco e quase o do
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber do que o fio é feito, por que um cabelo é liso e outro crespo, como o cabelo cresce e cai, o que é o encolhimento e quais cuidados protegem o fio antes e depois de trançar.
+
+```suarealidade
+O que você já ouviu dizer sobre o cabelo crespo? Quem disse e como você se sentiu?
+```
 
 ## Do que o fio é feito
 
@@ -108,6 +113,15 @@ Uma cliente se assusta com a quantidade de cabelo que saiu ao desfazer as tranç
 > Pense na queda diária normal multiplicada pelos dias com tranças.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cabelo crespo é difícil de cuidar e quebra à toa. O melhor é alisar, que fica mais fácil." É a opinião de quem já cansou de lutar com o próprio cabelo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não julga a escolha de ninguém, mas mostra como o fio funciona: ele é de queratina, e a textura depende do formato do folículo; o achatado dá fio crespo. O crespo não é "ruim": é uma estrutura diferente, com cuidado diferente. Tranças apertadas, alisamento e pentear seco com força fazem mal; hidratar, aparar e usar pouco calor protegem. O fio cresce cerca de 0,3 mm por dia e perdemos cerca de 50 fios por dia, então sair cabelo na retirada das tranças é normal.
+```
+
 ## Exemplo resolvido
 
 **Uma cliente usou tranças por 6 semanas. Quantos fios, mais ou menos, é normal sair na retirada? E quanto o cabelo cresceu nesse tempo?**
@@ -119,6 +133,11 @@ Crescimento: entre 42 × 0,26 mm ≈ 11 mm e 42 × 0,3 mm ≈ 13 mm
 ```
 
 É normal sair **cerca de 2 mil fios** na retirada: os que caíram ao longo das semanas e ficaram presos na trança. E o cabelo cresceu **pouco mais de 1 cm** perto da raiz. Se sair muito mais que isso, ou se aparecerem falhas, principalmente na frente e nas laterais, é sinal de alerta (veja a próxima aula).
+
+```agir
+# Esta semana
+Explique a uma cliente ou a alguém da família, com a conta do exemplo da aula, por que sai cabelo na retirada das tranças.
+```
 
 ## Resumo
 

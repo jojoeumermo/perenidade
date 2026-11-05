@@ -28,7 +28,7 @@ quiz:
   - pergunta: "Que livro de Florestan Fernandes, de 1975, trata do desenvolvimento do capitalismo no Brasil?"
     opcoes: ["A Revolução Burguesa no Brasil", "O Capital", "Raízes do Brasil"]
     resposta: 0
-    explicacao: "Florestan é o patrono da sociologia brasileira."
+    explicacao: "Florestan Fernandes é um dos nomes mais importantes da sociologia brasileira."
   - pergunta: "Qual foi a tese de cátedra de Florestan, de 1964?"
     opcoes: ["A integração do negro na sociedade de classes", "A economia do café", "O Brasil holandês"]
     resposta: 0

@@ -1,5 +1,6 @@
 ---
 titulo: "Mediar conflitos"
+modelo: 9
 resumo: "O que é mediar, os princípios da Lei de Mediação, como conduzir uma conversa difícil entre duas partes, separar fatos de julgamentos e pedidos de exigências, e quando o caso não é de mediação."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Dois vizinhos brigam por causa do muro. Cada um chega na associação querendo q
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é mediar, conhecer os princípios da Lei de Mediação, conduzir uma conversa entre duas partes em conflito com um passo a passo e reconhecer quando o caso não é de mediação.
+
+```suarealidade
+Pense num conflito que você viveu ou viu de perto, entre vizinhos, colegas ou parentes. Alguém tentou ajudar os dois lados a conversar, ou só se escolheu um lado?
+```
 
 ## Mediar não é julgar
 
@@ -103,6 +108,15 @@ Na mediação entre dois vizinhos, um deles diz: "Ele não respeita ninguém!". 
 > Juízo de valor fecha a conversa; observação abre.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Em conflito, alguém tem razão e alguém está errado. Mediador que não toma partido só enrola; é melhor o líder decidir e pronto." É a opinião de quem já viu uma conversa sem fim e prefere uma decisão firme.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que a Lei 13.140/2015 define a mediação como a atividade de um terceiro imparcial, sem poder de decidir, que ajuda as partes a chegarem a um acordo. Quem media não diz quem tem razão: ajuda os dois a conversar e a construir a saída, fechando com um acordo concreto. A aula também diz que mediação tem limite: violência ou ameaça não se media, protege-se (190 em emergência; Ligue 180 para violência contra a mulher). Em muitos conflitos do dia a dia, a decisão tomada pelas próprias partes é a que dura.
+```
+
 ## Exemplo resolvido
 
 **Dona Célia e Seu Roberto brigam porque a água da calha da casa dele cai no quintal dela. Monte a mediação.**
@@ -114,6 +128,11 @@ Na mediação entre dois vizinhos, um deles diz: "Ele não respeita ninguém!". 
 5. **Ideias dos dois**: ele estica a calha até a rua; ela ajuda com metade do cano; ela conversa com a vizinha da padaria.
 6. **Acordo escrito**: "Seu Roberto instala a extensão da calha até o dia 30. Dona Célia paga metade do cano. Os dois voltam a conversar no dia 5."
 7. **Nova conversa** marcada.
+
+```agir
+# Esta semana
+Pense numa frase de julgamento que você ouviu ou disse numa discussão ("você é folgado") e reescreva num papel como observação ("o som ficou alto até as 2h"). Treine dizer a segunda forma.
+```
 
 ## Resumo
 

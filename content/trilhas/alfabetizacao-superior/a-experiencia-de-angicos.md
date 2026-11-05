@@ -1,5 +1,6 @@
 ---
 titulo: "A experiência de Angicos"
+modelo: 9
 resumo: "Objetivo: conhecer a experiência de alfabetização de adultos em Angicos (RN), em 1963, o seu contexto político, o Programa Nacional de Alfabetização de 1964 e o seu fim com o golpe militar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer a experiência de Angicos (RN), em 1963: o contexto político, como foram as "40 horas", a passagem para o Programa Nacional de Alfabetização e o fim imposto pelo golpe de 1964. E vai entender por que alfabetizar adultos tinha, naquele tempo, um peso tão grande sobre o direito de votar.
+
+```suarealidade
+Você acha justo que, por muito tempo, quem não sabia ler não pudesse votar? O que isso fazia com a voz de quem trabalhava na roça?
+```
 
 ## O contexto
 
@@ -91,6 +96,20 @@ Angicos se tornou símbolo da educação popular brasileira. A experiência é e
 Conclusão: Angicos ficou importante porque juntou um **método** que funcionava com uma **consequência política** (o voto) num momento de disputa sobre o país.
 
 Para ver outras experiências do mesmo tempo, leia [Os Centros Populares de Cultura e o Movimento de Cultura Popular](/trilhas/alfabetizacao-aprofundamento/os-centros-populares-de-cultura-e-o-movimento-de-cultura-popular) e [De Pé no Chão Também se Aprende a Ler](/trilhas/alfabetizacao-aprofundamento/de-pe-no-chao-tambem-se-aprende-a-ler).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem não sabe ler não tem condições de escolher bem em quem votar. Era razoável que só votasse quem lia." É um argumento que já foi muito dito no passado.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que, na época, analfabeto não votava, e que num país em que cerca de metade dos adultos não sabia ler isso excluía da política uma parte enorme do povo, sobretudo no campo. Quem não lê não deixa de ter opinião sobre o preço do feijão, o salário ou a escola. Alfabetizar era também ampliar o eleitorado. Em Angicos, cerca de trezentos trabalhadores foram alfabetizados em cerca de 40 horas, com um método que partia da vida do grupo.
+```
+
+```agir
+# Esta semana
+Pergunte a uma pessoa mais velha de confiança se, na juventude dela, alguém da família ou do bairro ficou sem votar por não saber ler. Anote no papel o que ela contou, sem pedir nome de ninguém.
+```
 
 ## Resumo
 

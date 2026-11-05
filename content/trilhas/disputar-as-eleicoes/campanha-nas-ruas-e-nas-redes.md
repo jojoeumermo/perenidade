@@ -1,5 +1,6 @@
 ---
 titulo: "Campanha nas ruas e nas redes: o que pode e o que não pode"
+modelo: 9
 resumo: "O que se pode fazer antes da campanha sem pedir voto, quando começa a propaganda, o horário eleitoral gratuito, o que é proibido (brindes, showmício, outdoor, compra de voto, boca de urna), as regras da internet e da inteligência artificial, e o trabalho de base que nenhuma lei proíbe."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Em março do ano da eleição, uma pré-candidata posta: "Conto com o seu voto e
 
 Ao fim desta aula você vai saber o que se pode fazer antes e durante a campanha, o que é proibido e por que o trabalho de base continua sendo a melhor propaganda.
 
+```suarealidade
+Na última eleição, que tipo de campanha chegou até a sua rua: carro de som, panfleto, rede social, conversa de porta em porta? Qual delas convenceu você?
+```
+
 ## Antes de 16 de agosto: a pré-campanha
 
 A **propaganda eleitoral só é permitida depois de 15 de agosto** do ano da eleição. Antes disso, **pedir voto é propaganda antecipada**, e dá multa. A provocação, portanto, mostra uma infração: "conto com o seu voto" é pedido explícito.
@@ -94,6 +99,15 @@ Qual destas ações é permitida no dia 10 de setembro do ano da eleição?
 > Lembre a lista do que é proibido.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Proibir brinde, showmício e outdoor atrapalha quem é novo na política. Candidato de bairro precisa de camiseta, boné e música para ser visto." É o pedido de quem quer ser conhecido com pouco dinheiro.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a lei proíbe brindes (camisetas, bonés, cestas básicas ou qualquer bem que dê vantagem ao eleitor), showmício e outdoor, e que oferecer dinheiro, bem ou vantagem em troca do voto é compra de voto, que leva à multa e à cassação. A regra vale para todas as candidaturas. E a lei deixa muito espaço: na pré-campanha, sem pedido explícito de voto, pode-se dar entrevistas, participar de debates e arrecadar pela vaquinha na internet; a partir de 16 de agosto, panfleto, caminhada, comício e redes. O trabalho de base, como roda de conversa, reunião na associação de moradores e assembleia no sindicato, é permitido, barato e é o que a campanha do empresário não consegue comprar.
+```
+
 ## Exemplo resolvido
 
 **O coletivo quer fazer uma festa no bairro em setembro para apresentar a candidata. Como fazer dentro da lei?**
@@ -102,6 +116,11 @@ Qual destas ações é permitida no dia 10 de setembro do ano da eleição?
 2. **Sem brinde**: nada de camiseta ou comida distribuída como vantagem ao eleitor.
 3. **Com conversa**: a candidata fala, ouve as pessoas, apresenta as propostas.
 4. **Com prestação de contas**: tudo o que se gastar no evento (som, aluguel de cadeiras) entra nas contas da campanha.
+
+```agir
+# Esta semana
+Escreva num papel três lugares do seu bairro (associação, porta de fábrica, igreja, praça) onde uma conversa política respeitosa poderia acontecer, e com quem. Confira no calendário do TSE a data a partir da qual se pode pedir voto.
+```
 
 ## Resumo
 

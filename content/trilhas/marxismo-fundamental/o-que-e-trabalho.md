@@ -1,5 +1,6 @@
 ---
 titulo: "O que é trabalho"
+modelo: 9
 resumo: "Do machado de pedra ao computador: o trabalho é o que faz de nós seres humanos, e também o que, no capitalismo, nos é tomado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 Ao fim desta aula você vai saber dizer o que Marx e Engels entendem por trabalho, por que ele é mais do que emprego e quais trabalhos ficam sem pagamento.
 
 Quando alguém pergunta "você trabalha?", geralmente quer saber se você tem emprego. Mas trabalho é muito mais do que emprego. É a atividade que fez de nós o que somos.
+
+```suarealidade
+Qual trabalho você faz que não é pago, em casa ou na comunidade: cozinhar, cuidar de crianças, de idosos, de doentes? Quem faz esse trabalho na sua casa?
+```
 
 ## O ser humano se faz trabalhando
 
@@ -75,6 +80,15 @@ Marx deu uma resposta nos *Manuscritos de 1844*: no capitalismo, o trabalhador n
 
 Pense nas vezes em que você trabalhou com prazer: ajudando a construir a casa de um vizinho num mutirão, plantando uma horta comunitária, preparando uma festa. Era cansativo, mas era seu e de todos. O sonho socialista é que todo trabalho possa ser assim: decidido coletivamente, para atender às necessidades de todos, e não para enriquecer poucos.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Trabalho é o que dá dinheiro. Cuidar da casa é obrigação da família, não é trabalho no mesmo sentido." É a ideia de quem aprendeu que só vale o que tem salário.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula parte exatamente dessa confusão: "você trabalha?" geralmente quer saber se você tem emprego, mas trabalho é muito mais do que emprego. Ela lista o trabalho que ninguém paga (cozinhar, lavar, limpar, cuidar de crianças e idosos) e lembra que ele é feito sobretudo por mulheres e que, sem ele, a sociedade pararia: ninguém iria para a fábrica de barriga vazia e roupa suja. Mesmo assim, é tratado como "não trabalho". Reconhecer isso é parte da luta das mulheres trabalhadoras.
+```
+
 ## Exemplo resolvido
 
 **Cozinhar, lavar e cuidar de crianças são trabalho?**
@@ -89,6 +103,11 @@ Confira: reconhecer esse trabalho é parte da luta das mulheres trabalhadoras.
 ## Para conversar
 
 Qual trabalho você mais gostou de fazer na vida? E qual menos gostou? O que fazia a diferença entre um e outro?
+
+```agir
+# Esta semana
+Faça no papel uma lista de tudo o que é feito na sua casa em um dia sem receber salário (cozinhar, limpar, cuidar de alguém) e escreva ao lado quem fez cada coisa. Se quiser, converse com a família sobre a lista.
+```
 
 ## Resumo
 

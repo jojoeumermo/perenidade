@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização de pessoas com deficiência intelectual"
+modelo: 9
 resumo: "O direito à educação ao longo da vida, o que a Lei Brasileira de Inclusão garante e como adaptar o círculo para jovens e adultos com deficiência intelectual, sem infantilizar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -44,6 +45,10 @@ Ao fim desta aula você vai saber o que a lei garante às pessoas com deficiênc
 
 ```provocacao
 Você já ouviu alguém dizer que uma pessoa "não tem jeito para aprender"? O que essa frase faz com quem a escuta?
+```
+
+```suarealidade
+Você conhece alguém que ouviu que "não tem jeito para aprender"? O que essa pessoa já conseguiu fazer de importante na vida, mesmo sem ler bem?
 ```
 
 ## O que diz a lei
@@ -105,6 +110,20 @@ Confira: o objetivo veio dele, o material é de adulto e do trabalho dele, a tar
 
 ```realidade
 Pense em alguém que você conhece e que foi chamado de "sem jeito para aprender". O que essa pessoa gostaria de conseguir ler?
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para quem tem deficiência intelectual é melhor um lugar só para eles, com gente especializada. Na turma comum, a pessoa fica perdida e atrasa os outros." É uma preocupação que muitas famílias têm, por querer proteger o filho.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A preocupação é legítima, e a aula não manda dispensar o apoio especializado: ela indica o atendimento educacional especializado como apoio, e não no lugar da escola comum, como orienta a política do MEC de 2008. A Lei Brasileira de Inclusão (art. 27) garante educação inclusiva e aprendizado ao longo de toda a vida. Passos curtos, material de adulto e objetivos escolhidos pela própria pessoa ajudam todo o grupo, e não só ela.
+```
+
+```agir
+# Esta semana
+Pense numa palavra que uma pessoa que você conhece gostaria de saber ler (o nome dela, um produto, um ônibus). Escreva essa palavra em letras grandes num cartão. Se for oportuno, mostre o cartão a essa pessoa.
 ```
 
 ## Resumo

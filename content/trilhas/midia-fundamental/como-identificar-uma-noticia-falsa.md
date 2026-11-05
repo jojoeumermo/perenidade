@@ -1,5 +1,6 @@
 ---
 titulo: "Como identificar uma notícia falsa"
+modelo: 9
 resumo: "Sete perguntas para fazer antes de acreditar, e principalmente antes de compartilhar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ quiz:
 Ao fim desta aula você vai saber distinguir conteúdo inventado, fora de contexto e distorcido, aplicar sete perguntas para conferir uma mensagem e usar busca reversa e agências de checagem.
 
 
+
+```suarealidade
+Qual mensagem duvidosa chegou no seu celular nesta semana, num grupo da família ou do trabalho? Você conferiu antes de repassar?
+```
 
 ## Mentira corre mais
 
@@ -87,6 +92,15 @@ Perguntar "a quem isso interessa?" não prova que uma informação é falsa, mas
 
 **Na dúvida, não compartilhe.** Cada pessoa que deixa de repassar uma mentira quebra a corrente. E, quando alguém próximo compartilhar algo falso, responda em particular, com a fonte, sem humilhar: quase todo mundo já caiu em alguma.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Quem checa notícia só quer impor a sua versão. A gente já sabe o que é verdade, e checar é censura de quem manda." É a opinião de quem desconfia das agências de checagem e da imprensa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não pede para acreditar em ninguém: pede para conferir. Ela mostra que, em 2018, pesquisadores do MIT, em estudo na revista Science, viram que histórias falsas se espalharam mais longe e mais depressa do que as verdadeiras, e que as espalharam pessoas comuns, não robôs. As sete perguntas funcionam com qualquer fonte: quem publicou, quando, de onde veio a informação e se outros veículos deram. Dá para desconfiar de uma agência e, mesmo assim, olhar a fonte dos dados. E na dúvida, não compartilhar.
+```
+
 ## Exemplo resolvido: aplicando as sete perguntas
 
 Mensagem inventada, para treinar: "URGENTE! Chá milagroso cura a doença, segundo um médico famoso. Repasse antes que apaguem!"
@@ -99,6 +113,11 @@ Mensagem inventada, para treinar: "URGENTE! Chá milagroso cura a doença, segun
 6. **Decisão:** na dúvida, não compartilhe; se alguém próximo repassou, responda em particular.
 
 Confira: a mensagem falha em pelo menos quatro das sete perguntas. Nem precisou de busca reversa, que serve quando a mensagem traz uma imagem.
+
+```agir
+# Esta semana
+Escolha uma mensagem que circulou nos seus grupos esta semana e aplique as sete perguntas da aula, anotando num papel o que encontrou. Se for falsa, responda a quem enviou em particular, com a fonte e sem humilhar.
+```
 
 ## Resumo
 

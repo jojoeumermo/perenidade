@@ -1,5 +1,6 @@
 ---
 titulo: "Racismo é crime"
+modelo: 9
 resumo: "Durante quase 40 anos, o racismo no Brasil foi só 'contravenção'. A Constituição de 1988 o tornou crime inafiançável e imprescritível, a Lei Caó (1989) definiu os crimes, e em 2023 a injúria racial passou a ser racismo. O que diz a lei e o que fazer."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Até 1988, discriminar alguém pela cor da pele no Brasil era tratado como uma i
 
 Ao fim desta aula você vai conhecer as principais leis brasileiras contra o racismo e saber o que fazer diante de um caso.
 
+```suarealidade
+Você já viu ou ouviu falar de uma ofensa por causa da cor da pele, no trabalho, na escola ou na rua? O que foi feito depois? Sabia que isso é crime?
+```
+
 ## De contravenção a crime
 
 - **1951**: a **Lei Afonso Arinos** foi a primeira a definir o racismo, mas como **contravenção penal**, uma infração menos grave que um crime.
@@ -74,6 +79,15 @@ Chamar alguém de um nome ofensivo por causa da cor da pele é o quê, pela lei 
 2. **Registre ocorrência** numa delegacia ou chame a polícia pelo **190** em caso de flagrante.
 3. Procure a **Defensoria Pública**, o **Ministério Público** ou um advogado.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Chamar de injúria racial um xingamento é exagero. Em briga, todo mundo xinga, e prender por isso é desproporcional." É a opinião de quem teme que a lei exagere.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a lei foi mudando por causa da gravidade do problema: em 1951 o racismo era só contravenção, em 1988 a Constituição o tornou crime inafiançável e imprescritível, e em 2023 a Lei 14.532 tornou a injúria racial crime de racismo, com pena de 2 a 5 anos de reclusão e multa. A injúria racial é ofender a dignidade ou o decoro de alguém em razão de raça, cor, etnia ou procedência nacional, não um xingamento qualquer. A aula também ensina o que fazer: reunir provas, registrar ocorrência e procurar a Defensoria Pública, o Ministério Público ou um advogado.
+```
+
 ## Exemplo resolvido
 
 **Num jogo de futebol, um grupo de torcedores imita sons de macaco para um jogador negro. Que leis se aplicam?**
@@ -82,6 +96,11 @@ Chamar alguém de um nome ofensivo por causa da cor da pele é o quê, pela lei 
 2. Foi cometida por **duas ou mais pessoas**: a **pena aumenta de metade**.
 3. A Lei 14.532 também prevê **suspensão de direitos** para racismo no contexto de **atividade esportiva**.
 4. O crime é **inafiançável** e **imprescritível**.
+
+```agir
+# Esta semana
+Escreva num papel os três passos que a aula indica diante de um caso de racismo (provas, ocorrência, Defensoria ou Ministério Público) e guarde o papel num lugar fácil de achar. Não é preciso ir a lugar nenhum nem confrontar ninguém.
+```
 
 ## Resumo
 

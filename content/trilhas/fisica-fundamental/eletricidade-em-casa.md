@@ -1,5 +1,6 @@
 ---
 titulo: "Eletricidade em casa"
+modelo: 9
 resumo: "Objetivo: entender tensão, corrente, resistência e potência, e usar esse conhecimento para evitar choques, incêndios e desperdício."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -32,6 +33,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são tensão, corrente e resistência, calcular a corrente que um aparelho puxa da tomada e reconhecer os cuidados que evitam choque e incêndio em casa.
+
+```suarealidade
+Na sua casa, qual aparelho você liga na mesma tomada com outros? Você já viu um disjuntor desarmar ou um fio esquentar?
+```
 
 
 ## O que corre no fio
@@ -142,6 +147,20 @@ Fio fino, emenda com fita, ligação improvisada: grande parte dos incêndios em
 4. Sua casa tem fio terra e DR?
 
 **Respostas:** 1) Cerca de 8,7 A. 2) 2.000 ÷ 127, cerca de 15,7 A.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Disjuntor que vive desarmando é defeito. É só trocar por um maior, ou prender, que resolve. Chamar eletricista é gasto à toa."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que o disjuntor é dimensionado para o fio: se ele desarma, há sobrecarga ou defeito. Trocar por um disjuntor mais forte sem trocar o fio é desligar o alarme e deixar o incêndio. Acima da corrente máxima, o fio esquenta, o plástico derrete e pode haver incêndio. Por isso instalação elétrica é serviço para eletricista. E a aula lembra que a gambiarra tem causa: casas construídas sem projeto, material barato, redes sobrecarregadas. Quem improvisa não é descuidado; falta moradia digna.
+```
+
+```agir
+# Esta semana
+Localize o quadro de disjuntores da sua casa e anote quantos circuitos há e se o chuveiro tem um só para ele. Não abra o quadro nem mexa em nada: só olhe e anote.
+```
 
 ## Resumo
 

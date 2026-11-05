@@ -1,0 +1,52 @@
+# Exercícios da aula "A África antes da escravidão" (Luta negra, fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ln-afr-01
+  tema: "Mali"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Em que ano foi fundado o Império do Mali, por Sundiata Queita?"
+  alternativas:
+    - texto: "Em 1235"
+      certa: true
+    - texto: "Em 1535"
+      erro: "1535 já é depois do auge do Mali. O império foi fundado em 1235."
+    - texto: "Em 989"
+      erro: "989 é o ano da fundação da mesquita de Sancoré, em Tombuctu."
+  explicacao: "O Mali existiu entre 1235 e 1670, na África Ocidental."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-afr-02
+  tipo: numero
+  tema: "Duração do Mali"
+  dificuldade: 2
+  enunciado: "O Império do Mali existiu de 1235 a 1670. Quantos anos durou?"
+  resposta: "435"
+  unidade: "anos"
+  erros_comuns:
+    - resposta: "2905"
+      explicacao: "2.905 é a soma dos dois anos. Para a duração, subtraia: 1670 − 1235."
+  dica: "Subtraia o ano de início do ano de fim."
+  explicacao: "1670 − 1235 = 435 anos."
+  conferir: "1670 - 1235"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-afr-03
+  tema: "Tombuctu"
+  dificuldade: 2
+  enunciado: "O que foram as três mesquitas de Tombuctu (Sancoré, Djinguereber e Sidi Iáia)?"
+  alternativas:
+    - texto: "Um conjunto que formava um grande centro de produção de conhecimento do mundo islâmico medieval"
+      certa: true
+    - texto: "Um quilombo no Brasil"
+      erro: "Tombuctu fica no atual Mali, na África."
+    - texto: "Uma escola criada pelos europeus"
+      erro: "Tombuctu já era centro de saber antes dos europeus."
+  explicacao: "A mesquita de Sancoré foi fundada em 989. Isso ajuda a desmontar a ideia de uma África 'sem história' antes dos europeus."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

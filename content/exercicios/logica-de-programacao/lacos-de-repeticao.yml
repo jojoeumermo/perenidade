@@ -1,0 +1,72 @@
+# Exercícios da aula "Laços de repetição" (Lógica de programação). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lp-lac-01
+  tema: "range"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Que números aparecem em for n in range(1, 4): print(n)?"
+  alternativas:
+    - texto: "1, 2 e 3"
+      certa: true
+    - texto: "1, 2, 3 e 4"
+      erro: "O último valor do range não entra: a contagem para antes do 4."
+    - texto: "0, 1, 2 e 3"
+      erro: "Com dois valores, a contagem começa no primeiro (1). Só com um valor, range(3), começa do zero."
+  explicacao: "range(1, 4) gera 1, 2 e 3. O primeiro valor entra, o último não."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-lac-02
+  tema: "Laço infinito"
+  dificuldade: 2
+  enunciado: "O que acontece neste programa?\n\ncontador = 1\nwhile contador <= 3:\n    print(contador)"
+  alternativas:
+    - texto: "Mostra 1 para sempre, porque o contador nunca muda: é um laço infinito"
+      certa: true
+    - texto: "Mostra 1, 2 e 3 e para"
+      erro: "Falta a linha contador = contador + 1. Sem ela, a condição nunca fica falsa."
+    - texto: "Não mostra nada"
+      erro: "A condição 1 <= 3 é verdadeira, então o bloco roda, e roda para sempre."
+  explicacao: "Sempre que escrever um while, pergunte: o que, dentro do bloco, vai fazer a condição ficar falsa em algum momento?"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-lac-03
+  tipo: numero
+  tema: "Acumulador"
+  dificuldade: 2
+  enunciado: "O que o programa mostra, no final?\n\nsoma = 0\nfor n in range(1, 5):\n    soma = soma + n\nprint(soma)"
+  resposta: "10"
+  erros_comuns:
+    - resposta: "15"
+      explicacao: "15 inclui o 5, mas o range(1, 5) para antes do 5. Os números são 1, 2, 3 e 4."
+    - resposta: "4"
+      explicacao: "4 é o último número somado, e não a soma de todos."
+  dica: "Some os números que o range(1, 5) gera."
+  explicacao: "O range(1, 5) gera 1, 2, 3 e 4. A soma: 1 + 2 + 3 + 4 = 10."
+  conferir: "1 + 2 + 3 + 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lp-lac-04
+  tipo: numero
+  tema: "Contar as voltas"
+  dificuldade: 3
+  enunciado: "Quantas vezes o corpo do laço roda?\n\nx = 2\nwhile x < 20:\n    x = x + 5"
+  resposta: "4"
+  unidade: "vezes"
+  erros_comuns:
+    - resposta: "3"
+      explicacao: "Confira: x vai a 2, 7, 12 e 17, e em todos esses valores x < 20 é verdadeiro. São 4 voltas."
+    - resposta: "5"
+      explicacao: "Depois da quarta volta, x vale 22 e a condição fica falsa. São 4 voltas."
+  dica: "Anote o valor de x antes de cada volta e veja quando x < 20 deixa de ser verdadeiro."
+  explicacao: "x = 2, 7, 12 e 17 entram no laço (4 voltas). Depois x vale 22, e 22 < 20 é falso."
+  conferir: "4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

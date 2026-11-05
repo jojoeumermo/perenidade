@@ -1,5 +1,6 @@
 ---
 titulo: "Plantas e fotossíntese"
+modelo: 9
 resumo: "Objetivo: entender como as plantas produzem o próprio alimento a partir de luz, água e gás carbônico, conhecer as suas partes e os seus grandes grupos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar a fotossíntese (o que entra, o que sai e onde acontece), de onde vem a matéria de uma árvore, a função de cada parte da planta e os grandes grupos de plantas.
+
+```suarealidade
+De onde você acha que vem a matéria de uma árvore grande, como uma mangueira: da terra, da água ou do ar? Por que você pensa assim?
+```
 
 ## Fábricas de alimento
 
@@ -134,6 +139,20 @@ A fotossíntese não é exclusiva das plantas: **algas** e certas **bactérias**
 4. **Conclua.** A árvore é feita sobretudo de ar e de água, com luz do Sol.
 
 Confira: é por isso que as florestas retiram gás carbônico do ar e, se queimadas, devolvem esse carbono à atmosfera.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Todo mundo vê que a árvore cresce da terra: ela tira de lá o que precisa. Dizer que a maior parte vem do ar é invenção de livro." É uma ideia natural, porque as raízes estão debaixo da terra.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a maior parte da matéria de uma árvore vem do gás carbônico do ar, que entra pelos estômatos das folhas, e que a água vem pelas raízes. Na fotossíntese, gás carbônico mais água mais luz dão açúcar (glicose) e oxigênio. A terra fornece água e sais minerais, mas não é de onde vem a maior parte da massa. A ideia é contraintuitiva, e por isso vale testar e conferir nas fontes.
+```
+
+```agir
+# Esta semana
+Plante uma semente de feijão num copo com algodão úmido ou terra e acompanhe uma semana. Anote num papel o que a planta recebeu (água, luz, ar) e o que cresceu. Veja se a terra diminuiu.
+```
 
 ## Resumo
 

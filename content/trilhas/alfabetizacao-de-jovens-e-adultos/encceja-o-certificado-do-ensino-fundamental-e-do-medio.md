@@ -1,5 +1,6 @@
 ---
 titulo: "Encceja: o certificado do ensino fundamental e do médio"
+modelo: 9
 resumo: "O Encceja é o exame nacional, gratuito, que dá a jovens e adultos o certificado do ensino fundamental ou do médio. Quem pode fazer, o que cai, a nota para passar e como se preparar. E depois dele, o ENEM."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -49,6 +50,10 @@ Ao fim desta aula você vai saber o que é o Encceja, quem pode fazer, o que cai
 
 ```provocacao
 Você conhece alguém que conseguiu o diploma do ensino fundamental ou do médio depois de adulto? Como foi?
+```
+
+```suarealidade
+Você conhece alguém que conseguiu o certificado do ensino fundamental ou do médio depois de adulto? O que isso mudou na vida dessa pessoa, no trabalho ou em casa?
 ```
 
 ## O que é
@@ -160,6 +165,20 @@ Escreva qual certificado você quer (fundamental ou médio) e a área em que voc
 2. Escolha uma prova anterior e resolva dez questões de uma área.
 3. Escreva uma redação curta sobre um tema do seu bairro.
 4. Faça um plano de estudos de um mês, com uma área por semana.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Fazer um exame e ganhar o certificado é atalho. Quem não frequentou a escola de verdade fica com um papel e sem saber nada, e isso desvaloriza o estudo de quem fez o caminho completo." É uma opinião de quem estudou muitos anos e acha que o esforço precisa ser igual.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O Encceja não é de graça no sentido de ser fácil: a aula mostra que são 4 provas de 30 questões e uma redação, num dia só, e que, pelo edital de 2026, é preciso tirar 100 pontos em cada área e 5 na redação. Quem passa em parte recebe a declaração parcial e faz o resto depois. Ele serve a quem aprendeu pela vida e pelo trabalho e precisa comprovar. A aula também diz que EJA é curso e Encceja é exame, e que dá para combinar os dois.
+```
+
+```agir
+# Esta semana
+Anote num papel duas coisas que você sabe da vida e do trabalho e que poderiam cair numa prova (por exemplo, contas do dia a dia ou leitura de contrato). Depois procure no site do Inep a data da próxima edição e escreva-a na sua agenda.
+```
 
 ## Resumo
 

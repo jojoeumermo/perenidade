@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização digital"
+modelo: 9
 resumo: "Como a leitura e a escrita mudam na tela, por que o celular é um motivo forte para aprender a ler e como ensinar o uso do aparelho com autonomia e segurança."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Ao fim desta aula você vai saber o que muda quando se lê e se escreve numa tel
 
 ```provocacao
 O que você faria no celular se não soubesse ler? E o que pediria a alguém para fazer por você?
+```
+
+```suarealidade
+O que você já faz no celular que exige ler (consulta, banco, benefício, mensagem)? O que você pede para outra pessoa fazer por você, e como se sente com isso?
 ```
 
 ## O que muda na tela
@@ -101,6 +106,20 @@ Confira: cada encontro tem um passo só, todos usam o próprio aparelho, a leitu
 
 ```realidade
 Escreva os três primeiros passos que você ensinaria a alguém que nunca usou um celular.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dar celular na mão de quem está aprendendo a ler é perigoso: cai em golpe, perde dinheiro e fica dependente da tela. Melhor ensinar no papel primeiro." É uma preocupação muito comum, principalmente entre familiares.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O risco de golpe é real, e por isso a aula ensina três regras de segurança e diz que as senhas são da pessoa. Mas lembra também que hoje receber benefício, marcar consulta ou ver o salário passa pela tela, e que o celular tem ajudas que o papel não tem: letra grande, ditado por voz e leitura em voz alta. O caminho é ensinar um passo por vez, com a pessoa tocando na tela, e não afastá-la do aparelho.
+```
+
+```agir
+# Esta semana
+Escolha uma tarefa simples do celular (por exemplo, aumentar o tamanho da letra) e ensine a uma pessoa de confiança, deixando que ela mesma toque na tela. Anote num papel o que foi mais difícil de explicar.
 ```
 
 ## Resumo

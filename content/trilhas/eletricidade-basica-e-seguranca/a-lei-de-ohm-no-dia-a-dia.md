@@ -1,5 +1,6 @@
 ---
 titulo: "A lei de Ohm no dia a dia"
+modelo: 9
 resumo: "Tensão é igual a resistência vezes corrente: a conta que diz quanta corrente um aparelho puxa, por que o fio esquenta e como resistências se somam em série e se repartem em paralelo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -44,6 +45,10 @@ Por que a extensão fininha esquenta quando você liga a airfryer nela, e a toma
 ## O que você vai aprender
 
 Ao fim desta aula você vai usar a lei de Ohm para calcular corrente, tensão ou resistência, entender por que fio fino e comprido esquenta e saber a diferença entre ligar coisas em série e em paralelo.
+
+```suarealidade
+Na sua casa ou no seu trabalho, onde há extensão ou "benjamim" com vários aparelhos ligados? Algum deles esquenta (airfryer, chaleira, ferro, aquecedor)? O plugue ou o fio já ficou morno ao toque?
+```
 
 ## A conta que liga as três grandezas
 
@@ -114,6 +119,20 @@ Num circuito de tomadas estão ligados, em paralelo, um aparelho que puxa 6 A e 
 - 6 A
 + 10 A
 > Em paralelo, as correntes de cada ramo se somam no fio que alimenta todos.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que isso é exagero: a vida inteira se ligou tudo na extensão, nunca deu nada, e trocar por fio mais grosso ou puxar uma tomada nova é gasto à toa.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: "nunca deu nada" não prova que o fio aguenta, só que ainda não deu. Pela lei de Ohm, o fio também tem resistência: quanto mais fino e comprido, mais ela é, e a corrente que passa transforma parte da energia em calor. Em paralelo, as correntes de cada aparelho se somam no fio que alimenta todos (6 A mais 4 A dão 10 A). Numa extensão fina com aparelho de aquecer, o calor aumenta, a capa de plástico amolece e o risco de incêndio cresce. A regra é barata: aparelho que esquenta vai direto na tomada da parede.
+```
+
+```agir
+# Esta semana
+Olhe as tomadas e extensões da sua casa e escreva num papel quais aparelhos que esquentam (chaleira, ferro, airfryer, aquecedor) estão ligados numa extensão ou "benjamim". Com o aparelho desligado e as mãos secas, passe cada um para uma tomada da parede e avise quem mora com você por quê.
 ```
 
 ## Resumo

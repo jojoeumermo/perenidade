@@ -1,5 +1,6 @@
 ---
 titulo: "Fusos horários"
+modelo: 9
 resumo: "Por que não é a mesma hora em todo lugar, como calcular a diferença de horário e quais são os quatro fusos do Brasil."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -50,6 +51,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar por que a hora muda de lugar para lugar, calcular a diferença entre dois fusos, conhecer os quatro fusos do Brasil e entender o que muda no dia a dia.
+
+```suarealidade
+Você tem parente, amigo ou cliente em outro fuso horário? A que horas vocês conseguem se falar?
+```
 
 
 ## Por que não é a mesma hora em todo lugar
@@ -136,6 +141,20 @@ Do outro lado do mundo, perto da longitude 180°, fica a **Linha Internacional d
 4. Você tem parentes ou amigos em outro fuso? Qual é a diferença de horário?
 
 **Respostas:** 1) 7h, 6h e 9h. 2) 4h da manhã. 3) 4 horas (60 ÷ 15).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Hora é hora, é a mesma para todo mundo. Essa história de fuso é frescura."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula explica que a Terra gira 360 graus em cerca de 24 horas, ou seja, 15 graus por hora, e que por isso o Sol chega em horas diferentes a cada lugar. Se cada cidade usasse o próprio Sol, seria um caos para trens, aviões, rádio, televisão e celular. E isso tem efeito na vida: provas nacionais, como o Enem, seguem a hora de Brasília. Uma prova que começa às 13h30 em Brasília começa às 11h30 no relógio do Acre e às 12h30 em Manaus. Quem mora fora do fuso de Brasília precisa fazer a conta para não se atrasar.
+```
+
+```agir
+# Esta semana
+Calcule a diferença de horário entre a sua cidade e a de alguém que você conhece em outro fuso, e anote o melhor horário para vocês conversarem.
+```
 
 ## Resumo
 

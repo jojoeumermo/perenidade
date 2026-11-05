@@ -1,5 +1,6 @@
 ---
 titulo: "Continentes e oceanos"
+modelo: 9
 resumo: "As grandes massas de terra e de água do planeta, como elas se formaram e onde o Brasil fica nesse mapa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber nomear os continentes e oceanos, explicar a deriva dos continentes, situar o Brasil no mundo e converter milhas náuticas em quilômetros para entender o mar territorial.
+
+```suarealidade
+Alguém que você conhece vive do mar (pesca, porto, turismo)? O que o mar significa para o seu bairro ou para a sua cidade?
+```
 
 
 ## Um planeta de água
@@ -134,6 +139,20 @@ Zona econômica exclusiva: 200 × 1,852 = **370,4 km**.
 4. Liste os países que fazem fronteira com o estado onde você mora, se houver algum.
 
 **Resposta da 3:** 50 × 1,852 = 92,6 km.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O mar é de todo mundo e ninguém manda nele. Quem pesca ou extrai petróleo pega o que conseguir."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o mar também é território: a Lei nº 8.617, de 1993, estende a soberania do país sobre o mar territorial, de 12 milhas náuticas (cerca de 22,2 km), e define a zona econômica exclusiva, de 200 milhas (cerca de 370,4 km). É nessa faixa que está o petróleo do pré-sal e é dela que vivem milhares de famílias de pescadores artesanais. Quem pesca, quem extrai e quem lucra com o mar é uma questão geográfica e política.
+```
+
+```agir
+# Esta semana
+Num globo ou num aplicativo de mapas, mostre a alguém da sua casa os continentes e os oceanos. Conte a ela por que a contagem de continentes depende da convenção e por que a Europa e a Ásia formam um único bloco de terra.
+```
 
 ## Resumo
 

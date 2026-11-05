@@ -1,5 +1,6 @@
 ---
 titulo: "O degradê"
+modelo: 9
 resumo: "O corte que vai da pele ao cabelo mais comprido sem nenhuma linha: o que é, onde começa, as alturas usadas, o passo a passo para esfumar as passagens e os cuidados com a pele quando o degradê é muito rente."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Um bom degradê parece que foi pintado: ninguém consegue apontar onde uma altur
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender o que é o degradê, escolher onde ele começa, organizar as alturas, esfumar as passagens até sumirem as linhas e cuidar da pele quando o corte é muito rente.
+
+```suarealidade
+Um bom degradê parece que foi pintado: ninguém aponta onde uma altura acaba e a outra começa. Quanto tempo ele dura no cliente? E o que acontece quando o cliente volta antes do prazo?
+```
 
 ## O que é o degradê
 
@@ -109,6 +114,20 @@ Ficou uma faixa escura entre o pente mais curto e o seguinte. O que fazer?
 7. **Esfumar** cada passagem com a alavanca meio aberta ou com o pente intermediário.
 8. **Topo**: pente de 13 mm e ligação com a faixa de 10 mm.
 9. **Contorno** e conferência dos dois lados.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Degradê rente na nuca é só estilo, e quem não quer saber de foliculite nem devia pedir. O barbeiro entrega o que o cliente pagou." É uma opinião de quem prefere não discutir com o cliente.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula lembra que o cabelo cresce cerca de 2 mm por semana, por isso o degradê rente perde a nitidez rápido, e que em cabelo crespo a nuca rente pode causar foliculite. O barbeiro pode oferecer ao cliente o retorno no prazo certo e uma altura que proteja a pele. Respeitar o pedido e cuidar da pele podem andar juntos.
+```
+
+```agir
+# Esta semana
+Escreva num papel um calendário simples para um cliente com degradê: a data do corte e o retorno sugerido, levando em conta que o cabelo cresce cerca de 2 mm por semana. Anote o motivo.
+```
 
 ## Resumo
 

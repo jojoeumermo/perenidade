@@ -1,5 +1,6 @@
 ---
 titulo: "Impostos: quem paga"
+modelo: 9
 resumo: "Tributos são o dinheiro que pessoas e empresas são obrigadas por lei a pagar ao Estado. Mas nem todo imposto pesa igual: um imposto regressivo pesa mais sobre quem tem menos. A diferença entre imposto progressivo e regressivo, e a nova faixa de isenção do Imposto de Renda."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Uma faxineira e um banqueiro compram o mesmo pacote de arroz e pagam o mesmo imp
 
 Ao fim desta aula você vai entender o que são tributos e por que importa saber quem paga mais, em proporção.
 
+```suarealidade
+Olhe a última nota fiscal do mercado ou a conta de luz da sua casa: você sabe quanto de imposto vai ali? Onde você vê esse dinheiro voltar?
+```
+
 ## O que é tributo
 
 **Tributo** é todo **pagamento obrigatório** ao Estado, em dinheiro, **instituído em lei**, que **não é punição**. O **imposto** é um tipo de tributo. **Multas**, como a de trânsito, **não** são tributos, porque resultam de uma **sanção**.
@@ -71,6 +76,15 @@ Por que um imposto embutido no preço do arroz é considerado regressivo?
 > Releia a seção "O imposto no preço".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Imposto alto atrapalha quem produz e dá emprego. O certo é pagar menos, e imposto sobre quem ganha muito afasta o investimento." É a posição de quem vive da produção e do comércio.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega que tributo pesa: mostra para quem ele pesa mais, em proporção. O imposto embutido no preço é regressivo, porque o mesmo valor pesa mais para quem gasta quase todo o salário em comida e roupa. Os tributos pagam escola, SUS, estradas e aposentadorias. E a lei sancionada em novembro de 2025 isenta do Imposto de Renda quem ganha até R$ 5 mil por mês, a partir de 2026, com desconto parcial para quem ganha até R$ 7.350, e cria uma alíquota extra de até 10% para quem recebe mais de R$ 600 mil por ano. O debate é como distribuir o peso entre quem ganha pouco e quem ganha muito.
+```
+
 ## Exemplo resolvido
 
 **O imposto embutido numa compra de mercado é de R$ 100. Que parte da renda isso representa para quem ganha R$ 2.000 e para quem ganha R$ 20.000?**
@@ -78,6 +92,11 @@ Por que um imposto embutido no preço do arroz é considerado regressivo?
 1. Renda de R$ 2.000: 100 ÷ 2.000 = **5%**.
 2. Renda de R$ 20.000: 100 ÷ 20.000 = **0,5%**.
 3. O mesmo imposto pesa **dez vezes mais**, em proporção, para quem ganha menos.
+
+```agir
+# Esta semana
+Pegue uma nota fiscal de mercado da sua casa, anote o valor aproximado de tributos e calcule quanto isso representa, em porcentagem, do total da compra. Mostre a conta a alguém de casa.
+```
 
 ## Resumo
 

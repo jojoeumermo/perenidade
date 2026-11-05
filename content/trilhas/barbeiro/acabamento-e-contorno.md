@@ -1,5 +1,6 @@
 ---
 titulo: "Acabamento e contorno"
+modelo: 9
 resumo: "O desenho da borda do cabelo: costeletas, arco da orelha e nuca em bloco, arredondada ou em degradê, com o acabador e a navalha, e os cuidados para o acabamento rente não inflamar a pele."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Dois cortes iguais: num, a linha da nuca e o arco da orelha estão desenhados; n
 ## O que você vai aprender
 
 Ao fim desta aula você vai desenhar costeletas, arco da orelha e nuca em bloco, arredondada ou em degradê, usar o acabador e a navalha com segurança e evitar que o acabamento rente inflame a pele.
+
+```suarealidade
+Dois cortes iguais: num, o contorno está desenhado; no outro, irregular. Para o cliente da sua barbearia ou do seu bairro, qual diferença conta mais?
+```
 
 ## O contorno vem primeiro
 
@@ -108,6 +113,20 @@ Ao fazer a nuca em bloco, a linha saiu torta para um lado. Qual é o jeito mais 
 3. **Propor**: nuca em degradê começando um pouco menos rente, sem linha raspada, e contorno "na régua" só nas costeletas e no arco da orelha, onde a pele está boa.
 4. **Fazer** o arco da orelha e as costeletas com o acabador; sem navalha na área inflamada.
 5. **Orientar** a procurar a UBS se os caroços doerem ou crescerem.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Deixar a nuca bem rente é o que o cliente quer. Se ele pede mais rente, o barbeiro obedece e pronto: o problema da pele é dele." É uma opinião de quem pensa em agradar para fidelizar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+O cliente decide o estilo, mas a aula lembra que a nuca muito rente, em cabelo crespo, pode causar foliculite, e que a navalha pede lâmina nova por cliente por causa do risco de hepatites B e C. O barbeiro bom explica o risco e oferece uma alternativa (por exemplo, o degradê, sem linha rente demais), sem faltar com o respeito ao pedido.
+```
+
+```agir
+# Esta semana
+Desenhe num papel as três nucas da aula (em degradê, em bloco e arredondada) e escreva, ao lado de cada uma, para que tipo de cabelo e de pele você a indicaria.
+```
 
 ## Resumo
 

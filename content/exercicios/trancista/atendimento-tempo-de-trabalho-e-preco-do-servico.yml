@@ -1,0 +1,50 @@
+# Exercícios da aula "Atendimento, tempo de trabalho e preço do serviço" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-atendimento-tempo-de-trabalho-e-preco-do-01
+  tema: "Orçamento"
+  dificuldade: 1
+  enunciado: "Pelo artigo 40 do CDC, quanto tempo vale o orçamento se nada diferente for combinado?"
+  alternativas:
+    - texto: "Dez dias"
+      certa: true
+    - texto: "Um ano"
+      erro: "A aula diz dez dias."
+    - texto: "Um dia"
+      erro: "A aula diz dez dias."
+  explicacao: "O orçamento traz o valor da mão de obra, dos materiais, a forma de pagamento e as datas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Atendimento, tempo de trabalho e preço do serviço\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-atendimento-tempo-de-trabalho-e-preco-do-02
+  tema: "Sem orçamento"
+  dificuldade: 2
+  enunciado: "O que o CDC (art. 39) diz de fazer o serviço sem orçamento prévio e autorização da cliente?"
+  alternativas:
+    - texto: "É prática abusiva"
+      certa: true
+    - texto: "É permitido se a cliente for amiga"
+      erro: "A aula diz que é prática abusiva."
+    - texto: "É obrigatório em todo caso"
+      erro: "É o contrário: sem orçamento e autorização, não."
+  explicacao: "O artigo 14 diz que quem presta o serviço responde por defeito e por não informar os riscos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Atendimento, tempo de trabalho e preço do serviço\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-atendimento-tempo-de-trabalho-e-preco-do-03
+  tema: "Primeiro contato"
+  dificuldade: 1
+  enunciado: "Que perguntas a aula manda fazer à cliente no primeiro contato?"
+  alternativas:
+    - texto: "O comprimento, a grossura, se tem química recente e se já teve dor com tranças"
+      certa: true
+    - texto: "A idade e o salário"
+      erro: "Não são as perguntas da aula."
+    - texto: "Apenas o endereço"
+      erro: "Não são as perguntas da aula."
+  explicacao: "Depois vêm a avaliação do couro cabeludo, o orçamento por escrito, a marcação com sinal e as regras de remarcação."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Atendimento, tempo de trabalho e preço do serviço\""
+  revisao:
+    status: em-revisao

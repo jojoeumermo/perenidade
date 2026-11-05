@@ -1,5 +1,6 @@
 ---
 titulo: "Islã: os cinco pilares"
+modelo: 9
 resumo: "O islã reúne cerca de 1,9 bilhão de pessoas, perto de um quarto da população mundial. As suas práticas fundamentais são os cinco pilares: a profissão de fé, a oração, a caridade, o jejum do Ramadã e a peregrinação a Meca."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Muita gente no Brasil só ouve falar do islã em notícias de guerra. Mas o que 
 
 Ao fim desta aula você vai conhecer o islã e as suas cinco práticas fundamentais.
 
+```suarealidade
+O que você já ouviu falar sobre o islã e os muçulmanos? De onde veio essa informação: de conversa, de novela, de notícia?
+```
+
 ## Uma religião de muitos povos
 
 O **islã** é seguido por cerca de **1,9 bilhão** de pessoas, perto de **24%** da população mundial. Os **muçulmanos** são maioria em **49 países**, falam **centenas de línguas** e vêm de **diversas origens étnicas**. Ao contrário do que muita gente pensa, a cidade com a maior população muçulmana do mundo não fica no mundo árabe: é **Carachi**, no **Paquistão**.
@@ -65,6 +70,15 @@ Por que é um erro julgar todos os muçulmanos pelo que aparece nas notícias de
 > Releia a seção "Uma religião de muitos povos".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Pelo que aparece na TV, o islã é uma religião estranha, e todos os muçulmanos pensam do mesmo jeito." É a opinião de quem só conhece o assunto pelas notícias.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra outra coisa: o islã tem cerca de 1,9 bilhão de fiéis, com maioria em 49 países, e há diversidade entre sunitas, xiitas, alevitas e formas pessoais de praticar. Os cinco pilares são a shahada (fé), a salah (oração), a zakat (caridade), o sawm (jejum do Ramadã) e o hajj (peregrinação a Meca). Um grupo de bilhões de pessoas não cabe numa imagem só.
+```
+
 ## Exemplo resolvido
 
 **Associe cada prática ao pilar: (a) doar parte do que se tem aos pobres; (b) viajar até Meca; (c) não comer durante o dia no Ramadã.**
@@ -72,6 +86,11 @@ Por que é um erro julgar todos os muçulmanos pelo que aparece nas notícias de
 1. **(a)**: **zakat**, a caridade.
 2. **(b)**: **hajj**, a peregrinação.
 3. **(c)**: **sawm**, o jejum.
+
+```agir
+# Esta semana
+Ache no mapa onde ficam Meca e Carachi e conte a alguém da sua casa uma coisa que você aprendeu sobre os cinco pilares.
+```
 
 ## Resumo
 

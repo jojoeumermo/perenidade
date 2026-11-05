@@ -1,0 +1,50 @@
+# Exercícios da aula "Cidadania" (sociologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: sociologia-fundamental-cidadania-01
+  tema: "Três grupos"
+  dificuldade: 1
+  enunciado: "Segundo T. H. Marshall, quais são os três grupos de direitos que formam a cidadania moderna?"
+  alternativas:
+    - texto: "Civis, políticos e sociais"
+      certa: true
+    - texto: "Econômicos, religiosos e militares"
+      erro: "Não são os três grupos de Marshall."
+    - texto: "Públicos, privados e familiares"
+      erro: "Não são os três grupos de Marshall."
+  explicacao: "Civis: século XVIII, liberdade individual. Políticos: século XIX, participar do governo. Sociais: século XX, como educação, saúde e trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cidadania\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-cidadania-02
+  tema: "Classificar"
+  dificuldade: 1
+  enunciado: "Votar é que tipo de direito, segundo a aula?"
+  alternativas:
+    - texto: "Direito civil"
+      erro: "Os civis ligam-se à liberdade individual, como a liberdade de expressão."
+    - texto: "Direito político"
+      certa: true
+    - texto: "Direito social"
+      erro: "Os sociais são educação, saúde e trabalho."
+  explicacao: "Estudar na escola pública e ser atendido no posto de saúde são direitos sociais."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cidadania\""
+  revisao:
+    status: em-revisao
+
+- id: sociologia-fundamental-cidadania-03
+  tema: "Conquista"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre como os direitos da cidadania surgiram?"
+  alternativas:
+    - texto: "Foram resultado de lutas: pelo fim das prisões arbitrárias, pelo voto das mulheres e dos trabalhadores, pela escola e pela saúde pública"
+      certa: true
+    - texto: "Foram dados de presente pelos governos"
+      erro: "A aula diz que não foram dados de presente."
+    - texto: "Surgiram sozinhos, sem ninguém lutar"
+      erro: "Cada um foi resultado de lutas."
+  explicacao: "Ser cidadão é conhecer os direitos, usá-los e lutar para que valham para todos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Cidadania\""
+  revisao:
+    status: em-revisao

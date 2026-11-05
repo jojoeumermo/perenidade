@@ -1,0 +1,50 @@
+# Exercícios da aula "Tom e semitom: sustenidos e bemóis" (teoria-musical-do-zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teoria-musical-do-zero-tom-e-semitom-sustenidos-e-bemois-01
+  tema: "Semitom"
+  dificuldade: 1
+  enunciado: "O que é um semitom?"
+  alternativas:
+    - texto: "A distância entre uma tecla e a imediatamente vizinha, a menor distância na música ocidental"
+      certa: true
+    - texto: "A distância de dó até sol"
+      erro: "É bem maior que um semitom."
+    - texto: "A distância entre duas oitavas"
+      erro: "Também é maior."
+  explicacao: "Dois semitons formam um tom."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tom e semitom: sustenidos e bemóis\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-tom-e-semitom-sustenidos-e-bemois-02
+  tema: "Mi e fá"
+  dificuldade: 2
+  enunciado: "Qual é a distância entre mi e fá?"
+  alternativas:
+    - texto: "Um semitom, porque não há tecla preta entre eles"
+      certa: true
+    - texto: "Um tom"
+      erro: "De dó a ré há um tom, pois existe uma tecla preta entre eles."
+    - texto: "Dois tons"
+      erro: "É bem menos que isso."
+  explicacao: "Entre si e dó também não há tecla preta: a distância é de um semitom."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tom e semitom: sustenidos e bemóis\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-tom-e-semitom-sustenidos-e-bemois-03
+  tema: "Sinais"
+  dificuldade: 2
+  enunciado: "O que fazem o sustenido, o bemol e o bequadro?"
+  alternativas:
+    - texto: "Sustenido sobe a nota um semitom; bemol desce um semitom; bequadro cancela o sinal e devolve a nota ao natural"
+      certa: true
+    - texto: "Todos sobem um tom"
+      erro: "Cada sinal tem efeito diferente."
+    - texto: "Servem para mudar de clave"
+      erro: "Não é isso."
+  explicacao: "O sinal vale para aquela nota até o fim do compasso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Tom e semitom: sustenidos e bemóis\""
+  revisao:
+    status: em-revisao

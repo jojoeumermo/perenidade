@@ -1,0 +1,51 @@
+# Exercícios da aula "Can: habilidade e pedido" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-can-01
+  tema: "Habilidade"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz 'Eu sei operar empilhadeira'?"
+  alternativas:
+    - texto: "I can operate a forklift."
+      certa: true
+    - texto: "I can to operate a forklift."
+      erro: "Depois de can, o verbo vem sem to."
+    - texto: "I cans operate a forklift."
+      erro: "Can não muda com o sujeito."
+  explicacao: "Can é um verbo modal: não leva -s nem to depois dele."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-can-02
+  tema: "Pergunta e resposta curta"
+  dificuldade: 2
+  enunciado: "Qual é a pergunta certa?"
+  alternativas:
+    - texto: "Can she speak English?"
+      certa: true
+    - texto: "Does she can speak English?"
+      erro: "Can não usa do nem does: basta pôr can na frente."
+    - texto: "She can speak English?"
+      erro: "Na escrita correta, o can vai para a frente."
+  explicacao: "Respostas curtas: Yes, she can. / No, she can't."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-can-03
+  tema: "Pedido educado"
+  dificuldade: 2
+  enunciado: "Qual é o pedido mais educado?"
+  alternativas:
+    - texto: "Could you help me, please?"
+      certa: true
+    - texto: "Can you help me?"
+      erro: "É correto, mas mais direto. Could e please deixam o pedido mais educado."
+    - texto: "Help me!"
+      erro: "É uma ordem, e não um pedido educado."
+  explicacao: "Em situações formais (atendimento, trabalho, órgãos públicos), could e please fazem diferença."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

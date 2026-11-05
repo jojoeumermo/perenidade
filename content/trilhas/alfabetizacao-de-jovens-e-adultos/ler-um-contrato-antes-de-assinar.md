@@ -1,5 +1,6 @@
 ---
 titulo: "Ler um contrato antes de assinar"
+modelo: 9
 resumo: "Achar num contrato (aluguel, empréstimo, compra a prazo, emprego) os valores, os prazos, as multas e as obrigações, e conhecer os direitos do consumidor que protegem quem assina."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -47,6 +48,10 @@ Ao fim desta aula você vai achar, num contrato, as palavras que mais importam: 
 
 ```provocacao
 Você já assinou alguma coisa sem ler direito? Depois apareceu alguma surpresa?
+```
+
+```suarealidade
+Você já assinou alguma coisa sem ler direito, por pressa ou por vergonha? Depois apareceu alguma surpresa?
 ```
 
 ## Assinar é concordar
@@ -146,6 +151,20 @@ Pegue um carnê, um boleto ou uma propaganda de loja. Escreva o preço à vista,
 2. Faça a conta do total a prazo de uma compra que você conhece.
 3. Liste três dúvidas que você teria antes de assinar um contrato de aluguel.
 4. Pesquise onde fica o Procon da sua cidade.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ler contrato é inútil: é tudo em letra miúda, com palavra difícil. Quem quer o aluguel, o crediário ou o celular assina e pronto, e a empresa tem advogado de qualquer jeito." É um sentimento de quem se sente em desvantagem.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula diz que assinar é concordar com tudo, que ler antes é um direito e que ninguém pode exigir que você assine na hora. Não é preciso entender todas as palavras: basta achar as que mexem no bolso (valor, parcelas, juros, prazo, multa, rescisão) e calcular o total a prazo (parcelas vezes o valor). A aula também lembra direitos do Código de Defesa do Consumidor: letra de tamanho 12 ou maior nos contratos de adesão e 7 dias para desistir da compra pela internet ou telefone.
+```
+
+```agir
+# Esta semana
+Pegue um contrato ou comprovante da sua casa (aluguel, celular, crediário) e, sem mostrar a ninguém, circule com lápis o valor, o número de parcelas e o prazo. Faça a conta do total a prazo e compare com o preço à vista.
+```
 
 ## Resumo
 

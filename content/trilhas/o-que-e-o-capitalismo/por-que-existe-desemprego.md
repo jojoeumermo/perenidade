@@ -1,5 +1,6 @@
 ---
 titulo: "Por que existe desemprego"
+modelo: 9
 resumo: "O exército industrial de reserva: por que o desemprego não é defeito do sistema, mas uma de suas engrenagens."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,10 @@ quiz:
 Ao fim desta aula você vai saber explicar o desemprego como parte do funcionamento do capitalismo (o exército industrial de reserva) e responder a quem diz que é só falta de qualificação.
 
 Quando o desemprego sobe, a explicação mais comum culpa o desempregado: falta de qualificação, falta de esforço. Mas, se fosse só isso, por que o desemprego sobe e desce para milhões de pessoas ao mesmo tempo? Ninguém fica preguiçoso em massa numa terça-feira.
+
+```suarealidade
+Quantas pessoas que você conhece estão desempregadas ou vivem de bico? Elas querem trabalhar? O que impede?
+```
 
 ## O desemprego nas sociedades anteriores
 
@@ -87,6 +92,15 @@ Isso não quer dizer que estudar não valha a pena: vale muito, inclusive para e
 
 A resposta histórica dos sindicatos ao desemprego tecnológico é a **redução da jornada sem redução de salário**: se as máquinas fazem mais com menos gente, que o ganho vire tempo livre para todos, e não desemprego para uns e hora extra para outros. A jornada de oito horas, conquistada no século XX, veio dessa luta.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Tem vaga, falta é gente qualificada e disposta. Quem se esforça e estuda arruma emprego." É a opinião de quem conseguiu subir pelo estudo e pelo esforço.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não diz que estudar é inútil: diz que vale muito. O ponto é que qualificação muda quem consegue a vaga, não quantas vagas existem. Se dez pessoas disputam três cadeiras, estudar ajuda você a sentar, mas sete continuam de pé. E o desemprego sobe e desce para milhões de pessoas ao mesmo tempo, o que não combina com preguiça de cada um. Você pode reconhecer o mérito de quem estudou e, ao mesmo tempo, perguntar quantas vagas existem.
+```
+
 ## Para conversar
 
 Na sua família ou no seu bairro, quantas pessoas vivem de bico? Elas estão "desempregadas" ou "trabalhando"? Por que essa diferença importa para entender o país?
@@ -100,6 +114,11 @@ Usando a imagem da aula: dez pessoas disputam três vagas em uma empresa.
 3. Suponha que todos façam um curso e fiquem igualmente qualificados: continuam sendo 3 vagas e 10 candidatos, e 7 continuam de fora.
 
 Confira: a qualificação mudou quem senta, não quantas cadeiras existem. O problema está no número de vagas.
+
+```agir
+# Esta semana
+Faça uma lista de cinco pessoas do seu círculo e escreva ao lado de cada uma se tem emprego com carteira, faz bico ou procura trabalho. Não escreva nomes: só uma letra ou um número para cada pessoa.
+```
 
 ## Resumo
 

@@ -1,0 +1,50 @@
+# Exercícios da aula "O cabelo crespo e cacheado: estrutura e cuidados" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-o-cabelo-crespo-e-cacheado-estrutura-e-c-01
+  tema: "Camadas"
+  dificuldade: 1
+  enunciado: "Quais são as três camadas do fio, segundo a aula?"
+  alternativas:
+    - texto: "Medula, córtex e cutícula"
+      certa: true
+    - texto: "Raiz, haste e bulbo"
+      erro: "Raiz, haste e bulbo são partes do fio e do folículo, não as camadas."
+    - texto: "Pele, sebo e queratina"
+      erro: "Não são as camadas."
+  explicacao: "A cutícula é a camada de fora, de células muito duras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O cabelo crespo e cacheado: estrutura e cuidados\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-o-cabelo-crespo-e-cacheado-estrutura-e-c-02
+  tema: "Textura"
+  dificuldade: 2
+  enunciado: "De que depende a textura do cabelo (lisa, ondulada, cacheada, crespa), segundo a aula?"
+  alternativas:
+    - texto: "Do formato do folículo: quase redondo é liso, oval é ondulado e achatado é crespo"
+      certa: true
+    - texto: "Da cor do fio"
+      erro: "A aula explica pelo formato do folículo."
+    - texto: "Da marca do xampu"
+      erro: "A aula explica pelo formato do folículo."
+  explicacao: "O corte de um fio nunca é um círculo perfeito: é uma elipse."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O cabelo crespo e cacheado: estrutura e cuidados\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-o-cabelo-crespo-e-cacheado-estrutura-e-c-03
+  tema: "Cortar o cabelo"
+  dificuldade: 1
+  enunciado: "Por que cortar o cabelo não dói?"
+  alternativas:
+    - texto: "Porque a haste, a parte que vemos, é feita de células mortas cheias de queratina"
+      certa: true
+    - texto: "Porque a raiz não sente"
+      erro: "A raiz é viva. O que se corta é a haste."
+    - texto: "Porque o corte é rápido"
+      erro: "O motivo é a haste ser de células mortas."
+  explicacao: "Na fase de crescimento (anágena), o fio cresce de 2 a 7 anos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O cabelo crespo e cacheado: estrutura e cuidados\""
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "O que é sociedade"
+modelo: 9
 resumo: "Sociedade é um grupo de pessoas que convivem e se relacionam de forma duradoura, dividindo um território, regras e uma cultura. Como ela se organiza em papéis, normas e instituições, e por que ninguém vive fora dela."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Pense no seu café da manhã. Quem plantou, quem transportou, quem vendeu? Quant
 
 Ao fim desta aula você vai entender o que é sociedade e como ela se organiza.
 
+```suarealidade
+Quais papéis você ocupa num dia comum: trabalhador, filho, vizinho, pai ou mãe, torcedor? Alguém decidiu como você deve agir em cada um?
+```
+
 ## O que é sociedade
 
 **Sociedade** é um grupo de pessoas envolvidas numa **interação social duradoura**, ou um grande grupo que divide o mesmo **território**, normalmente sob a mesma **autoridade política** e as mesmas **expectativas culturais**.
@@ -62,6 +67,15 @@ Por que dizemos que ninguém vive totalmente fora da sociedade?
 > Releia a seção "Ninguém vive sozinho".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cada um faz da vida o que quer. Dizer que a sociedade molda a gente é desculpa de quem não se esforça." É a opinião de quem acredita na força de vontade.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega o esforço: mostra que a vida de cada um é moldada pela sociedade, que também pode ser mudada. Sociedade é um conjunto de pessoas em interação duradoura, com território, cultura e regras; cada um ocupa papéis sociais na divisão do trabalho, e as normas sociais dizem o que é aceitável (algumas viram leis). Ver isso não tira a responsabilidade de ninguém: ajuda a separar o que depende só de nós do que depende de todos.
+```
+
 ## Exemplo resolvido
 
 **Liste três papéis sociais de uma mesma pessoa e uma norma de cada um.**
@@ -70,6 +84,11 @@ Por que dizemos que ninguém vive totalmente fora da sociedade?
 2. **Filha**: ajudar em casa.
 3. **Torcedora**: respeitar a torcida adversária.
 4. A mesma pessoa muda de comportamento conforme o **papel** que está ocupando.
+
+```agir
+# Esta semana
+Faça uma lista dos papéis sociais que você ocupa num dia comum e escolha um para pensar: que norma acompanha esse papel?
+```
 
 ## Resumo
 

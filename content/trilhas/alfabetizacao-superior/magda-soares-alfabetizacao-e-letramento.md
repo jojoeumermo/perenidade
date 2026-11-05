@@ -1,5 +1,6 @@
 ---
 titulo: "Magda Soares: alfabetização e letramento"
+modelo: 9
 resumo: "Objetivo: compreender a distinção entre alfabetização e letramento proposta por Magda Soares, a ideia de alfabetizar letrando e as suas consequências para o ensino de crianças e de adultos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -37,6 +38,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai explicar a distinção entre alfabetização e letramento proposta por Magda Soares, por que os dois processos são distintos e inseparáveis, e o que quer dizer "alfabetizar letrando". E vai aplicar a ideia ao planejamento de uma atividade com adultos.
+
+```suarealidade
+Que textos você lê ou escreve no seu dia a dia de trabalho (aviso, conta, mensagem, receita)? Saber ler as letras é suficiente para dar conta deles?
+```
 
 ## Quem foi Magda Soares
 
@@ -89,6 +94,20 @@ Na alfabetização de adultos, letrar desde o início é natural: o adulto já v
 4. **No círculo, o grupo lê o folheto da vacinação, estuda as palavras VACINA e POSTO, monta as famílias do V e do P e escreve um bilhete avisando a vizinha.** São **as duas coisas juntas**: alfabetizar letrando.
 
 Confira: o caso 4 é o que Magda Soares propunha. Os casos 1 a 3 mostram os dois desvios que ela criticava: só o uso, sem o código; e só o código, sem o uso. Para planejar com textos reais, veja [Produzir materiais a partir de textos reais](/trilhas/alfabetizacao-aprofundamento/produzir-materiais-a-partir-de-textos-reais).
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Letramento é invenção de gente de gabinete para complicar o que é simples: alfabetizar é ensinar as letras e as sílabas, e pronto." É uma opinião de quem defende o ensino direto do código da escrita.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega o ensino do código: Magda Soares defende que alfabetização (aprender o sistema de escrita) e letramento (usar a escrita nas práticas sociais) são processos distintos e inseparáveis, e que o caminho é alfabetizar letrando. Os dois desvios são ensinar só o código, sem textos e usos, ou só os textos, sem ensino sistemático. Para adultos, partir dos textos que circulam na vida deles dá sentido ao estudo das letras.
+```
+
+```agir
+# Esta semana
+Escolha um texto da sua vida (uma conta, uma receita, uma mensagem) e escreva num papel duas coisas: o que uma pessoa precisa saber das letras para lê-lo e o que precisa saber da vida para entendê-lo.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Como interpretar um texto"
+modelo: 9
 resumo: "Ler é fazer perguntas ao texto: quem escreve, para quem, o que afirma, o que deixa subentendido e o que não diz."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -28,6 +29,10 @@ quiz:
 Ao fim desta aula você vai saber olhar de onde vem um texto, ler por etapas, separar fato de opinião, perceber pressuposto e subentendido e evitar os três erros clássicos de interpretação.
 
 
+
+```suarealidade
+Quando você lê uma notícia ou um aviso, o que você faz antes de acreditar? Você olha quem escreveu, onde saiu e quando?
+```
 
 ## Ler o mundo, ler a palavra
 
@@ -115,6 +120,15 @@ Entender o que o texto diz é o primeiro passo. O segundo é perguntar **por que
 
 Discordar do texto é um direito. Mas só discorda bem quem primeiro entendeu.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Interpretar texto é cada um ler do seu jeito. Não existe leitura certa, e quem insiste nisso quer impor a sua opinião." É a opinião de quem já ouviu a mesma frase ser lida de formas diferentes.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula concorda que ler é um trabalho ativo e que o leitor traz o que sabe da vida: para Paulo Freire, a leitura do mundo precede a leitura da palavra. Mas diz que interpretar não é adivinhar o que o autor quis dizer: é fazer perguntas ao texto e procurar nele as respostas. Há três erros clássicos (extrapolar, reduzir e contradizer), e a defesa é voltar ao texto. A leitura crítica pergunta quem ganha, quem foi ouvido, que palavras foram escolhidas e o que não foi dito, e essas perguntas são abertas a qualquer leitor.
+```
+
 ## Exemplo resolvido: a manchete "Governo finalmente decide investir em saneamento"
 
 1. **De onde vem?** É uma manchete de notícia: confira quem publicou e quando.
@@ -124,6 +138,11 @@ Discordar do texto é um direito. Mas só discorda bem quem primeiro entendeu.
 5. **Leitura crítica:** quem foi ouvido? Que palavras foram escolhidas? O que não foi dito?
 
 Confira: ler bem é perceber o que vem embutido sem inventar o que não está lá.
+
+```agir
+# Esta semana
+Pegue um texto curto que você leu esta semana e responda num papel: quem escreveu, onde e quando, o que é fato e o que é opinião. Leia de novo a parte que você entendeu mal.
+```
 
 ## Resumo
 

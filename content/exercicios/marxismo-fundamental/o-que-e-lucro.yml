@@ -1,0 +1,55 @@
+# Exercícios da aula "O que é lucro" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-luc-01
+  tipo: numero
+  tema: "A conta da lanchonete"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Na lanchonete de Dona Lúcia (números inventados), as vendas do dia foram de R$ 800, os ingredientes e despesas custaram R$ 300 e os salários, R$ 200. Qual foi o lucro, em reais?"
+  resposta: "300"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "500"
+      explicacao: "R$ 500 é o valor novo produzido (800 − 300). Falta tirar os salários, de R$ 200."
+    - resposta: "200"
+      explicacao: "R$ 200 são só os salários. O lucro é o que sobra depois de tirar as despesas e os salários das vendas."
+  dica: "Lucro = vendas − despesas − salários."
+  explicacao: "800 − 300 − 200 = R$ 300."
+  conferir: "800 - 300 - 200"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-luc-02
+  tipo: numero
+  tema: "Salário e lucro saem do mesmo bolo"
+  dificuldade: 2
+  enunciado: "Na mesma lanchonete, se Dona Lúcia aumentar o salário de cada uma das duas funcionárias de R$ 100 para R$ 150 por dia, mantendo as vendas e as despesas, qual passa a ser o lucro do dia?"
+  resposta: "200"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "300"
+      explicacao: "R$ 300 era o lucro antes do aumento. Os salários passaram de R$ 200 para R$ 300 no dia, e o lucro caiu."
+  dica: "Calcule os novos salários e refaça a conta."
+  explicacao: "Salários: 2 × 150 = R$ 300. Lucro: 800 − 300 − 300 = R$ 200. Salário e lucro saem do mesmo bolo."
+  conferir: "800 - 300 - 2 * 150"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-luc-03
+  tema: "Mais-valia"
+  dificuldade: 2
+  enunciado: "O que Marx chamou de mais-valia?"
+  alternativas:
+    - texto: "O valor que o trabalhador produz além do que recebe: é dela que sai o lucro"
+      certa: true
+    - texto: "O preço mais alto que o cliente paga"
+      erro: "A mais-valia é a diferença entre o valor produzido pelo trabalho e o salário."
+    - texto: "Um imposto cobrado do patrão"
+      erro: "Não é imposto: é o valor produzido e não pago ao trabalhador."
+  explicacao: "Ninguém roubou nada no sentido comum: as funcionárias receberam o combinado. A exploração está na regra do jogo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

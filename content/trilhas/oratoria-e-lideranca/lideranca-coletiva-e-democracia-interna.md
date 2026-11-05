@@ -1,5 +1,6 @@
 ---
 titulo: "Liderança coletiva e democracia interna"
+modelo: 9
 resumo: "Por que um grupo que depende de uma pessoa só é frágil, o que a lei exige dos estatutos e das cooperativas, como dividir o poder com coordenação colegiada, rodízio e prestação de contas, e a experiência do orçamento participativo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -56,6 +57,10 @@ O presidente da associação é ótimo: resolve tudo, conhece todo mundo, fala c
 ## O que você vai aprender
 
 Ao fim desta aula você vai entender por que liderança coletiva fortalece um grupo, conhecer o que a lei exige dos estatutos das associações e das cooperativas, montar formas de dividir o poder e prestar contas e conhecer a experiência do orçamento participativo.
+
+```suarealidade
+No grupo de que você participa, quem decide? Quantas pessoas sabem fazer as tarefas principais?
+```
 
 ## O grupo que depende de uma pessoa
 
@@ -114,6 +119,15 @@ A tesoureira da associação apresenta as contas só para a direção, nunca par
 > Olhe o que o artigo 54 do Código Civil exige do estatuto.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Grupo com muita gente decidindo não decide nada. É melhor um líder forte e de confiança, que resolve rápido." É a opinião de quem já viu uma discussão sem fim atrapalhar o trabalho.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula admite que a discussão pode ser lenta, mas mostra o risco do outro lado: um grupo que gira em torno de uma só pessoa é frágil, e o poder concentrado tende a não prestar contas. O estatuto precisa dizer, entre outras coisas, como as contas são aprovadas (Código Civil, art. 54). Coordenação colegiada, rodízio, mandatos com prazo, comissões e prestação de contas dividem o poder sem paralisar o grupo. O orçamento participativo, nascido em Porto Alegre em 1989, mostrou que é possível decidir o dinheiro público em assembleia.
+```
+
 ## Exemplo resolvido
 
 **Uma associação de moradores tem o mesmo presidente há 12 anos, que faz tudo sozinho. Proponha uma mudança para a próxima assembleia.**
@@ -125,6 +139,11 @@ A tesoureira da associação apresenta as contas só para a direção, nunca par
    - rodízio de quem coordena as reuniões e de quem representa a associação nas reuniões com a prefeitura.
 3. **Como propor sem atacar**: reconhecer o trabalho do presidente e apresentar a mudança como forma de proteger a associação, e não como acusação.
 4. **Se a direção não convocar**: um quinto dos associados pode promover a convocação, como garante o artigo 60.
+
+```agir
+# Esta semana
+Anote num papel uma tarefa do seu grupo que só uma pessoa sabe fazer e escreva quem poderia aprender. Proponha a essa pessoa, esta semana, ensinar um passo da tarefa.
+```
 
 ## Resumo
 

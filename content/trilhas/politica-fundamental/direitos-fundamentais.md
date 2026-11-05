@@ -1,5 +1,6 @@
 ---
 titulo: "Direitos fundamentais"
+modelo: 9
 resumo: "Igualdade perante a lei, liberdade de pensamento, proibição da tortura, educação, saúde, moradia e trabalho: os direitos individuais e sociais da Constituição de 1988, onde estão e por que precisam ser defendidos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ A Constituição diz que moradia é um direito de todos. Mas há milhões de pes
 
 Ao fim desta aula você vai conhecer os principais direitos individuais e sociais da Constituição e entender como usá-los para cobrar o poder público.
 
+```suarealidade
+Qual direito da Constituição, como moradia, saúde ou transporte, falta na sua rua ou no seu bairro? Quem é responsável por garanti-lo?
+```
+
 ## Direitos individuais (art. 5º)
 
 O **artigo 5º** começa assim: **"Todos são iguais perante a lei, sem distinção de qualquer natureza"**. Ele garante a brasileiros e estrangeiros residentes no país o direito à **vida**, à **liberdade**, à **igualdade**, à **segurança** e à **propriedade**. Alguns dos seus incisos:
@@ -61,6 +66,15 @@ Por que é importante que a moradia esteja na Constituição, mesmo que muita ge
 > Um direito escrito é uma ferramenta de cobrança.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Direito na Constituição é só papel bonito. Quem não tem casa não ganha casa porque a lei diz, e ficar falando de direito não enche barriga." É a opinião de quem vê a distância entre a lei e a vida.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde essa distância: a Constituição diz que moradia é um direito de todos (art. 6º), e há milhões de pessoas sem casa. Mas explica que o direito escrito é uma ferramenta para cobrar o poder público. Muitos direitos sociais vieram por emendas, fruto de luta, e o art. 5º garante, entre outros, a igualdade perante a lei, a proibição da tortura e a liberdade de pensamento. Um direito que ninguém conhece é fácil de ignorar; conhecê-lo é o primeiro passo para exigi-lo.
+```
+
 ## Exemplo resolvido
 
 **Uma prefeitura fecha o único posto de saúde de um bairro. Que direito da Constituição os moradores podem usar?**
@@ -68,6 +82,11 @@ Por que é importante que a moradia esteja na Constituição, mesmo que muita ge
 1. A **saúde** é **direito social** (art. 6º).
 2. Os moradores podem **cobrar** a prefeitura, procurar o **Ministério Público** e a **Defensoria Pública** e organizar **abaixo-assinados** e protestos.
 3. A Constituição não resolve sozinha, mas dá o **argumento** e a **base legal** da luta.
+
+```agir
+# Esta semana
+Leia os dez primeiros incisos do art. 5º da Constituição e escolha três para explicar a alguém da sua família. Anote num papel qual direito do art. 6º falta mais na sua comunidade.
+```
 
 ## Resumo
 

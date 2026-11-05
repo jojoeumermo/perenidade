@@ -1,5 +1,6 @@
 ---
 titulo: "Como tirar medidas"
+modelo: 9
 resumo: "As medidas que toda costureira tira (busto, cintura, quadril, ombro, braço, comprimentos e gancho), como fazer cada uma com a fita, a folga que se acrescenta ao corpo e uma ficha de medidas para guardar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Duas pessoas vestem 40 na loja. A calça fica perfeita em uma e apertada no quad
 ## O que você vai aprender
 
 Ao fim desta aula você vai tirar as principais medidas do corpo com a fita métrica, saber onde fica cada uma, entender a folga e montar uma ficha de medidas.
+
+```suarealidade
+Você já comprou uma roupa "do seu número" que não serviu? Onde apertou ou sobrou?
+```
 
 ## Antes de medir
 
@@ -97,6 +102,15 @@ Ao medir a cintura, a fita ficou mais baixa na frente do que atrás. O que acont
 > Medidas de contorno pedem a fita na horizontal, reta em toda a volta.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Medida é frescura. Se a pessoa veste 40, é só fazer 40. O que vale é o número da etiqueta." É o raciocínio de quem quer ganhar tempo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A própria provocação da aula responde: duas pessoas vestem 40 e a calça fica perfeita numa e apertada no quadril da outra. Por isso a aula ensina a medir busto, cintura, quadril e os comprimentos e a comparar com a tabela do molde, e não com o número da loja. Há também a folga, que muda com o estilo da peça, e a ficha de medidas, que é dado pessoal: guarde com cuidado e use só para o trabalho combinado. A Lei Geral de Proteção de Dados tem o consentimento da pessoa como uma das bases para usar dados pessoais.
+```
+
 ## Exemplo resolvido
 
 **Tire as medidas para uma saia reta e escreva a ficha.**
@@ -110,6 +124,11 @@ Ao medir a cintura, a fita ficou mais baixa na frente do que atrás. O que acont
 Ficha: Maria, 10/10
 Cintura 72 · Quadril 98 · Altura do quadril 20 · Comprimento 58
 Medida com legging fina. Prefere a saia um pouco folgada no quadril.
+```
+
+```agir
+# Esta semana
+Peça a alguém de casa que tire as suas medidas de busto, cintura e quadril com a fita, com você de pé e relaxada(o). Anote numa ficha só sua e compare com a tabela de tamanhos de uma loja.
 ```
 
 ## Resumo

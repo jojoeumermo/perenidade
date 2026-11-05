@@ -1,5 +1,6 @@
 ---
 titulo: "Mapas, escalas e coordenadas"
+modelo: 9
 resumo: "Como ler um mapa, calcular distâncias reais e localizar qualquer ponto da Terra."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber ler os elementos de um mapa, calcular distâncias pela escala, localizar um ponto por latitude e longitude e explicar por que todo mapa-múndi distorce.
+
+```suarealidade
+Que mapa você usa no dia a dia (aplicativo do celular, mapa do bairro)? Você sabe qual é a escala dele e de quando ele é?
+```
 
 
 ## O que é um mapa
@@ -117,6 +122,20 @@ Lembre: a escala 1:250.000 é maior (mostra mais detalhes) que a 1:500.000 para 
 1. Pegue um mapa do seu estado, encontre a escala e calcule a distância em linha reta entre a sua cidade e a capital.
 2. Descubra a latitude e a longitude aproximadas da sua cidade.
 3. Compare, em um globo ou em um aplicativo que mostre a Terra como esfera, o tamanho do Brasil com o da Groenlândia.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O mapa-múndi da escola é o mapa certo do mundo. O tamanho dos países é o que está desenhado ali."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que toda projeção deforma alguma coisa ao passar a esfera para o plano. A de Mercator, de 1569, foi criada para a navegação: mantém as formas e os ângulos, mas aumenta as áreas quanto mais longe do Equador. Nela, a Groenlândia parece do tamanho da África, mas a África é cerca de catorze vezes maior. Nenhuma projeção é "a certa", e o mapa que mais vimos na escola agiganta a Europa e a América do Norte e encolhe a África e a América do Sul. Mapas também carregam um ponto de vista.
+```
+
+```agir
+# Esta semana
+Descubra a latitude e a longitude aproximadas da sua cidade e compare, em um globo ou em um aplicativo que mostre a Terra como esfera, o tamanho do Brasil com o da Groenlândia.
+```
 
 ## Resumo
 

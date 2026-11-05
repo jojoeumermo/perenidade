@@ -1,0 +1,50 @@
+# Exercícios da aula "Perguntas frequentes sobre o socialismo" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-perguntas-frequentes-sobre-o-socialismo-01
+  tema: "Socialismo e comunismo"
+  dificuldade: 2
+  enunciado: "Na tradição marxista, qual é a relação entre socialismo e comunismo?"
+  alternativas:
+    - texto: "São duas fases: o socialismo é a primeira; o comunismo seria a fase superior, sem classes e sem Estado"
+      certa: true
+    - texto: "São exatamente a mesma coisa"
+      erro: "Na tradição marxista são duas fases."
+    - texto: "O comunismo vem antes do capitalismo"
+      erro: "O comunismo seria a fase superior depois do socialismo."
+  explicacao: "No socialismo, os grandes meios de produção são coletivos, mas ainda existem Estado, dinheiro e distribuição segundo o trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Perguntas frequentes sobre o socialismo\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-perguntas-frequentes-sobre-o-socialismo-02
+  tema: "Liberdade"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre a liberdade nos países socialistas do século XX?"
+  alternativas:
+    - texto: "Vários restringiram duramente liberdades políticas, como partido único, censura e perseguição, e muitos socialistas criticaram isso"
+      certa: true
+    - texto: "Todos garantiram todas as liberdades"
+      erro: "A aula reconhece restrições."
+    - texto: "Nenhum teve problema de liberdade"
+      erro: "A aula diz que vários restringiram."
+  explicacao: "Rosa Luxemburgo escreveu, em 1918, que \"a liberdade é sempre a liberdade de quem pensa diferente\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Perguntas frequentes sobre o socialismo\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-perguntas-frequentes-sobre-o-socialismo-03
+  tema: "Liberdade econômica"
+  dificuldade: 1
+  enunciado: "Que ideia de liberdade os socialistas querem ampliar?"
+  alternativas:
+    - texto: "A liberdade no terreno econômico, como decidir o que se produz no local de trabalho"
+      certa: true
+    - texto: "Só a de escolher marcas"
+      erro: "A aula diz que essa já existe no capitalismo."
+    - texto: "A liberdade de não pagar nada"
+      erro: "Não é o que a aula diz."
+  explicacao: "A maioria não é livre para escolher não trabalhar para um patrão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Perguntas frequentes sobre o socialismo\""
+  revisao:
+    status: em-revisao

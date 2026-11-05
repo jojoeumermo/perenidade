@@ -1,5 +1,6 @@
 ---
 titulo: "O plural dos substantivos"
+modelo: 9
 resumo: "Em alemão não basta pôr um \"s\": o plural se faz com -e, -en, -er, -s ou sem mudar nada, às vezes com trema. Os padrões mais comuns e por que vale aprender o plural junto com a palavra."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Um carro, dois carros. Uma mulher, duas mulheres. Em português, quase sempre ba
 ## O que você vai aprender
 
 Ao fim desta aula você vai reconhecer os principais jeitos de formar o plural em alemão e usar o artigo plural.
+
+```suarealidade
+Pense numa palavra que você usa muito no trabalho, como "ferramenta", "cliente" ou "pedido". Como ela fica no plural em português? E o que acontece quando você aprende uma palavra sozinha, sem o plural?
+```
 
 ## Os cinco jeitos
 
@@ -84,6 +89,20 @@ Qual é o plural de "die Arbeiterin" (a operária)?
 2. **Substantivo**: Kind → **Kinder**.
 3. **Verbo**: ist → **sind** (eles estão).
 4. **Resultado**: ***Die Kinder sind in der Schule.*** (As crianças estão na escola.)
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Decorar o plural de cada palavra em alemão é perda de tempo. Dá para se fazer entender usando só o singular, e ninguém vai achar ruim." É um argumento de quem quer começar a falar logo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Falar só no singular até permite ser entendido em frases curtas, mas a aula mostra que o artigo do plural é sempre die e que o verbo também muda (das Kind ist, die Kinder sind). Por isso o caminho que a aula indica é aprender artigo, singular e plural juntos, como os dicionários mostram: custa um pouco mais no começo e evita erro depois.
+```
+
+```agir
+# Esta semana
+Escolha cinco objetos da sua casa e escreva, no papel, o artigo, o singular e o plural de cada um em alemão, no formato "der Tag, die Tage". Use um dicionário para conferir.
+```
 
 ## Resumo
 

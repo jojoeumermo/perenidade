@@ -1,5 +1,6 @@
 ---
 titulo: "Judaísmo: um povo e um livro"
+modelo: 9
 resumo: "O judaísmo é uma das primeiras religiões monoteístas e reúne as tradições espirituais, culturais e legais do povo judeu. O seu texto central é a Bíblia Hebraica, o Tanakh, que começa pela Torá. Por que se diz que é, ao mesmo tempo, religião e povo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Uma pessoa pode ser judia mesmo sem praticar a religião judaica? Como uma relig
 
 Ao fim desta aula você vai conhecer as bases do judaísmo, o seu livro sagrado e a relação entre religião e povo.
 
+```suarealidade
+Você conhece alguém judeu, ou já ouviu falar de algum livro ou costume judaico? O que você sabe e como soube?
+```
+
 ## Religião e povo
 
 O **judaísmo** é uma religião **abraâmica** e **monoteísta** que reúne as tradições **espirituais**, **culturais** e **legais** do **povo judeu**. É considerado uma das **primeiras religiões monoteístas**.
@@ -68,6 +73,15 @@ Por que se diz que o judaísmo é, ao mesmo tempo, religião e povo?
 > Releia a seção "Religião e povo".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Religião de outro lado do mundo não tem a ver com a minha vida de trabalhador. Tenho conta para pagar, não tempo para estudar judaísmo." É a opinião de quem tem a vida corrida.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o assunto está mais perto do que parece: o judaísmo é uma religião abraâmica e monoteísta, das primeiras, e os judeus são um grupo etnorreligioso, com prática que varia. O livro é o Tanakh (Torá, Nevi'im e Ketuvim). A aula também conta séculos de perseguição: a França aboliu as restrições em 1791. Conhecer essa história ajuda a reconhecer o preconceito e a não repeti-lo.
+```
+
 ## Exemplo resolvido
 
 **Explique de onde vem o nome Tanakh.**
@@ -75,6 +89,11 @@ Por que se diz que o judaísmo é, ao mesmo tempo, religião e povo?
 1. As três partes são **T**orá, **N**evi'im e **K**etuvim.
 2. As iniciais **T**, **N** e **K**, com vogais entre elas, formam **TaNaKh**.
 3. Por isso a Bíblia Hebraica se chama **Tanakh**.
+
+```agir
+# Esta semana
+Quando ouvir uma frase sobre judeus, muçulmanos ou outra religião que você não conhece, pergunte-se de onde vem a informação. Anote uma frase assim que você ouviu.
+```
 
 ## Resumo
 

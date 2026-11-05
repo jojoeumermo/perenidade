@@ -1,5 +1,6 @@
 ---
 titulo: "China e Índia antigas"
+modelo: 9
 resumo: "Objetivo: conhecer duas das civilizações mais antigas e duradouras do mundo, as suas cidades, ideias e invenções."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber situar as civilizações do vale do Indo e da China, conhecer Buda, Confúcio e o primeiro imperador e dizer o que a Rota da Seda e as invenções chinesas mudaram no mundo.
+
+```suarealidade
+Que desigualdades do seu dia a dia você já ouviu serem chamadas de "naturais" ou "merecidas"?
+```
 
 
 ## Longe da Europa, bem antes dela
@@ -113,6 +118,20 @@ Cuidado: a conta 551 − 479 só funciona porque as duas datas são antes de Cri
 1. Por que as civilizações da Ásia aparecem tão pouco nos livros escolares do Brasil?
 2. Compare o mandato do céu com a ideia europeia de que o rei governava por vontade de Deus. Qual das duas dá mais espaço à revolta?
 3. Que desigualdades de hoje são apresentadas como naturais ou merecidas?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cada um tem o lugar que merece. Se uns mandam e outros obedecem, é porque a vida é assim."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra um exemplo antigo dessa ideia: na Índia, a ordem das castas era justificada pela religião, como se cada pessoa ocupasse o lugar que merecia. A aula diz que é um exemplo claro de como uma crença pode servir para manter uma desigualdade. E mostra que houve quem pensasse diferente: por volta do século V a.C., Buda pregou um caminho de libertação do sofrimento aberto a todas as pessoas, de qualquer casta. Que uma ideia seja antiga e muito repetida não a torna verdadeira.
+```
+
+```agir
+# Esta semana
+Escreva três desigualdades de hoje que são apresentadas como naturais ou merecidas e, para cada uma, pergunte quem ganha com essa ideia. Converse sobre isso com alguém de confiança.
+```
 
 ## Resumo
 

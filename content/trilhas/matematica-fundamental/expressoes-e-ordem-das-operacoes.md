@@ -1,5 +1,6 @@
 ---
 titulo: "Expressões e ordem das operações"
+modelo: 9
 resumo: "Por que 2 + 3 × 4 dá 14 e não 20: a combinação que faz todo mundo chegar ao mesmo resultado."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -25,6 +26,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber resolver uma expressão numérica na ordem combinada: parênteses, potências e raízes, multiplicações e divisões, somas e subtrações.
+
+```suarealidade
+Você já fez uma conta com várias operações seguidas, como o total de uma compra com desconto e frete? Na ordem em que você leu, o resultado batia com o da calculadora?
+```
 
 ## Uma conta, duas respostas?
 
@@ -120,6 +125,20 @@ Os parênteses dizem: primeiro calcule a compra inteira, depois tire dos 50. Sem
 6. Escreva e resolva: um pedreiro cobra R$ 150 por dia; trabalhou 4 dias e gastou R$ 35 de passagem ao todo. Quanto sobrou?
 
 **Respostas:** 1) 17. 2) 1. 3) 28. 4) 16. 5) 4 + 6 × (3 − 1). 6) 4 × 150 − 35 = R$ 565.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A calculadora já faz tudo na ordem certa. Decorar a ordem das operações é perda de tempo." É o ponto de vista de quem usa a calculadora o tempo todo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula tem uma seção só sobre isso ("A calculadora obedece?") e mostra por que a ordem existe: uma conta não pode ter duas respostas. Em 2 + 3 × 4, quem faz na ordem em que lê chega a 20, e quem multiplica primeiro chega a 14, que é a resposta combinada no mundo inteiro. A ordem não é capricho: multiplicar é somar grupos, e faz sentido formar os grupos antes de juntar. Quem conhece a regra consegue conferir o que a calculadora mostra.
+```
+
+```agir
+# Esta semana
+Escolha uma conta de compra da sua semana (itens, desconto e frete, por exemplo) e escreva no papel como uma única expressão, usando parênteses onde precisar. Resolva na ordem combinada e compare com o valor que você pagou.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Bilhete, e-mail e requerimento: como escrever"
+modelo: 9
 resumo: "Três textos do dia a dia, do mais informal ao mais formal, com modelos prontos para adaptar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 Ao fim desta aula você vai saber escrever um bilhete, um e-mail e um requerimento, fazer um pedido com protocolo e usar o pedido de informação.
 
 
+
+```suarealidade
+Você já precisou pedir algo por escrito a uma empresa, a uma escola ou à prefeitura? Como foi: você conseguiu ser entendido, e ficou com algum comprovante?
+```
 
 ## O texto certo para cada situação
 
@@ -163,6 +168,15 @@ Os pedidos são feitos nos serviços de informação ao cidadão de cada órgão
 
 Um requerimento assinado por uma pessoa é um pedido. O mesmo requerimento, acompanhado de um **abaixo-assinado** com dezenas de nomes, ou entregue em nome de uma associação, é uma reivindicação. Escrever é também um jeito de se organizar: redigir o pedido em grupo obriga todos a concordar sobre o que se quer, e o protocolo vira um instrumento de cobrança.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Pedido escrito e formal é burocracia. O melhor é resolver na conversa, no olho a olho, ou conhecer alguém lá dentro que ajude." É a opinião de quem já resolveu assuntos pelo jeitinho e pela amizade.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a conversa muitas vezes resolve, mas que o pedido escrito deixa registro: leve duas vias e peça o protocolo na sua. Para quem escreve, a clareza é o que não muda em nenhum tipo de texto. A Constituição garante o direito de petição aos poderes públicos (art. 5º, XXXIV) e a Lei de Acesso à Informação (Lei 12.527/2011) permite pedir informação a órgão público sem precisar explicar o motivo, com resposta em até 20 dias, prorrogáveis por mais 10. Escrever não substitui a conversa, mas dá prova do que se pediu.
+```
+
 ## Exemplo resolvido: consertando um e-mail
 
 **O e-mail:** Assunto: "oi". Texto: "preciso do documento. manda logo".
@@ -175,6 +189,11 @@ Um requerimento assinado por uma pessoa é um pedido. O mesmo requerimento, acom
 6. **Antes de enviar:** releia e confira o endereço do destinatário.
 
 Confira: o e-mail original não informa nada, não se identifica e não tem saudação. O novo diz quem é, o que quer e para quê.
+
+```agir
+# Esta semana
+Escreva num papel um bilhete de quatro partes (para quem, recado, despedida com nome, data) avisando alguém de algo e entregue-o. Se tiver um assunto a pedir a algum órgão, escreva o pedido e guarde uma cópia.
+```
 
 ## Resumo
 

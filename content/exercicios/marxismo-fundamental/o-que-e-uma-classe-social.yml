@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é uma classe social" (Marxismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mx-cla-01
+  tema: "Renda não é tudo"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Um enfermeiro e o dono de três apartamentos alugados ganham o mesmo por mês. Para o marxismo, eles são da mesma classe?"
+  alternativas:
+    - texto: "Não: um vive do trabalho e o outro da propriedade"
+      certa: true
+    - texto: "Sim, porque a renda é igual"
+      erro: "A renda sozinha não define a classe. Importa de onde vem o dinheiro."
+    - texto: "Sim, porque os dois trabalham muito"
+      erro: "A diferença é que o dono dos apartamentos recebe sem precisar trabalhar."
+  explicacao: "O enfermeiro precisa trabalhar para receber. O dono dos apartamentos recebe o aluguel mesmo doente. Um vive do trabalho, o outro da propriedade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-cla-02
+  tema: "Burguesia e proletariado"
+  dificuldade: 2
+  enunciado: "Qual destas pessoas pertence à burguesia, no sentido marxista?"
+  alternativas:
+    - texto: "O dono de uma rede de supermercados, que vive do lucro das lojas"
+      certa: true
+    - texto: "Uma médica assalariada de um hospital"
+      erro: "Ela vende sua força de trabalho por salário: faz parte da classe trabalhadora."
+    - texto: "Um caminhoneiro empregado de uma transportadora"
+      erro: "É empregado e vende sua força de trabalho: é da classe trabalhadora."
+  explicacao: "A burguesia são os donos dos meios de produção. O proletariado são os trabalhadores que precisam vender a força de trabalho por salário."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mx-cla-03
+  tema: "Classes A, B, C, D e E"
+  dificuldade: 3
+  enunciado: "Qual é a diferença entre as 'classes A, B, C, D e E' da televisão e as classes do marxismo?"
+  alternativas:
+    - texto: "A televisão mede quanto se ganha; o marxismo olha de onde vem o que se ganha, a relação com os meios de produção"
+      certa: true
+    - texto: "Nenhuma, as duas medem a renda"
+      erro: "O marxismo propõe olhar mais fundo: o lugar na produção."
+    - texto: "O marxismo só conta quem tem emprego"
+      erro: "Conta o lugar que cada pessoa ocupa na produção, com ou sem emprego formal."
+  explicacao: "Para o marxismo, a classe é definida pelo lugar na produção e pela relação com os meios de produção."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

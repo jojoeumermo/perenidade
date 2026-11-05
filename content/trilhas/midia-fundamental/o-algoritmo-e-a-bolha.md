@@ -1,5 +1,6 @@
 ---
 titulo: "O algoritmo e a bolha"
+modelo: 9
 resumo: "As redes sociais e os buscadores escolhem o que mostrar para cada pessoa usando algoritmos. O ativista Eli Pariser chamou o resultado de 'bolha de filtro': cada um vendo só o que já concorda. O que é isso e o que o debate diz sobre o tamanho do efeito."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ Duas pessoas pesquisam a mesma palavra no celular e veem resultados diferentes. 
 
 Ao fim desta aula você vai entender o que é um algoritmo de recomendação, o que é a bolha de filtro e o debate sobre ela.
 
+```suarealidade
+Na sua rede social, você vê opiniões diferentes das suas? Você sabe por que aparece uma coisa e não outra no seu celular?
+```
+
 ## O algoritmo escolhe
 
 Quando você abre uma rede social ou faz uma busca, não vê "tudo". Um **algoritmo**, um conjunto de instruções do programa, **escolhe** o que aparece, com base no que você **clicou**, **curtiu**, **assistiu** e **buscou** antes. Isso se chama **personalização**. Exemplos são os resultados de busca personalizados e os feeds de notícias das redes.
@@ -60,6 +65,15 @@ Por que é importante saber que um algoritmo escolhe o que você vê?
 > Releia a seção "O algoritmo escolhe".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "O algoritmo só mostra o que a pessoa já quer ver. Isso é um serviço, não manipulação. Se alguém fica numa bolha, é escolha dele." É a opinião de quem acha que cada pessoa é responsável pelo que consome.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que as pessoas escolhem, sim, o que clicam, curtem e assistem, e o algoritmo escolhe a partir disso, o que se chama personalização. Mas as escolhas desses algoritmos são pouco transparentes: na maior parte do tempo, a gente não sabe por que viu uma coisa e não outra. A bolha de filtro foi descrita por Eli Pariser, em 2011, como isolamento e fragmentação. E a aula lembra que o tamanho desse efeito ainda é debatido, então dá para discordar com calma e conferir por conta própria.
+```
+
 ## Exemplo resolvido
 
 **Uma pessoa só assiste vídeos que falam mal de um time de futebol. O que tende a acontecer com o que ela vê?**
@@ -68,6 +82,11 @@ Por que é importante saber que um algoritmo escolhe o que você vê?
 2. Ele tende a **recomendar mais** vídeos parecidos.
 3. Ela passa a ver cada vez **menos** vídeos com outras opiniões.
 4. Para sair disso, ela pode **buscar** de propósito outras fontes.
+
+```agir
+# Esta semana
+Peça a alguém de confiança para pesquisar no celular dele a mesma palavra que você pesquisou no seu e compare os resultados. Anote num papel o que foi diferente.
+```
 
 ## Resumo
 

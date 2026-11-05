@@ -1,0 +1,87 @@
+# Exercícios da aula "Embalagem, rótulo e validade" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: a vigilância sanitária do município diz o que vale para quem vende de casa.
+
+- id: coz-embal-01
+  tema: "A embalagem"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas é uma regra para a embalagem de alimentos, segundo a aula?"
+  alternativas:
+    - texto: "Usar embalagem nova e própria para alimento, fechar bem, embalar com as mãos lavadas e com a comida já esfriada"
+      certa: true
+    - texto: "Reaproveitar pote de tinta ou de produto de limpeza, se estiver lavado"
+      erro: "Pote reaproveitado de outro produto, principalmente tinta, produto de limpeza ou remédio, não serve. Use embalagem nova e própria para alimento."
+    - texto: "Embalar a comida ainda bem quente, para ficar quentinha"
+      erro: "Comida quente embalada solta vapor e estraga mais rápido. Embale com a comida já esfriada."
+  explicacao: "A embalagem tem três trabalhos: proteger o alimento da sujeira e dos bichos, manter o que ele precisa (umidade, crocância) e informar o cliente. Um lacre simples mostra que ninguém abriu."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Embalagem, rótulo e validade\""
+  revisao:
+    status: em-revisao
+
+- id: coz-embal-02
+  tema: "O rótulo"
+  dificuldade: 2
+  enunciado: "Qual destas informações deve constar na etiqueta de um doce vendido, como boa prática, segundo a aula?"
+  alternativas:
+    - texto: "Nome do produto, ingredientes, alérgenos, datas de fabricação e validade, como conservar e quem fez, com contato"
+      certa: true
+    - texto: "Só o nome do produto"
+      erro: "O cliente com alergia pode estar em risco de vida se a informação faltar. A etiqueta leva ingredientes, alérgenos, datas, conservação e contato."
+    - texto: "Só o preço"
+      erro: "O preço é importante, mas a etiqueta de alimento precisa informar o que há dentro, os alérgenos, as datas e como guardar."
+  explicacao: "Os ingredientes vão do que mais tem para o que menos tem. Avise claramente se contém leite, ovo, trigo, soja, amendoim, castanhas e outros listados pela Anvisa, e se pode ter traços por contaminação cruzada. Se produz em grupos, inclua o lote."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Embalagem, rótulo e validade\""
+  revisao:
+    status: em-revisao
+
+- id: coz-embal-03
+  tema: "Validade sem chute"
+  dificuldade: 2
+  enunciado: "Por que é melhor escrever na etiqueta uma validade menor do que o limite observado no teste?"
+  alternativas:
+    - texto: "Para ter uma folga de segurança, porque cada cozinha e cada geladeira são diferentes"
+      certa: true
+    - texto: "Para o cliente comprar mais rápido"
+      erro: "A razão é a segurança de quem come, e não a venda. A validade honesta protege o cliente e protege você."
+    - texto: "Porque a lei manda sempre escrever 3 dias"
+      erro: "Não existe um prazo fixo para todos. A validade depende do que o alimento leva, de como é guardado, da embalagem e da higiene."
+  explicacao: "Para definir sem laboratório: faça uma amostra, embale e guarde como o cliente guardaria; observe a cada dia o cheiro, a cor, a textura, o mofo, o azedo e o líquido que sobrou (não prove comida suspeita); quando começar a mudar, esse é o limite do teste; escreva uma validade menor. Quanto mais perecível (recheio cremoso, ovo, creme), mais curta a validade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Embalagem, rótulo e validade\""
+  revisao:
+    status: em-revisao
+
+- id: coz-embal-04
+  tipo: numero
+  tema: "A validade do bolo de pote"
+  dificuldade: 3
+  enunciado: "Dona Ana testou o bolo de pote na geladeira: no quarto dia a calda começa a soltar água, então o limite do teste é de 3 dias bons. Ela escreve na etiqueta 2 dias. Quantos dias de folga de segurança ela deixou em relação ao limite do teste?"
+  resposta: "1"
+  unidade: "dia"
+  erros_comuns:
+    - resposta: "3"
+      explicacao: "3 dias é o limite do teste. A folga é a diferença entre o limite do teste (3) e a validade escrita (2)."
+    - resposta: "2"
+      explicacao: "2 dias é a validade escrita na etiqueta. A folga é 3 − 2."
+  dica: "Subtraia a validade escrita do limite do teste."
+  explicacao: "3 − 2 = 1 dia de folga. A etiqueta de Dona Ana traz também os ingredientes, o aviso (contém trigo, ovo e leite; pode conter traços de castanhas), a data de fabricação, como guardar (sob refrigeração) e o contato."
+  conferir: "3 - 2"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Embalagem, rótulo e validade\""
+  revisao:
+    status: em-revisao
+
+- id: coz-embal-05
+  tema: "E se o cliente passar mal"
+  dificuldade: 3
+  enunciado: "Pelo Código de Defesa do Consumidor (art. 12), quem produz e vende responde pelo dano que o produto causar? O que a aula recomenda se um cliente reclamar de mal-estar?"
+  alternativas:
+    - texto: "Sim, mesmo sem ter tido a intenção; ouvir com respeito, anotar o lote e parar de vender aquele lote até entender o que houve, orientando a pessoa a procurar a UBS ou a UPA se estiver mal"
+      certa: true
+    - texto: "Não, porque o cliente comprou por conta própria"
+      erro: "O art. 12 do CDC responsabiliza quem produz e vende pelos danos que o produto causar, mesmo sem intenção."
+    - texto: "Apagar as mensagens e negar que o produto era seu"
+      erro: "Esconder só piora. Ouça com respeito, anote o lote e pare de vender aquele lote até entender o que houve."
+  explicacao: "Por isso a higiene, a embalagem, o aviso de alérgeno e a validade honesta protegem o cliente e protegem você."
+  fonte: "Questão original do Instituto Lúcia; Código de Defesa do Consumidor (Lei nº 8.078/1990), art. 12, conforme a aula"
+  revisao:
+    status: em-revisao

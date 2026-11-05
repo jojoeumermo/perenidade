@@ -1,0 +1,51 @@
+# Exercícios da aula "Por que essas máquinas erram" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-err-01
+  tema: "Alucinação"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é uma 'alucinação' de um sistema de IA?"
+  alternativas:
+    - texto: "Uma resposta com informação falsa ou enganosa apresentada como fato"
+      certa: true
+    - texto: "Quando o sistema desliga sozinho"
+      erro: "Alucinação é resposta falsa que parece verdade, e não desligamento."
+    - texto: "Quando o sistema responde com uma imagem"
+      erro: "Alucinação é informação falsa, mesmo que escrita de forma convincente."
+  explicacao: "Assistentes baseados em modelos de linguagem podem misturar falsidades que parecem verdade, como citações e números inventados."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-err-02
+  tema: "Citação duvidosa"
+  dificuldade: 2
+  enunciado: "Um assistente cita 'um estudo do Instituto X de 2019' para provar o que diz. O que fazer?"
+  alternativas:
+    - texto: "Procurar o estudo por conta própria e conferir se existe e se diz isso"
+      certa: true
+    - texto: "Acreditar, porque a resposta é bem escrita"
+      erro: "A resposta pode parecer boa e estar inventada. Confira."
+    - texto: "Repassar a citação para outras pessoas"
+      erro: "Repassar sem conferir espalha o erro."
+  explicacao: "Alucinações costumam trazer fontes, autores e números que parecem reais. Confira antes de usar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-err-03
+  tema: "Erro que não cai igual"
+  dificuldade: 3
+  enunciado: "Um sistema de reconhecimento facial erra mais com pessoas negras e é usado na segurança pública. Qual é o problema?"
+  alternativas:
+    - texto: "O erro vira abordagem e prisão injustas para quem já era mais vigiado"
+      certa: true
+    - texto: "Não há problema, porque o erro é pequeno"
+      erro: "O erro pequeno, quando recai sobre um grupo, se transforma em abordagem, prisão e humilhação."
+    - texto: "O problema é só da câmera, e não de quem decide usar"
+      erro: "Quem decide usar o sistema e como é parte do problema. Por isso se pede revisão humana."
+  explicacao: "Em 2018, Joy Buolamwini e Timnit Gebru mostraram que sistemas comerciais erravam mais com pessoas de pele escura. Decidir sem gente conferindo é perigoso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

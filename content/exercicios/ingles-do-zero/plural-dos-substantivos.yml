@@ -1,0 +1,67 @@
+# Exercícios da aula "Plural dos substantivos" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-plu-01
+  tema: "Plural com -es"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o plural de bus (ônibus)?"
+  alternativas:
+    - texto: "buses"
+      certa: true
+    - texto: "buss"
+      erro: "Palavras terminadas em s, ss, sh, ch, x e z ganham -es."
+    - texto: "buses'"
+      erro: "O plural não leva apóstrofo."
+  explicacao: "Esses finais têm som chiado: o -es se pronuncia como 'iz'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-plu-02
+  tema: "Plural irregular"
+  dificuldade: 2
+  enunciado: "Qual é o plural de child (criança)?"
+  alternativas:
+    - texto: "children"
+      certa: true
+    - texto: "childs"
+      erro: "Child é irregular: o plural é children."
+    - texto: "childes"
+      erro: "Não existe essa forma."
+  explicacao: "Alguns plurais são irregulares: man → men, woman → women, child → children, foot → feet, tooth → teeth."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-plu-03
+  tema: "Palavras terminadas em y"
+  dificuldade: 2
+  enunciado: "Qual é o plural de city (cidade)?"
+  alternativas:
+    - texto: "cities"
+      certa: true
+    - texto: "citys"
+      erro: "Depois de consoante, o y vira ies."
+    - texto: "cityes"
+      erro: "O y vira i antes do es: cities."
+  explicacao: "Consoante + y: troque o y por ies (city → cities). Vogal + y só ganha -s (boy → boys)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-plu-04
+  tema: "Só o substantivo vai para o plural"
+  dificuldade: 3
+  enunciado: "Como se diz 'carros vermelhos' em inglês?"
+  alternativas:
+    - texto: "red cars"
+      certa: true
+    - texto: "reds cars"
+      erro: "Só o substantivo vai para o plural. O adjetivo fica igual."
+    - texto: "red car"
+      erro: "Falta o plural do substantivo."
+  explicacao: "Em inglês, o adjetivo não muda: a red car, two red cars."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

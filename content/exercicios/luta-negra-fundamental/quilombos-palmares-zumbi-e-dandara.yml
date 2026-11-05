@@ -1,0 +1,67 @@
+# Exercícios da aula "Quilombos, Palmares, Zumbi e Dandara" (Luta negra, fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ln-qui-01
+  tema: "O que foram os quilombos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que foram os quilombos?"
+  alternativas:
+    - texto: "Comunidades formadas por pessoas que fugiam da escravidão, em lugares de difícil acesso, onde se plantava, se criava e se defendia"
+      certa: true
+    - texto: "Fazendas de senhores de engenho"
+      erro: "Eram o contrário: lugares de resistência à escravidão."
+    - texto: "Cidades criadas pelo governo colonial"
+      erro: "Foram criados por quem fugia da escravidão."
+  explicacao: "Existiram em todas as regiões do Brasil. Fugir era uma forma de lutar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-qui-02
+  tema: "O acordo de 1678"
+  dificuldade: 2
+  enunciado: "Por que Zumbi e seus companheiros recusaram o acordo de 1678?"
+  alternativas:
+    - texto: "Porque o acordo libertava só os nascidos em Palmares e mandava devolver os que chegassem depois"
+      certa: true
+    - texto: "Porque queriam atacar o Recife"
+      erro: "A recusa foi porque o acordo deixava de fora quem ainda estava escravizado."
+    - texto: "Porque não confiavam em Ganga Zumba por ser estrangeiro"
+      erro: "Ganga Zumba era o líder de Palmares. A divergência foi sobre o acordo."
+  explicacao: "Zumbi assumiu a liderança e manteve a resistência por mais quinze anos. Foi morto em 20 de novembro de 1695."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-qui-03
+  tema: "Quilombos hoje"
+  dificuldade: 2
+  enunciado: "O que a Constituição de 1988 reconheceu às comunidades quilombolas?"
+  alternativas:
+    - texto: "O direito à propriedade definitiva das terras que ocupam"
+      certa: true
+    - texto: "O direito de não pagar nenhum imposto"
+      erro: "O direito reconhecido é sobre a terra que ocupam."
+    - texto: "Nada, porque os quilombos acabaram"
+      erro: "As comunidades continuam. No Censo de 2022, mais de 1,3 milhão de pessoas se declararam quilombolas."
+  explicacao: "Milhares de comunidades descendem dos quilombos e continuam nas mesmas terras."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ln-qui-04
+  tema: "Dandara"
+  dificuldade: 3
+  enunciado: "O que a aula diz sobre Dandara?"
+  alternativas:
+    - texto: "Os documentos da época quase não falam das mulheres do quilombo; Dandara hoje representa todas as mulheres negras que lutaram em Palmares, e seu nome está no Livro dos Heróis e Heroínas da Pátria desde 2019"
+      certa: true
+    - texto: "Que Dandara foi a imperatriz de Portugal"
+      erro: "Dandara é uma guerreira de Palmares, segundo a tradição."
+    - texto: "Que não há nada a lembrar dela"
+      erro: "Mesmo sem registros da época, ela é hoje um símbolo reconhecido, inclusive em lei de 2019."
+  explicacao: "A tradição a conta como guerreira de Palmares e companheira de Zumbi. A ausência de registros reflete quem escrevia os documentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

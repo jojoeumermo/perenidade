@@ -1,5 +1,6 @@
 ---
 titulo: "Usar exemplos e histórias"
+modelo: 9
 resumo: "Como sustentar o que você diz com fatos, números, exemplos, histórias, depoimentos e comparações, sem enganar ninguém e sem afogar o público em dados."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai conhecer os tipos de apoio que sustentam uma fala (fatos, números, definições, exemplos, histórias, depoimentos e comparações), saber quando usar cada um e como fazer isso com honestidade.
+
+```suarealidade
+Qual problema da sua comunidade você explicaria a um vizinho? Que número, que história real ou que comparação ele entenderia?
+```
 
 ## Apoio: o que segura a ideia
 
@@ -101,6 +106,15 @@ Você quer mostrar, numa reunião, que o ônibus da linha do bairro atrasa. O qu
 > Um número levantado pelo próprio grupo, com o período e a forma de contar, vale mais que impressão geral ou caso isolado.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Contar história é manipular a emoção do público. Argumento sério usa só números e fatos, sem historinha." É a opinião de quem desconfia de discurso que comove demais.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula diz que uma ideia sem apoio é só opinião e lista sete tipos de apoio: fatos, números, definições, exemplos, histórias, depoimentos e comparações. Os números pedem honestidade, conta conferida, fonte séria e tradução para o público. As histórias são o apoio mais forte quando são curtas, concretas e ligadas à ideia, e devem dizer se são reais. A aula também avisa contra o caso isolado usado como regra e pede licença antes de contar a história de alguém. Números e histórias se completam, e o cuidado é com a honestidade.
+```
+
 ## Exemplo resolvido
 
 **Fortaleça esta fala fraca: "A creche é muito importante e o bairro precisa dela. Muitas mães não conseguem trabalhar."**
@@ -110,6 +124,11 @@ Você quer mostrar, numa reunião, que o ônibus da linha do bairro atrasa. O qu
 3. **Depoimento de especialista**: "A diretora da escola contou que recebe pedidos de vaga toda semana."
 4. **Comparação**: "Sem creche, a mãe trabalha com uma mão amarrada."
 5. **Ligação com a ideia**: "Por isso a creche não é favor: é o que permite que essas mães voltem a trabalhar."
+
+```agir
+# Esta semana
+Escolha um problema da sua comunidade e escreva num papel um número que você poderia levantar, uma história real que você conhece e uma comparação que o vizinho entenderia. Peça licença a quem é da história.
+```
 
 ## Resumo
 

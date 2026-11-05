@@ -1,5 +1,6 @@
 ---
 titulo: "Ritos de passagem"
+modelo: 9
 resumo: "Nascimento, aniversário de 15 anos, formatura, casamento, funeral: toda sociedade marca as grandes mudanças da vida com cerimônias. O antropólogo Arnold van Gennep mostrou que esses ritos de passagem têm três fases: separação, margem e incorporação."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ Por que a gente faz festa de 15 anos, formatura e velório? Não bastaria fazer 
 
 Ao fim desta aula você vai entender o que são ritos de passagem e conhecer as três fases descritas por van Gennep.
 
+```suarealidade
+Quais cerimônias marcaram a sua vida ou a da sua família (batizado, formatura, casamento, velório, festa de 15 anos)? O que mudou para as pessoas depois delas?
+```
+
 ## O que são
 
 Em **todas as sociedades**, alguns momentos da vida são marcados por **cerimônias especiais**, conhecidas como **ritos de iniciação** ou **de passagem**: o **nascimento**, a entrada na **vida adulta**, o **casamento**, a **morte**, uma **formatura**.
@@ -74,6 +79,20 @@ Numa formatura, qual momento corresponde à fase de incorporação?
 1. **Separação**: a pessoa deixa a condição de solteira, por exemplo, saindo da casa dos pais para a cerimônia.
 2. **Margem**: a cerimônia em si, quando ainda não está casada, mas já não é mais solteira.
 3. **Incorporação**: a festa e a vida a dois, quando o casal é recebido pela família e pela comunidade na nova condição.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Essas cerimônias são gasto à toa. Quem está endividado não precisa de festa de formatura nem de velório com muita gente: o que conta é o que se vive, e não a cerimônia." É um argumento de quem sente o peso do custo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que, em todas as sociedades, momentos como o nascimento, a vida adulta, o casamento e a morte são marcados por cerimônias, com um lado individual e um coletivo: elas marcam a aceitação e a participação progressiva da pessoa na sociedade. Van Gennep descreveu três fases (separação, margem e incorporação). O rito não precisa ser caro nem religioso: o que ele faz é dar sentido e reunir a comunidade.
+```
+
+```agir
+# Esta semana
+Pense numa cerimônia simples e gratuita que marcou uma mudança na sua vida ou na de alguém perto de você. Escreva num papel qual era a fase de separação, a de margem e a de incorporação.
+```
 
 ## Resumo
 

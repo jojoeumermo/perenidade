@@ -1,0 +1,51 @@
+# Exercícios da aula "Direitos garantidos no Brasil" (LGBTQIA+ fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lg-dir-01
+  tema: "De onde vieram os direitos"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "De onde vieram quase todos os direitos LGBTQIA+ no Brasil, como o casamento e a adoção?"
+  alternativas:
+    - texto: "De decisões do Judiciário (STF e CNJ) e de normas do governo, e não de leis aprovadas pelo Congresso"
+      certa: true
+    - texto: "De leis aprovadas pelo Congresso Nacional"
+      erro: "O Congresso não votou essas leis. Os direitos vieram sobretudo de decisões do STF e do CNJ."
+    - texto: "De uma votação popular"
+      erro: "Não houve plebiscito. Foram decisões do Judiciário e normas do governo."
+  explicacao: "O Judiciário entendeu que a Constituição garante a igualdade e proíbe a discriminação. O movimento continua cobrando que esses direitos virem lei."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-dir-02
+  tema: "Por que virar lei"
+  dificuldade: 2
+  enunciado: "Por que o movimento quer que esses direitos virem lei, se já valem por decisão do Judiciário?"
+  alternativas:
+    - texto: "Porque uma lei aprovada pelo Congresso dá mais estabilidade e proteção aos direitos"
+      certa: true
+    - texto: "Porque as decisões do Judiciário não valem nada"
+      erro: "As decisões valem, mas uma lei é mais estável e protegida."
+    - texto: "Porque o Judiciário pediu que fosse assim"
+      erro: "Não foi um pedido do Judiciário. É uma reivindicação do movimento, por mais segurança."
+  explicacao: "Direitos garantidos só por decisão podem ser mais fáceis de contestar. A lei dá mais proteção."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-dir-03
+  tema: "LGBTfobia é crime"
+  dificuldade: 2
+  enunciado: "Em 2019, o que o STF decidiu sobre a LGBTfobia?"
+  alternativas:
+    - texto: "Que ela é crime, como o racismo"
+      certa: true
+    - texto: "Que não é crime"
+      erro: "O STF decidiu que a LGBTfobia é crime, enquadrada como o racismo."
+    - texto: "Que só é crime dentro de casa"
+      erro: "A decisão vale para o país todo, como o racismo."
+  explicacao: "A linha do tempo: 2011, união estável; 2013, casamento (CNJ); 2015, adoção; 2016, nome social (Decreto 8.727); 2018, mudança de nome e gênero sem cirurgia; 2019, LGBTfobia é crime."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

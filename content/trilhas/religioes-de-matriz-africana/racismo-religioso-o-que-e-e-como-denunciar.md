@@ -1,5 +1,6 @@
 ---
 titulo: "Racismo religioso: o que é e como denunciar"
+modelo: 9
 resumo: "Ataques a terreiros, ofensas a quem usa guias e roupas brancas, expulsão de pais e mães de santo de bairros: é o racismo religioso. A lei brasileira pune com 1 a 3 anos de reclusão quem pratica, induz ou incita discriminação por religião, e com 2 a 5 anos quando isso é feito pelos meios de comunicação ou pela internet. O Dia Nacional de Combate à Intolerância Religiosa é 21 de janeiro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Uma criança vai à escola com as suas guias de proteção e é chamada de "macu
 
 Ao fim desta aula você vai entender o que é racismo religioso, o que a lei diz e como denunciar.
 
+```suarealidade
+Você já viu ou ouviu alguém ser desrespeitado por causa da religião que segue? O que as pessoas em volta fizeram?
+```
+
 ## O que é
 
 As **religiões de matriz africana**, como o **candomblé** e a **umbanda**, são alvo frequente de **ataques**: terreiros **depredados** e **queimados**, pais e mães de santo **ameaçados** e **expulsos** de bairros, pessoas **ofendidas** por usar **roupas brancas** ou **guias**.
@@ -77,6 +82,15 @@ Um vizinho picha "fora macumba" no muro de um terreiro. Segundo a lei, isso é s
 > Releia a seção "O que diz a lei".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Isso de racismo religioso é exagero. Criticar uma religião é liberdade de opinião, não é crime." É a opinião de quem defende a liberdade de falar.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A Constituição garante a liberdade de crença e a proteção aos locais de culto. A aula mostra que racismo religioso são os ataques às religiões de matriz africana, ligados ao racismo. A Lei nº 7.716/1989, art. 20, torna crime praticar, induzir ou incitar a discriminação por religião, com pena de 1 a 3 anos de reclusão, e de 2 a 5 anos se for pela mídia ou pela internet. A lei trata de discriminar, não de opinar. Para denunciar: guarde as provas, faça o boletim de ocorrência, ligue para o Disque 100 ou procure a Defensoria.
+```
+
 ## Exemplo resolvido
 
 **Uma mãe de santo é ameaçada por mensagens no celular para fechar o terreiro. Que passos ela pode seguir?**
@@ -85,6 +99,11 @@ Um vizinho picha "fora macumba" no muro de um terreiro. Segundo a lei, isso é s
 2. Fazer o **boletim de ocorrência**, citando o **artigo 20 da Lei nº 7.716/1989**.
 3. Ligar para o **Disque 100**.
 4. Buscar apoio da **Defensoria** e de organizações de **povos de terreiro**.
+
+```agir
+# Esta semana
+Salve o número do Disque 100 no seu celular e anote qual é a delegacia mais próxima da sua casa que atende crimes raciais.
+```
 
 ## Resumo
 

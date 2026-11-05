@@ -1,0 +1,51 @@
+# Exercícios da aula "Memória da organização: guardar a história" (Formar formadores). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff2-mem-01
+  tema: "Por que guardar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que acontece com a memória de uma organização que a guarda só na cabeça de poucos?"
+  alternativas:
+    - texto: "Quando essas pessoas saem, adoecem ou morrem, a memória se perde, e quem chega depois repete erros e desconhece vitórias"
+      certa: true
+    - texto: "Nada, a memória se mantém sozinha"
+      erro: "Sem registro, a memória se perde."
+    - texto: "A organização fica mais forte"
+      erro: "Ela fica dependente de poucas pessoas."
+  explicacao: "Guardar a história é uma forma de cuidar da organização."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-mem-02
+  tema: "Como organizar"
+  dificuldade: 2
+  enunciado: "Qual é uma boa forma de organizar os documentos do coletivo?"
+  alternativas:
+    - texto: "Uma caixa ou pasta por ano, com tudo datado e etiquetado, cópia digital em dois lugares e uma pessoa responsável com uma suplente"
+      certa: true
+    - texto: "Deixar tudo solto, cada um guarda o que quiser"
+      erro: "Sem organização, a memória se perde."
+    - texto: "Guardar só no celular de uma pessoa"
+      erro: "Se o celular quebra ou a pessoa sai, tudo se perde. Faça cópia em dois lugares."
+  explicacao: "Faça uma linha do tempo, atualizada uma vez por ano."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff2-mem-03
+  tema: "Relato com ética"
+  dificuldade: 3
+  enunciado: "Ao colher o relato de uma pessoa sobre a história da organização, o que se deve fazer?"
+  alternativas:
+    - texto: "Explicar para que serve, onde ficará guardado e quem poderá ver, e pedir o consentimento"
+      certa: true
+    - texto: "Publicar sem avisar, porque é história de todos"
+      erro: "É preciso respeito e consentimento, e proteger dados pessoais e informações sensíveis."
+    - texto: "Gravar escondido para a pessoa não ficar com vergonha"
+      erro: "Gravar escondido é desrespeito. Explique e peça consentimento."
+  explicacao: "A entrevista é um modo de produzir documentos sobre o que foi vivido, e exige preparo e respeito, como mostra Verena Alberti no Manual de história oral (2004)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "A pauta e as claves" (teoria-musical-do-zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teoria-musical-do-zero-a-pauta-e-as-claves-01
+  tema: "Pauta"
+  dificuldade: 1
+  enunciado: "Quantas linhas e quantos espaços tem a pauta?"
+  alternativas:
+    - texto: "Cinco linhas e quatro espaços"
+      certa: true
+    - texto: "Quatro linhas e cinco espaços"
+      erro: "Está invertido."
+    - texto: "Seis linhas e seis espaços"
+      erro: "A pauta tem cinco linhas."
+  explicacao: "Linhas e espaços são contados de baixo para cima. Quanto mais alta a bolinha, mais agudo o som."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A pauta e as claves\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-a-pauta-e-as-claves-02
+  tema: "Clave de sol"
+  dificuldade: 2
+  enunciado: "O que a clave de sol faz, segundo a aula?"
+  alternativas:
+    - texto: "Se enrola na segunda linha e avisa que a nota dessa linha é sol"
+      certa: true
+    - texto: "Marca a primeira linha como dó"
+      erro: "A clave de sol marca o sol na segunda linha."
+    - texto: "Diz a velocidade da música"
+      erro: "Quem dá a velocidade é o andamento."
+  explicacao: "É a clave do violão, da flauta, do violino, do cavaquinho e da mão direita do piano."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A pauta e as claves\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-a-pauta-e-as-claves-03
+  tema: "Linhas suplementares"
+  dificuldade: 2
+  enunciado: "Para que servem as linhas suplementares?"
+  alternativas:
+    - texto: "Para escrever notas mais graves ou mais agudas que as da pauta, com tracinhos extras"
+      certa: true
+    - texto: "Para marcar o compasso"
+      erro: "Quem marca é a barra de compasso."
+    - texto: "Para mudar de clave"
+      erro: "Não servem para isso."
+  explicacao: "O dó central fica na primeira linha suplementar abaixo da pauta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A pauta e as claves\""
+  revisao:
+    status: em-revisao

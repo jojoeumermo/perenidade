@@ -1,0 +1,51 @@
+# Exercícios da aula "Como uma máquina aprende com exemplos" (IA fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ia-apr-01
+  tema: "Dados rotulados"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "No aprendizado supervisionado, o que a máquina recebe?"
+  alternativas:
+    - texto: "Exemplos com a resposta certa, como fotos marcadas 'gato' e 'cachorro'"
+      certa: true
+    - texto: "Regras escritas por uma pessoa para cada caso"
+      erro: "Na programação tradicional há regras escritas. No aprendizado de máquina, a máquina acha o padrão nos exemplos."
+    - texto: "Só perguntas, sem nenhuma resposta"
+      erro: "O aprendizado supervisionado precisa de exemplos com a resposta certa, os dados rotulados."
+  explicacao: "A máquina busca um padrão nos exemplos com resposta certa e depois é testada com casos novos, que nunca viu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-apr-02
+  tema: "Generalizar"
+  dificuldade: 2
+  enunciado: "Por que se testa o modelo com exemplos que ele nunca viu?"
+  alternativas:
+    - texto: "Porque o que importa é acertar casos novos, e não decorar o treino"
+      certa: true
+    - texto: "Porque exemplos novos são mais fáceis"
+      erro: "Os casos novos servem para ver se ele aprendeu o padrão, e não são mais fáceis."
+    - texto: "Porque o treino já estava errado"
+      erro: "O treino não está errado. O teste com casos novos mostra se o modelo generaliza."
+  explicacao: "Acertar casos novos se chama generalizar. Um modelo que só decorou o treino falha na vida real."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ia-apr-03
+  tema: "Treino que não representa"
+  dificuldade: 3
+  enunciado: "Um sistema foi treinado só com fotos de gatos tiradas de dia. O que provavelmente acontece com fotos de gatos à noite?"
+  alternativas:
+    - texto: "Ele erra mais, porque só aprendeu o padrão que estava nos exemplos"
+      certa: true
+    - texto: "Acerta igual, porque gato é gato"
+      erro: "A máquina só aprende o padrão que está nos exemplos. Foto de noite é diferente das do treino."
+    - texto: "Aprende sozinho a reconhecer gatos à noite"
+      erro: "Sem exemplos noturnos, ele não tem como aprender isso sozinho."
+  explicacao: "O conjunto de treino precisa representar o uso real. Em 2018, as pesquisadoras Joy Buolamwini e Timnit Gebru mostraram que sistemas de reconhecimento facial erravam mais com pessoas de pele escura, porque os bancos de fotos tinham poucos rostos assim."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

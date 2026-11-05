@@ -1,0 +1,50 @@
+# Exercícios da aula "A escala de dó maior" (teoria-musical-do-zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: teoria-musical-do-zero-a-escala-de-do-maior-01
+  tema: "Receita"
+  dificuldade: 1
+  enunciado: "Qual é a receita de tons e semitons da escala maior?"
+  alternativas:
+    - texto: "T – T – S – T – T – T – S"
+      certa: true
+    - texto: "T – S – T – S – T – S – T"
+      erro: "Não é essa a receita."
+    - texto: "S – S – T – T – S – S – T"
+      erro: "Não é essa a receita."
+  explicacao: "Dó maior usa só as teclas brancas, por isso não leva sustenido nem bemol."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A escala de dó maior\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-a-escala-de-do-maior-02
+  tema: "Tônica"
+  dificuldade: 1
+  enunciado: "O que é a tônica de uma escala?"
+  alternativas:
+    - texto: "A primeira nota, que dá nome à escala e é a nota de repouso"
+      certa: true
+    - texto: "A última nota da melodia, qualquer que seja"
+      erro: "A tônica é a primeira nota da escala."
+    - texto: "A nota mais aguda"
+      erro: "A tônica é a nota de repouso, a \"casa\"."
+  explicacao: "Se a escala parar no si, dá vontade de completar com o dó: essa sensação é o coração da música tonal."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A escala de dó maior\""
+  revisao:
+    status: em-revisao
+
+- id: teoria-musical-do-zero-a-escala-de-do-maior-03
+  tema: "Sol maior"
+  dificuldade: 2
+  enunciado: "O que a escala de sol maior troca em relação à de dó maior, segundo a aula?"
+  alternativas:
+    - texto: "O fá pelo fá sustenido"
+      certa: true
+    - texto: "O dó pelo dó bemol"
+      erro: "A aula cita o fá sustenido."
+    - texto: "Nada"
+      erro: "Para consertar as distâncias, troca o fá por fá sustenido."
+  explicacao: "Os sustenidos e bemóis consertam as distâncias nas outras escalas maiores."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A escala de dó maior\""
+  revisao:
+    status: em-revisao

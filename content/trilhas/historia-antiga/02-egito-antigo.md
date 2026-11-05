@@ -1,5 +1,6 @@
 ---
 titulo: "Egito Antigo: a civilização do Nilo"
+modelo: 9
 resumo: "Como um rio no meio do deserto sustentou três mil anos de história."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -24,6 +25,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar por que o Nilo tornou a vida possível no Egito, dizer quem era o faraó, para que serviam as pirâmides e como se escrevia em hieróglifos e papiro.
+
+```suarealidade
+Qual coisa sobre o passado você ouviu a vida toda que "todo mundo sabe" e nunca conferiu?
+```
 
 
 ## Um presente do Nilo
@@ -70,6 +75,20 @@ A ideia de que escravos construíram as pirâmides é repetida há séculos, emb
 4. Da unificação à conquista: 3100 − 332 = **2768 anos**, quase três milênios, como diz a aula.
 
 **Ordem de grandeza.** A pirâmide de Quéops tinha cerca de 146 metros. Se um andar de prédio tem uns 3 metros (suposição para a conta), 146 ÷ 3 dá cerca de 48 andares.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "As pirâmides foram construídas por escravos. Todo mundo sabe: está em todo filme."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula diz que essa ideia é muito repetida, mas que as escavações apontam outra coisa: perto das pirâmides foi encontrada uma vila de trabalhadores, com padarias, alojamentos e túmulos. Eram operários e camponeses organizados em turmas, alimentados e sustentados pelo Estado. Que um filme mostre de um jeito não prova que foi assim. Conferir nas evidências é o que a aula propõe.
+```
+
+```agir
+# Esta semana
+Escolha uma informação histórica que "todo mundo sabe" e procure em duas fontes diferentes se ela se confirma. Anote o que achou e conte a alguém de confiança.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "Números e idade"
+modelo: 9
 resumo: "Contar de 0 a 100 e dizer quantos anos você tem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber contar de 0 a 99 em inglês e dizer a sua idade e a de outras pessoas.
+
+```suarealidade
+Onde os números aparecem na sua semana: preço, telefone, hora, idade? Quais você diria em inglês, se precisasse hoje?
+```
 
 ## De 0 a 12
 
@@ -67,6 +72,15 @@ Em português a gente **tem** uma idade. Em inglês a gente **é** uma idade: us
 
 Dizer *I have twenty years* é um dos erros mais comuns de quem fala português.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Número é número, todo mundo entende com a mão ou na calculadora. Aprender a falar em inglês não serve para nada." É o ponto de vista de quem acha que o gesto basta.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Na vida real, falar o número é diferente de mostrá-lo no dedo: a aula ensina de 0 a 99, com as regras de que os números de 13 a 19 terminam em -teen e as dezenas em -ty, e avisa sobre os pares que soam parecido, como thirteen e thirty, fifteen e fifty, que confundem na hora de entender um preço. Dizer a idade e entender a do outro é conversa de qualquer primeiro encontro.
+```
+
 ## Exemplo resolvido
 
 **Como dizer que uma pessoa tem 35 anos?**
@@ -81,6 +95,11 @@ Confira: não há o verbo *have* ("tem") na frase. *She has thirty-five years* �
 ## Pratique
 
 Diga em voz alta: a sua idade, a idade de alguém da sua família e o número da sua casa, algarismo por algarismo.
+
+```agir
+# Esta semana
+Diga em voz alta, em inglês, a sua idade e a de três pessoas de casa, como "I am forty years old". Escreva os números por extenso num papel.
+```
 
 ## Resumo
 

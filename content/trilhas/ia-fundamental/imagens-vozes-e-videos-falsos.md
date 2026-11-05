@@ -1,5 +1,6 @@
 ---
 titulo: "Imagens, vozes e vídeos falsos"
+modelo: 9
 resumo: "O que são deepfakes, para que têm sido usados (golpes, pornografia sem consentimento, desinformação), o que a Justiça Eleitoral decidiu em 2024 e como desconfiar de um vídeo ou áudio antes de passar adiante."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ O vídeo mostra o político dizendo uma barbaridade. A voz é dele, o rosto é d
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que são deepfakes, para que têm sido usados, o que a Justiça Eleitoral brasileira decidiu sobre eles e como desconfiar antes de passar adiante.
+
+```suarealidade
+Você já recebeu um vídeo ou um áudio que achou estranho, no grupo da família ou do trabalho? O que você fez com ele?
+```
 
 ## O que é um deepfake
 
@@ -87,6 +92,20 @@ Em **2024**, o **Tribunal Superior Eleitoral** aprovou a **Resolução nº 23.73
 2. **Faz sentido?** Pedido urgente de dinheiro, sem detalhes: sinal de alerta.
 3. **Confirme por outro meio**: ligue para o número antigo do filho, ou para alguém que esteja com ele.
 4. **Não pague nada** antes de confirmar.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Eu só repassei. A culpa é de quem fez o vídeo. E se parece verdade, qual é o mal em passar adiante?"
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra o mal: os deepfakes têm sido usados em golpes financeiros, pornografia sem consentimento, notícias falsas e assédio. O alvo costuma ser quem tem menos defesa: mulheres expostas em vídeos íntimos falsos, idosos que caem no golpe do áudio, comunidades atingidas por mentiras em véspera de eleição. Em 2024, o Tribunal Superior Eleitoral aprovou a Resolução nº 23.732, que exige aviso explícito de conteúdo manipulado por IA na propaganda eleitoral e proíbe deepfakes para prejudicar ou favorecer candidaturas. Quem repassa ajuda a espalhar; na dúvida, não repasse.
+```
+
+```agir
+# Esta semana
+Combine com a sua família uma palavra-código para pedidos de dinheiro por mensagem ou áudio. Quem pedir sem a palavra, confirma por ligação em um número que você já conhece.
+```
 
 ## Resumo
 

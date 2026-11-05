@@ -1,5 +1,6 @@
 ---
 titulo: "Direitos e deveres do cidadão"
+modelo: 9
 resumo: "O capítulo de direitos e deveres das Constituições chinesa e brasileira, lado a lado: o que garantem, o que exigem e onde diferem."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -34,6 +35,10 @@ Ao fim desta aula você vai saber comparar o capítulo de direitos e deveres das
 
 
 Toda Constituição tem um capítulo sobre **direitos e deveres**. É nele que o Estado diz o que garante às pessoas e o que espera delas. Esta aula compara o capítulo II da Constituição chinesa com os direitos e garantias da Constituição brasileira.
+
+```suarealidade
+Qual direito da Constituição você acha que não chega para a sua família ou o seu bairro? Moradia, saúde, transporte, trabalho?
+```
 
 ## Na China
 
@@ -78,6 +83,15 @@ Em qual artigo da Constituição brasileira estão os direitos sociais, como edu
 
 Nos dois países, há distância entre o texto e a realidade. No Brasil, a Constituição proíbe a tortura e garante moradia, mas há violência policial e milhões de pessoas sem casa digna. Ter um direito escrito é uma conquista; fazer com que ele seja cumprido depende de organização e de luta.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Direito demais sem dever vira bagunça. O cidadão tem de cumprir a lei e pagar os seus impostos antes de cobrar do Estado." É a opinião de quem vê, na ênfase nos direitos, um risco para a ordem.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a Constituição brasileira também tem deveres: voto obrigatório para maiores de 18 anos (art. 14), serviço militar obrigatório (art. 143), pagamento de tributos e o dever recíproco entre pais e filhos (art. 229). Já a chinesa fala explicitamente de deveres num capítulo próprio. A diferença é de ênfase: o Brasil dá grande peso às liberdades individuais, como reação a 21 anos de ditadura. A aula lembra que, nos dois países, há distância entre o texto e a vida, e que ter o direito escrito é uma conquista, mas fazê-lo valer depende de organização.
+```
+
 ## Para conversar
 
 Qual direito da Constituição brasileira você considera menos cumprido na sua cidade? Quem deveria garanti-lo, e como a comunidade pode cobrar?
@@ -92,6 +106,11 @@ Usando só o que a aula apresenta, localize cada garantia.
 4. Na China, a igualdade perante a lei está no **art. 33**, e a regra de que as liberdades não podem prejudicar os interesses do Estado, da sociedade e da coletividade, no **art. 51**.
 
 Confira: os direitos individuais vêm no art. 5º e os sociais logo depois; os deveres brasileiros ficam espalhados, e o capítulo chinês fala explicitamente de deveres.
+
+```agir
+# Esta semana
+Releia o art. 6º da Constituição (direitos sociais) e marque num papel o direito que mais falta no seu bairro. Converse com um vizinho ou colega de confiança sobre o que a comunidade poderia cobrar.
+```
 
 ## Resumo
 

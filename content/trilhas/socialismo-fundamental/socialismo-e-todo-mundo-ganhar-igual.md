@@ -1,5 +1,6 @@
 ---
 titulo: "Socialismo é todo mundo ganhar igual?"
+modelo: 9
 resumo: "A resposta de Marx na Crítica do Programa de Gotha: primeiro, a cada um segundo o seu trabalho; depois, a cada um segundo as suas necessidades."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber explicar as duas fases descritas por Marx na Crítica do Programa de Gotha, segundo o trabalho e segundo as necessidades, e por que isso não é "todo mundo ganhar igual".
 
 "No socialismo, o médico vai ganhar igual ao varredor?" "Quem trabalha muito vai receber o mesmo que quem trabalha pouco?" Essas perguntas são justas, e Marx tratou delas diretamente.
+
+```suarealidade
+Se todo mundo ganhasse o mesmo, o que você acha que mudaria no seu trabalho? E se o ganho dependesse do que cada um precisa?
+```
 
 ## O que Marx disse
 
@@ -85,6 +90,15 @@ O socialismo quer acabar com **essa** desigualdade primeiro.
 
 Nos países que tentaram construir o socialismo, houve diferenças salariais entre profissões, às vezes grandes, e também privilégios para dirigentes do partido e do Estado, o que gerou críticas dentro do próprio movimento socialista. O debate sobre quanto de diferença é justo, e como evitar que uma burocracia crie privilégios, continua aberto.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Socialismo é todo mundo ganhar igual. Aí ninguém quer se esforçar mais, e quem trabalha mais sai no prejuízo." É a opinião de quem acha justo ganhar pelo que faz.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que não é isso que Marx disse. Na Crítica do Programa de Gotha (1875), a primeira fase é "de cada um segundo as suas capacidades, a cada um segundo o seu trabalho", depois de separados os fundos sociais, e ele mesmo reconhece que essa regra ainda é desigual, porque as pessoas são diferentes. Só na fase superior viria "a cada um segundo as suas necessidades". A igualdade que se busca não é de quantidade, é de dignidade, e a desigualdade que mais importa é a de viver do trabalho alheio.
+```
+
 ## Exemplo resolvido
 
 **Na primeira fase descrita por Marx, como se distribui o que a sociedade produz? (números de exemplo)**
@@ -99,6 +113,11 @@ Conclusão: a regra é "a cada um segundo o seu trabalho", e não "todo mundo ig
 ## Para conversar
 
 Na sua opinião, um trabalho mais pesado ou mais perigoso deve receber mais? E quem cuida de crianças, em casa, deveria ser remunerado? Como uma sociedade justa resolveria essas questões?
+
+```agir
+# Esta semana
+Converse com alguém sobre a frase "cada um segundo o seu trabalho" e pergunte o que essa pessoa acha justo, sem discutir. Anote o que ela disse.
+```
 
 ## Resumo
 

@@ -1,0 +1,51 @@
+# Exercícios da aula "Alfabeto e sons" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-alf-01
+  tema: "Nome da letra"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz, em inglês, o nome da letra W?"
+  alternativas:
+    - texto: "dâbliu (double-u)"
+      certa: true
+    - texto: "vê"
+      erro: "'Vê' é o nome português do V. Em inglês, o V é 'vi'."
+    - texto: "dáblio"
+      erro: "O nome é 'dâbliu', que lembra 'double-u'."
+  explicacao: "O inglês usa as mesmas 26 letras do português, mas os nomes das letras são diferentes. O W é 'dâbliu'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-alf-02
+  tema: "Soletrar"
+  dificuldade: 2
+  enunciado: "Como se soletra 'Ana' em inglês, com os nomes das letras?"
+  alternativas:
+    - texto: "ei, én, ei"
+      certa: true
+    - texto: "a, ene, a"
+      erro: "Esses são os nomes em português. Em inglês, A é 'ei' e N é 'én'."
+    - texto: "ei, ene, ei"
+      erro: "O N, em inglês, é 'én'."
+  explicacao: "A é 'ei' e N é 'én'. Soletrar é útil para nomes, e-mails e endereços. 'How do you spell...?' quer dizer 'Como se soletra...?'."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-alf-03
+  tema: "Pedir para soletrar"
+  dificuldade: 1
+  enunciado: "Qual frase pede a alguém que soletre o nome?"
+  alternativas:
+    - texto: "How do you spell your name?"
+      certa: true
+    - texto: "How are you?"
+      erro: "Essa pergunta é 'Como vai você?'."
+    - texto: "What time is it?"
+      erro: "Essa pergunta é 'Que horas são?'."
+  explicacao: "How do you spell...? significa 'Como se soletra...?'. Em inglês, a escrita nem sempre revela a pronúncia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

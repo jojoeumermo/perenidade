@@ -1,5 +1,6 @@
 ---
 titulo: "Trabalho infantil e os direitos da criança"
+modelo: 9
 resumo: "No Brasil, é proibido trabalhar antes dos 16 anos, exceto como aprendiz a partir dos 14. Mesmo assim, em 2025, cerca de 1,5 milhão de crianças e adolescentes de 5 a 17 anos estavam em situação de trabalho infantil, segundo o IBGE. O que diz a lei e quem é mais atingido."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -42,6 +43,10 @@ Uma criança que vende bala no semáforo, outra que cuida dos irmãos o dia todo
 
 Ao fim desta aula você vai saber o que a lei diz sobre o trabalho de crianças e adolescentes e quantos ainda trabalham no Brasil.
 
+```suarealidade
+Com que idade você começou a trabalhar? Alguma criança que você conhece trabalha em vez de brincar e estudar?
+```
+
 ## O que diz a lei
 
 A lei brasileira estabelece **16 anos** como a **idade mínima** para entrar no mercado de trabalho, e **14 anos** para trabalhar como **aprendiz**. O aprendiz recebe **formação profissional** e precisa continuar **frequentando a escola**.
@@ -66,12 +71,26 @@ Por que o trabalho infantil é proibido, mesmo quando a família precisa do dinh
 > Releia a seção "O que diz a lei".
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Trabalhar cedo ensina responsabilidade. Eu comecei novo e deu certo, e o trabalho evita que a criança fique na rua." É a opinião de quem começou cedo e venceu na vida.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula respeita a experiência de quem começou cedo, mas mostra o que a lei diz: trabalho só a partir dos 16 anos, e como aprendiz a partir dos 14. O ECA garante os direitos da criança com absoluta prioridade. Em 2025, cerca de 1,5 milhão estavam em trabalho infantil (4,0%), o menor número da série, e cerca de 525 mil nas piores formas. Há caminho para aprender e ter responsabilidade, como a aprendizagem e a escola, sem tirar a infância.
+```
+
 ## Exemplo resolvido
 
 **Em 2025, o Nordeste tinha 408 mil crianças em trabalho infantil, e o país, cerca de 1,5 milhão. Que parte do total estava no Nordeste?**
 
 1. 408 mil ÷ 1.500 mil ≈ **0,27**.
 2. Ou seja, cerca de **27%**, pouco mais de **um quarto** do total.
+
+```agir
+# Esta semana
+Anote o número do Disque 100 e descubra que tipo de denúncia ele recebe. Não é preciso denunciar nada: basta saber como.
+```
 
 ## Resumo
 

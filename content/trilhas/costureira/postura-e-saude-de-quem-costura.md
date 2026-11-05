@@ -1,5 +1,6 @@
 ---
 titulo: "Postura e saúde de quem costura"
+modelo: 9
 resumo: "Horas sentada, olhos fixos na agulha, ombros erguidos e pé no pedal: o que a NR-17 diz sobre cadeira, mesa, luz, pausas e tarefas repetitivas, como montar o canto de costura e onde buscar atendimento quando o corpo reclama."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Oito horas na máquina, a cabeça inclinada para a agulha, os ombros subindo sem
 ## O que você vai aprender
 
 Ao fim desta aula você vai reconhecer os riscos da costura para o corpo, conhecer o que a NR-17 diz sobre cadeira, mesa, luz, pausas e tarefas repetitivas, montar o canto de costura e saber onde buscar atendimento.
+
+```suarealidade
+Depois de um dia inteiro sentada(o) ou na mesma posição, onde o seu corpo dói? Você já parou para pensar o que causa isso?
+```
 
 ## O que a costura exige do corpo
 
@@ -95,6 +100,15 @@ Você costura com a mesa alta demais e os ombros sobem o tempo todo. Qual é a m
 > A NR-17 pede altura da superfície compatível com a tarefa e com o assento.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dor no pescoço e nos punhos faz parte do ofício. Quem quer costurar tem de aguentar, e parar para pausa é perder produção, principalmente quando se ganha por peça." É o que muita gente repete na confecção.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a dor tem causas conhecidas: as lesões por esforço repetitivo (LER/DORT) vêm de tarefas repetitivas, força e posturas ruins mantidas por muito tempo. A NR-17, norma de ergonomia, pede assento ajustável com encosto, espaço e apoio para os pés, mesa na altura certa, alternância de posição e, em tarefas repetitivas, pausas e alternância de tarefas; para quem tem empregados, as pausas contam como tempo de trabalho (item 17.4.3.1). Quem costura em casa pode adaptar o canto de costura e fazer uma pausa a cada hora. E o Cerest, do SUS, atende também trabalhadoras autônomas e informais com doença ligada ao trabalho.
+```
+
 ## Exemplo resolvido
 
 **Uma costureira faz consertos em casa, 6 horas por dia, numa cadeira de cozinha, com a máquina na mesa da sala, sem pausa. Sente dor no pescoço e formigamento nas mãos. Monte um plano.**
@@ -105,6 +119,11 @@ Você costura com a mesa alta demais e os ombros sobem o tempo todo. Qual é a m
 4. **Luz**: uma luminária sobre a agulha.
 5. **Pausas**: 5 minutos a cada hora, levantando e alongando.
 6. **Organização**: alternar consertos de máquina com tarefas de mesa e de pé (cortar, passar).
+
+```agir
+# Esta semana
+Esta semana, arrume um ponto do seu canto de trabalho (a altura da cadeira, a luz ou o apoio dos pés) e faça uma pausa curta a cada hora, soltando ombros, pescoço e mãos. Anote no fim da semana o que mudou no corpo.
+```
 
 ## Resumo
 

@@ -1,5 +1,6 @@
 ---
 titulo: "A formação de alfabetizadores populares"
+modelo: 9
 resumo: "O que precisa saber quem alfabetiza adultos sem ser professor de formação, como organizar a formação inicial e a continuada, e o que as experiências do MOVA e do Brasil Alfabetizado ensinam."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Ao fim desta aula você vai saber o que um alfabetizador popular precisa saber e
 
 ```provocacao
 O que você sabe fazer muito bem e não saberia explicar a outra pessoa? Por que é tão difícil ensinar o que a gente sabe?
+```
+
+```suarealidade
+Pense em algo que você sabe fazer muito bem no seu trabalho. Você conseguiria ensinar essa tarefa a outra pessoa, passo a passo? Onde seria mais difícil?
 ```
 
 ## O que precisa saber quem alfabetiza
@@ -123,6 +128,20 @@ Confira: a formação começou antes, continua durante, parte das escritas reais
 
 ```realidade
 Escreva três coisas que você acha que precisaria aprender antes de alfabetizar alguém.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Para ensinar adulto a ler basta saber ler e ter boa vontade. Formação para voluntário é burocracia e afasta quem quer ajudar." É uma opinião de quem já viu muita gente se afastar por causa de exigências.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A boa vontade é o começo, mas a aula lembra, com Paulo Freire, que ensinar é uma profissão séria, que exige preparo, e que ser voluntário não dispensa estudar. A formação proposta é curta e prática (alguns encontros antes, quinzenais durante) e foi justamente o que os programas que deram certo tinham. Os que tinham formação curta demais e alfabetizadores trocados toda hora perderam muita gente pelo caminho.
+```
+
+```agir
+# Esta semana
+Escreva num papel três coisas que você acha que precisaria aprender antes de ensinar alguém a ler. Depois escolha uma e procure uma pessoa de confiança que possa conversar com você sobre ela.
 ```
 
 ## Resumo

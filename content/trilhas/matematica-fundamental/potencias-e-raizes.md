@@ -1,5 +1,6 @@
 ---
 titulo: "Potências e raízes"
+modelo: 9
 resumo: "Multiplicar um número por ele mesmo várias vezes, o caminho de volta pela raiz e os números muito grandes e muito pequenos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber calcular potências e raízes, usar as regras com a mesma base e perceber como um crescimento que dobra pode enganar.
+
+```suarealidade
+Você já viu um número crescer muito rápido, como boato que se espalha pelas redes, dívida que cresce ou contagem de uma epidemia? Como você explicaria esse crescimento?
+```
 
 ## Uma multiplicação repetida
 
@@ -111,6 +116,15 @@ A maioria dos números não tem raiz exata. Para estimar √50, cerque com os qu
 
 A **raiz cúbica** faz o mesmo para o cubo: ∛27 = 3, porque 3 × 3 × 3 = 27.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Potência e raiz são conta de cientista. No dia a dia, somar e multiplicar bastam." É uma opinião de quem faz pouca conta de crescimento.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a potência aparece onde menos se espera: um crescimento que dobra parece lento no começo e explode depois. Uma mensagem que cada pessoa repassa a duas outras chega a 2¹⁰ = 1.024 pessoas no décimo repasse e a mais de um milhão no vigésimo, e é assim que crescem os boatos, as epidemias e as dívidas com juros sobre juros.
+```
+
 ## Exemplo resolvido
 
 **Uma dívida dobra a cada ano. Começando em R$ 500, quanto ela vale depois de 6 anos?**
@@ -131,6 +145,11 @@ Confira: depois de 6 anos a dívida é de **R$ 32.000**. O erro comum é multipl
 6. Uma dívida dobra a cada ano. Começando em R$ 500, quanto ela vale depois de 6 anos?
 
 **Respostas:** 1) 81; 100.000; 1. 2) 5⁷. 3) 11 e 2. 4) Entre 5 e 6. 5) 4,5 × 10⁷. 6) 500 × 2⁶ = R$ 32.000.
+
+```agir
+# Esta semana
+Escreva no papel uma mensagem que você repassaria a duas pessoas, e calcule quantas pessoas receberiam depois de 5 repasses, usando potências de 2. Confira se o resultado é 32.
+```
 
 ## Resumo
 

@@ -1,0 +1,50 @@
+# Exercícios da aula "Quem decide o que produzir" (socialismo-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: socialismo-fundamental-quem-decide-o-que-produzir-01
+  tema: "No capitalismo"
+  dificuldade: 1
+  enunciado: "No capitalismo, quem decide o que produzir e com que critério, segundo a aula?"
+  alternativas:
+    - texto: "Os donos das empresas, com o critério do lucro"
+      certa: true
+    - texto: "O governo, com o critério da necessidade"
+      erro: "Essa é a proposta socialista."
+    - texto: "Os trabalhadores, por votação"
+      erro: "No capitalismo quem decide são os donos."
+  explicacao: "Se dá mais lucro construir apartamentos de luxo do que casas populares, constroem-se apartamentos de luxo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem decide o que produzir\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-quem-decide-o-que-produzir-02
+  tema: "Limite do mercado"
+  dificuldade: 2
+  enunciado: "Qual é o limite do mercado apontado na aula?"
+  alternativas:
+    - texto: "Ele só \"ouve\" quem tem dinheiro: a necessidade de quem não pode pagar não aparece"
+      certa: true
+    - texto: "Ele nunca transmite informação"
+      erro: "A aula diz que os preços transmitem informação."
+    - texto: "Ele sempre atende a todos"
+      erro: "A aula diz o contrário."
+  explicacao: "Engels chamou de anarquia da produção o fato de cada empresa produzir sem combinar com as outras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem decide o que produzir\""
+  revisao:
+    status: em-revisao
+
+- id: socialismo-fundamental-quem-decide-o-que-produzir-03
+  tema: "Planejar"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre o planejamento no capitalismo?"
+  alternativas:
+    - texto: "Já existe, mas dentro de cada empresa e para o lucro de cada uma"
+      certa: true
+    - texto: "Não existe em nenhum lugar"
+      erro: "Toda grande empresa planeja."
+    - texto: "Só existe nos supermercados"
+      erro: "A aula cita montadoras e redes de supermercados como exemplo."
+  explicacao: "O socialismo propõe planejar a economia como um todo, a partir das necessidades da população."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem decide o que produzir\""
+  revisao:
+    status: em-revisao

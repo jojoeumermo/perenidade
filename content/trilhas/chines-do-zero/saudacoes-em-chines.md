@@ -1,5 +1,6 @@
 ---
 titulo: "Saudações em chinês"
+modelo: 9
 resumo: "Cumprimentar, agradecer, pedir desculpas, dizer o seu nome e se despedir em mandarim."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Ao fim desta aula você vai saber cumprimentar, perguntar como a pessoa está, a
 Na aula anterior você conheceu o pinyin e os quatro tons. Agora é hora de usar: esta aula traz as frases que aparecem logo no primeiro contato com alguém que fala chinês. Para cada frase há os **caracteres**, o **pinyin** com os tons e a tradução.
 
 Uma dica antes de começar: leia sempre o pinyin em voz alta, desenhando o tom. Decorar a palavra sem o tom é como decorar só metade dela.
+
+```suarealidade
+Como você cumprimenta uma pessoa mais velha, um cliente ou um colega? O que muda no seu jeito de falar de um caso para o outro?
+```
 
 ## Olá
 
@@ -160,6 +165,20 @@ Resposta do 3: em *bú shì* e *bú kèqi*, porque *shì* e *kè* são de quarto
 5. **Se despede.** 再见！ (Zàijiàn!)
 
 Confira: em chinês o sobrenome vem antes do nome; entre desconhecidos, chama-se a pessoa pelo sobrenome com um título.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Cumprimentar em chinês é só decorar 'ni hao'. Tom, pinyin e todo esse cuidado é exagero para quem quer apenas ser educado." É um argumento de quem tem pouco tempo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o cumprimento muda conforme a pessoa: 你好 serve para qualquer um, 您好 é respeitoso (para mais velhos, clientes e autoridades) e 你们好 é para um grupo. E lembra que decorar a palavra sem o tom é como decorar só metade dela: o tom muda o sentido. Cuidar do jeito de saudar é uma forma de respeito, na língua do outro.
+```
+
+```agir
+# Esta semana
+Treine em voz alta, desenhando o tom no ar com a mão, as frases 你好, 您好 e 谢谢. Escolha uma pessoa a quem você diria 您好 e escreva o motivo num papel.
+```
 
 ## Resumo
 

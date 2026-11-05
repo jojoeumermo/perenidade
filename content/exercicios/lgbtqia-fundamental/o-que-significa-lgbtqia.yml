@@ -1,0 +1,51 @@
+# Exercícios da aula "O que significa LGBTQIA+" (LGBTQIA+ fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: lg-sig-01
+  tema: "Letra B"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que significa a letra B na sigla?"
+  alternativas:
+    - texto: "Bissexuais: pessoas que sentem atração por mais de um gênero"
+      certa: true
+    - texto: "Pessoas bonitas"
+      erro: "B é de bissexuais."
+    - texto: "Pessoas brasileiras"
+      erro: "B é de bissexuais, e não de nacionalidade."
+  explicacao: "L: lésbicas; G: gays; B: bissexuais; T: pessoas trans; Q: queer ou questionando; I: intersexo; A: assexuais; +: outras identidades e orientações."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-sig-02
+  tema: "Letra A"
+  dificuldade: 2
+  enunciado: "O que significa a letra A?"
+  alternativas:
+    - texto: "Assexuais: pessoas que não sentem atração sexual por outras pessoas"
+      certa: true
+    - texto: "Aliados"
+      erro: "Aliados são pessoas que apoiam, mas o A da sigla é de assexuais."
+    - texto: "Adolescentes"
+      erro: "O A é de assexuais."
+  explicacao: "A sigla foi crescendo para incluir mais grupos que viviam a mesma exclusão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: lg-sig-03
+  tema: "Por que a sigla cresce"
+  dificuldade: 2
+  enunciado: "Por que a sigla foi ganhando letras?"
+  alternativas:
+    - texto: "Para incluir e dar visibilidade a mais grupos que viviam a mesma exclusão"
+      certa: true
+    - texto: "Por moda"
+      erro: "Não é moda: é inclusão."
+    - texto: "Para ficar mais difícil de escrever"
+      erro: "O objetivo é incluir, e não complicar."
+  explicacao: "No Brasil, em 2008, a Conferência Nacional GLBT decidiu pôr o L na frente, para dar visibilidade à luta das lésbicas, e a sigla passou a ser LGBT."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

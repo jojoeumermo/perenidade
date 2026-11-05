@@ -1,0 +1,54 @@
+# Exercícios da aula "Braille" (Inclusão). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: inc-bra-01
+  tipo: numero
+  tema: "Combinações do braille"
+  dificuldade: 3
+  enunciado: "Cada célula braille tem 6 pontos, e cada ponto pode estar levantado ou não. Quantas combinações diferentes de pontos levantados existem, usando pelo menos um ponto?"
+  resposta: "63"
+  unidade: "combinações"
+  erros_comuns:
+    - resposta: "64"
+      explicacao: "64 inclui a célula sem nenhum ponto (o espaço em branco). Usando pelo menos um ponto, tire essa uma."
+    - resposta: "12"
+      explicacao: "12 é 6 × 2. Cada ponto tem 2 possibilidades, e as possibilidades se multiplicam: 2 × 2 × 2 × 2 × 2 × 2."
+  dica: "Multiplique as possibilidades dos seis pontos e depois tire a célula vazia."
+  explicacao: "2 × 2 × 2 × 2 × 2 × 2 = 64. Menos a célula sem pontos: 63."
+  conferir: "2^6 - 1"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-bra-02
+  tema: "Quem criou o braille"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quem criou o braille?"
+  alternativas:
+    - texto: "Louis Braille, um francês que perdeu a visão num acidente na infância"
+      certa: true
+    - texto: "Um médico alemão do século XX"
+      erro: "O sistema leva o nome do criador, o francês Louis Braille."
+    - texto: "Uma empresa de tecnologia"
+      erro: "O braille foi criado por Louis Braille, ainda adolescente, em 1824."
+  explicacao: "Aos 15 anos, em 1824, Louis Braille desenvolveu o código. Publicou o sistema em 1829."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-bra-03
+  tema: "Como se lê"
+  dificuldade: 1
+  enunciado: "Como se lê o braille?"
+  alternativas:
+    - texto: "Com os dedos, sentindo pontos em relevo"
+      certa: true
+    - texto: "Com os olhos, em letras bem grandes"
+      erro: "O braille é tátil: é lido com os dedos, em relevo."
+    - texto: "Com os ouvidos, por um aparelho de som"
+      erro: "O braille se lê com o tato. Leitores de tela são outra tecnologia."
+  explicacao: "É um sistema de escrita tátil usado por pessoas cegas ou com baixa visão. A Lei Brasileira de Inclusão inclui o braille entre as formas de comunicação que devem ser garantidas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

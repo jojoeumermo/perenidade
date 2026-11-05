@@ -1,5 +1,6 @@
 ---
 titulo: "Leitura em voz alta e rodas de leitura"
+modelo: 9
 resumo: "Por que ler em voz alta para quem está aprendendo, como preparar a leitura, como conduzir uma roda de leitura e como escolher os textos."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -41,6 +42,10 @@ Antes de ler sozinho, a gente aprende a gostar de ouvir. Quem cresceu ouvindo hi
 Ao fim desta aula você vai saber por que ler em voz alta para quem está aprendendo, como preparar uma leitura que prenda o grupo e como conduzir uma roda de leitura que convide sem constranger. E vai saber escolher textos para cada momento.
 
 ```provocacao
+Quem leu ou contou histórias para você quando era criança? Ou ninguém leu? Lembre de uma história que você ouviu e nunca esqueceu.
+```
+
+```suarealidade
 Quem leu ou contou histórias para você quando era criança? Ou ninguém leu? Lembre de uma história que você ouviu e nunca esqueceu.
 ```
 
@@ -111,6 +116,20 @@ Confira: a leitura foi preparada, o texto falava da vida do grupo, a conversa ve
 
 ```realidade
 Escolha um texto curto (um poema, um cordel, uma crônica) que você leria em voz alta para o seu grupo. Escreva o título e uma pergunta para a conversa.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ler em voz alta para adulto é perda de tempo e infantiliza. Quem quer aprender a ler tem que ler sozinho, e o tempo do círculo é curto." É um argumento de quem vê leitura como esforço individual.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a leitura em voz alta mostra a linguagem escrita, amplia o vocabulário, ensina a fluência e dá vontade de ler, e que ler junto é uma experiência coletiva, como nos serões, nas novenas e nas leituras de cordel na feira. Para não constranger, convida, não obriga, e a leitura em coro protege quem está começando. Ouvir é a porta para textos que a pessoa ainda não abre sozinha.
+```
+
+```agir
+# Esta semana
+Escolha um texto curto que você gosta (um poema, um trecho da Bíblia, uma letra de música) e leia em voz alta para alguém de casa, ou para você mesmo, uma vez por dia nesta semana.
 ```
 
 ## Resumo

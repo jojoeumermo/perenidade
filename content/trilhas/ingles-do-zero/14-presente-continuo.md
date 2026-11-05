@@ -1,5 +1,6 @@
 ---
 titulo: "Presente contínuo"
+modelo: 9
 resumo: "Objetivo: usar o presente contínuo para ações que estão acontecendo agora ou neste período, formar o gerúndio e distinguir o presente contínuo do presente simples."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -27,6 +28,10 @@ quiz:
     explicacao: "Verbos de estado, como know, like, want e need, costumam ficar no presente simples: I know, I want."
 ---
 
+
+```suarealidade
+O que você está fazendo agora, enquanto lê? E o que as pessoas da sua casa estão fazendo neste momento? Pense em como você diria isso.
+```
 
 ## O que está acontecendo agora
 
@@ -83,6 +88,15 @@ Verbos de **estado** (que falam de pensamentos, sentimentos, posse, percepção)
 - *I **understand** now.* (e não *I'm understanding*)
 - *She **wants** a coffee.* (e não *she's wanting*)
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Presente é presente. Para dizer o que a gente faz, o presente simples já basta. Esse tal de contínuo só confunde." É o ponto de vista de quem quer aprender o mínimo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que os dois tempos servem para coisas diferentes: o presente contínuo (am, is, are mais o verbo com -ing) fala do que acontece agora mesmo, neste período ou de planos já combinados, enquanto o presente simples fala do que acontece sempre. Há até uma seção sobre quando usar um e outro, e sobre os verbos que preferem o presente simples. Escolher o tempo certo evita mal-entendidos.
+```
+
 ## Exemplo resolvido
 
 **Como dizer "Ela está cozinhando agora" e perguntar?**
@@ -100,6 +114,11 @@ Confira: *make* perde o e (*making*) e *lie* vira *lying*, como na tabela da aul
 2. Responda: What are you doing now? What is your family doing at this moment?
 3. Escolha entre presente simples e contínuo: "She (cook) dinner now." / "He (work) at night every week." / "Listen! The baby (cry)."
 4. Descreva uma foto ou uma cena da sua rua em cinco frases no presente contínuo.
+
+```agir
+# Esta semana
+Escreva em inglês, num papel, três frases sobre o que está acontecendo agora na sua casa, como "My mother is cooking". Leia em voz alta.
+```
 
 ## Resumo
 

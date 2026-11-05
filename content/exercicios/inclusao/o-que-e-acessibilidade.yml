@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é acessibilidade" (Inclusão). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: inc-ace-01
+  tema: "Tipos de barreira"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Num posto de saúde, o painel de senha é só sonoro. Que tipo de barreira isso cria?"
+  alternativas:
+    - texto: "De comunicação, para quem não escuta"
+      certa: true
+    - texto: "Arquitetônica"
+      erro: "Barreira arquitetônica é de espaço, como degraus. O painel só sonoro é de comunicação."
+    - texto: "Nenhuma, porque quase todos escutam"
+      erro: "A acessibilidade é para todas as pessoas. A solução é um painel visual."
+  explicacao: "Degraus e balcão alto são barreiras arquitetônicas (solução: rampa e balcão rebaixado). Senha só sonora e falta de Libras são barreiras de comunicação (solução: painel visual e intérprete)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-ace-02
+  tema: "Preconceito é barreira"
+  dificuldade: 2
+  enunciado: "Segundo a Lei Brasileira de Inclusão, o que é barreira?"
+  alternativas:
+    - texto: "Qualquer entrave, obstáculo, atitude ou comportamento que limite ou impeça a participação da pessoa"
+      certa: true
+    - texto: "Só um degrau ou um muro"
+      erro: "A lei inclui atitudes e comportamentos. O preconceito também é uma barreira."
+    - texto: "Só a falta de internet"
+      erro: "Barreiras podem ser de vários tipos, inclusive atitudes."
+  explicacao: "A barreira não está na pessoa: está no entrave que a sociedade coloca. O preconceito também é barreira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-ace-03
+  tema: "Desenho universal"
+  dificuldade: 2
+  enunciado: "O que é desenho universal?"
+  alternativas:
+    - texto: "Projetar produtos e ambientes para serem usados por todas as pessoas, sem precisar de adaptação"
+      certa: true
+    - texto: "Um projeto só para pessoas com deficiência"
+      erro: "O desenho universal serve a todos. Uma rampa bem feita ajuda quem usa cadeira, quem empurra carrinho de bebê e quem é idoso."
+    - texto: "Um estilo de pintura internacional"
+      erro: "É um conceito de projeto, e não um estilo artístico."
+  explicacao: "Quanto mais cedo o projeto pensa em todo mundo, menos adaptações são necessárias depois."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

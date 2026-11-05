@@ -1,5 +1,6 @@
 ---
 titulo: "Escrever uma carta e uma mensagem"
+modelo: 9
 resumo: "Escrever uma carta ou uma mensagem com começo, meio e fim, ajustando o jeito de escrever a quem vai ler, de um parente a um órgão público."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -51,6 +52,10 @@ Ao fim desta aula você vai escrever uma mensagem para a família e uma carta fo
 
 ```provocacao
 Tem alguma coisa no seu bairro que precisa ser consertada? A quem você escreveria para pedir? O que diria primeiro?
+```
+
+```suarealidade
+Tem alguma coisa no seu bairro ou no seu trabalho que precisa ser consertada ou resolvida? A quem você escreveria para pedir, e o que diria primeiro?
 ```
 
 ## Para quem você escreve?
@@ -158,6 +163,20 @@ Escreva o começo de uma carta para alguém que você queira pedir alguma coisa.
 2. Escreva uma carta formal pedindo algo para o seu bairro ou para a escola.
 3. Leia a carta para alguém e pergunte se ficou claro.
 4. Em grupo, escrevam juntos uma carta coletiva.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Escrever carta para a prefeitura ou para o patrão não adianta nada. Nunca respondem, e o melhor é ligar ou ir lá falar pessoalmente." É uma experiência real de muita gente que já esperou resposta que não veio.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a carta chega onde a gente não chega, fica guardada e não pode ser desmentida. Pedir por escrito ao poder público é um direito (direito de petição), e a recomendação é guardar o protocolo, o que prova que o pedido foi feito e quando. Ir pessoalmente continua valendo, mas o registro por escrito dá força ao pedido e serve de prova se for preciso insistir.
+```
+
+```agir
+# Esta semana
+Escolha um problema pequeno do seu bairro ou do seu trabalho e escreva um pedido de cinco linhas, com quem pede, o problema, onde, desde quando e o que se pede. Não escreva nome de terceiros. Guarde o texto: você pode usá-lo se decidir entregar.
+```
 
 ## Resumo
 

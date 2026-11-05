@@ -1,5 +1,6 @@
 ---
 titulo: "Datas, dias e horas em chinês"
+modelo: 9
 resumo: "Objetivo: dizer datas, dias da semana e horas em mandarim, que seguem a ordem do maior para o menor, e posicionar as expressões de tempo na frase."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -36,6 +37,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer meses, datas, dias da semana e horas em chinês e colocar a expressão de tempo no lugar certo da frase.
+
+```suarealidade
+Como você combina um horário no trabalho (turno, reunião, consulta)? Já aconteceu um mal-entendido por causa de data ou hora?
+```
 
 ## Do maior para o menor
 
@@ -134,6 +139,20 @@ Como se diz "Eu tenho aula na terça à tarde" (ter aula = 上课, shàngkè)?
 3. **Monte a frase.** **我星期二下午上课。** (Wǒ xīngqī'èr xiàwǔ shàngkè.)
 
 Confira: a expressão de tempo nunca vai no fim da frase, como em português. E 8h15 se diz 八点一刻.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Data e hora a gente anota em número, e todo mundo entende. Aprender a dizer isso em chinês é perda de tempo." É um argumento de quem pensa só em escrita.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Escrito em número, resolve muita coisa. Mas na fala e na leitura de avisos, a ordem importa: em chinês, a data vai do maior para o menor (ano, mês, dia, dia da semana, parte do dia, hora) e a expressão de tempo vem antes do verbo. A aula mostra isso com exemplos (2024年5月1日 lido dígito por dígito) e ensina as palavras para as horas (点, 分, 半, 刻). Combinar um horário sem erro é parte da confiança no trabalho.
+```
+
+```agir
+# Esta semana
+Escreva num papel a data de hoje e o dia da semana em chinês, usando o modelo da aula, e depois escreva em chinês três horários do seu dia (por exemplo, quando acorda, quando entra no trabalho e quando volta para casa).
+```
 
 ## Resumo
 

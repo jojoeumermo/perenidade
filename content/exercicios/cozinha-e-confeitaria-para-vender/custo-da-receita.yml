@@ -1,0 +1,93 @@
+# Exercícios da aula "Custo da receita" (Cozinha e confeitaria para vender). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Os preços em reais são só para treinar a conta: use os do seu mercado.
+
+- id: coz-custo-01
+  tema: "O que entra no custo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que entra no custo de uma receita, segundo a aula?"
+  alternativas:
+    - texto: "Os ingredientes na quantidade usada, as perdas da limpeza, a embalagem e os enfeites, e um valor pelo gás ou pela energia"
+      certa: true
+    - texto: "Só o preço dos ingredientes"
+      erro: "A casca, o osso, a embalagem, a etiqueta e o gás também custam. Se ficarem fora, o lucro some sem ninguém perceber."
+    - texto: "O custo do ingrediente da embalagem inteira, mesmo que a receita use pouco"
+      erro: "O custo é do que a receita gasta, e não do pacote todo. Use a regra de três: preço do pacote × quantidade usada ÷ quantidade do pacote."
+  explicacao: "O custo da receita é tudo o que se gasta para fazer aquela quantidade de produto, antes de contar o seu trabalho e as despesas gerais, que ficam para a aula seguinte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Custo da receita\""
+  revisao:
+    status: em-revisao
+
+- id: coz-custo-02
+  tipo: numero
+  tema: "Custo de um ingrediente"
+  dificuldade: 2
+  enunciado: "Um pacote de 200 g de chocolate em pó custa R$ 8,00 e a receita usa 50 g. Quanto custa o chocolate dessa receita?"
+  resposta: "2"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "8"
+      explicacao: "R$ 8,00 é o preço do pacote inteiro, mas a receita usa só 50 g. Use a regra de três: 8,00 × 50 ÷ 200."
+    - resposta: "0,5"
+      explicacao: "Você fez 50 ÷ 200 e esqueceu de multiplicar pelo preço. A conta é 8,00 × 50 ÷ 200 = 2,00."
+  dica: "Preço do pacote × quantidade usada ÷ quantidade do pacote."
+  explicacao: "8,00 × 50 ÷ 200 = R$ 2,00. É a regra de três: se 200 g custam R$ 8,00, 50 g custam R$ 2,00."
+  conferir: "8 * 50 / 200"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Custo da receita\""
+  revisao:
+    status: em-revisao
+
+- id: coz-custo-03
+  tipo: numero
+  tema: "Embalagem por unidade"
+  dificuldade: 1
+  enunciado: "Um pacote com 100 forminhas custa R$ 5,00. Quanto custa cada forminha, em reais?"
+  resposta: "0,05"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "0,5"
+      explicacao: "0,50 seria o preço de 10 forminhas. Divida o preço do pacote pela quantidade: 5,00 ÷ 100 = 0,05."
+    - resposta: "20"
+      explicacao: "Você dividiu 100 por 5. Para o preço de cada uma, divida o preço pela quantidade: 5 ÷ 100."
+  dica: "Divida o preço do pacote pela quantidade que vem nele."
+  explicacao: "5,00 ÷ 100 = R$ 0,05 por forminha. Para 50 brigadeiros, as forminhas custam R$ 2,50."
+  conferir: "5 / 100"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Custo da receita\""
+  revisao:
+    status: em-revisao
+
+- id: coz-custo-04
+  tipo: numero
+  tema: "Custo total e por unidade"
+  dificuldade: 3
+  enunciado: "Uma receita de brigadeiro rende 50 unidades. Os ingredientes custam R$ 24,10, as forminhas R$ 2,50 e o gás R$ 1,50. Qual é o custo total da receita, em reais?"
+  resposta: "28,10"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "24,10"
+      explicacao: "R$ 24,10 são só os ingredientes. Faltou somar forminhas (R$ 2,50) e gás (R$ 1,50)."
+    - resposta: "0,56"
+      explicacao: "R$ 0,56 é o custo por brigadeiro (28,10 ÷ 50). A pergunta é do custo total da receita: 24,10 + 2,50 + 1,50."
+  dica: "Some ingredientes, embalagem e gás."
+  explicacao: "24,10 + 2,50 + 1,50 = R$ 28,10. Dividido por 50 unidades, dá cerca de R$ 0,56 por brigadeiro. Guarde esse número: na aula seguinte ele vira o ponto de partida do preço."
+  conferir: "24.10 + 2.50 + 1.50"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Custo da receita\""
+  revisao:
+    status: em-revisao
+
+- id: coz-custo-05
+  tema: "Fator de correção"
+  dificuldade: 2
+  enunciado: "Você compra 1 kg de cenoura e, depois de lavar e descascar, aproveita 850 g. O que a aula diz que isso significa para o custo?"
+  alternativas:
+    - texto: "O que você descarta foi pago: o quilo de cenoura limpa custa mais do que o quilo comprado (fator de correção de cerca de 1,18)"
+      certa: true
+    - texto: "A casca não custa nada, porque é lixo"
+      erro: "Você pagou pelo quilo todo. O que você descarta (casca, osso, caroço, talo) foi pago e entra na conta."
+    - texto: "Só vale contar a perda em carne, e não em legumes"
+      erro: "O mesmo vale para frango com osso, fruta com casca e caroço, peixe com espinha e verdura com talo."
+  explicacao: "Fator de correção = peso comprado ÷ peso aproveitado = 1.000 ÷ 850, cerca de 1,18. Com o quilo a R$ 5,00, o quilo de cenoura limpa custa cerca de R$ 5,90."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Custo da receita\""
+  revisao:
+    status: em-revisao

@@ -1,5 +1,6 @@
 ---
 titulo: "Alfabetização no campo: a educação do campo"
+modelo: 9
 resumo: "A diferença entre educação rural e educação do campo, o Pronera, a pedagogia da alternância e como organizar a alfabetização de adultos no ritmo da roça."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Ao fim desta aula você vai saber o que distingue a educação do campo da velha
 
 ```provocacao
 Quando você pensa em "escola da roça", que imagem vem à cabeça? De onde vem essa imagem?
+```
+
+```suarealidade
+Quando você pensa em "escola da roça", que imagem vem à cabeça? Quem trabalha na terra perto de você precisa sair de lá para estudar?
 ```
 
 ## Do rural ao campo
@@ -108,6 +113,20 @@ Confira: as palavras vieram do trabalho, o calendário respeitou a roça, o temp
 
 ```realidade
 Escreva cinco palavras do trabalho no campo que você conhece. Qual delas abriria a melhor conversa num círculo?
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Escola é escola em qualquer lugar. Fazer currículo e calendário especiais para o campo é dar um ensino pior, e o jovem do campo precisa mesmo é de preparo para ir para a cidade." É um argumento de quem pensa em oportunidade de emprego.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a educação do campo não é um ensino menor: é feita com os povos do campo, a partir do trabalho na terra e da cultura do lugar, e não trata a saída para a cidade como o único futuro. As Diretrizes de 2002 permitem identidade e calendário próprios, e a pedagogia da alternância liga o tempo na escola ao tempo na comunidade. A escola que ignora a colheita faz a pessoa abandonar os estudos.
+```
+
+```agir
+# Esta semana
+Escreva num papel o calendário do trabalho na terra da sua região (plantio, colheita, época de chuva) e marque que meses seriam mais difíceis para ir à escola. Se não mora no campo, pergunte a alguém que trabalha com a terra.
 ```
 
 ## Resumo

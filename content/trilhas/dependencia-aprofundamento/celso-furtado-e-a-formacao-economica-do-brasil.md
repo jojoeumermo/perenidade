@@ -23,7 +23,7 @@ quiz:
     resposta: 0
     explicacao: "Foi a pedido do presidente Juscelino Kubitschek."
   - pergunta: "O que aconteceu com Furtado depois do golpe de 1964?"
-    opcoes: ["Foi cassado pelo AI-1 e viveu 21 anos no exílio", "Virou ministro da ditadura", "Nada"]
+    opcoes: ["Foi cassado pelo AI-1 e passou cerca de quinze anos no exílio", "Virou ministro da ditadura", "Nada"]
     resposta: 0
     explicacao: "Estava na primeira lista de cassados."
   - pergunta: "Que cargo Furtado ocupou em 1962, no governo Goulart?"

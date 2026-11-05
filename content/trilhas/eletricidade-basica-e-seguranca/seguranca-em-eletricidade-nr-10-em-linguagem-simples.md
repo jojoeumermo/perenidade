@@ -1,5 +1,6 @@
 ---
 titulo: "Segurança em eletricidade (NR-10) em linguagem simples"
+modelo: 9
 resumo: "O que a Norma Regulamentadora 10 exige de quem trabalha com eletricidade: a sequência para desligar e religar com segurança, quem pode fazer o quê, o treinamento obrigatório e o que muda com a nova NR-10, que vale a partir de junho de 2027."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -45,6 +46,10 @@ Um colega desligou o disjuntor, você foi trocar a tomada e outra pessoa, sem sa
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber o que é a NR-10, seguir a sequência de desligamento seguro, entender a diferença entre trabalhador qualificado, habilitado, capacitado e autorizado, conhecer o treinamento obrigatório e o que muda na nova versão da norma.
+
+```suarealidade
+Você já viu (ou fez) um serviço elétrico em que ninguém avisou os outros de que o circuito estava sendo mexido? Como a equipe garante que ninguém religa a energia por engano?
+```
 
 ## O que é a NR-10
 
@@ -110,6 +115,20 @@ Na sequência em vigor, por que o impedimento de reenergização vem antes de me
 6. **Sinalizar**: placa na chave avisando que há gente trabalhando.
 
 Terminado o serviço, faz-se o caminho de volta do item 10.5.2, e só então se religa.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que cadeado, placa e sequência de seis passos são burocracia de empresa grande: no serviço pequeno, desligar o disjuntor e resolver é mais rápido, e ninguém precisa de papel para trocar uma tomada.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a norma reconhece o serviço simples, porque ligar e desligar circuitos de baixa tensão com equipamento em bom estado pode ser feito por qualquer pessoa, e trocar uma lâmpada com o disjuntor desligado é uma coisa, mexer no quadro é outra. Mas o perigo da provocação do começo é real: alguém religar sem saber enquanto outra pessoa trabalha. Por isso a sequência põe o impedimento de reenergização (o cadeado) antes de medir a ausência de tensão, e a sinalização avisa quem chega depois. Quem trabalha por conta própria pode levar a mesma sequência para qualquer serviço.
+```
+
+```agir
+# Esta semana
+Escolha um serviço elétrico que alguém já fez na sua casa ou no seu trabalho e anote, num papel, qual dos seis passos de desligamento você viu e qual não viu (por exemplo: alguém travou ou sinalizou o disjuntor?). Sem cobrar ninguém: o objetivo é reconhecer o jeito seguro quando você o vir.
+```
 
 ## Resumo
 

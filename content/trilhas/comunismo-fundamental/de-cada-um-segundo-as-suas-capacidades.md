@@ -1,5 +1,6 @@
 ---
 titulo: "De cada um segundo as suas capacidades"
+modelo: 9
 resumo: "A frase mais famosa sobre o comunismo: de onde ela vem, o que ela quer dizer e por que ela supõe uma sociedade muito diferente da nossa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -30,6 +31,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber explicar as duas metades da frase "de cada um segundo as suas capacidades, a cada um segundo as suas necessidades", em que fase da sociedade comunista Marx a colocou e quais condições ele via para ela.
+
+```suarealidade
+Na sua família ou no seu serviço, quem contribui com o que pode e quem é cuidado segundo a necessidade (uma criança, uma pessoa doente, uma pessoa idosa)? Como vocês resolvem isso?
+```
 
 > De cada um segundo as suas capacidades, a cada um segundo as suas necessidades!
 
@@ -85,6 +90,15 @@ Repare que algumas instituições que já existem funcionam assim: no **SUS**, c
 
 Que coisas você acha que deveriam ser distribuídas segundo as necessidades, já hoje? Por quê?
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Se cada um recebe segundo a sua necessidade, ninguém vai querer trabalhar, e as necessidades humanas não têm fim. É bonito, mas não funciona." É a dúvida mais comum sobre essa frase.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula leva a dúvida a sério. Marx colocou a frase na fase superior da sociedade comunista, e não no dia seguinte ao capitalismo, e listou condições: fim da subordinação à divisão do trabalho, trabalho como primeira necessidade vital e abundância. Lenin lembrou que nenhum socialista prometeu que essa fase chegaria rápido. Os marxistas respondem que as necessidades básicas (comida, casa, saúde, educação) são limitadas, que parte do consumo atual é criada pela publicidade e que a abundância deve ser pensada como vida boa dentro dos limites do planeta. A aula ainda dá uma pista do presente: no SUS, cada pessoa contribui segundo a sua renda, por meio de impostos, e recebe atendimento segundo a sua necessidade.
+```
+
 ## Exemplo resolvido
 
 **Pela fórmula, quanto recebe uma pessoa com doença crônica que exige remédio caro? Aplique as duas metades.**
@@ -96,6 +110,11 @@ Que coisas você acha que deveriam ser distribuídas segundo as necessidades, j�
 5. **Lembre o lugar.** Para Marx (1875), a frase descreve a fase superior da sociedade comunista, e não a primeira fase depois do capitalismo.
 
 Confira: a aula dá o exemplo do SUS, em que se contribui por impostos segundo a renda e se recebe atendimento segundo a necessidade.
+
+```agir
+# Esta semana
+Faça, num papel, duas colunas para a sua casa ou o seu grupo: "o que eu posso dar" e "do que eu preciso". Mostre a uma pessoa de confiança e conversem sobre o que cada coluna diz.
+```
 
 ## Resumo
 

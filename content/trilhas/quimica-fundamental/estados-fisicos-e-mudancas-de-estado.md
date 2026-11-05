@@ -1,5 +1,6 @@
 ---
 titulo: "Estados físicos e mudanças de estado"
+modelo: 9
 resumo: "Objetivo: entender por que a matéria é sólida, líquida ou gasosa, o que acontece quando ela muda de estado e como isso explica o ciclo da água."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -33,6 +34,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber descrever os três estados físicos, nomear as mudanças de estado e explicar por que a temperatura e a pressão decidem em que estado uma substância está.
+
+```suarealidade
+Quando você ferve água para o café ou vê o gelo derreter no copo, o que você acha que acontece com a água?
+```
 
 ## Três jeitos de ser
 
@@ -124,6 +129,15 @@ As mudanças de estado movem a água pelo planeta.
 
 A água do planeta é sempre a mesma, circulando. As florestas são parte dessa máquina: as árvores devolvem ao ar enormes quantidades de vapor. A floresta amazônica alimenta as chuvas de boa parte do Centro-Oeste, do Sudeste e do Sul do Brasil. Derrubá-la é mexer na torneira de regiões que ficam a milhares de quilômetros.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Estado da matéria é teoria de livro. Água é água, e na cozinha ninguém precisa saber o que acontece lá dentro." É a opinião de quem aprendeu a cozinhar na prática.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a teoria aparece na cozinha toda hora. Enquanto a água muda de estado, a temperatura não sobe, mesmo com o fogo alto. Quanto maior a pressão, maior a temperatura de ebulição, e é isso que explica a panela de pressão. E o gelo boia porque é menos denso que a água líquida.
+```
+
 ## Exemplo resolvido
 
 **Por que a comida cozinha mais depressa na panela de pressão?**
@@ -142,6 +156,11 @@ Confira: o contrário também vale. Em cidade muito alta, a pressão é menor, a
 4. De onde vem a chuva que cai na sua região? O que pode alterá-la?
 
 **Respostas do 1:** (a) fusão; (b) condensação; (c) sublimação; (d) solidificação.
+
+```agir
+# Esta semana
+Na próxima vez que ferver água, observe o que acontece com o vapor na tampa da panela e conte a alguém da casa o nome dessa mudança de estado.
+```
 
 ## Resumo
 

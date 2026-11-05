@@ -1,5 +1,6 @@
 ---
 titulo: "Direitos garantidos no Brasil"
+modelo: 9
 resumo: "União estável, casamento, adoção, mudança de nome e gênero, nome social e criminalização da LGBTfobia: os direitos das pessoas LGBTQIA+ no Brasil e de onde cada um veio."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ No Brasil, um casal de mulheres pode casar, adotar uma criança e denunciar quem
 
 Ao fim desta aula você vai conhecer os principais direitos das pessoas LGBTQIA+ no Brasil e saber de onde cada um veio.
 
+```suarealidade
+Na sua família, no seu bairro ou no seu serviço, você conhece alguém que já teve ou deixou de ter um direito por causa de quem ama ou de quem é? O que isso mudou na vida da pessoa?
+```
+
 ## Linha do tempo dos direitos
 
 - **2011**: o **STF** reconhece a **união estável** entre pessoas do mesmo sexo, por 10 votos a 0.
@@ -68,6 +73,15 @@ Por que o movimento quer que os direitos virem lei, se já valem por decisão do
 > Direitos que vêm só de decisões judiciais ficam mais expostos a ataques.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Direitos assim deveriam ser decididos pelo Congresso, que foi eleito pelo povo, e não por juízes." É uma crítica de quem se preocupa com quem deve fazer as leis, e não necessariamente com o direito em si.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não esconde esse ponto: diz que quase todos os direitos vieram de decisões do Judiciário (STF e CNJ) ou de normas do governo, e não de leis aprovadas pelo Congresso. O motivo, segundo a aula, é que o Congresso não votou essas leis, e o Judiciário entendeu que a Constituição garante a igualdade e proíbe a discriminação. Por isso o movimento LGBTQIA+ continua cobrando que esses direitos virem lei, para ficarem mais protegidos. Ou seja, o pedido é que o Congresso vote.
+```
+
 ## Exemplo resolvido
 
 **Um casal de homens quer casar, adotar uma criança e um deles quer usar o nome social. Que direitos se aplicam?**
@@ -76,6 +90,11 @@ Por que o movimento quer que os direitos virem lei, se já valem por decisão do
 2. **Adoção**: garantida por decisão do **STF (2015)**.
 3. **Nome social** (se um deles for trans): **Decreto nº 8.727/2016** na administração federal; e mudança de registro pelo **STF (2018)**.
 4. Se sofrerem ofensas: **LGBTfobia é crime** desde **2019**.
+
+```agir
+# Esta semana
+Escolha um dos direitos da linha do tempo da aula (união estável, casamento, adoção, nome social, mudança de registro ou o crime de LGBTfobia) e escreva num papel, com as suas palavras, o ano em que foi garantido e quem decidiu. Se quiser, conte a alguém de confiança.
+```
 
 ## Resumo
 

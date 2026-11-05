@@ -1,5 +1,6 @@
 ---
 titulo: "Pré-história: os primeiros seres humanos"
+modelo: 9
 resumo: "Objetivo: entender de onde vem a nossa espécie, como viviam os primeiros grupos humanos e por que a invenção da agricultura mudou tudo."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -35,6 +36,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber dizer como se reconstrói a vida dos primeiros seres humanos, discutir o nome "pré-história", comparar caçadores-coletores e agricultores e explicar como o excedente abriu caminho para a desigualdade.
+
+```suarealidade
+Você já ouviu dizer que "sempre foi assim": uns mandam, outros obedecem, uns são donos e outros trabalham para eles? O que você acha?
+```
 
 
 ## De onde viemos
@@ -114,6 +119,20 @@ Ao dar números, os historiadores usam "cerca de" e "pelo menos": a precisão é
 1. Se a humanidade viveu quase toda a sua existência sem classes e sem Estado, o que isso diz sobre a ideia de que "sempre foi assim"?
 2. Que plantas domesticadas pelos povos das Américas você comeu esta semana?
 3. Existem sítios arqueológicos ou pinturas rupestres no seu estado?
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sempre existiu rico e pobre, dono e empregado. É da natureza humana e não dá para ser diferente."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula lembra que, durante quase todo o tempo em que existe, a humanidade viveu da caça, da pesca e da coleta, em grupos pequenos nos quais o que se obtinha era repartido: não havia como acumular, e ninguém vivia do trabalho dos outros. Com a agricultura veio o excedente, e com ele a possibilidade de alguém controlar a sobra. Friedrich Engels, em um livro de 1884, apoiado nas pesquisas da sua época, defendeu que foi desse processo que nasceram a propriedade privada, as classes e o Estado, coisas que nos parecem eternas e não são. É uma tese a discutir, com fatos, e não uma verdade sem debate.
+```
+
+```agir
+# Esta semana
+Pergunte a duas pessoas se elas acham que "sempre foi assim" e conte a elas que, por quase todo o tempo em que existe, a humanidade viveu da caça e da coleta, repartindo o que obtinha. Anote o que elas responderam.
+```
 
 ## Resumo
 

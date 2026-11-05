@@ -1,5 +1,6 @@
 ---
 titulo: "Pronomes"
+modelo: 9
 resumo: "As palavras que ficam no lugar dos nomes: eu, mim, me, este, esse, que, onde. Como escolher a forma certa."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -31,6 +32,10 @@ quiz:
 Ao fim desta aula você vai saber usar pronomes pessoais, possessivos, demonstrativos e relativos, escolher entre "para mim" e "para eu" e evitar a ambiguidade.
 
 
+
+```suarealidade
+Você já escreveu ou ouviu uma frase em que não dava para saber a quem o "seu" ou o "dele" se referia? Qual foi?
+```
 
 ## Para não repetir
 
@@ -144,6 +149,15 @@ Ligam duas frases, retomando uma palavra já dita.
 
 Os indefinidos merecem atenção na leitura. "**Alguns** especialistas afirmam...", "**Muitos** dizem que...". Quem são? Quantos? O pronome indefinido pode servir para esconder que não há fonte.
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Dizer 'para mim fazer' é normal, todo mundo fala assim e entende. Cobrar 'para eu fazer' é rebuscado e afasta o povo." É a opinião de quem quer uma língua mais próxima de quem fala.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não exige falar difícil: explica que "para mim" vem depois de preposição e que, em "para eu fazer", o "eu" é o sujeito do verbo. Ela mostra que a norma-padrão vale para a escrita formal e pede cuidado maior com a ambiguidade, que atrapalha qualquer leitor: "A diretora avisou à professora que sua turma seria transferida" não deixa claro de quem é a turma. Quem domina as duas formas escolhe qual usar conforme a situação.
+```
+
 ## Exemplo resolvido: ligando frases com pronomes
 
 1. **"Comprei um livro. O livro é ótimo."** Use o relativo *que*: **O livro que comprei é ótimo.**
@@ -152,6 +166,11 @@ Os indefinidos merecem atenção na leitura. "**Alguns** especialistas afirmam..
 4. **"Este serviço é para ___ fazer."** Se vem um verbo no infinitivo cuja ação é sua, use **eu**: "para eu fazer". Já "Este serviço é para mim" (fim da frase, depois de preposição).
 
 Confira: o relativo retoma uma palavra já dita, e a preposição, se o verbo pedir, vem antes dele.
+
+```agir
+# Esta semana
+Escreva num papel três frases do seu dia a dia com "para mim" e "para eu", conforme o caso, e uma frase em que "seu" ficou ambíguo e que você reescreveu. Mostre a alguém de confiança.
+```
 
 ## Resumo
 

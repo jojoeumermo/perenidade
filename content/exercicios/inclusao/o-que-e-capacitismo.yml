@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é capacitismo" (Inclusão). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: inc-cap-01
+  tema: "Definição"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é capacitismo?"
+  alternativas:
+    - texto: "Discriminação e preconceito contra pessoas com deficiência, que as define pela deficiência e as vê como inferiores"
+      certa: true
+    - texto: "Uma tecnologia para pessoas com deficiência"
+      erro: "Tecnologia assistiva é outra coisa. Capacitismo é preconceito."
+    - texto: "Um direito garantido por lei"
+      erro: "É o contrário: o capacitismo é discriminação, e discriminar pode ser crime."
+  explicacao: "Capacitismo é discriminação e preconceito. Ele atribui ou nega habilidades às pessoas com deficiência, muitas vezes de forma falsa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: inc-cap-02
+  tema: "O que a lei diz"
+  dificuldade: 2
+  enunciado: "Segundo o art. 88 da Lei Brasileira de Inclusão, qual é a pena de quem pratica, induz ou incita discriminação de pessoa em razão de sua deficiência?"
+  alternativas:
+    - texto: "Reclusão de 1 a 3 anos e multa"
+      certa: true
+    - texto: "Apenas advertência verbal"
+      erro: "A lei prevê reclusão de 1 a 3 anos e multa."
+    - texto: "Nenhuma, porque não é crime"
+      erro: "É crime, previsto no art. 88 da Lei 13.146/2015."
+  explicacao: "A pena aumenta se o crime for cometido pelos meios de comunicação ou pela internet."
+  fonte: "Lei Brasileira de Inclusão (Lei 13.146/2015), art. 88, planalto.gov.br"
+  revisao:
+    status: em-revisao
+
+- id: inc-cap-03
+  tema: "Falar com o acompanhante"
+  dificuldade: 2
+  enunciado: "Alguém fala com o acompanhante de uma pessoa cega em vez de falar com ela. O que isso é?"
+  alternativas:
+    - texto: "Uma atitude capacitista: trata a pessoa cega como incapaz de responder por si"
+      certa: true
+    - texto: "Educação, para facilitar"
+      erro: "Falar com a pessoa é o respeito. Falar só com o acompanhante a trata como incapaz."
+    - texto: "Acessibilidade"
+      erro: "Acessibilidade tira barreiras. Isso cria uma."
+  explicacao: "Dirija-se diretamente à pessoa. Piso tátil na escola, por outro lado, é acessibilidade, e não capacitismo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

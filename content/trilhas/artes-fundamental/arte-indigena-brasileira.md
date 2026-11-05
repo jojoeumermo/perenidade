@@ -1,5 +1,6 @@
 ---
 titulo: "Arte indígena brasileira"
+modelo: 9
 resumo: "Muito antes de 1500, povos indígenas da ilha de Marajó faziam uma cerâmica reconhecida pela sofisticação. Hoje, a arte kusiwa dos Wajãpi, do Amapá, é patrimônio cultural do Brasil. Arte indígena não é passado: é viva."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ Quando alguém fala em "arte", você pensa em quadro de museu europeu? Muito ant
 
 Ao fim desta aula você vai conhecer duas expressões de arte indígena brasileira, a cerâmica marajoara e a arte kusiwa, e entender por que elas importam.
 
+```suarealidade
+Que objetos ou desenhos de origem indígena existem na sua casa ou no seu bairro (um cesto, uma cerâmica, um nome de lugar)? Quem os faz hoje?
+```
+
 ## A cerâmica marajoara
 
 A **arte marajoara** é a cerâmica dos **povos indígenas** que ocuparam a **ilha de Marajó**, na **foz do rio Amazonas** (Pará), **entre 400 e 1400 d.C.**, antes da colonização. A ilha teve **cinco fases** de ocupação (Ananatuba, Mangueiras, Formigas, **Marajoara** e Aruã); a fase marajoara, de uma **elaborada civilização amazônica pré-cabralina**, tem a **cerâmica mais sofisticada**.
@@ -82,6 +87,20 @@ O que a cerâmica marajoara mostra sobre a história do Brasil?
 | Onde | ilha de Marajó (PA) | Terra Indígena Waiãpi (AP) |
 | Quando | 400 a 1400 d.C. | hoje |
 | Reconhecimento | revelada ao mundo por pesquisadores em 1871 | patrimônio do Brasil (Iphan) e da humanidade (UNESCO) |
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Arte indígena é coisa do passado, de museu. Hoje os povos indígenas vivem como todo mundo, e falar de arte marajoara ou kusiwa é viver de nostalgia." É uma ideia comum, que vem do desconhecimento.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que a arte indígena é antiga e viva. A cerâmica marajoara (400-1400 d.C.) é do passado, mas a arte kusiwa dos Wajãpi, do Amapá, é praticada hoje e é patrimônio do Brasil e da humanidade. Dizer que é só passado apaga povos que continuam criando. A aula pede conhecer as duas expressões e entender por que importam.
+```
+
+```agir
+# Esta semana
+Procure em um museu ou site confiável uma imagem de cerâmica marajoara ou de pintura kusiwa e copie, num papel, um desenho simples de um dos motivos. Escreva ao lado o que você reparou nele.
+```
 
 ## Resumo
 

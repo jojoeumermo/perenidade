@@ -1,5 +1,6 @@
 ---
 titulo: "Avaliar a aprendizagem sem humilhar"
+modelo: 9
 resumo: "Avaliar para ajudar a aprender, e não para classificar: o portfólio, a autoavaliação, a sondagem repetida e o jeito de comentar o erro."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Ao fim desta aula você vai saber a diferença entre avaliar para classificar e 
 
 ```provocacao
 Lembre de uma vez em que alguém corrigiu você e você aprendeu. E de outra em que a correção só deu vergonha. O que era diferente?
+```
+
+```suarealidade
+Lembre de uma vez em que alguém corrigiu você e você aprendeu, e de outra em que a correção só deu vergonha. O que era diferente?
 ```
 
 ## Avaliar não é examinar
@@ -110,6 +115,20 @@ Confira: ninguém deu nota, a comparação foi com ela mesma, o erro virou uma r
 
 ```realidade
 Pense numa pessoa que você acompanha ou já acompanhou. Escreva uma conquista dela e um próximo passo possível.
+```
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Sem prova e sem nota, ninguém leva a sério. Adulto precisa de cobrança para aprender, e corrigir o erro na hora é a forma mais honesta." É uma opinião de quem aprendeu assim, na escola tradicional.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula não nega a avaliação: pede avaliar para ajudar, e não para classificar. Com Luckesi, distingue examinar (dar nota, aprovar ou reprovar, o que muitas vezes exclui) de avaliar (diagnosticar para decidir o que fazer). O erro é pista do que a pessoa já pensa sobre a escrita. Quem já foi humilhado na escola costuma abandonar o estudo; por isso o portfólio, a sondagem repetida e a correção em três passos mantêm a seriedade sem a vergonha.
+```
+
+```agir
+# Esta semana
+Escolha um erro que você cometeu esta semana (no trabalho, em casa ou no estudo) e escreva, em três passos como na aula, o que você acertou, qual é o próximo passo e como vai tentar de novo.
 ```
 
 ## Resumo

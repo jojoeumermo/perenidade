@@ -1,5 +1,6 @@
 ---
 titulo: "O que é acessibilidade"
+modelo: 9
 resumo: "Acessibilidade é poder usar espaços, transportes, informação e comunicação com segurança e autonomia. O que a lei chama de barreiras, os tipos de barreira e a ideia de desenho universal."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -43,6 +44,10 @@ Um site sem legenda nos vídeos, um ônibus sem elevador, uma placa sem braille,
 
 Ao fim desta aula você vai saber o que é acessibilidade, reconhecer os tipos de barreira e entender a ideia de desenho universal.
 
+```suarealidade
+Que lugar que você frequenta (posto de saúde, ponto de ônibus, escola, igreja) tem barreira para alguém? Para quem?
+```
+
 ## O que é acessibilidade
 
 Pela **Lei Brasileira de Inclusão** (art. 3º), **acessibilidade** é a **possibilidade e condição de alcance** para usar, **com segurança e autonomia**, espaços, mobiliário, equipamentos urbanos, edifícios, **transportes**, **informação e comunicação**, inclusive sistemas e tecnologias, por pessoa com deficiência ou com mobilidade reduzida, **na cidade e no campo**.
@@ -80,6 +85,20 @@ Um vídeo oficial da prefeitura sem legenda nem Libras cria que tipo de barreira
 2. **Balcão alto**: barreira **arquitetônica** → solução: parte do balcão rebaixada.
 3. **Senha só sonora**: barreira de **comunicação** → solução: painel visual.
 4. **Sem Libras**: barreira de **comunicação** → solução: intérprete ou atendentes formados.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Acessibilidade é custo extra para pouca gente. Rampa e elevador só servem para cadeirante."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o desenho universal é projetar para todas as pessoas, sem precisar de adaptação: uma rampa bem feita serve para quem usa cadeira de rodas, para quem empurra um carrinho de bebê e para uma pessoa idosa. E que a Lei Brasileira de Inclusão define barreira como qualquer entrave, obstáculo, atitude ou comportamento que limite ou impeça a participação da pessoa. Vídeo sem legenda, calçada esburacada e preconceito também são barreiras, e atingem muito mais gente do que se imagina.
+```
+
+```agir
+# Esta semana
+Faça um teste de acessibilidade num lugar que você frequenta: anote as barreiras que encontrar e uma solução para cada uma. Não fotografe nem exponha ninguém.
+```
 
 ## Resumo
 

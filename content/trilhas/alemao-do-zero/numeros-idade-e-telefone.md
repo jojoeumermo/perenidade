@@ -1,5 +1,6 @@
 ---
 titulo: "Números, idade e telefone"
+modelo: 9
 resumo: "Contar de 0 a 100 em alemão, o truque dos números ao contrário (vinte e um vira \"um e vinte\"), dizer a idade e passar um número de telefone."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -40,6 +41,10 @@ Em português, dizemos "vinte e um". Em alemão, dizem "um e vinte". Como seria 
 ## O que você vai aprender
 
 Ao fim desta aula você vai contar até 100 em alemão, dizer sua idade e ditar um número de telefone.
+
+```suarealidade
+Quantas vezes por dia você lê ou diz números: preço, horário, telefone, idade? Em qual situação do seu trabalho um erro de número daria problema?
+```
 
 ## De 0 a 12
 
@@ -90,6 +95,20 @@ Como se escreve 67 em alemão?
 1. Idade: 42 = **zweiundvierzig** → ***Ich bin zweiundvierzig.***
 2. Telefone, número por número: **null, eins, fünf, eins — zwo, drei — acht, sieben — null, neun**.
 3. Frase final: ***Meine Nummer ist null eins fünf eins, zwo drei, acht sieben, null neun.***
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Em alemão é um absurdo dizer o número ao contrário, 'um e vinte'. É complicado demais, e quem aprende acaba trocando os números." É uma dificuldade que muita gente sente de verdade no começo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que o truque tem regra fixa e vale de 21 a 99: unidade, und, dezena (einundzwanzig). Para evitar confusão ao telefone, os falantes ditam número por número e dizem zwo para o 2, para não confundir com drei. Com a regra e um pouco de treino em voz alta, o "ao contrário" deixa de ser estranho.
+```
+
+```agir
+# Esta semana
+Num papel, escreva em alemão a sua idade e os três últimos números do seu telefone, por extenso. Depois diga em voz alta, sem olhar. Não precisa mostrar o número completo a ninguém.
+```
 
 ## Resumo
 

@@ -1,0 +1,50 @@
+# Exercícios da aula "Twists" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-twists-01
+  tema: "Twist"
+  dificuldade: 1
+  enunciado: "Como se faz um twist de duas mechas?"
+  alternativas:
+    - texto: "Torce-se cada parte no mesmo sentido e enrola-se uma sobre a outra no sentido contrário"
+      certa: true
+    - texto: "Cruzam-se três mechas por baixo"
+      erro: "Isso é a trança nagô."
+    - texto: "Torce-se tudo para o mesmo lado e nada mais"
+      erro: "Enrolar no sentido contrário é o que trava o twist."
+  explicacao: "Enrolar no sentido contrário ao da torção trava o twist e impede que desmanche."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Twists\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-twists-02
+  tema: "Twist e dread"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre twist e dread, segundo a aula?"
+  alternativas:
+    - texto: "Dreads são mais longos e grossos e se formam quando os fios se entrelaçam"
+      certa: true
+    - texto: "Dreads são sempre mais curtos"
+      erro: "A aula diz que são mais longos e grossos."
+    - texto: "São a mesma coisa"
+      erro: "A aula diz que twist não é dread."
+  explicacao: "Mas twists e tranças podem virar dreads se o cabelo se entrelaçar no padrão do penteado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Twists\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-twists-03
+  tema: "Twist out"
+  dificuldade: 1
+  enunciado: "O que é o twist out?"
+  alternativas:
+    - texto: "Depois de alguns dias, os twists são desfeitos com cuidado e o cabelo fica solto, ondulado e volumoso"
+      certa: true
+    - texto: "Um twist feito só com fibra"
+      erro: "É o twist com fibra."
+    - texto: "Um corte de cabelo"
+      erro: "Não é corte."
+  explicacao: "Os twists senegaleses vêm do Senegal."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Twists\""
+  revisao:
+    status: em-revisao

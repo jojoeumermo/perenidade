@@ -29,7 +29,7 @@ quiz:
     opcoes: ["Interligar, assessorar e dinamizar quem trabalha em favor dos sem-terra e dos trabalhadores rurais", "Comprar terras para a Igreja", "Fiscalizar os sem-terra"]
     resposta: 0
     explicacao: "Ela também deveria se ligar a outros organismos parecidos."
-  - pergunta: "Que movimento a CPT apoiou no seu primeiro encontro nacional, em 1984?"
+  - pergunta: "Que movimento nasceu em 1984, no 1º Encontro Nacional dos Trabalhadores Rurais Sem Terra, com o apoio da CPT?"
     opcoes: ["O MST", "A UDR", "A UNE"]
     resposta: 0
     explicacao: "O encontro de fundação do MST aconteceu em Cascavel (PR)."

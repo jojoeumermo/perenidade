@@ -1,0 +1,51 @@
+# Exercícios da aula "Pré-história: os primeiros seres humanos" (História antiga). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ha-pre-01
+  tema: "Origem africana"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Onde surgiu a nossa espécie, o Homo sapiens?"
+  alternativas:
+    - texto: "Na África"
+      certa: true
+    - texto: "Na Europa"
+      erro: "Os fósseis mais antigos do Homo sapiens, de cerca de 300 mil anos, estão na África."
+    - texto: "Na América"
+      erro: "A América foi ocupada por último, por grupos vindos da Ásia."
+  explicacao: "Toda a humanidade tem origem africana. Somos todos uma única espécie, e a ciência não reconhece 'raças' biológicas entre os seres humanos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-pre-02
+  tema: "Caçadores e coletores"
+  dificuldade: 2
+  enunciado: "Como viviam os grupos humanos no Paleolítico?"
+  alternativas:
+    - texto: "Da caça, da pesca e da coleta, em pequenos grupos que mudavam de lugar conforme as estações"
+      certa: true
+    - texto: "Da agricultura, em aldeias fixas"
+      erro: "Isso veio depois, com a revolução neolítica."
+    - texto: "Do comércio entre grandes cidades"
+      erro: "As cidades vieram muito depois. No Paleolítico, os grupos eram pequenos e andavam atrás de alimento."
+  explicacao: "Nesses grupos, o que se obtinha era repartido. Não havia como acumular, e ninguém vivia do trabalho dos outros."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ha-pre-03
+  tema: "Revolução neolítica"
+  dificuldade: 2
+  enunciado: "Qual destas foi uma consequência da agricultura e da criação de animais?"
+  alternativas:
+    - texto: "O surgimento de aldeias fixas e do excedente de comida"
+      certa: true
+    - texto: "O fim da necessidade de comer"
+      erro: "O excedente é mais comida do que o consumo imediato, o que mudou a sociedade."
+    - texto: "A invenção do fogo"
+      erro: "O fogo foi dominado muito antes, no Paleolítico."
+  explicacao: "A revolução neolítica, há cerca de 10 a 12 mil anos, fez as pessoas morarem em lugares fixos, a população crescer e surgirem a cerâmica e a tecelagem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

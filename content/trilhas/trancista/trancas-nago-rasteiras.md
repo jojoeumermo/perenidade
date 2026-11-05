@@ -1,5 +1,6 @@
 ---
 titulo: "Tranças nagô (rasteiras)"
+modelo: 9
 resumo: "A trança colada ao couro cabeludo em fileiras: o movimento por baixo, como riscar linhas retas e curvas, como começar sem puxar a linha da testa, quanto tempo leva e quanto dura."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -46,6 +47,10 @@ A trança nagô aparece nas pinturas do Saara de 5 mil anos atrás e nas fotos d
 
 Ao fim desta aula você vai fazer a trança nagô com o movimento por baixo, riscar fileiras retas e curvas, começar sem machucar a linha da testa, calcular o tempo do penteado e orientar a cliente para que ele dure.
 
+```suarealidade
+Você já sentiu dor numa trança nagô? Alguém disse que é assim mesmo?
+```
+
 ## O que é a nagô
 
 A **trança nagô**, ou rasteira, é uma trança de **três mechas** feita **rente ao couro cabeludo**, com um movimento **por baixo e para cima**, que forma uma **fileira contínua em relevo**. As fileiras podem ser **retas** ou formar **desenhos** geométricos e curvos. É usada por mulheres e homens e pode levar **miçangas, búzios e anéis**.
@@ -86,6 +91,15 @@ Ao começar uma nagô, a cliente reclama que a frente está repuxando muito. O q
 > A linha da testa é onde a alopecia de tração costuma aparecer primeiro.
 ```
 
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Nagô tem de ficar bem apertada para durar e ficar bonita. Dor nos primeiros dias é normal." É a opinião de quem aprendeu assim.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula mostra que dor não é sinal de trança boa. A nagô é rente ao couro e costuma ser mais apertada, por isso exige cuidado com a linha da testa e as têmporas. Pode levar até cinco horas e durar semanas, com lavagem cuidadosa e hidratação do couro. Risque as fileiras antes de começar, retas ou em desenho, e pergunte à cliente se está confortável.
+```
+
 ## Exemplo resolvido
 
 **A cliente quer 8 fileiras retas, da testa à nuca, e depois deixar as pontas soltas. Você leva cerca de 20 minutos por fileira e mais 10 minutos para arrumar as pontas no fim. Quanto tempo? E como orientar a manutenção?**
@@ -101,6 +115,11 @@ Orientação à cliente:
 - **hidratar o couro cabeludo**;
 - proteger o cabelo à noite com lenço;
 - **voltar** se sentir dor, coceira forte ou aparecerem feridas na raiz.
+
+```agir
+# Esta semana
+Treine numa boneca ou peruca três fileiras retas e paralelas e confira no espelho.
+```
 
 ## Resumo
 

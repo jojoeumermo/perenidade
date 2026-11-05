@@ -1,5 +1,6 @@
 ---
 titulo: "Etnocentrismo: achar que o seu jeito é o único certo"
+modelo: 9
 resumo: "Etnocentrismo é olhar o mundo só a partir da própria cultura, como se ela fosse o centro de tudo. Por que isso acontece, como leva a julgar os outros como 'estranhos' ou 'atrasados', e como a antropologia propõe sair desse lugar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -39,6 +40,10 @@ quiz:
 
 Ao fim desta aula você vai entender o que é etnocentrismo e como a antropologia propõe superá-lo.
 
+```suarealidade
+Pense num costume de outro lugar, de outra religião ou de outra região que já pareceu estranho para você. Estranho em comparação com o quê? Já alguém achou estranho um costume seu?
+```
+
 ## O que é
 
 **Etnocentrismo** é a **tendência** a observar o mundo a partir da perspectiva do **próprio povo** e da **própria cultura**. É uma atitude, de uma pessoa ou de um grupo, que coloca a própria cultura como o **eixo central** para interpretar tudo.
@@ -70,6 +75,20 @@ Um turista vê um povo comendo com as mãos e diz: "eles não sabem comer direit
 1. A palavra **"primitiva"** julga a música como inferior à da própria cultura.
 2. Uma versão respeitosa: "essa música indígena é **diferente** da que eu conheço; quero entender **como** e **quando** ela é tocada e **o que** significa para quem a faz".
 3. Assim, o costume é entendido **dentro do seu contexto**.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "Ter orgulho da própria cultura é natural. Dizer que o nosso jeito é melhor não é preconceito, é só amor ao que é nosso." É um sentimento comum e, em parte, legítimo.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Amar a própria cultura não é o problema. A aula mostra que o etnocentrismo começa quando o que é diferente passa a ser visto como errado, estranho, inferior ou atrasado, tomando a nossa cultura como o centro para julgar todas as outras. Boas e Malinowski propuseram o relativismo cultural como resposta: entender cada costume no contexto de quem o vive, antes de julgar.
+```
+
+```agir
+# Esta semana
+Escolha um costume do seu bairro ou da sua família que alguém de fora poderia achar estranho (uma comida, uma festa, um jeito de cumprimentar). Escreva num papel como você explicaria esse costume a essa pessoa, sem dizer que o seu jeito é o certo.
+```
 
 ## Resumo
 

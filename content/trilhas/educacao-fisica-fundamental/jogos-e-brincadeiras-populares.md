@@ -1,5 +1,6 @@
 ---
 titulo: "Jogos e brincadeiras populares"
+modelo: 9
 resumo: "Amarelinha, queimada, ciranda: brincadeiras de rua que passam de geração em geração e exercitam o corpo, a cooperação e as regras combinadas. De onde vêm e como jogar."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -48,6 +49,10 @@ Ninguém leu manual para aprender amarelinha. Alguém mais velho ensinou, e voc�
 
 Ao fim desta aula você vai conhecer a origem de brincadeiras populares, as regras básicas e por que brincar também é atividade física.
 
+```suarealidade
+Que brincadeira de rua você brincava quando era criança? E hoje: onde as crianças do seu bairro brincam, e quanto tempo por dia elas se mexem?
+```
+
 ## Amarelinha
 
 A **amarelinha** (em Portugal, **jogo da macaca**) tem nome vindo do francês **"marelle"**. Acredita-se que os **romanos** já brincavam, mas o **registro confirmado** mais antigo é do **século XVII**, no "Livro de jogos" do inglês **Francis Willughby**. O percurso simbolizava a **passagem da pessoa pela vida**, com o **céu** numa ponta.
@@ -89,6 +94,20 @@ Por que brincadeiras populares são boas para a saúde das crianças?
 | 20 min | queimada | corrida, esquiva, arremesso |
 | 10 min | pega-pega | velocidade |
 | 5 min | roda de conversa | combinar regras para a próxima vez |
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga que brincadeira de rua é coisa do passado e perda de tempo: hoje a criança tem tela, e o que vale para a saúde é esporte organizado, com professor e horário.
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+Uma resposta possível: a crítica tem um ponto, e a aula o reconhece ao dizer que brincadeira precisa de rua, calçada e praça. Mas, para a OMS, todo movimento conta, e crianças e adolescentes devem ter uma média de 60 minutos de atividade por dia. Correr, pular, se esquivar e dançar nas brincadeiras é atividade física, e de graça. A conclusão não é abandonar a brincadeira, e sim defender o lugar onde ela acontece.
+```
+
+```agir
+# Esta semana
+Ensine uma brincadeira da sua infância a uma criança da sua família (por exemplo, a amarelinha: oito quadrados riscados no chão) e brinquem juntos por 10 minutos. Anote num papel qual foi a brincadeira e como foi.
+```
 
 ## Resumo
 

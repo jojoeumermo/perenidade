@@ -1,5 +1,6 @@
 ---
 titulo: "A Biblioteca de Alexandria"
+modelo: 9
 resumo: "O maior centro de conhecimento da Antiguidade, e o que seu desaparecimento ensina."
 autores: ["Instituto Lúcia"]
 fontes:
@@ -26,6 +27,10 @@ quiz:
 ## O que você vai aprender
 
 Ao fim desta aula você vai saber contar como surgiu a Biblioteca de Alexandria, quem trabalhou nela, o que realmente aconteceu com ela e o que ela ensina sobre preservar o conhecimento.
+
+```suarealidade
+Que coisa guardada na sua família (uma foto, um caderno, um documento) se perderia se ninguém tirasse uma cópia? Existe cópia dela em algum lugar?
+```
 
 
 ## Uma cidade nova
@@ -82,6 +87,20 @@ Hoje guardamos quase tudo em formato digital. O que pode fazer um conhecimento d
 4. Da fundação à expulsão: 331 − 145 = **186 anos**.
 
 Conclusão: a Biblioteca não acabou em uma noite de incêndio. Foram séculos de perda lenta de apoio, de estudiosos e de cópias, que a aula descreve.
+
+```outrolado
+# O argumento mais forte de quem discorda
+Há quem diga: "A Biblioteca de Alexandria foi queimada numa noite pelos conquistadores. A ignorância destrói o saber de uma vez."
+---
+Como você responderia a esse argumento, com respeito e com fatos?
+---
+A aula conta que a história real foi mais lenta: em 145 a.C. o rei Ptolomeu VIII expulsou estudiosos; em 48 a.C. um incêndio atingiu a cidade e destruiu parte dos livros; sob o domínio romano o apoio foi diminuindo; por volta de 272 d.C. o bairro do Museu foi arrasado; em 391 d.C. foi destruído o Serapeu. A versão da queima na conquista árabe, em 642 d.C., aparece apenas em relatos escritos séculos depois e é considerada lenda pela maioria dos historiadores. A biblioteca definhou por séculos de guerras, perseguições e falta de recursos.
+```
+
+```agir
+# Esta semana
+Tire uma foto ou uma cópia de um documento ou de uma foto importante da sua família e guarde em dois lugares diferentes. Anote onde guardou.
+```
 
 ## Resumo
 

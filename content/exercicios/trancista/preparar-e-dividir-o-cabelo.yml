@@ -1,0 +1,50 @@
+# Exercícios da aula "Preparar e dividir o cabelo" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-preparar-e-dividir-o-cabelo-01
+  tema: "Cabelo pronto"
+  dificuldade: 1
+  enunciado: "Qual destes é um passo para preparar o cabelo para trançar?"
+  alternativas:
+    - texto: "Lavar, condicionar, hidratar e desembaraçar com calma, mecha por mecha"
+      certa: true
+    - texto: "Pentear o cabelo seco e embaraçado com força"
+      erro: "A aula diz que isso faz mal ao fio e ao couro."
+    - texto: "Trançar sem olhar o couro cabeludo"
+      erro: "O primeiro passo é avaliar o couro."
+  explicacao: "O cabelo crespo precisa de mais umidade que o liso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preparar e dividir o cabelo\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-preparar-e-dividir-o-cabelo-02
+  tema: "Dividir"
+  dificuldade: 1
+  enunciado: "Qual divisão leva às box braids?"
+  alternativas:
+    - texto: "Em quadradinhos, como uma grade"
+      certa: true
+    - texto: "Em linhas, que viram fileiras rentes ao couro"
+      erro: "Isso é a nagô."
+    - texto: "Em uma só parte"
+      erro: "Não é a divisão das box braids."
+  explicacao: "A divisão é o desenho do penteado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preparar e dividir o cabelo\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-preparar-e-dividir-o-cabelo-03
+  tema: "Molhado e seco"
+  dificuldade: 2
+  enunciado: "O que acontece com o twist feito com o cabelo molhado?"
+  alternativas:
+    - texto: "O cabelo encolhe ao secar e a textura fica mais fechada"
+      certa: true
+    - texto: "Fica mais solto"
+      erro: "Seco, o resultado é mais solto."
+    - texto: "Nada muda"
+      erro: "O resultado muda."
+  explicacao: "Prenda com presilhas o que ainda não vai ser trabalhado, e siga uma ordem para as tranças ficarem alinhadas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Preparar e dividir o cabelo\""
+  revisao:
+    status: em-revisao

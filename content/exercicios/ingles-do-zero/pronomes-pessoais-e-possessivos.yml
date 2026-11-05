@@ -1,0 +1,51 @@
+# Exercícios da aula "Pronomes pessoais e possessivos" (Inglês do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: in-pro-01
+  tema: "Pronome de objeto"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Como se diz 'Eu vi ele' em inglês?"
+  alternativas:
+    - texto: "I saw him."
+      certa: true
+    - texto: "I saw he."
+      erro: "Depois do verbo, usa-se o pronome de objeto: him, e não he."
+    - texto: "I saw his."
+      erro: "His é possessivo (dele)."
+  explicacao: "Em português falado dizemos 'eu vi ele'. Em inglês, depois do verbo, usa-se me, you, him, her, it, us, them."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-pro-02
+  tema: "Possessivo"
+  dificuldade: 1
+  enunciado: "Qual é a forma certa?  That is ___ car. (Esse é o carro dela.)"
+  alternativas:
+    - texto: "her"
+      certa: true
+    - texto: "hers"
+      erro: "Hers é o possessivo que fica sozinho (the car is hers). Antes do substantivo, usa-se her."
+    - texto: "she"
+      erro: "She é pronome de sujeito."
+  explicacao: "My, your, his, her, its, our, their vêm sempre antes de um substantivo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: in-pro-03
+  tema: "Sujeito obrigatório"
+  dificuldade: 2
+  enunciado: "Como se diz 'Trabalho de noite' em inglês?"
+  alternativas:
+    - texto: "I work at night."
+      certa: true
+    - texto: "Work at night."
+      erro: "Em inglês o sujeito quase sempre aparece."
+    - texto: "Me work at night."
+      erro: "Me é pronome de objeto. Para quem faz a ação, usa-se I."
+  explicacao: "Em português deixamos o sujeito escondido, mas em inglês ele aparece. O I é sempre escrito com letra maiúscula."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

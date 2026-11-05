@@ -1,0 +1,50 @@
+# Exercícios da aula "A história das tranças na diáspora africana" (trancista). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: trancista-a-historia-das-trancas-na-diaspora-afric-01
+  tema: "Trança nagô"
+  dificuldade: 1
+  enunciado: "De onde nasceram as tranças rentes ao couro cabeludo, que no Brasil chamamos de trança nagô?"
+  alternativas:
+    - texto: "Da África"
+      certa: true
+    - texto: "Da Europa"
+      erro: "A aula diz que nasceram na África."
+    - texto: "Da Ásia"
+      erro: "A aula diz que nasceram na África."
+  explicacao: "As representações mais antigas estão em pinturas da Idade da Pedra no planalto de Tassili, no Saara, datadas de até 3000 a.C."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A história das tranças na diáspora africana\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-a-historia-das-trancas-na-diaspora-afric-02
+  tema: "Nagô"
+  dificuldade: 1
+  enunciado: "O que quer dizer \"nagô\", segundo a aula?"
+  alternativas:
+    - texto: "É um dos nomes dados aos iorubás, um dos maiores povos da África Ocidental"
+      certa: true
+    - texto: "É um tipo de fibra sintética"
+      erro: "Não é fibra."
+    - texto: "É o nome de uma ferramenta"
+      erro: "Não é ferramenta."
+  explicacao: "Em iorubá, as tranças rentes ao couro são chamadas de kolese ou irun didi."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A história das tranças na diáspora africana\""
+  revisao:
+    status: em-revisao
+
+- id: trancista-a-historia-das-trancas-na-diaspora-afric-03
+  tema: "O que diziam"
+  dificuldade: 2
+  enunciado: "O que os estilos de tranças podiam indicar na África, segundo a aula?"
+  alternativas:
+    - texto: "O povo, o estado civil, a idade, a riqueza, a religião e a posição social"
+      certa: true
+    - texto: "Só o preço da trança"
+      erro: "A aula cita vários sinais sociais."
+    - texto: "Só a hora do dia"
+      erro: "Não é isso."
+  explicacao: "Penteados elaborados eram sinal de nobreza, e o trabalho de pentear era confiado só a pessoas próximas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A história das tranças na diáspora africana\""
+  revisao:
+    status: em-revisao
