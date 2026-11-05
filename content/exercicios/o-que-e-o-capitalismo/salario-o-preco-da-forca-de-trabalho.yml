@@ -1,0 +1,50 @@
+# Exercícios da aula "Salário: o preço da força de trabalho" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-salario-o-preco-da-forca-de-trabalho-01
+  tema: "O que o salário paga"
+  dificuldade: 1
+  enunciado: "O que o salário é, segundo a aula?"
+  alternativas:
+    - texto: "O preço do produto do trabalho"
+      erro: "O produto já é do patrão. O salário é o preço da força de trabalho."
+    - texto: "O preço da força de trabalho"
+      certa: true
+    - texto: "Um presente do patrão"
+      erro: "O salário é o preço da mercadoria que o trabalhador vende: a capacidade de trabalhar por um tempo."
+  explicacao: "Seu valor é o que é preciso para produzir e reproduzir essa força: comida, moradia, roupa, transporte, remédio, descanso e a criação dos filhos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Salário: o preço da força de trabalho\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-salario-o-preco-da-forca-de-trabalho-02
+  tema: "Nominal e real"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre salário nominal e salário real?"
+  alternativas:
+    - texto: "Nominal é o número do contracheque; real é o que esse número compra"
+      certa: true
+    - texto: "Nominal é o salário dos homens e real, o das mulheres"
+      erro: "Não é isso. A diferença é entre o número escrito e o que ele compra."
+    - texto: "Não há diferença"
+      erro: "Com inflação, o mesmo salário compra menos a cada mês."
+  explicacao: "Sem reajuste, o salário real cai sozinho. Por isso existe a luta por reajuste."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Salário: o preço da força de trabalho\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-salario-o-preco-da-forca-de-trabalho-03
+  tema: "Ilusão do salário"
+  dificuldade: 2
+  enunciado: "Que ilusão o salário cria, segundo a aula?"
+  alternativas:
+    - texto: "A de que o salário paga só metade do trabalho"
+      erro: "A ilusão é a oposta: parece que todo o trabalho foi pago."
+    - texto: "A de que todo o trabalho feito foi pago, apagando a divisão entre trabalho pago e não pago"
+      certa: true
+    - texto: "A de que o patrão trabalha mais que o empregado"
+      erro: "A aula fala da aparência de que o salário paga todo o trabalho."
+  explicacao: "Na servidão feudal se via o que era do camponês e o que era do senhor. No assalariamento, até o trabalho não pago parece pago."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Salário: o preço da força de trabalho\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Mal e mau, mas e mais, a e há" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-mal-e-mau-mas-e-mais-a-e-ha-01
+  tema: "Mal ou mau"
+  dificuldade: 1
+  enunciado: "\"Dormi ___.\" Qual palavra completa, segundo o teste da aula?"
+  alternativas:
+    - texto: "mau"
+      erro: "Mau é o contrário de bom. Dormi \"bom\" não faz sentido."
+    - texto: "mal"
+      certa: true
+    - texto: "maus"
+      erro: "Não é plural aqui."
+  explicacao: "O teste: troque pelo contrário. Se couber bom, é mau (com u). Se couber bem, é mal (com l)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mal e mau, mas e mais, a e há\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-mal-e-mau-mas-e-mais-a-e-ha-02
+  tema: "Mas ou mais"
+  dificuldade: 1
+  enunciado: "\"Ele prometeu, ___ não cumpriu.\" Qual palavra completa?"
+  alternativas:
+    - texto: "mas"
+      certa: true
+    - texto: "mais"
+      erro: "\"Mais\" é o contrário de menos. A frase usa \"porém\"."
+    - texto: "más"
+      erro: "Más é o plural de má."
+  explicacao: "O teste: troque por porém. Se couber, é mas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mal e mau, mas e mais, a e há\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-mal-e-mau-mas-e-mais-a-e-ha-03
+  tema: "Mau feminino"
+  dificuldade: 2
+  enunciado: "Qual é o feminino de \"mau\", segundo a aula?"
+  alternativas:
+    - texto: "má"
+      certa: true
+    - texto: "mal"
+      erro: "Mal é o contrário de bem."
+    - texto: "mais"
+      erro: "Mais é o contrário de menos."
+  explicacao: "Mau tem feminino e plural: má, maus, más. Exemplo: \"uma má notícia\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Mal e mau, mas e mais, a e há\""
+  revisao:
+    status: em-revisao

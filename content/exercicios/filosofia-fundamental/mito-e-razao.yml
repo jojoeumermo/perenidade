@@ -1,0 +1,69 @@
+# Exercícios da aula "Mito e razão" (Filosofia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fil-mito-01
+  tema: "O que é mito"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, o que é um mito?"
+  alternativas:
+    - texto: "Uma mentira inventada para enganar"
+      erro: "Na aula, mito não é mentira qualquer. É uma narrativa simbólica, ligada à religião e ao imaginário coletivo, que procura explicar por que as coisas são como são."
+    - texto: "Uma narrativa simbólica, ligada à religião e ao imaginário coletivo, que procura explicar a realidade"
+      certa: true
+    - texto: "Uma lei da ciência comprovada em laboratório"
+      erro: "A ciência procura causas na natureza, com observação e prova. O mito explica por meio de histórias, muitas vezes de deuses e heróis."
+  explicacao: "O mito é uma narrativa simbólica, ligada à religião e ao imaginário coletivo, que procura fundamentar a realidade. Muitas vezes tem a forma de uma história fantástica, como os mitos de criação."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Mito e razão\" (fonte da aula: Wikipédia, \"Mito\")"
+  revisao:
+    status: em-revisao
+
+- id: fil-mito-02
+  tema: "Mito ou explicação racional"
+  dificuldade: 2
+  enunciado: "Qual destas explicações é racional, no sentido da aula (busca a causa na própria natureza)?"
+  alternativas:
+    - texto: "\"O trovão é a raiva de um deus.\""
+      erro: "Recorre a um ser sobrenatural. É uma explicação mítica."
+    - texto: "\"O mundo nasceu de um ovo cósmico.\""
+      erro: "É uma cosmogonia, ou seja, um mito sobre a origem do mundo."
+    - texto: "\"O trovão é o som causado pelo raio aquecendo o ar.\""
+      certa: true
+    - texto: "\"As chuvas vêm quando os deuses choram.\""
+      erro: "Também recorre ao sobrenatural. Na explicação racional, a causa é procurada na natureza."
+  explicacao: "Na explicação racional a causa é buscada na natureza, e não em seres sobrenaturais. O raio aquecendo o ar como causa do trovão é assim; as outras são mitos."
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Mito e razão\""
+  revisao:
+    status: em-revisao
+
+- id: fil-mito-03
+  tema: "Tales de Mileto"
+  dificuldade: 2
+  enunciado: "O que Tales de Mileto tem de novo em relação aos mitos de criação?"
+  alternativas:
+    - texto: "Ele achava que os deuses eram mais fortes que a natureza"
+      erro: "É o contrário: ele buscava uma explicação sem recorrer ao sobrenatural."
+    - texto: "Ele provou que a água é a origem de tudo, e por isso acabou com os mitos"
+      erro: "A aula diz que o importante não é se Tales acertou: é que ele buscou a resposta na própria natureza. Os mitos não acabaram, e seus seguidores até discordaram sobre qual seria a substância primordial."
+    - texto: "Ele buscou a origem de todas as coisas na própria natureza, com observação e raciocínio, e apontou a água"
+      certa: true
+  explicacao: "Tales, um dos primeiros pré-socráticos, procurou uma explicação racional, sem o sobrenatural, e apontou a água como origem. O valor está no método (observação e raciocínio), e não em ter acertado a resposta."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Mito e razão\" (fonte da aula: Wikipédia, \"Tales de Mileto\")"
+  revisao:
+    status: em-revisao
+
+- id: fil-mito-04
+  tema: "Mito como ideia social"
+  dificuldade: 3
+  enunciado: "A aula diz que a palavra \"mito\" também é usada para uma ideia que muita gente repete como verdade, mas que esconde a realidade. Qual é o exemplo dado?"
+  alternativas:
+    - texto: "O mito da caverna, de Platão"
+      erro: "A aula não cita esse exemplo. O exemplo dado é o mito da democracia racial."
+    - texto: "O mito da criação do mundo num ovo cósmico"
+      erro: "É um mito de criação (cosmogonia), no primeiro sentido da palavra. O sentido de ideia social falsa é outro: o exemplo da aula é o mito da democracia racial."
+    - texto: "O mito da democracia racial, a ideia de que no Brasil não haveria racismo"
+      certa: true
+  explicacao: "O mito da democracia racial é a ideia, repetida por muitos, de que no Brasil não haveria racismo. Chama-se mito porque é uma ideia social que esconde a realidade."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Mito e razão\""
+  revisao:
+    status: em-revisao

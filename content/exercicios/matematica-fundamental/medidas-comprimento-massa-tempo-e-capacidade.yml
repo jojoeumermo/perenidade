@@ -1,0 +1,73 @@
+# Exercícios da aula "Medidas de comprimento, massa, tempo e capacidade" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-med-01
+  tipo: numero
+  tema: "Quilômetros em metros"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma caminhada tem 3,5 km. Quantos metros são?"
+  resposta: "3500"
+  unidade: "metros"
+  erros_comuns:
+    - resposta: "35"
+      explicacao: "Você multiplicou por 10. De quilômetro para metro, multiplica-se por 1.000."
+    - resposta: "0,0035"
+      explicacao: "Você dividiu por 1.000. Passando de uma unidade maior (km) para uma menor (m), multiplica-se."
+  dica: "1 km tem 1.000 m. Passando para a unidade menor, multiplique."
+  explicacao: "3,5 × 1.000 = 3.500 metros."
+  conferir: "3.5 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-med-02
+  tipo: numero
+  tema: "Miligramas em gramas"
+  dificuldade: 2
+  enunciado: "Uma bula manda tomar 12 comprimidos de 500 mg ao longo de um tratamento. Quantos gramas do remédio dá no total?"
+  resposta: "6"
+  unidade: "gramas"
+  erros_comuns:
+    - resposta: "6000"
+      explicacao: "6.000 está em miligramas. A pergunta pede em gramas: divida por 1.000."
+  dica: "Primeiro ache o total em miligramas e depois passe para gramas (1 g = 1.000 mg)."
+  explicacao: "12 × 500 = 6.000 mg. Como 1 g = 1.000 mg, 6.000 ÷ 1.000 = 6 gramas."
+  conferir: "12 * 500 / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-med-03
+  tipo: numero
+  tema: "Arroba"
+  dificuldade: 2
+  enunciado: "No campo, o gado se pesa em arrobas, e cada arroba vale 15 kg. Quantos quilos tem um boi de 20 arrobas?"
+  resposta: "300"
+  unidade: "kg"
+  erros_comuns:
+    - resposta: "35"
+      explicacao: "Você somou 20 + 15. Arroba é uma unidade de massa: cada uma vale 15 kg, então multiplique."
+  dica: "Quantas vezes 15 kg cabem no boi?"
+  explicacao: "20 × 15 = 300 kg."
+  conferir: "20 * 15"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-med-04
+  tipo: numero
+  tema: "Horas e minutos"
+  dificuldade: 3
+  enunciado: "Uma pessoa trabalhou das 7h45 às 16h30, com 1 hora de almoço sem trabalhar. Quantos minutos trabalhou?"
+  resposta: "465"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "525"
+      explicacao: "525 minutos é o tempo de portão a portão, sem tirar o almoço. Desconte os 60 minutos de almoço."
+  dica: "Passe tudo para minutos antes de subtrair."
+  explicacao: "16h30 são 16 × 60 + 30 = 990 minutos e 7h45 são 7 × 60 + 45 = 465 minutos. De 7h45 às 16h30: 990 − 465 = 525 minutos. Tirando 60 de almoço: 465 minutos (7h45 de trabalho)."
+  conferir: "(16*60+30) - (7*60+45) - 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

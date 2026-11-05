@@ -1,0 +1,50 @@
+# Exercícios da aula "Formar novas lideranças" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-formar-novas-liderancas-01
+  tema: "Ensinar fazendo junto"
+  dificuldade: 1
+  enunciado: "Qual é o primeiro passo para ensinar uma nova liderança, segundo a aula?"
+  alternativas:
+    - texto: "Dar a tarefa mais difícil"
+      erro: "A aula manda começar pequeno."
+    - texto: "Dar uma tarefa do tamanho certo, como ler os informes, controlar o tempo ou anotar os encaminhamentos"
+      certa: true
+    - texto: "Esperar que aprenda sozinha"
+      erro: "A aula diz que se aprende fazendo, de preferência junto com quem já faz."
+  explicacao: "Depois vêm a dupla, o retorno (começando pelo que foi bem), o rodízio e o estudo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Formar novas lideranças\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-formar-novas-liderancas-02
+  tema: "Quem pode assumir"
+  dificuldade: 2
+  enunciado: "Segundo a aula, quem costuma dar sinais de que pode assumir uma liderança?"
+  alternativas:
+    - texto: "Só quem fala mais alto nas reuniões"
+      erro: "A aula diz que muitas vezes são pessoas que falam pouco nas reuniões, mas fazem muito fora delas."
+    - texto: "Quem pergunta, quem se oferece para uma tarefa, quem traz outras pessoas e quem reclama com razão"
+      certa: true
+    - texto: "Só quem está há mais tempo no grupo"
+      erro: "A aula pede olhar também para jovens, mulheres e quem chegou há pouco."
+  explicacao: "Olhe para quem fala pouco, mas faz muito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Formar novas lideranças\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-formar-novas-liderancas-03
+  tema: "Educação bancária"
+  dificuldade: 2
+  enunciado: "Para Paulo Freire, aprender não é o quê, segundo a aula?"
+  alternativas:
+    - texto: "Encher alguém de conteúdo, como quem deposita dinheiro num banco"
+      certa: true
+    - texto: "Dialogar sobre a própria realidade"
+      erro: "Isso é o que Freire defende: aprender é diálogo."
+    - texto: "Participar da escolha do que será discutido"
+      erro: "É o que Freire propõe como forma de aprender."
+  explicacao: "Os círculos de cultura de Freire eram lugares em que o diálogo e a alfabetização aconteciam juntos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Formar novas lideranças\""
+  revisao:
+    status: em-revisao

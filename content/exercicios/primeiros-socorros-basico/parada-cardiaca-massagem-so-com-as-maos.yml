@@ -1,0 +1,50 @@
+# Exercícios da aula "Parada cardíaca: a massagem só com as mãos" (primeiros-socorros-basico). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: primeiros-socorros-bas-parada-cardiaca-massagem-so-com-as-maos-01
+  tema: "Ritmo"
+  dificuldade: 2
+  enunciado: "Qual é o ritmo da massagem cardíaca em adulto, segundo a aula?"
+  alternativas:
+    - texto: "De 20 a 40 vezes por minuto"
+      erro: "É lento demais. O ritmo é de 100 a 120 vezes por minuto."
+    - texto: "De 100 a 120 vezes por minuto"
+      certa: true
+    - texto: "De 200 a 300 vezes por minuto"
+      erro: "É rápido demais."
+  explicacao: "O peito deve afundar de 5 a 6 centímetros. Deixe o peito voltar todo depois de cada compressão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Parada cardíaca: a massagem só com as mãos\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-parada-cardiaca-massagem-so-com-as-maos-02
+  tema: "Para que serve"
+  dificuldade: 2
+  enunciado: "O que a massagem cardíaca faz pelo corpo, segundo a aula?"
+  alternativas:
+    - texto: "Faz o coração voltar a bater sozinho na hora"
+      erro: "A aula diz que ela não \"faz o coração voltar\"."
+    - texto: "Faz o trabalho do coração, empurrando sangue para o cérebro e ganhando tempo até o desfibrilador e a equipe chegarem"
+      certa: true
+    - texto: "Serve só para tirar um objeto da garganta"
+      erro: "Isso é a manobra do engasgo."
+  explicacao: "Cada compressão empurra um pouco de sangue para o cérebro. Sem sangue circulando, o cérebro fica sem oxigênio."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Parada cardíaca: a massagem só com as mãos\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-parada-cardiaca-massagem-so-com-as-maos-03
+  tema: "Primeiros passos"
+  dificuldade: 1
+  enunciado: "Pessoa caída, que não responde e não respira. O que fazer logo depois de ver se o lugar é seguro e checar a respiração?"
+  alternativas:
+    - texto: "Ligar 192 (ou mandar alguém ligar) com o celular no viva-voz e pedir que alguém procure um DEA"
+      certa: true
+    - texto: "Esperar a pessoa acordar sozinha"
+      erro: "Cada segundo conta. Ligue 192 e comece a massagem."
+    - texto: "Ir embora sem avisar ninguém"
+      erro: "Cada segundo conta. Ninguém deve ficar sem socorro: ligue 192 ou peça que alguém ligue."
+  explicacao: "Ponha uma mão sobre a outra no centro do peito, use o peso do corpo e, se houver mais gente, troquem a cada dois minutos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Parada cardíaca: a massagem só com as mãos\""
+  revisao:
+    status: em-revisao

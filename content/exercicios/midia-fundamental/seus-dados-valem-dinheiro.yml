@@ -1,0 +1,50 @@
+# Exercícios da aula "Seus dados valem dinheiro" (midia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: midia-fundamental-seus-dados-valem-dinheiro-01
+  tema: "A lei dos dados"
+  dificuldade: 1
+  enunciado: "Qual é a lei brasileira que estabelece regras para o uso dos dados pessoais e foi criada em 2018?"
+  alternativas:
+    - texto: "A Lei do Consumidor"
+      erro: "O CDC é de 1990 e trata da relação de consumo. A lei dos dados é a LGPD."
+    - texto: "A LGPD, Lei nº 13.709/2018"
+      certa: true
+    - texto: "A Lei do Lixo"
+      erro: "A Lei 12.305/2010 trata de resíduos sólidos. A dos dados pessoais é a LGPD, Lei 13.709/2018."
+  explicacao: "A LGPD entrou em vigor em 2020 e é fiscalizada pela Autoridade Nacional de Proteção de Dados (ANPD)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Seus dados valem dinheiro\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-seus-dados-valem-dinheiro-02
+  tema: "Dado sensível"
+  dificuldade: 2
+  enunciado: "Qual destes dados a LGPD trata como dado pessoal sensível, que merece mais proteção?"
+  alternativas:
+    - texto: "O nome da rua onde mora"
+      erro: "O endereço é dado pessoal, mas sensível é, por exemplo, origem racial, religião, opinião política ou filiação a sindicato."
+    - texto: "A opinião política ou a filiação a sindicato"
+      certa: true
+    - texto: "A cor do carro"
+      erro: "A cor do carro não identifica por si só e não está entre os dados sensíveis citados."
+  explicacao: "Dados sobre origem racial ou étnica, religião, opinião política, filiação a sindicato e outros merecem mais proteção."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Seus dados valem dinheiro\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-seus-dados-valem-dinheiro-03
+  tema: "Corrigir dado"
+  dificuldade: 1
+  enunciado: "Uma loja guardou seu endereço antigo e manda cobranças para lá. Qual direito do artigo 18 da LGPD você usa?"
+  alternativas:
+    - texto: "O direito de corrigir dados incompletos, errados ou desatualizados"
+      certa: true
+    - texto: "O direito de receber o dinheiro de volta"
+      erro: "O artigo 18 trata de direitos sobre os dados, não de reembolso."
+    - texto: "Nenhum, a loja pode manter o endereço antigo"
+      erro: "O titular pode pedir à loja que corrija o dado desatualizado."
+  explicacao: "O artigo 18 garante também confirmar o uso dos dados, acessá-los, pedir eliminação, saber com quem foram compartilhados e revogar o consentimento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Seus dados valem dinheiro\""
+  revisao:
+    status: em-revisao

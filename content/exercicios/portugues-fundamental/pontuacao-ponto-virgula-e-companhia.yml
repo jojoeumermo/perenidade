@@ -1,0 +1,50 @@
+# Exercícios da aula "Pontuação: ponto, vírgula e companhia" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-pontuacao-ponto-virgula-e-companhia-01
+  tema: "Vírgula"
+  dificuldade: 1
+  enunciado: "Segundo a aula, a vírgula marca o quê?"
+  alternativas:
+    - texto: "Onde se respira"
+      erro: "A aula diz o contrário."
+    - texto: "A organização da frase"
+      certa: true
+    - texto: "Onde a voz sobe"
+      erro: "A vírgula marca a organização da frase."
+  explicacao: "Há pausas na fala sem vírgula na escrita, e vírgulas na escrita sem pausa na fala."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pontuação: ponto, vírgula e companhia\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-pontuacao-ponto-virgula-e-companhia-02
+  tema: "Vocativo"
+  dificuldade: 2
+  enunciado: "Qual frase isola o chamamento (vocativo) com vírgula corretamente?"
+  alternativas:
+    - texto: "Maria venha cá."
+      erro: "Falta a vírgula depois do chamamento."
+    - texto: "Maria, venha cá."
+      certa: true
+    - texto: "Maria venha, cá."
+      erro: "A vírgula está no lugar errado."
+  explicacao: "Também: \"Companheiros, a assembleia vai começar.\""
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pontuação: ponto, vírgula e companhia\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-pontuacao-ponto-virgula-e-companhia-03
+  tema: "Na dúvida"
+  dificuldade: 1
+  enunciado: "Qual é a regra de estilo mais útil da aula na dúvida?"
+  alternativas:
+    - texto: "Na dúvida, ponto: frases curtas raramente dão errado"
+      certa: true
+    - texto: "Na dúvida, vírgula"
+      erro: "A aula diz \"na dúvida, ponto\"."
+    - texto: "Na dúvida, reticências"
+      erro: "Não é a regra da aula."
+  explicacao: "Um período de cinco linhas, cheio de vírgulas, quase sempre pode virar três frases claras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pontuação: ponto, vírgula e companhia\""
+  revisao:
+    status: em-revisao

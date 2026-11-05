@@ -1,0 +1,50 @@
+# Exercícios da aula "Bilhete, e-mail e requerimento: como escrever" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-bilhete-e-mail-e-requerimento-como-escre-01
+  tema: "Partes do bilhete"
+  dificuldade: 1
+  enunciado: "Qual destas é uma das quatro partes do bilhete, segundo a aula?"
+  alternativas:
+    - texto: "Para quem é, o recado direto, a despedida com o nome de quem escreve e a data ou hora, se fizer diferença"
+      certa: true
+    - texto: "Um parágrafo longo de introdução"
+      erro: "O bilhete é um recado curto."
+    - texto: "A assinatura do juiz"
+      erro: "Não é uma parte do bilhete."
+  explicacao: "O recado responde ao que a pessoa vai querer saber: o que aconteceu, o que fazer e quando."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Bilhete, e-mail e requerimento: como escrever\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-bilhete-e-mail-e-requerimento-como-escre-02
+  tema: "Assunto do e-mail"
+  dificuldade: 2
+  enunciado: "Qual destes é um bom assunto de e-mail, segundo a aula?"
+  alternativas:
+    - texto: "\"Urgente\""
+      erro: "A aula dá este como exemplo ruim."
+    - texto: "\"Pedido de segunda via do boleto de outubro\""
+      certa: true
+    - texto: "\"Oi\""
+      erro: "A aula dá este como exemplo ruim."
+  explicacao: "O assunto é a parte mais importante, porque decide se a mensagem será aberta. Resuma o conteúdo em poucas palavras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Bilhete, e-mail e requerimento: como escrever\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-bilhete-e-mail-e-requerimento-como-escre-03
+  tema: "Três perguntas"
+  dificuldade: 1
+  enunciado: "Antes de escrever, quais três perguntas a aula manda fazer?"
+  alternativas:
+    - texto: "Para quem escrevo? O que quero dessa pessoa? Como ela vai ler?"
+      certa: true
+    - texto: "Qual é o tamanho da folha? Que caneta uso? Que horas são?"
+      erro: "Não são as perguntas da aula."
+    - texto: "Quanto vou ganhar? Quem vai me pagar? Quando acaba?"
+      erro: "Não são as perguntas da aula."
+  explicacao: "O grau de formalidade muda, mas a clareza não muda."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Bilhete, e-mail e requerimento: como escrever\""
+  revisao:
+    status: em-revisao

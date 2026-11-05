@@ -1,0 +1,52 @@
+# Exercícios da aula "Fui demitido: o roteiro dos primeiros dias" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-fui-demitido-o-roteiro-dos-primeiros-dia-01
+  tema: "Antes de assinar"
+  dificuldade: 1
+  enunciado: "Qual é a regra de ouro ao ser demitido, segundo a aula?"
+  alternativas:
+    - texto: "Não assinar nada sem ler e nunca assinar papel em branco"
+      certa: true
+    - texto: "Assinar logo para receber rápido"
+      erro: "A aula manda parar e perguntar o que muda no bolso."
+    - texto: "Assinar só o que o chefe pedir"
+      erro: "Leia tudo e peça cópia."
+  explicacao: "Peça uma cópia de tudo. Se a empresa falar em \"acordo\" ou \"pedido de demissão\", pergunte o que muda."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Fui demitido: o roteiro dos primeiros dias\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-fui-demitido-o-roteiro-dos-primeiros-dia-02
+  tema: "Aviso prévio"
+  dificuldade: 3
+  enunciado: "O aviso prévio é de 30 dias, mais 3 dias por ano completo de trabalho na mesma empresa, até 90 dias (Lei 12.506/2011). Quantos dias de aviso tem quem trabalhou 5 anos completos?"
+  alternativas:
+    - texto: "33 dias"
+      erro: "Aí você contou só um ano. Multiplique 3 por 5."
+    - texto: "35 dias"
+      erro: "Aí você somou 30 com 5. São 3 dias por ano: 3 × 5."
+    - texto: "45 dias"
+      certa: true
+      valor: "45"
+  explicacao: "30 + 3 × 5 = 45 dias."
+  conferir: "30 + 3 * 5"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Fui demitido: o roteiro dos primeiros dias\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-fui-demitido-o-roteiro-dos-primeiros-dia-03
+  tema: "Pedido de demissão"
+  dificuldade: 2
+  enunciado: "Quem pede demissão por vontade própria tem direito a quê?"
+  alternativas:
+    - texto: "Saldo de salário, férias e 13º proporcionais; não saca o FGTS e não tem seguro-desemprego"
+      certa: true
+    - texto: "Multa de 40% do FGTS e seguro-desemprego"
+      erro: "Isso é da demissão sem justa causa."
+    - texto: "Saque de 80% do FGTS"
+      erro: "Isso é do acordo entre as partes."
+  explicacao: "No acordo (art. 484-A da CLT): metade do aviso, multa de 20% e saque de até 80% do FGTS, sem seguro-desemprego."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Fui demitido: o roteiro dos primeiros dias\""
+  revisao:
+    status: em-revisao

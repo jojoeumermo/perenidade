@@ -1,0 +1,71 @@
+# Exercícios da aula "O que é filosofia" (Filosofia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fil-filosofia-01
+  tema: "A palavra filosofia"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer a palavra \"filosofia\", que vem do grego?"
+  alternativas:
+    - texto: "Amor à sabedoria"
+      certa: true
+    - texto: "Estudo das estrelas"
+      erro: "Estudar as estrelas é a astronomia. Em filosofia, philo quer dizer amor ou amizade, e sophia quer dizer sabedoria."
+    - texto: "Medo do desconhecido"
+      erro: "Pelo contrário: filosofia nasce da vontade de perguntar e de buscar a sabedoria, não do medo. Lembre: philo = amor, sophia = sabedoria."
+    - texto: "Arte de convencer os outros"
+      erro: "Convencer é papel da retórica. A filosofia busca a sabedoria por meio de perguntas e de argumentos."
+  explicacao: "Philo quer dizer amor ou amizade, e sophia quer dizer sabedoria. Filosofia é, então, \"amor à sabedoria\"."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é filosofia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-filosofia-02
+  tema: "Perguntas filosóficas"
+  dificuldade: 1
+  enunciado: "Qual destas é uma pergunta filosófica, do tipo que a aula chama de fundamental?"
+  alternativas:
+    - texto: "Quanto custa o gás de cozinha esta semana?"
+      erro: "É uma pergunta importante para o bolso, mas tem resposta de consulta: basta olhar o preço. Pergunta filosófica vai ao fundamento, como \"o que é justo?\" ou \"o que é verdade?\"."
+    - texto: "O que faz uma ação ser justa ou injusta?"
+      certa: true
+    - texto: "Que horas o ônibus passa?"
+      erro: "É uma pergunta prática, que se responde olhando o horário. A filosofia pergunta sobre questões fundamentais: existência, conhecimento, verdade e valores."
+  explicacao: "A filosofia trata de perguntas fundamentais, como as sobre a verdade, o conhecimento e os valores (o que é certo, o que é justo). Perguntar o que torna uma ação justa ou injusta é uma dessas perguntas."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é filosofia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-filosofia-03
+  tema: "Como a filosofia trabalha"
+  dificuldade: 2
+  enunciado: "Um colega responde a uma pergunta difícil dizendo: \"É assim porque sempre foi assim.\" O que a filosofia faz diante dessa resposta?"
+  alternativas:
+    - texto: "Aceita, porque o costume é uma prova"
+      erro: "A filosofia não aceita uma resposta só porque \"sempre foi assim\". O costume pode estar certo ou errado, e só se descobre examinando as razões."
+    - texto: "Decide a questão por sorteio"
+      erro: "Sorteio não é argumento. Os procedimentos da filosofia são o questionamento, a discussão crítica e o argumento racional."
+    - texto: "Pede razões: questiona, discute com crítica e busca argumentos"
+      certa: true
+  explicacao: "A filosofia trabalha com questionamento, discussão crítica, argumento racional e apresentação organizada das ideias. Uma resposta só vale pelas razões que a sustentam, e não por ser antiga ou repetida."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é filosofia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-filosofia-04
+  tema: "Onde a filosofia começou"
+  dificuldade: 2
+  enunciado: "Segundo a aula, onde e quando começou a filosofia ocidental, com os chamados pré-socráticos, como Tales e Pitágoras?"
+  alternativas:
+    - texto: "Em Roma, no século I d.C."
+      erro: "Os romanos receberam muito da filosofia grega, mas ela começou antes e na Grécia. Os pré-socráticos viveram por volta do século VI a.C."
+    - texto: "Na Grécia Antiga, no século VI a.C."
+      certa: true
+    - texto: "Na Europa, no século XX"
+      erro: "No século XX houve grandes filósofos, mas a filosofia ocidental é bem mais antiga: começa na Grécia, no século VI a.C."
+    - texto: "No Brasil, com os povos indígenas"
+      erro: "Os povos indígenas, assim como povos da África e da Ásia, têm formas próprias de pensar as perguntas fundamentais, e a aula diz que a filosofia não é só grega. Mas a filosofia ocidental, com os pré-socráticos, começou na Grécia."
+  explicacao: "A filosofia ocidental começou na Grécia Antiga, no século VI a.C., com os pré-socráticos. Isso não quer dizer que só os gregos filosofaram: outros povos, na África, na Ásia e nas Américas, também desenvolveram suas formas de pensar."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é filosofia\" (fonte da aula: Wikipédia, \"Filosofia\")"
+  revisao:
+    status: em-revisao

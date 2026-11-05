@@ -1,0 +1,67 @@
+# Exercícios da aula "Golpes contra idosos e como cuidar" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-ido-01
+  tema: "Falso parente"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Seu avô recebeu uma mensagem 'do neto', de número novo, pedindo Pix. Qual é o primeiro passo?"
+  alternativas:
+    - texto: "Ligar para o neto no número que o avô já conhece e só depois decidir"
+      certa: true
+    - texto: "Fazer o Pix, o neto deve estar precisando"
+      erro: "A urgência é a isca do falso parente. Primeiro confira por ligação."
+    - texto: "Responder pedindo mais detalhes"
+      erro: "Os detalhes podem ser inventados. Confirme falando com o neto pelo número antigo."
+  explicacao: "No golpe do falso parente, confirmar por ligação para o número antigo desmonta a mentira."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-ido-02
+  tema: "Falso INSS"
+  dificuldade: 2
+  enunciado: "Alguém promete liberar 'dinheiro esquecido' do INSS mediante uma taxa. O que fazer?"
+  alternativas:
+    - texto: "Não pagar: o benefício se consulta no Meu INSS ou pelo 135, sem pagar para ninguém"
+      certa: true
+    - texto: "Pagar a taxa, porque o dinheiro é maior"
+      erro: "Quem cobra taxa para liberar benefício é golpista. O valor prometido é a isca."
+    - texto: "Passar a senha do Meu INSS para ele consultar"
+      erro: "Senha não se passa a ninguém. Consulte você mesmo, sem pagar."
+  explicacao: "Benefício se consulta no Meu INSS ou no telefone 135, sem pagar para ninguém."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-ido-03
+  tema: "O que a lei diz"
+  dificuldade: 2
+  enunciado: "Segundo o Estatuto da Pessoa Idosa, apropriar-se ou desviar o benefício, pensão ou rendimento de uma pessoa idosa é:"
+  alternativas:
+    - texto: "Crime, previsto na lei"
+      certa: true
+    - texto: "Permitido, se for parente"
+      erro: "Parente também comete crime se desviar o dinheiro da pessoa idosa. A lei não abre exceção para a família."
+    - texto: "Só falta de educação"
+      erro: "Não é só falta de educação: é crime previsto na Lei 10.741/2003."
+  explicacao: "A Lei 10.741/2003 trata como crime apropriar-se de ou desviar bens, proventos, pensão ou rendimento da pessoa idosa. Casos de abuso podem ser denunciados."
+  fonte: "Estatuto da Pessoa Idosa (Lei 10.741/2003), art. 102"
+  revisao:
+    status: em-revisao
+
+- id: gp-ido-04
+  tema: "Cuidar sem controlar"
+  dificuldade: 3
+  enunciado: "Qual é a melhor forma de cuidar do dinheiro de uma pessoa idosa da família?"
+  alternativas:
+    - texto: "Combinar regras simples junto com ela, como 'dinheiro por mensagem, só depois de ligar', e revisar o Meu INSS em conjunto"
+      certa: true
+    - texto: "Ficar com o cartão e a senha dela"
+      erro: "Tirar o cartão e a senha tira a autonomia e pode virar abuso. Combine junto."
+    - texto: "Dizer que ela não entende de celular"
+      erro: "Humilhar faz a pessoa esconder o próximo golpe. O objetivo é cuidar junto."
+  explicacao: "Cuidar junto, com respeito: escolher limite de Pix mais baixo, alertas se a pessoa quiser e conversar sem humilhar quem caiu."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

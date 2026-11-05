@@ -1,0 +1,50 @@
+# Exercícios da aula "Quantos povos, quantas línguas" (os-primeiros-povos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: os-primeiros-povos-quantos-povos-quantas-linguas-01
+  tema: "Os números de 2022"
+  dificuldade: 1
+  enunciado: "No Censo do IBGE de 2022, quantas etnias e quantas línguas indígenas foram registradas?"
+  alternativas:
+    - texto: "305 povos e 274 línguas"
+      erro: "Esses são os números do Censo de 2010."
+    - texto: "391 etnias e 295 línguas"
+      certa: true
+    - texto: "1.300 línguas"
+      erro: "Esse é o número estimado de línguas antes da chegada de Cabral."
+  explicacao: "Parte da diferença para 2010 vem de mudança de método: algumas etnias foram desmembradas e novos nomes de povos foram reconhecidos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quantos povos, quantas línguas\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-quantos-povos-quantas-linguas-02
+  tema: "Línguas sobreviventes"
+  dificuldade: 2
+  enunciado: "Eram cerca de 1.300 línguas antes de 1500; o Censo de 2022 registrou 295. Qual é, aproximadamente, a parte que sobreviveu?"
+  alternativas:
+    - texto: "Cerca de 77%"
+      erro: "Esse é o contrário: 77% foram perdidas. A que sobreviveu é cerca de 23%."
+    - texto: "Cerca de 23%"
+      certa: true
+    - texto: "Cerca de 50%"
+      erro: "Está acima. 295 ÷ 1.300 dá cerca de 0,23."
+  explicacao: "295 ÷ 1.300 é cerca de 0,23, ou 23%. Muitas das línguas que restam estão em rápido declínio."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quantos povos, quantas línguas\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-quantos-povos-quantas-linguas-03
+  tema: "Nomes dos povos"
+  dificuldade: 2
+  enunciado: "Por que a aula diz que conhecer o nome que cada povo dá a si mesmo é uma forma de respeito?"
+  alternativas:
+    - texto: "Porque o nome mais conhecido muitas vezes foi dado por europeus ou povos inimigos, às vezes de forma ofensiva"
+      certa: true
+    - texto: "Porque os povos não têm nomes"
+      erro: "Cada povo tem a sua língua, a sua história e o seu nome."
+    - texto: "Porque todos os povos se chamam \"índios\""
+      erro: "A aula critica a palavra \"índio\" por juntar todos numa coisa só."
+  explicacao: "O caso dos caiapós: o nome lhes foi dado por povos tupis e quer dizer \"semelhante a macaco\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quantos povos, quantas línguas\""
+  revisao:
+    status: em-revisao

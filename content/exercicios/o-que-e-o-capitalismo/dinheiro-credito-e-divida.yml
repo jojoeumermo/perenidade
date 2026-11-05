@@ -1,0 +1,52 @@
+# Exercícios da aula "Dinheiro, crédito e dívida" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-dinheiro-credito-e-divida-01
+  tema: "Funções do dinheiro"
+  dificuldade: 1
+  enunciado: "Qual destas é uma das quatro funções do dinheiro descritas por Marx na aula?"
+  alternativas:
+    - texto: "Medir o valor"
+      certa: true
+    - texto: "Produzir mercadorias sozinho"
+      erro: "O dinheiro não produz mercadorias. Mede o valor, faz circular, guarda valor e paga dívidas."
+    - texto: "Substituir o trabalho humano"
+      erro: "Essa não é uma das funções listadas."
+  explicacao: "Dinheiro mede o valor, faz as mercadorias circularem, guarda valor e paga dívidas. Dessa última função nasce o crédito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Dinheiro, crédito e dívida\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-dinheiro-credito-e-divida-02
+  tema: "Juros compostos"
+  dificuldade: 2
+  enunciado: "Uma dívida de R$ 1.000 a 10% ao mês, sem pagar nada. Quanto ela vale ao fim do 3º mês, pelos juros compostos?"
+  alternativas:
+    - texto: "R$ 1.300"
+      erro: "Isso seria juro simples (10% de 1.000 por três meses). No composto, os juros também rendem juros."
+    - texto: "R$ 1.331"
+      certa: true
+      valor: "1331"
+    - texto: "R$ 1.100"
+      erro: "Esse é o valor ao fim do 1º mês. Continue: 1.100 + 110, depois 1.210 + 121."
+  explicacao: "1.000 → 1.100 → 1.210 → 1.331. Os juros se acumulam sobre os próprios juros: é por isso que dívida de cartão e de cheque especial vira bola de neve."
+  conferir: "1000 * 1.1 ^ 3"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Dinheiro, crédito e dívida\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-dinheiro-credito-e-divida-03
+  tema: "Crédito da família"
+  dificuldade: 2
+  enunciado: "Qual é a diferença, segundo a aula, entre o crédito da empresa e o da família trabalhadora?"
+  alternativas:
+    - texto: "A empresa pega para produzir e lucrar; a família pega para viver, e os juros saem do salário"
+      certa: true
+    - texto: "Nenhuma, é igual para as duas"
+      erro: "A aula mostra diferença: a família toma crédito para viver, e não para lucrar."
+    - texto: "A família sempre ganha com o crédito"
+      erro: "A aula diz que os juros saem do salário, uma segunda exploração."
+  explicacao: "Para Marx, o juro é uma fatia da mais-valia. Para a família, o juro é uma nova retirada do salário."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Dinheiro, crédito e dívida\""
+  revisao:
+    status: em-revisao

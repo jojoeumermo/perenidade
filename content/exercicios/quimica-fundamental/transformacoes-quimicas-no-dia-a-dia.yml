@@ -1,0 +1,50 @@
+# Exercícios da aula "Transformações químicas no dia a dia" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-transformacoes-quimicas-no-dia-a-dia-01
+  tema: "Física ou química"
+  dificuldade: 1
+  enunciado: "Qual destas é uma transformação química?"
+  alternativas:
+    - texto: "Queimar papel"
+      certa: true
+    - texto: "Rasgar papel"
+      erro: "Rasgar papel é transformação física."
+    - texto: "Derreter gelo"
+      erro: "Derreter gelo é transformação física."
+  explicacao: "Na transformação química surgem substâncias novas, com outras propriedades."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Transformações químicas no dia a dia\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-transformacoes-quimicas-no-dia-a-dia-02
+  tema: "Sinais"
+  dificuldade: 2
+  enunciado: "Por que a aula diz que a água fervendo, mesmo com bolhas, não é uma reação?"
+  alternativas:
+    - texto: "Porque nenhum sinal sozinho é prova: as bolhas da água fervendo são só mudança de estado"
+      certa: true
+    - texto: "Porque a água não faz bolhas"
+      erro: "A água faz bolhas, mas isso é mudança de estado."
+    - texto: "Porque toda bolha é reação"
+      erro: "A aula diz que nenhum sinal sozinho é prova."
+  explicacao: "Sinais de reação: mudança de cor, gás, luz ou calor, mudança de cheiro ou sabor, formação de sólido."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Transformações químicas no dia a dia\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-transformacoes-quimicas-no-dia-a-dia-03
+  tema: "Átomos"
+  dificuldade: 2
+  enunciado: "O que acontece com os átomos numa reação química, segundo a aula?"
+  alternativas:
+    - texto: "Não somem nem aparecem: as ligações se desfazem e eles se rearranjam"
+      certa: true
+    - texto: "Somem e viram energia"
+      erro: "A aula diz que não somem."
+    - texto: "Aparecem do nada"
+      erro: "Não aparecem."
+  explicacao: "Reagentes são as substâncias do começo; produtos, as do fim."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Transformações químicas no dia a dia\""
+  revisao:
+    status: em-revisao

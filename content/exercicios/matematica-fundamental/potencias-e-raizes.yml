@@ -1,0 +1,84 @@
+# Exercícios da aula "Potências e raízes" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-pot-01
+  tipo: numero
+  tema: "Calcular uma potência"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quanto é 2⁶?"
+  resposta: "64"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "12 é 2 × 6. Potência é multiplicação repetida: 2 × 2 × 2 × 2 × 2 × 2."
+  dica: "O expoente diz quantas vezes a base aparece na multiplicação."
+  explicacao: "2⁶ = 2 × 2 × 2 × 2 × 2 × 2 = 64."
+  conferir: "2^6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-pot-02
+  tema: "Mesma base, multiplicação"
+  dificuldade: 2
+  enunciado: "Quanto é 10³ × 10⁴?"
+  alternativas:
+    - texto: "10⁷"
+      certa: true
+    - texto: "10¹²"
+      erro: "Você multiplicou os expoentes (3 × 4). Na multiplicação de potências de mesma base, somam-se os expoentes."
+    - texto: "100⁷"
+      erro: "Os expoentes foram somados certo, mas a base não muda: continua 10, e não 100."
+  explicacao: "Mesma base, multiplicação: somam-se os expoentes. 10³ × 10⁴ = 10³⁺⁴ = 10⁷, ou seja, 10 milhões."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-pot-03
+  tema: "Cuidado com o sinal"
+  dificuldade: 2
+  enunciado: "Quanto é −4² (sem parênteses)?"
+  alternativas:
+    - texto: "−16"
+      certa: true
+    - texto: "16"
+      erro: "Isso valeria para (−4)², com parênteses. Sem parênteses, o expoente atinge só o 4: 4² = 16, e o sinal de menos fica na frente."
+    - texto: "−8"
+      erro: "Você multiplicou 4 por 2. O expoente 2 manda multiplicar o 4 por ele mesmo: 4 × 4 = 16."
+  explicacao: "Sem parênteses, o quadrado vale só para o 4: 4² = 16. O menos fica na frente: −16."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-pot-04
+  tipo: numero
+  tema: "Crescimento que triplica"
+  dificuldade: 3
+  enunciado: "Uma mensagem é repassada: cada pessoa que a recebe manda para 3 outras. Se uma pessoa começa mandando, quantas pessoas recebem a mensagem no 4º repasse (só as desse repasse)?"
+  resposta: "81"
+  unidade: "pessoas"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "12 é 3 × 4. O crescimento é de potência: a cada repasse, multiplica-se por 3 de novo."
+  dica: "No 1º repasse são 3; no 2º, 3 × 3; e assim por diante."
+  explicacao: "1º repasse: 3. 2º: 9. 3º: 27. 4º: 81, que é 3⁴."
+  conferir: "3^4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-pot-05
+  tipo: numero
+  tema: "Raiz quadrada"
+  dificuldade: 1
+  enunciado: "Quanto é a raiz quadrada de 81?"
+  resposta: "9"
+  erros_comuns:
+    - resposta: "40,5"
+      explicacao: "40,5 é 81 ÷ 2. A raiz quadrada é o número que, multiplicado por ele mesmo, dá 81."
+  dica: "Qual número vezes ele mesmo dá 81?"
+  explicacao: "9 × 9 = 81, então a raiz quadrada de 81 é 9."
+  conferir: "81 / 9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Ferramentas do refrigerista: manifold, vácuo e recolhedora" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-ferramentas-do-refrigerista-manifold-vac-01
+  tema: "Alicate amperímetro"
+  dificuldade: 1
+  enunciado: "Qual é a ferramenta que mais se usa e mede a corrente do compressor e dos ventiladores?"
+  alternativas:
+    - texto: "O alicate amperímetro"
+      certa: true
+    - texto: "A bomba de vácuo"
+      erro: "A bomba de vácuo retira ar e umidade da tubulação."
+    - texto: "A balança"
+      erro: "A balança pesa a carga de gás."
+  explicacao: "Também mede tensão e continuidade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas do refrigerista: manifold, vácuo e recolhedora\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-ferramentas-do-refrigerista-manifold-vac-02
+  tema: "Bomba de vácuo"
+  dificuldade: 2
+  enunciado: "Para que serve a bomba de vácuo?"
+  alternativas:
+    - texto: "Retirar ar e umidade da tubulação antes de pôr o gás"
+      certa: true
+    - texto: "Medir a temperatura do ar"
+      erro: "Isso é o termômetro."
+    - texto: "Recolher o gás do sistema"
+      erro: "Isso é a recolhedora."
+  explicacao: "O manifold com manômetros mostra as pressões do lado de baixa e de alta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas do refrigerista: manifold, vácuo e recolhedora\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-ferramentas-do-refrigerista-manifold-vac-03
+  tema: "Por que formação"
+  dificuldade: 2
+  enunciado: "Por que abrir o sistema, recolher ou carregar gás é serviço de quem tem formação?"
+  alternativas:
+    - texto: "O gás fica sob pressão, pode queimar pele e olhos pelo frio, alguns são inflamáveis e outros fazem mal ao clima"
+      certa: true
+    - texto: "Porque é caro comprar o gás"
+      erro: "A aula aponta riscos à segurança e ao clima."
+    - texto: "Porque ninguém precisa do gás"
+      erro: "O gás é essencial ao ciclo."
+  explicacao: "Procure cursos de refrigeração no Senai e em escolas técnicas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ferramentas do refrigerista: manifold, vácuo e recolhedora\""
+  revisao:
+    status: em-revisao

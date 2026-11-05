@@ -1,0 +1,50 @@
+# Exercícios da aula "Segurança na oficina e no uso da moto" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-seguranca-na-oficina-e-no-uso-da-moto-01
+  tema: "Moto no cavalete"
+  dificuldade: 1
+  enunciado: "Para mexer na roda ou na corrente, qual apoio a aula manda usar?"
+  alternativas:
+    - texto: "O descanso lateral, que é mais rápido"
+      erro: "A aula diz que o descanso lateral é só para estacionar."
+    - texto: "O cavalete central ou de oficina, em piso firme e plano"
+      certa: true
+    - texto: "Encostar a moto na parede"
+      erro: "A moto pesa de 100 a 250 quilos e pode cair. Use o cavalete, em piso firme."
+  explicacao: "O descanso lateral é só para estacionar. Para mexer em roda ou corrente use o cavalete central ou de oficina, em piso plano e firme."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança na oficina e no uso da moto\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-seguranca-na-oficina-e-no-uso-da-moto-02
+  tema: "Lugar fechado"
+  dificuldade: 2
+  enunciado: "Por que a aula manda nunca ligar o motor em lugar fechado?"
+  alternativas:
+    - texto: "Porque o barulho incomoda os vizinhos"
+      erro: "O perigo é maior que o barulho: o escapamento solta monóxido de carbono."
+    - texto: "Porque o escapamento solta monóxido de carbono, que não tem cheiro e pode matar"
+      certa: true
+    - texto: "Porque a gasolina acaba mais rápido"
+      erro: "A aula trata de segurança: o gás é perigoso à vida."
+  explicacao: "O monóxido de carbono não tem cheiro e pode matar. Ligue o motor em local aberto e arejado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança na oficina e no uso da moto\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-seguranca-na-oficina-e-no-uso-da-moto-03
+  tema: "Capacete"
+  dificuldade: 1
+  enunciado: "O artigo 244 do Código de Trânsito, citado na aula, obriga condutor e passageiro de moto a usar o quê?"
+  alternativas:
+    - texto: "Capacete de segurança, com viseira ou óculos de proteção"
+      certa: true
+    - texto: "Apenas colete refletivo"
+      erro: "O colete é exigência do motofrete, além do capacete."
+    - texto: "Só o condutor usa; o passageiro não precisa"
+      erro: "A aula diz que a obrigação vale para condutor e passageiro."
+  explicacao: "Andar sem capacete é infração gravíssima. Em muitas cidades, a fiscalização confere também o selo do Inmetro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Segurança na oficina e no uso da moto\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Sangramentos: como estancar" (primeiros-socorros-basico). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: primeiros-socorros-bas-sangramentos-01
+  tema: "Pressão direta"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que estanca a maior parte dos sangramentos?"
+  alternativas:
+    - texto: "Pressão direta com um pano limpo, por pelo menos dez minutos"
+      certa: true
+    - texto: "Pó de café ou açúcar no ferimento"
+      erro: "A aula manda não usar receitas caseiras, como pó de café, açúcar, pasta de dente ou teia de aranha."
+    - texto: "Soltar toda hora para olhar"
+      erro: "O erro mais comum é soltar a toda hora para conferir."
+  explicacao: "Se o pano encharcar, ponha outro por cima e continue apertando, sem tirar o primeiro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Sangramentos: como estancar\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-sangramentos-02
+  tema: "Quando ligar 192"
+  dificuldade: 2
+  enunciado: "Qual destas situações pede ligar para o 192, segundo a aula?"
+  alternativas:
+    - texto: "O sangramento parou em um minuto"
+      erro: "Sangramento que para logo não costuma ser emergência."
+    - texto: "O sangue sai em jato ou em grande quantidade, ou não parou depois de dez minutos de pressão"
+      certa: true
+    - texto: "Um arranhão pequeno sem dor"
+      erro: "Arranhão pequeno não é emergência."
+  explicacao: "Outros sinais: corte grande ou fundo, objeto cravado, amputação ou pessoa pálida, suando frio e confusa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Sangramentos: como estancar\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-socorros-bas-sangramentos-03
+  tema: "Proteja-se"
+  dificuldade: 1
+  enunciado: "Antes de tocar no sangue de outra pessoa, o que a aula manda fazer?"
+  alternativas:
+    - texto: "Cobrir as mãos com luvas ou, se não houver, com um saco plástico limpo"
+      certa: true
+    - texto: "Lavar a ferida com álcool"
+      erro: "A primeira proteção é a de quem socorre: cobrir as mãos."
+    - texto: "Nada, sangue não transmite doença"
+      erro: "A aula diz que sangue pode transmitir doenças."
+  explicacao: "Depois do atendimento, lave bem as mãos com água e sabão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Sangramentos: como estancar\""
+  revisao:
+    status: em-revisao

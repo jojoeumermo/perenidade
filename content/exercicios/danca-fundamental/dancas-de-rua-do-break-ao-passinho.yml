@@ -1,0 +1,83 @@
+# Exercícios da aula "Danças de rua: do break ao passinho" (Dança: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: danf-rua-01
+  tema: "O breaking"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Onde e quando o breaking foi criado, e por quem, segundo a aula?"
+  alternativas:
+    - texto: "Em Nova Iorque, na década de 1970, por afro-americanos e latinos"
+      certa: true
+    - texto: "Em Paris, em 2024, por atletas olímpicos"
+      erro: "Em Paris, em 2024, o breaking foi incluído nas Olimpíadas pelo COI. A dança já existia desde os anos 1970."
+    - texto: "No Rio de Janeiro, nos anos 1990, nos bailes funk"
+      erro: "O funk brasileiro é a base do passinho, mas o breaking nasceu em Nova Iorque, nos anos 1970."
+  explicacao: "O breaking (ou b-boying) foi criado por afro-americanos e latinos em Nova Iorque nos anos 1970, e é dançado ao som de rap, funk ou breakbeat. Quem dança é b-boy ou b-girl. O COI o incluiu nas Olimpíadas de Paris 2024."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de rua: do break ao passinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-rua-02
+  tema: "O hip-hop"
+  dificuldade: 2
+  enunciado: "Quais destes elementos fazem parte da cultura hip-hop, segundo a aula?"
+  alternativas:
+    - texto: "DJ, rap, danças como breaking, popping e locking, e grafite"
+      certa: true
+    - texto: "Só o rap e mais nada"
+      erro: "O rap é um dos elementos, mas o hip-hop tem também o DJ com dois toca-discos, as danças e o grafite."
+    - texto: "Frevo, maracatu e cavalo-marinho"
+      erro: "Essas são tradições de Pernambuco, de outra aula. O hip-hop surgiu no sul do Bronx, nos anos 1970."
+  explicacao: "O hip-hop surgiu no sul do Bronx, no início dos anos 1970, em comunidades afro-americanas e hispânicas. Os DJs criavam batidas com dois toca-discos; depois veio o rap (\"ritmo e poesia\"), as danças improvisadas e o grafite."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de rua: do break ao passinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-rua-03
+  tema: "O passinho"
+  dificuldade: 2
+  enunciado: "Onde nasceu o Passinho do Romano, segundo a aula?"
+  alternativas:
+    - texto: "No Jardim Romano, em São Miguel Paulista, Zona Leste de São Paulo"
+      certa: true
+    - texto: "No Bronx, em Nova Iorque"
+      erro: "O Bronx é o berço do hip-hop e do breaking. O Passinho do Romano nasceu em São Paulo, no Jardim Romano."
+    - texto: "No Recôncavo baiano"
+      erro: "O Recôncavo é a terra do samba de roda. O Passinho do Romano é da Zona Leste de São Paulo."
+  explicacao: "O Passinho do Romano nasceu no Jardim Romano, em São Miguel Paulista, a partir de uma ideia de Magrão. Mistura passos leves, pequenos saltos, braços livres, break, dubstep e passos de robô, sobre o funk. Ganhou a comunidade, outras regiões e mais de duzentos mil vídeos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de rua: do break ao passinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-rua-04
+  tema: "Criação da periferia"
+  dificuldade: 2
+  enunciado: "O que o breaking e o passinho têm em comum, segundo a aula?"
+  alternativas:
+    - texto: "Foram inventados por jovens da periferia, misturando estilos, e se espalharam pela comunidade"
+      certa: true
+    - texto: "Foram criados em academias caras"
+      erro: "É o contrário: nasceram na rua, da criação coletiva de quem inventa com o que tem."
+    - texto: "São danças de salão feitas em par"
+      erro: "Nem o breaking nem o passinho são danças de salão em par. São danças de rua, de criação coletiva."
+  explicacao: "O breaking foi inventado por jovens do Bronx e hoje está nas Olimpíadas. O passinho foi inventado num bairro da Zona Leste e se espalhou pela cidade. Dança de rua é criação coletiva de quem inventa com o que tem."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de rua: do break ao passinho\""
+  revisao:
+    status: em-revisao
+
+- id: danf-rua-05
+  tema: "A origem do breaking"
+  dificuldade: 3
+  enunciado: "Além de ser uma forma de expressão, o que a aula diz que o breaking era, no começo, para os jovens do Bronx?"
+  alternativas:
+    - texto: "Uma alternativa para não entrarem nas gangues de rua"
+      certa: true
+    - texto: "Uma obrigação da escola"
+      erro: "A aula não diz isso. O breaking nasceu na rua, entre os jovens, e era uma alternativa às gangues."
+    - texto: "Um treino exclusivo para quem ia competir nas Olimpíadas"
+      erro: "As Olimpíadas só incluíram o breaking em Paris 2024, mais de cinquenta anos depois da criação dele."
+  explicacao: "No começo, o breaking era também uma alternativa para que os jovens não entrassem nas gangues de rua. Ele teve influência de outras danças, entre elas a capoeira."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Danças de rua: do break ao passinho\""
+  revisao:
+    status: em-revisao

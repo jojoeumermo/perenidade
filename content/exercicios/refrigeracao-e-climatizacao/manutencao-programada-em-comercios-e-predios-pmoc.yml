@@ -1,0 +1,50 @@
+# Exercícios da aula "Manutenção programada em comércios e prédios: PMOC" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-manutencao-programada-em-comercios-e-pre-01
+  tema: "PMOC"
+  dificuldade: 1
+  enunciado: "O que é o PMOC, segundo a aula?"
+  alternativas:
+    - texto: "Plano de Manutenção, Operação e Controle, para reduzir riscos à saúde em ambientes climatizados"
+      certa: true
+    - texto: "Programa de Montagem de Ar-condicionado"
+      erro: "PMOC é Plano de Manutenção, Operação e Controle."
+    - texto: "Um imposto sobre ar-condicionado"
+      erro: "Não é imposto. É um plano de manutenção."
+  explicacao: "A Lei 13.589/2018 diz que edifícios de uso público e coletivo com ar climatizado artificialmente devem ter PMOC (art. 1º)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Manutenção programada em comércios e prédios: PMOC\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-manutencao-programada-em-comercios-e-pre-02
+  tema: "Rotina com data"
+  dificuldade: 2
+  enunciado: "O que é uma manutenção programada, segundo a aula?"
+  alternativas:
+    - texto: "Uma rotina com data, e não o conserto de emergência"
+      certa: true
+    - texto: "Um conserto só quando quebra"
+      erro: "A aula diz o contrário."
+    - texto: "Uma troca de aparelho a cada mês"
+      erro: "Não é isso."
+  explicacao: "Envolve levantamento dos aparelhos, calendário de limpezas, execução conforme o manual e registro por escrito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Manutenção programada em comércios e prédios: PMOC\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-manutencao-programada-em-comercios-e-pre-03
+  tema: "Detalhes"
+  dificuldade: 2
+  enunciado: "Para saber quem assina o PMOC e com que frequência, a aula manda consultar o quê?"
+  alternativas:
+    - texto: "A regulamentação sanitária e os regulamentos locais, como a vigilância sanitária da cidade"
+      certa: true
+    - texto: "Nada, a lei já diz tudo"
+      erro: "A aula diz que os detalhes estão na regulamentação."
+    - texto: "Um vizinho"
+      erro: "Confira com a vigilância sanitária."
+  explicacao: "A lei cita a Resolução nº 9/2003 da Anvisa para os parâmetros de qualidade do ar (art. 3º)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Manutenção programada em comércios e prédios: PMOC\""
+  revisao:
+    status: em-revisao

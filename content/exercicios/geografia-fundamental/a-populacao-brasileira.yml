@@ -1,0 +1,68 @@
+# Exercícios da aula "A população brasileira" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-pop-01
+  tema: "Pirâmide etária"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma pirâmide etária com a base bem larga e o topo estreito, parecida com um triângulo, mostra que:"
+  alternativas:
+    - texto: "Nascem muitas crianças: é uma população jovem"
+      certa: true
+    - texto: "Nascem poucas crianças e as pessoas vivem mais"
+      erro: "Isso desenha um barril: base mais estreita, meio e topo mais largos. A base larga é de muitas crianças."
+    - texto: "Não dá para saber nada sobre as idades"
+      erro: "A pirâmide serve justamente para isso: cada barra é uma faixa de idade, e a largura mostra quantas pessoas há nela."
+  explicacao: "A base da pirâmide são as crianças. Base larga é sinal de muitos nascimentos, uma população jovem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-pop-02
+  tema: "O Brasil que envelhece"
+  dificuldade: 2
+  enunciado: "Por que a pirâmide etária do Brasil vai ficando parecida com um barril?"
+  alternativas:
+    - texto: "Porque nascem menos crianças e as pessoas vivem mais"
+      certa: true
+    - texto: "Porque nascem cada vez mais crianças"
+      erro: "É o contrário: as crianças de 0 a 14 anos eram 38,2% da população em 1980 e passaram a 19,8% no Censo 2022."
+    - texto: "Porque a população do campo cresceu"
+      erro: "O formato depende das idades, e não de onde se mora. A base encolheu porque nascem menos crianças."
+  explicacao: "Pelo Censo 2022, as crianças de 0 a 14 anos são 19,8% da população, e as pessoas com 65 anos ou mais já são 10,9%. É o resultado de menos nascimentos e mais gente vivendo mais."
+  fonte: "Questão original do Instituto Lúcia, com dados do Censo 2022 (IBGE)"
+  revisao:
+    status: em-revisao
+
+- id: gf-pop-03
+  tema: "Idade mediana"
+  dificuldade: 2
+  enunciado: "O IBGE informou que a idade mediana dos brasileiros no Censo 2022 é de 35 anos. O que isso quer dizer?"
+  alternativas:
+    - texto: "Metade da população tem menos de 35 anos e a outra metade tem mais"
+      certa: true
+    - texto: "A idade mais comum entre os brasileiros é 35 anos"
+      erro: "A idade mais comum seria a moda. A mediana é a idade que divide a população ao meio."
+    - texto: "Ninguém no país tem mais de 35 anos"
+      erro: "Há muita gente com mais de 35. A mediana só diz que metade da população está de cada lado dessa idade."
+  explicacao: "A mediana divide a população ao meio: metade tem menos de 35 anos, metade tem mais."
+  fonte: "Questão original do Instituto Lúcia, com dados do Censo 2022 (IBGE)"
+  revisao:
+    status: em-revisao
+
+- id: gf-pop-04
+  tipo: numero
+  tema: "Densidade demográfica"
+  dificuldade: 2
+  enunciado: "Uma cidade tem 120.000 habitantes e 60 km² de área. Qual é a densidade demográfica, em habitantes por km²?"
+  resposta: "2000"
+  unidade: "hab/km²"
+  erros_comuns:
+    - resposta: "0,0005"
+      explicacao: "Você dividiu a área pela população. A densidade é população ÷ área."
+  dica: "Densidade demográfica = população ÷ área."
+  explicacao: "120.000 ÷ 60 = 2.000 habitantes por km²."
+  conferir: "120000 / 60"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

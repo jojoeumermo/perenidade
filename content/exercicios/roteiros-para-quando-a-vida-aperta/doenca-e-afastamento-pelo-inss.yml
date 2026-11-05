@@ -1,0 +1,50 @@
+# Exercícios da aula "Doença e afastamento pelo INSS" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-doenca-e-afastamento-pelo-inss-01
+  tema: "Quinze dias"
+  dificuldade: 2
+  enunciado: "Nos primeiros quinze dias de afastamento por doença, quem paga o salário?"
+  alternativas:
+    - texto: "A empresa, o salário integral"
+      certa: true
+    - texto: "O INSS, desde o primeiro dia"
+      erro: "O INSS entra depois dos quinze dias."
+    - texto: "Ninguém paga"
+      erro: "A empresa paga os primeiros quinze dias."
+  explicacao: "Passando de quinze dias, peça o auxílio por incapacidade temporária ao INSS pelo Meu INSS ou pelo telefone 135."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Doença e afastamento pelo INSS\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-doenca-e-afastamento-pelo-inss-02
+  tema: "Carência"
+  dificuldade: 2
+  enunciado: "Em regra, quantas contribuições mensais são exigidas para o auxílio por incapacidade temporária?"
+  alternativas:
+    - texto: "Nenhuma, sempre"
+      erro: "Há casos sem carência, mas não é a regra."
+    - texto: "12 contribuições mensais"
+      certa: true
+    - texto: "120 contribuições mensais"
+      erro: "É muito mais que a regra."
+  explicacao: "Em alguns casos, como acidente de qualquer natureza e doenças graves listadas, não há carência."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Doença e afastamento pelo INSS\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-doenca-e-afastamento-pelo-inss-03
+  tema: "Golpe"
+  dificuldade: 1
+  enunciado: "O que a aula diz sobre despachantes que cobram para \"liberar\" o benefício?"
+  alternativas:
+    - texto: "É golpe: o pedido ao INSS é gratuito"
+      certa: true
+    - texto: "Eles são obrigatórios"
+      erro: "O pedido é gratuito."
+    - texto: "Eles aceleram a perícia"
+      erro: "A aula manda desconfiar."
+  explicacao: "Na perícia, descreva a realidade e explique como a doença impede o seu trabalho específico."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Doença e afastamento pelo INSS\""
+  revisao:
+    status: em-revisao

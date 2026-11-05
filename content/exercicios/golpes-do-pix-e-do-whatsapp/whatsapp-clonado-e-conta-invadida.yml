@@ -1,0 +1,67 @@
+# Exercícios da aula "WhatsApp clonado e conta invadida" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-wpp-01
+  tema: "Quem pode pedir o código"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quem tem motivo para pedir o código de verificação de 6 dígitos do seu WhatsApp?"
+  alternativas:
+    - texto: "Ninguém: o código é só seu"
+      certa: true
+    - texto: "O suporte do WhatsApp"
+      erro: "Nem o WhatsApp pede o código por mensagem."
+    - texto: "Um amigo que se enrolou"
+      erro: "Mesmo amigo de verdade não precisa do seu código. A conta pode ser a dele sendo usada por um golpista."
+  explicacao: "O código de verificação é só seu. Vale também para códigos por e-mail e de outros aplicativos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-wpp-02
+  tema: "Antes do problema"
+  dificuldade: 2
+  enunciado: "Qual atitude protege melhor a conta antes de qualquer problema?"
+  alternativas:
+    - texto: "Nunca passar o código e ativar a confirmação em duas etapas com um PIN"
+      certa: true
+    - texto: "Passar o código só a quem você conhece bem"
+      erro: "Quem conhece bem pode estar sendo imitado. O código não se passa."
+    - texto: "Trocar a foto do perfil"
+      erro: "A foto não protege a conta."
+  explicacao: "Confirmação em duas etapas, com PIN de 6 dígitos que só você sabe, impede a entrada mesmo que alguém consiga o código por SMS."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-wpp-03
+  tema: "Conta já invadida"
+  dificuldade: 2
+  enunciado: "Seu WhatsApp foi invadido e o golpista pede dinheiro aos seus contatos. O que fazer?"
+  alternativas:
+    - texto: "Tentar registrar o número de novo no seu celular e avisar os contatos por outro canal que o pedido é falso"
+      certa: true
+    - texto: "Esperar que o golpista se canse"
+      erro: "Enquanto espera, mais gente pode pagar. Aja logo."
+    - texto: "Pagar a quem prometer devolver a conta"
+      erro: "Quem cobra para 'recuperar' a conta é golpista."
+  explicacao: "Registrar o número de novo desconecta o invasor. Avise os contatos por ligação ou outra rede, troque senhas e registre o BO."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-wpp-04
+  tema: "Clone do perfil"
+  dificuldade: 3
+  enunciado: "Seus contatos recebem mensagens suas de um número diferente, com a sua foto. Sua conta foi invadida?"
+  alternativas:
+    - texto: "Não necessariamente: pode ser clone do perfil, em que o golpista usa a sua foto e o seu nome com outro número"
+      certa: true
+    - texto: "Sim, sempre: ninguém copia foto sem invadir a conta"
+      erro: "A foto pública pode ser copiada sem invasão. Limitar quem vê a foto ajuda."
+    - texto: "Não, e não há nada a fazer"
+      erro: "Há o que fazer: avise os contatos por outro canal, denuncie o perfil e limite quem vê a sua foto e o status."
+  explicacao: "No clone do perfil, a conta não foi invadida, mas o efeito é parecido. Avise os contatos e ajuste a privacidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

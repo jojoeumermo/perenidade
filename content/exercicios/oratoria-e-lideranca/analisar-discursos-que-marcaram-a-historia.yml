@@ -1,0 +1,50 @@
+# Exercícios da aula "Analisar discursos que marcaram a história" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-analisar-discursos-que-marcaram-a-histor-01
+  tema: "Os três apelos"
+  dificuldade: 1
+  enunciado: "Na Retórica, Aristóteles descreve três apelos. Qual deles é o ethos?"
+  alternativas:
+    - texto: "A emoção do público"
+      erro: "A emoção do público é o pathos."
+    - texto: "A credibilidade de quem fala"
+      certa: true
+    - texto: "A razão, com argumentos e provas"
+      erro: "A razão é o logos."
+  explicacao: "Ethos é a credibilidade de quem fala; pathos é a emoção do público; logos é a razão. Há ainda o kairos, o momento oportuno."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Analisar discursos que marcaram a história\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-analisar-discursos-que-marcaram-a-histor-02
+  tema: "A fonte"
+  dificuldade: 2
+  enunciado: "No roteiro de análise de um discurso, por que a aula pergunta \"a fonte\": o texto que lemos é a fala original?"
+  alternativas:
+    - texto: "Porque é preciso saber quem transcreveu e quando, já que a versão que lemos pode não ser a fala original"
+      certa: true
+    - texto: "Porque discurso só vale se for lido em voz alta"
+      erro: "A pergunta é sobre a versão do texto, e não sobre como ele é lido."
+    - texto: "Porque todo discurso foi escrito antes de ser falado"
+      erro: "Alguns foram de improviso. A pergunta serve justamente para saber qual versão estamos lendo."
+  explicacao: "Uma fala pode chegar até nós por anotações de outras pessoas. Por isso a análise pergunta qual versão estamos lendo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Analisar discursos que marcaram a história\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-analisar-discursos-que-marcaram-a-histor-03
+  tema: "Objetivo do orador"
+  dificuldade: 1
+  enunciado: "Na pergunta \"Objetivo\" do roteiro, o que se procura descobrir?"
+  alternativas:
+    - texto: "Quanto tempo durou a fala"
+      erro: "O tempo não é o foco. A pergunta é se o orador queria informar, convencer ou animar."
+    - texto: "Se o orador queria informar, convencer ou animar, e o que queria que o público fizesse ou pensasse"
+      certa: true
+    - texto: "Qual era a roupa de quem falou"
+      erro: "A roupa não entra no objetivo. A pergunta busca o que o orador queria do público."
+  explicacao: "O roteiro tem sete perguntas: contexto, objetivo, estrutura, apoio, linguagem, apelos e fonte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Analisar discursos que marcaram a história\""
+  revisao:
+    status: em-revisao

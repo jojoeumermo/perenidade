@@ -1,0 +1,52 @@
+# Exercícios da aula "De onde vem o lucro" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-de-onde-vem-o-lucro-01
+  tema: "Jornada dividida"
+  dificuldade: 2
+  enunciado: "Numa jornada de 8 horas, 3 horas pagam o salário (trabalho necessário). Quantas horas são de trabalho excedente?"
+  alternativas:
+    - texto: "3"
+      erro: "Essas são as horas do trabalho necessário. O excedente é o resto da jornada."
+    - texto: "11"
+      erro: "Aqui você somou 8 com 3. O excedente é o que sobra da jornada: 8 − 3."
+    - texto: "5"
+      certa: true
+      valor: "5"
+  explicacao: "8 − 3 = 5 horas de trabalho excedente por dia: o valor produzido nelas é a mais-valia, que aparece no balanço da empresa como lucro."
+  conferir: "8 - 3"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"De onde vem o lucro\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-de-onde-vem-o-lucro-02
+  tema: "Valor da mercadoria"
+  dificuldade: 1
+  enunciado: "Para Marx, o que dá valor a uma mercadoria?"
+  alternativas:
+    - texto: "O preço que o vendedor quer cobrar"
+      erro: "O preço oscila em torno do valor, que vem do trabalho."
+    - texto: "O trabalho socialmente necessário para produzi-la"
+      certa: true
+    - texto: "A cor e a embalagem"
+      erro: "O valor vem do tempo médio de trabalho que a sociedade gasta para produzir."
+  explicacao: "O trabalho \"socialmente necessário\" é o tempo médio com as técnicas da época. O sapateiro lento não faz um sapato valer o dobro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"De onde vem o lucro\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-de-onde-vem-o-lucro-03
+  tema: "Mais-valia absoluta"
+  dificuldade: 2
+  enunciado: "Qual destes exemplos a aula dá de mais-valia absoluta hoje?"
+  alternativas:
+    - texto: "Comprar uma máquina nova"
+      erro: "Isso se liga à mais-valia relativa, que aumenta a produtividade."
+    - texto: "Hora extra não paga, banco de horas abusivo e metas que obrigam a trabalhar no almoço"
+      certa: true
+    - texto: "Reduzir a jornada para 6 horas"
+      erro: "Reduzir a jornada diminui o tempo de trabalho excedente. A absoluta é esticar a jornada ou intensificar o trabalho."
+  explicacao: "A mais-valia absoluta vem de esticar a jornada ou intensificar o trabalho, como nas jornadas de 14 ou 16 horas do começo da indústria."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"De onde vem o lucro\""
+  revisao:
+    status: em-revisao

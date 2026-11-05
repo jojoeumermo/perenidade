@@ -1,0 +1,86 @@
+# Exercícios da aula "Botões, casas e zíperes" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-botoes-01
+  tema: "Botão com pé de linha"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para que serve o pé de linha de um botão?"
+  alternativas:
+    - texto: "Deixa espaço para o tecido da casa passar sem repuxar, e por isso o botão dura mais"
+      certa: true
+    - texto: "Serve só para enfeitar o botão"
+      erro: "O pé de linha tem função: deixa o botão afastado do tecido, para o tecido da casa passar sem repuxar."
+    - texto: "Serve para o botão ficar colado no tecido"
+      erro: "É o contrário: o botão fica um pouco afastado, e o pé de linha dá o espaço para o tecido passar."
+  explicacao: "Coloque um palito de dente por cima do botão, entre os furos, passe a agulha umas seis vezes, tire o palito, puxe o botão para cima e enrole a linha em volta dos pontos, entre o botão e o tecido. Depois arremate no avesso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Botões, casas e zíperes\""
+  revisao:
+    status: em-revisao
+
+- id: cost-botoes-02
+  tema: "Casas"
+  dificuldade: 2
+  enunciado: "Ao abrir a casa com o desmanchador, você cortou os pontos da ponta e a casa ficou maior do que devia. O que teria evitado isso?"
+  alternativas:
+    - texto: "Espetar um alfinete atravessado na ponta da casa antes de abrir, como freio"
+      certa: true
+    - texto: "Usar uma tesoura bem grande"
+      erro: "Tesoura grande dificulta o controle. O desmanchador, com o alfinete-freio na ponta, é o jeito seguro."
+    - texto: "Fazer a casa sem pontos"
+      erro: "Os pontos são o que segura a beirada da casa. O que evita cortar demais é o alfinete atravessado na ponta."
+  explicacao: "Antes de fazer a casa na peça, faça uma no retalho do mesmo tecido, com a entretela, se houver. O tamanho da casa é, mais ou menos, o diâmetro do botão mais a espessura dele."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Botões, casas e zíperes\""
+  revisao:
+    status: em-revisao
+
+- id: cost-botoes-03
+  tipo: numero
+  tema: "Tamanho da casa"
+  dificuldade: 2
+  enunciado: "Um botão tem 18 mm de diâmetro e 4 mm de espessura. Pela regra da aula (diâmetro mais espessura), de quantos milímetros deve ser a casa?"
+  resposta: "22"
+  unidade: "mm"
+  erros_comuns:
+    - resposta: "18"
+      explicacao: "18 mm é só o diâmetro. A casa precisa ser um pouco maior, para o botão, com sua espessura, passar: 18 + 4."
+    - resposta: "14"
+      explicacao: "Você tirou a espessura em vez de somar. A casa deve ser maior que o diâmetro: 18 + 4."
+  dica: "Some o diâmetro com a espessura do botão."
+  explicacao: "18 + 4 = 22 mm. Teste num retalho do mesmo tecido antes de fazer na peça."
+  conferir: "18 + 4"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Botões, casas e zíperes\""
+  revisao:
+    status: em-revisao
+
+- id: cost-botoes-04
+  tema: "Zíperes"
+  dificuldade: 2
+  enunciado: "Qual calcador se usa para costurar um zíper invisível, segundo a aula?"
+  alternativas:
+    - texto: "O calcador de zíper invisível, que enrola os dentes e costura bem rente a eles, antes de fechar o resto da costura"
+      certa: true
+    - texto: "O calcador de casa, depois de fechar a costura toda"
+      erro: "O zíper invisível é costurado antes de fechar o resto da costura, com o calcador próprio."
+    - texto: "Nenhum calcador: costura-se só à mão, sem máquina"
+      erro: "À mão é possível, mas a máquina tem calcador próprio para o zíper invisível, que costura rente aos dentes."
+  explicacao: "O zíper comum, de pesponto aparente, usa o calcador de zíper; o invisível usa o calcador de zíper invisível. O zíper nasceu como fecho de sapato: em 1893, Whitcomb Judson patenteou nos Estados Unidos um fecho para substituir os cadarços."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Botões, casas e zíperes\""
+  revisao:
+    status: em-revisao
+
+- id: cost-botoes-05
+  tema: "Trocar o zíper"
+  dificuldade: 3
+  enunciado: "Na hora de trocar o zíper quebrado de uma calça jeans, qual é o primeiro passo da aula?"
+  alternativas:
+    - texto: "Medir o zíper antigo e comprar um igual, em comprimento e tipo"
+      certa: true
+    - texto: "Costurar o novo por cima do quebrado"
+      erro: "O zíper antigo precisa ser retirado: desmanche com cuidado o pesponto, guardando a forma da braguilha."
+    - texto: "Escolher qualquer zíper, porque todos servem"
+      erro: "O zíper novo deve ser do mesmo comprimento e tipo do antigo para encaixar na abertura."
+  explicacao: "Meça o zíper antigo e compre um igual; desmanche o pesponto com cuidado; tire o zíper e passe as dobras a ferro; alfinete o novo na posição do antigo; costure com calcador de zíper e agulha grossa (brim), primeiro embaixo e depois o pesponto da frente; arremate e teste várias vezes."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Botões, casas e zíperes\""
+  revisao:
+    status: em-revisao

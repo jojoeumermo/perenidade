@@ -1,0 +1,83 @@
+# Exercícios da aula "Forró, xote e baião" (Dança: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: danf-forro-01
+  tema: "O que é forró"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é o forró, segundo a aula?"
+  alternativas:
+    - texto: "Uma festa do Nordeste e também o nome de vários gêneros (xote, baião, arrasta-pé e xaxado)"
+      certa: true
+    - texto: "Um gênero único, inventado em 2021"
+      erro: "Em 2021 o forró foi reconhecido como patrimônio cultural imaterial do Brasil, mas ele é bem mais antigo e é nome de vários gêneros."
+    - texto: "Uma dança tocada só com guitarra"
+      erro: "O forró tradicional é tocado pelo trio sanfona, zabumba e triângulo."
+  explicacao: "Forró é uma festa do Nordeste, muito ligada às festas juninas, e também o nome de vários gêneros. Tradicionalmente toca o trio sanfona, zabumba e triângulo. Desde os anos 1990, esses gêneros também são chamados de forró pé de serra."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Forró, xote e baião\""
+  revisao:
+    status: em-revisao
+
+- id: danf-forro-02
+  tema: "Xote"
+  dificuldade: 2
+  enunciado: "De onde vem o xote, e como ficou conhecida a dança dele no forró?"
+  alternativas:
+    - texto: "Vem da schottische, uma dança de salão europeia; no forró ficou conhecido como \"dois pra lá, dois pra cá\""
+      certa: true
+    - texto: "Vem do batuque africano dos engenhos; no forró é a roda de mãos dadas"
+      erro: "Isso se parece com a origem do coco, em outra aula. O xote vem da schottische, dança de salão europeia, e o passo é \"dois pra lá, dois pra cá\"."
+    - texto: "Vem dos bailes funk; no forró é o passo de robô"
+      erro: "O passo de robô aparece no passinho, dança de rua. O xote vem de uma dança de salão europeia, a schottische."
+  explicacao: "O xote vem da schottische (palavra alemã que quer dizer \"escocesa\"), dança de salão europeia introduzida no Rio em 1851 e dançada pela elite no Segundo Reinado. No forró, dança-se o \"dois pra lá, dois pra cá\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Forró, xote e baião\""
+  revisao:
+    status: em-revisao
+
+- id: danf-forro-03
+  tema: "Baião"
+  dificuldade: 2
+  enunciado: "Sobre o que fala a música \"Asa Branca\" (1947), de Luiz Gonzaga e Humberto Teixeira?"
+  alternativas:
+    - texto: "O sofrimento do sertanejo com a seca"
+      certa: true
+    - texto: "A alegria das festas de carnaval no Recife"
+      erro: "O carnaval do Recife é lembrado no frevo. \"Asa Branca\" é um baião e fala das dificuldades do sertanejo, como a seca."
+    - texto: "A vida dos jovens do Bronx"
+      erro: "O Bronx é o berço do hip-hop. \"Asa Branca\" é um baião e fala do sertão e da seca."
+  explicacao: "O baião ficou popular na segunda metade dos anos 1940, com Luiz Gonzaga, o \"Rei do Baião\", e Humberto Teixeira. A temática é o cotidiano do sertanejo e suas dificuldades, como em \"Asa Branca\", sobre o sofrimento com a seca."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Forró, xote e baião\""
+  revisao:
+    status: em-revisao
+
+- id: danf-forro-04
+  tema: "Luiz Gonzaga"
+  dificuldade: 2
+  enunciado: "Qual foi o papel de Luiz Gonzaga (1912-1989), segundo a aula?"
+  alternativas:
+    - texto: "Definiu o trio sanfona, zabumba e triângulo e levou o baião, o xote e o forró pé de serra para o país todo, falando da pobreza e das injustiças do sertão"
+      certa: true
+    - texto: "Criou o breaking e levou a dança para as Olimpíadas"
+      erro: "O breaking nasceu no Bronx, nos anos 1970. Luiz Gonzaga é o \"Rei do Baião\", nascido perto de Exu, em Pernambuco."
+    - texto: "Foi o primeiro a sapatear tamancos nos engenhos de açúcar"
+      erro: "Os tamancos são do coco, que nasceu no século XVIII. Luiz Gonzaga era sanfoneiro e levou o forró para o país."
+  explicacao: "Luiz Gonzaga nasceu numa casa de barro batido perto de Exu, em Pernambuco, filho de um roceiro e sanfoneiro. Suas músicas falavam da pobreza e das injustiças do sertão e chegaram a todo o país."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Forró, xote e baião\""
+  revisao:
+    status: em-revisao
+
+- id: danf-forro-05
+  tema: "A música de quem migrou"
+  dificuldade: 3
+  enunciado: "A aula diz que o forró levou a voz do sertão para as cidades. O que ouvir \"Asa Branca\" ajuda a entender?"
+  alternativas:
+    - texto: "A seca, a partida e a saudade de milhões de nordestinos que reconstruíram a vida longe de casa"
+      certa: true
+    - texto: "Que o forró é só uma moda recente"
+      erro: "O baião ficou popular nos anos 1940, e a aula mostra uma história de décadas de seca, migração e saudade."
+    - texto: "Que o forró só pode ser dançado no Nordeste"
+      erro: "Pelo contrário: o forró foi levado pelos nordestinos para as cidades de todo o país."
+  explicacao: "O forró é a música de quem migrou. Ouvir \"Asa Branca\" é ouvir a seca, a partida e a saudade de milhões de nordestinos que reconstruíram a vida longe de casa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Forró, xote e baião\""
+  revisao:
+    status: em-revisao

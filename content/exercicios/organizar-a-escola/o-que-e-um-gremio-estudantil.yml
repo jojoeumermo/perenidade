@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é um grêmio estudantil" (organizar-a-escola). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: organizar-a-escola-o-que-e-um-gremio-estudantil-01
+  tema: "Autônomo"
+  dificuldade: 1
+  enunciado: "Na lei, o grêmio é uma entidade \"autônoma\". O que isso quer dizer, segundo a aula?"
+  alternativas:
+    - texto: "Que o grêmio pertence à direção da escola"
+      erro: "É o contrário: o grêmio não é da direção, nem de partido, nem de igreja, nem de empresa."
+    - texto: "Que quem decide são os estudantes"
+      certa: true
+    - texto: "Que só funciona em escola particular"
+      erro: "A aula diz que vale para escola pública e particular."
+  explicacao: "Autônomas, representativas e com finalidades: educação, cultura, civismo, esporte e vida social."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é um grêmio estudantil\""
+  revisao:
+    status: em-revisao
+
+- id: organizar-a-escola-o-que-e-um-gremio-estudantil-02
+  tema: "Representativo"
+  dificuldade: 2
+  enunciado: "O que significa o grêmio ser \"representativo\"?"
+  alternativas:
+    - texto: "Que fala em nome de todos os estudantes da escola, e não só de quem está na diretoria"
+      certa: true
+    - texto: "Que fala só em nome da diretoria do grêmio"
+      erro: "A aula diz que o grêmio fala em nome de todos os estudantes."
+    - texto: "Que representa a direção da escola"
+      erro: "Quem representa a direção é outra instância. O grêmio representa os estudantes."
+  explicacao: "O grêmio leva à direção os problemas da merenda, do banheiro, da falta de professor e pode ter voz no conselho de escola."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é um grêmio estudantil\""
+  revisao:
+    status: em-revisao
+
+- id: organizar-a-escola-o-que-e-um-gremio-estudantil-03
+  tema: "ECA e o grêmio"
+  dificuldade: 2
+  enunciado: "O que o Estatuto da Criança e do Adolescente diz sobre as entidades estudantis?"
+  alternativas:
+    - texto: "Que só maiores de 18 podem participar"
+      erro: "A garantia é para crianças e adolescentes."
+    - texto: "Que toda criança e todo adolescente têm direito de organização e participação em entidades estudantis"
+      certa: true
+    - texto: "Que elas são proibidas em escola particular"
+      erro: "A aula diz que vale para escola pública e particular."
+  explicacao: "A lei de 1985 e o ECA se reforçam: organizar o grêmio é direito dos estudantes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é um grêmio estudantil\""
+  revisao:
+    status: em-revisao

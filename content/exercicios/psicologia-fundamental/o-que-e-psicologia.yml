@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é psicologia, e o que ela não é" (psicologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: psicologia-fundamental-o-que-e-psicologia-01
+  tema: "Psicólogo e psiquiatra"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre psicólogo e psiquiatra, segundo a aula?"
+  alternativas:
+    - texto: "O psiquiatra é médico e pode receitar remédios; o psicólogo não precisa ser médico"
+      certa: true
+    - texto: "Não há diferença nenhuma"
+      erro: "A aula diz que são profissões diferentes."
+    - texto: "Todo psicólogo receita remédio"
+      erro: "Quem pode receitar é o psiquiatra, que é médico."
+  explicacao: "A psicologia não é adivinhação, não é \"ler a mente\" e não é só para quem tem \"problema\". É uma ciência."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é psicologia, e o que ela não é\""
+  revisao:
+    status: em-revisao
+
+- id: psicologia-fundamental-o-que-e-psicologia-02
+  tema: "Regulamentação"
+  dificuldade: 2
+  enunciado: "Em que lei e ano a psicologia foi regulamentada como profissão no Brasil?"
+  alternativas:
+    - texto: "Lei nº 5.766, de 1971"
+      erro: "Essa lei criou o Conselho Federal e os Conselhos Regionais de Psicologia."
+    - texto: "Lei nº 4.119, de 27 de agosto de 1962"
+      certa: true
+    - texto: "Lei nº 10.216, de 2001"
+      erro: "Essa é a lei da reforma psiquiátrica."
+  explicacao: "Em 1971, a Lei 5.766 criou os Conselhos de Psicologia, que orientam e fiscalizam a profissão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é psicologia, e o que ela não é\""
+  revisao:
+    status: em-revisao
+
+- id: psicologia-fundamental-o-que-e-psicologia-03
+  tema: "O que estuda"
+  dificuldade: 1
+  enunciado: "O que a psicologia estuda?"
+  alternativas:
+    - texto: "A mente e o comportamento, incluindo percepção, atenção, emoção, inteligência, motivação e personalidade"
+      certa: true
+    - texto: "Só as doenças do corpo"
+      erro: "Quem estuda doenças do corpo é a medicina. A psicologia estuda a mente e o comportamento."
+    - texto: "Só o futuro das pessoas"
+      erro: "A psicologia não é adivinhação."
+  explicacao: "Ela fica entre as ciências naturais e as ciências sociais."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é psicologia, e o que ela não é\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Perdi meus documentos" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-perdi-meus-documentos-01
+  tema: "Primeiro passo"
+  dificuldade: 1
+  enunciado: "Qual é a primeira coisa a fazer quando documentos somem, para proteger o seu nome?"
+  alternativas:
+    - texto: "Registrar o boletim de ocorrência"
+      certa: true
+    - texto: "Pagar quem diz que achou o documento"
+      erro: "A aula alerta que isso costuma ser golpe."
+    - texto: "Pedir a segunda via em qualquer site que cobre taxa"
+      erro: "Sites que \"tiram segunda via rápida\" por taxa costumam ser fraude."
+  explicacao: "Avise o banco, bloqueie cartões e consulte o CPF na Receita Federal."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Perdi meus documentos\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-perdi-meus-documentos-02
+  tema: "Segunda via do CPF"
+  dificuldade: 2
+  enunciado: "Como se faz a segunda via do CPF, segundo a aula?"
+  alternativas:
+    - texto: "De graça, pelos canais da Receita Federal, no gov.br"
+      certa: true
+    - texto: "Pagando a um despachante"
+      erro: "A aula diz que é gratuita nos canais da Receita."
+    - texto: "Só em cartório"
+      erro: "A aula cita os canais da Receita Federal."
+  explicacao: "A Carteira de Trabalho hoje é digital, com a conta gov.br."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Perdi meus documentos\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-perdi-meus-documentos-03
+  tema: "Golpe"
+  dificuldade: 1
+  enunciado: "Quem pede dinheiro para devolver documento achado costuma ser o quê, segundo a aula?"
+  alternativas:
+    - texto: "Golpista; pode ser fraude (Código Penal, art. 171)"
+      certa: true
+    - texto: "Alguém de confiança"
+      erro: "A aula manda cuidado."
+    - texto: "Um funcionário do governo"
+      erro: "Segundo a aula, costumam ser fraude."
+  explicacao: "Se aparecer dívida nova que você não fez, conteste."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Perdi meus documentos\""
+  revisao:
+    status: em-revisao

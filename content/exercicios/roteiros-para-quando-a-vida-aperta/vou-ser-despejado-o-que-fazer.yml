@@ -1,0 +1,50 @@
+# Exercícios da aula "Vou ser despejado: o que fazer" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-vou-ser-despejado-o-que-fazer-01
+  tema: "Sem a Justiça"
+  dificuldade: 1
+  enunciado: "O dono do imóvel pode trocar a fechadura ou cortar luz e água por conta própria para retomar o imóvel?"
+  alternativas:
+    - texto: "Não: para retomar o imóvel ele precisa entrar com ação de despejo e ganhar na Justiça"
+      certa: true
+    - texto: "Sim, é o direito dele"
+      erro: "A aula diz que não pode."
+    - texto: "Sim, se avisar por mensagem"
+      erro: "Mesmo com aviso, só a Justiça pode decidir o despejo."
+  explicacao: "A Lei do Inquilinato é a Lei 8.245/1991. A moradia é direito social (art. 6º)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Vou ser despejado: o que fazer\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-vou-ser-despejado-o-que-fazer-02
+  tema: "Citação"
+  dificuldade: 2
+  enunciado: "Chegou uma citação de despejo. O que fazer?"
+  alternativas:
+    - texto: "Não ignorar: o prazo de defesa, em regra, é de 15 dias, mas o prazo certo está escrito na citação"
+      certa: true
+    - texto: "Ignorar, porque é só um papel"
+      erro: "Quem não responde no prazo pode perder o processo sem ser ouvido."
+    - texto: "Esperar o oficial voltar"
+      erro: "A aula manda responder no prazo."
+  explicacao: "Procure a Defensoria Pública e tente negociar por escrito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Vou ser despejado: o que fazer\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-vou-ser-despejado-o-que-fazer-03
+  tema: "Contrato de palavra"
+  dificuldade: 2
+  enunciado: "O aluguel combinado só de palavra, sem papel, vale?"
+  alternativas:
+    - texto: "Sim: sem papel, o aluguel existe do mesmo jeito; por isso guarde recibos, comprovantes e mensagens"
+      certa: true
+    - texto: "Não, só vale com contrato assinado"
+      erro: "A aula diz que vale."
+    - texto: "Só se tiver testemunha"
+      erro: "A aula manda guardar recibos e mensagens."
+  explicacao: "O motivo mais comum do despejo é a falta de pagamento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Vou ser despejado: o que fazer\""
+  revisao:
+    status: em-revisao

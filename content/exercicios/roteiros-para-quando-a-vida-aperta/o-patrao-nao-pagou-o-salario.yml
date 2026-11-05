@@ -1,0 +1,50 @@
+# Exercícios da aula "O patrão não pagou o salário" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-o-patrao-nao-pagou-o-salario-01
+  tema: "Prazo"
+  dificuldade: 1
+  enunciado: "Pelo art. 459, § 1º, da CLT, até quando o salário mensal deve ser pago?"
+  alternativas:
+    - texto: "Até o quinto dia útil do mês seguinte ao vencido"
+      certa: true
+    - texto: "Até o fim do mês seguinte"
+      erro: "O limite é o quinto dia útil."
+    - texto: "Quando o patrão puder"
+      erro: "Atraso é descumprimento do contrato, e não favor."
+  explicacao: "A retenção dolosa do salário é crime, nos termos da lei (art. 7º, X, da Constituição)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O patrão não pagou o salário\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-o-patrao-nao-pagou-o-salario-02
+  tema: "Roteiro"
+  dificuldade: 2
+  enunciado: "Qual destes passos faz parte do roteiro?"
+  alternativas:
+    - texto: "Guardar as provas, registrar por escrito, conversar com colegas e procurar o sindicato"
+      certa: true
+    - texto: "Parar de ir ao trabalho sem avisar"
+      erro: "A aula orienta conversar antes com o sindicato ou advogado."
+    - texto: "Esperar sem fazer nada"
+      erro: "A aula manda registrar e agir."
+  explicacao: "Também: denunciar no Ministério do Trabalho e, se o atraso continuar, entrar com ação na Justiça do Trabalho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O patrão não pagou o salário\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-o-patrao-nao-pagou-o-salario-03
+  tema: "Rescisão indireta"
+  dificuldade: 3
+  enunciado: "O que é a rescisão indireta, pelo art. 483, alínea d, da CLT?"
+  alternativas:
+    - texto: "Quando o empregador não cumpre as obrigações do contrato, o empregado pode considerar o contrato rescindido e pedir indenização"
+      certa: true
+    - texto: "Quando o empregado pede demissão sem direito a nada"
+      erro: "É diferente: aqui a falta é do empregador."
+    - texto: "Quando o empregador demite sem pagar"
+      erro: "É a rescisão pelo empregado diante da falta do empregador."
+  explicacao: "É uma decisão séria: converse antes com o sindicato ou um advogado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O patrão não pagou o salário\""
+  revisao:
+    status: em-revisao

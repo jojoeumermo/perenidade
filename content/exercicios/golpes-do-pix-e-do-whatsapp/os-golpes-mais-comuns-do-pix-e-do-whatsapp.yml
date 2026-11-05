@@ -1,0 +1,67 @@
+# Exercícios da aula "Os golpes mais comuns do Pix e do WhatsApp" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-com-01
+  tema: "Reação à mensagem urgente"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a melhor primeira reação quando uma mensagem pede dinheiro com urgência?"
+  alternativas:
+    - texto: "Parar e conferir por outro caminho, ligando para o número que você já tem"
+      certa: true
+    - texto: "Responder logo, para ajudar"
+      erro: "A pressa é a isca. Pare e confira."
+    - texto: "Mandar o Pix e perguntar depois"
+      erro: "Pix cai na hora e é difícil voltar. Pergunte antes."
+  explicacao: "Pressa, emoção e um pedido fora do normal são os três sinais. Percebeu? Pare e confira por outro caminho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-com-02
+  tema: "Golpe do código"
+  dificuldade: 2
+  enunciado: "Alguém manda: 'Mandei um código por engano, pode me passar?'. O que é isso?"
+  alternativas:
+    - texto: "O golpe do WhatsApp clonado: o código de 6 dígitos é seu e não se passa a ninguém"
+      certa: true
+    - texto: "Um pedido comum entre amigos"
+      erro: "Ninguém tem motivo para pedir seu código. Ele permite entrar na sua conta."
+    - texto: "Um erro do WhatsApp, e passar o código resolve"
+      erro: "Passar o código entrega a sua conta ao golpista."
+  explicacao: "O golpista tenta cadastrar o seu número no aparelho dele, o WhatsApp manda o código a você, e ele inventa uma desculpa para pegá-lo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-com-03
+  tema: "Falso comprador"
+  dificuldade: 3
+  enunciado: "Você vendeu uma geladeira e o comprador mostra um comprovante de Pix. O que vale como prova de que o dinheiro entrou?"
+  alternativas:
+    - texto: "O extrato do seu banco"
+      certa: true
+    - texto: "O comprovante em imagem que ele mandou"
+      erro: "Comprovante é imagem e pode ser falso. Só vale o extrato do seu banco."
+    - texto: "A palavra do comprador"
+      erro: "Sem o dinheiro no extrato, não entregue o produto."
+  explicacao: "No golpe do falso comprador, o 'comprovante' pode ser montado. Só vale o extrato do seu banco."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-com-04
+  tema: "Link falso"
+  dificuldade: 2
+  enunciado: "Chega uma mensagem sobre um 'pacote retido nos Correios' com um link para pagar uma taxa. O que fazer?"
+  alternativas:
+    - texto: "Não clicar e conferir no site ou aplicativo oficial, digitando o endereço"
+      certa: true
+    - texto: "Clicar e pagar logo, para não perder a encomenda"
+      erro: "O link leva a um site idêntico ao verdadeiro, que pede senha e dados do cartão."
+    - texto: "Reencaminhar para a família, para avisar"
+      erro: "Reencaminhar espalha o golpe. Avise sem repassar o link."
+  explicacao: "Link falso (phishing) leva a site que parece verdadeiro e pede senha, CPF ou cartão. Entre pelo aplicativo ou digite o endereço oficial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,83 @@
+# Exercícios da aula "A história das costureiras e das trabalhadoras da confecção" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-historia-01
+  tema: "O incêndio da Triangle"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Por que tantas trabalhadoras morreram no incêndio da fábrica Triangle, em Nova York, em 1911?"
+  alternativas:
+    - texto: "Muitas não conseguiram fugir porque as portas das escadas e saídas estavam trancadas, e não havia sprinklers"
+      certa: true
+    - texto: "Porque a fábrica estava vazia e ninguém ouviu o alarme"
+      erro: "A fábrica estava funcionando, com trabalhadoras e trabalhadores, em sua maioria mulheres e meninas imigrantes. O problema foram as saídas trancadas."
+    - texto: "Porque a fábrica não tinha janelas"
+      erro: "Havia janelas, e muitas pessoas pularam delas por não conseguirem sair pelas portas, que estavam trancadas."
+  explicacao: "Em 25 de março de 1911, um incêndio na fábrica de blusas Triangle matou 146 pessoas, 123 delas mulheres e meninas, a maioria imigrantes italianas e judias de 14 a 23 anos. O caso levou a novas leis de segurança nas fábricas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A história das costureiras e das trabalhadoras da confecção\""
+  revisao:
+    status: em-revisao
+
+- id: cost-historia-02
+  tema: "A greve de 1917"
+  dificuldade: 2
+  enunciado: "Onde começou a greve geral de 1917, a primeira greve geral da história do Brasil, segundo a aula?"
+  alternativas:
+    - texto: "Em fábricas têxteis do Cotonifício Rodolfo Crespi, na Mooca, em São Paulo"
+      certa: true
+    - texto: "Nas minas do interior de Minas Gerais"
+      erro: "A greve começou em fábricas têxteis de São Paulo, na Mooca, e depois se espalhou para outras cidades e estados."
+    - texto: "Nos portos do Recife"
+      erro: "A greve de 1917 começou em fábricas têxteis do Cotonifício Rodolfo Crespi, na Mooca, em São Paulo."
+  explicacao: "A morte do jovem anarquista José Martinez, numa manifestação, revoltou os operários. Em três dias, mais de 70 mil trabalhadores tinham aderido, e a greve durou 30 dias, espalhando-se para outras cidades e estados."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A história das costureiras e das trabalhadoras da confecção\""
+  revisao:
+    status: em-revisao
+
+- id: cost-historia-03
+  tema: "O Rana Plaza"
+  dificuldade: 2
+  enunciado: "O que o desabamento do Rana Plaza, em Bangladesh, em 2013, mostra, segundo a aula?"
+  alternativas:
+    - texto: "Que avisos ignorados, como as rachaduras vistas no dia anterior, custam vidas: as lojas e o banco fecharam, mas os donos das fábricas mandaram as trabalhadoras voltarem"
+      certa: true
+    - texto: "Que o prédio caiu por acaso, sem nenhum aviso"
+      erro: "No dia anterior foram vistas grandes rachaduras. Lojas e banco fecharam, mas as fábricas seguiram funcionando, e o prédio tinha sido construído sem as licenças."
+    - texto: "Que só houve um ferido"
+      erro: "Morreram 1.134 pessoas, e cerca de 2.500 feridos foram resgatados. É considerado o maior desastre da história numa fábrica de roupas."
+  explicacao: "O prédio abrigava cinco fábricas de roupas, um banco e apartamentos, foi construído sem as licenças, e andares inteiros foram acrescentados sem estrutura para o peso das máquinas. Morreram 1.134 pessoas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A história das costureiras e das trabalhadoras da confecção\""
+  revisao:
+    status: em-revisao
+
+- id: cost-historia-04
+  tema: "Trabalho análogo ao de escravo"
+  dificuldade: 2
+  enunciado: "Numa oficina, as costureiras moram no fundo, trabalham das 7h à meia-noite e não podem sair até pagar a \"dívida\" da passagem. O que isso é, pelo Código Penal?"
+  alternativas:
+    - texto: "Trabalho análogo ao de escravo: jornada exaustiva e restrição de locomoção por dívida (art. 149)"
+      certa: true
+    - texto: "Uma relação de trabalho comum"
+      erro: "Jornada exaustiva e proibição de sair por causa de dívida com o empregador são exatamente o que o art. 149 do Código Penal descreve como trabalho análogo ao de escravo."
+    - texto: "Só uma infração leve, sem pena"
+      erro: "É crime, com pena de reclusão de 2 a 8 anos e multa. Basta uma das situações do art. 149."
+  explicacao: "O art. 149 do Código Penal chama de trabalho análogo ao de escravo submeter alguém a trabalhos forçados, jornada exaustiva, condições degradantes ou restringir a locomoção por dívida com o empregador. A pena aumenta pela metade se o crime é contra criança ou adolescente, ou por preconceito."
+  fonte: "Questão original do Instituto Lúcia; Código Penal, art. 149 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-historia-05
+  tema: "O que se repete"
+  dificuldade: 3
+  enunciado: "Olhando 1830, 1911, 1917 e 2013 juntos, qual conclusão combina com a aula?"
+  alternativas:
+    - texto: "Em todos esses casos a segurança e o sustento de quem costura estavam em jogo, e as conquistas vieram quando as trabalhadoras se organizaram"
+      certa: true
+    - texto: "Nunca houve organização das trabalhadoras da costura"
+      erro: "A greve de 1917 começou em fábricas têxteis, e o incêndio de 1911 ajudou a crescer o sindicato dos trabalhadores da confecção, que lutou por melhores condições."
+    - texto: "Os problemas acabaram depois de 1911 e hoje não existem mais"
+      erro: "A aula mostra que, hoje, há resgates de pessoas em oficinas de costura no Brasil, inclusive imigrantes bolivianos em São Paulo."
+  explicacao: "Em 1830, a primeira fábrica de roupas à máquina foi queimada por trabalhadores com medo de perder o sustento. Em 1911, portas trancadas. Em 1917, a primeira greve geral do Brasil começou nas fábricas têxteis. Em 2013, avisos ignorados. Hoje, é possível denunciar trabalho escravo em oficinas pelo Sistema Ipê e pelo Disque 100."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A história das costureiras e das trabalhadoras da confecção\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,67 @@
+# Exercícios da aula "Como se proteger no dia a dia" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-prot-01
+  tema: "Código de SMS"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Alguém liga dizendo ser do banco e pede o código de SMS 'para cancelar uma compra'. O que você faz?"
+  alternativas:
+    - texto: "Desliga e liga para o número que está no cartão"
+      certa: true
+    - texto: "Passa o código rápido, para cancelar a compra"
+      erro: "Banco nenhum pede código por telefone. Quem pede é golpista."
+    - texto: "Passa só os três primeiros dígitos"
+      erro: "Nem parte do código se passa. Desligue e confira pelo canal oficial."
+  explicacao: "Banco, gov.br e entregas nunca pedem senha, código de SMS ou foto do rosto com documento. Desligue e ligue para o número oficial."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-prot-02
+  tema: "Duas etapas no WhatsApp"
+  dificuldade: 2
+  enunciado: "Qual ajuste protege o WhatsApp mesmo que alguém consiga o código de SMS?"
+  alternativas:
+    - texto: "A verificação em duas etapas, com um PIN de 6 dígitos que só você sabe"
+      certa: true
+    - texto: "Trocar a foto de perfil"
+      erro: "A foto não protege a conta. O PIN da verificação em duas etapas, sim."
+    - texto: "Passar o PIN a um parente para guardar"
+      erro: "O PIN não se passa a ninguém: ele é a segunda trava."
+  explicacao: "Com a verificação em duas etapas, só o código não basta: sem o PIN, o golpista não entra. Não use data de nascimento e não conte o PIN."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-prot-03
+  tema: "Conferir por outro caminho"
+  dificuldade: 2
+  enunciado: "Chega uma mensagem de um número novo: 'Mãe, mudei de celular, faz um Pix para mim'. O que fazer?"
+  alternativas:
+    - texto: "Ligar para o número antigo do filho e só decidir depois"
+      certa: true
+    - texto: "Fazer o Pix, porque pode ser urgente"
+      erro: "A urgência é a isca. Pedido de dinheiro por mensagem, de número novo, se confere por ligação."
+    - texto: "Responder pedindo o código do WhatsApp dele"
+      erro: "Pedir código não prova nada, e é o golpe do código. Ligue para o número que você já tinha."
+  explicacao: "Regra de ouro: quem pede dinheiro ou dado, você confirma por outro canal, como a ligação para o número que já tinha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-prot-04
+  tema: "Ler o nome na tela do Pix"
+  dificuldade: 2
+  enunciado: "Na tela de confirmação do Pix, o nome do favorecido não é o de quem você quer pagar. O que fazer?"
+  alternativas:
+    - texto: "Não confirmar e conferir a chave com a pessoa por outro canal"
+      certa: true
+    - texto: "Confirmar mesmo assim: o valor é pequeno"
+      erro: "O Pix cai na hora e é difícil voltar. Se o nome não bate, não confirme."
+    - texto: "Confirmar e pedir o dinheiro de volta depois"
+      erro: "Pedir de volta depois é incerto. Leia o nome antes de apertar."
+  explicacao: "Leia o nome do favorecido antes de confirmar. Se não bate, pare: o Pix cai na hora e desfazer é difícil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

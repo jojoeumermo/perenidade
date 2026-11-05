@@ -1,0 +1,50 @@
+# Exercícios da aula "O algoritmo e a bolha" (midia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: midia-fundamental-o-algoritmo-e-a-bolha-01
+  tema: "O que é algoritmo"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que um algoritmo de recomendação faz quando você abre uma rede social?"
+  alternativas:
+    - texto: "Mostra tudo o que foi postado, na ordem"
+      erro: "Você não vê tudo. O algoritmo escolhe o que aparece, com base no que você clicou, curtiu, assistiu e buscou."
+    - texto: "Escolhe o que aparece para você com base no que você clicou, curtiu, assistiu e buscou antes"
+      certa: true
+    - texto: "Apaga o que você não curtiu para sempre"
+      erro: "A aula fala em escolher o que aparece, sem dizer que apaga conteúdo."
+  explicacao: "Isso se chama personalização. As escolhas só às vezes são transparentes, e quase nunca sabemos por que vimos uma coisa e não outra."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O algoritmo e a bolha\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-o-algoritmo-e-a-bolha-02
+  tema: "Bolha de filtro"
+  dificuldade: 2
+  enunciado: "Quem criou a expressão \"bolha de filtro\", e o que ela quer dizer?"
+  alternativas:
+    - texto: "Eli Pariser; cada pessoa fica exposta mais ao que já concorda e menos a pontos de vista diferentes"
+      certa: true
+    - texto: "Eli Pariser; todos veem exatamente o mesmo conteúdo"
+      erro: "É o contrário: cada um vê um conteúdo diferente, personalizado."
+    - texto: "O governo; é uma lei sobre privacidade"
+      erro: "Foi o ativista Eli Pariser, no livro The Filter Bubble (2011). Não é uma lei."
+  explicacao: "Pariser previu que a personalização levaria ao isolamento intelectual e à fragmentação social, prejudicando o debate público."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O algoritmo e a bolha\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-o-algoritmo-e-a-bolha-03
+  tema: "Sair da bolha"
+  dificuldade: 2
+  enunciado: "Uma pessoa só assiste vídeos que falam mal de um time. O que a aula sugere que ela pode fazer para sair da bolha?"
+  alternativas:
+    - texto: "Assistir mais do mesmo, até enjoar"
+      erro: "Isso reforça a bolha. O algoritmo recomenda mais do que a pessoa assiste."
+    - texto: "Buscar de propósito outras fontes"
+      certa: true
+    - texto: "Nada, o algoritmo muda sozinho"
+      erro: "O algoritmo tende a repetir o que a pessoa já assiste. Quem quer variar precisa buscar outras fontes."
+  explicacao: "Saber que o que aparece na tela foi escolhido por alguém, ou por algum programa, já ajuda a buscar fontes diferentes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O algoritmo e a bolha\""
+  revisao:
+    status: em-revisao

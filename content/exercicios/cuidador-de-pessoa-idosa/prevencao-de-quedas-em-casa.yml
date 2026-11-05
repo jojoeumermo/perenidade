@@ -1,0 +1,84 @@
+# Exercícios da aula "Prevenção de quedas em casa" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação de profissional de saúde.
+
+- id: cuid-quedas-01
+  tema: "Por que acontecem"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, a queda de uma pessoa idosa costuma ter uma causa só?"
+  alternativas:
+    - texto: "Não: juntam-se mudanças do corpo, doenças, tontura, alguns remédios, o ambiente, o calçado e a pressa"
+      certa: true
+    - texto: "Sim, é sempre falta de atenção da pessoa"
+      erro: "A queda quase nunca tem uma causa só. Tapetes soltos, pouca luz e calçado frouxo, por exemplo, também contam, e muitas quedas podem ser evitadas."
+    - texto: "Sim, é sempre o remédio"
+      erro: "Alguns remédios podem dar tontura, mas há várias causas. Se achar que um remédio está causando tontura, converse com a UBS: não troque nem pare por conta própria."
+  explicacao: "Músculos mais fracos, equilíbrio e visão menos firmes, doenças, tontura ao levantar depressa, alguns remédios, o ambiente, o calçado e a pressa se somam. Muitas quedas podem ser evitadas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Prevenção de quedas em casa\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-quedas-02
+  tema: "O banheiro"
+  dificuldade: 1
+  enunciado: "Qual destas mudanças ajuda mais a prevenir quedas no banheiro?"
+  alternativas:
+    - texto: "Barra de apoio firme na parede, piso antiderrapante e luz acesa à noite"
+      certa: true
+    - texto: "Usar o toalheiro como apoio"
+      erro: "O toalheiro não é apoio: ele solta. A barra de apoio precisa estar bem fixada na parede."
+    - texto: "Deixar o piso molhado para limpar mais rápido"
+      erro: "Piso molhado é uma das causas de queda. No banheiro, piso seco fora do box e tapete antiderrapante dentro."
+  explicacao: "No banheiro: barra de apoio firme ao lado do vaso e no box, tapete antiderrapante no box, piso seco fora dele, cadeira ou banco de banho se a pessoa se cansa em pé, e luz acesa à noite ou luz de vigília."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Prevenção de quedas em casa\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-quedas-03
+  tema: "A casa segura com pouco dinheiro"
+  dificuldade: 2
+  enunciado: "Seu Osvaldo já tropeçou duas vezes no mesmo tapete do corredor. Pelo que a aula mostra, qual é a primeira atitude da filha, a que não custa nada?"
+  alternativas:
+    - texto: "Tirar o tapete do corredor, tirar o fio do ventilador do caminho e deixar livre o caminho da cama ao banheiro"
+      certa: true
+    - texto: "Esperar a terceira queda para tomar uma providência"
+      erro: "A aula diz para levar as tropeçadas à UBS em vez de \"esperar a terceira\". Tirar o tapete não custa nada."
+    - texto: "Comprar uma barra de apoio antes de fazer qualquer outra coisa"
+      erro: "A barra de apoio é importante, mas custa mais. A ordem da aula é: primeiro o que não custa, depois o barato, depois o de custo médio."
+  explicacao: "Sem custo: tirar o tapete, tirar o fio do caminho, liberar o trajeto até o banheiro. Custo baixo: fita antiderrapante nos degraus e tapete de borracha no box. Custo médio: barra de apoio, bem fixada. Na UBS, avisar das tropeçadas e pedir avaliação da visão, dos remédios e do equilíbrio."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Prevenção de quedas em casa\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-quedas-04
+  tema: "Levantar devagar"
+  dificuldade: 2
+  enunciado: "Qual é o jeito certo de a pessoa idosa levantar da cama para evitar tontura?"
+  alternativas:
+    - texto: "Sentar na beira da cama por um minuto, respirar fundo, mexer pernas e pés e levantar com apoio firme"
+      certa: true
+    - texto: "Levantar de uma vez e andar depressa"
+      erro: "Levantar rápido pode derrubar a pressão e dar tontura. Sente na beira da cama por um minuto antes."
+    - texto: "Apoiar-se na cortina para levantar"
+      erro: "Cortina e móvel que gira não são apoio. Use uma superfície firme."
+  explicacao: "Sentar por um minuto com os pés no chão, respirar fundo, mexer pernas e pés, levantar com apoio em superfície firme e esperar ficar firme antes de andar. Se a tontura é frequente ou há desmaios, avise a UBS."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Prevenção de quedas em casa\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-quedas-05
+  tema: "Se a pessoa cair"
+  dificuldade: 3
+  enunciado: "A pessoa idosa caiu, bateu a cabeça e está confusa. O que fazer primeiro?"
+  alternativas:
+    - texto: "Ligar para o SAMU (192), não mover a pessoa, mantê-la aquecida e acompanhá-la até o socorro chegar"
+      certa: true
+    - texto: "Levantá-la rápido, puxando pelos braços, e dar um chá"
+      erro: "Batida na cabeça e confusão pedem o SAMU. Não mova a pessoa e não puxe pelos braços."
+    - texto: "Esperar para ver se melhora amanhã"
+      erro: "Batida na cabeça é sinal de risco. Ligue para o SAMU (192) e não deixe para depois."
+  explicacao: "Chame o SAMU em caso de batida na cabeça, dor forte, impossibilidade de mexer um membro, deformidade, sangramento intenso, desmaio ou confusão. Se a pessoa está bem e consegue se mexer, ajude-a a rolar de lado, apoiar mãos e joelhos e sentar numa cadeira firme. Depois de qualquer queda, avise a UBS e anote quando, onde e o que ela fazia."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Prevenção de quedas em casa\""
+  revisao:
+    status: em-revisao

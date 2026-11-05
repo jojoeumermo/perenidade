@@ -1,0 +1,50 @@
+# Exercícios da aula "Orçamento, garantia e trabalhar por conta própria" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-orcamento-garantia-e-trabalhar-por-conta-01
+  tema: "Orçamento"
+  dificuldade: 2
+  enunciado: "Pelo artigo 40 do CDC, o que o orçamento prévio deve trazer, e por quanto tempo vale se nada for combinado?"
+  alternativas:
+    - texto: "Mão de obra, materiais, condições de pagamento e prazos; vale 10 dias"
+      certa: true
+    - texto: "Só o preço total; vale um ano"
+      erro: "A aula cita 10 dias."
+    - texto: "Só o nome do cliente; vale um mês"
+      erro: "O orçamento tem mais itens e vale 10 dias."
+  explicacao: "Sem orçamento e autorização, executar serviço é prática abusiva (art. 39, VI)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Orçamento, garantia e trabalhar por conta própria\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-orcamento-garantia-e-trabalhar-por-conta-02
+  tema: "Garantia"
+  dificuldade: 1
+  enunciado: "Como a aula manda oferecer garantia?"
+  alternativas:
+    - texto: "Por escrito, dizendo o que cobre e por quanto tempo"
+      certa: true
+    - texto: "Só de palavra"
+      erro: "A aula manda por escrito."
+    - texto: "Nunca oferecer"
+      erro: "A aula manda oferecer garantia."
+  explicacao: "Os prazos para o cliente reclamar são de 30 dias e 90 dias, conforme o caso (art. 26)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Orçamento, garantia e trabalhar por conta própria\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-orcamento-garantia-e-trabalhar-por-conta-03
+  tema: "Preço"
+  dificuldade: 2
+  enunciado: "O que a aula diz que o preço deve cobrir, além do material?"
+  alternativas:
+    - texto: "O seu tempo, ferramentas, segurança, DAS e outros custos fixos e uma reserva para retornos"
+      certa: true
+    - texto: "Só o material"
+      erro: "A aula diz que, se o preço só cobre o material, você está trabalhando de graça."
+    - texto: "Só o deslocamento"
+      erro: "Entram tempo, ferramentas, segurança, impostos e garantia."
+  explicacao: "Autônomo não tem empregador para pagar equipamento: o responsável é você."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Orçamento, garantia e trabalhar por conta própria\""
+  revisao:
+    status: em-revisao

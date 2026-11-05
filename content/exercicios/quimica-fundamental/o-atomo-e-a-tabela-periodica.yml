@@ -1,0 +1,50 @@
+# Exercícios da aula "O átomo e a tabela periódica" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-o-atomo-e-a-tabela-periodica-01
+  tema: "Partículas"
+  dificuldade: 1
+  enunciado: "Qual partícula do átomo tem carga negativa?"
+  alternativas:
+    - texto: "O próton"
+      erro: "Próton é positivo."
+    - texto: "O elétron"
+      certa: true
+    - texto: "O nêutron"
+      erro: "Nêutron não tem carga."
+  explicacao: "Prótons e nêutrons ficam no núcleo; os elétrons ficam na eletrosfera."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O átomo e a tabela periódica\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-o-atomo-e-a-tabela-periodica-02
+  tema: "Número atômico"
+  dificuldade: 1
+  enunciado: "O que é o número atômico (Z)?"
+  alternativas:
+    - texto: "O número de prótons, que dá a identidade do elemento"
+      certa: true
+    - texto: "O número de elétrons de qualquer átomo"
+      erro: "Em átomo neutro é igual, mas é definido pelo número de prótons."
+    - texto: "A soma de prótons e nêutrons"
+      erro: "Essa soma é o número de massa (A)."
+  explicacao: "1 próton: hidrogênio; 6: carbono; 8: oxigênio; 79: ouro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O átomo e a tabela periódica\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-o-atomo-e-a-tabela-periodica-03
+  tema: "Símbolo do ouro"
+  dificuldade: 2
+  enunciado: "Por que o símbolo do ouro é Au?"
+  alternativas:
+    - texto: "Vem do nome em latim, aurum"
+      certa: true
+    - texto: "Vem de \"ouro\" em inglês"
+      erro: "Vem do latim."
+    - texto: "É só um sinal aleatório"
+      erro: "Muitos símbolos vêm do nome em latim: Fe (ferrum), Na (natrium)."
+  explicacao: "Átomos do mesmo elemento com números diferentes de nêutrons são isótopos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O átomo e a tabela periódica\""
+  revisao:
+    status: em-revisao

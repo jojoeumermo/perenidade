@@ -1,0 +1,67 @@
+# Exercícios da aula "O que é feminismo" (Feminismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fem-feminismo-01
+  tema: "O que o feminismo quer"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, qual é o objetivo comum dos movimentos e das ideias feministas?"
+  alternativas:
+    - texto: "Colocar as mulheres acima dos homens"
+      erro: "Esse é um engano comum, que confunde feminismo com o contrário do machismo. A aula diz que o feminismo não quer as mulheres acima dos homens: quer igualdade."
+    - texto: "Direitos iguais entre mulheres e homens e a libertação dos padrões patriarcais"
+      certa: true
+    - texto: "Acabar com o casamento e com as famílias"
+      erro: "Isso não faz parte da definição da aula. O objetivo comum é a igualdade de direitos e o fim dos padrões que colocam as mulheres abaixo dos homens."
+  explicacao: "Feminismo é um conjunto de movimentos políticos e sociais, ideias e filosofias que buscam direitos iguais entre mulheres e homens e a libertação dos padrões patriarcais, que colocam as mulheres abaixo dos homens."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é feminismo\" (fonte da aula: Wikipédia, \"Feminismo\")"
+  revisao:
+    status: em-revisao
+
+- id: fem-feminismo-02
+  tema: "Conquistas"
+  dificuldade: 1
+  enunciado: "Qual destes direitos está entre os que as feministas fizeram campanha para conquistar, segundo a aula?"
+  alternativas:
+    - texto: "O direito de votar"
+      certa: true
+    - texto: "O direito de não pagar impostos"
+      erro: "Não está entre as conquistas citadas. A lista da aula inclui o voto, os contratos e a propriedade, direitos trabalhistas, autonomia sobre o corpo e proteção contra a violência."
+    - texto: "O direito de faltar ao trabalho sem avisar"
+      erro: "Não é uma das conquistas citadas. A aula fala de direitos trabalhistas, que protegem quem trabalha."
+  explicacao: "Entre as conquistas estão o voto, o direito de assinar contratos e ter propriedade, os direitos trabalhistas, a autonomia sobre o corpo e a proteção contra a violência doméstica, o assédio sexual e o estupro."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é feminismo\""
+  revisao:
+    status: em-revisao
+
+- id: fem-feminismo-03
+  tema: "As três ondas"
+  dificuldade: 2
+  enunciado: "Qual foi a luta principal da primeira onda do feminismo (século XIX e começo do século XX)?"
+  alternativas:
+    - texto: "A igualdade legal e social, a partir dos anos 1960"
+      erro: "Essa é a luta da segunda onda, que começou nos anos 1960. A primeira onda veio antes."
+    - texto: "O direito ao voto"
+      certa: true
+    - texto: "A revisão das falhas da segunda onda"
+      erro: "Isso se liga à terceira onda, a partir dos anos 1990, que para alguns foi uma reação às falhas da segunda."
+  explicacao: "Na primeira onda (século XIX e começo do XX) a luta principal era o direito ao voto. Na segunda (a partir dos anos 1960), a igualdade legal e social; na terceira (a partir dos anos 1990), a continuação da segunda e, para alguns, uma reação às suas falhas."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O que é feminismo\""
+  revisao:
+    status: em-revisao
+
+- id: fem-feminismo-04
+  tema: "Conversar sobre feminismo"
+  dificuldade: 2
+  enunciado: "Alguém diz: \"feminismo é o contrário de machismo: as mulheres querem mandar nos homens\". Qual resposta está de acordo com a aula?"
+  alternativas:
+    - texto: "Concordar, porque as duas palavras são parecidas"
+      erro: "Parecer não é ser. O machismo põe os homens acima das mulheres; o feminismo não quer o inverso, quer igualdade."
+    - texto: "Dizer que o feminismo busca igualdade de direitos, e perguntar qual direito (votar, ter propriedade, trabalhar) a pessoa acha que as mulheres não deveriam ter"
+      certa: true
+    - texto: "Dizer que a pessoa não entende nada e encerrar a conversa"
+      erro: "Pode parecer fácil, mas a conversa acaba. A aula propõe responder sem se zangar, com a definição e perguntas simples."
+  explicacao: "A aula define feminismo como busca de direitos iguais, e não de domínio sobre os homens. Uma boa resposta explica isso e convida a pessoa a pensar quais direitos da lista ela contestaria."
+  fonte: "Questão original do Instituto Lúcia, a partir do bloco \"O outro lado\" da aula \"O que é feminismo\""
+  revisao:
+    status: em-revisao

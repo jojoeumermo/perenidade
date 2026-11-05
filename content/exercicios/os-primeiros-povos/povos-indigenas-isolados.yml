@@ -1,0 +1,50 @@
+# Exercícios da aula "Povos indígenas isolados" (os-primeiros-povos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: os-primeiros-povos-povos-indigenas-isolados-01
+  tema: "Maior concentração"
+  dificuldade: 1
+  enunciado: "Onde, segundo a aula, está a maior concentração de povos isolados do mundo?"
+  alternativas:
+    - texto: "Na Patagônia"
+      erro: "A aula cita a floresta na fronteira entre Brasil e Peru."
+    - texto: "Na floresta da fronteira entre Brasil e Peru, na bacia do rio Javari"
+      certa: true
+    - texto: "No Pantanal"
+      erro: "A aula aponta a bacia do rio Javari, no Amazonas."
+  explicacao: "O Brasil é o país que tem o maior número de povos isolados."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Povos indígenas isolados\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-povos-indigenas-isolados-02
+  tema: "Por que não contatar"
+  dificuldade: 2
+  enunciado: "Por que se defende que os povos isolados fiquem sem contato?"
+  alternativas:
+    - texto: "Pelo direito à autodeterminação e porque não têm imunidade a doenças comuns, que podem matar muita gente"
+      certa: true
+    - texto: "Porque são perigosos para os visitantes"
+      erro: "A aula aponta o risco para eles, que não têm imunidade a doenças comuns."
+    - texto: "Porque a lei proíbe viajar para a Amazônia"
+      erro: "A defesa é pelo direito deles ao isolamento e pelo risco de doenças."
+  explicacao: "O contato pode levar doenças respiratórias e outras que matam muita gente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Povos indígenas isolados\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-povos-indigenas-isolados-03
+  tema: "Estrada"
+  dificuldade: 2
+  enunciado: "Uma empresa quer abrir uma estrada perto de uma área com povos isolados. Qual risco a aula aponta?"
+  alternativas:
+    - texto: "Nenhum, se a estrada for bem asfaltada"
+      erro: "A aula aponta contato não desejado, doenças e violência."
+    - texto: "Contato não desejado, doenças sem imunidade e violência"
+      certa: true
+    - texto: "Só o aumento do trânsito"
+      erro: "Os riscos principais para o povo são contato, doenças e violência."
+  explicacao: "Proteger a área é proteger a vida e a autodeterminação desse povo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Povos indígenas isolados\""
+  revisao:
+    status: em-revisao

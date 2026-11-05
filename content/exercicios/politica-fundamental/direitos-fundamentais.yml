@@ -1,0 +1,50 @@
+# Exercícios da aula "Direitos fundamentais" (politica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: politica-fundamental-direitos-fundamentais-01
+  tema: "Cláusula pétrea"
+  dificuldade: 2
+  enunciado: "O que significa os direitos e garantias individuais serem cláusula pétrea?"
+  alternativas:
+    - texto: "Que podem ser mudados por qualquer lei"
+      erro: "É o contrário: não podem ser abolidos nem por emenda constitucional."
+    - texto: "Que não podem ser abolidos nem por emenda"
+      certa: true
+    - texto: "Que só valem para estrangeiros"
+      erro: "O art. 5º vale para brasileiros e estrangeiros residentes no país."
+  explicacao: "O art. 5º garante vida, liberdade, igualdade, segurança e propriedade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos fundamentais\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-direitos-fundamentais-02
+  tema: "Direitos sociais"
+  dificuldade: 1
+  enunciado: "Qual artigo da Constituição lista os direitos sociais, como educação, saúde, moradia e transporte?"
+  alternativas:
+    - texto: "O art. 5º"
+      erro: "O art. 5º trata dos direitos individuais."
+    - texto: "O art. 6º"
+      certa: true
+    - texto: "O art. 60"
+      erro: "O art. 60 trata das emendas à Constituição."
+  explicacao: "Moradia entrou em 2000, alimentação em 2010 e transporte em 2015. Cada um foi fruto de luta."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos fundamentais\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-direitos-fundamentais-03
+  tema: "Posto de saúde"
+  dificuldade: 2
+  enunciado: "Uma prefeitura fecha o único posto de saúde do bairro. Qual argumento da Constituição os moradores podem usar?"
+  alternativas:
+    - texto: "Saúde é direito social (art. 6º); podem cobrar a prefeitura e procurar o Ministério Público e a Defensoria"
+      certa: true
+    - texto: "Nenhum, a prefeitura pode decidir sozinha"
+      erro: "A aula mostra que a Constituição dá o argumento e a base legal da luta."
+    - texto: "Só o direito de propriedade, do art. 5º"
+      erro: "O argumento aqui é o direito social à saúde."
+  explicacao: "A Constituição não resolve sozinha, mas dá a base legal. Os moradores também podem organizar abaixo-assinados e protestos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos fundamentais\""
+  revisao:
+    status: em-revisao

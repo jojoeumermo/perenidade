@@ -1,0 +1,68 @@
+# Exercícios da aula "Relevo, clima e vegetação" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-rel-01
+  tipo: numero
+  tema: "O frio da serra"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Pela regra de que a temperatura cai cerca de 0,6 °C a cada 100 m de subida, quanto deve marcar uma cidade a 700 m de altitude quando o litoral, ao nível do mar, marca 26 °C?"
+  resposta: "21,8"
+  unidade: "°C"
+  erros_comuns:
+    - resposta: "4,2"
+      explicacao: "4,2 °C é só quanto a temperatura cai. Falta tirar isso dos 26 °C do litoral."
+  dica: "Calcule quantos trechos de 100 m há em 700 m e multiplique por 0,6."
+  explicacao: "700 ÷ 100 = 7 trechos. 7 × 0,6 = 4,2 °C a menos. 26 − 4,2 = 21,8 °C, uma estimativa."
+  conferir: "26 - 7 * 0.6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-rel-02
+  tema: "Tempo e clima"
+  dificuldade: 1
+  enunciado: "Qual destas frases fala do clima, e não do tempo?"
+  alternativas:
+    - texto: "Em Belém, chove quase todo dia, ano após ano"
+      certa: true
+    - texto: "Amanhã vai fazer sol"
+      erro: "Isso é o tempo: o estado da atmosfera num dia. Clima é o padrão que se repete por muitos anos."
+    - texto: "Hoje de manhã estava frio"
+      erro: "Isso é o tempo: o estado da atmosfera agora."
+  explicacao: "Tempo é o estado da atmosfera agora; clima é o padrão que se repete por muitos anos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-rel-03
+  tema: "Formas de relevo"
+  dificuldade: 2
+  enunciado: "Como se chama o terreno baixo e plano onde os sedimentos se acumulam, como o Pantanal?"
+  alternativas:
+    - texto: "Planície"
+      certa: true
+    - texto: "Planalto"
+      erro: "Planalto é um terreno elevado, onde a erosão predomina, como o Planalto Central."
+    - texto: "Montanha"
+      erro: "Montanha é uma elevação alta, de encostas íngremes, como o Pico da Neblina."
+  explicacao: "Planície é terreno baixo e plano, onde os sedimentos se acumulam: o Pantanal e as planícies do litoral."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-rel-04
+  tema: "Altitude e temperatura"
+  dificuldade: 2
+  enunciado: "Por que costuma fazer mais frio numa cidade da serra do que numa cidade do litoral da mesma região?"
+  alternativas:
+    - texto: "Porque quanto mais alto, mais frio"
+      certa: true
+    - texto: "Porque a serra recebe menos luz do Sol que o litoral"
+      erro: "A luz do Sol é a mesma. O que muda é a altitude: quanto mais alto, mais frio."
+    - texto: "Porque o litoral está mais longe do Equador"
+      erro: "Na mesma região, a latitude é quase igual. A diferença vem da altitude."
+  explicacao: "A altitude é um dos fatores do clima: a temperatura cai, em média, cerca de 0,6 °C a cada 100 metros de subida."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

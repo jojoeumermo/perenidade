@@ -1,0 +1,50 @@
+# Exercícios da aula "A lei que manda ensinar história e cultura afro-brasileira" (religioes-de-matriz-africana). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-de-matriz-af-a-lei-que-manda-ensinar-historia-e-cultu-01
+  tema: "Número da lei"
+  dificuldade: 1
+  enunciado: "Qual lei, de 2003, tornou obrigatório o ensino de História e Cultura Afro-Brasileira nas escolas?"
+  alternativas:
+    - texto: "Lei nº 7.716"
+      erro: "Essa é a lei que define crimes de preconceito, de 1989."
+    - texto: "Lei nº 10.639"
+      certa: true
+    - texto: "Lei nº 14.402"
+      erro: "Essa mudou o nome do 19 de abril em 2022."
+  explicacao: "A lei acrescentou à LDB o artigo 26-A, valendo para o ensino fundamental e médio, oficiais e particulares."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A lei que manda ensinar história e cultura afro-brasileira\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-a-lei-que-manda-ensinar-historia-e-cultu-02
+  tema: "Conteúdo"
+  dificuldade: 2
+  enunciado: "Qual destes conteúdos a lei manda ensinar?"
+  alternativas:
+    - texto: "A história da África e dos africanos, a luta dos negros no Brasil e a cultura negra brasileira"
+      certa: true
+    - texto: "Só a história da escravidão"
+      erro: "A aula diz que não é só a escravidão, mas também a resistência, a cultura e a história da África."
+    - texto: "Só a música de matriz africana"
+      erro: "A lei inclui muito mais: história, luta, cultura e a formação da sociedade."
+  explicacao: "O conteúdo resgata a contribuição do povo negro nas áreas social, econômica e política da história do Brasil."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A lei que manda ensinar história e cultura afro-brasileira\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-a-lei-que-manda-ensinar-historia-e-cultu-03
+  tema: "Em todo o currículo"
+  dificuldade: 2
+  enunciado: "Segundo a lei, onde esses conteúdos devem ser ensinados?"
+  alternativas:
+    - texto: "Só no dia 20 de novembro, em palestra"
+      erro: "A aula diz que não é uma palestra nem uma matéria separada."
+    - texto: "Em todo o currículo escolar, em especial em Educação Artística, Literatura e História Brasileiras"
+      certa: true
+    - texto: "Só na aula de História"
+      erro: "A lei cita em todo o currículo, em especial nessas áreas."
+  explicacao: "Conhecer as religiões de matriz africana com respeito ajuda a combater o racismo religioso."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A lei que manda ensinar história e cultura afro-brasileira\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Regras, leis e Constituição" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-regras-leis-e-constituicao-01
+  tema: "Moral e lei"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre regra moral e lei, segundo a aula?"
+  alternativas:
+    - texto: "A moral vem do costume e da consciência; a lei é criada pelo Estado e a obediência pode ser exigida pela força"
+      certa: true
+    - texto: "Não há diferença nenhuma"
+      erro: "A aula as distingue: regras morais e regras jurídicas."
+    - texto: "A lei é só um conselho, sem obrigação"
+      erro: "A lei é criada pelo Estado e pode ser exigida pela força."
+  explicacao: "As regras protegem, sobretudo, os mais fracos. Sem regras, quem é mais forte impõe a sua vontade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Regras, leis e Constituição\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-regras-leis-e-constituicao-02
+  tema: "Como nasce uma lei"
+  dificuldade: 1
+  enunciado: "No Brasil, quem aprova as leis, com sanção ou veto do presidente?"
+  alternativas:
+    - texto: "A Assembleia Popular Nacional"
+      erro: "Essa é a da China."
+    - texto: "O Congresso Nacional, formado pela Câmara dos Deputados e pelo Senado"
+      certa: true
+    - texto: "O Supremo Tribunal Federal"
+      erro: "O STF pode declarar uma lei inconstitucional e anulá-la, mas quem aprova as leis é o Congresso."
+  explicacao: "Na China, as leis nacionais são aprovadas pela Assembleia Popular Nacional e pelo seu Comitê Permanente."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Regras, leis e Constituição\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-regras-leis-e-constituicao-03
+  tema: "Constituição brasileira"
+  dificuldade: 1
+  enunciado: "Qual é a Constituição em vigor no Brasil, chamada de \"Constituição Cidadã\"?"
+  alternativas:
+    - texto: "A de 1982"
+      erro: "1982 é o ano da Constituição chinesa em vigor."
+    - texto: "A de 1988"
+      certa: true
+    - texto: "A de 1964"
+      erro: "1964 é o início da ditadura militar. A Constituição Cidadã é de 1988, aprovada depois do fim da ditadura."
+  explicacao: "A Constituição de 1988 define o país como Estado democrático de direito, com separação entre os três poderes, eleições livres e pluripartidarismo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Regras, leis e Constituição\""
+  revisao:
+    status: em-revisao

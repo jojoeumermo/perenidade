@@ -1,0 +1,67 @@
+# Exercícios da aula "Costuras retas e acabamentos" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-costuras-01
+  tema: "A margem de costura"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é a margem de costura, e como costurar reto com a margem certa?"
+  alternativas:
+    - texto: "É a faixa entre a linha de costura e a beirada cortada; use as marcas da chapa ao lado do calcador e olhe para a beirada do tecido, não para a agulha"
+      certa: true
+    - texto: "É o tecido que sobra e deve ser jogado fora"
+      erro: "A margem faz parte da costura: é ela que fica dentro da peça e precisa de acabamento para não desfiar."
+    - texto: "É a distância da agulha ao calcador"
+      erro: "A margem é a faixa de tecido entre a linha de costura e a beirada cortada. O molde diz quanto é (muitos usam 1 cm ou 1,5 cm)."
+  explicacao: "Deixe os dentes puxarem o tecido; suas mãos só guiam. Nos cantos, pare com a agulha enfiada no tecido, levante o calcador, gire o tecido, abaixe o calcador e siga. No começo e no fim, dê pontos para trás (retrocesso)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Costuras retas e acabamentos\""
+  revisao:
+    status: em-revisao
+
+- id: cost-costuras-02
+  tema: "A costura simples"
+  dificuldade: 1
+  enunciado: "Como é a costura simples?"
+  alternativas:
+    - texto: "Une as duas partes direito com direito, e deixa a margem crua do lado de dentro, que precisa de acabamento"
+      certa: true
+    - texto: "Une as partes avesso com avesso e deixa a margem aparecendo por fora"
+      erro: "Na costura simples, as partes ficam direito com direito (face a face). Avesso com avesso é o primeiro passo da costura francesa."
+    - texto: "Não precisa de acabamento nenhum"
+      erro: "A margem crua desfia. Precisa de acabamento: overloque, zigue-zague, chuleado, viés, costura francesa ou inglesa."
+  explicacao: "O acabamento evita que a beirada desfie. Passe cada costura a ferro logo depois de costurar: primeiro do jeito que foi costurada, e depois abrindo as margens ou deitando-as para um lado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Costuras retas e acabamentos\""
+  revisao:
+    status: em-revisao
+
+- id: cost-costuras-03
+  tema: "Qual acabamento usar"
+  dificuldade: 2
+  enunciado: "Você vai costurar uma blusa de tecido fino e quase transparente e não tem overloque. Que acabamento fica mais limpo por dentro?"
+  alternativas:
+    - texto: "A costura francesa, que esconde a beirada dentro de uma dobra"
+      certa: true
+    - texto: "Deixar a margem crua"
+      erro: "No tecido transparente a margem aparece por fora, e a beirada crua desfia."
+    - texto: "Um chuleado bem grosso"
+      erro: "O chuleado grosso fica pesado e aparente num tecido fino. A costura francesa é a indicada para tecidos finos e transparentes."
+  explicacao: "Costura francesa: costure avesso com avesso, a cerca de 0,6 cm; apare a margem para uns 0,3 cm e passe a ferro; vire a peça e costure direito com direito, a cerca de 0,6 cm, prendendo a beirada aparada dentro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Costuras retas e acabamentos\""
+  revisao:
+    status: em-revisao
+
+- id: cost-costuras-04
+  tema: "Costura inglesa"
+  dificuldade: 2
+  enunciado: "Qual acabamento a aula indica para jeans, roupas de trabalho e camisas, e para a lateral de uma ecobag que aguente peso?"
+  alternativas:
+    - texto: "A costura inglesa (rebatida): uma margem é aparada e a outra dobrada por cima e pespontada"
+      certa: true
+    - texto: "A costura francesa em tecido transparente"
+      erro: "A francesa é a indicada para tecidos finos e transparentes. Para jeans e peças que pedem firmeza, a inglesa (rebatida)."
+    - texto: "Deixar a margem crua"
+      erro: "A margem crua desfia. A costura inglesa deixa a lateral firme e sem beirada solta."
+  explicacao: "Overloque: acabamento das roupas prontas, rápido e firme. Zigue-zague: quando não há overloque. Chuleado à mão: sem máquina. Viés: acabamento caprichado, também em golas e cavas."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Costuras retas e acabamentos\""
+  revisao:
+    status: em-revisao

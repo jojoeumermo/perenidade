@@ -1,0 +1,68 @@
+# Exercícios da aula "Remédios: o que o cuidador pode e não pode fazer" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação de médico, enfermeiro ou farmacêutico.
+
+- id: cuid-remedios-01
+  tema: "O que o cuidador pode fazer"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas tarefas o cuidador pode fazer com os remédios da pessoa idosa?"
+  alternativas:
+    - texto: "Organizar numa caixa por dia e horário, lembrar a hora, ver se tomou e anotar"
+      certa: true
+    - texto: "Aumentar a dose quando a dor aumenta"
+      erro: "Quem define remédio, dose e tempo é o profissional de saúde. O cuidador não aumenta nem diminui por conta própria."
+    - texto: "Dar o remédio que sobrou de outra pessoa"
+      erro: "Nunca dê remédio de outra pessoa nem \"o que sobrou\". Cada receita é para quem foi indicada."
+  explicacao: "O cuidador pode ler a receita com a pessoa e anotar nome, dose, horário e tempo de uso; organizar, lembrar, guardar na embalagem original longe de calor e umidade, observar e anotar sono, apetite, tontura e enjoo, e avisar o médico ou a UBS se algo mudar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Remédios: o que o cuidador pode e não pode fazer\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-remedios-02
+  tema: "Dose esquecida"
+  dificuldade: 2
+  enunciado: "A pessoa idosa esqueceu uma dose do remédio. O que o cuidador faz?"
+  alternativas:
+    - texto: "Pergunta ao profissional de saúde o que fazer com aquele remédio e anota"
+      certa: true
+    - texto: "Dá o dobro na próxima vez"
+      erro: "Não dobre a dose por esquecimento sem orientação. Alguns remédios fazem mal em excesso."
+    - texto: "Para o remédio de vez"
+      erro: "Parar por conta própria também pode fazer mal. Pergunte ao profissional de saúde."
+  explicacao: "Em dúvida, pergunte na UBS, na farmácia ou ao médico. O cuidador não troca, dobra, suspende, esmaga ou esconde remédio sem orientação."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Remédios: o que o cuidador pode e não pode fazer\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-remedios-03
+  tema: "A pessoa recusa o remédio"
+  dificuldade: 3
+  enunciado: "Seu Anselmo diz que não quer um dos remédios porque \"dá enjoo\". O que a aula recomenda?"
+  alternativas:
+    - texto: "Não forçar nem esconder na comida: conversar, anotar e levar à consulta para o médico avaliar"
+      certa: true
+    - texto: "Esconder o remédio na comida sem avisar"
+      erro: "Isso desrespeita a pessoa idosa, e alguns remédios não podem ser misturados. Converse e avise o médico."
+    - texto: "Parar o remédio por conta própria"
+      erro: "Só o profissional de saúde decide parar ou trocar. O enjoo deve ser avisado ao médico, que pode ter outro jeito."
+  explicacao: "A pessoa pode recusar por enjoo, medo ou dúvida. O Estatuto (art. 17) assegura à pessoa que está no domínio de suas faculdades mentais o direito de optar pelo tratamento que considerar mais favorável. Avise o médico para ver se há outro jeito."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, art. 17, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-remedios-04
+  tema: "Quando é urgência"
+  dificuldade: 2
+  enunciado: "Depois de tomar um remédio, a pessoa idosa fica com falta de ar e inchaço no rosto. O que fazer?"
+  alternativas:
+    - texto: "Ligar para o SAMU (192) ou ir ao serviço de urgência, levando a embalagem do remédio"
+      certa: true
+    - texto: "Esperar até amanhã para ver se passa"
+      erro: "Reação forte, como falta de ar, inchaço ou desmaio, é urgência. Não espere."
+    - texto: "Dar mais um comprimido, para melhorar"
+      erro: "Mais remédio pode piorar. Ligue para o SAMU (192) e leve a embalagem."
+  explicacao: "Em caso de troca de remédio, dose errada ou reação forte (falta de ar, inchaço, desmaio), ligue para o SAMU (192) ou vá ao serviço de urgência, levando a embalagem do remédio."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Remédios: o que o cuidador pode e não pode fazer\""
+  revisao:
+    status: em-revisao

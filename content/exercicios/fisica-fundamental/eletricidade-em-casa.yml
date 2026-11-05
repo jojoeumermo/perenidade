@@ -1,0 +1,71 @@
+# Exercícios da aula "Eletricidade em casa" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-ele-01
+  tipo: numero
+  tema: "Corrente do chuveiro"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Um chuveiro de 5.500 W é ligado numa tomada de 220 V. Quantos ampères de corrente ele puxa?"
+  resposta: "25"
+  unidade: "A"
+  erros_comuns:
+    - resposta: "1210000"
+      explicacao: "Você multiplicou a potência pela tensão. Para achar a corrente, divida: corrente = potência ÷ tensão."
+    - resposta: "0,04"
+      explicacao: "Você dividiu a tensão pela potência, ao contrário. A conta é potência ÷ tensão."
+  dica: "Use potência = tensão × corrente e isole a corrente."
+  explicacao: "Corrente = potência ÷ tensão = 5.500 ÷ 220 = 25 A. Por isso o chuveiro precisa de fio grosso e de circuito só dele."
+  conferir: "5500 / 220"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ele-02
+  tipo: numero
+  tema: "Corrente do ferro de passar"
+  dificuldade: 2
+  enunciado: "Um ferro de passar de 1.270 W é ligado numa tomada de 127 V. Quantos ampères ele puxa?"
+  resposta: "10"
+  unidade: "A"
+  erros_comuns:
+    - resposta: "161290"
+      explicacao: "Você multiplicou potência e tensão. A corrente se acha dividindo: potência ÷ tensão."
+  dica: "Corrente = potência ÷ tensão."
+  explicacao: "1.270 ÷ 127 = 10 A."
+  conferir: "1270 / 127"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ele-03
+  tema: "O perigo do benjamim"
+  dificuldade: 2
+  enunciado: "Um aquecedor, um ferro e um micro-ondas são ligados juntos no mesmo benjamim, numa só tomada. Qual é o risco?"
+  alternativas:
+    - texto: "As correntes se somam e podem passar do que o fio aguenta, esquentando-o e causando incêndio"
+      certa: true
+    - texto: "A corrente se divide e fica menor, então é mais seguro"
+      erro: "A corrente não diminui: cada aparelho puxa a sua, e as correntes se somam no mesmo fio, que pode esquentar demais."
+    - texto: "Nenhum, porque a tomada tem sempre a mesma tensão"
+      erro: "A tensão é a mesma, mas a corrente depende dos aparelhos. Vários aparelhos na mesma tomada somam correntes e sobrecarregam o fio."
+  explicacao: "Cada aparelho puxa a sua corrente, e elas se somam no fio da tomada. Se passar do limite do fio, ele esquenta, derrete o plástico e pode pegar fogo. O disjuntor existe para desligar nessa hora."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-ele-04
+  tema: "Tensão certa"
+  dificuldade: 2
+  enunciado: "Um aparelho feito para 127 V é ligado numa tomada de 220 V. O que pode acontecer?"
+  alternativas:
+    - texto: "Pode queimar, porque a tensão é maior do que ele suporta"
+      certa: true
+    - texto: "Funciona melhor e mais rápido"
+      erro: "Tensão acima do que o aparelho suporta não melhora nada: pode queimá-lo. Confira sempre a tensão antes de ligar."
+    - texto: "Nada, porque a tensão não importa"
+      erro: "Importa muito. A tensão empurra a corrente: acima do que o aparelho aguenta, ele queima."
+  explicacao: "Ligar em 220 V o que é de 127 V queima o aparelho. Confira a tensão no aparelho e na tomada antes de ligar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,51 @@
+# Exercícios da aula "O que a física estuda" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-oqf-01
+  tema: "Quem decide na ciência"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Galileu mediu esferas rolando em rampas e mostrou que corpos leves e pesados ganham velocidade do mesmo modo. O que isso ensina sobre a ciência?"
+  alternativas:
+    - texto: "Que o teste e a medida decidem, e não a autoridade de quem fala"
+      certa: true
+    - texto: "Que vale o que os sábios antigos escreveram"
+      erro: "Era assim antes: valia o que Aristóteles dizia, por quase dois mil anos. Galileu mostrou que é preciso testar."
+    - texto: "Que só pessoas famosas podem fazer ciência"
+      erro: "Qualquer um pode observar, medir e testar, e os outros podem repetir o teste. O que vale é o resultado."
+  explicacao: "Na ciência, quem decide é o teste, e não a autoridade. Por isso o conhecimento científico pode ser corrigido quando um teste novo mostra outra coisa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-oqf-02
+  tema: "Áreas da física"
+  dificuldade: 1
+  enunciado: "Qual área da física estuda calor e temperatura, como na geladeira e no motor?"
+  alternativas:
+    - texto: "Termologia"
+      certa: true
+    - texto: "Óptica"
+      erro: "A óptica estuda a luz: os óculos, o espelho, a câmera."
+    - texto: "Mecânica"
+      erro: "A mecânica estuda movimento e forças: o freio, a alavanca, a queda."
+  explicacao: "A termologia trata de calor e temperatura. A óptica trata da luz; a mecânica, do movimento e das forças."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-oqf-03
+  tema: "Passos do método"
+  dificuldade: 2
+  enunciado: "Depois de propor uma explicação provisória (a hipótese), qual é o passo seguinte do modo de trabalhar da ciência?"
+  alternativas:
+    - texto: "Testar a hipótese com experimentos e medidas"
+      certa: true
+    - texto: "Declarar a hipótese verdadeira"
+      erro: "Uma hipótese só passa a valer depois de testada. Se resiste aos testes, vira parte de uma teoria; se falha, é corrigida ou abandonada."
+    - texto: "Esperar alguém importante concordar"
+      erro: "A concordância de alguém importante não prova nada. O que vale é o teste, que outras pessoas podem repetir."
+  explicacao: "Observar, perguntar, propor uma hipótese e então testar com experimentos e medidas. Outras pessoas repetem o teste para conferir."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Lixo: reduzir, reutilizar e reciclar" (meio-ambiente-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: meio-ambiente-fundamen-lixo-reduzir-reutilizar-e-reciclar-01
+  tema: "Ordem do lixo"
+  dificuldade: 1
+  enunciado: "Segundo o artigo 9º da lei do lixo (PNRS, Lei 12.305/2010), qual é o primeiro passo da ordem de prioridade?"
+  alternativas:
+    - texto: "Reciclagem"
+      erro: "A reciclagem vem só depois. A ordem começa por não gerar lixo, depois reduzir, reutilizar e só então reciclar."
+    - texto: "Não geração: evitar produzir lixo"
+      certa: true
+    - texto: "Disposição final em aterro"
+      erro: "O aterro é sempre a última opção, para os rejeitos que não têm mais aproveitamento."
+  explicacao: "A ordem é: não geração, redução, reutilização, reciclagem, tratamento e disposição final dos rejeitos. Evitar o lixo gasta menos energia, transporte e água do que reciclar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Lixo: reduzir, reutilizar e reciclar\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-lixo-reduzir-reutilizar-e-reciclar-02
+  tema: "Reutilizar"
+  dificuldade: 1
+  enunciado: "Usar um pote de vidro vazio como porta-lápis é qual passo da ordem da lei?"
+  alternativas:
+    - texto: "Reciclagem"
+      erro: "Reciclar é transformar o material em matéria-prima nova. Usar o pote de novo, sem transformar, é reutilização."
+    - texto: "Não geração"
+      erro: "Não geração é evitar produzir o lixo, como recusar um canudo. Aqui o pote já existia e ganhou outro uso."
+    - texto: "Reutilização"
+      certa: true
+  explicacao: "Reutilizar é usar de novo, do mesmo jeito ou para outra coisa. O pote virou porta-lápis em vez de ir para o lixo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Lixo: reduzir, reutilizar e reciclar\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-lixo-reduzir-reutilizar-e-reciclar-03
+  tema: "Por que reciclar vem depois"
+  dificuldade: 2
+  enunciado: "Por que, na ordem da lei, a reciclagem vem depois de evitar, reduzir e reutilizar?"
+  alternativas:
+    - texto: "Porque reciclar gasta energia, transporte e água, e os passos anteriores gastam bem menos"
+      certa: true
+    - texto: "Porque reciclar é proibido"
+      erro: "Reciclar é incentivado, e pode gerar trabalho e renda. Só não é o primeiro passo."
+    - texto: "Porque reciclagem só vale para empresas grandes"
+      erro: "A aula mostra que cooperativas e associações de reciclagem também têm papel, inclusive no crédito de reciclagem."
+  explicacao: "Reciclar é bom, mas gasta energia, transporte e água. Por isso a lei pede primeiro evitar, reduzir e reutilizar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Lixo: reduzir, reutilizar e reciclar\""
+  revisao:
+    status: em-revisao

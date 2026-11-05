@@ -1,0 +1,67 @@
+# Exercícios da aula "Presente do indicativo" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-presente-01
+  tema: "Verbos regulares"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"Eu trabalho num supermercado\" em espanhol?"
+  alternativas:
+    - texto: "Trabajo en un supermercado."
+      certa: true
+    - texto: "Trabajar en un supermercado."
+      erro: "Trabajar é o infinitivo. Para yo, a terminação é -o: trabajo."
+    - texto: "Trabajas en un supermercado."
+      erro: "Trabajas é para tú (você). Para yo, a terminação é -o."
+  explicacao: "Verbos em -ar: yo trabajo, tú trabajas, él trabaja, nosotros trabajamos, ellos trabajan."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Presente do indicativo\""
+  revisao:
+    status: em-revisao
+
+- id: esp-presente-02
+  tema: "Mudança de vogal"
+  dificuldade: 2
+  enunciado: "Qual é a forma correta do verbo \"querer\" para \"nosotros\" e para \"yo\"?"
+  alternativas:
+    - texto: "queremos e quiero"
+      certa: true
+    - texto: "quieremos e quiero"
+      erro: "Em nosotros e vosotros a vogal nunca muda: queremos."
+    - texto: "queremos e quero"
+      erro: "Na primeira pessoa o e muda para ie: quiero."
+  explicacao: "Querer muda e para ie em todas as formas, menos em nosotros e vosotros: quiero, quieres, quiere, queremos, queréis, quieren."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Presente do indicativo\""
+  revisao:
+    status: em-revisao
+
+- id: esp-presente-03
+  tema: "Irregulares com go"
+  dificuldade: 2
+  enunciado: "Como se diz \"Eu faço o almoço e tenho que trabalhar\"?"
+  alternativas:
+    - texto: "Hago el almuerzo y tengo que trabajar."
+      certa: true
+    - texto: "Hazo el almuerzo y teno que trabajar."
+      erro: "Hacer e tener ganham -go na primeira pessoa: hago, tengo."
+    - texto: "Hago el almuerzo y tengo trabajar."
+      erro: "Falta o que: tener que + infinitivo."
+  explicacao: "Hacer e tener são irregulares na primeira pessoa: hago, tengo. Obrigação: tener que + infinitivo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Presente do indicativo\""
+  revisao:
+    status: em-revisao
+
+- id: esp-presente-04
+  tema: "Ir a + infinitivo"
+  dificuldade: 1
+  enunciado: "Como se diz \"Vou estudar hoje à noite\"?"
+  alternativas:
+    - texto: "Voy estudiar esta noche."
+      erro: "Esquecer o a é um erro muito comum de quem fala português. Entre ir e o infinitivo entra o a."
+    - texto: "Voy a estudiar esta noche."
+      certa: true
+    - texto: "Vamos a estudiar esta noche."
+      erro: "Vamos é a forma de nosotros (vamos a votar = vamos votar). Para yo, é voy."
+  explicacao: "O futuro próximo é ir a + infinitivo: voy a estudiar, vas a hacer, vamos a votar."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Presente do indicativo\""
+  revisao:
+    status: em-revisao

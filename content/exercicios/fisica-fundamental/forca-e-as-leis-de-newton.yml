@@ -1,0 +1,71 @@
+# Exercícios da aula "Força e as leis de Newton" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-for-01
+  tema: "Inércia no ônibus"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quando o ônibus freia de repente, os passageiros são jogados para a frente. Qual lei de Newton explica isso?"
+  alternativas:
+    - texto: "A primeira lei, a da inércia"
+      certa: true
+    - texto: "A terceira lei, a da ação e reação"
+      erro: "A terceira lei trata de pares de forças. Aqui nenhuma força empurrou os passageiros: o ônibus parou, e os corpos continuaram em movimento por inércia."
+    - texto: "A lei do ônibus"
+      erro: "Não existe lei do ônibus. É a primeira lei de Newton: um corpo em movimento tende a continuar em movimento."
+  explicacao: "Pela primeira lei, um corpo em movimento tende a continuar com a mesma velocidade. O ônibus parou; os passageiros, por inércia, seguiram. O cinto de segurança é a força que os para junto com o carro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-for-02
+  tipo: numero
+  tema: "Força, massa e aceleração"
+  dificuldade: 2
+  enunciado: "Um carrinho de 50 kg é empurrado com uma força de 150 N, sem atrito. Qual é a aceleração dele, em m/s²?"
+  resposta: "3"
+  unidade: "m/s²"
+  erros_comuns:
+    - resposta: "7500"
+      explicacao: "Você multiplicou a força pela massa. Pela segunda lei, a = F ÷ m."
+    - resposta: "1/3"
+      explicacao: "Você dividiu a massa pela força, ao contrário. A aceleração é força ÷ massa."
+  dica: "Segunda lei de Newton: F = m · a, então a = F ÷ m."
+  explicacao: "a = F ÷ m = 150 ÷ 50 = 3 m/s². A cada segundo, a velocidade aumenta 3 m/s."
+  conferir: "150 / 50"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-for-03
+  tema: "Ação e reação"
+  dificuldade: 2
+  enunciado: "Você empurra uma parede com a mão. O que a terceira lei de Newton diz?"
+  alternativas:
+    - texto: "A parede empurra a sua mão com uma força de mesma intensidade e sentido contrário"
+      certa: true
+    - texto: "A parede não faz força, porque está parada"
+      erro: "A parede faz força sim: é por isso que você sente a mão sendo empurrada de volta. Toda ação tem uma reação."
+    - texto: "A parede empurra com uma força maior que a sua"
+      erro: "As duas forças são iguais em intensidade, só que em sentidos contrários e em corpos diferentes."
+  explicacao: "Pela terceira lei, toda força tem uma reação de mesma intensidade e sentido contrário, aplicada no outro corpo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-for-04
+  tipo: numero
+  tema: "Mesma força, massas diferentes"
+  dificuldade: 3
+  enunciado: "A mesma força de 60 N empurra um carrinho de 10 kg e outro de 30 kg, sem atrito. Quantas vezes a aceleração do carrinho mais leve é maior que a do mais pesado?"
+  resposta: "3"
+  unidade: "vezes"
+  erros_comuns:
+    - resposta: "1/3"
+      explicacao: "Você inverteu a comparação. O mais leve acelera mais: 6 m/s² contra 2 m/s², isto é, 3 vezes mais."
+  dica: "Calcule as duas acelerações com a = F ÷ m e compare."
+  explicacao: "Carrinho de 10 kg: 60 ÷ 10 = 6 m/s². Carrinho de 30 kg: 60 ÷ 30 = 2 m/s². 6 ÷ 2 = 3 vezes. Mais massa, menos aceleração."
+  conferir: "(60/10)/(60/30)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

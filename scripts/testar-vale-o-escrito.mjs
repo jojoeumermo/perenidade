@@ -306,8 +306,8 @@ caso("o mesmo bloco está no fim do install.sql", () => {
   const sql = ler("supabase", "migracoes", "2026-11-vale-o-escrito.sql").replace(/\r\n/g, "\n").trim();
   let install = ler("supabase", "install.sql").replace(/\r\n/g, "\n").trim();
   // Só os 10 blocos da Rede v2 e os 5 do lote seguinte podem vir depois dele; cada um inteiro, do último para o primeiro.
-  for (const n of ["backend-2", "backend-1", "controles", "eixos-equipe", "departamentos-termos", "integracao", "moderacao", "avisos", "comunidades", "descoberta", "conversa", "publicar", "perfil", "consertos", "fundacao"]) {
-    const bloco = ler("supabase", "migracoes", `2026-11-${/^(backend|controles|eixos|departamentos)/.test(n) ? n : `rede-${n}`}.sql`).replace(/\r\n/g, "\n").trim();
+  for (const n of ["progresso-qr", "backend-2", "backend-1", "controles", "eixos-equipe", "departamentos-termos", "integracao", "moderacao", "avisos", "comunidades", "descoberta", "conversa", "publicar", "perfil", "consertos", "fundacao"]) {
+    const bloco = ler("supabase", "migracoes", `2026-11-${/^(backend|controles|eixos|departamentos|progresso)/.test(n) ? n : `rede-${n}`}.sql`).replace(/\r\n/g, "\n").trim();
     assert.ok(install.endsWith(bloco), `install.sql não termina com a migração rede-${n}`);
     install = install.slice(0, -bloco.length).trim();
   }

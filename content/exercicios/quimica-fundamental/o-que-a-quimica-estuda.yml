@@ -1,0 +1,50 @@
+# Exercícios da aula "O que a química estuda" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-o-que-a-quimica-estuda-01
+  tema: "Sem química"
+  dificuldade: 1
+  enunciado: "O que a aula diz sobre a propaganda que anuncia um produto \"sem química\"?"
+  alternativas:
+    - texto: "Não faz sentido: toda matéria é feita de substâncias químicas, inclusive a água e o sal"
+      certa: true
+    - texto: "Está certa, pois química é veneno"
+      erro: "A aula diz que a água e as vitaminas das frutas são substâncias químicas."
+    - texto: "Está certa quando o produto é natural"
+      erro: "Natural não quer dizer inofensivo."
+  explicacao: "O que decide se uma substância faz mal é qual ela é, a quantidade e o modo de contato."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que a química estuda\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-o-que-a-quimica-estuda-02
+  tema: "Raiz"
+  dificuldade: 2
+  enunciado: "Qual é a raiz da química, segundo a aula?"
+  alternativas:
+    - texto: "O saber prático de artesãos, cozinheiras, ferreiros e curandeiros que transformavam a matéria"
+      certa: true
+    - texto: "Só os livros dos cientistas modernos"
+      erro: "A aula diz que as pessoas já transformavam a matéria muito antes da palavra química."
+    - texto: "Apenas a alquimia"
+      erro: "Os alquimistas contribuíram, mas a raiz é o saber prático do trabalho."
+  explicacao: "Os alquimistas não conseguiram transformar metais comuns em ouro, mas inventaram aparelhos e técnicas ainda usados."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que a química estuda\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-o-que-a-quimica-estuda-03
+  tema: "O que é matéria"
+  dificuldade: 1
+  enunciado: "O que é matéria, segundo a aula?"
+  alternativas:
+    - texto: "Tudo o que tem massa e ocupa lugar no espaço"
+      certa: true
+    - texto: "Só o que se vê a olho nu"
+      erro: "O ar tem massa e ocupa lugar, e não se vê."
+    - texto: "Só os sólidos"
+      erro: "Matéria também é líquida e gasosa."
+  explicacao: "A química estuda do que a matéria é feita, que propriedades tem e como se transforma."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que a química estuda\""
+  revisao:
+    status: em-revisao

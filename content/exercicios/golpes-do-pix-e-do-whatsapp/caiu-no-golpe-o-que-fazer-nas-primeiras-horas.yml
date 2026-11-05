@@ -1,0 +1,67 @@
+# Exercícios da aula "Caiu no golpe: o que fazer nas primeiras horas" (Golpes do Pix e do WhatsApp). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gp-cai-01
+  tema: "Primeira providência"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é a primeira coisa a fazer depois de um golpe de Pix?"
+  alternativas:
+    - texto: "Avisar o banco pelo canal oficial e pedir o MED e o bloqueio"
+      certa: true
+    - texto: "Postar nas redes para alertar todo mundo"
+      erro: "Alertar ajuda depois. Primeiro o banco, porque o tempo conta para bloquear o dinheiro."
+    - texto: "Esperar o golpista responder"
+      erro: "O golpista não vai devolver. Aja com o banco na hora."
+  explicacao: "Ligue para o telefone oficial (o do cartão) ou use o aplicativo, diga que foi vítima de golpe, peça o MED e o bloqueio e anote o protocolo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-cai-02
+  tema: "WhatsApp clonado"
+  dificuldade: 2
+  enunciado: "Seu WhatsApp foi clonado. Qual é um passo que ajuda a retomar a conta?"
+  alternativas:
+    - texto: "Instalar o aplicativo de novo e cadastrar o seu número, usando o código que chega por SMS, e ativar a verificação em duas etapas"
+      certa: true
+    - texto: "Esperar alguns dias sem fazer nada"
+      erro: "Esperar deixa o golpista pedindo dinheiro aos seus contatos. Registre o número de novo no seu aparelho para tirá-lo da conta."
+    - texto: "Pagar a quem prometer recuperar a conta"
+      erro: "Quem cobra para 'recuperar' é um segundo golpe. Os caminhos oficiais são gratuitos."
+  explicacao: "Cadastrar o número de novo no seu celular desconecta o invasor. Depois, ative a verificação em duas etapas e avise os contatos por outro caminho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-cai-03
+  tema: "Segundo golpe"
+  dificuldade: 2
+  enunciado: "Depois do golpe, alguém oferece 'recuperar seu dinheiro' mediante uma taxa adiantada. O que fazer?"
+  alternativas:
+    - texto: "Não pagar: é um segundo golpe, e os caminhos oficiais são gratuitos"
+      certa: true
+    - texto: "Pagar, porque a taxa é pequena"
+      erro: "Ninguém recupera dinheiro pagando antes. É o segundo golpe, que se aproveita de quem já foi enganado."
+    - texto: "Pagar metade agora e metade depois"
+      erro: "Qualquer pagamento adiantado é perda. Use os canais oficiais: banco, consumidor.gov.br, Procon e Defensoria."
+  explicacao: "Promessa de recuperar dinheiro por taxa adiantada é golpe. Os caminhos oficiais, como banco, consumidor.gov.br, Procon, Banco Central e Defensoria Pública, não cobram para você ser atendido."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gp-cai-04
+  tema: "Cuidar de si"
+  dificuldade: 1
+  enunciado: "Depois de cair em golpe, é comum sentir vergonha, raiva e culpa. O que ajuda?"
+  alternativas:
+    - texto: "Contar a alguém de confiança e, se a angústia for forte, procurar apoio, como o CVV pelo 188"
+      certa: true
+    - texto: "Guardar segredo, para ninguém saber"
+      erro: "Guardar em segredo piora a vergonha. Conte a alguém de confiança: a pessoa enganada é a vítima."
+    - texto: "Se culpar, porque foi falta de atenção"
+      erro: "Golpe é crime, e o culpado é o golpista. Os truques enganam gente de qualquer idade."
+  explicacao: "Golpe é crime e a pessoa enganada é a vítima. Falar com alguém de confiança, e com o CVV (188), de graça a qualquer hora, ajuda a recuperar o fôlego."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

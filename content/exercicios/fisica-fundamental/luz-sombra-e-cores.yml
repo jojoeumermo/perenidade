@@ -1,0 +1,67 @@
+# Exercícios da aula "Luz, sombra e cores" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-luz-01
+  tema: "Tempo da luz do Sol"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Cerca de quanto tempo a luz do Sol leva para chegar à Terra?"
+  alternativas:
+    - texto: "Cerca de 8 minutos"
+      certa: true
+    - texto: "Cerca de 8 segundos"
+      erro: "A luz é muito rápida (300.000 km por segundo), mas o Sol está longe: a viagem leva cerca de 8 minutos."
+    - texto: "Cerca de 8 horas"
+      erro: "A luz é rápida demais para isso: leva cerca de 8 minutos para chegar do Sol à Terra."
+  explicacao: "A luz anda cerca de 300.000 km por segundo e, mesmo assim, leva cerca de 8 minutos do Sol até nós. Olhar o céu é olhar o passado."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-luz-02
+  tema: "Eclipse do Sol"
+  dificuldade: 2
+  enunciado: "No eclipse do Sol, quem fica entre quem?"
+  alternativas:
+    - texto: "A Lua fica entre o Sol e a Terra"
+      certa: true
+    - texto: "A Terra fica entre o Sol e a Lua"
+      erro: "Isso é o eclipse da Lua: a sombra da Terra cobre a Lua. No eclipse do Sol, quem passa na frente é a Lua."
+    - texto: "O Sol fica entre a Terra e a Lua"
+      erro: "O Sol é a fonte da luz e não fica no meio. No eclipse do Sol, a Lua passa entre ele e a Terra."
+  explicacao: "No eclipse do Sol, a Lua passa entre o Sol e a Terra, e a sua sombra cai sobre uma parte do nosso planeta. Nunca olhe direto para o Sol, nem durante um eclipse."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-luz-03
+  tema: "Tamanho da sombra"
+  dificuldade: 2
+  enunciado: "Quando a sombra de um poste é mais curta?"
+  alternativas:
+    - texto: "Ao meio-dia, com o Sol alto"
+      certa: true
+    - texto: "De manhã cedo"
+      erro: "De manhã cedo o Sol está baixo, e a sombra é comprida."
+    - texto: "No fim da tarde"
+      erro: "No fim da tarde o Sol também está baixo, e a sombra é comprida."
+  explicacao: "Com o Sol baixo, de manhã cedo e no fim da tarde, a sombra é comprida. Ao meio-dia, com o Sol alto, é curta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-luz-04
+  tema: "Transparente, translúcido, opaco"
+  dificuldade: 2
+  enunciado: "O vidro fosco do banheiro deixa passar a luz, mas não deixa ver direito do outro lado. Que tipo de material é?"
+  alternativas:
+    - texto: "Translúcido"
+      certa: true
+    - texto: "Transparente"
+      erro: "Material transparente deixa ver nitidamente do outro lado, como o vidro liso. O fosco espalha a luz."
+    - texto: "Opaco"
+      erro: "Material opaco barra a luz, como a parede. O vidro fosco deixa a luz passar, só que espalhada."
+  explicacao: "Translúcido deixa a luz passar, mas espalhada, por isso não se vê com nitidez. Transparente deixa ver tudo; opaco barra a luz."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

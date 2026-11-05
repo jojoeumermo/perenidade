@@ -1,0 +1,51 @@
+# Exercícios da aula "O alfabeto, as sílabas e a sílaba tônica" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-o-alfabeto-as-silabas-e-a-silaba-tonica-01
+  tema: "Quantas letras"
+  dificuldade: 1
+  enunciado: "Quantas letras tem o alfabeto da língua portuguesa, segundo a aula?"
+  alternativas:
+    - texto: "23"
+      erro: "Eram 23 antes de K, W e Y entrarem oficialmente."
+    - texto: "26"
+      certa: true
+      valor: "26"
+    - texto: "30"
+      erro: "São 26."
+  explicacao: "K, W e Y foram incluídos pelo Acordo Ortográfico e aparecem em nomes próprios e palavras de outras línguas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O alfabeto, as sílabas e a sílaba tônica\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-o-alfabeto-as-silabas-e-a-silaba-tonica-02
+  tema: "Dígrafo"
+  dificuldade: 2
+  enunciado: "O que é um dígrafo, segundo a aula?"
+  alternativas:
+    - texto: "Duas letras que formam um som, como ch, lh, nh, rr e ss"
+      certa: true
+    - texto: "Uma letra que forma vários sons"
+      erro: "Isso é outro fenômeno, como o X."
+    - texto: "Uma letra sem som, como o H"
+      erro: "Isso é letra sem som."
+  explicacao: "Por isso não há como \"escrever do jeito que se fala\": a escrita é igual para todos e a fala muda de região para região."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O alfabeto, as sílabas e a sílaba tônica\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-o-alfabeto-as-silabas-e-a-silaba-tonica-03
+  tema: "Letra e som"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre letra e som?"
+  alternativas:
+    - texto: "Letra é o que se escreve; som é o que se fala; os dois nem sempre andam juntos"
+      certa: true
+    - texto: "São sempre a mesma coisa"
+      erro: "A aula mostra que uma letra pode ter vários sons."
+    - texto: "Errar a letra mostra pouca inteligência"
+      erro: "A aula diz que é falta de convívio com a palavra escrita, que se resolve lendo e consultando."
+  explicacao: "O X soa de quatro jeitos: xícara, exame, táxi, próximo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O alfabeto, as sílabas e a sílaba tônica\""
+  revisao:
+    status: em-revisao

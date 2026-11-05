@@ -1,0 +1,50 @@
+# Exercícios da aula "O ciclo da água" (meio-ambiente-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: meio-ambiente-fundamen-o-ciclo-da-agua-01
+  tema: "Os processos"
+  dificuldade: 1
+  enunciado: "Quando o vapor de água esfria e vira gotas que formam as nuvens, qual é o nome do processo?"
+  alternativas:
+    - texto: "Evaporação"
+      erro: "Evaporação é quando a água vira vapor e sobe. O processo de esfriar e formar gotas é a condensação."
+    - texto: "Condensação"
+      certa: true
+    - texto: "Precipitação"
+      erro: "Precipitação é a água caindo como chuva, neve ou granizo. A formação das gotas nas nuvens é a condensação."
+  explicacao: "Evapora, condensa (forma nuvens), precipita (chuva, neve ou granizo) e escoa, em geral de volta ao mar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O ciclo da água\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-o-ciclo-da-agua-02
+  tema: "Três estados"
+  dificuldade: 1
+  enunciado: "O que a aula diz de especial sobre a água e os estados da matéria?"
+  alternativas:
+    - texto: "Ela só existe no estado líquido"
+      erro: "A água existe também como gelo e neve (sólido) e como vapor (gasoso)."
+    - texto: "É a única substância que existe, em condições normais, nos três estados: sólido, líquido e gasoso"
+      certa: true
+    - texto: "Ela nunca vira vapor"
+      erro: "Ela vira vapor pela evaporação, e é assim que sobe para formar as nuvens."
+  explicacao: "Por existir como gelo, água e vapor, a água consegue fazer toda a viagem do ciclo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O ciclo da água\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-o-ciclo-da-agua-03
+  tema: "Floresta e chuva"
+  dificuldade: 2
+  enunciado: "O que a aula diz que pode acontecer quando se desmata uma floresta, por causa do ciclo da água?"
+  alternativas:
+    - texto: "Aumenta a evapotranspiração e chove sempre mais"
+      erro: "É o contrário: com menos árvores há menos evapotranspiração."
+    - texto: "Há menos evapotranspiração, o que pode mudar o regime de chuvas da região"
+      certa: true
+    - texto: "Nada muda no ciclo da água"
+      erro: "As plantas participam do ciclo: a água delas vai para o ar. Sem floresta, isso muda."
+  explicacao: "As florestas fazem parte do ciclo. Quando são derrubadas, a evapotranspiração diminui e o regime de chuvas pode mudar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O ciclo da água\""
+  revisao:
+    status: em-revisao

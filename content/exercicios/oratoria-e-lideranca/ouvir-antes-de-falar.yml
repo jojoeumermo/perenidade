@@ -1,0 +1,50 @@
+# Exercícios da aula "Ouvir antes de falar" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-ouvir-antes-de-falar-01
+  tema: "Escutar e ouvir"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre escutar e ouvir de verdade, segundo a aula?"
+  alternativas:
+    - texto: "Não há diferença"
+      erro: "A aula as separa."
+    - texto: "Escutar é o corpo perceber o som; ouvir de verdade exige concentração para entender a mensagem"
+      certa: true
+    - texto: "Ouvir é um processo que acontece sozinho"
+      erro: "Quem acontece sozinho é o escutar, não o ouvir de verdade."
+  explicacao: "Ouvir bem ajuda a aprender, melhora as relações e torna a pessoa um orador melhor."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ouvir antes de falar\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-ouvir-antes-de-falar-02
+  tema: "Ruídos"
+  dificuldade: 2
+  enunciado: "A preocupação com a conta atrasada, que tira a atenção de quem ouve, é que tipo de ruído?"
+  alternativas:
+    - texto: "Físico"
+      erro: "O ruído físico vem do ambiente, como um carro de som na rua."
+    - texto: "Psicológico"
+      certa: true
+    - texto: "Semântico"
+      erro: "O semântico vem de palavras que a pessoa não conhece."
+  explicacao: "O fisiológico vem do corpo (fome, cansaço, dor). Os quatro ruídos: físico, psicológico, fisiológico e semântico."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ouvir antes de falar\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-ouvir-antes-de-falar-03
+  tema: "Mostrar que entendeu"
+  dificuldade: 2
+  enunciado: "Que forma de responder mostra que você entendeu o que a pessoa disse?"
+  alternativas:
+    - texto: "Repetir com as suas palavras: \"Se eu entendi, você está dizendo que...\""
+      certa: true
+    - texto: "Ficar em silêncio e ir embora"
+      erro: "Não mostra que entendeu."
+    - texto: "Interromper para dar a sua opinião"
+      erro: "A aula sugere repetir com as suas palavras e confirmar."
+  explicacao: "As cinco etapas da escuta são receber, entender, lembrar, avaliar e responder."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ouvir antes de falar\""
+  revisao:
+    status: em-revisao

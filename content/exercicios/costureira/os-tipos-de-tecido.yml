@@ -1,0 +1,83 @@
+# Exercícios da aula "Os tipos de tecido" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-tecido-01
+  tema: "As fibras"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual destas é uma fibra sintética, feita a partir de polímeros sintéticos, em geral derivados do petróleo?"
+  alternativas:
+    - texto: "Poliéster"
+      certa: true
+    - texto: "Algodão"
+      erro: "O algodão é natural vegetal, tirado de plantas. Poliéster, poliamida (náilon) e elastano são sintéticos."
+    - texto: "Viscose"
+      erro: "A viscose é artificial: feita pelo ser humano a partir de polímeros naturais, como a celulose, regenerados. Sintética, a partir do petróleo, é o poliéster."
+  explicacao: "Naturais vegetais: algodão, linho. Naturais animais: lã, seda. Artificiais: viscose, acetato, modal, liocel. Sintéticas: poliéster, poliamida (náilon), elastano. Muitos tecidos misturam fibras: leia a etiqueta, que traz a composição e os símbolos de cuidado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os tipos de tecido\""
+  revisao:
+    status: em-revisao
+
+- id: cost-tecido-02
+  tema: "Tecido plano e malha"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre tecido plano e malha?"
+  alternativas:
+    - texto: "O tecido plano é feito no tear, com urdume e trama; a malha é feita de laçadas, como o tricô, e estica bem mais"
+      certa: true
+    - texto: "O tecido plano é sempre de algodão, e a malha é sempre sintética"
+      erro: "A diferença é como o tecido é feito, e não a fibra. Há tecido plano e malha de várias fibras."
+    - texto: "Não há diferença"
+      erro: "Há diferença no estica e no jeito de costurar. Malha estica; tecido plano estica pouco, e mais no viés."
+  explicacao: "Exemplos de tecido plano: tricoline, brim, linho. Exemplos de malha: malha de camiseta, moletom, ribana."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os tipos de tecido\""
+  revisao:
+    status: em-revisao
+
+- id: cost-tecido-03
+  tema: "Urdume, trama, ourela e viés"
+  dificuldade: 2
+  enunciado: "O que é a ourela do tecido?"
+  alternativas:
+    - texto: "A beirada pronta, que não desfia, paralela ao urdume"
+      certa: true
+    - texto: "A direção na diagonal, onde o tecido mais estica"
+      erro: "Isso é o viés verdadeiro (45 graus). A ourela é a beirada pronta do tecido."
+    - texto: "O fio que vai de um lado ao outro"
+      erro: "Esse é a trama. A ourela é a beirada pronta, que se forma quando a trama dá a volta no fim de cada passada."
+  explicacao: "O urdume corre no comprimento do tecido e estica menos; a trama vai de um lado ao outro. O viés é qualquer direção entre o urdume e a trama; na diagonal de 45 graus é o viés verdadeiro, onde o tecido plano mais estica."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os tipos de tecido\""
+  revisao:
+    status: em-revisao
+
+- id: cost-tecido-04
+  tema: "O fio muda a roupa"
+  dificuldade: 2
+  enunciado: "Em que fio a maioria das roupas é cortada, e o que acontece se cortar fora do fio que o molde pede?"
+  alternativas:
+    - texto: "No fio reto, de cima para baixo, paralelo à ourela; fora do fio, a peça pode torcer ou cair diferente depois de lavada"
+      certa: true
+    - texto: "No viés, sempre; fora dele a peça fica rígida"
+      erro: "O viés é usado quando se quer que a peça se molde mais, e em tiras de acabamento. A maioria das roupas segue o fio reto."
+    - texto: "Em qualquer direção, o fio não faz diferença"
+      erro: "Faz: cortar fora do fio que o molde pede faz a peça torcer ou cair diferente depois de lavada."
+  explicacao: "O fio reto é paralelo ao urdume e à ourela. O fio transversal é paralelo à trama e estica um pouco mais. O viés faz a peça cair e se moldar mais ao corpo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os tipos de tecido\""
+  revisao:
+    status: em-revisao
+
+- id: cost-tecido-05
+  tema: "Escolher o tecido"
+  dificuldade: 2
+  enunciado: "Qual tecido a aula indica para uma calça de trabalho resistente?"
+  alternativas:
+    - texto: "Um tecido plano grosso, como o brim, cortado no fio reto"
+      certa: true
+    - texto: "Uma malha fina de camiseta"
+      erro: "A malha fina é boa para camiseta de dia a dia, mas não resiste ao uso de uma calça de trabalho."
+    - texto: "Um tecido plano leve e transparente, como a viscose fina"
+      erro: "O tecido leve é indicado para a blusa para o calor. A calça de trabalho pede um tecido plano grosso, como o brim."
+  explicacao: "Camiseta de dia a dia: malha de algodão, ou algodão com um pouco de elastano, que estica e veste sem botão nem zíper. Blusa para o calor: tecido plano leve de fibra natural ou artificial, como linho ou viscose; confira a etiqueta e lave antes de cortar."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Os tipos de tecido\""
+  revisao:
+    status: em-revisao

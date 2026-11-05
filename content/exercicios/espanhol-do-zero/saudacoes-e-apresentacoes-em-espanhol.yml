@@ -1,0 +1,67 @@
+# Exercícios da aula "Saudações e apresentações em espanhol" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-saudacoes-01
+  tema: "Cumprimentar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"boa tarde\" em espanhol?"
+  alternativas:
+    - texto: "Buenos días"
+      erro: "Buenos días é \"bom dia\", para a manhã."
+    - texto: "Buenas tardes"
+      certa: true
+    - texto: "Buenas noches"
+      erro: "Buenas noches é \"boa noite\", para a noite."
+  explicacao: "As saudações vão no plural: buenos días (manhã), buenas tardes (tarde) e buenas noches (noite)."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Saudações e apresentações em espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-saudacoes-02
+  tema: "Tú ou usted"
+  dificuldade: 2
+  enunciado: "Você vai falar com a avó de um amigo, que acabou de conhecer. Qual frase é a mais adequada?"
+  alternativas:
+    - texto: "¡Hola! ¿Cómo estás?"
+      erro: "Cómo estás usa tú, o tratamento informal, entre amigos e familiares. Com uma pessoa mais velha e desconhecida, prefira o formal."
+    - texto: "Buenas tardes. ¿Cómo está usted?"
+      certa: true
+    - texto: "¿Qué tal, tía?"
+      erro: "Qué tal é informal, e chamar uma desconhecida de tía pode soar íntimo demais. Na dúvida, comece por usted."
+  explicacao: "Tú é o tratamento entre amigos, familiares e jovens. Usted mostra respeito ou distância: com uma pessoa mais velha ou desconhecida, comece por usted."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Saudações e apresentações em espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-saudacoes-03
+  tema: "Pontuação dupla"
+  dificuldade: 1
+  enunciado: "Como se escreve corretamente em espanhol a pergunta \"Como você está?\"?"
+  alternativas:
+    - texto: "Cómo estás?"
+      erro: "Falta o sinal de abertura. Em espanhol, a pergunta é marcada no começo e no fim."
+    - texto: "¿Cómo estás?"
+      certa: true
+    - texto: "¿Cómo estás¿"
+      erro: "O sinal do fim é o ponto de interrogação normal (?), e não o invertido."
+  explicacao: "Em espanhol, perguntas e exclamações levam sinais no começo (¿ ¡) e no fim (? !), para avisar o leitor da entonação desde a primeira palavra."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Saudações e apresentações em espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-saudacoes-04
+  tema: "Apresentar-se"
+  dificuldade: 1
+  enunciado: "Como se diz \"Eu me chamo Ana. Sou do Brasil.\" em espanhol?"
+  alternativas:
+    - texto: "Me llamo Ana. Soy de Brasil."
+      certa: true
+    - texto: "Me llamo Ana. Soy do Brasil."
+      erro: "Em espanhol não existe \"do\". Além disso, a maior parte dos países dispensa o artigo: soy de Brasil."
+    - texto: "Yo gusto Ana. Soy de el Brasil."
+      erro: "Para dizer o nome, use me llamo ou soy. E a maior parte dos nomes de países fica sem artigo: soy de Brasil."
+  explicacao: "Me llamo Ana (ou Soy Ana) para o nome, e soy de Brasil para a origem, sem artigo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Saudações e apresentações em espanhol\""
+  revisao:
+    status: em-revisao

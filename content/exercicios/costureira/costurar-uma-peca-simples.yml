@@ -1,0 +1,89 @@
+# Exercícios da aula "Costurar uma peça simples" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-peca-01
+  tema: "A saia de cós de elástico"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como é feita a saia de cós de elástico da aula, e por que ela é boa para começar?"
+  alternativas:
+    - texto: "Com dois retângulos (frente e costas): passa pelo quadril e o elástico fecha na cintura; não tem zíper, nem botão, nem molde complicado"
+      certa: true
+    - texto: "Com um molde de dez peças e zíper invisível"
+      erro: "É justamente o contrário: a saia de elástico é simples, com só dois retângulos, sem zíper nem botão."
+    - texto: "Com um único retângulo, sem costura lateral"
+      erro: "São dois retângulos, frente e costas, unidos por costuras nas duas laterais."
+  explicacao: "O elástico franze o tecido na cintura, então o retângulo só precisa passar pelo quadril."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Costurar uma peça simples\""
+  revisao:
+    status: em-revisao
+
+- id: cost-peca-02
+  tipo: numero
+  tema: "Largura do retângulo"
+  dificuldade: 2
+  enunciado: "Quadril 98 cm, folga de 20 cm e margens laterais de 1 cm de cada lado. Quantos centímetros de largura tem cada retângulo? (largura = (quadril + folga) ÷ 2 + 2 margens laterais)"
+  resposta: "61"
+  unidade: "cm"
+  erros_comuns:
+    - resposta: "59"
+      explicacao: "59 cm é (98 + 20) ÷ 2, sem as margens. Falta somar 1 cm de margem em cada lateral: 59 + 2."
+    - resposta: "118"
+      explicacao: "118 é o quadril com a folga, para a volta toda. Cada retângulo cobre só metade da volta (frente ou costas): divida por 2 e some as margens."
+  dica: "Some o quadril com a folga, divida por 2 e acrescente as duas margens."
+  explicacao: "(98 + 20) ÷ 2 = 59, mais 1 + 1 de margem = 61 cm. Altura: 58 de comprimento + 4,5 do túnel + 3 de barra = 65,5 cm. Com tecido de 1,40 m de largura, os dois retângulos (61 + 61 = 122 cm) cabem lado a lado: compre cerca de 70 cm de comprimento."
+  conferir: "(98 + 20) / 2 + 1 + 1"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Costurar uma peça simples\""
+  revisao:
+    status: em-revisao
+
+- id: cost-peca-03
+  tipo: numero
+  tema: "Altura do retângulo"
+  dificuldade: 2
+  enunciado: "Comprimento da saia 58 cm, túnel do cós 4,5 cm e barra 3 cm. Qual é a altura de cada retângulo? (altura = comprimento + túnel + barra)"
+  resposta: "65,5"
+  unidade: "cm"
+  erros_comuns:
+    - resposta: "58"
+      explicacao: "58 cm é só o comprimento da saia pronta. Falta o tecido do túnel do cós (4,5) e da barra (3)."
+    - resposta: "61"
+      explicacao: "61 cm é a largura, e não a altura. A altura é o comprimento mais o túnel e a barra."
+  dica: "Some os três valores: comprimento, túnel e barra."
+  explicacao: "58 + 4,5 + 3 = 65,5 cm. O túnel é a largura do elástico mais um pouco, dobrado; a barra é a bainha dupla."
+  conferir: "58 + 4.5 + 3"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Costurar uma peça simples\""
+  revisao:
+    status: em-revisao
+
+- id: cost-peca-04
+  tema: "Corte no fio"
+  dificuldade: 2
+  enunciado: "Como cortar os retângulos da saia, quanto ao fio do tecido?"
+  alternativas:
+    - texto: "Com a altura no fio reto, paralela à ourela"
+      certa: true
+    - texto: "Na diagonal, para economizar tecido"
+      erro: "Cortar fora do fio pode fazer a peça torcer e cair diferente depois de costurada e lavada."
+    - texto: "Em qualquer direção, o fio não importa"
+      erro: "O fio muda o caimento e o estica da peça. Corte com a altura paralela à ourela."
+  explicacao: "Ordem da costura: lave e passe o tecido, corte os retângulos, costure as laterais com acabamento, faça o túnel do cós, passe o elástico, feche a abertura, distribua o franzido, faça a barra e passe a saia inteira."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Costurar uma peça simples\""
+  revisao:
+    status: em-revisao
+
+- id: cost-peca-05
+  tema: "Elástico frouxo"
+  dificuldade: 2
+  enunciado: "O elástico ficou frouxo e a saia cai. Qual é a correção mais rápida?"
+  alternativas:
+    - texto: "Abrir uns centímetros do túnel, puxar o elástico, cortar o excesso e unir de novo"
+      certa: true
+    - texto: "Desmanchar a saia toda"
+      erro: "Não precisa. O comprimento do elástico define o quanto a cintura segura: corrija só o elástico."
+    - texto: "Pôr um cinto por cima e esquecer"
+      erro: "Cinto disfarça, mas não resolve. Prove o elástico antes de costurar as pontas e corrija pelo túnel."
+  explicacao: "O elástico deve ser um pouco menor que a cintura, mais a sobreposição para unir. No exemplo, 72 − 6 = 66 cm, mais 2 cm de sobreposição, dá 68 cm. Prove antes de costurar as pontas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Costurar uma peça simples\""
+  revisao:
+    status: em-revisao

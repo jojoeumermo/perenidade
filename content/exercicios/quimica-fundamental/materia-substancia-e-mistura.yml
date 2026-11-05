@@ -1,0 +1,50 @@
+# Exercícios da aula "Matéria, substância e mistura" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-materia-substancia-e-mistura-01
+  tema: "Simples ou composta"
+  dificuldade: 2
+  enunciado: "Qual destas é uma substância composta?"
+  alternativas:
+    - texto: "Gás oxigênio (O₂)"
+      erro: "É simples: formada por átomos de um só elemento."
+    - texto: "Água (H₂O)"
+      certa: true
+    - texto: "Ferro (Fe)"
+      erro: "É simples."
+  explicacao: "Substância composta é formada por átomos de dois ou mais elementos, ligados sempre na mesma proporção: água, sal (NaCl), gás carbônico (CO₂)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Matéria, substância e mistura\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-materia-substancia-e-mistura-02
+  tema: "Fórmula"
+  dificuldade: 1
+  enunciado: "O que a fórmula H₂O diz sobre a água?"
+  alternativas:
+    - texto: "Dois átomos de hidrogênio e um de oxigênio"
+      certa: true
+    - texto: "Um átomo de hidrogênio e dois de oxigênio"
+      erro: "Está invertido."
+    - texto: "Dois átomos de oxigênio"
+      erro: "A fórmula tem um oxigênio."
+  explicacao: "A fórmula conta o que há em cada partícula."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Matéria, substância e mistura\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-materia-substancia-e-mistura-03
+  tema: "Substância pura"
+  dificuldade: 2
+  enunciado: "O que a aula diz sobre a água da torneira?"
+  alternativas:
+    - texto: "Tem sais e cloro, por isso não é uma substância realmente pura"
+      certa: true
+    - texto: "É substância pura, sem nada dissolvido"
+      erro: "A aula diz que tem sais e cloro."
+    - texto: "É uma substância simples"
+      erro: "Água é composta, e a da torneira é mistura."
+  explicacao: "Na prática, substâncias realmente puras são raras."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Matéria, substância e mistura\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Pauta, ata e encaminhamentos" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-pauta-ata-e-encaminhamentos-01
+  tema: "Encaminhamento"
+  dificuldade: 1
+  enunciado: "O que um encaminhamento precisa ter, segundo a aula?"
+  alternativas:
+    - texto: "Só o quê"
+      erro: "Falta quem e até quando."
+    - texto: "O quê, quem e até quando"
+      certa: true
+    - texto: "Só o nome de quem presidiu"
+      erro: "Isso não é encaminhamento. A fórmula é: o quê + quem + até quando."
+  explicacao: "Exemplo: \"Juliana e Pedro levam o abaixo-assinado à subprefeitura até sexta, dia 14.\""
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pauta, ata e encaminhamentos\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-pauta-ata-e-encaminhamentos-02
+  tema: "Ata"
+  dificuldade: 2
+  enunciado: "O que a ata registra numa reunião comum, segundo a aula?"
+  alternativas:
+    - texto: "Tudo o que foi dito, palavra por palavra"
+      erro: "A aula diz que a ata registra o que foi feito, e não tudo o que foi dito."
+    - texto: "Cada proposta, o resultado das votações e os encaminhamentos"
+      certa: true
+    - texto: "Apenas a hora em que a reunião acabou"
+      erro: "A ata registra propostas, votações e encaminhamentos, além dos dados essenciais no começo."
+  explicacao: "A ata é assinada por quem secretariou e, em muitos grupos, também por quem presidiu, e na reunião seguinte é lida e aprovada."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pauta, ata e encaminhamentos\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-pauta-ata-e-encaminhamentos-03
+  tema: "Boa pauta"
+  dificuldade: 1
+  enunciado: "O que uma boa pauta faz?"
+  alternativas:
+    - texto: "Separa informes de deliberações, estima o tempo de cada ponto e é divulgada antes"
+      certa: true
+    - texto: "Só diz o assunto da reunião, sem hora"
+      erro: "Uma boa pauta traz dia, hora, local e hora de terminar."
+    - texto: "É decidida só no começo da reunião"
+      erro: "A pauta é divulgada antes."
+  explicacao: "Informes são só avisos; deliberações são os assuntos que precisam de decisão."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Pauta, ata e encaminhamentos\""
+  revisao:
+    status: em-revisao

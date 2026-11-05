@@ -1,0 +1,74 @@
+# Exercícios da aula "Mulheres na ciência" (Feminismo fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fem-ciencia-01
+  tema: "Marie Curie"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que a aula diz sobre Marie Curie e o Prêmio Nobel?"
+  alternativas:
+    - texto: "Foi a primeira mulher a receber um Nobel (1903) e a única pessoa premiada em duas áreas científicas diferentes"
+      certa: true
+    - texto: "Foi a primeira brasileira a receber um Nobel"
+      erro: "Marie Curie era polonesa. A aula a apresenta como a primeira mulher a receber um Nobel, em 1903, em Física."
+    - texto: "Recebeu o Nobel só uma vez, em 1911"
+      erro: "Ela recebeu duas vezes: em 1903 (Física) e em 1911 (Química)."
+  explicacao: "Marie Curie recebeu o Nobel de Física em 1903 e o de Química em 1911, pelo trabalho sobre a radiação. Até hoje é a única pessoa premiada em duas áreas científicas diferentes."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Mulheres na ciência\" (fonte da aula: Wikipédia, \"Mulheres na ciência\")"
+  revisao:
+    status: em-revisao
+
+- id: fem-ciencia-02
+  tema: "Cientistas brasileiras"
+  dificuldade: 2
+  enunciado: "Quem foi, segundo a aula, a primeira engenheira negra brasileira, formada em Engenharia Civil pela UFPR em 1945?"
+  alternativas:
+    - texto: "Bertha Lutz"
+      erro: "Bertha Lutz foi bióloga, especialista em anfíbios, e lutou para que a igualdade de gênero entrasse na Carta da ONU."
+    - texto: "Graziela Maciel Barroso"
+      erro: "Graziela Barroso foi botânica: entrou na faculdade aos 47 anos e fez doutorado aos 60."
+    - texto: "Enedina Alves Marques"
+      certa: true
+    - texto: "Jaqueline Goes de Jesus"
+      erro: "Jaqueline Goes de Jesus, com sua equipe, identificou os genomas do novo coronavírus dois dias depois do primeiro caso confirmado no Brasil."
+  explicacao: "Enedina Alves Marques (1913–1981) foi a primeira engenheira negra do Brasil e trabalhou no Plano Hidrelétrico do Paraná."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Mulheres na ciência\""
+  revisao:
+    status: em-revisao
+
+- id: fem-ciencia-03
+  tema: "Os números do estudo"
+  dificuldade: 2
+  enunciado: "No estudo da Unicamp citado na aula, qual era a porcentagem de mulheres entre os autores de publicações científicas na América Latina?"
+  alternativas:
+    - texto: "42%"
+      certa: true
+    - texto: "20%"
+      erro: "20% é a fatia de mulheres entre os primeiros autores em Ciências da Computação, e não o total."
+    - texto: "35%"
+      erro: "35% é a fatia nas posições de liderança, e não o total de autoras."
+    - texto: "58%"
+      erro: "Esse número seria de maioria feminina, que o estudo não mostra: o total de mulheres entre os autores era de 42%."
+  explicacao: "Segundo o estudo, 42% dos autores eram mulheres; na liderança, 35%; e entre os primeiros autores em Ciências da Computação, só 20%. Quanto mais prestígio e mais tecnologia, menos mulheres."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Mulheres na ciência\" (estudo da Unicamp, 2019 a 2023, citado na aula)"
+  revisao:
+    status: em-revisao
+
+- id: fem-ciencia-04
+  tema: "Fazer a conta com o estudo"
+  tipo: numero
+  dificuldade: 1
+  enunciado: "Num grupo de 100 primeiros autores de artigos de Ciências da Computação, quantas seriam mulheres, segundo o estudo da Unicamp citado na aula?"
+  resposta: "20"
+  unidade: "mulheres"
+  erros_comuns:
+    - resposta: "42"
+      explicacao: "42% é o número geral de autoras, e não o de primeiras autoras em computação. Em computação o estudo mostra 20%."
+    - resposta: "35"
+      explicacao: "35% é a fatia na liderança. Para os primeiros autores em computação, o estudo mostra 20%."
+  dica: "Veja a porcentagem do estudo para os primeiros autores em Ciências da Computação e calcule essa porcentagem de 100."
+  explicacao: "20% de 100 = 20 mulheres. É bem menos que os 42% gerais: a desigualdade é maior em áreas tecnológicas."
+  conferir: "100 * 0.20"
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Mulheres na ciência\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Fato, opinião e propaganda" (midia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: midia-fundamental-fato-opiniao-e-propaganda-01
+  tema: "Fato ou opinião"
+  dificuldade: 1
+  enunciado: "\"A escola ficou sem merenda por três dias.\" Segundo a aula, isso é um quê?"
+  alternativas:
+    - texto: "Um fato, porque dá para verificar"
+      certa: true
+    - texto: "Uma opinião, porque é uma queixa"
+      erro: "Opinião é o que alguém pensa sobre um fato. Dizer que faltou merenda por três dias dá para conferir: é fato."
+    - texto: "Uma propaganda"
+      erro: "Propaganda quer persuadir. Aqui só se relata o que aconteceu."
+  explicacao: "Fato é algo que aconteceu e pode ser verificado por documentos, números, testemunhas ou fotos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Fato, opinião e propaganda\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-fato-opiniao-e-propaganda-02
+  tema: "Classificar"
+  dificuldade: 1
+  enunciado: "\"O transporte da cidade é uma vergonha.\" Como a aula classifica essa frase?"
+  alternativas:
+    - texto: "Fato"
+      erro: "Não dá para verificar como um fato; é um julgamento."
+    - texto: "Opinião"
+      certa: true
+    - texto: "Propaganda"
+      erro: "Propaganda busca persuadir a apoiar uma ideia ou causa. Essa frase é um julgamento: opinião."
+  explicacao: "Opinião é o que alguém pensa sobre um fato. Uma boa opinião se apoia em fatos; sem fatos é só achismo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Fato, opinião e propaganda\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-fato-opiniao-e-propaganda-03
+  tema: "Propaganda"
+  dificuldade: 2
+  enunciado: "\"Só o nosso partido vai salvar o transporte!\" Por que a aula chama isso de propaganda?"
+  alternativas:
+    - texto: "Porque cita números do transporte"
+      erro: "A frase não traz números. Ela quer persuadir e apela para a emoção."
+    - texto: "Porque quer persuadir o público e usa emoção, em vez de apresentar fatos"
+      certa: true
+    - texto: "Porque é uma frase curta"
+      erro: "O tamanho não importa. O que marca a propaganda é buscar persuadir, muitas vezes de forma seletiva e emocional."
+  explicacao: "A propaganda é comunicação de massa para influenciar o público, muitas vezes com fatos escolhidos a dedo ou linguagem tendenciosa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Fato, opinião e propaganda\""
+  revisao:
+    status: em-revisao

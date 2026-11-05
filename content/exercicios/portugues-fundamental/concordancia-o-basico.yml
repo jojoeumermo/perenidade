@@ -1,0 +1,50 @@
+# Exercícios da aula "Concordância: o básico" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-concordancia-o-basico-01
+  tema: "Sujeito depois do verbo"
+  dificuldade: 2
+  enunciado: "Qual frase está certa quanto à concordância?"
+  alternativas:
+    - texto: "Chegou as encomendas."
+      erro: "O sujeito \"as encomendas\" está no plural, e o verbo deve ficar no plural."
+    - texto: "Chegaram as encomendas."
+      certa: true
+    - texto: "Chegou as encomenda."
+      erro: "Tem erro de concordância no verbo e no substantivo."
+  explicacao: "Para achar o sujeito, pergunte ao verbo: quem? ou o quê? O que chegou? As encomendas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Concordância: o básico\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-concordancia-o-basico-02
+  tema: "Nominal e verbal"
+  dificuldade: 1
+  enunciado: "Qual é a diferença entre concordância nominal e verbal?"
+  alternativas:
+    - texto: "Na nominal, artigo e adjetivo combinam com o substantivo; na verbal, o verbo combina com o sujeito"
+      certa: true
+    - texto: "Não há diferença"
+      erro: "A aula distingue dois tipos."
+    - texto: "Na verbal o adjetivo combina com o verbo"
+      erro: "Quem combina com o sujeito é o verbo."
+  explicacao: "\"O pai e a mãe estavam cansados\": adjetivo para substantivos de gêneros diferentes vai para o masculino plural."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Concordância: o básico\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-concordancia-o-basico-03
+  tema: "A gente"
+  dificuldade: 1
+  enunciado: "\"A gente\" pede o verbo em que forma, segundo a aula?"
+  alternativas:
+    - texto: "No plural: \"a gente cantamos\""
+      erro: "A aula diz que \"a gente cantamos\" não é o certo."
+    - texto: "No singular: \"a gente canta\""
+      certa: true
+    - texto: "Sem verbo"
+      erro: "A expressão pede o verbo no singular."
+  explicacao: "Nós pede o plural: \"nós vamos\". A gente pede o singular: \"a gente vai\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Concordância: o básico\""
+  revisao:
+    status: em-revisao

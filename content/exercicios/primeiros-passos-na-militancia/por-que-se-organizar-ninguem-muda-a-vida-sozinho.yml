@@ -1,0 +1,50 @@
+# Exercícios da aula "Por que se organizar: ninguém muda a vida sozinho" (primeiros-passos-na-militancia). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: primeiros-passos-na-mi-por-que-se-organizar-ninguem-muda-a-vida-01
+  tema: "Problemas comuns"
+  dificuldade: 1
+  enunciado: "O que a aula diz sobre problemas que atingem muita gente, como salário baixo e ônibus lotado?"
+  alternativas:
+    - texto: "Que pedem respostas comuns: uma pessoa sozinha é fácil de ignorar, muitas juntas não"
+      certa: true
+    - texto: "Que cada um deve resolver sozinho com mais esforço"
+      erro: "A aula diz que o esforço individual bate num muro nesses casos."
+    - texto: "Que não têm solução"
+      erro: "A aula mostra direitos conquistados por organização."
+  explicacao: "O esforço importa, mas o problema comum depende de regras e de quem decide."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que se organizar: ninguém muda a vida sozinho\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-passos-na-mi-por-que-se-organizar-ninguem-muda-a-vida-02
+  tema: "13º salário"
+  dificuldade: 2
+  enunciado: "Em que ano veio o 13º salário, segundo a aula?"
+  alternativas:
+    - texto: "1943"
+      erro: "1943 é o ano da CLT."
+    - texto: "1962"
+      certa: true
+    - texto: "1917"
+      erro: "1917 é o ano da Greve Geral de São Paulo."
+  explicacao: "Veio depois de anos de mobilização dos sindicatos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que se organizar: ninguém muda a vida sozinho\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-passos-na-mi-por-que-se-organizar-ninguem-muda-a-vida-03
+  tema: "SUS"
+  dificuldade: 2
+  enunciado: "De que movimento nasceu o SUS, segundo a aula?"
+  alternativas:
+    - texto: "Do movimento da reforma sanitária, que juntou trabalhadores da saúde, moradores e estudantes nos anos 1970 e 1980"
+      certa: true
+    - texto: "De uma decisão do patrão"
+      erro: "Foi fruto de organização."
+    - texto: "De uma lei estrangeira"
+      erro: "A aula atribui ao movimento da reforma sanitária."
+  explicacao: "Jornada limitada, férias, 13º, assentamentos e SUS: tudo foi conquistado por organização."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Por que se organizar: ninguém muda a vida sozinho\""
+  revisao:
+    status: em-revisao

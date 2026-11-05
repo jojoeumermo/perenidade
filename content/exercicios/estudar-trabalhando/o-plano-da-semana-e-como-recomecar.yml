@@ -1,0 +1,70 @@
+# Exercícios da aula "O plano da semana e como recomeçar" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-plano-01
+  tema: "Quantos blocos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Para montar o plano da semana, quantos blocos de estudo a aula sugere escolher entre os buracos de tempo?"
+  alternativas:
+    - texto: "Todos os buracos que aparecerem"
+      erro: "Plano cheio demais falha cedo. A aula sugere escolher 3 ou 4 blocos, e não todos."
+    - texto: "3 ou 4 blocos, cada um com um objetivo"
+      certa: true
+    - texto: "Só um, no domingo"
+      erro: "Um bloco só fica pouco. A aula sugere 3 ou 4 blocos, espalhados, e descanso em pelo menos um dia."
+  explicacao: "Desenhe a semana, marque o que é fixo, procure buracos de 15 a 30 minutos e escolha 3 ou 4 blocos, cada um com objetivo claro (como \"5 questões de português\")."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O plano da semana e como recomeçar\""
+  revisao:
+    status: em-revisao
+
+- id: estud-plano-02
+  tema: "Quando a semana falha"
+  dificuldade: 2
+  enunciado: "Seu plano previa 5 blocos e você fez só 1. Qual é o melhor passo, segundo a aula?"
+  alternativas:
+    - texto: "Largar tudo"
+      erro: "A semana falha para todo mundo: doença, hora extra, filho doente. A aula diz para recomeçar pelo menor passo."
+    - texto: "Reduzir para 2 ou 3 blocos possíveis e recomeçar sem culpa"
+      certa: true
+    - texto: "Fazer 10 blocos na semana seguinte, para compensar"
+      erro: "Compensar tudo esgota e repete o ciclo. Recomece pelo menor passo, como 10 minutos de revisão."
+  explicacao: "Não tente compensar tudo. Recomece pelo menor passo, olhe o motivo (falta de tempo, de vontade ou cansaço) e ajuste o plano. Se o cansaço pesar muito e persistir, procure a UBS."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O plano da semana e como recomeçar\""
+  revisao:
+    status: em-revisao
+
+- id: estud-plano-03
+  tema: "Balanço da semana"
+  dificuldade: 2
+  enunciado: "Para que serve o balanço de cinco minutos no fim da semana?"
+  alternativas:
+    - texto: "Para dar uma nota e cobrar de si mesmo"
+      erro: "A aula diz que não é nota nem cobrança."
+    - texto: "Para ver o que fez, o que atrapalhou e o que ajustar, e assim melhorar o plano a cada semana"
+      certa: true
+    - texto: "Para decidir se vale a pena continuar estudando"
+      erro: "O balanço não decide se você continua: serve para ajustar o plano, que melhora a cada semana."
+  explicacao: "O balanço pergunta: o que eu fiz? O que atrapalhou? O que eu ajusto na semana que vem? É para o plano ficar melhor, e não para dar nota."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O plano da semana e como recomeçar\""
+  revisao:
+    status: em-revisao
+
+- id: estud-plano-04
+  tema: "Tempo dos buracos"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "Marcos tem 30 minutos no ônibus de ida, 20 minutos depois do jantar na terça e na quinta, e 1 hora no domingo de manhã. Se usar o ônibus de ida em 5 dias, quantos minutos de estudo ele tem na semana?"
+  resposta: "250"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "110"
+      explicacao: "110 conta o ônibus só uma vez (30 + 20 + 20 + 60). O ônibus de ida acontece em 5 dias."
+    - resposta: "190"
+      explicacao: "Confira se somou o domingo (60 minutos): 5 × 30 + 2 × 20 + 60."
+  dica: "Multiplique os minutos do ônibus por 5, os do jantar por 2, e some a hora de domingo (60 minutos)."
+  explicacao: "Ônibus: 5 × 30 = 150 minutos. Jantar: 2 × 20 = 40 minutos. Domingo: 60 minutos. Total: 150 + 40 + 60 = 250 minutos."
+  conferir: "5 * 30 + 2 * 20 + 60"
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"O plano da semana e como recomeçar\""
+  revisao:
+    status: em-revisao

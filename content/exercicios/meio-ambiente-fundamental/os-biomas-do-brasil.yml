@@ -1,0 +1,51 @@
+# Exercícios da aula "Os biomas do Brasil" (meio-ambiente-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: meio-ambiente-fundamen-os-biomas-do-brasil-01
+  tema: "Pampa"
+  dificuldade: 1
+  enunciado: "Em qual estado brasileiro existe o bioma Pampa, os Campos do Sul?"
+  alternativas:
+    - texto: "Em Mato Grosso do Sul"
+      erro: "No Mato Grosso do Sul está o Pantanal, junto com Mato Grosso."
+    - texto: "No Rio Grande do Sul"
+      certa: true
+    - texto: "No Amazonas"
+      erro: "O Amazonas está inteiro na Amazônia."
+  explicacao: "No Brasil, o Pampa só existe no Rio Grande do Sul, onde ocupa 63% do estado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os biomas do Brasil\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-os-biomas-do-brasil-02
+  tema: "Caatinga"
+  dificuldade: 1
+  enunciado: "Qual bioma fica no Nordeste, com solos secos e alto risco de desertificação no sertão?"
+  alternativas:
+    - texto: "Cerrado"
+      erro: "O Cerrado ocupa o Planalto Central, com savana e duas estações definidas."
+    - texto: "Caatinga"
+      certa: true
+    - texto: "Pantanal"
+      erro: "O Pantanal tem vegetação em grande parte alagada, em Mato Grosso e Mato Grosso do Sul."
+  explicacao: "A Caatinga fica no Nordeste. Parte grande do sertão tem alto risco de desertificação pela degradação da vegetação e do solo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os biomas do Brasil\""
+  revisao:
+    status: em-revisao
+
+- id: meio-ambiente-fundamen-os-biomas-do-brasil-03
+  tema: "Quantos biomas"
+  dificuldade: 1
+  enunciado: "Quantos grandes biomas a aula apresenta no Brasil?"
+  alternativas:
+    - texto: "Três"
+      erro: "A aula apresenta seis: Amazônia, Cerrado, Caatinga, Mata Atlântica, Pampa e Pantanal."
+    - texto: "Dez"
+      erro: "São seis biomas, não dez."
+    - texto: "Seis"
+      certa: true
+      valor: "6"
+  explicacao: "Os seis são Amazônia, Cerrado, Caatinga, Mata Atlântica, Pampa e Pantanal. Bioma é uma grande área com clima, vegetação e vida animal parecidos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Os biomas do Brasil\""
+  revisao:
+    status: em-revisao

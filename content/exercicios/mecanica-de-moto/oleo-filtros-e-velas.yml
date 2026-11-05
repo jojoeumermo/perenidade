@@ -1,0 +1,52 @@
+# Exercícios da aula "Óleo, filtros e velas" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-oleo-filtros-e-velas-01
+  tema: "Para que serve o óleo"
+  dificuldade: 1
+  enunciado: "Qual destas é uma função do óleo no motor, segundo a aula?"
+  alternativas:
+    - texto: "Dar faísca para a vela"
+      erro: "A faísca é feita pela vela de ignição, não pelo óleo."
+    - texto: "Lubrificar, ajudar a esfriar, limpar a sujeira e proteger contra ferrugem"
+      certa: true
+    - texto: "Aumentar a pressão do pneu"
+      erro: "O óleo não tem relação com o pneu. Ele forma uma película entre as peças do motor."
+  explicacao: "O óleo forma uma película entre as peças que se movem: lubrifica, ajuda a esfriar, limpa e protege contra ferrugem."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Óleo, filtros e velas\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-oleo-filtros-e-velas-02
+  tema: "Próxima troca"
+  dificuldade: 2
+  enunciado: "O manual manda trocar o óleo a cada 4.000 km ou 6 meses, o que vier primeiro. A última troca foi com 12.000 km no hodômetro. Em quantos quilômetros no hodômetro é a próxima troca?"
+  alternativas:
+    - texto: "4.000"
+      erro: "Esse é o intervalo, não a leitura do hodômetro. Some o intervalo à leitura da última troca."
+    - texto: "16.000"
+      certa: true
+      valor: "16000"
+    - texto: "18.000"
+      erro: "Aí você somou 6.000, mas o intervalo do manual é 4.000 km."
+  explicacao: "12.000 + 4.000 = 16.000 km. Quem faz entrega costuma chegar nisso antes dos 6 meses, e o que vem primeiro é que vale."
+  conferir: "12000 + 4000"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Óleo, filtros e velas\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-oleo-filtros-e-velas-03
+  tema: "Cor da vela"
+  dificuldade: 2
+  enunciado: "A ponta da vela de ignição está preta e úmida. O que a aula diz que isso pode indicar?"
+  alternativas:
+    - texto: "Que a queima está ótima"
+      erro: "A boa queima mostra a ponta marrom-clara."
+    - texto: "Mistura rica demais ou óleo queimando"
+      certa: true
+    - texto: "Que o pneu está murcho"
+      erro: "O pneu não tem relação com a cor da vela."
+  explicacao: "Marrom-clara é sinal de boa queima; preta e úmida pode indicar mistura rica ou óleo queimando; branca pode indicar mistura pobre."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Óleo, filtros e velas\""
+  revisao:
+    status: em-revisao

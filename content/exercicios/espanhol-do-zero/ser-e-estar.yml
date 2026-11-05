@@ -1,0 +1,67 @@
+# Exercícios da aula "Ser e estar" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-serestar-01
+  tema: "Origem e localização"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Complete: \"Marta ___ de Bahía, pero ahora ___ en São Paulo.\""
+  alternativas:
+    - texto: "es ... está"
+      certa: true
+    - texto: "está ... es"
+      erro: "A origem usa ser (es). Onde a pessoa está agora usa estar (está)."
+    - texto: "es ... es"
+      erro: "Para a localização de uma pessoa, usa-se estar, e não ser."
+  explicacao: "Origem: ser (Marta es de Bahía). Localização de pessoa: estar (está en São Paulo)."
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Ser e estar\""
+  revisao:
+    status: em-revisao
+
+- id: esp-serestar-02
+  tema: "Lugar de um evento"
+  dificuldade: 2
+  enunciado: "Qual frase está certa para \"A reunião é no sindicato\"?"
+  alternativas:
+    - texto: "La reunión está en el sindicato."
+      erro: "Para coisas e pessoas o lugar usa estar, mas para eventos (reunião, festa, aula) usa-se ser."
+    - texto: "La reunión es en el sindicato."
+      certa: true
+    - texto: "La reunión hay en el sindicato."
+      erro: "Hay serve para dizer que algo existe, e não onde um evento acontece."
+  explicacao: "O lugar de um evento usa ser: la reunión es en el sindicato, ¿dónde es la fiesta?"
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ser e estar\""
+  revisao:
+    status: em-revisao
+
+- id: esp-serestar-03
+  tema: "Hay"
+  dificuldade: 1
+  enunciado: "Você quer perguntar se existe um banheiro no restaurante. Qual frase está certa?"
+  alternativas:
+    - texto: "¿Está un baño aquí?"
+      erro: "Estar é para dizer onde algo fica, quando já se sabe que existe. Para perguntar se existe, use hay."
+    - texto: "¿Hay un baño aquí?"
+      certa: true
+    - texto: "¿Es un baño aquí?"
+      erro: "Ser não serve para perguntar se algo existe. Para isso, usa-se hay."
+  explicacao: "Hay é o \"tem\" do espanhol: ¿hay un baño aquí? Depois de saber que existe, pergunta-se onde fica: ¿dónde está el baño?"
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ser e estar\""
+  revisao:
+    status: em-revisao
+
+- id: esp-serestar-04
+  tema: "Sentido muda"
+  dificuldade: 3
+  enunciado: "\"¡La comida está muy rica!\" O que a frase quer dizer?"
+  alternativas:
+    - texto: "A comida é cara."
+      erro: "Rico com estar quer dizer \"gostoso\", e não tem relação com o preço."
+    - texto: "A comida está muito gostosa."
+      certa: true
+    - texto: "A comida é de gente rica."
+      erro: "Ser rico é ter dinheiro. Com estar, rico quer dizer gostoso, em relação à comida."
+  explicacao: "Estar rico, falando de comida, é \"estar gostoso\": é um elogio à cozinheira. Ser rico é ter dinheiro."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Ser e estar\""
+  revisao:
+    status: em-revisao

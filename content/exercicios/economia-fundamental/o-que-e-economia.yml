@@ -1,0 +1,83 @@
+# Exercícios da aula "O que é economia" (Economia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ecof-oque-01
+  tema: "A palavra economia"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que quer dizer a palavra \"economia\" em grego, segundo a aula?"
+  alternativas:
+    - texto: "Regras da casa"
+      certa: true
+    - texto: "Dinheiro guardado"
+      erro: "Guardar dinheiro é só uma parte da vida econômica. A palavra vem de oikos (casa) e nomos (regra), por isso quer dizer \"regras da casa\"."
+    - texto: "Banco do povo"
+      erro: "A palavra não tem a ver com banco. Vem de oikos (casa) e nomos (regra): \"regras da casa\". Hoje fala de como se organiza uma sociedade inteira."
+  explicacao: "Economia vem do grego oikonomía, de oikos (casa) e nomos (regra). No começo falava de como organizar uma casa ou uma propriedade; hoje fala de como a sociedade inteira se organiza."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é economia\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-oque-02
+  tema: "Produção, distribuição e consumo"
+  dificuldade: 1
+  enunciado: "\"Quanto do lucro de uma fábrica vai para os salários de quem trabalha nela e quanto fica com o dono?\" Essa é uma pergunta sobre qual parte da economia?"
+  alternativas:
+    - texto: "Distribuição"
+      certa: true
+    - texto: "Produção"
+      erro: "Produção é o que se faz, como e por quem. Aqui a pergunta é sobre como o resultado foi dividido, e isso é distribuição."
+    - texto: "Consumo"
+      erro: "Consumo é quem usa os bens e serviços. A pergunta fala de dividir o lucro entre salário e dono, que é distribuição."
+  explicacao: "Distribuição é a forma como o que foi produzido é dividido: quanto vai para o salário de quem trabalha e quanto vai para o lucro de quem é dono."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é economia\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-oque-03
+  tema: "Produção, distribuição e consumo"
+  dificuldade: 2
+  enunciado: "\"Quantas famílias do bairro conseguem comprar carne toda semana?\" Essa pergunta é sobre produção, distribuição ou consumo?"
+  alternativas:
+    - texto: "Consumo, porque fala de quem consegue usar o que foi produzido"
+      certa: true
+    - texto: "Produção, porque fala de carne"
+      erro: "Falar de um produto não faz da pergunta uma pergunta de produção. Produção é quem faz e como se faz. Aqui o assunto é quem consegue comprar e usar."
+    - texto: "Nenhuma, porque carne não é assunto de economia"
+      erro: "Preço da comida e quem consegue comprá-la são questões econômicas, sim. A aula mostra que economia não é só assunto de banco."
+  explicacao: "Consumo é quem usa os bens e serviços e também quem fica sem eles. Saber quantas famílias compram carne toda semana é uma pergunta sobre consumo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é economia\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-oque-04
+  tema: "Escassez e escolha"
+  dificuldade: 2
+  enunciado: "A aula diz que o mesmo terreno pode virar plantação de comida, pasto, moradia ou estacionamento. O que isso mostra, na ideia de Lionel Robbins?"
+  alternativas:
+    - texto: "Os recursos são escassos e têm usos alternativos, então alguém precisa escolher"
+      certa: true
+    - texto: "O terreno decide sozinho para que serve"
+      erro: "Terreno não decide nada. Quem escolhe o uso são pessoas, empresas e governos, cada um com seus interesses."
+    - texto: "Sempre sobram terrenos, por isso ninguém precisa escolher"
+      erro: "É o contrário: como os recursos são escassos (não dá para tudo), é preciso escolher. É isso que a economia estuda."
+  explicacao: "Para Robbins, a economia estuda o comportamento humano diante de recursos escassos que têm usos alternativos. Como o terreno não pode ser tudo ao mesmo tempo, alguém decide o que ele vira."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é economia\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-oque-05
+  tema: "Economia não é natural"
+  dificuldade: 3
+  enunciado: "Uma pessoa diz: \"O preço do aluguel sobe e o salário não, mas isso é natural, ninguém decide.\" Qual resposta combina com a aula?"
+  alternativas:
+    - texto: "Preço, salário, aluguel e desemprego são decididos por pessoas, empresas e governos, com interesses diferentes"
+      certa: true
+    - texto: "Quem decide é sempre o governo, e mais ninguém"
+      erro: "A aula fala em pessoas, empresas e governos. Várias partes decidem, cada uma com seus interesses. Dizer que só uma decide é simplificar demais."
+    - texto: "Você tem razão: economia é como o clima, ninguém controla"
+      erro: "A aula diz que essas decisões não são naturais. Dizer que algo é natural também é uma posição, e vale perguntar quem ganha com ela."
+  explicacao: "O preço do arroz, o salário, a tarifa do ônibus, o aluguel e o desemprego são questões econômicas, e as decisões sobre eles são tomadas por gente, a partir de interesses diferentes. Por isso dá para discutir e mudar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é economia\""
+  revisao:
+    status: em-revisao

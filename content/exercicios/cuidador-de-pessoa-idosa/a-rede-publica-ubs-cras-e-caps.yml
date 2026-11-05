@@ -1,0 +1,88 @@
+# Exercícios da aula "A rede pública: UBS, CRAS e CAPS" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação de profissional de saúde, da assistência social ou da Defensoria.
+
+- id: cuid-rede-01
+  tema: "Qual serviço procurar"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Onde fazer ou atualizar o Cadastro Único e receber orientação sobre o BPC?"
+  alternativas:
+    - texto: "No CRAS, o Centro de Referência de Assistência Social"
+      certa: true
+    - texto: "Na UBS, o posto de saúde"
+      erro: "A UBS cuida da saúde: consulta, vacina, curativo, visita domiciliar. O Cadastro Único e a orientação sobre benefícios são feitos no CRAS."
+    - texto: "No CAPS, o Centro de Atenção Psicossocial"
+      erro: "O CAPS atende sofrimento mental intenso e uso problemático de álcool e outras drogas. Para Cadastro Único e benefícios, procure o CRAS."
+  explicacao: "O CRAS é a unidade pública de assistência social. Nele você faz ou atualiza o Cadastro Único, recebe orientação sobre benefícios como o BPC, participa de grupos de apoio e pede ajuda em casos de violência ou abandono (junto com o CREAS)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A rede pública: UBS, CRAS e CAPS\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-rede-02
+  tema: "UBS"
+  dificuldade: 1
+  enunciado: "O que a Unidade Básica de Saúde (UBS) oferece, segundo a aula?"
+  alternativas:
+    - texto: "Consulta, vacina, curativo, acompanhamento de pressão e diabetes, orientação ao cuidador e, em muitos lugares, visita domiciliar"
+      certa: true
+    - texto: "Só atendimento de emergência com internação"
+      erro: "A UBS é a porta de entrada do SUS, mais perto de casa. Se ela não resolve, encaminha a especialistas e exames. Emergência é com o SAMU (192) e os hospitais."
+    - texto: "Só o pagamento do benefício assistencial"
+      erro: "Quem decide e paga o BPC é o INSS. A UBS cuida da saúde."
+  explicacao: "A UBS é a porta de entrada do SUS. O Estatuto da Pessoa Idosa (art. 15) assegura atenção integral à saúde e, na internação, o direito a acompanhante (art. 16)."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003 (Estatuto da Pessoa Idosa), arts. 15 e 16, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-rede-03
+  tema: "BPC"
+  dificuldade: 2
+  enunciado: "Dona Josefa tem 70 anos, nunca contribuiu ao INSS e a renda da casa dela é muito baixa. Segundo a aula, o que é verdade sobre o BPC?"
+  alternativas:
+    - texto: "O BPC garante um salário mínimo por mês a quem tem 65 anos ou mais e não tem meios de se manter, sem exigir contribuição ao INSS; o pedido é gratuito"
+      certa: true
+    - texto: "O BPC só vale para quem contribuiu ao INSS por 15 anos"
+      erro: "O BPC não exige contribuição ao INSS. A aposentadoria é que depende de contribuição."
+    - texto: "É preciso pagar a um intermediário para conseguir o benefício"
+      erro: "Nunca pague a ninguém para \"conseguir\" o benefício. O pedido é gratuito e feito pelo INSS (Meu INSS ou telefone 135)."
+  explicacao: "O Benefício de Prestação Continuada garante um salário mínimo por mês à pessoa idosa de 65 anos ou mais e à pessoa com deficiência que não têm meios de se manter nem de serem mantidas pela família, nos termos da lei. Quem decide e paga é o INSS; o CRAS orienta."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 8.742/1993, art. 20, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-rede-04
+  tema: "CAPS"
+  dificuldade: 2
+  enunciado: "Uma cuidadora está num sofrimento emocional muito grande, quase sem dormir e sem ver saída. Qual serviço da rede a aula indica, entre outros, para ajudá-la?"
+  alternativas:
+    - texto: "O CAPS, que atende sofrimento mental intenso, com equipe de profissionais e sem internação como regra"
+      certa: true
+    - texto: "O CRAS, que só cuida de vacina"
+      erro: "O CRAS é de assistência social (Cadastro Único, benefícios, grupos de apoio), e não de vacina. Para sofrimento mental intenso, o CAPS."
+    - texto: "Nenhum: cuidador não pode pedir ajuda para si"
+      erro: "Pode e deve. O CAPS pode ajudar o cuidador também, se o sofrimento for grande, e a UBS também atende o cuidador."
+  explicacao: "O CAPS (Centro de Atenção Psicossocial) atende sofrimento mental intenso e uso problemático de álcool e outras drogas, e pode ajudar o cuidador também. Comece pela UBS para saúde e pelo CRAS para assistência e benefícios."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A rede pública: UBS, CRAS e CAPS\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-rede-05
+  tema: "Gratuidade no transporte"
+  dificuldade: 2
+  enunciado: "Segundo o Estatuto da Pessoa Idosa (art. 39), a partir de qual idade fica assegurada a gratuidade nos transportes coletivos públicos urbanos?"
+  alternativas:
+    - texto: "Mais de 65 anos"
+      certa: true
+      valor: "65"
+    - texto: "60 anos"
+      erro: "60 anos é a idade em que a pessoa passa a ser considerada idosa pelo Estatuto, mas a gratuidade no transporte coletivo urbano, pelo art. 39, é para os maiores de 65 anos."
+      valor: "60"
+    - texto: "70 anos"
+      erro: "O art. 39 do Estatuto assegura a gratuidade aos maiores de 65 anos, e não só aos de 70."
+      valor: "70"
+  explicacao: "O art. 39 do Estatuto da Pessoa Idosa assegura aos maiores de 65 anos a gratuidade nos transportes coletivos públicos urbanos. Leve o documento com foto."
+  conferir: "65"
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, art. 39 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao

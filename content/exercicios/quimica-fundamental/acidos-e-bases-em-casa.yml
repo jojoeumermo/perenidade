@@ -1,0 +1,51 @@
+# Exercícios da aula "Ácidos e bases em casa" (quimica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: quimica-fundamental-acidos-e-bases-em-casa-01
+  tema: "Ácido ou base"
+  dificuldade: 1
+  enunciado: "Qual destas substâncias de casa é um ácido, segundo a aula?"
+  alternativas:
+    - texto: "Vinagre"
+      certa: true
+    - texto: "Sabão"
+      erro: "O sabão é uma base: escorregadio e amargo."
+    - texto: "Bicarbonato"
+      erro: "O bicarbonato é uma base."
+  explicacao: "Os ácidos têm sabor azedo: vinagre, limão, laranja, refrigerante."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ácidos e bases em casa\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-acidos-e-bases-em-casa-02
+  tema: "Escala de pH"
+  dificuldade: 1
+  enunciado: "Na escala de pH, o que quer dizer um pH igual a 7?"
+  alternativas:
+    - texto: "A solução é neutra, como a água pura"
+      certa: true
+    - texto: "A solução é muito ácida"
+      erro: "Muito ácida é pH menor que 7, quanto mais perto de 0."
+    - texto: "A solução é muito básica"
+      erro: "Muito básica é pH maior que 7."
+  explicacao: "pH menor que 7 é ácida; maior que 7 é básica."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ácidos e bases em casa\""
+  revisao:
+    status: em-revisao
+
+- id: quimica-fundamental-acidos-e-bases-em-casa-03
+  tema: "Fator de dez"
+  dificuldade: 2
+  enunciado: "A aula diz que cada unidade de pH vale um fator de dez. Uma solução de pH 3 é quantas vezes mais ácida que uma de pH 4?"
+  alternativas:
+    - texto: "2 vezes"
+      erro: "Cada unidade vale um fator de dez, e não de dois."
+    - texto: "10 vezes"
+      certa: true
+      valor: "10"
+    - texto: "100 vezes"
+      erro: "Cem vezes seria a diferença de duas unidades, como pH 3 para pH 5."
+  explicacao: "A escala não é como a régua: cada unidade vale um fator de dez."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Ácidos e bases em casa\""
+  revisao:
+    status: em-revisao

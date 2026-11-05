@@ -1,0 +1,68 @@
+# Exercícios da aula "As regiões do Brasil" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-reg-01
+  tema: "Estados do Sudeste"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quais estados formam a Região Sudeste?"
+  alternativas:
+    - texto: "Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo"
+      certa: true
+    - texto: "Bahia, Minas Gerais, Rio de Janeiro e São Paulo"
+      erro: "A Bahia é da Região Nordeste. O Sudeste tem quatro estados: Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo."
+    - texto: "Paraná, Santa Catarina, Rio Grande do Sul e São Paulo"
+      erro: "Paraná, Santa Catarina e Rio Grande do Sul formam a Região Sul."
+  explicacao: "A divisão do IBGE agrupa estados inteiros. O Sudeste tem Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-reg-02
+  tipo: numero
+  tema: "Calcular a densidade"
+  dificuldade: 2
+  enunciado: "Uma região tem 10.000.000 de habitantes e 200.000 km². Qual é a densidade demográfica, em habitantes por km²?"
+  resposta: "50"
+  unidade: "hab/km²"
+  erros_comuns:
+    - resposta: "0,02"
+      explicacao: "Você dividiu a área pela população. Divida a população pela área."
+  dica: "População ÷ área."
+  explicacao: "10.000.000 ÷ 200.000 = 50 habitantes por km²."
+  conferir: "10000000 / 200000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-reg-03
+  tema: "Média baixa não é terra vazia"
+  dificuldade: 2
+  enunciado: "A Região Norte tem densidade demográfica baixa (cerca de 4,5 hab/km²). O que isso quer dizer?"
+  alternativas:
+    - texto: "É uma média: há cidades cheias, como Manaus e Belém, e áreas enormes de floresta onde vivem povos indígenas, ribeirinhos e extrativistas"
+      certa: true
+    - texto: "Que a região é vazia e sem gente"
+      erro: "Densidade é média. Nas áreas de floresta moram povos indígenas, ribeirinhos e extrativistas, e as cidades como Manaus e Belém são bem povoadas."
+    - texto: "Que ninguém mora nas cidades do Norte"
+      erro: "Manaus e Belém têm bairros muito cheios. A média baixa vem das áreas imensas quase sem moradores."
+  explicacao: "A densidade é a média da região inteira. Ela esconde cidades muito povoadas e áreas de floresta com pouca gente, mas que não estão vazias."
+  fonte: "Questão original do Instituto Lúcia, com dados do Censo 2022 (IBGE)"
+  revisao:
+    status: em-revisao
+
+- id: gf-reg-04
+  tema: "Criação do Tocantins"
+  dificuldade: 2
+  enunciado: "Em 1988 foi criado o estado do Tocantins, a partir do norte de Goiás. Em qual região do IBGE ele ficou?"
+  alternativas:
+    - texto: "Região Norte"
+      certa: true
+    - texto: "Região Centro-Oeste, junto com Goiás"
+      erro: "O Tocantins foi criado a partir do norte de Goiás, mas passou a fazer parte da Região Norte."
+    - texto: "Região Nordeste"
+      erro: "O Tocantins está na Região Norte, e não no Nordeste."
+  explicacao: "A divisão em regiões acompanhou o mapa político. O Tocantins, criado em 1988, entrou na Região Norte; o Mato Grosso do Sul, separado do Mato Grosso em 1977, ficou no Centro-Oeste."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

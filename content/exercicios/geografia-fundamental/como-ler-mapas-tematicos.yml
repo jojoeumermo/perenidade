@@ -1,0 +1,70 @@
+# Exercícios da aula "Como ler mapas temáticos" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-tem-01
+  tema: "Escolher o mapa"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Você quer mostrar a população de cada capital do país, em números absolutos. Que tipo de mapa temático é o mais indicado?"
+  alternativas:
+    - texto: "Mapa de símbolos proporcionais: círculos maiores para mais gente"
+      certa: true
+    - texto: "Mapa coroplético, pintando cada estado com uma cor"
+      erro: "O coroplético é bom para taxas e porcentagens. Para números absolutos, use símbolos proporcionais."
+    - texto: "Mapa de isolinhas"
+      erro: "Isolinhas servem para fenômenos contínuos, como temperatura e altitude, e não para a população de cada capital."
+  explicacao: "Coroplético é para taxas; números absolutos vão em símbolos proporcionais, em que o tamanho do círculo mostra a quantidade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-tem-02
+  tipo: numero
+  tema: "Taxa por 100 mil habitantes"
+  dificuldade: 3
+  enunciado: "Numa cidade de 50.000 habitantes houve 300 casos de uma doença (números inventados para o exercício). Qual é a taxa, em casos por 100 mil habitantes?"
+  resposta: "600"
+  unidade: "casos por 100 mil"
+  erros_comuns:
+    - resposta: "300"
+      explicacao: "300 é o número absoluto de casos. A taxa é casos ÷ habitantes × 100.000."
+    - resposta: "0,006"
+      explicacao: "0,006 é a divisão casos ÷ habitantes. Falta multiplicar por 100.000."
+  dica: "Taxa = casos ÷ habitantes × 100.000."
+  explicacao: "300 ÷ 50.000 = 0,006; vezes 100.000, são 600 casos para cada 100 mil habitantes. A taxa permite comparar cidades de tamanhos diferentes."
+  conferir: "300 / 50000 * 100000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-tem-03
+  tema: "O mapa do cólera"
+  dificuldade: 2
+  enunciado: "Em 1854, o médico John Snow marcou num mapa as mortes por cólera em um bairro de Londres. O que o mapa de pontos mostrou?"
+  alternativas:
+    - texto: "As mortes se juntavam em volta de uma bomba de água contaminada"
+      certa: true
+    - texto: "As mortes estavam espalhadas igualmente por todo o bairro"
+      erro: "Justamente o contrário: os pontos se concentravam ao redor de uma bomba de água, e isso apontou a causa."
+    - texto: "Que a doença vinha só do ar"
+      erro: "O mapa ajudou a mostrar que a água contaminada era o problema, pela concentração das mortes junto à bomba."
+  explicacao: "Mapas de pontos mostram onde algo se concentra. O mapa de Snow juntou as mortes em volta de uma bomba de água contaminada e ajudou a achar a causa do cólera."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-tem-04
+  tema: "Antes de olhar as cores"
+  dificuldade: 1
+  enunciado: "O que se deve conferir antes de olhar as cores de um mapa temático?"
+  alternativas:
+    - texto: "Título, legenda, fonte, data e unidade"
+      certa: true
+    - texto: "Só quais cores o mapa usa"
+      erro: "As cores sem legenda não dizem nada. Confira antes o título, a legenda, a fonte, a data e a unidade."
+    - texto: "Só o tamanho do mapa na tela"
+      erro: "O tamanho do mapa não diz se a informação é confiável. Confira título, legenda, fonte, data e unidade."
+  explicacao: "Um mapa de 'desemprego' de 2015 não diz nada sobre hoje. Cheque título, legenda, fonte, data e unidade antes de confiar nas cores."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

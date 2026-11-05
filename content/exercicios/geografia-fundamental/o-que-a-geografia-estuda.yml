@@ -1,0 +1,67 @@
+# Exercícios da aula "O que a geografia estuda" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-oqg-01
+  tema: "Espaço geográfico"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que é o espaço geográfico, o objeto de estudo da geografia?"
+  alternativas:
+    - texto: "A natureza transformada pelo trabalho humano"
+      certa: true
+    - texto: "Só aquilo que a natureza criou, sem a mão humana"
+      erro: "Isso seria só a natureza. O espaço geográfico inclui o que as pessoas construíram e as ações delas sobre o lugar."
+    - texto: "Só o mapa do bairro"
+      erro: "O mapa é uma forma de representar o espaço. O espaço geográfico é o próprio lugar, com objetos e ações."
+  explicacao: "Um morro é natureza. Um morro com casas, escadarias e uma linha de ônibus é espaço geográfico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-oqg-02
+  tema: "Território"
+  dificuldade: 2
+  enunciado: "Uma terra indígena demarcada, sob o controle de um povo, é um exemplo de qual conceito da geografia?"
+  alternativas:
+    - texto: "Território"
+      certa: true
+    - texto: "Paisagem"
+      erro: "Paisagem é o que a vista alcança. Território é o espaço sob o controle de alguém, com fronteira, dono e regra."
+    - texto: "Natureza"
+      erro: "Natureza são os elementos que não foram criados pelo ser humano. Território é o espaço controlado por alguém."
+  explicacao: "Território é o espaço sob o controle de alguém. Todo território tem fronteira, dono e regra, e a disputa por ele está em toda parte."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-oqg-03
+  tema: "Geografia física e humana"
+  dificuldade: 2
+  enunciado: "Qual destes assuntos é da geografia humana?"
+  alternativas:
+    - texto: "Cidades, trabalho e transporte"
+      certa: true
+    - texto: "Relevo e vegetação"
+      erro: "Relevo e vegetação são da geografia física."
+    - texto: "Clima e rios"
+      erro: "Clima e rios também são da geografia física."
+  explicacao: "A geografia física trata do relevo, do clima, dos rios, dos solos e da vegetação. A humana, da população, das cidades, do campo, do trabalho, da indústria e do transporte. Na prática, as duas andam juntas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-oqg-04
+  tema: "A pergunta da geografia"
+  dificuldade: 1
+  enunciado: "Qual é a pergunta que a geografia faz?"
+  alternativas:
+    - texto: "Por que as coisas estão onde estão?"
+      certa: true
+    - texto: "Qual é a capital de cada país?"
+      erro: "Decorar capitais ajuda pouco. A geografia procura explicar por que as coisas estão onde estão."
+    - texto: "Quantas montanhas existem no mundo?"
+      erro: "Contar montanhas é descrever. A geografia vai além: explica por que os lugares são como são."
+  explicacao: "Por que a fábrica fica longe do bairro dos donos? Por que a enchente cai sempre nas mesmas ruas? A geografia procura explicar, e não só descrever."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

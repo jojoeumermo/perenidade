@@ -1,0 +1,50 @@
+# Exercícios da aula "Falar com clareza e simplicidade" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-falar-com-clareza-e-simplicidade-01
+  tema: "Fala e escrita"
+  dificuldade: 1
+  enunciado: "Por que a fala deve usar frases curtas, segundo a aula?"
+  alternativas:
+    - texto: "Porque quem ouve pode voltar e reler a frase difícil"
+      erro: "É o contrário: quem ouve não pode \"voltar a fita\"."
+    - texto: "Porque quem ouve não pode reler a frase difícil"
+      certa: true
+    - texto: "Porque frases curtas são mais bonitas no papel"
+      erro: "A aula trata da fala: a linguagem falada é feita para ser ouvida."
+  explicacao: "Na fala: frases curtas, verbos em vez de substantivos, \"nós\", perguntas ao público e repetição da ideia principal."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar com clareza e simplicidade\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-falar-com-clareza-e-simplicidade-02
+  tema: "Jargão"
+  dificuldade: 1
+  enunciado: "O que é jargão, segundo a aula?"
+  alternativas:
+    - texto: "Termo de profissão ou de grupo que quem é de fora não entende"
+      certa: true
+    - texto: "Uma palavra difícil de pronunciar"
+      erro: "Jargão é um termo próprio de um grupo ou profissão, que quem é de fora não entende."
+    - texto: "Um tipo de palavrão"
+      erro: "Palavrão desvia a atenção; jargão é termo técnico de um grupo."
+  explicacao: "Em vez de usar jargão, explique ou troque o termo, na primeira vez que ele aparecer."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar com clareza e simplicidade\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-falar-com-clareza-e-simplicidade-03
+  tema: "Lei de linguagem simples"
+  dificuldade: 2
+  enunciado: "Qual lei, de 2025, criou a Política Nacional de Linguagem Simples para o poder público?"
+  alternativas:
+    - texto: "A Lei nº 8.078"
+      erro: "Essa é o Código de Defesa do Consumidor, de 1990."
+    - texto: "A Lei nº 15.263"
+      certa: true
+    - texto: "A Lei nº 12.009"
+      erro: "Essa é a lei do motofrete, de 2009."
+  explicacao: "As técnicas da linguagem simples (frases curtas e em ordem direta, uma ideia por vez) servem também para quem fala."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Falar com clareza e simplicidade\""
+  revisao:
+    status: em-revisao

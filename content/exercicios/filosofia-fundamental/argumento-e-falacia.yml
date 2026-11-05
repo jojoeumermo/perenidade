@@ -1,0 +1,85 @@
+# Exercícios da aula "Argumento e falácia" (Filosofia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fil-argumento-01
+  tema: "O que é argumento"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em filosofia, o que é um argumento?"
+  alternativas:
+    - texto: "Uma discussão em voz alta entre duas pessoas"
+      erro: "No dia a dia, \"argumento\" virou sinônimo de briga. Em filosofia é outra coisa: um conjunto de afirmações em que as premissas são razões para aceitar uma conclusão."
+    - texto: "Um conjunto de afirmações em que as premissas são razões para aceitar uma conclusão"
+      certa: true
+    - texto: "A opinião de quem fala mais forte"
+      erro: "Falar alto não é razão. O argumento vale pelas premissas que apresenta e pela ligação delas com a conclusão."
+  explicacao: "Argumento é um conjunto de afirmações em que algumas, as premissas, são apresentadas como razões para aceitar outra, a conclusão. Exemplo: \"todo trabalhador tem direito a descanso semanal; Marta é trabalhadora; logo, Marta tem direito a descanso semanal\"."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Argumento e falácia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-argumento-02
+  tema: "Avaliar um argumento"
+  dificuldade: 2
+  enunciado: "Quais são as duas perguntas que a aula manda fazer para avaliar um argumento?"
+  alternativas:
+    - texto: "Quem falou? Quantas pessoas concordam?"
+      erro: "Quem fala e quantos concordam não decidem se o argumento é bom. Isso seria cair no ataque à pessoa ou no apelo à maioria."
+    - texto: "As premissas são verdadeiras? A conclusão decorre mesmo delas?"
+      certa: true
+    - texto: "O argumento é bonito? É curto?"
+      erro: "A aula avisa que um argumento que falha pode soar bonito. O que conta é se as premissas são verdadeiras e se a conclusão decorre delas."
+  explicacao: "Para avaliar um argumento, pergunte: as premissas são verdadeiras? A conclusão decorre mesmo delas? Se a resposta for sim às duas, o argumento é bom; se falhar em qualquer uma, não é."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Argumento e falácia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-argumento-03
+  tema: "Reconhecer uma falácia"
+  dificuldade: 2
+  enunciado: "\"Meu avô fumou a vida inteira e morreu com 95 anos. Cigarro não faz mal.\" Qual é a falácia?"
+  alternativas:
+    - texto: "Ataque à pessoa"
+      erro: "No ataque à pessoa, em vez de rebater a ideia, ataca-se quem a defende. Aqui ninguém foi atacado: um único caso foi usado como prova geral."
+    - texto: "Falso dilema"
+      erro: "No falso dilema só duas opções são apresentadas, como se não houvesse outras. Aqui não há opções: há um caso isolado."
+    - texto: "Generalização apressada"
+      certa: true
+    - texto: "Apelo à autoridade"
+      erro: "No apelo à autoridade, algo seria verdade porque um famoso disse. O avô é um exemplo pessoal, não uma autoridade."
+  explicacao: "Concluir sobre todos a partir de um caso é generalização apressada. Um fumante que viveu muito não mostra que o cigarro não faz mal: é só um caso entre muitos."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Argumento e falácia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-argumento-04
+  tema: "Espantalho"
+  dificuldade: 2
+  enunciado: "\"Você quer regular as redes sociais? Então defende a censura.\" Que falácia é essa?"
+  alternativas:
+    - texto: "Ladeira escorregadia"
+      erro: "Na ladeira escorregadia se diz, sem provas, que um passo leva a uma catástrofe. Aqui a posição do outro foi distorcida: regular virou censura."
+    - texto: "Espantalho"
+      certa: true
+    - texto: "Apelo à maioria"
+      erro: "No apelo à maioria, algo seria verdade porque muita gente acredita. Aqui ninguém citou a maioria."
+  explicacao: "No espantalho, distorce-se a posição do outro para derrubá-la mais facilmente. Quem quer regular as redes não disse que defende a censura."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Argumento e falácia\""
+  revisao:
+    status: em-revisao
+
+- id: fil-argumento-05
+  tema: "Cuidado com a falácia"
+  dificuldade: 3
+  enunciado: "Você mostrou que o argumento de alguém tem uma falácia. O que isso prova?"
+  alternativas:
+    - texto: "Que a conclusão dele é falsa"
+      erro: "Alguém pode defender uma ideia verdadeira com um argumento ruim. A falácia mostra só que aquele argumento não serve."
+    - texto: "Que aquele argumento não serve, mas a conclusão ainda pode ser verdadeira ou falsa"
+      certa: true
+    - texto: "Que a pessoa mente de propósito"
+      erro: "Algumas falácias são erros honestos. Apontar uma falácia não prova má-fé."
+  explicacao: "Apontar uma falácia não prova que a conclusão é falsa. Mostra apenas que aquele argumento não sustenta a conclusão; é preciso procurar outras razões."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Argumento e falácia\""
+  revisao:
+    status: em-revisao

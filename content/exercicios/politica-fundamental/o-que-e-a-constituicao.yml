@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é a Constituição" (politica-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: politica-fundamental-o-que-e-a-constituicao-01
+  tema: "Constituição Cidadã"
+  dificuldade: 1
+  enunciado: "Por que a Constituição de 1988 ficou conhecida como \"Constituição Cidadã\"?"
+  alternativas:
+    - texto: "Porque nasceu na redemocratização, depois da ditadura militar (1964-1985)"
+      certa: true
+    - texto: "Porque foi escrita só por cidadãos de uma cidade"
+      erro: "A aula diz que foi aprovada pela Assembleia Nacional Constituinte."
+    - texto: "Porque acabou com todas as leis anteriores"
+      erro: "Ela está no topo, e as outras leis têm de obedecer a ela."
+  explicacao: "Foi promulgada em 5 de outubro de 1988."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a Constituição\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-o-que-e-a-constituicao-02
+  tema: "Emenda"
+  dificuldade: 2
+  enunciado: "Para mudar a Constituição por emenda, qual é a exigência de votos?"
+  alternativas:
+    - texto: "Maioria simples em um turno"
+      erro: "É mais difícil que isso: dois turnos em cada casa."
+    - texto: "Três quintos dos votos nas duas casas, em dois turnos"
+      certa: true
+    - texto: "Todos os votos"
+      erro: "Não é preciso unanimidade, são três quintos."
+  explicacao: "É muito mais difícil do que aprovar uma lei comum."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a Constituição\""
+  revisao:
+    status: em-revisao
+
+- id: politica-fundamental-o-que-e-a-constituicao-03
+  tema: "Votos no Senado"
+  dificuldade: 3
+  enunciado: "O Senado tem 81 senadores. Quantos votos, no mínimo, uma emenda precisa lá, pois exige três quintos?"
+  alternativas:
+    - texto: "41"
+      erro: "Isso é maioria simples. Os três quintos de 81 são 48,6."
+    - texto: "49"
+      certa: true
+    - texto: "54"
+      erro: "Dois terços de 81 seriam 54. Aqui são três quintos."
+  explicacao: "81 × 3 ÷ 5 = 48,6. Como não existe meio senador, são necessários 49 votos, em dois turnos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é a Constituição\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,69 @@
+# Exercícios da aula "Peso, massa e gravidade" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-pes-01
+  tipo: numero
+  tema: "Peso em newtons"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Usando g = 10 m/s², qual é o peso, em newtons, de uma pessoa de 60 kg na Terra?"
+  resposta: "600"
+  unidade: "N"
+  erros_comuns:
+    - resposta: "60"
+      explicacao: "60 é a massa, em quilogramas. O peso é uma força: massa × gravidade."
+  dica: "Peso = massa × aceleração da gravidade."
+  explicacao: "60 × 10 = 600 N."
+  conferir: "60 * 10"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-pes-02
+  tema: "Massa e peso na Lua"
+  dificuldade: 2
+  enunciado: "Uma pessoa de 70 kg vai à Lua. O que acontece com a massa e com o peso dela?"
+  alternativas:
+    - texto: "A massa continua 70 kg; o peso fica bem menor, porque a gravidade da Lua é menor"
+      certa: true
+    - texto: "A massa diminui para uns 12 kg e o peso também"
+      erro: "A massa é a quantidade de matéria e não muda de lugar para lugar. Só o peso, que é uma força, muda."
+    - texto: "A massa e o peso continuam os mesmos"
+      erro: "O peso depende da gravidade do lugar. Na Lua é cerca de 1/6 do da Terra. A massa é que continua igual."
+  explicacao: "Massa é quantidade de matéria e não muda. Peso é a força da gravidade e muda com o lugar: na Lua, cerca de 1/6 do da Terra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-pes-03
+  tema: "Queda sem ar"
+  dificuldade: 2
+  enunciado: "Sem ar para atrapalhar, uma pena e um martelo são soltos da mesma altura ao mesmo tempo. O que acontece?"
+  alternativas:
+    - texto: "Caem juntos e chegam ao chão ao mesmo tempo"
+      certa: true
+    - texto: "O martelo chega primeiro, porque é mais pesado"
+      erro: "Na Terra a pena demora por causa da resistência do ar. Sem ar, todos os corpos caem com a mesma aceleração."
+    - texto: "A pena chega primeiro, porque é mais leve"
+      erro: "Sem ar, a massa não faz diferença: todos os corpos caem com a mesma aceleração."
+  explicacao: "Sem resistência do ar, todos os corpos caem com a mesma aceleração. O corpo mais pesado é mais puxado, mas também mais difícil de acelerar, e uma coisa compensa a outra."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-pes-04
+  tipo: numero
+  tema: "Peso com g = 9,8"
+  dificuldade: 2
+  enunciado: "Usando g = 9,8 m/s², qual é o peso, em newtons, de um saco de 50 kg?"
+  resposta: "490"
+  unidade: "N"
+  erros_comuns:
+    - resposta: "50"
+      explicacao: "50 é a massa, em kg. O peso é a força: massa × 9,8."
+  dica: "Multiplique a massa pela gravidade."
+  explicacao: "50 × 9,8 = 490 N."
+  conferir: "50 * 9.8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Como a geladeira gela: o ciclo de refrigeração" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-como-a-geladeira-gela-o-ciclo-de-refrige-01
+  tema: "Frio é calor que sai"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que a geladeira faz?"
+  alternativas:
+    - texto: "Cria frio dentro dela"
+      erro: "A aula diz que ela não cria frio."
+    - texto: "Tira o calor de dentro e joga para fora"
+      certa: true
+    - texto: "Joga o frio para a parte de trás"
+      erro: "É o calor que vai para trás, e por isso a parte de trás esquenta."
+  explicacao: "O ar-condicionado faz o mesmo: tira o calor do quarto e joga na rua pela unidade externa."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como a geladeira gela: o ciclo de refrigeração\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-como-a-geladeira-gela-o-ciclo-de-refrige-02
+  tema: "Quatro partes"
+  dificuldade: 1
+  enunciado: "Qual é a parte do ciclo que recebe o gás frio e de baixa pressão e o comprime, esquentando-o?"
+  alternativas:
+    - texto: "O compressor"
+      certa: true
+    - texto: "O condensador"
+      erro: "O condensador é onde o gás quente solta calor e vira líquido."
+    - texto: "O evaporador"
+      erro: "O evaporador é onde o líquido frio evapora e absorve o calor do ambiente."
+  explicacao: "As quatro partes: compressor, condensador, dispositivo de expansão e evaporador."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como a geladeira gela: o ciclo de refrigeração\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-como-a-geladeira-gela-o-ciclo-de-refrige-03
+  tema: "Evaporador"
+  dificuldade: 2
+  enunciado: "Onde o líquido refrigerante evapora e absorve o calor do ambiente, ficando a parte gelada?"
+  alternativas:
+    - texto: "No evaporador, serpentina dentro da geladeira ou na unidade interna do ar"
+      certa: true
+    - texto: "No condensador, atrás da geladeira"
+      erro: "No condensador o gás solta calor."
+    - texto: "No tubo capilar"
+      erro: "O capilar reduz a pressão do líquido, que esfria muito."
+  explicacao: "O gás refrigerante muda de líquido para gás e de gás para líquido. Quando vira gás, absorve calor; quando vira líquido, solta calor."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Como a geladeira gela: o ciclo de refrigeração\""
+  revisao:
+    status: em-revisao

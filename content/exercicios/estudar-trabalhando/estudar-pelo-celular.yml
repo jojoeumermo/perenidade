@@ -1,0 +1,70 @@
+# Exercícios da aula "Estudar pelo celular" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-celular-01
+  tema: "Preparar o celular"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Você vai estudar 20 minutos no ônibus com o celular. O que fazer antes de sair de casa?"
+  alternativas:
+    - texto: "Deixar todos os avisos ligados, para não perder nada"
+      erro: "Cada aviso tira um pedaço da concentração. Silencie durante a sessão."
+    - texto: "Baixar o material, ligar o modo avião ou silenciar os avisos e levar caderno e caneta"
+      certa: true
+    - texto: "Abrir cinco abas ao mesmo tempo, para ter tudo à mão"
+      erro: "Estudar com três coisas abertas é estudar pela metade. Deixe uma coisa só na tela."
+  explicacao: "Baixe o material antes (no Wi-Fi, sem gastar dados), silencie os avisos, deixe uma coisa só na tela e leve o caderno para anotar e resumir com as suas palavras."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Estudar pelo celular\""
+  revisao:
+    status: em-revisao
+
+- id: estud-celular-02
+  tema: "Notificações"
+  dificuldade: 2
+  enunciado: "O que a pesquisa de Stothart e colegas (2015), citada na aula, observou sobre as notificações?"
+  alternativas:
+    - texto: "Só de receber um aviso, mesmo sem tocar no celular, as pessoas pioravam numa tarefa de atenção"
+      certa: true
+    - texto: "As notificações melhoram a atenção, porque lembram de estudar"
+      erro: "O estudo viu o contrário: cada aviso rouba um pedaço da concentração."
+    - texto: "Só atrapalham se a pessoa responder à mensagem"
+      erro: "O estudo viu piora de atenção só pelo recebimento do aviso, mesmo sem tocar no celular."
+  explicacao: "Segundo Stothart e colegas, só receber um aviso já piora o desempenho numa tarefa de atenção. Por isso a aula recomenda silenciar os avisos durante o estudo."
+  fonte: "Stothart, Mitchum e Yehnert (2015), conforme a aula \"Estudar pelo celular\""
+  revisao:
+    status: em-revisao
+
+- id: estud-celular-03
+  tema: "Ler na tela"
+  dificuldade: 2
+  enunciado: "Segundo a meta-análise de Delgado e colegas (2018), citada na aula, o que acontece em média com a compreensão de textos informativos lidos na tela, em comparação com o papel?"
+  alternativas:
+    - texto: "É um pouco menor, principalmente quando há pressa"
+      certa: true
+    - texto: "É muito melhor, porque a tela tem mais recursos"
+      erro: "A pesquisa viu o contrário: em média, a compreensão em tela era um pouco menor."
+    - texto: "É igual em todos os casos"
+      erro: "Em média houve diferença, um pouco menor na tela, principalmente com pressa."
+  explicacao: "Em média a compreensão na tela é um pouco menor. Não é razão para desistir da tela: leia em partes, com perguntas, e resuma de memória."
+  fonte: "Delgado, Vargas, Ackerman e Salmerón (2018), conforme a aula \"Estudar pelo celular\""
+  revisao:
+    status: em-revisao
+
+- id: estud-celular-04
+  tema: "Conta da sessão"
+  tipo: numero
+  dificuldade: 2
+  enunciado: "Joana estuda 20 minutos no ônibus: 3 minutos olhando os títulos, 11 minutos lendo em partes e o resto resumindo de memória. Quantos minutos ela gasta resumindo?"
+  resposta: "6"
+  unidade: "minutos"
+  erros_comuns:
+    - resposta: "14"
+      explicacao: "14 é a soma de 3 + 11. Para achar o que sobra, subtraia essa soma dos 20 minutos."
+    - resposta: "9"
+      explicacao: "Confira a conta: 20 menos 3 menos 11."
+  dica: "Some os tempos dados e tire de 20."
+  explicacao: "3 + 11 = 14 minutos. Sobram 20 − 14 = 6 minutos para resumir de memória."
+  conferir: "20 - 3 - 11"
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Estudar pelo celular\""
+  revisao:
+    status: em-revisao

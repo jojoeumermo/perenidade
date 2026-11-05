@@ -1,0 +1,69 @@
+# Exercícios da aula "Leitura de gráficos e tabelas" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mf-gra-01
+  tipo: numero
+  tema: "Ler uma tabela"
+  dificuldade: 1
+  enunciado: "Uma marmitaria anotou as vendas da semana (dados de exemplo): segunda, 30; terça, 25; quarta, 40; quinta, 35; sexta, 50. Quantas marmitas vendeu de segunda a sexta?"
+  resposta: "180"
+  unidade: "marmitas"
+  erros_comuns:
+    - resposta: "50"
+      explicacao: "50 é o valor de sexta, o maior da tabela. A pergunta é o total da semana: some todos os dias."
+  dica: "Some os cinco valores da tabela."
+  explicacao: "30 + 25 + 40 + 35 + 50 = 180 marmitas."
+  conferir: "30 + 25 + 40 + 35 + 50"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-gra-02
+  tema: "Escolher o gráfico"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Você quer mostrar como o preço do quilo do feijão subiu e desceu mês a mês durante um ano. Qual gráfico é o mais indicado?"
+  alternativas:
+    - texto: "Gráfico de linha"
+      certa: true
+    - texto: "Gráfico de setores (pizza)"
+      erro: "A pizza mostra como um todo se divide em partes. Aqui não há um todo para repartir: o que interessa é a mudança ao longo do tempo."
+    - texto: "Nenhum gráfico serve; só a tabela"
+      erro: "A tabela dá o valor exato, mas o gráfico de linha mostra de relance onde o preço subiu rápido e onde caiu."
+  explicacao: "Para mostrar mudança ao longo do tempo, o gráfico de linha é o mais indicado: a inclinação mostra a velocidade da subida ou da queda."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-gra-03
+  tipo: numero
+  tema: "Gráfico de setores"
+  dificuldade: 2
+  enunciado: "Uma família tem renda de R$ 2.000 por mês e gasta R$ 400 com transporte. Num gráfico de setores desse orçamento, quantos por cento da pizza o transporte ocupa?"
+  resposta: "20"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "0,2"
+      explicacao: "0,2 é a fração 400 ÷ 2.000 escrita como decimal. Para virar porcentagem, multiplique por 100."
+  dica: "Divida o gasto pelo total e multiplique por 100."
+  explicacao: "400 ÷ 2.000 = 0,2, que é 20%. A fatia do transporte ocupa um quinto da pizza."
+  conferir: "400 / 2000 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: mf-gra-04
+  tema: "Como um gráfico engana"
+  dificuldade: 3
+  enunciado: "Um gráfico de barras mostra o salário de janeiro (R$ 1.900) e o de dezembro (R$ 1.950). A barra de dezembro parece o dobro da de janeiro. O que explica isso?"
+  alternativas:
+    - texto: "A escala do gráfico não começa no zero, e isso faz uma diferença pequena parecer enorme"
+      certa: true
+    - texto: "O salário de dezembro é mesmo o dobro do de janeiro"
+      erro: "Não é: de 1.900 para 1.950 o aumento é de 50 reais, cerca de 2,6%. Quando a barra parece o dobro, desconfie da escala."
+    - texto: "Os gráficos de barras sempre exageram, então não adianta olhar os números"
+      erro: "Gráfico bem feito não engana. O truque é olhar os números dos eixos e ver onde a escala começa."
+  explicacao: "Se a escala começa em um valor alto, as barras ficam cortadas e a diferença parece maior do que é. Antes de acreditar, leia os números do eixo: aqui o aumento é de apenas 50 reais, cerca de 2,6%."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

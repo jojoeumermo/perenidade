@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é uma crise" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-o-que-e-uma-crise-01
+  tema: "Crise do excesso"
+  dificuldade: 1
+  enunciado: "O Manifesto Comunista (1848) descreveu a crise do capitalismo como a epidemia de quê?"
+  alternativas:
+    - texto: "Da falta de comida"
+      erro: "Nas sociedades antigas, crise era falta. No capitalismo, é o excesso."
+    - texto: "Da superprodução"
+      certa: true
+    - texto: "Da superstição"
+      erro: "O Manifesto fala em superprodução: muito produzido que não pode ser vendido com lucro."
+  explicacao: "Nada falta materialmente. O que falta é lucro: as mercadorias não podem ser vendidas com ganho e param de ser produzidas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é uma crise\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-o-que-e-uma-crise-02
+  tema: "Por que voltam"
+  dificuldade: 2
+  enunciado: "Qual destas é uma das explicações marxistas para as crises voltarem, citadas na aula?"
+  alternativas:
+    - texto: "Os trabalhadores compram mais do que as empresas produzem"
+      erro: "É o contrário: a produção cresce mais do que o poder de compra."
+    - texto: "A produção cresce mais do que o poder de compra dos trabalhadores"
+      certa: true
+    - texto: "Os trabalhadores compram demais"
+      erro: "É o contrário: cada patrão quer pagar o mínimo e os trabalhadores são também os compradores."
+  explicacao: "As outras: anarquia da produção, queda da taxa de lucro e crédito com especulação (como em 1929 e 2008)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é uma crise\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-o-que-e-uma-crise-03
+  tema: "Quem paga"
+  dificuldade: 2
+  enunciado: "Na hora da crise, segundo a aula, o que as empresas cortam primeiro?"
+  alternativas:
+    - texto: "O trabalho: demissões, salários congelados e direitos retirados"
+      certa: true
+    - texto: "Os lucros dos donos"
+      erro: "A aula diz que as empresas cortam primeiro o trabalho."
+    - texto: "Os preços para todos"
+      erro: "A aula fala de demissões, salários congelados e direitos retirados."
+  explicacao: "Governos muitas vezes socorrem bancos e cortam gastos sociais; os trabalhadores perdem o emprego e também escola, posto de saúde e transporte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é uma crise\""
+  revisao:
+    status: em-revisao

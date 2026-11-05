@@ -1,0 +1,87 @@
+# Exercícios da aula "Cooperativas de costura" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: cost-coop-01
+  tema: "O que é cooperativa de trabalho"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a Lei nº 12.690/2012, o que é uma cooperativa de trabalho?"
+  alternativas:
+    - texto: "Uma sociedade de trabalhadoras e trabalhadores que exercem suas atividades com proveito comum, autonomia e autogestão"
+      certa: true
+    - texto: "Uma empresa em que um dono decide e as pessoas só obedecem"
+      erro: "Isso é o contrário da cooperativa. Nela as regras são fixadas em assembleia, de forma coletiva."
+    - texto: "Um grupo que só junta dinheiro para emprestar a juros"
+      erro: "A cooperativa de trabalho existe para as pessoas trabalharem juntas, com melhor qualificação, renda e condições de trabalho."
+  explicacao: "Pode ser de produção (as sócias produzem bens em comum e a cooperativa tem os meios de produção, como as máquinas) ou de serviço (presta serviços especializados a terceiros). A autogestão significa que a assembleia define as diretrizes e as sócias decidem como o trabalho é feito."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 12.690/2012 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-coop-02
+  tema: "O mínimo para começar"
+  dificuldade: 1
+  enunciado: "Com quantos sócios, no mínimo, a cooperativa de trabalho pode ser criada, segundo a aula (art. 6º)?"
+  alternativas:
+    - texto: "7 sócios"
+      certa: true
+      valor: "7"
+    - texto: "20 sócios"
+      erro: "O mínimo é menor: 7 sócios. Sete costureiras do bairro já podem formar uma cooperativa."
+      valor: "20"
+    - texto: "2 sócios"
+      erro: "Duas pessoas não bastam para uma cooperativa de trabalho. O mínimo é 7."
+      valor: "2"
+  explicacao: "A cooperativa de trabalho pode ser criada com no mínimo 7 sócios (art. 6º da Lei 12.690). Para começar: reunir as sócias, combinar o objetivo em assembleia, escrever o estatuto e fazer as contas."
+  conferir: "7"
+  fonte: "Questão original do Instituto Lúcia; Lei nº 12.690/2012, art. 6º, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-coop-03
+  tema: "Os direitos das sócias"
+  dificuldade: 2
+  enunciado: "Uma cooperativa de costura paga às sócias, por 44 horas semanais, menos que o salário mínimo, sem piso da categoria. O que diz a Lei 12.690?"
+  alternativas:
+    - texto: "Não pode: as retiradas não podem ser inferiores ao piso da categoria ou, na falta dele, ao salário mínimo, proporcionais às horas"
+      certa: true
+    - texto: "Está certo, porque cooperativa não tem regras"
+      erro: "A lei garante direitos às sócias: retirada mínima, jornada de até 8 horas por dia e 44 por semana, repouso semanal e anual remunerados, adicional noturno, adicional para atividades insalubres ou perigosas e seguro de acidente de trabalho."
+    - texto: "Só se a assembleia aprovar"
+      erro: "A assembleia não pode abrir mão do que a lei garante às sócias (art. 7º)."
+  explicacao: "O art. 7º garante, entre outros, retiradas não inferiores ao piso da categoria ou ao salário mínimo, proporcionais às horas ou às atividades; jornada de até 8 horas por dia e 44 por semana; repousos remunerados; retirada maior para o trabalho noturno; adicional para insalubridade ou periculosidade; e seguro de acidente de trabalho."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 12.690/2012, art. 7º, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-coop-04
+  tema: "Cooperativa não é disfarce de emprego"
+  dificuldade: 3
+  enunciado: "Uma confecção obriga as costureiras a entrar numa \"cooperativa\" e continua mandando nelas como antes, com chefe, horário e ordens. O que a aula diz sobre isso?"
+  alternativas:
+    - texto: "É fraude: a cooperativa de trabalho não pode ser usada para intermediação de mão de obra subordinada (art. 5º)"
+      certa: true
+    - texto: "É uma cooperativa legítima, porque tem esse nome"
+      erro: "O nome não decide. Se há chefe, horário e ordens como num emprego, a cooperativa é usada para esconder o vínculo."
+    - texto: "É legal, se as costureiras assinarem um papel concordando"
+      erro: "Papel assinado não torna legal. O art. 5º proíbe usar a cooperativa para intermediar mão de obra subordinada."
+  explicacao: "Uma cooperativa de verdade é de quem trabalha: as regras são decididas em assembleia, e cada sócia vota. Se o chefe manda e a cooperativa serve só para a empresa não pagar direitos, é fraude."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 12.690/2012, art. 5º, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cost-coop-05
+  tema: "Como se decide"
+  dificuldade: 2
+  enunciado: "Numa cooperativa, como é o voto na assembleia, segundo a Lei 5.764 citada na aula?"
+  alternativas:
+    - texto: "Uma sócia, um voto, não importa quanto dinheiro cada uma investiu"
+      certa: true
+    - texto: "Quem investiu mais tem mais votos"
+      erro: "Isso acontece em empresas com sócios por capital. Na cooperativa, o voto é por pessoa, e não pelo dinheiro."
+    - texto: "Só a presidente vota"
+      erro: "Todas as sócias votam, e o quórum da assembleia é pelo número de sócias, não pelo capital."
+  explicacao: "A cooperativa tem neutralidade política e nenhuma discriminação religiosa, racial ou social. O Fundo de Assistência Técnica, Educacional e Social recebe pelo menos 5% das sobras do ano, para assistência às sócias e às famílias delas."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 5.764/1971, conforme a aula"
+  revisao:
+    status: em-revisao

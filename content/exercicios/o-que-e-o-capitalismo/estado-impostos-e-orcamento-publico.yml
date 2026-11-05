@@ -1,0 +1,52 @@
+# Exercícios da aula "Estado, impostos e orçamento público" (o-que-e-o-capitalismo). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: o-que-e-o-capitalismo-estado-impostos-e-orcamento-publico-01
+  tema: "Três bases"
+  dificuldade: 1
+  enunciado: "Quais são as três bases de tributos citadas na aula?"
+  alternativas:
+    - texto: "Salário, aluguel e herança, apenas"
+      erro: "Essas não são as três bases da aula. São consumo, renda e patrimônio."
+    - texto: "Consumo, renda e patrimônio"
+      certa: true
+    - texto: "Salário, lazer e saúde"
+      erro: "Essas não são bases tributárias da aula."
+  explicacao: "No Brasil, a maior parte da arrecadação vem do consumo, o que pesa mais sobre quem ganha menos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estado, impostos e orçamento público\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-estado-impostos-e-orcamento-publico-02
+  tema: "Imposto proporcional"
+  dificuldade: 3
+  enunciado: "Com um imposto embutido de 20% no consumo, Marcos ganha R$ 3.000 e gasta R$ 2.700 em consumo. Que porcentagem da renda dele vira imposto?"
+  alternativas:
+    - texto: "20%"
+      erro: "Esse é o imposto sobre o consumo. Compare com a renda: o imposto é 20% de 2.700 = 540, e 540 ÷ 3.000 é a fração da renda."
+    - texto: "90%"
+      erro: "90% é a parte da renda que ele gasta (2.700 ÷ 3.000), não a que vira imposto."
+    - texto: "18%"
+      certa: true
+      valor: "18"
+  explicacao: "20% de 2.700 = 540; 540 ÷ 3.000 = 0,18, ou 18% da renda. Helena, que gasta R$ 9.000 de R$ 30.000, paga 6%: o sistema é regressivo."
+  conferir: "2700 * 0.2 / 3000 * 100"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estado, impostos e orçamento público\""
+  revisao:
+    status: em-revisao
+
+- id: o-que-e-o-capitalismo-estado-impostos-e-orcamento-publico-03
+  tema: "Estado e classes"
+  dificuldade: 2
+  enunciado: "O que a tradição marxista (Engels e Lenin) diz sobre o Estado, segundo a aula?"
+  alternativas:
+    - texto: "Que ele é um árbitro neutro acima das classes"
+      erro: "A tradição marxista discorda dessa ideia dos manuais."
+    - texto: "Que ele nasce porque a sociedade se dividiu em classes com interesses inconciliáveis e tende a garantir a ordem que interessa à classe dominante"
+      certa: true
+    - texto: "Que ele nunca constrói escolas ou hospitais"
+      erro: "A aula diz que, sob pressão popular, ele também constrói escolas, hospitais e aposentadorias."
+  explicacao: "Por isso o orçamento público é um campo de disputa: cada real é resultado de uma correlação de forças."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estado, impostos e orçamento público\""
+  revisao:
+    status: em-revisao

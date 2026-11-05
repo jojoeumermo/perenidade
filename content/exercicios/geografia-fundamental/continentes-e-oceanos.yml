@@ -1,0 +1,70 @@
+# Exercícios da aula "Continentes e oceanos" (Geografia fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: gf-con-01
+  tema: "O oceano do Brasil"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual oceano banha o litoral do Brasil?"
+  alternativas:
+    - texto: "Atlântico"
+      certa: true
+    - texto: "Pacífico"
+      erro: "O Pacífico fica a oeste da América, entre ela, a Ásia e a Oceania. O litoral brasileiro é banhado pelo Atlântico."
+    - texto: "Índico"
+      erro: "O Índico fica entre a África, a Ásia e a Oceania."
+  explicacao: "O Atlântico fica entre a América, a Europa e a África, e banha o Brasil."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-con-02
+  tema: "Deriva dos continentes"
+  dificuldade: 2
+  enunciado: "O litoral do Nordeste do Brasil e o da África ocidental se encaixam como peças de quebra-cabeça. Que ideia de Alfred Wegener isso ajudou a sustentar?"
+  alternativas:
+    - texto: "Que os continentes se movem e já estiveram juntos"
+      certa: true
+    - texto: "Que o Brasil e a África sempre foram separados"
+      erro: "As pistas, como o encaixe das costas e os fósseis iguais nos dois lados, mostram que já estiveram unidos."
+    - texto: "Que os oceanos têm sempre o mesmo tamanho"
+      erro: "O Atlântico continua se alargando, porque as placas tectônicas se movem alguns centímetros por ano."
+  explicacao: "Wegener propôs a deriva dos continentes, a partir do encaixe das costas e de fósseis de um mesmo réptil achados no Brasil e na África. Hoje se sabe que as placas tectônicas se movem."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-con-03
+  tipo: numero
+  tema: "Milhas náuticas em quilômetros"
+  dificuldade: 2
+  enunciado: "Uma milha náutica vale 1,852 km. Quantos quilômetros tem uma faixa de mar de 100 milhas náuticas?"
+  resposta: "185,2"
+  unidade: "km"
+  erros_comuns:
+    - resposta: "100"
+      explicacao: "Você manteve o número de milhas. É preciso multiplicar por 1,852 para passar a quilômetros."
+    - resposta: "54"
+      explicacao: "Você dividiu por 1,852. Para ir de milhas para quilômetros, multiplique."
+  dica: "Multiplique o número de milhas por 1,852."
+  explicacao: "100 × 1,852 = 185,2 km."
+  conferir: "100 * 1.852"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: gf-con-04
+  tema: "O maior oceano"
+  dificuldade: 1
+  enunciado: "Qual é o maior e o mais profundo dos oceanos?"
+  alternativas:
+    - texto: "Pacífico"
+      certa: true
+    - texto: "Atlântico"
+      erro: "O Atlântico é grande, mas o maior e mais profundo é o Pacífico."
+    - texto: "Glacial Ártico"
+      erro: "O Glacial Ártico é o menor dos oceanos, coberto de gelo em boa parte do ano."
+  explicacao: "O Pacífico fica entre a Ásia, a Oceania e a América. Sozinho, tem mais área do que todas as terras juntas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

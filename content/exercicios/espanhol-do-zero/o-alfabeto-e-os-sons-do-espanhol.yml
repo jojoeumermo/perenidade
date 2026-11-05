@@ -1,0 +1,70 @@
+# Exercícios da aula "O alfabeto e os sons do espanhol" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-alfabeto-01
+  tema: "As letras do alfabeto"
+  tipo: numero
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quantas letras tem o alfabeto espanhol, segundo a Real Academia Española? (Dica: as 26 do português e mais uma.)"
+  resposta: "27"
+  unidade: "letras"
+  erros_comuns:
+    - resposta: "26"
+      explicacao: "26 são as letras do português. O espanhol tem uma a mais: o ñ."
+    - resposta: "29"
+      explicacao: "Você contou ch e ll como letras. Desde 2010 elas são consideradas dígrafos (duas letras que formam um só som), e não letras próprias."
+  dica: "Some as letras do português com a letra que só o espanhol tem."
+  explicacao: "O alfabeto espanhol tem 27 letras: as 26 do português e o ñ. Ch e ll são dígrafos."
+  conferir: "26 + 1"
+  fonte: "Real Academia Española, Ortografía de la lengua española (composición del abecedario), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: esp-alfabeto-02
+  tema: "Vogais finais"
+  dificuldade: 1
+  enunciado: "Como se pronuncia a palavra \"noche\" (noite) em espanhol?"
+  alternativas:
+    - texto: "\"nótchi\", com o e final soando como i"
+      erro: "Esse é o vício do português brasileiro. Em espanhol, a vogal final é clara: o e continua e."
+    - texto: "\"nó-tche\", com o e final claro"
+      certa: true
+    - texto: "\"nô-che\", com o ch como o x do português"
+      erro: "O ch do espanhol soa como o \"tch\" de \"tchau\", e não como o x de \"xícara\"."
+  explicacao: "Em espanhol, as vogais finais são claras: noche é \"nó-tche\", leche é \"lé-tche\". O ch soa como o \"tch\" de \"tchau\"."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O alfabeto e os sons do espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-alfabeto-03
+  tema: "O s entre vogais"
+  dificuldade: 2
+  enunciado: "Como soa o s da palavra \"casa\" em espanhol?"
+  alternativas:
+    - texto: "Como z, \"caza\", igual ao português"
+      erro: "O som de z, entre vogais, não existe em espanhol. Esse é um hábito do português."
+    - texto: "Como s, \"cassa\""
+      certa: true
+    - texto: "É mudo, como o h"
+      erro: "Quem é mudo é o h, e não o s. O s entre vogais soa sempre como s."
+  explicacao: "O s entre vogais é sempre s: casa soa \"cassa\", mesa soa \"messa\". O h é que é mudo: hola soa \"ola\"."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O alfabeto e os sons do espanhol\""
+  revisao:
+    status: em-revisao
+
+- id: esp-alfabeto-04
+  tema: "pero e perro"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre \"pero\" e \"perro\"?"
+  alternativas:
+    - texto: "São a mesma palavra, escrita de dois jeitos"
+      erro: "O r simples e o rr soam diferentes, e isso muda o sentido: são palavras diferentes."
+    - texto: "Pero é \"mas\" (r simples, uma batida rápida) e perro é \"cachorro\" (rr, língua vibrando)"
+      certa: true
+    - texto: "Pero é \"cachorro\" e perro é \"mas\""
+      erro: "É o contrário: pero é \"mas\" e perro é \"cachorro\"."
+  explicacao: "O r simples é uma batida rápida da língua (pero, \"mas\"). O rr, e o r no começo da palavra, é uma vibração (perro, \"cachorro\")."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O alfabeto e os sons do espanhol\""
+  revisao:
+    status: em-revisao

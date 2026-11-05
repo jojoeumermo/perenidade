@@ -1,0 +1,68 @@
+# Exercícios da aula "Som" (Física fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ff-som-01
+  tema: "Som no vácuo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O som se propaga no vácuo, no espaço entre os astros?"
+  alternativas:
+    - texto: "Não: o som precisa de matéria para vibrar, e no vácuo não há"
+      certa: true
+    - texto: "Sim, e é até mais rápido que no ar"
+      erro: "O som é uma onda mecânica: precisa de gás, líquido ou sólido para se propagar. No vácuo, reina o silêncio."
+    - texto: "Sim, mas só se for muito forte"
+      erro: "A força do som não resolve: sem matéria, não há o que vibrar."
+  explicacao: "O som é uma onda mecânica e só existe onde há matéria para vibrar. Não se propaga no vácuo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-som-02
+  tipo: numero
+  tema: "Distância do raio"
+  dificuldade: 2
+  enunciado: "Passam-se 6 segundos entre o clarão de um raio e o estrondo do trovão. Sabendo que o som anda cerca de 340 m/s, a que distância, em metros, caiu o raio?"
+  resposta: "2040"
+  unidade: "metros"
+  erros_comuns:
+    - resposta: "340"
+      explicacao: "340 m é a distância que o som anda em apenas 1 segundo. Multiplique pelos 6 segundos."
+  dica: "Multiplique o tempo pela velocidade do som."
+  explicacao: "Distância = 6 × 340 = 2.040 metros, pouco mais de 2 km. A luz chega quase na hora; só o som demora."
+  conferir: "6 * 340"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-som-03
+  tema: "Grave e agudo"
+  dificuldade: 2
+  enunciado: "Um som de frequência alta, como o apito, é:"
+  alternativas:
+    - texto: "Agudo"
+      certa: true
+    - texto: "Grave"
+      erro: "Sons graves têm frequência baixa, como o bumbo e o trovão."
+    - texto: "Mais forte"
+      erro: "Forte ou fraco é a intensidade, o volume. Grave ou agudo é a frequência."
+  explicacao: "Frequência é o número de vibrações por segundo, medida em hertz. Frequência alta é som agudo; baixa, som grave."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: ff-som-04
+  tema: "O que o ouvido percebe"
+  dificuldade: 2
+  enunciado: "Que faixa de sons o ouvido humano percebe, aproximadamente?"
+  alternativas:
+    - texto: "De cerca de 20 Hz a 20.000 Hz"
+      certa: true
+    - texto: "De cerca de 2 Hz a 200 Hz"
+      erro: "Esse intervalo é pequeno demais: o ouvido percebe de cerca de 20 a 20.000 Hz."
+    - texto: "Acima de 20.000 Hz"
+      erro: "Acima disso estão os ultrassons, que não ouvimos, mas morcegos e golfinhos usam."
+  explicacao: "Percebemos cerca de 20 Hz a 20.000 Hz. Acima disso estão os ultrassons, usados por morcegos, golfinhos e na ultrassonografia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

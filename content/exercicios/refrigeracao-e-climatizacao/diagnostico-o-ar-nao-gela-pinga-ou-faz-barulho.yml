@@ -1,0 +1,50 @@
+# Exercícios da aula "Diagnóstico: o ar não gela, pinga ou faz barulho" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-diagnostico-o-ar-nao-gela-pinga-ou-faz-b-01
+  tema: "Causa comum"
+  dificuldade: 1
+  enunciado: "Qual é a causa mais comum de o ar-condicionado não gelar, segundo a aula?"
+  alternativas:
+    - texto: "Filtro sujo"
+      certa: true
+    - texto: "Falta de gás sempre"
+      erro: "O filtro sujo é a causa mais comum. O gás vem depois."
+    - texto: "Pilhas do controle sempre"
+      erro: "As pilhas são o primeiro item do roteiro, mas o filtro sujo é a causa mais comum."
+  explicacao: "Tire o filtro, lave com água e sabão neutro, deixe secar e recoloque."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Diagnóstico: o ar não gela, pinga ou faz barulho\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-diagnostico-o-ar-nao-gela-pinga-ou-faz-b-02
+  tema: "Ar pinga"
+  dificuldade: 2
+  enunciado: "Por que o ar-condicionado pode pingar dentro de casa?"
+  alternativas:
+    - texto: "Dreno entupido, mangueira sem inclinação para fora ou filtro sujo que formou gelo e derreteu"
+      certa: true
+    - texto: "Porque o aparelho é novo"
+      erro: "Não é isso."
+    - texto: "Porque está desligado"
+      erro: "O pingo vem do dreno ou do filtro sujo."
+  explicacao: "O ar retira água do ambiente, que deve sair por um dreno."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Diagnóstico: o ar não gela, pinga ou faz barulho\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-diagnostico-o-ar-nao-gela-pinga-ou-faz-b-03
+  tema: "Barulho normal"
+  dificuldade: 2
+  enunciado: "Qual barulho é normal, segundo a aula?"
+  alternativas:
+    - texto: "Zumbido leve ao ligar e estalo com a mudança de temperatura"
+      certa: true
+    - texto: "Raspar, bater ou vibrar forte"
+      erro: "Isso indica hélice solta, peça frouxa ou compressor com problema."
+    - texto: "Gotejamento ritmado"
+      erro: "Indica olhar o dreno."
+  explicacao: "Antes de mexer, desligue o aparelho e o disjuntor."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Diagnóstico: o ar não gela, pinga ou faz barulho\""
+  revisao:
+    status: em-revisao

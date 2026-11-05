@@ -1,0 +1,67 @@
+# Exercícios da aula "Quem foi Paulo Freire" (Educação popular fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: edpop-freire-01
+  tema: "Angicos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que aconteceu em Angicos (RN), em 1963, segundo a aula?"
+  alternativas:
+    - texto: "Uma equipe com Paulo Freire alfabetizou cerca de 300 trabalhadores rurais em 40 horas de aula"
+      certa: true
+    - texto: "Foi fundada uma faculdade no sertão"
+      erro: "A experiência de Angicos foi de alfabetização de trabalhadores rurais, e não a criação de uma faculdade."
+    - texto: "Paulo Freire foi preso pela primeira vez"
+      erro: "A prisão veio depois, em 1964, com o golpe militar. Em 1963, em Angicos, cerca de 300 trabalhadores foram alfabetizados em 40 horas."
+  explicacao: "Em 1963, na cidade de Angicos, no sertão do Rio Grande do Norte, Freire e uma equipe de estudantes alfabetizaram cerca de 300 trabalhadores rurais em 40 horas de aula. O segredo era partir da vida dos alunos."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Quem foi Paulo Freire\""
+  revisao:
+    status: em-revisao
+
+- id: edpop-freire-02
+  tema: "Palavra geradora"
+  dificuldade: 2
+  enunciado: "O que é uma palavra geradora, no método de Paulo Freire?"
+  alternativas:
+    - texto: "Uma palavra difícil que o professor ensina primeiro"
+      erro: "É o contrário de difícil e de imposta: é uma palavra tirada da vida da comunidade, como tijolo, enxada, salário ou voto."
+    - texto: "Uma palavra carregada de sentido na vida dos alunos, usada para conversar sobre a realidade e depois trabalhar as sílabas"
+      certa: true
+    - texto: "A primeira palavra de uma cartilha"
+      erro: "O método não partia da cartilha. Antes das aulas, os educadores conviviam com a comunidade para descobrir as palavras e os assuntos que importavam ali."
+  explicacao: "As palavras geradoras saem da conversa com a comunidade e têm sentido real para quem aprende: tijolo, enxada, salário, voto. Primeiro vem a conversa; só depois as sílabas."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Quem foi Paulo Freire\""
+  revisao:
+    status: em-revisao
+
+- id: edpop-freire-03
+  tema: "Educação bancária"
+  dificuldade: 2
+  enunciado: "O que Freire chamou de \"educação bancária\"?"
+  alternativas:
+    - texto: "O ensino de finanças e de contas de banco"
+      erro: "O nome é uma imagem, e não trata de dinheiro. Na educação bancária, o professor deposita conteúdos no aluno, como se deposita dinheiro numa conta."
+    - texto: "A educação em que o professor deposita conteúdos e o aluno os guarda e devolve na prova"
+      certa: true
+    - texto: "A educação em que educador e educando investigam juntos a realidade"
+      erro: "Essa é a educação libertadora, o contrário da bancária."
+  explicacao: "Na escola bancária, o professor deposita conteúdos e o aluno os guarda e devolve na prova. Na educação libertadora, educador e educando investigam juntos a realidade, por meio do diálogo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Quem foi Paulo Freire\""
+  revisao:
+    status: em-revisao
+
+- id: edpop-freire-04
+  tema: "Os passos do método"
+  dificuldade: 3
+  enunciado: "Qual é a ordem dos passos do método, como na aula?"
+  alternativas:
+    - texto: "Dividir em sílabas, copiar a cartilha, conversar sobre a realidade"
+      erro: "Essa ordem começa pelo fim. As sílabas só vêm depois da escuta e da conversa."
+    - texto: "Ouvir a comunidade, escolher palavras geradoras, conversar em círculo de cultura e só então trabalhar as sílabas"
+      certa: true
+    - texto: "Escolher palavras difíceis, decorar, fazer prova"
+      erro: "Isso é o contrário do método: não se partia de palavras difíceis nem de decorar, mas da vida dos alunos."
+  explicacao: "O método começava ouvindo a comunidade, passava pelas palavras geradoras e pelo círculo de cultura (a conversa em roda, a partir de uma imagem) e só então trabalhava as sílabas, como ti-jo-lo."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Quem foi Paulo Freire\""
+  revisao:
+    status: em-revisao

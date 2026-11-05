@@ -1,0 +1,50 @@
+# Exercícios da aula "Palavras indígenas no português" (os-primeiros-povos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: os-primeiros-povos-palavras-indigenas-no-portugues-01
+  tema: "Mutirão"
+  dificuldade: 1
+  enunciado: "De que língua e com que sentido vem a palavra \"mutirão\", segundo a aula?"
+  alternativas:
+    - texto: "Do inglês, \"trabalho em equipe\""
+      erro: "Vem do tupi."
+    - texto: "Do tupi motyrõ, \"trabalhar em conjunto\""
+      certa: true
+    - texto: "Do latim, \"trabalho de graça\""
+      erro: "Vem do tupi motyrõ, \"trabalhar em conjunto\"."
+  explicacao: "O tupi foi a língua indígena que mais deixou palavras no português do Brasil."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Palavras indígenas no português\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-palavras-indigenas-no-portugues-02
+  tema: "Jacareí"
+  dificuldade: 2
+  enunciado: "Na aula, Jacareí é decomposta em jacaré + y. Qual o sentido do nome?"
+  alternativas:
+    - texto: "\"Casa dos jacarés\""
+      erro: "O y quer dizer rio."
+    - texto: "\"Rio dos jacarés\""
+      certa: true
+    - texto: "\"Muitas pacas\""
+      erro: "Esse é o sentido de Paquetá."
+  explicacao: "Y quer dizer rio: Jacareí é \"rio dos jacarés\" e Tatuí, \"rio dos tatus\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Palavras indígenas no português\""
+  revisao:
+    status: em-revisao
+
+- id: os-primeiros-povos-palavras-indigenas-no-portugues-03
+  tema: "Capivara"
+  dificuldade: 1
+  enunciado: "Qual é o significado original de \"capivara\" em tupi?"
+  alternativas:
+    - texto: "\"Comedor de capim\""
+      certa: true
+    - texto: "\"Rio dos tatus\""
+      erro: "Esse é o sentido de Tatuí."
+    - texto: "\"Erva fina\""
+      erro: "Esse é o sentido de capim, de kapi'i. Capivara é kapi'iûara, \"comedor de capim\"."
+  explicacao: "Capim, de kapi'i, quer dizer \"erva fina\". Capivara, de kapi'iûara, é o \"comedor de capim\"."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Palavras indígenas no português\""
+  revisao:
+    status: em-revisao

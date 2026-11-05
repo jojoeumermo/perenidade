@@ -1,0 +1,50 @@
+# Exercícios da aula "Direitos e segurança do motofretista" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-direitos-e-seguranca-do-motofretista-01
+  tema: "Quem responde junto"
+  dificuldade: 2
+  enunciado: "Pela Lei 12.009/2009, quem responde junto por danos que vêm do descumprimento das regras do motofrete?"
+  alternativas:
+    - texto: "Só o motofretista"
+      erro: "A lei diz que a empresa contratante responde junto. O equipamento obrigatório não deve ser empurrado só para o trabalhador."
+    - texto: "A empresa que contrata o motofretista"
+      certa: true
+    - texto: "Ninguém, é risco de quem anda de moto"
+      erro: "A aula mostra o contrário: a empresa que contrata responde junto (art. 6º da lei)."
+  explicacao: "A mesma lei diz que a empresa contratante responde junto por danos que decorram de descumprir as regras (art. 6º) e proíbe manter contrato com condutor sem habilitação legal (art. 7º)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e segurança do motofretista\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-direitos-e-seguranca-do-motofretista-02
+  tema: "Adicional de periculosidade"
+  dificuldade: 2
+  enunciado: "O artigo 193, § 4º, da CLT considera perigosa a atividade de trabalhador em motocicleta. O que isso pode garantir a quem é empregado com carteira?"
+  alternativas:
+    - texto: "Direito a férias em dobro"
+      erro: "Não é isso. O artigo trata do adicional de periculosidade."
+    - texto: "Direito ao adicional de periculosidade, conforme as regras da CLT e do Ministério do Trabalho"
+      certa: true
+    - texto: "Direito a trocar de moto todo ano"
+      erro: "A lei não fala nisso. O que ela prevê é o adicional de periculosidade, nos casos em que o trabalhador se enquadra."
+  explicacao: "Quando o trabalhador se enquadra, há direito ao adicional. A aula manda conferir com o sindicato ou a Defensoria. Autônomo ou MEI não tem essas regras da CLT do mesmo jeito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e segurança do motofretista\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-direitos-e-seguranca-do-motofretista-03
+  tema: "Capacete e viseira"
+  dificuldade: 1
+  enunciado: "Para todo motociclista, o artigo 54 do Código de Trânsito pede o que, entre outras coisas?"
+  alternativas:
+    - texto: "Apenas um boné com proteção"
+      erro: "Boné não protege. O artigo pede capacete com viseira ou óculos de proteção."
+    - texto: "Capacete com viseira ou óculos, as duas mãos no guidão e vestuário de proteção conforme o Contran"
+      certa: true
+    - texto: "Pneu novo a cada seis meses"
+      erro: "Essa não é uma exigência do artigo 54. Ele trata do que o motociclista usa e de como conduz."
+  explicacao: "O art. 54 vale para todo motociclista: capacete com viseira ou óculos, as duas mãos no guidão e vestuário de proteção conforme o Contran."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e segurança do motofretista\""
+  revisao:
+    status: em-revisao

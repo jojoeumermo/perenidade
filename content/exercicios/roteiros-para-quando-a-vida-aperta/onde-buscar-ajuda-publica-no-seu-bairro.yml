@@ -1,0 +1,50 @@
+# Exercícios da aula "Onde buscar ajuda pública no seu bairro" (roteiros-para-quando-a-vida-aperta). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: roteiros-para-quando-a-onde-buscar-ajuda-publica-no-seu-bairro-01
+  tema: "CRAS"
+  dificuldade: 1
+  enunciado: "Para que serve o CRAS, segundo a aula?"
+  alternativas:
+    - texto: "Faz ou atualiza o CadÚnico e orienta sobre benefícios como Bolsa Família, BPC e tarifa social"
+      certa: true
+    - texto: "Atende só emergências médicas"
+      erro: "Isso é a UPA ou o SAMU."
+    - texto: "Defende presos"
+      erro: "Quem dá orientação jurídica gratuita é a Defensoria."
+  explicacao: "É a porta de entrada mais útil quando falta renda, comida ou documento."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Onde buscar ajuda pública no seu bairro\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-onde-buscar-ajuda-publica-no-seu-bairro-02
+  tema: "Defensoria"
+  dificuldade: 1
+  enunciado: "O que oferece a Defensoria Pública?"
+  alternativas:
+    - texto: "Orientação jurídica e defesa gratuita a quem não pode pagar advogado"
+      certa: true
+    - texto: "Remédios na farmácia básica"
+      erro: "Isso é a UBS."
+    - texto: "Apoio emocional por telefone"
+      erro: "Isso é o CVV."
+  explicacao: "Casos: despejo, dívida, pensão, benefício negado, violência."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Onde buscar ajuda pública no seu bairro\""
+  revisao:
+    status: em-revisao
+
+- id: roteiros-para-quando-a-onde-buscar-ajuda-publica-no-seu-bairro-03
+  tema: "CVV"
+  dificuldade: 1
+  enunciado: "Qual é o telefone do CVV?"
+  alternativas:
+    - texto: "188"
+      certa: true
+    - texto: "192"
+      erro: "O 192 é o SAMU."
+    - texto: "135"
+      erro: "O 135 é do INSS."
+  explicacao: "O CVV é apoio emocional voluntário, gratuito e sigiloso, 24 horas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Onde buscar ajuda pública no seu bairro\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Liderança coletiva e democracia interna" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-lideranca-coletiva-e-democracia-interna-01
+  tema: "Cooperativa"
+  dificuldade: 1
+  enunciado: "Na cooperativa, pela Lei 5.764/1971 (art. 4º), como funciona o voto?"
+  alternativas:
+    - texto: "Quem investe mais dinheiro tem mais votos"
+      erro: "É o contrário: um associado, um voto, e o quórum é contado pelo número de associados, e não pelo dinheiro."
+    - texto: "Um associado, um voto"
+      certa: true
+    - texto: "Só o presidente vota"
+      erro: "O voto é de cada associado."
+  explicacao: "A lei também diz que a cooperativa tem neutralidade política e não discrimina por religião, raça ou condição social."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Liderança coletiva e democracia interna\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-lideranca-coletiva-e-democracia-interna-02
+  tema: "Estatuto da associação"
+  dificuldade: 2
+  enunciado: "Pelo artigo 54 do Código Civil, o estatuto de uma associação precisa trazer, entre outras coisas, o quê?"
+  alternativas:
+    - texto: "A cor do uniforme dos sócios"
+      erro: "Não é exigência. O estatuto traz nome, fins, sede, direitos e deveres, origem do dinheiro, órgãos, gestão e prestação de contas."
+    - texto: "Nome, fins e sede, direitos e deveres dos associados, de onde vem o dinheiro e como as contas são aprovadas"
+      certa: true
+    - texto: "O nome do prefeito da cidade"
+      erro: "Isso não faz parte do estatuto."
+  explicacao: "Sem esses itens, o estatuto pode ser nulo. Só a assembleia geral pode destituir a direção e mudar o estatuto (art. 59)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Liderança coletiva e democracia interna\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-lideranca-coletiva-e-democracia-interna-03
+  tema: "Dividir o poder"
+  dificuldade: 2
+  enunciado: "Qual destas é uma forma de dividir o poder citada na aula?"
+  alternativas:
+    - texto: "Rodízio de quem coordena, secretaria e fala com a imprensa"
+      certa: true
+    - texto: "Uma pessoa decidir tudo para ganhar tempo"
+      erro: "Isso é o oposto de dividir o poder."
+    - texto: "Nunca fazer prestação de contas"
+      erro: "A aula manda prestar contas em toda assembleia."
+  explicacao: "Outras formas: coordenação colegiada, mandatos com prazo, eleições regulares, prestação de contas e comissões para tarefas específicas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Liderança coletiva e democracia interna\""
+  revisao:
+    status: em-revisao

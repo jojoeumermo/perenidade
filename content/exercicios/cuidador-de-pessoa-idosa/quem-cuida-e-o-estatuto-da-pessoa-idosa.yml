@@ -1,0 +1,88 @@
+# Exercícios da aula "Quem cuida e o Estatuto da Pessoa Idosa" (Cuidador de pessoa idosa). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a orientação da Defensoria Pública ou de advogado.
+
+- id: cuid-estatuto-01
+  tema: "Quem é o cuidador"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "O que o cuidador de pessoa idosa faz, e o que ele não faz, segundo a aula?"
+  alternativas:
+    - texto: "Ajuda nas atividades do dia a dia, observa, previne acidentes e avisa quando algo muda; não trata doença nem faz diagnóstico"
+      certa: true
+    - texto: "Faz diagnóstico e receita remédio"
+      erro: "Dar remédio, fazer curativo complexo e fazer diagnóstico são funções de profissionais de saúde. O cuidador observa e avisa."
+    - texto: "Só toma conta da casa, sem se envolver com a pessoa"
+      erro: "O cuidador ajuda a pessoa idosa a levantar, comer, tomar banho, se vestir, se locomover e manter a rotina e a companhia."
+  explicacao: "O cuidador pode ser familiar (em geral sem pagamento, e muitas vezes mulher), contratado ou comunitário. Cuidar não é tratar doença: quem trata é o médico, o enfermeiro e a equipe de saúde."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem cuida e o Estatuto da Pessoa Idosa\""
+  revisao:
+    status: em-revisao
+
+- id: cuid-estatuto-02
+  tema: "O Estatuto"
+  dificuldade: 1
+  enunciado: "O Estatuto da Pessoa Idosa (Lei nº 10.741/2003) garante direitos a quem tem quantos anos?"
+  alternativas:
+    - texto: "60 anos ou mais"
+      certa: true
+      valor: "60"
+    - texto: "65 anos ou mais"
+      erro: "65 anos é a idade de alguns direitos específicos, como a gratuidade no transporte coletivo urbano (art. 39) e o BPC. O Estatuto vale para quem tem 60 anos ou mais."
+      valor: "65"
+    - texto: "70 anos ou mais"
+      erro: "O Estatuto da Pessoa Idosa protege quem tem 60 anos ou mais, e não só a partir dos 70."
+      valor: "70"
+  explicacao: "A Lei nº 10.741/2003 garante direitos às pessoas com 60 anos ou mais. Em 2022, a lei passou a usar o termo \"pessoa idosa\" no lugar de \"idoso\"."
+  conferir: "60"
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-estatuto-03
+  tema: "De quem é o dever"
+  dificuldade: 2
+  enunciado: "Segundo o art. 3º do Estatuto, de quem é a obrigação de assegurar os direitos da pessoa idosa, com absoluta prioridade?"
+  alternativas:
+    - texto: "Da família, da comunidade, da sociedade e do poder público"
+      certa: true
+    - texto: "Só da família"
+      erro: "O Estatuto divide a obrigação. A família não precisa, nem deve, carregar tudo sozinha: a rede pública (UBS, CRAS) existe para dar apoio."
+    - texto: "Só do poder público"
+      erro: "A família, a comunidade e a sociedade também têm obrigação, ao lado do poder público."
+  explicacao: "O art. 3º do Estatuto divide o dever entre família, comunidade, sociedade e poder público, com absoluta prioridade. A aula lembra que o cuidado é um dever dividido e que quem cuida também tem direitos, como descanso e saúde."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, art. 3º (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-estatuto-04
+  tema: "Decidir sobre a própria vida"
+  dificuldade: 3
+  enunciado: "Uma neta que cuida da avó lúcida decide, sozinha, que ela não vai mais ao posto \"para não dar trabalho\". O que a aula diz sobre isso?"
+  alternativas:
+    - texto: "A pessoa idosa lúcida tem direito de decidir sobre o próprio tratamento e deve ser ouvida; a família deve garantir o acesso à saúde"
+      certa: true
+    - texto: "Quem cuida decide tudo, porque cuida"
+      erro: "A pessoa idosa é sujeito, e não objeto. O cuidador pergunta, explica e respeita, e não fala dela como se ela não estivesse na sala."
+    - texto: "Depois dos 60 anos ninguém precisa ir ao posto"
+      erro: "A pessoa idosa tem direito à saúde. O Estatuto (art. 15) assegura atenção integral à saúde pelo SUS."
+  explicacao: "O Estatuto fala em respeito e liberdade: a pessoa idosa lúcida tem direito de decidir sobre a própria vida e de escolher o tratamento de saúde que considera melhor. A família deve garantir o acesso à saúde."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 10.741/2003, arts. 10, 15 e 17, conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: cuid-estatuto-05
+  tema: "Onde denunciar"
+  dificuldade: 1
+  enunciado: "Qual serviço gratuito recebe denúncias de violência, abandono e maus-tratos contra pessoas idosas, inclusive de forma anônima?"
+  alternativas:
+    - texto: "O Disque 100"
+      certa: true
+    - texto: "O CVV, pelo 188"
+      erro: "O CVV (188) é conversa de apoio emocional. Denúncias de violência, abandono e maus-tratos contra a pessoa idosa vão para o Disque 100."
+    - texto: "O SAMU, pelo 192"
+      erro: "O SAMU (192) é para emergência de saúde. O 190 é a polícia em perigo imediato. Para denunciar violência contra a pessoa idosa, use o Disque 100."
+  explicacao: "O Disque 100 é gratuito e recebe denúncias de violência, abandono e maus-tratos, inclusive anônimas. Também ajudam a Defensoria Pública, o Ministério Público e o Conselho Municipal da Pessoa Idosa. Em perigo imediato, 190; em emergência de saúde, 192."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Quem cuida e o Estatuto da Pessoa Idosa\""
+  revisao:
+    status: em-revisao

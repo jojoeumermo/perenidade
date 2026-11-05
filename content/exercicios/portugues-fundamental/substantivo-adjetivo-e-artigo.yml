@@ -1,0 +1,50 @@
+# Exercícios da aula "Substantivo, adjetivo e artigo" (portugues-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: portugues-fundamental-substantivo-adjetivo-e-artigo-01
+  tema: "Classe"
+  dificuldade: 1
+  enunciado: "Na frase \"A greve longa cansou os operários\", qual palavra é adjetivo?"
+  alternativas:
+    - texto: "greve"
+      erro: "Greve dá nome a uma coisa: é substantivo."
+    - texto: "longa"
+      certa: true
+    - texto: "operários"
+      erro: "Operários dá nome a pessoas: é substantivo."
+  explicacao: "\"A\" e \"os\" são artigos. Longa diz como é a greve."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Substantivo, adjetivo e artigo\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-substantivo-adjetivo-e-artigo-02
+  tema: "Teste do substantivo"
+  dificuldade: 1
+  enunciado: "Qual é o teste simples da aula para reconhecer um substantivo?"
+  alternativas:
+    - texto: "Ver se dá para pôr o, a, um ou uma antes"
+      certa: true
+    - texto: "Ver se a palavra termina em -ar"
+      erro: "Palavras terminadas em -ar costumam ser verbos."
+    - texto: "Ver se a palavra é bonita"
+      erro: "Não é o teste da aula."
+  explicacao: "Exemplos: o medo, a luta, um martelo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Substantivo, adjetivo e artigo\""
+  revisao:
+    status: em-revisao
+
+- id: portugues-fundamental-substantivo-adjetivo-e-artigo-03
+  tema: "Muda de sentido"
+  dificuldade: 2
+  enunciado: "Qual é a diferença entre \"o capital\" e \"a capital\"?"
+  alternativas:
+    - texto: "O capital é dinheiro; a capital é a cidade"
+      certa: true
+    - texto: "Não há diferença"
+      erro: "Alguns substantivos mudam de sentido conforme o gênero."
+    - texto: "O capital é a cidade e a capital é o dinheiro"
+      erro: "Está invertido."
+  explicacao: "Também: o rádio (aparelho) e a rádio (emissora); o grama (peso) e a grama (capim)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Substantivo, adjetivo e artigo\""
+  revisao:
+    status: em-revisao

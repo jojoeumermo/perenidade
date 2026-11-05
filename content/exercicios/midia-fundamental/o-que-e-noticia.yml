@@ -1,0 +1,50 @@
+# Exercícios da aula "O que é notícia" (midia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: midia-fundamental-o-que-e-noticia-01
+  tema: "Partes da notícia"
+  dificuldade: 1
+  enunciado: "Quais são as três partes de uma notícia, segundo a aula?"
+  alternativas:
+    - texto: "Início, meio e fim"
+      erro: "Essas são as partes de uma narrativa. A notícia tem título, lide e corpo."
+    - texto: "Título, lide e corpo"
+      certa: true
+    - texto: "Manchete, opinião e propaganda"
+      erro: "Opinião e propaganda não são partes da notícia. As partes são título, lide e corpo."
+  explicacao: "O título é a manchete; o lide é o primeiro parágrafo, com o fato e as principais circunstâncias; o corpo desenvolve o fato."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é notícia\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-o-que-e-noticia-02
+  tema: "Seis perguntas"
+  dificuldade: 2
+  enunciado: "Lide: \"Moradores do bairro Vila Nova fecharam a avenida principal na manhã desta segunda-feira, com faixas e cartazes, para cobrar o conserto de uma ponte que caiu há dois meses.\" Qual é a resposta de \"por quê\"?"
+  alternativas:
+    - texto: "Com faixas e cartazes"
+      erro: "Isso responde \"como\". O motivo está no final do lide."
+    - texto: "Para cobrar o conserto da ponte"
+      certa: true
+    - texto: "Na avenida principal"
+      erro: "Isso responde \"onde\"."
+  explicacao: "As seis perguntas são o quê, quem, quando, onde, como e por quê. Aqui: fecharam a avenida; moradores do bairro Vila Nova; segunda de manhã; avenida principal; faixas e cartazes; cobrar o conserto da ponte."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é notícia\""
+  revisao:
+    status: em-revisao
+
+- id: midia-fundamental-o-que-e-noticia-03
+  tema: "Sublide"
+  dificuldade: 1
+  enunciado: "Se o lide não comportar toda a informação, onde o jornalista coloca o restante?"
+  alternativas:
+    - texto: "No título"
+      erro: "O título é curto, a manchete. O restante vai para o sublide."
+    - texto: "No sublide, o segundo parágrafo"
+      certa: true
+    - texto: "Fora da notícia"
+      erro: "O que não coube no lide continua na notícia, no sublide e no corpo."
+  explicacao: "O lide atrai e conduz o leitor. O que não cabe nele vai para o sublide, o segundo parágrafo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"O que é notícia\""
+  revisao:
+    status: em-revisao

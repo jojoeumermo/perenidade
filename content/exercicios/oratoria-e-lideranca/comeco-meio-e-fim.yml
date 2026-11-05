@@ -1,0 +1,50 @@
+# Exercícios da aula "Começo, meio e fim" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-comeco-meio-e-fim-01
+  tema: "Abrir pedindo desculpas"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que se deve evitar na abertura de uma fala?"
+  alternativas:
+    - texto: "Chamar a atenção com uma pergunta"
+      erro: "Isso é recomendado. Evite pedir desculpas ou abrir com piada sem relação com o tema."
+    - texto: "Abrir pedindo desculpas (\"eu não sei falar bem, mas...\") ou com uma piada sem relação com o tema"
+      certa: true
+    - texto: "Dizer a ideia central"
+      erro: "Dizer a ideia central e o caminho é o quinto passo da abertura."
+  explicacao: "A abertura chama a atenção, liga ao tema, mostra por que importa, mostra que você merece ser ouvido e diz a ideia central e o caminho."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Começo, meio e fim\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-comeco-meio-e-fim-02
+  tema: "Ordem do meio"
+  dificuldade: 2
+  enunciado: "Você quer convencer o grupo a apoiar uma proposta: mostrar o problema, a causa e a proposta. Qual ordem da aula serve para isso?"
+  alternativas:
+    - texto: "No espaço"
+      erro: "A ordem no espaço mostra de um lugar a outro, como os pontos de alagamento do bairro."
+    - texto: "No tempo"
+      erro: "A ordem no tempo vai do mais antigo ao mais recente, como a história de uma luta."
+    - texto: "Problema, causa e solução"
+      certa: true
+  explicacao: "A ordem \"problema, causa e solução\" serve para convencer a apoiar uma proposta. Para falas curtas, duas ou três ideias principais bastam."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Começo, meio e fim\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-comeco-meio-e-fim-03
+  tema: "Passagens"
+  dificuldade: 1
+  enunciado: "Para que servem as passagens (transições) numa fala?"
+  alternativas:
+    - texto: "Para avisar ao público que uma ideia terminou e outra começa, com resumos parciais, avisos de caminho e sinais de ordem"
+      certa: true
+    - texto: "Para fazer o público dormir"
+      erro: "As passagens ajudam o público a acompanhar sem esforço."
+    - texto: "Para esconder o fim da fala"
+      erro: "Elas ajudam a seguir a ordem. O fim vem depois, e deve amarrar tudo."
+  explicacao: "Quem ouve não pode voltar a fala, como quem lê pode voltar a página. Por isso a estrutura precisa ser fácil de acompanhar."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Começo, meio e fim\""
+  revisao:
+    status: em-revisao

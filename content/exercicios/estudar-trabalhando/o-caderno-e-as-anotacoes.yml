@@ -1,0 +1,67 @@
+# Exercícios da aula "O caderno e as anotações" (Estudar trabalhando). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: estud-caderno-01
+  tema: "Anotar com as próprias palavras"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Qual é o melhor jeito de anotar, segundo a aula?"
+  alternativas:
+    - texto: "Copiar a aula inteira, palavra por palavra"
+      erro: "Copiar dá sensação de trabalho, mas não faz pensar. Anotar com as suas palavras obriga a entender."
+    - texto: "Escrever ideias com suas palavras, com um exemplo seu do dia a dia e espaço para completar"
+      certa: true
+    - texto: "Escrever só o título e confiar na memória"
+      erro: "O caderno é a sua memória de fora: sem ideias anotadas, não há o que revisar."
+  explicacao: "Escreva ideias, e não frases inteiras; use palavras-chave e exemplos seus; deixe espaço e marque com um ponto de interrogação o que não entendeu."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O caderno e as anotações\""
+  revisao:
+    status: em-revisao
+
+- id: estud-caderno-02
+  tema: "Método Cornell"
+  dificuldade: 2
+  enunciado: "No método Cornell, para que serve a coluna estreita da esquerda?"
+  alternativas:
+    - texto: "Para desenhar"
+      erro: "Ela tem uma função de estudo: guardar perguntas e palavras-chave."
+    - texto: "Para escrever perguntas e palavras-chave, que serão usadas na revisão, cobrindo as anotações"
+      certa: true
+    - texto: "Para colar notícias"
+      erro: "A coluna da esquerda é para perguntas e palavras-chave, escritas depois, a partir do que você anotou."
+  explicacao: "Na coluna da direita ficam as anotações; na da esquerda, as perguntas e palavras-chave; no rodapé, um resumo de duas ou três frases. Na revisão, cubra a direita e tente responder as perguntas."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O caderno e as anotações\" (Pauk, How to Study in College, 1962)"
+  revisao:
+    status: em-revisao
+
+- id: estud-caderno-03
+  tema: "Revisar as anotações"
+  dificuldade: 2
+  enunciado: "Quando a aula sugere ler as anotações para que a lembrança dure mais?"
+  alternativas:
+    - texto: "Só na véspera da prova"
+      erro: "Revisar só na véspera dá menos resultado. A aula sugere várias passadas, espaçadas."
+    - texto: "No mesmo dia (cinco minutos), no dia seguinte e na semana seguinte"
+      certa: true
+    - texto: "Nunca, porque o caderno serve só para guardar"
+      erro: "Rever é o que fixa. Cada passada faz a lembrança durar mais."
+  explicacao: "Leia as anotações em cinco minutos no mesmo dia, depois no dia seguinte e na semana seguinte, cortando o que ficou desnecessário e acrescentando o que entendeu depois."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"O caderno e as anotações\""
+  revisao:
+    status: em-revisao
+
+- id: estud-caderno-04
+  tema: "Montar a folha"
+  dificuldade: 2
+  enunciado: "Dona Sônia anotou na folha Cornell: \"Prescrever é perder o direito de cobrar na Justiça; antes de assinar acordo de dívida antiga, conferir o prazo.\" Em que parte da folha esse texto fica?"
+  alternativas:
+    - texto: "No rodapé, como resumo com as suas palavras"
+      certa: true
+    - texto: "Na coluna da esquerda, como pergunta"
+      erro: "A coluna da esquerda guarda perguntas, como \"O que é prescrição?\". Esse texto é uma resposta resumida."
+    - texto: "No cabeçalho, junto com a data"
+      erro: "O cabeçalho leva só a data e o assunto, como \"Dívidas, 12/03, prescrição\"."
+  explicacao: "O resumo de duas ou três frases, com as suas palavras, vai no rodapé. As anotações ficam na coluna da direita, e as perguntas na coluna da esquerda."
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"O caderno e as anotações\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Direitos e deveres do cidadão" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-direitos-e-deveres-do-cidadao-01
+  tema: "Artigo dos direitos sociais"
+  dificuldade: 1
+  enunciado: "Em qual artigo da Constituição brasileira estão listados os direitos sociais, como educação, saúde, moradia e transporte?"
+  alternativas:
+    - texto: "Artigo 14"
+      erro: "O art. 14 trata do voto obrigatório para maiores de 18 anos."
+    - texto: "Artigo 6º"
+      certa: true
+    - texto: "Artigo 143"
+      erro: "O art. 143 trata do serviço militar obrigatório."
+  explicacao: "O art. 5º traz os direitos e garantias individuais; o art. 6º lista os direitos sociais; o art. 7º traz os direitos dos trabalhadores."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e deveres do cidadão\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-direitos-e-deveres-do-cidadao-02
+  tema: "Constituição chinesa"
+  dificuldade: 2
+  enunciado: "Em que capítulo e artigos a Constituição chinesa trata dos direitos e deveres dos cidadãos, segundo a aula?"
+  alternativas:
+    - texto: "Capítulo I, artigos 1 a 10"
+      erro: "A aula cita o capítulo II, arts. 33 a 56."
+    - texto: "Capítulo II, artigos 33 a 56"
+      certa: true
+    - texto: "Capítulo V, artigo 143"
+      erro: "O art. 143 é da Constituição brasileira, sobre o serviço militar."
+  explicacao: "O capítulo II chama-se \"Direitos e deveres fundamentais dos cidadãos\". Desde a emenda de 2004 afirma que o Estado respeita e garante os direitos humanos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e deveres do cidadão\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-direitos-e-deveres-do-cidadao-03
+  tema: "Texto e vida"
+  dificuldade: 2
+  enunciado: "Que cuidado a aula pede ao comparar direitos nas Constituições dos dois países?"
+  alternativas:
+    - texto: "Achar que o que está escrito no texto sempre se cumpre"
+      erro: "A aula pede perceber a distância entre o texto e a vida."
+    - texto: "Perceber a distância entre o que o texto diz e o que acontece na vida"
+      certa: true
+    - texto: "Ler só o primeiro artigo"
+      erro: "A aula compara capítulos inteiros e pede olhar o que acontece na prática."
+  explicacao: "Tanto no Brasil quanto na China há críticas sobre a distância entre o que a Constituição promete e a prática."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Direitos e deveres do cidadão\""
+  revisao:
+    status: em-revisao

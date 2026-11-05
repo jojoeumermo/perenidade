@@ -1,0 +1,84 @@
+# Exercícios da aula "Postura e saúde de quem costura" (Costureira). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+# Aula de informação geral: não substitui a avaliação de profissional de saúde.
+
+- id: cost-postura-01
+  tema: "O que a costura exige do corpo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "De onde vêm as lesões por esforço repetitivo (LER/DORT), segundo a aula?"
+  alternativas:
+    - texto: "De tarefas repetitivas, força, vibração, compressão e posturas ruins mantidas por muito tempo"
+      certa: true
+    - texto: "De falta de vontade de trabalhar"
+      erro: "LER/DORT não são falta de vontade: vêm da repetição, da força e das posturas mantidas por muito tempo."
+    - texto: "Só de idade avançada"
+      erro: "A idade pode piorar, mas as lesões vêm principalmente das condições do trabalho: repetição, força, posturas ruins e falta de pausa."
+  explicacao: "A costura exige horas sentada, pescoço inclinado para enxergar a agulha, ombros e braços sustentando o tecido, mãos e punhos repetindo movimentos, pé no pedal por horas e olhos fixos num ponto pequeno."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Postura e saúde de quem costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-postura-02
+  tema: "O canto de costura"
+  dificuldade: 2
+  enunciado: "Você costura com a mesa alta demais e os ombros sobem o tempo todo. Qual é a mudança mais importante?"
+  alternativas:
+    - texto: "Ajustar a cadeira ou a mesa para os antebraços ficarem na altura da máquina, com os pés apoiados"
+      certa: true
+    - texto: "Costurar mais rápido para acabar antes"
+      erro: "Mais rápido, o ombro fica mais tempo tenso. A altura da superfície precisa combinar com a tarefa e com o assento."
+    - texto: "Tomar remédio para dor antes de começar"
+      erro: "Remédio não corrige a posição. A causa é a altura da mesa e da cadeira: ajuste primeiro, e procure a UBS se a dor continuar."
+  explicacao: "Monte o canto de costura com cadeira com encosto, na altura em que os pés apoiam no chão (ou num apoio) e os antebraços ficam na altura da mesa da máquina; máquina perto da beirada da mesa; boa luz sobre a agulha; pedal bem posicionado; tesoura, alfinetes e ferro ao alcance, mas levantar para passar a ferro ajuda a variar a posição."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Postura e saúde de quem costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-postura-03
+  tema: "A NR-17"
+  dificuldade: 2
+  enunciado: "O que a NR-17 (norma de ergonomia) diz sobre o assento de trabalho, segundo a aula?"
+  alternativas:
+    - texto: "Altura ajustável, borda da frente arredondada e encosto que proteja a lombar"
+      certa: true
+    - texto: "Deve ser sempre um banco duro, sem encosto"
+      erro: "A norma pede encosto que proteja a região lombar, e altura ajustável."
+    - texto: "Qualquer cadeira serve, a norma não trata disso"
+      erro: "A norma trata do assento, da mesa, do espaço para pernas e pés, da luz e das pausas. Os princípios servem também para quem costura em casa."
+  explicacao: "A NR-17 vale para quem tem empregados, como as confecções, mas os princípios servem para quem costura em casa: espaço para pernas e pés e apoio para os pés quando a sola não alcança o chão; superfície de trabalho compatível com a tarefa e com a altura do assento; área de trabalho ao alcance das mãos; alternância de posição; pausas e alternância de tarefas nas tarefas repetitivas."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Postura e saúde de quem costura\" (NR-17, conforme a aula)"
+  revisao:
+    status: em-revisao
+
+- id: cost-postura-04
+  tema: "Pausas"
+  dificuldade: 1
+  enunciado: "O que a aula recomenda fazer a cada hora de costura?"
+  alternativas:
+    - texto: "Levantar, andar um pouco, soltar os ombros, girar o pescoço devagar, abrir e fechar as mãos e descansar a vista olhando para longe"
+      certa: true
+    - texto: "Continuar sem parar, até terminar a peça"
+      erro: "Sem pausa, o corpo cansa e aumenta o risco de LER/DORT. Levante e alongue a cada hora."
+    - texto: "Pausar só no fim da semana"
+      erro: "A pausa é a cada hora, curta. Alternar tarefas (cortar, passar e alfinetar, em outras posições) também ajuda."
+  explicacao: "Alternar tarefas ajuda: cortar, passar e alfinetar são feitos em outras posições. Descanse a vista olhando para longe por alguns segundos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Postura e saúde de quem costura\""
+  revisao:
+    status: em-revisao
+
+- id: cost-postura-05
+  tema: "Onde buscar atendimento"
+  dificuldade: 2
+  enunciado: "Uma costureira que faz consertos em casa, seis horas por dia, sente dor no pescoço e formigamento nas mãos que voltam. O que a aula indica?"
+  alternativas:
+    - texto: "Ir à UBS contando o trabalho; se houver relação com a atividade, pode ser encaminhada ao Cerest, que atende também autônomas e informais"
+      certa: true
+    - texto: "Ignorar, porque dor faz parte do trabalho"
+      erro: "Dor e formigamento que voltam são sinais de alerta. Procure a UBS."
+    - texto: "Esperar o formigamento passar sozinho por meses"
+      erro: "Esperar pode piorar. Procure a UBS e conte o seu trabalho. Ajuste também a cadeira, a mesa, a luz e as pausas."
+  explicacao: "O plano: ir à UBS; trocar a cadeira por uma com encosto e altura ajustável, ou ajustar com almofada firme e apoio para os pés; máquina perto da beirada, com antebraços na altura da mesa; uma luminária sobre a agulha; 5 minutos de pausa a cada hora; e alternar consertos de máquina com tarefas de mesa e de pé."
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Postura e saúde de quem costura\""
+  revisao:
+    status: em-revisao

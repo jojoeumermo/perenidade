@@ -1,0 +1,67 @@
+# Exercícios da aula "Família, casa e comida" (Espanhol do zero). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: esp-familia-01
+  tema: "Possessivos"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Como se diz \"a minha casa\" em espanhol?"
+  alternativas:
+    - texto: "La mi casa"
+      erro: "Em espanhol, o possessivo não leva artigo. É diferente do português."
+    - texto: "Mi casa"
+      certa: true
+    - texto: "La casa mía de mí"
+      erro: "Forma errada. O possessivo antes do substantivo é simples: mi casa."
+  explicacao: "Em espanhol, o possessivo vem sem artigo: mi casa, mis padres, nuestra hija."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Família, casa e comida\""
+  revisao:
+    status: em-revisao
+
+- id: esp-familia-02
+  tema: "Refeições"
+  dificuldade: 1
+  enunciado: "O que é a \"cena\" em espanhol?"
+  alternativas:
+    - texto: "Uma cena de filme"
+      erro: "A cena de filme é escena. Cena, em espanhol, é o jantar."
+    - texto: "O jantar"
+      certa: true
+    - texto: "O café da manhã"
+      erro: "O café da manhã é el desayuno."
+  explicacao: "Cena é o jantar (cenar é jantar). A cena de filme é escena."
+  fonte: "Questão original do Instituto Lúcia, a partir da aula \"Família, casa e comida\""
+  revisao:
+    status: em-revisao
+
+- id: esp-familia-03
+  tema: "No restaurante"
+  dificuldade: 2
+  enunciado: "Você quer pedir um copo de água. Qual frase está certa?"
+  alternativas:
+    - texto: "¿Me trae un vaso de agua?"
+      certa: true
+    - texto: "¿Me trae una copa de agua?"
+      erro: "Copa é a taça de vinho. O copo é vaso."
+    - texto: "¿Me trae una taza de agua?"
+      erro: "Taza é a xícara, e não o copo."
+  explicacao: "Vaso é o copo; copa é a taça de vinho; taza é a xícara."
+  fonte: "Questão original do Instituto Lúcia, a partir das aulas \"Família, casa e comida\" e \"Falsos amigos\""
+  revisao:
+    status: em-revisao
+
+- id: esp-familia-04
+  tema: "Montar a frase"
+  dificuldade: 2
+  enunciado: "Como se diz \"Meus pais moram numa casa com um quintal\"?"
+  alternativas:
+    - texto: "Mis padres viven en una casa con un patio."
+      certa: true
+    - texto: "Los mis padres viven en una casa con un patio."
+      erro: "Em espanhol, o possessivo não leva artigo: mis padres, e não \"los mis padres\"."
+    - texto: "Mis padres moran en una casa con un patio."
+      erro: "Moran não é espanhol. O verbo é vivir: viven."
+  explicacao: "Possessivo sem artigo e verbo vivir: Mis padres viven en una casa con un patio."
+  fonte: "Questão original do Instituto Lúcia, a partir do exemplo resolvido da aula \"Família, casa e comida\""
+  revisao:
+    status: em-revisao

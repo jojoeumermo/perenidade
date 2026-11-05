@@ -1,0 +1,50 @@
+# Exercícios da aula "Estresse: o corpo em estado de alerta" (psicologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: psicologia-fundamental-estresse-o-corpo-em-estado-de-alerta-01
+  tema: "O que é estresse"
+  dificuldade: 1
+  enunciado: "Segundo a aula, o que é estresse?"
+  alternativas:
+    - texto: "Só um defeito de quem é fraco"
+      erro: "A aula mostra que é uma resposta do corpo e da mente sob pressão."
+    - texto: "A resposta física e mental de um organismo sob pressão"
+      certa: true
+    - texto: "Uma doença que só os idosos têm"
+      erro: "Qualquer pessoa pode passar por estresse."
+  explicacao: "A palavra veio da física, onde indica a tensão e o desgaste dos materiais. Hans Selye usou o termo no sentido de hoje."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estresse: o corpo em estado de alerta\""
+  revisao:
+    status: em-revisao
+
+- id: psicologia-fundamental-estresse-o-corpo-em-estado-de-alerta-02
+  tema: "Eustresse"
+  dificuldade: 2
+  enunciado: "Segundo Selye, o que diferencia o eustresse de outro tipo de estresse?"
+  alternativas:
+    - texto: "No eustresse a pessoa tem meios de enfrentar a exigência"
+      certa: true
+    - texto: "No eustresse a pessoa nunca sente nada"
+      erro: "Não é isso. A diferença é ter ou não os meios de enfrentar a exigência."
+    - texto: "No eustresse a exigência é sempre pequena"
+      erro: "A diferença está nos meios que a pessoa tem para enfrentar."
+  explicacao: "Um pouco de estresse pode deixar a pessoa alerta para uma prova ou um jogo."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estresse: o corpo em estado de alerta\""
+  revisao:
+    status: em-revisao
+
+- id: psicologia-fundamental-estresse-o-corpo-em-estado-de-alerta-03
+  tema: "Quando faz mal"
+  dificuldade: 2
+  enunciado: "Quando o estresse dura muito tempo, o que pode acontecer, segundo a aula?"
+  alternativas:
+    - texto: "Nada, o corpo se acostuma"
+      erro: "A aula diz que as defesas do corpo passam a não responder bem."
+    - texto: "Podem aparecer sentimentos ligados à ansiedade e à depressão e aumenta a chance de doenças, sobretudo cardiovasculares"
+      certa: true
+    - texto: "Só dor de cabeça passageira"
+      erro: "A aula cita ansiedade, depressão e doenças do coração e dos vasos."
+  explicacao: "Muita coisa que causa estresse vem de fora: falta de dinheiro, trabalho em excesso, violência. Cuidar do estresse também é conversar, pedir ajuda e mudar as condições que pressionam."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Estresse: o corpo em estado de alerta\""
+  revisao:
+    status: em-revisao

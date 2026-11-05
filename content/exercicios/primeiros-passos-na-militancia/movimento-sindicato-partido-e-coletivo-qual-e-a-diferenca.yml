@@ -1,0 +1,50 @@
+# Exercícios da aula "Movimento, sindicato, partido e coletivo: qual é a diferença" (primeiros-passos-na-militancia). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: primeiros-passos-na-mi-movimento-sindicato-partido-e-coletivo-q-01
+  tema: "Sindicato"
+  dificuldade: 1
+  enunciado: "Segundo o artigo 8º da Constituição, qual é a regra sobre a criação de sindicato?"
+  alternativas:
+    - texto: "Precisa de autorização do Estado"
+      erro: "O art. 8º diz que a lei não pode exigir autorização, só o registro."
+    - texto: "É livre; basta o registro, e o poder público não pode interferir"
+      certa: true
+    - texto: "Só o governo pode fundar"
+      erro: "A associação sindical é livre."
+  explicacao: "O sindicato reúne os trabalhadores de uma categoria para defender salários e direitos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Movimento, sindicato, partido e coletivo: qual é a diferença\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-passos-na-mi-movimento-sindicato-partido-e-coletivo-q-02
+  tema: "Qual organização"
+  dificuldade: 2
+  enunciado: "Para conseguir aumento de salário, qual é a forma de organização mais direta, segundo a aula?"
+  alternativas:
+    - texto: "O sindicato"
+      certa: true
+    - texto: "O partido político"
+      erro: "O partido disputa o poder político, sobretudo nas eleições."
+    - texto: "A associação de moradores"
+      erro: "A associação de moradores serve a questões do bairro, como um posto de saúde."
+  explicacao: "Mudar uma lei nacional pede partido e movimento social; reforma agrária, movimento social como o MST."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Movimento, sindicato, partido e coletivo: qual é a diferença\""
+  revisao:
+    status: em-revisao
+
+- id: primeiros-passos-na-mi-movimento-sindicato-partido-e-coletivo-q-03
+  tema: "Partido"
+  dificuldade: 2
+  enunciado: "Segundo o artigo 17 da Constituição, qual é uma regra para os partidos?"
+  alternativas:
+    - texto: "Podem receber recursos de governos estrangeiros"
+      erro: "O art. 17 proíbe."
+    - texto: "Devem ter caráter nacional e prestar contas à Justiça Eleitoral"
+      certa: true
+    - texto: "Precisam de licença da prefeitura"
+      erro: "A criação de partidos é livre."
+  explicacao: "Os coletivos e as associações têm plena liberdade de associação para fins lícitos (art. 5º, XVII e XVIII)."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Movimento, sindicato, partido e coletivo: qual é a diferença\""
+  revisao:
+    status: em-revisao

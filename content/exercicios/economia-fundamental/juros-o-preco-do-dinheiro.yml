@@ -1,0 +1,105 @@
+# Exercícios da aula "Juros: o preço do dinheiro" (Economia: fundamentos). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: ecof-juros-01
+  tema: "O que é juro"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Segundo a aula, o que é o juro?"
+  alternativas:
+    - texto: "O aluguel do dinheiro: quem pega emprestado paga a quem emprestou"
+      certa: true
+    - texto: "Um presente que o banco dá a quem pede empréstimo"
+      erro: "É o contrário: quem pede o empréstimo é que paga. Assim como se paga aluguel pelo tempo em que se usa uma casa, se paga juro pelo tempo em que se usa o dinheiro dos outros."
+    - texto: "Uma multa que só existe quando a pessoa atrasa"
+      erro: "Juro não é multa. É o preço cobrado pelo empréstimo em si, mesmo sem atraso. Você paga juros ao parcelar uma compra, por exemplo."
+  explicacao: "Juro é o aluguel do dinheiro. Você paga juros quando parcela uma compra, usa o cheque especial ou faz empréstimo, e recebe juros quando guarda dinheiro numa aplicação, porque está emprestando ao banco."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Juros: o preço do dinheiro\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-juros-02
+  tipo: numero
+  tema: "Juros simples"
+  dificuldade: 1
+  enunciado: "R$ 1.000 emprestados a juros simples de 10% ao mês. Quanto se paga de juros no total, depois de 12 meses?"
+  resposta: "1200"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "100"
+      explicacao: "R$ 100 são os juros de um mês só. Nos juros simples, a taxa incide sempre sobre o valor inicial, mês após mês: 12 meses × R$ 100."
+    - resposta: "2200"
+      explicacao: "R$ 2.200 é o total a pagar (os R$ 1.000 emprestados mais os juros). A pergunta é só dos juros: 12 × R$ 100 = R$ 1.200."
+  dica: "Calcule 10% de R$ 1.000 e multiplique pelo número de meses."
+  explicacao: "10% de R$ 1.000 é R$ 100 por mês. Em 12 meses, R$ 1.200 de juros. O total a pagar fica em R$ 2.200."
+  conferir: "1000 * 0.10 * 12"
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Juros: o preço do dinheiro\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-juros-03
+  tipo: numero
+  tema: "Juros compostos"
+  dificuldade: 2
+  enunciado: "R$ 1.000 a juros compostos de 10% ao mês. Quantos reais de juros são cobrados no terceiro mês? (Veja que a dívida no fim do mês 2 é de R$ 1.210.)"
+  resposta: "121"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "100"
+      explicacao: "R$ 100 seriam os juros do terceiro mês nos juros simples. Nos compostos, os 10% incidem sobre tudo o que já se acumulou, ou seja, sobre R$ 1.210."
+    - resposta: "331"
+      explicacao: "R$ 331 são os juros acumulados nos três meses (1.331 menos 1.000). A pergunta é só do terceiro mês: 10% de R$ 1.210."
+  dica: "Calcule 10% da dívida que já existia no começo do terceiro mês, e não 10% do valor inicial."
+  explicacao: "No terceiro mês, os 10% incidem sobre R$ 1.210: dá R$ 121. A dívida vai a R$ 1.331. Por isso os juros compostos crescem cada vez mais rápido."
+  conferir: "1210 * 0.10"
+  fonte: "Questão original do Instituto Lúcia, baseada no exemplo resolvido da aula \"Juros: o preço do dinheiro\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-juros-04
+  tema: "Juros compostos"
+  dificuldade: 2
+  enunciado: "Na tabela da aula, R$ 1.000 a 10% ao mês viram R$ 3.138,43 em 12 meses nos juros compostos. O que isso mostra?"
+  alternativas:
+    - texto: "A dívida mais que triplicou, porque os juros passam a incidir sobre os próprios juros"
+      certa: true
+    - texto: "A dívida dobrou, como acontece com qualquer empréstimo"
+      erro: "Dobrar seria R$ 2.000. Nos compostos, o \"juro sobre juro\" faz a dívida passar de R$ 3.000 em um ano, a 10% ao mês."
+    - texto: "A dívida cresceu igual aos juros simples, que dão R$ 2.200"
+      erro: "Nos juros simples seriam R$ 2.200 em 12 meses. Nos compostos a taxa incide sobre tudo o que já se acumulou, e a conta chega a R$ 3.138,43."
+  explicacao: "Nos juros compostos a taxa incide sobre o valor inicial mais os juros dos meses anteriores. É assim que funcionam cartão de crédito, cheque especial e empréstimos. Parece pouca diferença no começo, mas no fim de um ano pesa muito."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Juros: o preço do dinheiro\""
+  revisao:
+    status: em-revisao
+
+- id: ecof-juros-05
+  tema: "Rotativo do cartão"
+  dificuldade: 2
+  enunciado: "Segundo a aula, desde janeiro de 2024 uma lei limita os juros e encargos do rotativo do cartão de crédito. Qual é o limite?"
+  alternativas:
+    - texto: "O total de juros e encargos não pode passar do valor original da dívida: ela pode, no máximo, dobrar"
+      certa: true
+    - texto: "Os juros não podem passar de 1% ao mês"
+      erro: "A lei não fixou 1% ao mês. O limite é sobre o total: juros e encargos não podem passar do valor original da dívida."
+    - texto: "Não há limite nenhum: o banco cobra o que quiser"
+      erro: "Há limite, sim. Desde janeiro de 2024, o total de juros e encargos do rotativo não pode ultrapassar o valor original da dívida (Lei nº 14.690/2023, art. 28)."
+  explicacao: "A Lei nº 14.690/2023 (art. 28) diz que o total de juros e encargos do rotativo não pode exceder o valor original da dívida. Mesmo assim, o rotativo segue entre os créditos mais caros: fuja dele."
+  fonte: "Questão original do Instituto Lúcia; Lei nº 14.690, de 3 de outubro de 2023, art. 28 (Presidência da República), conforme a aula"
+  revisao:
+    status: em-revisao
+
+- id: ecof-juros-06
+  tema: "Como se defender"
+  dificuldade: 2
+  enunciado: "Uma loja anuncia a TV \"sem juros, em 10 parcelas de R$ 300\" e o preço à vista é R$ 2.600. O que a aula recomenda fazer?"
+  alternativas:
+    - texto: "Perguntar o preço à vista e comparar: a diferença, muitas vezes, são juros embutidos"
+      certa: true
+    - texto: "Comprar logo, porque \"sem juros\" quer dizer que não há custo nenhum"
+      erro: "\"Sem juros\" nem sempre é verdade. Aqui são R$ 3.000 em parcelas contra R$ 2.600 à vista: R$ 400 de diferença."
+    - texto: "Olhar só se a parcela cabe no mês"
+      erro: "A aula manda comparar o custo total, e não só a parcela. A parcela pequena pode esconder um preço final bem maior."
+  explicacao: "10 × R$ 300 = R$ 3.000, e à vista é R$ 2.600: há R$ 400 de diferença. A aula manda comparar o custo total (peça o Custo Efetivo Total, o CET), desconfiar de \"sem juros\" e fazer a conta antes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Juros: o preço do dinheiro\""
+  revisao:
+    status: em-revisao

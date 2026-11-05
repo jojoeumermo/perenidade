@@ -1,0 +1,50 @@
+# Exercícios da aula "Gás refrigerante, camada de ozônio e clima" (refrigeracao-e-climatizacao). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: refrigeracao-e-climati-gas-refrigerante-camada-de-ozonio-e-clim-01
+  tema: "CFC"
+  dificuldade: 1
+  enunciado: "Qual é o problema dos CFCs, como o R-12?"
+  alternativas:
+    - texto: "Destroem a camada de ozônio"
+      certa: true
+    - texto: "São inflamáveis e baratos"
+      erro: "O problema dos CFCs é destruir o ozônio."
+    - texto: "Não têm problema"
+      erro: "Foram eliminados por destruírem a camada de ozônio."
+  explicacao: "Hoje o CFC está eliminado."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Gás refrigerante, camada de ozônio e clima\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-gas-refrigerante-camada-de-ozonio-e-clim-02
+  tema: "Protocolo de Montreal"
+  dificuldade: 2
+  enunciado: "O que foi o Protocolo de Montreal (1987)?"
+  alternativas:
+    - texto: "Um acordo que organizou a eliminação gradual das substâncias que destroem a camada de ozônio"
+      certa: true
+    - texto: "Um acordo para aumentar o uso de CFC"
+      erro: "É o contrário."
+    - texto: "Uma lei só do Brasil"
+      erro: "É um acordo mundial. O Brasil faz parte e tem um programa de eliminação dos HCFCs."
+  explicacao: "É apontado como um dos acordos ambientais mais bem-sucedidos: a camada vem se recuperando."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Gás refrigerante, camada de ozônio e clima\""
+  revisao:
+    status: em-revisao
+
+- id: refrigeracao-e-climati-gas-refrigerante-camada-de-ozonio-e-clim-03
+  tema: "HFC e hidrocarbonetos"
+  dificuldade: 2
+  enunciado: "Qual é o problema dos HFCs, como o R-134a, e o dos hidrocarbonetos, como o R-600a?"
+  alternativas:
+    - texto: "HFCs não destroem o ozônio, mas são gases de efeito estufa fortes; hidrocarbonetos quase não têm efeito estufa, mas são inflamáveis"
+      certa: true
+    - texto: "Os dois destroem o ozônio"
+      erro: "Não destroem: o problema deles é outro."
+    - texto: "Nenhum tem problema"
+      erro: "Cada um tem o seu: efeito estufa ou inflamabilidade."
+  explicacao: "O gás não se consome no sistema: se falta gás, é porque vazou."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Gás refrigerante, camada de ozônio e clima\""
+  revisao:
+    status: em-revisao

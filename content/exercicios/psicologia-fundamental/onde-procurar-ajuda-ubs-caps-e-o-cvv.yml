@@ -1,0 +1,50 @@
+# Exercícios da aula "Onde procurar ajuda: UBS, CAPS e o CVV" (psicologia-fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: psicologia-fundamental-onde-procurar-ajuda-ubs-caps-e-o-cvv-01
+  tema: "CVV"
+  dificuldade: 1
+  enunciado: "Qual é o número do CVV (Centro de Valorização da Vida) e como é o atendimento?"
+  alternativas:
+    - texto: "192, pago e só em horário comercial"
+      erro: "O 192 é o número do serviço de emergência. O do CVV é o 188."
+    - texto: "188, gratuito, sigiloso e 24 horas por dia, nos 365 dias do ano"
+      certa: true
+    - texto: "100, só por carta"
+      erro: "O Disque 100 recebe denúncias de violações de direitos humanos. O CVV é 188."
+  explicacao: "O CVV também atende por chat e presencialmente, com voluntários."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Onde procurar ajuda: UBS, CAPS e o CVV\""
+  revisao:
+    status: em-revisao
+
+- id: psicologia-fundamental-onde-procurar-ajuda-ubs-caps-e-o-cvv-02
+  tema: "CAPS"
+  dificuldade: 2
+  enunciado: "Para que servem os Centros de Atenção Psicossocial (CAPS)?"
+  alternativas:
+    - texto: "Atender, no SUS, pessoas com sofrimento mental grave, em cuidado intermediário entre o ambulatório e a internação"
+      certa: true
+    - texto: "Vender remédios sem receita"
+      erro: "Não é isso. São unidades do SUS."
+    - texto: "Substituir os postos de saúde"
+      erro: "A UBS é a porta de entrada do SUS. O CAPS atende casos mais graves."
+  explicacao: "O CAPS ad atende problemas com álcool e outras drogas, com ênfase na redução de danos; o CAPSi atende crianças e adolescentes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Onde procurar ajuda: UBS, CAPS e o CVV\""
+  revisao:
+    status: em-revisao
+
+- id: psicologia-fundamental-onde-procurar-ajuda-ubs-caps-e-o-cvv-03
+  tema: "UBS"
+  dificuldade: 1
+  enunciado: "Segundo a aula, onde se procura primeiro o SUS para uma queixa de saúde mental?"
+  alternativas:
+    - texto: "Na UBS, o posto de saúde do bairro"
+      certa: true
+    - texto: "Só no hospital"
+      erro: "A UBS é a porta do SUS e pode acolher, acompanhar e encaminhar."
+    - texto: "No CVV, só presencialmente"
+      erro: "O CVV atende principalmente por telefone."
+  explicacao: "A Lei nº 10.216, de 2001, regulamenta a reforma psiquiátrica, que busca substituir os antigos manicômios."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Onde procurar ajuda: UBS, CAPS e o CVV\""
+  revisao:
+    status: em-revisao

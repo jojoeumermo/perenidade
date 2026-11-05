@@ -1,0 +1,50 @@
+# Exercícios da aula "A revisão do dia: pneus, freios, corrente e luzes" (mecanica-de-moto). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: mecanica-de-moto-a-revisao-do-dia-pneus-freios-corrente-e-01
+  tema: "Pneu frio ou quente"
+  dificuldade: 1
+  enunciado: "Em que condição a aula manda calibrar o pneu?"
+  alternativas:
+    - texto: "Logo depois de rodar bastante, com o pneu quente"
+      erro: "O pneu quente marca uma pressão mais alta do que a real. A aula manda calibrar com o pneu frio."
+    - texto: "Com o pneu frio"
+      certa: true
+    - texto: "Tanto faz, a pressão é a mesma"
+      erro: "A pressão muda com o calor do rodar. Por isso a aula manda calibrar com o pneu frio, seguindo o manual."
+  explicacao: "Calibre com o pneu frio, usando a pressão do manual ou da etiqueta na moto. Pneu baixo gasta mais combustível e tira a estabilidade; cheio demais perde aderência."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A revisão do dia: pneus, freios, corrente e luzes\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-a-revisao-do-dia-pneus-freios-corrente-e-02
+  tema: "Limite do pneu"
+  dificuldade: 2
+  enunciado: "Segundo a aula, as marcas TWI do pneu mostram o limite de desgaste. Com a borracha em que medida você deve trocar?"
+  alternativas:
+    - texto: "10 mm"
+      erro: "Esse valor é bem maior que o limite. As marcas TWI avisam quando a borracha chega a 1,6 mm."
+    - texto: "1,6 mm"
+      certa: true
+    - texto: "16 mm"
+      erro: "Um pneu novo nem tem tanto de sulco. O limite que as marcas TWI mostram é 1,6 mm."
+  explicacao: "Quando a borracha chega ao nível do TWI (1,6 mm), é hora de trocar. Pneu em mau estado é infração, conforme o artigo 230 do Código de Trânsito, citado na aula."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A revisão do dia: pneus, freios, corrente e luzes\""
+  revisao:
+    status: em-revisao
+
+- id: mecanica-de-moto-a-revisao-do-dia-pneus-freios-corrente-e-03
+  tema: "Freio mole"
+  dificuldade: 2
+  enunciado: "Antes de sair, você aperta o freio da frente e a alavanca vai quase até o fim, mole. O que a aula orienta?"
+  alternativas:
+    - texto: "Sair assim mesmo e apertar com mais força na rua"
+      erro: "A aula diz que freio que não está bom é motivo para não sair. Não existe jeito de compensar."
+    - texto: "Não sair com a moto e procurar a causa: ar no sistema, falta de fluido ou pastilha gasta"
+      certa: true
+    - texto: "Calibrar o pneu e seguir viagem"
+      erro: "O pneu não tem a ver com a alavanca mole. Freio mole pode ser ar no sistema, falta de fluido ou pastilha gasta, e é motivo para não sair."
+  explicacao: "A alavanca deve ter resistência firme. Se está mole, pode haver ar no sistema, falta de fluido ou pastilha gasta, e a aula manda não sair com a moto assim."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"A revisão do dia: pneus, freios, corrente e luzes\""
+  revisao:
+    status: em-revisao

@@ -1,0 +1,50 @@
+# Exercícios da aula "Família, escola e comunidade" (moral-e-estado-de-direito). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: moral-e-estado-de-dire-familia-escola-e-comunidade-01
+  tema: "Piedade filial"
+  dificuldade: 1
+  enunciado: "Na tradição confuciana, o que é a piedade filial (xiào)?"
+  alternativas:
+    - texto: "O direito dos pais de abandonar os filhos"
+      erro: "Não é isso. A piedade filial é o cuidado dos filhos com os pais."
+    - texto: "O respeito, a obediência e o cuidado dos filhos para com os pais, sobretudo na velhice"
+      certa: true
+    - texto: "A proibição de os filhos estudarem"
+      erro: "Não é isso. O valor trata do cuidado e do respeito aos pais."
+  explicacao: "Quem respeita os pais respeita também a autoridade: era uma ideia de ordem social. O cuidado com os pais idosos continua sendo um valor forte na China."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Família, escola e comunidade\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-familia-escola-e-comunidade-02
+  tema: "Artigo 227"
+  dificuldade: 2
+  enunciado: "O art. 227 da Constituição brasileira diz que é dever de quem assegurar à criança direitos como vida, saúde, alimentação e educação, com absoluta prioridade?"
+  alternativas:
+    - texto: "Só da família"
+      erro: "O artigo diz: da família, da sociedade e do Estado."
+    - texto: "Da família, da sociedade e do Estado"
+      certa: true
+    - texto: "Só do Estado"
+      erro: "O art. 227 divide o dever entre a família, a sociedade e o Estado."
+  explicacao: "O art. 226 diz que a família é a base da sociedade. O art. 229 diz que os pais devem criar os filhos menores e os filhos maiores devem amparar os pais na velhice, carência ou enfermidade."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Família, escola e comunidade\""
+  revisao:
+    status: em-revisao
+
+- id: moral-e-estado-de-dire-familia-escola-e-comunidade-03
+  tema: "Semelhança"
+  dificuldade: 2
+  enunciado: "Que semelhança entre China e Brasil a aula aponta sobre a família?"
+  alternativas:
+    - texto: "Nenhuma, as leis são totalmente opostas"
+      erro: "A aula destaca uma semelhança: as duas afirmam em lei a solidariedade entre gerações."
+    - texto: "As duas afirmam em lei a solidariedade entre gerações"
+      certa: true
+    - texto: "As duas proíbem o divórcio"
+      erro: "A aula não diz isso. Cita que a lei chinesa de 1950 deu às mulheres direito ao divórcio."
+  explicacao: "Os dois países, com histórias diferentes, afirmam em lei o dever dos pais com os filhos e dos filhos com os pais idosos."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Família, escola e comunidade\""
+  revisao:
+    status: em-revisao

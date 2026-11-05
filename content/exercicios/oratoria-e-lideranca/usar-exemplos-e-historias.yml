@@ -1,0 +1,50 @@
+# Exercícios da aula "Usar exemplos e histórias" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-usar-exemplos-e-historias-01
+  tema: "Tipos de apoio"
+  dificuldade: 1
+  enunciado: "Qual destes é um dos seis tipos de apoio de uma fala listados na aula?"
+  alternativas:
+    - texto: "Gritos"
+      erro: "Não é um tipo de apoio."
+    - texto: "Comparações"
+      certa: true
+    - texto: "Promessas"
+      erro: "Não está na lista."
+  explicacao: "Os seis: fatos e números, definições, exemplos, histórias, depoimentos e comparações."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Usar exemplos e histórias\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-usar-exemplos-e-historias-02
+  tema: "Traduzir números"
+  dificuldade: 2
+  enunciado: "\"25,3% dos domicílios\" pode ser traduzido, segundo a aula, de que jeito mais claro?"
+  alternativas:
+    - texto: "\"Uma em cada dez famílias da rua\""
+      erro: "Não bate com 25,3%. Uma em cada quatro é cerca de 25%."
+    - texto: "\"Uma em cada quatro famílias da rua\""
+      certa: true
+    - texto: "\"Todas as famílias da rua\""
+      erro: "Isso exagera. 25,3% é cerca de uma em cada quatro."
+  explicacao: "Número convence, mas muita gente não lida bem com ele: seja honesto, confira a conta, veja a fonte e traduza."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Usar exemplos e histórias\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-usar-exemplos-e-historias-03
+  tema: "Uma boa história"
+  dificuldade: 2
+  enunciado: "Qual é uma característica de uma boa história numa fala, segundo a aula?"
+  alternativas:
+    - texto: "Ser curta (um minuto, no máximo, numa fala de três) e ter nome, lugar e detalhe concreto"
+      certa: true
+    - texto: "Ser longa para encher o tempo"
+      erro: "A aula manda ser curta."
+    - texto: "Não ter personagem"
+      erro: "Uma história tem começo, meio e fim, um personagem e algo que muda."
+  explicacao: "A história é o apoio mais forte, porque as pessoas gostam de histórias."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Usar exemplos e histórias\""
+  revisao:
+    status: em-revisao

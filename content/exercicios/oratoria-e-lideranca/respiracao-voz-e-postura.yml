@@ -1,0 +1,50 @@
+# Exercícios da aula "Respiração, voz e postura" (oratoria-e-lideranca). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: oratoria-e-lideranca-respiracao-voz-e-postura-01
+  tema: "Quatro botões"
+  dificuldade: 1
+  enunciado: "Quais são os quatro botões da voz, segundo a aula?"
+  alternativas:
+    - texto: "Volume, ritmo, tom e pausa"
+      certa: true
+    - texto: "Grito, sussurro, canto e riso"
+      erro: "Não são os botões da aula."
+    - texto: "Sotaque, sílaba, rima e verso"
+      erro: "Não são esses."
+  explicacao: "Volume é alto ou baixo; ritmo é a velocidade; tom é agudo ou grave; pausa é o silêncio entre as frases."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Respiração, voz e postura\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-respiracao-voz-e-postura-02
+  tema: "Palavras-muleta"
+  dificuldade: 1
+  enunciado: "O que a aula manda fazer com as palavras-muleta, como \"tipo\" e \"né\"?"
+  alternativas:
+    - texto: "Repetir mais, para parecer natural"
+      erro: "Muitas distraem."
+    - texto: "Trocar a muleta por uma pausa"
+      certa: true
+    - texto: "Falar sem parar para não ter silêncio"
+      erro: "A aula sugere pausa no lugar da muleta."
+  explicacao: "Uma ou outra passa; muitas distraem. A pausa parece mais segura do que soa por dentro."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Respiração, voz e postura\""
+  revisao:
+    status: em-revisao
+
+- id: oratoria-e-lideranca-respiracao-voz-e-postura-03
+  tema: "Subir o tom"
+  dificuldade: 2
+  enunciado: "Por que a aula manda não subir o tom no fim das frases?"
+  alternativas:
+    - texto: "Porque cansa a garganta"
+      erro: "O motivo é outro: tudo vira pergunta."
+    - texto: "Porque senão tudo vira pergunta"
+      certa: true
+    - texto: "Porque o microfone para de funcionar"
+      erro: "A aula não diz isso."
+  explicacao: "Fale no seu tom natural e varie para dar ênfase. Aquecer, respirar fundo e fazer uma pausa antes da primeira frase também ajudam."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Respiração, voz e postura\""
+  revisao:
+    status: em-revisao

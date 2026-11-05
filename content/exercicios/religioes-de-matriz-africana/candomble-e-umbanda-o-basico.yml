@@ -1,0 +1,50 @@
+# Exercícios da aula "Candomblé e umbanda: o básico para quem nunca entrou em um terreiro" (religioes-de-matriz-africana). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: religioes-de-matriz-af-candomble-e-umbanda-o-basico-01
+  tema: "Nações"
+  dificuldade: 2
+  enunciado: "No candomblé, a nação jeje chama as divindades de quê?"
+  alternativas:
+    - texto: "Orixás"
+      erro: "Orixás é como a nação queto (nagô) chama as divindades."
+    - texto: "Voduns"
+      certa: true
+    - texto: "Inquices"
+      erro: "Inquices é como a nação angola chama as divindades."
+  explicacao: "Queto: povos iorubás, orixás. Jeje: fons e euês, voduns. Angola: bantos, inquices."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Candomblé e umbanda: o básico para quem nunca entrou em um terreiro\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-candomble-e-umbanda-o-basico-02
+  tema: "De onde vêm"
+  dificuldade: 1
+  enunciado: "Como nasceram as religiões de matriz africana no Brasil, segundo a aula?"
+  alternativas:
+    - texto: "Africanos trazidos à força, proibidos de cultuar os seus deuses, reorganizaram o que traziam na memória"
+      certa: true
+    - texto: "Foram trazidas prontas por navios de passageiros"
+      erro: "Os africanos foram trazidos à força, proibidos de cultuar os seus deuses."
+    - texto: "Surgiram só no século XXI"
+      erro: "O candomblé tomou forma no século XIX e a umbanda no começo do século XX."
+  explicacao: "O candomblé tomou forma na Bahia, no século XIX."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Candomblé e umbanda: o básico para quem nunca entrou em um terreiro\""
+  revisao:
+    status: em-revisao
+
+- id: religioes-de-matriz-af-candomble-e-umbanda-o-basico-03
+  tema: "Umbanda"
+  dificuldade: 2
+  enunciado: "Que dia uma lei de 2012 reconheceu como Dia Nacional da Umbanda?"
+  alternativas:
+    - texto: "15 de novembro, marco de 1908 da tradição umbandista"
+      certa: true
+    - texto: "21 de janeiro"
+      erro: "Esse é o Dia Nacional de Combate à Intolerância Religiosa."
+    - texto: "19 de abril"
+      erro: "Esse é o Dia dos Povos Indígenas."
+  explicacao: "A umbanda surgiu no Rio de Janeiro e reúne elementos africanos, indígenas, católicos e do espiritismo de Allan Kardec."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula \"Candomblé e umbanda: o básico para quem nunca entrou em um terreiro\""
+  revisao:
+    status: em-revisao
