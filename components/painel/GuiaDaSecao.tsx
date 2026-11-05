@@ -1,8 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowLeft, ArrowRight, CircleHelp, Lightbulb } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { GUIAS } from "./guias";
+import { Botao, Dialogo } from "./ui";
 
 const VISTAS = "lucia:guias-vistos";
 /** A pessoa pediu para as seções não oferecerem mais o passo a passo na primeira visita (o botão continua). */
@@ -33,9 +35,10 @@ export function marcarVisto(id: string) {
 }
 
 /**
- * O passo a passo de cada seção do painel (components/painel/guias.ts). Na primeira vez que a pessoa abre uma seção,
- * aparece uma faixa convidando para ver como ela funciona; o botão "Como funciona" do alto da seção reabre a qualquer
- * hora. Os passos vão um de cada vez, em linguagem simples, com voltar e avançar (setas do teclado também).
+ * O passo a passo de cada seção do painel (components/painel/guias.ts). Fica no cabeçalho da casca como um botão
+ * discreto que abre um painel (Dialogo: foco preso, Esc fecha). Na primeira vez que a pessoa abre uma seção, aparece
+ * um balão convidando para ver como ela funciona; o botão reabre a qualquer hora. Os passos vão um de cada vez, em
+ * linguagem simples, com voltar e avançar (setas do teclado também).
  */
 export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
   const guia = GUIAS[id];
@@ -51,9 +54,9 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
 
   useEffect(() => {
     if (!aberto || !guia) return;
+    // Esc fica com o Dialogo; as setas andam pelos passos.
     const tecla = (e: KeyboardEvent) => {
-      if (e.key === "Escape") fechar();
-      else if (e.key === "ArrowRight") setPasso((p) => Math.min(p + 1, guia.passos.length - 1));
+      if (e.key === "ArrowRight") setPasso((p) => Math.min(p + 1, guia.passos.length - 1));
       else if (e.key === "ArrowLeft") setPasso((p) => Math.max(p - 1, 0));
     };
     window.addEventListener("keydown", tecla);
@@ -76,89 +79,80 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
 
   return (
     <>
-      <button ref={botao} type="button" onClick={abrir} data-tour="como-funciona" className="no-print inline-flex cursor-pointer items-center gap-2 border-2 border-ink bg-folha px-3 py-1.5 text-[0.82rem] font-bold shadow-[3px_3px_0_var(--sombra)] hover:-translate-x-px hover:-translate-y-px">
-        <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-prelo-texto" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17.2h.01" />
-        </svg>
+      <Botao ref={botao} variante="discreto" pequeno simbolo={CircleHelp} onClick={abrir} data-tour="como-funciona" aria-haspopup="dialog" aria-expanded={aberto} className="no-print">
         Como funciona esta seção
-      </button>
+      </Botao>
 
       {convite && !aberto && (
-        <p role="status" className="no-print mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border border-ink bg-folha px-4 py-3 text-ink">
-          <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">Primeira vez aqui?</span>
-          <span className="min-w-[min(100%,14rem)] flex-1">{guia.paraQue} Veja como funciona em {guia.passos.length} passos.</span>
-          <button type="button" onClick={abrir} className="cursor-pointer bg-[#c21f16] px-3 py-1 font-bold text-white hover:bg-[#a51810]">
-            Ver o passo a passo
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setConvite(false);
-              marcarVisto(id);
-            }}
-            className="cursor-pointer underline hover:text-prelo-texto"
-          >
-            Agora não
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setConvite(false);
-              marcarVisto(id);
-              try {
-                localStorage.setItem(SEM_CONVITE, "1");
-              } catch {
-                // sem armazenamento
-              }
-            }}
-            className="cursor-pointer underline hover:text-prelo-texto"
-          >
-            Não oferecer em outras seções
-          </button>
+        <p role="status" className="pn-cartao pn-cartao-destaque no-print flex flex-wrap items-center gap-x-3 gap-y-2">
+          <span className="pn-rotulo-mono w-full">Primeira vez aqui?</span>
+          <span className="min-w-[min(100%,14rem)] flex-1 text-sm">{guia.paraQue} Veja como funciona em {guia.passos.length} passos.</span>
+          <span className="flex w-full flex-wrap gap-1.5">
+            <Botao variante="principal" pequeno onClick={abrir}>
+              Ver o passo a passo
+            </Botao>
+            <Botao
+              variante="discreto"
+              pequeno
+              onClick={() => {
+                setConvite(false);
+                marcarVisto(id);
+              }}
+            >
+              Agora não
+            </Botao>
+            <Botao
+              variante="discreto"
+              pequeno
+              onClick={() => {
+                setConvite(false);
+                marcarVisto(id);
+                try {
+                  localStorage.setItem(SEM_CONVITE, "1");
+                } catch {
+                  // sem armazenamento
+                }
+              }}
+            >
+              Não oferecer em outras seções
+            </Botao>
+          </span>
         </p>
       )}
 
-      {aberto && (
-        <div className="no-print fixed inset-0 z-[60] flex items-center justify-center bg-[#17130e]/60 px-4" onClick={fechar}>
-          <div role="dialog" aria-modal="true" aria-labelledby="guia-titulo" className="w-full max-w-lg border-2 border-ink bg-folha p-6 text-ink shadow-[8px_8px_0_#c21f16] sm:p-7" onClick={(e) => e.stopPropagation()}>
-            <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">
-              {`${nome} · passo ${passo + 1} de ${guia.passos.length}`}
-            </p>
-            {passo === 0 && <p className="mt-2 text-[0.95rem] leading-snug text-ink-soft">{guia.paraQue}</p>}
-            <h2 id="guia-titulo" className="mt-3 flex items-start gap-3 font-serif text-[1.7rem] font-semibold leading-tight">
-              <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center border-2 border-ink bg-[#c21f16] font-sans text-base font-black text-white">
-                {passo + 1}
-              </span>
-              {atual.titulo}
-            </h2>
-            <p className="mt-3 text-[1.02rem] leading-relaxed">{atual.texto}</p>
-            {ultimo && guia.dica && (
-              <p className="mt-4 border-2 border-dashed border-ink px-3 py-2 text-[0.92rem] leading-snug">
+      <Dialogo aberto={aberto} aoMudar={(a) => (a ? setAberto(true) : fechar())} titulo={atual.titulo}>
+        <div className="no-print">
+          <p className="pn-rotulo-mono mt-1">{`${nome} · passo ${passo + 1} de ${guia.passos.length}`}</p>
+          {passo === 0 && <p className="pn-ajuda mt-2 text-[0.95rem] leading-snug">{guia.paraQue}</p>}
+          <p className="mt-3 text-[1rem] leading-relaxed">{atual.texto}</p>
+          {ultimo && guia.dica && (
+            <p className="pn-cartao pn-cartao-plano mt-4 flex gap-2 text-[0.92rem] leading-snug">
+              <Lightbulb aria-hidden width={16} height={16} className="mt-0.5 shrink-0 text-gold" />
+              <span>
                 <strong>Dica:</strong> {guia.dica}
-              </p>
+              </span>
+            </p>
+          )}
+          <div aria-hidden className="mt-5 flex gap-1.5">
+            {guia.passos.map((_, i) => (
+              <span key={i} className={`h-1 flex-1 rounded-full ${i <= passo ? "bg-oxblood" : "bg-rule"}`} />
+            ))}
+          </div>
+          <div className="pn-dialogo-acoes justify-start">
+            {passo > 0 && (
+              <Botao simbolo={ArrowLeft} onClick={() => setPasso(passo - 1)}>
+                Voltar
+              </Botao>
             )}
-            <div aria-hidden className="mt-5 flex gap-1.5">
-              {guia.passos.map((_, i) => (
-                <span key={i} className={`h-1.5 flex-1 ${i <= passo ? "bg-[#c21f16]" : "bg-rule"}`} />
-              ))}
-            </div>
-            <div className="mt-5 flex flex-wrap items-center gap-2">
-              {passo > 0 && (
-                <button type="button" onClick={() => setPasso(passo - 1)} className="cursor-pointer border-2 border-ink px-3.5 py-2 font-bold hover:bg-parchment">
-                  ← Voltar
-                </button>
-              )}
-              <button type="button" autoFocus onClick={() => (ultimo ? fechar() : setPasso(passo + 1))} className="cursor-pointer border-2 border-ink bg-[#c21f16] px-4 py-2 font-bold text-white shadow-[3px_3px_0_#1f1a14] hover:bg-[#a51810]">
-                {ultimo ? "Entendi" : "Próximo →"}
-              </button>
-              <button type="button" onClick={fechar} className="ml-auto cursor-pointer underline hover:text-prelo-texto">
-                Fechar
-              </button>
-            </div>
+            <Botao variante="principal" autoFocus simboloFim={ultimo ? undefined : ArrowRight} onClick={() => (ultimo ? fechar() : setPasso(passo + 1))}>
+              {ultimo ? "Entendi" : "Próximo"}
+            </Botao>
+            <Botao variante="discreto" className="ml-auto" onClick={fechar}>
+              Fechar
+            </Botao>
           </div>
         </div>
-      )}
+      </Dialogo>
     </>
   );
 }

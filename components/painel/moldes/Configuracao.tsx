@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { ReactNode } from "react";
-import { Botao } from "../ui";
+import { Botao, Cartao } from "../ui";
 
 export interface GrupoDeConfiguracao {
   id: string;
@@ -10,9 +10,10 @@ export interface GrupoDeConfiguracao {
 }
 
 /**
- * Molde CONFIGURAÇÃO: grupos de campos e um rodapé que guarda tudo de uma vez. O botão "Salvar" é o único principal da tela e
- * só vale quando algo mudou; "Descartar" volta ao que estava. Serve Controles do site, Aviso de abertura, Segurança e
- * sucessão, Interdição, Estado técnico, Avisos à equipe e Minha conta.
+ * Molde CONFIGURAÇÃO: grupos de campos (cada um num cartão, com título em Garamond) e um rodapé preso embaixo que guarda
+ * tudo de uma vez. O botão "Salvar" é o único principal da tela e só vale quando algo mudou; "Descartar" volta ao que
+ * estava. Serve Controles do site, Aviso de abertura, Segurança e sucessão, Interdição, Estado técnico, Avisos à equipe e
+ * Minha conta.
  */
 export function MoldeConfiguracao({ grupos, sujo, salvando = false, aoSalvar, aoDescartar, rotuloSalvar = "Salvar" }: { grupos: GrupoDeConfiguracao[]; sujo: boolean; salvando?: boolean; aoSalvar: () => void; aoDescartar?: () => void; rotuloSalvar?: string }) {
   return (
@@ -24,18 +25,12 @@ export function MoldeConfiguracao({ grupos, sujo, salvando = false, aoSalvar, ao
       }}
     >
       {grupos.map((g) => (
-        <section key={g.id} aria-labelledby={`config-${g.id}`} className="pn-config-grupo">
-          <div>
-            <h2 id={`config-${g.id}`} className="pn-secao-titulo">
-              {g.titulo}
-            </h2>
-            {g.sobre && <p className="pn-ajuda">{g.sobre}</p>}
-          </div>
+        <Cartao key={g.id} titulo={g.titulo} sobre={g.sobre} className="pn-config-grupo">
           {g.campos}
-        </section>
+        </Cartao>
       ))}
       <div className="pn-config-rodape">
-        <span className="pn-ajuda" role="status">
+        <span className="pn-ajuda" role="status" style={{ marginRight: "auto" }}>
           {salvando ? "Guardando…" : sujo ? "Há mudanças ainda não guardadas." : "Tudo guardado."}
         </span>
         {aoDescartar && (
@@ -43,7 +38,7 @@ export function MoldeConfiguracao({ grupos, sujo, salvando = false, aoSalvar, ao
             Descartar
           </Botao>
         )}
-        <Botao type="submit" variante="principal" disabled={!sujo || salvando}>
+        <Botao type="submit" variante="principal" disabled={!sujo} carregando={salvando}>
           {rotuloSalvar}
         </Botao>
       </div>

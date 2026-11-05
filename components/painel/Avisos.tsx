@@ -1,10 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { BellRing, Eraser, Send, Star, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Star } from "../Masthead";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, papelAposentado, papeis, rotulo, useAcao, useLista } from "./comum";
-import { confirmarFrase } from "./ui";
+import { Aviso, dataHora, papelAposentado, papeis, useAcao, useLista } from "./comum";
+import { Area, Botao, CabecalhoDeSecao, Campo, Cartao, confirmarFrase, Esqueleto, Lista, ItemDeLista, Marca, Selecao, Selo, Vazio } from "./ui";
 
 interface AvisoGeral {
   id: string;
@@ -23,46 +23,55 @@ const destinos: [string, string][] = [["podcast", "Equipe do podcast"], ...(Obje
 const nomeDoDestino = (id: string) => destinos.find(([chave]) => chave === id)?.[1] ?? id;
 const prazos = [1, 3, 7, 14, 30, 60];
 
+/** O quadro do aviso, com um Cartao por dentro: o cabeçalho (de quem, para quem), o texto que rola e o "Entendi". */
 function Quadro({ aviso, restantes, fechar, ocupado }: { aviso: AvisoGeral; restantes: number; fechar?: () => void; ocupado?: boolean }) {
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby={`aviso-${aviso.id}`} className="painel-ir flex max-h-full w-full max-w-lg flex-col border-2 border-ink bg-parchment text-ink shadow-[8px_8px_0_#6e1f1a]">
-      <div className={`flex items-center justify-between gap-3 px-5 py-2.5 text-parchment ${aviso.importante ? "bg-[#c21f16]" : "bg-ink"}`}>
-        <span className="flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.25em]">
-          <Star className="h-3.5 w-3.5" />
+    <Cartao
+      as="div"
+      // Só o quadro de verdade (com "Entendi") é janela modal; a prévia na seção é um exemplo dentro da página.
+      role={fechar ? "dialog" : "group"}
+      aria-modal={fechar ? true : undefined}
+      aria-labelledby={`aviso-${aviso.id}`}
+      variante={aviso.importante ? "alerta" : "destaque"}
+      className="painel-ir flex max-h-full w-full max-w-lg flex-col !p-0"
+      style={{ boxShadow: "var(--pn-sombra-flutuante)" }}
+      rodape={
+        fechar && (
+          <div className="flex w-full flex-wrap items-center justify-between gap-3">
+            <span className="pn-ajuda">{restantes > 1 ? `Mais ${restantes} avisos depois deste.` : restantes === 1 ? "Mais 1 aviso depois deste." : "Último aviso."}</span>
+            <Botao variante="principal" disabled={ocupado} onClick={fechar} autoFocus>
+              Entendi
+            </Botao>
+          </div>
+        )
+      }
+    >
+      <div className="flex items-center justify-between gap-3 border-b border-rule px-5 py-2.5">
+        <Selo tom={aviso.importante ? "erro" : "bordo"}>
+          {aviso.importante ? <Star aria-hidden width={12} height={12} /> : <BellRing aria-hidden width={12} height={12} />}
           {aviso.importante ? "Aviso importante" : "Aviso à equipe"}
-        </span>
-        <span className="flex items-center gap-3">
-          <span className="font-mono text-[0.65rem] text-[#f0cf8e]">{aviso.para.length === 0 ? "toda a equipe" : aviso.para.map(nomeDoDestino).join(" · ")}</span>
-          {fechar && (
-            <button type="button" onClick={fechar} disabled={ocupado} aria-label="Fechar o aviso" title="Fechar" className="-mr-2 flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center text-xl leading-none hover:text-[#f0cf8e] disabled:opacity-50">
-              ✕
-            </button>
-          )}
+        </Selo>
+        <span className="flex items-center gap-2">
+          <span className="pn-rotulo-mono">{aviso.para.length === 0 ? "toda a equipe" : aviso.para.map(nomeDoDestino).join(" · ")}</span>
+          {fechar && <Botao icone pequeno variante="discreto" simbolo={X} onClick={fechar} disabled={ocupado} aria-label="Fechar o aviso" dica="Fechar" />}
         </span>
       </div>
-      {/* Aviso longo no celular: o texto rola dentro do quadro, e o cabeçalho (com o ✕) e o "Entendi" ficam à vista. */}
+      {/* Aviso longo no celular: o texto rola dentro do quadro, e o cabeçalho (com o fechar) e o "Entendi" ficam à vista. */}
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
-        <h2 id={`aviso-${aviso.id}`} className="font-serif text-3xl font-semibold leading-tight">{aviso.titulo}</h2>
+        <h2 id={`aviso-${aviso.id}`} className="pn-dialogo-titulo text-[1.75rem]">{aviso.titulo}</h2>
         <p className="mt-3 whitespace-pre-line text-base leading-relaxed" data-original>{aviso.texto}</p>
-        <p className="mt-4 text-xs text-ink-soft">
+        <p className="pn-ajuda mt-4">
           {aviso.autor || "Coordenação"} · {dataHora(aviso.criado_em)}
         </p>
       </div>
-      {fechar && (
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-rule px-5 py-3">
-          <span className="text-xs text-ink-soft">{restantes > 1 ? `Mais ${restantes} avisos depois deste.` : restantes === 1 ? "Mais 1 aviso depois deste." : "Último aviso."}</span>
-          <button type="button" className={botao} disabled={ocupado} onClick={fechar} autoFocus>
-            Entendi
-          </button>
-        </div>
-      )}
-    </div>
+    </Cartao>
   );
 }
 
 /**
  * O quadro que aparece por cima do painel quando a coordenação, a vice-coordenação ou a supervisão mandam um aviso.
- * Chega na hora pelo canal de tempo real (e, por garantia, de minuto em minuto). Some quando a pessoa aperta "Entendi".
+ * Chega na hora pelo canal de tempo real (e, por garantia, de minuto em minuto). Some quando a pessoa aperta "Entendi":
+ * até lá, bloqueia a tela (o véu do tema por cima de tudo).
  */
 export function QuadroDeAvisos() {
   const lista = useLista<AvisoGeral[]>("avisos_gerais_pendentes");
@@ -77,12 +86,11 @@ export function QuadroDeAvisos() {
   const atual = lista.dados?.[0];
   if (!atual) return null;
   return (
-    <div className="painel-veu fixed inset-0 z-50 flex items-center justify-center bg-[#17130e]/70 px-3 py-[max(1rem,env(safe-area-inset-top))]">
+    <div className="painel-veu fixed inset-0 z-50 flex items-center justify-center px-3 py-[max(1rem,env(safe-area-inset-top))]" style={{ background: "var(--pn-veu)" }}>
       <Quadro aviso={atual} restantes={(lista.dados?.length ?? 1) - 1} ocupado={acao.ocupado} fechar={() => void acao.agir("aviso_geral_fechar", { p_id: atual.id }, "")} />
     </div>
   );
 }
-
 /** A seção do painel para quem manda avisos: escrever um, ver quem já fechou os que estão no ar e apagar. */
 export function AvisosEquipe() {
   const lista = useLista<AvisoGeral[]>("avisos_gerais_listar");
@@ -112,25 +120,19 @@ export function AvisosEquipe() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
-      <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); void enviar(); }}>
-        <p className="max-w-2xl text-ink-soft">
+      <form className="grid content-start gap-4" onSubmit={(e) => { e.preventDefault(); void enviar(); }}>
+        <p className="pn-ajuda max-w-2xl">
           O aviso aparece como um quadro por cima do painel, para toda a equipe ou só para algumas funções, até a pessoa apertar “Entendi”. Para recado a uma pessoa só, use as Conversas.
         </p>
-        <label className="block">
-          Título
-          <input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={120} required className={campo} />
-        </label>
-        <label className="block">
-          Texto
-          <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={5} maxLength={2000} required className={campo} />
-        </label>
+        <Campo rotulo="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={120} required />
+        <Area rotulo="Texto" value={texto} onChange={(e) => setTexto(e.target.value)} rows={5} maxLength={2000} required />
         <fieldset>
-          <legend className={rotulo}>Para quem</legend>
+          <legend className="pn-rotulo-mono">Para quem</legend>
           <div className="mt-2 flex flex-wrap gap-4">
-            <label className="flex items-center gap-2">
+            <label className="pn-marca">
               <input type="radio" checked={todos} onChange={() => setTodos(true)} /> Toda a equipe
             </label>
-            <label className="flex items-center gap-2">
+            <label className="pn-marca">
               <input type="radio" checked={!todos} onChange={() => setTodos(false)} /> Só algumas funções
             </label>
           </div>
@@ -138,63 +140,69 @@ export function AvisosEquipe() {
             <ul className="mt-3 grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
               {destinos.map(([id, nome]) => (
                 <li key={id}>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" checked={para.includes(id)} onChange={(e) => setPara(e.target.checked ? [...para, id] : para.filter((x) => x !== id))} />
-                    {nome}
-                  </label>
+                  <Marca rotulo={nome} checked={para.includes(id)} onChange={(e) => setPara(e.target.checked ? [...para, id] : para.filter((x) => x !== id))} />
                 </li>
               ))}
             </ul>
           )}
         </fieldset>
         <div className="flex flex-wrap items-end gap-5">
-          <label className="flex items-center gap-2">
-            <input type="checkbox" checked={importante} onChange={(e) => setImportante(e.target.checked)} /> Importante (quadro vermelho)
-          </label>
-          <label className="block">
-            Fica no ar por
-            <select value={dias} onChange={(e) => setDias(Number(e.target.value))} className={campo}>
+          <Marca rotulo="Importante (quadro vermelho)" checked={importante} onChange={(e) => setImportante(e.target.checked)} />
+          <div className="w-40">
+            <Selecao rotulo="Fica no ar por" value={dias} onChange={(e) => setDias(Number(e.target.value))}>
               {prazos.map((n) => (
                 <option key={n} value={n}>{n === 1 ? "1 dia" : `${n} dias`}</option>
               ))}
-            </select>
-          </label>
+            </Selecao>
+          </div>
         </div>
-        <button type="submit" className={botao} disabled={acao.ocupado || !pronto}>Enviar o aviso</button>
+        <p>
+          <Botao type="submit" variante="principal" simbolo={Send} carregando={acao.ocupado} disabled={!pronto}>Enviar o aviso</Botao>
+        </p>
         <Aviso texto={acao.aviso || lista.erro} />
 
-        <section className="pt-4">
-          <h2 className="jornal-secao">
-            <span className="jornal-editoria">No ar</span>
-          </h2>
-          {lista.dados?.length === 0 && <p className="mt-4 text-ink-soft">Nenhum aviso no ar.</p>}
-          <ul className="mt-4 divide-y divide-rule border-y border-rule">
-            {lista.dados?.map((aviso) => (
-              <li key={aviso.id} className="py-3">
-                <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                  <strong className="font-serif text-lg">{aviso.titulo}</strong>
-                  {aviso.importante && <span className="bg-[#c21f16] px-1.5 py-0.5 font-mono text-[0.65rem] uppercase text-white">importante</span>}
-                  <span className="text-xs text-ink-soft">{aviso.para.length === 0 ? "toda a equipe" : aviso.para.map(nomeDoDestino).join(", ")}</span>
-                </p>
-                <p className="mt-1 line-clamp-2 text-ink-soft">{aviso.texto}</p>
-                <p className="mt-1 flex flex-wrap gap-x-4 text-xs text-ink-soft">
-                  <span>{aviso.autor} · {dataHora(aviso.criado_em)}</span>
-                  <span>{aviso.vistos ?? 0} {aviso.vistos === 1 ? "pessoa fechou" : "pessoas fecharam"}</span>
-                  {aviso.expira_em && <span>sai do ar em {dataHora(aviso.expira_em)}</span>}
-                  <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Tirar este aviso do ar?"))) void acao.agir("aviso_geral_apagar", { p_id: aviso.id }, "Aviso retirado."); }}>
-                    Tirar do ar
-                  </button>
-                </p>
-              </li>
-            ))}
-          </ul>
+        <section className="grid gap-3 pt-4">
+          <CabecalhoDeSecao nivel={2} titulo="No ar" simbolo={BellRing} />
+          {lista.dados === null && !lista.erro && <Esqueleto linhas={2} rotulo="Carregando os avisos…" />}
+          {lista.dados?.length === 0 && <Vazio simbolo={BellRing} titulo="Nenhum aviso no ar." />}
+          {lista.dados && lista.dados.length > 0 && (
+            <Lista rotulo="No ar">
+              {lista.dados.map((aviso) => (
+                <ItemDeLista
+                  key={aviso.id}
+                  titulo={
+                    <span className="flex flex-wrap items-center gap-2">
+                      {aviso.titulo}
+                      {aviso.importante && <Selo tom="erro">importante</Selo>}
+                    </span>
+                  }
+                  meta={
+                    <>
+                      <span className="line-clamp-2">{aviso.texto}</span>
+                      <span className="mt-0.5 flex flex-wrap gap-x-3">
+                        <span>{aviso.para.length === 0 ? "toda a equipe" : aviso.para.map(nomeDoDestino).join(", ")}</span>
+                        <span>{aviso.autor} · {dataHora(aviso.criado_em)}</span>
+                        <span>{aviso.vistos ?? 0} {aviso.vistos === 1 ? "pessoa fechou" : "pessoas fecharam"}</span>
+                        {aviso.expira_em && <span>sai do ar em {dataHora(aviso.expira_em)}</span>}
+                      </span>
+                    </>
+                  }
+                  acoes={
+                    <Botao variante="discreto" pequeno perigo simbolo={Trash2} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Tirar este aviso do ar?"))) void acao.agir("aviso_geral_apagar", { p_id: aviso.id }, "Aviso retirado."); }}>
+                      Tirar do ar
+                    </Botao>
+                  }
+                />
+              ))}
+            </Lista>
+          )}
         </section>
       </form>
-      <aside>
-        <p className={`${rotulo} mb-3`}>Como vai aparecer</p>
+      <aside className="grid content-start gap-3">
+        <p className="pn-rotulo-mono">Como vai aparecer</p>
         <Quadro aviso={previa} restantes={0} />
-        <p className="mt-4 text-xs text-ink-soft">
-          <button type="button" className={botaoClaro} onClick={() => { setTitulo(""); setTexto(""); }}>Limpar</button>
+        <p>
+          <Botao simbolo={Eraser} onClick={() => { setTitulo(""); setTexto(""); }}>Limpar</Botao>
         </p>
       </aside>
     </div>

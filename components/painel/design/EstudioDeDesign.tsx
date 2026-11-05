@@ -1,13 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowUpRight, Layers, LayoutTemplate } from "lucide-react";
 import { useState } from "react";
 import type { Me } from "@/lib/backend";
 import { type Compatibilidade, conferirCompatibilidade, EDITORES, enderecoEstavelDo } from "@/lib/estudio";
 import { rpc } from "@/lib/backend";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { CampoArquivo } from "../Campos";
-import { Aviso, botao, botaoClaro, campo, elo, rotulo, textoDoErro } from "../comum";
+import { Aviso, textoDoErro } from "../comum";
+import { Botao, Campo, Cartao, Faixa } from "../ui";
 import { type Abertura, Estudio } from "./Estudio";
 import { Inicio } from "./Inicio";
 import { carregarImagem, COR, documentoVazio, imagem, miniatura, prepararImagem, texto } from "./motor";
@@ -20,22 +22,23 @@ export function VerificacaoDeCompatibilidade({ mb }: { mb: number }) {
   const [conferindo, setConferindo] = useState(false);
   const veredito = !c ? null : !c.wasm ? "nao" : !c.webgpu || (c.memoria !== null && c.memoria < 4) ? "lento" : "ok";
   return (
-    <div className="mt-2 text-sm">
-      <button type="button" className={botaoClaro} disabled={conferindo} onClick={async () => { setConferindo(true); setC(await conferirCompatibilidade()); setConferindo(false); }}>
-        {conferindo ? "Conferindo…" : "Conferir se este aparelho consegue"}
-      </button>
+    <div className="mt-3 grid gap-2 text-sm">
+      <div>
+        <Botao carregando={conferindo} onClick={async () => { setConferindo(true); try { setC(await conferirCompatibilidade()); } finally { setConferindo(false); } }}>
+          {conferindo ? "Conferindo…" : "Conferir se este aparelho consegue"}
+        </Botao>
+      </div>
       {c && (
-        <div className={`mt-2 border-l-4 p-2 ${veredito === "ok" ? "border-ok" : veredito === "lento" ? "border-gold" : "border-oxblood"}`} role="status">
-          <p className="font-semibold">{veredito === "ok" ? "Seu navegador consegue." : veredito === "lento" ? "Pode ficar lento neste aparelho." : "Não vai funcionar aqui: tente o Chrome ou o Edge num computador."}</p>
-          <ul className="mt-1 text-xs text-ink-soft">
+        <Faixa tom={veredito === "ok" ? "ok" : veredito === "lento" ? "aviso" : "erro"} titulo={veredito === "ok" ? "Seu navegador consegue." : veredito === "lento" ? "Pode ficar lento neste aparelho." : "Não vai funcionar aqui: tente o Chrome ou o Edge num computador."}>
+          <ul className="mt-1 text-xs">
             <li>WebAssembly: {c.wasm ? "sim" : "não"}</li>
             <li>WebGPU (aceleração pela placa de vídeo): {c.webgpu ? "sim" : "não (funciona mais devagar, pelo processador)"}</li>
             <li>Memória do aparelho: {c.memoria === null ? "o navegador não informa" : `cerca de ${c.memoria} GB${c.memoria < 4 ? " (pouca para arquivos grandes)" : ""}`}</li>
             <li>Navegador: {c.navegador}{c.navegador === "Firefox" || c.navegador === "Safari" ? " (o Chrome e o Edge são os mais testados)" : ""}</li>
           </ul>
-        </div>
+        </Faixa>
       )}
-      <p className="mt-2 text-xs text-ink-soft">Na primeira vez, o navegador baixa cerca de {mb} MB (cuidado com dados móveis). Depois fica guardado no aparelho.</p>
+      <p className="text-xs text-ink-soft">Na primeira vez, o navegador baixa cerca de {mb} MB (cuidado com dados móveis). Depois fica guardado no aparelho.</p>
     </div>
   );
 }
@@ -78,8 +81,8 @@ function EnviarArte({ me, depois }: { me: Me; depois: () => void }) {
     }
   }
   return (
-    <div className="mt-3 space-y-2">
-      <label className="block text-sm">Título da arte<input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={100} className={campo} /></label>
+    <div className="mt-3 grid gap-3">
+      <Campo rotulo="Título da arte" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={100} />
       <CampoArquivo aceita="image/jpeg,image/png,image/webp,application/pdf" escolher={(f) => void enviar(f)} dica="PNG, JPG ou PDF exportado do editor avançado, até 8 MB. O PSD fica com você: guarde junto do projeto." />
       <Aviso texto={estado} />
     </div>
@@ -98,6 +101,12 @@ const MAPA: [string, string][] = [
   ["Painel Histórico", "Painel History: cada sessão de texto vira um passo"],
 ];
 
+/** As duas portas do estúdio: cartões que se escolhem (o escolhido fica com o traço bordô à esquerda). */
+const OPCOES = [
+  { id: "rapido", simbolo: LayoutTemplate, rotulo: "Estúdio rápido", nome: "Modelos da marca", sobre: "Posts, stories, cartazes e capas prontos para trocar o texto e publicar. Use quase sempre." },
+  { id: "avancado", simbolo: Layers, rotulo: "Editor avançado", nome: "PhotoCraft", sobre: "Para retocar foto, recortar, máscaras e camadas como no Photoshop. Use quando o modelo não basta." },
+] as const;
+
 /** "Estúdio de design" no painel: as duas opções lado a lado, e o Estúdio rápido logo abaixo. */
 export function EstudioDeDesign({ me }: { me: Me }) {
   const [aberto, setAberto] = useState<"rapido" | "avancado">("rapido");
@@ -106,18 +115,20 @@ export function EstudioDeDesign({ me }: { me: Me }) {
   const [abertura, setAbertura] = useState<Abertura | null>(null);
   const endereco = enderecoEstavelDo("photocraft");
   return (
-    <div>
-      <div className="mb-4 grid gap-3 md:grid-cols-2">
-        <button type="button" onClick={() => setAberto("rapido")} aria-pressed={aberto === "rapido"} className={`painel-cartao cursor-pointer p-4 text-left ${aberto === "rapido" ? "border-2 border-ink" : ""}`}>
-          <p className={rotulo}>Estúdio rápido</p>
-          <p className="font-serif text-lg font-semibold">Modelos da marca</p>
-          <p className="text-sm text-ink-soft">Posts, stories, cartazes e capas prontos para trocar o texto e publicar. Use quase sempre.</p>
-        </button>
-        <button type="button" onClick={() => setAberto("avancado")} aria-pressed={aberto === "avancado"} className={`painel-cartao cursor-pointer p-4 text-left ${aberto === "avancado" ? "border-2 border-ink" : ""}`}>
-          <p className={rotulo}>Editor avançado</p>
-          <p className="font-serif text-lg font-semibold">PhotoCraft</p>
-          <p className="text-sm text-ink-soft">Para retocar foto, recortar, máscaras e camadas como no Photoshop. Use quando o modelo não basta.</p>
-        </button>
+    <div className="grid gap-6">
+      <div className="grid gap-3 md:grid-cols-2">
+        {OPCOES.map(({ id, simbolo: Simbolo, rotulo, nome, sobre }) => (
+          <Cartao key={id} as="div" interativo variante={aberto === id ? "destaque" : "padrao"} aria-pressed={aberto === id} onClick={() => setAberto(id)} className="flex items-start gap-3">
+            <span aria-hidden className="pn-cabecalho-icone shrink-0">
+              <Simbolo />
+            </span>
+            <span className="grid min-w-0 gap-0.5">
+              <span className="pn-rotulo-mono">{rotulo}</span>
+              <span className="pn-cartao-titulo">{nome}</span>
+              <span className="pn-cartao-sobre">{sobre}</span>
+            </span>
+          </Cartao>
+        ))}
       </div>
 
       {abertura && (
@@ -133,28 +144,39 @@ export function EstudioDeDesign({ me }: { me: Me }) {
       {aberto === "rapido" ? (
         <Inicio key={recarga} me={me} abrir={setAbertura} />
       ) : (
-        <div className="grid gap-6 lg:grid-cols-2">
-          <section className="painel-cartao p-5">
-            <h2 className="font-serif text-2xl font-semibold">Editor avançado: PhotoCraft</h2>
-            <p className="mt-1 text-sm">Editor de imagens de código aberto do projeto ArtCraft ({PHOTOCRAFT.licenca}), versão {PHOTOCRAFT.versao}, hospedado sem modificação num endereço separado do painel: ele não vê a sua sessão nem os dados do instituto.</p>
-            <p className="mt-2 border-l-4 border-gold pl-2 text-sm">Fase de testes (alfa): pode ter falhas. Os arquivos ficam só no navegador deste aparelho: exporte sempre o PNG e guarde o PSD.</p>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <Cartao titulo="Editor avançado: PhotoCraft">
+            <p className="text-sm">Editor de imagens de código aberto do projeto ArtCraft ({PHOTOCRAFT.licenca}), versão {PHOTOCRAFT.versao}, hospedado sem modificação num endereço separado do painel: ele não vê a sua sessão nem os dados do instituto.</p>
+            <Faixa tom="aviso" className="mt-3">
+              <p>Fase de testes (alfa): pode ter falhas. Os arquivos ficam só no navegador deste aparelho: exporte sempre o PNG e guarde o PSD.</p>
+            </Faixa>
             <VerificacaoDeCompatibilidade mb={PHOTOCRAFT.mb} />
-            <p className="mt-3 flex flex-wrap gap-3">
-              {endereco ? <a href={endereco} target="_blank" rel="noopener noreferrer" className={botao}>Abrir o PhotoCraft ↗</a> : <span className="text-sm text-oxblood">O endereço do editor avançado ainda não está no ar (estudio.institutolucia.org). Veja docs/ESTUDIO-EDITORES.md.</span>}
-              <a href={PHOTOCRAFT.repositorio} target="_blank" rel="noopener noreferrer" className={elo}>Código e licença ↗</a>
+            {!endereco && (
+              <Faixa tom="aviso" className="mt-3">
+                <p>O endereço do editor avançado ainda não está no ar (estudio.institutolucia.org). Veja docs/ESTUDIO-EDITORES.md.</p>
+              </Faixa>
+            )}
+            <p className="mt-3 flex flex-wrap items-center gap-3">
+              {endereco && (
+                <a href={endereco} target="_blank" rel="noopener noreferrer" className="pn-botao pn-botao-principal">
+                  Abrir o PhotoCraft <ArrowUpRight aria-hidden />
+                  <span className="sr-only"> (abre em outra aba)</span>
+                </a>
+              )}
+              <a href={PHOTOCRAFT.repositorio} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">
+                Código e licença <ArrowUpRight aria-hidden className="h-4 w-4" />
+                <span className="sr-only"> (abre em outra aba)</span>
+              </a>
             </p>
             <p className="mt-3 text-xs text-ink-soft">PhotoCraft é feito pelo time e pela comunidade ArtCraft (getartcraft.com). Não é produto da Adobe nem afiliado a ela.</p>
-          </section>
+          </Cartao>
 
-          <section className="painel-cartao p-5">
-            <h2 className="font-serif text-xl font-semibold">Enviar arte do editor avançado</h2>
-            <p className="text-sm text-ink-soft">Exportou do PhotoCraft? Envie aqui: entra nos Trabalhos e em Materiais e arquivos, com a sua assinatura.</p>
+          <Cartao titulo="Enviar arte do editor avançado" sobre="Exportou do PhotoCraft? Envie aqui: entra nos Trabalhos e em Materiais e arquivos, com a sua assinatura.">
             <EnviarArte me={me} depois={() => setRecarga((n) => n + 1)} />
-          </section>
+          </Cartao>
 
-          <section className="painel-cartao p-5 lg:col-span-2">
-            <h2 className="font-serif text-xl font-semibold">Ajuda rápida</h2>
-            <div className="mt-2 grid gap-4 text-sm md:grid-cols-3">
+          <Cartao titulo="Ajuda rápida" className="lg:col-span-2">
+            <div className="grid gap-4 text-sm md:grid-cols-3">
               <div>
                 <p className="font-semibold">Usar um modelo</p>
                 <p className="text-ink-soft">No Estúdio rápido, escolha o modelo, dê duplo clique no texto para trocar, guarde na conta e baixe o PNG.</p>
@@ -168,13 +190,27 @@ export function EstudioDeDesign({ me }: { me: Me }) {
                 <p className="text-ink-soft">No PhotoCraft, File › Export › Export As… em PNG ou JPG; volte aqui e use “Enviar arte do editor avançado”.</p>
               </div>
             </div>
-            <table className="mt-4 w-full text-left text-sm">
-              <caption className="text-left text-xs text-ink-soft">No Photoshop é assim → no PhotoCraft é assim (conferido nos guias do PhotoCraft; os menus do programa estão em inglês)</caption>
-              <thead className="text-xs text-ink-soft"><tr><th className="font-normal">Photoshop</th><th className="font-normal">PhotoCraft</th></tr></thead>
-              <tbody className="divide-y divide-rule">{MAPA.map(([a, b]) => <tr key={a}><td className="py-1">{a}</td><td>{b}</td></tr>)}</tbody>
-            </table>
+            <div className="pn-tabela-caixa mt-4">
+              <table className="pn-tabela text-left">
+                <caption className="px-3 py-2 text-left text-xs text-ink-soft">No Photoshop é assim → no PhotoCraft é assim (conferido nos guias do PhotoCraft; os menus do programa estão em inglês)</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Photoshop</th>
+                    <th scope="col">PhotoCraft</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MAPA.map(([a, b]) => (
+                    <tr key={a}>
+                      <td>{a}</td>
+                      <td>{b}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <p className="mt-3 text-xs text-ink-soft">O que se perde do Estúdio rápido para o PSD: filtros de imagem e a tarja atrás do texto chegam desenhados (não editáveis); textos girados ou com tarja chegam como imagem. As fontes do instituto (EB Garamond, Inter, IBM Plex Mono) são livres: instale pelo Google Fonts para editar os textos.</p>
-          </section>
+          </Cartao>
         </div>
       )}
     </div>

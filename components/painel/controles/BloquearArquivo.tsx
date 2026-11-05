@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { data, useLista } from "../comum";
 import { MoldeTabela } from "../moldes";
-import { Botao, Campo, type ColumnDef, confirmar, Esqueleto, notificar } from "../ui";
+import { Botao, Campo, type ColumnDef, confirmar, Esqueleto, Faixa, notificar } from "../ui";
 import { ehSha256, emHexadecimal } from "./regras";
 import { useControle } from "./usarControle";
 
@@ -91,7 +91,7 @@ export function BloquearArquivo() {
           void bloquear();
         }}
       >
-        <h3 className="pn-secao-titulo">Bloquear um arquivo</h3>
+        <h3 className="pn-cartao-titulo">Bloquear um arquivo</h3>
         <p className="pn-ajuda">Escolha o arquivo: a impressão digital é calculada aqui, no seu aparelho, e o arquivo não é enviado a lugar nenhum. Ou cole a impressão digital que já tem.</p>
         <div>
           <label className="pn-rotulo" htmlFor="bloquear-arquivo-escolha">
@@ -111,9 +111,16 @@ export function BloquearArquivo() {
 
       {!lista.dados ? (
         lista.erro ? (
-          <p role="alert" className="pn-erro">
+          <Faixa
+            tom="erro"
+            acao={
+              <Botao pequeno onClick={lista.recarregar}>
+                Tentar de novo
+              </Botao>
+            }
+          >
             {lista.erro}
-          </p>
+          </Faixa>
         ) : (
           <Esqueleto />
         )

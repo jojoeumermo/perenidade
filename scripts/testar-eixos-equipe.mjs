@@ -83,7 +83,8 @@ ok("aviso: anônimo, finalidade, LGPD art. 5º II, 11 I, 8º § 4º e 12; opcion
   assert.ok(!/universidade|diploma/i.test(todo + tela + textos));
 });
 ok("Painel e estrutura: seção registrada, só para voluntário, resultado só da coordenação", () => {
-  const painel = ler("components", "painel", "Painel.tsx");
+  // O registro de seções e a casca saíram de Painel.tsx para casca/ no redesenho (docs/PAINEL-REDESENHO.md): lemos os dois.
+  const painel = ler("components", "painel", "Painel.tsx") + "\n" + ler("components", "painel", "casca", "Dentro.tsx");
   assert.ok(/id: "eixos-equipe"[^\n]*mostra: voluntario/.test(painel));
   assert.ok(/<EixosEquipe coordena=\{lidera \|\| can\(eu, "vice"\)\}/.test(painel));
   assert.ok(/"eixos-equipe": \{ espaco: "equipe"/.test(ler("components", "painel", "estrutura.ts")));

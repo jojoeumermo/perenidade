@@ -1,5 +1,7 @@
 # Painel novo: fundação (Etapa 8, pacote painel-fundacao)
 
+> **Redesenho de novembro de 2026.** O contrato que vale hoje é `docs/PAINEL-REDESENHO.md`. Ele refaz a casca (menu lateral em tinta com espaços, fixadas e trilho recolhido de 60 px; barra superior com trilha, busca Ctrl K e "Ver como…"; paleta com comandos da seção), troca os tokens (papel quente `#f2ecdf`, cartões `#faf6ec`, Garamond nos títulos `h1` a `h3`, mono em versalete nos rótulos, faixa das lutas de 3 px), acrescenta os primitivos novos de `ui/` (Cartao, Selo, Faixa, Lista, MenuSuspenso, PaineisAjustaveis, Composer, movimento) e muda o lugar das coisas: o painel aberto mora em `components/painel/casca/` (carregado só no navegador) e o estado da casca em `components/painel/estado.ts`. Onde este documento e o do redesenho discordarem (a linha de 2 px, a Garamond só no `h1`, o menu em papel, o registro de seções em `Painel.tsx`), vale o do redesenho; o que está aqui continua valendo como história da fundação e para as regras que o redesenho não mudou (mapa de seções, moldes, nada de cor solta, testes). O catálogo do que usar está em `docs/PAINEL-COMPONENTES.md`.
+
 Este documento é o contrato dos pacotes seguintes do painel. A fundação entrega o tema, os componentes únicos, os quatro moldes de tela, o menu lateral novo e o mapa das seções. Nada saiu do painel: as 55 entradas do registro de seções (as "53 seções" do plano, mais `reunioes` e `aulas-a-escrever`, que também são entradas) estão no mapa.
 
 ## Visual

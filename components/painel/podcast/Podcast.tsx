@@ -1,13 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Clock, Plus, Star } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { rpc } from "@/lib/backend";
 import { minutos } from "@/lib/podcast";
 import { urlPublica } from "@/lib/podcast-audio";
 import { useI18n } from "../../I18n";
-import { Abas, Aviso, botao, campo, dia, rotulo, textoDoErro, useLista } from "../comum";
+import { Aviso, dia, textoDoErro, useLista } from "../comum";
+import { Abas, Botao, Busca, Campo, Cartao, Esqueleto, Faixa, ItemDeLista, Lista, Selecao, Selo, type TomDoSelo, Vazio } from "../ui";
 import { EstudioDeArte } from "./Arte";
 import { GeradorDeCortes } from "./Cortes";
 import { EditorDeEpisodio } from "./Episodio";
@@ -15,38 +17,47 @@ import { Guia, PENDENCIAS } from "./Guia";
 import { Publicar } from "./Publicar";
 import { CadernoNoPainel } from "../Caderno";
 import { Agenda, Ajustes, Convidados, Numeros, Pautas, Pedidos, Perguntas, Trilhas } from "./Listas";
-import { ETAPAS, NOME_DA_ETAPA, type PainelDoPodcast, type ResumoDoEpisodio, SOBRE_A_ETAPA } from "./tipos";
+import { ETAPAS, type Etapa, NOME_DA_ETAPA, type PainelDoPodcast, type ResumoDoEpisodio, SOBRE_A_ETAPA } from "./tipos";
 
 type Aba = "episodios" | "publicar" | "caderno" | "agenda" | "pautas" | "perguntas" | "convidados" | "trilhas" | "artes" | "cortes" | "pedidos" | "numeros" | "guia" | "ajustes";
 
-function Cartao({ e, abrir, series }: { e: ResumoDoEpisodio; abrir: () => void; series: PainelDoPodcast["series"] }) {
+/** O tom do selo de cada etapa: a palavra diz a etapa; a cor só acompanha. */
+const TOM_DA_ETAPA: Record<Etapa, TomDoSelo> = { ideia: "neutro", roteiro: "neutro", gravacao: "info", edicao: "info", revisao: "bordo", aprovado: "ouro", publicado: "ok" };
+
+/** Um episódio no quadro: capa pequena, título, série e número, e os selos do que importa (datas, comentários, o que falta). */
+function Episodio({ e, series }: { e: ResumoDoEpisodio; series: PainelDoPodcast["series"] }) {
   const serie = series.find((s) => s.id === e.serie);
   return (
-    <button type="button" onClick={abrir} className="block w-full cursor-pointer border-2 border-ink bg-parchment p-2 text-left hover:border-oxblood">
-      <span className="flex gap-2">
-        {e.capa_mini ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={urlPublica(e.capa_mini)} alt="" width={48} height={48} className="h-12 w-12 shrink-0 object-cover" />
-        ) : (
-          <span aria-hidden className="podcast-capa-cartaz block h-12 w-12 shrink-0" />
-        )}
-        <span className="min-w-0">
-          <span className="line-clamp-2 font-serif text-base font-semibold leading-tight">{e.titulo}</span>
-          <span className="block truncate text-xs text-ink-soft">
-            {[serie?.titulo, e.numero != null ? `#${e.numero}` : "", e.responsavel?.nome].filter(Boolean).join(" · ")}
-          </span>
+    <span className="flex w-full gap-2 whitespace-normal py-1">
+      {e.capa_mini ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={urlPublica(e.capa_mini)} alt="" width={40} height={40} className="h-10 w-10 shrink-0 rounded-[var(--pn-raio)] object-cover" />
+      ) : (
+        <span aria-hidden className="podcast-capa-cartaz block h-10 w-10 shrink-0 rounded-[var(--pn-raio)]" />
+      )}
+      <span className="min-w-0 flex-1">
+        <span className="line-clamp-2 font-serif text-[0.98rem] font-semibold leading-tight">{e.titulo}</span>
+        <span className="pn-item-meta block">{[serie?.titulo, e.numero != null ? `#${e.numero}` : "", e.responsavel?.nome].filter(Boolean).join(" · ")}</span>
+        <span className="mt-1.5 flex flex-wrap gap-1">
+          {e.status === "publicado" && <Selo tom={TOM_DA_ETAPA[e.status]} ponto>{NOME_DA_ETAPA[e.status]}</Selo>}
+          {e.gravacao_em && e.status !== "publicado" && <Selo>{dia(e.gravacao_em)}</Selo>}
+          {e.publicar_em && e.status !== "publicado" && (
+            <Selo>
+              <Clock aria-hidden className="h-3 w-3" /> {dia(e.publicar_em)}
+            </Selo>
+          )}
+          {e.publicado_em && (
+            <Selo tom="ouro">
+              <Star aria-hidden className="h-3 w-3" /> {dia(e.publicado_em.slice(0, 10))}
+            </Selo>
+          )}
+          {e.duracao > 0 && <Selo>{minutos(e.duracao)}</Selo>}
+          {e.comentarios > 0 && <Selo tom="bordo">{e.comentarios} coment.</Selo>}
+          {e.status === "aprovado" && e.pendencias.length > 0 && <Selo tom="aviso">falta {e.pendencias.length}</Selo>}
+          {e.status === "publicado" && !e.audio_guardado && !e.externo && <Selo tom="erro">sem áudio</Selo>}
         </span>
       </span>
-      <span className="mt-2 flex flex-wrap gap-1.5 font-mono text-[0.65rem]">
-        {e.gravacao_em && e.status !== "publicado" && <span className="bg-parchment-deep px-1">{dia(e.gravacao_em)}</span>}
-        {e.publicar_em && e.status !== "publicado" && <span className="bg-parchment-deep px-1">◷ {dia(e.publicar_em)}</span>}
-        {e.publicado_em && <span className="bg-parchment-deep px-1">★ {dia(e.publicado_em.slice(0, 10))}</span>}
-        {e.duracao > 0 && <span className="bg-parchment-deep px-1">{minutos(e.duracao)}</span>}
-        {e.comentarios > 0 && <span className="bg-oxblood px-1 text-parchment">{e.comentarios} coment.</span>}
-        {e.status === "aprovado" && e.pendencias.length > 0 && <span className="bg-gold px-1 text-ink">falta {e.pendencias.length}</span>}
-        {e.status === "publicado" && !e.audio_guardado && !e.externo && <span className="bg-oxblood px-1 text-parchment">sem áudio</span>}
-      </span>
-    </button>
+    </span>
   );
 }
 
@@ -68,9 +79,9 @@ export function Podcast() {
 
   const abrir = (id: string | null, passo?: string) => router.replace(`/${lang}/painel?aba=podcast${id ? `&ep=${id}` : ""}${id && passo ? `&passo=${passo}` : ""}`);
 
-  if (painel.erro) return <Aviso texto={painel.erro} />;
+  if (painel.erro) return <Faixa tom="erro" acao={<Botao pequeno onClick={painel.recarregar}>Tentar de novo</Botao>}>{painel.erro}</Faixa>;
   const p = painel.dados;
-  if (!p) return <p className="font-mono text-xs text-ink-soft">Carregando…</p>;
+  if (!p) return <Esqueleto forma="cartoes" />;
   const { eu } = p;
 
   if (ep) return <EditorDeEpisodio key={ep} id={ep} painel={p} voltar={() => abrir(null)} recarregarPainel={painel.recarregar} />;
@@ -123,82 +134,82 @@ export function Podcast() {
   const termo = busca.trim().toLowerCase();
   const visiveis = p.episodios.filter((e) => !termo || e.titulo.toLowerCase().includes(termo));
   const paraCortar = p.episodios.find((e) => e.id === cortarDe);
+  const noAr = visiveis.filter((e) => e.status === "publicado").sort((x, y) => (y.publicado_em ?? "").localeCompare(x.publicado_em ?? ""));
 
   return (
-    <div>
+    <div className="space-y-5">
       {eu.supervisao && p.contagens.revisao > 0 && (
-        <p className="mb-5 border-l-4 border-oxblood pl-3">
+        <Faixa tom="bordo">
           <strong>{p.contagens.revisao}</strong> episódio(s) esperando a sua aprovação: estão na coluna Revisão.
-        </p>
+        </Faixa>
       )}
-      <Abas atual={atual} escolher={setAba} opcoes={opcoes} />
+      <Abas rotulo="Podcast" valor={atual} aoMudar={setAba} opcoes={opcoes} />
 
       {atual === "episodios" && (
         <div className="space-y-5">
           <div className="flex flex-wrap items-end gap-3">
             {(eu.producao || eu.supervisao) && (
-              <form className="flex flex-1 flex-wrap items-end gap-2" onSubmit={(ev) => { ev.preventDefault(); void criar(); }}>
-                <label className="block min-w-60 flex-1">
-                  Novo episódio
-                  <input value={titulo} onChange={(ev) => setTitulo(ev.target.value)} placeholder="Título provisório" minLength={3} maxLength={140} required className={campo} />
-                </label>
-                <button type="submit" className={botao}>Criar</button>
+              <form className="flex min-w-60 flex-1 flex-wrap items-end gap-2" onSubmit={(ev) => { ev.preventDefault(); void criar(); }}>
+                <div className="min-w-60 flex-1">
+                  <Campo rotulo="Novo episódio" value={titulo} onChange={(ev) => setTitulo(ev.target.value)} placeholder="Título provisório" minLength={3} maxLength={140} required />
+                </div>
+                <Botao type="submit" variante="principal" simbolo={Plus}>Criar</Botao>
               </form>
             )}
-            <label className="block w-56">
-              Procurar
-              <input type="search" value={busca} onChange={(ev) => setBusca(ev.target.value)} className={campo} />
-            </label>
+            <div className="w-56">
+              <Busca rotulo="Procurar" rotuloVisivel valor={busca} aoMudar={setBusca} />
+            </div>
           </div>
           <Aviso texto={aviso} />
           {/* O quadro: uma coluna por etapa de trabalho (rola de lado em tela pequena). O que já está no ar vem embaixo, em lista. */}
-          <div className="-mx-5 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8">
-            <div className="grid min-w-[54rem] grid-cols-6 gap-2">
+          <div className="-mx-1 overflow-x-auto px-1 pb-3">
+            <div className="grid min-w-[60rem] grid-cols-6 gap-2">
               {ETAPAS.filter((etapa) => etapa !== "publicado").map((etapa) => {
                 const coluna = visiveis.filter((e) => e.status === etapa);
+                const chama = (etapa === "revisao" || etapa === "aprovado") && coluna.length > 0;
                 return (
-                  <section key={etapa} aria-label={NOME_DA_ETAPA[etapa]} className={`min-h-40 p-2 ${(etapa === "revisao" || etapa === "aprovado") && coluna.length ? "bg-[#c21f16]/10" : "bg-parchment-deep"}`}>
-                    <h3 className="flex items-baseline justify-between border-b-2 border-ink pb-1 font-sans text-xs font-black uppercase italic">
-                      {NOME_DA_ETAPA[etapa]}
-                      <span className="font-mono not-italic">{coluna.length}</span>
+                  <Cartao
+                    key={etapa}
+                    aria-label={NOME_DA_ETAPA[etapa]}
+                    variante={chama ? "destaque" : "plano"}
+                    className="min-h-40 p-2!"
+                  >
+                    <h3 className="flex items-center justify-between gap-1 border-b border-[var(--pn-borda)] pb-1.5">
+                      <Selo tom={TOM_DA_ETAPA[etapa]} ponto>{NOME_DA_ETAPA[etapa]}</Selo>
+                      <span className="pn-rotulo-mono">{coluna.length}</span>
                     </h3>
-                    <p className="mt-1 text-[0.7rem] leading-tight text-ink-soft">{SOBRE_A_ETAPA[etapa]}</p>
-                    <ul className="mt-2 space-y-2">
-                      {coluna.map((e) => (
-                        <li key={e.id}>
-                          <Cartao e={e} abrir={() => abrir(e.id)} series={p.series} />
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+                    <p className="mt-1.5 text-[0.72rem] leading-tight text-ink-soft">{SOBRE_A_ETAPA[etapa]}</p>
+                    {coluna.length > 0 && (
+                      <Lista rotulo={NOME_DA_ETAPA[etapa]} className="mt-2!">
+                        {coluna.map((e) => (
+                          <ItemDeLista key={e.id} titulo={<Episodio e={e} series={p.series} />} aoClicar={() => abrir(e.id)} />
+                        ))}
+                      </Lista>
+                    )}
+                  </Cartao>
                 );
               })}
             </div>
           </div>
-          {visiveis.some((e) => e.status === "publicado") && (
-            <section aria-labelledby="no-ar">
-              <h3 id="no-ar" className="flex items-baseline gap-3 border-b-2 border-ink pb-1 font-sans text-xs font-black uppercase italic">
-                {NOME_DA_ETAPA.publicado}
-                <span className="font-mono not-italic">{visiveis.filter((e) => e.status === "publicado").length}</span>
+          {noAr.length > 0 && (
+            <section aria-labelledby="no-ar" className="space-y-2">
+              <h3 id="no-ar" className="flex items-center gap-2">
+                <span className="pn-rotulo-mono">{NOME_DA_ETAPA.publicado}</span>
+                <span className="pn-rotulo-mono">{noAr.length}</span>
               </h3>
-              <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {visiveis
-                  .filter((e) => e.status === "publicado")
-                  .sort((x, y) => (y.publicado_em ?? "").localeCompare(x.publicado_em ?? ""))
-                  .map((e) => (
-                    <li key={e.id}>
-                      <Cartao e={e} abrir={() => abrir(e.id)} series={p.series} />
-                    </li>
-                  ))}
-              </ul>
+              <Lista rotulo={NOME_DA_ETAPA.publicado} className="grid sm:grid-cols-2 lg:grid-cols-3">
+                {noAr.map((e) => (
+                  <ItemDeLista key={e.id} titulo={<Episodio e={e} series={p.series} />} aoClicar={() => abrir(e.id)} />
+                ))}
+              </Lista>
             </section>
           )}
-          {p.episodios.length === 0 && <p className="text-ink-soft">Nenhum episódio ainda. Crie o primeiro acima, ou escolha uma pauta na aba Pautas.</p>}
-          <p className="border-l-4 border-gold pl-3 text-ink-soft">
-            Não sabe como o episódio chega ao site? A aba <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => setAba("publicar")}>Publicar: passo a passo</button> mostra os seis passos, com o que já está feito e um botão para cada um.
-          </p>
+          {p.episodios.length === 0 && <Vazio titulo="Nenhum episódio ainda." texto="Crie o primeiro acima, ou escolha uma pauta na aba Pautas." />}
+          <Faixa tom="info">
+            Não sabe como o episódio chega ao site? A aba <button type="button" className="pn-elo" onClick={() => setAba("publicar")}>Publicar: passo a passo</button> mostra os seis passos, com o que já está feito e um botão para cada um.
+          </Faixa>
           <details className="text-ink-soft">
-            <summary className="cursor-pointer">O que precisa para publicar</summary>
+            <summary className="cursor-pointer rounded-[var(--pn-raio)] focus-visible:outline-2">O que precisa para publicar</summary>
             <ul className="mt-2 list-disc pl-5">
               {Object.values(PENDENCIAS).map((x) => <li key={x}>{x}</li>)}
             </ul>
@@ -214,23 +225,22 @@ export function Podcast() {
       {atual === "trilhas" && <Trilhas podeEditar={eu.producao || eu.edicao || eu.supervisao} />}
       {atual === "artes" && (
         <div className="space-y-3">
-          <p className="text-ink-soft">Capas e artes com a identidade do instituto. Para pôr a capa direto num episódio, abra o episódio (aba Publicação).</p>
+          <p className="pn-sobre">Capas e artes com a identidade do instituto. Para pôr a capa direto num episódio, abra o episódio (aba Publicação).</p>
           <EstudioDeArte inicial={{ programa: p.config.nome }} />
         </div>
       )}
       {atual === "cortes" && (
         <div className="space-y-4">
-          <label className="block max-w-md">
-            Episódio
-            <select value={cortarDe} onChange={(ev) => setCortarDe(ev.target.value)} className={campo}>
+          <div className="max-w-md">
+            <Selecao rotulo="Episódio" value={cortarDe} onChange={(ev) => setCortarDe(ev.target.value)}>
               <option value="">Escolha…</option>
               {p.episodios.map((e) => <option key={e.id} value={e.id}>{e.titulo}</option>)}
-            </select>
-          </label>
+            </Selecao>
+          </div>
           {paraCortar ? (
             <CortesDoEpisodio id={paraCortar.id} programa={p.config.nome} />
           ) : (
-            <p className="text-ink-soft">Escolha um episódio: o corte usa o áudio final, a capa e as legendas dele.</p>
+            <Vazio titulo="Escolha um episódio: o corte usa o áudio final, a capa e as legendas dele." />
           )}
         </div>
       )}
@@ -238,7 +248,7 @@ export function Podcast() {
       {atual === "numeros" && <Numeros />}
       {atual === "guia" && <Guia />}
       {atual === "ajustes" && <Ajustes painel={p} recarregar={painel.recarregar} />}
-      <p className={`${rotulo} mt-10`}>Episódios no site: {p.episodios.filter((e) => e.status === "publicado").length}</p>
+      <p className="pn-rotulo-mono mt-10">Episódios no site: {p.episodios.filter((e) => e.status === "publicado").length}</p>
     </div>
   );
 }
@@ -246,6 +256,7 @@ export function Podcast() {
 function CortesDoEpisodio({ id, programa }: { id: string; programa: string }) {
   const ver = useLista<{ titulo: string; capa: string; capa_mini: string; audio: string; audio_guardado: boolean; legendas: string }>("podcast_ver", { p_id: id });
   const e = ver.dados;
-  if (!e) return <p className="font-mono text-xs text-ink-soft">Carregando…</p>;
+  if (ver.erro) return <Faixa tom="erro" acao={<Botao pequeno onClick={ver.recarregar}>Tentar de novo</Botao>}>{ver.erro}</Faixa>;
+  if (!e) return <Esqueleto forma="linhas" />;
   return <GeradorDeCortes key={id} episodio={{ titulo: e.titulo, programa, capa: e.capa_mini || e.capa, audio: e.audio_guardado ? e.audio : "", legendas: e.legendas }} />;
 }

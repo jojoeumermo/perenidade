@@ -4,7 +4,7 @@
 // As peças da interface do estúdio: o contexto do editor (o que todos os painéis leem e mudam), seções, campos
 // numéricos, faixas, a escolha de cor (paleta, cor livre e conta-gotas), botões de ícone e menus.
 
-import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
+import { createContext, type CSSProperties, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import type { Me } from "@/lib/backend";
 import type { Abertura } from "./Estudio";
 import { Icone } from "./Icone";
@@ -86,6 +86,90 @@ export function useEditor(): Editor {
   const e = useContext(ContextoDoEditor);
   if (!e) throw new Error("useEditor fora do estúdio");
   return e;
+}
+
+/**
+ * As cores da interface do editor. As classes do kit leem as variáveis --e-* (app/globals.css); dentro do painel, elas
+ * passam a apontar para os tokens do tema do painel (styles/painel-tema.css, contrato em docs/PAINEL-REDESENHO.md):
+ * papel quente, tinta, bordô de luta, e o claro, o escuro e o alto contraste valem sozinhos. Com "interface escura"
+ * escolhida no próprio estúdio, as superfícies vão para a tinta do menu lateral (--pn-menu-*), escura nos dois temas.
+ * No Laboratório de Design (página pública, sem o tema do painel) e com "interface clara", ficam as cores de sempre do
+ * estúdio. A tela de desenho (o palco e a arte) e as paletas da marca não passam por aqui: são a obra, não a interface.
+ */
+const CORES_DO_PAINEL = {
+  "--e-fundo": "var(--pn-fundo)",
+  "--e-painel": "var(--pn-superficie)",
+  "--e-campo": "var(--pn-fundo)",
+  "--e-tinta": "var(--pn-texto)",
+  "--e-suave": "var(--pn-texto-mudo)",
+  "--e-fio": "var(--pn-borda)",
+  "--e-bordo": "var(--pn-destaque-vivo)",
+  "--e-bordo-claro": "var(--pn-destaque-suave)",
+  "--e-ouro": "var(--pn-ouro)",
+  "--e-erro": "var(--pn-erro)",
+  "--e-sobre-erro": "var(--pn-fundo)",
+  "--e-ok": "var(--pn-ok)",
+  "--e-sobre-ok": "var(--pn-fundo)",
+  "--e-veu": "var(--pn-veu)",
+  "--e-sombra": "var(--pn-sombra-flutuante)",
+};
+/** "Interface escura" escolhida no estúdio: a tinta do menu lateral. Erro e certo nos tons claros do tema escuro do painel. */
+const CORES_EM_TINTA = {
+  "--e-fundo": "var(--pn-menu-fundo)",
+  "--e-painel": "var(--pn-menu-fundo)",
+  "--e-campo": "var(--pn-menu-superficie)",
+  "--e-tinta": "var(--pn-menu-texto)",
+  "--e-suave": "var(--pn-menu-texto-suave)",
+  "--e-fio": "var(--pn-menu-borda)",
+  "--e-bordo": "var(--pn-menu-destaque)",
+  "--e-bordo-claro": "var(--pn-menu-ativo)",
+  "--e-ouro": "var(--pn-menu-ouro)",
+  "--e-erro": "#f08277",
+  "--e-sobre-erro": "#16130f",
+  "--e-ok": "#8fc796",
+  "--e-sobre-ok": "#16130f",
+  "--e-veu": "rgb(0 0 0 / 0.62)",
+  "--e-sombra": "0 12px 32px rgb(0 0 0 / 0.55)",
+};
+/** Fora do tema do painel (laboratório) ou com "interface clara": as cores de sempre do estúdio para o que não tinha variável. */
+const CORES_DE_SEMPRE = {
+  "--e-erro": "#c21f16",
+  "--e-sobre-erro": "#ffffff",
+  "--e-ok": "#2f5d34",
+  "--e-sobre-ok": "#ffffff",
+  "--e-veu": "rgba(23, 19, 14, 0.55)",
+  "--e-sombra": "0 12px 32px rgba(23, 19, 14, 0.22)",
+};
+
+/**
+ * Fora do tema do painel, mas com a interface escura (o site no tema escuro ou "interface escura" escolhida): o vermelho e
+ * o verde de sempre ficariam sem contraste sobre o fundo escuro do estúdio (#1d1b17), então vão os tons claros.
+ */
+const CORES_DE_SEMPRE_NO_ESCURO = {
+  "--e-erro": "#f08277",
+  "--e-sobre-erro": "#141310",
+  "--e-ok": "#8fc796",
+  "--e-sobre-ok": "#141310",
+  "--e-veu": "rgb(0 0 0 / 0.62)",
+  "--e-sombra": "0 12px 32px rgb(0 0 0 / 0.55)",
+};
+
+/** A interface do estúdio fica escura (mesma regra de app/globals.css para as variáveis --e-*)? */
+function interfaceEscura(tema: "" | "claro" | "escuro"): boolean {
+  if (tema) return tema === "escuro";
+  if (typeof document === "undefined") return false;
+  const doSite = document.documentElement.getAttribute("data-theme");
+  if (doSite) return doSite === "dark";
+  return typeof window !== "undefined" && !!window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+}
+
+/** O estilo da raiz do editor (.estudio-app): de onde a interface tira as cores. */
+export function coresDaInterface(tema: "" | "claro" | "escuro", laboratorio: boolean): CSSProperties {
+  if (laboratorio || tema === "claro") return (interfaceEscura(tema) ? CORES_DE_SEMPRE_NO_ESCURO : CORES_DE_SEMPRE) as CSSProperties;
+  // Alto contraste e tinta eletrônica: a tinta do menu vira papel branco nesses modos, e o erro e o certo escritos à mão
+  // em CORES_EM_TINTA (claros, feitos para fundo escuro) ficariam sem contraste. Os tokens do painel já resolvem tudo.
+  const contraste = typeof document !== "undefined" && document.documentElement.matches("[data-contrast], [data-eink]");
+  return (tema === "escuro" && !contraste ? CORES_EM_TINTA : CORES_DO_PAINEL) as CSSProperties;
 }
 
 /** Classes repetidas. */
@@ -269,7 +353,7 @@ export function Menu({ aberto, fechar, children, className = "", alinhar = "esqu
   }, [aberto, fechar]);
   if (!aberto) return null;
   return (
-    <div ref={ref} role="menu" className={`estudio-surge absolute top-full z-30 mt-1.5 min-w-56 rounded-lg border border-e-fio bg-e-painel p-1.5 text-sm text-e-tinta shadow-[0_12px_32px_rgba(23,19,14,0.22)] ${alinhar === "direita" ? "right-0" : "left-0"} ${className}`}>
+    <div ref={ref} role="menu" className={`estudio-surge absolute top-full z-30 mt-1.5 min-w-56 rounded-lg border border-e-fio bg-e-painel p-1.5 text-sm text-e-tinta [box-shadow:var(--e-sombra)] ${alinhar === "direita" ? "right-0" : "left-0"} ${className}`}>
       {children}
     </div>
   );
@@ -277,7 +361,7 @@ export function Menu({ aberto, fechar, children, className = "", alinhar = "esqu
 
 export function ItemDeMenu({ icone, rotulo, atalho, onClick, disabled, perigo }: { icone?: NomeDoIcone; rotulo: string; atalho?: string; onClick: () => void; disabled?: boolean; perigo?: boolean }) {
   return (
-    <button type="button" role="menuitem" disabled={disabled} onClick={onClick} className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-2 text-left hover:bg-e-bordo-claro disabled:cursor-not-allowed disabled:opacity-40 ${perigo ? "text-[#c21f16]" : ""}`}>
+    <button type="button" role="menuitem" disabled={disabled} onClick={onClick} className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-2 text-left hover:bg-e-bordo-claro disabled:cursor-not-allowed disabled:opacity-40 ${perigo ? "text-[var(--e-erro)]" : ""}`}>
       {icone ? <Icone nome={icone} className="h-4 w-4 text-e-suave" /> : <span className="w-4" />}
       <span className="min-w-0 flex-1 truncate">{rotulo}</span>
       {atalho && <kbd className="font-mono text-[0.68rem] text-e-suave">{atalho}</kbd>}
@@ -315,8 +399,8 @@ export function Dialogo({ titulo, fechar, children, largura = "max-w-3xl", rodap
     };
   }, [fechar]);
   return (
-    <div className="fixed inset-0 z-[95] flex items-end justify-center bg-[rgba(23,19,14,0.55)] p-0 sm:items-center sm:p-6" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
-      <div ref={ref} role="dialog" aria-modal="true" aria-label={titulo} className={`estudio-surge flex max-h-[92dvh] w-full ${largura} flex-col rounded-t-xl border border-e-fio bg-e-painel text-e-tinta shadow-2xl sm:rounded-xl`}>
+    <div className="fixed inset-0 z-[95] flex items-end justify-center bg-[var(--e-veu)] p-0 sm:items-center sm:p-6" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
+      <div ref={ref} role="dialog" aria-modal="true" aria-label={titulo} className={`estudio-surge flex max-h-[92dvh] w-full ${largura} flex-col rounded-t-xl border border-e-fio bg-e-painel text-e-tinta [box-shadow:var(--e-sombra)] sm:rounded-xl`}>
         <div className="flex items-center justify-between border-b border-e-fio px-5 py-3.5">
           <h2 className="font-serif text-xl font-semibold">{titulo}</h2>
           <button type="button" data-fechar className={BOTAO_ICONE} onClick={fechar} aria-label="Fechar">

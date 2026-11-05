@@ -319,7 +319,7 @@ export function Publicar({ fechar }: { fechar: () => void }) {
               <li key={p.id} className="flex items-center gap-3 py-2">
                 <span className="min-w-0 flex-1 truncate">
                   {p.titulo} <span className="text-e-suave">· {new Date(p.quando).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })} · {p.autor}</span>
-                  {p.erro && <span className="block text-xs text-[#c21f16]">{p.erro}</span>}
+                  {p.erro && <span className="block text-xs text-[var(--e-erro)]">{p.erro}</span>}
                 </span>
                 <span className="text-xs">{{ agendada: "Agendada", publicada: "Publicada", falhou: "Falhou", cancelada: "Cancelada" }[p.status]}</span>
                 {p.status === "agendada" && (

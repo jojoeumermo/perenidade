@@ -37,7 +37,7 @@ export function Janelas({ fotoEmEdicao, fecharFoto, redesenhar }: { comandos: Co
 }
 
 const NIVEL: Record<Problema["nivel"], { nome: string; cor: string }> = {
-  erro: { nome: "Resolver", cor: "text-[#c21f16]" },
+  erro: { nome: "Resolver", cor: "text-[var(--e-erro)]" },
   aviso: { nome: "Conferir", cor: "text-e-ouro" },
   dica: { nome: "Dica", cor: "text-e-suave" },
 };
@@ -55,7 +55,7 @@ function Conferencia({ fechar }: { fechar: () => void }) {
     <Dialogo titulo="Conferir antes de postar" fechar={fechar} largura="max-w-2xl" rodape={<button type="button" className={BOTAO_PRIMARIO} onClick={() => ed.setJanela("baixar")}>Ir para Baixar</button>}>
       {!problemas.length ? (
         <p className="flex items-center gap-2 text-sm">
-          <Icone nome="aprovar" className="h-6 w-6 text-[#2f5d34]" /> Tudo certo: contraste, tamanho de letra, cores, áreas do Instagram, legenda e textos alternativos.
+          <Icone nome="aprovar" className="h-6 w-6 text-[var(--e-ok)]" /> Tudo certo: contraste, tamanho de letra, cores, áreas do Instagram, legenda e textos alternativos.
         </p>
       ) : (
         <ul className="divide-y divide-e-fio">

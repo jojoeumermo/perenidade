@@ -1,14 +1,16 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { ArrowRight, BookOpenText, Clock3, type LucideIcon, PenLine, Radio } from "lucide-react";
+import { type ReactNode, useEffect, useState } from "react";
 import { can, type Me, porNivel, type Role, rpc } from "@/lib/backend";
 import { L } from "../I18n";
 import { localDoPainel } from "./comum";
+import { Botao, Cartao, Selo } from "./ui";
 
 // Os quadros da Mesa desenhados na prancheta "Painel moderno": o que está ao vivo agora, o que acabou de chegar no site,
 // o rascunho para continuar, as horas do mês e uma dica do tutorial. Cada um some quando não tem nada a mostrar, e um
-// banco antigo (sem a função) não quebra a Mesa.
+// banco antigo (sem a função) não quebra a Mesa. Desenho só pelos componentes de ui/ e pelos tokens do tema.
 
 /** O departamento de cada função e as seções dele, para o grupo "Meu departamento" no alto do menu. */
 const DEPARTAMENTOS: { papeis: Role["papel"][]; nome: string; secoes: string[] }[] = [
@@ -80,6 +82,16 @@ interface Encontro {
   status: "agendada" | "ao_vivo" | "encerrada" | "cancelada";
 }
 
+/** O rótulo em mono, no alto de cada quadro (com um ícone pequeno à esquerda). */
+function Rotulo({ simbolo: Simbolo, children }: { simbolo: LucideIcon; children: ReactNode }) {
+  return (
+    <p className="pn-rotulo-mono flex items-center gap-1.5">
+      <Simbolo aria-hidden width={13} height={13} />
+      {children}
+    </p>
+  );
+}
+
 /** A reunião ou a aula que está acontecendo agora (ou a próxima, se começa em menos de duas horas). */
 export function AgoraAoVivo({ me, ir }: { me: Me; ir: (aba: string) => void }) {
   const voluntario = me.papeis.length > 0;
@@ -95,17 +107,25 @@ export function AgoraAoVivo({ me, ir }: { me: Me; ir: (aba: string) => void }) {
   if (!e) return null;
   const aoVivo = e.status === "ao_vivo";
   return (
-    <section aria-label={aoVivo ? "Ao vivo agora" : "Daqui a pouco"} className="border-2 border-ink bg-[#1f1a14] p-4 text-[#f4ecd8] shadow-[4px_4px_0_var(--prelo)]">
-      <p className="flex items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[#ff8a80]">
-        {aoVivo && <span aria-hidden className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#ff5a4f]" />}
-        {aoVivo ? "Agora · ao vivo" : `Daqui a pouco · ${hora(e.inicio)}`}
-      </p>
-      <p className="mt-1.5 font-serif text-xl font-semibold leading-snug">{e.titulo}</p>
-      <p className="mt-0.5 text-xs text-[#cdbb91]">{e.onde === "aula" ? "Aula ao vivo" : "Reunião da equipe"}</p>
-      <button type="button" onClick={() => ir(e.onde === "aula" ? "aovivo" : "conversas")} className="mt-3 cursor-pointer border-2 border-[#f4ecd8] bg-[#c21f16] px-3 py-1.5 text-sm font-bold text-white hover:bg-[#a51810]">
-        {aoVivo ? "Entrar na sala" : "Ver na agenda"}
-      </button>
-    </section>
+    <Cartao
+      variante="destaque"
+      aria-label={aoVivo ? "Ao vivo agora" : "Daqui a pouco"}
+      acoes={
+        <Botao variante="principal" pequeno simboloFim={ArrowRight} onClick={() => ir(e.onde === "aula" ? "aovivo" : "conversas")}>
+          {aoVivo ? "Entrar na sala" : "Ver na agenda"}
+        </Botao>
+      }
+    >
+      <div className="grid gap-1">
+        <p>
+          <Selo tom="bordo" ponto={aoVivo}>
+            {aoVivo ? "Agora · ao vivo" : `Daqui a pouco · ${hora(e.inicio)}`}
+          </Selo>
+        </p>
+        <p className="pn-cartao-titulo">{e.titulo}</p>
+        <p className="pn-ajuda">{e.onde === "aula" ? "Aula ao vivo" : "Reunião da equipe"}</p>
+      </div>
+    </Cartao>
   );
 }
 
@@ -119,20 +139,24 @@ export function NoSiteAgora({ acompanha, ir }: { acompanha: boolean; ir: (aba: s
   const itens = dados?.itens?.slice(0, 3) ?? [];
   if (!acompanha || itens.length === 0) return null;
   return (
-    <section aria-label="No site agora" className="border-2 border-ink bg-folha p-4 shadow-[4px_4px_0_var(--sombra)]">
-      <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">No site agora</p>
-      <ul className="mt-2 space-y-2">
+    <Cartao
+      aria-label="No site agora"
+      rodape={
+        <Botao variante="discreto" pequeno simboloFim={ArrowRight} onClick={() => ir("atividade")}>
+          Toda a atividade
+        </Botao>
+      }
+    >
+      <Rotulo simbolo={Radio}>No site agora</Rotulo>
+      <ul className="mt-2 grid gap-2">
         {itens.map((item) => (
           <li key={item.id} className="grid grid-cols-[3rem_minmax(0,1fr)] gap-2 text-[0.85rem] leading-snug">
-            <span className="font-mono text-xs text-ink-soft">{hora(item.criado_em)}</span>
+            <span className="pn-rotulo-mono tabular-nums">{hora(item.criado_em)}</span>
             <span className="min-w-0">{item.titulo}</span>
           </li>
         ))}
       </ul>
-      <button type="button" onClick={() => ir("atividade")} className="mt-3 cursor-pointer text-sm font-bold underline decoration-[#c21f16] underline-offset-4 hover:text-prelo-texto">
-        Toda a atividade →
-      </button>
-    </section>
+    </Cartao>
   );
 }
 
@@ -143,10 +167,10 @@ export function Continuar() {
   if (!r) return null;
   const tipo = r.chave.slice("escrever:".length);
   return (
-    <L href={`/painel?aba=escrever&tipo=${encodeURIComponent(tipo)}`} className="group block border-2 border-ink bg-folha p-4 text-ink shadow-[4px_4px_0_var(--sombra)] hover:text-ink hover:shadow-[4px_4px_0_var(--prelo)]">
-      <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">Continuar</span>
-      <span className="mt-1 block font-serif text-lg font-semibold leading-snug group-hover:text-prelo-texto">{r.titulo}</span>
-      <span className="mt-0.5 block text-xs text-ink-soft">Rascunho salvo {ha(r.atualizado_em)}</span>
+    <L href={`/painel?aba=escrever&tipo=${encodeURIComponent(tipo)}`} className="pn-cartao pn-cartao-interativo grid gap-1 no-underline">
+      <Rotulo simbolo={PenLine}>Continuar</Rotulo>
+      <span className="pn-cartao-titulo">{r.titulo}</span>
+      <span className="pn-ajuda">Rascunho salvo {ha(r.atualizado_em)}</span>
     </L>
   );
 }
@@ -158,13 +182,11 @@ export function SuasHoras({ me, ir }: { me: Me; ir: (aba: string) => void }) {
   const livres = Math.round(Number(horas.livres) * 10) / 10;
   const pendentes = Math.round(Number(horas.pendentes) * 10) / 10;
   return (
-    <button type="button" onClick={() => ir("horas")} className="group block w-full cursor-pointer border-2 border-ink bg-folha p-4 text-left shadow-[4px_4px_0_var(--sombra)] hover:shadow-[4px_4px_0_var(--prelo)]">
-      <span className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">Suas horas</span>
-      <span className="mt-1 block font-serif text-lg font-semibold leading-snug group-hover:text-prelo-texto">
-        {livres > 0 ? `${String(livres).replace(".", ",")} h para o próximo certificado` : "Cada tarefa feita no painel já conta horas"}
-      </span>
-      {pendentes > 0 && <span className="mt-0.5 block text-xs text-ink-soft">{String(pendentes).replace(".", ",")} h esperando a conferência</span>}
-    </button>
+    <Cartao as="div" interativo onClick={() => ir("horas")} className="grid gap-1">
+      <Rotulo simbolo={Clock3}>Suas horas</Rotulo>
+      <span className="pn-cartao-titulo tabular-nums">{livres > 0 ? `${String(livres).replace(".", ",")} h para o próximo certificado` : "Cada tarefa feita no painel já conta horas"}</span>
+      {pendentes > 0 && <span className="pn-ajuda tabular-nums">{String(pendentes).replace(".", ",")} h esperando a conferência</span>}
+    </Cartao>
   );
 }
 
@@ -172,12 +194,17 @@ export function SuasHoras({ me, ir }: { me: Me; ir: (aba: string) => void }) {
 export function DicaDoTutorial({ abrir }: { abrir: () => void }) {
   const [dia] = useState(() => Math.floor(Date.now() / 86_400_000));
   return (
-    <section aria-label="Dica do tutorial" className="border-2 border-dashed border-ink bg-parchment p-4 text-sm">
-      <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-ink-soft">Dica do tutorial</p>
+    <Cartao
+      variante="plano"
+      aria-label="Dica do tutorial"
+      rodape={
+        <Botao variante="discreto" pequeno simboloFim={ArrowRight} onClick={abrir}>
+          Rever o passo a passo
+        </Botao>
+      }
+    >
+      <Rotulo simbolo={BookOpenText}>Dica do tutorial</Rotulo>
       <p className="mt-1.5 leading-snug">{DICAS[dia % DICAS.length]}</p>
-      <button type="button" onClick={abrir} className="mt-2 cursor-pointer font-bold underline decoration-[#c21f16] underline-offset-4 hover:text-prelo-texto">
-        Rever o passo a passo →
-      </button>
-    </section>
+    </Cartao>
   );
 }

@@ -2,17 +2,21 @@
 "use client";
 
 import { type ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, type SortingState, useReactTable } from "@tanstack/react-table";
-import { type ReactNode, useState } from "react";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { type CSSProperties, type ReactNode, useState } from "react";
 import { Botao } from "./Botao";
+import { Busca } from "./Campo";
+import { cx } from "./cx";
 import { Vazio } from "./Vazio";
 
 const simples = (t: string) => t.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 
 /**
- * A tabela do painel (TanStack Table): ordem por coluna, busca de texto sem acento, páginas. Sem dado, mostra o estado vazio.
- * "legenda" é obrigatória (leitor de tela); "busca" liga a caixa de busca; "porPagina" liga a paginação.
+ * A tabela do painel (TanStack Table): ordem por coluna, busca de texto sem acento, páginas, cabeçalho preso ao rolar
+ * (com "alturaMaxima"). Sem dado, mostra o estado vazio. "legenda" é obrigatória (leitor de tela); "busca" liga a caixa de
+ * busca; "porPagina" liga a paginação; "densa" aperta as linhas.
  */
-export function Tabela<T>({ dados, colunas, legenda, busca = false, porPagina, vazio, aoClicarLinha }: { dados: T[]; colunas: ColumnDef<T>[]; legenda: string; busca?: boolean; porPagina?: number; vazio?: ReactNode; aoClicarLinha?: (linha: T) => void }) {
+export function Tabela<T>({ dados, colunas, legenda, busca = false, porPagina, vazio, aoClicarLinha, densa, alturaMaxima }: { dados: T[]; colunas: ColumnDef<T>[]; legenda: string; busca?: boolean; porPagina?: number; vazio?: ReactNode; aoClicarLinha?: (linha: T) => void; densa?: boolean; alturaMaxima?: string }) {
   const [ordem, setOrdem] = useState<SortingState>([]);
   const [filtro, setFiltro] = useState("");
   // O TanStack devolve funções que o compilador do React não memoriza; aqui só se lê a tabela no mesmo render, sem repassar a filhos memorizados.
@@ -36,28 +40,28 @@ export function Tabela<T>({ dados, colunas, legenda, busca = false, porPagina, v
   return (
     <div style={{ display: "grid", gap: "0.6rem" }}>
       {busca && (
-        <label className="pn-barra-ferramentas">
-          <span className="sr-only">Buscar na tabela: {legenda}</span>
-          <input type="search" className="pn-campo" style={{ maxWidth: "22rem" }} value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder="Buscar" />
-        </label>
+        <div style={{ maxWidth: "22rem" }}>
+          <Busca rotulo={`Buscar na tabela: ${legenda}`} valor={filtro} aoMudar={setFiltro} placeholder="Buscar" />
+        </div>
       )}
       {linhas.length === 0 ? (
         (vazio ?? <Vazio titulo="Nada por aqui" texto={filtro ? "Nenhum registro com essa busca." : undefined} />)
       ) : (
-        <div className="pn-tabela-caixa">
-          <table className="pn-tabela">
+        <div className="pn-tabela-caixa" style={alturaMaxima ? ({ "--pn-tabela-altura": alturaMaxima } as CSSProperties) : undefined}>
+          <table className={cx("pn-tabela", densa && "pn-tabela-densa")}>
             <caption className="sr-only">{legenda}</caption>
             <thead>
               {tabela.getHeaderGroups().map((g) => (
                 <tr key={g.id}>
                   {g.headers.map((h) => {
                     const sentido = h.column.getIsSorted();
+                    const Seta = sentido === "asc" ? ArrowUp : sentido === "desc" ? ArrowDown : ArrowUpDown;
                     return (
                       <th key={h.id} scope="col" aria-sort={sentido === "asc" ? "ascending" : sentido === "desc" ? "descending" : undefined}>
                         {h.isPlaceholder ? null : h.column.getCanSort() ? (
                           <button type="button" className="pn-ordenar" onClick={h.column.getToggleSortingHandler()}>
                             {flexRender(h.column.columnDef.header, h.getContext())}
-                            <span aria-hidden>{sentido === "asc" ? "▲" : sentido === "desc" ? "▼" : ""}</span>
+                            <Seta aria-hidden style={sentido ? undefined : { opacity: 0.45 }} />
                           </button>
                         ) : (
                           flexRender(h.column.columnDef.header, h.getContext())

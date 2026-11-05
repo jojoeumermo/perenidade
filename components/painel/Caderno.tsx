@@ -36,13 +36,13 @@ export function CadernoNoPainel({ modo = "painel" }: { modo?: "painel" | "podcas
   }, [lang]);
   const s = carregado?.lang === lang ? carregado.s : pt.notebook;
   return (
-    <div className="-mt-6">
-      <p className="max-w-3xl text-ink-soft">
+    <div className="pn-tela">
+      <p className="pn-sobre" style={{ marginTop: 0 }}>
         {modo === "podcast"
           ? "Junte as fontes do episódio (aulas e obras do site, textos, arquivos) e o caderno extrai o resumo, as palavras que precisam ser explicadas, a linha do tempo e um esboço de roteiro no gabarito do programa. Tudo fica neste navegador."
           : "Junte as fontes da aula que vai escrever (aulas vizinhas, obras do acervo, textos seus) e o caderno extrai resumo, palavras-chave, cartões, questionário, mapa e linha do tempo. É a mesma sala de estudo do site, em institutolucia.org/caderno, aberta a todos."}
       </p>
-      <div data-original>
+      <div data-original className="min-w-0">
         <CadernoDeEstudos s={s} modo={modo} />
       </div>
     </div>

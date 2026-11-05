@@ -6,8 +6,8 @@ import { Escritorio } from "../labs/Escritorio";
 /** O escritório no painel: texto, planilha e apresentação para o trabalho da equipe, sem sair do site. */
 export function EscritorioNoPainel() {
   return (
-    <section>
-      <p className="text-sm text-ink-soft">Documentos, planilhas e apresentações para o trabalho da equipe: abrem e salvam .docx, .xlsx e .pptx.</p>
+    <section className="pn-tela" aria-label="Escritório">
+      <p className="pn-sobre" style={{ marginTop: 0 }}>Documentos, planilhas e apresentações para o trabalho da equipe: abrem e salvam .docx, .xlsx e .pptx.</p>
       <Escritorio
         inicial="wordcraft"
         s={{

@@ -1,14 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { BadgeCheck, Camera, Check, KeyRound, MonitorSmartphone, RotateCcw, ShieldAlert, ShieldCheck, Trash2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { BackendError, rpc } from "@/lib/backend";
 import { type Aberto, type Alerta, type Chaveiro, chaveiroDe, aparelhosMigrados, recomecar } from "@/lib/chaveiro";
 import { desempacotar } from "@/lib/mensagem";
 import { chaveDeRecuperacaoValida, codigoDeSeguranca, codigoEmGrupos, lerQrDaSeguranca, lerQrDoPedido, novaChaveDeRecuperacao, qrDaSeguranca, qrDoPedido } from "@/lib/sigilo";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoErro, useLista } from "./comum";
+import { Aviso, data, dataHora, rotulo, textoDoErro, useLista } from "./comum";
 import { Formatado } from "./Formatado";
-import { confirmarFrase } from "./ui";
+import { Botao, Cartao, Faixa, Selo, confirmarFrase } from "./ui";
 
 /** O texto cifrado precisa caber no banco (4000 caracteres); acento e emoji ocupam mais do que uma letra simples. */
 export const LIMITE_CIFRADO = 12000;
@@ -98,7 +99,8 @@ export function TextoAberto({ aberto, antiga = false }: { aberto: Aberto | null 
     <>
       <Formatado texto={desempacotar(aberto.texto).texto} />
       {aberto.autoria === "invalida" && (
-        <span className="mt-1 block border-l-2 border-oxblood pl-2 text-xs font-semibold not-italic text-oxblood">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>
+        // Sem role="alert": isto aparece dentro do histórico, e cada mensagem assim interromperia o leitor de tela ao abrir a conversa.
+        <span className="mt-1 block border-l-2 border-[var(--pn-erro)] pl-2 text-xs font-semibold not-italic text-[var(--pn-erro)]">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>
       )}
       {aberto.autoria === "sem_identidade" && <span className="mt-1 block text-[0.65rem] not-italic opacity-70">Autor ainda sem identidade conhecida neste aparelho.</span>}
     </>
@@ -141,7 +143,10 @@ export async function enviarCifrado<T = unknown>(chaveiro: Chaveiro, conversa: s
 
 // ───────────────────────────── QR: desenhar e ler ─────────────────────────────
 
-/** Um QR desenhado no próprio aparelho (nada sai para fora). */
+/**
+ * Um QR desenhado no próprio aparelho (nada sai para fora). As duas cores do QR são do código, não da interface: tinta
+ * escura sobre branco puro, para qualquer câmera ler (como um documento impresso).
+ */
 export function Qr({ texto, rotulo: descricao }: { texto: string; rotulo: string }) {
   const [imagem, setImagem] = useState("");
   useEffect(() => {
@@ -154,9 +159,9 @@ export function Qr({ texto, rotulo: descricao }: { texto: string; rotulo: string
       cancelado = true;
     };
   }, [texto]);
-  if (!imagem) return <div aria-hidden className="h-[220px] w-[220px] bg-parchment-deep" />;
+  if (!imagem) return <div aria-hidden className="pn-esqueleto h-[220px] w-[220px]" />;
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={imagem} alt={descricao} width={220} height={220} className="border border-rule bg-white" />;
+  return <img src={imagem} alt={descricao} width={220} height={220} className="rounded-md border border-rule" />;
 }
 
 type Detector = { detect: (fonte: HTMLVideoElement) => Promise<{ rawValue: string }[]> };
@@ -205,10 +210,10 @@ export function LeitorDeQr({ aoLer, fechar }: { aoLer: (texto: string) => void; 
   }, [aoLer]);
   return (
     <div className="space-y-2">
-      <video ref={video} muted playsInline className="aspect-square w-full max-w-xs bg-ink object-cover" aria-label="Câmera para ler o código" />
-      <p className="flex flex-wrap gap-4 text-xs">
-        <span className="text-ink-soft">Aponte para o código do outro aparelho.</span>
-        <button type="button" className={elo} onClick={fechar}>Digitar em vez disso</button>
+      <video ref={video} muted playsInline className="aspect-square w-full max-w-xs rounded-md bg-[var(--pn-texto)] object-cover" aria-label="Câmera para ler o código" />
+      <p className="flex flex-wrap items-center gap-4 text-xs">
+        <span className="pn-ajuda inline-flex items-center gap-1.5"><Camera aria-hidden className="h-4 w-4" />Aponte para o código do outro aparelho.</span>
+        <Botao variante="discreto" pequeno onClick={fechar}>Digitar em vez disso</Botao>
       </p>
       <Aviso texto={aviso} />
     </div>
@@ -255,49 +260,54 @@ export function AparelhoPendente({ chaveiro }: { chaveiro: Chaveiro }) {
 
   return (
     <div className="mx-auto max-w-xl space-y-6 p-5">
-      <div>
-        <p className={rotulo}>Aparelho novo</p>
-        <h2 className="mt-1 font-serif text-2xl font-semibold">Este aparelho ainda não foi aprovado</h2>
-        <p className="mt-2 text-ink-soft">
-          As conversas só abrem em aparelhos que você aprovou. Abra o painel num aparelho que já funciona, vá em Conversas → Aparelhos, escolha este aparelho e digite o código abaixo (ou leia o QR). Até lá, nenhuma chave chega aqui.
-        </p>
+      <div className="pn-cabecalho" data-nivel={2}>
+        <div className="pn-cabecalho-texto">
+          <p className="pn-cabecalho-rotulo">Aparelho novo</p>
+          <h2 className="pn-cabecalho-titulo">
+            <span aria-hidden className="pn-cabecalho-icone"><MonitorSmartphone aria-hidden /></span>
+            <span>Este aparelho ainda não foi aprovado</span>
+          </h2>
+          <p className="pn-cabecalho-sobre">
+            As conversas só abrem em aparelhos que você aprovou. Abra o painel num aparelho que já funciona, vá em Conversas → Aparelhos, escolha este aparelho e digite o código abaixo (ou leia o QR). Até lá, nenhuma chave chega aqui.
+          </p>
+        </div>
       </div>
       {codigo ? (
-        <div className="flex flex-wrap items-center gap-6 border-2 border-ink bg-parchment-deep p-4">
+        <Cartao as="div" variante="destaque" className="flex flex-wrap items-center gap-6">
           <Qr texto={qrDoPedido(codigo, chaveiro.publica)} rotulo="Código deste aparelho, para ler com a câmera de um aparelho aprovado" />
           <div>
             <p className={rotulo}>Código de aprovação</p>
             <p className="mt-1 font-mono text-3xl tracking-[0.3em]" aria-label={`Código ${codigo.split("").join(" ")}`}>
               {codigo.slice(0, 4)} {codigo.slice(4)}
             </p>
-            <p className="mt-2 max-w-xs text-xs text-ink-soft">O código vale por um dia e só serve para este aparelho. Ninguém do instituto vai pedir esse código a você.</p>
+            <p className="pn-ajuda mt-2 max-w-xs">O código vale por um dia e só serve para este aparelho. Ninguém do instituto vai pedir esse código a você.</p>
           </div>
-        </div>
+        </Cartao>
       ) : (
-        <p className="font-mono text-xs text-ink-soft">Preparando o código…</p>
+        <p role="status" className={rotulo}>Preparando o código…</p>
       )}
-      <details className="border border-rule p-4">
-        <summary className="cursor-pointer font-semibold">Tenho a chave de recuperação</summary>
-        <p className="mt-2 text-ink-soft">Se você guardou a chave de recuperação (oito grupos de quatro letras), ela restaura a sua identidade aqui, sem precisar de outro aparelho.</p>
+      <details className="pn-cartao">
+        <summary className="flex cursor-pointer items-center gap-2 font-semibold"><KeyRound aria-hidden className="h-4 w-4" />Tenho a chave de recuperação</summary>
+        <p className="pn-ajuda mt-2">Se você guardou a chave de recuperação (oito grupos de quatro letras), ela restaura a sua identidade aqui, sem precisar de outro aparelho.</p>
         <form className="mt-3 flex flex-wrap items-end gap-2" onSubmit={(e) => { e.preventDefault(); void recuperar(); }}>
-          <label className="block min-w-64 flex-1">
+          <label className="pn-rotulo block min-w-64 flex-1">
             Chave de recuperação
-            <input value={chave} onChange={(e) => setChave(e.target.value)} autoComplete="off" spellCheck={false} placeholder="ABCD-EFGH-…" className={`${campo} font-mono uppercase`} />
+            <input value={chave} onChange={(e) => setChave(e.target.value)} autoComplete="off" spellCheck={false} placeholder="ABCD-EFGH-…" className="pn-campo mt-1 font-mono uppercase" />
           </label>
-          <button type="submit" className={botao} disabled={ocupado || !chaveDeRecuperacaoValida(chave)}>Recuperar</button>
+          <Botao type="submit" variante="principal" simbolo={KeyRound} carregando={ocupado} disabled={!chaveDeRecuperacaoValida(chave)}>Recuperar</Botao>
         </form>
       </details>
-      <details className="border border-rule p-4">
-        <summary className="cursor-pointer font-semibold text-oxblood">Perdi todos os aparelhos e não tenho a chave de recuperação</summary>
-        <p className="mt-2 text-ink-soft">
+      <details className="pn-cartao pn-cartao-alerta">
+        <summary className="flex cursor-pointer items-center gap-2 font-semibold"><ShieldAlert aria-hidden className="h-4 w-4" />Perdi todos os aparelhos e não tenho a chave de recuperação</summary>
+        <p className="pn-ajuda mt-2">
           Recomeçar a identidade remove todos os aparelhos antigos da conta e cria uma identidade nova neste. As conversas trocam de chave; o que foi escrito antes não abre mais aqui, e os colegas que tinham verificado você vão ver o aviso de que a sua chave de segurança mudou.
         </p>
         {confirmaRecomeco ? (
-          <button type="button" className="mt-3 cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment" disabled={ocupado} onClick={() => void recomecarIdentidade()}>
+          <Botao perigo className="mt-3" simbolo={RotateCcw} carregando={ocupado} onClick={() => void recomecarIdentidade()}>
             Confirmar: recomeçar a identidade
-          </button>
+          </Botao>
         ) : (
-          <button type="button" className={`mt-3 ${botaoClaro}`} onClick={() => setConfirmaRecomeco(true)}>Recomeçar a identidade</button>
+          <Botao className="mt-3" simbolo={RotateCcw} onClick={() => setConfirmaRecomeco(true)}>Recomeçar a identidade</Botao>
         )}
       </details>
       <Aviso texto={aviso} />
@@ -345,35 +355,37 @@ export function Aparelhos({ chaveiro }: { chaveiro: Chaveiro }) {
 
   return (
     <details className="text-xs text-ink-soft" open={pendentes.length > 0 || migrados.length > 0 || undefined}>
-      <summary className="cursor-pointer hover:text-ink">
+      <summary className="inline-flex cursor-pointer flex-wrap items-center gap-1.5 hover:text-ink">
+        <MonitorSmartphone aria-hidden className="h-3.5 w-3.5" />
         Aparelhos com acesso às suas conversas{lista.dados ? ` (${lista.dados.length})` : ""}
-        {pendentes.length > 0 && <span className="ml-2 bg-oxblood px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold text-parchment">{pendentes.length} para aprovar</span>}
+        {pendentes.length > 0 && <Selo tom="bordo" className="ml-1">{pendentes.length} para aprovar</Selo>}
       </summary>
       {migrados.length > 0 && (
-        <p role="status" className="mt-2 border-l-2 border-oxblood pl-2 text-ink">
+        <Faixa tom="bordo" className="mt-2">
           Este aparelho passou a guardar a identidade das suas conversas e aprovou os seus aparelhos de antes: {migrados.map((item) => item.rotulo || "aparelho sem nome").join(", ")}. Não reconhece algum? Remova-o abaixo.
-        </p>
+        </Faixa>
       )}
       <p className="mt-2">
         Cada aparelho tem a própria chave, criada no navegador, e só abre as conversas depois que você o aprova de um aparelho que já funciona. Se perder um celular ou não usar mais um computador, remova-o aqui. Remover não encerra a sessão: para isso, use “Sair de todos os aparelhos” em Minha conta.
       </p>
-      <ul className="mt-2 divide-y divide-rule border-y border-rule">
+      <ul aria-label="Aparelhos" className="pn-lista pn-lista-plana mt-2">
         {lista.dados?.map((aparelho) => (
-          <li key={aparelho.id} className="flex items-baseline justify-between gap-3 py-1.5">
-            <span className="min-w-0">
-              <span className="block truncate font-semibold text-ink">
+          <li key={aparelho.id} className="pn-item items-center">
+            <MonitorSmartphone aria-hidden className="pn-item-simbolo" />
+            <span className="pn-item-texto">
+              <span className="pn-item-titulo">
                 {aparelho.rotulo || "Aparelho sem nome"}
                 {aparelho.id === chaveiro.aparelho && " (este)"}
-                {aparelho.estado === "pendente" && <span className="ml-1.5 font-normal text-oxblood">aguardando aprovação</span>}
               </span>
-              <span className="block">desde {data(aparelho.criado_em)} · usado em {data(aparelho.visto_em)}</span>
+              <span className="pn-item-meta tabular-nums">desde {data(aparelho.criado_em)} · usado em {data(aparelho.visto_em)}</span>
             </span>
-            <span className="flex shrink-0 gap-3">
+            {aparelho.estado === "pendente" && <Selo tom="aviso" ponto>aguardando aprovação</Selo>}
+            <span className="pn-item-acoes">
               {aparelho.estado === "pendente" && chaveiro.estado === "aprovado" && (
-                <button type="button" className={`${elo} font-semibold text-ink`} onClick={() => setAprovando(aparelho)}>Aprovar</button>
+                <Botao pequeno simbolo={Check} onClick={() => setAprovando(aparelho)}>Aprovar</Botao>
               )}
               {aparelho.id !== chaveiro.aparelho && (
-                <button type="button" className={elo} onClick={() => void remover(aparelho)}>Remover</button>
+                <Botao variante="discreto" pequeno perigo simbolo={Trash2} onClick={() => void remover(aparelho)}>Remover</Botao>
               )}
             </span>
           </li>
@@ -409,9 +421,9 @@ function Aprovacao({ chaveiro, aparelho, fechar }: { chaveiro: Chaveiro; aparelh
   }
 
   return (
-    <div role="dialog" aria-label={`Aprovar ${aparelho.rotulo || "aparelho"}`} className="mt-3 border-2 border-ink bg-parchment p-4 text-sm text-ink">
-      <p className="font-semibold">Aprovar “{aparelho.rotulo || "aparelho sem nome"}”</p>
-      <p className="mt-1 text-ink-soft">Digite os oito números que aparecem na tela desse aparelho. Só aprove se for você mesmo quem está entrando nele.</p>
+    <div role="dialog" aria-label={`Aprovar ${aparelho.rotulo || "aparelho"}`} className="pn-cartao pn-cartao-destaque mt-3 text-sm text-ink">
+      <p className="pn-cartao-titulo">Aprovar “{aparelho.rotulo || "aparelho sem nome"}”</p>
+      <p className="pn-ajuda mt-1">Digite os oito números que aparecem na tela desse aparelho. Só aprove se for você mesmo quem está entrando nele.</p>
       {lendo ? (
         <div className="mt-3">
           <LeitorDeQr
@@ -427,13 +439,13 @@ function Aprovacao({ chaveiro, aparelho, fechar }: { chaveiro: Chaveiro; aparelh
         </div>
       ) : (
         <form className="mt-3 flex flex-wrap items-end gap-2" onSubmit={(e) => { e.preventDefault(); void aprovar(codigo); }}>
-          <label className="block">
+          <label className="pn-rotulo block">
             Código
-            <input value={codigo} onChange={(e) => setCodigo(e.target.value.replace(/\D/g, "").slice(0, 8))} inputMode="numeric" autoComplete="one-time-code" placeholder="0000 0000" className={`${campo} max-w-44 font-mono text-xl tracking-widest`} />
+            <input value={codigo} onChange={(e) => setCodigo(e.target.value.replace(/\D/g, "").slice(0, 8))} inputMode="numeric" autoComplete="one-time-code" placeholder="0000 0000" className="pn-campo mt-1 max-w-44 font-mono text-xl tracking-widest" />
           </label>
-          <button type="submit" className={botao} disabled={ocupado || codigo.length !== 8}>Aprovar</button>
-          {temLeitor() && <button type="button" className={botaoClaro} onClick={() => setLendo(true)}>Ler o QR</button>}
-          <button type="button" className={elo} onClick={fechar}>Cancelar</button>
+          <Botao type="submit" variante="principal" simbolo={Check} carregando={ocupado} disabled={codigo.length !== 8}>Aprovar</Botao>
+          {temLeitor() && <Botao simbolo={Camera} onClick={() => setLendo(true)}>Ler o QR</Botao>}
+          <Botao variante="discreto" onClick={fechar}>Cancelar</Botao>
         </form>
       )}
       <Aviso texto={aviso} />
@@ -468,24 +480,24 @@ function Recuperacao({ chaveiro }: { chaveiro: Chaveiro }) {
 
   return (
     <div className="mt-3 border-t border-rule pt-3">
-      <p className="font-semibold text-ink">Cópia de recuperação</p>
+      <p className="flex items-center gap-1.5 font-semibold text-ink"><KeyRound aria-hidden className="h-3.5 w-3.5" />Cópia de recuperação</p>
       <p className="mt-1">
         {situacao.dados ? `Cópia guardada em ${dataHora(situacao.dados.atualizado_em)}.` : "Nenhuma cópia guardada."} Sem a chave de recuperação, quem perde todos os aparelhos perde a identidade (os colegas veem que a sua chave mudou) e o histórico das conversas. A cópia é cifrada neste aparelho: o instituto não consegue abri-la.
       </p>
       {nova ? (
-        <div role="status" className="mt-2 border-2 border-ink bg-parchment p-3 text-ink">
+        <div role="status" className="pn-cartao pn-cartao-alerta mt-2 text-ink">
           <p className="font-semibold">Anote esta chave agora. Ela não vai aparecer de novo.</p>
           <p className="mt-2 select-all font-mono text-base tracking-wider">{nova}</p>
-          <label className="mt-2 flex cursor-pointer items-center gap-2">
-            <input type="checkbox" className="h-4 w-4" checked={anotei} onChange={(e) => setAnotei(e.target.checked)} />
-            Anotei num lugar seguro, fora deste aparelho.
+          <label className="pn-marca mt-2">
+            <input type="checkbox" checked={anotei} onChange={(e) => setAnotei(e.target.checked)} />
+            <span>Anotei num lugar seguro, fora deste aparelho.</span>
           </label>
-          <button type="button" className={`mt-2 ${botaoClaro}`} disabled={!anotei} onClick={() => setNova(null)}>Fechar</button>
+          <Botao className="mt-2" disabled={!anotei} onClick={() => setNova(null)}>Fechar</Botao>
         </div>
       ) : (
-        <button type="button" className={`mt-2 ${elo} text-ink`} disabled={ocupado} onClick={() => void guardar()}>
+        <Botao variante="discreto" pequeno className="mt-2" simbolo={KeyRound} carregando={ocupado} onClick={() => void guardar()}>
           {situacao.dados ? "Fazer uma cópia nova (a chave antiga deixa de valer)" : "Guardar uma cópia e gerar a chave de recuperação"}
-        </button>
+        </Botao>
       )}
       <Aviso texto={aviso} />
     </div>
@@ -501,7 +513,7 @@ export function Alertas({ chaveiro, conversa, alertas }: { chaveiro: Chaveiro; c
   return (
     <div className="space-y-2" aria-live="polite">
       {alertas.map((alerta) => (
-        <div key={alerta.usuario} className={`mx-auto max-w-md border-l-4 px-3 py-2 text-xs ${alerta.tipo === "retida" ? "border-oxblood bg-parchment-deep font-semibold text-oxblood" : "border-gold bg-parchment-deep text-ink"}`}>
+        <Faixa key={alerta.usuario} tom={alerta.tipo === "retida" ? "bordo" : "aviso"} className="mx-auto max-w-md text-xs">
           {alerta.tipo === "retida" ? (
             <>
               A chave de segurança de {alerta.nome} mudou, e você tinha verificado essa pessoa. Nada é entregue aos aparelhos novos dela até você confirmar, de preferência comparando o código de segurança pessoalmente.
@@ -509,15 +521,15 @@ export function Alertas({ chaveiro, conversa, alertas }: { chaveiro: Chaveiro; c
           ) : (
             <>A chave de segurança de {alerta.nome} mudou (aparelhos novos ou identidade recomeçada). Se quiser ter certeza de que é a mesma pessoa, compare o código de segurança.</>
           )}
-          <span className="mt-1 flex flex-wrap gap-4 font-normal">
-            <button type="button" className={`${elo} text-ink`} onClick={() => setVer(alerta)}>Ver o código de segurança</button>
+          <span className="mt-1 flex flex-wrap gap-2 font-normal">
+            <Botao variante="discreto" pequeno simbolo={ShieldCheck} onClick={() => setVer(alerta)}>Ver o código de segurança</Botao>
             {alerta.tipo === "retida" ? (
-              <button type="button" className={`${elo} text-ink`} onClick={() => void chaveiro.confirmarNova(alerta.usuario)}>Confirmar a chave nova</button>
+              <Botao pequeno simbolo={Check} onClick={() => void chaveiro.confirmarNova(alerta.usuario)}>Confirmar a chave nova</Botao>
             ) : (
-              <button type="button" className={`${elo} text-ink`} onClick={() => void chaveiro.dispensarAviso(alerta.usuario)}>Entendi</button>
+              <Botao variante="discreto" pequeno simbolo={Check} onClick={() => void chaveiro.dispensarAviso(alerta.usuario)}>Entendi</Botao>
             )}
           </span>
-        </div>
+        </Faixa>
       ))}
       {ver && <Seguranca chaveiro={chaveiro} conversa={conversa} usuario={ver.usuario} nome={ver.nome} fechar={() => setVer(null)} />}
     </div>
@@ -544,12 +556,15 @@ export function Seguranca({ chaveiro, conversa, usuario, nome, fechar }: { chave
   }, [minha, dela]);
 
   return (
-    <div role="dialog" aria-label={`Código de segurança com ${nome}`} className="mx-auto max-w-md border-2 border-ink bg-parchment p-4 text-sm text-ink">
-      <p className="font-semibold">Código de segurança com {nome}</p>
-      <p className="mt-1 text-xs text-ink-soft">
+    <div role="dialog" aria-label={`Código de segurança com ${nome}`} className="pn-cartao mx-auto max-w-md text-sm text-ink">
+      <p className="pn-cartao-titulo flex items-center gap-2">
+        <ShieldCheck aria-hidden className="h-4 w-4 shrink-0" />
+        Código de segurança com {nome}
+      </p>
+      <p className="pn-ajuda mt-1">
         Os sessenta números são iguais na tela de vocês dois quando as identidades são as verdadeiras. Compare pessoalmente, por telefone ou por um canal em que se reconheçam, e marque como verificado. Se alguém no meio do caminho tivesse trocado as chaves, os números seriam diferentes.
       </p>
-      {!dela && <p className="mt-2 text-oxblood">{nome} ainda não tem identidade registrada (não abriu as conversas depois da atualização).</p>}
+      {!dela && <p className="mt-2 text-[var(--pn-aviso)]">{nome} ainda não tem identidade registrada (não abriu as conversas depois da atualização).</p>}
       {codigo && (
         <div className="mt-3 flex flex-wrap items-start gap-4">
           <Qr texto={qrDaSeguranca(codigo)} rotulo={`Código de segurança com ${nome}, para ler com a câmera`} />
@@ -576,14 +591,14 @@ export function Seguranca({ chaveiro, conversa, usuario, nome, fechar }: { chave
           />
         </div>
       )}
-      <p className="mt-3 flex flex-wrap gap-4 text-xs">
+      <p className="mt-3 flex flex-wrap gap-2 text-xs">
         {conhecida?.verificado ? (
-          <button type="button" className={elo} onClick={() => void chaveiro.marcarVerificada(usuario, false)}>Desmarcar verificado</button>
+          <Botao variante="discreto" pequeno onClick={() => void chaveiro.marcarVerificada(usuario, false)}>Desmarcar verificado</Botao>
         ) : (
-          dela && !conhecida?.pendente && <button type="button" className={`${elo} font-semibold`} onClick={() => void chaveiro.marcarVerificada(usuario, true)}>Marcar como verificado</button>
+          dela && !conhecida?.pendente && <Botao variante="principal" pequeno simbolo={BadgeCheck} onClick={() => void chaveiro.marcarVerificada(usuario, true)}>Marcar como verificado</Botao>
         )}
-        {temLeitor() && codigo && !lendo && <button type="button" className={elo} onClick={() => setLendo(true)}>Ler o QR do outro aparelho</button>}
-        <button type="button" className={elo} onClick={fechar}>Fechar</button>
+        {temLeitor() && codigo && !lendo && <Botao pequeno simbolo={Camera} onClick={() => setLendo(true)}>Ler o QR do outro aparelho</Botao>}
+        <Botao variante="discreto" pequeno simbolo={X} onClick={fechar}>Fechar</Botao>
       </p>
       <Aviso texto={aviso} />
     </div>

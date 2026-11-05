@@ -1,18 +1,22 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowDown, ArrowRight, BellRing, ClipboardCheck, House, type LucideIcon, MessageSquareText, Pencil, ShieldAlert, Zap } from "lucide-react";
 import { type ReactNode, useEffect, useState } from "react";
 import { atalhosDaFuncao, dadosDaFuncao, dasPendencias, dosAvisosDeSeguranca, type FuncaoDaMesa, FUNCOES_DA_MESA, NOME_DA_PARTE, type ParteDaMesa, type Pendencia, somar, type TipoDePendencia } from "./mesa-funcoes";
-import { Botao, Vazio } from "./ui";
+import { Botao, CabecalhoDeSecao, Cartao, Contador, Esqueleto, Estatistica, Estatisticas, ItemDeLista, Lista, Selecao, Selo, Vazio } from "./ui";
 
 // A Mesa organizada (Etapa 8, B39). Muita informação para a coordenação, mas em cinco partes que nunca se misturam:
 // pendências (o que espera por você), recados (o que te disseram), avisos de segurança, saúde da casa e atalhos.
-// A ordem muda com a função (mesa-funcoes.ts); o que cada parte mostra vem de Painel.tsx pelas "peças", para não
-// duplicar nenhum componente que já existia. Só classes pn-* e tokens: nenhuma cor escrita aqui.
+// A ordem muda com a função (mesa-funcoes.ts); o que cada parte mostra vem da casca pelas "peças", para não duplicar
+// nenhum componente que já existia. Desenho só pelos componentes de ui/ (Cartao, que é o pn-cartao, Lista, Estatistica,
+// CabecalhoDeSecao) e pelos tokens: nenhuma cor escrita aqui.
 
 const CHAVE_DA_FUNCAO = "lucia:mesa-funcao";
 const nomeDoTipo: Record<TipoDePendencia, string> = { revisar: "Revisar", responder: "Responder", fazer: "Fazer" };
 const acaoDoTipo: Record<TipoDePendencia, string> = { revisar: "Revisar", responder: "Abrir", fazer: "Fazer" };
+const simboloDoTipo: Record<TipoDePendencia, LucideIcon> = { revisar: ClipboardCheck, responder: MessageSquareText, fazer: Pencil };
+const simboloDaParte: Record<ParteDaMesa, LucideIcon> = { pendencias: ClipboardCheck, recados: BellRing, seguranca: ShieldAlert, casa: House, atalhos: Zap };
 
 function lerFuncao(permitidas: FuncaoDaMesa[]): FuncaoDaMesa | null {
   try {
@@ -23,7 +27,7 @@ function lerFuncao(permitidas: FuncaoDaMesa[]): FuncaoDaMesa | null {
   }
 }
 
-/** As peças que Painel.tsx monta e esta tela só posiciona. Qualquer uma pode faltar (a pessoa não vê essa parte). */
+/** As peças que a casca monta e esta tela só posiciona. Qualquer uma pode faltar (a pessoa não vê essa parte). */
 export interface PecasDaMesa {
   /** A saudação, a data de luta e as funções da pessoa. */
   cabeca: ReactNode;
@@ -63,33 +67,46 @@ function ListaDePendencias({ itens, ir, alerta = false, rotulo }: { itens: Pende
           ))}
         </div>
       )}
-      <ul aria-label={rotulo} className={`pn-cartao ${alerta ? "pn-cartao-alerta" : ""} grid gap-0 p-0`}>
-        {vistas.map((p, i) => (
-          <li key={p.chave} className={i ? "border-t border-[var(--pn-borda)]" : ""}>
-            <button type="button" onClick={() => ir(p.vai)} className="pn-fila-item flex w-full flex-wrap items-center gap-x-4 gap-y-1 text-left">
-              <span className="pn-rotulo w-20 shrink-0">{nomeDoTipo[p.tipo]}</span>
-              <span className="flex min-w-0 flex-[1_1_14rem] flex-col">
-                <span className="font-semibold">{p.titulo}</span>
-                <span className="pn-ajuda">
-                  {p.n} {p.n === 1 ? "item" : "itens"}
-                </span>
-              </span>
-              <span className="pn-selo-neutro pn-selo">{acaoDoTipo[p.tipo]}</span>
-            </button>
-          </li>
+      <Lista rotulo={rotulo}>
+        {vistas.map((p) => (
+          <ItemDeLista
+            key={p.chave}
+            simbolo={alerta ? ShieldAlert : simboloDoTipo[p.tipo]}
+            titulo={p.titulo}
+            meta={
+              <>
+                <span className="pn-rotulo-mono">{nomeDoTipo[p.tipo]}</span> · <span className="tabular-nums">{p.n}</span> {p.n === 1 ? "item" : "itens"}
+              </>
+            }
+            selo={
+              <Selo tom={alerta ? "erro" : "neutro"}>
+                {acaoDoTipo[p.tipo]}
+                <ArrowRight aria-hidden width={12} height={12} />
+              </Selo>
+            }
+            aoClicar={() => ir(p.vai)}
+          />
         ))}
-      </ul>
+      </Lista>
     </div>
   );
 }
 
+/** Uma das cinco partes: cabeçalho de nível 2 (Garamond) com o contador bordô do que espera, e o conteúdo. */
 function Parte({ id, parte, conta, children }: { id: string; parte: ParteDaMesa; conta?: number; children: ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-titulo`} className="pn-secao scroll-mt-24">
-      <h2 id={`${id}-titulo`} className="pn-secao-titulo flex items-center gap-2">
-        {NOME_DA_PARTE[parte]}
-        {Boolean(conta) && <span className="pn-selo">{conta}</span>}
-      </h2>
+    <section id={id} aria-labelledby={`${id}-titulo`} className="grid scroll-mt-24 gap-3">
+      <CabecalhoDeSecao
+        nivel={2}
+        id={`${id}-titulo`}
+        simbolo={simboloDaParte[parte]}
+        titulo={
+          <span className="inline-flex items-center gap-2">
+            {NOME_DA_PARTE[parte]}
+            <Contador n={conta} />
+          </span>
+        }
+      />
       {children}
     </section>
   );
@@ -158,13 +175,14 @@ export function MesaOrganizada({
   };
   const partes = dados.ordem.filter((p) => mostra[p]);
   const contaDe: Record<ParteDaMesa, number> = { pendencias: totalTrabalho, recados: recadosNovos, seguranca: totalSeguranca, casa: 0, atalhos: 0 };
+  const temConta: Record<ParteDaMesa, boolean> = { pendencias: true, recados: true, seguranca: true, casa: false, atalhos: false };
   const irParaParte = (p: ParteDaMesa) => document.getElementById(`mesa-${p}`)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
 
   const conteudo: Record<ParteDaMesa, ReactNode> = {
     pendencias: (
       <Parte id="mesa-pendencias" parte="pendencias" conta={totalTrabalho}>
         {pecas.agora}
-        {carregando && <p className="pn-ajuda" role="status">Carregando…</p>}
+        {carregando && <Esqueleto forma="fila" linhas={3} rotulo="Carregando…" />}
         {!carregando && trabalho.length === 0 && <Vazio titulo="Nada esperando por você." texto="Bom momento para escrever, revisar uma aula ou agradecer alguém da equipe." />}
         {trabalho.length > 0 && (
           <>
@@ -178,7 +196,11 @@ export function MesaOrganizada({
     ),
     seguranca: (
       <Parte id="mesa-seguranca" parte="seguranca" conta={totalSeguranca}>
-        {seguranca.length > 0 ? <ListaDePendencias itens={seguranca} ir={ir} alerta rotulo="Avisos de segurança" /> : <Vazio titulo="Nenhum aviso de segurança." texto="Contas suspensas, publicação parada, denúncias e pedidos da supervisão aparecem aqui assim que houver." />}
+        {seguranca.length > 0 ? (
+          <ListaDePendencias itens={seguranca} ir={ir} alerta rotulo="Avisos de segurança" />
+        ) : (
+          <Vazio simbolo={ShieldAlert} titulo="Nenhum aviso de segurança." texto="Contas suspensas, publicação parada, denúncias e pedidos da supervisão aparecem aqui assim que houver." />
+        )}
       </Parte>
     ),
     recados: (
@@ -216,35 +238,40 @@ export function MesaOrganizada({
     <div className="pn-tela" data-tour="mesa" data-mesa={funcao}>
       {pecas.cabeca}
 
-      <div className="pn-cartao grid gap-3">
+      <Cartao as="div">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div className="min-w-0">
-            <p className="pn-rotulo">Mesa de</p>
-            <p className="font-semibold">{dados.nome}</p>
+            <p className="pn-rotulo-mono">Mesa de</p>
+            <p className="pn-cartao-titulo">{dados.nome}</p>
             <p className="pn-ajuda max-w-xl">{dados.sobre}</p>
           </div>
           {permitidas.length > 1 && (
-            <label className="grid gap-1">
-              <span className="pn-rotulo">Trocar de Mesa</span>
-              <select className="pn-campo" value={funcao} onChange={(e) => trocar(e.target.value as FuncaoDaMesa)}>
+            <div className="w-full max-w-[16rem]">
+              <Selecao rotulo="Trocar de Mesa" value={funcao} onChange={(e) => trocar(e.target.value as FuncaoDaMesa)}>
                 {permitidas.map((id) => (
                   <option key={id} value={id}>
                     {dadosDaFuncao(id).nome}
                   </option>
                 ))}
-              </select>
-            </label>
+              </Selecao>
+            </div>
           )}
         </div>
-        <nav aria-label="Partes da Mesa" className="flex flex-wrap gap-1.5">
-          {partes.map((p) => (
-            <Botao key={p} pequeno variante="discreto" onClick={() => irParaParte(p)}>
-              {NOME_DA_PARTE[p]}
-              {contaDe[p] > 0 && <span className="pn-selo">{contaDe[p]}</span>}
-            </Botao>
-          ))}
+        {/* As partes em quadros de número: o que espera em cada uma; um clique leva até ela. */}
+        <nav aria-label="Partes da Mesa" className="mt-3">
+          <Estatisticas>
+            {partes.map((p) => (
+              <Estatistica
+                key={p}
+                rotulo={NOME_DA_PARTE[p]}
+                valor={temConta[p] ? <span className="tabular-nums">{contaDe[p]}</span> : <ArrowDown aria-hidden width={18} height={18} />}
+                tom={contaDe[p] > 0 ? (p === "seguranca" ? "erro" : "bordo") : "neutro"}
+                aoClicar={() => irParaParte(p)}
+              />
+            ))}
+          </Estatisticas>
         </nav>
-      </div>
+      </Cartao>
 
       {partes.map((p) => (
         <div key={p}>{conteudo[p]}</div>

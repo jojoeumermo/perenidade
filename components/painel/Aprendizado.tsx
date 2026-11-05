@@ -1,10 +1,11 @@
-// Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Selo } from "@/components/Selo";
-import { botao, campo } from "./comum";
+import { ExternalLink, Pause, Play, RotateCcw, Shuffle, Timer, Users } from "lucide-react";
+import { Abas, Botao, Cartao, Esqueleto, Faixa, Marca, Selecao, Selo as SeloDoPainel } from "./ui";
 
 interface Aula {
   slug: string;
@@ -58,34 +59,33 @@ export function EstanteDoAprendizado({ propor }: { propor: (titulo: string) => v
       vivo = false;
     };
   }, []);
-  const abas: [Aba, string][] = [
-    ["topicos", "Tópicos por disciplina"],
-    ["simulador", "Simulador de aula"],
-    ["ferramentas", "Ferramentas"],
+  const abas: { id: Aba; nome: string }[] = [
+    { id: "topicos", nome: "Tópicos por disciplina" },
+    { id: "simulador", nome: "Simulador de aula" },
+    { id: "ferramentas", nome: "Ferramentas" },
   ];
   return (
-    <section className="border border-rule bg-parchment-deep">
-      <div role="tablist" aria-label="Estante do aprendizado" className="flex flex-wrap gap-1 border-b border-rule px-2 pt-2">
-        {abas.map(([id, nome]) => (
-          <button key={id} type="button" role="tab" aria-selected={aba === id} onClick={() => setAba(id)} className={`cursor-pointer border-2 border-b-0 px-3 py-1.5 text-sm font-semibold ${aba === id ? "border-ink bg-parchment" : "border-transparent text-ink-soft hover:text-ink"}`}>
-            {nome}
-          </button>
-        ))}
-      </div>
-      <div className="p-4">
-        {aba === "ferramentas" ? (
-          <Ferramentas />
-        ) : erro ? (
-          <p className="text-ink-soft">Não deu para carregar as disciplinas agora. Tente de novo em instantes.</p>
-        ) : !dados ? (
-          <p className="text-ink-soft">Carregando as disciplinas…</p>
-        ) : aba === "topicos" ? (
-          <Topicos disciplinas={dados} propor={propor} />
-        ) : (
-          <Simulador disciplinas={dados} propor={propor} />
-        )}
-      </div>
-    </section>
+    <Cartao>
+      <Abas
+        rotulo="Estante do aprendizado"
+        opcoes={abas}
+        valor={aba}
+        aoMudar={setAba}
+        painel={(id) =>
+          id === "ferramentas" ? (
+            <Ferramentas />
+          ) : erro ? (
+            <Faixa tom="erro">Não deu para carregar as disciplinas agora. Tente de novo em instantes.</Faixa>
+          ) : !dados ? (
+            <Esqueleto linhas={4} rotulo="Carregando as disciplinas…" />
+          ) : id === "topicos" ? (
+            <Topicos disciplinas={dados} propor={propor} />
+          ) : (
+            <Simulador disciplinas={dados} propor={propor} />
+          )
+        }
+      />
+    </Cartao>
   );
 }
 
@@ -96,43 +96,43 @@ function Topicos({ disciplinas, propor }: { disciplinas: Disciplina[]; propor: (
   return (
     <div>
       <div className="flex flex-wrap items-end gap-3">
-        <label className="text-sm font-semibold">
-          Disciplina
-          <select value={area} onChange={(e) => setArea(e.target.value)} className={`${campo} mt-1 block`}>
+        <div className="w-60">
+          <Selecao rotulo="Disciplina" value={area} onChange={(e) => setArea(e.target.value)}>
             {disciplinas.map((d) => (
               <option key={d.area} value={d.area}>
                 {d.nome}
               </option>
             ))}
-          </select>
-        </label>
-        <label className="flex items-center gap-2 pb-2 text-sm">
-          <input type="checkbox" checked={soFaltam} onChange={(e) => setSoFaltam(e.target.checked)} /> Só as aulas que ainda faltam escrever
-        </label>
+          </Selecao>
+        </div>
+        <div className="pb-2">
+          <Marca rotulo="Só as aulas que ainda faltam escrever" checked={soFaltam} onChange={(e) => setSoFaltam(e.target.checked)} />
+        </div>
       </div>
-      <p className="mt-2 text-sm text-ink-soft">Escolha um tópico para dar uma oficina ou para estudar junto. As aulas que faltam são um bom começo: a oficina pode virar a aula do site.</p>
+      <p className="pn-ajuda mt-2">Escolha um tópico para dar uma oficina ou para estudar junto. As aulas que faltam são um bom começo: a oficina pode virar a aula do site.</p>
       {atual?.trilhas.map((trilha) => {
         const aulas = soFaltam ? trilha.aulas.filter((a) => !a.pronta) : trilha.aulas;
         if (aulas.length === 0) return null;
         return (
-          <details key={trilha.slug} className="mt-3 border border-rule bg-parchment" open={atual.trilhas.length === 1}>
+          <details key={trilha.slug} className="mt-3 overflow-hidden rounded-[var(--pn-raio-cartao)] border border-rule bg-folha" open={atual.trilhas.length === 1}>
             <summary className="cursor-pointer px-3 py-2 font-semibold">
-              {trilha.titulo} <span className="font-mono text-xs font-normal text-ink-soft">· {trilha.etapa} · {aulas.length}</span>
+              {trilha.titulo} <span className="pn-rotulo-mono font-normal">· {trilha.etapa} · {aulas.length}</span>
             </summary>
-            <ul className="divide-y divide-rule border-t border-rule">
+            <ul className="pn-lista pn-lista-plana border-t border-rule">
               {aulas.map((aula) => (
-                <li key={aula.slug} className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 text-sm">
+                <li key={aula.slug} className="pn-item flex-wrap text-sm">
                   <span className="min-w-0 flex-1">{aula.titulo}</span>
                   {aula.pronta ? (
-                    <a href={`/${lingua()}/trilhas/${trilha.slug}/${aula.slug}`} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">
+                    <a href={`/${lingua()}/trilhas/${trilha.slug}/${aula.slug}`} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">
                       Abrir a aula
+                      <ExternalLink aria-hidden width={12} height={12} />
                     </a>
                   ) : (
-                    <span className="font-mono text-[0.7rem] uppercase tracking-wider text-oxblood">a escrever</span>
+                    <SeloDoPainel tom="bordo">a escrever</SeloDoPainel>
                   )}
-                  <button type="button" className="cursor-pointer font-semibold underline hover:text-oxblood" onClick={() => propor(`Oficina: ${aula.titulo} (${atual.nome})`)}>
+                  <Botao variante="discreto" pequeno onClick={() => propor(`Oficina: ${aula.titulo} (${atual.nome})`)}>
                     Propor oficina
-                  </button>
+                  </Botao>
                 </li>
               ))}
             </ul>
@@ -146,7 +146,6 @@ function Topicos({ disciplinas, propor }: { disciplinas: Disciplina[]; propor: (
 /** O idioma da página aberta (o primeiro pedaço do endereço). */
 const lingua = () => (typeof window === "undefined" ? "pt" : window.location.pathname.split("/")[1] || "pt");
 
-const botaoDoRelogio = "cursor-pointer border-2 border-parchment px-4 py-1.5 font-semibold hover:bg-parchment hover:text-ink disabled:cursor-not-allowed disabled:opacity-50";
 const relogio = (s: number) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
 function Simulador({ disciplinas, propor }: { disciplinas: Disciplina[]; propor: (titulo: string) => void }) {
@@ -176,20 +175,19 @@ function Simulador({ disciplinas, propor }: { disciplinas: Disciplina[]; propor:
     <div className="grid gap-5 lg:grid-cols-[1fr_18rem]">
       <div>
         <div className="flex flex-wrap items-end gap-3">
-          <label className="text-sm font-semibold">
-            Disciplina
-            <select value={area} onChange={(e) => setArea(e.target.value)} className={`${campo} mt-1 block`}>
+          <div className="w-60">
+            <Selecao rotulo="Disciplina" value={area} onChange={(e) => setArea(e.target.value)}>
               <option value="">Qualquer uma</option>
               {disciplinas.map((d) => (
                 <option key={d.area} value={d.area}>
                   {d.nome}
                 </option>
               ))}
-            </select>
-          </label>
-          <button
-            type="button"
-            className={botao}
+            </Selecao>
+          </div>
+          <Botao
+            variante="principal"
+            simbolo={Shuffle}
             disabled={prontas.length === 0}
             onClick={() => {
               setTema(prontas[Math.floor(Math.random() * prontas.length)] ?? null);
@@ -199,54 +197,61 @@ function Simulador({ disciplinas, propor }: { disciplinas: Disciplina[]; propor:
             }}
           >
             Sortear um tema
-          </button>
+          </Botao>
         </div>
         {tema ? (
-          <div className="mt-4 border-2 border-ink bg-parchment p-4 shadow-[4px_4px_0_var(--sombra)]">
-            <p className="rotulo">{tema.disciplina}</p>
-            <p className="mt-1 font-serif text-2xl font-semibold">{tema.titulo}</p>
+          <div className="pn-cartao pn-cartao-destaque mt-4">
+            <p className="pn-rotulo-mono">{tema.disciplina}</p>
+            <p className="pn-cartao-titulo mt-1">{tema.titulo}</p>
             <p className="mt-1 text-sm">
-              <a href={tema.href} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">
+              <a href={tema.href} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">
                 Ler a aula do site antes
+                <ExternalLink aria-hidden width={12} height={12} />
               </a>
             </p>
           </div>
         ) : (
-          <p className="mt-4 text-ink-soft">Sorteie um tema e ensaie uma aula de dez minutos, como se fosse para uma turma. Dá para ensaiar sozinho, gravar no celular ou chamar um colega para assistir.</p>
+          <p className="pn-ajuda mt-4">Sorteie um tema e ensaie uma aula de dez minutos, como se fosse para uma turma. Dá para ensaiar sozinho, gravar no celular ou chamar um colega para assistir.</p>
         )}
         <ol className="mt-4 space-y-2">
           {ROTEIRO.map(([min, nome, sobre], i) => (
-            <li key={nome} className={`flex gap-3 border-l-4 px-3 py-2 ${rodando && i === etapa ? "border-oxblood bg-parchment" : "border-rule"}`}>
-              <input type="checkbox" aria-label={`Feito: ${nome}`} checked={feitos.includes(i)} onChange={(e) => setFeitos((f) => (e.target.checked ? [...f, i] : f.filter((x) => x !== i)))} className="mt-1" />
+            <li key={nome} className={`flex gap-3 rounded-r-[var(--pn-raio)] border-l-4 px-3 py-2 ${rodando && i === etapa ? "border-[var(--pn-destaque-vivo)] bg-[var(--pn-superficie-2)]" : "border-rule"}`} aria-current={rodando && i === etapa ? "step" : undefined}>
+              <input type="checkbox" aria-label={`Feito: ${nome}`} checked={feitos.includes(i)} onChange={(e) => setFeitos((f) => (e.target.checked ? [...f, i] : f.filter((x) => x !== i)))} className="mt-1 accent-[var(--pn-destaque)]" />
               <div>
                 <p className="font-semibold">
-                  {nome} <span className="font-mono text-xs font-normal text-ink-soft">· {min} min</span>
+                  {nome} <span className="pn-rotulo-mono font-normal">· {min} min</span>
                 </p>
-                <p className="text-sm text-ink-soft">{sobre}</p>
+                <p className="pn-ajuda">{sobre}</p>
               </div>
             </li>
           ))}
         </ol>
       </div>
-      <div className="self-start border-2 border-ink bg-ink p-4 text-parchment shadow-[4px_4px_0_var(--prelo)]">
-        <p className="font-mono text-xs uppercase tracking-[0.2em]">Cronômetro</p>
-        <p className={`mt-1 font-mono text-5xl font-bold ${acabou ? "text-[#f0cf8e]" : ""}`} aria-live="polite">
+      <div className="pn-cartao self-start">
+        <p className="pn-rotulo-mono flex items-center gap-1.5">
+          <Timer aria-hidden width={13} height={13} />
+          Cronômetro
+        </p>
+        {/* role="timer" não anuncia cada segundo (o leitor de tela lê quando a pessoa chega nele); o fim é anunciado abaixo. */}
+        <p className={`mt-1 font-mono text-5xl font-bold tabular-nums ${acabou ? "text-oxblood" : ""}`} role="timer">
           {relogio(restante)}
         </p>
-        {acabou && <p className="mt-1 text-sm">Tempo! Feche em uma frase.</p>}
+        <p role="status" className="mt-1 text-sm">{acabou ? "Tempo! Feche em uma frase." : ""}</p>
         <div className="mt-3 flex flex-wrap gap-2">
-          <button type="button" className={botaoDoRelogio} disabled={acabou} onClick={() => setRodando((r) => !r)}>
+          <Botao simbolo={rodando ? Pause : Play} disabled={acabou} onClick={() => setRodando((r) => !r)}>
             {rodando ? "Pausar" : decorrido > 0 ? "Continuar" : "Começar"}
-          </button>
-          <button type="button" className={botaoDoRelogio} onClick={() => { setRestante(600); setRodando(false); }}>
+          </Botao>
+          <Botao simbolo={RotateCcw} onClick={() => { setRestante(600); setRodando(false); }}>
             Zerar
-          </button>
+          </Botao>
         </div>
-        <p className="mt-3 text-sm">{feitos.length} de {ROTEIRO.length} etapas</p>
+        <p className="pn-ajuda mt-3 tabular-nums">{feitos.length} de {ROTEIRO.length} etapas</p>
         {tema && (
-          <button type="button" className="mt-3 cursor-pointer text-left text-sm font-semibold underline" onClick={() => propor(`Ensaio de aula: ${tema.titulo} (${tema.disciplina})`)}>
-            Pedir que um colega assista e comente
-          </button>
+          <p className="mt-3">
+            <Botao variante="discreto" pequeno simbolo={Users} onClick={() => propor(`Ensaio de aula: ${tema.titulo} (${tema.disciplina})`)}>
+              Pedir que um colega assista e comente
+            </Botao>
+          </p>
         )}
       </div>
     </div>
@@ -259,11 +264,11 @@ function Ferramentas() {
     <ul className="grid gap-3 sm:grid-cols-2">
       {FERRAMENTAS.map((f) => (
         <li key={f.nome}>
-          <a href={`/${lang}${f.href.startsWith("?") ? `/painel${f.href}` : f.href}`} target={f.href.startsWith("?") ? undefined : "_blank"} rel="noopener noreferrer" className="flex h-full gap-3 border border-rule bg-parchment p-3 hover:border-ink">
+          <a href={`/${lang}${f.href.startsWith("?") ? `/painel${f.href}` : f.href}`} target={f.href.startsWith("?") ? undefined : "_blank"} rel="noopener noreferrer" className="pn-cartao pn-cartao-interativo flex h-full gap-3 !p-3 no-underline">
             <Selo nome={f.selo} className="h-9 w-9 shrink-0" />
             <span>
               <span className="block font-semibold">{f.nome}</span>
-              <span className="block text-sm text-ink-soft">{f.sobre}</span>
+              <span className="pn-ajuda block">{f.sobre}</span>
             </span>
           </a>
         </li>

@@ -263,7 +263,8 @@ caso("exportar.mjs --seco --de lê as linhas, não grava e avisa o que foi barra
 
 console.log("Painel, rota e banco");
 caso("a função está registrada no painel para curadoria e coordenação, com guia", () => {
-  const painel = ler("components", "painel", "Painel.tsx");
+  // O registro de seções e a casca saíram de Painel.tsx para casca/ no redesenho (docs/PAINEL-REDESENHO.md): lemos os dois.
+const painel = ler("components", "painel", "Painel.tsx") + "\n" + ler("components", "painel", "casca", "Dentro.tsx");
   assert.match(painel, /id: "vale-curadoria", nome: "Vale o Escrito: curadoria"[^\n]*can\(eu, "coordenacao", "curadoria"\)/);
   assert.match(painel, /atual\.id === "vale-curadoria" && <ValeOEscritoCuradoria/);
   assert.match(ler("components", "painel", "guias.ts"), /"vale-curadoria": \{/);

@@ -1,13 +1,18 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { type ReactNode, useId, useMemo, useState, useSyncExternalStore } from "react";
-import { getItem, KEYS, setItem } from "@/lib/storage";
+import * as Dialog from "@radix-ui/react-dialog";
+import { ChevronRight, Ellipsis, Feather, Focus, LogOut, Maximize2, Minimize2, Monitor, Moon, PanelLeftClose, PanelLeftOpen, Search, Star, Sun, UserRound, X, Globe } from "lucide-react";
+import { AnimatePresence, LayoutGroup } from "motion/react";
+import * as m from "motion/react-m";
+import { type ButtonHTMLAttributes, forwardRef, type ReactNode, useId, useMemo, useRef, useState } from "react";
 import { L } from "../I18n";
 import { Avatar } from "./Avatar";
+import { usePainel } from "./estado";
 import { ESPACOS, type Espaco, espacoDe, type IdDoEspaco } from "./estrutura";
-import { Icone } from "./icones";
+import { Icone, iconeDoEspaco } from "./icones";
 import { experimentou } from "./Tutorial";
+import { Contador, Dica, Kbd, MenuSuspenso, mola } from "./ui";
 
 export interface ItemDoMenu {
   id: string;
@@ -17,325 +22,457 @@ export interface ItemDoMenu {
   conta?: number;
 }
 
-const simples = (texto: string) => texto.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+export type Tema = "light" | "dark" | "sistema";
 
-function lerGrupos(): Record<string, boolean> {
-  try {
-    const dado: unknown = JSON.parse(getItem(KEYS.painelGrupos) || "{}");
-    return dado && typeof dado === "object" ? (dado as Record<string, boolean>) : {};
-  } catch {
-    return {};
-  }
-}
-
-function Desenho({ d, className = "h-[18px] w-[18px]" }: { d: string; className?: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d={d} />
-    </svg>
-  );
-}
-
-/** Só no computador o menu recolhe para o trilho de ícones; no celular a folha é sempre inteira (mesmo que a pessoa tenha recolhido no computador). */
-function useComputador() {
-  return useSyncExternalStore(
-    (avisar) => {
-      const m = window.matchMedia("(min-width: 64rem)");
-      m.addEventListener("change", avisar);
-      return () => m.removeEventListener("change", avisar);
-    },
-    () => window.matchMedia("(min-width: 64rem)").matches,
-    () => true,
-  );
-}
-
-const SETA = "M9 6l6 6-6 6";
-const BUSCA = "M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM15.5 15.5 20 20";
-const RECOLHER = "M15 6l-6 6 6 6M20 4v16";
-const EXPANDIR = "M9 6l6 6-6 6M4 4v16";
-const MAIS = "M5 12h.01M12 12h.01M19 12h.01";
-
-/** Uma seção na lista de um espaço. */
-function Linha({ s, ativa, aoIr }: { s: ItemDoMenu; ativa: boolean; aoIr: (id: string) => void }) {
-  return (
-    <li>
-      <button type="button" onClick={() => aoIr(s.id)} aria-current={ativa ? "page" : undefined} className="pn-menu-item">
-        <Icone id={s.id} className="h-[16px] w-[16px]" />
-        <span className="pn-menu-texto">{s.nome}</span>
-        {Boolean(s.conta) && <span className="pn-selo">{s.conta}<span className="sr-only"> esperando</span></span>}
-      </button>
-    </li>
-  );
-}
-
-/** Um espaço do menu: o cabeçalho (ícone, nome, o que espera, seta) abre e fecha a gaveta com as seções. */
-function Gaveta({ nome, desenho, itens, aberto, aoAlternar, atual, aoIr, conta, nota, tour, recolhido }: { nome: string; desenho: string; itens: ItemDoMenu[]; aberto: boolean; aoAlternar: () => void; atual: string; aoIr: (id: string) => void; conta?: number; nota?: string; tour?: string; recolhido: boolean }) {
-  const idLista = useId();
-  const temAtual = itens.some((s) => s.id === atual);
-  return (
-    <li data-tour={tour}>
-      <button type="button" onClick={aoAlternar} aria-expanded={aberto} aria-controls={idLista} data-atual={temAtual} title={recolhido ? nome : undefined} className="pn-menu-espaco">
-        <Desenho d={desenho} />
-        <span className="pn-menu-texto">{nome}</span>
-        {Boolean(conta) && (
-          <span className="pn-selo pn-menu-selo">
-            {conta}
-            <span className="sr-only"> esperando</span>
-          </span>
-        )}
-        <Desenho d={SETA} className="pn-menu-seta h-4 w-4" />
-      </button>
-      <div id={idLista} className="pn-menu-gaveta" data-aberta={aberto} inert={!aberto || recolhido}>
-        <ul>
-          {nota && <li className="pn-ajuda" style={{ padding: "0.15rem 0.6rem 0.15rem 2.15rem" }}>{nota}</li>}
-          {itens.map((s) => (
-            <Linha key={s.id} s={s} ativa={s.id === atual} aoIr={aoIr} />
-          ))}
-        </ul>
-      </div>
-    </li>
-  );
-}
-
-/**
- * O menu do painel: uma coluna só, com a linha fina das lutas no topo, a busca "Ir para…", o departamento da pessoa, as
- * seções fixadas e os 8 espaços (Mesa, Escrever e produzir, Revisar e publicar, Comunidade e atendimento, Equipe, Site e
- * operação, Segurança, Minha conta), cada um com o número do que espera por você. A largura desliza ao recolher (no
- * computador sobram os ícones dos espaços) e cada espaço abre como uma gaveta; o que estava aberto fica guardado no
- * aparelho. No celular, o menu é uma folha inteira e uma barra de baixo leva aos espaços principais.
- * O mapa seção → espaço está em estrutura.ts: seção nova sem entrada cai no espaço do grupo antigo, nunca fica de fora.
- */
-export function MenuDoPainel({
-  secoes,
-  atual,
-  ir,
-  fixadas,
-  compacto: compactoSalvo,
-  alternarCompacto,
-  aberto,
-  alternarMenu,
-  eu,
-  funcao,
-  todasAsFuncoes,
-  ambiente,
-  ferramentas,
-  rodape,
-  departamento,
-}: {
+/** O que o menu precisa saber da casca e o que ele pode pedir a ela. */
+export interface PropsDoMenu {
   secoes: ItemDoMenu[];
   atual: ItemDoMenu;
   ir: (id: string) => void;
-  fixadas: string[];
-  compacto: boolean;
-  alternarCompacto: () => void;
-  aberto: boolean;
-  /** Abre e fecha a folha do menu no celular (o botão "Mais" da barra de baixo). */
-  alternarMenu?: () => void;
+  /** O departamento da pessoa e as seções dele: ficam no alto, de qualquer espaço. */
+  departamento?: { nome: string; secoes: string[] } | null;
   eu: { nome: string; avatar?: string | null };
   funcao: string;
   todasAsFuncoes: string[];
   ambiente: string;
-  /** Os botões de foco, modo leve e tela cheia. */
-  ferramentas: ReactNode;
-  /** Voltar ao site, tema, sair e idioma. */
-  rodape: ReactNode;
-  /** O departamento da pessoa e as seções dele: ficam no alto, de qualquer espaço. */
-  departamento?: { nome: string; secoes: string[] } | null;
-}) {
-  const computador = useComputador();
-  const compacto = compactoSalvo && computador;
-  const [busca, setBusca] = useState("");
-  const [grupos, setGrupos] = useState<Record<string, boolean>>(lerGrupos);
+  tema: Tema;
+  mudarTema: (tema: Tema) => void;
+  telaCheia: boolean;
+  alternarTelaCheia: () => void;
+  voltarAoSite: () => void;
+  sair: () => void;
+  /** O seletor de idioma do painel (fica no pé do menu). */
+  idioma?: ReactNode;
+}
+
+const simples = (texto: string) => texto.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+const LARGURA = { aberto: 248, recolhido: 60 };
+
+/** Soma do que espera numa lista de seções. */
+const somar = (itens: ItemDoMenu[]) => itens.reduce((soma, s) => soma + (s.conta ?? 0), 0);
+
+/** Uma seção: o link (ícone, nome, contador) e, separado dele, o botão de fixar (aparece ao passar o mouse ou com o foco). */
+function Linha({ s, ativa, comFundo, aoIr }: { s: ItemDoMenu; ativa: boolean; comFundo: boolean; aoIr: (id: string) => void }) {
+  const fixada = usePainel((e) => e.favoritos.includes(s.id));
+  const fixar = usePainel((e) => e.fixar);
+  return (
+    <li className="pn-menu-linha">
+      <button type="button" onClick={() => aoIr(s.id)} aria-current={ativa ? "page" : undefined} className="pn-menu-item">
+        {ativa && comFundo && <m.span aria-hidden layoutId="pn-menu-ativo" className="pn-menu-ativo-fundo" transition={mola.menu} />}
+        <Icone id={s.id} />
+        <span className="pn-menu-texto">{s.nome}</span>
+        <Contador n={s.conta} />
+      </button>
+      {s.id !== "mesa" && (
+        <button type="button" className="pn-menu-fixar" aria-pressed={fixada} aria-label={`Fixar ${s.nome}`} title={fixada ? "Soltar do alto do menu" : "Fixar no alto do menu"} onClick={() => fixar(s.id)}>
+          <Star aria-hidden width={14} height={14} fill={fixada ? "currentColor" : "none"} />
+        </button>
+      )}
+    </li>
+  );
+}
+
+/** Um grupo do menu: o cabeçalho em mono (nome, soma do que espera, seta) abre e fecha a lista, com altura animada. */
+function Grupo({ chave, nome, padrao, itens, atual, donoDoAtivo, aoIr, nota, tour, simbolo }: { chave: string; nome: string; padrao: boolean; itens: ItemDoMenu[]; atual: string; donoDoAtivo: boolean; aoIr: (id: string) => void; nota?: string; tour?: string; simbolo?: ReactNode }) {
+  const aberto = usePainel((s) => s.gruposAbertos[chave] ?? padrao);
+  const alternar = usePainel((s) => s.alternarGrupo);
+  const idLista = useId();
+  const temAtual = itens.some((s) => s.id === atual);
+  const soma = somar(itens);
+  return (
+    <li data-tour={tour}>
+      <button
+        type="button"
+        className="pn-menu-grupo-cabeca"
+        aria-expanded={aberto}
+        aria-controls={idLista}
+        data-atual={temAtual}
+        onClick={() => {
+          alternar(chave, padrao);
+          experimentou("areas");
+        }}
+      >
+        {simbolo}
+        <span className="pn-menu-grupo-nome">{nome}</span>
+        {soma > 0 && !aberto && (
+          <span className="pn-menu-grupo-soma">
+            {soma}
+            <span className="sr-only"> esperando</span>
+          </span>
+        )}
+        <m.span aria-hidden style={{ display: "inline-flex" }} animate={{ rotate: aberto ? 90 : 0 }} transition={mola.rapida} initial={false}>
+          <ChevronRight className="pn-menu-seta" />
+        </m.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {aberto && (
+          <m.div key="lista" id={idLista} className="pn-menu-gaveta" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.18, ease: [0.2, 0.7, 0.2, 1] }}>
+            {nota && <p className="pn-menu-nota">{nota}</p>}
+            <ul className="pn-menu-lista">
+              {itens.map((s) => (
+                <Linha key={s.id} s={s} ativa={s.id === atual} comFundo={donoDoAtivo} aoIr={aoIr} />
+              ))}
+            </ul>
+          </m.div>
+        )}
+      </AnimatePresence>
+    </li>
+  );
+}
+
+/** O botão de um ícone do trilho (menu recolhido). Encaminha a ref: a dica e o menu suspenso se ancoram nele. */
+const BotaoDoTrilho = forwardRef<HTMLButtonElement, { rotulo: string; conta?: number; atual?: boolean; children: ReactNode } & ButtonHTMLAttributes<HTMLButtonElement>>(function BotaoDoTrilho({ rotulo, conta, atual, children, ...resto }, ref) {
+  return (
+    <button ref={ref} type="button" className="pn-menu-trilho-botao" data-atual={atual || undefined} aria-current={atual ? "page" : undefined} aria-label={conta ? `${rotulo}, ${conta} esperando` : rotulo} {...resto}>
+      {children}
+      {Boolean(conta) && <span aria-hidden className="pn-menu-ponto" />}
+    </button>
+  );
+});
+
+/** O conteúdo do menu, igual no computador (fixo, que recolhe) e no celular (a folha). */
+function ConteudoDoMenu({ props, recolhido, folha, fechar }: { props: PropsDoMenu; recolhido: boolean; folha: boolean; fechar?: () => void }) {
+  const { secoes, atual, ir, departamento, eu, funcao, todasAsFuncoes, ambiente, tema, mudarTema, telaCheia, alternarTelaCheia, voltarAoSite, sair, idioma } = props;
+  const [filtro, setFiltro] = useState("");
+  const favoritos = usePainel((s) => s.favoritos);
+  const alternarMenu = usePainel((s) => s.alternarMenu);
+  const modoFoco = usePainel((s) => s.modoFoco);
+  const modoLeve = usePainel((s) => s.modoLeve);
+  const alternarFoco = usePainel((s) => s.alternarFoco);
+  const alternarLeve = usePainel((s) => s.alternarLeve);
   const espacoDa = (s: ItemDoMenu) => espacoDe(s.id, s.grupo);
   const doEspaco = (id: IdDoEspaco) => secoes.filter((s) => espacoDa(s) === id);
   const espacos = ESPACOS.filter((e) => doEspaco(e.id).length > 0);
-  const total = (itens: ItemDoMenu[]) => itens.reduce((soma, s) => soma + (s.conta ?? 0), 0);
-  const termo = simples(busca.trim());
+  const termo = simples(filtro.trim());
   const achadas = useMemo(() => (termo ? secoes.filter((s) => simples(`${s.nome} ${s.grupo} ${s.sobre}`).includes(termo)) : []), [termo, secoes]);
-  const presas = fixadas.map((id) => secoes.find((s) => s.id === id)).filter((s): s is ItemDoMenu => Boolean(s));
+  const presas = favoritos.map((id) => secoes.find((s) => s.id === id)).filter((s): s is ItemDoMenu => Boolean(s));
   const doDepartamento = (departamento?.secoes ?? []).map((id) => secoes.find((s) => s.id === id)).filter((s): s is ItemDoMenu => Boolean(s));
   const espacoAtual = espacoDa(atual);
-  // Um espaço fica aberto se a pessoa abriu, ou, enquanto ela não mexeu nele, se a seção de agora é dele (a menos que a
-  // seção já esteja no departamento ou nas fixadas, no alto: seria a mesma linha duas vezes).
-  const estaAberto = (chave: string, padrao: boolean) => grupos[chave] ?? padrao;
-  const jaNoAlto = [...doDepartamento, ...presas].some((s) => s.id === atual.id);
-  const guardar = (novo: Record<string, boolean>) => {
-    setGrupos(novo);
-    setItem(KEYS.painelGrupos, JSON.stringify(novo));
-    experimentou("areas");
-  };
-  const irPara = (id: string) => {
-    setBusca("");
+  // O fundo do ativo desliza com layoutId: só uma linha pode tê-lo (o departamento, depois as fixadas, depois o espaço).
+  const noDepartamento = doDepartamento.some((s) => s.id === atual.id);
+  const nasFixadas = !noDepartamento && presas.some((s) => s.id === atual.id);
+  const jaNoAlto = noDepartamento || nasFixadas;
+  const aoIr = (id: string) => {
+    setFiltro("");
     ir(id);
+    fechar?.();
   };
-  const abrirEspaco = (e: Espaco) => {
-    guardar({ ...grupos, [`espaco:${e.id}`]: true });
-  };
-  // Barra de baixo (celular): a Mesa e os espaços de trabalho que a pessoa enxerga, mais o "Mais".
-  const fixos = espacos.filter((e) => ["mesa", "producao", "revisao", "comunidade"].includes(e.id)).slice(0, 4);
-  const noEspaco = (e: Espaco) => {
-    const itens = doEspaco(e.id);
-    if (itens.length === 1) {
-      irPara(itens[0].id);
-      return;
-    }
-    abrirEspaco(e);
-    if (!aberto) alternarMenu?.();
-  };
+
+  const marca = (
+    <L href="/" className="pn-menu-marca" title="Instituto Lúcia · voltar ao site">
+      {/* A marca não muda nunca. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/marca-96.png" alt={recolhido ? "Instituto Lúcia" : ""} width={28} height={28} />
+      {!recolhido && (
+        <span style={{ minWidth: 0 }}>
+          <span className="pn-menu-nome">Instituto Lúcia</span>
+          <span className="pn-menu-ambiente">{ambiente}</span>
+        </span>
+      )}
+    </L>
+  );
+
+  const pessoa = (
+    <MenuSuspenso
+      lado={recolhido ? "right" : "top"}
+      alinhamento={recolhido ? "end" : "start"}
+      rotulo="Sua conta"
+      gatilho={
+        <button type="button" className="pn-menu-pessoa" data-tour="conta" aria-label={recolhido ? `${eu.nome}: conta, tema e sair` : undefined}>
+          <Avatar nome={eu.nome} avatar={eu.avatar ?? undefined} className="h-8 w-8 shrink-0" texto="font-sans font-black italic" />
+          {!recolhido && (
+            <span className="pn-menu-pessoa-texto">
+              <span style={{ fontWeight: 600 }}>{eu.nome}</span>
+              <span title={todasAsFuncoes.join(" · ") || undefined}>{funcao}</span>
+            </span>
+          )}
+          {!recolhido && <Ellipsis aria-hidden width={16} height={16} style={{ flex: "none", opacity: 0.7 }} />}
+        </button>
+      }
+    >
+      <MenuSuspenso.Item rotulo="Minha conta" simbolo={UserRound} fazer={() => aoIr("conta")} />
+      <MenuSuspenso.Separador />
+      <MenuSuspenso.Rotulo>Tema</MenuSuspenso.Rotulo>
+      <MenuSuspenso.Item rotulo="Claro" simbolo={Sun} marcado={tema === "light"} fazer={() => mudarTema("light")} />
+      <MenuSuspenso.Item rotulo="Escuro" simbolo={Moon} marcado={tema === "dark"} fazer={() => mudarTema("dark")} />
+      <MenuSuspenso.Item rotulo="Do sistema" simbolo={Monitor} marcado={tema === "sistema"} fazer={() => mudarTema("sistema")} />
+      <MenuSuspenso.Separador />
+      <MenuSuspenso.Item rotulo="Voltar ao site" simbolo={Globe} fazer={voltarAoSite} />
+      <MenuSuspenso.Item rotulo="Sair" simbolo={LogOut} perigo fazer={sair} />
+    </MenuSuspenso>
+  );
+
+  const ferramentas = (
+    <div className="pn-menu-ferramentas">
+      <Dica texto={modoFoco ? "Sair do modo foco: mostrar todas as seções" : "Modo foco: só o essencial no menu"} lado={recolhido ? "right" : "top"}>
+        <button type="button" className="pn-menu-icone-botao" aria-pressed={modoFoco} aria-label="Modo foco" onClick={alternarFoco}>
+          <Focus aria-hidden width={16} height={16} />
+        </button>
+      </Dica>
+      <Dica texto={modoLeve ? "Sair do modo leve" : "Modo leve: sem animações, sombras e texturas"} lado={recolhido ? "right" : "top"}>
+        <button type="button" className="pn-menu-icone-botao" aria-pressed={modoLeve} aria-label="Modo leve" onClick={alternarLeve}>
+          <Feather aria-hidden width={16} height={16} />
+        </button>
+      </Dica>
+      <Dica texto={telaCheia ? "Sair da tela cheia" : "Tela cheia"} lado={recolhido ? "right" : "top"}>
+        <button type="button" className="pn-menu-icone-botao" aria-pressed={telaCheia} aria-label="Tela cheia" onClick={alternarTelaCheia}>
+          {telaCheia ? <Minimize2 aria-hidden width={16} height={16} /> : <Maximize2 aria-hidden width={16} height={16} />}
+        </button>
+      </Dica>
+      {!recolhido && idioma}
+    </div>
+  );
+
+  if (recolhido) {
+    return (
+      <>
+        <div className="pn-menu-lutas" aria-hidden />
+        <div className="pn-menu-topo">
+          {marca}
+          <Dica texto="Abrir o menu" atalho="[" lado="right">
+            <button type="button" className="pn-menu-icone-botao" data-tour="recolher" aria-pressed aria-label="Abrir o menu" onClick={() => alternarMenu(false)}>
+              <PanelLeftOpen aria-hidden width={18} height={18} />
+            </button>
+          </Dica>
+        </div>
+        <nav aria-label="Espaços do painel" data-tour="areas" className="pn-menu-nav">
+          <ul className="pn-menu-trilho">
+            {presas.map((s) => (
+              <li key={`fixa-${s.id}`}>
+                <Dica texto={s.conta ? `${s.nome} · ${s.conta} esperando` : s.nome} lado="right">
+                  <BotaoDoTrilho rotulo={s.nome} conta={s.conta} atual={s.id === atual.id} onClick={() => aoIr(s.id)}>
+                    <Icone id={s.id} />
+                  </BotaoDoTrilho>
+                </Dica>
+              </li>
+            ))}
+            {presas.length > 0 && <li aria-hidden className="pn-menu-trilho-sep" />}
+            {espacos.map((e) => {
+              const itens = doEspaco(e.id);
+              const soma = somar(itens);
+              const Simbolo = iconeDoEspaco(e.icone);
+              const rotulo = soma ? `${e.nome} · ${soma} esperando` : e.nome;
+              return (
+                <li key={e.id}>
+                  {itens.length === 1 ? (
+                    <Dica texto={rotulo} lado="right">
+                      <BotaoDoTrilho rotulo={e.nome} conta={soma} atual={espacoAtual === e.id} onClick={() => aoIr(itens[0].id)}>
+                        <Simbolo aria-hidden />
+                      </BotaoDoTrilho>
+                    </Dica>
+                  ) : (
+                    // Clicar num espaço abre, ao lado, as seções dele: sem precisar abrir o menu.
+                    <MenuSuspenso
+                      lado="right"
+                      rotulo={e.nome}
+                      dica={rotulo}
+                      gatilho={
+                        <BotaoDoTrilho rotulo={e.nome} conta={soma} atual={espacoAtual === e.id}>
+                          <Simbolo aria-hidden />
+                        </BotaoDoTrilho>
+                      }
+                    >
+                      <MenuSuspenso.Rotulo>{e.nome}</MenuSuspenso.Rotulo>
+                      {itens.map((s) => (
+                        <MenuSuspenso.Item key={s.id} rotulo={s.conta ? `${s.nome} (${s.conta})` : s.nome} fazer={() => aoIr(s.id)} />
+                      ))}
+                    </MenuSuspenso>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <div className="pn-menu-pe">
+          {ferramentas}
+          {pessoa}
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
-      <aside id="menu-do-painel" aria-label="Menu do painel" data-recolhido={compacto} className={`pn-menu painel-menu no-print ${aberto ? "flex" : "hidden lg:flex"} max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))]`}>
-        <div className="pn-menu-lutas" aria-hidden />
-        {/* O alto: a marca, onde se está e a busca. */}
-        <div className="pn-menu-topo">
-          <div className="pn-menu-marca pn-so-computador">
-            <L href="/" title="Instituto Lúcia · voltar ao site" className="shrink-0">
-              {/* A marca não muda nunca. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/marca-96.png" alt="Instituto Lúcia" width={36} height={36} className="h-9 w-9" />
-            </L>
-            <span className="min-w-0">
-              <span className="pn-menu-nome truncate">Instituto Lúcia</span>
-              <span className="pn-menu-ambiente">Painel · {ambiente}</span>
-            </span>
-          </div>
-          <label data-tour="ir-para" className="pn-menu-busca">
-            <Desenho d={BUSCA} className="h-4 w-4 shrink-0" />
-            <span className="sr-only">Ir para uma seção</span>
-            <input
-              type="search"
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && achadas[0]) irPara(achadas[0].id);
-                if (e.key === "Escape") setBusca("");
-              }}
-              placeholder="Ir para…"
-            />
-            <kbd className="hidden text-[0.65rem] lg:inline">Ctrl K</kbd>
-          </label>
-        </div>
-
-        {/* Todos os espaços, um embaixo do outro; cada um abre e fecha. */}
-        <nav aria-label="Espaços do painel" data-tour="areas" className="pn-menu-nav">
-          {termo ? (
-            <div>
-              <p className="pn-rotulo" style={{ padding: "0.25rem 0.6rem" }}>Achadas</p>
-              {achadas.length === 0 ? (
-                <p className="pn-ajuda" style={{ padding: "0 0.6rem" }}>Nenhuma seção com esse nome.</p>
-              ) : (
-                <ul className="pn-menu-lista">
-                  {achadas.map((s) => (
-                    <Linha key={s.id} s={s} ativa={s.id === atual.id} aoIr={irPara} />
-                  ))}
-                </ul>
-              )}
-            </div>
-          ) : (
-            <ul className="pn-menu-lista">
-              {departamento && doDepartamento.length > 0 && (
-                <Gaveta
-                  nome="Meu departamento"
-                  tour="departamento"
-                  nota={departamento.nome}
-                  desenho="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"
-                  itens={doDepartamento}
-                  aberto={estaAberto("departamento", true)}
-                  aoAlternar={() => guardar({ ...grupos, departamento: !estaAberto("departamento", true) })}
-                  atual={atual.id}
-                  aoIr={irPara}
-                  conta={total(doDepartamento)}
-                  recolhido={compacto}
-                />
-              )}
-              {presas.length > 0 && (
-                <Gaveta
-                  nome="Fixadas"
-                  desenho="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z"
-                  itens={presas}
-                  aberto={estaAberto("fixadas", true)}
-                  aoAlternar={() => guardar({ ...grupos, fixadas: !estaAberto("fixadas", true) })}
-                  atual={atual.id}
-                  aoIr={irPara}
-                  recolhido={compacto}
-                />
-              )}
-              {espacos.map((e) => {
-                const chave = `espaco:${e.id}`;
-                const itens = doEspaco(e.id);
-                const padrao = e.id === "mesa" || (e.id === espacoAtual && !jaNoAlto);
-                return (
-                  <Gaveta
-                    key={chave}
-                    nome={e.nome}
-                    desenho={e.desenho}
-                    itens={itens}
-                    aberto={estaAberto(chave, padrao)}
-                    // No trilho recolhido, um clique no ícone abre o menu já com aquele espaço aberto.
-                    aoAlternar={() => {
-                      if (compacto) {
-                        abrirEspaco(e);
-                        alternarCompacto();
-                      } else guardar({ ...grupos, [chave]: !estaAberto(chave, padrao) });
-                    }}
-                    atual={atual.id}
-                    aoIr={irPara}
-                    conta={total(itens)}
-                    recolhido={compacto}
-                  />
-                );
-              })}
-            </ul>
-          )}
-        </nav>
-
-        {/* O pé: quem está aqui, recolher o menu, as ferramentas e o resto. */}
-        <div className="pn-menu-pe pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))]">
-          <div className="pn-menu-pessoa">
-            <button type="button" onClick={() => ir("conta")} title="Minha conta" data-tour="conta" className="shrink-0 cursor-pointer">
-              <Avatar nome={eu.nome} avatar={eu.avatar ?? undefined} className="h-9 w-9" texto="font-sans font-black italic" />
+      <div className="pn-menu-lutas" aria-hidden />
+      <div className="pn-menu-topo">
+        {marca}
+        {folha ? (
+          <Dialog.Close asChild>
+            <button type="button" className="pn-menu-icone-botao" aria-label="Fechar o menu">
+              <X aria-hidden width={18} height={18} />
             </button>
-            <span className="pn-menu-pessoa-texto min-w-0">
-              <span className="block truncate font-semibold">{eu.nome}</span>
-              <span className="pn-ajuda block truncate" title={todasAsFuncoes.join(" · ") || undefined}>
-                {funcao}
-              </span>
-            </span>
-          </div>
-          <div className="pn-menu-ferramentas">
-            <button type="button" onClick={alternarCompacto} aria-pressed={compacto} data-tour="recolher" title={compacto ? "Abrir o menu" : "Recolher o menu (ficam só os ícones)"} className="pn-botao pn-botao-discreto pn-botao-icone pn-botao-pequeno pn-so-computador">
-              <Desenho d={compacto ? EXPANDIR : RECOLHER} className="h-4 w-4" />
-              <span className="sr-only">{compacto ? "Abrir o menu" : "Recolher o menu"}</span>
+          </Dialog.Close>
+        ) : (
+          <Dica texto="Recolher o menu" atalho="[" lado="right">
+            <button type="button" className="pn-menu-icone-botao" data-tour="recolher" aria-pressed={false} aria-label="Recolher o menu" onClick={() => alternarMenu(true)}>
+              <PanelLeftClose aria-hidden width={18} height={18} />
             </button>
-            {ferramentas}
-          </div>
-          <div className="pn-menu-links">{rodape}</div>
-        </div>
-      </aside>
+          </Dica>
+        )}
+      </div>
+      <label className="pn-menu-filtro">
+        <Search aria-hidden width={14} height={14} />
+        <span className="sr-only">Filtrar o menu</span>
+        <input
+          type="search"
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && achadas[0]) aoIr(achadas[0].id);
+            if (e.key === "Escape" && filtro) {
+              e.stopPropagation();
+              setFiltro("");
+            }
+          }}
+          placeholder="Filtrar o menu"
+        />
+      </label>
 
-      {/* Barra de baixo, só no celular: a Mesa, os espaços de trabalho e o "Mais" (a folha com tudo). */}
-      <nav aria-label="Atalhos do painel" className="pn-barra-baixo no-print">
-        {fixos.map((e) => {
-          const n = total(doEspaco(e.id));
-          return (
-            <button key={e.id} type="button" onClick={() => (e.id === "mesa" ? irPara("mesa") : noEspaco(e))} aria-current={espacoAtual === e.id && !aberto ? "true" : undefined} className="pn-barra-baixo-item">
-              <Desenho d={e.desenho} className="h-5 w-5" />
-              <span>{e.id === "producao" ? "Escrever" : e.id === "revisao" ? "Revisar" : e.id === "comunidade" ? "Atender" : e.nome}</span>
-              {n > 0 && (
-                <span className="pn-selo">
-                  {n}
-                  <span className="sr-only"> esperando</span>
-                </span>
-              )}
-            </button>
-          );
-        })}
-        <button type="button" onClick={() => alternarMenu?.()} aria-expanded={aberto} aria-controls="menu-do-painel" className="pn-barra-baixo-item" aria-current={aberto ? "true" : undefined}>
-          <Desenho d={MAIS} className="h-5 w-5" />
-          <span>Mais</span>
-        </button>
+      <nav aria-label="Espaços do painel" data-tour="areas" className="pn-menu-nav">
+        {termo ? (
+          <div>
+            <p className="pn-menu-grupo-cabeca" style={{ cursor: "default" }}>
+              Achadas
+            </p>
+            {achadas.length === 0 ? (
+              <p className="pn-menu-nota" style={{ paddingLeft: "0.5rem" }}>
+                Nenhuma seção com esse nome. A busca completa está em <Kbd>Ctrl K</Kbd>.
+              </p>
+            ) : (
+              <ul className="pn-menu-lista">
+                {achadas.map((s) => (
+                  <Linha key={s.id} s={s} ativa={s.id === atual.id} comFundo aoIr={aoIr} />
+                ))}
+              </ul>
+            )}
+          </div>
+        ) : (
+          <ul className="pn-menu-grupos">
+            {presas.length > 0 && <Grupo chave="fixadas" nome="Fixadas" padrao itens={presas} atual={atual.id} donoDoAtivo={nasFixadas} aoIr={aoIr} />}
+            {departamento && doDepartamento.length > 0 && <Grupo chave="departamento" nome="Meu departamento" tour="departamento" nota={departamento.nome} padrao itens={doDepartamento} atual={atual.id} donoDoAtivo={noDepartamento} aoIr={aoIr} />}
+            {espacos.map((e) => {
+              const chave = `espaco:${e.id}`;
+              // Um espaço fica aberto se a pessoa abriu, ou, enquanto ela não mexeu nele, se a seção de agora é dele (a
+              // menos que a seção já esteja no alto, no departamento ou nas fixadas: seria a mesma linha duas vezes).
+              const padrao = e.id === "mesa" || (e.id === espacoAtual && !jaNoAlto);
+              return <Grupo key={chave} chave={chave} nome={e.nome} padrao={padrao} itens={doEspaco(e.id)} atual={atual.id} donoDoAtivo={!jaNoAlto && e.id === espacoAtual} aoIr={aoIr} />;
+            })}
+          </ul>
+        )}
       </nav>
+
+      <div className="pn-menu-pe">
+        {pessoa}
+        {ferramentas}
+      </div>
     </>
+  );
+}
+
+/**
+ * O menu do painel, em tinta: a faixa das lutas no topo, a marca, o filtro, as seções fixadas, o departamento da pessoa e
+ * os 8 espaços (Mesa, Escrever e produzir, Revisar e publicar, Comunidade e atendimento, Equipe, Site e operação,
+ * Segurança, Minha conta), cada um com o número do que espera. No computador, recolhe para o trilho de ícones (a largura
+ * anima com mola; "[" alterna). No celular, é uma folha que entra pela esquerda (foco preso, Esc fecha) e há a barra de
+ * baixo. O mapa seção → espaço está em estrutura.ts: seção nova sem entrada cai no espaço do grupo antigo.
+ */
+export function MenuDoPainel(props: PropsDoMenu) {
+  const recolhido = usePainel((s) => s.menuRecolhido);
+  const aberto = usePainel((s) => s.menuCelular);
+  const abrirMenuCelular = usePainel((s) => s.abrirMenuCelular);
+  // A folha não tem Dialog.Trigger (abre pelo botão da barra de cima ou pelo "Mais"), e o Radix devolve o foco só ao
+  // Trigger: sem isto, ao fechar, o foco caía no <body>. Guarda quem abriu (antes de o foco entrar na folha) e devolve a ele
+  // quando a folha sai de vez (depois da animação de saída, quando o foco já não está preso nela).
+  const quemAbriu = useRef<HTMLElement | null>(null);
+  return (
+    <>
+      <m.aside
+        id="menu-do-painel"
+        aria-label="Menu do painel"
+        data-recolhido={recolhido}
+        className="pn-menu pn-menu-fixo no-print"
+        initial={false}
+        animate={{ width: recolhido ? LARGURA.recolhido : LARGURA.aberto }}
+        transition={mola.menu}
+      >
+        <LayoutGroup id="menu-fixo">
+          <ConteudoDoMenu props={props} recolhido={recolhido} folha={false} />
+        </LayoutGroup>
+      </m.aside>
+
+      {/* No celular: a folha do menu (Radix Dialog por baixo: foco preso, Esc fecha, véu). */}
+      <Dialog.Root open={aberto} onOpenChange={abrirMenuCelular}>
+        <AnimatePresence>
+          {aberto && (
+            <Dialog.Portal forceMount>
+              <Dialog.Overlay asChild forceMount>
+                <m.div className="pn-veu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }} />
+              </Dialog.Overlay>
+              <Dialog.Content
+                asChild
+                forceMount
+                aria-describedby={undefined}
+                onOpenAutoFocus={() => {
+                  const ativo = document.activeElement;
+                  quemAbriu.current = ativo instanceof HTMLElement && ativo !== document.body ? ativo : null;
+                }}
+                onCloseAutoFocus={(e) => {
+                  const alvo = quemAbriu.current;
+                  quemAbriu.current = null;
+                  if (!alvo?.isConnected) return;
+                  e.preventDefault();
+                  alvo.focus({ preventScroll: true });
+                }}
+              >
+                <m.aside className="pn-menu pn-menu-folha pn-portal no-print" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={mola.menu}>
+                  <Dialog.Title className="sr-only">Menu do painel</Dialog.Title>
+                  <LayoutGroup id="menu-folha">
+                    <ConteudoDoMenu props={props} recolhido={false} folha fechar={() => abrirMenuCelular(false)} />
+                  </LayoutGroup>
+                </m.aside>
+              </Dialog.Content>
+            </Dialog.Portal>
+          )}
+        </AnimatePresence>
+      </Dialog.Root>
+    </>
+  );
+}
+
+/** Barra de baixo, só no celular: a Mesa, os espaços de trabalho e o "Mais" (a folha com tudo). */
+export function BarraDeBaixo({ secoes, atual, ir }: { secoes: ItemDoMenu[]; atual: ItemDoMenu; ir: (id: string) => void }) {
+  const aberto = usePainel((s) => s.menuCelular);
+  const abrirMenuCelular = usePainel((s) => s.abrirMenuCelular);
+  const abrirGrupo = usePainel((s) => s.abrirGrupo);
+  const doEspaco = (id: IdDoEspaco) => secoes.filter((s) => espacoDe(s.id, s.grupo) === id);
+  const espacoAtual = espacoDe(atual.id, atual.grupo);
+  const fixos = ESPACOS.filter((e) => ["mesa", "producao", "revisao", "comunidade"].includes(e.id) && doEspaco(e.id).length > 0).slice(0, 4);
+  const nome = (e: Espaco) => (e.id === "producao" ? "Escrever" : e.id === "revisao" ? "Revisar" : e.id === "comunidade" ? "Atender" : e.nome);
+  const noEspaco = (e: Espaco) => {
+    const itens = doEspaco(e.id);
+    if (e.id === "mesa" || itens.length === 1) {
+      ir(e.id === "mesa" ? "mesa" : itens[0].id);
+      return;
+    }
+    abrirGrupo(`espaco:${e.id}`);
+    abrirMenuCelular(true);
+  };
+  return (
+    <nav aria-label="Atalhos do painel" className="pn-barra-baixo no-print">
+      {fixos.map((e) => {
+        const Simbolo = iconeDoEspaco(e.icone);
+        return (
+          <button key={e.id} type="button" onClick={() => noEspaco(e)} aria-current={espacoAtual === e.id && !aberto ? "true" : undefined} className="pn-barra-baixo-item">
+            <Simbolo aria-hidden />
+            <span>{nome(e)}</span>
+            <Contador n={somar(doEspaco(e.id))} />
+          </button>
+        );
+      })}
+      <button type="button" onClick={() => abrirMenuCelular(!aberto)} aria-expanded={aberto} aria-haspopup="dialog" className="pn-barra-baixo-item" aria-current={aberto ? "true" : undefined}>
+        <Ellipsis aria-hidden />
+        <span>Mais</span>
+      </button>
+    </nav>
   );
 }

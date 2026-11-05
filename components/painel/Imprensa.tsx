@@ -1,10 +1,11 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Archive, CheckCheck, Clock, Mail } from "lucide-react";
 import { useState } from "react";
-import { rpc } from "@/lib/backend";
-import { dataHora, dia, textoDoErro, useLista } from "./comum";
-import { Area, Botao, Selecao, Vazio, notificar } from "./ui";
+import { agirOtimista, dataHora, dia, useLista } from "./comum";
+import { MoldeFila } from "./moldes";
+import { Area, Botao, Faixa, Selecao, Selo, type TomDoSelo, Vazio } from "./ui";
 
 interface Pedido {
   id: string;
@@ -22,67 +23,109 @@ interface Pedido {
 }
 
 const NOME_DO_STATUS: Record<Pedido["status"], string> = { novo: "Novo", em_andamento: "Em andamento", respondido: "Respondido", arquivado: "Arquivado" };
+const TOM_DO_STATUS: Record<Pedido["status"], TomDoSelo> = { novo: "bordo", em_andamento: "aviso", respondido: "ok", arquivado: "neutro" };
 
 /**
  * Caixa de imprensa (Etapa 8, backend-2; molde Fila): os pedidos de jornalistas feitos em /imprensa, para o porta-voz e a
  * coordenação. Mostra nome, veículo, e-mail e o pedido, só a quem lida com a imprensa. Respondido ou arquivado, o pedido é
  * eliminado em 180 dias (LGPD, arts. 15, I, e 16). O porta-voz responde pelo e-mail do instituto; o painel não envia nada em nome de ninguém.
+ * Mudar a situação é otimista (a tela muda na hora e volta se o banco recusar), e vai também pela paleta (Ctrl K).
  */
 export function CaixaDeImprensa() {
   const [filtro, setFiltro] = useState("");
-  const lista = useLista<Pedido[]>("imprensa_listar", { p_status: filtro || null });
-  const [aberto, setAberto] = useState<string | null>(null);
-  const [nota, setNota] = useState("");
-  const atual = lista.dados?.find((p) => p.id === aberto) ?? null;
+  const argumentos = { p_status: filtro || null };
+  const lista = useLista<Pedido[]>("imprensa_listar", argumentos);
+  // A anotação em edição é do pedido aberto: trocar de pedido começa do que está guardado.
+  const [nota, setNota] = useState<{ id: string; texto: string } | null>(null);
 
-  async function mudar(p: Pedido, status: Pedido["status"]) {
-    try {
-      await rpc("imprensa_atender", { p_id: p.id, p_status: status, p_nota: nota !== "" ? nota : p.nota });
-      notificar.ok(status === "respondido" || status === "arquivado" ? "Anotado. O pedido some do banco em 180 dias." : "Anotado.");
-      lista.recarregar();
-    } catch (e) {
-      notificar.erro(textoDoErro(e));
-    }
+  function mudar(p: Pedido, status: Pedido["status"]) {
+    const texto = nota?.id === p.id && nota.texto !== "" ? nota.texto : p.nota;
+    return agirOtimista<Pedido[]>({
+      lista: { funcao: "imprensa_listar", argumentos },
+      // Com um filtro de situação, o pedido que muda sai da lista; sem filtro, só troca o selo.
+      remendo: (dados) => (filtro && filtro !== status ? dados.filter((x) => x.id !== p.id) : dados.map((x) => (x.id === p.id ? { ...x, status, nota: texto } : x))),
+      funcao: "imprensa_atender",
+      argumentos: { p_id: p.id, p_status: status, p_nota: texto },
+      sucesso: status === "respondido" || status === "arquivado" ? "Anotado. O pedido some do banco em 180 dias." : "Anotado.",
+    });
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-      <section aria-labelledby="imp-fila" className="space-y-3">
-        <h2 id="imp-fila" className="pn-secao-titulo">Pedidos</h2>
-        <Selecao rotulo="Mostrar" value={filtro} onChange={(e) => setFiltro(e.target.value)}>
-          <option value="">Todos</option>
-          {(Object.keys(NOME_DO_STATUS) as Pedido["status"][]).map((s) => <option key={s} value={s}>{NOME_DO_STATUS[s]}</option>)}
-        </Selecao>
-        {lista.erro && <p role="alert" className="text-oxblood">{lista.erro}</p>}
-        {lista.dados?.length === 0 && <Vazio titulo="Nenhum pedido" texto="Os pedidos feitos em /imprensa chegam aqui, e a equipe de imprensa recebe um e-mail avisando (sem o conteúdo)." />}
-        <ul className="space-y-1">
-          {lista.dados?.map((p) => (
-            <li key={p.id}>
-              <button type="button" aria-current={p.id === aberto} onClick={() => { setAberto(p.id); setNota(""); }} className="w-full cursor-pointer rounded-md border border-rule p-2 text-left">
-                <span className="font-semibold">{p.assunto}</span>
-                <span className="block pn-ajuda">{NOME_DO_STATUS[p.status]} · {p.veiculo || p.nome}{p.prazo ? ` · prazo ${dia(p.prazo)}` : ""}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section aria-labelledby="imp-pedido" className="space-y-3">
-        <h2 id="imp-pedido" className="pn-secao-titulo">Pedido aberto</h2>
-        {!atual && <p className="pn-ajuda">Escolha um pedido na lista.</p>}
-        {atual && (
-          <div className="space-y-3">
-            <p><strong>{atual.nome}</strong>{atual.veiculo ? `, ${atual.veiculo}` : ""}<br /><a className="underline" href={`mailto:${atual.email}`}>{atual.email}</a></p>
-            <p className="pn-ajuda">Chegou em {dataHora(atual.criado_em)}{atual.prazo ? `. Prazo: ${dia(atual.prazo)}` : ""}.{atual.responsavel ? ` Último a mexer: ${atual.responsavel}.` : ""}{atual.apagar_em ? ` Será eliminado em ${dia(atual.apagar_em)}.` : ""}</p>
-            <p className="whitespace-pre-wrap">{atual.mensagem}</p>
-            <Area rotulo="Anotação da equipe (a pessoa não vê)" rows={3} maxLength={1000} defaultValue={atual.nota} key={atual.id + atual.status} onChange={(e) => setNota(e.target.value)} />
-            <div className="flex flex-wrap gap-2">
-              <Botao onClick={() => void mudar(atual, "em_andamento")}>Em andamento</Botao>
-              <Botao variante="principal" onClick={() => void mudar(atual, "respondido")}>Respondido</Botao>
-              <Botao variante="discreto" onClick={() => void mudar(atual, "arquivado")}>Arquivar</Botao>
-            </div>
-          </div>
+    <div className="pn-tela">
+      {lista.erro && (
+        <Faixa tom="erro" acao={<Botao pequeno onClick={lista.recarregar}>Tentar de novo</Botao>}>
+          {lista.erro}
+        </Faixa>
+      )}
+      <MoldeFila<Pedido>
+        id="imprensa"
+        rotulo="Pedidos"
+        itens={lista.dados ?? []}
+        carregando={!lista.dados && !lista.erro}
+        chave={(p) => p.id}
+        barra={
+          <Selecao rotulo="Mostrar" value={filtro} onChange={(e) => setFiltro(e.target.value)}>
+            <option value="">Todos</option>
+            {(Object.keys(NOME_DO_STATUS) as Pedido["status"][]).map((s) => (
+              <option key={s} value={s}>
+                {NOME_DO_STATUS[s]}
+              </option>
+            ))}
+          </Selecao>
+        }
+        vazio={<Vazio titulo="Nenhum pedido" texto="Os pedidos feitos em /imprensa chegam aqui, e a equipe de imprensa recebe um e-mail avisando (sem o conteúdo)." />}
+        linha={(p) => (
+          <>
+            <strong>{p.assunto}</strong>
+            <span className="pn-ajuda">
+              {p.veiculo || p.nome}
+              {p.prazo ? ` · prazo ${dia(p.prazo)}` : ""}
+            </span>
+            <span>
+              <Selo tom={TOM_DO_STATUS[p.status]} ponto>
+                {NOME_DO_STATUS[p.status]}
+              </Selo>
+            </span>
+          </>
         )}
-      </section>
+        comandos={(p) => [
+          { id: "responder", nome: "Responder", sobre: p.email, simbolo: Mail, fazer: () => void window.open(`mailto:${p.email}`, "_self") },
+          { id: "andamento", nome: "Em andamento", simbolo: Clock, fazer: () => void mudar(p, "em_andamento") },
+          { id: "respondido", nome: "Respondido", simbolo: CheckCheck, fazer: () => void mudar(p, "respondido") },
+          { id: "arquivar", nome: "Arquivar", simbolo: Archive, fazer: () => void mudar(p, "arquivado") },
+        ]}
+        detalhe={(atual) => (
+          <article className="pn-secao">
+            <h2 className="pn-cartao-titulo">{atual.assunto}</h2>
+            <p>
+              <strong>{atual.nome}</strong>
+              {atual.veiculo ? `, ${atual.veiculo}` : ""}
+              <br />
+              <a className="pn-elo" href={`mailto:${atual.email}`}>
+                {atual.email}
+              </a>
+            </p>
+            <p className="pn-ajuda">
+              Chegou em {dataHora(atual.criado_em)}
+              {atual.prazo ? `. Prazo: ${dia(atual.prazo)}` : ""}.{atual.responsavel ? ` Último a mexer: ${atual.responsavel}.` : ""}
+              {atual.apagar_em ? ` Será eliminado em ${dia(atual.apagar_em)}.` : ""}
+            </p>
+            <p className="whitespace-pre-wrap">{atual.mensagem}</p>
+            <Area rotulo="Anotação da equipe (a pessoa não vê)" rows={3} maxLength={1000} defaultValue={atual.nota} key={atual.id + atual.status} onChange={(e) => setNota({ id: atual.id, texto: e.target.value })} />
+            <div className="flex flex-wrap gap-2">
+              <Botao simbolo={Clock} onClick={() => void mudar(atual, "em_andamento")}>
+                Em andamento
+              </Botao>
+              <Botao variante="principal" simbolo={CheckCheck} onClick={() => void mudar(atual, "respondido")}>
+                Respondido
+              </Botao>
+              <Botao variante="discreto" simbolo={Archive} onClick={() => void mudar(atual, "arquivado")}>
+                Arquivar
+              </Botao>
+            </div>
+          </article>
+        )}
+      />
     </div>
   );
 }

@@ -75,7 +75,7 @@ const config = ler("next.config.ts");
 conferir("/laboratorios/jogos redireciona de forma permanente para /jogos, com e sem idioma", /\/laboratorios\/jogos/.test(config) && /permanent:\s*true/.test(config));
 conferir("a página antiga foi apagada", !fs.existsSync(path.join(raiz, "app", "[lang]", "laboratorios", "jogos", "page.tsx")));
 conferir("a rota GET de operação exige token de sessão", /export async function GET\(pedido: Request\)[\s\S]{0,400}401/.test(ler("app", "api", "painel", "operacao", "route.ts")));
-conferir("as fixadas do menu do painel não somem no celular", !/fixadas=\{compacto \? \[\]/.test(ler("components", "painel", "Painel.tsx")));
+conferir("as fixadas do menu do painel não somem no celular", !/fixadas=\{compacto \? \[\]/.test(ler("components", "painel", "Painel.tsx") + ler("components", "painel", "casca", "Dentro.tsx")));
 conferir("a integração está documentada", fs.existsSync(path.join(raiz, "docs", "plano-2026-11", "notas", "etapas-5-6-8-9.md")));
 
 if (falhas) {

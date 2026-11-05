@@ -1,13 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Award, Ban, Check, ChevronDown, ChevronUp, Clock, Eye, FilePlus, FileSignature, ListChecks, MessageSquareReply, PenLine, Plus, Save, Scale, Send, Stamp, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { can, leads, type Me, rpc } from "@/lib/backend";
 import { TERMO_ADESAO, textoDoTermo } from "@/lib/termos";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import { type Certificado, Folha, Impresso } from "./Certificado";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, PAINEL_MUDOU, rotulo, useAcao, useLista } from "./comum";
-import { confirmar } from "./ui";
+import { Aviso, data, dataHora, dia, PAINEL_MUDOU, useAcao, useLista } from "./comum";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, type ColumnDef, confirmar, Esqueleto, Estatistica, Estatisticas, Faixa, ItemDeLista, Lista, Selecao, Selo, Tabela, type TomDoSelo, Vazio } from "./ui";
 
 export const VERSAO_DO_TERMO = TERMO_ADESAO.versao;
 export const TERMO: string[] = TERMO_ADESAO.clausulas;
@@ -144,29 +145,57 @@ export function Horas({ me }: { me: Me }) {
   ];
   const atual: AbaDeHoras = opcoes.some((opcao) => opcao.id === aba) ? aba : aceito ? "minhas" : "termo";
 
+  // O histórico das minhas horas, em tabela (ordem por coluna; a busca não faz falta aqui).
+  const colunasDoHistorico: ColumnDef<Hora>[] = [
+    { id: "dia", header: "Dia", accessorFn: (h) => h.dia, cell: ({ row }) => <span className="whitespace-nowrap tabular-nums">{dia(row.original.dia)}</span> },
+    { id: "horas", header: "Horas", accessorFn: (h) => Number(h.horas), cell: ({ row }) => <span className="whitespace-nowrap font-mono tabular-nums">{horasPt(Number(row.original.horas))}</span> },
+    { id: "atividade", header: "O que você fez", accessorFn: (h) => h.atividade },
+    {
+      id: "situacao",
+      header: "Situação",
+      accessorFn: (h) => estadoDa(h),
+      cell: ({ row: { original: hora } }) => (
+        <span className="flex flex-wrap items-center gap-1.5">
+          <Selo tom={tomDa(hora)} ponto>
+            {estadoDa(hora)}
+          </Selo>
+          {hora.certificado && <Selo tom="ouro">em certificado</Selo>}
+          {hora.status === "pendente" && (
+            <Botao variante="discreto" pequeno perigo simbolo={Trash2} onClick={() => acao.agir("horas_remover", { p_id: hora.id }, "Registro apagado.")}>
+              apagar
+            </Botao>
+          )}
+        </span>
+      ),
+    },
+  ];
+
   return (
-    <div className="space-y-8">
+    <div className="pn-tela">
       {!aceito && (
-        <section className="painel-cartao max-w-3xl p-5">
-          <p className={rotulo}>Primeiro passo</p>
-          <h2 className="mt-1 font-serif text-2xl font-semibold">{termo.dados?.sem_texto && termo.dados.versao === VERSAO_DO_TERMO ? "Leia e aceite de novo, para o texto ficar guardado" : antigo ? "O termo mudou: aceite de novo" : "Aceite o termo de adesão"}</h2>
+        <Cartao variante="destaque" className="max-w-3xl">
+          <CabecalhoDeSecao
+            rotulo="Primeiro passo"
+            simbolo={FileSignature}
+            titulo={termo.dados?.sem_texto && termo.dados.versao === VERSAO_DO_TERMO ? "Leia e aceite de novo, para o texto ficar guardado" : antigo ? "O termo mudou: aceite de novo" : "Aceite o termo de adesão"}
+          />
           <p className="mt-2 text-ink-soft">
             {termo.dados?.sem_texto && termo.dados.versao === VERSAO_DO_TERMO
               ? "O seu aceite é de antes de o painel guardar o texto que você leu. Leia de novo e aceite: assim o texto exato fica registrado para sempre, em Minha conta. As horas que você já tem continuam valendo."
               : antigo
-              ? "O termo ganhou cláusulas que deixam claro o voluntariado: sem pagamento nem promessa de compensação, sem horário nem subordinação, licença livre e irrevogável do que você publica e as leis do Brasil. As horas que você já tem continuam valendo."
-              : "As horas só começam a contar depois do aceite. É ele que transforma o seu trabalho em horas de voluntariado (Lei nº 9.608/1998)."}{" "}
+                ? "O termo ganhou cláusulas que deixam claro o voluntariado: sem pagamento nem promessa de compensação, sem horário nem subordinação, licença livre e irrevogável do que você publica e as leis do Brasil. As horas que você já tem continuam valendo."
+                : "As horas só começam a contar depois do aceite. É ele que transforma o seu trabalho em horas de voluntariado (Lei nº 9.608/1998)."}{" "}
             Leia o termo na aba <strong>Termo de adesão</strong> e confirme aqui.
           </p>
           <div className="mt-3 flex flex-wrap items-end gap-3">
-            <label className="block min-w-60 flex-1">
-              Seu nome completo, como deve sair no certificado
-              <input value={nome || (antigo ? (termo.dados?.nome_completo ?? "") : "")} onChange={(e) => setNome(e.target.value)} maxLength={120} autoComplete="name" className={campo} />
-            </label>
-            <button
-              type="button"
-              className={botao}
-              disabled={acao.ocupado || (nome || termo.dados?.nome_completo || "").trim().length < 5}
+            <div className="min-w-60 flex-1">
+              <Campo rotulo="Seu nome completo, como deve sair no certificado" value={nome || (antigo ? (termo.dados?.nome_completo ?? "") : "")} onChange={(e) => setNome(e.target.value)} maxLength={120} autoComplete="name" />
+            </div>
+            <Botao
+              variante="principal"
+              simbolo={Check}
+              disabled={(nome || termo.dados?.nome_completo || "").trim().length < 5}
+              carregando={acao.ocupado}
               onClick={async () => {
                 const completo = nome || termo.dados?.nome_completo || "";
                 // O texto exato do termo fica guardado para sempre (interno.termos_aceites), junto com o nome completo.
@@ -175,38 +204,28 @@ export function Horas({ me }: { me: Me }) {
               }}
             >
               Li e aceito o termo
-            </button>
+            </Botao>
           </div>
-        </section>
+        </Cartao>
       )}
 
-      <Abas opcoes={opcoes} atual={atual} escolher={setAba} />
+      <Abas rotulo="Horas e certificados" opcoes={opcoes} valor={atual} aoMudar={setAba} />
 
+      {atual === "minhas" && !m && !minhas.erro && <Esqueleto forma="cartoes" linhas={3} />}
       {atual === "minhas" && m && (
-        <section className="space-y-8">
-          <div className="grid max-w-3xl gap-3 sm:grid-cols-3">
-            {(
-              [
-                ["Prontas para certificado", m.livres, "já confirmadas e ainda fora de certificado"],
-                ["Contadas pela plataforma", m.plataforma, "das prontas, as que o painel contou sozinho"],
-                ["Esperando conferência", m.pendentes, "registradas à mão; a coordenação confere"],
-              ] as const
-            ).map(([titulo, valor, nota]) => (
-              <div key={titulo} className="painel-cartao p-4">
-                <span className="block text-ink-soft">{titulo}</span>
-                <span className="mt-1 block font-serif text-3xl font-semibold leading-tight">{horasPt(Number(valor))}</span>
-                <span className="block text-sm text-ink-soft">{nota}</span>
-              </div>
-            ))}
-          </div>
+        <section className="space-y-6">
+          <Estatisticas rotulo="Minhas horas" className="max-w-3xl">
+            <Estatistica rotulo="Prontas para certificado" valor={horasPt(Number(m.livres))} detalhe="já confirmadas e ainda fora de certificado" tom={Number(m.livres) > 0 ? "ok" : "neutro"} />
+            <Estatistica rotulo="Contadas pela plataforma" valor={horasPt(Number(m.plataforma))} detalhe="das prontas, as que o painel contou sozinho" />
+            <Estatistica rotulo="Esperando conferência" valor={horasPt(Number(m.pendentes))} detalhe="registradas à mão; a coordenação confere" tom={Number(m.pendentes) > 0 ? "aviso" : "neutro"} />
+          </Estatisticas>
 
-          <div className="max-w-3xl border-l-2 border-gold pl-4">
-            <h3 className="font-serif text-xl font-semibold">Como as horas são contadas</h3>
+          <Cartao variante="plano" className="max-w-3xl" titulo="Como as horas são contadas" nivelDoTitulo={3}>
             <ol className="mt-2 list-decimal space-y-1 pl-5">
               <li>Você termina um trabalho no painel (uma aula aprovada, um parecer, um reforço respondido…).</li>
               <li>
                 A plataforma soma sozinha as horas que esse tipo de trabalho vale, no dia em que ele terminou. Veja os valores em{" "}
-                <button type="button" className={elo} onClick={() => setAba("valores")}>
+                <button type="button" className="pn-elo" onClick={() => setAba("valores")}>
                   Quanto vale cada trabalho
                 </button>
                 .
@@ -214,7 +233,7 @@ export function Horas({ me }: { me: Me }) {
               <li>O que você faz fora do painel (uma reunião, uma gravação feita em casa), registre logo abaixo: conta depois que a coordenação conferir.</li>
               <li>
                 Quando quiser, peça o certificado de um período em{" "}
-                <button type="button" className={elo} onClick={() => setAba("certificado")}>
+                <button type="button" className="pn-elo" onClick={() => setAba("certificado")}>
                   Pedir certificado
                 </button>
                 .
@@ -223,121 +242,113 @@ export function Horas({ me }: { me: Me }) {
             <p className="mt-2 text-ink-soft">
               Cada trabalho conta uma vez e nenhum dia passa de 12 horas somando tudo. Confirmadas desde o começo: <strong className="text-ink">{horasPt(Number(m.confirmadas))}</strong>.
             </p>
-          </div>
+          </Cartao>
 
-          <div>
-            <h3 className="font-serif text-xl font-semibold">Registrar horas feitas fora do painel</h3>
+          <Cartao className="max-w-3xl" titulo="Registrar horas feitas fora do painel" nivelDoTitulo={3}>
             <form
-              className="mt-3 grid max-w-3xl gap-3 sm:grid-cols-[auto_auto_1fr_auto] sm:items-end"
+              className="mt-3 grid gap-3 sm:grid-cols-[auto_auto_1fr_auto] sm:items-end"
               onSubmit={async (e) => {
                 e.preventDefault();
                 if (await acao.agir("horas_registrar", { p_dia: nova.dia, p_horas: Number(nova.horas.replace(",", ".")), p_atividade: nova.atividade }, "Horas registradas. Elas contam depois de conferidas.")) setNova({ ...nova, atividade: "" });
               }}
             >
-              <label className="block">
-                Dia
-                <input type="date" value={nova.dia} max={hojeAqui()} onChange={(e) => setNova({ ...nova, dia: e.target.value })} required className={campo} />
-              </label>
-              <label className="block">
-                Horas
-                <input value={nova.horas} onChange={(e) => setNova({ ...nova, horas: e.target.value })} inputMode="decimal" required maxLength={4} className={`${campo} w-24`} />
-              </label>
-              <label className="block">
-                O que você fez
-                <input value={nova.atividade} onChange={(e) => setNova({ ...nova, atividade: e.target.value })} required minLength={5} maxLength={300} className={campo} />
-              </label>
-              <button type="submit" className={botao} disabled={acao.ocupado}>
+              <Campo rotulo="Dia" type="date" value={nova.dia} max={hojeAqui()} onChange={(e) => setNova({ ...nova, dia: e.target.value })} required />
+              <Campo rotulo="Horas" value={nova.horas} onChange={(e) => setNova({ ...nova, horas: e.target.value })} inputMode="decimal" required maxLength={4} className="w-24" />
+              <Campo rotulo="O que você fez" value={nova.atividade} onChange={(e) => setNova({ ...nova, atividade: e.target.value })} required minLength={5} maxLength={300} />
+              <Botao type="submit" simbolo={Plus} carregando={acao.ocupado}>
                 Registrar
-              </button>
+              </Botao>
             </form>
-          </div>
+          </Cartao>
 
-          <div>
-            <h3 className="font-serif text-xl font-semibold">Histórico</h3>
-            <ul className="mt-3 divide-y divide-rule border-y border-rule">
-              {m.lista.length === 0 && <li className="py-2 text-ink-soft">Nenhuma hora ainda. Assim que um trabalho seu for aprovado ou concluído no painel, ele aparece aqui.</li>}
-              {m.lista.map((hora) => (
-                <li key={hora.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-                  <span>
-                    {dia(hora.dia)} · {horasPt(Number(hora.horas))} · {hora.atividade}
-                  </span>
-                  <span className={hora.origem === "plataforma" && hora.status !== "recusada" ? "text-ok" : "text-ink-soft"}>
-                    {estadoDa(hora)}
-                    {hora.certificado && " · em certificado"}{" "}
-                    {hora.status === "pendente" && (
-                      <button type="button" className={elo} onClick={() => acao.agir("horas_remover", { p_id: hora.id }, "Registro apagado.")}>
-                        apagar
-                      </button>
-                    )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <section aria-labelledby="horas-historico" className="space-y-3">
+            <CabecalhoDeSecao id="horas-historico" titulo="Histórico" simbolo={Clock} />
+            <Tabela dados={m.lista} colunas={colunasDoHistorico} legenda="Histórico das minhas horas" porPagina={25} densa vazio={<Vazio simbolo={Clock} titulo="Nenhuma hora ainda. Assim que um trabalho seu for aprovado ou concluído no painel, ele aparece aqui." />} />
+          </section>
         </section>
       )}
 
       {atual === "certificado" && m && <PedirCertificado minhas={m} depois={minhas.recarregar} />}
 
       {atual === "certificados" && (
-        <section>
-          <p className="max-w-3xl text-ink-soft">
+        <section className="space-y-4">
+          <Faixa tom="info">
             Todo certificado leva três assinaturas eletrônicas (um educador, a coordenação pedagógica e, por último, o coordenador) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
-          </p>
-          {certificados.dados?.length === 0 && <p className="mt-3 text-ink-soft">Nenhum certificado ainda.</p>}
-          <ul className="mt-4 space-y-4">
+          </Faixa>
+          {!certificados.dados && !certificados.erro && <Esqueleto forma="cartoes" linhas={2} />}
+          {certificados.dados?.length === 0 && <Vazio simbolo={Award} titulo="Nenhum certificado ainda." />}
+          <ul className="space-y-4">
             {certificados.dados?.map((certificado) => {
               const minha = certificado.testemunhas.find((assinatura) => assinatura.id === me.id && !assinatura.confirmou_em && assinatura.papel !== "coordenacao");
               const faltam = certificado.testemunhas.filter((assinatura) => assinatura.papel !== "coordenacao" && !assinatura.confirmou_em).length;
               return (
-                <li key={certificado.id} className="border border-rule bg-parchment-deep p-4">
-                  <p className={rotulo}>
-                    {situacao[certificado.status]} · {dia(certificado.inicio)} a {dia(certificado.fim)} · {horasPt(Number(certificado.horas))}
-                  </p>
-                  <p className="mt-1 font-serif text-xl font-semibold">{certificado.nome}</p>
-                  <p className="mt-1 whitespace-pre-line" data-original>{certificado.atividades}</p>
-                  {certificado.testemunhas.length > 0 && (
-                    <p className="mt-1 text-ink-soft">
-                      Assinaturas: {certificado.testemunhas.map((assinatura) => `${assinatura.nome} (${assinatura.confirmou_em ? "assinou" : "falta assinar"})`).join(", ")}
+                <li key={certificado.id}>
+                  <Cartao
+                    as="article"
+                    variante={minha && certificado.status === "aberto" ? "destaque" : "padrao"}
+                    titulo={certificado.nome}
+                    nivelDoTitulo={3}
+                    acoes={
+                      <Selo tom={certificado.status === "emitido" ? "ok" : certificado.status === "cancelado" ? "neutro" : "aviso"} ponto>
+                        {situacao[certificado.status]}
+                      </Selo>
+                    }
+                  >
+                    <p className="pn-rotulo-mono mt-1">
+                      {dia(certificado.inicio)} a {dia(certificado.fim)} · {horasPt(Number(certificado.horas))}
                     </p>
-                  )}
-                  <p className="mt-3 flex flex-wrap gap-3">
-                    {minha && certificado.status === "aberto" && (
-                      <button
-                        type="button"
-                        className={botao}
-                        disabled={acao.ocupado}
-                        onClick={async () => {
-                          if ((await confirmar({ titulo: "Assinar este certificado?", texto: DECLARACAO.replace(" Assinar?", ""), confirmar: "Assinar" }))) void acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Assinatura registrada.");
-                        }}
-                      >
-                        Assinar eletronicamente
-                      </button>
+                    <p className="mt-2 whitespace-pre-line" data-original>
+                      {certificado.atividades}
+                    </p>
+                    {certificado.testemunhas.length > 0 && (
+                      <p className="mt-2 flex flex-wrap items-center gap-1.5 text-sm">
+                        <span className="text-ink-soft">Assinaturas:</span>
+                        {certificado.testemunhas.map((assinatura) => (
+                          <Selo key={`${assinatura.id}${assinatura.papel ?? ""}`} tom={assinatura.confirmou_em ? "ok" : "neutro"}>
+                            {assinatura.nome} ({assinatura.confirmou_em ? "assinou" : "falta assinar"})
+                          </Selo>
+                        ))}
+                      </p>
                     )}
-                    {leads(me) && certificado.status === "aberto" && (
-                      <button
-                        type="button"
-                        className={botao}
-                        disabled={acao.ocupado || faltam > 0}
-                        title={faltam > 0 ? "A sua assinatura é a última: faltam as outras duas." : undefined}
-                        onClick={async () => {
-                          if ((await confirmar({ titulo: "Assinar este certificado?", texto: DECLARACAO.replace(" Assinar?", ""), confirmar: "Assinar" }))) void acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado assinado e emitido.");
-                        }}
-                      >
-                        Assinar e emitir
-                      </button>
-                    )}
-                    {certificado.status !== "cancelado" && (
-                      <button type="button" className={botaoClaro} onClick={() => setVer(certificado)}>
-                        {certificado.status === "emitido" ? "Ver e salvar em PDF" : "Ver a prévia"}
-                      </button>
-                    )}
-                    {leads(me) && certificado.status !== "cancelado" && (
-                      <button type="button" className={elo} onClick={() => acao.agir("certificado_cancelar", { p_id: certificado.id }, "Certificado cancelado. As horas voltaram a ficar livres.")}>
-                        Cancelar
-                      </button>
-                    )}
-                  </p>
+                    <p className="mt-3 flex flex-wrap gap-2">
+                      {minha && certificado.status === "aberto" && (
+                        <Botao
+                          variante="principal"
+                          simbolo={PenLine}
+                          carregando={acao.ocupado}
+                          onClick={async () => {
+                            if (await confirmar({ titulo: "Assinar este certificado?", texto: DECLARACAO.replace(" Assinar?", ""), confirmar: "Assinar" })) void acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Assinatura registrada.");
+                          }}
+                        >
+                          Assinar eletronicamente
+                        </Botao>
+                      )}
+                      {leads(me) && certificado.status === "aberto" && (
+                        <Botao
+                          variante="principal"
+                          simbolo={Stamp}
+                          disabled={faltam > 0}
+                          carregando={acao.ocupado}
+                          title={faltam > 0 ? "A sua assinatura é a última: faltam as outras duas." : undefined}
+                          onClick={async () => {
+                            if (await confirmar({ titulo: "Assinar este certificado?", texto: DECLARACAO.replace(" Assinar?", ""), confirmar: "Assinar" })) void acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado assinado e emitido.");
+                          }}
+                        >
+                          Assinar e emitir
+                        </Botao>
+                      )}
+                      {certificado.status !== "cancelado" && (
+                        <Botao simbolo={Eye} onClick={() => setVer(certificado)}>
+                          {certificado.status === "emitido" ? "Ver e salvar em PDF" : "Ver a prévia"}
+                        </Botao>
+                      )}
+                      {leads(me) && certificado.status !== "cancelado" && (
+                        <Botao variante="discreto" perigo simbolo={Ban} onClick={() => acao.agir("certificado_cancelar", { p_id: certificado.id }, "Certificado cancelado. As horas voltaram a ficar livres.")}>
+                          Cancelar
+                        </Botao>
+                      )}
+                    </p>
+                  </Cartao>
                 </li>
               );
             })}
@@ -351,25 +362,28 @@ export function Horas({ me }: { me: Me }) {
       {atual === "valores" && <TabelaDeHoras edita={leads(me)} />}
 
       {atual === "termo" && (
-        <section>
-          <h2 className="font-serif text-2xl font-semibold">Termo de adesão ao trabalho voluntário</h2>
-          <ol className="mt-3 max-w-3xl list-decimal space-y-2 pl-5 font-serif text-lg">
+        <Cartao aria-labelledby="termo-adesao-titulo" className="max-w-3xl">
+          <CabecalhoDeSecao id="termo-adesao-titulo" titulo="Termo de adesão ao trabalho voluntário" simbolo={FileSignature} />
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-lg" style={{ fontFamily: "var(--pn-fonte-titulo)" }}>
             {TERMO.map((clausula) => (
               <li key={clausula}>{clausula}</li>
             ))}
           </ol>
           {aceito && (
-            <p className="mt-3 border-l-2 border-ok pl-4">
+            <Faixa tom="ok" className="mt-3">
               Aceito por {termo.dados?.nome_completo} em {dia(termo.dados?.aceito_em ?? "")}.
-            </p>
+            </Faixa>
           )}
-        </section>
+        </Cartao>
       )}
 
       <Aviso texto={termo.erro || minhas.erro || certificados.erro || acao.aviso} />
     </div>
   );
 }
+
+/** O tom do selo de cada linha de horas (a palavra vem de estadoDa: a cor só acompanha). */
+const tomDa = (hora: Pick<Hora, "status" | "origem">): TomDoSelo => (hora.status === "recusada" ? "neutro" : hora.status === "pendente" ? "aviso" : "ok");
 
 /** O voluntário pede o certificado de um período, acompanha o pedido e lê a resposta da coordenação. */
 function PedirCertificado({ minhas, depois }: { minhas: Minhas; depois: () => void }) {
@@ -380,9 +394,9 @@ function PedirCertificado({ minhas, depois }: { minhas: Minhas; depois: () => vo
 
   if (pedido?.status === "pendente")
     return (
-      <div className="painel-cartao max-w-3xl p-5">
-        <p className={rotulo}>Pedido de certificado · enviado em {data(pedido.criado_em)}</p>
-        <p className="mt-1 font-serif text-xl font-semibold">
+      <Cartao className="max-w-3xl">
+        <p className="pn-rotulo-mono">Pedido de certificado · enviado em {data(pedido.criado_em)}</p>
+        <p className="mt-1 flex flex-wrap items-center gap-2 text-xl font-semibold" style={{ fontFamily: "var(--pn-fonte-titulo)" }}>
           De {dia(pedido.inicio)} a {dia(pedido.fim)}
         </p>
         <p className="mt-1 text-ink-soft">
@@ -390,26 +404,25 @@ function PedirCertificado({ minhas, depois }: { minhas: Minhas; depois: () => vo
         </p>
         {pedido.mensagem && <p className="mt-2 border-l-2 border-rule pl-3">{pedido.mensagem}</p>}
         <p className="mt-3">
-          <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("certificado_pedido_cancelar", { p_id: pedido.id }, "Pedido cancelado.")}>
+          <Botao variante="discreto" perigo simbolo={X} disabled={acao.ocupado} onClick={() => acao.agir("certificado_pedido_cancelar", { p_id: pedido.id }, "Pedido cancelado.")}>
             Cancelar o pedido
-          </button>
+          </Botao>
         </p>
         <Aviso texto={acao.aviso} />
-      </div>
+      </Cartao>
     );
 
   return (
-    <div className="painel-cartao max-w-3xl p-5">
-      <h3 className="font-serif text-xl font-semibold">Pedir certificado</h3>
+    <Cartao className="max-w-3xl" titulo="Pedir certificado" nivelDoTitulo={3}>
       {pedido?.status === "recusado" && (
-        <p className="mt-2 border-l-2 border-oxblood pl-3">
+        <Faixa tom="aviso" className="mt-2">
           Seu pedido de {dia(pedido.inicio)} a {dia(pedido.fim)} não foi atendido agora. Nota da coordenação: {pedido.nota}
-        </p>
+        </Faixa>
       )}
       {pedido?.status === "atendido" && (
-        <p className="mt-2 border-l-2 border-ok pl-3">
+        <Faixa tom="ok" className="mt-2">
           Seu pedido de {dia(pedido.inicio)} a {dia(pedido.fim)} foi atendido{pedido.decidido_em ? ` em ${data(pedido.decidido_em)}` : ""}: o certificado está em Certificados, logo abaixo.
-        </p>
+        </Faixa>
       )}
       <p className="mt-2 text-ink-soft">
         Entram as horas livres do período: as que a plataforma contou e as registradas à mão já conferidas. As que ainda esperam conferência, a coordenação confere antes de abrir o processo.
@@ -421,27 +434,20 @@ function PedirCertificado({ minhas, depois }: { minhas: Minhas; depois: () => vo
           void acao.agir("certificado_pedir", { p_inicio: form.inicio, p_fim: form.fim, p_mensagem: form.mensagem }, "Pedido enviado. A coordenação foi avisada.");
         }}
       >
-        <label className="block">
-          De
-          <input type="date" value={form.inicio} max={form.fim} onChange={(e) => setForm({ ...form, inicio: e.target.value })} required className={campo} />
-        </label>
-        <label className="block">
-          Até
-          <input type="date" value={form.fim} min={form.inicio} max={hojeAqui()} onChange={(e) => setForm({ ...form, fim: e.target.value })} required className={campo} />
-        </label>
-        <label className="block sm:col-span-2">
-          Recado para a coordenação (opcional)
-          <textarea value={form.mensagem} onChange={(e) => setForm({ ...form, mensagem: e.target.value })} rows={2} maxLength={1000} placeholder="Para que é o certificado, se precisa dele até alguma data…" className={campo} />
-        </label>
+        <Campo rotulo="De" type="date" value={form.inicio} max={form.fim} onChange={(e) => setForm({ ...form, inicio: e.target.value })} required />
+        <Campo rotulo="Até" type="date" value={form.fim} min={form.inicio} max={hojeAqui()} onChange={(e) => setForm({ ...form, fim: e.target.value })} required />
+        <div className="sm:col-span-2">
+          <Area rotulo="Recado para a coordenação (opcional)" value={form.mensagem} onChange={(e) => setForm({ ...form, mensagem: e.target.value })} rows={2} maxLength={1000} placeholder="Para que é o certificado, se precisa dele até alguma data…" />
+        </div>
         <div className="flex flex-wrap items-center gap-3 sm:col-span-2">
-          <button type="submit" className={botao} disabled={acao.ocupado || !temHoras}>
+          <Botao type="submit" variante="principal" simbolo={Send} disabled={!temHoras} carregando={acao.ocupado}>
             Pedir certificado
-          </button>
+          </Botao>
           {!temHoras && <span className="text-ink-soft">Ainda não há horas livres para pedir.</span>}
         </div>
       </form>
       <Aviso texto={acao.aviso} />
-    </div>
+    </Cartao>
   );
 }
 
@@ -452,52 +458,60 @@ function TabelaDeHoras({ edita }: { edita: boolean }) {
   const [mudancas, setMudancas] = useState<Record<string, string>>({});
   const prontas = Object.entries(mudancas).filter(([, valor]) => valor.trim() !== "");
   return (
-    <section className="max-w-3xl">
-      <h2 className="font-serif text-2xl font-semibold">Quanto vale cada trabalho</h2>
-      <p className="mt-2 text-ink-soft">
+    <section aria-labelledby="valores-titulo" className="max-w-3xl space-y-3">
+      <CabecalhoDeSecao id="valores-titulo" titulo="Quanto vale cada trabalho" simbolo={Scale} />
+      <p className="text-ink-soft">
         Quando alguém termina um trabalho no painel, a plataforma soma na conta da pessoa as horas que esse tipo de trabalho vale. Exemplo: se “Aula escrita e aprovada” vale 4 h, cada aula aprovada rende 4 horas de voluntariado. Cada trabalho conta uma vez, no dia em que terminou.
       </p>
-      <p className="mt-2 text-ink-soft">
+      <Faixa tom="info">
         {edita
           ? "Para mudar, digite o novo valor e clique em Salvar. A mudança vale só para o que for contado daqui em diante: o que já foi contado fica como está. Zero desliga a contagem daquele tipo."
           : "Quem define os valores é o coordenador."}
-      </p>
-      <table className="mt-2 w-full">
-        <tbody className="divide-y divide-rule">
-          {pesos.dados?.map((peso) => (
-            <tr key={peso.chave}>
-              <td className="py-1.5 pr-3">{peso.nome}</td>
-              <td className="py-1.5 text-right font-mono">
-                {edita ? (
-                  <input
-                    aria-label={`Horas por ${peso.nome.toLowerCase()}`}
-                    inputMode="decimal"
-                    maxLength={4}
-                    value={mudancas[peso.chave] ?? String(peso.horas).replace(".", ",")}
-                    onChange={(e) => setMudancas({ ...mudancas, [peso.chave]: e.target.value })}
-                    className="painel-campo w-20 border-2 border-ink bg-parchment px-2 py-1 text-right"
-                  />
-                ) : (
-                  horasPt(Number(peso.horas))
-                )}
-              </td>
-              {edita && <td className="w-28 py-1.5 pl-3 text-sm text-ink-soft">{Number(peso.horas) !== Number(peso.padrao) ? `padrão: ${horasPt(Number(peso.padrao))}` : ""}</td>}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      </Faixa>
+      {!pesos.dados && !pesos.erro && <Esqueleto forma="tabela" linhas={6} />}
+      {pesos.dados && (
+        // Tabela simples (sem ordem nem páginas): os campos de valor ficam dentro das linhas.
+        <div className="pn-tabela-caixa">
+          <table className="pn-tabela pn-tabela-densa">
+            <caption className="sr-only">Quanto vale cada trabalho</caption>
+            <tbody>
+              {pesos.dados.map((peso) => (
+                <tr key={peso.chave}>
+                  <td>{peso.nome}</td>
+                  <td className="text-right font-mono tabular-nums">
+                    {edita ? (
+                      <input
+                        aria-label={`Horas por ${peso.nome.toLowerCase()}`}
+                        inputMode="decimal"
+                        maxLength={4}
+                        value={mudancas[peso.chave] ?? String(peso.horas).replace(".", ",")}
+                        onChange={(e) => setMudancas({ ...mudancas, [peso.chave]: e.target.value })}
+                        className="pn-campo w-20 text-right"
+                      />
+                    ) : (
+                      horasPt(Number(peso.horas))
+                    )}
+                  </td>
+                  {edita && <td className="w-28 text-sm text-ink-soft">{Number(peso.horas) !== Number(peso.padrao) ? `padrão: ${horasPt(Number(peso.padrao))}` : ""}</td>}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       {edita && (
-        <button
-          type="button"
-          className={`${botao} mt-3`}
-          disabled={acao.ocupado || prontas.length === 0}
+        <Botao
+          variante="principal"
+          simbolo={Save}
+          disabled={prontas.length === 0}
+          carregando={acao.ocupado}
           onClick={async () => {
             const p = Object.fromEntries(prontas.map(([chave, valor]) => [chave, Number(valor.replace(",", "."))]));
             if (await acao.agir("horas_pesos_salvar", { p }, "Tabela salva.")) setMudancas({});
           }}
         >
           Salvar
-        </button>
+        </Botao>
       )}
       <Aviso texto={pesos.erro || acao.aviso} />
     </section>
@@ -518,100 +532,103 @@ function Pedidos({ me, preparar }: { me: Me; preparar: (pedido: PedidoDaFila) =>
   const [resposta, setResposta] = useState<{ id: string; nota: string } | null>(null);
   const lidera = leads(me);
   return (
-    <section>
-      <h2 className="font-serif text-2xl font-semibold">Pedidos de certificado</h2>
+    <section aria-labelledby="pedidos-certificado" className="space-y-3">
+      <CabecalhoDeSecao id="pedidos-certificado" titulo="Pedidos de certificado" simbolo={Award} />
       <Aviso texto={fila.erro || acao.aviso} />
-      {fila.dados?.length === 0 && <p className="text-ink-soft">Nenhum pedido em aberto.</p>}
-      <ul className="mt-2 space-y-4">
+      {!fila.dados && !fila.erro && <Esqueleto forma="cartoes" linhas={2} />}
+      {fila.dados?.length === 0 && <Vazio simbolo={Award} titulo="Nenhum pedido em aberto." />}
+      <ul className="space-y-4">
         {fila.dados?.map((pedido) => {
           const livres = Number(pedido.livres);
           const pendentes = Number(pedido.pendentes);
           return (
-            <li key={pedido.id} className="painel-cartao p-5">
-              <p className={rotulo}>
-                Pedido de {dataHora(pedido.criado_em)} · {dia(pedido.inicio)} a {dia(pedido.fim)}
-              </p>
-              <p className="mt-1 font-serif text-xl font-semibold">{pedido.nome_completo || pedido.nome}</p>
-              <p className="mt-1">
-                <strong>{horasPt(livres)}</strong> livres para o certificado
-                {pendentes > 0 && (
-                  <>
-                    {" "}
-                    · <strong className="text-oxblood">{horasPt(pendentes)}</strong> esperando conferência, em Horas para conferir
-                  </>
+            <li key={pedido.id}>
+              <Cartao as="article" titulo={pedido.nome_completo || pedido.nome} nivelDoTitulo={3}>
+                <p className="pn-rotulo-mono mt-1">
+                  Pedido de {dataHora(pedido.criado_em)} · {dia(pedido.inicio)} a {dia(pedido.fim)}
+                </p>
+                <p className="mt-2 flex flex-wrap items-center gap-1.5">
+                  <Selo tom={livres > 0 ? "ok" : "neutro"}>
+                    <strong>{horasPt(livres)}</strong> livres para o certificado
+                  </Selo>
+                  {pendentes > 0 && (
+                    <Selo tom="aviso">
+                      <strong>{horasPt(pendentes)}</strong> esperando conferência, em Horas para conferir
+                    </Selo>
+                  )}
+                </p>
+                {pedido.mensagem && <p className="mt-2 border-l-2 border-rule pl-3">{pedido.mensagem}</p>}
+                {pedido.resumo && <p className="mt-2 text-ink-soft">O que a plataforma registrou: {pedido.resumo}</p>}
+                <p className="mt-2">
+                  <Botao variante="discreto" pequeno simbolo={mostra === pedido.id ? ChevronUp : ChevronDown} aria-expanded={mostra === pedido.id} onClick={() => setMostra(mostra === pedido.id ? null : pedido.id)}>
+                    {mostra === pedido.id ? "Esconder as horas do período" : `Ver as horas do período (${pedido.horas.length})`}
+                  </Botao>
+                </p>
+                {mostra === pedido.id && (
+                  <Lista rotulo={`Horas do período de ${pedido.nome_completo || pedido.nome}`} className="mt-2">
+                    {pedido.horas.map((hora) => (
+                      <ItemDeLista
+                        key={hora.id}
+                        titulo={
+                          <span className={hora.status === "recusada" ? "text-ink-soft line-through" : ""}>
+                            {dia(hora.dia)} · {horasPt(Number(hora.horas))} · {hora.atividade}
+                          </span>
+                        }
+                        selo={<Selo tom={tomDa(hora)}>{estadoDa(hora)}</Selo>}
+                        acoes={
+                          hora.origem === "plataforma" && (
+                            <Botao
+                              variante="discreto"
+                              pequeno
+                              disabled={acao.ocupado}
+                              onClick={() =>
+                                acao.agir(
+                                  "horas_considerar",
+                                  { p_id: hora.id, p_considerar: hora.status === "recusada" },
+                                  hora.status === "recusada" ? "A linha voltou a contar." : "Linha desconsiderada: ela não entra no certificado.",
+                                )
+                              }
+                            >
+                              {hora.status === "recusada" ? "considerar de novo" : "desconsiderar"}
+                            </Botao>
+                          )
+                        }
+                      />
+                    ))}
+                  </Lista>
                 )}
-              </p>
-              {pedido.mensagem && <p className="mt-2 border-l-2 border-rule pl-3">{pedido.mensagem}</p>}
-              {pedido.resumo && <p className="mt-2 text-ink-soft">O que a plataforma registrou: {pedido.resumo}</p>}
-              <p className="mt-2">
-                <button type="button" className={elo} aria-expanded={mostra === pedido.id} onClick={() => setMostra(mostra === pedido.id ? null : pedido.id)}>
-                  {mostra === pedido.id ? "Esconder as horas do período" : `Ver as horas do período (${pedido.horas.length})`}
-                </button>
-              </p>
-              {mostra === pedido.id && (
-                <ul className="mt-2 divide-y divide-rule border-y border-rule">
-                  {pedido.horas.map((hora) => (
-                    <li key={hora.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-                      <span className={hora.status === "recusada" ? "text-ink-soft line-through" : ""}>
-                        {dia(hora.dia)} · {horasPt(Number(hora.horas))} · {hora.atividade}
-                      </span>
-                      <span className="text-ink-soft">
-                        {estadoDa(hora)}{" "}
-                        {hora.origem === "plataforma" && (
-                          <button
-                            type="button"
-                            className={elo}
-                            disabled={acao.ocupado}
-                            onClick={() =>
-                              acao.agir(
-                                "horas_considerar",
-                                { p_id: hora.id, p_considerar: hora.status === "recusada" },
-                                hora.status === "recusada" ? "A linha voltou a contar." : "Linha desconsiderada: ela não entra no certificado.",
-                              )
-                            }
-                          >
-                            {hora.status === "recusada" ? "considerar de novo" : "desconsiderar"}
-                          </button>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {lidera ? (
-                <div className="mt-4 flex flex-wrap gap-3">
-                  <button type="button" className={botao} disabled={livres <= 0} title={livres <= 0 ? "Confira primeiro as horas que esperam conferência." : undefined} onClick={() => preparar(pedido)}>
-                    Preparar o certificado
-                  </button>
-                  <button type="button" className={botaoClaro} onClick={() => setResposta({ id: pedido.id, nota: "" })}>
-                    Responder sem abrir
-                  </button>
-                </div>
-              ) : (
-                <p className="mt-3 text-ink-soft">Quem abre o processo é o coordenador. Você pode conferir as horas e desconsiderar o que a plataforma contou a mais.</p>
-              )}
-              {resposta?.id === pedido.id && (
-                <form
-                  className="mt-3 space-y-3"
-                  onSubmit={async (e) => {
-                    e.preventDefault();
-                    if (await acao.agir("certificado_pedido_recusar", { p_id: pedido.id, p_nota: resposta.nota }, "Resposta enviada. A pessoa lê a nota no painel.")) setResposta(null);
-                  }}
-                >
-                  <label className="block">
-                    Nota para quem pediu (aparece para a pessoa no painel)
-                    <textarea value={resposta.nota} onChange={(e) => setResposta({ ...resposta, nota: e.target.value })} rows={2} required minLength={5} maxLength={1000} className={campo} />
-                  </label>
-                  <div className="flex flex-wrap gap-3">
-                    <button type="submit" className={botao} disabled={acao.ocupado || resposta.nota.trim().length < 5}>
-                      Enviar a resposta
-                    </button>
-                    <button type="button" className={elo} onClick={() => setResposta(null)}>
-                      Desistir
-                    </button>
+                {lidera ? (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Botao variante="principal" simbolo={FilePlus} disabled={livres <= 0} title={livres <= 0 ? "Confira primeiro as horas que esperam conferência." : undefined} onClick={() => preparar(pedido)}>
+                      Preparar o certificado
+                    </Botao>
+                    <Botao simbolo={MessageSquareReply} onClick={() => setResposta({ id: pedido.id, nota: "" })}>
+                      Responder sem abrir
+                    </Botao>
                   </div>
-                </form>
-              )}
+                ) : (
+                  <p className="pn-ajuda mt-3">Quem abre o processo é o coordenador. Você pode conferir as horas e desconsiderar o que a plataforma contou a mais.</p>
+                )}
+                {resposta?.id === pedido.id && (
+                  <form
+                    className="mt-3 space-y-3"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      if (await acao.agir("certificado_pedido_recusar", { p_id: pedido.id, p_nota: resposta.nota }, "Resposta enviada. A pessoa lê a nota no painel.")) setResposta(null);
+                    }}
+                  >
+                    <Area rotulo="Nota para quem pediu (aparece para a pessoa no painel)" value={resposta.nota} onChange={(e) => setResposta({ ...resposta, nota: e.target.value })} rows={2} required minLength={5} maxLength={1000} />
+                    <div className="flex flex-wrap gap-2">
+                      <Botao type="submit" simbolo={Send} disabled={resposta.nota.trim().length < 5} carregando={acao.ocupado}>
+                        Enviar a resposta
+                      </Botao>
+                      <Botao variante="discreto" onClick={() => setResposta(null)}>
+                        Desistir
+                      </Botao>
+                    </div>
+                  </form>
+                )}
+              </Cartao>
             </li>
           );
         })}
@@ -624,28 +641,36 @@ function Pedidos({ me, preparar }: { me: Me; preparar: (pedido: PedidoDaFila) =>
 function Conferir() {
   const fila = useLista<HoraDaFila[]>("horas_fila");
   const acao = useAcao(fila.recarregar);
+  const colunas: ColumnDef<HoraDaFila>[] = [
+    { id: "nome", header: "Pessoa", accessorFn: (h) => h.nome, cell: ({ getValue }) => <strong>{String(getValue())}</strong> },
+    { id: "dia", header: "Dia", accessorFn: (h) => h.dia, cell: ({ row }) => <span className="whitespace-nowrap tabular-nums">{dia(row.original.dia)}</span> },
+    { id: "horas", header: "Horas", accessorFn: (h) => Number(h.horas), cell: ({ row }) => <span className="whitespace-nowrap font-mono tabular-nums">{horasPt(Number(row.original.horas))}</span> },
+    { id: "atividade", header: "O que fez", accessorFn: (h) => h.atividade },
+    {
+      id: "acoes",
+      header: "",
+      enableSorting: false,
+      cell: ({ row: { original: hora } }) => (
+        <span className="flex justify-end gap-1">
+          <Botao pequeno simbolo={Check} disabled={acao.ocupado} onClick={() => acao.agir("horas_conferir", { p_id: hora.id, p_confirmar: true }, "Horas confirmadas.")}>
+            Confirmar
+          </Botao>
+          <Botao variante="discreto" pequeno perigo simbolo={X} disabled={acao.ocupado} onClick={() => acao.agir("horas_conferir", { p_id: hora.id, p_confirmar: false }, "Horas não confirmadas.")}>
+            Não confirmar
+          </Botao>
+        </span>
+      ),
+    },
+  ];
   return (
-    <section>
-      <h2 className="font-serif text-2xl font-semibold">Horas para conferir</h2>
+    <section aria-labelledby="horas-conferir" className="space-y-3">
+      <CabecalhoDeSecao id="horas-conferir" titulo="Horas para conferir" simbolo={ListChecks} />
       <Aviso texto={fila.erro || acao.aviso} />
-      {fila.dados?.length === 0 && <p className="text-ink-soft">Nada aguardando.</p>}
-      <ul className="mt-2 divide-y divide-rule border-y border-rule">
-        {fila.dados?.map((hora) => (
-          <li key={hora.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-            <span>
-              <strong>{hora.nome}</strong> · {dia(hora.dia)} · {horasPt(Number(hora.horas))} · {hora.atividade}
-            </span>
-            <span className="flex gap-3">
-              <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("horas_conferir", { p_id: hora.id, p_confirmar: true }, "Horas confirmadas.")}>
-                Confirmar
-              </button>
-              <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("horas_conferir", { p_id: hora.id, p_confirmar: false }, "Horas não confirmadas.")}>
-                Não confirmar
-              </button>
-            </span>
-          </li>
-        ))}
-      </ul>
+      {!fila.dados && !fila.erro ? (
+        <Esqueleto forma="tabela" linhas={5} />
+      ) : (
+        fila.dados && <Tabela dados={fila.dados} colunas={colunas} legenda="Horas para conferir" porPagina={25} densa vazio={<Vazio simbolo={ListChecks} titulo="Nada aguardando." />} />
+      )}
     </section>
   );
 }
@@ -684,50 +709,44 @@ function Abrir({ me, inicial, depois }: { me: Me; inicial: Preenchido | null; de
   };
 
   return (
-    <section id="abrir-certificado">
-      <h2 className="font-serif text-2xl font-semibold">Abrir um certificado</h2>
+    <section id="abrir-certificado" aria-labelledby="abrir-certificado-titulo" className="space-y-3">
+      <CabecalhoDeSecao
+        id="abrir-certificado-titulo"
+        titulo="Abrir um certificado"
+        simbolo={FilePlus}
+        sobre="Entram no certificado as horas livres da pessoa dentro do período: as que a plataforma contou e as registradas à mão já confirmadas. Ele é assinado por um educador, pelo vice-coordenador e por você: cada um assina na própria conta, e a sua assinatura, a última, é a emissão. Ninguém assina o próprio certificado. O CPF não é guardado: quem salva o PDF digita na hora."
+      />
       {inicial && form.usuario === inicial.usuario && (
-        <p className="mt-2 max-w-3xl border-l-2 border-ok pl-4">
+        <Faixa tom="ok" className="max-w-3xl">
           Preenchido com o pedido de {inicial.nome}: período e atividades vieram do que a plataforma registrou. Revise o texto, escolha o educador que assina e abra o processo.
-        </p>
+        </Faixa>
       )}
-      <p className="mt-1 max-w-3xl text-ink-soft">
-        Entram no certificado as horas livres da pessoa dentro do período: as que a plataforma contou e as registradas à mão já confirmadas. Ele é assinado por um educador, pelo vice-coordenador e por você: cada um assina na própria conta, e a sua assinatura, a última, é a emissão. Ninguém assina o próprio certificado. O CPF não é guardado: quem salva o PDF digita na hora.
-      </p>
-      <form
-        className="mt-3 max-w-3xl space-y-3"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          if (await acao.agir("certificado_abrir", { p: form }, "Processo aberto. Quem assina já foi avisado.")) setForm({ ...form, usuario: "", educador: "", vice: "", atividades: "" });
-        }}
-      >
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div>
-            Quem recebe
-            <BuscaDePessoa rotulo="Quem recebe o certificado" entre={equipe} escolhida={equipe.find((pessoa) => pessoa.id === form.usuario) ?? null} escolher={(pessoa) => setForm({ ...form, usuario: pessoa?.id ?? "", educador: "", vice: "" })} />
+      <Cartao as="div" className="max-w-3xl">
+        <form
+          className="space-y-3"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            if (await acao.agir("certificado_abrir", { p: form }, "Processo aberto. Quem assina já foi avisado.")) setForm({ ...form, usuario: "", educador: "", vice: "", atividades: "" });
+          }}
+        >
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="pn-campo-bloco">
+              <span className="pn-rotulo">Quem recebe</span>
+              <BuscaDePessoa rotulo="Quem recebe o certificado" entre={equipe} escolhida={equipe.find((pessoa) => pessoa.id === form.usuario) ?? null} escolher={(pessoa) => setForm({ ...form, usuario: pessoa?.id ?? "", educador: "", vice: "" })} />
+            </div>
+            <Campo rotulo="De" type="date" value={form.inicio} onChange={(e) => setForm({ ...form, inicio: e.target.value })} required />
+            <Campo rotulo="Até" type="date" value={form.fim} onChange={(e) => setForm({ ...form, fim: e.target.value })} required />
           </div>
-          <label className="block">
-            De
-            <input type="date" value={form.inicio} onChange={(e) => setForm({ ...form, inicio: e.target.value })} required className={campo} />
-          </label>
-          <label className="block">
-            Até
-            <input type="date" value={form.fim} onChange={(e) => setForm({ ...form, fim: e.target.value })} required className={campo} />
-          </label>
-        </div>
-        <label className="block">
-          Atividades realizadas (sai no certificado)
-          <textarea value={form.atividades} onChange={(e) => setForm({ ...form, atividades: e.target.value })} rows={3} required minLength={10} maxLength={700} className={campo} />
-          <span className="block text-right font-mono text-xs text-ink-soft">{form.atividades.length}/700</span>
-        </label>
-        <div className="grid gap-3 sm:grid-cols-2">
           <div>
-            Educador(a) que assina
-            <BuscaDePessoa rotulo="Educador ou educadora que assina" entre={educadores} escolhida={educadores.find((pessoa) => pessoa.id === form.educador) ?? null} escolher={(pessoa) => setForm({ ...form, educador: pessoa?.id ?? "", vice: "" })} />
+            <Area rotulo="Atividades realizadas (sai no certificado)" value={form.atividades} onChange={(e) => setForm({ ...form, atividades: e.target.value })} rows={3} required minLength={10} maxLength={700} />
+            <span className="block text-right font-mono text-xs text-ink-soft tabular-nums">{form.atividades.length}/700</span>
           </div>
-          <label className="block">
-            Coordenação pedagógica que assina
-            <select value={form.vice} onChange={(e) => setForm({ ...form, vice: e.target.value })} className={campo}>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="pn-campo-bloco">
+              <span className="pn-rotulo">Educador(a) que assina</span>
+              <BuscaDePessoa rotulo="Educador ou educadora que assina" entre={educadores} escolhida={educadores.find((pessoa) => pessoa.id === form.educador) ?? null} escolher={(pessoa) => setForm({ ...form, educador: pessoa?.id ?? "", vice: "" })} />
+            </div>
+            <Selecao rotulo="Coordenação pedagógica que assina" value={form.vice} onChange={(e) => setForm({ ...form, vice: e.target.value })}>
               <option value="">{vices.length === 1 ? vices[0].nome : vices.length === 0 ? "Ninguém disponível" : "Quem entrou por último"}</option>
               {vices.length > 1 &&
                 vices.map((pessoa) => (
@@ -735,27 +754,27 @@ function Abrir({ me, inicial, depois }: { me: Me; inicial: Preenchido | null; de
                     {pessoa.nome}
                   </option>
                 ))}
-            </select>
-          </label>
-        </div>
-        {pessoas.dados && form.usuario && (educadores.length === 0 || vices.length === 0) && (
-          <p className="border-l-2 border-oxblood pl-3 text-oxblood">
-            {educadores.length === 0 ? "Não há outro educador na equipe para assinar. " : ""}
-            {vices.length === 0 ? "Não há ninguém da coordenação pedagógica disponível para assinar: nomeie em Voluntários e convites." : ""}
-          </p>
-        )}
-        <div className="flex flex-wrap gap-3">
-          <button type="submit" className={botao} disabled={acao.ocupado || !form.usuario || !form.educador || vices.length === 0}>
-            Abrir processo
-          </button>
-          <button type="button" className={botaoClaro} aria-expanded={previa} onClick={() => setPrevia(!previa)}>
-            {previa ? "Fechar a prévia" : "Ver prévia"}
-          </button>
-        </div>
-        <Aviso texto={pessoas.erro || acao.aviso} />
-      </form>
+            </Selecao>
+          </div>
+          {pessoas.dados && form.usuario && (educadores.length === 0 || vices.length === 0) && (
+            <Faixa tom="aviso">
+              {educadores.length === 0 ? "Não há outro educador na equipe para assinar. " : ""}
+              {vices.length === 0 ? "Não há ninguém da coordenação pedagógica disponível para assinar: nomeie em Voluntários e convites." : ""}
+            </Faixa>
+          )}
+          <div className="flex flex-wrap gap-2">
+            <Botao type="submit" variante="principal" simbolo={FilePlus} disabled={!form.usuario || !form.educador || vices.length === 0} carregando={acao.ocupado}>
+              Abrir processo
+            </Botao>
+            <Botao simbolo={Eye} aria-expanded={previa} onClick={() => setPrevia(!previa)}>
+              {previa ? "Fechar a prévia" : "Ver prévia"}
+            </Botao>
+          </div>
+          <Aviso texto={pessoas.erro || acao.aviso} />
+        </form>
+      </Cartao>
       {previa && (
-        <div className="mt-5">
+        <div className="mt-2">
           <p className="mb-3 max-w-3xl text-ink-soft">
             A folha abaixo acompanha o que você preenche: nome, período, atividades, quem assina e a data de hoje. As horas entram sozinhas na abertura (são as livres da pessoa no período), e o número e a
             impressão digital nascem junto. Nada desta prévia é guardado.

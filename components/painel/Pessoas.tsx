@@ -1,11 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Check, ClipboardCopy, Copy, KeyRound, Mail, Plus, RotateCcw, Save, ShieldAlert, UserCheck, WandSparkles, X } from "lucide-react";
 import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { can, leads, type Me, nivelDe, nivelDoPapel, porNivel, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, GRUPOS_DEPARTAMENTO, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papelAposentado, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, data, dataHora, GRUPOS_DEPARTAMENTO, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papelAposentado, papeis, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Faixa, Selecao, Vazio } from "./ui";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 import { Departamentos, FotosParaAprovar, TermosAceitos } from "./PessoasExtras";
@@ -98,69 +100,64 @@ function Ficha({ pessoa, me, depois, estreita = false }: { pessoa: Pessoa; me: M
 
   return (
     <div className={`mt-3 grid gap-5 border-t border-rule pt-4 ${estreita ? "" : "lg:grid-cols-3"}`}>
-      <section>
+      <section className="space-y-2">
         <h3 className="font-semibold">Nome e apresentação</h3>
-        <p className="text-xs text-ink-soft">Para acertar um nome ofensivo, um dado pessoal exposto ou o pedido de quem não consegue entrar. O e-mail não muda por aqui.</p>
-        <label className="mt-2 block">
-          Nome
-          <input value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} className={campo} />
-        </label>
-        <label className="mt-2 block">
-          Apresentação
-          <textarea value={bio} onChange={(e) => setBio(e.target.value)} maxLength={500} rows={3} className={campo} />
-        </label>
-        <button type="button" className={`mt-2 ${botaoClaro}`} disabled={acao.ocupado || nome.trim().length < 2 || (nome === pessoa.nome && bio === (pessoa.bio ?? ""))} onClick={() => acao.agir("usuario_editar", { p_usuario: pessoa.id, p_nome: nome.trim(), p_bio: bio.trim() }, "Guardado. A pessoa recebeu um recado.")}>
+        <p className="pn-ajuda">Para acertar um nome ofensivo, um dado pessoal exposto ou o pedido de quem não consegue entrar. O e-mail não muda por aqui.</p>
+        <Campo rotulo="Nome" value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} />
+        <Area rotulo="Apresentação" value={bio} onChange={(e) => setBio(e.target.value)} maxLength={500} rows={3} />
+        <Botao pequeno simbolo={Save} disabled={nome.trim().length < 2 || (nome === pessoa.nome && bio === (pessoa.bio ?? ""))} carregando={acao.ocupado} onClick={() => acao.agir("usuario_editar", { p_usuario: pessoa.id, p_nome: nome.trim(), p_bio: bio.trim() }, "Guardado. A pessoa recebeu um recado.")}>
           Guardar
-        </button>
+        </Botao>
       </section>
 
-      <section>
+      <section className="space-y-2">
         <h3 className="font-semibold">Redefinir a senha</h3>
-        <p className="text-xs text-ink-soft">Para quem esqueceu a própria. A pessoa sai de todos os aparelhos e, ao entrar com a senha nova, escolhe outra antes de o painel abrir.</p>
+        <p className="pn-ajuda">Para quem esqueceu a própria. A pessoa sai de todos os aparelhos e, ao entrar com a senha nova, escolhe outra antes de o painel abrir.</p>
         {entregar ? (
-          <div role="status" className="mt-2 border-2 border-ink bg-parchment p-3">
+          <Cartao as="div" variante="destaque" role="status">
             <p>Senha nova de {pessoa.nome} (aparece só agora):</p>
             <p className="mt-1 select-all break-all font-mono text-base">{entregar}</p>
-            <p className="mt-1 text-xs text-ink-soft">Entregue por um canal seguro (pessoalmente, ligação ou mensagem que some), nunca por e-mail nem no mural.</p>
-            <p className="mt-2 flex gap-4">
-              <button type="button" className={elo} onClick={() => void navigator.clipboard?.writeText(entregar)}>Copiar</button>
-              <button type="button" className={elo} onClick={() => setEntregar("")}>Já entreguei</button>
+            <p className="pn-ajuda mt-1">Entregue por um canal seguro (pessoalmente, ligação ou mensagem que some), nunca por e-mail nem no mural.</p>
+            <p className="mt-2 flex flex-wrap gap-2">
+              <Botao pequeno simbolo={Copy} onClick={() => void navigator.clipboard?.writeText(entregar)}>
+                Copiar
+              </Botao>
+              <Botao pequeno variante="discreto" simbolo={Check} onClick={() => setEntregar("")}>
+                Já entreguei
+              </Botao>
             </p>
-          </div>
+          </Cartao>
         ) : (
           <>
-            <label className="mt-2 block">
-              Senha nova (pelo menos 12 caracteres)
-              <input value={senha} onChange={(e) => setSenha(e.target.value)} autoComplete="off" spellCheck={false} maxLength={72} className={`${campo} font-mono`} />
-            </label>
-            <p className="mt-2 flex flex-wrap gap-3">
-              <button type="button" className={botaoClaro} onClick={() => setSenha(senhaForte())}>Gerar uma senha forte</button>
-              <button type="button" className={botao} disabled={acao.ocupado || senha.trim().length < 12} onClick={() => void redefinir()}>Redefinir</button>
+            <Campo rotulo="Senha nova (pelo menos 12 caracteres)" value={senha} onChange={(e) => setSenha(e.target.value)} autoComplete="off" spellCheck={false} maxLength={72} className="font-mono" />
+            <p className="flex flex-wrap gap-2">
+              <Botao pequeno simbolo={WandSparkles} onClick={() => setSenha(senhaForte())}>
+                Gerar uma senha forte
+              </Botao>
+              <Botao pequeno simbolo={KeyRound} disabled={senha.trim().length < 12} carregando={acao.ocupado} onClick={() => void redefinir()}>
+                Redefinir
+              </Botao>
             </p>
           </>
         )}
-        {pessoa.trocar_senha && !entregar && <p className="mt-2 text-xs text-ink-soft">A pessoa ainda não escolheu a própria senha depois da última redefinição.</p>}
+        {pessoa.trocar_senha && !entregar && <p className="pn-ajuda">A pessoa ainda não escolheu a própria senha depois da última redefinição.</p>}
       </section>
 
-      <section>
+      <section className="space-y-2">
         <h3 className="font-semibold">{pessoa.suspenso ? "Conta suspensa" : "Suspender a conta"}</h3>
-        <p className="text-xs text-ink-soft">
+        <p className="pn-ajuda">
           {pessoa.suspenso ? `Suspensa ${suspensoPor[pessoa.suspensao ?? ""] ?? ""}: lê, mas não envia. Reativar também desfaz um banimento.` : "A conta continua existindo e lendo, mas não envia nada, nem pelo painel."}
         </p>
-        {!pessoa.suspenso && (
-          <label className="mt-2 block">
-            Motivo (vai para o registro)
-            <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={300} className={campo} />
-          </label>
-        )}
-        <button
-          type="button"
-          className={`mt-2 ${pessoa.suspenso ? botaoClaro : "cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50"}`}
-          disabled={acao.ocupado}
+        {!pessoa.suspenso && <Campo rotulo="Motivo (vai para o registro)" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={300} />}
+        <Botao
+          pequeno
+          perigo={!pessoa.suspenso}
+          simbolo={pessoa.suspenso ? RotateCcw : ShieldAlert}
+          carregando={acao.ocupado}
           onClick={() => acao.agir("usuario_suspender", { p_usuario: pessoa.id, p_suspenso: !pessoa.suspenso, p_motivo: motivo.trim() }, pessoa.suspenso ? "Conta reativada." : "Conta suspensa.")}
         >
           {pessoa.suspenso ? "Reativar a conta" : "Suspender a conta"}
-        </button>
+        </Botao>
       </section>
       <div className="lg:col-span-3">
         <Aviso texto={acao.aviso} />
@@ -242,10 +239,12 @@ export function Pessoas({ me }: { me: Me }) {
   const alvoForaDoAlcance = quem !== null && quem.nivel !== undefined && !podeMexer({ id: quem.id, nivel: quem.nivel });
 
   return (
-    <div>
+    // As abas só escolhem o que aparece: as partes ficam montadas (hidden), para o convite recém-criado não sumir ao trocar de aba.
+    <div className="pn-tela">
       <Abas
-        atual={aba}
-        escolher={setAba}
+        rotulo="Voluntários e convites"
+        valor={aba}
+        aoMudar={setAba}
         opcoes={[
           { id: "equipe", nome: "Pessoas" },
           { id: "funcao", nome: "Confiar função" },
@@ -262,38 +261,62 @@ export function Pessoas({ me }: { me: Me }) {
           <Convites me={me} />
         </div>
       )}
-      <section hidden={aba !== "pedidos"} className="mb-10">
-        <h2 className="font-serif text-2xl font-semibold">Candidaturas pelo formulário</h2>
-        <p className="mt-1 max-w-3xl text-ink-soft">
-          Quem preencheu o formulário de voluntariado no site, com nome e e-mail. Com o envio de e-mails ligado (Controles do site), a pessoa recebe um e-mail dizendo que o pedido chegou, e a coordenação recebe outro avisando do pedido. Ao aceitar, quem ainda não tem conta
-          ganha um convite pessoal, que só serve para aquele e-mail e já traz a função, e ele vai sozinho por e-mail. Quem já tem conta recebe a função na hora. Ao recusar, a pessoa também é avisada por e-mail.
-        </p>
+      <section hidden={aba !== "pedidos"} aria-labelledby="candidaturas-formulario" className="space-y-3">
+        <CabecalhoDeSecao
+          id="candidaturas-formulario"
+          titulo="Candidaturas pelo formulário"
+          sobre={
+            <>
+              Quem preencheu o formulário de voluntariado no site, com nome e e-mail. Com o envio de e-mails ligado (Controles do site), a pessoa recebe um e-mail dizendo que o pedido chegou, e a coordenação recebe outro avisando do pedido. Ao aceitar, quem ainda não tem conta
+              ganha um convite pessoal, que só serve para aquele e-mail e já traz a função, e ele vai sozinho por e-mail. Quem já tem conta recebe a função na hora. Ao recusar, a pessoa também é avisada por e-mail.
+            </>
+          }
+        />
         <Aviso texto={inscricoes.erro || avisoInscricao} />
         {aceite && (
-          <div role="status" className="mt-3 border-2 border-ink bg-parchment p-4">
-            <p className="font-serif text-xl font-semibold">Convite de {aceite.nome}</p>
+          <Cartao as="div" variante="destaque" role="status" titulo={`Convite de ${aceite.nome}`} nivelDoTitulo={3}>
             <p className="mt-1 text-ink-soft">Este endereço aparece uma vez só e vale por 14 dias. Mande para {aceite.email}.</p>
-            <p className="mt-2 select-all break-all font-mono text-xs">{aceite.link}</p>
-            <p className="mt-3 flex flex-wrap gap-4">
-              <button type="button" className={botaoClaro} onClick={() => void navigator.clipboard?.writeText(aceite.link)}>Copiar o endereço</button>
+            <p className="mt-2 select-all break-all rounded-md border border-rule bg-parchment-deep p-2 font-mono text-xs">{aceite.link}</p>
+            <p className="mt-3 flex flex-wrap items-center gap-2">
+              <Botao simbolo={ClipboardCopy} onClick={() => void navigator.clipboard?.writeText(aceite.link)}>
+                Copiar o endereço
+              </Botao>
               <a
-                className={elo}
+                className="pn-botao pn-botao-discreto"
                 href={`mailto:${aceite.email}?subject=${encodeURIComponent("Sua candidatura ao Instituto Lúcia foi aceita")}&body=${encodeURIComponent(`Olá, ${aceite.nome}.\n\nSua candidatura a voluntário no Instituto Lúcia foi aceita. Para criar a sua conta, já com a função combinada, abra este endereço (ele vale por 14 dias e só serve para este e-mail):\n\n${aceite.link}\n\nAté breve.`)}`}
               >
+                <Mail aria-hidden />
                 Abrir no programa de e-mail
               </a>
-              <button type="button" className={elo} onClick={() => setAceite(null)}>Já mandei</button>
+              <Botao variante="discreto" simbolo={Check} onClick={() => setAceite(null)}>
+                Já mandei
+              </Botao>
             </p>
-          </div>
+          </Cartao>
         )}
-        {novas.length === 0 && <p className="mt-2 text-ink-soft">Nenhuma candidatura aguardando.</p>}
-        <ul className="mt-3 space-y-4">
+        {!inscricoes.dados && !inscricoes.erro && <Esqueleto forma="cartoes" linhas={2} />}
+        {inscricoes.dados && novas.length === 0 && <Vazio titulo="Nenhuma candidatura aguardando." />}
+        <ul className="space-y-4">
           {novas.map((item) => (
-            <li key={item.id} className="border border-rule bg-parchment-deep p-4">
-              <p className={rotulo}>
+            <li key={item.id}>
+              <Cartao
+                as="article"
+                titulo={item.nome}
+                nivelDoTitulo={3}
+                rodape={
+                  <span className="flex gap-2">
+                    <Botao pequeno simbolo={UserCheck} onClick={() => void decidirInscricao(item, true)}>
+                      Aceitar
+                    </Botao>
+                    <Botao pequeno variante="discreto" perigo simbolo={X} onClick={() => void decidirInscricao(item, false)}>
+                      Recusar
+                    </Botao>
+                  </span>
+                }
+              >
+              <p className="pn-rotulo-mono mt-1">
                 {papeis[item.papel]} · {nomeDaArea(item.disciplina)} · {data(item.criado_em)}
               </p>
-              <p className="mt-1 font-serif text-xl font-semibold">{item.nome}</p>
               <p className="font-mono text-xs text-ink-soft">
                 {item.email}
                 {item.instagram && (
@@ -305,63 +328,68 @@ export function Pessoas({ me }: { me: Me }) {
                 {" · "}{item.tem_conta ? "já tem conta no site" : "ainda sem conta"}
               </p>
               <p className="mt-2 whitespace-pre-line" data-original>{item.mensagem}</p>
-              <div className="mt-3 flex gap-3">
-                <button type="button" className={botao} onClick={() => void decidirInscricao(item, true)}>Aceitar</button>
-                <button type="button" className={botaoClaro} onClick={() => void decidirInscricao(item, false)}>Recusar</button>
-              </div>
+              </Cartao>
             </li>
           ))}
         </ul>
       </section>
 
-      <section hidden={aba !== "pedidos"}>
-        <h2 className="font-serif text-2xl font-semibold">Pedidos feitos pelo painel</h2>
+      <section hidden={aba !== "pedidos"} aria-labelledby="pedidos-painel" className="space-y-3">
+        <CabecalhoDeSecao id="pedidos-painel" titulo="Pedidos feitos pelo painel" />
         <Aviso texto={pedidos.erro} />
-        {pendentes.length === 0 && <p className="mt-2 text-ink-soft">Nenhum pedido aguardando.</p>}
-        <ul className="mt-3 space-y-4">
+        {pedidos.dados && pendentes.length === 0 && <Vazio titulo="Nenhum pedido aguardando." />}
+        <ul className="space-y-4">
           {pendentes.map((pedido) => (
-            <li key={pedido.id} className="border border-rule bg-parchment-deep p-4">
-              <p className={rotulo}>
-                {papeis[pedido.papel]} · {nomeDaArea(pedido.disciplina)} · {data(pedido.criado_em)}
-              </p>
-              <p className="mt-1 font-serif text-xl font-semibold">{pedido.nome}</p>
-              <p className="font-mono text-xs text-ink-soft">{pedido.email}</p>
-              <p className="mt-2">{pedido.mensagem}</p>
-              <div className="mt-3 flex gap-3">
-                <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("candidatura_decidir", { p_id: pedido.id, p_aceitar: true }, "Pedido aceito.")}>Aceitar</button>
-                <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("candidatura_decidir", { p_id: pedido.id, p_aceitar: false }, "Pedido recusado.")}>Recusar</button>
-              </div>
+            <li key={pedido.id}>
+              <Cartao
+                as="article"
+                titulo={pedido.nome}
+                nivelDoTitulo={3}
+                rodape={
+                  <span className="flex gap-2">
+                    <Botao pequeno simbolo={UserCheck} disabled={acao.ocupado} onClick={() => acao.agir("candidatura_decidir", { p_id: pedido.id, p_aceitar: true }, "Pedido aceito.")}>
+                      Aceitar
+                    </Botao>
+                    <Botao pequeno variante="discreto" perigo simbolo={X} disabled={acao.ocupado} onClick={() => acao.agir("candidatura_decidir", { p_id: pedido.id, p_aceitar: false }, "Pedido recusado.")}>
+                      Recusar
+                    </Botao>
+                  </span>
+                }
+              >
+                <p className="pn-rotulo-mono mt-1">
+                  {papeis[pedido.papel]} · {nomeDaArea(pedido.disciplina)} · {data(pedido.criado_em)}
+                </p>
+                <p className="font-mono text-xs text-ink-soft">{pedido.email}</p>
+                <p className="mt-2">{pedido.mensagem}</p>
+              </Cartao>
             </li>
           ))}
         </ul>
       </section>
 
-      <section hidden={aba !== "funcao"}>
-        <h2 className="font-serif text-2xl font-semibold">Confiar uma função</h2>
-        <p className="mt-1 text-ink-soft">
-          Procure a pessoa pelo nome{coordena ? " ou pelo e-mail" : ""}. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca. Uma pessoa pode acumular funções: a nova se soma às que ela já tem.
-        </p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          <div>
-            <span className="block">Pessoa</span>
+      <section hidden={aba !== "funcao"} aria-labelledby="confiar-funcao" className="space-y-3">
+        <CabecalhoDeSecao
+          id="confiar-funcao"
+          titulo="Confiar uma função"
+          sobre={<>Procure a pessoa pelo nome{coordena ? " ou pelo e-mail" : ""}. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca. Uma pessoa pode acumular funções: a nova se soma às que ela já tem.</>}
+        />
+        <Cartao as="div">
+        <div className="grid gap-3 sm:grid-cols-3">
+          <div className="pn-campo-bloco">
+            <span className="pn-rotulo">Pessoa</span>
             <BuscaDePessoa escolhida={quem} escolher={setQuem} reserva={pessoas.dados ?? []} />
           </div>
-          <label className="block">
-            Função
-            <select value={novo.papel} onChange={(e) => setNovo({ ...novo, papel: e.target.value as Role["papel"] })} className={campo}>
-              {concediveis.map((papel) => (
-                <option key={papel} value={papel}>
-                  {papeis[papel]}
-                </option>
-              ))}
-            </select>
-          </label>
+          <Selecao rotulo="Função" value={novo.papel} onChange={(e) => setNovo({ ...novo, papel: e.target.value as Role["papel"] })}>
+            {concediveis.map((papel) => (
+              <option key={papel} value={papel}>
+                {papeis[papel]}
+              </option>
+            ))}
+          </Selecao>
           {semDisciplina ? (
-            <p className="self-end pb-2 text-sm text-ink-soft">Sem disciplina: o cargo vale para o Mural de Saúde. Se a pessoa também ensina, confie a função de educação separadamente.</p>
+            <p className="pn-ajuda self-end pb-2">Sem disciplina: o cargo vale para o Mural de Saúde. Se a pessoa também ensina, confie a função de educação separadamente.</p>
           ) : (
-          <label className="block">
-            {novo.papel === "representante" ? "Departamento" : porDisciplina ? "Disciplina" : "Disciplina (opcional)"}
-            <select value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })} className={campo}>
+            <Selecao rotulo={novo.papel === "representante" ? "Departamento" : porDisciplina ? "Disciplina" : "Disciplina (opcional)"} value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })}>
               {novo.papel === "representante" ? (
                 <>
                   <option value="">Escolha o departamento…</option>
@@ -386,19 +414,18 @@ export function Pessoas({ me }: { me: Me }) {
                   ))}
                 </>
               )}
-            </select>
-          </label>
+            </Selecao>
           )}
         </div>
         {lote.length > 0 && (
-          <div className="mt-3 border-2 border-ink bg-[#f9e7a6] p-3 text-[#1f1a14]">
-            <p className="font-semibold">Para {lote.length} {lote.length === 1 ? "pessoa" : "pessoas"} de uma vez:</p>
+          <Faixa tom="bordo" className="mt-3" titulo={`Para ${lote.length} ${lote.length === 1 ? "pessoa" : "pessoas"} de uma vez:`}>
             <p className="text-sm">{(pessoas.dados ?? []).filter((p) => lote.includes(p.id)).map((p) => p.nome).join(", ")}</p>
-            <p className="mt-2 flex flex-wrap gap-3">
-              <button
-                type="button"
-                className={botao}
-                disabled={acao.ocupado || (porDisciplina && !novo.disciplina)}
+            <p className="mt-2 flex flex-wrap gap-2">
+              <Botao
+                variante="principal"
+                pequeno
+                disabled={porDisciplina && !novo.disciplina}
+                carregando={acao.ocupado}
                 onClick={async () => {
                   const alvos = (pessoas.dados ?? []).filter((p) => lote.includes(p.id) && podeMexer(p));
                   let feitos = 0;
@@ -410,26 +437,31 @@ export function Pessoas({ me }: { me: Me }) {
                 }}
               >
                 Confiar a {lote.length === 1 ? "esta pessoa" : `estas ${lote.length} pessoas`}
-              </button>
-              <button type="button" className={elo} onClick={() => setLote([])}>Desfazer a seleção</button>
+              </Botao>
+              <Botao variante="discreto" pequeno simbolo={X} onClick={() => setLote([])}>
+                Desfazer a seleção
+              </Botao>
             </p>
-          </div>
+          </Faixa>
         )}
         {alvoForaDoAlcance && <Aviso texto={`${quem?.nome} está no seu nível ou acima na hierarquia: só quem está acima confia ou retira funções dessa pessoa.`} />}
-        <button
-          type="button"
-          className={`mt-3 ${botao}`}
-          disabled={acao.ocupado || !quem || alvoForaDoAlcance || (porDisciplina && !novo.disciplina)}
+        <Botao
+          variante={lote.length > 0 ? "padrao" : "principal"}
+          className="mt-3"
+          simbolo={UserCheck}
+          disabled={!quem || alvoForaDoAlcance || (porDisciplina && !novo.disciplina)}
+          carregando={acao.ocupado}
           onClick={async () => {
             if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: semDisciplina ? null : novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
           }}
         >
           Confiar função
-        </button>
-        <p className="mt-2 text-ink-soft">
-          <strong>{papeis[novo.papel]}:</strong> {oQueFaz[novo.papel]}
-        </p>
-        <p className="mt-2 text-ink-soft">
+        </Botao>
+        </Cartao>
+        <Faixa tom="info" titulo={`${papeis[novo.papel]}:`}>
+          {oQueFaz[novo.papel]}
+        </Faixa>
+        <p className="pn-ajuda">
           Hierarquia dos cargos: coordenação, coordenação pedagógica, supervisão e, abaixo, os papéis de trabalho. Cada pessoa só confia papéis de nível menor que o próprio, e só a quem está abaixo dela.
           {coordena && " Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber a função."}
         </p>
@@ -437,6 +469,7 @@ export function Pessoas({ me }: { me: Me }) {
 
       <section hidden={aba !== "equipe"}>
         <Aviso texto={pessoas.erro} />
+        {!pessoas.dados && !pessoas.erro && <Esqueleto forma="tabela" linhas={8} rotulo="Carregando" />}
         <ListaDePessoas
           pessoas={pessoas.dados ?? []}
           eu={me.id}
@@ -453,36 +486,48 @@ export function Pessoas({ me }: { me: Me }) {
             return (
               <div className="space-y-4">
                 <section>
-                  <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Funções</p>
+                  <p className="pn-rotulo-mono">Funções</p>
                   {/* Todos os papéis, o de maior nível primeiro. O "tirar" só aparece onde o banco deixaria retirar. */}
-                  <ul className="mt-1.5 space-y-1" aria-label={`Funções de ${pessoa.nome}`}>
-                    {pessoa.papeis.length === 0 && <li className="text-sm text-ink-soft">Sem função: participa da comunidade.</li>}
+                  <ul className="pn-lista mt-1.5" aria-label={`Funções de ${pessoa.nome}`}>
+                    {pessoa.papeis.length === 0 && <li className="pn-item pn-ajuda">Sem função: participa da comunidade.</li>}
                     {porNivel(pessoa.papeis).map((papel) => (
-                      <li key={papel.id} className="flex items-center justify-between gap-2 border border-rule bg-parchment px-2 py-1 text-sm">
-                        <span>{papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}</span>
+                      <li key={papel.id} className="pn-item justify-between text-sm">
+                        <span className="min-w-0">
+                          {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}
+                        </span>
                         {podeTirar(pessoa, papel) && (
-                          <button type="button" className={`${elo} text-xs`} aria-label={`Retirar de ${pessoa.nome} a função ${papeis[papel.papel]}`} disabled={acao.ocupado} onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
+                          <Botao variante="discreto" pequeno perigo aria-label={`Retirar de ${pessoa.nome} a função ${papeis[papel.papel]}`} disabled={acao.ocupado} onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
                             Tirar
-                          </button>
+                          </Botao>
                         )}
                       </li>
                     ))}
                   </ul>
                   {podeMexer(pessoa) && (
-                    <button type="button" className={`${elo} mt-2 text-sm font-bold`} onClick={() => { setLote([]); setQuem({ id: pessoa.id, nome: pessoa.nome, email: pessoa.email || papeis[porNivel(pessoa.papeis)[0]?.papel] || "", nivel: pessoa.nivel }); setAba("funcao"); }}>
-                      ＋ Dar uma função
-                    </button>
+                    <Botao
+                      variante="discreto"
+                      pequeno
+                      className="mt-2"
+                      simbolo={Plus}
+                      onClick={() => {
+                        setLote([]);
+                        setQuem({ id: pessoa.id, nome: pessoa.nome, email: pessoa.email || papeis[porNivel(pessoa.papeis)[0]?.papel] || "", nivel: pessoa.nivel });
+                        setAba("funcao");
+                      }}
+                    >
+                      Dar uma função
+                    </Botao>
                   )}
                 </section>
                 {coordena && (
                   <section>
-                    <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Conta</p>
+                    <p className="pn-rotulo-mono">Conta</p>
                     <Ficha pessoa={pessoa} me={me} depois={pessoas.recarregar} estreita />
                   </section>
                 )}
                 {coordena && (
                   <section>
-                    <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Histórico</p>
+                    <p className="pn-rotulo-mono">Histórico</p>
                     <Lances usuario={pessoa.id} nomeDaArea={nomeDaArea} />
                   </section>
                 )}
@@ -500,10 +545,10 @@ export function Pessoas({ me }: { me: Me }) {
 function Lances({ usuario, nomeDaArea }: { usuario: string; nomeDaArea: (slug: string | null) => string }) {
   const lista = useLista<Lance[]>("papeis_historico_listar", { p_usuario: usuario });
   if (lista.erro) return <Aviso texto={lista.erro} />;
-  if (!lista.dados) return <p className="mt-1 font-mono">Carregando…</p>;
-  if (lista.dados.length === 0) return <p className="mt-1">Nenhuma função confiada até hoje.</p>;
+  if (!lista.dados) return <Esqueleto linhas={2} rotulo="Carregando…" />;
+  if (lista.dados.length === 0) return <p className="pn-ajuda mt-1">Nenhuma função confiada até hoje.</p>;
   return (
-    <ul className="mt-1 space-y-0.5">
+    <ul className="mt-1 space-y-1 text-sm">
       {lista.dados.map((lance) => (
         <li key={lance.id}>
           <strong className="text-ink">{papeis[lance.papel] ?? lance.papel}</strong>

@@ -1,11 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Brush, Crop, Download, Eye, EyeOff, FileText, Film, Grid2x2, Image as ImageIcon, type LucideIcon, Mic, NotebookText, Pause, Pencil, Play, Send, Square, Trash2, Undo2, X } from "lucide-react";
+import { type CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { type Anexo, cifrarArquivo, deBase64Comum, decifrarArquivo, extensaoDe, identificar, LIMITE_BYTES, LIMITE_POR_MENSAGEM, paraBase64Comum, picosDe, tamanhoLegivel, type TipoDeAnexo } from "@/lib/anexos";
 import { BackendError, rpc } from "@/lib/backend";
-import { Aviso, botao, botaoClaro, elo, textoDoErro } from "./comum";
-import { Selo } from "@/components/Selo";
+import { Aviso, textoDoErro } from "./comum";
+import { Abas, Botao, Vazio } from "./ui";
 
 // Tudo o que um arquivo de conversa passa acontece neste aparelho: conferir o tipo pelos bytes, redesenhar a imagem
 // (sem os dados embutidos pela câmera), medir o áudio, cifrar com uma chave só dele, e, do outro lado, baixar o
@@ -182,7 +183,41 @@ async function baixar(anexo: Anexo, conversa: string): Promise<{ url: string; by
 
 const duracaoLegivel = (segundos?: number) => (segundos === undefined ? "" : `${Math.floor(segundos / 60)}:${String(Math.floor(segundos % 60)).padStart(2, "0")}`);
 
-const icone: Record<TipoDeAnexo, string> = { imagem: "imagem", video: "video", audio: "microfone", pdf: "folha", docx: "caderno" };
+/** O ícone Lucide de cada tipo de arquivo (só enfeite: o nome e o tipo vão sempre escritos ao lado). */
+const icone: Record<TipoDeAnexo, LucideIcon> = { imagem: ImageIcon, video: Film, audio: Mic, pdf: FileText, docx: NotebookText };
+function Selo({ nome: Simbolo, className }: { nome: LucideIcon; className?: string }) {
+  return <Simbolo aria-hidden className={className} strokeWidth={1.8} />;
+}
+
+/**
+ * A janela por cima da conversa é escura (tinta), com os tokens do menu em tinta, como o fundo de uma foto aberta. Lá
+ * dentro, os tokens do painel passam a apontar para os da tinta: assim o Botao (discreto, perigo), o elo, as Abas, o
+ * Vazio e o anel de foco ficam legíveis no fundo escuro, sem cor escrita à mão.
+ */
+const FUNDO_ESCURO = {
+  background: "var(--pn-menu-fundo)",
+  color: "var(--pn-menu-texto)",
+  "--pn-fundo": "var(--pn-menu-fundo)",
+  "--pn-superficie": "var(--pn-menu-superficie)",
+  "--pn-superficie-2": "var(--pn-menu-superficie)",
+  "--pn-ativo": "var(--pn-menu-ativo)",
+  "--pn-borda": "var(--pn-menu-borda)",
+  "--pn-borda-forte": "var(--pn-menu-rotulo)",
+  "--pn-texto": "var(--pn-menu-texto)",
+  "--pn-texto-suave": "var(--pn-menu-texto-suave)",
+  "--pn-texto-mudo": "var(--pn-menu-rotulo)",
+  "--pn-destaque-vivo": "var(--pn-menu-destaque)",
+  "--pn-destaque-suave": "var(--pn-menu-ativo)",
+  "--pn-erro": "var(--pn-menu-destaque)",
+  "--pn-aviso": "var(--pn-menu-ouro)",
+  "--pn-foco": "var(--pn-menu-destaque)",
+  // As classes antigas que ainda passam por aqui (border-rule, o Aviso em oxblood) seguem a mesma tinta.
+  "--rule": "var(--pn-menu-borda)",
+  "--ink": "var(--pn-menu-texto)",
+  "--ink-soft": "var(--pn-menu-texto-suave)",
+  "--oxblood": "var(--pn-menu-destaque)",
+} as CSSProperties;
+const FUNDO_DE_MIDIA: CSSProperties = { background: "var(--pn-menu-fundo)" };
 
 /** Um arquivo recebido: baixa e abre ao aparecer (fotos, áudio, vídeo) ou quando a pessoa pede (documentos, ver uma vez). */
 export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: { anexo: Anexo; estado?: EstadoDoAnexo; conversa: string; minha: boolean; aoAbrirGaleria?: () => void }) {
@@ -231,9 +266,9 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
     return (
       <div className="my-1 border border-dashed border-current/40 px-2 py-1.5 text-sm">
         <p className="flex items-center gap-2">
-          <span aria-hidden>{esgotado ? "◌" : "①"}</span>
+          {esgotado ? <EyeOff aria-hidden className="h-4 w-4 shrink-0" /> : <Eye aria-hidden className="h-4 w-4 shrink-0" />}
           <span className="flex-1">{minha ? `Enviado para ver uma vez` : esgotado ? `Aberto (era para ver uma vez)` : `${anexo.tipo === "imagem" ? "Foto" : anexo.tipo === "video" ? "Vídeo" : "Arquivo"} para ver uma vez`}</span>
-          {!esgotado && !janela && <button type="button" className={`${botaoClaro} px-2 py-0.5 text-xs`} disabled={ocupado} onClick={() => void abrir()}>{ocupado ? "Abrindo…" : "Abrir uma vez"}</button>}
+          {!esgotado && !janela && <Botao pequeno simbolo={Eye} carregando={ocupado} onClick={() => void abrir()}>{ocupado ? "Abrindo…" : "Abrir uma vez"}</Botao>}
         </p>
         {aviso && <Aviso texto={aviso} />}
         {janela && aberto && <Janela titulo="Ver uma vez: ao fechar, some deste aparelho" fechar={fecharJanela}><Conteudo anexo={anexo} url={aberto.url} bytes={aberto.bytes} /></Janela>}
@@ -250,8 +285,8 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
             <span className="block truncate font-semibold">{anexo.nome}</span>
             <span className="block text-[0.7rem] opacity-70">{anexo.tipo.toUpperCase()} · {tamanhoLegivel(anexo.tamanho)}</span>
           </span>
-          <button type="button" className={`${botaoClaro} px-2 py-0.5 text-xs`} disabled={ocupado} onClick={() => (aberto ? setJanela(true) : void abrir())}>{ocupado ? "Abrindo…" : "Abrir"}</button>
-          {aberto && <a href={aberto.url} download={anexo.nome} className={`${elo} text-xs`}>Baixar</a>}
+          <Botao pequeno carregando={ocupado} onClick={() => (aberto ? setJanela(true) : void abrir())}>{ocupado ? "Abrindo…" : "Abrir"}</Botao>
+          {aberto && <a href={aberto.url} download={anexo.nome} className="pn-elo inline-flex items-center gap-1 text-xs"><Download aria-hidden className="h-3.5 w-3.5" />Baixar</a>}
         </p>
         {aviso && <Aviso texto={aviso} />}
         {janela && aberto && <Janela titulo={anexo.nome} fechar={() => setJanela(false)}><Conteudo anexo={anexo} url={aberto.url} bytes={aberto.bytes} /></Janela>}
@@ -265,7 +300,7 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
         <p className="flex items-center gap-2">
           <Selo nome={icone[anexo.tipo]} className="h-4 w-4" />
           <span className="flex-1 opacity-80">{aviso || (ocupado ? "Abrindo…" : "Arquivo")}</span>
-          {aviso && <button type="button" className={`${elo} text-xs`} onClick={() => void abrir()}>Tentar de novo</button>}
+          {aviso && <Botao variante="discreto" pequeno onClick={() => void abrir()}>Tentar de novo</Botao>}
         </p>
         {rodape}
       </div>
@@ -276,16 +311,16 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
   if (anexo.tipo === "video") {
     return (
       <div className="my-1">
-        <video src={aberto.url} controls playsInline preload="metadata" className="max-h-72 w-full bg-black" style={anexo.largura && anexo.altura ? { aspectRatio: `${anexo.largura} / ${anexo.altura}` } : undefined} />
+        <video src={aberto.url} controls playsInline preload="metadata" className="max-h-72 w-full rounded-md" style={anexo.largura && anexo.altura ? { ...FUNDO_DE_MIDIA, aspectRatio: `${anexo.largura} / ${anexo.altura}` } : FUNDO_DE_MIDIA} />
         {rodape}
       </div>
     );
   }
   return (
     <div className="my-1">
-      <button type="button" className="block cursor-pointer" onClick={() => (aoAbrirGaleria ? aoAbrirGaleria() : setJanela(true))} title="Abrir">
+      <button type="button" className="block cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--pn-foco)]" onClick={() => (aoAbrirGaleria ? aoAbrirGaleria() : setJanela(true))} title="Abrir">
         {/* eslint-disable-next-line @next/next/no-img-element -- o endereço é um blob local, sem domínio para otimizar */}
-        <img src={aberto.url} alt={anexo.nome} className="max-h-72 w-auto max-w-full" width={anexo.largura} height={anexo.altura} />
+        <img src={aberto.url} alt={anexo.nome} className="max-h-72 w-auto max-w-full rounded-md" width={anexo.largura} height={anexo.altura} />
       </button>
       {rodape}
       {janela && <Janela titulo={anexo.nome} fechar={() => setJanela(false)}><Conteudo anexo={anexo} url={aberto.url} bytes={aberto.bytes} /></Janela>}
@@ -305,7 +340,8 @@ function Conteudo({ anexo, url, bytes }: { anexo: Anexo; url: string; bytes: Uin
       try {
         const mammoth = await import("mammoth");
         const { value } = await mammoth.convertToHtml({ arrayBuffer: bytes.slice().buffer });
-        // O HTML vai para um quadro isolado (sandbox sem permissões): nada dele roda nem enxerga o painel.
+        // O HTML vai para um quadro isolado (sandbox sem permissões): nada dele roda nem enxerga o painel. As cores
+        // daquela folha são do documento (papel branco, como no programa de texto), não da interface do painel.
         const pagina = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><style>body{font:16px/1.5 Georgia,serif;margin:1.5rem;color:#222;background:#fff}img{max-width:100%}table{border-collapse:collapse}td,th{border:1px solid #999;padding:.2rem .4rem}</style>${value}`;
         urlLocal = URL.createObjectURL(new Blob([pagina], { type: "text/html" }));
         if (!cancelado) setDocx(urlLocal);
@@ -320,12 +356,12 @@ function Conteudo({ anexo, url, bytes }: { anexo: Anexo; url: string; bytes: Uin
     // eslint-disable-next-line @next/next/no-img-element -- blob local
     return <img src={url} alt={anexo.nome} className="mx-auto max-h-[80vh] max-w-full object-contain" />;
   }
-  if (anexo.tipo === "video") return <video src={url} controls autoPlay playsInline className="mx-auto max-h-[80vh] max-w-full bg-black" />;
+  if (anexo.tipo === "video") return <video src={url} controls autoPlay playsInline className="mx-auto max-h-[80vh] max-w-full" style={FUNDO_DE_MIDIA} />;
   if (anexo.tipo === "audio") return <Tocador url={url} picos={anexo.picos} duracao={anexo.duracao} grande />;
-  if (anexo.tipo === "pdf") return <iframe src={url} title={anexo.nome} className="h-[80vh] w-full border border-rule bg-white" />;
+  if (anexo.tipo === "pdf") return <iframe src={url} title={anexo.nome} className="h-[80vh] w-full rounded-md border border-rule" />;
   if (aviso) return <Aviso texto={aviso} />;
-  if (!docx) return <p className="p-4 text-center text-ink-soft">Convertendo o documento neste aparelho…</p>;
-  return <iframe src={docx} sandbox="" title={anexo.nome} className="h-[80vh] w-full border border-rule bg-white" />;
+  if (!docx) return <p role="status" className="p-4 text-center opacity-80">Convertendo o documento neste aparelho…</p>;
+  return <iframe src={docx} sandbox="" title={anexo.nome} className="h-[80vh] w-full rounded-md border border-rule" />;
 }
 
 /** Uma janela por cima da conversa. */
@@ -336,10 +372,10 @@ export function Janela({ titulo, fechar, children }: { titulo: string; fechar: (
     return () => window.removeEventListener("keydown", tecla);
   }, [fechar]);
   return (
-    <div role="dialog" aria-modal="true" aria-label={titulo} className="fixed inset-0 z-50 flex flex-col bg-ink/95 p-3 text-parchment">
+    <div role="dialog" aria-modal="true" aria-label={titulo} className="fixed inset-0 z-50 flex flex-col p-3" style={FUNDO_ESCURO}>
       <div className="flex items-center justify-between gap-3 pb-2">
         <p className="truncate font-semibold">{titulo}</p>
-        <button type="button" className="cursor-pointer px-2 text-2xl leading-none" aria-label="Fechar" onClick={fechar}>×</button>
+        <Botao icone simbolo={X} aria-label="Fechar" dica="Fechar (Esc)" onClick={fechar} />
       </div>
       <div className="min-h-0 flex-1 overflow-auto">{children}</div>
     </div>
@@ -390,14 +426,14 @@ export function Tocador({ url, picos, duracao, grande = false }: { url: string; 
         onTimeUpdate={(e) => setPosicao(e.currentTarget.currentTime)}
         onLoadedMetadata={(e) => { if (Number.isFinite(e.currentTarget.duration)) setTotal(e.currentTarget.duration); e.currentTarget.playbackRate = velocidade; }}
       />
-      <button type="button" className="h-9 w-9 shrink-0 cursor-pointer rounded-full border border-current text-base" aria-label={tocando ? "Pausar" : "Tocar"} onClick={alternar}>{tocando ? "❚❚" : "▶"}</button>
-      <button type="button" className="flex h-9 min-w-32 flex-1 cursor-pointer items-end gap-px" aria-label="Pular para um ponto do áudio" onClick={pular}>
+      <button type="button" className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-current focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--pn-foco)]" aria-label={tocando ? "Pausar" : "Tocar"} onClick={alternar}>{tocando ? <Pause aria-hidden className="h-4 w-4" /> : <Play aria-hidden className="h-4 w-4" />}</button>
+      <button type="button" className="flex h-9 min-w-32 flex-1 cursor-pointer items-end gap-px rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--pn-foco)]" aria-label="Pular para um ponto do áudio" onClick={pular}>
         {barras.map((pico, i) => (
           <span key={i} className={`flex-1 ${i / barras.length <= fracao ? "bg-current" : "bg-current opacity-30"}`} style={{ height: `${Math.max(8, pico)}%` }} />
         ))}
       </button>
-      <span className="w-10 shrink-0 text-right font-mono text-[0.7rem]">{duracaoLegivel(tocando || posicao > 0 ? posicao : total)}</span>
-      <button type="button" className="shrink-0 cursor-pointer border border-current px-1.5 font-mono text-[0.7rem]" aria-label={`Velocidade ${velocidade}×`} onClick={trocarVelocidade}>{velocidade}×</button>
+      <span className="w-10 shrink-0 text-right font-mono text-[0.7rem] tabular-nums">{duracaoLegivel(tocando || posicao > 0 ? posicao : total)}</span>
+      <button type="button" className="shrink-0 cursor-pointer rounded-sm border border-current px-1.5 font-mono text-[0.7rem] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--pn-foco)]" aria-label={`Velocidade ${velocidade}×`} onClick={trocarVelocidade}>{velocidade}×</button>
     </div>
   );
 }
@@ -485,18 +521,18 @@ export function Gravador({ aoGravar, aoAvisar, fechar }: { aoGravar: (preparado:
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-3 border-t border-rule bg-parchment px-3 py-2 text-sm">
+    <div className="flex flex-wrap items-center gap-3 border-t border-rule bg-[var(--pn-superficie)] px-3 py-2 text-sm">
       {fase === "ouvindo" && pronto ? (
         <>
           <div className="min-w-48 flex-1"><Tocador url={pronto.url} picos={pronto.picos} duracao={pronto.duracao} /></div>
-          <button type="button" className={botao} onClick={enviar}>Enviar áudio</button>
-          <button type="button" className={elo} onClick={descartar}>Descartar</button>
+          <Botao variante="principal" simbolo={Send} onClick={enviar}>Enviar áudio</Botao>
+          <Botao variante="discreto" perigo simbolo={Trash2} onClick={descartar}>Descartar</Botao>
         </>
       ) : (
         <>
           <button
             type="button"
-            className={`${botao} select-none touch-none ${fase === "gravando" || fase === "travado" ? "bg-oxblood" : ""}`}
+            className="pn-botao pn-botao-principal select-none touch-none"
             aria-pressed={fase === "gravando" || fase === "travado"}
             disabled={fase === "preparando"}
             onPointerDown={(e) => { if (fase === "pronto") { e.currentTarget.setPointerCapture(e.pointerId); void comecar(); } }}
@@ -505,12 +541,13 @@ export function Gravador({ aoGravar, aoAvisar, fechar }: { aoGravar: (preparado:
             onClick={() => { if (fase === "travado") parar(); }}
             onKeyDown={(e) => { if ((e.key === " " || e.key === "Enter") && fase === "pronto") { e.preventDefault(); void comecar().then(() => setFase("travado")); } }}
           >
-            {fase === "pronto" ? "Segure para gravar" : fase === "travado" ? "■ Parar" : fase === "preparando" ? "Preparando…" : "● Gravando… solte para parar"}
+            {fase === "travado" ? <Square aria-hidden /> : fase === "gravando" ? <span aria-hidden className="pn-etiqueta-ponto" /> : <Mic aria-hidden />}
+            {fase === "pronto" ? "Segure para gravar" : fase === "travado" ? "Parar" : fase === "preparando" ? "Preparando…" : "Gravando… solte para parar"}
           </button>
-          {(fase === "gravando" || fase === "travado") && <span className="font-mono" aria-live="polite">{duracaoLegivel(segundos)}</span>}
-          {fase === "gravando" && <button type="button" className={botaoClaro} onPointerDown={(e) => e.preventDefault()} onPointerUp={() => setFase("travado")}>Travar</button>}
-          {fase === "pronto" && <button type="button" className={elo} onClick={fechar}>Cancelar</button>}
-          <span className="basis-full text-xs text-ink-soft">A gravação fica neste aparelho até você enviar. Sem transcrição: nenhum serviço de fora ouve o áudio.</span>
+          {(fase === "gravando" || fase === "travado") && <span className="font-mono tabular-nums" aria-live="polite">{duracaoLegivel(segundos)}</span>}
+          {fase === "gravando" && <button type="button" className="pn-botao" onPointerDown={(e) => e.preventDefault()} onPointerUp={() => setFase("travado")}>Travar</button>}
+          {fase === "pronto" && <Botao variante="discreto" onClick={fechar}>Cancelar</Botao>}
+          <span className="pn-ajuda basis-full text-xs">A gravação fica neste aparelho até você enviar. Sem transcrição: nenhum serviço de fora ouve o áudio.</span>
         </>
       )}
       {aviso && <Aviso texto={aviso} />}
@@ -529,25 +566,25 @@ export function Preparados({ itens, mudar }: { itens: Preparado[]; mudar: (itens
   return (
     <div className="mb-2 flex flex-wrap gap-2">
       {itens.map((item) => (
-        <div key={item.marca} className="relative w-36 border border-rule bg-parchment p-1 text-xs">
+        <div key={item.marca} className="pn-cartao relative w-36 p-1 text-xs">
           {item.tipo === "imagem" ? (
             // eslint-disable-next-line @next/next/no-img-element -- blob local
-            <img src={item.url} alt="" className="h-20 w-full object-cover" />
+            <img src={item.url} alt="" className="h-20 w-full rounded-md object-cover" />
           ) : item.tipo === "video" ? (
-            <video src={item.url} muted playsInline preload="metadata" className="h-20 w-full bg-black object-cover" />
+            <video src={item.url} muted playsInline preload="metadata" className="h-20 w-full rounded-md object-cover" style={FUNDO_DE_MIDIA} />
           ) : (
             <p className="flex h-20 items-center justify-center"><Selo nome={icone[item.tipo]} className="h-10 w-10" /></p>
           )}
           <p className="mt-1 truncate font-semibold" title={item.nome}>{item.nome}</p>
-          <p className="text-ink-soft">{tamanhoLegivel(item.bytes.length)}{item.duracao !== undefined ? ` · ${duracaoLegivel(item.duracao)}` : ""}</p>
+          <p className="pn-ajuda tabular-nums">{tamanhoLegivel(item.bytes.length)}{item.duracao !== undefined ? ` · ${duracaoLegivel(item.duracao)}` : ""}</p>
           {(item.tipo === "imagem" || item.tipo === "video") && (
-            <label className="mt-1 flex cursor-pointer items-center gap-1">
+            <label className="pn-marca mt-1 gap-1">
               <input type="checkbox" checked={item.umaVez} onChange={(e) => trocar({ ...item, umaVez: e.target.checked })} /> ver uma vez
             </label>
           )}
           <p className="mt-1 flex gap-2">
-            {item.tipo === "imagem" && item.mime !== "image/gif" && <button type="button" className={elo} onClick={() => setEditando(item)}>Editar</button>}
-            <button type="button" className={`${elo} text-oxblood`} onClick={() => tirar(item.marca)}>Tirar</button>
+            {item.tipo === "imagem" && item.mime !== "image/gif" && <Botao variante="discreto" pequeno simbolo={Pencil} onClick={() => setEditando(item)}>Editar</Botao>}
+            <Botao variante="discreto" pequeno perigo simbolo={X} onClick={() => tirar(item.marca)}>Tirar</Botao>
           </p>
         </div>
       ))}
@@ -562,6 +599,7 @@ type Ferramenta = "cortar" | "desenhar" | "borrar";
 function EditorDeImagem({ item, fechar, pronto }: { item: Preparado; fechar: () => void; pronto: (novo: Preparado) => void }) {
   const tela = useRef<HTMLCanvasElement>(null);
   const [ferramenta, setFerramenta] = useState<Ferramenta>("desenhar");
+  // A cor inicial do traço é a do desenho (a pessoa troca no seletor), não da interface.
   const [cor, setCor] = useState("#8b1a1a");
   const [selecao, setSelecao] = useState<{ x0: number; y0: number; x1: number; y1: number } | null>(null);
   const [historico, setHistorico] = useState<ImageData[]>([]);
@@ -688,20 +726,20 @@ function EditorDeImagem({ item, fechar, pronto }: { item: Preparado; fechar: () 
     <Janela titulo="Editar a foto antes de enviar" fechar={fechar}>
       <div className="mb-2 flex flex-wrap items-center gap-2 text-sm">
         {(["desenhar", "cortar", "borrar"] as Ferramenta[]).map((f) => (
-          <button key={f} type="button" className={`${botaoClaro} px-2 py-1 text-parchment ${ferramenta === f ? "bg-parchment/20" : ""}`} aria-pressed={ferramenta === f} onClick={() => { setFerramenta(f); setSelecao(null); }}>
-            {f === "desenhar" ? "✎ Desenhar" : f === "cortar" ? "⌗ Cortar" : "▦ Borrar"}
-          </button>
+          <Botao key={f} pequeno variante={ferramenta === f ? "padrao" : "discreto"} simbolo={f === "desenhar" ? Pencil : f === "cortar" ? Crop : Grid2x2} aria-pressed={ferramenta === f} onClick={() => { setFerramenta(f); setSelecao(null); }}>
+            {f === "desenhar" ? "Desenhar" : f === "cortar" ? "Cortar" : "Borrar"}
+          </Botao>
         ))}
-        {ferramenta === "desenhar" && <input type="color" value={cor} onChange={(e) => setCor(e.target.value)} aria-label="Cor do traço" className="h-8 w-10 cursor-pointer" />}
-        {ferramenta !== "desenhar" && <button type="button" className={`${botaoClaro} px-2 py-1 text-parchment`} disabled={!r} onClick={aplicarSelecao}>{ferramenta === "cortar" ? "Cortar o trecho marcado" : "Borrar o trecho marcado"}</button>}
-        <button type="button" className={`${botaoClaro} px-2 py-1 text-parchment`} disabled={historico.length === 0} onClick={desfazer}>↶ Desfazer</button>
+        {ferramenta === "desenhar" && <input type="color" value={cor} onChange={(e) => setCor(e.target.value)} aria-label="Cor do traço" className="h-8 w-10 cursor-pointer rounded-md" />}
+        {ferramenta !== "desenhar" && <Botao pequeno simbolo={Brush} disabled={!r} onClick={aplicarSelecao}>{ferramenta === "cortar" ? "Cortar o trecho marcado" : "Borrar o trecho marcado"}</Botao>}
+        <Botao pequeno simbolo={Undo2} disabled={historico.length === 0} onClick={desfazer}>Desfazer</Botao>
         <span className="flex-1" />
-        <button type="button" className={botao} onClick={() => void concluir()}>Pronto</button>
+        <Botao variante="principal" onClick={() => void concluir()}>Pronto</Botao>
       </div>
       <p className="mb-2 text-xs opacity-80">{ferramenta === "desenhar" ? "Arraste para desenhar por cima." : "Arraste para marcar um trecho, depois aplique."}</p>
       <div className="relative inline-block max-w-full">
-        <canvas ref={tela} className="max-h-[70vh] max-w-full cursor-crosshair touch-none bg-black" onPointerDown={comecar} onPointerMove={mover} onPointerUp={soltar} onPointerCancel={soltar} />
-        {r && <div className="pointer-events-none absolute border-2 border-dashed border-gold bg-gold/10" style={{ left: `${(r.x / dimensao.largura) * 100}%`, top: `${(r.y / dimensao.altura) * 100}%`, width: `${(r.largura / dimensao.largura) * 100}%`, height: `${(r.altura / dimensao.altura) * 100}%` }} />}
+        <canvas ref={tela} className="max-h-[70vh] max-w-full cursor-crosshair touch-none" style={FUNDO_DE_MIDIA} onPointerDown={comecar} onPointerMove={mover} onPointerUp={soltar} onPointerCancel={soltar} />
+        {r && <div className="pointer-events-none absolute border-2 border-[var(--pn-menu-destaque)]" style={{ background: "color-mix(in srgb, var(--pn-menu-destaque) 12%, transparent)", left: `${(r.x / dimensao.largura) * 100}%`, top: `${(r.y / dimensao.altura) * 100}%`, width: `${(r.largura / dimensao.largura) * 100}%`, height: `${(r.altura / dimensao.altura) * 100}%` }} />}
       </div>
     </Janela>
   );
@@ -725,21 +763,26 @@ export function Galeria({ itens, conversa, fechar, irPara }: { itens: ItemDaGale
   const lista = itens.filter((item) => filtro.includes(item.anexo.tipo) && !item.anexo.uma_vez);
   return (
     <Janela titulo="Arquivos desta conversa" fechar={fechar}>
-      <div className="mb-3 flex gap-2 text-sm">
-        {(["midia", "documentos", "audios"] as const).map((nome) => (
-          <button key={nome} type="button" className={`${botaoClaro} px-2 py-1 text-parchment ${aba === nome ? "bg-parchment/20" : ""}`} aria-pressed={aba === nome} onClick={() => setAba(nome)}>
-            {nome === "midia" ? "Fotos e vídeos" : nome === "documentos" ? "Documentos" : "Áudios"}
-          </button>
-        ))}
+      <div className="mb-3 rounded-md bg-[var(--pn-fundo)] px-2 text-sm text-[var(--pn-texto)]">
+        <Abas
+          rotulo="Arquivos desta conversa"
+          valor={aba}
+          aoMudar={setAba}
+          opcoes={[
+            { id: "midia", nome: "Fotos e vídeos" },
+            { id: "documentos", nome: "Documentos" },
+            { id: "audios", nome: "Áudios" },
+          ]}
+        />
       </div>
-      {lista.length === 0 && <p className="py-10 text-center opacity-70">Nada aqui ainda. (Arquivos para ver uma vez não entram na galeria.)</p>}
+      {lista.length === 0 && <div className="rounded-md bg-[var(--pn-fundo)] text-[var(--pn-texto)]"><Vazio titulo="Nada aqui ainda. (Arquivos para ver uma vez não entram na galeria.)" /></div>}
       <ul className={aba === "midia" ? "grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4" : "space-y-2"}>
         {lista.map((item) => (
-          <li key={item.anexo.id} className="border border-parchment/30 p-1">
+          <li key={item.anexo.id} className="rounded-md border border-[var(--pn-menu-borda)] p-1">
             <AnexoVisto anexo={item.anexo} estado={item.estado} conversa={conversa} minha={item.minha} />
             <p className="flex justify-between gap-2 text-[0.7rem] opacity-80">
               <span className="truncate">{item.minha ? "Você" : item.autor} · {item.quando}</span>
-              <button type="button" className="cursor-pointer underline" onClick={() => { fechar(); irPara(item.mensagem); }}>ir à mensagem</button>
+              <button type="button" className="cursor-pointer underline focus-visible:outline-2 focus-visible:outline-[var(--pn-foco)]" onClick={() => { fechar(); irPara(item.mensagem); }}>ir à mensagem</button>
             </p>
           </li>
         ))}

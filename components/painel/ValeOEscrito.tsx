@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Archive, ArrowLeft, Check, ExternalLink, RefreshCw, Search, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { type Me, rpc } from "@/lib/backend";
 import {
@@ -16,9 +17,10 @@ import {
   rascunhoDoItem,
 } from "@/lib/vale-o-escrito/curadoria";
 import { type Fonte, ROTULO_SITUACAO, SITUACOES, type Situacao, TIPOS_DE_FONTE } from "@/lib/vale-o-escrito/tipos";
-import { Abas, Aviso, botao, botaoClaro, campo, dataHora, rotulo, textoDoErro, useLista } from "./comum";
-import { EditorDeEntrada, NOME_DO_DOSSIE, pedirArquivo } from "./ValeOEscritoEditor";
-import { confirmarFrase } from "./ui";
+import { Aviso, dataHora, textoDoErro, useLista } from "./comum";
+import { MoldeFila } from "./moldes";
+import { EditorDeEntrada, NOME_DO_DOSSIE, pedirArquivo, TOM_DA_SITUACAO } from "./ValeOEscritoEditor";
+import { Abas, Area, Botao, Busca, Campo, Cartao, confirmarFrase, Esqueleto, Faixa, ItemDeLista, Lista, Selecao, Selo, Vazio } from "./ui";
 
 // O painel existe só em português. Função "Vale o Escrito: curadoria" (docs/vale-o-escrito/ESPEC.md): fila de sugestões
 // do robô e envios do público, entrada manual, entradas publicadas (atualizar situação, refazer arquivo, retirar) e
@@ -41,83 +43,109 @@ export function ValeOEscritoCuradoria({ me }: { me: Me }) {
   void me;
   const [aba, setAba] = useState<Aba>("fila");
   return (
-    <div>
-      <p className="max-w-3xl text-ink-soft">
+    <div className="pn-tela">
+      <p className="pn-sobre">
         A curadoria do observatório: só entra o que já está em fonte pública, com fonte, data, trecho e a situação jurídica escrita. Quem aprova fica anônimo para o público (a ficha mostra “curadoria do Vale o Escrito”); o nome fica só no histórico
         interno. O observatório continua desligado no site até a curadoria revisar as entradas e a assessoria jurídica conferir.
       </p>
-      <div className="mt-5">
-        <Abas
-          opcoes={[
-            { id: "fila", nome: "Fila" },
-            { id: "nova", nome: "Entrada manual" },
-            { id: "publicadas", nome: "Publicadas" },
-            { id: "correcoes", nome: "Correções e respostas" },
-          ]}
-          atual={aba}
-          escolher={setAba}
-        />
-      </div>
-      {aba === "fila" && <FilaDaCuradoria />}
-      {aba === "nova" && <EditorDeEntrada key="nova" inicial={docEmBranco(hojeISO())} irmaos={[]} fechar={() => setAba("fila")} depois={() => undefined} />}
-      {aba === "publicadas" && <Publicadas />}
-      {aba === "correcoes" && <Correcoes />}
+      <Abas<Aba>
+        rotulo="Vale o Escrito"
+        opcoes={[
+          { id: "fila", nome: "Fila" },
+          { id: "nova", nome: "Entrada manual" },
+          { id: "publicadas", nome: "Publicadas" },
+          { id: "correcoes", nome: "Correções e respostas" },
+        ]}
+        valor={aba}
+        aoMudar={setAba}
+        painel={(atual) => (
+          <>
+            {atual === "fila" && <FilaDaCuradoria />}
+            {atual === "nova" && <EditorDeEntrada key="nova" inicial={docEmBranco(hojeISO())} irmaos={[]} fechar={() => setAba("fila")} depois={() => undefined} />}
+            {atual === "publicadas" && <Publicadas />}
+            {atual === "correcoes" && <Correcoes />}
+          </>
+        )}
+      />
     </div>
   );
 }
 
 // ───────────────────────────── Fila ─────────────────────────────
 
+const tituloDoItem = (x: ItemDaFila) => x.rascunho?.titulo || x.sugestao_titulo || x.sugestao_url || x.envio_url || "Entrada sem título";
+
+/**
+ * A fila de sugestões no molde Fila: a lista à esquerda (por estado) e o editor da sugestão aberta à direita. "Fechar sem
+ * guardar" desfaz o que foi mexido no editor (ele volta ao rascunho guardado); decidir tira a sugestão da lista e a fila anda.
+ */
 function FilaDaCuradoria() {
   const [estado, setEstado] = useState("pendente");
   const lista = useLista<ItemDaFila[]>("vale_fila_listar", { p_estado: estado });
   const abertos = useLista<ItemDaFila[]>("vale_fila_listar", { p_estado: "pendente" });
-  const [aberto, setAberto] = useState<ItemDaFila | null>(null);
+  const [recomeco, setRecomeco] = useState(0);
   const hoje = useMemo(() => hojeISO(), []);
-  const fechar = () => setAberto(null);
   const refazer = () => {
     lista.recarregar();
     abertos.recarregar();
   };
 
-  if (aberto) {
-    const editavel = ["pendente", "em_revisao", "devolvida"].includes(aberto.estado);
-    return (
-      <div>
-        {!editavel && <p className="mb-3 border border-rule bg-parchment-deep p-3 text-sm">Esta sugestão já foi decidida ({aberto.estado}). {aberto.nota ? `Nota: ${aberto.nota}` : ""} Para mudar uma entrada publicada, use a aba Publicadas.</p>}
-        {editavel ? (
-          <EditorDeEntrada key={aberto.id} item={aberto} inicial={rascunhoDoItem(aberto, hoje)} irmaos={(abertos.dados ?? []).filter((x) => x.id !== aberto.id)} fechar={fechar} depois={refazer} />
-        ) : (
-          <button type="button" className={botaoClaro} onClick={fechar}>Voltar</button>
-        )}
-      </div>
-    );
-  }
   return (
-    <div>
-      <div role="group" aria-label="Estado" className="flex flex-wrap gap-2">
-        {ESTADOS_DA_FILA.map((e) => (
-          <button key={e.id} type="button" onClick={() => setEstado(e.id)} aria-pressed={estado === e.id} className={`${estado === e.id ? botao : botaoClaro} !px-3 !py-1 text-sm`}>
-            {e.nome}
-            {e.id === "pendente" && Boolean(abertos.dados?.length) && ` (${abertos.dados?.length})`}
-          </button>
-        ))}
-      </div>
-      <Aviso texto={lista.erro} />
-      {lista.dados && lista.dados.length === 0 && <p className="mt-4 text-ink-soft">Nada aqui. O robô acrescenta achados sozinho; o público envia fontes pelo site quando o observatório estiver aberto.</p>}
-      <ul className="mt-4 space-y-2">
-        {(lista.dados ?? []).map((x) => (
-          <li key={x.id}>
-            <button type="button" onClick={() => setAberto(x)} className="w-full cursor-pointer border border-rule bg-folha px-3 py-2 text-left hover:border-ink">
-              <span className={rotulo}>{ORIGEM[x.origem]} · {dataHora(x.criado_em)}</span>
-              <span className="mt-0.5 block font-semibold">{x.rascunho?.titulo || x.sugestao_titulo || x.sugestao_url || x.envio_url || "Entrada sem título"}</span>
-              {(x.sugestao_url || x.envio_url) && <span className="block break-all text-sm text-ink-soft">{x.sugestao_url ?? x.envio_url}</span>}
-              {x.envio_descricao && <span className="block text-sm">{x.envio_descricao}</span>}
-              {x.nota && <span className="block text-sm text-ink-soft">Nota: {x.nota}</span>}
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className="pn-tela">
+      <Abas
+        rotulo="Estado"
+        opcoes={ESTADOS_DA_FILA.map((e) => ({ id: e.id, nome: e.nome, conta: e.id === "pendente" ? abertos.dados?.length : undefined }))}
+        valor={estado}
+        aoMudar={setEstado}
+      />
+      {lista.erro && (
+        <Faixa tom="erro" acao={<Botao pequeno onClick={lista.recarregar}>Tentar de novo</Botao>}>
+          {lista.erro}
+        </Faixa>
+      )}
+      <MoldeFila<ItemDaFila>
+        id="vale-fila"
+        rotulo="Fila"
+        itens={lista.dados ?? []}
+        carregando={!lista.dados && !lista.erro}
+        chave={(x) => x.id}
+        vazio={<Vazio titulo="Nada aqui. O robô acrescenta achados sozinho; o público envia fontes pelo site quando o observatório estiver aberto." />}
+        linha={(x) => (
+          <>
+            <span className="pn-rotulo-mono">
+              {ORIGEM[x.origem]} · {dataHora(x.criado_em)}
+            </span>
+            <strong>{tituloDoItem(x)}</strong>
+            {(x.sugestao_url || x.envio_url) && <span className="pn-ajuda break-all">{x.sugestao_url ?? x.envio_url}</span>}
+            {x.nota && <span className="pn-ajuda">Nota: {x.nota}</span>}
+          </>
+        )}
+        detalhe={(aberto) => {
+          const editavel = ["pendente", "em_revisao", "devolvida"].includes(aberto.estado);
+          if (!editavel) {
+            return (
+              <div className="pn-secao">
+                <h3 className="pn-cartao-titulo">{tituloDoItem(aberto)}</h3>
+                {aberto.envio_descricao && <p>{aberto.envio_descricao}</p>}
+                <Faixa tom="info">
+                  Esta sugestão já foi decidida ({aberto.estado}). {aberto.nota ? `Nota: ${aberto.nota}` : ""} Para mudar uma entrada publicada, use a aba Publicadas.
+                </Faixa>
+              </div>
+            );
+          }
+          return (
+            <EditorDeEntrada
+              key={`${aberto.id}-${recomeco}`}
+              item={aberto}
+              inicial={rascunhoDoItem(aberto, hoje)}
+              irmaos={(abertos.dados ?? []).filter((x) => x.id !== aberto.id)}
+              // Decidida, a sugestão sai da lista e a fila anda sozinha; "Fechar sem guardar" só desfaz o que foi mexido.
+              fechar={() => setRecomeco((n) => n + 1)}
+              depois={refazer}
+            />
+          );
+        }}
+      />
     </div>
   );
 }
@@ -156,24 +184,39 @@ function Publicadas() {
   if (escolhida) return <FichaPublicada linha={escolhida} voltar={() => setAberta(null)} depois={carregar} />;
   const achadas = (linhas ?? []).filter((l) => !busca.trim() || `${l.id} ${l.doc.titulo}`.toLowerCase().includes(busca.trim().toLowerCase()));
   return (
-    <div>
-      <label className="block max-w-md">
-        Procurar entrada
-        <input className={campo} value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Título ou código" />
-      </label>
-      <Aviso texto={erro} />
-      {linhas && linhas.length === 0 && <p className="mt-4 text-ink-soft">Nenhuma entrada publicada ainda.</p>}
-      <ul className="mt-4 space-y-2">
-        {achadas.map((l) => (
-          <li key={l.id}>
-            <button type="button" onClick={() => setAberta(l.id)} className="w-full cursor-pointer border border-rule bg-folha px-3 py-2 text-left hover:border-ink">
-              <span className={rotulo}>{NOME_DO_DOSSIE[l.dossie] ?? l.dossie} · {ROTULO_SITUACAO[l.situacao]} · atualizada em {l.doc.atualizadoEm}</span>
-              <span className="mt-0.5 block font-semibold">{l.doc.titulo}</span>
-              {l.doc.fontes.some((f) => f.arquivoFalhou) && <span className="block text-sm text-oxblood">Arquivo de fonte em refação</span>}
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className="pn-tela">
+      <div className="max-w-md">
+        <Busca rotulo="Procurar entrada" rotuloVisivel valor={busca} aoMudar={setBusca} placeholder="Título ou código" />
+      </div>
+      {erro && (
+        <Faixa tom="erro" acao={<Botao pequeno onClick={carregar}>Tentar de novo</Botao>}>
+          {erro}
+        </Faixa>
+      )}
+      {!linhas && !erro && <Esqueleto forma="linhas" linhas={4} />}
+      {linhas && linhas.length === 0 && <Vazio titulo="Nenhuma entrada publicada ainda." simbolo={Search} />}
+      {achadas.length > 0 && (
+        <Lista rotulo="Publicadas">
+          {achadas.map((l) => (
+            <ItemDeLista
+              key={l.id}
+              aoClicar={() => setAberta(l.id)}
+              titulo={l.doc.titulo}
+              meta={
+                <>
+                  {NOME_DO_DOSSIE[l.dossie] ?? l.dossie} · atualizada em {l.doc.atualizadoEm}
+                </>
+              }
+              selo={
+                <span className="flex flex-wrap gap-1">
+                  {l.doc.fontes.some((f) => f.arquivoFalhou) && <Selo tom="aviso">Arquivo de fonte em refação</Selo>}
+                  <Selo tom={TOM_DA_SITUACAO[l.situacao]}>{ROTULO_SITUACAO[l.situacao]}</Selo>
+                </span>
+              }
+            />
+          ))}
+        </Lista>
+      )}
     </div>
   );
 }
@@ -263,71 +306,150 @@ function FichaPublicada({ linha, voltar, depois }: { linha: LinhaPublicada; volt
     });
 
   return (
-    <div className="border-2 border-ink bg-folha p-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-lg font-semibold">{doc.titulo}</h3>
-        <button type="button" className={botaoClaro} onClick={voltar}>Voltar</button>
-      </div>
-      <p className="mt-1 text-sm text-ink-soft">{linha.id} · {NOME_DO_DOSSIE[linha.dossie] ?? linha.dossie} · {ROTULO_SITUACAO[doc.situacao]} · publicada em {doc.publicadoEm}, atualizada em {doc.atualizadoEm}</p>
-      <p className="mt-3 max-w-3xl">{doc.resumo}</p>
-
-      <h4 className="mt-5 font-semibold">Histórico visível na ficha</h4>
-      {(doc.historico ?? []).length === 0 ? <p className="text-sm text-ink-soft">Nenhuma mudança de situação desde a publicação.</p> : (
-        <ul className="mt-1 list-disc pl-5 text-sm">
-          {(doc.historico ?? []).map((h, i) => <li key={i}>{h.em}: de {ROTULO_SITUACAO[h.de]} para {ROTULO_SITUACAO[h.para]} (fonte {doc.fontes.findIndex((f) => f.id === h.fonteId) + 1}){h.nota ? `. ${h.nota}` : ""}</li>)}
-        </ul>
-      )}
-      {(doc.respostas ?? []).length > 0 && (
+    <Cartao
+      as="article"
+      titulo={doc.titulo}
+      nivelDoTitulo={3}
+      sobre={
         <>
-          <h4 className="mt-4 font-semibold">Respostas publicadas ao lado da ficha</h4>
-          <ul className="mt-1 list-disc pl-5 text-sm">{(doc.respostas ?? []).map((r, i) => <li key={i}>{r.em} ({r.tipo === "direito_de_resposta" ? "direito de resposta" : "retificação"}): {r.texto}</li>)}</ul>
+          {linha.id} · {NOME_DO_DOSSIE[linha.dossie] ?? linha.dossie} · {ROTULO_SITUACAO[doc.situacao]} · publicada em {doc.publicadoEm}, atualizada em {doc.atualizadoEm}
         </>
-      )}
+      }
+      acoes={
+        <Botao simbolo={ArrowLeft} onClick={voltar}>
+          Voltar
+        </Botao>
+      }
+    >
+      <div className="pn-secao">
+        <p className="max-w-3xl">{doc.resumo}</p>
 
-      <h4 className="mt-5 font-semibold">Fontes</h4>
-      <ol className="mt-1 list-decimal pl-5 text-sm">
-        {doc.fontes.map((f) => (
-          <li key={f.id} className="mt-1">
-            {f.veiculo}: <a className="break-all underline" href={f.url} target="_blank" rel="noreferrer noopener">{f.titulo}</a>{" "}
-            {f.arquivoUrl ? <a className="underline" href={f.arquivoUrl} target="_blank" rel="noreferrer noopener">(arquivo)</a> : <span className="text-oxblood">arquivo em refação </span>}
-            {!f.arquivoUrl && <button type="button" className="cursor-pointer underline hover:text-oxblood" disabled={ocupado} onClick={() => void refazerArquivo(f)}>refazer agora</button>}
-          </li>
-        ))}
-      </ol>
+        <h4 className="font-semibold">Histórico visível na ficha</h4>
+        {(doc.historico ?? []).length === 0 ? (
+          <p className="pn-ajuda">Nenhuma mudança de situação desde a publicação.</p>
+        ) : (
+          <ul className="list-disc pl-5 text-sm">
+            {(doc.historico ?? []).map((h, i) => (
+              <li key={i}>
+                {h.em}: de {ROTULO_SITUACAO[h.de]} para {ROTULO_SITUACAO[h.para]} (fonte {doc.fontes.findIndex((f) => f.id === h.fonteId) + 1}){h.nota ? `. ${h.nota}` : ""}
+              </li>
+            ))}
+          </ul>
+        )}
+        {(doc.respostas ?? []).length > 0 && (
+          <>
+            <h4 className="font-semibold">Respostas publicadas ao lado da ficha</h4>
+            <ul className="list-disc pl-5 text-sm">
+              {(doc.respostas ?? []).map((r, i) => (
+                <li key={i}>
+                  {r.em} ({r.tipo === "direito_de_resposta" ? "direito de resposta" : "retificação"}): {r.texto}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
 
-      <h4 className="mt-6 font-semibold">Atualizar situação (absolvição, arquivamento, nova decisão)</h4>
-      <p className="max-w-3xl text-sm text-ink-soft">Exige a fonte da mudança (a decisão, a nota do tribunal, a reportagem). A ficha passa a mostrar a nova situação, a data e a fonte, e o histórico guarda a anterior.</p>
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <label className="block"><span className={rotulo}>Nova situação</span>
-          <select className={campo} value={nova} onChange={(e) => setNova(e.target.value as Situacao)}>{SITUACOES.map((s) => <option key={s} value={s}>{ROTULO_SITUACAO[s]}</option>)}</select>
-        </label>
-        <label className="block"><span className={rotulo}>Tipo da fonte nova</span>
-          <select className={campo} value={fonte.tipo} onChange={(e) => setFonte({ ...fonte, tipo: e.target.value as Fonte["tipo"] })}>{TIPOS_DE_FONTE.map((t) => <option key={t} value={t}>{TIPOS_DE_FONTE_NOME[t]}</option>)}</select>
-        </label>
-        <label className="block"><span className={rotulo}>Veículo ou órgão</span><input className={campo} value={fonte.veiculo} maxLength={120} onChange={(e) => setFonte({ ...fonte, veiculo: e.target.value })} /></label>
-        <label className="block"><span className={rotulo}>Título</span><input className={campo} value={fonte.titulo} maxLength={300} onChange={(e) => setFonte({ ...fonte, titulo: e.target.value })} /></label>
-        <label className="block sm:col-span-2"><span className={rotulo}>Link</span><input className={campo} value={fonte.url} maxLength={2000} onChange={(e) => setFonte({ ...fonte, url: e.target.value })} /></label>
-        <label className="block sm:col-span-2"><span className={rotulo}>Trecho ({400 - fonte.trecho.length} letras sobrando)</span><textarea className={`${campo} min-h-20`} value={fonte.trecho} maxLength={400} onChange={(e) => setFonte({ ...fonte, trecho: e.target.value })} /></label>
-        <label className="block"><span className={rotulo}>Data da fonte</span><input className={campo} value={fonte.data} maxLength={10} onChange={(e) => setFonte({ ...fonte, data: e.target.value })} /></label>
-        <label className="block sm:col-span-2"><span className={rotulo}>O que mudou, com “segundo [fonte]” (aparece na ficha)</span><input className={campo} value={nota} maxLength={300} onChange={(e) => setNota(e.target.value)} /></label>
+        <h4 className="font-semibold">Fontes</h4>
+        <ol className="list-decimal pl-5 text-sm">
+          {doc.fontes.map((f) => (
+            <li key={f.id} className="mt-1">
+              {f.veiculo}:{" "}
+              <a className="pn-elo break-all" href={f.url} target="_blank" rel="noreferrer noopener">
+                {f.titulo}
+              </a>{" "}
+              {f.arquivoUrl ? (
+                <a className="pn-elo" href={f.arquivoUrl} target="_blank" rel="noreferrer noopener">
+                  (arquivo)
+                </a>
+              ) : (
+                <Selo tom="aviso">arquivo em refação </Selo>
+              )}
+              {!f.arquivoUrl && (
+                <Botao variante="discreto" pequeno simbolo={RefreshCw} disabled={ocupado} onClick={() => void refazerArquivo(f)}>
+                  refazer agora
+                </Botao>
+              )}
+            </li>
+          ))}
+        </ol>
+
+        <Cartao as="div" variante="plano">
+          <div className="pn-secao">
+            <h4 className="font-semibold">Atualizar situação (absolvição, arquivamento, nova decisão)</h4>
+            <p className="pn-ajuda max-w-3xl">Exige a fonte da mudança (a decisão, a nota do tribunal, a reportagem). A ficha passa a mostrar a nova situação, a data e a fonte, e o histórico guarda a anterior.</p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Selecao rotulo="Nova situação" value={nova} onChange={(e) => setNova(e.target.value as Situacao)}>
+                {SITUACOES.map((s) => (
+                  <option key={s} value={s}>
+                    {ROTULO_SITUACAO[s]}
+                  </option>
+                ))}
+              </Selecao>
+              <Selecao rotulo="Tipo da fonte nova" value={fonte.tipo} onChange={(e) => setFonte({ ...fonte, tipo: e.target.value as Fonte["tipo"] })}>
+                {TIPOS_DE_FONTE.map((t) => (
+                  <option key={t} value={t}>
+                    {TIPOS_DE_FONTE_NOME[t]}
+                  </option>
+                ))}
+              </Selecao>
+              <Campo rotulo="Veículo ou órgão" value={fonte.veiculo} maxLength={120} onChange={(e) => setFonte({ ...fonte, veiculo: e.target.value })} />
+              <Campo rotulo="Título" value={fonte.titulo} maxLength={300} onChange={(e) => setFonte({ ...fonte, titulo: e.target.value })} />
+              <div className="sm:col-span-2">
+                <Campo rotulo="Link" value={fonte.url} maxLength={2000} onChange={(e) => setFonte({ ...fonte, url: e.target.value })} />
+              </div>
+              <div className="sm:col-span-2">
+                <Area rotulo={`Trecho (${400 - fonte.trecho.length} letras sobrando)`} className="min-h-20" value={fonte.trecho} maxLength={400} onChange={(e) => setFonte({ ...fonte, trecho: e.target.value })} />
+              </div>
+              <Campo rotulo="Data da fonte" value={fonte.data} maxLength={10} onChange={(e) => setFonte({ ...fonte, data: e.target.value })} />
+              <div className="sm:col-span-2">
+                <Campo rotulo="O que mudou, com “segundo [fonte]” (aparece na ficha)" value={nota} maxLength={300} onChange={(e) => setNota(e.target.value)} />
+              </div>
+            </div>
+            <div>
+              <Botao variante="principal" carregando={ocupado} disabled={ocupado || nova === doc.situacao} onClick={() => void atualizar()}>
+                Atualizar situação
+              </Botao>
+            </div>
+          </div>
+        </Cartao>
+
+        <Cartao as="div" variante="plano">
+          <div className="pn-secao">
+            <h4 className="font-semibold">Tirar do ar</h4>
+            <div className="flex flex-wrap items-end gap-2">
+              <div className="min-w-60 max-w-lg flex-1">
+                <Campo rotulo="Motivo" value={motivo} maxLength={500} onChange={(e) => setMotivo(e.target.value)} placeholder="Motivo (correção procedente, ordem judicial…)" />
+              </div>
+              <Botao perigo simbolo={Archive} disabled={ocupado} onClick={() => void retirar()}>
+                Retirar entrada
+              </Botao>
+            </div>
+          </div>
+        </Cartao>
+
+        {erros.length > 0 && (
+          <Faixa tom="erro">
+            <ul className="list-disc pl-5 text-sm">
+              {erros.map((e) => (
+                <li key={e}>{e}</li>
+              ))}
+            </ul>
+          </Faixa>
+        )}
+        <Aviso texto={aviso} />
+
+        <h4 className="font-semibold">Histórico interno (só a curadoria vê)</h4>
+        <Aviso texto={historico.erro} />
+        <ul className="space-y-1 text-sm">
+          {(historico.dados ?? []).map((h) => (
+            <li key={h.id}>
+              {dataHora(h.em)} · {h.acao} · {h.quem ?? "sistema"}
+              {h.nota ? `: ${h.nota}` : ""}
+            </li>
+          ))}
+        </ul>
       </div>
-      <button type="button" className={`mt-3 ${botao}`} disabled={ocupado || nova === doc.situacao} onClick={() => void atualizar()}>Atualizar situação</button>
-
-      <h4 className="mt-6 font-semibold">Tirar do ar</h4>
-      <div className="mt-2 flex flex-wrap items-end gap-3">
-        <input className={`${campo} max-w-lg`} value={motivo} maxLength={500} onChange={(e) => setMotivo(e.target.value)} placeholder="Motivo (correção procedente, ordem judicial…)" aria-label="Motivo" />
-        <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => void retirar()}>Retirar entrada</button>
-      </div>
-
-      {erros.length > 0 && <ul className="mt-3 list-disc pl-5 text-sm text-oxblood">{erros.map((e) => <li key={e}>{e}</li>)}</ul>}
-      <Aviso texto={aviso} />
-
-      <h4 className="mt-6 font-semibold">Histórico interno (só a curadoria vê)</h4>
-      <Aviso texto={historico.erro} />
-      <ul className="mt-1 space-y-1 text-sm">
-        {(historico.dados ?? []).map((h) => <li key={h.id}>{dataHora(h.em)} · {h.acao} · {h.quem ?? "sistema"}{h.nota ? `: ${h.nota}` : ""}</li>)}
-      </ul>
-    </div>
+    </Cartao>
   );
 }
 
@@ -338,22 +460,35 @@ function Correcoes() {
   const lista = useLista<ItemDeCorrecao[]>("vale_correcoes_listar", { p_estado: estado });
   const hoje = useMemo(() => hojeISO(), []);
   return (
-    <div>
-      <p className="max-w-3xl text-sm text-ink-soft">
+    <div className="pn-tela">
+      <p className="pn-ajuda max-w-3xl">
         Meta de resposta: {LEI_13188.respostaDias} dias do pedido. É o prazo do art. 5º da Lei 13.188/2015 (direito de resposta): o veículo tem 7 dias, contados do recebimento do pedido, para divulgar a resposta ou a retificação, gratuita e proporcional
         ao agravo (art. 2º); passado o prazo, cabe ação, e o juiz decide em {LEI_13188.decisaoDoJuizHoras} horas da citação (art. 7º). O pedido tem prazo decadencial de {LEI_13188.decadenciaDias} dias da divulgação (art. 3º). O Instituto não sabe se a lei o
         alcança como “veículo de comunicação social” e cumpre por boa-fé: responda dentro da meta, mesmo que o pedido pareça fora do prazo da lei.
       </p>
-      <div role="group" aria-label="Estado" className="mt-3 flex flex-wrap gap-2">
-        {([["nova", "Novas"], ["em_analise", "Em análise"], ["aceita", "Aceitas"], ["recusada", "Recusadas"]] as const).map(([id, nome]) => (
-          <button key={id} type="button" aria-pressed={estado === id} onClick={() => setEstado(id)} className={`${estado === id ? botao : botaoClaro} !px-3 !py-1 text-sm`}>{nome}</button>
-        ))}
-      </div>
-      <Aviso texto={lista.erro} />
-      {lista.dados && lista.dados.length === 0 && <p className="mt-4 text-ink-soft">Nada aqui.</p>}
-      <ul className="mt-4 space-y-3">
-        {(lista.dados ?? []).map((c) => <Pedido key={c.id} c={c} hoje={hoje} depois={lista.recarregar} />)}
-      </ul>
+      <Abas<ItemDeCorrecao["estado"]>
+        rotulo="Estado"
+        opcoes={(
+          [
+            ["nova", "Novas"],
+            ["em_analise", "Em análise"],
+            ["aceita", "Aceitas"],
+            ["recusada", "Recusadas"],
+          ] as const
+        ).map(([id, nome]) => ({ id, nome }))}
+        valor={estado}
+        aoMudar={setEstado}
+      />
+      {lista.erro && (
+        <Faixa tom="erro" acao={<Botao pequeno onClick={lista.recarregar}>Tentar de novo</Botao>}>
+          {lista.erro}
+        </Faixa>
+      )}
+      {!lista.dados && !lista.erro && <Esqueleto forma="cartoes" linhas={2} />}
+      {lista.dados && lista.dados.length === 0 && <Vazio titulo="Nada aqui." />}
+      {(lista.dados ?? []).map((c) => (
+        <Pedido key={c.id} c={c} hoje={hoje} depois={lista.recarregar} />
+      ))}
     </div>
   );
 }
@@ -400,39 +535,56 @@ function Pedido({ c, hoje, depois }: { c: ItemDeCorrecao; hoje: string; depois: 
       await rpc("vale_correcao_decidir", { p_id: c.id, p_estado: "aceita", p_resposta: publica ? resposta.trim() : "", p_nota: nota.trim() });
     });
   return (
-    <li className="border border-ink bg-folha p-3">
-      <p className={rotulo}>
-        {TIPO_DA_CORRECAO[c.tipo]} · entrada {c.entrada} · recebido em {dataHora(c.criado_em)}
-      </p>
-      {aberto && (
-        <p className={`mt-1 font-semibold ${prazo.estado === "vencido" ? "text-oxblood" : ""}`}>
-          {prazo.estado === "vencido" ? `Atrasado ${-prazo.dias} dia(s)` : prazo.estado === "vence_hoje" ? "Vence hoje" : `${prazo.dias} dia(s) para responder`} (meta {c.responder_ate.split("-").reverse().join("/")})
+    <Cartao as="article" variante={aberto && prazo.estado === "vencido" ? "alerta" : "padrao"}>
+      <div className="pn-secao">
+        <p className="pn-rotulo-mono">
+          {TIPO_DA_CORRECAO[c.tipo]} · entrada {c.entrada} · recebido em {dataHora(c.criado_em)}
         </p>
-      )}
-      <p className="mt-2 whitespace-pre-wrap">{c.texto}</p>
-      <p className="mt-2 text-sm text-ink-soft">
-        {c.nome ? `${c.nome} · ` : "Sem nome · "}
-        {c.contato ?? "sem contato"}
-        {c.comprovante_url && (<> · <a className="break-all underline" href={c.comprovante_url} target="_blank" rel="noreferrer noopener">comprovante</a></>)}
-      </p>
-      {c.resposta_publica && !aberto && <p className="mt-2 text-sm">Resposta publicada: {c.resposta_publica}</p>}
-      {c.nota && !aberto && <p className="text-sm text-ink-soft">Nota: {c.nota}</p>}
-      {aberto && (
-        <div className="mt-3 space-y-3">
-          {c.tipo !== "remocao_de_dado" && (
-            <label className="block"><span className={rotulo}>Resposta ou retificação que vai ao lado da ficha (gratuita e proporcional ao agravo)</span>
-              <textarea className={`${campo} min-h-24`} value={resposta} maxLength={4000} onChange={(e) => setResposta(e.target.value)} />
-            </label>
+        {aberto && (
+          <p>
+            <Selo tom={prazo.estado === "vencido" ? "erro" : prazo.estado === "vence_hoje" ? "aviso" : "neutro"} ponto>
+              {prazo.estado === "vencido" ? `Atrasado ${-prazo.dias} dia(s)` : prazo.estado === "vence_hoje" ? "Vence hoje" : `${prazo.dias} dia(s) para responder`} (meta {c.responder_ate.split("-").reverse().join("/")})
+            </Selo>
+          </p>
+        )}
+        <p className="whitespace-pre-wrap">{c.texto}</p>
+        <p className="pn-ajuda">
+          {c.nome ? `${c.nome} · ` : "Sem nome · "}
+          {c.contato ?? "sem contato"}
+          {c.comprovante_url && (
+            <>
+              {" "}
+              ·{" "}
+              <a className="pn-elo inline-flex items-center gap-1 break-all" href={c.comprovante_url} target="_blank" rel="noreferrer noopener">
+                comprovante
+                <ExternalLink aria-hidden width={12} height={12} />
+              </a>
+            </>
           )}
-          <label className="block"><span className={rotulo}>Nota interna (obrigatória para recusar)</span><input className={campo} value={nota} maxLength={2000} onChange={(e) => setNota(e.target.value)} /></label>
-          <div className="flex flex-wrap gap-3">
-            {c.estado === "nova" && <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => void analisar()}>Em análise</button>}
-            <button type="button" className={botao} disabled={ocupado} onClick={() => void aceitar()}>Aceitar</button>
-            <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => void recusar()}>Recusar</button>
+        </p>
+        {c.resposta_publica && !aberto && <p className="text-sm">Resposta publicada: {c.resposta_publica}</p>}
+        {c.nota && !aberto && <p className="pn-ajuda">Nota: {c.nota}</p>}
+        {aberto && (
+          <div className="pn-secao">
+            {c.tipo !== "remocao_de_dado" && <Area rotulo="Resposta ou retificação que vai ao lado da ficha (gratuita e proporcional ao agravo)" className="min-h-24" value={resposta} maxLength={4000} onChange={(e) => setResposta(e.target.value)} />}
+            <Campo rotulo="Nota interna (obrigatória para recusar)" value={nota} maxLength={2000} onChange={(e) => setNota(e.target.value)} />
+            <div className="flex flex-wrap gap-2">
+              {c.estado === "nova" && (
+                <Botao disabled={ocupado} onClick={() => void analisar()}>
+                  Em análise
+                </Botao>
+              )}
+              <Botao variante="principal" simbolo={Check} disabled={ocupado} onClick={() => void aceitar()}>
+                Aceitar
+              </Botao>
+              <Botao simbolo={X} disabled={ocupado} onClick={() => void recusar()}>
+                Recusar
+              </Botao>
+            </div>
           </div>
-        </div>
-      )}
-      <Aviso texto={aviso} />
-    </li>
+        )}
+        <Aviso texto={aviso} />
+      </div>
+    </Cartao>
   );
 }

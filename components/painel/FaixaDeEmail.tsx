@@ -1,15 +1,19 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Circle, CircleCheck, ClipboardCopy, Code, ImageDown } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getClient, type Me, porNivel } from "@/lib/backend";
-import { Aviso, botao, botaoClaro, campo, papeis } from "./comum";
+import { Aviso, papeis } from "./comum";
+import { Botao, Campo, Cartao } from "./ui";
 
 /**
  * A faixa de assinatura de e-mail de quem está na equipe, em Minha conta: duas versões (a clássica, em papel claro, e a
  * faixa preta, no desenho dos lambe-lambes), com nome, função e e-mail que a pessoa pode mudar. Sai de três jeitos:
  * copiada como assinatura pronta para colar no Gmail ou no Tutamail (HTML com o estilo em cada elemento, que é o único
  * que os programas de e-mail respeitam), o código HTML puro e uma imagem PNG desenhada aqui mesmo.
+ * As cores da assinatura (HTML e desenho) são do documento, não da interface: ficam como estão (docs/PAINEL-REDESENHO.md,
+ * seção 14, exceções de cor). Só a moldura em volta usa os primitivos do painel.
  */
 
 type Versao = "classica" | "preta";
@@ -221,41 +225,42 @@ export function FaixaDeEmail({ me }: { me: Me }) {
   }
 
   return (
-    <section className="painel-cartao p-5">
-      <h2 className="font-serif text-xl font-semibold">Faixa de assinatura de e-mail</h2>
-      <p className="mt-1 text-sm text-ink-soft">A sua assinatura do Instituto Lúcia, para usar nos e-mails que você manda pelo instituto. O nome, a função e o e-mail podem ser mudados aqui: nada disso é guardado nem muda a sua conta.</p>
-      <div className="mt-4 flex flex-wrap gap-2" role="radiogroup" aria-label="Versão da faixa">
-        {([["classica", "Clássica (papel claro)"], ["preta", "Faixa preta (lambe-lambe)"]] as const).map(([id, nome]) => (
-          <button key={id} type="button" role="radio" aria-checked={versao === id} onClick={() => setVersao(id)} className={`cursor-pointer border-2 px-3 py-1.5 text-sm font-semibold ${versao === id ? "border-ink bg-ink text-parchment" : "border-ink hover:bg-parchment"}`}>
-            {nome}
-          </button>
-        ))}
+    <Cartao
+      titulo="Faixa de assinatura de e-mail"
+      sobre="A sua assinatura do Instituto Lúcia, para usar nos e-mails que você manda pelo instituto. O nome, a função e o e-mail podem ser mudados aqui: nada disso é guardado nem muda a sua conta."
+    >
+      <div className="pn-secao">
+        <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Versão da faixa">
+          {([["classica", "Clássica (papel claro)"], ["preta", "Faixa preta (lambe-lambe)"]] as const).map(([id, nome]) => (
+            <Botao key={id} role="radio" aria-checked={versao === id} variante={versao === id ? "padrao" : "discreto"} simbolo={versao === id ? CircleCheck : Circle} onClick={() => setVersao(id)}>
+              {nome}
+            </Botao>
+          ))}
+        </div>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Campo rotulo="Nome" value={dados.nome} maxLength={60} onChange={(e) => setDados({ ...dados, nome: e.target.value })} />
+          <Campo rotulo="Função" value={dados.funcao} maxLength={60} onChange={(e) => setDados({ ...dados, funcao: e.target.value })} />
+          <Campo rotulo="E-mail" value={dados.email} type="email" maxLength={120} onChange={(e) => setDados({ ...dados, email: e.target.value })} />
+        </div>
+        <p className="pn-ajuda">Dica: se você tem um e-mail do instituto, use ele aqui no lugar do pessoal.</p>
+        {/* A moldura é do painel; a assinatura dentro dela é documento e mantém as próprias cores (exceção de cor). */}
+        <div className="pn-cartao pn-cartao-plano overflow-x-auto">
+          {/* A prévia é o próprio HTML que vai para o e-mail. */}
+          <div ref={previa} className="inline-block" dangerouslySetInnerHTML={{ __html: html.replaceAll(MARCA, "/marca-192.png") }} />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Botao variante="principal" simbolo={ClipboardCopy} onClick={() => void copiarAssinatura()}>
+            Copiar para o Gmail ou o Tutamail
+          </Botao>
+          <Botao simbolo={ImageDown} onClick={() => void baixarImagem()}>
+            Baixar como imagem (PNG)
+          </Botao>
+          <Botao simbolo={Code} onClick={() => void copiarCodigo()}>
+            Copiar o código HTML
+          </Botao>
+        </div>
+        <Aviso texto={aviso} />
       </div>
-      <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        <label className="text-sm font-semibold">
-          Nome
-          <input value={dados.nome} maxLength={60} onChange={(e) => setDados({ ...dados, nome: e.target.value })} className={campo} />
-        </label>
-        <label className="text-sm font-semibold">
-          Função
-          <input value={dados.funcao} maxLength={60} onChange={(e) => setDados({ ...dados, funcao: e.target.value })} className={campo} />
-        </label>
-        <label className="text-sm font-semibold">
-          E-mail
-          <input value={dados.email} type="email" maxLength={120} onChange={(e) => setDados({ ...dados, email: e.target.value })} className={campo} />
-        </label>
-      </div>
-      <p className="mt-2 text-xs text-ink-soft">Dica: se você tem um e-mail do instituto, use ele aqui no lugar do pessoal.</p>
-      <div className="mt-4 overflow-x-auto border-2 border-dashed border-rule bg-[#e8e4dc] p-4">
-        {/* A prévia é o próprio HTML que vai para o e-mail. */}
-        <div ref={previa} className="inline-block" dangerouslySetInnerHTML={{ __html: html.replaceAll(MARCA, "/marca-192.png") }} />
-      </div>
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button type="button" className={botao} onClick={() => void copiarAssinatura()}>Copiar para o Gmail ou o Tutamail</button>
-        <button type="button" className={botaoClaro} onClick={() => void baixarImagem()}>Baixar como imagem (PNG)</button>
-        <button type="button" className={botaoClaro} onClick={() => void copiarCodigo()}>Copiar o código HTML</button>
-      </div>
-      <Aviso texto={aviso} />
-    </section>
+    </Cartao>
   );
 }

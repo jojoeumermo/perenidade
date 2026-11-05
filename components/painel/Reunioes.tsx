@@ -1,15 +1,16 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { CalendarDays, Check, Clock, DoorOpen, ExternalLink, LogOut, Pencil, Play, Radio, Send, Video, X } from "lucide-react";
 import { useState } from "react";
 import { can, type Me, rpc } from "@/lib/backend";
 import { JITSI_DOMINIO } from "@/lib/jitsi";
 import { JitsiSala } from "../JitsiSala";
 import { useI18n } from "../I18n";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
-import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, dataHora, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
-import { confirmarFrase } from "./ui";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Faixa, Lista, Selecao, Selo, type TomDoSelo, Vazio, confirmarFrase } from "./ui";
 
 export interface Reuniao {
   id: string;
@@ -47,6 +48,9 @@ export interface Proposta {
 
 export const tipos: Record<Reuniao["tipo"], string> = { aberta: "Aberta a toda a equipe", coordenacao: "Só coordenação e supervisão", convidados: "Convidados" };
 const situacoes: Record<Reuniao["status"], string> = { agendada: "agendada", ao_vivo: "AO VIVO", encerrada: "encerrada", cancelada: "cancelada" };
+/** O tom do selo de cada situação (a palavra continua dizendo o estado; a cor só acompanha). */
+const tomDaSituacao: Record<Reuniao["status"], TomDoSelo> = { agendada: "info", ao_vivo: "bordo", encerrada: "neutro", cancelada: "aviso" };
+const tomDaProposta: Record<Proposta["status"], TomDoSelo> = { pendente: "aviso", aprovada: "ok", recusada: "erro", reagendada: "info" };
 const daquiAUmaHora = () => {
   const d = new Date(Date.now() + 3600_000);
   d.setMinutes(0, 0, 0);
@@ -115,50 +119,53 @@ export function Reunioes({ me }: { me: Me }) {
   if (naSala) {
     return (
       <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className={rotulo}>{naSala.status === "ao_vivo" ? "Ao vivo" : "Sala"}</p>
-            <h2 className="font-serif text-2xl font-semibold">{naSala.titulo}</h2>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {naSala.conduzo && naSala.status === "agendada" && <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_estado", { p_id: naSala.id, p_status: "ao_vivo" }, "A reunião começou: a equipe foi avisada.").then(() => setNaSala({ ...naSala, status: "ao_vivo" }))}>Começar a reunião</button>}
-            {naSala.conduzo && naSala.status === "ao_vivo" && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Encerrar a reunião para todos?"))) { await acao.agir("reuniao_estado", { p_id: naSala.id, p_status: "encerrada" }, "Reunião encerrada."); void sair(); } }}>Encerrar para todos</button>}
-            <button type="button" className={botaoClaro} onClick={() => void sair()}>Sair da sala</button>
-          </div>
-        </div>
+        <CabecalhoDeSecao
+          nivel={2}
+          rotulo={naSala.status === "ao_vivo" ? "Ao vivo" : "Sala"}
+          titulo={naSala.titulo}
+          simbolo={Video}
+          acoes={
+            <>
+              {naSala.conduzo && naSala.status === "agendada" && <Botao variante="principal" simbolo={Play} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_estado", { p_id: naSala.id, p_status: "ao_vivo" }, "A reunião começou: a equipe foi avisada.").then(() => setNaSala({ ...naSala, status: "ao_vivo" }))}>Começar a reunião</Botao>}
+              {naSala.conduzo && naSala.status === "ao_vivo" && <Botao perigo disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Encerrar a reunião para todos?"))) { await acao.agir("reuniao_estado", { p_id: naSala.id, p_status: "encerrada" }, "Reunião encerrada."); void sair(); } }}>Encerrar para todos</Botao>}
+              <Botao simbolo={LogOut} onClick={() => void sair()}>Sair da sala</Botao>
+            </>
+          }
+        />
         <JitsiSala sala={naSala.sala ?? ""} nome={me.nome} conduzo={naSala.conduzo} lang={lang} assunto={naSala.titulo} aoSair={() => void sair()} />
-        {naSala.pauta && <div className="painel-cartao p-4"><p className={rotulo}>Pauta</p><p className="mt-1 whitespace-pre-wrap" data-original>{naSala.pauta}</p></div>}
-        <p className="text-xs text-ink-soft">Nada de áudio ou vídeo fica no servidor do instituto; só quem entrou e quando. Quem abre a reunião entra primeiro e modera.</p>
+        {naSala.pauta && <Cartao><p className={rotulo}>Pauta</p><p className="mt-1 whitespace-pre-wrap" data-original>{naSala.pauta}</p></Cartao>}
+        <p className="pn-ajuda">Nada de áudio ou vídeo fica no servidor do instituto; só quem entrou e quando. Quem abre a reunião entra primeiro e modera.</p>
         <Aviso texto={acao.aviso} />
       </div>
     );
   }
 
   const cartao = (r: Reuniao) => (
-    <article key={r.id} className={`painel-cartao p-4 ${r.status === "ao_vivo" ? "border-[#c21f16]" : ""}`}>
-      <p className="flex flex-wrap items-center gap-2 font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">
-        {r.status === "ao_vivo" ? <span className="bg-[#c21f16] px-1.5 py-0.5 text-white">AO VIVO</span> : <span>{situacoes[r.status]}</span>}
-        <span>· {tipos[r.tipo]}</span>
-        {r.recorrencia && <span>· {r.recorrencia}</span>}
+    <Cartao as="article" key={r.id} variante={r.status === "ao_vivo" ? "destaque" : "padrao"}>
+      <p className="flex flex-wrap items-center gap-2">
+        <Selo tom={tomDaSituacao[r.status]} ponto={r.status === "ao_vivo"}>{situacoes[r.status]}</Selo>
+        <span className={rotulo}>{tipos[r.tipo]}</span>
+        {r.recorrencia && <span className={rotulo}>· {r.recorrencia}</span>}
       </p>
-      <h3 className="mt-1 font-serif text-xl font-semibold">{r.titulo}</h3>
-      <p className="text-ink-soft">{dataHora(r.inicio)} · {r.duracao} min · {r.organizador.nome}{r.convidados.length > 0 ? ` · ${r.convidados.length} convidados` : ""}{r.presentes > 0 ? ` · ${r.presentes} presentes` : ""}</p>
-      {r.pauta && <p className="mt-2 line-clamp-3 whitespace-pre-wrap text-ink-soft" data-original>{r.pauta}</p>}
-      {r.link_pauta && <p className="mt-1"><a href={r.link_pauta} target="_blank" rel="noopener noreferrer" className={elo}>Documento da pauta ↗</a></p>}
+      <h3 className="pn-cartao-titulo mt-2">{r.titulo}</h3>
+      <p className="pn-ajuda tabular-nums">{dataHora(r.inicio)} · {r.duracao} min · {r.organizador.nome}{r.convidados.length > 0 ? ` · ${r.convidados.length} convidados` : ""}{r.presentes > 0 ? ` · ${r.presentes} presentes` : ""}</p>
+      {r.pauta && <p className="pn-ajuda mt-2 line-clamp-3 whitespace-pre-wrap" data-original>{r.pauta}</p>}
+      {r.link_pauta && <p className="mt-1"><a href={r.link_pauta} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">Documento da pauta <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a></p>}
       <p className="mt-3 flex flex-wrap gap-2">
-        {r.sala && (r.status === "ao_vivo" || r.conduzo) && <button type="button" className={r.status === "ao_vivo" ? botao : botaoClaro} onClick={() => void entrar(r)}>{r.status === "ao_vivo" ? "Entrar" : "Abrir a sala"}</button>}
-        {r.status === "agendada" && <button type="button" className={elo} onClick={() => baixarIcs(r)}>Agenda (.ics)</button>}
-        {r.conduzo && r.status === "agendada" && <button type="button" className={elo} onClick={() => { setEditando(r); setAba("nova"); }}>Editar</button>}
-        {r.conduzo && r.status !== "cancelada" && r.status !== "encerrada" && <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Cancelar esta reunião?"))) void acao.agir("reuniao_estado", { p_id: r.id, p_status: "cancelada" }, "Reunião cancelada."); }}>Cancelar</button>}
+        {r.sala && (r.status === "ao_vivo" || r.conduzo) && <Botao variante={r.status === "ao_vivo" ? "principal" : "padrao"} simbolo={DoorOpen} onClick={() => void entrar(r)}>{r.status === "ao_vivo" ? "Entrar" : "Abrir a sala"}</Botao>}
+        {r.status === "agendada" && <Botao variante="discreto" pequeno simbolo={CalendarDays} onClick={() => baixarIcs(r)}>Agenda (.ics)</Botao>}
+        {r.conduzo && r.status === "agendada" && <Botao variante="discreto" pequeno simbolo={Pencil} onClick={() => { setEditando(r); setAba("nova"); }}>Editar</Botao>}
+        {r.conduzo && r.status !== "cancelada" && r.status !== "encerrada" && <Botao variante="discreto" pequeno perigo simbolo={X} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase("Cancelar esta reunião?"))) void acao.agir("reuniao_estado", { p_id: r.id, p_status: "cancelada" }, "Reunião cancelada."); }}>Cancelar</Botao>}
       </p>
-    </article>
+    </Cartao>
   );
 
   return (
     <div>
       <Abas
-        atual={aba}
-        escolher={setAba}
+        rotulo="Reuniões"
+        valor={aba}
+        aoMudar={setAba}
         opcoes={[
           { id: "agora" as const, nome: "Agora e próximas", conta: aoVivo.length },
           { id: "propostas" as const, nome: "Propostas", conta: gere ? pendentes : undefined },
@@ -166,27 +173,37 @@ export function Reunioes({ me }: { me: Me }) {
           { id: "historico" as const, nome: "Histórico" },
         ]}
       />
-      <Aviso texto={lista.erro || acao.aviso} />
+      <div className="mt-4 space-y-2">
+        {lista.erro && <Faixa tom="erro" acao={<Botao pequeno onClick={lista.recarregar}>Tentar de novo</Botao>}>{lista.erro}</Faixa>}
+        <Aviso texto={acao.aviso} />
+      </div>
       <div hidden={aba !== "agora"}>
         {gere && (
           <div className="mb-6">
             <AbrirAgora entrar={(r) => { lista.recarregar(); void entrar(r); }} />
           </div>
         )}
+        {lista.dados === null && !lista.erro && <Esqueleto forma="cartoes" linhas={2} rotulo="Carregando as reuniões" />}
         {aoVivo.length > 0 && (
           <section>
-            <h2 className="jornal-secao"><span className="jornal-editoria">Ao vivo agora</span></h2>
+            <CabecalhoDeSecao nivel={2} titulo="Ao vivo agora" simbolo={Radio} />
             <div className="mt-4 grid gap-4">{aoVivo.map(cartao)}</div>
           </section>
         )}
-        <section className={aoVivo.length > 0 ? "mt-8" : ""}>
-          <h2 className="jornal-secao"><span className="jornal-editoria">Próximas</span></h2>
-          {proximas.length === 0 ? <p className="mt-4 text-ink-soft">Nenhuma reunião marcada. {gere ? "Crie uma em “Nova reunião”." : "Proponha uma em “Propostas”."}</p> : <div className="mt-4 grid gap-4 md:grid-cols-2">{proximas.map(cartao)}</div>}
-        </section>
-        <p className="mt-8 text-xs text-ink-soft">As reuniões acontecem pelo Jitsi Meet (código aberto) em {JITSI_DOMINIO}, dentro do painel, sem limite de tempo e sem conta de moderador. Cada reunião tem uma sala de nome sorteado, que só quem pode entrar recebe. Guardamos só quem entrou e quando; nada de áudio ou vídeo.</p>
+        {lista.dados !== null && (
+          <section className={aoVivo.length > 0 ? "mt-8" : ""}>
+            <CabecalhoDeSecao nivel={2} titulo="Próximas" simbolo={CalendarDays} />
+            {proximas.length === 0 ? (
+              <div className="mt-4"><Vazio simbolo={CalendarDays} titulo="Nenhuma reunião marcada." texto={gere ? "Crie uma em “Nova reunião”." : "Proponha uma em “Propostas”."} /></div>
+            ) : (
+              <div className="mt-4 grid gap-4 md:grid-cols-2">{proximas.map(cartao)}</div>
+            )}
+          </section>
+        )}
+        <p className="pn-ajuda mt-8">As reuniões acontecem pelo Jitsi Meet (código aberto) em {JITSI_DOMINIO}, dentro do painel, sem limite de tempo e sem conta de moderador. Cada reunião tem uma sala de nome sorteado, que só quem pode entrar recebe. Guardamos só quem entrou e quando; nada de áudio ou vídeo.</p>
       </div>
       <div hidden={aba !== "propostas"}>
-        <Propostas gere={gere} propostas={propostas.dados ?? []} erro={propostas.erro} recarregar={() => { propostas.recarregar(); lista.recarregar(); }} />
+        <Propostas gere={gere} propostas={propostas.dados ?? []} erro={propostas.erro} carregando={propostas.dados === null} recarregar={() => { propostas.recarregar(); lista.recarregar(); }} />
       </div>
       {gere && (
         <div hidden={aba !== "nova"}>
@@ -194,7 +211,8 @@ export function Reunioes({ me }: { me: Me }) {
         </div>
       )}
       <div hidden={aba !== "historico"}>
-        <Historico reunioes={passadas} recarregar={lista.recarregar} />
+        {/* Enquanto a lista não chega, esqueleto (e não "Nenhuma reunião passada"); com erro, a faixa do alto já avisa. */}
+        {lista.dados === null ? !lista.erro && <Esqueleto forma="cartoes" linhas={2} rotulo="Carregando o histórico" /> : <Historico reunioes={passadas} recarregar={lista.recarregar} />}
       </div>
     </div>
   );
@@ -212,33 +230,31 @@ export function NovaReuniao({ editando, depois, cancelar }: { editando: Reuniao 
     if (r) depois();
   }
   return (
-    <section className="painel-cartao max-w-3xl p-5">
-      <h2 className="font-serif text-xl font-semibold">{editando ? "Editar reunião" : "Nova reunião"}</h2>
+    <Cartao className="max-w-3xl" titulo={editando ? "Editar reunião" : "Nova reunião"}>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <label className="block sm:col-span-2">Título<input value={form.titulo} onChange={(e) => mudar("titulo", e.target.value)} maxLength={140} className={campo} /></label>
-        <label className="block sm:col-span-2">Pauta<textarea value={form.pauta} onChange={(e) => mudar("pauta", e.target.value)} rows={4} maxLength={4000} className={campo} /></label>
-        <label className="block">Data e hora<input type="datetime-local" value={form.inicio} onChange={(e) => mudar("inicio", e.target.value)} className={campo} /></label>
-        <label className="block">Duração (minutos)<input type="number" min={15} max={480} step={15} value={form.duracao} onChange={(e) => mudar("duracao", Number(e.target.value))} className={campo} /></label>
-        <label className="block">Quem entra
-          <select value={form.tipo} onChange={(e) => mudar("tipo", e.target.value as Reuniao["tipo"])} className={campo}>
-            {(Object.keys(tipos) as Reuniao["tipo"][]).map((t) => <option key={t} value={t}>{tipos[t]}</option>)}
-          </select>
-        </label>
-        <label className="block">Recorrência
-          <select value={form.recorrencia} onChange={(e) => mudar("recorrencia", e.target.value as Reuniao["recorrencia"])} className={campo}>
-            <option value="">Uma vez</option>
-            <option value="semanal">Semanal</option>
-            <option value="quinzenal">Quinzenal</option>
-          </select>
-        </label>
-        <label className="block sm:col-span-2">Documento da pauta (https, opcional)<input value={form.link_pauta} onChange={(e) => mudar("link_pauta", e.target.value)} placeholder="https://" maxLength={500} className={`${campo} font-mono`} /></label>
+        <div className="sm:col-span-2"><Campo rotulo="Título" value={form.titulo} onChange={(e) => mudar("titulo", e.target.value)} maxLength={140} /></div>
+        <div className="sm:col-span-2"><Area rotulo="Pauta" value={form.pauta} onChange={(e) => mudar("pauta", e.target.value)} rows={4} maxLength={4000} /></div>
+        <Campo rotulo="Data e hora" type="datetime-local" value={form.inicio} onChange={(e) => mudar("inicio", e.target.value)} />
+        <Campo rotulo="Duração (minutos)" type="number" min={15} max={480} step={15} value={form.duracao} onChange={(e) => mudar("duracao", Number(e.target.value))} />
+        <Selecao rotulo="Quem entra" value={form.tipo} onChange={(e) => mudar("tipo", e.target.value as Reuniao["tipo"])}>
+          {(Object.keys(tipos) as Reuniao["tipo"][]).map((t) => <option key={t} value={t}>{tipos[t]}</option>)}
+        </Selecao>
+        <Selecao rotulo="Recorrência" value={form.recorrencia} onChange={(e) => mudar("recorrencia", e.target.value as Reuniao["recorrencia"])}>
+          <option value="">Uma vez</option>
+          <option value="semanal">Semanal</option>
+          <option value="quinzenal">Quinzenal</option>
+        </Selecao>
+        <div className="sm:col-span-2"><Campo rotulo="Documento da pauta (https, opcional)" value={form.link_pauta} onChange={(e) => mudar("link_pauta", e.target.value)} placeholder="https://" maxLength={500} className="font-mono" /></div>
       </div>
-      <fieldset className="mt-4 border border-rule p-3">
+      <fieldset className="pn-cartao pn-cartao-plano mt-4 p-3">
         <legend className="px-1 font-semibold">Convidados {form.tipo === "convidados" ? "(só eles entram)" : "(recebem o aviso)"}</legend>
         {convidados.length > 0 && (
           <ul className="flex flex-wrap gap-2">
             {convidados.map((c) => (
-              <li key={c.id} className="flex items-center gap-2 border border-ink px-2 py-1"><span>{c.nome}</span><button type="button" className={elo} aria-label={`Tirar ${c.nome}`} onClick={() => setConvidados(convidados.filter((x) => x.id !== c.id))}>✕</button></li>
+              <li key={c.id} className="pn-etiqueta gap-1">
+                <span>{c.nome}</span>
+                <Botao variante="discreto" pequeno icone simbolo={X} aria-label={`Tirar ${c.nome}`} onClick={() => setConvidados(convidados.filter((x) => x.id !== c.id))} />
+              </li>
             ))}
           </ul>
         )}
@@ -247,15 +263,15 @@ export function NovaReuniao({ editando, depois, cancelar }: { editando: Reuniao 
         </div>
       </fieldset>
       <p className="mt-4 flex flex-wrap gap-3">
-        <button type="button" className={botao} disabled={acao.ocupado || form.titulo.trim().length < 3} onClick={() => void salvar()}>{editando ? "Guardar" : "Marcar a reunião"}</button>
-        <button type="button" className={botaoClaro} onClick={cancelar}>Cancelar</button>
+        <Botao variante="principal" simbolo={Check} carregando={acao.ocupado} disabled={form.titulo.trim().length < 3} onClick={() => void salvar()}>{editando ? "Guardar" : "Marcar a reunião"}</Botao>
+        <Botao onClick={cancelar}>Cancelar</Botao>
       </p>
       <Aviso texto={acao.aviso} />
-    </section>
+    </Cartao>
   );
 }
 
-export function Propostas({ gere, propostas, erro, recarregar }: { gere: boolean; propostas: Proposta[]; erro: string; recarregar: () => void }) {
+export function Propostas({ gere, propostas, erro, recarregar, carregando = false }: { gere: boolean; propostas: Proposta[]; erro: string; recarregar: () => void; /** A lista ainda não chegou: esqueleto no lugar de "Nenhuma proposta". */ carregando?: boolean }) {
   const acao = useAcao(recarregar);
   const [form, setForm] = useState({ titulo: "", assunto: "", inicio: daquiAUmaHora(), duracao: 60, convidados: "" });
   const [resposta, setResposta] = useState<Record<string, string>>({});
@@ -263,45 +279,49 @@ export function Propostas({ gere, propostas, erro, recarregar }: { gere: boolean
   const situacao: Record<Proposta["status"], string> = { pendente: "pendente", aprovada: "aprovada", recusada: "recusada", reagendada: "outro horário sugerido" };
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <section className="painel-cartao p-5">
-        <h2 className="font-serif text-xl font-semibold">Propor uma reunião</h2>
-        <p className="mt-1 text-ink-soft">A proposta vai para a coordenação, a coordenação pedagógica e a supervisão, que aprovam, recusam ou sugerem outro horário. Você é avisado no painel.</p>
-        <label className="mt-3 block">Título<input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} maxLength={140} className={campo} /></label>
-        <label className="mt-2 block">Assunto<textarea value={form.assunto} onChange={(e) => setForm({ ...form, assunto: e.target.value })} rows={3} maxLength={2000} className={campo} /></label>
-        <div className="mt-2 grid gap-3 sm:grid-cols-2">
-          <label className="block">Data e hora sugeridas<input type="datetime-local" value={form.inicio} onChange={(e) => setForm({ ...form, inicio: e.target.value })} className={campo} /></label>
-          <label className="block">Duração (min)<input type="number" min={15} max={480} step={15} value={form.duracao} onChange={(e) => setForm({ ...form, duracao: Number(e.target.value) })} className={campo} /></label>
+      <Cartao titulo="Propor uma reunião" sobre="A proposta vai para a coordenação, a coordenação pedagógica e a supervisão, que aprovam, recusam ou sugerem outro horário. Você é avisado no painel.">
+        <div className="mt-3 grid gap-3">
+          <Campo rotulo="Título" value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} maxLength={140} />
+          <Area rotulo="Assunto" value={form.assunto} onChange={(e) => setForm({ ...form, assunto: e.target.value })} rows={3} maxLength={2000} />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Campo rotulo="Data e hora sugeridas" type="datetime-local" value={form.inicio} onChange={(e) => setForm({ ...form, inicio: e.target.value })} />
+            <Campo rotulo="Duração (min)" type="number" min={15} max={480} step={15} value={form.duracao} onChange={(e) => setForm({ ...form, duracao: Number(e.target.value) })} />
+          </div>
+          <Campo rotulo="Quem você gostaria de convidar (nomes ou departamentos)" value={form.convidados} onChange={(e) => setForm({ ...form, convidados: e.target.value })} maxLength={500} />
         </div>
-        <label className="mt-2 block">Quem você gostaria de convidar (nomes ou departamentos)<input value={form.convidados} onChange={(e) => setForm({ ...form, convidados: e.target.value })} maxLength={500} className={campo} /></label>
-        <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado || form.titulo.trim().length < 3} onClick={async () => { if (await acao.agir("reuniao_propor", { p: { ...form, inicio: new Date(form.inicio).toISOString() } }, "Proposta enviada. A coordenação foi avisada.")) setForm({ titulo: "", assunto: "", inicio: daquiAUmaHora(), duracao: 60, convidados: "" }); }}>Enviar a proposta</button>
+        <Botao variante="principal" className="mt-3" simbolo={Send} carregando={acao.ocupado} disabled={form.titulo.trim().length < 3} onClick={async () => { if (await acao.agir("reuniao_propor", { p: { ...form, inicio: new Date(form.inicio).toISOString() } }, "Proposta enviada. A coordenação foi avisada.")) setForm({ titulo: "", assunto: "", inicio: daquiAUmaHora(), duracao: 60, convidados: "" }); }}>Enviar a proposta</Botao>
         <Aviso texto={acao.aviso} />
-      </section>
+      </Cartao>
       <section>
-        <h2 className="jornal-secao"><span className="jornal-editoria">{gere ? "Fila de propostas" : "Minhas propostas"}</span></h2>
-        <Aviso texto={erro} />
-        {propostas.length === 0 && <p className="mt-4 text-ink-soft">Nenhuma proposta ainda.</p>}
-        <ul className="mt-4 space-y-3">
+        <CabecalhoDeSecao nivel={2} titulo={gere ? "Fila de propostas" : "Minhas propostas"} simbolo={Clock} />
+        {erro && <Faixa tom="erro" className="mt-2" acao={<Botao pequeno onClick={recarregar}>Tentar de novo</Botao>}>{erro}</Faixa>}
+        {carregando && !erro && <div className="mt-4"><Esqueleto forma="cartoes" linhas={2} rotulo="Carregando as propostas" /></div>}
+        {propostas.length === 0 && !erro && !carregando && <div className="mt-4"><Vazio simbolo={CalendarDays} titulo="Nenhuma proposta ainda." /></div>}
+        <div className="mt-4 space-y-3">
           {propostas.map((p) => (
-            <li key={p.id} className={`painel-cartao p-4 ${p.status !== "pendente" ? "opacity-80" : ""}`}>
-              <p className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{situacao[p.status]} · {p.autor}{p.minha ? " (você)" : ""}</p>
-              <h3 className="mt-1 font-serif text-lg font-semibold">{p.titulo}</h3>
-              <p className="text-ink-soft">{dataHora(p.inicio)} · {p.duracao} min{p.convidados ? ` · convidar: ${p.convidados}` : ""}</p>
+            <Cartao as="article" key={p.id} variante={p.status !== "pendente" ? "plano" : "padrao"}>
+              <p className="flex flex-wrap items-center gap-2">
+                <Selo tom={tomDaProposta[p.status]}>{situacao[p.status]}</Selo>
+                <span className={rotulo}>{p.autor}{p.minha ? " (você)" : ""}</span>
+              </p>
+              <h3 className="pn-cartao-titulo mt-2">{p.titulo}</h3>
+              <p className="pn-ajuda tabular-nums">{dataHora(p.inicio)} · {p.duracao} min{p.convidados ? ` · convidar: ${p.convidados}` : ""}</p>
               {p.assunto && <p className="mt-1 whitespace-pre-wrap" data-original>{p.assunto}</p>}
-              {p.resposta && <p className="mt-2 border-l-4 border-gold pl-3 text-ink-soft">{p.resposta}</p>}
+              {p.resposta && <Faixa tom="info" semSimbolo className="mt-2">{p.resposta}</Faixa>}
               {gere && p.status === "pendente" && (
                 <div className="mt-3 space-y-2 border-t border-rule pt-3">
-                  <input value={resposta[p.id] ?? ""} onChange={(e) => setResposta({ ...resposta, [p.id]: e.target.value })} maxLength={500} placeholder="Motivo curto ou recado (opcional)" className={campo} />
+                  <Campo rotulo="Motivo curto ou recado (opcional)" value={resposta[p.id] ?? ""} onChange={(e) => setResposta({ ...resposta, [p.id]: e.target.value })} maxLength={500} placeholder="Motivo curto ou recado (opcional)" />
                   <div className="flex flex-wrap items-end gap-2">
-                    <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_proposta_decidir", { p_id: p.id, p_status: "aprovada", p_resposta: resposta[p.id] ?? "" }, "Aprovada: virou reunião de convidados.")}>Aprovar</button>
-                    <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_proposta_decidir", { p_id: p.id, p_status: "recusada", p_resposta: resposta[p.id] ?? "" }, "Recusada; a pessoa foi avisada.")}>Recusar</button>
-                    <label className="block text-xs">Outro horário<input type="datetime-local" value={outro[p.id] ?? paraCampo(p.inicio)} onChange={(e) => setOutro({ ...outro, [p.id]: e.target.value })} className={`${campo} mt-0`} /></label>
-                    <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_proposta_decidir", { p_id: p.id, p_status: "reagendada", p_resposta: resposta[p.id] ?? "", p_inicio: new Date(outro[p.id] ?? paraCampo(p.inicio)).toISOString() }, "Outro horário sugerido; a pessoa foi avisada.")}>Sugerir este horário</button>
+                    <Botao variante="principal" simbolo={Check} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_proposta_decidir", { p_id: p.id, p_status: "aprovada", p_resposta: resposta[p.id] ?? "" }, "Aprovada: virou reunião de convidados.")}>Aprovar</Botao>
+                    <Botao perigo simbolo={X} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_proposta_decidir", { p_id: p.id, p_status: "recusada", p_resposta: resposta[p.id] ?? "" }, "Recusada; a pessoa foi avisada.")}>Recusar</Botao>
+                    <Campo rotulo="Outro horário" type="datetime-local" value={outro[p.id] ?? paraCampo(p.inicio)} onChange={(e) => setOutro({ ...outro, [p.id]: e.target.value })} />
+                    <Botao simbolo={CalendarDays} disabled={acao.ocupado} onClick={() => acao.agir("reuniao_proposta_decidir", { p_id: p.id, p_status: "reagendada", p_resposta: resposta[p.id] ?? "", p_inicio: new Date(outro[p.id] ?? paraCampo(p.inicio)).toISOString() }, "Outro horário sugerido; a pessoa foi avisada.")}>Sugerir este horário</Botao>
                   </div>
                 </div>
               )}
-            </li>
+            </Cartao>
           ))}
-        </ul>
+        </div>
       </section>
     </div>
   );
@@ -310,39 +330,45 @@ export function Propostas({ gere, propostas, erro, recarregar }: { gere: boolean
 export function Historico({ reunioes, recarregar }: { reunioes: Reuniao[]; recarregar: () => void }) {
   const [atas, setAtas] = useState<Record<string, string>>({});
   const [aviso, setAviso] = useState("");
-  if (reunioes.length === 0) return <p className="text-ink-soft">Nenhuma reunião passada ainda.</p>;
+  if (reunioes.length === 0) return <Vazio simbolo={Clock} titulo="Nenhuma reunião passada ainda." />;
   return (
-    <ul className="space-y-4">
+    <div className="space-y-4">
       {reunioes.map((r) => (
-        <li key={r.id} className="painel-cartao p-4">
-          <p className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{situacoes[r.status]} · {tipos[r.tipo]}</p>
-          <h3 className="mt-1 font-serif text-lg font-semibold">{r.titulo}</h3>
-          <p className="text-ink-soft">{dataHora(r.inicio)} · {r.duracao} min · {r.organizador.nome}</p>
-          {r.pauta && <details className="mt-2"><summary className="cursor-pointer text-sm underline">Pauta</summary><p className="mt-1 whitespace-pre-wrap text-ink-soft" data-original>{r.pauta}</p></details>}
+        <Cartao as="article" key={r.id}>
+          <p className="flex flex-wrap items-center gap-2">
+            <Selo tom={tomDaSituacao[r.status]}>{situacoes[r.status]}</Selo>
+            <span className={rotulo}>{tipos[r.tipo]}</span>
+          </p>
+          <h3 className="pn-cartao-titulo mt-2">{r.titulo}</h3>
+          <p className="pn-ajuda tabular-nums">{dataHora(r.inicio)} · {r.duracao} min · {r.organizador.nome}</p>
+          {r.pauta && <details className="mt-2"><summary className="pn-elo cursor-pointer text-sm">Pauta</summary><p className="pn-ajuda mt-1 whitespace-pre-wrap" data-original>{r.pauta}</p></details>}
           {r.presencas.length > 0 && (
             <details className="mt-2">
-              <summary className="cursor-pointer text-sm underline">Presença ({r.presencas.length})</summary>
-              <ul className="mt-1 text-sm text-ink-soft">{r.presencas.map((p, i) => <li key={i}>{p.nome} · {dataHora(p.entrou_em)}{p.saiu_em ? ` → ${dataHora(p.saiu_em)}` : ""}</li>)}</ul>
+              <summary className="pn-elo cursor-pointer text-sm">Presença ({r.presencas.length})</summary>
+              <Lista rotulo="Presença" plana className="mt-1 text-sm">
+                {r.presencas.map((p, i) => <li key={i} className="pn-item tabular-nums">{p.nome} · {dataHora(p.entrou_em)}{p.saiu_em ? ` → ${dataHora(p.saiu_em)}` : ""}</li>)}
+              </Lista>
             </details>
           )}
           {r.conduzo ? (
             <div className="mt-3">
-              <label className="block text-sm">Ata<textarea value={atas[r.id] ?? r.ata} onChange={(e) => setAtas({ ...atas, [r.id]: e.target.value })} rows={4} maxLength={20000} className={campo} /></label>
-              <button type="button" className={`mt-2 ${botaoClaro}`} disabled={atas[r.id] === undefined || atas[r.id] === r.ata} onClick={async () => { try { await rpc("reuniao_ata", { p_id: r.id, p_ata: atas[r.id] ?? "" }); setAviso("Ata guardada."); recarregar(); } catch (e) { setAviso(textoDoErro(e)); } }}>Guardar a ata</button>
+              <Area rotulo="Ata" value={atas[r.id] ?? r.ata} onChange={(e) => setAtas({ ...atas, [r.id]: e.target.value })} rows={4} maxLength={20000} />
+              <Botao className="mt-2" simbolo={Check} disabled={atas[r.id] === undefined || atas[r.id] === r.ata} onClick={async () => { try { await rpc("reuniao_ata", { p_id: r.id, p_ata: atas[r.id] ?? "" }); setAviso("Ata guardada."); recarregar(); } catch (e) { setAviso(textoDoErro(e)); } }}>Guardar a ata</Botao>
             </div>
           ) : (
             r.ata && <div className="mt-2"><p className={rotulo}>Ata</p><p className="mt-1 whitespace-pre-wrap" data-original>{r.ata}</p></div>
           )}
-        </li>
+        </Cartao>
       ))}
       <Aviso texto={aviso} />
-    </ul>
+    </div>
   );
 }
 
 /**
  * Abrir uma sala na hora, sem marcar antes: cria a reunião começando agora, já ao vivo (quem pode entrar é avisado) e
- * entra nela. Só a coordenação e a supervisão abrem salas; os outros propõem uma reunião.
+ * entra nela. Só a coordenação e a supervisão abrem salas; os outros propõem uma reunião. "escuro" é o desenho dentro
+ * da sala das Conversas (lá os tokens do painel seguem as cores da sala).
  */
 export function AbrirAgora({ entrar, escuro = false }: { entrar: (r: Reuniao) => void; escuro?: boolean }) {
   const [aberto, setAberto] = useState(false);
@@ -364,42 +390,35 @@ export function AbrirAgora({ entrar, escuro = false }: { entrar: (r: Reuniao) =>
       setOcupado(false);
     }
   }
-  const botaoPrincipal = escuro
-    ? "cursor-pointer rounded-md bg-[#c21f16] px-4 py-2 text-sm font-bold text-white hover:bg-[#a51810] disabled:opacity-50"
-    : `${botao} disabled:opacity-50`;
   if (!aberto) {
     return (
-      <button type="button" className={botaoPrincipal} onClick={() => setAberto(true)}>
-        ▶ Abrir uma sala agora
-      </button>
+      <Botao variante="principal" simbolo={Play} onClick={() => setAberto(true)}>
+        Abrir uma sala agora
+      </Botao>
     );
   }
   return (
     <form
-      className={`flex flex-wrap items-end gap-3 p-3 ${escuro ? "rounded-lg border border-s-linha bg-s-lado" : "painel-cartao"}`}
+      className={`pn-cartao flex flex-wrap items-end gap-3 p-3 ${escuro ? "pn-cartao-plano" : ""}`}
       onSubmit={(e) => {
         e.preventDefault();
         void abrir();
       }}
     >
-      <label className="block min-w-48 flex-1 text-sm">
-        Nome da sala
-        <input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} className={escuro ? "mt-1 w-full rounded-md border border-s-linha bg-s-campo px-3 py-2" : campo} />
-      </label>
-      <label className="block text-sm">
-        Quem pode entrar
-        <select value={tipo} onChange={(e) => setTipo(e.target.value as Reuniao["tipo"])} className={escuro ? "mt-1 block rounded-md border border-s-linha bg-s-campo px-3 py-2" : campo}>
-          <option value="aberta">{tipos.aberta}</option>
-          <option value="coordenacao">{tipos.coordenacao}</option>
-        </select>
-      </label>
-      <button type="submit" className={botaoPrincipal} disabled={ocupado || titulo.trim().length < 3}>
+      <div className="min-w-48 flex-1">
+        <Campo rotulo="Nome da sala" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} />
+      </div>
+      <Selecao rotulo="Quem pode entrar" value={tipo} onChange={(e) => setTipo(e.target.value as Reuniao["tipo"])}>
+        <option value="aberta">{tipos.aberta}</option>
+        <option value="coordenacao">{tipos.coordenacao}</option>
+      </Selecao>
+      <Botao type="submit" variante="principal" simbolo={DoorOpen} carregando={ocupado} disabled={titulo.trim().length < 3}>
         {ocupado ? "Abrindo…" : "Abrir e entrar"}
-      </button>
-      <button type="button" className={escuro ? "cursor-pointer text-sm underline" : elo} onClick={() => setAberto(false)}>
+      </Botao>
+      <Botao variante="discreto" onClick={() => setAberto(false)}>
         Cancelar
-      </button>
-      {aviso && <p role="alert" className="w-full text-sm text-[#e0837a]">{aviso}</p>}
+      </Botao>
+      {aviso && <Faixa tom="erro" className="w-full">{aviso}</Faixa>}
     </form>
   );
 }

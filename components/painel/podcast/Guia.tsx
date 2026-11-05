@@ -3,7 +3,8 @@
 
 import { PENDENCIAS_DO_EPISODIO } from "@/lib/podcast";
 import { termo, TERMO_TITULO } from "@/lib/podcast-termo";
-import { botaoClaro, rotulo } from "../comum";
+import { Printer } from "lucide-react";
+import { Botao, Cartao } from "../ui";
 
 /** O roteiro padrão de um episódio: abertura, blocos, chamada para a ação e encerramento. */
 export const GABARITO = `## Abertura (até 1 min)
@@ -38,10 +39,9 @@ export const PENDENCIAS = PENDENCIAS_DO_EPISODIO;
 
 function Bloco({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
-    <section className="border-l-4 border-ink pl-5">
-      <h2 className="font-serif text-2xl font-semibold">{titulo}</h2>
+    <Cartao titulo={titulo}>
       <div className="mt-3 space-y-3 text-base leading-relaxed">{children}</div>
-    </section>
+    </Cartao>
   );
 }
 
@@ -57,7 +57,7 @@ function imprimirTermo() {
 /** O guia de quem faz o podcast: alinha quem chega sem ninguém precisar explicar tudo de novo. */
 export function Guia() {
   return (
-    <div className="max-w-3xl space-y-10">
+    <div className="max-w-3xl space-y-5">
       <Bloco titulo="Guia editorial">
         <p>
           <strong>Para quem falamos.</strong> Para quem trabalha e estuda, muitas vezes ouvindo no ônibus ou fazendo outra coisa. Fale como numa boa aula: frases curtas, um assunto de cada vez, exemplos da vida
@@ -113,7 +113,7 @@ export function Guia() {
 
       <Bloco titulo="Gabarito de episódio">
         <p>O roteiro padrão. No editor de roteiro, o botão “Usar gabarito” coloca este texto para você completar.</p>
-        <pre className="overflow-x-auto whitespace-pre-wrap border border-rule bg-parchment-deep p-4 font-mono text-xs">{GABARITO}</pre>
+        <pre className="overflow-x-auto whitespace-pre-wrap rounded-[var(--pn-raio)] border border-[var(--pn-borda)] bg-[var(--pn-fundo)] p-4 font-mono text-xs">{GABARITO}</pre>
       </Bloco>
 
       <Bloco titulo="Lista de conferência antes de publicar">
@@ -128,13 +128,13 @@ export function Guia() {
 
       <Bloco titulo="Termo de cessão de voz">
         <p>O convidado pode aceitar pelo link pessoal (na ficha do convidado) ou assinar em papel. Para o papel, imprima o modelo e anexe a foto ou o PDF assinado na ficha.</p>
-        <p className={rotulo} lang="pt-BR" translate="no">{TERMO_TITULO}</p>
+        <p className="pn-rotulo-mono" lang="pt-BR" translate="no">{TERMO_TITULO}</p>
         <div className="space-y-2 text-sm text-ink-soft" lang="pt-BR" translate="no">
           {termo("").map((x) => (
             <p key={x}>{x}</p>
           ))}
         </div>
-        <button type="button" onClick={imprimirTermo} className={botaoClaro}>Imprimir o termo</button>
+        <Botao simbolo={Printer} onClick={imprimirTermo}>Imprimir o termo</Botao>
       </Bloco>
 
       <Bloco titulo="Transcrição automática">

@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowLeft, Check, CircleCheck, CircleX, ExternalLink, Link2, Plus, Save, Send, Trash2, Undo2, Upload } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
@@ -10,15 +11,15 @@ import { analisarAudio, type Analise, baixarPublico, conselhoDeVolume, EnvioErro
 import { useTrackOptions } from "../../useTrackOptions";
 import { cleanSources, MarkdownEditor, type SourceDraft, SourcesField } from "../../Editor";
 import { useI18n } from "../../I18n";
-import { Aviso, Abas, botao, botaoClaro, campo, dataHora, elo, rotulo, textoDoErro, useLista } from "../comum";
+import { Aviso, botao, botaoClaro, dataHora, textoDoErro, useLista } from "../comum";
 import { editorPt, fontesPt } from "../Escrever";
 import { EstudioDeArte } from "./Arte";
 import { GeradorDeCortes } from "./Cortes";
 import { GABARITO, PENDENCIAS } from "./Guia";
 import { EnviarCapaSimples, linkDoConvidado, OuvirFechado } from "./Listas";
 import { ChecarAfirmacao, CitarObra, FerramentasDoRoteiro, Teleprompter } from "./Roteiro";
-import { bytes, type EpisodioCompleto, NOME_DA_ETAPA, type PainelDoPodcast } from "./tipos";
-import { confirmarFrase, perguntarTexto } from "../ui";
+import { bytes, type Etapa, type EpisodioCompleto, NOME_DA_ETAPA, type PainelDoPodcast } from "./tipos";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, confirmarFrase, Esqueleto, Faixa, ItemDeLista, Lista, Marca, perguntarTexto, Selecao, Selo, type TomDoSelo, useComandosDaSecao, Vazio } from "../ui";
 
 type Aba = "pauta" | "roteiro" | "convidados" | "arquivos" | "revisao" | "publicacao" | "divulgacao" | "historico";
 
@@ -38,6 +39,10 @@ interface TrilhaBreve {
 
 const TIPOS_DE_ARQUIVO: Record<string, string> = { bruto: "Bruto (gravação original)", editado: "Editado (para revisão)", final: "Final (vai ao ar)", video: "Vídeo", convidado: "Faixa de convidado", outro: "Outro" };
 const NOME_DO_TEMA: Record<string, string> = { historia: "História", economia: "Economia", "luta-social": "Luta social", enem: "ENEM", filosofia: "Filosofia", cultura: "Cultura", ciencia: "Ciência", trabalho: "Trabalho", educacao: "Educação", internacional: "Internacional", memoria: "Memória", atualidade: "Atualidade" };
+/** O tom do selo de cada etapa (a palavra diz a etapa; a cor só acompanha). */
+const TOM_DA_ETAPA: Record<Etapa, TomDoSelo> = { ideia: "neutro", roteiro: "neutro", gravacao: "info", edicao: "info", revisao: "bordo", aprovado: "ouro", publicado: "ok" };
+/** O rótulo que abre a escolha de arquivo mostra o foco do campo escondido (quem usa o teclado vê onde está). */
+const FOCO_DO_ARQUIVO = "has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--pn-foco)]";
 
 const mensagemDeErro = (erro: unknown) => {
   const codigo = erro instanceof BackendError ? erro.code : "";
@@ -148,8 +153,13 @@ export function EditorDeEpisodio({ id, painel, voltar, recarregarPainel }: { id:
     if (r?.liberar?.length) await liberarEspaco(r.liberar).catch(() => 0);
   }
 
-  if (ver.erro) return <p className="text-oxblood">{ver.erro} <button type="button" className={elo} onClick={voltar}>Voltar</button></p>;
-  if (!e) return <p className="font-mono text-xs text-ink-soft">Carregando…</p>;
+  if (ver.erro)
+    return (
+      <Faixa tom="erro" acao={<><Botao pequeno onClick={ver.recarregar}>Tentar de novo</Botao><Botao pequeno variante="discreto" simbolo={ArrowLeft} onClick={voltar}>Voltar</Botao></>}>
+        {ver.erro}
+      </Faixa>
+    );
+  if (!e) return <Esqueleto forma="cartoes" />;
 
   const audioDoEpisodio = e.audio && e.audio_guardado ? urlPublica(e.audio) : e.audio_externo;
   const tempoAtual = () => Math.floor(tocador.current?.currentTime ?? 0);
@@ -171,54 +181,63 @@ export function EditorDeEpisodio({ id, painel, voltar, recarregarPainel }: { id:
       ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <p>
-        <button type="button" className={elo} onClick={async () => (sujo && !(await confirmarFrase("Há alterações sem guardar. Sair mesmo assim?")) ? null : voltar())}>← Episódios</button>
+        <Botao variante="discreto" pequeno simbolo={ArrowLeft} onClick={async () => (sujo && !(await confirmarFrase("Há alterações sem guardar. Sair mesmo assim?")) ? null : voltar())}>Episódios</Botao>
       </p>
-      <header className="flex flex-wrap items-start gap-5 border-b-4 border-ink pb-5">
-        <div className="w-24 shrink-0">
-          {e.capa_mini ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={urlPublica(e.capa_mini)} alt="" width={96} height={96} className="aspect-square w-full border-2 border-ink object-cover" />
-          ) : (
-            <div aria-hidden className="podcast-capa-cartaz aspect-square w-full border-2 border-ink" />
-          )}
+      <Cartao as="div">
+        <div className="flex flex-wrap items-start gap-5">
+          <div className="w-24 shrink-0">
+            {e.capa_mini ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={urlPublica(e.capa_mini)} alt="" width={96} height={96} className="aspect-square w-full rounded-[var(--pn-raio)] border border-[var(--pn-borda)] object-cover" />
+            ) : (
+              <div aria-hidden className="podcast-capa-cartaz aspect-square w-full rounded-[var(--pn-raio)] border border-[var(--pn-borda)]" />
+            )}
+          </div>
+          <div className="min-w-0 flex-1">
+            <CabecalhoDeSecao
+              nivel={2}
+              titulo={valor("titulo")}
+              rotulo={
+                <span className="flex flex-wrap items-center gap-2">
+                  <Selo tom={TOM_DA_ETAPA[e.status]} ponto>{NOME_DA_ETAPA[e.status]}</Selo>
+                  {serie && <span className="text-gold">{serie.titulo}</span>}
+                  {e.numero != null && <span className="text-gold">#{e.numero}</span>}
+                  {e.responsavel_nome && <span>resp.: {e.responsavel_nome}</span>}
+                </span>
+              }
+              acoes={
+                <>
+                  {e.status === "publicado" && e.slug && (
+                    <a href={`/pt/podcasts/${e.slug}`} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">Ver no site <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a>
+                  )}
+                  {podeEditar && (
+                    <Botao variante="principal" simbolo={Save} carregando={ocupado} onClick={() => void guardar()} disabled={!sujo || ocupado}>
+                      {ocupado ? "Guardando…" : sujo ? "Guardar (Ctrl+S)" : "Tudo guardado"}
+                    </Botao>
+                  )}
+                </>
+              }
+            />
+            {e.nota_supervisao && e.status !== "publicado" && (
+              <Faixa tom="bordo" className="mt-3">
+                <strong>Supervisão:</strong> {e.nota_supervisao}
+              </Faixa>
+            )}
+            <Acoes e={e} eu={eu} podeEditar={podeEditar} ocupado={ocupado} agir={agir} publicar={publicar} />
+          </div>
         </div>
-        <div className="min-w-0 flex-1">
-          <p className="flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest">
-            <span className={`px-1.5 py-0.5 ${e.status === "publicado" ? "bg-ok text-parchment" : e.status === "revisao" ? "bg-oxblood text-parchment" : "bg-ink text-parchment"}`}>{NOME_DA_ETAPA[e.status]}</span>
-            {serie && <span className="text-gold">{serie.titulo}</span>}
-            {e.numero != null && <span className="text-gold">#{e.numero}</span>}
-            {e.responsavel_nome && <span className="text-ink-soft">resp.: {e.responsavel_nome}</span>}
-          </p>
-          <h2 className="mt-2 font-serif text-3xl font-semibold leading-tight">{valor("titulo")}</h2>
-          {e.nota_supervisao && e.status !== "publicado" && (
-            <p className="mt-2 border-l-4 border-oxblood pl-3">
-              <strong>Supervisão:</strong> {e.nota_supervisao}
-            </p>
-          )}
-          <Acoes e={e} eu={eu} podeEditar={podeEditar} ocupado={ocupado} agir={agir} publicar={publicar} />
-        </div>
-        <div className="flex flex-col items-end gap-2">
-          {podeEditar && (
-            <button type="button" onClick={() => void guardar()} disabled={!sujo || ocupado} className={botao}>
-              {ocupado ? "Guardando…" : sujo ? "Guardar (Ctrl+S)" : "Tudo guardado"}
-            </button>
-          )}
-          {e.status === "publicado" && e.slug && (
-            <a href={`/pt/podcasts/${e.slug}`} target="_blank" rel="noopener noreferrer" className={elo}>Ver no site ↗</a>
-          )}
-        </div>
-      </header>
+      </Cartao>
       <Aviso texto={aviso} />
 
       {audioDoEpisodio && (
-        <div className="sticky top-14 z-20 border-2 border-ink bg-parchment p-2 lg:top-0">
+        <div className="pn-cartao sticky top-[var(--pn-barra-altura)] z-20 p-2!">
           <audio ref={tocador} controls preload="metadata" src={audioDoEpisodio} className="h-10 w-full" />
         </div>
       )}
 
-      <Abas atual={aba} escolher={(x) => setAba(x)} opcoes={abas} />
+      <Abas rotulo="Etapas do episódio" valor={aba} aoMudar={(x) => setAba(x)} opcoes={abas} />
 
       {aba === "pauta" && <AbaPauta valor={valor} mudar={mudar} painel={painel} podeProduzir={podeProduzir} lang={t} />}
       {aba === "roteiro" && <AbaRoteiro valor={valor} mudar={mudar} podeProduzir={podeProduzir} />}
@@ -241,15 +260,25 @@ export function EditorDeEpisodio({ id, painel, voltar, recarregarPainel }: { id:
       )}
       {aba === "divulgacao" && <AbaDivulgacao e={e} painel={painel} recarregar={recarregar} soDesign={soDesign} />}
       {aba === "historico" && (
-        <ul className="divide-y divide-rule border-y border-rule">
-          <li className="py-2 font-mono text-xs">{e.plays} audições no site</li>
+        <Lista rotulo="Histórico">
+          <ItemDeLista titulo={<span className="font-mono text-xs">{e.plays} audições no site</span>} />
           {e.historico.map((h, i) => (
-            <li key={i} className="py-2">
-              <span className="font-mono text-xs text-ink-soft">{dataHora(h.criado_em)}</span> · <strong>{h.nome}</strong> · {h.acao.replace("etapa:", "etapa → ").replace(/_/g, " ")}
-              {h.nota && <span className="block text-ink-soft">{h.nota}</span>}
-            </li>
+            <ItemDeLista
+              key={i}
+              titulo={
+                <span className="whitespace-normal">
+                  <strong>{h.nome}</strong> · {h.acao.replace("etapa:", "etapa → ").replace(/_/g, " ")}
+                </span>
+              }
+              meta={
+                <span className="whitespace-normal">
+                  <span className="font-mono">{dataHora(h.criado_em)}</span>
+                  {h.nota && <span className="block">{h.nota}</span>}
+                </span>
+              }
+            />
           ))}
-        </ul>
+        </Lista>
       )}
     </div>
   );
@@ -259,7 +288,9 @@ export function EditorDeEpisodio({ id, painel, voltar, recarregarPainel }: { id:
 function Acoes({ e, eu, podeEditar, ocupado, agir, publicar }: { e: EpisodioCompleto; eu: PainelDoPodcast["eu"]; podeEditar: boolean; ocupado: boolean; agir: (f: string, a: Record<string, unknown>, s: string) => Promise<unknown>; publicar: () => Promise<void> }) {
   const [nota, setNota] = useState("");
   const [copiado, setCopiado] = useState(false);
+  const notaRef = useRef<HTMLTextAreaElement>(null);
   const podeAprovar = eu.supervisao && e.status === "revisao" && (e.enviado_por !== eu.id || eu.coordenacao);
+  const podeEnviar = podeEditar && ["ideia", "roteiro", "gravacao", "edicao"].includes(e.status);
   async function linkRevisao() {
     const r = (await agir("podcast_revisao_link", { p_id: e.id }, "Link de revisão pronto: vale 30 dias.")) as { token?: string } | null;
     if (r?.token) {
@@ -267,52 +298,84 @@ function Acoes({ e, eu, podeEditar, ocupado, agir, publicar }: { e: EpisodioComp
       setCopiado(true);
     }
   }
+  const aprovar = () => void agir("podcast_aprovar", { p_id: e.id, p_aprovar: true, p_nota: nota }, "Aprovado.");
+  const devolver = (texto: string) => void agir("podcast_aprovar", { p_id: e.id, p_aprovar: false, p_nota: texto }, "Devolvido para a edição.");
+
+  // Na paleta (Ctrl K): as decisões que esta tela já oferece, sem o mouse. Pedir ajuste sem nota pergunta o que mudar.
+  useComandosDaSecao(
+    [
+      ...(podeAprovar
+        ? [
+            { id: "podcast-aprovar", nome: "Aprovar episódio", sobre: e.titulo, simbolo: Check, fazer: aprovar },
+            {
+              id: "podcast-ajuste",
+              nome: "Pedir ajuste",
+              sobre: e.titulo,
+              simbolo: Undo2,
+              fazer: async () => {
+                if (nota.trim().length >= 3) return devolver(nota);
+                const texto = await perguntarTexto("Para devolver, diga o que precisa mudar. Para aprovar, uma nota é opcional.", nota, { multilinha: true, obrigatorio: true });
+                if (texto && texto.trim().length >= 3) {
+                  setNota(texto);
+                  devolver(texto);
+                } else notaRef.current?.focus();
+              },
+            },
+          ]
+        : []),
+      ...(podeEnviar ? [{ id: "podcast-enviar", nome: "Enviar para aprovação", sobre: e.titulo, simbolo: Send, fazer: () => void agir("podcast_etapa", { p_id: e.id, p_status: "revisao" }, "Enviado para a supervisão aprovar.") }] : []),
+    ],
+    [e.id, e.status, podeAprovar, podeEnviar],
+  );
+
   return (
-    <div className="mt-3 space-y-3">
-      <p className="flex flex-wrap items-center gap-2">
+    <div className="mt-4 space-y-3">
+      <div className="flex flex-wrap items-end gap-2">
         {podeEditar && e.status !== "publicado" && (
-          <label className="flex items-center gap-2">
-            Etapa
-            <select
+          <div className="w-52">
+            <Selecao
+              rotulo="Etapa"
               value={["ideia", "roteiro", "gravacao", "edicao"].includes(e.status) ? e.status : ""}
               onChange={(ev) => ev.target.value && void agir("podcast_etapa", { p_id: e.id, p_status: ev.target.value }, `Etapa: ${NOME_DA_ETAPA[ev.target.value as keyof typeof NOME_DA_ETAPA]}.`)}
               disabled={ocupado}
-              className="border-2 border-ink bg-parchment-deep px-2 py-1"
             >
               {!["ideia", "roteiro", "gravacao", "edicao"].includes(e.status) && <option value="">{NOME_DA_ETAPA[e.status]} (voltar para…)</option>}
               {(["ideia", "roteiro", "gravacao", "edicao"] as const).map((s) => <option key={s} value={s}>{NOME_DA_ETAPA[s]}</option>)}
-            </select>
-          </label>
+            </Selecao>
+          </div>
         )}
-        {podeEditar && ["ideia", "roteiro", "gravacao", "edicao"].includes(e.status) && (
-          <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => void agir("podcast_etapa", { p_id: e.id, p_status: "revisao" }, "Enviado para a supervisão aprovar.")}>Enviar para aprovação</button>
+        {podeEnviar && (
+          <Botao simbolo={Send} disabled={ocupado} onClick={() => void agir("podcast_etapa", { p_id: e.id, p_status: "revisao" }, "Enviado para a supervisão aprovar.")}>Enviar para aprovação</Botao>
         )}
         {(eu.producao || eu.supervisao) && e.status === "aprovado" && (
-          <button type="button" className={`${botao} ${e.pendencias.length ? "opacity-60" : ""}`} disabled={ocupado} onClick={() => void publicar()} title={e.pendencias.length ? "Ainda falta coisa na lista de conferência" : ""}>
+          <Botao variante="principal" className={e.pendencias.length ? "opacity-60" : ""} disabled={ocupado} onClick={() => void publicar()} title={e.pendencias.length ? "Ainda falta coisa na lista de conferência" : ""}>
             Publicar
-          </button>
+          </Botao>
         )}
         {eu.supervisao && e.status === "publicado" && (
-          <button type="button" className={botaoClaro} disabled={ocupado} onClick={async () => { const motivo = (await perguntarTexto("Por que tirar do ar? (fica no histórico)")); if (motivo) void agir("podcast_despublicar", { p_id: e.id, p_nota: motivo }, "Tirado do ar."); }}>Tirar do ar</button>
+          <Botao disabled={ocupado} onClick={async () => { const motivo = (await perguntarTexto("Por que tirar do ar? (fica no histórico)")); if (motivo) void agir("podcast_despublicar", { p_id: e.id, p_nota: motivo }, "Tirado do ar."); }}>Tirar do ar</Botao>
         )}
-        {eu.time && <button type="button" className={elo} onClick={() => void linkRevisao()}>{copiado ? "Link de revisão copiado ✓" : "Link privado de revisão"}</button>}
+        {eu.time && (
+          <Botao variante="discreto" simbolo={copiado ? Check : Link2} onClick={() => void linkRevisao()}>
+            {copiado ? "Link de revisão copiado" : "Link privado de revisão"}
+          </Botao>
+        )}
         {(eu.coordenacao || ((eu.producao || eu.supervisao) && !e.publicado_em)) && (
-          <button type="button" className={`${elo} text-oxblood`} onClick={async () => { if (!(await confirmarFrase("Apagar o episódio e todos os arquivos dele? Não tem volta."))) return; const r = (await agir("podcast_apagar", { p_id: e.id }, "Episódio apagado.")) as { liberar?: { deposito: string; caminho: string }[] } | null; if (r) { await liberarEspaco(r.liberar ?? []).catch(() => 0); window.history.back(); } }}>
+          <Botao variante="discreto" perigo simbolo={Trash2} onClick={async () => { if (!(await confirmarFrase("Apagar o episódio e todos os arquivos dele? Não tem volta."))) return; const r = (await agir("podcast_apagar", { p_id: e.id }, "Episódio apagado.")) as { liberar?: { deposito: string; caminho: string }[] } | null; if (r) { await liberarEspaco(r.liberar ?? []).catch(() => 0); window.history.back(); } }}>
             Apagar
-          </button>
+          </Botao>
         )}
-      </p>
+      </div>
       {podeAprovar && (
-        <div className="border-2 border-ink p-3">
-          <p className="font-semibold">Supervisão: {e.enviado_por_nome ?? "alguém"} enviou para aprovação.</p>
-          <textarea value={nota} onChange={(ev) => setNota(ev.target.value)} rows={2} maxLength={2000} placeholder="Para devolver, diga o que precisa mudar. Para aprovar, uma nota é opcional." className={campo} />
+        <Cartao as="div" variante="destaque" titulo={`Supervisão: ${e.enviado_por_nome ?? "alguém"} enviou para aprovação.`} nivelDoTitulo={3}>
+          <textarea ref={notaRef} value={nota} onChange={(ev) => setNota(ev.target.value)} rows={2} maxLength={2000} aria-label="Para devolver, diga o que precisa mudar. Para aprovar, uma nota é opcional." placeholder="Para devolver, diga o que precisa mudar. Para aprovar, uma nota é opcional." className="pn-campo mt-2" />
           <p className="mt-2 flex flex-wrap gap-2">
-            <button type="button" className="cursor-pointer bg-ok px-4 py-2 font-semibold text-parchment" disabled={ocupado} onClick={() => void agir("podcast_aprovar", { p_id: e.id, p_aprovar: true, p_nota: nota }, "Aprovado.")}>Aprovar</button>
-            <button type="button" className="cursor-pointer border-2 border-oxblood px-4 py-2 font-semibold text-oxblood" disabled={ocupado || nota.trim().length < 3} onClick={() => void agir("podcast_aprovar", { p_id: e.id, p_aprovar: false, p_nota: nota }, "Devolvido para a edição.")}>Devolver com ajuste</button>
+            <Botao variante="principal" simbolo={Check} disabled={ocupado} onClick={aprovar}>Aprovar</Botao>
+            <Botao simbolo={Undo2} disabled={ocupado || nota.trim().length < 3} onClick={() => devolver(nota)}>Devolver com ajuste</Botao>
           </p>
-        </div>
+        </Cartao>
       )}
-      {eu.supervisao && e.status === "revisao" && e.enviado_por === eu.id && !eu.coordenacao && <p className="text-ink-soft">Você enviou este episódio: outra pessoa da supervisão (ou a coordenação) precisa aprovar.</p>}
+      {eu.supervisao && e.status === "revisao" && e.enviado_por === eu.id && !eu.coordenacao && <Faixa tom="info">Você enviou este episódio: outra pessoa da supervisão (ou a coordenação) precisa aprovar.</Faixa>}
     </div>
   );
 }
@@ -327,107 +390,87 @@ function AbaPauta({ valor, mudar, painel, podeProduzir, lang }: { valor: Valor; 
   const ro = !podeProduzir;
   const numero = (texto: string) => (texto.trim() === "" ? null : Number(texto));
   return (
-    <fieldset disabled={ro} className="grid max-w-4xl gap-4">
-      <label className="block">
-        Título
-        <input value={valor("titulo")} onChange={(ev) => mudar("titulo", ev.target.value)} maxLength={140} className={campo} />
-      </label>
-      <label className="block">
-        Resumo (aparece nas listas, no feed e na conversa da comunidade)
-        <textarea value={valor("resumo")} onChange={(ev) => mudar("resumo", ev.target.value)} maxLength={400} rows={2} className={campo} />
-        <span className="block text-right font-mono text-xs text-ink-soft">{valor("resumo").length}/400</span>
-      </label>
-      <label className="block">
-        Tema e ângulo
-        <input value={valor("tema")} onChange={(ev) => mudar("tema", ev.target.value)} maxLength={300} className={campo} />
-      </label>
-      <label className="block">
-        Pauta (tópicos, perguntas para o convidado, o que não pode faltar)
-        <textarea value={valor("pauta")} onChange={(ev) => mudar("pauta", ev.target.value)} maxLength={6000} rows={6} className={campo} />
-      </label>
-      <div className="grid gap-3 sm:grid-cols-4">
-        <label className="block sm:col-span-2">
-          Série
-          <select value={valor("serie") ?? ""} onChange={(ev) => mudar("serie", ev.target.value || null)} className={campo}>
-            <option value="">Sem série</option>
-            {painel.series.map((s) => <option key={s.id} value={s.id}>{s.titulo}</option>)}
-          </select>
-        </label>
-        <label className="block">
-          Temporada
-          <input type="number" min={1} max={99} value={valor("temporada") ?? ""} onChange={(ev) => mudar("temporada", numero(ev.target.value))} className={campo} />
-        </label>
-        <label className="block">
-          Número
-          <input type="number" min={0} max={9999} value={valor("numero") ?? ""} onChange={(ev) => mudar("numero", numero(ev.target.value))} className={campo} />
-        </label>
-      </div>
-      <fieldset>
-        <legend className={rotulo}>Temas (as playlists do site; até cinco)</legend>
-        <p className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
-          {TEMAS.map((tema) => {
-            const marcados = valor("temas");
-            return (
-              <label key={tema} className="flex items-center gap-1.5">
-                <input type="checkbox" checked={marcados.includes(tema)} disabled={!marcados.includes(tema) && marcados.length >= 5} onChange={(ev) => mudar("temas", ev.target.checked ? [...marcados, tema] : marcados.filter((x) => x !== tema))} />
-                {NOME_DO_TEMA[tema]}
-              </label>
-            );
-          })}
-        </p>
-      </fieldset>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="block">
-          Disciplina (o episódio aparece na estante dela como material complementar)
-          <select value={disciplina} onChange={(ev) => { mudar("disciplina", ev.target.value || null); mudar("trilha", null); }} className={campo}>
-            <option value="">Nenhuma</option>
-            {areaSlugs.map((slug) => <option key={slug} value={slug}>{lang.areas[slug][0]}</option>)}
-          </select>
-        </label>
-        <label className="block">
-          Curso (aparece também na página do curso)
-          <select value={valor("trilha") ?? ""} onChange={(ev) => mudar("trilha", ev.target.value || null)} className={campo}>
-            <option value="">Nenhum</option>
-            {trilhas.filter((x) => !disciplina || x.area === disciplina).map((x) => <option key={x.slug} value={x.slug}>{x.title}</option>)}
-          </select>
-        </label>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-4">
-        <label className="block sm:col-span-2">
-          Responsável
-          <select value={valor("responsavel") ?? ""} onChange={(ev) => mudar("responsavel", ev.target.value || null)} className={campo}>
-            <option value="">Ninguém</option>
-            {equipe.dados?.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
-          </select>
-        </label>
-        <label className="block">
-          Gravação
-          <input type="date" value={valor("gravacao_em") ?? ""} onChange={(ev) => mudar("gravacao_em", ev.target.value || null)} className={campo} />
-        </label>
-        <label className="block">
-          Publicação prevista
-          <input type="date" value={valor("publicar_em") ?? ""} onChange={(ev) => mudar("publicar_em", ev.target.value || null)} className={campo} />
-        </label>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-4">
-        <label className="block">
-          Duração prevista (min)
-          <input type="number" min={0} max={600} value={valor("duracao_prevista") || ""} onChange={(ev) => mudar("duracao_prevista", Number(ev.target.value) || 0)} className={campo} />
-        </label>
-        <label className="block sm:col-span-3">
-          Sala da gravação a distância (Jitsi, Meet, Zoom)
-          <span className="mt-1 flex gap-2">
-            <input value={valor("sala")} onChange={(ev) => mudar("sala", ev.target.value)} placeholder="https://" className={`${campo} mt-0`} />
-            {!valor("sala") && !ro && (
-              <button type="button" className={botaoClaro} onClick={() => mudar("sala", `https://meet.jit.si/InstitutoLucia-${crypto.randomUUID().slice(0, 8)}`)}>Criar sala no Jitsi</button>
-            )}
-            {valor("sala") && <a href={valor("sala")} target="_blank" rel="noopener noreferrer" className={`${botaoClaro} whitespace-nowrap`}>Abrir ↗</a>}
-          </span>
-        </label>
-      </div>
-      <label className="flex items-center gap-2">
-        <input type="checkbox" checked={valor("explicito")} onChange={(ev) => mudar("explicito", ev.target.checked)} /> Conteúdo explícito (palavrão, violência descrita)
-      </label>
+    <fieldset disabled={ro} className="max-w-4xl space-y-4">
+      <Cartao titulo="Pauta" nivelDoTitulo={3}>
+        <div className="grid gap-4">
+          <Campo rotulo="Título" value={valor("titulo")} onChange={(ev) => mudar("titulo", ev.target.value)} maxLength={140} />
+          <div>
+            <Area rotulo="Resumo (aparece nas listas, no feed e na conversa da comunidade)" value={valor("resumo")} onChange={(ev) => mudar("resumo", ev.target.value)} maxLength={400} rows={2} />
+            <span className="block text-right font-mono text-xs text-ink-soft">{valor("resumo").length}/400</span>
+          </div>
+          <Campo rotulo="Tema e ângulo" value={valor("tema")} onChange={(ev) => mudar("tema", ev.target.value)} maxLength={300} />
+          <Area rotulo="Pauta (tópicos, perguntas para o convidado, o que não pode faltar)" value={valor("pauta")} onChange={(ev) => mudar("pauta", ev.target.value)} maxLength={6000} rows={6} />
+        </div>
+      </Cartao>
+      <Cartao titulo="Série" nivelDoTitulo={3}>
+        <div className="grid gap-4">
+          <div className="grid gap-3 sm:grid-cols-4">
+            <div className="sm:col-span-2">
+              <Selecao rotulo="Série" value={valor("serie") ?? ""} onChange={(ev) => mudar("serie", ev.target.value || null)}>
+                <option value="">Sem série</option>
+                {painel.series.map((s) => <option key={s.id} value={s.id}>{s.titulo}</option>)}
+              </Selecao>
+            </div>
+            <Campo rotulo="Temporada" type="number" min={1} max={99} value={valor("temporada") ?? ""} onChange={(ev) => mudar("temporada", numero(ev.target.value))} />
+            <Campo rotulo="Número" type="number" min={0} max={9999} value={valor("numero") ?? ""} onChange={(ev) => mudar("numero", numero(ev.target.value))} />
+          </div>
+          <fieldset>
+            <legend className="pn-rotulo-mono">Temas (as playlists do site; até cinco)</legend>
+            <p className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+              {TEMAS.map((tema) => {
+                const marcados = valor("temas");
+                return (
+                  <Marca
+                    key={tema}
+                    rotulo={NOME_DO_TEMA[tema]}
+                    checked={marcados.includes(tema)}
+                    disabled={!marcados.includes(tema) && marcados.length >= 5}
+                    onChange={(ev) => mudar("temas", ev.target.checked ? [...marcados, tema] : marcados.filter((x) => x !== tema))}
+                  />
+                );
+              })}
+            </p>
+          </fieldset>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Selecao rotulo="Disciplina (o episódio aparece na estante dela como material complementar)" value={disciplina} onChange={(ev) => { mudar("disciplina", ev.target.value || null); mudar("trilha", null); }}>
+              <option value="">Nenhuma</option>
+              {areaSlugs.map((slug) => <option key={slug} value={slug}>{lang.areas[slug][0]}</option>)}
+            </Selecao>
+            <Selecao rotulo="Curso (aparece também na página do curso)" value={valor("trilha") ?? ""} onChange={(ev) => mudar("trilha", ev.target.value || null)}>
+              <option value="">Nenhum</option>
+              {trilhas.filter((x) => !disciplina || x.area === disciplina).map((x) => <option key={x.slug} value={x.slug}>{x.title}</option>)}
+            </Selecao>
+          </div>
+        </div>
+      </Cartao>
+      <Cartao titulo="Gravação" nivelDoTitulo={3}>
+        <div className="grid gap-4">
+          <div className="grid gap-3 sm:grid-cols-4">
+            <div className="sm:col-span-2">
+              <Selecao rotulo="Responsável" value={valor("responsavel") ?? ""} onChange={(ev) => mudar("responsavel", ev.target.value || null)}>
+                <option value="">Ninguém</option>
+                {equipe.dados?.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
+              </Selecao>
+            </div>
+            <Campo rotulo="Gravação" type="date" value={valor("gravacao_em") ?? ""} onChange={(ev) => mudar("gravacao_em", ev.target.value || null)} />
+            <Campo rotulo="Publicação prevista" type="date" value={valor("publicar_em") ?? ""} onChange={(ev) => mudar("publicar_em", ev.target.value || null)} />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-4">
+            <Campo rotulo="Duração prevista (min)" type="number" min={0} max={600} value={valor("duracao_prevista") || ""} onChange={(ev) => mudar("duracao_prevista", Number(ev.target.value) || 0)} />
+            <label className="pn-campo-bloco block sm:col-span-3">
+              <span className="pn-rotulo">Sala da gravação a distância (Jitsi, Meet, Zoom)</span>
+              <span className="mt-1 flex gap-2">
+                <input value={valor("sala")} onChange={(ev) => mudar("sala", ev.target.value)} placeholder="https://" className="pn-campo" />
+                {!valor("sala") && !ro && (
+                  <Botao simbolo={Plus} className="whitespace-nowrap" onClick={() => mudar("sala", `https://meet.jit.si/InstitutoLucia-${crypto.randomUUID().slice(0, 8)}`)}>Criar sala no Jitsi</Botao>
+                )}
+                {valor("sala") && <a href={valor("sala")} target="_blank" rel="noopener noreferrer" className={`${botaoClaro} whitespace-nowrap`}>Abrir <ExternalLink aria-hidden /></a>}
+              </span>
+            </label>
+          </div>
+          <Marca rotulo="Conteúdo explícito (palavrão, violência descrita)" checked={valor("explicito")} onChange={(ev) => mudar("explicito", ev.target.checked)} />
+        </div>
+      </Cartao>
     </fieldset>
   );
 }
@@ -458,25 +501,31 @@ function AbaRoteiro({ valor, mudar, podeProduzir }: { valor: Valor; mudar: Mudar
           prompter={() => setPrompter(true)}
         />
       )}
-      {!podeProduzir && <button type="button" className={botao} onClick={() => setPrompter(true)}>Teleprompter</button>}
+      {!podeProduzir && <Botao variante="principal" onClick={() => setPrompter(true)}>Teleprompter</Botao>}
       {painel === "citar" && <CitarObra aoCitar={citar} fechar={() => setPainel("")} />}
       {painel === "checar" && <ChecarAfirmacao inicial={selecao} fechar={() => setPainel("")} />}
       {prompter && <Teleprompter texto={roteiro} fechar={() => setPrompter(false)} />}
       {podeProduzir ? (
         <MarkdownEditor id="podcast-roteiro" value={roteiro} onChange={(v) => mudar("roteiro", v)} labels={editorPt} rows={22} placeholder="Escreva o roteiro, ou comece pelo gabarito." blocos />
       ) : (
-        <pre className="whitespace-pre-wrap border border-rule bg-parchment-deep p-4 font-serif text-lg">{roteiro || "Sem roteiro ainda."}</pre>
+        <Cartao as="div">
+          <pre className="whitespace-pre-wrap font-serif text-lg">{roteiro || "Sem roteiro ainda."}</pre>
+        </Cartao>
       )}
-      <section>
-        <h3 className={rotulo}>Obras do acervo citadas ({obras.length})</h3>
-        <ul className="mt-2 space-y-1">
-          {obras.map((o) => (
-            <li key={o.id} className="flex flex-wrap items-baseline justify-between gap-2 border-b border-rule py-1">
-              <span><strong>{o.titulo}</strong> · {o.autor} <span className="text-xs text-ink-soft">({o.licenca}; {o.fonte})</span></span>
-              {podeProduzir && <button type="button" className={elo} onClick={() => mudar("obras", obras.filter((x) => x.id !== o.id))}>tirar</button>}
-            </li>
-          ))}
-        </ul>
+      <section className="space-y-2">
+        <h3 className="pn-rotulo-mono">Obras do acervo citadas ({obras.length})</h3>
+        {obras.length > 0 && (
+          <Lista rotulo="Obras do acervo citadas">
+            {obras.map((o) => (
+              <ItemDeLista
+                key={o.id}
+                titulo={<>{o.titulo} · {o.autor}</>}
+                meta={`${o.licenca}; ${o.fonte}`}
+                acoes={podeProduzir && <Botao variante="discreto" pequeno onClick={() => mudar("obras", obras.filter((x) => x.id !== o.id))}>tirar</Botao>}
+              />
+            ))}
+          </Lista>
+        )}
       </section>
       {podeProduzir && <SourcesField value={(valor("fontes") as SourceDraft[]).map((f) => ({ titulo: f.titulo ?? "", autor: f.autor ?? "", url: f.url ?? "" }))} onChange={(v) => mudar("fontes", v)} labels={fontesPt} />}
     </div>
@@ -501,49 +550,50 @@ function AbaConvidados({ valor, mudar, podeProduzir, podeEditar }: { valor: Valo
     }
   }
   return (
-    <div className="grid max-w-4xl gap-8 lg:grid-cols-2">
-      <section>
-        <h3 className={rotulo}>Convidados do episódio</h3>
-        <p className="mt-1 text-ink-soft">O episódio só publica com a autorização de voz de todos. Mande o link do convidado: ele lê o termo, aceita e testa o microfone.</p>
-        <ul className="mt-3 divide-y divide-rule border-y border-rule">
-          {convidados.dados?.map((c) => (
-            <li key={c.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
-              <label className="flex items-center gap-2">
-                <input type="checkbox" disabled={!podeProduzir} checked={marcados.includes(c.id)} onChange={(ev) => mudar("convidados", ev.target.checked ? [...marcados, c.id] : marcados.filter((x) => x !== c.id))} />
-                {c.nome}
-              </label>
-              <span className={`font-mono text-xs ${c.autoriza_voz ? "text-ok" : "text-oxblood"}`}>{c.autoriza_voz ? "autorizado" : "sem autorização"}</span>
-              {c.link && <button type="button" className={elo} onClick={() => void navigator.clipboard.writeText(linkDoConvidado(c.link!))}>copiar link</button>}
-            </li>
-          ))}
-        </ul>
-        {podeProduzir && (
-          <p className="mt-3 flex gap-2">
-            <input value={nome} onChange={(ev) => setNome(ev.target.value)} placeholder="Nome de um convidado novo" className={`${campo} mt-0`} />
-            <button type="button" className={botaoClaro} disabled={nome.trim().length < 2} onClick={() => void novo()}>Cadastrar</button>
-          </p>
+    <div className="grid max-w-5xl gap-5 lg:grid-cols-2">
+      <Cartao titulo="Convidados do episódio" nivelDoTitulo={3} sobre="O episódio só publica com a autorização de voz de todos. Mande o link do convidado: ele lê o termo, aceita e testa o microfone.">
+        {convidados.erro && <Faixa tom="erro" className="mt-2" acao={<Botao pequeno onClick={convidados.recarregar}>Tentar de novo</Botao>}>{convidados.erro}</Faixa>}
+        {convidados.dados === null && !convidados.erro && <Esqueleto linhas={3} />}
+        {convidados.dados && convidados.dados.length > 0 && (
+          <Lista rotulo="Convidados do episódio" className="mt-2!">
+            {convidados.dados.map((c) => (
+              <li key={c.id} className="pn-item flex-wrap justify-between">
+                <Marca rotulo={c.nome} disabled={!podeProduzir} checked={marcados.includes(c.id)} onChange={(ev) => mudar("convidados", ev.target.checked ? [...marcados, c.id] : marcados.filter((x) => x !== c.id))} />
+                <Selo tom={c.autoriza_voz ? "ok" : "erro"} ponto>{c.autoriza_voz ? "autorizado" : "sem autorização"}</Selo>
+                {c.link && <Botao variante="discreto" pequeno simbolo={Link2} onClick={() => void navigator.clipboard.writeText(linkDoConvidado(c.link!))}>copiar link</Botao>}
+              </li>
+            ))}
+          </Lista>
         )}
-        <p className="mt-2 text-ink-soft">Contato, minibio, link e termo assinado ficam na aba Convidados do podcast.</p>
+        {podeProduzir && (
+          <form className="mt-3 flex items-end gap-2" onSubmit={(ev) => { ev.preventDefault(); if (nome.trim().length >= 2) void novo(); }}>
+            <input value={nome} onChange={(ev) => setNome(ev.target.value)} placeholder="Nome de um convidado novo" aria-label="Nome de um convidado novo" className="pn-campo" />
+            <Botao type="submit" simbolo={Plus} disabled={nome.trim().length < 2}>Cadastrar</Botao>
+          </form>
+        )}
+        <p className="mt-2 text-sm text-ink-soft">Contato, minibio, link e termo assinado ficam na aba Convidados do podcast.</p>
         <Aviso texto={aviso} />
-      </section>
-      <section>
-        <h3 className={rotulo}>Trilhas e vinhetas usadas</h3>
-        <p className="mt-1 text-ink-soft">Só faixas da biblioteca, que têm a licença registrada.</p>
-        <ul className="mt-3 divide-y divide-rule border-y border-rule">
-          {trilhas.dados?.map((x) => (
-            <li key={x.id} className="py-2">
-              <label className="flex items-start gap-2">
-                <input type="checkbox" disabled={!podeEditar} checked={usadas.includes(x.id)} onChange={(ev) => mudar("trilhas", ev.target.checked ? [...usadas, x.id] : usadas.filter((y) => y !== x.id))} />
-                <span>
-                  {x.titulo} <span className="text-ink-soft">· {x.autor}</span>
-                  <span className="block font-mono text-xs text-ink-soft">{x.tipo} · {x.licenca}</span>
-                </span>
-              </label>
-            </li>
-          ))}
-        </ul>
-        {trilhas.dados?.length === 0 && <p className="mt-2 text-ink-soft">A biblioteca está vazia. Cadastre as faixas na aba Biblioteca de áudios.</p>}
-      </section>
+      </Cartao>
+      <Cartao titulo="Trilhas e vinhetas usadas" nivelDoTitulo={3} sobre="Só faixas da biblioteca, que têm a licença registrada.">
+        {trilhas.erro && <Faixa tom="erro" className="mt-2" acao={<Botao pequeno onClick={trilhas.recarregar}>Tentar de novo</Botao>}>{trilhas.erro}</Faixa>}
+        {trilhas.dados === null && !trilhas.erro && <Esqueleto linhas={3} />}
+        {trilhas.dados && trilhas.dados.length > 0 && (
+          <Lista rotulo="Trilhas e vinhetas usadas" className="mt-2!">
+            {trilhas.dados.map((x) => (
+              <li key={x.id} className="pn-item">
+                <label className="flex items-start gap-2">
+                  <input type="checkbox" className="mt-1" disabled={!podeEditar} checked={usadas.includes(x.id)} onChange={(ev) => mudar("trilhas", ev.target.checked ? [...usadas, x.id] : usadas.filter((y) => y !== x.id))} />
+                  <span>
+                    {x.titulo} <span className="text-ink-soft">· {x.autor}</span>
+                    <span className="block font-mono text-xs text-ink-soft">{x.tipo} · {x.licenca}</span>
+                  </span>
+                </label>
+              </li>
+            ))}
+          </Lista>
+        )}
+        {trilhas.dados?.length === 0 && <Vazio titulo="A biblioteca está vazia." texto="Cadastre as faixas na aba Biblioteca de áudios." />}
+      </Cartao>
     </div>
   );
 }
@@ -622,52 +672,41 @@ function AbaArquivos({ e, podeEditar, recarregar }: { e: EpisodioCompleto; podeE
   }
 
   return (
-    <div className="max-w-4xl space-y-6">
+    <div className="max-w-4xl space-y-5">
       {podeEditar && (
-        <section className="space-y-3 border border-rule bg-parchment-deep p-5">
-          <h3 className="font-serif text-xl font-semibold">Enviar uma versão</h3>
-          <p className="text-ink-soft">
-            Até 50 MB por arquivo. O final vai em MP3 (96 a 128 kbps; mono para conversa). Bruto em WAV costuma passar disso: guarde no Internet Archive ou no Drive e registre só o link, logo abaixo.
-          </p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <label className="block">
-              Tipo
-              <select value={tipo} onChange={(ev) => setTipo(ev.target.value as keyof typeof TIPOS_DE_ARQUIVO)} className={campo}>
+        <Cartao titulo="Enviar uma versão" nivelDoTitulo={3} sobre="Até 50 MB por arquivo. O final vai em MP3 (96 a 128 kbps; mono para conversa). Bruto em WAV costuma passar disso: guarde no Internet Archive ou no Drive e registre só o link, logo abaixo.">
+          <div className="mt-2 space-y-3">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Selecao rotulo="Tipo" value={tipo} onChange={(ev) => setTipo(ev.target.value as keyof typeof TIPOS_DE_ARQUIVO)}>
                 {Object.entries(TIPOS_DE_ARQUIVO).map(([id, nome]) => <option key={id} value={id}>{nome}</option>)}
-              </select>
+              </Selecao>
+              <Campo rotulo="Nota (opcional)" value={nota} onChange={(ev) => setNota(ev.target.value)} maxLength={500} placeholder="ex.: cortei o bloco 2" />
+            </div>
+            {tipo === "final" && <Marca rotulo="Usar como o áudio do episódio (mede o volume e desenha a onda)" checked={usar} onChange={(ev) => setUsar(ev.target.checked)} />}
+            <label className={`${botao} ${FOCO_DO_ARQUIVO} ${andamento ? "pointer-events-none opacity-50" : ""}`} aria-busy={andamento ? true : undefined}>
+              <Upload aria-hidden />
+              {andamento ? `${andamento.fase}… ${Math.round(andamento.fracao * 100)}%` : "Escolher arquivo"}
+              <input type="file" accept={tipo === "video" ? "video/*" : tipo === "outro" ? undefined : "audio/*"} className="sr-only" disabled={Boolean(andamento)} onChange={(ev) => { void enviar(ev.target.files?.[0]); ev.target.value = ""; }} />
             </label>
-            <label className="block">
-              Nota (opcional)
-              <input value={nota} onChange={(ev) => setNota(ev.target.value)} maxLength={500} placeholder="ex.: cortei o bloco 2" className={campo} />
-            </label>
+            {andamento && (
+              <span role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(andamento.fracao * 100)} aria-label={andamento.fase} className="block h-1.5 w-full max-w-md overflow-hidden rounded-full bg-[var(--pn-ativo)]">
+                <span className="block h-full bg-[var(--pn-destaque)]" style={{ width: `${Math.round(andamento.fracao * 100)}%` }} />
+              </span>
+            )}
+            <details>
+              <summary className="cursor-pointer rounded-[var(--pn-raio)]">Registrar só o link (arquivo grande, cópia de segurança)</summary>
+              <form className="mt-2 grid gap-2 sm:grid-cols-[1fr_2fr_auto]" onSubmit={async (ev) => { ev.preventDefault(); try { await rpc("podcast_arquivo_registrar", { p_episodio: e.id, p: { tipo, nome: link.nome, link: link.link, nota } }); setLink({ nome: "", link: "" }); recarregar(); } catch (erro) { setAviso(mensagemDeErro(erro)); } }}>
+                <input value={link.nome} onChange={(ev) => setLink({ ...link, nome: ev.target.value })} placeholder="Nome" aria-label="Nome" required className="pn-campo" />
+                <input value={link.link} onChange={(ev) => setLink({ ...link, link: ev.target.value })} placeholder="https://archive.org/…" aria-label="https://archive.org/…" required className="pn-campo" />
+                <Botao type="submit">Registrar</Botao>
+              </form>
+            </details>
           </div>
-          {tipo === "final" && (
-            <label className="flex items-center gap-2">
-              <input type="checkbox" checked={usar} onChange={(ev) => setUsar(ev.target.checked)} /> Usar como o áudio do episódio (mede o volume e desenha a onda)
-            </label>
-          )}
-          <label className={`${botao} inline-block ${andamento ? "pointer-events-none opacity-50" : ""}`}>
-            {andamento ? `${andamento.fase}… ${Math.round(andamento.fracao * 100)}%` : "Escolher arquivo"}
-            <input type="file" accept={tipo === "video" ? "video/*" : tipo === "outro" ? undefined : "audio/*"} className="sr-only" onChange={(ev) => { void enviar(ev.target.files?.[0]); ev.target.value = ""; }} />
-          </label>
-          {andamento && (
-            <span className="block h-2 w-full max-w-md bg-parchment">
-              <span className="block h-full bg-oxblood" style={{ width: `${Math.round(andamento.fracao * 100)}%` }} />
-            </span>
-          )}
-          <details>
-            <summary className="cursor-pointer">Registrar só o link (arquivo grande, cópia de segurança)</summary>
-            <form className="mt-2 grid gap-2 sm:grid-cols-[1fr_2fr_auto]" onSubmit={async (ev) => { ev.preventDefault(); try { await rpc("podcast_arquivo_registrar", { p_episodio: e.id, p: { tipo, nome: link.nome, link: link.link, nota } }); setLink({ nome: "", link: "" }); recarregar(); } catch (erro) { setAviso(mensagemDeErro(erro)); } }}>
-              <input value={link.nome} onChange={(ev) => setLink({ ...link, nome: ev.target.value })} placeholder="Nome" required className={`${campo} mt-0`} />
-              <input value={link.link} onChange={(ev) => setLink({ ...link, link: ev.target.value })} placeholder="https://archive.org/…" required className={`${campo} mt-0`} />
-              <button type="submit" className={botaoClaro}>Registrar</button>
-            </form>
-          </details>
-        </section>
+        </Cartao>
       )}
       <Aviso texto={aviso} />
       {analise && (
-        <section className="border-l-4 border-gold pl-4">
+        <Faixa tom="aviso">
           <p className="font-mono text-xs">
             Duração {relogio(analise.duracao)} · volume {analise.lufs ?? "?"} LUFS · pico {analise.pico ?? "?"} dB · partes quietas {analise.ruido ?? "?"} LUFS
           </p>
@@ -675,37 +714,39 @@ function AbaArquivos({ e, podeEditar, recarregar }: { e: EpisodioCompleto; podeE
             {conselhoDeVolume(analise).map((d) => <li key={d}>{d}</li>)}
           </ul>
           {analise.lufs !== null && <p className="mt-1 text-xs text-ink-soft">Medida feita aqui no navegador, pela norma BS.1770 (a mesma das plataformas). Use para conferir o item &quot;volume&quot; da lista.</p>}
-        </section>
+        </Faixa>
       )}
-      <section>
-        <h3 className={rotulo}>Versões ({e.arquivos.length})</h3>
-        <ul className="mt-2 divide-y divide-rule border-y border-rule">
-          {e.arquivos.map((a) => {
-            const noAr = a.caminho !== "" && a.caminho === e.audio;
-            return (
-              <li key={a.id} className={`space-y-1 py-3 ${a.guardado || a.link ? "" : "opacity-60"}`}>
-                <p className="flex flex-wrap items-baseline justify-between gap-2">
-                  <span>
-                    <span className="mr-2 bg-ink px-1.5 py-0.5 font-mono text-[0.65rem] uppercase text-parchment">{a.tipo}</span>
-                    <strong>{a.nome}</strong>
-                    {noAr && <span className="ml-2 font-mono text-xs text-ok">← áudio do episódio</span>}
-                  </span>
-                  <span className="font-mono text-xs text-ink-soft">{a.bytes ? bytes(a.bytes) : ""} · {a.enviado_por_nome ?? "—"} · {dataHora(a.criado_em)}</span>
-                </p>
-                {a.nota && <p className="text-ink-soft">{a.nota}</p>}
-                <div className="flex flex-wrap items-center gap-3">
-                  {a.guardado && a.deposito === "podcast" && <audio controls preload="none" src={urlPublica(a.caminho)} className="h-10 w-full max-w-md" />}
-                  {a.guardado && a.deposito === "podcast-producao" && <OuvirFechado caminho={a.caminho} video={a.tipo === "video"} />}
-                  {a.link && <a href={a.link} target="_blank" rel="noopener noreferrer" className={elo}>Abrir o link ↗</a>}
-                  {!a.guardado && !a.link && <span className="text-xs text-ink-soft">saiu do depósito</span>}
-                  {podeEditar && a.guardado && a.tipo === "final" && a.deposito === "podcast" && !noAr && <button type="button" className={elo} onClick={() => void medir(a.id, a.caminho, true)}>Usar como áudio do episódio</button>}
-                  {podeEditar && a.guardado && a.deposito === "podcast" && <button type="button" className={elo} onClick={() => void medir(a.id, a.caminho, false)}>Medir o volume</button>}
-                  {podeEditar && a.guardado && a.caminho && <button type="button" className={`${elo} text-oxblood`} onClick={() => void remover(a.id)}>Tirar do depósito</button>}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+      <section className="space-y-2">
+        <h3 className="pn-rotulo-mono">Versões ({e.arquivos.length})</h3>
+        {e.arquivos.length > 0 && (
+          <Lista rotulo="Versões">
+            {e.arquivos.map((a) => {
+              const noAr = a.caminho !== "" && a.caminho === e.audio;
+              return (
+                <li key={a.id} className={`space-y-1 border-b border-[var(--pn-borda)] px-3.5 py-3 last:border-b-0 ${a.guardado || a.link ? "" : "opacity-60"}`}>
+                  <p className="flex flex-wrap items-baseline justify-between gap-2">
+                    <span className="flex flex-wrap items-center gap-2">
+                      <Selo>{a.tipo}</Selo>
+                      <strong>{a.nome}</strong>
+                      {noAr && <Selo tom="ok" ponto>áudio do episódio</Selo>}
+                    </span>
+                    <span className="font-mono text-xs text-ink-soft">{a.bytes ? bytes(a.bytes) : ""} · {a.enviado_por_nome ?? "—"} · {dataHora(a.criado_em)}</span>
+                  </p>
+                  {a.nota && <p className="text-ink-soft">{a.nota}</p>}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {a.guardado && a.deposito === "podcast" && <audio controls preload="none" src={urlPublica(a.caminho)} className="h-10 w-full max-w-md" />}
+                    {a.guardado && a.deposito === "podcast-producao" && <OuvirFechado caminho={a.caminho} video={a.tipo === "video"} />}
+                    {a.link && <a href={a.link} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">Abrir o link <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a>}
+                    {!a.guardado && !a.link && <span className="text-xs text-ink-soft">saiu do depósito</span>}
+                    {podeEditar && a.guardado && a.tipo === "final" && a.deposito === "podcast" && !noAr && <Botao variante="discreto" pequeno onClick={() => void medir(a.id, a.caminho, true)}>Usar como áudio do episódio</Botao>}
+                    {podeEditar && a.guardado && a.deposito === "podcast" && <Botao variante="discreto" pequeno onClick={() => void medir(a.id, a.caminho, false)}>Medir o volume</Botao>}
+                    {podeEditar && a.guardado && a.caminho && <Botao variante="discreto" pequeno perigo simbolo={Trash2} onClick={() => void remover(a.id)}>Tirar do depósito</Botao>}
+                  </div>
+                </li>
+              );
+            })}
+          </Lista>
+        )}
       </section>
     </div>
   );
@@ -726,32 +767,34 @@ function AbaRevisao({ e, tempoAtual, irPara, recarregar }: { e: EpisodioCompleto
   }
   return (
     <div className="max-w-3xl space-y-5">
-      <p className="text-ink-soft">Ouça no tocador acima e comente no ponto exato: o comentário guarda o tempo, e um clique no tempo leva o áudio até lá. Quem cuida do episódio é avisado a cada comentário.</p>
-      <form className="space-y-2" onSubmit={(ev) => { ev.preventDefault(); void comentar(); }}>
-        <textarea value={texto} onChange={(ev) => setTexto(ev.target.value)} rows={3} maxLength={2000} required placeholder="O que precisa mudar? (ex.: cortar a respiração longa; repetir a data)" className={campo} />
-        <p className="flex flex-wrap items-center gap-4">
-          <label className="flex items-center gap-2">
-            <input type="checkbox" checked={comTempo} onChange={(ev) => setComTempo(ev.target.checked)} /> Marcar o tempo do tocador agora
-          </label>
-          <button type="submit" className={botao} disabled={!texto.trim()}>Comentar</button>
-        </p>
-      </form>
+      <p className="pn-sobre">Ouça no tocador acima e comente no ponto exato: o comentário guarda o tempo, e um clique no tempo leva o áudio até lá. Quem cuida do episódio é avisado a cada comentário.</p>
+      <Cartao as="div">
+        <form className="space-y-2" onSubmit={(ev) => { ev.preventDefault(); void comentar(); }}>
+          <textarea value={texto} onChange={(ev) => setTexto(ev.target.value)} rows={3} maxLength={2000} required aria-label="O que precisa mudar?" placeholder="O que precisa mudar? (ex.: cortar a respiração longa; repetir a data)" className="pn-campo" />
+          <p className="flex flex-wrap items-center gap-4">
+            <Marca rotulo="Marcar o tempo do tocador agora" checked={comTempo} onChange={(ev) => setComTempo(ev.target.checked)} />
+            <Botao type="submit" variante="principal" disabled={!texto.trim()}>Comentar</Botao>
+          </p>
+        </form>
+      </Cartao>
       <Aviso texto={aviso} />
-      <ul className="space-y-3">
-        {e.comentarios.map((c) => (
-          <li key={c.id} className={`border-l-4 pl-3 ${c.resolvido ? "border-rule text-ink-soft" : "border-oxblood"}`}>
-            <p className="text-xs text-ink-soft">
-              <strong className="text-ink">{c.autor}</strong> · {dataHora(c.criado_em)}
-              {c.tempo !== null && <button type="button" onClick={() => irPara(c.tempo ?? 0)} className="ml-2 cursor-pointer font-mono text-oxblood underline">{relogio(c.tempo)}</button>}
-            </p>
-            <p className={`whitespace-pre-line ${c.resolvido ? "line-through" : ""}`} data-original>{c.texto}</p>
-            <button type="button" className={`${elo} text-xs`} onClick={() => rpc("podcast_comentario_resolver", { p_id: c.id, p_resolvido: !c.resolvido }).then(recarregar).catch(() => {})}>
-              {c.resolvido ? "reabrir" : "marcar como resolvido"}
-            </button>
-          </li>
-        ))}
-      </ul>
-      {e.comentarios.length === 0 && <p className="text-ink-soft">Nenhum comentário ainda.</p>}
+      {e.comentarios.length > 0 && (
+        <ul className="space-y-2">
+          {e.comentarios.map((c) => (
+            <li key={c.id} className={`pn-cartao border-l-4! p-3! ${c.resolvido ? "border-l-[var(--pn-borda)]! text-ink-soft" : "border-l-[var(--pn-destaque)]!"}`}>
+              <p className="flex flex-wrap items-center gap-2 text-xs text-ink-soft">
+                <strong className="text-ink">{c.autor}</strong> · {dataHora(c.criado_em)}
+                {c.tempo !== null && <button type="button" onClick={() => irPara(c.tempo ?? 0)} className="pn-elo font-mono">{relogio(c.tempo)}</button>}
+              </p>
+              <p className={`mt-1 whitespace-pre-line ${c.resolvido ? "line-through" : ""}`} data-original>{c.texto}</p>
+              <Botao variante="discreto" pequeno simbolo={c.resolvido ? Undo2 : CircleCheck} onClick={() => rpc("podcast_comentario_resolver", { p_id: c.id, p_resolvido: !c.resolvido }).then(recarregar).catch(() => {})}>
+                {c.resolvido ? "reabrir" : "marcar como resolvido"}
+              </Botao>
+            </li>
+          ))}
+        </ul>
+      )}
+      {e.comentarios.length === 0 && <Vazio titulo="Nenhum comentário ainda." />}
     </div>
   );
 }
@@ -836,16 +879,15 @@ function AbaPublicacao({ e, valor, mudar, capitulosTexto, setCapitulosTexto, tem
   }
 
   return (
-    <div className="max-w-4xl space-y-10">
-      <section className="space-y-3">
-        <h3 className="font-serif text-2xl font-semibold">Capa</h3>
-        <div className="flex flex-wrap items-start gap-5">
+    <div className="max-w-4xl space-y-5">
+      <Cartao titulo="Capa" nivelDoTitulo={3}>
+        <div className="mt-2 flex flex-wrap items-start gap-5">
           <div className="w-40">
             {e.capa ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={urlPublica(e.capa_mini || e.capa)} alt="Capa atual" width={160} height={160} className="aspect-square w-full border-2 border-ink object-cover" />
+              <img src={urlPublica(e.capa_mini || e.capa)} alt="Capa atual" width={160} height={160} className="aspect-square w-full rounded-[var(--pn-raio)] border border-[var(--pn-borda)] object-cover" />
             ) : (
-              <p className="flex aspect-square items-center justify-center border-2 border-dashed border-ink p-3 text-center text-ink-soft">Sem capa</p>
+              <p className="flex aspect-square items-center justify-center rounded-[var(--pn-raio)] border border-dashed border-[var(--pn-borda-forte)] p-3 text-center text-ink-soft">Sem capa</p>
             )}
           </div>
           <div className="space-y-2">
@@ -853,7 +895,7 @@ function AbaPublicacao({ e, valor, mudar, capitulosTexto, setCapitulosTexto, tem
             <p className="text-ink-soft">Ou crie com um dos modelos do instituto, logo abaixo: troque o título e pronto.</p>
           </div>
         </div>
-        <details className="border border-rule p-4" open={!e.capa}>
+        <details className="mt-4 rounded-[var(--pn-raio)] border border-[var(--pn-borda)] p-4" open={!e.capa}>
           <summary className="cursor-pointer font-semibold">Criar a capa com um modelo</summary>
           <div className="mt-4">
             <EstudioDeArte
@@ -865,74 +907,69 @@ function AbaPublicacao({ e, valor, mudar, capitulosTexto, setCapitulosTexto, tem
             />
           </div>
         </details>
-      </section>
+      </Cartao>
 
       {!soDesign && (
         <>
-          <section className="space-y-3">
-            <h3 className="font-serif text-2xl font-semibold">Notas do episódio</h3>
-            {podeEditar && <button type="button" className={botaoClaro} onClick={montarNotas}>Montar as notas (resumo, capítulos, convidados, obras, fontes e trilhas)</button>}
-            <MarkdownEditor id="podcast-notas" value={valor("notas")} onChange={(v) => mudar("notas", v)} labels={editorPt} rows={12} />
-          </section>
+          <Cartao titulo="Notas do episódio" nivelDoTitulo={3} acoes={podeEditar && <Botao pequeno onClick={montarNotas}>Montar as notas (resumo, capítulos, convidados, obras, fontes e trilhas)</Botao>}>
+            <div className="mt-2">
+              <MarkdownEditor id="podcast-notas" value={valor("notas")} onChange={(v) => mudar("notas", v)} labels={editorPt} rows={12} />
+            </div>
+          </Cartao>
 
-          <section className="space-y-3">
-            <h3 className="font-serif text-2xl font-semibold">Capítulos</h3>
-            <p className="text-ink-soft">Uma linha por capítulo: o tempo e o título (ex.: 12:40 O cerco de Paris). Aparecem no site, nos tocadores que leem capítulos e nas notas.</p>
-            <textarea value={capitulosTexto} onChange={(ev) => setCapitulosTexto(ev.target.value)} rows={6} className={`${campo} font-mono`} />
-            {podeEditar && <button type="button" className={elo} onClick={() => setCapitulosTexto(`${capitulosTexto.replace(/\s+$/, "")}${capitulosTexto.trim() ? "\n" : ""}${relogio(tempoAtual())} `)}>+ Inserir o tempo do tocador ({relogio(tempoAtual())})</button>}
-          </section>
+          <Cartao titulo="Capítulos" nivelDoTitulo={3} sobre="Uma linha por capítulo: o tempo e o título (ex.: 12:40 O cerco de Paris). Aparecem no site, nos tocadores que leem capítulos e nas notas.">
+            <textarea value={capitulosTexto} onChange={(ev) => setCapitulosTexto(ev.target.value)} rows={6} aria-label="Capítulos" className="pn-campo mt-2 font-mono" />
+            {podeEditar && <Botao variante="discreto" pequeno simbolo={Plus} className="mt-2" onClick={() => setCapitulosTexto(`${capitulosTexto.replace(/\s+$/, "")}${capitulosTexto.trim() ? "\n" : ""}${relogio(tempoAtual())} `)}>Inserir o tempo do tocador ({relogio(tempoAtual())})</Botao>}
+          </Cartao>
 
-          <section className="space-y-3">
-            <h3 className="font-serif text-2xl font-semibold">Transcrição</h3>
-            <p className="text-ink-soft">Para quem não ouve e para a busca do site. Com legendas (.vtt ou .srt), a transcrição fica clicável na página e alimenta a legenda dos cortes.</p>
+          <Cartao titulo="Transcrição" nivelDoTitulo={3} sobre="Para quem não ouve e para a busca do site. Com legendas (.vtt ou .srt), a transcrição fica clicável na página e alimenta a legenda dos cortes.">
             {podeEditar && (
-              <p className="flex flex-wrap gap-2">
-                <button type="button" className={botaoClaro} disabled={transcrevendo || !(e.audio && e.audio_guardado)} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</button>
-                <label className={`${botaoClaro} inline-block`}>
+              <p className="mt-2 flex flex-wrap items-center gap-2">
+                <Botao carregando={transcrevendo} disabled={transcrevendo || !(e.audio && e.audio_guardado)} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</Botao>
+                <label className={`${botaoClaro} ${FOCO_DO_ARQUIVO}`}>
+                  <Upload aria-hidden />
                   Importar .srt, .vtt ou .txt
                   <input type="file" accept=".srt,.vtt,.txt,text/plain,text/vtt" className="sr-only" onChange={(ev) => { void importar(ev.target.files?.[0]); ev.target.value = ""; }} />
                 </label>
-                {valor("legendas") && <span className="self-center font-mono text-xs text-ok">legendas com tempo ✓ ({lerLegendas(valor("legendas")).length} falas)</span>}
+                {valor("legendas") && <Selo tom="ok" ponto>legendas com tempo ({lerLegendas(valor("legendas")).length} falas)</Selo>}
               </p>
             )}
-            <textarea value={valor("transcricao")} onChange={(ev) => mudar("transcricao", ev.target.value)} rows={10} className={campo} placeholder="A transcrição em texto corrido." />
-          </section>
+            <textarea value={valor("transcricao")} onChange={(ev) => mudar("transcricao", ev.target.value)} rows={10} aria-label="Transcrição" className="pn-campo mt-2" placeholder="A transcrição em texto corrido." />
+          </Cartao>
 
-          <section className="space-y-3">
-            <h3 className="font-serif text-2xl font-semibold">Cópia de fora</h3>
-            <p className="text-ink-soft">
+          <Cartao titulo="Cópia de fora" nivelDoTitulo={3}>
+            <p className="pn-cartao-sobre">
               O depósito do site guarda o áudio só dos episódios mais recentes ({painel.config.guardados}). Para este continuar tocando depois, suba o MP3 final no Internet Archive (archive.org → Upload, licença CC BY-SA)
               e cole aqui o link direto do arquivo .mp3 (o que termina em .mp3).
             </p>
-            <input value={valor("audio_externo")} onChange={(ev) => mudar("audio_externo", ev.target.value)} placeholder="https://archive.org/download/…/episodio.mp3" className={campo} />
-          </section>
+            <input value={valor("audio_externo")} onChange={(ev) => mudar("audio_externo", ev.target.value)} placeholder="https://archive.org/download/…/episodio.mp3" aria-label="Cópia de fora" className="pn-campo mt-2" />
+          </Cartao>
 
-          <section className="space-y-3">
-            <h3 className="font-serif text-2xl font-semibold">Lista de conferência</h3>
-            <p className="text-ink-soft">O episódio só publica com tudo certo. Os itens marcados à mão ficam com quem edita; os outros o sistema confere (atualizam ao guardar).</p>
-            <ul className="space-y-1">
+          <Cartao titulo="Lista de conferência" nivelDoTitulo={3} sobre="O episódio só publica com tudo certo. Os itens marcados à mão ficam com quem edita; os outros o sistema confere (atualizam ao guardar).">
+            <ul className="mt-2 space-y-1.5">
               {(["volume", "ruido", "fontes", "trilhas"] as const).map((item) => (
                 <li key={item}>
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" disabled={!podeEditar} checked={Boolean(checklist[item])} onChange={(ev) => mudar("checklist", { ...checklist, [item]: ev.target.checked })} />
-                    {PENDENCIAS[item]}
-                  </label>
+                  <Marca rotulo={PENDENCIAS[item]} disabled={!podeEditar} checked={Boolean(checklist[item])} onChange={(ev) => mudar("checklist", { ...checklist, [item]: ev.target.checked })} />
                 </li>
               ))}
             </ul>
-            <ul className="mt-3 space-y-1 border-t border-rule pt-3">
+            <ul className="mt-3 space-y-1 border-t border-[var(--pn-borda)] pt-3">
               {Object.entries(PENDENCIAS)
                 .filter(([item]) => !["volume", "ruido", "fontes", "trilhas"].includes(item))
                 .map(([item, nome]) => {
                   const falta = e.pendencias.includes(item);
                   return (
-                    <li key={item} className={falta ? "text-oxblood" : "text-ok"}>
-                      {falta ? "✗" : "✓"} {nome}
+                    <li key={item} className={`flex items-start gap-2 ${falta ? "text-oxblood" : "text-ok"}`}>
+                      {falta ? <CircleX aria-hidden className="mt-0.5 h-4 w-4 shrink-0" /> : <CircleCheck aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />}
+                      <span>
+                        <span className="sr-only">{falta ? "✗" : "✓"} </span>
+                        {nome}
+                      </span>
                     </li>
                   );
                 })}
             </ul>
-          </section>
+          </Cartao>
         </>
       )}
       <Aviso texto={aviso} />
@@ -955,32 +992,33 @@ function AbaDivulgacao({ e, painel, recarregar, soDesign }: { e: EpisodioComplet
     }
   }
   return (
-    <div className="space-y-10">
-      <section className="space-y-3">
-        <h3 className="font-serif text-2xl font-semibold">Artes de divulgação</h3>
-        <p className="text-ink-soft">Post quadrado, post em pé e story, com a cara do instituto. Baixe e publique, ou agende na Agenda.</p>
-        <EstudioDeArte inicial={{ titulo: e.titulo, programa: painel.config.nome, serie: serie?.titulo ?? "", numero: e.numero != null ? String(e.numero) : "", temporada: e.temporada ? String(e.temporada) : "", convidado: e.convidados_dados.map((c) => c.nome).join(" e ") }} />
-      </section>
+    <div className="space-y-5">
+      <Cartao titulo="Artes de divulgação" nivelDoTitulo={3} sobre="Post quadrado, post em pé e story, com a cara do instituto. Baixe e publique, ou agende na Agenda.">
+        <div className="mt-3">
+          <EstudioDeArte inicial={{ titulo: e.titulo, programa: painel.config.nome, serie: serie?.titulo ?? "", numero: e.numero != null ? String(e.numero) : "", temporada: e.temporada ? String(e.temporada) : "", convidado: e.convidados_dados.map((c) => c.nome).join(" e ") }} />
+        </div>
+      </Cartao>
       {!soDesign && (
-        <section className="space-y-3">
-          <h3 className="font-serif text-2xl font-semibold">Cortes para as redes</h3>
-          <GeradorDeCortes episodio={{ titulo: e.titulo, programa: painel.config.nome, capa: e.capa_mini || e.capa, audio: e.audio && e.audio_guardado ? e.audio : "", legendas: e.legendas }} />
-        </section>
+        <Cartao titulo="Cortes para as redes" nivelDoTitulo={3}>
+          <div className="mt-3">
+            <GeradorDeCortes episodio={{ titulo: e.titulo, programa: painel.config.nome, capa: e.capa_mini || e.capa, audio: e.audio && e.audio_guardado ? e.audio : "", legendas: e.legendas }} />
+          </div>
+        </Cartao>
       )}
       {painel.eu.time && (
-        <section className="space-y-3">
-          <h3 className="font-serif text-2xl font-semibold">Pedir arte ao design</h3>
-          <textarea value={pedido} onChange={(ev) => setPedido(ev.target.value)} rows={3} maxLength={1000} placeholder="O que precisa (capa especial, carrossel, ajuste de modelo), formato e prazo." className={campo} />
-          <button type="button" className={botao} disabled={pedido.trim().length < 5} onClick={() => void pedir()}>Pedir ao design</button>
-          <ul className="space-y-2">
-            {e.pedidos.map((p) => (
-              <li key={p.id} className="border-l-2 border-gold pl-3">
-                <span className="font-mono text-xs uppercase">{p.status}</span> · {p.pedido_por} · {dataHora(p.criado_em)}
-                <span className="block">{p.texto}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <Cartao titulo="Pedir arte ao design" nivelDoTitulo={3}>
+          <div className="mt-2 space-y-3">
+            <textarea value={pedido} onChange={(ev) => setPedido(ev.target.value)} rows={3} maxLength={1000} aria-label="Pedir arte ao design" placeholder="O que precisa (capa especial, carrossel, ajuste de modelo), formato e prazo." className="pn-campo" />
+            <Botao variante="principal" disabled={pedido.trim().length < 5} onClick={() => void pedir()}>Pedir ao design</Botao>
+            {e.pedidos.length > 0 && (
+              <Lista rotulo="Pedidos ao design">
+                {e.pedidos.map((p) => (
+                  <ItemDeLista key={p.id} titulo={<span className="whitespace-normal">{p.texto}</span>} meta={`${p.pedido_por ?? ""} · ${dataHora(p.criado_em)}`} selo={<Selo tom={p.status === "aberto" ? "bordo" : "ok"}>{p.status}</Selo>} />
+                ))}
+              </Lista>
+            )}
+          </div>
+        </Cartao>
       )}
       <Aviso texto={aviso} />
     </div>
