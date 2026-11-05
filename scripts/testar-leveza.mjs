@@ -226,7 +226,7 @@ const recursos = ler("lib", "recursos.ts");
 conferir("SO_PELO_NOME ainda é só escola", /SO_PELO_NOME[^=]*=\s*\[\s*"escola"\s*\]/.test(recursos) || /SO_PELO_NOME[\s\S]{0,80}"escola"/.test(recursos));
 const sw = ler("public", "sw.js");
 const offline = ler("components", "Offline.tsx");
-conferir("cache das páginas continua v4 no sw.js e no Offline", /VERSAO\s*=\s*"v4"/.test(sw) && /PAGINAS = "lucia-paginas-v4"/.test(offline));
+conferir("cache das páginas tem a mesma versão no sw.js e no Offline", (() => { const v = /VERSAO\s*=\s*"(v\d+)"/.exec(sw)?.[1]; return !!v && offline.includes("lucia-paginas-" + v); })());
 conferir("vlibras.ts mantém as exportações", ["carregarVLibras", "vlibrasCarregado", "vlibrasLembrado", "lembrarVLibras"].every((n) => ler("lib", "vlibras.ts").includes(`export function ${n}`) || ler("lib", "vlibras.ts").includes(`export const ${n}`)));
 
 // ───────────── 9. Textos nos 6 idiomas ─────────────

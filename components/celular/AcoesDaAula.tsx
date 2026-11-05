@@ -13,6 +13,7 @@ import type { TextosDaAula } from "@/i18n/escola/aula";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { ABRIR_CAIXA } from "../aula/MargemDaAula";
 import { useI18n } from "../I18n";
+import { useTelaDaVez, useTravaDeRolagem } from "../app/telas";
 
 /** A barra de cima (o "Aa") abre a folha da aula por este aviso. */
 export const ABRIR_FOLHA_DA_AULA = "lucia:folha-da-aula";
@@ -98,17 +99,17 @@ export function AcoesDaAula({ id, anterior, proxima, aulas, escola }: { id: stri
     return () => window.removeEventListener(ABRIR_FOLHA_DA_AULA, abrir);
   }, []);
 
+  // Uma tela de ferramenta por vez e uma trava de rolagem com contagem (components/app/telas.ts).
+  useTelaDaVez("folha-da-aula", aberta, () => setAberta(false));
+  useTravaDeRolagem(aberta);
   useEffect(() => {
     if (!aberta) return;
-    const raiz = document.documentElement;
-    raiz.style.setProperty("overflow", "hidden");
     const tempo = window.setTimeout(() => fechar.current?.focus(), 30);
     const tecla = (e: KeyboardEvent) => {
       if (e.key === "Escape") setAberta(false);
     };
     window.addEventListener("keydown", tecla);
     return () => {
-      raiz.style.removeProperty("overflow");
       window.clearTimeout(tempo);
       window.removeEventListener("keydown", tecla);
       antes.current?.focus?.();

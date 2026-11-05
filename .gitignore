@@ -86,3 +86,9 @@ docs/plano-2026-11/
 
 # Cache local de análise do código
 graphify-out/
+
+# app da loja (Capacitor): gerados na máquina de quem publica, ver docs/APP-LOJA.md
+/android/
+/ios/
+*.jks
+*.keystore

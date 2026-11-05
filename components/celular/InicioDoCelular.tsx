@@ -28,6 +28,7 @@ export function InicioDoCelular({
   aulaDaSemana,
   extras,
   quadro,
+  doDia,
 }: {
   textos: { busca: string; buscaRotulo: string; buscar: string; continuar: string; retomar: string; comecar: string; comecarTexto: string; estantes: string; verTodas: string; muro: string };
   estantes: EstanteDoCelular[];
@@ -41,6 +42,8 @@ export function InicioDoCelular({
   extras: React.ReactNode;
   /** O quadro de avisos da Escola (E4-09), só com a Escola ligada; aparece só para quem volta. */
   quadro?: React.ReactNode;
+  /** A aula do dia (components/app/AulaDoDia.tsx), logo abaixo do "continuar de onde parou". */
+  doDia?: React.ReactNode;
 }) {
   const { t } = useI18n();
   const c = t.celular;
@@ -102,6 +105,8 @@ export function InicioDoCelular({
           </L>
         )}
       </div>
+
+      {doDia && <div className="px-4 pt-4">{doDia}</div>}
 
       {/* Quem monta passa o espaço (px-4 pt-6) no próprio quadro: quem chega não ganha um vão vazio. */}
       {quadro}
