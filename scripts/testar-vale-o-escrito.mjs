@@ -367,16 +367,21 @@ caso("apresentacoes.json: 6 dossiês, texto nos 6 idiomas, fontes do catálogo e
   }
   assert.doesNotMatch(ler("content", "vale-o-escrito", "apresentacoes.json"), /universidade|diploma/i);
 });
-caso("casos iniciais: de 2 a 5 por dossiê, todos 'pendente-curadoria' e NENHUM publicado", () => {
+caso("casos iniciais: de 2 a 5 por dossiê, todos 'aprovada', com arquivo do Internet Archive e publicados", () => {
   let total = 0;
   const ids = new Set();
   for (const slug of SLUGS_DOS_DOSSIES) {
     const lido = lerDossie(slug);
+    const bruto = lerJson("content", "vale-o-escrito", "entradas", `${slug}.json`);
     assert.deepEqual(lido.descartadas, [], `${slug}: ${lido.descartadas.join(" | ")}`);
-    assert.equal(lido.entradas.length, 0, `${slug}: caso pendente saiu como publicado`);
-    assert.ok(lido.pendentes.length >= 2 && lido.pendentes.length <= 5, `${slug}: ${lido.pendentes.length} casos`);
-    for (const en of lido.pendentes) {
-      assert.equal(en.revisao, "pendente-curadoria", en.id);
+    assert.equal(lido.pendentes.length, 0, `${slug}: caso inicial ainda pendente`);
+    assert.equal(lido.entradas.length, bruto.entradas.length, `${slug}: caso aprovado não saiu como publicado`);
+    assert.ok(lido.entradas.length >= 2 && lido.entradas.length <= 5, `${slug}: ${lido.entradas.length} casos`);
+    for (const en of lido.entradas) {
+      assert.equal(en.revisao, "aprovada", en.id);
+      valida(validarEntrada(en, { publicada: true, pessoas: bruto.pessoas, organizacoesIds: bruto.organizacoes.map((o) => o.id) }));
+      for (const f of en.fontes)
+        assert.ok(/^https:\/\/web\.archive\.org\/web\/\d{4,14}\/https?:\/\//.test(f.arquivoUrl ?? "") || f.arquivoFalhou === true, `${en.id}/${f.id}: sem arquivo do Internet Archive`);
       assert.ok(!ids.has(en.id), `id repetido: ${en.id}`);
       ids.add(en.id);
       total++;
@@ -386,7 +391,7 @@ caso("casos iniciais: de 2 a 5 por dossiê, todos 'pendente-curadoria' e NENHUM 
 });
 caso("casos iniciais: fonte com link, data e trecho de até 25 palavras; situação escrita e conferida; 'segundo [fonte]'", () => {
   for (const slug of SLUGS_DOS_DOSSIES) {
-    for (const en of lerDossie(slug).pendentes) {
+    for (const en of lerDossie(slug).entradas) {
       assert.ok(SITUACOES.includes(en.situacao), en.id);
       assert.ok(diaValido(en.situacaoConferidaEm), `${en.id}: situacaoConferidaEm`);
       assert.ok(en.notaDaCuradoria && en.notaDaCuradoria.length > 40, `${en.id}: nota da curadoria`);
@@ -395,7 +400,7 @@ caso("casos iniciais: fonte com link, data e trecho de até 25 palavras; situaç
         assert.match(f.url, /^https:\/\//, `${en.id}/${f.id}: url`);
         assert.ok(f.trecho.trim().split(/\s+/).length <= 25, `${en.id}/${f.id}: trecho com mais de 25 palavras`);
         assert.ok(diaValido(f.data) && diaValido(f.acessadoEm), `${en.id}/${f.id}: datas`);
-        assert.equal(f.arquivoUrl, undefined, `${en.id}/${f.id}: arquivo do Internet Archive só se faz na aprovação`);
+        assert.ok(f.arquivoUrl || f.arquivoFalhou === true, `${en.id}/${f.id}: aprovada exige o arquivo do Internet Archive (ou arquivoFalhou)`);
       }
       for (const campo of [en.titulo, en.resumo, ...en.etiquetas]) assert.doesNotMatch(campo, /universidade|diploma/i, en.id);
       // Entrada com absolvição ou arquivamento: a data da atualização é a da ficha.
@@ -414,12 +419,12 @@ caso("casos iniciais: só pessoa já pública no caso, nunca vítima, criança o
     const textos = JSON.stringify(bruto.entradas.flatMap((e) => [...e.etiquetas, ...e.pessoas.map((x) => x.papelNoCaso ?? "")]));
     assert.equal(mencionaPapelProibido(textos.replace(/[\[\]",]/g, " ")), null, `${slug}: etiqueta ou papel com termo proibido`);
     const lido = lerDossie(slug);
-    assert.equal(lido.ligacoesPendentes.length, bruto.ligacoes.length, `${slug}: ligação descartada`);
+    assert.equal(lido.ligacoes.length, bruto.ligacoes.length, `${slug}: ligação descartada`);
+    assert.deepEqual(lido.ligacoesPendentes, [], `${slug}: ligação ainda pendente`);
     for (const l of bruto.ligacoes) assert.ok(l.fonteIds.length > 0, l.id);
-    // Quem só aparece em caso pendente não sai nas listas publicadas.
-    assert.deepEqual(lido.pessoas, [], `${slug}: pessoa de caso pendente vazou`);
-    assert.deepEqual(lido.organizacoes, [], `${slug}: organização de caso pendente vazou`);
-    assert.deepEqual(lido.ligacoes, [], `${slug}: ligação de caso pendente vazou`);
+    // Casos aprovados: as pessoas e organizações citadas saem nas listas publicadas (só as que passam nas regras).
+    assert.equal(lido.pessoas.length, bruto.pessoas.length, `${slug}: pessoa descartada`);
+    assert.equal(lido.organizacoes.length, bruto.organizacoes.length, `${slug}: organização descartada`);
   }
 });
 caso("dados.ts: 'pendente-curadoria' nunca sai como publicada, mesmo passando nas regras", () => {

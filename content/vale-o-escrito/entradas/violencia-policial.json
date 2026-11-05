@@ -88,8 +88,8 @@
   ],
   "entradas": [
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [
         {
@@ -108,8 +108,8 @@
           "papelNoCaso": "Segundo o TRF5, condenado por tortura seguida de morte; segundo o MPF, a pena passou a 23 anos, 8 meses e 14 dias e o MPF recorreu pedindo aumento."
         }
       ],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2022-umbauba-morte-em-viatura-da-prf",
       "dossie": "violencia-policial",
       "titulo": "Umbaúba (SE): três ex-policiais rodoviários federais condenados pela morte de um homem em viatura",
@@ -132,7 +132,8 @@
           "url": "https://www.trf5.jus.br/index.php/noticias/leitura-de-noticias?%2Fid=325987",
           "trecho": "Paulo Rodolpho Lima Nascimento foi condenado pelo Conselho de Sentença por homicídio triplamente qualificado, a 28 anos de reclusão.",
           "data": "2024-12-09",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20241219051943/https://www.trf5.jus.br/index.php/noticias/leitura-de-noticias?%2Fid=325987"
         },
         {
           "id": "f2",
@@ -143,7 +144,8 @@
           "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-se/noticias/mpf-recorre-para-aumentar-as-penas-dos-policiais-condenados-pelo-homicidio-de-genivaldo-santos",
           "trecho": "recorreu ao Tribunal Federal da 5ª Região (TRF5) pelo aumento das penas dos três ex-policiais rodoviários federais",
           "data": "2025-04-03",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20260311042208/https://www.mpf.mp.br/o-mpf/unidades/pr-se/noticias/mpf-recorre-para-aumentar-as-penas-dos-policiais-condenados-pelo-homicidio-de-genivaldo-santos"
         }
       ],
       "etiquetas": [
@@ -156,16 +158,16 @@
       "notaDaCuradoria": "A fonte mais recente é de abril de 2025 (recurso do MPF ao TRF5); não achamos decisão do TRF5 sobre a apelação nem recurso das defesas: reconferir antes de aprovar. A ficha não nomeia quem morreu. Dois dos três tiveram a pena corrigida em 29/01/2025 por embargos do MPF (dado do texto do MPF)."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "1992-carandiru-massacre",
       "dossie": "violencia-policial",
       "titulo": "Massacre do Carandiru (SP, 1992): 74 policiais militares condenados; penas extintas por indulto em 2024",
-      "resumo": "Segundo o STF, 341 policiais militares de São Paulo participaram da operação que terminou com a morte de 111 detentos na Casa de Detenção, em 1992, e a Justiça condenou 74 policiais por homicídio qualificado, com penas de 96 a 624 anos. Segundo o Diário do Grande ABC, as condenações se tornaram definitivas depois de decisões do STJ e do STF e, em 8 de outubro de 2024, a 4ª Câmara de Direito Criminal do TJ-SP declarou extintas as penas por causa do indulto de 2022; o Ministério Público de São Paulo podia recorrer.",
+      "resumo": "Segundo o STF, 341 policiais militares de São Paulo participaram da operação que terminou com a morte de 111 detentos na Casa de Detenção, em 1992, e a Justiça condenou 74 policiais por homicídio qualificado, com penas de 96 a 624 anos. Segundo o Diário do Grande ABC, as condenações se tornaram definitivas depois de decisões do STJ e do STF e, em notícia de 8 de outubro de 2024, que a 4ª Câmara de Direito Criminal do TJ-SP declarou extintas as penas por causa do indulto de 2022; o Ministério Público de São Paulo podia recorrer.",
       "dataDoFato": "1992-10",
       "lugar": {
         "pais": "BR",
@@ -185,7 +187,8 @@
           "url": "https://noticias.stf.jus.br/?p=57142",
           "trecho": "A Justiça condenou 74 policiais por homicídio qualificado, com penas privativas de liberdade de 96 a 624 anos.",
           "data": "2022-12-27",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20261105162340/https://noticias.stf.jus.br/postsnoticias/pgr-questiona-indulto-de-bolsonaro-que-alcanca-pms-condenados-pelo-massacre-do-carandiru/"
         },
         {
           "id": "f2",
@@ -195,7 +198,8 @@
           "url": "https://www.dgabc.com.br/Noticia/4168294/massacre-do-carandiru-apos-validar-perdao-de-bolsonaro-tj-sp-extingue-penas-de-pms",
           "trecho": "Com isso, as condenações se tornaram definitivas, ou seja, os PMs não podem mais ser absolvidos.",
           "data": "2024-10-08",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20241108081744/https://www.dgabc.com.br/Noticia/4168294/massacre-do-carandiru-apos-validar-perdao-de-bolsonaro-tj-sp-extingue-penas-de-pms"
         }
       ],
       "etiquetas": [
@@ -208,16 +212,16 @@
       "notaDaCuradoria": "O trânsito em julgado vem de reportagem; a fonte primária lida (STF, ADI 7330) só confirma a condenação dos 74. Conferir a certidão e o que aconteceu depois de 08/10/2024 (recurso do MP-SP, ADI 7330 no STF). Os policiais não são nomeados nesta ficha (74 nomes; a fonte lida não os traz). Situação escrita como 'condenado em 1ª instância' (degrau mais baixo de condenação do modelo) porque a regra do projeto só aceita 'trânsito em julgado' com fonte primária e aqui o trânsito consta só de reportagem; as condenações foram mantidas pelos tribunais superiores segundo as fontes. Subir para 'condenado com trânsito em julgado' quando a certidão for conferida."
     },
     {
-      "publicadoEm": "2026-11-04",
-      "atualizadoEm": "2026-11-04",
+      "publicadoEm": "2026-11-05",
+      "atualizadoEm": "2026-11-05",
       "organizacoes": [],
       "pessoas": [],
-      "revisao": "pendente-curadoria",
-      "situacaoConferidaEm": "2026-11-04",
+      "revisao": "aprovada",
+      "situacaoConferidaEm": "2026-11-05",
       "id": "2025-operacao-contencao-alemao-penha",
       "dossie": "violencia-policial",
       "titulo": "Operação Contenção (RJ, 2025): mortes nos Complexos do Alemão e da Penha são investigadas",
-      "resumo": "Segundo o MPRJ, o Grupo de Atuação Especializada em Segurança Pública coordena uma investigação independente sobre a Operação Contenção, feita em 28 de outubro de 2025 nos Complexos do Alemão e da Penha, na zona norte do Rio. Segundo o STF, o ministro Alexandre de Moraes determinou, na ADPF 635, a preservação das imagens das câmeras corporais, o envio de laudos de necropsia e a cópia do procedimento do MP-RJ. Não há pessoa denunciada por mortes na operação nas fontes lidas: a apuração está em curso.",
+      "resumo": "Segundo o MPRJ, o Grupo de Atuação Especializada em Segurança Pública coordena uma investigação independente sobre a Operação Contenção, nos Complexos do Alemão e da Penha, na zona norte do Rio. Segundo o STF, a operação foi realizada em 28 de outubro de 2025, e o ministro Alexandre de Moraes determinou, na ADPF 635, a preservação das imagens das câmeras corporais, o envio de laudos de necropsia e a cópia do procedimento do MP-RJ. Não há pessoa denunciada por mortes na operação nas fontes lidas: a apuração está em curso.",
       "dataDoFato": "2025-10-28",
       "lugar": {
         "pais": "BR",
@@ -236,7 +240,8 @@
           "url": "https://www.mprj.mp.br/web/guest/visualizar?noticiaId=202001",
           "trecho": "O Grupo de Atuação Especializada em Segurança Pública (GAESP/MPRJ) coordena a investigação independente",
           "data": "2025-10-29",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20251207000337/https://www.mprj.mp.br/web/guest/visualizar?noticiaId=202001"
         },
         {
           "id": "f2",
@@ -247,7 +252,8 @@
           "url": "https://noticias.stf.jus.br/postsnoticias/stf-requer-informacoes-adicionais-de-autoridades-do-rj-sobre-operacao-nos-complexos-do-alemao-e-da-penha/",
           "trecho": "determinou novas providências e o envio de informações adicionais sobre a “Operação Contenção”, realizada no último dia 28 nos Complexos do Alemão e da Penha",
           "data": "2025-11-10",
-          "acessadoEm": "2026-11-04"
+          "acessadoEm": "2026-11-05",
+          "arquivoUrl": "https://web.archive.org/web/20251204183716/https://noticias.stf.jus.br/postsnoticias/stf-requer-informacoes-adicionais-de-autoridades-do-rj-sobre-operacao-nos-complexos-do-alemao-e-da-penha/"
         }
       ],
       "etiquetas": [
