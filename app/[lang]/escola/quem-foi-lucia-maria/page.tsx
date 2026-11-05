@@ -7,13 +7,14 @@ import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { parseFrontmatter } from "@/lib/frontmatter";
+import { semMarcador } from "@/lib/escola/quem-foi";
 import { textosDaBase } from "@/lib/escola/textos";
 import { paginaMeta } from "@/lib/seo";
 
 /** O texto de content/escola/quem-foi-lucia-maria.md, o mesmo nos 6 idiomas (só a moldura é traduzida). */
 function lerTexto(): string {
   const { content } = parseFrontmatter(fs.readFileSync(path.join(process.cwd(), "content", "escola", "quem-foi-lucia-maria.md"), "utf8"));
-  return content.trim();
+  return semMarcador(content.trim());
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/escola/quem-foi-lucia-maria">): Promise<Metadata> {
