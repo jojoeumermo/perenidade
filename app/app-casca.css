@@ -1,0 +1,183 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+
+/* ───── A casca do aplicativo (components/app/, docs/APP.md) ─────
+   Vale só quando o site é usado como aplicativo: tela de celular (até 767,98 px) OU o site instalado (standalone) em
+   aparelho de toque. É a MESMA consulta de components/app/modo.ts (CONSULTA_CASCA). No computador nada muda.
+   A barra de baixo reaproveita as classes .abas-do-celular e .aba-do-celular: o desenho, o modo de alto contraste e o
+   leitor de tinta vêm de app/celular.css e app/globals.css, sem copiar regra. */
+
+.app-casca-abas,
+.app-gesto-voltar {
+  display: none;
+}
+
+@keyframes app-chega {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes app-sai-esquerda {
+  to {
+    opacity: 0;
+    transform: translateX(-14%);
+  }
+}
+@keyframes app-sai-direita {
+  to {
+    opacity: 0;
+    transform: translateX(14%);
+  }
+}
+@keyframes app-entra-direita {
+  from {
+    opacity: 0;
+    transform: translateX(14%);
+  }
+}
+@keyframes app-entra-esquerda {
+  from {
+    opacity: 0;
+    transform: translateX(-14%);
+  }
+}
+@keyframes app-sobe {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (max-width: 767.98px), (display-mode: standalone) and (pointer: coarse) {
+  /* A barra do aplicativo entra; a do site (components/BottomNav.tsx) sai. Com a Escola ligada a casca não desenha a dela e
+     a do site fica (por isso o :has). */
+  .app-casca-abas {
+    display: block;
+  }
+  body:has(.app-casca-abas) nav.abas-do-celular:not(.app-casca-abas) {
+    display: none;
+  }
+
+  /* Tela cheia (laboratório aberto, leitura em foco): sem barra de baixo nem de cima, a tela é toda do conteúdo. */
+  :root[data-tela-cheia] :is(.abas-do-celular, .barra-do-celular),
+  :root[data-tela-cheia-rota] .abas-do-celular {
+    display: none !important;
+  }
+  :root:is([data-tela-cheia], [data-tela-cheia-rota]):not([data-leitor]) main#conteudo {
+    padding-bottom: var(--recuo-baixo);
+  }
+
+  /* O indicador do voltar por gesto: um botão redondo que aparece da borda esquerda e acompanha o dedo. */
+  .app-gesto-voltar {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 999px;
+    background: #1f1a14;
+    color: #f4ecd8;
+    box-shadow: 0 4px 14px rgb(0 0 0 / 0.3);
+    opacity: 0;
+    transform: translate(-36px, -50%);
+    pointer-events: none;
+  }
+}
+
+/* Em tablet instalado (largura de computador, toque): as abas ocupam o pé; o conteúdo termina acima delas. */
+@media (min-width: 768px) and (display-mode: standalone) and (pointer: coarse) {
+  :root:not([data-leitor]) main#conteudo {
+    padding-bottom: calc(4.5rem + var(--recuo-baixo));
+  }
+  :root:is([data-tela-cheia], [data-tela-cheia-rota]):not([data-leitor]) main#conteudo {
+    padding-bottom: var(--recuo-baixo);
+  }
+}
+
+/* ───── Transições: só com movimento permitido (sistema e "Parar movimentos" do site) ───── */
+@media (prefers-reduced-motion: no-preference) and ((max-width: 767.98px) or ((display-mode: standalone) and (pointer: coarse))) {
+  /* A barra de baixo fica parada enquanto a tela troca; o resto da página é a "raiz" da transição. */
+  .app-casca-abas {
+    view-transition-name: app-abas;
+  }
+  :root:not([data-parado]) ::view-transition-group(app-abas) {
+    animation: none;
+  }
+
+  /* Reserva (aparelho sem View Transitions): a tela nova chega em fade. */
+  :root[data-chega]:not([data-transicao], [data-parado]) main#conteudo {
+    animation: app-chega 0.2s ease-out;
+  }
+
+  :root[data-transicao="aba"]:not([data-parado])::view-transition-old(root) {
+    animation: app-chega 0.12s ease-in reverse both;
+  }
+  :root[data-transicao="aba"]:not([data-parado])::view-transition-new(root) {
+    animation: app-sobe 0.2s ease-out both;
+  }
+  :root[data-transicao="avancar"]:not([data-parado])::view-transition-old(root) {
+    animation: app-sai-esquerda 0.2s ease-in both;
+  }
+  :root[data-transicao="avancar"]:not([data-parado])::view-transition-new(root) {
+    animation: app-entra-direita 0.24s ease-out both;
+  }
+  :root[data-transicao="voltar"]:not([data-parado])::view-transition-old(root) {
+    animation: app-sai-direita 0.2s ease-in both;
+  }
+  :root[data-transicao="voltar"]:not([data-parado])::view-transition-new(root) {
+    animation: app-entra-esquerda 0.24s ease-out both;
+  }
+}
+
+/* ───── Avisos de rede e de versão nova (components/offline/AvisoDeRede.tsx, docs/APP-OFFLINE.md) ─────
+   Valem em qualquer tela (site e aplicativo). Com a casca ativa a barra de baixo ocupa 4,5 rem: o aviso sobe acima dela. */
+.aviso-rede {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(0.75rem + var(--recuo-baixo));
+  z-index: 75;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+html[data-casca] .aviso-rede {
+  bottom: calc(5rem + var(--recuo-baixo));
+}
+.aviso-rede-linha {
+  pointer-events: auto;
+  margin: 0 auto;
+  max-width: 28rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--ink, #1f1a14);
+  border-radius: 1rem;
+  background: var(--folha, #fbf6e9);
+  color: var(--ink, #1f1a14);
+  font: 600 0.9rem/1.3 system-ui, sans-serif;
+  box-shadow: 3px 3px 0 var(--sombra, rgba(0, 0, 0, 0.25));
+}
+.aviso-rede-botao {
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.aviso-rede-botao-forte {
+  background: #c21f16;
+  border-color: #c21f16;
+  color: #fff;
+}

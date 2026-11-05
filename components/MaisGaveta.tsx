@@ -14,6 +14,7 @@ import { normalize } from "@/lib/text";
 import { KEYS, setItem, useStored } from "@/lib/storage";
 import { abrirAcessibilidade } from "./A11yWidget";
 import { useI18n } from "./I18n";
+import { useTelaDaVez, useTravaDeRolagem } from "./app/telas";
 import { Ladrilhos } from "./celular/Atalhos";
 import { ABRIR_MAIS, LanguageSwitcher, MAIS_NO_MENU, SAIR_MAIS } from "./NavLinks";
 
@@ -174,17 +175,17 @@ export function MaisGaveta({ secoes, textos, campus }: { secoes: SecaoDoSite[]; 
     };
   }, []);
 
+  // Uma tela de ferramenta por vez e uma trava de rolagem com contagem (components/app/telas.ts).
+  useTelaDaVez("gaveta-mais", aberta && !peloMouse, () => setAbertaEm(null));
+  useTravaDeRolagem(aberta && !peloMouse);
   useEffect(() => {
     if (!aberta || peloMouse) return;
-    const raiz = document.documentElement;
-    raiz.style.setProperty("overflow", "hidden");
     const foco = window.setTimeout(() => campo.current?.focus(), 30);
     const tecla = (e: KeyboardEvent) => {
       if (e.key === "Escape") setAbertaEm(null);
     };
     window.addEventListener("keydown", tecla);
     return () => {
-      raiz.style.removeProperty("overflow");
       window.clearTimeout(foco);
       window.removeEventListener("keydown", tecla);
       antes.current?.focus?.();

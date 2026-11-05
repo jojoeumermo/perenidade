@@ -536,7 +536,7 @@ await espera("cada idioma tem as frases de todos os tipos agrupados, com os mesm
 }, (f) => f.length === 0);
 await espera("o service worker trata push e clique, mostra só o número e não guarda texto de post", async () => {
   const sw = lerTexto("public/sw.js");
-  return [/addEventListener\("push"/.test(sw), /addEventListener\("notificationclick"/.test(sw), /showNotification/.test(sw), /\/comunidade\/avisos/.test(sw), /dados\.(texto|corpo|body|titulo)\b/.test(sw), /const VERSAO = "v4"/.test(sw)];
+  return [/addEventListener\("push"/.test(sw), /addEventListener\("notificationclick"/.test(sw), /showNotification/.test(sw), /\/comunidade\/avisos/.test(sw), /dados\.(texto|corpo|body|titulo)\b/.test(sw), /const VERSAO = "v\d+"/.test(sw)];
 }, (r) => r[0] && r[1] && r[2] && r[3] && !r[4] && r[5]);
 await espera("a rota /comunidade/avisos existe, dá 404 com o recurso desligado e entra no registro e no menu", async () => {
   const rota = lerTexto("app/[lang]/comunidade/avisos/page.tsx");

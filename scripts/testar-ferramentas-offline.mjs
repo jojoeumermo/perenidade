@@ -109,7 +109,7 @@ for (const lang of locales) {
   const m = montarManifesto(lang, dic(lang));
   ok(`manifesto ${lang}: start_url`, m.start_url === `/${lang}` && m.id === `/${lang}`);
   ok(`manifesto ${lang}: idioma`, m.lang === htmlLang[lang]);
-  ok(`manifesto ${lang}: atalhos no idioma`, m.shortcuts.length === 4 && m.shortcuts.every((a) => a.url.startsWith(`/${lang}/`) && a.name));
+  ok(`manifesto ${lang}: atalhos no idioma`, m.shortcuts.length === 6 && m.shortcuts.every((a) => a.url.startsWith(`/${lang}/`) && a.name));
   ok(`manifesto ${lang}: escopo, ícones e nome`, m.scope === "/" && m.icons.length === 3 && !!m.name && m.display === "standalone");
 }
 ok("manifesto pt = padrão de sempre", padrao.start_url === "/pt" && padrao.id === "/pt" && padrao.lang === "pt-BR" && padrao.shortcuts[0].url === "/pt/trilhas");

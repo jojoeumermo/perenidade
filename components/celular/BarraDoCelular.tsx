@@ -12,14 +12,15 @@ import { TRECHOS_DA_AULA } from "../aula/BarraDaAula";
 import { useI18n } from "../I18n";
 import { AccountLink } from "../NavLinks";
 import { ABRIR_FOLHA_DA_AULA } from "./AcoesDaAula";
+import { andouNoSite } from "../app/navegacao";
+import { fecharTelaDaVez } from "../app/telas";
+import { textosDoApp } from "../app/textos";
 
 /** As abas de baixo: nelas a barra mostra o nome da aba, e não a seta de voltar. Com a Escola ligada, as abas mudam. */
-const RAIZES = ligado("escola") ? ["trilhas", "acervo", "comunidade", "escola", "meu-estudo"] : ["trilhas", "acervo", "comunidade"];
+const RAIZES = ligado("escola") ? ["trilhas", "acervo", "comunidade", "escola", "meu-estudo"] : ["trilhas", "acervo", "comunidade", "jogos", "laboratorios", "meu-estudo"];
 
 // Andou dentro do site desde que a página abriu? Então "voltar" é voltar mesmo; quem chegou por um link de fora
-// (WhatsApp, busca) volta para a página de cima, em vez de sair do site.
-let andouAqui = false;
-
+// (WhatsApp, busca) volta para a página de cima, em vez de sair do site. Quem conta é a casca (components/app/navegacao.ts).
 /** A página de cima de um endereço: a aula volta para a trilha, a trilha para as disciplinas, o resto para o início. */
 function paginaDeCima(trechos: string[]): string {
   if (trechos[0] === "estantes") return "/trilhas";
@@ -56,12 +57,6 @@ export function BarraDoCelular() {
   const [podeOuvir, setPodeOuvir] = useState(false);
   const falando = useSpeaking();
   const regua = useRef<HTMLSpanElement>(null);
-  const primeira = useRef(true);
-
-  useEffect(() => {
-    if (primeira.current) primeira.current = false;
-    else andouAqui = true;
-  }, [pathname]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- o compartilhar e a voz só existem no aparelho
@@ -119,7 +114,8 @@ export function BarraDoCelular() {
   }, [naAula, pathname]);
 
   const voltar = () => {
-    if (andouAqui && window.history.length > 1) router.back();
+    if (fecharTelaDaVez()) return;
+    if (andouNoSite() && window.history.length > 1) router.back();
     else router.push(localePath(lang, paginaDeCima(trechos)));
   };
 
@@ -129,7 +125,7 @@ export function BarraDoCelular() {
     });
   };
 
-  const nomeDaAba: Record<string, string> = { trilhas: t.nav.disciplines, acervo: t.nav.library, comunidade: t.nav.community, escola: t.celular.escola, "meu-estudo": t.celular.abaMeuEstudo };
+  const nomeDaAba: Record<string, string> = { trilhas: t.nav.disciplines, acervo: t.nav.library, comunidade: t.nav.community, escola: t.celular.escola, "meu-estudo": ligado("escola") ? t.celular.abaMeuEstudo : textosDoApp(lang).abas.eu, jogos: textosDoApp(lang).abas.jogos, laboratorios: t.nav.labs };
 
   return (
     <header className="barra-do-celular no-leitor no-print no-focus md:hidden" data-raiz={raiz ?? undefined}>
