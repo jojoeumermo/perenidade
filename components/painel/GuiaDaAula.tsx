@@ -1,9 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ChartColumn, ChevronDown, ChevronRight, ChevronUp, ListPlus } from "lucide-react";
 import { useState } from "react";
 import type { TrackOption } from "../useTrackOptions";
-import { botaoClaro, rotulo } from "./comum";
+import { Botao } from "./ui";
 
 /**
  * Etapa 3 (R3): quantas vezes o teste de cada aula foi terminado e quantas com 70% ou mais, nos últimos 90 dias. Só
@@ -21,8 +22,8 @@ function AcertosDaTrilha({ trilha, plano }: { trilha: string; plano: { slug: str
   if (!linhas)
     return (
       <p>
-        <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={carregar}>Ver acertos por aula (90 dias, somas anônimas)</button>
-        {erro && <span className="ml-2 text-oxblood">Não deu para ler as somas agora.</span>}
+        <Botao pequeno variante="discreto" simbolo={ChartColumn} onClick={carregar}>Ver acertos por aula (90 dias, somas anônimas)</Botao>
+        {erro && <span className="pn-erro ml-2">Não deu para ler as somas agora.</span>}
       </p>
     );
   const porAula = new Map(linhas.map((l) => [l.alvo.slice(trilha.length + 1), l]));
@@ -98,14 +99,14 @@ function Bloco({ titulo, aberto = false, children }: { titulo: string; aberto?: 
     <details open={aberto} className="group border-b border-rule py-3 last:border-b-0">
       <summary className="flex cursor-pointer items-center justify-between gap-3 font-semibold hover:text-oxblood">
         {titulo}
-        <span aria-hidden className="font-mono text-xs text-ink-soft transition-transform group-open:rotate-90">›</span>
+        <ChevronRight aria-hidden width={14} height={14} className="flex-none text-ink-soft transition-transform group-open:rotate-90" />
       </summary>
       <div className="mt-2 space-y-2 text-sm leading-relaxed text-ink-soft">{children}</div>
     </details>
   );
 }
 
-const codigo = (texto: string) => <code className="rounded-none bg-parchment px-1 font-mono text-[0.8rem] text-ink">{texto}</code>;
+const codigo = (texto: string) => <code className="rounded bg-parchment px-1 font-mono text-[0.8rem] text-ink">{texto}</code>;
 
 /**
  * O guia de produção de uma aula: do que ela trata (pela posição no roteiro), como estruturar, como formatar,
@@ -122,19 +123,19 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
   const nivel = trilha?.stage ? etapa[trilha.stage] : "";
 
   return (
-    <aside className="painel-cartao p-4" aria-label="Guia de produção da aula">
+    <aside className="pn-cartao" aria-label="Guia de produção da aula">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className={rotulo}>Guia de produção</p>
-          <p className="mt-1 font-serif text-lg font-semibold leading-tight">Como produzir esta aula</p>
+          <p className="pn-rotulo-mono">Guia de produção</p>
+          <h2 className="pn-cartao-titulo mt-1">Como produzir esta aula</h2>
         </div>
-        <button type="button" className="cursor-pointer text-xs underline hover:text-oxblood" onClick={() => setAberto((a) => !a)} aria-expanded={aberto}>
+        <Botao pequeno variante="discreto" simboloFim={aberto ? ChevronUp : ChevronDown} onClick={() => setAberto((a) => !a)} aria-expanded={aberto}>
           {aberto ? "Esconder" : "Mostrar"}
-        </button>
+        </Botao>
       </div>
       {aberto && (
         <div className="mt-2">
-          <p className="text-xs text-ink-soft">Orientação, não obrigação: você conhece o seu ofício. Isto é o que ajuda a aula a casar com o resto da trilha.</p>
+          <p className="pn-ajuda text-xs">Orientação, não obrigação: você conhece o seu ofício. Isto é o que ajuda a aula a casar com o resto da trilha.</p>
           <Bloco titulo="Do que se trata" aberto>
             {trilha ? (
               <>
@@ -195,14 +196,14 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
           <Bloco titulo="Atalhos" aberto>
             <p>Cada botão põe um trecho pronto no fim do texto, para você só preencher.</p>
             <p className="flex flex-wrap gap-2">
-              {!temTexto && <button type="button" className={botaoClaro} onClick={() => inserir(esqueleto(titulo, idioma))}>Usar o esqueleto</button>}
-              {comecarQuestoes && <button type="button" className={botaoClaro} onClick={comecarQuestoes}>Começar as três questões</button>}
-              <button type="button" className={botaoClaro} onClick={() => inserir("\n```verificar\nPergunta curta sobre o que acabou de ser dito?\n- Alternativa errada\n+ Alternativa certa\n- Outra errada\n> Releia o parágrafo acima: a resposta está lá.\n```\n")}>Pergunta rápida</button>
-              <button type="button" className={botaoClaro} onClick={() => inserir("\n```conta\n2x + 3 = 11\n2x = 11 - 3\n2x = 8\nx = 4\n```\n")}>Conta passo a passo</button>
-              <button type="button" className={botaoClaro} onClick={() => inserir("\n## Na vida real\n\nOnde isso aparece no trabalho, na cidade, na luta de quem estuda aqui.\n")}>Seção “Na vida real”</button>
-              <button type="button" className={botaoClaro} onClick={() => inserir("\n## Resumo\n\n- Uma frase por ideia.\n- No máximo cinco.\n\n## Para praticar\n\nUma tarefa que dá para fazer sem computador, em dez minutos.\n")}>Resumo e prática</button>
-              <button type="button" className={botaoClaro} onClick={() => inserir("\n> “Citação curta, com a fonte logo abaixo.”\n> — Autor, *Obra* (ano)\n")}>Citação com fonte</button>
-              {idioma && <button type="button" className={botaoClaro} onClick={() => inserir("\n## Vocabulário\n\n| Palavra | Tradução | Como se fala |\n| --- | --- | --- |\n| … | … | … |\n")}>Tabela de vocabulário</button>}
+              {!temTexto && <Botao pequeno simbolo={ListPlus} onClick={() => inserir(esqueleto(titulo, idioma))}>Usar o esqueleto</Botao>}
+              {comecarQuestoes && <Botao pequeno simbolo={ListPlus} onClick={comecarQuestoes}>Começar as três questões</Botao>}
+              <Botao pequeno simbolo={ListPlus} onClick={() => inserir("\n```verificar\nPergunta curta sobre o que acabou de ser dito?\n- Alternativa errada\n+ Alternativa certa\n- Outra errada\n> Releia o parágrafo acima: a resposta está lá.\n```\n")}>Pergunta rápida</Botao>
+              <Botao pequeno simbolo={ListPlus} onClick={() => inserir("\n```conta\n2x + 3 = 11\n2x = 11 - 3\n2x = 8\nx = 4\n```\n")}>Conta passo a passo</Botao>
+              <Botao pequeno simbolo={ListPlus} onClick={() => inserir("\n## Na vida real\n\nOnde isso aparece no trabalho, na cidade, na luta de quem estuda aqui.\n")}>Seção “Na vida real”</Botao>
+              <Botao pequeno simbolo={ListPlus} onClick={() => inserir("\n## Resumo\n\n- Uma frase por ideia.\n- No máximo cinco.\n\n## Para praticar\n\nUma tarefa que dá para fazer sem computador, em dez minutos.\n")}>Resumo e prática</Botao>
+              <Botao pequeno simbolo={ListPlus} onClick={() => inserir("\n> “Citação curta, com a fonte logo abaixo.”\n> — Autor, *Obra* (ano)\n")}>Citação com fonte</Botao>
+              {idioma && <Botao pequeno simbolo={ListPlus} onClick={() => inserir("\n## Vocabulário\n\n| Palavra | Tradução | Como se fala |\n| --- | --- | --- |\n| … | … | … |\n")}>Tabela de vocabulário</Botao>}
             </p>
             <p className="text-xs">“Começar as três questões” cria as questões do fim da aula no campo “Teste o que você aprendeu”, abaixo do texto; de três a cinco.</p>
           </Bloco>
@@ -221,7 +222,7 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
             <p>
               <strong className="text-ink">No meio do texto</strong>, a pergunta rápida: três alternativas, a certa marcada com {codigo("+")}, as erradas com {codigo("-")}, e uma pista com {codigo(">")} para quem errar reler. Não dá nota, firma a atenção.
             </p>
-            <pre className="overflow-x-auto whitespace-pre-wrap border border-rule bg-parchment p-3 font-mono text-xs text-ink">{"```verificar\nQuanto vale o 7 em 3,75?\n- sete unidades\n+ sete décimos\n- sete centésimos\n> Releia o trecho sobre as casas depois da vírgula.\n```"}</pre>
+            <pre className="overflow-x-auto whitespace-pre-wrap rounded-md border border-rule bg-parchment p-3 font-mono text-xs text-ink">{"```verificar\nQuanto vale o 7 em 3,75?\n- sete unidades\n+ sete décimos\n- sete centésimos\n> Releia o trecho sobre as casas depois da vírgula.\n```"}</pre>
             <p>
               <strong className="text-ink">No fim</strong>, de três a cinco questões no campo “Teste o que você aprendeu”, abaixo do texto. Elas entram na aula e na prova da trilha. Perguntas que funcionam:
             </p>

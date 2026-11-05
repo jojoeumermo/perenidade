@@ -111,14 +111,14 @@ export function JanelaBaixar({ fechar }: { fechar: () => void }) {
   return (
     <Dialogo titulo="Baixar" fechar={fechar} largura="max-w-4xl">
       {bloqueada && (
-        <div className="mb-4 flex items-start gap-3 rounded-lg border border-[#c21f16] bg-[#c21f16]/8 p-3 text-sm" role="alert">
-          <Icone nome="alerta" className="mt-0.5 h-5 w-5 text-[#c21f16]" />
+        <div className="mb-4 flex items-start gap-3 rounded-lg border border-[var(--e-erro)] bg-[var(--e-erro)]/8 p-3 text-sm" role="alert">
+          <Icone nome="alerta" className="mt-0.5 h-5 w-5 text-[var(--e-erro)]" />
           <p className="min-w-0 flex-1">{AVISO_DO_LABORATORIO} Tire o nome da arte para baixar.</p>
         </div>
       )}
       {(erros.length > 0 || avisos.length > 0) && (
-        <div className={`mb-4 flex items-start gap-3 rounded-lg border p-3 text-sm ${erros.length ? "border-[#c21f16] bg-[#c21f16]/8" : "border-e-ouro bg-e-ouro/10"}`} role="status">
-          <Icone nome="alerta" className={`mt-0.5 h-5 w-5 ${erros.length ? "text-[#c21f16]" : "text-e-ouro"}`} />
+        <div className={`mb-4 flex items-start gap-3 rounded-lg border p-3 text-sm ${erros.length ? "border-[var(--e-erro)] bg-[var(--e-erro)]/8" : "border-e-ouro bg-e-ouro/10"}`} role="status">
+          <Icone nome="alerta" className={`mt-0.5 h-5 w-5 ${erros.length ? "text-[var(--e-erro)]" : "text-e-ouro"}`} />
           <div className="min-w-0 flex-1">
             <p className="font-semibold">{erros.length ? `${erros.length} problema(s) para resolver antes de postar` : `${avisos.length} ponto(s) para conferir`}</p>
             <ul className="mt-1 list-disc pl-4 text-e-suave">
@@ -199,7 +199,7 @@ export function JanelaBaixar({ fechar }: { fechar: () => void }) {
                 <label key={f.id} className={`w-36 cursor-pointer rounded-lg border p-2 text-sm ${marcado ? "border-e-bordo bg-e-bordo-claro" : "border-e-fio"}`}>
                   <input type="checkbox" className="sr-only" checked={marcado} onChange={() => setFormatos((l) => (marcado ? l.filter((x) => x !== f.id) : [...l, f.id]))} />
                   <span className="flex h-40 items-center justify-center">
-                    <Miniatura doc={versao} largura={Math.min(128, (160 * f.w) / f.h)} className="border border-black/10" />
+                    <Miniatura doc={versao} largura={Math.min(128, (160 * f.w) / f.h)} className="border border-e-fio" />
                   </span>
                   <span className="mt-1 flex items-center gap-1 font-semibold">
                     {marcado && <Icone nome="check" className="h-4 w-4 text-e-bordo" />}

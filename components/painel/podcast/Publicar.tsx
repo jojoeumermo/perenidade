@@ -5,7 +5,9 @@ import { useState } from "react";
 import { rpc } from "@/lib/backend";
 import { PENDENCIAS_DO_EPISODIO } from "@/lib/podcast";
 import { analisarAudio, EnvioError, enviarComProgresso, extensaoDe, liberarEspaco, LIMITE_BYTES, mensagensDeEnvio, nomeSorteado, tipoDe } from "@/lib/podcast-audio";
-import { Aviso, botao, botaoClaro, campo, elo, rotulo, textoDoErro, useLista } from "../comum";
+import { Check, ExternalLink, Upload } from "lucide-react";
+import { Aviso, botao, textoDoErro, useLista } from "../comum";
+import { Botao, Campo, Cartao, Esqueleto, Faixa, Selecao, Selo, Vazio } from "../ui";
 import { type EpisodioCompleto, NOME_DA_ETAPA, type PainelDoPodcast } from "./tipos";
 
 /** Cada passo do caminho até o site: o que é, como se faz e em que aba do episódio fica. */
@@ -43,31 +45,29 @@ export function Publicar({ painel, abrir, recarregarPainel }: { painel: PainelDo
 
   return (
     <div className="max-w-4xl space-y-6">
-      <p className="text-ink-soft">
+      <p className="pn-sobre">
         Do título ao site, em seis passos. Escolha um episódio (ou crie um) e veja o que já está feito e o que falta. Cada passo tem um botão que abre a aba certa do episódio.
       </p>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="block">
-          Episódio
-          <select value={escolhido} onChange={(ev) => setEscolhido(ev.target.value)} className={campo}>
+      <Cartao as="div" variante="plano">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Selecao rotulo="Episódio" value={escolhido} onChange={(ev) => setEscolhido(ev.target.value)}>
             <option value="">Escolha…</option>
             {painel.episodios.map((x) => (
               <option key={x.id} value={x.id}>{x.titulo} · {NOME_DA_ETAPA[x.status]}</option>
             ))}
-          </select>
-        </label>
-        {podeProduzir && (
-          <form className="flex items-end gap-2" onSubmit={(ev) => { ev.preventDefault(); void criar(); }}>
-            <label className="block flex-1">
-              Ou crie um novo
-              <input value={titulo} onChange={(ev) => setTitulo(ev.target.value)} placeholder="Título provisório" minLength={3} maxLength={140} className={campo} />
-            </label>
-            <button type="submit" className={botaoClaro} disabled={titulo.trim().length < 3}>Criar</button>
-          </form>
-        )}
-      </div>
+          </Selecao>
+          {podeProduzir && (
+            <form className="flex items-end gap-2" onSubmit={(ev) => { ev.preventDefault(); void criar(); }}>
+              <div className="min-w-0 flex-1">
+                <Campo rotulo="Ou crie um novo" value={titulo} onChange={(ev) => setTitulo(ev.target.value)} placeholder="Título provisório" minLength={3} maxLength={140} />
+              </div>
+              <Botao type="submit" disabled={titulo.trim().length < 3}>Criar</Botao>
+            </form>
+          )}
+        </div>
+      </Cartao>
       <Aviso texto={aviso} />
-      {escolhido ? <Passos key={escolhido} id={escolhido} painel={painel} abrir={abrir} recarregarPainel={recarregarPainel} /> : painel.episodios.length === 0 && <p className="text-ink-soft">Nenhum episódio ainda. Crie o primeiro acima.</p>}
+      {escolhido ? <Passos key={escolhido} id={escolhido} painel={painel} abrir={abrir} recarregarPainel={recarregarPainel} /> : painel.episodios.length === 0 && <Vazio titulo="Nenhum episódio ainda." texto="Crie o primeiro acima." />}
     </div>
   );
 }
@@ -131,57 +131,65 @@ function Passos({ id, painel, abrir, recarregarPainel }: { id: string; painel: P
   };
   const etapaDoPasso = (passo: (typeof PASSOS)[number]) => (e && passo.id === "aprovacao" && e.status === "revisao" ? "Enviado: esperando a supervisão" : "");
 
-  if (!e) return <Aviso texto={ver.erro || "Carregando…"} />;
+  if (ver.erro) return <Faixa tom="erro" acao={<Botao pequeno onClick={ver.recarregar}>Tentar de novo</Botao>}>{ver.erro}</Faixa>;
+  if (!e) return <Esqueleto forma="fila" />;
   return (
     <div className="space-y-6">
       <Aviso texto={aviso} />
       {e && (
         <>
-          <p className={rotulo}>
-            {e.titulo} · etapa: {NOME_DA_ETAPA[e.status]} · {e.pendencias.length === 0 ? "lista de conferência completa" : `faltam ${e.pendencias.length} item(ns) da lista`}
+          <p className="flex flex-wrap items-center gap-2">
+            <span className="pn-rotulo-mono">{e.titulo} · etapa: {NOME_DA_ETAPA[e.status]} ·</span>
+            <Selo tom={e.pendencias.length === 0 ? "ok" : "aviso"} ponto>
+              {e.pendencias.length === 0 ? "lista de conferência completa" : `faltam ${e.pendencias.length} item(ns) da lista`}
+            </Selo>
           </p>
-          <ol className="divide-y divide-rule border-y border-rule">
-            {PASSOS.map((passo, i) => {
-              const ok = feito(passo);
-              const faltando = passo.itens.filter((item) => pendentes.has(item));
-              return (
-                <li key={passo.id} className="flex gap-4 py-4">
-                  <span aria-hidden className={`flex h-9 w-9 shrink-0 items-center justify-center font-sans text-base font-black ${ok ? "bg-ok text-parchment" : "border-2 border-ink"}`}>{ok ? "✓" : i + 1}</span>
-                  <div className="min-w-0 flex-1">
-                    <p className="font-serif text-xl font-semibold">
-                      {passo.nome}
-                      {etapaDoPasso(passo) && <span className="ml-2 bg-oxblood px-1.5 py-0.5 font-sans text-xs font-normal text-parchment">{etapaDoPasso(passo)}</span>}
-                    </p>
-                    <p className="mt-1 text-ink-soft">{passo.faz}</p>
-                    {faltando.length > 0 && (
-                      <p className="mt-1 text-oxblood">Falta: {faltando.map((item) => PENDENCIAS_DO_EPISODIO[item] ?? item).join("; ")}.</p>
-                    )}
-                    <p className="mt-2 flex flex-wrap items-center gap-3">
-                      <button type="button" className={botaoClaro} onClick={() => abrir(e.id, passo.aba)}>Abrir a aba {passo.aba === "pauta" ? "Pauta" : passo.aba === "roteiro" ? "Roteiro" : passo.aba === "arquivos" ? "Arquivos" : passo.aba === "publicacao" ? "Publicação" : "Revisão"}</button>
-                      {passo.id === "audio" && podeProduzir && e.status !== "publicado" && (
-                        <label className={`${botao} inline-block ${andamento ? "pointer-events-none opacity-50" : ""}`}>
-                          {andamento ? `${andamento.fase}… ${Math.round(andamento.fracao * 100)}%` : "Enviar o MP3 final agora"}
-                          <input type="file" accept="audio/*" className="sr-only" onChange={(ev) => { void enviarFinal(ev.target.files?.[0]); ev.target.value = ""; }} />
-                        </label>
+          <Cartao as="div" className="p-0!">
+            <ol>
+              {PASSOS.map((passo, i) => {
+                const ok = feito(passo);
+                const faltando = passo.itens.filter((item) => pendentes.has(item));
+                return (
+                  <li key={passo.id} className="flex gap-4 border-b border-[var(--pn-borda)] px-4 py-4 last:border-b-0">
+                    <span aria-hidden className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-mono text-sm font-semibold ${ok ? "bg-ok text-[var(--pn-superficie)]" : "border border-[var(--pn-borda-forte)] text-ink-soft"}`}>{ok ? <Check className="h-4 w-4" /> : i + 1}</span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="flex flex-wrap items-center gap-2 font-serif text-lg font-semibold leading-snug">
+                        {passo.nome}
+                        {ok && <span className="sr-only">(feito)</span>}
+                        {etapaDoPasso(passo) && <Selo tom="bordo" ponto>{etapaDoPasso(passo)}</Selo>}
+                      </h3>
+                      <p className="mt-1 text-ink-soft">{passo.faz}</p>
+                      {faltando.length > 0 && (
+                        <p className="mt-1 text-oxblood">Falta: {faltando.map((item) => PENDENCIAS_DO_EPISODIO[item] ?? item).join("; ")}.</p>
                       )}
-                      {passo.id === "aprovacao" && podeProduzir && ["ideia", "roteiro", "gravacao", "edicao"].includes(e.status) && (
-                        <button type="button" className={botao} onClick={() => void agir("podcast_etapa", { p_id: e.id, p_status: "revisao" }, "Enviado. A supervisão recebeu o recado e aprova ou devolve.")}>Enviar para aprovação</button>
-                      )}
-                      {passo.id === "aprovacao" && eu.supervisao && e.status === "revisao" && e.enviado_por !== eu.id && (
-                        <button type="button" className={botao} onClick={() => void agir("podcast_aprovar", { p_id: e.id, p_aprovar: true, p_nota: "" }, "Aprovado. Agora o passo 6: publicar.")}>Aprovar</button>
-                      )}
-                      {passo.id === "publicar" && podeProduzir && e.status === "aprovado" && (
-                        <button type="button" className={botao} disabled={e.pendencias.length > 0} title={e.pendencias.length ? "Ainda falta coisa na lista" : ""} onClick={() => void agir("podcast_publicar", { p_id: e.id }, "No ar! O episódio aparece no site em até cinco minutos e nas plataformas na próxima leitura do feed.")}>Publicar</button>
-                      )}
-                      {passo.id === "publicar" && e.status === "publicado" && e.slug && (
-                        <a href={`/pt/podcasts/${e.slug}`} target="_blank" rel="noopener noreferrer" className={elo}>Ver no site ↗</a>
-                      )}
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+                      <p className="mt-2 flex flex-wrap items-center gap-2">
+                        <Botao pequeno onClick={() => abrir(e.id, passo.aba)}>Abrir a aba {passo.aba === "pauta" ? "Pauta" : passo.aba === "roteiro" ? "Roteiro" : passo.aba === "arquivos" ? "Arquivos" : passo.aba === "publicacao" ? "Publicação" : "Revisão"}</Botao>
+                        {passo.id === "audio" && podeProduzir && e.status !== "publicado" && (
+                          <label className={`${botao} pn-botao-pequeno has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--pn-foco)] ${andamento ? "pointer-events-none opacity-50" : ""}`} aria-busy={andamento ? true : undefined}>
+                            <Upload aria-hidden />
+                            {andamento ? `${andamento.fase}… ${Math.round(andamento.fracao * 100)}%` : "Enviar o MP3 final agora"}
+                            <input type="file" accept="audio/*" className="sr-only" disabled={Boolean(andamento)} onChange={(ev) => { void enviarFinal(ev.target.files?.[0]); ev.target.value = ""; }} />
+                          </label>
+                        )}
+                        {passo.id === "aprovacao" && podeProduzir && ["ideia", "roteiro", "gravacao", "edicao"].includes(e.status) && (
+                          <Botao variante="principal" pequeno onClick={() => void agir("podcast_etapa", { p_id: e.id, p_status: "revisao" }, "Enviado. A supervisão recebeu o recado e aprova ou devolve.")}>Enviar para aprovação</Botao>
+                        )}
+                        {passo.id === "aprovacao" && eu.supervisao && e.status === "revisao" && e.enviado_por !== eu.id && (
+                          <Botao variante="principal" pequeno simbolo={Check} onClick={() => void agir("podcast_aprovar", { p_id: e.id, p_aprovar: true, p_nota: "" }, "Aprovado. Agora o passo 6: publicar.")}>Aprovar</Botao>
+                        )}
+                        {passo.id === "publicar" && podeProduzir && e.status === "aprovado" && (
+                          <Botao variante="principal" pequeno disabled={e.pendencias.length > 0} title={e.pendencias.length ? "Ainda falta coisa na lista" : ""} onClick={() => void agir("podcast_publicar", { p_id: e.id }, "No ar! O episódio aparece no site em até cinco minutos e nas plataformas na próxima leitura do feed.")}>Publicar</Botao>
+                        )}
+                        {passo.id === "publicar" && e.status === "publicado" && e.slug && (
+                          <a href={`/pt/podcasts/${e.slug}`} target="_blank" rel="noopener noreferrer" className="pn-elo inline-flex items-center gap-1">Ver no site <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a>
+                        )}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </Cartao>
           <details className="text-ink-soft">
             <summary className="cursor-pointer">Quem faz o quê</summary>
             <ul className="mt-2 list-disc space-y-1 pl-5">

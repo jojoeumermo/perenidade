@@ -30,7 +30,7 @@ import {
 import { aplicarTema, TEMAS } from "../projeto";
 import { ATIVO, BOTAO, BOTAO_PRIMARIO, Chave, Cores, CAMPO, Dialogo, Faixa, Miniatura, ROTULO, useEditor } from "../ui";
 import { apagarDaBiblioteca, guardarPaleta, useBiblioteca, usarBloco } from "./Biblioteca";
-import { confirmarFrase, perguntarTexto } from "../../ui";
+import { confirmarFrase, perguntarTexto } from "../../ui/Dialogo";
 
 const TITULOS = { modelos: "Modelos da marca", texto: "Texto", elementos: "Elementos", imagens: "Imagens", fundo: "Fundo", trabalhos: "Trabalhos" } as const;
 
@@ -60,7 +60,7 @@ export function Gavetas({ celular }: { celular: boolean }) {
   );
   if (celular)
     return (
-      <div className="estudio-surge fixed inset-x-0 bottom-[3.6rem] z-[83] flex max-h-[64dvh] flex-col rounded-t-2xl border-t border-e-fio bg-e-painel shadow-[0_-12px_40px_rgba(0,0,0,0.35)]" role="dialog" aria-label={titulo}>
+      <div className="estudio-surge fixed inset-x-0 bottom-[3.6rem] z-[83] flex max-h-[64dvh] flex-col rounded-t-2xl border-t border-e-fio bg-e-painel [box-shadow:var(--e-sombra)]" role="dialog" aria-label={titulo}>
         {corpo}
       </div>
     );
@@ -472,7 +472,7 @@ function GavetaElementos() {
                 <span className="text-xs text-e-suave"> · {b.local ? "neste aparelho" : b.autor}</span>
               </button>
               {b.meu && (
-                <button type="button" className="cursor-pointer p-1 text-e-suave hover:text-[#c21f16]" aria-label={`Apagar o bloco ${b.nome}`} onClick={() => void apagarDaBiblioteca(b).then(biblioteca.recarregar)}>
+                <button type="button" className="cursor-pointer p-1 text-e-suave hover:text-[var(--e-erro)]" aria-label={`Apagar o bloco ${b.nome}`} onClick={() => void apagarDaBiblioteca(b).then(biblioteca.recarregar)}>
                   <Icone nome="lixeira" className="h-4 w-4" />
                 </button>
               )}
@@ -833,7 +833,7 @@ function GavetaTrabalhos() {
                   {t.paginas && t.paginas > 1 ? ` · ${t.paginas} páginas` : ""}
                 </p>
                 <p className="mt-1 flex flex-wrap gap-1">
-                  {t.status && t.status !== "rascunho" && <span className={`rounded px-1.5 py-0.5 text-[0.65rem] ${t.status === "aprovado" || t.status === "publicado" ? "bg-[#2f5d34] text-white" : "bg-e-ouro/25"}`}>{NOMES_DO_STATUS[t.status] ?? t.status}</span>}
+                  {t.status && t.status !== "rascunho" && <span className={`rounded px-1.5 py-0.5 text-[0.65rem] ${t.status === "aprovado" || t.status === "publicado" ? "bg-[var(--e-ok)] text-[var(--e-sobre-ok)]" : "bg-e-ouro/25"}`}>{NOMES_DO_STATUS[t.status] ?? t.status}</span>}
                   {t.pasta && <span className="rounded bg-e-fio/60 px-1.5 py-0.5 text-[0.65rem]">{t.pasta}</span>}
                   {(t.etiquetas ?? []).map((e) => (
                     <span key={e} className="rounded border border-e-fio px-1.5 py-0.5 text-[0.65rem]">#{e}</span>
@@ -849,7 +849,7 @@ function GavetaTrabalhos() {
                     <Icone nome="restaurar" className="h-3.5 w-3.5" /> Restaurar
                   </button>
                   {t.meu && (
-                    <button type="button" className={`${BOTAO} h-7 text-xs text-[#c21f16]`} onClick={async () => (await confirmarFrase("Apagar de vez? Não dá para desfazer.")) && void agir("design_apagar_de_vez", { p_id: t.id }, "Apagado de vez.")}>
+                    <button type="button" className={`${BOTAO} h-7 text-xs text-[var(--e-erro)]`} onClick={async () => (await confirmarFrase("Apagar de vez? Não dá para desfazer.")) && void agir("design_apagar_de_vez", { p_id: t.id }, "Apagado de vez.")}>
                       Apagar de vez
                     </button>
                   )}

@@ -4,7 +4,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { lerLegendas, lerRelogio, relogio } from "@/lib/podcast";
 import { urlPublica } from "@/lib/podcast-audio";
-import { botao, botaoClaro, campo, rotulo } from "../comum";
+import { Download, Square, Video } from "lucide-react";
+import { botao } from "../comum";
+import { Area, Botao, Campo, Cartao, Faixa, Selecao } from "../ui";
 import { estrela, fontes, imagemDaMarca } from "./Arte";
 
 const FORMATOS = [
@@ -218,25 +220,26 @@ export function GeradorDeCortes({ episodio }: { episodio: EpisodioDoCorte }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
       <div>
-        <canvas ref={tela} className={`w-full max-w-sm border-2 border-ink bg-[#1f1a14] ${estado === "parado" && !video ? "hidden" : ""}`} />
+        <canvas ref={tela} className={`w-full max-w-sm rounded-[var(--pn-raio-cartao)] border border-[var(--pn-borda)] bg-[var(--pn-menu-fundo)] ${estado === "parado" && !video ? "hidden" : ""}`} />
         {video && (
           <div className="mt-4 space-y-2">
-            <video src={video.url} controls className="w-full max-w-sm border-2 border-ink" />
-            <a href={video.url} download={`corte-${episodio.titulo.toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g, "-").slice(0, 40)}.${video.ext}`} className={`${botao} inline-block`}>
+            <video src={video.url} controls className="w-full max-w-sm rounded-[var(--pn-raio-cartao)] border border-[var(--pn-borda)]" />
+            <a href={video.url} download={`corte-${episodio.titulo.toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g, "-").slice(0, 40)}.${video.ext}`} className={botao}>
+              <Download aria-hidden />
               Baixar o vídeo ({video.ext.toUpperCase()})
             </a>
             {video.ext === "webm" && <p className="text-ink-soft">O Instagram prefere MP4. Se recusar o arquivo, converta de graça no HandBrake, ou grave o corte pelo Chrome, que já gera MP4.</p>}
           </div>
         )}
         {estado === "parado" && !video && (
-          <p className="border-l-2 border-gold pl-3 text-ink-soft">
+          <Faixa tom="info">
             Escolha o trecho e aperte Gerar. O som do trecho toca em silêncio enquanto o vídeo grava, então espere até o fim (a duração do corte).
-          </p>
+          </Faixa>
         )}
       </div>
-      <div className="space-y-3">
+      <Cartao as="div" className="space-y-3">
         <fieldset>
-          <legend className={rotulo}>Áudio</legend>
+          <legend className="pn-rotulo-mono">Áudio</legend>
           {episodio.audio && (
             <label className="mt-1 flex items-center gap-2">
               <input type="radio" checked={fonte === "deposito"} onChange={() => setFonte("deposito")} />
@@ -247,47 +250,35 @@ export function GeradorDeCortes({ episodio }: { episodio: EpisodioDoCorte }) {
             <input type="radio" checked={fonte === "arquivo"} onChange={() => setFonte("arquivo")} />
             Um arquivo do computador
           </label>
-          {fonte === "arquivo" && <input type="file" accept="audio/*" onChange={(e) => setArquivo(e.target.files?.[0] ?? null)} className="mt-2 block w-full" />}
+          {fonte === "arquivo" && <input type="file" accept="audio/*" aria-label="Um arquivo do computador" onChange={(e) => setArquivo(e.target.files?.[0] ?? null)} className="pn-campo mt-2 block w-full" />}
         </fieldset>
         <div className="grid grid-cols-2 gap-2">
-          <label className="block">
-            Começa em
-            <input value={inicio} onChange={(e) => setInicio(e.target.value)} placeholder="12:40" className={campo} />
-          </label>
-          <label className="block">
-            Duração (s)
-            <input type="number" min={15} max={60} value={duracao} onChange={(e) => setDuracao(Math.max(15, Math.min(60, Number(e.target.value) || 45)))} className={campo} />
-          </label>
+          <Campo rotulo="Começa em" value={inicio} onChange={(e) => setInicio(e.target.value)} placeholder="12:40" className="font-mono" />
+          <Campo rotulo="Duração (s)" type="number" min={15} max={60} value={duracao} onChange={(e) => setDuracao(Math.max(15, Math.min(60, Number(e.target.value) || 45)))} />
         </div>
-        <label className="block">
-          Formato
-          <select value={formato} onChange={(e) => setFormato(e.target.value as typeof formato)} className={campo}>
-            {FORMATOS.map((f) => (
-              <option key={f.id} value={f.id}>{f.nome}</option>
-            ))}
-          </select>
-        </label>
+        <Selecao rotulo="Formato" value={formato} onChange={(e) => setFormato(e.target.value as typeof formato)}>
+          {FORMATOS.map((f) => (
+            <option key={f.id} value={f.id}>{f.nome}</option>
+          ))}
+        </Selecao>
         {trechos.length > 0 ? (
           <div>
-            <p className={rotulo}>Legenda do trecho (das legendas do episódio)</p>
+            <p className="pn-rotulo-mono">Legenda do trecho (das legendas do episódio)</p>
             <p className="mt-1 max-h-32 overflow-y-auto text-ink-soft">{trechos.map((t) => t.texto).join(" ")}</p>
           </div>
         ) : (
-          <label className="block">
-            Legenda (uma frase por linha; elas se revezam ao longo do corte)
-            <textarea value={manual} onChange={(e) => setManual(e.target.value)} rows={4} className={campo} />
-          </label>
+          <Area rotulo="Legenda (uma frase por linha; elas se revezam ao longo do corte)" value={manual} onChange={(e) => setManual(e.target.value)} rows={4} />
         )}
         <p className="flex flex-wrap gap-2">
-          <button type="button" onClick={() => void gerar()} disabled={estado === "gravando"} className={botao}>
+          <Botao variante="principal" simbolo={Video} carregando={estado === "gravando"} onClick={() => void gerar()}>
             {estado === "gravando" ? `Gravando… ${Math.round(andamento * 100)}%` : "Gerar o vídeo"}
-          </button>
+          </Botao>
           {estado === "gravando" && (
-            <button type="button" onClick={() => (parar.current = true)} className={botaoClaro}>Parar</button>
+            <Botao simbolo={Square} onClick={() => (parar.current = true)}>Parar</Botao>
           )}
         </p>
         <p role="status" className="min-h-5 text-oxblood">{aviso}</p>
-      </div>
+      </Cartao>
     </div>
   );
 }

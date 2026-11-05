@@ -1,11 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { DatabaseBackup, Eraser, Rocket } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getClient, rpc } from "@/lib/backend";
 import { diasAteVencer, fraseDoToken, nivelDoToken } from "@/lib/operacao";
 import { dataHora, textoDoErro, useLista } from "./comum";
-import { Botao, Campo, confirmar, notificar, Vazio } from "./ui";
+import { Botao, Campo, Cartao, confirmar, Esqueleto, Faixa, ItemDeLista, Lista, notificar, Selo, type TomDoSelo, Vazio } from "./ui";
 
 interface Situacao {
   registros: { quando: string; acao: string; fase: string; detalhe: string }[];
@@ -20,11 +21,13 @@ interface Ligado {
 
 const NOME_DA_ACAO: Record<string, string> = { limpar_cache: "Limpar o cache", ver_publicacao: "Ver a publicação", ver_backup: "Ver a cópia do banco" };
 const NOME_DA_FASE: Record<string, string> = { pedida: "pedida", ok: "deu certo", falhou: "falhou" };
+const TOM_DA_FASE: Record<string, TomDoSelo> = { pedida: "info", ok: "ok", falhou: "erro" };
+const SIMBOLO_DA_ACAO = { limpar_cache: Eraser, ver_publicacao: Rocket, ver_backup: DatabaseBackup } as const;
 
 /**
  * Operação do site (Etapa 8, backend-2; molde Configuração): o estado da última publicação, da última cópia do banco, a limpeza do
  * cache e o aviso de vencimento do token do Instagram. Só coordenação e vice. Os tokens dos serviços ficam no servidor
- * (app/api/painel/operacao); aqui só chega uma frase curta.
+ * (app/api/painel/operacao); aqui só chega uma frase curta. Cada assunto num cartão; a resposta de cada pedido, numa faixa.
  */
 export function Operacao() {
   const situacao = useLista<Situacao>("operacao_situacao", {}, { quieta: true });
@@ -66,49 +69,71 @@ export function Operacao() {
   }
 
   const botaoDa = (acao: "ver_publicacao" | "ver_backup" | "limpar_cache", campo: keyof Ligado, rotulo: string, principal = false) => (
-    <Botao variante={principal ? "principal" : "padrao"} disabled={!ligado?.[campo] || Boolean(ocupado)} onClick={() => void pedir(acao)}>
+    <Botao variante={principal ? "principal" : "padrao"} simbolo={SIMBOLO_DA_ACAO[acao]} disabled={!ligado?.[campo] || Boolean(ocupado)} carregando={ocupado === acao} onClick={() => void pedir(acao)}>
       {ocupado === acao ? "Um instante..." : rotulo}
     </Botao>
   );
 
   return (
-    <div className="max-w-3xl space-y-8">
-      <section aria-labelledby="op-publicacao" className="space-y-2">
-        <h2 id="op-publicacao" className="pn-secao-titulo">Publicação e cópia do banco</h2>
-        <p className="pn-ajuda">Olha a última publicação de produção (Vercel) e a última rodada da cópia semanal do banco (rotina backup.yml). Cada botão só aparece ligado quando a ligação foi feita no servidor (docs/backend-2.md).</p>
-        <div className="flex flex-wrap gap-2">
-          {botaoDa("ver_publicacao", "publicacao", "Ver a publicação")}
-          {botaoDa("ver_backup", "backup", "Ver a cópia do banco")}
+    <div className="pn-tela" style={{ maxWidth: "48rem" }}>
+      <Cartao titulo="Publicação e cópia do banco" sobre="Olha a última publicação de produção (Vercel) e a última rodada da cópia semanal do banco (rotina backup.yml). Cada botão só aparece ligado quando a ligação foi feita no servidor (docs/backend-2.md).">
+        <div className="pn-secao">
+          <div className="flex flex-wrap gap-2">
+            {botaoDa("ver_publicacao", "publicacao", "Ver a publicação")}
+            {botaoDa("ver_backup", "backup", "Ver a cópia do banco")}
+          </div>
+          {ligado && !ligado.publicacao && !ligado.backup && <p className="pn-ajuda">Nenhuma das duas ligações foi feita ainda.</p>}
+          <div className="pn-secao" aria-live="polite">
+            {(["ver_publicacao", "ver_backup"] as const).map(
+              (a) =>
+                frases[a] && (
+                  <Faixa key={a} tom={frases[a].ok ? "ok" : "erro"} titulo={`${NOME_DA_ACAO[a]}:`}>
+                    {frases[a].texto}
+                  </Faixa>
+                ),
+            )}
+          </div>
         </div>
-        {ligado && !ligado.publicacao && !ligado.backup && <p className="pn-ajuda">Nenhuma das duas ligações foi feita ainda.</p>}
-        <ul className="space-y-1" aria-live="polite">
-          {(["ver_publicacao", "ver_backup"] as const).map((a) => frases[a] && (
-            <li key={a} className={frases[a].ok ? "" : "text-oxblood"}><strong>{NOME_DA_ACAO[a]}:</strong> {frases[a].texto}</li>
-          ))}
-        </ul>
-      </section>
+      </Cartao>
 
-      <section aria-labelledby="op-cache" className="space-y-2">
-        <h2 id="op-cache" className="pn-secao-titulo">Cache do site</h2>
-        <p className="pn-ajuda">O Cloudflare guarda as páginas por até 4 horas. A rotina de publicação já limpa sozinha; este botão é para quando algo não aparece.{situacao.dados?.ultima_limpeza ? ` Última limpeza por aqui: ${dataHora(situacao.dados.ultima_limpeza)}.` : ""}</p>
-        {botaoDa("limpar_cache", "cache", "Limpar o cache", true)}
-        {frases.limpar_cache && <p role="status" className={frases.limpar_cache.ok ? "" : "text-oxblood"}>{frases.limpar_cache.texto}</p>}
-      </section>
+      <Cartao titulo="Cache do site" sobre={`O Cloudflare guarda as páginas por até 4 horas. A rotina de publicação já limpa sozinha; este botão é para quando algo não aparece.${situacao.dados?.ultima_limpeza ? ` Última limpeza por aqui: ${dataHora(situacao.dados.ultima_limpeza)}.` : ""}`}>
+        <div className="pn-secao">
+          <div>{botaoDa("limpar_cache", "cache", "Limpar o cache", true)}</div>
+          {frases.limpar_cache && <Faixa tom={frases.limpar_cache.ok ? "ok" : "erro"}>{frases.limpar_cache.texto}</Faixa>}
+        </div>
+      </Cartao>
 
       <TokenDoInstagram estado={situacao.dados?.instagram} aoSalvar={situacao.recarregar} />
 
-      <section aria-labelledby="op-registro" className="space-y-2">
-        <h2 id="op-registro" className="pn-secao-titulo">O que foi pedido por aqui</h2>
-        {situacao.erro && <p role="alert" className="text-oxblood">{situacao.erro}</p>}
+      <Cartao titulo="O que foi pedido por aqui">
+        {situacao.erro && (
+          <Faixa
+            tom="erro"
+            acao={
+              <Botao pequeno onClick={situacao.recarregar}>
+                Tentar de novo
+              </Botao>
+            }
+          >
+            {situacao.erro}
+          </Faixa>
+        )}
+        {!situacao.dados && !situacao.erro && <Esqueleto linhas={3} />}
         {situacao.dados && situacao.dados.registros.length === 0 && <Vazio titulo="Nada ainda" texto="Os últimos 20 pedidos desta tela aparecem aqui." />}
-        <ul className="space-y-1">
-          {situacao.dados?.registros.map((r, i) => (
-            <li key={`${r.quando}-${i}`}>
-              {dataHora(r.quando)}: {NOME_DA_ACAO[r.acao] ?? r.acao}, {NOME_DA_FASE[r.fase] ?? r.fase}.{r.detalhe ? ` ${r.detalhe}` : ""}
-            </li>
-          ))}
-        </ul>
-      </section>
+        {situacao.dados && situacao.dados.registros.length > 0 && (
+          <Lista rotulo="O que foi pedido por aqui" plana>
+            {situacao.dados.registros.map((r, i) => (
+              <ItemDeLista
+                key={`${r.quando}-${i}`}
+                simbolo={SIMBOLO_DA_ACAO[r.acao as keyof typeof SIMBOLO_DA_ACAO]}
+                titulo={NOME_DA_ACAO[r.acao] ?? r.acao}
+                meta={`${dataHora(r.quando)}${r.detalhe ? ` · ${r.detalhe}` : ""}`}
+                selo={<Selo tom={TOM_DA_FASE[r.fase] ?? "neutro"}>{NOME_DA_FASE[r.fase] ?? r.fase}</Selo>}
+              />
+            ))}
+          </Lista>
+        )}
+      </Cartao>
     </div>
   );
 }
@@ -122,6 +147,7 @@ function TokenDoInstagram({ estado, aoSalvar }: { estado?: Situacao["instagram"]
   const nivel = estado?.definido ? nivelDoToken(dias) : "indefinido";
   const hoje = new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" }); // AAAA-MM-DD, no mesmo dia do banco (Brasília)
   const previa = data ? diasAteVencer(data, hoje) : null;
+  const urgente = nivel === "urgente" || nivel === "vencido";
 
   async function salvar() {
     setOcupado(true);
@@ -138,17 +164,17 @@ function TokenDoInstagram({ estado, aoSalvar }: { estado?: Situacao["instagram"]
   }
 
   return (
-    <section aria-labelledby="op-instagram" className="space-y-2">
-      <h2 id="op-instagram" className="pn-secao-titulo">Token do Instagram</h2>
-      <p className="pn-ajuda">O estúdio de design publica no Instagram com um token que vence. Aqui fica só a data (o token em si mora na Vercel). Ao gerar um token novo, anote a data nova.</p>
-      <p role="status" className={nivel === "urgente" || nivel === "vencido" ? "text-oxblood font-semibold" : ""}>
-        {estado?.definido ? `${fraseDoToken(dias)} (vence em ${estado.expira?.split("-").reverse().join("/")}).` : fraseDoToken(null)}
-      </p>
-      <div className="flex flex-wrap items-end gap-2">
-        <Campo rotulo="Vence em" type="date" value={data} min={hoje} onChange={(e) => setData(e.target.value)} />
-        <Botao variante="principal" disabled={!data || ocupado} onClick={() => void salvar()}>Anotar a data</Botao>
+    <Cartao titulo="Token do Instagram" sobre="O estúdio de design publica no Instagram com um token que vence. Aqui fica só a data (o token em si mora na Vercel). Ao gerar um token novo, anote a data nova.">
+      <div className="pn-secao">
+        <Faixa tom={urgente ? "aviso" : estado?.definido ? "ok" : "info"}>{estado?.definido ? `${fraseDoToken(dias)} (vence em ${estado.expira?.split("-").reverse().join("/")}).` : fraseDoToken(null)}</Faixa>
+        <div className="flex flex-wrap items-end gap-2">
+          <Campo rotulo="Vence em" type="date" value={data} min={hoje} onChange={(e) => setData(e.target.value)} />
+          <Botao disabled={!data} carregando={ocupado} onClick={() => void salvar()}>
+            Anotar a data
+          </Botao>
+        </div>
+        {previa !== null && <p className="pn-ajuda">{fraseDoToken(previa)}</p>}
       </div>
-      {previa !== null && <p className="pn-ajuda">{fraseDoToken(previa)}</p>}
-    </section>
+    </Cartao>
   );
 }

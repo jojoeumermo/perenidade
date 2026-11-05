@@ -23,7 +23,7 @@ import {
 } from "../motor";
 import { estiloDaCamada, LIMITE_DA_LEGENDA } from "../projeto";
 import { ATIVO, BOTAO, BotaoIcone, CAMPO, Chave, Cores, Faixa, Numero, Secao, useEditor } from "../ui";
-import { perguntarTexto } from "../../ui";
+import { perguntarTexto } from "../../ui/Dialogo";
 
 const ICONE_DO_TIPO = (c: Camada): NomeDoIcone => (c.tipo === "texto" ? "texto" : c.tipo === "imagem" ? "imagens" : c.tipo === "marca" ? "marca" : c.tipo === "elemento" ? (c.desenho === "icone" && c.icone ? c.icone : c.desenho === "qr" ? "qr" : "elementos") : "forma");
 const NOME_DO_TIPO: Record<string, string> = { texto: "texto", imagem: "imagem", marca: "marca", elemento: "elemento" };
@@ -145,7 +145,7 @@ function Acoes() {
       <BotaoIcone icone="duplicar" rotulo="Duplicar" atalho="Ctrl+D" onClick={ed.acoes.duplicar} />
       <BotaoIcone icone="copiar-estilo" rotulo="Copiar estilo" atalho="Ctrl+Alt+C" onClick={ed.acoes.copiarEstilo} />
       <BotaoIcone icone="cadeado" rotulo="Travar" atalho="Ctrl+L" onClick={ed.acoes.travar} />
-      <BotaoIcone icone="lixeira" rotulo="Apagar" atalho="Delete" onClick={ed.acoes.apagar} className="text-[#c21f16]" />
+      <BotaoIcone icone="lixeira" rotulo="Apagar" atalho="Delete" onClick={ed.acoes.apagar} className="text-[var(--e-erro)]" />
     </div>
   );
 }
@@ -615,7 +615,7 @@ function PropriedadesDaPagina() {
       </Secao>
       <Secao titulo="Legenda do post">
         <textarea value={legenda} onChange={(e) => mudarLegenda(e.target.value)} onBlur={() => mudarLegenda(legenda, true)} rows={7} spellCheck lang="pt-BR" aria-label="Legenda do post" placeholder="A legenda fica guardada junto com a arte." className="w-full rounded-md border border-e-fio bg-e-campo p-2.5 text-sm text-e-tinta focus:border-e-bordo focus:outline-none" />
-        <p className={`flex justify-between text-xs ${legenda.length > LIMITE_DA_LEGENDA || hashtags > 30 ? "text-[#c21f16]" : "text-e-suave"}`}>
+        <p className={`flex justify-between text-xs ${legenda.length > LIMITE_DA_LEGENDA || hashtags > 30 ? "text-[var(--e-erro)]" : "text-e-suave"}`}>
           <span>{hashtags} / 30 hashtags</span>
           <span>
             {legenda.length.toLocaleString("pt-BR")} / {LIMITE_DA_LEGENDA.toLocaleString("pt-BR")}
@@ -776,7 +776,7 @@ export function FolhaDoCelular({ fechar }: { fechar: () => void }) {
   const c = ed.camada;
   if (!c) return null;
   return (
-    <div className="estudio-surge fixed inset-x-0 bottom-[3.6rem] z-[82] max-h-[60dvh] overflow-y-auto rounded-t-2xl border-t border-e-fio bg-e-painel shadow-[0_-12px_40px_rgba(0,0,0,0.35)]" role="dialog" aria-label="Controles da camada">
+    <div className="estudio-surge fixed inset-x-0 bottom-[3.6rem] z-[82] max-h-[60dvh] overflow-y-auto rounded-t-2xl border-t border-e-fio bg-e-painel [box-shadow:var(--e-sombra)]" role="dialog" aria-label="Controles da camada">
       <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-e-fio bg-e-painel px-4 py-2">
         <span className="mx-auto h-1 w-10 rounded-full bg-e-fio" aria-hidden />
       </div>
@@ -823,7 +823,7 @@ export function FolhaDoCelular({ fechar }: { fechar: () => void }) {
             <BotaoIcone icone="frente" rotulo="Para a frente" onClick={ed.acoes.frente} />
             <BotaoIcone icone="tras" rotulo="Para trás" onClick={ed.acoes.tras} />
             <BotaoIcone icone="cadeado" rotulo="Travar" onClick={ed.acoes.travar} />
-            <BotaoIcone icone="lixeira" rotulo="Apagar" onClick={ed.acoes.apagar} className="text-[#c21f16]" />
+            <BotaoIcone icone="lixeira" rotulo="Apagar" onClick={ed.acoes.apagar} className="text-[var(--e-erro)]" />
             <button type="button" className={`${BOTAO} ml-auto`} onClick={() => setTudo(true)}>
               Mais <Icone nome="seta-cima" className="h-4 w-4" />
             </button>

@@ -92,7 +92,7 @@ export function Previa({ fechar }: { fechar: () => void }) {
           </button>
         ))}
       </div>
-      <div className="flex min-h-[32rem] flex-col items-center justify-center gap-4 rounded-lg bg-[#2a231d] p-6">
+      <div className="flex min-h-[32rem] flex-col items-center justify-center gap-4 rounded-lg bg-e-palco p-6">
         {aba === "feed" && (
           <Celular>
             <div className="h-full overflow-y-auto bg-white pt-9 text-[#111]">

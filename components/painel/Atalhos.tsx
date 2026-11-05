@@ -1,53 +1,22 @@
-// Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Check, Pencil, Star } from "lucide-react";
+import { useState } from "react";
+import { usePainel } from "./estado";
+import { espacoDe, ESPACOS } from "./estrutura";
+import { Botao, Contador } from "./ui";
 
-// Os atalhos do painel: as seções que a pessoa fixou (no alto do menu e na Mesa) e as que usou por último. Ficam só
-// neste aparelho, como as outras preferências do painel (menu recolhido, modo foco).
-
-const CHAVE = "lucia:painel-atalhos";
-const EVENTO = "lucia:painel-atalhos-mudou";
-interface Guardado {
-  fixadas: string[];
-  recentes: string[];
-}
-function ler(): Guardado {
-  try {
-    const d = JSON.parse(window.localStorage.getItem(CHAVE) ?? "{}") as Partial<Guardado>;
-    const limpa = (l: unknown, n: number) => (Array.isArray(l) ? l.filter((x): x is string => typeof x === "string" && /^[a-z-]{2,30}$/.test(x)).slice(0, n) : []);
-    return { fixadas: limpa(d.fixadas, 12), recentes: limpa(d.recentes, 6) };
-  } catch {
-    return { fixadas: [], recentes: [] };
-  }
-}
-function gravar(g: Guardado) {
-  try {
-    window.localStorage.setItem(CHAVE, JSON.stringify(g));
-  } catch {
-    // Sem espaço: os atalhos valem até fechar o painel.
-  }
-  window.dispatchEvent(new Event(EVENTO));
-}
+// Os atalhos do painel: as seções que a pessoa fixou (no alto do menu e na Mesa) e as que usou por último. Moram no
+// estado da casca (estado.ts), que guarda só neste aparelho e leu uma vez as chaves antigas (lucia:painel-atalhos).
+// A API é a de antes: quem chama useAtalhos() (a Mesa, o menu) não muda.
 
 export function useAtalhos() {
-  const [g, setG] = useState<Guardado>({ fixadas: [], recentes: [] });
-  useEffect(() => {
-    const recarregar = () => setG(ler());
-    void Promise.resolve().then(recarregar);
-    window.addEventListener(EVENTO, recarregar);
-    return () => window.removeEventListener(EVENTO, recarregar);
-  }, []);
-  const fixar = useCallback((id: string) => {
-    const atual = ler();
-    gravar({ ...atual, fixadas: atual.fixadas.includes(id) ? atual.fixadas.filter((x) => x !== id) : [...atual.fixadas, id].slice(0, 12) });
-  }, []);
-  const lembrar = useCallback((id: string) => {
-    if (id === "mesa") return;
-    const atual = ler();
-    gravar({ ...atual, recentes: [id, ...atual.recentes.filter((x) => x !== id)].slice(0, 6) });
-  }, []);
-  return { ...g, fixar, lembrar };
+  const fixadas = usePainel((s) => s.favoritos);
+  const recentes = usePainel((s) => s.recentes);
+  const fixar = usePainel((s) => s.fixar);
+  const lembrar = usePainel((s) => s.lembrar);
+  return { fixadas, recentes, fixar, lembrar };
 }
 
 interface SecaoCurta {
@@ -65,42 +34,65 @@ export function Atalhos({ secoes, ir, icone }: { secoes: SecaoCurta[]; ir: (id: 
   const porId = new Map(secoes.map((s) => [s.id, s]));
   const fixas = fixadas.map((id) => porId.get(id)).filter((x): x is SecaoCurta => !!x);
   const ultimas = recentes.filter((id) => !fixadas.includes(id)).map((id) => porId.get(id)).filter((x): x is SecaoCurta => !!x);
-  const grupos = [...new Set(secoes.map((s) => s.grupo))];
+  const espacos = ESPACOS.map((e) => ({ ...e, secoes: secoes.filter((s) => s.id !== "mesa" && espacoDe(s.id, s.grupo) === e.id) })).filter((e) => e.secoes.length > 0);
   return (
-    <section aria-labelledby="atalhos-titulo">
-      <div className="flex flex-wrap items-center gap-3">
-        <h2 id="atalhos-titulo" className="jornal-secao flex-1">
-          <span className="jornal-editoria">Seus atalhos</span>
+    <section aria-labelledby="atalhos-titulo" style={{ display: "grid", gap: "0.9rem" }}>
+      <div className="pn-cabecalho" data-nivel={2}>
+        <h2 id="atalhos-titulo" className="pn-cabecalho-titulo">
+          Seus atalhos
         </h2>
-        <button type="button" onClick={() => setEditando(!editando)} aria-expanded={editando} className="cursor-pointer border-2 border-ink px-3 py-1 text-xs font-semibold hover:border-oxblood">{editando ? "Pronto" : "Escolher atalhos"}</button>
+        <Botao pequeno variante="discreto" simbolo={editando ? Check : Pencil} onClick={() => setEditando(!editando)} aria-expanded={editando}>
+          {editando ? "Pronto" : "Escolher atalhos"}
+        </Botao>
       </div>
-      {fixas.length === 0 && !editando && <p className="mt-3 text-ink-soft">Fixe as seções que você mais usa: elas aparecem aqui e no alto do menu. <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => setEditando(true)}>Escolher agora</button></p>}
+      {fixas.length === 0 && !editando && (
+        <p className="pn-ajuda" style={{ fontSize: "0.875rem" }}>
+          Fixe as seções que você mais usa: elas aparecem aqui e no alto do menu.{" "}
+          <button type="button" className="pn-elo" onClick={() => setEditando(true)}>
+            Escolher agora
+          </button>
+        </p>
+      )}
       {fixas.length > 0 && (
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <div style={{ display: "grid", gap: "0.6rem", gridTemplateColumns: "repeat(auto-fill, minmax(11rem, 1fr))" }}>
           {fixas.map((s) => (
-            <button key={s.id} type="button" onClick={() => ir(s.id)} className="painel-quadro group relative flex cursor-pointer flex-col items-start gap-2 p-4 text-left">
-              <span className="text-oxblood">{icone(s.id)}</span>
-              <span className="font-semibold leading-tight">{s.nome}</span>
-              {Boolean(s.conta) && <span className="absolute top-3 right-3 min-w-6 bg-[#c21f16] px-1.5 py-0.5 text-center font-mono text-[0.7rem] font-semibold text-white">{s.conta}</span>}
+            <button key={s.id} type="button" onClick={() => ir(s.id)} className="pn-cartao pn-cartao-interativo" style={{ display: "grid", gap: "0.5rem", justifyItems: "start", textAlign: "left", position: "relative", padding: "0.85rem 0.95rem" }}>
+              <span className="pn-cabecalho-icone">{icone(s.id)}</span>
+              <span style={{ fontWeight: 600, lineHeight: 1.25 }}>{s.nome}</span>
+              <span style={{ position: "absolute", top: "0.7rem", right: "0.7rem" }}>
+                <Contador n={s.conta} />
+              </span>
             </button>
           ))}
         </div>
       )}
       {ultimas.length > 0 && (
-        <p className="mt-4 flex flex-wrap items-center gap-2 text-sm">
-          <span className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">Usadas por último</span>
-          {ultimas.map((s) => <button key={s.id} type="button" onClick={() => ir(s.id)} className="flex cursor-pointer items-center gap-1.5 border border-rule px-2.5 py-1 hover:border-ink"><span className="text-ink-soft">{icone(s.id)}</span>{s.nome}</button>)}
-        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.4rem" }}>
+          <span className="pn-rotulo-mono" style={{ marginRight: "0.3rem" }}>
+            Usadas por último
+          </span>
+          {ultimas.map((s) => (
+            <Botao key={s.id} pequeno onClick={() => ir(s.id)}>
+              {icone(s.id)}
+              {s.nome}
+            </Botao>
+          ))}
+        </div>
       )}
       {editando && (
-        <div className="mt-4 grid gap-4 border-2 border-dashed border-ink/40 p-4 sm:grid-cols-2 lg:grid-cols-3">
-          {grupos.map((grupo) => (
-            <fieldset key={grupo || "inicio"}>
-              <legend className="font-mono text-[0.65rem] uppercase tracking-widest text-oxblood">{grupo || "Início"}</legend>
-              {secoes.filter((s) => s.grupo === grupo && s.id !== "mesa").map((s) => (
-                <label key={s.id} className="mt-1 flex cursor-pointer items-center gap-2">
-                  <input type="checkbox" checked={fixadas.includes(s.id)} onChange={() => fixar(s.id)} className="h-4 w-4" />
-                  {s.nome}
+        <div className="pn-cartao" style={{ display: "grid", gap: "1rem", gridTemplateColumns: "repeat(auto-fill, minmax(14rem, 1fr))" }}>
+          {espacos.map((e) => (
+            <fieldset key={e.id} style={{ display: "grid", gap: "0.25rem", border: 0, margin: 0, padding: 0 }}>
+              <legend className="pn-rotulo-mono" style={{ marginBottom: "0.3rem" }}>
+                {e.nome}
+              </legend>
+              {e.secoes.map((s) => (
+                <label key={s.id} className="pn-marca" style={{ cursor: "pointer" }}>
+                  <input type="checkbox" checked={fixadas.includes(s.id)} onChange={() => fixar(s.id)} />
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                    {s.nome}
+                    {fixadas.includes(s.id) && <Star aria-hidden width={12} height={12} style={{ color: "var(--pn-ouro)", fill: "currentColor" }} />}
+                  </span>
                 </label>
               ))}
             </fieldset>

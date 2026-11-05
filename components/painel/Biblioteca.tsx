@@ -1,14 +1,17 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { ArrowRight, ExternalLink, Footprints, LifeBuoy, Plus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { type Me, rpc } from "@/lib/backend";
 import { getItem, setItem } from "@/lib/storage";
 import { L } from "../I18n";
-import { Aviso, botao, campo, textoDoErro } from "./comum";
+import { Aviso, textoDoErro } from "./comum";
+import { Botao, CabecalhoDeSecao, Campo, Cartao, Selo } from "./ui";
 
 // Quatro ideias do painel que são, no fundo, lugares para achar as coisas: a biblioteca da equipe (estatuto, modelos,
-// formação militante interna), os ofícios de cada pessoa, a primeira semana guiada e a rede de apoio.
+// formação militante interna), os ofícios de cada pessoa, a primeira semana guiada e a rede de apoio. Desenho só pelos
+// componentes de ui/ e pelas classes pn-* do tema.
 
 type Item = { nome: string; sobre: string } & ({ href: string } | { secao: string });
 
@@ -55,19 +58,22 @@ const ESTANTES: [string, Item[]][] = [
 
 export function Biblioteca({ ir }: { ir: (aba: string) => void }) {
   return (
-    <div className="space-y-8">
+    <div className="grid gap-8">
       {ESTANTES.map(([titulo, itens]) => (
         <section key={titulo} aria-labelledby={`estante-${titulo}`}>
-          <h2 id={`estante-${titulo}`} className="font-serif text-2xl font-semibold">{titulo}</h2>
+          <CabecalhoDeSecao nivel={2} id={`estante-${titulo}`} titulo={titulo} />
           <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {itens.map((item) => {
               const miolo = (
                 <>
-                  <span className="block font-semibold group-hover:text-prelo-texto">{item.nome} {"href" in item ? "↗" : "→"}</span>
-                  <span className="mt-0.5 block text-sm leading-snug text-ink-soft">{item.sobre}</span>
+                  <span className="flex items-center gap-1.5 font-semibold">
+                    {item.nome}
+                    {"href" in item ? <ExternalLink aria-hidden width={13} height={13} /> : <ArrowRight aria-hidden width={13} height={13} />}
+                  </span>
+                  <span className="pn-ajuda mt-0.5 block leading-snug">{item.sobre}</span>
                 </>
               );
-              const classe = "group block h-full border-2 border-ink bg-folha p-4 text-left text-ink shadow-[3px_3px_0_var(--sombra)] hover:text-ink hover:shadow-[3px_3px_0_var(--prelo)]";
+              const classe = "pn-cartao pn-cartao-interativo block h-full text-left no-underline";
               return (
                 <li key={item.nome}>
                   {"href" in item ? (
@@ -109,17 +115,19 @@ export function Oficios() {
   }
   if (!lista) return null;
   return (
-    <section aria-labelledby="oficios" className="painel-cartao mt-6 p-5">
-      <h3 id="oficios" className="font-serif text-xl font-semibold">O que você sabe fazer</h3>
-      <p className="mt-1 text-sm text-ink-soft">Seus ofícios aparecem para a equipe na lista de pessoas e nos departamentos: assim, quem precisa de alguém que edite vídeo ou fale espanhol acha você. Até dez.</p>
+    <Cartao nivelDoTitulo={3} titulo="O que você sabe fazer" sobre="Seus ofícios aparecem para a equipe na lista de pessoas e nos departamentos: assim, quem precisa de alguém que edite vídeo ou fale espanhol acha você. Até dez.">
       <ul className="mt-3 flex flex-wrap gap-1.5">
         {lista.map((o) => (
-          <li key={o} className="flex items-center gap-1 border-2 border-ink bg-folha px-2 py-0.5 text-sm">
-            {o}
-            <button type="button" aria-label={`Tirar ${o}`} className="cursor-pointer text-ink-soft hover:text-oxblood" onClick={() => void guardar(lista.filter((x) => x !== o))}>✕</button>
+          <li key={o}>
+            <Selo>
+              {o}
+              <button type="button" aria-label={`Tirar ${o}`} className="-mr-1 inline-flex cursor-pointer rounded-full p-0.5 hover:text-oxblood focus-visible:outline-2 focus-visible:outline-[var(--pn-foco)]" onClick={() => void guardar(lista.filter((x) => x !== o))}>
+                <X aria-hidden width={12} height={12} />
+              </button>
+            </Selo>
           </li>
         ))}
-        {lista.length === 0 && <li className="text-sm text-ink-soft">Nenhum ainda.</li>}
+        {lista.length === 0 && <li className="pn-ajuda">Nenhum ainda.</li>}
       </ul>
       {lista.length < 10 && (
         <form
@@ -129,20 +137,19 @@ export function Oficios() {
             if (novo.trim().length >= 2) void guardar([...lista, novo.trim()]).then(() => setNovo(""));
           }}
         >
-          <label className="min-w-0 flex-1 text-sm">
-            Acrescentar
-            <input value={novo} onChange={(e) => setNovo(e.target.value)} maxLength={40} list="sugestoes-oficios" className={campo} placeholder="edito vídeo" />
+          <div className="min-w-0 flex-1">
+            <Campo rotulo="Acrescentar" value={novo} onChange={(e) => setNovo(e.target.value)} maxLength={40} list="sugestoes-oficios" placeholder="edito vídeo" />
             <datalist id="sugestoes-oficios">
               {SUGESTOES.filter((s) => !lista.includes(s)).map((s) => (
                 <option key={s} value={s} />
               ))}
             </datalist>
-          </label>
-          <button type="submit" className={botao} disabled={novo.trim().length < 2}>Acrescentar</button>
+          </div>
+          <Botao type="submit" simbolo={Plus} disabled={novo.trim().length < 2}>Acrescentar</Botao>
         </form>
       )}
       <Aviso texto={aviso} />
-    </section>
+    </Cartao>
   );
 }
 
@@ -180,24 +187,31 @@ export function PrimeiraSemana({ me, ir }: { me: Me; ir: (aba: string) => void }
   };
   const prontos = PASSOS.filter((p) => feitos.includes(p.id)).length;
   return (
-    <section aria-labelledby="primeira-semana" className="border border-ink bg-folha p-5 text-ink">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id="primeira-semana" className="font-serif text-2xl font-semibold">Sua primeira semana</h2>
-        <span className="font-mono text-xs">{`${prontos} de ${PASSOS.length} passos`}</span>
-      </div>
+    <Cartao
+      variante="destaque"
+      titulo={
+        <span className="flex items-center gap-2">
+          <Footprints aria-hidden width={18} height={18} className="text-oxblood" />
+          Sua primeira semana
+        </span>
+      }
+      acoes={<span className="pn-rotulo-mono tabular-nums">{`${prontos} de ${PASSOS.length} passos`}</span>}
+    >
       <p className="mt-1 text-sm">Bem-vindo à equipe. Cinco passos para se achar, no seu tempo:</p>
       <ol className="mt-3 space-y-1.5">
         {PASSOS.map((p) => (
           <li key={p.id} className="flex items-start gap-2">
-            <input type="checkbox" checked={feitos.includes(p.id)} onChange={() => marcar(p.id)} aria-label={`Feito: ${p.texto}`} className="mt-1" />
-            <button type="button" onClick={() => ir(p.secao)} className={`cursor-pointer text-left underline decoration-[#c21f16] underline-offset-2 ${feitos.includes(p.id) ? "line-through opacity-60" : ""}`}>
+            <input type="checkbox" checked={feitos.includes(p.id)} onChange={() => marcar(p.id)} aria-label={`Feito: ${p.texto}`} className="mt-1 accent-[var(--pn-destaque)]" />
+            <button type="button" onClick={() => ir(p.secao)} className={`pn-elo cursor-pointer text-left ${feitos.includes(p.id) ? "line-through opacity-70" : ""}`}>
               {p.texto}
             </button>
           </li>
         ))}
       </ol>
-      <button type="button" className="mt-3 cursor-pointer text-sm underline" onClick={() => marcar("fechado")}>Já me achei: esconder</button>
-    </section>
+      <p className="mt-3">
+        <Botao variante="discreto" pequeno onClick={() => marcar("fechado")}>Já me achei: esconder</Botao>
+      </p>
+    </Cartao>
   );
 }
 
@@ -210,20 +224,27 @@ export function RedeDeApoio() {
     ["100", "Disque Direitos Humanos", "Violência contra criança, pessoa idosa, LGBT, população de rua e outras violações."],
   ];
   return (
-    <section aria-labelledby="rede-apoio" className="painel-cartao p-5">
-      <h3 id="rede-apoio" className="font-serif text-xl font-semibold">Rede de apoio</h3>
-      <p className="mt-1 text-sm text-ink-soft">Ninguém precisa dar conta de tudo sozinho. Se a coisa apertar, procure alguém de confiança da equipe nas Conversas, ou um destes serviços gratuitos:</p>
+    <Cartao
+      nivelDoTitulo={3}
+      titulo={
+        <span className="flex items-center gap-2">
+          <LifeBuoy aria-hidden width={18} height={18} className="text-oxblood" />
+          Rede de apoio
+        </span>
+      }
+      sobre="Ninguém precisa dar conta de tudo sozinho. Se a coisa apertar, procure alguém de confiança da equipe nas Conversas, ou um destes serviços gratuitos:"
+    >
       <ul className="mt-3 space-y-2">
         {contatos.map(([numero, nome, sobre]) => (
           <li key={numero} className="flex items-start gap-3">
-            <span className="w-14 shrink-0 select-all font-mono text-lg font-bold text-prelo-texto">{numero}</span>
+            <span className="w-14 shrink-0 select-all font-mono text-lg font-bold tabular-nums text-oxblood">{numero}</span>
             <span className="text-sm">
               <strong>{nome}.</strong> {sobre}
             </span>
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-xs text-ink-soft">A Defensoria Pública do seu estado atende de graça quem não pode pagar advogado.</p>
-    </section>
+      <p className="pn-ajuda mt-3">A Defensoria Pública do seu estado atende de graça quem não pode pagar advogado.</p>
+    </Cartao>
   );
 }

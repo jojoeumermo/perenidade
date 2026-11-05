@@ -55,7 +55,9 @@ conferir("avisos de segurança: suspensas, publicação parada, pedidos da super
 conferir("segurança e pendências não se misturam", dasPendencias(total("geral")).length + dosAvisosDeSeguranca(total("geral")).length === ITENS.length && dasPendencias(total("geral")).every((p) => p.parte === "pendencias"));
 conferir("pedido de voluntariado: coordenação vai a pessoas, os outros à supervisão", total("geral", true).find((p) => p.chave === "candidaturas").vai === "pessoas" && total("geral", false).find((p) => p.chave === "candidaturas").vai === "supervisao");
 conferir("todo destino é seção do painel", ITENS.every((i) => MAPA[i.destino] && (!i.destinoDaCoordenacao || MAPA[i.destinoDaCoordenacao])), ITENS.filter((i) => !MAPA[i.destino]).map((i) => i.destino).join());
-const resumoDoPainel = ler("components", "painel", "Painel.tsx");
+// O registro de seções, o Resumo e a Mesa moraram em Painel.tsx até o redesenho; hoje moram em casca/Dentro.tsx (o painel
+// aberto carrega só no navegador, docs/PAINEL-REDESENHO.md). Lemos os dois: a conferência é a mesma.
+const resumoDoPainel = ler("components", "painel", "Painel.tsx") + "\n" + ler("components", "painel", "casca", "Dentro.tsx");
 conferir("todo campo de pendência existe no Resumo do painel", ITENS.every((i) => new RegExp(`\\b${i.chave}\\??:\\s*number`).test(resumoDoPainel)), ITENS.filter((i) => !new RegExp(`\\b${i.chave}\\??:\\s*number`).test(resumoDoPainel)).map((i) => i.chave).join());
 
 // 4. Atalhos: só os que a pessoa abre, sem repetir.

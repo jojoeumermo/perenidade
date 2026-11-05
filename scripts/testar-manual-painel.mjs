@@ -13,7 +13,8 @@ const falhas = [];
 const conferir = (nome, cond, detalhe = "") => (cond ? ok++ : falhas.push(`${nome}${detalhe ? `: ${detalhe}` : ""}`));
 
 const md = ler("docs", "MANUAL-DA-COORDENACAO.md").replace(/\r\n/g, "\n");
-const painel = ler("components", "painel", "Painel.tsx");
+// O registro de seções saiu de Painel.tsx para casca/Dentro.tsx no redesenho (docs/PAINEL-REDESENHO.md): lemos os dois.
+const painel = ler("components", "painel", "Painel.tsx") + "\n" + ler("components", "painel", "casca", "Dentro.tsx");
 const codigo = ["Fila", "Curriculo", "Cuidar", "RedePropostas", "ValeOEscrito", "ValeOEscritoEditor", "Interdicao", "Supervisao"]
   .map((n) => ler("components", "painel", `${n}.tsx`))
   .join("\n");

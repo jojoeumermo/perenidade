@@ -4,6 +4,9 @@
 // Duas ideias do painel para quem escreve e quem revisa: a esteira (em que pé está cada envio, de um olhar) e a revisão
 // lado a lado (o que mudou entre a versão guardada e a edição, linha por linha).
 
+import { Check, ChevronRight, X } from "lucide-react";
+import { Cartao, Selo, type TomDoSelo } from "./ui";
+
 const ETAPAS = ["Enviado", "Triagem", "Revisão", "Aprovado", "No ar"] as const;
 
 /** A esteira de um envio: as etapas já passadas, a atual e, se foi recusado, onde parou. */
@@ -16,20 +19,21 @@ export function Esteira({ status, triagem, pareceres, publico }: { status: strin
     : etapas.indexOf("Revisão");
   const recusada = status === "recusada";
   return (
-    <ol aria-label="Em que pé está" className="mt-2 flex flex-wrap items-center gap-y-1 text-[0.72rem] font-semibold">
+    <ol aria-label="Em que pé está" className="flex flex-wrap items-center gap-y-1">
       {etapas.map((etapa, i) => {
         const feita = i < atual || (i === atual && (status === "publicada" || status === "resolvida"));
         const aqui = i === atual && !feita;
+        const parou = recusada && i === atual;
+        // Um selo por etapa: feita em verde (com o visto), a de agora em bordô, onde parou em erro, as próximas neutras.
+        const tom: TomDoSelo = parou ? "erro" : feita ? "ok" : aqui ? "bordo" : "neutro";
         return (
-          <li key={etapa} className="flex items-center">
-            <span
-              aria-current={aqui ? "step" : undefined}
-              className={`border px-1.5 py-0.5 ${recusada && i === atual ? "border-oxblood bg-oxblood/10 text-oxblood" : feita ? "border-ink bg-ink text-parchment" : aqui ? "border-[#c21f16] bg-[#c21f16] text-white" : "border-rule text-ink-soft"}`}
-            >
-              {recusada && i === atual ? "✕ Não aprovado" : etapa}
+          <li key={etapa} className="flex items-center" aria-current={aqui ? "step" : undefined}>
+            <Selo tom={tom} ponto={aqui && !parou}>
+              {parou ? <X aria-hidden width={12} height={12} /> : feita ? <Check aria-hidden width={12} height={12} /> : null}
+              {parou ? "Não aprovado" : etapa}
               {etapa === "Revisão" && pareceres > 0 && ` · ${pareceres}`}
-            </span>
-            {i < etapas.length - 1 && <span aria-hidden className={`mx-1 h-px w-3 ${i < atual ? "bg-ink" : "bg-rule"}`} />}
+            </Selo>
+            {i < etapas.length - 1 && <ChevronRight aria-hidden width={14} height={14} className="mx-0.5 text-ink-soft" />}
           </li>
         );
       })}
@@ -77,8 +81,8 @@ export function LadoALado({ antes, depois }: { antes: string; depois: string }) 
   const direita = trechos.map((t, i) => (t.tipo === "saiu" ? null : { ...t, i })).filter((t) => t !== null);
   const coluna = (lista: typeof esquerda, titulo: string) => (
     <div className="min-w-0">
-      <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-soft">{titulo}</p>
-      <pre className="mt-1 max-h-[28rem] overflow-auto whitespace-pre-wrap break-words border border-rule bg-parchment p-2 font-mono text-[0.78rem] leading-relaxed">
+      <p className="pn-rotulo-mono">{titulo}</p>
+      <pre className="mt-1 max-h-[28rem] overflow-auto whitespace-pre-wrap break-words rounded-md border border-rule bg-parchment p-2 font-mono text-[0.78rem] leading-relaxed">
         {lista.map((t, k) =>
           t.tipo === "igual" && !perto.has(t.i) ? (
             lista[k - 1] && lista[k - 1]!.tipo === "igual" && !perto.has(lista[k - 1]!.i) ? null : <span key={t.i} className="block text-ink-soft">…</span>
@@ -92,9 +96,9 @@ export function LadoALado({ antes, depois }: { antes: string; depois: string }) 
     </div>
   );
   return (
-    <div className="border-2 border-ink bg-folha p-3">
+    <Cartao as="div" variante="plano">
       <p className="text-sm font-semibold">{mudancas === 0 ? "Nenhuma mudança no texto ainda." : `${mudancas} ${mudancas === 1 ? "linha mudou" : "linhas mudaram"}.`}</p>
       {mudancas > 0 && <div className="mt-2 grid gap-3 lg:grid-cols-2">{coluna(esquerda, "Versão guardada")}{coluna(direita, "Sua edição")}</div>}
-    </div>
+    </Cartao>
   );
 }

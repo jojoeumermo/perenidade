@@ -51,8 +51,9 @@ import { Janelas } from "./paineis/Janelas";
 import { FolhaDoCelular, PainelDireito } from "./paineis/Propriedades";
 import { RodapeDoPalco } from "./paineis/Rodape";
 import { aplicarEstilo, CAMPOS_DO_ESTILO, type Projeto, paraProjeto, projetoNovo, variaveisDaPagina } from "./projeto";
-import { type AjudasDaTela, ContextoDoEditor, type Editor, type Gaveta, type Janela, useEditor } from "./ui";
-import { confirmarFrase } from "../ui";
+import { type AjudasDaTela, ContextoDoEditor, coresDaInterface, type Editor, type Gaveta, type Janela, useEditor } from "./ui";
+// Direto de ui/Dialogo (e não do índice ui/): o Laboratório de Design público usa este arquivo e não deve levar a casca do painel.
+import { confirmarFrase } from "../ui/Dialogo";
 
 /** Como o editor abre: um modelo, uma página em branco, um trabalho guardado, o rascunho do aparelho ou um projeto pronto. */
 export type Abertura =
@@ -1483,7 +1484,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
   // Em tela cheia de verdade: o editor vai direto no corpo da página (as animações do painel não o prendem).
   return createPortal(
     <ContextoDoEditor.Provider value={editor}>
-      <div className="estudio-app fixed inset-0 z-[80] flex flex-col" data-estudio-tema={temaDaInterface || undefined}>
+      <div className="estudio-app fixed inset-0 z-[80] flex flex-col" data-estudio-tema={temaDaInterface || undefined} style={coresDaInterface(temaDaInterface, laboratorio)}>
         {!foco && <BarraDoAlto mexido={mexido} salvoEm={salvoEm} guardando={guardando} escala={escala} passos={passos} voltarAte={voltarAte} podeRefazer={refaziveis > 0} celular={celular} ferramenta={ferramenta} />}
         {andamento && (
           <div className="relative h-1 bg-e-fio" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(andamento.f * 100)} aria-label={andamento.rotulo || "Andamento"}>

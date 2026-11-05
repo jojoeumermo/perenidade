@@ -15,13 +15,13 @@ const estilo = {
   "--error-bg": "var(--pn-superficie)",
   "--error-text": "var(--pn-erro)",
   "--error-border": "var(--pn-erro)",
-  "--border-radius": "var(--pn-raio)",
+  "--border-radius": "var(--pn-raio-cartao)",
   fontFamily: "var(--pn-fonte)",
 } as CSSProperties;
 
-/** Monte uma vez só (em Painel.tsx). Os avisos ficam no canto de baixo, longe da barra de baixo do celular. */
+/** Monte uma vez só (nas camadas da casca, casca/Camadas.tsx). Os avisos ficam no canto de baixo à direita; no celular, acima da barra de baixo. */
 export function AvisosDoPainel() {
-  return <Toaster position="bottom-right" style={estilo} offset={{ bottom: "5rem", right: "1rem" }} mobileOffset={{ bottom: "5rem", left: "1rem", right: "1rem" }} closeButton visibleToasts={3} />;
+  return <Toaster position="bottom-right" style={estilo} offset={{ bottom: "1rem", right: "1rem" }} mobileOffset={{ bottom: "5rem", left: "1rem", right: "1rem" }} closeButton visibleToasts={3} />;
 }
 
 /** Avisos curtos: confirmação do que foi feito (ok), erro com o que fazer (erro) e informação (info). */

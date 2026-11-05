@@ -1,10 +1,16 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, X } from "lucide-react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { leads, rpc, type Me } from "@/lib/backend";
 import { BuscaDePessoa } from "./BuscaDePessoa";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { data, dataHora, papeis, textoDoErro, useAcao, useLista } from "./comum";
+import { MoldeConfiguracao, MoldeTabela } from "./moldes";
+import { Abas, Area, Botao, Campo, Cartao, type ColumnDef, Faixa, Marca, Selecao, Selo, Vazio } from "./ui";
+
+/** O recado de uma ação (sucesso ou erro do banco), numa faixa que o leitor de tela anuncia com calma. */
+const Recado = ({ texto }: { texto: string }) => <div aria-live="polite">{texto && <Faixa tom="info">{texto}</Faixa>}</div>;
 
 // ───────────── Aviso de abertura ─────────────
 
@@ -23,11 +29,20 @@ interface Abertura {
 
 const vazio = { ativo: false, titulo: "", texto: "", imagem: "", credito: "", link: "", link_texto: "", assinatura: "", ate: "" };
 
-/** O quadro que abre junto com o site. Enquanto nada for guardado aqui, vale o aviso que está nos arquivos do site. */
+/**
+ * O quadro que abre junto com o site. Enquanto nada for guardado aqui, vale o aviso que está nos arquivos do site. Molde
+ * Configuração: o que está valendo aparece numa faixa no alto; "Descartar" volta ao que foi guardado.
+ */
 export function AvisoDeAbertura() {
   const [form, setForm] = useState(vazio);
+  // O que está guardado no banco (para saber se há mudança, voltar atrás e mostrar o que está no ar).
+  const [salvo, setSalvo] = useState(vazio);
   const [definido, setDefinido] = useState<boolean | null>(null);
-  const acao = useAcao(() => setDefinido(true));
+  const titulo = useRef<HTMLInputElement>(null);
+  const acao = useAcao(() => {
+    setDefinido(true);
+    setSalvo(form);
+  });
 
   useEffect(() => {
     let cancelado = false;
@@ -35,7 +50,11 @@ export function AvisoDeAbertura() {
       .then((atual) => {
         if (cancelado) return;
         setDefinido(Boolean(atual?.definido));
-        if (atual?.definido) setForm({ ...vazio, ...atual, ativo: Boolean(atual.ativo) });
+        if (atual?.definido) {
+          const lido = { ...vazio, ...atual, ativo: Boolean(atual.ativo) };
+          setForm(lido);
+          setSalvo(lido);
+        }
       })
       .catch(() => {
         if (!cancelado) setDefinido(false);
@@ -46,64 +65,65 @@ export function AvisoDeAbertura() {
   }, []);
 
   const mudar = (campoDoForm: keyof typeof vazio) => (e: { target: { value: string } }) => setForm({ ...form, [campoDoForm]: e.target.value });
+  const incompleto = form.ativo && (form.titulo.trim().length < 3 || form.texto.trim().length < 10);
+  const sujo = JSON.stringify(form) !== JSON.stringify(salvo);
+  // Antes o botão ficava apagado sem dizer por quê; agora, depois de uma tentativa, o campo que falta diz o que pede.
+  const [tentou, setTentou] = useState(false);
 
   return (
-    <div className="max-w-3xl space-y-4">
-      <p className="text-ink-soft">
+    <div className="pn-tela" style={{ maxWidth: "48rem" }}>
+      <p className="pn-sobre">
         Um quadro pequeno que abre no meio da tela na primeira visita, com um botão para fechar. Quem fecha não vê de novo até o texto mudar.
         {definido === false && " Hoje vale o aviso guardado nos arquivos do site; ao guardar aqui, este passa a valer."}
       </p>
-      <div className="border-l-2 border-oxblood pl-4 text-ink-soft">
-        <p className="font-medium text-ink">Antes de usar para apoio a candidatura, leia:</p>
-        <ul className="mt-1 list-disc space-y-1 pl-5">
+      {definido && salvo.ativo && (
+        <Faixa tom="bordo" titulo={salvo.titulo}>
+          <p className="whitespace-pre-line">{salvo.texto}</p>
+          {salvo.assinatura && <p className="pn-ajuda">{salvo.assinatura}</p>}
+        </Faixa>
+      )}
+      <Faixa tom="aviso" titulo="Antes de usar para apoio a candidatura, leia:">
+        <ul className="list-disc space-y-1 pl-5">
           <li>A lei eleitoral (Lei 9.504/1997, art. 57-D) proíbe o anonimato: assine com o nome de quem responde pela manifestação.</li>
           <li>Pessoa jurídica não pode fazer propaganda eleitoral em site próprio, nem de graça (art. 57-C). Se o instituto virar associação com CNPJ, este quadro não pode mais pedir voto.</li>
           <li>Não pague para impulsionar. Não publique conteúdo novo de campanha no dia da votação.</li>
           <li>Fale do que você defende. Não atribua crime nem xingue adversário: ofensa em propaganda eleitoral é crime (Código Eleitoral, arts. 324 a 326).</li>
         </ul>
-      </div>
-      <label className="flex items-center gap-2">
-        <input type="checkbox" checked={form.ativo} onChange={(e) => setForm({ ...form, ativo: e.target.checked })} className="h-4 w-4" />
-        Mostrar o aviso
-      </label>
-      <label className="block">
-        Título
-        <input value={form.titulo} onChange={mudar("titulo")} maxLength={80} className={campo} />
-      </label>
-      <label className="block">
-        Texto
-        <textarea value={form.texto} onChange={mudar("texto")} rows={5} maxLength={700} className={campo} />
-      </label>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="block">
-          Imagem (caminho dentro do site, por exemplo /imagens/aviso.webp)
-          <input value={form.imagem} onChange={mudar("imagem")} maxLength={200} placeholder="/imagens/…" className={campo} />
-        </label>
-        <label className="block">
-          Crédito da imagem (autor e licença)
-          <input value={form.credito} onChange={mudar("credito")} maxLength={200} className={campo} />
-        </label>
-        <label className="block">
-          Link do botão (opcional)
-          <input value={form.link} onChange={mudar("link")} maxLength={300} placeholder="/pt/materiais ou https://…" className={campo} />
-        </label>
-        <label className="block">
-          Texto do botão
-          <input value={form.link_texto} onChange={mudar("link_texto")} maxLength={40} className={campo} />
-        </label>
-        <label className="block">
-          Quem assina
-          <input value={form.assinatura} onChange={mudar("assinatura")} maxLength={120} className={campo} />
-        </label>
-        <label className="block">
-          Mostrar até (opcional)
-          <input type="date" value={form.ate} onChange={mudar("ate")} className={campo} />
-        </label>
-      </div>
-      <button type="button" className={botao} disabled={acao.ocupado || (form.ativo && (form.titulo.trim().length < 3 || form.texto.trim().length < 10))} onClick={() => acao.agir("abertura_salvar", { p: form }, "Aviso guardado. Os visitantes passam a ver em até seis horas (é o tempo que o navegador de cada um guarda a versão anterior).")}>
-        Guardar aviso
-      </button>
-      <Aviso texto={acao.aviso} />
+      </Faixa>
+      <MoldeConfiguracao
+        sujo={sujo}
+        salvando={acao.ocupado}
+        rotuloSalvar="Guardar aviso"
+        aoDescartar={() => setForm(salvo)}
+        aoSalvar={() => {
+          // Ligado, o aviso precisa de título (3 letras) e texto (10): sem eles, o foco vai para o título.
+          setTentou(incompleto);
+          if (incompleto) titulo.current?.focus();
+          else void acao.agir("abertura_salvar", { p: form }, "Aviso guardado. Os visitantes passam a ver em até seis horas (é o tempo que o navegador de cada um guarda a versão anterior).");
+        }}
+        grupos={[
+          {
+            id: "texto",
+            titulo: "Aviso de abertura",
+            campos: (
+              <>
+                <Marca rotulo="Mostrar o aviso" checked={form.ativo} onChange={(e) => setForm({ ...form, ativo: e.target.checked })} />
+                <Campo ref={titulo} rotulo="Título" value={form.titulo} onChange={mudar("titulo")} maxLength={80} erro={tentou && form.ativo && form.titulo.trim().length < 3 ? "Com o aviso ligado, o título precisa de pelo menos 3 letras." : undefined} />
+                <Area rotulo="Texto" value={form.texto} onChange={mudar("texto")} rows={5} maxLength={700} erro={tentou && form.ativo && form.texto.trim().length < 10 ? "Com o aviso ligado, o texto precisa de pelo menos 10 letras." : undefined} />
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Campo rotulo="Imagem (caminho dentro do site, por exemplo /imagens/aviso.webp)" value={form.imagem} onChange={mudar("imagem")} maxLength={200} placeholder="/imagens/…" />
+                  <Campo rotulo="Crédito da imagem (autor e licença)" value={form.credito} onChange={mudar("credito")} maxLength={200} />
+                  <Campo rotulo="Link do botão (opcional)" value={form.link} onChange={mudar("link")} maxLength={300} placeholder="/pt/materiais ou https://…" />
+                  <Campo rotulo="Texto do botão" value={form.link_texto} onChange={mudar("link_texto")} maxLength={40} />
+                  <Campo rotulo="Quem assina" value={form.assinatura} onChange={mudar("assinatura")} maxLength={120} />
+                  <Campo rotulo="Mostrar até (opcional)" type="date" value={form.ate} onChange={mudar("ate")} />
+                </div>
+                <Recado texto={acao.aviso} />
+              </>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }
@@ -129,6 +149,12 @@ interface Sucessao {
   ordem: { id: string; nome: string; visto_em: string }[];
 }
 
+type AbaDaSeguranca = "fator" | "sucessao" | "passar";
+
+/**
+ * Segurança e sucessão em três abas: a exigência do segundo fator (o estado em faixa), a ordem de sucessão (molde
+ * Configuração: mexe na lista e guarda de uma vez) e, para a coordenação, passar o posto.
+ */
 export function SegurancaSucessao({ me }: { me: Me }) {
   const lider = leads(me);
   const seguranca = useLista<Seguranca>("seguranca_ver");
@@ -142,7 +168,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
   const [nova, setNova] = useState("");
   const [herdeiro, setHerdeiro] = useState("");
   const [confirma, setConfirma] = useState(false);
-  const [aba, setAba] = useState<"fator" | "sucessao" | "passar">("fator");
+  const [aba, setAba] = useState<AbaDaSeguranca>("fator");
 
   const atual = ordem ?? sucessao.dados?.ordem.map((pessoa) => pessoa.id) ?? [];
   const nomeDe = (id: string) => pessoas.dados?.find((pessoa) => pessoa.id === id)?.nome ?? sucessao.dados?.ordem.find((pessoa) => pessoa.id === id)?.nome ?? "…";
@@ -155,119 +181,173 @@ export function SegurancaSucessao({ me }: { me: Me }) {
     [lista[indice], lista[destino]] = [lista[destino], lista[indice]];
     setOrdem(lista);
   };
+  const ligada = Boolean(seguranca.dados?.exigir_2fa);
 
-  return (
-    <div className="max-w-3xl">
-      <Abas
-        atual={aba}
-        escolher={setAba}
-        opcoes={[
-          { id: "fator" as const, nome: "Segundo fator" },
-          { id: "sucessao" as const, nome: "Sucessão" },
-          { id: "passar" as const, nome: "Passar a coordenação" },
-        ].filter((opcao) => lider || opcao.id !== "passar")}
+  const fator = (
+    <div className="pn-tela">
+      <Faixa tom={ligada ? "ok" : "aviso"} titulo="Segundo fator obrigatório">
+        <p>
+          Situação: <strong>{ligada ? "ligada" : "desligada"}</strong>
+        </p>
+      </Faixa>
+      <Cartao sobre="Com esta exigência ligada, coordenação, coordenação pedagógica, supervisão, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.">
+        <div className="pn-secao">
+          {seguranca.dados?.sem_segundo_fator && seguranca.dados.sem_segundo_fator.length > 0 && <Faixa tom="aviso">Ainda sem aplicativo autenticador: {seguranca.dados.sem_segundo_fator.join(", ")}. Avise essas pessoas antes de ligar.</Faixa>}
+          {lider && (
+            <div>
+              <Botao variante={ligada ? "padrao" : "principal"} perigo={ligada} disabled={acao.ocupado} onClick={() => acao.agir("seguranca_configurar", { p_exigir_2fa: !seguranca.dados?.exigir_2fa }, seguranca.dados?.exigir_2fa ? "Exigência desligada." : "Exigência ligada.")}>
+                {seguranca.dados?.exigir_2fa ? "Desligar a exigência" : "Ligar a exigência"}
+              </Botao>
+            </div>
+          )}
+          <p className="pn-ajuda">Só é possível ligar depois de cadastrar e confirmar o seu próprio aplicativo (em Minha conta, Segundo fator). Assim ninguém se tranca do lado de fora.</p>
+        </div>
+      </Cartao>
+    </div>
+  );
+
+  const sucessaoTela = (
+    <div className="pn-tela">
+      {sucessao.dados?.lideranca.map((pessoa) => (
+        <Faixa key={pessoa.id} tom="info">
+          Coordenação hoje: <strong>{pessoa.nome}</strong> <span className="text-ink-soft">· último acesso em {data(pessoa.visto_em)}</span>
+        </Faixa>
+      ))}
+      <MoldeConfiguracao
+        sujo={lider && ordem !== null}
+        salvando={acao.ocupado}
+        rotuloSalvar="Guardar ordem"
+        aoDescartar={lider ? () => setOrdem(null) : undefined}
+        aoSalvar={async () => {
+          if (await acao.agir("sucessao_definir", { p_usuarios: atual }, "Ordem de sucessão guardada.")) setOrdem(null);
+        }}
+        grupos={[
+          {
+            id: "ordem",
+            titulo: "Ordem de sucessão",
+            sobre: "Se a coordenação ficar mais de 90 dias sem entrar no painel, ela passa sozinha para a primeira pessoa desta lista que tenha entrado nos últimos 30 dias. Quem saiu continua na equipe, como vice-coordenação.",
+            campos: (
+              <>
+                {atual.length === 0 ? (
+                  <Vazio titulo="Ninguém na lista: hoje, se a coordenação sumir, o posto fica vago." />
+                ) : (
+                  <ol aria-label="Ordem de sucessão" className="pn-lista pn-lista-plana">
+                    {atual.map((id, indice) => (
+                      <li key={id} className="pn-item">
+                        <span className="pn-rotulo-mono tabular-nums" style={{ minWidth: "1.5rem" }}>
+                          {indice + 1}.
+                        </span>
+                        <span className="pn-item-texto">
+                          <span className="pn-item-titulo">{nomeDe(id)}</span>
+                        </span>
+                        {lider && (
+                          <span className="pn-item-acoes">
+                            <Botao icone pequeno simbolo={ArrowUp} aria-label={`Subir ${nomeDe(id)}`} dica={`Subir ${nomeDe(id)}`} disabled={indice === 0} onClick={() => mover(indice, -1)} />
+                            <Botao icone pequeno simbolo={ArrowDown} aria-label={`Descer ${nomeDe(id)}`} dica={`Descer ${nomeDe(id)}`} disabled={indice === atual.length - 1} onClick={() => mover(indice, 1)} />
+                            <Botao variante="discreto" pequeno simbolo={X} onClick={() => setOrdem(atual.filter((item) => item !== id))}>
+                              Tirar
+                            </Botao>
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                {lider && (
+                  <div className="flex flex-wrap items-end gap-2">
+                    <div className="min-w-60 flex-1">
+                      <span className="pn-rotulo">Acrescentar à lista</span>
+                      <BuscaDePessoa rotulo="Acrescentar à lista" entre={candidatos} escolhida={candidatos.find((pessoa) => pessoa.id === nova) ?? null} escolher={(pessoa) => setNova(pessoa?.id ?? "")} />
+                    </div>
+                    <Botao
+                      disabled={!nova || atual.length >= 10}
+                      onClick={() => {
+                        setOrdem([...atual, nova]);
+                        setNova("");
+                      }}
+                    >
+                      Acrescentar
+                    </Botao>
+                  </div>
+                )}
+                <Faixa tom="aviso">Atenção: esta lista só passa o comando do painel. As contas do domínio, da hospedagem e do banco continuam no nome de quem as criou; guarde o acesso de emergência a elas em um cofre de senhas com herdeiro definido.</Faixa>
+              </>
+            ),
+          },
+        ]}
       />
-      <section hidden={aba !== "fator"}>
-        <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
-        <p className="mt-1 text-ink-soft">
-          Com esta exigência ligada, coordenação, coordenação pedagógica, supervisão, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
-        </p>
-        <p className="mt-2">
-          Situação: <strong>{seguranca.dados?.exigir_2fa ? "ligada" : "desligada"}</strong>
-        </p>
-        {seguranca.dados?.sem_segundo_fator && seguranca.dados.sem_segundo_fator.length > 0 && (
-          <p className="mt-1 text-oxblood">Ainda sem aplicativo autenticador: {seguranca.dados.sem_segundo_fator.join(", ")}. Avise essas pessoas antes de ligar.</p>
-        )}
-        {lider && (
-          <button
-            type="button"
-            className={`mt-3 ${botaoClaro}`}
+    </div>
+  );
+
+  const passar = (
+    <Cartao variante="alerta" titulo="Passar a coordenação" sobre="Você entrega o posto e passa a ser coordenação pedagógica. Só a nova coordenação pode devolver.">
+      <div className="flex flex-wrap items-end gap-2">
+        <div className="min-w-60 flex-1">
+          <span className="pn-rotulo">Para quem</span>
+          <BuscaDePessoa
+            rotulo="Para quem passar a coordenação"
+            entre={ativas}
+            escolhida={ativas.find((pessoa) => pessoa.id === herdeiro) ?? null}
+            escolher={(pessoa) => {
+              setHerdeiro(pessoa?.id ?? "");
+              setConfirma(false);
+            }}
+          />
+        </div>
+        {confirma ? (
+          <Botao
+            perigo
             disabled={acao.ocupado}
-            onClick={() => acao.agir("seguranca_configurar", { p_exigir_2fa: !seguranca.dados?.exigir_2fa }, seguranca.dados?.exigir_2fa ? "Exigência desligada." : "Exigência ligada.")}
+            onClick={async () => {
+              if (await acao.agir("lideranca_passar", { p_usuario: herdeiro }, "Coordenação passada.")) window.location.reload();
+            }}
           >
-            {seguranca.dados?.exigir_2fa ? "Desligar a exigência" : "Ligar a exigência"}
-          </button>
+            Confirmar: passar a coordenação
+          </Botao>
+        ) : (
+          <Botao disabled={!herdeiro} onClick={() => setConfirma(true)}>
+            Passar a coordenação
+          </Botao>
         )}
-        <p className="mt-2 text-ink-soft">Só é possível ligar depois de cadastrar e confirmar o seu próprio aplicativo (em Minha conta, Segundo fator). Assim ninguém se tranca do lado de fora.</p>
-      </section>
+      </div>
+    </Cartao>
+  );
 
-      <section hidden={aba !== "sucessao"}>
-        <h2 className="font-serif text-2xl font-semibold">Ordem de sucessão</h2>
-        <p className="mt-1 text-ink-soft">
-          Se a coordenação ficar mais de 90 dias sem entrar no painel, ela passa sozinha para a primeira pessoa desta lista que tenha entrado nos últimos 30 dias. Quem saiu continua na equipe, como vice-coordenação.
-        </p>
-        {sucessao.dados?.lideranca.map((pessoa) => (
-          <p key={pessoa.id} className="mt-2">
-            Coordenação hoje: <strong>{pessoa.nome}</strong> <span className="text-ink-soft">· último acesso em {data(pessoa.visto_em)}</span>
-          </p>
-        ))}
-        <ol className="mt-3 divide-y divide-rule border-y border-rule">
-          {atual.map((id, indice) => (
-            <li key={id} className="flex flex-wrap items-center justify-between gap-2 py-2">
-              <span>
-                {indice + 1}. {nomeDe(id)}
-              </span>
-              {lider && (
-                <span className="flex gap-3">
-                  <button type="button" className={elo} aria-label={`Subir ${nomeDe(id)}`} disabled={indice === 0} onClick={() => mover(indice, -1)}>↑</button>
-                  <button type="button" className={elo} aria-label={`Descer ${nomeDe(id)}`} disabled={indice === atual.length - 1} onClick={() => mover(indice, 1)}>↓</button>
-                  <button type="button" className={elo} onClick={() => setOrdem(atual.filter((item) => item !== id))}>Tirar</button>
-                </span>
-              )}
-            </li>
-          ))}
-        </ol>
-        {atual.length === 0 && <p className="mt-2 text-ink-soft">Ninguém na lista: hoje, se a coordenação sumir, o posto fica vago.</p>}
-        {lider && (
-          <div className="mt-3 flex flex-wrap items-end gap-3">
-            <div className="min-w-60 flex-1">
-              Acrescentar à lista
-              <BuscaDePessoa rotulo="Acrescentar à lista" entre={candidatos} escolhida={candidatos.find((pessoa) => pessoa.id === nova) ?? null} escolher={(pessoa) => setNova(pessoa?.id ?? "")} />
-            </div>
-            <button type="button" className={botaoClaro} disabled={!nova || atual.length >= 10} onClick={() => { setOrdem([...atual, nova]); setNova(""); }}>
-              Acrescentar
-            </button>
-            <button type="button" className={botao} disabled={acao.ocupado || ordem === null} onClick={async () => { if (await acao.agir("sucessao_definir", { p_usuarios: atual }, "Ordem de sucessão guardada.")) setOrdem(null); }}>
-              Guardar ordem
-            </button>
-          </div>
-        )}
-        <p className="mt-3 text-ink-soft">
-          Atenção: esta lista só passa o comando do painel. As contas do domínio, da hospedagem e do banco continuam no nome de quem as criou; guarde o acesso de emergência a elas em um cofre de senhas com herdeiro definido.
-        </p>
-      </section>
-
-      {lider && (
-        <section hidden={aba !== "passar"}>
-          <h2 className="font-serif text-2xl font-semibold">Passar a coordenação</h2>
-          <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser coordenação pedagógica. Só a nova coordenação pode devolver.</p>
-          <div className="mt-3 flex flex-wrap items-end gap-3">
-            <div className="min-w-60 flex-1">
-              Para quem
-              <BuscaDePessoa
-                rotulo="Para quem passar a coordenação"
-                entre={ativas}
-                escolhida={ativas.find((pessoa) => pessoa.id === herdeiro) ?? null}
-                escolher={(pessoa) => {
-                  setHerdeiro(pessoa?.id ?? "");
-                  setConfirma(false);
-                }}
-              />
-            </div>
-            {confirma ? (
-              <button type="button" className="cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment" disabled={acao.ocupado} onClick={async () => { if (await acao.agir("lideranca_passar", { p_usuario: herdeiro }, "Coordenação passada.")) window.location.reload(); }}>
-                Confirmar: passar a coordenação
-              </button>
-            ) : (
-              <button type="button" className={botaoClaro} disabled={!herdeiro} onClick={() => setConfirma(true)}>
-                Passar a coordenação
-              </button>
-            )}
-          </div>
-        </section>
+  const erro = seguranca.erro || sucessao.erro;
+  return (
+    <div className="pn-tela" style={{ maxWidth: "48rem" }}>
+      <Abas<AbaDaSeguranca>
+        rotulo="Segurança e sucessão"
+        valor={aba}
+        aoMudar={setAba}
+        opcoes={(
+          [
+            { id: "fator", nome: "Segundo fator" },
+            { id: "sucessao", nome: "Sucessão" },
+            { id: "passar", nome: "Passar a coordenação" },
+          ] as { id: AbaDaSeguranca; nome: string }[]
+        ).filter((opcao) => lider || opcao.id !== "passar")}
+        painel={(id) => (id === "fator" ? fator : id === "sucessao" ? sucessaoTela : lider ? passar : null)}
+      />
+      {erro && (
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao
+              pequeno
+              onClick={() => {
+                seguranca.recarregar();
+                sucessao.recarregar();
+              }}
+            >
+              Tentar de novo
+            </Botao>
+          }
+        >
+          {erro}
+        </Faixa>
       )}
-
-      <Aviso texto={seguranca.erro || sucessao.erro || acao.aviso} />
+      <Recado texto={acao.aviso} />
     </div>
   );
 }
@@ -401,6 +481,7 @@ function detalhesLegiveis(detalhes: Record<string, unknown> | null): string {
     .join(" · ");
 }
 
+
 interface Linha {
   id: number;
   criado_em: string;
@@ -421,6 +502,26 @@ const origens: Record<string, string> = { service_role: "A rotina de publicaçã
 const assunto = (linha: Linha) =>
   linha.tabela === "papeis" ? [(papeis as Record<string, string>)[linha.titulo] ?? linha.titulo, linha.alvo_nome].filter(Boolean).join(" · ") : `“${linha.titulo}”`;
 
+/** As colunas comuns às duas trilhas: quando (ordena pela data guardada) e quem. */
+const colunaQuando = <T extends { criado_em: string }>(): ColumnDef<T> => ({ id: "quando", header: "Quando", accessorFn: (l) => l.criado_em, cell: ({ row }) => <span className="whitespace-nowrap tabular-nums">{dataHora(row.original.criado_em)}</span> });
+
+/** Os botões das páginas do servidor (100 linhas por vez), com a escolha do que mostrar à esquerda. */
+function Paginas({ pagina, setPagina, cheia, filtro }: { pagina: number; setPagina: (p: number) => void; cheia: boolean; filtro: ReactNode }) {
+  return (
+    <>
+      <div className="min-w-60" style={{ marginRight: "auto" }}>
+        {filtro}
+      </div>
+      <Botao variante="discreto" simbolo={ArrowLeft} disabled={pagina === 0} onClick={() => setPagina(pagina - 1)}>
+        Mais recentes
+      </Botao>
+      <Botao variante="discreto" simboloFim={ArrowRight} disabled={!cheia} onClick={() => setPagina(pagina + 1)}>
+        Mais antigos
+      </Botao>
+    </>
+  );
+}
+
 /**
  * O livro do acervo: cada inclusão, edição, aprovação, recusa, publicação e exclusão no que vai para o site, e cada
  * função dada ou tirada. Quem escreve é o próprio banco, e nenhuma linha pode ser editada nem apagada antes do prazo.
@@ -429,47 +530,87 @@ function LivroDoAcervo() {
   const [pagina, setPagina] = useState(0);
   const [tabela, setTabela] = useState("");
   const lista = useLista<Linha[]>("audit_logs_listar", { p_pagina: pagina, p_tabela: tabela || null });
+  const colunas: ColumnDef<Linha>[] = [
+    colunaQuando<Linha>(),
+    { id: "quem", header: "Quem", accessorFn: (l) => l.nome || origens[l.via] || "Alguém", cell: ({ getValue }) => <strong>{String(getValue())}</strong> },
+    {
+      id: "o-que",
+      header: "O quê",
+      accessorFn: (l) => `${verbos[l.acao] ?? l.acao} ${coisas[l.tabela] ?? l.tabela} ${assunto(l)}`,
+      cell: ({ row, getValue }) => (
+        <>
+          {String(getValue())}
+          {row.original.acao === "edicao" && row.original.campos.length > 0 && <span className="text-ink-soft"> · mudou: {row.original.campos.join(", ")}</span>}
+        </>
+      ),
+    },
+  ];
   return (
-    <div>
-      <label className="block max-w-sm">
-        Mostrar
-        <select value={tabela} onChange={(e) => { setTabela(e.target.value); setPagina(0); }} className={campo}>
-          <option value="">Tudo</option>
-          <option value="contribuicoes">Só contribuições (aulas, obras, matérias)</option>
-          <option value="arquivos">Só arquivos enviados</option>
-          <option value="materiais">Só materiais</option>
-          <option value="papeis">Só funções dadas e tiradas</option>
-        </select>
-      </label>
-      {lista.erro && <p role="status" className="mt-2 text-oxblood">{lista.erro}</p>}
-      <ul className="mt-2 divide-y divide-rule border-y border-rule">
-        {lista.dados?.map((linha) => (
-          <li key={linha.id} className="py-2">
-            <span className={rotulo}>{dataHora(linha.criado_em)}</span>
-            <p>
-              <strong>{linha.nome || origens[linha.via] || "Alguém"}</strong> {verbos[linha.acao] ?? linha.acao} {coisas[linha.tabela] ?? linha.tabela} {assunto(linha)}
-              {linha.acao === "edicao" && linha.campos.length > 0 && <span className="text-ink-soft"> · mudou: {linha.campos.join(", ")}</span>}
-            </p>
-          </li>
-        ))}
-      </ul>
-      {lista.dados?.length === 0 && <p className="mt-2 text-ink-soft">Nada registrado.</p>}
-      <div className="mt-3 flex gap-4">
-        <button type="button" className={elo} disabled={pagina === 0} onClick={() => setPagina(pagina - 1)}>← Mais recentes</button>
-        <button type="button" className={elo} disabled={(lista.dados?.length ?? 0) < 100} onClick={() => setPagina(pagina + 1)}>Mais antigos →</button>
-      </div>
+    <div className="pn-tela">
+      {lista.erro && (
+        <Faixa
+          tom="erro"
+          acao={
+            <Botao pequeno onClick={lista.recarregar}>
+              Tentar de novo
+            </Botao>
+          }
+        >
+          {lista.erro}
+        </Faixa>
+      )}
+      <MoldeTabela
+        legenda="Livro do acervo"
+        dados={lista.dados ?? []}
+        colunas={colunas}
+        carregando={lista.dados === null && !lista.erro}
+        porPagina={100}
+        densa
+        vazio={<Vazio titulo="Nada registrado." />}
+        barra={
+          <Paginas
+            pagina={pagina}
+            setPagina={setPagina}
+            cheia={(lista.dados?.length ?? 0) >= 100}
+            filtro={
+              <Selecao
+                rotulo="Mostrar"
+                value={tabela}
+                onChange={(e) => {
+                  setTabela(e.target.value);
+                  setPagina(0);
+                }}
+              >
+                <option value="">Tudo</option>
+                <option value="contribuicoes">Só contribuições (aulas, obras, matérias)</option>
+                <option value="arquivos">Só arquivos enviados</option>
+                <option value="materiais">Só materiais</option>
+                <option value="papeis">Só funções dadas e tiradas</option>
+              </Selecao>
+            }
+          />
+        }
+      />
     </div>
   );
 }
 
+type AbaDoRegistro = "decisoes" | "livro";
+
 /** As duas trilhas do que acontece no instituto: as decisões tomadas pelo painel e o livro que o banco escreve sozinho. */
 export function RegistroDeAtividades() {
-  const [aba, setAba] = useState<"decisoes" | "livro">("decisoes");
+  const [aba, setAba] = useState<AbaDoRegistro>("decisoes");
   return (
-    <div>
-      <Abas opcoes={[{ id: "decisoes", nome: "Decisões no painel" }, { id: "livro", nome: "Livro do acervo" }]} atual={aba} escolher={setAba} />
-      {aba === "decisoes" ? <Decisoes /> : <LivroDoAcervo />}
-    </div>
+    <Abas<AbaDoRegistro>
+      rotulo="Registro de atividades"
+      opcoes={[
+        { id: "decisoes", nome: "Decisões no painel" },
+        { id: "livro", nome: "Livro do acervo" },
+      ]}
+      valor={aba}
+      aoMudar={setAba}
+      painel={(id) => (id === "decisoes" ? <Decisoes /> : <LivroDoAcervo />)}
+    />
   );
 }
 
@@ -493,43 +634,69 @@ function Decisoes() {
     };
   }, [pagina, filtro]);
 
+  const colunas: ColumnDef<Registro>[] = [
+    colunaQuando<Registro>(),
+    { id: "quem", header: "Quem", accessorFn: (r) => r.nome || "Alguém sem conta", cell: ({ getValue }) => <strong>{String(getValue())}</strong> },
+    {
+      id: "o-que",
+      header: "O quê",
+      accessorFn: (r) => `${acoes[r.acao] ?? r.acao} ${r.alvo_nome || (/^[0-9a-f-]{36}$/.test(r.alvo) ? "" : r.alvo)}`,
+      // O alerta de função-isca vem num selo de erro (a palavra "ALERTA" já está no texto; a cor só acompanha).
+      cell: ({ row, getValue }) =>
+        row.original.acao === "armadilha" ? (
+          <Selo tom="erro" ponto>
+            {String(getValue())}
+          </Selo>
+        ) : (
+          String(getValue())
+        ),
+    },
+    { id: "detalhes", header: "Detalhes", enableSorting: false, accessorFn: (r) => detalhesLegiveis(r.detalhes), cell: ({ getValue }) => <span className="text-ink-soft">{String(getValue())}</span> },
+  ];
+
   return (
-    <div>
-      <label className="block max-w-sm">
-        Mostrar
-        <select value={filtro} onChange={(e) => { setFiltro(e.target.value); setPagina(0); }} className={campo}>
-          <option value="">Tudo</option>
-          <option value="armadilha">Só alertas de função-isca</option>
-          <option value="aparelho_novo">Só acessos de aparelho novo</option>
-          <option value="papel_confiado">Só funções confiadas</option>
-          <option value="papel_retirado">Só funções retiradas</option>
-          <option value="conta_suspensa">Só contas suspensas</option>
-          <option value="interdicao">Só interdições</option>
-          <option value="expurgo">Só expurgos</option>
-          <option value="senha_redefinida">Só senhas redefinidas</option>
-          <option value="usuario_editado">Só contas editadas pela coordenação</option>
-          <option value="site_configurado">Só mudanças nos controles do site</option>
-          <option value="convite_criado">Só convites criados</option>
-          <option value="isca">Só endereços-isca</option>
-        </select>
-      </label>
-      <Aviso texto={estado.erro} />
-      <ul className="mt-2 divide-y divide-rule border-y border-rule">
-        {estado.lista?.map((item) => (
-          <li key={item.id} className={`py-2 ${item.acao === "armadilha" ? "text-oxblood" : ""}`}>
-            <span className={rotulo}>{dataHora(item.criado_em)}</span>
-            <p>
-              <strong>{item.nome || "Alguém sem conta"}</strong> {acoes[item.acao] ?? item.acao} {item.alvo_nome || (/^[0-9a-f-]{36}$/.test(item.alvo) ? "" : item.alvo)}
-              {detalhesLegiveis(item.detalhes) && <span className="text-ink-soft"> · {detalhesLegiveis(item.detalhes)}</span>}
-            </p>
-          </li>
-        ))}
-      </ul>
-      {estado.lista?.length === 0 && <p className="mt-2 text-ink-soft">Nada registrado.</p>}
-      <div className="mt-3 flex gap-4">
-        <button type="button" className={elo} disabled={pagina === 0} onClick={() => setPagina(pagina - 1)}>← Mais recentes</button>
-        <button type="button" className={elo} disabled={(estado.lista?.length ?? 0) < 100} onClick={() => setPagina(pagina + 1)}>Mais antigos →</button>
-      </div>
+    <div className="pn-tela">
+      {estado.erro && <Faixa tom="erro">{estado.erro}</Faixa>}
+      <MoldeTabela
+        legenda="Decisões no painel"
+        dados={estado.lista ?? []}
+        colunas={colunas}
+        carregando={estado.lista === null}
+        porPagina={100}
+        densa
+        vazio={<Vazio titulo="Nada registrado." />}
+        barra={
+          <Paginas
+            pagina={pagina}
+            setPagina={setPagina}
+            cheia={(estado.lista?.length ?? 0) >= 100}
+            filtro={
+              <Selecao
+                rotulo="Mostrar"
+                value={filtro}
+                onChange={(e) => {
+                  setFiltro(e.target.value);
+                  setPagina(0);
+                }}
+              >
+                <option value="">Tudo</option>
+                <option value="armadilha">Só alertas de função-isca</option>
+                <option value="aparelho_novo">Só acessos de aparelho novo</option>
+                <option value="papel_confiado">Só funções confiadas</option>
+                <option value="papel_retirado">Só funções retiradas</option>
+                <option value="conta_suspensa">Só contas suspensas</option>
+                <option value="interdicao">Só interdições</option>
+                <option value="expurgo">Só expurgos</option>
+                <option value="senha_redefinida">Só senhas redefinidas</option>
+                <option value="usuario_editado">Só contas editadas pela coordenação</option>
+                <option value="site_configurado">Só mudanças nos controles do site</option>
+                <option value="convite_criado">Só convites criados</option>
+                <option value="isca">Só endereços-isca</option>
+              </Selecao>
+            }
+          />
+        }
+      />
     </div>
   );
 }

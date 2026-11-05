@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { CalendarClock, ChevronRight, Copy, ExternalLink, Plus, Radio, Square, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { type Aula } from "@/lib/aovivo";
@@ -12,9 +13,9 @@ import { JITSI_DOMINIO, novaSalaJitsi } from "@/lib/jitsi";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, localDoPainel, papeis, rotulo, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, dataHora, localDoPainel, papeis, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
-import { confirmarFrase } from "./ui";
+import { Area, Botao, CabecalhoDeSecao, Campo, Cartao, confirmarFrase, Esqueleto, Faixa, Lista, Selecao, Selo, Vazio } from "./ui";
 
 /** "2026-10-20T19:00" no fuso do aparelho, para o campo de data e hora. */
 const paraCampo = (iso: string) => {
@@ -108,93 +109,96 @@ export function AulasAoVivo({ me }: { me: Me }) {
   };
   const quem = (aula: Aula) => `${aula.educador.nome}${aula.co_educadores.length ? ` com ${aula.co_educadores.map((c) => c.nome).join(", ")}` : ""}`;
 
+  // O que está no ar fica numa faixa escura de estúdio (os tokens do menu em tinta, que valem nos dois temas).
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="max-w-2xl text-sm text-ink-soft">
-          O que você marcar aqui entra na hora na <a href={`/${lang}/ao-vivo`} target="_blank" rel="noopener noreferrer" className={elo}>agenda pública</a>. Na data, abra a sala e aperte “Começar a aula”: quem marcou presença recebe um recado.
+        <p className="pn-sobre mt-0!">
+          O que você marcar aqui entra na hora na <a href={`/${lang}/ao-vivo`} target="_blank" rel="noopener noreferrer" className="pn-elo">agenda pública</a>. Na data, abra a sala e aperte “Começar a aula”: quem marcou presença recebe um recado.
         </p>
-        <button type="button" className={`${botao} rounded-md`} onClick={() => setEditando("nova")}>
-          + Marcar uma aula
-        </button>
+        <Botao variante="principal" simbolo={Plus} onClick={() => setEditando("nova")}>
+          Marcar uma aula
+        </Botao>
       </div>
 
-      <Aviso texto={lista.erro || acao.aviso} />
+      {lista.erro && <Faixa tom="erro" acao={<Botao pequeno onClick={lista.recarregar}>Tentar de novo</Botao>}>{lista.erro}</Faixa>}
+      <Aviso texto={acao.aviso} />
+      {lista.dados === null && !lista.erro && <Esqueleto forma="cartoes" />}
 
       {noAr.map((aula) => (
-        <section key={aula.id} aria-label="No ar agora" className="relative overflow-hidden rounded-xl border border-[#c21f16]/50 bg-gradient-to-br from-[#2b1511] via-[#1d1410] to-[#17130e] p-6 text-[#f3ead8] shadow-[0_0_0_4px_rgba(194,31,22,0.08)]">
-          <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-[#c21f16]/30 blur-3xl" />
-          <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#ff5a4f]">
+        <section key={aula.id} aria-label="No ar agora" className="pn-cartao relative overflow-hidden border-[var(--pn-menu-destaque)]! bg-[var(--pn-menu-fundo)]! p-6! text-[var(--pn-menu-texto)]">
+          <span aria-hidden className="absolute inset-x-0 top-0 block h-[3px]" style={{ background: "var(--pn-lutas)" }} />
+          <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.25em] text-[var(--pn-menu-destaque)]">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ff5a4f] opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#ff5a4f]" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--pn-menu-destaque)] opacity-75 motion-safe:animate-ping" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--pn-menu-destaque)]" />
             </span>
             Ao vivo agora
           </p>
           <h2 className="mt-2 font-serif text-3xl font-semibold leading-tight [text-wrap:balance]">{aula.titulo}</h2>
-          <p className="mt-1 text-sm text-[#cdbb91]">
+          <p className="mt-1 text-sm text-[var(--pn-menu-texto-suave)]">
             {nomeDaArea(aula.disciplina)} · {quem(aula)} · desde {hora(aula.iniciada_em ?? aula.inicio)}
           </p>
           <dl className="mt-4 flex flex-wrap gap-6 text-sm">
             <div>
-              <dt className="text-xs text-[#cdbb91]">Marcaram presença</dt>
+              <dt className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[var(--pn-menu-rotulo)]">Marcaram presença</dt>
               <dd className="font-serif text-2xl font-semibold">{aula.inscritos}</dd>
             </div>
             {typeof aula.mensagens === "number" && (
               <div>
-                <dt className="text-xs text-[#cdbb91]">Mensagens no bate-papo</dt>
+                <dt className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[var(--pn-menu-rotulo)]">Mensagens no bate-papo</dt>
                 <dd className="font-serif text-2xl font-semibold">{aula.mensagens}</dd>
               </div>
             )}
           </dl>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <a href={abrirSala(aula.id)} target="_blank" rel="noopener noreferrer" className="rounded-md bg-[#c21f16] px-5 py-2.5 font-semibold text-white hover:bg-[#a51912]">Entrar na sala ↗</a>
-            <button type="button" className="cursor-pointer rounded-md border border-[#cdbb91]/50 px-4 py-2.5 hover:border-[#f3ead8]" onClick={() => copiar(aula)}>Copiar o endereço</button>
-            <button type="button" className="cursor-pointer rounded-md px-4 py-2.5 text-[#cdbb91] hover:text-[#f3ead8]" disabled={acao.ocupado} onClick={() => encerrar(aula)}>Encerrar a aula</button>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <a href={abrirSala(aula.id)} target="_blank" rel="noopener noreferrer" className={botao}>Entrar na sala <ExternalLink aria-hidden /></a>
+            <Botao simbolo={Copy} onClick={() => copiar(aula)}>Copiar o endereço</Botao>
+            <Botao variante="discreto" simbolo={Square} className="text-[var(--pn-menu-texto)]! hover:bg-[var(--pn-menu-superficie)]!" disabled={acao.ocupado} onClick={() => encerrar(aula)}>Encerrar a aula</Botao>
           </div>
           <TransmitirNoYoutube aula={aula} escuro />
         </section>
       ))}
 
       {proxima && noAr.length === 0 && (
-        <section aria-label="Próxima aula" className="grid gap-4 rounded-xl border-2 border-ink bg-parchment-deep p-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center">
-          <div className="rounded-lg bg-ink px-5 py-4 text-center text-parchment">
-            <p className="font-mono text-[0.65rem] uppercase tracking-widest opacity-80">Próxima aula</p>
+        <Cartao variante="destaque" aria-label="Próxima aula" className="grid gap-4 sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center">
+          <div className="rounded-[var(--pn-raio-cartao)] bg-[var(--pn-menu-fundo)] px-5 py-4 text-center text-[var(--pn-menu-texto)]">
+            <p className="font-mono text-[0.65rem] uppercase tracking-widest text-[var(--pn-menu-rotulo)]">Próxima aula</p>
             <p className="mt-1 font-serif text-2xl font-semibold">{falta(proxima.inicio, agora)}</p>
           </div>
           <div className="min-w-0">
-            <p className={rotulo}>{nomeDoDia(proxima)} · {hora(proxima.inicio)} · {proxima.duracao} min · {nomeDaArea(proxima.disciplina)}</p>
+            <p className="pn-rotulo-mono">{nomeDoDia(proxima)} · {hora(proxima.inicio)} · {proxima.duracao} min · {nomeDaArea(proxima.disciplina)}</p>
             <h2 className="font-serif text-2xl font-semibold leading-snug">{proxima.titulo}</h2>
             <p className="text-sm text-ink-soft">{quem(proxima)} · {proxima.inscritos} {proxima.inscritos === 1 ? "pessoa marcou presença" : "pessoas marcaram presença"}</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              <a href={abrirSala(proxima.id)} target="_blank" rel="noopener noreferrer" className={`${botaoClaro} rounded-md py-1.5`}>Abrir a sala ↗</a>
-              <button type="button" className={`${botao} rounded-md py-1.5`} disabled={acao.ocupado} onClick={() => comecar(proxima)}>Começar agora</button>
+              <a href={abrirSala(proxima.id)} target="_blank" rel="noopener noreferrer" className={`${botaoClaro} pn-botao-pequeno`}>Abrir a sala <ExternalLink aria-hidden /></a>
+              <Botao variante="principal" pequeno simbolo={Radio} disabled={acao.ocupado} onClick={() => comecar(proxima)}>Começar agora</Botao>
             </div>
             <TransmitirNoYoutube aula={proxima} />
           </div>
-        </section>
+        </Cartao>
       )}
 
       {lista.dados && aulas.length === 0 && (
-        <div className="rounded-xl border border-dashed border-rule px-6 py-12 text-center">
-          <p aria-hidden className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#c21f16] text-xl text-white">●</p>
-          <p className="mt-4 font-serif text-2xl font-semibold">Nenhuma aula marcada</p>
-          <p className="mx-auto mt-1 max-w-md text-ink-soft">Uma aula ao vivo junta a turma na mesma hora: vídeo, tela compartilhada, bate-papo e perguntas. Dá para chamar colegas para dar junto.</p>
-          <button type="button" className={`${botao} mt-4 rounded-md`} onClick={() => setEditando("nova")}>Marcar a primeira</button>
-        </div>
+        <Vazio
+          simbolo={Radio}
+          titulo="Nenhuma aula marcada"
+          texto="Uma aula ao vivo junta a turma na mesma hora: vídeo, tela compartilhada, bate-papo e perguntas. Dá para chamar colegas para dar junto."
+          acao={<Botao variante="principal" simbolo={Plus} onClick={() => setEditando("nova")}>Marcar a primeira</Botao>}
+        />
       )}
 
       {porDia.length > 0 && (
-        <section aria-labelledby="agenda-titulo">
-          <h2 id="agenda-titulo" className={rotulo}>Agenda</h2>
-          <div className="mt-3 space-y-5">
+        <section aria-labelledby="agenda-titulo" className="space-y-3">
+          <CabecalhoDeSecao nivel={2} id="agenda-titulo" titulo="Agenda" simbolo={CalendarClock} />
+          <div className="space-y-5">
             {porDia.map((grupo) => (
               <div key={grupo.dia} className="grid gap-3 sm:grid-cols-[9rem_minmax(0,1fr)]">
                 <p className="font-serif text-lg font-semibold first-letter:uppercase sm:pt-3">{nomeDoDia(grupo.aulas[0])}</p>
-                <ul className="space-y-2">
+                <Lista rotulo={nomeDoDia(grupo.aulas[0])}>
                   {grupo.aulas.map((aula) => (
-                    <li key={aula.id} className="flex gap-3 rounded-lg border border-rule bg-parchment-deep p-3">
-                      <div className="w-16 shrink-0 border-r border-rule pr-3 text-right">
+                    <li key={aula.id} className="flex gap-3 border-b border-[var(--pn-borda)] p-3 last:border-b-0">
+                      <div className="w-16 shrink-0 border-r border-[var(--pn-borda)] pr-3 text-right">
                         <p className="font-mono text-sm font-semibold">{hora(aula.inicio)}</p>
                         <p className="text-xs text-ink-soft">{aula.duracao} min</p>
                       </div>
@@ -202,22 +206,22 @@ export function AulasAoVivo({ me }: { me: Me }) {
                         <p className="text-xs text-ink-soft">{nomeDaArea(aula.disciplina)}{aula.sala_externa ? ` · sala ${{ propria: "do instituto", peertube: "PeerTube", meet: "no Google Meet", youtube: "no YouTube", jitsi: "no Jitsi", outro: aula.sala_externa.includes(JITSI_DOMINIO) ? "no Jitsi" : "em outro site", nenhum: "" }[tipoNoSite(aula.sala_externa)]}` : ""}</p>
                         <p className="font-semibold leading-snug">{aula.titulo}</p>
                         <p className="text-xs text-ink-soft">{quem(aula)} · {aula.inscritos} {aula.inscritos === 1 ? "presença" : "presenças"}</p>
-                        <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
-                          <a href={abrirSala(aula.id)} target="_blank" rel="noopener noreferrer" className={elo}>Abrir a sala ↗</a>
-                          <button type="button" className={elo} onClick={() => setEditando(aula)}>Alterar</button>
-                          <button type="button" className={elo} disabled={acao.ocupado} onClick={() => comecar(aula)}>Começar agora</button>
-                          <button type="button" className={elo} onClick={() => copiar(aula)}>Copiar o endereço</button>
+                        <p className="mt-2 flex flex-wrap gap-1">
+                          <a href={abrirSala(aula.id)} target="_blank" rel="noopener noreferrer" className="pn-botao pn-botao-discreto pn-botao-pequeno">Abrir a sala <ExternalLink aria-hidden /></a>
+                          <Botao variante="discreto" pequeno onClick={() => setEditando(aula)}>Alterar</Botao>
+                          <Botao variante="discreto" pequeno disabled={acao.ocupado} onClick={() => comecar(aula)}>Começar agora</Botao>
+                          <Botao variante="discreto" pequeno onClick={() => copiar(aula)}>Copiar o endereço</Botao>
                           {aula.id !== proxima?.id && (
-                            <button type="button" className={elo} aria-expanded={transmitir === aula.id} onClick={() => setTransmitir(transmitir === aula.id ? null : aula.id)}>Transmitir pelo YouTube</button>
+                            <Botao variante="discreto" pequeno aria-expanded={transmitir === aula.id} onClick={() => setTransmitir(transmitir === aula.id ? null : aula.id)}>Transmitir pelo YouTube</Botao>
                           )}
-                          <button type="button" className={`${elo} text-ink-soft`} disabled={acao.ocupado} onClick={() => cancelar(aula)}>Cancelar</button>
-                          {can(me, "coordenacao") && <button type="button" className={`${elo} text-oxblood`} disabled={acao.ocupado} onClick={() => apagar(aula)}>Apagar</button>}
+                          <Botao variante="discreto" pequeno disabled={acao.ocupado} onClick={() => cancelar(aula)}>Cancelar</Botao>
+                          {can(me, "coordenacao") && <Botao variante="discreto" pequeno perigo disabled={acao.ocupado} onClick={() => apagar(aula)}>Apagar</Botao>}
                         </p>
                         {transmitir === aula.id && <TransmitirNoYoutube aula={aula} aberto />}
                       </div>
                     </li>
                   ))}
-                </ul>
+                </Lista>
               </div>
             ))}
           </div>
@@ -225,28 +229,28 @@ export function AulasAoVivo({ me }: { me: Me }) {
       )}
 
       {passadas.length > 0 && (
-        <section aria-labelledby="passadas-titulo" className="border-t border-rule pt-5">
-          <button type="button" id="passadas-titulo" className="flex cursor-pointer items-center gap-2 font-semibold" aria-expanded={passadasAbertas} onClick={() => setPassadasAbertas(!passadasAbertas)}>
-            <span aria-hidden className={`transition-transform ${passadasAbertas ? "rotate-90" : ""}`}>▸</span>
+        <section aria-labelledby="passadas-titulo" className="border-t border-[var(--pn-borda)] pt-5">
+          <button type="button" id="passadas-titulo" className="flex cursor-pointer items-center gap-2 rounded-[var(--pn-raio)] font-semibold focus-visible:outline-2 focus-visible:outline-[var(--pn-foco)]" aria-expanded={passadasAbertas} onClick={() => setPassadasAbertas(!passadasAbertas)}>
+            <ChevronRight aria-hidden className={`h-4 w-4 motion-safe:transition-transform ${passadasAbertas ? "rotate-90" : ""}`} />
             Já aconteceram ({passadas.length})
-            {passadas.some((a) => a.status === "encerrada" && !a.gravacao) && <span className="rounded-sm bg-gold/25 px-1.5 text-xs">{passadas.filter((a) => a.status === "encerrada" && !a.gravacao).length} sem gravação</span>}
+            {passadas.some((a) => a.status === "encerrada" && !a.gravacao) && <Selo tom="aviso">{passadas.filter((a) => a.status === "encerrada" && !a.gravacao).length} sem gravação</Selo>}
           </button>
           {passadasAbertas && (
-            <ul className="mt-3 divide-y divide-rule border-y border-rule">
+            <Lista rotulo={`Já aconteceram (${passadas.length})`} className="mt-3!">
               {passadas.map((aula) => (
-                <li key={aula.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-3 text-sm">
+                <li key={aula.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-[var(--pn-borda)] px-3.5 py-3 text-sm last:border-b-0">
                   <span className="w-28 shrink-0 font-mono text-xs text-ink-soft">{dataHora(aula.inicio)}</span>
                   <span className="min-w-0 flex-1">
-                    <span className={`font-semibold ${aula.status === "cancelada" ? "line-through opacity-60" : ""}`}>{aula.titulo}</span>
-                    <span className="text-ink-soft"> · {aula.status === "cancelada" ? "cancelada" : `${aula.inscritos} ${aula.inscritos === 1 ? "presença" : "presenças"}`}</span>
+                    <span className={`font-semibold ${aula.status === "cancelada" ? "line-through opacity-60" : ""}`}>{aula.titulo}</span>{" "}
+                    {aula.status === "cancelada" ? <Selo>cancelada</Selo> : <span className="text-ink-soft">· {`${aula.inscritos} ${aula.inscritos === 1 ? "presença" : "presenças"}`}</span>}
                   </span>
-                  <span className="flex flex-wrap gap-x-3">
-                    {aula.status === "encerrada" && (aula.gravacao ? <a href={aula.gravacao} target="_blank" rel="noopener noreferrer" className={elo}>Gravação ↗</a> : <button type="button" className={elo} onClick={() => setEditando(aula)}>Pôr a gravação</button>)}
-                    {(aula.status === "cancelada" || can(me, "coordenacao")) && <button type="button" className={`${elo} text-oxblood`} disabled={acao.ocupado} onClick={() => apagar(aula)}>Apagar</button>}
+                  <span className="flex flex-wrap gap-1">
+                    {aula.status === "encerrada" && (aula.gravacao ? <a href={aula.gravacao} target="_blank" rel="noopener noreferrer" className="pn-botao pn-botao-discreto pn-botao-pequeno">Gravação <ExternalLink aria-hidden /></a> : <Botao variante="discreto" pequeno onClick={() => setEditando(aula)}>Pôr a gravação</Botao>)}
+                    {(aula.status === "cancelada" || can(me, "coordenacao")) && <Botao variante="discreto" pequeno perigo disabled={acao.ocupado} onClick={() => apagar(aula)}>Apagar</Botao>}
                   </span>
                 </li>
               ))}
-            </ul>
+            </Lista>
           )}
         </section>
       )}
@@ -295,44 +299,46 @@ function TransmitirNoYoutube({ aula, escuro = false, aberto = false }: { aula: A
   }
   const copiar = (texto: string, oQue: string) => void navigator.clipboard?.writeText(texto).then(() => setAviso(`${oQue} copiado.`), () => setAviso(texto));
 
-  const caixa = escuro ? "mt-5 rounded-lg border border-[#cdbb91]/40 p-4 text-sm text-[#f3ead8]" : "mt-4 rounded-lg border border-rule bg-parchment p-4 text-sm";
-  const fraco = escuro ? "text-[#cdbb91]" : "text-ink-soft";
-  const campoFixo = `min-w-0 flex-1 truncate rounded border px-2 py-1 font-mono text-xs ${escuro ? "border-[#cdbb91]/40 bg-black/30" : "border-rule bg-parchment-deep"}`;
+  // Na faixa escura do "ao vivo", o quadro usa os tokens do menu em tinta; fora dela, os da área de trabalho.
+  const caixa = escuro ? "mt-5 rounded-[var(--pn-raio-cartao)] border border-[var(--pn-menu-borda)] bg-[var(--pn-menu-superficie)] p-4 text-sm text-[var(--pn-menu-texto)]" : "mt-4 rounded-[var(--pn-raio-cartao)] border border-[var(--pn-borda)] bg-[var(--pn-fundo)] p-4 text-sm";
+  const fraco = escuro ? "text-[var(--pn-menu-texto-suave)]" : "text-ink-soft";
+  const campoFixo = `min-w-0 flex-1 truncate rounded-[var(--pn-raio)] border px-2 py-1 font-mono text-xs ${escuro ? "border-[var(--pn-menu-borda)] bg-[var(--pn-menu-fundo)]" : "border-[var(--pn-borda)] bg-[var(--pn-superficie)]"}`;
+  const eloAqui = escuro ? "cursor-pointer rounded-[var(--pn-raio)] text-[var(--pn-menu-texto)] underline underline-offset-2 hover:text-[var(--pn-menu-destaque)] focus-visible:outline-2 focus-visible:outline-[var(--pn-menu-destaque)] disabled:opacity-50" : "pn-elo";
   return (
     <details className={caixa} open={aberto || Boolean(dados)}>
-      <summary className="cursor-pointer font-semibold">Transmitir pelo YouTube do instituto</summary>
+      <summary className="cursor-pointer rounded-[var(--pn-raio)] font-semibold">Transmitir pelo YouTube do instituto</summary>
       <p className={`mt-2 ${fraco}`}>
         Para turmas grandes: a aula passa no canal do instituto (não listada) e aqui no site, com o bate-papo do site. Use o OBS no computador ou o
         Larix Broadcaster no celular. A chave vale só para esta aula; ninguém recebe a senha do canal.
       </p>
       {!dados ? (
-        <button type="button" className={`${escuro ? "bg-[#c21f16] text-white hover:bg-[#a51912]" : "bg-ink text-parchment hover:bg-oxblood"} mt-3 cursor-pointer rounded-md px-4 py-2 font-semibold disabled:opacity-50`} disabled={ocupado} onClick={() => void gerar()}>
+        <Botao variante="principal" className="mt-3" carregando={ocupado} onClick={() => void gerar()}>
           {ocupado ? "Criando a transmissão…" : "Criar a transmissão e a chave desta aula"}
-        </button>
+        </Botao>
       ) : (
         <div className="mt-3 space-y-2">
           <div className="flex items-center gap-2">
             <span className="w-20 shrink-0 text-xs font-semibold">Servidor</span>
             <code className={campoFixo}>{dados.rtmp}</code>
-            <button type="button" className={elo} onClick={() => copiar(dados.rtmp, "Servidor")}>Copiar</button>
+            <button type="button" className={eloAqui} onClick={() => copiar(dados.rtmp, "Servidor")}>Copiar</button>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-20 shrink-0 text-xs font-semibold">Chave</span>
             <code className={campoFixo}>{verChave ? dados.chave : "•".repeat(Math.min(24, dados.chave.length))}</code>
-            <button type="button" className={elo} onClick={() => setVerChave(!verChave)}>{verChave ? "Esconder" : "Mostrar"}</button>
-            <button type="button" className={elo} onClick={() => copiar(dados.chave, "Chave")}>Copiar</button>
+            <button type="button" className={eloAqui} aria-pressed={verChave} onClick={() => setVerChave(!verChave)}>{verChave ? "Esconder" : "Mostrar"}</button>
+            <button type="button" className={eloAqui} onClick={() => copiar(dados.chave, "Chave")}>Copiar</button>
           </div>
           <p className={`text-xs ${fraco}`}>
             No OBS: Configurações › Transmissão › Serviço “Personalizado”, cole o servidor e a chave. No Larix: Configurações › Conexões › nova, cole
             “servidor/chave” no endereço. Não mande a chave para ninguém: quem tem a chave transmite no canal do instituto.
           </p>
           <p className="flex flex-wrap gap-x-4 gap-y-1">
-            <a href={linkDoYoutube(dados.youtube)} target="_blank" rel="noopener noreferrer" className={elo}>Ver a transmissão no YouTube ↗</a>
-            <button type="button" className={elo} disabled={ocupado} onClick={() => void encerrarNoYoutube()}>Encerrar no YouTube</button>
+            <a href={linkDoYoutube(dados.youtube)} target="_blank" rel="noopener noreferrer" className={`${eloAqui} inline-flex items-center gap-1`}>Ver a transmissão no YouTube <ExternalLink aria-hidden className="h-3.5 w-3.5" /></a>
+            <button type="button" className={eloAqui} disabled={ocupado} onClick={() => void encerrarNoYoutube()}>Encerrar no YouTube</button>
           </p>
         </div>
       )}
-      {aviso && <p role="status" className={`mt-2 ${escuro ? "text-[#f0cf8e]" : "text-oxblood"}`}>{aviso}</p>}
+      {aviso && <p role="status" className={`mt-2 ${escuro ? "text-[var(--pn-menu-ouro)]" : "text-oxblood"}`}>{aviso}</p>}
     </details>
   );
 }
@@ -378,19 +384,22 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
   }
 
   // No body: a área de conteúdo do painel tem transform (da animação de entrada), que prenderia o "fixed" dentro dela.
+  // "pn-portal" leva para cá a fonte e as cores do painel, que fora dele não valeriam.
+  const opcaoDeSala = (escolhida: boolean) => `cursor-pointer rounded-[var(--pn-raio-cartao)] border p-3 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--pn-foco)] ${escolhida ? "border-[var(--pn-destaque-vivo)] bg-[var(--pn-destaque-suave)] shadow-[inset_0_0_0_1px_var(--pn-destaque-vivo)]" : "border-[var(--pn-borda)] bg-[var(--pn-superficie)] hover:border-[var(--pn-borda-forte)]"}`;
   return createPortal(
-    <div className="fixed inset-0 z-[90] flex justify-end bg-[rgba(23,19,14,0.4)]" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
-      <aside role="dialog" aria-modal="true" aria-label={aula ? "Alterar a aula" : "Marcar uma aula"} className="flex h-full w-full max-w-2xl flex-col border-l-2 border-ink bg-parchment text-ink shadow-2xl">
-        <div className="flex items-center justify-between gap-3 border-b border-rule px-5 py-3">
+    <div className="pn-portal fixed inset-0 z-[90] flex justify-end bg-[var(--pn-veu)]" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
+      <aside role="dialog" aria-modal="true" aria-label={aula ? "Alterar a aula" : "Marcar uma aula"} className="flex h-full w-full max-w-2xl flex-col border-l border-[var(--pn-borda)] bg-[var(--pn-fundo)] text-ink shadow-[var(--pn-sombra-flutuante)]">
+        <span aria-hidden className="block h-[3px] shrink-0" style={{ background: "var(--pn-lutas)" }} />
+        <div className="flex items-center justify-between gap-3 border-b border-[var(--pn-borda)] bg-[var(--pn-superficie)] px-5 py-3">
           <h2 className="font-serif text-xl font-semibold">{passou ? "Depois da aula" : aula ? "Alterar a aula" : "Marcar uma aula"}</h2>
-          <button type="button" onClick={fechar} aria-label="Fechar" className="cursor-pointer px-2 text-2xl leading-none text-ink-soft hover:text-ink">×</button>
+          <Botao icone variante="discreto" simbolo={X} onClick={fechar} aria-label="Fechar" />
         </div>
         <form className="min-h-0 flex-1 space-y-5 overflow-y-auto px-5 py-5" onSubmit={(e) => { e.preventDefault(); void guardar(); }}>
-          <div className="rounded-lg border border-rule bg-parchment-deep p-4" aria-label="Como aparece na agenda pública">
-            <p className="font-mono text-[0.6rem] uppercase tracking-widest text-ink-soft">Como aparece na agenda pública</p>
+          <Cartao as="div" variante="plano" aria-label="Como aparece na agenda pública">
+            <p className="pn-rotulo-mono">Como aparece na agenda pública</p>
             <div className="mt-2 flex gap-3">
-              <div className="w-14 shrink-0 rounded-md bg-ink py-2 text-center text-parchment">
-                <p className="text-[0.6rem] uppercase">{Number.isNaN(inicio.getTime()) ? "—" : inicio.toLocaleDateString(localDoPainel(), { month: "short" })}</p>
+              <div className="w-14 shrink-0 rounded-[var(--pn-raio)] bg-[var(--pn-menu-fundo)] py-2 text-center text-[var(--pn-menu-texto)]">
+                <p className="text-[0.6rem] uppercase text-[var(--pn-menu-destaque)]">{Number.isNaN(inicio.getTime()) ? "—" : inicio.toLocaleDateString(localDoPainel(), { month: "short" })}</p>
                 <p className="font-serif text-xl font-semibold leading-none">{Number.isNaN(inicio.getTime()) ? "" : inicio.getDate()}</p>
               </div>
               <div className="min-w-0">
@@ -399,62 +408,46 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
                 {form.descricao && <p className="line-clamp-2 text-sm text-ink-soft">{form.descricao}</p>}
               </div>
             </div>
-          </div>
+          </Cartao>
 
           {!passou && (
             <>
-              <label className="block font-semibold">
-                Título
-                <input value={form.titulo} onChange={(e) => mudar("titulo", e.target.value)} maxLength={140} required className={campo} />
-              </label>
-              <label className="block font-semibold">
-                Sobre a aula
-                <span className="block text-xs font-normal text-ink-soft">O que vai ser visto, para quem é, o que levar.</span>
-                <textarea value={form.descricao} onChange={(e) => mudar("descricao", e.target.value)} rows={3} maxLength={2000} className={campo} />
-              </label>
+              <Campo rotulo="Título" value={form.titulo} onChange={(e) => mudar("titulo", e.target.value)} maxLength={140} required />
+              <Area rotulo="Sobre a aula" ajuda="O que vai ser visto, para quem é, o que levar." value={form.descricao} onChange={(e) => mudar("descricao", e.target.value)} rows={3} maxLength={2000} />
               <div className="grid gap-3 sm:grid-cols-2">
-                <label className="block font-semibold">
-                  Disciplina
-                  <select value={form.disciplina} onChange={(e) => { mudar("disciplina", e.target.value); mudar("trilha", ""); }} className={campo}>
-                    {disciplinas.map((area) => (
-                      <option key={area} value={area}>{nomeDaArea(area)}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="block font-semibold">
-                  Trilha (opcional)
-                  <select value={form.trilha} onChange={(e) => mudar("trilha", e.target.value)} className={campo}>
-                    <option value="">Nenhuma</option>
-                    {trilhas.map((x) => (
-                      <option key={x.slug} value={x.slug}>{x.title}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="block font-semibold">
-                  Data e hora
-                  <input type="datetime-local" value={form.inicio} onChange={(e) => mudar("inicio", e.target.value)} required className={campo} />
-                </label>
+                <Selecao rotulo="Disciplina" value={form.disciplina} onChange={(e) => { mudar("disciplina", e.target.value); mudar("trilha", ""); }}>
+                  {disciplinas.map((area) => (
+                    <option key={area} value={area}>{nomeDaArea(area)}</option>
+                  ))}
+                </Selecao>
+                <Selecao rotulo="Trilha (opcional)" value={form.trilha} onChange={(e) => mudar("trilha", e.target.value)}>
+                  <option value="">Nenhuma</option>
+                  {trilhas.map((x) => (
+                    <option key={x.slug} value={x.slug}>{x.title}</option>
+                  ))}
+                </Selecao>
+                <Campo rotulo="Data e hora" type="datetime-local" value={form.inicio} onChange={(e) => mudar("inicio", e.target.value)} required />
                 <div>
-                  <p className="font-semibold">Duração</p>
+                  <p className="pn-rotulo">Duração</p>
                   <div className="mt-1 flex flex-wrap gap-1" role="group" aria-label="Duração">
                     {[30, 45, 60, 90, 120].map((min) => (
-                      <button key={min} type="button" aria-pressed={form.duracao === min} onClick={() => mudar("duracao", min)} className={`cursor-pointer rounded-md border px-2.5 py-2 text-sm ${form.duracao === min ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
+                      <Botao key={min} pequeno variante={form.duracao === min ? "principal" : "padrao"} aria-pressed={form.duracao === min} onClick={() => mudar("duracao", min)}>
                         {min < 60 ? `${min} min` : `${min / 60} h${min % 60 ? " 30" : ""}`}
-                      </button>
+                      </Botao>
                     ))}
                   </div>
                 </div>
               </div>
 
-              <fieldset className="rounded-lg border border-rule p-4">
+              <fieldset className="pn-cartao">
                 <legend className="px-1 font-semibold">Dar a aula junto com (opcional)</legend>
                 <p className="text-sm text-ink-soft">Quem for chamado recebe o recado na hora e também conduz a sala. Até oito.</p>
                 {colegas.length > 0 && (
                   <ul className="mt-2 flex flex-wrap gap-2">
                     {colegas.map((pessoa) => (
-                      <li key={pessoa.id} className="flex items-center gap-2 rounded-full border border-ink bg-parchment-deep py-1 pl-3 pr-2 text-sm">
+                      <li key={pessoa.id} className="flex items-center gap-1 rounded-[var(--pn-raio-selo)] border border-[var(--pn-borda-forte)] bg-[var(--pn-ativo)] py-0.5 pl-3 pr-1 text-sm">
                         <strong>{pessoa.nome}</strong>
-                        <button type="button" className="cursor-pointer text-ink-soft hover:text-oxblood" aria-label={`Tirar ${pessoa.nome}`} onClick={() => setColegas(colegas.filter((c) => c.id !== pessoa.id))}>✕</button>
+                        <Botao icone pequeno variante="discreto" simbolo={X} aria-label={`Tirar ${pessoa.nome}`} onClick={() => setColegas(colegas.filter((c) => c.id !== pessoa.id))} />
                       </li>
                     ))}
                   </ul>
@@ -467,45 +460,55 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
               </fieldset>
 
               <div>
-                <p className="font-semibold">Sala de vídeo</p>
+                <p className="pn-rotulo">Sala de vídeo</p>
                 <div className={`mt-2 grid gap-2 ${GALENE_URL ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
-                  <button type="button" aria-pressed={!form.sala_externa} onClick={() => mudar("sala_externa", "")} className={`cursor-pointer rounded-lg border-2 p-3 text-left ${!form.sala_externa ? "border-ink bg-parchment-deep" : "border-rule hover:border-ink-soft"}`}>
+                  <button type="button" aria-pressed={!form.sala_externa} onClick={() => mudar("sala_externa", "")} className={opcaoDeSala(!form.sala_externa)}>
                     <span className="block text-sm font-semibold">Sala do site</span>
                     <span className="block text-xs text-ink-soft">O vídeo vai direto do seu navegador para cada pessoa. Boa para turma pequena.</span>
                   </button>
                   {GALENE_URL && (
-                    <button type="button" aria-pressed={salaPropria} onClick={() => mudar("sala_externa", `${GALENE_URL}/`)} className={`cursor-pointer rounded-lg border-2 p-3 text-left ${salaPropria ? "border-ink bg-parchment-deep" : "border-rule hover:border-ink-soft"}`}>
+                    <button type="button" aria-pressed={salaPropria} onClick={() => mudar("sala_externa", `${GALENE_URL}/`)} className={opcaoDeSala(salaPropria)}>
                       <span className="block text-sm font-semibold">Sala do instituto (aula com gravação)</span>
                       <span className="block text-xs text-ink-soft">Turma de até uns 50, chat, tela compartilhada e gravação. Você entra como professor pela página da aula.</span>
                     </button>
                   )}
-                  <button type="button" aria-pressed={Boolean(form.sala_externa) && !salaPropria} onClick={() => (!form.sala_externa || salaPropria) && mudar("sala_externa", novaSalaJitsi())} className={`cursor-pointer rounded-lg border-2 p-3 text-left ${form.sala_externa && !salaPropria ? "border-ink bg-parchment-deep" : "border-rule hover:border-ink-soft"}`}>
+                  <button type="button" aria-pressed={Boolean(form.sala_externa) && !salaPropria} onClick={() => (!form.sala_externa || salaPropria) && mudar("sala_externa", novaSalaJitsi())} className={opcaoDeSala(Boolean(form.sala_externa) && !salaPropria)}>
                     <span className="block text-sm font-semibold">Sala no Jitsi</span>
                     <span className="block text-xs text-ink-soft">Recomendada para turma grande. Abre dentro da página da aula, com nome sorteado.</span>
                   </button>
                 </div>
                 {form.sala_externa && !salaPropria && (
-                  <label className="mt-2 block text-sm">
-                    Endereço da sala
-                    <input value={form.sala_externa} onChange={(e) => mudar("sala_externa", e.target.value)} placeholder="https://" maxLength={500} className={`${campo} font-mono text-sm`} />
-                    <span className="mt-1 block text-xs text-ink-soft">A sala em {JITSI_DOMINIO} abre dentro da página. Reunião interna: cole o link do Google Meet (abre fora do site). Transmissão no PeerTube do instituto: cole o link do vídeo (abre dentro da página, só depois do clique de quem assiste).</span>
-                  </label>
+                  <div className="mt-2">
+                    <Campo
+                      rotulo="Endereço da sala"
+                      ajuda={`A sala em ${JITSI_DOMINIO} abre dentro da página. Reunião interna: cole o link do Google Meet (abre fora do site). Transmissão no PeerTube do instituto: cole o link do vídeo (abre dentro da página, só depois do clique de quem assiste).`}
+                      value={form.sala_externa}
+                      onChange={(e) => mudar("sala_externa", e.target.value)}
+                      placeholder="https://"
+                      maxLength={500}
+                      className="font-mono text-sm"
+                    />
+                  </div>
                 )}
               </div>
             </>
           )}
 
           {aula && aula.status !== "agendada" && (
-            <label className="block font-semibold">
-              Gravação
-              <span className="block text-xs font-normal text-ink-soft">O endereço do vídeo, depois da aula (opcional). Link do PeerTube do instituto ou do YouTube toca dentro da página, só depois do clique. Aparece na agenda para quem não pôde vir.</span>
-              <input value={form.gravacao} onChange={(e) => mudar("gravacao", e.target.value)} placeholder="https://… ou /pt/videoaulas…" maxLength={500} className={`${campo} font-mono text-sm`} />
-            </label>
+            <Campo
+              rotulo="Gravação"
+              ajuda="O endereço do vídeo, depois da aula (opcional). Link do PeerTube do instituto ou do YouTube toca dentro da página, só depois do clique. Aparece na agenda para quem não pôde vir."
+              value={form.gravacao}
+              onChange={(e) => mudar("gravacao", e.target.value)}
+              placeholder="https://… ou /pt/videoaulas…"
+              maxLength={500}
+              className="font-mono text-sm"
+            />
           )}
 
-          <div className="flex flex-wrap items-center gap-3 border-t border-rule pt-4">
-            <button type="submit" className={`${botao} rounded-md`} disabled={acao.ocupado || form.titulo.trim().length < 3}>{aula ? "Guardar" : "Marcar a aula"}</button>
-            <button type="button" className={elo} onClick={fechar}>Cancelar</button>
+          <div className="flex flex-wrap items-center gap-2 border-t border-[var(--pn-borda)] pt-4">
+            <Botao type="submit" variante="principal" carregando={acao.ocupado} disabled={acao.ocupado || form.titulo.trim().length < 3}>{aula ? "Guardar" : "Marcar a aula"}</Botao>
+            <Botao variante="discreto" onClick={fechar}>Cancelar</Botao>
           </div>
           <Aviso texto={acao.aviso || membros.erro} />
         </form>
