@@ -7,6 +7,7 @@ import { TERMO_ADESAO, textoDoTermo } from "@/lib/termos";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import { type Certificado, Folha, Impresso } from "./Certificado";
 import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, PAINEL_MUDOU, rotulo, useAcao, useLista } from "./comum";
+import { confirmar } from "./ui";
 
 export const VERSAO_DO_TERMO = TERMO_ADESAO.versao;
 export const TERMO: string[] = TERMO_ADESAO.clausulas;
@@ -15,6 +16,8 @@ interface Termo {
   nome_completo: string;
   versao: string;
   aceito_em: string;
+  /** O aceite é de antes de o texto ser guardado: pede o aceite de novo para o texto ficar guardado. */
+  sem_texto?: boolean;
 }
 
 interface Hora {
@@ -122,7 +125,7 @@ export function Horas({ me }: { me: Me }) {
 
   if (ver) return <Impresso certificado={ver} fechar={() => setVer(null)} />;
 
-  const aceito = termo.dados?.versao === VERSAO_DO_TERMO;
+  const aceito = termo.dados?.versao === VERSAO_DO_TERMO && !termo.dados?.sem_texto;
   const antigo = Boolean(termo.dados) && !aceito;
   const m = minhas.dados;
   const assinar = (certificados.dados ?? []).filter((c) => c.status === "aberto" && c.testemunhas.some((a) => a.id === me.id && !a.confirmou_em && a.papel !== "coordenacao")).length;
@@ -146,9 +149,11 @@ export function Horas({ me }: { me: Me }) {
       {!aceito && (
         <section className="painel-cartao max-w-3xl p-5">
           <p className={rotulo}>Primeiro passo</p>
-          <h2 className="mt-1 font-serif text-2xl font-semibold">{antigo ? "O termo mudou: aceite de novo" : "Aceite o termo de adesão"}</h2>
+          <h2 className="mt-1 font-serif text-2xl font-semibold">{termo.dados?.sem_texto && termo.dados.versao === VERSAO_DO_TERMO ? "Leia e aceite de novo, para o texto ficar guardado" : antigo ? "O termo mudou: aceite de novo" : "Aceite o termo de adesão"}</h2>
           <p className="mt-2 text-ink-soft">
-            {antigo
+            {termo.dados?.sem_texto && termo.dados.versao === VERSAO_DO_TERMO
+              ? "O seu aceite é de antes de o painel guardar o texto que você leu. Leia de novo e aceite: assim o texto exato fica registrado para sempre, em Minha conta. As horas que você já tem continuam valendo."
+              : antigo
               ? "O termo ganhou cláusulas que deixam claro o voluntariado: sem pagamento nem promessa de compensação, sem horário nem subordinação, licença livre e irrevogável do que você publica e as leis do Brasil. As horas que você já tem continuam valendo."
               : "As horas só começam a contar depois do aceite. É ele que transforma o seu trabalho em horas de voluntariado (Lei nº 9.608/1998)."}{" "}
             Leia o termo na aba <strong>Termo de adesão</strong> e confirme aqui.
@@ -302,8 +307,8 @@ export function Horas({ me }: { me: Me }) {
                         type="button"
                         className={botao}
                         disabled={acao.ocupado}
-                        onClick={() => {
-                          if (window.confirm(DECLARACAO)) void acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Assinatura registrada.");
+                        onClick={async () => {
+                          if ((await confirmar({ titulo: "Assinar este certificado?", texto: DECLARACAO.replace(" Assinar?", ""), confirmar: "Assinar" }))) void acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Assinatura registrada.");
                         }}
                       >
                         Assinar eletronicamente
@@ -315,8 +320,8 @@ export function Horas({ me }: { me: Me }) {
                         className={botao}
                         disabled={acao.ocupado || faltam > 0}
                         title={faltam > 0 ? "A sua assinatura é a última: faltam as outras duas." : undefined}
-                        onClick={() => {
-                          if (window.confirm(DECLARACAO)) void acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado assinado e emitido.");
+                        onClick={async () => {
+                          if ((await confirmar({ titulo: "Assinar este certificado?", texto: DECLARACAO.replace(" Assinar?", ""), confirmar: "Assinar" }))) void acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado assinado e emitido.");
                         }}
                       >
                         Assinar e emitir

@@ -5506,7 +5506,20 @@
     "podcastKicker": "Podcast · en préparation",
     "launchKicker": "Lancement · en présentiel · date bientôt",
     "followUpdates": "Suivre sur Instagram",
-    "reels": "Les vidéos sont sur Instagram"
+    "reels": "Les vidéos sont sur Instagram",
+    "anuncioKicker": "La vidéo d'annonce",
+    "anuncioLoad": "Charger la vidéo Instagram",
+    "anuncioAviso": "Au clic, ce cadre ouvre du contenu d'Instagram (Meta), qui peut enregistrer votre visite. Tant que vous ne cliquez pas, rien n'est chargé de l'extérieur.",
+    "anuncioAbrir": "Ouvrir la publication sur Instagram",
+    "anuncioQuadro": "Vidéo d'annonce sur Instagram",
+    "anuncioLocal": "Vidéo d'annonce",
+    "agendaKicker": "À l'agenda",
+    "agendaQuando": "Quand",
+    "agendaOnde": "Où",
+    "letreiroRotulo": "Thèmes du territoire",
+    "letreiroPausar": "Mettre en pause le bandeau des thèmes",
+    "letreiroRetomar": "Reprendre le bandeau des thèmes",
+    "cartaoVer": "Voir la page"
   },
   "rede": {
     "abaRede": "Réseau",
@@ -6042,7 +6055,7 @@
       "3": {
         "name": "Complet",
         "count": "{n} questions",
-        "desc": "Le portrait le plus détaillé : huit questions par axe."
+        "desc": "Le portrait le plus détaillé : vingt questions par axe."
       }
     },
     "privacy": "Tes réponses restent seulement sur cet appareil, pour que tu puisses t'arrêter et reprendre plus tard. Rien n'est envoyé à l'institut.",

@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "titulo": "游戏",
+    "descricao": "用词汇表和课程生成的填字游戏、找词、数独、猜词、记忆配对、带问题的井字棋和听写；给孩子的音乐游戏；以及培训游戏（Rumos、罢工！）。没有积分，没有排行榜，不用账号。"
+  },
+  "pagina": {
+    "rotulo": "玩，也是学习",
+    "lead": "这里的游戏用来练习课程里的词语、玩音乐，也用来在历史中做选择。游戏没有积分、排行榜或连续打卡：结束就是结束。你在这里做的一切都不会离开你的设备。",
+    "irTreino": "词语练习",
+    "irCriancas": "儿童音乐",
+    "irFormacao": "培训游戏",
+    "aviso": "词语游戏使用研究所的词汇表，内容为葡萄牙语。",
+    "irProprios": "学院自制游戏"
+  },
+  "treino": {
+    "titulo": "词语练习",
+    "lead": "根据词汇表里的词条和出现它们的课程当场生成，每局都不同。",
+    "escolha": "选择一个游戏",
+    "jogos": {
+      "cruzadas": {
+        "nome": "填字游戏",
+        "texto": "提示来自词汇表里的释义。"
+      },
+      "caca": {
+        "nome": "找词游戏",
+        "texto": "在方格里找出藏起来的词条。"
+      },
+      "sudoku": {
+        "nome": "数独",
+        "texto": "数字不重复，有 4x4、6x6 和 9x9。"
+      },
+      "forca": {
+        "nome": "花瓣猜词",
+        "texto": "在花瓣掉光之前猜出词条。"
+      },
+      "memoria": {
+        "nome": "记忆配对",
+        "texto": "把每个词条和它的释义配成一对。"
+      },
+      "quebra": {
+        "nome": "词语拼图",
+        "texto": "把字母或词语按顺序排好。"
+      },
+      "velha": {
+        "nome": "带问题的井字棋",
+        "texto": "要占一格，先答对问题。"
+      },
+      "ditado": {
+        "nome": "听写",
+        "texto": "浏览器朗读，你来书写。"
+      }
+    },
+    "voltar": "返回游戏列表"
+  },
+  "comum": {
+    "novo": "新游戏",
+    "conferir": "检查",
+    "dica": "提示",
+    "mostrar": "显示答案",
+    "proxima": "下一个",
+    "limpar": "清空",
+    "apagar": "删除",
+    "certo": "答对了！",
+    "errado": "还不对。",
+    "terminou": "完成了！想玩的话可以再开一局。",
+    "aula": "查看课程",
+    "facil": "简单",
+    "medio": "中等",
+    "tamanho": "大小",
+    "dificuldade": "难度",
+    "semPontos": "没有积分：只是练习。"
+  },
+  "cruzadas": {
+    "instrucao": "在格子里输入字母。方向键切换格子，Tab 键切换词。",
+    "horizontais": "横向",
+    "verticais": "纵向",
+    "casa": "第 {r} 行，第 {c} 列",
+    "numero": "第 {n} 号词",
+    "faltam": "还有错误或空着的格子，错误的已标出。",
+    "completo": "填字完成！",
+    "semPalavras": "现在无法生成填字游戏，请换一局。"
+  },
+  "caca": {
+    "instrucao": "先点每个词的第一个字母，再点最后一个字母。用键盘时，按方向键和回车键。",
+    "palavras": "要找的词",
+    "achadas": "已找到 {n} / {total}",
+    "achou": "你找到了 {palavra}！",
+    "inicio": "起点已标记在 {r}, {c}。请选择最后一个字母。",
+    "tentou": "这一条线不是要找的词。",
+    "celula": "第 {r} 行，第 {c} 列，字母 {l}"
+  },
+  "sudoku": {
+    "instrucao": "每行、每列和每个宫格里，每个数字只能出现一次。选一个格子，再选一个数字。",
+    "numeros": "数字",
+    "apagarCasa": "清除格子",
+    "casa": "第 {r} 行，第 {c} 列",
+    "vazia": "空",
+    "dada": "已给出",
+    "conflito": "重复",
+    "repetidos": "有重复的数字，已标出。",
+    "tudoCerto": "目前一切正确。",
+    "resolvido": "数独完成！",
+    "dicaFeita": "已为你填好一格。"
+  },
+  "forca": {
+    "instrucao": "选择字母。每错一次，花就掉一片花瓣，共 6 片。",
+    "dicaTitulo": "提示",
+    "erros": "错误：{n} / {max}",
+    "letra": "字母 {l}",
+    "usada": "已用过",
+    "ganhou": "花保住了！词条是 {termo}。",
+    "perdeu": "花瓣掉光了。词条是 {termo}。",
+    "palavra": "单词：{estado}"
+  },
+  "memoria": {
+    "instrucao": "翻开两张牌：一个词条和它的释义是一对。",
+    "pares": "对数",
+    "carta": "第 {n} 张牌",
+    "virada": "背面朝上",
+    "par": "已配成一对",
+    "achados": "已配 {n} / {total} 对",
+    "completo": "所有配对都找到了！"
+  },
+  "quebra": {
+    "letras": "字母",
+    "frase": "句子",
+    "modo": "模式",
+    "instrucaoLetras": "把字母按顺序排成词条。提示：释义（词条已隐藏）。",
+    "instrucaoFrase": "把词语按顺序排成词条的释义。",
+    "montagem": "你的排列",
+    "pecas": "碎片",
+    "vazia": "（空）",
+    "dicaDe": "释义",
+    "termoDe": "词条",
+    "certo": "正确！",
+    "errado": "顺序还不对。"
+  },
+  "velha": {
+    "instrucao": "要占一格，先回答问题。答错则轮到对方。",
+    "modo": "对手",
+    "computador": "电脑",
+    "dois": "另一个人",
+    "casa": "第 {n} 格",
+    "livre": "空",
+    "pergunta": "哪个词条是这样定义的？",
+    "vezDe": "轮到 {marca}",
+    "ganhou": "{marca} 连成一线！",
+    "empate": "平局：没有人连成线。",
+    "acertou": "答对了！这一格是你的。",
+    "errou": "这次没对。词条是 {termo}。",
+    "pensando": "电脑占了第 {n} 格。",
+    "cancelar": "选择另一格"
+  },
+  "ditado": {
+    "instrucao": "点“朗读”，写下你听到的内容，然后检查。声音来自你的浏览器。",
+    "palavras": "单词",
+    "frases": "句子",
+    "modo": "类型",
+    "ouvir": "朗读",
+    "devagar": "慢速朗读",
+    "campo": "你听到的内容",
+    "semVoz": "这台设备没有朗读语音。你可以查看文字并手抄。",
+    "verTexto": "查看文字",
+    "certo": "完全正确！",
+    "acento": "差一点：字母对了，请检查重音或标点。正确答案：{certa}",
+    "errado": "还不对。正确答案：{certa}",
+    "proximo": "下一个听写"
+  },
+  "criancas": {
+    "titulo": "给孩子的音乐和声音",
+    "lead": "声音由设备本身生成，不用下载任何东西。没有积分、没有计时、不会失败：旋律不一样，就再听一遍。有大人在旁边更好。",
+    "escolha": "选择一项活动",
+    "somLigado": "声音已开",
+    "somMudo": "声音已关",
+    "semAudio": "这台设备无法播放游戏声音。",
+    "ver": "查看儿童区",
+    "jogos": {
+      "piano": {
+        "nome": "动物钢琴",
+        "texto": "点彩色琴键，听声音。"
+      },
+      "melodia": {
+        "nome": "跟着弹旋律",
+        "texto": "听音符，再按同样的顺序弹出来。"
+      },
+      "bateria": {
+        "nome": "锅盆架子鼓",
+        "texto": "敲鼓，或听一段现成的节奏。"
+      },
+      "iguais": {
+        "nome": "哪个声音一样？",
+        "texto": "找出声音相同的配对。"
+      },
+      "altoBaixo": {
+        "nome": "高音还是低音？",
+        "texto": "听两个声音，说出哪个更高。"
+      }
+    },
+    "tecla": "{nome}键",
+    "ouvir": "听旋律",
+    "ouvindo": "仔细听……",
+    "suaVez": "轮到你了！",
+    "rodada": "第 {i} 轮，共 {n} 轮",
+    "denovo": "差一点！我们再听一遍。",
+    "muitoBem": "太棒了！你弹完了整段旋律。",
+    "fimMelodia": "旋律先到这里。换个活动怎么样？",
+    "comecar": "开始",
+    "proximaRodada": "下一轮",
+    "ritmo": "播放现成的节奏",
+    "parar": "停止",
+    "batida": "{nome}鼓",
+    "cartaSom": "第 {n} 张牌",
+    "paresAchados": "已配 {n} / {total} 对",
+    "iguaisCompleto": "你找到了所有配对！",
+    "doisSons": "点一下，听这两个声音。",
+    "ouvirDois": "听这两个声音",
+    "primeiro": "第一个更高",
+    "segundo": "第二个更高",
+    "agudoCerto": "对！更高的声音更尖细。",
+    "agudoErrado": "这次没对。再听一遍比一比。",
+    "outraVez": "再来一对声音"
+  },
+  "proprios": {
+    "titulo": "学院自制游戏",
+    "lead": "学院自己制作的十六个游戏，涉及劳动、权利、公共资金、假消息、城市、健康、电力、缝纫和电脑。每个游戏都有出处，玩完就结束：没有累积积分，也没有连续天数。",
+    "escolha": "选择一个游戏",
+    "voltar": "返回游戏",
+    "minutos": "{n} 分钟",
+    "publico": {
+      "todos": "所有人",
+      "adultos": "成年人",
+      "jovens": "青少年",
+      "criancas": "儿童"
+    },
+    "aviso": "这些游戏只有葡萄牙语版本。"
+  }
+}

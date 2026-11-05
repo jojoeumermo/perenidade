@@ -1,0 +1,878 @@
+{
+ "formato": "rumos/1",
+ "id": "costureira-e-cooperativa",
+ "titulo": "Costureira e cooperativa",
+ "resumo": "Seis costureiras do bairro decidem trabalhar juntas: sede, preço, assembleia, sobras, pedido grande e a diferença entre cooperativa de verdade e fábrica disfarçada.",
+ "papel": "Você é costureira num bairro popular e acaba de se juntar a outras cinco para trabalhar em grupo. Cada decisão pesa no grupo, no bolso, nas encomendas e nas suas mãos. As leis citadas são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica nem técnica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "encomendas",
+   "nome": "Encomendas",
+   "descricao": "O volume de pedidos e a confiança de quem compra. Sem ela, as máquinas param; demais, o grupo não dá conta."
+  },
+  {
+   "id": "coletivo",
+   "nome": "Coletivo",
+   "descricao": "A união e a participação do grupo. Sem ela, vira cada uma por si; no extremo, tudo depende de uma só pessoa."
+  },
+  {
+   "id": "caixa",
+   "nome": "Caixa",
+   "descricao": "O dinheiro do grupo. Zerado, falta linha, tecido e luz; cheio e parado, vira sobra que ninguém sabe dividir."
+  },
+  {
+   "id": "saude",
+   "nome": "Saúde",
+   "descricao": "As mãos, as costas, a vista e o sono. Sem ela, a produção cai; protegida demais, o ritmo não paga as contas."
+  }
+ ],
+ "inicio": {
+  "encomendas": 45,
+  "coletivo": 50,
+  "caixa": 40,
+  "saude": 55
+ },
+ "personagens": [
+  {
+   "id": "rita",
+   "nome": "Dona Rita",
+   "papel": "costureira veterana do grupo"
+  },
+  {
+   "id": "nadia",
+   "nome": "Nádia",
+   "papel": "dona de uma loja de roupas que encomenda"
+  },
+  {
+   "id": "valdo",
+   "nome": "Seu Valdo",
+   "papel": "dono de uma facção, intermediário de grandes marcas"
+  },
+  {
+   "id": "bia",
+   "nome": "Bia",
+   "papel": "costureira jovem de uma oficina vizinha"
+  },
+  {
+   "id": "edu",
+   "nome": "Edu",
+   "papel": "contador voluntário do bairro"
+  },
+  {
+   "id": "helena",
+   "nome": "Helena",
+   "papel": "auditora-fiscal do trabalho"
+  }
+ ],
+ "fases": [
+  {
+   "id": "juntando-as-maquinas",
+   "nome": "Juntando as máquinas",
+   "cartas": 5
+  },
+  {
+   "id": "o-grande-pedido",
+   "nome": "O grande pedido",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "cs-quantas",
+   "fase": "juntando-as-maquinas",
+   "titulo": "Quantas somos?",
+   "personagem": "rita",
+   "texto": "Vocês são seis costureiras, com quatro máquinas. Edu, o contador voluntário, pergunta que tipo de cooperativa querem. Para abrir uma cooperativa comum, o número de sócios é bem maior do que seis.",
+   "esquerda": {
+    "texto": "Montar cooperativa de trabalho",
+    "efeito": {
+     "coletivo": 10,
+     "caixa": -6,
+     "encomendas": 5,
+     "saude": -3
+    },
+    "retorno": "A cooperativa de trabalho tem regras próprias, mais leves para grupos pequenos, e protege direitos de quem trabalha. Falta só chamar mais uma pessoa.",
+    "liga": [
+     "coop-trabalho"
+    ]
+   },
+   "direita": {
+    "texto": "Esperar juntar vinte pessoas",
+    "efeito": {
+     "coletivo": -8,
+     "caixa": 6,
+     "encomendas": -5,
+     "saude": 4
+    },
+    "retorno": "Vocês seguem informais enquanto procuram sócias. O grupo esfria, e há quem prefira voltar a costurar sozinha."
+   },
+   "historia": {
+    "texto": "A cooperativa singular comum exige o número mínimo de 20 pessoas físicas (art. 6º, I da Lei 5.764/1971). A cooperativa de trabalho pode ser constituída com número mínimo de sete sócios (art. 6º da Lei 12.690/2012).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), art. 6º, e Lei 12.690/2012, art. 6º",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas de costura",
+    "href": "/trilhas/costureira/cooperativas-de-costura"
+   }
+  },
+  {
+   "id": "cs-jornada",
+   "fase": "juntando-as-maquinas",
+   "titulo": "Virar a noite",
+   "personagem": "nadia",
+   "texto": "Nádia fez um pedido de cem peças para sexta e o grupo atrasou. Dona Rita sugere virar a noite de quinta e trabalhar até sábado para dar conta.",
+   "esquerda": {
+    "texto": "Respeitar jornada e descanso",
+    "efeito": {
+     "saude": 10,
+     "encomendas": -7,
+     "coletivo": 6,
+     "caixa": -4
+    },
+    "retorno": "Vocês pedem mais dois dias a Nádia, dividem o trabalho e tiram o domingo livre. A peça sai um pouco mais tarde, mas todas vão trabalhar na segunda."
+   },
+   "direita": {
+    "texto": "Virar a noite e entregar",
+    "efeito": {
+     "encomendas": 9,
+     "caixa": 6,
+     "saude": -12,
+     "coletivo": -4
+    },
+    "retorno": "A entrega sai no prazo. Mas as costas, os olhos e a paciência do grupo pagam a conta nos dias seguintes."
+   },
+   "historia": {
+    "texto": "A Lei 12.690/2012 garante aos sócios de cooperativas de trabalho, entre outros direitos, duração normal do trabalho não superior a 8 horas diárias e 44 semanais (art. 7º, II), e repouso semanal remunerado, preferencialmente aos domingos (art. 7º, III).",
+    "fonte": {
+     "titulo": "Lei nº 12.690, de 19 de julho de 2012 (Cooperativas de Trabalho), art. 7º",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Postura e saúde de quem costura",
+    "href": "/trilhas/costureira/postura-e-saude-de-quem-costura"
+   }
+  },
+  {
+   "id": "cs-assembleia",
+   "fase": "juntando-as-maquinas",
+   "titulo": "Quem decide o preço",
+   "personagem": "rita",
+   "texto": "Um cliente grande oferece comprar toda a produção do mês por um preço baixo. Dona Rita acha que pode decidir sozinha, porque tem mais experiência. Mas há quem discorde.",
+   "esquerda": {
+    "texto": "Decidir em assembleia",
+    "efeito": {
+     "coletivo": 11,
+     "encomendas": -4,
+     "saude": 3,
+     "caixa": -3
+    },
+    "retorno": "Vocês se reúnem, cada uma fala, a proposta é votada. Leva a tarde inteira, mas o preço fica registrado em ata e ninguém é pega de surpresa.",
+    "liga": [
+     "ata"
+    ]
+   },
+   "direita": {
+    "texto": "Deixar Dona Rita decidir",
+    "efeito": {
+     "encomendas": 8,
+     "caixa": 6,
+     "coletivo": -11,
+     "saude": -2
+    },
+    "retorno": "O negócio fecha rápido. Algumas descobrem o preço pelo grupo de WhatsApp e se sentem tratadas como empregadas."
+   },
+   "historia": {
+    "texto": "A Assembleia Geral dos associados é o órgão supremo da sociedade cooperativa, dentro dos limites legais e estatutários (art. 38 da Lei 5.764/1971).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), art. 38",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Os pioneiros de Rochdale e os princípios do cooperativismo",
+    "href": "/trilhas/uberizacao-e-cooperativismo/os-pioneiros-de-rochdale-e-os-principios-do-cooperativismo"
+   }
+  },
+  {
+   "id": "cs-intermediacao",
+   "fase": "juntando-as-maquinas",
+   "titulo": "O pedido do Seu Valdo",
+   "personagem": "valdo",
+   "texto": "Seu Valdo, dono de uma facção, propõe: \"Vocês mandam as costureiras para a minha oficina, eu dou as ordens e pago a cooperativa por peça\". O dinheiro é bom e o pedido é grande.",
+   "esquerda": {
+    "texto": "Recusar a proposta",
+    "efeito": {
+     "coletivo": 8,
+     "saude": 5,
+     "encomendas": -6,
+     "caixa": -8
+    },
+    "retorno": "Vocês explicam que a cooperativa é das sócias e não fornece mão de obra a patrão. Perdem o pedido, mas mantêm a autonomia."
+   },
+   "direita": {
+    "texto": "Aceitar mandar as costureiras",
+    "efeito": {
+     "caixa": 11,
+     "encomendas": 8,
+     "coletivo": -9,
+     "saude": -6
+    },
+    "retorno": "A cooperativa vira agência de mão de obra, e as sócias passam a trabalhar sob ordens de um patrão sem os direitos de uma empregada.",
+    "proxima": "cs-fiscal"
+   },
+   "historia": {
+    "texto": "A cooperativa de trabalho não pode ser utilizada para intermediação de mão de obra subordinada (art. 5º da Lei 12.690/2012).",
+    "fonte": {
+     "titulo": "Lei nº 12.690, de 19 de julho de 2012 (Cooperativas de Trabalho), art. 5º",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "cs-oficina",
+   "fase": "juntando-as-maquinas",
+   "titulo": "A oficina do fundo do quintal",
+   "personagem": "bia",
+   "texto": "Bia, costureira de uma oficina vizinha, conta que trabalha dezesseis horas por dia e que o dono diz que ela \"deve\" a máquina e o aluguel do quarto. Ela tem medo de sair e perder o que já deve.",
+   "esquerda": {
+    "texto": "Convidar Bia para o grupo",
+    "efeito": {
+     "coletivo": 9,
+     "caixa": -7,
+     "saude": 4,
+     "encomendas": -3
+    },
+    "retorno": "Vocês ajudam Bia a buscar orientação e abrem espaço para ela. O grupo cresce e cria um jeito de apoiar quem sai de situação assim."
+   },
+   "direita": {
+    "texto": "Não se meter",
+    "efeito": {
+     "caixa": 5,
+     "coletivo": -9,
+     "encomendas": 3,
+     "saude": -3
+    },
+    "retorno": "Vocês seguem o trabalho e Bia continua onde está. Ficar em silêncio também é uma escolha."
+   },
+   "historia": {
+    "texto": "É crime reduzir alguém a condição análoga à de escravo, submetendo-o a trabalhos forçados ou a jornada exaustiva, a condições degradantes de trabalho, ou restringindo sua locomoção em razão de dívida contraída com o empregador (art. 149 do Código Penal, pena de reclusão de dois a oito anos, e multa).",
+    "fonte": {
+     "titulo": "Código Penal (Decreto-Lei nº 2.848/1940), art. 149, redação da Lei nº 10.803/2003, art. 149",
+     "autor": "Presidência da República",
+     "ano": "2003",
+     "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A história das costureiras e das trabalhadoras da confecção",
+    "href": "/trilhas/costureira/a-historia-das-costureiras-e-das-trabalhadoras-da-confeccao"
+   }
+  },
+  {
+   "id": "cs-mei",
+   "fase": "juntando-as-maquinas",
+   "titulo": "MEI para vender peça pronta",
+   "personagem": "edu",
+   "texto": "Edu sugere que cada sócia abra MEI para vender peças próprias na feira, além do trabalho da cooperativa. Algumas acham que é complicação.",
+   "esquerda": {
+    "texto": "Abrir o MEI",
+    "efeito": {
+     "caixa": 7,
+     "encomendas": 6,
+     "coletivo": -5,
+     "saude": -4
+    },
+    "retorno": "Com CNPJ, as peças próprias podem ter nota fiscal e vender para mais gente. Em troca, cada uma passa a cuidar de mais um papel."
+   },
+   "direita": {
+    "texto": "Ficar só na cooperativa",
+    "efeito": {
+     "coletivo": 7,
+     "caixa": -5,
+     "encomendas": -4,
+     "saude": 5
+    },
+    "retorno": "Vocês seguem juntas e com menos burocracia. Mas a renda extra da feira, que ajudaria no fim do mês, fica de fora."
+   },
+   "historia": {
+    "texto": "A Lei Complementar 123/2006 define o MEI como quem teve, no ano anterior, receita bruta de até R$ 81.000,00 (art. 18-A, §1º, redação da LC 188/2021).",
+    "fonte": {
+     "titulo": "Lei Complementar nº 123, de 14 de dezembro de 2006 (Estatuto da Microempresa), redação da LC 188/2021, art. 18-A",
+     "autor": "Presidência da República",
+     "ano": "2006",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O que é o MEI e quem pode ser",
+    "href": "/trilhas/mei-passo-a-passo/o-que-e-o-mei-e-quem-pode-ser"
+   }
+  },
+  {
+   "id": "cs-piso",
+   "fase": "juntando-as-maquinas",
+   "titulo": "Quanto vale a hora",
+   "personagem": "rita",
+   "texto": "Nádia pede desconto grande no preço da camiseta. Vocês fazem as contas e percebem que, nesse preço, a retirada de cada uma ficaria abaixo do piso da categoria.",
+   "esquerda": {
+    "texto": "Recusar o desconto",
+    "efeito": {
+     "caixa": 7,
+     "coletivo": 8,
+     "encomendas": -9,
+     "saude": 3
+    },
+    "retorno": "Nádia reclama, mas aceita um preço menor que o pedido e maior que o dela. A hora do grupo fica pelo menos no piso."
+   },
+   "direita": {
+    "texto": "Aceitar o preço dela",
+    "efeito": {
+     "encomendas": 10,
+     "caixa": -6,
+     "coletivo": -8,
+     "saude": -6
+    },
+    "retorno": "O pedido continua, mas a retirada de cada sócia fica abaixo do piso e o ritmo aumenta para compensar."
+   },
+   "historia": {
+    "texto": "A Lei 12.690/2012 assegura aos sócios da cooperativa de trabalho retiradas não inferiores ao piso da categoria profissional (art. 7º, I).",
+    "fonte": {
+     "titulo": "Lei nº 12.690, de 19 de julho de 2012 (Cooperativas de Trabalho), art. 7º, I",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Calcular o preço e vender",
+    "href": "/trilhas/costureira/calcular-o-preco-e-vender"
+   }
+  },
+  {
+   "id": "cs-defeito",
+   "fase": "o-grande-pedido",
+   "titulo": "A peça com defeito",
+   "personagem": "nadia",
+   "texto": "Nádia devolve vinte blusas: a costura da barra soltou depois de duas lavagens. Ela quer o dinheiro de volta. Vocês acham que o tecido também era ruim.",
+   "esquerda": {
+    "texto": "Refazer sem cobrar",
+    "efeito": {
+     "encomendas": 9,
+     "caixa": -9,
+     "coletivo": 4,
+     "saude": -6
+    },
+    "retorno": "Vocês refazem as costuras e Nádia volta a encomendar. O custo do conserto sai do caixa do grupo."
+   },
+   "direita": {
+    "texto": "Negar e culpar o tecido",
+    "efeito": {
+     "caixa": 5,
+     "encomendas": -11,
+     "coletivo": -4,
+     "saude": 3
+    },
+    "retorno": "A conversa azeda. Nádia passa a encomendar de outra oficina e conta isso no bairro."
+   },
+   "historia": {
+    "texto": "Quando o serviço tem vício, o consumidor pode exigir a reexecução dos serviços sem custo adicional (art. 20, I). O direito de reclamar de vícios aparentes ou de fácil constatação caduca em 90 dias, para serviço e produtos duráveis (art. 26, II).",
+    "fonte": {
+     "titulo": "Lei nº 8.078, de 11 de setembro de 1990 (Código de Defesa do Consumidor), arts. 20 e 26",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Consertos e ajustes de roupas",
+    "href": "/trilhas/costureira/consertos-e-ajustes-de-roupas"
+   }
+  },
+  {
+   "id": "cs-estampa",
+   "fase": "o-grande-pedido",
+   "titulo": "A estampa bonita",
+   "personagem": "nadia",
+   "texto": "Nádia mostra no celular uma estampa de uma marca conhecida e pede: \"Reproduzam igual, só mudem o rótulo\". A encomenda é grande, e a estampa é autoral.",
+   "esquerda": {
+    "texto": "Propor uma estampa própria",
+    "efeito": {
+     "coletivo": 8,
+     "encomendas": -5,
+     "caixa": -4,
+     "saude": 3
+    },
+    "retorno": "O grupo cria um desenho do bairro. Demora mais, e agora há uma criação das costureiras, com autoria assumida."
+   },
+   "direita": {
+    "texto": "Copiar do jeito que veio",
+    "efeito": {
+     "encomendas": 9,
+     "caixa": 6,
+     "coletivo": -6,
+     "saude": -3
+    },
+    "retorno": "A cópia sai idêntica. Meses depois, uma notificação da marca chega à loja de Nádia, e Nádia aponta para vocês."
+   },
+   "historia": {
+    "texto": "A utilização de obra por quaisquer modalidades, como a reprodução parcial ou integral, depende de autorização prévia e expressa do autor (art. 29, I da Lei 9.610/1998). O autor tem o direito de reivindicar, a qualquer tempo, a autoria da obra (art. 24, I).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais), arts. 24 e 29",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Inspiração ou apropriação: quem cria e quem lucra",
+    "href": "/trilhas/moda-periferica-e-apropriacao/inspiracao-ou-apropriacao-quem-cria-e-quem-lucra"
+   }
+  },
+  {
+   "id": "cs-maos",
+   "fase": "o-grande-pedido",
+   "titulo": "A mão que formiga",
+   "personagem": "rita",
+   "texto": "Dona Rita, aos 58 anos, começa a sentir formigamento nas mãos. Não quer parar, porque há pedido. Outras sócias também reclamam das costas, depois de semanas de pressa.",
+   "esquerda": {
+    "texto": "Revezar tarefas e parar",
+    "efeito": {
+     "saude": 11,
+     "coletivo": 6,
+     "encomendas": -7,
+     "caixa": -5
+    },
+    "retorno": "O grupo reorganiza: quem corta, quem costura, quem acaba. Cada uma troca de posição ao longo do dia."
+   },
+   "direita": {
+    "texto": "Seguir no mesmo ritmo",
+    "efeito": {
+     "encomendas": 7,
+     "caixa": 6,
+     "saude": -12,
+     "coletivo": -4
+    },
+    "retorno": "A entrega fica em dia. Mas Dona Rita sai de licença um mês depois, e o grupo perde a mais rápida."
+   },
+   "historia": {
+    "texto": "Entre os direitos mínimos garantidos pela Lei 12.690/2012 aos sócios da cooperativa de trabalho estão o repouso semanal remunerado (art. 7º, III) e o seguro de acidente de trabalho (art. 7º, VII).",
+    "fonte": {
+     "titulo": "Lei nº 12.690, de 19 de julho de 2012 (Cooperativas de Trabalho), art. 7º",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Ferramentas e segurança na costura",
+    "href": "/trilhas/costureira/ferramentas-e-seguranca-na-costura"
+   }
+  },
+  {
+   "id": "cs-vereador",
+   "fase": "o-grande-pedido",
+   "titulo": "O vereador e as máquinas",
+   "personagem": "edu",
+   "texto": "Um candidato a vereador oferece duas máquinas industriais novas para o grupo, e em troca pede que a cooperativa \"declare apoio\" a ele na eleição. As máquinas aumentariam muito a produção.",
+   "esquerda": {
+    "texto": "Recusar as máquinas",
+    "efeito": {
+     "coletivo": 10,
+     "caixa": -9,
+     "encomendas": -5,
+     "saude": 3
+    },
+    "retorno": "O grupo decide manter a cooperativa fora da disputa eleitoral. Cada sócia vota como quiser, e as máquinas velhas seguem firmes."
+   },
+   "direita": {
+    "texto": "Aceitar o apoio",
+    "efeito": {
+     "encomendas": 9,
+     "caixa": 8,
+     "coletivo": -11,
+     "saude": -3
+    },
+    "retorno": "As máquinas chegam, e as sócias que votam em outro candidato se sentem constrangidas. O grupo se divide em dois."
+   },
+   "historia": {
+    "texto": "Entre as características das sociedades cooperativas está a neutralidade política e a indiscriminação religiosa, racial e social (art. 4º, IX da Lei 5.764/1971).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), art. 4º, IX",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Movimento, sindicato, partido e coletivo: qual é a diferença",
+    "href": "/trilhas/primeiros-passos-na-militancia/movimento-sindicato-partido-e-coletivo-qual-e-a-diferenca"
+   }
+  },
+  {
+   "id": "cs-fates",
+   "fase": "o-grande-pedido",
+   "titulo": "O curso de modelagem",
+   "personagem": "edu",
+   "texto": "Edu explica que, das sobras do ano, uma parte obrigatória vai para um fundo de formação das sócias. Algumas querem usar tudo em tecido. Outras querem pagar um curso de modelagem.",
+   "esquerda": {
+    "texto": "Pagar o curso de modelagem",
+    "efeito": {
+     "coletivo": 9,
+     "saude": 4,
+     "encomendas": 6,
+     "caixa": -10
+    },
+    "retorno": "O grupo aprende a ler moldes e a fazer peças mais complexas, que podem ser vendidas por mais."
+   },
+   "direita": {
+    "texto": "Usar tudo em tecido",
+    "efeito": {
+     "caixa": 8,
+     "encomendas": 5,
+     "coletivo": -6,
+     "saude": -3
+    },
+    "retorno": "Os pedidos aumentam, mas o conhecimento fica nas mesmas mãos de sempre."
+   },
+   "historia": {
+    "texto": "As cooperativas são obrigadas a constituir o Fundo de Reserva, para reparar perdas e atender ao desenvolvimento das atividades, e o Fundo de Assistência Técnica, Educacional e Social, para assistência aos associados (art. 28, I e II da Lei 5.764/1971).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), art. 28",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Ler e usar moldes",
+    "href": "/trilhas/costureira/ler-e-usar-moldes"
+   }
+  },
+  {
+   "id": "cs-novas",
+   "fase": "o-grande-pedido",
+   "titulo": "Chegam mais costureiras",
+   "personagem": "bia",
+   "texto": "Bia e mais duas costureiras pedem para entrar no grupo. Há quem tema perder pedidos para elas, e há quem diga que todas precisam de lugar.",
+   "esquerda": {
+    "texto": "Aceitar as três na assembleia",
+    "efeito": {
+     "coletivo": 10,
+     "encomendas": 4,
+     "caixa": -7,
+     "saude": 5
+    },
+    "retorno": "O grupo cresce e divide o trabalho. Cada uma tem voz e voto, e a produção ganha fôlego."
+   },
+   "direita": {
+    "texto": "Fechar o grupo por enquanto",
+    "efeito": {
+     "caixa": 7,
+     "coletivo": -9,
+     "encomendas": -3,
+     "saude": -4
+    },
+    "retorno": "Quem já está ganha mais por peça. Mas o grupo vira um clube pequeno, e a cooperativa perde a razão de ser."
+   },
+   "historia": {
+    "texto": "Entre as características das cooperativas está a livre adesão, e a neutralidade política com indiscriminação religiosa, racial e social (art. 4º, da Lei 5.764/1971). A Assembleia Geral é o órgão supremo da sociedade (art. 38).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), arts. 4º e 38",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "cs-fiscal",
+   "fase": "o-grande-pedido",
+   "soEncadeada": true,
+   "titulo": "A auditora na porta",
+   "personagem": "helena",
+   "texto": "Helena, auditora-fiscal do trabalho, chega à oficina de Seu Valdo e pergunta às costureiras: quem dá as ordens, quem define o horário, quem paga? Todas respondem que é o Seu Valdo.",
+   "esquerda": {
+    "texto": "Contar a verdade",
+    "efeito": {
+     "coletivo": 7,
+     "caixa": -9,
+     "encomendas": -7,
+     "saude": 8
+    },
+    "retorno": "Helena registra que as costureiras trabalham subordinadas ao dono, apesar de serem sócias da cooperativa. O contrato com Valdo cai."
+   },
+   "direita": {
+    "texto": "Dizer que são sócias livres",
+    "efeito": {
+     "caixa": 8,
+     "encomendas": 6,
+     "coletivo": -9,
+     "saude": -8
+    },
+    "retorno": "A conversa fica fria. Helena anota as respostas e as contradições, e o risco de multa cai sobre o grupo inteiro."
+   },
+   "historia": {
+    "texto": "A CLT considera empregado toda pessoa física que presta serviços de natureza não eventual a empregador, sob a dependência dele e mediante salário (art. 3º). A forma jurídica da cooperativa não muda a realidade de quem trabalha sob ordens.",
+    "fonte": {
+     "titulo": "Consolidação das Leis do Trabalho (Decreto-Lei nº 5.452/1943), art. 2º e 3º, art. 3º",
+     "autor": "Presidência da República",
+     "ano": "1943",
+     "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas de costura",
+    "href": "/trilhas/costureira/cooperativas-de-costura"
+   }
+  },
+  {
+   "id": "cs-sobras",
+   "fase": "o-grande-pedido",
+   "titulo": "O que fazer com as sobras",
+   "personagem": "edu",
+   "texto": "No fim do ano, sobraram R$ 6.000 depois de todas as contas. Algumas querem dividir tudo agora, e outras querem guardar para comprar uma máquina nova. A ata da assembleia diz como decidir.",
+   "condicao": {
+    "flags": [
+     "ata"
+    ]
+   },
+   "esquerda": {
+    "texto": "Dividir pelo trabalho de cada uma",
+    "efeito": {
+     "coletivo": 10,
+     "caixa": -9,
+     "saude": 4,
+     "encomendas": 3
+    },
+    "retorno": "As sobras voltam para as sócias na proporção do trabalho que cada uma fez. Cada uma sabe o que recebeu, e por quê."
+   },
+   "direita": {
+    "texto": "Guardar tudo para a máquina",
+    "efeito": {
+     "caixa": 11,
+     "coletivo": -8,
+     "saude": -3,
+     "encomendas": 5
+    },
+    "retorno": "A máquina chega, mas há quem reclame de que as sobras eram suas e ninguém perguntou."
+   },
+   "historia": {
+    "texto": "Entre as características das cooperativas está o retorno das sobras líquidas do exercício, proporcionalmente às operações realizadas pelo associado, salvo deliberação em contrário da Assembleia Geral (art. 4º, VII da Lei 5.764/1971).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), art. 4º, VII",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "cs-ato",
+   "fase": "o-grande-pedido",
+   "titulo": "A venda por fora",
+   "personagem": "rita",
+   "texto": "Uma sócia leva uma encomenda de um cliente antigo, usa as máquinas e o tecido da cooperativa e fica com todo o dinheiro, \"porque o cliente é meu\". O grupo descobre pelo caderno de estoque.",
+   "condicao": {
+    "partidas": 1
+   },
+   "esquerda": {
+    "texto": "Levar para a assembleia",
+    "efeito": {
+     "coletivo": 9,
+     "caixa": 8,
+     "encomendas": -4,
+     "saude": 2
+    },
+    "retorno": "O grupo define que a venda feita com a estrutura da cooperativa entra na contabilidade dela. A conversa é dura, mas fica claro como se faz daqui por diante."
+   },
+   "direita": {
+    "texto": "Deixar passar",
+    "efeito": {
+     "coletivo": -9,
+     "caixa": -7,
+     "encomendas": 6,
+     "saude": -2
+    },
+    "retorno": "Outras sócias passam a fazer o mesmo. Em poucos meses, a cooperativa vira só um endereço."
+   },
+   "historia": {
+    "texto": "Denominam-se atos cooperativos os praticados entre as cooperativas e seus associados, e pelas cooperativas entre si quando associadas, para a consecução dos objetivos sociais (art. 79 da Lei 5.764/1971).",
+    "fonte": {
+     "titulo": "Lei nº 5.764, de 16 de dezembro de 1971 (Política Nacional de Cooperativismo), art. 79",
+     "autor": "Presidência da República",
+     "ano": "1971",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Os pioneiros de Rochdale e os princípios do cooperativismo",
+    "href": "/trilhas/uberizacao-e-cooperativismo/os-pioneiros-de-rochdale-e-os-principios-do-cooperativismo"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "cs-encomendas-zero",
+   "tipo": "queda",
+   "medidor": "encomendas",
+   "limite": "zero",
+   "titulo": "As máquinas paradas",
+   "texto": "Sem pedidos, as máquinas ficam cobertas de pano. A cooperativa existe no estatuto, mas não no balcão: sem cliente, nenhum direito vira dinheiro.",
+   "aula": {
+    "titulo": "Calcular o preço e vender",
+    "href": "/trilhas/costureira/calcular-o-preco-e-vender"
+   }
+  },
+  {
+   "id": "cs-encomendas-cem",
+   "tipo": "queda",
+   "medidor": "encomendas",
+   "limite": "cem",
+   "titulo": "Pedido que não cabe",
+   "texto": "Entram mais pedidos do que as mãos aguentam. As entregas atrasam, as peças saem com defeito e o grupo promete mais do que consegue cumprir.",
+   "aula": {
+    "titulo": "Postura e saúde de quem costura",
+    "href": "/trilhas/costureira/postura-e-saude-de-quem-costura"
+   }
+  },
+  {
+   "id": "cs-coletivo-zero",
+   "tipo": "queda",
+   "medidor": "coletivo",
+   "limite": "zero",
+   "titulo": "Cada uma por si",
+   "texto": "As reuniões esvaziam e as decisões passam a ser tomadas no corredor. A cooperativa vira seis costureiras que dividem um endereço.",
+   "aula": {
+    "titulo": "Os pioneiros de Rochdale e os princípios do cooperativismo",
+    "href": "/trilhas/uberizacao-e-cooperativismo/os-pioneiros-de-rochdale-e-os-principios-do-cooperativismo"
+   }
+  },
+  {
+   "id": "cs-coletivo-cem",
+   "tipo": "queda",
+   "medidor": "coletivo",
+   "limite": "cem",
+   "titulo": "Tudo na assembleia",
+   "texto": "Qualquer detalhe precisa de votação, e as reuniões duram a tarde toda. Nenhuma encomenda sai no prazo, porque ninguém tem autonomia para decidir.",
+   "aula": {
+    "titulo": "Conduzir uma reunião",
+    "href": "/trilhas/oratoria-e-lideranca/conduzir-uma-reuniao"
+   }
+  },
+  {
+   "id": "cs-caixa-zero",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "zero",
+   "titulo": "Sem linha e sem luz",
+   "texto": "O caixa zerou antes do fim do mês. Sem linha, sem tecido e com a conta de luz vencida, as máquinas desligam.",
+   "aula": {
+    "titulo": "O DAS mensal: quanto e quando pagar",
+    "href": "/trilhas/mei-passo-a-passo/o-das-mensal-quanto-e-quando-pagar"
+   }
+  },
+  {
+   "id": "cs-caixa-cem",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "cem",
+   "titulo": "Dinheiro sem dono",
+   "texto": "O caixa só cresce, e ninguém sabe se as sobras são de todas ou do grupo. A desconfiança chega antes de qualquer divisão.",
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "cs-saude-zero",
+   "tipo": "queda",
+   "medidor": "saude",
+   "limite": "zero",
+   "titulo": "As mãos pararam",
+   "texto": "Tendinite, dor nas costas, vista cansada. Duas sócias saem de licença no mesmo mês, e o grupo descobre o preço de nunca ter descansado.",
+   "aula": {
+    "titulo": "Ferramentas e segurança na costura",
+    "href": "/trilhas/costureira/ferramentas-e-seguranca-na-costura"
+   }
+  },
+  {
+   "id": "cs-saude-cem",
+   "tipo": "queda",
+   "medidor": "saude",
+   "limite": "cem",
+   "titulo": "Tanto cuidado que não fecha a conta",
+   "texto": "As pausas e os revezamentos tomaram o dia. O grupo está descansado, mas a produção não cobre o aluguel da sede.",
+   "aula": {
+    "titulo": "Postura e saúde de quem costura",
+    "href": "/trilhas/costureira/postura-e-saude-de-quem-costura"
+   }
+  },
+  {
+   "id": "cs-fim-cooperativa",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "coop-trabalho",
+     "ata"
+    ]
+   },
+   "titulo": "Cooperativa de verdade",
+   "texto": "Vocês fecharam o ano como cooperativa de trabalho: com ata, retirada justa e sobra dividida pelo trabalho de cada uma. Costurar juntas deu mais força do que costurar sozinhas.",
+   "aula": {
+    "titulo": "Cooperativas de costura",
+    "href": "/trilhas/costureira/cooperativas-de-costura"
+   }
+  },
+  {
+   "id": "cs-fim-grupo",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "ata"
+    ]
+   },
+   "titulo": "Um grupo que aprende",
+   "texto": "O grupo se manteve unido e aprendeu a decidir juntas. Falta formalizar mais e fechar as regras, mas os primeiros passos estão dados.",
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "cs-fim-oficina",
+   "tipo": "chegada",
+   "titulo": "Mais uma oficina",
+   "texto": "A produção seguiu, mas as decisões ficaram nas mãos de poucas. Sem regras claras e sem assembleia, a cooperativa fica parecida com uma oficina qualquer.",
+   "aula": {
+    "titulo": "A história das costureiras e das trabalhadoras da confecção",
+    "href": "/trilhas/costureira/a-historia-das-costureiras-e-das-trabalhadoras-da-confeccao"
+   }
+  }
+ ]
+}

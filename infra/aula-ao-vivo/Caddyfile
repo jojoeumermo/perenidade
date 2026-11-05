@@ -1,0 +1,20 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# HTTPS da sala de aula. O Caddy pede e renova sozinho o certificado do domínio (Let's Encrypt): o registro DNS do
+# domínio precisa apontar para o IP público desta máquina, SEM a nuvem laranja do Cloudflare (o vídeo é UDP e não passa por ela).
+{$DOMINIO} {
+	encode zstd gzip
+
+	reverse_proxy 127.0.0.1:8443 {
+		# Deixa só o site do instituto embutir a sala num quadro (a página da aula). Qualquer outro site é recusado.
+		header_down -X-Frame-Options
+		header_down Content-Security-Policy "frame-ancestors 'self' {$SITE}"
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
+}

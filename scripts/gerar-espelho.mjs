@@ -39,6 +39,7 @@ function simplificar(corpo) {
     }
     if (["provocacao", "navidareal", "escondido", "historia", "realidade", "formula", "suarealidade", "outrolado", "outrojeito", "agir"].includes(tipo)) return linhas.map((linha) => (linha === "---" ? ">" : `> ${linha}`)).join("\n");
     if (tipo === "leve" || tipo === "roda") return linhas.join("\n");
+    if (tipo === "simulador") return "> *Simulador interativo: abra esta aula no site para usar.*";
     if (tipo === "conta") return "```\n" + miolo + "```";
     return "";
   });

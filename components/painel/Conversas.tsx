@@ -22,6 +22,7 @@ import { EmojiDaReacao } from "./EmojiDoInstituto";
 import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
 import { Alertas, AparelhoPendente, Aparelhos, ComoFunciona, enviarCifrado, Seguranca, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
 import { AbrirAgora, baixarIcs, Historico, NovaReuniao, type Proposta as PropostaDeReuniao, Propostas, type Reuniao, tipos as tiposDeReuniao } from "./Reunioes";
+import { confirmarFrase, perguntarTexto } from "./ui";
 
 type Tipo = "direta" | "grupo" | "departamento";
 
@@ -944,7 +945,7 @@ function SalaDeVoz({ reuniao: r, naChamada, entrar, sair, mudarEstado, lugar, vo
         <h2 className="min-w-0 flex-1 truncate font-semibold">{r.titulo}</h2>
         <span className={`rounded px-1.5 py-0.5 font-mono text-[0.62rem] font-semibold uppercase ${r.status === "ao_vivo" ? "bg-s-acento text-white" : "bg-s-campo text-s-suave"}`}>{ROTULO_DO_STATUS[r.status]}</span>
         {r.conduzo && r.status === "agendada" && <button type="button" className="cursor-pointer rounded bg-s-acento px-3 py-1 text-sm font-semibold text-white" onClick={() => mudarEstado("ao_vivo", "A reunião começou: a equipe foi avisada.")}>Começar</button>}
-        {r.conduzo && r.status === "ao_vivo" && <button type="button" className="cursor-pointer rounded bg-s-campo px-3 py-1 text-sm" onClick={() => { if (window.confirm("Encerrar a reunião para todos?")) mudarEstado("encerrada", "Reunião encerrada."); }}>Encerrar para todos</button>}
+        {r.conduzo && r.status === "ao_vivo" && <button type="button" className="cursor-pointer rounded bg-s-campo px-3 py-1 text-sm" onClick={async () => { if ((await confirmarFrase("Encerrar a reunião para todos?"))) mudarEstado("encerrada", "Reunião encerrada."); }}>Encerrar para todos</button>}
       </header>
       {naChamada ? (
         // A chamada (que mora numa camada própria, para não cair ao trocar de canal) se encaixa aqui.
@@ -1423,7 +1424,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
 
   async function apagarSelecionadas() {
     const minhas = [...(selecionadas ?? [])].filter((alvo) => vistas.find((vista) => vista.mensagem.id === alvo)?.mensagem.minha);
-    if (minhas.length === 0 || !window.confirm(`Apagar ${minhas.length > 1 ? `${minhas.length} mensagens suas` : "1 mensagem sua"} para todo mundo?`)) return;
+    if (minhas.length === 0 || !(await confirmarFrase(`Apagar ${minhas.length > 1 ? `${minhas.length} mensagens suas` : "1 mensagem sua"} para todo mundo?`))) return;
     setSelecionadas(null);
     await agir(async () => {
       for (const alvo of minhas) await rpc("chat_apagar", { p_id: alvo });
@@ -2217,9 +2218,9 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
       {!fixo && edita && <ConviteDoGrupo conversa={dados.id} />}
       {!fixo && (
         <p className="flex flex-wrap gap-5">
-          <button type="button" className={elo} onClick={() => { if (window.confirm("Sair deste grupo?")) void fazer("chat_sair", { p_id: dados.id }, saiu); }}>Sair do grupo</button>
+          <button type="button" className={elo} onClick={async () => { if ((await confirmarFrase("Sair deste grupo?"))) void fazer("chat_sair", { p_id: dados.id }, saiu); }}>Sair do grupo</button>
           {dados.dona && (
-            <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm("Apagar o grupo e todas as mensagens dele? Isso não tem volta.")) void fazer("chat_grupo_apagar", { p_id: dados.id }, saiu); }}>
+            <button type="button" className={`${elo} text-oxblood`} onClick={async () => { if ((await confirmarFrase("Apagar o grupo e todas as mensagens dele? Isso não tem volta."))) void fazer("chat_grupo_apagar", { p_id: dados.id }, saiu); }}>
               Apagar o grupo
             </button>
           )}
@@ -2420,7 +2421,7 @@ function Relatos({ fechar }: { fechar: () => void }) {
   const lista = useLista<Relato[]>("chat_relatos");
   const [aviso, setAviso] = useState("");
   async function resolver(id: string) {
-    const nota = window.prompt("O que foi feito? (fica registrado no relato)") ?? "";
+    const nota = (await perguntarTexto("O que foi feito? (fica registrado no relato)")) ?? "";
     setAviso("");
     try { await rpc("chat_relato_resolver", { p_id: id, p_nota: nota }); lista.recarregar(); } catch (erro) { setAviso(textoDoErro(erro)); }
   }

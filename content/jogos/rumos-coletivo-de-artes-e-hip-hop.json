@@ -1,0 +1,877 @@
+{
+ "formato": "rumos/1",
+ "id": "coletivo-de-artes-e-hip-hop",
+ "titulo": "Coletivo de artes e hip-hop",
+ "resumo": "Um coletivo de grafite, rima e som numa quebrada: parede, praça, palco, sample, contrato, edital e as leis que protegem e limitam quem faz arte na rua.",
+ "papel": "Você ajuda a tocar um coletivo de grafite, rima e DJ numa periferia de cidade média, com artistas do bairro, uma secretaria de cultura e quem quer comprar o talento deles. Cada decisão pesa no público, no respaldo, no caixa e no grupo. As leis citadas são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "publico",
+   "nome": "Público",
+   "descricao": "A plateia e a participação do bairro. Sem ela a arte fala sozinha; demais, vira espetáculo para quem só consome."
+  },
+  {
+   "id": "respaldo",
+   "nome": "Respaldo",
+   "descricao": "A situação do coletivo diante da lei e das regras. Perdido, vem multa e apreensão; cuidado demais trava a criação."
+  },
+  {
+   "id": "caixa",
+   "nome": "Caixa",
+   "descricao": "O dinheiro para tinta, som e espaço. Zerado, o coletivo para; demais, quem paga passa a mandar na arte."
+  },
+  {
+   "id": "grupo",
+   "nome": "Grupo",
+   "descricao": "A união e o gás de quem faz o coletivo. Sem ela cada um vai para um lado; demais, vira panelinha fechada."
+  }
+ ],
+ "inicio": {
+  "publico": 30,
+  "respaldo": 50,
+  "caixa": 40,
+  "grupo": 45
+ },
+ "personagens": [
+  {
+   "id": "tina",
+   "nome": "Tina",
+   "papel": "grafiteira, 19 anos"
+  },
+  {
+   "id": "beto",
+   "nome": "DJ Beto",
+   "papel": "DJ e produtor de beats"
+  },
+  {
+   "id": "neide",
+   "nome": "Dona Neide",
+   "papel": "moradora da praça"
+  },
+  {
+   "id": "nelson",
+   "nome": "Seu Nelson",
+   "papel": "dono da padaria"
+  },
+  {
+   "id": "marcela",
+   "nome": "Marcela",
+   "papel": "servidora da secretaria de cultura"
+  },
+  {
+   "id": "rafa",
+   "nome": "Rafa",
+   "papel": "adolescente de 15 anos, MC iniciante"
+  },
+  {
+   "id": "caio",
+   "nome": "Caio",
+   "papel": "fotógrafo e responsável pela divulgação"
+  }
+ ],
+ "fases": [
+  {
+   "id": "muros-e-palco",
+   "nome": "Muro, praça e palco",
+   "cartas": 5
+  },
+  {
+   "id": "papel-e-edital",
+   "nome": "Papel, dinheiro e edital",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "ch-muro",
+   "fase": "muros-e-palco",
+   "titulo": "A parede da padaria",
+   "personagem": "tina",
+   "texto": "Tina quer pintar um painel na parede lateral da padaria do Seu Nelson, que está suja de pichação. Ela já tem o desenho. Ninguém perguntou ao dono.",
+   "esquerda": {
+    "texto": "Pedir a autorização do dono",
+    "efeito": {
+     "respaldo": 11,
+     "grupo": 9,
+     "publico": 4,
+     "caixa": -4
+    },
+    "retorno": "Seu Nelson gosta da ideia e assina um bilhete. Leva um dia a mais, mas o painel fica de pé e ninguém precisa pintar de madrugada.",
+    "liga": [
+     "muro-autorizado"
+    ]
+   },
+   "direita": {
+    "texto": "Pintar de madrugada",
+    "efeito": {
+     "publico": 8,
+     "grupo": 4,
+     "respaldo": -12,
+     "caixa": 3
+    },
+    "retorno": "O painel amanhece lindo e o bairro comenta. Mas, sem consentimento, o coletivo fica exposto a multa e a processo."
+   },
+   "historia": {
+    "texto": "Pichar ou conspurcar edificação urbana é crime. Mas a lei diz que não é crime o grafite feito para valorizar o patrimônio público ou privado mediante manifestação artística, desde que consentido pelo proprietário (art. 65, § 2º da Lei 9.605/1998, texto da Lei 12.408/2011).",
+    "fonte": {
+     "titulo": "Lei nº 9.605, de 12 de fevereiro de 1998 (Crimes Ambientais), art. 65",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9605.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Pixo e grafite: quem pode escrever na cidade",
+    "href": "/trilhas/funk-pixo-e-baile/pixo-e-grafite-quem-pode-escrever-na-cidade"
+   }
+  },
+  {
+   "id": "ch-spray",
+   "fase": "muros-e-palco",
+   "titulo": "Quem compra a tinta?",
+   "personagem": "tina",
+   "texto": "Rafa tem 15 anos e quer ajudar. Ele se oferece para ir à loja comprar as latas de spray. O vendedor é amigo do pai dele e \"quebra o galho\".",
+   "esquerda": {
+    "texto": "Um adulto do grupo compra",
+    "efeito": {
+     "respaldo": 10,
+     "grupo": 9,
+     "caixa": -5,
+     "publico": 1
+    },
+    "retorno": "A compra sai no nome de um adulto, com documento e nota. Rafa ajuda a preparar a parede e aprende o ofício dentro da regra."
+   },
+   "direita": {
+    "texto": "Rafa compra, o vendedor deixa",
+    "efeito": {
+     "caixa": 6,
+     "grupo": 3,
+     "respaldo": -11,
+     "publico": 2
+    },
+    "retorno": "É rápido e barato, mas a loja pode ser multada e o coletivo passa a depender de um favor ilegal."
+   },
+   "historia": {
+    "texto": "É proibida a comercialização de tintas em embalagem do tipo aerossol a menores de 18 anos. O spray só pode ser vendido a maiores de 18, mediante apresentação de documento de identidade, e a nota fiscal deve identificar o comprador (arts. 2º e 3º da Lei 12.408/2011).",
+    "fonte": {
+     "titulo": "Lei nº 12.408, de 25 de maio de 2011 (venda de tinta em aerossol)",
+     "autor": "Presidência da República",
+     "ano": "2011",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12408.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Pixo e grafite: quem pode escrever na cidade",
+    "href": "/trilhas/funk-pixo-e-baile/pixo-e-grafite-quem-pode-escrever-na-cidade"
+   }
+  },
+  {
+   "id": "ch-praca",
+   "fase": "muros-e-palco",
+   "titulo": "Sarau na praça",
+   "personagem": "neide",
+   "texto": "O coletivo quer fazer um sarau com batalha de rima na praça no sábado. A Dona Neide, que mora de frente, teme o barulho e pergunta se alguém avisou a prefeitura.",
+   "esquerda": {
+    "texto": "Avisar a autoridade e combinar o horário",
+    "efeito": {
+     "respaldo": 10,
+     "publico": 5,
+     "grupo": -7,
+     "caixa": -3
+    },
+    "retorno": "O aviso sai por escrito, o horário termina cedo e Dona Neide vira aliada. A praça enche sem susto."
+   },
+   "direita": {
+    "texto": "Fazer sem avisar, é praça pública",
+    "efeito": {
+     "publico": 10,
+     "grupo": 3,
+     "respaldo": -10,
+     "caixa": 2
+    },
+    "retorno": "A praça lota, mas a polícia chega no meio da segunda rodada e a vizinha reclama. O sarau acaba cedo e mal."
+   },
+   "historia": {
+    "texto": "Todos podem reunir-se pacificamente, sem armas, em locais abertos ao público, independentemente de autorização, desde que não frustrem outra reunião anteriormente convocada para o mesmo local, sendo apenas exigido prévio aviso à autoridade competente (art. 5º, XVI da Constituição).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, art. 5º",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O baile como espaço de encontro, trabalho e festa",
+    "href": "/trilhas/funk-pixo-e-baile/o-baile-como-espaco-de-encontro-trabalho-e-festa"
+   }
+  },
+  {
+   "id": "ch-adolescente",
+   "fase": "muros-e-palco",
+   "titulo": "O palco aberto",
+   "personagem": "rafa",
+   "texto": "No sarau haverá palco aberto e Rafa, de 15 anos, quer subir para rimar. A mãe dele concorda e a escola também apoia. Alguém lembra que adolescente em espetáculo público pode precisar de autorização judicial.",
+   "esquerda": {
+    "texto": "Consultar o juizado da infância e da juventude",
+    "efeito": {
+     "respaldo": 10,
+     "grupo": 4,
+     "publico": -3,
+     "caixa": -3
+    },
+    "retorno": "O juizado informa o que vale na cidade, o evento se organiza com a mãe presente e Rafa sobe ao palco sem risco para ele nem para o coletivo."
+   },
+   "direita": {
+    "texto": "Subir assim, a mãe deixou",
+    "efeito": {
+     "publico": 9,
+     "grupo": 4,
+     "respaldo": -10,
+     "caixa": 1
+    },
+    "retorno": "A plateia vibra com o Rafa, mas o coletivo ignorou uma regra feita para proteger quem é menor de idade."
+   },
+   "historia": {
+    "texto": "Compete à autoridade judiciária disciplinar, por portaria, ou autorizar, mediante alvará, a participação de criança e adolescente em espetáculos públicos e seus ensaios. As medidas devem ser fundamentadas caso a caso, sem determinações de caráter geral (art. 149, II, a e § 2º do ECA).",
+    "fonte": {
+     "titulo": "Lei nº 8.069, de 13 de julho de 1990 (ECA), art. 149",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O Estatuto da Criança e do Adolescente",
+    "href": "/trilhas/politica-fundamental/o-estatuto-da-crianca-e-do-adolescente"
+   }
+  },
+  {
+   "id": "ch-imagem",
+   "fase": "muros-e-palco",
+   "titulo": "Fotos da plateia",
+   "personagem": "caio",
+   "texto": "Caio filma e fotografa o sarau e quer postar tudo, com a cara da plateia bem aparecendo, para divulgar o próximo. Algumas pessoas nem sabiam que estavam sendo filmadas.",
+   "esquerda": {
+    "texto": "Mostrar a plateia de longe e pedir licença",
+    "efeito": {
+     "respaldo": 9,
+     "grupo": 4,
+     "publico": -8,
+     "caixa": -2
+    },
+    "retorno": "O vídeo mostra o clima, sem expor rostos de quem não quis. Quem aparece de perto assinou o aviso, e o bairro confia mais no coletivo."
+   },
+   "direita": {
+    "texto": "Postar tudo, é evento público",
+    "efeito": {
+     "publico": 10,
+     "caixa": 3,
+     "respaldo": -9,
+     "grupo": -3
+    },
+    "retorno": "O vídeo viraliza, mas uma moradora pede para tirar do ar e ameaça processar. Parte da plateia deixa de vir."
+   },
+   "historia": {
+    "texto": "São invioláveis a intimidade, a vida privada, a honra e a imagem das pessoas, assegurado o direito a indenização pelo dano material ou moral decorrente de sua violação (art. 5º, X da Constituição).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, art. 5º",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Direito de imagem e de resposta",
+    "href": "/trilhas/comunicacao-popular/direito-de-imagem-e-de-resposta"
+   }
+  },
+  {
+   "id": "ch-casarao",
+   "fase": "muros-e-palco",
+   "titulo": "O casarão antigo",
+   "personagem": "tina",
+   "texto": "O casarão do centro tem uma parede enorme, perfeita para o maior painel do coletivo. Todo mundo sabe que ele é tombado pelo patrimônio histórico, mas ninguém liga para isso.",
+   "esquerda": {
+    "texto": "Procurar o órgão de patrimônio antes",
+    "efeito": {
+     "respaldo": 10,
+     "grupo": 3,
+     "publico": 2,
+     "caixa": -5
+    },
+    "retorno": "O pedido demora, e o órgão sugere outro muro para o painel. O coletivo perde o casarão, mas ganha um parceiro oficial e não corre risco."
+   },
+   "direita": {
+    "texto": "Pintar o casarão mesmo assim",
+    "efeito": {
+     "publico": 11,
+     "grupo": 4,
+     "respaldo": -14,
+     "caixa": 2
+    },
+    "retorno": "O painel vira assunto, e o coletivo vira alvo: a pena por ato em monumento ou coisa tombada é maior que a do muro comum."
+   },
+   "historia": {
+    "texto": "Se o ato é realizado em monumento ou coisa tombada em virtude do seu valor artístico, arqueológico ou histórico, a pena é de seis meses a um ano de detenção e multa (art. 65, § 1º da Lei 9.605/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.605, de 12 de fevereiro de 1998 (Crimes Ambientais), art. 65",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9605.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Pixo e grafite: quem pode escrever na cidade",
+    "href": "/trilhas/funk-pixo-e-baile/pixo-e-grafite-quem-pode-escrever-na-cidade"
+   }
+  },
+  {
+   "id": "ch-censura",
+   "fase": "muros-e-palco",
+   "titulo": "A letra incomoda",
+   "personagem": "marcela",
+   "texto": "Marcela, da secretaria de cultura, promete apoio ao sarau, mas pede que o coletivo \"revise\" duas rimas que criticam a prefeitura. Dona Neide acha que seria melhor evitar confusão.",
+   "esquerda": {
+    "texto": "Manter as rimas como estão",
+    "efeito": {
+     "grupo": 8,
+     "publico": 7,
+     "caixa": -9,
+     "respaldo": -4
+    },
+    "retorno": "O coletivo perde o apoio imediato, mas ganha respeito da quebrada. O recado é claro: a rima é de quem escreveu, não de quem paga."
+   },
+   "direita": {
+    "texto": "Trocar as rimas para ter apoio",
+    "efeito": {
+     "caixa": 10,
+     "respaldo": 5,
+     "grupo": -10,
+     "publico": -6
+    },
+    "retorno": "O dinheiro chega e o sarau fica sem polêmica. Os rimadores sentem que foram censurados e uma parte deles sai do coletivo."
+   },
+   "historia": {
+    "texto": "É livre a expressão da atividade intelectual, artística, científica e de comunicação, independentemente de censura ou licença (art. 5º, IX da Constituição).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, art. 5º",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Do samba ao funk: a mesma perseguição, cem anos depois",
+    "href": "/trilhas/funk-pixo-e-baile/do-samba-ao-funk-a-mesma-perseguicao-cem-anos-depois"
+   }
+  },
+  {
+   "id": "ch-execucao",
+   "fase": "muros-e-palco",
+   "titulo": "O DJ e as músicas dos outros",
+   "personagem": "beto",
+   "texto": "O festival do coletivo terá DJ tocando funk, rap e samba de outros artistas durante horas, com ingresso a preço baixo. O DJ Beto diz que ninguém nunca pediu nada em evento de bairro.",
+   "esquerda": {
+    "texto": "Se informar sobre autorização e combinar o repertório",
+    "efeito": {
+     "respaldo": 10,
+     "grupo": 3,
+     "caixa": -7,
+     "publico": 1
+    },
+    "retorno": "O coletivo descobre como regularizar a execução pública, mistura músicas autorizadas com artistas do bairro e dorme tranquilo."
+   },
+   "direita": {
+    "texto": "Tocar de tudo, quem vai fiscalizar?",
+    "efeito": {
+     "publico": 9,
+     "caixa": 5,
+     "respaldo": -10,
+     "grupo": 1
+    },
+    "retorno": "A pista lota, mas uma cobrança chega depois do evento. O que sobrou do caixa vai para pagar uma conta que ninguém previu."
+   },
+   "historia": {
+    "texto": "Sem prévia e expressa autorização do autor ou titular, as obras não podem ser utilizadas em representações e execuções públicas, e a lei considera execução pública a utilização de composições musicais ou lítero-musicais em locais de frequência coletiva (art. 68 e § 2º da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais)",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O baile como espaço de encontro, trabalho e festa",
+    "href": "/trilhas/funk-pixo-e-baile/o-baile-como-espaco-de-encontro-trabalho-e-festa"
+   }
+  },
+  {
+   "id": "ch-sample",
+   "fase": "papel-e-edital",
+   "titulo": "O beat e o sample",
+   "personagem": "beto",
+   "texto": "Beto quer usar um trecho famoso de uma música antiga como base do novo disco do coletivo. \"É só dois compassos\", diz ele. A faixa vai para as plataformas digitais.",
+   "esquerda": {
+    "texto": "Pedir autorização ou criar a base nova",
+    "efeito": {
+     "respaldo": 10,
+     "grupo": 9,
+     "caixa": -7,
+     "publico": -6
+    },
+    "retorno": "Beto toca a base de novo com instrumentos do próprio grupo. Demora mais, mas o disco é do coletivo de ponta a ponta e pode ser publicado com segurança."
+   },
+   "direita": {
+    "texto": "Usar o trecho, ninguém vai notar",
+    "efeito": {
+     "publico": 9,
+     "caixa": 3,
+     "respaldo": -11,
+     "grupo": -2
+    },
+    "retorno": "A faixa estoura no bairro. Dias depois a plataforma derruba a música por pedido do titular dos direitos, e o disco perde o ponto alto."
+   },
+   "historia": {
+    "texto": "Depende de autorização prévia e expressa do autor a utilização da obra por quaisquer modalidades, como a reprodução parcial ou integral, a adaptação, o arranjo musical e quaisquer outras transformações (art. 29, caput e I a III da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais)",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Publicar, creditar e pedir autorização de quem aparece",
+    "href": "/trilhas/editorial-de-rua-com-o-celular/publicar-creditar-e-pedir-autorizacao-de-quem-aparece"
+   }
+  },
+  {
+   "id": "ch-credito",
+   "fase": "papel-e-edital",
+   "titulo": "A foto do cartaz",
+   "personagem": "caio",
+   "texto": "O cartaz do festival usa uma foto linda de uma fotógrafa do bairro, achada numa rede social. Caio diz que está \"aberta na internet\" e que a fotógrafa deveria ficar feliz de ser divulgada.",
+   "esquerda": {
+    "texto": "Pedir licença e dar o crédito",
+    "efeito": {
+     "grupo": 6,
+     "respaldo": 8,
+     "publico": 3,
+     "caixa": -5
+    },
+    "retorno": "A fotógrafa topa e faz uma oficina com o coletivo. O nome dela aparece no cartaz, e o bairro vê o coletivo valorizando quem é de lá."
+   },
+   "direita": {
+    "texto": "Usar a foto sem aviso",
+    "efeito": {
+     "publico": 6,
+     "caixa": 4,
+     "respaldo": -9,
+     "grupo": -9
+    },
+    "retorno": "O cartaz fica ótimo, mas a fotógrafa vê o uso sem crédito e expõe o caso. O coletivo pede desculpa, e a briga custa confiança."
+   },
+   "historia": {
+    "texto": "Pertencem ao autor os direitos morais e patrimoniais sobre a obra que criou. Entre os direitos morais estão reivindicar a autoria da obra e ter o nome indicado ou anunciado como sendo o do autor na utilização da obra (arts. 22 e 24, I e II da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais)",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Publicar, creditar e pedir autorização de quem aparece",
+    "href": "/trilhas/editorial-de-rua-com-o-celular/publicar-creditar-e-pedir-autorizacao-de-quem-aparece"
+   }
+  },
+  {
+   "id": "ch-contrato",
+   "fase": "papel-e-edital",
+   "titulo": "O selo quer o disco",
+   "personagem": "caio",
+   "texto": "Uma gravadora procura o coletivo: oferece estúdio e distribuição, e quer ficar com todos os direitos do disco \"para sempre\". O contrato tem páginas que ninguém leu.",
+   "esquerda": {
+    "texto": "Ler, negociar e exigir tudo por escrito",
+    "efeito": {
+     "respaldo": 11,
+     "grupo": 9,
+     "caixa": -4,
+     "publico": 2
+    },
+    "retorno": "O coletivo pede ajuda a um advogado popular, corta o \"para sempre\" e fecha um contrato claro, com prazo e pagamento.",
+    "liga": [
+     "contrato-escrito"
+    ]
+   },
+   "direita": {
+    "texto": "Assinar rápido, é a chance",
+    "efeito": {
+     "caixa": 10,
+     "publico": 8,
+     "grupo": -7,
+     "respaldo": -9
+    },
+    "retorno": "O estúdio paga a gravação e o disco sai, mas o coletivo perde o controle da obra e vai ver pouco do dinheiro que ela rende."
+   },
+   "historia": {
+    "texto": "A cessão total ou parcial dos direitos de autor se faz sempre por escrito e presume-se onerosa. Só se admite a transmissão total e definitiva dos direitos mediante estipulação contratual escrita (arts. 49, II e 50 da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais)",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Indústria cultural",
+    "href": "/trilhas/artes-superior/industria-cultural"
+   }
+  },
+  {
+   "id": "ch-ponto",
+   "fase": "papel-e-edital",
+   "titulo": "Sem CNPJ, sem apoio?",
+   "personagem": "marcela",
+   "texto": "Marcela conta que existe uma política federal de apoio a grupos culturais de base, mas o coletivo não tem CNPJ nem estatuto. Beto acha que \"sem papel, sem dinheiro\".",
+   "esquerda": {
+    "texto": "Se organizar e se cadastrar como Ponto de Cultura",
+    "efeito": {
+     "caixa": 8,
+     "respaldo": 9,
+     "grupo": 4,
+     "publico": 3
+    },
+    "retorno": "O coletivo faz uma ata, escolhe quem assina e se inscreve. Passa a ter reconhecimento e acesso às ações da política de cultura da cidade.",
+    "liga": [
+     "ponto-de-cultura"
+    ]
+   },
+   "direita": {
+    "texto": "Seguir só no corre, sem política pública",
+    "efeito": {
+     "grupo": 10,
+     "publico": 3,
+     "caixa": -9,
+     "respaldo": -4
+    },
+    "retorno": "O coletivo mantém a autonomia, mas bota dinheiro do próprio bolso em cada evento. O cansaço aparece no segundo semestre."
+   },
+   "historia": {
+    "texto": "A Lei 13.018/2014 institui a Política Nacional de Cultura Viva. Podem ser Pontos de Cultura as entidades privadas sem fins lucrativos, grupos ou coletivos sem constituição jurídica, de natureza ou finalidade cultural, que desenvolvam e articulem atividades culturais em suas comunidades (art. 4º, I).",
+    "fonte": {
+     "titulo": "Lei nº 13.018, de 22 de julho de 2014 (Política Nacional de Cultura Viva)",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13018.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Quando virar microempresa ou cooperativa",
+    "href": "/trilhas/mei-passo-a-passo/quando-virar-microempresa-ou-cooperativa"
+   }
+  },
+  {
+   "id": "ch-conselho",
+   "fase": "papel-e-edital",
+   "titulo": "A reunião do conselho de cultura",
+   "personagem": "marcela",
+   "texto": "Marcela avisa que o conselho municipal de cultura vai discutir como a cidade gastará o dinheiro da política nacional de fomento. As reuniões são abertas, às terças, às duas da tarde.",
+   "esquerda": {
+    "texto": "Mandar duas pessoas e levar o que o bairro quer",
+    "efeito": {
+     "publico": 4,
+     "respaldo": 8,
+     "caixa": 6,
+     "grupo": -8
+    },
+    "retorno": "Duas pessoas faltam ao trabalho para ir. Chegam com um papel do coletivo e saem com um lugar na comissão que escreve o edital."
+   },
+   "direita": {
+    "texto": "Não ir, reunião não muda nada",
+    "efeito": {
+     "grupo": 6,
+     "caixa": -8,
+     "respaldo": -4,
+     "publico": 2
+    },
+    "retorno": "Ninguém perde a tarde, mas o edital sai pensado só para quem já tem CNPJ e advogado. O coletivo fica de fora."
+   },
+   "historia": {
+    "texto": "A Política Nacional Aldir Blanc tem como diretrizes a gestão democrática e compartilhada entre os poderes públicos e a sociedade civil e o estímulo à participação e ao controle social das políticas públicas de cultura (art. 3º, V e VIII da Lei 14.399/2022).",
+    "fonte": {
+     "titulo": "Lei nº 14.399, de 8 de julho de 2022 (Política Nacional Aldir Blanc)",
+     "autor": "Presidência da República",
+     "ano": "2022",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/L14399.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Falar em uma assembleia",
+    "href": "/trilhas/oratoria-e-lideranca/falar-em-uma-assembleia"
+   }
+  },
+  {
+   "id": "ch-oficina",
+   "fase": "papel-e-edital",
+   "titulo": "A oficina de grafite e rima",
+   "personagem": "rafa",
+   "texto": "Rafa e outros jovens pedem uma oficina gratuita no centro comunitário. Dá trabalho, não paga cachê e rouba o sábado de quem já está cansado.",
+   "esquerda": {
+    "texto": "Fazer a oficina todo mês",
+    "efeito": {
+     "publico": 10,
+     "grupo": -10,
+     "caixa": -6,
+     "respaldo": 4
+    },
+    "retorno": "O centro comunitário enche de jovens. A rotina cansa, mas o coletivo ganha novas pessoas e deixa de ser sempre as mesmas cinco."
+   },
+   "direita": {
+    "texto": "Deixar para depois",
+    "efeito": {
+     "grupo": 5,
+     "caixa": 4,
+     "publico": -13,
+     "respaldo": -3
+    },
+    "retorno": "O coletivo descansa, mas os jovens procuram outro lugar. Em seis meses, ninguém novo aparece."
+   },
+   "historia": {
+    "texto": "A Política Nacional de Cultura Viva tem entre seus objetivos garantir o pleno exercício dos direitos culturais, dispondo aos cidadãos os meios e insumos necessários para produzir, registrar, gerir e difundir iniciativas culturais (art. 2º, I da Lei 13.018/2014).",
+    "fonte": {
+     "titulo": "Lei nº 13.018, de 22 de julho de 2014 (Política Nacional de Cultura Viva)",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13018.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Círculos de cultura",
+    "href": "/trilhas/educacao-popular-fundamental/circulos-de-cultura"
+   }
+  },
+  {
+   "id": "ch-marca",
+   "fase": "papel-e-edital",
+   "titulo": "A marca quer o painel",
+   "personagem": "caio",
+   "texto": "Uma marca de bebida quer reproduzir o painel da Tina em latas e outdoors e oferece uma boa quantia. A Tina nunca vendeu a imagem e não conhece a marca.",
+   "esquerda": {
+    "texto": "Negociar com a Tina à frente e por escrito",
+    "efeito": {
+     "caixa": 7,
+     "respaldo": 7,
+     "grupo": 5,
+     "publico": -8
+    },
+    "retorno": "A Tina decide o que aceita, o valor fica claro e o coletivo recebe uma parte. A marca aprende que o painel tem dona."
+   },
+   "direita": {
+    "texto": "Dizer sim, dinheiro é dinheiro",
+    "efeito": {
+     "caixa": 12,
+     "publico": 6,
+     "grupo": -12,
+     "respaldo": -7
+    },
+    "retorno": "O dinheiro entra e o painel aparece em todo canto. A Tina se sente usada, e parte do bairro passa a ver o coletivo como vitrine."
+   },
+   "historia": {
+    "texto": "Depende de autorização prévia e expressa do autor a utilização da obra por quaisquer modalidades, inclusive a reprodução e a adaptação, e o autor tem o direito moral de ter seu nome indicado na utilização da obra (arts. 24, II e 29 da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais)",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Da criminalização à vitrine: quando a indústria quer vender",
+    "href": "/trilhas/funk-pixo-e-baile/da-criminalizacao-a-vitrine-quando-a-industria-quer-vender"
+   }
+  },
+  {
+   "id": "ch-contrapartida",
+   "fase": "papel-e-edital",
+   "titulo": "O dinheiro do espaço",
+   "personagem": "marcela",
+   "texto": "O coletivo ganha um subsídio para manter o espaço cultural aberto. Beto quer usar tudo na aparelhagem de som, e Marcela lembra que existe uma contrapartida para quem recebe.",
+   "esquerda": {
+    "texto": "Cumprir a contrapartida, com atividades abertas",
+    "efeito": {
+     "publico": 9,
+     "respaldo": 8,
+     "caixa": -4,
+     "grupo": -8
+    },
+    "retorno": "O coletivo faz atividades gratuitas para estudantes da escola pública e presta contas. Cansa a agenda, mas o espaço vira referência."
+   },
+   "direita": {
+    "texto": "Gastar tudo no som e adiar a contrapartida",
+    "efeito": {
+     "caixa": 7,
+     "grupo": 9,
+     "respaldo": -10,
+     "publico": -4
+    },
+    "retorno": "O som novo é um luxo, mas a prestação de contas atrasa e o apoio da próxima rodada fica em risco."
+   },
+   "historia": {
+    "texto": "Os beneficiários do subsídio para manutenção de espaços culturais devem oferecer, como contrapartida, a realização, de forma gratuita e em intervalos regulares, de atividades para estudantes da rede pública ou em espaços públicos (art. 10, § 2º da Lei 14.399/2022).",
+    "fonte": {
+     "titulo": "Lei nº 14.399, de 8 de julho de 2022 (Política Nacional Aldir Blanc)",
+     "autor": "Presidência da República",
+     "ano": "2022",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/L14399.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Orçamento para sair do aperto",
+    "href": "/trilhas/dividas-e-nome-sujo/orcamento-para-sair-do-aperto"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "ch-publico-zero",
+   "tipo": "queda",
+   "medidor": "publico",
+   "limite": "zero",
+   "titulo": "A praça vazia",
+   "texto": "O coletivo tem painel, licença e rima afiada, mas a praça está vazia. Ninguém do bairro se vê no que ele faz, e a arte vira conversa de quem já se conhece.",
+   "aula": {
+    "titulo": "Cultura de quebrada é política: organizar a partir do que a gente faz",
+    "href": "/trilhas/funk-pixo-e-baile/cultura-de-quebrada-e-politica-organizar-a-partir-do-que-a-gente-faz"
+   }
+  },
+  {
+   "id": "ch-publico-cem",
+   "tipo": "queda",
+   "medidor": "publico",
+   "limite": "cem",
+   "titulo": "Palco de multidão",
+   "texto": "A fama cresceu mais do que o coletivo aguenta. A plateia só quer o que já conhece, e a arte do bairro vira espetáculo de vitrine.",
+   "aula": {
+    "titulo": "Da criminalização à vitrine: quando a indústria quer vender",
+    "href": "/trilhas/funk-pixo-e-baile/da-criminalizacao-a-vitrine-quando-a-industria-quer-vender"
+   }
+  },
+  {
+   "id": "ch-respaldo-zero",
+   "tipo": "queda",
+   "medidor": "respaldo",
+   "limite": "zero",
+   "titulo": "Camburão na esquina",
+   "texto": "Multa, apreensão de equipamento e ameaça de processo. O coletivo ignorou regras que existem e agora paga o preço da pressa.",
+   "aula": {
+    "titulo": "Pixo e grafite: quem pode escrever na cidade",
+    "href": "/trilhas/funk-pixo-e-baile/pixo-e-grafite-quem-pode-escrever-na-cidade"
+   }
+  },
+  {
+   "id": "ch-respaldo-cem",
+   "tipo": "queda",
+   "medidor": "respaldo",
+   "limite": "cem",
+   "titulo": "Mais papel que arte",
+   "texto": "Para cada rima, três autorizações. O coletivo virou escritório e quem queria pintar e cantar foi embora.",
+   "aula": {
+    "titulo": "Pauta, ata e encaminhamentos",
+    "href": "/trilhas/oratoria-e-lideranca/pauta-ata-e-encaminhamentos"
+   }
+  },
+  {
+   "id": "ch-caixa-zero",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "zero",
+   "titulo": "Sem tinta e sem som",
+   "texto": "O dinheiro acabou. Sem tinta, sem aparelhagem e sem aluguel do espaço, o coletivo para, e a agenda de oficinas fica no papel.",
+   "aula": {
+    "titulo": "Orçamento para sair do aperto",
+    "href": "/trilhas/dividas-e-nome-sujo/orcamento-para-sair-do-aperto"
+   }
+  },
+  {
+   "id": "ch-caixa-cem",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "cem",
+   "titulo": "O patrocínio mandou no painel",
+   "texto": "Com tanto patrocínio, quem paga começa a decidir o que se pinta e o que se canta. A arte virou publicidade.",
+   "aula": {
+    "titulo": "Indústria cultural",
+    "href": "/trilhas/artes-superior/industria-cultural"
+   }
+  },
+  {
+   "id": "ch-grupo-zero",
+   "tipo": "queda",
+   "medidor": "grupo",
+   "limite": "zero",
+   "titulo": "Cada um para um lado",
+   "texto": "Brigas por crédito, por dinheiro e por cansaço racharam o grupo. Sem coletivo, sobra cada um sozinho.",
+   "aula": {
+    "titulo": "Por que se organizar: ninguém muda a vida sozinho",
+    "href": "/trilhas/primeiros-passos-na-militancia/por-que-se-organizar-ninguem-muda-a-vida-sozinho"
+   }
+  },
+  {
+   "id": "ch-grupo-cem",
+   "tipo": "queda",
+   "medidor": "grupo",
+   "limite": "cem",
+   "titulo": "Panelinha fechada",
+   "texto": "O grupo ficou tão unido que ninguém novo entra. O coletivo virou clube e perdeu o bairro, que era a razão de existir.",
+   "aula": {
+    "titulo": "Liderança coletiva e democracia interna",
+    "href": "/trilhas/oratoria-e-lideranca/lideranca-coletiva-e-democracia-interna"
+   }
+  },
+  {
+   "id": "ch-fim-viva",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "muro-autorizado",
+     "contrato-escrito",
+     "ponto-de-cultura"
+    ]
+   },
+   "titulo": "Arte de quebrada com chão firme",
+   "texto": "Um ano depois, o painel tem consentimento, o disco tem contrato claro e o coletivo é reconhecido como Ponto de Cultura. A rima e a tinta continuam da quebrada, agora com respaldo.",
+   "aula": {
+    "titulo": "Cultura de quebrada é política: organizar a partir do que a gente faz",
+    "href": "/trilhas/funk-pixo-e-baile/cultura-de-quebrada-e-politica-organizar-a-partir-do-que-a-gente-faz"
+   }
+  },
+  {
+   "id": "ch-fim-parcial",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "muro-autorizado"
+    ]
+   },
+   "titulo": "Pintando dentro da regra",
+   "texto": "O painel está de pé, com a autorização do dono. Falta contrato para o disco e reconhecimento para o coletivo, mas o essencial está feito.",
+   "aula": {
+    "titulo": "Pixo e grafite: quem pode escrever na cidade",
+    "href": "/trilhas/funk-pixo-e-baile/pixo-e-grafite-quem-pode-escrever-na-cidade"
+   }
+  },
+  {
+   "id": "ch-fim-fragil",
+   "tipo": "chegada",
+   "titulo": "No corre, por um fio",
+   "texto": "O coletivo segue criando, mas depende de favor, de sorte e de poucas pessoas. Uma denúncia ou uma saída pode derrubar tudo.",
+   "aula": {
+    "titulo": "Publicar, creditar e pedir autorização de quem aparece",
+    "href": "/trilhas/editorial-de-rua-com-o-celular/publicar-creditar-e-pedir-autorizacao-de-quem-aparece"
+   }
+  }
+ ]
+}

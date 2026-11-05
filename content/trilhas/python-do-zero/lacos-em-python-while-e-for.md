@@ -85,6 +85,15 @@ print(total)
 
 O programa soma os números de 1 a 100 e mostra 5050.
 
+```simulador
+execucao-python
+# Veja o acumulador crescer a cada volta
+total = 0
+for numero in range(1, 5):
+    total = total + numero
+print(total)
+```
+
 ## A tabuada
 
 ```python

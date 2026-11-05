@@ -550,33 +550,102 @@
       "minutos": "{n} min"
     },
     "tri": {
-      "titulo": "Laboratório da TRI",
-      "lead": "Por que, no Enem, duas pessoas com o mesmo número de acertos podem ter notas diferentes? Mexa nas respostas e veja o modelo da Teoria de Resposta ao Item trabalhar.",
-      "oficial": "No Enem, a nota das provas objetivas é calculada",
-      "aviso": "Isto NÃO calcula a sua nota do Enem. Os itens daqui são inventados para ilustrar, e a escala, os parâmetros e o método do Inep são outros.",
-      "preveja": "Preveja",
-      "prevejaTexto": "Duas pessoas acertaram 5 de 10. Uma acertou as 5 mais fáceis; a outra, as 5 mais difíceis. Quem você acha que o modelo põe mais acima? Escolha um exemplo e confira.",
-      "coerente": "Acertou as 5 fáceis",
-      "incoerente": "Acertou as 5 difíceis",
-      "alternado": "Acertou uma sim, uma não",
-      "rode": "Rode",
-      "marque": "Marque os itens que a pessoa acertou",
-      "item": "Item",
-      "dificuldade": "Dificuldade (b)",
-      "acertou": "Acertou",
-      "acertouItem": "Acertou o item {n}",
-      "chance": "Chance de acertar com θ = {t}",
-      "resultado": "{n} acertos. Proficiência estimada: θ = {t}",
-      "compare": "Compare",
-      "explicacoes": [
-        "Quem acerta as fáceis e erra as difíceis tem um padrão que o modelo acha provável: a estimativa fica mais alta.",
-        "Quem acerta só as difíceis tem um padrão pouco provável para qualquer nível; boa parte desses acertos o modelo atribui ao acaso (o parâmetro c).",
-        "Por isso vale fazer bem as questões fáceis e, nas que sobrarem, chutar com critério: o erro não tira ponto, mas o acerto ao acaso pesa pouco.",
-        "O parâmetro c é a chance de acertar sem saber; aqui ele vale 0,2, perto de 1 em 5 alternativas."
-      ],
-      "formula": "P(acerto) = c + (1 − c) ÷ (1 + e^(−a·(θ − b))), com a = 1,5 e c = 0,2 nos dez itens.",
-      "aula": "A aula sobre a TRI"
-    },
+          "titulo": "Laboratório da TRI",
+          "lead": "Marque o que você acertou numa prova de verdade do Enem e veja a nota que o método do Inep estimaria, com os parâmetros reais de cada questão. Depois mexa nos acertos e entenda por que dois cadernos com o mesmo número de acertos podem ter notas diferentes.",
+          "oficial": "No Enem, a nota das provas objetivas é calculada",
+          "aviso": "Isto é uma estimativa, não a sua nota oficial. Há margem de erro: o Inep recalibra os itens a cada edição, calcula com todos os participantes e não publica a fórmula completa em texto. Use para entender e treinar, nunca para decidir inscrição ou curso.",
+          "escolha": "1. Escolha a prova",
+          "ano": "Ano",
+          "area": "Área",
+          "idioma": "Língua estrangeira",
+          "ingles": "Inglês",
+          "espanhol": "Espanhol",
+          "areas": {
+            "linguagens": "Linguagens e códigos",
+            "humanas": "Ciências humanas",
+            "natureza": "Ciências da natureza",
+            "matematica": "Matemática"
+          },
+          "carregando": "Carregando os parâmetros dos itens…",
+          "erroCarregar": "Não foi possível carregar os parâmetros desta prova. Tente de novo.",
+          "caderno": "Caderno {cor}, prova {prova} dos microdados do Inep. As posições seguem este caderno.",
+          "ligadas": "{n} destes itens têm a questão correspondente no banco de provas do site.",
+          "foraDaConta": "{n} item(ns) foram abandonados pelo Inep e ficam fora da conta, como no cálculo oficial.",
+          "marcar": "2. Marque o que você acertou",
+          "marcarTexto": "Marque os itens que você acertou. Item em branco ou errado fica desmarcado.",
+          "colar": "Ou cole as suas respostas, em ordem, e o laboratório corrige pelo gabarito oficial",
+          "colarAjuda": "Uma letra de A a E por item, na ordem do caderno; use um ponto para branco. Nada sai deste aparelho.",
+          "corrigir": "Corrigir pelo gabarito",
+          "limpar": "Limpar tudo",
+          "prontos": "Ou teste um padrão",
+          "prontosTexto": "Com {n} acertos, veja o que muda conforme quais itens você acertou.",
+          "acertosQtd": "Número de acertos",
+          "maisFaceis": "Acertei só os mais fáceis",
+          "maisDificeis": "Acertei só os mais difíceis",
+          "item": "Item",
+          "dificuldade": "Dificuldade (b, em pontos da escala)",
+          "discriminacao": "Discriminação (a)",
+          "chute": "Chute (c)",
+          "acertou": "Acertou",
+          "acertouItem": "Acertou o item {n}",
+          "fora": "fora da conta",
+          "noSite": "no site",
+          "resultado": "Sua nota estimada",
+          "notaEstimada": "{nota} pontos",
+          "intervalo": "Margem de erro (95%): de {min} a {max}",
+          "contagem": "{n} acertos em {total} itens contados.",
+          "faixa": "Com {n} acertos, a nota pode ir de {min} a {max}, dependendo de quais itens foram acertados.",
+          "ml": "Pela máxima verossimilhança, sem o peso da distribuição a priori: {nota} pontos.",
+          "mlNao": "Pela máxima verossimilhança não há estimativa: acertar ou errar tudo não tem máximo.",
+          "avancado": "Detalhes do cálculo",
+          "constante": "Constante de escala D da curva logística",
+          "d17": "D = 1,7 (padrão, como no BILOG-MG)",
+          "d1": "D = 1",
+          "constanteAviso": "O texto público do Inep não diz qual D usa. Mude e veja: a nota muda poucos pontos, e essa dúvida soma à margem de erro.",
+          "compare": "Como ler",
+          "explicacoes": [
+            "O Inep não conta acertos: para cada item, a curva diz a chance de acerto de quem tem cada proficiência. O padrão de respostas inteiro escolhe a proficiência mais plausível.",
+            "Acertar itens difíceis e errar fáceis é um padrão incoerente: o modelo desconfia de acerto por acaso (o parâmetro c) e a nota sobe menos.",
+            "Itens muito fáceis para o seu nível pesam pouco; itens perto do seu nível dizem mais. Por isso errar um item fácil custa mais do que acertar um difícil por sorte rende.",
+            "A nota não tem teto de 1000 nem piso de 0: depende dos itens de cada prova. Cada área tem a sua própria escala, e não se compara a nota de Matemática com a de Linguagens."
+          ],
+          "metodo": "Como o laboratório calcula",
+          "passos": [
+            "Pega os parâmetros a (discriminação), b (dificuldade) e c (chute) que o Inep publica para cada item nos microdados do Enem.",
+            "Calcula a chance de acerto de cada item para 40 proficiências entre −4 e 4 (modelo logístico de 3 parâmetros).",
+            "Multiplica pela distribuição normal a priori e faz a média a posteriori (EAP), como descreve o Inep: é a proficiência estimada.",
+            "Passa para a escala do Enem: nota = 500 + 100 × proficiência (500 é a média dos concluintes de 2009 e 100 o desvio-padrão)."
+          ],
+          "formula": "P(acerto) = c + (1 − c) ÷ (1 + e^(−D·a·(θ − b)))      nota = 500 + 100·θ",
+          "limites": "O que este laboratório não faz",
+          "limitesLista": [
+            "Não é a nota oficial: o Inep calibra os itens com amostras de participantes, equaliza entre edições e calcula a nota de cada pessoa com o seu caderno.",
+            "Usa os itens do caderno de cor listado, mas o participante pode ter feito outra cor, com os mesmos itens em outra ordem; as notas só são iguais se os itens contados forem os mesmos.",
+            "A margem de erro mostrada vem só do número de itens; não inclui a incerteza do método (como a constante D) nem a calibração dos parâmetros pelo Inep.",
+            "A redação não entra: ela tem nota própria, de 0 a 1000, e a nota final do Sisu é a média com os pesos do curso."
+          ],
+          "fontesTitulo": "Fontes",
+          "fontes": [
+            {
+              "titulo": "Inep. Microdados do Enem (arquivo ITENS_PROVA, com NU_PARAM_A, NU_PARAM_B e NU_PARAM_C)",
+              "url": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem"
+            },
+            {
+              "titulo": "Inep. Enem: procedimentos de análise (modelo, EAP com 40 pontos de quadratura, escala 500 e 100)",
+              "url": "https://download.inep.gov.br/publicacoes/institucionais/avaliacoes_e_exames_da_educacao_basica/enem_procedimentos_de_analise.pdf"
+            },
+            {
+              "titulo": "Inep. Procedimento de cálculo das notas do Enem (nota técnica, 2011)",
+              "url": "https://download.inep.gov.br/educacao_basica/enem/nota_tecnica/2011/nota_tecnica_procedimento_de_calculo_das_notas_enem_2.pdf"
+            },
+            {
+              "titulo": "Inep. Entenda a sua nota no Enem: guia do participante (2013)",
+              "url": "https://download.inep.gov.br/educacao_basica/enem/guia_participante/2013/guia_do_participante_notas.pdf"
+            }
+          ],
+          "aula": "A aula sobre a TRI",
+          "provas": "Ver as provas do Enem"
+        },
     "sisu": {
       "titulo": "Média ponderada do Sisu",
       "lead": "Digite as suas notas e os pesos do curso que você quer: a calculadora faz a conta da média ponderada. Nada sai deste aparelho.",

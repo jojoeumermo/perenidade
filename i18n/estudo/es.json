@@ -550,32 +550,7 @@
       "minutos": "{n} min"
     },
     "tri": {
-      "titulo": "Laboratorio de la TRI",
-      "lead": "¿Por qué, en el Enem, dos personas con el mismo número de aciertos pueden tener notas distintas? Cambia las respuestas y mira cómo trabaja el modelo de la Teoría de Respuesta al Ítem.",
-      "oficial": "En el Enem, la nota de las pruebas objetivas se calcula",
-      "aviso": "Esto NO calcula tu nota del Enem. Los ítems de aquí son inventados para ilustrar, y la escala, los parámetros y el método del Inep son otros.",
-      "preveja": "Predice",
-      "prevejaTexto": "Dos personas acertaron 5 de 10. Una acertó las 5 más fáciles; la otra, las 5 más difíciles. ¿A quién crees que el modelo pone más arriba? Elige un ejemplo y compruébalo.",
-      "coerente": "Acertó las 5 fáciles",
-      "incoerente": "Acertó las 5 difíciles",
-      "alternado": "Acertó una sí, una no",
-      "rode": "Ejecuta",
-      "marque": "Marca los ítems que la persona acertó",
-      "item": "Ítem",
-      "dificuldade": "Dificultad (b)",
-      "acertou": "Acertó",
-      "acertouItem": "Acertó el ítem {n}",
-      "chance": "Probabilidad de acertar con θ = {t}",
-      "resultado": "{n} aciertos. Competencia estimada: θ = {t}",
-      "compare": "Compara",
-      "explicacoes": [
-        "Quien acierta las fáciles y falla las difíciles tiene un patrón que el modelo considera probable: la estimación sale más alta.",
-        "Quien acierta solo las difíciles tiene un patrón poco probable para cualquier nivel; buena parte de esos aciertos el modelo los atribuye al azar (el parámetro c).",
-        "Por eso conviene hacer bien las preguntas fáciles y, en las que queden, adivinar con criterio: el error no quita puntos, pero el acierto al azar pesa poco.",
-        "El parámetro c es la probabilidad de acertar sin saber; aquí vale 0,2, cerca de 1 entre 5 opciones."
-      ],
-      "formula": "P(acierto) = c + (1 − c) ÷ (1 + e^(−a·(θ − b))), con a = 1,5 y c = 0,2 en los diez ítems.",
-      "aula": "La clase sobre la TRI"
+      "titulo": "Laboratorio de la TRI"
     },
     "sisu": {
       "titulo": "Media ponderada del Sisu",

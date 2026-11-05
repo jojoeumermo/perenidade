@@ -1053,7 +1053,8 @@ await recusa("nem por chat_identidade_definir", async () => rpc(como(ids.prof), 
 // ── Grupos de departamento ──
 await espera("quem tem função já está no grupo do departamento e no da equipe toda", () => rpc(como(ids.designer), "chat_conversas"), (r) => {
   const deps = r.filter((c) => c.tipo === "departamento").map((c) => c.departamento).sort();
-  return JSON.stringify(deps) === JSON.stringify(["design", "geral"]);
+  // B10: quem era do design agora é da Comunicação (marketing): o grupo "design" ficou como "Arte e design (Comunicação)".
+  return JSON.stringify(deps) === JSON.stringify(["design", "geral", "jornalismo", "marketing"]);
 });
 await espera("a coordenação e a vice-coordenação estão em todos os treze grupos (com o da supervisão)", async () => [(await rpc(como(ids.coord), "chat_conversas")).filter((c) => c.tipo === "departamento").length, (await rpc(como(ids.vice), "chat_conversas")).filter((c) => c.tipo === "departamento").length], (r) => r[0] === 13 && r[1] === 13);
 await espera("o grupo do jornalismo é o Departamento de Comunicação (jornal, rádio e podcast)", () => departamento("jornal", "jornalismo"), (r) => r?.nome === "Departamento de Comunicação");
@@ -1065,7 +1066,7 @@ await espera("função retirada tira a pessoa do grupo e obriga a trocar a chave
   const design = (await departamento("coord", "design")).id;
   await selar(aparelhos.designer, design, "Capa nova pronta.", contextoDaConversa(design, ids.designer)).then((corpo) => rpc(como(ids.designer), "chat_enviar", { p_id: design, p_corpo: corpo }));
   const antes = await minimaDe(design);
-  const papel = (await rpc(como(ids.revisor), "eu")).papeis.find((p) => p.papel === "design");
+  const papel = (await rpc(como(ids.revisor), "eu")).papeis.find((p) => p.papel === "marketing");
   await rpc(como(ids.coord), "papel_remover", { p_id: papel.id });
   return [Boolean(await departamento("revisor", "design")), (await minimaDe(design)) > antes];
 }, (r) => r[0] === false && r[1] === true);
@@ -1074,11 +1075,11 @@ await espera("conta suspensa sai dos grupos de departamento e volta ao ser reati
   const suspensa = (await dono("select count(*)::int as n from interno.conversa_membros m join interno.conversas c on c.id = m.conversa where c.tipo = 'departamento' and m.usuario = $1", [ids.designer])).rows[0].n;
   await rpc(como(ids.coord), "usuario_suspender", { p_usuario: ids.designer, p_suspenso: false });
   return [suspensa, (await dono("select count(*)::int as n from interno.conversa_membros m join interno.conversas c on c.id = m.conversa where c.tipo = 'departamento' and m.usuario = $1", [ids.designer])).rows[0].n];
-}, (r) => r[0] === 0 && r[1] === 2);
+}, (r) => r[0] === 0 && r[1] === 4);
 
 // ── Mural da equipe ──
 await recusa("quem não é da equipe não vê os canais", () => rpc(como(ids.troll), "equipe_canais"), "conta_suspensa");
-await espera("designer vê geral, pedidos e design", () => rpc(como(ids.designer), "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "design"]));
+await espera("quem era do design (agora Comunicação) vê geral, pedidos, jornalismo, design e marketing", () => rpc(como(ids.designer), "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "jornalismo", "design", "marketing"]));
 await espera("cada canal usa a chave do grupo do departamento; geral e pedidos, a da equipe toda", async () => [await rpc(como(ids.designer), "equipe_canais"), (await departamento("designer", "geral")).id, (await departamento("designer", "design")).id],
   ([r, geral, design]) => r.conversas.geral === geral && r.conversas.pedidos === geral && r.conversas.design === design && !("educacao" in r.conversas));
 await espera("a frase da equipe não existe mais", () => rpc(como(ids.coord), "equipe_canais"), (r) => !("prova" in r) && !("sal" in r));
@@ -1096,7 +1097,7 @@ await espera("educador pede ajuda ao design", async () => (recado = await rpc(co
 await espera("designer abre o pedido no próprio aparelho", async () => { const [r] = await rpc(como(ids.designer), "equipe_listar", { p_canal: "pedidos" }); return ler(aparelhos.designer, geral, r.corpo, contextoDoMural("pedidos", r.autor_id)); }, (r) => r === "Preciso de uma capa para a aula de frações.");
 await espera("o banco guarda só o texto cifrado", () => dono("select corpo from interno.equipe_mensagens where id = $1", [recado.id]), (r) => r.rows[0].corpo.startsWith("c2.") && !r.rows[0].corpo.includes("capa"));
 await espera("designer responde e o pedido aparece com a resposta", async () => { await rpc(como(ids.designer), "equipe_escrever", { p_canal: "pedidos", p_corpo: await selar(aparelhos.designer, geral, "Faço hoje.", contextoDoMural("pedidos", ids.designer)), p_resposta_a: recado.id }); return rpc(como(ids.designer), "equipe_listar", { p_canal: "pedidos" }); },
-  (r) => r.length === 1 && r[0].para === "design" && r[0].respostas.length === 1 && r[0].autor === "Paulo Professor" && r[0].respostas[0].autor_id === ids.designer);
+  (r) => r.length === 1 && r[0].para === "marketing" && r[0].respostas.length === 1 && r[0].autor === "Paulo Professor" && r[0].respostas[0].autor_id === ids.designer);
 await recusa("outra pessoa não apaga recado alheio", () => rpc(como(ids.designer), "equipe_apagar", { p_id: recado.id }), "nao_encontrado");
 await espera("autor marca o pedido como resolvido", () => rpc(como(ids.prof), "equipe_marcar", { p_id: recado.id, p_resolvido: true }), (r) => r.ok);
 await recusa("vice-coordenação não define a sala da equipe", () => rpc(como(ids.vice), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }), "sem_permissao");
@@ -2003,7 +2004,7 @@ const C1 = { ...como(ids.coord), aal: "aal2" };
 const sup = como(ids.sup);
 await recusa("supervisão não se pede pelo painel", () => rpc(como(ids.alvo), "candidatar", { p_papel: "supervisao", p_disciplina: null, p_mensagem: "Quero supervisionar o painel, tenho experiência." }), "invalido:papel");
 await recusa("supervisão não se pede pelo formulário público", () => rpc({ papel: "anon", ip: "198.51.100.201" }, "voluntariar", { p: { nome: "Fulana de Tal", email: "fulana.sup@exemplo.org", papel: "supervisao", mensagem: "Quero supervisionar o painel do instituto, por favor." } }), "invalido:papel");
-await espera("pedido de design continua sendo de design (o marketing é outra função)", async () => { await rpc(como(ids.outra), "candidatar", { p_papel: "design", p_disciplina: null, p_mensagem: "Faço cartazes e cuido de redes sociais há anos." }); return rpc(como(ids.outra), "candidaturas_minhas"); }, (r) => r.some((x) => x.papel === "design") && !r.some((x) => x.papel === "marketing"));
+await espera("pedido endereçado a design vira pedido da Comunicação (marketing), como manda a migração B10", async () => { await rpc(como(ids.outra), "candidatar", { p_papel: "design", p_disciplina: null, p_mensagem: "Faço cartazes e cuido de redes sociais há anos." }); return rpc(como(ids.outra), "candidaturas_minhas"); }, (r) => r.some((x) => x.papel === "marketing") && !r.some((x) => x.papel === "design"));
 await recusa("curadoria não nomeia supervisão", () => rpc(como(ids.curadora), "papel_conceder", { p_usuario: ids.sup, p_papel: "supervisao", p_disciplina: null }), "sem_permissao");
 await espera("vice-coordenação nomeia a supervisão", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.sup, p_papel: "supervisao", p_disciplina: "matematica" }), (r) => r.ok);
 await espera("supervisão é de todo o site, sem disciplina", () => rpc(sup, "eu"), (r) => r.papeis.some((p) => p.papel === "supervisao" && p.disciplina === null));
@@ -2084,7 +2085,7 @@ await espera("coordenação devolve para rascunho e o marketing é avisado", asy
   (r) => r[0].situacao === "rascunho" && r[0].devolvido === true && r[0].nota === "Falta o crédito da foto." && r[1] === 1 && r[2] >= 1);
 await espera("ao corrigir, a marca de devolvido sai (e a peça espera nova aprovação)", async () => { await rpc(mkt, "divulgacao_salvar", { p: { id: post.id, titulo: "Convite para a aula aberta", formato: "carrossel", legenda: "Sábado tem aula aberta de história. Foto: acervo próprio.", situacao: "rascunho" } }); return (await rpc(mkt, "divulgacao_listar")).itens.find((i) => i.id === post.id); }, (r) => r.devolvido === false && r.situacao === "rascunho");
 await recusa("leitora não vê o calendário", () => rpc(como(ids.leitora), "divulgacao_listar"), "sem_permissao");
-await recusa("o design antigo não vê o calendário", () => rpc(como(ids.designer), "divulgacao_listar"), "sem_permissao");
+await espera("quem era do design (agora Comunicação) vê o calendário", () => rpc(como(ids.designer), "divulgacao_listar"), (r) => Array.isArray(r.itens));
 await recusa("revisor não apaga item do calendário", () => rpc(como(ids.alvo), "divulgacao_apagar", { p_id: post.id }), "sem_permissao");
 await recusa("marketing não define o perfil do Instagram", () => rpc(mkt, "divulgacao_instagram_salvar", { p_url: "https://www.instagram.com/institutolucia" }), "sem_permissao");
 await recusa("o perfil só aceita endereço do Instagram", () => rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://golpe.exemplo/login" }), "invalido:instagram");
@@ -2986,7 +2987,7 @@ await espera("lixeira e depois de vez", async () => {
 // ── Publicação no Instagram (registro e agenda; a publicação em si é da rota do site, com a chave da Meta) ──
 const urlDaArte = (quem) => `https://projeto.supabase.co/storage/v1/object/public/estudio-publicacoes/${quem}/abc123.jpg`;
 const daquiAPouco = (min) => new Date(Date.now() + min * 60e3).toISOString();
-await recusa("quem é só do design não publica no perfil", () => rpc(como(ids.designer), "design_publicacao_registrar", { p: { urls: [urlDaArte(ids.designer)], legenda: "Oi", quando: daquiAPouco(60) } }), "sem_permissao");
+await recusa("quem não tem função de Comunicação não publica no perfil", () => rpc(como(ids.leitora), "design_publicacao_registrar", { p: { urls: [urlDaArte(ids.leitora)], legenda: "Oi", quando: daquiAPouco(60) } }), "sem_permissao");
 await espera("o marketing pode publicar", () => rpc(como(ids.divulga), "design_pode_publicar"), (r) => r === true);
 await recusa("imagem de fora do depósito é recusada", () => rpc(como(ids.divulga), "design_publicacao_registrar", { p: { urls: ["https://exemplo.com/a.jpg"], legenda: "Oi", quando: daquiAPouco(60) } }), "invalido:urls");
 await recusa("imagem na pasta de outra pessoa é recusada", () => rpc(como(ids.divulga), "design_publicacao_registrar", { p: { urls: [urlDaArte(ids.designer)], legenda: "Oi", quando: daquiAPouco(60) } }), "invalido:urls");

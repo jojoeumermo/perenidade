@@ -77,13 +77,30 @@ export function lerRecursos(valor: string | undefined): Set<string> {
 // A referência precisa ser literal (process.env.NEXT_PUBLIC_RECURSOS) para o Next gravar o valor no código do navegador.
 const ligados = lerRecursos(process.env.NEXT_PUBLIC_RECURSOS);
 
+/** O que a coordenação decidiu pelo painel (tabela de recursos no banco): ver lib/recursos-vivos.ts. */
+export interface Vivos {
+  ligados: ReadonlySet<string>;
+  desligados: ReadonlySet<string>;
+}
+let vivos: Vivos = { ligados: new Set(), desligados: new Set() };
+
+/** Guarda a decisão lida do banco (cache curto, feito por lib/recursos-vivos.ts). Sem ela, vale só a variável de montagem. */
+export function definirVivos(novos: Vivos): void {
+  vivos = novos;
+}
+
 /**
  * O recurso está ligado nesta montagem do site? "-nome" na lista sempre desliga; o nome na lista liga; "todos" liga o
  * que não está em SO_PELO_NOME; e os de PADRAO ficam ligados, a não ser que a lista diga "nenhum".
+ * Sem "lista" (o uso normal), entra também a decisão do painel: desligado no banco desliga sempre; ligado no banco liga,
+ * inclusive os de SO_PELO_NOME (o banco só grava esses depois da confirmação de uma segunda pessoa).
  */
-export function ligado(recurso: Recurso, lista: Set<string> = ligados): boolean {
-  if (lista.has(`-${recurso}`)) return false;
-  if (lista.has(recurso)) return true;
-  if (lista.has("todos") && !SO_PELO_NOME.includes(recurso)) return true;
-  return PADRAO.includes(recurso) && !lista.has("nenhum");
+export function ligado(recurso: Recurso, lista?: Set<string>): boolean {
+  const base = lista ?? ligados;
+  if (base.has(`-${recurso}`)) return false;
+  if (!lista && vivos.desligados.has(recurso)) return false;
+  if (base.has(recurso)) return true;
+  if (base.has("todos") && !SO_PELO_NOME.includes(recurso)) return true;
+  if (PADRAO.includes(recurso) && !base.has("nenhum")) return true;
+  return !lista && vivos.ligados.has(recurso);
 }

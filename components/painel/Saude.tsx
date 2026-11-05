@@ -9,6 +9,8 @@ import { TERMO_SAUDE, textoDoTermo } from "@/lib/termos";
 import { abrirArquivoDaSaude, cleanImage, sendSaudeFile, UploadError, uploadMessages } from "@/lib/upload";
 import { CartaoDoProfissional } from "../saude/Vitrine";
 import { Aviso, botao, botaoClaro, campo, dataHora, dia, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { confirmarFrase, perguntarTexto } from "./ui";
+import { SaudeRegras } from "./SaudeRegras";
 
 interface PerfilDoPainel extends Profissional {
   status: "rascunho" | "aguardando" | "publicado" | "suspenso" | "removido";
@@ -87,6 +89,7 @@ export function SaudeNoPainel({ me }: { me: Me }) {
     <div className="space-y-10">
       {profissional && <MeuPerfil />}
       {coordena && <Fila />}
+      {can(me, "coordenacao", "vice") && <SaudeRegras />}
     </div>
   );
 }
@@ -343,7 +346,7 @@ function MeuPerfil() {
           <CamposDoPerfil f={f} mudar={mudar} aviso={setAviso} />
           <p className="mt-5 flex flex-wrap gap-3">
             <button type="button" className={botao} disabled={ocupado || f.nome.trim().length < 2 || f.profissao.trim().length < 2 || !f.registro.trim()} onClick={() => void salvar()}>Salvar e aprovar este texto</button>
-            {p.status !== "removido" && <button type="button" className={botaoClaro} disabled={ocupado} onClick={async () => { if (window.confirm("Sair do mural agora? O cartão some na hora.")) { await rpc("saude_sair").catch(() => null); perfil.recarregar(); } }}>Sair do mural</button>}
+            {p.status !== "removido" && <button type="button" className={botaoClaro} disabled={ocupado} onClick={async () => { if ((await confirmarFrase("Sair do mural agora? O cartão some na hora."))) { await rpc("saude_sair").catch(() => null); perfil.recarregar(); } }}>Sair do mural</button>}
           </p>
           <p className="mt-2 text-xs text-ink-soft">Salvar conta como a sua aprovação do texto final. Toda mudança tira o cartão do ar até a coordenação conferir de novo.</p>
         </section>
@@ -434,7 +437,7 @@ function Fila() {
         <div className={`max-w-3xl border-2 p-4 ${d.desligada ? "border-[#c21f16] bg-parchment-deep" : "border-ink"}`}>
           <p className="font-semibold">Chave geral: {d.desligada ? "mural DESLIGADO (ninguém aparece)" : "mural ligado"}</p>
           <p className="mt-1 text-sm text-ink-soft">Use em emergência (denúncia grave, dúvida jurídica): desliga o mural inteiro na hora, sem publicar o site de novo. Vale também para os cartões publicados pelo arquivo do site.</p>
-          <button type="button" className={`mt-2 ${d.desligada ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={() => { if (d.desligada || window.confirm("Desligar o mural inteiro agora?")) void acao.agir("saude_chave", { p_desligar: !d.desligada }, d.desligada ? "Mural ligado." : "Mural desligado."); }}>{d.desligada ? "Ligar o mural" : "Desligar o mural"}</button>
+          <button type="button" className={`mt-2 ${d.desligada ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={async () => { if (d.desligada || (await confirmarFrase("Desligar o mural inteiro agora?"))) void acao.agir("saude_chave", { p_desligar: !d.desligada }, d.desligada ? "Mural ligado." : "Mural desligado."); }}>{d.desligada ? "Ligar o mural" : "Desligar o mural"}</button>
         </div>
       )}
       {vencendo.length > 0 && (
@@ -467,7 +470,7 @@ function Fila() {
                       <p className="mt-2 flex flex-wrap gap-2">
                         {!p.assinatura_conferida_em && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("saude_assinatura_conferir", { p_usuario: p.id, p_ok: true, p_nota: "" }, "Assinatura conferida.")}>Assinatura válida: marcar conferida</button>}
                         {p.assinatura_conferida_em && <span>✓ Conferida em {dataHora(p.assinatura_conferida_em)}.</span>}
-                        <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => { const nota = window.prompt("O que está errado na assinatura (vai para o profissional):", "") ?? ""; void acao.agir("saude_assinatura_conferir", { p_usuario: p.id, p_ok: false, p_nota: nota }, "Devolvido ao profissional."); }}>Devolver</button>
+                        <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={async () => { const nota = (await perguntarTexto("O que está errado na assinatura (vai para o profissional):", "")) ?? ""; void acao.agir("saude_assinatura_conferir", { p_usuario: p.id, p_ok: false, p_nota: nota }, "Devolvido ao profissional."); }}>Devolver</button>
                       </p>
                     </div>
                   ) : <p className="text-sm text-ink-soft">O profissional ainda não enviou o termo assinado.</p>}
@@ -496,8 +499,8 @@ function Fila() {
 
                 <p className="mt-3 flex flex-wrap gap-2">
                   {p.status !== "publicado" && p.status !== "removido" && <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("saude_decidir", { p_usuario: p.id, p_acao: "publicar" }, "Publicado: aparece assim que tudo estiver em dia.")}>Publicar</button>}
-                  {p.status === "publicado" && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => { const nota = window.prompt("Motivo (vai para o profissional):", "") ?? ""; void acao.agir("saude_decidir", { p_usuario: p.id, p_acao: "aguardar", p_nota: nota }, "Devolvido para ajuste."); }}>Devolver para ajuste</button>}
-                  {p.status !== "suspenso" && p.status !== "removido" && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => { const nota = window.prompt("Motivo da suspensão (vai para o profissional):", "") ?? ""; void acao.agir("saude_decidir", { p_usuario: p.id, p_acao: "suspender", p_nota: nota }, "Suspenso."); }}>Suspender</button>}
+                  {p.status === "publicado" && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={async () => { const nota = (await perguntarTexto("Motivo (vai para o profissional):", "")) ?? ""; void acao.agir("saude_decidir", { p_usuario: p.id, p_acao: "aguardar", p_nota: nota }, "Devolvido para ajuste."); }}>Devolver para ajuste</button>}
+                  {p.status !== "suspenso" && p.status !== "removido" && <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={async () => { const nota = (await perguntarTexto("Motivo da suspensão (vai para o profissional):", "")) ?? ""; void acao.agir("saude_decidir", { p_usuario: p.id, p_acao: "suspender", p_nota: nota }, "Suspenso."); }}>Suspender</button>}
                 </p>
                 <EditarPeloCoordenacao p={p} depois={fila.recarregar} />
                 <Registro usuario={p.id} />

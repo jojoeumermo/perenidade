@@ -550,32 +550,7 @@
       "minutos": "{n} min"
     },
     "tri": {
-      "titulo": "Laboratoire de la TRI",
-      "lead": "Pourquoi, à l'Enem, deux personnes avec le même nombre de bonnes réponses peuvent-elles avoir des notes différentes ? Modifie les réponses et regarde le modèle de la théorie de la réponse à l'item travailler.",
-      "oficial": "À l'Enem, la note des épreuves à choix multiples est calculée",
-      "aviso": "Ceci ne calcule PAS ta note à l'Enem. Les items ici sont inventés pour illustrer, et l'échelle, les paramètres et la méthode de l'Inep sont différents.",
-      "preveja": "Prédis",
-      "prevejaTexto": "Deux personnes ont eu 5 bonnes réponses sur 10. L'une a réussi les 5 plus faciles ; l'autre, les 5 plus difficiles. Laquelle, selon toi, le modèle place-t-il plus haut ? Choisis un exemple et vérifie.",
-      "coerente": "A réussi les 5 faciles",
-      "incoerente": "A réussi les 5 difficiles",
-      "alternado": "A réussi une sur deux",
-      "rode": "Lance",
-      "marque": "Coche les items que la personne a réussis",
-      "item": "Item",
-      "dificuldade": "Difficulté (b)",
-      "acertou": "Réussi",
-      "acertouItem": "A réussi l'item {n}",
-      "chance": "Probabilité de réussir avec θ = {t}",
-      "resultado": "{n} bonnes réponses. Compétence estimée : θ = {t}",
-      "compare": "Compare",
-      "explicacoes": [
-        "Qui réussit les faciles et rate les difficiles a un profil que le modèle juge probable : l'estimation est plus élevée.",
-        "Qui réussit seulement les difficiles a un profil peu probable à n'importe quel niveau ; le modèle attribue une bonne partie de ces réussites au hasard (le paramètre c).",
-        "C'est pourquoi il vaut la peine de bien faire les questions faciles et, pour celles qui restent, de deviner avec méthode : une erreur ne fait pas perdre de points, mais une réussite au hasard pèse peu.",
-        "Le paramètre c est la probabilité de réussir sans savoir ; ici il vaut 0,2, soit environ 1 chance sur 5 options."
-      ],
-      "formula": "P(réussite) = c + (1 − c) ÷ (1 + e^(−a·(θ − b))), avec a = 1,5 et c = 0,2 pour les dix items.",
-      "aula": "La leçon sur la TRI"
+      "titulo": "Laboratoire de la TRI"
     },
     "sisu": {
       "titulo": "Moyenne pondérée du Sisu",

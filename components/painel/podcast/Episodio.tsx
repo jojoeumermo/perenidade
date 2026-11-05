@@ -18,6 +18,7 @@ import { GABARITO, PENDENCIAS } from "./Guia";
 import { EnviarCapaSimples, linkDoConvidado, OuvirFechado } from "./Listas";
 import { ChecarAfirmacao, CitarObra, FerramentasDoRoteiro, Teleprompter } from "./Roteiro";
 import { bytes, type EpisodioCompleto, NOME_DA_ETAPA, type PainelDoPodcast } from "./tipos";
+import { confirmarFrase, perguntarTexto } from "../ui";
 
 type Aba = "pauta" | "roteiro" | "convidados" | "arquivos" | "revisao" | "publicacao" | "divulgacao" | "historico";
 
@@ -172,7 +173,7 @@ export function EditorDeEpisodio({ id, painel, voltar, recarregarPainel }: { id:
   return (
     <div className="space-y-6">
       <p>
-        <button type="button" className={elo} onClick={() => (sujo && !window.confirm("Há alterações sem guardar. Sair mesmo assim?") ? null : voltar())}>← Episódios</button>
+        <button type="button" className={elo} onClick={async () => (sujo && !(await confirmarFrase("Há alterações sem guardar. Sair mesmo assim?")) ? null : voltar())}>← Episódios</button>
       </p>
       <header className="flex flex-wrap items-start gap-5 border-b-4 border-ink pb-5">
         <div className="w-24 shrink-0">
@@ -292,11 +293,11 @@ function Acoes({ e, eu, podeEditar, ocupado, agir, publicar }: { e: EpisodioComp
           </button>
         )}
         {eu.supervisao && e.status === "publicado" && (
-          <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => { const motivo = window.prompt("Por que tirar do ar? (fica no histórico)"); if (motivo) void agir("podcast_despublicar", { p_id: e.id, p_nota: motivo }, "Tirado do ar."); }}>Tirar do ar</button>
+          <button type="button" className={botaoClaro} disabled={ocupado} onClick={async () => { const motivo = (await perguntarTexto("Por que tirar do ar? (fica no histórico)")); if (motivo) void agir("podcast_despublicar", { p_id: e.id, p_nota: motivo }, "Tirado do ar."); }}>Tirar do ar</button>
         )}
         {eu.time && <button type="button" className={elo} onClick={() => void linkRevisao()}>{copiado ? "Link de revisão copiado ✓" : "Link privado de revisão"}</button>}
         {(eu.coordenacao || ((eu.producao || eu.supervisao) && !e.publicado_em)) && (
-          <button type="button" className={`${elo} text-oxblood`} onClick={async () => { if (!window.confirm("Apagar o episódio e todos os arquivos dele? Não tem volta.")) return; const r = (await agir("podcast_apagar", { p_id: e.id }, "Episódio apagado.")) as { liberar?: { deposito: string; caminho: string }[] } | null; if (r) { await liberarEspaco(r.liberar ?? []).catch(() => 0); window.history.back(); } }}>
+          <button type="button" className={`${elo} text-oxblood`} onClick={async () => { if (!(await confirmarFrase("Apagar o episódio e todos os arquivos dele? Não tem volta."))) return; const r = (await agir("podcast_apagar", { p_id: e.id }, "Episódio apagado.")) as { liberar?: { deposito: string; caminho: string }[] } | null; if (r) { await liberarEspaco(r.liberar ?? []).catch(() => 0); window.history.back(); } }}>
             Apagar
           </button>
         )}
@@ -451,7 +452,7 @@ function AbaRoteiro({ valor, mudar, podeProduzir }: { valor: Valor; mudar: Mudar
     <div className="max-w-4xl space-y-5">
       {podeProduzir && (
         <FerramentasDoRoteiro
-          gabarito={() => { if (!roteiro.trim() || window.confirm("Pôr o gabarito no fim do roteiro?")) mudar("roteiro", roteiro.trim() ? `${roteiro}\n\n${GABARITO}` : GABARITO); }}
+          gabarito={async () => { if (!roteiro.trim() || (await confirmarFrase("Pôr o gabarito no fim do roteiro?"))) mudar("roteiro", roteiro.trim() ? `${roteiro}\n\n${GABARITO}` : GABARITO); }}
           citar={() => setPainel("citar")}
           checar={pegarSelecao}
           prompter={() => setPrompter(true)}
@@ -610,7 +611,7 @@ function AbaArquivos({ e, podeEditar, recarregar }: { e: EpisodioCompleto; podeE
   }
 
   async function remover(arquivoId: string) {
-    if (!window.confirm("Tirar este arquivo do depósito? O registro fica no histórico de versões.")) return;
+    if (!(await confirmarFrase("Tirar este arquivo do depósito? O registro fica no histórico de versões."))) return;
     try {
       const r = await rpc<{ liberar: { deposito: string; caminho: string }[] }>("podcast_arquivo_remover", { p_id: arquivoId });
       await liberarEspaco(r.liberar);
@@ -817,7 +818,7 @@ function AbaPublicacao({ e, valor, mudar, capitulosTexto, setCapitulosTexto, tem
     }
   }
 
-  function montarNotas() {
+  async function montarNotas() {
     const linhas: string[] = [];
     if (valor("resumo")) linhas.push(valor("resumo"), "");
     const caps = lerCapitulos(capitulosTexto);
@@ -830,7 +831,7 @@ function AbaPublicacao({ e, valor, mudar, capitulosTexto, setCapitulosTexto, tem
     if (fontes.length) linhas.push("## Fontes", ...fontes.filter((f) => f.titulo).map((f) => `- ${f.url ? `[${f.titulo}](${f.url})` : f.titulo}${f.autor ? `, ${f.autor}` : ""}`), "");
     if (e.trilhas_dados.length) linhas.push("## Trilhas", ...e.trilhas_dados.map((x) => `- ${x.titulo}${x.autor ? `, de ${x.autor}` : ""} (${x.licenca})`), "");
     linhas.push("Este episódio é livre (CC BY-SA 4.0): pode ouvir, copiar e compartilhar, citando o Instituto Lúcia.");
-    if (valor("notas").trim() && !window.confirm("Trocar as notas atuais pelas montadas?")) return;
+    if (valor("notas").trim() && !(await confirmarFrase("Trocar as notas atuais pelas montadas?"))) return;
     mudar("notas", linhas.join("\n"));
   }
 

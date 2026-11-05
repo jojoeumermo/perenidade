@@ -19,8 +19,10 @@ export async function POST(pedido: Request) {
   if (!configurado()) return responder({ erro: "A publicação fora de hora ainda não está ligada." }, 503);
   const token = /^Bearer\s+([\w.-]+)$/.exec(pedido.headers.get("authorization") ?? "")?.[1];
   if (!token) return responder({ erro: "Entre na sua conta de novo." }, 401);
-  const pode = await rpcNoBanco<boolean>("curriculo_publicar_agora", {}, token);
-  if (!pode.ok) return responder({ erro: pode.erro === "muitos_pedidos" ? "Muitos pedidos seguidos: espere alguns minutos." : "Publicar fora de hora é com a coordenação." }, pode.erro === "muitos_pedidos" ? 429 : 403);
+  // Quem cuida do site (coordenação, curadoria, desenvolvimento) usa a função nova; sem ela no banco, cai na do currículo.
+  let pode = await rpcNoBanco<boolean>("publicar_agora_pedir", {}, token);
+  if (!pode.ok && /publicar_agora_pedir|PGRST202|Could not find/.test(pode.erro)) pode = await rpcNoBanco<boolean>("curriculo_publicar_agora", {}, token);
+  if (!pode.ok) return responder({ erro: pode.erro === "muitos_pedidos" ? "Muitos pedidos seguidos: espere alguns minutos." : "Publicar fora de hora é com a coordenação, a curadoria ou o desenvolvimento." }, pode.erro === "muitos_pedidos" ? 429 : 403);
   const repositorio = process.env.GITHUB_PUBLICAR_REPO || "jojoeumermo/perenidade";
   const resposta = await fetch(`https://api.github.com/repos/${repositorio}/actions/workflows/publicar.yml/dispatches`, {
     method: "POST",

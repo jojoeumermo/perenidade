@@ -13,11 +13,13 @@ import { useState } from "react";
  * do servidor, gerado pela biblioteca do próprio site: nada de serviço de fora.
  */
 type Modo = "cor" | "tinta" | "escuro";
-type Peca = "insta-adesivos" | "lambe" | "raios" | "estude" | "cartaz-a3" | "lambe-rua" | "evento" | "sala-de-aula" | "faixa" | "folheto" | "boca-de-fabrica" | "voluntario" | "convite-nucleo" | "zine" | "cartoes" | "filipetas" | "adesivos" | "banner-mesa" | "marcadores";
+type Peca = "biblioteca" | "quadro" | "insta-adesivos" | "lambe" | "raios" | "estude" | "cartaz-a3" | "lambe-rua" | "evento" | "sala-de-aula" | "faixa" | "folheto" | "boca-de-fabrica" | "voluntario" | "convite-nucleo" | "zine" | "cartoes" | "filipetas" | "adesivos" | "banner-mesa" | "marcadores";
 
 const INSTA = "@institutoluciaorg";
 
 const PECAS: { id: Peca; nome: string; papel: string; pagina: string; w: number; h: number; nova?: boolean }[] = [
+  { id: "biblioteca", nome: "Cartaz da biblioteca livre “Leia. Copie. Passe adiante.”", papel: "A3 retrato, para mural de biblioteca, escola e sindicato", pagina: "A3 portrait", w: 297, h: 420, nova: true },
+  { id: "quadro", nome: "Quadro da semana “Uma hora por semana é nossa”", papel: "A4 retrato, para escrever à mão os dias de estudo", pagina: "A4 portrait", w: 210, h: 297, nova: true },
   { id: "insta-adesivos", nome: "Adesivos do @ (para colar no que já foi impresso)", papel: "A4 retrato, papel adesivo, 33 por folha", pagina: "A4 portrait", w: 210, h: 297, nova: true },
   { id: "lambe", nome: "Cartaz lambe-lambe “O saber é do povo”", papel: "A4 retrato", pagina: "A4 portrait", w: 210, h: 297 },
   { id: "raios", nome: "Cartaz de raios “Estude de graça”", papel: "A4 retrato", pagina: "A4 portrait", w: 210, h: 297 },
@@ -58,7 +60,8 @@ const OFERTA = [
 ];
 const mono = "'IBM Plex Mono', ui-monospace, monospace";
 const serif = "'EB Garamond', Georgia, serif";
-const grito = "Inter, system-ui, sans-serif";
+// A letra de cartaz do site (condensada e pesada), a mesma dos lambes: no estilo dos cartazes revolucionários.
+const grito = "var(--font-cartaz), 'Arial Narrow', Impact, Inter, system-ui, sans-serif";
 
 function Estrela({ cor, tamanho }: { cor: string; tamanho: string }) {
   return (
@@ -72,6 +75,35 @@ function Estrela({ cor, tamanho }: { cor: string; tamanho: string }) {
 function Marca({ tamanho, modo }: { tamanho: string; modo: Modo }) {
   // eslint-disable-next-line @next/next/no-img-element
   return <img src="/marca-512.png" alt="" style={{ width: tamanho, height: tamanho, flexShrink: 0, filter: modo === "tinta" ? "grayscale(1) contrast(1.4)" : undefined }} />;
+}
+
+/** Peças que são folhas de recortar (várias por folha) ficam sem moldura: o corte é nas linhas tracejadas. */
+const SEM_MOLDURA: Peca[] = ["insta-adesivos", "cartoes", "filipetas", "adesivos", "marcadores", "zine", "banner-mesa"];
+
+/**
+ * A moldura construtivista dos cartazes soviéticos e latino-americanos: uma cunha vermelha e preta no canto de cima e uma
+ * barra de listras na base, desenhadas em vetor por cima da peça (sem copiar nenhuma obra). Na baixa tinta, só preto.
+ */
+function Moldura({ on, w, h, modo, children }: { on: boolean; w: number; h: number; modo: Modo; children: React.ReactNode }) {
+  if (!on) return <>{children}</>;
+  const k = Math.min(w, h) / 210;
+  const tinta = modo === "tinta";
+  const vermelho = tinta ? "#000" : modo === "escuro" ? "#E0372B" : "#C21F16";
+  const preto = tinta ? "#000" : modo === "escuro" ? "#F4ECD8" : "#1F1A14";
+  const cunha = 22 * k;
+  const barra = 5 * k;
+  return (
+    <div style={{ position: "relative", width: `${w}mm`, height: `${h}mm` }}>
+      {children}
+      <svg aria-hidden viewBox={`0 0 ${w} ${h}`} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+        <path d={`M${w} 0 L${w - cunha} 0 L${w} ${cunha} Z`} fill={vermelho} />
+        <path d={`M${w} ${cunha * 0.55} L${w - cunha * 0.55} 0 L${w - cunha * 0.8} 0 L${w} ${cunha * 0.8} Z`} fill={preto} />
+        {Array.from({ length: Math.floor(w / (barra * 2)) }, (_, i) => (
+          <path key={i} d={`M${i * barra * 2} ${h} l${barra} 0 l${barra * 0.6} ${-barra} l${-barra} 0 Z`} fill={i % 3 === 0 ? vermelho : preto} />
+        ))}
+      </svg>
+    </div>
+  );
 }
 
 /** O QR code em vetor, na cor do modo. */
@@ -657,6 +689,85 @@ function LambeDeRua({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
   );
 }
 
+/** Cartaz da biblioteca livre (A3): o acervo do instituto como bem de todos, para mural de biblioteca, escola e sindicato. */
+function Biblioteca({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
+  const mm = (n: number) => `${n}mm`;
+  const tinta = modo === "tinta";
+  const regras = [
+    ["LEIA", "obras em domínio público e de licença livre, com a fonte de cada uma"],
+    ["COPIE", "pode imprimir, encadernar e levar para a sala de aula"],
+    ["PASSE ADIANTE", "o que é do povo não tem dono: empreste, traduza, ensine"],
+  ];
+  return (
+    <div style={{ width: mm(297), height: mm(420), boxSizing: "border-box", border: `${mm(2)} solid ${c.linha}`, display: "flex", flexDirection: "column", background: c.papel, color: c.texto, fontFamily: serif, overflow: "hidden" }}>
+      <div style={{ position: "relative", height: mm(150), background: tinta ? "repeating-conic-gradient(from 0deg at 50% 120%, #000 0deg 4deg, #fff 4deg 8deg)" : "repeating-conic-gradient(from 0deg at 50% 120%, #C21F16 0deg 4deg, #A51810 4deg 8deg)", borderBottom: `${mm(2)} solid ${c.linha}`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/marca-512.png" alt="" style={{ position: "absolute", width: mm(120), height: mm(120), opacity: 1, filter: tinta ? "grayscale(1) contrast(1.4)" : undefined }} />
+        <p style={{ position: "absolute", left: mm(18), top: mm(14), margin: 0, fontFamily: mono, fontSize: mm(6), letterSpacing: "0.3em", color: tinta ? "#000" : "#F4ECD8", background: tinta ? "#fff" : "#1F1A14", padding: `${mm(1.5)} ${mm(4)}` }}>ACERVO · INSTITUTO LÚCIA</p>
+      </div>
+      <div style={{ padding: `${mm(14)} ${mm(20)} 0`, flex: 1 }}>
+        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.88, letterSpacing: "-0.02em", fontSize: mm(44), margin: 0 }}>
+          A biblioteca
+          <br />
+          <span style={{ background: tinta ? "#000" : "#C21F16", color: "#fff", padding: `0 ${mm(4)}` }}>é do povo.</span>
+        </p>
+        <ul style={{ listStyle: "none", padding: 0, margin: `${mm(12)} 0 0`, display: "grid", gap: mm(6) }}>
+          {regras.map(([t, d]) => (
+            <li key={t} style={{ display: "flex", gap: mm(5), alignItems: "baseline", borderTop: `${mm(0.8)} solid ${c.linha}`, paddingTop: mm(4) }}>
+              <span style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", fontSize: mm(15), color: c.prelo, minWidth: mm(70), textTransform: "uppercase" }}>{t}</span>
+              <span style={{ fontSize: mm(8.5), lineHeight: 1.2 }}>{d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div style={{ background: tinta ? "#fff" : c.preto, color: tinta ? "#000" : "#F4ECD8", padding: mm(14), display: "flex", alignItems: "center", gap: mm(10), borderTop: `${mm(2)} solid ${c.linha}` }}>
+        <div style={{ background: "#fff", padding: mm(2) }}><Qr svg={qr} cor="#000000" tamanho={mm(46)} /></div>
+        <div style={{ display: "grid", gap: mm(3) }}>
+          <span style={{ fontFamily: mono, fontSize: mm(11), fontWeight: 600 }}>institutolucia.org</span>
+          <Insta cor={tinta ? "#000" : "#F4ECD8"} tamanho={7.5} mm={mm} />
+          <span style={{ fontFamily: mono, fontSize: mm(4), letterSpacing: "0.18em" }}>GRÁTIS · SEM ANÚNCIO · SEM CONTA</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Quadro da semana (A4): sete linhas em branco para escrever à mão os dias e horas do estudo coletivo. */
+function QuadroDaSemana({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
+  const mm = (n: number) => `${n}mm`;
+  const tinta = modo === "tinta";
+  const dias = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+  return (
+    <div style={{ width: mm(210), height: mm(297), boxSizing: "border-box", border: `${mm(1.5)} solid ${c.linha}`, display: "flex", flexDirection: "column", background: c.papel, color: c.texto, fontFamily: serif, overflow: "hidden" }}>
+      <div style={{ background: tinta ? "#fff" : c.preto, color: tinta ? "#000" : "#F4ECD8", padding: `${mm(12)} ${mm(14)}`, borderBottom: `${mm(1.5)} solid ${c.linha}` }}>
+        <p style={{ fontFamily: mono, fontSize: mm(4), letterSpacing: "0.26em", margin: 0, color: tinta ? "#000" : "#E0837A" }}>★ NÚCLEO DE ESTUDO · QUADRO DA SEMANA</p>
+        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.9, letterSpacing: "-0.02em", fontSize: mm(24), margin: `${mm(4)} 0 0` }}>
+          Uma hora por semana
+          <br />
+          <span style={{ background: tinta ? "#000" : "#C21F16", color: "#fff", padding: `0 ${mm(2)}` }}>é nossa.</span>
+        </p>
+      </div>
+      <div style={{ padding: `${mm(8)} ${mm(14)} 0`, flex: 1, display: "grid", gridTemplateRows: "repeat(7, 1fr)", gap: mm(2) }}>
+        {dias.map((d) => (
+          <div key={d} style={{ display: "grid", gridTemplateColumns: `${mm(34)} 1fr ${mm(40)}`, alignItems: "end", gap: mm(4), borderBottom: `${mm(0.6)} solid ${c.linha}`, paddingBottom: mm(1) }}>
+            <span style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", fontSize: mm(8), color: c.prelo }}>{d}</span>
+            <span style={{ fontFamily: mono, fontSize: mm(3), letterSpacing: "0.16em", color: c.suave }}>O QUÊ E ONDE</span>
+            <span style={{ fontFamily: mono, fontSize: mm(3), letterSpacing: "0.16em", color: c.suave }}>HORA</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: mm(12), display: "flex", alignItems: "center", gap: mm(6), borderTop: `${mm(1)} solid ${c.linha}` }}>
+        <div style={{ background: "#fff", padding: mm(1.5) }}><Qr svg={qr} cor="#000000" tamanho={mm(26)} /></div>
+        <div style={{ display: "grid", gap: mm(1.5) }}>
+          <span style={{ fontFamily: mono, fontSize: mm(5), fontWeight: 600 }}>institutolucia.org</span>
+          <Insta cor={c.texto} tamanho={3.8} mm={mm} />
+          <span style={{ fontSize: mm(3.6), color: c.suave }}>Escreva só lugares públicos. Nada de endereço de casa ou telefone pessoal.</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function KitDeDivulgacao({ qr, email }: { qr: string; email: string }) {
   const [peca, setPeca] = useState<Peca>("insta-adesivos");
   const [modo, setModo] = useState<Modo>("cor");
@@ -738,6 +849,7 @@ export function KitDeDivulgacao({ qr, email }: { qr: string; email: string }) {
       {/* A prévia encolhe para caber na tela; a impressão sai no tamanho real. */}
       <div className="mesa-de-previa mt-6 overflow-x-auto border-2 border-ink bg-[#d8d0c0] p-4">
         <div className="peca-impressa mx-auto" style={{ width: `${atual.w}mm` }}>
+          <Moldura on={!SEM_MOLDURA.includes(peca)} w={atual.w} h={atual.h} modo={modo}>
           {peca === "lambe" && <Lambe c={c} modo={modo} qr={qr} u={1} />}
           {peca === "raios" && <Raios c={c} modo={modo} qr={qr} />}
           {peca === "estude" && <Estude c={c} modo={modo} qr={qr} />}
@@ -757,6 +869,9 @@ export function KitDeDivulgacao({ qr, email }: { qr: string; email: string }) {
           {peca === "convite-nucleo" && <ConviteNucleo c={c} modo={modo} qr={qr} ev={ev} />}
           {peca === "filipetas" && <Filipetas c={c} modo={modo} qr={qr} />}
           {peca === "banner-mesa" && <BannerDeMesa c={c} modo={modo} qr={qr} />}
+          {peca === "biblioteca" && <Biblioteca c={c} modo={modo} qr={qr} />}
+          {peca === "quadro" && <QuadroDaSemana c={c} modo={modo} qr={qr} />}
+          </Moldura>
         </div>
       </div>
       {peca === "zine" && (

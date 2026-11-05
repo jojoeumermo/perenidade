@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getClient, rpc, signOut, type Me } from "@/lib/backend";
 import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, renameFingerprint, type Passkey } from "@/lib/passkey";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
+import { confirmarFrase } from "./ui";
 
 interface Fator {
   id: string;
@@ -323,7 +324,7 @@ export function Digital() {
                   {chave.usada && ` · usada em ${dataHora(chave.usada)}`}
                 </span>
               </span>
-              <button type="button" className={elo} disabled={ocupado} onClick={() => { if (window.confirm(`Remover a chave “${chave.nome || "Aparelho"}”? Esse aparelho vai precisar da senha para entrar.`)) void remover(chave.id); }}>
+              <button type="button" className={elo} disabled={ocupado} onClick={async () => { if ((await confirmarFrase(`Remover a chave “${chave.nome || "Aparelho"}”? Esse aparelho vai precisar da senha para entrar.`))) void remover(chave.id); }}>
                 Remover
               </button>
             </li>

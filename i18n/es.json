@@ -5506,7 +5506,20 @@
     "podcastKicker": "Podcast · en preparación",
     "launchKicker": "Lanzamiento · presencial · fecha pronto",
     "followUpdates": "Seguir en Instagram",
-    "reels": "Los videos están en Instagram"
+    "reels": "Los videos están en Instagram",
+    "anuncioKicker": "El video del anuncio",
+    "anuncioLoad": "Cargar el video de Instagram",
+    "anuncioAviso": "Al hacer clic, este cuadro abre contenido de Instagram (Meta), que puede registrar tu visita. Mientras no hagas clic, no se carga nada de afuera.",
+    "anuncioAbrir": "Abrir la publicación en Instagram",
+    "anuncioQuadro": "Video del anuncio en Instagram",
+    "anuncioLocal": "Video del anuncio",
+    "agendaKicker": "En la agenda",
+    "agendaQuando": "Cuándo",
+    "agendaOnde": "Dónde",
+    "letreiroRotulo": "Temas del territorio",
+    "letreiroPausar": "Pausar la cinta de temas",
+    "letreiroRetomar": "Reanudar la cinta de temas",
+    "cartaoVer": "Ver la página"
   },
   "rede": {
     "abaRede": "Red",
@@ -6042,7 +6055,7 @@
       "3": {
         "name": "Completo",
         "count": "{n} preguntas",
-        "desc": "El retrato más detallado: ocho preguntas por eje."
+        "desc": "El retrato más detallado: veinte preguntas por eje."
       }
     },
     "privacy": "Tus respuestas quedan solo en este dispositivo, para que puedas parar y seguir después. Nada se envía al instituto.",

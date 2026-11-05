@@ -7,6 +7,8 @@ import { can, rpc, type Me } from "@/lib/backend";
 import { cleanImage, previewFile, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { CampoArquivo, CampoData } from "./Campos";
 import { Aviso, botao, botaoClaro, campo, data, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { PublicarAgora } from "./controles/PublicarAgora";
+import { confirmarFrase } from "./ui";
 
 export interface Material {
   id: string;
@@ -124,7 +126,7 @@ export function Materiais({ me }: { me: Me }) {
                 <p className="mt-auto flex gap-4 pt-2 text-sm">
                   <button type="button" className={elo} onClick={() => setForm({ ...novo, ...m, arquivo: m.arquivo ?? "", credito_autor: m.credito_autor ?? "", credito_origem: m.credito_origem ?? "", licenca: m.licenca || "cc-by-sa", candidatura: Boolean(m.candidatura), candidatura_responsavel: m.candidatura_responsavel ?? "" })}>Abrir</button>
                   {m.url && <a href={m.url} target="_blank" rel="noopener noreferrer" className={elo}>Ver o arquivo</a>}
-                  <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm(`Remover “${m.titulo}”?`)) void acao.agir("material_remover", { p_id: m.id }, "Material removido."); }}>Remover</button>
+                  <button type="button" className={`${elo} text-oxblood`} onClick={async () => { if ((await confirmarFrase(`Remover “${m.titulo}”?`))) void acao.agir("material_remover", { p_id: m.id }, "Material removido."); }}>Remover</button>
                 </p>
               </div>
             </li>
@@ -136,6 +138,11 @@ export function Materiais({ me }: { me: Me }) {
       {form && <FormularioDoMaterial form={form} setForm={setForm} publica={publica} depois={() => { lista.recarregar(); }} fechar={() => setForm(null)} />}
 
       <Arquivos me={me} />
+      {publica && (
+        <p className="mt-4 flex flex-wrap items-center gap-3 text-sm text-ink-soft">
+          Material ou arquivo aprovado vai ao site na próxima rotina de publicação. <PublicarAgora pequeno />
+        </p>
+      )}
     </div>
   );
 }
@@ -338,7 +345,7 @@ function Arquivos({ me }: { me: Me }) {
               {aprova && arquivo.status === "pendente" && (
                 <>
                   <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("arquivo_decidir", { p_id: arquivo.id, p_aprovar: true }, "Arquivo aprovado ✓")}>Aprovar</button>
-                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => { if (window.confirm(`Recusar “${arquivo.nome}”?`)) void acao.agir("arquivo_decidir", { p_id: arquivo.id, p_aprovar: false }, "Arquivo recusado."); }}>Recusar</button>
+                  <button type="button" className={elo} disabled={acao.ocupado} onClick={async () => { if ((await confirmarFrase(`Recusar “${arquivo.nome}”?`))) void acao.agir("arquivo_decidir", { p_id: arquivo.id, p_aprovar: false }, "Arquivo recusado."); }}>Recusar</button>
                 </>
               )}
             </span>

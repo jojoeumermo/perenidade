@@ -104,6 +104,11 @@ Para comandar a lâmpada de **três lugares**, coloca-se um **interruptor interm
 **Escada, corredor e quarto.** O paralelo é o interruptor da escada: acende embaixo, apaga em cima. Também serve para corredores compridos e para o quarto, com um interruptor na porta e outro perto da cama. Além do conforto, evita que a luz fique acesa à toa porque o interruptor estava longe.
 ```
 
+```simulador
+instalacao
+# Treino de fiação: ponto de luz e tomada
+```
+
 ```verificar
 Alguém ligou uma lâmpada com o interruptor cortando o neutro. Ela acende e apaga normalmente. Qual é o problema?
 - Nenhum, se funciona está certo

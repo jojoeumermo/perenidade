@@ -1,9 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { maisProximos, NIVEIS, ordemDoNivel as ordenar, pontuarEixos, type Nivel, type PosicaoNos12Eixos } from "@/lib/eixos/pontuacao";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 
 export interface EixoDoTeste {
@@ -29,18 +30,45 @@ export interface IdeologiaDoTeste {
   texto: string;
   posicao: Record<string, number>;
 }
+export interface ImagemDaFigura {
+  /** Nome do arquivo no Wikimedia Commons (só é buscado quando a pessoa clica em "mostrar os retratos"). */
+  arquivo: string;
+  autor: string;
+  licenca: string;
+  pagina: string;
+}
+export interface PaisDoTeste extends PosicaoNos12Eixos {
+  nome: string;
+  texto: string;
+}
+export interface FiguraDoTeste extends PaisDoTeste {
+  vida: string;
+  imagem: ImagemDaFigura;
+}
+export interface TextosDoTeste {
+  sobre2: string;
+  paises: string;
+  paisesNota: string;
+  figuras: string;
+  figurasNota: string;
+  mostrarFotos: string;
+  mostrarFotosAviso: string;
+  ocultarFotos: string;
+  credito: string;
+  fonteImagem: string;
+  privacidade: string;
+}
 export interface DadosDosEixos {
   sobre: string;
+  ui: TextosDoTeste;
+  paises: PaisDoTeste[];
+  figuras: FiguraDoTeste[];
   grupos: { id: string; nome: string }[];
   eixos: EixoDoTeste[];
   perguntas: PerguntaDoTeste[];
   ideologias: IdeologiaDoTeste[];
 }
 
-/** As cinco respostas, de "concordo totalmente" a "discordo totalmente", e quanto cada uma empurra o eixo. */
-const PESOS = [1, 0.5, 0, -0.5, -1] as const;
-const NIVEIS = [1, 2, 3] as const;
-type Nivel = (typeof NIVEIS)[number];
 
 interface Progresso {
   nivel: Nivel;
@@ -49,36 +77,8 @@ interface Progresso {
   pronto: boolean;
 }
 
-/** As perguntas do nível, alternando os eixos (uma de cada vez), para o teste não ficar repetitivo. */
-function ordemDoNivel(dados: DadosDosEixos, nivel: Nivel): PerguntaDoTeste[] {
-  const porEixo = dados.eixos.map((eixo) => dados.perguntas.filter((p) => p.eixo === eixo.id && p.nivel <= nivel).sort((x, y) => x.nivel - y.nivel || x.id.localeCompare(y.id)));
-  const maior = Math.max(...porEixo.map((lista) => lista.length));
-  return Array.from({ length: maior }, (_, k) => porEixo.flatMap((lista) => (lista[k] ? [lista[k]] : []))).flat();
-}
-
-/** Onde a pessoa fica em cada eixo: de 0 a 100, a parte das respostas que puxa para o primeiro lado (a). */
-function pontuar(dados: DadosDosEixos, perguntas: PerguntaDoTeste[], respostas: Record<string, number>): Record<string, number> {
-  return Object.fromEntries(
-    dados.eixos.map((eixo) => {
-      const doEixo = perguntas.filter((p) => p.eixo === eixo.id && respostas[p.id] !== undefined);
-      if (!doEixo.length) return [eixo.id, 50];
-      const soma = doEixo.reduce((total, p) => total + PESOS[respostas[p.id]] * (p.lado === "a" ? 1 : -1), 0);
-      return [eixo.id, Math.round(50 + (50 * soma) / doEixo.length)];
-    }),
-  );
-}
-
-/** As ideologias mais perto da pessoa: distância entre os doze números dela e os da descrição de cada uma. */
-function proximas(dados: DadosDosEixos, pontos: Record<string, number>) {
-  const maximo = Math.sqrt(dados.eixos.length) * 100;
-  return dados.ideologias
-    .map((ideologia) => {
-      const distancia = Math.sqrt(dados.eixos.reduce((total, eixo) => total + (pontos[eixo.id] - (ideologia.posicao[eixo.id] ?? 50)) ** 2, 0));
-      return { ideologia, proximidade: Math.round(100 * (1 - distancia / maximo)) };
-    })
-    .sort((x, y) => y.proximidade - x.proximidade)
-    .slice(0, 3);
-}
+/** A conta (ordem das perguntas, pontuação e proximidade) fica em lib/eixos/pontuacao.ts, pura e testada. */
+const ordemDoNivel = (dados: DadosDosEixos, nivel: Nivel) => ordenar(dados.eixos, dados.perguntas, nivel);
 
 /**
  * O teste dos 12 eixos: quatro grupos (economia, Estado, nação e mundo, sociedade), três eixos em cada, cinco respostas
@@ -93,7 +93,7 @@ export function DozeEixos({ dados, s }: { dados: DadosDosEixos; s: Dict["eixos"]
     if (!hydrated || !guardado) return null;
     try {
       const lido = JSON.parse(guardado) as Progresso;
-      return NIVEIS.includes(lido.nivel) && typeof lido.respostas === "object" ? lido : null;
+      return NIVEIS.includes(lido.nivel) && lido.respostas && typeof lido.respostas === "object" && !Array.isArray(lido.respostas) ? lido : null;
     } catch {
       return null;
     }
@@ -151,6 +151,7 @@ export function DozeEixos({ dados, s }: { dados: DadosDosEixos; s: Dict["eixos"]
           ))}
         </div>
         <p className="mt-5 font-sans text-sm text-ink-soft">{s.privacy}</p>
+        <p className="mt-2 font-sans text-xs text-ink-soft" lang="pt-BR">{dados.ui.privacidade}</p>
       </section>
     );
   }
@@ -191,8 +192,10 @@ export function DozeEixos({ dados, s }: { dados: DadosDosEixos; s: Dict["eixos"]
     );
   }
 
-  const pontos = pontuar(dados, perguntas, progresso.respostas);
-  const melhores = proximas(dados, pontos);
+  const pontos = pontuarEixos(dados.eixos, perguntas, progresso.respostas);
+  const melhores = maisProximos(dados.eixos, pontos, dados.ideologias, 3).map(({ item, proximidade }) => ({ ideologia: item, proximidade }));
+  const paises = maisProximos(dados.eixos, pontos, dados.paises, 3);
+  const figuras = maisProximos(dados.eixos, pontos, dados.figuras, 3);
   return (
     <section aria-labelledby="eixos-resultado" className="mt-8">
       <h2 id="eixos-resultado" className="font-serif text-3xl font-semibold">{s.resultTitle}</h2>
@@ -245,6 +248,8 @@ export function DozeEixos({ dados, s }: { dados: DadosDosEixos; s: Dict["eixos"]
         ))}
       </ol>
 
+      <Proximos dados={dados} paises={paises} figuras={figuras} s={s} />
+
       <div className="mt-6 flex flex-wrap gap-3">
         <button type="button" onClick={() => salvar(null)} className="botao cursor-pointer">
           {s.redo}
@@ -260,7 +265,72 @@ export function DozeEixos({ dados, s }: { dados: DadosDosEixos; s: Dict["eixos"]
         <summary className="cursor-pointer font-sans text-sm font-bold uppercase tracking-[0.08em]">{s.methodTitle}</summary>
         <p className="mt-2 text-sm leading-relaxed text-ink-soft">{s.methodText}</p>
         <p className="mt-2 text-sm leading-relaxed text-ink-soft" lang="pt-BR">{dados.sobre}</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink-soft" lang="pt-BR">{dados.ui.sobre2}</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink-soft" lang="pt-BR">{dados.ui.privacidade}</p>
       </details>
     </section>
+  );
+}
+
+/**
+ * Países e figuras históricas mais próximos. Os retratos são de terceiros (Wikimedia Commons): só são buscados depois do
+ * clique, porque abrir a imagem mostra o endereço de rede da pessoa ao Wikimedia; sem o clique, vai só o texto.
+ */
+function Proximos({ dados, paises, figuras, s }: { dados: DadosDosEixos; paises: { item: PaisDoTeste; proximidade: number }[]; figuras: { item: FiguraDoTeste; proximidade: number }[]; s: Dict["eixos"] }) {
+  const [fotos, setFotos] = useState(false);
+  const u = dados.ui;
+  return (
+    <div lang="pt-BR">
+      <h3 className="mt-10 font-serif text-2xl font-semibold">{u.paises}</h3>
+      <p className="mt-1 font-sans text-sm text-ink-soft">{u.paisesNota}</p>
+      <ol className="mt-3 grid gap-4 md:grid-cols-3">
+        {paises.map(({ item, proximidade }) => (
+          <li key={item.id} className="border-2 border-ink bg-folha p-4">
+            <p className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-prelo-texto">{fill(s.proximity, { p: proximidade })}</p>
+            <p className="mt-1 font-serif text-xl font-semibold leading-snug">{item.nome}</p>
+            <p className="mt-2 text-sm leading-snug text-ink-soft">{item.texto}</p>
+          </li>
+        ))}
+      </ol>
+
+      <h3 className="mt-10 font-serif text-2xl font-semibold">{u.figuras}</h3>
+      <p className="mt-1 font-sans text-sm text-ink-soft">{u.figurasNota}</p>
+      <div className="mt-2 flex flex-wrap items-center gap-3 font-sans text-sm">
+        <button type="button" onClick={() => setFotos((v) => !v)} aria-pressed={fotos} className="botao botao-papel cursor-pointer">
+          {fotos ? u.ocultarFotos : u.mostrarFotos}
+        </button>
+        {!fotos && <span className="text-xs text-ink-soft">{u.mostrarFotosAviso}</span>}
+      </div>
+      <ol className="mt-3 grid gap-4 md:grid-cols-3">
+        {figuras.map(({ item, proximidade }) => (
+          <li key={item.id} className="border-2 border-ink bg-folha p-4">
+            {fotos && (
+              <figure className="mb-3">
+                {/* eslint-disable-next-line @next/next/no-img-element -- imagem de terceiro, carregada só depois do clique */}
+                <img
+                  src={`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(item.imagem.arquivo)}?width=320`}
+                  alt={`Retrato de ${item.nome}`}
+                  width={160}
+                  height={200}
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  className="h-auto max-h-56 w-auto max-w-full border-2 border-ink object-contain"
+                />
+                <figcaption className="mt-1 text-[0.7rem] leading-snug text-ink-soft">
+                  {fill(u.credito, { autor: item.imagem.autor, licenca: item.imagem.licenca })}{" "}
+                  <a href={item.imagem.pagina} rel="noopener noreferrer" className="underline underline-offset-2">
+                    {u.fonteImagem}
+                  </a>
+                </figcaption>
+              </figure>
+            )}
+            <p className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-prelo-texto">{fill(s.proximity, { p: proximidade })}</p>
+            <p className="mt-1 font-serif text-xl font-semibold leading-snug">{item.nome}</p>
+            <p className="font-mono text-xs text-ink-soft">{item.vida}</p>
+            <p className="mt-2 text-sm leading-snug text-ink-soft">{item.texto}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }

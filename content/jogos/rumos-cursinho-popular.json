@@ -1,0 +1,838 @@
+{
+ "formato": "rumos/1",
+ "id": "cursinho-popular",
+ "titulo": "Cursinho popular",
+ "resumo": "Um cursinho gratuito para o Enem numa sala emprestada: seleção de alunos, apostila, voluntários, dados dos estudantes, foto de aprovado, cotas e o que fazer quando o dinheiro e o tempo apertam.",
+ "papel": "Você coordena um cursinho popular para o Enem, gratuito, que funciona à noite numa sala emprestada. Cada decisão pesa na turma, no preparo dos alunos, no caixa e na equipe de voluntários. As leis citadas são reais.",
+ "sobre": "Os personagens e o lugar são inventados para o jogo. As leis e os fatos de \"Na história real\" são reais, com o link para o texto oficial. Isto é material de estudo, não orientação jurídica nem técnica. Conteúdo do Instituto Lúcia, licença CC BY-SA 4.0.",
+ "modo": "fases",
+ "medidores": [
+  {
+   "id": "turma",
+   "nome": "Turma",
+   "descricao": "A presença e o vínculo dos alunos. Sem ela a sala fica vazia; demais, não cabe mais ninguém e a qualidade cai."
+  },
+  {
+   "id": "preparo",
+   "nome": "Preparo",
+   "descricao": "O quanto os alunos aprendem de verdade. Baixo, a nota não vem; no extremo, o cursinho vira só treino de prova."
+  },
+  {
+   "id": "caixa",
+   "nome": "Caixa",
+   "descricao": "O dinheiro para xerox, luz, café e passagem. Zerado, as aulas param; cheio demais, o cursinho pode virar negócio."
+  },
+  {
+   "id": "equipe",
+   "nome": "Voluntários",
+   "descricao": "A disposição de quem dá aula de graça. Sem ela ninguém ensina; demais, o cursinho vira clube dos professores."
+  }
+ ],
+ "inicio": {
+  "turma": 45,
+  "preparo": 35,
+  "caixa": 40,
+  "equipe": 50
+ },
+ "personagens": [
+  {
+   "id": "jessica",
+   "nome": "Jéssica",
+   "papel": "aluna de 17 anos, trabalha de dia"
+  },
+  {
+   "id": "prof",
+   "nome": "Professor Renato",
+   "papel": "voluntário, dá aula de história"
+  },
+  {
+   "id": "mae",
+   "nome": "Dona Neusa",
+   "papel": "mãe de uma aluna"
+  },
+  {
+   "id": "gerente",
+   "nome": "Sr. Valter",
+   "papel": "dono de uma rede de cursinhos pagos"
+  },
+  {
+   "id": "pedro",
+   "nome": "Pedro",
+   "papel": "aluno surdo, estuda para o Enem"
+  },
+  {
+   "id": "ana",
+   "nome": "Ana",
+   "papel": "ex-aluna aprovada no ensino superior"
+  }
+ ],
+ "fases": [
+  {
+   "id": "montando-a-turma",
+   "nome": "Montando a turma",
+   "cartas": 5
+  },
+  {
+   "id": "perto-do-enem",
+   "nome": "Perto do Enem",
+   "cartas": 5
+  }
+ ],
+ "cartas": [
+  {
+   "id": "cp-selecao",
+   "fase": "montando-a-turma",
+   "titulo": "Quem entra primeiro",
+   "personagem": "jessica",
+   "texto": "Há 120 inscrições para 40 vagas. Jéssica pergunta como será a seleção. Renato sugere uma prova de nota. Você acha que quem mais precisa pode não ter tido tempo de estudar antes.",
+   "esquerda": {
+    "texto": "Priorizar escola pública e renda baixa",
+    "efeito": {
+     "turma": 11,
+     "preparo": 6,
+     "caixa": -3,
+     "equipe": -8
+    },
+    "retorno": "Vocês dão preferência a quem fez o ensino médio em escola pública e tem renda baixa. A turma fica mais próxima do público que o cursinho quer alcançar."
+   },
+   "direita": {
+    "texto": "Selecionar pela nota da prova",
+    "efeito": {
+     "preparo": 10,
+     "turma": -10,
+     "equipe": 7,
+     "caixa": 3
+    },
+    "retorno": "A turma é mais homogênea e rende mais nas primeiras semanas. Mas quem mais precisava de apoio fica de fora."
+   },
+   "historia": {
+    "texto": "A Lei de Cotas determina que as instituições federais de educação superior reservem, no mínimo, 50% das vagas a estudantes que tenham cursado integralmente o ensino médio em escolas públicas, e que, no preenchimento dessas vagas, 50% sejam reservados a famílias com renda igual ou inferior a 1 salário mínimo per capita (art. 1º e parágrafo único da Lei 12.711/2012, com a redação atual).",
+    "fonte": {
+     "titulo": "Lei nº 12.711, de 29 de agosto de 2012 (Lei de Cotas), texto atual, art. 1º",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cotas: como funciona a Lei de Cotas",
+    "href": "/trilhas/enem-como-funciona/cotas-como-funciona-a-lei-de-cotas"
+   }
+  },
+  {
+   "id": "cp-apostila",
+   "fase": "montando-a-turma",
+   "titulo": "A apostila",
+   "personagem": "prof",
+   "texto": "Renato quer fotocopiar capítulos inteiros de um livro didático caro para entregar a todos. O xerox custa pouco, mas o livro tem autor e editora. Ana sugere montar uma apostila própria, com textos abertos e trechos citados.",
+   "esquerda": {
+    "texto": "Montar apostila com fontes abertas",
+    "efeito": {
+     "preparo": 9,
+     "equipe": -9,
+     "caixa": 4,
+     "turma": 6
+    },
+    "retorno": "A apostila demora e dá trabalho de escrever, mas fica do tamanho e do ritmo da turma."
+   },
+   "direita": {
+    "texto": "Fotocopiar o livro todo",
+    "efeito": {
+     "equipe": 8,
+     "turma": 6,
+     "preparo": 5,
+     "caixa": -11
+    },
+    "retorno": "A turma ganha o livro de graça. Mas a editora descobre e manda uma notificação ao dono da sala."
+   },
+   "historia": {
+    "texto": "A utilização de obra, por quaisquer modalidades, como a reprodução parcial ou integral, depende de autorização prévia e expressa do autor (art. 29, I da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais), art. 29, I",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cursinhos populares: estudar junto e de graça",
+    "href": "/trilhas/enem-como-funciona/cursinhos-populares-estudar-junto-e-de-graca"
+   }
+  },
+  {
+   "id": "cp-voluntarios",
+   "fase": "montando-a-turma",
+   "titulo": "Professores de graça",
+   "personagem": "prof",
+   "texto": "Oito pessoas querem dar aula: uma delas está desempregada e pede o ressarcimento do ônibus. Ninguém quer burocracia, mas a coordenação teme confusão no futuro.",
+   "esquerda": {
+    "texto": "Assinar termo e ressarcir despesas",
+    "efeito": {
+     "equipe": 11,
+     "caixa": -9,
+     "preparo": 6,
+     "turma": 3
+    },
+    "retorno": "Cada voluntário assina o termo de adesão e recebe o transporte contra comprovante. Fica claro que a atividade é voluntária e como o grupo se organiza.",
+    "liga": [
+     "termo"
+    ]
+   },
+   "direita": {
+    "texto": "Combinar de boca",
+    "efeito": {
+     "caixa": 8,
+     "equipe": -10,
+     "preparo": -9,
+     "turma": 2
+    },
+    "retorno": "Funciona até a primeira briga sobre quem prometeu o quê. Um professor sai magoado."
+   },
+   "historia": {
+    "texto": "O serviço voluntário, atividade não remunerada prestada a instituição privada de fins não lucrativos, não gera vínculo empregatício. É prestado mediante termo de adesão (art. 2º), e o voluntário poderá ser ressarcido das despesas que comprovadamente realizar, desde que autorizadas pela entidade (art. 3º da Lei 9.608/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.608, de 18 de fevereiro de 1998 (Serviço Voluntário), arts. 1º a 3º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Escola de formação do coletivo: calendário e continuidade",
+    "href": "/trilhas/formar-formadores/escola-de-formacao-do-coletivo-calendario-e-continuidade"
+   }
+  },
+  {
+   "id": "cp-faltas",
+   "fase": "montando-a-turma",
+   "titulo": "Falta à escola para vir ao cursinho",
+   "personagem": "mae",
+   "texto": "Dona Neusa avisa que a filha Duda, de 15 anos, está faltando à aula no colégio para ir mais cedo ao cursinho. A menina quer estudar, mas a escola ameaça avisar o conselho tutelar.",
+   "esquerda": {
+    "texto": "Conversar com família e escola",
+    "efeito": {
+     "turma": 9,
+     "preparo": 7,
+     "equipe": -7,
+     "caixa": -3
+    },
+    "retorno": "Vocês ajustam o horário e escrevem à escola. A menina continua nas duas, sem perder as aulas do colégio."
+   },
+   "direita": {
+    "texto": "Deixar vir no horário dela",
+    "efeito": {
+     "turma": 7,
+     "preparo": 5,
+     "equipe": 3,
+     "caixa": 2
+    },
+    "retorno": "A turma agradece a flexibilidade. Mas as faltas na escola se acumulam, e o risco recai sobre Duda."
+   },
+   "historia": {
+    "texto": "O Estatuto da Criança e do Adolescente assegura à criança e ao adolescente, entre outros, igualdade de condições para o acesso e permanência na escola (art. 53, I da Lei 8.069/1990).",
+    "fonte": {
+     "titulo": "Lei nº 8.069, de 13 de julho de 1990 (Estatuto da Criança e do Adolescente), art. 53, I",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O Estatuto da Criança e do Adolescente",
+    "href": "/trilhas/politica-fundamental/o-estatuto-da-crianca-e-do-adolescente"
+   }
+  },
+  {
+   "id": "cp-ficha",
+   "fase": "montando-a-turma",
+   "titulo": "A ficha de inscrição",
+   "personagem": "ana",
+   "texto": "A ficha de inscrição pede CPF, renda, nome da mãe, endereço e religião. Ana acha demais. Há alunos menores de 18 anos, e a ficha vai ficar numa pasta aberta na secretaria.",
+   "esquerda": {
+    "texto": "Ficha mínima e pasta trancada",
+    "efeito": {
+     "turma": 9,
+     "equipe": -6,
+     "preparo": 4,
+     "caixa": -3
+    },
+    "retorno": "Vocês pedem só o que o cursinho precisa e guardam a ficha com chave. Os alunos confiam, e o trabalho fica mais leve."
+   },
+   "direita": {
+    "texto": "Ficha grande, pasta aberta",
+    "efeito": {
+     "preparo": 7,
+     "equipe": 6,
+     "turma": -10,
+     "caixa": 3
+    },
+    "retorno": "Os dados ajudam a entender a turma. Mas uma ficha some e o nome de quem está lá circula em um grupo de mensagens."
+   },
+   "historia": {
+    "texto": "O tratamento de dados pessoais deve se limitar ao mínimo necessário para a realização de suas finalidades (art. 6º, III). No caso de crianças e adolescentes, deve ser realizado em seu melhor interesse (art. 14 da LGPD).",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), arts. 6º e 14",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Privacidade e dados",
+    "href": "/trilhas/enem-linguagens-tecnologias-da-comunicacao/privacidade-e-dados"
+   }
+  },
+  {
+   "id": "cp-associacao",
+   "fase": "montando-a-turma",
+   "titulo": "A sala emprestada",
+   "personagem": "gerente",
+   "texto": "A sala é emprestada por uma igreja, sem papel nenhum. O pastor avisa que pode precisar dela a qualquer momento. Ana sugere fundar uma associação para poder assinar um termo de uso e abrir conta.",
+   "esquerda": {
+    "texto": "Fundar a associação",
+    "efeito": {
+     "equipe": 9,
+     "caixa": -9,
+     "turma": 6,
+     "preparo": 4
+    },
+    "retorno": "A associação nasce com estatuto, diretoria e conta. O cursinho ganha endereço, e o termo de uso da sala é assinado.",
+    "liga": [
+     "associacao"
+    ]
+   },
+   "direita": {
+    "texto": "Seguir informal",
+    "efeito": {
+     "caixa": 9,
+     "equipe": -9,
+     "turma": -4,
+     "preparo": -9
+    },
+    "retorno": "Menos papel, menos custo. Mas, sem personalidade jurídica, o cursinho não assina contrato nem pede apoio de nenhum órgão."
+   },
+   "historia": {
+    "texto": "É plena a liberdade de associação para fins lícitos, vedada a de caráter paramilitar, e a criação de associações e, na forma da lei, de cooperativas independe de autorização (art. 5º, XVII e XVIII da Constituição).",
+    "fonte": {
+     "titulo": "Constituição da República Federativa do Brasil de 1988, art. 5º, XVII e XVIII",
+     "autor": "Presidência da República",
+     "ano": "1988",
+     "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Movimento, sindicato, partido e coletivo: qual é a diferença",
+    "href": "/trilhas/primeiros-passos-na-militancia/movimento-sindicato-partido-e-coletivo-qual-e-a-diferenca"
+   }
+  },
+  {
+   "id": "cp-renda",
+   "fase": "montando-a-turma",
+   "titulo": "Quem pode pagar a passagem",
+   "personagem": "jessica",
+   "texto": "Jéssica diz que metade da turma falta nos dias em que não tem dinheiro para o ônibus. O caixa é pequeno. Renato sugere uma lista de presença com contribuição \"voluntária\" que, na prática, ninguém pode deixar de dar.",
+   "esquerda": {
+    "texto": "Fundo de passagem aberto a todos",
+    "efeito": {
+     "turma": 11,
+     "caixa": -10,
+     "preparo": 5,
+     "equipe": 4
+    },
+    "retorno": "O fundo é para quem precisa, sem pergunta constrangedora. A frequência sobe, e a caixa mostra o uso de cada centavo."
+   },
+   "direita": {
+    "texto": "Contribuição obrigatória",
+    "efeito": {
+     "caixa": 11,
+     "turma": -11,
+     "preparo": -9,
+     "equipe": 3
+    },
+    "retorno": "O dinheiro entra, mas quem não pode pagar sente vergonha e some. O cursinho acaba atendendo quem tem mais."
+   },
+   "historia": {
+    "texto": "A Lei de Cotas leva em conta a renda das famílias: metade das vagas reservadas a estudantes de escola pública é destinada a famílias com renda igual ou inferior a 1 salário mínimo per capita (art. 1º, parágrafo único da Lei 12.711/2012, texto atual).",
+    "fonte": {
+     "titulo": "Lei nº 12.711, de 29 de agosto de 2012 (Lei de Cotas), texto atual, art. 1º, parágrafo único",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Inscrição e isenção da taxa",
+    "href": "/trilhas/enem-como-funciona/inscricao-e-isencao-da-taxa"
+   }
+  },
+  {
+   "id": "cp-foto",
+   "fase": "perto-do-enem",
+   "titulo": "A foto dos aprovados",
+   "personagem": "ana",
+   "texto": "Saiu o resultado do simulado e a turma ficou animada. Alguém sugere fazer um cartaz com a foto e o nome de cada aluno, incluindo menores de idade, para divulgar o cursinho nas redes.",
+   "esquerda": {
+    "texto": "Pedir autorização antes de postar",
+    "efeito": {
+     "turma": 9,
+     "equipe": -6,
+     "caixa": -3,
+     "preparo": 4
+    },
+    "retorno": "Cada aluno diz se aparece. A mãe de Duda autoriza por escrito. O cartaz fica bonito, e ninguém se sente exposto."
+   },
+   "direita": {
+    "texto": "Postar todas as fotos",
+    "efeito": {
+     "turma": 9,
+     "caixa": 9,
+     "preparo": -9,
+     "equipe": 4
+    },
+    "retorno": "A divulgação rende inscrições. Mas a mãe de uma aluna menor vê a foto da filha e fica indignada.",
+    "proxima": "cp-mae"
+   },
+   "historia": {
+    "texto": "O direito ao respeito, na criança e no adolescente, consiste na inviolabilidade da integridade física, psíquica e moral, o que inclui a preservação da imagem (art. 17 do ECA). Os dados pessoais de crianças e adolescentes devem ser tratados em seu melhor interesse e, para crianças, com consentimento específico de um dos pais ou do responsável legal (art. 14 da LGPD).",
+    "fonte": {
+     "titulo": "Lei nº 8.069, de 13 de julho de 1990 (Estatuto da Criança e do Adolescente), art. 17, e Lei 13.709/2018, art. 14",
+     "autor": "Presidência da República",
+     "ano": "1990",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm"
+    }
+   },
+   "aula": {
+    "titulo": "O Estatuto da Criança e do Adolescente",
+    "href": "/trilhas/politica-fundamental/o-estatuto-da-crianca-e-do-adolescente"
+   }
+  },
+  {
+   "id": "cp-edital",
+   "fase": "perto-do-enem",
+   "titulo": "O chamamento da prefeitura",
+   "personagem": "gerente",
+   "texto": "A prefeitura abre um chamamento público para apoiar projetos de educação nos bairros. A associação do cursinho pode se candidatar, mas o edital exige tempo mínimo de existência e cadastro ativo.",
+   "condicao": {
+    "flags": [
+     "associacao"
+    ]
+   },
+   "esquerda": {
+    "texto": "Concorrer e preparar a papelada",
+    "efeito": {
+     "caixa": 11,
+     "equipe": -9,
+     "preparo": 5,
+     "turma": 3
+    },
+    "retorno": "A papelada ocupa quatro fins de semana. Mas o projeto é aprovado, e o cursinho tem verba para material e transporte."
+   },
+   "direita": {
+    "texto": "Pedir direto ao vereador",
+    "efeito": {
+     "caixa": 9,
+     "turma": -7,
+     "equipe": 4,
+     "preparo": -9
+    },
+    "retorno": "O dinheiro vem mais rápido, mas na forma de favor, e o vereador pede um \"agradecimento\" na formatura."
+   },
+   "historia": {
+    "texto": "A celebração de termo de colaboração ou de termo de fomento com organização da sociedade civil será precedida de chamamento público, com as exceções previstas em lei (art. 24). A organização deve ter tempo mínimo de existência com cadastro ativo (um, dois ou três anos, conforme o ente federado) (art. 33, V, a da Lei 13.019/2014).",
+    "fonte": {
+     "titulo": "Lei nº 13.019, de 31 de julho de 2014 (parcerias com organizações da sociedade civil), arts. 24 e 33",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "cp-franquia",
+   "fase": "perto-do-enem",
+   "titulo": "A proposta do Sr. Valter",
+   "personagem": "gerente",
+   "texto": "O Sr. Valter, dono de uma rede de cursinhos pagos, oferece pagar as despesas e colocar a marca dele no cursinho. Em troca, vai cobrar mensalidade de quem puder e dividir o lucro.",
+   "esquerda": {
+    "texto": "Recusar e continuar gratuito",
+    "efeito": {
+     "turma": 9,
+     "equipe": 8,
+     "caixa": -11,
+     "preparo": 3
+    },
+    "retorno": "O cursinho continua dos voluntários e dos alunos, sem dono de fora. O dinheiro segue apertado, mas a direção continua sendo sua."
+   },
+   "direita": {
+    "texto": "Aceitar a marca e a mensalidade",
+    "efeito": {
+     "caixa": 13,
+     "preparo": 6,
+     "turma": -10,
+     "equipe": -9
+    },
+    "retorno": "O dinheiro entra, e os voluntários que dão aula de graça não aceitam ver lucro de outra pessoa. A equipe cai pela metade."
+   },
+   "historia": {
+    "texto": "Organização da sociedade civil, para essa lei, é a entidade privada sem fins lucrativos que não distribua entre os seus sócios ou associados, conselheiros, diretores, empregados ou doadores eventuais resultados, sobras, excedentes operacionais ou dividendos (art. 2º, I, a da Lei 13.019/2014).",
+    "fonte": {
+     "titulo": "Lei nº 13.019, de 31 de julho de 2014 (parcerias com organizações da sociedade civil), art. 2º, I",
+     "autor": "Presidência da República",
+     "ano": "2014",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Escola de formação do coletivo: calendário e continuidade",
+    "href": "/trilhas/formar-formadores/escola-de-formacao-do-coletivo-calendario-e-continuidade"
+   }
+  },
+  {
+   "id": "cp-pedro",
+   "fase": "perto-do-enem",
+   "titulo": "Pedro e a aula que ele não ouve",
+   "personagem": "pedro",
+   "texto": "Pedro, aluno surdo, senta na primeira fila mas perde quase tudo. Ele pede um intérprete de Libras e legendas nos vídeos. Não há dinheiro para contratar ninguém.",
+   "esquerda": {
+    "texto": "Montar apoio com voluntários e legendas",
+    "efeito": {
+     "turma": 10,
+     "preparo": 9,
+     "equipe": -8,
+     "caixa": -6
+    },
+    "retorno": "Uma voluntária que sabe Libras acompanha as aulas, e os vídeos ganham legenda. Pedro tira a melhor nota da sala no simulado."
+   },
+   "direita": {
+    "texto": "Dizer que não dá",
+    "efeito": {
+     "caixa": 7,
+     "turma": -9,
+     "preparo": -9,
+     "equipe": 3
+    },
+    "retorno": "Pedro continua indo por teimosia, mas entende pouco. Ele desiste no segundo mês."
+   },
+   "historia": {
+    "texto": "A Lei de Cotas reserva vagas a pessoas com deficiência, além de pretos, pardos, indígenas e quilombolas, em proporção à população da unidade da Federação onde está a instituição, segundo o último censo do IBGE (art. 3º da Lei 12.711/2012).",
+    "fonte": {
+     "titulo": "Lei nº 12.711, de 29 de agosto de 2012 (Lei de Cotas), texto atual, art. 3º",
+     "autor": "Presidência da República",
+     "ano": "2012",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm"
+    }
+   },
+   "aula": {
+    "titulo": "A Lei Brasileira de Inclusão",
+    "href": "/trilhas/direitos-das-pessoas-com-deficiencia/a-lei-brasileira-de-inclusao"
+   }
+  },
+  {
+   "id": "cp-redacao",
+   "fase": "perto-do-enem",
+   "titulo": "Aula de redação com textos de jornal",
+   "personagem": "prof",
+   "texto": "Para a aula de redação, Renato quer distribuir uma reportagem inteira de um jornal como exemplo de argumentação. Ana sugere citar só os trechos necessários e dizer a fonte.",
+   "esquerda": {
+    "texto": "Citar os trechos e a fonte",
+    "efeito": {
+     "preparo": 10,
+     "turma": 5,
+     "equipe": -4,
+     "caixa": 2
+    },
+    "retorno": "A turma aprende a citar com respeito à autoria, uma habilidade que também vale na prova."
+   },
+   "direita": {
+    "texto": "Distribuir a reportagem inteira",
+    "efeito": {
+     "equipe": 7,
+     "preparo": 5,
+     "turma": 3,
+     "caixa": -9
+    },
+    "retorno": "É prático. Mas o jornal, ao ver a reportagem inteira em outro lugar, reclama do uso sem autorização."
+   },
+   "historia": {
+    "texto": "Não constitui ofensa aos direitos autorais a citação, em livros, jornais, revistas ou qualquer outro meio de comunicação, de passagens de qualquer obra, para fins de estudo, crítica ou polêmica, na medida justificada para o fim a atingir, indicando-se o nome do autor e a origem da obra (art. 46, III da Lei 9.610/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.610, de 19 de fevereiro de 1998 (Direitos Autorais), art. 46, III",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Competência 3: organizar os argumentos",
+    "href": "/trilhas/enem-redacao/competencia-3-organizar-os-argumentos"
+   }
+  },
+  {
+   "id": "cp-cansaco",
+   "fase": "perto-do-enem",
+   "titulo": "Professor cansado",
+   "personagem": "prof",
+   "texto": "Renato dá aula depois de um dia inteiro de trabalho e está esgotado. Outros voluntários também falam em sair. Ana sugere revezar as aulas e reconhecer o trabalho de cada um.",
+   "esquerda": {
+    "texto": "Revezar e reconhecer o trabalho",
+    "efeito": {
+     "equipe": 11,
+     "preparo": 6,
+     "caixa": -4,
+     "turma": 3
+    },
+    "retorno": "Com escala e agradecimento público, o cansaço diminui. Os professores passam a se ver como equipe."
+   },
+   "direita": {
+    "texto": "Pedir mais de cada um",
+    "efeito": {
+     "preparo": 8,
+     "turma": 6,
+     "equipe": -12,
+     "caixa": 3
+    },
+    "retorno": "Por um mês, o cursinho rende mais. Depois, duas pessoas saem de uma vez e a escala desaba."
+   },
+   "historia": {
+    "texto": "O serviço voluntário não gera vínculo empregatício, nem obrigação de natureza trabalhista, previdenciária ou afim (art. 1º, parágrafo único da Lei 9.608/1998). Por isso a continuidade depende do acordo e do reconhecimento entre as pessoas.",
+    "fonte": {
+     "titulo": "Lei nº 9.608, de 18 de fevereiro de 1998 (Serviço Voluntário), art. 1º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Estudar cansado: sono e descanso",
+    "href": "/trilhas/estudar-trabalhando/estudar-cansado-sono-e-descanso"
+   }
+  },
+  {
+   "id": "cp-mae",
+   "fase": "perto-do-enem",
+   "soEncadeada": true,
+   "titulo": "A mãe pede para apagar",
+   "personagem": "mae",
+   "texto": "A mãe da aluna menor, indignada, exige que a foto da filha seja retirada de todas as páginas e que o nome dela saia da planilha. Ela diz que não autorizou.",
+   "esquerda": {
+    "texto": "Apagar tudo e pedir desculpas",
+    "efeito": {
+     "turma": 9,
+     "equipe": -5,
+     "caixa": -4,
+     "preparo": 3
+    },
+    "retorno": "A foto sai das redes e a ficha é apagada. A mãe ainda está brava, mas percebe que o cursinho assume o erro."
+   },
+   "direita": {
+    "texto": "Dizer que a foto é pública",
+    "efeito": {
+     "caixa": 6,
+     "turma": -10,
+     "equipe": 3,
+     "preparo": -9
+    },
+    "retorno": "A discussão sobe de tom. A mãe tira a filha do cursinho e conta o caso na vizinhança."
+   },
+   "historia": {
+    "texto": "O titular dos dados pessoais tem direito de obter do controlador, em relação aos dados por ele tratados, a eliminação dos dados pessoais tratados com o consentimento do titular (art. 18, VI da LGPD), ressalvadas as hipóteses do art. 16.",
+    "fonte": {
+     "titulo": "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais), art. 18, VI",
+     "autor": "Presidência da República",
+     "ano": "2018",
+     "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Seus dados valem dinheiro",
+    "href": "/trilhas/midia-fundamental/seus-dados-valem-dinheiro"
+   }
+  },
+  {
+   "id": "cp-volta",
+   "fase": "perto-do-enem",
+   "titulo": "Ana volta para dar aula",
+   "personagem": "ana",
+   "texto": "Ana, ex-aluna aprovada no ensino superior, quer voltar para dar aula de matemática aos sábados. Ela propõe o mesmo combinado que os outros: um papel simples dizendo o que fará e como será reconhecida.",
+   "condicao": {
+    "partidas": 1
+   },
+   "esquerda": {
+    "texto": "Fazer o termo de adesão com ela",
+    "efeito": {
+     "equipe": 11,
+     "turma": 8,
+     "preparo": 7,
+     "caixa": -4
+    },
+    "retorno": "Ana assina o termo e ganha uma turma de reforço. Ver uma ex-aluna dando aula muda o jeito da turma de se enxergar."
+   },
+   "direita": {
+    "texto": "Deixar sem papel, por confiança",
+    "efeito": {
+     "equipe": 5,
+     "turma": 5,
+     "preparo": 4,
+     "caixa": 3
+    },
+    "retorno": "Funciona bem por um tempo. Mas, sem nada escrito, ninguém lembra do combinado quando ela precisa faltar."
+   },
+   "historia": {
+    "texto": "O serviço voluntário será exercido mediante a celebração de termo de adesão entre a entidade, pública ou privada, e o prestador do serviço voluntário, dele devendo constar o objeto e as condições de seu exercício (art. 2º da Lei 9.608/1998).",
+    "fonte": {
+     "titulo": "Lei nº 9.608, de 18 de fevereiro de 1998 (Serviço Voluntário), art. 2º",
+     "autor": "Presidência da República",
+     "ano": "1998",
+     "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    }
+   },
+   "aula": {
+    "titulo": "Cursinhos populares: estudar junto e de graça",
+    "href": "/trilhas/enem-como-funciona/cursinhos-populares-estudar-junto-e-de-graca"
+   }
+  }
+ ],
+ "finais": [
+  {
+   "id": "cp-turma-zero",
+   "tipo": "queda",
+   "medidor": "turma",
+   "limite": "zero",
+   "titulo": "A sala vazia",
+   "texto": "Ninguém vem às aulas. Quem trabalha de dia e precisa do cursinho de noite não consegue chegar, e quem chega não se sente em casa.",
+   "aula": {
+    "titulo": "O plano da semana e como recomeçar",
+    "href": "/trilhas/estudar-trabalhando/o-plano-da-semana-e-como-recomecar"
+   }
+  },
+  {
+   "id": "cp-turma-cem",
+   "tipo": "queda",
+   "medidor": "turma",
+   "limite": "cem",
+   "titulo": "Sala que não cabe",
+   "texto": "A fama do cursinho se espalhou, e entraram duas vezes mais gente do que cabe. A aula virou palestra, e ninguém mais consegue tirar dúvida.",
+   "aula": {
+    "titulo": "Cursinhos populares: estudar junto e de graça",
+    "href": "/trilhas/enem-como-funciona/cursinhos-populares-estudar-junto-e-de-graca"
+   }
+  },
+  {
+   "id": "cp-preparo-zero",
+   "tipo": "queda",
+   "medidor": "preparo",
+   "limite": "zero",
+   "titulo": "Bonito, mas sem prova",
+   "texto": "A turma é unida, mas a prova se aproxima e pouca gente aprendeu o que cai. Cursinho sem conteúdo não passa ninguém.",
+   "aula": {
+    "titulo": "Como montar um plano de estudos realista",
+    "href": "/trilhas/enem-como-funciona/como-montar-um-plano-de-estudos-realista"
+   }
+  },
+  {
+   "id": "cp-preparo-cem",
+   "tipo": "queda",
+   "medidor": "preparo",
+   "limite": "cem",
+   "titulo": "Só treino de prova",
+   "texto": "Aula virou macete, simulado e cronômetro. A turma melhorou na prova e perdeu o gosto de estudar. A educação virou só técnica.",
+   "aula": {
+    "titulo": "Quem foi Paulo Freire",
+    "href": "/trilhas/educacao-popular-fundamental/quem-foi-paulo-freire"
+   }
+  },
+  {
+   "id": "cp-caixa-zero",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "zero",
+   "titulo": "Acabou o xerox",
+   "texto": "Sem dinheiro para xerox, luz e passagem, as aulas param. O cursinho depende demais de boa vontade e de pouco dinheiro.",
+   "aula": {
+    "titulo": "Nota fiscal e controle das vendas",
+    "href": "/trilhas/mei-passo-a-passo/nota-fiscal-e-controle-das-vendas"
+   }
+  },
+  {
+   "id": "cp-caixa-cem",
+   "tipo": "queda",
+   "medidor": "caixa",
+   "limite": "cem",
+   "titulo": "Virou negócio",
+   "texto": "O dinheiro sobrou e alguém começou a decidir sozinho o que fazer com ele. O cursinho gratuito virou uma empresa que cobra por baixo dos panos.",
+   "aula": {
+    "titulo": "Cooperativas e economia solidária",
+    "href": "/trilhas/economia-fundamental/cooperativas-e-economia-solidaria"
+   }
+  },
+  {
+   "id": "cp-equipe-zero",
+   "tipo": "queda",
+   "medidor": "equipe",
+   "limite": "zero",
+   "titulo": "Ninguém para dar aula",
+   "texto": "Os voluntários cansaram e foram saindo. Sobrou Renato, sozinho, com três turmas. Sem professor não há cursinho.",
+   "aula": {
+    "titulo": "Escola de formação do coletivo: calendário e continuidade",
+    "href": "/trilhas/formar-formadores/escola-de-formacao-do-coletivo-calendario-e-continuidade"
+   }
+  },
+  {
+   "id": "cp-equipe-cem",
+   "tipo": "queda",
+   "medidor": "equipe",
+   "limite": "cem",
+   "titulo": "Clube dos professores",
+   "texto": "Tem tanto voluntário e tanto debate entre eles que a turma é a última a ser ouvida. O cursinho virou assunto de quem ensina, não de quem aprende.",
+   "aula": {
+    "titulo": "Paulo Freire: educação bancária e educação libertadora",
+    "href": "/trilhas/formar-formadores/paulo-freire-educacao-bancaria-e-educacao-libertadora"
+   }
+  },
+  {
+   "id": "cp-fim-aprovacao",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "associacao",
+     "termo"
+    ]
+   },
+   "titulo": "Estudar junto deu certo",
+   "texto": "O cursinho chega ao Enem com associação, voluntários com termo e dados dos alunos protegidos. Mais gente do bairro entra no ensino superior, e quem entra volta para ensinar.",
+   "aula": {
+    "titulo": "Cursinhos populares: estudar junto e de graça",
+    "href": "/trilhas/enem-como-funciona/cursinhos-populares-estudar-junto-e-de-graca"
+   }
+  },
+  {
+   "id": "cp-fim-termo",
+   "tipo": "chegada",
+   "condicao": {
+    "flags": [
+     "termo"
+    ]
+   },
+   "titulo": "Voluntários em ordem",
+   "texto": "A equipe tem acordo claro e a turma está firme. Falta formalizar a associação para crescer, mas as bases estão lançadas.",
+   "aula": {
+    "titulo": "Como funciona o ENEM",
+    "href": "/trilhas/enem-como-funciona/como-funciona-o-enem"
+   }
+  },
+  {
+   "id": "cp-fim-improviso",
+   "tipo": "chegada",
+   "titulo": "Funciona no improviso",
+   "texto": "O cursinho chegou ao Enem com muito esforço e pouco papel. Foi bonito, mas depende de quem está disposto a improvisar de novo no ano que vem.",
+   "aula": {
+    "titulo": "Estudar em grupo",
+    "href": "/trilhas/estudar-trabalhando/estudar-em-grupo"
+   }
+  }
+ ]
+}
