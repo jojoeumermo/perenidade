@@ -4,6 +4,7 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { AberturaDaEscola, ReverAbertura, type TrechoPublicado } from "@/components/escola/AberturaDaEscola";
 import { CartaoLuciaMaria } from "@/components/escola/CartaoLuciaMaria";
+import { semMarcador } from "@/lib/escola/quem-foi";
 import { QuemVolta } from "@/components/escola/QuemVolta";
 import Link from "@/components/Link";
 import { PageHeading } from "@/components/PageHeading";
@@ -26,7 +27,7 @@ const ler = (leitura: () => string) => {
 };
 
 /** O marcador (ou, quando chegar, o texto) de content/escola/quem-foi-lucia-maria.md, para o 2º quadro da abertura. */
-const textoDeLucia = () => parseFrontmatter(ler(() => fs.readFileSync(path.join(process.cwd(), "content", "escola", "quem-foi-lucia-maria.md"), "utf8")) ?? "").content.trim();
+const textoDeLucia = () => semMarcador(parseFrontmatter(ler(() => fs.readFileSync(path.join(process.cwd(), "content", "escola", "quem-foi-lucia-maria.md"), "utf8")) ?? "").content.trim());
 
 /**
  * "Por que a escola existe": trecho copiado do "Quem somos" já publicado no idioma da página. Sem versão publicada
