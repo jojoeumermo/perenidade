@@ -1,8 +1,8 @@
 ---
 titulo: "Manicure e pedicure"
-area: trabalho
+area: manicure
 etapa: medio
-ordem: 11
+ordem: 2
 resumo: "Biossegurança, esterilização, atendimento e preço: como trabalhar com segurança para você e para a cliente e viver do ofício."
 ---
 
