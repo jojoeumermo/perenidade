@@ -1,5 +1,40 @@
 # Hospedagem: onde o site mora e como ele vai ao ar
 
+## Hoje (6 de novembro de 2026): VPS da Contabo
+
+**O site saiu da Vercel e está numa VPS da Contabo.** O que vem depois desta seção descreve a Vercel (que ficou de reserva)
+e o plano antigo com Oracle e Coolify, que não foi usado.
+
+| Peça | O que é | Onde se mexe |
+|---|---|---|
+| **VPS da Contabo** | Cloud VPS 4: x86_64, 4 núcleos, 8 GB de memória (+4 GB de reserva em disco), 96 GB de disco, Ubuntu 24.04. IP `<IP da VPS>`. | my.contabo.com → VPS → `<id da VPS>` |
+| **Caddy** | O HTTPS na frente do site, com o Certificado de Origem do Cloudflare (válido até 2041; a chave privada nasceu e fica só na VPS, em `/etc/caddy/origem/`). Manda `www` para o domínio principal e atende `alumia.institutolucia.org`. | `/etc/caddy/Caddyfile` (cópia em `infra/contabo/Caddyfile`) |
+| **Dois contêineres do site** | `site-a` (porta 3001) e `site-b` (3002), só em 127.0.0.1. A troca de versão sobe o novo, espera responder e só então desliga o antigo: o site não sai do ar. | `docker ps`; chaves em `/opt/lucia/site.env` |
+| **GitHub** | A rotina "Publicar no servidor" (`producao.yml`) monta a imagem a cada push no master e manda para `ghcr.io/jojoeumermo/perenidade:producao` (a VPS tem só 8 GB; a montagem pede 8 GB sozinha). Uns 4 minutos depois, limpa o cache do Cloudflare. | Actions → Publicar no servidor |
+| **Cloudflare** | DNS (`institutolucia.org` A → <IP da VPS> com proxy; `www` CNAME → institutolucia.org), cache e proteção. O firewall da VPS só deixa os endereços do Cloudflare nas portas 80 e 443. SSL/TLS em "Completo (estrito)". | dash.cloudflare.com → institutolucia.org |
+
+**Como uma mudança vai ao ar:** push no master → o GitHub monta a imagem (uns 20 a 30 min) → a VPS confere a cada 2 minutos
+(`lucia-atualizar.timer`) e troca sozinha → o GitHub limpa o cache do Cloudflare. Registro: `journalctl -u lucia-atualizar`.
+
+**Voltar para uma versão anterior:** na VPS, `lucia-atualizar <commit completo>` (as 3 últimas imagens ficam guardadas; as
+outras são baixadas de novo do GHCR, que guarda todas).
+
+**Entrar na VPS:** só com a chave SSH do Instituto (`~/.ssh/contabo_lucia` no computador da coordenação), porta **22222**
+(a 22 também funciona, mas algumas redes interceptam a 22 e só deixam passar senha): `ssh -p 22222 -i ~/.ssh/contabo_lucia root@<IP da VPS>`.
+Senha não entra (`PasswordAuthentication no`). Se perder a chave: painel da Contabo → Reset credentials → SSH-Key.
+
+**Chaves do site:** `infra/contabo/segredos.ps1` pergunta cada chave e grava em `/opt/lucia/site.env` sem mostrar na tela; a
+VPS reinicia o site com as chaves novas em até 2 minutos, sem tirar do ar. As variáveis públicas (`NEXT_PUBLIC_*`) ficam no
+GitHub (Settings → Secrets and variables → Actions → Variables) e entram na montagem.
+
+**Se a VPS cair (plano de volta para a Vercel):** no Cloudflare, `institutolucia.org` volta para A `76.76.21.21` e `www`
+para CNAME `cname.vercel-dns.com` (com proxy). A Vercel tem a última publicação parada. Para ela voltar a publicar, crie lá a
+variável `VERCEL_VOLTOU = sim` (`scripts/vercel-ignorar.mjs`).
+
+**Preparar uma VPS nova do zero:** `infra/contabo/preparar.sh` e depois `infra/contabo/instalar.sh` (com os arquivos da pasta
+em `/root/lucia-infra/`), o certificado de origem (gerar `origem.key` e `origem.csr` na VPS, criar o certificado no Cloudflare
+com "Usar minha própria chave privada e CSR" e gravar `origem.pem`) e as chaves do site.
+
 **Hoje (5 de novembro de 2026) o site continua na Vercel** (conta nova desde 2 de novembro), como paliativo: veja "Situação
 atual" logo abaixo. O destino planejado é um servidor próprio, que ainda não existe; quando ele sair, terá três peças (mais uma
 máquina à parte só para a sala de aula ao vivo, veja "Aula ao vivo" mais abaixo):
