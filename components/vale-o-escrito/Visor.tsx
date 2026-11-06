@@ -163,7 +163,22 @@ export function useVisor(L: number, A: number, ajuste: Transformacao) {
     e.preventDefault();
   };
 
-  return { t, setT, svg, mexeu, unidade, zoomarEm, baixar, mover, soltar, tecla, proximoNivel, recentrar: () => setT(ajuste) };
+  /** O clique que chega depois de um arrasto/pinça não conta: devolve se houve gesto e zera a marca. */
+  const consumirMexeu = () => {
+    const houve = mexeu.current;
+    mexeu.current = false;
+    return houve;
+  };
+  /** Um nó começou a ser arrastado: marca o gesto e prende o ponteiro no SVG. */
+  const prenderArrasto = (pointerId: number) => {
+    mexeu.current = true;
+    try {
+      svg.current?.setPointerCapture(pointerId);
+    } catch {}
+  };
+
+  // Desestruture na chamada (const { t, ... } = useVisor()): assim a regra de refs do React não confunde `t` com um ref.
+  return { t, setT, svgRef: svg, unidade, zoomarEm, baixar, mover, soltar, tecla, proximoNivel, consumirMexeu, prenderArrasto, recentrar: () => setT(ajuste) };
 }
 
 /** Os botões +/−/recentrar, o nível nomeado ("ZOOM 03 — CASO") e a leitura de coordenadas, sempre visíveis. */
