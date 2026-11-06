@@ -6,10 +6,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { CATALOGO_DE_FONTES } from "../lib/vale-o-escrito/catalogo.ts";
-import { SITUACOES as SITUACOES_TIPOS } from "../lib/vale-o-escrito/tipos.ts";
+import { PAPEIS_PROIBIDOS, validarEntrada, validarPessoa } from "../lib/vale-o-escrito/regras.ts";
+import { PAPEIS_DE_PESSOA, SITUACOES as SITUACOES_TIPOS, TIPOS_DE_ORGANIZACAO } from "../lib/vale-o-escrito/tipos.ts";
 import {
-  PROVEDORES, SITUACOES, CAPITAIS, acharDossies, acharLugar, coletar, conferirRespostaIa, criarGravador, criarIa, falaDeMenor,
-  lerFeed, lerQueridoDiario, montarPrompt, normalizarUrl, prepararMunicipios,
+  PAPEIS, PROIBIDOS, PROVEDORES, SITUACOES, TIPOS_DE_ORG, CAPITAIS, acharDossies, acharLugar, acharOrganizacoes, arquivarNoInternetArchive,
+  carregarConfig, coletar, conferirRespostaIa, criarGravador, criarIa, dataDoFatoPorHeuristica, extrairMateria, falaDeMenor, lerFeed,
+  lerQueridoDiario, linkDoArquivo, montarPrompt, normalizarUrl, podeArquivar, prepararMunicipios, relataCaso, resumoPorHeuristica,
+  paraOLogPublico, situacaoPorHeuristica, temSegundo,
 } from "./vale-o-escrito/coletar.mjs";
 
 let total = 0;
@@ -27,6 +30,11 @@ const cfgFontes = JSON.parse(ler("content", "vale-o-escrito", "fontes.json")).fo
 const HOJE = "2026-11-03";
 
 await caso("as situações do robô são as de tipos.ts", () => assert.deepEqual(SITUACOES, [...SITUACOES_TIPOS]));
+await caso("papéis, tipos de organização e papéis proibidos do robô são os de tipos.ts e regras.ts", () => {
+  assert.deepEqual(PAPEIS, [...PAPEIS_DE_PESSOA]);
+  assert.deepEqual(TIPOS_DE_ORG, [...TIPOS_DE_ORGANIZACAO]);
+  assert.deepEqual(PROIBIDOS, [...PAPEIS_PROIBIDOS]);
+});
 
 await caso("fontes.json cobre o catálogo inteiro, com acesso válido", () => {
   assert.deepEqual(cfgFontes.map((f) => f.id), CATALOGO_DE_FONTES.map((f) => f.id));
@@ -51,7 +59,7 @@ await caso("links: tira utm, #, barra final; recusa o que não é http(s)", () =
 
 await caso("lê RSS (CDATA, entidades) e Atom (link alternate)", () => {
   const rss = lerFeed(fx("reporter-brasil.xml"));
-  assert.equal(rss.length, 6);
+  assert.equal(rss.length, 7);
   assert.match(rss[0].resumo, /^A Polícia Federal abriu inquérito/);
   assert.doesNotMatch(rss[0].resumo, /[<>]/);
   assert.equal(rss[0].data, "2026-11-02");
@@ -105,7 +113,8 @@ await caso("resposta da IA: aceita o bom; derruba resumo sem 'segundo', longo, c
   assert.equal(ok.situacao, "denunciado");
   assert.equal(conferirRespostaIa('{"resumo":"Maria Souza foi denunciada.","etiquetas":[],"situacao":null}', fonte).resumo, "");
   assert.equal(conferirRespostaIa('{"resumo":"Segundo o MPF, João Pereira foi denunciado.","etiquetas":[],"situacao":null}', fonte).resumo, "");
-  assert.equal(conferirRespostaIa('{"resumo":"Segundo o MPF, a. b. c. d.","etiquetas":[],"situacao":null}', fonte).resumo, "");
+  assert.equal(conferirRespostaIa('{"resumo":"Segundo o MPF, a. b. c. d. e.","etiquetas":[],"situacao":null}', fonte).resumo, "");
+  assert.equal(conferirRespostaIa('{"resumo":"Segundo o MPF, a. b. c. d.","etiquetas":[],"situacao":null}', fonte).resumo, "Segundo o MPF, a. b. c. d.", "até 4 frases");
   assert.equal(conferirRespostaIa('{"resumo":"","etiquetas":[],"situacao":"culpado"}', fonte).situacao, null);
   assert.equal(conferirRespostaIa("sem json", fonte), null);
 });
@@ -135,8 +144,13 @@ await caso("rodízio: pula quem não tem chave, tira do rodízio quem responde 4
   assert.ok(!vistas[0][0].includes("SEGREDO") && vistas[0][1].headers["x-goog-api-key"] === "SEGREDO");
 });
 
-const buscarFx = async (_u, _o, fonte) => {
-  const nome = { "reporter-brasil": "reporter-brasil.xml", "amazonia-real": "amazonia-real.xml", "querido-diario": "querido-diario.json" }[fonte.id];
+const buscarFx = async (u, o, fonte) => {
+  if (o?.materia) {
+    const fim = new URL(u).pathname.split("/").filter(Boolean).pop();
+    const f = path.join(pastaFx, "materias", `${fim}.html`);
+    return fs.existsSync(f) ? { status: 200, text: fs.readFileSync(f, "utf8") } : { status: 404, text: "" };
+  }
+  const nome = { "reporter-brasil": "reporter-brasil.xml", "amazonia-real": "amazonia-real.xml", "querido-diario": "querido-diario.json" }[fonte?.id];
   return nome ? { status: 200, text: fx(nome) } : { status: 404, text: "" };
 };
 const rodar = (extra = {}) =>
@@ -153,6 +167,8 @@ await caso("rodada completa com feeds locais: filtra, deduplica, descarta menor 
   assert.equal(relatorio.descartados.menor, 1);
   assert.equal(relatorio.descartados.antigo, 1);
   assert.equal(relatorio.descartados.semTema, 1);
+  assert.equal(relatorio.descartados.naoECaso, 1, "o seminário tem tema, mas não relata caso");
+  assert.equal(relatorio.materias.baixadas, 1);
   const garimpo = sugestoes.find((s) => s.url.endsWith("garimpo-terra-indigena"));
   assert.equal(garimpo.municipio_ibge, "1501402");
   assert.equal(garimpo.rascunho.dossie, "povos-indigenas");
@@ -186,7 +202,11 @@ await caso("com IA: resumo, etiquetas e situação sugerida entram; IA que falha
   assert.equal(s.rascunho.situacaoSugerida, "investigado");
   const sem = await rodar({ ia: { resumir: async () => null } });
   assert.equal(sem.sugestoes.length, 4);
-  assert.ok(sem.sugestoes.every((x) => !x.resumo_ia && !x.rascunho.situacaoSugerida));
+  assert.ok(sem.sugestoes.every((x) => !x.resumo_ia && !x.rascunho.situacao && x.rascunho.extracao === "heuristica"), "sem IA: a situação do caso fica em branco");
+  // a IA que diz "não é caso" tira a sugestão
+  const nao = await rodar({ ia: { estruturar: async () => ({ naoECaso: true, resumo: "", etiquetas: [], situacao: null, pessoas: [], organizacoes: [], lugar: {}, provedor: "gemini" }) } });
+  assert.equal(nao.sugestoes.length, 0);
+  assert.equal(nao.relatorio.descartados.naoECaso, 5);
 });
 
 await caso("gravação: chama vale_robo_sugerir com a chave de serviço, conta repetidas, para na recusa da chave", async () => {
@@ -229,11 +249,12 @@ await caso("linha de comando: --seco --fixtures imprime JSON e não pede chave n
   assert.throws(() => execFileSync(process.execPath, ["scripts/vale-o-escrito/coletar.mjs", "--nao-existe"], { cwd: raiz, stdio: "pipe" }));
 });
 
-await caso("workflow: agendado de 3 em 3 h, só com VALE_O_ESCRITO == 'sim', actions fixadas por SHA, timeout curto", () => {
+await caso("workflow: agendado de 3 em 3 h, só com VALE_O_ESCRITO == 'sim', actions fixadas por SHA, timeout de até 30 min, chaves por segredo", () => {
   const y = ler(".github", "workflows", "vale-o-escrito.yml");
   assert.match(y, /cron: "\d+ \*\/3 \* \* \*"/);
   assert.match(y, /if: \$\{\{ vars\.VALE_O_ESCRITO == 'sim' \}\}/);
-  assert.match(y, /timeout-minutes: (\d|1[0-5])\b/);
+  assert.match(y, /timeout-minutes: ([5-9]|[12]\d|30)\b/);
+  for (const k of ["ARCHIVE_ACCESS_KEY", "ARCHIVE_SECRET_KEY", "GEMINI_API_KEY", "GROQ_API_KEY", "CEREBRAS_API_KEY", "OPENROUTER_API_KEY"]) assert.ok(y.includes(`${k}: \${{ secrets.${k} }}`), k);
   for (const m of y.matchAll(/uses: (\S+)/g)) assert.match(m[1], /@[0-9a-f]{40}$/, m[1]);
   assert.match(y, /node scripts\/vale-o-escrito\/coletar\.mjs/);
   assert.match(y, /SUPABASE_SERVICE_ROLE_KEY: \$\{\{ secrets\./);
@@ -248,6 +269,198 @@ await caso("o robô lê disco só com pastas literais e não é importado pelo s
   for (const dir of ["app", "components", "lib"]) {
     const achou = fs.readdirSync(path.join(raiz, dir), { recursive: true }).filter((f) => /\.(ts|tsx)$/.test(f)).some((f) => ler(dir, f).includes("scripts/vale-o-escrito/coletar"));
     assert.ok(!achou, `${dir} importa o robô`);
+  }
+});
+
+// ───────────────────────────── Rascunho completo (2026-11) ─────────────────────────────
+
+await caso("matéria: extrai título, descrição, data de publicação, site e só os parágrafos da matéria", () => {
+  const m = extrairMateria(fx(path.join("materias", "garimpo-terra-indigena.html")));
+  assert.equal(m.titulo, "Garimpo ilegal avança em terra indígena no Pará");
+  assert.match(m.descricao, /^A Polícia Federal abriu inquérito/);
+  assert.equal(m.dataPublicacao, "2026-11-02");
+  assert.equal(m.site, "Repórter Brasil");
+  assert.equal(m.paragrafos.length, 3, "sem menu, sem rodapé, sem 'assine a newsletter'");
+  assert.ok(!/newsletter|direitos reservados|Menu do site/i.test(m.texto));
+});
+
+await caso("heurísticas: é caso, órgãos e empresas, data do fato, situação sugerida, resumo com 'segundo <veículo>'", () => {
+  assert.ok(relataCaso("A Polícia Federal abriu inquérito sobre garimpo"));
+  assert.ok(!relataCaso("Seminário discute a política de demarcação e a cultura dos povos"));
+  const orgs = acharOrganizacoes("O MPF e o Ibama, com a Mineração Exemplo Ltda. e a empresa Agro Norte, segundo o Ministério Público do Trabalho");
+  assert.deepEqual(orgs.map((o) => o.nome), ["Ministério Público Federal", "Ministério Público do Trabalho", "Ibama", "Mineração Exemplo Ltda.", "Agro Norte"]);
+  assert.ok(orgs.find((o) => o.nome === "Agro Norte").tipo === "empresa" && orgs[0].tipo === "orgao_publico");
+  assert.ok(!acharOrganizacoes("Pf, mte e a palavra senado em minúsculas").length, "sigla só em maiúsculas");
+  assert.equal(dataDoFatoPorHeuristica("em 28 de outubro de 2026 a PF", "2026-11-02"), "2026-10-28");
+  assert.equal(dataDoFatoPorHeuristica("em 30 de dezembro, segundo a PF", "2026-01-05"), "2025-12-30", "sem ano: o ano anterior quando cairia depois da publicação");
+  assert.equal(dataDoFatoPorHeuristica("sem data no texto", "2026-11-02"), "2026-11", "sem data: o mês da publicação");
+  assert.equal(situacaoPorHeuristica("o empregador é alvo de inquérito"), "investigado");
+  assert.equal(situacaoPorHeuristica("os dois viraram réus na ação penal"), "reu");
+  assert.equal(situacaoPorHeuristica("foi condenado em primeira instância"), "condenado_1a_instancia");
+  assert.equal(situacaoPorHeuristica("nada sobre a justiça aqui"), null);
+  const r = resumoPorHeuristica("Repórter Brasil", ["A Polícia Federal abriu inquérito sobre o garimpo. O Ibama aplicou multas na região.", "A Polícia Federal abriu um inquérito sobre o garimpo."]);
+  assert.match(r, /^Segundo Repórter Brasil, a Polícia Federal abriu inquérito/);
+  assert.equal(r.split(/[.!?]\s/).length, 2, "a frase repetida não entra duas vezes");
+  assert.ok(temSegundo(r, "Repórter Brasil"));
+});
+
+await caso("município: com o estado citado, vence a cidade daquele estado; palavra comum sozinha não vira cidade", () => {
+  const prep = prepararMunicipios([...CAPITAIS, { ibge: "1500602", nome: "Altamira", uf: "PA" }, { ibge: "3300100", nome: "Vitória", uf: "RJ" }]);
+  assert.deepEqual(acharLugar("Garimpo em Altamira, no Pará; antes, em Manaus", prep), { municipioIbge: "1500602", uf: "PA" });
+  assert.deepEqual(acharLugar("Operação em Belém e depois em Manaus", prep), { municipioIbge: "1501402", uf: "PA" });
+  assert.deepEqual(acharLugar("Vitória da defesa no tribunal (PA)", prep), { uf: "PA" });
+  const cfg = carregarConfig();
+  assert.ok(cfg.municipios.length > 5000, "o municipios.json no formato de mapa ({ibge: {n, uf}}) é lido");
+  assert.ok(cfg.municipios.every((m) => /^\d{7}$/.test(m.ibge) && m.nome && m.uf));
+});
+
+/** Resposta de IA simulada para a matéria do garimpo (nomes fictícios, como na fixture). */
+const respostaBoa = {
+  naoECaso: false,
+  titulo: "PF investiga garimpo ilegal em terra indígena em Altamira",
+  resumo: "Segundo Repórter Brasil, a Polícia Federal abriu inquérito sobre garimpo ilegal na Terra Indígena Exemplo, em Altamira. Segundo Repórter Brasil, o empresário Carlos Pereira Lima é investigado por financiar as balsas.",
+  dataDoFato: "2026-10-28",
+  lugar: { uf: "PA", municipio: "Altamira" },
+  situacao: "investigado",
+  pessoas: [
+    { nome: "Carlos Pereira Lima", papel: "empresario", cargo: null, situacao: "investigado", papelNoCaso: "Segundo Repórter Brasil, é investigado por financiar as balsas." },
+    { nome: "João Inventado Silva", papel: "empresario", situacao: "investigado", papelNoCaso: "Segundo Repórter Brasil, sócio." },
+    { nome: "Testemunha Anônima Local", papel: "outro_publico_no_caso", situacao: "suspeito", papelNoCaso: "testemunha que relatou ameaças" },
+    { nome: "Carlos Pereira Lima", papel: "vitima", situacao: "investigado" },
+  ],
+  organizacoes: [{ nome: "Mineração Exemplo Ltda.", tipo: "empresa" }, { nome: "Empresa Que Não Existe", tipo: "empresa" }, { nome: "Polícia Federal", tipo: "orgao_publico" }],
+  trecho: "o empresário Carlos Pereira Lima, dono da Mineração Exemplo Ltda., é investigado por financiar as balsas.",
+  etiquetas: ["garimpo", "vítima", "inquérito"],
+};
+
+await caso("resposta da IA: pessoa e organização só com nome no texto; vítima e testemunha fora; trecho só literal", () => {
+  const m = extrairMateria(fx(path.join("materias", "garimpo-terra-indigena.html")));
+  const r = conferirRespostaIa(JSON.stringify(respostaBoa), `${m.titulo} ${m.descricao} ${m.texto}`, { veiculo: "Repórter Brasil" });
+  assert.equal(r.titulo, respostaBoa.titulo);
+  assert.equal(r.resumo, respostaBoa.resumo);
+  assert.deepEqual(r.pessoas.map((p) => p.nome), ["Carlos Pereira Lima"], "inventado e testemunha saem; papel 'vitima' sai");
+  assert.deepEqual(r.organizacoes.map((o) => o.nome), ["Mineração Exemplo Ltda.", "Polícia Federal"]);
+  assert.equal(r.trecho, respostaBoa.trecho);
+  assert.deepEqual(r.etiquetas, ["garimpo", "inquérito"]);
+  assert.deepEqual(r.lugar, { uf: "PA", municipio: "Altamira" });
+  const naoLiteral = conferirRespostaIa(JSON.stringify({ ...respostaBoa, trecho: "Carlos Pereira Lima financiou as balsas do garimpo ilegal." }), m.texto, { veiculo: "Repórter Brasil" });
+  assert.equal(naoLiteral.trecho, "", "trecho parafraseado não passa");
+  const semVeiculo = conferirRespostaIa(JSON.stringify({ ...respostaBoa, resumo: "Segundo a PF, houve garimpo. A PF investiga." }), m.texto, { veiculo: "Repórter Brasil" });
+  assert.equal(semVeiculo.resumo, "", "sabendo o veículo, o resumo precisa de 'segundo <veículo>'");
+});
+
+await caso("rascunho com IA: completo e dentro das regras de regras.ts (entrada, pessoas, organizações)", async () => {
+  const ia = { estruturar: async (pedido, texto) => ({ ...conferirRespostaIa(JSON.stringify(respostaBoa), texto, { veiculo: pedido.veiculo }), provedor: "gemini" }) };
+  const municipios = [...CAPITAIS, { ibge: "1500602", nome: "Altamira", uf: "PA" }];
+  const { sugestoes } = await coletar({ fontes: cfgFontes, dossies, municipios, buscar: buscarFx, ia, hoje: HOJE, dias: 5, soFonte: "reporter-brasil" });
+  const g = sugestoes.find((s) => s.url.endsWith("garimpo-terra-indigena")).rascunho;
+  assert.equal(g.titulo, respostaBoa.titulo);
+  assert.deepEqual(g.lugar, { pais: "BR", regiao: "PA", municipioIbge: "1500602", nome: "Altamira" });
+  assert.equal(g.dataDoFato, "2026-10-28");
+  assert.equal(g.situacao, "investigado");
+  assert.equal(g.extracao, "ia");
+  assert.deepEqual(g.pessoasPublicas.map((p) => [p.nome, p.papel, p.publicaNoCaso, p.fonteIds.join()]), [["Carlos Pereira Lima", "empresario", true, "f1"]]);
+  assert.deepEqual(g.pessoas, [{ pessoaId: "carlos-pereira-lima", situacao: "investigado", papelNoCaso: "Segundo Repórter Brasil, é investigado por financiar as balsas." }]);
+  assert.ok(g.organizacoes.includes("mineracao-exemplo-ltda") && g.organizacoes.includes("policia-federal") && g.organizacoes.includes("ibama"));
+  const f = g.fontes[0];
+  assert.deepEqual([f.id, f.catalogoId, f.veiculo, f.tipo, f.data, f.acessadoEm], ["f1", "reporter-brasil", "Repórter Brasil", "reportagem", "2026-11-02", HOJE]);
+  assert.equal(f.trecho, respostaBoa.trecho);
+  const c = validarEntrada(g, { pessoas: g.pessoasPublicas, organizacoesIds: g.organizacoesPublicas.map((o) => o.id) });
+  assert.deepEqual(c.erros, []);
+  for (const p of g.pessoasPublicas) assert.deepEqual(validarPessoa(p).erros, []);
+  assert.equal(g.revisao, "pendente-curadoria");
+  assert.match(g.notaDaCuradoria, /só publica com fonte oficial/);
+});
+
+await caso("rascunho por heurística: sem IA, já sai com resumo, trecho, lugar, órgãos e fonte; a situação fica para a curadoria", async () => {
+  const { sugestoes } = await rodar();
+  for (const s of sugestoes) {
+    const r = s.rascunho;
+    const c = validarEntrada({ ...r, situacao: "investigado" }, { organizacoesIds: r.organizacoesPublicas.map((o) => o.id) });
+    assert.deepEqual(c.erros, [], s.url);
+    assert.equal(r.situacao, undefined, "a heurística nunca escreve a situação do caso");
+    assert.equal(r.pessoas.length + r.pessoasPublicas.length, 0, "a heurística não tira nome de pessoa");
+    assert.ok(r.resumo.length >= 20 && /^Segundo /.test(r.resumo));
+  }
+  const g = sugestoes.find((s) => s.url.endsWith("garimpo-terra-indigena")).rascunho;
+  assert.equal(g.dataDoFato, "2026-10-28", "a data por extenso do começo da matéria");
+  assert.deepEqual(g.organizacoes.slice(0, 2), ["policia-federal", "ministerio-publico-federal"]);
+  assert.equal(sugestoes.find((s) => s.fonte === "querido-diario").rascunho.confianca, "primaria", "diário oficial é dado oficial");
+});
+
+await caso("Internet Archive: link normalizado; endereço local recusado; anônimo lê o cabeçalho; com chave acompanha o job", async () => {
+  assert.equal(linkDoArquivo("/web/20261102101500id_/https://exemplo.org/a"), "https://web.archive.org/web/20261102101500/https://exemplo.org/a");
+  assert.equal(linkDoArquivo("https://outro.org/web/20261102101500/https://exemplo.org/a"), null);
+  for (const u of ["http://localhost/a", "http://192.168.0.1/a", "https://web.archive.org/x", "ftp://exemplo.org/a", "https://u:s@exemplo.org/a"]) assert.ok(!podeArquivar(u), u);
+  assert.ok(podeArquivar("https://reporterbrasil.org.br/2026/11/x/"));
+  const cab = (h) => ({ get: (k) => h[k] ?? null });
+  const anonimo = await arquivarNoInternetArchive("https://reporterbrasil.org.br/x", {
+    buscar: async (u) => {
+      assert.equal(u, "https://web.archive.org/save/https://reporterbrasil.org.br/x");
+      return { status: 200, text: "", headers: cab({ "content-location": "/web/20261103120000/https://reporterbrasil.org.br/x" }), url: u };
+    },
+  });
+  assert.equal(anonimo, "https://web.archive.org/web/20261103120000/https://reporterbrasil.org.br/x");
+  assert.equal(await arquivarNoInternetArchive("https://reporterbrasil.org.br/x", { buscar: async () => ({ status: 429, text: "", headers: cab({}), url: "" }) }), null);
+  const pedidos = [];
+  const comChave = await arquivarNoInternetArchive("https://reporterbrasil.org.br/y", {
+    env: { ARCHIVE_ACCESS_KEY: "A", ARCHIVE_SECRET_KEY: "SEGREDO" },
+    esperar: async () => {},
+    buscar: async (u, o) => {
+      pedidos.push([u, o]);
+      if (u === "https://web.archive.org/save") return { status: 200, text: JSON.stringify({ job_id: "spn2-abc123" }) };
+      return { status: 200, text: JSON.stringify(pedidos.length < 3 ? { status: "pending" } : { status: "success", timestamp: "20261103120500", original_url: "https://reporterbrasil.org.br/y" }) };
+    },
+  });
+  assert.equal(comChave, "https://web.archive.org/web/20261103120500/https://reporterbrasil.org.br/y");
+  assert.equal(pedidos[0][1].headers.authorization, "LOW A:SEGREDO");
+  assert.ok(pedidos.every(([u]) => !u.includes("SEGREDO")), "a chave não vai na URL");
+});
+
+await caso("arquivo na rodada: cópia feita entra em arquivoUrl; falha vira arquivoFalhou; o limite pula o resto", async () => {
+  let n = 0;
+  const arquivar = async (u) => (++n === 1 ? `https://web.archive.org/web/20261103120000/${u}` : null);
+  const { sugestoes, relatorio } = await rodar({ arquivar, maxArquivo: 2 });
+  const fontes = sugestoes.map((s) => s.rascunho.fontes[0]);
+  assert.equal(fontes.filter((f) => f.arquivoUrl).length, 1);
+  assert.equal(fontes.filter((f) => f.arquivoFalhou === true).length, 1);
+  assert.deepEqual(relatorio.arquivo, { feitos: 1, falharam: 1, pulados: 2 });
+  assert.ok(fontes.every((f) => !f.arquivoUrl || /^https:\/\/web\.archive\.org\/web\/\d{14}\/https?:\/\//.test(f.arquivoUrl)));
+});
+
+await caso("orçamento de tempo: passado o prazo, nada de matéria, IA nem arquivo (o rascunho sai com o que o feed trouxe)", async () => {
+  let chamadasIa = 0;
+  const { sugestoes, relatorio } = await rodar({ prazo: 0, ia: { estruturar: async () => (chamadasIa++, null) }, arquivar: async () => null });
+  assert.equal(sugestoes.length, 4);
+  assert.equal(chamadasIa, 0);
+  assert.equal(relatorio.materias.baixadas + relatorio.materias.falharam, 0);
+  assert.equal(relatorio.arquivo.pulados, 4);
+});
+
+await caso("prompt: pede o rascunho inteiro em JSON, com naoECaso, trecho literal e pessoa só com situação dita", () => {
+  const { sistema } = montarPrompt({ veiculo: "Repórter Brasil", titulo: "T", texto: "corpo", dataPublicacao: "2026-11-02" });
+  for (const t of ['"naoECaso"', '"trecho"', "LITERALMENTE", '"pessoas"', '"organizacoes"', '"dataDoFato"', '"lugar"', "Pessoa sem situação dita no texto NÃO entra", "2026-11-02"]) assert.ok(sistema.includes(t), t);
+});
+
+await caso("rodada seca no GitHub Actions: o log (público) não leva nome, papel, situação jurídica nem resumo", async () => {
+  const ia = { estruturar: async (pedido, texto) => ({ ...conferirRespostaIa(JSON.stringify(respostaBoa), texto, { veiculo: pedido.veiculo }), provedor: "gemini" }) };
+  const municipios = [...CAPITAIS, { ibge: "1500602", nome: "Altamira", uf: "PA" }];
+  const { sugestoes } = await coletar({ fontes: cfgFontes, dossies, municipios, buscar: buscarFx, ia, hoje: HOJE, dias: 5, soFonte: "reporter-brasil" });
+  const s = sugestoes.find((x) => x.url.endsWith("garimpo-terra-indigena"));
+  assert.equal(s.rascunho.pessoasPublicas.length, 1);
+  const log = JSON.stringify(paraOLogPublico(s));
+  assert.ok(!log.includes("Carlos Pereira Lima"), "sem nome de pessoa");
+  assert.ok(!/investigado|resumo|papelNoCaso|situacao/.test(log), "sem situação jurídica nem resumo");
+  assert.match(log, /"pessoas":1/);
+  assert.match(ler("scripts", "vale-o-escrito", "coletar.mjs"), /env\.GITHUB_ACTIONS === "true" \? paraOLogPublico\(s\) : s/);
+});
+
+await caso("data do fato que a matéria não diz: fica o mês da publicação e a nota avisa", async () => {
+  const { sugestoes } = await rodar();
+  for (const s of sugestoes) {
+    const r = s.rascunho;
+    if (/^\d{4}-\d{2}$/.test(r.dataDoFato)) assert.match(r.notaDaCuradoria, /Data do fato: a matéria não diz/, s.url);
+    else assert.doesNotMatch(r.notaDaCuradoria, /Data do fato: a matéria não diz/, s.url);
   }
 });
 

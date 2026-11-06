@@ -336,5 +336,28 @@
       "titulo": "Privacy",
       "texto": "Reading the observatory needs no account and leaves no trace: only anonymous counts. Whoever sends a source or asks for a correction does not have their network address stored; the anti-spam limit uses a scrambled code that changes every day. What we keep and for how long is in the Institute's privacy policy."
     }
+  },
+  "casca": {
+    "voltarAoSite": "Back to the website",
+    "voltarAoSiteAria": "Back to the Instituto Lúcia website",
+    "pularParaConteudo": "Skip to content",
+    "sobretitulo": "Case database · 2026 · ongoing observatory",
+    "menu": "Vale o Escrito navigation",
+    "som": {
+      "ligar": "Turn sound on",
+      "desligar": "Turn sound off",
+      "rotulo": "Sound",
+      "explica": "Sounds generated in your browser, nothing downloaded. Off until you turn them on."
+    },
+    "contadores": {
+      "titulo": "The database in numbers",
+      "casos": "cases",
+      "pessoas": "public figures",
+      "organizacoes": "organisations",
+      "fontes": "sources cited",
+      "lugares": "states"
+    },
+    "barra": "Legal status of published cases",
+    "rodape": "Source, date and excerpt on every record. Living web: each point is a record, each line a sourced link."
   }
 }

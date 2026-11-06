@@ -69,11 +69,11 @@ const BASE_PADRAO = "/vale-o-escrito/malhas/";
 const CAIXA_BRASIL: Caixa = [-74, -34, -34, 5.6];
 const NIVEIS: readonly NivelDeZoom[] = ["pais", "estado", "municipio"];
 
-// Cores do painel neon (o mapa não segue a identidade do instituto, de propósito).
-const FUNDO = "#000000";
-const LINHA = "#3a4658";
-const LINHA_FORTE = "#8fd3ff";
-const PREENCHE = "#0b2b3a";
+// Cores do painel de investigação do Vale (preto profundo e vermelho sangue; o mapa não segue a identidade do instituto, de propósito).
+const FUNDO = "#070707";
+const LINHA = "#3b2a2e";
+const LINHA_FORTE = "#ff4d5e";
+const PREENCHE = "#1c080c";
 
 interface Feature {
   type: "Feature";
@@ -471,7 +471,7 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
   const nomeAberto = ufSel ? (nomeDaUf[ufSel] ?? ufSel) : "";
 
   return (
-    <div className="relative h-full min-h-[360px] w-full overflow-hidden bg-black font-mono text-[11px] uppercase tracking-wider text-[#cfe9ff]" role="region" aria-label={t.aria}>
+    <div className="relative h-full min-h-[360px] w-full overflow-hidden bg-black font-mono text-[11px] uppercase tracking-wider text-[#f1f1ed]" role="region" aria-label={t.aria}>
       {/* O estilo mínimo do MapLibre, inline: sem controles, sem popups e sem CSS de pacote. */}
       <style>{`.maplibregl-map{position:relative;overflow:hidden;-webkit-tap-highlight-color:rgb(0 0 0/0)}.maplibregl-canvas{position:absolute;left:0;top:0}.maplibregl-canvas-container.maplibregl-interactive{cursor:grab;user-select:none}.maplibregl-canvas-container.maplibregl-touch-zoom-rotate,.maplibregl-canvas-container.maplibregl-touch-drag-pan{touch-action:pan-x pan-y}`}</style>
       <div ref={raiz} className="absolute inset-0" />
@@ -480,19 +480,19 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
       <div className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-1.5rem)] flex-col gap-2">
         <ol className="pointer-events-auto flex flex-wrap gap-x-3 gap-y-1" aria-label={t.nivel}>
           {NIVEIS.map((n, i) => (
-            <li key={n} className={n === nivel ? "text-[#ffe600]" : "text-[#6b7b8f]"} aria-current={n === nivel ? "step" : undefined}>
+            <li key={n} className={n === nivel ? "text-[#ff4d5e]" : "text-[#8f8f8a]"} aria-current={n === nivel ? "step" : undefined}>
               {String(i + 1).padStart(2, "0")} {textos.zoom[n]}
             </li>
           ))}
         </ol>
         <div className="pointer-events-auto flex flex-wrap items-center gap-2">
           {nivel !== "pais" && (
-            <button type="button" onClick={() => api.current?.voltar()} className="border border-[#3a4658] bg-black/80 px-2 py-1 text-[#8fd3ff] hover:border-[#8fd3ff] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ffe600]">
+            <button type="button" onClick={() => api.current?.voltar()} className="border border-[#3b2a2e] bg-black/80 px-2 py-1 text-[#ff4d5e] hover:border-[#ff4d5e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]">
               {"< "}
               {t.voltar}
             </button>
           )}
-          <span className="text-[#cfe9ff]">
+          <span className="text-[#f1f1ed]">
             {t.brasil}
             {nomeAberto && nivel !== "pais" ? ` / ${nomeAberto}` : ""}
             {munSel && nivel === "municipio" ? ` / ${munSel.nome}` : ""}
@@ -501,12 +501,12 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
       </div>
 
       {/* Dica que segue o cursor (nome + quantidade de casos). */}
-      <div ref={dica} className="pointer-events-none absolute left-0 top-0 z-10 hidden max-w-[16rem] border border-[#8fd3ff] bg-black/90 px-2 py-1 text-[#cfe9ff]" role="tooltip" />
+      <div ref={dica} className="pointer-events-none absolute left-0 top-0 z-10 hidden max-w-[16rem] border border-[#ff4d5e] bg-black/90 px-2 py-1 text-[#f1f1ed]" role="tooltip" />
 
       {/* Vários casos no mesmo ponto: lista para escolher. */}
       {agrupado && (
-        <div className="absolute bottom-10 left-3 z-10 max-h-[45%] w-[min(22rem,calc(100%-1.5rem))] overflow-auto border border-[#8fd3ff] bg-black/95 p-2 normal-case tracking-normal">
-          <p className="mb-1 font-mono text-[11px] uppercase tracking-wider text-[#ffe600]">{t.casosAqui}</p>
+        <div className="absolute bottom-10 left-3 z-10 max-h-[45%] w-[min(22rem,calc(100%-1.5rem))] overflow-auto border border-[#ff4d5e] bg-black/95 p-2 normal-case tracking-normal">
+          <p className="mb-1 font-mono text-[11px] uppercase tracking-wider text-[#ff4d5e]">{t.casosAqui}</p>
           <ul className="space-y-1">
             {agrupado.itens.map((i) => (
               <li key={i.id}>
@@ -516,7 +516,7 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
                     setAgrupado(null);
                     aoEscolher(i.id);
                   }}
-                  className="w-full text-left text-[13px] text-[#cfe9ff] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ffe600]"
+                  className="w-full text-left text-[13px] text-[#f1f1ed] underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]"
                 >
                   {i.titulo}
                 </button>
@@ -531,15 +531,15 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
         <p className="absolute inset-0 grid place-items-center px-6 text-center normal-case tracking-normal">{carga === "sem-webgl" ? t.semWebgl : t.semMalha}</p>
       )}
 
-      <p className="pointer-events-none absolute bottom-2 right-3 max-w-[50%] text-right text-[10px] text-[#6b7b8f]">{t.credito}</p>
+      <p className="pointer-events-none absolute bottom-2 right-3 max-w-[50%] text-right text-[10px] text-[#8f8f8a]">{t.credito}</p>
 
       {/* Lista em texto dos mesmos casos: teclado e leitor de tela (o mapa em si é só desenho). */}
       <details className="absolute bottom-2 left-3 z-10 max-w-[45%] normal-case tracking-normal">
-        <summary className="cursor-pointer font-mono text-[10px] uppercase tracking-wider text-[#6b7b8f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ffe600]">{t.listaDeCasos}</summary>
-        <ul className="mt-1 max-h-48 space-y-1 overflow-auto border border-[#3a4658] bg-black/95 p-2">
+        <summary className="cursor-pointer font-mono text-[10px] uppercase tracking-wider text-[#8f8f8a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]">{t.listaDeCasos}</summary>
+        <ul className="mt-1 max-h-48 space-y-1 overflow-auto border border-[#3b2a2e] bg-black/95 p-2">
           {casos.map((c) => (
             <li key={c.id}>
-              <button type="button" onClick={() => aoEscolher(c.id)} title={t.abrirFicha} className="text-left text-[12px] text-[#cfe9ff] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ffe600]">
+              <button type="button" onClick={() => aoEscolher(c.id)} title={t.abrirFicha} className="text-left text-[12px] text-[#f1f1ed] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]">
                 <span aria-hidden style={{ color: COR_NEON[c.cor] }}>
                   {"● "}
                 </span>

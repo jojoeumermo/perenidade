@@ -44,7 +44,7 @@ export default async function PessoaPage({ params }: { params: Promise<{ lang: s
   if (!pessoa || casosDaPessoa(dados, id).length === 0) notFound();
   const s = textosDoObservatorio(lang);
   return (
-    <div className="ve">
+    <div className="ve-folha">
       <div className="ve-pagina">
         <Link className="ve-pagina-voltar" href={localePath(lang, "/vale-o-escrito")}>
           ← {s.visual.ficha.voltar}

@@ -336,5 +336,28 @@
       "titulo": "Privacidade",
       "texto": "Ler o observatório não exige conta e não deixa rastro: só contagens anônimas. Quem envia uma fonte ou pede uma correção não tem o endereço de rede guardado; o limite contra spam usa um código embaralhado que muda todo dia. O que guardamos e por quanto tempo está na política de privacidade do Instituto."
     }
+  },
+  "casca": {
+    "voltarAoSite": "Voltar ao site",
+    "voltarAoSiteAria": "Voltar ao site do Instituto Lúcia",
+    "pularParaConteudo": "Pular para o conteúdo",
+    "sobretitulo": "Banco de casos · 2026 · observatório em curso",
+    "menu": "Navegação do Vale o Escrito",
+    "som": {
+      "ligar": "Ligar som",
+      "desligar": "Desligar som",
+      "rotulo": "Som",
+      "explica": "Sons gerados no seu navegador, sem baixar nada. Ficam desligados até você ligar."
+    },
+    "contadores": {
+      "titulo": "O banco em números",
+      "casos": "casos",
+      "pessoas": "pessoas públicas",
+      "organizacoes": "organizações",
+      "fontes": "fontes citadas",
+      "lugares": "estados"
+    },
+    "barra": "Situação jurídica dos casos publicados",
+    "rodape": "Fonte, data e trecho em cada ficha. Teia viva: cada ponto é um registro, cada linha uma ligação com fonte."
   }
 }

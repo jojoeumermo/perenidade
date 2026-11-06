@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
+import { CabecaDoVale } from "@/components/vale-o-escrito/Cabeca";
 import { localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -35,10 +35,10 @@ export default async function SobreOValeOEscrito({ params }: { params: Promise<{
   const o = s.sobre;
   const h2 = "mt-12 text-2xl font-semibold";
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <PageHeading eyebrow={o.olho} title={o.titulo} voltar={{ href: localePath(lang, "/vale-o-escrito"), texto: s.navegacao.inicio }}>
+    <div className="ve-pagina ve-doc">
+      <CabecaDoVale olho={o.olho} titulo={o.titulo} voltar={{ href: localePath(lang, "/vale-o-escrito"), texto: s.navegacao.inicio }}>
         {o.lead}
-      </PageHeading>
+      </CabecaDoVale>
 
       <section aria-labelledby="metodo">
         <h2 id="metodo" className={h2}>{o.metodo.titulo}</h2>
