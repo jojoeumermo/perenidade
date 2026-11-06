@@ -3162,6 +3162,7 @@
     "updated": "Updated on {date}",
     "more": "More news",
     "back": "Back to the front page",
+    "expires": "Time-limited article: online until {date} (Brasília time). Then it leaves the site.",
     "round": "News round-up",
     "newsletter": {
       "title": "Get the journal by e-mail",
