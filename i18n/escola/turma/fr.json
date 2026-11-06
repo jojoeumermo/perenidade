@@ -270,5 +270,13 @@
   "linkTurmas": {
     "titulo": "Groupes par cours",
     "texto": "À l’École révolutionnaire Lúcia Maria, chaque cours a son groupe du mois."
+  },
+  "pausa": {
+    "olho": "École révolutionnaire Lúcia Maria",
+    "titulo": "Les classes sont en pause",
+    "texto": "Pour l'instant, nous n'ouvrons pas de classes : nous voulons assez de monde pour accompagner chacune avec soin. Les cours et les leçons restent ouverts, à votre rythme, et votre progression reste sur votre appareil. Quand les classes reviendront, cette adresse les montrera de nouveau.",
+    "cursos": "Voir les cours",
+    "trilhas": "Étudier par matière",
+    "emBreve": "bientôt"
   }
 }
