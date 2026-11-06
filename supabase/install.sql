@@ -2061,7 +2061,7 @@ begin
 end $$;
 
 create or replace function public.avisos_meus() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
-  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'lido', a.lido, 'criado_em', a.criado_em) order by a.criado_em desc), '[]'::jsonb)
+  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'lido', a.lido, 'criado_em', a.criado_em, 'categoria', a.categoria) order by a.criado_em desc), '[]'::jsonb)
   from (select * from avisos where para = auth.uid() and auth.uid() is not null order by criado_em desc limit 40) a
 $$;
 

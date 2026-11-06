@@ -2315,6 +2315,24 @@ button.pn-estatistica:hover {
   display: grid;
   gap: 1.25rem;
 }
+/* A Mesa com lateral (T27): quando a Mesa tem 960 px ou mais (MesaOrganizada.tsx mede), os Recados e os agradecimentos
+   vão para uma coluna à direita e as outras partes seguem na coluna principal. */
+.pn-mesa-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem);
+  align-items: start;
+  gap: 1.5rem;
+}
+.pn-mesa-principal,
+.pn-mesa-lateral {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+.pn-mesa-lateral {
+  padding-left: 1.25rem;
+  border-left: var(--pn-borda-largura) solid var(--pn-borda);
+}
 .pn-tela-cabeca {
   display: flex;
   flex-wrap: wrap;

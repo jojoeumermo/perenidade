@@ -30,7 +30,7 @@ import { aulaDoEndereco, chaveDoAgir, guardarAgir, lerAgir } from "../lib/agir.t
 import { lerAvisos, marcarAviso, novidades } from "../lib/avise.ts";
 import { LIMITE_DO_ARQUIVO, montarArquivoUnico, nomeDoArquivo, tamanhoEmBytes } from "../lib/arquivo-unico.ts";
 import { codificarSequencia, codigoDaSequencia, gerarComprovante, lerComprovante, lerComprovantes, lerSequencia } from "../lib/turma.ts";
-import { ligado, lerRecursos, PADRAO, RECURSOS, SO_PELO_NOME } from "../lib/recursos.ts";
+import { EM_PAUSA, ligado, lerRecursos, PADRAO, RECURSOS, SO_PELO_NOME } from "../lib/recursos.ts";
 
 let ok = 0;
 const falhas = [];
@@ -63,8 +63,10 @@ globalThis.localStorage = new Memoria();
 conferir("sem variável, só os padrões", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos(undefined)) === PADRAO.includes(r)));
 conferir("escola não é padrão", !PADRAO.includes("escola") && !ligado("escola", lerRecursos(undefined)));
 conferir("lista com espaços e maiúsculas", ligado("escola", lerRecursos(" Escola , exercicios")) && ligado("enem-curso", lerRecursos("meu-estudo,enem-curso")) && !ligado("enem-video", lerRecursos("enem-curso")));
-conferir("todos liga tudo menos o que é só pelo nome", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos")) === !SO_PELO_NOME.includes(r)));
-conferir("todos com os só pelo nome liga tudo", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos(`todos,${SO_PELO_NOME.join(",")}`))));
+conferir("todos liga tudo menos o que é só pelo nome ou está em pausa", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos")) === !(SO_PELO_NOME.includes(r) || EM_PAUSA.includes(r))));
+conferir("todos com os só pelo nome e os em pausa liga tudo", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos(`todos,${[...SO_PELO_NOME, ...EM_PAUSA].join(",")}`))));
+// T08: as turmas vêm em pausa (desligadas) e ligam pelo nome.
+conferir("turmas em pausa: todos não liga, o nome liga", !ligado("turmas", lerRecursos("todos")) && ligado("turmas", lerRecursos("todos,turmas")));
 conferir("-nome desliga um padrão", !ligado("vlibras", lerRecursos("-vlibras")) && ligado("meu-estudo", lerRecursos("-vlibras")) && !ligado("vlibras", lerRecursos("todos,-vlibras")));
 conferir("nenhum desliga os padrões", PADRAO.every((r) => !ligado(r, lerRecursos("nenhum"))) && ligado("turma", lerRecursos("nenhum,turma")));
 
