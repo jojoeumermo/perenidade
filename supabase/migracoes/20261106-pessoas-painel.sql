@@ -271,6 +271,21 @@ begin
                 from (select * from departamento_bastoes where departamento = d.id order by criado_em desc limit 20) b));
 end $$;
 
+/** A lista dos departamentos. Igual a antes; quem só participa de um departamento (sem função) vê só os seus. */
+create or replace function public.departamentos_resumo() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_equipe boolean;
+begin
+  perform interno.eu();
+  v_equipe := interno.voluntario();
+  if not v_equipe and not ((interno.aal2() or not interno.tem_fator()) and exists (select 1 from departamento_membros where usuario = auth.uid())) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', d.id, 'descricao', d.descricao,
+            'pessoas', (select count(*) from perfis f where interno.membro_direto(f.id, d.id)),
+            'pedidos', (select count(*) from departamento_pedidos p where p.para = d.id and p.status in ('aberto', 'aceito')),
+            'meu', interno.membro_direto(auth.uid(), d.id), 'respondo', interno.responde_departamento(d.id)) order by d.id), '[]'::jsonb)
+          from departamentos_info d where v_equipe or interno.membro_direto(auth.uid(), d.id));
+end $$;
+
+
 -- 3. Convites com várias funções e com departamentos ───────────────────────────────────────────────────────────
 alter table interno.convites add column if not exists extras jsonb not null default '[]'::jsonb;
 alter table interno.convites add column if not exists departamentos text[] not null default '{}';
@@ -455,7 +470,7 @@ do $$
 declare f record;
 begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
-           where n.nspname = 'public' and p.proname in ('papel_conceder', 'papeis_conceder_varios', 'departamento_membro_remover', 'voluntarios_listar', 'departamento_ver',
+           where n.nspname = 'public' and p.proname in ('papel_conceder', 'papeis_conceder_varios', 'departamento_membro_remover', 'voluntarios_listar', 'departamento_ver', 'departamentos_resumo',
              'convite_criar', 'convites_listar', 'usuario_email_trocar') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
