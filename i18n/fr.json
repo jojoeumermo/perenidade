@@ -1922,7 +1922,14 @@
       "Moins de couleur",
       "Plus de couleur"
     ],
-    "resetDone": "Tout est revenu aux réglages d'origine."
+    "resetDone": "Tout est revenu aux réglages d'origine.",
+    "groupMove": "Place des boutons",
+    "move": "Bouton d'accessibilité",
+    "moveVLibras": "Bouton VLibras",
+    "moveHint": "Choisissez un coin de l'écran, ou faites glisser le bouton avec la souris ou le doigt. Enregistré seulement sur cet appareil.",
+    "corners": ["En bas à droite","En bas à gauche","En haut à droite","En haut à gauche"],
+    "moveReset": "Remettre les boutons à leur place habituelle",
+    "moveDone": "Bouton déplacé."
   },
   "data": {
     "eyebrow": "Vos données sont à vous",
