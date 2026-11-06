@@ -21,6 +21,10 @@ const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8").replace(/^�
 // ── install.sql ──
 const LOTE = ["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2", "progresso-qr"];
 let resto = ler("supabase", "install.sql").trim();
+// Depois do lote vem o bloco da Alumia (2026-11-alumia.sql), inteiro: sai primeiro.
+const alumia = ler("supabase", "migracoes", "2026-11-alumia.sql").trim();
+conferir("o install.sql termina com a migração alumia, idêntica ao arquivo", resto.endsWith(alumia));
+if (resto.endsWith(alumia)) resto = resto.slice(0, -alumia.length).trim();
 for (const n of [...LOTE].reverse()) {
   const bloco = ler("supabase", "migracoes", `2026-11-${n}.sql`).trim();
   const ok = resto.endsWith(bloco);

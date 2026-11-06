@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { fill, localeNames, localePath, locales } from "@/i18n/config";
 import { hasBackend, rpc, signOut, useMe } from "@/lib/backend";
 import { ligado } from "@/lib/recursos";
+import { enderecoDaAlumia } from "@/lib/rede/alumia";
 import { menuDosJogos } from "@/lib/jogos/menu";
 import { menuDoObservatorio, ROTA_DO_OBSERVATORIO } from "@/lib/vale-o-escrito/menu";
 import { AVATARES } from "./painel/Avatar";
@@ -48,7 +49,8 @@ export function NavLinks() {
   return (
     <>
       {links.map(([label, path]) => {
-        const href = localePath(lang, path);
+        // A Comunidade é a Alumia: com o endereço próprio ligado, o link vai direto para lá (lib/rede/alumia.ts).
+        const href = path === "/comunidade" ? enderecoDaAlumia(lang) : localePath(lang, path);
         const active = pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
         return (
           <Link key={path} href={href} aria-current={active ? "page" : undefined} className={`${item} ${active ? "border-[#c21f16] font-bold" : "border-transparent hover:border-[#c21f16]"}`}>

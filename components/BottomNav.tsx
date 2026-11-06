@@ -4,6 +4,7 @@
 import Link from "@/components/Link";
 import { usePathname } from "next/navigation";
 import { localePath } from "@/i18n/config";
+import { enderecoDaAlumia } from "@/lib/rede/alumia";
 import { ligado } from "@/lib/recursos";
 import { useI18n } from "./I18n";
 import { abrirMais } from "./NavLinks";
@@ -56,7 +57,8 @@ export function BottomNav() {
     <nav aria-label={t.nav.main} className="app-abas abas-do-celular no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-[3px] border-[#c21f16] bg-[#1f1a14] pb-[var(--recuo-baixo)] md:hidden">
       <ul className="grid grid-cols-5">
         {items.map(([icon, label, path]) => {
-          const href = localePath(lang, path);
+          // A Comunidade é a Alumia: com o endereço próprio ligado, o link vai direto para lá (lib/rede/alumia.ts).
+          const href = path === "/comunidade" ? enderecoDaAlumia(lang) : localePath(lang, path);
           const active = path === "/" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
           return (
             <li key={path}>

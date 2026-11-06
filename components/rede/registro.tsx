@@ -51,4 +51,7 @@ export const REGISTRO: Record<string, EntradaDoRegistro> = {
   denuncias: { componente: dynamic(() => import("./moderacao/TelaDenuncias"), { ssr: false }), menu: "perfil" },
   silenciados: { componente: dynamic(() => import("./moderacao/TelaSilenciados"), { ssr: false }), menu: "perfil" },
   cuidado: { componente: dynamic(() => import("./moderacao/TelaCuidado"), { ssr: false }), menu: "perfil" },
+  // Pacote alumia: Salvos e a federação com o Fediverso (/comunidade/{salvos,fediverso}; docs/rede/FEDIVERSO.md).
+  salvos: { componente: dynamic(() => import("./alumia/Salvos"), { ssr: false }), menu: "salvos" },
+  fediverso: { componente: dynamic(() => import("./alumia/Fediverso"), { ssr: false }), menu: "fediverso" },
 };

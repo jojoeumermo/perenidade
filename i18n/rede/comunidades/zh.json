@@ -11,7 +11,7 @@
     "turma": "本月班级和学习小组"
   },
   "tipo": {
-    "aberta": "开放：网络成员可立即加入",
+    "aberta": "开放：Alumia 成员可立即加入",
     "restrita": "受限：由管理员接受申请",
     "fechada": "封闭：仅限邀请、学习小组或班级"
   },
@@ -22,7 +22,7 @@
     "desistir": "撤回申请",
     "sair": "退出社群",
     "membro": "你是成员",
-    "entrePrimeiro": "请先加入网络再参与。",
+    "entrePrimeiro": "请先加入 Alumia 再参与。",
     "trabalhando": "请稍候…"
   },
   "pagina": {
@@ -61,7 +61,7 @@
   },
   "propor": {
     "titulo": "提议新社群",
-    "intro": "新社群只能通过提议产生，由协调组决定。请说明目标、写出规则，并指定至少两位网络成员担任管理员（你可以是其中之一）。",
+    "intro": "新社群只能通过提议产生，由协调组决定。请说明目标、写出规则，并指定至少两位 Alumia 成员担任管理员（你可以是其中之一）。",
     "slug": "地址（小写字母、数字和连字符）",
     "nome": "社群名称",
     "objetivo": "目标（20 至 1,000 字）",
@@ -138,7 +138,7 @@
   },
   "erros": {
     "invalido:slug": "此地址不可用或已被占用。",
-    "invalido:moderadores": "请用 @名字 指定至少两位不同的、已在网络中的成员。",
+    "invalido:moderadores": "请用 @名字 指定至少两位不同的、已在 Alumia 中的成员。",
     "invalido:motivo": "请写明原因，至少 10 字。",
     "invalido:limite_de_fixados": "已有 3 个置顶帖。请先取消一个。",
     "invalido:aula": "无法将此课程关联到帖子。",

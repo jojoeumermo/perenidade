@@ -1,0 +1,95 @@
+{
+  "salvos": {
+    "titulo": "Salvos",
+    "lead": "O que você guardou para ler depois. Só você vê esta lista; quem escreveu não fica sabendo.",
+    "vazio": "Nada salvo ainda. Em qualquer post, toque em Salvar para guardar aqui.",
+    "entre": "Entre na sua conta para ver o que você salvou."
+  },
+  "fed": {
+    "titulo": "Alumia no Fediverso",
+    "lead": "O Fediverso é um conjunto de redes sociais livres que conversam entre si, como o Mastodon. Se você ligar a federação, gente de lá pode seguir você e ler os seus posts públicos, e você pode seguir gente de lá. Fica desligada até você ligar.",
+    "foraDoAr": "A federação ainda não está ligada no servidor da Alumia. Quando estiver, você poderá ligar a sua aqui.",
+    "endereco": "Seu endereço no Fediverso",
+    "ligadaDesde": "Ligada desde {quando}.",
+    "desligada": "Desligada: nada seu sai da Alumia.",
+    "numeros": "Pessoas de fora que seguem você: {seguidores}. Pessoas de fora que você segue: {seguindo}.",
+    "consentimento": {
+      "titulo": "Antes de ligar, leia com calma",
+      "itens": [
+        "Saem só os posts que você marcar como Internet (qualquer pessoa, sem conta), escritos depois de ligar. Também saem o seu codinome, o seu @nome e a sua bio.",
+        "Nunca saem: o seu nome de verdade, o e-mail, posts para membros, para seguidores, de comunidade fechada ou restrita, de núcleo ou da equipe, nem quem você segue aqui.",
+        "Os outros servidores guardam cópias do que recebem, e alguns ficam fora do Brasil. Ao desligar, a Alumia pede a todos que apaguem, mas não tem como obrigar quem não respeita o pedido.",
+        "O que você fala de política pode revelar opinião política ou filiação sindical, que a lei trata como dado sensível (Lei 13.709/2018, art. 11, I). Por isso esta escolha é só sua, separada das outras, e você pode desfazer a qualquer momento (art. 8º, § 5º)."
+      ],
+      "caixa": "Li e consinto, de forma específica, que os meus posts públicos, o meu codinome, o meu @nome e a minha bio sejam enviados a outros servidores do Fediverso, inclusive fora do Brasil, enquanto a federação estiver ligada (Lei 13.709/2018, arts. 7º, I, 8º, 11, I, e 33, VIII).",
+      "ligar": "Ligar a federação",
+      "desligar": "Desligar e pedir que apaguem",
+      "desligarConfirma": "Desligar a federação? Os seus posts serão retirados dos outros servidores (a Alumia manda o pedido), e quem segue você de fora deixa de seguir.",
+      "ligou": "Federação ligada. Os seus próximos posts para a Internet vão sair para quem seguir você de fora.",
+      "desligou": "Federação desligada. Os pedidos para apagar já estão saindo."
+    },
+    "motivos": {
+      "entre_primeiro": "Entre na sua conta para ligar a federação.",
+      "conta_suspensa": "Com a conta suspensa, a federação não liga.",
+      "consentimento": "Entre na Alumia primeiro (regras e idade), depois volte aqui.",
+      "sem_handle": "Escolha o seu @nome em Editar perfil antes de ligar.",
+      "perfil_fechado": "Só um perfil aberto pode ligar: perfil trancado ou invisível nunca sai da Alumia."
+    },
+    "buscar": {
+      "titulo": "Achar alguém do Fediverso",
+      "rotulo": "Endereço completo",
+      "exemplo": "@nome@mastodon.social",
+      "botao": "Buscar",
+      "buscando": "Buscando…",
+      "ajuda": "Quem busca é o servidor da Alumia: a outra instância não fica sabendo quem olhou.",
+      "invalido": "Escreva o endereço completo, com as duas arrobas: @nome@instancia.",
+      "nada": "Não achamos esse endereço (ou a instância não respondeu).",
+      "bloqueada": "A mediação da Alumia bloqueou esta instância.",
+      "local": "Essa pessoa é daqui da Alumia.",
+      "abrirPerfil": "Abrir o perfil",
+      "posts": "Posts públicos recentes",
+      "semPosts": "Nenhum post público para mostrar.",
+      "abrirLa": "Abrir na instância de origem"
+    },
+    "seguir": {
+      "seguir": "Seguir",
+      "pedido": "Pedido enviado",
+      "seguindo": "Seguindo",
+      "deixar": "Deixar de seguir",
+      "precisaLigar": "Para seguir alguém de fora, ligue a federação acima: seguir mostra o seu @nome à outra instância."
+    },
+    "linha": {
+      "titulo": "Do Fediverso",
+      "lead": "Posts públicos de quem você segue em outras instâncias, só o texto (sem imagens e sem links ativos), guardados por 30 dias.",
+      "vazio": "Nada ainda. Quando alguém que você segue publicar, aparece aqui.",
+      "aviso": "Aviso de conteúdo: {aviso}",
+      "mostrar": "Mostrar o texto",
+      "mais": "Ver mais antigos"
+    },
+    "seguindo": {
+      "titulo": "Quem você segue fora daqui",
+      "vazio": "Ninguém ainda.",
+      "esperando": "esperando aceitar"
+    },
+    "mediacao": {
+      "titulo": "Mediação: bloquear uma instância",
+      "ajuda": "Nada entra de uma instância bloqueada e nada sai para ela; quem seguia de lá deixa de seguir.",
+      "rotulo": "Domínio",
+      "exemplo": "instancia.exemplo",
+      "motivo": "Motivo (fica no registro)",
+      "bloquear": "Bloquear",
+      "desbloquear": "Desbloquear",
+      "lista": "Instâncias bloqueadas",
+      "nenhuma": "Nenhuma instância bloqueada.",
+      "feito": "Feito."
+    },
+    "erros": {
+      "fediverso_desligado": "Ligue a federação no seu perfil antes de seguir alguém de fora.",
+      "instancia_bloqueada": "A mediação da Alumia bloqueou esta instância.",
+      "nao_encontrado": "Não achamos esse endereço (ou a instância não respondeu).",
+      "invalido:versao": "O texto do consentimento mudou. Recarregue a página e leia de novo.",
+      "invalido:handle": "Outra pessoa já usa esse @nome no Fediverso. Troque o seu em Editar perfil.",
+      "invalido:dominio": "Escreva só o domínio, como instancia.exemplo."
+    }
+  }
+}

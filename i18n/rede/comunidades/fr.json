@@ -11,7 +11,7 @@
     "turma": "Groupe du mois et noyaux"
   },
   "tipo": {
-    "aberta": "Ouverte : toute personne du Réseau entre aussitôt",
+    "aberta": "Ouverte : toute personne d’Alumia entre aussitôt",
     "restrita": "Restreinte : la modération accepte qui demande",
     "fechada": "Fermée : sur invitation, noyau ou groupe seulement"
   },
@@ -22,7 +22,7 @@
     "desistir": "Retirer la demande",
     "sair": "Quitter la communauté",
     "membro": "Vous en faites partie",
-    "entrePrimeiro": "Rejoignez le Réseau pour participer.",
+    "entrePrimeiro": "Rejoignez Alumia pour participer.",
     "trabalhando": "Un instant…"
   },
   "pagina": {
@@ -61,7 +61,7 @@
   },
   "propor": {
     "titulo": "Proposer une communauté",
-    "intro": "Une nouvelle communauté ne naît que d'une proposition, et la coordination décide. Dites l'objectif, écrivez les règles et indiquez au moins deux personnes du Réseau pour modérer (vous pouvez en être une).",
+    "intro": "Une nouvelle communauté ne naît que d'une proposition, et la coordination décide. Dites l'objectif, écrivez les règles et indiquez au moins deux personnes d’Alumia pour modérer (vous pouvez en être une).",
     "slug": "Adresse (minuscules, chiffres et tiret)",
     "nome": "Nom de la communauté",
     "objetivo": "Objectif (20 à 1 000 caractères)",
@@ -138,7 +138,7 @@
   },
   "erros": {
     "invalido:slug": "Cette adresse ne convient pas ou est déjà utilisée.",
-    "invalido:moderadores": "Indiquez au moins deux personnes différentes, par @nom, déjà dans le Réseau.",
+    "invalido:moderadores": "Indiquez au moins deux personnes différentes, par @nom, déjà dans Alumia.",
     "invalido:motivo": "Écrivez le motif, au moins 10 caractères.",
     "invalido:limite_de_fixados": "Il y a déjà 3 posts épinglés. Désépinglez-en un d'abord.",
     "invalido:aula": "Ce cours n'a pas pu être lié au post.",

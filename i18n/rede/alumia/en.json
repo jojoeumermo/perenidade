@@ -1,0 +1,96 @@
+{
+  "_rascunho": true,
+  "salvos": {
+    "titulo": "Saved",
+    "lead": "What you kept to read later. Only you see this list; the author is not told.",
+    "vazio": "Nothing saved yet. On any post, tap Save to keep it here.",
+    "entre": "Sign in to see what you saved."
+  },
+  "fed": {
+    "titulo": "Alumia on the Fediverse",
+    "lead": "The Fediverse is a set of free social networks that talk to each other, such as Mastodon. If you turn federation on, people there can follow you and read your public posts, and you can follow people there. It stays off until you turn it on.",
+    "foraDoAr": "Federation is not yet enabled on the Alumia server. When it is, you will be able to turn yours on here.",
+    "endereco": "Your Fediverse address",
+    "ligadaDesde": "On since {quando}.",
+    "desligada": "Off: nothing of yours leaves Alumia.",
+    "numeros": "People elsewhere who follow you: {seguidores}. People elsewhere you follow: {seguindo}.",
+    "consentimento": {
+      "titulo": "Before turning it on, read carefully",
+      "itens": [
+        "Only posts you mark as Internet (anyone, no account), written after turning it on, go out. Your code name, @name and bio go out too.",
+        "Never sent: your real name, e-mail, posts for members, for followers, from closed or restricted communities, from cells or from the team, nor who you follow here.",
+        "Other servers keep copies of what they receive, and some are outside Brazil. When you turn it off, Alumia asks all of them to delete, but cannot force those that ignore the request.",
+        "What you say about politics may reveal political opinion or union membership, which the law treats as sensitive data (Law 13,709/2018, art. 11, I). That is why this choice is yours alone, separate from the others, and you can undo it at any time (art. 8, § 5)."
+      ],
+      "caixa": "I have read and specifically consent to my public posts, code name, @name and bio being sent to other Fediverse servers, including outside Brazil, while federation is on (Law 13,709/2018, arts. 7, I, 8, 11, I, and 33, VIII).",
+      "ligar": "Turn federation on",
+      "desligar": "Turn off and ask for deletion",
+      "desligarConfirma": "Turn federation off? Your posts will be withdrawn from other servers (Alumia sends the request), and people elsewhere stop following you.",
+      "ligou": "Federation on. Your next Internet posts will go out to people who follow you from elsewhere.",
+      "desligou": "Federation off. The deletion requests are already going out."
+    },
+    "motivos": {
+      "entre_primeiro": "Sign in to turn federation on.",
+      "conta_suspensa": "Federation cannot be turned on while the account is suspended.",
+      "consentimento": "Join Alumia first (rules and age), then come back here.",
+      "sem_handle": "Choose your @name in Edit profile before turning it on.",
+      "perfil_fechado": "Only an open profile can turn it on: a locked or invisible profile never leaves Alumia."
+    },
+    "buscar": {
+      "titulo": "Find someone on the Fediverse",
+      "rotulo": "Full address",
+      "exemplo": "@name@mastodon.social",
+      "botao": "Search",
+      "buscando": "Searching…",
+      "ajuda": "The Alumia server does the search: the other instance does not learn who looked.",
+      "invalido": "Write the full address, with both @ signs: @name@instance.",
+      "nada": "We could not find that address (or the instance did not answer).",
+      "bloqueada": "Alumia's mediators blocked this instance.",
+      "local": "This person is here on Alumia.",
+      "abrirPerfil": "Open the profile",
+      "posts": "Recent public posts",
+      "semPosts": "No public posts to show.",
+      "abrirLa": "Open on the original instance"
+    },
+    "seguir": {
+      "seguir": "Follow",
+      "pedido": "Request sent",
+      "seguindo": "Following",
+      "deixar": "Unfollow",
+      "precisaLigar": "To follow someone elsewhere, turn federation on above: following shows your @name to the other instance."
+    },
+    "linha": {
+      "titulo": "From the Fediverse",
+      "lead": "Public posts from people you follow on other instances, text only (no images, no active links), kept for 30 days.",
+      "vazio": "Nothing yet. When someone you follow posts, it shows up here.",
+      "aviso": "Content warning: {aviso}",
+      "mostrar": "Show the text",
+      "mais": "See older"
+    },
+    "seguindo": {
+      "titulo": "Who you follow elsewhere",
+      "vazio": "No one yet.",
+      "esperando": "waiting for approval"
+    },
+    "mediacao": {
+      "titulo": "Mediation: block an instance",
+      "ajuda": "Nothing comes in from a blocked instance and nothing goes out to it; followers from there stop following.",
+      "rotulo": "Domain",
+      "exemplo": "instance.example",
+      "motivo": "Reason (kept in the log)",
+      "bloquear": "Block",
+      "desbloquear": "Unblock",
+      "lista": "Blocked instances",
+      "nenhuma": "No blocked instances.",
+      "feito": "Done."
+    },
+    "erros": {
+      "fediverso_desligado": "Turn federation on in your profile before following someone elsewhere.",
+      "instancia_bloqueada": "Alumia's mediators blocked this instance.",
+      "nao_encontrado": "We could not find that address (or the instance did not answer).",
+      "invalido:versao": "The consent text changed. Reload the page and read it again.",
+      "invalido:handle": "Someone else already uses that @name on the Fediverse. Change yours in Edit profile.",
+      "invalido:dominio": "Write only the domain, like instance.example."
+    }
+  }
+}

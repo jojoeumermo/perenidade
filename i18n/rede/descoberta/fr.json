@@ -1,7 +1,7 @@
 {
   "_rascunho": true,
   "entrada": {
-    "titulo": "Bienvenue sur Rede Lúcia",
+    "titulo": "Bienvenue sur Alumia",
     "passo": "Étape {n} sur {total}",
     "voltar": "Retour",
     "continuar": "Continuer",
@@ -14,7 +14,7 @@
       "guia": "Guide de sécurité"
     },
     "regras": {
-      "titulo": "Les règles du Réseau, en quatre phrases",
+      "titulo": "Les règles d’Alumia, en quatre phrases",
       "pontos": [
         "La conversation porte sur l'étude et la lutte : respect de celles et ceux qui pensent autrement, critique des idées et jamais des personnes.",
         "Personne n'apparaît sous son vrai nom : seulement le pseudonyme, pas même l'équipe.",
@@ -28,21 +28,21 @@
       "texto": "Parler de politique et de lutte peut révéler votre opinion politique ou votre appartenance syndicale. La loi y voit une donnée personnelle sensible (LGPD, art. 5, II).",
       "finalidade": "Nous l'utilisons seulement pour montrer ce que vous écrivez à qui vous choisissez et pour que la modération veille sur la conversation. Nous ne vendons rien, ne faisons pas de profil commercial et ne suivons pas ce que vous lisez.",
       "revogar": "Vous pouvez retirer votre consentement à tout moment et demander l'effacement de vos données (LGPD, art. 18). La version des règles en vigueur est enregistrée.",
-      "caixa": "Je consens, de manière spécifique et distincte, au traitement des données sensibles que je pourrais révéler en participant au Réseau, pour cette finalité (LGPD, art. 11, I).",
-      "base": "Sans ce consentement, vous gardez le reste du site ; vous n'entrez simplement pas dans le Réseau."
+      "caixa": "Je consens, de manière spécifique et distincte, au traitement des données sensibles que je pourrais révéler en participant à Alumia, pour cette finalité (LGPD, art. 11, I).",
+      "base": "Sans ce consentement, vous gardez le reste du site ; vous n'entrez simplement pas dans Alumia."
     },
     "idade": {
-      "titulo": "Le Réseau est réservé aux plus de 18 ans",
-      "texto": "Nous ne traitons pas de données d'enfants et d'adolescents dans le Réseau (LGPD, art. 14). C'est une déclaration de votre part ; le reste du site reste ouvert à tous les âges.",
+      "titulo": "Alumia est réservé aux plus de 18 ans",
+      "texto": "Nous ne traitons pas de données d'enfants et d'adolescents dans Alumia (LGPD, art. 14). C'est une déclaration de votre part ; le reste du site reste ouvert à tous les âges.",
       "caixa": "J'ai 18 ans ou plus.",
       "menor": "J'ai moins de 18 ans",
-      "negada": "Pas de problème : le Réseau est réservé aux plus de 18 ans. Le reste du site reste ouvert pour vous."
+      "negada": "Pas de problème : Alumia est réservé aux plus de 18 ans. Le reste du site reste ouvert pour vous."
     },
     "codinome": {
       "titulo": "Choisissez votre pseudonyme",
       "texto": "C'est le nom que tout le monde verra. N'utilisez ni votre vrai nom ni celui d'une autre personne.",
       "rotulo": "Pseudonyme (3 à 30 caractères)",
-      "salvar": "Entrer dans le Réseau"
+      "salvar": "Entrer dans Alumia"
     },
     "escolhas": {
       "titulo": "Choisissez 3 luttes et 3 parcours",
@@ -60,14 +60,14 @@
     "guia": {
       "titulo": "Guide de sécurité",
       "pular": "Passer le guide",
-      "concluir": "Compris, aller au Réseau",
+      "concluir": "Compris, aller à Alumia",
       "proximo": "Carte suivante",
       "cartao": "Carte {n} sur {total}",
       "cartoes": [
-        { "titulo": "Le pseudonyme vous protège", "texto": "Ne dites pas où vous habitez, où vous travaillez ni avec qui vous vivez. Même l'équipe ne voit pas votre vrai nom dans le Réseau." },
+        { "titulo": "Le pseudonyme vous protège", "texto": "Ne dites pas où vous habitez, où vous travaillez ni avec qui vous vivez. Même l'équipe ne voit pas votre vrai nom dans Alumia." },
         { "titulo": "Aucune donnée personnelle", "texto": "Adresse, téléphone, pièce d'identité et e-mail restent hors des publications. Pour un rendez-vous, utilisez un lieu public : place, bibliothèque, syndicat." },
         { "titulo": "Signalez sans crainte", "texto": "Le bouton Signaler est sur chaque publication. Vous suivez l'avancement dans Avis et personne ne sait qui a signalé." },
-        { "titulo": "Sortie rapide", "texto": "Le bouton Sortie rapide ouvre une page neutre et efface ce que le Réseau a gardé sur cet appareil. Utilisez-le en cas de besoin." }
+        { "titulo": "Sortie rapide", "texto": "Le bouton Sortie rapide ouvre une page neutre et efface ce que Alumia a gardé sur cet appareil. Utilisez-le en cas de besoin." }
       ]
     },
     "erro": "Impossible d'enregistrer pour l'instant. Réessayez."
@@ -122,7 +122,7 @@
     "aparecerDesligar": "Je ne veux pas apparaître"
   },
   "buscar": {
-    "titulo": "Rechercher dans le Réseau",
+    "titulo": "Rechercher dans Alumia",
     "rotulo": "Que cherchez-vous ?",
     "dica": "Fonctionne sans accents et avec les pluriels. Utilisez des guillemets pour une phrase et - pour exclure un mot.",
     "botao": "Rechercher",

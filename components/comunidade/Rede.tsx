@@ -1055,7 +1055,7 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
                 type="button"
                 className={acaoClasse}
                 onClick={async () => {
-                  await rpc("pauta_salvar", { p_id: null, p: { titulo: post.texto.slice(0, 160), descricao: `Da Rede Lúcia, post de ${nomeNaRede(post.autor, s)}.`, tipo: post.cita?.tipo === "aula" ? "aula" : "jornal" } })
+                  await rpc("pauta_salvar", { p_id: null, p: { titulo: post.texto.slice(0, 160), descricao: `Da Alumia, post de ${nomeNaRede(post.autor, s)}.`, tipo: post.cita?.tipo === "aula" ? "aula" : "jornal" } })
                     .then(() => setRecado(s.pautaFeita), () => setRecado(s.erro));
                 }}
               >

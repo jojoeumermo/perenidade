@@ -10,7 +10,7 @@
     "carregando": "Chargement des notifications…",
     "falha": "Impossible de charger les notifications. Réessayez.",
     "novo": "Nouveau",
-    "reserva": "Il y a du nouveau pour vous sur le Réseau.",
+    "reserva": "Il y a du nouveau pour vous sur Alumia.",
     "naoLidos": "{n} non lues",
     "tudoLido": "Tout est lu.",
     "emTitulo": "dans « {titulo} »",
@@ -28,7 +28,7 @@
     "salvo": "Préférence enregistrée.",
     "falha": "Impossible d'enregistrer. Réessayez.",
     "site": {
-      "titulo": "Notifications ici sur le Réseau",
+      "titulo": "Notifications ici sur Alumia",
       "descricao": "Choisissez ce qui s'affiche sur cet écran. Les avis de modération s'affichent toujours : vous avez le droit de savoir ce qu'il est advenu de ce que vous avez écrit.",
       "tipos": {
         "resposta": "Réponses à ce que vous avez écrit",
@@ -48,11 +48,11 @@
       "ver": "Voir ce qui serait envoyé maintenant",
       "nada": "Rien à envoyer maintenant : vous n'avez pas de nouvelles notifications.",
       "fechar": "Fermer l'aperçu",
-      "precisaEntrar": "Pour recevoir des e-mails du Réseau, rejoignez d'abord le Réseau (18 ans ou plus, règles acceptées)."
+      "precisaEntrar": "Pour recevoir des e-mails d’Alumia, rejoignez d'abord Alumia (18 ans ou plus, règles acceptées)."
     },
     "push": {
       "titulo": "Notification sur le téléphone",
-      "descricao": "L'appareil reçoit seulement « Vous avez N notifications sur le Réseau », sans le texte d'aucun message. Vous la désactivez quand vous voulez et l'appareil quitte notre serveur.",
+      "descricao": "L'appareil reçoit seulement « Vous avez N notifications sur Alumia », sans le texte d'aucun message. Vous la désactivez quand vous voulez et l'appareil quitte notre serveur.",
       "ligar": "Prévenir sur cet appareil",
       "desligar": "Désactiver sur cet appareil",
       "ativo": "Activé sur cet appareil.",
@@ -62,7 +62,7 @@
       "bloqueado": "La notification est bloquée dans ce navigateur. Autorisez-la dans les réglages du site et réessayez.",
       "ios": "Sur iPhone et iPad, ajoutez d'abord le site à l'écran d'accueil (Partager → Sur l'écran d'accueil) et ouvrez-le depuis là.",
       "naoConfigurado": "La notification sur le téléphone n'est pas encore activée sur ce site.",
-      "precisaEntrar": "Pour être prévenu sur le téléphone, rejoignez d'abord le Réseau (18 ans ou plus, règles acceptées)."
+      "precisaEntrar": "Pour être prévenu sur le téléphone, rejoignez d'abord Alumia (18 ans ou plus, règles acceptées)."
     }
   }
 }

@@ -1,9 +1,9 @@
 {
   "_rascunho": true,
-  "marca": "Red Lúcia",
+  "marca": "Alumia",
   "menu": {
-    "principal": "Menú de la Red",
-    "barra": "Barra de la Red",
+    "principal": "Menú de Alumia",
+    "barra": "Barra de Alumia",
     "inicio": "Inicio",
     "comunidades": "Comunidades",
     "chamados": "Convocatorias",
@@ -13,10 +13,11 @@
     "perfil": "Perfil",
     "escrever": "Escribir",
     "busca": "Buscar",
-    "explorar": "Explorar"
+    "explorar": "Explorar",
+    "fediverso": "Fediverso"
   },
   "abas": {
-    "rotulo": "Líneas de la Red",
+    "rotulo": "Líneas de Alumia",
     "seguindo": "Siguiendo",
     "comunidades": "Mis comunidades",
     "tudo": "Todo",
@@ -31,7 +32,7 @@
   "porQueEstaOrdem": "¿Por qué este orden?",
   "publicos": {
     "internet": "Internet (cualquiera, sin cuenta)",
-    "membros": "Miembros de la Red",
+    "membros": "Miembros de Alumia",
     "seguidores": "Quien me sigue",
     "comunidade": "Solo esta comunidad",
     "nucleo": "Solo este núcleo",
@@ -70,7 +71,7 @@
     "verMais": "Ver el texto completo"
   },
   "casca": {
-    "escrever": "Escribir en la Red",
+    "escrever": "Escribir en Alumia",
     "fechar": "Cerrar",
     "publicar": "Publicar",
     "publicando": "Publicando…",
@@ -84,7 +85,7 @@
     "comunidade": "Comunidad (opcional)",
     "saltarParaConteudo": "Ir a la línea",
     "sairRapido": "Salir rápido",
-    "sairRapidoAjuda": "Abre una página neutra y borra los datos de la Red en este dispositivo.",
+    "sairRapidoAjuda": "Abre una página neutra y borra los datos de Alumia en este dispositivo.",
     "cartaoSeguranca": "La seguridad primero: nunca publiques tu dirección, teléfono o documento. Si algo te preocupa, denuncia.",
     "cuidados": {
       "titulo": "Cuidado",
@@ -95,7 +96,7 @@
     }
   },
   "codinome": {
-    "aviso": "En la Red nadie aparece con su nombre real, ni siquiera el equipo."
+    "aviso": "En Alumia nadie aparece con su nombre real, ni siquiera el equipo."
   },
   "chamado": {
     "pontoPublico": "Punto de encuentro público (plaza, biblioteca, sindicato, escuela). Nunca una dirección de casa."
@@ -104,13 +105,13 @@
     "sigilo": "Quien denuncia nunca se revela. Sigues el avance en Avisos."
   },
   "entrada": {
-    "titulo": "Entrar en la Red Lúcia",
+    "titulo": "Entrar en Alumia",
     "texto": "Aquí se conversa sobre estudio y lucha, con seudónimo y sin chat privado. Antes de entrar, lee las reglas y confirma dos cosas.",
     "maior": "Tengo 18 años o más.",
-    "consentimento": "Entiendo que hablar de política puede revelar mi opinión política o afiliación sindical, y consiento de forma específica el tratamiento de esos datos en la Red, según las reglas.",
-    "regras": "Leer las reglas de la Red",
-    "aderir": "Entrar en la Red",
-    "idadeNegada": "La Red es solo para mayores de 18 años. El resto del sitio sigue abierto para ti.",
+    "consentimento": "Entiendo que hablar de política puede revelar mi opinión política o afiliación sindical, y consiento de forma específica el tratamiento de esos datos en Alumia, según las reglas.",
+    "regras": "Leer las reglas de Alumia",
+    "aderir": "Entrar en Alumia",
+    "idadeNegada": "Alumia es solo para mayores de 18 años. El resto del sitio sigue abierto para ti.",
     "menor": "Tengo menos de 18 años",
     "codinome": "Tu seudónimo (3 a 30 caracteres, sin @ ni nombre real)",
     "entreNaConta": "Entra en tu cuenta para participar. Puedes leer las dudas de las disciplinas sin cuenta.",
@@ -134,7 +135,7 @@
     "regras": "Reglas",
     "moderacao": "Moderación",
     "tipoAberta": "Abierta",
-    "tipoRestrita": "Restringida: los miembros de la Red leen, solo quienes entraron escriben",
+    "tipoRestrita": "Restringida: los miembros de Alumia leen, solo quienes entraron escriben",
     "tipoFechada": "Cerrada: solo quienes son de la comunidad",
     "banido": "Por ahora no puedes escribir en esta comunidad."
   },
@@ -147,25 +148,33 @@
     "entre_primeiro": "Entra en tu cuenta para hacer esto.",
     "conta_suspensa": "Tu cuenta está suspendida.",
     "area_interditada": "Esta área está fuera de servicio por ahora.",
-    "confirme_idade": "Confirma que tienes 18 años o más para entrar en la Red.",
-    "idade_minima": "La Red es solo para mayores de 18 años.",
-    "consentimento": "Lee las reglas y da tu consentimiento para entrar en la Red.",
+    "confirme_idade": "Confirma que tienes 18 años o más para entrar en Alumia.",
+    "idade_minima": "Alumia es solo para mayores de 18 años.",
+    "consentimento": "Lee las reglas y da tu consentimiento para entrar en Alumia.",
     "confirme_codinome": "Elige o confirma tu seudónimo antes de escribir.",
-    "dado_pessoal": "Quita el documento, teléfono o correo del texto: los datos personales no van en la Red.",
+    "dado_pessoal": "Quita el documento, teléfono o correo del texto: los datos personales no van en Alumia.",
     "sem_permissao": "No tienes permiso para esto aquí.",
     "nao_encontrado": "No encontramos esto, o no tienes acceso.",
     "travado": "Esta conversación está cerrada.",
     "limite_de_niveis": "La conversación llegó al límite de niveles: continúa desde una respuesta anterior.",
     "muitos_pedidos": "Calma: demasiadas solicitudes seguidas. Inténtalo de nuevo en un rato.",
-    "banco_desatualizado": "La base de datos aún no recibió la actualización de la Red.",
+    "banco_desatualizado": "La base de datos aún no recibió la actualización de Alumia.",
     "sem_servico": "El servicio de cuentas no está activado en este entorno.",
     "sem_conexao": "Sin conexión. Revisa tu internet e inténtalo de nuevo.",
     "falha": "Algo salió mal. Inténtalo de nuevo.",
     "invalido": "Revisa el campo: {campo}.",
     "modo_lento": "Este lugar está en modo lento: espera un poco para escribir de nuevo.",
-    "nivel_links": "Tu nivel aún no permite tantos enlaces en una publicación. Mira los límites en Cómo cuida la Red.",
-    "nivel_imagens": "Tu nivel aún no permite tantas imágenes en una publicación. Mira los límites en Cómo cuida la Red.",
+    "nivel_links": "Tu nivel aún no permite tantos enlaces en una publicación. Mira los límites en Cómo cuida Alumia.",
+    "nivel_imagens": "Tu nivel aún no permite tantas imágenes en una publicación. Mira los límites en Cómo cuida Alumia.",
     "limite_diario": "Llegaste al límite de publicaciones de hoy para tu nivel.",
     "lista_bloqueio": "La mediación de este lugar no permite publicaciones tuyas aquí."
+  },
+  "alumia": {
+    "voltarAoSite": "Volver al sitio del Instituto Lúcia",
+    "voltarCurto": "Volver al sitio",
+    "descricao": "Alumia es la red social del Instituto Lúcia: estudio y lucha, con seudónimo, sin anuncios y sin rastreo.",
+    "rotuloDaFaixa": "Alumia, la red social del Instituto Lúcia",
+    "sairDaConta": "Cerrar sesión",
+    "lema": "la red social del Instituto Lúcia"
   }
 }

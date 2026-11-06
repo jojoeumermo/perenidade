@@ -1,6 +1,6 @@
 {
   "_rascunho": true,
-  "marca": "Réseau Lúcia",
+  "marca": "Alumia",
   "menu": {
     "principal": "Menu du réseau",
     "barra": "Barre du réseau",
@@ -13,7 +13,8 @@
     "perfil": "Profil",
     "escrever": "Écrire",
     "busca": "Rechercher",
-    "explorar": "Explorer"
+    "explorar": "Explorer",
+    "fediverso": "Fédivers"
   },
   "abas": {
     "rotulo": "Fils du réseau",
@@ -163,9 +164,17 @@
     "falha": "Un problème est survenu. Réessayez.",
     "invalido": "Vérifiez le champ : {campo}.",
     "modo_lento": "Ce lieu est en mode lent : attendez un peu avant de réécrire.",
-    "nivel_links": "Votre niveau ne permet pas encore autant de liens dans un message. Voyez les limites dans Comment le Réseau veille.",
-    "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment le Réseau veille.",
+    "nivel_links": "Votre niveau ne permet pas encore autant de liens dans un message. Voyez les limites dans Comment Alumia veille.",
+    "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment Alumia veille.",
     "limite_diario": "Vous avez atteint la limite de messages d'aujourd'hui pour votre niveau.",
     "lista_bloqueio": "La médiation de ce lieu n'autorise pas vos messages ici."
+  },
+  "alumia": {
+    "voltarAoSite": "Retour au site de l’Instituto Lúcia",
+    "voltarCurto": "Retour au site",
+    "descricao": "Alumia est le réseau social de l’Instituto Lúcia : étude et lutte, sous pseudonyme, sans publicité ni pistage.",
+    "rotuloDaFaixa": "Alumia, le réseau social de l’Instituto Lúcia",
+    "sairDaConta": "Se déconnecter",
+    "lema": "le réseau social de l’Instituto Lúcia"
   }
 }

@@ -2,6 +2,7 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
+import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
 import { ligado } from "@/lib/recursos";
 import { site } from "@/lib/site";
@@ -62,9 +63,9 @@ async function interdicao(): Promise<EstadoDaInterdicao> {
 // de hoje vão (301) para /comunidade/p/[id] e /comunidade/c/[slug]. O mapa antigo → novo está no banco (rede_antigo, só devolve o par de
 // endereços, nunca conteúdo). Sem resposta do banco, o endereço segue como está e a própria página faz o redirecionamento no navegador.
 // Desligado, esta função não faz nada: o endereço de hoje continua exatamente como era.
-async function enderecoAntigoDaRede(request: NextRequest): Promise<NextResponse | null> {
+async function enderecoAntigoDaRede(request: NextRequest, caminho: string): Promise<NextResponse | null> {
   if (!ligado("rede-v2")) return null;
-  const pedido = pedidoAntigo(request.nextUrl.pathname, request.nextUrl.search);
+  const pedido = pedidoAntigo(caminho, request.nextUrl.search);
   if (!pedido) return null;
   let destino = destinoDireto(pedido);
   if (!destino && backend && key && pedido.tipo !== "post") {
@@ -100,6 +101,17 @@ function foraDoDominio(request: NextRequest): NextResponse | null {
   return NextResponse.redirect(destino, 308);
 }
 
+// Alumia, a rede social do instituto (lib/rede/alumia.ts, docs/rede/ALUMIA-DOMINIO.md). No host dela (alumia.institutolucia.org;
+// alumia.localhost para testar), o endereço é reescrito para as rotas /[lang]/comunidade/** sem a URL mudar; o resto do site vai
+// (307) para o endereço do instituto. No endereço do instituto, com NEXT_PUBLIC_ALUMIA_URL ligada, /[lang]/comunidade/** vai (307,
+// temporário de propósito: desligar a variável volta tudo como era) para o endereço próprio. Sem a variável, nada muda aqui.
+function siteVistoDaAlumia(request: NextRequest): URL {
+  const host = (request.headers.get("host") ?? "").toLowerCase();
+  // alumia.institutolucia.org → institutolucia.org (e alumia.localhost:3107 → localhost:3107, para testar sem configurar nada).
+  if (host.startsWith("alumia.")) return new URL(`${request.nextUrl.protocol}//${host.slice("alumia.".length)}`);
+  return dominio;
+}
+
 // O idioma principal é o português: todo endereço sem prefixo de idioma ("/", "/trilhas")
 // abre em português, seja qual for o idioma do navegador. Os outros idiomas são escolhidos
 // pela pessoa no seletor do cabeçalho. O redirecionamento é permanente (308): o navegador e a borda guardam a resposta,
@@ -118,10 +130,37 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     if (estado.geral) return NextResponse.json({ erro: "area_interditada" }, { status: 503, headers: { "Cache-Control": "no-store", "Retry-After": "600" } });
     return;
   }
-  const area = fechado(pathname, estado);
+  // Alumia: o caminho de verdade (alvo) de um pedido no host dela; fora dele, a Comunidade vai para o endereço próprio.
+  let alvo = pathname;
+  let reescrever = false;
+  if (hostDaAlumia(request.headers.get("host"))) {
+    const decisao = rotaNaAlumia(pathname, request.headers.get("accept") ?? "");
+    if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, siteVistoDaAlumia(request)), 307);
+    if (decisao.tipo === "redirecionar") {
+      const url = request.nextUrl.clone();
+      url.pathname = decisao.destino;
+      url.search = "";
+      return NextResponse.redirect(url, 307);
+    }
+    if (decisao.tipo === "reescrever") {
+      alvo = decisao.destino;
+      reescrever = true;
+      // O perfil e o post pedidos em ActivityPub vão direto ao documento da federação.
+      if (alvo.startsWith("/api/")) {
+        if (estado.geral) return NextResponse.json({ erro: "area_interditada" }, { status: 503, headers: { "Cache-Control": "no-store", "Retry-After": "600" } });
+        const url = request.nextUrl.clone();
+        url.pathname = alvo;
+        return NextResponse.rewrite(url);
+      }
+    }
+  } else if ((request.headers.get("host") ?? "").toLowerCase() === dominio.host) {
+    const fora = caminhoDoSiteParaAlumia(pathname, request.nextUrl.search);
+    if (fora) return NextResponse.redirect(fora, 307);
+  }
+  const area = fechado(alvo, estado);
   if (area) {
     // Reescreve (o endereço continua o mesmo) para a página fantasma, que responde 503 e nunca vai para o cache.
-    const [lang] = semIdioma(pathname);
+    const [lang] = semIdioma(alvo);
     const destino = request.nextUrl.clone();
     destino.pathname = `/${lang}/fora-do-ar`;
     destino.search = "";
@@ -130,8 +169,13 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     cabecalhos.set("x-lucia-recado", encodeURIComponent(estado.mensagem));
     return NextResponse.rewrite(destino, { request: { headers: cabecalhos } });
   }
-  const antigo = await enderecoAntigoDaRede(request);
+  const antigo = await enderecoAntigoDaRede(request, alvo);
   if (antigo) return antigo;
+  if (reescrever) {
+    const url = request.nextUrl.clone();
+    url.pathname = alvo;
+    return NextResponse.rewrite(url);
+  }
   if (locales.some((code) => pathname === `/${code}` || pathname.startsWith(`/${code}/`))) return;
   const url = request.nextUrl.clone();
   url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;

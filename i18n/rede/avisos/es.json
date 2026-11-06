@@ -10,7 +10,7 @@
     "carregando": "Cargando los avisos…",
     "falha": "No se pudieron cargar los avisos. Inténtalo de nuevo.",
     "novo": "Nuevo",
-    "reserva": "Hay una novedad para ti en la Red.",
+    "reserva": "Hay una novedad para ti en Alumia.",
     "naoLidos": "{n} sin leer",
     "tudoLido": "Todo leído.",
     "emTitulo": "en “{titulo}”",
@@ -28,7 +28,7 @@
     "salvo": "Preferencia guardada.",
     "falha": "No se pudo guardar. Inténtalo de nuevo.",
     "site": {
-      "titulo": "Avisos aquí en la Red",
+      "titulo": "Avisos aquí en Alumia",
       "descricao": "Elige qué aparece en esta pantalla. Los avisos de moderación siempre aparecen: tienes derecho a saber qué pasó con lo que escribiste.",
       "tipos": {
         "resposta": "Respuestas a lo que escribiste",
@@ -48,11 +48,11 @@
       "ver": "Ver qué se enviaría ahora",
       "nada": "Nada que enviar ahora: no tienes avisos nuevos.",
       "fechar": "Cerrar la vista previa",
-      "precisaEntrar": "Para recibir correo de la Red, primero entra en la Red (18 años o más, con las normas aceptadas)."
+      "precisaEntrar": "Para recibir correo de Alumia, primero entra en Alumia (18 años o más, con las normas aceptadas)."
     },
     "push": {
       "titulo": "Aviso en el celular",
-      "descricao": "El aparato recibe solo “Tienes N avisos en la Red”, sin el texto de ninguna publicación. Lo desactivas cuando quieras y el aparato sale de nuestro servidor.",
+      "descricao": "El aparato recibe solo “Tienes N avisos en Alumia”, sin el texto de ninguna publicación. Lo desactivas cuando quieras y el aparato sale de nuestro servidor.",
       "ligar": "Avisar en este aparato",
       "desligar": "Desactivar en este aparato",
       "ativo": "Activado en este aparato.",
@@ -62,7 +62,7 @@
       "bloqueado": "El aviso está bloqueado en este navegador. Permítelo en los ajustes del sitio e inténtalo de nuevo.",
       "ios": "En iPhone y iPad, primero añade el sitio a la pantalla de inicio (Compartir → Añadir a pantalla de inicio) y ábrelo desde allí.",
       "naoConfigurado": "El aviso en el celular todavía no está activado en este sitio.",
-      "precisaEntrar": "Para recibir avisos en el celular, primero entra en la Red (18 años o más, con las normas aceptadas)."
+      "precisaEntrar": "Para recibir avisos en el celular, primero entra en Alumia (18 años o más, con las normas aceptadas)."
     }
   }
 }

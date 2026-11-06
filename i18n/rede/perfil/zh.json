@@ -10,7 +10,7 @@
     "estudandoAgora": "正在学习",
     "abrirAula": "打开课程",
     "fixado": "置顶帖子",
-    "escolherHandle": "选择你的 @用户名，以便在网络中拥有一个主页。",
+    "escolherHandle": "选择你的 @用户名，以便在 Alumia 中拥有一个主页。",
     "selos": {
       "equipe": "学院团队",
       "educador": "教育",
@@ -76,7 +76,7 @@
   "editar": {
     "titulo": "编辑主页",
     "voltar": "返回主页",
-    "entrarNaRede": "请加入网络后再编辑主页。",
+    "entrarNaRede": "请加入 Alumia 后再编辑主页。",
     "handleTitulo": "@用户名",
     "handleAjuda": "3 到 20 个小写字母（无重音）、数字或下划线。首次选择之后，每 30 天只能更改一次。",
     "handleSalvar": "保存 @用户名",
@@ -86,7 +86,7 @@
     "contador": "{n} / 160",
     "modoTitulo": "谁能找到你",
     "modoAberto": "公开",
-    "modoAbertoAjuda": "网络的任何成员都可以关注。",
+    "modoAbertoAjuda": "Alumia 的任何成员都可以关注。",
     "modoTrancado": "锁定",
     "modoTrancadoAjuda": "想关注的人先申请，由你批准。现有关注者不受影响。",
     "modoInvisivel": "隐身",

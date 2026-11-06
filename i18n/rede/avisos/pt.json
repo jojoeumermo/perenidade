@@ -9,7 +9,7 @@
     "carregando": "Carregando os avisos…",
     "falha": "Não foi possível carregar os avisos. Tente de novo.",
     "novo": "Novo",
-    "reserva": "Há uma novidade para você na Rede.",
+    "reserva": "Há uma novidade para você na Alumia.",
     "naoLidos": "{n} não lidos",
     "tudoLido": "Tudo lido.",
     "emTitulo": "em “{titulo}”",
@@ -27,7 +27,7 @@
     "salvo": "Preferência salva.",
     "falha": "Não foi possível salvar. Tente de novo.",
     "site": {
-      "titulo": "Avisos aqui na Rede",
+      "titulo": "Avisos aqui na Alumia",
       "descricao": "Escolha o que aparece nesta tela. Os avisos da moderação sempre aparecem: você tem direito de saber o que aconteceu com o que você escreveu.",
       "tipos": {
         "resposta": "Respostas ao que você escreveu",
@@ -47,11 +47,11 @@
       "ver": "Ver o que seria enviado agora",
       "nada": "Nada a enviar agora: você não tem avisos novos.",
       "fechar": "Fechar a prévia",
-      "precisaEntrar": "Para receber e-mail da Rede, entre primeiro na Rede (18 anos ou mais, com as normas aceitas)."
+      "precisaEntrar": "Para receber e-mail da Alumia, entre primeiro na Alumia (18 anos ou mais, com as normas aceitas)."
     },
     "push": {
       "titulo": "Aviso no celular",
-      "descricao": "O aparelho recebe só “Você tem N avisos na Rede”, sem o texto de nenhum post. Você desliga quando quiser, e o aparelho sai do nosso servidor.",
+      "descricao": "O aparelho recebe só “Você tem N avisos na Alumia”, sem o texto de nenhum post. Você desliga quando quiser, e o aparelho sai do nosso servidor.",
       "ligar": "Avisar neste aparelho",
       "desligar": "Desligar neste aparelho",
       "ativo": "Ligado neste aparelho.",
@@ -61,7 +61,7 @@
       "bloqueado": "O aviso está bloqueado neste navegador. Libere nas configurações do site e tente de novo.",
       "ios": "No iPhone e no iPad, primeiro adicione o site à tela de início (Compartilhar → Adicionar à Tela de Início) e abra por lá.",
       "naoConfigurado": "O aviso no celular ainda não foi ligado neste site.",
-      "precisaEntrar": "Para avisar no celular, entre primeiro na Rede (18 anos ou mais, com as normas aceitas)."
+      "precisaEntrar": "Para avisar no celular, entre primeiro na Alumia (18 anos ou mais, com as normas aceitas)."
     }
   }
 }

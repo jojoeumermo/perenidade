@@ -11,7 +11,7 @@
     "turma": "Monthly class and study groups"
   },
   "tipo": {
-    "aberta": "Open: anyone in the Network joins at once",
+    "aberta": "Open: anyone in Alumia joins at once",
     "restrita": "Restricted: moderators accept who asks",
     "fechada": "Closed: by invitation, study group or class only"
   },
@@ -22,7 +22,7 @@
     "desistir": "Withdraw the request",
     "sair": "Leave the community",
     "membro": "You are a member",
-    "entrePrimeiro": "Join the Network to take part.",
+    "entrePrimeiro": "Join Alumia to take part.",
     "trabalhando": "One moment…"
   },
   "pagina": {
@@ -61,7 +61,7 @@
   },
   "propor": {
     "titulo": "Propose a community",
-    "intro": "A new community is only born from a proposal, and the coordination decides. State the goal, write the rules and name at least two people from the Network to moderate (you can be one of them).",
+    "intro": "A new community is only born from a proposal, and the coordination decides. State the goal, write the rules and name at least two people from Alumia to moderate (you can be one of them).",
     "slug": "Address (lowercase letters, numbers and hyphen)",
     "nome": "Community name",
     "objetivo": "Goal (20 to 1,000 characters)",
@@ -138,7 +138,7 @@
   },
   "erros": {
     "invalido:slug": "This address is not valid or already in use.",
-    "invalido:moderadores": "Name at least two different people, by @name, who are already in the Network.",
+    "invalido:moderadores": "Name at least two different people, by @name, who are already in Alumia.",
     "invalido:motivo": "Write the reason, at least 10 characters.",
     "invalido:limite_de_fixados": "There are already 3 pinned posts. Unpin one first.",
     "invalido:aula": "This lesson could not be linked to the post.",

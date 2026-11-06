@@ -4,14 +4,16 @@
 import { useEffect, useState } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
+import { getClient, hasSession } from "@/lib/backend";
 import { avisos } from "@/lib/rede/cliente-avisos";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
 import { EsqueletoDaCasca } from "./Esqueletos";
+import { enderecoDoSite, MarcaDaAlumia } from "./MolduraDaAlumia";
 
 /** Os destinos do menu (computador) e da barra de baixo (celular). `href` nulo = a tela ainda não existe: aparece apagado. */
-export type ItemDoMenu = "inicio" | "comunidades" | "explorar" | "chamados" | "nucleos" | "avisos" | "salvos" | "perfil";
+export type ItemDoMenu = "inicio" | "comunidades" | "explorar" | "chamados" | "nucleos" | "avisos" | "salvos" | "fediverso" | "perfil";
 
 interface Destino {
   chave: ItemDoMenu;
@@ -27,7 +29,9 @@ const DESTINOS: Destino[] = [
   { chave: "chamados", icone: <path d="M5 4v16M5 5h13l-2.5 4 2.5 4H5" />, href: () => null },
   { chave: "nucleos", icone: <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM5 20c0-3.5 3-6 7-6s7 2.5 7 6" />, href: (l) => `${enderecos.linha(l)}/nucleos` },
   { chave: "avisos", icone: <path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20h4" />, href: (l) => `${enderecos.linha(l)}/avisos` },
-  { chave: "salvos", icone: <path d="M6 4h12v16l-6-4-6 4z" />, href: () => null },
+  { chave: "salvos", icone: <path d="M6 4h12v16l-6-4-6 4z" />, href: (l, s) => (s?.logado ? `${enderecos.linha(l)}/salvos` : null) },
+  // Alumia no Fediverso (docs/rede/FEDIVERSO.md): ligar a federação no perfil, achar e seguir @pessoa@instancia.
+  { chave: "fediverso", icone: <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 9h17M3.5 15h17M12 3c2.5 2.6 3.6 5.6 3.6 9s-1.1 6.4-3.6 9c-2.5-2.6-3.6-5.6-3.6-9S9.5 5.6 12 3z" />, href: (l) => `${enderecos.linha(l)}/fediverso` },
   { chave: "perfil", icone: <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5" />, href: (l, s) => (s?.handle ? enderecos.perfil(l, s.handle) : `${enderecos.linha(l)}/editar-perfil`) },
 ];
 /** A barra de baixo do celular: Início, Comunidades, Escrever (no meio), Avisos, Perfil. */
@@ -41,7 +45,7 @@ function Icone({ children, ativo }: { children: React.ReactNode; ativo?: boolean
   );
 }
 
-/** "Sair rápido": apaga o que a Rede guardou neste aparelho e vai para uma página neutra do site (a página inicial). */
+/** "Sair rápido": apaga o que a Alumia guardou neste aparelho e vai para uma página neutra do site (a página inicial do instituto). */
 function sairRapido(lang: string) {
   try {
     for (const armazem of [window.localStorage, window.sessionStorage]) {
@@ -50,7 +54,17 @@ function sairRapido(lang: string) {
   } catch {
     // sem armazenamento: nada para apagar
   }
-  window.location.replace(localePath(lang, "/"));
+  window.location.replace(enderecoDoSite(lang));
+}
+
+/** Sair da conta neste endereço (a sessão da Alumia é guardada à parte da do site: docs/rede/ALUMIA-DOMINIO.md). */
+async function sairDaConta() {
+  try {
+    if (hasSession()) await (await getClient()).auth.signOut();
+  } catch {
+    // sem serviço: não havia sessão para encerrar
+  }
+  window.location.reload();
 }
 
 /**
@@ -94,7 +108,7 @@ export function Casca({
 
       <aside className="hidden px-5 py-6 xl:block" aria-label={s.menu.principal}>
         <div className="sticky top-[calc(var(--altura-topo,0px)+1rem)]">
-          <p className="font-serif text-2xl font-extrabold">{s.marca}</p>
+          <p className="flex items-center gap-2 font-serif text-2xl font-extrabold"><MarcaDaAlumia className="h-7 w-7" />{s.marca}</p>
           <nav className="mt-4" aria-label={s.menu.principal}>
             <ul className="space-y-1">
               {DESTINOS.map((d) => {
@@ -130,7 +144,7 @@ export function Casca({
       <main id="rede-linha" className="min-w-0 border-rule bg-parchment xl:border-x" aria-label={s.marca}>
         {/* No celular: a marca, a busca e o "sair rápido" ficam no alto, no lugar das colunas dos lados. */}
         <div className="flex items-center gap-2 border-b border-rule px-4 py-2 xl:hidden">
-          <p className="font-serif text-lg font-extrabold">{s.marca}</p>
+          <p className="flex items-center gap-1.5 font-serif text-lg font-extrabold"><MarcaDaAlumia className="h-5 w-5" />{s.marca}</p>
           <form action={localePath(lang, "/comunidade/buscar")} method="get" role="search" className="ml-auto min-w-0 flex-1">
             <label className="sr-only" htmlFor="rede-busca-celular">{s.menu.busca}</label>
             <input id="rede-busca-celular" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4 font-sans" />
@@ -172,6 +186,11 @@ export function Casca({
             {s.casca.sairRapido}
           </button>
           <p className="text-xs text-ink-soft">{s.casca.sairRapidoAjuda}</p>
+          {situacao.logado && (
+            <button type="button" onClick={() => void sairDaConta()} className="min-h-11 w-full cursor-pointer rounded-full px-4 text-sm underline hover:bg-parchment-deep">
+              {s.alumia.sairDaConta}
+            </button>
+          )}
         </div>
       </aside>
 

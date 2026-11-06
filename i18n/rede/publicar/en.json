@@ -77,7 +77,7 @@
     "rotulo": "Publish later",
     "quando": "Date and time",
     "marcar": "Schedule",
-    "agendado": "Scheduled for {quando}. If the Network is closed then, it comes out the next time you open it.",
+    "agendado": "Scheduled for {quando}. If Alumia is closed then, it comes out the next time you open it.",
     "fila": "Scheduled posts",
     "cancelar": "Cancel schedule",
     "falhou": "Did not go out: {erro}",
@@ -89,9 +89,9 @@
     "apagar": "Delete draft"
   },
   "checagem": {
-    "cpf": "This looks like a CPF number. Remove it: personal data does not go on the Network.",
-    "telefone": "This looks like a phone number. Remove it: personal data does not go on the Network.",
-    "email": "This looks like an e-mail address. Remove it: personal data does not go on the Network.",
+    "cpf": "This looks like a CPF number. Remove it: personal data does not go on Alumia.",
+    "telefone": "This looks like a phone number. Remove it: personal data does not go on Alumia.",
+    "email": "This looks like an e-mail address. Remove it: personal data does not go on Alumia.",
     "endereco": "This looks like a street address with a number. Remove it: saying where someone lives or is exposes them.",
     "odio": "The text has words that tend to hurt. You can send it, but moderators read it before it appears."
   },
@@ -124,6 +124,6 @@
     "invalido_responde_quem": "Check who can reply.",
     "ja_votou": "You already voted in this poll.",
     "encerrada": "This poll has ended.",
-    "dado_pessoal": "Remove CPF, phone, e-mail or street address with number from the text: personal data does not go on the Network."
+    "dado_pessoal": "Remove CPF, phone, e-mail or street address with number from the text: personal data does not go on Alumia."
   }
 }

@@ -10,7 +10,7 @@
   "remover": "Quitar",
   "nenhum": "Aquí no hay nada.",
   "entreParaVer": "Inicia sesión para ver esta página.",
-  "semPermissao": "Esta área es solo para quienes moderan la Red.",
+  "semPermissao": "Esta área es solo para quienes moderan Alumia.",
   "categorias": {
     "menores": { "rotulo": "Niño, niña o adolescente en riesgo", "ajuda": "Abuso, explotación o exposición de menores de edad." },
     "ameaca": { "rotulo": "Amenaza", "ajuda": "Alguien amenaza la vida o la integridad de otra persona." },
@@ -21,7 +21,7 @@
     "assedio": { "rotulo": "Acoso o persecución", "ajuda": "Insistencia, humillación o persecución contra alguien." },
     "golpe": { "rotulo": "Estafa o fraude", "ajuda": "Intento de engañar para sacar dinero o datos." },
     "spam": { "rotulo": "Publicidad o repetición", "ajuda": "Mensaje repetido, venta o promoción fuera de lugar." },
-    "outro": { "rotulo": "Otro motivo", "ajuda": "Algo que rompe las normas de la Red y no está en las opciones de arriba." }
+    "outro": { "rotulo": "Otro motivo", "ajuda": "Algo que rompe las normas de Alumia y no está en las opciones de arriba." }
   },
   "prioridade": { "1": "Prioridad 1", "2": "Prioridad 2", "3": "Prioridad 3" },
   "denunciar": {
@@ -160,7 +160,7 @@
     "andamento": {
       "aberta": "Recibida",
       "em_analise": "En análisis",
-      "resolvida": "Resuelta: la Red tomó medidas",
+      "resolvida": "Resuelta: Alumia tomó medidas",
       "descartada": "Analizada: sin infracción de las normas"
     },
     "regra": "Regla: {regra}",
@@ -188,8 +188,8 @@
     "limpar": "Esta lista se borra si usas Salir rápido."
   },
   "cuidado": {
-    "titulo": "Cómo cuida la Red",
-    "lead": "La Red tiene reglas escritas, con plazo y con recurso. Así funciona, sin letra pequeña.",
+    "titulo": "Cómo cuida Alumia",
+    "lead": "Alumia tiene reglas escritas, con plazo y con recurso. Así funciona, sin letra pequeña.",
     "denunciaTitulo": "Denuncia con protocolo",
     "denunciaTexto": "Cualquier persona puede denunciar una publicación, un perfil o una comunidad. Quien denuncia nunca es revelado. Cada denuncia recibe un protocolo y la sigues en Avisos.",
     "filaTitulo": "Quién se atiende primero",
@@ -208,7 +208,7 @@
     "leiTexto": "La decisión del Supremo Tribunal Federal de Brasil sobre el art. 19 del Marco Civil de Internet (Temas 987 y 533) pide notificación, procedimiento y canal de denuncia. Esta página y la de denuncias son ese canal. El contenido ilícito grave sale rápido; los delitos contra el honor siguen el camino judicial, y la moderación puede retirar a partir de una notificación.",
     "niveisTitulo": "Niveles de confianza",
     "niveisTexto": "Todos empiezan en el nivel 0. La persona sube sola por el tiempo de cuenta, por la participación (apoyos y guardados que dio) y por las publicaciones sin decisión de moderación en su contra. Una decisión procedente hace bajar el nivel. El nivel 4 lo designa la coordinación.",
-    "niveisSemLeitura": "Contamos lo que haces, nunca lo que lees: la Red no sigue tu lectura.",
+    "niveisSemLeitura": "Contamos lo que haces, nunca lo que lees: Alumia no sigue tu lectura.",
     "nivel": "Nivel",
     "diasDeConta": "días de cuenta",
     "participacoes": "participaciones",
@@ -230,8 +230,8 @@
   },
   "erros": {
     "modo_lento": "Este lugar está en modo lento: espera un poco para escribir de nuevo.",
-    "nivel_links": "Tu nivel aún no permite tantos enlaces en una publicación. Mira los límites en Cómo cuida la Red.",
-    "nivel_imagens": "Tu nivel aún no permite tantas imágenes en una publicación. Mira los límites en Cómo cuida la Red.",
+    "nivel_links": "Tu nivel aún no permite tantos enlaces en una publicación. Mira los límites en Cómo cuida Alumia.",
+    "nivel_imagens": "Tu nivel aún no permite tantas imágenes en una publicación. Mira los límites en Cómo cuida Alumia.",
     "limite_diario": "Llegaste al límite de publicaciones de hoy para tu nivel.",
     "lista_bloqueio": "La mediación de este lugar no permite publicaciones tuyas aquí.",
     "outra_pessoa": "Otra persona de la moderación debe decidir: tú tomaste la decisión impugnada.",

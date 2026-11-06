@@ -76,7 +76,7 @@
     "rotulo": "Publicar mais tarde",
     "quando": "Data e hora",
     "marcar": "Agendar",
-    "agendado": "Agendado para {quando}. Se a Rede estiver fechada na hora, sai na próxima vez que você a abrir.",
+    "agendado": "Agendado para {quando}. Se a Alumia estiver fechada na hora, sai na próxima vez que você a abrir.",
     "fila": "Publicações agendadas",
     "cancelar": "Cancelar agendamento",
     "falhou": "Não saiu: {erro}",
@@ -88,9 +88,9 @@
     "apagar": "Apagar o rascunho"
   },
   "checagem": {
-    "cpf": "Parece um CPF. Tire do texto: dado pessoal não vai para a Rede.",
-    "telefone": "Parece um telefone. Tire do texto: dado pessoal não vai para a Rede.",
-    "email": "Parece um e-mail. Tire do texto: dado pessoal não vai para a Rede.",
+    "cpf": "Parece um CPF. Tire do texto: dado pessoal não vai para a Alumia.",
+    "telefone": "Parece um telefone. Tire do texto: dado pessoal não vai para a Alumia.",
+    "email": "Parece um e-mail. Tire do texto: dado pessoal não vai para a Alumia.",
     "endereco": "Parece um endereço com número. Tire: dizer onde alguém mora ou está expõe a pessoa.",
     "odio": "O texto tem palavras que costumam ferir. Pode enviar, mas passa pela leitura da mediação antes de aparecer."
   },
@@ -123,6 +123,6 @@
     "invalido_responde_quem": "Confira quem pode responder.",
     "ja_votou": "Você já votou nesta enquete.",
     "encerrada": "Esta enquete já terminou.",
-    "dado_pessoal": "Tire do texto CPF, telefone, e-mail ou endereço com número: dado pessoal não vai para a Rede."
+    "dado_pessoal": "Tire do texto CPF, telefone, e-mail ou endereço com número: dado pessoal não vai para a Alumia."
   }
 }
