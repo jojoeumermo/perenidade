@@ -179,6 +179,18 @@ const erros: Record<string, string> = {
   "invalido:max_por_ciclo": "Tarefas novas por rodada: de 1 a 500.",
   "invalido:max_reservas": "Reservas por pessoa: de 1 a 20.",
   "invalido:numero": "Algum número está fora do formato.",
+  // Pessoas no painel (supabase/migracoes/20261106-pessoas-painel.sql).
+  "invalido:email": "Esse e-mail não parece válido. Confira se está escrito inteiro (nome@provedor.com).",
+  "invalido:motivo": "Escreva o motivo da troca (de 5 a 300 letras): ele vai para o registro.",
+  "invalido:itens": "Escolha pelo menos uma função ou um departamento (até 60 de uma vez).",
+  "invalido:extras": "Funções demais num convite só (até 40).",
+  "invalido:departamento": "Esse departamento não existe ou não aceita esta escolha.",
+  "invalido:departamentos": "Departamentos demais de uma vez.",
+  "invalido:disciplina": "Escolha pelo menos uma disciplina para esta função.",
+  "invalido:papel": "Essa função não existe ou não pode ser confiada por aqui.",
+  "invalido:usuario": "Não dá para fazer isso na sua própria conta.",
+  email_igual: "Esse já é o e-mail da conta.",
+  email_em_uso: "Esse e-mail já é de outra conta. Se a pessoa tem duas contas, fale com ela antes.",
   falha: "Algo deu errado. Tente de novo.",
 };
 

@@ -6,6 +6,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import { type Me, rpc } from "@/lib/backend";
 import { Avatar } from "./Avatar";
 import { RetornoDosAlunos } from "./RetornoDosAlunos";
+import { NOMES_DOS_DEPARTAMENTOS_DO_INSTITUTO } from "./departamentos-do-instituto";
 import { Aviso, data, papeis, textoDoErro, useAcao } from "./comum";
 import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Estatistica, Estatisticas, ItemDeLista, Lista, Selecao, Selo, type TomDoSelo, Vazio } from "./ui";
 
@@ -13,19 +14,8 @@ import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Estatist
 // os pedidos de outros departamentos com prazo, quem responde, como trabalhamos e a passagem de bastão. O banco está
 // em supabase/install.sql, "Departamentos".
 
-export const NOMES_DOS_DEPARTAMENTOS: Record<string, string> = {
-  jornalismo: "Comunicação",
-  design: "Arte e design (Comunicação)",
-  educacao: "Pedagógico",
-  mentoria: "Reforço",
-  curadoria: "Acervo e curadoria",
-  revisao: "Revisão",
-  traducao: "Tradução",
-  mediacao: "Comunidade e mediação",
-  desenvolvimento: "UI/UX e Desenvolvimento",
-  saude: "Mural de Saúde",
-  coordenacao: "Coordenação",
-};
+// Os nomes e a ordem vêm dos grupos da equipe (departamentos-do-instituto.ts); o id interno não muda.
+export const NOMES_DOS_DEPARTAMENTOS: Record<string, string> = NOMES_DOS_DEPARTAMENTOS_DO_INSTITUTO;
 const nomeDe = (id: string) => NOMES_DOS_DEPARTAMENTOS[id] ?? id;
 
 interface Resumo {
@@ -87,6 +77,8 @@ interface Departamento {
   quadro: CartaoDoQuadro[];
   feitos_no_mes: number;
   bastoes: { id: string; texto: string; autor: string; criado_em: string; meu: boolean }[];
+  /** A lista de quem participa não aparece para esta pessoa (departamento sensível). */
+  reservado?: boolean;
 }
 type Coluna = "fazer" | "fazendo" | "aprovacao" | "feito";
 type Aba = "geral" | "pedidos" | "quadro" | "pessoas" | "como" | "retorno";
@@ -552,6 +544,8 @@ function Quadro({ dep, mexe, depois }: { dep: Departamento; mexe: boolean; depoi
 function Pessoas({ dep }: { dep: Departamento }) {
   const [agora] = useState(() => Date.now());
   const meses = (desde?: string | null) => (desde ? Math.floor((agora - new Date(desde).getTime()) / (30 * 86_400_000)) : 0);
+  // Revolucionários: quem participa é dado sensível (LGPD, art. 11). O banco já manda a lista vazia para quem não pode ver.
+  if (dep.reservado) return <Vazio titulo="Lista reservada" texto="Quem participa deste departamento só aparece para a coordenação e para o próprio departamento." />;
   if (dep.pessoas.length === 0) return <Vazio titulo="Ninguém neste departamento ainda. A coordenação confia funções em Voluntários e convites." />;
   return (
     <ul className="grid gap-3 sm:grid-cols-2">
