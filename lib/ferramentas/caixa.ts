@@ -127,6 +127,7 @@ export const caixaPorDisciplina: Record<AreaSlug, readonly ToolId[]> = {
   // Medidas em centímetro e polegada.
   costureira: ["conversor-de-unidades", ...OFICIO],
   barbeiro: [...OFICIO],
+  manicure: [...OFICIO],
   eletricista: ["calculadoras-de-eletronica", "carga-eletrica", "conversor-de-unidades", "resolvedor", ...CONTAS],
   // O cronômetro marca o tempo da fala.
   "oratoria-e-lideranca": ["cronometro", "dicionario"],
