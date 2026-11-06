@@ -63,8 +63,7 @@ export default function Teia({
   const base = useMemo(() => calcularPosicoes(grafo), [grafo]);
   const [movidos, setMovidos] = useState<Map<string, Ponto>>(new Map());
   const ajuste = useMemo(() => caber(base), [base]);
-  const v = useVisor(L, A, ajuste);
-  const t = v.t;
+  const { t, svgRef, unidade, baixar, mover: moverVisor, soltar: soltarVisor, tecla, proximoNivel, recentrar, consumirMexeu, prenderArrasto } = useVisor(L, A, ajuste);
   const arrasto = useRef<{ chave: string; px: number; py: number; ox: number; oy: number; andou: boolean } | null>(null);
 
   // Grafo novo: os nós arrastados voltam ao lugar (o visor volta ao começo sozinho, pelo ajuste novo).
@@ -83,34 +82,28 @@ export default function Teia({
     arrasto.current = { chave, px: e.clientX, py: e.clientY, ox: p.x, oy: p.y, andou: false };
   };
   const mover = (e: PointerEvent<SVGSVGElement>) => {
-    if (v.mover(e)) {
+    if (moverVisor(e)) {
       arrasto.current = null;
       return;
     }
     const a = arrasto.current;
     if (!a) return;
-    const { u } = v.unidade();
+    const { u } = unidade();
     const dx = (e.clientX - a.px) * u;
     const dy = (e.clientY - a.py) * u;
     if (!a.andou && Math.abs(dx) + Math.abs(dy) > 4 * u) {
       a.andou = true;
-      v.mexeu.current = true;
-      try {
-        v.svg.current?.setPointerCapture(e.pointerId);
-      } catch {}
+      prenderArrasto(e.pointerId);
     }
     if (a.andou) setMovidos((m) => new Map(m).set(a.chave, { x: a.ox + dx / t.k, y: a.oy + dy / t.k }));
   };
   const soltar = (e: PointerEvent<SVGSVGElement>) => {
-    v.soltar(e);
+    soltarVisor(e);
     arrasto.current = null;
   };
   /** Clique de verdade (sem arrasto nem pinça) escolhe o nó; o arrasto só o move. */
   const escolher = (chave: string) => {
-    if (v.mexeu.current) {
-      v.mexeu.current = false;
-      return;
-    }
+    if (consumirMexeu()) return;
     aoSelecionar(chave);
   };
 
@@ -129,24 +122,24 @@ export default function Teia({
   const foraDoDestaque = (chave: string) => destaque !== null && tipoDe.get(chave) !== destaque;
 
   return (
-    <div onKeyDown={v.tecla} style={{ width: "100%", height: "100%" }}>
+    <div onKeyDown={tecla} style={{ width: "100%", height: "100%" }}>
       <HudDoVisor
         t={t}
         s={s}
         totalNos={grafo.nos.length}
         totalArestas={grafo.arestas.length}
-        aoMais={() => v.proximoNivel(1)}
-        aoMenos={() => v.proximoNivel(-1)}
-        aoRecentrar={v.recentrar}
+        aoMais={() => proximoNivel(1)}
+        aoMenos={() => proximoNivel(-1)}
+        aoRecentrar={recentrar}
       />
       <svg
-        ref={v.svg}
+        ref={svgRef}
         className="ve-svg"
         viewBox={`0 0 ${L} ${A}`}
         preserveAspectRatio="xMidYMid meet"
         role="group"
         aria-label={s.visual.aria.palco}
-        onPointerDown={v.baixar}
+        onPointerDown={baixar}
         onPointerMove={mover}
         onPointerUp={soltar}
         onPointerCancel={soltar}

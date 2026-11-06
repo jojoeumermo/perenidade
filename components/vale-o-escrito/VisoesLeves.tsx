@@ -44,30 +44,26 @@ export function Orbita({ grafo, selecionado, aoSelecionar, destaque = null, s }:
   const fora = (chave: string) => destaque !== null && tipoDe.get(chave) !== destaque;
   // Zoom da órbita (T10): roda, pinça, arrasto e os botões. A vista volta ao todo quando o centro muda.
   const ajuste = useMemo(() => ({ ...IDENTIDADE, centro: lay.centro }), [lay.centro]);
-  const v = useVisor(L, A, ajuste);
-  const t = v.t;
+  const { t, svgRef, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste);
   const escolher = (chave: string) => {
-    if (v.mexeu.current) {
-      v.mexeu.current = false;
-      return;
-    }
+    if (consumirMexeu()) return;
     aoSelecionar(chave);
   };
   return (
-    <div onKeyDown={v.tecla} style={{ width: "100%", height: "100%" }}>
-      <HudDoVisor t={t} s={s} totalNos={grafo.nos.length} totalArestas={grafo.arestas.length} aoMais={() => v.proximoNivel(1)} aoMenos={() => v.proximoNivel(-1)} aoRecentrar={v.recentrar} />
+    <div onKeyDown={tecla} style={{ width: "100%", height: "100%" }}>
+      <HudDoVisor t={t} s={s} totalNos={grafo.nos.length} totalArestas={grafo.arestas.length} aoMais={() => proximoNivel(1)} aoMenos={() => proximoNivel(-1)} aoRecentrar={recentrar} />
       <p className="ve-titulo-da-visao">{fill(s.visual.orbita.titulo, { nome: truncar(nomeCentro, 40) })}</p>
       <svg
-        ref={v.svg}
+        ref={svgRef}
         className="ve-svg"
         viewBox={`0 0 ${L} ${A}`}
         preserveAspectRatio="xMidYMid meet"
         role="group"
         aria-label={s.visual.aria.palco}
-        onPointerDown={v.baixar}
-        onPointerMove={v.mover}
-        onPointerUp={v.soltar}
-        onPointerCancel={v.soltar}
+        onPointerDown={baixar}
+        onPointerMove={mover}
+        onPointerUp={soltar}
+        onPointerCancel={soltar}
         style={{ cursor: "grab" }}
       >
         <DefsNeon />
@@ -111,30 +107,26 @@ export function Grupos({ grafo, dossies, selecionado, aoSelecionar, destaque = n
   const pos = new Map(lay.nos.map((n) => [n.chave, n]));
   const nomeDe = (slug: string) => dossies.find((d) => d.slug === slug)?.titulo ?? slug;
   const ajuste = useMemo(() => ({ ...IDENTIDADE, grupos: lay.grupos.length }), [lay.grupos.length]);
-  const v = useVisor(L, A, ajuste);
-  const t = v.t;
+  const { t, svgRef, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste);
   const escolher = (chave: string) => {
-    if (v.mexeu.current) {
-      v.mexeu.current = false;
-      return;
-    }
+    if (consumirMexeu()) return;
     aoSelecionar(chave);
   };
   return (
-    <div onKeyDown={v.tecla} style={{ width: "100%", height: "100%" }}>
-      <HudDoVisor t={t} s={s} totalNos={grafo.nos.length} totalArestas={grafo.arestas.length} aoMais={() => v.proximoNivel(1)} aoMenos={() => v.proximoNivel(-1)} aoRecentrar={v.recentrar} />
+    <div onKeyDown={tecla} style={{ width: "100%", height: "100%" }}>
+      <HudDoVisor t={t} s={s} totalNos={grafo.nos.length} totalArestas={grafo.arestas.length} aoMais={() => proximoNivel(1)} aoMenos={() => proximoNivel(-1)} aoRecentrar={recentrar} />
       <p className="ve-titulo-da-visao">{s.visual.grupos.titulo}</p>
       <svg
-        ref={v.svg}
+        ref={svgRef}
         className="ve-svg"
         viewBox={`0 0 ${L} ${A}`}
         preserveAspectRatio="xMidYMid meet"
         role="group"
         aria-label={s.visual.aria.palco}
-        onPointerDown={v.baixar}
-        onPointerMove={v.mover}
-        onPointerUp={v.soltar}
-        onPointerCancel={v.soltar}
+        onPointerDown={baixar}
+        onPointerMove={mover}
+        onPointerUp={soltar}
+        onPointerCancel={soltar}
         style={{ cursor: "grab" }}
       >
         <DefsNeon />
