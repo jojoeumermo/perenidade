@@ -136,8 +136,48 @@ export function pontosDosCasos(casos: readonly CasoNoMapa[], centroUf: Record<st
     features.push({
       type: "Feature" as const,
       geometry: { type: "Point" as const, coordinates: p },
-      properties: { id: c.id, titulo: c.titulo, cor: COR_NEON[c.cor], dossie: c.dossie, situacao: c.situacao },
+      // aproximado = 1 quando o ponto está no centro da UF (o caso não tem município, ou a malha dele ainda não veio).
+      properties: { id: c.id, titulo: c.titulo, cor: COR_NEON[c.cor], dossie: c.dossie, situacao: c.situacao, aproximado: c.municipioIbge && centroMunicipio[c.municipioIbge] ? 0 : 1 },
     });
   }
   return { type: "FeatureCollection" as const, features };
+}
+
+/**
+ * O contorno de fora do conjunto (o Brasil, a partir das 27 UFs): os segmentos que aparecem uma vez só. Segmento que duas
+ * UFs dividem é fronteira interna e sai. As coordenadas são arredondadas (1e-4 grau) para casar os dois lados da divisa.
+ * Devolve um MultiLineString (cada segmento externo, ligado em trechos contínuos quando possível).
+ */
+export function contornoExterno(geometrias: readonly GeometriaPoligonal[]): { type: "MultiLineString"; coordinates: Par[][] } {
+  const r = (n: number) => Math.round(n * 1e4) / 1e4;
+  const chave = (a: Par, b: Par) => {
+    const k1 = `${r(a[0])},${r(a[1])}`;
+    const k2 = `${r(b[0])},${r(b[1])}`;
+    return k1 < k2 ? `${k1}|${k2}` : `${k2}|${k1}`;
+  };
+  const conta = new Map<string, number>();
+  const segs: [Par, Par, string][] = [];
+  for (const g of geometrias)
+    for (const p of polis(g))
+      for (const a of p)
+        for (let i = 0; i < a.length - 1; i++) {
+          const k = chave(a[i], a[i + 1]);
+          conta.set(k, (conta.get(k) ?? 0) + 1);
+          segs.push([a[i], a[i + 1], k]);
+        }
+  const linhas: Par[][] = [];
+  let atual: Par[] | null = null;
+  for (const [a, b, k] of segs) {
+    if (conta.get(k) !== 1) {
+      atual = null;
+      continue;
+    }
+    const fim = atual?.[atual.length - 1];
+    if (atual && fim && fim[0] === a[0] && fim[1] === a[1]) atual.push(b);
+    else {
+      atual = [a, b];
+      linhas.push(atual);
+    }
+  }
+  return { type: "MultiLineString", coordinates: linhas };
 }

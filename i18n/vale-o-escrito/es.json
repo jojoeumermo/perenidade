@@ -91,7 +91,13 @@
     "listaDeCasos": "Casos en el mapa (lista para teclado y lector de pantalla)",
     "aria": "Mapa de Brasil con los casos publicados, por estado y municipio",
     "credito": "Mallas territoriales: IBGE. Sin mapa de terceros y sin rastreo.",
-    "nivel": "Nivel del mapa"
+    "nivel": "Nivel del mapa",
+    "aproximado": "ubicación aproximada (centro del estado)",
+    "ramos": "Vínculos del caso",
+    "reduzirMovimento": "Reducir movimiento",
+    "ativarMovimento": "Activar movimiento",
+    "fecharRamos": "Cerrar ramificaciones",
+    "abrirFonte": "Abrir la fuente"
   },
   "enviar": {
     "titulo": "Enviar una fuente",
@@ -196,7 +202,9 @@
       "explica": "Lo mismo que muestra el dibujo, en texto: cada caso, persona, organización y lugar, con sus vínculos.",
       "ligadoA": "Vinculado a",
       "semLigacoes": "Sin vínculos",
-      "abrir": "Ver la ficha"
+      "abrir": "Ver la ficha",
+      "primaria": "confirmado por fuente primaria",
+      "reportado": "solo prensa"
     },
     "vazio": "Aún no hay casos publicados. El observatorio abre vacío a propósito: un caso solo entra con fuente, fecha y extracto, después de la revisión de la curaduría.",
     "vazioDossie": "Este dosier aún no tiene casos publicados.",
@@ -243,7 +251,9 @@
       "atualizadoNaFonte": "Actualizado el {data}",
       "sobre": "Sobre",
       "nuncaVitima": "Nunca publicamos víctimas, niños ni testigos.",
-      "situacaoDoCaso": "Situación del caso"
+      "situacaoDoCaso": "Situación del caso",
+      "ligacoes": "Vínculos con fuente",
+      "fonte": "Fuente"
     },
     "papel": {
       "acusado": "Acusado",
@@ -264,7 +274,16 @@
       "associacao": "Asociación",
       "grupo_armado": "Grupo armado",
       "outra": "Otra"
-    }
+    },
+    "destacar": "Destacar por tipo",
+    "destacarDica": "Toca un tipo para iluminar solo ese; toca de nuevo para ver todos.",
+    "confiancaLigacao": {
+      "titulo": "Confianza del vínculo",
+      "primaria": "Fuente primaria",
+      "reportado": "Solo prensa"
+    },
+    "construidoEm": "Datos construidos el {data}",
+    "modoLeve": "Modo ligero: efectos reducidos en este dispositivo"
   },
   "navegacao": {
     "inicio": "Observatorio",

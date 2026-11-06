@@ -692,35 +692,35 @@
 .ve-no {
   cursor: pointer;
 }
-.ve-no circle {
+.ve-no .ve-nucleo {
   stroke-width: 1.2;
   transition:
     r 0.15s,
     stroke-width 0.15s;
 }
-.ve-no--pessoa circle {
+.ve-no--pessoa .ve-nucleo {
   fill: var(--ve-amarelo);
   stroke: #0008;
 }
-.ve-no--organizacao circle {
+.ve-no--organizacao .ve-nucleo {
   fill: var(--ve-azul);
   stroke: #0008;
 }
-.ve-no--entrada circle {
+.ve-no--entrada .ve-nucleo {
   fill: var(--ve-sangue);
   stroke: #ff9aa5;
   filter: drop-shadow(0 0 6px rgb(224 16 47 / 80%));
 }
-.ve-no--lugar circle {
+.ve-no--lugar .ve-nucleo {
   fill: none;
   stroke: #cfcfc8;
   stroke-width: 1.4;
 }
-.ve-no:hover circle {
+.ve-no:hover .ve-nucleo {
   stroke: #fff;
   stroke-width: 2.4;
 }
-.ve-no[data-sel="true"] circle {
+.ve-no[data-sel="true"] .ve-nucleo {
   stroke: #fff;
   stroke-width: 3;
   animation: ve-respira 1.6s ease-in-out infinite;
@@ -732,7 +732,7 @@
 .ve-no:focus-visible {
   outline: none;
 }
-.ve-no:focus-visible circle {
+.ve-no:focus-visible .ve-nucleo {
   stroke: #fff;
   stroke-width: 4;
 }
@@ -1907,7 +1907,7 @@
   }
 }
 @media (forced-colors: active) {
-  .ve-no circle,
+  .ve-no .ve-nucleo,
   .ve-marca circle {
     stroke: CanvasText;
   }
@@ -1917,7 +1917,7 @@
 }
 
 /* Traço com largura fixa na tela, mesmo com a teia aproximada. */
-.ve-no circle,
+.ve-no .ve-nucleo,
 .ve-aresta,
 .ve-marca circle {
   vector-effect: non-scaling-stroke;
