@@ -15,6 +15,14 @@ const atual = process.env.VERCEL_GIT_COMMIT_SHA || "HEAD";
 // Pré-visualização só sob pedido: monta preview apenas o branch que começa com "preview/" (docs/HOSPEDAGEM.md ›
 // Pré-visualização). Os outros branches não gastam build nem entram na fila na frente da produção (a Hobby monta um
 // por vez). Dentro de "preview/", o resto do filtro continua valendo: commit só de documentação também não monta.
+// 06/11/2026: o site saiu da Vercel e foi para a VPS da Contabo (docs/HOSPEDAGEM.md › Contabo). A Vercel fica só de
+// reserva, com a última publicação parada: nenhum commit monta lá, para não gastar a cota. Para voltar a publicar na
+// Vercel (por exemplo, se a VPS cair e o DNS voltar para lá), crie nela a variável VERCEL_VOLTOU = sim.
+if (process.env.VERCEL_VOLTOU !== "sim") {
+  console.log("O site está na VPS da Contabo: publicação na Vercel pulada (VERCEL_VOLTOU = sim volta a publicar).");
+  process.exit(0);
+}
+
 const ambiente = process.env.VERCEL_ENV;
 const ramo = process.env.VERCEL_GIT_COMMIT_REF ?? "";
 if (ambiente === "preview" && !ramo.startsWith("preview/")) {
