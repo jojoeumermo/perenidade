@@ -7,6 +7,7 @@ import { groups } from "@/lib/areas";
 import { type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { Avatar } from "./Avatar";
+import { type DepartamentoDoInstituto, DEPARTAMENTOS_DO_INSTITUTO } from "./departamentos-do-instituto";
 import { Aviso, dataHora, GRUPOS_DEPARTAMENTO, papeis, textoDoErro, useAcao, useLista } from "./comum";
 import { Botao, Busca, CabecalhoDeSecao, Cartao, type ColumnDef, Esqueleto, Estatistica, Estatisticas, Selecao, Selo, Tabela, Vazio } from "./ui";
 
@@ -224,14 +225,16 @@ interface PessoaDaEquipe {
   id: string;
   nome: string;
   papeis: Role[];
+  /** Os departamentos de participação (Parcerias, RH…). Revolucionários só vem para a coordenação. */
+  departamentos?: string[];
 }
 
 /**
- * Os departamentos: as funções (curadoria, tradução, design…) e, na educação, as áreas que reúnem disciplinas
- * (Tecnologia reúne informática, programação, modelagem 3D, edição de vídeo e de foto). Cada um com os representantes
- * (podem ser vários) e quem trabalha nele.
+ * Os departamentos, organizados (T28 e T30): primeiro como funciona (função, departamento, representante), depois os
+ * departamentos do instituto na ordem dos grupos da equipe, cada um dizendo como se entra, quem representa e quantas
+ * pessoas tem, e por fim a educação por área (Tecnologia reúne informática, programação, modelagem 3D…).
  */
-export function Departamentos({ pessoas }: { pessoas: PessoaDaEquipe[] }) {
+export function Departamentos({ pessoas, coordena = false, irPara }: { pessoas: PessoaDaEquipe[]; coordena?: boolean; irPara?: (aba: "funcao") => void }) {
   const { t } = useI18n();
   const nomeDaArea = (slug: string) => t.areas[slug as keyof typeof t.areas]?.[0] ?? slug;
   const reps = (dep: string) => pessoas.filter((p) => p.papeis.some((r) => r.papel === "representante" && r.disciplina === dep));
@@ -240,20 +243,80 @@ export function Departamentos({ pessoas }: { pessoas: PessoaDaEquipe[] }) {
     nome: GRUPOS_DEPARTAMENTO[`grupo-${g.id}`] ?? g.id,
     disciplinas: g.areas as readonly string[],
   }));
-  // O Departamento de Comunicação reúne duas funções: o jornal, a rádio e o podcast (jornalismo) e o marketing.
-  const funcoes: { id: string; nome: string; papeis: string[] }[] = [
-    ...(["curadoria", "mediacao", "revisao", "traducao"] as const).map((f) => ({ id: f, nome: papeis[f], papeis: [f] })),
-    { id: "jornalismo", nome: "Departamento de Comunicação (jornal, rádio, podcast e marketing)", papeis: ["jornalismo", "marketing"] },
-    ...(["mentoria", "desenvolvimento", "saude"] as const).map((f) => ({ id: f, nome: papeis[f], papeis: [f] })),
-  ];
+  /** Quem é do departamento: pela função, pela participação ou (nos Representantes) por representar algum. */
+  const membros = (d: DepartamentoDoInstituto) =>
+    pessoas.filter((p) => p.papeis.some((r) => d.funcoes.includes(r.papel)) || (p.departamentos ?? []).includes(d.id));
+  const [aberto, setAberto] = useState<string | null>(null);
   return (
     <section aria-labelledby="departamentos-visao" className="space-y-4">
       <CabecalhoDeSecao
         id="departamentos-visao"
         titulo="Departamentos"
-        sobre="Departamento não é a disciplina: é tudo o que a área engloba. Na educação, cada área reúne as disciplinas dela; nas outras funções, o departamento é a própria função. Um departamento pode ter vários representantes (nomeie em Confiar função › Representante do departamento)."
+        sobre="Os departamentos do instituto, na ordem dos grupos da equipe. Cada um tem um grupo de conversa e uma página (em Departamentos, no menu)."
       />
+      <Cartao as="div" variante="plano" titulo="Como funciona" nivelDoTitulo={3}>
+        <ul className="mt-1 space-y-1 text-sm">
+          <li>
+            <strong>Função</strong> é o trabalho da pessoa (Revisão, Educação de Biologia…). Quem tem a função já é do departamento dela, sozinho.
+          </li>
+          <li>
+            <strong>Departamento de participação</strong> (Parcerias, Influenciadores, Representantes, RH, Revolucionários) não vem de uma função: a coordenação põe a pessoa nele.
+          </li>
+          <li>
+            <strong>Representante</strong> responde pelo departamento (pode haver vários) e entra sozinho no grupo dos Representantes.
+          </li>
+          <li>Uma pessoa pode ter várias funções e estar em vários departamentos ao mesmo tempo. Tudo isso se faz em Confiar função, de uma vez.</li>
+        </ul>
+        {irPara && (
+          <Botao className="mt-3" pequeno simbolo={Users} onClick={() => irPara("funcao")}>
+            Confiar funções e departamentos
+          </Botao>
+        )}
+      </Cartao>
+
+      <p className="pn-rotulo-mono">Departamentos do instituto</p>
+      <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {DEPARTAMENTOS_DO_INSTITUTO.map((d) => {
+          const quem = membros(d);
+          const representantes = [d.id, ...(d.id === "jornalismo" ? ["marketing"] : [])].flatMap((id) => reps(id)).filter((p, i, l) => l.findIndex((x) => x.id === p.id) === i);
+          // Revolucionários: quem participa é dado sensível (LGPD, art. 11). Fora da coordenação, nem os nomes nem o número.
+          const reservado = d.sensivel && !coordena;
+          const entra = d.participacao ? (d.funcoes.length ? "por participação ou por representar algum departamento" : "por participação (a coordenação põe)") : `pela função: ${d.funcoes.map((f) => papeis[f]).join(", ")}`;
+          return (
+            <li key={d.id}>
+              <Cartao
+                as="article"
+                className="h-full"
+                titulo={d.nome}
+                nivelDoTitulo={3}
+                sobre={d.sobre}
+                acoes={reservado ? <Selo tom="neutro">reservado</Selo> : <Selo tom={quem.length ? "neutro" : "aviso"}>{quem.length === 1 ? "1 pessoa" : `${quem.length} pessoas`}</Selo>}
+              >
+                <p className="pn-ajuda mt-2">Entra-se {entra}.</p>
+                {d.id !== "representantes" && (
+                  <p className="mt-1 flex items-start gap-1.5 text-sm">
+                    <BookOpenText aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-ink-soft" />
+                    <span>
+                      <strong>Representantes:</strong> {reservado ? "reservado" : representantes.map((p) => p.nome).join(", ") || "ninguém ainda"}
+                    </span>
+                  </p>
+                )}
+                {!reservado && quem.length > 0 && (
+                  <>
+                    <button type="button" className="mt-1 text-sm underline hover:text-oxblood" aria-expanded={aberto === d.id} onClick={() => setAberto((a) => (a === d.id ? null : d.id))}>
+                      {aberto === d.id ? "Esconder quem é" : "Ver quem é"}
+                    </button>
+                    {aberto === d.id && <p className="mt-1 text-sm">{quem.map((p) => p.nome).join(", ")}</p>}
+                  </>
+                )}
+              </Cartao>
+            </li>
+          );
+        })}
+      </ul>
+
       <p className="pn-rotulo-mono">Educação, por área</p>
+      <p className="pn-ajuda">Na educação, cada área reúne as disciplinas dela e pode ter os próprios representantes (Confiar função › Representante do departamento).</p>
       <ul className="grid gap-3 md:grid-cols-2">
         {areas.map((a) => {
           const educadores = pessoas.filter((p) => p.papeis.some((r) => (r.papel === "educacao" || r.papel === "educacao_secundaria") && r.disciplina && a.disciplinas.includes(r.disciplina)));
@@ -265,30 +328,6 @@ export function Departamentos({ pessoas }: { pessoas: PessoaDaEquipe[] }) {
                   <span>
                     <strong>Representantes:</strong> {reps(a.id).map((p) => p.nome).join(", ") || "ninguém ainda"}
                   </span>
-                </p>
-              </Cartao>
-            </li>
-          );
-        })}
-      </ul>
-      <p className="pn-rotulo-mono">Outras funções</p>
-      <ul className="grid gap-3 md:grid-cols-3">
-        {funcoes.map((f) => {
-          const quantas = pessoas.filter((p) => p.papeis.some((r) => f.papeis.includes(r.papel))).length;
-          return (
-            <li key={f.id}>
-              <Cartao as="article" className="h-full" titulo={f.nome} nivelDoTitulo={3}>
-                <p className="mt-2 text-sm">
-                  <strong>Representantes:</strong>{" "}
-                  {f.papeis
-                    .flatMap((id) => reps(id))
-                    .map((p) => p.nome)
-                    .filter((n, i, l) => l.indexOf(n) === i)
-                    .join(", ") || "ninguém ainda"}
-                </p>
-                <p className="mt-1 flex items-center gap-1.5 text-sm">
-                  <Users aria-hidden className="h-4 w-4 text-ink-soft" />
-                  <strong>Pessoas:</strong> <span className="tabular-nums">{quantas}</span>
                 </p>
               </Cartao>
             </li>

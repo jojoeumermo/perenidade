@@ -42,3 +42,49 @@ prova que instalar de novo e reaplicar não muda nada. A lista de funções púb
 
 ## Fora do escopo
 - i18n em en, es, fr, ru e zh: só o pt foi atualizado (rótulos de função da candidatura). Os demais ficam como rascunho.
+
+## Novembro, 6: pessoas no painel (T28, T29, T30)
+
+SQL: `supabase/migracoes/20261106-pessoas-painel.sql` (acrescentável e idempotente; já está no fim do `install.sql`). NÃO foi aplicado no banco de produção.
+Teste: `npm run testar:pessoas-painel` (PGlite, 80 conferências).
+
+### T28. Várias funções, várias disciplinas e vários departamentos de uma vez
+- As funções já moravam numa tabela de ligação (`interno.papeis`: uma linha por pessoa, função e disciplina). Nada migrou; quem tinha várias funções continua com todas.
+- `public.papeis_conceder_varios(p_usuario, p_itens, p_departamentos)`: tudo numa ação só, com as mesmas regras de nível de `papel_conceder` (cada item passa por `interno.papel_conceder_um`). Tudo ou nada: se um item for recusado, nenhum entra. A pessoa recebe um recado só.
+- Tela: Voluntários e convites › Confiar função. Escolhe-se a função, marcam-se uma ou mais disciplinas (ou departamentos, no representante), "Acrescentar à lista" e repete; depois "Confiar". Também em lote (várias pessoas marcadas na lista). Componente: `components/painel/EscolhaDeFuncoes.tsx`.
+- Convite pessoal também leva várias funções (`convites.extras`) e departamentos (`convites.departamentos`); entram quando a conta nasce (gatilho `lucia_convite_extras`). O e-mail do convite cita as funções, nunca os departamentos.
+- `papel_conceder` (uma função) continua igual para quem já o chama.
+
+### T29. Convites organizados e troca de e-mail
+- `convites_listar` agora diz a `situacao` (valendo, usado, vencido, cancelado), as funções extras, os departamentos e quem usou (nome visto). A tela separa em abas (Esperando, Usados, Vencidos e cancelados, Todos), com busca; os que esperam vêm na ordem de vencimento e os que vencem em até 2 dias ganham o selo "vence logo".
+- `public.usuario_email_trocar(p_usuario, p_email, p_motivo)`: só a coordenação comunitária (`interno.lider`), com o segundo fator quando exigido, nunca a própria conta nem a de outra coordenação; motivo obrigatório; e-mail novo não pode ser de outra conta; até 10 trocas por dia.
+  - Registro (`email_trocado`) guarda o e-mail **mascarado** (`j***@gmail.com`) e o motivo.
+  - Aviso por e-mail ao endereço antigo e ao novo (fila `interno.emails`, a mesma do resto do site) e recado no painel para a pessoa. A senha e as sessões não mudam.
+  - Feita dentro do banco, como `usuario_senha_redefinir`: a chave de serviço (service_role) não fica no servidor do site (veja `.env.example`), então a API administrativa do serviço de contas não é chamada pelo site. Nenhuma chave nova foi criada.
+  - LGPD, art. 6º, III e VII: o e-mail aparece só na ficha, para quem já o via na lista da equipe.
+- Tela: ficha da pessoa › Conta › Trocar o e-mail (`components/painel/TrocarEmail.tsx`), com confirmação.
+
+### T30. Os departamentos de hoje (os grupos da equipe)
+| Grupo da equipe | id interno (não muda) | Como se entra |
+|---|---|---|
+| Coordenação | coordenacao | função |
+| Parcerias (coletivos parceiros) | parcerias | participação (novo) |
+| Comunicação | jornalismo (+ marketing) | função |
+| Influenciadores | influenciadores | participação (novo) |
+| Representantes | representantes | quem é representante entra sozinho; também participação (novo) |
+| RH · Recursos Humanos | rh | participação (novo) |
+| Revisão | revisao | função |
+| UI/UX e Desenvolvimento ("UI/UX & Devs") | desenvolvimento | função |
+| Tradução | traducao | função |
+| Reforço | mentoria | função |
+| Saúde | saude | função |
+| Mediação | mediacao | função |
+| Acervo e curadoria | curadoria | função |
+| Educadores | educacao | função |
+| Revolucionários (Frente Revolucionária Lúcia) | revolucionarios | participação (novo, reservado) |
+
+- Nenhum departamento foi apagado nem teve o id trocado: só o nome que aparece mudou (`components/painel/departamentos-do-instituto.ts`). "Geral" continua como grupo de conversa de todos, não como departamento.
+- A participação fica em `interno.departamento_membros` (tabela de ligação, RLS ligada e sem regra: só as funções do banco leem e escrevem). Entrar ou sair põe ou tira a pessoa do grupo de conversa do departamento.
+- Quem só participa (sem função) abre a página dos próprios departamentos (`departamentos_resumo`, `departamento_ver`).
+- **Revolucionários é dado sensível** (opinião e filiação política, LGPD art. 5º, II, e art. 11): só a coordenação põe ou tira alguém, nomeia representante e vê quem participa na lista da equipe; na página do departamento, a lista só aparece para a coordenação e para quem é do próprio departamento; a supervisão não entra no grupo de conversa dele; o registro de atividades grava "reservado" no lugar do nome do departamento; o e-mail de convite não cita departamentos.
+- A aba Departamentos (Voluntários e convites) foi reorganizada: "Como funciona" (função, departamento, representante), os departamentos na ordem dos grupos, com como se entra, representantes e quem é, e a educação por área.
