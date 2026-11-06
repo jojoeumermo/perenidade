@@ -8,7 +8,7 @@ import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
 import { LambeDoDia } from "@/components/inicio/LambeDoDia";
 import { JanelaAulaDaSemana } from "@/components/inicio/AulaDaSemana";
 import { aulasDaSemana } from "@/lib/aula-da-semana";
-import { lambesDaSemana } from "@/lib/lambes";
+import { lambesDoCartaz } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
 import { QuadroDeAvisos } from "@/components/escola/QuadroDeAvisos";
 import { quadroDaInicial } from "@/lib/escola/quadro-servidor";
@@ -71,8 +71,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       return { slug, name: t.areas[slug][0], description: t.areas[slug][1], essential: essential.includes(slug), counts, palavras };
     }),
   }));
-  // O lambe-lambe do dia (com o carimbo e a xilogravura do mesmo tema), escolhido pelo navegador entre os próximos dias.
-  const lambes = lambesDaSemana(lang);
+  // O lambe-lambe do dia (com o carimbo e a xilogravura do mesmo tema): nas datas especiais, o cartaz da data; nos
+  // outros dias, o navegador sorteia um da amostra (T16, veja lib/lambes.ts).
+  const { datas: lambes, sorteio } = lambesDoCartaz(lang);
   // A tiragem do cartaz, como num cartaz de gráfica: os números do acervo.
   const tiragem = `${h.posterPrint}: ${[
     [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
@@ -141,7 +142,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         }}
         doDia={<AulaDoDia aulas={aulasDoDia} />}
         quadro={quadro ? <QuadroDeAvisos {...quadro} className="block px-4 pt-6" /> : undefined}
-        lambe={<LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />}
+        lambe={<LambeDoDia dias={lambes} sorteio={sorteio} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />}
         aulaDaSemana={<JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />}
         extras={
           <>
@@ -227,7 +228,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
           {/* O lambe-lambe do dia colado na parede, com a projeção e as fitas crepe; os números do acervo vão na tiragem. */}
           <div className="relative px-2 pt-6 pb-10 max-md:hidden">
-            <LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />
+            <LambeDoDia dias={lambes} sorteio={sorteio} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />
           </div>
         </div>
       </section>
