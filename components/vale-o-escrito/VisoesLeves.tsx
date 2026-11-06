@@ -55,7 +55,7 @@ export function Orbita({ grafo, selecionado, aoSelecionar, destaque = null, s }:
       <p className="ve-titulo-da-visao">{fill(s.visual.orbita.titulo, { nome: truncar(nomeCentro, 40) })}</p>
       <svg
         ref={svgRef}
-        className="ve-svg"
+        className="ve-svg ve-svg-orbita"
         viewBox={`0 0 ${L} ${A}`}
         preserveAspectRatio="xMidYMid meet"
         role="group"
