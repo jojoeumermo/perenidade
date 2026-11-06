@@ -7,6 +7,7 @@ import Link from "@/components/Link";
 import { localePath, type Locale } from "@/i18n/config";
 import { abertaNaFaixa, FAIXA_DA_ESCOLA } from "@/lib/escola/rotas";
 import type { TextosDaBase } from "@/lib/escola/textos";
+import { useRecurso } from "@/lib/use-recursos-vivos";
 import "@/styles/escola-base.css";
 
 /**
@@ -20,6 +21,10 @@ export function NavDaEscola({ lang, s }: { lang: Locale; s: TextosDaBase["nav"] 
   const semIdioma = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
   const aberta = abertaNaFaixa(semIdioma);
   const faixa = useRef<HTMLElement>(null);
+  // T08: com as turmas em pausa (recurso "turmas", ligado e desligado pelo painel), o link some da faixa; o endereço continua
+  // vivo e mostra o aviso, então nenhum link antigo quebra.
+  const turmas = useRecurso("turmas");
+  const links = turmas ? FAIXA_DA_ESCOLA : FAIXA_DA_ESCOLA.filter((r) => r.chave !== "turmas");
 
   // Só a faixa rola (scrollLeft): scrollIntoView poderia mexer na rolagem da página também.
   useEffect(() => {
@@ -32,7 +37,7 @@ export function NavDaEscola({ lang, s }: { lang: Locale; s: TextosDaBase["nav"] 
   return (
     <nav ref={faixa} aria-label={s.rotulo} className="faixa-da-escola no-print border-b border-rule font-sans text-sm" data-faixa-da-escola="">
       <ul>
-        {FAIXA_DA_ESCOLA.map((r) => (
+        {links.map((r) => (
           <li key={r.chave}>
             <Link href={localePath(lang, r.caminho)} aria-current={aberta === r.chave ? "page" : undefined} className="text-ink-soft hover:text-oxblood aria-[current=page]:text-ink">
               {s[r.chave as keyof TextosDaBase["nav"]]}

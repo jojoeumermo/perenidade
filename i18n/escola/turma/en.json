@@ -266,5 +266,13 @@
   "linkTurmas": {
     "titulo": "Classes by course",
     "texto": "At the Lúcia Maria Revolutionary School, each course has its own class of the month."
+  },
+  "pausa": {
+    "olho": "Lúcia Maria Revolutionary School",
+    "titulo": "Classes are on pause",
+    "texto": "For now we are not opening classes: we want enough people to look after each one with care. Courses and lessons remain open, at your own pace, and your progress stays on your device. When classes come back, this address will show them again.",
+    "cursos": "See the courses",
+    "trilhas": "Study by subject",
+    "emBreve": "coming soon"
   }
 }
