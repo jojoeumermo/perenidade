@@ -20,10 +20,27 @@ export interface PessoaDoMuro {
   foto?: string;
   credito?: string;
   fonte?: string;
+  /** Quem fez a imagem, a licença e o link do texto da licença (opcionais: fichas antigas só têm o crédito). */
+  autor?: string;
+  licenca?: string;
+  licencaUrl?: string;
   texto: string;
   /** lang e data-content-lang quando o texto ainda está no original em português. */
   idioma: { lang?: string; "data-content-lang"?: string };
 }
+
+/** "Wikimedia Commons", "Agência Brasil"...: o nome do acervo a partir do endereço, sem chamar ninguém de fora. */
+const acervoDe = (url: string) => {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    if (host === "commons.wikimedia.org") return "Wikimedia Commons";
+    if (host === "agenciabrasil.ebc.com.br") return "Agência Brasil";
+    if (host === "flickr.com") return "Flickr";
+    return host;
+  } catch {
+    return url;
+  }
+};
 
 const letraDe = (nome: string) => {
   const l = normalize(nome).replace(/[^a-z0-9]/g, "").charAt(0).toUpperCase();
@@ -155,9 +172,36 @@ export function MuroDoMemorial({ pessoas, s }: { pessoas: PessoaDoMuro[]; s: Dic
                 <p className="mt-3 text-lg leading-relaxed">{p.texto}</p>
                 <p className="mt-4 font-sans text-xl font-black uppercase italic tracking-tight text-oxblood">★ {s.present}</p>
                 {p.credito && p.fonte && (
-                  <p className="mt-3 font-mono text-[0.7rem] leading-tight text-ink-soft" lang="pt-BR">
-                    <a href={p.fonte} target="_blank" rel="noopener noreferrer" className="hover:text-oxblood hover:underline">{p.credito}</a>
-                  </p>
+                  // De onde vem a imagem: autor, licença e fonte com link (Lei 9.610/98, art. 24, II; e as licenças CC exigem
+                  // crédito, link da licença e indicação de que a foto foi recortada). O link abre o arquivo original no acervo.
+                  <div className="mt-4 border-t border-rule pt-3 font-mono text-[0.7rem] leading-snug text-ink-soft">
+                    <p className="uppercase tracking-[0.16em]">{s.image.title}</p>
+                    <dl className="mt-1.5 grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5">
+                      {p.autor && (
+                        <>
+                          <dt>{s.image.author}</dt>
+                          <dd lang="pt-BR">{p.autor}</dd>
+                        </>
+                      )}
+                      {p.licenca && (
+                        <>
+                          <dt>{s.image.license}</dt>
+                          <dd lang="pt-BR">
+                            {p.licencaUrl ? (
+                              <a href={p.licencaUrl} target="_blank" rel="noopener noreferrer license" className="underline hover:text-oxblood">{p.licenca}</a>
+                            ) : (
+                              p.licenca
+                            )}
+                          </dd>
+                        </>
+                      )}
+                      <dt>{s.image.source}</dt>
+                      <dd className="min-w-0 break-words">
+                        <a href={p.fonte} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">{acervoDe(p.fonte)}</a>
+                      </dd>
+                    </dl>
+                    <p className="mt-1.5" lang="pt-BR">{p.credito}</p>
+                  </div>
                 )}
                 <p className="no-print mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
                   <CopiarLink id={p.id} />
