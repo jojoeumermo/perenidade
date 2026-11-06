@@ -478,7 +478,9 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
     <div className="relative h-full min-h-[360px] w-full overflow-hidden bg-black font-mono text-[11px] uppercase tracking-wider text-[#f1f1ed]" role="region" aria-label={t.aria}>
       {/* O estilo mínimo do MapLibre, inline: sem controles, sem popups e sem CSS de pacote. */}
       <style>{`.maplibregl-map{position:relative;overflow:hidden;-webkit-tap-highlight-color:rgb(0 0 0/0)}.maplibregl-canvas{position:absolute;left:0;top:0}.maplibregl-canvas-container.maplibregl-interactive{cursor:grab;user-select:none}.maplibregl-canvas-container.maplibregl-touch-zoom-rotate,.maplibregl-canvas-container.maplibregl-touch-drag-pan{touch-action:pan-x pan-y}`}</style>
-      <div ref={raiz} className="absolute inset-0" />
+      {/* h-full e w-full além do inset-0: o CSS do MapLibre (.maplibregl-map) troca o absolute por relative, e sem altura
+          própria a moldura do mapa caía para 0 px (tela preta). */}
+      <div ref={raiz} className="absolute inset-0 h-full w-full" />
 
       {/* Níveis de zoom nomeados + trilha (Brasil / estado / município). */}
       <div className="pointer-events-none absolute left-3 top-3 flex max-w-[calc(100%-1.5rem)] flex-col gap-2">
