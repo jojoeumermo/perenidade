@@ -2,7 +2,7 @@
 "use client";
 
 import { ArrowDown, ArrowRight, BellRing, ClipboardCheck, House, type LucideIcon, MessageSquareText, Pencil, ShieldAlert, Zap } from "lucide-react";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { atalhosDaFuncao, dadosDaFuncao, dasPendencias, dosAvisosDeSeguranca, type FuncaoDaMesa, FUNCOES_DA_MESA, NOME_DA_PARTE, type ParteDaMesa, type Pendencia, somar, type TipoDePendencia } from "./mesa-funcoes";
 import { Botao, CabecalhoDeSecao, Cartao, Contador, Esqueleto, Estatistica, Estatisticas, ItemDeLista, Lista, Selecao, Selo, Vazio } from "./ui";
 
@@ -13,6 +13,12 @@ import { Botao, CabecalhoDeSecao, Cartao, Contador, Esqueleto, Estatistica, Esta
 // CabecalhoDeSecao) e pelos tokens: nenhuma cor escrita aqui.
 
 const CHAVE_DA_FUNCAO = "lucia:mesa-funcao";
+/**
+ * Largura da Mesa (não da janela: o menu lateral ocupa parte dela) a partir da qual os Recados e os agradecimentos vão
+ * para a lateral direita (T27, 06/11/2026: "colocar na lateral direita da Mesa, pq aí fica mais limpo lá embaixo").
+ * Abaixo disso ficam no lugar de sempre, na ordem da função.
+ */
+const LARGURA_DA_LATERAL = 960;
 const nomeDoTipo: Record<TipoDePendencia, string> = { revisar: "Revisar", responder: "Responder", fazer: "Fazer" };
 const acaoDoTipo: Record<TipoDePendencia, string> = { revisar: "Revisar", responder: "Abrir", fazer: "Fazer" };
 const simboloDoTipo: Record<TipoDePendencia, LucideIcon> = { revisar: ClipboardCheck, responder: MessageSquareText, fazer: Pencil };
@@ -141,6 +147,19 @@ export function MesaOrganizada({
 }) {
   const permitidas = todasAsFuncoes ? FUNCOES_DA_MESA.map((f) => f.id) : [...new Set<FuncaoDaMesa>([...funcoes, "geral"])];
   const [escolhida, setEscolhida] = useState<FuncaoDaMesa | null>(null);
+  // Lateral direita (T27): decidida depois de montar, pela largura real da Mesa. No primeiro desenho (servidor e
+  // navegador iguais) os recados ficam no fluxo; a ordem de leitura e de foco segue sempre a ordem da tela.
+  const raiz = useRef<HTMLDivElement>(null);
+  const [lateral, setLateral] = useState(false);
+  useEffect(() => {
+    const el = raiz.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const medir = () => setLateral(el.clientWidth >= LARGURA_DA_LATERAL);
+    medir();
+    const observador = new ResizeObserver(medir);
+    observador.observe(el);
+    return () => observador.disconnect();
+  }, []);
   // A escolha fica só neste aparelho; no primeiro desenho vale a função principal (igual no servidor e no navegador).
   useEffect(() => {
     const guardada = lerFuncao(permitidas);
@@ -205,8 +224,9 @@ export function MesaOrganizada({
     ),
     recados: (
       <Parte id="mesa-recados" parte="recados" conta={recadosNovos}>
-        {recadosNovos === 0 && <p className="pn-ajuda">Nenhum recado novo. Os anteriores aparecem aqui quando houver.</p>}
-        {/* A peça traz o próprio título "Recados"; aqui o título da parte já diz isso. */}
+        {!pecas.recados && recadosNovos === 0 && <p className="pn-ajuda">Nenhum recado novo. Os anteriores aparecem aqui quando houver.</p>}
+        {/* A peça vem sem título (Recados com naMesa, T27): o título da parte já diz isso. O CSS segue escondendo o
+            título antigo, caso a peça venha sem a prop. */}
         <div className="[&_#recados]:hidden">{pecas.recados}</div>
         {pecas.agradecimentos}
       </Parte>
@@ -235,7 +255,7 @@ export function MesaOrganizada({
   };
 
   return (
-    <div className="pn-tela" data-tour="mesa" data-mesa={funcao}>
+    <div ref={raiz} className="pn-tela" data-tour="mesa" data-mesa={funcao} data-mesa-lateral={lateral ? "" : undefined}>
       {pecas.cabeca}
 
       <Cartao as="div">
@@ -273,9 +293,22 @@ export function MesaOrganizada({
         </nav>
       </Cartao>
 
-      {partes.map((p) => (
-        <div key={p}>{conteudo[p]}</div>
-      ))}
+      {lateral && partes.includes("recados") ? (
+        <div className="pn-mesa-grade">
+          <div className="pn-mesa-principal">
+            {partes
+              .filter((p) => p !== "recados")
+              .map((p) => (
+                <div key={p}>{conteudo[p]}</div>
+              ))}
+          </div>
+          <aside className="pn-mesa-lateral" aria-label="Recados e agradecimentos">
+            {conteudo.recados}
+          </aside>
+        </div>
+      ) : (
+        partes.map((p) => <div key={p}>{conteudo[p]}</div>)
+      )}
     </div>
   );
 }
