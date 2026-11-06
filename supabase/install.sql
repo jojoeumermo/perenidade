@@ -25616,7 +25616,7 @@ begin
   -- Educação, educação secundária e reforço são por disciplina: sem ela, a pessoa enxergaria a fila de todas.
   if p_papel in ('educacao', 'educacao_secundaria', 'mentoria') and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
   insert into papeis (usuario, papel, disciplina, concedido_por)
-  values (p_usuario, p_papel, case when p_papel in ('vice', 'supervisao', 'marketing', 'saude') then null else interno.disciplina_ok(p_disciplina) end, auth.uid()) on conflict do nothing;
+  values (p_usuario, p_papel, case when p_papel in ('vice', 'supervisao', 'marketing') then null else interno.disciplina_ok(p_disciplina) end, auth.uid()) on conflict do nothing;
   get diagnostics v_linhas = row_count;
   perform interno.registrar('papel_confiado', p_usuario::text, jsonb_build_object('papel', p_papel, 'disciplina', p_disciplina));
   return v_linhas > 0;
@@ -25721,7 +25721,8 @@ create or replace function public.departamento_ver(p_id text) returns jsonb lang
 declare d departamentos_info; v_ve_pessoas boolean;
 begin
   perform interno.eu();
-  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  -- Quem só participa do departamento (sem função de trabalho, como um militante ou um coletivo parceiro) também abre o dele.
+  if not (interno.voluntario() or ((interno.aal2() or not interno.tem_fator()) and interno.membro_direto(auth.uid(), p_id))) then perform interno.erro('sem_permissao'); end if;
   select * into d from departamentos_info where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
   v_ve_pessoas := d.id <> 'revolucionarios' or interno.coord() or interno.membro_direto(auth.uid(), d.id);
@@ -25808,7 +25809,7 @@ begin
     for x in select * from jsonb_array_elements(coalesce(p -> 'extras', '[]'::jsonb)) loop
       if jsonb_typeof(x) <> 'object' then perform interno.erro('invalido:extras'); end if;
       if x ->> 'papel' = v_papel and interno.disciplina_ok(nullif(x ->> 'disciplina', '')) is not distinct from v_disc then continue; end if;
-      v_extras := v_extras || jsonb_build_array(jsonb_build_object('papel', x ->> 'papel', 'disciplina', interno.convite_funcao_ok(x ->> 'papel', nullif(x ->> 'disciplina', '')))));
+      v_extras := v_extras || jsonb_build_array(jsonb_build_object('papel', x ->> 'papel', 'disciplina', interno.convite_funcao_ok(x ->> 'papel', nullif(x ->> 'disciplina', ''))));
       v_nomes := v_nomes || (interno.nome_papel(x ->> 'papel') || coalesce(' (' || nullif(x ->> 'disciplina', '') || ')', ''));
     end loop;
   else
