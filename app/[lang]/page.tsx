@@ -145,7 +145,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         aulaDaSemana={<JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />}
         extras={
           <>
-            <Link href={to("/despertar")} className="block rounded-[1.25rem] border-[1.5px] border-[#1f1a14] bg-[#1f1a14] p-5 text-[#f4ecd8] shadow-[4px_4px_0_#c21f16] hover:text-[#f4ecd8]">
+            <Link href={to("/consciencia-de-classe")} className="block rounded-[1.25rem] border-[1.5px] border-[#1f1a14] bg-[#1f1a14] p-5 text-[#f4ecd8] shadow-[4px_4px_0_#c21f16] hover:text-[#f4ecd8]">
               <span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-[#e0837a]">{h.moreKicker}</span>
               <span className="mt-2 block font-serif text-[1.6rem] font-medium leading-[1.08]">{h.moreTitle}</span>
               <span className="mt-4 inline-block rounded-full bg-[#c21f16] px-4 py-2 font-sans text-sm font-extrabold text-white">{h.moreStart} →</span>
@@ -245,7 +245,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <p className="mt-4 max-w-[40rem] text-[1.2rem] leading-relaxed text-[#e9dcbc]">{h.moreText}</p>
           </div>
           <div className="flex flex-col items-start gap-4 md:items-end">
-            <Link href={to("/despertar")} className="botao botao-prelo text-lg">{h.moreStart} →</Link>
+            <Link href={to("/consciencia-de-classe")} className="botao botao-prelo text-lg">{h.moreStart} →</Link>
             <Link href={to("/sobre")} className="font-sans font-bold text-[#f4ecd8] underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-white">{h.moreManifesto}</Link>
           </div>
         </div>

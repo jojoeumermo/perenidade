@@ -3679,6 +3679,7 @@
       "/privacidade": "ce que l'on garde",
       "/termos": "les règles du site",
       "/despertar": "formation militante",
+      "/consciencia-de-classe": "formation militante",
       "/territorios": "collectifs partenaires"
     },
     "highlights": "Commencez ici",
@@ -5459,7 +5460,7 @@
       "stages": "étapes",
       "lessons": "cours prêts",
       "tasks": "tâches dans le monde réel",
-      "price": "reais · sans diplôme d'État"
+      "price": "reais · sans frais, jamais"
     },
     "intro": "Chaque étape réunit des cours courts de plusieurs matières, une lecture de la bibliothèque, une tâche dans le monde réel et une rencontre en groupe. On peut le faire seul, mais le parcours est fait pour être vécu ensemble.",
     "lesson": "Cours",
@@ -5472,6 +5473,8 @@
     "certTitle": "Certificat communautaire",
     "certText": "Reconnu par l'institut et signé par votre groupe, pas par l'État. Il vaut ce que vous avez appris et ce que vous en avez fait.",
     "certModelLabel": "Modèle du certificat communautaire du parcours Conscience de classe",
+    "certShow": "Voir le modèle du certificat",
+    "certHide": "Masquer le modèle",
     "certModelNote": "Modèle du certificat. Le vrai est rempli et signé par votre groupe, toujours en portugais.",
     "groupKicker": "Mieux à plusieurs",
     "groupTitle": "Faites le parcours en groupe",
@@ -5958,6 +5961,7 @@
     "/gaveta": "Tiroir ouvert · travaux d'étudiants, libres pour tous · mémoires, articles et polycopiés",
     "/guia": "Guide des sources · où trouver des livres, des données et des informations fiables",
     "/despertar": "Conscience de classe · de zéro à l'organisation · des étapes avec des tâches concrètes",
+    "/consciencia-de-classe": "Conscience de classe · de zéro à l'organisation · des étapes avec des tâches concrètes",
     "/nucleos": "Groupes d'étude · des groupes qui étudient ensemble dans les quartiers · toujours dans des lieux publics",
     "/territorios": "Territoires · collectifs de culture et de lutte qui marchent avec l'institut",
     "/territorios/*": "Territoire partenaire · articles, cours, photos et rencontres faits ensemble",
