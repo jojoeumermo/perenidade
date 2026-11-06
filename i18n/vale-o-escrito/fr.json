@@ -336,5 +336,28 @@
       "titulo": "Confidentialité",
       "texto": "Lire l'observatoire n'exige pas de compte et ne laisse pas de trace : seulement des comptages anonymes. Pour qui envoie une source ou demande une correction, l'adresse réseau n'est pas conservée ; la limite anti-spam utilise un code brouillé qui change chaque jour. Ce que nous conservons et pour combien de temps figure dans la politique de confidentialité de l'Institut."
     }
+  },
+  "casca": {
+    "voltarAoSite": "Retour au site",
+    "voltarAoSiteAria": "Retour au site de l'Instituto Lúcia",
+    "pularParaConteudo": "Aller au contenu",
+    "sobretitulo": "Base de cas · 2026 · observatoire en cours",
+    "menu": "Navigation de Vale o Escrito",
+    "som": {
+      "ligar": "Activer le son",
+      "desligar": "Couper le son",
+      "rotulo": "Son",
+      "explica": "Sons générés dans votre navigateur, rien n'est téléchargé. Coupés tant que vous ne les activez pas."
+    },
+    "contadores": {
+      "titulo": "La base en chiffres",
+      "casos": "cas",
+      "pessoas": "personnes publiques",
+      "organizacoes": "organisations",
+      "fontes": "sources citées",
+      "lugares": "États"
+    },
+    "barra": "Situation juridique des cas publiés",
+    "rodape": "Source, date et extrait sur chaque fiche. Toile vivante : chaque point est un enregistrement, chaque ligne un lien sourcé."
   }
 }

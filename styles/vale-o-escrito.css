@@ -1,45 +1,67 @@
 /* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
  *
- * Vale o Escrito (pacote "visual"). É o ÚNICO lugar do site que não segue a identidade do instituto: fundo preto, nós
- * neon (amarelo, azul, vermelho), mono em caixa alta nos rótulos e nos códigos. Inspirado no desenho do Blood Money
- * (bl00d.money); nenhum código copiado.
+ * Vale o Escrito: a linguagem de painel de investigação. É o ÚNICO lugar do site que não segue a identidade do instituto:
+ * preto profundo, vermelho sangue, grade e linhas finas, números grandes, rótulos mono em caixa alta, título condensado
+ * forte e leitura numa grotesca limpa. Inspirado na linguagem do Blood Money (bl00d.money): nenhum código, marca ou
+ * desenho copiado, só a ideia (dados como protagonistas, sensação de painel).
  *
- * Escopo: TUDO sob ".ve". Nenhuma regra solta, nada em :root, html ou body: o tema do site não é tocado.
+ * Letras (lib/vale-o-escrito/fontes.ts, só nas rotas do Vale): Barlow Condensed (display), JetBrains Mono (rótulos) e
+ * Schibsted Grotesk (leitura), todas SIL OFL 1.1.
+ *
+ * Escopo: TUDO sob ".ve" (a moldura de app/[lang]/vale-o-escrito/layout.tsx). Nenhuma regra solta, nada em :root, html ou
+ * body: o tema do site não é tocado (o que some da casca do site está num <style> da própria moldura, em Moldura.tsx).
  * Importado só pelos componentes de components/vale-o-escrito/, então só paga quem abre o observatório.
  */
 
 .ve {
-  --ve-fundo: #050505;
-  --ve-painel: #0c0c0e;
-  --ve-linha: #26262b;
-  --ve-texto: #ececec;
-  --ve-suave: #9d9da6;
-  --ve-amarelo: #ffe600;
-  --ve-azul: #2aa3ff;
-  --ve-vermelho: #ff2d55;
-  --ve-verde: #3dff9a;
-  --ve-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --ve-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ve-fundo: #070707;
+  --ve-painel: rgb(9 9 9 / 90%);
+  --ve-painel-solido: #0b0b0b;
+  --ve-linha: #222221;
+  --ve-linha-forte: #3a3a38;
+  --ve-texto: #f1f1ed;
+  --ve-suave: #a3a39d;
+  /* #8c8c86 sobre #070707 dá 5,9:1 (AA para texto pequeno: rótulos de 10 a 11 px usam esta cor). */
+  --ve-apagado: #8c8c86;
+  --ve-sangue: #e0102f;
+  --ve-sangue-claro: #ff4d5e;
+  --ve-sangue-escuro: #3d0710;
+  --ve-amarelo: #ffd23f;
+  --ve-azul: #7cc4ff;
+  --ve-verde: #3ddc97;
+  --ve-ambar: #ffb020;
+  --ve-altura-barra: 56px;
+  --ve-display: var(--fonte-ve-display, "Barlow Condensed"), "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+  --ve-mono: var(--fonte-ve-mono, "JetBrains Mono"), ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --ve-sans: var(--fonte-ve-leitura, "Schibsted Grotesk"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ve-curva: cubic-bezier(0.2, 0.7, 0.1, 1);
 
   background: var(--ve-fundo);
   color: var(--ve-texto);
   font-family: var(--ve-sans);
   line-height: 1.5;
-  min-height: calc(100dvh - 4rem);
+  min-height: 100dvh;
   position: relative;
   isolation: isolate;
+  -webkit-font-smoothing: antialiased;
 }
 .ve *,
 .ve *::before,
 .ve *::after {
   box-sizing: border-box;
 }
+.ve ::selection {
+  background: var(--ve-sangue);
+  color: #fff;
+}
 .ve a {
-  color: var(--ve-amarelo);
+  color: var(--ve-texto);
+  text-decoration-color: var(--ve-sangue);
   text-underline-offset: 3px;
+  transition: color 0.15s;
 }
 .ve a:hover {
-  color: #fff;
+  color: var(--ve-sangue-claro);
 }
 .ve button {
   font: inherit;
@@ -47,7 +69,7 @@
   cursor: pointer;
 }
 .ve :focus-visible {
-  outline: 2px solid var(--ve-amarelo);
+  outline: 2px solid var(--ve-sangue-claro);
   outline-offset: 2px;
 }
 .ve-so-leitor {
@@ -64,17 +86,316 @@
 .ve-pular {
   position: absolute;
   left: 8px;
-  top: -48px;
-  z-index: 20;
-  padding: 8px 12px;
-  background: var(--ve-amarelo);
-  color: #000 !important;
+  top: -64px;
+  z-index: 60;
+  padding: 10px 14px;
+  background: var(--ve-sangue);
+  color: #fff !important;
   font-family: var(--ve-mono);
   font-size: 12px;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
 }
 .ve-pular:focus {
   top: 8px;
+}
+
+/* ── Fundo: rede viva (canvas), grade fina e vinheta ─────────────────────────── */
+.ve-fundo-vivo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 35%, rgb(0 0 0 / 70%) 100%),
+    linear-gradient(rgb(255 255 255 / 2.2%) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgb(255 255 255 / 2.2%) 1px, transparent 1px) 0 0 / 56px 56px;
+}
+.ve-fundo-vivo canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+  animation: ve-aparece 1.6s var(--ve-curva) both;
+}
+.ve-conteudo {
+  position: relative;
+  z-index: 1;
+  outline: none;
+}
+
+/* ── Barra da moldura: voltar ao site, marca, navegação do Vale, som ─────────── */
+.ve-barra {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "voltar marca som"
+    "nav nav nav";
+  align-items: center;
+  column-gap: 10px;
+  padding: 0 12px;
+  background: rgb(7 7 7 / 92%);
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-barra::after {
+  /* o fio vermelho que corre embaixo da barra */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ve-sangue) 20%, var(--ve-sangue) 80%, transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.ve-voltar-ao-site {
+  grid-area: voltar;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--ve-linha-forte);
+  border-radius: 999px;
+  background: var(--ve-texto);
+  color: #070707 !important;
+  font-family: var(--ve-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    transform 0.15s var(--ve-curva);
+}
+.ve-voltar-ao-site:hover {
+  background: var(--ve-sangue);
+  color: #fff !important;
+  transform: translateX(-2px);
+}
+.ve-logo {
+  grid-area: marca;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 44px;
+  text-decoration: none;
+}
+.ve-logo-sinal {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  overflow: visible;
+}
+.ve-logo-sinal path {
+  fill: none;
+  stroke: var(--ve-sangue);
+  stroke-width: 1.4;
+}
+.ve-logo-sinal circle {
+  fill: var(--ve-texto);
+}
+.ve-logo-sinal circle:nth-of-type(2) {
+  fill: var(--ve-sangue);
+  animation: ve-pulsa 2.4s ease-in-out infinite;
+  transform-origin: 12px 6px;
+}
+.ve-logo-texto {
+  font-family: var(--ve-display);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ve-texto);
+  white-space: nowrap;
+}
+.ve-logo-texto b {
+  color: var(--ve-sangue);
+  animation: ve-pisca 1.1s steps(1) infinite;
+}
+.ve-logo-sub {
+  display: none;
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ve-apagado);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ve-nav {
+  grid-area: nav;
+  min-width: 0;
+  margin: 0 -12px;
+  border-top: 1px solid var(--ve-linha);
+}
+.ve-nav ul {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0 8px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ve-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 10px;
+  font-family: var(--ve-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-suave);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ve-nav a::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 6px;
+  height: 1px;
+  background: var(--ve-sangue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s var(--ve-curva);
+}
+.ve-nav a:hover,
+.ve-nav a[aria-current="page"] {
+  color: var(--ve-texto);
+}
+.ve-nav a:hover::after,
+.ve-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+.ve-nav-n {
+  color: var(--ve-sangue-claro);
+  font-size: 10px;
+}
+.ve-som {
+  grid-area: som;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--ve-linha-forte);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-suave);
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+.ve-som:hover {
+  border-color: var(--ve-sangue);
+  color: var(--ve-texto);
+}
+.ve-som b {
+  font-weight: 700;
+  color: var(--ve-apagado);
+}
+.ve-som[data-ligado="true"] {
+  border-color: var(--ve-sangue);
+  color: var(--ve-texto);
+}
+.ve-som[data-ligado="true"] b {
+  color: var(--ve-sangue-claro);
+}
+.ve-som-barras {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+.ve-som-barras i {
+  width: 2px;
+  height: 4px;
+  background: currentColor;
+  transition: height 0.2s;
+}
+.ve-som[data-ligado="true"] .ve-som-barras i {
+  background: var(--ve-sangue-claro);
+  animation: ve-equalizador 0.9s ease-in-out infinite alternate;
+}
+.ve-som[data-ligado="true"] .ve-som-barras i:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.ve-som[data-ligado="true"] .ve-som-barras i:nth-child(3) {
+  animation-delay: -0.6s;
+}
+.ve-som[data-ligado="true"] .ve-som-barras i:nth-child(4) {
+  animation-delay: -0.15s;
+}
+/* No celular o texto só some da vista (não com display: none): é ele que dá o nome "Som" ao botão no leitor de tela. */
+.ve-som-texto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (min-width: 560px) {
+  .ve-som-texto {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+  }
+}
+@media (min-width: 1000px) {
+  .ve-barra {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    grid-template-areas: "voltar marca nav som";
+    height: var(--ve-altura-barra);
+    column-gap: 18px;
+    padding: 0 16px;
+  }
+  .ve-nav {
+    margin: 0;
+    border-top: 0;
+    justify-self: end;
+  }
+  .ve-logo-sub {
+    display: block;
+    max-width: 30ch;
+  }
+}
+@media (max-width: 420px) {
+  .ve-voltar-ao-site {
+    padding: 0 12px;
+    font-size: 11px;
+  }
+  .ve-logo-texto {
+    font-size: 19px;
+  }
+  .ve-logo-sinal {
+    display: none;
+  }
 }
 
 /* Rótulos e códigos: mono, caixa alta, espaçado. */
@@ -83,70 +404,53 @@
   font-family: var(--ve-mono);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 11px;
+  font-size: 10.5px;
 }
 .ve-rotulo {
   color: var(--ve-suave);
 }
 .ve-codigo {
-  color: var(--ve-amarelo);
+  color: var(--ve-sangue-claro);
 }
 
-/* ── Topo ─────────────────────────────────────────────── */
-.ve-topo {
-  display: grid;
-  gap: 10px;
-  padding: 18px 16px 14px;
-  border-bottom: 1px solid var(--ve-linha);
+/* ── Observatório: painel em três colunas ──────────────────────────────────── */
+.ve-observatorio {
+  position: relative;
 }
-.ve-topo h1 {
+.ve-aviso-vivo {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 35;
   margin: 0;
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
   font-family: var(--ve-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: clamp(1.25rem, 3.2vw, 2rem);
-  font-weight: 700;
-  line-height: 1.1;
+  font-size: 11.5px;
+  color: var(--ve-verde);
+  pointer-events: none;
 }
-.ve-topo h1 span {
-  color: var(--ve-amarelo);
-}
-.ve-subtitulo {
-  margin: 0;
-  color: var(--ve-suave);
-  font-size: 0.95rem;
-  max-width: 70ch;
-}
-.ve-avisos {
-  display: grid;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.8rem;
-  color: var(--ve-suave);
-  max-width: 100ch;
-}
-.ve-avisos li::before {
-  content: "// ";
-  color: var(--ve-vermelho);
-  font-family: var(--ve-mono);
+.ve-aviso-vivo:not(:empty) {
+  padding: 8px 12px;
+  border: 1px solid var(--ve-verde);
+  background: #04120b;
+  animation: ve-sobe 0.4s var(--ve-curva) both;
 }
 .ve-vivo {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--ve-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--ve-suave);
+  color: var(--ve-apagado);
 }
 .ve-vivo i {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #555;
+  background: #444;
 }
 .ve-vivo[data-ligado="true"] {
   color: var(--ve-verde);
@@ -154,149 +458,161 @@
 .ve-vivo[data-ligado="true"] i {
   background: var(--ve-verde);
   box-shadow: 0 0 8px var(--ve-verde);
-}
-@media (min-width: 1000px) {
-  .ve-topo {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 40px;
-    align-items: start;
-    padding-block: 12px 10px;
-  }
-  .ve-topo > .ve-avisos {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    align-self: center;
-  }
-  .ve-topo > .ve-vivo,
-  .ve-topo > .ve-aviso-vivo {
-    grid-column: 1 / -1;
-  }
-}
-.ve-aviso-vivo {
-  margin: 0;
-  font-family: var(--ve-mono);
-  font-size: 12px;
-  color: var(--ve-verde);
+  animation: ve-pulsa 1.8s ease-in-out infinite;
 }
 
-/* ── Corpo: coluna esquerda | palco | ficha ───────────────────────────────────────────────── */
 .ve-corpo {
-  display: grid;
-  grid-template-columns: 1fr;
-  min-height: 70dvh;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - var(--ve-altura-barra));
+}
+.ve-ficha[data-modo="geral"] {
+  order: -1;
 }
 @media (min-width: 1000px) {
   .ve-corpo {
-    grid-template-columns: 260px minmax(0, 1fr) 380px;
-    height: calc(100dvh - 14rem);
+    display: grid;
+    grid-template-columns: 272px minmax(0, 1fr) minmax(360px, 420px);
+    height: calc(100dvh - var(--ve-altura-barra));
     min-height: 620px;
+  }
+  .ve-ficha[data-modo="geral"] {
+    order: 0;
   }
   .ve-corpo > * {
     min-height: 0;
     overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ve-linha-forte) transparent;
   }
   .ve-palco {
     overflow: hidden;
   }
 }
 
-/* Coluna esquerda: dossiês em abas numeradas */
+/* Coluna esquerda: dossiês como pastas de arquivo numeradas */
 .ve-esq {
   border-right: 1px solid var(--ve-linha);
-  padding: 12px 0;
+  padding: 14px 0 18px;
   background: var(--ve-painel);
 }
 .ve-abas {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  gap: 0;
+  gap: 6px;
   margin: 0;
-  padding: 0 8px;
+  padding: 0 12px 4px;
   list-style: none;
+  scrollbar-width: none;
 }
 @media (min-width: 1000px) {
   .ve-abas {
     flex-direction: column;
     overflow: visible;
-    padding: 0;
+    gap: 5px;
+    padding: 0 12px;
   }
 }
 .ve-aba {
+  position: relative;
   display: flex;
   align-items: baseline;
   gap: 10px;
   width: 100%;
   min-width: max-content;
-  padding: 10px 14px;
-  background: transparent;
-  border: 0;
-  border-left: 3px solid transparent;
+  min-height: 40px;
+  padding: 10px 12px;
+  background: rgb(255 255 255 / 1.5%);
+  border: 1px solid var(--ve-linha);
+  border-radius: 2px 10px 2px 2px;
   text-align: left;
   color: var(--ve-suave);
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    transform 0.2s var(--ve-curva),
+    background 0.15s;
+}
+.ve-aba::before {
+  /* a orelha da pasta */
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: 18px;
+  width: 26px;
+  height: 3px;
+  background: var(--ve-linha-forte);
+  transition: background 0.15s;
 }
 .ve-aba:hover {
-  background: #141418;
   color: var(--ve-texto);
+  border-color: var(--ve-linha-forte);
+  transform: translateX(3px);
 }
 .ve-aba[aria-selected="true"] {
-  background: #17171c;
+  background: linear-gradient(90deg, rgb(224 16 47 / 16%), transparent 70%);
   color: #fff;
-  border-left-color: var(--ve-amarelo);
+  border-color: var(--ve-sangue);
 }
-.ve-aba[data-cor="vermelho"][aria-selected="true"] {
-  border-left-color: var(--ve-vermelho);
-}
-.ve-aba[data-cor="azul"][aria-selected="true"] {
-  border-left-color: var(--ve-azul);
+.ve-aba[aria-selected="true"]::before {
+  background: var(--ve-sangue);
 }
 .ve-aba-num {
   font-family: var(--ve-mono);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.1em;
-  color: var(--ve-amarelo);
-}
-.ve-aba[data-cor="vermelho"] .ve-aba-num {
-  color: var(--ve-vermelho);
+  color: var(--ve-sangue-claro);
 }
 .ve-aba[data-cor="azul"] .ve-aba-num {
   color: var(--ve-azul);
 }
+.ve-aba[data-cor="amarelo"] .ve-aba-num {
+  color: var(--ve-amarelo);
+}
 .ve-aba-nome {
-  font-family: var(--ve-mono);
+  font-family: var(--ve-display);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 12.5px;
-  line-height: 1.25;
+  letter-spacing: 0.03em;
+  font-size: 16px;
+  line-height: 1.1;
 }
 .ve-aba-n {
   margin-left: auto;
   font-family: var(--ve-mono);
   font-size: 11px;
-  color: var(--ve-suave);
+  color: var(--ve-apagado);
+}
+.ve-aba[aria-selected="true"] .ve-aba-n {
+  color: var(--ve-texto);
 }
 .ve-dossie-desc {
-  margin: 14px 16px 0;
-  font-size: 0.82rem;
+  margin: 16px 16px 0;
+  font-size: 0.86rem;
   color: var(--ve-suave);
+  animation: ve-sobe 0.35s var(--ve-curva) both;
 }
 .ve-esq-links {
   display: grid;
   gap: 8px;
-  margin: 14px 16px 0;
+  margin: 16px 16px 0;
   font-family: var(--ve-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+.ve-esq-links a {
+  color: var(--ve-sangue-claro);
+}
 .ve-contagens {
   display: grid;
-  gap: 4px;
-  margin: 18px 16px 0;
+  gap: 0;
+  margin: 20px 16px 0;
   padding: 0;
   list-style: none;
   font-family: var(--ve-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--ve-suave);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -305,6 +621,11 @@
   display: flex;
   justify-content: space-between;
   gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--ve-linha);
+}
+.ve-contagens li span:last-child {
+  color: var(--ve-texto);
 }
 
 /* ── Palco ────────────────────────────────────────────── */
@@ -313,13 +634,13 @@
   flex-direction: column;
   min-width: 0;
   background:
-    radial-gradient(circle at 50% 40%, rgb(255 230 0 / 4%), transparent 60%),
-    #000;
+    radial-gradient(circle at 50% 42%, rgb(224 16 47 / 7%), transparent 62%),
+    rgb(0 0 0 / 55%);
 }
 .ve-viz {
   position: relative;
   flex: 1 1 auto;
-  min-height: 56dvh;
+  min-height: 62dvh;
   overflow: hidden;
   touch-action: none;
 }
@@ -332,7 +653,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 56dvh;
+  min-height: 62dvh;
   user-select: none;
   background: transparent;
 }
@@ -360,46 +681,53 @@
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 12px;
-  color: var(--ve-amarelo);
+  color: var(--ve-sangue-claro);
 }
 .ve-vazio p {
   margin: 0 auto;
   max-width: 52ch;
 }
 
-/* Nós e ligações (SVG): amarelo = pessoa, azul = organização, vermelho = caso, cinza = lugar. */
+/* Nós e ligações (SVG): vermelho = caso, âmbar = pessoa, azul-gelo = organização, osso = lugar. */
 .ve-no {
   cursor: pointer;
 }
 .ve-no circle {
-  stroke-width: 1.5;
-  transition: r 0.12s;
+  stroke-width: 1.2;
+  transition:
+    r 0.15s,
+    stroke-width 0.15s;
 }
 .ve-no--pessoa circle {
   fill: var(--ve-amarelo);
-  stroke: #fff6;
-  filter: drop-shadow(0 0 4px var(--ve-amarelo));
+  stroke: #0008;
 }
 .ve-no--organizacao circle {
   fill: var(--ve-azul);
-  stroke: #fff6;
-  filter: drop-shadow(0 0 4px var(--ve-azul));
+  stroke: #0008;
 }
 .ve-no--entrada circle {
-  fill: var(--ve-vermelho);
-  stroke: #fff6;
-  filter: drop-shadow(0 0 5px var(--ve-vermelho));
+  fill: var(--ve-sangue);
+  stroke: #ff9aa5;
+  filter: drop-shadow(0 0 6px rgb(224 16 47 / 80%));
 }
 .ve-no--lugar circle {
-  fill: #b9bcc6;
-  stroke: #fff4;
+  fill: none;
+  stroke: #cfcfc8;
+  stroke-width: 1.4;
+}
+.ve-no:hover circle {
+  stroke: #fff;
+  stroke-width: 2.4;
 }
 .ve-no[data-sel="true"] circle {
   stroke: #fff;
   stroke-width: 3;
+  animation: ve-respira 1.6s ease-in-out infinite;
 }
 .ve-no[data-apagado="true"] {
-  opacity: 0.28;
+  opacity: 0.2;
+  transition: opacity 0.3s;
 }
 .ve-no:focus-visible {
   outline: none;
@@ -412,7 +740,7 @@
   font-family: var(--ve-mono);
   font-size: 9.5px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   fill: var(--ve-texto);
   paint-order: stroke;
   stroke: #000;
@@ -420,29 +748,37 @@
   pointer-events: none;
 }
 .ve-aresta {
-  stroke: #4a4a55;
-  stroke-width: 1;
+  stroke: #3a3a38;
+  stroke-width: 0.8;
   fill: none;
+  transition: opacity 0.3s;
+}
+.ve-aresta[data-implicita="true"] {
+  stroke-dasharray: 3 3;
 }
 .ve-aresta[data-implicita="false"] {
-  stroke: #8b8b99;
-  stroke-width: 1.4;
+  stroke: #77776f;
+  stroke-width: 1.1;
 }
 .ve-aresta[data-realce="true"] {
-  stroke: var(--ve-amarelo);
-  stroke-width: 2;
+  stroke: var(--ve-sangue-claro);
+  stroke-width: 1.8;
+  stroke-dasharray: 6 4;
+  animation: ve-corre 0.9s linear infinite;
+  filter: drop-shadow(0 0 3px rgb(255 77 94 / 70%));
 }
 .ve-aresta[data-apagado="true"] {
-  opacity: 0.12;
+  opacity: 0.1;
 }
 .ve-anel {
   fill: none;
-  stroke: #1d1d22;
-  stroke-dasharray: 3 5;
+  stroke: #262624;
+  stroke-dasharray: 2 6;
 }
 .ve-grupo-circulo {
-  fill: rgb(255 255 255 / 2%);
-  stroke: #2d2d34;
+  fill: rgb(255 255 255 / 1.5%);
+  stroke: #2e2e2c;
+  stroke-dasharray: 2 4;
 }
 .ve-grupo-nome {
   font-family: var(--ve-mono);
@@ -453,14 +789,15 @@
 }
 .ve-fluxo-faixa {
   fill: none;
-  stroke-opacity: 0.45;
+  stroke-opacity: 0.4;
+  transition: stroke-opacity 0.2s;
 }
 .ve-fluxo-faixa:hover,
 .ve-fluxo-faixa[data-sel="true"] {
-  stroke-opacity: 0.85;
+  stroke-opacity: 0.9;
 }
 .ve-fluxo-caixa {
-  fill: #d8d8de;
+  fill: var(--ve-texto);
 }
 .ve-fluxo-texto {
   font-family: var(--ve-mono);
@@ -470,7 +807,7 @@
   fill: var(--ve-texto);
 }
 .ve-eixo {
-  stroke: #2a2a30;
+  stroke: #2a2a28;
 }
 .ve-eixo-texto {
   font-family: var(--ve-mono);
@@ -481,9 +818,9 @@
   cursor: pointer;
 }
 .ve-marca circle {
-  fill: var(--ve-vermelho);
-  stroke: #fff5;
-  filter: drop-shadow(0 0 4px var(--ve-vermelho));
+  fill: var(--ve-sangue);
+  stroke: #ff9aa5;
+  filter: drop-shadow(0 0 4px rgb(224 16 47 / 80%));
 }
 .ve-marca[data-sel="true"] circle {
   stroke: #fff;
@@ -497,7 +834,7 @@
   stroke-width: 4;
 }
 
-/* Controles de zoom e nível nomeado (HUD) */
+/* Controles de zoom, nível nomeado e leitura de coordenadas (HUD) */
 .ve-hud {
   position: absolute;
   left: 12px;
@@ -511,42 +848,60 @@
   gap: 4px;
 }
 .ve-hud button {
-  width: 34px;
-  height: 34px;
-  background: #0c0c0ecc;
-  border: 1px solid var(--ve-linha);
+  width: 36px;
+  height: 36px;
+  background: rgb(7 7 7 / 85%);
+  border: 1px solid var(--ve-linha-forte);
   color: var(--ve-texto);
   font-family: var(--ve-mono);
   font-size: 16px;
   line-height: 1;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
 }
 .ve-hud button:hover {
-  border-color: var(--ve-amarelo);
-  color: var(--ve-amarelo);
+  border-color: var(--ve-sangue);
+  color: var(--ve-sangue-claro);
 }
 .ve-nivel {
   font-family: var(--ve-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--ve-amarelo);
-  background: #000a;
+  color: var(--ve-texto);
+  background: rgb(0 0 0 / 70%);
   padding: 3px 6px;
   width: fit-content;
+  border-left: 2px solid var(--ve-sangue);
+}
+.ve-coord {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--ve-mono);
+  font-size: 10px;
+  line-height: 1.5;
+  text-align: right;
+  letter-spacing: 0.08em;
+  color: var(--ve-apagado);
+  pointer-events: none;
 }
 .ve-legenda {
   position: absolute;
   right: 12px;
   top: 12px;
   display: grid;
-  gap: 4px;
+  gap: 5px;
   margin: 0;
-  padding: 8px 10px;
+  padding: 9px 11px;
   list-style: none;
-  background: #000b;
+  background: rgb(0 0 0 / 75%);
   border: 1px solid var(--ve-linha);
   font-family: var(--ve-mono);
-  font-size: 10.5px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--ve-suave);
@@ -570,10 +925,11 @@
   background: var(--ve-azul);
 }
 .ve-i-entrada {
-  background: var(--ve-vermelho);
+  background: var(--ve-sangue);
+  box-shadow: 0 0 6px var(--ve-sangue);
 }
 .ve-i-lugar {
-  background: #b9bcc6;
+  border: 1.5px solid #cfcfc8;
 }
 .ve-titulo-da-visao {
   position: absolute;
@@ -582,12 +938,12 @@
   z-index: 2;
   margin: 0;
   font-family: var(--ve-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--ve-suave);
   max-width: 70%;
-  background: #000a;
+  background: rgb(0 0 0 / 70%);
   padding: 2px 6px;
 }
 
@@ -600,16 +956,19 @@
 }
 .ve-lista > summary {
   cursor: pointer;
-  padding: 10px 16px;
+  padding: 11px 16px;
   font-family: var(--ve-mono);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 12px;
-  color: var(--ve-amarelo);
+  font-size: 11.5px;
+  color: var(--ve-texto);
+}
+.ve-lista > summary::marker {
+  color: var(--ve-sangue);
 }
 .ve-lista-explica {
   margin: 0 16px 8px;
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: var(--ve-suave);
 }
 .ve-lista ul {
@@ -620,13 +979,13 @@
   gap: 10px;
 }
 .ve-lista li > div {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
 }
 .ve-lista ul ul {
   padding: 4px 0 0 14px;
   gap: 2px;
-  border-left: 1px solid var(--ve-linha);
-  font-size: 0.8rem;
+  border-left: 1px solid var(--ve-linha-forte);
+  font-size: 0.82rem;
   color: var(--ve-suave);
 }
 .ve-lista-no {
@@ -636,41 +995,61 @@
   text-align: left;
   color: var(--ve-texto);
   text-decoration: underline;
-  text-decoration-color: var(--ve-linha);
+  text-decoration-color: var(--ve-linha-forte);
   text-underline-offset: 3px;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
 }
 .ve-lista-no:hover {
-  color: var(--ve-amarelo);
+  color: var(--ve-sangue-claro);
+  text-decoration-color: var(--ve-sangue);
 }
 
-/* Seletor de visões (embaixo) */
+/* Seletor de visões (embaixo): pílulas */
 .ve-visoes {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2px;
-  padding: 8px;
+  gap: 6px;
+  padding: 10px;
   border-top: 1px solid var(--ve-linha);
-  background: #000;
+  background: rgb(7 7 7 / 92%);
 }
 .ve-visao {
-  padding: 9px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 14px;
   background: transparent;
-  border: 1px solid transparent;
+  border: 1px solid var(--ve-linha-forte);
+  border-radius: 999px;
   color: var(--ve-suave);
   font-family: var(--ve-mono);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 12px;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s;
+}
+.ve-visao i {
+  font-style: normal;
+  font-size: 9px;
 }
 .ve-visao:hover {
   color: #fff;
-  border-color: var(--ve-linha);
+  border-color: var(--ve-texto);
 }
 .ve-visao[aria-selected="true"] {
-  color: #000;
-  background: var(--ve-amarelo);
-  border-color: var(--ve-amarelo);
+  color: #070707;
+  background: var(--ve-texto);
+  border-color: var(--ve-texto);
+}
+.ve-visao[aria-selected="true"] i {
+  color: var(--ve-sangue);
 }
 
 /* Mapa (marcador; o pacote "mapa" o substitui) */
@@ -686,7 +1065,7 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 13px;
-  color: var(--ve-amarelo);
+  color: var(--ve-sangue-claro);
 }
 .ve-mapa-marcador p {
   margin: 0 0 12px;
@@ -712,11 +1091,11 @@
   text-underline-offset: 3px;
 }
 
-/* ── Ficha (direita) ───────────────────────────────────── */
+/* ── Coluna da direita: visão geral (índice) ou ficha ───────────────────────── */
 .ve-ficha {
   border-left: 1px solid var(--ve-linha);
   background: var(--ve-painel);
-  padding: 16px;
+  padding: 18px 18px 28px;
   display: grid;
   gap: 14px;
   align-content: start;
@@ -725,63 +1104,253 @@
 .ve-ficha h3 {
   margin: 0;
 }
-.ve-ficha-titulo {
-  font-size: 1.15rem;
-  line-height: 1.25;
+.ve-ficha h3 {
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ve-suave);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-ficha-entra {
+  display: grid;
+  gap: 14px;
+  animation: ve-desliza 0.45s var(--ve-curva) both;
+}
+.ve-ficha-entra > *:not(.ve-ficha-topo) {
+  animation: ve-sobe 0.5s var(--ve-curva) both;
+}
+.ve-geral {
+  display: grid;
+  gap: 16px;
+}
+.ve-geral-rotulo {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-titulo-grande {
+  margin: 0;
+  font-family: var(--ve-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.ve-subtitulo-forte {
+  margin: 0;
+  font-size: 1.05rem;
   font-weight: 650;
+  line-height: 1.3;
+  color: var(--ve-sangue-claro);
+}
+.ve-subtitulo {
+  margin: 0;
+  color: var(--ve-suave);
+  font-size: 0.9rem;
+  max-width: 62ch;
+}
+.ve-contadores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 10px;
+  margin: 4px 0 0;
+}
+.ve-contadores > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ve-linha-forte);
+}
+.ve-contadores dt {
+  font-family: var(--ve-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ve-suave);
+}
+.ve-contadores dd {
+  margin: 0;
+  font-family: var(--ve-display);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+}
+.ve-contadores > div:first-child dd {
+  color: var(--ve-sangue-claro);
+}
+.ve-contador-n {
+  display: inline-block;
+}
+.ve-barra-situacao {
+  display: grid;
+  gap: 8px;
+}
+.ve-barra-trilho {
+  display: flex;
+  gap: 2px;
+  height: 12px;
+}
+.ve-barra-trilho i {
+  display: block;
+  min-width: 4px;
+  background: var(--ve-amarelo);
+  transform-origin: left;
+  animation: ve-cresce 0.9s var(--ve-curva) both;
+}
+.ve-barra-legenda {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+}
+.ve-barra-legenda li {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-barra-legenda li i {
+  width: 10px;
+  height: 10px;
+  background: var(--ve-amarelo);
+}
+.ve-barra-legenda b {
+  font-family: var(--ve-mono);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+/* As cores da situação jurídica (barra, legenda, selos): do mais inicial ao definitivo, e verde para o que encerrou. */
+.ve-barra-situacao [data-situacao="suspeito"],
+.ve-barra-situacao [data-situacao="investigado"] {
+  background: #8a8a84;
+}
+.ve-barra-situacao [data-situacao="denunciado"] {
+  background: var(--ve-ambar);
+}
+.ve-barra-situacao [data-situacao="reu"] {
+  background: #ff7a45;
+}
+.ve-barra-situacao [data-situacao="condenado_1a_instancia"] {
+  background: var(--ve-sangue-claro);
+}
+.ve-barra-situacao [data-situacao="condenado_transitado"] {
+  background: var(--ve-sangue);
+}
+.ve-barra-situacao [data-situacao="absolvido"],
+.ve-barra-situacao [data-situacao="arquivado"] {
+  background: var(--ve-verde);
+}
+.ve-avisos {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 12px 0 0;
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--ve-suave);
+  border-top: 1px solid var(--ve-linha);
+}
+.ve-avisos li::before {
+  content: "// ";
+  color: var(--ve-sangue);
+  font-family: var(--ve-mono);
+}
+.ve-geral-rodape {
+  margin: 0;
+  font-family: var(--ve-mono);
+  font-size: 10px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ve-apagado);
+}
+.ve-ficha-titulo {
+  font-family: var(--ve-display);
+  font-size: 1.9rem;
+  line-height: 1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  overflow-wrap: anywhere;
 }
 .ve-ficha-topo {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  align-items: baseline;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ve-linha);
 }
 .ve-fechar {
+  min-height: 32px;
   background: none;
-  border: 1px solid var(--ve-linha);
-  padding: 3px 8px;
+  border: 1px solid var(--ve-linha-forte);
+  border-radius: 999px;
+  padding: 3px 12px;
   font-family: var(--ve-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--ve-suave);
+  transition:
+    color 0.15s,
+    border-color 0.15s;
 }
 .ve-fechar:hover {
   color: #fff;
-  border-color: #fff;
+  border-color: var(--ve-sangue);
 }
 /* A situação jurídica: sempre visível, no alto da ficha. */
 .ve-situacao {
   display: grid;
-  gap: 4px;
+  gap: 3px;
   padding: 10px 12px;
-  border: 1px solid var(--ve-amarelo);
-  background: #14130a;
+  border: 1px solid var(--ve-ambar);
+  border-left-width: 4px;
+  background: #140f04;
   position: sticky;
-  top: -16px;
+  top: -18px;
   z-index: 1;
 }
 .ve-situacao strong {
-  font-family: var(--ve-mono);
+  font-family: var(--ve-display);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.95rem;
-  color: var(--ve-amarelo);
+  letter-spacing: 0.03em;
+  font-size: 1.35rem;
+  line-height: 1.05;
+  color: var(--ve-ambar);
 }
 .ve-situacao--solta {
   position: static;
 }
+.ve-situacao[data-situacao="condenado_1a_instancia"],
 .ve-situacao[data-situacao="condenado_transitado"] {
-  border-color: var(--ve-vermelho);
-  background: #1a0a0f;
+  border-color: var(--ve-sangue);
+  background: #1a0509;
 }
+.ve-situacao[data-situacao="condenado_1a_instancia"] strong,
 .ve-situacao[data-situacao="condenado_transitado"] strong {
-  color: var(--ve-vermelho);
+  color: var(--ve-sangue-claro);
 }
 .ve-situacao[data-situacao="absolvido"],
 .ve-situacao[data-situacao="arquivado"] {
   border-color: var(--ve-verde);
-  background: #08150e;
+  background: #05140d;
 }
 .ve-situacao[data-situacao="absolvido"] strong,
 .ve-situacao[data-situacao="arquivado"] strong {
@@ -795,17 +1364,18 @@
 .ve-selo {
   display: inline-block;
   padding: 2px 7px;
-  border: 1px solid var(--ve-amarelo);
-  color: var(--ve-amarelo);
+  border: 1px solid var(--ve-ambar);
+  color: var(--ve-ambar);
   font-family: var(--ve-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 10.5px;
+  font-size: 10px;
   line-height: 1.5;
 }
+.ve-selo[data-situacao="condenado_1a_instancia"],
 .ve-selo[data-situacao="condenado_transitado"] {
-  border-color: var(--ve-vermelho);
-  color: var(--ve-vermelho);
+  border-color: var(--ve-sangue);
+  color: var(--ve-sangue-claro);
 }
 .ve-selo[data-situacao="absolvido"],
 .ve-selo[data-situacao="arquivado"] {
@@ -827,24 +1397,32 @@
 .ve-dl {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 4px 12px;
+  gap: 0 14px;
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
+}
+.ve-dl dt,
+.ve-dl dd {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ve-linha);
 }
 .ve-dl dt {
   font-family: var(--ve-mono);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--ve-suave);
-  align-self: center;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
 }
 .ve-dl dd {
   margin: 0;
 }
 .ve-resumo {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: 0.96rem;
+  line-height: 1.6;
 }
 .ve-fontes {
   margin: 0;
@@ -863,8 +1441,8 @@
 .ve-fonte-n {
   font-family: var(--ve-mono);
   font-size: 12px;
-  color: #000;
-  background: var(--ve-amarelo);
+  color: #fff;
+  background: var(--ve-sangue);
   height: 22px;
   width: 28px;
   display: grid;
@@ -872,22 +1450,28 @@
   font-weight: 700;
 }
 .ve-fonte-titulo {
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 650;
 }
 .ve-fonte blockquote {
   margin: 6px 0;
-  padding: 0 0 0 10px;
-  border-left: 2px solid var(--ve-azul);
-  font-size: 0.82rem;
-  color: #cfcfd6;
+  padding: 2px 0 2px 10px;
+  border-left: 2px solid var(--ve-sangue);
+  font-size: 0.84rem;
+  color: #d6d6cf;
+  font-style: italic;
 }
 .ve-fonte-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 12px;
-  font-size: 0.76rem;
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
   color: var(--ve-suave);
+}
+.ve-fonte-meta a {
+  color: var(--ve-sangue-claro);
 }
 .ve-pessoas {
   margin: 0;
@@ -895,11 +1479,18 @@
   list-style: none;
   display: grid;
   gap: 8px;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
 }
 .ve-pessoas li {
   display: grid;
   gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--ve-linha);
+  background: rgb(255 255 255 / 1.5%);
+  transition: border-color 0.15s;
+}
+.ve-pessoas li:hover {
+  border-color: var(--ve-linha-forte);
 }
 .ve-acoes {
   display: flex;
@@ -907,53 +1498,67 @@
   gap: 8px;
 }
 .ve-botao {
-  display: inline-block;
-  padding: 8px 12px;
-  border: 1px solid var(--ve-amarelo);
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--ve-sangue);
   background: transparent;
-  color: var(--ve-amarelo) !important;
+  color: var(--ve-texto) !important;
   font-family: var(--ve-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 11.5px;
+  font-size: 11px;
   text-decoration: none !important;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 .ve-botao:hover {
-  background: var(--ve-amarelo);
-  color: #000 !important;
+  background: var(--ve-sangue);
+  color: #fff !important;
 }
 .ve-botao--azul {
-  border-color: var(--ve-azul);
-  color: var(--ve-azul) !important;
+  border-color: var(--ve-linha-forte);
 }
 .ve-botao--azul:hover {
-  background: var(--ve-azul);
+  background: var(--ve-texto);
+  color: #070707 !important;
 }
 .ve-aviso-fixo {
   margin: 0;
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   color: var(--ve-suave);
 }
 .ve-ficha-vazia {
+  margin: 0;
+  padding: 12px;
+  border: 1px dashed var(--ve-linha-forte);
   color: var(--ve-suave);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
 }
 
-/* Cartão de arquivo: foto presa por clipe, com crédito. */
+/* Cartão de arquivo: foto presa por clipe, com crédito (papel envelhecido sobre o preto). */
 .ve-cartao {
   position: relative;
   display: grid;
   grid-template-columns: 112px 1fr;
   gap: 12px;
   padding: 22px 12px 12px;
-  background: #d9d3c0;
+  background: #e2dccb;
   color: #1b1a16;
   border-radius: 2px;
-  box-shadow: 0 6px 18px #0009;
+  box-shadow:
+    0 10px 30px #000c,
+    0 0 0 1px #0004;
   transform: rotate(-0.6deg);
+  transition: transform 0.35s var(--ve-curva);
+}
+.ve-cartao:hover {
+  transform: rotate(0deg) translateY(-2px);
 }
 .ve-cartao a {
-  color: #5a1a00;
+  color: #6d0a14;
 }
 .ve-clipe {
   position: absolute;
@@ -974,7 +1579,7 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  filter: grayscale(0.4) contrast(1.05);
+  filter: grayscale(0.5) contrast(1.08);
   border: 1px solid #0006;
   background: #bbb;
 }
@@ -1004,18 +1609,20 @@
   min-width: 0;
 }
 .ve-cartao-corpo .ve-codigo {
-  color: #7a1200;
+  color: #8a0c1c;
 }
 .ve-cartao-nome {
   margin: 0;
-  font-size: 1.05rem;
+  font-family: var(--ve-display);
+  font-size: 1.45rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1;
+  text-transform: uppercase;
   overflow-wrap: anywhere;
 }
 .ve-cartao-linha {
   font-family: var(--ve-mono);
-  font-size: 10.5px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #3b3829;
@@ -1024,55 +1631,277 @@
   justify-self: start;
   margin-top: 4px;
   padding: 2px 6px;
-  border: 2px solid #7a1200;
-  color: #7a1200;
+  border: 2px solid #8a0c1c;
+  color: #8a0c1c;
   font-family: var(--ve-mono);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 10.5px;
   transform: rotate(-3deg);
+  mix-blend-mode: multiply;
 }
 
-/* ── Página própria (ficha, pessoa, organização) ───────────────────── */
+/* ── Páginas próprias (ficha, pessoa, organização) e de texto (sobre, enviar, correção) ─────── */
+.ve-folha {
+  position: relative;
+}
 .ve-pagina {
   max-width: 880px;
   margin: 0 auto;
-  padding: 24px 16px 56px;
+  padding: 28px 16px 72px;
   display: grid;
   gap: 18px;
+  animation: ve-sobe 0.5s var(--ve-curva) both;
+}
+.ve-folha .ve-pagina {
+  background: var(--ve-painel);
+  border-inline: 1px solid var(--ve-linha);
+  min-height: calc(100dvh - var(--ve-altura-barra));
+  padding-inline: clamp(16px, 4vw, 40px);
 }
 .ve-pagina h1 {
   margin: 0;
-  font-size: clamp(1.4rem, 3.5vw, 2.1rem);
-  line-height: 1.15;
+  font-family: var(--ve-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 0.95;
+}
+.ve-pagina .ve-ficha-titulo {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 0.95;
+  font-weight: 800;
 }
 .ve-pagina .ve-situacao {
   position: static;
 }
 .ve-pagina-voltar {
+  justify-self: start;
   font-family: var(--ve-mono);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 12px;
+  font-size: 11.5px;
+  color: var(--ve-suave) !important;
+  text-decoration: none;
+}
+.ve-pagina-voltar:hover {
+  color: var(--ve-sangue-claro) !important;
 }
 .ve-lista-de-casos {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 .ve-lista-de-casos li {
   display: grid;
   gap: 4px;
   padding: 10px 12px;
   border: 1px solid var(--ve-linha);
-  background: var(--ve-painel);
+  background: rgb(255 255 255 / 1.5%);
+  transition:
+    border-color 0.15s,
+    transform 0.2s var(--ve-curva);
+}
+.ve-lista-de-casos li:hover {
+  border-color: var(--ve-sangue);
+  transform: translateX(2px);
+}
+.ve-cabeca {
+  display: grid;
+  gap: 10px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-cabeca-lead {
+  max-width: 62ch;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--ve-suave);
+}
+
+/* As páginas de texto e os formulários usam classes do site (Tailwind) pensadas para o papel: aqui elas ganham o preto. */
+.ve-doc {
+  max-width: 860px;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.ve-doc h2 {
+  margin-top: 2.6rem !important;
+  font-family: var(--ve-display);
+  font-weight: 700;
+  font-size: 1.9rem !important;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.ve-doc h2::before {
+  content: "//";
+  font-family: var(--ve-mono);
+  font-size: 0.85rem;
+  color: var(--ve-sangue);
+}
+.ve-doc p,
+.ve-doc li,
+.ve-doc dd {
+  color: #deded8;
+}
+.ve-doc dt {
+  font-family: var(--ve-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-ambar);
+}
+.ve-doc a {
+  color: var(--ve-sangue-claro);
+}
+.ve-doc .text-ink-soft {
+  color: var(--ve-suave);
+}
+.ve-doc .text-oxblood {
+  color: var(--ve-sangue-claro);
+}
+.ve-doc .border-ink {
+  border-color: var(--ve-sangue);
+}
+.ve-doc .border-ok {
+  border-color: var(--ve-verde);
+}
+.ve-doc .bg-parchment-deep {
+  background: #05140d;
+  color: var(--ve-texto);
+}
+.ve-doc .font-sans {
+  font-family: var(--ve-sans);
+}
+.ve-doc label > span:first-child {
+  font-family: var(--ve-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-suave);
+}
+.ve-doc input:not([type="checkbox"]):not([type="radio"]),
+.ve-doc select,
+.ve-doc textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--ve-linha-forte);
+  border-radius: 0;
+  background: rgb(0 0 0 / 60%);
+  color: var(--ve-texto);
+  font-family: var(--ve-sans);
+  font-size: 1rem;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.ve-doc input:focus,
+.ve-doc select:focus,
+.ve-doc textarea:focus {
+  outline: none;
+  border-color: var(--ve-sangue);
+  box-shadow: 0 0 0 3px rgb(224 16 47 / 25%);
+}
+.ve-doc select option {
+  background: #0b0b0b;
+  color: var(--ve-texto);
+}
+.ve-doc input[type="checkbox"],
+.ve-doc input[type="radio"] {
+  accent-color: var(--ve-sangue);
+  width: 18px;
+  height: 18px;
+}
+.ve-doc button[type="submit"] {
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid var(--ve-sangue);
+  border-radius: 999px;
+  background: var(--ve-sangue);
+  color: #fff;
+  font-family: var(--ve-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.ve-doc button[type="submit"]:hover:not(:disabled) {
+  background: transparent;
+  color: var(--ve-sangue-claro);
+}
+.ve-doc button[type="submit"]:disabled {
+  opacity: 0.5;
+}
+
+/* ── Movimento (tudo some com "reduzir movimento") ─────────────────────────── */
+@keyframes ve-aparece {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes ve-sobe {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes ve-desliza {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+}
+@keyframes ve-cresce {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes ve-pisca {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes ve-pulsa {
+  50% {
+    opacity: 0.45;
+  }
+}
+@keyframes ve-respira {
+  50% {
+    stroke-width: 6;
+    stroke-opacity: 0.5;
+  }
+}
+@keyframes ve-corre {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+@keyframes ve-equalizador {
+  from {
+    height: 3px;
+  }
+  to {
+    height: 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ve * {
+  .ve *,
+  .ve *::before,
+  .ve *::after {
     transition: none !important;
     animation: none !important;
   }
@@ -1081,6 +1910,9 @@
   .ve-no circle,
   .ve-marca circle {
     stroke: CanvasText;
+  }
+  .ve-fundo-vivo {
+    display: none;
   }
 }
 

@@ -3,11 +3,11 @@
 
 import "@/styles/vale-o-escrito.css";
 import dynamic from "next/dynamic";
-import { createContext, useCallback, useContext, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import Link from "@/components/Link";
 import { fill, localePath } from "@/i18n/config";
 import type { TextosDoObservatorio } from "@/lib/vale-o-escrito/textos";
-import { VISOES, type NivelDeZoom, type Visao } from "@/lib/vale-o-escrito/tipos";
+import { SITUACOES, VISOES, type NivelDeZoom, type Visao } from "@/lib/vale-o-escrito/tipos";
 import {
   acharEntrada,
   acharOrganizacao,
@@ -23,7 +23,9 @@ import {
   type PropsDoMapa,
 } from "@/lib/vale-o-escrito/visual";
 import { FichaDeAgente, FichaDoCaso } from "./Fichas";
+import { tocar } from "./som";
 import { useAoVivo } from "./useAoVivo";
+import { Contador, Revelar } from "./Vivos";
 
 type S = TextosDoObservatorio;
 const CtxTextos = createContext<S | null>(null);
@@ -103,6 +105,35 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const dossieAtual = dados.dossies.find((d) => d.slug === dossie);
   const vazio = dados.entradas.length === 0;
 
+  // O banco em números (sempre o banco inteiro, como um painel de investigação): casos, pessoas, organizações, fontes
+  // distintas (pelo link) e estados com caso.
+  const numeros = useMemo(() => {
+    const links = new Set<string>();
+    const ufs = new Set<string>();
+    for (const e of dados.entradas) {
+      for (const f of e.fontes) links.add(f.url);
+      if (e.lugar?.pais === "BR" && e.lugar.regiao) ufs.add(e.lugar.regiao);
+    }
+    return [
+      { chave: "casos", n: dados.entradas.length },
+      { chave: "pessoas", n: dados.pessoas.length },
+      { chave: "organizacoes", n: dados.organizacoes.length },
+      { chave: "fontes", n: links.size },
+      { chave: "lugares", n: ufs.size },
+    ] as const;
+  }, [dados]);
+  const totalDoRecorte = entradas.length || 1;
+
+  // Som (só se a pessoa ligou, em som.ts): abrir a ficha faz o "papel", e um nó com ligações acende a teia.
+  const temLigacao = useMemo(() => (selecionado ? grafo.arestas.some((a) => a.de === selecionado || a.para === selecionado) : false), [grafo, selecionado]);
+  useEffect(() => {
+    if (!selecionado) return;
+    tocar("abrir");
+    if (!temLigacao) return;
+    const id = window.setTimeout(() => tocar("ligacao"), 140);
+    return () => window.clearTimeout(id);
+  }, [selecionado, temLigacao]);
+
   const mapaProps: PropsDoMapa = {
     entradas,
     dossies: dados.dossies,
@@ -163,33 +194,15 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
 
   return (
     <CtxTextos.Provider value={s}>
-      <div className="ve" data-ve-pronto="">
+      <div className="ve-observatorio" data-ve-pronto="" data-modo={selecionado ? "ficha" : "geral"}>
         <a className="ve-pular" href="#ve-lista" onClick={() => setListaAberta(true)}>
           {s.visual.pularParaLista}
         </a>
-        <header className="ve-topo">
-          <span className="ve-rotulo">{s.entrada.olho}</span>
-          <h1>
-            {s.entrada.titulo}
-            <span>_</span>
-          </h1>
-          <p className="ve-subtitulo">
-            <strong>{s.entrada.subtitulo}.</strong> {s.entrada.linhaHonesta}
-          </p>
-          <ul className="ve-avisos">
-            <li>{s.avisos.presuncao}</li>
-            <li>{s.avisos.segundoFonte}</li>
-            <li>{s.avisos.semVitimas}</li>
-            <li>{s.avisos.curadoriaAnonima}</li>
-          </ul>
-          <span className="ve-vivo" data-ligado={ligado}>
-            <i aria-hidden="true" />
-            {ligado ? s.visual.aoVivo.ligado : s.visual.aoVivo.desligado}
-          </span>
-          <p className="ve-aviso-vivo" role="status" aria-live="polite">
-            {ultimo ? fill(s.visual.aoVivo.atualizou, { titulo: ultimo }) : ""}
-          </p>
-        </header>
+        {/* Com uma ficha aberta, o título continua na página (para leitor de tela), escondido da vista. */}
+        {selecionado && <h1 className="ve-so-leitor">{s.entrada.titulo}</h1>}
+        <p className="ve-aviso-vivo" role="status" aria-live="polite">
+          {ultimo ? fill(s.visual.aoVivo.atualizou, { titulo: ultimo }) : ""}
+        </p>
 
         <div className="ve-corpo">
           {/* Coluna esquerda: dossiês em abas numeradas. */}
@@ -334,6 +347,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                   className="ve-visao"
                   onClick={() => setVisao(v)}
                 >
+                  <i aria-hidden="true">{visao === v ? "●" : "○"}</i>
                   {s.visoes[v]}
                 </button>
               ))}
@@ -341,16 +355,72 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
           </section>
 
           {/* Ficha à direita: situação jurídica, fontes numeradas, correção e direito de resposta. */}
-          <aside className="ve-ficha" aria-label={s.visual.aria.ficha}>
-            {selecionado && (
-              <div className="ve-ficha-topo">
-                <span className="ve-rotulo">{s.visual.aria.ficha}</span>
-                <button type="button" className="ve-fechar" onClick={() => setSelecionado(null)}>
-                  {s.visual.ficha.fechar}
-                </button>
+          {/* Sem nada escolhido, a coluna da direita é a visão geral (o índice): título, o banco em números, a barra da
+              situação jurídica e os avisos. Escolhido um nó, vira a ficha (key: a ficha entra de novo, com a animação). */}
+          <aside className="ve-ficha" aria-label={selecionado ? s.visual.aria.ficha : s.entrada.titulo} data-modo={selecionado ? "ficha" : "geral"}>
+            {selecionado ? (
+              <div className="ve-ficha-entra" key={selecionado}>
+                <div className="ve-ficha-topo">
+                  <span className="ve-rotulo">
+                    {s.visual.aria.ficha} / {s.visual.tipoNo[dividir(selecionado)[0] as keyof typeof s.visual.tipoNo] ?? ""}
+                  </span>
+                  <button type="button" className="ve-fechar" onClick={() => setSelecionado(null)}>
+                    {s.visual.ficha.fechar}
+                  </button>
+                </div>
+                {fichaDoSelecionado()}
+              </div>
+            ) : (
+              <div className="ve-geral">
+                <span className="ve-rotulo ve-geral-rotulo">
+                  <span>{s.entrada.olho}</span>
+                  <span className="ve-vivo" data-ligado={ligado}>
+                    <i aria-hidden="true" />
+                    {ligado ? s.visual.aoVivo.ligado : s.visual.aoVivo.desligado}
+                  </span>
+                </span>
+                <Revelar como="h1" className="ve-titulo-grande" texto={s.entrada.titulo} />
+                <p className="ve-subtitulo-forte">{s.entrada.subtitulo}.</p>
+                <p className="ve-subtitulo">{s.entrada.linhaHonesta}</p>
+                <dl className="ve-contadores" aria-label={s.casca.contadores.titulo}>
+                  {numeros.map((x) => (
+                    <div key={x.chave}>
+                      <dt>{s.casca.contadores[x.chave]}</dt>
+                      <dd>
+                        <Contador valor={x.n} />
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                {entradas.length > 0 && (
+                  <div className="ve-barra-situacao">
+                    <span className="ve-rotulo">{s.casca.barra}</span>
+                    <div className="ve-barra-trilho" aria-hidden="true">
+                      {SITUACOES.filter((k) => contagens[k] > 0).map((k) => (
+                        <i key={k} data-situacao={k} style={{ flexGrow: contagens[k], flexBasis: `${(contagens[k] / totalDoRecorte) * 100}%` }} />
+                      ))}
+                    </div>
+                    <ul className="ve-barra-legenda">
+                      {SITUACOES.filter((k) => contagens[k] > 0).map((k) => (
+                        <li key={k}>
+                          <i data-situacao={k} aria-hidden="true" />
+                          <span>{s.situacao[k]}</span>
+                          <b>{contagens[k]}</b>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <ul className="ve-avisos">
+                  <li>{s.avisos.presuncao}</li>
+                  <li>{s.avisos.segundoFonte}</li>
+                  <li>{s.avisos.semVitimas}</li>
+                  <li>{s.avisos.curadoriaAnonima}</li>
+                </ul>
+                <p className="ve-ficha-vazia">{s.visual.semSelecao}</p>
+                <p className="ve-geral-rodape">{s.casca.rodape}</p>
               </div>
             )}
-            {fichaDoSelecionado()}
           </aside>
         </div>
       </div>

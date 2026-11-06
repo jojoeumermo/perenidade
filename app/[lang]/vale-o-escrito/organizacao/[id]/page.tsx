@@ -40,7 +40,7 @@ export default async function OrganizacaoPage({ params }: { params: Promise<{ la
   if (!org || casosDaOrganizacao(dados, id).length === 0) notFound();
   const s = textosDoObservatorio(lang);
   return (
-    <div className="ve">
+    <div className="ve-folha">
       <div className="ve-pagina">
         <Link className="ve-pagina-voltar" href={localePath(lang, "/vale-o-escrito")}>
           ← {s.visual.ficha.voltar}

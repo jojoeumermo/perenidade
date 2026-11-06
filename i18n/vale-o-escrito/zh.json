@@ -336,5 +336,28 @@
       "titulo": "隐私",
       "texto": "阅读观察站无需账号，也不留痕迹：只有匿名统计。提交来源或申请更正的人，其网络地址不会被保存；防垃圾限制使用每天更换的混淆代码。我们保存什么、保存多久，见研究所的隐私政策。"
     }
+  },
+  "casca": {
+    "voltarAoSite": "返回网站",
+    "voltarAoSiteAria": "返回 Instituto Lúcia 网站",
+    "pularParaConteudo": "跳到内容",
+    "sobretitulo": "案件库 · 2026 · 持续观察",
+    "menu": "Vale o Escrito 导航",
+    "som": {
+      "ligar": "打开声音",
+      "desligar": "关闭声音",
+      "rotulo": "声音",
+      "explica": "声音在你的浏览器中生成，不下载任何文件。在你打开之前保持关闭。"
+    },
+    "contadores": {
+      "titulo": "数据概览",
+      "casos": "案件",
+      "pessoas": "公众人物",
+      "organizacoes": "机构",
+      "fontes": "引用来源",
+      "lugares": "州"
+    },
+    "barra": "已发布案件的法律状态",
+    "rodape": "每份档案都有来源、日期和摘录。活的网络：每个点是一条记录，每条线是一条有来源的关联。"
   }
 }
