@@ -140,17 +140,32 @@ await ok("mensagem 'versao' responde com a VERSAO", async () => {
   await amb.disparar("message", { data: { tipo: "versao" }, source: { postMessage: (m) => (recebido = m) } });
   assert.deepEqual(JSON.parse(JSON.stringify(recebido)), { tipo: "versao", versao: amb.sw.VERSAO });
 });
+await ok("ativar apaga as cópias da época da Vercel (v1 a v5) sem migrar nada delas, e mantém os cursos", async () => {
+  const amb = criarAmbiente({ ativo: true });
+  (await amb.caches.open("lucia-paginas-v5")).put("https://lucia.test/pt/painel", new Response("pagina da vercel"));
+  (await amb.caches.open("lucia-fixos-v5")).put("https://lucia.test/_next/static/immutable/x.js", new Response("js"));
+  (await amb.caches.open("lucia-casca-v5")).put("https://lucia.test/pt", new Response("casca da vercel"));
+  (await amb.caches.open("lucia-cursos")).put("https://lucia.test/pt/trilhas/c/d", new Response("curso guardado"));
+  await amb.disparar("activate");
+  const lista = nomes(amb);
+  assert.ok(!lista.some((n) => n.endsWith("-v5")), "as caches v5 somem");
+  assert.ok(!urls(amb, amb.sw.PAGINAS).includes("https://lucia.test/pt/painel"), "a página da Vercel não passa para a v6");
+  assert.ok(!urls(amb, amb.sw.CASCA).includes("https://lucia.test/pt"), "a casca da Vercel não passa para a v6");
+  assert.ok(lista.includes("lucia-cursos"), "os cursos guardados continuam");
+});
 await ok("ativar apaga caches de versão antiga, MANTÉM os cursos e migra as últimas aulas para o cache novo", async () => {
   const amb = criarAmbiente({ ativo: true });
-  (await amb.caches.open("lucia-paginas-v4")).put("https://lucia.test/pt/trilhas/a/b", new Response("aula antiga"));
-  (await amb.caches.open("lucia-fixos-v4")).put("https://lucia.test/_next/static/x.js", new Response("js"));
-  (await amb.caches.open("lucia-leves-v3")).put("https://lucia.test/labs/x", new Response("lab"));
+  // "-v7-teste" faz o papel de uma versão anterior qualquer da mesma hospedagem (migra); as v1 a v5 são da época da
+  // Vercel e não migram (teste logo abaixo).
+  (await amb.caches.open("lucia-paginas-v7-teste")).put("https://lucia.test/pt/trilhas/a/b", new Response("aula antiga"));
+  (await amb.caches.open("lucia-fixos-v7-teste")).put("https://lucia.test/_next/static/x.js", new Response("js"));
+  (await amb.caches.open("lucia-leves-v7-teste")).put("https://lucia.test/labs/x", new Response("lab"));
   (await amb.caches.open("lucia-cursos")).put("https://lucia.test/pt/trilhas/c/d", new Response("curso guardado"));
-  (await amb.caches.open("lucia-casca-v4")).put("https://lucia.test/pt/jogos", new Response("casca antiga"));
+  (await amb.caches.open("lucia-casca-v7-teste")).put("https://lucia.test/pt/jogos", new Response("casca antiga"));
   (await amb.caches.open("de-outro-site")).put("https://lucia.test/x", new Response("x"));
   await amb.disparar("activate");
   const lista = nomes(amb);
-  assert.ok(!lista.includes("lucia-paginas-v4") && !lista.includes("lucia-fixos-v4") && !lista.includes("lucia-leves-v3"));
+  assert.ok(!lista.includes("lucia-paginas-v7-teste") && !lista.includes("lucia-fixos-v7-teste") && !lista.includes("lucia-leves-v7-teste"));
   assert.ok(lista.includes("lucia-cursos"), "os cursos guardados têm de sobreviver à atualização");
   assert.ok(lista.includes("de-outro-site"), "não mexe em cache que não é do Lúcia");
   assert.ok(urls(amb, amb.sw.PAGINAS).includes("https://lucia.test/pt/trilhas/a/b"), "a última aula aberta tem de continuar");
