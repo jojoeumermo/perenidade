@@ -288,8 +288,8 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
         if (cancelado) return;
         // O MapLibre 6 procura o worker ao lado do próprio arquivo (import.meta.url), mas o build não publica esse arquivo
         // junto com os pedaços do Next: o mapa ficava preto ("Worker failed to load"). O worker vai copiado em
-        // public/vendor (mesma versão do package.json; ao atualizar o maplibre-gl, copie de novo o dist/maplibre-gl-worker.mjs).
-        lib.setWorkerUrl(`/vendor/maplibre-gl-worker-${lib.getVersion()}.mjs`);
+        // public/workers (não em /vendor: esse caminho é isca de robô no proxy.ts e devolve 403) (mesma versão do package.json; ao atualizar o maplibre-gl, copie de novo o dist/maplibre-gl-worker.mjs).
+        lib.setWorkerUrl(`/workers/maplibre-gl-worker-${lib.getVersion()}.mjs`);
         if (semWebgl()) {
           setCarga("sem-webgl");
           return;
