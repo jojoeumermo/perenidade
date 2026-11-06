@@ -49,6 +49,7 @@
     "testar:ponta": "playwright test --project=computador",
     "testar:mesa": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-mesa.mjs",
     "testar:departamentos-termos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-departamentos-termos.mjs",
+    "testar:pessoas-painel": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-pessoas-painel.mjs",
     "manual-painel": "node scripts/gerar-manual-painel.mjs",
     "testar:manual-painel": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-manual-painel.mjs",
     "testar:painel-fundacao": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-painel-fundacao.mjs",
