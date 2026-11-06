@@ -473,7 +473,8 @@
   .ve-corpo {
     display: grid;
     grid-template-columns: 272px minmax(0, 1fr) minmax(360px, 420px);
-    height: calc(100dvh - var(--ve-altura-barra));
+    /* A faixa de escala (números e "dados construídos em") fica acima: desconta a altura dela. */
+    height: calc(100dvh - var(--ve-altura-barra) - var(--ve-altura-escala, 0px));
     min-height: 620px;
   }
   .ve-ficha[data-modo="geral"] {
@@ -1921,4 +1922,405 @@
 .ve-aresta,
 .ve-marca circle {
   vector-effect: non-scaling-stroke;
+}
+
+/* ── T09/T31: neon em todos os nós, fios curvos, confiança, destaque por tipo, escala no topo ───────────────── */
+.ve-observatorio {
+  --ve-altura-escala: 34px;
+}
+.ve-escala {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 18px;
+  min-height: var(--ve-altura-escala);
+  padding: 6px 16px;
+  border-bottom: 1px solid var(--ve-linha);
+  background: rgb(0 0 0 / 60%);
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ve-apagado);
+}
+.ve-escala-numeros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  margin: 0;
+}
+.ve-escala-numeros div {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.ve-escala-numeros dt {
+  order: 2;
+}
+.ve-escala-numeros dd {
+  order: 1;
+  margin: 0;
+  font-family: var(--ve-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ve-texto);
+}
+.ve-construido,
+.ve-modo-leve {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+}
+.ve-construido {
+  margin-left: auto;
+}
+.ve-construido i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ve-verde);
+  box-shadow: 0 0 6px var(--ve-verde);
+}
+.ve-modo-leve {
+  color: var(--ve-ambar);
+}
+@media (max-width: 999px) {
+  .ve-construido {
+    margin-left: 0;
+  }
+}
+
+/* Halo neon de cada nó (gradiente radial, sem filtro: barato) e o anel que pulsa no selecionado. */
+.ve-halo {
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.ve-anel-pulso {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.2;
+  pointer-events: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ve-anel-pulso 1.8s ease-out infinite;
+}
+@keyframes ve-anel-pulso {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+/* Fios: finos, puxando para o vermelho (sem filtro nos fios comuns, para o celular aguentar). */
+.ve-aresta[data-implicita="true"] {
+  stroke: #5a2a32;
+}
+.ve-aresta[data-implicita="false"] {
+  stroke: #a0606a;
+}
+/* Ponto de confiança no meio do fio: cheio = fonte primária; vazio = só imprensa. */
+.ve-confianca {
+  pointer-events: none;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.ve-confianca[data-confianca="primaria"] {
+  fill: var(--ve-verde);
+  stroke: var(--ve-verde);
+}
+.ve-confianca[data-confianca="reportado"] {
+  fill: var(--ve-fundo);
+  stroke: var(--ve-suave);
+}
+.ve-confianca[data-apagado="true"] {
+  opacity: 0.1;
+}
+.ve-i-conf {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ve-suave);
+}
+.ve-i-conf[data-confianca="primaria"] {
+  background: var(--ve-verde);
+  border-color: var(--ve-verde);
+}
+
+/* Legenda = "destacar por tipo" (botões com contagem) + a legenda fixa da confiança. */
+.ve-legenda ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ve-legenda-titulo {
+  color: var(--ve-apagado);
+  font-size: 9.5px;
+}
+.ve-legenda-botao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 26px;
+  padding: 2px 4px;
+  background: none;
+  border: 1px solid transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+.ve-legenda-botao b {
+  margin-left: auto;
+  padding-left: 10px;
+  color: var(--ve-texto);
+  font-weight: 400;
+}
+.ve-legenda-botao:hover,
+.ve-legenda-botao[aria-pressed="true"] {
+  border-color: var(--ve-sangue);
+  color: var(--ve-texto);
+}
+.ve-legenda-botao[data-apagado="true"] {
+  opacity: 0.45;
+}
+.ve-legenda .ve-legenda-confianca {
+  padding-top: 6px;
+  border-top: 1px dashed var(--ve-linha);
+}
+@media (max-width: 640px) {
+  .ve-legenda {
+    padding: 6px 8px;
+    font-size: 9px;
+    gap: 3px;
+  }
+  .ve-legenda-titulo {
+    display: none;
+  }
+  .ve-legenda-botao {
+    min-height: 24px;
+  }
+}
+
+/* Atalho "Ver a ficha ↓" quando um nó está escolhido (no celular a ficha fica embaixo). */
+.ve-ir-ficha {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  z-index: 3;
+  transform: translateX(-50%);
+  padding: 8px 14px;
+  background: var(--ve-sangue);
+  border: 0;
+  color: #fff;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  box-shadow: 0 0 14px rgb(224 16 47 / 60%);
+}
+@media (min-width: 1000px) {
+  .ve-ir-ficha {
+    display: none;
+  }
+}
+.ve-ficha:focus {
+  outline: none;
+}
+
+/* Ficha: ligações com fonte (valores, tipo, confiança) e o domínio de cada fonte. */
+.ve-ligacoes {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--ve-sans);
+  font-size: 13.5px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ve-texto);
+}
+.ve-ligacoes li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.ve-ligacao-tipo {
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-sangue-claro);
+}
+.ve-ligacao-meta {
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  color: var(--ve-apagado);
+}
+.ve-ligacao-meta a {
+  color: var(--ve-sangue-claro);
+}
+.ve-fonte-dominio {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--ve-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ve-apagado);
+}
+.ve-lista-conf[data-confianca="primaria"] {
+  color: var(--ve-verde);
+}
+
+/* Mapa: ramificações do ponto aberto (fios que se desenham um a um). */
+.ve-ramos {
+  pointer-events: none;
+}
+.ve-ramos button,
+.ve-ramos a {
+  pointer-events: auto;
+}
+.ve-ramo {
+  fill: none;
+  stroke-width: 1.2;
+  stroke-opacity: 0.85;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ve-ramo-desenha 0.55s var(--ve-curva) forwards;
+}
+.ve-ramo[data-confianca="reportado"] {
+  stroke-dasharray: 0.025 0.02;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  animation: ve-ramo-surge 0.4s ease forwards;
+}
+@keyframes ve-ramo-desenha {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes ve-ramo-surge {
+  to {
+    opacity: 1;
+  }
+}
+.ve-ramo-centro {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ve-anel-pulso 1.8s ease-out infinite;
+}
+.ve-ramo-ponta {
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: ve-ramo-surge 0.3s ease forwards;
+}
+.ve-ramo-ponta button,
+.ve-ramo-ponta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 190px;
+  padding: 3px 7px;
+  background: rgb(0 0 0 / 88%);
+  border: 1px solid var(--ve-linha-forte);
+  color: var(--ve-texto);
+  font-family: var(--ve-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.ve-ramo-ponta button:hover,
+.ve-ramo-ponta a:hover,
+.ve-ramo-ponta button:focus-visible,
+.ve-ramo-ponta a:focus-visible {
+  border-color: var(--ve-sangue-claro);
+  outline: none;
+}
+.ve-ramo-ponta i {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.ve-ramo-ponta i[data-confianca="reportado"] {
+  background: transparent !important;
+  border: 1.5px solid var(--ve-suave);
+}
+.ve-ramo-mais,
+.ve-ramo-aprox {
+  margin: 0;
+  padding: 2px 6px;
+  background: rgb(0 0 0 / 80%);
+  font-family: var(--ve-mono);
+  font-size: 10px;
+  color: var(--ve-suave);
+}
+.ve-ramo-aprox {
+  color: var(--ve-ambar);
+}
+.ve-ramo-fechar {
+  pointer-events: auto;
+  padding: 4px 8px;
+  background: rgb(0 0 0 / 85%);
+  border: 1px solid var(--ve-linha-forte);
+  color: var(--ve-texto);
+  font-family: var(--ve-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+.ve-ramos[data-calmo="true"] .ve-ramo,
+.ve-ramos[data-calmo="true"] .ve-ramo-ponta,
+.ve-ramos[data-calmo="true"] .ve-ramo-centro {
+  animation: none;
+  opacity: 1;
+  stroke-dashoffset: 0;
+}
+
+/* Orçamento de desempenho: palco fora da tela ou aba escondida = animações paradas; aparelho lento = menos efeito. */
+.ve-viz[data-parado] *,
+.ve-viz[data-parado] *::before,
+.ve-viz[data-parado] *::after {
+  animation-play-state: paused !important;
+}
+.ve-observatorio[data-qualidade="baixa"] .ve-halo {
+  opacity: 0.35 !important;
+}
+.ve-observatorio[data-qualidade="baixa"] .ve-no--entrada .ve-nucleo,
+.ve-observatorio[data-qualidade="baixa"] .ve-aresta[data-realce="true"],
+.ve-observatorio[data-qualidade="baixa"] .ve-marca circle {
+  filter: none;
+}
+.ve-observatorio[data-qualidade="baixa"] .ve-aresta[data-realce="true"],
+.ve-observatorio[data-qualidade="baixa"] .ve-anel-pulso {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ve-ramo,
+  .ve-ramo-ponta {
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+  }
 }
