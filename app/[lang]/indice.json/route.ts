@@ -3,6 +3,9 @@ import { loadLang } from "@/i18n";
 import { locales } from "@/i18n/config";
 import { entradasDaBusca } from "@/lib/indice-de-busca";
 
+// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+export const revalidate = 3600;
+
 // Índice de busca gerado na publicação: um arquivo estático por idioma.
 // Como traz o texto completo, também serve de cópia de segurança do acervo.
 export const dynamic = "force-static";

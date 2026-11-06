@@ -10,6 +10,7 @@ import { plainText } from "./text";
 import { comFatosDaEdicao } from "./enem-conteudo";
 import { type Acontecimento, lugaresDaLinha, type LugarDaLinha, temasDaLinha, type TemaDaLinha } from "./linha-do-tempo";
 import { regiaoDoLocal, type RegiaoDoMemorial } from "./memorial";
+import { instanteDeSaida, saiuDoAr } from "./jornal/validade";
 
 // O cache do React vale para uma página só. Na montagem do site, cada uma das milhares de páginas relia e conferia
 // o acervo inteiro. Ali o conteúdo não muda no meio do caminho, então o que foi lido fica guardado enquanto o
@@ -185,6 +186,11 @@ export interface Article extends Localized {
   sources: Source[];
   body: string;
   minutes: number;
+  /**
+   * Quando a matéria sai do ar (instante ISO com fuso), ou "" se não tem prazo. Vem de "sai_do_ar_em" no cabeçalho
+   * (lib/jornal/validade.ts, docs/jornal/EXPIRACAO.md). getArticles já deixa de fora as que saíram.
+   */
+  expires: string;
 }
 
 export interface FactCheck extends Localized {
@@ -718,7 +724,15 @@ export const getGlossaryIndex = cache((lang: Locale): IndexedTerm[] => {
   return [...terms.values()].sort((a, b) => a.term.localeCompare(b.term, lang));
 });
 
-export const getArticles = cache((lang: Locale): Article[] =>
+/**
+ * As matérias do Jornal no ar, da mais nova para a mais antiga. A que tem prazo ("sai_do_ar_em") e já passou dele fica
+ * de fora daqui, e por isso da capa, da página inicial, dos Territórios, da busca, do sitemap e do novidades.json; o
+ * endereço dela responde 410 pelo proxy.ts. Todas, inclusive as que saíram: todasAsMaterias.
+ */
+// Sem cache de propósito: em produção o cache dura o processo inteiro, e a hora de saída precisa ser conferida a cada vez.
+export const getArticles = (lang: Locale): Article[] => todasAsMaterias(lang).filter((article) => !saiuDoAr(article.expires));
+
+export const todasAsMaterias = cache((lang: Locale): Article[] =>
   collection("jornal", lang, ({ slug, file, data, body, translated }) => {
     if (!body) fail(file, "o texto está vazio");
     return {
@@ -738,6 +752,12 @@ export const getArticles = cache((lang: Locale): Article[] =>
       sources: parseSources(data.fontes, file, true),
       body,
       minutes: minutesOf(body),
+      expires: (() => {
+        if (data.sai_do_ar_em === undefined || data.sai_do_ar_em === null || data.sai_do_ar_em === "") return "";
+        const instante = instanteDeSaida(data.sai_do_ar_em);
+        if (!instante) fail(file, `"sai_do_ar_em" deve ser uma data ("2026-11-13") ou data e hora de Brasília entre aspas ("2026-11-13 23:59")`);
+        return instante;
+      })(),
       translated,
       file,
     };
