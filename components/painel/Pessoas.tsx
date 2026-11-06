@@ -37,6 +37,13 @@ interface Inscricao {
   tem_conta: boolean;
   /** O Instagram que a pessoa informou (sem o @), quando informou. */
   instagram?: string | null;
+  /**
+   * T15: "militante" quando veio do chamado da Frente Revolucionária Lúcia (/escola/militantes); "voluntario" (ou
+   * ausente, em banco sem a migração 20261106-t15-frente-militantes.sql) no voluntariado de sempre.
+   */
+  tipo?: "voluntario" | "militante";
+  /** Quando a pessoa deu o consentimento destacado para o dado sensível (opinião política; LGPD, art. 11, I). */
+  consentimento_em?: string | null;
 }
 
 interface Pessoa {
@@ -267,7 +274,7 @@ export function Pessoas({ me }: { me: Me }) {
           titulo="Candidaturas pelo formulário"
           sobre={
             <>
-              Quem preencheu o formulário de voluntariado no site, com nome e e-mail. Com o envio de e-mails ligado (Controles do site), a pessoa recebe um e-mail dizendo que o pedido chegou, e a coordenação recebe outro avisando do pedido. Ao aceitar, quem ainda não tem conta
+              Quem preencheu o formulário de voluntariado no site, com nome e e-mail. As inscrições do chamado de militantes da Frente Revolucionária Lúcia (Escola) chegam aqui também, com a marca "Militante". Com o envio de e-mails ligado (Controles do site), a pessoa recebe um e-mail dizendo que o pedido chegou, e a coordenação recebe outro avisando do pedido. Ao aceitar, quem ainda não tem conta
               ganha um convite pessoal, que só serve para aquele e-mail e já traz a função, e ele vai sozinho por e-mail. Quem já tem conta recebe a função na hora. Ao recusar, a pessoa também é avisada por e-mail.
             </>
           }
@@ -314,6 +321,13 @@ export function Pessoas({ me }: { me: Me }) {
                   </span>
                 }
               >
+              {item.tipo === "militante" && (
+                <p className="mt-1 text-sm" data-inscricao-militante="">
+                  <strong className="inline-block border-2 border-oxblood px-1.5 font-mono text-xs uppercase tracking-wider text-oxblood">Militante</strong>{" "}
+                  Frente Revolucionária Lúcia
+                  {item.consentimento_em && <span className="text-ink-soft"> · consentimento dado em {dataHora(item.consentimento_em)} (LGPD, art. 11, I)</span>}
+                </p>
+              )}
               <p className="pn-rotulo-mono mt-1">
                 {papeis[item.papel]} · {nomeDaArea(item.disciplina)} · {data(item.criado_em)}
               </p>

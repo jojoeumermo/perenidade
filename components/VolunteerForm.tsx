@@ -18,11 +18,26 @@ const empty = { nome: "", sobrenome: "", instagram: "", email: "", papel: "educa
 const usuarioDoInstagram = (valor: string) => valor.trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, "").replace(/^@/, "").replace(/\/.*$/, "");
 
 /**
+ * T15: os textos a mais do modo militante (chamado da Frente Revolucionária Lúcia, /escola/militantes). Vêm de
+ * i18n/escola/frente, pela página.
+ */
+export interface TextosMilitante {
+  /** Caixa do consentimento destacado: militar numa frente política revela opinião política (LGPD, arts. 5º, II, e 11, I). */
+  consentimento: string;
+  /** Caixa da maioridade: a inscrição militante é só para quem tem 18 anos ou mais (LGPD, art. 14; ECA). */
+  maiorIdade: string;
+  /** Para quem tem menos de 18: o que dá para fazer (estudar na Escola). */
+  menor: string;
+  /** Título do quadro das duas caixas. */
+  cuidado: string;
+}
+
+/**
  * Candidatura a voluntário, sem precisar de conta: nome e sobrenome, o Instagram (se tiver), e-mail de contato, função
  * pretendida e uma apresentação. A coordenação precisa saber a quem está dando acesso ao painel: vai tudo para a fila
  * dela, que responde por e-mail.
  */
-export function VolunteerForm({ s, id = "candidatura", tarefas = [] }: { s: Dict["volunteer"]; id?: string; tarefas?: { id: string; titulo: string }[] }) {
+export function VolunteerForm({ s, id = "candidatura", tarefas = [], militante }: { s: Dict["volunteer"]; id?: string; tarefas?: { id: string; titulo: string }[]; militante?: TextosMilitante }) {
   const { t } = useI18n();
   const [draft, setDraft] = useState(empty);
   // Veio de "Quero fazer esta" (uma das tarefas rápidas): a apresentação já começa com a tarefa escolhida.
@@ -39,6 +54,10 @@ export function VolunteerForm({ s, id = "candidatura", tarefas = [] }: { s: Dict
       window.removeEventListener("hashchange", escolher);
     };
   }, [tarefas]);
+  // Modo militante (T15): as duas caixas começam desmarcadas e são obrigatórias. Nada vem marcado de antemão: o
+  // consentimento precisa ser um ato da pessoa (LGPD, art. 8º, caput, e art. 11, I: "de forma específica e destacada").
+  const [consentimento, setConsentimento] = useState(false);
+  const [maiorIdade, setMaiorIdade] = useState(false);
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState("");
   const servico = useCadastro();
@@ -47,7 +66,7 @@ export function VolunteerForm({ s, id = "candidatura", tarefas = [] }: { s: Dict
   const instagram = usuarioDoInstagram(draft.instagram);
   const instagramOk = instagram === "" || /^[A-Za-z0-9._]{1,30}$/.test(instagram);
   const nomeCompleto = `${draft.nome.trim()} ${draft.sobrenome.trim()}`.replace(/\s+/g, " ");
-  const ready = draft.nome.trim().length >= 2 && draft.sobrenome.trim().length >= 2 && instagramOk && /^\S+@\S+\.\S+$/.test(draft.email.trim()) && draft.mensagem.trim().length >= 30 && (!bySubject || draft.disciplina !== "");
+  const ready = draft.nome.trim().length >= 2 && draft.sobrenome.trim().length >= 2 && instagramOk && /^\S+@\S+\.\S+$/.test(draft.email.trim()) && draft.mensagem.trim().length >= 30 && (!bySubject || draft.disciplina !== "") && (!militante || (consentimento && maiorIdade));
 
   // Serviço desligado, ou banco que ainda não recebeu a fila de candidaturas: avisa em vez de mostrar um formulário que falharia.
   if (!hasBackend || (servico.pronto && !servico.novo)) return <p id={id} className="mt-6 scroll-mt-24 font-sans text-sm text-ink-soft">{s.offline}</p>;
@@ -56,8 +75,12 @@ export function VolunteerForm({ s, id = "candidatura", tarefas = [] }: { s: Dict
     setState("sending");
     setError("");
     try {
-      await rpc("voluntariar", { p: { nome: nomeCompleto, instagram, email: draft.email, papel: draft.papel, mensagem: draft.mensagem, site: draft.site, disciplina: bySubject ? draft.disciplina : "" } });
+      const base = { nome: nomeCompleto, instagram, email: draft.email, papel: draft.papel, mensagem: draft.mensagem, site: draft.site, disciplina: bySubject ? draft.disciplina : "" };
+      // Militante: o banco (public.voluntariar) recusa sem as duas caixas, e guarda o momento do consentimento.
+      await rpc("voluntariar", { p: militante ? { ...base, tipo: "militante", consentimento, maior_idade: maiorIdade } : base });
       setDraft(empty);
+      setConsentimento(false);
+      setMaiorIdade(false);
       setState("sent");
     } catch (failure) {
       setError(errorText(t, failure instanceof BackendError ? failure.code : "falha"));
@@ -119,6 +142,20 @@ export function VolunteerForm({ s, id = "candidatura", tarefas = [] }: { s: Dict
             <textarea value={draft.mensagem} onChange={(e) => setDraft({ ...draft, mensagem: e.target.value })} required minLength={30} maxLength={2000} rows={5} className={field} />
             <span className="mt-1 block text-ink-soft">{s.messageHint}</span>
           </label>
+          {militante && (
+            <fieldset className="border-2 border-oxblood bg-folha p-4" data-militante-cuidado="">
+              <legend className="px-1 font-semibold text-oxblood">{militante.cuidado}</legend>
+              <label className="flex items-start gap-3">
+                <input type="checkbox" checked={consentimento} onChange={(e) => setConsentimento(e.target.checked)} required className="mt-1 size-5 shrink-0 accent-[var(--oxblood)]" />
+                <span>{militante.consentimento}</span>
+              </label>
+              <label className="mt-3 flex items-start gap-3">
+                <input type="checkbox" checked={maiorIdade} onChange={(e) => setMaiorIdade(e.target.checked)} required className="mt-1 size-5 shrink-0 accent-[var(--oxblood)]" />
+                <span>{militante.maiorIdade}</span>
+              </label>
+              <p className="mt-3 text-ink-soft">{militante.menor}</p>
+            </fieldset>
+          )}
           <label className="sr-only" aria-hidden>
             Site
             <input tabIndex={-1} aria-hidden autoComplete="off" value={draft.site} onChange={(e) => setDraft({ ...draft, site: e.target.value })} />
