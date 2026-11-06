@@ -4,9 +4,9 @@
 // (/vozes/, preenchida por "npm run vozes:baixar"); nada vai para fora. O que baixa fica guardado no navegador
 // (Cache Storage, "lucia-vozes"), conferido pelo sha256, e serve de novo sem internet. Só abre depois do clique.
 //
-// Mensagens que recebe:  { t: "carregar", voz }  ·  { t: "falar", id, texto, velocidade }
+// Mensagens que recebe:  { t: "carregar", voz }  ·  { t: "falar", id, texto, velocidade }  ·  { t: "guardar", id, voz }
 // Mensagens que manda:   { t: "progresso", feito, total }  ·  { t: "pronto", provedor }  ·  { t: "audio", id, pcm, taxa }
-//                        { t: "erro", id?, mensagem }
+//                        { t: "guardado", id }  ·  { t: "erro", id?, mensagem }
 importScripts("/workers/voz-motor.js");
 
 var CACHE = "lucia-vozes";
@@ -125,6 +125,30 @@ self.onmessage = async function (evento) {
       carregando = null;
       self.postMessage({ t: "erro", mensagem: String((erro && erro.message) || erro) });
     }
+    return;
+  }
+  if (m.t === "guardar") {
+    // Outra voz do mesmo modelo, escolhida no seletor: baixa e guarda o estilo dela (o modelo continua aberto).
+    fila = fila.then(async function () {
+      try {
+        await carregando;
+        // Só baixa e guarda: não troca a voz do motor aberto (a próxima fala diz qual voz usar).
+        var guardados = null;
+        try {
+          guardados = await caches.open(CACHE);
+        } catch {
+          guardados = null;
+        }
+        for (var i = 0; i < m.voz.arquivos.length; i++) {
+          var arq = m.voz.arquivos[i];
+          if (guardados && (await guardados.match(arq.url))) continue; // já está no aparelho (ex.: o modelo comum)
+          await buscar(arq);
+        }
+        self.postMessage({ t: "guardado", id: m.id });
+      } catch (erro) {
+        self.postMessage({ t: "erro", id: m.id, mensagem: String((erro && erro.message) || erro) });
+      }
+    });
     return;
   }
   if (m.t === "falar") {

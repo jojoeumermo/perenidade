@@ -96,6 +96,7 @@
     "incidencia:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/incidencia-enem.mjs",
     "ligar:enem": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/ligar-questoes-enem.mjs",
     "vozes:baixar": "node scripts/vozes-baixar.mjs",
+    "testar:lambes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-lambes.mjs",
     "testar:vozes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vozes.mjs",
     "video:conferir": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/video.mjs conferir",
     "video:narrar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/video.mjs narrar",

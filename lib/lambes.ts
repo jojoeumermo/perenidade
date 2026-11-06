@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Locale } from "@/i18n/config";
-import { FORMATOS, type Formato, type Lambe, type LambeDoDia, diaDe } from "./lambe-do-dia";
+import { FORMATOS, type Formato, type Lambe, type LambeDoDia, dataEspecial, diaDe, mesEDia, notaDoCartaz } from "./lambe-do-dia";
 
 interface Entrada {
   id: string;
@@ -37,8 +37,6 @@ function todos(): Entrada[] {
   return lidos;
 }
 
-/** "MM-DD" de um dia (contado como em diaDe: dias desde 01/01/1970, no fuso de Brasília). */
-const mesEDia = (dia: number) => new Date(dia * 86_400_000).toISOString().slice(5, 10);
 
 /**
  * Os lambe-lambes dos próximos dias, a partir do dia da montagem da página. As datas de festa e de luta (formato
@@ -61,4 +59,61 @@ export function lambesDaSemana(lang: Locale, dias = 40): LambeDoDia[] {
     const lambe = typeof traduzido === "object" && traduzido ? traduzido : achado.item.pt;
     return { dia, numero: achado.numero, lambe: { ...lambe, carimbo: lambe.carimbo ?? achado.item.pt.carimbo }, xilo: achado.item.xilo, formato: achado.item.formato ?? "grito" };
   });
+}
+
+function noIdioma(item: Entrada, lang: Locale): Lambe {
+  const traduzido = item[lang];
+  const lambe = typeof traduzido === "object" && traduzido ? traduzido : item.pt;
+  return { ...lambe, carimbo: lambe.carimbo ?? item.pt.carimbo };
+}
+
+/** O cartaz mais ligado a um dia especial (veja DATAS_ESPECIAIS em lib/lambe-do-dia.ts), ou null num dia comum. */
+export function cartazDaData(dia: number): { item: Entrada; numero: number } | null {
+  const lista = todos();
+  const md = mesEDia(dia);
+  const data = dataEspecial(dia);
+  const doDia = lista.findIndex((item) => item.dia === md);
+  // Dia especial: está no mapa de datas, ou o próprio estoque marcou o cartaz daquele dia como festa.
+  if (!data && lista[doDia]?.formato !== "festa") return null;
+  let melhor = -1;
+  let nota = 0;
+  lista.forEach((item, i) => {
+    const n = notaDoCartaz({ dia: item.dia, id: item.id, lambe: item.pt }, md, data);
+    if (n > nota) [melhor, nota] = [i, n];
+  });
+  return melhor < 0 ? null : { item: lista[melhor], numero: melhor + 1 };
+}
+
+/**
+ * O lambe-lambe do dia (T16, 06/11/2026), em duas partes, para a página estática:
+ * - `datas`: os dias especiais entre os próximos `dias`, cada um com o cartaz mais ligado à data (o mesmo para todos);
+ * - `sorteio`: cartazes de dias comuns, dos quais o navegador sorteia um por dia e por aparelho (Math.random, guardado
+ *   só no localStorage do aparelho, sem mandar nada a ninguém). Os cartazes das datas especiais não entram no sorteio,
+ *   para continuarem ligados ao seu dia. O servidor embaralha o estoque e manda uma amostra de `amostra` cartazes, para
+ *   a página não carregar os 366 (peso, docs/ACESSIBILIDADE-E-PESO.md).
+ */
+export function lambesDoCartaz(lang: Locale, dias = 40, amostra = 36): { datas: LambeDoDia[]; sorteio: LambeDoDia[] } {
+  const lista = todos();
+  const hoje = diaDe(new Date());
+  const datas: LambeDoDia[] = [];
+  const reservados = new Set<number>();
+  for (let i = 0; i < dias; i++) {
+    const achado = cartazDaData(hoje + i);
+    if (!achado) continue;
+    reservados.add(achado.numero);
+    datas.push({ dia: hoje + i, numero: achado.numero, lambe: noIdioma(achado.item, lang), xilo: achado.item.xilo, formato: achado.item.formato ?? "grito" });
+  }
+  // Todos os cartazes das datas especiais do ano ficam fora do sorteio, não só os destes dias.
+  for (let d = 0; d < 366; d++) {
+    const achado = cartazDaData(hoje + d);
+    if (achado) reservados.add(achado.numero);
+  }
+  const soltos = lista.map((item, i) => ({ item, numero: i + 1 })).filter((n) => !reservados.has(n.numero));
+  // Embaralha (Fisher-Yates) e fica com uma amostra: muda a cada montagem da página.
+  for (let i = soltos.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [soltos[i], soltos[j]] = [soltos[j], soltos[i]];
+  }
+  const sorteio = soltos.slice(0, amostra).map(({ item, numero }) => ({ dia: hoje, numero, lambe: noIdioma(item, lang), xilo: item.xilo, formato: item.formato ?? "grito" }));
+  return { datas, sorteio };
 }

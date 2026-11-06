@@ -18,6 +18,7 @@ import GithubSlugger from "github-slugger";
 import { load } from "js-yaml";
 import { tools } from "../lib/areas.ts";
 import { lerAulasParaQualidade, resumirQualidade } from "../lib/qualidade.ts";
+import { estiloDaPosicao, ladoDe, posicaoDoPonto } from "../lib/flutuantes.ts";
 import { ANCORAS, fraseDoSelo, PARTES, SELOS_DAS_FERRAMENTAS, SELOS_DE_FORA, SERVICOS } from "../lib/selos.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -128,6 +129,21 @@ ok("selo do reforço no Assistente", /SELOS_DE_FORA\.assistente/.test(ler("compo
 ok("selo do VLibras no botão", /SELOS_DE_FORA\.vlibras/.test(ler("components/estudo/AtivarVLibras.tsx")));
 ok("selo do reconhecimento de fala na prática", /SELOS_DE_FORA\.reconhecimentoDeFala/.test(ler("components/Pratica.tsx")) && /SpeechRecognition/.test(ler("components/Pratica.tsx")));
 ok("o VLibras vem do governo federal", /vlibras\.gov\.br/.test(ler("lib/vlibras.ts")));
+
+// T11 (06/11/2026): os botões flutuantes (acessibilidade e VLibras) se movem, e o VLibras desliga de volta.
+{
+  const widget = ler("components/A11yWidget.tsx");
+  const flutuantes = ler("lib/flutuantes.ts");
+  const ativar = ler("components/estudo/AtivarVLibras.tsx");
+  ok("T11: o botão de acessibilidade arrasta (mouse e dedo: pointer events e touch-none)", /arrastavel\(botao/.test(widget) && /touch-none/.test(widget) && /pointermove/.test(flutuantes));
+  ok("T11: o canto se escolhe pelo painel (teclado), para os dois botões", /legenda=\{a\.move\}/.test(widget) && /legenda=\{a\.moveVLibras\}/.test(widget) && /gravarPosicao\("vlibras"/.test(widget));
+  ok("T11: a posição fica só no aparelho, com try/catch, sem fetch", /localStorage\.setItem\(CHAVE_DOS_FLUTUANTES/.test(flutuantes) && /catch/.test(flutuantes) && !/fetch\(/.test(flutuantes));
+  ok("T11: o VLibras tem botão para desligar", /desligarVLibras\(\)/.test(ativar) && /s\.desligar/.test(ativar) && /export function desligarVLibras/.test(ler("lib/vlibras.ts")));
+  igual("T11: canto de cima à esquerda", estiloDaPosicao({ canto: "sup-esq" }, "2.75rem").right, "auto");
+  igual("T11: ponto livre no meio da tela", ladoDe(posicaoDoPonto(512, 384, 44, 44, { w: 1024, h: 768 })), { direita: true, baixo: true });
+  igual("T11: ponto livre no canto de cima à esquerda", posicaoDoPonto(0, 0, 44, 44, { w: 1024, h: 768 }), { x: 0, y: 0 });
+  igual("T11: sem posição, o lugar de sempre", ladoDe(null), { direita: true, baixo: true });
+}
 
 // ───────────── 3. As rotas "instituto" ─────────────
 const todosOsSelos = [...Object.values(SELOS_DAS_FERRAMENTAS), ...Object.values(SELOS_DE_FORA)].flatMap((item) => [item.principal, ...(item.partes ?? [])]);
