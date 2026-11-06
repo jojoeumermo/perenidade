@@ -66,8 +66,8 @@ Não é um painel genérico de tons cinzentos com um acento vermelho. É a mesa 
 
 **As cinco decisões que dão a cara:**
 
-1. **Menu lateral em tinta**, escuro nos dois temas (`#1c1712` no claro, `#100d0a` no escuro), com a **faixa das lutas** de 3 px no topo, a marca (estrela e livro, `/marca-96.png`) e "Instituto Lúcia" em Garamond. O item ativo ganha um fundo bordô sobre tinta, uma barra de 2 px em bordô vivo à esquerda e o ícone em bordô vivo. Os nomes dos grupos vão em mono, versalete espaçado, num tom de papel envelhecido.
-2. **Área de trabalho em papel quente** (`#f2ecdf`), nunca branco. Os **cartões** são um tom mais claros (`#faf6ec`) com fio de 1 px (`#ddd2bc`) e uma sombra de 1 px quase imperceptível; o realce de linha e o cabeçalho de tabela são um tom mais escuros (`#efe7d6`). No escuro, papel vira tinta (`#16130f`, cartões `#1f1b16`).
+1. **Menu lateral em tinta**, escuro nos dois temas (`#1c1712` no claro, `#100d0a` no escuro; desde 06/11/2026, T24, um tom mais claro: `#2a231c` e `#1c1814`, com rótulos em 7,6:1), com a **faixa das lutas** de 3 px no topo, a marca (estrela e livro, `/marca-96.png`) e "Instituto Lúcia" em Garamond. O item ativo ganha um fundo bordô sobre tinta, uma barra de 2 px em bordô vivo à esquerda e o ícone em bordô vivo. Os nomes dos grupos vão em mono, versalete espaçado, num tom de papel envelhecido.
+2. **Área de trabalho em papel quente** (`#f2ecdf`; desde 06/11/2026, T25, o papel do site um passo mais escuro: `color-mix` de `--parchment` e `--parchment-deep`, cerca de `#f4efe5`), nunca branco. Os **cartões** são um tom mais claros (`#faf6ec`) com fio de 1 px (`#ddd2bc`) e uma sombra de 1 px quase imperceptível; o realce de linha e o cabeçalho de tabela são um tom mais escuros (`#efe7d6`). No escuro, papel vira tinta (`#16130f`, cartões `#1f1b16`).
 3. **Títulos em EB Garamond** (`h1` de 30 px na página; `h2` de 20 px nos blocos da seção). O corpo é Inter de 14 px. **Rótulos em mono** (10,5 a 11 px, maiúsculas, espaçamento 0,14 em): trilha, nome do espaço acima do título, cabeçalho de tabela, rótulo de estatística, grupo do menu e da paleta.
 4. **O bordô `#a51810` é a cor de luta**, usada com economia: o botão principal (um por tela), o item ativo, o foco, os contadores do que espera por alguém e o pequeno ícone do título da seção. Erro não é bordô: é `#b42318`, sempre com palavra ("Erro: …").
 5. **Detalhes de marca:** acima de cada título de seção, um traço de 20 x 3 px com as cores das lutas e o nome do espaço em mono ("ESCREVER E PRODUZIR"); o estado vazio traz a estrela da marca em traço fino; o ouro do ipê (`#8a5f1c` / `#f0b323`) marca o que está fixado (estrela dos favoritos).
@@ -86,7 +86,7 @@ Todos em `:root`, redefinidos no escuro por `@media (prefers-color-scheme: dark)
 
 | Token | Claro | Escuro | Uso |
 |---|---|---|---|
-| `--pn-fundo` | `#f2ecdf` | `#16130f` | papel da área de trabalho e da barra superior |
+| `--pn-fundo` | `#f2ecdf` (T25: metade `--parchment`, metade `--parchment-deep`) | `#16130f` | papel da área de trabalho e da barra superior |
 | `--pn-superficie` | `#faf6ec` | `#1f1b16` | cartões, campos, janelas, menus suspensos |
 | `--pn-superficie-2` | `#efe7d6` | `#29241d` | cabeçalho de tabela, linha em realce, esqueleto |
 | `--pn-ativo` | `#e8dfcb` | `#2f2921` | linha escolhida, item de paleta escolhido |
@@ -112,7 +112,7 @@ Todos em `:root`, redefinidos no escuro por `@media (prefers-color-scheme: dark)
 
 | Token | Claro | Escuro |
 |---|---|---|
-| `--pn-menu-fundo` | `#1c1712` | `#100d0a` |
+| `--pn-menu-fundo` | `#1c1712` (T24: `#2a231c`) | `#100d0a` (T24: `#1c1814`) |
 | `--pn-menu-superficie` (passar o mouse) | `#28211a` | `#1a1612` |
 | `--pn-menu-ativo` (bordô sobre tinta) | `#3c1813` | `#3a1611` |
 | `--pn-menu-borda` | `#332a21` | `#241e18` |

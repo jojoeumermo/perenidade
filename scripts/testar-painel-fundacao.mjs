@@ -54,7 +54,9 @@ conferir("toda seção do mapa tem ícone Lucide", semIcone.length === 0, semIco
 // 3. Um arquivo de tema; globals.css sem as camadas antigas do painel.
 const tema = ler("styles", "painel-tema.css");
 const globais = ler("app", "globals.css");
-conferir("tema com os tokens", ["--pn-fundo: #f2ecdf", "--pn-superficie: #faf6ec", "--pn-destaque: #a51810", "--pn-raio: 6px", "--pn-raio-cartao: 10px", "--pn-lutas", "--pn-menu-fundo: #1c1712", "--pn-texto-mudo", "--pn-ouro"].every((t) => tema.includes(t)));
+conferir("tema com os tokens", ["--pn-fundo: color-mix(in srgb, var(--parchment) 50%, var(--parchment-deep))", "--pn-superficie: color-mix(in srgb, var(--parchment) 60%, var(--folha))", "--pn-destaque: #a51810", "--pn-raio: 6px", "--pn-raio-cartao: 10px", "--pn-lutas", "--pn-menu-fundo: #2a231c", "--pn-texto-mudo", "--pn-ouro"].every((t) => tema.includes(t)));
+// T24/T25 (06/11/2026): o papel do painel nasce dos tokens do site e o menu lateral ficou um tom mais claro.
+conferir("T25: papel do painel pelos tokens do site", tema.includes("--pn-texto: var(--ink);") && tema.includes("--pn-borda: var(--rule);"));
 conferir("tema com escuro e alto contraste", tema.includes('[data-theme="dark"]') && tema.includes("prefers-color-scheme: dark") && tema.includes("data-contrast"));
 // O contrato do redesenho engrossou a faixa das lutas do menu de 2 para 3 px (de propósito: é a marca no topo do menu).
 conferir("faixa das lutas com 3 px", /\.pn-menu-lutas\s*\{[^}]*height:\s*3px/.test(tema));

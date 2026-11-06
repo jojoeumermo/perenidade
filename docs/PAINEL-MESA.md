@@ -54,12 +54,20 @@ Em Pessoas, o quarto quadro do alto ("departamentos com pouca gente") agora é b
 
 Só classes `pn-*` e tokens do tema novo (nenhuma cor escrita à mão), botões e abas dos componentes de `ui/`. As peças antigas (Recados, Situação, Termômetro e outras) mantêm o visual delas, que o tema novo já reveste.
 
+## Lateral direita e recados agrupados (T27, 06/11/2026)
+
+O pedido: "essa parte aqui do painel interno vc poderia colocar tipo na lateral direita da Mesa, pq aí fica mais limpo lá embaixo, e os recados deixa mais organizado, tá um monte de informação jogada".
+
+- **Lateral direita.** Quando a Mesa tem 960 px ou mais de largura (medida com `ResizeObserver` na própria Mesa, não na janela, porque o menu lateral ocupa parte dela), a parte **Recados** (os recados e os agradecimentos da equipe) sai do fluxo e vai para uma coluna à direita (`.pn-mesa-grade`, `.pn-mesa-lateral`, 17 a 22 rem, com um fio à esquerda). As outras partes seguem na coluna principal, na ordem da função. Em telas menores, nada muda: os recados ficam no lugar da ordem da função. O primeiro desenho é sempre o do fluxo (igual no servidor e no navegador); a ordem de leitura e de foco segue a ordem da tela. Os quadros de número do alto continuam levando até `#mesa-recados`.
+- **Recados agrupados** (`components/painel/recados-grupos.ts`, função pura): grupos por assunto, nesta ordem: Acessos e aparelhos, Equipe e funções, Contribuições e publicação, Rede, Outros recados. Cada grupo tem o nome em mono e o número de não lidos; dentro dele, os não lidos primeiro; recados de texto igual viram uma linha só ("2 vezes"); três por grupo e o resto em "Ver mais". Sem nada novo, os já lidos ficam recolhidos em "Ver os recados já lidos". Acabou a frase repetida "Nenhum recado novo" em cima da lista de recados lidos.
+- **Banco:** a migração `supabase/migracoes/20261106-painel-recados.sql` faz `avisos_meus()` devolver também a `categoria` do recado (já existia na tabela). Sem ela, o agrupamento é feito só pelo texto; nada quebra. Mesma regra de privacidade de antes: só os recados da própria pessoa (LGPD, art. 6º, III).
+
 ## Teste
 
-`npm run testar:mesa` (scripts/testar-mesa.mjs): as 7 funções e a Geral, as cinco partes por função, todo papel do banco com uma Mesa, a ordem de cada função, nenhuma pendência perdida, segurança separada de pendência, todo campo conferido contra o `Resumo` do painel, destinos e atalhos existentes no mapa de seções, tela sem cor à mão, todas as peças antigas ainda na Mesa, B14 e a palavra proibida.
+`npm run testar:mesa` (scripts/testar-mesa.mjs): as 7 funções e a Geral, as cinco partes por função, todo papel do banco com uma Mesa, a ordem de cada função, nenhuma pendência perdida, segurança separada de pendência, todo campo conferido contra o `Resumo` do painel, destinos e atalhos existentes no mapa de seções, tela sem cor à mão, todas as peças antigas ainda na Mesa, B14, a palavra proibida e (T27) o agrupamento dos recados, a lateral direita e a migração.
 
 ## Pendências
 
 - Conferência visual no navegador (computador e celular, claro e escuro) não foi feita: foram conferidos `tsc`, `eslint` e o teste.
 - O botão "Menu" do topo no celular (duplicado com o "Mais" da barra de baixo) não foi tocado, porque está no cabeçalho de `Painel.tsx`, fora da Mesa.
-- Os recados mostram o título da parte; o título interno da peça `Recados` é escondido por CSS (`[&_#recados]:hidden`) para não repetir. Se `Seguranca.tsx` ganhar uma prop de título, trocar.
+- Os recados mostram o título da parte. Desde a T27, a peça `Recados` ganhou a prop `naMesa` (sem título próprio); o CSS `[&_#recados]:hidden` ficou só como rede de segurança.
