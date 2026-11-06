@@ -33,7 +33,11 @@ const NOMES_DE_RECURSO: Record<string, string> = {
   escola: "Escola Revolucionária Lúcia Maria",
   "vale-o-escrito": "Vale o Escrito",
   "rede-v2": "Alumia (Rede v2)",
+  turmas: "Turmas (da Escola e Turma do mês)",
 };
+
+/** Recursos em pausa por decisão da coordenação (lib/recursos.ts, EM_PAUSA): a variável "todos" não os liga; ligar aqui vale na hora. */
+const EM_PAUSA_NO_PAINEL = new Set(["turmas"]);
 
 /** O recado de uma ação ou o erro de leitura: uma faixa curta (erro de leitura em tom de erro), anunciada com calma. */
 function Recado({ texto, erro }: { texto: string; erro?: string }) {
@@ -68,7 +72,7 @@ function Recursos() {
   return (
     <div className="pn-tela">
       <p className="pn-ajuda">
-        Liga ou desliga um recurso sem publicar o site de novo; o site lê esta lista a cada minuto. Desligar vale na hora. Ligar a Escola, o Vale o Escrito e a Rede v2 pede a confirmação de uma segunda pessoa. Páginas já geradas na montagem só mudam quando forem geradas de novo.
+        Liga ou desliga um recurso sem publicar o site de novo; o site lê esta lista a cada minuto. Desligar vale na hora. Ligar a Escola, o Vale o Escrito e a Rede v2 pede a confirmação de uma segunda pessoa. As Turmas estão em pausa (desligadas até haver gente para acompanhar): ligar de novo vale na hora, sem segunda pessoa. Páginas já geradas na montagem só mudam quando forem geradas de novo.
       </p>
       <Recado texto={acao.aviso} erro={lista.erro} />
       <Lista rotulo="Recursos">
@@ -85,6 +89,7 @@ function Recursos() {
               <>
                 {r.decisao === null ? "Sem decisão do painel: vale a variável de montagem." : r.decisao ? `Ligado pelo painel${r.em ? ` em ${dataHora(r.em)}` : ""}.` : `Desligado pelo painel${r.em ? ` em ${dataHora(r.em)}` : ""}.`}
                 {r.so_pelo_nome ? " Só liga pelo nome." : ""}
+                {EM_PAUSA_NO_PAINEL.has(r.nome) ? " Em pausa: sem decisão, fica desligado." : ""}
                 {r.aguardando ? " Pedido esperando uma segunda pessoa." : ""}
               </>
             }

@@ -2061,7 +2061,7 @@ begin
 end $$;
 
 create or replace function public.avisos_meus() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
-  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'lido', a.lido, 'criado_em', a.criado_em) order by a.criado_em desc), '[]'::jsonb)
+  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'lido', a.lido, 'criado_em', a.criado_em, 'categoria', a.categoria) order by a.criado_em desc), '[]'::jsonb)
   from (select * from avisos where para = auth.uid() and auth.uid() is not null order by criado_em desc limit 40) a
 $$;
 
@@ -23336,7 +23336,8 @@ insert into interno.recursos_catalogo (nome, so_pelo_nome) values
   ('meu-estudo', false), ('exercicios', false), ('revisoes', false), ('turma', false), ('professores', false),
   ('mapa-curricular', false), ('nivelamento', false), ('metas', false), ('vlibras', false), ('ajudou', false),
   ('guia-contribuir', false), ('pratica-sem-placar', false), ('enem-video', false), ('enem-curso', false),
-  ('escola', true), ('vale-o-escrito', true), ('rede-v2', true)
+  ('escola', true), ('vale-o-escrito', true), ('rede-v2', true),
+  ('turmas', false) -- em pausa (T08): "todos" não liga (lib/recursos.ts, EM_PAUSA); ligar pelo painel vale na hora
 on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;
 
 /** O que a coordenação decidiu pelo painel. Linha existe = decisão explícita (ligado true liga, false desliga). */

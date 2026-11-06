@@ -6,6 +6,7 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 import { getClient, rpc, signOut, type Me } from "@/lib/backend";
 import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, renameFingerprint, type Passkey } from "@/lib/passkey";
 import { Aviso, dataHora, useAcao, useLista } from "./comum";
+import { agruparRecados, type RecadoBruto, type RecadoJunto } from "./recados-grupos";
 import { Botao, CabecalhoDeSecao, Cartao, Contador, Esqueleto, Faixa, ItemDeLista, Lista, confirmarFrase } from "./ui";
 
 interface Fator {
@@ -550,21 +551,96 @@ export function Aparelhos() {
   );
 }
 
-interface Recado {
-  id: string;
-  texto: string;
-  lido: boolean;
-  criado_em: string;
+type Recado = RecadoBruto;
+
+/** Quantos recados cada grupo mostra antes do "ver mais" (na Mesa). */
+const RECADOS_POR_GRUPO = 3;
+
+/** Uma linha de recado: o texto em primeiro lugar, a data e as repetições embaixo, em tom menor. */
+function LinhaDeRecado({ r }: { r: RecadoJunto }) {
+  return (
+    <li className={`border-b border-l-2 border-b-rule px-3.5 py-2 last:border-b-0 ${r.novo ? "border-l-oxblood" : "border-l-transparent text-ink-soft"}`}>
+      <p className="text-[0.9rem] leading-snug">
+        {r.novo && <span className="sr-only">Novo: </span>}
+        {r.texto}
+      </p>
+      <p className="pn-rotulo-mono mt-0.5 tabular-nums">
+        {dataHora(r.em)}
+        {r.vezes > 1 && ` · ${r.vezes} vezes`}
+      </p>
+    </li>
+  );
 }
 
-/** Recados do painel: papel recebido, contribuição decidida, conta aberta em aparelho novo. O título mantém o id "recados". */
-export function Recados({ recarregar }: { recarregar: () => void }) {
+/**
+ * Os recados dentro da Mesa (T27): sem título próprio (a parte "Recados" da Mesa já tem), em grupos por assunto, cada um
+ * com o nome e o número de novos; o que não foi lido vem antes, os iguais juntos, e o resto atrás de um "ver mais".
+ * Sem nada novo, os já lidos ficam recolhidos, para a lateral da Mesa ficar limpa.
+ */
+function RecadosNaMesa({ dados, novos, ocupado, marcarTudo }: { dados: Recado[]; novos: number; ocupado: boolean; marcarTudo: () => void }) {
+  if (dados.length === 0) return <p className="pn-ajuda">Nenhum recado por aqui. Quando a equipe ou o painel avisarem algo, aparece aqui.</p>;
+  const grupos = agruparRecados(dados);
+  const blocos = grupos.map((g) => (
+    <section key={g.grupo} aria-labelledby={`recados-${g.grupo}`} className="grid gap-1.5">
+      <h3 id={`recados-${g.grupo}`} className="pn-rotulo-mono inline-flex items-center gap-2">
+        {g.nome} <Contador n={g.novos} rotulo="sem ler" />
+      </h3>
+      <Cartao as="div" className="!p-0">
+        <ul className="grid">
+          {g.itens.slice(0, RECADOS_POR_GRUPO).map((r) => (
+            <LinhaDeRecado key={r.id} r={r} />
+          ))}
+        </ul>
+        {g.itens.length > RECADOS_POR_GRUPO && (
+          <details className="border-t border-rule">
+            <summary className="cursor-pointer px-3.5 py-1.5 text-[0.85rem] text-ink-soft">Ver mais {g.itens.length - RECADOS_POR_GRUPO}</summary>
+            <ul className="grid border-t border-rule">
+              {g.itens.slice(RECADOS_POR_GRUPO).map((r) => (
+                <LinhaDeRecado key={r.id} r={r} />
+              ))}
+            </ul>
+          </details>
+        )}
+      </Cartao>
+    </section>
+  ));
+  return (
+    <div className="grid gap-3" data-recados-agrupados="">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="pn-ajuda">{novos === 0 ? "Nada novo. Os recados já lidos ficam guardados aqui." : novos === 1 ? "1 recado sem ler." : `${novos} recados sem ler.`}</p>
+        {novos > 0 && (
+          <Botao variante="discreto" pequeno simbolo={CheckCheck} disabled={ocupado} onClick={marcarTudo}>
+            Marcar tudo como lido
+          </Botao>
+        )}
+      </div>
+      {novos > 0 ? (
+        blocos
+      ) : (
+        <details className="grid gap-3">
+          <summary className="cursor-pointer text-[0.9rem] font-semibold">Ver os recados já lidos</summary>
+          <div className="mt-2 grid gap-3">{blocos}</div>
+        </details>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Recados do painel: papel recebido, contribuição decidida, conta aberta em aparelho novo. O título mantém o id "recados".
+ * Com `naMesa` (T27), sem título próprio e em grupos (RecadosNaMesa); sem, a lista de sempre.
+ */
+export function Recados({ recarregar, naMesa = false }: { recarregar: () => void; naMesa?: boolean }) {
   const lista = useLista<Recado[]>("avisos_meus");
   const acao = useAcao(() => {
     lista.recarregar();
     recarregar();
   });
   const novos = lista.dados?.filter((recado) => !recado.lido) ?? [];
+  if (naMesa) {
+    if (!lista.dados) return lista.erro ? <Aviso texto={lista.erro} /> : <Esqueleto forma="fila" linhas={2} rotulo="Carregando os recados…" />;
+    return <RecadosNaMesa dados={lista.dados} novos={novos.length} ocupado={acao.ocupado} marcarTudo={() => acao.agir("aviso_ler", { p_id: null }, "")} />;
+  }
   if (!lista.dados || lista.dados.length === 0) return null;
   return (
     <section aria-labelledby="recados" className="grid gap-3">
