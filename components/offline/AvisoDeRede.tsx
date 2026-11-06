@@ -48,7 +48,8 @@ export function AvisoDeRede() {
   const online = useSyncExternalStore(assinarRede, () => navigator.onLine, () => true);
   const [fila, setFila] = useState(0);
   const [enviados, setEnviados] = useState(0);
-  const [haNova, setHaNova] = useState(false);
+  // Desligado em 06/11/2026: a versão nova assume sozinha (veja o efeito do service worker abaixo).
+  const [haNova] = useState(false);
   const [adiada, setAdiada] = useState(false);
   const assumir = useRef<(() => void) | null>(null);
   const pediuAtualizar = useRef(false);
@@ -113,8 +114,10 @@ export function AvisoDeRede() {
       .then((registro) => {
         if (!vivo) return;
         registroAtual = registro;
+        // 06/11/2026, pedido da coordenação: sem aviso de "nova versão". A versão nova assume sozinha, sem recarregar a
+        // página aberta; a próxima página que a pessoa abrir já vem dela. (O aviso continua no código, desligado.)
         assumir.current = acompanharAtualizacao(registro, haControle || !!navigator.serviceWorker.controller, () => {
-          if (vivo) setHaNova(true);
+          if (vivo) setTimeout(() => assumir.current?.(), 0);
         });
       })
       .catch(() => undefined);
