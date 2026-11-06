@@ -3898,7 +3898,7 @@
     "codeTitle": "Confirm it is you",
     "codeLabel": "6-digit code from your authenticator app",
     "codeConfirm": "Confirm",
-    "codeWrong": "Wrong code. Check the app and try again.",
+    "codeWrong": "The code doesn't match. Each code lasts only 30 seconds: wait for a new one to appear in the app and type it right away. If it's still wrong, check that your phone's date and time are set to automatic (in the phone's settings): with the clock off, the app shows the wrong code.",
     "codeOther": "Sign in with another account",
     "failed": "Could not finish. Try again in a few minutes.",
     "why": "No account yet? Create one, with e-mail and password, to ask and answer in the Community. Lost your password? Talk to the coordination.",
@@ -5522,9 +5522,9 @@
     "cartaoVer": "See the page"
   },
   "rede": {
-    "abaRede": "Network",
+    "abaRede": "Alumia",
     "abaForum": "Forum",
-    "nome": "Lúcia Network",
+    "nome": "Alumia",
     "sub": "Learning together",
     "tudo": "All",
     "seguindo": "Following",
@@ -5562,7 +5562,7 @@
     "entrarParaEscrever": "Sign in to write, follow and RSVP.",
     "entrar": "Sign in",
     "idadeTitulo": "Before you write",
-    "idadeTexto": "The Lúcia Network is for people aged 18 or over (Brazilian law). Confirm once.",
+    "idadeTexto": "Alumia is for people aged 18 or over (Brazilian law). Confirm once.",
     "idadeOk": "I am 18 or older",
     "responder": "Reply",
     "repostar": "Repost",
@@ -5680,7 +5680,7 @@
     "expondo": "Someone is exposing me: take it down now",
     "semCodinome": "Person without a codename",
     "codinomeTitulo": "Choose your codename",
-    "codinomeTexto": "On the Network nobody appears under their real name, not even the team. Choose a codename of 3 to 30 letters: don't use your name, a nickname people know you by, or anything that leads to you.",
+    "codinomeTexto": "On Alumia nobody appears under their real name, not even the team. Choose a codename of 3 to 30 letters: don't use your name, a nickname people know you by, or anything that leads to you.",
     "codinomeCampo": "Codename",
     "codinomeUsar": "Use this codename"
   },

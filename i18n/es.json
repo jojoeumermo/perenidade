@@ -3898,7 +3898,7 @@
     "codeTitle": "Confirma que eres tú",
     "codeLabel": "Código de 6 dígitos de la aplicación de autenticación",
     "codeConfirm": "Confirmar",
-    "codeWrong": "Código incorrecto. Revísalo en la aplicación e inténtalo de nuevo.",
+    "codeWrong": "El código no coincide. Cada código dura solo 30 segundos: espera a que aparezca uno nuevo en la aplicación y escríbelo enseguida. Si sigue fallando, revisa que la fecha y la hora del celular estén en automático (en los ajustes del celular): con el reloj desfasado, la aplicación muestra un código equivocado.",
     "codeOther": "Entrar con otra cuenta",
     "failed": "No se pudo completar. Inténtalo de nuevo en unos minutos.",
     "why": "¿No tienes cuenta? Crea una, con correo y contraseña, para preguntar y responder en la Comunidad. ¿Perdiste la contraseña? Habla con la coordinación.",
@@ -5522,9 +5522,9 @@
     "cartaoVer": "Ver la página"
   },
   "rede": {
-    "abaRede": "Red",
+    "abaRede": "Alumia",
     "abaForum": "Foro",
-    "nome": "Red Lúcia",
+    "nome": "Alumia",
     "sub": "Formación en red",
     "tudo": "Todo",
     "seguindo": "Siguiendo",
@@ -5562,7 +5562,7 @@
     "entrarParaEscrever": "Entra en tu cuenta para escribir, seguir y decir que vas.",
     "entrar": "Entrar",
     "idadeTitulo": "Antes de escribir",
-    "idadeTexto": "La Red Lúcia es para mayores de 18 años (ley brasileña). Confírmalo una vez.",
+    "idadeTexto": "Alumia es para mayores de 18 años (ley brasileña). Confírmalo una vez.",
     "idadeOk": "Tengo 18 años o más",
     "responder": "Responder",
     "repostar": "Republicar",
@@ -5680,7 +5680,7 @@
     "expondo": "Me están exponiendo: sacarlo ya",
     "semCodinome": "Persona sin seudónimo",
     "codinomeTitulo": "Elige tu seudónimo",
-    "codinomeTexto": "En la Red nadie aparece con su nombre real, ni siquiera el equipo. Elige un seudónimo de 3 a 30 letras: no uses tu nombre, un apodo conocido en el barrio ni nada que lleve hasta ti.",
+    "codinomeTexto": "En Alumia nadie aparece con su nombre real, ni siquiera el equipo. Elige un seudónimo de 3 a 30 letras: no uses tu nombre, un apodo conocido en el barrio ni nada que lleve hasta ti.",
     "codinomeCampo": "Seudónimo",
     "codinomeUsar": "Usar este seudónimo"
   },

@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "@/components/Link";
 import { localePath, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
@@ -9,10 +10,32 @@ import { DO_GUIA, OBJETIVOS, type Objetivo, type PassoDoGuia } from "@/lib/guia-
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
+/** Onde fica, neste navegador, se o guia está aberto ("1") ou recolhido (sem nada: o começo é recolhido). */
+const ABERTO = "lucia:guia-aberto";
+
+function lerAberto(): boolean {
+  try {
+    return localStorage.getItem(ABERTO) === "1";
+  } catch {
+    return false; // sem armazenamento (aba anônima, bloqueio): começa recolhido
+  }
+}
+
+function guardarAberto(aberto: boolean) {
+  try {
+    if (aberto) localStorage.setItem(ABERTO, "1");
+    else localStorage.removeItem(ABERTO);
+  } catch {
+    // sem armazenamento, sem lembrança
+  }
+}
+
 /**
  * O guia do alto da página das disciplinas: duas perguntas (o que a pessoa quer e de onde parte) e, no fim, três
  * disciplinas em ordem, cada uma com a primeira aula, ou três caminhos para escolher um. A resposta fica guardada
  * neste navegador ("objetivo:etapa"), para o caminho continuar ali na próxima visita; "Refazer" apaga.
+ * Desde 05/11/2026 é recolhível (pedido da coordenação: ocupava muito espaço no alto): começa recolhido, com o título e
+ * um resumo de uma linha (o caminho escolhido ou a apresentação), e lembra neste navegador se a pessoa o deixou aberto.
  */
 export function GuiaDasDisciplinas({ caminhos, s, etapas, cursoEnem }: { caminhos: Record<Objetivo, Record<Stage, PassoDoGuia[]>>; s: Dict["tracks"]["guide"]; etapas: readonly Stage[]; /** Com o curso ENEM ligado (recurso "enem-curso"), o texto do link para /enem. */ cursoEnem?: string }) {
   const { lang, t } = useI18n();
@@ -25,21 +48,39 @@ export function GuiaDasDisciplinas({ caminhos, s, etapas, cursoEnem }: { caminho
   const passos = objetivo && etapa ? caminhos[objetivo][etapa] : [];
   const modo = objetivo ? DO_GUIA[objetivo].modo : "passos";
   const extra = objetivo ? DO_GUIA[objetivo].extra : undefined;
+  // Recolhido de início (ocupava muito espaço no alto da página); aberto ou fechado, a escolha fica neste navegador.
+  const [aberto, setAberto] = useState(false);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- a escolha só existe no navegador (localStorage)
+    setAberto(lerAberto());
+  }, []);
+  const alternar = (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+    const agora = e.currentTarget.open;
+    setAberto(agora);
+    guardarAberto(agora);
+  };
+  // O resumo de uma linha: o caminho escolhido ("Passar no ENEM · Do zero") ou, sem escolha, a apresentação.
+  const resumo = objetivo ? [s.goals[objetivo], etapa ? s.starts[etapa] : null].filter(Boolean).join(" · ") : s.lead;
 
   return (
-    <section aria-labelledby="guia-titulo" className="guia-disciplinas no-print mt-8 border-2 border-ink bg-folha p-6 shadow-[6px_6px_0_var(--sombra)] max-sm:p-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <div className="min-w-0">
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-prelo-texto">{s.kicker}</p>
-          <h2 id="guia-titulo" className="mt-1 font-serif text-3xl font-semibold leading-tight">{s.title}</h2>
-        </div>
+    <details open={aberto} onToggle={alternar} className="guia-disciplinas no-print group mt-8 border-2 border-ink bg-folha shadow-[6px_6px_0_var(--sombra)]">
+      <summary className="grid cursor-pointer list-none grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 p-6 max-sm:p-4 [&::-webkit-details-marker]:hidden">
+        <span className="block font-mono text-[0.68rem] uppercase tracking-[0.2em] text-prelo-texto">{s.kicker}</span>
+        <svg aria-hidden viewBox="0 0 24 24" className="row-span-3 h-6 w-6 shrink-0 transition-transform group-open:rotate-180 motion-reduce:transition-none" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+        <h2 id="guia-titulo" className="mt-1 font-serif text-3xl font-semibold leading-tight max-sm:text-2xl">{s.title}</h2>
+        <span className="mt-1 block truncate text-ink-soft group-open:hidden">{resumo}</span>
+      </summary>
+      <section aria-labelledby="guia-titulo" className="px-6 pb-6 max-sm:px-4 max-sm:pb-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <p className="max-w-2xl text-ink-soft">{s.lead}</p>
         {objetivo && (
           <button type="button" onClick={() => escolher(null, null)} className="cursor-pointer font-sans text-sm underline underline-offset-4 hover:text-prelo-texto">
             {s.redo}
           </button>
         )}
       </div>
-      <p className="mt-2 max-w-2xl text-ink-soft">{s.lead}</p>
 
       <fieldset className="mt-5">
         <legend className="font-sans text-sm font-bold uppercase tracking-[0.08em]">
@@ -118,6 +159,7 @@ export function GuiaDasDisciplinas({ caminhos, s, etapas, cursoEnem }: { caminho
           </div>
         )}
       </div>
-    </section>
+      </section>
+    </details>
   );
 }

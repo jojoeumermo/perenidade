@@ -10,7 +10,16 @@
     "irCriancas": "Music for children",
     "irFormacao": "Training games",
     "aviso": "The word games use the institute's glossary, which is in Portuguese.",
-    "irProprios": "Institute games"
+    "irProprios": "Institute games",
+    "destaque": "Featured",
+    "jogar": "Play",
+    "todos": "All",
+    "quantos": "{n} games",
+    "umJogador": "1 player",
+    "umOuDois": "1 or 2 players",
+    "noSeuTempo": "at your own pace",
+    "categorias": "Game categories",
+    "incluiTambem": "Also includes"
   },
   "treino": {
     "titulo": "Word practice",

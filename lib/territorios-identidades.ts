@@ -7,9 +7,10 @@
  * anúncio de cada coletivo e ajuste as cores.
  */
 export const IDENTIDADES = {
-  // NoizOcupa: ocupação do território, festa de rua e educação popular. Amarelo de cartaz, azul-noite de tinta,
-  // laranja de selo; letras grossas, adesivos inclinados e sombra dura.
-  noizocupa: { fundo: "#ffd23f", papel: "#fff4cc", tinta: "#14213d", destaque: "#e4572e", rotulo: "#a8341a" },
+  // NoizOcupa: ocupação do território, festa de rua e educação popular. Desde 05/11/2026 nas cores dos cartazes do
+  // próprio coletivo no Instagram (o vinho do fundo, o creme da letra, a mostarda dos títulos e o logo branco); letras
+  // grossas, cartazes inclinados e sombra dura.
+  noizocupa: { fundo: "#5e120e", papel: "#7a1a14", tinta: "#f6e8cc", destaque: "#e8a93a", rotulo: "#e8a93a" },
   // Kamikaze: audiovisual. Sala escura de cinema, fita de filme com furos, marcação de tempo e magenta de letreiro.
   kamikaze: { fundo: "#0b0b10", papel: "#17171f", tinta: "#f5f1ea", destaque: "#ff2e88", rotulo: "#ff2e88" },
 } as const;
