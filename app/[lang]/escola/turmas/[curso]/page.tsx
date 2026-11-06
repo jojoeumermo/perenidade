@@ -10,6 +10,7 @@ import {
   CronogramaDaTurma,
   EntrarNaTurma,
 } from "@/components/escola/turma/TurmaDoCurso";
+import { TurmasEmPausa } from "@/components/escola/turma/TurmasEmPausa";
 import Link from "@/components/Link";
 import { PageHeading } from "@/components/PageHeading";
 import monitoria from "@/content/escola/monitoria.json";
@@ -30,6 +31,7 @@ import {
   validarMonitoria,
   validarOrientadores,
 } from "@/lib/escola/turma-do-curso";
+import { recursoLigado } from "@/lib/recursos-vivos";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { mesesDaTurma } from "@/lib/turma-do-mes";
@@ -66,12 +68,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const curso = cursoPorSlug((await params).curso);
   if (!curso) return {};
   const s = textosDaTurma(lang);
-  return paginaMeta(
+  const meta = paginaMeta(
     lang,
     `/escola/turmas/${curso.slug}`,
     `${fill(s.meta.curso.titulo, { curso: curso.titulo })} · ${textosDaBase(lang).meta.titulo}`,
     fill(s.meta.curso.descricao, { curso: curso.titulo }),
   );
+  // Em pausa (T08): o aviso não entra nos buscadores.
+  return (await recursoLigado("turmas")) ? meta : { ...meta, robots: { index: false, follow: true } };
 }
 
 /**
@@ -83,6 +87,8 @@ export default async function Page({ params }: Props) {
   const curso = cursoPorSlug((await params).curso);
   if (!curso || !temTurma(curso)) notFound();
   const s = textosDaTurma(lang);
+  // T08: turmas em pausa (recurso "turmas", pelo painel). O endereço do curso continua vivo, com o aviso.
+  if (!(await recursoLigado("turmas"))) return <TurmasEmPausa lang={lang} s={s.pausa} />;
   const idioma = htmlLang[lang];
   const [agora, seguinte] = mesesDaTurma();
   const desta = turmaDoCurso(curso, agora);

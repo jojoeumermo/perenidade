@@ -13,6 +13,7 @@ import { CHAVES_DA_ESCOLA, lerMatricula } from "@/lib/escola/estudante";
 import { hojeEmBrasilia } from "@/lib/escola/tempo";
 import { estaLigado } from "@/lib/modo-seguro";
 import { getItem, KEYS, parse } from "@/lib/storage";
+import { useRecurso } from "@/lib/use-recursos-vivos";
 import "@/styles/escola-campus.css";
 
 const CHAVE_LIDOS = CHAVES_DA_ESCOLA.avisosLidos;
@@ -116,6 +117,8 @@ export function QuadroDeAvisos({
   const [lidosGuardados] = useGuardado<string[]>(lerLidos, []);
   const [lidosAgora, setLidosAgora] = useState<string[]>([]);
   const novidades = useNovidades(lang, volta);
+  // T08: com as turmas em pausa (recurso "turmas", pelo painel), o quadro não anuncia a turma do mês.
+  const turmasLigadas = useRecurso("turmas");
   if (!volta) return null;
 
   const lidos = new Set([...lidosGuardados, ...lidosAgora]);
@@ -125,7 +128,7 @@ export function QuadroDeAvisos({
   const proximo = proximoEvento(hoje, eventos);
   if (proximo) cartoes.push({ id: `evento:${proximo.id}`, rotulo: `${s.calendario} · ${sCal.tipos[proximo.tipo]}`, titulo: proximo.titulo, texto: proximo.data === hoje ? s.hoje : new Intl.DateTimeFormat(htmlLang[lang], { day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(`${proximo.data}T12:00:00Z`)), link: proximo.tipo === "feriado" || proximo.tipo === "exame" ? "/escola/calendario" : proximo.link });
   const turma = turmas.find((t) => t.mes === hoje.slice(0, 7));
-  if (turma) cartoes.push({ id: `turma:${turma.mes}`, rotulo: s.turma, titulo: fill(s.turmaTexto, { titulo: turma.titulo }), link: "/turmas" });
+  if (turma && turmasLigadas) cartoes.push({ id: `turma:${turma.mes}`, rotulo: s.turma, titulo: fill(s.turmaTexto, { titulo: turma.titulo }), link: "/turmas" });
   for (const n of novidades) cartoes.push({ id: `novidade:${n.url}`, rotulo: s.novidade, titulo: n.titulo, link: semIdioma(n.url, lang) });
   const visiveis = cartoes.filter((c) => !lidos.has(c.id)).slice(0, MAX_CARTOES);
 

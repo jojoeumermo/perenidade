@@ -269,5 +269,13 @@
   "linkTurmas": {
     "titulo": "Turmas por curso",
     "texto": "Na Escola Revolucionária Lúcia Maria, cada curso tem a sua turma do mês."
+  },
+  "pausa": {
+    "olho": "Escola Revolucionária Lúcia Maria",
+    "titulo": "As turmas estão em pausa",
+    "texto": "Por enquanto não abrimos turmas: queremos gente suficiente para acompanhar cada uma com cuidado. Os cursos e as aulas continuam abertos, no seu ritmo, e o progresso fica no seu aparelho. Quando as turmas voltarem, este endereço volta a mostrá-las.",
+    "cursos": "Ver os cursos",
+    "trilhas": "Estudar pelas disciplinas",
+    "emBreve": "em breve"
   }
 }
