@@ -11,6 +11,30 @@ O "Ouvir a aula" lê a aula frase a frase e destaca a frase lida. Tem pausar, vo
 Nada sai do aparelho: o texto não vai para servidor nenhum, e todo arquivo vem do próprio site (/vozes/ e
 /workers/voz.js). Os modelos **não** vão para o Git: o build da Vercel os baixa (`npm run vozes:baixar`, no prebuild).
 
+## Trocar de voz agora troca de verdade (T04, 06/11/2026)
+
+Queixa: "escolho uma voz nas aulas, volto, escolho outra, e o site não troca". Medido no site no ar (Chrome, este
+notebook, Voz 2 baixada e depois Voz 1), espiando as mensagens para o Worker:
+
+- Depois da troca, as frases ainda pedidas da voz antiga continuavam na fila do Worker (a troca usava `parar(false)`,
+  que não abre sessão nova). Cada frase leva de 10 a 25 s no CPU, então a voz nova esperava atrás delas.
+- Enquanto isso a voz do aparelho lia. Como ela anda mais rápido que a geração, o som da voz natural nunca estava
+  pronto no começo de um trecho, e a regra "a natural só entra no começo de um trecho com o som pronto" nunca se
+  cumpria: em 20 frases seguidas, todas saíram pela voz do aparelho. Qualquer voz escolhida soava igual.
+- Também: abrir o seletor aquece a voz guardada; se a pessoa trocava antes de o modelo abrir, o aquecimento terminava
+  depois e devolvia a voz antiga ao leitor; e "Baixar e usar" a segunda voz, com o modelo já aberto pela primeira, não
+  guardava o arquivo dela (aparecia "já está neste aparelho" sem estar).
+
+Conserto (lib/vozes/leitor.ts, lib/vozes/trechos.ts, lib/vozes/catalogo.ts, public/workers/voz.js):
+
+- `trocarVoz` esvazia a fila (`parar(true)`: sessão nova, o Worker descarta as frases da voz antiga) e a voz escolhida
+  entra **já na frase atual**, esperando o som se preciso (aparece "Preparando a próxima frase…"). Clicar de novo na
+  voz que ainda não entrou também a força a entrar.
+- A voz do aparelho cede no máximo **um trecho** depois que a natural fica pronta; no começo do trecho seguinte a
+  natural entra mesmo que precise esperar o som (`trechosDoAparelho` em `escolherVoz`, testado em `npm run testar:vozes`).
+- O aquecimento confere se a escolha ainda é a mesma antes de mexer no leitor.
+- O Worker ganhou a mensagem `guardar`: baixa e guarda o estilo da outra voz sem fechar o modelo aberto.
+
 ## Começa na hora (03/11/2026)
 
 - **Sem espera no clique**: com a voz natural escolhida mas ainda abrindo (ou baixando), a voz do aparelho já começa
