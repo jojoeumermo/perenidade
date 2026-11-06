@@ -44,6 +44,10 @@ docker run -d --name "site-$novo" --restart unless-stopped \
 for _ in $(seq 1 90); do
   if curl -fsS -o /dev/null --max-time 3 "http://127.0.0.1:$porta/robots.txt" \
      && curl -fsS -o /dev/null --max-time 20 "http://127.0.0.1:$porta/pt"; then
+    # Junta os arquivos estáticos desta versão aos das anteriores (o Caddy serve todos), antes de desligar a antiga.
+    mkdir -p /opt/lucia/estatico/_next/static
+    docker cp "site-$novo:/app/.next/static/." /opt/lucia/estatico/_next/static/ > /dev/null 2>&1 || true
+    find /opt/lucia/estatico -type f -mtime +30 -delete 2>/dev/null || true
     if [ -n "$ativo" ]; then
       sleep 12   # o Caddy confere a saúde a cada 5 s: dá tempo de ele ver o novo antes de o antigo sair
       docker stop -t 20 "site-$ativo" > /dev/null || true
