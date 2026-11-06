@@ -49,7 +49,9 @@ jobs:
     # Sem servidor configurado (variável COOLIFY_URL vazia), não há para onde mandar a imagem: o job fica pulado em vez
     # de gastar uns dez minutos de máquina ARM a cada push. Hoje o site está na Vercel (docs/HOSPEDAGEM.md). No dia em
     # que COOLIFY_URL existir, a primeira execução monta a imagem normalmente.
-    if: vars.COOLIFY_URL != '' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    # 06/11/2026: o site foi para a VPS da Contabo (variável SERVIDOR = contabo). Lá não há Coolify: a VPS confere a cada
+    # 2 minutos se a imagem :producao mudou e troca sozinha, sem tirar o site do ar (infra/contabo/atualizar.sh).
+    if: (vars.SERVIDOR == 'contabo' || vars.COOLIFY_URL != '') && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     # A imagem sai no processador da máquina do GitHub, que precisa ser igual ao do servidor: ARM na Oracle
     # (ubuntu-24.04-arm, o padrão), x86 num servidor comum (variável MAQUINA_DE_MONTAGEM = ubuntu-24.04).
     runs-on: ${{ vars.MAQUINA_DE_MONTAGEM || 'ubuntu-24.04-arm' }}
@@ -98,6 +100,10 @@ jobs:
           NEXT_PUBLIC_JITSI_DOMAIN: ${{ vars.NEXT_PUBLIC_JITSI_DOMAIN }}
           NEXT_PUBLIC_VIDEO_HOSTS: ${{ vars.NEXT_PUBLIC_VIDEO_HOSTS }}
           CSP_REPORT_URL: ${{ vars.CSP_REPORT_URL }}
+          NEXT_PUBLIC_ALUMIA_URL: ${{ vars.NEXT_PUBLIC_ALUMIA_URL }}
+          NEXT_PUBLIC_GALENE_URL: ${{ vars.NEXT_PUBLIC_GALENE_URL }}
+          NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${{ vars.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
+          NEXT_PUBLIC_ESPELHOS: ${{ vars.NEXT_PUBLIC_ESPELHOS }}
         run: |
           set -euo pipefail
           # Sem o serviço de contas o site sairia sem painel, comunidade e rádio: melhor parar aqui do que publicar assim.
@@ -107,7 +113,8 @@ jobs:
           fi
           : > .env.production.local
           for nome in NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY NEXT_PUBLIC_TURNSTILE_SITE_KEY \
-                      NEXT_PUBLIC_ESTUDIO_URL NEXT_PUBLIC_RECURSOS NEXT_PUBLIC_JITSI_DOMAIN NEXT_PUBLIC_VIDEO_HOSTS CSP_REPORT_URL; do
+                      NEXT_PUBLIC_ESTUDIO_URL NEXT_PUBLIC_RECURSOS NEXT_PUBLIC_JITSI_DOMAIN NEXT_PUBLIC_VIDEO_HOSTS CSP_REPORT_URL \
+                      NEXT_PUBLIC_ALUMIA_URL NEXT_PUBLIC_GALENE_URL NEXT_PUBLIC_VAPID_PUBLIC_KEY NEXT_PUBLIC_ESPELHOS; do
             valor="${!nome:-}"
             if [ -n "$valor" ]; then printf '%s=%s\n' "$nome" "$valor" >> .env.production.local; fi
           done
@@ -117,6 +124,20 @@ jobs:
             -t "$IMAGEM:$COMMIT" -t "$IMAGEM:producao" .
           docker push "$IMAGEM:$COMMIT"
           docker push "$IMAGEM:producao"
+
+      - name: Esperar a VPS trocar a versão e limpar o cache do Cloudflare (Contabo)
+        if: vars.SERVIDOR == 'contabo' && steps.versao.outputs.montar == 'sim'
+        env:
+          TOKEN: ${{ secrets.CF_TOKEN_CACHE }}
+          ZONA: ${{ vars.CF_ZONE_ID }}
+        run: |
+          set -euo pipefail
+          # A VPS confere a imagem a cada 2 minutos e leva cerca de 1 minuto para subir a versão nova.
+          sleep 240
+          if [ -z "$TOKEN" ] || [ -z "$ZONA" ]; then echo "Sem CF_TOKEN_CACHE/CF_ZONE_ID: o cache expira sozinho em até 4 horas."; exit 0; fi
+          resposta=$(curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$ZONA/purge_cache" \
+            -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data '{"purge_everything":true}')
+          echo "$resposta" | grep -q '"success":true' && echo "Cache do Cloudflare limpo." || echo "::warning::O Cloudflare recusou a limpeza: $resposta"
 
       - name: Trocar a versão no ar (Coolify)
         # Com COOLIFY_URL mas sem COOLIFY_APP_UUID (servidor em preparo), a rotina só monta e guarda a imagem.
