@@ -274,6 +274,9 @@ if (fs.existsSync(manifestoArq)) {
   igual("natural pronta, som ainda não: aparelho começa", escolherVoz({ ...base, naturalPronta: true }), "aparelho");
   igual("natural pronta no meio do trecho: aparelho termina o trecho", escolherVoz({ ...base, naturalPronta: true, somPronto: true, abreTrecho: false, vozAtual: "aparelho" }), "aparelho");
   igual("natural já lendo: continua", escolherVoz({ ...base, naturalPronta: true, abreTrecho: false, vozAtual: "natural" }), "natural");
+  // T04: a voz do aparelho cede no máximo um trecho; depois a escolhida entra, mesmo esperando o som.
+  igual("natural pronta, aparelho já leu um trecho: natural entra no próximo", escolherVoz({ ...base, naturalPronta: true, vozAtual: "aparelho", trechosDoAparelho: 1 }), "natural");
+  igual("natural pronta, aparelho já leu um trecho, meio do trecho: aparelho termina", escolherVoz({ ...base, naturalPronta: true, abreTrecho: false, vozAtual: "aparelho", trechosDoAparelho: 1 }), "aparelho");
   igual("aparelho falhou: natural mesmo esperando o som", escolherVoz({ ...base, naturalPronta: true, abreTrecho: false, vozAtual: "aparelho", aparelhoFala: false }), "natural");
 }
 

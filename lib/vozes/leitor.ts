@@ -417,6 +417,8 @@ let naturalPronta = false;
 let naturalACaminho = false;
 /** A voz que está lendo o trecho atual. */
 let vozAtual: "natural" | "aparelho" | null = null;
+/** Quantos trechos a voz do aparelho leu com a natural já pronta (veja escolherVoz: no máximo um). */
+let trechosDoAparelho = 0;
 type Som = { pcm: Float32Array; taxa: number };
 // A fila de frases prontas (ou sendo geradas), pela voz, velocidade e texto: a mesma frase não é gerada duas vezes,
 // e uma frase de outra aula nunca é confundida com a desta (a chave é o texto, não a posição).
@@ -717,7 +719,7 @@ function falar(i: number, pulo = false) {
   pararAudio();
   estadoDaMidia(true);
   const natural = naturalPronta && Boolean(motor) && Boolean(vozDaFrase(i));
-  const qual = escolherVoz({ naturalPronta: natural, somPronto: natural && somPronto(i), abreTrecho: frases[i].abre || pulo, vozAtual, aparelhoFala: Boolean(synth) && !aparelhoFalhou });
+  const qual = escolherVoz({ naturalPronta: natural, somPronto: natural && somPronto(i), abreTrecho: frases[i].abre || pulo, vozAtual, aparelhoFala: Boolean(synth) && !aparelhoFalhou, trechosDoAparelho });
   mudar({ frase: i, trecho: frases[i].trecho, tocando: true, esperando: qual === "esperar" });
   destacar(i);
   if (qual === "natural") {
@@ -727,6 +729,8 @@ function falar(i: number, pulo = false) {
   } else if (qual === "aparelho") {
     // Frase num idioma sem voz natural: o aparelho lê só ela, e a natural continua na seguinte.
     if (!(naturalPronta && !vozDaFrase(i))) vozAtual = "aparelho";
+    // Um trecho inteiro lido pelo aparelho com a natural já pronta: no próximo, a natural entra (T04).
+    if (natural && frases[i].abre) trechosDoAparelho++;
     mudar({ vozAgora: "aparelho" });
     falarNoAparelho(i, minhaVez, ocupado);
     adiantarNatural(i);
@@ -767,6 +771,11 @@ export async function aquecer(alvos?: string[]) {
   if (aquecidoPara === chave && motor) return;
   aquecidoPara = chave;
   if (!(await prepararNatural(voz)) || estado.ativo) return;
+  // A pessoa trocou de voz enquanto o modelo abria: não volta a voz antiga (T04).
+  if (lerEscolha().voz !== escolha.voz) {
+    aquecidoPara = "";
+    return;
+  }
   mudar({ voz: escolha.voz, velocidade: escolha.velocidade });
   frases = montarFrases(alvos, idiomaDaPagina());
   for (let k = 0; k < 2 && k < frases.length; k++) som(k);
@@ -786,15 +795,19 @@ export async function iniciar(alvos?: string[]) {
  * Começa (ou recomeça) a leitura na frase `i`, sem esperar nada: tudo aqui roda ainda dentro do clique. Com a voz
  * natural já aberta, ela lê; senão, a do aparelho lê enquanto a natural abre ao fundo.
  */
-function comecar(i: number) {
+function comecar(i: number, vozNova = false) {
   leitura++;
   const minhaLeitura = leitura;
   vozAtual = null;
+  trechosDoAparelho = 0;
   aparelhoFalhou = false;
   naturalACaminho = false;
   const querNatural = estado.voz !== VOZ_DO_APARELHO;
   const temAparelho = "speechSynthesis" in window;
   naturalPronta = querNatural && motorCarregado && Boolean(vozEscolhida());
+  // A pessoa acabou de trocar para uma voz natural com o modelo já aberto: ela entra já, nesta frase (esperando o som
+  // se preciso, com o aviso "Preparando…"), em vez de a voz do aparelho seguir lendo e parecer que nada mudou (T04).
+  if (vozNova && naturalPronta) vozAtual = "natural";
   mudar({ naturalPronta, vozAgora: null });
   if (!querNatural && !temAparelho) {
     mudar({ ativo: false, erro: "sem-voz" });
@@ -924,6 +937,7 @@ export function parar(limpar = true) {
   naturalPronta = false;
   naturalACaminho = false;
   vozAtual = null;
+  trechosDoAparelho = 0;
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   fonte?.stop();
   fonte = null;
@@ -954,22 +968,29 @@ export function encerrarLeitura() {
   mudar({ total: 0, trechos: 0, erro: null });
 }
 
-/** Troca a voz no meio da leitura (ou antes de começar). */
+/**
+ * Troca a voz no meio da leitura (ou antes de começar).
+ *
+ * T04 (06/11/2026): antes, a troca parava só o som (parar(false)) e a fila do Worker seguia gerando as frases da voz
+ * antiga, uma de cada vez (de 10 a 25 s cada no CPU); a nova esperava atrás delas e, enquanto isso, a voz do aparelho
+ * lia. Como o aparelho corria na frente, o som da nova nunca ficava pronto no começo de um trecho, e a voz escolhida
+ * não entrava: parecia que "ficava na mesma". Agora a troca esvazia a fila (parar(true): nova sessão no Worker) e a
+ * voz escolhida entra já nesta frase. Clicar de novo na voz que está esperando para entrar também a força a entrar.
+ */
 export function trocarVoz(id: string) {
-  if (id === estado.voz) return;
   const tocava = estado.ativo;
+  const esperando = tocava && estado.vozAgora === "aparelho" && id !== VOZ_DO_APARELHO;
+  if (id === estado.voz && !esperando) return;
   const frase = estado.frase;
+  if (tocava) parar(true);
   mudar({ voz: id });
-  if (tocava) {
-    parar(false);
-    iniciarDe(frase);
-  }
+  if (tocava) iniciarDe(frase, true);
 }
 
-function iniciarDe(frase: number) {
+function iniciarDe(frase: number, vozNova = false) {
   if (!frases.length) return;
   mudar({ ativo: true, total: frases.length, trechos: frases[frases.length - 1].trecho + 1, erro: null });
-  comecar(frase);
+  comecar(frase, vozNova);
 }
 
 /** Baixa a voz agora (o botão "Baixar" do seletor), sem começar a ler. */
@@ -977,7 +998,19 @@ export async function baixarVoz(id: string): Promise<boolean> {
   lista ??= await carregarLista();
   const voz = lista?.vozes.find((v) => v.id === id);
   if (!voz) return false;
-  return prepararNatural(voz);
+  const aberto = motor;
+  if (!(await prepararNatural(voz))) return false;
+  // O modelo já estava aberto com a outra voz: falta guardar o arquivo pequeno desta (o estilo, 0,5 MB), senão ela
+  // aparecia como "já está neste aparelho" sem estar e não funcionava sem internet (T04).
+  if (aberto && motor === aberto) {
+    try {
+      await aberto.guardar(voz);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  return true;
 }
 
 /** Cancela um download em andamento. */

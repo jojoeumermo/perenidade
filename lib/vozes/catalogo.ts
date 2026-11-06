@@ -113,6 +113,7 @@ export class MotorNatural {
   private worker: Worker;
   private pronto: Promise<void>;
   private pedidos = new Map<number, Pedido>();
+  private guardas = new Map<number, { resolver: () => void; rejeitar: (e: Error) => void }>();
   private proximo = 1;
 
   private lista: Lista;
@@ -134,11 +135,16 @@ export class MotorNatural {
       else if (m.t === "audio") {
         this.pedidos.get(m.id)?.resolver({ pcm: m.pcm, taxa: m.taxa });
         this.pedidos.delete(m.id);
+      } else if (m.t === "guardado") {
+        this.guardas.get(m.id)?.resolver();
+        this.guardas.delete(m.id);
       } else if (m.t === "erro") {
         const erro = new Error(m.mensagem);
         if (m.id) {
           this.pedidos.get(m.id)?.rejeitar(erro);
           this.pedidos.delete(m.id);
+          this.guardas.get(m.id)?.rejeitar(erro);
+          this.guardas.delete(m.id);
         } else rejeitarPronto(erro);
       }
     };
@@ -160,6 +166,16 @@ export class MotorNatural {
     });
   }
 
+  /** Baixa e guarda no aparelho os arquivos de outra voz do mesmo modelo (o estilo), sem fechar o modelo aberto. */
+  async guardar(voz: VozNatural) {
+    await this.pronto;
+    const id = this.proximo++;
+    return new Promise<void>((resolver, rejeitar) => {
+      this.guardas.set(id, { resolver, rejeitar });
+      this.worker.postMessage({ t: "guardar", id, voz: { ...voz, ort: this.lista.ort, fonemas: this.lista.fonemas } });
+    });
+  }
+
   /** Descarta, no Worker, tudo o que ainda está na fila das leituras anteriores a `sessao`. O modelo continua aberto. */
   cancelar(sessao: number) {
     this.worker.postMessage({ t: "cancelar", sessao });
@@ -169,5 +185,7 @@ export class MotorNatural {
     this.worker.terminate();
     for (const p of this.pedidos.values()) p.rejeitar(new Error("parado"));
     this.pedidos.clear();
+    for (const g of this.guardas.values()) g.rejeitar(new Error("parado"));
+    this.guardas.clear();
   }
 }

@@ -37,6 +37,12 @@ export type Situacao = {
   vozAtual: "natural" | "aparelho" | null;
   /** O aparelho tem voz e ela está falando (não falhou nesta leitura). */
   aparelhoFala: boolean;
+  /**
+   * Quantos trechos a voz do aparelho já leu depois que a natural ficou pronta. A partir de 1, a natural entra no
+   * começo do trecho seguinte mesmo que precise esperar o som (T04, 06/11/2026: sem este limite, a voz do aparelho
+   * corria na frente, o som da natural nunca ficava pronto a tempo e a voz escolhida nunca entrava).
+   */
+  trechosDoAparelho?: number;
 };
 
 /**
@@ -44,12 +50,13 @@ export type Situacao = {
  * - sem a voz natural pronta, a do aparelho; sem nenhuma das duas, espera a natural abrir;
  * - a voz natural, uma vez no trecho, continua até o fim da leitura (se o som atrasa, espera por ele);
  * - a voz do aparelho cede o lugar no começo de um trecho, quando o som da natural já está pronto (assim a troca
- *   não deixa silêncio); se o aparelho não fala, a natural entra logo, mesmo que precise esperar o som.
+ *   não deixa silêncio); se o aparelho não fala, a natural entra logo, mesmo que precise esperar o som;
+ * - o aparelho cede no máximo um trecho: no começo do trecho seguinte a natural entra, esperando o som se preciso.
  */
 export function escolherVoz(s: Situacao): QualVoz {
   if (!s.naturalPronta) return s.aparelhoFala ? "aparelho" : "esperar";
   if (s.vozAtual === "natural" || !s.aparelhoFala) return "natural";
-  if (s.abreTrecho && s.somPronto) return "natural";
+  if (s.abreTrecho && (s.somPronto || (s.trechosDoAparelho ?? 0) >= 1)) return "natural";
   return "aparelho";
 }
 
