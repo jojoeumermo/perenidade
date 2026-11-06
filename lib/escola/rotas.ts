@@ -8,7 +8,7 @@
 // Sem os atalhos "@/" de propósito: `npm run testar:escola` confere que cada uma tem a sua página.
 
 /** Os grupos do mapa da entrada, na ordem em que aparecem (textos em i18n/escola/base, "mapa.grupos"). */
-export const GRUPOS_DA_ESCOLA = ["estudar", "vidaEscolar", "ajuda", "mundo", "organizacao", "escola"] as const;
+export const GRUPOS_DA_ESCOLA = ["frente", "estudar", "vidaEscolar", "ajuda", "mundo", "organizacao", "escola"] as const;
 export type GrupoDaEscola = (typeof GRUPOS_DA_ESCOLA)[number];
 
 export interface RotaDaEscola {
@@ -31,6 +31,9 @@ export const BASE_DA_ESCOLA = "/escola";
 export const ROTAS_DA_ESCOLA: readonly RotaDaEscola[] = [
   { chave: "entrada", caminho: "/escola", pacote: "E4-01", naFaixa: true },
   { chave: "quemFoi", caminho: "/escola/quem-foi-lucia-maria", pacote: "E4-01", naFaixa: true, grupo: "escola" },
+  // T15: a Frente Revolucionária Lúcia (o chamado de militantes e o manifesto). As duas são públicas: veja PUBLICAS_DA_ESCOLA.
+  { chave: "militantes", caminho: "/escola/militantes", pacote: "T15", naFaixa: true, grupo: "frente" },
+  { chave: "manifesto", caminho: "/escola/manifesto", pacote: "T15", naFaixa: true, grupo: "frente" },
   { chave: "cursos", caminho: "/escola/cursos", pacote: "E4-07", naFaixa: true, grupo: "estudar" },
   { chave: "matricula", caminho: "/escola/matricula", pacote: "E4-08", naFaixa: true, grupo: "vidaEscolar" },
   { chave: "calendario", caminho: "/escola/calendario", pacote: "E4-09", naFaixa: true, grupo: "escola" },
@@ -51,6 +54,16 @@ export const ROTAS_DA_ESCOLA: readonly RotaDaEscola[] = [
   { chave: "vida", caminho: "/escola/vida", pacote: "E4-11", grupo: "mundo" },
   { chave: "agentes", caminho: "/escola/agentes", pacote: "E4-16", grupo: "ajuda" },
 ];
+
+/**
+ * As páginas da Escola que abrem SEM conta (a porta, components/escola/PortaDaEscola.tsx, deixa passar): o chamado de
+ * voluntários militantes e o manifesto da Frente Revolucionária Lúcia (T15). O chamado precisa chegar a quem ainda
+ * não é da casa, e a inscrição, como a do voluntariado, não pede conta. Caminhos sem o idioma.
+ */
+export const PUBLICAS_DA_ESCOLA: readonly string[] = ["/escola/militantes", "/escola/manifesto"];
+
+/** O caminho (sem o idioma) abre sem conta? Vale também para a barra no fim. */
+export const publicaDaEscola = (caminhoSemIdioma: string) => PUBLICAS_DA_ESCOLA.includes(caminhoSemIdioma.replace(/\/+$/, "") || "/");
 
 /** As da faixa de navegação, na ordem. */
 export const FAIXA_DA_ESCOLA = ROTAS_DA_ESCOLA.filter((r) => r.naFaixa);

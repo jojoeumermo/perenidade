@@ -5,6 +5,7 @@ import { EstacaoDoAno } from "@/components/escola/EstacaoDoAno";
 import { NavDaEscola } from "@/components/escola/NavDaEscola";
 import { PortaDaEscola } from "@/components/escola/PortaDaEscola";
 import { loadLang } from "@/i18n";
+import { textosDaFrente } from "@/i18n/escola/frente";
 import { estacaoDe, feriadoDoDia } from "@/lib/escola/calendario";
 import { FERIADOS, textosDoCampus } from "@/lib/escola/campus-servidor";
 import { hojeEmBrasilia } from "@/lib/escola/tempo";
@@ -27,7 +28,7 @@ export default async function EscolaLayout({ children, params }: LayoutProps<"/[
   const e = s.entrada;
   return (
     <div data-escola="" data-semestre={estacaoDe(hoje)} data-feriado={feriadoDoDia(hoje)?.dia}>
-      <PortaDaEscola lang={lang} s={s.porta} e={{ olho: e.olho, titulo: e.titulo, oQueE: e.oQueE, oQueETexto: e.oQueETexto, linhaNaoUniversidade: e.linhaNaoUniversidade }}>
+      <PortaDaEscola lang={lang} s={s.porta} e={{ olho: e.olho, titulo: e.titulo, oQueE: e.oQueE, oQueETexto: e.oQueETexto, linhaNaoUniversidade: e.linhaNaoUniversidade }} frente={textosDaFrente(lang).cartaz}>
         <NavDaEscola lang={lang} s={s.nav} />
         <EstacaoDoAno feriados={FERIADOS} s={c.estacao} sCal={c.calendario} />
         <FeriadoDoCampus feriados={FERIADOS} s={c.feriado} />

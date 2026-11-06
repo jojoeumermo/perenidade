@@ -1,0 +1,67 @@
+{
+  "cartaz": {
+    "frente": "Lúcia Revolutionary Front",
+    "lema": "Educate, agitate, organize",
+    "formacao": "Total militant education, popular and free",
+    "rotulo": "The Front's call",
+    "chamado": "We are calling for militant volunteers",
+    "chamadoTexto": "The Instituto Lúcia is now also a political movement. We need people to study, teach, communicate and organize, and to carry forward justice and what we believe in.",
+    "quero": "I want to join the struggle",
+    "manifesto": "Read the manifesto"
+  },
+  "militantes": {
+    "metaTitulo": "Call for militant volunteers",
+    "metaDescricao": "The Lúcia Revolutionary Front, of the Instituto Lúcia, is calling for militant volunteers. Free sign-up, for people aged 18 or over.",
+    "olho": "Lúcia Revolutionary Front",
+    "titulo": "We are calling for militant volunteers",
+    "lead": "The Instituto Lúcia is a people's school, a free library and, now, also a political movement. The Lúcia Maria Revolutionary School educates; the Front organizes. Come with us.",
+    "porqueTitulo": "Why organize with us",
+    "porque": [
+      "Because knowledge belongs to the people, and no one should pay to learn.",
+      "Because no right was ever handed out as a gift: everything the working class has was won through struggle.",
+      "Because learning together is organizing solidarity, and no one frees themselves alone.",
+      "Because organized study changes the world."
+    ],
+    "frentesTitulo": "Fronts of work",
+    "frentesTexto": "Each militant chooses where they add the most: education, communication, translation, proofreading, mediation, art and outreach, development, curation. The list is the same as for volunteering: militants work too.",
+    "comoTitulo": "How it works",
+    "passos": [
+      { "titulo": "Sign-up", "texto": "Fill in the form below. You do not need an account on the site." },
+      { "titulo": "Reading", "texto": "The coordination reads every sign-up and answers at the e-mail you give." },
+      { "titulo": "Education", "texto": "Those who join study at the Lúcia Maria Revolutionary School, with the manifesto as a starting point." },
+      { "titulo": "Task", "texto": "You get a front of work and start organizing, with the team by your side." }
+    ],
+    "cuidadoTitulo": "Your data, handled with care",
+    "cuidadoTexto": "Saying you want to join a political front reveals your political opinion, which Brazilian law calls sensitive data (LGPD, art. 5, II). That is why we ask for your consent separately, keep only what is needed to answer, and only the coordination sees it. You can ask at any time for your sign-up to be deleted.",
+    "formTitulo": "Militant sign-up",
+    "formLead": "Take your time. The coordination reads every sign-up and answers at the e-mail you give.",
+    "formFuncao": "Front of work",
+    "formMensagem": "Introduction: tell us who you are, what you already do in the struggle (if anything) and why you want to join",
+    "formEnviar": "Send sign-up",
+    "formEnviado": "Sign-up received. Welcome to the struggle: the coordination will read it and answer at the e-mail you gave.",
+    "formPrivacidade": "Your name, e-mail, Instagram and sign-up are seen only by the coordination and are used only to answer you and organize the militancy. Nothing is sold or passed on to third parties.",
+    "cuidadoCaixa": "Before sending",
+    "consentimento": "I agree that the Instituto Lúcia keeps this sign-up, which shows my political opinion, only so the coordination can answer me and organize the militancy of the Lúcia Revolutionary Front. I know I can ask for it to be deleted whenever I want.",
+    "maiorIdade": "I am 18 or older.",
+    "menor": "Under 18? The militant sign-up is only for adults. You can study at the School and on the site as much as you like, and come back here when you turn 18.",
+    "manifestoTitulo": "Read the manifesto",
+    "manifestoTexto": "The initial version of the Front's manifesto, under discussion: what we denounce, what we believe in and what we do.",
+    "voltar": "School entrance"
+  },
+  "manifesto": {
+    "metaTitulo": "Manifesto of the Lúcia Revolutionary Front",
+    "metaDescricao": "Initial version, under discussion, of the manifesto of the Lúcia Revolutionary Front, the political movement of the Instituto Lúcia.",
+    "olho": "Lúcia Revolutionary Front",
+    "titulo": "Manifesto",
+    "situacao": "Initial version, under discussion",
+    "emPortugues": "(text in Portuguese)",
+    "chamadoTitulo": "Agree? Come and join us.",
+    "chamadoTexto": "We are calling for militant volunteers.",
+    "chamadoBotao": "I want to join the struggle",
+    "voltar": "School entrance"
+  },
+  "mapa": {
+    "militantesTexto": "The Lúcia Revolutionary Front's call for militant volunteers, with the sign-up.",
+    "manifestoTexto": "The Front's manifesto: initial version, under discussion."
+  }
+}

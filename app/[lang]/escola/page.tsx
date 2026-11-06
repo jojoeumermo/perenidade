@@ -4,13 +4,14 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { AberturaDaEscola, ReverAbertura, type TrechoPublicado } from "@/components/escola/AberturaDaEscola";
 import { CartaoLuciaMaria } from "@/components/escola/CartaoLuciaMaria";
+import { CartazDaFrente } from "@/components/escola/frente/CartazDaFrente";
 import { semMarcador } from "@/lib/escola/quem-foi";
 import { QuemVolta } from "@/components/escola/QuemVolta";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath, type Locale } from "@/i18n/config";
 import { textosDaAvaliacao } from "@/i18n/escola/avaliacao";
+import { textosDaFrente } from "@/i18n/escola/frente";
 import { parseFrontmatter } from "@/lib/frontmatter";
 import { aulasDoAparelho, cursosDoAparelho, textosDaMatricula, textosDaPresenca } from "@/lib/escola/matricula-servidor";
 import { mapaDaEscola } from "@/lib/escola/rotas";
@@ -62,15 +63,16 @@ function itemDoMapa(lang: Locale, chave: string): { nome: string; texto: string 
   const i = textosDaBusca(lang).indice as Record<string, string>;
   const m = textosDaMatricula(lang).meta;
   const a = textosDaAvaliacao(lang);
+  const f = textosDaFrente(lang).mapa;
   const nome = chave === "quemFoi" ? s.nav.quemFoi : ((s.paginas as Record<string, string>)[chave] ?? chave);
   const daBusca = i[`${chave === "educador-do-mes" ? "educadorDoMes" : chave}Texto`];
-  const outros: Record<string, string> = { carteirinha: m.carteirinha.descricao, plano: m.plano.descricao, provas: a.semana.lead, saberes: a.saberes.lead };
+  const outros: Record<string, string> = { carteirinha: m.carteirinha.descricao, plano: m.plano.descricao, provas: a.semana.lead, saberes: a.saberes.lead, militantes: f.militantesTexto, manifesto: f.manifestoTexto };
   return { nome, texto: daBusca ?? outros[chave] ?? "" };
 }
 
 /**
- * A entrada da Escola Revolucionária Lúcia Maria, em ordem de leitura: o nome e a linha honesta (não é universidade,
- * não dá diploma); o que é e quem foi Lúcia Maria, lado a lado; por onde começar (a matrícula, para quem chega; o plano
+ * A entrada da Escola Revolucionária Lúcia Maria, em ordem de leitura: o cartaz (T15), com a Frente Revolucionária
+ * Lúcia em destaque, o nome, o lema, a linha da Escola e o chamado de voluntários militantes; o que é e quem foi Lúcia Maria, lado a lado; por onde começar (a matrícula, para quem chega; o plano
  * e o curso, para quem volta); como funciona, em 5 passos; e o mapa de tudo o que tem na Escola, por assunto, com as
  * páginas que não cabem na faixa do alto (vozes, lutas, assembleia, ouvidoria, provas, saberes, agentes...).
  */
@@ -81,11 +83,9 @@ export default async function Escola({ params }: PageProps<"/[lang]/escola">) {
   const m = textosDaMatricula(lang);
   const cursos = cursosDoAparelho();
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      {/* 1) Título e a linha honesta: não é universidade e não dá diploma. */}
-      <PageHeading eyebrow={e.olho} title={e.titulo}>
-        {e.linhaNaoUniversidade}
-      </PageHeading>
+    <div className="mx-auto max-w-4xl px-4 pb-12 pt-4">
+      {/* 1) O cartaz (T15): a Frente Revolucionária Lúcia, o nome da Escola, o lema, a linha e o chamado de militantes. */}
+      <CartazDaFrente lang={lang} s={textosDaFrente(lang).cartaz} olho={e.olho} titulo={e.titulo} linha={e.linhaNaoUniversidade} />
 
       {/* 2) O que é, e o primeiro item: quem foi Lúcia Maria. */}
       <div className="mt-10 grid items-start gap-8 md:grid-cols-[3fr_2fr]">

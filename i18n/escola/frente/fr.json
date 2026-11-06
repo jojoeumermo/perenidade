@@ -1,0 +1,67 @@
+{
+  "cartaz": {
+    "frente": "Front Révolutionnaire Lúcia",
+    "lema": "Instruisez-vous, agitez-vous, organisez-vous",
+    "formacao": "Formation militante totale, populaire et gratuite",
+    "rotulo": "L'appel du Front",
+    "chamado": "Nous appelons des bénévoles militants",
+    "chamadoTexto": "L'Instituto Lúcia est désormais aussi un mouvement politique. Nous avons besoin de monde pour étudier, enseigner, communiquer et organiser, et porter plus loin la justice et ce en quoi nous croyons.",
+    "quero": "Je veux militer",
+    "manifesto": "Lire le manifeste"
+  },
+  "militantes": {
+    "metaTitulo": "Appel à bénévoles militants",
+    "metaDescricao": "Le Front Révolutionnaire Lúcia, de l'Instituto Lúcia, appelle des bénévoles militants. Inscription gratuite, pour les personnes de 18 ans ou plus.",
+    "olho": "Front Révolutionnaire Lúcia",
+    "titulo": "Nous appelons des bénévoles militants",
+    "lead": "L'Instituto Lúcia est une école populaire, une bibliothèque libre et, désormais, aussi un mouvement politique. L'École Révolutionnaire Lúcia Maria forme ; le Front organise. Venez avec nous.",
+    "porqueTitulo": "Pourquoi militer avec nous",
+    "porque": [
+      "Parce que le savoir appartient au peuple, et personne ne devrait payer pour apprendre.",
+      "Parce qu'aucun droit n'a été offert : tout ce que la classe ouvrière possède a été conquis par la lutte.",
+      "Parce qu'apprendre ensemble, c'est organiser la solidarité, et personne ne se libère seul.",
+      "Parce qu'étudier de façon organisée transforme le monde."
+    ],
+    "frentesTitulo": "Fronts de travail",
+    "frentesTexto": "Chaque militant choisit où il apporte le plus : formation, communication, traduction, relecture, médiation, art et diffusion, développement, curation. La liste est la même que pour le bénévolat : les militants travaillent aussi.",
+    "comoTitulo": "Comment ça marche",
+    "passos": [
+      { "titulo": "Inscription", "texto": "Remplissez le formulaire ci-dessous. Pas besoin de compte sur le site." },
+      { "titulo": "Lecture", "texto": "La coordination lit chaque inscription et répond à l'adresse e-mail indiquée." },
+      { "titulo": "Formation", "texto": "Qui entre étudie à l'École Révolutionnaire Lúcia Maria, avec le manifeste comme point de départ." },
+      { "titulo": "Tâche", "texto": "Vous recevez un front de travail et commencez à militer, avec l'équipe à vos côtés." }
+    ],
+    "cuidadoTitulo": "Vos données, avec soin",
+    "cuidadoTexto": "Dire que vous voulez militer dans un front politique révèle votre opinion politique, que la loi brésilienne appelle donnée sensible (LGPD, art. 5, II). C'est pourquoi nous demandons votre consentement à part, ne gardons que le nécessaire pour répondre, et seule la coordination y a accès. Vous pouvez demander à tout moment que l'inscription soit effacée.",
+    "formTitulo": "Inscription militante",
+    "formLead": "Prenez votre temps. La coordination lit chaque inscription et répond à l'adresse e-mail indiquée.",
+    "formFuncao": "Front de travail",
+    "formMensagem": "Présentation : dites qui vous êtes, ce que vous faites déjà dans la lutte (le cas échéant) et pourquoi vous voulez militer",
+    "formEnviar": "Envoyer l'inscription",
+    "formEnviado": "Inscription reçue. Bienvenue dans la lutte : la coordination va la lire et répondre à l'adresse e-mail indiquée.",
+    "formPrivacidade": "Votre nom, votre e-mail, votre Instagram et votre inscription ne sont vus que par la coordination et servent seulement à vous répondre et à organiser la militance. Rien n'est vendu ni transmis à des tiers.",
+    "cuidadoCaixa": "Avant d'envoyer",
+    "consentimento": "J'accepte que l'Instituto Lúcia conserve cette inscription, qui montre mon opinion politique, uniquement pour que la coordination me réponde et organise la militance du Front Révolutionnaire Lúcia. Je sais que je peux demander son effacement quand je veux.",
+    "maiorIdade": "J'ai 18 ans ou plus.",
+    "menor": "Moins de 18 ans ? L'inscription militante est réservée aux majeurs. Vous pouvez étudier à l'École et sur le site autant que vous voulez, et revenir ici à vos 18 ans.",
+    "manifestoTitulo": "Lisez le manifeste",
+    "manifestoTexto": "La version initiale du manifeste du Front, en discussion : ce que nous dénonçons, ce en quoi nous croyons et ce que nous faisons.",
+    "voltar": "Entrée de l'École"
+  },
+  "manifesto": {
+    "metaTitulo": "Manifeste du Front Révolutionnaire Lúcia",
+    "metaDescricao": "Version initiale, en discussion, du manifeste du Front Révolutionnaire Lúcia, mouvement politique de l'Instituto Lúcia.",
+    "olho": "Front Révolutionnaire Lúcia",
+    "titulo": "Manifeste",
+    "situacao": "Version initiale, en discussion",
+    "emPortugues": "(texte en portugais)",
+    "chamadoTitulo": "D'accord ? Venez militer.",
+    "chamadoTexto": "Nous appelons des bénévoles militants.",
+    "chamadoBotao": "Je veux militer",
+    "voltar": "Entrée de l'École"
+  },
+  "mapa": {
+    "militantesTexto": "L'appel à bénévoles militants du Front Révolutionnaire Lúcia, avec l'inscription.",
+    "manifestoTexto": "Le manifeste du Front : version initiale, en discussion."
+  }
+}
