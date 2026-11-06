@@ -766,7 +766,7 @@
   stroke-width: 1.8;
   stroke-dasharray: 6 4;
   animation: ve-corre 0.9s linear infinite;
-  filter: drop-shadow(0 0 3px rgb(255 77 94 / 70%));
+  /* Sem drop-shadow: com dezenas de fios acesos (órbita) o filtro derrubava o FPS. O brilho vem da cor. */
 }
 .ve-aresta[data-apagado="true"] {
   opacity: 0.1;
@@ -2323,4 +2323,11 @@
     opacity: 1 !important;
     stroke-dashoffset: 0 !important;
   }
+}
+
+/* Órbita: todos os fios do centro ficam acesos, mas parados (dezenas de fios correndo ao mesmo tempo pesavam no celular). */
+.ve-svg-orbita .ve-aresta[data-realce="true"] {
+  animation: none;
+  stroke-dasharray: none;
+  stroke-opacity: 0.75;
 }

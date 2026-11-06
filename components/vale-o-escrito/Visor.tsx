@@ -217,8 +217,11 @@ export function HudDoVisor({
           </button>
         </div>
         <span className="ve-nivel" aria-live="polite">
-          <span aria-hidden="true">ZOOM {n} — </span>
-          {rotulo}
+          {/* Na tela: "ZOOM 02 — DOSSIÊ" (painel). O leitor de tela ouve só "Zoom: Dossiê". */}
+          <span aria-hidden="true">
+            ZOOM {n} — {s.visual.zoomTeia[nivel]}
+          </span>
+          <span className="ve-so-leitor">{rotulo}</span>
         </span>
       </div>
       {/* A leitura de painel (coordenadas e escala), decorativa: o nível nomeado acima é o que vale para o leitor de tela. */}

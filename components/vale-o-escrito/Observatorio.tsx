@@ -92,12 +92,19 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   useEffect(() => {
     if (qualidade === "baixa") return;
     // Mede depois que a visão abriu (o primeiro meio segundo é o carregamento do pedaço da visão).
+    // Duas medidas seguidas abaixo de 30 (a primeira pega o carregamento da visão, sobretudo o WebGL do mapa, e
+    // sozinha dava alarme falso). Aparelho com sinal de fraco (pouca memória, economia de dados) já responde 0.
     let cancelar = () => {};
-    const id = window.setTimeout(() => {
+    let baixas = 0;
+    const medir = () => {
       cancelar = medirQuadros(2000, (fps) => {
-        if (fps < 30) setQualidade("baixa");
+        if (fps >= 30) return;
+        baixas++;
+        if (fps === 0 || baixas >= 2) setQualidade("baixa");
+        else id = window.setTimeout(medir, 1500);
       });
-    }, 600);
+    };
+    let id = window.setTimeout(medir, 1200);
     return () => {
       window.clearTimeout(id);
       cancelar();
