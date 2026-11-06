@@ -29,6 +29,9 @@ import { alternatesDe } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
 
+// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+export const revalidate = 3600;
+
 // A página inicial herda título e descrição do layout; aqui entram o endereço canônico e as versões em cada idioma.
 export async function generateMetadata({ params }: PageProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await loadLang(params);
