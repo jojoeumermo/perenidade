@@ -146,7 +146,8 @@ export function AccountLink() {
     else if (pendente && saved) setItem(KEYS.name, null);
   }, [session, loaded, saved, pendente]);
   useEffect(() => {
-    if (session && confirmada && loadedAvatar !== savedAvatar) setItem(KEYS.avatar, loadedAvatar || null);
+    // "" (sem ícone) e null (nada guardado) são o mesmo: comparar sem normalizar regravava a cada render.
+    if (session && confirmada && (loadedAvatar || null) !== (savedAvatar || null)) setItem(KEYS.avatar, loadedAvatar || null);
     else if (pendente && savedAvatar) setItem(KEYS.avatar, null);
   }, [session, confirmada, pendente, loadedAvatar, savedAvatar]);
   if (!hydrated) return null;

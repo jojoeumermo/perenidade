@@ -314,7 +314,7 @@ const layoutDaEscola = lerArq("app", "[lang]", "escola", "layout.tsx");
 const porta = lerArq("components", "escola", "PortaDaEscola.tsx");
 conferir("layout da Escola passa pela porta", /<PortaDaEscola[\s\S]*<NavDaEscola[\s\S]*\{children\}[\s\S]*<\/PortaDaEscola>/.test(layoutDaEscola));
 conferir("porta usa a sessão do site (useMe de lib/backend)", /import \{[^}]*\buseMe\b[^}]*\} from "@\/lib\/backend"/.test(porta) && /me\.status === "in"/.test(porta));
-conferir("porta leva aos fluxos da Comunidade", porta.includes('"/entrar"') && porta.includes('"/entrar?criar=1"') && /cadastro\.aberto &&/.test(porta));
+conferir("porta leva aos fluxos da Comunidade", porta.includes('"/entrar?volta=/escola"') && porta.includes('"/entrar?criar=1&volta=/escola"') && /cadastro\.aberto &&/.test(porta));
 conferir("porta não pede dado nenhum", !/<input|<form|rpc\(/.test(porta));
 conferir("textos da porta", ["lead", "comoEntrar", "entrar", "criar", "cadastroFechado", "menores", "conferindo", "semServico", "abertas", "verAulas", "privacidade"].every((k) => typeof pt.porta[k] === "string" && pt.porta[k].trim()) && pt.porta.passos.length === 3);
 

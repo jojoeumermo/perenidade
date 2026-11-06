@@ -71,9 +71,13 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const back = hydrated ? `${window.location.origin}/${lang}/entrar` : undefined;
 
   // Quem já entrou segue direto para o painel (menos quem veio escolher uma senha nova ou ainda deve o código do aplicativo).
+  // Com ?volta=/escola (ou outro caminho interno), volta para onde estava: a Escola e a Alumia mandam para cá assim.
+  // Só caminho interno, começando por uma barra e sem "//" nem "\", para não virar redirecionamento aberto.
+  const volta = hydrated ? (new URLSearchParams(window.location.search).get("volta") ?? "") : "";
+  const destino = /^\/(?![/\\])[\w\-/.?=&%]*$/.test(volta) ? `/${lang}${volta.replace(/^\/(pt|en|es|fr|ru|zh)(?=\/|$)/, "")}` : `/${lang}/painel`;
   useEffect(() => {
-    if (me.status === "in" && !changing && state === "idle") router.replace(`/${lang}/painel`);
-  }, [me.status, router, lang, changing, state]);
+    if (me.status === "in" && !changing && state === "idle") router.replace(destino);
+  }, [me.status, router, destino, changing, state]);
 
   useEffect(() => {
     if (!code || !hasBackend) return;
