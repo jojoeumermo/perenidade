@@ -221,7 +221,7 @@ for (const arquivo of ["Convites", "Avisos", "Pessoas"]) confere(`${arquivo}.tsx
 confere("a candidatura de voluntário não oferece design", !/volunteerRoles = \[[^\]]*"design"/.test(ler("components/VolunteerForm.tsx")));
 confere("Painel.tsx: pedir função não oferece design", !/pediveis = \(\[[^\]]*"design"/.test(ler("components/painel/Painel.tsx") + ler("components/painel/casca/Dentro.tsx")));
 confere("Equipe.tsx: pedido de ajuda vai para a Comunicação por padrão", /useState<Role\["papel"\]>\("marketing"\)/.test(ler("components/painel/Equipe.tsx")));
-confere("Departamentos.tsx: nomes novos", /desenvolvimento: "UI\/UX e Desenvolvimento"/.test(ler("components/painel/Departamentos.tsx")));
+confere("Departamentos.tsx: nomes novos", /desenvolvimento: "UI\/UX e Desenvolvimento"/.test(ler("components/painel/Departamentos.tsx")) || /id: "desenvolvimento", nome: "UI\/UX e Desenvolvimento"/.test(ler("components/painel/departamentos-do-instituto.ts")));
 confere("Termo.tsx explica o aceite de novo", /não ficou guardado/.test(ler("components/painel/Termo.tsx")));
 confere("Horas.tsx usa sem_texto", /sem_texto/.test(ler("components/painel/Horas.tsx")));
 confere("e2e: o ajudante registra o texto antes de aceitar", /termo_registrar/.test(ler("e2e/ajuda.ts")) && !/"termo_voluntario_aceitar"\)\.catch/.test(ler("e2e/fumaca.spec.ts")));

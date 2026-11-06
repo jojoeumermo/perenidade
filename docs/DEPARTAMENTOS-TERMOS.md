@@ -74,7 +74,7 @@ Teste: `npm run testar:pessoas-painel` (PGlite, 80 conferências).
 | Representantes | representantes | quem é representante entra sozinho; também participação (novo) |
 | RH · Recursos Humanos | rh | participação (novo) |
 | Revisão | revisao | função |
-| UI/UX e Devs | desenvolvimento | função |
+| UI/UX e Desenvolvimento ("UI/UX & Devs") | desenvolvimento | função |
 | Tradução | traducao | função |
 | Reforço | mentoria | função |
 | Saúde | saude | função |

@@ -34,7 +34,7 @@ export const DEPARTAMENTOS_DO_INSTITUTO: DepartamentoDoInstituto[] = [
   { id: "representantes", nome: "Representantes", sobre: "Os representantes de todos os departamentos juntos. Quem é nomeado representante entra sozinho.", funcoes: ["representante"], participacao: true },
   { id: "rh", nome: "RH · Recursos Humanos", sobre: "Acolher quem chega, acompanhar voluntários (termos, horas, férias) e cuidar da equipe.", funcoes: [], participacao: true },
   { id: "revisao", nome: "Revisão", sobre: "Revisão dos textos, das aulas e das matérias antes de irem ao ar.", funcoes: ["revisao"] },
-  { id: "desenvolvimento", nome: "UI/UX e Devs", sobre: "O site, o painel e as ferramentas: desenho de telas e programação.", funcoes: ["desenvolvimento"] },
+  { id: "desenvolvimento", nome: "UI/UX e Desenvolvimento", sobre: "O site, o painel e as ferramentas: desenho de telas e programação.", funcoes: ["desenvolvimento"] },
   { id: "traducao", nome: "Tradução", sobre: "As versões do site e dos materiais em outros idiomas.", funcoes: ["traducao"] },
   { id: "mentoria", nome: "Reforço", sobre: "Aula de reforço, por disciplina.", funcoes: ["mentoria"] },
   { id: "saude", nome: "Saúde", sobre: "Profissionais de saúde do Mural de Saúde.", funcoes: ["saude"] },
