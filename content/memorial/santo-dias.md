@@ -6,6 +6,9 @@ local: "São Paulo, Brasil"
 foto: "/imagens/memorial/santo-dias.webp"
 foto_credito: "Foto: acervo da Comissão da Verdade do Estado de São Paulo. CC BY 4.0, via Wikimedia Commons (recortada)."
 foto_fonte: "https://commons.wikimedia.org/wiki/File:Santo_Dias_-_CNV-SP.jpg"
+foto_autor: "Comissão da Verdade do Estado de São Paulo"
+foto_licenca: "CC BY 4.0"
+foto_licenca_url: "https://creativecommons.org/licenses/by/4.0"
 ---
 
 Operário metalúrgico nascido em Terra Roxa, no interior de São Paulo, e militante da Pastoral Operária. Na greve dos metalúrgicos de 1979, comandava um piquete na porta de uma fábrica em Santo Amaro quando foi baleado pela Polícia Militar, em 30 de outubro de 1979. O enterro reuniu milhares de pessoas e virou um grande ato contra a ditadura.

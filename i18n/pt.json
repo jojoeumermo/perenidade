@@ -1339,7 +1339,13 @@
       "asia": "Ásia"
     },
     "close": "Fechar a homenagem",
-    "noPortrait": "Para quem não tem retrato livre, fica uma vela acesa. Os retratos são de domínio público ou de licença livre, com a fonte em cada homenagem."
+    "noPortrait": "Para quem não tem retrato livre, fica uma vela acesa. Os retratos são de domínio público ou de licença livre, com a fonte em cada homenagem.",
+    "image": {
+      "title": "De onde vem a imagem",
+      "author": "Autor",
+      "license": "Licença",
+      "source": "Fonte"
+    }
   },
   "contribute": {
     "eyebrow": "Construção coletiva",

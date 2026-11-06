@@ -48,8 +48,21 @@ for (const f of originais) {
   conferir(`memorial ${f}: foto existe`, existe(foto));
   conferir(`memorial ${f}: crédito com licença (domínio público, CC0 ou CC BY)`, /Domínio público|CC0|CC BY/.test(cred), cred);
   conferir(`memorial ${f}: fonte no Wikimedia Commons`, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(fonte));
+  // T05: ao abrir a homenagem aparece de onde veio a imagem: autor, licença (com link quando é CC) e fonte.
+  const autor = t.match(/^foto_autor:\s*"([^"]+)"/m)?.[1] ?? "";
+  const licenca = t.match(/^foto_licenca:\s*"([^"]+)"/m)?.[1] ?? "";
+  const licencaUrl = t.match(/^foto_licenca_url:\s*"([^"]+)"/m)?.[1] ?? "";
+  conferir(`memorial ${f}: autor da imagem`, autor.trim().length > 1);
+  conferir(`memorial ${f}: licença da imagem (domínio público, CC0 ou CC BY)`, /^(Domínio público|CC0|CC BY)/.test(licenca), licenca);
+  conferir(`memorial ${f}: licença CC com link https do texto da licença`, !/^CC/.test(licenca) || /^https:\/\/creativecommons\.org\//.test(licencaUrl), licencaUrl);
 }
-conferir("memorial tem pelo menos 77 fotos (66 de antes, sem Tiradentes, mais as novas)", comFoto >= 77, String(comFoto));
+const muro = fs.readFileSync(path.join(raiz, "components/memorial/MuroDoMemorial.tsx"), "utf8");
+conferir("muro mostra autor, licença e fonte da imagem ao abrir", ["s.image.author", "s.image.license", "s.image.source", "p.licencaUrl"].every((x) => muro.includes(x)));
+for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
+  const d = JSON.parse(fs.readFileSync(path.join(raiz, "i18n", `${l}.json`), "utf8"));
+  conferir(`i18n ${l}: memorial.image completo`, ["title", "author", "license", "source"].every((k) => typeof d.memorial?.image?.[k] === "string" && d.memorial.image[k]));
+}
+conferir("memorial tem pelo menos 95 fotos (as 78 de antes e as 17 da T05)", comFoto >= 95, String(comFoto));
 const fotosMem = fs.readdirSync(path.join(raiz, "public/imagens/memorial")).filter((f) => f.endsWith(".webp"));
 conferir("toda foto do memorial é usada por alguém", fotosMem.every((f) => originais.some((o) => fs.readFileSync(path.join(dirMem, o), "utf8").includes(`/imagens/memorial/${f}"`))), fotosMem.filter((f) => !originais.some((o) => fs.readFileSync(path.join(dirMem, o), "utf8").includes(`/imagens/memorial/${f}"`))).join(", "));
 

@@ -1339,7 +1339,13 @@
       "asia": "Asie"
     },
     "close": "Fermer l’hommage",
-    "noPortrait": "Pour celles et ceux sans portrait libre, une bougie reste allumée. Les portraits sont dans le domaine public ou sous licence libre, avec la source dans chaque hommage."
+    "noPortrait": "Pour celles et ceux sans portrait libre, une bougie reste allumée. Les portraits sont dans le domaine public ou sous licence libre, avec la source dans chaque hommage.",
+    "image": {
+      "title": "D’où vient l’image",
+      "author": "Auteur",
+      "license": "Licence",
+      "source": "Source"
+    }
   },
   "contribute": {
     "eyebrow": "Construction collective",

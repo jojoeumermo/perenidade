@@ -1339,7 +1339,13 @@
       "asia": "Asia"
     },
     "close": "Close the tribute",
-    "noPortrait": "For those without a free portrait, a candle stays lit. The portraits are in the public domain or under free licenses, with the source in each tribute."
+    "noPortrait": "For those without a free portrait, a candle stays lit. The portraits are in the public domain or under free licenses, with the source in each tribute.",
+    "image": {
+      "title": "Where the image comes from",
+      "author": "Author",
+      "license": "License",
+      "source": "Source"
+    }
   },
   "contribute": {
     "eyebrow": "Collective construction",
