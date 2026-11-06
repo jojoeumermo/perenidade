@@ -6,7 +6,7 @@ import { useState } from "react";
 import { can, leads, type Me, nivelDe, nivelDoPapel, porNivel, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { Aviso, data, dataHora, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papelAposentado, papeis, textoDoErro, useAcao, useLista } from "./comum";
-import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Faixa, Selecao, Vazio } from "./ui";
+import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Faixa, Vazio } from "./ui";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 import { Departamentos, FotosParaAprovar, TermosAceitos } from "./PessoasExtras";
