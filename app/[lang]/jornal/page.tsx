@@ -12,6 +12,9 @@ import { getArticles, type Article } from "@/lib/content";
 import { Newsletter } from "@/components/Newsletter";
 import { slugify } from "@/lib/text";
 
+// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+export const revalidate = 3600;
+
 export async function generateMetadata({ params }: PageProps<"/[lang]/jornal">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
   return paginaMeta(lang, "/jornal", t.journal.title, t.journal.lead);

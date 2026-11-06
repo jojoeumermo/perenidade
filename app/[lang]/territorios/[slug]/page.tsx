@@ -15,6 +15,9 @@ import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { territorios } from "@/lib/territorios";
 
+// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+export const revalidate = 3600;
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {

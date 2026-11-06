@@ -8,6 +8,9 @@ import { fileHistory } from "@/lib/history";
 import { site } from "@/lib/site";
 import { ligado } from "@/lib/recursos";
 
+// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+export const revalidate = 3600;
+
 // Mapa do site para os buscadores. Cada endereço aparece uma vez por idioma, com a indicação das
 // versões nos outros idiomas (hreflang), para o buscador mostrar a versão certa a cada pessoa. Aula e obra entram só
 // nos idiomas em que o texto existe: as outras versões mostram o texto em português e já apontam o português como
