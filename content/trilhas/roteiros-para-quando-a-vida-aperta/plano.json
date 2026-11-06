@@ -8,5 +8,7 @@
   { "slug": "doenca-e-afastamento-pelo-inss", "titulo": "Doença e afastamento pelo INSS" },
   { "slug": "cortaram-a-luz-ou-a-agua", "titulo": "Cortaram a luz ou a água" },
   { "slug": "perdi-meus-documentos", "titulo": "Perdi meus documentos" },
-  { "slug": "onde-buscar-ajuda-publica-no-seu-bairro", "titulo": "Onde buscar ajuda pública no seu bairro" }
+  { "slug": "onde-buscar-ajuda-publica-no-seu-bairro", "titulo": "Onde buscar ajuda pública no seu bairro" },
+  { "slug": "faltou-remedio-ou-negaram-atendimento-no-sus", "titulo": "Faltou remédio ou negaram atendimento no SUS" },
+  { "slug": "nao-consegui-vaga-na-creche-ou-na-escola", "titulo": "Não consegui vaga na creche ou na escola" }
 ]

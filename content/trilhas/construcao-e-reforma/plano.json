@@ -10,5 +10,8 @@
   { "slug": "umidade-infiltracao-e-impermeabilizacao", "titulo": "Umidade, infiltração e impermeabilização" },
   { "slug": "trabalho-em-altura-e-nr-35", "titulo": "Trabalho em altura e NR-35" },
   { "slug": "quando-chamar-engenheiro-ou-arquiteto", "titulo": "Quando chamar engenheiro ou arquiteto" },
-  { "slug": "formalizacao-mei-para-obra-e-reforma", "titulo": "Formalização: o MEI na obra e na reforma" }
+  { "slug": "formalizacao-mei-para-obra-e-reforma", "titulo": "Formalização: o MEI na obra e na reforma" },
+  { "slug": "contrapiso-e-regularizacao-do-piso", "titulo": "Contrapiso e regularização do piso" },
+  { "slug": "telhado-telhas-madeiramento-e-goteiras", "titulo": "Telhado: telhas, madeiramento e goteiras" },
+  { "slug": "drywall-paredes-e-forros", "titulo": "Drywall: paredes e forros" }
 ]
