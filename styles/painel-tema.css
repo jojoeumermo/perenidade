@@ -20,15 +20,18 @@
 
 /* ───────── 1. Tokens ───────── */
 :root {
-  /* Área de trabalho: papel */
-  --pn-fundo: #f2ecdf;
-  --pn-superficie: #faf6ec;
-  --pn-superficie-2: #efe7d6;
-  --pn-ativo: #e8dfcb;
-  --pn-borda: #ddd2bc;
-  --pn-borda-forte: #c5b89c;
-  --pn-texto: #1f1a14;
-  --pn-texto-suave: #5a4e3c;
+  /* Área de trabalho: papel. Desde 06/11/2026 (T25) nasce dos tokens do site (app/globals.css): o mesmo papel da página
+     inicial, um passo mais escuro e equilibrado (metade --parchment, metade --parchment-deep: #f4efe5), em vez do papel
+     amarronzado de antes (#f2ecdf). Os cartões ficam entre o papel do site e a folha (#fbf8f2). O texto é a tinta do site.
+     Contraste (WCAG 2.2, 1.4.3): texto 15,9:1; texto suave 7,1:1; texto mudo 5,2:1 sobre o fundo. */
+  --pn-fundo: color-mix(in srgb, var(--parchment) 50%, var(--parchment-deep));
+  --pn-superficie: color-mix(in srgb, var(--parchment) 60%, var(--folha));
+  --pn-superficie-2: var(--parchment-deep);
+  --pn-ativo: color-mix(in srgb, var(--parchment-deep) 94%, var(--ink));
+  --pn-borda: var(--rule);
+  --pn-borda-forte: color-mix(in srgb, var(--rule) 80%, var(--ink-soft));
+  --pn-texto: var(--ink);
+  --pn-texto-suave: var(--ink-soft);
   --pn-texto-mudo: #6f624d;
   --pn-destaque: #a51810;
   --pn-destaque-hover: #8a130c;
@@ -44,14 +47,16 @@
   --pn-veu: rgb(31 26 20 / 0.5);
   --pn-sombra-cartao: 0 1px 0 rgb(31 26 20 / 0.05), 0 1px 2px rgb(31 26 20 / 0.04);
   --pn-sombra-flutuante: 0 12px 32px rgb(31 26 20 / 0.18);
-  /* Menu lateral: tinta */
-  --pn-menu-fundo: #1c1712;
-  --pn-menu-superficie: #28211a;
-  --pn-menu-ativo: #3c1813;
-  --pn-menu-borda: #332a21;
-  --pn-menu-texto: #efe6d2;
-  --pn-menu-texto-suave: #a99d84;
-  --pn-menu-rotulo: #978a72;
+  /* Menu lateral: tinta. Desde 06/11/2026 (T24) um tom mais clara (era #1c1712) e com rótulos mais legíveis: os nomes dos
+     grupos passam de 5,3:1 para 7,6:1 e o texto suave de 6,6:1 para 8,5:1 (WCAG 2.2, 1.4.3 e 1.4.6, nível AAA para texto
+     pequeno). O vermelho do menu fica em 4,6:1 (AA), só em ícone e contorno. */
+  --pn-menu-fundo: #2a231c;
+  --pn-menu-superficie: #352c23;
+  --pn-menu-ativo: #4a1d17;
+  --pn-menu-borda: #41372c;
+  --pn-menu-texto: #f4ecdb;
+  --pn-menu-texto-suave: #cbbfa6;
+  --pn-menu-rotulo: #c2b59a;
   --pn-menu-destaque: #e0675c;
   --pn-menu-ouro: #f0b323;
   /* Forma, letra e medida */
@@ -95,11 +100,12 @@
     --pn-veu: rgb(0 0 0 / 0.62);
     --pn-sombra-cartao: none;
     --pn-sombra-flutuante: 0 12px 32px rgb(0 0 0 / 0.55);
-    --pn-menu-fundo: #100d0a;
-    --pn-menu-superficie: #1a1612;
-    --pn-menu-ativo: #3a1611;
-    --pn-menu-borda: #241e18;
-    --pn-menu-rotulo: #8c806a;
+    /* T24: no escuro o menu também sobe um tom (era #100d0a) e os rótulos ficam em 7,4:1. */
+    --pn-menu-fundo: #1c1814;
+    --pn-menu-superficie: #262019;
+    --pn-menu-ativo: #461a13;
+    --pn-menu-borda: #2e2720;
+    --pn-menu-rotulo: #b4a78d;
   }
 }
 :root[data-theme="dark"] {
@@ -125,11 +131,11 @@
   --pn-veu: rgb(0 0 0 / 0.62);
   --pn-sombra-cartao: none;
   --pn-sombra-flutuante: 0 12px 32px rgb(0 0 0 / 0.55);
-  --pn-menu-fundo: #100d0a;
-  --pn-menu-superficie: #1a1612;
-  --pn-menu-ativo: #3a1611;
-  --pn-menu-borda: #241e18;
-  --pn-menu-rotulo: #8c806a;
+  --pn-menu-fundo: #1c1814;
+  --pn-menu-superficie: #262019;
+  --pn-menu-ativo: #461a13;
+  --pn-menu-borda: #2e2720;
+  --pn-menu-rotulo: #b4a78d;
 }
 /* Alto contraste e tinta eletrônica: o painel segue o modo escolhido (preto no branco, sem tom intermediário). */
 :root:is([data-contrast], [data-eink]) {
