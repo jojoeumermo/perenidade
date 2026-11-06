@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "titulo": "Work, class and team agents",
     "descricao": "Seven helpers for the School: interview and public-speaking practice, help with paperwork, debate questions for the class, a lesson draft, content review and translation checking."
@@ -205,7 +206,7 @@
     "destino": "Language of the translation",
     "idiomas": { "en": "English", "es": "Spanish", "fr": "French", "ru": "Russian", "zh": "Chinese" },
     "termos": "Terms that are not translated (separated by commas)",
-    "termosDica": "Already included: Instituto Lúcia, Escola Lúcia Maria and Gaveta Aberta.",
+    "termosDica": "Already included: Instituto Lúcia, Escola Revolucionária Lúcia Maria and Gaveta Aberta.",
     "naEscola": "This text will appear in the School (also checks the words the School never uses)",
     "botao": "Check the translation",
     "oQueConferir": "What to check",

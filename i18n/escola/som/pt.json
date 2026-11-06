@@ -37,7 +37,7 @@
     "abrirAula": "Abrir a aula da semana",
     "vozDoAparelho": "Lido pela voz do seu aparelho: o texto não é enviado a ninguém.",
     "roteiro": {
-      "saudacao": "Olá! Hoje é {data}. Aqui é o Hoje no campus, da Escola Lúcia Maria.",
+      "saudacao": "Olá! Hoje é {data}. Aqui é o Hoje no campus, da Escola Revolucionária Lúcia Maria.",
       "fatosAbre": "Neste dia, na história da luta do povo:",
       "fato": "{ano}. {texto} Segundo {fonte}.",
       "wikipedia": "a Wikipédia",

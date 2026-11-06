@@ -1,11 +1,12 @@
 {
+  "_rascunho": true,
   "meta": {
-    "matricula": { "titulo": "Matrícula", "descricao": "Matrícula en la Escuela Lúcia Maria sin registro: tres preguntas, sin nombre, correo ni documento. Todo queda en tu dispositivo." },
-    "carteirinha": { "titulo": "Carné", "descricao": "El carné de la Escuela Lúcia Maria, hecho en tu dispositivo. No es un documento oficial." },
+    "matricula": { "titulo": "Matrícula", "descricao": "Matrícula en la Escuela Revolucionaria Lúcia Maria: tres preguntas, sin nombre, correo ni documento. Todo queda en tu dispositivo." },
+    "carteirinha": { "titulo": "Carné", "descricao": "El carné de la Escuela Revolucionaria Lúcia Maria, hecho en tu dispositivo. No es un documento oficial." },
     "plano": { "titulo": "Plan de la semana", "descricao": "Un plan de estudio de la semana, armado en tu dispositivo con reglas simples, sin culpa." }
   },
   "comum": {
-    "olho": "Escuela Lúcia Maria",
+    "olho": "Escuela Revolucionaria Lúcia Maria",
     "carregando": "Abriendo lo que está guardado en este dispositivo…",
     "minutos": "{n} min",
     "semGuardar": "Este dispositivo no permitió guardar (puede ser el modo incógnito del navegador). Prueba fuera de él."
@@ -134,7 +135,7 @@
   },
   "carteirinha": {
     "lead": "Hecho en este dispositivo, sin servidor. Para guardar de recuerdo, imprimir o mostrar a tu grupo.",
-    "escola": "Escuela Lúcia Maria",
+    "escola": "Escuela Revolucionaria Lúcia Maria",
     "casa": "Instituto Lúcia",
     "popular": "Escuela popular y gratuita",
     "estudante": "Estudiante",
@@ -148,7 +149,7 @@
     "avisoNaoDocumento": "Este carné no es un documento oficial y no vale como carné de estudiante para la media entrada (meia-entrada). Se hizo en este dispositivo; no se envió nada.",
     "leiNaoVale": "La media entrada exige la Carteira de Identificação Estudantil (CIE), emitida por las entidades estudiantiles indicadas en la Ley brasileña n.º 12.933/2013 (art. 1, § 2).",
     "qr": "Apunta la cámara para conocer la Escuela",
-    "qrAlt": "Código QR con la dirección de la Escuela Lúcia Maria",
+    "qrAlt": "Código QR con la dirección de la Escuela Revolucionaria Lúcia Maria",
     "usarFoto": "Mostrar la foto de mi cuenta",
     "usarFotoDica": "Solo aparece si tu cuenta tiene foto guardada en este dispositivo. Sin ella, van las iniciales.",
     "imprimir": "Imprimir",
@@ -189,7 +190,7 @@
     "lembrete": "Recordatorio en el calendario",
     "lembreteHora": "Hora del recordatorio",
     "lembreteDica": "Descarga un archivo de agenda que avisa en los días de estudio, aunque el sitio esté cerrado. No se envía nada.",
-    "lembreteTitulo": "Estudiar en la Escuela Lúcia Maria",
+    "lembreteTitulo": "Estudiar en la Escuela Revolucionaria Lúcia Maria",
     "lembreteDescricao": "Hora del plan de la semana.",
     "remontar": "Armar el plan de nuevo",
     "acabou": "Hiciste todas las clases de tus cursos. ¿Qué tal elegir otro?",

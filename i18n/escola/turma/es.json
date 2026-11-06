@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "turmas": {
       "titulo": "Grupos por curso",
@@ -22,7 +23,7 @@
     }
   },
   "lista": {
-    "olho": "Escuela Lúcia Maria",
+    "olho": "Escuela Revolucionaria Lúcia Maria",
     "titulo": "Grupos por curso",
     "lead": "Cada curso tiene un grupo por mes: un módulo, dos clases por semana y un encuentro por video todos los miércoles, a las 19:30 de Brasilia. Sigues estudiando a tu ritmo y el progreso queda en tu dispositivo.",
     "agora": "Grupo de este mes",
@@ -79,7 +80,7 @@
     "minutos": "{n} min",
     "feita": "hecha",
     "baixarIcs": "Poner los encuentros en mi agenda (.ics)",
-    "icsDescricao": "Encuentro del grupo del curso en la Escuela Lúcia Maria. La sala aparece en la página del grupo para quien entró.",
+    "icsDescricao": "Encuentro del grupo del curso en la Escuela Revolucionaria Lúcia Maria. La sala aparece en la página del grupo para quien entró.",
     "nomeDoIcs": "encuentros-del-grupo"
   },
   "curso": {
@@ -123,13 +124,13 @@
     "nenhum": "Todavía no hay orientador con plaza en este curso.",
     "vagas": "{n} plazas este semestre",
     "vagaUma": "1 plaza este semestre",
-    "pelaRede": "Envía un mensaje por la Red Lúcia al perfil {perfil}, diciendo el curso y la idea del proyecto.",
-    "abrirRede": "Abrir la Red Lúcia",
+    "pelaRede": "Envía un mensaje por Alumia al perfil {perfil}, diciendo el curso y la idea del proyecto.",
+    "abrirRede": "Abrir Alumia",
     "peloEmail": "Escribe al correo del Instituto, {email}, con el asunto “orientação do curso {curso}” y el nombre de quien quieres como orientador(a).",
     "mentoria": "El papel de mentoría del panel sigue igual."
   },
   "circulo": {
-    "olho": "Escuela Lúcia Maria · para quien facilita",
+    "olho": "Escuela Revolucionaria Lúcia Maria · para quien facilita",
     "titulo": "Círculo de cultura digital",
     "lead": "Una herramienta para quien facilita un encuentro del grupo, en 5 pasos inspirados en los círculos de cultura de Paulo Freire. Todo queda solo en este dispositivo: nada va al servidor.",
     "fonte": "Referencia:",
@@ -187,7 +188,7 @@
     "copiado": "Copiado"
   },
   "banca": {
-    "olho": "Escuela Lúcia Maria · proyecto final",
+    "olho": "Escuela Revolucionaria Lúcia Maria · proyecto final",
     "titulo": "Mesa popular en línea",
     "lead": "Una conversación de 30 minutos por video para presentar el proyecto final del curso. La mesa presencial queda para después.",
     "quemTitulo": "Quién está en la mesa",
@@ -242,7 +243,7 @@
     "caderneta": "Ver la libreta"
   },
   "cartaz": {
-    "olho": "Escuela Lúcia Maria · archivo vivo del grupo",
+    "olho": "Escuela Revolucionaria Lúcia Maria · archivo vivo del grupo",
     "titulo": "Cartel del grupo",
     "lead": "El cartel colectivo del grupo que se gradúa. Quien facilita escribe una frase de cada persona. Van también el curso y el semestre; ningún nombre completo. Todo se arma en este dispositivo.",
     "curso": "Curso",
@@ -268,6 +269,6 @@
   },
   "linkTurmas": {
     "titulo": "Grupos por curso",
-    "texto": "En la Escuela Lúcia Maria, cada curso tiene su grupo del mes."
+    "texto": "En la Escuela Revolucionaria Lúcia Maria, cada curso tiene su grupo del mes."
   }
 }

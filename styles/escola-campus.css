@@ -1,5 +1,5 @@
 /* Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE). */
-/* Campus e calendário da Escola Lúcia Maria (E4-09). Só tokens que já existem: nenhuma cor, textura ou fonte nova. */
+/* Campus e calendário da Escola Revolucionária Lúcia Maria (E4-09). Só tokens que já existem: nenhuma cor, textura ou fonte nova. */
 
 /* O mapa: no celular cada prédio é uma gaveta (duas por linha; a aberta ocupa a linha toda); no computador, um cartão
    com tudo à vista. Uma das duas formas aparece, pela largura (sem JavaScript). */
@@ -40,6 +40,22 @@
 }
 .mapa-do-campus .predio-frase {
   overflow-wrap: anywhere;
+}
+
+/* O mapa compacto do "Mais" (05/11/2026): no computador, colunas de jornal. Cada prédio desce na coluna com a altura do
+   que tem e nunca se parte entre duas colunas; as linhas das seções ficam com 32 px (o mouse não precisa dos 44 px do
+   toque; o mínimo da WCAG 2.5.8 é 24 px). No celular nada muda (a grade de gavetas de cima). */
+@media (min-width: 768px) {
+  .mapa-do-campus .mapa-compacto > .predio {
+    break-inside: avoid;
+    margin-bottom: 0.75rem;
+  }
+  .mapa-do-campus .mapa-compacto .campus-computador .predio-link {
+    min-height: 2rem;
+  }
+}
+.mapa-do-campus .predio-resto > summary {
+  min-height: 2rem;
 }
 
 /* O tom do prédio é o de um atalho do celular; com alto contraste e no leitor de tinta, vira tinta no papel. */

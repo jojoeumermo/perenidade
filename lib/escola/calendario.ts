@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O ano letivo da Escola Lúcia Maria em eventos (E4-09, D1-5, D1-6, D1-7 e R1-46; docs/escola/campus.md): começo e fim
+// O ano letivo da Escola Revolucionária Lúcia Maria em eventos (E4-09, D1-5, D1-6, D1-7 e R1-46; docs/escola/campus.md): começo e fim
 // do semestre (lib/escola/tempo.ts), semana de provas (semanaDeProvas, sem redefinir), aulas magnas
 // (content/escola/calendario.json), feriados do campus (content/escola/feriados.json) e exames externos
 // (content/escola/exames.json). Nenhuma data nasce aqui: cada uma vem de um desses arquivos, e as do ano letivo são
@@ -200,7 +200,7 @@ export function icsDoEvento(evento: Evento, url: string, agora: Date = new Date(
   const compacta = (dia: string) => dia.replace(/-/g, "");
   const fimExclusivo = somar(evento.ate && DATA.test(evento.ate) ? evento.ate : evento.data, 1);
   const carimbo = agora.toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
-  const descricao = [evento.proposto ? "Data proposta, a confirmar pela coordenação da Escola Lúcia Maria." : "", evento.fonte ? `Fonte: ${evento.fonte}` : "", url].filter(Boolean).join("\n");
+  const descricao = [evento.proposto ? "Data proposta, a confirmar pela coordenação da Escola Revolucionária Lúcia Maria." : "", evento.fonte ? `Fonte: ${evento.fonte}` : "", url].filter(Boolean).join("\n");
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",

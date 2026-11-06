@@ -32,9 +32,9 @@ export const RECURSOS = {
   "pratica-sem-placar": "Esconde os pontos e a sequência de dias da prática das aulas de idioma",
   "enem-video": "Vídeos curtos do curso ENEM: tocador com narração pré-gravada, legendas e transcrição, nas aulas que têm vídeo",
   "enem-curso": "Curso ENEM: a página /enem, diagnóstico, plano, prática por habilidade, provas oficiais por ano e dia, oficina de redação e reta final",
-  escola: "Escola Lúcia Maria: entrada, cursos, matrícula, campus e calendário",
+  escola: "Escola Revolucionária Lúcia Maria: entrada, cursos, matrícula, campus e calendário (só para quem tem conta)",
   "vale-o-escrito": "Vale o Escrito: observatório de crimes de interesse público já em fonte pública (teia, mapa, dossiês, envio de fonte e correção)",
-  "rede-v2": "Rede Lúcia v2: Rede e Fórum numa só (posts curtos, discussões, dúvidas, enquetes), comunidades com página própria, perfil com @nome, endereços de post, perfil e comunidade",
+  "rede-v2": "Alumia (Rede v2): Rede e Fórum numa só (posts curtos, discussões, dúvidas, enquetes), comunidades com página própria, perfil com @nome, endereços de post, perfil e comunidade",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;

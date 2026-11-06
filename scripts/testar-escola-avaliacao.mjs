@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere a avaliação e o aprender ativo da Escola Lúcia Maria (E4-13, docs/escola/avaliacao.md): o retorno por
+// Confere a avaliação e o aprender ativo da Escola Revolucionária Lúcia Maria (E4-13, docs/escola/avaliacao.md): o retorno por
 // competência (limites e pouco dado), a regra da dispensa, a revisão que mistura matérias (3 trilhas), a resposta
 // digitada com erro de digitação perdoado (acentos, distâncias, números, palavras curtas), a gravação da prova (limite
 // de 20), a regra do "lembra da aula anterior" (dia e conclusão), as explicações, a semana de provas e o .ics, e as

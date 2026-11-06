@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Avaliação e aprender ativo da Escola Lúcia Maria (Etapa 4, pacote E4-13; docs/escola/avaliacao.md): o retorno por
+// Avaliação e aprender ativo da Escola Revolucionária Lúcia Maria (Etapa 4, pacote E4-13; docs/escola/avaliacao.md): o retorno por
 // competência (sem nota), as provas guardadas no aparelho, a regra da dispensa pela prova de proficiência, o cartão
 // "lembra da aula anterior", as explicações com as próprias palavras e o lembrete da semana de provas (.ics).
 // Tudo fica no aparelho, nas chaves "lucia:escola:provas", "lucia:escola:avaliacoes" e "lucia:escola:explicacoes"

@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "hub": { "titulo": "Vida real", "descricao": "Voces del trabajo, mapa de las luchas, tarea en el mundo, misiones de laboratorio, estudio de caso del barrio y documentos reales: la Escuela unida a la vida de quien estudia." },
     "vozes": { "titulo": "Voces del trabajo", "descricao": "Escuche a trabajadores que contaron su oficio y grabe, solo en su dispositivo, un audio de hasta 2 minutos con un guion de preguntas." },
@@ -16,9 +17,9 @@
     "soNoAparelho": "Queda solo en este dispositivo. Nada va al Instituto."
   },
   "hub": {
-    "olho": "Escuela Lúcia Maria",
+    "olho": "Escuela Revolucionaria Lúcia Maria",
     "titulo": "Vida real",
-    "lead": "Estudiar no termina en la pantalla. Aquí la Escuela va al trabajo, al barrio y a la lucha de quien estudia. Todo funciona en su dispositivo, sin registro y sin rastreo.",
+    "lead": "Estudiar no termina en la pantalla. Aquí la Escuela va al trabajo, al barrio y a la lucha de quien estudia. Todo funciona en su dispositivo, sin rastreo.",
     "resumoTarefas": "{n} de {m} tareas hechas",
     "resumoMissoes": "{n} de {m} misiones",
     "abrir": "Abrir",

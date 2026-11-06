@@ -1,12 +1,13 @@
 {
+  "_rascunho": true,
   "meta": {
-    "catalogoTitulo": "Courses of the Lúcia Maria School",
+    "catalogoTitulo": "Courses of the Lúcia Maria Revolutionary School",
     "catalogoDescricao": "Free courses built only from lessons that already exist at Instituto Lúcia: basic, vocational and advanced, with estimated hours, syllabus and a printable zine.",
     "zineTitulo": "Course zine",
     "leituraTitulo": "Guided reading"
   },
   "catalogo": {
-    "olho": "Lúcia Maria School",
+    "olho": "Lúcia Maria Revolutionary School",
     "titulo": "Courses",
     "lead": "Each course brings together lessons that are already written at the Institute, in modules and in a study order. Whatever has no lesson yet shows as under construction, with no link.",
     "selo": "Course built only from finished lessons",

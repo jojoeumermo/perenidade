@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere a matrícula, a carteirinha e o plano da semana da Escola Lúcia Maria (E4-08, docs/escola/matricula.md):
+// Confere a matrícula, a carteirinha e o plano da semana da Escola Revolucionária Lúcia Maria (E4-08, docs/escola/matricula.md):
 // sugerirCursos (cada objetivo, ?curso=, tempo curto, sem cursos, aprender-a-estudar), montarPlano (orçamento, dias,
 // dispensas, aula que não existe, meta), reajustar (o que não foi feito anda, duas semanas paradas), a semana ISO na
 // virada do ano, os textos nos 6 idiomas e o aviso da carteirinha. Os cursos daqui são de TESTE (ficam neste arquivo,

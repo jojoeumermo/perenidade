@@ -1,11 +1,11 @@
 {
   "meta": {
-    "matricula": { "titulo": "Matrícula", "descricao": "Matrícula na Escola Lúcia Maria sem cadastro: três perguntas, sem nome, e-mail ou documento. Tudo fica no seu aparelho." },
-    "carteirinha": { "titulo": "Carteirinha", "descricao": "A carteirinha da Escola Lúcia Maria, feita no seu aparelho. Não é documento oficial." },
+    "matricula": { "titulo": "Matrícula", "descricao": "Matrícula na Escola Revolucionária Lúcia Maria: três perguntas, sem nome, e-mail ou documento. Tudo fica no seu aparelho." },
+    "carteirinha": { "titulo": "Carteirinha", "descricao": "A carteirinha da Escola Revolucionária Lúcia Maria, feita no seu aparelho. Não é documento oficial." },
     "plano": { "titulo": "Plano da semana", "descricao": "Um plano de estudo da semana, montado no seu aparelho por regras simples, sem culpa." }
   },
   "comum": {
-    "olho": "Escola Lúcia Maria",
+    "olho": "Escola Revolucionária Lúcia Maria",
     "carregando": "Abrindo o que está guardado neste aparelho…",
     "minutos": "{n} min",
     "semGuardar": "Este aparelho não deixou guardar (pode ser o modo anônimo do navegador). Tente fora dele."
@@ -134,7 +134,7 @@
   },
   "carteirinha": {
     "lead": "Feita neste aparelho, sem servidor. Para guardar de lembrança, imprimir ou mostrar na sua turma.",
-    "escola": "Escola Lúcia Maria",
+    "escola": "Escola Revolucionária Lúcia Maria",
     "casa": "Instituto Lúcia",
     "popular": "Escola popular e gratuita",
     "estudante": "Estudante",
@@ -148,7 +148,7 @@
     "avisoNaoDocumento": "Esta carteirinha não é documento oficial e não vale como carteira de estudante para meia-entrada. Foi feita neste aparelho; nada foi enviado.",
     "leiNaoVale": "A meia-entrada pede a Carteira de Identificação Estudantil (CIE), emitida pelas entidades estudantis indicadas na Lei nº 12.933/2013 (art. 1º, § 2º).",
     "qr": "Aponte a câmera para conhecer a Escola",
-    "qrAlt": "QR code com o endereço da Escola Lúcia Maria",
+    "qrAlt": "QR code com o endereço da Escola Revolucionária Lúcia Maria",
     "usarFoto": "Mostrar a foto da minha conta",
     "usarFotoDica": "Só aparece se a sua conta tiver foto guardada neste aparelho. Sem ela, vão as iniciais.",
     "imprimir": "Imprimir",
@@ -189,7 +189,7 @@
     "lembrete": "Lembrete no calendário",
     "lembreteHora": "Hora do lembrete",
     "lembreteDica": "Baixa um arquivo de agenda que avisa nos dias de estudo, mesmo com o site fechado. Nada é enviado.",
-    "lembreteTitulo": "Estudar na Escola Lúcia Maria",
+    "lembreteTitulo": "Estudar na Escola Revolucionária Lúcia Maria",
     "lembreteDescricao": "Hora do plano da semana.",
     "remontar": "Montar o plano de novo",
     "acabou": "Você fez todas as aulas dos seus cursos. Que tal escolher outro?",

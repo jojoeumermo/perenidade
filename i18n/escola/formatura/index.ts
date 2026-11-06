@@ -18,3 +18,26 @@ const TEXTOS = { pt, en, es, fr, ru, zh } satisfies Record<string, TextosDaForma
 export function textosDaFormatura(lang: string): TextosDaFormatura {
   return escolher(TEXTOS, lang);
 }
+
+/** Os textos do aviso de matrícula ("comum"): as páginas de fora da formatura passam só este pedaço ao ConviteDeMatricula. */
+export type TextosDoAvisoDeMatricula = Pick<
+  TextosDaFormatura["comum"],
+  "semMatriculaTitulo" | "semMatriculaTexto" | "rotuloOQueE" | "semMatriculaOQueE" | "rotuloOQueDa" | "semMatriculaOQueDa" | "rotuloOQuePede" | "semMatriculaOQuePede" | "matricular"
+>;
+
+/**
+ * O pedaço do aviso, tirado dos textos da formatura (páginas da carteirinha e do plano). Mora aqui, e não no
+ * ConviteDeMatricula, porque aquele arquivo é "use client": a página de servidor não pode chamar função dele (o build
+ * de produção para em "Attempted to call avisoDeMatricula() from the server").
+ */
+export const avisoDeMatricula = (c: TextosDaFormatura["comum"]): TextosDoAvisoDeMatricula => ({
+  semMatriculaTitulo: c.semMatriculaTitulo,
+  semMatriculaTexto: c.semMatriculaTexto,
+  rotuloOQueE: c.rotuloOQueE,
+  semMatriculaOQueE: c.semMatriculaOQueE,
+  rotuloOQueDa: c.rotuloOQueDa,
+  semMatriculaOQueDa: c.semMatriculaOQueDa,
+  rotuloOQuePede: c.rotuloOQuePede,
+  semMatriculaOQuePede: c.semMatriculaOQuePede,
+  matricular: c.matricular,
+});

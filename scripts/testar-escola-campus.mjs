@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere o campus e o calendário da Escola Lúcia Maria (E4-09, docs/escola/campus.md): toda seção da lista do "Mais"
+// Confere o campus e o calendário da Escola Revolucionária Lúcia Maria (E4-09, docs/escola/campus.md): toda seção da lista do "Mais"
 // em exatamente um prédio; predioDoCaminho; o passaporte (o modo seguro não carimba); eventosDoSemestre (bordas e
 // férias); os feriados do campus contra content/neste-dia.json e components/Festa.tsx; os exames do ENEM iguais a
 // content/enem/edicao.yml; icsDoEvento válido (CRLF, UID, DTSTART em data); e os textos nos 6 idiomas.
@@ -204,9 +204,11 @@ for (const caminho of ["/escola/campus", "/escola/calendario"]) {
   conferir(`${caminho} não usa mais EmConstrucao`, !ler(`app/[lang]${caminho}/page.tsx`).includes("EmConstrucao"));
 }
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
+// "_rascunho" marca a tradução de máquina ainda não revisada: fica fora da comparação de chaves.
 const achatar = (v, p = "", s = new Map()) => {
-  if (v && typeof v === "object") for (const k of Object.keys(v)) achatar(v[k], p ? `${p}.${k}` : k, s);
-  else s.set(p, v);
+  if (v && typeof v === "object") {
+    for (const k of Object.keys(v)) if (k !== "_rascunho") achatar(v[k], p ? `${p}.${k}` : k, s);
+  } else s.set(p, v);
   return s;
 };
 const pt = achatar(JSON.parse(ler("i18n/escola/campus/pt.json")));

@@ -210,7 +210,8 @@ conferir("página do cordel: atrás do recurso escola", /if \(!ligado\("escola"\
 conferir("LEIA-ME do cordel", fs.existsSync(path.join(raiz, "content", "cordel", "LEIA-ME.md")));
 
 // ───────────── Textos ─────────────
-const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (v && typeof v === "object" ? chaves(v, `${p}${k}.`) : [`${p}${k}`]));
+// "_rascunho" marca a tradução feita por máquina e ainda não revisada (fica fora da comparação de chaves).
+const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (k === "_rascunho" ? [] : v && typeof v === "object" ? chaves(v, `${p}${k}.`) : [`${p}${k}`]));
 const referencia = chaves(textos.pt).sort().join();
 for (const l of IDIOMAS) conferir(`textos ${l} completos`, chaves(textos[l]).sort().join() === referencia);
 conferir("texto honesto do som para estudar", textos.pt.som.honesto === "Sons feitos no seu aparelho. Músicas livres entram quando a curadoria conferir a licença.");

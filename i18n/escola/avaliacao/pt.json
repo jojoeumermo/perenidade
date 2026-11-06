@@ -51,7 +51,7 @@
     }
   },
   "semana": {
-    "olho": "Escola Lúcia Maria",
+    "olho": "Escola Revolucionária Lúcia Maria",
     "titulo": "Semana de provas",
     "lead": "Uma semana para ver o que você já sabe, com calma e com companhia.",
     "proposto": "Calendário proposto, a confirmar pela coordenação.",
@@ -59,7 +59,7 @@
     "durante": "É semana de provas: de {inicio} a {fim}.",
     "fora": "Fora da semana, a prova de cada trilha continua aberta na página da trilha, para treinar.",
     "lembrete": "Baixar o lembrete para a agenda (.ics)",
-    "lembreteTitulo": "Semana de provas da Escola Lúcia Maria",
+    "lembreteTitulo": "Semana de provas da Escola Revolucionária Lúcia Maria",
     "lembreteDescricao": "As provas das trilhas dos seus cursos, sozinho ou em dupla. Sem nota: só o retorno do que você já sabe e do que vale rever.",
     "solidariaTitulo": "Uma semana de provas solidária",
     "solidaria": [
@@ -120,10 +120,10 @@
     "semTranscricao": "A gravação não vira texto: ela fica como você falou."
   },
   "saberes": {
-    "olho": "Escola Lúcia Maria",
+    "olho": "Escola Revolucionária Lúcia Maria",
     "titulo": "Reconhecimento de saberes",
     "lead": "Muita coisa se aprende pela vida: no trabalho, na luta, em casa. Aqui você mostra o que já sabe de um curso e registra isso na sua caderneta.",
-    "naoEhCertificacao": "Registro da Escola Lúcia Maria, não é certificação oficial nem diploma.",
+    "naoEhCertificacao": "Registro da Escola Revolucionária Lúcia Maria, não é certificação oficial nem diploma.",
     "encceja": "Para a certificação oficial de escolaridade (ensino fundamental e médio), o caminho é o ENCCEJA.",
     "enccejaLink": "Ver o calendário da Escola",
     "escolha": "Qual curso você já domina pela vida?",

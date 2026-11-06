@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Os textos de interface da Escola Lúcia Maria ficam em i18n/escola/<pacote>/{pt,en,es,fr,ru,zh}.json, completos nos 6
+// Os textos de interface da Escola Revolucionária Lúcia Maria ficam em i18n/escola/<pacote>/{pt,en,es,fr,ru,zh}.json, completos nos 6
 // idiomas (scripts/testar-textos-escola.mjs confere), fora do núcleo do i18n. O servidor importa os 6 arquivos do
 // pacote, escolhe o idioma com `escolher` e passa a parte de cada componente por props: o navegador não baixa os seis.
 // Componente de cliente importa daqui só tipos (import type), nunca valores: os seis JSON da base viriam junto.

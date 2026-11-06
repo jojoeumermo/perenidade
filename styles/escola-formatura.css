@@ -1,6 +1,6 @@
 /* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
 /*
- * Caderneta do trabalhador, projeto final e formatura da Escola Lúcia Maria (Etapa 4, pacote E4-14). Mesmo visual do
+ * Caderneta do trabalhador, projeto final e formatura da Escola Revolucionária Lúcia Maria (Etapa 4, pacote E4-14). Mesmo visual do
  * Caderno do Povo: papel, tinta e fio fino. Celular de entrada primeiro: nada passa de 360 px de largura. Carregado só
  * nas páginas do pacote.
  */
@@ -108,13 +108,20 @@
     color 0.15s ease,
     border-color 0.15s ease;
 }
-.formatura-botao {
+/* O texto do botão cheio usa a cor do papel (--parchment). Antes usava --paper, que não existe: o texto herdava a cor de
+   tinta e ficava preto no preto, só aparecendo no hover. A cor vai repetida no :visited e no :hover porque o botão
+   também é link (<a>), e os links do site mudam de cor nesses estados. */
+.formatura-botao,
+.formatura-botao:visited {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--parchment);
+  text-decoration: none;
 }
-.formatura-botao:hover:not(:disabled) {
+.formatura-botao:hover:not(:disabled),
+.formatura-botao:focus-visible {
   border-color: var(--oxblood, var(--ink));
   background: var(--oxblood, var(--ink));
+  color: var(--parchment);
 }
 .formatura-botao-fraco {
   background: transparent;

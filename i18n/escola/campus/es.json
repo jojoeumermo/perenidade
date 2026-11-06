@@ -1,10 +1,11 @@
 {
+  "_rascunho": true,
   "meta": {
-    "campus": { "titulo": "Mapa del campus", "descricao": "Los edificios de la Escuela Lúcia Maria y lo que hay dentro de cada uno: aulas, biblioteca, radio, memorial, talleres, plaza, territorio y secretaría." },
-    "calendario": { "titulo": "Calendario de la Escuela", "descricao": "El año lectivo de la Escuela Lúcia Maria: inicio y fin del semestre, semana de exámenes, clase magistral, feriados del campus y exámenes externos, con la fuente de cada fecha." }
+    "campus": { "titulo": "Mapa del campus", "descricao": "Los edificios de la Escuela Revolucionaria Lúcia Maria y lo que hay dentro de cada uno: aulas, biblioteca, radio, memorial, talleres, plaza, territorio y secretaría." },
+    "calendario": { "titulo": "Calendario de la Escuela", "descricao": "El año lectivo de la Escuela Revolucionaria Lúcia Maria: inicio y fin del semestre, semana de exámenes, clase magistral, feriados del campus y exámenes externos, con la fuente de cada fecha." }
   },
   "comum": {
-    "olho": "Escuela Lúcia Maria",
+    "olho": "Escuela Revolucionaria Lúcia Maria",
     "proposto": "Propuesto, a confirmar por la coordinación",
     "voltar": "Escuela"
   },
@@ -27,7 +28,8 @@
     "carimbo": "Ya pasaste por aquí",
     "nota": "El sello de cada edificio queda solo en este aparato. No vale puntos ni entra en ningún ranking.",
     "secoes": "{n} lugares",
-    "abrir": "Ver lo que hay en el edificio {nome}"
+    "abrir": "Ver lo que hay en el edificio {nome}",
+    "verTudo": "Ver todo ({n})"
   },
   "calendario": {
     "atual": "Este semestre",

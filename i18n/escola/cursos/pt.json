@@ -1,12 +1,12 @@
 {
   "meta": {
-    "catalogoTitulo": "Cursos da Escola Lúcia Maria",
+    "catalogoTitulo": "Cursos da Escola Revolucionária Lúcia Maria",
     "catalogoDescricao": "Cursos gratuitos montados só com aulas que já existem no Instituto Lúcia: básico, profissional e avançado, com horas estimadas, ementa e zine para imprimir.",
     "zineTitulo": "Zine do curso",
     "leituraTitulo": "Leitura guiada"
   },
   "catalogo": {
-    "olho": "Escola Lúcia Maria",
+    "olho": "Escola Revolucionária Lúcia Maria",
     "titulo": "Cursos",
     "lead": "Cada curso junta aulas que já estão prontas no Instituto, em módulos e numa ordem de estudo. O que ainda não tem aula aparece como em construção, sem link.",
     "selo": "Curso montado só com aulas prontas",

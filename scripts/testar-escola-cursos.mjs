@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere os cursos da Escola Lúcia Maria (E4-07, docs/escola/cursos.md) contra o que existe no repositório: cada aula
+// Confere os cursos da Escola Revolucionária Lúcia Maria (E4-07, docs/escola/cursos.md) contra o que existe no repositório: cada aula
 // existe, cada patrono está no Memorial (e o motivo é frase da própria ficha), cada obra está no Acervo (e o "porque" é
 // frase da sinopse), a alternância tem prática em todo módulo de tempo trabalho, "em construção" nunca vira link, as
 // horas e o progresso batem nos cursos reais, a leitura guiada é válida e guarda só no aparelho, o "Ano de formação
@@ -185,7 +185,8 @@ conferir("faixa do curso logo acima do botão de concluir", /<FaixaDoCurso[\s\S]
 conferir("sem curso, o próximo passo da trilha fica como era", /cursosDestaAula\.length === 0 && <ProximoPasso/.test(aula));
 
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
-const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (v && typeof v === "object" && !Array.isArray(v) ? chaves(v, `${p}${k}.`) : [`${p}${k}`]));
+// "_rascunho" marca a tradução de máquina ainda não revisada: fica fora da comparação de chaves.
+const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (k === "_rascunho" ? [] : v && typeof v === "object" && !Array.isArray(v) ? chaves(v, `${p}${k}.`) : [`${p}${k}`]));
 const pt = JSON.parse(fs.readFileSync(path.join(raiz, "i18n", "escola", "cursos", "pt.json"), "utf8"));
 for (const lang of IDIOMAS) {
   const d = JSON.parse(fs.readFileSync(path.join(raiz, "i18n", "escola", "cursos", `${lang}.json`), "utf8"));

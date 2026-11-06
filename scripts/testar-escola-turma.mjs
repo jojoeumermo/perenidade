@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere as turmas por curso da Escola Lúcia Maria (E4-15, docs/escola/turma.md): turmaDoCurso (rodízio, módulo grande,
+// Confere as turmas por curso da Escola Revolucionária Lúcia Maria (E4-15, docs/escola/turma.md): turmaDoCurso (rodízio, módulo grande,
 // mês seguinte, quartas certas na virada do mês, seminário no último encontro), o .ics, a validação da monitoria e dos
 // orientadores (sem autorização falha) e as listas de content/escola, a sequência do círculo dentro de MAX_AULAS, os
 // círculos guardados (no máximo 10), o registro da banca, o aviso de nome no cartaz, as páginas e os textos do

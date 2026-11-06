@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useGuardado } from "@/components/estudo/guardado";
-import Link from "@/components/Link";
+import { ConviteDeMatricula, type TextosDoAvisoDeMatricula } from "@/components/escola/formatura/ConviteDeMatricula";
 import { SeloDePrivacidade } from "@/components/SeloDePrivacidade";
 import { fill, localePath, type Locale } from "@/i18n/config";
 import type pt from "@/i18n/escola/matricula/pt.json";
@@ -42,7 +42,7 @@ export function useQrDaEscola(lang: Locale): string | null {
   return qr;
 }
 
-/** A frente: Escola Lúcia Maria, apelido (ou "Estudante"), número, curso, semestre, "Desde AAAA" e a foto ou as iniciais. */
+/** A frente: Escola Revolucionária Lúcia Maria, apelido (ou "Estudante"), número, curso, semestre, "Desde AAAA" e a foto ou as iniciais. */
 export function FrenteDaCarteirinha({ d, s, foto, rotulada = true }: { d: DadosDaCarteirinha; s: TextosDaCarteirinha; foto: string | null; rotulada?: boolean }) {
   return (
     <div className="certificado carteirinha" role={rotulada ? "group" : undefined} aria-label={rotulada ? s.frente : undefined} data-carteirinha-frente="">
@@ -108,9 +108,10 @@ const fotoValida = (v: string) => (v.startsWith("data:image/") ? v : null);
 
 /**
  * A página da carteirinha (D1-10): gerada no aparelho e sem servidor, com a matrícula e as inscrições guardadas aqui.
- * O HTML do servidor é neutro (só "abrindo…"); a carteirinha aparece depois de ler o aparelho. Sem matrícula, o convite.
+ * O HTML do servidor é neutro (só "abrindo…"); a carteirinha aparece depois de ler o aparelho. Sem matrícula, o aviso
+ * único da Escola (o que é a matrícula, o que dá, o que pede e o botão; ConviteDeMatricula).
  */
-export function Carteirinha({ s, comum, titulos, lang }: { s: TextosDaCarteirinha; comum: Comum; titulos: Record<string, string>; lang: Locale }) {
+export function Carteirinha({ s, comum, aviso, titulos, lang }: { s: TextosDaCarteirinha; comum: Comum; aviso: TextosDoAvisoDeMatricula; titulos: Record<string, string>; lang: Locale }) {
   // undefined: ainda não leu o aparelho (servidor e hidratação).
   const [matricula] = useGuardado<Matricula | null | undefined>(lerMatricula, undefined);
   const [inscricoes] = useGuardado<Inscricao[]>(lerInscricoes, SEM_LISTA);
@@ -127,13 +128,9 @@ export function Carteirinha({ s, comum, titulos, lang }: { s: TextosDaCarteirinh
 
   if (matricula === null)
     return (
-      <section className="mt-8 border border-rule bg-parchment-deep p-6 font-sans" data-carteirinha-convite="">
-        <h2 className="font-serif text-2xl font-semibold">{s.convite.titulo}</h2>
-        <p className="mt-2 text-ink-soft">{s.convite.texto}</p>
-        <Link href={localePath(lang, "/escola/matricula")} className="mt-5 inline-flex min-h-11 items-center bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood">
-          {s.convite.botao}
-        </Link>
-      </section>
+      <div className="mt-8" data-carteirinha-convite="">
+        <ConviteDeMatricula c={aviso} base={localePath(lang, "/escola")} />
+      </div>
     );
 
   // Só chega aqui no navegador (no servidor a matrícula é undefined): a data é a do aparelho.

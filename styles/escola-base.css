@@ -1,19 +1,24 @@
 /* Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE). */
-/* Base da Escola Lúcia Maria (E4-01): a faixa de navegação e a abertura. Só tokens que já existem: nenhuma cor nova. */
+/* Base da Escola Revolucionária Lúcia Maria (E4-01): a faixa de navegação e a abertura. Só tokens que já existem: nenhuma cor nova. */
 
 /* A faixa rola na horizontal dentro de si: em 360 px ela não empurra a página. */
 .faixa-da-escola {
+  position: relative; /* referência do offsetLeft, para trazer o link aberto à vista */
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
 }
+/* A lista tem a largura dos links e fica centrada (margin auto) no mesmo eixo das páginas da Escola, que são colunas
+   centradas. Antes ela esticava até a largura toda (min-width: 100%) e os links grudavam na esquerda da tela. Quando
+   não cabe, a margem automática vira zero e a faixa rola a partir da esquerda, sem cortar o primeiro link. */
 .faixa-da-escola ul {
   display: flex;
   gap: 0.25rem;
   width: max-content;
-  min-width: 100%;
+  margin-inline: auto;
+  padding-inline: 0.5rem;
 }
 .faixa-da-escola a {
   display: inline-flex;

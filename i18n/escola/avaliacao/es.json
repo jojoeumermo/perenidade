@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "retorno": {
     "titulo": "Lo que ya sabes y lo que vale la pena repasar",
     "lead": "Sin nota y sin comparación: es un retrato para orientar tu estudio.",
@@ -51,7 +52,7 @@
     }
   },
   "semana": {
-    "olho": "Escuela Lúcia Maria",
+    "olho": "Escuela Revolucionaria Lúcia Maria",
     "titulo": "Semana de exámenes",
     "lead": "Una semana para ver lo que ya sabes, con calma y en compañía.",
     "proposto": "Calendario propuesto, a confirmar por la coordinación.",
@@ -59,7 +60,7 @@
     "durante": "Es semana de exámenes: del {inicio} al {fim}.",
     "fora": "Fuera de la semana, el examen de cada ruta sigue abierto en la página de la ruta, para practicar.",
     "lembrete": "Descargar el recordatorio para la agenda (.ics)",
-    "lembreteTitulo": "Semana de exámenes de la Escuela Lúcia Maria",
+    "lembreteTitulo": "Semana de exámenes de la Escuela Revolucionaria Lúcia Maria",
     "lembreteDescricao": "Los exámenes de las rutas de tus cursos, solo o en pareja. Sin nota: solo la devolución de lo que ya sabes y de lo que vale repasar.",
     "solidariaTitulo": "Una semana de exámenes solidaria",
     "solidaria": [
@@ -120,10 +121,10 @@
     "semTranscricao": "La grabación no se convierte en texto: queda como la dijiste."
   },
   "saberes": {
-    "olho": "Escuela Lúcia Maria",
+    "olho": "Escuela Revolucionaria Lúcia Maria",
     "titulo": "Reconocimiento de saberes",
     "lead": "Mucho se aprende en la vida: en el trabajo, en la lucha, en casa. Aquí muestras lo que ya sabes de un curso y lo registras en tu libreta.",
-    "naoEhCertificacao": "Registro de la Escuela Lúcia Maria; no es certificación oficial ni diploma.",
+    "naoEhCertificacao": "Registro de la Escuela Revolucionaria Lúcia Maria; no es certificación oficial ni diploma.",
     "encceja": "Para la certificación oficial de escolaridad en Brasil (primaria y secundaria), el camino es el ENCCEJA.",
     "enccejaLink": "Ver el calendario de la Escuela",
     "escolha": "¿Qué curso ya dominas por la vida?",

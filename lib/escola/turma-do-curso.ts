@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Turmas por curso da Escola Lúcia Maria (Etapa 4, pacote E4-15; docs/escola/turma.md). Puro: sem fs, sem React e sem
+// Turmas por curso da Escola Revolucionária Lúcia Maria (Etapa 4, pacote E4-15; docs/escola/turma.md). Puro: sem fs, sem React e sem
 // os atalhos "@/" de propósito (`npm run testar:escola-turma` roda este arquivo direto no Node).
 //
 // - turmaDoCurso: o módulo do mês (rodízio determinístico, como a Turma do mês) em 4 semanas, 2 aulas por semana, com o

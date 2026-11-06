@@ -1,5 +1,5 @@
 {
-  "_sobre": "Aulas magnas da Escola Lúcia Maria (E4-09, D1-6; docs/escola/campus.md), curadas pela coordenação. Cada uma: {semestre: 'AAAA.1'|'AAAA.2', curso?: slug de content/escola/cursos, titulo, data?: 'AAAA-MM-DD', aoVivoId?: id de aula ao vivo}. Sem data, aparece como 'a marcar'. Começa vazio: nenhuma aula magna foi marcada. As aulas ao vivo cujo título começa com 'Aula magna' entram sozinhas no calendário, lidas no navegador. 'confirmado' fica false até a coordenação aprovar o calendário (lib/escola/calendario.ts).",
+  "_sobre": "Aulas magnas da Escola Revolucionária Lúcia Maria (E4-09, D1-6; docs/escola/campus.md), curadas pela coordenação. Cada uma: {semestre: 'AAAA.1'|'AAAA.2', curso?: slug de content/escola/cursos, titulo, data?: 'AAAA-MM-DD', aoVivoId?: id de aula ao vivo}. Sem data, aparece como 'a marcar'. Começa vazio: nenhuma aula magna foi marcada. As aulas ao vivo cujo título começa com 'Aula magna' entram sozinhas no calendário, lidas no navegador. 'confirmado' fica false até a coordenação aprovar o calendário (lib/escola/calendario.ts).",
   "confirmado": false,
   "aulasMagnas": []
 }

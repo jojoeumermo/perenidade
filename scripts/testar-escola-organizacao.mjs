@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere a organização estudantil da Escola Lúcia Maria (E4-12, docs/escola/organizacao.md): a pauta da assembleia e as
+// Confere a organização estudantil da Escola Revolucionária Lúcia Maria (E4-12, docs/escola/organizacao.md): a pauta da assembleia e as
 // bordas da janela, o voto (3 por semestre, anônimo, contado só depois da marca local), o resultado na ordem da pauta, a
 // Roda do semestre, as regras e recusas da ouvidoria, os protocolos do aparelho, o educador do mês (com autorização), as
 // páginas, os textos nos 6 idiomas e a privacidade. Sem rede, sem navegador.
@@ -356,7 +356,8 @@ conferir("educador não tem foto nem imagem", !/<img|next\/image|avatar|\.foto\b
 conferir("não existe função de desfazer voto", !/(function|const)\s+(desfazer|removerVoto|retirarVoto)/i.test(fonte));
 
 // ── Textos: 6 idiomas ───────────────────────────────────────────────────────────────────────────────────────────────
-const achatar = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (v && typeof v === "object" ? achatar(v, `${p}${k}.`) : [[`${p}${k}`, v]]));
+// "_rascunho" marca a tradução de máquina ainda não revisada: fica fora da comparação de chaves.
+const achatar = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (k === "_rascunho" ? [] : v && typeof v === "object" ? achatar(v, `${p}${k}.`) : [[`${p}${k}`, v]]));
 const ptPlano = new Map(achatar(dicionarios.pt));
 const marcadores = (t) => [...String(t).matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort().join();
 const PROIBIDAS = /universidade|universidad|university|université|университет|大学|diploma|diplôme|диплом|文凭|学位/i;

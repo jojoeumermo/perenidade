@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/escola/mat
 }
 
 /**
- * Matrícula sem cadastro da Escola Lúcia Maria (E4-08, D1-9; docs/escola/matricula.md). A página é a mesma para todo
+ * Matrícula sem cadastro da Escola Revolucionária Lúcia Maria (E4-08, D1-9; docs/escola/matricula.md). A página é a mesma para todo
  * mundo (sem dado de ninguém no HTML); o fluxo lê e grava só no aparelho. O ?curso= do catálogo é lido no navegador,
  * para a página continuar estática.
  */

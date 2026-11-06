@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere a vida real da Escola Lúcia Maria (E4-11, docs/escola/vida.md): tarefa no mundo, missões, vozes (locais e
+// Confere a vida real da Escola Revolucionária Lúcia Maria (E4-11, docs/escola/vida.md): tarefa no mundo, missões, vozes (locais e
 // publicadas), trabalhadores que ensinam, mapa das lutas, estudo de caso, bloco "documento", textos nos 6 idiomas e a
 // estrutura (nada de fs nem "@/" na lógica, nenhuma página com generateStaticParams, nada vai ao servidor). Sem rede,
 // sem navegador: o armazenamento é simulado em memória.
@@ -290,7 +290,8 @@ conferir("documento: o componente mostra o selo de revisão e a fonte", /s\.selo
 // ───────────── Textos nos 6 idiomas ─────────────
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
 const textos = Object.fromEntries(IDIOMAS.map((l) => [l, json("i18n", "escola", "vida", `${l}.json`)]));
-const chaves = (o, p = "") => (Array.isArray(o) ? o.flatMap((v, i) => chaves(v, `${p}.${i}`)) : o && typeof o === "object" ? Object.entries(o).flatMap(([k, v]) => chaves(v, `${p}.${k}`)) : [p]);
+// "_rascunho" marca a tradução de máquina ainda não revisada: fica fora da comparação de chaves.
+const chaves = (o, p = "") => (Array.isArray(o) ? o.flatMap((v, i) => chaves(v, `${p}.${i}`)) : o && typeof o === "object" ? Object.entries(o).flatMap(([k, v]) => (k === "_rascunho" ? [] : chaves(v, `${p}.${k}`))) : [p]);
 for (const l of IDIOMAS) conferir(`${l}: mesmas chaves do português`, chaves(textos[l]).sort().join() === chaves(textos.pt).sort().join());
 for (const l of IDIOMAS) conferir(`${l}: roteiro de 6 perguntas, 5 passos do caso, 5 avisos`, textos[l].vozes.roteiro.perguntas.length === 6 && textos[l].caso.passos.length === 5 && textos[l].vozes.gravador.aviso.length === 5);
 for (const l of IDIOMAS) conferir(`${l}: roteiro e missões levam a marca de revisão`, textos[l].vozes.roteiro.emRevisao.length > 10 && textos[l].missoes.emRevisao.length > 10 && textos[l].comum.emRevisao.length > 1);

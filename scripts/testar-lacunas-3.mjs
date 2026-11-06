@@ -31,7 +31,10 @@ for (const l of LINGUAS) {
 }
 const pt = JSON.parse(ler("i18n/plantao/pt.json"));
 for (const l of LINGUAS) {
-  const t = JSON.parse(ler(`i18n/plantao/${l}.json`));
+  // "_rascunho": true marca tradução ainda não revisada (convenção dos textos da rede, adotada pela Escola ao trocar
+  // "acompanhante" por "Assistente" em 11/2026): é marcador, não texto, e fica fora da comparação de chaves.
+  const { _rascunho, ...t } = JSON.parse(ler(`i18n/plantao/${l}.json`));
+  void _rascunho;
   ok(JSON.stringify(chaves(t)) === JSON.stringify(chaves(pt)), `i18n/plantao/${l}.json tem chaves diferentes das do pt`);
   ok(folhas(t).every((v) => typeof v === "string" && v.trim()), `i18n/plantao/${l}.json tem texto vazio`);
 }

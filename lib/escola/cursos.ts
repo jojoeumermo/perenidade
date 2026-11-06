@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O modelo de curso da Escola Lúcia Maria: o formato do arquivo content/escola/cursos/<slug>.json, a validação (só com
+// O modelo de curso da Escola Revolucionária Lúcia Maria: o formato do arquivo content/escola/cursos/<slug>.json, a validação (só com
 // aulas, pessoas do Memorial e obras do Acervo que existem), as horas estimadas e o progresso de quem estuda. Puro: sem
 // fs, sem React e sem os atalhos "@/" (`npm run testar:escola` roda este arquivo direto no Node). A leitura da pasta
 // fica em lib/escola/cursos-servidor.ts. O formato está explicado em content/escola/cursos/LEIA-ME.md.

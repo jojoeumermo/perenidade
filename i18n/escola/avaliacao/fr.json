@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "retorno": {
     "titulo": "Ce que vous savez déjà et ce qui vaut la peine d’être revu",
     "lead": "Sans note et sans comparaison : c’est un portrait pour orienter votre étude.",
@@ -51,7 +52,7 @@
     }
   },
   "semana": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "titulo": "Semaine des épreuves",
     "lead": "Une semaine pour voir ce que vous savez déjà, avec calme et en compagnie.",
     "proposto": "Calendrier proposé, à confirmer par la coordination.",
@@ -59,7 +60,7 @@
     "durante": "C’est la semaine des épreuves : du {inicio} au {fim}.",
     "fora": "En dehors de la semaine, l’épreuve de chaque parcours reste ouverte sur la page du parcours, pour s’entraîner.",
     "lembrete": "Télécharger le rappel pour l’agenda (.ics)",
-    "lembreteTitulo": "Semaine des épreuves de l’École Lúcia Maria",
+    "lembreteTitulo": "Semaine des épreuves de l’École révolutionnaire Lúcia Maria",
     "lembreteDescricao": "Les épreuves des parcours de vos cours, seul ou à deux. Sans note : seulement le retour sur ce que vous savez déjà et ce qui vaut la peine d’être revu.",
     "solidariaTitulo": "Une semaine des épreuves solidaire",
     "solidaria": [
@@ -120,10 +121,10 @@
     "semTranscricao": "L’enregistrement n’est pas transformé en texte : il reste comme vous l’avez dit."
   },
   "saberes": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "titulo": "Reconnaissance des savoirs",
     "lead": "On apprend beaucoup dans la vie : au travail, dans la lutte, à la maison. Ici, vous montrez ce que vous savez déjà d’un cours et vous l’inscrivez dans votre carnet.",
-    "naoEhCertificacao": "Registre de l’École Lúcia Maria ; ce n’est ni une certification officielle ni un diplôme.",
+    "naoEhCertificacao": "Registre de l’École révolutionnaire Lúcia Maria ; ce n’est ni une certification officielle ni un diplôme.",
     "encceja": "Pour la certification officielle de scolarité au Brésil (primaire et secondaire), le chemin est l’ENCCEJA.",
     "enccejaLink": "Voir le calendrier de l’École",
     "escolha": "Quel cours maîtrisez-vous déjà grâce à la vie ?",

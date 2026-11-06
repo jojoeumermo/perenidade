@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "titulo": "Agents de travail, de classe et d'équipe",
     "descricao": "Sept assistants de l'École : entraînement à l'entretien et à la prise de parole, aide pour les papiers, questions de débat pour la classe, brouillon de cours, révision de contenu et vérification de traduction."
@@ -205,7 +206,7 @@
     "destino": "Langue de la traduction",
     "idiomas": { "en": "Anglais", "es": "Espagnol", "fr": "Français", "ru": "Russe", "zh": "Chinois" },
     "termos": "Termes qui ne se traduisent pas (séparés par des virgules)",
-    "termosDica": "Déjà inclus : Instituto Lúcia, Escola Lúcia Maria et Gaveta Aberta.",
+    "termosDica": "Déjà inclus : Instituto Lúcia, Escola Revolucionária Lúcia Maria et Gaveta Aberta.",
     "naEscola": "Ce texte va apparaître dans l'École (vérifie aussi les mots que l'École n'emploie jamais)",
     "botao": "Vérifier la traduction",
     "oQueConferir": "À vérifier",

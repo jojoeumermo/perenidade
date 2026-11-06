@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// A vida real na Escola Lúcia Maria (E4-11, docs/escola/vida.md): a tarefa no mundo de cada curso, as missões de
+// A vida real na Escola Revolucionária Lúcia Maria (E4-11, docs/escola/vida.md): a tarefa no mundo de cada curso, as missões de
 // laboratório, o estudo de caso do bairro, as gravações de voz de quem estuda e a conferência das duas listas curadas
 // (vozes publicadas e "trabalhadores que ensinam"). Tudo fica SÓ no aparelho: o servidor não recebe nada daqui.
 // Puro e sem "@/" nem fs, de propósito: `npm run testar:escola-vida` roda este arquivo direto no Node. O conteúdo

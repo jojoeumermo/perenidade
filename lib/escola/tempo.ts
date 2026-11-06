@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O tempo da Escola Lúcia Maria: em que semestre estamos, se é tempo de aula ou de férias, e quando é a semana de
+// O tempo da Escola Revolucionária Lúcia Maria: em que semestre estamos, se é tempo de aula ou de férias, e quando é a semana de
 // provas. As datas vêm de content/escola/ano-letivo.json e são PROPOSTA enquanto "confirmado" for false (a interface
 // avisa). Sem os atalhos "@/" de propósito: `npm run testar:escola` roda este arquivo direto no Node.
 

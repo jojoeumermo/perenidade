@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "player": {
     "continuar": "Reprendre",
     "continuarRotulo": "Reprendre là où vous vous êtes arrêté : {titulo}",
@@ -37,7 +38,7 @@
     "abrirAula": "Ouvrir la leçon de la semaine",
     "vozDoAparelho": "Lu par la voix de votre appareil : le texte n’est envoyé à personne.",
     "roteiro": {
-      "saudacao": "Bonjour ! Nous sommes le {data}. Ici Aujourd’hui sur le campus, de l’École Lúcia Maria.",
+      "saudacao": "Bonjour ! Nous sommes le {data}. Ici Aujourd’hui sur le campus, de l’École révolutionnaire Lúcia Maria.",
       "fatosAbre": "Ce jour-là, dans l’histoire des luttes populaires :",
       "fato": "{ano}. {texto} Selon {fonte}.",
       "wikipedia": "Wikipédia",

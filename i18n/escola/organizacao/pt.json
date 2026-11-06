@@ -3,7 +3,7 @@
     "assembleiaTitulo": "Assembleia estudantil",
     "assembleiaDescricao": "Vote, sem se identificar, nas trilhas que o semestre deve priorizar, faça a Roda do semestre e monte a assembleia no seu núcleo.",
     "ouvidoriaTitulo": "Ouvidoria da Escola",
-    "ouvidoriaDescricao": "Mande uma dúvida, crítica ou sugestão à ouvidoria, sem conta, e acompanhe a resposta pública pelo protocolo.",
+    "ouvidoriaDescricao": "Mande uma dúvida, crítica ou sugestão à ouvidoria, sem ligar a mensagem à sua conta, e acompanhe a resposta pública pelo protocolo.",
     "educadorTitulo": "Educador ou educadora do mês",
     "educadorDescricao": "O reconhecimento mensal de quem ensina na Escola, só com autorização, sem ranking e sem foto."
   },
@@ -59,7 +59,7 @@
     "apagar": "Apagar esta Roda",
     "apagada": "Roda apagada deste aparelho.",
     "guardadas": "Rodas guardadas neste aparelho: {n} (no máximo uma por semestre, até 4).",
-    "folha": "Roda do semestre {semestre} — Escola Lúcia Maria",
+    "folha": "Roda do semestre {semestre} — Escola Revolucionária Lúcia Maria",
     "semAparelho": "Este aparelho não guarda o que você escreve; use Copiar o texto antes de sair."
   },
   "nucleo": {
@@ -81,7 +81,7 @@
   "ouvidoria": {
     "olho": "Ouvidoria",
     "titulo": "Ouvidoria da Escola",
-    "lead": "Um canal para dúvida, crítica ou sugestão sobre aula, curso, educador ou a Escola toda. Não precisa de conta.",
+    "lead": "Um canal para dúvida, crítica ou sugestão sobre aula, curso, educador ou a Escola toda. O que você manda não fica ligado à sua conta.",
     "guardaTitulo": "O que fica guardado",
     "guarda": "Fica guardado no servidor o assunto, a página (se você indicar), o que você escrever e, se quiser resposta particular, um contato. Não fica guardado o seu endereço de rede nem uma conta. No seu aparelho fica só o protocolo.",
     "quemLe": "Quem lê é só a mediação e a coordenação. Quando uma resposta é publicada, aparece em público só o resumo da mediação e a resposta, nunca o que você escreveu nem o seu contato.",

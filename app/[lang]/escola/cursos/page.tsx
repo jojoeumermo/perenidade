@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/escola/cur
 
 const grupoDa = (area: string) => groups.find((g) => (g.areas as readonly string[]).includes(area))?.id ?? "";
 
-/** O catálogo dos cursos da Escola Lúcia Maria (E4-07): por ciclo, com filtros, horas, aulas, formato e patrono. */
+/** O catálogo dos cursos da Escola Revolucionária Lúcia Maria (E4-07): por ciclo, com filtros, horas, aulas, formato e patrono. */
 export default async function Cursos({ params }: PageProps<"/[lang]/escola/cursos">) {
   const { lang, t } = await loadLang(params);
   const s = textosDosCursos(lang);

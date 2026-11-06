@@ -22,7 +22,7 @@
     }
   },
   "lista": {
-    "olho": "Escola Lúcia Maria",
+    "olho": "Escola Revolucionária Lúcia Maria",
     "titulo": "Turmas por curso",
     "lead": "Cada curso tem uma turma por mês: um módulo, duas aulas por semana e um encontro por vídeo toda quarta, às 19h30 de Brasília. O estudo continua no seu ritmo e o progresso fica no seu aparelho.",
     "agora": "Turma deste mês",
@@ -79,7 +79,7 @@
     "minutos": "{n} min",
     "feita": "feita",
     "baixarIcs": "Pôr os encontros na minha agenda (.ics)",
-    "icsDescricao": "Encontro da turma do curso na Escola Lúcia Maria. A sala aparece na página da turma para quem entrou.",
+    "icsDescricao": "Encontro da turma do curso na Escola Revolucionária Lúcia Maria. A sala aparece na página da turma para quem entrou.",
     "nomeDoIcs": "encontros-da-turma"
   },
   "curso": {
@@ -123,13 +123,13 @@
     "nenhum": "Ainda não há orientador com vaga neste curso.",
     "vagas": "{n} vagas neste semestre",
     "vagaUma": "1 vaga neste semestre",
-    "pelaRede": "Mande uma mensagem pela Rede Lúcia para o perfil {perfil}, dizendo o curso e a ideia do projeto.",
-    "abrirRede": "Abrir a Rede Lúcia",
+    "pelaRede": "Mande uma mensagem pela Alumia para o perfil {perfil}, dizendo o curso e a ideia do projeto.",
+    "abrirRede": "Abrir a Alumia",
     "peloEmail": "Escreva para o e-mail do Instituto, {email}, com o assunto “orientação do curso {curso}” e o nome de quem você quer como orientador(a).",
     "mentoria": "O papel de mentoria do painel continua como está."
   },
   "circulo": {
-    "olho": "Escola Lúcia Maria · para quem facilita",
+    "olho": "Escola Revolucionária Lúcia Maria · para quem facilita",
     "titulo": "Círculo de cultura digital",
     "lead": "Uma ferramenta para quem facilita um encontro da turma, em 5 passos inspirados nos círculos de cultura de Paulo Freire. Tudo fica só neste aparelho: nada vai para o servidor.",
     "fonte": "Referência:",
@@ -187,7 +187,7 @@
     "copiado": "Copiado"
   },
   "banca": {
-    "olho": "Escola Lúcia Maria · projeto final",
+    "olho": "Escola Revolucionária Lúcia Maria · projeto final",
     "titulo": "Banca popular online",
     "lead": "Uma conversa de 30 minutos por vídeo para apresentar o projeto final do curso. A banca presencial fica para depois.",
     "quemTitulo": "Quem está na banca",
@@ -242,7 +242,7 @@
     "caderneta": "Ver a caderneta"
   },
   "cartaz": {
-    "olho": "Escola Lúcia Maria · arquivo vivo da turma",
+    "olho": "Escola Revolucionária Lúcia Maria · arquivo vivo da turma",
     "titulo": "Cartaz da turma",
     "lead": "O cartaz coletivo da turma que se forma. Quem facilita digita uma frase de cada pessoa. Entram o curso e o semestre; nenhum nome completo. Tudo é montado neste aparelho.",
     "curso": "Curso",
@@ -268,6 +268,6 @@
   },
   "linkTurmas": {
     "titulo": "Turmas por curso",
-    "texto": "Na Escola Lúcia Maria, cada curso tem a sua turma do mês."
+    "texto": "Na Escola Revolucionária Lúcia Maria, cada curso tem a sua turma do mês."
   }
 }

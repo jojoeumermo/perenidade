@@ -1,8 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// As páginas da Escola Lúcia Maria (abaixo de /escola), quem é dono de cada uma na Etapa 4 e quais entram na faixa de
-// navegação da Escola. As provisórias mostram "Esta parte da Escola está sendo montada" até o pacote dono substituir.
+// As páginas da Escola Revolucionária Lúcia Maria (abaixo de /escola), quem é dono de cada uma na Etapa 4, quais entram
+// na faixa de navegação da Escola e em que grupo cada uma aparece no mapa da entrada ("Tudo o que tem na Escola"). As
+// provisórias mostram "Esta parte da Escola está sendo montada" até o pacote dono substituir.
+// As rotas e as chaves ficam com os nomes de sempre (a do Assistente continua "acompanhante", em /escola/acompanhante):
+// só o texto visível mudou.
 // Sem os atalhos "@/" de propósito: `npm run testar:escola` confere que cada uma tem a sua página.
+
+/** Os grupos do mapa da entrada, na ordem em que aparecem (textos em i18n/escola/base, "mapa.grupos"). */
+export const GRUPOS_DA_ESCOLA = ["estudar", "vidaEscolar", "ajuda", "mundo", "organizacao", "escola"] as const;
+export type GrupoDaEscola = (typeof GRUPOS_DA_ESCOLA)[number];
 
 export interface RotaDaEscola {
   /** Chave do texto em i18n/escola/base (nav ou paginas). */
@@ -15,36 +22,43 @@ export interface RotaDaEscola {
   naFaixa?: boolean;
   /** Começa como página provisória do E4-01 (EmConstrucao)? */
   provisoria?: boolean;
+  /** Grupo no mapa da entrada. Sem grupo (só a própria entrada), não aparece no mapa. */
+  grupo?: GrupoDaEscola;
 }
 
 export const BASE_DA_ESCOLA = "/escola";
 
 export const ROTAS_DA_ESCOLA: readonly RotaDaEscola[] = [
   { chave: "entrada", caminho: "/escola", pacote: "E4-01", naFaixa: true },
-  { chave: "quemFoi", caminho: "/escola/quem-foi-lucia-maria", pacote: "E4-01", naFaixa: true },
-  { chave: "cursos", caminho: "/escola/cursos", pacote: "E4-07", naFaixa: true },
-  { chave: "matricula", caminho: "/escola/matricula", pacote: "E4-08", naFaixa: true },
-  { chave: "calendario", caminho: "/escola/calendario", pacote: "E4-09", naFaixa: true },
-  { chave: "campus", caminho: "/escola/campus", pacote: "E4-09", naFaixa: true },
-  { chave: "turmas", caminho: "/escola/turmas", pacote: "E4-15", naFaixa: true },
-  { chave: "acompanhante", caminho: "/escola/acompanhante", pacote: "E4-10", naFaixa: true },
-  { chave: "caderneta", caminho: "/escola/caderneta", pacote: "E4-14", naFaixa: true },
-  { chave: "carteirinha", caminho: "/escola/carteirinha", pacote: "E4-08" },
-  { chave: "plano", caminho: "/escola/plano", pacote: "E4-08" },
-  { chave: "vozes", caminho: "/escola/vozes", pacote: "E4-11" },
-  { chave: "lutas", caminho: "/escola/lutas", pacote: "E4-11" },
-  { chave: "assembleia", caminho: "/escola/assembleia", pacote: "E4-12" },
-  { chave: "ouvidoria", caminho: "/escola/ouvidoria", pacote: "E4-12" },
-  { chave: "educador-do-mes", caminho: "/escola/educador-do-mes", pacote: "E4-12" },
-  { chave: "provas", caminho: "/escola/provas", pacote: "E4-13" },
-  { chave: "saberes", caminho: "/escola/saberes", pacote: "E4-13" },
-  { chave: "formatura", caminho: "/escola/formatura", pacote: "E4-14" },
-  { chave: "vida", caminho: "/escola/vida", pacote: "E4-11" },
-  { chave: "agentes", caminho: "/escola/agentes", pacote: "E4-16" },
+  { chave: "quemFoi", caminho: "/escola/quem-foi-lucia-maria", pacote: "E4-01", naFaixa: true, grupo: "escola" },
+  { chave: "cursos", caminho: "/escola/cursos", pacote: "E4-07", naFaixa: true, grupo: "estudar" },
+  { chave: "matricula", caminho: "/escola/matricula", pacote: "E4-08", naFaixa: true, grupo: "vidaEscolar" },
+  { chave: "calendario", caminho: "/escola/calendario", pacote: "E4-09", naFaixa: true, grupo: "escola" },
+  { chave: "campus", caminho: "/escola/campus", pacote: "E4-09", naFaixa: true, grupo: "escola" },
+  { chave: "turmas", caminho: "/escola/turmas", pacote: "E4-15", naFaixa: true, grupo: "estudar" },
+  { chave: "acompanhante", caminho: "/escola/acompanhante", pacote: "E4-10", naFaixa: true, grupo: "ajuda" },
+  { chave: "caderneta", caminho: "/escola/caderneta", pacote: "E4-14", naFaixa: true, grupo: "vidaEscolar" },
+  { chave: "carteirinha", caminho: "/escola/carteirinha", pacote: "E4-08", grupo: "vidaEscolar" },
+  { chave: "plano", caminho: "/escola/plano", pacote: "E4-08", grupo: "estudar" },
+  { chave: "vozes", caminho: "/escola/vozes", pacote: "E4-11", grupo: "mundo" },
+  { chave: "lutas", caminho: "/escola/lutas", pacote: "E4-11", grupo: "mundo" },
+  { chave: "assembleia", caminho: "/escola/assembleia", pacote: "E4-12", grupo: "organizacao" },
+  { chave: "ouvidoria", caminho: "/escola/ouvidoria", pacote: "E4-12", grupo: "organizacao" },
+  { chave: "educador-do-mes", caminho: "/escola/educador-do-mes", pacote: "E4-12", grupo: "organizacao" },
+  { chave: "provas", caminho: "/escola/provas", pacote: "E4-13", grupo: "estudar" },
+  { chave: "saberes", caminho: "/escola/saberes", pacote: "E4-13", grupo: "estudar" },
+  { chave: "formatura", caminho: "/escola/formatura", pacote: "E4-14", grupo: "vidaEscolar" },
+  { chave: "vida", caminho: "/escola/vida", pacote: "E4-11", grupo: "mundo" },
+  { chave: "agentes", caminho: "/escola/agentes", pacote: "E4-16", grupo: "ajuda" },
 ];
 
 /** As da faixa de navegação, na ordem. */
 export const FAIXA_DA_ESCOLA = ROTAS_DA_ESCOLA.filter((r) => r.naFaixa);
+
+/** O mapa da entrada: cada grupo com as suas páginas, na ordem da lista acima. Grupo vazio não aparece. */
+export function mapaDaEscola(): { grupo: GrupoDaEscola; rotas: RotaDaEscola[] }[] {
+  return GRUPOS_DA_ESCOLA.map((grupo) => ({ grupo, rotas: ROTAS_DA_ESCOLA.filter((r) => r.grupo === grupo) })).filter((g) => g.rotas.length > 0);
+}
 
 /** A rota de um caminho (sem idioma), ou null. */
 export const rotaDe = (caminho: string) => ROTAS_DA_ESCOLA.find((r) => r.caminho === caminho) ?? null;

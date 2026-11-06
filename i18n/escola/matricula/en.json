@@ -1,11 +1,12 @@
 {
+  "_rascunho": true,
   "meta": {
-    "matricula": { "titulo": "Enrolment", "descricao": "Enrol in the Lúcia Maria School with no sign-up: three questions, no name, email or ID. Everything stays on your device." },
-    "carteirinha": { "titulo": "Student card", "descricao": "The Lúcia Maria School card, made on your device. It is not an official document." },
+    "matricula": { "titulo": "Enrolment", "descricao": "Enrol in the Lúcia Maria Revolutionary School: three questions, no name, email or ID. Everything stays on your device." },
+    "carteirinha": { "titulo": "Student card", "descricao": "The Lúcia Maria Revolutionary School card, made on your device. It is not an official document." },
     "plano": { "titulo": "Plan for the week", "descricao": "A guilt-free study plan for the week, made on your device by simple rules." }
   },
   "comum": {
-    "olho": "Lúcia Maria School",
+    "olho": "Lúcia Maria Revolutionary School",
     "carregando": "Opening what is stored on this device…",
     "minutos": "{n} min",
     "semGuardar": "This device did not allow saving (it may be the browser's private mode). Try outside it."
@@ -134,7 +135,7 @@
   },
   "carteirinha": {
     "lead": "Made on this device, with no server. To keep as a souvenir, print or show to your class.",
-    "escola": "Lúcia Maria School",
+    "escola": "Lúcia Maria Revolutionary School",
     "casa": "Instituto Lúcia",
     "popular": "Free people's school",
     "estudante": "Student",
@@ -148,7 +149,7 @@
     "avisoNaoDocumento": "This card is not an official document and is not valid as a student card for half-price tickets (meia-entrada). It was made on this device; nothing was sent.",
     "leiNaoVale": "Half-price tickets require the Student ID Card (CIE), issued by the student organisations named in Brazilian Law no. 12.933/2013 (art. 1, § 2).",
     "qr": "Point the camera to visit the School",
-    "qrAlt": "QR code with the address of the Lúcia Maria School",
+    "qrAlt": "QR code with the address of the Lúcia Maria Revolutionary School",
     "usarFoto": "Show my account photo",
     "usarFotoDica": "It only appears if your account has a photo stored on this device. Without it, your initials are used.",
     "imprimir": "Print",
@@ -189,7 +190,7 @@
     "lembrete": "Calendar reminder",
     "lembreteHora": "Reminder time",
     "lembreteDica": "Downloads a calendar file that reminds you on study days, even with the site closed. Nothing is sent.",
-    "lembreteTitulo": "Study at the Lúcia Maria School",
+    "lembreteTitulo": "Study at the Lúcia Maria Revolutionary School",
     "lembreteDescricao": "Time for the plan of the week.",
     "remontar": "Make the plan again",
     "acabou": "You have done every lesson of your courses. How about choosing another?",

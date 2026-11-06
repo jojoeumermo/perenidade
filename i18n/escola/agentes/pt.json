@@ -205,7 +205,7 @@
     "destino": "Idioma da tradução",
     "idiomas": { "en": "Inglês", "es": "Espanhol", "fr": "Francês", "ru": "Russo", "zh": "Chinês" },
     "termos": "Termos que não se traduzem (separados por vírgula)",
-    "termosDica": "Já entram: Instituto Lúcia, Escola Lúcia Maria e Gaveta Aberta.",
+    "termosDica": "Já entram: Instituto Lúcia, Escola Revolucionária Lúcia Maria e Gaveta Aberta.",
     "naEscola": "Este texto vai aparecer na Escola (confere também as palavras que a Escola nunca usa)",
     "botao": "Conferir a tradução",
     "oQueConferir": "O que conferir",

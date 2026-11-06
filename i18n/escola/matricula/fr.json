@@ -1,11 +1,12 @@
 {
+  "_rascunho": true,
   "meta": {
-    "matricula": { "titulo": "Inscription", "descricao": "Inscription à l'École Lúcia Maria sans compte : trois questions, sans nom, e-mail ni pièce d'identité. Tout reste sur votre appareil." },
-    "carteirinha": { "titulo": "Carte", "descricao": "La carte de l'École Lúcia Maria, faite sur votre appareil. Ce n'est pas un document officiel." },
+    "matricula": { "titulo": "Inscription", "descricao": "Inscription à l'École révolutionnaire Lúcia Maria : trois questions, sans nom, e-mail ni pièce d'identité. Tout reste sur votre appareil." },
+    "carteirinha": { "titulo": "Carte", "descricao": "La carte de l'École révolutionnaire Lúcia Maria, faite sur votre appareil. Ce n'est pas un document officiel." },
     "plano": { "titulo": "Plan de la semaine", "descricao": "Un plan d'étude de la semaine, fait sur votre appareil avec des règles simples, sans culpabilité." }
   },
   "comum": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "carregando": "Ouverture de ce qui est gardé sur cet appareil…",
     "minutos": "{n} min",
     "semGuardar": "Cet appareil n'a pas permis d'enregistrer (c'est peut-être la navigation privée). Essayez en dehors."
@@ -134,7 +135,7 @@
   },
   "carteirinha": {
     "lead": "Faite sur cet appareil, sans serveur. À garder en souvenir, à imprimer ou à montrer à votre groupe.",
-    "escola": "École Lúcia Maria",
+    "escola": "École révolutionnaire Lúcia Maria",
     "casa": "Instituto Lúcia",
     "popular": "École populaire et gratuite",
     "estudante": "Élève",
@@ -148,7 +149,7 @@
     "avisoNaoDocumento": "Cette carte n'est pas un document officiel et ne vaut pas carte d'étudiant pour le demi-tarif (meia-entrada). Elle a été faite sur cet appareil ; rien n'a été envoyé.",
     "leiNaoVale": "Le demi-tarif exige la Carteira de Identificação Estudantil (CIE), délivrée par les organisations étudiantes indiquées dans la loi brésilienne n° 12.933/2013 (art. 1, § 2).",
     "qr": "Visez avec l'appareil photo pour découvrir l'École",
-    "qrAlt": "Code QR avec l'adresse de l'École Lúcia Maria",
+    "qrAlt": "Code QR avec l'adresse de l'École révolutionnaire Lúcia Maria",
     "usarFoto": "Afficher la photo de mon compte",
     "usarFotoDica": "Elle n'apparaît que si votre compte a une photo gardée sur cet appareil. Sinon, ce sont les initiales.",
     "imprimir": "Imprimer",
@@ -189,7 +190,7 @@
     "lembrete": "Rappel dans l'agenda",
     "lembreteHora": "Heure du rappel",
     "lembreteDica": "Télécharge un fichier d'agenda qui vous prévient les jours d'étude, même site fermé. Rien n'est envoyé.",
-    "lembreteTitulo": "Étudier à l'École Lúcia Maria",
+    "lembreteTitulo": "Étudier à l'École révolutionnaire Lúcia Maria",
     "lembreteDescricao": "C'est l'heure du plan de la semaine.",
     "remontar": "Refaire le plan",
     "acabou": "Vous avez fait toutes les leçons de vos cours. Et si vous en choisissiez un autre ?",
