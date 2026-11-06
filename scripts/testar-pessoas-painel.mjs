@@ -187,6 +187,19 @@ confere("rodar o install.sql inteiro de novo mantém os grupos dos departamentos
 confere("e a participação de cada um", (await linhas("select count(*)::int as n from interno.departamento_membros"))[0].n === Number(depois[0].b));
 void rh;
 
+// ── A tela usa o que o banco oferece ──
+const tela = (arquivo) => fs.readFileSync(path.join(raiz, "components/painel", arquivo), "utf8");
+confere("Confiar função usa a ação de várias funções", tela("Pessoas.tsx").includes('"papeis_conceder_varios"') && tela("Pessoas.tsx").includes("<EscolhaDeFuncoes"));
+confere("o convite leva funções extras e departamentos", /extras,\s*departamentos: deps/.test(tela("Convites.tsx")));
+confere("a lista de convites tem abas por situação e busca", tela("Convites.tsx").includes('"Vencidos e cancelados"') && tela("Convites.tsx").includes("<Busca"));
+confere("a troca de e-mail chama o banco e só aparece para a coordenação comunitária", tela("TrocarEmail.tsx").includes('"usuario_email_trocar"') && tela("Pessoas.tsx").includes("{lider && <TrocarEmail"));
+const lista = tela("departamentos-do-instituto.ts");
+confere("os departamentos da tela batem com os do banco", ["parcerias", "influenciadores", "representantes", "rh", "revolucionarios"].every((id) => lista.includes(`id: "${id}"`) && sql.includes(`'${id}'`)));
+confere("Revolucionários marcado como sensível na tela", /id: "revolucionarios"[^}]*sensivel: true/.test(lista));
+for (const arquivo of ["Pessoas.tsx", "PessoasExtras.tsx", "Convites.tsx", "EscolhaDeFuncoes.tsx", "TrocarEmail.tsx", "departamentos-do-instituto.ts"]) {
+  confere(`${arquivo}: sem "universidade" nem "diploma"`, !/universidade|diploma/i.test(tela(arquivo)));
+}
+
 if (falhas.length) {
   console.error(`✗ ${falhas.length} falha(s) (${certos} certos):`);
   for (const f of falhas) console.error(`  - ${f}`);
