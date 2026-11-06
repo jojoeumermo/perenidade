@@ -50,7 +50,7 @@ export function RedePropostas() {
   return (
     <div className="pn-tela">
       <p className="pn-sobre">
-        Comunidade nova da Rede Lúcia só nasce por proposta, e a coordenação decide. Leia o objetivo e as regras, confira os moderadores indicados e aprove ou recuse com o motivo. Aprovada, a comunidade entra entre as lutas, aberta a quem está na Rede, e os dois
+        Comunidade nova da Alumia só nasce por proposta, e a coordenação decide. Leia o objetivo e as regras, confira os moderadores indicados e aprove ou recuse com o motivo. Aprovada, a comunidade entra entre as lutas, aberta a quem está na Rede, e os dois
         moderadores recebem um aviso (eles podem sair quando quiserem).
       </p>
       {lista.erro && (

@@ -77,7 +77,7 @@
     "rotulo": "Publier plus tard",
     "quando": "Date et heure",
     "marcar": "Programmer",
-    "agendado": "Programmé pour {quando}. Si le Réseau est fermé à ce moment, il sort à votre prochaine ouverture.",
+    "agendado": "Programmé pour {quando}. Si Alumia est fermé à ce moment, il sort à votre prochaine ouverture.",
     "fila": "Publications programmées",
     "cancelar": "Annuler la programmation",
     "falhou": "Non publié : {erro}",
@@ -89,9 +89,9 @@
     "apagar": "Supprimer le brouillon"
   },
   "checagem": {
-    "cpf": "Cela ressemble à un CPF. Retirez-le : les données personnelles ne vont pas sur le Réseau.",
-    "telefone": "Cela ressemble à un numéro de téléphone. Retirez-le : les données personnelles ne vont pas sur le Réseau.",
-    "email": "Cela ressemble à une adresse e-mail. Retirez-la : les données personnelles ne vont pas sur le Réseau.",
+    "cpf": "Cela ressemble à un CPF. Retirez-le : les données personnelles ne vont pas sur Alumia.",
+    "telefone": "Cela ressemble à un numéro de téléphone. Retirez-le : les données personnelles ne vont pas sur Alumia.",
+    "email": "Cela ressemble à une adresse e-mail. Retirez-la : les données personnelles ne vont pas sur Alumia.",
     "endereco": "Cela ressemble à une adresse avec numéro. Retirez-la : dire où quelqu'un habite ou se trouve l'expose.",
     "odio": "Le texte contient des mots qui blessent souvent. Vous pouvez l'envoyer, mais la modération le lit avant publication."
   },
@@ -124,6 +124,6 @@
     "invalido_responde_quem": "Vérifiez qui peut répondre.",
     "ja_votou": "Vous avez déjà voté dans ce sondage.",
     "encerrada": "Ce sondage est terminé.",
-    "dado_pessoal": "Retirez du texte CPF, téléphone, e-mail ou adresse avec numéro : les données personnelles ne vont pas sur le Réseau."
+    "dado_pessoal": "Retirez du texte CPF, téléphone, e-mail ou adresse avec numéro : les données personnelles ne vont pas sur Alumia."
   }
 }

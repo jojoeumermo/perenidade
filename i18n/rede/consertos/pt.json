@@ -1,7 +1,7 @@
 {
   "idadeMenor": "Tenho menos de 18 anos",
-  "menorTitulo": "Por enquanto, a Rede não é para você",
-  "menorTexto": "A Rede Lúcia é só para maiores de 18 anos (LGPD, art. 14; ECA Digital, Lei 15.211/2025). Você não perdeu nada do resto: aulas, acervo e jornal seguem abertos para você.",
+  "menorTitulo": "Por enquanto, a Alumia não é para você",
+  "menorTexto": "A Alumia é só para maiores de 18 anos (LGPD, art. 14; ECA Digital, Lei 15.211/2025). Você não perdeu nada do resto: aulas, acervo e jornal seguem abertos para você.",
   "menorEngano": "Se marcou sem querer, escreva para a mediação pela página de contato: ela pode desfazer.",
   "novosAba": "{n} novos",
   "carregarMais": "Carregar mais",
@@ -9,7 +9,7 @@
   "fimDaLinha": "Você chegou ao fim da linha.",
   "escrever": "Escrever",
   "forumAbrindo": "Abrindo o fórum…",
-  "linhaCarregando": "Carregando a linha da Rede…",
+  "linhaCarregando": "Carregando a linha da Alumia…",
   "conviteTitulo": "Convites",
   "conviteGerar": "Gerar convite",
   "conviteDias": "Vale por (dias)",

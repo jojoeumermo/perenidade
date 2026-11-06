@@ -1,7 +1,7 @@
 {
   "_rascunho": true,
   "entrada": {
-    "titulo": "Te damos la bienvenida a Rede Lúcia",
+    "titulo": "Te damos la bienvenida a Alumia",
     "passo": "Paso {n} de {total}",
     "voltar": "Volver",
     "continuar": "Continuar",
@@ -14,7 +14,7 @@
       "guia": "Guía de seguridad"
     },
     "regras": {
-      "titulo": "Las reglas de la Red, en cuatro frases",
+      "titulo": "Las reglas de Alumia, en cuatro frases",
       "pontos": [
         "La conversación es sobre estudio y lucha: respeto a quien piensa distinto, crítica a las ideas y nunca a las personas.",
         "Nadie aparece con su nombre real: solo el seudónimo, ni siquiera el equipo.",
@@ -28,21 +28,21 @@
       "texto": "Hablar de política y de lucha puede revelar tu opinión política o tu afiliación sindical. La ley lo trata como dato personal sensible (LGPD, art. 5, II).",
       "finalidade": "Lo usamos solo para mostrar lo que escribes a quien elijas y para que la moderación cuide la conversación. No vendemos, no hacemos perfiles comerciales y no rastreamos lo que lees.",
       "revogar": "Puedes retirar el consentimiento en cualquier momento y pedir la eliminación de tus datos (LGPD, art. 18). Queda registrada la versión de las reglas vigente.",
-      "caixa": "Consiento, de forma específica y destacada, el tratamiento de los datos sensibles que yo revele al participar en la Red, para esta finalidad (LGPD, art. 11, I).",
-      "base": "Sin este consentimiento sigues con el resto del sitio; solo no entras en la Red."
+      "caixa": "Consiento, de forma específica y destacada, el tratamiento de los datos sensibles que yo revele al participar en Alumia, para esta finalidad (LGPD, art. 11, I).",
+      "base": "Sin este consentimiento sigues con el resto del sitio; solo no entras en Alumia."
     },
     "idade": {
-      "titulo": "La Red es solo para mayores de 18 años",
-      "texto": "No tratamos datos de niños y adolescentes en la Red (LGPD, art. 14). Es una declaración tuya; el resto del sitio queda abierto a todas las edades.",
+      "titulo": "Alumia es solo para mayores de 18 años",
+      "texto": "No tratamos datos de niños y adolescentes en Alumia (LGPD, art. 14). Es una declaración tuya; el resto del sitio queda abierto a todas las edades.",
       "caixa": "Tengo 18 años o más.",
       "menor": "Tengo menos de 18 años",
-      "negada": "Está bien: la Red es solo para mayores de 18 años. El resto del sitio sigue abierto para ti."
+      "negada": "Está bien: Alumia es solo para mayores de 18 años. El resto del sitio sigue abierto para ti."
     },
     "codinome": {
       "titulo": "Elige tu seudónimo",
       "texto": "Es el nombre que todos verán. No uses tu nombre real ni el de otra persona.",
       "rotulo": "Seudónimo (3 a 30 caracteres)",
-      "salvar": "Entrar en la Red"
+      "salvar": "Entrar en Alumia"
     },
     "escolhas": {
       "titulo": "Elige 3 luchas y 3 rutas",
@@ -60,14 +60,14 @@
     "guia": {
       "titulo": "Guía de seguridad",
       "pular": "Saltar la guía",
-      "concluir": "Entendido, ir a la Red",
+      "concluir": "Entendido, ir a Alumia",
       "proximo": "Siguiente tarjeta",
       "cartao": "Tarjeta {n} de {total}",
       "cartoes": [
-        { "titulo": "El seudónimo te protege", "texto": "No cuentes dónde vives, dónde trabajas ni con quién convives. Ni el equipo ve tu nombre real en la Red." },
+        { "titulo": "El seudónimo te protege", "texto": "No cuentes dónde vives, dónde trabajas ni con quién convives. Ni el equipo ve tu nombre real en Alumia." },
         { "titulo": "Nada de datos personales", "texto": "Dirección de casa, teléfono, documento y correo quedan fuera de la publicación. Para convocatorias usa un lugar público: plaza, biblioteca, sindicato." },
         { "titulo": "Denuncia sin miedo", "texto": "El botón Denunciar está en cada publicación. Sigues el avance en Avisos y nadie sabe quién denunció." },
-        { "titulo": "Salida rápida", "texto": "El botón Salida rápida abre una página neutra y borra lo que la Red guardó en este dispositivo. Úsalo cuando lo necesites." }
+        { "titulo": "Salida rápida", "texto": "El botón Salida rápida abre una página neutra y borra lo que Alumia guardó en este dispositivo. Úsalo cuando lo necesites." }
       ]
     },
     "erro": "No se pudo guardar ahora. Inténtalo de nuevo."
@@ -122,7 +122,7 @@
     "aparecerDesligar": "No quiero aparecer"
   },
   "buscar": {
-    "titulo": "Buscar en la Red",
+    "titulo": "Buscar en Alumia",
     "rotulo": "¿Qué buscas?",
     "dica": "Funciona sin acentos y con plurales: huelga encuentra huelgas. Usa comillas para una frase y - para excluir una palabra.",
     "botao": "Buscar",

@@ -10,7 +10,7 @@
   "remover": "Retirer",
   "nenhum": "Rien ici.",
   "entreParaVer": "Connectez-vous pour voir cette page.",
-  "semPermissao": "Cette zone est réservée aux personnes qui modèrent le Réseau.",
+  "semPermissao": "Cette zone est réservée aux personnes qui modèrent Alumia.",
   "categorias": {
     "menores": { "rotulo": "Enfant ou adolescent en danger", "ajuda": "Abus, exploitation ou exposition de mineurs." },
     "ameaca": { "rotulo": "Menace", "ajuda": "Quelqu'un menace la vie ou l'intégrité d'une autre personne." },
@@ -21,7 +21,7 @@
     "assedio": { "rotulo": "Harcèlement ou poursuite", "ajuda": "Insistance, humiliation ou persécution contre quelqu'un." },
     "golpe": { "rotulo": "Arnaque ou fraude", "ajuda": "Tentative de tromper pour obtenir de l'argent ou des données." },
     "spam": { "rotulo": "Publicité ou répétition", "ajuda": "Message répété, vente ou promotion déplacée." },
-    "outro": { "rotulo": "Autre motif", "ajuda": "Quelque chose qui enfreint les règles du Réseau et ne figure pas ci-dessus." }
+    "outro": { "rotulo": "Autre motif", "ajuda": "Quelque chose qui enfreint les règles d’Alumia et ne figure pas ci-dessus." }
   },
   "prioridade": { "1": "Priorité 1", "2": "Priorité 2", "3": "Priorité 3" },
   "denunciar": {
@@ -160,7 +160,7 @@
     "andamento": {
       "aberta": "Reçu",
       "em_analise": "En analyse",
-      "resolvida": "Résolu : le Réseau a agi",
+      "resolvida": "Résolu : Alumia a agi",
       "descartada": "Analysé : pas d'infraction aux règles"
     },
     "regra": "Règle : {regra}",
@@ -188,8 +188,8 @@
     "limpar": "Cette liste est effacée si vous utilisez Quitter vite."
   },
   "cuidado": {
-    "titulo": "Comment le Réseau veille",
-    "lead": "Le Réseau a des règles écrites, avec délai et recours. Voici comment cela marche, sans lettres minuscules.",
+    "titulo": "Comment Alumia veille",
+    "lead": "Alumia a des règles écrites, avec délai et recours. Voici comment cela marche, sans lettres minuscules.",
     "denunciaTitulo": "Signalement avec protocole",
     "denunciaTexto": "Toute personne peut signaler un message, un profil ou une communauté. Qui signale n'est jamais révélé. Chaque signalement reçoit un protocole et vous le suivez dans Avis.",
     "filaTitulo": "Qui est traité en premier",
@@ -208,7 +208,7 @@
     "leiTexto": "La décision du Tribunal suprême fédéral brésilien sur l'art. 19 du Marco Civil da Internet (Thèmes 987 et 533) demande notification, procédure et canal de signalement. Cette page et celle des signalements sont ce canal. Le contenu illicite grave part vite ; les atteintes à l'honneur suivent la voie judiciaire, et la modération peut retirer à partir d'une notification.",
     "niveisTitulo": "Niveaux de confiance",
     "niveisTexto": "Tout le monde commence au niveau 0. La personne monte seule grâce à l'ancienneté du compte, à la participation (soutiens et enregistrements donnés) et aux messages sans décision de modération contre eux. Une décision fondée fait descendre le niveau. Le niveau 4 est désigné par la coordination.",
-    "niveisSemLeitura": "Nous comptons ce que vous faites, jamais ce que vous lisez : le Réseau ne suit pas votre lecture.",
+    "niveisSemLeitura": "Nous comptons ce que vous faites, jamais ce que vous lisez : Alumia ne suit pas votre lecture.",
     "nivel": "Niveau",
     "diasDeConta": "jours de compte",
     "participacoes": "participations",
@@ -230,8 +230,8 @@
   },
   "erros": {
     "modo_lento": "Ce lieu est en mode lent : attendez un peu avant de réécrire.",
-    "nivel_links": "Votre niveau ne permet pas encore autant de liens dans un message. Voyez les limites dans Comment le Réseau veille.",
-    "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment le Réseau veille.",
+    "nivel_links": "Votre niveau ne permet pas encore autant de liens dans un message. Voyez les limites dans Comment Alumia veille.",
+    "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment Alumia veille.",
     "limite_diario": "Vous avez atteint la limite de messages d'aujourd'hui pour votre niveau.",
     "lista_bloqueio": "La médiation de ce lieu n'autorise pas vos messages ici.",
     "outra_pessoa": "Une autre personne de la modération doit décider : vous avez pris la décision contestée.",

@@ -2,6 +2,7 @@
 import Link from "@/components/Link";
 import { menuDosJogos } from "@/lib/jogos/menu";
 import { localePath, type Locale } from "@/i18n/config";
+import { enderecoDaAlumia } from "@/lib/rede/alumia";
 import type { Dict } from "@/i18n/types";
 import { textosDaBusca } from "@/lib/escola/textos-da-busca";
 import { site } from "@/lib/site";
@@ -118,7 +119,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
             <ul className="mt-2.5 text-ink-soft">
               {column.links.map(([label, href]) => (
                 <li key={href}>
-                  <Link href={localePath(lang, href)} className="block py-[0.3rem] text-[0.92rem] text-ink underline-offset-4 hover:text-prelo-texto hover:underline">
+                  <Link href={href === "/comunidade" ? enderecoDaAlumia(lang) : localePath(lang, href)} className="block py-[0.3rem] text-[0.92rem] text-ink underline-offset-4 hover:text-prelo-texto hover:underline">
                     {label}
                   </Link>
                 </li>

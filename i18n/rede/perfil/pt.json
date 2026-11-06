@@ -9,7 +9,7 @@
     "estudandoAgora": "Estudando agora",
     "abrirAula": "Abrir a aula",
     "fixado": "Post fixado",
-    "escolherHandle": "Escolha o seu @nome para ter uma página na Rede.",
+    "escolherHandle": "Escolha o seu @nome para ter uma página na Alumia.",
     "selos": {
       "equipe": "Equipe do instituto",
       "educador": "Educação",
@@ -75,7 +75,7 @@
   "editar": {
     "titulo": "Editar perfil",
     "voltar": "Voltar ao perfil",
-    "entrarNaRede": "Entre na Rede para editar o seu perfil.",
+    "entrarNaRede": "Entre na Alumia para editar o seu perfil.",
     "handleTitulo": "@nome",
     "handleAjuda": "De 3 a 20 letras minúsculas sem acento, números ou _. Depois da primeira escolha, só dá para trocar uma vez a cada 30 dias.",
     "handleSalvar": "Salvar @nome",
@@ -85,7 +85,7 @@
     "contador": "{n} de 160",
     "modoTitulo": "Quem pode achar você",
     "modoAberto": "Aberto",
-    "modoAbertoAjuda": "Qualquer membro da Rede pode seguir.",
+    "modoAbertoAjuda": "Qualquer membro da Alumia pode seguir.",
     "modoTrancado": "Trancado",
     "modoTrancadoAjuda": "Quem quer seguir pede, e você aprova. Quem já segue continua.",
     "modoInvisivel": "Invisível",

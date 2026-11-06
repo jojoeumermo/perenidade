@@ -10,7 +10,7 @@
     "turma": "Turma do mês e núcleos"
   },
   "tipo": {
-    "aberta": "Aberta: quem é da Rede entra na hora",
+    "aberta": "Aberta: quem é da Alumia entra na hora",
     "restrita": "Restrita: a moderação aceita quem pede",
     "fechada": "Fechada: só por convite, núcleo ou turma"
   },
@@ -21,7 +21,7 @@
     "desistir": "Desistir do pedido",
     "sair": "Sair da comunidade",
     "membro": "Você faz parte",
-    "entrePrimeiro": "Entre na Rede para participar.",
+    "entrePrimeiro": "Entre na Alumia para participar.",
     "trabalhando": "Um instante…"
   },
   "pagina": {
@@ -60,7 +60,7 @@
   },
   "propor": {
     "titulo": "Propor uma comunidade",
-    "intro": "Comunidade nova só nasce por proposta, e a coordenação decide. Conte o objetivo, escreva as regras e indique ao menos duas pessoas da Rede para moderar (você pode ser uma delas).",
+    "intro": "Comunidade nova só nasce por proposta, e a coordenação decide. Conte o objetivo, escreva as regras e indique ao menos duas pessoas da Alumia para moderar (você pode ser uma delas).",
     "slug": "Endereço (letras minúsculas, números e hífen)",
     "nome": "Nome da comunidade",
     "objetivo": "Objetivo (20 a 1.000 letras)",
@@ -137,7 +137,7 @@
   },
   "erros": {
     "invalido:slug": "Este endereço não serve ou já está em uso.",
-    "invalido:moderadores": "Indique ao menos duas pessoas diferentes, por @nome, que já estejam na Rede.",
+    "invalido:moderadores": "Indique ao menos duas pessoas diferentes, por @nome, que já estejam na Alumia.",
     "invalido:motivo": "Escreva o motivo, com ao menos 10 letras.",
     "invalido:limite_de_fixados": "Já há 3 posts fixados. Solte um antes.",
     "invalido:aula": "Esta aula não pôde ser ligada ao post.",
