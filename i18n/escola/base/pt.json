@@ -1,12 +1,14 @@
 {
   "meta": {
     "titulo": "Escola Revolucionária Lúcia Maria",
-    "descricao": "Escola popular e gratuita do Instituto Lúcia, para quem tem conta no site: caminho, turma e registro do que você estudou."
+    "descricao": "Escola de formação militante da Frente Revolucionária Lúcia, popular e gratuita, para quem tem conta no site: caminho, turma e registro do que você estudou."
   },
   "nav": {
     "rotulo": "Partes da Escola",
     "entrada": "Entrada",
     "quemFoi": "Quem foi Lúcia Maria",
+    "militantes": "Militância",
+    "manifesto": "Manifesto",
     "cursos": "Cursos",
     "matricula": "Matrícula",
     "calendario": "Calendário",
@@ -18,7 +20,7 @@
   "entrada": {
     "olho": "Instituto Lúcia",
     "titulo": "Escola Revolucionária Lúcia Maria",
-    "linhaNaoUniversidade": "Escola popular e gratuita, com a mesma conta da Comunidade. Não é universidade e não dá diploma: dá caminho, turma e registro do que você estudou.",
+    "linhaNaoUniversidade": "Escola de formação militante, popular e gratuita, com a mesma conta da Comunidade. Aqui ninguém paga e ninguém lucra: você ganha caminho, turma e registro do que estudou.",
     "comoFunciona": "Como funciona",
     "passos": [
       { "titulo": "Matrícula", "texto": "Diga o que você quer e quanto tempo tem. Sem nome, e-mail ou documento: a matrícula fica no seu aparelho." },
@@ -32,7 +34,7 @@
     "calendarioTexto": "Os semestres, as férias e a semana de provas.",
     "rever": "Ver a abertura de novo",
     "oQueE": "O que é",
-    "oQueETexto": "Uma escola popular de trabalhadoras e trabalhadores, dentro do Instituto Lúcia. Os cursos são montados com as aulas que já existem no site, em ordem, com horas estimadas, turma para estudar junto, tarefa no mundo e projeto final.",
+    "oQueETexto": "A casa de formação militante da Frente Revolucionária Lúcia, dentro do Instituto Lúcia: uma escola popular de trabalhadoras e trabalhadores. Os cursos são montados com as aulas que já existem no site, em ordem, com horas estimadas, turma para estudar junto, tarefa no mundo e projeto final.",
     "contaTexto": "Você entra com a sua conta do Instituto Lúcia, a mesma da Comunidade. O que você estuda fica guardado neste aparelho.",
     "mapaTitulo": "Tudo o que tem na Escola",
     "mapaLead": "As partes da Escola, por assunto. A faixa do alto leva às mais usadas."
@@ -74,7 +76,9 @@
     "caderneta": "Caderneta",
     "turmas": "Turmas",
     "vida": "Vida real",
-    "agentes": "Agentes de trabalho"
+    "agentes": "Agentes de trabalho",
+    "militantes": "Militância",
+    "manifesto": "Manifesto"
   },
   "calendario": {
     "proposto": "Calendário proposto, a confirmar pela coordenação"
@@ -120,6 +124,7 @@
   },
   "mapa": {
     "grupos": {
+      "frente": "Frente Revolucionária Lúcia",
       "estudar": "Estudar",
       "vidaEscolar": "Sua vida escolar",
       "ajuda": "Ajuda para estudar",
