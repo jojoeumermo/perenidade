@@ -1,11 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { usePathname } from "next/navigation";
+import { CartazDaFrente } from "@/components/escola/frente/CartazDaFrente";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
 import { localePath, type Locale } from "@/i18n/config";
+import type { TextosDaFrente } from "@/i18n/escola/frente";
 import { hasBackend, useMe } from "@/lib/backend";
 import { useCadastro } from "@/lib/cadastro";
+import { publicaDaEscola } from "@/lib/escola/rotas";
 import type { TextosDaBase } from "@/lib/escola/textos";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
 
@@ -33,25 +36,34 @@ const vazado = "inline-flex min-h-11 items-center justify-center border-2 border
  * A sessão mora no navegador, então a conferência é daqui: o servidor manda um "conferindo" neutro (igual na hidratação);
  * com sessão guardada no aparelho, a Escola abre logo (e fecha de novo se o serviço disser que a sessão não vale mais);
  * sem sessão, a porta aparece sem esperar a rede.
+ *
+ * T15: as páginas de PUBLICAS_DA_ESCOLA (lib/escola/rotas.ts: o chamado de voluntários militantes e o manifesto da
+ * Frente Revolucionária Lúcia) abrem para todo mundo, sem conta, como o formulário do voluntariado. A porta fechada
+ * também mostra o cartaz com o chamado, para quem chega de fora saber que estamos chamando militantes.
  */
 export function PortaDaEscola({
   lang,
   s,
   e,
+  frente,
   children,
 }: {
   lang: Locale;
   s: TextosDaBase["porta"];
   e: Pick<TextosDaBase["entrada"], "olho" | "titulo" | "oQueE" | "oQueETexto" | "linhaNaoUniversidade">;
+  frente: TextosDaFrente["cartaz"];
   children: React.ReactNode;
 }) {
   const me = useMe();
+  const caminho = usePathname() ?? "";
   const hidratado = useHydrated();
   const sessao = useStored(KEYS.session);
 
   // Sem internet, o serviço não confere a sessão (useMe dá "out"); quem tem sessão guardada continua estudando no aparelho.
   const semRede = hidratado && typeof navigator !== "undefined" && navigator.onLine === false;
   const temSessao = hidratado && hasBackend && sessao !== "";
+  // As páginas públicas da Frente abrem sem conta (o mesmo HTML no servidor e na hidratação: só depende do caminho).
+  if (publicaDaEscola(caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/")) return <>{children}</>;
   if (me.status === "in" || (temSessao && (me.status === "loading" || semRede))) return <>{children}</>;
   if (me.status === "loading") {
     return (
@@ -63,18 +75,16 @@ export function PortaDaEscola({
     );
   }
 
-  return <PortaFechada lang={lang} s={s} e={e} />;
+  return <PortaFechada lang={lang} s={s} e={e} frente={frente} />;
 }
 
 /** A porta para quem não tem conta (ou não entrou): o que a Escola é, como entrar e os dois caminhos da Comunidade. */
-function PortaFechada({ lang, s, e }: { lang: Locale; s: TextosDaBase["porta"]; e: Pick<TextosDaBase["entrada"], "olho" | "titulo" | "oQueE" | "oQueETexto" | "linhaNaoUniversidade"> }) {
+function PortaFechada({ lang, s, e, frente }: { lang: Locale; s: TextosDaBase["porta"]; e: Pick<TextosDaBase["entrada"], "olho" | "titulo" | "oQueE" | "oQueETexto" | "linhaNaoUniversidade">; frente: TextosDaFrente["cartaz"] }) {
   // Só aqui: quem já tem conta não precisa perguntar ao serviço se o cadastro está aberto.
   const cadastro = useCadastro();
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12" data-porta-da-escola="fechada">
-      <PageHeading eyebrow={e.olho} title={e.titulo}>
-        {s.lead}
-      </PageHeading>
+    <div className="mx-auto max-w-4xl px-4 pb-12 pt-4" data-porta-da-escola="fechada">
+      <CartazDaFrente lang={lang} s={frente} olho={e.olho} titulo={e.titulo} linha={s.lead} />
 
       <div className="mt-10 grid gap-8 font-sans md:grid-cols-2">
         <section aria-labelledby="porta-o-que-e">
