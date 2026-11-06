@@ -51,10 +51,26 @@ institutolucia.org, alumia.institutolucia.org {
 		health_timeout 3s
 		header_up X-Forwarded-Proto https
 	}
+	# Registro mínimo, só para operar o site (erro, lentidão): sem endereço de rede (IP), sem cabeçalhos (navegador, página
+	# de origem, cookies) e sem o que vem depois do "?" (buscas). Guardado por no máximo 7 dias. É o que a página de
+	# privacidade promete: o instituto não usa registros para saber quem você é nem o que você leu (LGPD, art. 6º, III).
 	log {
 		output file /var/log/caddy/site.log {
-			roll_size 50MiB
-			roll_keep 5
+			roll_size 20MiB
+			roll_keep 7
+			roll_keep_for 168h
+		}
+		format filter {
+			wrap json
+			fields {
+				request>headers delete
+				request>remote_ip delete
+				request>remote_port delete
+				request>client_ip delete
+				request>tls delete
+				resp_headers delete
+				request>uri regexp \?.*$ ""
+			}
 		}
 	}
 }
