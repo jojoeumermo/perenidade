@@ -6,7 +6,7 @@ import type { Dict } from "@/i18n/types";
 import { AvisoDeRede } from "./offline/AvisoDeRede";
 
 /** Tem de ser o mesmo nome de public/sw.js (lucia-paginas- mais a VERSAO de lá); scripts/testar-app-offline.mjs confere. */
-export const NOME_DAS_PAGINAS = "lucia-paginas-v5";
+export const NOME_DAS_PAGINAS = "lucia-paginas-v6";
 /** Os cursos que a pessoa mandou guardar: cache À PARTE e SEM versão (public/sw.js CURSOS), que o service worker nunca apara nem apaga numa atualização. */
 export const NOME_DOS_CURSOS = "lucia-cursos";
 const PAGINAS = NOME_DAS_PAGINAS;

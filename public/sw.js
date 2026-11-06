@@ -11,7 +11,12 @@
 //    atualizar"; o toque manda {tipo: "pular"}. Só a primeira instalação assume na hora (não há versão antiga a proteger).
 // Nada do painel nem da entrada é guardado. Nada sai do aparelho por aqui: o SW só baixa páginas do próprio site.
 // Mudou a VERSAO? Mude também a de components/Offline.tsx (NOME_DAS_PAGINAS) e rode npm run testar:app-offline.
-const VERSAO = "v5";
+// v6 (06/11/2026): o site saiu da Vercel para a VPS. As cópias guardadas na v5 apontam para os arquivos da Vercel
+// (/_next/static/immutable/...), que não existem na VPS: abrir uma delas dava "This page couldn't load". A v6 não traz
+// nada da v5 (só os cursos guardados, que ficam num cache sem versão).
+const VERSAO = "v6";
+/** Versões cujas cópias NÃO passam para a atual (feitas noutra hospedagem, com outros arquivos). */
+const NAO_MIGRAR = /-v[1-5]$/;
 const PAGINAS = `lucia-paginas-${VERSAO}`;
 const FIXOS = `lucia-fixos-${VERSAO}`;
 const LEVES = `lucia-leves-${VERSAO}`;
@@ -122,6 +127,7 @@ self.addEventListener("activate", (evento) => {
     (async () => {
       const nomes = await caches.keys();
       for (const nome of nomes) {
+        if (NAO_MIGRAR.test(nome)) continue;
         if (nome.startsWith("lucia-paginas-") && nome !== PAGINAS) await migrar(nome, PAGINAS, LIMITE_DE_PAGINAS).catch(() => undefined);
         else if (nome.startsWith("lucia-fixos-") && nome !== FIXOS) await migrar(nome, FIXOS, LIMITE_DE_FIXOS).catch(() => undefined);
         // A casca e os jogos leves também passam: sem isto, logo depois de atualizar as 5 abas não abririam sem internet
