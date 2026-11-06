@@ -173,7 +173,7 @@
     "jsqr": "1.4.0",
     "katex": "^0.18.11",
     "lucide-react": "0.577.0",
-    "mammoth": "^1.11.0",
+    "mammoth": "^1.13.0",
     "maplibre-gl": "^6.16.0",
     "mathjs": "^15.2.0",
     "matter-js": "^0.20.0",
