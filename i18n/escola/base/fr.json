@@ -2,12 +2,14 @@
   "_rascunho": true,
   "meta": {
     "titulo": "École révolutionnaire Lúcia Maria",
-    "descricao": "L'école populaire et gratuite de l'Instituto Lúcia, pour qui a un compte sur le site : un chemin, une classe et la trace de ce que vous avez étudié."
+    "descricao": "École de formation militante du Front Révolutionnaire Lúcia, populaire et gratuite, pour qui a un compte sur le site : un parcours, un groupe et une trace de ce que vous avez étudié."
   },
   "nav": {
     "rotulo": "Parties de l'École",
     "entrada": "Entrée",
     "quemFoi": "Qui était Lúcia Maria",
+    "militantes": "Militantisme",
+    "manifesto": "Manifeste",
     "cursos": "Cours",
     "matricula": "Inscription",
     "calendario": "Calendrier",
@@ -19,7 +21,7 @@
   "entrada": {
     "olho": "Instituto Lúcia",
     "titulo": "École révolutionnaire Lúcia Maria",
-    "linhaNaoUniversidade": "Une école populaire et gratuite, avec le même compte que la Communauté. Ce n'est pas une université et elle ne délivre pas de diplôme : elle donne un chemin, une classe et la trace de ce que vous avez étudié.",
+    "linhaNaoUniversidade": "École de formation militante, populaire et gratuite, avec le même compte que la Communauté. Ici personne ne paie et personne ne profite : vous gagnez un parcours, un groupe et une trace de ce que vous avez étudié.",
     "comoFunciona": "Comment ça marche",
     "passos": [
       { "titulo": "Inscription", "texto": "Dites ce que vous voulez et combien de temps vous avez. Sans nom, e-mail ni pièce d'identité : l'inscription reste sur votre appareil." },
@@ -33,7 +35,7 @@
     "calendarioTexto": "Les semestres, les vacances et la semaine d'examens.",
     "rever": "Revoir l'ouverture",
     "oQueE": "Ce que c'est",
-    "oQueETexto": "Une école populaire de travailleuses et de travailleurs, au sein de l'Instituto Lúcia. Les cours sont construits avec les leçons qui existent déjà sur le site, dans l'ordre, avec des heures estimées, une classe pour étudier ensemble, une tâche dans le monde et un projet final.",
+    "oQueETexto": "La maison de formation militante du Front Révolutionnaire Lúcia, au sein de l'Instituto Lúcia : une école populaire de travailleuses et de travailleurs. Les cours sont construits avec les leçons qui existent déjà sur le site, dans l'ordre, avec des heures estimées, un groupe pour étudier ensemble, une tâche dans le monde et un projet final.",
     "contaTexto": "Vous entrez avec votre compte de l'Instituto Lúcia, le même que pour la Communauté. Ce que vous étudiez reste sur cet appareil.",
     "mapaTitulo": "Tout ce qu'il y a dans l'École",
     "mapaLead": "Les parties de l'École, par thème. La barre du haut mène aux plus utilisées."
@@ -75,7 +77,9 @@
     "caderneta": "Carnet",
     "turmas": "Classes",
     "vida": "Vie réelle",
-    "agentes": "Assistants de travail"
+    "agentes": "Assistants de travail",
+    "militantes": "Militantisme",
+    "manifesto": "Manifeste"
   },
   "calendario": {
     "proposto": "Calendrier proposé, à confirmer par la coordination"
@@ -121,6 +125,7 @@
   },
   "mapa": {
     "grupos": {
+      "frente": "Front Révolutionnaire Lúcia",
       "estudar": "Étudier",
       "vidaEscolar": "Votre vie scolaire",
       "ajuda": "De l'aide pour étudier",

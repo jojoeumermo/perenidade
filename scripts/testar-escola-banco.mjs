@@ -63,7 +63,8 @@ await espera("a migração é o mesmo bloco do fim do install.sql", async () => 
   // na ordem do install.sql; tiram-se do fim, da última para a primeira.
   // A Rede v2 entrou depois, em 9 blocos (um por pacote), na ordem de docs/rede/V2.md.
   // As migrações do lote 5/6/8/9 (departamentos-termos, eixos-equipe, controles, backend-1, backend-2) vêm depois da Rede, inteiras.
-  const lote = ["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2", "progresso-qr", "alumia"].map((n) => `2026-11-${n}.sql`);
+  // A da Frente Revolucionária Lúcia (T15, inscrição de militantes) vem por último.
+  const lote = [...["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2", "progresso-qr", "alumia"].map((n) => `2026-11-${n}.sql`), "20261106-t15-frente-militantes.sql"];
   const rede = ["fundacao", "consertos", "perfil", "publicar", "conversa", "descoberta", "comunidades", "avisos", "moderacao", "integracao"].map((n) => `2026-11-rede-${n}.sql`);
   for (const depois of [...lote.reverse(), ...rede.reverse(), "2026-11-vale-o-escrito.sql", "2026-11-acertos.sql"]) {
     const bloco = fs.readFileSync(new URL(`../supabase/migracoes/${depois}`, import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
