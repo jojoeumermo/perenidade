@@ -7,7 +7,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import Link from "@/components/Link";
 import { fill, localePath } from "@/i18n/config";
 import type { TextosDoObservatorio } from "@/lib/vale-o-escrito/textos";
-import { SITUACOES, VISOES, type NivelDeZoom, type Visao } from "@/lib/vale-o-escrito/tipos";
+import { SITUACOES, VISOES, type NivelDeZoom, type TipoDeNo, type Visao } from "@/lib/vale-o-escrito/tipos";
 import {
   acharEntrada,
   acharOrganizacao,
@@ -15,13 +15,18 @@ import {
   aplicarEntradaAoVivo,
   chaveDe,
   contarPorSituacao,
+  contarPorTipo,
+  dataDaBase,
+  formatarData,
   indicesDeArquivo,
   listaTextual,
   lugarDoNo,
   montarGrafo,
+  ramosDoCaso,
   type DadosDoObservatorio,
   type PropsDoMapa,
 } from "@/lib/vale-o-escrito/visual";
+import { medirQuadros, pausarForaDaTela } from "./desempenho";
 import { FichaDeAgente, FichaDoCaso } from "./Fichas";
 import { tocar } from "./som";
 import { useAoVivo } from "./useAoVivo";
@@ -78,12 +83,43 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const [selecionado, setSelecionado] = useState<string | null>(null);
   const [zoomMapa, setZoomMapa] = useState<NivelDeZoom>("pais");
   const [listaAberta, setListaAberta] = useState(false);
+  // Destacar por tipo (legenda clicável): só o tipo escolhido fica aceso nas visões de grafo.
+  const [destaque, setDestaque] = useState<TipoDeNo | null>(null);
+  // Orçamento de desempenho: aparelho que não passa de ~30 quadros por segundo entra no modo leve (menos efeitos).
+  const [qualidade, setQualidade] = useState<"alta" | "baixa">("alta");
+  const viz = useRef<HTMLDivElement>(null);
+  const ficha = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (qualidade === "baixa") return;
+    // Mede depois que a visão abriu (o primeiro meio segundo é o carregamento do pedaço da visão).
+    // Duas medidas seguidas abaixo de 30 (a primeira pega o carregamento da visão, sobretudo o WebGL do mapa, e
+    // sozinha dava alarme falso). Aparelho com sinal de fraco (pouca memória, economia de dados) já responde 0.
+    let cancelar = () => {};
+    let baixas = 0;
+    const medir = () => {
+      cancelar = medirQuadros(2000, (fps) => {
+        if (fps >= 30) return;
+        baixas++;
+        if (fps === 0 || baixas >= 2) setQualidade("baixa");
+        else id = window.setTimeout(medir, 1500);
+      });
+    };
+    let id = window.setTimeout(medir, 1200);
+    return () => {
+      window.clearTimeout(id);
+      cancelar();
+    };
+  }, [visao, qualidade]);
+  // Animações paradas quando o palco sai da tela ou a aba fica escondida.
+  useEffect(() => (viz.current ? pausarForaDaTela(viz.current) : undefined), []);
 
   const { ligado, ultimo } = useAoVivo(dados, (id, entrada) => setDados((d) => aplicarEntradaAoVivo(d, id, entrada)));
 
   const grafo = useMemo(() => montarGrafo(dados, dossie), [dados, dossie]);
   const entradas = useMemo(() => (dossie ? dados.entradas.filter((e) => e.dossie === dossie) : dados.entradas), [dados, dossie]);
   const lista = useMemo(() => listaTextual(grafo), [grafo]);
+  const porTipo = useMemo(() => contarPorTipo(grafo), [grafo]);
+  const construidoEm = useMemo(() => dataDaBase(dados.entradas), [dados.entradas]);
   const contagens = useMemo(() => contarPorSituacao(entradas), [entradas]);
   // O número do arquivo (VE-0001...) é só um rótulo: a posição na ordem de publicação.
   const indiceDe = useMemo(() => indicesDeArquivo(dados.entradas), [dados.entradas]);
@@ -101,6 +137,23 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     setSelecionado((atual) => (atual && montarGrafo(dados, slug).nos.some((n) => n.chave === atual) ? atual : null));
   }
   const escolherCaso = useCallback((id: string) => setSelecionado(chaveDe("entrada", id)), []);
+  /**
+   * Escolha feita pela lista textual (ou pelo atalho "ver a ficha"): além de escolher, leva a pessoa até a ficha. No
+   * celular a ficha fica abaixo do palco e da lista; sem isso parecia que "a ficha não abriu" (NOVAS-TAREFAS, T31 3.2).
+   */
+  const irParaFicha = useCallback(() => {
+    window.requestAnimationFrame(() => {
+      const el = ficha.current;
+      if (!el) return;
+      const calmo = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ behavior: calmo ? "auto" : "smooth", block: "start" });
+      el.focus({ preventScroll: true });
+    });
+  }, []);
+  const escolherDaLista = (chave: string) => {
+    setSelecionado(chave);
+    irParaFicha();
+  };
 
   const dossieAtual = dados.dossies.find((d) => d.slug === dossie);
   const vazio = dados.entradas.length === 0;
@@ -141,6 +194,10 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     aoEscolher: escolherCaso,
     zoom: zoomMapa,
     aoMudarZoom: setZoomMapa,
+    ramosDe: (id: string) => ramosDoCaso(dados, grafo, id),
+    aoSelecionarNo: setSelecionado,
+    destaque,
+    qualidadeBaixa: qualidade === "baixa",
     textos: {
       carregando: s.visual.carregando,
       mapaEmPreparacao: s.visual.mapa.emPreparacao,
@@ -194,7 +251,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
 
   return (
     <CtxTextos.Provider value={s}>
-      <div className="ve-observatorio" data-ve-pronto="" data-modo={selecionado ? "ficha" : "geral"}>
+      <div className="ve-observatorio" data-ve-pronto="" data-modo={selecionado ? "ficha" : "geral"} data-qualidade={qualidade}>
         <a className="ve-pular" href="#ve-lista" onClick={() => setListaAberta(true)}>
           {s.visual.pularParaLista}
         </a>
@@ -203,6 +260,25 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
         <p className="ve-aviso-vivo" role="status" aria-live="polite">
           {ultimo ? fill(s.visual.aoVivo.atualizou, { titulo: ultimo }) : ""}
         </p>
+
+        {/* Números de escala no topo (sempre o banco inteiro) e a data em que os dados foram construídos. */}
+        <div className="ve-escala">
+          <dl className="ve-escala-numeros" aria-label={s.casca.contadores.titulo}>
+            {numeros.map((x) => (
+              <div key={x.chave}>
+                <dt>{s.casca.contadores[x.chave]}</dt>
+                <dd>{x.n}</dd>
+              </div>
+            ))}
+          </dl>
+          {construidoEm && (
+            <p className="ve-construido">
+              <i aria-hidden="true" />
+              {fill(s.visual.construidoEm, { data: formatarData(construidoEm, lang) })}
+            </p>
+          )}
+          {qualidade === "baixa" && <p className="ve-modo-leve">{s.visual.modoLeve}</p>}
+        </div>
 
         <div className="ve-corpo">
           {/* Coluna esquerda: dossiês em abas numeradas. */}
@@ -255,7 +331,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
 
           {/* Palco: a visão escolhida e, embaixo, o seletor de visões. */}
           <section className="ve-palco" aria-label={s.entrada.titulo}>
-            <div className="ve-viz" role="tabpanel" id={painelId} aria-labelledby={`ve-aba-${dossie ?? "todos"}`}>
+            <div ref={viz} className="ve-viz" role="tabpanel" id={painelId} aria-labelledby={`ve-aba-${dossie ?? "todos"}`}>
               {vazio ? (
                 <div className="ve-vazio">
                   <strong>{s.entrada.olho}</strong>
@@ -267,23 +343,56 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                 </div>
               ) : (
                 <>
-                  {visao === "teia" && <Teia grafo={grafo} selecionado={selecionado} aoSelecionar={setSelecionado} s={s} />}
-                  {visao === "orbita" && <Orbita grafo={grafo} selecionado={selecionado} aoSelecionar={setSelecionado} s={s} />}
-                  {visao === "grupos" && <Grupos grafo={grafo} dossies={dados.dossies} selecionado={selecionado} aoSelecionar={setSelecionado} s={s} />}
+                  {visao === "teia" && <Teia grafo={grafo} selecionado={selecionado} aoSelecionar={setSelecionado} destaque={destaque} s={s} />}
+                  {visao === "orbita" && <Orbita grafo={grafo} selecionado={selecionado} aoSelecionar={setSelecionado} destaque={destaque} s={s} />}
+                  {visao === "grupos" && (
+                    <Grupos grafo={grafo} dossies={dados.dossies} selecionado={selecionado} aoSelecionar={setSelecionado} destaque={destaque} s={s} />
+                  )}
                   {visao === "fluxo" && <Fluxo entradas={entradas} dossies={dados.dossies} aoSelecionarDossie={escolherDossie} s={s} />}
-                  {visao === "mapa" && <Mapa {...mapaProps} />}
+                  {visao === "mapa" && <Mapa {...mapaProps} textosMapa={s.mapa} />}
                   {visao === "linha" && (
                     <LinhaDoTempo entradas={entradas} dossies={dados.dossies} selecionadoId={mapaProps.selecionadoId} aoEscolher={escolherCaso} s={s} lang={lang} />
                   )}
                   {(visao === "teia" || visao === "orbita" || visao === "grupos") && (
-                    <ul className="ve-legenda" aria-label={s.visual.legenda}>
-                      {(["entrada", "pessoa", "organizacao", "lugar"] as const).map((t) => (
-                        <li key={t}>
-                          <i className={`ve-i-${t}`} aria-hidden="true" />
-                          {s.visual.tipoNo[t]}
+                    // Legenda que é também o "destacar por tipo": cada tipo com a contagem; clicar acende só ele.
+                    <div className="ve-legenda" role="group" aria-label={s.visual.destacar}>
+                      <span className="ve-legenda-titulo" title={s.visual.destacarDica}>
+                        {s.visual.destacar}
+                      </span>
+                      <ul aria-label={s.visual.legenda}>
+                        {(["entrada", "pessoa", "organizacao", "lugar"] as const).map((t) => (
+                          <li key={t}>
+                            <button
+                              type="button"
+                              className="ve-legenda-botao"
+                              aria-pressed={destaque === t}
+                              data-apagado={destaque !== null && destaque !== t}
+                              onClick={() => setDestaque((d) => (d === t ? null : t))}
+                              title={s.visual.destacarDica}
+                            >
+                              <i className={`ve-i-${t}`} aria-hidden="true" />
+                              <span>{s.visual.tipoNo[t]}</span>
+                              <b>{porTipo[t]}</b>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                      <ul className="ve-legenda-confianca" aria-label={s.visual.confiancaLigacao.titulo}>
+                        <li>
+                          <i className="ve-i-conf" data-confianca="primaria" aria-hidden="true" />
+                          {s.visual.confiancaLigacao.primaria}
                         </li>
-                      ))}
-                    </ul>
+                        <li>
+                          <i className="ve-i-conf" data-confianca="reportado" aria-hidden="true" />
+                          {s.visual.confiancaLigacao.reportado}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                  {selecionado && (
+                    <button type="button" className="ve-ir-ficha" onClick={irParaFicha}>
+                      {s.visual.lista.abrir} ↓
+                    </button>
                   )}
                 </>
               )}
@@ -304,7 +413,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                   <li key={no.chave}>
                     <div>
                       <span className="ve-rotulo">{s.visual.tipoNo[no.tipo]}: </span>
-                      <button type="button" className="ve-lista-no" aria-pressed={selecionado === no.chave} onClick={() => setSelecionado(no.chave)}>
+                      <button type="button" className="ve-lista-no" aria-pressed={selecionado === no.chave} onClick={() => escolherDaLista(no.chave)}>
                         {no.rotulo}
                       </button>
                       {no.situacao && (
@@ -322,6 +431,12 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                           <li key={aresta.id}>
                             {s.visual.ligacao[aresta.tipo]}: {outro.rotulo}
                             {aresta.situacao ? ` (${s.situacao[aresta.situacao]})` : ""}
+                            {aresta.confianca && (
+                              <span className="ve-lista-conf" data-confianca={aresta.confianca}>
+                                {" "}
+                                · {s.visual.lista[aresta.confianca]}
+                              </span>
+                            )}
                           </li>
                         ))}
                       </ul>
@@ -357,7 +472,14 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
           {/* Ficha à direita: situação jurídica, fontes numeradas, correção e direito de resposta. */}
           {/* Sem nada escolhido, a coluna da direita é a visão geral (o índice): título, o banco em números, a barra da
               situação jurídica e os avisos. Escolhido um nó, vira a ficha (key: a ficha entra de novo, com a animação). */}
-          <aside className="ve-ficha" aria-label={selecionado ? s.visual.aria.ficha : s.entrada.titulo} data-modo={selecionado ? "ficha" : "geral"}>
+          <aside
+            ref={ficha}
+            id="ve-ficha"
+            tabIndex={-1}
+            className="ve-ficha"
+            aria-label={selecionado ? s.visual.aria.ficha : s.entrada.titulo}
+            data-modo={selecionado ? "ficha" : "geral"}
+          >
             {selecionado ? (
               <div className="ve-ficha-entra" key={selecionado}>
                 <div className="ve-ficha-topo">

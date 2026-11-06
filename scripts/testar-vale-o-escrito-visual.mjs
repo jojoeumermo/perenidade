@@ -14,6 +14,12 @@ import {
   centroPadrao,
   chaveDe,
   codigoDeArquivo,
+  confiancaDaLigacao,
+  contarPorTipo,
+  curvaDaAresta,
+  dataDaBase,
+  dominioDe,
+  ramosDoCaso,
   contarPorSituacao,
   dataParaMs,
   formatarData,
@@ -389,8 +395,11 @@ caso("fichas mostram situação jurídica, 'segundo [fonte]', fontes numeradas, 
 caso("acessibilidade: abas com papel, lista textual equivalente e atalho para ela", () => {
   const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
   for (const t of ['role="tablist"', 'role="tab"', 'role="tabpanel"', "aria-selected", 'id="ve-lista"', "pularParaLista", "<details", "ArrowDown", "ArrowRight"]) assert.ok(obs.includes(t), t);
+  // Teclado e botões de zoom vivem no visor comum (Visor.tsx), usado pela Teia, Órbita e Grupos.
   const teia = ler("components", "vale-o-escrito", "Teia.tsx");
-  assert.ok(teia.includes("onKeyDown") && teia.includes("ArrowLeft") && teia.includes("zoomMais"));
+  const visor = ler("components", "vale-o-escrito", "Visor.tsx");
+  assert.ok(teia.includes("onKeyDown") && teia.includes("useVisor") && teia.includes("HudDoVisor"));
+  assert.ok(visor.includes("ArrowLeft") && visor.includes("zoomMais") && visor.includes("zoomRestaurar"));
   assert.ok(ler("components", "vale-o-escrito", "Primitivas.tsx").includes('role="button"'));
 });
 caso("ao vivo: Broadcast do banco (sem tabela exposta), só com serviço, cliente baixado sob demanda", () => {
@@ -402,6 +411,87 @@ caso("os seis nomes de visão e os três níveis de zoom do mapa existem nos tex
   for (const l of idiomas) {
     for (const v of ["teia", "orbita", "grupos", "fluxo", "mapa", "linha"]) assert.ok(textos[l].visoes[v], `${l} ${v}`);
     for (const z of ["pais", "estado", "municipio"]) assert.ok(textos[l].zoom[z], `${l} ${z}`);
+  }
+});
+
+// ───────────────────────────── NOVAS-TAREFAS T09, T10 e T31 ─────────────────────────────
+console.log("Neon, curvas, zoom da órbita e recursos do T31");
+caso("T09: ligação em curva (quadrática), sempre a mesma para o mesmo id, meio fora da reta", () => {
+  const a = curvaDaAresta({ x: 0, y: 0 }, { x: 100, y: 0 }, "l:x");
+  const b = curvaDaAresta({ x: 0, y: 0 }, { x: 100, y: 0 }, "l:x");
+  assert.deepEqual(a, b);
+  assert.match(a.d, /^M0,0 Q[-\d.]+,[-\d.]+ 100,0$/);
+  assert.ok(Math.abs(a.my) > 2, "a curva sai da reta");
+  assert.ok(Math.abs(a.mx - 50) < 1e-6);
+});
+caso("T09: nenhuma visão de grafo desenha <line> reta; todo nó tem halo neon por tipo", () => {
+  for (const f of ["Teia.tsx", "VisoesLeves.tsx"]) {
+    const t = ler("components", "vale-o-escrito", f);
+    assert.ok(t.includes("<ArestaSvg") && t.includes("<DefsNeon"), f);
+  }
+  const teia = ler("components", "vale-o-escrito", "Teia.tsx");
+  assert.ok(!/<line\b/.test(teia));
+  const prim = ler("components", "vale-o-escrito", "Primitivas.tsx");
+  assert.ok(prim.includes("ve-halo") && prim.includes("radialGradient") && prim.includes("ve-anel-pulso"));
+  for (const t of ["entrada", "pessoa", "organizacao", "lugar"]) assert.ok(prim.includes(t + ":"), t);
+});
+caso("T10: Órbita e Grupos com visor (roda, pinça, botões +/−/recentrar sempre visíveis)", () => {
+  const leves = ler("components", "vale-o-escrito", "VisoesLeves.tsx");
+  assert.equal((leves.match(/useVisor\(/g) ?? []).length, 2);
+  assert.equal((leves.match(/<HudDoVisor/g) ?? []).length, 2);
+  const visor = ler("components", "vale-o-escrito", "Visor.tsx");
+  assert.ok(visor.includes('"wheel"') && visor.includes("passive: false"), "roda não passiva");
+  assert.ok(visor.includes("pinca") && visor.includes("ponteiros.current.size >= 2"), "pinça de dois dedos");
+  assert.ok(visor.includes("zoomMais") && visor.includes("zoomMenos") && visor.includes("zoomRestaurar"));
+});
+caso("T31: confiança por ligação (cheio = primária; vazio = só imprensa; fonte que não se acha = vazio)", () => {
+  assert.equal(confiancaDaLigacao({ fonteIds: ["f1"] }, e2), "primaria");
+  assert.equal(confiancaDaLigacao({ fonteIds: ["f1"] }, e1), "reportado");
+  assert.equal(confiancaDaLigacao({ fonteIds: ["nao-existe"] }, e2), "reportado");
+  assert.equal(confiancaDaLigacao({ fonteIds: ["f1"] }, undefined), "reportado");
+  const g = montarGrafo(dados);
+  assert.ok(g.arestas.every((a) => a.confianca === "primaria" || a.confianca === "reportado"));
+});
+caso("T31: destacar por tipo conta os nós; 'dados construídos em' é a data mais nova; domínio da fonte", () => {
+  const g = montarGrafo(dados);
+  const c = contarPorTipo(g);
+  assert.equal(c.entrada + c.pessoa + c.organizacao + c.lugar, g.nos.length);
+  assert.equal(c.entrada, 3);
+  assert.equal(dataDaBase(dados.entradas), "2026-03-15");
+  assert.equal(dataDaBase([]), null);
+  assert.equal(dominioDe("https://www.stf.jus.br/x?y=1"), "stf.jus.br");
+  assert.equal(dominioDe("lixo"), "");
+});
+caso("T31: ramificações do ponto no mapa (pessoas, organizações e fontes numeradas com domínio)", () => {
+  const g = montarGrafo(dados);
+  const r = ramosDoCaso(dados, g, e1.id);
+  assert.ok(r.some((x) => x.tipo === "pessoa" && x.chave === chaveDe("pessoa", "p1")));
+  assert.ok(r.some((x) => x.tipo === "organizacao"));
+  const f = r.find((x) => x.tipo === "fonte");
+  assert.equal(f.rotulo, "01 · reporterbrasil.org.br");
+  assert.deepEqual(ramosDoCaso(dados, g, "nao-existe"), []);
+});
+caso("T31: ficha pela lista textual leva até a ficha; ficha tem ligações com fonte e 'FONTE 01 · domínio'", () => {
+  const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
+  assert.ok(obs.includes("escolherDaLista(no.chave)") && obs.includes("scrollIntoView") && obs.includes('id="ve-ficha"'));
+  assert.ok(obs.includes("ve-escala") && obs.includes("construidoEm") && obs.includes("aria-pressed={destaque === t}"));
+  const fichas = ler("components", "vale-o-escrito", "Fichas.tsx");
+  assert.ok(fichas.includes("<LigacoesDaFicha") && fichas.includes("ve-fonte-dominio"));
+});
+caso("T31: orçamento de desempenho (pausa fora da tela/aba oculta, modo leve em aparelho lento), sem enviar nada", () => {
+  const d = ler("components", "vale-o-escrito", "desempenho.ts");
+  assert.ok(d.includes("IntersectionObserver") && d.includes("visibilitychange") && d.includes("requestAnimationFrame"));
+  assert.ok(!/fetch\(|sendBeacon|localStorage|document\.cookie/.test(d), "nada sai do navegador");
+  const css = ler("styles", "vale-o-escrito.css");
+  assert.ok(css.includes("[data-parado]") && css.includes('[data-qualidade="baixa"]'));
+  const mapa = ler("components", "vale-o-escrito", "Mapa.tsx");
+  assert.ok(mapa.includes("data-parado") && mapa.includes("visibilityState") && mapa.includes("reduzirMovimento"));
+});
+caso("T31: textos novos nos 6 idiomas (mapa e visual)", () => {
+  for (const l of idiomas) {
+    for (const k of ["aproximado", "ramos", "reduzirMovimento", "ativarMovimento", "fecharRamos", "abrirFonte"]) assert.ok(textos[l].mapa[k], l + " mapa." + k);
+    for (const k of ["destacar", "destacarDica", "construidoEm", "modoLeve"]) assert.ok(textos[l].visual[k], l + " visual." + k);
+    assert.ok(textos[l].visual.construidoEm.includes("{data}"), l);
   }
 });
 

@@ -3,7 +3,7 @@ import "@/styles/vale-o-escrito.css";
 import Link from "@/components/Link";
 import { fill, localePath } from "@/i18n/config";
 import type { TextosDoObservatorio } from "@/lib/vale-o-escrito/textos";
-import type { Entrada, Organizacao, PessoaPublica, Situacao } from "@/lib/vale-o-escrito/tipos";
+import type { Entrada, Organizacao, PessoaPublica, RefDeNo, Situacao } from "@/lib/vale-o-escrito/tipos";
 import {
   casosDaOrganizacao,
   casosDaPessoa,
@@ -16,6 +16,9 @@ import {
   acharOrganizacao,
   acharPessoa,
   acharDossie,
+  acharEntrada,
+  confiancaDaLigacao,
+  dominioDe,
   type DadosDoObservatorio,
 } from "@/lib/vale-o-escrito/visual";
 import { CartaoDeArquivo } from "./CartaoDeArquivo";
@@ -60,6 +63,11 @@ export function FontesDaFicha({ entrada, s, lang }: { entrada: Entrada; s: S; la
             {n}
           </span>
           <div>
+            {/* "FONTE 01 · stf.jus.br": de onde vem, antes de abrir (decorativo; o leitor de tela ouve o número e o veículo). */}
+            <span className="ve-fonte-dominio" aria-hidden="true">
+              {s.visual.ficha.fonte} {String(n).padStart(2, "0")}
+              {dominioDe(fonte.url) ? ` · ${dominioDe(fonte.url)}` : ""}
+            </span>
             <div className="ve-fonte-titulo">
               <span className="ve-so-leitor">{fill(s.visual.ficha.numeroFonte, { n })}: </span>
               {fonte.veiculo}: {fonte.titulo}
@@ -262,6 +270,7 @@ export function FichaDoCaso({
           </ul>
         </section>
       )}
+      <LigacoesDaFicha entrada={entrada} dados={dados} s={s} />
       <section className="ve-bloco" aria-label={s.ficha.fontes}>
         <h3 className="ve-rotulo">{s.ficha.fontes}</h3>
         <FontesDaFicha entrada={entrada} s={s} lang={lang} />
@@ -354,5 +363,61 @@ export function FichaDeAgente({
       </section>
       <p className="ve-aviso-fixo">{s.visual.ficha.nuncaVitima}</p>
     </article>
+  );
+}
+
+/** Nome de uma ponta de ligação (pessoa, organização, caso ou lugar). */
+function nomeDaPonta(dados: DadosDoObservatorio, r: RefDeNo): string {
+  if (r.tipo === "pessoa") return acharPessoa(dados, r.id)?.nome ?? r.id;
+  if (r.tipo === "organizacao") return acharOrganizacao(dados, r.id)?.nome ?? r.id;
+  if (r.tipo === "entrada") return acharEntrada(dados, r.id)?.titulo ?? r.id;
+  return r.id;
+}
+
+/**
+ * As ligações com fonte do caso (as Ligacao do arquivo, não as implícitas): quem liga a quem, o tipo, o rótulo curto
+ * (onde vão os valores, como "doou R$ 50 mil em 2022, segundo o TSE"), o ponto de confiança e as fontes numeradas.
+ * Rótulos com valor em R$ vêm primeiro, do maior para o menor (lista ordenada por valor).
+ */
+export function LigacoesDaFicha({ entrada, dados, s }: { entrada: Entrada; dados: DadosDoObservatorio; s: S }) {
+  const valor = (t?: string) => {
+    const m = t?.match(/R\$\s*([\d.,]+)\s*(mil|milh(?:ão|ões)|bilh(?:ão|ões))?/i);
+    if (!m) return -1;
+    const n = Number(m[1].replace(/\./g, "").replace(",", "."));
+    const mult = !m[2] ? 1 : /^mil$/i.test(m[2]) ? 1e3 : /^milh/i.test(m[2]) ? 1e6 : 1e9;
+    return Number.isFinite(n) ? n * mult : -1;
+  };
+  const ligacoes = dados.ligacoes.filter((l) => l.entradaId === entrada.id).sort((a, b) => valor(b.rotulo) - valor(a.rotulo));
+  if (ligacoes.length === 0) return null;
+  const numeroDaFonte = (id: string) => entrada.fontes.findIndex((f) => f.id === id || f.catalogoId === id) + 1;
+  return (
+    <section className="ve-bloco" aria-label={s.visual.ficha.ligacoes}>
+      <h3 className="ve-rotulo">{s.visual.ficha.ligacoes}</h3>
+      <ul className="ve-ligacoes">
+        {ligacoes.map((l) => {
+          const conf = confiancaDaLigacao(l, entrada);
+          const nums = l.fonteIds.map(numeroDaFonte).filter((n) => n > 0);
+          return (
+            <li key={l.id}>
+              <i className="ve-i-conf" data-confianca={conf} aria-hidden="true" />
+              <span>
+                {nomeDaPonta(dados, l.de)} <span className="ve-ligacao-tipo">{s.visual.ligacao[l.tipo]}</span> {nomeDaPonta(dados, l.para)}
+                {l.rotulo ? <span className="ve-aviso-fixo"> · {l.rotulo}</span> : null}
+                <span className="ve-ligacao-meta">
+                  {" "}
+                  · {s.visual.lista[conf]}
+                  {nums.map((n) => (
+                    <a key={n} href={`#fonte-${n}`}>
+                      {" "}
+                      [{n}]
+                    </a>
+                  ))}
+                </span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }
