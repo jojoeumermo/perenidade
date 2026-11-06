@@ -49,9 +49,9 @@ jobs:
     # Sem servidor configurado (variável COOLIFY_URL vazia), não há para onde mandar a imagem: o job fica pulado em vez
     # de gastar uns dez minutos de máquina ARM a cada push. Hoje o site está na Vercel (docs/HOSPEDAGEM.md). No dia em
     # que COOLIFY_URL existir, a primeira execução monta a imagem normalmente.
-    # 06/11/2026: o site foi para a VPS da Contabo (variável SERVIDOR = contabo). Lá não há Coolify: a VPS confere a cada
-    # 2 minutos se a imagem :producao mudou e troca sozinha, sem tirar o site do ar (infra/contabo/atualizar.sh).
-    if: (vars.SERVIDOR == 'contabo' || vars.COOLIFY_URL != '') && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    # 06/11/2026: o site foi para a VPS da Contabo. Lá não há Coolify: a VPS confere a cada 2 minutos se a imagem :producao
+    # mudou e troca sozinha, sem tirar o site do ar (infra/contabo/atualizar.sh). Para parar de publicar: variável SERVIDOR = nenhum.
+    if: vars.SERVIDOR != 'nenhum' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     # A imagem sai no processador da máquina do GitHub, que precisa ser igual ao do servidor: ARM na Oracle
     # (ubuntu-24.04-arm, o padrão), x86 num servidor comum (variável MAQUINA_DE_MONTAGEM = ubuntu-24.04).
     runs-on: ${{ vars.MAQUINA_DE_MONTAGEM || 'ubuntu-24.04-arm' }}
@@ -126,7 +126,7 @@ jobs:
           docker push "$IMAGEM:producao"
 
       - name: Esperar a VPS trocar a versão e limpar o cache do Cloudflare (Contabo)
-        if: vars.SERVIDOR == 'contabo' && steps.versao.outputs.montar == 'sim'
+        if: vars.COOLIFY_URL == '' && steps.versao.outputs.montar == 'sim'
         env:
           TOKEN: ${{ secrets.CF_TOKEN_CACHE }}
           ZONA: ${{ vars.CF_ZONE_ID }}
