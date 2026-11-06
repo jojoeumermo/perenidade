@@ -46,9 +46,9 @@
    que tem e nunca se parte entre duas colunas; as linhas das seções ficam com 32 px (o mouse não precisa dos 44 px do
    toque; o mínimo da WCAG 2.5.8 é 24 px). No celular nada muda (a grade de gavetas de cima). */
 @media (min-width: 768px) {
+  /* Grade alinhada (06/11/2026): sem as colunas de jornal, sem margem própria; o gap da grade separa os cartões. */
   .mapa-do-campus .mapa-compacto > .predio {
-    break-inside: avoid;
-    margin-bottom: 0.75rem;
+    min-width: 0;
   }
   .mapa-do-campus .mapa-compacto .campus-computador .predio-link {
     min-height: 2rem;

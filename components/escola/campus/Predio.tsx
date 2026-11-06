@@ -50,7 +50,7 @@ function Cabeca({ predio, s, carimbo, comFrase = true, compacta }: { predio: Pre
 }
 
 /** Quantas seções cada prédio mostra de cara no mapa compacto do "Mais"; o resto fica no "Ver tudo". */
-const NO_COMPACTO = 5;
+const NO_COMPACTO = 4;
 
 function Itens({ itens, aoAbrir, compacto }: { itens: PredioDoMapa["itens"]; aoAbrir?: (path: string) => void; compacto?: boolean }) {
   return itens.map((item) => (
@@ -69,8 +69,8 @@ function Itens({ itens, aoAbrir, compacto }: { itens: PredioDoMapa["itens"]; aoA
 }
 
 function Lista({ predio, s, aoAbrir, compacta, limite }: { predio: PredioDoMapa; s: S; aoAbrir?: (path: string) => void; compacta?: boolean; limite?: number }) {
-  // Só esconde quando sobram pelo menos três: "Ver tudo" para uma ou duas seções ocupa o mesmo lugar que elas.
-  const corta = limite !== undefined && predio.itens.length > limite + 2;
+  // No compacto, corta sempre que passa do limite: todos os cartões ficam com a mesma altura e a grade alinha.
+  const corta = limite !== undefined && predio.itens.length > limite;
   const vistos = corta ? predio.itens.slice(0, limite) : predio.itens;
   const resto = corta ? predio.itens.slice(limite) : [];
   return (
@@ -111,8 +111,8 @@ export function Predio({ predio, s, carimbo, aoAbrir, aberto, compacto }: { pred
         </summary>
         <Lista predio={predio} s={s} aoAbrir={aoAbrir} compacta />
       </details>
-      <div className={`campus-computador flex-col border-2 border-ink bg-folha ${compacto ? "p-3" : "h-full p-4"}`}>
-        <Cabeca predio={predio} s={s} carimbo={carimbo} compacta={compacto} />
+      <div className={`campus-computador h-full flex-col border-2 border-ink bg-folha ${compacto ? "p-3" : "p-4"}`}>
+        <Cabeca predio={predio} s={s} carimbo={carimbo} compacta={compacto} comFrase={!compacto} />
         <Lista predio={predio} s={s} aoAbrir={aoAbrir} compacta={compacto} limite={compacto && !aberto ? NO_COMPACTO : undefined} />
       </div>
     </li>
