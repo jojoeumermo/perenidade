@@ -23,7 +23,7 @@
   /* Área de trabalho: papel. Desde 06/11/2026 (T25) nasce dos tokens do site (app/globals.css): o mesmo papel da página
      inicial, um passo mais escuro e equilibrado (metade --parchment, metade --parchment-deep: #f4efe5), em vez do papel
      amarronzado de antes (#f2ecdf). Os cartões ficam entre o papel do site e a folha (#fbf8f2). O texto é a tinta do site.
-     Contraste (WCAG 2.2, 1.4.3): texto 15,9:1; texto suave 7,1:1; texto mudo 5,2:1 sobre o fundo. */
+     Contraste (WCAG 2.2, 1.4.3): texto 15,1:1; texto suave 7,1:1; texto mudo 5,2:1 sobre o fundo (4,9:1 sobre --pn-superficie-2). */
   --pn-fundo: color-mix(in srgb, var(--parchment) 50%, var(--parchment-deep));
   --pn-superficie: color-mix(in srgb, var(--parchment) 60%, var(--folha));
   --pn-superficie-2: var(--parchment-deep);
