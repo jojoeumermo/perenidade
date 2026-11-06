@@ -28,7 +28,6 @@ import {
 } from "@/lib/vale-o-escrito/visual";
 import { medirQuadros, pausarForaDaTela } from "./desempenho";
 import { FichaDeAgente, FichaDoCaso } from "./Fichas";
-import type { PropsDoMapaNeon } from "./Mapa";
 import { tocar } from "./som";
 import { useAoVivo } from "./useAoVivo";
 import { Contador, Revelar } from "./Vivos";
@@ -47,7 +46,7 @@ function Carregando() {
 
 // O peso (D3, MapLibre) só sai do servidor quando a visão é aberta: nada disso entra no pacote da página inicial.
 const Teia = dynamic(() => import("./Teia"), { ssr: false, loading: Carregando });
-const Mapa = dynamic<PropsDoMapaNeon>(() => import("./Mapa"), { ssr: false, loading: Carregando });
+const Mapa = dynamic<PropsDoMapa>(() => import("./Mapa"), { ssr: false, loading: Carregando });
 const Orbita = dynamic(() => import("./VisoesLeves").then((m) => m.Orbita), { ssr: false, loading: Carregando });
 const Grupos = dynamic(() => import("./VisoesLeves").then((m) => m.Grupos), { ssr: false, loading: Carregando });
 const Fluxo = dynamic(() => import("./VisoesLeves").then((m) => m.Fluxo), { ssr: false, loading: Carregando });

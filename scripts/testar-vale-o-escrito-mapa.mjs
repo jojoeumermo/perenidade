@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import { SIGLAS_DE_UF, caixa, centro, contarCasos, pontosDosCasos, ufDoMunicipio, uniaoDeCaixas } from "../lib/vale-o-escrito/geo.ts";
+import { SIGLAS_DE_UF, caixa, centro, contarCasos, contornoExterno, pontosDosCasos, ufDoMunicipio, uniaoDeCaixas } from "../lib/vale-o-escrito/geo.ts";
 import { IDIOMAS_VE } from "../lib/vale-o-escrito/tipos.ts";
 
 let total = 0;
@@ -117,6 +117,23 @@ caso("o componente carrega o MapLibre sob demanda, sem tiles nem endereços de t
 });
 caso("maplibre-gl está nas dependências", () => {
   assert.ok(JSON.parse(ler("package.json")).dependencies["maplibre-gl"]);
+});
+
+caso("T31: contorno de fora do Brasil (divisa entre duas UFs some) e ponto 'aproximado' sem município", () => {
+  const a = { type: "Polygon", coordinates: [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]] };
+  const b = { type: "Polygon", coordinates: [[[1, 0], [2, 0], [2, 1], [1, 1], [1, 0]]] };
+  const c = contornoExterno([a, b]);
+  assert.equal(c.type, "MultiLineString");
+  const segs = c.coordinates.flatMap((l) => l.slice(1).map((q, i) => [l[i], q]));
+  assert.equal(segs.length, 6, "8 lados, 2 na divisa interna");
+  assert.ok(!segs.some(([p, q]) => p[0] === 1 && q[0] === 1), "a divisa x=1 não aparece");
+  const pts = pontosDosCasos([{ id: "a", titulo: "A", dossie: "d", cor: "vermelho", uf: "PA" }], { PA: [-52, -4] }, {});
+  assert.equal(pts.features[0].properties.aproximado, 1);
+});
+caso("T31: mapa neon (contorno fino, calor por densidade, ramificações, reduzir movimento, lista com 'local aproximado')", () => {
+  const m = ler("components", "vale-o-escrito", "Mapa.tsx");
+  for (const t of ['"contorno"', '"casos-calor"', "heatmap-density", "ve-ramos", "ramosDe", "aoSelecionarNo", "aria-pressed={calmo}", "t.aproximado"]) assert.ok(m.includes(t), t);
+  assert.ok(!/https?:\/\/(?!www\.w3)/.test(m.replace(/\/\/.*$/gm, "")), "nenhum endereço de terceiros");
 });
 
 console.log(`\n${total} conferências do mapa passaram.`);

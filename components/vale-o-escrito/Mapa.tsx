@@ -81,7 +81,8 @@ const TEXTOS_PT: TextosDoMapa = {
 const MAX_RAMOS = 12;
 const COR_DO_RAMO: Record<RamoDoCaso["tipo"], string> = { pessoa: "#ffd23f", organizacao: "#2aa3ff", fonte: "#e8e8e0" };
 
-export type PropsDoMapaNeon = PropsDoMapa & { textosMapa?: TextosDoMapa; baseDasMalhas?: string };
+// textosMapa vem de PropsDoMapa (Partial): cada chave que faltar cai no português.
+export type PropsDoMapaNeon = PropsDoMapa & { baseDasMalhas?: string };
 
 const BASE_PADRAO = "/vale-o-escrito/malhas/";
 const CAIXA_BRASIL: Caixa = [-74, -34, -34, 5.6];
@@ -154,7 +155,7 @@ export default function Mapa({
   destaque = null,
   qualidadeBaixa = false,
 }: PropsDoMapaNeon) {
-  const t = textosMapa ?? TEXTOS_PT;
+  const t: TextosDoMapa = { ...TEXTOS_PT, ...(textosMapa as Partial<TextosDoMapa> | undefined) };
   const base = baseDasMalhas ?? BASE_PADRAO;
 
   const casos = useMemo<CasoNoMapa[]>(() => {

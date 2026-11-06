@@ -61,6 +61,8 @@ export interface PropsDoMapa {
   destaque?: TipoDeNo | null;
   /** Qualidade baixa (aparelho lento): o mapa desliga o calor e a animação das ramificações. */
   qualidadeBaixa?: boolean;
+  /** Textos próprios do mapa (chave "mapa" do i18n do Vale). Sem eles, o mapa fala português. */
+  textosMapa?: Partial<Record<string, string>>;
   /** Textos já no idioma (os mesmos de i18n/vale-o-escrito/<idioma>.json). */
   textos: {
     carregando: string;
