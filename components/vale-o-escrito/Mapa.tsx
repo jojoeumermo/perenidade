@@ -451,7 +451,7 @@ export default function Mapa({
             id: "casos-brilho",
             type: "circle",
             source: "casos",
-            paint: { "circle-color": ["get", "cor"], "circle-opacity": 0.28, "circle-blur": 0.8, "circle-radius": ["interpolate", ["linear"], ["zoom"], 3, 9, 9, 18] },
+            paint: { "circle-color": ["get", "cor"], "circle-opacity": 0.4, "circle-blur": 0.85, "circle-radius": ["interpolate", ["linear"], ["zoom"], 3, 13, 9, 26] },
           });
           m.addLayer({
             id: "casos-ponto",
@@ -592,7 +592,7 @@ export default function Mapa({
     m.setLayoutProperty("casos-calor", "visibility", qualidadeBaixa ? "none" : "visible");
   }, [destaque, qualidadeBaixa, carga]);
 
-  // Pulsação do brilho dos pontos (o "neon respirando"). Orçamento: ~15 quadros por segundo, parada quando a pessoa pede
+  // Pulsação do brilho dos pontos (o "neon respirando"). Orçamento: ~10 quadros por segundo, parada quando a pessoa pede
   // menos movimento, no modo leve, com a aba escondida ou com o palco fora da tela (data-parado, ver desempenho.ts).
   useEffect(() => {
     if (carga !== "pronto") return;
@@ -604,13 +604,13 @@ export default function Mapa({
       if (!m) return;
       const parado = calmoRef.current || baixaRef.current || document.visibilityState !== "visible" || !!raiz.current?.closest("[data-parado]");
       if (parado) {
-        m.setPaintProperty("casos-brilho", "circle-opacity", 0.28);
+        m.setPaintProperty("casos-brilho", "circle-opacity", 0.4);
         espera = window.setTimeout(() => (id = requestAnimationFrame(passo)), 500);
         return;
       }
-      if (agora - ultimo > 66) {
+      if (agora - ultimo > 100) {
         ultimo = agora;
-        m.setPaintProperty("casos-brilho", "circle-opacity", 0.22 + 0.14 * Math.sin(agora / 520));
+        m.setPaintProperty("casos-brilho", "circle-opacity", 0.32 + 0.16 * Math.sin(agora / 520));
       }
       id = requestAnimationFrame(passo);
     };
@@ -631,11 +631,15 @@ export default function Mapa({
     const mostrados = ramos.slice(0, MAX_RAMOS);
     const n = mostrados.length;
     const raio = Math.max(70, Math.min(150, Math.min(ancora.w, ancora.h) * 0.3));
+    // O leque abre para o lado de dentro do mapa (na direção do centro), mais largo quanto mais ramos houver.
+    const base = Math.atan2(ancora.h / 2 - ancora.y, ancora.w / 2 - ancora.x);
+    const arco = Math.min(2 * Math.PI, Math.max(0, n - 1) * 0.55);
     return mostrados.map((r, i) => {
-      const ang = -Math.PI / 2 + (2 * Math.PI * i) / Math.max(n, 1) + (n % 2 ? 0 : Math.PI / n);
+      const ang = n === 1 ? base : arco >= 2 * Math.PI ? base + (2 * Math.PI * i) / n : base - arco / 2 + (arco * i) / (n - 1);
       const rr = raio * (i % 2 ? 0.82 : 1);
-      const x = Math.min(ancora.w - 16, Math.max(16, ancora.x + Math.cos(ang) * rr * 1.25));
-      const y = Math.min(ancora.h - 16, Math.max(16, ancora.y + Math.sin(ang) * rr));
+      // Margens: em cima ficam os níveis do mapa; embaixo, a lista e o crédito.
+      const x = Math.min(ancora.w - 60, Math.max(60, ancora.x + Math.cos(ang) * rr * 1.25));
+      const y = Math.min(ancora.h - 56, Math.max(64, ancora.y + Math.sin(ang) * rr));
       return { r, x, y, d: curvaDaAresta({ x: ancora.x, y: ancora.y }, { x, y }, `${r.tipo}:${r.chave}`, 0.18).d };
     });
   }, [ancora, ramos]);
@@ -643,7 +647,9 @@ export default function Mapa({
   const nomeAberto = ufSel ? (nomeDaUf[ufSel] ?? ufSel) : "";
 
   return (
-    <div className="relative h-full min-h-[360px] w-full overflow-hidden bg-black font-mono text-[11px] uppercase tracking-wider text-[#f1f1ed]" role="region" aria-label={t.aria}>
+    // absolute inset-0 (não h-full): o palco (.ve-viz) só tem min-height no celular, então 100% da altura dele dava "auto"
+    // e a tela do MapLibre ficava com a altura padrão de um canvas (300 px), cortada e preta (NOVAS-TAREFAS T31, 1.1).
+    <div className="absolute inset-0 min-h-[360px] overflow-hidden bg-black font-mono text-[11px] uppercase tracking-wider text-[#f1f1ed]" role="region" aria-label={t.aria}>
       {/* O estilo mínimo do MapLibre, inline: sem controles, sem popups e sem CSS de pacote. */}
       <style>{`.maplibregl-map{position:relative;overflow:hidden;-webkit-tap-highlight-color:rgb(0 0 0/0)}.maplibregl-canvas{position:absolute;left:0;top:0}.maplibregl-canvas-container.maplibregl-interactive{cursor:grab;user-select:none}.maplibregl-canvas-container.maplibregl-touch-zoom-rotate,.maplibregl-canvas-container.maplibregl-touch-drag-pan{touch-action:pan-x pan-y}`}</style>
       {/* h-full e w-full além do inset-0: o CSS do MapLibre (.maplibregl-map) troca o absolute por relative, e sem altura
@@ -713,7 +719,7 @@ export default function Mapa({
           <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
             {pontas.map((p, i) => (
               <path
-                key={`${p.r.tipo}:${p.r.chave}`}
+                key={`${i}:${p.r.tipo}:${p.r.chave}`}
                 className="ve-ramo"
                 d={p.d}
                 pathLength={1}
@@ -726,7 +732,7 @@ export default function Mapa({
           </svg>
           <ul className="m-0 list-none p-0">
             {pontas.map((p, i) => (
-              <li key={`${p.r.tipo}:${p.r.chave}`} className="ve-ramo-ponta absolute" style={{ left: p.x, top: p.y, animationDelay: `${i * 70 + 120}ms` }}>
+              <li key={`${i}:${p.r.tipo}:${p.r.chave}`} className="ve-ramo-ponta absolute" style={{ left: p.x, top: p.y, animationDelay: `${i * 70 + 120}ms` }}>
                 {p.r.tipo === "fonte" ? (
                   <a href={p.r.chave} target="_blank" rel="noopener noreferrer nofollow" title={t.abrirFonte ?? TEXTOS_PT.abrirFonte}>
                     <i style={{ background: COR_DO_RAMO.fonte }} data-confianca={p.r.confianca} aria-hidden="true" />
@@ -742,18 +748,17 @@ export default function Mapa({
             ))}
           </ul>
           {ramos.length > MAX_RAMOS && <p className="ve-ramo-mais absolute" style={{ left: ancora.x + 12, top: ancora.y + 12 }}>+{ramos.length - MAX_RAMOS}</p>}
-          <button type="button" className="ve-ramo-fechar absolute right-3 top-3" onClick={() => setRamosFechados(ramosAbertos)}>
+          <button type="button" className="ve-ramo-fechar absolute right-3 top-12" onClick={() => setRamosFechados(ramosAbertos)}>
             × {t.fecharRamos ?? TEXTOS_PT.fecharRamos}
           </button>
-          {aproximadoAberto && <p className="ve-ramo-aprox absolute right-3 top-10">{t.aproximado ?? TEXTOS_PT.aproximado}</p>}
+          {aproximadoAberto && <p className="ve-ramo-aprox absolute right-3 top-20">{t.aproximado ?? TEXTOS_PT.aproximado}</p>}
         </div>
       )}
 
       {/* Reduzir movimento: para a pulsação e o desenho progressivo dos fios (além do prefers-reduced-motion do sistema). */}
       <button
         type="button"
-        className="absolute right-3 z-10 border border-[#3b2a2e] bg-black/80 px-2 py-1 text-[10px] text-[#8f8f8a] hover:border-[#ff4d5e] hover:text-[#f1f1ed] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]"
-        style={{ bottom: "1.9rem" }}
+        className="absolute right-3 top-3 z-10 border border-[#3b2a2e] bg-black/80 px-2 py-1 text-[10px] text-[#8f8f8a] hover:border-[#ff4d5e] hover:text-[#f1f1ed] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]"
         aria-pressed={calmo}
         onClick={() => setCalmo((c) => !c)}
       >

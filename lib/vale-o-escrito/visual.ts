@@ -319,8 +319,19 @@ export function ramosDoCaso(d: DadosDoObservatorio, g: Grafo, entradaId: string)
   const e = acharEntrada(d, entradaId);
   if (!e) return [];
   const ramos: RamoDoCaso[] = [];
+  // A mesma pessoa pode chegar por duas ligações (a implícita do caso e uma Ligacao com fonte): um ramo só, e a
+  // confiança mais forte vale.
+  const porChave = new Map<string, RamoDoCaso>();
   for (const { aresta, outro } of vizinhos(g, chaveDe("entrada", entradaId))) {
-    if (outro.tipo === "pessoa" || outro.tipo === "organizacao") ramos.push({ tipo: outro.tipo, chave: outro.chave, rotulo: outro.rotulo, confianca: aresta.confianca });
+    if (outro.tipo !== "pessoa" && outro.tipo !== "organizacao") continue;
+    const ja = porChave.get(outro.chave);
+    if (ja) {
+      if (aresta.confianca === "primaria") ja.confianca = "primaria";
+      continue;
+    }
+    const ramo: RamoDoCaso = { tipo: outro.tipo, chave: outro.chave, rotulo: outro.rotulo, confianca: aresta.confianca };
+    porChave.set(outro.chave, ramo);
+    ramos.push(ramo);
   }
   e.fontes.forEach((f, i) => {
     ramos.push({ tipo: "fonte", chave: f.url, rotulo: `${String(i + 1).padStart(2, "0")} · ${dominioDe(f.url) || f.veiculo}`, confianca: TIPOS_PRIMARIOS.includes(f.tipo) ? "primaria" : "reportado" });
