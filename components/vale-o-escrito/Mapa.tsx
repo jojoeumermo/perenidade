@@ -19,6 +19,7 @@ import {
   caixa,
   centro,
   contarCasos,
+  contornoExterno,
   pontosDosCasos,
   ufDoCaso,
   uniaoDeCaixas,
@@ -27,7 +28,7 @@ import {
   type GeometriaPoligonal,
   type Par,
 } from "@/lib/vale-o-escrito/geo";
-import type { PropsDoMapa } from "@/lib/vale-o-escrito/visual";
+import { curvaDaAresta, type PropsDoMapa, type RamoDoCaso } from "@/lib/vale-o-escrito/visual";
 import type { NivelDeZoom } from "@/lib/vale-o-escrito/tipos";
 
 /** Textos próprios do mapa (i18n/vale-o-escrito/<idioma>.json, chave "mapa"). Opcional: sem ele, cai no português. */
@@ -45,6 +46,13 @@ export interface TextosDoMapa {
   aria: string;
   credito: string;
   nivel: string;
+  /** Os textos abaixo vieram depois (T31); opcionais para não quebrar quem monta o mapa sem eles. */
+  aproximado?: string;
+  ramos?: string;
+  reduzirMovimento?: string;
+  ativarMovimento?: string;
+  fecharRamos?: string;
+  abrirFonte?: string;
 }
 
 const TEXTOS_PT: TextosDoMapa = {
@@ -61,7 +69,17 @@ const TEXTOS_PT: TextosDoMapa = {
   aria: "Mapa do Brasil com os casos publicados, por estado e município",
   credito: "Malhas territoriais: IBGE. Sem mapa de terceiros e sem rastreio.",
   nivel: "Nível do mapa",
+  aproximado: "local aproximado (centro do estado)",
+  ramos: "Ligações do caso",
+  reduzirMovimento: "Reduzir movimento",
+  ativarMovimento: "Ativar movimento",
+  fecharRamos: "Fechar ramificações",
+  abrirFonte: "Abrir a fonte",
 };
+
+/** Quantas ramificações o ponto abre de uma vez (o resto fica na ficha). */
+const MAX_RAMOS = 12;
+const COR_DO_RAMO: Record<RamoDoCaso["tipo"], string> = { pessoa: "#ffd23f", organizacao: "#2aa3ff", fonte: "#e8e8e0" };
 
 export type PropsDoMapaNeon = PropsDoMapa & { textosMapa?: TextosDoMapa; baseDasMalhas?: string };
 
@@ -73,7 +91,9 @@ const NIVEIS: readonly NivelDeZoom[] = ["pais", "estado", "municipio"];
 const FUNDO = "#070707";
 const LINHA = "#3b2a2e";
 const LINHA_FORTE = "#ff4d5e";
-const PREENCHE = "#1c080c";
+const PREENCHE = "#3a0610";
+// Contorno do Brasil: linha fina neon (com um brilho largo e fraco por baixo); estados com linha bem mais fraca.
+const CONTORNO = "#ff4d5e";
 
 interface Feature {
   type: "Feature";
@@ -119,7 +139,21 @@ interface Agrupado {
   itens: { id: string; titulo: string }[];
 }
 
-export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoom, aoMudarZoom, textos, textosMapa, baseDasMalhas }: PropsDoMapaNeon) {
+export default function Mapa({
+  entradas,
+  dossies,
+  selecionadoId,
+  aoEscolher,
+  zoom,
+  aoMudarZoom,
+  textos,
+  textosMapa,
+  baseDasMalhas,
+  ramosDe,
+  aoSelecionarNo,
+  destaque = null,
+  qualidadeBaixa = false,
+}: PropsDoMapaNeon) {
   const t = textosMapa ?? TEXTOS_PT;
   const base = baseDasMalhas ?? BASE_PADRAO;
 
@@ -152,7 +186,7 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
   const aoEscolherRef = useRef(aoEscolher);
   const aoMudarZoomRef = useRef(aoMudarZoom);
   const textosRef = useRef(t);
-  const api = useRef<{ voltar: () => void; pais: () => void; atualizar: () => Promise<void> } | null>(null);
+  const api = useRef<{ voltar: () => void; pais: () => void; atualizar: () => Promise<void>; posicionarRamos: () => void } | null>(null);
 
   const [carga, setCarga] = useState<"carregando" | "pronto" | "sem-webgl" | "sem-malha">("carregando");
   const [nivel, setNivel] = useState<NivelDeZoom>("pais");
@@ -160,12 +194,25 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
   const [munSel, setMunSel] = useState<{ codigo: string; nome: string } | null>(null);
   const [agrupado, setAgrupado] = useState<Agrupado | null>(null);
   const [nomeDaUf, setNomeDaUf] = useState<Record<string, string>>({});
+  // "Reduzir movimento": começa pelo pedido do sistema (prefers-reduced-motion) e a pessoa troca no botão.
+  const [calmo, setCalmo] = useState<boolean>(() => (typeof window === "undefined" ? false : reduzMovimento()));
+  const calmoRef = useRef(calmo);
+  const baixaRef = useRef(qualidadeBaixa);
+  // Ramificações: o caso aberto no mapa e onde o ponto dele está na tela (segue o mapa quando ele se move).
+  const pontosRef = useRef(new Map<string, { coord: Par; aproximado: boolean }>());
+  const [ancora, setAncora] = useState<{ x: number; y: number; w: number; h: number; aproximado: boolean } | null>(null);
+  const [ramosFechados, setRamosFechados] = useState<string | null>(null);
+  const ramosAbertos = selecionadoId && ramosFechados !== selecionadoId ? selecionadoId : null;
+  const ramosAbertosRef = useRef<string | null>(null);
 
   useEffect(() => {
     aoEscolherRef.current = aoEscolher;
     aoMudarZoomRef.current = aoMudarZoom;
     casosRef.current = casos;
     textosRef.current = t;
+    calmoRef.current = calmo;
+    baixaRef.current = qualidadeBaixa;
+    ramosAbertosRef.current = ramosAbertos;
   });
 
   const mudarNivel = useCallback((n: NivelDeZoom) => {
@@ -188,7 +235,7 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
           [c[0], c[1]],
           [c[2], c[3]],
         ],
-        { padding: folga, duration: reduzMovimento() ? 0 : 700, maxZoom: 12 },
+        { padding: folga, duration: calmoRef.current ? 0 : 700, maxZoom: 12 },
       );
     };
 
@@ -224,7 +271,23 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
       const atual = ufSelRef.current;
       const col = atual ? ufs.current.get(atual) : undefined;
       fonte("uf")?.setData((col ? comContagem(col, "codigo", porMunicipio) : vazio()) as never);
-      fonte("casos")?.setData(pontosDosCasos(lista, centrosUf.current, centrosMun.current) as never);
+      const pts = pontosDosCasos(lista, centrosUf.current, centrosMun.current);
+      pontosRef.current = new Map(pts.features.map((f) => [f.properties.id, { coord: f.geometry.coordinates as Par, aproximado: f.properties.aproximado === 1 }]));
+      fonte("casos")?.setData(pts as never);
+      posicionarRamos();
+    };
+
+    /** Onde o ponto do caso aberto está na tela agora (as ramificações saem dele). */
+    const posicionarRamos = () => {
+      const id = ramosAbertosRef.current;
+      const p = id ? pontosRef.current.get(id) : undefined;
+      if (!m || !p) {
+        setAncora(null);
+        return;
+      }
+      const q = m.project(p.coord);
+      const c = m.getContainer();
+      setAncora({ x: q.x, y: q.y, w: c.clientWidth, h: c.clientHeight, aproximado: p.aproximado });
     };
 
     const selecionarUf = async (sigla: string) => {
@@ -280,7 +343,7 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
       else if (nivelRef.current === "estado") voltarAoPais();
     };
 
-    api.current = { voltar: voltarUmNivel, pais: voltarAoPais, atualizar };
+    api.current = { voltar: voltarUmNivel, pais: voltarAoPais, atualizar, posicionarRamos };
 
     (async () => {
       try {
@@ -341,13 +404,46 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
           m.addSource("brasil", { type: "geojson", data: comContagem(col, "sigla", porUf) as never });
           m.addSource("uf", { type: "geojson", data: vazio() as never });
           m.addSource("casos", { type: "geojson", data: pontosDosCasos([], {}, {}) as never });
+          m.addSource("contorno", { type: "geojson", data: { type: "Feature", properties: {}, geometry: contornoExterno(col.features.map((f) => f.geometry)) } as never });
 
-          const intensidade = ["interpolate", ["linear"], ["get", "casos"], 0, 0.05, 1, 0.22, 8, 0.5, 40, 0.8] as never;
+          // Sem preenchimento sólido: região sem caso fica quase apagada (o preenchimento mínimo só serve para o clique e a
+          // dica acharem a UF); com casos, um vermelho escuro que cresce com a quantidade. O brilho mesmo vem do calor abaixo.
+          const intensidade = ["interpolate", ["linear"], ["get", "casos"], 0, 0.01, 1, 0.12, 8, 0.28, 40, 0.45] as never;
           m.addLayer({ id: "brasil-fill", type: "fill", source: "brasil", filter: ["!=", ["get", "sigla"], ""], paint: { "fill-color": PREENCHE, "fill-opacity": intensidade } });
-          m.addLayer({ id: "brasil-linha", type: "line", source: "brasil", paint: { "line-color": LINHA, "line-width": 0.9 } });
+          m.addLayer({ id: "brasil-linha", type: "line", source: "brasil", paint: { "line-color": CONTORNO, "line-opacity": 0.16, "line-width": 0.6 } });
+          m.addLayer({ id: "contorno-brilho", type: "line", source: "contorno", paint: { "line-color": CONTORNO, "line-opacity": 0.3, "line-width": 5, "line-blur": 4 } });
+          m.addLayer({ id: "contorno", type: "line", source: "contorno", paint: { "line-color": CONTORNO, "line-opacity": 0.9, "line-width": 0.9 } });
           m.addLayer({ id: "brasil-hover", type: "line", source: "brasil", filter: ["==", ["get", "sigla"], ""], paint: { "line-color": LINHA_FORTE, "line-width": 2 } });
           m.addLayer({ id: "uf-fill", type: "fill", source: "uf", paint: { "fill-color": PREENCHE, "fill-opacity": intensidade } });
           m.addLayer({ id: "uf-linha", type: "line", source: "uf", paint: { "line-color": LINHA, "line-width": 0.6 } });
+          // Densidade = brilho: onde há mais casos juntos, o neon fica mais largo e mais quente (até quase branco).
+          m.addLayer({
+            id: "casos-calor",
+            type: "heatmap",
+            source: "casos",
+            layout: { visibility: baixaRef.current ? "none" : "visible" },
+            paint: {
+              "heatmap-weight": 1,
+              "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 3, 0.7, 9, 1.4],
+              "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 3, 26, 9, 60],
+              "heatmap-opacity": 0.75,
+              "heatmap-color": [
+                "interpolate",
+                ["linear"],
+                ["heatmap-density"],
+                0,
+                "rgba(0,0,0,0)",
+                0.15,
+                "rgba(120,8,30,0.35)",
+                0.4,
+                "rgba(224,16,47,0.55)",
+                0.7,
+                "rgba(255,77,94,0.75)",
+                1,
+                "rgba(255,214,220,0.9)",
+              ],
+            } as never,
+          });
           m.addLayer({ id: "uf-hover", type: "line", source: "uf", filter: ["==", ["get", "codigo"], ""], paint: { "line-color": LINHA_FORTE, "line-width": 1.8 } });
           m.addLayer({ id: "uf-sel", type: "line", source: "uf", filter: ["==", ["get", "codigo"], ""], paint: { "line-color": "#ffffff", "line-width": 2.4 } });
           m.addLayer({
@@ -365,7 +461,8 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
               "circle-radius": ["interpolate", ["linear"], ["zoom"], 3, 3.5, 9, 7],
               "circle-stroke-color": "#ffffff",
               "circle-stroke-width": 0.8,
-              "circle-stroke-opacity": 0.8,
+              // Local aproximado (centro da UF): contorno mais apagado; a dica e a lista dizem "local aproximado".
+              "circle-stroke-opacity": ["case", ["==", ["get", "aproximado"], 1], 0.3, 0.85] as never,
             },
           });
           m.addLayer({
@@ -397,7 +494,8 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
             const pts = m.queryRenderedFeatures(e.point, { layers: ["casos-brilho"] });
             if (pts.length) {
               m.getCanvas().style.cursor = "pointer";
-              dicaEm(e, String(pts[0].properties?.titulo ?? ""));
+              const ap = Number(pts[0].properties?.aproximado) === 1 && textosRef.current.aproximado;
+              dicaEm(e, `${String(pts[0].properties?.titulo ?? "")}${ap ? ` · ${ap}` : ""}`);
               return;
             }
             const nm = m.queryRenderedFeatures(e.point, { layers: ["uf-fill"] })[0];
@@ -422,6 +520,7 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
               const itens = [...vistos].map(([id, titulo]) => ({ id, titulo }));
               if (itens.length === 1) {
                 setAgrupado(null);
+                setRamosFechados(null);
                 aoEscolherRef.current(itens[0].id);
               } else setAgrupado({ itens });
               return;
@@ -435,6 +534,10 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
             const uf = m.queryRenderedFeatures(e.point, { layers: ["brasil-fill"] })[0];
             if (uf) void selecionarUf(String(uf.properties?.sigla));
           });
+
+          // As ramificações acompanham o ponto enquanto o mapa anda ou aproxima.
+          m.on("move", posicionarRamos);
+          m.on("resize", posicionarRamos);
 
           prontoRef.current = true;
           setCarga("pronto");
@@ -471,6 +574,70 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
   useEffect(() => {
     if (zoom === "pais" && nivelRef.current !== "pais") api.current?.pais();
   }, [zoom]);
+
+  // Caso aberto mudou (no mapa, na lista ou em outra visão): reposiciona as ramificações.
+  useEffect(() => {
+    api.current?.posicionarRamos();
+  }, [ramosAbertos, carga]);
+
+  // Destacar por tipo (legenda) e modo leve: só o tipo "caso" mantém os pontos acesos; o modo leve desliga o calor.
+  useEffect(() => {
+    const m = mapa.current;
+    if (!m || carga !== "pronto") return;
+    const apagado = destaque !== null && destaque !== "entrada";
+    m.setPaintProperty("casos-ponto", "circle-opacity", apagado ? 0.15 : 1);
+    m.setPaintProperty("casos-ponto", "circle-stroke-opacity", apagado ? 0.1 : (["case", ["==", ["get", "aproximado"], 1], 0.3, 0.85] as never));
+    m.setPaintProperty("casos-calor", "heatmap-opacity", apagado ? 0.12 : 0.75);
+    m.setLayoutProperty("casos-calor", "visibility", qualidadeBaixa ? "none" : "visible");
+  }, [destaque, qualidadeBaixa, carga]);
+
+  // Pulsação do brilho dos pontos (o "neon respirando"). Orçamento: ~15 quadros por segundo, parada quando a pessoa pede
+  // menos movimento, no modo leve, com a aba escondida ou com o palco fora da tela (data-parado, ver desempenho.ts).
+  useEffect(() => {
+    if (carga !== "pronto") return;
+    let id = 0;
+    let espera = 0;
+    let ultimo = 0;
+    const passo = (agora: number) => {
+      const m = mapa.current;
+      if (!m) return;
+      const parado = calmoRef.current || baixaRef.current || document.visibilityState !== "visible" || !!raiz.current?.closest("[data-parado]");
+      if (parado) {
+        m.setPaintProperty("casos-brilho", "circle-opacity", 0.28);
+        espera = window.setTimeout(() => (id = requestAnimationFrame(passo)), 500);
+        return;
+      }
+      if (agora - ultimo > 66) {
+        ultimo = agora;
+        m.setPaintProperty("casos-brilho", "circle-opacity", 0.22 + 0.14 * Math.sin(agora / 520));
+      }
+      id = requestAnimationFrame(passo);
+    };
+    id = requestAnimationFrame(passo);
+    return () => {
+      cancelAnimationFrame(id);
+      window.clearTimeout(espera);
+    };
+  }, [carga]);
+
+  const ramos = useMemo(() => (ramosAbertos && ramosDe ? ramosDe(ramosAbertos) : []), [ramosAbertos, ramosDe]);
+  const casoAberto = ramosAbertos ? casos.find((c) => c.id === ramosAbertos) : undefined;
+  const aproximadoAberto = !!ancora?.aproximado;
+
+  /** Pontas das ramificações: em leque ao redor do ponto, dentro da moldura do mapa. */
+  const pontas = useMemo(() => {
+    if (!ancora) return [];
+    const mostrados = ramos.slice(0, MAX_RAMOS);
+    const n = mostrados.length;
+    const raio = Math.max(70, Math.min(150, Math.min(ancora.w, ancora.h) * 0.3));
+    return mostrados.map((r, i) => {
+      const ang = -Math.PI / 2 + (2 * Math.PI * i) / Math.max(n, 1) + (n % 2 ? 0 : Math.PI / n);
+      const rr = raio * (i % 2 ? 0.82 : 1);
+      const x = Math.min(ancora.w - 16, Math.max(16, ancora.x + Math.cos(ang) * rr * 1.25));
+      const y = Math.min(ancora.h - 16, Math.max(16, ancora.y + Math.sin(ang) * rr));
+      return { r, x, y, d: curvaDaAresta({ x: ancora.x, y: ancora.y }, { x, y }, `${r.tipo}:${r.chave}`, 0.18).d };
+    });
+  }, [ancora, ramos]);
 
   const nomeAberto = ufSel ? (nomeDaUf[ufSel] ?? ufSel) : "";
 
@@ -537,6 +704,61 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
         <p className="absolute inset-0 grid place-items-center px-6 text-center normal-case tracking-normal">{carga === "sem-webgl" ? t.semWebgl : t.semMalha}</p>
       )}
 
+      {/* Ramificações do caso aberto: fios curvos do ponto até as pessoas, organizações e fontes ligadas (mesma lógica da
+          Teia), que se desenham um a um. As pontas são botões (pessoa/organização abrem a ficha) e links (fontes): é também a
+          versão para teclado e leitor de tela. */}
+      {carga === "pronto" && ancora && casoAberto && pontas.length > 0 && (
+        <div className="ve-ramos absolute inset-0 z-[5]" data-calmo={calmo ? "true" : "false"} role="group" aria-label={`${t.ramos ?? TEXTOS_PT.ramos}: ${casoAberto.titulo}`}>
+          <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
+            {pontas.map((p, i) => (
+              <path
+                key={`${p.r.tipo}:${p.r.chave}`}
+                className="ve-ramo"
+                d={p.d}
+                pathLength={1}
+                stroke={COR_DO_RAMO[p.r.tipo]}
+                strokeDasharray={p.r.confianca === "reportado" ? "0.03 0.02" : undefined}
+                style={{ animationDelay: `${i * 70}ms` }}
+              />
+            ))}
+            <circle className="ve-ramo-centro" cx={ancora.x} cy={ancora.y} r={10} />
+          </svg>
+          <ul className="m-0 list-none p-0">
+            {pontas.map((p, i) => (
+              <li key={`${p.r.tipo}:${p.r.chave}`} className="ve-ramo-ponta absolute" style={{ left: p.x, top: p.y, animationDelay: `${i * 70 + 120}ms` }}>
+                {p.r.tipo === "fonte" ? (
+                  <a href={p.r.chave} target="_blank" rel="noopener noreferrer nofollow" title={t.abrirFonte ?? TEXTOS_PT.abrirFonte}>
+                    <i style={{ background: COR_DO_RAMO.fonte }} data-confianca={p.r.confianca} aria-hidden="true" />
+                    {p.r.rotulo}
+                  </a>
+                ) : (
+                  <button type="button" onClick={() => aoSelecionarNo?.(p.r.chave)} title={p.r.rotulo}>
+                    <i style={{ background: COR_DO_RAMO[p.r.tipo] }} data-confianca={p.r.confianca} aria-hidden="true" />
+                    {p.r.rotulo.length > 26 ? `${p.r.rotulo.slice(0, 25)}…` : p.r.rotulo}
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+          {ramos.length > MAX_RAMOS && <p className="ve-ramo-mais absolute" style={{ left: ancora.x + 12, top: ancora.y + 12 }}>+{ramos.length - MAX_RAMOS}</p>}
+          <button type="button" className="ve-ramo-fechar absolute right-3 top-3" onClick={() => setRamosFechados(ramosAbertos)}>
+            × {t.fecharRamos ?? TEXTOS_PT.fecharRamos}
+          </button>
+          {aproximadoAberto && <p className="ve-ramo-aprox absolute right-3 top-10">{t.aproximado ?? TEXTOS_PT.aproximado}</p>}
+        </div>
+      )}
+
+      {/* Reduzir movimento: para a pulsação e o desenho progressivo dos fios (além do prefers-reduced-motion do sistema). */}
+      <button
+        type="button"
+        className="absolute right-3 z-10 border border-[#3b2a2e] bg-black/80 px-2 py-1 text-[10px] text-[#8f8f8a] hover:border-[#ff4d5e] hover:text-[#f1f1ed] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff4d5e]"
+        style={{ bottom: "1.9rem" }}
+        aria-pressed={calmo}
+        onClick={() => setCalmo((c) => !c)}
+      >
+        {calmo ? (t.ativarMovimento ?? TEXTOS_PT.ativarMovimento) : (t.reduzirMovimento ?? TEXTOS_PT.reduzirMovimento)}
+      </button>
+
       <p className="pointer-events-none absolute bottom-2 right-3 max-w-[50%] text-right text-[10px] text-[#8f8f8a]">{t.credito}</p>
 
       {/* Lista em texto dos mesmos casos: teclado e leitor de tela (o mapa em si é só desenho). */}
@@ -549,7 +771,8 @@ export default function Mapa({ entradas, dossies, selecionadoId, aoEscolher, zoo
                 <span aria-hidden style={{ color: COR_NEON[c.cor] }}>
                   {"● "}
                 </span>
-                {c.titulo} ({ufDoCaso(c) ?? "-"}, {c.situacao})
+                {c.titulo} ({ufDoCaso(c) ?? "-"}, {c.situacao}
+                {!c.municipioIbge && ufDoCaso(c) ? `, ${t.aproximado ?? TEXTOS_PT.aproximado}` : ""})
               </button>
             </li>
           ))}
