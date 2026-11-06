@@ -274,7 +274,7 @@ export function Pessoas({ me }: { me: Me }) {
           titulo="Candidaturas pelo formulário"
           sobre={
             <>
-              Quem preencheu o formulário de voluntariado no site, com nome e e-mail. As inscrições do chamado de militantes da Frente Revolucionária Lúcia (Escola) chegam aqui também, com a marca "Militante". Com o envio de e-mails ligado (Controles do site), a pessoa recebe um e-mail dizendo que o pedido chegou, e a coordenação recebe outro avisando do pedido. Ao aceitar, quem ainda não tem conta
+              Quem preencheu o formulário de voluntariado no site, com nome e e-mail. As inscrições do chamado de militantes da Frente Revolucionária Lúcia (Escola) chegam aqui também, com a marca “Militante”. Com o envio de e-mails ligado (Controles do site), a pessoa recebe um e-mail dizendo que o pedido chegou, e a coordenação recebe outro avisando do pedido. Ao aceitar, quem ainda não tem conta
               ganha um convite pessoal, que só serve para aquele e-mail e já traz a função, e ele vai sozinho por e-mail. Quem já tem conta recebe a função na hora. Ao recusar, a pessoa também é avisada por e-mail.
             </>
           }

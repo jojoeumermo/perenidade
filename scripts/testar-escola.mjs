@@ -276,16 +276,18 @@ for (const r of ROTAS_DA_ESCOLA) conferir(`página de ${r.caminho}`, fs.existsSy
 // Cada pacote que entrega a sua página tira dela a marca de provisória.
 // A marca confere com a página: provisória usa EmConstrucao; a que o pacote dono entregou tem página própria.
 conferir("provisórias usam EmConstrucao e as entregues não", ROTAS_DA_ESCOLA.every((r) => /EmConstrucao/.test(fs.readFileSync(path.join(raiz, "app", "[lang]", ...r.caminho.split("/").filter(Boolean), "page.tsx"), "utf8")) === Boolean(r.provisoria)));
-conferir("faixa da Escola", FAIXA_DA_ESCOLA.map((r) => r.chave).join() === "entrada,quemFoi,cursos,matricula,calendario,campus,turmas,acompanhante,caderneta");
+// T15: a Militância (chamado de voluntários militantes) e o Manifesto da Frente Revolucionária Lúcia entram logo depois de "Quem foi".
+conferir("faixa da Escola", FAIXA_DA_ESCOLA.map((r) => r.chave).join() === "entrada,quemFoi,militantes,manifesto,cursos,matricula,calendario,campus,turmas,acompanhante,caderneta");
 conferir("link aberto na faixa", abertaNaFaixa("/escola") === "entrada" && abertaNaFaixa("/escola/cursos/eja") === "cursos" && abertaNaFaixa("/escola/plano") === null && abertaNaFaixa("/escolar") === null);
 conferir("rotas da etapa na interdição (área estudo)", ["/escola", "/escola/cursos", "/libras", "/aula-do-dia"].every((c) => areaDoCaminho(c) === "estudo"));
 const pt = textosDaBase("pt");
 conferir("textos de toda rota", ROTAS_DA_ESCOLA.every((r) => (r.naFaixa ? pt.nav[r.chave] : pt.paginas[r.chave])) && ROTAS_DA_ESCOLA.filter((r) => r.provisoria).every((r) => pt.paginas[r.chave]));
 conferir("idioma desconhecido cai no português", textosDaBase("xx") === pt && textosDaBase("en") !== pt);
 
-// "Quem foi Lúcia Maria": só o marcador, até a coordenação mandar o texto.
+// "Quem foi Lúcia Maria": era só o marcador até a T15, que escreveu o texto a partir das fontes anotadas em
+// docs/escola-revolucionaria/FONTES-LUCIA-MARIA.md (npm run testar:militantes confere o resto).
 const quemFoi = fs.readFileSync(path.join(raiz, "content", "escola", "quem-foi-lucia-maria.md"), "utf8");
-conferir("Quem foi Lúcia Maria tem só o marcador", /^---\r?\ntitulo: "Quem foi Lúcia Maria"\r?\n---\r?\n/.test(quemFoi) && quemFoi.replace(/^---[\s\S]*?---/, "").trim() === "[TEXTO A ENVIAR PELA COORDENAÇÃO]");
+conferir("Quem foi Lúcia Maria tem o título e o texto (sem o marcador)", /^---\r?\ntitulo: "Quem foi Lúcia Maria"\r?\n---\r?\n/.test(quemFoi) && !quemFoi.includes("[TEXTO A ENVIAR PELA COORDENAÇÃO]") && quemFoi.replace(/^---[\s\S]*?---/, "").trim().length > 500);
 
 // O trecho da abertura é cópia literal do "Quem somos" publicado (em cada idioma que tem a página).
 for (const nome of fs.readdirSync(path.join(raiz, "content", "paginas")).filter((n) => /^quem-somos(\.[a-z]{2})?\.md$/.test(n))) {
