@@ -91,7 +91,13 @@
     "listaDeCasos": "Casos no mapa (lista para teclado e leitor de tela)",
     "aria": "Mapa do Brasil com os casos publicados, por estado e município",
     "credito": "Malhas territoriais: IBGE. Sem mapa de terceiros e sem rastreio.",
-    "nivel": "Nível do mapa"
+    "nivel": "Nível do mapa",
+    "aproximado": "local aproximado (centro do estado)",
+    "ramos": "Ligações do caso",
+    "reduzirMovimento": "Reduzir movimento",
+    "ativarMovimento": "Ativar movimento",
+    "fecharRamos": "Fechar ramificações",
+    "abrirFonte": "Abrir a fonte"
   },
   "enviar": {
     "titulo": "Enviar uma fonte",
@@ -196,7 +202,9 @@
       "explica": "O mesmo que o desenho mostra, em texto: cada caso, pessoa, organização e lugar, com as ligações.",
       "ligadoA": "Ligado a",
       "semLigacoes": "Sem ligações",
-      "abrir": "Ver a ficha"
+      "abrir": "Ver a ficha",
+      "primaria": "confirmada por fonte primária",
+      "reportado": "só imprensa"
     },
     "vazio": "Ainda não há casos publicados. O observatório abre vazio de propósito: só entra caso com fonte, data e trecho, depois que a curadoria revisa.",
     "vazioDossie": "Este dossiê ainda não tem casos publicados.",
@@ -243,7 +251,9 @@
       "atualizadoNaFonte": "Atualizado em {data}",
       "sobre": "Sobre",
       "nuncaVitima": "Nunca publicamos vítimas, crianças nem testemunhas.",
-      "situacaoDoCaso": "Situação do caso"
+      "situacaoDoCaso": "Situação do caso",
+      "ligacoes": "Ligações com fonte",
+      "fonte": "Fonte"
     },
     "papel": {
       "acusado": "Acusado",
@@ -264,7 +274,16 @@
       "associacao": "Associação",
       "grupo_armado": "Grupo armado",
       "outra": "Outra"
-    }
+    },
+    "destacar": "Destacar por tipo",
+    "destacarDica": "Toque num tipo para acender só ele; toque de novo para ver todos.",
+    "confiancaLigacao": {
+      "titulo": "Confiança da ligação",
+      "primaria": "Fonte primária",
+      "reportado": "Só imprensa"
+    },
+    "construidoEm": "Dados construídos em {data}",
+    "modoLeve": "Modo leve: efeitos reduzidos neste aparelho"
   },
   "navegacao": {
     "inicio": "Observatório",

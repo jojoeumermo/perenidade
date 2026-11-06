@@ -91,7 +91,13 @@
     "listaDeCasos": "Cases on the map (list for keyboard and screen readers)",
     "aria": "Map of Brazil with published cases, by state and municipality",
     "credito": "Territorial boundaries: IBGE. No third-party map, no tracking.",
-    "nivel": "Map level"
+    "nivel": "Map level",
+    "aproximado": "approximate location (state centre)",
+    "ramos": "Links of the case",
+    "reduzirMovimento": "Reduce motion",
+    "ativarMovimento": "Turn motion on",
+    "fecharRamos": "Close branches",
+    "abrirFonte": "Open the source"
   },
   "enviar": {
     "titulo": "Send a source",
@@ -196,7 +202,9 @@
       "explica": "The same as the drawing, in text: each case, person, organization and place, with its links.",
       "ligadoA": "Linked to",
       "semLigacoes": "No links",
-      "abrir": "Open the file"
+      "abrir": "Open the file",
+      "primaria": "confirmed by a primary source",
+      "reportado": "press only"
     },
     "vazio": "No cases published yet. The observatory opens empty on purpose: a case only enters with source, date and excerpt, after the curators review it.",
     "vazioDossie": "This dossier has no published cases yet.",
@@ -243,7 +251,9 @@
       "atualizadoNaFonte": "Updated on {data}",
       "sobre": "About",
       "nuncaVitima": "We never publish victims, children or witnesses.",
-      "situacaoDoCaso": "Case status"
+      "situacaoDoCaso": "Case status",
+      "ligacoes": "Sourced links",
+      "fonte": "Source"
     },
     "papel": {
       "acusado": "Accused",
@@ -264,7 +274,16 @@
       "associacao": "Association",
       "grupo_armado": "Armed group",
       "outra": "Other"
-    }
+    },
+    "destacar": "Highlight by type",
+    "destacarDica": "Tap a type to light up only that type; tap again to see all.",
+    "confiancaLigacao": {
+      "titulo": "Link confidence",
+      "primaria": "Primary source",
+      "reportado": "Press only"
+    },
+    "construidoEm": "Data built on {data}",
+    "modoLeve": "Light mode: effects reduced on this device"
   },
   "navegacao": {
     "inicio": "Observatory",
