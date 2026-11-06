@@ -242,7 +242,7 @@ export function MaisGaveta({ secoes, textos, campus }: { secoes: SecaoDoSite[]; 
         onClick={(e) => e.stopPropagation()}
         onPointerEnter={(e) => e.pointerType === "mouse" && cancelarFechar()}
         onPointerLeave={(e) => peloMouse && e.pointerType === "mouse" && fecharLogo()}
-        className={`mais-janela flex h-full w-full ${campus ? "max-w-[min(94rem,100%)]" : "max-w-[78rem]"} flex-col border-ink bg-folha text-ink md:h-auto md:max-h-[calc(100dvh-var(--fim-do-topo)-1.5rem)] md:border-2 md:shadow-[8px_8px_0_var(--prelo)]`}
+        className={`mais-janela flex h-full w-full ${campus ? "max-w-[min(72rem,100%)]" : "max-w-[78rem]"} flex-col border-ink bg-folha text-ink md:h-auto md:max-h-[calc(100dvh-var(--fim-do-topo)-1.5rem)] md:border-2 md:shadow-[8px_8px_0_var(--prelo)]`}
       >
         <div className="flex items-center gap-3 border-b-2 border-ink px-4 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] pb-3 md:px-7 md:pt-5 md:pb-4">
           <label className="flex min-w-0 flex-1 items-center gap-2.5 border-2 border-ink bg-parchment px-3">
