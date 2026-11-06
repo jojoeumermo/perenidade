@@ -4,7 +4,7 @@
 import "@/styles/vale-o-escrito.css";
 import { useMemo } from "react";
 import { fill } from "@/i18n/config";
-import { SITUACOES, type Entrada } from "@/lib/vale-o-escrito/tipos";
+import { SITUACOES, type Entrada, type TipoDeNo } from "@/lib/vale-o-escrito/tipos";
 import {
   anoDe,
   centroPadrao,
@@ -16,7 +16,8 @@ import {
   type DossieVisual,
   type Grafo,
 } from "@/lib/vale-o-escrito/visual";
-import { NoSvg, truncar, type S } from "./Primitivas";
+import { ArestaSvg, DefsNeon, NoSvg, truncar, type S } from "./Primitivas";
+import { HudDoVisor, IDENTIDADE, useVisor } from "./Visor";
 
 // As quatro visões que não precisam de D3: órbita, grupos, fluxo e linha do tempo. Tudo calculado em
 // lib/vale-o-escrito/visual.ts (funções puras, testadas) e desenhado aqui em SVG.
@@ -28,76 +29,137 @@ interface PropsDeGrafo {
   grafo: Grafo;
   selecionado: string | null;
   aoSelecionar: (chave: string) => void;
+  /** Tipo de nó em destaque (legenda "destacar por tipo"): os outros tipos apagam. */
+  destaque?: TipoDeNo | null;
   s: S;
 }
 
-export function Orbita({ grafo, selecionado, aoSelecionar, s }: PropsDeGrafo) {
+export function Orbita({ grafo, selecionado, aoSelecionar, destaque = null, s }: PropsDeGrafo) {
   const centro = selecionado && grafo.nos.some((n) => n.chave === selecionado) ? selecionado : centroPadrao(grafo);
   const lay = useMemo(() => layoutOrbita(grafo, centro, L, A), [grafo, centro]);
   const pos = new Map(lay.nos.map((n) => [n.chave, n]));
   const nomeCentro = grafo.nos.find((n) => n.chave === lay.centro)?.rotulo ?? "";
   const vizinhosDoCentro = new Set(grafo.arestas.flatMap((a) => (a.de === lay.centro ? [a.para] : a.para === lay.centro ? [a.de] : [])));
+  const tipoDe = new Map(grafo.nos.map((n) => [n.chave, n.tipo]));
+  const fora = (chave: string) => destaque !== null && tipoDe.get(chave) !== destaque;
+  // Zoom da órbita (T10): roda, pinça, arrasto e os botões. A vista volta ao todo quando o centro muda.
+  const ajuste = useMemo(() => ({ ...IDENTIDADE, centro: lay.centro }), [lay.centro]);
+  const { t, svgRef, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste);
+  const escolher = (chave: string) => {
+    if (consumirMexeu()) return;
+    aoSelecionar(chave);
+  };
   return (
-    <>
+    <div onKeyDown={tecla} style={{ width: "100%", height: "100%" }}>
+      <HudDoVisor t={t} s={s} totalNos={grafo.nos.length} totalArestas={grafo.arestas.length} aoMais={() => proximoNivel(1)} aoMenos={() => proximoNivel(-1)} aoRecentrar={recentrar} />
       <p className="ve-titulo-da-visao">{fill(s.visual.orbita.titulo, { nome: truncar(nomeCentro, 40) })}</p>
-      <svg className="ve-svg" viewBox={`0 0 ${L} ${A}`} preserveAspectRatio="xMidYMid meet" role="group" aria-label={s.visual.aria.palco}>
-        {lay.aneis.map((r, i) => (
-          <circle key={i} className="ve-anel" cx={L / 2} cy={A / 2} r={r} />
-        ))}
-        {grafo.arestas.map((a) => {
-          const p = pos.get(a.de);
-          const q = pos.get(a.para);
-          if (!p || !q) return null;
-          const realce = a.de === lay.centro || a.para === lay.centro;
-          return <line key={a.id} className="ve-aresta" data-implicita={a.implicita} data-realce={realce} x1={p.x} y1={p.y} x2={q.x} y2={q.y} />;
-        })}
-        {grafo.nos.map((n) => {
-          const p = pos.get(n.chave);
-          if (!p) return null;
-          return (
-            <NoSvg
-              key={n.chave}
-              no={n}
-              x={p.x}
-              y={p.y}
-              s={s}
-              selecionado={selecionado === n.chave}
-              apagado={false}
-              mostrarRotulo={n.chave === lay.centro || vizinhosDoCentro.has(n.chave) || n.tipo === "entrada"}
-              aoSelecionar={aoSelecionar}
-            />
-          );
-        })}
+      <svg
+        ref={svgRef}
+        className="ve-svg ve-svg-orbita"
+        viewBox={`0 0 ${L} ${A}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="group"
+        aria-label={s.visual.aria.palco}
+        onPointerDown={baixar}
+        onPointerMove={mover}
+        onPointerUp={soltar}
+        onPointerCancel={soltar}
+        style={{ cursor: "grab" }}
+      >
+        <DefsNeon />
+        <g transform={`translate(${t.x} ${t.y}) scale(${t.k})`}>
+          {lay.aneis.map((r, i) => (
+            <circle key={i} className="ve-anel" cx={L / 2} cy={A / 2} r={r} />
+          ))}
+          {grafo.arestas.map((a) => {
+            const p = pos.get(a.de);
+            const q = pos.get(a.para);
+            if (!p || !q) return null;
+            const realce = a.de === lay.centro || a.para === lay.centro;
+            return <ArestaSvg key={a.id} aresta={a} p={p} q={q} realce={realce} apagado={fora(a.de) && fora(a.para)} escala={t.k} />;
+          })}
+          {grafo.nos.map((n) => {
+            const p = pos.get(n.chave);
+            if (!p) return null;
+            return (
+              <NoSvg
+                key={n.chave}
+                no={n}
+                x={p.x}
+                y={p.y}
+                s={s}
+                escala={t.k}
+                selecionado={selecionado === n.chave}
+                apagado={fora(n.chave)}
+                mostrarRotulo={n.chave === lay.centro || vizinhosDoCentro.has(n.chave) || n.tipo === "entrada" || destaque === n.tipo || t.k >= 2.4}
+                aoSelecionar={escolher}
+              />
+            );
+          })}
+        </g>
       </svg>
-    </>
+    </div>
   );
 }
 
-export function Grupos({ grafo, dossies, selecionado, aoSelecionar, s }: PropsDeGrafo & { dossies: DossieVisual[] }) {
+export function Grupos({ grafo, dossies, selecionado, aoSelecionar, destaque = null, s }: PropsDeGrafo & { dossies: DossieVisual[] }) {
   const lay = useMemo(() => layoutGrupos(grafo, dossies, L, A), [grafo, dossies]);
   const pos = new Map(lay.nos.map((n) => [n.chave, n]));
   const nomeDe = (slug: string) => dossies.find((d) => d.slug === slug)?.titulo ?? slug;
+  const ajuste = useMemo(() => ({ ...IDENTIDADE, grupos: lay.grupos.length }), [lay.grupos.length]);
+  const { t, svgRef, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste);
+  const escolher = (chave: string) => {
+    if (consumirMexeu()) return;
+    aoSelecionar(chave);
+  };
   return (
-    <>
+    <div onKeyDown={tecla} style={{ width: "100%", height: "100%" }}>
+      <HudDoVisor t={t} s={s} totalNos={grafo.nos.length} totalArestas={grafo.arestas.length} aoMais={() => proximoNivel(1)} aoMenos={() => proximoNivel(-1)} aoRecentrar={recentrar} />
       <p className="ve-titulo-da-visao">{s.visual.grupos.titulo}</p>
-      <svg className="ve-svg" viewBox={`0 0 ${L} ${A}`} preserveAspectRatio="xMidYMid meet" role="group" aria-label={s.visual.aria.palco}>
-        {lay.grupos.map((g) => (
-          <g key={g.slug}>
-            <circle className="ve-grupo-circulo" cx={g.cx} cy={g.cy} r={g.r} />
-            <text className="ve-grupo-nome" x={g.cx} y={g.cy - g.r - 6} textAnchor="middle">
-              {truncar(nomeDe(g.slug), 30)} · {g.total}
-            </text>
-          </g>
-        ))}
-        {grafo.nos.map((n) => {
-          const p = pos.get(n.chave);
-          if (!p) return null;
-          return (
-            <NoSvg key={n.chave} no={n} x={p.x} y={p.y} s={s} selecionado={selecionado === n.chave} mostrarRotulo={false} aoSelecionar={aoSelecionar} />
-          );
-        })}
+      <svg
+        ref={svgRef}
+        className="ve-svg"
+        viewBox={`0 0 ${L} ${A}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="group"
+        aria-label={s.visual.aria.palco}
+        onPointerDown={baixar}
+        onPointerMove={mover}
+        onPointerUp={soltar}
+        onPointerCancel={soltar}
+        style={{ cursor: "grab" }}
+      >
+        <DefsNeon />
+        <g transform={`translate(${t.x} ${t.y}) scale(${t.k})`}>
+          {lay.grupos.map((g) => (
+            <g key={g.slug}>
+              <circle className="ve-grupo-circulo" cx={g.cx} cy={g.cy} r={g.r} />
+              <text className="ve-grupo-nome" x={g.cx} y={g.cy - g.r - 6} textAnchor="middle">
+                {truncar(nomeDe(g.slug), 30)} · {g.total}
+              </text>
+            </g>
+          ))}
+          {grafo.nos.map((n) => {
+            const p = pos.get(n.chave);
+            if (!p) return null;
+            return (
+              <NoSvg
+                key={n.chave}
+                no={n}
+                x={p.x}
+                y={p.y}
+                s={s}
+                escala={t.k}
+                selecionado={selecionado === n.chave}
+                apagado={destaque !== null && n.tipo !== destaque}
+                mostrarRotulo={t.k >= 2.4 && (n.tipo === "entrada" || destaque === n.tipo)}
+                aoSelecionar={escolher}
+              />
+            );
+          })}
+        </g>
       </svg>
-    </>
+    </div>
   );
 }
 

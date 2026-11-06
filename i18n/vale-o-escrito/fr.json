@@ -91,7 +91,13 @@
     "listaDeCasos": "Cas sur la carte (liste pour clavier et lecteur d'écran)",
     "aria": "Carte du Brésil avec les cas publiés, par État et par commune",
     "credito": "Limites territoriales : IBGE. Pas de carte tierce, pas de traçage.",
-    "nivel": "Niveau de la carte"
+    "nivel": "Niveau de la carte",
+    "aproximado": "lieu approximatif (centre de l'État)",
+    "ramos": "Liens de l'affaire",
+    "reduzirMovimento": "Réduire les animations",
+    "ativarMovimento": "Activer les animations",
+    "fecharRamos": "Fermer les ramifications",
+    "abrirFonte": "Ouvrir la source"
   },
   "enviar": {
     "titulo": "Envoyer une source",
@@ -196,7 +202,9 @@
       "explica": "La même chose que le dessin, en texte : chaque cas, personne, organisation et lieu, avec ses liens.",
       "ligadoA": "Lié à",
       "semLigacoes": "Aucun lien",
-      "abrir": "Voir la fiche"
+      "abrir": "Voir la fiche",
+      "primaria": "confirmé par une source primaire",
+      "reportado": "presse seulement"
     },
     "vazio": "Aucun cas publié pour l'instant. L'observatoire ouvre vide à dessein : un cas n'entre qu'avec source, date et extrait, après relecture de la curation.",
     "vazioDossie": "Ce dossier n'a pas encore de cas publiés.",
@@ -243,7 +251,9 @@
       "atualizadoNaFonte": "Mis à jour le {data}",
       "sobre": "À propos",
       "nuncaVitima": "Nous ne publions jamais de victimes, d'enfants ni de témoins.",
-      "situacaoDoCaso": "Situation de l'affaire"
+      "situacaoDoCaso": "Situation de l'affaire",
+      "ligacoes": "Liens sourcés",
+      "fonte": "Source"
     },
     "papel": {
       "acusado": "Accusé",
@@ -264,7 +274,16 @@
       "associacao": "Association",
       "grupo_armado": "Groupe armé",
       "outra": "Autre"
-    }
+    },
+    "destacar": "Mettre en évidence par type",
+    "destacarDica": "Touchez un type pour n'allumer que lui ; touchez à nouveau pour tout voir.",
+    "confiancaLigacao": {
+      "titulo": "Fiabilité du lien",
+      "primaria": "Source primaire",
+      "reportado": "Presse seulement"
+    },
+    "construidoEm": "Données construites le {data}",
+    "modoLeve": "Mode léger : effets réduits sur cet appareil"
   },
   "navegacao": {
     "inicio": "Observatoire",

@@ -4,19 +4,11 @@
 import "@/styles/vale-o-escrito.css";
 // D3 SÓ AQUI (d3-force) e só chega ao navegador quando alguém abre a visão "Teia" (next/dynamic em Observatorio.tsx).
 import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY, type SimulationLinkDatum, type SimulationNodeDatum } from "d3-force";
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
-import { fill } from "@/i18n/config";
-import {
-  ESCALA_DO_NIVEL,
-  NIVEIS_DA_TEIA,
-  limitarEscala,
-  nivelDaTeia,
-  posicaoInicial,
-  rotuloVisivel,
-  type Grafo,
-  type Ponto,
-} from "@/lib/vale-o-escrito/visual";
-import { NoSvg, type S } from "./Primitivas";
+import { useMemo, useRef, useState, type PointerEvent } from "react";
+import type { TipoDeNo } from "@/lib/vale-o-escrito/tipos";
+import { limitarEscala, nivelDaTeia, posicaoInicial, rotuloVisivel, type Grafo, type Ponto } from "@/lib/vale-o-escrito/visual";
+import { ArestaSvg, DefsNeon, NoSvg, type S } from "./Primitivas";
+import { HudDoVisor, useVisor } from "./Visor";
 
 const L = 1000;
 const A = 640;
@@ -58,73 +50,42 @@ export default function Teia({
   grafo,
   selecionado,
   aoSelecionar,
+  destaque = null,
   s,
 }: {
   grafo: Grafo;
   selecionado: string | null;
   aoSelecionar: (chave: string) => void;
+  /** Tipo de nó em destaque (legenda): os outros tipos apagam. */
+  destaque?: TipoDeNo | null;
   s: S;
 }) {
   const base = useMemo(() => calcularPosicoes(grafo), [grafo]);
   const [movidos, setMovidos] = useState<Map<string, Ponto>>(new Map());
   const ajuste = useMemo(() => caber(base), [base]);
-  const [t, setT] = useState(ajuste);
-  const svg = useRef<SVGSVGElement>(null);
-  const arrastou = useRef(false);
-  const arrasto = useRef<{ tipo: "fundo" | "no"; chave?: string; px: number; py: number; ox: number; oy: number; andou: boolean } | null>(null);
+  const { t, svgRef, unidade, baixar, mover: moverVisor, soltar: soltarVisor, tecla, proximoNivel, recentrar, consumirMexeu, prenderArrasto } = useVisor(L, A, ajuste);
+  const arrasto = useRef<{ chave: string; px: number; py: number; ox: number; oy: number; andou: boolean } | null>(null);
 
-  // Grafo novo: a visão volta ao começo.
+  // Grafo novo: os nós arrastados voltam ao lugar (o visor volta ao começo sozinho, pelo ajuste novo).
   const [grafoAnterior, setGrafoAnterior] = useState(grafo);
   if (grafoAnterior !== grafo) {
     setGrafoAnterior(grafo);
     setMovidos(new Map());
-    setT(ajuste);
   }
 
   const pos = (chave: string): Ponto => movidos.get(chave) ?? base.get(chave) ?? { x: L / 2, y: A / 2 };
   const nivel = nivelDaTeia(t.k);
 
-  /** Pixels da tela → unidades do desenho (o SVG mantém a proporção e centraliza). */
-  const unidade = useCallback(() => {
-    const r = svg.current?.getBoundingClientRect();
-    if (!r || r.width === 0 || r.height === 0) return { u: 1, cx: 0, cy: 0 };
-    return { u: Math.max(L / r.width, A / r.height), cx: r.left + r.width / 2, cy: r.top + r.height / 2 };
-  }, []);
-
-  const zoomarEm = useCallback((fator: number, ancora?: Ponto) => {
-    setT((a) => {
-      const k = limitarEscala(a.k * fator);
-      const p = ancora ?? { x: L / 2, y: A / 2 };
-      return { k, x: p.x - ((p.x - a.x) * k) / a.k, y: p.y - ((p.y - a.y) * k) / a.k };
-    });
-  }, []);
-
-  // A roda do mouse precisa de ouvinte não passivo para não rolar a página junto.
-  useEffect(() => {
-    const el = svg.current;
-    if (!el) return;
-    const roda = (e: WheelEvent) => {
-      e.preventDefault();
-      const { u, cx, cy } = unidade();
-      zoomarEm(e.deltaY < 0 ? 1.15 : 1 / 1.15, { x: (e.clientX - cx) * u + L / 2, y: (e.clientY - cy) * u + A / 2 });
-    };
-    el.addEventListener("wheel", roda, { passive: false });
-    return () => el.removeEventListener("wheel", roda);
-  }, [unidade, zoomarEm]);
-
-  const noFundo = (e: PointerEvent<SVGSVGElement>) => {
-    if ((e.target as Element).closest(".ve-no")) return;
-    e.currentTarget.setPointerCapture(e.pointerId);
-    arrastou.current = false;
-    arrasto.current = { tipo: "fundo", px: e.clientX, py: e.clientY, ox: t.x, oy: t.y, andou: false };
-  };
   const noNo = (e: PointerEvent<SVGGElement>, chave: string) => {
     // Sem capturar o ponteiro aqui: um toque simples tem de chegar ao onClick do nó. A captura começa quando o nó é arrastado.
-    arrastou.current = false;
     const p = pos(chave);
-    arrasto.current = { tipo: "no", chave, px: e.clientX, py: e.clientY, ox: p.x, oy: p.y, andou: false };
+    arrasto.current = { chave, px: e.clientX, py: e.clientY, ox: p.x, oy: p.y, andou: false };
   };
   const mover = (e: PointerEvent<SVGSVGElement>) => {
+    if (moverVisor(e)) {
+      arrasto.current = null;
+      return;
+    }
     const a = arrasto.current;
     if (!a) return;
     const { u } = unidade();
@@ -132,41 +93,18 @@ export default function Teia({
     const dy = (e.clientY - a.py) * u;
     if (!a.andou && Math.abs(dx) + Math.abs(dy) > 4 * u) {
       a.andou = true;
-      arrastou.current = true;
-      if (a.tipo === "no") svg.current?.setPointerCapture(e.pointerId);
+      prenderArrasto(e.pointerId);
     }
-    if (a.tipo === "fundo") setT((x) => ({ ...x, x: a.ox + dx, y: a.oy + dy }));
-    else if (a.andou && a.chave) setMovidos((m) => new Map(m).set(a.chave!, { x: a.ox + dx / t.k, y: a.oy + dy / t.k }));
+    if (a.andou) setMovidos((m) => new Map(m).set(a.chave, { x: a.ox + dx / t.k, y: a.oy + dy / t.k }));
   };
-  const soltar = () => {
+  const soltar = (e: PointerEvent<SVGSVGElement>) => {
+    soltarVisor(e);
     arrasto.current = null;
   };
-  /** Clique de verdade (sem arrasto) escolhe o nó; o arrasto só o move. */
+  /** Clique de verdade (sem arrasto nem pinça) escolhe o nó; o arrasto só o move. */
   const escolher = (chave: string) => {
-    if (arrastou.current) {
-      arrastou.current = false;
-      return;
-    }
+    if (consumirMexeu()) return;
     aoSelecionar(chave);
-  };
-
-  const tecla = (e: KeyboardEvent<HTMLDivElement>) => {
-    const passo = 40;
-    if (e.key === "+" || e.key === "=") zoomarEm(1.25);
-    else if (e.key === "-" || e.key === "_") zoomarEm(1 / 1.25);
-    else if (e.key === "0") setT(ajuste);
-    else if (e.key === "ArrowLeft") setT((a) => ({ ...a, x: a.x + passo }));
-    else if (e.key === "ArrowRight") setT((a) => ({ ...a, x: a.x - passo }));
-    else if (e.key === "ArrowUp") setT((a) => ({ ...a, y: a.y + passo }));
-    else if (e.key === "ArrowDown") setT((a) => ({ ...a, y: a.y - passo }));
-    else return;
-    e.preventDefault();
-  };
-
-  const proximoNivel = (dir: 1 | -1) => {
-    const i = NIVEIS_DA_TEIA.indexOf(nivel);
-    const alvo = NIVEIS_DA_TEIA[Math.min(NIVEIS_DA_TEIA.length - 1, Math.max(0, i + dir))];
-    zoomarEm(ESCALA_DO_NIVEL[alvo] / t.k);
   };
 
   const vizinhosDoSel = useMemo(() => {
@@ -180,60 +118,49 @@ export default function Teia({
     }
     return set;
   }, [grafo, selecionado]);
+  const tipoDe = useMemo(() => new Map(grafo.nos.map((n) => [n.chave, n.tipo])), [grafo]);
+  const foraDoDestaque = (chave: string) => destaque !== null && tipoDe.get(chave) !== destaque;
 
   return (
     <div onKeyDown={tecla} style={{ width: "100%", height: "100%" }}>
-      <div className="ve-hud">
-        <div className="ve-hud-botoes" role="group" aria-label={fill(s.visual.zoomNivel, { nivel: s.visual.zoomTeia[nivel] })}>
-          <button type="button" onClick={() => proximoNivel(1)} aria-label={s.visual.zoomMais} title={s.visual.zoomMais}>
-            +
-          </button>
-          <button type="button" onClick={() => proximoNivel(-1)} aria-label={s.visual.zoomMenos} title={s.visual.zoomMenos}>
-            −
-          </button>
-          <button type="button" onClick={() => setT(ajuste)} aria-label={s.visual.zoomRestaurar} title={s.visual.zoomRestaurar}>
-            ◎
-          </button>
-        </div>
-        <span className="ve-nivel" aria-live="polite">
-          {fill(s.visual.zoomNivel, { nivel: s.visual.zoomTeia[nivel] })}
-        </span>
-      </div>
-      {/* A leitura de painel (coordenadas e escala), decorativa: o nível nomeado acima é o que vale para o leitor de tela. */}
-      <p className="ve-coord" aria-hidden="true">
-        X {(-t.x).toFixed(1)} · Y {(-t.y).toFixed(1)}
-        <br />
-        {grafo.nos.length} · {grafo.arestas.length} · ×{t.k.toFixed(2)}
-      </p>
+      <HudDoVisor
+        t={t}
+        s={s}
+        totalNos={grafo.nos.length}
+        totalArestas={grafo.arestas.length}
+        aoMais={() => proximoNivel(1)}
+        aoMenos={() => proximoNivel(-1)}
+        aoRecentrar={recentrar}
+      />
       <svg
-        ref={svg}
+        ref={svgRef}
         className="ve-svg"
         viewBox={`0 0 ${L} ${A}`}
         preserveAspectRatio="xMidYMid meet"
         role="group"
         aria-label={s.visual.aria.palco}
-        onPointerDown={noFundo}
+        onPointerDown={baixar}
         onPointerMove={mover}
         onPointerUp={soltar}
         onPointerCancel={soltar}
         style={{ cursor: "grab" }}
       >
+        <DefsNeon />
         <g transform={`translate(${t.x} ${t.y}) scale(${t.k})`}>
           {grafo.arestas.map((a) => {
-            const p = pos(a.de);
-            const q = pos(a.para);
             const realce = selecionado !== null && (a.de === selecionado || a.para === selecionado);
-            const apagado = selecionado !== null && !realce;
+            const apagado = (selecionado !== null && !realce) || (foraDoDestaque(a.de) && foraDoDestaque(a.para));
             const mostrarTexto = (nivel === "caso" || nivel === "detalhe") && (realce || nivel === "detalhe");
             return (
-              <g key={a.id}>
-                <line className="ve-aresta" data-implicita={a.implicita} data-realce={realce} data-apagado={apagado} x1={p.x} y1={p.y} x2={q.x} y2={q.y} />
-                {mostrarTexto && (
-                  <text className="ve-eixo-texto" x={(p.x + q.x) / 2} y={(p.y + q.y) / 2} textAnchor="middle" style={{ fontSize: 8 / Math.sqrt(t.k) }}>
-                    {a.situacao ? s.situacao[a.situacao] : (a.rotulo ?? s.visual.ligacao[a.tipo])}
-                  </text>
-                )}
-              </g>
+              <ArestaSvg key={a.id} aresta={a} p={pos(a.de)} q={pos(a.para)} realce={realce} apagado={apagado} escala={t.k}>
+                {(meio) =>
+                  mostrarTexto && (
+                    <text className="ve-eixo-texto" x={meio.x} y={meio.y - 3} textAnchor="middle" style={{ fontSize: 8 / Math.sqrt(t.k) }}>
+                      {a.situacao ? s.situacao[a.situacao] : (a.rotulo ?? s.visual.ligacao[a.tipo])}
+                    </text>
+                  )
+                }
+              </ArestaSvg>
             );
           })}
           {grafo.nos.map((n) => {
@@ -247,8 +174,8 @@ export default function Teia({
                 s={s}
                 escala={t.k}
                 selecionado={selecionado === n.chave}
-                apagado={selecionado !== null && !vizinhosDoSel.has(n.chave)}
-                mostrarRotulo={rotuloVisivel(n.tipo, nivel, selecionado === n.chave)}
+                apagado={(selecionado !== null && !vizinhosDoSel.has(n.chave)) || foraDoDestaque(n.chave)}
+                mostrarRotulo={rotuloVisivel(n.tipo, nivel, selecionado === n.chave || destaque === n.tipo)}
                 aoSelecionar={escolher}
                 aoPressionar={noNo}
               />

@@ -91,7 +91,13 @@
     "listaDeCasos": "地图上的案件（供键盘和读屏软件使用的列表）",
     "aria": "巴西地图，按州和市镇显示已发布案件",
     "credito": "行政边界：IBGE。无第三方地图，无追踪。",
-    "nivel": "地图级别"
+    "nivel": "地图级别",
+    "aproximado": "大致位置（州中心）",
+    "ramos": "案件的关联",
+    "reduzirMovimento": "减少动态效果",
+    "ativarMovimento": "开启动态效果",
+    "fecharRamos": "关闭分支",
+    "abrirFonte": "打开来源"
   },
   "enviar": {
     "titulo": "提交来源",
@@ -196,7 +202,9 @@
       "explica": "与图示相同的内容，用文字呈现：每个案件、人物、组织和地点及其关联。",
       "ligadoA": "关联到",
       "semLigacoes": "无关联",
-      "abrir": "查看档案"
+      "abrir": "查看档案",
+      "primaria": "已由第一手来源证实",
+      "reportado": "仅媒体报道"
     },
     "vazio": "尚无已发布的案件。观察站刻意以空白开启：案件须有来源、日期和摘录，并经策展团队审核后才会收录。",
     "vazioDossie": "该专题尚无已发布的案件。",
@@ -243,7 +251,9 @@
       "atualizadoNaFonte": "更新于 {data}",
       "sobre": "关于",
       "nuncaVitima": "我们从不发布受害者、儿童或证人。",
-      "situacaoDoCaso": "案件状态"
+      "situacaoDoCaso": "案件状态",
+      "ligacoes": "有来源的关联",
+      "fonte": "来源"
     },
     "papel": {
       "acusado": "被指控者",
@@ -264,7 +274,16 @@
       "associacao": "协会",
       "grupo_armado": "武装团体",
       "outra": "其他"
-    }
+    },
+    "destacar": "按类型突出显示",
+    "destacarDica": "点击一个类型只点亮该类型；再点一次查看全部。",
+    "confiancaLigacao": {
+      "titulo": "关联可信度",
+      "primaria": "第一手来源",
+      "reportado": "仅媒体报道"
+    },
+    "construidoEm": "数据构建于 {data}",
+    "modoLeve": "轻量模式：此设备上已减少效果"
   },
   "navegacao": {
     "inicio": "观察站",
