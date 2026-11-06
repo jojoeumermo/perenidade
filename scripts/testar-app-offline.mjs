@@ -218,6 +218,14 @@ await ok("erro 5xx do servidor com cópia guardada: usa a cópia", async () => {
   (await amb.caches.open(amb.sw.PAGINAS)).put("https://lucia.test/pt/quebrada", new Response("cópia boa"));
   assert.equal(await (await amb.navegar("/pt/quebrada")).text(), "cópia boa");
 });
+await ok("410 (matéria que saiu do ar): apaga a cópia guardada e não volta sem internet", async () => {
+  const amb = criarAmbiente({ rede: { "/pt/jornal/expirada": () => ({ status: 410, texto: "saiu do ar" }) } });
+  (await amb.caches.open(amb.sw.PAGINAS)).put("https://lucia.test/pt/jornal/expirada", new Response("cópia velha"));
+  assert.equal((await amb.navegar("/pt/jornal/expirada")).status, 410);
+  assert.ok(!urls(amb, amb.sw.PAGINAS).includes("https://lucia.test/pt/jornal/expirada"), "a cópia guardada ficou");
+  amb.estado.redeCaiu = true;
+  assert.equal((await amb.navegar("/pt/jornal/expirada")).status, 503);
+});
 await ok("a página que mora na casca ou nos cursos é atualizada no mesmo lugar (não vai para o cache aparado)", async () => {
   const amb = criarAmbiente();
   (await amb.caches.open(amb.sw.CURSOS)).put("https://lucia.test/pt/trilhas/c/d", new Response("curso velho"));
