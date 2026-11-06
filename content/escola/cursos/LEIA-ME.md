@@ -1,4 +1,4 @@
-# Cursos da Escola Lúcia Maria
+# Cursos da Escola Revolucionária Lúcia Maria
 
 Cada curso é um arquivo `<slug>.json` nesta pasta. O nome do arquivo é o slug do curso. A pasta vazia é válida: a Escola abre sem nenhum curso.
 

@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O estudante da Escola Lúcia Maria, guardado só neste aparelho: a matrícula (sem nome, sem e-mail, sem documento), os
+// O estudante da Escola Revolucionária Lúcia Maria, guardado só neste aparelho: a matrícula (sem nome, sem e-mail, sem documento), os
 // cursos em que entrou e a caderneta do que fez. Nada disso vai para servidor. Sem React e sem os atalhos "@/" de
 // propósito: `npm run testar:escola` roda este arquivo direto no Node.
 //

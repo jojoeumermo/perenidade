@@ -1,7 +1,8 @@
 {
+  "_rascunho": true,
   "meta": {
-    "titulo": "École Lúcia Maria",
-    "descricao": "L'école populaire et gratuite de l'Instituto Lúcia, sans création de compte : un chemin, une classe et la trace de ce que vous avez étudié."
+    "titulo": "École révolutionnaire Lúcia Maria",
+    "descricao": "L'école populaire et gratuite de l'Instituto Lúcia, pour qui a un compte sur le site : un chemin, une classe et la trace de ce que vous avez étudié."
   },
   "nav": {
     "rotulo": "Parties de l'École",
@@ -12,13 +13,13 @@
     "calendario": "Calendrier",
     "campus": "Campus",
     "turmas": "Classes",
-    "acompanhante": "Accompagnateur",
+    "acompanhante": "Assistant",
     "caderneta": "Carnet"
   },
   "entrada": {
     "olho": "Instituto Lúcia",
-    "titulo": "École Lúcia Maria",
-    "linhaNaoUniversidade": "Une école populaire et gratuite, sans création de compte. Ce n'est pas une université et elle ne délivre pas de diplôme : elle donne un chemin, une classe et la trace de ce que vous avez étudié.",
+    "titulo": "École révolutionnaire Lúcia Maria",
+    "linhaNaoUniversidade": "Une école populaire et gratuite, avec le même compte que la Communauté. Ce n'est pas une université et elle ne délivre pas de diplôme : elle donne un chemin, une classe et la trace de ce que vous avez étudié.",
     "comoFunciona": "Comment ça marche",
     "passos": [
       { "titulo": "Inscription", "texto": "Dites ce que vous voulez et combien de temps vous avez. Sans nom, e-mail ni pièce d'identité : l'inscription reste sur votre appareil." },
@@ -30,7 +31,12 @@
     "pelaEscola": "Dans l'École",
     "campusTexto": "Les bâtiments de l'École : leçons, bibliothèque, laboratoires, radio et communauté.",
     "calendarioTexto": "Les semestres, les vacances et la semaine d'examens.",
-    "rever": "Revoir l'ouverture"
+    "rever": "Revoir l'ouverture",
+    "oQueE": "Ce que c'est",
+    "oQueETexto": "Une école populaire de travailleuses et de travailleurs, au sein de l'Instituto Lúcia. Les cours sont construits avec les leçons qui existent déjà sur le site, dans l'ordre, avec des heures estimées, une classe pour étudier ensemble, une tâche dans le monde et un projet final.",
+    "contaTexto": "Vous entrez avec votre compte de l'Instituto Lúcia, le même que pour la Communauté. Ce que vous étudiez reste sur cet appareil.",
+    "mapaTitulo": "Tout ce qu'il y a dans l'École",
+    "mapaLead": "Les parties de l'École, par thème. La barre du haut mène aux plus utilisées."
   },
   "cartao": {
     "olho": "Avant tout",
@@ -39,9 +45,9 @@
     "ler": "Lire"
   },
   "quemFoi": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "titulo": "Qui était Lúcia Maria",
-    "descricao": "Celle qui donne son nom à l'École Lúcia Maria de l'Instituto Lúcia.",
+    "descricao": "Celle qui donne son nom à l'École révolutionnaire Lúcia Maria de l'Instituto Lúcia.",
     "emPortugues": "(texte en portugais)",
     "voltar": "Retour à l'entrée de l'École"
   },
@@ -57,7 +63,7 @@
     "plano": "Plan de la semaine",
     "campus": "Campus",
     "calendario": "Calendrier",
-    "acompanhante": "Accompagnateur",
+    "acompanhante": "Assistant",
     "vozes": "Voix du travail",
     "lutas": "Carte des luttes",
     "assembleia": "Assemblée étudiante",
@@ -75,24 +81,52 @@
     "proposto": "Calendrier proposé, à confirmer par la coordination"
   },
   "abertura": {
-    "rotulo": "Bienvenue à l'École Lúcia Maria",
+    "rotulo": "Bienvenue à l'École révolutionnaire Lúcia Maria",
     "pular": "Passer",
     "seguir": "Suivant",
     "entrar": "Entrer dans l'École",
     "ouvir": "Écouter",
     "parar": "Arrêter d'écouter",
     "de": "{n} sur {total}",
-    "q1Titulo": "Voici l'École Lúcia Maria",
+    "q1Titulo": "Voici l'École révolutionnaire Lúcia Maria",
     "q1Texto": "Une école populaire, gratuite et ouverte, au sein de l'Instituto Lúcia.",
     "q2Titulo": "Qui était Lúcia Maria",
     "q3Titulo": "Pourquoi l'École existe",
     "fonte": "Extrait de « Qui sommes-nous »",
     "emPortugues": "(texte en portugais)",
     "q4Titulo": "Comment ça marche",
-    "q4Texto": "Sans création de compte. Ce que vous étudiez reste sur cet appareil et n'en sort que si vous l'envoyez.",
+    "q4Texto": "Vous entrez avec votre compte de l'Instituto Lúcia, le même que pour la Communauté. Ce que vous étudiez reste sur cet appareil et n'en sort que si vous l'envoyez.",
     "baixarVoz": "Pour écouter avec la voix choisie, l'appareil doit télécharger {tamanho}. Télécharger maintenant ?",
     "baixarSim": "Télécharger et écouter",
     "baixarNao": "Pas maintenant",
     "semVoz": "Cet appareil n'a pas de voix pour lire à voix haute."
+  },
+  "porta": {
+    "lead": "L'école populaire et gratuite de l'Instituto Lúcia. Pour entrer, utilisez votre compte du site : c'est le même que pour la Communauté.",
+    "comoEntrar": "Comment entrer",
+    "passos": [
+      "Vous avez déjà un compte dans la Communauté ? Entrez avec le même e-mail et le même mot de passe.",
+      "Pas encore ? Créez un compte gratuit : il ne demande qu'un e-mail et un mot de passe (le pseudonyme est facultatif).",
+      "Dans l'École, inscrivez-vous : trois questions, sans nom ni pièce d'identité."
+    ],
+    "entrar": "Me connecter avec mon compte",
+    "criar": "Créer un compte",
+    "cadastroFechado": "La création de nouveaux comptes est fermée pour le moment. Si vous avez déjà un compte, vous entrez normalement.",
+    "menores": "Vous avez moins de 18 ans ? Créez le compte avec la personne responsable de vous.",
+    "conferindo": "Vérification de votre compte…",
+    "semServico": "Le service de comptes n'est pas disponible à cette adresse pour le moment. Réessayez plus tard.",
+    "abertas": "Les leçons, la bibliothèque et Mon étude restent ouverts à tout le monde, sans compte.",
+    "verAulas": "Voir les leçons",
+    "privacidade": "Comment le compte et vos données sont traités"
+  },
+  "mapa": {
+    "grupos": {
+      "estudar": "Étudier",
+      "vidaEscolar": "Votre vie scolaire",
+      "ajuda": "De l'aide pour étudier",
+      "mundo": "École et vie",
+      "organizacao": "Organisation étudiante",
+      "escola": "Dans l'École"
+    }
   }
 }

@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O que a Escola Lúcia Maria pede ao banco (supabase/migracoes/2026-11-escola.sql). Só do navegador. O servidor guarda
+// O que a Escola Revolucionária Lúcia Maria pede ao banco (supabase/migracoes/2026-11-escola.sql). Só do navegador. O servidor guarda
 // somas anônimas por dia; o resto (turma por curso, ouvidoria) é o que a pessoa manda de propósito. Explicação em
 // docs/escola/banco.md.
 //

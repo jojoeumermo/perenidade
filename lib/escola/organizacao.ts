@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Núcleos e organização estudantil da Escola Lúcia Maria (E4-12, docs/escola/organizacao.md): a pauta da assembleia
+// Núcleos e organização estudantil da Escola Revolucionária Lúcia Maria (E4-12, docs/escola/organizacao.md): a pauta da assembleia
 // (voto anônimo, somado), o resultado sem ranking de pessoas, a Roda do semestre, a ouvidoria (regras de envio, recusas e
 // os protocolos do aparelho) e o educador ou educadora do mês. Só regras e o que fica no aparelho: o que vai ao banco
 // passa pelas funções de lib/escola/banco.ts, que a tela entrega aqui por parâmetro. Sem os atalhos "@/" de propósito:

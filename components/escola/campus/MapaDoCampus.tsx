@@ -26,6 +26,7 @@ export function MapaDoCampus({
   comBusca,
   aoAbrir,
   semTitulo,
+  compacto,
 }: {
   predios: PredioDoMapa[];
   s: TextosDoCampus["mapa"];
@@ -34,6 +35,12 @@ export function MapaDoCampus({
   comBusca?: boolean;
   aoAbrir?: (path: string) => void;
   semTitulo?: boolean;
+  /**
+   * O mapa dentro do "Mais" (05/11/2026): no computador, os prédios em colunas de jornal (CSS columns), cada cartão com a
+   * altura do que tem, um embaixo do outro, sem o buraco que a grade de linhas iguais deixava; cartões mais baixos e as
+   * primeiras seções de cada prédio, com o resto no "Ver tudo". No celular continua a grade de gavetas.
+   */
+  compacto?: boolean;
 }) {
   const [digitado, setDigitado] = useState("");
   const [passaporte] = useGuardado<Passaporte>(lerPassaporte, SEM_CARIMBO);
@@ -59,9 +66,9 @@ export function MapaDoCampus({
       {filtrados.length === 0 ? (
         <p className="py-4 text-lg text-ink-soft">{s.nenhum}</p>
       ) : (
-        <ul aria-label={s.rotulo} className="grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
+        <ul aria-label={s.rotulo} className={compacto ? "mapa-compacto grid grid-cols-2 gap-2.5 md:block md:columns-3 md:gap-3 xl:columns-4" : "grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-4 lg:grid-cols-4"}>
           {filtrados.map((p) => (
-            <Predio key={p.id} predio={p} s={s} carimbo={passaporte[p.id]} aoAbrir={aoAbrir} aberto={Boolean(termo)} />
+            <Predio key={p.id} predio={p} s={s} carimbo={passaporte[p.id]} aoAbrir={aoAbrir} aberto={Boolean(termo)} compacto={compacto} />
           ))}
         </ul>
       )}

@@ -1,10 +1,11 @@
 {
+  "_rascunho": true,
   "meta": {
-    "campus": { "titulo": "Plan du campus", "descricao": "Les bâtiments de l’École Lúcia Maria et ce qu’il y a dans chacun : salles de classe, bibliothèque, radio, mémorial, ateliers, place, territoire et secrétariat." },
-    "calendario": { "titulo": "Calendrier de l’École", "descricao": "L’année scolaire de l’École Lúcia Maria : début et fin du semestre, semaine d’examens, leçon inaugurale, jours fériés du campus et examens externes, avec la source de chaque date." }
+    "campus": { "titulo": "Plan du campus", "descricao": "Les bâtiments de l’École révolutionnaire Lúcia Maria et ce qu’il y a dans chacun : salles de classe, bibliothèque, radio, mémorial, ateliers, place, territoire et secrétariat." },
+    "calendario": { "titulo": "Calendrier de l’École", "descricao": "L’année scolaire de l’École révolutionnaire Lúcia Maria : début et fin du semestre, semaine d’examens, leçon inaugurale, jours fériés du campus et examens externes, avec la source de chaque date." }
   },
   "comum": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "proposto": "Proposé, à confirmer par la coordination",
     "voltar": "École"
   },
@@ -27,7 +28,8 @@
     "carimbo": "Tu es déjà passé par ici",
     "nota": "Le tampon de chaque bâtiment reste seulement sur cet appareil. Il ne donne pas de points et il n’y a pas de classement.",
     "secoes": "{n} lieux",
-    "abrir": "Voir ce qu’il y a dans le bâtiment {nome}"
+    "abrir": "Voir ce qu’il y a dans le bâtiment {nome}",
+    "verTudo": "Tout voir ({n})"
   },
   "calendario": {
     "atual": "Ce semestre",

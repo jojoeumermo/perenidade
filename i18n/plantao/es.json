@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "descricao": "Dónde resolver una duda de estudio en el Instituto Lúcia: refuerzo con voluntarios, asistente, comunidad, clases en vivo y estudio en grupo, en un solo lugar."
   },
@@ -20,7 +21,7 @@
     "assistente": {
       "quem": "Un asistente automático",
       "como": "Responde al instante, pero es para quien tiene cuenta y puede equivocarse. Está en la página de refuerzo, antes del pedido a una persona voluntaria.",
-      "acompanhante": "Si la Escuela está abierta para ti, el asistente también ayuda dentro de la clase, con el acompañante."
+      "acompanhante": "Si la Escuela está abierta para ti, el asistente también ayuda dentro de la clase, con el Asistente de la Escuela."
     },
     "comunidade": {
       "quem": "Otras personas que estudian",

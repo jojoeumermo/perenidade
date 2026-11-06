@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "turmas": {
       "titulo": "Classes by course",
@@ -22,7 +23,7 @@
     }
   },
   "lista": {
-    "olho": "Lúcia Maria School",
+    "olho": "Lúcia Maria Revolutionary School",
     "titulo": "Classes by course",
     "lead": "Each course has one class per month: one module, two lessons per week and a video meeting every Wednesday at 7:30 pm Brasília time. You keep studying at your own pace and your progress stays on your device.",
     "agora": "This month's class",
@@ -79,7 +80,7 @@
     "minutos": "{n} min",
     "feita": "done",
     "baixarIcs": "Add the meetings to my calendar (.ics)",
-    "icsDescricao": "Course class meeting at the Lúcia Maria School. The room appears on the class page for those who joined.",
+    "icsDescricao": "Course class meeting at the Lúcia Maria Revolutionary School. The room appears on the class page for those who joined.",
     "nomeDoIcs": "class-meetings"
   },
   "curso": {
@@ -123,13 +124,13 @@
     "nenhum": "There is no mentor with a free place in this course yet.",
     "vagas": "{n} places this semester",
     "vagaUma": "1 place this semester",
-    "pelaRede": "Send a message on the Lúcia Network to the profile {perfil}, saying the course and the idea for the project.",
-    "abrirRede": "Open the Lúcia Network",
+    "pelaRede": "Send a message on Alumia to the profile {perfil}, saying the course and the idea for the project.",
+    "abrirRede": "Open Alumia",
     "peloEmail": "Write to the Institute's email, {email}, with the subject “orientação do curso {curso}” and the name of the person you want as your mentor.",
     "mentoria": "The mentoring role in the dashboard stays as it is."
   },
   "circulo": {
-    "olho": "Lúcia Maria School · for facilitators",
+    "olho": "Lúcia Maria Revolutionary School · for facilitators",
     "titulo": "Digital culture circle",
     "lead": "A tool for whoever facilitates a class meeting, in 5 steps inspired by Paulo Freire's culture circles. Everything stays only on this device: nothing goes to the server.",
     "fonte": "Reference:",
@@ -187,7 +188,7 @@
     "copiado": "Copied"
   },
   "banca": {
-    "olho": "Lúcia Maria School · final project",
+    "olho": "Lúcia Maria Revolutionary School · final project",
     "titulo": "Online community panel",
     "lead": "A 30-minute video conversation to present the course's final project. The in-person panel comes later.",
     "quemTitulo": "Who is on the panel",
@@ -238,7 +239,7 @@
     "caderneta": "See the record book"
   },
   "cartaz": {
-    "olho": "Lúcia Maria School · the class's living archive",
+    "olho": "Lúcia Maria Revolutionary School · the class's living archive",
     "titulo": "Class poster",
     "lead": "The collective poster of the graduating class. The facilitator types one sentence from each person. The course and the semester go on it; no full names. Everything is put together on this device.",
     "curso": "Course",
@@ -264,6 +265,6 @@
   },
   "linkTurmas": {
     "titulo": "Classes by course",
-    "texto": "At the Lúcia Maria School, each course has its own class of the month."
+    "texto": "At the Lúcia Maria Revolutionary School, each course has its own class of the month."
   }
 }

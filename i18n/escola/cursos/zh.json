@@ -1,12 +1,13 @@
 {
+  "_rascunho": true,
   "meta": {
-    "catalogoTitulo": "露西亚·玛丽亚学校课程",
+    "catalogoTitulo": "露西亚·玛丽亚革命学校课程",
     "catalogoDescricao": "只用露西亚研究所已有的课文组成的免费课程：基础、职业和进阶三类，附预计学时、教学大纲和可打印的小册子。",
     "zineTitulo": "课程小册子",
     "leituraTitulo": "导读"
   },
   "catalogo": {
-    "olho": "露西亚·玛丽亚学校",
+    "olho": "露西亚·玛丽亚革命学校",
     "titulo": "课程",
     "lead": "每门课程都把研究所里已经写好的课文按模块和学习顺序组织起来。还没有课文的部分标为“建设中”，不提供链接。",
     "selo": "只用已完成的课文组成",

@@ -4,6 +4,7 @@ import { PlanoDaSemana } from "@/components/escola/plano/PlanoDaSemana";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
+import { avisoDeMatricula, textosDaFormatura } from "@/i18n/escola/formatura";
 import { aulasDoAparelho, cursosDoAparelho, textosDaMatricula } from "@/lib/escola/matricula-servidor";
 import { textosDaBase } from "@/lib/escola/textos";
 import { paginaMeta } from "@/lib/seo";
@@ -28,7 +29,7 @@ export default async function Page({ params }: PageProps<"/[lang]/escola/plano">
       <PageHeading eyebrow={s.comum.olho} title={s.meta.plano.titulo} voltar={{ href: localePath(lang, "/escola"), texto: base.nav.entrada }}>
         {s.plano.lead}
       </PageHeading>
-      <PlanoDaSemana s={s.plano} comum={s.comum} convite={s.quemVolta.convite} cursos={cursos} aulas={aulasDoAparelho(lang, cursos)} lang={lang} />
+      <PlanoDaSemana s={s.plano} comum={s.comum} aviso={avisoDeMatricula(textosDaFormatura(lang).comum)} cursos={cursos} aulas={aulasDoAparelho(lang, cursos)} lang={lang} />
     </div>
   );
 }

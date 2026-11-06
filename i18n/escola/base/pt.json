@@ -1,7 +1,7 @@
 {
   "meta": {
-    "titulo": "Escola Lúcia Maria",
-    "descricao": "Escola popular e gratuita do Instituto Lúcia, sem cadastro: caminho, turma e registro do que você estudou."
+    "titulo": "Escola Revolucionária Lúcia Maria",
+    "descricao": "Escola popular e gratuita do Instituto Lúcia, para quem tem conta no site: caminho, turma e registro do que você estudou."
   },
   "nav": {
     "rotulo": "Partes da Escola",
@@ -12,13 +12,13 @@
     "calendario": "Calendário",
     "campus": "Campus",
     "turmas": "Turmas",
-    "acompanhante": "Acompanhante",
+    "acompanhante": "Assistente",
     "caderneta": "Caderneta"
   },
   "entrada": {
     "olho": "Instituto Lúcia",
-    "titulo": "Escola Lúcia Maria",
-    "linhaNaoUniversidade": "Escola popular e gratuita, sem cadastro. Não é universidade e não dá diploma: dá caminho, turma e registro do que você estudou.",
+    "titulo": "Escola Revolucionária Lúcia Maria",
+    "linhaNaoUniversidade": "Escola popular e gratuita, com a mesma conta da Comunidade. Não é universidade e não dá diploma: dá caminho, turma e registro do que você estudou.",
     "comoFunciona": "Como funciona",
     "passos": [
       { "titulo": "Matrícula", "texto": "Diga o que você quer e quanto tempo tem. Sem nome, e-mail ou documento: a matrícula fica no seu aparelho." },
@@ -30,7 +30,12 @@
     "pelaEscola": "Pela Escola",
     "campusTexto": "Os prédios da Escola: aulas, acervo, laboratórios, rádio e comunidade.",
     "calendarioTexto": "Os semestres, as férias e a semana de provas.",
-    "rever": "Ver a abertura de novo"
+    "rever": "Ver a abertura de novo",
+    "oQueE": "O que é",
+    "oQueETexto": "Uma escola popular de trabalhadoras e trabalhadores, dentro do Instituto Lúcia. Os cursos são montados com as aulas que já existem no site, em ordem, com horas estimadas, turma para estudar junto, tarefa no mundo e projeto final.",
+    "contaTexto": "Você entra com a sua conta do Instituto Lúcia, a mesma da Comunidade. O que você estuda fica guardado neste aparelho.",
+    "mapaTitulo": "Tudo o que tem na Escola",
+    "mapaLead": "As partes da Escola, por assunto. A faixa do alto leva às mais usadas."
   },
   "cartao": {
     "olho": "Antes de tudo",
@@ -39,9 +44,9 @@
     "ler": "Ler"
   },
   "quemFoi": {
-    "olho": "Escola Lúcia Maria",
+    "olho": "Escola Revolucionária Lúcia Maria",
     "titulo": "Quem foi Lúcia Maria",
-    "descricao": "Quem dá nome à Escola Lúcia Maria, do Instituto Lúcia.",
+    "descricao": "Quem dá nome à Escola Revolucionária Lúcia Maria, do Instituto Lúcia.",
     "emPortugues": "(texto em português)",
     "voltar": "Voltar à entrada da Escola"
   },
@@ -57,7 +62,7 @@
     "plano": "Plano da semana",
     "campus": "Campus",
     "calendario": "Calendário",
-    "acompanhante": "Acompanhante",
+    "acompanhante": "Assistente",
     "vozes": "Vozes do trabalho",
     "lutas": "Mapa das lutas",
     "assembleia": "Assembleia estudantil",
@@ -75,24 +80,52 @@
     "proposto": "Calendário proposto, a confirmar pela coordenação"
   },
   "abertura": {
-    "rotulo": "Boas-vindas à Escola Lúcia Maria",
+    "rotulo": "Boas-vindas à Escola Revolucionária Lúcia Maria",
     "pular": "Pular",
     "seguir": "Seguir",
     "entrar": "Entrar na Escola",
     "ouvir": "Ouvir",
     "parar": "Parar de ouvir",
     "de": "{n} de {total}",
-    "q1Titulo": "Esta é a Escola Lúcia Maria",
+    "q1Titulo": "Esta é a Escola Revolucionária Lúcia Maria",
     "q1Texto": "Uma escola popular, gratuita e aberta, dentro do Instituto Lúcia.",
     "q2Titulo": "Quem foi Lúcia Maria",
     "q3Titulo": "Por que a Escola existe",
     "fonte": "Trecho de “Quem somos”",
     "emPortugues": "(texto em português)",
     "q4Titulo": "Como funciona",
-    "q4Texto": "Sem cadastro. O que você estuda fica guardado neste aparelho e só sai dele se você mandar.",
+    "q4Texto": "Você entra com a sua conta do Instituto Lúcia, a mesma da Comunidade. O que você estuda fica guardado neste aparelho e só sai dele se você mandar.",
     "baixarVoz": "Para ouvir com a voz que você escolheu, o aparelho precisa baixar {tamanho}. Baixar agora?",
     "baixarSim": "Baixar e ouvir",
     "baixarNao": "Agora não",
     "semVoz": "Este aparelho não tem voz para ler em voz alta."
+  },
+  "porta": {
+    "lead": "Escola popular e gratuita do Instituto Lúcia. Para entrar, use a sua conta do site: é a mesma da Comunidade.",
+    "comoEntrar": "Como entrar",
+    "passos": [
+      "Já tem conta na Comunidade? Entre com o mesmo e-mail e a mesma senha.",
+      "Ainda não tem? Crie uma conta de graça: pede só e-mail e senha (o apelido é opcional).",
+      "Dentro da Escola, faça a matrícula: três perguntas, sem nome nem documento."
+    ],
+    "entrar": "Entrar com a minha conta",
+    "criar": "Criar conta",
+    "cadastroFechado": "O cadastro de contas novas está fechado agora. Quem já tem conta entra normalmente.",
+    "menores": "Tem menos de 18 anos? Crie a conta junto com quem é responsável por você.",
+    "conferindo": "Conferindo a sua conta…",
+    "semServico": "O serviço de contas não está disponível neste endereço agora. Tente mais tarde.",
+    "abertas": "As aulas, o acervo e o Meu estudo continuam abertos para todo mundo, sem conta.",
+    "verAulas": "Ver as aulas",
+    "privacidade": "Como a conta e os seus dados são tratados"
+  },
+  "mapa": {
+    "grupos": {
+      "estudar": "Estudar",
+      "vidaEscolar": "Sua vida escolar",
+      "ajuda": "Ajuda para estudar",
+      "mundo": "Escola e vida",
+      "organizacao": "Organização estudantil",
+      "escola": "Pela Escola"
+    }
   }
 }

@@ -1,12 +1,13 @@
 {
+  "_rascunho": true,
   "meta": {
-    "titulo": "Acompañante del estudiante",
+    "titulo": "Asistente de la Escuela",
     "descricao": "Resuelve dudas de una clase, pide pistas de ejercicios, comentarios de redacción, ayuda para entender un documento y practica inglés o español. El historial queda solo en tu dispositivo."
   },
   "comum": {
     "enviar": "Preguntar",
-    "enviando": "El acompañante está pensando…",
-    "rotuloResposta": "Respuesta del acompañante",
+    "enviando": "El Asistente está pensando…",
+    "rotuloResposta": "Respuesta del Asistente",
     "voce": "Tú",
     "avisoAutomatico": "Respuesta automática: puede equivocarse. Compárala con la clase y, si la duda sigue, pide refuerzo a un voluntario.",
     "cortada": "La respuesta quedó demasiado larga y se cortó.",
@@ -40,12 +41,12 @@
     "caracteres": "{n} de {max} caracteres"
   },
   "hub": {
-    "titulo": "Acompañante del estudiante",
+    "titulo": "Asistente de la Escuela",
     "lead": "Un apoyo para estudiar por tu cuenta cuando no hay voluntario cerca. Te ayuda a pensar; no piensa por ti.",
     "escolha": "¿Qué necesitas ahora?",
     "abrir": "Abrir",
     "modos": {
-      "duvida": { "titulo": "Resolver una duda de una clase", "texto": "Pega el fragmento donde te trabaste. El acompañante hace una pregunta antes de explicar. Dentro de la clase, usa el botón “No entendí”, en la barra de arriba." },
+      "duvida": { "titulo": "Resolver una duda de una clase", "texto": "Pega el fragmento donde te trabaste. El Asistente hace una pregunta antes de explicar. Dentro de la clase, usa el botón “No entendí”, en la barra de arriba." },
       "pista": { "titulo": "Pista de ejercicio", "texto": "¿Fallaste un ejercicio? Justo debajo aparece “Quiero una pista”, en tres niveles, sin darte la respuesta de una vez." },
       "outroJeito": { "titulo": "Explicar de otra manera", "texto": "El mismo fragmento, explicado con un ejemplo de tu trabajo, sin cambiar los hechos." },
       "redacao": { "titulo": "Comentario de redacción", "texto": "Comentario según las 5 competencias del Enem, sin nota." },
@@ -111,7 +112,7 @@
   },
   "redacao": {
     "titulo": "Comentario de redacción",
-    "lead": "Pega tu redacción. El acompañante comenta cada una de las 5 competencias del Enem: hasta 2 puntos fuertes y hasta 2 por mejorar. No reescribe el texto.",
+    "lead": "Pega tu redacción. El Asistente comenta cada una de las 5 competencias del Enem: hasta 2 puntos fuertes y hasta 2 por mejorar. No reescribe el texto.",
     "tema": "Tema de la propuesta (opcional)",
     "texto": "Tu redacción",
     "minimo": "Escribe al menos 100 caracteres.",
@@ -124,7 +125,7 @@
   },
   "documento": {
     "titulo": "Entender un documento",
-    "lead": "Saca una foto de un contrato, una factura o una carta (del INSS, por ejemplo). El acompañante la explica con palabras sencillas y señala plazos y valores.",
+    "lead": "Saca una foto de un contrato, una factura o una carta (del INSS, por ejemplo). El Asistente la explica con palabras sencillas y señala plazos y valores.",
     "avisoTitulo": "Antes de enviar",
     "aviso": "Tapa el CPF, el RG, los números de cuenta y los datos de otras personas antes de enviar.",
     "outrasPessoas": "No envíes documentos de otras personas, incluidos los de niños, si no es necesario.",
@@ -148,7 +149,7 @@
   },
   "idioma": {
     "titulo": "Practicar inglés o español",
-    "lead": "Una conversación corta en el idioma que estudias. El acompañante responde con pocas palabras y corrige con amabilidad, entre corchetes.",
+    "lead": "Una conversación corta en el idioma que estudias. El Asistente responde con pocas palabras y corrige con amabilidad, entre corchetes.",
     "escolha": "Idioma de la práctica",
     "ingles": "Inglés",
     "espanhol": "Español",
@@ -179,7 +180,7 @@
     "copiado": "Fragmento copiado de la clase, sin cambios (las clases están escritas en portugués)."
   },
   "como": {
-    "titulo": "Cómo funciona el acompañante",
+    "titulo": "Cómo funciona el Asistente",
     "lead": "Qué pasa con lo que envías, quién responde y qué se guarda.",
     "provedoresTitulo": "Quién puede responder",
     "provedoresTexto": "Las respuestas vienen de uno de estos servicios de inteligencia artificial, todos de empresas externas, con servidores fuera de Brasil:",
@@ -204,7 +205,7 @@
     "limiteBanco": "Hoy, cada cuenta puede hacer {n} preguntas por día.",
     "limitePadrao": "Lo predeterminado son {n} preguntas por cuenta y por día, y {total} en todo el sitio. La coordinación puede cambiar este número.",
     "contaTitulo": "Hace falta una cuenta",
-    "conta": "Sin cuenta, con el asistente apagado o sin internet, el acompañante busca la respuesta en las clases del propio sitio, en tu dispositivo, sin IA y sin servidor.",
+    "conta": "Sin cuenta, con la IA del instituto apagada o sin internet, el Asistente busca la respuesta en las clases del propio sitio, en tu dispositivo, sin IA y sin servidor.",
     "modeloTitulo": "¿Y un modelo en el propio dispositivo?",
     "modelo": "Probamos si un modelo pequeño de licencia abierta, servido por el propio sitio, podía funcionar en el celular solo para resumir los fragmentos de clase encontrados en el modo sin servidor. El criterio era: hasta unos 150 MB, funcionar en portugués y responder en un tiempo aceptable en un celular básico con 4 GB de memoria.",
     "modeloNumeros": [
@@ -214,6 +215,6 @@
     ],
     "modeloFonte": "Tamaños de los archivos ONNX consultados en Hugging Face el 3 de noviembre de 2026.",
     "modeloDecisao": "Ninguno pasó: el único dentro del tamaño no se hizo para portugués, y un resumen equivocado sería inventar. Por eso no hay modelo en el dispositivo. La prueba de tiempo en el celular básico ni llegó a hacerse. Si aparece un modelo que pase, entrará apagado, mostrando su tamaño y con confirmación antes de descargar.",
-    "papel": "La Escuela Lúcia Maria es una escuela popular: el acompañante apoya tu estudio; no reemplaza a un educador ni da certificados."
+    "papel": "La Escuela Revolucionaria Lúcia Maria es una escuela popular: el Asistente apoya tu estudio; no reemplaza a un educador ni da certificados."
   }
 }

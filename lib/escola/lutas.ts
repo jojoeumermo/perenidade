@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O Mapa das lutas da Escola Lúcia Maria (E4-11, docs/escola/vida.md): um mapa NO TEMPO, não no espaço (não há
+// O Mapa das lutas da Escola Revolucionária Lúcia Maria (E4-11, docs/escola/vida.md): um mapa NO TEMPO, não no espaço (não há
 // coordenada com fonte no repositório). Cruza os feriados do campus (lib/escola/calendario.ts, que não é redefinido
 // aqui) com os fatos de content/neste-dia.json pelo dia MM-DD. Só feriado é "feriado do campus"; a data que só tem
 // fato é "data de memória". Nada de dia, número ou fato inventado: tudo vem dos dois arquivos, cada um com fonte.

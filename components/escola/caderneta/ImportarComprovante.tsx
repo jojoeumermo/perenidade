@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { ConviteDeMatricula } from "@/components/escola/formatura/ConviteDeMatricula";
 import { useMatricula } from "@/components/escola/guardado-escola";
 import { fill } from "@/i18n/config";
 import type { TextosDaFormatura } from "@/i18n/escola/formatura";
@@ -13,14 +12,15 @@ import { type Comprovante, lerComprovantes, registroDoComprovante, resumoDoCompr
  * Cola um ou vários comprovantes do modo turma, mostra "N de M aulas" e guarda na caderneta com o código da turma.
  * O nome que a pessoa escreveu no comprovante NÃO é copiado. Importar o mesmo comprovante de novo substitui o registro.
  */
-export function ImportarComprovante({ s, c, base }: { s: TextosDaFormatura["importar"]; c: TextosDaFormatura["comum"]; base: string }) {
+export function ImportarComprovante({ s }: { s: TextosDaFormatura["importar"] }) {
   const matricula = useMatricula();
   const [texto, setTexto] = useState("");
   const [lidos, setLidos] = useState<Comprovante[] | null>(null);
   const [invalidos, setInvalidos] = useState(0);
   const [apelidos, setApelidos] = useState<Record<string, string>>({});
   const [guardados, setGuardados] = useState<Record<string, boolean>>({});
-  if (!matricula) return <ConviteDeMatricula c={c} base={base} />;
+  // Sem matrícula, o aviso único fica com a caderneta (CadernetaDoTrabalhador): esta parte não repete o aviso.
+  if (!matricula) return null;
 
   const ler = () => {
     const r = lerComprovantes(texto);

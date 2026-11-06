@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O plano da semana sem culpa da Escola Lúcia Maria (E4-08, R1-52). Feito NO APARELHO, por regras simples e não por
+// O plano da semana sem culpa da Escola Revolucionária Lúcia Maria (E4-08, R1-52). Feito NO APARELHO, por regras simples e não por
 // inteligência artificial (o "agente do plano" do R1 virou esta regra local): pega as próximas aulas pendentes dos
 // cursos em que a pessoa entrou, na ordem de cada curso, pulando as trilhas dispensadas, e distribui dentro do tempo
 // que ela disse ter, pelos dias que escolheu. O que não foi feito passa para o próximo dia de estudo, sem a palavra

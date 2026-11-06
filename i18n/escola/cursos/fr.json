@@ -1,12 +1,13 @@
 {
+  "_rascunho": true,
   "meta": {
-    "catalogoTitulo": "Cours de l'École Lúcia Maria",
+    "catalogoTitulo": "Cours de l'École révolutionnaire Lúcia Maria",
     "catalogoDescricao": "Cours gratuits montés uniquement avec des leçons qui existent déjà à l'Institut Lúcia : de base, professionnels et avancés, avec heures estimées, programme et fanzine à imprimer.",
     "zineTitulo": "Fanzine du cours",
     "leituraTitulo": "Lecture guidée"
   },
   "catalogo": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "titulo": "Cours",
     "lead": "Chaque cours réunit des leçons déjà prêtes à l'Institut, en modules et dans un ordre d'étude. Ce qui n'a pas encore de leçon apparaît en construction, sans lien.",
     "selo": "Cours monté uniquement avec des leçons prêtes",

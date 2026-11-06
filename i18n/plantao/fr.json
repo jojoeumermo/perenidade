@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "descricao": "Où poser une question d'étude à l'Instituto Lúcia : soutien avec des bénévoles, assistant, communauté, cours en direct et étude en groupe, au même endroit."
   },
@@ -20,7 +21,7 @@
     "assistente": {
       "quem": "Un assistant automatique",
       "como": "Il répond tout de suite, mais il est réservé aux personnes avec un compte et il peut se tromper. Il se trouve sur la page de soutien, avant la demande à une personne bénévole.",
-      "acompanhante": "Si l'École est ouverte pour vous, l'assistant aide aussi dans la leçon, par l'accompagnateur."
+      "acompanhante": "Si l'École est ouverte pour vous, l'assistant aide aussi dans la leçon, par l'Assistant de l'École."
     },
     "comunidade": {
       "quem": "D'autres personnes qui étudient",

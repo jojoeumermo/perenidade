@@ -1,9 +1,10 @@
 {
+  "_rascunho": true,
   "meta": {
     "assembleiaTitulo": "Assemblée étudiante",
     "assembleiaDescricao": "Votez sans vous identifier pour les parcours que le semestre doit prioriser, faites le Cercle du semestre et organisez l'assemblée dans votre noyau.",
     "ouvidoriaTitulo": "Médiation de l'École",
-    "ouvidoriaDescricao": "Envoyez une question, une critique ou une suggestion à la médiation, sans compte, et suivez la réponse publique avec votre numéro de suivi.",
+    "ouvidoriaDescricao": "Envoyez une question, une critique ou une suggestion à la médiation, sans la lier à votre compte, et suivez la réponse publique avec votre numéro de suivi.",
     "educadorTitulo": "Éducateur ou éducatrice du mois",
     "educadorDescricao": "La reconnaissance mensuelle de quelqu'un qui enseigne à l'École, seulement avec autorisation, sans classement et sans photo."
   },
@@ -59,7 +60,7 @@
     "apagar": "Effacer ce Cercle",
     "apagada": "Cercle effacé de cet appareil.",
     "guardadas": "Cercles gardés sur cet appareil : {n} (un par semestre, jusqu'à 4).",
-    "folha": "Cercle du semestre {semestre} — École Lúcia Maria",
+    "folha": "Cercle du semestre {semestre} — École révolutionnaire Lúcia Maria",
     "semAparelho": "Cet appareil ne garde pas ce que vous écrivez ; utilisez Copier le texte avant de partir."
   },
   "nucleo": {
@@ -81,7 +82,7 @@
   "ouvidoria": {
     "olho": "Médiation",
     "titulo": "Médiation de l'École",
-    "lead": "Un canal pour une question, une critique ou une suggestion sur un cours, une formation, un éducateur ou toute l'École. Pas besoin de compte.",
+    "lead": "Un canal pour une question, une critique ou une suggestion sur un cours, une formation, un éducateur ou toute l'École. Ce que vous envoyez n'est pas lié à votre compte.",
     "guardaTitulo": "Ce qui est gardé",
     "guarda": "Le serveur garde le sujet, la page (si vous l'indiquez), ce que vous écrivez et, si vous voulez une réponse privée, un contact. Votre adresse réseau et tout compte ne sont pas gardés. Sur votre appareil reste seulement le numéro de suivi.",
     "quemLe": "Seules la médiation et la coordination lisent. Quand une réponse est publiée, seuls le résumé de la médiation et la réponse apparaissent en public, jamais ce que vous avez écrit ni votre contact.",

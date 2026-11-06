@@ -368,7 +368,8 @@ const PNG = "iVBORw0KGgo=";
   const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
   const achatar = (v, p = "", m = new Map()) => {
     if (Array.isArray(v)) v.forEach((x, i) => achatar(x, p ? `${p}.${i}` : String(i), m));
-    else if (v && typeof v === "object") Object.keys(v).forEach((k) => achatar(v[k], p ? `${p}.${k}` : k, m));
+    // "_rascunho" marca a tradução de máquina ainda não revisada: fica fora da comparação.
+    else if (v && typeof v === "object") Object.keys(v).forEach((k) => k !== "_rascunho" && achatar(v[k], p ? `${p}.${k}` : k, m));
     else m.set(p, v);
     return m;
   };

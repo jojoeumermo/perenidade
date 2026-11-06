@@ -1,12 +1,13 @@
 {
+  "_rascunho": true,
   "meta": {
-    "titulo": "Accompagnateur de l'élève",
+    "titulo": "Assistant de l'École",
     "descricao": "Posez une question sur une leçon, demandez des indices pour un exercice, un commentaire de rédaction, de l'aide pour comprendre un document, et pratiquez l'anglais ou l'espagnol. L'historique reste uniquement sur votre appareil."
   },
   "comum": {
     "enviar": "Demander",
-    "enviando": "L'accompagnateur réfléchit…",
-    "rotuloResposta": "Réponse de l'accompagnateur",
+    "enviando": "L'Assistant réfléchit…",
+    "rotuloResposta": "Réponse de l'Assistant",
     "voce": "Vous",
     "avisoAutomatico": "Réponse automatique : elle peut se tromper. Vérifiez avec la leçon et, si le doute persiste, demandez du soutien à un bénévole.",
     "cortada": "La réponse était trop longue et a été coupée.",
@@ -40,12 +41,12 @@
     "caracteres": "{n} sur {max} caractères"
   },
   "hub": {
-    "titulo": "Accompagnateur de l'élève",
+    "titulo": "Assistant de l'École",
     "lead": "Un appui pour étudier seul quand aucun bénévole n'est là. Il vous aide à réfléchir ; il ne réfléchit pas à votre place.",
     "escolha": "De quoi avez-vous besoin maintenant ?",
     "abrir": "Ouvrir",
     "modos": {
-      "duvida": { "titulo": "Question sur une leçon", "texto": "Collez le passage qui vous bloque. L'accompagnateur pose une question avant d'expliquer. Dans une leçon, utilisez le bouton « Je n'ai pas compris » de la barre du haut." },
+      "duvida": { "titulo": "Question sur une leçon", "texto": "Collez le passage qui vous bloque. L'Assistant pose une question avant d'expliquer. Dans une leçon, utilisez le bouton « Je n'ai pas compris » de la barre du haut." },
       "pista": { "titulo": "Indice pour un exercice", "texto": "Vous vous êtes trompé ? Juste en dessous apparaît « Je veux un indice », en trois niveaux, sans donner la réponse d'emblée." },
       "outroJeito": { "titulo": "Expliquer autrement", "texto": "Le même passage, expliqué avec un exemple de votre métier, sans changer les faits." },
       "redacao": { "titulo": "Commentaire de rédaction", "texto": "Commentaire selon les 5 compétences de l'Enem, sans note." },
@@ -111,7 +112,7 @@
   },
   "redacao": {
     "titulo": "Commentaire de rédaction",
-    "lead": "Collez votre rédaction. L'accompagnateur commente chacune des 5 compétences de l'Enem : jusqu'à 2 points forts et jusqu'à 2 points à améliorer. Il ne réécrit pas le texte.",
+    "lead": "Collez votre rédaction. L'Assistant commente chacune des 5 compétences de l'Enem : jusqu'à 2 points forts et jusqu'à 2 points à améliorer. Il ne réécrit pas le texte.",
     "tema": "Sujet de la proposition (facultatif)",
     "texto": "Votre rédaction",
     "minimo": "Écrivez au moins 100 caractères.",
@@ -124,7 +125,7 @@
   },
   "documento": {
     "titulo": "Comprendre un document",
-    "lead": "Prenez en photo un contrat, une facture ou une lettre (de l'INSS, par exemple). L'accompagnateur l'explique simplement et signale les délais et les montants.",
+    "lead": "Prenez en photo un contrat, une facture ou une lettre (de l'INSS, par exemple). L'Assistant l'explique simplement et signale les délais et les montants.",
     "avisoTitulo": "Avant d'envoyer",
     "aviso": "Cachez le CPF, le RG, les numéros de compte et les données d'autres personnes avant d'envoyer.",
     "outrasPessoas": "N'envoyez pas les documents d'autres personnes, y compris d'enfants, sans nécessité.",
@@ -148,7 +149,7 @@
   },
   "idioma": {
     "titulo": "Pratiquer l'anglais ou l'espagnol",
-    "lead": "Une courte conversation dans la langue que vous étudiez. L'accompagnateur répond en peu de mots et corrige avec bienveillance, entre crochets.",
+    "lead": "Une courte conversation dans la langue que vous étudiez. L'Assistant répond en peu de mots et corrige avec bienveillance, entre crochets.",
     "escolha": "Langue pratiquée",
     "ingles": "Anglais",
     "espanhol": "Espagnol",
@@ -179,7 +180,7 @@
     "copiado": "Passage copié de la leçon, sans modification (les leçons sont écrites en portugais)."
   },
   "como": {
-    "titulo": "Comment fonctionne l'accompagnateur",
+    "titulo": "Comment fonctionne l'Assistant",
     "lead": "Ce que devient ce que vous envoyez, qui répond et ce qui est gardé.",
     "provedoresTitulo": "Qui peut répondre",
     "provedoresTexto": "Les réponses viennent de l'un de ces services d'intelligence artificielle, tous d'entreprises extérieures, dont les serveurs sont hors du Brésil :",
@@ -204,7 +205,7 @@
     "limiteBanco": "Aujourd'hui, chaque compte peut poser {n} questions par jour.",
     "limitePadrao": "Par défaut : {n} questions par compte et par jour, et {total} pour tout le site. La coordination peut changer ce nombre.",
     "contaTitulo": "Il faut un compte",
-    "conta": "Sans compte, avec l'assistant désactivé ou sans internet, l'accompagnateur cherche la réponse dans les leçons du site, sur votre appareil, sans IA et sans serveur.",
+    "conta": "Sans compte, avec l'IA de l'institut désactivée ou sans internet, l'Assistant cherche la réponse dans les leçons du site, sur votre appareil, sans IA et sans serveur.",
     "modeloTitulo": "Et un modèle sur l'appareil lui-même ?",
     "modelo": "Nous avons vérifié si un petit modèle sous licence ouverte, servi par le site lui-même, pouvait tourner sur un téléphone uniquement pour résumer les passages de leçon trouvés en mode sans serveur. Les critères : environ 150 Mo au plus, fonctionner en portugais et répondre en un temps acceptable sur un téléphone d'entrée de gamme avec 4 Go de mémoire.",
     "modeloNumeros": [
@@ -214,6 +215,6 @@
     ],
     "modeloFonte": "Tailles des fichiers ONNX vérifiées sur Hugging Face le 3 novembre 2026.",
     "modeloDecisao": "Aucun n'est passé : le seul dans la taille n'a pas été fait pour le portugais, et un résumé faux reviendrait à inventer. Il n'y a donc pas de modèle sur l'appareil. Le test de temps sur le téléphone d'entrée de gamme n'a même pas été fait. Si un modèle qui passe apparaît, il arrivera désactivé, avec sa taille affichée et une confirmation avant le téléchargement.",
-    "papel": "L'École Lúcia Maria est une école populaire : l'accompagnateur soutient votre étude ; il ne remplace pas un éducateur et ne délivre pas de certificat."
+    "papel": "L'École révolutionnaire Lúcia Maria est une école populaire : l'Assistant soutient votre étude ; il ne remplace pas un éducateur et ne délivre pas de certificat."
   }
 }

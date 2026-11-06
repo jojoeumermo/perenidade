@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "titulo": "Agentes de trabajo, grupo y equipo",
     "descricao": "Siete ayudantes de la Escuela: ensayo de entrevista y de oratoria, ayuda con trámites, preguntas de debate para el grupo, borrador de clase, revisión de contenido y revisión de traducciones."
@@ -205,7 +206,7 @@
     "destino": "Idioma de la traducción",
     "idiomas": { "en": "Inglés", "es": "Español", "fr": "Francés", "ru": "Ruso", "zh": "Chino" },
     "termos": "Términos que no se traducen (separados por coma)",
-    "termosDica": "Ya entran: Instituto Lúcia, Escola Lúcia Maria y Gaveta Aberta.",
+    "termosDica": "Ya entran: Instituto Lúcia, Escola Revolucionária Lúcia Maria y Gaveta Aberta.",
     "naEscola": "Este texto va a aparecer en la Escuela (revisa también las palabras que la Escuela nunca usa)",
     "botao": "Revisar la traducción",
     "oQueConferir": "Qué revisar",

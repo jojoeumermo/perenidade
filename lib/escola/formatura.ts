@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Do projeto final à formatura na Escola Lúcia Maria (E4-14; docs/escola/formatura.md). Projeto em 6 etapas, critério de
+// Do projeto final à formatura na Escola Revolucionária Lúcia Maria (E4-14; docs/escola/formatura.md). Projeto em 6 etapas, critério de
 // formatura, registro de formatura, texto do Mural, memória de formatura e texto da Gaveta. Tudo no aparelho; o único
 // envio é a contagem anônima "escola_formatura", feita por quem chama (parâmetro `contar`), assim este arquivo não
 // toca em servidor. Sem React e sem "@/" de propósito: o teste roda direto no Node.
@@ -252,7 +252,7 @@ export function registroDaFormatura(curso: string, tituloDoCurso: string, dia: s
     curso,
     data: dia,
     titulo: `Formatura: ${tituloDoCurso}`.slice(0, 160),
-    detalhe: `Concluí o curso na Escola Lúcia Maria: todas as aulas e o projeto final apresentado. Horas estimadas: ${formatarHoras(horas)} h.`,
+    detalhe: `Concluí o curso na Escola Revolucionária Lúcia Maria: todas as aulas e o projeto final apresentado. Horas estimadas: ${formatarHoras(horas)} h.`,
   };
 }
 
@@ -318,7 +318,7 @@ export function anuncioDoMural(e: { curso: string; tituloDoCurso: string; oficio
   const dela = e.descricaoDaPessoa.replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, " ").trim().slice(0, MAX_DESCRICAO_DA_PESSOA);
   if (oficio.length < MURAL_TITULO.min) return { ok: false, motivo: "oficioCurto" };
   if (temContato(oficio) || temContato(dela)) return { ok: false, motivo: "contato" };
-  const frase = `Estudei ${e.tituloDoCurso} na Escola Lúcia Maria, escola popular do Instituto Lúcia. É um registro de estudo, não uma certificação oficial.`;
+  const frase = `Estudei ${e.tituloDoCurso} na Escola Revolucionária Lúcia Maria, escola popular do Instituto Lúcia. É um registro de estudo, não uma certificação oficial.`;
   const descricao = [`Ofício: ${oficio}.`, dela, frase].filter(Boolean).join("\n\n").slice(0, MURAL_DESCRICAO.max);
   const titulo = oficio.slice(0, MURAL_TITULO.max);
   if (descricao.length < MURAL_DESCRICAO.min) return { ok: false, motivo: "oficioCurto" };
@@ -440,7 +440,7 @@ export function memoriaDeFormatura(lista: readonly ItemDaMemoria[], hoje: string
 /** O texto que a pessoa copia e manda por /contribuir ("Uma ideia"). Nada é enviado sozinho. */
 export function textoDoPedidoDeMemoria(e: { curso: string; semestre: string; apelido: string; frase?: string }): string {
   const frase = e.frase?.trim() ? ` Frase: "${limpar(e.frase, MAX_FRASE_DA_MEMORIA)}".` : "";
-  return `Quero aparecer na memória de formatura da Escola Lúcia Maria: curso ${e.curso}, semestre ${e.semestre}, apelido ${limpar(e.apelido, MAX_APELIDO_DA_MEMORIA)}.${frase} Tenho 18 anos ou mais e autorizo o uso do apelido; posso pedir a retirada a qualquer momento.`;
+  return `Quero aparecer na memória de formatura da Escola Revolucionária Lúcia Maria: curso ${e.curso}, semestre ${e.semestre}, apelido ${limpar(e.apelido, MAX_APELIDO_DA_MEMORIA)}.${frase} Tenho 18 anos ou mais e autorizo o uso do apelido; posso pedir a retirada a qualquer momento.`;
 }
 
 // ───────────── Gaveta Aberta ─────────────

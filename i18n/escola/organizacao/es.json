@@ -1,9 +1,10 @@
 {
+  "_rascunho": true,
   "meta": {
     "assembleiaTitulo": "Asamblea estudiantil",
     "assembleiaDescricao": "Vota sin identificarte en las rutas que el semestre debe priorizar, haz la Rueda del semestre y organiza la asamblea en tu núcleo.",
     "ouvidoriaTitulo": "Defensoría de la Escuela",
-    "ouvidoriaDescricao": "Envía una duda, crítica o sugerencia a la defensoría, sin cuenta, y sigue la respuesta pública con tu número de protocolo.",
+    "ouvidoriaDescricao": "Envía una duda, crítica o sugerencia a la defensoría, sin ligarla a tu cuenta, y sigue la respuesta pública con tu número de protocolo.",
     "educadorTitulo": "Educador o educadora del mes",
     "educadorDescricao": "El reconocimiento mensual de quien enseña en la Escuela, solo con autorización, sin ranking y sin foto."
   },
@@ -59,7 +60,7 @@
     "apagar": "Borrar esta Rueda",
     "apagada": "Rueda borrada de este dispositivo.",
     "guardadas": "Ruedas guardadas en este dispositivo: {n} (una por semestre, hasta 4).",
-    "folha": "Rueda del semestre {semestre} — Escuela Lúcia Maria",
+    "folha": "Rueda del semestre {semestre} — Escuela Revolucionaria Lúcia Maria",
     "semAparelho": "Este dispositivo no guarda lo que escribes; usa Copiar el texto antes de salir."
   },
   "nucleo": {
@@ -81,7 +82,7 @@
   "ouvidoria": {
     "olho": "Defensoría",
     "titulo": "Defensoría de la Escuela",
-    "lead": "Un canal para duda, crítica o sugerencia sobre una clase, un curso, un educador o toda la Escuela. No necesitas cuenta.",
+    "lead": "Un canal para duda, crítica o sugerencia sobre una clase, un curso, un educador o toda la Escuela. Lo que envías no queda ligado a tu cuenta.",
     "guardaTitulo": "Qué queda guardado",
     "guarda": "En el servidor queda guardado el asunto, la página (si la indicas), lo que escribas y, si quieres respuesta privada, un contacto. No se guarda tu dirección de red ni una cuenta. En tu dispositivo queda solo el protocolo.",
     "quemLe": "Solo lee la mediación y la coordinación. Cuando se publica una respuesta, aparece en público solo el resumen de la mediación y la respuesta, nunca lo que escribiste ni tu contacto.",

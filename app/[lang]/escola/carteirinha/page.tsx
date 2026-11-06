@@ -4,6 +4,7 @@ import { Carteirinha } from "@/components/escola/carteirinha/Carteirinha";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
+import { avisoDeMatricula, textosDaFormatura } from "@/i18n/escola/formatura";
 import { cursosDoAparelho, textosDaMatricula } from "@/lib/escola/matricula-servidor";
 import { textosDaBase } from "@/lib/escola/textos";
 import { paginaMeta } from "@/lib/seo";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/escola/car
 }
 
 /**
- * A carteirinha da Escola Lúcia Maria (E4-08, D1-10; docs/escola/matricula.md): gerada no aparelho, sem servidor, com o
+ * A carteirinha da Escola Revolucionária Lúcia Maria (E4-08, D1-10; docs/escola/matricula.md): gerada no aparelho, sem servidor, com o
  * aviso de que não é documento nem vale como carteira de estudante para meia-entrada (Lei nº 12.933/2013, art. 1º, § 2º).
  */
 export default async function Page({ params }: PageProps<"/[lang]/escola/carteirinha">) {
@@ -29,7 +30,7 @@ export default async function Page({ params }: PageProps<"/[lang]/escola/carteir
       <PageHeading eyebrow={s.comum.olho} title={s.meta.carteirinha.titulo} voltar={{ href: localePath(lang, "/escola/matricula"), texto: base.nav.matricula }}>
         {s.carteirinha.lead}
       </PageHeading>
-      <Carteirinha s={s.carteirinha} comum={s.comum} titulos={titulos} lang={lang} />
+      <Carteirinha s={s.carteirinha} comum={s.comum} aviso={avisoDeMatricula(textosDaFormatura(lang).comum)} titulos={titulos} lang={lang} />
     </div>
   );
 }
