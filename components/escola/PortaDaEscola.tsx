@@ -102,11 +102,11 @@ function PortaFechada({ lang, s, e }: { lang: Locale; s: TextosDaBase["porta"]; 
           {hasBackend ? (
             <>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Link href={localePath(lang, "/entrar")} className={cheio} data-porta-entrar="">
+                <Link href={localePath(lang, "/entrar?volta=/escola")} className={cheio} data-porta-entrar="">
                   {s.entrar}
                 </Link>
                 {cadastro.aberto && (
-                  <Link href={localePath(lang, "/entrar?criar=1")} className={vazado} data-porta-criar="">
+                  <Link href={localePath(lang, "/entrar?criar=1&volta=/escola")} className={vazado} data-porta-criar="">
                     {s.criar}
                   </Link>
                 )}
