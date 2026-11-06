@@ -5,6 +5,7 @@ import { Atkinson_Hyperlegible } from "next/font/google";
 import dynamic from "next/dynamic";
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { COLOR_MODES, GUIDE_MODES, type GuideMode, resetPrefs, setPrefs, SPACING_LEVELS, TEXT_SCALES, usePrefs } from "@/lib/prefs";
+import { arrastavel, CANTOS, type Canto, estiloDaPosicao, gravarPosicao, ladoDe, posicaoDoPonto, usePosicoes } from "@/lib/flutuantes";
 import { ligado } from "@/lib/recursos";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { useHydrated } from "@/lib/storage";
@@ -13,6 +14,11 @@ import { useI18n } from "./I18n";
 // VLibras (recurso "vlibras", desligado por padrão): o código só é baixado com o recurso ligado e o painel aberto.
 const AtivarVLibras = dynamic(() => import("./estudo/AtivarVLibras"), { ssr: false });
 const VLibrasLembrado = dynamic(() => import("./estudo/VLibrasLembrado"), { ssr: false });
+// O lugar do botão do VLibras (T11): só age depois de o VLibras ligar.
+const VLibrasPosicao = dynamic(() => import("./estudo/VLibrasPosicao"), { ssr: false });
+
+/** O tamanho do botão redondo (h-11), para as contas da posição livre (lib/flutuantes.ts). */
+const TAMANHO_DO_BOTAO = "2.75rem";
 
 // A letra mais legível: Atkinson Hyperlegible, do Braille Institute, sob a licença SIL Open Font License 1.1. O next/font
 // guarda os arquivos junto com o site no build (nenhum pedido vai ao Google) e, sem pré-carga, o navegador só baixa a
@@ -202,6 +208,29 @@ export function A11yWidget() {
   const antesRef = useRef<HTMLElement | null>(null);
   const tituloId = useId();
   const introId = useId();
+  const caixaRef = useRef<HTMLDivElement>(null);
+  // Onde a pessoa pôs os botões (T11): arrastando ou pelo grupo "Lugar dos botões" do painel. Só neste aparelho.
+  const posicoes = usePosicoes();
+  const minha = posicoes.acessibilidade ?? null;
+  const lado = ladoDe(minha);
+
+  // Arrastar o botão redondo com o mouse, o dedo ou a caneta. Um toque curto continua abrindo o painel.
+  useEffect(() => {
+    const botao = buttonRef.current;
+    const caixa = caixaRef.current;
+    if (!botao || !caixa) return;
+    const pintar = (x: number, y: number) => {
+      const r = botao.getBoundingClientRect();
+      Object.assign(caixa.style, estiloDaPosicao(posicaoDoPonto(x, y, r.width, r.height), TAMANHO_DO_BOTAO));
+    };
+    return arrastavel(botao, {
+      mover: pintar,
+      soltar: (x, y) => {
+        const r = botao.getBoundingClientRect();
+        gravarPosicao("acessibilidade", posicaoDoPonto(x, y, r.width, r.height));
+      },
+    });
+  }, []);
 
   usePausarVideos(prefs.motion);
 
@@ -258,15 +287,20 @@ export function A11yWidget() {
       <style href="a11y-letra-legivel" precedence="medium">{`:root{--font-legivel:${legivel.style.fontFamily}}`}</style>
       {/* Fora da caixa do botão: ela some no aplicativo durante a leitura (.app-flutua) e prenderia o z-index. */}
       <GuiaDeLeitura modo={prefs.guide} />
-      <div className="app-flutua no-print fixed bottom-[calc(4.75rem+var(--recuo-baixo))] right-3 z-40 font-sans text-sm md:bottom-4 md:right-4">
+      <div
+        ref={caixaRef}
+        style={minha ? estiloDaPosicao(minha, TAMANHO_DO_BOTAO) : undefined}
+        className="app-flutua no-print fixed bottom-[calc(4.75rem+var(--recuo-baixo))] right-3 z-40 font-sans text-sm md:bottom-4 md:right-4"
+      >
         {ligado("vlibras") && <VLibrasLembrado />}
+        {ligado("vlibras") && <VLibrasPosicao />}
         {open && (
           <div
             ref={panelRef}
             role="dialog"
             aria-labelledby={tituloId}
             aria-describedby={introId}
-            className="absolute bottom-14 right-0 max-h-[78vh] w-[min(22rem,calc(100vw-1.5rem))] space-y-5 overflow-y-auto border-2 border-ink bg-folha p-5 text-ink shadow-[6px_6px_0_var(--sombra)]"
+            className={`absolute ${lado.baixo ? "bottom-14" : "top-14"} ${lado.direita ? "right-0" : "left-0"} max-h-[78vh] w-[min(22rem,calc(100vw-1.5rem))] space-y-5 overflow-y-auto border-2 border-ink bg-folha p-5 text-ink shadow-[6px_6px_0_var(--sombra)]`}
           >
             {/* Um título só: antes o rótulo "Acessibilidade" ficava em cima do título "Acessibilidade". */}
             <div className="flex items-start justify-between gap-3 border-b-2 border-ink pb-3">
@@ -347,6 +381,47 @@ export function A11yWidget() {
               </div>
             </Grupo>
 
+            {/* T11: os botões flutuantes cobriam o conteúdo. Pelo teclado (e pelo leitor de tela), o canto se escolhe aqui;
+                com o mouse ou o dedo, também dá para arrastar o próprio botão. */}
+            <Grupo titulo={a.groupMove}>
+              <p className="text-xs text-ink-soft">{a.moveHint}</p>
+              <Opcoes
+                legenda={a.move}
+                valores={CANTOS}
+                rotulos={a.corners}
+                atual={(minha ? ("canto" in minha ? minha.canto : "") : "inf-dir") as Canto}
+                escolher={(canto) => {
+                  gravarPosicao("acessibilidade", { canto });
+                  setAviso(a.moveDone);
+                }}
+              />
+              {ligado("vlibras") && (
+                <Opcoes
+                  legenda={a.moveVLibras}
+                  valores={CANTOS}
+                  rotulos={a.corners}
+                  atual={(posicoes.vlibras && "canto" in posicoes.vlibras ? posicoes.vlibras.canto : "") as Canto}
+                  escolher={(canto) => {
+                    gravarPosicao("vlibras", { canto });
+                    setAviso(a.moveDone);
+                  }}
+                />
+              )}
+              {(posicoes.acessibilidade || posicoes.vlibras) && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    gravarPosicao("acessibilidade", null);
+                    gravarPosicao("vlibras", null);
+                    setAviso(a.moveDone);
+                  }}
+                  className="cursor-pointer text-xs underline hover:text-oxblood"
+                >
+                  {a.moveReset}
+                </button>
+              )}
+            </Grupo>
+
             <div className="border-t-2 border-rule pt-4">
               <button type="button" onClick={restaurar} className="cursor-pointer border-2 border-ink px-4 py-2 font-medium hover:bg-ink hover:text-parchment">
                 {a.reset}
@@ -365,7 +440,7 @@ export function A11yWidget() {
           aria-expanded={open}
           aria-label={speaking ? `${a.button} (${a.reading})` : a.button}
           title={a.button}
-          className={`relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood ${speaking || open ? "" : "app:hidden"}`}
+          className={`relative flex h-11 w-11 cursor-pointer touch-none items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood ${speaking || open ? "" : "app:hidden"}`}
         >
           <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="4.5" r="1.5" fill="currentColor" />

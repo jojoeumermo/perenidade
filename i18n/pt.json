@@ -1922,7 +1922,14 @@
       "Menos cor",
       "Mais cor"
     ],
-    "resetDone": "Tudo voltou ao padrão."
+    "resetDone": "Tudo voltou ao padrão.",
+    "groupMove": "Lugar dos botões",
+    "move": "Botão de acessibilidade",
+    "moveVLibras": "Botão do VLibras",
+    "moveHint": "Escolha o canto da tela, ou arraste o botão com o mouse ou o dedo. Fica guardado só neste aparelho.",
+    "corners": ["Embaixo, à direita","Embaixo, à esquerda","Em cima, à direita","Em cima, à esquerda"],
+    "moveReset": "Voltar os botões ao lugar de sempre",
+    "moveDone": "Botão mudado de lugar."
   },
   "data": {
     "eyebrow": "Seus dados são seus",

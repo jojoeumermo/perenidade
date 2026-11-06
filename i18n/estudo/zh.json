@@ -303,7 +303,9 @@
     "carregando": "正在加载 VLibras……",
     "ligado": "VLibras 已启用：使用屏幕侧边带手形图标的蓝色按钮，然后点按要翻译的文字。",
     "erro": "暂时无法加载 VLibras（没有网络或服务中断）。请稍后再试。",
-    "esquecer": "之后的页面不再自动加载"
+    "esquecer": "之后的页面不再自动加载",
+    "desligar": "关闭 VLibras",
+    "desligado": "VLibras 已关闭。要再次使用，重新启用即可。"
   },
   "praticaSemPlacar": {
     "lead": "用刚学的内容来练习：一次一题，当场给出答案。不计分，也不数天数：节奏由你决定。声音来自你的设备，不会传出去。"

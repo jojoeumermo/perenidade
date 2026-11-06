@@ -1922,7 +1922,14 @@
       "Less color",
       "More color"
     ],
-    "resetDone": "Everything is back to default."
+    "resetDone": "Everything is back to default.",
+    "groupMove": "Where the buttons sit",
+    "move": "Accessibility button",
+    "moveVLibras": "VLibras button",
+    "moveHint": "Pick a corner of the screen, or drag the button with the mouse or your finger. Saved only on this device.",
+    "corners": ["Bottom right","Bottom left","Top right","Top left"],
+    "moveReset": "Put the buttons back in their usual place",
+    "moveDone": "Button moved."
   },
   "data": {
     "eyebrow": "Your data is yours",
