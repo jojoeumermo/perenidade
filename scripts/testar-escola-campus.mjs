@@ -232,6 +232,22 @@ for (const [arquivo, marca] of [
   conferir(`${arquivo} só muda com a Escola ligada`, ler(arquivo).includes(marca));
 conferir("MaisGaveta sem campus é a de sempre", /campus && mapa \?/.test(ler("components/MaisGaveta.tsx")));
 conferir("nenhuma notificação", !/Notification|showNotification|serviceWorker/.test([ler("components/escola/QuadroDeAvisos.tsx"), ler("components/escola/calendario/CalendarioDaEscola.tsx")].join("")));
+// ───────────── Consertos de páginas (T01, T02, T07, T13, T22) ─────────────
+// T07: o mapa da página do campus desce em colunas de jornal no computador (sem a linha esticada pelo prédio Escola).
+conferir("campus em colunas no computador", ler("components/escola/campus/MapaDoCampus.tsx").includes("mapa-em-colunas") && /\.mapa-em-colunas\s*>\s*\.predio\s*\{[^}]*break-inside:\s*avoid/.test(ler("styles/escola-campus.css")));
+// T01: o percurso mora em /consciencia-de-classe e o endereço antigo leva para lá, para sempre.
+const configNext = ler("next.config.ts");
+conferir("/despertar leva a /consciencia-de-classe (308)", /source:\s*"\/:lang\([^)]*\)\/despertar",\s*destination:\s*"\/:lang\/consciencia-de-classe",\s*permanent:\s*true/.test(configNext) && /source:\s*"\/despertar",\s*destination:\s*"\/pt\/consciencia-de-classe",\s*permanent:\s*true/.test(configNext));
+conferir("página do percurso no endereço novo", fs.existsSync(path.join(raiz, "app/[lang]/consciencia-de-classe/page.tsx")) && !fs.existsSync(path.join(raiz, "app/[lang]/despertar/page.tsx")));
+// T02: o modelo do certificado recolhe com botão acessível, lembrando a escolha no aparelho.
+const recolhivel = ler("components/Recolhivel.tsx");
+conferir("Recolhivel com aria-expanded e aria-controls", recolhivel.includes("aria-expanded") && recolhivel.includes("aria-controls") && recolhivel.includes("hidden={!aberto}"));
+conferir("certificado dentro do Recolhivel", /<Recolhivel[^>]*>\s*<CertificadoComunitario/.test(ler("app/[lang]/consciencia-de-classe/page.tsx")));
+// T13: soltar o arrasto libera a vitrine (mouse e foco), e o toque não segura a vitrine para sempre.
+const carrossel = ler("components/acervo/Carrossel.tsx");
+conferir("vitrine volta a andar depois de soltar", /segurando\.current\.mouse = false;\s*(?:\/\/[^\n]*\n\s*)*segurando\.current\.foco = false;\s*mexeu\(\);/.test(carrossel) && carrossel.includes('e.pointerType === "mouse"'));
+conferir("vitrine respeita prefers-reduced-motion", carrossel.includes("prefers-reduced-motion"));
+
 conferir("CSS do pacote sem cor nova", !/#[0-9a-f]{3,8}\b|rgb\(|hsl\(/i.test(ler("styles/escola-campus.css")));
 
 if (falhas.length) {
