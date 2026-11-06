@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { atalhosDaFuncao, ATALHOS_COMUNS, dadosDaFuncao, dasPendencias, dosAvisosDeSeguranca, FUNCAO_DO_PAPEL, FUNCOES_DA_MESA, funcoesDaPessoa, ITENS, LIMITE_DE_POUCA_GENTE, montarPendencias, somar } from "../components/painel/mesa-funcoes.ts";
 import { MAPA } from "../components/painel/estrutura.ts";
+import { agruparRecados, grupoDoRecado, ORDEM_DOS_GRUPOS } from "../components/painel/recados-grupos.ts";
 
 const raiz = path.join(import.meta.dirname, "..");
 const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8");
@@ -87,6 +88,33 @@ conferir("cada departamento da lista filtra as pessoas", /setDepartamento\(d\)/.
 for (const [nome, texto] of [["mesa-funcoes", ler("components", "painel", "mesa-funcoes.ts")], ["MesaOrganizada", tela], ["ListaDePessoas", lista]]) {
   conferir(`${nome}: sem a palavra proibida`, !/universidade|diploma/i.test(texto));
 }
+
+// 8. T27: recados agrupados e a lateral direita da Mesa.
+const recadosDeExemplo = [
+  { id: "a", texto: "Sua conta foi aberta em um aparelho novo (Chrome em Windows). Se não foi você, avise a coordenação agora.", lido: false, criado_em: "2026-11-06T18:54:00Z" },
+  { id: "b", texto: "Sua conta foi aberta em um aparelho novo (Chrome em Windows). Se não foi você, avise a coordenação agora.", lido: true, criado_em: "2026-11-06T18:54:00Z" },
+  { id: "c", texto: "A conta de Lavinia foi aberta em um aparelho novo (Opera em Windows).", lido: true, criado_em: "2026-11-02T14:21:00Z" },
+  { id: "d", texto: "Você recebeu a função de revisão.", lido: true, criado_em: "2026-11-01T10:00:00Z" },
+  { id: "e", texto: "Sua contribuição foi publicada.", lido: false, criado_em: "2026-11-03T10:00:00Z" },
+  { id: "f", texto: "Bom dia!", lido: true, criado_em: "2026-11-04T10:00:00Z" },
+  { id: "g", texto: "Alguém respondeu ao seu post.", lido: false, criado_em: "2026-11-05T10:00:00Z", categoria: "rede" },
+];
+const grupos = agruparRecados(recadosDeExemplo);
+conferir("recados: grupos na ordem combinada, só os que têm recado", grupos.map((g) => g.grupo).join() === "acesso,equipe,contribuicoes,rede,outros" && ORDEM_DOS_GRUPOS[0] === "acesso", grupos.map((g) => g.grupo).join());
+const acesso = grupos.find((g) => g.grupo === "acesso");
+conferir("recados iguais viram uma linha (2 vezes) e contam como novos", acesso.itens.length === 2 && acesso.itens[0].vezes === 2 && acesso.itens[0].novo && acesso.novos === 1);
+conferir("dentro do grupo, o não lido vem antes", acesso.itens[0].novo && !acesso.itens[1].novo);
+conferir("categoria rede manda para o grupo Rede", grupoDoRecado({ texto: "Alguém respondeu ao seu post.", categoria: "rede" }) === "rede");
+conferir("aparelho novo é acesso mesmo falando da coordenação", grupoDoRecado({ texto: "Se não foi você, avise a coordenação: aparelho novo." }) === "acesso");
+conferir("nada some: todo recado está num grupo", grupos.reduce((n, g) => n + g.itens.reduce((m, i) => m + i.vezes, 0), 0) === recadosDeExemplo.length);
+const seguranca = ler("components", "painel", "Seguranca.tsx");
+conferir("Recados com naMesa: sem título próprio, em grupos, marcar tudo como lido", seguranca.includes("naMesa = false") && seguranca.includes("function RecadosNaMesa") && seguranca.includes("agruparRecados(dados)") && /RecadosNaMesa[\s\S]*Marcar tudo como lido/.test(seguranca));
+conferir("a Mesa pede os recados com naMesa", ler("components", "painel", "casca", "Dentro.tsx").includes("<Recados recarregar={recarregar} naMesa />"));
+conferir("a Mesa leva recados para a lateral direita só quando cabe", tela.includes("LARGURA_DA_LATERAL") && tela.includes("ResizeObserver") && tela.includes('className="pn-mesa-lateral"') && tela.includes('.filter((p) => p !== "recados")'));
+const temaDoPainel = ler("styles", "painel-tema.css");
+conferir("o tema tem a grade da Mesa com lateral", /\.pn-mesa-grade\s*\{[^}]*grid-template-columns/.test(temaDoPainel) && temaDoPainel.includes(".pn-mesa-lateral"));
+conferir("migração dos recados com a categoria", ler("supabase", "migracoes", "20261106-painel-recados.sql").includes("'categoria', a.categoria") && /avisos_meus\(\)[^$]*\$\$\s*select[^\n]*'categoria', a\.categoria/.test(ler("supabase", "install.sql")));
+conferir("recados-grupos: sem a palavra proibida", !/universidade|diploma/i.test(ler("components", "painel", "recados-grupos.ts")));
 
 console.log(`${ok} conferências ok, ${falhas.length} falhas.`);
 for (const f of falhas) console.log(`FALHOU: ${f}`);
