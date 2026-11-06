@@ -3679,6 +3679,7 @@
       "/privacidade": "qué guardamos",
       "/termos": "las reglas del sitio",
       "/despertar": "formación militante",
+      "/consciencia-de-classe": "formación militante",
       "/territorios": "colectivos aliados"
     },
     "highlights": "Empieza aquí",
@@ -5459,7 +5460,7 @@
       "stages": "etapas",
       "lessons": "clases listas",
       "tasks": "tareas en el mundo real",
-      "price": "reales · sin diploma del Estado"
+      "price": "reales · sin mensualidad, nunca"
     },
     "intro": "Cada etapa tiene clases cortas de varias disciplinas, una lectura del acervo, una tarea en el mundo real y un encuentro en el núcleo. Se puede hacer solo, pero el recorrido fue pensado para vivirlo juntos.",
     "lesson": "Clase",
@@ -5472,6 +5473,8 @@
     "certTitle": "Certificado comunitario",
     "certText": "Reconocido por el instituto y firmado por tu núcleo, no por el Estado. Vale por lo que aprendiste y por lo que hiciste con eso.",
     "certModelLabel": "Modelo del certificado comunitario del recorrido Conciencia de clase",
+    "certShow": "Ver el modelo del certificado",
+    "certHide": "Ocultar el modelo",
     "certModelNote": "Modelo del certificado. El verdadero lo completa y lo firma tu núcleo, siempre en portugués.",
     "groupKicker": "Mejor en grupo",
     "groupTitle": "Haz el recorrido en un núcleo",
@@ -5958,6 +5961,7 @@
     "/gaveta": "Cajón abierto · trabajos de estudiantes, libres para todos · tesis, artículos y apuntes",
     "/guia": "Guía de fuentes · dónde encontrar libros, datos y noticias confiables",
     "/despertar": "Conciencia de clase · de cero a la organización · etapas con tareas en el mundo real",
+    "/consciencia-de-classe": "Conciencia de clase · de cero a la organización · etapas con tareas en el mundo real",
     "/nucleos": "Núcleos de estudio · grupos que estudian juntos en los barrios · siempre en lugares públicos",
     "/territorios": "Territorios · colectivos de cultura y lucha que caminan con el instituto",
     "/territorios/*": "Territorio aliado · notas, clases, fotos y encuentros hechos en conjunto",

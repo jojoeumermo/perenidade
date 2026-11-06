@@ -41,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/debates",
     "/falacias",
     "/perguntas",
-    "/despertar",
+    "/consciencia-de-classe",
     "/territorios",
     "/nucleos",
     "/turmas",

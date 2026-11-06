@@ -34,7 +34,7 @@ export function CertificadoComunitario({ etapas, rotulo, nota }: { etapas: numbe
                 concluiu o percurso de formação <strong>“Consciência de classe”</strong>, em <strong>{etapas} etapas</strong>, com aulas, leituras do acervo, tarefas no mundo real
                 e encontros no núcleo.
               </p>
-              <p className="certificado-lei">Certificado comunitário de educação popular, assinado pelo núcleo. Não é diploma do Estado: vale pelo que a pessoa aprendeu e pelo que fez com isso.</p>
+              <p className="certificado-lei">Certificado comunitário de educação popular, assinado pelo núcleo. Não é título oficial do Estado: vale pelo que a pessoa aprendeu e pelo que fez com isso.</p>
             </div>
             <ul className="certificado-assinaturas">
               <li>

@@ -3679,6 +3679,7 @@
       "/privacidade": "what we keep",
       "/termos": "the site's rules",
       "/despertar": "political education",
+      "/consciencia-de-classe": "political education",
       "/territorios": "partner collectives"
     },
     "highlights": "Start here",
@@ -5459,7 +5460,7 @@
       "stages": "stages",
       "lessons": "ready lessons",
       "tasks": "real-world tasks",
-      "price": "reais · no state diploma"
+      "price": "reais · no fees, ever"
     },
     "intro": "Each stage has short lessons from several subjects, a reading from the library, a real-world task and a study-group meeting. You can do it alone, but the path was made to be lived together.",
     "lesson": "Lesson",
@@ -5472,6 +5473,8 @@
     "certTitle": "Community certificate",
     "certText": "Recognized by the institute and signed by your study group, not by the state. It is worth what you learned and what you did with it.",
     "certModelLabel": "Sample of the community certificate for the Class consciousness path",
+    "certShow": "Show the certificate template",
+    "certHide": "Hide the template",
     "certModelNote": "Sample certificate. The real one is filled in and signed by your study group, always in Portuguese.",
     "groupKicker": "Better together",
     "groupTitle": "Do the course in a study group",
@@ -5958,6 +5961,7 @@
     "/gaveta": "Open drawer · student work, free for everyone · theses, papers and handouts",
     "/guia": "Source guide · where to find reliable books, data and news",
     "/despertar": "Class consciousness · from zero to getting organised · steps with real-world tasks",
+    "/consciencia-de-classe": "Class consciousness · from zero to getting organised · steps with real-world tasks",
     "/nucleos": "Study circles · groups studying together in their neighbourhoods · always meeting in public places",
     "/territorios": "Territories · culture and struggle collectives that walk with the institute",
     "/territorios/*": "Partner territory · articles, lessons, photos and gatherings made together",
