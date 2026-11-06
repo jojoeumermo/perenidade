@@ -46,5 +46,13 @@
   {
     "slug": "maquinas-simples",
     "titulo": "Máquinas simples"
+  },
+  {
+    "slug": "pressao-no-ar-e-na-agua",
+    "titulo": "Pressão no ar e na água"
+  },
+  {
+    "slug": "ondas-de-radio-celular-e-comunicacao",
+    "titulo": "Ondas de rádio, celular e comunicação"
   }
 ]

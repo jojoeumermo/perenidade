@@ -46,5 +46,21 @@
   {
     "slug": "saude-publica-e-epidemias",
     "titulo": "Saúde pública e epidemias"
+  },
+  {
+    "slug": "virus-bacterias-protistas-e-fungos",
+    "titulo": "Vírus, bactérias, protistas e fungos"
+  },
+  {
+    "slug": "botanica-os-grupos-de-plantas-e-a-fisiologia-vegetal",
+    "titulo": "Botânica: os grupos de plantas e a fisiologia vegetal"
+  },
+  {
+    "slug": "zoologia-invertebrados-e-vertebrados",
+    "titulo": "Zoologia: invertebrados e vertebrados"
+  },
+  {
+    "slug": "histologia-e-embriologia",
+    "titulo": "Histologia e embriologia"
   }
 ]

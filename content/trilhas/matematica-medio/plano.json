@@ -54,5 +54,21 @@
   {
     "slug": "matrizes-e-sistemas-lineares",
     "titulo": "Matrizes e sistemas lineares"
+  },
+  {
+    "slug": "trigonometria-no-ciclo-e-funcoes-trigonometricas",
+    "titulo": "Trigonometria no ciclo e funções trigonométricas"
+  },
+  {
+    "slug": "geometria-analitica-ponto-reta-e-circunferencia",
+    "titulo": "Geometria analítica: ponto, reta e circunferência"
+  },
+  {
+    "slug": "numeros-complexos",
+    "titulo": "Números complexos"
+  },
+  {
+    "slug": "polinomios-e-equacoes-algebricas",
+    "titulo": "Polinômios e equações algébricas"
   }
 ]
