@@ -22,7 +22,9 @@ if [ ! -f /swapfile ]; then
   swapon /swapfile
   echo '/swapfile none swap sw 0 0' >> /etc/fstab
 fi
-printf 'vm.swappiness=10\n' > /etc/sysctl.d/90-lucia.conf
+# IPv6 desligado: a rota IPv6 da Contabo até o GitHub (ghcr.io) cai no meio dos downloads, e o site só usa IPv4
+# (o DNS no Cloudflare aponta um registro A).
+printf 'vm.swappiness=10\nnet.ipv6.conf.all.disable_ipv6=1\nnet.ipv6.conf.default.disable_ipv6=1\n' > /etc/sysctl.d/90-lucia.conf
 sysctl --system > /dev/null
 
 apt-get update
