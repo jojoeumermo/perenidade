@@ -303,7 +303,9 @@
     "carregando": "Chargement de VLibras…",
     "ligado": "VLibras est activé : utilise le bouton bleu avec une main, sur le côté de l'écran, puis touche le texte à traduire.",
     "erro": "Impossible de charger VLibras pour l'instant (pas d'internet ou service indisponible). Réessaie plus tard.",
-    "esquecer": "Ne plus le charger tout seul sur les pages suivantes"
+    "esquecer": "Ne plus le charger tout seul sur les pages suivantes",
+    "desligar": "Désactiver VLibras",
+    "desligado": "VLibras désactivé. Pour l'utiliser à nouveau, il suffit de l'activer."
   },
   "praticaSemPlacar": {
     "lead": "Entraîne-toi avec ce que tu viens d'apprendre : un exercice à la fois, avec la réponse tout de suite. Pas de points et pas de jours comptés : le rythme est le tien. La voix est celle de ton appareil ; rien n'en sort."

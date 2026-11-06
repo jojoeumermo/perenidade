@@ -8,6 +8,55 @@ import "@/styles/lambe-do-dia.css";
 
 const nunca = () => () => {};
 
+/** Onde o aparelho guarda o sorteio do dia (só aqui, nunca vai para o servidor). */
+const CHAVE_DO_SORTEIO = "lucia:lambe-sorteado";
+let sorteado: { dia: number; numero: number } | null = null;
+
+/**
+ * O número do cartaz sorteado para hoje neste aparelho (T16): sorteia com Math.random na primeira visita do dia e guarda
+ * no localStorage (com try/catch: navegação privada ou armazenamento bloqueado só fazem o sorteio valer até fechar a
+ * aba). Assim recarregar não troca o cartaz, cada pessoa vê o seu e o de amanhã não dá para prever. Nada sai do aparelho.
+ */
+function sortear(dia: number, sorteio: { numero: number }[]): number {
+  if (sorteado?.dia === dia && sorteio.some((d) => d.numero === sorteado!.numero)) return sorteado.numero;
+  try {
+    const guardado = JSON.parse(localStorage.getItem(CHAVE_DO_SORTEIO) ?? "null") as { dia?: unknown; numero?: unknown } | null;
+    if (guardado?.dia === dia && sorteio.some((d) => d.numero === guardado.numero)) {
+      sorteado = { dia, numero: guardado.numero as number };
+      return sorteado.numero;
+    }
+  } catch {
+    // sem armazenamento: sorteia assim mesmo
+  }
+  sorteado = { dia, numero: sorteio[Math.floor(Math.random() * sorteio.length)].numero };
+  try {
+    localStorage.setItem(CHAVE_DO_SORTEIO, JSON.stringify(sorteado));
+  } catch {
+    // idem
+  }
+  return sorteado.numero;
+}
+
+/**
+ * Data especial entre as que vieram com a página: o cartaz dela. Dia comum: o sorteado deste aparelho. O servidor (e a
+ * primeira pintura) mostram o primeiro da amostra, que o servidor já embaralhou; logo depois o navegador troca pelo
+ * sorteio dele.
+ */
+function useCartazDeHoje(datas: Dia[], sorteio: Dia[]): Dia | undefined {
+  const hoje = useSyncExternalStore(nunca, () => diaDe(new Date()), () => -1);
+  const numero = useSyncExternalStore(
+    nunca,
+    () => (datas.some((d) => d.dia === diaDe(new Date())) || !sorteio.length ? 0 : sortear(diaDe(new Date()), sorteio)),
+    () => 0,
+  );
+  // No servidor: o dia da montagem (o da amostra); se ele for especial, o cartaz da data.
+  if (hoje < 0) return datas.find((d) => d.dia === sorteio[0]?.dia) ?? sorteio[0] ?? datas[0];
+  const especial = datas.find((d) => d.dia === hoje);
+  if (especial) return especial;
+  const escolhido = sorteio.find((d) => d.numero === numero) ?? sorteio[0];
+  return escolhido ? { ...escolhido, dia: hoje } : datas.at(-1);
+}
+
 /**
  * O dia de hoje entre os que vieram com a página. A página vem pronta com o cartaz do dia em que foi montada; ao abrir, o
  * navegador confere a data e, se o dia já virou, troca pelo certo (sem erro de hidratação: o servidor e a primeira pintura
@@ -39,9 +88,12 @@ const PAPEL: Record<Formato, "vermelho" | "anil" | "mata" | "ipe" | "tinta"> = {
  * a sombra rente de papel colado e duas fitas crepe, uma no canto de cima à esquerda e outra no de baixo à direita. No pé,
  * como em cartaz de poste, o endereço e a tiragem (os números do acervo).
  */
-export function LambeDoDia({ dias, rotulo, tiragem, reserva }: { dias: Dia[]; rotulo: string; tiragem: string; reserva: string[] }) {
+export function LambeDoDia({ dias, sorteio, rotulo, tiragem, reserva }: { dias: Dia[]; sorteio?: Dia[]; rotulo: string; tiragem: string; reserva: string[] }) {
   const { lang } = useI18n();
-  const escolhido = useDiaDeHoje(dias);
+  const doDia = useDiaDeHoje(dias);
+  const doSorteio = useCartazDeHoje(dias, sorteio ?? []);
+  // Sem a amostra do sorteio (o jeito antigo), segue a lista dos dias.
+  const escolhido = sorteio?.length ? doSorteio : doDia;
   if (!escolhido) return null;
   const { linhas, texto } = escolhido.lambe;
   const tema = escolhido.lambe.carimbo?.[0] ?? reserva[0];

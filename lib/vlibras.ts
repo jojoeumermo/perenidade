@@ -18,11 +18,25 @@ export const LEMBRAR_VLIBRAS = "lucia:vlibras";
 type Janela = Window & { VLibras?: { Widget: new (endereco: string) => unknown }; VLibrasWidget?: { path?: string } };
 
 let pedido: Promise<void> | null = null;
+/** Desligado pela pessoa depois de ligado (T11): o programa já baixado fica escondido até ela ligar de novo. */
+let desligado = false;
 
-export const vlibrasCarregado = () => pedido !== null;
+/** O VLibras está ligado e à vista nesta página. */
+export const vlibrasCarregado = () => pedido !== null && !desligado;
+
+/** O quadro que o tradutor põe na página (o botão azul e, aberto, o avatar). */
+export const quadroDoVLibras = () => document.querySelector<HTMLElement>("div[vw]");
 
 /** Baixa o programa do VLibras e liga o tradutor (ele põe o próprio botão na lateral da tela). Uma vez por visita. */
 export function carregarVLibras(): Promise<void> {
+  if (pedido && desligado) {
+    // Já baixado nesta visita e desligado: só volta a aparecer (nada é baixado de novo).
+    desligado = false;
+    quadroDoVLibras()?.style.removeProperty("display");
+    avisar();
+    return pedido;
+  }
+  desligado = false;
   pedido ??= new Promise<void>((resolve, reject) => {
     const janela = window as Janela;
     // O programa lê daqui de onde baixar o resto (imagens e o aplicativo), em vez do endereço que redireciona.
@@ -41,11 +55,33 @@ export function carregarVLibras(): Promise<void> {
     };
     script.onerror = () => reject(new Error("vlibras"));
     document.body.appendChild(script);
-  }).catch((erro) => {
+  }).then(avisar, (erro) => {
     pedido = null;
     throw erro;
   });
   return pedido;
+}
+
+/**
+ * Desliga o VLibras de volta (T11: "hoje parece não ter volta"). O programa do governo não tem um "desligar": o site
+ * esconde o quadro dele (botão e avatar) e esquece o "lembrar neste aparelho", para ele não voltar sozinho na próxima
+ * página. Uma página nova (ou recarregar) não baixa mais nada de vlibras.gov.br até a pessoa ativar de novo.
+ */
+export function desligarVLibras() {
+  desligado = true;
+  lembrarVLibras(false);
+  quadroDoVLibras()?.style.setProperty("display", "none", "important");
+  avisar();
+}
+
+const MUDOU = "lucia:vlibras-mudou";
+function avisar() {
+  window.dispatchEvent(new Event(MUDOU));
+}
+/** Para a tela acompanhar quando o VLibras liga ou desliga (em outro ponto da página). */
+export function assinarVLibras(f: () => void) {
+  window.addEventListener(MUDOU, f);
+  return () => window.removeEventListener(MUDOU, f);
 }
 
 export function vlibrasLembrado(): boolean {

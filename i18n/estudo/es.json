@@ -303,7 +303,9 @@
     "carregando": "Cargando VLibras…",
     "ligado": "VLibras activo: usa el botón azul con la mano, en el costado de la pantalla, y luego toca el texto que quieres traducir.",
     "erro": "No se pudo cargar VLibras ahora (sin internet o servicio caído). Inténtalo de nuevo más tarde.",
-    "esquecer": "No cargarlo solo en las próximas páginas"
+    "esquecer": "No cargarlo solo en las próximas páginas",
+    "desligar": "Desactivar VLibras",
+    "desligado": "VLibras desactivado. Para usarlo de nuevo, basta con activarlo."
   },
   "praticaSemPlacar": {
     "lead": "Practica con lo que acabas de aprender: un ejercicio por vez, con la respuesta al momento. Sin puntos y sin contar días: el ritmo es tuyo. La voz es la de tu dispositivo; nada sale de él."
