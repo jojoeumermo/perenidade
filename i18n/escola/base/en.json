@@ -2,12 +2,14 @@
   "_rascunho": true,
   "meta": {
     "titulo": "Lúcia Maria Revolutionary School",
-    "descricao": "The free people's school of the Instituto Lúcia, for anyone with an account on the site: a path, a class and a record of what you studied."
+    "descricao": "The school of militant education of the Lúcia Revolutionary Front, popular and free, for anyone with an account on the site: a path, a class and a record of what you studied."
   },
   "nav": {
     "rotulo": "Parts of the School",
     "entrada": "Entrance",
     "quemFoi": "Who Lúcia Maria was",
+    "militantes": "Militancy",
+    "manifesto": "Manifesto",
     "cursos": "Courses",
     "matricula": "Enrolment",
     "calendario": "Calendar",
@@ -19,7 +21,7 @@
   "entrada": {
     "olho": "Instituto Lúcia",
     "titulo": "Lúcia Maria Revolutionary School",
-    "linhaNaoUniversidade": "A free people's school, with the same account as the Community. It is not a university and does not award diplomas: it gives you a path, a class and a record of what you studied.",
+    "linhaNaoUniversidade": "A school of militant education, popular and free, with the same account as the Community. Here no one pays and no one profits: you get a path, a class and a record of what you studied.",
     "comoFunciona": "How it works",
     "passos": [
       { "titulo": "Enrolment", "texto": "Say what you want and how much time you have. No name, email or ID: your enrolment stays on your device." },
@@ -33,7 +35,7 @@
     "calendarioTexto": "Terms, holidays and exam week.",
     "rever": "Watch the opening again",
     "oQueE": "What it is",
-    "oQueETexto": "A people's school for working women and men, inside the Instituto Lúcia. The courses are built from lessons that already exist on the site, in order, with estimated hours, a class to study with, a task in the world and a final project.",
+    "oQueETexto": "The house of militant education of the Lúcia Revolutionary Front, inside the Instituto Lúcia: a people's school for working women and men. The courses are built from lessons that already exist on the site, in order, with estimated hours, a class to study with, a task in the world and a final project.",
     "contaTexto": "You come in with your Instituto Lúcia account, the same one you use in the Community. What you study is kept on this device.",
     "mapaTitulo": "Everything in the School",
     "mapaLead": "The parts of the School, by topic. The bar at the top leads to the most used ones."
@@ -75,7 +77,9 @@
     "caderneta": "Record book",
     "turmas": "Classes",
     "vida": "Real life",
-    "agentes": "Work helpers"
+    "agentes": "Work helpers",
+    "militantes": "Militancy",
+    "manifesto": "Manifesto"
   },
   "calendario": {
     "proposto": "Proposed calendar, to be confirmed by the coordination"
@@ -121,6 +125,7 @@
   },
   "mapa": {
     "grupos": {
+      "frente": "Lúcia Revolutionary Front",
       "estudar": "Study",
       "vidaEscolar": "Your school life",
       "ajuda": "Help with studying",

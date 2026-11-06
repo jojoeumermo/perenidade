@@ -1,0 +1,342 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Frente Revolucionária Lúcia na Escola Revolucionária Lúcia Maria (T15): o cartaz da entrada, o chamado de
+ * voluntários militantes e a moldura do manifesto. Linguagem de cartaz de luta (vermelho do prelo, preto de tinta,
+ * amarelo do ipê, letra grande e sombra dura), feita só com CSS: nenhuma biblioteca, nenhuma imagem, nenhuma fonte
+ * nova (as do site). Pesa poucos KB e só carrega nas páginas da Escola que usam o cartaz.
+ *
+ * As cores do cartaz são fixas de propósito (o cartaz é o mesmo no tema claro e no escuro): creme sobre vermelho dá
+ * contraste de 6,9:1 e preto sobre amarelo, 10:1 (WCAG AA para texto de qualquer tamanho). No modo de alto contraste do
+ * sistema (forced-colors), o navegador troca tudo pelas cores dele e as bordas continuam marcando os blocos.
+ * Celular primeiro: nada passa da largura da coluna, e nada se mexe para quem pediu menos movimento.
+ */
+
+.frente-cartaz {
+  --frente-vermelho: #a3150f;
+  --frente-vermelho-escuro: #6e0d09;
+  --frente-creme: #fff6e3;
+  --frente-amarelo: #f0b323;
+  --frente-preto: #14110d;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  border: 3px solid var(--frente-preto);
+  box-shadow: 8px 8px 0 var(--frente-preto);
+  background-color: var(--frente-vermelho);
+  /* Os raios do cartaz: um gradiente cônico repetido, sem imagem. */
+  background-image:
+    radial-gradient(circle at 88% 18%, transparent 0 9rem, rgb(0 0 0 / 0.18) 9rem),
+    repeating-conic-gradient(from 0deg at 88% 18%, rgb(255 255 255 / 0.07) 0deg 6deg, transparent 6deg 15deg);
+  color: var(--frente-creme);
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .frente-cartaz {
+    border-color: var(--frente-vermelho-escuro);
+    box-shadow: 8px 8px 0 #000;
+  }
+}
+:root[data-theme="dark"] .frente-cartaz {
+  border-color: var(--frente-vermelho-escuro);
+  box-shadow: 8px 8px 0 #000;
+}
+
+/* A faixa preta com o nome da Frente: o lugar de destaque pedido. */
+.frente-faixa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  background: var(--frente-preto);
+  color: var(--frente-amarelo);
+  padding: 0.6rem 1rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+.frente-faixa .frente-estrela {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+}
+
+.frente-corpo {
+  position: relative;
+  padding: 1.5rem 1rem 1.75rem;
+}
+@media (min-width: 640px) {
+  .frente-corpo {
+    padding: 2.25rem 2rem 2.5rem;
+  }
+}
+
+/* A estrela grande no canto, atrás do texto. */
+.frente-estrela-grande {
+  position: absolute;
+  z-index: -1;
+  top: 0.75rem;
+  right: -2.5rem;
+  width: 11rem;
+  height: 11rem;
+  color: var(--frente-amarelo);
+  opacity: 0.95;
+}
+@media (min-width: 640px) {
+  .frente-estrela-grande {
+    right: 1.25rem;
+    width: 12.5rem;
+    height: 12.5rem;
+  }
+}
+
+.frente-olho {
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+.frente-titulo {
+  margin-top: 0.6rem;
+  max-width: 15ch;
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 800;
+  font-size: clamp(2.3rem, 9vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  text-shadow: 3px 3px 0 var(--frente-preto);
+}
+.frente-titulo-menor {
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  max-width: 20ch;
+}
+.frente-lema {
+  display: inline-block;
+  margin-top: 1rem;
+  border: 2px solid var(--frente-creme);
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.frente-linha {
+  margin-top: 1rem;
+  max-width: 42rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+/* O chamado: o bloco amarelo com sombra dura, o primeiro botão da página. */
+.frente-chamado {
+  margin-top: 1.5rem;
+  max-width: 40rem;
+  border: 3px solid var(--frente-preto);
+  box-shadow: 5px 5px 0 var(--frente-preto);
+  background: var(--frente-amarelo);
+  color: var(--frente-preto);
+  padding: 1rem 1rem 1.15rem;
+}
+.frente-chamado-rotulo {
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.frente-chamado-titulo {
+  margin-top: 0.25rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.45rem, 4.5vw, 2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.frente-chamado-texto {
+  margin-top: 0.5rem;
+  line-height: 1.45;
+}
+.frente-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.frente-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem; /* 44 px de toque */
+  border: 3px solid var(--frente-preto);
+  background: var(--frente-preto);
+  color: var(--frente-amarelo);
+  padding: 0.55rem 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.frente-botao:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--frente-vermelho);
+}
+.frente-botao-vazado {
+  background: transparent;
+  color: var(--frente-preto);
+}
+.frente-botao-amarelo {
+  background: var(--frente-amarelo);
+  color: var(--frente-preto);
+}
+.frente-botao-amarelo:hover {
+  box-shadow: 4px 4px 0 var(--frente-preto);
+}
+.frente-botao:focus-visible {
+  outline: 3px solid var(--frente-creme);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--frente-preto);
+}
+
+/* As listas e os passos das páginas da Frente (fora do cartaz: cores do site, para ler no tema da pessoa). */
+.frente-secao {
+  margin-top: 2.5rem;
+  border-top: 4px solid var(--ink);
+  padding-top: 1rem;
+}
+.frente-secao-titulo {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.frente-lista {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+.frente-lista li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 1.1rem;
+  line-height: 1.45;
+}
+.frente-lista li::before {
+  content: "★";
+  flex: none;
+  color: var(--prelo-texto);
+  font-size: 1.1rem;
+  line-height: 1.45;
+}
+.frente-passos {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+  counter-reset: passo;
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+@media (min-width: 640px) {
+  .frente-passos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.frente-passos li {
+  counter-increment: passo;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--sombra);
+  background: var(--folha);
+  padding: 0.9rem 1rem;
+  min-width: 0;
+}
+.frente-passos li::before {
+  content: counter(passo, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--prelo-texto);
+}
+.frente-cuidado {
+  margin-top: 2rem;
+  border-left: 6px solid var(--prelo-texto);
+  background: var(--parchment-deep);
+  padding: 1rem 1.1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* O selo "versão inicial, em discussão" do manifesto: carimbo inclinado. */
+.frente-selo {
+  display: inline-block;
+  margin-top: 1rem;
+  border: 3px double var(--frente-amarelo);
+  color: var(--frente-amarelo);
+  padding: 0.25rem 0.6rem;
+  font-family: var(--font-mono, ui-monospace), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+/* O texto do manifesto: títulos de cartaz e números grandes. */
+.frente-manifesto h2 {
+  margin-top: 2.5rem;
+  border-top: 4px solid var(--ink);
+  padding-top: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.frente-manifesto blockquote {
+  border-left: 6px solid var(--prelo-texto);
+  background: var(--parchment-deep);
+  padding: 0.75rem 1rem;
+  font-style: normal;
+}
+.frente-manifesto ol > li::marker {
+  color: var(--prelo-texto);
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .frente-estrela-grande {
+    animation: frente-gira 60s linear infinite;
+  }
+}
+@keyframes frente-gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frente-botao {
+    transition: none;
+  }
+  .frente-botao:hover {
+    transform: none;
+  }
+}
+@media print {
+  .frente-cartaz {
+    box-shadow: none;
+    background: none;
+    color: #000;
+  }
+  .frente-estrela-grande,
+  .frente-chamado {
+    display: none;
+  }
+}
