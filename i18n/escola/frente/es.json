@@ -1,0 +1,67 @@
+{
+  "cartaz": {
+    "frente": "Frente Revolucionario Lúcia",
+    "lema": "Instruíos, agitaos, organizaos",
+    "formacao": "Formación militante total, popular y gratuita",
+    "rotulo": "Llamado del Frente",
+    "chamado": "Estamos convocando voluntarios militantes",
+    "chamadoTexto": "El Instituto Lúcia ahora es también un movimiento político. Necesitamos gente para estudiar, enseñar, comunicar y organizar, y llevar adelante la justicia y aquello en lo que creemos.",
+    "quero": "Quiero militar",
+    "manifesto": "Leer el manifiesto"
+  },
+  "militantes": {
+    "metaTitulo": "Convocatoria de voluntarios militantes",
+    "metaDescricao": "El Frente Revolucionario Lúcia, del Instituto Lúcia, convoca voluntarios militantes. Inscripción gratuita, para mayores de 18 años.",
+    "olho": "Frente Revolucionario Lúcia",
+    "titulo": "Estamos convocando voluntarios militantes",
+    "lead": "El Instituto Lúcia es escuela popular, biblioteca libre y, ahora, también movimiento político. La Escuela Revolucionaria Lúcia Maria forma; el Frente organiza. Ven con nosotros.",
+    "porqueTitulo": "Por qué militar con nosotros",
+    "porque": [
+      "Porque el conocimiento es del pueblo, y nadie debe pagar para aprender.",
+      "Porque ningún derecho fue regalado: todo lo que tiene la clase trabajadora fue conquistado con lucha.",
+      "Porque aprender juntos es organizar la solidaridad, y nadie se libera solo.",
+      "Porque estudiar organizados transforma el mundo."
+    ],
+    "frentesTitulo": "Frentes de trabajo",
+    "frentesTexto": "Cada militante elige dónde suma más: formación, comunicación, traducción, revisión, mediación, arte y difusión, desarrollo, curaduría. La lista es la misma del voluntariado: el militante también trabaja.",
+    "comoTitulo": "Cómo funciona",
+    "passos": [
+      { "titulo": "Inscripción", "texto": "Completa el formulario de abajo. No necesitas cuenta en el sitio." },
+      { "titulo": "Lectura", "texto": "La coordinación lee cada inscripción y responde al correo que indiques." },
+      { "titulo": "Formación", "texto": "Quien entra estudia en la Escuela Revolucionaria Lúcia Maria, con el manifiesto como punto de partida." },
+      { "titulo": "Tarea", "texto": "Recibes un frente de trabajo y empiezas a militar, con el equipo al lado." }
+    ],
+    "cuidadoTitulo": "Tus datos, con cuidado",
+    "cuidadoTexto": "Decir que quieres militar en un frente político revela tu opinión política, que la ley brasileña llama dato sensible (LGPD, art. 5, II). Por eso pedimos tu consentimiento por separado, guardamos solo lo necesario para responder, y solo la coordinación lo ve. Puedes pedir en cualquier momento que se borre la inscripción.",
+    "formTitulo": "Inscripción de militante",
+    "formLead": "Complétalo con calma. La coordinación lee cada inscripción y responde al correo indicado.",
+    "formFuncao": "Frente de trabajo",
+    "formMensagem": "Presentación: cuenta quién eres, qué haces ya en la lucha (si haces algo) y por qué quieres militar",
+    "formEnviar": "Enviar inscripción",
+    "formEnviado": "Inscripción recibida. Bienvenida, bienvenido a la lucha: la coordinación la leerá y responderá al correo indicado.",
+    "formPrivacidade": "Tu nombre, tu correo, tu Instagram y tu inscripción solo los ve la coordinación y sirven solo para responderte y organizar la militancia. Nada se vende ni se pasa a terceros.",
+    "cuidadoCaixa": "Antes de enviar",
+    "consentimento": "Acepto que el Instituto Lúcia guarde esta inscripción, que muestra mi opinión política, solo para que la coordinación me responda y organice la militancia del Frente Revolucionario Lúcia. Sé que puedo pedir que se borre cuando quiera.",
+    "maiorIdade": "Tengo 18 años o más.",
+    "menor": "¿Tienes menos de 18 años? La inscripción de militante es solo para mayores de edad. Puedes estudiar en la Escuela y en el sitio cuanto quieras, y volver aquí cuando cumplas 18.",
+    "manifestoTitulo": "Lee el manifiesto",
+    "manifestoTexto": "La versión inicial del manifiesto del Frente, en discusión: lo que denunciamos, en qué creemos y lo que hacemos.",
+    "voltar": "Entrada de la Escuela"
+  },
+  "manifesto": {
+    "metaTitulo": "Manifiesto del Frente Revolucionario Lúcia",
+    "metaDescricao": "Versión inicial, en discusión, del manifiesto del Frente Revolucionario Lúcia, movimiento político del Instituto Lúcia.",
+    "olho": "Frente Revolucionario Lúcia",
+    "titulo": "Manifiesto",
+    "situacao": "Versión inicial, en discusión",
+    "emPortugues": "(texto en portugués)",
+    "chamadoTitulo": "¿De acuerdo? Ven a militar.",
+    "chamadoTexto": "Estamos convocando voluntarios militantes.",
+    "chamadoBotao": "Quiero militar",
+    "voltar": "Entrada de la Escuela"
+  },
+  "mapa": {
+    "militantesTexto": "La convocatoria de voluntarios militantes del Frente Revolucionario Lúcia, con la inscripción.",
+    "manifestoTexto": "El manifiesto del Frente: versión inicial, en discusión."
+  }
+}
