@@ -26,14 +26,19 @@ export default async function Debates({ params }: PageProps<"/[lang]/debates">) 
   const host = site.url.replace(/^https?:\/\//, "");
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <div className="mx-auto max-w-3xl">
+      {/* T22: a abertura tinha três larguras (cartaz estreito no meio, abas mais largas, grade inteira) e parecia uma
+          pirâmide. Agora tudo ocupa a mesma coluna: o cartaz, o aviso das falácias em uma faixa só e as abas que
+          preenchem cada linha por igual. */}
+      <div>
         <Cartaz eyebrow={t.debates.eyebrow} title={t.debates.title} slogan={t.slogans.debates} tone="vermelho">
           {t.debates.lead}
         </Cartaz>
-        <aside className="no-print mt-8 border-2 border-ink p-5 font-sans">
-          <p className="font-serif text-xl font-semibold">{t.debates.beforeTitle}</p>
-          <p className="mt-1 text-sm text-ink-soft">{t.debates.beforeText}</p>
-          <Link href={localePath(lang, "/falacias")} className="mt-3 inline-block bg-ink px-4 py-2 text-sm font-medium text-parchment hover:bg-oxblood">{t.debates.beforeLink}</Link>
+        <aside className="no-print mt-8 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-2 border-ink p-5 font-sans">
+          <div className="min-w-0 flex-1 basis-80">
+            <p className="font-serif text-xl font-semibold">{t.debates.beforeTitle}</p>
+            <p className="mt-1 text-sm text-ink-soft">{t.debates.beforeText}</p>
+          </div>
+          <Link href={localePath(lang, "/falacias")} className="inline-flex min-h-11 shrink-0 items-center bg-ink px-4 py-2 text-sm font-medium text-parchment hover:bg-oxblood">{t.debates.beforeLink}</Link>
         </aside>
         <Untranslated lang={lang} t={t} show={cards.some((card) => !card.translated)} />
       </div>
