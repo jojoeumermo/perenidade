@@ -62,7 +62,7 @@ export const groups = [
       "pessoas-idosas",
     ],
   },
-  { id: "oficios", areas: ["trancista", "costureira", "barbeiro", "eletricista", "oratoria-e-lideranca"] },
+  { id: "oficios", areas: ["trancista", "costureira", "barbeiro", "manicure", "eletricista", "oratoria-e-lideranca"] },
 ] as const;
 
 export type GroupId = (typeof groups)[number]["id"];

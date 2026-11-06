@@ -13,7 +13,7 @@ export const DO_GUIA: Record<Objetivo, { modo: "passos" | "opcoes"; areas: Parti
   luta: { modo: "passos", areas: { todas: ["marxismo", "capitalismo", "formacao-militante"] }, extra: "despertar" },
   escola: { modo: "passos", areas: { fundamental: ["alfabetizacao", "portugues", "matematica"], todas: ["portugues", "matematica", "historia"] }, extra: "nivelamento" },
   enem: { modo: "passos", areas: { todas: ["enem", "portugues", "matematica"] }, extra: "nivelamento" },
-  oficio: { modo: "opcoes", areas: { todas: ["trancista", "costureira", "barbeiro", "eletricista"] } },
+  oficio: { modo: "opcoes", areas: { todas: ["trancista", "costureira", "barbeiro", "manicure", "eletricista"] } },
   linguas: { modo: "opcoes", areas: { todas: ["espanhol", "ingles", "chines", "alemao"] } },
   tecnologia: { modo: "opcoes", areas: { todas: ["informatica", "programacao", "fotografia"] } },
 };
