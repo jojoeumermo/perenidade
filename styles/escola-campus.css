@@ -54,6 +54,29 @@
     min-height: 2rem;
   }
 }
+/* O mapa da página do campus e de /explorar (T07, 06/11/2026): no computador, colunas de jornal em vez da grade. Na grade,
+   a linha tomava a altura do prédio mais comprido (a Escola, com mais de quinze seções) e os cartões vizinhos ficavam
+   esticados, vazios até embaixo. Aqui cada prédio desce na coluna com a altura do que tem e nunca se parte entre duas
+   colunas. No celular nada muda (a grade de gavetas de cima). */
+@media (min-width: 768px) {
+  .mapa-do-campus .mapa-em-colunas {
+    display: block;
+    columns: 3;
+    column-gap: 1rem;
+  }
+  .mapa-do-campus .mapa-em-colunas > .predio {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  .mapa-do-campus .mapa-em-colunas .campus-computador {
+    height: auto;
+  }
+}
+@media (min-width: 1024px) {
+  .mapa-do-campus .mapa-em-colunas {
+    columns: 4;
+  }
+}
 .mapa-do-campus .predio-resto > summary {
   min-height: 2rem;
 }

@@ -24,7 +24,7 @@ El Instituto Lúcia no es un curso en línea. Es una escuela de la vida. Aquí e
 
 Nadie debería necesitar un diploma del Estado, ni pagar miles de reales, para tener derecho al conocimiento. La universidad cara no es la única puerta: el saber que vende lo produjo el pueblo y puede devolvérsele, gratis, con rigor y con fuentes.
 
-Por eso cada clase intenta ser una experiencia y no un apunte: parte de la vida de quien estudia, cuenta la historia de quien luchó, propone una tarea en el mundo real y termina con una pregunta: ¿qué vas a hacer con esto? Y por eso existen el recorrido [Despertar](/despertar), los núcleos de estudio, las conversaciones de la comunidad y el periódico. Estudiar aquí es un acto de organización.
+Por eso cada clase intenta ser una experiencia y no un apunte: parte de la vida de quien estudia, cuenta la historia de quien luchó, propone una tarea en el mundo real y termina con una pregunta: ¿qué vas a hacer con esto? Y por eso existen el recorrido [Conciencia de clase](/consciencia-de-classe), los núcleos de estudio, las conversaciones de la comunidad y el periódico. Estudiar aquí es un acto de organización.
 
 No usamos puntos, rankings ni trucos para atrapar a nadie. Quien estudia aquí estudia por rebeldía, por curiosidad y por esperanza, no por adicción.
 

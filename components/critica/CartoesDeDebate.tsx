@@ -55,14 +55,15 @@ export function CartoesDeDebate({ itens, s, temas }: { itens: CartaoNaLista[]; s
   return (
     <>
       <div className="no-print mt-10 grid gap-4 font-sans">
+        {/* As abas crescem para preencher cada linha (grow): sem a escadinha de linhas de larguras diferentes (T22). */}
         <div role="group" aria-label={s.allThemes} className="flex flex-wrap items-end gap-1.5 border-b-2 border-ink">
-          <button type="button" aria-pressed={tema === ""} onClick={() => setTema("")} className="aba-pasta">
+          <button type="button" aria-pressed={tema === ""} onClick={() => setTema("")} className="aba-pasta grow text-center">
             {s.allThemes} <span className="conta-aba">{itens.length}</span>
           </button>
           {temas
             .filter((id) => itens.some((i) => i.tema === id))
             .map((id) => (
-              <button key={id} type="button" aria-pressed={tema === id} onClick={() => setTema(id === tema ? "" : id)} className="aba-pasta">
+              <button key={id} type="button" aria-pressed={tema === id} onClick={() => setTema(id === tema ? "" : id)} className="aba-pasta grow text-center">
                 {nomes[id] ?? id} <span className="conta-aba">{itens.filter((i) => i.tema === id).length}</span>
               </button>
             ))}

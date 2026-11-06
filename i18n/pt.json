@@ -3679,6 +3679,7 @@
       "/privacidade": "o que guardamos",
       "/termos": "as regras do site",
       "/despertar": "formação militante",
+      "/consciencia-de-classe": "formação militante",
       "/territorios": "coletivos parceiros"
     },
     "highlights": "Comece aqui",
@@ -5459,7 +5460,7 @@
       "stages": "etapas",
       "lessons": "aulas prontas",
       "tasks": "tarefas no mundo real",
-      "price": "reais · sem diploma do Estado"
+      "price": "reais · sem mensalidade, nunca"
     },
     "intro": "Cada etapa tem aulas curtas de várias disciplinas, uma leitura do acervo, uma tarefa no mundo real e um encontro no núcleo. Dá para fazer sozinho, mas o percurso foi pensado para ser vivido junto.",
     "lesson": "Aula",
@@ -5472,6 +5473,8 @@
     "certTitle": "Certificado comunitário",
     "certText": "Reconhecido pelo instituto e assinado pelo seu núcleo, não pelo Estado. Vale pelo que você aprendeu e pelo que fez com isso.",
     "certModelLabel": "Modelo do certificado comunitário do percurso Consciência de classe",
+    "certShow": "Ver o modelo do certificado",
+    "certHide": "Recolher o modelo",
     "certModelNote": "Modelo do certificado. O de verdade é preenchido e assinado no núcleo, sempre em português.",
     "groupKicker": "Melhor em grupo",
     "groupTitle": "Faça o percurso num núcleo",
@@ -5958,6 +5961,7 @@
     "/gaveta": "Gaveta aberta · trabalhos de estudantes, livres para todos · TCCs, artigos e apostilas",
     "/guia": "Guia de fontes · onde achar livros, dados e notícias confiáveis",
     "/despertar": "Consciência de classe · do zero à organização · etapas com tarefas no mundo real",
+    "/consciencia-de-classe": "Consciência de classe · do zero à organização · etapas com tarefas no mundo real",
     "/nucleos": "Núcleos de estudo · grupos que estudam juntos nos bairros · encontro sempre em lugar público",
     "/territorios": "Territórios · coletivos de cultura e luta que caminham com o instituto",
     "/territorios/*": "Território parceiro · matérias, aulas, fotos e encontros feitos junto",

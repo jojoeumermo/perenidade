@@ -18,6 +18,9 @@ const SEM_CARIMBO: Passaporte = {};
  * de porta e as seções de dentro. Abre no "Mais" (com a busca da própria janela, em `termo`), em /explorar e em
  * /escola/campus (com o campo de busca daqui, `comBusca`). Os links funcionam sem JavaScript. O passaporte (carimbo e
  * "Conheça o campus: 3 de 8 prédios") é lido só no aparelho, depois do primeiro desenho.
+ * No computador, fora do "Mais", os prédios descem em colunas de jornal (styles/escola-campus.css, .mapa-em-colunas):
+ * cada cartão com a altura do que tem. Na grade de antes, o prédio Escola (o de mais seções) esticava a linha inteira e
+ * deixava os vizinhos com um espaço morto enorme embaixo (T07).
  */
 export function MapaDoCampus({
   predios,
@@ -66,7 +69,7 @@ export function MapaDoCampus({
       {filtrados.length === 0 ? (
         <p className="py-4 text-lg text-ink-soft">{s.nenhum}</p>
       ) : (
-        <ul aria-label={s.rotulo} className={compacto ? "mapa-compacto grid grid-cols-2 gap-2.5 md:grid-cols-4 md:auto-rows-fr md:gap-3" : "grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-4 lg:grid-cols-4"}>
+        <ul aria-label={s.rotulo} className={compacto ? "mapa-compacto grid grid-cols-2 gap-2.5 md:grid-cols-4 md:auto-rows-fr md:gap-3" : "mapa-em-colunas grid grid-cols-2 gap-2.5"}>
           {filtrados.map((p) => (
             <Predio key={p.id} predio={p} s={s} carimbo={passaporte[p.id]} aoAbrir={aoAbrir} aberto={Boolean(termo)} compacto={compacto} />
           ))}

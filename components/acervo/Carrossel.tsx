@@ -36,8 +36,18 @@ const Seta = ({ para }: { para: "tras" | "frente" }) => (
 
 /** Quantos pixels por segundo a vitrine anda sozinha. */
 const VELOCIDADE = 30;
-/** Depois de a pessoa mexer (setas, roda do mouse, arrastar), a vitrine espera este tempo parada antes de voltar a andar. */
-const ESPERA_DEPOIS_DE_MEXER = 6000;
+/** Depois de a pessoa mexer (setas, roda do mouse, arrastar, dedo), a vitrine espera este tempo parada antes de voltar a andar. */
+const ESPERA_DEPOIS_DE_MEXER = 4000;
+
+/** O foco veio do teclado? (:focus-visible; navegador antigo sem o seletor: conta como teclado, o jeito seguro.) */
+function focoDeTeclado(el: EventTarget): boolean {
+  if (!(el instanceof Element)) return false;
+  try {
+    return el.matches(":focus-visible");
+  } catch {
+    return true;
+  }
+}
 
 export type RotulosDoCarrossel = { pause: string; play: string; all: string; back: string; forward: string };
 
@@ -159,6 +169,11 @@ export function Carrossel({ titulo, obras, verTodas, rotulo, vermelha = false }:
       }
       arrasto.current = null;
       segurando.current.arrasto = false;
+      // Soltou: a vitrine volta a andar depois da espera, mesmo com o mouse ainda por cima (ela só torna a parar se o
+      // mouse sair e entrar de novo). Antes, o "mouse por cima" e o foco que o aperto do botão pôs no livro seguravam a
+      // vitrine parada até a página ser recarregada (T13).
+      segurando.current.mouse = false;
+      segurando.current.foco = false;
       mexeu();
       window.removeEventListener("pointermove", mover);
       window.removeEventListener("pointerup", soltar);
@@ -177,9 +192,13 @@ export function Carrossel({ titulo, obras, verTodas, rotulo, vermelha = false }:
       data-pausado={pausado ? "1" : undefined}
       aria-roledescription="carrossel"
       aria-label={titulo}
-      onMouseEnter={() => { segurando.current.mouse = true; }}
-      onMouseLeave={() => { segurando.current.mouse = false; }}
-      onFocus={() => { segurando.current.foco = true; }}
+      // Só o mouse de verdade segura a vitrine por cima: no toque, o navegador inventa um "mouse entrou" e nunca o
+      // "saiu", e a vitrine ficava parada para sempre depois do primeiro toque.
+      onPointerEnter={(e) => { if (e.pointerType === "mouse") segurando.current.mouse = true; }}
+      onPointerLeave={(e) => { if (e.pointerType === "mouse") segurando.current.mouse = false; }}
+      // Só o foco do teclado segura (WCAG 2.2.2): o foco que um clique ou um arrasto põe no livro não conta, senão a
+      // vitrine ficava parada até a pessoa clicar fora dela.
+      onFocus={(e) => { segurando.current.foco = focoDeTeclado(e.target); }}
       onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) segurando.current.foco = false; }}
     >
       <Tarja titulo={titulo} conta={obras.length} vermelha={vermelha}>
@@ -209,6 +228,8 @@ export function Carrossel({ titulo, obras, verTodas, rotulo, vermelha = false }:
         onPointerDown={comecarArrasto}
         onWheel={mexeu}
         onTouchStart={mexeu}
+        onTouchMove={mexeu}
+        onTouchEnd={mexeu}
         onKeyDown={mexeu}
         onDragStart={(e) => e.preventDefault()}
         onClickCapture={(e) => {
