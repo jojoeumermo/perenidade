@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { CertificadoComunitario } from "@/components/CertificadoComunitario";
+import { Recolhivel } from "@/components/Recolhivel";
 import despertar from "@/content/despertar.json";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -20,18 +21,18 @@ interface Etapa {
   roda: string[];
 }
 
-export async function generateMetadata({ params }: PageProps<"/[lang]/despertar">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[lang]/consciencia-de-classe">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
-  return paginaMeta(lang, "/despertar", t.despertar.title, t.despertar.lead);
+  return paginaMeta(lang, "/consciencia-de-classe", t.despertar.title, t.despertar.lead);
 }
 
 /**
- * O percurso Consciência de classe (antes chamado Despertar; o endereço /despertar continua): do zero à consciência de
+ * O percurso Consciência de classe (antes chamado Despertar; o endereço /despertar leva para cá, veja next.config.ts): do zero à consciência de
  * classe e à organização, em doze etapas. Cada etapa junta aulas de
  * várias disciplinas (as prontas abrem; as que ainda faltam escrever aparecem como "em preparação"), uma leitura do
  * acervo, uma tarefa no mundo real e o roteiro de um encontro de núcleo. O texto das etapas está em content/despertar.json.
  */
-export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]/despertar">) {
+export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]/consciencia-de-classe">) {
   const { lang, t } = await loadLang(params);
   const s = t.despertar;
   const to = (path: string) => localePath(lang, path);
@@ -58,7 +59,9 @@ export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]
         <div className="relative mx-auto grid max-w-[78rem] items-end gap-10 px-4 py-14 sm:px-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:px-8 lg:py-16">
           <div className="min-w-0">
             <p className="rotulo text-[#e0837a]!">{s.eyebrow}</p>
-            <h1 className="lambe mt-4 text-[clamp(2.6rem,12.5vw,5rem)] leading-[0.95] sm:text-[7rem] sm:leading-[0.9]">{s.title}</h1>
+            {/* A entrelinha curta do cartaz (0,9) faz o acento do "Ê" subir acima da caixa da linha e encostar no rótulo de cima:
+                a folga no alto (em "em", acompanha o tamanho da letra) guarda o lugar do acento no celular e no computador. */}
+            <h1 className="lambe mt-3 pt-[0.2em] text-[clamp(2.6rem,12.5vw,5rem)] leading-[0.95] sm:text-[7rem] sm:leading-[0.9]">{s.title}</h1>
             <p className="mt-6 max-w-[38rem] font-serif text-[1.6rem] leading-snug max-md:text-xl">{s.lead}</p>
             <div className="mt-8 flex flex-wrap gap-3.5">
               <a href="#olhar" className="botao botao-prelo">{s.start}</a>
@@ -126,16 +129,20 @@ export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]
           ))}
         </ol>
 
-        <div className="grid gap-7 py-14 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        {/* O modelo do certificado é alto: fica recolhido (a escolha de abrir fica guardada no aparelho) e, aberto, a
+            chamada do núcleo acompanha a rolagem ao lado, para não sobrar uma coluna vazia. */}
+        <div className="grid items-start gap-7 py-14 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <section className="cartao p-7">
             <p className="rotulo">{s.endKicker}</p>
             <h2 className="mt-2 text-[2rem] font-semibold leading-tight">{s.certTitle}</h2>
             <p className="mt-3 text-lg leading-relaxed text-ink-soft">{s.certText}</p>
             <div className="mt-6">
-              <CertificadoComunitario etapas={etapas.length} rotulo={s.certModelLabel} nota={s.certModelNote} />
+              <Recolhivel chave="certificado-percurso" abrir={s.certShow} fechar={s.certHide}>
+                <CertificadoComunitario etapas={etapas.length} rotulo={s.certModelLabel} nota={s.certModelNote} />
+              </Recolhivel>
             </div>
           </section>
-          <section className="border-2 border-ink bg-[#c21f16] p-7 text-white shadow-[6px_6px_0_var(--sombra)] md:self-start">
+          <section className="border-2 border-ink bg-[#c21f16] p-7 text-white shadow-[6px_6px_0_var(--sombra)] md:sticky md:top-28 md:self-start">
             <p className="font-mono text-xs uppercase tracking-[0.2em]">{s.groupKicker}</p>
             <h2 className="mt-2 text-[2rem] font-semibold leading-tight">{s.groupTitle}</h2>
             <p className="mt-3 text-lg leading-relaxed">{s.groupText}</p>
