@@ -148,6 +148,10 @@ export interface Tribute extends Localized {
   photo?: string;
   photoCredit?: string;
   photoSource?: string;
+  /** Quem fez a imagem, a licença e o endereço do texto da licença (mostrados ao abrir a homenagem). */
+  photoAuthor?: string;
+  photoLicense?: string;
+  photoLicenseUrl?: string;
   /** Onde a pessoa tombou, pelo país do "local" da ficha original (lib/memorial.ts). */
   region?: RegiaoDoMemorial;
 }
@@ -625,13 +629,17 @@ export const getAuthors = cache((lang: Locale): Author[] => {
 });
 
 /** Retrato opcional: só imagem guardada no próprio site, sempre com o crédito e o endereço de onde veio. */
-function portrait(data: Data, file: string): { photo?: string; photoCredit?: string; photoSource?: string } {
+function portrait(data: Data, file: string): Pick<Tribute, "photo" | "photoCredit" | "photoSource" | "photoAuthor" | "photoLicense" | "photoLicenseUrl"> {
   const photo = optional(data, "foto");
   if (!photo) return {};
   if (!/^\/imagens\/memorial\/[a-z0-9-]+\.webp$/.test(photo)) fail(file, `"foto" precisa ser uma imagem de /imagens/memorial`);
   const photoCredit = text(data, "foto_credito", file);
   const photoSource = httpsUrl(data, "foto_fonte", file);
-  return { photo, photoCredit, photoSource };
+  // Autor e licença em campos próprios (Lei 9.610/98, art. 24, II e art. 79, §1º: o nome do autor acompanha a obra).
+  const photoAuthor = optional(data, "foto_autor") || undefined;
+  const photoLicense = optional(data, "foto_licenca") || undefined;
+  const photoLicenseUrl = data.foto_licenca_url === undefined ? undefined : httpsUrl(data, "foto_licenca_url", file);
+  return { photo, photoCredit, photoSource, photoAuthor, photoLicense, photoLicenseUrl };
 }
 
 export const getTributes = cache((lang: Locale): Tribute[] =>

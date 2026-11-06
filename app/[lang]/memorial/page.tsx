@@ -42,6 +42,9 @@ export default async function Memorial({ params }: PageProps<"/[lang]/memorial">
           foto: tribute.photo,
           credito: tribute.photoCredit,
           fonte: tribute.photoSource,
+          autor: tribute.photoAuthor,
+          licenca: tribute.photoLicense,
+          licencaUrl: tribute.photoLicenseUrl,
           texto: tribute.body,
           idioma: originalLang(tribute.translated),
         }))}

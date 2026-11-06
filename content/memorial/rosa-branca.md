@@ -6,6 +6,8 @@ local: "Munique, Alemanha"
 foto: "/imagens/memorial/rosa-branca.webp"
 foto_credito: "Na foto, Sophie Scholl, em 1941, em retrato de Hans Scholl. Domínio público, via Wikimedia Commons (recortada, em preto e branco)."
 foto_fonte: "https://commons.wikimedia.org/wiki/File:Werner_Scholl_with_Sophie_Scholl.jpg"
+foto_autor: "Autor desconhecido"
+foto_licenca: "Domínio público"
 ---
 
 Estudantes da Universidade de Munique, Sophie Scholl, seu irmão Hans e companheiros espalharam panfletos contra Hitler e a guerra. Presos ao distribuir o sexto panfleto, Sophie, Hans e Christoph Probst foram guilhotinados em 22 de fevereiro de 1943. Outros membros do grupo foram executados nos meses seguintes.
