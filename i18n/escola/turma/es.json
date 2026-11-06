@@ -270,5 +270,13 @@
   "linkTurmas": {
     "titulo": "Grupos por curso",
     "texto": "En la Escuela Revolucionaria Lúcia Maria, cada curso tiene su grupo del mes."
+  },
+  "pausa": {
+    "olho": "Escuela Revolucionaria Lúcia Maria",
+    "titulo": "Los grupos están en pausa",
+    "texto": "Por ahora no abrimos grupos: queremos suficientes personas para acompañar cada uno con cuidado. Los cursos y las clases siguen abiertos, a tu ritmo, y el progreso queda en tu aparato. Cuando los grupos vuelvan, esta dirección los mostrará de nuevo.",
+    "cursos": "Ver los cursos",
+    "trilhas": "Estudiar por asignaturas",
+    "emBreve": "pronto"
   }
 }

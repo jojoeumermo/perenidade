@@ -31,7 +31,8 @@ insert into interno.recursos_catalogo (nome, so_pelo_nome) values
   ('meu-estudo', false), ('exercicios', false), ('revisoes', false), ('turma', false), ('professores', false),
   ('mapa-curricular', false), ('nivelamento', false), ('metas', false), ('vlibras', false), ('ajudou', false),
   ('guia-contribuir', false), ('pratica-sem-placar', false), ('enem-video', false), ('enem-curso', false),
-  ('escola', true), ('vale-o-escrito', true), ('rede-v2', true)
+  ('escola', true), ('vale-o-escrito', true), ('rede-v2', true),
+  ('turmas', false) -- em pausa (T08): "todos" não liga (lib/recursos.ts, EM_PAUSA); ligar pelo painel vale na hora
 on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;
 
 /** O que a coordenação decidiu pelo painel. Linha existe = decisão explícita (ligado true liga, false desliga). */

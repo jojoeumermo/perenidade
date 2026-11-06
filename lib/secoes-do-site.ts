@@ -80,7 +80,8 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [n.community, "/comunidade", d.community ?? n.community],
         [n.territories, "/territorios", d.territories],
         [t.nucleos.menu, "/nucleos", t.nucleos.menuDescricao],
-        [t.turmaDoMes.menu, "/turmas", t.turmaDoMes.menuDescricao],
+        // T08: a Turma do mês sai do menu enquanto as turmas estão em pausa (recurso "turmas", ligado pelo painel).
+        ...se("turmas", [t.turmaDoMes.menu, "/turmas", t.turmaDoMes.menuDescricao]),
         [n.health, "/saude", d.health],
         [n.rightsGuide, "/direitos", d.rightsGuide],
         [n.reportBug, "/relatar-erro", d.bugs],
