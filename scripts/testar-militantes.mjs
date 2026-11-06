@@ -42,7 +42,7 @@ async function recusa(nome, promessa, codigo) {
 }
 
 // ── O banco ──
-confere("install.sql traz o bloco da migração no fim", ler("supabase", "install.sql").trimEnd().endsWith(sql.trimEnd()));
+confere("install.sql traz o bloco da migração inteiro (as migrações posteriores vêm depois dele)", ler("supabase", "install.sql").replace(/\r\n/g, "\n").includes(sql.replace(/\r\n/g, "\n").trim()));
 const banco = await criarBanco();
 const { rpc, dono, criarUsuario } = banco;
 const anon = (ip) => ({ papel: "anon", ip });

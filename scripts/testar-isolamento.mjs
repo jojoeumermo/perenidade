@@ -30,7 +30,8 @@ espera("public/workers/isolar.js tem o mesmo texto de lib/isolamento.ts", () => 
 const pasta = "public/workers";
 // A trava é dos executores de código escrito pela pessoa (Python, Lua, Ruby...). Os Workers da voz (voz.js e voz-motor.js)
 // são código do próprio site e precisam do cache para guardar os modelos de voz no aparelho: ficam fora.
-const confiaveis = new Set(["isolar.js", "voz.js", "voz-motor.js"]);
+// O worker do MapLibre (mapa do Vale o Escrito) é a biblioteca do mapa servida pelo próprio site, não código da pessoa.
+const confiaveis = new Set(["isolar.js", "voz.js", "voz-motor.js", ...readdirSync(pasta).filter((n) => /^maplibre-gl-worker-[\d.]+\.mjs$/.test(n))]);
 for (const nome of readdirSync(pasta).filter((n) => /\.(m?js)$/.test(n) && !confiaveis.has(n))) {
   const codigo = readFileSync(join(pasta, nome), "utf8").split("\n").filter((l) => l.trim() && !l.trim().startsWith("//"));
   espera(`${nome} começa pela trava`, () => /^(importScripts\("\/workers\/isolar\.js"\);|import "\/workers\/isolar\.js";)$/.test(codigo[0]?.trim() ?? ""));
