@@ -265,7 +265,7 @@ export function Pessoas({ me }: { me: Me }) {
           ...(aprova ? [{ id: "fotos" as const, nome: "Fotos" }, { id: "termos" as const, nome: "Termos aceitos" }] : []),
         ]}
       />
-      {aba === "departamentos" && <Departamentos pessoas={pessoas.dados ?? []} />}
+      {aba === "departamentos" && <Departamentos pessoas={pessoas.dados ?? []} coordena={coordena} irPara={setAba} />}
       {aprova && aba === "fotos" && <FotosParaAprovar />}
       {aprova && aba === "termos" && <TermosAceitos />}
       {coordena && (
