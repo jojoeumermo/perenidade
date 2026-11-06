@@ -767,7 +767,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
           </div>
         ),
         tarefas: voluntario ? <ParaVoceHoje me={me} ir={ir} /> : undefined,
-        recados: <Recados recarregar={recarregar} />,
+        recados: <Recados recarregar={recarregar} naMesa />,
         agradecimentos: voluntario ? <Agradecimentos /> : undefined,
         casa: voluntario ? (
           <>
