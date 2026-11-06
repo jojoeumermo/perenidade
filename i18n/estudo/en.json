@@ -303,7 +303,9 @@
     "carregando": "Loading VLibras…",
     "ligado": "VLibras is on: use the blue button with a hand on the side of the screen, then tap the text you want to translate.",
     "erro": "VLibras could not be loaded right now (no internet or the service is down). Try again later.",
-    "esquecer": "Don't load it by itself on the next pages"
+    "esquecer": "Don't load it by itself on the next pages",
+    "desligar": "Turn VLibras off",
+    "desligado": "VLibras is off. To use it again, just turn it on."
   },
   "praticaSemPlacar": {
     "lead": "Practice what you just learned: one exercise at a time, with the answer right away. No points and no day counting: the pace is yours. The voice is your device's; nothing leaves it."
