@@ -1,12 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { BellRing, CheckCheck, KeyRound, LifeBuoy, Plus, RefreshCw, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { BellRing, Check, CheckCheck, Copy, KeyRound, LifeBuoy, Plus, RefreshCw, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
+import { type ReactNode, useEffect, useState } from "react";
 import { getClient, rpc, signOut, type Me } from "@/lib/backend";
 import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, renameFingerprint, type Passkey } from "@/lib/passkey";
 import { Aviso, dataHora, useAcao, useLista } from "./comum";
-import { Botao, CabecalhoDeSecao, Cartao, Contador, Esqueleto, ItemDeLista, Lista, confirmarFrase } from "./ui";
+import { Botao, CabecalhoDeSecao, Cartao, Contador, Esqueleto, Faixa, ItemDeLista, Lista, confirmarFrase } from "./ui";
 
 interface Fator {
   id: string;
@@ -17,6 +17,153 @@ interface Cadastro {
   id: string;
   qr: string;
   segredo: string;
+  /** O mesmo conteúdo do QR como endereço otpauth://: tocado no próprio celular, abre o aplicativo autenticador. */
+  uri: string;
+}
+
+/**
+ * Por que o código não passou, dito de um jeito que a pessoa consiga resolver. O serviço de contas diz o motivo em
+ * `code` (mfa_verification_failed, mfa_challenge_expired…); sem resposta nenhuma, foi a internet.
+ */
+function motivoDoErro(erro: unknown): string {
+  const falha = (erro ?? {}) as { code?: string; status?: number; name?: string; message?: string };
+  const codigo = falha.code ?? "";
+  if (codigo === "mfa_verification_failed" || codigo === "invalid_credentials" || /invalid totp/i.test(falha.message ?? "")) {
+    return "O código não confere. Cada código vale só 30 segundos: espere aparecer um novo no aplicativo e digite logo. Se continuar errado, confira se a data e a hora do celular estão no automático (nas configurações do celular): com o relógio fora da hora, o aplicativo mostra o código errado. E veja se copiou o código da linha certa do aplicativo.";
+  }
+  if (codigo === "mfa_challenge_expired") return "O tempo para confirmar acabou. Digite o código que aparece agora no aplicativo e toque em Confirmar de novo.";
+  if (codigo === "mfa_factor_not_found") return "Este cadastro do aplicativo não vale mais (demorou demais ou foi aberto em outra aba). Toque em Cancelar e comece de novo.";
+  if (codigo === "over_request_rate_limit" || codigo.includes("rate_limit") || falha.status === 429) return "Muitas tentativas seguidas. Espere um minuto e tente de novo com o código que estiver no aplicativo.";
+  if (falha.name === "AuthRetryableFetchError" || falha.name === "TypeError" || falha.status === 0) return "Sem conexão com o serviço de contas. Confira a internet e tente de novo.";
+  return "Não deu certo. Confira o código e tente de novo.";
+}
+
+/** A chave em blocos de quatro letras, como os aplicativos mostram e como é mais fácil de conferir ao digitar. */
+const emBlocos = (segredo: string) => segredo.replace(/\s+/g, "").match(/.{1,4}/g) ?? [];
+
+/**
+ * A tela de cadastrar o aplicativo autenticador. Quem nunca usou um costuma apontar a câmera comum do celular para o
+ * QR: ela lê o quadrado, mas só mostra um texto "otpauth://totp/…" (às vezes no aplicativo de notas). Por isso a tela
+ * explica antes do QR que é preciso um aplicativo autenticador e que o quadrado se lê de dentro dele, mostra a chave
+ * para quem prefere digitar e pede para não mandar o QR nem a chave para ninguém.
+ */
+function CadastroDoAplicativo({ cadastro, entrada, pronto, ocupado, aviso, confirmar, cancelar }: { cadastro: Cadastro; entrada: ReactNode; pronto: boolean; ocupado: boolean; aviso: string; confirmar: () => void; cancelar: () => void }) {
+  const [ajuda, setAjuda] = useState(false);
+  const [copia, setCopia] = useState<"" | "ok" | "falhou">("");
+  const blocos = emBlocos(cadastro.segredo);
+
+  async function copiar() {
+    const chave = cadastro.segredo.replace(/\s+/g, "");
+    let copiou = false;
+    try {
+      await navigator.clipboard.writeText(chave);
+      copiou = true;
+    } catch {
+      // Navegador sem permissão para a área de transferência: o jeito antigo, por um campo escondido.
+      const campo = document.createElement("textarea");
+      campo.value = chave;
+      campo.setAttribute("readonly", "");
+      campo.style.position = "fixed";
+      campo.style.opacity = "0";
+      document.body.appendChild(campo);
+      campo.select();
+      try {
+        copiou = document.execCommand("copy");
+      } catch {
+        copiou = false;
+      }
+      campo.remove();
+    }
+    setCopia(copiou ? "ok" : "falhou");
+    if (copiou) window.setTimeout(() => setCopia(""), 4000);
+  }
+
+  return (
+    <div className="grid gap-4">
+      <div className="grid gap-2">
+        <p className="font-semibold">Você vai precisar do celular com um aplicativo autenticador.</p>
+        <p className="pn-ajuda">
+          A câmera comum do celular não serve: ela até lê o quadrado, mas mostra só um texto estranho começando com “otpauth://” (às vezes no aplicativo de notas). O quadrado precisa ser lido de dentro do aplicativo autenticador.
+        </p>
+        <ol className="list-decimal space-y-2 pl-5">
+          <li>
+            Instale no celular um aplicativo autenticador, pela Play Store ou pela App Store. Todos estes são gratuitos: Google Authenticator, Microsoft Authenticator, 2FAS ou Aegis (só Android). O 2FAS e o Aegis também são de código aberto.
+          </li>
+          <li>Abra o aplicativo e toque no botão + (em alguns aparece “Adicionar conta” ou “Adicionar código”). No Microsoft Authenticator, escolha “Outra conta”.</li>
+          <li>Escolha “Ler código QR” e aponte a câmera que o próprio aplicativo abre para o quadrado abaixo.</li>
+          <li>Pronto: o aplicativo passa a mostrar um código de 6 números que muda a cada 30 segundos. Digite esse código no campo do fim desta tela e toque em Confirmar.</li>
+        </ol>
+      </div>
+
+      <div className="flex flex-wrap items-start gap-4">
+        {/* O desenho vem do serviço de contas como imagem embutida; não é carregado de outro site. */}
+        {/* O QR fica sobre branco de propósito (é a peça a ser lida pela câmera, não a interface): nos dois fundos ele lê. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={cadastro.qr} alt="Código QR para ler com o aplicativo autenticador" width={200} height={200} className="shrink-0 rounded-[var(--pn-raio)] border border-rule bg-white p-2" />
+        <div className="grid min-w-0 flex-1 basis-56 gap-2">
+          <p className="pn-ajuda">Prefere digitar? No aplicativo, toque em + e escolha “Inserir chave” (ou “Digitar chave de configuração”). Esta é a chave:</p>
+          {/* Sem aria-label: em <code> o nome é proibido pelo ARIA e, com translate="no", ficaria em português nos outros idiomas. O parágrafo de cima já apresenta a chave. */}
+          <code translate="no" className="flex flex-wrap gap-x-2 gap-y-1 font-mono text-base font-semibold tracking-wider tabular-nums">
+            {blocos.map((bloco, indice) => (
+              <span key={indice}>{bloco}</span>
+            ))}
+          </code>
+          <p className="flex flex-wrap items-center gap-2">
+            <Botao pequeno simbolo={copia === "ok" ? Check : Copy} onClick={() => void copiar()}>
+              {copia === "ok" ? "Chave copiada" : "Copiar a chave"}
+            </Botao>
+            <span role="status" className="pn-ajuda">
+              {copia === "ok" && "Cole só no aplicativo autenticador."}
+              {copia === "falhou" && "Não deu para copiar: digite a chave olhando a tela."}
+            </span>
+          </p>
+          <p>
+            <button type="button" aria-expanded={ajuda} onClick={() => setAjuda((valor) => !valor)} className="cursor-pointer text-sm underline underline-offset-2 hover:text-oxblood">
+              Não consigo ler o QR
+            </button>
+          </p>
+        </div>
+      </div>
+
+      {ajuda && (
+        <Cartao as="div" variante="plano" className="grid gap-2 text-sm">
+          <p className="font-semibold">Se o QR não for lido</p>
+          <ul className="list-disc space-y-1.5 pl-5">
+            <li>Abra a câmera de dentro do aplicativo autenticador (botão +, depois “Ler código QR”), não a câmera comum do celular.</li>
+            <li>Aumente o brilho da tela do computador e aproxime ou afaste o celular devagar, até o quadrado caber inteiro na moldura.</li>
+            <li>Ainda não deu? Digite a chave à mão: no aplicativo, toque em +, escolha “Inserir chave” (ou “Digitar chave de configuração”, “Inserir manualmente”), escreva “Instituto Lúcia” no nome da conta e a chave acima no campo da chave. Se o aplicativo perguntar o tipo, escolha “Baseado em tempo”.</li>
+            {cadastro.uri && (
+              <li>
+                Esta tela está aberta no próprio celular?{" "}
+                <a href={cadastro.uri} className="underline underline-offset-2 hover:text-oxblood">
+                  Toque aqui para abrir no aplicativo autenticador
+                </a>{" "}
+                (ele precisa estar instalado).
+              </li>
+            )}
+          </ul>
+        </Cartao>
+      )}
+
+      <Faixa tom="aviso" titulo="Não mande o QR nem a chave para ninguém">
+        <p>Nada de print, foto ou cópia, nem para a coordenação: quem tiver o QR ou a chave consegue gerar os seus códigos. A coordenação nunca pede isso.</p>
+      </Faixa>
+
+      <div className="grid gap-1">
+        <p className="pn-rotulo">Código de 6 números que aparece no aplicativo</p>
+        <div className="flex flex-wrap items-end gap-3">
+          {entrada}
+          <Botao variante="principal" carregando={ocupado} disabled={!pronto} onClick={confirmar}>
+            Confirmar
+          </Botao>
+          <Botao variante="discreto" onClick={cancelar}>
+            Cancelar
+          </Botao>
+        </div>
+      </div>
+      <Aviso texto={aviso} />
+    </div>
+  );
 }
 
 /**
@@ -61,8 +208,8 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
     setAviso("");
     try {
       await tarefa();
-    } catch {
-      setAviso("Não deu certo. Confira o código e tente de novo.");
+    } catch (erro) {
+      setAviso(motivoDoErro(erro));
     } finally {
       setOcupado(false);
     }
@@ -76,7 +223,7 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
       setTrocando((fatores ?? []).find((fator) => fator.status === "verified")?.id ?? null);
       const { data, error } = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: `Instituto Lúcia ${Date.now()}` });
       if (error || !data) throw error ?? new Error("falha");
-      setCadastro({ id: data.id, qr: data.totp.qr_code, segredo: data.totp.secret });
+      setCadastro({ id: data.id, qr: data.totp.qr_code, segredo: data.totp.secret, uri: data.totp.uri ?? "" });
       setCodigo("");
     });
 
@@ -133,30 +280,15 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
 
   if (cadastro) {
     return (
-      <div className="grid gap-3">
-        <ol className="list-decimal space-y-2 pl-5">
-          <li>Instale no celular um aplicativo autenticador. Sugestões gratuitas e de código aberto: Aegis (Android) ou 2FAS (Android e iPhone).</li>
-          <li>No aplicativo, toque em adicionar conta e aponte a câmera para o quadrado abaixo.</li>
-          <li>Digite aqui o código de seis números que o aplicativo mostrar.</li>
-        </ol>
-        {/* O desenho vem do serviço de contas como imagem embutida; não é carregado de outro site. */}
-        {/* O QR fica sobre branco de propósito (é a peça a ser lida pela câmera, não a interface): nos dois fundos ele lê. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={cadastro.qr} alt="Código para o aplicativo autenticador" width={200} height={200} className="rounded-[var(--pn-raio)] border border-rule bg-white p-2" />
-        <p className="pn-ajuda">
-          Sem câmera? Digite esta chave no aplicativo: <code className="break-all font-mono">{cadastro.segredo}</code>
-        </p>
-        <div className="flex flex-wrap items-end gap-3">
-          {entrada}
-          <Botao variante="principal" carregando={ocupado} disabled={!pronto} onClick={() => confirmar(cadastro.id)}>
-            Confirmar
-          </Botao>
-          <Botao variante="discreto" onClick={() => { setCadastro(null); setTrocando(null); }}>
-            Cancelar
-          </Botao>
-        </div>
-        <Aviso texto={aviso} />
-      </div>
+      <CadastroDoAplicativo
+        cadastro={cadastro}
+        entrada={entrada}
+        pronto={pronto}
+        ocupado={ocupado}
+        aviso={aviso}
+        confirmar={() => confirmar(cadastro.id)}
+        cancelar={() => { setCadastro(null); setTrocando(null); setAviso(""); }}
+      />
     );
   }
 
@@ -164,6 +296,7 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
     return (
       <div>
         <p className="pn-ajuda">Esta conta ainda não tem aplicativo autenticador. Leva dois minutos e protege a conta mesmo que a senha ou o e-mail vazem.</p>
+        <p className="pn-ajuda mt-1">Tenha o celular à mão: no próximo passo você instala um aplicativo autenticador (Google Authenticator, Microsoft Authenticator, 2FAS ou Aegis) e lê um código QR com ele.</p>
         <p className="mt-3">
           <Botao variante="principal" simbolo={ShieldCheck} carregando={ocupado} onClick={comecar}>
             Cadastrar aplicativo autenticador
