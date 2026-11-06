@@ -16,7 +16,8 @@ ENV=/opt/lucia/site.env
 exec 9> /run/lucia-atualizar.lock
 flock -n 9 || { echo "Outra atualização em andamento."; exit 0; }
 
-docker pull -q "$IMAGEM:$ALVO" > /dev/null
+# Com limite de tempo: um download preso seguraria a trava e nenhuma versão nova entraria.
+timeout 900 docker pull -q "$IMAGEM:$ALVO" > /dev/null
 nova=$(docker image inspect -f '{{.Id}}' "$IMAGEM:$ALVO")
 
 ativo=""
