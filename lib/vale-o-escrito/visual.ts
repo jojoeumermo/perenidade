@@ -12,6 +12,8 @@
 import { mencionaPapelProibido } from "./regras";
 import {
   SITUACOES,
+  TIPOS_PRIMARIOS,
+  type Confianca,
   type Dossie,
   type Entrada,
   type Ligacao,
@@ -51,6 +53,16 @@ export interface PropsDoMapa {
   aoEscolher: (entradaId: string) => void;
   zoom: NivelDeZoom;
   aoMudarZoom: (nivel: NivelDeZoom) => void;
+  /** Ramificações do ponto escolhido no mapa (pessoas, organizações e fontes do caso). Opcional: sem ela, o mapa não ramifica. */
+  ramosDe?: (entradaId: string) => RamoDoCaso[];
+  /** Escolhe um nó qualquer (pessoa, organização) a partir de uma ramificação do mapa. */
+  aoSelecionarNo?: (chave: string) => void;
+  /** Tipo de nó em destaque (legenda "destacar por tipo"): no mapa, só o tipo "entrada" mantém os pontos acesos. */
+  destaque?: TipoDeNo | null;
+  /** Qualidade baixa (aparelho lento): o mapa desliga o calor e a animação das ramificações. */
+  qualidadeBaixa?: boolean;
+  /** Textos próprios do mapa (chave "mapa" do i18n do Vale). Sem eles, o mapa fala português. */
+  textosMapa?: Partial<Record<string, string>>;
   /** Textos já no idioma (os mesmos de i18n/vale-o-escrito/<idioma>.json). */
   textos: {
     carregando: string;
@@ -163,6 +175,11 @@ export interface ArestaDaTeia {
   rotulo?: string;
   /** Na ligação pessoa→caso: a situação jurídica da pessoa naquele caso (sempre visível). */
   situacao?: Situacao;
+  /**
+   * Confiança da ligação: "primaria" quando alguma fonte que a sustenta é processo, investigação oficial ou dado oficial;
+   * "reportado" quando só a imprensa (ou relatório de organização) sustenta. Ponto cheio x ponto vazio no desenho.
+   */
+  confianca?: Confianca;
 }
 
 export interface Grafo {
@@ -206,33 +223,120 @@ export function montarGrafo(d: DadosDoObservatorio, dossie: string | null = null
   };
 
   for (const e of entradas) pegar("entrada", e.id, e.titulo, { dossie: e.dossie, situacao: e.situacao });
+  const porId = new Map(entradas.map((e) => [e.id, e]));
   for (const e of entradas) {
     const chaveEntrada = chaveDe("entrada", e.id);
     for (const pp of e.pessoas) {
       const p = acharPessoa(d, pp.pessoaId);
       if (!p || mencionaPapelProibido(`${p.nome} ${p.papel} ${p.cargo ?? ""}`)) continue;
       pegar("pessoa", p.id, p.nome, { dossie: e.dossie });
-      ligar({ id: `i:${p.id}:${e.id}`, de: chaveDe("pessoa", p.id), para: chaveEntrada, tipo: "citado_em", entradaId: e.id, implicita: true, situacao: pp.situacao });
+      ligar({ id: `i:${p.id}:${e.id}`, de: chaveDe("pessoa", p.id), para: chaveEntrada, tipo: "citado_em", entradaId: e.id, implicita: true, situacao: pp.situacao, confianca: e.confianca });
     }
     for (const oid of e.organizacoes) {
       const o = acharOrganizacao(d, oid);
       if (!o) continue;
       pegar("organizacao", o.id, o.nome, { dossie: e.dossie });
-      ligar({ id: `i:${o.id}:${e.id}`, de: chaveDe("organizacao", o.id), para: chaveEntrada, tipo: "citado_em", entradaId: e.id, implicita: true });
+      ligar({ id: `i:${o.id}:${e.id}`, de: chaveDe("organizacao", o.id), para: chaveEntrada, tipo: "citado_em", entradaId: e.id, implicita: true, confianca: e.confianca });
     }
     const lg = lugarDoNo(e);
     if (lg) {
       pegar("lugar", lg.id, lg.rotulo, { dossie: e.dossie });
-      ligar({ id: `i:${lg.id}:${e.id}`, de: chaveEntrada, para: chaveDe("lugar", lg.id), tipo: "ocorreu_em", entradaId: e.id, implicita: true });
+      ligar({ id: `i:${lg.id}:${e.id}`, de: chaveEntrada, para: chaveDe("lugar", lg.id), tipo: "ocorreu_em", entradaId: e.id, implicita: true, confianca: e.confianca });
     }
   }
   for (const l of d.ligacoes) {
     if (!ids.has(l.entradaId)) continue;
     const de = chaveDe(l.de.tipo, l.de.id);
     const para = chaveDe(l.para.tipo, l.para.id);
-    ligar({ id: `l:${l.id}`, de, para, tipo: l.tipo, entradaId: l.entradaId, implicita: false, rotulo: l.rotulo });
+    ligar({ id: `l:${l.id}`, de, para, tipo: l.tipo, entradaId: l.entradaId, implicita: false, rotulo: l.rotulo, confianca: confiancaDaLigacao(l, porId.get(l.entradaId)) });
   }
   return { nos: [...nos.values()], arestas: [...arestas.values()] };
+}
+
+/**
+ * Confiança de uma Ligacao explícita: olha as fontes que a sustentam (pelo id na entrada ou pelo id do catálogo). Basta uma
+ * primária (processo, investigação oficial, dado oficial) para "primaria"; fonte que não se acha conta como imprensa
+ * (cuidado: na dúvida, o ponto fica vazio, nunca cheio).
+ */
+export function confiancaDaLigacao(l: Pick<Ligacao, "fonteIds">, e: Pick<Entrada, "fontes"> | undefined): Confianca {
+  if (!e) return "reportado";
+  const fontes = e.fontes.filter((f) => l.fonteIds.includes(f.id) || (f.catalogoId !== undefined && l.fonteIds.includes(f.catalogoId)));
+  return fontes.some((f) => TIPOS_PRIMARIOS.includes(f.tipo)) ? "primaria" : "reportado";
+}
+
+/** Contagem de nós por tipo (a legenda "destacar por tipo"). */
+export function contarPorTipo(g: Grafo): Record<TipoDeNo, number> {
+  const c: Record<TipoDeNo, number> = { entrada: 0, pessoa: 0, organizacao: 0, lugar: 0 };
+  for (const n of g.nos) c[n.tipo]++;
+  return c;
+}
+
+/** A data mais recente da base (publicação ou atualização de alguma entrada): a barra "dados construídos em". */
+export function dataDaBase(entradas: readonly Pick<Entrada, "publicadoEm" | "atualizadoEm">[]): string | null {
+  let max = "";
+  for (const e of entradas) for (const d of [e.publicadoEm, e.atualizadoEm]) if (d && d > max) max = d;
+  return max || null;
+}
+
+/** Domínio de um link, sem "www." ("https://www.stf.jus.br/x" → "stf.jus.br"). Link estranho devolve "". */
+export function dominioDe(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * A curva de uma ligação: quadrática, com o ponto de controle deslocado para um lado do segmento (o lado e a força saem
+ * do id, então o mesmo desenho dá sempre a mesma curva), como um fio de teia. Devolve o "d" do <path> e o meio da curva
+ * (onde vão o texto e o ponto de confiança).
+ */
+export function curvaDaAresta(p: Ponto, q: Ponto, id: string, curvatura = 0.22): { d: string; mx: number; my: number } {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  const lado = h & 1 ? 1 : -1;
+  const forca = curvatura * (0.6 + ((h >>> 1) % 100) / 250);
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+  const cx = (p.x + q.x) / 2 - dy * forca * lado;
+  const cy = (p.y + q.y) / 2 + dx * forca * lado;
+  const f = (n: number) => Math.round(n * 10) / 10;
+  return { d: `M${f(p.x)},${f(p.y)} Q${f(cx)},${f(cy)} ${f(q.x)},${f(q.y)}`, mx: 0.25 * p.x + 0.5 * cx + 0.25 * q.x, my: 0.25 * p.y + 0.5 * cy + 0.25 * q.y };
+}
+
+/** Uma ramificação do ponto no mapa: pessoa, organização (nó da teia) ou fonte (link) ligada ao caso. */
+export interface RamoDoCaso {
+  tipo: "pessoa" | "organizacao" | "fonte";
+  /** Chave do nó (pessoa/organização) ou o link (fonte). */
+  chave: string;
+  rotulo: string;
+  confianca?: Confianca;
+}
+
+/** As ramificações de um caso no mapa (mesma lógica da teia): pessoas e organizações ligadas a ele, e as fontes numeradas com domínio. */
+export function ramosDoCaso(d: DadosDoObservatorio, g: Grafo, entradaId: string): RamoDoCaso[] {
+  const e = acharEntrada(d, entradaId);
+  if (!e) return [];
+  const ramos: RamoDoCaso[] = [];
+  // A mesma pessoa pode chegar por duas ligações (a implícita do caso e uma Ligacao com fonte): um ramo só, e a
+  // confiança mais forte vale.
+  const porChave = new Map<string, RamoDoCaso>();
+  for (const { aresta, outro } of vizinhos(g, chaveDe("entrada", entradaId))) {
+    if (outro.tipo !== "pessoa" && outro.tipo !== "organizacao") continue;
+    const ja = porChave.get(outro.chave);
+    if (ja) {
+      if (aresta.confianca === "primaria") ja.confianca = "primaria";
+      continue;
+    }
+    const ramo: RamoDoCaso = { tipo: outro.tipo, chave: outro.chave, rotulo: outro.rotulo, confianca: aresta.confianca };
+    porChave.set(outro.chave, ramo);
+    ramos.push(ramo);
+  }
+  e.fontes.forEach((f, i) => {
+    ramos.push({ tipo: "fonte", chave: f.url, rotulo: `${String(i + 1).padStart(2, "0")} · ${dominioDe(f.url) || f.veiculo}`, confianca: TIPOS_PRIMARIOS.includes(f.tipo) ? "primaria" : "reportado" });
+  });
+  return ramos;
 }
 
 /** Vizinhos de um nó (as arestas que o tocam, com o outro lado). */
