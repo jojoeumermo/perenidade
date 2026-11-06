@@ -159,12 +159,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
     dangerouslyAllowSVG: false,
   },
-  // O percurso mudou de nome (Despertar virou Consciência de classe): o endereço novo, impresso nos materiais, leva à
-  // mesma página, que continua em /despertar para não quebrar link nenhum já espalhado.
+  // O percurso mudou de nome (Despertar virou Consciência de classe) e agora o endereço também: a página mora em
+  // /consciencia-de-classe. O endereço antigo, já espalhado em materiais e conversas, leva ao novo para sempre (308),
+  // levando junto a âncora da etapa (#etapa) que o navegador mantém.
   async redirects() {
     return [
-      { source: "/:lang(pt|en|es|fr|ru|zh)/consciencia-de-classe", destination: "/:lang/despertar", permanent: false },
-      { source: "/consciencia-de-classe", destination: "/pt/despertar", permanent: false },
+      { source: "/:lang(pt|en|es|fr|ru|zh)/despertar", destination: "/:lang/consciencia-de-classe", permanent: true },
+      { source: "/despertar", destination: "/pt/consciencia-de-classe", permanent: true },
       // Os jogos saíram de Laboratórios e ganharam página própria (Etapa 5): o endereço antigo leva ao novo, para sempre (308).
       { source: "/:lang(pt|en|es|fr|ru|zh)/laboratorios/jogos", destination: "/:lang/jogos", permanent: true },
       { source: "/laboratorios/jogos", destination: "/pt/jogos", permanent: true },
