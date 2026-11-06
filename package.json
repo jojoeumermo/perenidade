@@ -118,6 +118,7 @@
     "testar:aula-viva": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-aula-viva.mjs",
     "legibilidade": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/legibilidade.mjs",
     "testar:privacidade": "node scripts/testar-privacidade.mjs",
+    "testar:jornal-prazo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-jornal-prazo.mjs",
     "testar:acesso": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-acesso.mjs",
     "testar:entrada": "playwright test --project=entrada",
     "testar:app-aparelho": "playwright test e2e/app-aparelho.spec.ts --project=computador",

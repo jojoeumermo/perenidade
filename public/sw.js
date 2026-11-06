@@ -164,6 +164,14 @@ async function primeiroARede(pedido) {
       clearTimeout(relogio);
       // Erro do servidor (5xx) com cópia guardada: a cópia vale mais que a página de erro.
       if (guardada && resposta.status >= 500) return guardada.resposta;
+      // 410 (removida): a página saiu do ar de propósito (por exemplo, uma matéria do Jornal com prazo, que sai na data
+      // de "sai_do_ar_em"). A cópia guardada some também, para não reaparecer sem internet. Os cursos guardados pela
+      // pessoa ficam, porque ela pediu para guardar.
+      if (guardada && resposta.status === 410 && guardada.nome !== CURSOS) {
+        const cache = await caches.open(guardada.nome);
+        await cache.delete(pedido.url, { ignoreSearch: true });
+        return resposta;
+      }
       if (resposta.ok && resposta.type === "basic") {
         // Se a página já mora na casca ou nos cursos, a cópia nova vai para o mesmo lugar (e fica fresca).
         const destino = guardada ? guardada.nome : PAGINAS;

@@ -3169,6 +3169,7 @@
     "updated": "Actualizado el {date}",
     "more": "Más noticias",
     "back": "Volver a la portada",
+    "expires": "Artículo con plazo: en línea hasta el {date} (hora de Brasilia). Después sale del sitio.",
     "round": "Ronda de noticias",
     "newsletter": {
       "title": "Recibe el periódico por correo",
