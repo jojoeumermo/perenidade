@@ -1056,7 +1056,7 @@ await espera("quem tem função já está no grupo do departamento e no da equip
   // B10: quem era do design agora é da Comunicação (marketing): o grupo "design" ficou como "Arte e design (Comunicação)".
   return JSON.stringify(deps) === JSON.stringify(["design", "geral", "jornalismo", "marketing"]);
 });
-await espera("a coordenação e a vice-coordenação estão em todos os treze grupos (com o da supervisão)", async () => [(await rpc(como(ids.coord), "chat_conversas")).filter((c) => c.tipo === "departamento").length, (await rpc(como(ids.vice), "chat_conversas")).filter((c) => c.tipo === "departamento").length], (r) => r[0] === 13 && r[1] === 13);
+await espera("a coordenação e a vice-coordenação estão em todos os dezoito grupos (com o da supervisão e os cinco de 20261106-pessoas-painel.sql)", async () => [(await rpc(como(ids.coord), "chat_conversas")).filter((c) => c.tipo === "departamento").length, (await rpc(como(ids.vice), "chat_conversas")).filter((c) => c.tipo === "departamento").length], (r) => r[0] === 18 && r[1] === 18);
 await espera("o grupo do jornalismo é o Departamento de Comunicação (jornal, rádio e podcast)", () => departamento("jornal", "jornalismo"), (r) => r?.nome === "Departamento de Comunicação");
 await recusa("ninguém sai do grupo do próprio departamento", async () => rpc(como(ids.designer), "chat_sair", { p_id: (await departamento("designer", "design")).id }), "departamento_fixo");
 await recusa("nem a coordenação põe ou tira gente do grupo de departamento", async () => rpc(como(ids.coord), "chat_grupo_mudar", { p_id: (await departamento("coord", "design")).id, p_tirar: [ids.designer] }), "departamento_fixo");
