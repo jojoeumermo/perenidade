@@ -4,7 +4,7 @@
 // só com ferramentas que existem, sem repetir, e os casos combinados (Trancista sem calculadora; IA no Python, sem
 // tabela-verdade nem estatística por padrão). Uso:
 // node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-caixa.mjs
-import { areaSlugs, tools } from "../lib/areas.ts";
+import { areaSlugs, groups, tools } from "../lib/areas.ts";
 import { caixaPorDisciplina, ferramentasDaCaixa } from "../lib/ferramentas/caixa.ts";
 
 let ok = 0;
@@ -25,7 +25,8 @@ conferir("nenhuma disciplina inventada no mapa", sobrando.length === 0, sobrando
 const trancista = ferramentasDaCaixa("trancista");
 conferir("Trancista sem calculadora científica", !trancista.includes("calculadora"), trancista.join(", "));
 conferir("Trancista com cronômetro", trancista.includes("cronometro"));
-for (const oficio of ["barbeiro", "costureira"]) conferir(`${oficio} sem calculadora científica`, !ferramentasDaCaixa(oficio).includes("calculadora"));
+conferir("Manicure entre os Ofícios", groups.find((g) => g.id === "oficios")?.areas.includes("manicure"));
+for (const oficio of ["barbeiro", "costureira", "manicure"]) conferir(`${oficio} sem calculadora científica`, !ferramentasDaCaixa(oficio).includes("calculadora"));
 
 const ia = ferramentasDaCaixa("inteligencia-artificial");
 conferir("IA abre no Python", ia[0] === "python", ia.join(", "));
