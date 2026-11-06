@@ -3133,9 +3133,8 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
     transform: translateX(-50%);
   }
 }
-/* Para ao passar o mouse, ao focar o botão e quando a pessoa aperta o botão de pausa. */
-.letreiro:hover .letreiro-trilho,
-.letreiro:focus-within .letreiro-trilho,
+/* Continua andando com o mouse por cima (pedido da coordenação, 05/11/2026); para só quando a pessoa aperta o botão de
+   pausa (WCAG 2.2.2), e nem anda para quem pede menos movimento ou está no modo leve (abaixo). */
 .letreiro[data-parado] .letreiro-trilho {
   animation-play-state: paused;
 }

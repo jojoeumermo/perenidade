@@ -259,12 +259,12 @@ self.addEventListener("message", (evento) => {
 // O conteúdo do aviso é só {n, l}: quantos avisos e o idioma. Nunca o texto de um post. Toda notificação recebida é mostrada
 // (exigência do navegador) e toca na tela de Avisos da Rede.
 const TEXTOS_AVISO = {
-  pt: ["Rede Lúcia", (n) => (n === 1 ? "Você tem 1 aviso na Rede." : n > 1 ? `Você tem ${n} avisos na Rede.` : "Você tem avisos novos na Rede.")],
-  en: ["Lúcia Network", (n) => (n === 1 ? "You have 1 notification on the Network." : n > 1 ? `You have ${n} notifications on the Network.` : "You have new notifications on the Network.")],
-  es: ["Red Lúcia", (n) => (n === 1 ? "Tienes 1 aviso en la Red." : n > 1 ? `Tienes ${n} avisos en la Red.` : "Tienes avisos nuevos en la Red.")],
-  fr: ["Réseau Lúcia", (n) => (n === 1 ? "Vous avez 1 notification sur le Réseau." : n > 1 ? `Vous avez ${n} notifications sur le Réseau.` : "Vous avez de nouvelles notifications sur le Réseau.")],
-  ru: ["Сеть Лусии", (n) => (n > 0 ? `У вас уведомлений в Сети: ${n}.` : "У вас новые уведомления в Сети.")],
-  zh: ["露西亚网络", (n) => (n > 0 ? `你在网络上有 ${n} 条通知。` : "你在网络上有新通知。")],
+  pt: ["Alumia", (n) => (n === 1 ? "Você tem 1 aviso na Alumia." : n > 1 ? `Você tem ${n} avisos na Alumia.` : "Você tem avisos novos na Alumia.")],
+  en: ["Alumia", (n) => (n === 1 ? "You have 1 notification on Alumia." : n > 1 ? `You have ${n} notifications on Alumia.` : "You have new notifications on Alumia.")],
+  es: ["Alumia", (n) => (n === 1 ? "Tienes 1 aviso en Alumia." : n > 1 ? `Tienes ${n} avisos en Alumia.` : "Tienes avisos nuevos en Alumia.")],
+  fr: ["Alumia", (n) => (n === 1 ? "Vous avez 1 notification sur Alumia." : n > 1 ? `Vous avez ${n} notifications sur Alumia.` : "Vous avez de nouvelles notifications sur Alumia.")],
+  ru: ["Alumia", (n) => (n > 0 ? `У вас уведомлений в Alumia: ${n}.` : "У вас новые уведомления в Alumia.")],
+  zh: ["Alumia", (n) => (n > 0 ? `你在 Alumia 上有 ${n} 条通知。` : "你在 Alumia 上有新通知。")],
 };
 
 self.addEventListener("push", (evento) => {

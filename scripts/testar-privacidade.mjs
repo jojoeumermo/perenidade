@@ -14,7 +14,7 @@ const ok = (nome, cond) => (cond ? certos++ : falhas.push(nome));
 const tem = (nome, re) => ok(nome, re.test(t));
 
 const titulos = t.split("\n").filter((l) => /^## /.test(l));
-for (const h of ["Se você só estuda", "Os serviços que mantêm o site no ar", "Se você envia algo sem ter conta", "Rede Lúcia (a comunidade renovada)", "Se você é da equipe de voluntários", "Com que base a lei permite isso", "Seus direitos"])
+for (const h of ["Se você só estuda", "Os serviços que mantêm o site no ar", "Se você envia algo sem ter conta", "Alumia (a comunidade renovada)", "Se você é da equipe de voluntários", "Com que base a lei permite isso", "Seus direitos"])
   ok(`título "${h}"`, titulos.includes(`## ${h}`));
 
 tem("data de atualização", /Atualizada em 5 de novembro de 2026/);

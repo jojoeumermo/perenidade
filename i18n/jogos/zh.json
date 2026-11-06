@@ -10,7 +10,16 @@
     "irCriancas": "儿童音乐",
     "irFormacao": "培训游戏",
     "aviso": "词语游戏使用研究所的词汇表，内容为葡萄牙语。",
-    "irProprios": "学院自制游戏"
+    "irProprios": "学院自制游戏",
+    "destaque": "推荐",
+    "jogar": "开始玩",
+    "todos": "全部",
+    "quantos": "{n} 个游戏",
+    "umJogador": "1 人",
+    "umOuDois": "1 或 2 人",
+    "noSeuTempo": "按自己的节奏",
+    "categorias": "游戏分类",
+    "incluiTambem": "还包括"
   },
   "treino": {
     "titulo": "词语练习",

@@ -1,0 +1,116 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/* O lambe-lambe da inicial colado na parede (components/inicio/LambeDoDia.tsx; pedido da coordenação, 05/11/2026).
+   O desenho do cartaz (as cores do dia, a Anton, a medida do grito) continua em app/globals.css; aqui fica só o que faz
+   dele papel colado com grude: a fibra do papel, as rugas da cola, as bordas gastas e rasgadas, a leve torção, a sombra
+   rente de papel na parede e as duas fitas crepe (uma no canto de cima à esquerda, outra no de baixo à direita).
+   Tudo em CSS, sem imagem de fora. Com alto contraste, papel eletrônico e modo leitura, volta ao quadro simples. */
+
+/* O cartaz inteiro torto, como quem colou com pressa, e a sombra rente (papel colado não flutua: a sombra é curta e
+   macia, seguindo o recorte rasgado). */
+.lambe-cartaz {
+  transform: rotate(-1.4deg);
+  filter: drop-shadow(0 1px 0.5px rgba(20, 14, 8, 0.35)) drop-shadow(2px 5px 7px rgba(20, 14, 8, 0.22));
+}
+
+/* No escuro, o cartaz de tinta tem quase o tom da parede, e o fio claro de globals.css (outline) some sob o recorte
+   rasgado: um halo fino e claro, que segue o rasgo, separa o papel da parede. */
+@media screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .lambe-cartaz.lambe-tinta {
+    filter: drop-shadow(0 0 0.6px rgba(233, 220, 188, 0.7)) drop-shadow(2px 5px 7px rgba(0, 0, 0, 0.45));
+  }
+}
+@media screen {
+  :root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz.lambe-tinta {
+    filter: drop-shadow(0 0 0.6px rgba(233, 220, 188, 0.7)) drop-shadow(2px 5px 7px rgba(0, 0, 0, 0.45));
+  }
+}
+
+/* O papel: sem a moldura preta e sem a projeção dura do desenho de antes; as bordas rasgadas à mão (o recorte tem
+   um rasgo no alto e a ponta de baixo à esquerda arrancada, como cartaz que já pegou chuva e mão de quem passa). */
+.lambe-cartaz .lambe-papel {
+  border: 0;
+  box-shadow: none;
+  isolation: isolate;
+  clip-path: polygon(
+    0% 2px, 6.3% 2.2px, 12.5% 0.5px, 18.8% 1px, 25% 1.8px, 31.3% 2px, 37.5% 0.3px, 43.8% 3.5px, 50% 2.4px, 56.3% 1.6px,
+    59.5% 1px, 61% 9px, 62.2% 3px, 63.5% 1.1px, 68.8% 3.1px, 75% 2.6px, 81.3% 0.3px, 87.5% 2px, 93.8% 0.9px, 100% 2.7px,
+    calc(100% - 0.6px) 6.3%, calc(100% - 2.2px) 12.5%, calc(100% - 1.9px) 18.8%, calc(100% - 0.7px) 25%,
+    calc(100% - 0.2px) 31.3%, calc(100% - 3.8px) 37.5%, calc(100% - 3.9px) 43.8%, calc(100% - 0.5px) 50%,
+    calc(100% - 1.8px) 56.3%, calc(100% - 3.8px) 62.5%, calc(100% - 0.8px) 68.8%, calc(100% - 1.7px) 75%,
+    calc(100% - 2.2px) 81.3%, calc(100% - 2.7px) 87.5%, calc(100% - 1.1px) 93.8%, calc(100% - 0.7px) 100%,
+    93.8% calc(100% - 4.4px), 87.5% calc(100% - 2px), 81.3% calc(100% - 1px), 75% calc(100% - 2.5px),
+    68.8% calc(100% - 1.5px), 62.5% calc(100% - 0.7px), 56.3% calc(100% - 3.5px), 50% calc(100% - 1.6px),
+    43.8% calc(100% - 1.6px), 37.5% calc(100% - 0.4px), 31.3% calc(100% - 4.2px), 25% calc(100% - 1.1px),
+    18.8% calc(100% - 4px), 12.5% calc(100% - 2.1px), 9% calc(100% - 1.4px), 6.5% calc(100% - 9px),
+    3.4% calc(100% - 13px), 1.2% calc(100% - 21px), 0.4px calc(100% - 26px), 1.6px 93.8%, 3px 87.5%, 2.6px 81.3%,
+    0.5px 75%, 0.9px 68.8%, 1.8px 62.5%, 0.4px 56.3%, 0.2px 50%, 1.6px 43.8%, 2.7px 37.5%, 2.6px 31.3%, 3.8px 25%,
+    1.3px 18.8%, 1.8px 12.5%, 2px 6.3%
+  );
+}
+
+/* A fibra do papel e as rugas da cola por cima da tinta: o grão (ruído desenhado em SVG, aqui mesmo), dois vincos
+   claros e um escuro onde o grude secou torto, e uma bolha de cola. Fica por cima do texto, bem de leve, como a tinta
+   que entrou no papel. */
+.lambe-cartaz .lambe-papel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 22% 9% at 24% 71%, rgba(255, 255, 255, 0.1), transparent 70%),
+    linear-gradient(101deg, transparent 31%, rgba(255, 255, 255, 0.09) 32.2%, transparent 33.6%),
+    linear-gradient(84deg, transparent 63%, rgba(0, 0, 0, 0.09) 64.3%, transparent 65.4%),
+    linear-gradient(176deg, transparent 44%, rgba(255, 255, 255, 0.07) 45%, transparent 46.4%),
+    linear-gradient(8deg, transparent 18%, rgba(0, 0, 0, 0.06) 19%, transparent 20.2%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.45 0 0 0 0 0.38 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23f)'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  opacity: 0.9;
+}
+
+/* As bordas gastas: o papel escurece e desbota na beira, onde a chuva e o sol pegam primeiro. */
+.lambe-cartaz .lambe-papel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 248, 234, 0.12),
+    inset 0 0 22px rgba(20, 14, 8, 0.32),
+    inset 0 -30px 40px -30px rgba(20, 14, 8, 0.25);
+}
+
+/* A tinta do grito um pouco borrada no papel, como impressão de gráfica popular. */
+.lambe-cartaz .lambe-grito {
+  text-shadow: 0.6px 0.4px 0 rgba(20, 14, 8, 0.18);
+}
+
+/* As fitas crepe, atravessadas no canto (o lugar delas vem do componente). */
+.lambe-cartaz .lambe-crepe {
+  z-index: 2;
+}
+
+/* Alto contraste, papel eletrônico e leitura: nada de torção, recorte, textura nem sombra (app/globals.css já tira a
+   fita e devolve o quadro simples). */
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz {
+  transform: none;
+  filter: none;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz .lambe-papel {
+  clip-path: none;
+  border: 2px solid var(--ink);
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz .lambe-papel::before,
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz .lambe-papel::after {
+  display: none;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz .lambe-grito {
+  text-shadow: none;
+}
+@media print {
+  .lambe-cartaz {
+    transform: none;
+    filter: none;
+  }
+}

@@ -704,6 +704,7 @@ O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente*
 | `2026-11-eixos-equipe.sql` | pesquisa anônima dos 12 eixos para a equipe, só agregado |
 | `2026-11-controles.sql`, `2026-11-backend-1.sql`, `2026-11-backend-2.sql` | Centro de controle, recursos vivos, operação, caixa de imprensa, resumo diário |
 | `2026-11-progresso-qr.sql` | progresso por QR: guarda por até 1 dia só o pacote já cifrado no aparelho (a chave nunca chega ao servidor); o pacote some ao ser lido (`docs/PROGRESSO-QR.md`) |
+| `2026-11-alumia.sql` | Alumia: o nome novo nos avisos e e-mails do banco, Salvos (`rede_alumia_salvos`) e a federação com o Fediverso (desligada por padrão; chaves privadas cifradas em `interno.rede_fed_atores`) (`docs/rede/FEDIVERSO.md`, `docs/rede/ALUMIA-DOMINIO.md`) |
 
 **Para rodar no Supabase:** SQL Editor, colar o `install.sql` inteiro e executar (ou, só para a Rede, as dez migrações `rede-*` em ordem). **Antes de produção, rode num projeto Supabase de teste**: o banco local (PGlite) não cobre `auth.mfa_factors`, `auth.sessions`, `pg_cron` nem `pg_net`, e nenhuma das migrações novas foi provada num Supabase de verdade. Crie índice grande (GIN da busca e das hashtags da Rede) em horário calmo.
 
@@ -741,7 +742,7 @@ Rotina que depende de segredo ou variável fica **pulada** (sem gastar minutos) 
 | --- | --- | --- |
 | Jogos (`/jogos`) | `app/[lang]/jogos/page.tsx`, `components/jogos/`, `i18n/jogos/` | `docs/jogos/PAGINA.md`, `docs/JOGOS-PROPRIOS-2.md`, `docs/RUMOS-BARALHOS.md` |
 | Vale o Escrito | `app/[lang]/vale-o-escrito/`, `components/vale-o-escrito/`, `lib/vale-o-escrito/`, `content/vale-o-escrito/`, `styles/vale-o-escrito.css`, `scripts/vale-o-escrito/` | `docs/vale-o-escrito/` |
-| Rede Lúcia v2 | `app/[lang]/comunidade/`, `components/rede/`, `lib/rede/`, `i18n/rede/`, `app/api/rede/` | `docs/rede/` |
+| Alumia (Rede v2) e Fediverso | `app/[lang]/comunidade/`, `components/rede/`, `lib/rede/`, `i18n/rede/`, `app/api/rede/`, `app/api/fediverso/`, `app/.well-known/`, `proxy.ts` (endereço próprio) | `docs/rede/` (`ALUMIA-DOMINIO.md`, `FEDIVERSO.md`) |
 | Territórios | `content/territorios.json`, `components/territorios/`, `lib/territorios-identidades.ts` | `docs/TERRITORIOS.md` |
 | Imprensa | `app/[lang]/imprensa/`, caixa no painel | `docs/backend-2.md` |
 | Laboratórios abertos de fora | `content/labs-externos/catalogo.json`, `components/labs/LabsExternos.tsx`, cópias em `public/labs/` | `docs/LABS-EXTERNOS.md` |

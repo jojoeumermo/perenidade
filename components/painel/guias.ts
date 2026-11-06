@@ -169,7 +169,7 @@ export const GUIAS: Record<string, Guia> = {
     dica: "Ninguém aprova o próprio envio. Parecer bom é curto, gentil e diz o que fazer.",
   },
   "rede-propostas": {
-    paraQue: "Decidir quais comunidades novas nascem na Rede Lúcia: só por proposta, e a coordenação tem a palavra.",
+    paraQue: "Decidir quais comunidades novas nascem na Alumia: só por proposta, e a coordenação tem a palavra.",
     passos: [
       { titulo: "Leia a proposta", texto: "Cada proposta traz o endereço, o objetivo, as regras e os dois moderadores indicados (só codinomes). A comunidade tem de ter um propósito claro e que cuide de quem participa." },
       { titulo: "Confira os moderadores", texto: "São pessoas da Rede que concordaram em cuidar do espaço. Elas recebem um aviso quando a proposta é aprovada e podem sair quando quiserem." },

@@ -4,6 +4,7 @@
 import { useSyncExternalStore } from "react";
 import { type Formato, type LambeDoDia as Dia, diaDe } from "@/lib/lambe-do-dia";
 import { useI18n } from "@/components/I18n";
+import "@/styles/lambe-do-dia.css";
 
 const nunca = () => () => {};
 
@@ -34,8 +35,9 @@ const PAPEL: Record<Formato, "vermelho" | "anil" | "mata" | "ipe" | "tinta"> = {
 /**
  * O lambe-lambe do dia, o mesmo para todo mundo na mesma data, no desenho do cartaz de gráfica popular: reto, sem
  * carimbo, a letra de madeira condensada (Anton) e duas cores por cartaz. O papel muda com o tom do texto. Colado na
- * parede: a projeção dura atrás do papel e duas tiras de fita crepe no alto. No pé, como em cartaz de poste, o endereço
- * e a tiragem (os números do acervo).
+ * parede (styles/lambe-do-dia.css, 05/11/2026): papel com fibra e rugas de cola, bordas gastas e rasgadas, um pouco torto,
+ * a sombra rente de papel colado e duas fitas crepe, uma no canto de cima à esquerda e outra no de baixo à direita. No pé,
+ * como em cartaz de poste, o endereço e a tiragem (os números do acervo).
  */
 export function LambeDoDia({ dias, rotulo, tiragem, reserva }: { dias: Dia[]; rotulo: string; tiragem: string; reserva: string[] }) {
   const { lang } = useI18n();
@@ -75,9 +77,10 @@ export function LambeDoDia({ dias, rotulo, tiragem, reserva }: { dias: Dia[]; ro
           <span className="mt-1 block">{tiragem}</span>
         </p>
       </div>
-      {/* As duas tiras de fita crepe que seguram o cartaz na parede, tortas como quem colou com pressa. */}
-      <span aria-hidden className="lambe-crepe absolute -top-3 left-6 h-6 w-[4.5rem] -rotate-[7deg]" />
-      <span aria-hidden className="lambe-crepe absolute -top-3 right-6 h-6 w-[4.5rem] rotate-[5deg]" />
+      {/* As duas tiras de fita crepe que seguram o cartaz na parede, atravessadas nas pontas: a de cima no canto
+          esquerdo, a de baixo no canto direito. */}
+      <span aria-hidden className="lambe-crepe absolute -top-1.5 -left-6 h-7 w-[5.5rem] -rotate-[38deg]" />
+      <span aria-hidden className="lambe-crepe absolute -right-6 -bottom-1.5 h-7 w-[5.5rem] -rotate-[38deg]" />
     </figure>
   );
 }

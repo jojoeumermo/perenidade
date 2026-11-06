@@ -17,7 +17,8 @@ interface Props {
 /**
  * O letreiro: os temas do território passando como faixa de evento (marquee acessível).
  *  - O leitor de tela lê a lista uma vez só (a lista escondida); as cópias que giram ficam aria-hidden.
- *  - Para ao passar o mouse, ao focar (Tab no botão) e no botão de pausa (WCAG 2.2.2, "Pausar, parar, ocultar").
+ *  - Continua andando com o mouse por cima e com o foco no botão; para só no botão de pausa (WCAG 2.2.2, "Pausar,
+ *    parar, ocultar"), que fica sempre à vista enquanto a faixa anda.
  *  - Para quem pede menos movimento (prefers-reduced-motion) ou está no modo leve, a faixa não anda e os temas quebram
  *    de linha (globals.css, .letreiro); o botão some, porque não há o que pausar.
  */

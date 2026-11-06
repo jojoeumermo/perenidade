@@ -80,15 +80,35 @@ ok("letreiro: lista para leitor de tela, cópias aria-hidden, botão de pausa", 
   assert.match(l, /aria-hidden/);
   assert.match(l, /aria-pressed/);
   const css = ler("app", "globals.css");
-  assert.match(css, /\.letreiro:hover \.letreiro-trilho/);
-  assert.match(css, /\.letreiro:focus-within \.letreiro-trilho/);
+  // Com o mouse por cima a faixa continua andando (05/11/2026); só o botão para (WCAG 2.2.2).
+  assert.doesNotMatch(css, /\.letreiro:hover \.letreiro-trilho/);
+  assert.doesNotMatch(css, /\.letreiro:focus-within \.letreiro-trilho/);
+  assert.match(css, /\.letreiro\[data-parado\] \.letreiro-trilho \{\s*animation-play-state: paused/);
   assert.match(css, /prefers-reduced-motion: reduce\) \{\s*\.letreiro-trilho/);
 });
 
-ok("todas as páginas de território usam o letreiro", () => {
+ok("o letreiro anda dentro dos territórios e saiu da abertura de /territorios", () => {
   assert.match(ler("app", "[lang]", "territorios", "[slug]", "page.tsx"), /<Letreiro /);
   assert.match(ler("components", "territorios", "PaginaDoColetivo.tsx"), /<Letreiro/);
-  assert.match(ler("app", "[lang]", "territorios", "page.tsx"), /<Letreiro /);
+  assert.doesNotMatch(ler("app", "[lang]", "territorios", "page.tsx"), /<Letreiro/);
+});
+
+ok("NoizOcupa e Kamikaze preenchidos com o perfil: imagens existem, em WebP, com texto alternativo e crédito", () => {
+  for (const slug of ["noizocupa", "coletivo-kamikaze"]) {
+    const t = por(slug);
+    const fotos = [t.capa, ...(t.galeria?.fotos ?? []), ...(t.campanhas ?? []).flatMap((c) => c.fotos)].filter(Boolean);
+    assert.ok(fotos.length >= 3, `${slug}: poucas imagens`);
+    for (const f of fotos) {
+      assert.match(f.src, new RegExp(`^/territorios/${slug}/[a-z0-9-]+\\.webp$`), f.src);
+      assert.ok(fs.existsSync(path.join(raiz, "public", f.src)), f.src);
+      assert.ok(fs.statSync(path.join(raiz, "public", f.src)).size < 300_000, `${f.src} grande demais`);
+      assert.ok(f.alt && f.alt.length > 10, `${f.src} sem alt`);
+    }
+    assert.match(t.credito, new RegExp(`@${t.instagram} no Instagram, uso autorizado pelo coletivo`));
+    for (const m of t.marcos.itens) if (m.post) assert.match(m.post, /^[A-Za-z0-9_-]{6,20}$/);
+    const video = path.join(raiz, "public", "territorios", slug, "anuncio.mp4");
+    if (fs.existsSync(video)) assert.ok(fs.statSync(video).size <= 20 * 1024 * 1024, `${slug}: vídeo acima de 20 MB`);
+  }
 });
 
 console.log(`${n} testes passaram`);

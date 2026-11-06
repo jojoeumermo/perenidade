@@ -1,7 +1,11 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
+
+/** Um milímetro em pixels de CSS (96 por polegada). */
+const PX_POR_MM = 96 / 25.4;
 
 /**
  * O kit de agitação do divulgador, no desenho dos lambe-lambes do site: cartazes A4 e A3, lambe de rua, cartaz de evento
@@ -62,6 +66,13 @@ const mono = "'IBM Plex Mono', ui-monospace, monospace";
 const serif = "'EB Garamond', Georgia, serif";
 // A letra de cartaz do site (condensada e pesada), a mesma dos lambes: no estilo dos cartazes revolucionários.
 const grito = "var(--font-cartaz), 'Arial Narrow', Impact, Inter, system-ui, sans-serif";
+// A Anton só tem o peso 400 e é alta: com peso 900 o navegador engrossava a letra por cima (as palavras grudavam) e, com
+// entrelinha abaixo de 1, uma linha invadia a outra. Por isso os gritos usam peso 400, entrelinha 1.06 e espaço neutro.
+/**
+ * A faixa de destaque de uma palavra do grito ("povo.", "gente", "é nossa."): uma caixa própria (inline-block), com a
+ * altura da letra, que empurra a linha em vez de cobrir a de baixo.
+ */
+const destaque = (fundo: string, cor: string): React.CSSProperties => ({ background: fundo, color: cor, display: "inline-block", lineHeight: 1, padding: "0.07em 0.14em 0.01em", marginTop: "0.05em" });
 
 function Estrela({ cor, tamanho }: { cor: string; tamanho: string }) {
   return (
@@ -138,18 +149,18 @@ function Lambe({ c, modo, qr, u }: { c: Cores; modo: Modo; qr: string; u: number
     <div style={{ width: mm(210), height: mm(297), background: c.papel, color: c.texto, display: "flex", flexDirection: "column", boxSizing: "border-box", border: `${mm(1.5)} solid ${c.linha}`, fontFamily: serif, position: "relative", overflow: "hidden" }}>
       <div style={{ background: modo === "tinta" ? "#fff" : c.preto, color: modo === "tinta" ? "#000" : "#F4ECD8", padding: `${mm(14)} ${mm(14)} ${mm(12)}`, borderBottom: `${mm(1.5)} solid ${c.linha}` }}>
         <p style={{ fontFamily: mono, fontSize: mm(4.2), letterSpacing: "0.28em", margin: 0, color: modo === "tinta" ? "#000" : "#E0837A" }}>LAMBE-LAMBE Nº 1 · EDUCAÇÃO POPULAR</p>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", letterSpacing: "-0.02em", lineHeight: 0.9, fontSize: mm(29), margin: `${mm(6)} 0 0` }}>
+        <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", letterSpacing: "0.01em", lineHeight: 1.06, fontSize: mm(29), margin: `${mm(6)} 0 0` }}>
           O saber
           <br />é do
           <br />
-          <span style={{ background: modo === "tinta" ? "#000" : "#F4ECD8", color: modo === "tinta" ? "#fff" : "#C21F16", padding: `0 ${mm(3)}` }}>povo.</span>
+          <span style={destaque(modo === "tinta" ? "#000" : "#F4ECD8", modo === "tinta" ? "#fff" : "#C21F16")}>povo.</span>
         </p>
       </div>
       <div style={{ padding: `${mm(10)} ${mm(14)} 0`, flex: 1 }}>
-        <p style={{ fontSize: mm(7.5), lineHeight: 1.2, margin: 0 }}>Uma escola e uma biblioteca livres, feitas por voluntários. Estude no celular ou no computador, no seu tempo.</p>
-        <ul style={{ listStyle: "none", padding: 0, margin: `${mm(7)} 0 0`, display: "grid", gap: mm(3) }}>
+        <p style={{ fontSize: mm(8), lineHeight: 1.22, margin: 0 }}>Uma escola e uma biblioteca livres, feitas por voluntários. Estude no celular ou no computador, no seu tempo.</p>
+        <ul style={{ listStyle: "none", padding: 0, margin: `${mm(8)} 0 0`, display: "grid", gap: mm(4.5) }}>
           {OFERTA.map(([t, d]) => (
-            <li key={t} style={{ display: "flex", gap: mm(3), alignItems: "baseline", fontSize: mm(5.4), lineHeight: 1.2 }}>
+            <li key={t} style={{ display: "flex", gap: mm(3), alignItems: "baseline", fontSize: mm(6.2), lineHeight: 1.22 }}>
               <Estrela cor={c.prelo} tamanho={mm(4.5)} />
               <span><strong>{t}:</strong> {d}</span>
             </li>
@@ -182,7 +193,7 @@ function Raios({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
         </div>
         <div style={{ position: "relative", padding: mm(14), color: "#fff" }}>
           <p style={{ fontFamily: mono, fontSize: mm(4.2), letterSpacing: "0.26em", margin: 0, background: tinta ? "#000" : "transparent", display: "inline-block", padding: tinta ? mm(1.5) : 0 }}>INSTITUTO LÚCIA · DE GRAÇA</p>
-          <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.88, letterSpacing: "-0.02em", fontSize: mm(33), margin: `${mm(8)} 0 0`, background: tinta ? "#000" : "transparent", display: "inline-block", padding: tinta ? mm(2) : 0 }}>
+          <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(33), margin: `${mm(8)} 0 0`, background: tinta ? "#000" : "transparent", display: "inline-block", padding: tinta ? mm(2) : 0 }}>
             Estude
             <br />
             de graça.
@@ -239,7 +250,7 @@ function Faixa({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
     <div style={{ width: "297mm", height: "210mm", boxSizing: "border-box", border: `1.5mm solid ${c.linha}`, display: "grid", gridTemplateRows: "1fr auto", background: tinta ? "#fff" : "#C21F16", color: tinta ? "#000" : "#fff", fontFamily: grito }}>
       <div style={{ display: "flex", alignItems: "center", gap: "10mm", padding: "0 14mm" }}>
         <Estrela cor={tinta ? "#000" : "#1F1A14"} tamanho="62mm" />
-        <p style={{ fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.86, letterSpacing: "-0.02em", fontSize: "34mm", margin: 0 }}>
+        <p style={{ fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: "34mm", margin: 0 }}>
           O saber
           <br />é do povo
         </p>
@@ -267,19 +278,19 @@ function Folheto({ c, modo, qr, email }: { c: Cores; modo: Modo; qr: string; ema
           <Marca tamanho="10mm" modo={modo} />
           <strong style={{ fontSize: "6.5mm" }}>Instituto Lúcia</strong>
         </div>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.92, letterSpacing: "-0.02em", fontSize: "11mm", margin: "5mm 0 0" }}>Uma escola aberta, no seu celular.</p>
+        <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: "11mm", margin: "5mm 0 0" }}>Uma escola aberta, no seu celular.</p>
       </div>
       <div style={{ padding: "8mm 9mm 0", flex: 1 }}>
-        <p style={{ fontSize: "4.3mm", lineHeight: 1.35, margin: 0 }}>Educação popular mantida por voluntários, sem fins lucrativos e sem anúncios. Tudo é livre para estudar, imprimir e levar para a sala de aula.</p>
-        <ul style={{ listStyle: "none", padding: 0, margin: "5mm 0", display: "grid", gap: "2mm" }}>
+        <p style={{ fontSize: "4.7mm", lineHeight: 1.35, margin: 0 }}>Educação popular mantida por voluntários, sem fins lucrativos e sem anúncios. Tudo é livre para estudar, imprimir e levar para a sala de aula.</p>
+        <ul style={{ listStyle: "none", padding: 0, margin: "6mm 0", display: "grid", gap: "2.6mm" }}>
           {[...OFERTA, ["Sala livre", "para professores montarem e projetarem a aula"]].map(([t, d]) => (
-            <li key={t} style={{ display: "flex", gap: "2mm", fontSize: "4mm", lineHeight: 1.3 }}>
+            <li key={t} style={{ display: "flex", gap: "2mm", fontSize: "4.4mm", lineHeight: 1.3 }}>
               <Estrela cor={c.prelo} tamanho="3.4mm" />
               <span><strong>{t}:</strong> {d}.</span>
             </li>
           ))}
         </ul>
-        <p style={{ fontSize: "4mm", lineHeight: 1.35, margin: 0 }}><strong>Como começar:</strong> abra o site, escolha uma disciplina e comece pela primeira aula. Não precisa criar conta.</p>
+        <p style={{ fontSize: "4.4mm", lineHeight: 1.35, margin: 0 }}><strong>Como começar:</strong> abra o site, escolha uma disciplina e comece pela primeira aula. Não precisa criar conta.</p>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "5mm", borderTop: `0.6mm solid ${c.linha}`, padding: "6mm 9mm" }}>
         <div style={{ background: "#fff", padding: "1mm" }}>
@@ -303,15 +314,15 @@ function Voluntario({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
   return (
     <div style={{ width: "148mm", height: "210mm", boxSizing: "border-box", border: `1mm solid ${c.linha}`, background: tinta ? "#fff" : "#C21F16", color: tinta ? "#000" : "#fff", fontFamily: serif, display: "flex", flexDirection: "column", padding: "10mm" }}>
       <p style={{ fontFamily: mono, fontSize: "3.6mm", letterSpacing: "0.24em", margin: 0 }}>★ O INSTITUTO LÚCIA CHAMA</p>
-      <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.9, letterSpacing: "-0.02em", fontSize: "17mm", margin: "5mm 0 0" }}>
+      <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: "22mm", margin: "6mm 0 0" }}>
         Vem fazer
         <br />
-        <span style={{ background: tinta ? "#000" : "#1F1A14", color: "#F4ECD8", padding: "0 2mm" }}>junto.</span>
+        <span style={destaque(tinta ? "#000" : "#1F1A14", "#F4ECD8")}>junto.</span>
       </p>
-      <p style={{ fontSize: "4.6mm", lineHeight: 1.3, margin: "6mm 0 0" }}>Sabe explicar alguma coisa? Escreve bem, desenha, grava, traduz? O instituto é feito por quem usa, no tempo de cada um, sem chefe e sem horário.</p>
-      <ul style={{ listStyle: "none", padding: 0, margin: "5mm 0 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2mm 4mm" }}>
+      <p style={{ fontSize: "5.2mm", lineHeight: 1.32, margin: "7mm 0 0" }}>Sabe explicar alguma coisa? Escreve bem, desenha, grava, traduz? O instituto é feito por quem usa, no tempo de cada um, sem chefe e sem horário.</p>
+      <ul style={{ listStyle: "none", padding: 0, margin: "7mm 0 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3.5mm 4mm" }}>
         {funcoes.map((f) => (
-          <li key={f} style={{ display: "flex", gap: "1.8mm", fontSize: "3.9mm", lineHeight: 1.25 }}>
+          <li key={f} style={{ display: "flex", gap: "1.8mm", fontSize: "4.6mm", lineHeight: 1.25 }}>
             <Estrela cor={tinta ? "#000" : "#F4ECD8"} tamanho="3.2mm" />
             {f}
           </li>
@@ -340,8 +351,8 @@ function PainelDoZine({ p, c, modo, qr, invertido }: { p: PainelDeZine; c: Cores
   return (
     <div style={{ width: "74.25mm", height: "105mm", boxSizing: "border-box", padding: "6mm", border: `0.3mm dashed ${c.linha}`, transform: invertido ? "rotate(180deg)" : undefined, display: "flex", flexDirection: "column", gap: "3mm", background: escuro ? "#1F1A14" : undefined, color: escuro ? "#F4ECD8" : undefined }}>
       {p.capa && <Marca tamanho="14mm" modo={modo} />}
-      <strong style={{ fontFamily: p.capa ? grito : serif, fontStyle: p.capa ? "italic" : undefined, fontWeight: p.capa ? 900 : 700, textTransform: p.capa ? "uppercase" : undefined, fontSize: p.capa ? "9mm" : "6.5mm", lineHeight: 1, color: p.capa ? undefined : c.prelo }}>{p.titulo}</strong>
-      <p style={{ fontSize: "4mm", lineHeight: 1.3, margin: 0 }}>{p.texto}</p>
+      <strong style={{ fontFamily: p.capa ? grito : serif, fontStyle: p.capa ? "italic" : undefined, fontWeight: p.capa ? 400 : 700, textTransform: p.capa ? "uppercase" : undefined, fontSize: p.capa ? "10mm" : "7.5mm", lineHeight: 1.06, color: p.capa ? undefined : c.prelo }}>{p.titulo}</strong>
+      <p style={{ fontSize: p.capa ? "4.4mm" : "5mm", lineHeight: 1.32, margin: 0 }}>{p.texto}</p>
       {p.qr && (
         <div style={{ marginTop: "auto", background: "#fff", padding: "1mm", alignSelf: "flex-start" }}>
           <Qr svg={qr} cor="#000000" tamanho="34mm" />
@@ -386,7 +397,7 @@ function Cartoes({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
           <div>
             <Marca tamanho="9mm" modo={modo} />
             <p style={{ fontSize: "5mm", fontWeight: 700, margin: "1mm 0", lineHeight: 1.05 }}>Instituto Lúcia</p>
-            <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", fontSize: "3.6mm", margin: 0, color: c.prelo }}>O saber é do povo</p>
+            <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", fontSize: "3.6mm", margin: 0, color: c.prelo }}>O saber é do povo</p>
             <p style={{ fontFamily: mono, fontSize: "3mm", margin: "2mm 0 0" }}>institutolucia.org</p>
             <p style={{ margin: "1mm 0 0" }}><Insta cor={c.texto} tamanho={2.7} mm={(n) => `${n}mm`} /></p>
           </div>
@@ -406,7 +417,7 @@ function Adesivos({ c, modo }: { c: Cores; modo: Modo }) {
         return (
           <div key={i} style={{ width: "60mm", height: "60mm", borderRadius: "50%", border: `0.8mm solid ${c.linha}`, background: vermelho ? "#C21F16" : tinta ? "#fff" : c.preto, color: tinta ? "#000" : "#F4ECD8", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", fontFamily: grito, boxSizing: "border-box" }}>
             <Estrela cor={vermelho ? "#1F1A14" : tinta ? "#000" : "#C21F16"} tamanho="16mm" />
-            <p style={{ fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.9, fontSize: "7.5mm", margin: "2mm 0 0" }}>O saber
+            <p style={{ fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, fontSize: "7.5mm", margin: "2mm 0 0" }}>O saber
               <br />é do povo</p>
             <p style={{ fontFamily: mono, fontSize: "2.8mm", margin: "2mm 0 0", letterSpacing: "0.04em" }}>institutolucia.org</p>
             <p style={{ fontFamily: mono, fontSize: "2.6mm", fontWeight: 600, margin: "0.8mm 0 0" }}>{INSTA}</p>
@@ -427,7 +438,7 @@ function Marcadores({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
           <Marca tamanho="16mm" modo={modo} />
           <p style={{ fontSize: "4mm", fontWeight: 600, margin: "2mm 0 0" }}>Instituto Lúcia</p>
           <Estrela cor={c.prelo} tamanho="6mm" />
-          <p style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", fontSize: "8mm", lineHeight: 1, margin: "6mm 0", flex: 1 }}>{frase}</p>
+          <p style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", fontSize: "8mm", lineHeight: 1, margin: "6mm 0", flex: 1 }}>{frase}</p>
           <div style={{ background: "#fff", padding: "1mm" }}>
             <Qr svg={qr} cor="#000000" tamanho="22mm" />
           </div>
@@ -467,9 +478,9 @@ function CartazEvento({ c, modo, qr, ev }: { c: Cores; modo: Modo; qr: string; e
           <Estrela cor={tinta ? "#000" : "#1F1A14"} tamanho={mm(90)} />
         </div>
         <p style={{ position: "relative", fontFamily: mono, fontSize: mm(4.4), letterSpacing: "0.26em", margin: 0 }}>★ CONVITE ABERTO · DE GRAÇA</p>
-        <p style={{ position: "relative", fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.9, letterSpacing: "-0.02em", fontSize: mm(ev.titulo.length > 28 ? 17 : 23), margin: `${mm(8)} 0 0`, maxWidth: mm(160) }}>{ev.titulo || "Aula aberta"}</p>
+        <p style={{ position: "relative", fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(ev.titulo.length > 28 ? 17 : 23), margin: `${mm(8)} 0 0`, maxWidth: mm(160) }}>{ev.titulo || "Aula aberta"}</p>
       </div>
-      <div style={{ padding: `${mm(12)} ${mm(14)}`, display: "grid", gap: mm(7), flex: 1 }}>
+      <div style={{ padding: `${mm(12)} ${mm(14)}`, display: "grid", gap: mm(7), flex: 1, alignContent: "space-evenly" }}>
         {[
           ["QUANDO", ev.quando || "[dia e hora]"],
           ["ONDE", ev.onde || "[lugar, com endereço público]"],
@@ -497,17 +508,17 @@ function BocaDeFabrica({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
     <div style={{ width: mm(148), height: mm(210), boxSizing: "border-box", border: `${mm(1)} solid ${c.linha}`, background: c.papel, color: c.texto, fontFamily: serif, display: "flex", flexDirection: "column" }}>
       <div style={{ background: tinta ? "#fff" : c.preto, color: tinta ? "#000" : "#F4ECD8", padding: mm(8), borderBottom: `${mm(1)} solid ${c.linha}` }}>
         <p style={{ fontFamily: mono, fontSize: mm(3.3), letterSpacing: "0.22em", margin: 0, color: tinta ? "#000" : "#E0837A" }}>PARA QUEM ENTRA NO TURNO</p>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.92, letterSpacing: "-0.02em", fontSize: mm(12), margin: `${mm(3)} 0 0` }}>
+        <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(13.5), margin: `${mm(3)} 0 0` }}>
           Quantas horas
           <br />
           do seu dia são
           <br />
-          <span style={{ background: tinta ? "#000" : "#C21F16", color: "#fff", padding: `0 ${mm(1.5)}` }}>suas?</span>
+          <span style={destaque(tinta ? "#000" : "#C21F16", "#fff")}>suas?</span>
         </p>
       </div>
-      <div style={{ padding: `${mm(6)} ${mm(8)} 0`, flex: 1, fontSize: mm(4.1), lineHeight: 1.35 }}>
+      <div style={{ padding: `${mm(6)} ${mm(8)}`, flex: 1, fontSize: mm(4.8), lineHeight: 1.38, display: "flex", flexDirection: "column", justifyContent: "space-evenly" }}>
         <p style={{ margin: 0 }}>Faça a conta: se em <strong>4 horas</strong> você já produziu o valor do seu salário do dia, as outras <strong>4 horas</strong> da jornada são de graça para o patrão.</p>
-        <div style={{ display: "flex", margin: `${mm(4)} 0`, border: `${mm(0.6)} solid ${c.linha}`, fontFamily: mono, fontSize: mm(3.2), textAlign: "center" }}>
+        <div style={{ display: "flex", margin: `${mm(5)} 0`, border: `${mm(0.6)} solid ${c.linha}`, fontFamily: mono, fontSize: mm(3.6), textAlign: "center" }}>
           <div style={{ flex: 1, padding: mm(2), background: tinta ? "#fff" : c.preto, color: tinta ? "#000" : "#F4ECD8" }}>4 h · pagam o seu salário</div>
           <div style={{ flex: 1, padding: mm(2), background: tinta ? "#ddd" : "#6E1F1A", color: tinta ? "#000" : "#fff" }}>4 h · ficam com o patrão</div>
         </div>
@@ -534,15 +545,17 @@ function SalaDeAula({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
     <div style={{ width: mm(297), height: mm(420), boxSizing: "border-box", border: `${mm(2)} solid ${c.linha}`, display: "flex", flexDirection: "column", background: c.papel, color: c.texto, fontFamily: serif, backgroundImage: tinta ? "none" : `repeating-linear-gradient(to bottom, transparent 0 ${mm(11.8)}, ${modo === "escuro" ? "#3a3020" : "#d9c9a3"} ${mm(11.8)} ${mm(12)})` }}>
       <div style={{ padding: `${mm(18)} ${mm(20)} ${mm(10)}`, borderLeft: tinta ? undefined : `${mm(3)} solid #C21F16`, marginLeft: mm(26) }}>
         <p style={{ fontFamily: mono, fontSize: mm(6), letterSpacing: "0.24em", margin: 0, color: c.prelo }}>ESTUDOU E NÃO ENTENDEU?</p>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.9, letterSpacing: "-0.02em", fontSize: mm(40), margin: `${mm(6)} 0 0` }}>
-          Estude de
+        <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(44), margin: `${mm(6)} 0 0` }}>
+          Estude
           <br />
-          novo. De graça.
+          de novo.
+          <br />
+          De graça.
         </p>
-        <p style={{ fontSize: mm(10), lineHeight: 1.25, margin: `${mm(10)} 0 0`, maxWidth: mm(220) }}>Aulas curtas com exemplos do dia a dia, teste no fim e explicação de cada resposta. No celular, sem conta, sem anúncio.</p>
-        <ul style={{ listStyle: "none", padding: 0, margin: `${mm(10)} 0 0`, display: "grid", gridTemplateColumns: "1fr 1fr", gap: `${mm(4)} ${mm(10)}` }}>
+        <p style={{ fontSize: mm(11), lineHeight: 1.25, margin: `${mm(10)} 0 0`, maxWidth: mm(225) }}>Aulas curtas com exemplos do dia a dia, teste no fim e explicação de cada resposta. No celular, sem conta, sem anúncio.</p>
+        <ul style={{ listStyle: "none", padding: 0, margin: `${mm(12)} 0 0`, display: "grid", gridTemplateColumns: "1fr 1fr", gap: `${mm(6)} ${mm(10)}` }}>
           {materias.map((m) => (
-            <li key={m} style={{ display: "flex", alignItems: "center", gap: mm(3), fontSize: mm(8.5) }}>
+            <li key={m} style={{ display: "flex", alignItems: "center", gap: mm(3), fontSize: mm(9.5), lineHeight: 1.15 }}>
               <Estrela cor={c.prelo} tamanho={mm(7)} />
               {m}
             </li>
@@ -575,7 +588,7 @@ function Filipetas({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
           <div key={i} style={{ border: `0.3mm dashed ${c.linha}`, boxSizing: "border-box", background: escura ? "#1F1A14" : c.papel, color: escura ? "#F4ECD8" : c.texto, display: "flex", alignItems: "center", gap: "3mm", padding: "3mm", fontFamily: serif }}>
             <div style={{ background: "#fff", padding: "0.8mm", flexShrink: 0 }}><Qr svg={qr} cor="#000000" tamanho="26mm" /></div>
             <div style={{ display: "grid", gap: "1.2mm" }}>
-              <span style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", fontSize: "4.4mm", lineHeight: 0.95, color: escura ? "#E0837A" : c.prelo }}>{frases[Math.floor(i / 2) % frases.length]}</span>
+              <span style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", fontSize: "4.4mm", lineHeight: 1.06, color: escura ? "#E0837A" : c.prelo }}>{frases[Math.floor(i / 2) % frases.length]}</span>
               <span style={{ fontFamily: mono, fontSize: "3.2mm", fontWeight: 600 }}>institutolucia.org</span>
               <Insta cor={escura ? "#F4ECD8" : c.texto} tamanho={2.8} mm={(n) => `${n}mm`} />
             </div>
@@ -613,7 +626,7 @@ function BannerDeMesa({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
     <div style={{ height: "90mm", transform: girar ? "rotate(180deg)" : undefined, background: tinta ? "#fff" : "#C21F16", color: tinta ? "#000" : "#fff", display: "flex", alignItems: "center", gap: "8mm", padding: "0 12mm", boxSizing: "border-box", fontFamily: grito }}>
       <Marca tamanho="34mm" modo={modo} />
       <div style={{ flex: 1 }}>
-        <p style={{ fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.9, fontSize: "15mm", margin: 0 }}>Instituto Lúcia</p>
+        <p style={{ fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, fontSize: "15mm", margin: 0 }}>Instituto Lúcia</p>
         <p style={{ fontFamily: mono, fontSize: "5mm", margin: "3mm 0 0", letterSpacing: "0.08em" }}>institutolucia.org · {INSTA}</p>
       </div>
       <div style={{ background: "#fff", padding: "1.5mm" }}><Qr svg={qr} cor="#000000" tamanho="40mm" /></div>
@@ -637,12 +650,12 @@ function ConviteNucleo({ c, modo, qr, ev }: { c: Cores; modo: Modo; qr: string; 
       <div style={{ position: "absolute", inset: 0, background: tinta ? "none" : "repeating-conic-gradient(from 0deg at 90% 30%, #2a231b 0deg 6deg, #1f1a14 6deg 12deg)" }} />
       <div style={{ position: "relative", display: "flex", flexDirection: "column", height: "100%" }}>
         <p style={{ fontFamily: mono, fontSize: mm(3.4), letterSpacing: "0.22em", margin: 0, color: tinta ? "#000" : "#E0837A" }}>NÚCLEO DE ESTUDO · DE GRAÇA</p>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.86, letterSpacing: "-0.03em", fontSize: mm(15.5), margin: `${mm(5)} 0 0` }}>Consciência
+        <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(21), margin: `${mm(6)} 0 0` }}>Consciência
           <br />de classe.</p>
-        <p style={{ fontSize: mm(5), lineHeight: 1.3, margin: `${mm(5)} 0 0` }}>Ninguém nasce sabendo que é explorado. Venha estudar junto: uma hora por semana, com conversa, sem prova e sem pagar nada.</p>
-        <div style={{ marginTop: mm(6), display: "grid", gap: mm(3), background: tinta ? "#fff" : "#F4ECD8", color: "#1F1A14", padding: mm(5), border: `${mm(0.6)} solid #1F1A14` }}>
+        <p style={{ fontSize: mm(5.8), lineHeight: 1.32, margin: `${mm(7)} 0 0` }}>Ninguém nasce sabendo que é explorado. Venha estudar junto: uma hora por semana, com conversa, sem prova e sem pagar nada.</p>
+        <div style={{ marginTop: mm(9), display: "grid", gap: mm(4), background: tinta ? "#fff" : "#F4ECD8", color: "#1F1A14", padding: mm(5), border: `${mm(0.6)} solid #1F1A14` }}>
           {[["QUANDO", ev.quando || "[dia e hora]"], ["ONDE", ev.onde || "[lugar público]"], ["FALE COM", ev.contato || INSTA]].map(([r, v]) => (
-            <p key={r} style={{ margin: 0, fontSize: mm(4.6), lineHeight: 1.2 }}>
+            <p key={r} style={{ margin: 0, fontSize: mm(5.4), lineHeight: 1.25 }}>
               <span style={{ fontFamily: mono, fontSize: mm(3), letterSpacing: "0.2em", color: "#C21F16" }}>{r} </span>
               <strong>{v}</strong>
             </p>
@@ -667,15 +680,15 @@ function LambeDeRua({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
   return (
     <div style={{ width: mm(297), height: mm(420), boxSizing: "border-box", background: tinta ? "#fff" : c.preto, color: tinta ? "#000" : "#F4ECD8", display: "flex", flexDirection: "column", padding: mm(22), fontFamily: grito, position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", right: mm(-50), bottom: mm(40), opacity: tinta ? 0.12 : 1 }}>
-        <Estrela cor="#C21F16" tamanho={mm(230)} />
+        <Estrela cor={tinta ? "#000" : "#C21F16"} tamanho={mm(230)} />
       </div>
       <p style={{ position: "relative", fontFamily: mono, fontSize: mm(7), letterSpacing: "0.3em", margin: 0, color: tinta ? "#000" : "#E0837A" }}>LAMBE-LAMBE · INSTITUTO LÚCIA</p>
-      <p style={{ position: "relative", fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.84, letterSpacing: "-0.03em", fontSize: mm(58), margin: `${mm(14)} 0 0` }}>
+      <p style={{ position: "relative", fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(54), margin: `${mm(14)} 0 0` }}>
         Ninguém
         <br />é dono
         <br />do que a
         <br />
-        <span style={{ background: tinta ? "#000" : "#F4ECD8", color: tinta ? "#fff" : "#C21F16", padding: `0 ${mm(4)}` }}>gente</span>
+        <span style={destaque(tinta ? "#000" : "#F4ECD8", tinta ? "#fff" : "#C21F16")}>gente</span>
         <br />aprende.
       </p>
       <div style={{ position: "relative", marginTop: "auto", display: "flex", alignItems: "center", gap: mm(10) }}>
@@ -706,15 +719,15 @@ function Biblioteca({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
         <p style={{ position: "absolute", left: mm(18), top: mm(14), margin: 0, fontFamily: mono, fontSize: mm(6), letterSpacing: "0.3em", color: tinta ? "#000" : "#F4ECD8", background: tinta ? "#fff" : "#1F1A14", padding: `${mm(1.5)} ${mm(4)}` }}>ACERVO · INSTITUTO LÚCIA</p>
       </div>
       <div style={{ padding: `${mm(14)} ${mm(20)} 0`, flex: 1 }}>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.88, letterSpacing: "-0.02em", fontSize: mm(44), margin: 0 }}>
+        <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(44), margin: 0 }}>
           A biblioteca
           <br />
-          <span style={{ background: tinta ? "#000" : "#C21F16", color: "#fff", padding: `0 ${mm(4)}` }}>é do povo.</span>
+          <span style={destaque(tinta ? "#000" : "#C21F16", "#fff")}>é do povo.</span>
         </p>
         <ul style={{ listStyle: "none", padding: 0, margin: `${mm(12)} 0 0`, display: "grid", gap: mm(6) }}>
           {regras.map(([t, d]) => (
             <li key={t} style={{ display: "flex", gap: mm(5), alignItems: "baseline", borderTop: `${mm(0.8)} solid ${c.linha}`, paddingTop: mm(4) }}>
-              <span style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", fontSize: mm(15), color: c.prelo, minWidth: mm(70), textTransform: "uppercase" }}>{t}</span>
+              <span style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", fontSize: mm(14), lineHeight: 1.06, color: c.prelo, minWidth: mm(102), whiteSpace: "nowrap", textTransform: "uppercase" }}>{t}</span>
               <span style={{ fontSize: mm(8.5), lineHeight: 1.2 }}>{d}</span>
             </li>
           ))}
@@ -741,16 +754,16 @@ function QuadroDaSemana({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
     <div style={{ width: mm(210), height: mm(297), boxSizing: "border-box", border: `${mm(1.5)} solid ${c.linha}`, display: "flex", flexDirection: "column", background: c.papel, color: c.texto, fontFamily: serif, overflow: "hidden" }}>
       <div style={{ background: tinta ? "#fff" : c.preto, color: tinta ? "#000" : "#F4ECD8", padding: `${mm(12)} ${mm(14)}`, borderBottom: `${mm(1.5)} solid ${c.linha}` }}>
         <p style={{ fontFamily: mono, fontSize: mm(4), letterSpacing: "0.26em", margin: 0, color: tinta ? "#000" : "#E0837A" }}>★ NÚCLEO DE ESTUDO · QUADRO DA SEMANA</p>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.9, letterSpacing: "-0.02em", fontSize: mm(24), margin: `${mm(4)} 0 0` }}>
+        <p style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", lineHeight: 1.06, letterSpacing: "0.01em", fontSize: mm(24), margin: `${mm(4)} 0 0` }}>
           Uma hora por semana
           <br />
-          <span style={{ background: tinta ? "#000" : "#C21F16", color: "#fff", padding: `0 ${mm(2)}` }}>é nossa.</span>
+          <span style={destaque(tinta ? "#000" : "#C21F16", "#fff")}>é nossa.</span>
         </p>
       </div>
       <div style={{ padding: `${mm(8)} ${mm(14)} 0`, flex: 1, display: "grid", gridTemplateRows: "repeat(7, 1fr)", gap: mm(2) }}>
         {dias.map((d) => (
           <div key={d} style={{ display: "grid", gridTemplateColumns: `${mm(34)} 1fr ${mm(40)}`, alignItems: "end", gap: mm(4), borderBottom: `${mm(0.6)} solid ${c.linha}`, paddingBottom: mm(1) }}>
-            <span style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", fontSize: mm(8), color: c.prelo }}>{d}</span>
+            <span style={{ fontFamily: grito, fontWeight: 400, fontStyle: "italic", textTransform: "uppercase", fontSize: mm(8), color: c.prelo }}>{d}</span>
             <span style={{ fontFamily: mono, fontSize: mm(3), letterSpacing: "0.16em", color: c.suave }}>O QUÊ E ONDE</span>
             <span style={{ fontFamily: mono, fontSize: mm(3), letterSpacing: "0.16em", color: c.suave }}>HORA</span>
           </div>
@@ -775,8 +788,32 @@ export function KitDeDivulgacao({ qr, email }: { qr: string; email: string }) {
   const preenche = peca === "evento" || peca === "convite-nucleo";
   const atual = PECAS.find((p) => p.id === peca)!;
   const c = CORES[modo];
+  // A prévia encolhe para caber inteira na mesa (largura) e na tela (altura): a peça toda à vista, sem rolar um A3 em
+  // tamanho real. Na impressão, volta ao tamanho de verdade (escala 1).
+  const mesa = useRef<HTMLDivElement>(null);
+  const [escala, setEscala] = useState(1);
+  const [imprimindo, setImprimindo] = useState(false);
+  useEffect(() => {
+    const el = mesa.current;
+    if (!el) return;
+    const medir = () => {
+      const estilo = getComputedStyle(el);
+      const largura = el.clientWidth - parseFloat(estilo.paddingLeft) - parseFloat(estilo.paddingRight);
+      const altura = Math.max(420, window.innerHeight * 0.86);
+      setEscala(Math.min(1, largura / (atual.w * PX_POR_MM), altura / (atual.h * PX_POR_MM)));
+    };
+    medir();
+    const obs = new ResizeObserver(medir);
+    obs.observe(el);
+    window.addEventListener("resize", medir);
+    return () => {
+      obs.disconnect();
+      window.removeEventListener("resize", medir);
+    };
+  }, [atual.w, atual.h]);
 
   function imprimir() {
+    flushSync(() => setImprimindo(true));
     const raiz = document.documentElement;
     const estilo = document.createElement("style");
     estilo.textContent = `@page { size: ${atual.pagina}; margin: 0; }`;
@@ -785,6 +822,7 @@ export function KitDeDivulgacao({ qr, email }: { qr: string; email: string }) {
     const limpar = () => {
       raiz.removeAttribute("data-imprimir-peca");
       estilo.remove();
+      setImprimindo(false);
       window.removeEventListener("afterprint", limpar);
     };
     window.addEventListener("afterprint", limpar);
@@ -847,8 +885,8 @@ export function KitDeDivulgacao({ qr, email }: { qr: string; email: string }) {
         <p className="w-full text-sm text-ink-soft">Papel: {atual.papel}. Tamanho real: {atual.w} × {atual.h} mm.</p>
       </div>
       {/* A prévia encolhe para caber na tela; a impressão sai no tamanho real. */}
-      <div className="mesa-de-previa mt-6 overflow-x-auto border-2 border-ink bg-[#d8d0c0] p-4">
-        <div className="peca-impressa mx-auto" style={{ width: `${atual.w}mm` }}>
+      <div ref={mesa} className="mesa-de-previa mt-6 overflow-x-auto border-2 border-ink bg-[#d8d0c0] p-4">
+        <div className="peca-impressa mx-auto" style={{ width: `${atual.w}mm`, zoom: imprimindo ? 1 : escala }}>
           <Moldura on={!SEM_MOLDURA.includes(peca)} w={atual.w} h={atual.h} modo={modo}>
           {peca === "lambe" && <Lambe c={c} modo={modo} qr={qr} u={1} />}
           {peca === "raios" && <Raios c={c} modo={modo} qr={qr} />}

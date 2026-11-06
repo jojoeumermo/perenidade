@@ -1,7 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "@/components/Link";
-import { CapaDaEdicao, Letreiro } from "@/components/Territorios";
+import { CapaDaEdicao } from "@/components/Territorios";
 import { IDENTIDADES } from "@/lib/territorios-identidades";
 import { originalLang } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -29,11 +30,7 @@ export default async function Territorios({ params }: PageProps<"/[lang]/territo
         <p className="mt-4 max-w-3xl font-serif text-xl leading-relaxed text-ink-soft">{s.lead}</p>
       </header>
 
-      {/* A faixa com os temas de todos os coletivos (pausa ao passar o mouse, ao focar e no botão). */}
-      <div className="mt-8">
-        <Letreiro temas={territorios.flatMap((territorio) => territorio.temas)} rotulo={s.letreiroRotulo} pausar={s.letreiroPausar} retomar={s.letreiroRetomar} />
-      </div>
-
+      {/* Sem faixa corrida na abertura (pedido da coordenação, 05/11/2026): os temas andam dentro de cada território. */}
       <ul className="mt-10 grid gap-8">
         {territorios.map((territorio) => (
           <li key={territorio.slug} className="grid items-center gap-8 border-2 border-ink bg-folha p-6 shadow-[6px_6px_0_var(--sombra)] md:grid-cols-[minmax(0,1fr)_16rem]" {...originalLang(lang === "pt")}>
@@ -53,6 +50,10 @@ export default async function Territorios({ params }: PageProps<"/[lang]/territo
               <div className="w-full max-md:max-w-[15rem]">
                 <CapaDaEdicao edicao={territorio.edicoes[0]} perfil={territorio.instagram} assinatura={s.byCollective} />
               </div>
+            ) : territorio.capa ? (
+              <Link href={to(`/territorios/${territorio.slug}`)} tabIndex={-1} aria-hidden className="block w-full max-md:max-w-[15rem]">
+                <Image src={territorio.capa.src} alt="" width={640} height={800} sizes="(min-width: 768px) 16rem, 15rem" className="aspect-[4/5] h-auto w-full border-[1.5px] border-ink object-cover shadow-[6px_6px_0_var(--sombra)]" />
+              </Link>
             ) : (
               territorio.visual && (
                 <div

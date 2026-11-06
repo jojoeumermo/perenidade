@@ -176,7 +176,8 @@ const sql = lerArq("supabase/migracoes/2026-11-progresso-qr.sql");
 await confere("nenhuma tabela no esquema public, só em interno", () => !/create table (if not exists )?public\./i.test(sql) && /create table if not exists interno\.progresso_qr/.test(sql));
 await confere("as funções públicas são security definer com search_path fixo e o RLS está ligado", () =>
   (sql.match(/security definer set search_path = interno, pg_temp/g) ?? []).length >= 3 && /alter table interno\.progresso_qr enable row level security/.test(sql));
-await confere("o install.sql termina com a migração idêntica ao arquivo", () => lerArq("supabase/install.sql").trim().endsWith(sql.trim()));
+// Depois dela só vem o bloco da Alumia (2026-11-alumia.sql), inteiro.
+await confere("o install.sql termina com a migração idêntica ao arquivo (seguida só do bloco da Alumia)", () => { const t = lerArq("supabase/install.sql").trim(); const a = lerArq("supabase/migracoes/2026-11-alumia.sql").trim(); return (t.endsWith(a) ? t.slice(0, -a.length).trim() : t).endsWith(sql.trim()); });
 
 const banco = await criarBanco();
 const { rpc, dono } = banco;

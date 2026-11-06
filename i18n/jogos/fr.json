@@ -10,7 +10,16 @@
     "irCriancas": "Musique pour enfants",
     "irFormacao": "Jeux de formation",
     "aviso": "Les jeux de mots utilisent le glossaire de l'institut, qui est en portugais.",
-    "irProprios": "Jeux de l'Institut"
+    "irProprios": "Jeux de l'Institut",
+    "destaque": "À la une",
+    "jogar": "Jouer",
+    "todos": "Tous",
+    "quantos": "{n} jeux",
+    "umJogador": "1 joueur",
+    "umOuDois": "1 ou 2 joueurs",
+    "noSeuTempo": "à votre rythme",
+    "categorias": "Catégories de jeux",
+    "incluiTambem": "Comprend aussi"
   },
   "treino": {
     "titulo": "Entraînement aux mots",
