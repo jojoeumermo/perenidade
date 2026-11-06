@@ -306,8 +306,8 @@ caso("o mesmo bloco está no fim do install.sql", () => {
   const sql = ler("supabase", "migracoes", "2026-11-vale-o-escrito.sql").replace(/\r\n/g, "\n").trim();
   let install = ler("supabase", "install.sql").replace(/\r\n/g, "\n").trim();
   // Só os 10 blocos da Rede v2 e os 5 do lote seguinte podem vir depois dele; cada um inteiro, do último para o primeiro.
-  for (const n of ["progresso-qr", "backend-2", "backend-1", "controles", "eixos-equipe", "departamentos-termos", "integracao", "moderacao", "avisos", "comunidades", "descoberta", "conversa", "publicar", "perfil", "consertos", "fundacao"]) {
-    const bloco = ler("supabase", "migracoes", `2026-11-${/^(backend|controles|eixos|departamentos|progresso)/.test(n) ? n : `rede-${n}`}.sql`).replace(/\r\n/g, "\n").trim();
+  for (const n of ["alumia", "progresso-qr", "backend-2", "backend-1", "controles", "eixos-equipe", "departamentos-termos", "integracao", "moderacao", "avisos", "comunidades", "descoberta", "conversa", "publicar", "perfil", "consertos", "fundacao"]) {
+    const bloco = ler("supabase", "migracoes", `2026-11-${/^(backend|controles|eixos|departamentos|progresso|alumia)/.test(n) ? n : `rede-${n}`}.sql`).replace(/\r\n/g, "\n").trim();
     assert.ok(install.endsWith(bloco), `install.sql não termina com a migração rede-${n}`);
     install = install.slice(0, -bloco.length).trim();
   }
@@ -457,6 +457,138 @@ caso("integração: sitemap e menu só com o recurso ligado; i18n e ficha fecham
   assert.match(pagina, /tipoInicial/, "a ficha manda ?tipo= e a página lê");
   const fontes = fs.readFileSync(path.join(process.cwd(), "content", "vale-o-escrito", "fontes.json"), "utf8");
   assert.doesNotMatch(fontes, /almapreta\.com[^.]/, "Alma Preta só em almapreta.com.br");
+});
+
+// ── Página própria, letras, rede viva e sons (pedido da coordenação de 05/11/2026) ──────────────────────────────────
+const semComentarios = (t) => t.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "").replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
+const arquivosDe = (pasta, exts) => {
+  const fora = [];
+  const andar = (d) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) andar(p);
+      else if (exts.some((x) => e.name.endsWith(x))) fora.push(p);
+    }
+  };
+  andar(path.join(raiz, pasta));
+  return fora;
+};
+
+caso("página própria: todas as rotas do Vale saem da casca do site e do app, com um único 'Voltar ao site'", () => {
+  const lay = ler("app", "[lang]", "vale-o-escrito", "layout.tsx");
+  assert.match(lay, /notFound\(\)/, "desligado continua 404");
+  assert.match(lay, /<MolduraDoVale/);
+  const mol = ler("components", "vale-o-escrito", "Moldura.tsx");
+  for (const casca of [".cabecalho-site", ".faixa-de-avisos", ".barra-do-celular", ".abas-do-celular", ".rodape-do-site"]) assert.ok(mol.includes(`"${casca}"`), `esconde ${casca}`);
+  assert.match(mol, /display: none !important/);
+  assert.equal((semComentarios(mol).match(/className="ve-voltar-ao-site"/g) ?? []).length, 1, "um único botão de voltar");
+  assert.match(mol, /aria-label=\{s\.voltarAoSiteAria\}/);
+  assert.match(mol, /href=\{site\}/);
+  assert.match(mol, /<NavDoVale/);
+  assert.match(mol, /<BotaoDeSom/);
+  // A moldura não traz a casca do site para dentro (nem cabeçalho nem rodapé).
+  for (const f of arquivosDe("components/vale-o-escrito", [".tsx", ".ts"])) assert.doesNotMatch(fs.readFileSync(f, "utf8"), /components\/(Header|Footer|BottomNav)"/, f);
+  // O CSS da barra: botão fixo (sticky no alto) e grande o bastante para o dedo (44 px).
+  const css = ler("styles", "vale-o-escrito.css");
+  assert.match(css, /\.ve-barra \{[^}]*position: sticky/);
+  assert.match(css, /\.ve-voltar-ao-site \{[^}]*min-height: 44px/);
+  for (const i of IDIOMAS_VE) assert.ok(TEXTOS_DO_OBSERVATORIO[i].casca.voltarAoSite.trim(), `${i}: casca.voltarAoSite`);
+});
+
+caso("páginas de texto do Vale usam o cabeçalho do Vale (não o PageHeading de papel do site)", () => {
+  for (const r of [["page.tsx"], ["sobre", "page.tsx"], ["enviar", "page.tsx"], ["correcao", "page.tsx"], ["correcao", "[id]", "page.tsx"]]) {
+    const t = ler("app", "[lang]", "vale-o-escrito", ...r);
+    assert.doesNotMatch(t, /PageHeading/, r.join("/"));
+  }
+  for (const r of ["sobre", "enviar", "correcao"]) assert.match(ler("app", "[lang]", "vale-o-escrito", r, "page.tsx"), /<CabecaDoVale/, r);
+});
+
+caso("letras livres (OFL) por next/font, carregadas só nas rotas do Vale", () => {
+  const f = ler("lib", "vale-o-escrito", "fontes.ts");
+  assert.match(f, /from "next\/font\/google"/);
+  for (const nome of ["Barlow_Condensed", "JetBrains_Mono", "Schibsted_Grotesk"]) assert.ok(f.includes(nome), nome);
+  assert.match(f, /Open Font License/);
+  const quem = [...arquivosDe("app", [".tsx", ".ts"]), ...arquivosDe("components", [".tsx", ".ts"]), ...arquivosDe("lib", [".ts", ".tsx"])].filter((x) => /vale-o-escrito\/fontes"/.test(fs.readFileSync(x, "utf8")));
+  assert.deepEqual(quem.map((x) => path.relative(raiz, x).replace(/\\/g, "/")), ["app/[lang]/vale-o-escrito/layout.tsx"]);
+  const css = ler("styles", "vale-o-escrito.css");
+  for (const v of ["--fonte-ve-display", "--fonte-ve-mono", "--fonte-ve-leitura"]) assert.ok(css.includes(v), v);
+  assert.doesNotMatch(css, /@import|fonts\.googleapis|fonts\.gstatic/, "nenhuma letra baixada de terceiros no navegador");
+});
+
+caso("rede viva no fundo: canvas leve, por import() dinâmico, pausa fora da tela e respeita 'reduzir movimento'", () => {
+  const fundo = ler("components", "vale-o-escrito", "FundoVivo.tsx");
+  assert.match(fundo, /import\("\.\/redeNeural"\)/);
+  assert.match(fundo, /requestIdleCallback/);
+  assert.match(fundo, /prefers-reduced-motion: reduce/);
+  assert.match(fundo, /aria-hidden="true"/);
+  const rede = ler("components", "vale-o-escrito", "redeNeural.ts");
+  for (const t of ["requestAnimationFrame", "cancelAnimationFrame", "IntersectionObserver", "visibilitychange", "ResizeObserver", "calmo", "Math.min(1.5"]) assert.ok(rede.includes(t), t);
+  assert.doesNotMatch(rede, /^import /m, "sem dependências");
+  // Ninguém importa a rede de forma estática (ela não pode entrar no pacote inicial).
+  for (const f of [...arquivosDe("components", [".tsx", ".ts"]), ...arquivosDe("app", [".tsx", ".ts"])]) assert.doesNotMatch(fs.readFileSync(f, "utf8"), /^import .*redeNeural/m, f);
+  const css = ler("styles", "vale-o-escrito.css");
+  assert.match(css, /\.ve-fundo-vivo \{[^}]*pointer-events: none/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+});
+
+caso("sons: Web Audio gerado no navegador, desligado até a pessoa ligar, escolha guardada com try/catch", () => {
+  const som = semComentarios(ler("components", "vale-o-escrito", "som.ts"));
+  assert.match(som, /AudioContext/);
+  assert.match(som, /createOscillator/);
+  assert.doesNotMatch(som, /fetch\(|new Audio\(|\.mp3|\.ogg|\.wav|https?:\/\//, "nenhum arquivo nem endereço de fora");
+  assert.match(som, /let ligado = false/, "começa desligado");
+  assert.match(som, /try \{\s*ligado = window\.localStorage\.getItem\(CHAVE\) === "1";\s*\} catch/);
+  assert.match(som, /try \{\s*if \(v\) window\.localStorage\.setItem/);
+  assert.match(som, /prefers-reduced-motion: reduce/);
+  // Sem gesto, nada toca: o contexto nasce no clique do botão ou no primeiro clique ou tecla da visita.
+  assert.match(som, /"pointerdown", retomar/);
+  assert.match(som, /"keydown", retomar/);
+  assert.match(som, /if \(!somLigado\(\) \|\| !ctx/);
+  const botao = ler("components", "vale-o-escrito", "BotaoDeSom.tsx");
+  assert.match(botao, /aria-pressed=\{ligado\}/);
+  assert.match(botao, /useSyncExternalStore\(assinarSom, somLigado, \(\) => false\)/, "no servidor, desligado");
+  const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
+  assert.match(obs, /tocar\("abrir"\)/);
+  assert.match(obs, /tocar\("ligacao"\)/);
+  for (const i of IDIOMAS_VE) for (const k of ["ligar", "desligar", "rotulo", "explica"]) assert.ok(TEXTOS_DO_OBSERVATORIO[i].casca.som[k].trim(), `${i}: casca.som.${k}`);
+});
+
+caso("painel: visão geral com contadores e barra da situação jurídica; texto que se revela sem esconder do leitor de tela", () => {
+  const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
+  assert.match(obs, /<Contador valor=/);
+  assert.match(obs, /<Revelar como="h1"/);
+  assert.match(obs, /ve-barra-situacao/);
+  const vivos = ler("components", "vale-o-escrito", "Vivos.tsx");
+  assert.match(vivos, /<span className="ve-so-leitor">\{texto\}<\/span>/);
+  assert.match(vivos, /<span aria-hidden="true">\{visto\}<\/span>/);
+  assert.match(vivos, /prefers-reduced-motion: reduce/);
+});
+
+caso("robô: workflow passa as quatro chaves de IA gratuita e ROBO.md diz como criar cada uma", () => {
+  const wf = ler(".github", "workflows", "vale-o-escrito.yml");
+  for (const k of ["GEMINI_API_KEY", "GROQ_API_KEY", "CEREBRAS_API_KEY", "OPENROUTER_API_KEY"]) assert.match(wf, new RegExp(`${k}: \\$\\{\\{ secrets\\.${k} \\}\\}`), k);
+  const doc = ler("docs", "vale-o-escrito", "ROBO.md");
+  for (const t of ["aistudio.google.com", "console.groq.com", "cloud.cerebras.ai", "openrouter.ai", "naoECaso", "arquivoFalhou", "Save Page Now"]) assert.ok(doc.includes(t), t);
+});
+
+caso("acessibilidade da moldura: botão de som com nome fixo, um só 'pular', rótulos apagados com contraste AA", () => {
+  const botao = semComentarios(ler("components", "vale-o-escrito", "BotaoDeSom.tsx"));
+  // O estado vai no aria-pressed; o nome não muda junto (e contém o texto visível, WCAG 2.5.3).
+  assert.doesNotMatch(botao, /aria-label=/);
+  assert.match(botao, /<b aria-hidden="true">\{ligado \? "ON" : "OFF"\}<\/b>/);
+  const mol = ler("components", "vale-o-escrito", "Moldura.tsx");
+  assert.ok(mol.includes('"a[href=\\\\#conteudo]"'), "o 'pular' do site sai: fica só o do Vale");
+  const css = ler("styles", "vale-o-escrito.css");
+  // No celular o texto do botão de som some só da vista: com display: none o botão ficaria sem nome.
+  assert.doesNotMatch(css, /\.ve-som-texto \{\s*display: none/);
+  const cor = css.match(/--ve-apagado: #([0-9a-f]{6})/i)?.[1];
+  const fundo = css.match(/--ve-fundo: #([0-9a-f]{6})/i)?.[1];
+  const lum = (hex) => {
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  assert.ok(cor && fundo);
+  assert.ok((lum(cor) + 0.05) / (lum(fundo) + 0.05) >= 4.5, "--ve-apagado com contraste de pelo menos 4,5:1 sobre o fundo");
 });
 
 console.log(`\n${total} conferências do Vale o Escrito passaram.`);

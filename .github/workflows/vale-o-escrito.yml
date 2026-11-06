@@ -1,11 +1,14 @@
 name: Vale o Escrito (robô de coleta)
 
 # De três em três horas, o robô lê os feeds e as APIs abertas das fontes do observatório "Vale o Escrito", filtra pelos temas
-# dos dossiês, pede um resumo neutro à IA gratuita (rodízio; sem chave ou sem cota, segue sem resumo) e põe cada achado na
-# FILA DA CURADORIA do Supabase. O robô não publica nada: quem publica é a curadoria, depois de conferir a fonte.
+# dos dossiês, baixa cada matéria e monta o RASCUNHO COMPLETO da entrada (título, resumo com "segundo <veículo>", data do
+# fato, lugar, órgãos, empresas, pessoas com situação jurídica só quando a fonte diz, trecho literal e a cópia no Internet
+# Archive). Com chave de IA gratuita (rodízio), a IA estrutura e o robô confere; sem chave ou sem cota, sai por heurística.
+# Matéria que não relata caso não vira sugestão. Tudo vai para a FILA DA CURADORIA do Supabase: o robô não publica nada.
 # Só roda depois de criada a variável VALE_O_ESCRITO com o valor "sim" (Settings → Secrets and variables → Actions →
 # Variables); para pausar, apague a variável. Segredos: SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY (os mesmos da publicação);
-# opcionais, para o resumo: GEMINI_API_KEY, GROQ_API_KEY, CEREBRAS_API_KEY, OPENROUTER_API_KEY. Ver docs/vale-o-escrito/ROBO.md.
+# opcionais, para a IA: GEMINI_API_KEY, GROQ_API_KEY, CEREBRAS_API_KEY, OPENROUTER_API_KEY; para o Save Page Now com conta:
+# ARCHIVE_ACCESS_KEY e ARCHIVE_SECRET_KEY (sem elas, o pedido ao Internet Archive é anônimo). Ver docs/vale-o-escrito/ROBO.md.
 on:
   schedule:
     - cron: "17 */3 * * *"
@@ -27,7 +30,7 @@ jobs:
   coletar:
     if: ${{ vars.VALE_O_ESCRITO == 'sim' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
@@ -38,7 +41,8 @@ jobs:
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 22
-      - run: node scripts/vale-o-escrito/coletar.mjs ${{ inputs.seco && '--seco' || '' }}
+      # O robô para a parte cara (matéria, IA, arquivo) aos 20 minutos (--minutos) e grava o que já montou.
+      - run: node scripts/vale-o-escrito/coletar.mjs --minutos 20 ${{ inputs.seco && '--seco' || '' }}
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -46,3 +50,5 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ARCHIVE_ACCESS_KEY: ${{ secrets.ARCHIVE_ACCESS_KEY }}
+          ARCHIVE_SECRET_KEY: ${{ secrets.ARCHIVE_SECRET_KEY }}

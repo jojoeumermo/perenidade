@@ -39,7 +39,7 @@ export default async function CasoPage({ params }: { params: Promise<{ lang: str
   if (!entrada) notFound();
   const s = textosDoObservatorio(lang);
   return (
-    <div className="ve">
+    <div className="ve-folha">
       <div className="ve-pagina">
         <Link className="ve-pagina-voltar" href={localePath(lang, "/vale-o-escrito")}>
           ← {s.visual.ficha.voltar}

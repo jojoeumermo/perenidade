@@ -199,6 +199,12 @@ export default function Teia({
           {fill(s.visual.zoomNivel, { nivel: s.visual.zoomTeia[nivel] })}
         </span>
       </div>
+      {/* A leitura de painel (coordenadas e escala), decorativa: o nível nomeado acima é o que vale para o leitor de tela. */}
+      <p className="ve-coord" aria-hidden="true">
+        X {(-t.x).toFixed(1)} · Y {(-t.y).toFixed(1)}
+        <br />
+        {grafo.nos.length} · {grafo.arestas.length} · ×{t.k.toFixed(2)}
+      </p>
       <svg
         ref={svg}
         className="ve-svg"

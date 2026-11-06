@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
+import { CabecaDoVale } from "@/components/vale-o-escrito/Cabeca";
 import { FormularioEnviar } from "@/components/vale-o-escrito/FormularioEnviar";
 import { localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
@@ -24,10 +24,10 @@ export default async function EnviarFonte({ params }: { params: Promise<{ lang: 
   const s = textosDoObservatorio(lang);
   const dossies = lerDossies().map((d) => ({ slug: d.slug, titulo: (d.titulo as Record<string, string | undefined>)[lang] ?? d.titulo.pt }));
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <PageHeading eyebrow={s.entrada.titulo} title={s.enviar.titulo} voltar={{ href: localePath(lang, "/vale-o-escrito"), texto: s.navegacao.inicio }}>
+    <div className="ve-pagina ve-doc">
+      <CabecaDoVale olho={s.entrada.titulo} titulo={s.enviar.titulo} voltar={{ href: localePath(lang, "/vale-o-escrito"), texto: s.navegacao.inicio }}>
         {s.enviar.lead}
-      </PageHeading>
+      </CabecaDoVale>
       <FormularioEnviar s={{ enviar: s.enviar, erros: s.erros, avisos: s.avisos }} dossies={dossies} />
       <p className="mt-8 font-sans text-sm">
         <Link className="underline" href={localePath(lang, "/vale-o-escrito/sobre")}>
