@@ -717,7 +717,7 @@ export default function Mapa({
                 d={p.d}
                 pathLength={1}
                 stroke={COR_DO_RAMO[p.r.tipo]}
-                strokeDasharray={p.r.confianca === "reportado" ? "0.03 0.02" : undefined}
+                data-confianca={p.r.confianca}
                 style={{ animationDelay: `${i * 70}ms` }}
               />
             ))}
