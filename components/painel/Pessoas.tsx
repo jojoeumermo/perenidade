@@ -3,15 +3,17 @@
 
 import { Check, ClipboardCopy, Copy, KeyRound, Mail, Plus, RotateCcw, Save, ShieldAlert, UserCheck, WandSparkles, X } from "lucide-react";
 import { useState } from "react";
-import { areaSlugs } from "@/lib/areas";
 import { can, leads, type Me, nivelDe, nivelDoPapel, porNivel, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Aviso, data, dataHora, GRUPOS_DEPARTAMENTO, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papelAposentado, papeis, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, data, dataHora, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papelAposentado, papeis, textoDoErro, useAcao, useLista } from "./comum";
 import { Abas, Area, Botao, CabecalhoDeSecao, Campo, Cartao, Esqueleto, Faixa, Selecao, Vazio } from "./ui";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 import { Departamentos, FotosParaAprovar, TermosAceitos } from "./PessoasExtras";
 import { ListaDePessoas } from "./ListaDePessoas";
+import { EscolhaDeFuncoes, type FuncaoEscolhida } from "./EscolhaDeFuncoes";
+import { NOMES_DOS_DEPARTAMENTOS_DO_INSTITUTO } from "./departamentos-do-instituto";
+import { TrocarEmail } from "./TrocarEmail";
 
 interface Candidatura {
   id: string;
@@ -55,6 +57,8 @@ interface Pessoa {
   /** O nível da pessoa na hierarquia de cargos (o maior entre os papéis dela). */
   nivel: number;
   papeis: Role[];
+  /** Os departamentos de participação (Parcerias, RH…). Revolucionários só vem para a coordenação. */
+  departamentos?: string[];
 }
 
 /** Sem letras que se confundem (l, 1, O, 0): a senha vai ser lida em voz alta ou copiada à mão. */
@@ -71,7 +75,8 @@ const suspensoPor: Record<string, string> = { coordenacao: "pela coordenação",
 
 /**
  * A ficha de uma pessoa da equipe, aberta pela coordenação: acertar nome e apresentação, redefinir a senha de quem
- * esqueceu e suspender ou reativar. O e-mail não muda por aqui, e nada disso aparece na própria ficha de quem está vendo.
+ * esqueceu, trocar o e-mail a pedido da pessoa (só a coordenação comunitária) e suspender ou reativar. Nada disso aparece
+ * na própria ficha de quem está vendo.
  */
 function Ficha({ pessoa, me, depois, estreita = false }: { pessoa: Pessoa; me: Me; depois: () => void; estreita?: boolean }) {
   const lider = leads(me);
@@ -99,10 +104,10 @@ function Ficha({ pessoa, me, depois, estreita = false }: { pessoa: Pessoa; me: M
   }
 
   return (
-    <div className={`mt-3 grid gap-5 border-t border-rule pt-4 ${estreita ? "" : "lg:grid-cols-3"}`}>
+    <div className={`mt-3 grid gap-5 border-t border-rule pt-4 ${estreita ? "" : lider ? "lg:grid-cols-2 xl:grid-cols-4" : "lg:grid-cols-3"}`}>
       <section className="space-y-2">
         <h3 className="font-semibold">Nome e apresentação</h3>
-        <p className="pn-ajuda">Para acertar um nome ofensivo, um dado pessoal exposto ou o pedido de quem não consegue entrar. O e-mail não muda por aqui.</p>
+        <p className="pn-ajuda">Para acertar um nome ofensivo, um dado pessoal exposto ou o pedido de quem não consegue entrar.{lider ? " O e-mail se troca logo abaixo." : " O e-mail só a coordenação comunitária troca."}</p>
         <Campo rotulo="Nome" value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} />
         <Area rotulo="Apresentação" value={bio} onChange={(e) => setBio(e.target.value)} maxLength={500} rows={3} />
         <Botao pequeno simbolo={Save} disabled={nome.trim().length < 2 || (nome === pessoa.nome && bio === (pessoa.bio ?? ""))} carregando={acao.ocupado} onClick={() => acao.agir("usuario_editar", { p_usuario: pessoa.id, p_nome: nome.trim(), p_bio: bio.trim() }, "Guardado. A pessoa recebeu um recado.")}>
@@ -143,6 +148,8 @@ function Ficha({ pessoa, me, depois, estreita = false }: { pessoa: Pessoa; me: M
         {pessoa.trocar_senha && !entregar && <p className="pn-ajuda">A pessoa ainda não escolheu a própria senha depois da última redefinição.</p>}
       </section>
 
+      {lider && <TrocarEmail pessoa={pessoa} depois={depois} />}
+
       <section className="space-y-2">
         <h3 className="font-semibold">{pessoa.suspenso ? "Conta suspensa" : "Suspender a conta"}</h3>
         <p className="pn-ajuda">
@@ -159,7 +166,7 @@ function Ficha({ pessoa, me, depois, estreita = false }: { pessoa: Pessoa; me: M
           {pessoa.suspenso ? "Reativar a conta" : "Suspender a conta"}
         </Botao>
       </section>
-      <div className="lg:col-span-3">
+      <div className="lg:col-span-full">
         <Aviso texto={acao.aviso} />
       </div>
     </div>
@@ -222,11 +229,16 @@ export function Pessoas({ me }: { me: Me }) {
     pedidos.recarregar();
     pessoas.recarregar();
   });
-  const [novo, setNovo] = useState<{ papel: Role["papel"]; disciplina: string }>({ papel: concediveis.includes("educacao") ? "educacao" : (concediveis[0] ?? "educacao"), disciplina: "" });
-  // Educação, educação secundária e reforço são por disciplina; o representante, pelo departamento: o banco recusa sem eles.
-  const porDisciplina = novo.papel === "educacao" || novo.papel === "educacao_secundaria" || novo.papel === "mentoria" || novo.papel === "representante";
-  // Profissional de saúde não tem disciplina: o cargo vale só para o Mural de Saúde.
-  const semDisciplina = novo.papel === "saude";
+  // Várias funções, várias disciplinas e vários departamentos de uma vez (T28): tudo vai numa ação só
+  // (public.papeis_conceder_varios), com as regras de nível de sempre conferidas no banco.
+  const [escolhidas, setEscolhidas] = useState<FuncaoEscolhida[]>([]);
+  const [deps, setDeps] = useState<string[]>([]);
+  const nadaEscolhido = escolhidas.length === 0 && deps.length === 0;
+  const limparEscolha = () => {
+    setEscolhidas([]);
+    setDeps([]);
+  };
+  const resumoDoEscolhido = [escolhidas.length === 1 ? "1 função" : escolhidas.length > 1 ? `${escolhidas.length} funções` : "", deps.length === 1 ? "1 departamento" : deps.length > 1 ? `${deps.length} departamentos` : ""].filter(Boolean).join(" e ");
   /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
   /** Pessoas escolhidas na tabela para receber a mesma função de uma vez. */
@@ -370,52 +382,17 @@ export function Pessoas({ me }: { me: Me }) {
       <section hidden={aba !== "funcao"} aria-labelledby="confiar-funcao" className="space-y-3">
         <CabecalhoDeSecao
           id="confiar-funcao"
-          titulo="Confiar uma função"
-          sobre={<>Procure a pessoa pelo nome{coordena ? " ou pelo e-mail" : ""}. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca. Uma pessoa pode acumular funções: a nova se soma às que ela já tem.</>}
+          titulo="Confiar funções"
+          sobre={<>Procure a pessoa pelo nome{coordena ? " ou pelo e-mail" : ""}. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca. Junte quantas funções, disciplinas e departamentos quiser e confie tudo de uma vez: o novo se soma ao que a pessoa já tem, e ela recebe um recado só.</>}
         />
         <Cartao as="div">
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
           <div className="pn-campo-bloco">
             <span className="pn-rotulo">Pessoa</span>
             <BuscaDePessoa escolhida={quem} escolher={setQuem} reserva={pessoas.dados ?? []} />
+            <p className="pn-ajuda mt-1">Ou marque várias pessoas na lista de Pessoas e use “Dar função a estas”.</p>
           </div>
-          <Selecao rotulo="Função" value={novo.papel} onChange={(e) => setNovo({ ...novo, papel: e.target.value as Role["papel"] })}>
-            {concediveis.map((papel) => (
-              <option key={papel} value={papel}>
-                {papeis[papel]}
-              </option>
-            ))}
-          </Selecao>
-          {semDisciplina ? (
-            <p className="pn-ajuda self-end pb-2">Sem disciplina: o cargo vale para o Mural de Saúde. Se a pessoa também ensina, confie a função de educação separadamente.</p>
-          ) : (
-            <Selecao rotulo={novo.papel === "representante" ? "Departamento" : porDisciplina ? "Disciplina" : "Disciplina (opcional)"} value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })}>
-              {novo.papel === "representante" ? (
-                <>
-                  <option value="">Escolha o departamento…</option>
-                  <optgroup label="Educação, por área (reúne as disciplinas dela)">
-                    {Object.entries(GRUPOS_DEPARTAMENTO).map(([dep, nome]) => (
-                      <option key={dep} value={dep}>{nome}</option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Funções">
-                    {(["educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "desenvolvimento", "saude"] as const).map((dep) => (
-                      <option key={dep} value={dep}>{papeis[dep]}</option>
-                    ))}
-                  </optgroup>
-                </>
-              ) : (
-                <>
-                  <option value="">Todo o site</option>
-                  {areaSlugs.map((area) => (
-                    <option key={area} value={area}>
-                      {t.areas[area][0]}
-                    </option>
-                  ))}
-                </>
-              )}
-            </Selecao>
-          )}
+          <EscolhaDeFuncoes concediveis={concediveis} escolhidas={escolhidas} aoMudar={setEscolhidas} departamentos={deps} aoMudarDepartamentos={setDeps} podeSensivel={coordena} />
         </div>
         {lote.length > 0 && (
           <Faixa tom="bordo" className="mt-3" titulo={`Para ${lote.length} ${lote.length === 1 ? "pessoa" : "pessoas"} de uma vez:`}>
@@ -424,16 +401,17 @@ export function Pessoas({ me }: { me: Me }) {
               <Botao
                 variante="principal"
                 pequeno
-                disabled={porDisciplina && !novo.disciplina}
+                disabled={nadaEscolhido}
                 carregando={acao.ocupado}
                 onClick={async () => {
                   const alvos = (pessoas.dados ?? []).filter((p) => lote.includes(p.id) && podeMexer(p));
                   let feitos = 0;
                   for (const alvo of alvos) {
-                    if ((await acao.agir("papel_conceder", { p_usuario: alvo.id, p_papel: novo.papel, p_disciplina: semDisciplina ? null : novo.disciplina || null }, "")) !== null) feitos++;
+                    if ((await acao.agir("papeis_conceder_varios", { p_usuario: alvo.id, p_itens: escolhidas, p_departamentos: deps }, "")) !== null) feitos++;
                   }
-                  acao.setAviso(`${papeis[novo.papel]} confiada a ${feitos} de ${lote.length} ${lote.length === 1 ? "pessoa" : "pessoas"}${alvos.length < lote.length ? " (as outras estão no seu nível ou acima)" : ""}.`);
+                  acao.setAviso(`${resumoDoEscolhido} para ${feitos} de ${lote.length} ${lote.length === 1 ? "pessoa" : "pessoas"}${alvos.length < lote.length ? " (as outras estão no seu nível ou acima)" : ""}.`);
                   setLote([]);
+                  limparEscolha();
                 }}
               >
                 Confiar a {lote.length === 1 ? "esta pessoa" : `estas ${lote.length} pessoas`}
@@ -449,18 +427,23 @@ export function Pessoas({ me }: { me: Me }) {
           variante={lote.length > 0 ? "padrao" : "principal"}
           className="mt-3"
           simbolo={UserCheck}
-          disabled={!quem || alvoForaDoAlcance || (porDisciplina && !novo.disciplina)}
+          disabled={!quem || alvoForaDoAlcance || nadaEscolhido}
           carregando={acao.ocupado}
           onClick={async () => {
-            if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: semDisciplina ? null : novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
+            if (quem && (await acao.agir("papeis_conceder_varios", { p_usuario: quem.id, p_itens: escolhidas, p_departamentos: deps }, `${resumoDoEscolhido} para ${quem.nome}.`))) {
+              setQuem(null);
+              limparEscolha();
+            }
           }}
         >
-          Confiar função
+          {nadaEscolhido ? "Confiar" : `Confiar ${resumoDoEscolhido.toLocaleLowerCase("pt-BR")}`}
         </Botao>
         </Cartao>
-        <Faixa tom="info" titulo={`${papeis[novo.papel]}:`}>
-          {oQueFaz[novo.papel]}
-        </Faixa>
+        {[...new Set(escolhidas.map((e) => e.papel))].map((papel) => (
+          <Faixa key={papel} tom="info" titulo={`${papeis[papel]}:`}>
+            {oQueFaz[papel]}
+          </Faixa>
+        ))}
         <p className="pn-ajuda">
           Hierarquia dos cargos: coordenação, coordenação pedagógica, supervisão e, abaixo, os papéis de trabalho. Cada pessoa só confia papéis de nível menor que o próprio, e só a quem está abaixo dela.
           {coordena && " Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber a função."}
@@ -503,6 +486,23 @@ export function Pessoas({ me }: { me: Me }) {
                       </li>
                     ))}
                   </ul>
+                  {(pessoa.departamentos?.length ?? 0) > 0 && (
+                    <>
+                      <p className="pn-rotulo-mono mt-3">Departamentos de participação</p>
+                      <ul className="pn-lista mt-1.5" aria-label={`Departamentos de ${pessoa.nome}`}>
+                        {pessoa.departamentos?.map((dep) => (
+                          <li key={dep} className="pn-item justify-between text-sm">
+                            <span className="min-w-0">{NOMES_DOS_DEPARTAMENTOS_DO_INSTITUTO[dep] ?? dep}</span>
+                            {podeMexer(pessoa) && (dep !== "revolucionarios" || coordena) && (
+                              <Botao variante="discreto" pequeno perigo aria-label={`Tirar ${pessoa.nome} do departamento ${NOMES_DOS_DEPARTAMENTOS_DO_INSTITUTO[dep] ?? dep}`} disabled={acao.ocupado} onClick={() => acao.agir("departamento_membro_remover", { p_departamento: dep, p_usuario: pessoa.id }, "Tirada do departamento.")}>
+                                Tirar
+                              </Botao>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
                   {podeMexer(pessoa) && (
                     <Botao
                       variante="discreto"
@@ -515,7 +515,7 @@ export function Pessoas({ me }: { me: Me }) {
                         setAba("funcao");
                       }}
                     >
-                      Dar uma função
+                      Dar funções ou departamentos
                     </Botao>
                   )}
                 </section>
