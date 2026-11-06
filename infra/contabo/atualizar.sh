@@ -24,7 +24,10 @@ for cor in a b; do
   if [ "$(docker inspect -f '{{.State.Running}}' "site-$cor" 2>/dev/null || true)" = "true" ]; then ativo=$cor; fi
 done
 if [ -n "$ativo" ] && [ "$(docker inspect -f '{{.Image}}' "site-$ativo")" = "$nova" ]; then
-  exit 0
+  # Mesma imagem: só troca se as chaves (site.env) mudaram depois que o contêiner subiu.
+  subiu=$(date -d "$(docker inspect -f '{{.State.StartedAt}}' "site-$ativo")" +%s)
+  [ "$(stat -c %Y "$ENV")" -gt "$subiu" ] || exit 0
+  echo "$(date -Is) as chaves do site mudaram: trocando o contêiner"
 fi
 
 if [ "$ativo" = "a" ]; then novo=b; porta=3002; else novo=a; porta=3001; fi
