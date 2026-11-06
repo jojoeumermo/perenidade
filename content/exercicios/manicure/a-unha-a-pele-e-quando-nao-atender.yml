@@ -1,0 +1,84 @@
+# Exercícios da aula "A unha, a pele e quando não atender" (Manicure). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: manicure-unha-pele-01
+  tema: "As partes da unha"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Em que parte a unha nasce, escondida sob a pele, na base?"
+  alternativas:
+    - texto: "Na lâmina"
+      erro: "A lâmina é a parte dura que a gente vê e esmalta; ela já é a unha crescida."
+    - texto: "Na matriz"
+      certa: true
+    - texto: "Na cutícula"
+      erro: "A cutícula é a pelinha que veda a junção entre a pele e a unha; ela protege, mas não forma a unha."
+  explicacao: "A matriz fica sob a pele, na base. Um machucado ali pode deixar a unha torta ou marcada por meses."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: manicure-unha-pele-02
+  tema: "Cutícula"
+  dificuldade: 1
+  enunciado: "Qual é o jeito seguro de cuidar da cutícula, segundo a aula?"
+  alternativas:
+    - texto: "Arrancar bem até sangrar um pouco, para durar mais"
+      erro: "Arrancar até sangrar abre uma porta na pele para bactérias, fungos e vírus do sangue."
+    - texto: "Amolecer, empurrar e aparar só o excesso solto, com alicate esterilizado"
+      certa: true
+    - texto: "Cortar toda a cutícula com tesoura"
+      erro: "A cutícula é uma proteção natural; tirar tudo deixa a junção da unha aberta."
+  explicacao: "A cutícula funciona como uma tampa contra germes. O trabalho bonito e seguro empurra e apara o excesso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: manicure-unha-pele-03
+  tema: "Quando não atender"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "A cliente tem o canto da unha do pé entrando na pele, vermelho e dolorido. O que a manicure faz?"
+  alternativas:
+    - texto: "Corta o canto da unha para aliviar"
+      erro: "Cortar o canto de uma unha encravada inflamada pode piorar e infeccionar. Isso é trabalho de saúde."
+    - texto: "Não mexe nesse dedo e orienta a procurar a UBS ou um podólogo"
+      certa: true
+    - texto: "Esmalta por cima para disfarçar"
+      erro: "Esmaltar por cima esconde o problema e não trata nada."
+  explicacao: "Unha encravada inflamada é caso de saúde. A manicure observa, não trata e encaminha."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: manicure-unha-pele-04
+  tema: "Diabetes"
+  dificuldade: 2
+  enunciado: "A cliente conta que tem diabetes e os pés estão íntegros. Qual cuidado a aula indica?"
+  alternativas:
+    - texto: "Corte reto, lixa suave, sem cavar cantos e sem alicate na cutícula"
+      certa: true
+    - texto: "Atender igual a todo mundo, porque os pés estão bons"
+      erro: "Quem tem diabetes pode sentir menos dor e cicatrizar pior: um machucado pequeno pode virar ferida grave."
+    - texto: "Deixar o pé de molho em água bem quente por bastante tempo"
+      erro: "Água muito quente é um risco para quem pode sentir menos a temperatura."
+  explicacao: "O Manual do pé diabético, do Ministério da Saúde, orienta cortar as unhas em linha reta e evitar objetos cortantes."
+  fonte: "Questão original do Instituto Lúcia, baseada na aula (Ministério da Saúde)"
+  revisao:
+    status: em-revisao
+
+- id: manicure-unha-pele-05
+  tema: "Descarte"
+  dificuldade: 1
+  enunciado: "Para onde vai uma lâmina descartável depois do uso?"
+  alternativas:
+    - texto: "Para o lixo comum, embrulhada em papel"
+      erro: "Embrulhada em papel, a lâmina ainda fura quem recolhe o lixo."
+    - texto: "Para um recipiente rígido, que não fura nem vaza, identificado para perfurocortantes"
+      certa: true
+    - texto: "Para uma sacola plástica separada"
+      erro: "Sacola plástica se rasga com facilidade; perfurocortante precisa de recipiente rígido."
+  explicacao: "A RDC 222/2018 da Anvisa trata o perfurocortante como resíduo próprio; a vigilância sanitária do município diz como é o recolhimento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

@@ -54,5 +54,21 @@
   {
     "slug": "quimica-ambiental",
     "titulo": "Química ambiental"
+  },
+  {
+    "slug": "tabela-periodica-e-propriedades-periodicas",
+    "titulo": "Tabela periódica e propriedades periódicas"
+  },
+  {
+    "slug": "estudo-dos-gases",
+    "titulo": "Estudo dos gases"
+  },
+  {
+    "slug": "radioatividade",
+    "titulo": "Radioatividade"
+  },
+  {
+    "slug": "isomeria",
+    "titulo": "Isomeria"
   }
 ]

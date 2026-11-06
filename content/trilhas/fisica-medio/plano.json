@@ -54,5 +54,13 @@
   {
     "slug": "fisica-moderna-relatividade-e-quantica",
     "titulo": "Física moderna: relatividade e quântica"
+  },
+  {
+    "slug": "calorimetria-e-dilatacao-termica",
+    "titulo": "Calorimetria e dilatação térmica"
+  },
+  {
+    "slug": "estatica-equilibrio-e-torque",
+    "titulo": "Estática: equilíbrio e torque"
   }
 ]

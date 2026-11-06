@@ -9,5 +9,7 @@
   { "slug": "esgoto-e-desentupimento", "titulo": "Esgoto e desentupimento" },
   { "slug": "chuveiro-e-agua-quente", "titulo": "Chuveiro e água quente" },
   { "slug": "hidrometro-e-conta-de-agua", "titulo": "Hidrômetro e conta de água" },
-  { "slug": "formalizacao-mei-para-encanador", "titulo": "Formalização: o MEI para encanador" }
+  { "slug": "formalizacao-mei-para-encanador", "titulo": "Formalização: o MEI para encanador" },
+  { "slug": "instalar-pia-tanque-e-maquina-de-lavar", "titulo": "Instalar pia, tanque e máquina de lavar" },
+  { "slug": "calhas-e-aproveitamento-da-agua-da-chuva", "titulo": "Calhas e aproveitamento da água da chuva" }
 ]
