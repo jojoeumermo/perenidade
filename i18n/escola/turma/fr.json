@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "turmas": {
       "titulo": "Groupes par cours",
@@ -22,7 +23,7 @@
     }
   },
   "lista": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "titulo": "Groupes par cours",
     "lead": "Chaque cours a un groupe par mois : un module, deux leçons par semaine et une rencontre en vidéo chaque mercredi à 19 h 30, heure de Brasília. Vous continuez à votre rythme et la progression reste sur votre appareil.",
     "agora": "Groupe de ce mois",
@@ -79,7 +80,7 @@
     "minutos": "{n} min",
     "feita": "faite",
     "baixarIcs": "Ajouter les rencontres à mon agenda (.ics)",
-    "icsDescricao": "Rencontre du groupe du cours à l’École Lúcia Maria. La salle apparaît sur la page du groupe pour ses membres.",
+    "icsDescricao": "Rencontre du groupe du cours à l’École révolutionnaire Lúcia Maria. La salle apparaît sur la page du groupe pour ses membres.",
     "nomeDoIcs": "rencontres-du-groupe"
   },
   "curso": {
@@ -123,13 +124,13 @@
     "nenhum": "Pas encore d’accompagnateur avec une place dans ce cours.",
     "vagas": "{n} places ce semestre",
     "vagaUma": "1 place ce semestre",
-    "pelaRede": "Envoyez un message sur le Réseau Lúcia au profil {perfil}, en indiquant le cours et l’idée du projet.",
-    "abrirRede": "Ouvrir le Réseau Lúcia",
+    "pelaRede": "Envoyez un message sur Alumia au profil {perfil}, en indiquant le cours et l’idée du projet.",
+    "abrirRede": "Ouvrir Alumia",
     "peloEmail": "Écrivez à l’adresse de l’Institut, {email}, avec l’objet « orientação do curso {curso} » et le nom de la personne que vous souhaitez comme accompagnatrice.",
     "mentoria": "Le rôle de mentorat du tableau de bord reste le même."
   },
   "circulo": {
-    "olho": "École Lúcia Maria · pour qui anime",
+    "olho": "École révolutionnaire Lúcia Maria · pour qui anime",
     "titulo": "Cercle de culture numérique",
     "lead": "Un outil pour la personne qui anime une rencontre du groupe, en 5 étapes inspirées des cercles de culture de Paulo Freire. Tout reste sur cet appareil : rien ne va au serveur.",
     "fonte": "Référence :",
@@ -187,7 +188,7 @@
     "copiado": "Copié"
   },
   "banca": {
-    "olho": "École Lúcia Maria · projet final",
+    "olho": "École révolutionnaire Lúcia Maria · projet final",
     "titulo": "Jury populaire en ligne",
     "lead": "Une conversation de 30 minutes en vidéo pour présenter le projet final du cours. Le jury en présentiel viendra plus tard.",
     "quemTitulo": "Qui compose le jury",
@@ -242,7 +243,7 @@
     "caderneta": "Voir le carnet"
   },
   "cartaz": {
-    "olho": "École Lúcia Maria · archive vivante du groupe",
+    "olho": "École révolutionnaire Lúcia Maria · archive vivante du groupe",
     "titulo": "Affiche du groupe",
     "lead": "L’affiche collective du groupe qui termine. La personne qui anime tape une phrase de chaque personne. Le cours et le semestre y figurent ; aucun nom complet. Tout est composé sur cet appareil.",
     "curso": "Cours",
@@ -268,6 +269,6 @@
   },
   "linkTurmas": {
     "titulo": "Groupes par cours",
-    "texto": "À l’École Lúcia Maria, chaque cours a son groupe du mois."
+    "texto": "À l’École révolutionnaire Lúcia Maria, chaque cours a son groupe du mois."
   }
 }

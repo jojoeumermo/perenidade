@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "retorno": {
     "titulo": "What you already know and what is worth reviewing",
     "lead": "No grade and no comparison: it is a snapshot to guide your study.",
@@ -51,7 +52,7 @@
     }
   },
   "semana": {
-    "olho": "Lúcia Maria School",
+    "olho": "Lúcia Maria Revolutionary School",
     "titulo": "Exam week",
     "lead": "A week to see what you already know, calmly and in good company.",
     "proposto": "Proposed calendar, to be confirmed by the coordination.",
@@ -59,7 +60,7 @@
     "durante": "It is exam week: from {inicio} to {fim}.",
     "fora": "Outside the week, each track's exam stays open on the track page, for practice.",
     "lembrete": "Download a calendar reminder (.ics)",
-    "lembreteTitulo": "Lúcia Maria School exam week",
+    "lembreteTitulo": "Lúcia Maria Revolutionary School exam week",
     "lembreteDescricao": "The exams of the tracks in your courses, alone or in pairs. No grade: only feedback on what you already know and what is worth reviewing.",
     "solidariaTitulo": "An exam week built on solidarity",
     "solidaria": [
@@ -120,10 +121,10 @@
     "semTranscricao": "The recording is not turned into text: it stays as you said it."
   },
   "saberes": {
-    "olho": "Lúcia Maria School",
+    "olho": "Lúcia Maria Revolutionary School",
     "titulo": "Recognition of prior knowledge",
     "lead": "A lot is learned through life: at work, in the struggle, at home. Here you show what you already know from a course and record it in your logbook.",
-    "naoEhCertificacao": "A record of the Lúcia Maria School; it is not an official certification or a diploma.",
+    "naoEhCertificacao": "A record of the Lúcia Maria Revolutionary School; it is not an official certification or a diploma.",
     "encceja": "For official certification of schooling in Brazil (elementary and secondary), the path is ENCCEJA.",
     "enccejaLink": "See the School calendar",
     "escolha": "Which course do you already master from life?",

@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ConviteDeMatricula, type TextosDoAvisoDeMatricula } from "@/components/escola/formatura/ConviteDeMatricula";
 import { baixar, useGuardado } from "@/components/estudo/guardado";
 import Link from "@/components/Link";
 import { SeloDePrivacidade } from "@/components/SeloDePrivacidade";
@@ -18,7 +19,6 @@ import "@/styles/escola-matricula.css";
 
 export type TextosDoPlano = (typeof pt)["plano"];
 type Comum = (typeof pt)["comum"];
-type Convite = (typeof pt)["quemVolta"]["convite"];
 const SEM_LISTA: Inscricao[] = [];
 /** De segunda a domingo (0 = domingo). */
 const SEMANA = [1, 2, 3, 4, 5, 6, 0];
@@ -45,9 +45,9 @@ export function entradaDoPlano(matricula: Matricula | null, inscricoes: readonly
  * O plano da semana sem culpa (R1-52), montado no aparelho por regras simples (lib/escola/plano.ts), e a tela diz
  * isso. Hoje em destaque, as aulas com link e "feito" pelo que está em 'lucia:concluidas'; o que não deu passa para o
  * próximo dia de estudo. A pessoa escolhe os dias; com duas semanas paradas, "Recomeçar com calma". "Lembrete no
- * calendário" baixa um .ics (lib/agenda.ts). Sem matrícula ou sem curso, o convite. HTML do servidor neutro.
+ * calendário" baixa um .ics (lib/agenda.ts). Sem matrícula, o aviso único da Escola (ConviteDeMatricula). HTML do servidor neutro.
  */
-export function PlanoDaSemana({ s, comum, convite, cursos, aulas, lang }: { s: TextosDoPlano; comum: Comum; convite: Convite; cursos: CursoDoAparelho[]; aulas: AulasDoAparelho; lang: Locale }) {
+export function PlanoDaSemana({ s, comum, aviso, cursos, aulas, lang }: { s: TextosDoPlano; comum: Comum; aviso: TextosDoAvisoDeMatricula; cursos: CursoDoAparelho[]; aulas: AulasDoAparelho; lang: Locale }) {
   const [matricula] = useGuardado<Matricula | null | undefined>(lerMatricula, undefined);
   const [inscricoes] = useGuardado<Inscricao[]>(lerInscricoes, SEM_LISTA);
   const concluidas = useCompleted();
@@ -80,13 +80,9 @@ export function PlanoDaSemana({ s, comum, convite, cursos, aulas, lang }: { s: T
 
   if (matricula === null)
     return (
-      <section className="mt-8 border border-rule bg-parchment-deep p-6 font-sans" data-plano-convite="">
-        <h2 className="font-serif text-2xl font-semibold">{convite.titulo}</h2>
-        <p className="mt-2 text-ink-soft">{convite.texto}</p>
-        <Link href={localePath(lang, "/escola/matricula")} className="mt-4 inline-flex min-h-11 items-center bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood">
-          {convite.botao}
-        </Link>
-      </section>
+      <div className="mt-8" data-plano-convite="">
+        <ConviteDeMatricula c={aviso} base={localePath(lang, "/escola")} />
+      </div>
     );
   if (!plano || !hoje) return null;
 

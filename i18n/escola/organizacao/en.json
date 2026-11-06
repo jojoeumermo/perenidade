@@ -1,9 +1,10 @@
 {
+  "_rascunho": true,
   "meta": {
     "assembleiaTitulo": "Student assembly",
     "assembleiaDescricao": "Vote anonymously on the learning paths the semester should prioritize, fill in the Semester circle and run the assembly in your hub.",
     "ouvidoriaTitulo": "School ombudsman",
-    "ouvidoriaDescricao": "Send a question, criticism or suggestion to the ombudsman without an account, and follow the public answer with your reference number.",
+    "ouvidoriaDescricao": "Send a question, criticism or suggestion to the ombudsman without linking it to your account, and follow the public answer with your reference number.",
     "educadorTitulo": "Educator of the month",
     "educadorDescricao": "The monthly recognition of someone who teaches at the School, only with permission, with no ranking and no photo."
   },
@@ -59,7 +60,7 @@
     "apagar": "Delete this circle",
     "apagada": "Circle deleted from this device.",
     "guardadas": "Circles kept on this device: {n} (at most one per semester, up to 4).",
-    "folha": "Semester circle {semestre} — Lúcia Maria School",
+    "folha": "Semester circle {semestre} — Lúcia Maria Revolutionary School",
     "semAparelho": "This device does not keep what you write; use Copy the text before leaving."
   },
   "nucleo": {
@@ -81,7 +82,7 @@
   "ouvidoria": {
     "olho": "Ombudsman",
     "titulo": "School ombudsman",
-    "lead": "A channel for a question, criticism or suggestion about a lesson, a course, an educator or the whole School. No account needed.",
+    "lead": "A channel for a question, criticism or suggestion about a lesson, a course, an educator or the whole School. What you send is not linked to your account.",
     "guardaTitulo": "What is kept",
     "guarda": "The server keeps the subject, the page (if you give it), what you write and, if you want a private answer, a contact. Your network address and any account are not kept. Only the reference number stays on your device.",
     "quemLe": "Only the mediation and the coordination read it. When an answer is published, only the mediation's summary and the answer appear in public, never what you wrote or your contact.",

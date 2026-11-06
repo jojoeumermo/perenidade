@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// A matrícula sem cadastro da Escola Lúcia Maria (E4-08, D1-9 e D1-10): a sugestão de cursos a partir das três
+// A matrícula sem cadastro da Escola Revolucionária Lúcia Maria (E4-08, D1-9 e D1-10): a sugestão de cursos a partir das três
 // perguntas de vida e do nivelamento, a edição das respostas e os dados da carteirinha. Puro: sem React, sem fs e sem
 // os atalhos "@/" (`npm run testar:escola-matricula` roda este arquivo direto no Node). A matrícula em si (número,
 // gravação, inscrições, apagar) mora em lib/escola/estudante.ts (E4-01) e não muda aqui. Explicação em

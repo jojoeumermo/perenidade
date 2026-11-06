@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "descricao": "Where to ask a study question at Instituto Lúcia: tutoring with volunteers, the assistant, the community, live classes and group study, all in one place."
   },
@@ -20,7 +21,7 @@
     "assistente": {
       "quem": "An automatic assistant",
       "como": "It answers right away, but it is for people with an account and it can be wrong. It sits on the tutoring page, before the request to a volunteer.",
-      "acompanhante": "If the School is open to you, the assistant also helps inside the lesson, through the companion."
+      "acompanhante": "If the School is open to you, the assistant also helps inside the lesson, through the School Assistant."
     },
     "comunidade": {
       "quem": "Other people who study",

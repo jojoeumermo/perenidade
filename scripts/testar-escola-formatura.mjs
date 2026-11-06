@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere o projeto final, a formatura e a caderneta da Escola Lúcia Maria (E4-14, docs/escola/formatura.md): o
+// Confere o projeto final, a formatura e a caderneta da Escola Revolucionária Lúcia Maria (E4-14, docs/escola/formatura.md): o
 // comprovante do modo turma que vira registro SEM o nome, remover e editar na caderneta, o texto exportado, o projeto em
 // seis etapas, o critério de formatura, formar, o texto do Mural, a memória de formatura, o texto da Gaveta, as
 // promessas no código e os textos nos 6 idiomas. Sem rede, sem navegador, localStorage simulado.
@@ -277,7 +277,7 @@ const sem = anuncioDoMural({ curso: "eletricista-residencial", tituloDoCurso: "E
 conferir("eletricista não gera anúncio", sem.ok === false && sem.motivo === "curso");
 const an = anuncioDoMural({ curso: "costura", tituloDoCurso: "Costura", oficio: "Costureira", descricaoDaPessoa: "Ajustes, barras e consertos de roupa em geral." });
 conferir("anúncio ok: categoria, título 4–160 e descrição 20–1200", an.ok && an.categoria === "servico" && an.titulo.length >= 4 && an.titulo.length <= 160 && an.descricao.length >= 20 && an.descricao.length <= 1200);
-conferir("anúncio traz a frase de registro de estudo", an.descricao.includes("Estudei Costura na Escola Lúcia Maria, escola popular do Instituto Lúcia. É um registro de estudo, não uma certificação oficial."));
+conferir("anúncio traz a frase de registro de estudo", an.descricao.includes("Estudei Costura na Escola Revolucionária Lúcia Maria, escola popular do Instituto Lúcia. É um registro de estudo, não uma certificação oficial."));
 conferir("anúncio sem URL, telefone, certificado nem diploma", !/https?:|www\.|@|\d{8}/.test(an.descricao) && !/certificado|diploma|universidade/i.test(an.descricao + an.titulo));
 conferir("anúncio recusa contato no texto da pessoa", anuncioDoMural({ curso: "costura", tituloDoCurso: "Costura", oficio: "Costureira", descricaoDaPessoa: "me chame no (21) 99999-8888" }).motivo === "contato" && anuncioDoMural({ curso: "costura", tituloDoCurso: "Costura", oficio: "Costureira", descricaoDaPessoa: "ana@exemplo.com" }).motivo === "contato");
 conferir("ofício curto é recusado", anuncioDoMural({ curso: "costura", tituloDoCurso: "Costura", oficio: "ab", descricaoDaPessoa: "" }).motivo === "oficioCurto");

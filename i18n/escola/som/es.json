@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "player": {
     "continuar": "Continuar",
     "continuarRotulo": "Continuar donde lo dejaste: {titulo}",
@@ -37,7 +38,7 @@
     "abrirAula": "Abrir la clase de la semana",
     "vozDoAparelho": "Leído por la voz de tu dispositivo: el texto no se envía a nadie.",
     "roteiro": {
-      "saudacao": "¡Hola! Hoy es {data}. Esto es Hoy en el campus, de la Escuela Lúcia Maria.",
+      "saudacao": "¡Hola! Hoy es {data}. Esto es Hoy en el campus, de la Escuela Revolucionaria Lúcia Maria.",
       "fatosAbre": "En este día, en la historia de la lucha del pueblo:",
       "fato": "{ano}. {texto} Según {fonte}.",
       "wikipedia": "Wikipedia",

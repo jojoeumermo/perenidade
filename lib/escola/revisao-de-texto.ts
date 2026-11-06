@@ -247,7 +247,7 @@ export interface AchadoDaTraducao {
   detalhe: string;
 }
 
-export const TERMOS_PROTEGIDOS_PADRAO = ["Instituto Lúcia", "Escola Lúcia Maria", "Gaveta Aberta"];
+export const TERMOS_PROTEGIDOS_PADRAO = ["Instituto Lúcia", "Escola Revolucionária Lúcia Maria", "Gaveta Aberta"];
 /** A tradução só dispara o alerta de tamanho abaixo de 30% ou acima de 300% do original. */
 export const FAIXA_DO_TAMANHO = { min: 0.3, max: 3 } as const;
 export const IDIOMAS_DE_DESTINO = ["en", "es", "fr", "ru", "zh"] as const;

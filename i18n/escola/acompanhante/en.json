@@ -1,12 +1,13 @@
 {
+  "_rascunho": true,
   "meta": {
-    "titulo": "Study companion",
+    "titulo": "School Assistant",
     "descricao": "Ask about a lesson, get hints for an exercise, feedback on an essay, help to understand a document, and practise English or Spanish. The history stays only on your device."
   },
   "comum": {
     "enviar": "Ask",
-    "enviando": "The companion is thinking…",
-    "rotuloResposta": "Companion's answer",
+    "enviando": "The Assistant is thinking…",
+    "rotuloResposta": "Assistant's answer",
     "voce": "You",
     "avisoAutomatico": "Automatic answer: it can be wrong. Check it against the lesson and, if you still have doubts, ask a volunteer for tutoring.",
     "cortada": "The answer was too long and was cut.",
@@ -40,12 +41,12 @@
     "caracteres": "{n} of {max} characters"
   },
   "hub": {
-    "titulo": "Study companion",
+    "titulo": "School Assistant",
     "lead": "Support for studying on your own when no volunteer is around. It helps you think; it does not think for you.",
     "escolha": "What do you need right now?",
     "abrir": "Open",
     "modos": {
-      "duvida": { "titulo": "Ask about a lesson", "texto": "Paste the part where you got stuck. The companion asks a question before explaining. Inside a lesson, use the “I don't get it” button on the top bar." },
+      "duvida": { "titulo": "Ask about a lesson", "texto": "Paste the part where you got stuck. The Assistant asks a question before explaining. Inside a lesson, use the “I don't get it” button on the top bar." },
       "pista": { "titulo": "Exercise hint", "texto": "Got an exercise wrong? Right below it, “I want a hint” appears, in three levels, without giving the answer away." },
       "outroJeito": { "titulo": "Explain it another way", "texto": "The same excerpt, explained with an example from your job, without changing the facts." },
       "redacao": { "titulo": "Essay feedback", "texto": "Feedback on the 5 skills of the Enem essay, with no grade." },
@@ -111,7 +112,7 @@
   },
   "redacao": {
     "titulo": "Essay feedback",
-    "lead": "Paste your essay. The companion comments on each of the 5 Enem skills: up to 2 strengths and up to 2 things to improve. It does not rewrite the text.",
+    "lead": "Paste your essay. The Assistant comments on each of the 5 Enem skills: up to 2 strengths and up to 2 things to improve. It does not rewrite the text.",
     "tema": "Essay topic (optional)",
     "texto": "Your essay",
     "minimo": "Write at least 100 characters.",
@@ -124,7 +125,7 @@
   },
   "documento": {
     "titulo": "Understand a document",
-    "lead": "Take a photo of a contract, a bill or a letter (from the INSS, for example). The companion explains it in plain words and points out deadlines and amounts.",
+    "lead": "Take a photo of a contract, a bill or a letter (from the INSS, for example). The Assistant explains it in plain words and points out deadlines and amounts.",
     "avisoTitulo": "Before sending",
     "aviso": "Cover CPF, RG, account numbers and other people's data before sending.",
     "outrasPessoas": "Do not send other people's documents, including children's, unless you really need to.",
@@ -148,7 +149,7 @@
   },
   "idioma": {
     "titulo": "Practise English or Spanish",
-    "lead": "A short conversation in the language you are learning. The companion answers in few words and corrects you gently, in square brackets.",
+    "lead": "A short conversation in the language you are learning. The Assistant answers in few words and corrects you gently, in square brackets.",
     "escolha": "Practice language",
     "ingles": "English",
     "espanhol": "Spanish",
@@ -179,7 +180,7 @@
     "copiado": "Excerpt copied from the lesson, unchanged (lessons are written in Portuguese)."
   },
   "como": {
-    "titulo": "How the study companion works",
+    "titulo": "How the School Assistant works",
     "lead": "What happens to what you send, who answers and what is kept.",
     "provedoresTitulo": "Who can answer",
     "provedoresTexto": "Answers come from one of these artificial intelligence services, all run by outside companies, with servers outside Brazil:",
@@ -204,7 +205,7 @@
     "limiteBanco": "Today, each account can ask {n} questions per day.",
     "limitePadrao": "The default is {n} questions per account per day, and {total} on the whole site. The coordination can change this number.",
     "contaTitulo": "An account is needed",
-    "conta": "Without an account, with the assistant off or without internet, the companion looks for the answer in the site's own lessons, on your device, with no AI and no server.",
+    "conta": "Without an account, with the institute's AI off or without internet, the Assistant looks for the answer in the site's own lessons, on your device, with no AI and no server.",
     "modeloTitulo": "What about a model on the device itself?",
     "modelo": "We checked whether a small open-licence model, served by the site itself, could run on a phone just to summarise the lesson excerpts found in the no-server mode. The criteria were: up to about 150 MB, working in Portuguese and answering in acceptable time on an entry-level phone with 4 GB of memory.",
     "modeloNumeros": [
@@ -214,6 +215,6 @@
     ],
     "modeloFonte": "Sizes of the ONNX files checked on Hugging Face on 3 November 2026.",
     "modeloDecisao": "None passed: the only one within the size was not made for Portuguese, and a wrong summary would be making things up. So there is no model on the device. The timing test on the entry-level phone was not even run. If a model that passes appears, it will come switched off, with its size shown and a confirmation before downloading.",
-    "papel": "The Lúcia Maria School is a popular school: the companion supports your study; it does not replace an educator or give certificates."
+    "papel": "The Lúcia Maria Revolutionary School is a popular school: the Assistant supports your study; it does not replace an educator or give certificates."
   }
 }

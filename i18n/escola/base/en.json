@@ -1,7 +1,8 @@
 {
+  "_rascunho": true,
   "meta": {
-    "titulo": "Lúcia Maria School",
-    "descricao": "The free people's school of the Instituto Lúcia, with no sign-up: a path, a class and a record of what you studied."
+    "titulo": "Lúcia Maria Revolutionary School",
+    "descricao": "The free people's school of the Instituto Lúcia, for anyone with an account on the site: a path, a class and a record of what you studied."
   },
   "nav": {
     "rotulo": "Parts of the School",
@@ -12,13 +13,13 @@
     "calendario": "Calendar",
     "campus": "Campus",
     "turmas": "Classes",
-    "acompanhante": "Study companion",
+    "acompanhante": "School Assistant",
     "caderneta": "Record book"
   },
   "entrada": {
     "olho": "Instituto Lúcia",
-    "titulo": "Lúcia Maria School",
-    "linhaNaoUniversidade": "A free people's school, with no sign-up. It is not a university and does not award diplomas: it gives you a path, a class and a record of what you studied.",
+    "titulo": "Lúcia Maria Revolutionary School",
+    "linhaNaoUniversidade": "A free people's school, with the same account as the Community. It is not a university and does not award diplomas: it gives you a path, a class and a record of what you studied.",
     "comoFunciona": "How it works",
     "passos": [
       { "titulo": "Enrolment", "texto": "Say what you want and how much time you have. No name, email or ID: your enrolment stays on your device." },
@@ -30,7 +31,12 @@
     "pelaEscola": "Around the School",
     "campusTexto": "The School's buildings: lessons, library, labs, radio and community.",
     "calendarioTexto": "Terms, holidays and exam week.",
-    "rever": "Watch the opening again"
+    "rever": "Watch the opening again",
+    "oQueE": "What it is",
+    "oQueETexto": "A people's school for working women and men, inside the Instituto Lúcia. The courses are built from lessons that already exist on the site, in order, with estimated hours, a class to study with, a task in the world and a final project.",
+    "contaTexto": "You come in with your Instituto Lúcia account, the same one you use in the Community. What you study is kept on this device.",
+    "mapaTitulo": "Everything in the School",
+    "mapaLead": "The parts of the School, by topic. The bar at the top leads to the most used ones."
   },
   "cartao": {
     "olho": "First of all",
@@ -39,9 +45,9 @@
     "ler": "Read"
   },
   "quemFoi": {
-    "olho": "Lúcia Maria School",
+    "olho": "Lúcia Maria Revolutionary School",
     "titulo": "Who Lúcia Maria was",
-    "descricao": "The person the Lúcia Maria School of the Instituto Lúcia is named after.",
+    "descricao": "The person the Lúcia Maria Revolutionary School of the Instituto Lúcia is named after.",
     "emPortugues": "(text in Portuguese)",
     "voltar": "Back to the School entrance"
   },
@@ -57,7 +63,7 @@
     "plano": "Weekly plan",
     "campus": "Campus",
     "calendario": "Calendar",
-    "acompanhante": "Study companion",
+    "acompanhante": "School Assistant",
     "vozes": "Voices of work",
     "lutas": "Map of struggles",
     "assembleia": "Student assembly",
@@ -75,24 +81,52 @@
     "proposto": "Proposed calendar, to be confirmed by the coordination"
   },
   "abertura": {
-    "rotulo": "Welcome to the Lúcia Maria School",
+    "rotulo": "Welcome to the Lúcia Maria Revolutionary School",
     "pular": "Skip",
     "seguir": "Next",
     "entrar": "Enter the School",
     "ouvir": "Listen",
     "parar": "Stop listening",
     "de": "{n} of {total}",
-    "q1Titulo": "This is the Lúcia Maria School",
+    "q1Titulo": "This is the Lúcia Maria Revolutionary School",
     "q1Texto": "A free and open people's school, inside the Instituto Lúcia.",
     "q2Titulo": "Who Lúcia Maria was",
     "q3Titulo": "Why the School exists",
     "fonte": "Excerpt from “About us”",
     "emPortugues": "(text in Portuguese)",
     "q4Titulo": "How it works",
-    "q4Texto": "No sign-up. What you study is kept on this device and only leaves it if you send it.",
+    "q4Texto": "You come in with your Instituto Lúcia account, the same as in the Community. What you study is kept on this device and only leaves it if you send it.",
     "baixarVoz": "To listen with the voice you chose, the device needs to download {tamanho}. Download now?",
     "baixarSim": "Download and listen",
     "baixarNao": "Not now",
     "semVoz": "This device has no voice to read aloud."
+  },
+  "porta": {
+    "lead": "The free people's school of the Instituto Lúcia. To come in, use your account on the site: it is the same one as in the Community.",
+    "comoEntrar": "How to come in",
+    "passos": [
+      "Already have a Community account? Sign in with the same email and password.",
+      "Not yet? Create a free account: it only asks for an email and a password (the nickname is optional).",
+      "Inside the School, enrol: three questions, with no name or ID."
+    ],
+    "entrar": "Sign in with my account",
+    "criar": "Create an account",
+    "cadastroFechado": "New accounts are closed for now. If you already have one, you can sign in as usual.",
+    "menores": "Under 18? Create the account together with your parent or guardian.",
+    "conferindo": "Checking your account…",
+    "semServico": "The account service is not available at this address right now. Try again later.",
+    "abertas": "The lessons, the library and My study stay open to everyone, with no account.",
+    "verAulas": "See the lessons",
+    "privacidade": "How the account and your data are handled"
+  },
+  "mapa": {
+    "grupos": {
+      "estudar": "Study",
+      "vidaEscolar": "Your school life",
+      "ajuda": "Help with studying",
+      "mundo": "School and life",
+      "organizacao": "Student organization",
+      "escola": "Around the School"
+    }
   }
 }

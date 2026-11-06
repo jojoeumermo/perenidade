@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O mapa do campus da Escola Lúcia Maria (E4-09, D1-1 e D1-2; docs/escola/campus.md). Os prédios são uma CAMADA sobre
+// O mapa do campus da Escola Revolucionária Lúcia Maria (E4-09, D1-1 e D1-2; docs/escola/campus.md). Os prédios são uma CAMADA sobre
 // a lista do "Mais" (lib/secoes-do-site.ts): cada endereço que já existe lá cai em exatamente um prédio, sem repetir a
 // lista. `npm run testar:escola-campus` falha se algum item ficar sem prédio ou cair em dois.
 // O "clima" de cada prédio é só o que já existe: o tom de um atalho do celular (components/celular/Atalhos.tsx), o

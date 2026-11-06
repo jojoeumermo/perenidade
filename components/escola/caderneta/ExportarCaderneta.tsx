@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { baixar } from "@/components/estudo/guardado";
-import { ConviteDeMatricula } from "@/components/escola/formatura/ConviteDeMatricula";
 import { useNoNavegador } from "@/components/escola/formatura/usar-formatura";
 import { useCaderneta, useMatricula } from "@/components/escola/guardado-escola";
 import type { TextosDaFormatura } from "@/i18n/escola/formatura";
@@ -27,13 +26,11 @@ export function ExportarCaderneta({
   sc,
   c,
   titulosDosCursos,
-  base,
 }: {
   s: TextosDaFormatura["exportar"];
   sc: TextosDaFormatura["caderneta"];
   c: TextosDaFormatura["comum"];
   titulosDosCursos: Record<string, string>;
-  base: string;
 }) {
   const matricula = useMatricula();
   const registros = useCaderneta();
@@ -42,7 +39,8 @@ export function ExportarCaderneta({
   const [terceiros, setTerceiros] = useState(false);
   const [comMatricula, setComMatricula] = useState(false);
   const [nome, setNome] = useState("");
-  if (!matricula) return <ConviteDeMatricula c={c} base={base} />;
+  // Sem matrícula, o aviso único fica com a caderneta (CadernetaDoTrabalhador): esta parte não repete o aviso.
+  if (!matricula) return null;
 
   const ids = registros.map((r) => r.id).filter((id) => !fora.includes(id));
   const opcoes: OpcoesDaCaderneta = {

@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Roda em sequência todos os testes da Etapa 4 (Escola Lúcia Maria, docs/ESCOLA.md) cujo arquivo já existe, diz quais
+// Roda em sequência todos os testes da Etapa 4 (Escola Revolucionária Lúcia Maria, docs/ESCOLA.md) cujo arquivo já existe, diz quais
 // ainda não existem e falha se algum falhar. A lista é a reservada no package.json pelo E4-01: cada pacote só escreve o
 // seu arquivo. O de Playwright (testar:entrada) precisa do site no ar e fica de fora daqui (roda à parte).
 import { spawnSync } from "node:child_process";

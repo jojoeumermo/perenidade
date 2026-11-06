@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// A leitura guiada da Escola Lúcia Maria (E4-07, R1-44): perguntas por seção de uma obra do Acervo, escritas a partir do
+// A leitura guiada da Escola Revolucionária Lúcia Maria (E4-07, R1-44): perguntas por seção de uma obra do Acervo, escritas a partir do
 // texto e marcadas "em revisão", com a indicação do trecho de referência de cada seção (onde ler, sem reproduzir o
 // texto). As respostas de quem lê ficam SÓ no aparelho, em "lucia:escola:leituras" (chave reservada da Escola: entra na
 // cópia de segurança que a própria pessoa baixa e sai no "apagar meus dados"). Nada vai para servidor.

@@ -1,11 +1,12 @@
 {
+  "_rascunho": true,
   "meta": {
-    "matricula": { "titulo": "入学登记", "descricao": "无需注册即可在露西亚·玛丽亚学校登记：三个问题，不需要姓名、邮箱或证件。一切都保存在你的设备上。" },
-    "carteirinha": { "titulo": "学习卡", "descricao": "露西亚·玛丽亚学校的学习卡，在你的设备上生成。它不是官方证件。" },
+    "matricula": { "titulo": "入学登记", "descricao": "在露西亚·玛丽亚革命学校办理入学登记：三个问题，不需要姓名、邮箱或证件。一切都保存在你的设备上。" },
+    "carteirinha": { "titulo": "学习卡", "descricao": "露西亚·玛丽亚革命学校的学习卡，在你的设备上生成。它不是官方证件。" },
     "plano": { "titulo": "每周计划", "descricao": "一份没有负担的每周学习计划，在你的设备上按简单规则生成。" }
   },
   "comum": {
-    "olho": "露西亚·玛丽亚学校",
+    "olho": "露西亚·玛丽亚革命学校",
     "carregando": "正在打开这台设备上保存的内容……",
     "minutos": "{n} 分钟",
     "semGuardar": "这台设备不允许保存（可能是浏览器的无痕模式）。请换到普通模式再试。"
@@ -134,7 +135,7 @@
   },
   "carteirinha": {
     "lead": "在这台设备上生成，不经过服务器。可以留作纪念、打印或给你的学习小组看。",
-    "escola": "露西亚·玛丽亚学校",
+    "escola": "露西亚·玛丽亚革命学校",
     "casa": "Instituto Lúcia",
     "popular": "免费的平民学校",
     "estudante": "学员",
@@ -148,7 +149,7 @@
     "avisoNaoDocumento": "这张学习卡不是官方证件，不能当作学生证享受半价票（meia-entrada）。它在这台设备上生成，没有发送任何内容。",
     "leiNaoVale": "半价票需要学生身份证（CIE，Carteira de Identificação Estudantil），由巴西第 12.933/2013 号法律（第 1 条第 2 款）所列的学生组织签发。",
     "qr": "用相机扫码了解学校",
-    "qrAlt": "带有露西亚·玛丽亚学校网址的二维码",
+    "qrAlt": "带有露西亚·玛丽亚革命学校网址的二维码",
     "usarFoto": "显示我账户的照片",
     "usarFotoDica": "只有当你的账户在这台设备上保存了照片时才会显示。没有照片就显示姓名首字母。",
     "imprimir": "打印",
@@ -189,7 +190,7 @@
     "lembrete": "日历提醒",
     "lembreteHora": "提醒时间",
     "lembreteDica": "下载一个日历文件，即使网站关闭也会在学习日提醒你。不发送任何内容。",
-    "lembreteTitulo": "在露西亚·玛丽亚学校学习",
+    "lembreteTitulo": "在露西亚·玛丽亚革命学校学习",
     "lembreteDescricao": "每周计划的时间到了。",
     "remontar": "重新制定计划",
     "acabou": "你已经完成了所选课程的所有课。要不要再选一门？",

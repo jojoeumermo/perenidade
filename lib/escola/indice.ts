@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// As páginas da Escola Lúcia Maria no índice da busca (Etapa 4, E4-05) e os textos da busca viva (i18n/escola/busca).
+// As páginas da Escola Revolucionária Lúcia Maria no índice da busca (Etapa 4, E4-05) e os textos da busca viva (i18n/escola/busca).
 // lib/indice-de-busca.ts acrescenta estas entradas só com ligado("escola"); a do modo seguro entra sempre, porque o
 // modo seguro existe com ou sem a Escola. Os cursos (E4-07) entram aqui, cada um como página: título, resumo e área.
 // Este arquivo LÊ o disco (os cursos): só a busca do servidor (lib/indice-de-busca.ts) pode importá-lo. Layout, rodapé e

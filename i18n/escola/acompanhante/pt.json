@@ -1,12 +1,12 @@
 {
   "meta": {
-    "titulo": "Acompanhante do estudante",
+    "titulo": "Assistente da Escola",
     "descricao": "Tire dúvidas de uma aula, peça pistas de exercício, comentário de redação, ajuda para entender um documento e pratique inglês ou espanhol. O histórico fica só no seu aparelho."
   },
   "comum": {
     "enviar": "Perguntar",
-    "enviando": "O acompanhante está pensando…",
-    "rotuloResposta": "Resposta do acompanhante",
+    "enviando": "O Assistente está pensando…",
+    "rotuloResposta": "Resposta do Assistente",
     "voce": "Você",
     "avisoAutomatico": "Resposta automática: pode errar. Confira com a aula e, se a dúvida continuar, peça reforço a um voluntário.",
     "cortada": "A resposta ficou grande demais e foi cortada.",
@@ -40,12 +40,12 @@
     "caracteres": "{n} de {max} caracteres"
   },
   "hub": {
-    "titulo": "Acompanhante do estudante",
+    "titulo": "Assistente da Escola",
     "lead": "Um apoio para estudar sozinho, quando não há voluntário por perto. Ele ajuda a pensar, não pensa por você.",
     "escolha": "O que você precisa agora?",
     "abrir": "Abrir",
     "modos": {
-      "duvida": { "titulo": "Tirar dúvida de uma aula", "texto": "Cole o trecho que travou. O acompanhante faz uma pergunta antes de explicar. Dentro da aula, use o botão “Não entendi”, na faixa de cima." },
+      "duvida": { "titulo": "Tirar dúvida de uma aula", "texto": "Cole o trecho que travou. O Assistente faz uma pergunta antes de explicar. Dentro da aula, use o botão “Não entendi”, na faixa de cima." },
       "pista": { "titulo": "Pista de exercício", "texto": "Errou um exercício? Logo abaixo dele aparece “Quero uma pista”, em três níveis, sem entregar a resposta de cara." },
       "outroJeito": { "titulo": "Explicar de outro jeito", "texto": "O mesmo trecho, explicado com um exemplo do seu trabalho, sem mudar os fatos." },
       "redacao": { "titulo": "Comentário de redação", "texto": "Comentário pelas 5 competências do Enem, sem nota." },
@@ -111,7 +111,7 @@
   },
   "redacao": {
     "titulo": "Comentário de redação",
-    "lead": "Cole a sua redação. O acompanhante comenta cada uma das 5 competências do Enem: até 2 pontos fortes e até 2 para melhorar. Ele não reescreve o texto.",
+    "lead": "Cole a sua redação. O Assistente comenta cada uma das 5 competências do Enem: até 2 pontos fortes e até 2 para melhorar. Ele não reescreve o texto.",
     "tema": "Tema da proposta (opcional)",
     "texto": "Sua redação",
     "minimo": "Escreva pelo menos 100 caracteres.",
@@ -124,7 +124,7 @@
   },
   "documento": {
     "titulo": "Entender um documento",
-    "lead": "Tire uma foto de um contrato, conta ou carta (do INSS, por exemplo). O acompanhante explica em linguagem simples e mostra os prazos e valores.",
+    "lead": "Tire uma foto de um contrato, conta ou carta (do INSS, por exemplo). O Assistente explica em linguagem simples e mostra os prazos e valores.",
     "avisoTitulo": "Antes de mandar",
     "aviso": "Cubra CPF, RG, números de conta e dados de outras pessoas antes de mandar.",
     "outrasPessoas": "Não mande documento de outras pessoas, inclusive de crianças, sem necessidade.",
@@ -148,7 +148,7 @@
   },
   "idioma": {
     "titulo": "Praticar inglês ou espanhol",
-    "lead": "Uma conversa curta no idioma que você estuda. O acompanhante responde em poucas palavras e corrige com gentileza, entre colchetes.",
+    "lead": "Uma conversa curta no idioma que você estuda. O Assistente responde em poucas palavras e corrige com gentileza, entre colchetes.",
     "escolha": "Idioma da prática",
     "ingles": "Inglês",
     "espanhol": "Espanhol",
@@ -179,7 +179,7 @@
     "copiado": "Trecho copiado da aula, sem mudanças."
   },
   "como": {
-    "titulo": "Como funciona o acompanhante",
+    "titulo": "Como funciona o Assistente",
     "lead": "O que acontece com o que você manda, quem responde e o que fica guardado.",
     "provedoresTitulo": "Quem pode responder",
     "provedoresTexto": "As respostas vêm de um destes serviços de inteligência artificial, todos de empresas de fora, com servidores fora do Brasil:",
@@ -204,7 +204,7 @@
     "limiteBanco": "Hoje, cada conta pode fazer {n} perguntas por dia.",
     "limitePadrao": "O padrão é de {n} perguntas por conta por dia, e {total} no site inteiro. A coordenação pode mudar esse número.",
     "contaTitulo": "Precisa de conta",
-    "conta": "Sem conta, com o assistente desligado ou sem internet, o acompanhante procura a resposta nas aulas do próprio site, no seu aparelho, sem IA e sem servidor.",
+    "conta": "Sem conta, com a IA do instituto desligada ou sem internet, o Assistente procura a resposta nas aulas do próprio site, no seu aparelho, sem IA e sem servidor.",
     "modeloTitulo": "E um modelo no próprio aparelho?",
     "modelo": "Testamos se dava para rodar no celular um modelo pequeno de licença aberta, servido pelo próprio site, só para resumir os trechos das aulas achados no modo sem servidor. O critério era: até cerca de 150 MB, funcionar em português e responder em tempo aceitável num celular de entrada com 4 GB de memória.",
     "modeloNumeros": [
@@ -214,6 +214,6 @@
     ],
     "modeloFonte": "Tamanhos dos arquivos ONNX conferidos no Hugging Face em 3 de novembro de 2026.",
     "modeloDecisao": "Nenhum passou: o único dentro do tamanho não foi feito para português, e um resumo errado seria inventar. Por isso não há modelo no aparelho. O teste de tempo no celular de entrada nem chegou a ser feito. Se surgir um modelo que passe, ele entra desligado, com o tamanho mostrado e confirmação antes de baixar.",
-    "papel": "A Escola Lúcia Maria é escola popular: o acompanhante apoia o estudo, não substitui educador nem dá certificado."
+    "papel": "A Escola Revolucionária Lúcia Maria é escola popular: o Assistente apoia o estudo, não substitui educador nem dá certificado."
   }
 }

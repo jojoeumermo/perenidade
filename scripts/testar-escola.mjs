@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere a base da Escola Lúcia Maria (E4-01, docs/ESCOLA.md): o estudante no aparelho (matrícula, cursos, caderneta e
+// Confere a base da Escola Revolucionária Lúcia Maria (E4-01, docs/ESCOLA.md): o estudante no aparelho (matrícula, cursos, caderneta e
 // o apagar), o tempo (semestres e semana de provas), o modelo de curso (validação, horas e progresso), TODOS os cursos de
 // content/escola/cursos, as rotas e o trecho publicado da abertura. Sem rede, sem navegador.
 import fs from "node:fs";
@@ -29,7 +29,7 @@ import {
 import { ANO_LETIVO, calendarioProposto, hojeEmBrasilia, semanaDeProvas, semestreDe } from "../lib/escola/tempo.ts";
 import { aulaAtual, arredondarHoras, cicloDeRequisitos, horasDoCurso, horasFeitas, moduloDe, proximaDoCurso, tempoDaAula, validarCurso } from "../lib/escola/cursos.ts";
 import { existeAula, existeMemorial, existeObra, lerCursosComErros, minutosDaAula } from "../lib/escola/cursos-servidor.ts";
-import { ROTAS_DA_ESCOLA, abertaNaFaixa, FAIXA_DA_ESCOLA } from "../lib/escola/rotas.ts";
+import { ROTAS_DA_ESCOLA, abertaNaFaixa, FAIXA_DA_ESCOLA, GRUPOS_DA_ESCOLA, mapaDaEscola } from "../lib/escola/rotas.ts";
 import { textosDaBase, trechoDoQuemSomos } from "../lib/escola/textos.ts";
 import { chavesDeEstudo, chavesSoApagar, entraNaCopia, montarCopia, PREFIXOS_SO_APAGAR, SO_APAGAR } from "../lib/estudo.ts";
 import { areaDoCaminho } from "../lib/interdicao.ts";
@@ -293,6 +293,47 @@ for (const nome of fs.readdirSync(path.join(raiz, "content", "paginas")).filter(
   const trecho = trechoDoQuemSomos(texto);
   conferir(`trecho literal de ${nome}`, Boolean(trecho) && texto.replace(/\*\*|\*/g, "").includes(trecho), String(trecho));
 }
+
+// ───────────── Nome, porta, faixa e aviso de matrícula (pedido da coordenação, nov/2026) ─────────────
+const lerArq = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8");
+const NOME = "Escola Revolucionária Lúcia Maria";
+conferir("nome novo no título e na entrada", pt.meta.titulo === NOME && pt.entrada.titulo === NOME && pt.abertura.q1Titulo.includes(NOME));
+const pastasDaEscola = fs.readdirSync(path.join(raiz, "i18n", "escola")).filter((n) => fs.existsSync(path.join(raiz, "i18n", "escola", n, "pt.json")));
+const valores = (o) => (o && typeof o === "object" ? Object.values(o).flatMap(valores) : typeof o === "string" ? [o] : []);
+for (const pasta of pastasDaEscola) {
+  const textos = valores(JSON.parse(lerArq("i18n", "escola", pasta, "pt.json")));
+  conferir(`i18n/escola/${pasta}/pt.json sem o nome antigo`, !textos.some((t) => /Escola Lúcia Maria/.test(t)));
+  conferir(`i18n/escola/${pasta}/pt.json sem "Acompanhante" visível`, !textos.some((t) => /acompanhante/i.test(t)));
+}
+conferir("Acompanhante virou Assistente (a rota e a chave continuam)", pt.nav.acompanhante === "Assistente" && pt.paginas.acompanhante === "Assistente" && ROTAS_DA_ESCOLA.some((r) => r.chave === "acompanhante" && r.caminho === "/escola/acompanhante"));
+for (const l of ["en", "es", "fr", "ru", "zh"]) conferir(`base ${l}: tradução marcada como rascunho`, textosDaBase(l)._rascunho === true);
+conferir("base pt não é rascunho", !("_rascunho" in pt));
+
+// A porta: a mesma conta da Comunidade (useMe de lib/backend, /entrar e /entrar?criar=1 só com cadastro aberto).
+const layoutDaEscola = lerArq("app", "[lang]", "escola", "layout.tsx");
+const porta = lerArq("components", "escola", "PortaDaEscola.tsx");
+conferir("layout da Escola passa pela porta", /<PortaDaEscola[\s\S]*<NavDaEscola[\s\S]*\{children\}[\s\S]*<\/PortaDaEscola>/.test(layoutDaEscola));
+conferir("porta usa a sessão do site (useMe de lib/backend)", /import \{[^}]*\buseMe\b[^}]*\} from "@\/lib\/backend"/.test(porta) && /me\.status === "in"/.test(porta));
+conferir("porta leva aos fluxos da Comunidade", porta.includes('"/entrar"') && porta.includes('"/entrar?criar=1"') && /cadastro\.aberto &&/.test(porta));
+conferir("porta não pede dado nenhum", !/<input|<form|rpc\(/.test(porta));
+conferir("textos da porta", ["lead", "comoEntrar", "entrar", "criar", "cadastroFechado", "menores", "conferindo", "semServico", "abertas", "verAulas", "privacidade"].every((k) => typeof pt.porta[k] === "string" && pt.porta[k].trim()) && pt.porta.passos.length === 3);
+
+// A faixa centrada no eixo do conteúdo e rolável no celular.
+const cssBase = lerArq("styles", "escola-base.css");
+conferir("faixa centrada (margin-inline: auto) e rolável", /\.faixa-da-escola ul \{[^}]*margin-inline: auto/.test(cssBase) && !/\.faixa-da-escola ul \{[^}]*min-width: 100%/.test(cssBase) && /\.faixa-da-escola \{[^}]*overflow-x: auto/.test(cssBase));
+
+// O mapa da entrada: toda página (menos a entrada) num grupo, e todo grupo com nome.
+conferir("toda página da Escola no mapa da entrada", ROTAS_DA_ESCOLA.filter((r) => r.chave !== "entrada").every((r) => GRUPOS_DA_ESCOLA.includes(r.grupo)));
+conferir("mapa sem grupo vazio e com nome", mapaDaEscola().every((g) => g.rotas.length > 0 && pt.mapa.grupos[g.grupo]));
+
+// Aviso de matrícula: um só por tela, com botão de texto visível (o --paper não existe: o texto ficava preto no preto).
+const cssFormatura = lerArq("styles", "escola-formatura.css");
+conferir("botão cheio sem var(--paper)", !cssFormatura.includes("var(--paper)") && /\.formatura-botao,\s*\.formatura-botao:visited \{[^}]*color: var\(--parchment\)/.test(cssFormatura));
+const conviteEm = (...p) => (lerArq(...p).match(/<ConviteDeMatricula\b/g) ?? []).length;
+conferir("caderneta: importar e exportar não repetem o aviso", conviteEm("components", "escola", "caderneta", "ImportarComprovante.tsx") === 0 && conviteEm("components", "escola", "caderneta", "ExportarCaderneta.tsx") === 0 && conviteEm("components", "escola", "caderneta", "CadernetaDoTrabalhador.tsx") === 1);
+conferir("carteirinha e plano usam o mesmo aviso", conviteEm("components", "escola", "carteirinha", "Carteirinha.tsx") === 1 && conviteEm("components", "escola", "plano", "PlanoDaSemana.tsx") === 1);
+const aviso = lerArq("components", "escola", "formatura", "ConviteDeMatricula.tsx");
+conferir("aviso diz o que é, o que dá e o que pede, com botão", ["semMatriculaOQueE", "semMatriculaOQueDa", "semMatriculaOQuePede"].every((k) => aviso.includes(`c.${k}`)) && /data-fazer-matricula/.test(aviso) && /text-parchment/.test(aviso));
 
 console.log(`escola: ${ok} conferências certas, ${falhas.length} falhas`);
 if (falhas.length) {

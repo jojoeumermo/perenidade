@@ -1,4 +1,5 @@
 {
+  "_rascunho": true,
   "meta": {
     "hub": { "titulo": "Vie réelle", "descricao": "Voix du travail, carte des luttes, tâche dans le monde, missions de laboratoire, étude de cas du quartier et documents réels : l'École liée à la vie de celles et ceux qui étudient." },
     "vozes": { "titulo": "Voix du travail", "descricao": "Écoutez des travailleurs qui ont raconté leur métier et enregistrez, seulement sur votre appareil, un audio de 2 minutes maximum avec une série de questions." },
@@ -16,9 +17,9 @@
     "soNoAparelho": "Reste uniquement sur cet appareil. Rien ne part vers l'Institut."
   },
   "hub": {
-    "olho": "École Lúcia Maria",
+    "olho": "École révolutionnaire Lúcia Maria",
     "titulo": "Vie réelle",
-    "lead": "Étudier ne s'arrête pas à l'écran. Ici l'École va vers le travail, le quartier et la lutte de celles et ceux qui étudient. Tout fonctionne sur votre appareil, sans inscription et sans suivi.",
+    "lead": "Étudier ne s'arrête pas à l'écran. Ici l'École va vers le travail, le quartier et la lutte de celles et ceux qui étudient. Tout fonctionne sur votre appareil, sans suivi.",
     "resumoTarefas": "{n} tâches faites sur {m}",
     "resumoMissoes": "{n} missions sur {m}",
     "abrir": "Ouvrir",

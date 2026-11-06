@@ -1,10 +1,11 @@
 {
+  "_rascunho": true,
   "meta": {
-    "campus": { "titulo": "Campus map", "descricao": "The buildings of the Lúcia Maria School and what is inside each one: classrooms, library, radio, memorial, workshops, square, territory and front office." },
-    "calendario": { "titulo": "School calendar", "descricao": "The school year of the Lúcia Maria School: start and end of the term, exam week, opening lecture, campus holidays and external exams, with the source of each date." }
+    "campus": { "titulo": "Campus map", "descricao": "The buildings of the Lúcia Maria Revolutionary School and what is inside each one: classrooms, library, radio, memorial, workshops, square, territory and front office." },
+    "calendario": { "titulo": "School calendar", "descricao": "The school year of the Lúcia Maria Revolutionary School: start and end of the term, exam week, opening lecture, campus holidays and external exams, with the source of each date." }
   },
   "comum": {
-    "olho": "Lúcia Maria School",
+    "olho": "Lúcia Maria Revolutionary School",
     "proposto": "Proposed, to be confirmed by the coordination",
     "voltar": "School"
   },
@@ -27,7 +28,8 @@
     "carimbo": "You have been here",
     "nota": "Each building's stamp stays on this device only. It is not worth points and there is no ranking.",
     "secoes": "{n} places",
-    "abrir": "See what is in the {nome} building"
+    "abrir": "See what is in the {nome} building",
+    "verTudo": "See all ({n})"
   },
   "calendario": {
     "atual": "This term",

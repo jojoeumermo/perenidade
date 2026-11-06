@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-// Confere os textos de interface da Escola Lúcia Maria: TODAS as pastas i18n/escola/<pacote>/ precisam ter os 6
+// Confere os textos de interface da Escola Revolucionária Lúcia Maria: TODAS as pastas i18n/escola/<pacote>/ precisam ter os 6
 // idiomas (pt, en, es, fr, ru, zh) com todas as chaves do português, nenhum valor vazio, e nenhum texto pode dizer
 // que a Escola é universidade ou dá diploma. Só ficam liberadas as chaves com "nao" no nome, que são as negações
 // ("não é universidade", "não dá diploma"). Na interface a Escola nunca se chama universidade (docs/ESCOLA.md).
