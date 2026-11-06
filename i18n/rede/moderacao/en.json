@@ -10,7 +10,7 @@
   "remover": "Remove",
   "nenhum": "Nothing here.",
   "entreParaVer": "Sign in to see this page.",
-  "semPermissao": "This area is only for people who moderate the Network.",
+  "semPermissao": "This area is only for people who moderate Alumia.",
   "categorias": {
     "menores": { "rotulo": "Child or teenager at risk", "ajuda": "Abuse, exploitation or exposure of minors." },
     "ameaca": { "rotulo": "Threat", "ajuda": "Someone threatens another person's life or safety." },
@@ -21,7 +21,7 @@
     "assedio": { "rotulo": "Harassment or stalking", "ajuda": "Insistence, humiliation or persecution against someone." },
     "golpe": { "rotulo": "Scam or fraud", "ajuda": "An attempt to trick people into giving money or data." },
     "spam": { "rotulo": "Advertising or repetition", "ajuda": "Repeated message, sales or promotion out of place." },
-    "outro": { "rotulo": "Another reason", "ajuda": "Something that breaks the Network's rules and is not listed above." }
+    "outro": { "rotulo": "Another reason", "ajuda": "Something that breaks Alumia's rules and is not listed above." }
   },
   "prioridade": { "1": "Priority 1", "2": "Priority 2", "3": "Priority 3" },
   "denunciar": {
@@ -160,7 +160,7 @@
     "andamento": {
       "aberta": "Received",
       "em_analise": "Under review",
-      "resolvida": "Resolved: the Network took action",
+      "resolvida": "Resolved: Alumia took action",
       "descartada": "Reviewed: no violation of the rules"
     },
     "regra": "Rule: {regra}",
@@ -188,8 +188,8 @@
     "limpar": "This list is erased if you use Quick exit."
   },
   "cuidado": {
-    "titulo": "How the Network cares",
-    "lead": "The Network has written rules, with deadlines and appeals. Here is how it works, no fine print.",
+    "titulo": "How Alumia cares",
+    "lead": "Alumia has written rules, with deadlines and appeals. Here is how it works, no fine print.",
     "denunciaTitulo": "Reports with a protocol",
     "denunciaTexto": "Anyone can report a post, a profile or a community. Whoever reports is never revealed. Each report gets a protocol and you follow it in Notices.",
     "filaTitulo": "Who is handled first",
@@ -208,7 +208,7 @@
     "leiTexto": "The Supreme Court decision on article 19 of Brazil's Marco Civil da Internet (Themes 987 and 533) calls for notice, procedure and a reporting channel. This page and the reports page are that channel. Serious illegal content is removed quickly; crimes against honor follow the courts, and moderators may remove content after a notice.",
     "niveisTitulo": "Trust levels",
     "niveisTexto": "Everyone starts at level 0. A person moves up on their own through account age, participation (support and saves given) and posts without moderation decisions against them. An upheld decision lowers the level. Level 4 is appointed by the coordination.",
-    "niveisSemLeitura": "We count what you do, never what you read: the Network does not track your reading.",
+    "niveisSemLeitura": "We count what you do, never what you read: Alumia does not track your reading.",
     "nivel": "Level",
     "diasDeConta": "days of account",
     "participacoes": "participations",
@@ -230,8 +230,8 @@
   },
   "erros": {
     "modo_lento": "This place is in slow mode: wait a little before writing again.",
-    "nivel_links": "Your level does not allow that many links in a post yet. See the limits in How the Network cares.",
-    "nivel_imagens": "Your level does not allow that many images in a post yet. See the limits in How the Network cares.",
+    "nivel_links": "Your level does not allow that many links in a post yet. See the limits in How Alumia cares.",
+    "nivel_imagens": "Your level does not allow that many images in a post yet. See the limits in How Alumia cares.",
     "limite_diario": "You reached today's post limit for your level.",
     "lista_bloqueio": "This place's mediators do not allow posts from you here.",
     "outra_pessoa": "Another moderator has to decide: you made the decision under appeal.",

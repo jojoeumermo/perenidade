@@ -1,9 +1,9 @@
 {
   "_rascunho": true,
-  "marca": "卢西亚网络",
+  "marca": "Alumia",
   "menu": {
-    "principal": "网络菜单",
-    "barra": "网络栏",
+    "principal": "Alumia 菜单",
+    "barra": "Alumia 栏",
     "inicio": "首页",
     "comunidades": "社区",
     "chamados": "行动号召",
@@ -13,10 +13,11 @@
     "perfil": "个人资料",
     "escrever": "写帖子",
     "busca": "搜索",
-    "explorar": "探索"
+    "explorar": "探索",
+    "fediverso": "联邦宇宙"
   },
   "abas": {
-    "rotulo": "网络时间线",
+    "rotulo": "Alumia 时间线",
     "seguindo": "关注",
     "comunidades": "我的社区",
     "tudo": "全部",
@@ -31,7 +32,7 @@
   "porQueEstaOrdem": "为什么是这个顺序？",
   "publicos": {
     "internet": "互联网（任何人，无需账号）",
-    "membros": "网络成员",
+    "membros": "Alumia 成员",
     "seguidores": "关注我的人",
     "comunidade": "仅本社区",
     "nucleo": "仅本小组",
@@ -70,7 +71,7 @@
     "verMais": "查看全文"
   },
   "casca": {
-    "escrever": "在网络上发帖",
+    "escrever": "在 Alumia 上发帖",
     "fechar": "关闭",
     "publicar": "发布",
     "publicando": "发布中…",
@@ -84,7 +85,7 @@
     "comunidade": "社区（可选）",
     "saltarParaConteudo": "跳到时间线",
     "sairRapido": "快速退出",
-    "sairRapidoAjuda": "打开一个中性页面，并清除本设备上的网络数据。",
+    "sairRapidoAjuda": "打开一个中性页面，并清除本设备上的 Alumia 数据。",
     "cartaoSeguranca": "安全第一：不要发布家庭住址、电话或证件。如有担心，请举报。",
     "cuidados": {
       "titulo": "守护",
@@ -95,7 +96,7 @@
     }
   },
   "codinome": {
-    "aviso": "在网络上，任何人都不会以真名出现，团队也一样。"
+    "aviso": "在 Alumia 上，任何人都不会以真名出现，团队也一样。"
   },
   "chamado": {
     "pontoPublico": "公共集合地点（广场、图书馆、工会、学校），绝不是住家地址。"
@@ -104,13 +105,13 @@
     "sigilo": "举报人身份绝不公开。你可以在「通知」中跟进进度。"
   },
   "entrada": {
-    "titulo": "加入卢西亚网络",
+    "titulo": "加入 Alumia",
     "texto": "这里讨论学习与斗争，使用化名，没有私聊。加入之前，请阅读规则并确认两件事。",
     "maior": "我已年满 18 岁。",
-    "consentimento": "我明白谈论政治可能暴露我的政治观点或工会成员身份，并依据规则明确同意网络处理这些数据。",
-    "regras": "阅读网络规则",
-    "aderir": "加入网络",
-    "idadeNegada": "本网络仅限 18 岁以上人士。网站的其他部分仍然对你开放。",
+    "consentimento": "我明白谈论政治可能暴露我的政治观点或工会成员身份，并依据规则明确同意 Alumia 处理这些数据。",
+    "regras": "阅读 Alumia 规则",
+    "aderir": "加入 Alumia",
+    "idadeNegada": "Alumia 仅限 18 岁以上人士。网站的其他部分仍然对你开放。",
     "menor": "我未满 18 岁",
     "codinome": "你的化名（3 到 30 个字符，不含 @ 和真名）",
     "entreNaConta": "登录后即可参与。无需账号即可阅读各学科的问答。",
@@ -134,7 +135,7 @@
     "regras": "规则",
     "moderacao": "管理员",
     "tipoAberta": "开放",
-    "tipoRestrita": "受限：网络成员可读，仅加入者可写",
+    "tipoRestrita": "受限：Alumia 成员可读，仅加入者可写",
     "tipoFechada": "封闭：仅社区成员",
     "banido": "你暂时不能在此社区发帖。"
   },
@@ -147,25 +148,33 @@
     "entre_primeiro": "请先登录再进行此操作。",
     "conta_suspensa": "你的账号已被暂停。",
     "area_interditada": "此区域暂时关闭。",
-    "confirme_idade": "请确认你已年满 18 岁后再加入网络。",
-    "idade_minima": "本网络仅限 18 岁以上人士。",
-    "consentimento": "请阅读规则并表示同意后再加入网络。",
+    "confirme_idade": "请确认你已年满 18 岁后再加入 Alumia。",
+    "idade_minima": "Alumia 仅限 18 岁以上人士。",
+    "consentimento": "请阅读规则并表示同意后再加入 Alumia。",
     "confirme_codinome": "发帖前请先选择或确认你的化名。",
-    "dado_pessoal": "请删除文中的证件号、电话或邮箱：个人信息不能发布到网络上。",
+    "dado_pessoal": "请删除文中的证件号、电话或邮箱：个人信息不能发布到 Alumia 上。",
     "sem_permissao": "你在这里没有权限执行此操作。",
     "nao_encontrado": "找不到此内容，或你没有访问权限。",
     "travado": "此讨论已锁定。",
     "limite_de_niveis": "对话层级已达上限：请从更靠上的回复继续。",
     "muitos_pedidos": "请稍等：连续请求太多，请稍后再试。",
-    "banco_desatualizado": "数据库尚未收到网络更新。",
+    "banco_desatualizado": "数据库尚未收到 Alumia 更新。",
     "sem_servico": "此环境未启用账号服务。",
     "sem_conexao": "无网络连接。请检查网络后重试。",
     "falha": "出了点问题，请重试。",
     "invalido": "请检查字段：{campo}。",
     "modo_lento": "此处处于慢速模式：请稍等片刻再发言。",
-    "nivel_links": "你的等级暂不允许在一个帖子里放这么多链接。请在“网络如何守护”中查看限制。",
-    "nivel_imagens": "你的等级暂不允许在一个帖子里放这么多图片。请在“网络如何守护”中查看限制。",
+    "nivel_links": "你的等级暂不允许在一个帖子里放这么多链接。请在“Alumia 如何守护”中查看限制。",
+    "nivel_imagens": "你的等级暂不允许在一个帖子里放这么多图片。请在“Alumia 如何守护”中查看限制。",
     "limite_diario": "你已达到今天按你等级可发的帖子上限。",
     "lista_bloqueio": "此处的调解人不允许你在这里发帖。"
+  },
+  "alumia": {
+    "voltarAoSite": "返回 Instituto Lúcia 网站",
+    "voltarCurto": "返回网站",
+    "descricao": "Alumia 是 Instituto Lúcia 的社交网络：学习与斗争，使用代号，没有广告，没有追踪。",
+    "rotuloDaFaixa": "Alumia，Instituto Lúcia 的社交网络",
+    "sairDaConta": "退出账号",
+    "lema": "Instituto Lúcia 的社交网络"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "marca": "Rede Lúcia",
+  "marca": "Alumia",
   "menu": {
-    "principal": "Menu da Rede",
-    "barra": "Barra da Rede",
+    "principal": "Menu da Alumia",
+    "barra": "Barra da Alumia",
     "inicio": "Início",
     "comunidades": "Comunidades",
     "chamados": "Chamados",
@@ -12,10 +12,11 @@
     "perfil": "Perfil",
     "escrever": "Escrever",
     "busca": "Buscar",
-    "explorar": "Explorar"
+    "explorar": "Explorar",
+    "fediverso": "Fediverso"
   },
   "abas": {
-    "rotulo": "Linhas da Rede",
+    "rotulo": "Linhas da Alumia",
     "seguindo": "Seguindo",
     "comunidades": "Minhas comunidades",
     "tudo": "Tudo",
@@ -30,7 +31,7 @@
   "porQueEstaOrdem": "Por que esta ordem?",
   "publicos": {
     "internet": "Internet (qualquer pessoa, sem conta)",
-    "membros": "Membros da Rede",
+    "membros": "Membros da Alumia",
     "seguidores": "Quem me segue",
     "comunidade": "Só esta comunidade",
     "nucleo": "Só este núcleo",
@@ -69,7 +70,7 @@
     "verMais": "Ver o texto inteiro"
   },
   "casca": {
-    "escrever": "Escrever na Rede",
+    "escrever": "Escrever na Alumia",
     "fechar": "Fechar",
     "publicar": "Publicar",
     "publicando": "Publicando…",
@@ -83,7 +84,7 @@
     "comunidade": "Comunidade (opcional)",
     "saltarParaConteudo": "Ir para a linha",
     "sairRapido": "Sair rápido",
-    "sairRapidoAjuda": "Abre uma página neutra e apaga os dados da Rede neste aparelho.",
+    "sairRapidoAjuda": "Abre uma página neutra e apaga os dados da Alumia neste aparelho.",
     "cartaoSeguranca": "Segurança primeiro: nunca poste endereço de casa, telefone ou documento. Se algo preocupar, denuncie.",
     "cuidados": {
       "titulo": "Cuidado",
@@ -94,7 +95,7 @@
     }
   },
   "codinome": {
-    "aviso": "Na Rede, ninguém aparece com o nome de verdade, nem a equipe."
+    "aviso": "Na Alumia, ninguém aparece com o nome de verdade, nem a equipe."
   },
   "chamado": {
     "pontoPublico": "Ponto de encontro público (praça, biblioteca, sindicato, escola). Nunca um endereço de casa."
@@ -103,13 +104,13 @@
     "sigilo": "Quem denuncia nunca é revelado. Você acompanha o andamento em Avisos."
   },
   "entrada": {
-    "titulo": "Entrar na Rede Lúcia",
+    "titulo": "Entrar na Alumia",
     "texto": "Aqui a conversa é sobre estudo e luta, com codinome e sem chat privado. Antes de entrar, leia as regras e confirme duas coisas.",
     "maior": "Tenho 18 anos ou mais.",
-    "consentimento": "Entendo que falar de política pode revelar minha opinião política ou filiação sindical, e consinto, de forma específica, com o tratamento desses dados na Rede, nos termos das regras.",
-    "regras": "Ler as regras da Rede",
-    "aderir": "Entrar na Rede",
-    "idadeNegada": "A Rede é só para maiores de 18 anos. O resto do site continua aberto para você.",
+    "consentimento": "Entendo que falar de política pode revelar minha opinião política ou filiação sindical, e consinto, de forma específica, com o tratamento desses dados na Alumia, nos termos das regras.",
+    "regras": "Ler as regras da Alumia",
+    "aderir": "Entrar na Alumia",
+    "idadeNegada": "A Alumia é só para maiores de 18 anos. O resto do site continua aberto para você.",
     "menor": "Tenho menos de 18 anos",
     "codinome": "Seu codinome (3 a 30 caracteres, sem @ e sem nome de verdade)",
     "entreNaConta": "Entre na sua conta para participar. Você pode ler as dúvidas das disciplinas sem conta.",
@@ -133,7 +134,7 @@
     "regras": "Regras",
     "moderacao": "Moderação",
     "tipoAberta": "Aberta",
-    "tipoRestrita": "Restrita: membros da Rede leem, só quem entrou escreve",
+    "tipoRestrita": "Restrita: membros da Alumia leem, só quem entrou escreve",
     "tipoFechada": "Fechada: só quem é da comunidade",
     "banido": "Você não pode escrever nesta comunidade por enquanto."
   },
@@ -146,25 +147,33 @@
     "entre_primeiro": "Entre na sua conta para fazer isto.",
     "conta_suspensa": "Sua conta está suspensa.",
     "area_interditada": "Esta área está fora do ar por enquanto.",
-    "confirme_idade": "Confirme que você tem 18 anos ou mais para entrar na Rede.",
-    "idade_minima": "A Rede é só para maiores de 18 anos.",
-    "consentimento": "Leia as regras e dê o seu consentimento para entrar na Rede.",
+    "confirme_idade": "Confirme que você tem 18 anos ou mais para entrar na Alumia.",
+    "idade_minima": "A Alumia é só para maiores de 18 anos.",
+    "consentimento": "Leia as regras e dê o seu consentimento para entrar na Alumia.",
     "confirme_codinome": "Escolha ou confirme o seu codinome antes de escrever.",
-    "dado_pessoal": "Tire o CPF, telefone ou e-mail do texto: dado pessoal não vai para a Rede.",
+    "dado_pessoal": "Tire o CPF, telefone ou e-mail do texto: dado pessoal não vai para a Alumia.",
     "sem_permissao": "Você não tem permissão para isto aqui.",
     "nao_encontrado": "Não encontramos isto, ou você não tem acesso.",
     "travado": "Esta conversa está travada.",
     "limite_de_niveis": "A conversa chegou ao limite de níveis: continue em uma resposta mais acima.",
     "muitos_pedidos": "Calma: muitos pedidos seguidos. Tente de novo daqui a pouco.",
-    "banco_desatualizado": "O banco ainda não recebeu a atualização da Rede.",
+    "banco_desatualizado": "O banco ainda não recebeu a atualização da Alumia.",
     "sem_servico": "O serviço de contas não está ligado neste ambiente.",
     "sem_conexao": "Sem conexão. Confira a internet e tente de novo.",
     "falha": "Algo deu errado. Tente de novo.",
     "invalido": "Confira o campo: {campo}.",
     "modo_lento": "Este lugar está em modo lento: espere um pouco para escrever de novo.",
-    "nivel_links": "Seu nível ainda não permite tantos links num post. Veja os limites em Como a Rede cuida.",
-    "nivel_imagens": "Seu nível ainda não permite tantas imagens num post. Veja os limites em Como a Rede cuida.",
+    "nivel_links": "Seu nível ainda não permite tantos links num post. Veja os limites em Como a Alumia cuida.",
+    "nivel_imagens": "Seu nível ainda não permite tantas imagens num post. Veja os limites em Como a Alumia cuida.",
     "limite_diario": "Você chegou ao limite de posts de hoje para o seu nível.",
     "lista_bloqueio": "A mediação deste lugar não permite posts seus aqui."
+  },
+  "alumia": {
+    "voltarAoSite": "Voltar ao site do Instituto Lúcia",
+    "voltarCurto": "Voltar ao site",
+    "descricao": "A Alumia é a rede social do Instituto Lúcia: estudo e luta, com codinome, sem anúncio e sem rastreio.",
+    "rotuloDaFaixa": "Alumia, a rede social do Instituto Lúcia",
+    "sairDaConta": "Sair da conta",
+    "lema": "a rede social do Instituto Lúcia"
   }
 }

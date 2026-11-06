@@ -10,7 +10,7 @@
     "estudandoAgora": "Étudie en ce moment",
     "abrirAula": "Ouvrir la leçon",
     "fixado": "Publication épinglée",
-    "escolherHandle": "Choisissez votre @nom pour avoir une page dans le Réseau.",
+    "escolherHandle": "Choisissez votre @nom pour avoir une page dans Alumia.",
     "selos": {
       "equipe": "Équipe de l'institut",
       "educador": "Éducation",
@@ -76,7 +76,7 @@
   "editar": {
     "titulo": "Modifier le profil",
     "voltar": "Retour au profil",
-    "entrarNaRede": "Rejoignez le Réseau pour modifier votre profil.",
+    "entrarNaRede": "Rejoignez Alumia pour modifier votre profil.",
     "handleTitulo": "@nom",
     "handleAjuda": "3 à 20 lettres minuscules sans accent, chiffres ou _. Après le premier choix, un changement tous les 30 jours.",
     "handleSalvar": "Enregistrer @nom",
@@ -86,7 +86,7 @@
     "contador": "{n} sur 160",
     "modoTitulo": "Qui peut vous trouver",
     "modoAberto": "Ouvert",
-    "modoAbertoAjuda": "Tout membre du Réseau peut vous suivre.",
+    "modoAbertoAjuda": "Tout membre d’Alumia peut vous suivre.",
     "modoTrancado": "Verrouillé",
     "modoTrancadoAjuda": "Qui veut suivre demande, et vous approuvez. Les abonnés actuels restent.",
     "modoInvisivel": "Invisible",

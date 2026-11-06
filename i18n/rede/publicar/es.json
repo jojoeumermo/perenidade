@@ -77,7 +77,7 @@
     "rotulo": "Publicar más tarde",
     "quando": "Fecha y hora",
     "marcar": "Programar",
-    "agendado": "Programado para {quando}. Si la Red está cerrada a esa hora, sale la próxima vez que la abras.",
+    "agendado": "Programado para {quando}. Si Alumia está cerrada a esa hora, sale la próxima vez que la abras.",
     "fila": "Publicaciones programadas",
     "cancelar": "Cancelar programación",
     "falhou": "No salió: {erro}",
@@ -89,9 +89,9 @@
     "apagar": "Borrar el borrador"
   },
   "checagem": {
-    "cpf": "Parece un CPF. Quítalo: los datos personales no van a la Red.",
-    "telefone": "Parece un teléfono. Quítalo: los datos personales no van a la Red.",
-    "email": "Parece un correo electrónico. Quítalo: los datos personales no van a la Red.",
+    "cpf": "Parece un CPF. Quítalo: los datos personales no van a Alumia.",
+    "telefone": "Parece un teléfono. Quítalo: los datos personales no van a Alumia.",
+    "email": "Parece un correo electrónico. Quítalo: los datos personales no van a Alumia.",
     "endereco": "Parece una dirección con número. Quítala: decir dónde vive o está alguien lo expone.",
     "odio": "El texto tiene palabras que suelen herir. Puedes enviarlo, pero la moderación lo lee antes de que aparezca."
   },
@@ -124,6 +124,6 @@
     "invalido_responde_quem": "Revisa quién puede responder.",
     "ja_votou": "Ya votaste en esta encuesta.",
     "encerrada": "Esta encuesta ya terminó.",
-    "dado_pessoal": "Quita del texto CPF, teléfono, correo o dirección con número: los datos personales no van a la Red."
+    "dado_pessoal": "Quita del texto CPF, teléfono, correo o dirección con número: los datos personales no van a Alumia."
   }
 }

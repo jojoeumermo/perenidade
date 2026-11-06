@@ -1,6 +1,6 @@
 {
   "_rascunho": true,
-  "marca": "Lúcia Network",
+  "marca": "Alumia",
   "menu": {
     "principal": "Network menu",
     "barra": "Network bar",
@@ -13,7 +13,8 @@
     "perfil": "Profile",
     "escrever": "Write",
     "busca": "Search",
-    "explorar": "Explore"
+    "explorar": "Explore",
+    "fediverso": "Fediverse"
   },
   "abas": {
     "rotulo": "Network timelines",
@@ -104,7 +105,7 @@
     "sigilo": "Whoever reports is never revealed. You follow progress in Notices."
   },
   "entrada": {
-    "titulo": "Join the Lúcia Network",
+    "titulo": "Join Alumia",
     "texto": "Here the conversation is about study and struggle, with pseudonyms and no private chat. Before joining, read the rules and confirm two things.",
     "maior": "I am 18 or older.",
     "consentimento": "I understand that talking about politics can reveal my political opinion or union membership, and I specifically consent to this data being processed on the network, under the rules.",
@@ -163,9 +164,17 @@
     "falha": "Something went wrong. Try again.",
     "invalido": "Check the field: {campo}.",
     "modo_lento": "This place is in slow mode: wait a little before writing again.",
-    "nivel_links": "Your level does not allow that many links in a post yet. See the limits in How the Network cares.",
-    "nivel_imagens": "Your level does not allow that many images in a post yet. See the limits in How the Network cares.",
+    "nivel_links": "Your level does not allow that many links in a post yet. See the limits in How Alumia cares.",
+    "nivel_imagens": "Your level does not allow that many images in a post yet. See the limits in How Alumia cares.",
     "limite_diario": "You reached today's post limit for your level.",
     "lista_bloqueio": "This place's mediators do not allow posts from you here."
+  },
+  "alumia": {
+    "voltarAoSite": "Back to the Instituto Lúcia website",
+    "voltarCurto": "Back to the website",
+    "descricao": "Alumia is the social network of Instituto Lúcia: study and struggle, under a code name, with no ads and no tracking.",
+    "rotuloDaFaixa": "Alumia, the social network of Instituto Lúcia",
+    "sairDaConta": "Sign out",
+    "lema": "the social network of Instituto Lúcia"
   }
 }

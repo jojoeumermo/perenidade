@@ -10,7 +10,7 @@
     "carregando": "Loading notifications…",
     "falha": "Could not load notifications. Try again.",
     "novo": "New",
-    "reserva": "There is something new for you on the Network.",
+    "reserva": "There is something new for you on Alumia.",
     "naoLidos": "{n} unread",
     "tudoLido": "All read.",
     "emTitulo": "in “{titulo}”",
@@ -28,7 +28,7 @@
     "salvo": "Preference saved.",
     "falha": "Could not save. Try again.",
     "site": {
-      "titulo": "Notifications here on the Network",
+      "titulo": "Notifications here on Alumia",
       "descricao": "Choose what shows on this screen. Moderation notices always show: you have the right to know what happened to what you wrote.",
       "tipos": {
         "resposta": "Replies to what you wrote",
@@ -48,11 +48,11 @@
       "ver": "See what would be sent now",
       "nada": "Nothing to send now: you have no new notifications.",
       "fechar": "Close the preview",
-      "precisaEntrar": "To receive e-mail from the Network, join the Network first (18 or older, rules accepted)."
+      "precisaEntrar": "To receive e-mail from Alumia, join Alumia first (18 or older, rules accepted)."
     },
     "push": {
       "titulo": "Notification on your phone",
-      "descricao": "The device only receives “You have N notifications on the Network”, with no post text. Turn it off any time and the device is removed from our server.",
+      "descricao": "The device only receives “You have N notifications on Alumia”, with no post text. Turn it off any time and the device is removed from our server.",
       "ligar": "Notify this device",
       "desligar": "Turn off on this device",
       "ativo": "On for this device.",
@@ -62,7 +62,7 @@
       "bloqueado": "Notifications are blocked in this browser. Allow them in the site settings and try again.",
       "ios": "On iPhone and iPad, first add the site to the Home Screen (Share → Add to Home Screen) and open it from there.",
       "naoConfigurado": "Phone notifications are not turned on for this site yet.",
-      "precisaEntrar": "To get phone notifications, join the Network first (18 or older, rules accepted)."
+      "precisaEntrar": "To get phone notifications, join Alumia first (18 or older, rules accepted)."
     }
   }
 }

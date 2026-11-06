@@ -1,0 +1,96 @@
+{
+  "_rascunho": true,
+  "salvos": {
+    "titulo": "Enregistrés",
+    "lead": "Ce que vous avez gardé pour lire plus tard. Vous seul voyez cette liste ; l'auteur n'est pas prévenu.",
+    "vazio": "Rien d'enregistré pour l'instant. Sur n'importe quelle publication, touchez Enregistrer pour la garder ici.",
+    "entre": "Connectez-vous pour voir ce que vous avez enregistré."
+  },
+  "fed": {
+    "titulo": "Alumia dans le Fédivers",
+    "lead": "Le Fédivers est un ensemble de réseaux sociaux libres qui communiquent entre eux, comme Mastodon. Si vous activez la fédération, des personnes de là-bas peuvent vous suivre et lire vos publications publiques, et vous pouvez suivre des personnes de là-bas. Elle reste désactivée tant que vous ne l'activez pas.",
+    "foraDoAr": "La fédération n'est pas encore activée sur le serveur d'Alumia. Quand elle le sera, vous pourrez activer la vôtre ici.",
+    "endereco": "Votre adresse dans le Fédivers",
+    "ligadaDesde": "Activée depuis le {quando}.",
+    "desligada": "Désactivée : rien de vous ne sort d'Alumia.",
+    "numeros": "Personnes d'ailleurs qui vous suivent : {seguidores}. Personnes d'ailleurs que vous suivez : {seguindo}.",
+    "consentimento": {
+      "titulo": "Avant d'activer, lisez attentivement",
+      "itens": [
+        "Seules sortent les publications marquées Internet (tout le monde, sans compte), écrites après l'activation. Votre pseudonyme, votre @nom et votre bio sortent aussi.",
+        "Ne sortent jamais : votre vrai nom, l'e-mail, les publications pour les membres, pour les abonnés, des communautés fermées ou restreintes, des noyaux ou de l'équipe, ni qui vous suivez ici.",
+        "Les autres serveurs gardent des copies de ce qu'ils reçoivent, et certains sont hors du Brésil. À la désactivation, Alumia demande à tous de supprimer, mais ne peut pas y obliger ceux qui ne respectent pas la demande.",
+        "Ce que vous dites de politique peut révéler une opinion politique ou une affiliation syndicale, que la loi traite comme donnée sensible (Loi 13.709/2018, art. 11, I). Ce choix est donc à vous seul, séparé des autres, et vous pouvez l'annuler à tout moment (art. 8, § 5)."
+      ],
+      "caixa": "J'ai lu et je consens, de façon spécifique, à ce que mes publications publiques, mon pseudonyme, mon @nom et ma bio soient envoyés à d'autres serveurs du Fédivers, y compris hors du Brésil, tant que la fédération est activée (Loi 13.709/2018, arts. 7, I, 8, 11, I, et 33, VIII).",
+      "ligar": "Activer la fédération",
+      "desligar": "Désactiver et demander la suppression",
+      "desligarConfirma": "Désactiver la fédération ? Vos publications seront retirées des autres serveurs (Alumia envoie la demande), et les personnes d'ailleurs cessent de vous suivre.",
+      "ligou": "Fédération activée. Vos prochaines publications Internet sortiront vers les personnes qui vous suivent d'ailleurs.",
+      "desligou": "Fédération désactivée. Les demandes de suppression partent déjà."
+    },
+    "motivos": {
+      "entre_primeiro": "Connectez-vous pour activer la fédération.",
+      "conta_suspensa": "Avec un compte suspendu, la fédération ne s'active pas.",
+      "consentimento": "Entrez d'abord dans Alumia (règles et âge), puis revenez ici.",
+      "sem_handle": "Choisissez votre @nom dans Modifier le profil avant d'activer.",
+      "perfil_fechado": "Seul un profil ouvert peut l'activer : un profil verrouillé ou invisible ne sort jamais d'Alumia."
+    },
+    "buscar": {
+      "titulo": "Trouver quelqu'un dans le Fédivers",
+      "rotulo": "Adresse complète",
+      "exemplo": "@nom@mastodon.social",
+      "botao": "Chercher",
+      "buscando": "Recherche…",
+      "ajuda": "C'est le serveur d'Alumia qui cherche : l'autre instance ne sait pas qui a regardé.",
+      "invalido": "Écrivez l'adresse complète, avec les deux arobases : @nom@instance.",
+      "nada": "Adresse introuvable (ou l'instance n'a pas répondu).",
+      "bloqueada": "La médiation d'Alumia a bloqué cette instance.",
+      "local": "Cette personne est ici, sur Alumia.",
+      "abrirPerfil": "Ouvrir le profil",
+      "posts": "Publications publiques récentes",
+      "semPosts": "Aucune publication publique à afficher.",
+      "abrirLa": "Ouvrir sur l'instance d'origine"
+    },
+    "seguir": {
+      "seguir": "Suivre",
+      "pedido": "Demande envoyée",
+      "seguindo": "Abonné",
+      "deixar": "Ne plus suivre",
+      "precisaLigar": "Pour suivre quelqu'un d'ailleurs, activez la fédération ci-dessus : suivre montre votre @nom à l'autre instance."
+    },
+    "linha": {
+      "titulo": "Du Fédivers",
+      "lead": "Publications publiques des personnes que vous suivez sur d'autres instances, texte seul (sans images ni liens actifs), gardées 30 jours.",
+      "vazio": "Rien pour l'instant. Quand quelqu'un que vous suivez publie, cela apparaît ici.",
+      "aviso": "Avertissement de contenu : {aviso}",
+      "mostrar": "Afficher le texte",
+      "mais": "Voir plus anciennes"
+    },
+    "seguindo": {
+      "titulo": "Qui vous suivez ailleurs",
+      "vazio": "Personne pour l'instant.",
+      "esperando": "en attente d'acceptation"
+    },
+    "mediacao": {
+      "titulo": "Médiation : bloquer une instance",
+      "ajuda": "Rien n'entre d'une instance bloquée et rien ne sort vers elle ; ses abonnés cessent de suivre.",
+      "rotulo": "Domaine",
+      "exemplo": "instance.exemple",
+      "motivo": "Motif (gardé dans le registre)",
+      "bloquear": "Bloquer",
+      "desbloquear": "Débloquer",
+      "lista": "Instances bloquées",
+      "nenhuma": "Aucune instance bloquée.",
+      "feito": "Fait."
+    },
+    "erros": {
+      "fediverso_desligado": "Activez la fédération dans votre profil avant de suivre quelqu'un d'ailleurs.",
+      "instancia_bloqueada": "La médiation d'Alumia a bloqué cette instance.",
+      "nao_encontrado": "Adresse introuvable (ou l'instance n'a pas répondu).",
+      "invalido:versao": "Le texte du consentement a changé. Rechargez la page et relisez-le.",
+      "invalido:handle": "Quelqu'un d'autre utilise déjà ce @nom dans le Fédivers. Changez le vôtre dans Modifier le profil.",
+      "invalido:dominio": "Écrivez seulement le domaine, comme instance.exemple."
+    }
+  }
+}

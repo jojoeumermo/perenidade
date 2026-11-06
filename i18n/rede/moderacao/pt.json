@@ -9,7 +9,7 @@
   "remover": "Remover",
   "nenhum": "Nada por aqui.",
   "entreParaVer": "Entre na sua conta para ver esta página.",
-  "semPermissao": "Esta área é só de quem modera a Rede.",
+  "semPermissao": "Esta área é só de quem modera a Alumia.",
   "categorias": {
     "menores": { "rotulo": "Criança ou adolescente em risco", "ajuda": "Abuso, exploração ou exposição de menores de idade." },
     "ameaca": { "rotulo": "Ameaça", "ajuda": "Alguém ameaça a vida ou a integridade de outra pessoa." },
@@ -20,7 +20,7 @@
     "assedio": { "rotulo": "Assédio ou perseguição", "ajuda": "Insistência, humilhação ou perseguição contra alguém." },
     "golpe": { "rotulo": "Golpe ou fraude", "ajuda": "Tentativa de enganar para tirar dinheiro ou dados." },
     "spam": { "rotulo": "Propaganda ou repetição", "ajuda": "Mensagem repetida, venda ou divulgação fora de lugar." },
-    "outro": { "rotulo": "Outro motivo", "ajuda": "Algo que fere as normas da Rede e não está nas opções acima." }
+    "outro": { "rotulo": "Outro motivo", "ajuda": "Algo que fere as normas da Alumia e não está nas opções acima." }
   },
   "prioridade": { "1": "Prioridade 1", "2": "Prioridade 2", "3": "Prioridade 3" },
   "denunciar": {
@@ -159,7 +159,7 @@
     "andamento": {
       "aberta": "Recebida",
       "em_analise": "Em análise",
-      "resolvida": "Resolvida: a Rede tomou providências",
+      "resolvida": "Resolvida: a Alumia tomou providências",
       "descartada": "Analisada: sem violação das normas"
     },
     "regra": "Regra: {regra}",
@@ -187,8 +187,8 @@
     "limpar": "Esta lista é apagada se você usar o Sair rápido."
   },
   "cuidado": {
-    "titulo": "Como a Rede cuida",
-    "lead": "A Rede tem regras escritas, com prazo e com recurso. Aqui está como funciona, sem letra miúda.",
+    "titulo": "Como a Alumia cuida",
+    "lead": "A Alumia tem regras escritas, com prazo e com recurso. Aqui está como funciona, sem letra miúda.",
     "denunciaTitulo": "Denúncia com protocolo",
     "denunciaTexto": "Qualquer pessoa pode denunciar um post, um perfil ou uma comunidade. Quem denuncia nunca é revelado. Cada denúncia ganha um protocolo e você acompanha em Avisos.",
     "filaTitulo": "Quem é atendido primeiro",
@@ -207,7 +207,7 @@
     "leiTexto": "A decisão do STF sobre o art. 19 do Marco Civil da Internet (Temas 987 e 533) pede notificação, procedimento e canal de denúncia. Esta página e a de denúncias são esse canal. Conteúdo ilícito grave sai logo; crimes contra a honra seguem o caminho da Justiça, e a moderação pode retirar a partir de uma notificação.",
     "niveisTitulo": "Níveis de confiança",
     "niveisTexto": "Todo mundo começa no nível 0. A pessoa sobe sozinha pelo tempo de conta, pela participação (apoios e salvos que deu) e pelos posts sem decisão de moderação contra eles. Uma decisão procedente faz o nível descer. O nível 4 é designado pela coordenação.",
-    "niveisSemLeitura": "Contamos o que você faz, nunca o que você lê: a Rede não acompanha a sua leitura.",
+    "niveisSemLeitura": "Contamos o que você faz, nunca o que você lê: a Alumia não acompanha a sua leitura.",
     "nivel": "Nível",
     "diasDeConta": "dias de conta",
     "participacoes": "participações",
@@ -229,8 +229,8 @@
   },
   "erros": {
     "modo_lento": "Este lugar está em modo lento: espere um pouco para escrever de novo.",
-    "nivel_links": "Seu nível ainda não permite tantos links num post. Veja os limites em Como a Rede cuida.",
-    "nivel_imagens": "Seu nível ainda não permite tantas imagens num post. Veja os limites em Como a Rede cuida.",
+    "nivel_links": "Seu nível ainda não permite tantos links num post. Veja os limites em Como a Alumia cuida.",
+    "nivel_imagens": "Seu nível ainda não permite tantas imagens num post. Veja os limites em Como a Alumia cuida.",
     "limite_diario": "Você chegou ao limite de posts de hoje para o seu nível.",
     "lista_bloqueio": "A mediação deste lugar não permite posts seus aqui.",
     "outra_pessoa": "Outra pessoa da moderação precisa decidir: você tomou a decisão contestada.",

@@ -30,9 +30,9 @@ async function pedirAoServidor(caminho: string, metodo: "GET" | "POST", corpo?: 
 }
 
 const NOMES_DE_RECURSO: Record<string, string> = {
-  escola: "Escola Lúcia Maria",
+  escola: "Escola Revolucionária Lúcia Maria",
   "vale-o-escrito": "Vale o Escrito",
-  "rede-v2": "Rede Lúcia v2",
+  "rede-v2": "Alumia (Rede v2)",
 };
 
 /** O recado de uma ação ou o erro de leitura: uma faixa curta (erro de leitura em tom de erro), anunciada com calma. */

@@ -10,7 +10,7 @@
     "estudandoAgora": "Studying now",
     "abrirAula": "Open the lesson",
     "fixado": "Pinned post",
-    "escolherHandle": "Choose your @name to get a page in the Network.",
+    "escolherHandle": "Choose your @name to get a page in Alumia.",
     "selos": {
       "equipe": "Institute team",
       "educador": "Education",
@@ -76,7 +76,7 @@
   "editar": {
     "titulo": "Edit profile",
     "voltar": "Back to the profile",
-    "entrarNaRede": "Join the Network to edit your profile.",
+    "entrarNaRede": "Join Alumia to edit your profile.",
     "handleTitulo": "@name",
     "handleAjuda": "3 to 20 lowercase letters without accents, digits or _. After the first pick you can change it once every 30 days.",
     "handleSalvar": "Save @name",
