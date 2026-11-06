@@ -2,7 +2,7 @@
 "use client";
 
 import { BellRing, Check, CheckCheck, Copy, KeyRound, LifeBuoy, Plus, RefreshCw, ShieldCheck, ShieldOff, Trash2 } from "lucide-react";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { getClient, rpc, signOut, type Me } from "@/lib/backend";
 import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, renameFingerprint, type Passkey } from "@/lib/passkey";
 import { Aviso, dataHora, useAcao, useLista } from "./comum";
@@ -51,6 +51,11 @@ function CadastroDoAplicativo({ cadastro, entrada, pronto, ocupado, aviso, confi
   const [ajuda, setAjuda] = useState(false);
   const [copia, setCopia] = useState<"" | "ok" | "falhou">("");
   const blocos = emBlocos(cadastro.segredo);
+  // O botão "Cadastrar" some ao abrir esta tela: o foco vem para o começo da explicação, e não se perde no fim da página.
+  const inicio = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    inicio.current?.focus();
+  }, []);
 
   async function copiar() {
     const chave = cadastro.segredo.replace(/\s+/g, "");
@@ -81,7 +86,7 @@ function CadastroDoAplicativo({ cadastro, entrada, pronto, ocupado, aviso, confi
   return (
     <div className="grid gap-4">
       <div className="grid gap-2">
-        <p className="font-semibold">Você vai precisar do celular com um aplicativo autenticador.</p>
+        <p ref={inicio} tabIndex={-1} className="font-semibold">Você vai precisar do celular com um aplicativo autenticador.</p>
         <p className="pn-ajuda">
           A câmera comum do celular não serve: ela até lê o quadrado, mas mostra só um texto estranho começando com “otpauth://” (às vezes no aplicativo de notas). O quadrado precisa ser lido de dentro do aplicativo autenticador.
         </p>
@@ -118,7 +123,7 @@ function CadastroDoAplicativo({ cadastro, entrada, pronto, ocupado, aviso, confi
             </span>
           </p>
           <p>
-            <button type="button" aria-expanded={ajuda} onClick={() => setAjuda((valor) => !valor)} className="cursor-pointer text-sm underline underline-offset-2 hover:text-oxblood">
+            <button type="button" aria-expanded={ajuda} aria-controls="segundo-fator-ajuda" onClick={() => setAjuda((valor) => !valor)} className="cursor-pointer text-sm underline underline-offset-2 hover:text-oxblood">
               Não consigo ler o QR
             </button>
           </p>
@@ -126,7 +131,7 @@ function CadastroDoAplicativo({ cadastro, entrada, pronto, ocupado, aviso, confi
       </div>
 
       {ajuda && (
-        <Cartao as="div" variante="plano" className="grid gap-2 text-sm">
+        <Cartao as="div" id="segundo-fator-ajuda" variante="plano" className="grid gap-2 text-sm">
           <p className="font-semibold">Se o QR não for lido</p>
           <ul className="list-disc space-y-1.5 pl-5">
             <li>Abra a câmera de dentro do aplicativo autenticador (botão +, depois “Ler código QR”), não a câmera comum do celular.</li>
@@ -149,18 +154,25 @@ function CadastroDoAplicativo({ cadastro, entrada, pronto, ocupado, aviso, confi
         <p>Nada de print, foto ou cópia, nem para a coordenação: quem tiver o QR ou a chave consegue gerar os seus códigos. A coordenação nunca pede isso.</p>
       </Faixa>
 
-      <div className="grid gap-1">
+      {/* Formulário para o Enter do teclado confirmar o código, como na tela de entrar. */}
+      <form
+        className="grid gap-1"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (pronto && !ocupado) confirmar();
+        }}
+      >
         <p className="pn-rotulo">Código de 6 números que aparece no aplicativo</p>
         <div className="flex flex-wrap items-end gap-3">
           {entrada}
-          <Botao variante="principal" carregando={ocupado} disabled={!pronto} onClick={confirmar}>
+          <Botao type="submit" variante="principal" carregando={ocupado} disabled={!pronto}>
             Confirmar
           </Botao>
           <Botao variante="discreto" onClick={cancelar}>
             Cancelar
           </Botao>
         </div>
-      </div>
+      </form>
       <Aviso texto={aviso} />
     </div>
   );
@@ -311,12 +323,18 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
     return (
       <div>
         <p className="pn-ajuda">Digite o código de seis números do seu aplicativo autenticador para confirmar esta sessão.</p>
-        <div className="mt-3 flex flex-wrap items-end gap-3">
+        <form
+          className="mt-3 flex flex-wrap items-end gap-3"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (pronto && !ocupado) void confirmar(confirmado.id);
+          }}
+        >
           {entrada}
-          <Botao variante="principal" carregando={ocupado} disabled={!pronto} onClick={() => confirmar(confirmado.id)}>
+          <Botao type="submit" variante="principal" carregando={ocupado} disabled={!pronto}>
             Confirmar
           </Botao>
-        </div>
+        </form>
         <Aviso texto={aviso} />
         {recuperando ? (
           <form

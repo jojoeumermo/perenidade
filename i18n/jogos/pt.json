@@ -10,7 +10,16 @@
     "irCriancas": "Música para crianças",
     "irFormacao": "Jogos de formação",
     "aviso": "Os jogos de palavras usam o glossário do instituto, que está em português.",
-    "irProprios": "Jogos do Instituto"
+    "irProprios": "Jogos do Instituto",
+    "destaque": "Em destaque",
+    "jogar": "Jogar",
+    "todos": "Todos",
+    "quantos": "{n} jogos",
+    "umJogador": "1 jogador",
+    "umOuDois": "1 ou 2 jogadores",
+    "noSeuTempo": "no seu tempo",
+    "categorias": "Categorias de jogos",
+    "incluiTambem": "Inclui também"
   },
   "treino": {
     "titulo": "Treino de palavras",

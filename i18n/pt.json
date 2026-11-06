@@ -3898,7 +3898,7 @@
     "codeTitle": "Confirme que é você",
     "codeLabel": "Código de 6 dígitos do aplicativo autenticador",
     "codeConfirm": "Confirmar",
-    "codeWrong": "Código incorreto. Confira no aplicativo e tente de novo.",
+    "codeWrong": "O código não confere. Cada código vale só 30 segundos: espere aparecer um novo no aplicativo e digite logo. Se continuar errado, confira se a data e a hora do celular estão no automático (nas configurações do celular): com o relógio fora da hora, o aplicativo mostra o código errado.",
     "codeOther": "Entrar com outra conta",
     "failed": "Não foi possível concluir. Tente de novo em alguns minutos.",
     "why": "Não tem conta? Crie uma, com e-mail e senha, para perguntar e responder na Comunidade. Perdeu a senha? Fale com a coordenação.",
@@ -5522,9 +5522,9 @@
     "cartaoVer": "Ver a página"
   },
   "rede": {
-    "abaRede": "Rede",
+    "abaRede": "Alumia",
     "abaForum": "Fórum",
-    "nome": "Rede Lúcia",
+    "nome": "Alumia",
     "sub": "Formação em rede",
     "tudo": "Tudo",
     "seguindo": "Seguindo",
@@ -5562,7 +5562,7 @@
     "entrarParaEscrever": "Entre na sua conta para escrever, seguir e dizer que vai.",
     "entrar": "Entrar",
     "idadeTitulo": "Antes de escrever",
-    "idadeTexto": "A Rede Lúcia é para quem tem 18 anos ou mais (LGPD, art. 14; ECA Digital, Lei 15.211/2025). Confirme uma vez.",
+    "idadeTexto": "A Alumia é para quem tem 18 anos ou mais (LGPD, art. 14; ECA Digital, Lei 15.211/2025). Confirme uma vez.",
     "idadeOk": "Tenho 18 anos ou mais",
     "responder": "Responder",
     "repostar": "Repostar",
@@ -5680,7 +5680,7 @@
     "expondo": "Estão me expondo: tirar do ar já",
     "semCodinome": "Pessoa sem codinome",
     "codinomeTitulo": "Escolha o seu codinome",
-    "codinomeTexto": "Na Rede, ninguém aparece com o nome de verdade, nem a equipe. Escolha um codinome de 3 a 30 letras: não use o seu nome, um apelido conhecido no bairro nem nada que leve até você.",
+    "codinomeTexto": "Na Alumia, ninguém aparece com o nome de verdade, nem a equipe. Escolha um codinome de 3 a 30 letras: não use o seu nome, um apelido conhecido no bairro nem nada que leve até você.",
     "codinomeCampo": "Codinome",
     "codinomeUsar": "Usar este codinome"
   },

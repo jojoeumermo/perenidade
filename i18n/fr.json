@@ -3898,7 +3898,7 @@
     "codeTitle": "Confirmez que c'est vous",
     "codeLabel": "Code à 6 chiffres de votre application d'authentification",
     "codeConfirm": "Confirmer",
-    "codeWrong": "Code incorrect. Vérifiez l'application et réessayez.",
+    "codeWrong": "Le code ne correspond pas. Chaque code ne dure que 30 secondes : attendez qu'un nouveau code apparaisse dans l'application et saisissez-le tout de suite. Si cela ne marche toujours pas, vérifiez que la date et l'heure du téléphone sont réglées en automatique (dans les réglages du téléphone) : si l'horloge est décalée, l'application affiche un mauvais code.",
     "codeOther": "Se connecter avec un autre compte",
     "failed": "Impossible de terminer. Réessayez dans quelques minutes.",
     "why": "Pas encore de compte ? Créez-en un, avec e-mail et mot de passe, pour poser des questions et répondre dans la Communauté. Mot de passe perdu ? Parlez à la coordination.",
@@ -5522,9 +5522,9 @@
     "cartaoVer": "Voir la page"
   },
   "rede": {
-    "abaRede": "Réseau",
+    "abaRede": "Alumia",
     "abaForum": "Forum",
-    "nome": "Réseau Lúcia",
+    "nome": "Alumia",
     "sub": "Se former en réseau",
     "tudo": "Tout",
     "seguindo": "Abonnements",
@@ -5562,7 +5562,7 @@
     "entrarParaEscrever": "Connectez-vous pour écrire, suivre et participer.",
     "entrar": "Se connecter",
     "idadeTitulo": "Avant d’écrire",
-    "idadeTexto": "Le Réseau Lúcia est réservé aux 18 ans et plus (loi brésilienne). Confirmez une fois.",
+    "idadeTexto": "Alumia est réservée aux 18 ans et plus (loi brésilienne). Confirmez une fois.",
     "idadeOk": "J’ai 18 ans ou plus",
     "responder": "Répondre",
     "repostar": "Republier",
@@ -5680,7 +5680,7 @@
     "expondo": "On m'expose : retirer tout de suite",
     "semCodinome": "Personne sans nom de code",
     "codinomeTitulo": "Choisissez votre nom de code",
-    "codinomeTexto": "Sur le Réseau, personne n'apparaît sous son vrai nom, pas même l'équipe. Choisissez un nom de code de 3 à 30 lettres : ni votre nom, ni un surnom connu dans le quartier, ni rien qui mène à vous.",
+    "codinomeTexto": "Sur Alumia, personne n'apparaît sous son vrai nom, pas même l'équipe. Choisissez un nom de code de 3 à 30 lettres : ni votre nom, ni un surnom connu dans le quartier, ni rien qui mène à vous.",
     "codinomeCampo": "Nom de code",
     "codinomeUsar": "Utiliser ce nom de code"
   },
