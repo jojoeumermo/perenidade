@@ -93,7 +93,7 @@ export function NoSvg({
 
 /** Os gradientes do halo neon, um por tipo de nó. Vai uma vez dentro de cada <svg> de visão. */
 export function DefsNeon() {
-  const cores: Record<NoDaTeia["tipo"], string> = { entrada: "#ff2b4f", pessoa: "#ffd23f", organizacao: "#2aa3ff", lugar: "#e8e8e0" };
+  const cores: Record<NoDaTeia["tipo"], string> = { entrada: "#ff2b4f", pessoa: "#ffd23f", organizacao: "#7cc4ff", lugar: "#e8e8e0" };
   return (
     <defs>
       {(Object.keys(cores) as NoDaTeia["tipo"][]).map((t) => (
