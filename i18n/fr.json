@@ -3162,6 +3162,7 @@
     "updated": "Mis à jour le {date}",
     "more": "Plus de nouvelles",
     "back": "Revenir à la une",
+    "expires": "Article à durée limitée : en ligne jusqu'au {date} (heure de Brasília). Ensuite, il quitte le site.",
     "round": "Revue de presse",
     "newsletter": {
       "title": "Recevez le journal par e-mail",

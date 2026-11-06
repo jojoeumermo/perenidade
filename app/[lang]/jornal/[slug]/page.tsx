@@ -53,6 +53,14 @@ export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slu
           {fill(t.lesson.by, { names: article.author })} · {date.format(new Date(article.date))} · {fill(t.tracks.minutes, { n: article.minutes })}
         </p>
       </div>
+      {article.expires && (
+        // Matéria com prazo ("sai_do_ar_em"): quem lê sabe até quando ela fica no ar. A hora é a de Brasília.
+        <p className="mt-4 border-l-4 border-oxblood bg-parchment-deep px-3 py-2 font-sans text-sm" role="note">
+          {fill(t.journal.expires, {
+            date: new Intl.DateTimeFormat(htmlLang[lang], { dateStyle: "long", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(new Date(article.expires)),
+          })}
+        </p>
+      )}
       <Untranslated lang={lang} t={t} show={!article.translated} />
       <div {...originalLang(article.translated)}>
         <div className="jornal-materia mt-8">

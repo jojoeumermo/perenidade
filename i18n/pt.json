@@ -3162,6 +3162,7 @@
     "updated": "Atualizado em {date}",
     "more": "Mais notícias",
     "back": "Voltar à capa do jornal",
+    "expires": "Matéria com prazo: fica no ar até {date} (horário de Brasília). Depois sai do site.",
     "round": "Giro de notícias do país",
     "newsletter": {
       "title": "Receba o jornal por e-mail",

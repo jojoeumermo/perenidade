@@ -3091,6 +3091,7 @@
     "updated": "更新于 {date}",
     "more": "更多新闻",
     "back": "返回头版",
+    "expires": "限时文章：在线至 {date}（巴西利亚时间），之后将从网站下线。",
     "round": "新闻速览",
     "newsletter": {
       "title": "通过电子邮件接收报纸",
