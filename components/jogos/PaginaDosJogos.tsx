@@ -2,16 +2,19 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { JogoProprio } from "@/components/jogos/proprios/Catalogo";
 import { JogoProprio2 } from "@/components/jogos/proprios2/Catalogo";
 import type { DadosDaGreve, Fato, Frase } from "@/components/labs/JogosDeFormacao";
 import type { TextosDosJogos } from "@/i18n/jogos";
 import type { Dict } from "@/i18n/types";
 import type { Verbete } from "@/lib/jogos/base";
+import type { IdDoJogoEmGrupo } from "@/lib/jogos/grupo/motor";
 import type { ChecagemParaJogo } from "@/lib/jogos-proprios/regras";
 import type { Baralho } from "@/lib/rumos";
 import { Botao, type PropsDoJogo } from "./comum";
+import type { DisciplinaDoJogo } from "./grupo/preparar";
+import { Palco } from "./Imersao";
 
 // Cada jogo só é baixado quando a pessoa aperta "Jogar" (e só roda no navegador: o sorteio nasce depois do clique).
 const carregando = () => <p className="p-4 font-mono text-sm">…</p>;
@@ -26,12 +29,14 @@ const TREINO = {
   ditado: dynamic(() => import("./Ditado").then((m) => m.Ditado), { ssr: false, loading: carregando }),
 } satisfies Record<string, React.ComponentType<PropsDoJogo>>;
 const Sons = dynamic(() => import("./SonsInfantis").then((m) => m.SonsInfantis), { ssr: false, loading: carregando });
+// Os jogos em grupo (T23): a sala, o tempo real e as regras só descem quando alguém abre um deles.
+const EmGrupo = dynamic(() => import("./grupo/JogosEmGrupo").then((m) => m.JogosEmGrupo), { ssr: false, loading: carregando });
 const Formacao = dynamic(() => import("@/components/labs/JogosDeFormacao").then((m) => m.JogosDeFormacao), { ssr: false, loading: carregando });
 
 export type IdDoTreino = keyof typeof TREINO;
 export const IDS_DO_TREINO = Object.keys(TREINO) as IdDoTreino[];
-export type Categoria = "treino" | "proprios" | "criancas" | "formacao";
-const CATEGORIAS: Categoria[] = ["treino", "proprios", "criancas", "formacao"];
+export type Categoria = "treino" | "grupo" | "proprios" | "criancas" | "formacao";
+const CATEGORIAS: Categoria[] = ["treino", "grupo", "proprios", "criancas", "formacao"];
 
 /** Um cartão do catálogo (só dados: o servidor monta a lista, aqui só se desenha e se abre o jogo). */
 export interface CartaoDeJogo {
@@ -42,8 +47,8 @@ export interface CartaoDeJogo {
   texto: string;
   /** O tempo de uma partida, quando o jogo o tem (os jogos do Instituto); sem ele, o cartão diz "no seu tempo". */
   minutos?: number;
-  /** 1 jogador; 2 quando dá para jogar contra outra pessoa no mesmo aparelho (o jogo da velha). */
-  jogadores: 1 | 2;
+  /** 1 jogador; 2 quando dá para jogar contra outra pessoa no mesmo aparelho (o jogo da velha); "grupo": de 2 a 12, cada um no seu aparelho. */
+  jogadores: 1 | 2 | "grupo";
   publico?: string;
   tema?: string;
   /** Treino: o id do jogo. Jogos do Instituto: o slug (grupo "a") ou o id (grupo "b"). */
@@ -58,6 +63,7 @@ export interface CartaoDeJogo {
 /** As cores de cada categoria (as do site: mata, prelo, ipê e anil). */
 const COR: Record<Categoria, { fundo: string; tinta: string; detalhe: string }> = {
   treino: { fundo: "#2e6b4f", tinta: "#fff8ea", detalhe: "#f0b323" },
+  grupo: { fundo: "#1f1a14", tinta: "#f4ecd8", detalhe: "#f0b323" },
   proprios: { fundo: "#c21f16", tinta: "#fff8ea", detalhe: "#1f1a14" },
   criancas: { fundo: "#f0b323", tinta: "#1f1a14", detalhe: "#c21f16" },
   formacao: { fundo: "#23408e", tinta: "#fff8ea", detalhe: "#f0b323" },
@@ -96,6 +102,17 @@ function Arte({ cartao, grande }: { cartao: CartaoDeJogo; grande?: boolean }) {
       {traco ? (
         <svg viewBox="0 0 24 24" className={`relative ${grande ? "h-24 w-24 sm:h-36 sm:w-36" : "h-16 w-16"}`} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           {traco}
+        </svg>
+      ) : cartao.categoria === "grupo" ? (
+        // A roda de gente estudando junta (traço próprio).
+        <svg viewBox="0 0 24 24" className={`relative ${grande ? "h-24 w-24 sm:h-36 sm:w-36" : "h-16 w-16"}`} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <circle cx="12" cy="6" r="2.2" />
+          <circle cx="5" cy="12" r="2" />
+          <circle cx="19" cy="12" r="2" />
+          <circle cx="8" cy="18.5" r="1.8" />
+          <circle cx="16" cy="18.5" r="1.8" />
+          <circle cx="12" cy="13" r="2.6" fill={cor.detalhe} stroke="none" />
+          <path d="M12 8.6v1.6M7 12h2.4M17 12h-2.4M9.4 17.2l1-1.6M14.6 17.2l-1-1.6" strokeDasharray="1.4 1.4" />
         </svg>
       ) : cartao.categoria === "criancas" ? (
         <svg viewBox="0 0 24 24" className={`relative ${grande ? "h-24 w-24 sm:h-36 sm:w-36" : "h-16 w-16"}`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -138,9 +155,9 @@ function Etiquetas({ cartao, s, claro }: { cartao: CartaoDeJogo; s: TextosDosJog
         <svg aria-hidden viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
           <circle cx="9" cy="8" r="3.2" />
           <path d="M3.5 20c.6-3.4 2.8-5.4 5.5-5.4s4.9 2 5.5 5.4" />
-          {cartao.jogadores === 2 && <path d="M16 5.2a3 3 0 0 1 0 5.6M17.5 14.8c1.7.6 2.8 2.4 3 5.2" />}
+          {cartao.jogadores !== 1 && <path d="M16 5.2a3 3 0 0 1 0 5.6M17.5 14.8c1.7.6 2.8 2.4 3 5.2" />}
         </svg>
-        {cartao.jogadores === 2 ? s.pagina.umOuDois : s.pagina.umJogador}
+        {cartao.jogadores === "grupo" ? s.grupo.jogadores : cartao.jogadores === 2 ? s.pagina.umOuDois : s.pagina.umJogador}
       </li>
       {cartao.publico && <li className={etiqueta}>{cartao.publico}</li>}
     </ul>
@@ -170,6 +187,7 @@ export function PaginaDosJogos({
   verbetes,
   checagens,
   formacao,
+  disciplinas,
   lang,
   titulo,
   avisos,
@@ -181,6 +199,8 @@ export function PaginaDosJogos({
   verbetes: Verbete[];
   checagens: ChecagemParaJogo[];
   formacao: { baralhos: Baralho[]; greve: DadosDaGreve; fatos: Fato[]; frases: Frase[]; s: Dict["labs"]["jogos"] };
+  /** As disciplinas com questões de escolha bastantes para a Corrida e o Quiz em equipe (lib/jogos/banco-em-grupo.ts). */
+  disciplinas: DisciplinaDoJogo[];
   lang: string;
   titulo: ReactNode;
   /** Os avisos de idioma (glossário e jogos só em português), por categoria, fora do português. */
@@ -206,6 +226,20 @@ export function PaginaDosJogos({
       titulo?.scrollIntoView({ block: "start" });
     }, 0);
   };
+  // O convite de uma sala (/jogos#sala=ABC23) abre direto os jogos em grupo, com o código já preenchido.
+  useEffect(() => {
+    const pelaSala = () => {
+      if (!/(?:^|[#&])sala=[A-Za-z0-9-]{4,8}/.test(window.location.hash)) return;
+      const primeiro = cartoes.find((c) => c.categoria === "grupo");
+      if (primeiro) setAberto((atual) => (atual?.categoria === "grupo" ? atual : primeiro));
+    };
+    const relogio = window.setTimeout(pelaSala, 0);
+    window.addEventListener("hashchange", pelaSala);
+    return () => {
+      window.clearTimeout(relogio);
+      window.removeEventListener("hashchange", pelaSala);
+    };
+  }, [cartoes]);
   const visiveis = CATEGORIAS.filter((c) => filtro === "todos" || filtro === c);
   const idioma = (c: CartaoDeJogo) => (c.soEmPortugues && lang !== "pt" ? "pt" : undefined);
 
@@ -214,6 +248,7 @@ export function PaginaDosJogos({
     const Treino = aberto.categoria === "treino" && aberto.id ? TREINO[aberto.id as IdDoTreino] : null;
     return (
       <section aria-labelledby="palco-titulo" className="mx-auto max-w-5xl scroll-mt-24 px-4 py-10 sm:px-6 lg:px-8" lang={idioma(aberto)}>
+        <Palco s={s}>
         <div className="flex flex-wrap items-center gap-3 border-b-2 border-ink pb-4">
           <Botao onClick={() => abrir(null)}>← {s.proprios.voltar}</Botao>
           {/* Com o jogo aberto, a vitrine (e o h1 "Jogos") sai da página: o nome do jogo vira o título principal. */}
@@ -221,13 +256,23 @@ export function PaginaDosJogos({
             {aberto.titulo}
           </h1>
         </div>
-        <p className="mt-3 text-sm text-ink-soft">{s.comum.semPontos}</p>
+        {aberto.categoria !== "grupo" && <p className="mt-3 text-sm text-ink-soft">{s.comum.semPontos}</p>}
         <div className="mt-5">
           {Treino && <Treino verbetes={verbetes} s={s} lang={lang} />}
           {aberto.categoria === "proprios" && aberto.id && (aberto.grupo === "b" ? <JogoProprio2 id={aberto.id} /> : <JogoProprio slug={aberto.id} checagens={checagens} />)}
           {aberto.categoria === "criancas" && <Sons s={s} />}
           {aberto.categoria === "formacao" && <Formacao baralhos={formacao.baralhos} greve={formacao.greve} fatos={formacao.fatos} frases={formacao.frases} s={formacao.s} />}
+          {aberto.categoria === "grupo" && (
+            <EmGrupo
+              key={aberto.chave}
+              jogoInicial={aberto.id as IdDoJogoEmGrupo}
+              banco={{ verbetes, frases: formacao.frases, fatos: formacao.fatos, checagens, disciplinas }}
+              s={s}
+              lang={lang}
+            />
+          )}
         </div>
+        </Palco>
       </section>
     );
   }

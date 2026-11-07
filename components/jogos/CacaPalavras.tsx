@@ -108,7 +108,7 @@ export function CacaPalavras({ verbetes, s }: PropsDoJogo) {
         <Botao onClick={() => setAchadas(jogo.colocadas.map((p) => p.palavra))}>{s.comum.mostrar}</Botao>
         <Botao onClick={() => novo()}>{s.comum.novo}</Botao>
       </Acoes>
-      <Aviso>{aviso}</Aviso>
+      <Aviso tom={inicio ? undefined : aviso === s.comum.terminou ? "fim" : aviso === t.tentou ? "erro" : aviso ? "certo" : undefined}>{aviso}</Aviso>
     </Quadro>
   );
 }

@@ -242,5 +242,200 @@
       "criancas": "niños"
     },
     "aviso": "Estos juegos están solo en portugués."
+  },
+  "imersao": {
+    "rotulo": "Sonido y pantalla",
+    "somLigado": "Sonido activado",
+    "somDesligado": "Sonido desactivado",
+    "telaCheia": "Pantalla completa",
+    "sairDaTelaCheia": "Salir de pantalla completa"
+  },
+  "grupo": {
+    "titulo": "Juegos en grupo",
+    "lead": "Para estudiar juntos, de 2 a 12 personas, cada una en su dispositivo. Quien crea la sala recibe un código corto; las demás entran con él y un apodo. Sin cuenta, y nada queda guardado: la sala desaparece cuando todos salen.",
+    "jogadores": "2 a 12 personas",
+    "jogos": {
+      "corrida": {
+        "nome": "Carrera de preguntas",
+        "texto": "Preguntas de las clases, por asignatura: quien acierta primero gana más."
+      },
+      "mutirao": {
+        "nome": "Quiz en equipo",
+        "texto": "Los equipos discuten y cada uno vale por la respuesta más votada entre los suyos."
+      },
+      "quem-disse": {
+        "nome": "¿Quién lo dijo? en ronda",
+        "texto": "Una frase, cuatro nombres. La ronda descubre quién lo dijo."
+      },
+      "fato-ou-boato": {
+        "nome": "¿Hecho o bulo? en ronda",
+        "texto": "Las afirmaciones de las verificaciones del sitio: ¿hecho, bulo o engañosa?"
+      },
+      "assembleia": {
+        "nome": "Asamblea",
+        "texto": "Debate con votación: opinión secreta, argumentos sin nombre, voto al más fuerte y segunda opinión."
+      },
+      "forca": {
+        "nome": "Ahorcado colectivo",
+        "texto": "Una letra cada vez, cada uno en su turno. El grupo salva la palabra junto."
+      },
+      "bingo": {
+        "nome": "Bingo de conceptos",
+        "texto": "Sale la definición; quien tiene el concepto en su cartón lo marca. Línea completa: ¡bingo!"
+      },
+      "fio": {
+        "nome": "Hilo de la historia",
+        "texto": "Cartas con hechos históricos: el grupo vota dónde entra cada una en la línea del tiempo."
+      }
+    },
+    "entrada": {
+      "criar": "Crear una sala",
+      "criarTexto": "Tú animas la sala: eliges el juego y avanzas las rondas. Puedes jugar también o solo presentar en una pantalla grande.",
+      "entrar": "Entrar en una sala",
+      "entrarTexto": "Escribe el código que te pasó quien creó la sala.",
+      "codigo": "Código de la sala",
+      "apelido": "Tu apodo",
+      "apelidoAjuda": "Hasta 20 letras. No uses tu nombre completo, teléfono ni redes sociales.",
+      "sortear": "Apodo al azar",
+      "criarBotao": "Crear la sala",
+      "entrarBotao": "Entrar",
+      "codigoInvalido": "El código tiene 5 letras y números (sin 0, O, 1, I ni L).",
+      "apelidoInvalido": "Ese apodo no sirve: elige otro, sin datos de contacto.",
+      "conectando": "Conectando…",
+      "naoAchou": "No encontramos esa sala. Revisa el código o pide uno nuevo a quien la creó.",
+      "falhou": "No se pudo conectar. Revisa la conexión e inténtalo de nuevo.",
+      "cheia": "La sala está llena (12 personas).",
+      "expulso": "Saliste de esta sala.",
+      "tentar": "Intentar de nuevo",
+      "voltar": "Volver",
+      "soNesteNavegador": "Esta copia del sitio no tiene el servicio de tiempo real: la sala solo funciona entre pestañas de este navegador.",
+      "privacidade": "Cómo funciona: la sala pasa por el canal de tiempo real del propio sitio. Solo circulan el apodo y las jugadas; nada va a una base de datos y la sala desaparece cuando todos salen."
+    },
+    "sala": {
+      "codigo": "Código de la sala",
+      "link": "Copiar la invitación",
+      "copiado": "¡Invitación copiada!",
+      "quem": "En la sala ({n} de {max})",
+      "voce": "tú",
+      "anima": "anima la sala",
+      "fora": "salió",
+      "expulsar": "Sacar de la sala",
+      "sair": "Salir de la sala",
+      "escolherJogo": "Elige el juego",
+      "fonte": "Preguntas de",
+      "glossario": "Glosario (todas las asignaturas)",
+      "rodadas": "Rondas",
+      "tempo": "Tiempo por ronda",
+      "semTempo": "Sin reloj",
+      "segundos": "{n} s",
+      "equipes": "Equipos",
+      "anfitriaoJoga": "Yo también juego",
+      "comecar": "Empezar",
+      "preparando": "Preparando la partida…",
+      "esperando": "Esperando a que quien anima la sala elija el juego y empiece.",
+      "suaEquipe": "Tu equipo",
+      "irPara": "Ir a {equipe}",
+      "poucos": "Con una sola persona ya se puede probar; es mejor con más gente.",
+      "semConteudo": "No se pudo armar la partida con ese contenido. Elige otro.",
+      "modoAbas": "Solo en este navegador (pestañas)",
+      "pontosDaPartida": "Puntos solo de esta partida: desaparecen cuando la sala termina."
+    },
+    "partida": {
+      "revelar": "Revelar",
+      "proxima": "Siguiente",
+      "encerrar": "Volver a la sala de espera",
+      "pergunta": "Pregunta {i} de {n}",
+      "responderam": "{n} de {total} respondieron",
+      "espere": "Respuesta enviada. Espera la revelación.",
+      "certa": "Respuesta correcta",
+      "acertou": "¡Acertaste!",
+      "errou": "Esta vez no.",
+      "naoRespondeu": "No respondiste.",
+      "aula": "Ver la clase",
+      "equipeEscolheu": "{equipe} eligió",
+      "apresentando": "Solo estás presentando: las respuestas aparecen aquí.",
+      "restam": "{n} s",
+      "pontos": "{n} pt",
+      "debate": {
+        "etapas": {
+          "opiniao": "Opinión",
+          "argumentos": "Argumentos",
+          "votacao": "Votación",
+          "resultado": "Resultado",
+          "segunda": "Segunda opinión"
+        },
+        "pergunta": "¿Qué piensas de esta frase?",
+        "lados": {
+          "concordo": "De acuerdo",
+          "discordo": "En desacuerdo",
+          "duvida": "Tengo dudas"
+        },
+        "opinaram": "{n} ya opinaron (en secreto)",
+        "escreva": "Escribe un argumento (hasta 2 por persona, sin tu nombre)",
+        "lado": "Lado del argumento",
+        "enviar": "Enviar argumento",
+        "nenhum": "Todavía no hay argumentos.",
+        "vote": "Vota por el argumento más fuerte (el tuyo no vale).",
+        "votou": "Voto registrado. Puedes cambiarlo hasta que termine la votación.",
+        "votar": "Votar",
+        "seu": "tuyo",
+        "oculto": "Ocultado por quien anima la sala.",
+        "ocultar": "Ocultar",
+        "mostrar": "Mostrar",
+        "antes": "Antes",
+        "depois": "Después",
+        "votos": "{n} votos",
+        "resposta": "Lo que responde el instituto",
+        "fontes": "Fuentes",
+        "mudou": "¿Y ahora? Después de los argumentos, ¿cambió tu opinión?",
+        "avancar": "Siguiente etapa"
+      },
+      "forca": {
+        "palavra": "Palabra {i} de {n}",
+        "dica": "Pista",
+        "vez": "Turno de {apelido}",
+        "suaVez": "¡Tu turno! Elige una letra.",
+        "letras": "Letras",
+        "chute": "O arriesga la palabra entera",
+        "chutar": "Arriesgar",
+        "erros": "Errores: {n} de {max}",
+        "salva": "¡Salvada! Era {termo}.",
+        "perdida": "No se pudo. Era {termo}.",
+        "salvas": "Palabras salvadas por el grupo: {n}",
+        "pular": "Saltar turno",
+        "ultima": "{apelido} probó {letra}"
+      },
+      "bingo": {
+        "chamada": "¿Qué concepto es este?",
+        "cartela": "Tu cartón",
+        "marque": "Marca el concepto si está en tu cartón.",
+        "gritar": "¡Bingo!",
+        "chamar": "Cantar la siguiente",
+        "restam": "Quedan {n} definiciones",
+        "anteriores": "Ya cantados",
+        "vencedores": "Bingos",
+        "semCartela": "Solo estás presentando: los cartones son de quien juega."
+      },
+      "fio": {
+        "carta": "¿Dónde entra esta carta en la línea del tiempo?",
+        "numero": "Carta {i} de {n}",
+        "antes": "Antes de {ano}",
+        "entre": "Entre {a} y {b}",
+        "depois": "Después de {ano}",
+        "aqui": "Poner aquí",
+        "votos": "{n} votos",
+        "acertou": "¡El grupo acertó! Fue en {ano}.",
+        "errou": "No era ahí: fue en {ano}.",
+        "acertos": "Aciertos del grupo: {n}"
+      }
+    },
+    "fim": {
+      "titulo": "Fin de la partida",
+      "grupo": "El grupo hizo {n} punto(s) en conjunto.",
+      "placar": "Quién hizo más en esta partida",
+      "jogarDeNovo": "Jugar de nuevo",
+      "outroJogo": "Elegir otro juego",
+      "esperando": "Quien anima la sala elige el próximo juego."
+    }
   }
 }

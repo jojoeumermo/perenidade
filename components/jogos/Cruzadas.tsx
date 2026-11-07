@@ -170,7 +170,7 @@ export function Cruzadas({ verbetes, s, lang }: PropsDoJogo) {
         <Botao onClick={mostrar}>{s.comum.mostrar}</Botao>
         <Botao onClick={novo}>{s.comum.novo}</Botao>
       </Acoes>
-      <Aviso>{aviso}</Aviso>
+      <Aviso tom={aviso === t.completo ? "fim" : aviso === t.faltam ? "erro" : undefined}>{aviso}</Aviso>
     </Quadro>
   );
 }

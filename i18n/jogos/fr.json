@@ -242,5 +242,200 @@
       "criancas": "enfants"
     },
     "aviso": "Ces jeux existent seulement en portugais."
+  },
+  "imersao": {
+    "rotulo": "Son et écran",
+    "somLigado": "Son activé",
+    "somDesligado": "Son coupé",
+    "telaCheia": "Plein écran",
+    "sairDaTelaCheia": "Quitter le plein écran"
+  },
+  "grupo": {
+    "titulo": "Jeux en groupe",
+    "lead": "Pour étudier ensemble, de 2 à 12 personnes, chacune sur son appareil. Qui crée la salle reçoit un code court ; les autres entrent avec ce code et un pseudo. Sans compte, et rien n'est conservé : la salle disparaît quand tout le monde part.",
+    "jogadores": "2 à 12 personnes",
+    "jogos": {
+      "corrida": {
+        "nome": "Course aux questions",
+        "texto": "Questions des leçons, par matière : qui répond juste en premier gagne plus."
+      },
+      "mutirao": {
+        "nome": "Quiz en équipe",
+        "texto": "Les équipes discutent et chacune compte avec la réponse la plus votée parmi les siens."
+      },
+      "quem-disse": {
+        "nome": "Qui l'a dit ? en cercle",
+        "texto": "Une citation, quatre noms. Le cercle découvre qui l'a dit."
+      },
+      "fato-ou-boato": {
+        "nome": "Fait ou rumeur ? en cercle",
+        "texto": "Les affirmations des vérifications du site : fait, rumeur ou trompeuse ?"
+      },
+      "assembleia": {
+        "nome": "Assemblée",
+        "texto": "Débat avec vote : avis secret, arguments anonymes, vote pour le plus fort et second avis."
+      },
+      "forca": {
+        "nome": "Pendu collectif",
+        "texto": "Une lettre à la fois, chacun à son tour. Le groupe sauve le mot ensemble."
+      },
+      "bingo": {
+        "nome": "Bingo des concepts",
+        "texto": "Une définition est annoncée ; qui a le concept sur sa grille le coche. Ligne complète : bingo !"
+      },
+      "fio": {
+        "nome": "Fil de l'histoire",
+        "texto": "Des cartes de faits historiques : le groupe vote où chacune entre sur la frise chronologique."
+      }
+    },
+    "entrada": {
+      "criar": "Créer une salle",
+      "criarTexto": "Vous animez la salle : vous choisissez le jeu et faites avancer les manches. Vous pouvez jouer aussi ou seulement présenter sur grand écran.",
+      "entrar": "Entrer dans une salle",
+      "entrarTexto": "Tapez le code donné par la personne qui a créé la salle.",
+      "codigo": "Code de la salle",
+      "apelido": "Votre pseudo",
+      "apelidoAjuda": "Jusqu'à 20 lettres. N'utilisez ni nom complet, ni téléphone, ni réseau social.",
+      "sortear": "Pseudo au hasard",
+      "criarBotao": "Créer la salle",
+      "entrarBotao": "Entrer",
+      "codigoInvalido": "Le code a 5 lettres et chiffres (sans 0, O, 1, I ni L).",
+      "apelidoInvalido": "Ce pseudo ne convient pas : choisissez-en un autre, sans coordonnées.",
+      "conectando": "Connexion…",
+      "naoAchou": "Salle introuvable. Vérifiez le code ou demandez-en un nouveau à qui l'a créée.",
+      "falhou": "Connexion impossible. Vérifiez internet et réessayez.",
+      "cheia": "La salle est pleine (12 personnes).",
+      "expulso": "Vous avez quitté cette salle.",
+      "tentar": "Réessayer",
+      "voltar": "Retour",
+      "soNesteNavegador": "Cette copie du site n'a pas le service temps réel : la salle ne fonctionne qu'entre les onglets de ce navigateur.",
+      "privacidade": "Fonctionnement : la salle passe par le canal temps réel du site lui-même. Seuls le pseudo et les coups circulent ; rien ne va dans une base de données, et la salle disparaît quand tout le monde part."
+    },
+    "sala": {
+      "codigo": "Code de la salle",
+      "link": "Copier l'invitation",
+      "copiado": "Invitation copiée !",
+      "quem": "Dans la salle ({n} sur {max})",
+      "voce": "vous",
+      "anima": "anime la salle",
+      "fora": "parti·e",
+      "expulsar": "Retirer de la salle",
+      "sair": "Quitter la salle",
+      "escolherJogo": "Choisissez le jeu",
+      "fonte": "Questions de",
+      "glossario": "Glossaire (toutes les matières)",
+      "rodadas": "Manches",
+      "tempo": "Temps par manche",
+      "semTempo": "Sans chrono",
+      "segundos": "{n} s",
+      "equipes": "Équipes",
+      "anfitriaoJoga": "Je joue aussi",
+      "comecar": "Commencer",
+      "preparando": "Préparation de la partie…",
+      "esperando": "En attente que l'animateur choisisse le jeu et commence.",
+      "suaEquipe": "Votre équipe",
+      "irPara": "Rejoindre {equipe}",
+      "poucos": "On peut tester seul ; c'est mieux à plusieurs.",
+      "semConteudo": "Impossible de monter la partie avec ce contenu. Choisissez-en un autre.",
+      "modoAbas": "Ce navigateur seulement (onglets)",
+      "pontosDaPartida": "Points de cette partie seulement : ils disparaissent à la fin de la salle."
+    },
+    "partida": {
+      "revelar": "Révéler",
+      "proxima": "Suivante",
+      "encerrar": "Retour au salon",
+      "pergunta": "Question {i} sur {n}",
+      "responderam": "{n} sur {total} ont répondu",
+      "espere": "Réponse envoyée. Attendez la révélation.",
+      "certa": "Bonne réponse",
+      "acertou": "Bravo, c'est juste !",
+      "errou": "Pas cette fois.",
+      "naoRespondeu": "Vous n'avez pas répondu.",
+      "aula": "Voir la leçon",
+      "equipeEscolheu": "{equipe} a choisi",
+      "apresentando": "Vous présentez seulement : les réponses s'affichent ici.",
+      "restam": "{n} s",
+      "pontos": "{n} pt",
+      "debate": {
+        "etapas": {
+          "opiniao": "Avis",
+          "argumentos": "Arguments",
+          "votacao": "Vote",
+          "resultado": "Résultat",
+          "segunda": "Second avis"
+        },
+        "pergunta": "Que pensez-vous de cette phrase ?",
+        "lados": {
+          "concordo": "D'accord",
+          "discordo": "Pas d'accord",
+          "duvida": "J'hésite"
+        },
+        "opinaram": "{n} ont donné leur avis (en secret)",
+        "escreva": "Écrivez un argument (2 max. par personne, sans votre nom)",
+        "lado": "Côté de l'argument",
+        "enviar": "Envoyer l'argument",
+        "nenhum": "Pas encore d'argument.",
+        "vote": "Votez pour l'argument le plus fort (le vôtre ne compte pas).",
+        "votou": "Vote enregistré. Vous pouvez le changer jusqu'à la fin du vote.",
+        "votar": "Voter",
+        "seu": "le vôtre",
+        "oculto": "Masqué par l'animateur.",
+        "ocultar": "Masquer",
+        "mostrar": "Afficher",
+        "antes": "Avant",
+        "depois": "Après",
+        "votos": "{n} votes",
+        "resposta": "Ce que répond l'institut",
+        "fontes": "Sources",
+        "mudou": "Et maintenant ? Après les arguments, votre avis a-t-il changé ?",
+        "avancar": "Étape suivante"
+      },
+      "forca": {
+        "palavra": "Mot {i} sur {n}",
+        "dica": "Indice",
+        "vez": "Au tour de {apelido}",
+        "suaVez": "À vous ! Choisissez une lettre.",
+        "letras": "Lettres",
+        "chute": "Ou proposez le mot entier",
+        "chutar": "Proposer",
+        "erros": "Erreurs : {n} sur {max}",
+        "salva": "Sauvé ! C'était {termo}.",
+        "perdida": "Raté. C'était {termo}.",
+        "salvas": "Mots sauvés par le groupe : {n}",
+        "pular": "Passer le tour",
+        "ultima": "{apelido} a essayé {letra}"
+      },
+      "bingo": {
+        "chamada": "Quel concept est-ce ?",
+        "cartela": "Votre grille",
+        "marque": "Cochez le concept s'il est sur votre grille.",
+        "gritar": "Bingo !",
+        "chamar": "Annoncer la suivante",
+        "restam": "Il reste {n} définitions",
+        "anteriores": "Déjà annoncés",
+        "vencedores": "Bingos",
+        "semCartela": "Vous présentez seulement : les grilles sont aux joueurs."
+      },
+      "fio": {
+        "carta": "Où cette carte entre-t-elle sur la frise ?",
+        "numero": "Carte {i} sur {n}",
+        "antes": "Avant {ano}",
+        "entre": "Entre {a} et {b}",
+        "depois": "Après {ano}",
+        "aqui": "Placer ici",
+        "votos": "{n} votes",
+        "acertou": "Le groupe a trouvé ! C'était en {ano}.",
+        "errou": "Pas là : c'était en {ano}.",
+        "acertos": "Réussites du groupe : {n}"
+      }
+    },
+    "fim": {
+      "titulo": "Fin de la partie",
+      "grupo": "Le groupe a marqué {n} point(s) ensemble.",
+      "placar": "Qui a marqué le plus dans cette partie",
+      "jogarDeNovo": "Rejouer",
+      "outroJogo": "Choisir un autre jeu",
+      "esperando": "L'animateur choisit le prochain jeu."
+    }
   }
 }
