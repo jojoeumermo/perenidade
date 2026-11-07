@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Vale o Escrito: o robô que coleta. Lê feeds RSS/Atom e a API aberta do Querido Diário das fontes de
+// Vale o Escrito: o robô que coleta. Lê feeds RSS/Atom, a API aberta do Querido Diário e a busca pública do site do
+// MPF (Plone, leitor "plone-busca") das fontes de
 // content/vale-o-escrito/fontes.json, filtra por palavras dos temas dos 6 dossiês (content/vale-o-escrito/dossies.json),
 // tira os repetidos (por link), BAIXA A MATÉRIA de cada achado e monta o RASCUNHO COMPLETO da entrada (formato Entrada de
 // lib/vale-o-escrito/tipos.ts): título claro, resumo de 2 a 4 frases com "segundo <veículo>", data do fato, lugar (UF e
@@ -166,6 +167,28 @@ export function lerQueridoDiario(json) {
     municipioIbge: /^\d{7}$/.test(String(g.territory_id ?? "")) ? String(g.territory_id) : undefined,
     uf: /^[A-Z]{2}$/.test(g.state_code ?? "") ? g.state_code : undefined,
   }));
+}
+
+/**
+ * Busca de portal Plone/Volto (o site do MPF): a API REST pública `/++api++/@search` devolve JSON com título, link,
+ * descrição e data (`effective`) de cada notícia. Sem chave e sem cadastro (conferido com curl em 07/11/2026). Só entram
+ * notícias (caminho com /noticias/), nunca anexos (PDF). O link sai sem o "++api++", que é o endereço público da página.
+ */
+export function lerBuscaPlone(json) {
+  const lista = Array.isArray(json?.items) ? json.items : [];
+  return lista
+    .map((i) => ({
+      titulo: textoLimpo(i?.title ?? ""),
+      url: String(i?.["@id"] ?? "").replace("/++api++", ""),
+      data: /^\d{4}-\d{2}-\d{2}/.test(i?.effective ?? "") && !String(i.effective).startsWith("1969") ? String(i.effective).slice(0, 10) : "",
+      resumo: textoLimpo(i?.description ?? ""),
+    }))
+    .filter((i) => /^https:\/\//.test(i.url) && /\/noticias\//.test(i.url) && !/\.(pdf|docx?|odt)$/i.test(i.url));
+}
+
+/** Consultas à busca Plone: uma por tema dos dossiês (a busca do Plone junta as palavras com E). */
+export function consultasDaBuscaPlone(dossies) {
+  return [...new Set(dossies.flatMap((d) => d.temas ?? []))];
 }
 
 // ───────────────────────────── Filtros ─────────────────────────────
@@ -984,6 +1007,27 @@ export async function lerFonte(fonte, { dossies, buscar, hoje, dias }) {
         const r = await buscar(u.toString(), undefined, fonte);
         if (r.status !== 200) return { itens, erro: `HTTP ${r.status}` };
         itens.push(...lerQueridoDiario(JSON.parse(r.text)));
+      }
+      return { itens };
+    }
+    if (fonte.leitor === "plone-busca") {
+      const vistos = new Set();
+      const itens = [];
+      for (const tema of consultasDaBuscaPlone(dossies)) {
+        const u = new URL(fonte.busca);
+        u.searchParams.set("SearchableText", tema);
+        u.searchParams.set("sort_on", "effective");
+        u.searchParams.set("sort_order", "reverse");
+        u.searchParams.set("b_size", "25");
+        u.searchParams.append("metadata_fields", "effective");
+        u.searchParams.append("metadata_fields", "description");
+        const r = await buscar(u.toString(), { headers: { accept: "application/json" } }, fonte);
+        if (r.status !== 200) return { itens, erro: `HTTP ${r.status}` };
+        for (const it of lerBuscaPlone(JSON.parse(r.text)))
+          if (!vistos.has(it.url)) {
+            vistos.add(it.url);
+            itens.push(it);
+          }
       }
       return { itens };
     }
