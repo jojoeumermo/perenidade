@@ -54,7 +54,7 @@
     "prazo": "Messages disappear after",
     "dias": "{n} days",
     "dia": "1 day",
-    "prazoExplica": "Shortening also applies to what was already written.",
+    "prazoExplica": "Applies to new messages. What was already written keeps its previous time limit.",
     "codigo": "Security code",
     "codigoExplica": "Compare these numbers with the other person, in person or through a channel where you recognize each other. If they match, nobody is in the middle.",
     "verificado": "We compared and it matches",
@@ -64,7 +64,7 @@
     "bloquearConfirma": "Block this person? They will no longer be able to reach you, here or on Alumia.",
     "denunciar": "Report",
     "apagar": "Delete the conversation",
-    "apagarConfirma": "Delete the whole conversation for both of you? This cannot be undone."
+    "apagarConfirma": "Remove this conversation from your list? It disappears for you. The other person keeps the messages until their time limit ends."
   },
   "denuncia": {
     "titulo": "Report",
@@ -99,8 +99,8 @@
     "salvar": "Save",
     "salvo": "Saved.",
     "apagarTudo": "Delete all my messages",
-    "apagarTudoExplica": "Deletes all your conversations (for both people in each one), your key and your settings. Your account stays. Brazil's LGPD, art. 18, VI.",
-    "apagarTudoConfirma": "Delete ALL your conversations and your messaging key? This cannot be undone.",
+    "apagarTudoExplica": "Removes all conversations from your list and deletes your key and your settings. The other person in each conversation keeps the messages until their time limit ends. Your account stays. Brazil's LGPD, art. 18, VI.",
+    "apagarTudoConfirma": "Remove ALL conversations from your list and delete your messaging key? This cannot be undone.",
     "apagado": "All your messages were deleted."
   },
   "erros": {
