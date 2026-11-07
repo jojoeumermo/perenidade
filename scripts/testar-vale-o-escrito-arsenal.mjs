@@ -209,4 +209,14 @@ caso("Arsenal: rota, navegação, sitemap, textos nos 6 idiomas, nada sai do nav
   }
 });
 
+// ───────────────────────────── Orçamento de desempenho do fundo ─────────────────────────────
+
+caso("fundo vivo: no máximo 30 quadros, para fora da tela e com a aba oculta, modo leve em aparelho fraco ou desenho caro", () => {
+  const r = ler("components", "vale-o-escrito", "redeNeural.ts");
+  assert.ok(r.includes("INTERVALO_MS = 1000 / 30") && r.includes("CUSTO_MAXIMO_MS"));
+  assert.ok(r.includes("visibilitychange") && r.includes("IntersectionObserver"));
+  assert.ok(r.includes("leve ? 0.5 : 1") && r.includes("leve ? 1 :"));
+  assert.ok(ler("components", "vale-o-escrito", "FundoVivo.tsx").includes("aparelhoFraco()"));
+});
+
 console.log(`\n${total} conferências do T31 (dinheiro, dossiês de leitura e Arsenal) passaram.`);
