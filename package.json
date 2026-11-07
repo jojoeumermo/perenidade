@@ -77,7 +77,7 @@
     "testar:tarefas": "node scripts/testar-tarefas.mjs",
     "testar:redes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-redes.mjs",
     "testar:anexos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-anexos.mjs",
-    "testar:podcast": "node scripts/testar-podcast.mjs",
+    "testar:podcast": "node scripts/testar-podcast.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-podcast-imersivo.mjs",
     "testar:emails": "node scripts/testar-emails.mjs",
     "testar:fumaca": "node scripts/testar-fumaca.mjs",
     "testar:caixa": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-caixa.mjs",
