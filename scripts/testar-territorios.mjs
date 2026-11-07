@@ -111,4 +111,80 @@ ok("NoizOcupa e Kamikaze preenchidos com o perfil: imagens existem, em WebP, com
   }
 });
 
+// T20 (06/11/2026): cada coletivo com o seu desenho, a logo na abertura e dois coletivos novos.
+const comVisual = dados.filter((t) => t.visual);
+
+ok("Desordem e noismemo studios: territórios novos com Instagram e visual próprio", () => {
+  const d = por("coletivo-desordem");
+  assert.equal(d.instagram, "coletivodesordem");
+  assert.equal(d.visual, "desordem");
+  const nm = por("noisme-studios");
+  assert.equal(nm.instagram, "noismemostudios");
+  assert.equal(nm.visual, "noisme");
+  for (const t of [d, nm]) {
+    assert.ok(t.temas.length >= 4, `${t.slug}: poucos temas`);
+    assert.ok(t.trilhas.length >= 1, `${t.slug}: sem trilha`);
+    assert.ok(t.credito && /Logo cedida pelo coletivo/.test(t.credito), `${t.slug}: crédito da logo`);
+  }
+  assert.equal(new Set(dados.map((t) => t.numero)).size, dados.length);
+});
+
+ok("cada coletivo com identidade própria tem a sua (nenhum repete o desenho de outro)", () => {
+  const visuais = comVisual.map((t) => t.visual);
+  assert.equal(new Set(visuais).size, visuais.length);
+  const ids = ler("lib", "territorios-identidades.ts");
+  const pagina = ler("components", "territorios", "PaginaDoColetivo.tsx");
+  for (const v of visuais) {
+    assert.match(ids, new RegExp(`\\b${v}: \\{`), `${v} sem cores`);
+    assert.match(pagina, new RegExp(`visual === "${v}" && \\(`), `${v} sem abertura própria`);
+  }
+});
+
+ok("logo de cada coletivo: WebP leve, alt e crédito \"Logo cedida pelo coletivo\"", () => {
+  for (const t of comVisual) {
+    assert.ok(t.logo, `${t.slug}: sem logo`);
+    assert.equal(t.logo.src, `/territorios/${t.slug}/logo.webp`);
+    assert.ok(fs.existsSync(path.join(raiz, "public", t.logo.src)), t.logo.src);
+    assert.ok(fs.statSync(path.join(raiz, "public", t.logo.src)).size < 100_000, `${t.logo.src} grande demais`);
+    assert.ok(t.logo.alt.length > 20, `${t.slug}: alt da logo`);
+    assert.equal(t.logo.credito, "Logo cedida pelo coletivo");
+  }
+});
+
+ok("Kamikaze não é mais só rosa e preto", () => {
+  const ids = ler("lib", "territorios-identidades.ts");
+  const linha = ids.split("\n").find((l) => /^\s*kamikaze: \{/.test(l));
+  const acentos = linha.match(/acentos: \[([^\]]*)\]/)[1].match(/#[0-9a-f]{6}/gi);
+  assert.ok(acentos.length >= 4, "a paleta do Kamikaze precisa de pelo menos 4 cores");
+  assert.doesNotMatch(linha, /destaque: "#ff2e88"/);
+});
+
+// Contraste WCAG AA entre as cores de cada identidade.
+const lum = (hex) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const contraste = (a, b) => {
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+};
+ok("contraste AA nas cores de cada identidade", () => {
+  const ids = ler("lib", "territorios-identidades.ts");
+  for (const linha of ids.split("\n").filter((l) => /^\s*[a-z]+: \{ fundo:/.test(l))) {
+    const nome = linha.trim().split(":")[0];
+    const cor = (chave) => linha.match(new RegExp(`${chave}: "(#[0-9a-f]{6})"`, "i"))[1];
+    const pares = [
+      ["tinta/fundo", cor("tinta"), cor("fundo")],
+      ["tinta/papel", cor("tinta"), cor("papel")],
+      ["rotulo/fundo", cor("rotulo"), cor("fundo")],
+      ["botaoTexto/destaque", cor("botaoTexto"), cor("destaque")],
+      ...(linha.match(/acentos: \[([^\]]*)\]/)[1].match(/#[0-9a-f]{6}/gi) ?? []).flatMap((a) => [
+        [`acento ${a}/fundo`, a, cor("fundo")],
+        [`acento ${a}/papel`, a, cor("papel")],
+      ]),
+    ];
+    for (const [qual, a, b] of pares) assert.ok(contraste(a, b) >= 4.5, `${nome} ${qual}: ${contraste(a, b).toFixed(2)}`);
+  }
+});
+
 console.log(`${n} testes passaram`);
