@@ -397,5 +397,46 @@
     },
     "barra": "Situation juridique des cas publiés",
     "rodape": "Source, date et extrait sur chaque fiche. Toile vivante : chaque point est un enregistrement, chaque ligne un lien sourcé."
+  },
+  "leituras": {
+    "titulo": "Dossiers de lecture",
+    "explica": "Des portes d'entrée par thème : chaque dossier réunit des cas déjà publiés, n'allume qu'eux dans les vues et ouvre la feuille de lecture.",
+    "nCasos": "{n} cas",
+    "abrir": "Ouvrir le dossier",
+    "fechar": "Fermer le dossier",
+    "papel": "Feuille de lecture",
+    "verNaTeia": "Voir la fiche",
+    "casoCompleto": "Ouvrir le cas complet",
+    "fontes": "{n} sources",
+    "itens": {
+      "barragens": {
+        "titulo": "Barrages",
+        "descricao": "Les ruptures de Fundão (Mariana) et de Córrego do Feijão (Brumadinho) : les actions pénales, qui répond et dans quelle situation, selon le MPF et la justice."
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "Orpaillage et Yanomami",
+        "descricao": "Du massacre de Haximu au financement de l'orpaillage illégal au Roraima : ce que la justice a déjà décidé et ce qui est encore en enquête."
+      },
+      "chacinas-do-campo": {
+        "titulo": "Massacres à la campagne",
+        "descricao": "Eldorado dos Carajás, Pau d'Arco et Unaí : des morts dans des conflits agraires et le parcours de chaque procès."
+      },
+      "violencia-policial": {
+        "titulo": "Violences policières",
+        "descricao": "Carandiru, des massacres au Pará, la mort dans un véhicule de la PRF à Umbaúba et l'opération à Alemão et Penha, avec la situation juridique de chaque cas."
+      },
+      "trabalho-escravo": {
+        "titulo": "Travail esclave",
+        "descricao": "Sauvetages, condamnations et le massacre des inspecteurs du travail à Unaí : des cas de travail analogue à l'esclavage déjà consignés dans des sources publiques."
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "Argent public et amendements",
+        "descricao": "Mensalão, prélèvements de l'INSS et budget secret : les montants écrits dans les sources et la situation de chaque enquête ou procès."
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "Terres autochtones envahies",
+        "descricao": "Orpaillage, bois illégal, déforestation et morts dans des terres autochtones, selon le MPF, le STF et la presse."
+      }
+    }
   }
 }

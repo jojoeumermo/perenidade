@@ -2412,3 +2412,123 @@
   background: repeating-linear-gradient(90deg, var(--ve-ambar) 0 6px, transparent 6px 10px);
   box-shadow: none;
 }
+
+/* ── T31 3.4: dossiês de leitura (coluna esquerda) e o papel de leitura (coluna direita) ───────────────────── */
+.ve-leituras {
+  margin: 22px 16px 0;
+}
+.ve-leituras h2 {
+  margin: 0 0 8px;
+}
+.ve-leituras ul {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0 0 4px;
+  overflow-x: auto;
+  list-style: none;
+}
+@media (min-width: 1000px) {
+  .ve-leituras ul {
+    display: grid;
+    overflow: visible;
+  }
+}
+.ve-leitura {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 8px;
+  width: 100%;
+  min-width: 170px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--ve-linha);
+  background: rgb(0 0 0 / 40%);
+  color: var(--ve-texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.ve-leitura:hover,
+.ve-leitura:focus-visible {
+  border-color: var(--ve-ambar);
+}
+.ve-leitura[aria-pressed="true"] {
+  border-color: var(--ve-ambar);
+  box-shadow:
+    0 0 0 1px var(--ve-ambar),
+    0 0 14px rgb(255 176 32 / 35%);
+}
+.ve-leitura-n {
+  grid-row: span 2;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  color: var(--ve-ambar);
+}
+.ve-leitura-nome {
+  font-family: var(--ve-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.ve-leitura-casos {
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-apagado);
+}
+.ve-papel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+.ve-papel-casos {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: papel;
+}
+.ve-papel-casos > li {
+  display: grid;
+  gap: 6px;
+  padding: 14px 0;
+  border-top: 1px solid var(--ve-linha);
+}
+.ve-papel-casos h3 {
+  margin: 0;
+  font-family: var(--ve-display);
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+.ve-papel-casos p {
+  margin: 0;
+}
+.ve-papel-cabeca,
+.ve-papel-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+}
+.ve-papel-acoes a {
+  font-family: var(--ve-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ve-sangue-claro);
+}
+.ve-papel-valores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
