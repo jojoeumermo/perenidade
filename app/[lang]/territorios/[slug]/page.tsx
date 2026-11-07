@@ -44,7 +44,7 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
   const { slug } = await params;
   const territorio = territorios.find((item) => item.slug === slug);
   if (!territorio) notFound();
-  // Os coletivos com identidade visual própria (NoizOcupa, Coletivo Kamikaze) têm a sua página.
+  // Os coletivos com identidade visual própria (NoizOcupa, Kamikaze, Desordem, noismemo studios) têm a sua página.
   if (territorio.visual) return <PaginaDoColetivo territorio={territorio} lang={lang} t={t} />;
   const s = t.territorios;
   const to = (path: string) => localePath(lang, path);
