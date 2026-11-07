@@ -2331,3 +2331,274 @@
   stroke-dasharray: none;
   stroke-opacity: 0.75;
 }
+
+/* ── T31 3.1/3.3: dinheiro documentado (número grande, barra por categoria, fluxos na ficha) ───────────────── */
+.ve-escala-dinheiro {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 0;
+}
+.ve-escala-dinheiro b {
+  font-family: var(--ve-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ve-ambar);
+  text-shadow: 0 0 10px rgb(255 176 32 / 45%);
+}
+.ve-dinheiro-barra {
+  display: inline-flex;
+  gap: 2px;
+  width: 120px;
+  height: 6px;
+  align-self: center;
+}
+.ve-dinheiro-barra i {
+  display: block;
+  min-width: 3px;
+  box-shadow: 0 0 6px currentColor;
+}
+.ve-dinheiro-n {
+  font-family: var(--ve-display);
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--ve-ambar);
+  text-shadow: 0 0 14px rgb(255 176 32 / 40%);
+}
+.ve-fluxos {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ve-fluxos li {
+  display: grid;
+  gap: 4px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-fluxo-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+.ve-fluxo-valor {
+  font-family: var(--ve-mono);
+  font-size: 0.95rem;
+  color: var(--ve-ambar);
+}
+.ve-fluxo-tipo {
+  padding: 1px 6px;
+  border: 1px solid var(--ve-linha);
+  font-family: var(--ve-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ve-suave);
+}
+.ve-fluxo-barra {
+  display: block;
+  height: 3px;
+  background: var(--ve-ambar);
+  box-shadow: 0 0 8px rgb(255 176 32 / 60%);
+}
+.ve-fluxos li[data-tipo="movimentacao_suposta"] .ve-fluxo-barra,
+.ve-fluxos li[data-tipo="estimativa_oficial"] .ve-fluxo-barra,
+.ve-fluxos li[data-tipo="emenda"] .ve-fluxo-barra {
+  background: repeating-linear-gradient(90deg, var(--ve-ambar) 0 6px, transparent 6px 10px);
+  box-shadow: none;
+}
+
+/* ── T31 3.4: dossiês de leitura (coluna esquerda) e o papel de leitura (coluna direita) ───────────────────── */
+.ve-leituras {
+  margin: 22px 16px 0;
+}
+.ve-leituras h2 {
+  margin: 0 0 8px;
+}
+.ve-leituras ul {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0 0 4px;
+  overflow-x: auto;
+  list-style: none;
+}
+@media (min-width: 1000px) {
+  .ve-leituras ul {
+    display: grid;
+    overflow: visible;
+  }
+}
+.ve-leitura {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 8px;
+  width: 100%;
+  min-width: 170px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--ve-linha);
+  background: rgb(0 0 0 / 40%);
+  color: var(--ve-texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.ve-leitura:hover,
+.ve-leitura:focus-visible {
+  border-color: var(--ve-ambar);
+}
+.ve-leitura[aria-pressed="true"] {
+  border-color: var(--ve-ambar);
+  box-shadow:
+    0 0 0 1px var(--ve-ambar),
+    0 0 14px rgb(255 176 32 / 35%);
+}
+.ve-leitura-n {
+  grid-row: span 2;
+  font-family: var(--ve-mono);
+  font-size: 11px;
+  color: var(--ve-ambar);
+}
+.ve-leitura-nome {
+  font-family: var(--ve-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.ve-leitura-casos {
+  font-family: var(--ve-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ve-apagado);
+}
+.ve-papel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+.ve-papel-casos {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: papel;
+}
+.ve-papel-casos > li {
+  display: grid;
+  gap: 6px;
+  padding: 14px 0;
+  border-top: 1px solid var(--ve-linha);
+}
+.ve-papel-casos h3 {
+  margin: 0;
+  font-family: var(--ve-display);
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+.ve-papel-casos p {
+  margin: 0;
+}
+.ve-papel-cabeca,
+.ve-papel-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+}
+.ve-papel-acoes a {
+  font-family: var(--ve-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ve-sangue-claro);
+}
+.ve-papel-valores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ── T31 3.5/3.7: o catálogo "Arsenal" (casos, eventos, documentos, relações) ───────────────────────────────── */
+.ve-pagina-larga {
+  max-width: 1120px;
+}
+.ve-arsenal {
+  display: grid;
+  gap: 14px;
+}
+.ve-arsenal-filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: end;
+  gap: 10px 14px;
+}
+.ve-arsenal-busca {
+  grid-column: 1 / -1;
+}
+.ve-arsenal-abas {
+  justify-content: flex-start;
+  border: 1px solid var(--ve-linha);
+}
+.ve-arsenal-painel {
+  display: grid;
+  gap: 10px;
+}
+.ve-arsenal-lista {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ve-arsenal-lista > li {
+  display: grid;
+  gap: 6px;
+  padding: 12px 0 12px 14px;
+  border-bottom: 1px solid var(--ve-linha);
+  border-left: 2px solid var(--ve-linha-forte);
+}
+.ve-doc .ve-arsenal-lista h2 {
+  margin: 0 !important;
+  font-size: 1.3rem !important;
+  text-transform: none;
+}
+.ve-arsenal-lista h2 {
+  margin: 0;
+  font-family: var(--ve-display);
+  font-size: 1.3rem;
+  line-height: 1.15;
+  text-transform: none;
+}
+.ve-arsenal-lista h2 a {
+  color: var(--ve-texto);
+  text-decoration: none;
+}
+.ve-arsenal-lista h2 a:hover,
+.ve-arsenal-lista h2 a:focus-visible {
+  text-decoration: underline;
+}
+.ve-arsenal-lista p,
+.ve-arsenal-lista blockquote {
+  margin: 0;
+}
+.ve-arsenal-eventos > li[data-evento="valor"] .ve-codigo {
+  color: var(--ve-ambar);
+}
+.ve-arsenal-eventos > li[data-evento="mudanca"] .ve-codigo {
+  color: var(--ve-verde);
+}

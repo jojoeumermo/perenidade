@@ -283,13 +283,34 @@
       "reportado": "Press only"
     },
     "construidoEm": "Data built on {data}",
-    "modoLeve": "Light mode: effects reduced on this device"
+    "modoLeve": "Light mode: effects reduced on this device",
+    "dinheiro": {
+      "titulo": "Documented money",
+      "total": "Amounts cited in sources",
+      "explica": "Sum of fines, reparations, settlements, official estimates and amounts under investigation written in the sources of {n} cases. They differ in nature: this is not a total of embezzlement nor proof of crime.",
+      "naFicha": "Money flows, largest first",
+      "quem": "Who is liable",
+      "suposto": "Amount under investigation: not proof of crime.",
+      "semValor": "No money amount written in the sources of this selection.",
+      "tipos": {
+        "multa": "fine",
+        "reparacao": "reparation",
+        "indenizacao": "ordered to pay",
+        "acordo": "settlement (TAC)",
+        "repasse": "transfer",
+        "emenda": "budget amendment",
+        "estimativa_oficial": "official estimate",
+        "movimentacao_suposta": "alleged movement"
+      },
+      "dataDaFonte": "no date of its own; source of {data}"
+    }
   },
   "navegacao": {
     "inicio": "Observatory",
     "sobre": "About the method",
     "enviar": "Send a source",
-    "corrigir": "Request a correction"
+    "corrigir": "Request a correction",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Method and rules",
@@ -378,5 +399,89 @@
     },
     "barra": "Legal status of published cases",
     "rodape": "Source, date and excerpt on every record. Living web: each point is a record, each line a sourced link."
+  },
+  "leituras": {
+    "titulo": "Reading dossiers",
+    "explica": "Entry points by theme: each dossier gathers cases already published, lights only them in the views and opens the reading sheet.",
+    "nCasos": "{n} cases",
+    "abrir": "Open dossier",
+    "fechar": "Close dossier",
+    "papel": "Reading sheet",
+    "verNaTeia": "See the record",
+    "casoCompleto": "Open full case",
+    "fontes": "{n} sources",
+    "itens": {
+      "barragens": {
+        "titulo": "Dams",
+        "descricao": "The Fundão (Mariana) and Córrego do Feijão (Brumadinho) dam collapses: the criminal cases, who answers and in what status, according to the MPF and the courts."
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "Mining and the Yanomami",
+        "descricao": "From the Haximu massacre to the financing of illegal mining in Roraima: what courts have decided and what is still under investigation."
+      },
+      "chacinas-do-campo": {
+        "titulo": "Rural massacres",
+        "descricao": "Eldorado dos Carajás, Pau d'Arco and Unaí: killings in rural conflicts and the path of each case."
+      },
+      "violencia-policial": {
+        "titulo": "Police violence",
+        "descricao": "Carandiru, massacres in Pará, the death in a PRF vehicle in Umbaúba and the operation in Alemão and Penha, with the legal status of each case."
+      },
+      "trabalho-escravo": {
+        "titulo": "Slave labour",
+        "descricao": "Rescues, convictions and the killing of labour inspectors in Unaí: cases of slavery-like labour already on the public record."
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "Public money and amendments",
+        "descricao": "Mensalão, INSS deductions and the secret budget: amounts written in the sources and the status of each investigation or case."
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "Invaded Indigenous lands",
+        "descricao": "Mining, illegal logging, deforestation and killings in Indigenous lands, according to the MPF, the STF and the press."
+      }
+    }
+  },
+  "arsenal": {
+    "olho": "Full catalogue",
+    "titulo": "Arsenal",
+    "lead": "Every published case, the events of each one (fact, rulings, status changes, amounts) and the documents behind them, in a searchable list. Relations between people and organisations have their own tab, only when sourced.",
+    "buscar": "Search",
+    "buscarDica": "Name, place, outlet, tag…",
+    "categoria": "Category",
+    "situacao": "Legal status",
+    "tipoFonte": "Source type",
+    "todas": "All",
+    "limpar": "Clear filters",
+    "resultados": "{n} results",
+    "nada": "Nothing found with these filters.",
+    "abas": {
+      "casos": "Cases",
+      "eventos": "Events",
+      "documentos": "Documents",
+      "relacoes": "Relations"
+    },
+    "evento": {
+      "fato": "Fact",
+      "publicado": "Published on Vale",
+      "mudanca": "Status change",
+      "valor": "Documented amount",
+      "fonte": "Source published"
+    },
+    "relacoes": {
+      "explica": "Who belongs to, runs, funds or hires whom, and who is cited in each case: only links backed by a source. Solid dot: primary source; hollow dot: press only.",
+      "citados": "Cited in the case",
+      "semRelacoes": "No sourced relation in this selection."
+    },
+    "caso": "Case",
+    "abrir": "Open",
+    "copiaArquivada": "archived copy",
+    "tiposDeFonte": {
+      "processo": "Court case",
+      "investigacao_oficial": "Official investigation",
+      "dado_oficial": "Official data",
+      "relatorio_organizacao": "Organisation report",
+      "reportagem": "News story",
+      "checagem": "Fact-check"
+    }
   }
 }
