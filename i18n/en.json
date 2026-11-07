@@ -180,6 +180,76 @@
     "quimicaLead": "Acid-base titration with a truly calculated pH curve and four indicators, dilution in a beaker, and the pH scale of household things, with a red-cabbage indicator.",
     "modelos": "Models lab",
     "modelosLead": "Probability, misleading charts, segregation, cooperation, wealth, epidemics, predator and prey, orbits, waves, cellular automata, regular expressions and your phone as an instrument: predict, run, compare, explain.",
+    "mapa": {
+      "porFinalidade": "By purpose",
+      "porDisciplina": "By subject",
+      "comoAchar": "Each lab says what it is for, who it is for, which subject and lesson it helps with and where it lives. Choose by what you want to do or by the subject you are studying.",
+      "serve": "What it is for",
+      "quem": "Who it is for",
+      "onde": "Where it lives",
+      "ajudaEm": "Helps with",
+      "aulas": "Lessons it helps with",
+      "abrir": "Open",
+      "ondeSite": "Here on the site, with its own page",
+      "ondeFora": "Outside labs: loads only when you open it",
+      "ondeAula": "Inside the lessons, in the middle of the text",
+      "nenhumaAula": "Serves the whole subject; no specific lesson linked yet.",
+      "daAula": "Labs for this lesson",
+      "nestaAula": "in this lesson",
+      "daDisciplina": "for the subject",
+      "todos": "All labs, by purpose",
+      "maisAulas": "and {n} more",
+      "outrosLugares": "Other places to practise",
+      "ferramentas": "Tools",
+      "ferramentasServe": "Calculators, converters, tables and quick drills to use during a lesson.",
+      "estudio": "Practice studio",
+      "estudioServe": "Editors to practise code, writing and exercises, with your work kept on your device.",
+      "jogos": "Games",
+      "jogosServe": "Learning games to study history, politics and the subjects by playing, alone or in a group.",
+      "externosTodos": "See all outside labs, with licence and credit",
+      "finalidades": {
+        "programar": {
+          "titulo": "Programming",
+          "serve": "Write code, run it and see what happens line by line."
+        },
+        "computador-e-rede": {
+          "titulo": "Computer, terminal and network",
+          "serve": "Use the terminal and understand how machines talk over a network."
+        },
+        "seguranca": {
+          "titulo": "Digital security",
+          "serve": "Practise defence, understand attacks and handle data safely."
+        },
+        "eletrica-e-conserto": {
+          "titulo": "Electricity, electronics and repair",
+          "serve": "Measure, wire, build and repair with no risk of shock or burnt parts."
+        },
+        "ciencias": {
+          "titulo": "Hands-on science",
+          "serve": "Do the physics, chemistry, biology and environment experiments schools often lack."
+        },
+        "dados-e-modelos": {
+          "titulo": "Maths, data and models",
+          "serve": "Plot graphs, run models and test an idea with numbers before believing it."
+        },
+        "sociedade-e-historia": {
+          "titulo": "Society and history",
+          "serve": "See how individual choices become social patterns and how the world changed on the map."
+        },
+        "ia": {
+          "titulo": "Artificial intelligence",
+          "serve": "Train real models and understand what AI does, where it fails and where bias comes from."
+        },
+        "criar": {
+          "titulo": "Write, organise and create",
+          "serve": "Documents, spreadsheets, slides and artwork for outreach, without paid software."
+        },
+        "musica": {
+          "titulo": "Music",
+          "serve": "Listen, compose and see sound, no sheet music needed."
+        }
+      }
+    },
     "jogos": {
       "title": "Training games",
       "card": "Rumos (decisions in history, philosophy and politics), Strike!, timeline of struggles and Who said it?: playing is studying too.",

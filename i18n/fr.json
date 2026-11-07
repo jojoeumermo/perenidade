@@ -180,6 +180,76 @@
     "quimicaLead": "Titrage acide-base avec une vraie courbe de pH calculée et quatre indicateurs, dilution dans le bécher et l’échelle de pH des produits de la maison, avec l’indicateur au chou rouge.",
     "modelos": "Laboratoire de modèles",
     "modelosLead": "Probabilités, graphiques trompeurs, ségrégation, coopération, richesse, épidémie, prédateur et proie, orbites, ondes, automates, expressions régulières et le téléphone comme instrument : prédire, lancer, comparer, expliquer.",
+    "mapa": {
+      "porFinalidade": "Par objectif",
+      "porDisciplina": "Par matière",
+      "comoAchar": "Chaque laboratoire indique à quoi il sert, pour qui, dans quelle matière et quel cours il aide et où il se trouve. Choisissez selon ce que vous voulez faire ou la matière que vous étudiez.",
+      "serve": "À quoi il sert",
+      "quem": "Pour qui",
+      "onde": "Où il se trouve",
+      "ajudaEm": "Aide en",
+      "aulas": "Cours où il aide",
+      "abrir": "Ouvrir",
+      "ondeSite": "Ici sur le site, avec sa propre page",
+      "ondeFora": "Laboratoires extérieurs : chargé seulement quand vous l'ouvrez",
+      "ondeAula": "Dans les cours, au milieu du texte",
+      "nenhumaAula": "Sert à toute la matière ; pas encore de cours précis lié.",
+      "daAula": "Laboratoires pour ce cours",
+      "nestaAula": "dans ce cours",
+      "daDisciplina": "de la matière",
+      "todos": "Tous les laboratoires, par objectif",
+      "maisAulas": "et {n} de plus",
+      "outrosLugares": "Autres endroits pour pratiquer",
+      "ferramentas": "Outils",
+      "ferramentasServe": "Calculatrices, convertisseurs, tableaux et exercices rapides à utiliser pendant le cours.",
+      "estudio": "Studio de pratique",
+      "estudioServe": "Des éditeurs pour pratiquer le code, l'écriture et les exercices, votre travail restant sur votre appareil.",
+      "jogos": "Jeux",
+      "jogosServe": "Des jeux de formation pour étudier l'histoire, la politique et les matières en jouant, seul ou en groupe.",
+      "externosTodos": "Voir tous les laboratoires extérieurs, avec licence et crédit",
+      "finalidades": {
+        "programar": {
+          "titulo": "Programmer",
+          "serve": "Écrire du code, l'exécuter et voir ce qui se passe ligne par ligne."
+        },
+        "computador-e-rede": {
+          "titulo": "Ordinateur, terminal et réseau",
+          "serve": "Utiliser le terminal et comprendre comment les machines communiquent en réseau."
+        },
+        "seguranca": {
+          "titulo": "Sécurité numérique",
+          "serve": "S'entraîner à la défense, comprendre les attaques et manipuler les données en sécurité."
+        },
+        "eletrica-e-conserto": {
+          "titulo": "Électricité, électronique et réparation",
+          "serve": "Mesurer, câbler, monter et réparer sans risque de choc ni de pièce grillée."
+        },
+        "ciencias": {
+          "titulo": "Expérimenter la science",
+          "serve": "Faire les expériences de physique, chimie, biologie et environnement que l'école n'a pas toujours."
+        },
+        "dados-e-modelos": {
+          "titulo": "Maths, données et modèles",
+          "serve": "Tracer des graphiques, faire tourner des modèles et tester une idée avec des chiffres avant d'y croire."
+        },
+        "sociedade-e-historia": {
+          "titulo": "Société et histoire",
+          "serve": "Voir comment des choix individuels deviennent des phénomènes sociaux et comment le monde a changé sur la carte."
+        },
+        "ia": {
+          "titulo": "Intelligence artificielle",
+          "serve": "Entraîner de vrais modèles et comprendre ce que fait l'IA, où elle se trompe et d'où vient le biais."
+        },
+        "criar": {
+          "titulo": "Écrire, organiser et créer",
+          "serve": "Document, tableur, présentation et visuels pour diffuser, sans logiciel payant."
+        },
+        "musica": {
+          "titulo": "Musique",
+          "serve": "Écouter, composer et voir le son, sans lire de partition."
+        }
+      }
+    },
     "jogos": {
       "title": "Jeux de formation",
       "card": "Rumos (décisions dans l'histoire, la philosophie et la politique), Grève !, frise des luttes et Qui l'a dit ? : jouer, c'est aussi étudier.",
