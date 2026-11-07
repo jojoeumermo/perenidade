@@ -54,7 +54,7 @@
     "prazo": "Los mensajes desaparecen en",
     "dias": "{n} días",
     "dia": "1 día",
-    "prazoExplica": "Acortar también vale para lo ya escrito.",
+    "prazoExplica": "Vale para los mensajes nuevos. Lo ya escrito sigue con el plazo de antes.",
     "codigo": "Código de seguridad",
     "codigoExplica": "Compara estos números con la otra persona, en persona o por un canal en que se reconozcan. Si son iguales, nadie está en medio.",
     "verificado": "Comparamos y es igual",
@@ -64,7 +64,7 @@
     "bloquearConfirma": "¿Bloquear a esta persona? Ya no podrá hablar contigo, ni aquí ni en Alumia.",
     "denunciar": "Denunciar",
     "apagar": "Borrar la conversación",
-    "apagarConfirma": "¿Borrar toda la conversación para las dos personas? No tiene vuelta atrás."
+    "apagarConfirma": "¿Quitar esta conversación de tu lista? Desaparece para ti. La otra persona conserva los mensajes hasta que venza su plazo."
   },
   "denuncia": {
     "titulo": "Denunciar",
@@ -99,8 +99,8 @@
     "salvar": "Guardar",
     "salvo": "Guardado.",
     "apagarTudo": "Borrar todo el chat",
-    "apagarTudoExplica": "Borra todas tus conversaciones (para las dos personas de cada una), tu clave y tus ajustes. La cuenta sigue. LGPD de Brasil, art. 18, VI.",
-    "apagarTudoConfirma": "¿Borrar TODAS tus conversaciones y tu clave del chat? No tiene vuelta atrás.",
+    "apagarTudoExplica": "Quita todas las conversaciones de tu lista y borra tu clave y tus ajustes. La otra persona de cada conversación conserva los mensajes hasta que venza su plazo. La cuenta sigue. LGPD de Brasil, art. 18, VI.",
+    "apagarTudoConfirma": "¿Quitar TODAS las conversaciones de tu lista y borrar tu clave del chat? No tiene vuelta atrás.",
     "apagado": "Todo el chat fue borrado."
   },
   "erros": {
