@@ -5,19 +5,33 @@
 // ar (ou para a sala do podcast ao vivo que está no ar), e por poucas horas. Sem as chaves (CLOUDFLARE_TURN_KEY_ID, CLOUDFLARE_TURN_TOKEN, CLOUDFLARE_ACCOUNT_ID e
 // CLOUDFLARE_ANALYTICS_TOKEN, na Vercel), ou passado o teto de gasto (abaixo), responde vazio e a
 // sala segue como antes (ligação direta entre os navegadores).
+//
+// T33 (auditoria de 07/11/2026): a credencial é cara (cada uma vale horas de retransmissão paga além da cota) e a sala do
+// podcast é pública. Por isso: limite por pessoa (resumo do IP com sal do dia, só na memória, o mesmo de
+// lib/assistente/limite.ts) e por faixa de rede; UMA credencial por sala a cada 5 minutos (pedir de novo devolve a mesma, não
+// cria outra); e o teto do mês mais baixo (600 GB), com folga para o atraso da conta da Cloudflare e para as credenciais
+// já entregues. A validade continua 4 horas: a retransmissão renova a reserva com a mesma credencial durante a aula, e
+// uma credencial vencida derrubaria o vídeo no meio.
+import { criarLimitador, ipDoPedido } from "@/lib/assistente/limite";
 import { rpcNoBanco } from "@/lib/instagram";
 
 export const dynamic = "force-dynamic";
+
+/** Por pessoa: 20 credenciais por hora e 120 no dia (uma aula com quedas pede algumas); por faixa, 60 e 400. */
+const limitador = criarLimitador({ porHora: 20, porDia: 120, globalDia: 50_000, faixaHora: 60, faixaDia: 400 });
+/** A credencial de cada sala, guardada por 5 minutos: quem pede de novo recebe a mesma. */
+const PORSALA_MS = 5 * 60_000;
+const daSala = new Map<string, { ate: number; iceServers: unknown[] }>();
 
 const semGuardar = { "Cache-Control": "no-store", "X-Robots-Tag": "noindex" };
 
 /**
  * Teto de gasto: a cota grátis do TURN é de 1.000 GB por mês e o que passa disso é cobrado. Antes de entregar uma
  * credencial, o site pergunta à Cloudflare quanto já foi usado no mês (GraphQL, permissão "Account Analytics: Read") e,
- * de 800 GB para cima, para de entregar: as aulas voltam à ligação direta, que não passa pela Cloudflare. Sem como
+ * de 600 GB para cima, para de entregar: as aulas voltam à ligação direta (o podcast, não: sem retransmissão ele não liga). Sem como
  * conferir (token ausente, consulta falhou), também não entrega. A conta é guardada por 10 minutos.
  */
-const TETO_BYTES = 800 * 1024 ** 3;
+const TETO_BYTES = 600 * 1024 ** 3;
 let conferido: { ate: number; dentro: boolean } | null = null;
 
 async function dentroDoTeto(chave: string): Promise<boolean> {
@@ -59,6 +73,9 @@ export async function GET(pedido: Request) {
   if (!/^[a-f0-9]{32}$/i.test(chave) || !token) return vazio();
   const busca = new URL(pedido.url).searchParams;
   const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  // O IP vira resumo aqui e some (só na memória, sal do dia): nada é gravado.
+  const vez = limitador.consumir(ipDoPedido(pedido.headers));
+  if (!vez.ok) return Response.json({ erro: "muitos_pedidos" }, { status: 429, headers: { ...semGuardar, "Retry-After": String(vez.tentarEm) } });
   // Podcast ao vivo (T17; docs/PODCAST-AO-VIVO.md): a mesma retransmissão, só para a sala da transmissão que está no ar.
   const podcast = busca.get("podcast");
   if (podcast !== null) {
@@ -72,6 +89,10 @@ export async function GET(pedido: Request) {
     if (!dados.ok || !dados.dados || !["agendada", "ao_vivo"].includes(dados.dados.status ?? "")) return Response.json({ erro: "aula" }, { status: 404, headers: semGuardar });
   }
   if (!(await dentroDoTeto(chave))) return vazio();
+  const sala = podcast !== null ? `podcast:${podcast}` : `aula:${busca.get("aula")}`;
+  const guardada = daSala.get(sala);
+  if (guardada && guardada.ate > Date.now()) return Response.json({ iceServers: guardada.iceServers }, { headers: semGuardar });
+  if (daSala.size > 500) for (const [k, v] of daSala) if (v.ate <= Date.now()) daSala.delete(k);
   try {
     const resposta = await fetch(`https://rtc.live.cloudflare.com/v1/turn/keys/${chave}/credentials/generate-ice-servers`, {
       method: "POST",
@@ -85,6 +106,7 @@ export async function GET(pedido: Request) {
     if (!resposta.ok || !Array.isArray(corpo?.iceServers)) return vazio();
     // A porta 53 costuma ser barrada nos navegadores e só atrasa a ligação.
     const iceServers = corpo.iceServers.map((s) => ({ ...s, urls: [s.urls ?? []].flat().filter((u) => typeof u === "string" && !/:53(\?|$)/.test(u)) })).filter((s) => s.urls.length);
+    if (iceServers.length) daSala.set(sala, { ate: Date.now() + PORSALA_MS, iceServers });
     return Response.json({ iceServers }, { headers: semGuardar });
   } catch {
     return vazio();

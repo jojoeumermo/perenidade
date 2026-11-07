@@ -4886,6 +4886,8 @@
       "lotado": "The direct room is full (up to {n} people at a time).",
       "lotadoLink": "Watch the open broadcast:",
       "semCanal": "I could not connect the video right now. Try again in a moment.",
+      "semRede": "The direct room is closed right now: without the server that hides network addresses, the video does not go straight from browser to browser.",
+      "semRedeEstudio": "The browser broadcast did not start: the relay server (which hides your network address from viewers) is not available right now. Use an open stream (PeerTube or YouTube) or try again later.",
       "sair": "Stop watching",
       "aberta": "Open broadcast",
       "abrirFora": "Open the broadcast in another tab",

@@ -172,7 +172,14 @@ export function PodcastAoVivo({ s, className = "mt-12" }: { s: TextosAoVivo; cla
           <p className="max-w-3xl font-sans text-xs text-[#d9ccac]">{s.aviso}</p>
           {estado.modo === "navegador" && estado.sala ? (
             estado.minha && estado.pode ? (
-              <Transmitir s={s} sala={estado.sala} aoEncerrar={() => void ler()} />
+              <Transmitir
+                s={s}
+                sala={estado.sala}
+                aoEncerrar={(motivo) => {
+                  setAviso(motivo ?? "");
+                  void ler();
+                }}
+              />
             ) : assistindo ? (
               <Assistir s={s} sala={estado.sala} chaves={estado.chaves ?? []} reserva={reserva} aoSair={() => setAssistindo(false)} />
             ) : (
@@ -198,7 +205,14 @@ export function PodcastAoVivo({ s, className = "mt-12" }: { s: TextosAoVivo; cla
         <>
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#d4a24c]">{s.rotulo}</p>
           <h2 id="podcast-ao-vivo" className="sr-only">{s.titulo}</h2>
-          <Estudio s={s} aoComecar={() => void ler()} />
+          <Estudio
+            s={s}
+            aoComecar={() => {
+              setAviso("");
+              void ler();
+            }}
+          />
+          {aviso && <p role="alert" className="mt-3 font-sans text-sm text-[#e0837a]">{aviso}</p>}
         </>
       )}
     </section>
