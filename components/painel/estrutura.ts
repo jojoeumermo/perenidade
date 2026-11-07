@@ -84,6 +84,7 @@ export const MAPA: Record<string, Mapeamento> = {
   // Comunidade e atendimento
   comunidade: { espaco: "comunidade", molde: "fila" },
   "rede-propostas": { espaco: "comunidade", molde: "fila" },
+  "rede-semeadura": { espaco: "comunidade", molde: "tabela" },
   reforco: { espaco: "comunidade", molde: "fila" },
   mural: { espaco: "comunidade", molde: "fila" },
   gaveta: { espaco: "comunidade", molde: "fila" },
