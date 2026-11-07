@@ -46,3 +46,19 @@ Itens de licença que apareceram nas páginas e mudam o que o Instituto pode faz
 ## 6. O que não precisa de nada
 
 Câmara, Senado, TSE (CKAN), IBGE (localidades e malhas) e os feeds RSS de CIMI, CPT, ISA, FBSP, Fogo Cruzado, Rede de Observatórios, Sou da Paz, Justiça Global, ANTRA, HRW, Anistia (internacional), Agência Pública, Repórter Brasil, InfoAmazonia, Amazônia Real, Ponte, Alma Preta, De Olho nos Ruralistas, Intercept, Brasil de Fato, Lupa, Aos Fatos, MapBiomas, IBAMA, STF e STJ respondem sem chave.
+
+## 7. Casos "a preencher": violência policial e chacinas (frente T12, 07/11/2026)
+
+Lote pronto para a curadoria: `content/vale-o-escrito/novos-casos/violencia-policial-chacinas.json` (21 casos, todos `pendente-curadoria`, cada um com fonte oficial e situação jurídica; conferência: `npm run testar:vale-o-escrito-novos-casos`; junção aos dossiês: `npm run vale-o-escrito:importar-novos-casos -- --gravar`, que pula duplicata por id ou link). Ficaram de fora, por falta de dado verificável, e entram quando alguém achar a peça que falta:
+
+| Caso | O que falta |
+|---|---|
+| Vigário Geral (RJ, 1993) | Fonte primária da condenação/absolvição (só achamos reportagem citando o TJRJ e páginas do Observatório da Câmara que não abriram). |
+| Vila Cruzeiro (RJ, maio/2022) | As notas do MPF sobre o procedimento investigatório mudaram de endereço (404); só há reportagem. Falta o desfecho do PIC 1.30.001.001985/2022 e dos inquéritos da Polícia Civil. |
+| Guadalupe (RJ, 2019, Exército) | A notícia do STM sobre a apelação final saiu do ar (404) e o acórdão na revista do STM é PDF comprimido; a nota do MPM (mar/2024) é anterior ao resultado. Precisa de fonte do tipo "processo" para a condenação. |
+| Complexo do Alemão (RJ, set/2019, morte de uma menina de 8 anos) | Só reportagem sobre a absolvição no júri (nov/2024) e o recurso do MPRJ; falta nota oficial do MPRJ ou do TJRJ. |
+| Complexo do Lins (RJ, jun/2021, morte de uma jovem grávida) | A página do MPRJ (Memorial Vidas Marcadas) não tem data de publicação; falta fonte datada da denúncia ou do júri. |
+| Campo Limpo (SP, 2013) e lava-rápido na zona norte (SP, maio/2006) | Só nota do MPSP sobre as condenações no júri; a regra exige a decisão (fonte "processo") para "condenado". |
+| Baixada Fluminense (RJ, 2005) e Fallet-Fogueteiro (RJ, 2019) | Nenhuma fonte oficial com a situação atual. |
+| Varginha (MG, 2021, PRF e PM) | Ofício do MPMG sem data nem desfecho. |
+| Operação Contenção (RJ, 2025), já publicada | Atualizar a ficha: segundo o MPRJ (09/10/2026), a Auditoria da Justiça Militar recebeu três denúncias contra oito PMs por crimes como invasão de domicílio, furto e retirada das câmeras (https://www.mprj.mp.br/web/guest/visualizar?noticiaId=243602). |
