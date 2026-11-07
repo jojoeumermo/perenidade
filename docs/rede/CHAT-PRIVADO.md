@@ -87,11 +87,15 @@ Diferenças de propósito em relação à equipe (menos comodidade, menos coisa 
 ## Retenção mínima e apagar
 
 - Toda mensagem nasce com **prazo**: 1, 7 ou 30 dias (padrão 7, escolhido por cada pessoa nos Ajustes e por conversa). Encurtar o
-  prazo vale também para o que já foi escrito. Venceu, some: as leituras já filtram e a faxina (`interno.rede_dm_faxina`) apaga
+  prazo vale para as mensagens novas (T33: ninguém apaga as provas do que já escreveu). Venceu, some: as leituras já filtram e a faxina (`interno.rede_dm_faxina`) apaga
   de vez, junto das próprias chamadas. Embrulhos de versões antigas sem mensagem viva também somem.
-- **Apagar a mensagem** (quem escreveu): some para os dois.
-- **Apagar a conversa** (qualquer participante): mensagens e chaves embrulhadas somem para os dois.
-- **Apagar tudo do chat** (Ajustes): conversas, chave pública, preferências e recusas da pessoa, e o chaveiro deste aparelho.
+- **Apagar a mensagem** (quem escreveu): some para os dois. Depois de bloqueio (de qualquer lado) ou com denúncia aberta da
+  outra pessoa, não: a mensagem é prova e some sozinha no prazo (T33).
+- **Apagar a conversa** (qualquer participante): sai da lista de quem apaga, e o que veio antes some para essa pessoa. A outra
+  continua com as mensagens até o prazo delas e pode denunciar; quando as duas apagam, mensagens e chaves embrulhadas somem
+  de vez (T33: antes, quem assediava apagava as provas antes da denúncia).
+- **Apagar tudo do chat** (Ajustes): tira todas as conversas da lista, apaga a chave pública, as preferências e as recusas que a
+  pessoa fez, e o chaveiro deste aparelho. As recusas que OUTRAS pessoas fizeram contra ela ficam até vencer (são delas).
 - **Apagar a conta:** chave estrangeira com `on delete cascade` em tudo (`interno.perfis`): mensagens, conversas, chaves e
   preferências somem junto.
 
