@@ -305,8 +305,8 @@ caso("sem IP cru: o envio e a correção guardam só o hash com sal do dia", () 
 caso("o mesmo bloco está no fim do install.sql", () => {
   const sql = ler("supabase", "migracoes", "2026-11-vale-o-escrito.sql").replace(/\r\n/g, "\n").trim();
   let install = ler("supabase", "install.sql").replace(/\r\n/g, "\n").trim();
-  // As migrações de 6/11 (Frente Revolucionária, pessoas do painel) vêm por último, inteiras; tiram-se do fim primeiro.
-  for (const m of ["20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
+  // As migrações de 6/11 (Frente Revolucionária, pessoas do painel, chat privado da Alumia) vêm por último, inteiras; tiram-se do fim primeiro.
+  for (const m of ["20261106-t19-rede-chat-privado", "20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
     const bloco = ler("supabase", "migracoes", `${m}.sql`).replace(/\r\n/g, "\n").trim();
     assert.ok(install.endsWith(bloco), `install.sql não termina com a migração ${m}`);
     install = install.slice(0, -bloco.length).trim();
