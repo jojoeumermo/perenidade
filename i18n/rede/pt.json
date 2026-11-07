@@ -141,6 +141,7 @@
   },
   "perfil": {
     "trancado": "Perfil trancado: quem segue precisa de aprovação.",
+    "conversar": "Mensagem privada",
     "equipe": "Equipe do instituto",
     "semContagens": "Sem contagens públicas de seguidores ou apoios."
   },

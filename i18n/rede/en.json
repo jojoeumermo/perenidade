@@ -142,6 +142,7 @@
   },
   "perfil": {
     "trancado": "Locked profile: followers need approval.",
+    "conversar": "Private message",
     "equipe": "Institute staff",
     "semContagens": "No public follower or support counts."
   },
