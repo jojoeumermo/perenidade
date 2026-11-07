@@ -11,7 +11,7 @@ import { fill } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import { conferirEducadores, Credencial, faixaPreta, provaDaPresenca, Transmissao } from "@/lib/aovivo";
 import { BackendError, rpc } from "@/lib/backend";
-import { LIMITE_DIRETO, naSalaDireta, PULSO_SEGUNDOS } from "@/lib/podcast-ao-vivo";
+import { BARRADO_MS, LIMITE_DIRETO, naSalaDireta, PULSO_SEGUNDOS, semLigacao } from "@/lib/podcast-ao-vivo";
 import { type Presente, Sala } from "@/lib/tempo-real";
 import { useI18n } from "../I18n";
 import type { TextosAoVivo } from "./AoVivo";
@@ -22,7 +22,12 @@ const chaveSorteada = () => {
   return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
 };
 
-/** O servidor de retransmissão, quando existe, antes de qualquer ligação sair. */
+/**
+ * O servidor de retransmissão, antes de qualquer ligação sair. Sem ele (chaves ausentes, Cloudflare fora do ar, teto do mês),
+ * o podcast NÃO liga direto entre navegadores (T33): a ligação direta mostraria o endereço de rede de quem transmite a
+ * qualquer visitante, e o de quem assiste (muitas vezes menor de idade) a quem transmite. Quem assiste vê a transmissão
+ * aberta de reserva, se houver; quem transmite é avisado e a transmissão pelo navegador sai do ar.
+ */
 async function redeDaSala(sala: string): Promise<RTCConfiguration | null> {
   try {
     const r = await fetch(`/api/aovivo/rede?podcast=${encodeURIComponent(sala)}`, { cache: "no-store" });
@@ -57,7 +62,7 @@ function Tela({ fluxo, mudo = false, espelho = false, rotulo }: { fluxo: MediaSt
 /** Quem assiste: entra na sala sem câmera nem microfone, confere a assinatura de quem transmite e recebe o vídeo. */
 export function Assistir({ s, sala, chaves, reserva, aoSair }: { s: TextosAoVivo; sala: string; chaves: string[]; reserva: React.ReactNode; aoSair: () => void }) {
   const [fluxo, setFluxo] = useState<MediaStream | null>(null);
-  const [fase, setFase] = useState<"ligando" | "esperando" | "sem" | "lotado">("ligando");
+  const [fase, setFase] = useState<"ligando" | "esperando" | "sem" | "lotado" | "semRede">("ligando");
   const chavesRef = useRef(chaves);
   const transmissao = useRef<Transmissao | null>(null);
   const lista = useRef<Presente[]>([]);
@@ -113,7 +118,14 @@ export function Assistir({ s, sala, chaves, reserva, aoSair }: { s: TextosAoVivo
     transmissao.current = transmissor;
     void (async () => {
       const rede = await redeDaSala(sala);
-      if (rede) transmissor.rede = rede;
+      if (!vivo) return;
+      // Sem retransmissão, nada de ligação direta: não entra na sala nem pede vídeo (T33).
+      if (!rede) {
+        transmissao.current = null;
+        setFase("semRede");
+        return;
+      }
+      transmissor.rede = rede;
       if (!(await entrarComTentativas(nova, () => vivo))) {
         if (vivo) setFase("sem");
         return;
@@ -141,10 +153,10 @@ export function Assistir({ s, sala, chaves, reserva, aoSair }: { s: TextosAoVivo
         <Tela fluxo={fluxo} rotulo={s.titulo} />
       ) : (
         <div className="flex aspect-video max-w-full items-center justify-center border-2 border-[#f4ecd8] bg-[#17130e] p-6 text-center font-sans text-sm text-[#d9ccac]" role="status">
-          {fase === "lotado" ? fill(s.lotado, { n: LIMITE_DIRETO }) : fase === "sem" ? s.semCanal : fase === "ligando" ? s.conectando : s.esperando}
+          {fase === "lotado" ? fill(s.lotado, { n: LIMITE_DIRETO }) : fase === "semRede" ? s.semRede : fase === "sem" ? s.semCanal : fase === "ligando" ? s.conectando : s.esperando}
         </div>
       )}
-      {fase === "lotado" && reserva}
+      {(fase === "lotado" || fase === "semRede") && reserva}
       <p className="font-sans text-xs text-[#d9ccac]">
         {s.avisoDireto}{" "}
         <button type="button" onClick={aoSair} className="cursor-pointer underline hover:text-[#f4ecd8]">
@@ -162,7 +174,7 @@ type Fonte = "camera" | "tela" | "audio";
  * câmera e o microfone e manda o vídeo para até LIMITE_DIRETO pessoas. Dá sinal de vida ao banco a cada minuto (sem ele, a
  * transmissão sai do ar sozinha). Nada é gravado.
  */
-export function Transmitir({ s, sala, aoEncerrar }: { s: TextosAoVivo; sala: string; aoEncerrar: () => void }) {
+export function Transmitir({ s, sala, aoEncerrar }: { s: TextosAoVivo; sala: string; aoEncerrar: (motivo?: string) => void }) {
   const { t } = useI18n();
   const [local, setLocal] = useState<MediaStream | null>(null);
   const [fonte, setFonte] = useState<Fonte>("camera");
@@ -175,12 +187,28 @@ export function Transmitir({ s, sala, aoEncerrar }: { s: TextosAoVivo; sala: str
   const admitidos = useRef<Set<string>>(new Set());
   const avisados = useRef<Set<string>>(new Set());
   const presentes = useRef<Presente[]>([]);
+  // T33: a vaga vai por ordem de chegada (vista daqui, não pela chave que cada aba escolhe) e só fica com quem liga o
+  // vídeo de verdade; presença que não completa a ligação em PRAZO_LIGAR_MS perde a vaga e espera BARRADO_MS.
+  const chegada = useRef(new Map<string, number>());
+  const admitidoEm = useRef(new Map<string, number>());
+  const ligaram = useRef(new Set<string>());
+  const barrados = useRef(new Map<string, number>());
 
   const distribuir = async () => {
     const transmissor = transmissao.current;
     const canal = salaRef.current;
     if (!transmissor || !canal) return;
-    const r = naSalaDireta(presentes.current, admitidos.current);
+    const agora = Date.now();
+    for (const p of presentes.current) if (!chegada.current.has(p.chave)) chegada.current.set(p.chave, agora + chegada.current.size / 1000);
+    for (const c of admitidos.current) if (transmissor.estado(c) === "connected") ligaram.current.add(c);
+    for (const c of semLigacao(admitidos.current, admitidoEm.current, ligaram.current, agora)) {
+      admitidos.current.delete(c);
+      barrados.current.set(c, agora + BARRADO_MS);
+    }
+    for (const [c, ate] of barrados.current) if (ate <= agora) barrados.current.delete(c);
+    const r = naSalaDireta(presentes.current, admitidos.current, LIMITE_DIRETO, { chegada: chegada.current, barrados: new Set(barrados.current.keys()) });
+    for (const c of r.admitidos) if (!admitidoEm.current.has(c)) admitidoEm.current.set(c, agora);
+    for (const c of admitidoEm.current.keys()) if (!r.admitidos.has(c)) admitidoEm.current.delete(c);
     admitidos.current = r.admitidos;
     setAssistindo(r.admitidos.size);
     for (const p of r.fora) {
@@ -199,6 +227,22 @@ export function Transmitir({ s, sala, aoEncerrar }: { s: TextosAoVivo; sala: str
     let vivo = true;
     let canal: Sala | null = null;
     let transmissor: Transmissao | null = null;
+    /** Os trilhos já abertos: param no erro e na saída, mesmo antes de virarem a transmissão. */
+    const trilhos: MediaStreamTrack[] = [];
+    // Sinal de vida para o banco: sem ele por três minutos, a transmissão sai do ar sozinha.
+    let pulso = window.setInterval(() => void rpc("podcast_ao_vivo_pulso", { p_sala: sala }).catch(() => undefined), PULSO_SEGUNDOS * 1000);
+    /** Sem como transmitir (sem retransmissão ou sem microfone): para o pulso, solta o que abriu e tira do ar. */
+    const desistir = async (motivo: string) => {
+      window.clearInterval(pulso);
+      pulso = 0;
+      trilhos.forEach((tr) => tr.stop());
+      transmissor?.fechar();
+      canal?.sair();
+      await rpc("podcast_ao_vivo_encerrar").catch(() => undefined);
+      if (vivo) aoEncerrar(motivo);
+    };
+    // Quem ficou com a vaga e não ligou o vídeo libera a vaga mesmo sem mudar a presença.
+    const conferirVagas = window.setInterval(() => void distribuirRef.current(), 5000);
     void (async () => {
       try {
         const credencial = await Credencial.nova();
@@ -225,31 +269,50 @@ export function Transmitir({ s, sala, aoEncerrar }: { s: TextosAoVivo; sala: str
         salaRef.current = canal;
         transmissao.current = transmissor;
         const rede = await redeDaSala(sala);
-        if (rede) transmissor.rede = rede;
-        const microfone = (await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } })).getAudioTracks()[0];
-        const video = (await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 24 } } })).getVideoTracks()[0];
+        if (!vivo) return;
+        // Sem retransmissão, o vídeo iria direto e mostraria o seu endereço de rede a qualquer visitante: não começa (T33).
+        if (!rede) return void (await desistir(s.semRedeEstudio));
+        transmissor.rede = rede;
+        let microfone: MediaStreamTrack;
+        try {
+          microfone = (await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } })).getAudioTracks()[0];
+          trilhos.push(microfone);
+        } catch {
+          // Sem microfone não há podcast: nada fica "no ar" esperando.
+          return void (await desistir(s.falhaMidia));
+        }
+        // Sem câmera (ou com ela negada), o podcast segue só com o som: a faixa preta deixa trocar para a câmera depois.
+        let video: MediaStreamTrack;
+        let inicial: Fonte = "camera";
+        try {
+          video = (await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 24 } } })).getVideoTracks()[0];
+        } catch {
+          video = faixaPreta();
+          inicial = "audio";
+        }
+        trilhos.push(video);
         if (!vivo) {
-          microfone.stop();
-          video.stop();
+          trilhos.forEach((tr) => tr.stop());
           return;
         }
         const fluxo = new MediaStream([microfone, video]);
         transmissor.local = fluxo;
         setLocal(fluxo);
+        setFonte(inicial);
         if (!(await entrarComTentativas(canal, () => vivo)) && vivo) setAviso(s.semCanal);
       } catch (e) {
         if (vivo) setAviso(e instanceof BackendError ? errorText(t, e.code) : s.falhaMidia);
       }
     })();
-    // Sinal de vida para o banco: sem ele por três minutos, a transmissão sai do ar sozinha.
-    const pulso = window.setInterval(() => void rpc("podcast_ao_vivo_pulso", { p_sala: sala }).catch(() => undefined), PULSO_SEGUNDOS * 1000);
     // Fechar a aba no meio da transmissão: o navegador pergunta antes.
     const antesDeSair = (e: BeforeUnloadEvent) => e.preventDefault();
     window.addEventListener("beforeunload", antesDeSair);
     return () => {
       vivo = false;
       window.clearInterval(pulso);
+      window.clearInterval(conferirVagas);
       window.removeEventListener("beforeunload", antesDeSair);
+      trilhos.forEach((tr) => tr.stop());
       transmissor?.fechar();
       canal?.sair();
       transmissao.current = null;

@@ -4886,6 +4886,8 @@
       "lotado": "La salle directe est pleine (jusqu'à {n} personnes à la fois).",
       "lotadoLink": "Regardez la diffusion ouverte :",
       "semCanal": "Impossible de connecter la vidéo pour l'instant. Réessayez dans un moment.",
+      "semRede": "La salle directe est fermée pour l'instant : sans le serveur qui cache les adresses réseau, la vidéo ne passe pas directement d'un navigateur à l'autre.",
+      "semRedeEstudio": "La diffusion par le navigateur n'a pas commencé : le serveur de relais (qui cache votre adresse réseau aux spectateurs) n'est pas disponible pour l'instant. Utilisez une diffusion ouverte (PeerTube ou YouTube) ou réessayez plus tard.",
       "sair": "Arrêter de regarder",
       "aberta": "Diffusion ouverte",
       "abrirFora": "Ouvrir la diffusion dans un autre onglet",
