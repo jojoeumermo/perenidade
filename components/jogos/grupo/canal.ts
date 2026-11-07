@@ -9,13 +9,17 @@
 // O que circula: o id sorteado desta aba, o apelido e as ações do jogo. Nenhum dado da conta, nenhum endereço.
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { getClient, hasBackend } from "@/lib/backend";
+import { FORMATO_DA_CHAVE } from "./assinatura";
 
 export interface Presenca {
   id: string;
   apelido: string;
+  /** A chave pública desta aba (./assinatura.ts): quem recebe confere com ela quem mandou cada mensagem (T33). */
+  chave?: string;
 }
 
-export type Mensagem = { tipo: "estado"; carga: unknown } | { tipo: "acao"; de: string; carga: unknown };
+/** n: número da mensagem de quem manda (sobe sempre); assinatura: ./assinatura.ts. Sem os dois, quem recebe recusa (T33). */
+export type Mensagem = { tipo: "estado"; carga: unknown; de?: string; n?: number; assinatura?: string } | { tipo: "acao"; de: string; carga: unknown; n?: number; assinatura?: string };
 
 export interface CanalDaSala {
   entrar(): Promise<boolean>;
@@ -29,7 +33,7 @@ export interface CanalDaSala {
 const limpar = (lista: unknown[]): Presenca[] =>
   lista.flatMap((item) => {
     const p = item as Partial<Presenca>;
-    return typeof p?.id === "string" && /^[a-z0-9]{6,24}$/.test(p.id) ? [{ id: p.id, apelido: String(p.apelido ?? "").slice(0, 20) }] : [];
+    return typeof p?.id === "string" && /^[a-z0-9]{6,24}$/.test(p.id) ? [{ id: p.id, apelido: String(p.apelido ?? "").slice(0, 20), chave: typeof p.chave === "string" && FORMATO_DA_CHAVE.test(p.chave) ? p.chave : undefined }] : [];
   });
 
 class CanalTempoReal implements CanalDaSala {
@@ -95,7 +99,7 @@ class CanalTempoReal implements CanalDaSala {
 class CanalDeAbas implements CanalDaSala {
   readonly modo = "abas" as const;
   private bc: BroadcastChannel | null = null;
-  private vistos = new Map<string, { apelido: string; em: number }>();
+  private vistos = new Map<string, { apelido: string; chave?: string; em: number }>();
   private relogio = 0;
   constructor(
     private readonly codigo: string,
@@ -107,7 +111,7 @@ class CanalDeAbas implements CanalDaSala {
   private avisar() {
     const agora = Date.now();
     for (const [id, v] of this.vistos) if (agora - v.em > 7000) this.vistos.delete(id);
-    this.aoPresenca([this.eu, ...[...this.vistos].map(([id, v]) => ({ id, apelido: v.apelido }))]);
+    this.aoPresenca([this.eu, ...[...this.vistos].map(([id, v]) => ({ id, apelido: v.apelido, chave: v.chave }))]);
   }
 
   async entrar(): Promise<boolean> {
@@ -119,7 +123,7 @@ class CanalDeAbas implements CanalDaSala {
         const [p] = limpar([d.oi]);
         if (p) {
           const novo = !this.vistos.has(p.id);
-          this.vistos.set(p.id, { apelido: p.apelido, em: Date.now() });
+          this.vistos.set(p.id, { apelido: p.apelido, chave: this.vistos.get(p.id)?.chave ?? p.chave, em: Date.now() });
           if (novo) {
             this.bc?.postMessage({ oi: this.eu });
             this.avisar();
