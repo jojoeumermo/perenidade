@@ -262,6 +262,10 @@ conferir("os jogos em grupo só baixam quando abertos (dynamic import)", /dynami
 conferir("a página tem a categoria 'grupo'", /"grupo"/.test(pagina));
 conferir("o palco tem tela cheia e som opcional", /requestFullscreen/.test(fonte.map(([, x]) => x).join("") + ler("components", "jogos", "Imersao.tsx")) && /som/i.test(ler("components", "jogos", "Imersao.tsx")));
 conferir("animação respeita prefers-reduced-motion", /prefers-reduced-motion/.test(ler("app", "globals.css").split("jogos-em-grupo")[1] ?? "") || /motion-reduce|prefers-reduced-motion/.test(ler("components", "jogos", "Imersao.tsx")));
+conferir("todo jogo aberto passa pelo palco (som, tela cheia, retorno)", /<Palco s=\{s\}>/.test(pagina) && /import\("\.\/audio"\)/.test(ler("components", "jogos", "Imersao.tsx")));
+conferir("o som começa desligado (só liga com o clique da pessoa)", /useStored\(KEYS\.jogosSom\) === "1"/.test(ler("components", "jogos", "Imersao.tsx")));
+conferir("os jogos de treino mandam o tom do retorno", ["CacaPalavras", "Cruzadas", "Ditado", "Forca", "JogoDaVelha", "Memoria", "QuebraPalavras"].every((j) => /<Aviso tom=/.test(ler("components", "jogos", `${j}.tsx`))));
+conferir("o convite leva o código no # (não vai ao servidor)", /#sala=/.test(ler("components", "jogos", "grupo", "JogosEmGrupo.tsx")));
 conferir("a rota do banco é estática", /force-static/.test(ler("app", "api", "jogos-em-grupo", "[banco]", "route.ts")));
 conferir("existe a documentação", existe("docs", "jogos", "EM-GRUPO.md"));
 {
