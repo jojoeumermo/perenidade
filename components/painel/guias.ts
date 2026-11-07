@@ -177,6 +177,15 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "Nada de nome civil: a Rede só mostra codinome. Se a proposta pedir algo que mistura o instituto com campanha eleitoral ou partido, recuse e explique.",
   },
+  "rede-semeadura": {
+    paraQue: "Acompanhar a semeadura da Alumia (docs/rede/SEMEAR.md) sem inventar nada: ver onde já há conversa real e onde falta gente moderando.",
+    passos: [
+      { titulo: "Olhe o que falta", texto: "O filtro \"Só as que faltam\" mostra as comunidades sem nenhum post real ou com menos de 2 pessoas moderando." },
+      { titulo: "Chame gente real", texto: "Convide quem é da equipe e dos núcleos a escrever com a própria voz. As perguntas de abertura estão no SEMEAR.md e aparecem para quem abre uma linha vazia." },
+      { titulo: "Complete a moderação", texto: "Cada comunidade-semente precisa de 2 pessoas moderando. Quem aceita recebe um aviso e pode sair quando quiser." },
+    ],
+    dica: "Só números, sem nome de ninguém. Nenhum script publica: post inventado ou em nome de outra pessoa quebra a confiança da rede.",
+  },
   "vale-curadoria": {
     paraQue: "Revisar o que o robô e o público sugerem ao Vale o Escrito e publicar só o que está em fonte pública.",
     passos: [
