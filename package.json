@@ -105,6 +105,7 @@
     "testar:video": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-video.mjs",
     "testar:vale-o-escrito-curadoria": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-curadoria.mjs",
     "vale-o-escrito:exportar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/vale-o-escrito/exportar.mjs",
+    "vale-o-escrito:importar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/vale-o-escrito/importar-novos-casos.mjs",
     "testar:vale-o-escrito": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito.mjs",
     "testar:vale-o-escrito-visual": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-visual.mjs",
     "testar:vale-o-escrito-mapa": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-mapa.mjs",
