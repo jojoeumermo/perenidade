@@ -42,6 +42,33 @@ export function temContato(texto: string): boolean {
   return Boolean(digitos);
 }
 
+/**
+ * O filtro do que CHEGA pela sala (T33): quem joga confere de novo o texto da vista, porque o anfitrião pode não ser o
+ * site (outra pessoa assume quando ele sai). Mais estreito que temContato, para não esconder conteúdo do próprio site
+ * (datas como "1932-2023", "gov.br", números com ponto): e-mail, @ de rede social, endereço de mensagem ou rede social e
+ * celular brasileiro. Conferido contra todos os bancos dos jogos em scripts/testar-jogos-em-grupo.mjs (nenhum acerto falso).
+ */
+export function contatoNaVista(texto: string): boolean {
+  const t = texto.toLowerCase();
+  return (
+    /[^\s@]+@[^\s@]+\.[a-z]{2,}/.test(t) ||
+    /(^|[\s(])@[a-z0-9_.]{3,}/.test(t) ||
+    /https?:\/\/|www\.|wa\.me|t\.me\/|chat\.whatsapp|discord\.gg|instagram\.com|tiktok\.com|bit\.ly/.test(t) ||
+    /(\(?\b\d{2}\)?[\s.-]?)9\d{4}[\s.-]?\d{4}\b/.test(t)
+  );
+}
+
+/** A vista com todo texto que parece contato trocado por "—" (os links de fonte, conferidos à parte, ficam). */
+export function vistaSemContato<T>(valor: T): T {
+  const limpar = (x: unknown, chave = ""): unknown => {
+    if (typeof x === "string") return chave !== "url" && contatoNaVista(x) ? "—" : x;
+    if (Array.isArray(x)) return x.map((y) => limpar(y));
+    if (x && typeof x === "object") return Object.fromEntries(Object.entries(x).map(([k, v]) => [k, limpar(v, k)]));
+    return x;
+  };
+  return limpar(valor) as T;
+}
+
 /** O apelido: até 20 caracteres, sem quebra de linha nem contato. Vazio ou recusado vira "". */
 export function limparApelido(texto: string): string {
   const limpo = texto
