@@ -156,6 +156,11 @@
         "organizacao-de-base"
       ],
       "visual": "noizocupa",
+      "logo": {
+        "src": "/territorios/noizocupa/logo.webp",
+        "alt": "Logo do NoizOcupa: a palavra NOIZ em letras gordas vazadas numa placa branca, com OCUPA dentro do O, sobre fundo vinho",
+        "credito": "Logo cedida pelo coletivo"
+      },
       "slogan": "A cultura acontece onde a vida acontece.",
       "lema": "Unir · Organizar · Fortalecer",
       "capa": {
@@ -165,7 +170,7 @@
       "anuncio": {
         "post": "DfQT6U0uJ2G",
         "titulo": "O anúncio da parceria: NoizOcupa e Instituto Lúcia",
-        "texto": "“Tem parceria nova na quebrada.” Os cartazes do NoizOcupa colados num muro de bairro: o vídeo em que o Instituto Lúcia anuncia a parceria e chama para a Festa das Crianças.",
+        "texto": "Tem parceria nova na quebrada. Primeira coisa junto: a Festa das Crianças, dia 21 de novembro, às 13h, na Escola de Samba Unidos do Guapurá, em Itanhaém. Quer somar com doação, serviço ou material? Chama o @noizocupa no direct.",
         "capa": "/territorios/noizocupa/anuncio-capa.webp",
         "vertical": true
       },
@@ -235,7 +240,7 @@
           { "src": "/territorios/noizocupa/nova-data.webp", "alt": "Cartaz avisando que o encontro foi remarcado para 21 de novembro por causa da previsão de chuvas, com “Vamos juntos!”", "legenda": "A nova data da festa" }
         ]
       },
-      "credito": "Textos, cartazes e fotos: @noizocupa no Instagram, uso autorizado pelo coletivo. As fotos do primeiro encontro são de @lanecardozo, @liccazovinceoz e @italolesald, como o coletivo creditou. O vídeo do anúncio é do Instituto Lúcia, feito com o coletivo. As imagens não estão sob a licença livre do site."
+      "credito": "Textos, cartazes e fotos: @noizocupa no Instagram, uso autorizado pelo coletivo. Logo cedida pelo coletivo. As fotos do primeiro encontro são de @lanecardozo, @liccazovinceoz e @italolesald, como o coletivo creditou. O vídeo do anúncio é do Instituto Lúcia, feito com o coletivo. As imagens não estão sob a licença livre do site."
     },
     {
       "slug": "coletivo-kamikaze",
@@ -243,7 +248,7 @@
       "nome": "Coletivo Kamikaze",
       "linha": "Coletivo audiovisual: sonhando sem coleira.",
       "sobre": "Audiovisual periférico, preto e LGBTQIAPN+, propagando a cultura de favela para os nossos. Videoclipe, fotografia, manifesto e pesquisa, com o núcleo de pesquisa @nucleocosanostra.",
-      "quem": "O Kamikaze se apresenta assim: “Sonhando sem coleira. Audiovisual periférico, preto e LGBTQIAPN+. Propagando a cultura de favela para os nossos.” O coletivo tem um núcleo de pesquisa, o @nucleocosanostra, e usa a tela para disputar quem aparece no cinema brasileiro: menos favela e menos quebrada nas telas é menos da nossa vida contada por nós.",
+      "quem": "O Kamikaze se apresenta assim: “Sonhando sem coleira. Audiovisual periférico, preto e LGBTQIAPN+. Propagando a cultura de favela para os nossos.” Tem um núcleo de pesquisa, o @nucleocosanostra. Em 2026 fez a produção geral do Manifesto Manicongo e fez campanha pela ANCINE e pelos direitos trans.",
       "instagram": "coletivokamikaze",
       "pessoas": [],
       "temas": [
@@ -264,6 +269,11 @@
         "cultura-negra-e-cultura-brasileira"
       ],
       "visual": "kamikaze",
+      "logo": {
+        "src": "/territorios/coletivo-kamikaze/logo.webp",
+        "alt": "Logo do Coletivo Kamikaze: uma boca preta com dente de ouro sobre fundo amarelo e, embaixo, COLETIVO KAMIKAZE em letras pretas",
+        "credito": "Logo cedida pelo coletivo"
+      },
       "slogan": "Sonhando sem coleira.",
       "lema": "Videoclipe · fotografia · manifesto · pesquisa",
       "capa": {
@@ -273,7 +283,7 @@
       "anuncio": {
         "post": "DfQoZbIOMZt",
         "titulo": "Em cartaz: Coletivo Kamikaze × Instituto Lúcia",
-        "texto": "A contagem regressiva de cinema, a fita com “Manifesto, Pesquisa, Samba-rock” e o letreiro na laje: o vídeo do anúncio da parceria. “Parceria firmada. Vem coisa por aí.”",
+        "texto": "O Kamikaze e o Instituto Lúcia agora estão juntos. Parceria firmada. Vem coisa por aí.",
         "capa": "/territorios/coletivo-kamikaze/anuncio-capa.webp",
         "vertical": true
       },
@@ -320,7 +330,135 @@
           { "quando": "2 de novembro", "titulo": "Em cartaz: Kamikaze × Instituto Lúcia", "texto": "A parceria firmada. “Vem coisa por aí.”", "post": "DfQoZbIOMZt" }
         ]
       },
-      "credito": "Textos e cartazes: @coletivokamikaze no Instagram, uso autorizado pelo coletivo. O Manifesto Manicongo foi publicado pelo @saravalab com o coletivo; as fotos desse encontro são de outros fotógrafos e não estão aqui. O vídeo do anúncio é do Instituto Lúcia, feito com o coletivo. As imagens não estão sob a licença livre do site."
+      "credito": "Textos e cartazes: @coletivokamikaze no Instagram, uso autorizado pelo coletivo. Logo cedida pelo coletivo. O Manifesto Manicongo foi publicado pelo @saravalab com o coletivo; as fotos desse encontro são de outros fotógrafos e não estão aqui. O vídeo do anúncio é do Instituto Lúcia, feito com o coletivo. As imagens não estão sob a licença livre do site."
+    },
+    {
+      "slug": "coletivo-desordem",
+      "numero": 4,
+      "nome": "Coletivo Desordem",
+      "linha": "Grupo de teatro em experimentação, de Cubatão, na Baixada Santista.",
+      "sobre": "Grupo teatral em experimentação de Cubatão (Baixada Santista), ocupante do Galpão Cultural da cidade. Em 2026 estreou a peça Cumpadi Cordel e levou ela ao Festival Ocupacena.",
+      "quem": "Na bio: “Desordenando a arte”, grupo teatral em experimentação, de Cubatão, ocupante do @galpaoculturalcubatao. Na equipe do Cumpadi Cordel, o coletivo agradeceu a @eduardo._.odraude, @adutra.lice e @zvaterwali. Nomes e funções de quem faz o Desordem entram aqui quando o coletivo mandar.",
+      "instagram": "coletivodesordem",
+      "pessoas": [],
+      "temas": [
+        "Desordenando a arte",
+        "Teatro em experimentação",
+        "Cubatão · Baixada Santista",
+        "Cumpadi Cordel",
+        "Galpão Cultural",
+        "Oficina de cartazes",
+        "Arte, ciência e território"
+      ],
+      "edicoes": [],
+      "editoria": "Cultura de Quebrada",
+      "pautas": [],
+      "trilhas": [
+        "teatro-do-oprimido",
+        "historia-do-teatro",
+        "teatro-fundamental"
+      ],
+      "visual": "desordem",
+      "logo": {
+        "src": "/territorios/coletivo-desordem/logo.webp",
+        "alt": "Logo do Coletivo Desordem: um triângulo de play pintado em spray amarelo com sombra vermelha, cercado das letras de DESORDEM soltas e tortas",
+        "credito": "Logo cedida pelo coletivo"
+      },
+      "slogan": "Desordenando a arte!",
+      "lema": "Grupo teatral em experimentação · Cubatão",
+      "destaque": {
+        "chapeu": "A peça · 2026",
+        "titulo": "Cumpadi Cordel",
+        "texto": "A peça do Desordem. Estreou em junho, com o coletivo avisando: “Esse é só o início de muitas apresentações que virão.” Em agosto voltou no Festival Ocupacena, “dessa vez para seu principal público: o povo cubatense”.",
+        "programa": [
+          {
+            "hora": "22/06",
+            "titulo": "Estreia",
+            "texto": "Com a oportunidade dada pelo @instafescete. “Viva Cumpadi Cordel, vida longa ao Desordem.”"
+          },
+          {
+            "hora": "12/08",
+            "titulo": "Festival Ocupacena",
+            "texto": "Às 19h, no Teatro do Kaos. Fotos de @projetozanza; o coletivo agradeceu ao @coletivovalsa pelo espaço."
+          }
+        ],
+        "post": "DZ5PpLIlTXp"
+      },
+      "marcos": {
+        "titulo": "O caminho até aqui",
+        "itens": [
+          {
+            "quando": "22 de junho de 2026",
+            "titulo": "Estreia de Cumpadi Cordel",
+            "texto": "A primeira apresentação da peça.",
+            "post": "DZ5PpLIlTXp"
+          },
+          {
+            "quando": "2 de agosto",
+            "titulo": "Cumpadi Cordel no Ocupacena",
+            "texto": "O convite: 12 de agosto, às 19h, no Teatro do Kaos.",
+            "post": "DbjqDolJSTW"
+          },
+          {
+            "quando": "26 de agosto",
+            "titulo": "Para o povo cubatense",
+            "texto": "As fotos e o agradecimento depois da apresentação no festival.",
+            "post": "DcgxEJzCW36"
+          },
+          {
+            "quando": "17 de outubro",
+            "titulo": "Oficina de cartazes",
+            "texto": "No Galpão Cultural (Av. Nove de Abril, 2275), das 14h às 18h: cartazes para as manifestações, junto com o Movimento Cubatão Resistência e Futuro Esquerda.",
+            "post": "Deh-GjwpOSW"
+          },
+          {
+            "quando": "26 de outubro",
+            "titulo": "Integração: Arte, Ciência e Território",
+            "texto": "Roda de conversa com as artistas Alisse Flora, Madu Preta e Thuany Mendes na Semana Nacional de Ciência e Tecnologia, no IFSP Campus Cubatão.",
+            "post": "Deze1EjpCpB"
+          }
+        ]
+      },
+      "credito": "Textos: @coletivodesordem no Instagram, uso autorizado pelo coletivo. Logo cedida pelo coletivo. A logo não está sob a licença livre do site."
+    },
+    {
+      "slug": "noisme-studios",
+      "numero": 5,
+      "nome": "noismemo studios",
+      "linha": "Colaboartório de pesquisa e criação: por nós, para os nossos.",
+      "sobre": "Estúdio de pesquisa e criação. Na bio: “por nós, para os nossos” e “colaboartório de pesquisa e criação”. Parceiro do Instituto Lúcia.",
+      "quem": "O que está público por enquanto é a bio e um trabalho feito junto com @xangssss: um tênis transformado em chinelo por upcycling. Quem faz parte do estúdio e os próximos trabalhos ainda não estão no perfil; entram aqui quando o estúdio mandar.",
+      "instagram": "noismemostudios",
+      "pessoas": [],
+      "temas": [
+        "Por nós, para os nossos",
+        "Colaboartório de pesquisa e criação",
+        "Processo criativo",
+        "Upcycling"
+      ],
+      "edicoes": [],
+      "editoria": "Cultura de Quebrada",
+      "pautas": [],
+      "trilhas": [
+        "moda-periferica-e-apropriacao",
+        "design-fundamental",
+        "funk-pixo-e-baile"
+      ],
+      "visual": "noisme",
+      "logo": {
+        "src": "/territorios/noisme-studios/logo.webp",
+        "alt": "Logo do noismemo studios: as letras NM, pesadas e inclinadas, dentro de uma elipse preta sobre fundo branco",
+        "credito": "Logo cedida pelo coletivo"
+      },
+      "slogan": "por nós, para os nossos.",
+      "lema": "Colaboartório de pesquisa e criação",
+      "destaque": {
+        "chapeu": "Processo criativo · 22 de setembro de 2026",
+        "titulo": "Do Halftrack Low II ao upcycling de chinelo",
+        "texto": "Com @xangssss: um tênis Oakley Halftrack Low II desmontado e refeito como chinelo. No post: “Satisfação máxima em transformar essa peça, dando um novo valor, identidade e pertencimento.”",
+        "post": "DdmiFfLzCsG"
+      },
+      "credito": "Textos: @noismemostudios no Instagram, uso autorizado pelo estúdio. O vídeo do processo criativo é de @xangssss com o estúdio. Logo cedida pelo coletivo. A logo não está sob a licença livre do site."
     }
   ]
 }

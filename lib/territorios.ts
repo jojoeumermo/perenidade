@@ -39,8 +39,13 @@ export interface Territorio {
   credito?: string;
   podcast?: { titulo: string; com: string };
   lancamento?: { titulo: string };
-  /** A identidade visual própria da página (components/territorios/PaginaDoColetivo.tsx); sem ela, vale o desenho do Na Atividade. */
-  visual?: "noizocupa" | "kamikaze";
+  /**
+   * A identidade visual própria da página (components/territorios/PaginaDoColetivo.tsx, cores em
+   * lib/territorios-identidades.ts); sem ela, vale o desenho do Na Atividade.
+   */
+  visual?: "noizocupa" | "kamikaze" | "desordem" | "noisme";
+  /** A logo do coletivo (a foto de perfil do Instagram, cedida pela parceria), com o crédito que aparece embaixo dela. */
+  logo?: Foto & { credito: string };
   slogan?: string;
   /**
    * O post do anúncio no Instagram (só o código do endereço /p/<código>/) e o texto que o apresenta. `capa` é o quadro
@@ -48,11 +53,11 @@ export interface Territorio {
    */
   anuncio?: { post: string; titulo: string; texto: string; capa?: string; vertical?: boolean };
   agenda?: { titulo: string; quando: string; onde: string; como: string };
-  // Daqui para baixo, o que as páginas com identidade própria (NoizOcupa, Kamikaze) trazem do perfil do coletivo no
+  // Daqui para baixo, o que as páginas com identidade própria (NoizOcupa, Kamikaze, Desordem, noismemo) trazem do perfil do coletivo no
   // Instagram (com uso autorizado). Cada `post` é o código do endereço /p/<código>/ de onde o texto saiu.
   /** A segunda linha do cartaz da abertura ("Unir · Organizar · Fortalecer"). */
   lema?: string;
-  /** A imagem grande da abertura. */
+  /** A imagem grande da abertura (desde 06/11/2026 a abertura mostra a logo; o cartaz da capa vai para a agenda). */
   capa?: Foto;
   /** A convocação do coletivo: quem e o que ele procura, e como apoiar. */
   chamado?: { titulo: string; texto: string; itens: { titulo: string; texto: string }[]; apoio?: string; post?: string };
