@@ -46,6 +46,8 @@ export const KEYS = {
   eixos: "lucia:eixos",
   // Os grupos do menu do painel que a pessoa abriu ou fechou ({"Produção": true, ...}).
   painelGrupos: "lucia:painel-grupos",
+  // O som dos jogos ("1": ligado). Desligado por padrão; só a escolha fica, nenhum dado do jogo.
+  jogosSom: "lucia:jogos-som",
 } as const;
 
 const listeners = new Set<() => void>();

@@ -69,7 +69,7 @@ export function Memoria({ verbetes, s }: PropsDoJogo) {
       <Acoes>
         <Botao onClick={() => novo()}>{s.comum.novo}</Botao>
       </Acoes>
-      <Aviso>{aviso}</Aviso>
+      <Aviso tom={aviso === t.completo ? "fim" : aviso ? "certo" : undefined}>{aviso}</Aviso>
     </Quadro>
   );
 }
