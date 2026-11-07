@@ -8,7 +8,27 @@
     "instituto": "Institut",
     "propor": "Proposer une communauté",
     "vazio": "Aucune communauté à afficher.",
-    "turma": "Groupe du mois et noyaux"
+    "turma": "Groupe du mois et noyaux",
+    "regraOrdem": "Notre ordre : d'abord celles qui ont le plus de messages cette semaine, puis par ordre alphabétique. Sans algorithme, sans sponsor.",
+    "buscar": "Chercher une communauté",
+    "filtro": "Afficher",
+    "todas": "Toutes",
+    "soAtivas": "Seulement celles qui ont discuté cette semaine",
+    "semana": "{posts} messages et {pessoas} personnes cette semaine",
+    "semanaPoucas": "{posts} messages cette semaine, de peu de personnes",
+    "semanaQuieta": "Calme cette semaine : lancez la conversation",
+    "amostraSelo": "Aperçu",
+    "verRegras": "Voir les règles",
+    "conviteTitulo": "Envie de discuter dans ces communautés ?",
+    "conviteTexto": "Les luttes et l'Institut sont réservés aux personnes inscrites : ici vous voyez le nom, la description et les règles. Les disciplines sont ouvertes à la lecture.",
+    "conviteBotao": "Créer un compte ou se connecter",
+    "nenhuma": "Aucune communauté de ce nom.",
+    "privacidade": "Les chiffres portent sur la semaine, additionnés et anonymes : personne ne voit de quelles communautés vous êtes.",
+    "tipoCurto": {
+      "aberta": "Ouverte",
+      "restrita": "Restreinte",
+      "fechada": "Fermée"
+    }
   },
   "tipo": {
     "aberta": "Ouverte : toute personne d’Alumia entre aussitôt",

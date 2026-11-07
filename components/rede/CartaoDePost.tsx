@@ -32,6 +32,29 @@ export function quandoFoi(iso: string, lang: string): string {
   }
 }
 
+/** A cor de uma comunidade (como os canais do Misskey): um tom fixo tirado do nome, igual em toda tela e sem dado de ninguém. */
+export function corDaComunidade(slug: string): string {
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) % 360;
+  return `hsl(${h} 62% 42%)`;
+}
+
+/** Os ícones das ações do cartão (desenho próprio, traço de 24 px). O rótulo em texto continua ao lado. */
+const ICONES = {
+  respostas: "M4 5h16v11H10l-4.5 4v-4H4z",
+  responder: "M10 8 5 12.5l5 4.5M5.5 12.5H14a5 5 0 0 1 5 5V19",
+  apoiar: "M12 3.5c1.6 2.7 4.8 4.9 4.8 8.9a4.8 4.8 0 0 1-9.6 0c0-2.3 1.2-3.7 2.3-4.8.2 1.4.8 2.5 1.8 3C11 9 11.4 6 12 3.5z",
+  util: "M7 11v8H4v-8zM7 11l4-7c1.4 0 2.3 1 2 2.4L12.5 10H18a2 2 0 0 1 2 2.3l-1.1 5.4A2 2 0 0 1 17 19H7",
+  salvar: "M6 4h12v16l-6-4-6 4z",
+};
+function IconeDaAcao({ d }: { d: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 24 24" className="h-[1.1rem] w-[1.1rem] shrink-0" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d={d} />
+    </svg>
+  );
+}
+
 /**
  * O cartão de um post na linha, na página do post e nas respostas. Mostra só o que a matriz deixou chegar: o número de apoios só
  * aparece para o autor, o "eu vou" só para quem organizou, ninguém vê lista de nomes. Os pacotes acrescentam ações em
@@ -98,7 +121,12 @@ export function CartaoDePost({
   );
 
   return (
-    <article className="flex gap-3 border-b border-rule px-[18px] py-4 font-sans" aria-label={post.titulo ?? post.texto.slice(0, 60)}>
+    <article
+      className="flex gap-3 border-b border-rule px-[18px] py-4 font-sans"
+      aria-label={post.titulo ?? post.texto.slice(0, 60)}
+      data-tipo={post.tipo}
+      style={post.comunidade ? ({ "--cor-da-comunidade": corDaComunidade(post.comunidade) } as React.CSSProperties) : undefined}
+    >
       <Avatar usuario={post.autor.perfil ? post.autor.id : null} codinome={post.autor.codinome} />
 
       <div className="min-w-0 flex-1">
@@ -112,7 +140,7 @@ export function CartaoDePost({
           )}
           {post.autor.equipe && <span className="rounded bg-ink px-1 text-[0.6rem] font-semibold uppercase tracking-wider text-parchment">{s.perfil.equipe}</span>}
           {post.comunidade && (
-            <Link href={enderecos.comunidade(lang, post.comunidade)} className="hover:underline">
+            <Link href={enderecos.comunidade(lang, post.comunidade)} className="alumia-comunidade inline-flex items-center rounded-full px-2 text-xs font-bold hover:underline">
               {post.comunidade}
             </Link>
           )}
@@ -121,7 +149,7 @@ export function CartaoDePost({
             <time dateTime={post.criado_em}>{quandoFoi(post.criado_em, lang)}</time>
           </Link>
           {post.editado_em && <span className="text-xs">({s.post.editado})</span>}
-          {post.tipo !== "post" && <span className="rounded bg-parchment-deep px-1.5 text-xs">{(s.tipos as Record<string, string>)[post.tipo]}</span>}
+          {post.tipo !== "post" && <span data-tipo={post.tipo} className="alumia-tipo rounded-full bg-parchment-deep px-2 text-xs font-bold">{(s.tipos as Record<string, string>)[post.tipo]}</span>}
           {post.aceita && <span className="rounded bg-[#e8f0e0] px-1.5 text-xs text-ink">{s.post.resolvida}</span>}
         </div>
 
@@ -173,15 +201,18 @@ export function CartaoDePost({
 
         <div className="mt-1 flex flex-wrap items-center gap-x-3 text-sm text-ink-soft">
           <Link href={enderecos.post(lang, post.id)} className={botao}>
+            <IconeDaAcao d={ICONES.respostas} />
             {post.respostas === 1 ? s.post.respostas.um : preencher(s.post.respostas.outros, { n: post.respostas })}
           </Link>
           {logado && !post.travado && aoResponder && (
             <button type="button" className={botao} onClick={() => aoResponder(post)}>
+              <IconeDaAcao d={ICONES.responder} />
               {a.responder}
             </button>
           )}
           {logado && !post.meu && (
             <button type="button" className={botao} aria-pressed={post.apoiei} disabled={ocupado} onClick={() => void reagir("apoio")}>
+              <IconeDaAcao d={ICONES.apoiar} />
               {a.apoiar}
             </button>
           )}
@@ -189,12 +220,14 @@ export function CartaoDePost({
           {post.apoios !== null && post.meu && <span aria-label={a.apoiar}>{post.apoios}</span>}
           {logado && !post.meu && (post.tipo === "duvida" || post.tipo === "discussao") && (
             <button type="button" className={botao} aria-pressed={post.util_eu} disabled={ocupado} onClick={() => void reagir("util")}>
+              <IconeDaAcao d={ICONES.util} />
               {a.util}
             </button>
           )}
           {(post.tipo === "duvida" || post.tipo === "discussao") && post.util > 0 && <span>{preencher(s.post.util, { n: post.util })}</span>}
           {logado && (
             <button type="button" className={botao} aria-pressed={post.salvei} disabled={ocupado} onClick={() => void salvar()}>
+              <IconeDaAcao d={ICONES.salvar} />
               {a.salvar}
             </button>
           )}

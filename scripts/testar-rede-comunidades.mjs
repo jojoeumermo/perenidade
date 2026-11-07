@@ -658,6 +658,29 @@ await espera("a migração não mexe no install.sql nem cria tabela, e toda fun�
   return [funcoes.length >= 30, semDefiner, /create table/i.test(migracao.replace(/--[^\n]*/g, ""))];
 }, (r) => r[0] && r[1].length === 0 && r[2] === false);
 
+// ── T32 (itens 2b e 3): a vitrine com contagens agregadas e a amostra para visitante; o painel da semeadura ──
+const vitrine = lerTexto("supabase/migracoes/20261106-t32-alumia-vitrine.sql");
+await espera("a migração da vitrine instala por cima (e de novo, sem estrago)", () => banco.exclusivo(async () => { await banco.pg.exec(vitrine); await banco.pg.exec(vitrine); }));
+await limpaLimites();
+for (const [n, autor] of [[1, pessoas.membro], [2, pessoas.membro2], [3, pessoas.membro3], [4, pessoas.membro]]) await postar({ comunidade: "moradia" }, autor, `moradia ${n}`);
+await postar({ comunidade: "terra" }, pessoas.membro, "terra 1");
+await espera("vitrine: só contagens da semana (posts e pessoas), nunca nomes; pessoas só a partir de 3", async () => {
+  const itens = await nomesDaLista(como(pessoas.membro));
+  const moradia = itens.find((i) => i.slug === "moradia");
+  const terra = itens.find((i) => i.slug === "terra");
+  return [moradia.posts_7d >= 4, moradia.pessoas_7d >= 3, terra.posts_7d >= 1, terra.pessoas_7d, JSON.stringify(itens).includes("Companheira")];
+}, (r) => r[0] && r[1] && r[2] && r[3] === null && r[4] === false);
+await espera("vitrine: ordem pública (mais posts na semana primeiro, depois alfabética) dentro de cada grupo", async () => (await nomesDaLista(como(pessoas.membro))).filter((i) => i.categoria === "lutas"), (lutas) => lutas[0].slug === "moradia" && lutas.every((x, i) => i === 0 || lutas[i - 1].posts_7d >= x.posts_7d));
+await espera("visitante vê a amostra das lutas e do Instituto (nome, descrição e regras, sem contagem) e nenhuma fechada", async () => {
+  const itens = await nomesDaLista(visitante());
+  const amostra = itens.filter((i) => i.amostra);
+  return [itens.filter((i) => i.categoria === "disciplinas").length, amostra.length > 0, amostra.every((i) => i.categoria !== "disciplinas" && i.posts_7d === null && i.pessoas_7d === null && Array.isArray(i.regras)), itens.some((i) => i.tipo === "fechada"), amostra.find((i) => i.slug === "moradia")?.regras.length];
+}, (r) => r[0] === 77 && r[1] && r[2] && r[3] === false && r[4] >= 1);
+await espera("a página de luta continua fechada para visitante (a amostra não abre posts)", async () => { try { await rpc(visitante(), "rede_com_pagina", { p_slug: "moradia" }); return "abriu"; } catch (e) { return String(e.message); } }, (m) => m.includes("entre_primeiro"));
+await recusa("semeadura: só a coordenação", () => rpc(como(pessoas.membro), "rede_painel_semeadura"), "sem_permissao");
+await espera("semeadura: posts reais e quantas pessoas moderam, por comunidade", async () => (await rpc(daCoord(), "rede_painel_semeadura")).itens.find((i) => i.slug === "moradia"), (m) => m.posts >= 4 && m.posts_7d >= 4 && m.moderacao >= 1 && !("autores" in m));
+await espera("semeadura: visitante não chama a função", async () => (await um("select has_function_privilege('anon', 'public.rede_painel_semeadura()', 'execute') as x")).x, (x) => x === false);
+
 console.log(`Rede v2 (comunidades): ${certos} certos, ${falhas.length} falhas.`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);
 process.exit(falhas.length ? 1 : 0);

@@ -4,6 +4,7 @@
 import { ExternalLink, GitPullRequest, KeyRound, ShieldCheck, Smartphone, ToggleLeft } from "lucide-react";
 import { useState } from "react";
 import { getClient } from "@/lib/backend";
+import { NOME_REDE } from "@/lib/rede/alumia";
 import { semanaDe } from "@/lib/lambe-do-dia";
 import { dataHora, useAcao, useLista } from "./comum";
 import { Abas, Area, Botao, Campo, Cartao, confirmar, Faixa, ItemDeLista, Lista, Marca, notificar, perguntarTexto, Selecao, Selo, type TomDoSelo, Vazio } from "./ui";
@@ -32,7 +33,7 @@ async function pedirAoServidor(caminho: string, metodo: "GET" | "POST", corpo?: 
 const NOMES_DE_RECURSO: Record<string, string> = {
   escola: "Escola Revolucionária Lúcia Maria",
   "vale-o-escrito": "Vale o Escrito",
-  "rede-v2": "Alumia (Rede v2)",
+  "rede-v2": `${NOME_REDE} (Rede v2)`,
   turmas: "Turmas (da Escola e Turma do mês)",
 };
 

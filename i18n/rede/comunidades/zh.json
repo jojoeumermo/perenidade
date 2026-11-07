@@ -8,7 +8,27 @@
     "instituto": "学院",
     "propor": "提议新社群",
     "vazio": "没有可显示的社群。",
-    "turma": "本月班级和学习小组"
+    "turma": "本月班级和学习小组",
+    "regraOrdem": "排序方式：本周帖子最多的在前，其余按字母顺序。没有算法，没有赞助。",
+    "buscar": "搜索社区",
+    "filtro": "显示",
+    "todas": "全部",
+    "soAtivas": "只看本周有讨论的",
+    "semana": "本周 {posts} 条帖子，{pessoas} 人参与",
+    "semanaPoucas": "本周 {posts} 条帖子，参与人数很少",
+    "semanaQuieta": "本周很安静：来开个头吧",
+    "amostraSelo": "预览",
+    "verRegras": "查看规则",
+    "conviteTitulo": "想在这些社区里交流吗？",
+    "conviteTexto": "斗争与学院社区仅对有账号的人开放：这里只显示名称、简介和规则。学科社区可以公开阅读。",
+    "conviteBotao": "注册或登录",
+    "nenhuma": "没有这个名字的社区。",
+    "privacidade": "数字只统计本周，合计且不含姓名：没有人能看到你加入了哪些社区。",
+    "tipoCurto": {
+      "aberta": "开放",
+      "restrita": "受限",
+      "fechada": "封闭"
+    }
   },
   "tipo": {
     "aberta": "开放：Alumia 成员可立即加入",

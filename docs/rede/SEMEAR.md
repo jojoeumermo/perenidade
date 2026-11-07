@@ -1,4 +1,4 @@
-# Semear a Rede Lúcia antes de abrir (R4)
+# Semear a Alumia antes de abrir (R4)
 
 Roteiro para a equipe e os núcleos. **Regra de ouro: nenhum post é inventado nem gravado em nome de pessoa.** Quem posta é gente real, com o próprio codinome, escrevendo o que de fato quer dizer. Este arquivo é só um roteiro de conversa: não existe script que publique.
 
@@ -35,3 +35,12 @@ Roteiro para a equipe e os núcleos. **Regra de ouro: nenhum post é inventado n
 - Semana 1: ao menos 1 conversa real em cada luta e em 10 disciplinas; mediação lê tudo.
 - Semana 2: propostas de comunidade (`/comunidade/propor`) só se houver demanda; a coordenação decide no painel, em "Rede: propostas de comunidade".
 - Abrir a mais gente só depois da revisão jurídica da aferição de idade (ECA Digital, Lei 15.211/2025, art. 9º, §1º) e de uma semana sem denúncia grave sem resposta.
+
+## Onde acompanhar (T32, 07/11/2026)
+
+- **Painel, "Alumia: semeadura"** (coordenação): por comunidade, quantos posts reais existem (no total e na semana) e quantas
+  pessoas moderam, com o filtro "só as que faltam". Só números, sem nome; nada ali publica.
+- **Linha vazia**: quem abre uma linha sem posts vê "Seja a primeira pessoa a escrever" e três perguntas da tabela acima. A pessoa
+  escolhe uma, edita com as próprias palavras e só então publica, com o próprio codinome. Nada é publicado sozinho.
+- **Vitrine**: a ordem das comunidades é a da atividade da semana (depois alfabética), com contagens agregadas; ver
+  `PRIVACIDADE.md`, seção 8.
