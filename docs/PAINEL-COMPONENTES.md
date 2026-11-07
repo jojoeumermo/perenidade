@@ -43,7 +43,7 @@ Verbos que apagam, tiram do ar ou fecham (apagar, remover, retirar, tirar, sair,
 
 ## Moldes de tela (`moldes/`)
 
-Toda seção nova escolhe um dos quatro e se registra em `components/painel/estrutura.ts` (`MAPA`: id da seção, espaço do menu e molde) e em `Painel.tsx`. Seção que ficar sem entrada no mapa cai no espaço do grupo antigo e no molde Registro: nada some do menu, mas o teste `testar:painel-fundacao` lê o registro de `Painel.tsx` e falha se faltar id (o mapa tem hoje 63 entradas, em 8 espaços).
+Toda seção nova escolhe um dos quatro e se registra em `components/painel/estrutura.ts` (`MAPA`: id da seção, espaço do menu e molde) e em `Painel.tsx`. Seção que ficar sem entrada no mapa cai no espaço do grupo antigo e no molde Registro: nada some do menu, mas o teste `testar:painel-fundacao` lê o registro de `Painel.tsx` e falha se faltar id (o mapa tem hoje 64 entradas, em 8 espaços).
 
 | Molde | Para quê | Props principais |
 | --- | --- | --- |

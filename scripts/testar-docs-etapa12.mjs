@@ -113,7 +113,7 @@ for (const v of ["NEXT_PUBLIC_GALENE_URL", "GALENE_JWT_KEY", "REDE_PREVIA_SEGRED
   conferir(`HOSPEDAGEM cita ${v}`, texto.hospedagem.includes(v));
   conferir(`${v} é lida de verdade`, corpo.includes(v));
 }
-conferir("HOSPEDAGEM: o aviso sobre a rotina producao.yml é verdadeiro (não repassa GALENE nem VAPID)", !/GALENE|VAPID/.test(ler(".github/workflows/producao.yml")));
+conferir("HOSPEDAGEM: o aviso sobre a rotina producao.yml é verdadeiro (repassa GALENE e VAPID públicas à montagem)", /NEXT_PUBLIC_GALENE_URL/.test(ler(".github/workflows/producao.yml")) && /NEXT_PUBLIC_VAPID_PUBLIC_KEY/.test(ler(".github/workflows/producao.yml")) && /repassa à montagem da imagem `NEXT_PUBLIC_GALENE_URL`/.test(texto.hospedagem));
 conferir("HOSPEDAGEM: portas e tag do Galène batem com a máquina da sala", ["10000", "1194", "galene-1.2.1"].every((x) => texto.hospedagem.includes(x) && (ler("infra/aula-ao-vivo/docker-compose.yml") + ler("infra/aula-ao-vivo/.env.exemplo")).includes(x)));
 conferir("HOSPEDAGEM: token da sala de 90 segundos", /90 segundos/.test(texto.hospedagem) && /90/.test(ler("lib/aula-sala.ts")));
 conferir("HOSPEDAGEM: o recurso do Vale o Escrito só liga pelo nome", /vale-o-escrito/.test(texto.hospedagem) && ler("lib/recursos.ts").includes('SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2"]'));
@@ -227,7 +227,8 @@ conferir("PENDENCIAS: cada item da ordem de prioridade do resumo existe", ["Banc
 // As pendências que o próprio código ainda carrega não podem ter sumido: se o código mudou, a lista precisa mudar.
 conferir("PENDENCIAS: o recurso escola continua só pelo nome e a lista diz isso", ler("lib", "recursos.ts").includes('"escola"') && t.includes("`escola`"));
 conferir("PENDENCIAS: o calendário da Escola continua proposto (confirmado: false)", /"confirmado":\s*false/.test(ler("content", "escola", "ano-letivo.json")) && t.includes('"confirmado": false'));
-conferir("PENDENCIAS: o texto da Lúcia Maria continua pendente (marcador no arquivo)", ler("content", "escola", "quem-foi-lucia-maria.md").includes("[TEXTO A ENVIAR PELA COORDENAÇÃO]") && t.includes("[TEXTO A ENVIAR PELA COORDENAÇÃO]"));
+// O texto da Lúcia Maria saiu da pendência em 6/11 (T15): escrito só com o que dizem o Instagram do instituto e o site, fontes anotadas.
+conferir("o texto da Lúcia Maria está escrito (sem marcador) e tem as fontes anotadas", !ler("content", "escola", "quem-foi-lucia-maria.md").includes("[TEXTO A ENVIAR PELA COORDENAÇÃO]") && fs.existsSync(caminho("docs", "escola-revolucionaria", "FONTES-LUCIA-MARIA.md")));
 conferir("PENDENCIAS: a exportação do Vale o Escrito não é chamada por nenhuma rotina", !/exportar\.mjs|vale-o-escrito:exportar/.test(ler(".github", "workflows", "vale-o-escrito.yml")) && t.includes("vale-o-escrito:exportar"));
 
 // 9. O teste está registrado.

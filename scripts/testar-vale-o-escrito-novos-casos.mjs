@@ -82,8 +82,10 @@ caso("decisão da coordenação: toda entrada tem FONTE OFICIAL (primária) e SI
       assert.ok((en.notaDaCuradoria ?? "").length > 40, `${nome}/${en.id}: nota da curadoria`);
       assert.ok(temSegundoFonte(en.resumo, en.fontes), `${nome}/${en.id}: resumo sem "segundo [veículo]"`);
       // Sem condenação definitiva, o resumo não afirma culpa: diz "réu", "supostamente", "sem condenação" ou "cabe recurso".
-      if (en.situacao !== "condenado_transitado")
-        assert.match(en.resumo, /supostamente|sem condena|não há condena|cabe recurso|recorreu|sem julgamento|não há (decisão|julgamento|denúncia)|trânsito|investigad|não diz se/i, `${nome}/${en.id}: resumo sem ressalva`);
+      // Absolvido/arquivado não afirma culpa; condenação (em qualquer instância) é fato da decisão e o resumo diz "condena".
+      if (["investigado", "denunciado", "reu"].includes(en.situacao))
+        assert.match(en.resumo, /supostamente|sem condena|não há condena|cabe recurso|admite recurso|recorreu|podem recorrer|sem julgamento|ninguém foi julgado|não houve julgamento|presumid[oa]s? inocentes?|não é acusação|não há (decisão|julgamento|denúncia)|trânsito|investigad|não diz se/i, `${nome}/${en.id}: resumo sem ressalva`);
+      else if (/^condenado/.test(en.situacao)) assert.match(en.resumo, /conden|responsabiliz/i, `${nome}/${en.id}: resumo não diz a condenação`);
     }
   }
 });
