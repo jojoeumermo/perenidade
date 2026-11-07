@@ -24,7 +24,7 @@ outras são baixadas de novo do GHCR, que guarda todas).
 Senha não entra (`PasswordAuthentication no`). Se perder a chave: painel da Contabo → Reset credentials → SSH-Key.
 
 **Chaves do site:** `infra/contabo/segredos.ps1` pergunta cada chave e grava em `/opt/lucia/site.env` sem mostrar na tela; a
-VPS reinicia o site com as chaves novas em até 2 minutos, sem tirar do ar. As variáveis públicas (`NEXT_PUBLIC_*`) ficam no
+VPS reinicia o site com as chaves novas em até 2 minutos, sem tirar do ar. O assistente em todo o site (T03) lê ali `GROQ_API_KEY`, `GEMINI_API_KEY`, `CEREBRAS_API_KEY` e `OPENROUTER_API_KEY` (planos gratuitos; basta uma, e o script já pergunta as quatro) e, opcionais, `ASSISTENTE_POR_HORA`, `ASSISTENTE_POR_DIA`, `ASSISTENTE_LIMITE_GLOBAL`, `ASSISTENTE_ORDEM` e `ASSISTENTE_PUBLICO=0` (desliga): `docs/RECURSOS.md`, seção `assistente-publico`. As variáveis públicas (`NEXT_PUBLIC_*`) ficam no
 GitHub (Settings → Secrets and variables → Actions → Variables) e entram na montagem.
 
 **Se a VPS cair (plano de volta para a Vercel):** no Cloudflare, `institutolucia.org` volta para A `76.76.21.21` e `www`

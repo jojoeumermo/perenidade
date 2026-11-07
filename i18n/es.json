@@ -2494,6 +2494,7 @@
         "button": "Foto del ejercicio",
         "label": "Tomar o elegir una foto del ejercicio",
         "warning": "La foto va a un servicio de inteligencia artificial de otra empresa (Anthropic), que lee el ejercicio y explica la resolución. Fotografía solo el ejercicio, sin nombres ni rostros. El Instituto Lúcia no guarda la foto.",
+        "warningOpen": "La foto pasa por el servidor del instituto y va a un servicio gratuito de inteligencia artificial de otra empresa (Google Gemini), fuera de Brasil, que lee el ejercicio y explica la resolución. Solo va la foto: ni tu nombre, ni tu cuenta, ni tu dirección de red. Fotografía solo el ejercicio, sin nombres ni rostros. El Instituto Lúcia no guarda la foto.",
         "reading": "Leyendo la foto… puede tardar hasta un minuto.",
         "read": "Lo que el asistente leyó en la foto",
         "solveHere": "Resolver aquí, paso a paso",
@@ -4032,7 +4033,9 @@
     "assistente_falhou": "El asistente no pudo responder ahora, y la pregunta no se descontó. Inténtalo de nuevo en un rato.",
     "imagem": "No se pudo leer la imagen. Usa una foto en JPG, PNG o WebP.",
     "pergunta_curta": "Escribe la duda con un poco más de detalle.",
-    "pergunta_longa": "La duda supera el tamaño máximo (3000 caracteres)."
+    "pergunta_longa": "La duda supera el tamaño máximo (3000 caracteres).",
+    "assistente_limite_hora": "Hiciste muchas preguntas en la última hora. Espera un poco y vuelve a preguntar; mientras tanto, las clases del sitio y el voluntariado siguen aquí.",
+    "assistente_sem_foto": "El asistente no puede leer fotos ahora. Escribe tu duda con tus propias palabras."
   },
   "community": {
     "eyebrow": "Comunidad",
@@ -4304,7 +4307,9 @@
       "cut": "La respuesta era demasiado larga y se cortó al final.",
       "refused": "El asistente no puede ayudar con esta pregunta. Envíala a un voluntario con el formulario de abajo.",
       "left": "Preguntas que te quedan hoy: {n}.",
-      "toVolunteer": "¿Sigues con dudas? Pide refuerzo a un voluntario justo abajo: tu pregunta ya está escrita."
+      "toVolunteer": "¿Sigues con dudas? Pide refuerzo a un voluntario justo abajo: tu pregunta ya está escrita.",
+      "warningOpen": "Antes de preguntar: solo tu duda (y la foto, si mandas una) sale del sitio. Pasa por el servidor del instituto y va a un servicio gratuito de inteligencia artificial de otra empresa (Groq, Google Gemini, Cerebras u OpenRouter), con servidores fuera de Brasil. No se envían tu nombre, tu cuenta, tu dirección de red ni la página en la que estás. No escribas datos personales. El instituto no guarda la pregunta ni la respuesta.",
+      "openLimit": "Sin cuenta, cada persona puede hacer hasta {h} preguntas por hora y {d} por día."
     }
   },
   "materials": {

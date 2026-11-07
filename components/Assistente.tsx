@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
+import { useAssistentePublico } from "@/lib/assistente/publico";
 import { askAssistant, type AssistantRequest, useMe } from "@/lib/backend";
 import { ligado, type Recurso } from "@/lib/recursos";
 import { SELOS_DE_FORA } from "@/lib/selos";
@@ -39,8 +40,11 @@ export function RespostaDoAssistente({ texto, cortada, rotulo, aviso, avisoCorta
 export function Assistente({ s, disciplina, pergunta, aulas }: { s: S; disciplina: string; pergunta: string; aulas: AssistantRequest["aulas"] }) {
   const { lang, t } = useI18n();
   const me = useMe();
+  // T03: com o assistente aberto ligado, quem não entrou também pergunta (IAs gratuitas, limite por pessoa sem guardar o IP).
+  const publico = useAssistentePublico();
+  const aberto = me.status !== "in" && publico?.ligado === true;
   const [foto, setFoto] = useState<{ tipo: string; dados: string; nome: string } | null>(null);
-  const [estado, setEstado] = useState<{ fase: "parado" | "pensando" } | { fase: "resposta"; texto: string; cortada: boolean; restantes: number | null } | { fase: "erro"; texto: string }>({ fase: "parado" });
+  const [estado, setEstado] = useState<{ fase: "parado" | "pensando" } | { fase: "resposta"; texto: string; cortada: boolean; restantes: number | null; restantesHora?: number | null } | { fase: "erro"; texto: string }>({ fase: "parado" });
   const arquivo = useRef<HTMLInputElement>(null);
   const pronto = pergunta.trim().length >= 10 || foto !== null;
 
@@ -57,7 +61,7 @@ export function Assistente({ s, disciplina, pergunta, aulas }: { s: S; disciplin
   async function perguntar() {
     setEstado({ fase: "pensando" });
     const r = await askAssistant({ modo: "pergunta", pergunta: pergunta.trim(), disciplina, idioma: lang, aulas, ...(foto ? { imagem: { tipo: foto.tipo, dados: foto.dados } } : {}) });
-    if (r.ok) setEstado({ fase: "resposta", texto: r.texto, cortada: r.cortada, restantes: r.restantes });
+    if (r.ok) setEstado({ fase: "resposta", texto: r.texto, cortada: r.cortada, restantes: r.restantes, restantesHora: r.restantesHora });
     else setEstado({ fase: "erro", texto: r.recusa ? s.refused : errorText(t, r.erro) });
   }
 
@@ -65,17 +69,19 @@ export function Assistente({ s, disciplina, pergunta, aulas }: { s: S; disciplin
     <section className="border-2 border-ink p-4" aria-labelledby="assistente-titulo">
       <h2 id="assistente-titulo" className="font-serif text-2xl font-semibold">{s.title}</h2>
       <p className="mt-1">{s.lead}</p>
-      <p className="mt-3 border-l-4 border-oxblood pl-3 text-ink-soft">{s.warning}</p>
+      <p className="mt-3 border-l-4 border-oxblood pl-3 text-ink-soft">{aberto ? s.warningOpen : s.warning}</p>
+      {aberto && publico && <p className="mt-2 text-xs text-ink-soft">{fill(s.openLimit, { h: publico.porHora, d: publico.porDia })}</p>}
       {/* Selo de privacidade (E4-04). "escola" entra em lib/recursos.ts pelo E4-01. */}
       {ligado("escola" as Recurso) && <SelosDePrivacidade item={SELOS_DE_FORA.assistente} lang={lang} className="mt-3" />}
-      {me.status !== "in" ? (
+      {me.status !== "in" && !aberto ? (
         <p className="mt-3">
           {s.login}{" "}
           <L href="/entrar" className="font-semibold underline hover:text-oxblood">{s.loginLink}</L>
         </p>
       ) : (
         <>
-          <div className="mt-3 flex flex-wrap items-center gap-3">
+          {/* Foto: com conta, sempre; no assistente aberto, só quando há um provedor que enxerga (hoje, o Gemini). */}
+          {(!aberto || publico?.visao) && <div className="mt-3 flex flex-wrap items-center gap-3">
             <label className="cursor-pointer border border-rule bg-parchment-deep px-3 py-1.5 hover:border-ink focus-within:outline focus-within:outline-2">
               {s.photo}
               <input ref={arquivo} type="file" accept="image/jpeg,image/png,image/webp" capture="environment" className="sr-only" onChange={(e) => escolher(e.target.files)} />
@@ -95,7 +101,7 @@ export function Assistente({ s, disciplina, pergunta, aulas }: { s: S; disciplin
                 </button>
               </span>
             )}
-          </div>
+          </div>}
           <p className="mt-3">
             <button type="button" disabled={!pronto || estado.fase === "pensando"} onClick={perguntar} className="cursor-pointer bg-ink px-5 py-2 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50">
               {s.ask}

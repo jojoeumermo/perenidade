@@ -306,6 +306,21 @@
   :root:not([data-leitor]) .voltar-ao-topo {
     display: none !important;
   }
+  /* T03: o botão do assistente (components/assistente/BotaoDoAssistente.tsx) fica empilhado logo acima do da
+     acessibilidade, à direita: a esquerda é do "Ouvir a aula" e do tocador. A janela abre para a esquerda, acima dele. */
+  :root:not([data-leitor]) .assistente-flutua {
+    bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 4rem);
+    left: auto;
+    right: 0.75rem;
+  }
+  :root:not([data-leitor]) .assistente-flutua > button {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  :root:not([data-leitor]) .assistente-flutua .assistente-janela {
+    left: auto;
+    right: 0;
+  }
   /* No aplicativo não há rodapé: o conteúdo termina acima das abas. (No navegador quem dá esse respiro é o rodapé.) */
   :root[data-app]:not([data-leitor]) main#conteudo {
     padding-bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 1.25rem);
