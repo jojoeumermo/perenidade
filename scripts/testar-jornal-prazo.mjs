@@ -25,6 +25,10 @@ ok("data e hora com espaço: hora de Brasília", () => assert.equal(instanteDeSa
 ok("data e hora com T: hora de Brasília", () => assert.equal(instanteDeSaida("2026-11-13T23:59"), "2026-11-13T23:59:00-03:00"));
 ok("com fuso dito, o fuso vale", () => assert.equal(instanteDeSaida("2026-11-14T02:59:00Z"), "2026-11-14T02:59:00Z"));
 ok("data sem aspas (o YAML vira Date à meia-noite UTC) vale o dia inteiro", () => assert.equal(instanteDeSaida(new Date("2026-11-13")), `2026-11-13T23:59:59${FUSO_BRASILIA}`));
+ok("data e hora sem aspas (o YAML vira Date em UTC) é recusada: com aspas, a lista e o proxy leem a mesma hora (T33)", () => {
+  assert.equal(instanteDeSaida(new Date("2026-11-13T23:59:00Z")), null);
+  assert.equal(instanteDeSaida("2026-11-13 23:59:00"), "2026-11-13T23:59:00-03:00");
+});
 ok("texto que não é data: null", () => {
   assert.equal(instanteDeSaida("semana que vem"), null);
   assert.equal(instanteDeSaida("2026-13-45"), null);
