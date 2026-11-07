@@ -4,6 +4,7 @@ import { Escritorio } from "@/components/labs/Escritorio";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
+import { SobreOLaboratorio } from "@/components/labs/MapaDosLaboratorios";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/laboratorios/escritorio">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -12,13 +13,14 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/laboratori
 
 /** Texto, planilha e apresentação: o WordCraft, o GridCraft e o DeckCraft abertos dentro da página. */
 export default async function Page({ params }: PageProps<"/[lang]/laboratorios/escritorio">) {
-  const { t } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const s = t.practiceStudio;
   return (
     <div className="mx-auto max-w-[96rem] px-4 py-12">
       <PageHeading eyebrow={t.labs.title} title={t.labs.escritorio}>
         {t.labs.escritorioIntro}
       </PageHeading>
+      <SobreOLaboratorio id="escritorio" t={t} lang={lang} />
       <Escritorio s={{ code: s.code, insideNote: s.insideNote, fullscreen: s.fullscreen, notYet: s.notYet, render: s.render, editors: s.editors, tab: t.labs.escritorioTab, local: t.labs.escritorioLocal }} />
     </div>
   );
