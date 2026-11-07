@@ -283,13 +283,34 @@
       "reportado": "Solo prensa"
     },
     "construidoEm": "Datos construidos el {data}",
-    "modoLeve": "Modo ligero: efectos reducidos en este dispositivo"
+    "modoLeve": "Modo ligero: efectos reducidos en este dispositivo",
+    "dinheiro": {
+      "titulo": "Dinero documentado",
+      "total": "Valores citados en fuentes",
+      "explica": "Suma de multas, reparaciones, acuerdos, estimaciones oficiales y valores bajo investigación escritos en las fuentes de {n} casos. Son de naturaleza distinta: no es un total de desvíos ni prueba de delito.",
+      "naFicha": "Flujos de dinero, de mayor a menor",
+      "quem": "Quién responde",
+      "suposto": "Valor bajo investigación: no es prueba de delito.",
+      "semValor": "Ningún valor en dinero escrito en las fuentes de esta selección.",
+      "tipos": {
+        "multa": "multa",
+        "reparacao": "reparación",
+        "indenizacao": "condena a pagar",
+        "acordo": "acuerdo (TAC)",
+        "repasse": "transferencia",
+        "emenda": "enmienda presupuestaria",
+        "estimativa_oficial": "estimación oficial",
+        "movimentacao_suposta": "movimiento supuesto"
+      },
+      "dataDaFonte": "sin fecha propia; fuente del {data}"
+    }
   },
   "navegacao": {
     "inicio": "Observatorio",
     "sobre": "Sobre el método",
     "enviar": "Enviar una fuente",
-    "corrigir": "Pedir corrección"
+    "corrigir": "Pedir corrección",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Método y reglas",
@@ -378,5 +399,89 @@
     },
     "barra": "Situación jurídica de los casos publicados",
     "rodape": "Fuente, fecha y fragmento en cada ficha. Red viva: cada punto es un registro, cada línea un vínculo con fuente."
+  },
+  "leituras": {
+    "titulo": "Dosieres de lectura",
+    "explica": "Puertas de entrada por tema: cada dosier reúne casos ya publicados, ilumina solo esos en las vistas y abre la hoja de lectura.",
+    "nCasos": "{n} casos",
+    "abrir": "Abrir dosier",
+    "fechar": "Cerrar dosier",
+    "papel": "Hoja de lectura",
+    "verNaTeia": "Ver la ficha",
+    "casoCompleto": "Abrir caso completo",
+    "fontes": "{n} fuentes",
+    "itens": {
+      "barragens": {
+        "titulo": "Represas",
+        "descricao": "Las roturas de Fundão (Mariana) y Córrego do Feijão (Brumadinho): las acciones penales, quién responde y en qué situación, según el MPF y la Justicia."
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "Minería ilegal y yanomami",
+        "descricao": "De la masacre de Haximu a la financiación de la minería ilegal en Roraima: lo que la Justicia ya decidió y lo que sigue en investigación."
+      },
+      "chacinas-do-campo": {
+        "titulo": "Masacres en el campo",
+        "descricao": "Eldorado dos Carajás, Pau d'Arco y Unaí: muertes en conflictos rurales y el camino de cada proceso."
+      },
+      "violencia-policial": {
+        "titulo": "Violencia policial",
+        "descricao": "Carandiru, masacres en Pará, la muerte en un vehículo de la PRF en Umbaúba y la operación en Alemão y Penha, con la situación jurídica de cada caso."
+      },
+      "trabalho-escravo": {
+        "titulo": "Trabajo esclavo",
+        "descricao": "Rescates, condenas y la masacre de los inspectores de trabajo en Unaí: casos de trabajo análogo a la esclavitud ya registrados en fuentes públicas."
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "Dinero público y enmiendas",
+        "descricao": "Mensalão, descuentos del INSS y presupuesto secreto: valores escritos en las fuentes y la situación de cada investigación o proceso."
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "Tierras indígenas invadidas",
+        "descricao": "Minería, madera ilegal, deforestación y muertes en tierras indígenas, según el MPF, el STF y la prensa."
+      }
+    }
+  },
+  "arsenal": {
+    "olho": "Catálogo completo",
+    "titulo": "Arsenal",
+    "lead": "Todos los casos publicados, los eventos de cada uno (hecho, decisiones, cambios de situación, valores) y los documentos que los sostienen, en una lista con búsqueda. Las relaciones entre personas y organizaciones tienen su pestaña, solo cuando hay fuente.",
+    "buscar": "Buscar",
+    "buscarDica": "Nombre, lugar, medio, etiqueta…",
+    "categoria": "Categoría",
+    "situacao": "Situación jurídica",
+    "tipoFonte": "Tipo de fuente",
+    "todas": "Todas",
+    "limpar": "Limpiar filtros",
+    "resultados": "{n} resultados",
+    "nada": "Nada encontrado con estos filtros.",
+    "abas": {
+      "casos": "Casos",
+      "eventos": "Eventos",
+      "documentos": "Documentos",
+      "relacoes": "Relaciones"
+    },
+    "evento": {
+      "fato": "Hecho",
+      "publicado": "Publicado en Vale",
+      "mudanca": "Cambio de situación",
+      "valor": "Valor documentado",
+      "fonte": "Fuente publicada"
+    },
+    "relacoes": {
+      "explica": "Quién integra, dirige, financia o contrata a quién, y quién es citado en cada caso: solo vínculos con fuente. Punto lleno: fuente primaria; punto vacío: solo prensa.",
+      "citados": "Citados en el caso",
+      "semRelacoes": "Ninguna relación con fuente en esta selección."
+    },
+    "caso": "Caso",
+    "abrir": "Abrir",
+    "copiaArquivada": "copia archivada",
+    "tiposDeFonte": {
+      "processo": "Proceso",
+      "investigacao_oficial": "Investigación oficial",
+      "dado_oficial": "Dato oficial",
+      "relatorio_organizacao": "Informe de organización",
+      "reportagem": "Reportaje",
+      "checagem": "Verificación"
+    }
   }
 }

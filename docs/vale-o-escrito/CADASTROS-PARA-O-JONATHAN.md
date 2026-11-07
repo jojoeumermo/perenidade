@@ -78,3 +78,18 @@ Lote pronto para a curadoria: `content/vale-o-escrito/novos-casos/violencia-poli
 | Baixada Fluminense (RJ, 2005) e Fallet-Fogueteiro (RJ, 2019) | Nenhuma fonte oficial com a situação atual. |
 | Varginha (MG, 2021, PRF e PM) | Ofício do MPMG sem data nem desfecho. |
 | Operação Contenção (RJ, 2025), já publicada | Atualizar a ficha: segundo o MPRJ (09/10/2026), a Auditoria da Justiça Militar recebeu três denúncias contra oito PMs por crimes como invasão de domicílio, furto e retirada das câmeras (https://www.mprj.mp.br/web/guest/visualizar?noticiaId=243602). |
+
+## 8. Valores em dinheiro "a preencher" (T31, 07/11/2026)
+
+Os fluxos de dinheiro da ficha e o total do topo só usam valor que já está escrito no resumo revisado ou no trecho da
+fonte (`valores` em cada entrada, conferido em `lib/vale-o-escrito/regras.ts`). Hoje há 7 valores em 6 casos. Para
+crescer sem inventar, falta a fonte (com o trecho que traz o número) destes:
+
+| Caso publicado | O que falta |
+|---|---|
+| Brumadinho (2019) e Mariana (2015): acordos de reparação | Trecho oficial (MPF, AGU ou tribunal) com o valor do acordo; hoje só a multa penal de Mariana está escrita. |
+| Mensalão (AP 470) | Trecho do STF com valores de multa ou de ressarcimento fixados no acórdão. |
+| Emendas / orçamento secreto | Valor total das emendas de relator (RP9) em fonte oficial (TCU ou STF); hoje só os R$ 694,6 milhões sob inquérito. |
+| Bento Gonçalves: TAC das vinícolas (R$ 7 milhões) | A data da assinatura do TAC: a nota do MPT-RS não dá, e a ficha mostra "sem data própria". |
+| Rio das Cobras (TRF4) e garimpo Yanomami (denúncia) | A data da decisão do TRF4 e o período exato da movimentação: as notas do MPF não dão o dia. |
+| Fazendas Buritis, Unaí, Pau d'Arco, Eldorado, Carandiru, Umbaúba, Javari, Haximu, Geralda Toco Preto | Indenizações ou multas fixadas, com a decisão como fonte, se houver. |

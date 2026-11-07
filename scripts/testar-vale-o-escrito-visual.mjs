@@ -435,10 +435,10 @@ caso("T09: nenhuma visão de grafo desenha <line> reta; todo nó tem halo neon p
   assert.ok(prim.includes("ve-halo") && prim.includes("radialGradient") && prim.includes("ve-anel-pulso"));
   for (const t of ["entrada", "pessoa", "organizacao", "lugar"]) assert.ok(prim.includes(t + ":"), t);
 });
-caso("T10: Órbita e Grupos com visor (roda, pinça, botões +/−/recentrar sempre visíveis)", () => {
+caso("T10/T31: Órbita, Grupos e Linha do tempo com visor (roda, pinça, botões +/−/recentrar sempre visíveis)", () => {
   const leves = ler("components", "vale-o-escrito", "VisoesLeves.tsx");
-  assert.equal((leves.match(/useVisor\(/g) ?? []).length, 2);
-  assert.equal((leves.match(/<HudDoVisor/g) ?? []).length, 2);
+  assert.equal((leves.match(/useVisor\(/g) ?? []).length, 3);
+  assert.equal((leves.match(/<HudDoVisor/g) ?? []).length, 3);
   const visor = ler("components", "vale-o-escrito", "Visor.tsx");
   assert.ok(visor.includes('"wheel"') && visor.includes("passive: false"), "roda não passiva");
   assert.ok(visor.includes("pinca") && visor.includes("ponteiros.current.size >= 2"), "pinça de dois dedos");
