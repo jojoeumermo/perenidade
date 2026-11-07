@@ -142,6 +142,7 @@
   },
   "perfil": {
     "trancado": "Perfil bloqueado: quien sigue necesita aprobación.",
+    "conversar": "Mensaje privado",
     "equipe": "Equipo del instituto",
     "semContagens": "Sin contadores públicos de seguidores ni apoyos."
   },

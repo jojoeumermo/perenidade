@@ -142,6 +142,7 @@
   },
   "perfil": {
     "trancado": "Profil verrouillé : les abonnés doivent être approuvés.",
+    "conversar": "Message privé",
     "equipe": "Équipe de l'institut",
     "semContagens": "Pas de compteurs publics d'abonnés ni de soutiens."
   },
