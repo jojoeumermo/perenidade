@@ -12,7 +12,7 @@ import {
   PAPEIS, PROIBIDOS, PROVEDORES, SITUACOES, TIPOS_DE_ORG, CAPITAIS, acharDossies, acharLugar, acharOrganizacoes, arquivarNoInternetArchive,
   carregarConfig, coletar, conferirRespostaIa, criarGravador, criarIa, dataDoFatoPorHeuristica, extrairMateria, falaDeMenor, lerFeed,
   lerQueridoDiario, linkDoArquivo, montarPrompt, normalizarUrl, podeArquivar, prepararMunicipios, relataCaso, resumoPorHeuristica,
-  paraOLogPublico, situacaoPorHeuristica, temSegundo,
+  paraOLogPublico, situacaoPorHeuristica, temSegundo, PADROES_DA_RODADA, lerBuscaPlone, consultasDaBuscaPlone, lerFonte,
 } from "./vale-o-escrito/coletar.mjs";
 
 let total = 0;
@@ -40,9 +40,10 @@ await caso("fontes.json cobre o catálogo inteiro, com acesso válido", () => {
   assert.deepEqual(cfgFontes.map((f) => f.id), CATALOGO_DE_FONTES.map((f) => f.id));
   for (const f of cfgFontes) {
     assert.ok(["aberto", "cadastro-gratuito", "sem-acesso", "so-link"].includes(f.acesso), f.id);
-    assert.ok([null, "rss", "querido-diario"].includes(f.leitor), f.id);
+    assert.ok([null, "rss", "querido-diario", "plone-busca"].includes(f.leitor), f.id);
     if (f.leitor === "rss") assert.match(f.feed, /^https:\/\//, f.id);
     if (f.leitor === "querido-diario") assert.match(f.url, /^https:\/\//);
+    if (f.leitor === "plone-busca") assert.match(f.busca, /^https:\/\/[^/]+\/\+\+api\+\+\/@search$/, f.id);
     if (!f.leitor) assert.match(f.pagina, /^https:\/\//, f.id);
     assert.equal(!!f.agregado, !!CATALOGO_DE_FONTES.find((c) => c.id === f.id).agregado, `${f.id}: agregado difere do catálogo`);
   }
@@ -249,9 +250,63 @@ await caso("linha de comando: --seco --fixtures imprime JSON e não pede chave n
   assert.throws(() => execFileSync(process.execPath, ["scripts/vale-o-escrito/coletar.mjs", "--nao-existe"], { cwd: raiz, stdio: "pipe" }));
 });
 
-await caso("workflow: agendado de 3 em 3 h, só com VALE_O_ESCRITO == 'sim', actions fixadas por SHA, timeout de até 30 min, chaves por segredo", () => {
+await caso("serviço acelerado (07/11/2026): limites maiores por rodada, dentro da cota gratuita somada, e fontes oficiais com RSS", () => {
+  assert.deepEqual({ ...PADROES_DA_RODADA }, { dias: 7, max: 120, maxIa: 50, maxArquivo: 40, minutos: 25 });
+  // 12 rodadas por dia (de 2 em 2 horas): até 600 pedidos à IA e 480 cópias no Internet Archive por dia (ROBO.md).
+  assert.ok(12 * PADROES_DA_RODADA.maxIa <= 600 && 12 * PADROES_DA_RODADA.maxArquivo <= 480);
+  // O orçamento da parte cara cabe no timeout do workflow (30 min), com folga para gravar.
+  assert.ok(PADROES_DA_RODADA.minutos <= 25);
+  assert.equal(cfgFontes.find((f) => f.id === "mpf").leitor, "plone-busca", "MPF pela busca pública do site");
+  for (const id of ["ibama", "hrw"]) {
+    const f = cfgFontes.find((x) => x.id === id);
+    assert.equal(f.leitor, "rss", id);
+    assert.equal(f.acesso, "aberto", id);
+    assert.match(f.feed, /^https:\/\//, id);
+  }
+  const robo = ler("docs", "vale-o-escrito", "ROBO.md");
+  assert.match(robo, /de 2 em 2 horas/);
+  assert.match(robo, /--max-ia <n>` \(50\)/);
+});
+
+await caso("busca Plone do MPF: só notícias, link público sem ++api++, data do 'effective', uma consulta por tema", async () => {
+  const json = {
+    items: [
+      { "@id": "https://www.mpf.mp.br/++api++/o-mpf/unidades/pr-rr/noticias/justica-recebe-denuncia", title: "Justiça recebe denúncia", description: "Garimpo ilegal na Terra Yanomami", effective: "2026-08-31T12:00:00+00:00" },
+      { "@id": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/x/anexo.pdf", title: "anexo.pdf", effective: "1969-12-31T00:00:00+00:00" },
+      { "@id": "https://www.mpf.mp.br/atuacao/eventos/apresentacao", title: "Evento", effective: "2026-01-01T00:00:00+00:00" },
+    ],
+  };
+  assert.deepEqual(lerBuscaPlone(json), [
+    { titulo: "Justiça recebe denúncia", url: "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/justica-recebe-denuncia", data: "2026-08-31", resumo: "Garimpo ilegal na Terra Yanomami" },
+  ]);
+  assert.deepEqual(lerBuscaPlone({}), []);
+  const dossies = [{ slug: "a", temas: ["garimpo", "terra indígena"] }, { slug: "b", temas: ["garimpo", "desmatamento"] }];
+  assert.deepEqual(consultasDaBuscaPlone(dossies), ["garimpo", "terra indígena", "desmatamento"]);
+  const pedidos = [];
+  const buscar = async (url, opcoes) => {
+    pedidos.push({ url, accept: opcoes?.headers?.accept });
+    return { status: 200, text: JSON.stringify(json) };
+  };
+  const mpf = cfgFontes.find((f) => f.id === "mpf");
+  assert.equal(mpf.leitor, "plone-busca");
+  const { itens, erro } = await lerFonte(mpf, { dossies, buscar, hoje: HOJE, dias: 7 });
+  assert.equal(erro, undefined);
+  assert.equal(itens.length, 1, "o mesmo link de duas consultas entra uma vez só");
+  assert.equal(pedidos.length, 3);
+  for (const p of pedidos) {
+    const u = new URL(p.url);
+    assert.equal(u.origin + u.pathname, "https://www.mpf.mp.br/++api++/@search");
+    assert.equal(u.searchParams.get("sort_on"), "effective");
+    assert.equal(p.accept, "application/json");
+  }
+  const falha = await lerFonte(mpf, { dossies, buscar: async () => ({ status: 503, text: "" }), hoje: HOJE, dias: 7 });
+  assert.equal(falha.erro, "HTTP 503");
+});
+
+await caso("workflow: agendado de 2 em 2 h, só com VALE_O_ESCRITO == 'sim', actions fixadas por SHA, timeout de até 30 min, chaves por segredo", () => {
   const y = ler(".github", "workflows", "vale-o-escrito.yml");
-  assert.match(y, /cron: "\d+ \*\/3 \* \* \*"/);
+  assert.match(y, /cron: "\d+ \*\/2 \* \* \*"/);
+  assert.match(y, /--minutos 25\b/);
   assert.match(y, /if: \$\{\{ vars\.VALE_O_ESCRITO == 'sim' \}\}/);
   assert.match(y, /timeout-minutes: ([5-9]|[12]\d|30)\b/);
   for (const k of ["ARCHIVE_ACCESS_KEY", "ARCHIVE_SECRET_KEY", "GEMINI_API_KEY", "GROQ_API_KEY", "CEREBRAS_API_KEY", "OPENROUTER_API_KEY"]) assert.ok(y.includes(`${k}: \${{ secrets.${k} }}`), k);
