@@ -714,6 +714,7 @@ O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente*
 | `20261106-t18-alumia-entrada.sql` | Alumia: primeira entrada mais curta (escolhas podem ser adiadas) |
 | `20261106-t32-alumia-vitrine.sql` | Alumia: vitrine das comunidades com contagens da semana só agregadas, amostra para visitante e painel de semeadura |
 | `20261106-t19-rede-chat-privado.sql` | Alumia: chat privado entre maiores de 18, só entre participantes, nada federado (`docs/rede/CHAT-PRIVADO.md`) |
+| `20261107-t33-seguranca.sql` | auditoria de 7/11 (T33): resumo do IP com HMAC e segredo do banco, Revolucionários e inscrições militantes só para quem deve ver, confirmação por e-mail da inscrição militante, limites do chat privado da Alumia (`docs/AUDITORIA-2026-11-07.md`) |
 
 **Migrações datadas (`AAAAMMDD-*.sql`)**: a partir de 6/11/2026 cada migração nova tem a data no nome e vai inteira para o fim do `install.sql`; os testes que conferem a ordem do fim tiram essas primeiro (`scripts/install-posteriores.mjs`). Todas podem rodar mais de uma vez.
 
