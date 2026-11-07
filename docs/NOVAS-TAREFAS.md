@@ -10,7 +10,7 @@ Privacidade: sem rastreio. Nunca "universidade"/"diploma" na interface. Imagens 
 O site roda na VPS da Contabo (docs/HOSPEDAGEM.md): push no master publica sozinho em ~30 min.
 
 **Última atividade:** 2026-11-07 03:10 (sessão principal; auditoria T33 e T31 rodando; ramos novos em .claude/worktrees/wf_779ea30e-2c8-N).
-**Ocupada até:** 2026-11-07 10:00 (horário local do computador). Se esta hora ainda não passou, outra sessão está trabalhando (frentes em paralelo, em worktrees): não comece nada. Quem trabalha estende esta hora antes de começar algo longo.
+**Ocupada até:** 2026-11-07 12:00 (horário local do computador). Se esta hora ainda não passou, outra sessão está trabalhando (frentes em paralelo, em worktrees): não comece nada. Quem trabalha estende esta hora antes de começar algo longo.
 
 Situação: `[ ]` a fazer, `[~]` em andamento, `[x]` feito (com o commit), `[!]` depende de algo de fora (explicado).
 
