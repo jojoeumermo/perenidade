@@ -8,6 +8,7 @@ import path from "node:path";
 import { CATALOGO_DE_FONTES, IDS_DO_CATALOGO, SLUGS_DOS_DOSSIES } from "../lib/vale-o-escrito/catalogo.ts";
 import { conferirArquivo, lerDossie, lerDossies, lerTudo } from "../lib/vale-o-escrito/dados.ts";
 import { menuDoObservatorio } from "../lib/vale-o-escrito/menu.ts";
+import { conferirLote, documentoDaEntrada, indiceDeExistentes, juntarAoArquivo, linkComparavel, sqlDaFila } from "../lib/vale-o-escrito/novos-casos.ts";
 import {
   dataParcialValida,
   diaValido,
@@ -595,6 +596,59 @@ caso("acessibilidade da moldura: botão de som com nome fixo, um só 'pular', r�
   };
   assert.ok(cor && fundo);
   assert.ok((lum(cor) + 0.05) / (lum(fundo) + 0.05) >= 4.5, "--ve-apagado com contraste de pelo menos 4,5:1 sobre o fundo");
+});
+
+// ───────────────────────────── Lotes de casos novos (content/vale-o-escrito/novos-casos/) ─────────────────────────────
+caso("novos casos: todo lote passa nas regras, tem fonte oficial e situação, não repete id nem link e espera a curadoria", () => {
+  const pasta = path.join(raiz, "content", "vale-o-escrito", "novos-casos");
+  const nomes = fs.existsSync(pasta) ? fs.readdirSync(pasta).filter((n) => n.endsWith(".json")).sort() : [];
+  const publicados = SLUGS_DOS_DOSSIES.map((slug) => JSON.parse(ler("content", "vale-o-escrito", "entradas", `${slug}.json`)));
+  const vistos = indiceDeExistentes(publicados);
+  for (const nome of nomes) {
+    const lote = JSON.parse(ler("content", "vale-o-escrito", "novos-casos", nome));
+    assert.ok(SLUGS_DOS_DOSSIES.includes(lote.dossie), `${nome}: dossiê cadastrado`);
+    const { aceitas, barradas, jaImportadas } = conferirLote(lote, [], vistos);
+    assert.deepEqual(barradas, [], `${nome}: nada barrado`);
+    assert.equal(aceitas.length + jaImportadas.length, lote.entradas.length, `${nome}: toda entrada conta`);
+    for (const en of lote.entradas) {
+      // Pesquisado por agente ou pela equipe: só a curadoria humana aprova (e arquiva no Internet Archive).
+      assert.equal(en.revisao, "pendente-curadoria", `${en.id}: pendente-curadoria`);
+      assert.ok(en.notaDaCuradoria && en.situacaoConferidaEm, `${en.id}: nota e data da conferência da situação`);
+      assert.ok(en.lugar?.pais === "BR" && en.dataDoFato, `${en.id}: lugar e data do fato`);
+      // Valor em R$ no resumo: pelo menos uma fonte também fala de valor.
+      if (/R\$/.test(en.resumo)) assert.ok(en.fontes.some((f) => /R\$|reais|milh|bilh/i.test(`${f.trecho} ${f.titulo}`)), `${en.id}: valor em R$ com fonte`);
+    }
+  }
+});
+
+caso("novos casos: duplicata por link barra, id já importado é pulado, SQL vai para a fila sem publicar", () => {
+  assert.equal(linkComparavel("https://www.gov.br/pf/noticia/?utm_source=x#topo"), linkComparavel("http://gov.br/pf/noticia"));
+  const en = {
+    ...entrada(),
+    confianca: "primaria",
+    revisao: "pendente-curadoria",
+    pessoas: [],
+    organizacoes: [],
+    etiquetas: ["teste"],
+    publicadoEm: "2026-11-07",
+    atualizadoEm: "2026-11-07",
+    fontes: [fonte({ tipo: "investigacao_oficial", url: "https://www.gov.br/pf/caso-x", arquivoUrl: undefined })],
+  };
+  const lote = { dossie: "trabalho-escravo", pessoas: [], organizacoes: [], ligacoes: [], entradas: [en] };
+  assert.equal(conferirLote(lote, []).aceitas.length, 1);
+  const outra = { ...en, id: "2026-outra-entrada", fontes: [fonte({ url: "https://gov.br/pf/caso-x/" })] };
+  const comLink = conferirLote(lote, [{ ...lote, entradas: [outra] }]);
+  assert.equal(comLink.aceitas.length, 0);
+  assert.match(comLink.barradas[0], /já é fonte de 2026-outra-entrada/);
+  assert.deepEqual(conferirLote(lote, [lote]).jaImportadas, [en.id]);
+  const semOficial = { ...lote, entradas: [{ ...en, confianca: "reportado", fontes: [fonte({ url: "https://exemplo.org/y", arquivoUrl: undefined })] }] };
+  assert.match(conferirLote(semOficial, []).barradas[0], /fonte oficial/);
+  const sql = sqlDaFila([documentoDaEntrada(lote, en)], "teste");
+  assert.match(sql, /insert into interno\.vale_fila \(origem, rascunho\)/);
+  assert.doesNotMatch(sql, /insert into interno\.vale_entradas/, "não grava direto nas publicadas");
+  const { arquivo } = juntarAoArquivo({ dossie: "trabalho-escravo", pessoas: [], organizacoes: [], ligacoes: [], entradas: [] }, lote, [en]);
+  assert.equal(conferirArquivo(arquivo).entradas.length, 0, "pendente-curadoria juntado ao arquivo não vai ao ar");
+  assert.equal(conferirArquivo(arquivo).pendentes.length, 1);
 });
 
 console.log(`\n${total} conferências do Vale o Escrito passaram.`);
