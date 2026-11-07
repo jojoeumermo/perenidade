@@ -208,19 +208,19 @@
       "tipo": "oficial",
       "url": "https://www.mpf.mp.br",
       "rss": null,
-      "api": "https://transparencia.mpf.mp.br/",
-      "acesso": "so-link",
+      "api": "https://www.mpf.mp.br/++api++/@search",
+      "acesso": "aberto",
       "pedeCadastro": false,
       "licenca": "Não conferida (o rodapé não foi lido). Notícias do MPF são públicas; citar trecho curto com link.",
-      "observacao": "Sem feed confirmado. Só link para a curadoria.",
+      "observacao": "Busca pública do site do MPF (Plone/Volto): a API REST /++api++/@search devolve JSON com título, link, descrição e data das notícias, sem chave (conferida com curl em 07/11/2026). O robô faz uma busca por tema dos dossiês e fica só com notícias (caminho /noticias/). O site não tem RSS (/RSS dá 404).",
       "verificacao": {
-        "data": "2026-11-04",
-        "estado": "parcial",
-        "como": "curl com HTTP/HTTPS + WebFetch"
+        "data": "2026-11-07",
+        "estado": "conferido",
+        "como": "curl da API /++api++/@search (200, application/json)"
       },
       "grupo": "oficial",
-      "leitor": null,
-      "pagina": "https://www.mpf.mp.br/"
+      "leitor": "plone-busca",
+      "busca": "https://www.mpf.mp.br/++api++/@search"
     },
     {
       "id": "stf-stj",

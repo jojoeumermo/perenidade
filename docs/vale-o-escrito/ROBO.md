@@ -11,8 +11,10 @@ publica com **fonte oficial e situação jurídica preenchidas** (decisão da co
    `sem-acesso` ou `so-link`; campo `leitor`: `rss`, `querido-diario` ou `null`). Hoje lê RSS/Atom (também RSS 1.0/RDF,
    o formato dos portais gov.br) e a API aberta do Querido Diário (sem cadastro). Desde 07/11/2026 também lê o RSS de
    notícias do **IBAMA** (fonte oficial: `gov.br/ibama/pt-br/assuntos/noticias/RSS`) e o da **Human Rights Watch** em
-   português (`hrw.org/pt/rss/news`), os dois conferidos com curl. As demais ficam como link para a curadoria até alguém
-   escrever o adaptador.
+   português (`hrw.org/pt/rss/news`), os dois conferidos com curl, e as notícias do **MPF** pela busca pública do site
+   (leitor `plone-busca`: a API REST do Plone, `https://www.mpf.mp.br/++api++/@search`, devolve JSON com título, link,
+   descrição e data, sem chave; o robô faz uma busca por tema dos dossiês e fica só com o que está em `/noticias/`). As
+   demais ficam como link para a curadoria até alguém escrever o adaptador.
 2. Filtra pelas palavras (`temas`) dos 6 dossiês de `content/vale-o-escrito/dossies.json` (sem acento, início de palavra).
 3. Tira repetidos por link (sem `utm_*`, sem `#`, sem barra final) e o que é mais velho que a janela (`--dias`, padrão 7).
    Texto que fala de criança ou adolescente é descartado.
@@ -160,11 +162,11 @@ Pedido da coordenação: "faz o robô acelerar o serviço". O que mudou, tudo de
 | `--max-ia` | 40 | **50** | 12 × 50 = 600 pedidos/dia (conta acima) |
 | `--max-arquivo` | 20 | **40** | 12 × 40 = 480 cópias/dia no Save Page Now; com conta (chaves S3) o limite diário do Internet Archive é bem maior; anônimo, o que falhar vira `arquivoFalhou` e a curadoria refaz |
 | `--minutos` (orçamento) | 20 | **25** | timeout do workflow subiu para 30 |
-| Fontes lidas | 17 feeds + Querido Diário | **+ IBAMA (oficial) e HRW** | RSS conferido com curl em 07/11/2026 |
+| Fontes lidas | 17 feeds + Querido Diário | **+ MPF (oficial, busca do site), IBAMA (oficial, RSS) e HRW (RSS)** | conferidos com curl em 07/11/2026; a busca do MPF faz ~30 pedidos leves por rodada (um por tema), numa rodada seca de 07/11/2026 trouxe 226 notícias e 6 sugestões |
 
 Os padrões ficam em `PADROES_DA_RODADA` (`coletar.mjs`); o teste `npm run testar:vale-o-escrito-robo` confere os números.
 Fontes testadas e **sem** RSS em 07/11/2026 (ficam como link): PF, Funai, ICMBio, PRF e MTE no gov.br (404), MPF (o site
-novo não tem `/RSS`); STF (`noticias.stf.jus.br/feed`), ISA, Alma Preta, Global Witness e TCU não responderam daqui.
+novo não tem `/RSS`, por isso a busca); STF (`noticias.stf.jus.br/feed`), ISA, Alma Preta, Global Witness e TCU não responderam daqui.
 
 ## Pendências e limites conhecidos
 
