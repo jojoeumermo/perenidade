@@ -180,6 +180,76 @@
     "quimicaLead": "Titulación ácido-base con la curva de pH calculada de verdad y cuatro indicadores, dilución en el vaso y la escala de pH de las cosas de casa, con el indicador de repollo morado.",
     "modelos": "Laboratorio de modelos",
     "modelosLead": "Probabilidad, gráficos que engañan, segregación, cooperación, riqueza, epidemia, depredador y presa, órbitas, ondas, autómatas, expresiones regulares y el celular como instrumento: predice, corre, compara y explica.",
+    "mapa": {
+      "porFinalidade": "Por finalidad",
+      "porDisciplina": "Por materia",
+      "comoAchar": "Cada laboratorio dice para qué sirve, para quién es, en qué materia y clase ayuda y dónde está. Elige por lo que quieres hacer o por la materia que estudias.",
+      "serve": "Sirve para",
+      "quem": "Para quién",
+      "onde": "Dónde está",
+      "ajudaEm": "Ayuda en",
+      "aulas": "Clases en las que ayuda",
+      "abrir": "Abrir",
+      "ondeSite": "Aquí en el sitio, con página propia",
+      "ondeFora": "Laboratorios de fuera: solo se carga cuando lo abres",
+      "ondeAula": "Dentro de las clases, en medio del texto",
+      "nenhumaAula": "Sirve a toda la materia; aún sin clase específica vinculada.",
+      "daAula": "Laboratorios para esta clase",
+      "nestaAula": "en esta clase",
+      "daDisciplina": "de la materia",
+      "todos": "Todos los laboratorios, por finalidad",
+      "maisAulas": "y {n} más",
+      "outrosLugares": "Otros lugares para practicar",
+      "ferramentas": "Herramientas",
+      "ferramentasServe": "Calculadoras, conversores, tablas y prácticas rápidas para usar durante la clase.",
+      "estudio": "Estudio de práctica",
+      "estudioServe": "Editores para practicar código, texto y ejercicios, con tu trabajo guardado en tu dispositivo.",
+      "jogos": "Juegos",
+      "jogosServe": "Juegos de formación para estudiar historia, política y las materias jugando, solo o en grupo.",
+      "externosTodos": "Ver todos los laboratorios de fuera, con licencia y crédito",
+      "finalidades": {
+        "programar": {
+          "titulo": "Programar",
+          "serve": "Escribir código, ejecutarlo y ver qué pasa línea por línea."
+        },
+        "computador-e-rede": {
+          "titulo": "Computadora, terminal y red",
+          "serve": "Usar la terminal y entender cómo se comunican las máquinas en una red."
+        },
+        "seguranca": {
+          "titulo": "Seguridad digital",
+          "serve": "Entrenar la defensa, entender ataques y manejar datos con seguridad."
+        },
+        "eletrica-e-conserto": {
+          "titulo": "Electricidad, electrónica y reparación",
+          "serve": "Medir, conectar, montar y reparar sin riesgo de descarga ni de quemar piezas."
+        },
+        "ciencias": {
+          "titulo": "Experimentar ciencia",
+          "serve": "Hacer los experimentos de física, química, biología y medio ambiente que la escuela no siempre tiene."
+        },
+        "dados-e-modelos": {
+          "titulo": "Matemáticas, datos y modelos",
+          "serve": "Dibujar gráficos, ejecutar modelos y probar una idea con números antes de creerla."
+        },
+        "sociedade-e-historia": {
+          "titulo": "Sociedad e historia",
+          "serve": "Ver cómo las elecciones individuales se vuelven fenómenos sociales y cómo cambió el mundo en el mapa."
+        },
+        "ia": {
+          "titulo": "Inteligencia artificial",
+          "serve": "Entrenar modelos de verdad y entender qué hace la IA, dónde falla y de dónde viene el sesgo."
+        },
+        "criar": {
+          "titulo": "Escribir, organizar y crear",
+          "serve": "Documento, hoja de cálculo, presentación y arte para difundir, sin programas de pago."
+        },
+        "musica": {
+          "titulo": "Música",
+          "serve": "Escuchar, componer y ver el sonido, sin leer partitura."
+        }
+      }
+    },
     "jogos": {
       "title": "Juegos de formación",
       "card": "Rumos (decisiones en la historia, la filosofía y la política), ¡Huelga!, línea del tiempo de las luchas y ¿Quién lo dijo?: jugar también es estudiar.",
