@@ -242,5 +242,200 @@
       "criancas": "children"
     },
     "aviso": "These games are only in Portuguese."
+  },
+  "imersao": {
+    "rotulo": "Sound and screen",
+    "somLigado": "Sound on",
+    "somDesligado": "Sound off",
+    "telaCheia": "Full screen",
+    "sairDaTelaCheia": "Exit full screen"
+  },
+  "grupo": {
+    "titulo": "Group games",
+    "lead": "To study together, 2 to 12 people, each on their own device. Whoever creates the room gets a short code; the others join with it and a nickname. No account, and nothing is stored: the room disappears when everyone leaves.",
+    "jogadores": "2 to 12 people",
+    "jogos": {
+      "corrida": {
+        "nome": "Question race",
+        "texto": "Questions from the lessons, by subject: whoever answers right first earns more."
+      },
+      "mutirao": {
+        "nome": "Team quiz",
+        "texto": "Teams discuss, and each team counts with its most voted answer."
+      },
+      "quem-disse": {
+        "nome": "Who said it? in a circle",
+        "texto": "One quote, four names. The circle finds out who said it."
+      },
+      "fato-ou-boato": {
+        "nome": "Fact or hoax? in a circle",
+        "texto": "Claims from the site's fact-checks: fact, hoax or misleading?"
+      },
+      "assembleia": {
+        "nome": "Assembly",
+        "texto": "Debate with a vote: secret opinion, unsigned arguments, vote for the strongest and a second opinion."
+      },
+      "forca": {
+        "nome": "Collective hangman",
+        "texto": "One letter at a time, each in their turn. The group saves the word together."
+      },
+      "bingo": {
+        "nome": "Concept bingo",
+        "texto": "A definition is called; whoever has the concept on their card marks it. Full line: bingo!"
+      },
+      "fio": {
+        "nome": "Thread of history",
+        "texto": "Cards with historical facts: the group votes where each one goes on the timeline."
+      }
+    },
+    "entrada": {
+      "criar": "Create a room",
+      "criarTexto": "You host the room: choose the game and move the rounds forward. You can play too or just present on a big screen.",
+      "entrar": "Join a room",
+      "entrarTexto": "Type the code the room's creator gave you.",
+      "codigo": "Room code",
+      "apelido": "Your nickname",
+      "apelidoAjuda": "Up to 20 letters. Don't use your full name, phone number or social media.",
+      "sortear": "Random nickname",
+      "criarBotao": "Create the room",
+      "entrarBotao": "Join",
+      "codigoInvalido": "The code has 5 letters and numbers (no 0, O, 1, I or L).",
+      "apelidoInvalido": "That nickname won't do: pick another one, without contact details.",
+      "conectando": "Connecting…",
+      "naoAchou": "We couldn't find that room. Check the code or ask its creator for a new one.",
+      "falhou": "Couldn't connect. Check your internet and try again.",
+      "cheia": "The room is full (12 people).",
+      "expulso": "You left this room.",
+      "tentar": "Try again",
+      "voltar": "Back",
+      "soNesteNavegador": "This copy of the site has no real-time service: the room only works between tabs of this browser.",
+      "privacidade": "How it works: the room goes through the site's own real-time channel. Only the nickname and the moves travel; nothing goes into a database, and the room disappears when everyone leaves."
+    },
+    "sala": {
+      "codigo": "Room code",
+      "link": "Copy the invitation",
+      "copiado": "Invitation copied!",
+      "quem": "In the room ({n} of {max})",
+      "voce": "you",
+      "anima": "hosts the room",
+      "fora": "left",
+      "expulsar": "Remove from room",
+      "sair": "Leave the room",
+      "escolherJogo": "Choose the game",
+      "fonte": "Questions from",
+      "glossario": "Glossary (all subjects)",
+      "rodadas": "Rounds",
+      "tempo": "Time per round",
+      "semTempo": "No timer",
+      "segundos": "{n} s",
+      "equipes": "Teams",
+      "anfitriaoJoga": "I play too",
+      "comecar": "Start",
+      "preparando": "Preparing the match…",
+      "esperando": "Waiting for the host to choose the game and start.",
+      "suaEquipe": "Your team",
+      "irPara": "Join {equipe}",
+      "poucos": "You can test it alone; it's better with more people.",
+      "semConteudo": "Couldn't build the match with that content. Choose another.",
+      "modoAbas": "This browser only (tabs)",
+      "pontosDaPartida": "Points for this match only: they vanish when the room ends."
+    },
+    "partida": {
+      "revelar": "Reveal",
+      "proxima": "Next",
+      "encerrar": "Back to the lobby",
+      "pergunta": "Question {i} of {n}",
+      "responderam": "{n} of {total} answered",
+      "espere": "Answer sent. Wait for the reveal.",
+      "certa": "Right answer",
+      "acertou": "You got it!",
+      "errou": "Not this time.",
+      "naoRespondeu": "You didn't answer.",
+      "aula": "See the lesson",
+      "equipeEscolheu": "{equipe} chose",
+      "apresentando": "You are only presenting: answers show up here.",
+      "restam": "{n} s",
+      "pontos": "{n} pt",
+      "debate": {
+        "etapas": {
+          "opiniao": "Opinion",
+          "argumentos": "Arguments",
+          "votacao": "Vote",
+          "resultado": "Result",
+          "segunda": "Second opinion"
+        },
+        "pergunta": "What do you think of this statement?",
+        "lados": {
+          "concordo": "I agree",
+          "discordo": "I disagree",
+          "duvida": "I'm not sure"
+        },
+        "opinaram": "{n} have given their opinion (secretly)",
+        "escreva": "Write an argument (up to 2 per person, without your name)",
+        "lado": "Side of the argument",
+        "enviar": "Send argument",
+        "nenhum": "No arguments yet.",
+        "vote": "Vote for the strongest argument (yours doesn't count).",
+        "votou": "Vote recorded. You can change it until voting ends.",
+        "votar": "Vote",
+        "seu": "yours",
+        "oculto": "Hidden by the host.",
+        "ocultar": "Hide",
+        "mostrar": "Show",
+        "antes": "Before",
+        "depois": "After",
+        "votos": "{n} votes",
+        "resposta": "What the institute answers",
+        "fontes": "Sources",
+        "mudou": "And now? After the arguments, has your opinion changed?",
+        "avancar": "Next step"
+      },
+      "forca": {
+        "palavra": "Word {i} of {n}",
+        "dica": "Hint",
+        "vez": "{apelido}'s turn",
+        "suaVez": "Your turn! Pick a letter.",
+        "letras": "Letters",
+        "chute": "Or guess the whole word",
+        "chutar": "Guess",
+        "erros": "Mistakes: {n} of {max}",
+        "salva": "Saved! It was {termo}.",
+        "perdida": "Not this time. It was {termo}.",
+        "salvas": "Words saved by the group: {n}",
+        "pular": "Skip turn",
+        "ultima": "{apelido} tried {letra}"
+      },
+      "bingo": {
+        "chamada": "Which concept is this?",
+        "cartela": "Your card",
+        "marque": "Mark the concept if it is on your card.",
+        "gritar": "Bingo!",
+        "chamar": "Call the next one",
+        "restam": "{n} definitions left",
+        "anteriores": "Already called",
+        "vencedores": "Bingos",
+        "semCartela": "You are only presenting: cards belong to the players."
+      },
+      "fio": {
+        "carta": "Where does this card go on the timeline?",
+        "numero": "Card {i} of {n}",
+        "antes": "Before {ano}",
+        "entre": "Between {a} and {b}",
+        "depois": "After {ano}",
+        "aqui": "Put here",
+        "votos": "{n} votes",
+        "acertou": "The group got it! It was in {ano}.",
+        "errou": "Not there: it was in {ano}.",
+        "acertos": "Group hits: {n}"
+      }
+    },
+    "fim": {
+      "titulo": "End of the match",
+      "grupo": "The group scored {n} point(s) together.",
+      "placar": "Who scored most in this match",
+      "jogarDeNovo": "Play again",
+      "outroJogo": "Choose another game",
+      "esperando": "The host chooses the next game."
+    }
   }
 }

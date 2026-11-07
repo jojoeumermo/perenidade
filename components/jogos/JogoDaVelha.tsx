@@ -6,6 +6,7 @@ import { fill } from "@/i18n/config";
 import { criarSorteio, mascarar, sementeNova } from "@/lib/jogos/base";
 import { empate, gerarPergunta, jogadaDoComputador, vencedor, type Marca, type Pergunta } from "@/lib/jogos/pequenos";
 import { Acoes, Aviso, Botao, LinkDaAula, Opcoes, Quadro, type PropsDoJogo } from "./comum";
+import type { Tom } from "./Imersao";
 
 /** Jogo da velha com perguntas: para marcar uma casa, acerte que termo do glossário a definição descreve. */
 export function JogoDaVelha({ verbetes, s, lang }: PropsDoJogo) {
@@ -16,6 +17,7 @@ export function JogoDaVelha({ verbetes, s, lang }: PropsDoJogo) {
   const [pergunta, setPergunta] = useState<Pergunta | null>(null);
   const [resposta, setResposta] = useState<number | null>(null);
   const [aviso, setAviso] = useState("");
+  const [tom, setTom] = useState<Tom | undefined>();
   const t = s.velha;
   const ganhou = vencedor(tab);
   const fim = !!ganhou || empate(tab);
@@ -38,6 +40,7 @@ export function JogoDaVelha({ verbetes, s, lang }: PropsDoJogo) {
   const terminarTurno = (tabuleiro: Marca[], quem: "X" | "O", msgExtra = "") => {
     setTab(tabuleiro);
     const v = vencedor(tabuleiro);
+    setTom(v ? "fim" : empate(tabuleiro) ? "vez" : msgExtra.startsWith(t.acertou) ? "certo" : msgExtra ? "erro" : undefined);
     if (v) setAviso(`${msgExtra} ${fill(t.ganhou, { marca: v.marca })}`.trim());
     else if (empate(tabuleiro)) setAviso(`${msgExtra} ${t.empate}`.trim());
     else setAviso(msgExtra);
@@ -123,7 +126,7 @@ export function JogoDaVelha({ verbetes, s, lang }: PropsDoJogo) {
       <Acoes>
         <Botao onClick={() => novo()}>{s.comum.novo}</Botao>
       </Acoes>
-      <Aviso>{aviso}</Aviso>
+      <Aviso tom={tom}>{aviso}</Aviso>
     </Quadro>
   );
 }

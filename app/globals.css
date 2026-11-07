@@ -4440,3 +4440,127 @@ a.busca-campo:focus-visible {
   width: min(40rem, calc(100vw - 2rem));
 }
 
+
+/* ───────── Palco dos jogos e jogos-em-grupo (T23): retorno visual ─────────
+   components/jogos/Imersao.tsx põe .palco-retorno por cima do jogo por um instante. Com movimento reduzido (ou nos
+   modos leve e e-ink) fica só a cor da borda, sem deslocamento nem chuva de estrelas. */
+.palco-dos-jogos:fullscreen {
+  background: var(--color-parchment, #f4ecd8);
+}
+.palco-cheio {
+  font-size: 1.08rem;
+}
+.palco-retorno {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  border: 4px solid transparent;
+}
+.palco-retorno-certo {
+  border-color: #2e6b4f;
+}
+.palco-retorno-erro {
+  border-color: #c21f16;
+}
+.palco-retorno-vez {
+  border-color: #f0b323;
+}
+.palco-retorno-fim {
+  border-color: #f0b323;
+}
+.palco-estrela {
+  display: none;
+}
+/* A peça que muda (a resposta revelada, a letra que entrou, a carta posta) ganha um realce curto. */
+.grupo-surge {
+  outline: 3px solid transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-light], [data-eink]) .palco-retorno {
+    animation: palco-clarao 0.7s ease-out forwards;
+  }
+  :root:not([data-light], [data-eink]) .palco-retorno-erro {
+    animation:
+      palco-clarao 0.7s ease-out forwards,
+      palco-tremor 0.32s ease-in-out;
+  }
+  :root:not([data-light], [data-eink]) .palco-retorno-fim {
+    animation: palco-clarao 2.6s ease-out forwards;
+  }
+  :root:not([data-light], [data-eink]) .palco-estrela {
+    display: block;
+    position: absolute;
+    top: -2rem;
+    font-size: 1.6rem;
+    text-shadow: 1px 1px 0 #1f1a14;
+    animation: palco-chuva 2.2s cubic-bezier(0.3, 0.6, 0.5, 1) forwards;
+  }
+  :root:not([data-light], [data-eink]) .grupo-surge {
+    animation: grupo-surge 0.45s ease-out;
+  }
+  :root:not([data-light], [data-eink]) .grupo-pulsa {
+    animation: grupo-pulsa 1s ease-in-out infinite;
+  }
+}
+@keyframes palco-clarao {
+  0% {
+    opacity: 1;
+    box-shadow: inset 0 0 0 0 currentColor;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes palco-tremor {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+@keyframes palco-chuva {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(70vh) rotate(260deg);
+    opacity: 0;
+  }
+}
+@keyframes grupo-surge {
+  0% {
+    transform: scale(0.94);
+    outline-color: #f0b323;
+  }
+  100% {
+    transform: scale(1);
+    outline-color: transparent;
+  }
+}
+@keyframes grupo-pulsa {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .palco-retorno {
+    transition: opacity 0.6s;
+  }
+  .palco-estrela,
+  .grupo-surge,
+  .grupo-pulsa {
+    animation: none !important;
+  }
+}
