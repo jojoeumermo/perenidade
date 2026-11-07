@@ -7,6 +7,7 @@
 // assinatura conferida, sem assinatura recusado), a fila de entrega, desligar retira o que saiu, Salvos, e o bloco no fim do
 // install.sql. Uso: npm run testar:fediverso
 import fs from "node:fs";
+import { semPosteriores } from "./install-posteriores.mjs";
 import { criarBanco } from "./banco-local.mjs";
 
 // O ambiente da federação ligada, ANTES de importar os módulos (eles leem as variáveis ao carregar).
@@ -140,11 +141,7 @@ const banco = await criarBanco();
 const { dono, criarUsuario, rpc } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 // As migrações de 6/11 vêm depois da da Alumia, inteiras; tiram-se do fim primeiro.
-let install = lerTexto("supabase/install.sql").trim();
-for (const m of ["20261106-t32-alumia-vitrine", "20261106-t18-alumia-entrada", "20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
-  const bloco = lerTexto(`supabase/migracoes/${m}.sql`).trim();
-  if (install.endsWith(bloco)) install = install.slice(0, -bloco.length).trim();
-}
+let install = semPosteriores(lerTexto("supabase/install.sql"));
 const migracao = lerTexto("supabase/migracoes/2026-11-alumia.sql").trim();
 await espera("o install.sql termina com a migração da Alumia, idêntica ao arquivo", async () => install.endsWith(migracao));
 if (!install.endsWith(migracao)) await espera("a migração instala por cima do install.sql", () => banco.exclusivo(() => banco.pg.exec(migracao)));

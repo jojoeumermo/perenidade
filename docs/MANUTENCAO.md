@@ -705,6 +705,17 @@ O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente*
 | `2026-11-controles.sql`, `2026-11-backend-1.sql`, `2026-11-backend-2.sql` | Centro de controle, recursos vivos, operação, caixa de imprensa, resumo diário |
 | `2026-11-progresso-qr.sql` | progresso por QR: guarda por até 1 dia só o pacote já cifrado no aparelho (a chave nunca chega ao servidor); o pacote some ao ser lido (`docs/PROGRESSO-QR.md`) |
 | `2026-11-alumia.sql` | Alumia: o nome novo nos avisos e e-mails do banco, Salvos (`rede_alumia_salvos`) e a federação com o Fediverso (desligada por padrão; chaves privadas cifradas em `interno.rede_fed_atores`) (`docs/rede/FEDIVERSO.md`, `docs/rede/ALUMIA-DOMINIO.md`) |
+| `20261106-t15-frente-militantes.sql` | Frente Revolucionária Lúcia: inscrição de voluntários militantes na mesma fila do voluntariado (tipo `militante`, 18+, consentimento destacado) (`docs/escola-revolucionaria/LEIA-ME.md`) |
+| `20261106-painel-turmas.sql` | chave liga/desliga `turmas` no catálogo de recursos, nascendo desligada |
+| `20261106-painel-recados.sql` | recados do painel com categoria, para agrupar na Mesa |
+| `20261106-pessoas-painel.sql` | várias funções e disciplinas por pessoa, departamentos novos (RH, Revolucionários), convites organizados e troca de e-mail pela coordenação (`usuario_email_trocar`, com registro mascarado) |
+| `20261106-t03-assistente-publico.sql` | chave `assistente-publico` no catálogo de recursos (assistente aberto em todo o site) |
+| `20261106-t17-podcast-ao-vivo.sql` | transmissão ao vivo do podcast pelos voluntários (`interno.podcast_ao_vivo` e funções de estado, início, pulso e fim) |
+| `20261106-t18-alumia-entrada.sql` | Alumia: primeira entrada mais curta (escolhas podem ser adiadas) |
+| `20261106-t32-alumia-vitrine.sql` | Alumia: vitrine das comunidades com contagens da semana só agregadas, amostra para visitante e painel de semeadura |
+| `20261106-t19-rede-chat-privado.sql` | Alumia: chat privado entre maiores de 18, só entre participantes, nada federado (`docs/rede/CHAT-PRIVADO.md`) |
+
+**Migrações datadas (`AAAAMMDD-*.sql`)**: a partir de 6/11/2026 cada migração nova tem a data no nome e vai inteira para o fim do `install.sql`; os testes que conferem a ordem do fim tiram essas primeiro (`scripts/install-posteriores.mjs`). Todas podem rodar mais de uma vez.
 
 **Para rodar no Supabase:** SQL Editor, colar o `install.sql` inteiro e executar (ou, só para a Rede, as dez migrações `rede-*` em ordem). **Antes de produção, rode num projeto Supabase de teste**: o banco local (PGlite) não cobre `auth.mfa_factors`, `auth.sessions`, `pg_cron` nem `pg_net`, e nenhuma das migrações novas foi provada num Supabase de verdade. Crie índice grande (GIN da busca e das hashtags da Rede) em horário calmo.
 

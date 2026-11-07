@@ -6,6 +6,7 @@
 // rede-v2 só liga pelo nome (com ele desligado, as rotas novas dão 404 e a Rede de hoje fica como está) e as telas dos pacotes
 // estão no registro da casca. Uso: npm run testar:rede-integracao
 import fs from "node:fs";
+import { semPosteriores } from "./install-posteriores.mjs";
 import { criarBanco } from "./banco-local.mjs";
 import { ligado, lerRecursos, SO_PELO_NOME } from "../lib/recursos.ts";
 
@@ -35,20 +36,8 @@ const ORDEM = ["fundacao", "consertos", "perfil", "publicar", "conversa", "desco
 // ── O install.sql e as migrações ──
 const install = lerTexto("supabase/install.sql");
 await espera("o install.sql traz cada migração rede-* inteira, uma depois da outra, na ordem de docs/rede/V2.md, no fim", async () => {
-  let resto = install.trim();
-  // As migrações de 6/11 vêm por último, inteiras, nesta ordem: Frente Revolucionária (T15), pessoas do painel, chat privado da Alumia (T19).
-  for (const n of ["20261106-t19-rede-chat-privado", "20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
-    const bloco = lerTexto(`supabase/migracoes/${n}.sql`).trim();
-    if (!resto.endsWith(bloco)) throw new Error(`o fim do install.sql não é a migração ${n}`);
-    resto = resto.slice(0, -bloco.length).trim();
-  }
-  // Depois da Rede vêm, inteiras e nesta ordem, as migrações do lote 5/6/8/9.
-  // As migrações de 6/11 vêm por último, inteiras; tiram-se do fim primeiro.
-  for (const m of ["20261106-t32-alumia-vitrine", "20261106-t18-alumia-entrada", "20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
-    const bloco = lerTexto(`supabase/migracoes/${m}.sql`).trim();
-    if (!resto.endsWith(bloco)) throw new Error(`o fim do install.sql não é a migração ${m}`);
-    resto = resto.slice(0, -bloco.length).trim();
-  }
+  // As migrações datadas (AAAAMMDD-*.sql) vêm depois, inteiras: saem primeiro (scripts/install-posteriores.mjs).
+  let resto = semPosteriores(install);
   for (const n of ["alumia", "progresso-qr", "backend-2", "backend-1", "controles", "eixos-equipe", "departamentos-termos"]) {
     const bloco = lerTexto(`supabase/migracoes/2026-11-${n}.sql`).trim();
     if (!resto.endsWith(bloco)) throw new Error(`o fim do install.sql não é a migração ${n}`);

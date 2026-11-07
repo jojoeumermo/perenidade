@@ -26189,6 +26189,8 @@ begin
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;
+end $$;
+
 -- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 --
 -- T18 (Alumia): a primeira entrada fica curta. O essencial continua obrigatório e gravado como antes, em rede_aderir:
@@ -26317,6 +26319,9 @@ begin
     revoke all on function public.rede_painel_semeadura() from anon;
     grant execute on function public.rede_com_lista() to anon, authenticated, service_role;
     grant execute on function public.rede_painel_semeadura() to authenticated, service_role;
+  end if;
+end $$;
+
 -- ───────────────────────────── Alumia: chat privado cifrado de ponta a ponta (T19) ─────────────────────────────
 -- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. O mesmo bloco está no fim do install.sql. Roda
 -- DEPOIS das migrações da Rede v2 (2026-11-rede-*.sql) e da Alumia (2026-11-alumia.sql). Documento: docs/rede/CHAT-PRIVADO.md.
@@ -26848,3 +26853,56 @@ do $$ begin
       public.rede_dm_denunciar(uuid, text, text, boolean), public.rede_dm_apagar_tudo() to authenticated;
   end if;
 end $$;
+
+-- ───────────────────────── Turmas em pausa (T08, 06/11/2026) ─────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Rode DEPOIS de 2026-11-backend-1.sql
+-- (que cria interno.recursos_catalogo e interno.recursos_vivos). Texto: docs/RECURSOS.md, seção "turmas".
+--
+-- O que faz: põe o recurso "turmas" no catálogo dos recursos que a coordenação liga e desliga pelo painel
+-- (Site › Controles avançados › Recursos). As turmas (por curso, na Escola, e a Turma do mês) ficam em pausa por decisão
+-- da coordenação ("não temos gente o suficiente"); no código, "turmas" está em EM_PAUSA (lib/recursos.ts): a variável
+-- "todos" não o liga. Ligar pelo painel vale na hora, sem segunda pessoa (so_pelo_nome = false).
+--
+-- Também grava a decisão explícita "desligado", para o painel mostrar a chave desligada desde o primeiro dia. Só grava se
+-- ainda não houver decisão (não desfaz uma escolha que a coordenação já tenha feito).
+--
+-- Nenhuma tabela, função ou permissão nova; nenhum dado pessoal (LGPD, Lei 13.709/2018, art. 6º, III: necessidade).
+
+insert into interno.recursos_catalogo (nome, so_pelo_nome) values ('turmas', false)
+on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;
+
+insert into interno.recursos_vivos (nome, ligado, por) values ('turmas', false, null)
+on conflict (nome) do nothing;
+
+-- ───────────────────────── Recados da Mesa em grupos (T27, 06/11/2026) ─────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Rode depois do install.sql (a coluna
+-- interno.avisos.categoria já existe lá).
+--
+-- O que faz: public.avisos_meus() passa a devolver também a categoria do recado ('equipe', 'rede' ou 'conta'), para a
+-- Mesa agrupar os recados por assunto (components/painel/recados-grupos.ts). Sem esta migração a Mesa agrupa só pelo texto,
+-- então nada quebra se ela ainda não tiver rodado.
+--
+-- Mesma regra de antes: só os recados da própria pessoa (para = auth.uid()), os 40 mais novos. Nenhum dado novo é guardado
+-- nem mostrado a outra pessoa (LGPD, Lei 13.709/2018, art. 6º, III: necessidade).
+
+create or replace function public.avisos_meus() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'lido', a.lido, 'criado_em', a.criado_em, 'categoria', a.categoria) order by a.criado_em desc), '[]'::jsonb)
+  from (select * from avisos where para = auth.uid() and auth.uid() is not null order by criado_em desc limit 40) a
+$$;
+
+-- ───────────────────────── Assistente em todo o site (T03, 06/11/2026) ─────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Rode DEPOIS de 2026-11-backend-1.sql
+-- (que cria interno.recursos_catalogo). Texto: docs/RECURSOS.md, seção "assistente-publico", e docs/privacidade-assistente.md.
+--
+-- O que faz: põe o recurso "assistente-publico" no catálogo dos recursos que a coordenação liga e desliga pelo painel
+-- (Site › Controles avançados › Recursos). No código ele está em PADRAO (lib/recursos.ts): nasce LIGADO, a pedido da
+-- coordenação ("eu quero ligar o assistente em todo o site"). Desligar pelo painel vale na hora, sem segunda pessoa.
+--
+-- Não grava decisão em interno.recursos_vivos: sem decisão, vale o padrão do código (ligado).
+--
+-- O assistente aberto NÃO usa o banco: o limite por pessoa fica na memória do servidor do site, com um resumo do IP com
+-- sal do dia (app/api/assistente/route.ts, lib/assistente/limite.ts). Nenhuma tabela, função ou permissão nova; nenhum dado
+-- pessoal (LGPD, Lei 13.709/2018, art. 6º, III: necessidade).
+
+insert into interno.recursos_catalogo (nome, so_pelo_nome) values ('assistente-publico', false)
+on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;

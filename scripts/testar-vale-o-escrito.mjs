@@ -4,6 +4,7 @@
 // (conferência estática do SQL: não há Postgres aqui). Sem rede, sem navegador.
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { semPosteriores } from "./install-posteriores.mjs";
 import path from "node:path";
 import { CATALOGO_DE_FONTES, IDS_DO_CATALOGO, SLUGS_DOS_DOSSIES } from "../lib/vale-o-escrito/catalogo.ts";
 import { conferirArquivo, lerDossie, lerDossies, lerTudo } from "../lib/vale-o-escrito/dados.ts";
@@ -304,13 +305,8 @@ caso("sem IP cru: o envio e a correção guardam só o hash com sal do dia", () 
 });
 caso("o mesmo bloco está no fim do install.sql", () => {
   const sql = ler("supabase", "migracoes", "2026-11-vale-o-escrito.sql").replace(/\r\n/g, "\n").trim();
-  let install = ler("supabase", "install.sql").replace(/\r\n/g, "\n").trim();
-  // As migrações de 6/11 (Frente Revolucionária, pessoas do painel) vêm por último, inteiras; tiram-se do fim primeiro.
-  for (const m of ["20261106-t32-alumia-vitrine", "20261106-t18-alumia-entrada", "20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
-    const bloco = ler("supabase", "migracoes", `${m}.sql`).replace(/\r\n/g, "\n").trim();
-    assert.ok(install.endsWith(bloco), `install.sql não termina com a migração ${m}`);
-    install = install.slice(0, -bloco.length).trim();
-  }
+  // As migrações datadas (AAAAMMDD-*.sql) vêm por último, inteiras: saem primeiro (scripts/install-posteriores.mjs).
+  let install = semPosteriores(ler("supabase", "install.sql"));
   // Só os 10 blocos da Rede v2 e os 5 do lote seguinte podem vir depois dele; cada um inteiro, do último para o primeiro.
   for (const n of ["alumia", "progresso-qr", "backend-2", "backend-1", "controles", "eixos-equipe", "departamentos-termos", "integracao", "moderacao", "avisos", "comunidades", "descoberta", "conversa", "publicar", "perfil", "consertos", "fundacao"]) {
     const bloco = ler("supabase", "migracoes", `2026-11-${/^(backend|controles|eixos|departamentos|progresso|alumia)/.test(n) ? n : `rede-${n}`}.sql`).replace(/\r\n/g, "\n").trim();

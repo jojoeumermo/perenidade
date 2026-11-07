@@ -6,6 +6,7 @@
 // Uso: npm run testar:escola-banco   (ou node --import ./scripts/carregar-ts.mjs scripts/testar-escola-banco.mjs)
 // Depois, npm run testar:banco inteiro, para provar que nada antigo mudou.
 import fs from "node:fs";
+import { semPosteriores } from "./install-posteriores.mjs";
 import os from "node:os";
 import path from "node:path";
 import { criarBanco } from "./banco-local.mjs";
@@ -58,13 +59,13 @@ await dono("insert into interno.papeis (usuario, papel) values ($1, 'coordenacao
 await espera("instalar de novo não quebra (o bloco é idempotente)", () => banco.instalarDeNovo());
 await espera("a migração é o mesmo bloco do fim do install.sql", async () => {
   const migracao = fs.readFileSync(new URL("../supabase/migracoes/2026-11-escola.sql", import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
-  let install = fs.readFileSync(new URL("../supabase/install.sql", import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
+  let install = semPosteriores(fs.readFileSync(new URL("../supabase/install.sql", import.meta.url), "utf8"));
   // Migrações que vieram depois da Escola (acertos por aula, Vale o Escrito) ficam depois do bloco dela, cada uma inteira,
   // na ordem do install.sql; tiram-se do fim, da última para a primeira.
   // A Rede v2 entrou depois, em 9 blocos (um por pacote), na ordem de docs/rede/V2.md.
   // As migrações do lote 5/6/8/9 (departamentos-termos, eixos-equipe, controles, backend-1, backend-2) vêm depois da Rede, inteiras.
-  // A da Frente Revolucionária Lúcia (T15, inscrição de militantes) vem por último.
-  const lote = [...["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2", "progresso-qr", "alumia"].map((n) => `2026-11-${n}.sql`), "20261106-t15-frente-militantes.sql", "20261106-pessoas-painel.sql", "20261106-t18-alumia-entrada.sql", "20261106-t32-alumia-vitrine.sql"];
+  // As migrações datadas (AAAAMMDD-*.sql, de 6/11 em diante) já saíram com semPosteriores (scripts/install-posteriores.mjs).
+  const lote = [...["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2", "progresso-qr", "alumia"].map((n) => `2026-11-${n}.sql`)];
   const rede = ["fundacao", "consertos", "perfil", "publicar", "conversa", "descoberta", "comunidades", "avisos", "moderacao", "integracao"].map((n) => `2026-11-rede-${n}.sql`);
   for (const depois of [...lote.reverse(), ...rede.reverse(), "2026-11-vale-o-escrito.sql", "2026-11-acertos.sql"]) {
     const bloco = fs.readFileSync(new URL(`../supabase/migracoes/${depois}`, import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
