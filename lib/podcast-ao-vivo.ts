@@ -66,16 +66,46 @@ export function enderecoAberto(url: string, dominiosPeerTube: string[]): Enderec
 /**
  * Quem fica na sala direta, decidido no navegador de quem transmite: todo mundo que transmite e até LIMITE_DIRETO
  * pessoas assistindo. Quem já foi admitido e continua na sala fica (ninguém perde o vídeo porque outra pessoa chegou);
- * as vagas livres vão para quem chegou, pela ordem da chave sorteada de cada aba. Quem fica de fora recebe o aviso de
+ * as vagas livres vão para quem chegou, pela ordem de chegada (ou, sem ela, da chave de cada aba). Quem fica de fora recebe o aviso de
  * sala cheia e, se houver, vê a transmissão aberta de reserva.
  */
-export function naSalaDireta(presentes: Presente[], admitidos: ReadonlySet<string> = new Set(), limite = LIMITE_DIRETO): { lista: Presente[]; admitidos: Set<string>; fora: Presente[] } {
-  const ordem = [...presentes].sort((a, b) => (a.chave < b.chave ? -1 : a.chave > b.chave ? 1 : 0));
+export function naSalaDireta(
+  presentes: Presente[],
+  admitidos: ReadonlySet<string> = new Set(),
+  limite = LIMITE_DIRETO,
+  /**
+   * T33: `chegada` (chave → quando quem transmite viu a aba pela primeira vez) põe as vagas livres em ordem de chegada, em
+   * vez da chave que a própria aba escolhe (com ela, um script com chaves "0000…" passava na frente de todo mundo).
+   * `barrados`: quem pegou vaga e não ligou o vídeo a tempo espera um pouco antes de tentar de novo.
+   */
+  opcoes: { chegada?: ReadonlyMap<string, number>; barrados?: ReadonlySet<string> } = {},
+): { lista: Presente[]; admitidos: Set<string>; fora: Presente[] } {
+  const chegada = opcoes.chegada;
+  const ordem = [...presentes].sort((a, b) => {
+    if (chegada) {
+      const d = (chegada.get(a.chave) ?? Number.MAX_SAFE_INTEGER) - (chegada.get(b.chave) ?? Number.MAX_SAFE_INTEGER);
+      if (d) return d;
+    }
+    return a.chave < b.chave ? -1 : a.chave > b.chave ? 1 : 0;
+  });
   const quem = ordem.filter((p) => p.papel === "educador");
-  const assistem = ordem.filter((p) => p.papel !== "educador");
+  const todos = ordem.filter((p) => p.papel !== "educador");
+  const assistem = todos.filter((p) => !opcoes.barrados?.has(p.chave));
   const ficam = assistem.filter((p) => admitidos.has(p.chave)).slice(0, Math.max(0, limite));
   const vagas = Math.max(0, limite - ficam.length);
   const chegam = assistem.filter((p) => !admitidos.has(p.chave)).slice(0, vagas);
   const dentro = new Set([...ficam, ...chegam].map((p) => p.chave));
-  return { lista: [...quem, ...assistem.filter((p) => dentro.has(p.chave))], admitidos: dentro, fora: assistem.filter((p) => !dentro.has(p.chave)) };
+  return { lista: [...quem, ...assistem.filter((p) => dentro.has(p.chave))], admitidos: dentro, fora: todos.filter((p) => !dentro.has(p.chave)) };
+}
+
+/** Quanto tempo quem ganhou a vaga tem para ligar o vídeo de verdade, e quanto espera depois se não ligar (T33). */
+export const PRAZO_LIGAR_MS = 20_000;
+export const BARRADO_MS = 2 * 60_000;
+
+/**
+ * Quem está com vaga na sala direta e não ligou o vídeo no prazo (presença sem ligação: uma aba travada ou um script
+ * ocupando vaga). Quem já ligou alguma vez não sai por aqui: se cair, a presença dele some e a vaga se libera sozinha.
+ */
+export function semLigacao(admitidos: ReadonlySet<string>, admitidoEm: ReadonlyMap<string, number>, ligaram: ReadonlySet<string>, agora: number, prazo = PRAZO_LIGAR_MS): string[] {
+  return [...admitidos].filter((c) => !ligaram.has(c) && agora - (admitidoEm.get(c) ?? agora) > prazo);
 }

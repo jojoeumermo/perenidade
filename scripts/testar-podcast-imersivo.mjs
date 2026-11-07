@@ -8,7 +8,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { AMBIENTES, lerEscolha, montarEspacial, posicaoDoAltoFalante, respostaAoImpulso } from "../lib/audio-imersivo.ts";
-import { LIMITE_DIRETO, enderecoAberto, naSalaDireta } from "../lib/podcast-ao-vivo.ts";
+import { LIMITE_DIRETO, PRAZO_LIGAR_MS, enderecoAberto, naSalaDireta, semLigacao } from "../lib/podcast-ao-vivo.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8");
@@ -98,6 +98,31 @@ const depois = naSalaDireta([chegou, ...gente], primeira.admitidos);
 conferir("quem já assiste não perde a vaga para quem chegou", !depois.admitidos.has("a000") && [...primeira.admitidos].every((c) => depois.admitidos.has(c)));
 const saiu = naSalaDireta([chegou, ...gente.slice(1)], primeira.admitidos);
 conferir("vaga livre vai para quem espera", saiu.admitidos.has("a000") && saiu.admitidos.size === LIMITE_DIRETO);
+
+// T33: presenças falsas com chaves "0000…" não tomam as vagas: vale a ordem de chegada, e quem não liga o vídeo sai.
+const reais = Array.from({ length: 3 }, (_, i) => ({ chave: `f${i}`, nome: "", papel: "aluno" }));
+const falsas = Array.from({ length: LIMITE_DIRETO }, (_, i) => ({ chave: `000000000000000${i.toString(16)}`, nome: "", papel: "aluno" }));
+const chegada = new Map([...reais.map((p, i) => [p.chave, i]), ...falsas.map((p, i) => [p.chave, 100 + i])]);
+const porChegada = naSalaDireta([...falsas, ...reais], new Set(), LIMITE_DIRETO, { chegada });
+conferir("com a ordem de chegada, quem chegou antes entra (a chave escolhida não fura a fila)", reais.every((p) => porChegada.admitidos.has(p.chave)));
+const t0 = 1_000_000;
+const admitidoEm = new Map([...porChegada.admitidos].map((c) => [c, t0]));
+const ligaram = new Set(reais.map((p) => p.chave));
+const sairam = semLigacao(porChegada.admitidos, admitidoEm, ligaram, t0 + PRAZO_LIGAR_MS + 1);
+conferir("quem pegou vaga e não ligou o vídeo no prazo perde a vaga; quem ligou fica", sairam.length === porChegada.admitidos.size - reais.length && sairam.every((c) => c.startsWith("0000")));
+conferir("antes do prazo, ninguém perde a vaga", semLigacao(porChegada.admitidos, admitidoEm, new Set(), t0 + 1000).length === 0);
+const novaRodada = naSalaDireta([...falsas, ...reais, chegou], new Set(reais.map((p) => p.chave)), LIMITE_DIRETO, { chegada: new Map([...chegada, ["a000", 50]]), barrados: new Set(sairam) });
+conferir("barrado não volta logo; a vaga vai para quem espera de verdade, e o barrado recebe o aviso de sala cheia", novaRodada.admitidos.has("a000") && sairam.every((c) => !novaRodada.admitidos.has(c) && novaRodada.fora.some((p) => p.chave === c)));
+const salaDireta = ler("components", "podcast", "AoVivoSala.tsx");
+conferir("sem retransmissão, quem assiste não liga direto (T33)", /if \(!rede\) \{\s*transmissao\.current = null;\s*setFase\("semRede"\)/.test(salaDireta));
+conferir("sem retransmissão, quem transmite não começa e sai do ar (T33)", /if \(!rede\) return void \(await desistir\(s\.semRedeEstudio\)\)/.test(salaDireta) && /podcast_ao_vivo_encerrar/.test(salaDireta));
+conferir("sem câmera, segue só com o som (faixa preta); sem microfone, para o pulso e sai do ar (T33)", /video = faixaPreta\(\);\s*inicial = "audio";/.test(salaDireta) && /window\.clearInterval\(pulso\)/.test(salaDireta) && /return void \(await desistir\(s\.falhaMidia\)\)/.test(salaDireta));
+conferir("os trilhos abertos param na saída e no erro (o microfone não fica aceso)", /trilhos\.forEach\(\(tr\) => tr\.stop\(\)\)/.test(salaDireta));
+const rotaRede = ler("app", "api", "aovivo", "rede", "route.ts");
+conferir("TURN (T33): limite por pessoa e faixa antes de qualquer credencial", /limitador\.consumir\(ipDoPedido\(pedido\.headers\)\)/.test(rotaRede) && rotaRede.indexOf("limitador.consumir(") < rotaRede.indexOf("generate-ice-servers"));
+conferir("TURN (T33): uma credencial por sala a cada poucos minutos", /daSala\.get\(sala\)/.test(rotaRede) && /daSala\.set\(sala/.test(rotaRede));
+conferir("TURN (T33): teto do mês com folga (600 GB)", /TETO_BYTES = 600 \* 1024 \*\* 3/.test(rotaRede));
+for (const idioma of ["pt", "en", "es", "fr", "ru", "zh"]) conferir(`${idioma}: textos do podcast sem retransmissão`, Boolean(JSON.parse(ler("i18n", `${idioma}.json`)).podcast?.aoVivo?.semRedeEstudio));
 
 // ---------------------------------------------------------------- amarras de texto
 const tocador = ler("components", "RadioPlayer.tsx");

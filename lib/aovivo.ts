@@ -208,6 +208,11 @@ export class Transmissao {
     }
   }
 
+  /** Em que pé está a ligação com esta pessoa ("connected" quando o vídeo passa de verdade); sem ligação, undefined. */
+  estado(chave: string): RTCPeerConnectionState | undefined {
+    return this.pcs.get(chave)?.connectionState;
+  }
+
   /** Quem assiste pede o vídeo a todo mundo que ensina (ao entrar, ou quando a imagem cai). */
   pedir(educadores: Presente[]) {
     for (const p of educadores) if (p.chave !== this.eu.chave) this.enviar(p.chave, { t: "pedir" });
