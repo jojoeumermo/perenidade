@@ -8,7 +8,7 @@ import { redePerfil } from "@/lib/rede/cliente-perfil";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecoDeEditarPerfil, estudandoDaUltimaAula, nomeDaTrilha, origemDaImagem, slugDoSelo, tipoDoSelo } from "@/lib/rede/perfil";
 import type { TextosDaRede } from "@/lib/rede/textos";
-import type { Post, Situacao } from "@/lib/rede/tipos";
+import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
 import type { PerfilDaRede } from "@/lib/rede/tipos-perfil";
 import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
@@ -124,6 +124,13 @@ export default function TelaDoPerfil({ handle, lang, s, situacao, aoResponder }:
                 <button type="button" disabled={ocupado || !situacao.membro} onClick={() => void seguir(true)} className={`${botao} bg-[#c21f16] text-white hover:bg-[#1f1a14]`}>
                   {dado.modo === "trancado" ? sp.perfil.pedirParaSeguir : sp.perfil.seguir}
                 </button>
+              )}
+              {/* Chat privado cifrado (docs/rede/CHAT-PRIVADO.md): só membro logado, nunca no próprio perfil. O servidor decide se abre,
+                  vira pedido ou fica fechado (bloqueio, preferência da pessoa), sem revelar o motivo. */}
+              {!dado.meu && situacao.logado && situacao.membro && (
+                <Link href={`${enderecos.linha(lang)}/conversas?com=${encodeURIComponent(dado.handle)}`} className={`${botao} inline-flex items-center border-[1.5px] border-ink hover:bg-parchment-deep`}>
+                  {s.perfil.conversar}
+                </Link>
               )}
             </div>
           </div>
