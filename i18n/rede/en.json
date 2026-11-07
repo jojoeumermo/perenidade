@@ -10,6 +10,7 @@
     "nucleos": "Study circles",
     "avisos": "Notices",
     "salvos": "Saved",
+    "conversas": "Messages",
     "perfil": "Profile",
     "escrever": "Write",
     "busca": "Search",
@@ -149,6 +150,7 @@
   },
   "perfil": {
     "trancado": "Locked profile: followers need approval.",
+    "conversar": "Private message",
     "equipe": "Institute staff",
     "semContagens": "No public follower or support counts."
   },

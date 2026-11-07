@@ -14,7 +14,7 @@ import { EsqueletoDaCasca } from "./Esqueletos";
 import { enderecoDoSite, MarcaDaAlumia } from "./MolduraDaAlumia";
 
 /** Os destinos do menu (computador) e da barra de baixo (celular). `href` nulo = a tela ainda não existe: aparece apagado. */
-export type ItemDoMenu = "inicio" | "comunidades" | "explorar" | "chamados" | "nucleos" | "avisos" | "salvos" | "fediverso" | "perfil";
+export type ItemDoMenu = "inicio" | "comunidades" | "explorar" | "chamados" | "nucleos" | "avisos" | "salvos" | "conversas" | "fediverso" | "perfil";
 
 interface Destino {
   chave: ItemDoMenu;
@@ -31,6 +31,8 @@ const DESTINOS: Destino[] = [
   { chave: "nucleos", icone: <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM5 20c0-3.5 3-6 7-6s7 2.5 7 6" />, href: (l) => `${enderecos.linha(l)}/nucleos` },
   { chave: "avisos", icone: <path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20h4" />, href: (l) => `${enderecos.linha(l)}/avisos` },
   { chave: "salvos", icone: <path d="M6 4h12v16l-6-4-6 4z" />, href: (l, s) => (s?.logado ? `${enderecos.linha(l)}/salvos` : null) },
+  // Chat privado cifrado de ponta a ponta (docs/rede/CHAT-PRIVADO.md): só para quem entrou.
+  { chave: "conversas", icone: <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5zM10 9V8a2 2 0 1 1 4 0v1M9.5 9h5v3.5h-5z" />, href: (l, s) => (s?.logado ? `${enderecos.linha(l)}/conversas` : null) },
   // Alumia no Fediverso (docs/rede/FEDIVERSO.md): ligar a federação no perfil, achar e seguir @pessoa@instancia.
   { chave: "fediverso", icone: <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3.5 9h17M3.5 15h17M12 3c2.5 2.6 3.6 5.6 3.6 9s-1.1 6.4-3.6 9c-2.5-2.6-3.6-5.6-3.6-9S9.5 5.6 12 3z" />, href: (l) => `${enderecos.linha(l)}/fediverso` },
   { chave: "perfil", icone: <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5" />, href: (l, s) => (s?.handle ? enderecos.perfil(l, s.handle) : `${enderecos.linha(l)}/editar-perfil`) },
