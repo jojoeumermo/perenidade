@@ -4002,7 +4002,26 @@
       "latina": "Amérique latine",
       "mundo": "Europe et Amérique du Nord"
     },
-    "stationsNote": "Le son vient directement de chaque station, qui est responsable de sa programmation ; l'institut ne fait que les indiquer et ne garde rien de ce qui est diffusé. Vous faites partie de l'une de ces stations et voulez être retiré, ou vous en connaissez une autre qui a sa place ici ? Écrivez-nous par la page Contribuer."
+    "stationsNote": "Le son vient directement de chaque station, qui est responsable de sa programmation ; l'institut ne fait que les indiquer et ne garde rien de ce qui est diffusé. Vous faites partie de l'une de ces stations et voulez être retiré, ou vous en connaissez une autre qui a sa place ici ? Écrivez-nous par la page Contribuer.",
+    "espacial": {
+      "nome": "Audio spatial (binaural, ouvert)",
+      "curto": "Spatial",
+      "ligar": "Activer l'audio spatial",
+      "desligar": "Désactiver l'audio spatial",
+      "ligadoAgora": "activé",
+      "desligadoAgora": "désactivé",
+      "ambiente": "Ambiance",
+      "estudio": "Studio",
+      "sala": "Salle",
+      "auditorio": "Auditorium",
+      "fones": "Mieux avec un casque.",
+      "explicacao": "Votre navigateur répartit le son autour de vous (Web Audio, norme ouverte du W3C), avec une ambiance légère calculée sur le moment. Ce n'est pas un format de studio fermé : c'est l'équivalent ouvert, sans fichier supplémentaire et sans rien envoyer nulle part.",
+      "semSuporte": "Ce navigateur n'a pas la fonction audio nécessaire. L'épisode est lu normalement.",
+      "indisponivel": "Cet audio vient d'un serveur extérieur qui ne laisse pas le navigateur traiter le son : il est lu normalement, sans le mode spatial.",
+      "continua": "Le choix reste seulement dans ce navigateur et tient pendant que vous naviguez sur le site ou laissez simplement la page ouverte.",
+      "lead": "Écoutez le podcast comme si vous étiez dans le cercle : les voix viennent de devant vous, avec l'espace d'une salle, et non de l'intérieur de la tête.",
+      "celular": "Sur certains téléphones, le système met le traitement en pause écran verrouillé ; en revenant sur la page, le mode reprend tout seul."
+    }
   },
   "errors": {
     "entre_primeiro": "Connectez-vous pour continuer.",
@@ -4032,7 +4051,8 @@
     "assistente_falhou": "L'assistant n'a pas pu répondre pour le moment, et la question n'a pas été comptée. Réessayez dans un petit moment.",
     "imagem": "L'image n'a pas pu être lue. Utilisez une photo JPG, PNG ou WebP.",
     "pergunta_curta": "Décrivez votre question un peu plus en détail.",
-    "pergunta_longa": "La question dépasse le maximum (3 000 caractères)."
+    "pergunta_longa": "La question dépasse le maximum (3 000 caractères).",
+    "consentimento": "Confirmez que les personnes qui apparaissent et parlent ont accepté la diffusion."
   },
   "community": {
     "eyebrow": "Communauté",
@@ -4773,7 +4793,48 @@
     "sortShortest": "Plus courts",
     "sortBy": "Trier les épisodes",
     "size": "{n} Mo",
-    "withTranscript": "avec transcription"
+    "withTranscript": "avec transcription",
+    "aoVivo": {
+      "rotulo": "En direct",
+      "noAr": "À l'antenne",
+      "titulo": "Podcast en direct",
+      "assistir": "Regarder en direct",
+      "aviso": "Diffusion en direct, sans enregistrement par le site et sans pistage. Les personnes à l'image ont accepté d'être vues et entendues (LGPD brésilienne, art. 7, I). N'enregistrez ni ne republiez l'image ou la voix de personne sans autorisation.",
+      "avisoDireto": "La vidéo arrive directement du navigateur de la personne qui diffuse. Vous ne faites que regarder : votre caméra et votre micro ne sont pas utilisés.",
+      "conectando": "Connexion de la vidéo…",
+      "esperando": "En attente de la vidéo…",
+      "lotado": "La salle directe est pleine (jusqu'à {n} personnes à la fois).",
+      "lotadoLink": "Regardez la diffusion ouverte :",
+      "semCanal": "Impossible de connecter la vidéo pour l'instant. Réessayez dans un moment.",
+      "sair": "Arrêter de regarder",
+      "aberta": "Diffusion ouverte",
+      "abrirFora": "Ouvrir la diffusion dans un autre onglet",
+      "assistirAberta": "Regarder la diffusion",
+      "avisoYoutube": "En cliquant, le lecteur YouTube (adresse sans cookies publicitaires) se charge et reçoit votre adresse réseau, comme sur n'importe quel site.",
+      "estudio": "Studio en direct",
+      "estudioLead": "Pour l'équipe du podcast : lancez une diffusion vidéo que tout le monde peut regarder sur cette page. Rien n'est enregistré par le site.",
+      "tituloCampo": "Titre de la diffusion",
+      "modo": "Comment diffuser",
+      "modoNavegador": "Caméra de ce navigateur (direct, jusqu'à {n} personnes)",
+      "modoLink": "Diffusion ouverte PeerTube ou YouTube (pour beaucoup de monde)",
+      "linkCampo": "Adresse de la diffusion (PeerTube de la liste de l'institut, ou YouTube)",
+      "linkReserva": "Adresse d'une diffusion ouverte pour quand la salle directe est pleine (facultatif)",
+      "consentimento": "Toutes les personnes qui vont apparaître ou parler ont donné leur accord, et aucune personne de moins de 18 ans n'apparaît sans l'autorisation de son responsable (LGPD, art. 7, I, et 14 ; ECA, art. 17).",
+      "iniciar": "Lancer la diffusion",
+      "iniciando": "Lancement…",
+      "encerrar": "Terminer la diffusion",
+      "camera": "Caméra",
+      "tela": "Écran",
+      "soAudio": "Audio seul",
+      "mudo": "Couper le micro",
+      "som": "Activer le micro",
+      "assistindo": "{n} personnes regardent en direct",
+      "voceTransmite": "Vous diffusez. Ne fermez cette page qu'après avoir terminé.",
+      "outraPessoa": "Une autre personne du podcast diffuse en ce moment.",
+      "linkInvalido": "Utilisez une adresse https d'un PeerTube de la liste de l'institut, ou de YouTube.",
+      "falhaMidia": "Impossible d'ouvrir la caméra ou le micro. Vérifiez l'autorisation du navigateur.",
+      "limites": "Depuis le navigateur, chaque personne reçoit la vidéo par votre connexion : jusqu'à {n} personnes avec une bonne connexion. Pour beaucoup de monde, diffusez avec OBS vers PeerTube (ou YouTube) et utilisez la diffusion ouverte."
+    }
   },
   "loose": {
     "eyebrow": "Matériel à part",

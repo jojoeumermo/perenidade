@@ -12,6 +12,8 @@ import type { Retomada } from "@/lib/radio-retomar";
 import { site } from "@/lib/site";
 import { somDeEstudo, useSomDeEstudo } from "@/lib/som-de-estudo";
 import { useI18n } from "./I18n";
+import { BotaoEspacial, useAudioEspacial } from "./podcast/AudioEspacial";
+import { montarEspacial, type CadeiaEspacial } from "@/lib/audio-imersivo";
 import { carregarTextosDoSom } from "./radio/textos-do-som";
 
 const RATES = [1, 1.25, 1.5, 1.75, 2, 0.75];
@@ -70,6 +72,32 @@ function Wave({ picos, time, duration, label }: { picos: number[]; time: number;
   );
 }
 
+interface Grafo {
+  el: HTMLAudioElement;
+  context: AudioContext;
+  analyser: AnalyserNode;
+  saida: AudioNode;
+  cadeia: CadeiaEspacial | null;
+}
+type RefDoGrafo = { current: Grafo | null };
+
+const grafoDe = (graph: RefDoGrafo, el: HTMLAudioElement) => (graph.current?.el === el ? graph.current : null);
+
+/** Liga o <audio> à Web Audio: fonte → analisador (as barras da rádio; deixa o som passar) → destino. */
+function montarGrafo(graph: RefDoGrafo, el: HTMLAudioElement) {
+  try {
+    if (graph.current) void graph.current.context.close().catch(() => undefined);
+    const context = new AudioContext();
+    const analyser = context.createAnalyser();
+    analyser.fftSize = 64;
+    context.createMediaElementSource(el).connect(analyser);
+    analyser.connect(context.destination);
+    graph.current = { el, context, analyser, saida: analyser, cadeia: null };
+  } catch {
+    graph.current = null;
+  }
+}
+
 /**
  * Tocador da rádio e do podcast. Fica no layout do site, então o som continua enquanto a pessoa navega.
  * Só aparece depois que alguém dá o play; antes disso não ocupa espaço nem banda.
@@ -79,9 +107,18 @@ export function RadioPlayer() {
   const { queue, index, playing, time, duration, rate, seek } = usePlayer();
   const audio = useRef<HTMLAudioElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const graph = useRef<{ context: AudioContext; analyser: AnalyserNode } | null>(null);
+  // O grafo de som do elemento <audio> (uma vez por elemento: a Web Audio não deixa desfazer a ligação). "saida" é o nó
+  // que alimenta o alto-falante; o modo espacial entra entre ele e o destino.
+  const graph = useRef<Grafo | null>(null);
   const track = queue[index];
   const episode = track?.podcast;
+  // Áudio espacial (T17; lib/audio-imersivo.ts): só para o som do nosso próprio depósito, que libera a leitura (CORS).
+  // Áudio de fora sem essa liberação sairia mudo pela Web Audio, então ali o modo fica indisponível e o som toca normal.
+  const espacial = useAudioEspacial();
+  const processavel = Boolean(track && track.url.startsWith(storageUrl("")));
+  // Trocar de som processável para som de fora troca também o elemento <audio>: um elemento já ligado à Web Audio
+  // com som de fora ficaria mudo.
+  const chaveDoAudio = processavel ? "processavel" : "livre";
   // No aplicativo, tocar no tocador abre a tela cheia do episódio (capa grande, controles grandes).
   const [cheio, setCheio] = useState(false);
   // O desenho das frequências só é possível para arquivos do nosso próprio depósito (que liberam a leitura do som).
@@ -93,6 +130,7 @@ export function RadioPlayer() {
   const estudo = useSomDeEstudo();
   const precisaDosTextos = Boolean((aRetomar && !track) || estudo.tipo);
   const tx = textosDoSom?.lang === lang ? textosDoSom.textos : null;
+
 
   // Troca de faixa: carrega e retoma de onde a pessoa parou.
   useEffect(() => {
@@ -134,24 +172,69 @@ export function RadioPlayer() {
       return;
     }
     if (playing) {
-      if (own && !graph.current) {
-        try {
-          const context = new AudioContext();
-          const analyser = context.createAnalyser();
-          analyser.fftSize = 64;
-          context.createMediaElementSource(el).connect(analyser);
-          analyser.connect(context.destination);
-          graph.current = { context, analyser };
-        } catch {
-          graph.current = null;
-        }
-      }
-      void graph.current?.context.resume();
+      if ((own || (processavel && espacial.ligado)) && !grafoDe(graph, el)) montarGrafo(graph, el);
+      void grafoDe(graph, el)?.context.resume();
       el.play().catch(() => radio.pause());
     } else {
       el.pause();
     }
-  }, [playing, track, own]);
+  }, [playing, track, own, processavel, espacial.ligado]);
+
+  // Liga ou desliga o modo espacial (e troca o ambiente) sem parar o som: só refaz a ponta da cadeia.
+  useEffect(() => {
+    const g = audio.current ? grafoDe(graph, audio.current) : null;
+    if (!g) return;
+    g.cadeia?.desmontar();
+    g.cadeia = null;
+    try {
+      g.saida.disconnect();
+    } catch {
+      // já desligado
+    }
+    if (espacial.ligado && processavel) {
+      try {
+        g.cadeia = montarEspacial(g.context, g.saida, g.context.destination, espacial.ambiente);
+        return;
+      } catch {
+        g.cadeia = null;
+      }
+    }
+    g.saida.connect(g.context.destination);
+  }, [espacial.ligado, espacial.ambiente, processavel, playing, track]);
+
+  // Com a página em segundo plano ou a tela bloqueada, alguns celulares suspendem a Web Audio: retoma quando o sistema
+  // deixa (a página volta a ficar visível ou o contexto muda de estado) e o tocador ainda está tocando.
+  useEffect(() => {
+    const el = audio.current;
+    const g = el ? grafoDe(graph, el) : null;
+    if (!g || !playing) return;
+    const retomar = () => {
+      if (g.context.state !== "running" && !document.hidden) void g.context.resume().catch(() => undefined);
+    };
+    g.context.addEventListener("statechange", retomar);
+    document.addEventListener("visibilitychange", retomar);
+    return () => {
+      g.context.removeEventListener("statechange", retomar);
+      document.removeEventListener("visibilitychange", retomar);
+    };
+  }, [playing, track, espacial.ligado]);
+
+  // O elemento <audio> foi trocado (de som processável para som de fora, ou o contrário): o antigo para de tocar e o
+  // grafo dele é fechado.
+  useEffect(() => {
+    const el = audio.current;
+    return () => {
+      if (!el) return;
+      el.pause();
+      el.removeAttribute("src");
+      el.load();
+      if (graph.current?.el === el) {
+        graph.current.cadeia?.desmontar();
+        void graph.current.context.close().catch(() => undefined);
+        graph.current = null;
+      }
+    };
+  }, [chaveDoAudio]);
 
   // Ao abrir o site: a gravação da visita anterior (menos de 24 h) vira o aviso recolhido "Continuar". Nunca toca sozinho.
   useEffect(() => {
@@ -272,9 +355,10 @@ export function RadioPlayer() {
   return (
     <>
       <audio
+        key={chaveDoAudio}
         ref={audio}
         preload="none"
-        crossOrigin={own ? "anonymous" : undefined}
+        crossOrigin={processavel ? "anonymous" : undefined}
         onEnded={() => radio.next()}
         onError={() => radio.pause()}
         onTimeUpdate={(e) => radio.tick(e.currentTarget.currentTime, e.currentTarget.duration)}
@@ -313,6 +397,7 @@ export function RadioPlayer() {
             >
               {rate}×
             </button>
+            <BotaoEspacial disponivel={processavel} />
             <button type="button" className={`${button} hidden app:max-md:block`} onClick={() => setCheio(true)} aria-label={t.radio.openEpisode} title={t.radio.openEpisode} aria-expanded={cheio}>
               <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 15l7-7 7 7" />

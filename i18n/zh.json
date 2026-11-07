@@ -3931,7 +3931,26 @@
       "latina": "拉丁美洲",
       "mundo": "欧洲与北美"
     },
-    "stationsNote": "声音直接来自各家电台，节目内容由电台自己负责；本站只提供指引，不保存任何播放内容。你来自其中某家电台、希望从列表中移除，或者知道还有哪家电台应该列在这里？请通过“参与贡献”页面告诉我们。"
+    "stationsNote": "声音直接来自各家电台，节目内容由电台自己负责；本站只提供指引，不保存任何播放内容。你来自其中某家电台、希望从列表中移除，或者知道还有哪家电台应该列在这里？请通过“参与贡献”页面告诉我们。",
+    "espacial": {
+      "nome": "空间音频（双耳，开放）",
+      "curto": "空间",
+      "ligar": "打开空间音频",
+      "desligar": "关闭空间音频",
+      "ligadoAgora": "已开启",
+      "desligadoAgora": "已关闭",
+      "ambiente": "环境",
+      "estudio": "录音室",
+      "sala": "房间",
+      "auditorio": "礼堂",
+      "fones": "戴耳机效果最好。",
+      "explicacao": "由你自己的浏览器把声音分布在你周围（Web Audio，W3C 开放标准），并即时计算一层轻微的空间混响。这不是封闭的录音室格式，而是开放的同类做法：不下载额外文件，也不向任何地方发送数据。",
+      "semSuporte": "此浏览器缺少该模式所需的音频功能。节目会正常播放。",
+      "indisponivel": "这段音频来自外部服务器，不允许浏览器处理声音：它会正常播放，不带空间模式。",
+      "continua": "这个选择只保存在本浏览器中，你在网站内浏览或只是让页面开着时都会保持。",
+      "lead": "像坐在讨论圈里一样收听播客：声音来自你的前方，带着房间的空间感，而不是在脑袋里面。",
+      "celular": "部分手机在锁屏时会暂停音频处理；回到页面后，该模式会自动恢复。"
+    }
   },
   "errors": {
     "entre_primeiro": "请先登录。",
@@ -3961,7 +3980,8 @@
     "assistente_falhou": "助手暂时无法回答，这次提问没有计入次数。请稍后再试。",
     "imagem": "无法读取这张图片。请使用 JPG、PNG 或 WebP 格式的照片。",
     "pergunta_curta": "请把问题写得更详细一些。",
-    "pergunta_longa": "问题超过了最大长度（3000 个字符）。"
+    "pergunta_longa": "问题超过了最大长度（3000 个字符）。",
+    "consentimento": "请确认出镜和发言的人都同意这次直播。"
   },
   "community": {
     "eyebrow": "社区",
@@ -4696,7 +4716,48 @@
     "sortShortest": "最短",
     "sortBy": "排序",
     "size": "{n} MB",
-    "withTranscript": "附文字稿"
+    "withTranscript": "附文字稿",
+    "aoVivo": {
+      "rotulo": "直播",
+      "noAr": "正在直播",
+      "titulo": "播客直播",
+      "assistir": "观看直播",
+      "aviso": "直播不由本站录制，也没有追踪。出镜的人都同意被看见和听见（巴西《通用数据保护法》LGPD 第 7 条第 I 款）。未经许可，请勿录制或转发任何人的影像或声音。",
+      "avisoDireto": "视频直接来自直播者的浏览器。你只是观看：不会使用你的摄像头和麦克风。",
+      "conectando": "正在连接视频…",
+      "esperando": "正在等待直播者的视频…",
+      "lotado": "直连房间已满（同时最多 {n} 人）。",
+      "lotadoLink": "请观看公开直播：",
+      "semCanal": "暂时无法连接视频，请稍后再试。",
+      "sair": "停止观看",
+      "aberta": "公开直播",
+      "abrirFora": "在新标签页打开直播",
+      "assistirAberta": "观看直播",
+      "avisoYoutube": "点击后会加载 YouTube 播放器（无广告 Cookie 的地址），它会像任何网站一样收到你的网络地址。",
+      "estudio": "直播间",
+      "estudioLead": "给播客团队：开始一场视频直播，让所有人在本页观看。本站不会录制任何内容。",
+      "tituloCampo": "直播标题",
+      "modo": "直播方式",
+      "modoNavegador": "本浏览器的摄像头（直连，最多 {n} 人）",
+      "modoLink": "PeerTube 或 YouTube 公开直播（适合大量观众）",
+      "linkCampo": "直播地址（研究所名单中的 PeerTube 或 YouTube）",
+      "linkReserva": "直连房间满员时使用的公开直播地址（可选）",
+      "consentimento": "所有将出镜或发言的人都已同意，未满 18 岁者出镜须经其监护人许可（LGPD 第 7 条第 I 款及第 14 条；ECA 第 17 条）。",
+      "iniciar": "开始直播",
+      "iniciando": "正在开始…",
+      "encerrar": "结束直播",
+      "camera": "摄像头",
+      "tela": "屏幕",
+      "soAudio": "仅音频",
+      "mudo": "关闭麦克风",
+      "som": "打开麦克风",
+      "assistindo": "{n} 人正在直连观看",
+      "voceTransmite": "你正在直播。请先结束直播再关闭此页面。",
+      "outraPessoa": "播客的另一位成员正在直播。",
+      "linkInvalido": "请使用研究所名单中 PeerTube 或 YouTube 的 https 地址。",
+      "falhaMidia": "无法打开摄像头或麦克风。请检查浏览器权限。",
+      "limites": "从浏览器直连时，每位观众都通过你的网络接收视频：网络良好时最多 {n} 人。观众很多时，请用 OBS 推流到 PeerTube（或 YouTube），并使用公开直播。"
+    }
   },
   "loose": {
     "eyebrow": "单篇资料",
