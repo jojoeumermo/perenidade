@@ -115,7 +115,15 @@
     "menor": "J'ai moins de 18 ans",
     "codinome": "Votre pseudonyme (3 à 30 caractères, sans @ ni vrai nom)",
     "entreNaConta": "Connectez-vous pour participer. Vous pouvez lire les questions des disciplines sans compte.",
-    "entrar": "Se connecter"
+    "entrar": "Se connecter",
+    "pitch": [
+      "Sans publicité, sans traceur et sans algorithme : le fil suit l'ordre d'arrivée.",
+      "Réservé aux personnes de 18 ans ou plus.",
+      "Vous apparaissez sous un pseudonyme, jamais sous votre nom civil."
+    ],
+    "criarConta": "Créer un compte",
+    "jaTenhoConta": "J'ai déjà un compte",
+    "lerSemConta": "Sans compte, vous pouvez lire le fil général et les questions des matières."
   },
   "estados": {
     "carregando": "Chargement…",
@@ -175,6 +183,47 @@
     "descricao": "Alumia est le réseau social de l’Instituto Lúcia : étude et lutte, sous pseudonyme, sans publicité ni pistage.",
     "rotuloDaFaixa": "Alumia, le réseau social de l’Instituto Lúcia",
     "sairDaConta": "Se déconnecter",
-    "lema": "le réseau social de l’Instituto Lúcia"
+    "lema": "le réseau social de l’Instituto Lúcia",
+    "idiomas": "Langue d'Alumia"
+  },
+  "entradaCurta": {
+    "titulo": "Entrer dans Alumia",
+    "passo1": "Entrer",
+    "passo2": "Votre fil (facultatif)",
+    "codinome": "Votre pseudonyme",
+    "codinomeAjuda": "De 3 à 30 caractères. Tout le monde voit ce nom : n'utilisez pas votre vrai nom.",
+    "consentimentoTitulo": "Consentement pour les données sensibles",
+    "saibaMais": "À quoi cela sert et comment le retirer",
+    "regras": "J'ai lu et j'accepte les règles d'Alumia.",
+    "verRegras": "Les règles en quatre phrases",
+    "entrar": "Entrer dans Alumia",
+    "falta": "Pour entrer : choisissez un pseudonyme et cochez les trois cases.",
+    "prontoTitulo": "C'est fait, vous êtes dans Alumia.",
+    "prontoTexto": "Si vous voulez, choisissez maintenant 3 luttes et jusqu'à 3 parcours pour composer votre fil. Vous pourrez le faire plus tard, dans Explorer.",
+    "montar": "Choisir luttes et parcours maintenant",
+    "depois": "Pas maintenant, aller sur Alumia",
+    "cuidados": "Quatre précautions rapides"
+  },
+  "visual": {
+    "escreverConvite": "Que voulez-vous raconter ou demander ?",
+    "entreParaUsar": "connectez-vous pour utiliser",
+    "emBreve": "bientôt",
+    "principiosTitulo": "Comment fonctionne Alumia",
+    "principios": [
+      "Ordre d'arrivée : aucun algorithme ne décide de ce que vous voyez.",
+      "Sans publicité, sans traceur et sans classement.",
+      "Toujours un pseudonyme : le nom civil reste dehors.",
+      "Dans le Fédivers : on peut discuter avec d'autres réseaux libres."
+    ]
+  },
+  "semear": {
+    "titulo": "Soyez la première personne à écrire",
+    "texto": "Il n'y a encore rien ici. Choisissez une question pour commencer : elle s'ouvre dans la zone d'écriture et vous modifiez ce que vous voulez avant de publier.",
+    "perguntas": [
+      "Qu'est-ce qui a changé dans votre quartier ou votre travail cette année, et que manque-t-il encore ?",
+      "Quel cours ou quelle professeure a changé votre façon d'étudier ?",
+      "Que manque-t-il au site pour que vous étudiiez mieux ?"
+    ],
+    "doZero": "Écrire à partir de zéro"
   }
 }

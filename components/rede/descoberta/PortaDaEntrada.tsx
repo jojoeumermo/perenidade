@@ -9,6 +9,17 @@ import type { Situacao } from "@/lib/rede/tipos";
 import type { EstadoDaEntrada } from "@/lib/rede/tipos-descoberta";
 import { useTextosDescoberta } from "./textos";
 
+/** Marca, neste aparelho, que a pessoa deixou as escolhas para depois (só enquanto o banco não tem rede_desc_entrada_adiar). */
+export const CHAVE_ADIOU = "lucia:rede:adiou-escolhas";
+
+function adiouNoAparelho(): boolean {
+  try {
+    return window.localStorage.getItem(CHAVE_ADIOU) === "1";
+  } catch {
+    return false;
+  }
+}
+
 // O passo a passo só chega ao navegador de quem ainda não terminou a primeira entrada.
 const PrimeiraEntrada = dynamic(() => import("./PrimeiraEntrada").then((m) => m.PrimeiraEntrada), { ssr: false });
 
@@ -48,6 +59,8 @@ export function PortaDaEntrada({
 
   if (estado === "falhou") return <>{alternativa}</>;
   if (!estado || estado.passo === "pronto" || estado.passo === "entrar") return null;
+  // Lutas, trilhas e guia são opcionais (T18): quem já disse "Agora não" neste aparelho não vê a pergunta de novo.
+  if ((estado.passo === "escolhas" || estado.passo === "guia") && adiouNoAparelho()) return null;
   if (!d) return <p role="status" className="px-[18px] py-6 font-sans text-ink-soft">{s.estados.carregando}</p>;
   return (
     <PrimeiraEntrada

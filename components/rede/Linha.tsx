@@ -26,6 +26,7 @@ export function Linha({
   logado,
   aoResponder,
   vazio,
+  aoEscreverCom,
 }: {
   aba: Aba;
   lang: string;
@@ -33,6 +34,8 @@ export function Linha({
   logado: boolean;
   aoResponder?: (post: Post) => void;
   vazio?: string;
+  /** Linha vazia: a pessoa escolhe uma pergunta de abertura (docs/rede/SEMEAR.md) e ela abre na caixa de escrever, para editar. */
+  aoEscreverCom?: (texto: string) => void;
 }) {
   const [itens, setItens] = useState<Post[]>([]);
   const [proximo, setProximo] = useState<string | null>(null);
@@ -133,9 +136,30 @@ export function Linha({
         </button>
       )}
       {visiveis.length === 0 ? (
-        <p className="px-[18px] py-8 font-sans text-ink-soft">{vazio ?? s.estados.vazioLinha}</p>
+        aoEscreverCom && !vazio ? (
+          // Nunca um post inventado (SEMEAR.md): só um convite. Nada é publicado sem a pessoa editar e apertar Publicar.
+          <section className="mx-3 my-4 rounded-[20px] border-[1.5px] border-dashed border-ink px-[18px] py-5 font-sans" aria-labelledby="rede-semear">
+            <h2 id="rede-semear" className="font-serif text-xl font-extrabold">{s.semear.titulo}</h2>
+            <p className="mt-1 text-ink-soft">{s.semear.texto}</p>
+            <ul className="mt-3 grid gap-2">
+              {s.semear.perguntas.map((pergunta) => (
+                <li key={pergunta}>
+                  <button type="button" onClick={() => aoEscreverCom(pergunta)} className="flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-xl border-[1.5px] border-rule bg-folha px-3 py-2 text-left hover:border-ink">
+                    <span aria-hidden className="text-[#c21f16]">→</span>
+                    {pergunta}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <button type="button" onClick={() => aoEscreverCom("")} className="alumia-botao mt-3 min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-bold text-white">
+              {s.semear.doZero}
+            </button>
+          </section>
+        ) : (
+          <p className="px-[18px] py-8 font-sans text-ink-soft">{vazio ?? s.estados.vazioLinha}</p>
+        )
       ) : (
-        <ol aria-label={s.abas.rotulo}>
+        <ol aria-label={s.abas.rotulo} className="alumia-lista">
           {visiveis.map((p) => (
             <li key={p.id}>
               <CartaoDePost post={p} lang={lang} s={s} logado={logado} aoResponder={aoResponder} />

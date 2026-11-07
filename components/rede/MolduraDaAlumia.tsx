@@ -1,6 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { NOME_REDE } from "@/lib/rede/alumia";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { VoltarAoSite } from "./VoltarAoSite";
+// O visual da Alumia (T18): só as telas dela baixam esta folha de estilo.
+import "@/styles/alumia.css";
 
 export { enderecoDoSite } from "./VoltarAoSite";
 
@@ -25,7 +28,7 @@ export function MolduraDaAlumia({ lang, s, children }: { lang: string; s: Textos
           <VoltarAoSite lang={lang} longo={s.alumia.voltarAoSite} curto={s.alumia.voltarCurto} />
           <p className="ml-auto flex items-center gap-2 truncate">
             <MarcaDaAlumia />
-            <span className="font-serif text-base font-extrabold tracking-wide">Alumia</span>
+            <span className="font-serif text-base font-extrabold tracking-wide">{NOME_REDE}</span>
             <span className="hidden text-xs opacity-80 md:inline">{s.alumia.lema}</span>
           </p>
         </div>

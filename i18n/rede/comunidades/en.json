@@ -8,7 +8,27 @@
     "instituto": "Institute",
     "propor": "Propose a community",
     "vazio": "No communities to show.",
-    "turma": "Monthly class and study groups"
+    "turma": "Monthly class and study groups",
+    "regraOrdem": "How we order: the ones with the most posts this week first, then alphabetically. No algorithm, no sponsorship.",
+    "buscar": "Search communities",
+    "filtro": "Show",
+    "todas": "All",
+    "soAtivas": "Only those with conversation this week",
+    "semana": "{posts} posts and {pessoas} people this week",
+    "semanaPoucas": "{posts} posts this week, from a few people",
+    "semanaQuieta": "Quiet this week: start the conversation",
+    "amostraSelo": "Preview",
+    "verRegras": "See the rules",
+    "conviteTitulo": "Want to talk in these communities?",
+    "conviteTexto": "Struggles and the Institute are for account holders only: here you see the name, description and rules. Subjects are open to read.",
+    "conviteBotao": "Create an account or sign in",
+    "nenhuma": "No community with that name.",
+    "privacidade": "Numbers are for this week, summed and nameless: nobody sees which communities you belong to.",
+    "tipoCurto": {
+      "aberta": "Open",
+      "restrita": "Restricted",
+      "fechada": "Closed"
+    }
   },
   "tipo": {
     "aberta": "Open: anyone in Alumia joins at once",

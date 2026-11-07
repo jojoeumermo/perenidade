@@ -114,7 +114,15 @@
     "menor": "Tenho menos de 18 anos",
     "codinome": "Seu codinome (3 a 30 caracteres, sem @ e sem nome de verdade)",
     "entreNaConta": "Entre na sua conta para participar. Você pode ler as dúvidas das disciplinas sem conta.",
-    "entrar": "Entrar na conta"
+    "entrar": "Entrar na conta",
+    "pitch": [
+      "Sem anúncio, sem rastreador e sem algoritmo: a linha é em ordem de chegada.",
+      "Só para maiores de 18 anos.",
+      "Você aparece com um codinome, nunca com o nome civil."
+    ],
+    "criarConta": "Criar conta",
+    "jaTenhoConta": "Já tenho conta",
+    "lerSemConta": "Sem conta, você lê a linha geral e as dúvidas das disciplinas."
   },
   "estados": {
     "carregando": "Carregando…",
@@ -174,6 +182,47 @@
     "descricao": "A Alumia é a rede social do Instituto Lúcia: estudo e luta, com codinome, sem anúncio e sem rastreio.",
     "rotuloDaFaixa": "Alumia, a rede social do Instituto Lúcia",
     "sairDaConta": "Sair da conta",
-    "lema": "a rede social do Instituto Lúcia"
+    "lema": "a rede social do Instituto Lúcia",
+    "idiomas": "Idioma da Alumia"
+  },
+  "entradaCurta": {
+    "titulo": "Entrar na Alumia",
+    "passo1": "Entrar",
+    "passo2": "Sua linha (opcional)",
+    "codinome": "Seu codinome",
+    "codinomeAjuda": "3 a 30 caracteres. É o nome que todo mundo vê: não use o seu nome de verdade.",
+    "consentimentoTitulo": "Consentimento para dado sensível",
+    "saibaMais": "Para que usamos e como retirar",
+    "regras": "Li e aceito as regras da Alumia.",
+    "verRegras": "As regras em quatro frases",
+    "entrar": "Entrar na Alumia",
+    "falta": "Para entrar: escolha um codinome e marque as três caixas.",
+    "prontoTitulo": "Pronto, você está na Alumia.",
+    "prontoTexto": "Se quiser, escolha agora 3 lutas e até 3 trilhas para montar a sua linha. Dá para fazer depois, em Explorar.",
+    "montar": "Escolher lutas e trilhas agora",
+    "depois": "Agora não, ir para a Alumia",
+    "cuidados": "Quatro cuidados rápidos"
+  },
+  "visual": {
+    "escreverConvite": "O que você quer contar ou perguntar?",
+    "entreParaUsar": "entre para usar",
+    "emBreve": "em breve",
+    "principiosTitulo": "Como a Alumia funciona",
+    "principios": [
+      "Ordem de chegada: nenhum algoritmo decide o que você vê.",
+      "Sem anúncio, sem rastreador e sem placar.",
+      "Codinome sempre: o nome civil fica de fora.",
+      "No Fediverso: dá para conversar com outras redes livres."
+    ]
+  },
+  "semear": {
+    "titulo": "Seja a primeira pessoa a escrever",
+    "texto": "Ainda não há nada por aqui. Escolha uma pergunta para começar: ela abre na caixa de escrever e você muda o que quiser antes de publicar.",
+    "perguntas": [
+      "O que mudou no seu bairro ou no seu trabalho este ano, e o que ainda falta?",
+      "Que aula ou professora mudou a sua forma de estudar?",
+      "O que falta no site para você estudar melhor?"
+    ],
+    "doZero": "Escrever do zero"
   }
 }

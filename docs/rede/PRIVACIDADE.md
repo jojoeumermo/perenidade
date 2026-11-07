@@ -63,3 +63,17 @@ efeito (post volta, banimento sai) e deixa de contar contra o nível de confian�
 2. Retenção do registro de moderação e da conta de quem denunciou depois do encerramento.
 3. Guarda de registros de acesso (Marco Civil, art. 15): a Rede não grava IP; confirmar que é a leitura correta.
 4. Relatório anual de transparência sobre notificações (tese do STF): os números saem do registro; falta o formato.
+
+## 8. Contagens na vitrine das comunidades (T32, 07/11/2026)
+
+O Jonathan pediu contagens na vitrine (`/comunidade/comunidades`) para ela não parecer 77 cartões iguais. A decisão antiga era
+"nenhuma contagem de membros", porque estar numa comunidade de luta pode revelar opinião política (dado sensível, LGPD, art. 5º,
+II e art. 11). As duas coisas cabem juntas assim:
+
+- Só **atividade da semana**, nunca membros: quantos posts e quantas pessoas escreveram ali nos últimos 7 dias. Quem só lê não
+  conta em lugar nenhum.
+- **Agregado e anônimo**: nenhum nome, nenhuma lista, nada por pessoa. Pessoas só aparecem a partir de 3; abaixo disso, a tela
+  diz "poucas pessoas" (o banco devolve nulo), para que "1 pessoa" não aponte alguém (minimização, art. 6º, III).
+- Visitante vê, das lutas e do Instituto, só nome, descrição e regras, sem contagem e sem post; a página da luta continua fechada
+  para quem não tem conta.
+- A ordem é pública e escrita na tela: mais posts na semana primeiro, depois alfabética. Sem algoritmo.

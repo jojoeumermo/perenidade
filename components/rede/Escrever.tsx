@@ -34,6 +34,7 @@ export function Escrever({
   respostaA,
   aoFechar,
   aoPublicar,
+  textoInicial = "",
 }: {
   s: TextosDaRede;
   situacao: Situacao;
@@ -41,9 +42,11 @@ export function Escrever({
   respostaA?: Post | null;
   aoFechar: () => void;
   aoPublicar: (post: Post) => void;
+  /** Um começo que a própria pessoa escolheu (as perguntas de abertura da linha vazia, docs/rede/SEMEAR.md); ela edita antes de publicar. */
+  textoInicial?: string;
 }) {
   const [tipo, setTipo] = useState<TipoDePost>("post");
-  const [texto, setTexto] = useState("");
+  const [texto, setTexto] = useState(textoInicial);
   const [titulo, setTitulo] = useState("");
   const [corpo, setCorpo] = useState("");
   const [publico, setPublico] = useState<Publico>(comunidade ? (comunidade.publico_padrao === "internet" ? "internet" : comunidade.publico_padrao === "comunidade" ? "comunidade" : "membros") : "membros");

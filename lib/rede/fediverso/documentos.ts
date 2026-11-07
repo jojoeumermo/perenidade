@@ -4,6 +4,7 @@
 // a federação, o post (Note), as atividades (Create, Update, Delete, Accept, Reject, Follow, Undo), as coleções e os documentos de
 // descoberta (WebFinger, NodeInfo). Só o codinome e o @nome saem; nunca o nome civil, e-mail, núcleo ou comunidade fechada.
 // Lógica pura, sem "@/".
+import { NOME_REDE } from "../alumia";
 import type { EnderecosDaFederacao } from "./enderecos";
 import { escaparHtml, hashtagsDe, textoParaHtml } from "./texto";
 
@@ -90,8 +91,8 @@ export function documentoDaInstancia(e: EnderecosDaFederacao, chavePublica: stri
     id: e.instancia,
     type: "Application",
     preferredUsername: e.dominio,
-    name: "Alumia",
-    summary: "<p>Alumia, a rede social do Instituto Lúcia.</p>",
+    name: NOME_REDE,
+    summary: `<p>${NOME_REDE}, a rede social do Instituto Lúcia.</p>`,
     url: e.base,
     inbox: e.inboxCompartilhada,
     outbox: `${e.instancia}/outbox`,
@@ -211,6 +212,6 @@ export function documentoNodeinfo(contagem: { usuarios: number; posts: number },
     services: { inbound: [], outbound: [] },
     openRegistrations: false,
     usage: { users: { total: contagem.usuarios }, localPosts: contagem.posts },
-    metadata: { nodeName: "Alumia", nodeDescription: "A rede social do Instituto Lúcia: estudo e luta, com codinome, sem anúncio e sem rastreio." },
+    metadata: { nodeName: NOME_REDE, nodeDescription: "A rede social do Instituto Lúcia: estudo e luta, com codinome, sem anúncio e sem rastreio." },
   };
 }
