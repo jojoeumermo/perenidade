@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { CopyButton } from "@/components/CopyButton";
+import { CartaoEspacial } from "@/components/podcast/AudioEspacial";
 import { Destaque } from "@/components/podcast/Destaque";
 import { Explorar } from "@/components/podcast/Explorar";
 import { PergunteAoPodcast, VotacaoDePautas } from "@/components/podcast/Participar";
@@ -79,6 +80,7 @@ export default async function Podcasts({ params }: PageProps<"/[lang]/podcasts">
       </div>
 
       <div className="mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8">
+        <CartaoEspacial />
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           <VotacaoDePautas s={s} />
           <PergunteAoPodcast s={s} />
