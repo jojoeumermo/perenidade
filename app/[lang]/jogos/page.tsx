@@ -27,6 +27,8 @@ import { loadLang } from "@/i18n";
 import { defaultLocale } from "@/i18n/config";
 import { textosDosJogos } from "@/i18n/jogos";
 import { BARALHOS_DE_RUMOS } from "@/lib/laboratorios";
+import { disciplinasDosJogos } from "@/lib/jogos/banco-em-grupo";
+import { JOGOS_EM_GRUPO } from "@/lib/jogos/grupo/motor";
 import { verbetesParaJogos } from "@/lib/jogos/verbetes";
 import { lerChecagensParaJogo } from "@/lib/jogos-proprios/checagens";
 import { validarBaralho, type Baralho } from "@/lib/rumos";
@@ -82,6 +84,8 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/jogos">): 
  * aparelho) e os jogos de formação que antes moravam em Laboratórios (Rumos, Greve!, linha do tempo e Quem disse?).
  * Desde 05/11/2026 com cara de página de jogos (components/jogos/PaginaDosJogos.tsx): o Rumos em destaque, as categorias
  * numa barra e um cartão por jogo, com arte, tempo, jogadores e o botão Jogar. Sem pontos, sem placar.
+ * Desde 06/11/2026 (T23) também os jogos em grupo (docs/jogos/EM-GRUPO.md): salas de 2 a 12 pessoas com código curto e
+ * apelido, em tempo real, e um palco com som opcional, tela cheia e retorno visual para todos os jogos.
  */
 export default async function Page({ params }: PageProps<"/[lang]/jogos">) {
   const { lang, t } = await loadLang(params);
@@ -90,6 +94,7 @@ export default async function Page({ params }: PageProps<"/[lang]/jogos">) {
   const fora = lang !== defaultLocale;
   const cartoes: CartaoDeJogo[] = [
     ...TREINO.map((id): CartaoDeJogo => ({ chave: `treino:${id}`, categoria: "treino", id, titulo: j.treino.jogos[id].nome, texto: j.treino.jogos[id].texto, jogadores: id === "velha" ? 2 : 1 })),
+    ...JOGOS_EM_GRUPO.map((id): CartaoDeJogo => ({ chave: `grupo:${id}`, categoria: "grupo", id, titulo: j.grupo.jogos[id].nome, texto: j.grupo.jogos[id].texto, jogadores: "grupo" })),
     ...cartoesDosProprios().map((c): CartaoDeJogo => ({ chave: `proprios:${c.id}`, categoria: "proprios", id: c.id, grupo: c.grupo, titulo: c.titulo, texto: c.resumo, minutos: c.minutos, jogadores: 1, publico: j.proprios.publico[c.publico], tema: c.tema, soEmPortugues: true })),
     { chave: "criancas", categoria: "criancas", titulo: j.criancas.titulo, texto: j.criancas.lead, jogadores: 1, inclui: Object.values(j.criancas.jogos).map((x) => x.nome) },
     { chave: "formacao", categoria: "formacao", titulo: f.title, texto: f.lead, jogadores: 1, inclui: [f.rumos.title, f.strike, f.timeline, f.quotes] },
@@ -104,12 +109,14 @@ export default async function Page({ params }: PageProps<"/[lang]/jogos">) {
           s: j,
           categorias: {
             treino: { nome: j.treino.titulo, lead: j.treino.lead },
+            grupo: { nome: j.grupo.titulo, lead: j.grupo.lead },
             proprios: { nome: j.proprios.titulo, lead: j.proprios.lead },
             criancas: { nome: j.criancas.titulo, lead: j.criancas.lead },
             formacao: { nome: f.title, lead: f.lead },
           },
         }}
-        avisos={fora ? { treino: j.pagina.aviso, proprios: j.proprios.aviso } : {}}
+        avisos={fora ? { treino: j.pagina.aviso, grupo: j.pagina.aviso, proprios: j.proprios.aviso } : {}}
+        disciplinas={disciplinasDosJogos()}
         verbetes={verbetesParaJogos()}
         checagens={lerChecagensParaJogo()}
         formacao={{ baralhos: baralhosConferidos(), greve: greve as DadosDaGreve, fatos: (nesteDia as { fatos: Fato[] }).fatos, frases: frases as Frase[], s: f }}
