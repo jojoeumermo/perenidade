@@ -20,6 +20,8 @@ export interface EstadoDaEntrada {
   codinome?: string | null;
   escolhas?: boolean;
   guia?: boolean;
+  /** Deixou lutas, trilhas e guia para depois (T18; supabase/migracoes/20261106-t18-alumia-entrada.sql). */
+  adiou?: boolean;
   aparece?: boolean;
   lutas?: string[];
   trilhas?: string[];

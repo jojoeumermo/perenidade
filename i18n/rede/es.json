@@ -115,7 +115,15 @@
     "menor": "Tengo menos de 18 años",
     "codinome": "Tu seudónimo (3 a 30 caracteres, sin @ ni nombre real)",
     "entreNaConta": "Entra en tu cuenta para participar. Puedes leer las dudas de las disciplinas sin cuenta.",
-    "entrar": "Entrar en la cuenta"
+    "entrar": "Entrar en la cuenta",
+    "pitch": [
+      "Sin anuncios, sin rastreadores y sin algoritmo: la línea va por orden de llegada.",
+      "Solo para mayores de 18 años.",
+      "Apareces con un seudónimo, nunca con tu nombre civil."
+    ],
+    "criarConta": "Crear cuenta",
+    "jaTenhoConta": "Ya tengo cuenta",
+    "lerSemConta": "Sin cuenta puedes leer la línea general y las dudas de las asignaturas."
   },
   "estados": {
     "carregando": "Cargando…",
@@ -176,5 +184,23 @@
     "rotuloDaFaixa": "Alumia, la red social del Instituto Lúcia",
     "sairDaConta": "Cerrar sesión",
     "lema": "la red social del Instituto Lúcia"
+  },
+  "entradaCurta": {
+    "titulo": "Entrar en Alumia",
+    "passo1": "Entrar",
+    "passo2": "Tu línea (opcional)",
+    "codinome": "Tu seudónimo",
+    "codinomeAjuda": "De 3 a 30 caracteres. Es el nombre que todos ven: no uses tu nombre real.",
+    "consentimentoTitulo": "Consentimiento para datos sensibles",
+    "saibaMais": "Para qué lo usamos y cómo retirarlo",
+    "regras": "He leído y acepto las reglas de Alumia.",
+    "verRegras": "Las reglas en cuatro frases",
+    "entrar": "Entrar en Alumia",
+    "falta": "Para entrar: elige un seudónimo y marca las tres casillas.",
+    "prontoTitulo": "Listo, ya estás en Alumia.",
+    "prontoTexto": "Si quieres, elige ahora 3 luchas y hasta 3 rutas para armar tu línea. Puedes hacerlo después, en Explorar.",
+    "montar": "Elegir luchas y rutas ahora",
+    "depois": "Ahora no, ir a Alumia",
+    "cuidados": "Cuatro cuidados rápidos"
   }
 }
