@@ -7,6 +7,7 @@
 import dns from "node:dns";
 import http from "node:http";
 import https from "node:https";
+import { NOME_REDE } from "../alumia";
 import { ipPrivado, urlSegura } from "../publicar/previa";
 
 export interface OpcoesDoPedido {
@@ -26,7 +27,7 @@ export interface RespostaDoPedido {
   texto: string;
 }
 
-export const AGENTE = "Alumia/1.0 (+https://institutolucia.org; ActivityPub)";
+export const AGENTE = `${NOME_REDE}/1.0 (+https://institutolucia.org; ActivityPub)`;
 const resolverPadrao = async (nome: string) => (await dns.promises.lookup(nome, { all: true, verbatim: true })).map((x) => x.address);
 
 /** O endereço como a federação aceita chamar: https, porta 443, nome público (em teste, http e qualquer porta). Nulo se não serve. */
