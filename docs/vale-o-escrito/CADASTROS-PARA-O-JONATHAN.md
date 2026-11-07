@@ -63,3 +63,18 @@ Achados reais que ficaram FORA de `content/vale-o-escrito/novos-casos/campo-e-tr
 | Zara e a oficina da AHA (SP, 2011) | O acórdão do TRT-2 (2017) só aparece citado em trabalho acadêmico; falta a fonte do tribunal. |
 | Lista suja do MTE: atualizações de 06/04/2026 (169 empregadores) e 06/10/2026 (82) | São dados agregados oficiais, sem situação jurídica que caiba no modelo; a BYD entrou como caso próprio. Decidir se vira painel de números. |
 | Pastor e professora condenados em Mossoró (RN), TRF5 (15/07/2025) | Fonte oficial existe, mas a pessoa explorada começou adolescente: a curadoria decide se há como contar sem expor (ECA, art. 17). |
+## 7. Casos "a preencher": violência policial e chacinas (frente T12, 07/11/2026)
+
+Lote pronto para a curadoria: `content/vale-o-escrito/novos-casos/violencia-policial-chacinas.json` (21 casos, todos `pendente-curadoria`, cada um com fonte oficial e situação jurídica; conferência: `npm run testar:vale-o-escrito-novos-casos`; junção aos dossiês: `npm run vale-o-escrito:importar-novos-casos -- --gravar`, que pula duplicata por id ou link). Ficaram de fora, por falta de dado verificável, e entram quando alguém achar a peça que falta:
+
+| Caso | O que falta |
+|---|---|
+| Vigário Geral (RJ, 1993) | Fonte primária da condenação/absolvição (só achamos reportagem citando o TJRJ e páginas do Observatório da Câmara que não abriram). |
+| Vila Cruzeiro (RJ, maio/2022) | As notas do MPF sobre o procedimento investigatório mudaram de endereço (404); só há reportagem. Falta o desfecho do PIC 1.30.001.001985/2022 e dos inquéritos da Polícia Civil. |
+| Guadalupe (RJ, 2019, Exército) | A notícia do STM sobre a apelação final saiu do ar (404) e o acórdão na revista do STM é PDF comprimido; a nota do MPM (mar/2024) é anterior ao resultado. Precisa de fonte do tipo "processo" para a condenação. |
+| Complexo do Alemão (RJ, set/2019, morte de uma menina de 8 anos) | Só reportagem sobre a absolvição no júri (nov/2024) e o recurso do MPRJ; falta nota oficial do MPRJ ou do TJRJ. |
+| Complexo do Lins (RJ, jun/2021, morte de uma jovem grávida) | A página do MPRJ (Memorial Vidas Marcadas) não tem data de publicação; falta fonte datada da denúncia ou do júri. |
+| Campo Limpo (SP, 2013) e lava-rápido na zona norte (SP, maio/2006) | Só nota do MPSP sobre as condenações no júri; a regra exige a decisão (fonte "processo") para "condenado". |
+| Baixada Fluminense (RJ, 2005) e Fallet-Fogueteiro (RJ, 2019) | Nenhuma fonte oficial com a situação atual. |
+| Varginha (MG, 2021, PRF e PM) | Ofício do MPMG sem data nem desfecho. |
+| Operação Contenção (RJ, 2025), já publicada | Atualizar a ficha: segundo o MPRJ (09/10/2026), a Auditoria da Justiça Militar recebeu três denúncias contra oito PMs por crimes como invasão de domicílio, furto e retirada das câmeras (https://www.mprj.mp.br/web/guest/visualizar?noticiaId=243602). |
