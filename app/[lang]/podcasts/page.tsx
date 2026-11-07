@@ -2,6 +2,8 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { CopyButton } from "@/components/CopyButton";
+import { PodcastAoVivo } from "@/components/podcast/AoVivo";
+import { CartaoEspacial } from "@/components/podcast/AudioEspacial";
 import { Destaque } from "@/components/podcast/Destaque";
 import { Explorar } from "@/components/podcast/Explorar";
 import { PergunteAoPodcast, VotacaoDePautas } from "@/components/podcast/Participar";
@@ -71,6 +73,10 @@ export default async function Podcasts({ params }: PageProps<"/[lang]/podcasts">
         </section>
       )}
 
+      <div className="mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8">
+        <PodcastAoVivo s={t.podcast.aoVivo} className="my-10" />
+      </div>
+
       <div className="pont border-b-[3px] border-ink">
         <div className="mx-auto max-w-[78rem] px-4 pt-6 pb-12 sm:px-6 lg:px-8">
           <p className="max-w-3xl pt-4 font-serif text-xl leading-snug text-ink-soft">{config?.descricao ? <span lang="pt-BR">{config.descricao}</span> : s.lead}</p>
@@ -79,6 +85,7 @@ export default async function Podcasts({ params }: PageProps<"/[lang]/podcasts">
       </div>
 
       <div className="mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8">
+        <CartaoEspacial />
         <div className="mt-12 grid gap-8 lg:grid-cols-2">
           <VotacaoDePautas s={s} />
           <PergunteAoPodcast s={s} />

@@ -1937,7 +1937,12 @@
     "move": "Botão de acessibilidade",
     "moveVLibras": "Botão do VLibras",
     "moveHint": "Escolha o canto da tela, ou arraste o botão com o mouse ou o dedo. Fica guardado só neste aparelho.",
-    "corners": ["Embaixo, à direita","Embaixo, à esquerda","Em cima, à direita","Em cima, à esquerda"],
+    "corners": [
+      "Embaixo, à direita",
+      "Embaixo, à esquerda",
+      "Em cima, à direita",
+      "Em cima, à esquerda"
+    ],
     "moveReset": "Voltar os botões ao lugar de sempre",
     "moveDone": "Botão mudado de lugar."
   },
@@ -4003,7 +4008,26 @@
       "latina": "América Latina",
       "mundo": "Europa e América do Norte"
     },
-    "stationsNote": "O som vem direto de cada emissora, que responde pela própria programação; o instituto só aponta para elas e não guarda nada do que toca. É de uma dessas rádios e quer sair da lista, ou conhece outra que deveria estar aqui? Escreva pela página Contribuir."
+    "stationsNote": "O som vem direto de cada emissora, que responde pela própria programação; o instituto só aponta para elas e não guarda nada do que toca. É de uma dessas rádios e quer sair da lista, ou conhece outra que deveria estar aqui? Escreva pela página Contribuir.",
+    "espacial": {
+      "nome": "Áudio espacial (binaural, aberto)",
+      "curto": "Espacial",
+      "ligar": "Ligar o áudio espacial",
+      "desligar": "Desligar o áudio espacial",
+      "ligadoAgora": "ligado",
+      "desligadoAgora": "desligado",
+      "ambiente": "Ambiente",
+      "estudio": "Estúdio",
+      "sala": "Sala",
+      "auditorio": "Auditório",
+      "fones": "Melhor com fones de ouvido.",
+      "explicacao": "O som é espalhado à sua volta pelo próprio navegador (Web Audio, padrão aberto do W3C), com uma ambiência leve calculada na hora. Não é um formato fechado de estúdio: é o equivalente aberto, sem arquivo extra e sem mandar nada para lugar nenhum.",
+      "semSuporte": "Este navegador não tem o recurso de áudio de que o modo precisa. O episódio toca normal.",
+      "indisponivel": "Este áudio vem de um servidor de fora que não deixa o navegador processar o som: ele toca normal, sem o modo espacial.",
+      "continua": "A escolha fica guardada só neste navegador e vale enquanto você navega pelo site ou só deixa a página aberta.",
+      "lead": "Ouça o podcast como se estivesse na roda de conversa: as vozes vêm da sua frente, com o espaço de uma sala, e não de dentro da cabeça.",
+      "celular": "Em alguns celulares o sistema pausa o processamento com a tela bloqueada; ao voltar para a página, o modo retoma sozinho."
+    }
   },
   "errors": {
     "entre_primeiro": "Entre na sua conta para continuar.",
@@ -4035,7 +4059,8 @@
     "pergunta_curta": "Escreva a dúvida com um pouco mais de detalhe.",
     "pergunta_longa": "A dúvida passou do tamanho máximo (3.000 caracteres).",
     "assistente_limite_hora": "Você fez muitas perguntas na última hora. Espere um pouco e pergunte de novo; enquanto isso, as aulas do site e os voluntários continuam aqui.",
-    "assistente_sem_foto": "O assistente não consegue ler fotos agora. Escreva a dúvida com as suas palavras."
+    "assistente_sem_foto": "O assistente não consegue ler fotos agora. Escreva a dúvida com as suas palavras.",
+    "consentimento": "Confirme que quem aparece e fala concordou com a transmissão."
   },
   "community": {
     "eyebrow": "Comunidade",
@@ -4778,7 +4803,48 @@
     "sortShortest": "Mais curtos",
     "sortBy": "Ordenar os episódios",
     "size": "{n} MB",
-    "withTranscript": "com transcrição"
+    "withTranscript": "com transcrição",
+    "aoVivo": {
+      "rotulo": "Ao vivo",
+      "noAr": "No ar agora",
+      "titulo": "Podcast ao vivo",
+      "assistir": "Assistir ao vivo",
+      "aviso": "Transmissão ao vivo, sem gravação pelo site e sem rastreio. Quem aparece concordou em ser visto e ouvido (LGPD, art. 7º, I). Não grave nem republique a imagem ou a voz de ninguém sem autorização.",
+      "avisoDireto": "O vídeo chega direto do navegador de quem transmite. Você só assiste: sua câmera e seu microfone não são usados.",
+      "conectando": "Ligando o vídeo…",
+      "esperando": "Esperando o vídeo de quem transmite…",
+      "lotado": "A sala direta está cheia (até {n} pessoas ao mesmo tempo).",
+      "lotadoLink": "Assista pela transmissão aberta:",
+      "semCanal": "Não consegui ligar o vídeo agora. Tente de novo em instantes.",
+      "sair": "Parar de assistir",
+      "aberta": "Transmissão aberta",
+      "abrirFora": "Abrir a transmissão em outra aba",
+      "assistirAberta": "Assistir à transmissão",
+      "avisoYoutube": "Ao clicar, o player do YouTube (endereço sem cookies de publicidade) carrega e recebe o seu endereço de rede, como em qualquer site.",
+      "estudio": "Estúdio ao vivo",
+      "estudioLead": "Para quem faz o podcast: comece uma transmissão com vídeo para todo mundo ver nesta página. Nada é gravado pelo site.",
+      "tituloCampo": "Título da transmissão",
+      "modo": "Como transmitir",
+      "modoNavegador": "Câmera deste navegador (direto, até {n} pessoas)",
+      "modoLink": "Transmissão aberta do PeerTube ou do YouTube (para muita gente)",
+      "linkCampo": "Endereço da transmissão (PeerTube da lista do instituto ou YouTube)",
+      "linkReserva": "Endereço de uma transmissão aberta para quando a sala direta lotar (opcional)",
+      "consentimento": "Todas as pessoas que vão aparecer ou falar concordaram, e ninguém com menos de 18 anos aparece sem a autorização de quem responde por ela (LGPD, arts. 7º, I, e 14; ECA, art. 17).",
+      "iniciar": "Iniciar a transmissão",
+      "iniciando": "Iniciando…",
+      "encerrar": "Encerrar a transmissão",
+      "camera": "Câmera",
+      "tela": "Tela",
+      "soAudio": "Só áudio",
+      "mudo": "Silenciar o microfone",
+      "som": "Ligar o microfone",
+      "assistindo": "{n} pessoas assistindo direto",
+      "voceTransmite": "Você está transmitindo. Feche esta página só depois de encerrar.",
+      "outraPessoa": "Outra pessoa do podcast está transmitindo agora.",
+      "linkInvalido": "Use um endereço https do PeerTube da lista do instituto ou do YouTube.",
+      "falhaMidia": "Não consegui abrir a câmera ou o microfone. Confira a permissão do navegador.",
+      "limites": "Direto do navegador, cada pessoa recebe o vídeo pela sua conexão: até {n} pessoas com internet boa. Para muita gente, transmita com o OBS para o PeerTube (ou o YouTube) e use a transmissão aberta."
+    }
   },
   "loose": {
     "eyebrow": "Material avulso",

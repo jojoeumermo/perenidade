@@ -193,6 +193,32 @@ await espera("trilha com licença", () => rpc(jornal, "podcast_trilha_salvar", {
 await espera("série nova", () => rpc(jornal, "podcast_serie_salvar", { p_id: null, p: { titulo: "Revoluções", descricao: "As grandes revoluções contadas de baixo." } }), (r) => r.id);
 await espera("a coordenação despublica", () => rpc(coord, "podcast_despublicar", { p_id: terceiro, p_nota: "Erro de data no título." }), (r) => r.status === "aprovado");
 
+// ── Ao vivo (T17; supabase/migracoes/20261106-t17-podcast-ao-vivo.sql) ──
+const CHAVE = "B" + "a".repeat(86);
+await espera("fora do ar, o público vê só que não está no ar", () => rpc(anon, "podcast_ao_vivo_estado"), (r) => r.no_ar === false && r.pode === false && !("sala" in r));
+await espera("quem é do podcast vê que pode transmitir", () => rpc(jornal, "podcast_ao_vivo_estado"), (r) => r.no_ar === false && r.pode === true);
+await recusa("leitora não transmite", () => rpc(leitora, "podcast_ao_vivo_iniciar", { p_titulo: "Oi", p_modo: "navegador", p_endereco: "", p_consentimento: true }), "sem_permissao");
+await recusa("anônimo não transmite", () => rpc(anon, "podcast_ao_vivo_iniciar", { p_titulo: "Oi", p_modo: "navegador", p_endereco: "", p_consentimento: true }), "entre_primeiro");
+await recusa("sem o consentimento de quem aparece, não começa (LGPD art. 7º, I)", () => rpc(jornal, "podcast_ao_vivo_iniciar", { p_titulo: "Ao vivo", p_modo: "navegador", p_endereco: "", p_consentimento: false }), "consentimento");
+await recusa("transmissão aberta sem endereço", () => rpc(jornal, "podcast_ao_vivo_iniciar", { p_titulo: "Ao vivo", p_modo: "link", p_endereco: "", p_consentimento: true }), "invalido:endereco");
+await recusa("endereço sem https", () => rpc(jornal, "podcast_ao_vivo_iniciar", { p_titulo: "Ao vivo", p_modo: "link", p_endereco: "http://video.exemplo.org/w/abc", p_consentimento: true }), "invalido:endereco");
+const vivo = await espera("jornalismo começa pelo navegador", () => rpc(jornal, "podcast_ao_vivo_iniciar", { p_titulo: "Roda ao vivo", p_modo: "navegador", p_endereco: "https://video.exemplo.org/w/reserva1", p_consentimento: true }), (r) => r.ok && r.sala);
+await recusa("chave em formato errado", () => rpc(jornal, "podcast_ao_vivo_chave", { p_sala: vivo?.sala, p_publica: "x" }), "invalido:publica");
+await recusa("outra pessoa não registra chave na sala", () => rpc(editor, "podcast_ao_vivo_chave", { p_sala: vivo?.sala, p_publica: CHAVE }), "sem_permissao");
+await espera("quem transmite registra a chave da aba", () => rpc(jornal, "podcast_ao_vivo_chave", { p_sala: vivo?.sala, p_publica: CHAVE }));
+await espera("o público vê o ao vivo, sem saber quem começou", () => rpc(anon, "podcast_ao_vivo_estado"), (r) => r.no_ar && r.sala === vivo?.sala && r.chaves[0] === CHAVE && r.modo === "navegador" && r.minha === false && !JSON.stringify(r).includes(ids.jornal));
+await espera("quem começou se reconhece", () => rpc(jornal, "podcast_ao_vivo_estado"), (r) => r.minha === true);
+await recusa("outra pessoa do podcast não atropela a transmissão", () => rpc(editor, "podcast_ao_vivo_iniciar", { p_titulo: "Outra", p_modo: "navegador", p_endereco: "", p_consentimento: true }), "ocupado");
+await recusa("outra pessoa do podcast não encerra a transmissão de quem está no ar", () => rpc(editor, "podcast_ao_vivo_encerrar"), "sem_permissao");
+await espera("o pulso mantém no ar", () => rpc(jornal, "podcast_ao_vivo_pulso", { p_sala: vivo?.sala }), (r) => r.ok === true);
+await dono("update interno.podcast_ao_vivo set visto_em = now() - interval '5 minutes'");
+await espera("sem pulso por três minutos, sai do ar sozinho", () => rpc(anon, "podcast_ao_vivo_estado"), (r) => r.no_ar === false);
+await espera("aí outra pessoa do podcast pode começar", () => rpc(editor, "podcast_ao_vivo_iniciar", { p_titulo: "Agora eu", p_modo: "link", p_endereco: "https://video.exemplo.org/w/aovivo2", p_consentimento: true }), (r) => r.ok);
+await espera("transmissão aberta não depende de pulso", () => rpc(anon, "podcast_ao_vivo_estado"), (r) => r.no_ar && r.modo === "link" && r.endereco === "https://video.exemplo.org/w/aovivo2");
+await espera("a coordenação encerra", () => rpc(coord, "podcast_ao_vivo_encerrar"), (r) => r.ok);
+await espera("encerrar apaga a sala, a chave e o endereço", () => dono("select sala, chave_publica, endereco, no_ar from interno.podcast_ao_vivo"), (r) => r.rows[0].sala === null && r.rows[0].chave_publica === "" && r.rows[0].endereco === "" && r.rows[0].no_ar === false);
+await espera("a tabela do ao vivo fica fora da API", () => dono("select count(*)::int as n from information_schema.role_table_grants where table_schema = 'interno' and table_name = 'podcast_ao_vivo' and grantee in ('anon', 'authenticated', 'PUBLIC')"), (r) => r.rows[0].n === 0);
+
 console.log(`podcast: ${certos} conferências certas, ${falhas.length} falhas`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);
 await banco.pg.close();

@@ -25,3 +25,7 @@ Decisão e comparação com fontes: `docs/plano-2026-11/notas/aula-ao-vivo.md`. 
 ## Pendências (antes da primeira aula real)
 
 Teste de campo do passo 6 do LEIA-ME: permissão do aluno, pasta e formato da gravação, quadro dentro da página, vídeo no 3G atrás do NAT da Oracle, e cota grátis da Oracle para a segunda máquina. Texto de gravação em `/privacidade`: Etapa 12. Os textos novos estão em português (como os vizinhos do Jitsi); tradução para os outros idiomas fica para a revisão de i18n.
+
+## Podcast ao vivo
+
+O podcast reaproveita a sala e a transmissão do WebRTC daqui (e o TURN de `/api/aovivo/rede`) para transmitir com vídeo na página `/podcasts`: `docs/PODCAST-AO-VIVO.md`.
