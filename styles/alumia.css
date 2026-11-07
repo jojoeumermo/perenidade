@@ -1,0 +1,104 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * O visual da Alumia (T18). Só carrega nas telas da Alumia (importado pela MolduraDaAlumia). Sem imagem, sem fonte nova:
+ * o papel e a tinta do site, com a chama (dourado) e o vermelho do instituto. Inspiração de redes livres:
+ *  - Misskey/Sharkey: cor própria por comunidade (canal) e abas em pílula;
+ *  - Bluesky (social-app): barra de abas fixa e translúcida, cartões com respiro, ações com ícone e rótulo;
+ *  - Mastodon: "o que você quer dizer?" no alto da linha e aviso de conteúdo como botão claro;
+ *  - Lemmy: a comunidade sempre à vista no cartão.
+ * Nada de número de curtidas, sequência ou placar (sem gamificação): o que muda é só a organização e a cara.
+ */
+
+.alumia-moldura {
+  --alumia-vermelho: #c21f16;
+  --alumia-chama: #f0a020;
+  --alumia-noite: #1f1a14;
+  /* Um brilho de chama no alto da página, desenhado em CSS (some no modo de alto contraste e no e-ink). */
+  background: radial-gradient(1100px 340px at 50% -140px, color-mix(in srgb, var(--alumia-chama) 18%, transparent), transparent 72%) no-repeat;
+}
+:root:is([data-contrast], [data-eink]) .alumia-moldura {
+  background: none;
+}
+
+/* Botão principal com sombra dura, de cartaz: afunda ao clicar. */
+.alumia-botao {
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.alumia-botao:not(:disabled):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.alumia-botao:not(:disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+/* A faixa listrada do convite (vermelho, chama, noite): a única "bandeira" da tela. */
+.alumia-convite-faixa {
+  background: repeating-linear-gradient(-45deg, var(--alumia-vermelho) 0 14px, var(--alumia-chama) 14px 28px, var(--alumia-noite) 28px 42px);
+}
+
+/* As abas da linha: pílulas numa barra fixa e translúcida. */
+.alumia-abas {
+  background: color-mix(in srgb, var(--parchment) 86%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* A linha: cada post é um cartão, com a cor da comunidade numa borda à esquerda. */
+.alumia-lista {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+.alumia-lista > li > article {
+  border: 1.5px solid var(--rule);
+  border-left: 5px solid var(--cor-da-comunidade, var(--rule));
+  border-radius: 18px;
+  background: var(--folha);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.alumia-lista > li > article:hover {
+  border-color: var(--ink);
+  border-left-color: var(--cor-da-comunidade, var(--ink));
+}
+.alumia-lista > li > article[data-tipo="chamado"] {
+  border-left-color: var(--alumia-vermelho);
+}
+
+/* A comunidade no cartão: uma pílula com a cor dela. */
+.alumia-comunidade {
+  background: color-mix(in srgb, var(--cor-da-comunidade, var(--ink)) 14%, transparent);
+  color: var(--ink);
+}
+.alumia-comunidade::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.3rem;
+  border-radius: 999px;
+  background: var(--cor-da-comunidade, var(--ink));
+}
+
+/* O tipo do post (dúvida, discussão, chamado…) em etiqueta própria. */
+.alumia-tipo[data-tipo="duvida"] { background: color-mix(in srgb, var(--alumia-chama) 30%, transparent); }
+.alumia-tipo[data-tipo="discussao"] { background: color-mix(in srgb, #2f6fb0 22%, transparent); }
+.alumia-tipo[data-tipo="chamado"] { background: var(--alumia-vermelho); color: #fff; }
+
+/* O menu: o item da tela atual vira um bloco de cartaz. */
+.alumia-menu-ativo {
+  box-shadow: 3px 3px 0 var(--alumia-vermelho);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alumia-botao,
+  .alumia-lista > li > article {
+    transition: none;
+  }
+  .alumia-botao:not(:disabled):hover,
+  .alumia-botao:not(:disabled):active {
+    transform: none;
+  }
+}

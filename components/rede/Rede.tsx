@@ -41,7 +41,7 @@ function abaInicial(membro: boolean): Aba {
 export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede; tela: Tela }) {
   const [situacao, setSituacao] = useState<Situacao | null>(null);
   const [falha, setFalha] = useState("");
-  const [escrevendo, setEscrevendo] = useState<{ respostaA: Post | null; comunidade: Comunidade | null } | null>(null);
+  const [escrevendo, setEscrevendo] = useState<{ respostaA: Post | null; comunidade: Comunidade | null; texto?: string } | null>(null);
   const [aba, setAba] = useState<Aba | null>(null);
   const [recarregar, setRecarregar] = useState(0);
   const [comunidade, setComunidade] = useState<Comunidade | null>(null);
@@ -99,7 +99,20 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
 
           {tela.tipo === "linha" && (
             <>
-              <div role="tablist" aria-label={s.abas.rotulo} className="sticky top-[var(--altura-topo,0px)] z-10 flex border-b border-rule bg-parchment">
+              {/* "O que você quer contar?" no alto da linha (como no Mastodon e no Bluesky): abre a mesma caixa de escrever. */}
+              {pode && (
+                <button
+                  type="button"
+                  onClick={() => aoEscrever()}
+                  className="mx-3 mt-3 flex min-h-12 w-[calc(100%-1.5rem)] cursor-text items-center gap-3 rounded-full border-[1.5px] border-rule bg-folha px-4 text-left font-sans text-ink-soft hover:border-ink"
+                >
+                  <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-[#c21f16]" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4" />
+                  </svg>
+                  <span className="truncate">{s.visual.escreverConvite}</span>
+                </button>
+              )}
+              <div role="tablist" aria-label={s.abas.rotulo} className="alumia-abas sticky top-[var(--altura-topo,0px)] z-10 mt-2 flex gap-1 border-b border-rule px-3 py-2">
                 {(pode ? ABAS_DO_MEMBRO : (["geral"] as Aba[])).map((a) => (
                   <button
                     key={a}
@@ -107,7 +120,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
                     role="tab"
                     aria-selected={abaAtual === a}
                     onClick={() => setAba(a)}
-                    className={`min-h-11 flex-1 cursor-pointer px-1 font-sans text-sm font-bold sm:text-base ${abaAtual === a ? "border-b-[3px] border-[#c21f16]" : "text-ink-soft hover:bg-parchment-deep"}`}
+                    className={`min-h-11 flex-1 cursor-pointer rounded-full px-2 font-sans text-sm font-bold sm:text-base ${abaAtual === a ? "bg-[#1f1a14] text-[#f4ecd8] shadow-[2px_2px_0_#c21f16]" : "text-ink-soft hover:bg-parchment-deep hover:text-ink"}`}
                   >
                     {s.abas[a as "seguindo" | "comunidades" | "tudo" | "geral"]}
                   </button>
@@ -121,6 +134,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
                 logado={aberta.logado}
                 aoResponder={aoResponder}
                 vazio={abaAtual === "seguindo" ? s.estados.vazioSeguindo : abaAtual === "comunidades" ? s.estados.vazioComunidades : undefined}
+                aoEscreverCom={pode ? (texto) => setEscrevendo({ respostaA: null, comunidade: null, texto }) : undefined}
               />
             </>
           )}
@@ -141,6 +155,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
               situacao={aberta}
               comunidade={escrevendo.comunidade}
               respostaA={escrevendo.respostaA}
+              textoInicial={escrevendo.texto}
               aoFechar={() => setEscrevendo(null)}
               aoPublicar={() => setRecarregar((n) => n + 1)}
             />
