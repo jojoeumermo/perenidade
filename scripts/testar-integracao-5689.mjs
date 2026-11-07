@@ -6,6 +6,7 @@
 // rodapé, o sitemap e a interdição conhecem as rotas novas; o redirecionamento de /laboratorios/jogos é permanente.
 // Uso: npm run testar:integracao-5689
 import fs from "node:fs";
+import { semPosteriores } from "./install-posteriores.mjs";
 import path from "node:path";
 
 const raiz = path.resolve(import.meta.dirname, "..");
@@ -20,7 +21,8 @@ const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8").replace(/^�
 
 // ── install.sql ──
 const LOTE = ["departamentos-termos", "eixos-equipe", "controles", "backend-1", "backend-2", "progresso-qr"];
-let resto = ler("supabase", "install.sql").trim();
+// As migrações datadas (AAAAMMDD-*.sql) vêm depois da Alumia, inteiras: saem primeiro (scripts/install-posteriores.mjs).
+let resto = semPosteriores(ler("supabase", "install.sql"));
 // Depois do lote vem o bloco da Alumia (2026-11-alumia.sql), inteiro: sai primeiro.
 const alumia = ler("supabase", "migracoes", "2026-11-alumia.sql").trim();
 conferir("o install.sql termina com a migração alumia, idêntica ao arquivo", resto.endsWith(alumia));
