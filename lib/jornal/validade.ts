@@ -16,12 +16,14 @@ export const FUSO_BRASILIA = "-03:00";
  *  - "2026-11-13 23:59" ou "2026-11-13T23:59": hora de Brasília.
  *  - "2026-11-13T23:59:00-03:00" ou "...Z": o fuso dito.
  * Um Date (o YAML transforma datas sem aspas em Date, à meia-noite UTC) com hora zerada vale como o dia inteiro.
+ * Um Date com hora é recusado (null): sem aspas, o YAML lê "2026-11-13 23:59:00" como UTC, e o proxy (que lê o texto
+ * cru, lib/jornal/saidas.ts) como hora de Brasília. As duas leituras dariam 3 horas de diferença; com aspas, as duas batem.
  */
 export function instanteDeSaida(valor: unknown): string | null {
   if (valor instanceof Date) {
     if (Number.isNaN(valor.getTime())) return null;
     const iso = valor.toISOString();
-    return iso.endsWith("T00:00:00.000Z") ? instanteDeSaida(iso.slice(0, 10)) : iso;
+    return iso.endsWith("T00:00:00.000Z") ? instanteDeSaida(iso.slice(0, 10)) : null;
   }
   if (typeof valor !== "string") return null;
   const texto = valor.trim();
