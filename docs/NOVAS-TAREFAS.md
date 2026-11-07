@@ -35,7 +35,7 @@ Situação: `[ ]` a fazer, `[~]` em andamento, `[x]` feito (com o commit), `[!]`
 | T17 | Podcast: áudio imersivo (espacial, aberto) e transmissão ao vivo com vídeo pelos voluntários (17) | [~] |
 | T18 | Alumia: design mais atraente e revolucionário sem exagero, menos perguntas iniciais, mais organizada; inspirar em redes abertas (18) | [~] |
 | T19 | Alumia: chat privado com a mesma tecnologia do chat interno, toda a segurança, LGPD (18) | [~] |
-| T20 | Territórios: design próprio por coletivo (Kamikaze, NoizOcupa) pela identidade do Instagram, logo como capa; novos: Coletivo Desordem e Noisme Studios; reescrever textos dos vídeos; variar cores do Kamikaze (19-21) | [~] |
+| T20 | Territórios: design próprio por coletivo (Kamikaze, NoizOcupa) pela identidade do Instagram, logo como capa; novos: Coletivo Desordem e Noisme Studios; reescrever textos dos vídeos; variar cores do Kamikaze (19-21) | [x] 0e74cf4f (faltam logos originais e textos do Desordem e do noismemo, a pedir aos coletivos) |
 | T21 | Laboratórios: reorganizar todos, deixar claro para que serve cada um e onde ficam (22) | [~] |
 | T22 | Cartões de debate: início em pirâmide, organizar (23) | [x] leva 1 (junção até f54b15c1) |
 | T23 | Jogos: mais imersivos, muito mais jogos para vários jogadores (até ~10) | [~] |
