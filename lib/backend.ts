@@ -339,6 +339,8 @@ export type AssistantResult =
  * inteligência artificial de outra empresa; o site não guarda nada disso. O banco só conta quantas perguntas a pessoa fez.
  */
 export async function askAssistant(request: AssistantRequest): Promise<AssistantResult> {
+  // Sem o serviço de contas nesta montagem, vai direto ao assistente aberto (se ligado).
+  if (!hasBackend) return (await estadoDoPublico()).ligado ? perguntarAoPublico(request) : { ok: false, recusa: false, erro: "assistente_desligado" };
   const daConta = await askAccountAssistant(request);
   if (daConta.ok || daConta.recusa || !CAI_NO_ABERTO.has(daConta.erro.split(":")[0])) return daConta;
   // T03: sem conta, com o assistente da conta desligado, sem vaga ou fora do ar, a pergunta vai ao assistente aberto
