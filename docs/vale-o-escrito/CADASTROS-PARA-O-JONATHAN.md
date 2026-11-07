@@ -46,3 +46,20 @@ Itens de licença que apareceram nas páginas e mudam o que o Instituto pode faz
 ## 6. O que não precisa de nada
 
 Câmara, Senado, TSE (CKAN), IBGE (localidades e malhas) e os feeds RSS de CIMI, CPT, ISA, FBSP, Fogo Cruzado, Rede de Observatórios, Sou da Paz, Justiça Global, ANTRA, HRW, Anistia (internacional), Agência Pública, Repórter Brasil, InfoAmazonia, Amazônia Real, Ponte, Alma Preta, De Olho nos Ruralistas, Intercept, Brasil de Fato, Lupa, Aos Fatos, MapBiomas, IBAMA, STF e STJ respondem sem chave.
+
+## 7. Casos a preencher: campo e trabalho escravo (frente T12, 07/11/2026)
+
+Achados reais que ficaram FORA de `content/vale-o-escrito/novos-casos/campo-e-trabalho-escravo.json` porque falta dado ou fonte oficial lida. Nada inventado: entram quando alguém achar o que falta.
+
+| Caso | O que falta |
+|---|---|
+| Syngenta e a morte de um agricultor sem-terra em Santa Tereza do Oeste (PR, 2007) | Só a Terra de Direitos (parte no processo) relata a decisão do STJ (2024); falta o acórdão ou nota do STJ/TJPR. |
+| Operação Fortis Status na Fazenda Mutamba, Marabá (PA, 11/10/2024), dois sem-terra mortos | A Nota Técnica 6/2025 da PFDC/MPF trata do caso, mas o PDF não foi lido; sem fonte oficial lida, não entrou. |
+| Assassinato do casal de extrativistas em Nova Ipixuna (PA, 2011) | Condenações do júri (2013 e 2016) só em reportagem; falta nota do TJPA/MPPA. Não nomear quem morreu. |
+| Massacre de Corumbiara (RO, 1995) | Fontes divergem sobre quem foi condenado; falta acórdão do TJRO. |
+| Restaurantes de Teresópolis (RJ): MPF obtém condenação (05/05/2025) | A nota do MPF não traz o ano dos fatos (só a denúncia, de 2014). |
+| Cargill (RO) e RRX Comércio de Carnes (Porto Murtinho, MS): ações do MPT (abril de 2026) | A nota do MPT não dá data, lugar exato nem número de trabalhadores dos flagrantes. |
+| Rumo Malha Paulista: acordo de R$ 20 milhões no TST (11/11/2022) | A nota do MPT não dá o ano do resgate. |
+| Zara e a oficina da AHA (SP, 2011) | O acórdão do TRT-2 (2017) só aparece citado em trabalho acadêmico; falta a fonte do tribunal. |
+| Lista suja do MTE: atualizações de 06/04/2026 (169 empregadores) e 06/10/2026 (82) | São dados agregados oficiais, sem situação jurídica que caiba no modelo; a BYD entrou como caso próprio. Decidir se vira painel de números. |
+| Pastor e professora condenados em Mossoró (RN), TRF5 (15/07/2025) | Fonte oficial existe, mas a pessoa explorada começou adolescente: a curadoria decide se há como contar sem expor (ECA, art. 17). |
