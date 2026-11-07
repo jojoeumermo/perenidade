@@ -2494,6 +2494,7 @@
         "button": "Photo of the exercise",
         "label": "Take or choose a photo of the exercise",
         "warning": "The photo goes to an artificial intelligence service run by another company (Anthropic), which reads the exercise and explains how to solve it. Photograph only the exercise, with no names or faces. The Lúcia Institute does not keep the photo.",
+        "warningOpen": "The photo goes through the institute server to a free artificial intelligence service run by another company (Google Gemini), outside Brazil, which reads the exercise and explains the solution. Only the photo is sent: not your name, your account or your network address. Photograph only the exercise, with no names or faces. Instituto Lúcia does not keep the photo.",
         "reading": "Reading the photo… this can take up to a minute.",
         "read": "What the assistant read in the photo",
         "solveHere": "Solve it here, step by step",

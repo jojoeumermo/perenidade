@@ -19,7 +19,12 @@ $nomes = @(
   @{ n = "INSTAGRAM_USER_ID"; d = "Instagram: ID da conta (opcional)" },
   @{ n = "GITHUB_PUBLICAR_TOKEN"; d = "Painel: publicar agora (opcional)" },
   @{ n = "GITHUB_LEITURA_TOKEN"; d = "Painel: operação do site (opcional)" },
-  @{ n = "CF_TOKEN_CACHE"; d = "Painel: limpar o cache do Cloudflare (opcional)" }
+  @{ n = "CF_TOKEN_CACHE"; d = "Painel: limpar o cache do Cloudflare (opcional)" },
+  # T03: o assistente em todo o site (app/api/assistente) usa IAs gratuitas em rodizio. Basta uma; as mesmas do robo do Vale.
+  @{ n = "GROQ_API_KEY"; d = "Assistente do site: Groq, plano gratuito (console.groq.com)" },
+  @{ n = "GEMINI_API_KEY"; d = "Assistente do site: Google Gemini, plano gratuito (aistudio.google.com/apikey); le fotos" },
+  @{ n = "CEREBRAS_API_KEY"; d = "Assistente do site: Cerebras, plano gratuito (cloud.cerebras.ai)" },
+  @{ n = "OPENROUTER_API_KEY"; d = "Assistente do site: OpenRouter, modelos :free (openrouter.ai/keys)" }
 )
 $linhas = @("CLOUDFLARE_ACCOUNT_ID=60b9931361c73d225832bbe180e9b1c6", "CF_ZONE_ID=1029b6706fbed33260ae52e3d89cc9cd", "GITHUB_PUBLICAR_REPO=jojoeumermo/perenidade")
 Write-Host ""
