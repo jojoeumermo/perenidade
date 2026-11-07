@@ -5,6 +5,7 @@ import { PhetLista } from "@/components/labs/Phet";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
+import { SobreOLaboratorio } from "@/components/labs/MapaDosLaboratorios";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/laboratorios/simulacoes">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -12,12 +13,13 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/laboratori
 }
 
 export default async function Page({ params }: PageProps<"/[lang]/laboratorios/simulacoes">) {
-  const { t } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
       <PageHeading eyebrow={t.labs.title} title={t.labs.simulacoes}>
         {t.labs.simulacoesLead}
       </PageHeading>
+      <SobreOLaboratorio id="simulacoes" t={t} lang={lang} />
       <PhetLista />
       <LabsExternos area="simulacoes" />
     </div>
