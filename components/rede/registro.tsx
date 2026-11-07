@@ -54,4 +54,6 @@ export const REGISTRO: Record<string, EntradaDoRegistro> = {
   // Pacote alumia: Salvos e a federação com o Fediverso (/comunidade/{salvos,fediverso}; docs/rede/FEDIVERSO.md).
   salvos: { componente: dynamic(() => import("./alumia/Salvos"), { ssr: false }), menu: "salvos" },
   fediverso: { componente: dynamic(() => import("./alumia/Fediverso"), { ssr: false }), menu: "fediverso" },
+  // Chat privado cifrado de ponta a ponta (/comunidade/conversas; docs/rede/CHAT-PRIVADO.md). Nada dele vai ao Fediverso.
+  conversas: { componente: dynamic(() => import("./chat/Tela"), { ssr: false }), menu: "conversas" },
 };
