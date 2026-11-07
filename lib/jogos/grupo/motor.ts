@@ -540,8 +540,17 @@ function limparOpcoes(atual: Opcoes, novas: Partial<Opcoes> | undefined): Opcoes
   };
 }
 
-function partidaDoPacote(e: EstadoDaSala, pacote: Pacote, agora: number): Partida | null {
+/** Só itens com forma de item (objeto): um pacote com buracos (null, número) quebrava a tela de todo mundo (T33). */
+const itens = <T>(lista: unknown): T[] => (Array.isArray(lista) ? (lista.filter((x) => x !== null && typeof x === "object" && !Array.isArray(x)) as T[]) : []);
+
+function partidaDoPacote(e: EstadoDaSala, bruto: Pacote, agora: number): Partida | null {
   const prazo = prazoDe(e, agora);
+  const pacote = { ...bruto } as Pacote;
+  if (pacote.tipo === "perguntas") pacote.perguntas = itens(pacote.perguntas);
+  if (pacote.tipo === "forca") pacote.palavras = itens(pacote.palavras);
+  if (pacote.tipo === "bingo") pacote.conceitos = itens(pacote.conceitos);
+  if (pacote.tipo === "fio") pacote.cartas = itens(pacote.cartas);
+  if (pacote.tipo === "debate" && (!pacote.tema || typeof pacote.tema !== "object" || typeof pacote.tema.afirmacao !== "string" || !Array.isArray(pacote.tema.fontes))) return null;
   switch (pacote.tipo) {
     case "perguntas":
       if (!Array.isArray(pacote.perguntas) || !pacote.perguntas.length) return null;

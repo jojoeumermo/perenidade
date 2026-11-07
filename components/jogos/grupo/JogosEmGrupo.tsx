@@ -7,7 +7,7 @@
 //
 // Privacidade (LGPD, art. 6º, III; ECA, art. 17): sem conta, sem cadastro, sem nome completo. O apelido existe só
 // enquanto a aba está aberta; o código da sala vai no "#" do convite (o "#" não sai do navegador nem chega ao servidor).
-import { useEffect, useRef, useState } from "react";
+import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import { fill } from "@/i18n/config";
 import type { TextosDosJogos } from "@/i18n/jogos";
 import { classificacao, JOGOS_EM_GRUPO, MOTOR, participantes, TEMPOS, type Acao, type EstadoDaSala, type IdDoJogoEmGrupo, type Opcoes, type VistaDaSala } from "@/lib/jogos/grupo/motor";
@@ -169,10 +169,34 @@ function Sessao({ codigo, apelido, criar, jogoInicial, banco, s, lang, aoSair, a
         </p>
       )}
       {vista.fase === "saguao" && <Saguao vista={vista} eu={sala.eu} anfitriao={anfitriao} banco={banco} s={s} agir={sala.agir} />}
-      {vista.fase === "jogando" && vista.partida && <Partida {...props} v={vista.partida} />}
+      {vista.fase === "jogando" && vista.partida && (
+        <SemQuebrar chave={vista.versao}>
+          <Partida {...props} v={vista.partida} />
+        </SemQuebrar>
+      )}
       {vista.fase === "fim" && <Fim vista={vista} eu={sala.eu} anfitriao={anfitriao} s={s} agir={sala.agir} />}
     </div>
   );
+}
+
+/**
+ * Uma vista malformada (vinda de um anfitrião que não é o site) não derruba a página de quem joga (T33): a partida some
+ * até a próxima vista, e o resto da sala continua.
+ */
+class SemQuebrar extends Component<{ chave: number; children: ReactNode }, { quebrou: number | null }> {
+  state: { quebrou: number | null } = { quebrou: null };
+  static getDerivedStateFromError() {
+    return { quebrou: -1 };
+  }
+  componentDidCatch() {
+    this.setState({ quebrou: this.props.chave });
+  }
+  componentDidUpdate() {
+    if (this.state.quebrou !== null && this.state.quebrou !== -1 && this.state.quebrou !== this.props.chave) this.setState({ quebrou: null });
+  }
+  render() {
+    return this.state.quebrou === null ? this.props.children : null;
+  }
 }
 
 function Partida(props: PropsDaPartida<NonNullable<VistaDaSala["partida"]>>) {

@@ -41,6 +41,13 @@ const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 
 await espera("o bloco do chat está no fim do install.sql, igual à migração", async () => install.includes(migracao.trim()));
 await espera("a migração roda de novo sem quebrar (acrescentável)", () => banco.exclusivo(() => banco.pg.exec(migracao)));
+// A correção T33 (supabase/migracoes/20261107-t33-seguranca.sql) vem depois da T19, no install.sql também.
+const t33 = ler("supabase/migracoes/20261107-t33-seguranca.sql");
+await espera("a correção T33 está no fim do install.sql e roda de novo depois da T19", async () => {
+  if (!install.includes(t33.trim())) return false;
+  await banco.exclusivo(() => banco.pg.exec(t33));
+  return true;
+}, (v) => v === true);
 
 let ip = 10;
 const como = (sub) => ({ papel: "authenticated", sub, ip: `198.51.100.${ip++ % 250}` });
@@ -126,6 +133,10 @@ await espera("conversa nova precisa de uma primeira versão da chave", async () 
 const nova = await prepararNovaVersao(conversaAB.id, 1, aparelhos.ana, chavesAna.participantes, confiadasDaAna);
 await espera("a Ana cria a versão 1 e embrulha para as duas chaves", () => rpc(como(P.ana), "rede_dm_nova_versao", { p_conversa: conversaAB.id, p_versao: 1, p_embrulhos: nova.embrulhos }), (r) => r.versao === 1);
 await recusa("versão fora de ordem é recusada", () => rpc(como(P.ana), "rede_dm_nova_versao", { p_conversa: conversaAB.id, p_versao: 1, p_embrulhos: nova.embrulhos }), "versao_desatualizada");
+await recusa("versão nova logo em seguida, com as chaves de sempre, é recusada (T33: sem laço de versões)", async () => {
+  const outra = await prepararNovaVersao(conversaAB.id, 2, aparelhos.ana, chavesAna.participantes, confiadasDaAna);
+  return rpc(como(P.ana), "rede_dm_nova_versao", { p_conversa: conversaAB.id, p_versao: 2, p_embrulhos: outra.embrulhos });
+}, "versao_desatualizada");
 await espera("depois da versão 1, a chave atual serve para as duas", () => rpc(como(P.bia), "rede_dm_chaves_da_conversa", { p_conversa: conversaAB.id }), (r) => r.atual_ok === true && r.embrulhos.length === 1);
 await espera("cada pessoa só recebe o embrulho feito para ela", async () => {
   const r = await rpc(como(P.bia), "rede_dm_chaves_da_conversa", { p_conversa: conversaAB.id });
@@ -231,10 +242,10 @@ await dono("delete from interno.rede_bloqueios where quem = $1 and bloqueado = $
 
 // ── Retenção ──
 await espera("cada mensagem nasce com prazo (7 dias por padrão)", async () => um("select extract(day from expira_em - criado_em)::int as d from interno.rede_dm_mensagens where conversa = $1 limit 1", [conversaAB.id]), (r) => r.d === 7);
-await espera("encurtar o prazo da conversa vale também para o que já foi escrito", async () => {
-  await rpc(como(P.bia), "rede_dm_prazo", { p_conversa: conversaAB.id, p_dias: 1 });
-  return um("select extract(day from expira_em - criado_em)::int as d from interno.rede_dm_mensagens where conversa = $1 limit 1", [conversaAB.id]);
-}, (r) => r.d === 1);
+await espera("encurtar o prazo vale só para as mensagens novas: o que já foi escrito fica (T33: ninguém apaga provas)", async () => {
+  await rpc(como(P.ana), "rede_dm_prazo", { p_conversa: conversaAB.id, p_dias: 1 });
+  return [(await um("select extract(day from expira_em - criado_em)::int as d from interno.rede_dm_mensagens where conversa = $1 limit 1", [conversaAB.id])).d, (await um("select prazo_dias from interno.rede_dm_conversas where id = $1", [conversaAB.id])).prazo_dias];
+}, (r) => r[0] === 7 && r[1] === 1);
 await espera("mensagem vencida some na faxina e não sai nas leituras", async () => {
   await dono("update interno.rede_dm_mensagens set expira_em = now() - interval '1 minute' where conversa = $1", [conversaAB.id]);
   const lidas = await rpc(como(P.bia), "rede_dm_mensagens", { p_conversa: conversaAB.id });
@@ -250,23 +261,49 @@ await espera("pedido sem resposta há 30 dias some na faxina", async () => {
 
 // ── Apagar (LGPD art. 18, VI) ──
 const corpo2 = await cifrarMensagem(nova.chave, 1, aparelhos.ana, conversaAB.id, "outra");
-await espera("quem escreveu apaga a própria mensagem; a outra pessoa não", async () => {
+const chaveAtualDaAna = async () => {
   const chaves = await rpc(como(P.ana), "rede_dm_chaves_da_conversa", { p_conversa: conversaAB.id });
-  const v = chaves.versao;
   const k = (await Promise.all(chaves.embrulhos.map((e) => abrirEmbrulho(conversaAB.id, aparelhos.ana, e, { ...confiadasDaAna, [P.bia]: biaNova.identidade.publica })))).find(Boolean);
+  return { v: chaves.versao, k };
+};
+await espera("com denúncia aberta da outra pessoa, quem escreveu não apaga a mensagem (T33: é prova)", async () => {
+  const { v, k } = await chaveAtualDaAna();
+  const m = await rpc(como(P.ana), "rede_dm_enviar", { p_conversa: conversaAB.id, p_versao: v, p_corpo: await cifrarMensagem(k, v, aparelhos.ana, conversaAB.id, "ameaça guardada") });
+  return rpc(como(P.ana), "rede_dm_apagar_mensagem", { p_id: m.id }).then(() => "apagou", (e) => e.message);
+}, (r) => String(r).includes("dm_fechada"));
+await dono("update interno.rede_denuncias set situacao = 'resolvida' where quem = $1", [P.bia]);
+await espera("quem escreveu apaga a própria mensagem; a outra pessoa não", async () => {
+  const { v, k } = await chaveAtualDaAna();
   const m = await rpc(como(P.ana), "rede_dm_enviar", { p_conversa: conversaAB.id, p_versao: v, p_corpo: await cifrarMensagem(k, v, aparelhos.ana, conversaAB.id, "apagar esta") });
   const daBia = await rpc(como(P.bia), "rede_dm_apagar_mensagem", { p_id: m.id }).then(() => "apagou", (e) => e.message);
   const daAna = await rpc(como(P.ana), "rede_dm_apagar_mensagem", { p_id: m.id });
   return [daBia, daAna.ok];
 }, (r) => String(r[0]).includes("nao_encontrado") && r[1] === true);
-await espera("apagar a conversa apaga tudo, para as duas (mensagens e embrulhos)", async () => {
+await espera("com bloqueio, quem escreveu não apaga a mensagem (T33)", async () => {
+  const { v, k } = await chaveAtualDaAna();
+  const m = await rpc(como(P.ana), "rede_dm_enviar", { p_conversa: conversaAB.id, p_versao: v, p_corpo: await cifrarMensagem(k, v, aparelhos.ana, conversaAB.id, "outra ameaça") });
+  await dono("insert into interno.rede_bloqueios (quem, bloqueado) values ($1, $2)", [P.bia, P.ana]);
+  const r = await rpc(como(P.ana), "rede_dm_apagar_mensagem", { p_id: m.id }).then(() => "apagou", (e) => e.message);
+  await dono("delete from interno.rede_bloqueios where quem = $1 and bloqueado = $2", [P.bia, P.ana]);
+  return r;
+}, (r) => String(r).includes("dm_fechada"));
+await espera("quem apaga a conversa tira só da própria lista: a outra pessoa continua lendo e denunciando (T33)", async () => {
+  await rpc(como(P.ana), "rede_dm_apagar", { p_conversa: conversaAB.id });
+  const daAna = (await rpc(como(P.ana), "rede_dm_conversas")).some((c) => c.id === conversaAB.id);
+  const anaLe = (await rpc(como(P.ana), "rede_dm_mensagens", { p_conversa: conversaAB.id })).length;
+  const biaLe = (await rpc(como(P.bia), "rede_dm_mensagens", { p_conversa: conversaAB.id })).length;
+  const den = await rpc(como(P.bia), "rede_dm_denunciar", { p_conversa: conversaAB.id, p_categoria: "ameaca", p_trechos: "a ameaça guardada" });
+  return [daAna, anaLe, biaLe, Boolean(den.protocolo)];
+}, (r) => r[0] === false && r[1] === 0 && r[2] >= 1 && r[3] === true);
+await espera("quando as duas apagam, tudo some (mensagens e embrulhos)", async () => {
   await rpc(como(P.bia), "rede_dm_apagar", { p_conversa: conversaAB.id });
   return [(await um("select count(*)::int as n from interno.rede_dm_mensagens where conversa = $1", [conversaAB.id])).n, (await um("select count(*)::int as n from interno.rede_dm_embrulhos where conversa = $1", [conversaAB.id])).n, (await rpc(como(P.ana), "rede_dm_conversas")).some((c) => c.id === conversaAB.id)];
 }, (r) => r[0] === 0 && r[1] === 0 && r[2] === false);
 await espera("(o cifrado guardado antes não importa: sem a conversa, sem nada)", async () => corpo2.startsWith("c2.1."));
-await espera("apagar tudo do chat apaga conversas, chave e preferências da pessoa", async () => {
+await espera("apagar tudo do chat tira as conversas da lista e apaga a chave e as preferências da pessoa", async () => {
   await rpc(como(P.seletiva), "rede_dm_apagar_tudo");
-  return [(await um("select count(*)::int as n from interno.rede_dm_conversas where a = $1 or b = $1", [P.seletiva])).n, (await um("select count(*)::int as n from interno.rede_dm_chaves where usuario = $1", [P.seletiva])).n, (await um("select count(*)::int as n from interno.rede_dm_prefs where usuario = $1", [P.seletiva])).n];
+  const semChave = (await um("select count(*)::int as n from interno.rede_dm_chaves where usuario = $1", [P.seletiva])).n;
+  return [(await rpc(como(P.seletiva), "rede_dm_conversas")).length, semChave, (await um("select count(*)::int as n from interno.rede_dm_prefs where usuario = $1", [P.seletiva])).n];
 }, (r) => r.every((n) => n === 0));
 await espera("apagar a conta apaga as mensagens dela (chave estrangeira em cascata)", async () => {
   const c = await rpc(como(P.caio), "rede_dm_conversas");
@@ -278,6 +315,14 @@ await espera("apagar a conta apaga as mensagens dela (chave estrangeira em casca
   await dono("delete from interno.perfis where id = $1", [P.caio]);
   return [(await um("select count(*)::int as n from interno.rede_dm_mensagens where autor = $1", [P.caio])).n, (await um("select count(*)::int as n from interno.rede_dm_conversas where id = $1", [id])).n, (await um("select count(*)::int as n from interno.rede_dm_chaves where usuario = $1", [P.caio])).n];
 }, (r) => r.every((n) => n === 0));
+
+await espera("quem foi recusado e apaga tudo do chat continua sem poder pedir de novo (T33: a recusa é de quem recusou)", async () => {
+  const p = await rpc(como(P.intrusa), "rede_dm_abrir", { p_handle: "bia_dm" });
+  await rpc(como(P.bia), "rede_dm_responder", { p_conversa: p.id, p_aceitar: false });
+  await rpc(como(P.intrusa), "rede_dm_apagar_tudo");
+  await ativar("intrusa");
+  return rpc(como(P.intrusa), "rede_dm_abrir", { p_handle: "bia_dm" }).then(() => "abriu", (e) => e.message);
+}, (r) => String(r).includes("dm_fechada"));
 
 // ── Nada federado, nada no registro de atividades, nada em log ──
 const corpoDasFuncoes = (await dono("select string_agg(pg_get_functiondef(p.oid), E'\\n') as t from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname in ('public', 'interno') and (p.proname like 'rede_fed%' or p.proname like 'fed%' or p.proname like '%activity%')")).rows[0].t ?? "";

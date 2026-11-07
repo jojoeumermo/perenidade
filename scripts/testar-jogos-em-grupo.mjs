@@ -246,6 +246,48 @@ function sala(jogo) {
   conferir("todo jogo tem motor", JOGOS_EM_GRUPO.every((j) => MOTOR[j]) && JOGOS_EM_GRUPO.length >= 8);
 }
 
+// ───────── T33: quem mandou cada mensagem, e o texto que chega ─────────
+{
+  const { novasChaves, assinar, textoAssinado, criarConferencia, confere } = await import("../components/jogos/grupo/assinatura.ts");
+  const { contatoNaVista, vistaSemContato } = await import("../lib/jogos/grupo/sala.ts");
+  const anfitriao = await novasChaves();
+  const atacante = await novasChaves();
+  conferir("cada aba tem a sua chave (pública de 87 caracteres)", anfitriao && atacante && anfitriao.publica.length === 87 && anfitriao.publica !== atacante.publica);
+  const conf = criarConferencia();
+  conf.anotar([{ id: "anfitriao01", chave: anfitriao.publica }, { id: "atacante01", chave: atacante.publica }]);
+  conf.anotar([{ id: "anfitriao01", chave: atacante.publica }]);
+  conferir("a primeira chave vista para um id fica (outra aba com o mesmo id não troca)", conf.chaveDe("anfitriao01") === anfitriao.publica);
+  const carga = { t: "expulsar", id: "outro0001" };
+  const forjada = await assinar(atacante, textoAssinado("ABCDE", "acao", "anfitriao01", 1, carga));
+  conferir("ação assinada por outra chave em nome do anfitrião é recusada", !(await conf.aceitar("ABCDE", "acao", "anfitriao01", 1, carga, forjada)));
+  const legitima = await assinar(anfitriao, textoAssinado("ABCDE", "estado", "anfitriao01", 7, { versao: 3 }));
+  conferir("a mensagem assinada pela chave certa passa", await conf.aceitar("ABCDE", "estado", "anfitriao01", 7, { versao: 3 }, legitima));
+  conferir("a mesma mensagem repetida (replay) não passa de novo", !(await conf.aceitar("ABCDE", "estado", "anfitriao01", 7, { versao: 3 }, legitima)));
+  conferir("conteúdo trocado depois de assinado não passa", !(await conf.aceitar("ABCDE", "estado", "anfitriao01", 8, { versao: 99 }, legitima)));
+  conferir("de outra sala não passa", !(await confere(anfitriao.publica, textoAssinado("ZZZZZ", "estado", "anfitriao01", 7, { versao: 3 }), legitima)));
+  conferir("sem assinatura não passa", !(await conf.aceitar("ABCDE", "acao", "atacante01", 1, carga, undefined)));
+  const usaSala = ler("components", "jogos", "grupo", "useSala.ts");
+  conferir("o anfitrião recusa ação que diz vir dele mesmo e de quem não está na presença", /m\.de !== eu && presentes\.current\.includes\(m\.de\)/.test(usaSala) && /if \(!vivo \|\| typeof m\.de !== "string" \|\| m\.de === eu\) return;/.test(usaSala));
+  conferir("só a vista assinada por quem diz ser o anfitrião passa", /m\.carga\.anfitriao !== m\.de/.test(usaSala) && /conferencia\.current\.aceitar\(/.test(usaSala));
+  conferir("o comando não troca pela lista de jogadores da vista (conta a presença)", /presentesDe\(v\.jogadores\) <= presentesDe\(minha\.jogadores\)/.test(usaSala) && !/v\.jogadores\.length > minha\.jogadores\.length/.test(usaSala));
+  conferir("a vista com partida sem forma é recusada", /if \(x\.fase === "jogando"\)/.test(usaSala));
+  conferir("a partida fica atrás de uma barreira de erro", /<SemQuebrar chave=\{vista\.versao\}>/.test(ler("components", "jogos", "grupo", "JogosEmGrupo.tsx")));
+  conferir("link de fonte só se bate com o banco do site", /confiaveis\.has\(f\.url\)/.test(ler("components", "jogos", "grupo", "Partidas.tsx")));
+  for (const t of ["me chama no zap 11 91234-5678", "(11) 98765 4321", "fulano@gmail.com", "segue @fulano_x", "grupo: https://chat.whatsapp.com/abc", "wa.me/5511999"]) conferir(`o filtro da vista pega: ${t}`, contatoNaVista(t));
+  const sujo = vistaSemContato({ partida: { tema: { afirmacao: "me chama no zap 11 91234-5678", fontes: [{ titulo: "ok", url: "https://exemplo.org" }] } } });
+  conferir("a vista suja chega limpa (o link fica, conferido à parte)", sujo.partida.tema.afirmacao === "—" && sujo.partida.tema.fontes[0].url === "https://exemplo.org");
+  const { questoesPorDisciplina, temasDeDebate } = await import("../lib/jogos/banco-em-grupo.ts");
+  const textos = [];
+  const andar = (x, k = "") => (typeof x === "string" ? k !== "url" && textos.push(x) : Array.isArray(x) ? x.forEach((y) => andar(y)) : x && typeof x === "object" ? Object.entries(x).forEach(([kk, v]) => andar(v, kk)) : null);
+  andar(temasDeDebate());
+  for (const [, q] of questoesPorDisciplina()) andar(q);
+  const falsos = textos.filter((t) => contatoNaVista(t));
+  conferir("o filtro da vista não esconde nada dos bancos do site (debates e questões)", textos.length > 1000 && falsos.length === 0, falsos.slice(0, 3).join(" | "));
+  const base = salaNova("ABCDE", "anfitriao01", "Ana", "corrida");
+  const quebrado = aplicar(base, "anfitriao01", { t: "comecar", pacote: { tipo: "perguntas", perguntas: [null, 3] } }, 0);
+  conferir("pacote com buracos não começa partida (e não quebra a tela)", quebrado === base);
+}
+
 // ───────── Arquivos: privacidade, leveza, textos ─────────
 const pastas = [path.join("components", "jogos", "grupo"), path.join("lib", "jogos", "grupo")];
 const fonte = pastas.flatMap((d) => (existe(d) ? fs.readdirSync(path.join(raiz, d)).map((f) => [path.join(d, f), ler(d, f)]) : []));

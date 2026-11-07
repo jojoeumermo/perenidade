@@ -4886,6 +4886,8 @@
       "lotado": "La sala directa está llena (hasta {n} personas a la vez).",
       "lotadoLink": "Mira la transmisión abierta:",
       "semCanal": "No pude conectar el video ahora. Inténtalo de nuevo en un momento.",
+      "semRede": "La sala directa está cerrada ahora: sin el servidor que oculta las direcciones de red, el video no va directo de navegador a navegador.",
+      "semRedeEstudio": "La transmisión por el navegador no empezó: el servidor de retransmisión (que oculta tu dirección de red a quien mira) no está disponible ahora. Usa una transmisión abierta (PeerTube o YouTube) o inténtalo más tarde.",
       "sair": "Dejar de mirar",
       "aberta": "Transmisión abierta",
       "abrirFora": "Abrir la transmisión en otra pestaña",

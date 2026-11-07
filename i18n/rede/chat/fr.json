@@ -54,7 +54,7 @@
     "prazo": "Les messages disparaissent après",
     "dias": "{n} jours",
     "dia": "1 jour",
-    "prazoExplica": "Raccourcir s'applique aussi à ce qui a déjà été écrit.",
+    "prazoExplica": "S'applique aux nouveaux messages. Ce qui a déjà été écrit garde le délai précédent.",
     "codigo": "Code de sécurité",
     "codigoExplica": "Comparez ces chiffres avec l'autre personne, en personne ou par un canal où vous vous reconnaissez. S'ils sont identiques, personne n'est au milieu.",
     "verificado": "Nous avons comparé, c'est identique",
@@ -64,7 +64,7 @@
     "bloquearConfirma": "Bloquer cette personne ? Elle ne pourra plus vous contacter, ici ni sur Alumia.",
     "denunciar": "Signaler",
     "apagar": "Supprimer la conversation",
-    "apagarConfirma": "Supprimer toute la conversation pour les deux personnes ? C'est définitif."
+    "apagarConfirma": "Retirer cette conversation de votre liste ? Elle disparaît pour vous. L'autre personne garde les messages jusqu'à la fin de leur délai."
   },
   "denuncia": {
     "titulo": "Signaler",
@@ -99,8 +99,8 @@
     "salvar": "Enregistrer",
     "salvo": "Enregistré.",
     "apagarTudo": "Tout supprimer du chat",
-    "apagarTudoExplica": "Supprime toutes vos conversations (pour les deux personnes de chacune), votre clé et vos réglages. Le compte reste. LGPD brésilienne, art. 18, VI.",
-    "apagarTudoConfirma": "Supprimer TOUTES vos conversations et votre clé de chat ? C'est définitif.",
+    "apagarTudoExplica": "Retire toutes les conversations de votre liste et supprime votre clé et vos réglages. L'autre personne de chaque conversation garde les messages jusqu'à la fin de leur délai. Le compte reste. LGPD brésilienne, art. 18, VI.",
+    "apagarTudoConfirma": "Retirer TOUTES les conversations de votre liste et supprimer votre clé de chat ? C'est définitif.",
     "apagado": "Tout le chat a été supprimé."
   },
   "erros": {

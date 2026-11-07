@@ -54,7 +54,7 @@
     "prazo": "消息消失时间",
     "dias": "{n} 天",
     "dia": "1 天",
-    "prazoExplica": "缩短时间也适用于已写的内容。",
+    "prazoExplica": "适用于新消息。已写的内容仍按原来的期限保存。",
     "codigo": "安全码",
     "codigoExplica": "当面或通过你们能互相认出的渠道与对方比对这些数字。如果一致，就没有人在中间。",
     "verificado": "已比对，一致",
@@ -64,7 +64,7 @@
     "bloquearConfirma": "屏蔽此人？对方将无法再联系你，这里和 Alumia 都不行。",
     "denunciar": "举报",
     "apagar": "删除对话",
-    "apagarConfirma": "为双方删除整个对话？无法撤销。"
+    "apagarConfirma": "从你的列表中移除这个对话？对你来说它会消失。对方会保留这些消息，直到期限结束。"
   },
   "denuncia": {
     "titulo": "举报",
@@ -99,8 +99,8 @@
     "salvar": "保存",
     "salvo": "已保存。",
     "apagarTudo": "删除全部私信",
-    "apagarTudoExplica": "删除你所有的对话（对每个对话的双方都删除）、你的密钥和设置。账户保留。巴西 LGPD 第 18 条第 VI 款。",
-    "apagarTudoConfirma": "删除你所有的对话和私信密钥？无法撤销。",
+    "apagarTudoExplica": "从你的列表中移除所有对话，并删除你的密钥和设置。每个对话的对方会保留消息，直到期限结束。账户保留。巴西 LGPD 第 18 条第 VI 款。",
+    "apagarTudoConfirma": "从你的列表中移除所有对话并删除私信密钥？无法撤销。",
     "apagado": "全部私信已删除。"
   },
   "erros": {
