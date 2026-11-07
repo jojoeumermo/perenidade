@@ -130,7 +130,7 @@ export function Casca({
                       <span className={`${classes} ${fraco}`} aria-disabled="true">
                         <Icone>{d.icone}</Icone>
                         {s.menu[d.chave]}
-                        <span className="ml-auto rounded-full border border-current px-2 text-[0.7rem] font-bold leading-5">{porQueApagado}</span>
+                        <span className="ml-auto shrink-0 whitespace-nowrap rounded-full border border-current px-2 text-[0.65rem] font-bold leading-5">{porQueApagado}</span>
                       </span>
                     )}
                   </li>
