@@ -301,14 +301,16 @@
         "emenda": "预算修正案",
         "estimativa_oficial": "官方估计",
         "movimentacao_suposta": "涉嫌资金流动"
-      }
+      },
+      "dataDaFonte": "无确切日期；来源日期 {data}"
     }
   },
   "navegacao": {
     "inicio": "观察站",
     "sobre": "关于方法",
     "enviar": "提交来源",
-    "corrigir": "申请更正"
+    "corrigir": "申请更正",
+    "arsenal": "资料库"
   },
   "sobre": {
     "olho": "方法与规则",
@@ -437,6 +439,49 @@
         "titulo": "被侵占的原住民土地",
         "descricao": "原住民土地上的采矿、非法木材、毁林和死亡事件，据联邦检察院、最高法院和媒体。"
       }
+    }
+  },
+  "arsenal": {
+    "olho": "完整目录",
+    "titulo": "资料库",
+    "lead": "所有已发布的案件、每个案件的事件（事实、裁决、状态变化、金额）以及支撑它们的文件，可搜索列表。人与组织之间的关系另设标签，仅在有来源时显示。",
+    "buscar": "搜索",
+    "buscarDica": "姓名、地点、媒体、标签…",
+    "categoria": "类别",
+    "situacao": "法律状态",
+    "tipoFonte": "来源类型",
+    "todas": "全部",
+    "limpar": "清除筛选",
+    "resultados": "{n} 个结果",
+    "nada": "没有符合这些筛选的结果。",
+    "abas": {
+      "casos": "案件",
+      "eventos": "事件",
+      "documentos": "文件",
+      "relacoes": "关系"
+    },
+    "evento": {
+      "fato": "事实",
+      "publicado": "在 Vale 发布",
+      "mudanca": "状态变化",
+      "valor": "有记录的金额",
+      "fonte": "来源发布"
+    },
+    "relacoes": {
+      "explica": "谁隶属、领导、资助或雇用谁，以及每个案件中被提及的人：仅限有来源的关系。实心点：原始来源；空心点：仅媒体。",
+      "citados": "案件中提及",
+      "semRelacoes": "此选择中没有有来源的关系。"
+    },
+    "caso": "案件",
+    "abrir": "打开",
+    "copiaArquivada": "存档副本",
+    "tiposDeFonte": {
+      "processo": "诉讼",
+      "investigacao_oficial": "官方调查",
+      "dado_oficial": "官方数据",
+      "relatorio_organizacao": "组织报告",
+      "reportagem": "报道",
+      "checagem": "事实核查"
     }
   }
 }

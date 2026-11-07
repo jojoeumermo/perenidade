@@ -4,7 +4,9 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { camposDoCaso, casaBusca, documentosDoArsenal, eventosDoArsenal, relacoesDoArsenal } from "../lib/vale-o-escrito/arsenal.ts";
 import { lerTudo } from "../lib/vale-o-escrito/dados.ts";
+import { dataParaMs } from "../lib/vale-o-escrito/visual.ts";
 import { DOSSIES_DE_LEITURA, entradasDaLeitura } from "../lib/vale-o-escrito/leituras.ts";
 import { mencionaPapelProibido, normalizar, validarEntrada, validarValores, valorDoEscrito } from "../lib/vale-o-escrito/regras.ts";
 import { TIPOS_DE_VALOR } from "../lib/vale-o-escrito/tipos.ts";
@@ -46,6 +48,9 @@ caso("valor válido passa; sem campo, nada a conferir", () => {
   assert.deepEqual(validarValores({ ...base, valores: [valor()] }), []);
   assert.deepEqual(validarValores({ ...base, valores: [valor({ id: "v2", valor: 3009000, escrito: "R$ 3.009.000,00", tipo: "indenizacao" })] }), []);
   assert.deepEqual(validarValores(base), []);
+  // Sem data na fonte, o valor fica sem data (nunca deduzida); data presente tem de ser válida.
+  assert.deepEqual(validarValores({ ...base, valores: [valor({ data: undefined })] }), []);
+  assert.ok(validarValores({ ...base, valores: [valor({ data: "julho" })] }).some((e) => e.includes("data")));
 });
 caso("valor inventado não passa: número diferente do escrito, escrito fora do resumo e do trecho", () => {
   assert.ok(validarValores({ ...base, valores: [valor({ valor: 7e6 })] }).some((e) => e.includes("não bate")));
@@ -139,6 +144,69 @@ caso("papel de leitura mostra situação jurídica, 'segundo', avisos e o caso c
   for (const k of ["data-situacao", "visual.ficha.segundo", "avisos.presuncao", "/vale-o-escrito/caso/", "casoCompleto"]) assert.ok(c.includes(k), k);
   const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
   assert.ok(obs.includes("PapelDeLeitura") && obs.includes("DOSSIES_DE_LEITURA") && obs.includes("aria-pressed={leitura === d.slug}"));
+});
+
+// ───────────────────────────── Arsenal ─────────────────────────────
+
+const dadosPublicados = {
+  dossies: [],
+  entradas: publicadas,
+  pessoas: lidos.flatMap((d) => d.pessoas),
+  organizacoes: lidos.flatMap((d) => d.organizacoes),
+  ligacoes: lidos.flatMap((d) => d.ligacoes),
+};
+caso("casaBusca: todas as palavras, sem acento e sem caixa; termo vazio casa tudo", () => {
+  assert.ok(casaBusca(["Massacre de Eldorado dos Carajás", "Pará"], "carajas para"));
+  assert.ok(!casaBusca(["Massacre de Eldorado dos Carajás"], "carajas bahia"));
+  assert.ok(casaBusca(["x"], "   "));
+});
+caso("Arsenal: busca de caso acha por nome de pessoa citada e por veículo", () => {
+  const e = publicadas.find((x) => x.pessoas.length > 0);
+  const nome = dadosPublicados.pessoas.find((p) => p.id === e.pessoas[0].pessoaId).nome;
+  assert.ok(casaBusca(camposDoCaso(dadosPublicados, e), nome));
+  assert.ok(casaBusca(camposDoCaso(dadosPublicados, e), e.fontes[0].veiculo));
+});
+caso("Arsenal: eventos do mais novo ao mais antigo, com fato, publicação, fontes e valores de cada caso", () => {
+  const ev = eventosDoArsenal(publicadas);
+  for (let i = 1; i < ev.length; i++) assert.ok(dataParaMs(ev[i - 1].data) >= dataParaMs(ev[i].data));
+  assert.equal(ev.filter((x) => x.tipo === "fato").length, publicadas.length);
+  assert.equal(ev.filter((x) => x.tipo === "fonte").length, publicadas.reduce((a, e) => a + e.fontes.length, 0));
+  assert.equal(ev.filter((x) => x.tipo === "valor").length, valoresOrdenados(publicadas).length);
+  assert.equal(new Set(ev.map((x) => x.chave)).size, ev.length);
+});
+caso("Arsenal: documentos são todas as fontes, numeradas como na ficha", () => {
+  const docs = documentosDoArsenal(publicadas);
+  assert.equal(docs.length, publicadas.reduce((a, e) => a + e.fontes.length, 0));
+  for (const d of docs) assert.equal(d.entrada.fontes[d.n - 1], d.fonte);
+});
+caso("Arsenal: relações só com ligações publicadas entre pessoas e organizações, organizações primeiro", () => {
+  const g = relacoesDoArsenal(dadosPublicados);
+  assert.ok(g.length > 0);
+  const primeiraPessoa = g.findIndex((x) => x.ponta.tipo === "pessoa");
+  if (primeiraPessoa >= 0) assert.ok(g.slice(primeiraPessoa).every((x) => x.ponta.tipo === "pessoa"));
+  const ids = new Set(dadosPublicados.ligacoes.map((l) => l.id));
+  for (const grupo of g)
+    for (const r of grupo.relacoes) {
+      assert.ok(ids.has(r.ligacao.id));
+      assert.ok(["pessoa", "organizacao"].includes(r.outro.tipo));
+      assert.ok(["primaria", "reportado"].includes(r.confianca));
+    }
+  const samarco = g.find((x) => x.ponta.id === "samarco");
+  assert.ok(samarco && samarco.casos.some((e) => e.id === "2015-mariana-fundao-acao-penal"));
+});
+caso("Arsenal: rota, navegação, sitemap, textos nos 6 idiomas, nada sai do navegador", () => {
+  const pagina = ler("app", "[lang]", "vale-o-escrito", "arsenal", "page.tsx");
+  assert.ok(pagina.includes("dadosDoObservatorio") && pagina.includes("avisos.presuncao"));
+  assert.ok(ler("app", "[lang]", "vale-o-escrito", "layout.tsx").includes("/arsenal`"));
+  assert.ok(ler("app", "sitemap.ts").includes("/vale-o-escrito/arsenal"));
+  const c = ler("components", "vale-o-escrito", "Arsenal.tsx");
+  assert.ok(!/fetch\(|sendBeacon|localStorage|document\.cookie/.test(c));
+  assert.ok(c.includes("situacaoDoCaso") && c.includes("data-situacao"));
+  for (const l of idiomas) {
+    assert.ok(textos[l].navegacao.arsenal, l);
+    for (const k of ["casos", "eventos", "documentos", "relacoes"]) assert.ok(textos[l].arsenal.abas[k], `${l} ${k}`);
+    assert.ok(textos[l].arsenal.resultados.includes("{n}"), l);
+  }
 });
 
 console.log(`\n${total} conferências do T31 (dinheiro, dossiês de leitura e Arsenal) passaram.`);

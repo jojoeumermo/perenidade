@@ -301,14 +301,16 @@
         "emenda": "amendement budgétaire",
         "estimativa_oficial": "estimation officielle",
         "movimentacao_suposta": "mouvement présumé"
-      }
+      },
+      "dataDaFonte": "sans date propre ; source du {data}"
     }
   },
   "navegacao": {
     "inicio": "Observatoire",
     "sobre": "À propos de la méthode",
     "enviar": "Envoyer une source",
-    "corrigir": "Demander une correction"
+    "corrigir": "Demander une correction",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Méthode et règles",
@@ -437,6 +439,49 @@
         "titulo": "Terres autochtones envahies",
         "descricao": "Orpaillage, bois illégal, déforestation et morts dans des terres autochtones, selon le MPF, le STF et la presse."
       }
+    }
+  },
+  "arsenal": {
+    "olho": "Catalogue complet",
+    "titulo": "Arsenal",
+    "lead": "Tous les cas publiés, les événements de chacun (fait, décisions, changements de situation, montants) et les documents qui les fondent, dans une liste consultable. Les relations entre personnes et organisations ont leur onglet, seulement avec source.",
+    "buscar": "Rechercher",
+    "buscarDica": "Nom, lieu, média, étiquette…",
+    "categoria": "Catégorie",
+    "situacao": "Situation juridique",
+    "tipoFonte": "Type de source",
+    "todas": "Toutes",
+    "limpar": "Effacer les filtres",
+    "resultados": "{n} résultats",
+    "nada": "Rien trouvé avec ces filtres.",
+    "abas": {
+      "casos": "Cas",
+      "eventos": "Événements",
+      "documentos": "Documents",
+      "relacoes": "Relations"
+    },
+    "evento": {
+      "fato": "Fait",
+      "publicado": "Publié sur Vale",
+      "mudanca": "Changement de situation",
+      "valor": "Montant documenté",
+      "fonte": "Source publiée"
+    },
+    "relacoes": {
+      "explica": "Qui fait partie de, dirige, finance ou engage qui, et qui est cité dans chaque cas : uniquement les liens appuyés par une source. Point plein : source primaire ; point vide : presse seulement.",
+      "citados": "Cités dans le cas",
+      "semRelacoes": "Aucune relation sourcée dans cette sélection."
+    },
+    "caso": "Cas",
+    "abrir": "Ouvrir",
+    "copiaArquivada": "copie archivée",
+    "tiposDeFonte": {
+      "processo": "Procès",
+      "investigacao_oficial": "Enquête officielle",
+      "dado_oficial": "Donnée officielle",
+      "relatorio_organizacao": "Rapport d'organisation",
+      "reportagem": "Reportage",
+      "checagem": "Vérification"
     }
   }
 }

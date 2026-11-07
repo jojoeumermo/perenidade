@@ -387,7 +387,11 @@ export function FluxosDeDinheiro({ itens, dados, s, lang, comCaso }: { itens: Va
             <div className="ve-fluxo-topo">
               <strong className="ve-fluxo-valor">{formatarReais(valor.valor, lang)}</strong>
               <span className="ve-fluxo-tipo">{s.visual.dinheiro.tipos[valor.tipo]}</span>
-              <span className="ve-rotulo">{formatarData(valor.data, lang)}</span>
+              <span className="ve-rotulo">
+                {valor.data
+                  ? formatarData(valor.data, lang)
+                  : fill(s.visual.dinheiro.dataDaFonte, { data: formatarData(entrada.fontes.find((f) => f.id === valor.fonteId)?.data ?? "", lang) })}
+              </span>
             </div>
             <i className="ve-fluxo-barra" aria-hidden="true" style={{ width: `${Math.max(2, (valor.valor / maior) * 100)}%` }} />
             <span>

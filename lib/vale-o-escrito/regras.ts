@@ -337,7 +337,7 @@ export function validarValores(en: Pick<Entrada, "resumo" | "fontes" | "pessoas"
     const lido = valorDoEscrito(v.escrito);
     if (lido === null) e.push(`${p}.escrito: "R$ ..." como a fonte escreve`);
     else if (typeof v.valor === "number" && Math.abs(lido - v.valor) > 0.5) e.push(`${p}.valor: não bate com "${v.escrito}"`);
-    if (!dataParcialValida(v.data)) e.push(`${p}.data: AAAA, AAAA-MM ou AAAA-MM-DD`);
+    if (v.data !== undefined && !dataParcialValida(v.data)) e.push(`${p}.data: AAAA, AAAA-MM ou AAAA-MM-DD`);
     if (!textoComTamanho(v.resumo, 10, 240)) e.push(`${p}.resumo: de 10 a 240 caracteres`);
     else {
       if (!/\b(segundo|supostamente)\b/.test(normalizar(v.resumo))) e.push(`${p}.resumo: precisa de "segundo [fonte]" ou "supostamente"`);

@@ -301,14 +301,16 @@
         "emenda": "budget amendment",
         "estimativa_oficial": "official estimate",
         "movimentacao_suposta": "alleged movement"
-      }
+      },
+      "dataDaFonte": "no date of its own; source of {data}"
     }
   },
   "navegacao": {
     "inicio": "Observatory",
     "sobre": "About the method",
     "enviar": "Send a source",
-    "corrigir": "Request a correction"
+    "corrigir": "Request a correction",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Method and rules",
@@ -437,6 +439,49 @@
         "titulo": "Invaded Indigenous lands",
         "descricao": "Mining, illegal logging, deforestation and killings in Indigenous lands, according to the MPF, the STF and the press."
       }
+    }
+  },
+  "arsenal": {
+    "olho": "Full catalogue",
+    "titulo": "Arsenal",
+    "lead": "Every published case, the events of each one (fact, rulings, status changes, amounts) and the documents behind them, in a searchable list. Relations between people and organisations have their own tab, only when sourced.",
+    "buscar": "Search",
+    "buscarDica": "Name, place, outlet, tag…",
+    "categoria": "Category",
+    "situacao": "Legal status",
+    "tipoFonte": "Source type",
+    "todas": "All",
+    "limpar": "Clear filters",
+    "resultados": "{n} results",
+    "nada": "Nothing found with these filters.",
+    "abas": {
+      "casos": "Cases",
+      "eventos": "Events",
+      "documentos": "Documents",
+      "relacoes": "Relations"
+    },
+    "evento": {
+      "fato": "Fact",
+      "publicado": "Published on Vale",
+      "mudanca": "Status change",
+      "valor": "Documented amount",
+      "fonte": "Source published"
+    },
+    "relacoes": {
+      "explica": "Who belongs to, runs, funds or hires whom, and who is cited in each case: only links backed by a source. Solid dot: primary source; hollow dot: press only.",
+      "citados": "Cited in the case",
+      "semRelacoes": "No sourced relation in this selection."
+    },
+    "caso": "Case",
+    "abrir": "Open",
+    "copiaArquivada": "archived copy",
+    "tiposDeFonte": {
+      "processo": "Court case",
+      "investigacao_oficial": "Official investigation",
+      "dado_oficial": "Official data",
+      "relatorio_organizacao": "Organisation report",
+      "reportagem": "News story",
+      "checagem": "Fact-check"
     }
   }
 }

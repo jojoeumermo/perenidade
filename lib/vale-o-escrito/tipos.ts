@@ -236,8 +236,11 @@ export interface ValorDocumentado {
   /** O valor como está escrito no resumo ou no trecho da fonte ("R$ 6 milhões", "R$ 3.009.000,00"). */
   escrito: string;
   tipo: TipoDeValor;
-  /** AAAA, AAAA-MM ou AAAA-MM-DD da decisão, do acordo ou da apuração. */
-  data: string;
+  /**
+   * AAAA, AAAA-MM ou AAAA-MM-DD da decisão, do acordo ou da apuração, SÓ quando a fonte dá. Sem data na fonte, fica
+   * sem: a ficha mostra a data da fonte que registra o valor (nunca uma data deduzida).
+   */
+  data?: string;
   /** Uma linha, com "segundo [fonte]" ou "supostamente". */
   resumo: string;
   /** Id da fonte (da entrada) que sustenta o valor. */

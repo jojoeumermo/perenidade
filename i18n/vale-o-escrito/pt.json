@@ -301,14 +301,16 @@
         "emenda": "emenda",
         "estimativa_oficial": "estimativa oficial",
         "movimentacao_suposta": "movimentação suposta"
-      }
+      },
+      "dataDaFonte": "sem data própria; fonte de {data}"
     }
   },
   "navegacao": {
     "inicio": "Observatório",
     "sobre": "Sobre o método",
     "enviar": "Enviar uma fonte",
-    "corrigir": "Pedir correção"
+    "corrigir": "Pedir correção",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Método e regras",
@@ -437,6 +439,49 @@
         "titulo": "Terras indígenas invadidas",
         "descricao": "Garimpo, madeira ilegal, desmatamento e mortes em terras indígenas, segundo o MPF, o STF e a imprensa."
       }
+    }
+  },
+  "arsenal": {
+    "olho": "Catálogo completo",
+    "titulo": "Arsenal",
+    "lead": "Todos os casos publicados, os eventos de cada um (fato, decisões, mudanças de situação, valores) e os documentos que os sustentam, em lista buscável. As relações entre pessoas e organizações ficam na aba própria, só quando há fonte.",
+    "buscar": "Buscar",
+    "buscarDica": "Nome, lugar, veículo, etiqueta…",
+    "categoria": "Categoria",
+    "situacao": "Situação jurídica",
+    "tipoFonte": "Tipo de fonte",
+    "todas": "Todas",
+    "limpar": "Limpar filtros",
+    "resultados": "{n} resultados",
+    "nada": "Nada encontrado com esses filtros.",
+    "abas": {
+      "casos": "Casos",
+      "eventos": "Eventos",
+      "documentos": "Documentos",
+      "relacoes": "Relações"
+    },
+    "evento": {
+      "fato": "Fato",
+      "publicado": "Publicado no Vale",
+      "mudanca": "Mudança de situação",
+      "valor": "Valor documentado",
+      "fonte": "Fonte publicada"
+    },
+    "relacoes": {
+      "explica": "Quem integra, dirige, financia ou contrata quem, e quem é citado em cada caso: só ligações que constam de fonte. Ponto cheio: fonte primária; ponto vazio: só imprensa.",
+      "citados": "Citados no caso",
+      "semRelacoes": "Nenhuma relação com fonte neste recorte."
+    },
+    "caso": "Caso",
+    "abrir": "Abrir",
+    "copiaArquivada": "cópia arquivada",
+    "tiposDeFonte": {
+      "processo": "Processo",
+      "investigacao_oficial": "Investigação oficial",
+      "dado_oficial": "Dado oficial",
+      "relatorio_organizacao": "Relatório de organização",
+      "reportagem": "Reportagem",
+      "checagem": "Checagem"
     }
   }
 }
