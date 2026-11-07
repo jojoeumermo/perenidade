@@ -8,6 +8,7 @@ import { SelosDePrivacidade } from "@/components/SeloDePrivacidade";
 import { fill } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import type { TextosDoAcompanhante } from "@/i18n/escola/acompanhante";
+import { useAssistentePublico } from "@/lib/assistente/publico";
 import { askAssistant, hasBackend, rpc, useMe } from "@/lib/backend";
 import { type Contexto, type Conversa as ConversaGuardada, type Fala, gravarConversa, type ModoDeConversa, montarPedido, novoId, tituloDe } from "@/lib/escola/acompanhante";
 import { estaLigado } from "@/lib/modo-seguro";
@@ -67,6 +68,9 @@ export function useDisponibilidade(): "carregando" | "pronto" | MotivoSemServido
   const online = useSyncExternalStore(assinarRede, () => navigator.onLine, () => true);
   const [ligado, setLigado] = useState<boolean | null>(null);
   const entrou = me.status === "in";
+  // T03: o assistente aberto a todo o site (sem conta, IAs gratuitas). Ligado, ele atende quem não entrou e quem tem o
+  // assistente da conta desligado (lib/backend.ts, askAssistant, passa a pergunta adiante).
+  const publico = useAssistentePublico();
   useEffect(() => {
     if (!entrou || !hasBackend) return;
     let vivo = true;
@@ -76,11 +80,13 @@ export function useDisponibilidade(): "carregando" | "pronto" | MotivoSemServido
     };
   }, [entrou]);
   if (!online) return "semInternet";
-  if (!hasBackend) return "desligado";
+  if (publico?.ligado) return "pronto";
+  if (!hasBackend) return publico === null ? "carregando" : "desligado";
   if (me.status === "loading") return "carregando";
-  if (!entrou) return "semConta";
+  if (!entrou) return publico === null ? "carregando" : "semConta";
   if (ligado === null) return "carregando";
-  return ligado ? "pronto" : "desligado";
+  if (ligado) return "pronto";
+  return publico === null ? "carregando" : "desligado";
 }
 
 /** O aviso do que vai, montado com os itens deste pedido. */

@@ -346,6 +346,84 @@ const okAberto = { status: 200, corpo: { choices: [{ message: { content: "Respos
   }
 }
 
+// ── T03: o assistente aberto a todo o site (app/api/assistente, lib/assistente/limite.ts) ──
+{
+  const { criarLimitador, criarRodizio, diaDeBrasilia, ipDoPedido, LIMITES_PADRAO, limitesDaConfig } = await import("../lib/assistente/limite.ts");
+  const cab = (o) => ({ get: (n) => o[n] ?? null });
+  igual("limites padrão generosos (40/h, 150/dia, 1.200 no site)", LIMITES_PADRAO, { porHora: 40, porDia: 150, globalDia: 1200 });
+  igual("limites pela configuração", limitesDaConfig({ ASSISTENTE_POR_HORA: "10", ASSISTENTE_POR_DIA: "20", ASSISTENTE_LIMITE_GLOBAL: "abc" }), { porHora: 10, porDia: 20, globalDia: 1200 });
+  igual("CF-Connecting-IP vem primeiro", ipDoPedido(cab({ "cf-connecting-ip": "200.1.2.3", "x-forwarded-for": "9.9.9.9" })), "200.1.2.3");
+  igual("sem Cloudflare, o primeiro do X-Forwarded-For", ipDoPedido(cab({ "x-forwarded-for": "200.1.2.3, 10.0.0.1" })), "200.1.2.3");
+  igual("IPv6 conta pelo /64", ipDoPedido(cab({ "cf-connecting-ip": "2804:14c:5b:8000:1234:5678:9abc:def0" })), "2804:14c:5b:8000::/64");
+  igual("IPv6 abreviado conta pelo mesmo /64", ipDoPedido(cab({ "cf-connecting-ip": "2804:14c:5b:8000::1" })), "2804:14c:5b:8000::/64");
+  igual("IPv4 dentro de IPv6", ipDoPedido(cab({ "cf-connecting-ip": "::ffff:200.1.2.3" })), "200.1.2.3");
+  igual("sem cabeçalho", ipDoPedido(cab({})), "sem-ip");
+  igual("dia de Brasília vira às 3h UTC", [diaDeBrasilia(Date.parse("2026-11-07T02:59:00Z")), diaDeBrasilia(Date.parse("2026-11-07T03:00:00Z"))], ["2026-11-06", "2026-11-07"]);
+
+  let agora = Date.parse("2026-11-07T15:00:00Z");
+  let sorteios = 0;
+  const lim = criarLimitador({ porHora: 3, porDia: 5, globalDia: 7 }, { agora: () => agora, sortear: () => Buffer.alloc(32, ++sorteios) });
+  const r1 = lim.consumir("200.1.2.3");
+  confere("primeira pergunta passa e diz quanto resta", r1.ok && r1.restantesHora === 2 && r1.restantesDia === 4);
+  confere("o resumo não contém o IP", !r1.chave.includes("200") && !/\d+\.\d+\.\d+\.\d+/.test(r1.chave));
+  confere("o mesmo IP dá o mesmo resumo no mesmo dia", lim.resumo("200.1.2.3") === r1.chave);
+  lim.consumir("200.1.2.3");
+  lim.consumir("200.1.2.3");
+  const r4 = lim.consumir("200.1.2.3");
+  confere("passou do limite da hora", !r4.ok && r4.motivo === "hora" && r4.tentarEm > 0 && r4.tentarEm <= 3600);
+  confere("outra pessoa segue perguntando", lim.consumir("200.9.9.9").ok);
+  agora += 3_600_001;
+  confere("uma hora depois, volta a perguntar", lim.consumir("200.1.2.3").ok);
+  lim.consumir("200.1.2.3");
+  const r7 = lim.consumir("200.1.2.3");
+  confere("passou do limite do dia", !r7.ok && r7.motivo === "dia");
+  const falhou = lim.consumir("200.5.5.5");
+  lim.devolver(falhou.chave);
+  igual("falha do provedor devolve a pergunta (não conta)", lim.estado().global, 6);
+  lim.consumir("200.5.5.5");
+  const rg = lim.consumir("200.6.6.6");
+  confere("limite global do dia protege as cotas", !rg.ok && rg.motivo === "global");
+  igual("o estado só tem números", Object.keys(lim.estado()).sort(), ["dia", "global", "pessoas"]);
+  const chaveDeOntem = lim.resumo("200.1.2.3");
+  agora += 24 * 3_600_000;
+  confere("no dia seguinte, sal novo: o resumo de ontem não se liga ao de hoje", lim.resumo("200.1.2.3") !== chaveDeOntem && sorteios === 2);
+  confere("no dia seguinte, tudo zera", lim.consumir("200.1.2.3").ok && lim.estado().global === 1);
+
+  let t = 0;
+  const roda = criarRodizio({ agora: () => t });
+  igual("rodízio: cada pergunta começa por um provedor diferente", [roda.ordem(["a", "b", "c"])[0], roda.ordem(["a", "b", "c"])[0], roda.ordem(["a", "b", "c"])[0]], ["a", "b", "c"]);
+  roda.falhou("b", "limite");
+  confere("rodízio: quem bateu na cota descansa", !roda.ordem(["a", "b", "c"]).includes("b"));
+  t += 121_000;
+  confere("rodízio: depois do descanso, volta", roda.ordem(["a", "b", "c"]).includes("b"));
+  roda.falhou("a", "chave_recusada");
+  roda.falhou("b", "chave_recusada");
+  igual("rodízio: todos descansando, tenta todos assim mesmo", roda.ordem(["a", "b"]).length, 2);
+
+  // A rota e o botão: só a pergunta sai, nada de IP guardado, o Claude (pago) fora, e o botão carrega a janela sob demanda.
+  const rota = readFileSync(new URL("../app/api/assistente/route.ts", import.meta.url), "utf8");
+  confere("rota: o Claude (pago) fica de fora", rota.includes('p.id !== "anthropic"') && /throw new FalhaDoProvedor\("sem_chave"\)/.test(rota));
+  confere("rota: o IP só entra no limitador", (rota.match(/ipDoPedido\(/g) ?? []).length === 1 && /limitador\.consumir\(ipDoPedido\(request\.headers\)\)/.test(rota));
+  confere("rota: o registro de erro não leva pergunta nem IP", !/console\.(log|error)\([^)]*(pergunta|entrada|ip|chave)/i.test(rota.replace(/r\.tentativas\.map\(\(t\) => `\$\{t\.id\}:\$\{t\.falha\}`\)/, "")));
+  confere("rota: só pedidos do próprio site", rota.includes("doProprioSite(request)") && rota.includes('"sec-fetch-site") === "cross-site"'));
+  confere("rota: respeita a chave do painel", rota.includes('recursoLigado("assistente-publico")'));
+  confere("rota: 429 com Retry-After", rota.includes('"Retry-After"') && rota.includes("429"));
+  const botao = readFileSync(new URL("../components/assistente/BotaoDoAssistente.tsx", import.meta.url), "utf8");
+  confere("botão: a janela é carregada só quando usada", /dynamic\(carregarPainel, \{ ssr: false \}\)/.test(botao) && /usado &&/.test(botao));
+  const painel = readFileSync(new URL("../components/assistente/PainelDoAssistente.tsx", import.meta.url), "utf8");
+  confere("janela: só vão a pergunta e o idioma", /perguntarAoPublico\(\{ modo: "pergunta", pergunta: texto, disciplina: "", idioma: lang, aulas: \[\] \}\)/.test(painel));
+  confere("janela: o aviso de privacidade vem antes do campo", painel.indexOf("s.privacidade") < painel.indexOf("<textarea"));
+  const cliente = readFileSync(new URL("../lib/assistente/publico.ts", import.meta.url), "utf8");
+  confere("cliente: sem cookie da conta no pedido", cliente.includes('credentials: "omit"'));
+  const layout = readFileSync(new URL("../app/[lang]/layout.tsx", import.meta.url), "utf8");
+  confere("layout: o botão está em todas as páginas (fora do painel e da área infantil)", /<OutsidePanel>[\s\S]*BotaoDoAssistente[\s\S]*<\/OutsidePanel>\s*<OutsidePanel mostrarNasCriancas>/.test(layout));
+  const recursos = readFileSync(new URL("../lib/recursos.ts", import.meta.url), "utf8");
+  confere("recurso assistente-publico nasce ligado", /PADRAO[\s\S]*"assistente-publico",\s*\n\];/.test(recursos));
+  const idiomas = ["pt", "en", "es", "fr", "zh", "ru"].map((l) => JSON.parse(readFileSync(new URL(`../i18n/assistente/${l}.json`, import.meta.url), "utf8")));
+  confere("textos da janela nos 6 idiomas, com as mesmas chaves", idiomas.every((j) => JSON.stringify(Object.keys(j).sort()) === JSON.stringify(Object.keys(idiomas[0]).sort())));
+  confere("textos: nunca 'universidade' nem 'diploma'", !idiomas.some((j) => /universidade|diploma/i.test(JSON.stringify(j))));
+}
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);
 process.exit(falhas.length ? 1 : 0);

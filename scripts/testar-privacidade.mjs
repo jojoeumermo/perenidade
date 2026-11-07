@@ -17,7 +17,9 @@ const titulos = t.split("\n").filter((l) => /^## /.test(l));
 for (const h of ["Se você só estuda", "Os serviços que mantêm o site no ar", "Se você envia algo sem ter conta", "Alumia (a comunidade renovada)", "Se você é da equipe de voluntários", "Com que base a lei permite isso", "Seus direitos"])
   ok(`título "${h}"`, titulos.includes(`## ${h}`));
 
-tem("data de atualização", /Atualizada em 5 de novembro de 2026/);
+tem("data de atualização", /Atualizada em \d{1,2} de novembro de 2026/);
+// T03: o assistente em todas as páginas, sem conta: só a pergunta sai, o IP vira código embaralhado do dia e nunca é gravado.
+tem("assistente aberto: só a pergunta, código do IP com chave do dia", /Assistente em todas as páginas[\s\S]{0,2500}chave que muda todo dia[\s\S]{0,600}nunca é gravado/);
 tem("12 eixos no aparelho", /teste dos 12 eixos[\s\S]{0,400}`lucia:eixos`/);
 tem("12 eixos: art. 5º, II e art. 11, I", /art\. 5º, II[\s\S]{0,2500}art\. 11, I/);
 tem("pesquisa anônima só agregado, mínimo de cinco", /cinco ou mais respostas/);

@@ -2494,6 +2494,7 @@
         "button": "Photo of the exercise",
         "label": "Take or choose a photo of the exercise",
         "warning": "The photo goes to an artificial intelligence service run by another company (Anthropic), which reads the exercise and explains how to solve it. Photograph only the exercise, with no names or faces. The Lúcia Institute does not keep the photo.",
+        "warningOpen": "The photo goes through the institute server to a free artificial intelligence service run by another company (Google Gemini), outside Brazil, which reads the exercise and explains the solution. Only the photo is sent: not your name, your account or your network address. Photograph only the exercise, with no names or faces. Instituto Lúcia does not keep the photo.",
         "reading": "Reading the photo… this can take up to a minute.",
         "read": "What the assistant read in the photo",
         "solveHere": "Solve it here, step by step",
@@ -4032,7 +4033,9 @@
     "assistente_falhou": "The assistant could not answer right now, and the question was not counted. Try again in a little while.",
     "imagem": "The image could not be read. Use a JPG, PNG or WebP photo.",
     "pergunta_curta": "Describe your question in a little more detail.",
-    "pergunta_longa": "The question is longer than the maximum (3,000 characters)."
+    "pergunta_longa": "The question is longer than the maximum (3,000 characters).",
+    "assistente_limite_hora": "You asked many questions in the last hour. Wait a little and ask again; meanwhile, the site's lessons and the volunteers are still here.",
+    "assistente_sem_foto": "The assistant cannot read photos right now. Write your question in your own words."
   },
   "community": {
     "eyebrow": "Community",
@@ -4304,7 +4307,9 @@
       "cut": "The answer was too long and was cut off at the end.",
       "refused": "The assistant cannot help with this question. Send it to a volunteer with the form below.",
       "left": "Questions left for today: {n}.",
-      "toVolunteer": "Still stuck? Ask a volunteer for tutoring just below: your question is already written."
+      "toVolunteer": "Still stuck? Ask a volunteer for tutoring just below: your question is already written.",
+      "warningOpen": "Before you ask: only your question (and the photo, if you send one) leaves the site. It goes through the institute's server to a free artificial intelligence service run by another company (Groq, Google Gemini, Cerebras or OpenRouter), with servers outside Brazil. Your name, your account, your network address and the page you are on are not sent. Do not write personal data. The institute does not keep the question or the answer.",
+      "openLimit": "Without an account, each person can ask up to {h} questions per hour and {d} per day."
     }
   },
   "materials": {

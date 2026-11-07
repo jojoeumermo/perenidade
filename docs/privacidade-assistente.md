@@ -48,6 +48,16 @@ A lista pública fica em `lib/escola/provedores-publicos.ts` e aparece em `/esco
 
 O acompanhante usa a mesma função, com os modos novos (`socratico`, `pistas`, `outro-jeito`, `redacao`, `documento`, `conversa`) e os campos opcionais `historico` (até 8 falas, 6.000 caracteres) e `contexto` (trecho da aula de até 1.200 caracteres, exercício, nível da pista, trabalho, idioma da prática). Nada muda no banco: mesma conta, mesmo `assistente_usar`, mesmo limite do dia, nada guardado. O histórico fica só no aparelho (`lucia:escola-privado:conversas`). A página de privacidade já descreve o acompanhante na seção "Escola Lúcia Maria" (este pacote é o dono de `content/paginas/privacidade.md` na onda 2); o trecho geral do reforço, acima, continua esperando o assistente ser ligado em produção.
 
+## Assistente aberto em todo o site (T03, 06/11/2026)
+
+Além da função da conta, há o assistente **aberto**, sem conta, em todas as páginas (`app/api/assistente/route.ts`, `docs/RECURSOS.md`, seção `assistente-publico`). O texto da política já está em `content/paginas/privacidade.md` ("Assistente em todas as páginas", na seção "Se você envia algo sem ter conta"). Pontos de privacidade:
+
+- **O que vai à IA:** a pergunta e o idioma (no botão das páginas); nas telas de estudo, o mesmo que já ia à função da conta (trecho da aula, exercício, foto quando houver Gemini). Nunca IP, conta, cookie nem página: o pedido sai do servidor do site, e o navegador manda com `credentials: "omit"`.
+- **Provedores:** só os gratuitos (Groq, Gemini, Cerebras, OpenRouter `:free`), todos fora do Brasil (art. 33). O aviso fica na tela, antes do campo, com o nome deles.
+- **Limite sem guardar quem é:** HMAC-SHA-256 do IP com sal do dia, só na memória do contêiner; nada em banco, nada em registro (art. 6º, III; art. 12). Os registros de erro só têm códigos curtos (`groq:limite`).
+- **Criança:** o botão não aparece na área infantil (art. 14 e ECA).
+- **Cuidado:** os planos gratuitos de alguns provedores podem usar o conteúdo para melhorar os modelos; por isso a tela pede que não se escreva dado pessoal, e o instituto não manda nada além da pergunta.
+
 ## Antes de desligar
 
 Nada a apagar: o banco não tem pergunta, foto nem resposta guardadas. Os contadores somem sozinhos em 90 dias.

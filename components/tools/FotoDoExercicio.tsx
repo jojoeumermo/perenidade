@@ -5,6 +5,7 @@ import { useState } from "react";
 import { fill } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
+import { useAssistentePublico } from "@/lib/assistente/publico";
 import { askAssistant, useAssistantOn, useMe } from "@/lib/backend";
 import { resolver } from "@/lib/ferramentas/resolvedor";
 import { imageForAssistant } from "@/lib/upload";
@@ -32,8 +33,10 @@ export function FotoDoExercicio({ s, aoUsar }: { s: S; aoUsar: (conta: string) =
   const { lang, t } = useI18n();
   const me = useMe();
   const ligado = useAssistantOn(me.status === "in");
+  // T03: sem conta, a foto vai ao assistente aberto, mas só se ele tiver um provedor que enxerga (hoje, o Gemini).
+  const publico = useAssistentePublico();
   const [estado, setEstado] = useState<{ fase: "parado" | "lendo" } | { fase: "erro"; texto: string } | { fase: "lida"; transcricao: string; conta: string; texto: string; cortada: boolean; restantes: number | null }>({ fase: "parado" });
-  if (!ligado || me.status !== "in") return null;
+  if (!(ligado && me.status === "in") && !(publico?.ligado && publico.visao)) return null;
 
   async function enviar(lista: FileList | null) {
     const arquivo = lista?.[0];
@@ -58,7 +61,7 @@ export function FotoDoExercicio({ s, aoUsar }: { s: S; aoUsar: (conta: string) =
           {s.button}
           <input type="file" accept="image/jpeg,image/png,image/webp" capture="environment" className="sr-only" aria-label={s.label} disabled={estado.fase === "lendo"} onChange={(e) => { void enviar(e.target.files); e.target.value = ""; }} />
         </label>
-        <p className="min-w-0 flex-1 text-xs text-ink-soft">{s.warning}</p>
+        <p className="min-w-0 flex-1 text-xs text-ink-soft">{ligado && me.status === "in" ? s.warning : s.warningOpen}</p>
       </div>
       <div role="status" aria-live="polite">
         {estado.fase === "lendo" && <p className="mt-3 text-ink-soft">{s.reading}</p>}
