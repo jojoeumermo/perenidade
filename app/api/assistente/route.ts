@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { validarEntrada } from "@/supabase/functions/assistente/assistente.ts";
 import { FalhaDoProvedor, modeloDe, perguntar, PROVEDORES } from "@/supabase/functions/assistente/provedores.ts";
 import { criarLimitador, criarRodizio, ipDoPedido, limitesDaConfig } from "@/lib/assistente/limite";
-import { ligado } from "@/lib/recursos";
+import { recursoLigado } from "@/lib/recursos-vivos";
 
 /**
  * O assistente aberto a todo o site, sem conta (pedido da coordenação, novembro de 2026). Roda no servidor do site (a VPS,
@@ -24,7 +24,8 @@ import { ligado } from "@/lib/recursos";
  * A memória é de cada contêiner (na troca de versão, os dois que se revezam contam separado por alguns segundos): é um
  * freio, não uma cerca. O teto que manda de verdade é a cota de cada provedor.
  *
- * Desligar sem publicar de novo: ASSISTENTE_PUBLICO=0 em /opt/lucia/site.env (e reiniciar o contêiner). Publicar de novo
+ * Desligar sem publicar de novo: pelo painel (Site › Controles avançados › Recursos › assistente-publico, vale em 1 minuto)
+ * ou ASSISTENTE_PUBLICO=0 em /opt/lucia/site.env (e reiniciar o contêiner). Publicar de novo
  * com NEXT_PUBLIC_RECURSOS="-assistente-publico" tira também o botão das páginas.
  */
 export const runtime = "nodejs";
@@ -43,15 +44,17 @@ const rodizio = criarRodizio();
 const SEM_GUARDAR = { "Cache-Control": "no-store" };
 const responder = (corpo: unknown, status = 200, extra: Record<string, string> = {}) => NextResponse.json(corpo, { status, headers: { ...SEM_GUARDAR, ...extra } });
 
-function configuracao() {
+/** A configuração de agora. A chave liga/desliga do painel (interno.recursos_vivos) vale em até 1 minuto, sem publicar. */
+async function configuracao() {
   const env = process.env;
+  const doPainel = await recursoLigado("assistente-publico").catch(() => true);
   const chaves = Object.fromEntries(GRATUITOS.map((p) => [p.id, (env[p.segredo] ?? "").trim()]));
   // Aceita o nome da função da conta (GROQ_MODELO) e o do robô do Vale (GROQ_MODEL).
   const modelos = Object.fromEntries(GRATUITOS.map((p) => [p.id, modeloDe(p, env[p.segredoModelo] ?? env[p.segredoModelo.replace(/MODELO$/, "MODEL")] ?? MODELO_ATUAL[p.id])]));
   const pedida = (env.ASSISTENTE_ORDEM ?? "").split(",").map((s) => s.trim()).filter(Boolean);
   const base = pedida.length ? pedida.filter((id) => GRATUITOS.some((p) => p.id === id)) : ["groq", "gemini", "cerebras", "openrouter"];
   const comChave = base.filter((id) => chaves[id]);
-  const desligado = /^(0|false|nao|não|desligado)$/i.test((env.ASSISTENTE_PUBLICO ?? "").trim()) || !ligado("assistente-publico");
+  const desligado = /^(0|false|nao|não|desligado)$/i.test((env.ASSISTENTE_PUBLICO ?? "").trim()) || !doPainel;
   return { chaves, modelos, comChave, ativo: !desligado && comChave.length > 0, visao: comChave.some((id) => GRATUITOS.find((p) => p.id === id)?.visao) };
 }
 
@@ -74,14 +77,14 @@ function doProprioSite(request: Request): boolean {
 
 /** O estado público: ligado ou não, se aceita foto, e os limites. Igual para todo mundo, sem nada de quem pergunta. */
 export async function GET() {
-  const c = configuracao();
+  const c = await configuracao();
   const limites = limitesDaConfig(process.env);
-  return NextResponse.json({ ligado: c.ativo, visao: c.ativo && c.visao, porHora: limites.porHora, porDia: limites.porDia }, { headers: { "Cache-Control": "public, max-age=300" } });
+  return NextResponse.json({ ligado: c.ativo, visao: c.ativo && c.visao, porHora: limites.porHora, porDia: limites.porDia }, { headers: { "Cache-Control": "public, max-age=60" } });
 }
 
 export async function POST(request: Request) {
   if (!doProprioSite(request)) return responder({ erro: "sem_permissao" }, 403);
-  const c = configuracao();
+  const c = await configuracao();
   if (!c.ativo) return responder({ erro: "assistente_desligado" }, 503);
   if (Number(request.headers.get("content-length") ?? 0) > TAMANHO_MAXIMO) return responder({ erro: "imagem" }, 413);
 

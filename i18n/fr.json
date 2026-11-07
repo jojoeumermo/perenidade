@@ -2494,6 +2494,7 @@
         "button": "Photo de l'exercice",
         "label": "Prendre ou choisir une photo de l'exercice",
         "warning": "La photo va vers un service d'intelligence artificielle d'une autre entreprise (Anthropic), qui lit l'exercice et explique comment le résoudre. Photographiez seulement l'exercice, sans noms ni visages. L'Institut Lúcia ne garde pas la photo.",
+        "warningOpen": "La photo passe par le serveur de l’institut et va vers un service gratuit d’intelligence artificielle d’une autre entreprise (Google Gemini), hors du Brésil, qui lit l’exercice et explique la résolution. Seule la photo est envoyée : ni votre nom, ni votre compte, ni votre adresse réseau. Photographiez seulement l’exercice, sans noms ni visages. L’Institut Lúcia ne garde pas la photo.",
         "reading": "Lecture de la photo… cela peut prendre jusqu'à une minute.",
         "read": "Ce que l'assistant a lu sur la photo",
         "solveHere": "Le résoudre ici, pas à pas",
