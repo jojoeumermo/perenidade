@@ -254,64 +254,86 @@ export function LinhaDoTempo({
 }) {
   const lay = useMemo(() => layoutLinha(entradas, dossies, L, A), [entradas, dossies]);
   const nomeDe = (slug: string) => dossies.find((d) => d.slug === slug)?.titulo ?? slug;
+  // Zoom da linha do tempo (T31 3.9): o mesmo visor das outras visões (roda, pinça, arrasto, +/−/recentrar, nível nomeado).
+  const ajuste = useMemo(() => ({ ...IDENTIDADE, n: lay.marcas.length }), [lay.marcas.length]);
+  const { t, svgRef, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste);
+  const escolher = (id: string) => {
+    if (consumirMexeu()) return;
+    aoEscolher(id);
+  };
   return (
-    <>
+    <div onKeyDown={tecla} style={{ width: "100%", height: "100%" }}>
+      <HudDoVisor t={t} s={s} totalNos={lay.marcas.length} totalArestas={lay.anos.length} aoMais={() => proximoNivel(1)} aoMenos={() => proximoNivel(-1)} aoRecentrar={recentrar} />
       <p className="ve-titulo-da-visao">{s.visual.linha.titulo}</p>
       {lay.marcas.length === 0 ? (
         <div className="ve-vazio">
           <p>{s.visual.linha.semDados}</p>
         </div>
       ) : (
-        <svg className="ve-svg" viewBox={`0 0 ${L} ${A}`} preserveAspectRatio="xMidYMid meet" role="group" aria-label={s.visual.aria.palco}>
-          {lay.faixas.map((f) => (
-            <g key={f.slug}>
-              <line className="ve-eixo" x1={40} x2={L - 20} y1={f.y} y2={f.y} />
-              <text className="ve-eixo-texto" x={42} y={f.y - 20}>
-                {truncar(nomeDe(f.slug), 40)}
-              </text>
-            </g>
-          ))}
-          {lay.anos.map((a) => (
-            <g key={a.ano}>
-              <line className="ve-eixo" x1={a.x} x2={a.x} y1={10} y2={A - 30} strokeDasharray="2 6" />
-              <text className="ve-eixo-texto" x={a.x + 3} y={A - 12}>
-                {a.ano}
-              </text>
-            </g>
-          ))}
-          {lay.marcas.map((m) => {
-            const sel = selecionadoId === m.entrada.id;
-            const nome = `${m.entrada.titulo}. ${formatarData(m.entrada.dataDoFato, lang)}. ${s.ficha.situacao}: ${s.situacao[m.entrada.situacao]}`;
-            return (
-              <g
-                key={m.entrada.id}
-                className="ve-marca"
-                data-sel={sel}
-                transform={`translate(${m.x} ${m.y})`}
-                role="button"
-                tabIndex={0}
-                aria-pressed={sel}
-                aria-label={nome}
-                onClick={() => aoEscolher(m.entrada.id)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    aoEscolher(m.entrada.id);
-                  }
-                }}
-              >
-                <title>{nome}</title>
-                <circle r={6} />
-                {sel && (
-                  <text className="ve-eixo-texto" y={-12} textAnchor="middle" style={{ fill: "#fff" }}>
-                    {anoDe(m.entrada.dataDoFato)} · {truncar(m.entrada.titulo, 34)}
-                  </text>
-                )}
+        <svg
+          ref={svgRef}
+          className="ve-svg"
+          viewBox={`0 0 ${L} ${A}`}
+          preserveAspectRatio="xMidYMid meet"
+          role="group"
+          aria-label={s.visual.aria.palco}
+          onPointerDown={baixar}
+          onPointerMove={mover}
+          onPointerUp={soltar}
+          onPointerCancel={soltar}
+          style={{ cursor: "grab" }}
+        >
+          <g transform={`translate(${t.x} ${t.y}) scale(${t.k})`}>
+            {lay.faixas.map((f) => (
+              <g key={f.slug}>
+                <line className="ve-eixo" x1={40} x2={L - 20} y1={f.y} y2={f.y} />
+                <text className="ve-eixo-texto" x={42} y={f.y - 20}>
+                  {truncar(nomeDe(f.slug), 40)}
+                </text>
               </g>
-            );
-          })}
+            ))}
+            {lay.anos.map((a) => (
+              <g key={a.ano}>
+                <line className="ve-eixo" x1={a.x} x2={a.x} y1={10} y2={A - 30} strokeDasharray="2 6" />
+                <text className="ve-eixo-texto" x={a.x + 3} y={A - 12}>
+                  {a.ano}
+                </text>
+              </g>
+            ))}
+            {lay.marcas.map((m) => {
+              const sel = selecionadoId === m.entrada.id;
+              const nome = `${m.entrada.titulo}. ${formatarData(m.entrada.dataDoFato, lang)}. ${s.ficha.situacao}: ${s.situacao[m.entrada.situacao]}`;
+              return (
+                <g
+                  key={m.entrada.id}
+                  className="ve-marca"
+                  data-sel={sel}
+                  transform={`translate(${m.x} ${m.y})`}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={sel}
+                  aria-label={nome}
+                  onClick={() => escolher(m.entrada.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      aoEscolher(m.entrada.id);
+                    }
+                  }}
+                >
+                  <title>{nome}</title>
+                  <circle r={6 / Math.sqrt(t.k)} />
+                  {(sel || t.k >= 2.4) && (
+                    <text className="ve-eixo-texto" y={-12} textAnchor="middle" style={{ fill: "#fff" }}>
+                      {anoDe(m.entrada.dataDoFato)} · {truncar(m.entrada.titulo, 34)}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+          </g>
         </svg>
       )}
-    </>
+    </div>
   );
 }
