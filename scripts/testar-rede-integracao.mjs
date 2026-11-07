@@ -183,6 +183,34 @@ await espera("a Rede nova só chega ao navegador por import dinâmico sem SSR", 
 });
 await espera("a documentação do estado final tem as pendências para a coordenação", async () => /Pendências para a coordenação/.test(lerTexto("docs/rede/V2.md")));
 
+// ── T18 e T32: o que a Alumia ganhou nesta leva (conferências de texto, sem navegador) ──
+const IDIOMAS_DA_REDE = ["pt", "en", "es", "fr", "ru", "zh"];
+await espera("NOME_REDE é a única fonte do nome, e a 'marca' dos 6 idiomas é igual a ela", async () => {
+  const nome = /export const NOME_REDE = "([^"]+)";/.exec(lerTexto("lib/rede/alumia.ts"))?.[1];
+  return [nome, IDIOMAS_DA_REDE.every((l) => JSON.parse(lerTexto(`i18n/rede/${l}.json`)).marca === nome), /NOME_REDE/.test(lerTexto("lib/rede/fediverso/documentos.ts")), /NOME_REDE/.test(lerTexto("components/rede/MolduraDaAlumia.tsx"))];
+}, (r) => r[0] === "Alumia" && r[1] && r[2] && r[3]);
+await espera("a entrada curta: uma tela com codinome, consentimento (art. 11, I), 18+ e regras; lutas e trilhas com 'Agora não'", async () => {
+  const f = lerTexto("components/rede/descoberta/PrimeiraEntrada.tsx");
+  return [/rede\.aderir\(true, estado\.regras_versao\)/.test(f), /disabled=\{!leu \|\| !consente \|\| !maior \|\| !nomeOk/.test(f), /redeDescoberta\.adiar\(\)/.test(f), /idade\.menor/.test(f)];
+}, (r) => r.every(Boolean));
+await espera("a vitrine diz a regra da ordem, tem busca, filtro e seções recolhíveis, e um chamado só por cartão", async () => {
+  const f = lerTexto("components/rede/comunidades/Lista.tsx");
+  const textos = IDIOMAS_DA_REDE.map((l) => JSON.parse(lerTexto(`i18n/rede/comunidades/${l}.json`)).lista);
+  return [/l\.regraOrdem/.test(f), /type="search"/.test(f), /<details/.test(f), !/entrePrimeiro/.test(f), textos.every((t) => ["regraOrdem", "buscar", "semana", "semanaPoucas", "conviteTitulo", "verRegras"].every((k) => typeof t[k] === "string") && ["aberta", "restrita", "fechada"].every((k) => typeof t.tipoCurto?.[k] === "string"))];
+}, (r) => r.every(Boolean));
+await espera("o convite ao apoio não abre na Alumia nem na primeira página da visita; o X lembra 30 dias", async () => {
+  const f = lerTexto("components/OpeningNotice.tsx");
+  return [/naAlumia/.test(f) && /comunidade\(/.test(f) && /hostDaAlumia\(window\.location\.host\)/.test(f), /esperaOutraPagina = notice === CONVITE && pathname === chegada/.test(f), /TRINTA_DIAS = 30 \* 24 \* 3600 \* 1000/.test(f)];
+}, (r) => r.every(Boolean));
+await espera("os idiomas da Alumia são links com hreflang (e o atual marcado)", async () => {
+  const f = lerTexto("components/rede/Casca.tsx");
+  return [/hrefLang=\{htmlLang\[code\]\}/.test(f), /aria-current=\{code === lang/.test(f), IDIOMAS_DA_REDE.every((l) => typeof JSON.parse(lerTexto(`i18n/rede/${l}.json`)).alumia.idiomas === "string")];
+}, (r) => r.every(Boolean));
+await espera("o painel tem 'Alumia: semeadura' (só coordenação), com estrutura, ícone e guia", async () => {
+  const dentro = lerTexto("components/painel/casca/Dentro.tsx");
+  return [/id: "rede-semeadura"[^\n]*can\(eu, "coordenacao", "vice"\)/.test(dentro), /<RedeSemeadura \/>/.test(dentro), /"rede-semeadura"/.test(lerTexto("components/painel/estrutura.ts")), /"rede-semeadura"/.test(lerTexto("components/painel/icones.tsx")), /"rede-semeadura"/.test(lerTexto("components/painel/guias.ts")), /rede_painel_semeadura/.test(lerTexto("components/painel/RedeSemeadura.tsx"))];
+}, (r) => r.every(Boolean));
+
 console.log(`Rede v2 (integração): ${certos} certos, ${falhas.length} falhas.`);
 if (falhas.length) {
   console.log(falhas.map((f) => `  ✗ ${f}`).join("\n"));
