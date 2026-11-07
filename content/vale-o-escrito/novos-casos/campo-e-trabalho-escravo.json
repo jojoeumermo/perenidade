@@ -1,0 +1,1999 @@
+{
+  "recorte": "campo-e-trabalho-escravo",
+  "descricao": "Frente T12 (07/11/2026): conflitos no campo (assassinatos, despejos, grilagem com decisão judicial ou operação oficial) e trabalho escravo contemporâneo (resgates, ações do MPT e do MPF, condenações). Pesquisado e conferido por agente; todas as entradas aguardam a curadoria humana (revisao 'pendente-curadoria'). Importar com scripts/vale-o-escrito/importar-novos-casos.mjs.",
+  "pessoas": [
+    {
+      "id": "maria-do-socorro-barreto-santiago",
+      "nome": "Maria do Socorro Barreto Santiago",
+      "publicaNoCaso": true,
+      "papel": "agente_publico",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "desembargadora do Tribunal de Justiça da Bahia"
+    },
+    {
+      "id": "sergio-humberto-de-quadros-sampaio",
+      "nome": "Sérgio Humberto de Quadros Sampaio",
+      "publicaNoCaso": true,
+      "papel": "agente_publico",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "juiz aposentado"
+    },
+    {
+      "id": "sandra-ines-rusciolelli",
+      "nome": "Sandra Inês Rusciolelli",
+      "publicaNoCaso": true,
+      "papel": "agente_publico",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "ex-desembargadora do Tribunal de Justiça da Bahia"
+    },
+    {
+      "id": "vasco-rusciolelli",
+      "nome": "Vasco Rusciolelli",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "nelson-vigolo",
+      "nome": "Nelson Vígolo",
+      "publicaNoCaso": true,
+      "papel": "empresario",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "vanderlei-chilante",
+      "nome": "Vanderlei Chilante",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "advogado"
+    },
+    {
+      "id": "ronaldo-dalmoneck",
+      "nome": "Ronaldo Dalmoneck",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "adriano-chafik-luedy",
+      "nome": "Adriano Chafik Luedy",
+      "publicaNoCaso": true,
+      "papel": "proprietario_rural",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "calixto-luedy-filho",
+      "nome": "Calixto Luedy Filho",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "regivaldo-pereira-galvao",
+      "nome": "Regivaldo Pereira Galvão",
+      "publicaNoCaso": true,
+      "papel": "proprietario_rural",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "arielson-da-conceicao-santos",
+      "nome": "Arielson da Conceição Santos",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "josevan-dionisio-dos-santos",
+      "nome": "Josevan Dionísio dos Santos",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "sergio-ferreira-de-jesus",
+      "nome": "Sérgio Ferreira de Jesus",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "joao-luiz-quagliato-neto",
+      "nome": "João Luiz Quagliato Neto",
+      "publicaNoCaso": true,
+      "papel": "proprietario_rural",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "luiz-duarte-de-arruda",
+      "nome": "Luiz Duarte de Arruda",
+      "publicaNoCaso": true,
+      "papel": "proprietario_rural",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "organizacoes": [
+    {
+      "id": "bom-jesus-agropecuaria",
+      "nome": "Bom Jesus Agropecuária",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "policia-federal",
+      "nome": "Polícia Federal",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "incra",
+      "nome": "Instituto Nacional de Colonização e Reforma Agrária (Incra)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "spu",
+      "nome": "Secretaria do Patrimônio da União (SPU)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "cargill-agricola",
+      "nome": "Cargill Agrícola",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "estado-do-para",
+      "nome": "Estado do Pará",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "volkswagen-do-brasil",
+      "nome": "Volkswagen do Brasil",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "byd-auto-do-brasil",
+      "nome": "BYD Auto do Brasil",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "china-jinjiang-construction-brazil",
+      "nome": "China JinJiang Construction Brazil",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "tecmonta-equipamentos-inteligentes",
+      "nome": "Tecmonta Equipamentos Inteligentes Brasil (antiga Tonghe)",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "guizardi-junior-construtora",
+      "nome": "Guizardi Júnior Construtora e Incorporadora Ltda",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "jbs",
+      "nome": "JBS S.A.",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "basf",
+      "nome": "BASF",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "ligacoes": [
+    {
+      "id": "l-maria-do-socorro-barreto-santiago-2026-faroeste-apn-985-grilagem-oeste-baiano",
+      "de": {
+        "tipo": "pessoa",
+        "id": "maria-do-socorro-barreto-santiago"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-faroeste-apn-985-grilagem-oeste-baiano"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-985-grilagem-oeste-baiano"
+    },
+    {
+      "id": "l-sergio-humberto-de-quadros-sampaio-2026-faroeste-apn-985-grilagem-oeste-baiano",
+      "de": {
+        "tipo": "pessoa",
+        "id": "sergio-humberto-de-quadros-sampaio"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-faroeste-apn-985-grilagem-oeste-baiano"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-985-grilagem-oeste-baiano"
+    },
+    {
+      "id": "l-sandra-ines-rusciolelli-2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "de": {
+        "tipo": "pessoa",
+        "id": "sandra-ines-rusciolelli"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+    },
+    {
+      "id": "l-vasco-rusciolelli-2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "de": {
+        "tipo": "pessoa",
+        "id": "vasco-rusciolelli"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+    },
+    {
+      "id": "l-nelson-vigolo-2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "de": {
+        "tipo": "pessoa",
+        "id": "nelson-vigolo"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+    },
+    {
+      "id": "l-vanderlei-chilante-2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "de": {
+        "tipo": "pessoa",
+        "id": "vanderlei-chilante"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+    },
+    {
+      "id": "l-bom-jesus-agropecuaria-2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "de": {
+        "tipo": "organizacao",
+        "id": "bom-jesus-agropecuaria"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano"
+    },
+    {
+      "id": "l-ronaldo-dalmoneck-2017-colniza-chacina-taquarucu-do-norte",
+      "de": {
+        "tipo": "pessoa",
+        "id": "ronaldo-dalmoneck"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2017-colniza-chacina-taquarucu-do-norte"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2017-colniza-chacina-taquarucu-do-norte"
+    },
+    {
+      "id": "l-calixto-luedy-filho-2004-felisburgo-chacina-acampamento-terra-prometida",
+      "de": {
+        "tipo": "pessoa",
+        "id": "calixto-luedy-filho"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2004-felisburgo-chacina-acampamento-terra-prometida"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2004-felisburgo-chacina-acampamento-terra-prometida"
+    },
+    {
+      "id": "l-adriano-chafik-luedy-2004-felisburgo-chacina-acampamento-terra-prometida",
+      "de": {
+        "tipo": "pessoa",
+        "id": "adriano-chafik-luedy"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2004-felisburgo-chacina-acampamento-terra-prometida"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2004-felisburgo-chacina-acampamento-terra-prometida"
+    },
+    {
+      "id": "l-regivaldo-pereira-galvao-2005-anapu-assassinato-missionaria-mandante",
+      "de": {
+        "tipo": "pessoa",
+        "id": "regivaldo-pereira-galvao"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2005-anapu-assassinato-missionaria-mandante"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2005-anapu-assassinato-missionaria-mandante"
+    },
+    {
+      "id": "l-arielson-da-conceicao-santos-2023-simoes-filho-assassinato-lider-quilombola",
+      "de": {
+        "tipo": "pessoa",
+        "id": "arielson-da-conceicao-santos"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-simoes-filho-assassinato-lider-quilombola"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "entradaId": "2023-simoes-filho-assassinato-lider-quilombola"
+    },
+    {
+      "id": "l-josevan-dionisio-dos-santos-2023-simoes-filho-assassinato-lider-quilombola",
+      "de": {
+        "tipo": "pessoa",
+        "id": "josevan-dionisio-dos-santos"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-simoes-filho-assassinato-lider-quilombola"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "entradaId": "2023-simoes-filho-assassinato-lider-quilombola"
+    },
+    {
+      "id": "l-sergio-ferreira-de-jesus-2023-simoes-filho-assassinato-lider-quilombola",
+      "de": {
+        "tipo": "pessoa",
+        "id": "sergio-ferreira-de-jesus"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-simoes-filho-assassinato-lider-quilombola"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-simoes-filho-assassinato-lider-quilombola"
+    },
+    {
+      "id": "l-incra-2026-abaetetuba-pae-santo-afonso-porto-privado-anulado",
+      "de": {
+        "tipo": "organizacao",
+        "id": "incra"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-abaetetuba-pae-santo-afonso-porto-privado-anulado"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-abaetetuba-pae-santo-afonso-porto-privado-anulado"
+    },
+    {
+      "id": "l-spu-2026-abaetetuba-pae-santo-afonso-porto-privado-anulado",
+      "de": {
+        "tipo": "organizacao",
+        "id": "spu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-abaetetuba-pae-santo-afonso-porto-privado-anulado"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-abaetetuba-pae-santo-afonso-porto-privado-anulado"
+    },
+    {
+      "id": "l-cargill-agricola-2026-abaetetuba-pae-santo-afonso-porto-privado-anulado",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cargill-agricola"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-abaetetuba-pae-santo-afonso-porto-privado-anulado"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-abaetetuba-pae-santo-afonso-porto-privado-anulado"
+    },
+    {
+      "id": "l-incra-2026-muana-ilha-cajuuba-acao-titulos-irregulares",
+      "de": {
+        "tipo": "organizacao",
+        "id": "incra"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-muana-ilha-cajuuba-acao-titulos-irregulares"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-muana-ilha-cajuuba-acao-titulos-irregulares"
+    },
+    {
+      "id": "l-estado-do-para-2026-muana-ilha-cajuuba-acao-titulos-irregulares",
+      "de": {
+        "tipo": "organizacao",
+        "id": "estado-do-para"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-muana-ilha-cajuuba-acao-titulos-irregulares"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-muana-ilha-cajuuba-acao-titulos-irregulares"
+    },
+    {
+      "id": "l-volkswagen-do-brasil-1974-santana-do-araguaia-volkswagen-fazenda-vale-do-rio-c",
+      "de": {
+        "tipo": "organizacao",
+        "id": "volkswagen-do-brasil"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1974-santana-do-araguaia-volkswagen-fazenda-vale-do-rio-cristalino"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1974-santana-do-araguaia-volkswagen-fazenda-vale-do-rio-cristalino"
+    },
+    {
+      "id": "l-byd-auto-do-brasil-2024-camacari-byd-trabalhadores-chineses-resgatados",
+      "de": {
+        "tipo": "organizacao",
+        "id": "byd-auto-do-brasil"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-camacari-byd-trabalhadores-chineses-resgatados"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-camacari-byd-trabalhadores-chineses-resgatados"
+    },
+    {
+      "id": "l-china-jinjiang-construction-brazil-2024-camacari-byd-trabalhadores-chineses-re",
+      "de": {
+        "tipo": "organizacao",
+        "id": "china-jinjiang-construction-brazil"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-camacari-byd-trabalhadores-chineses-resgatados"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-camacari-byd-trabalhadores-chineses-resgatados"
+    },
+    {
+      "id": "l-tecmonta-equipamentos-inteligentes-2024-camacari-byd-trabalhadores-chineses-re",
+      "de": {
+        "tipo": "organizacao",
+        "id": "tecmonta-equipamentos-inteligentes"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-camacari-byd-trabalhadores-chineses-resgatados"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-camacari-byd-trabalhadores-chineses-resgatados"
+    },
+    {
+      "id": "l-joao-luiz-quagliato-neto-2000-sapucaia-fazenda-brasil-verde",
+      "de": {
+        "tipo": "pessoa",
+        "id": "joao-luiz-quagliato-neto"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2000-sapucaia-fazenda-brasil-verde"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2000-sapucaia-fazenda-brasil-verde"
+    },
+    {
+      "id": "l-guizardi-junior-construtora-2025-chapada-dos-guimaraes-construtora-guizardi",
+      "de": {
+        "tipo": "organizacao",
+        "id": "guizardi-junior-construtora"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-chapada-dos-guimaraes-construtora-guizardi"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-chapada-dos-guimaraes-construtora-guizardi"
+    },
+    {
+      "id": "l-luiz-duarte-de-arruda-2021-caceres-fazenda-estancia-bela-vista",
+      "de": {
+        "tipo": "pessoa",
+        "id": "luiz-duarte-de-arruda"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-caceres-fazenda-estancia-bela-vista"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-caceres-fazenda-estancia-bela-vista"
+    },
+    {
+      "id": "l-jbs-2026-para-jbs-acao-mpt-cadeia-da-pecuaria",
+      "de": {
+        "tipo": "organizacao",
+        "id": "jbs"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-para-jbs-acao-mpt-cadeia-da-pecuaria"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-para-jbs-acao-mpt-cadeia-da-pecuaria"
+    },
+    {
+      "id": "l-basf-2023-uruguaiana-resgate-lavouras-de-arroz",
+      "de": {
+        "tipo": "organizacao",
+        "id": "basf"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-uruguaiana-resgate-lavouras-de-arroz"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-uruguaiana-resgate-lavouras-de-arroz"
+    },
+    {
+      "id": "l-sandra-vasco-mae-e-filho",
+      "de": {
+        "tipo": "pessoa",
+        "id": "sandra-ines-rusciolelli"
+      },
+      "para": {
+        "tipo": "pessoa",
+        "id": "vasco-rusciolelli"
+      },
+      "tipo": "relacionada",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "rotulo": "mãe e filho, segundo o MPF"
+    },
+    {
+      "id": "l-chilante-advogado-de-vigolo",
+      "de": {
+        "tipo": "pessoa",
+        "id": "vanderlei-chilante"
+      },
+      "para": {
+        "tipo": "pessoa",
+        "id": "nelson-vigolo"
+      },
+      "tipo": "relacionada",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "rotulo": "advogado do empresário, segundo o MPF"
+    },
+    {
+      "id": "l-pf-investiga-idc-22",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-rondonia-federalizacao-mortes-liderancas-rurais"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-rondonia-federalizacao-mortes-liderancas-rurais"
+    },
+    {
+      "id": "l-pf-investiga-imperium-fictum",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-para-operacao-imperium-fictum-grilagem"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ],
+      "entradaId": "2025-para-operacao-imperium-fictum-grilagem"
+    },
+    {
+      "id": "l-pf-investiga-chancelas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-marau-operacao-chancelas-grilagem-terrenos-de-marinha"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-marau-operacao-chancelas-grilagem-terrenos-de-marinha"
+    },
+    {
+      "id": "l-pf-investiga-tordesilhas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-cajueiro-da-praia-operacao-tordesilhas-grilagem"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-cajueiro-da-praia-operacao-tordesilhas-grilagem"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "maria-do-socorro-barreto-santiago",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STJ, condenada a 14 anos e 11 meses por corrupção passiva e lavagem de dinheiro (APn 985, 21/10/2026); cabe recurso."
+        },
+        {
+          "pessoaId": "sergio-humberto-de-quadros-sampaio",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STJ, condenado pelos mesmos crimes na APn 985 (21/10/2026); cabe recurso."
+        }
+      ],
+      "id": "2026-faroeste-apn-985-grilagem-oeste-baiano",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Operação Faroeste (BA): STJ condena desembargadora e juiz aposentado em esquema de grilagem e venda de decisões",
+      "resumo": "Segundo o STJ, em 21 de outubro de 2026 a Corte Especial condenou, na Ação Penal 985, a desembargadora do TJBA Maria do Socorro Barreto Santiago a 14 anos e 11 meses de prisão, em regime inicial fechado, por corrupção passiva e lavagem de dinheiro, num esquema que o tribunal descreve como de grilagem de terras e comercialização de decisões judiciais ligado à Fazenda do Estrondo, em Formosa do Rio Preto (BA). Segundo o STJ, o juiz aposentado Sérgio Humberto de Quadros Sampaio também foi condenado, e três réus foram absolvidos por insuficiência de provas. A decisão ainda admite recurso.",
+      "dataDoFato": "2019",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2911105",
+        "nome": "Formosa do Rio Preto"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Operação Faroeste: Corte Especial condena magistrados por venda de decisões judiciais na Bahia",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2026/21102026-Operacao-Faroeste-Corte-Especial-condena-magistrados-por-venda-de-decisoes-judiciais-na-Bahia.aspx",
+          "trecho": "a desembargadora do Tribunal de Justiça da Bahia (TJBA) Maria do Socorro Barreto Santiago à pena de 14 anos e 11 meses",
+          "data": "2026-10-21",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Operação Faroeste: Corte Especial condena magistrados (trecho sobre o esquema)",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2026/21102026-Operacao-Faroeste-Corte-Especial-condena-magistrados-por-venda-de-decisoes-judiciais-na-Bahia.aspx#esquema",
+          "trecho": "esquema sofisticado de grilagem de terras e de comercialização de decisões judiciais",
+          "data": "2026-10-21",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "grilagem",
+        "Operação Faroeste",
+        "venda de decisões judiciais",
+        "oeste baiano",
+        "Bahia"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação penal originária no STJ (foro de desembargadora): não há 'instância' anterior, por isso 'condenado em 1ª instância'. A página do STJ é montada por JavaScript: os trechos vieram da leitura da página renderizada (WebFetch). A data do fato é aproximada (a operação foi deflagrada em 2019; os atos são anteriores): conferir no acórdão. Os três absolvidos não viram nós (pessoas privadas absolvidas). f2 é a mesma página, com âncora para não duplicar o link."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "bom-jesus-agropecuaria"
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "sandra-ines-rusciolelli",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o MPF, condenada a 14 anos e 20 dias de reclusão e à perda do cargo (APn 953, 04/11/2026)."
+        },
+        {
+          "pessoaId": "vasco-rusciolelli",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o MPF, condenado a 13 anos e 11 meses de reclusão (APn 953)."
+        },
+        {
+          "pessoaId": "nelson-vigolo",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o MPF, condenado a 4 anos, 1 mês e 20 dias, pena reduzida pela colaboração (APn 953)."
+        },
+        {
+          "pessoaId": "vanderlei-chilante",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o MPF, condenado a 4 anos, 11 meses e 25 dias de reclusão (APn 953)."
+        }
+      ],
+      "id": "2026-faroeste-apn-953-disputas-fundiarias-oeste-baiano",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Operação Faroeste (BA): STJ condena ex-desembargadora, filho, empresário e advogado por decisões vendidas em disputas de terras",
+      "resumo": "Segundo o MPF, em 4 de novembro de 2026 a Corte Especial do STJ condenou por unanimidade, na Ação Penal 953, a ex-desembargadora do TJBA Sandra Inês Rusciolelli (14 anos e 20 dias de reclusão), seu filho Vasco Rusciolelli, o empresário Nelson Vígolo e o advogado Vanderlei Chilante por um esquema de venda de decisões judiciais em benefício da empresa Bom Jesus Agropecuária em disputas sobre a propriedade de terras no oeste baiano. Segundo o MPF, entre 2017 e 2020 foram proferidas quatro decisões mediante propina. Cabe recurso.",
+      "dataDoFato": "2017",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "nome": "Oeste baiano"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Operação Faroeste: STJ condena ex-desembargadora e mais três pessoas por venda de decisões judiciais na Bahia",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/operacao-faroeste-stj-condena-ex-desembargadora-e-mais-3-pessoas-por-venda-de-decisoes-judiciais-na-bahia",
+          "trecho": "condenou por unanimidade a ex-desembargadora do Tribunal de Justiça da Bahia (TJBA) Sandra Inês Rusciolelli, seu filho Vasco Rusciolelli, o empresário Nelson Vígolo e seu advogado, Vanderlei Chilante",
+          "data": "2026-11-04",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "Operação Faroeste",
+        "disputas fundiárias",
+        "venda de decisões judiciais",
+        "oeste baiano",
+        "Bahia"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação penal originária no STJ: 'condenado em 1ª instância' porque não há trânsito em julgado. A Bom Jesus Agropecuária aparece como empresa beneficiada pelas decisões, segundo o MPF; a nota não diz que a empresa é ré. O colaborador com perdão judicial não vira nó. Data do fato: 2017 a 2020 (o campo só aceita uma data; ficou o início)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "ronaldo-dalmoneck",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo a SESP-MT, um dos executores, condenado pelo júri a 200 anos de reclusão (31/05/2023)."
+        }
+      ],
+      "id": "2017-colniza-chacina-taquarucu-do-norte",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Chacina de Taquaruçu do Norte, Colniza (MT): executor condenado a 200 anos pelo júri",
+      "resumo": "Segundo a SESP-MT, em 19 de abril de 2017 nove pessoas assentadas foram mortas no distrito de Taquaruçu do Norte, em Colniza (MT). Segundo a SESP-MT, em 31 de maio de 2023 o júri da comarca condenou Ronaldo Dalmoneck a 200 anos de reclusão por homicídio qualificado e por integrar grupo de extermínio; foi o primeiro réu do caso a ir a júri. Oito investigados foram denunciados pelo Ministério Público Estadual, entre eles supostos mandantes denunciados em julho de 2021, ainda sem julgamento na fonte lida.",
+      "dataDoFato": "2017-04-19",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MT",
+        "municipioIbge": "5103254",
+        "nome": "Colniza (Taquaruçu do Norte)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "SESP-MT",
+          "tipo": "processo",
+          "titulo": "Integrante de grupo de extermínio responsável por chacina em Colniza é condenado a 200 anos de reclusão",
+          "url": "https://www.sesp.mt.gov.br/-/integrante-de-grupo-de-exterm%C3%ADnio-respons%C3%A1vel-por-chacina-em-colniza-%C3%A9-condenado-a-200-anos-de-reclus%C3%A3o",
+          "trecho": "Ronaldo Dalmoneck foi condenado por homicídio qualificado por meio cruel, motivo torpe e impossibilidade de defesa das vítimas, além do delito de integrar grupo de extermínio",
+          "data": "2023-06-01",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "chacina",
+        "conflito agrário",
+        "grupo de extermínio",
+        "Mato Grosso",
+        "júri"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A fonte é da Secretaria de Segurança (governo estadual) relatando o júri; reportagens (Olhar Direto, RD News) dizem que o TJMT manteve a pena: achar o acórdão do TJMT ou nota do MPMT antes de aprovar e ver se houve trânsito. Os supostos mandantes não são nomeados na fonte lida, por isso não viram nós. Nenhum morto é nomeado."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "calixto-luedy-filho",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJMG, condenado pelo júri a 195 anos e 9 meses (13/05/2019)."
+        },
+        {
+          "pessoaId": "adriano-chafik-luedy",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJMG, o fazendeiro foi sentenciado antes, em outubro de 2013."
+        }
+      ],
+      "id": "2004-felisburgo-chacina-acampamento-terra-prometida",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Chacina de Felisburgo (MG, 2004): fazendeiro e outros réus condenados pelo júri",
+      "resumo": "Segundo o TJMG, em novembro de 2004, no Vale do Jequitinhonha, cinco pessoas foram mortas, outras 12 sofreram tentativa de homicídio e casas e uma escola foram incendiadas no ataque conhecido como Chacina de Felisburgo. Segundo o TJMG, em 13 de maio de 2019 o júri condenou Calixto Luedy Filho a 195 anos e 9 meses de prisão; antes dele, o fazendeiro Adriano Chafik Luedy e outros réus haviam sido sentenciados (outubro de 2013 e janeiro de 2014).",
+      "dataDoFato": "2004-11",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "municipioIbge": "3125606",
+        "nome": "Felisburgo"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "TJMG",
+          "tipo": "processo",
+          "titulo": "Condenado a 195 anos outro envolvido na Chacina de Felisburgo",
+          "url": "https://www.tjmg.jus.br/portal-tjmg/noticias/condenado-a-195-anos-outro-envolvido-na-chacina-de-felisburgo.htm",
+          "trecho": "O réu Calixto Luedy Filho foi condenado a 195 anos e 9 meses de prisão, em regime fechado, pelo homicídio de cinco pessoas, tentativa de homicídio de outras 12 e por atear fogo em casas e uma escola.",
+          "data": "2019-05-13",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "chacina",
+        "acampamento sem-terra",
+        "Vale do Jequitinhonha",
+        "Minas Gerais",
+        "júri"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A nota do TJMG cita o fazendeiro como sentenciado em 2013 sem dar a pena; a imprensa (Gazeta do Povo, 2013) fala em 115 anos. Conferir recursos e trânsito no TJMG. Os outros sentenciados citados pelo TJMG não viraram nós (a curadoria pode acrescentar). Nenhum morto é nomeado."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "regivaldo-pereira-galvao",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado a 25 anos como mandante; execução provisória restabelecida em 20/02/2019 (HC 151819)."
+        }
+      ],
+      "id": "2005-anapu-assassinato-missionaria-mandante",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Anapu (PA, 2005): STF restabelece a execução da pena do fazendeiro condenado como mandante do assassinato de missionária",
+      "resumo": "Segundo o STF, o fazendeiro Regivaldo Pereira Galvão foi condenado a 25 anos de reclusão como mandante do homicídio de uma missionária, crime ocorrido em 2005 em Anapu (PA). Segundo o STF, o TJPA manteve a sentença, o STJ reduziu a pena para 25 anos e, em 20 de fevereiro de 2019, a Primeira Turma do STF (HC 151819) restabeleceu a execução provisória da pena, revogando a liminar que o deixava em liberdade até o trânsito em julgado.",
+      "dataDoFato": "2005-02",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1500859",
+        "nome": "Anapu"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "1ª Turma mantém execução da pena de fazendeiro condenado pelo assassinato de [nome omitido]",
+          "url": "https://noticias.stf.jus.br/postsnoticias/1a-turma-mantem-execucao-da-pena-de-fazendeiro-condenado-pelo-assassinato-de-dorothy-stang/",
+          "trecho": "restabeleceu a execução provisória da pena imposta ao fazendeiro Regivaldo Pereira Galvão, condenado a 25 anos de reclusão",
+          "data": "2019-02-20",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "assassinato",
+        "conflito agrário",
+        "Anapu",
+        "Pará",
+        "mandante"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação confirmada em 2ª instância e no STJ, mas o STF (2019) fala em execução provisória: sem trânsito na fonte lida, por isso 'condenado em 1ª instância' (o modelo não tem 2ª instância). O título da fonte nomeia a missionária; a ficha não a nomeia (regra: nunca nome de quem morreu). Os outros condenados (executor, intermediários e outro mandante) estão em reportagens; achar fonte oficial antes de acrescentar."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "arielson-da-conceicao-santos",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o MPBA, pronunciado em 2024; segundo a CNN Brasil, condenado pelo júri em abril de 2026."
+        },
+        {
+          "pessoaId": "josevan-dionisio-dos-santos",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo a CNN Brasil, condenado a 28 anos de reclusão em 13/10/2026."
+        },
+        {
+          "pessoaId": "sergio-ferreira-de-jesus",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPBA, pronunciado em 22/07/2024 para ir a júri; a fonte lida não traz o resultado."
+        }
+      ],
+      "id": "2023-simoes-filho-assassinato-lider-quilombola",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Quilombo Pitanga dos Palmares, Simões Filho (BA): réus condenados pelo assassinato da ialorixá e liderança quilombola",
+      "resumo": "Segundo o MPBA, a liderança religiosa e quilombola do Quilombo Pitanga dos Palmares foi morta em 17 de agosto de 2023 em Simões Filho (BA); em 22 de julho de 2024 a 1ª Vara Crime de Simões Filho mandou a júri três dos cinco denunciados, e dois estavam foragidos. Segundo a CNN Brasil, em abril de 2026 o júri condenou Arielson da Conceição Santos a 40 anos, 5 meses e 22 dias, e em 13 de outubro de 2026 condenou Josevan Dionísio dos Santos a 28 anos de reclusão.",
+      "dataDoFato": "2023-08-17",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2930709",
+        "nome": "Simões Filho (Quilombo Pitanga dos Palmares)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPBA",
+          "tipo": "processo",
+          "titulo": "Denunciados pelo MP por assassinato de [nome omitido] vão a julgamento popular",
+          "url": "https://www.mpba.mp.br/noticia/73640",
+          "trecho": "A determinação judicial, que acatou pedido do MP, foi expedida ontem, dia 22, pela 1ª Vara Crime de Simões Filho.",
+          "data": "2024-07-23",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "CNN Brasil",
+          "tipo": "reportagem",
+          "titulo": "Justiça da Bahia condena terceiro acusado de matar [nome omitido]",
+          "url": "https://www.cnnbrasil.com.br/nacional/nordeste/ba/justica-da-bahia-condena-terceiro-acusado-de-matar-mae-bernadete/",
+          "trecho": "A Justiça da Bahia condenou, nesta terça-feira (13), Josevan Dionísio dos Santos a 28 anos de reclusão, em regime inicial fechado",
+          "data": "2026-10-13",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "quilombo",
+        "liderança quilombola",
+        "Bahia",
+        "júri"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A ficha não nomeia quem morreu (os títulos das fontes nomeiam). As penas de abril de 2026 divergem entre veículos (CNN dá 40 anos ao executor; outros invertem): conferir na sentença ou com o MPBA. Um terceiro condenado em abril morreu depois do julgamento, segundo a imprensa: não virou nó. O motivo apontado pela polícia envolve tráfico na região: a curadoria decide se o dossiê 'conflitos-no-campo' (tema quilombo) é o melhor lugar."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "id": "2023-rondonia-federalizacao-mortes-liderancas-rurais",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Rondônia: STJ federaliza seis inquéritos sobre mortes de líderes de trabalhadores rurais (IDC 22)",
+      "resumo": "Segundo o STJ, em agosto de 2023 a Terceira Seção, a pedido da PGR, transferiu para a Justiça Federal seis inquéritos sobre homicídios de líderes de trabalhadores rurais em Rondônia, ao reconhecer grave violação de direitos humanos, risco de responsabilização internacional do Brasil e inércia da Polícia Civil na apuração; nos outros pedidos, o tribunal entendeu que as autoridades estaduais tinham agido. As investigações passaram à Polícia Federal.",
+      "dataDoFato": "2023-08",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RO",
+        "nome": "Rondônia"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "STJ transfere à Justiça Federal apuração da morte de líderes de trabalhadores rurais em Rondônia",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2023/25082023-STJ-transfere-a-Justica-Federal-apuracao-da-morte-de-lideres-de-trabalhadores-rurais-em-Rondonia.aspx",
+          "trecho": "A pedido da Procuradoria-Geral da República (PGR), a Terceira Seção do Superior Tribunal de Justiça (STJ) determinou",
+          "data": "2023-08-25",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "federalização",
+        "IDC",
+        "lideranças rurais",
+        "Rondônia",
+        "conflito agrário"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A data do fato é a da decisão (os homicídios são de anos variados, não listados na nota). Sem nomes: a nota não nomeia investigados. A Polícia Federal entra como órgão que assume a apuração."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "id": "2019-labrea-federalizacao-morte-lider-rural-ponta-abuna",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Lábrea (AM): STJ manda para a Justiça Federal a apuração da morte de líder rural na Ponta Abunã (IDC 32)",
+      "resumo": "Segundo o STJ, em setembro de 2024 a Terceira Seção determinou o deslocamento para a Justiça Federal no Amazonas da investigação e do julgamento da morte de um líder rural em Lábrea (AM), crime ocorrido em 2019 na região conhecida como Ponta Abunã, palco de conflitos agrários que envolvem grileiros, fazendeiros e madeireiros. O pedido de federalização foi feito pelo MPF.",
+      "dataDoFato": "2019",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "municipioIbge": "1302405",
+        "nome": "Lábrea (Ponta Abunã)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "STJ transfere para a Justiça Federal investigação sobre morte de líder rural no Amazonas",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2024/09092024-STJ-transfere-para-a-Justica-Federal-investigacao-sobre-morte-de-lider-rural-no-Amazona.aspx",
+          "trecho": "conhecida como Ponta Abunã, palco de conflitos agrários que envolvem grileiros, fazendeiros e madeireiros",
+          "data": "2024-09-09",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "federalização",
+        "IDC",
+        "Ponta Abunã",
+        "Amazonas",
+        "grilagem"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A ficha não nomeia o líder morto (a fonte nomeia). Sem investigados nomeados."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "incra",
+        "spu",
+        "cargill-agricola"
+      ],
+      "pessoas": [],
+      "id": "2026-abaetetuba-pae-santo-afonso-porto-privado-anulado",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Abaetetuba (PA): Justiça Federal anula atos que tiravam área de assentamento ribeirinho para porto privado",
+      "resumo": "Segundo o MPF, em 31 de julho de 2026 a Justiça Federal declarou nulos atos do Incra e da SPU que excluíam parte do Projeto de Assentamento Agroextrativista Santo Afonso, em Abaetetuba (PA), para um terminal portuário privado da Brick Logística, depois sucedida pela Cargill Agrícola, por falta de consulta prévia à comunidade (Convenção 169 da OIT). Segundo o MPF, a sentença condenou a União e o Incra a regularizar o assentamento, criado em 2005 para 188 famílias ribeirinhas (ACP 1043377-41.2021.4.01.3900).",
+      "dataDoFato": "2021",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1500107",
+        "nome": "Abaetetuba (Ilha do Xingu)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Em ação de coautoria do MPF, Justiça anula atos que destinavam terras de assentamento para porto privado no PA",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-pa/noticias/em-acao-de-coautoria-do-mpf-justica-anula-atos-que-destinavam-terras-de-assentamento-para-porto-privado-no-pa",
+          "trecho": "declarou a nulidade de atos administrativos do Instituto Nacional de Colonização e Reforma Agrária (Incra) e da Secretaria do Patrimônio da União (SPU) que excluíam uma parcela do Projeto de Assentamento Agroextrativista (PAE) Santo Afonso",
+          "data": "2026-08-03",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "assentamento",
+        "consulta prévia",
+        "Convenção 169 da OIT",
+        "porto privado",
+        "Pará"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil (não criminal): 'condenado em 1ª instância' porque a sentença condenou União e Incra a regularizar o assentamento; cabe recurso. A Cargill entra como sucessora do projeto portuário, segundo o MPF, não como condenada. A data do fato é a do ajuizamento (2021, pelo número do processo): conferir o ano dos atos anulados."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "incra",
+        "estado-do-para"
+      ],
+      "pessoas": [],
+      "id": "2026-muana-ilha-cajuuba-acao-titulos-irregulares",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Muaná (PA): MPF pede anulação de títulos de terra sobre assentamento ribeirinho e volta de família despejada",
+      "resumo": "Segundo o MPF, em 13 de abril de 2026 o órgão entrou com ação na Justiça Federal para anular títulos de propriedade sobre terras da União sobrepostas ao Projeto de Assentamento Agroextrativista da Ilha Cajuúba, em Muaná (PA), criado pelo Incra em 2014. Segundo o MPF, moradores relataram ameaças, extorsões e a cobrança de 'meação' por supostos donos da terra, e em 2020 uma família com autorização de uso federal foi despejada por ordem da Justiça Estadual. Os réus são particulares não nomeados na nota, a União, o Incra e o Estado do Pará.",
+      "dataDoFato": "2020",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1504901",
+        "nome": "Muaná (Ilha Cajuúba)"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "MPF aciona Justiça para anular títulos irregulares de terras e garantir direitos de ribeirinhos em Muaná (PA)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-pa/noticias/mpf-aciona-justica-para-anular-titulos-irregulares-de-terras-e-garantir-direitos-de-ribeirinhos-em-muana-pa",
+          "trecho": "O Ministério Público Federal (MPF) entrou com ação na Justiça Federal, no último dia 13, com o objetivo de anular títulos de propriedade irregulares",
+          "data": "2026-04-17",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "grilagem",
+        "despejo",
+        "ribeirinhos",
+        "Marajó",
+        "Pará"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil ajuizada, sem decisão na fonte lida: 'réu' é o termo do modelo para quem responde à ação. Os particulares réus não são nomeados (a nota não os nomeia). Data do fato: 2020, o despejo citado; as ameaças são contínuas."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "id": "2025-para-operacao-imperium-fictum-grilagem",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Operação Imperium Fictum (PA): PF investiga organização suspeita de grilagem de terras da União e fraudes fundiárias",
+      "resumo": "Segundo a PF, em 21 de maio de 2025 a Operação Imperium Fictum cumpriu 39 mandados de busca e apreensão e 9 de prisão preventiva, expedidos pela 4ª Vara Federal Criminal do Pará, contra uma organização suspeita de fraudes fundiárias, grilagem de terras públicas da União e lavagem de capitais. Segundo a PF, em 8 de julho de 2026 a segunda fase cumpriu quatro mandados em Anapu e Senador José Porfírio (PA), sobre o suposto registro fraudulento de quatro matrículas de imóveis rurais. Ninguém foi julgado.",
+      "dataDoFato": "2025-05-21",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "nome": "Pará (Altamira, Anapu e Senador José Porfírio)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "PF",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF deflagra operação contra fraudes fundiárias no Estado do Pará",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2025/05/pf-deflagra-contra-fraudes-fundiarias-no-estado-do-para",
+          "trecho": "a Operação Imperium Fictum, voltada à repressão de organização criminosa especializada em fraudes fundiárias, grilagem de terras públicas da União e lavagem de capitais no Estado do Pará",
+          "data": "2025-05-21",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "pf",
+          "veiculo": "PF",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF combate grilagem de terras públicas no Pará",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2026/07/pf-combate-grilagem-de-terras-publicas-no-para",
+          "trecho": "Foram cumpridos quatro mandados de busca e apreensão nos municípios de Anapu e de Senador José Porfírio",
+          "data": "2026-07-08",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "grilagem",
+        "fraude fundiária",
+        "operação policial",
+        "Pará",
+        "terras da União"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação: nenhum investigado é nomeado nas notas da PF. O texto usa 'suspeita' e 'suposto' em tudo."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "id": "2026-marau-operacao-chancelas-grilagem-terrenos-de-marinha",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Operação Chancelas (Maraú, BA): PF e MPF investigam suspeita de registro fraudulento de terras da União",
+      "resumo": "Segundo a PF, em 3 de junho de 2026 a PF e o MPF deflagraram a Operação Chancelas, com seis mandados de busca e apreensão expedidos pela Justiça Federal em Maraú, Camamu e Cairu (BA), para apurar suspeita de fraudes registrais e grilagem de terras da União. Segundo a PF, terrenos de marinha eram supostamente registrados como propriedades particulares por meio de expedientes fraudulentos em cartório de registro de imóveis. Ninguém foi julgado.",
+      "dataDoFato": "2026-06-03",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2920700",
+        "nome": "Maraú"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "PF",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF e Ministério Público Federal combatem fraudes cartoriais e grilagem de terras da União no sul da Bahia",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2026/06/pf-e-ministerio-publico-federal-combatem-fraudes-cartoriais-e-grilagem-de-terras-da-uniao-no-sul-da-bahia",
+          "trecho": "Apurou-se que tais áreas eram indevidamente registradas como propriedades particulares, mediante a utilização de expedientes fraudulentos no âmbito de cartório de registro de imóveis.",
+          "data": "2026-06-03",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "grilagem",
+        "fraude cartorial",
+        "terrenos de marinha",
+        "Bahia",
+        "operação policial"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação; a nota da PF não nomeia investigados nem o cartório."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "id": "2025-cajueiro-da-praia-operacao-tordesilhas-grilagem",
+      "dossie": "conflitos-no-campo",
+      "titulo": "Operação Tratado de Tordesilhas (PI): PF investiga suspeita de grilagem de terras da União no litoral",
+      "resumo": "Segundo a PF, em 25 de setembro de 2025 a 3ª fase da Operação Tratado de Tordesilhas cumpriu três mandados de busca e apreensão em Cajueiro da Praia e Parnaíba (PI), expedidos pela 1ª Vara Federal de Teresina, para investigar um suposto esquema de grilagem de terras da União em Cajueiro da Praia com uso de fraudes no programa de regularização fundiária urbana (Reurb). Ninguém foi julgado.",
+      "dataDoFato": "2025-09-25",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PI",
+        "municipioIbge": "2202083",
+        "nome": "Cajueiro da Praia"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "PF",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF desarticula esquema de grilagem de terras da União no litoral do Piauí",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2025/09/pf-desarticula-esquema-de-grilagem-de-terras-da-uniao-no-litoral-do-piaui",
+          "trecho": "a 3ª fase da Operação Tratado de Tordesilhas, para investigar um esquema de grilagem de terras da União no município de Cajueiro da Praia/PI.",
+          "data": "2025-09-25",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "grilagem",
+        "Reurb",
+        "terras da União",
+        "Piauí",
+        "operação policial"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Só investigação; a nota não nomeia investigados. As fases anteriores da operação não foram lidas."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "volkswagen-do-brasil"
+      ],
+      "pessoas": [],
+      "id": "1974-santana-do-araguaia-volkswagen-fazenda-vale-do-rio-cristalino",
+      "dossie": "trabalho-escravo",
+      "titulo": "Volkswagen condenada em R$ 165 milhões por trabalho escravo na Fazenda Vale do Rio Cristalino (PA, 1974 a 1986)",
+      "resumo": "Segundo o TRT-8, em agosto de 2025 a Vara do Trabalho de Redenção condenou a Volkswagen do Brasil a pagar R$ 165 milhões por danos morais coletivos, em ação civil pública do MPT, por trabalho em condições análogas à escravidão na Fazenda Vale do Rio Cristalino, no Pará, entre 1974 e 1986. Segundo o MPT-PA, em 24 de fevereiro de 2026 a 4ª Turma do TRT-8 manteve todos os termos da sentença sobre a fazenda, situada em Santana do Araguaia. É ação trabalhista, de natureza civil.",
+      "dataDoFato": "1974",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1506708",
+        "nome": "Santana do Araguaia"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "TRT-8",
+          "tipo": "processo",
+          "titulo": "TRT-8 condena Volkswagen por trabalho escravo e tráfico de pessoas: indenização de R$ 165 milhões",
+          "url": "https://www.trt8.jus.br/noticias/2025/trt-8-condena-volkswagen-por-trabalho-escravo-e-trafico-de-pessoas-indenizacao-de-r",
+          "trecho": "condenou a Volkswagen do Brasil a pagar R$ 165 milhões por danos morais coletivos, após comprovação de que trabalhadores foram submetidos a condições análogas à escravidão na Fazenda Vale do Rio Cristalino",
+          "data": "2025-09-01",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "MPT-PA",
+          "tipo": "processo",
+          "titulo": "Justiça mantém condenação da Volkswagen no caso da Fazenda Vale do Rio Cristalino",
+          "url": "https://www.prt8.mpt.mp.br/procuradorias/prt-belem/1559-justica-mantem-condenacao-da-volkswagen-no-caso-da-fazenda-vale-do-rio-cristalino",
+          "trecho": "A 4ª turma do Tribunal Regional do Trabalho da 8ª Região (TRT8) manteve, em julgamento realizado hoje (24), todos os termos da sentença",
+          "data": "2026-02-24",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "ditadura militar",
+        "ação civil pública",
+        "Pará",
+        "pecuária"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação civil confirmada em 2ª instância (TRT-8, 24/02/2026); sem trânsito na fonte lida (cabe recurso ao TST): 'condenado em 1ª instância' é o degrau mais próximo do modelo. A CPT (08/10/2026) noticia uma ação individual de um trabalhador contra a empresa, em que o TRT-8 afastou a prescrição; não entrou por nomear o trabalhador."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "byd-auto-do-brasil",
+        "china-jinjiang-construction-brazil",
+        "tecmonta-equipamentos-inteligentes"
+      ],
+      "pessoas": [],
+      "id": "2024-camacari-byd-trabalhadores-chineses-resgatados",
+      "dossie": "trabalho-escravo",
+      "titulo": "Camaçari (BA): obra da fábrica da BYD tem 163 trabalhadores chineses resgatados; MPT processa e depois faz acordo",
+      "resumo": "Segundo o MTE, em 19 de dezembro de 2024 foram identificados 471 trabalhadores chineses trazidos de forma irregular para a obra da fábrica da BYD em Camaçari (BA), dos quais 163 foram resgatados em condições análogas à escravidão. Segundo o MPT-BA, em 27 de maio de 2025 o MPT ajuizou ação civil pública contra a BYD e as empreiteiras China JinJiang e Tonghe (atual Tecmonta), pedindo R$ 257 milhões por danos morais coletivos. Segundo o Bahia Notícias, em dezembro de 2025 as empresas fizeram acordo de R$ 40 milhões com o MPT, que dependia de homologação; segundo a eixos, em abril de 2026 a BYD foi incluída na lista suja do MTE.",
+      "dataDoFato": "2024-12-19",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2905701",
+        "nome": "Camaçari"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MTE",
+          "tipo": "investigacao_oficial",
+          "titulo": "BYD é autuada por submeter trabalhadores chineses a condições análogas à escravidão na Bahia",
+          "url": "https://www.gov.br/trabalho-e-emprego/pt-br/noticias-e-conteudo/2025/junho/byd-e-autuada-por-submeter-trabalhadores-chineses-a-condicoes-analogas-a-escravidao-na-bahia",
+          "trecho": "Em uma dessas ações, realizada em 19 de dezembro de 2024, foram identificados 471 trabalhadores chineses trazidos de forma irregular ao Brasil, dos quais 163 foram resgatados em condições análogas à escravidão.",
+          "data": "2025-06-03",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "MPT-BA",
+          "tipo": "processo",
+          "titulo": "MPT processa BYD por trabalho escravo e tráfico de pessoas",
+          "url": "https://www.prt5.mpt.mp.br/informe-se/noticias-do-mpt-ba/2514-mpt-processa-byd-por-trabalho-escravo-e-trafico-de-pessoas",
+          "trecho": "O MPT pede a condenação da BYD e das outras duas empresas ao pagamento de R$ 257 milhões a título de danos morais coletivos",
+          "data": "2025-05-27",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f3",
+          "veiculo": "Bahia Notícias",
+          "tipo": "reportagem",
+          "titulo": "MPT faz acordo de R$ 40 milhões com BYD e empreiteiras em caso de trabalho análogo à escravidão em Camaçari",
+          "url": "https://www.bahianoticias.com.br/municipios/noticia/48759-mpt-faz-acordo-de-r-40-milhoes-com-byd-e-empreiteiras-em-caso-de-trabalho-analogo-a-escravidao-em-camacari",
+          "trecho": "O acordo prevê o pagamento de R$ 40 milhões, sendo R$ 20 milhões de dano moral individual,",
+          "data": "2025-12-27",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f4",
+          "veiculo": "eixos",
+          "tipo": "reportagem",
+          "titulo": "BYD entra para “lista suja” por trabalho escravo no Brasil",
+          "url": "https://eixos.com.br/transicao-energetica/byd-entra-para-lista-suja-por-trabalho-escravo-no-brasil/",
+          "trecho": "foi incluída pelo Ministério do Trabalho e Emprego (MTE) na chamada “lista suja” do trabalho análogo à escravidão",
+          "data": "2026-04-08",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "tráfico de pessoas",
+        "trabalhadores migrantes",
+        "lista suja",
+        "Bahia"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). 'Réu' na ação civil pública (ACP 0000449-07.2025.5.05.0134, número citado pela imprensa); o acordo de dezembro de 2025 ainda dependia de homologação na fonte lida e, segundo a imprensa, não tem admissão de culpa: conferir no PJe do TRT-5 se foi homologado (se sim, a curadoria decide como registrar). Conferir a BYD no PDF oficial do Cadastro de Empregadores (gov.br) antes de aprovar: a fonte da inclusão é reportagem."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "joao-luiz-quagliato-neto",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TRT-20, proprietário da fazenda na época, condenado em 1ª instância (2023) a 7 anos e 6 meses de detenção."
+        }
+      ],
+      "id": "2000-sapucaia-fazenda-brasil-verde",
+      "dossie": "trabalho-escravo",
+      "titulo": "Fazenda Brasil Verde (PA): Brasil condenado na Corte Interamericana e dono da fazenda condenado na Justiça Federal",
+      "resumo": "Segundo o TRT-20, na Fazenda Brasil Verde, em Sapucaia (PA), o Grupo Móvel do MTE resgatou 128 trabalhadores entre 1997 e 2000; em 2016 a Corte Interamericana condenou o Brasil e declarou, pela primeira vez, a responsabilidade internacional de um Estado pela violação do direito de não ser submetido à escravidão. Segundo o TRT-20, depois da sentença da Corte o MPF fez nova denúncia com base na fiscalização de 2000, e em 2023 o proprietário da fazenda, João Luiz Quagliato Neto, foi condenado pela Justiça Federal, em primeira instância, a sete anos e seis meses de detenção.",
+      "dataDoFato": "2000-03",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1507755",
+        "nome": "Sapucaia"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "TRT-20",
+          "tipo": "processo",
+          "titulo": "Vítimas de trabalho escravo contra o Estado brasileiro: o caso da Fazenda Brasil Verde",
+          "url": "https://www.trt20.jus.br/noticias/16156-vitimas-de-trabalho-escravo-contra-o-estado-brasileiro-o-caso-da-fazenda-brasil-verde",
+          "trecho": "Em 2023, ele foi condenado pela Justiça Federal, em primeira instância, a sete anos e seis meses de detenção.",
+          "data": "2024-07-16",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "Corte Interamericana",
+        "pecuária",
+        "Pará",
+        "imprescritibilidade"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A fonte é uma matéria de tribunal (TRT-20) que resume o caso; tipo 'processo' por relatar decisão judicial. Achar a sentença da Justiça Federal em Redenção (2023) e a página da Corte IDH (Série C n. 318, corteidh.or.cr bloqueou a leitura automática) antes de aprovar. O gerente também condenado, segundo a imprensa, não virou nó (a fonte oficial lida só nomeia o proprietário como condenado)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "guizardi-junior-construtora"
+      ],
+      "pessoas": [],
+      "id": "2025-chapada-dos-guimaraes-construtora-guizardi",
+      "dossie": "trabalho-escravo",
+      "titulo": "Chapada dos Guimarães (MT): construtora condenada, com trânsito em julgado, por trabalho análogo à escravidão em obra rural",
+      "resumo": "Segundo o MPT-MT, o MPT e a DPU obtiveram, em ação civil pública, a condenação da Guizardi Júnior Construtora e Incorporadora pela submissão de quatro trabalhadores, por cerca de um mês, a condições análogas à escravidão num canteiro de obras na zona rural de Chapada dos Guimarães (MT). Segundo o MPT-MT, a sentença fixou R$ 100 mil de dano moral coletivo e R$ 20 mil para cada trabalhador; a decisão, de novembro de 2025, transitou em julgado em fevereiro de 2026. É ação trabalhista, de natureza civil.",
+      "dataDoFato": "2025",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MT",
+        "municipioIbge": "5103007",
+        "nome": "Chapada dos Guimarães"
+      },
+      "situacao": "condenado_transitado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPT-MT",
+          "tipo": "processo",
+          "titulo": "MPT e Defensoria Pública obtêm condenação de construtora por trabalho análogo à escravidão em obra na MT-404",
+          "url": "https://www.prt23.mpt.mp.br/2664-mpt-e-defensoria-publica-obtem-condenacao-de-construtora-por-trabalho-analogo-a-escravidao-em-obra-na-mt-405",
+          "trecho": "A decisão, de novembro de 2025, transitou em julgado no início de fevereiro deste ano.",
+          "data": "2026-03-09",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "construção civil",
+        "trânsito em julgado",
+        "Mato Grosso",
+        "ação civil"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Trânsito em julgado na esfera civil (trabalhista), segundo o MPT-MT; o modelo só tem o vocabulário criminal, e o resumo diz que é ação civil. A data do fato não está na nota: '2025' é o ano da sentença; conferir o ano do resgate."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [
+        {
+          "pessoaId": "luiz-duarte-de-arruda",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o MPT-MT, condenado em ação civil pública (sentença noticiada em 08/02/2024); a fonte não informa recurso."
+        }
+      ],
+      "id": "2021-caceres-fazenda-estancia-bela-vista",
+      "dossie": "trabalho-escravo",
+      "titulo": "Cáceres (MT): proprietário da Estância Bela Vista condenado em ação do MPT por trabalho análogo à escravidão",
+      "resumo": "Segundo o MPT-MT, o MPT obteve na Justiça do Trabalho, em ação civil pública, a condenação de Luiz Duarte de Arruda, proprietário da fazenda Estância Bela Vista, em Cáceres (MT), por manter um trabalhador em condição análoga à escravidão por cerca de quatro anos; o caso chegou às autoridades depois de um acidente em agosto de 2021. Segundo o MPT-MT, a condenação inclui R$ 50 mil por dano moral coletivo. É ação trabalhista, de natureza civil.",
+      "dataDoFato": "2021-08",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MT",
+        "municipioIbge": "5102504",
+        "nome": "Cáceres"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPT-MT",
+          "tipo": "processo",
+          "titulo": "MPT-MT obtém na Justiça condenação de proprietário rural em Cáceres por trabalho análogo à escravidão",
+          "url": "https://www.prt23.mpt.mp.br/2087-mpt-mt-obtem-na-justica-condenacao-de-proprietario-rural-em-caceres-por-trabalho-analogo-a-escravidao",
+          "trecho": "a condenação de Luiz Duarte de Arruda, proprietário da fazenda Estância Bela Vista, em Cáceres (munícipio a 220 km da capital)",
+          "data": "2024-02-08",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "pecuária",
+        "Mato Grosso",
+        "ação civil"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Pessoa física privada nomeada porque há decisão judicial pública noticiada pelo MPT (regra da frente). Condenação civil; conferir recurso e trânsito no TRT-23. A esposa citada na ação da DPU não virou nó."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "jbs"
+      ],
+      "pessoas": [],
+      "id": "2026-para-jbs-acao-mpt-cadeia-da-pecuaria",
+      "dossie": "trabalho-escravo",
+      "titulo": "Pará: MPT processa a JBS e pede ao menos R$ 118,9 milhões por trabalho escravo em fornecedores de gado",
+      "resumo": "Segundo o MPT-PA, em abril de 2026 o MPT ajuizou ação civil pública contra a JBS S.A. na Vara do Trabalho de Xinguara (PA), afirmando que pecuaristas diretamente vinculados à empresa tiveram 53 trabalhadores resgatados em 2014, 2018, 2021, 2022 e 2025, em Ourilândia do Norte, São Félix do Xingu, Novo Repartimento, Pacajá, Brasil Novo, Uruará e Cumaru do Norte, e que as compras continuaram depois da inclusão dos fornecedores na lista suja. O MPT pede no mínimo R$ 118.941.340,55 por danos morais coletivos. A empresa responde à ação; não há decisão na fonte lida.",
+      "dataDoFato": "2014",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "nome": "Sul e sudeste do Pará"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPT-PA",
+          "tipo": "processo",
+          "titulo": "No Pará, MPT requer condenação da JBS em, no mínimo, R$ 118 milhões por trabalho escravo na cadeia produtiva da pecuária",
+          "url": "https://www.prt8.mpt.mp.br/procuradorias/ptm-maraba/1585-no-para-mpt-requer-condenacao-da-jbs-em-no-minimo-r-118-milhoes-por-trabalho-escravo-na-cadeia-produtiva-da-pecuaria",
+          "trecho": "O Ministério Público do Trabalho PA-AP (MPT) ingressou com ação civil pública contra a JBS S.A., na Vara do Trabalho de Xinguara/PA",
+          "data": "2026-04-29",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "cadeia produtiva",
+        "pecuária",
+        "lista suja",
+        "Pará"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Ação civil ajuizada (ACPCiv 0000318-44.2026.5.08.0124, número da nota): 'réu' é o termo do modelo para quem responde. Os 7 pecuaristas não são nomeados na nota. Data do fato: 2014 a 2025 (ficou o início)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "id": "2014-peritoro-fazenda-condenacao-trabalho-escravo",
+      "dossie": "trabalho-escravo",
+      "titulo": "Peritoró (MA): dono de fazenda e empreiteiro condenados por reduzir 12 trabalhadores à condição análoga à de escravo",
+      "resumo": "Segundo o MPF, a pedido do órgão a Justiça Federal condenou o dono de uma fazenda em Peritoró (MA) e o empreiteiro que aliciou os trabalhadores pelo crime de redução à condição análoga à de escravo, por fatos de março de 2014 descritos em relatório de fiscalização do MTE. Segundo o MPF (nota de 1º de setembro de 2025), as penas foram de 9 anos e 10 meses de reclusão, em regime fechado, e de 5 anos e 3 meses, em regime semiaberto; os condenados podem recorrer em liberdade.",
+      "dataDoFato": "2014-03",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MA",
+        "municipioIbge": "2108454",
+        "nome": "Peritoró"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "MPF obtém condenação de fazendeiro por crime de trabalho escravo contra 12 pessoas no Maranhão",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-ma/noticias/mpf-obtem-condenacao-de-fazendeiro-por-crime-de-trabalho-escravo-contra-12-pessoas-no-maranhao-1",
+          "trecho": "A pedido do Ministério Público Federal (MPF), a Justiça Federal condenou o dono de uma fazenda em Peritoró (MA) pelo crime de redução de trabalhadores à condição análoga à de escravo.",
+          "data": "2025-09-01",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "aliciamento",
+        "Maranhão",
+        "ação penal"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Processo 0000269-56.2019.4.01.3703 (da nota). A nota não nomeia os condenados: sem nós de pessoa. Da sentença cabe recurso."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "id": "2021-tapira-carvoaria-denuncia-mpf",
+      "dossie": "trabalho-escravo",
+      "titulo": "Tapira (MG): MPF denuncia dois homens por explorar sete trabalhadores em carvoaria",
+      "resumo": "Segundo o MPF, em fevereiro de 2026 o órgão denunciou dois homens pela suposta exploração de sete trabalhadores numa carvoaria na zona rural de Tapira (MG), recrutados de dezembro de 2020 a fevereiro de 2021 com promessas falsas de registro e condições dignas. Segundo o MPF, uma fiscalização de auditores do trabalho e policiais militares, entre março e abril de 2021, encontrou alojamentos improvisados e sem banheiro funcional. Os acusados são presumidos inocentes até o julgamento.",
+      "dataDoFato": "2021-03",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "municipioIbge": "3168101",
+        "nome": "Tapira"
+      },
+      "situacao": "denunciado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "MPF denuncia responsáveis por manter sete pessoas em situação de escravidão no Triângulo Mineiro",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-mg/noticias/mpf-denuncia-responsaveis-por-manter-sete-pessoas-em-situacao-de-escravidao-no-triangulo-mineiro-1",
+          "trecho": "O Ministério Público Federal (MPF) apresentou denúncia contra dois homens pela exploração de trabalhadores em uma carvoaria na zona rural de Tapira (MG).",
+          "data": "2026-02-03",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "carvoaria",
+        "aliciamento",
+        "Minas Gerais",
+        "denúncia"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Denúncia: a nota não diz se a Justiça a recebeu. Sem nomes (a nota não nomeia)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "id": "2017-santa-juliana-colheita-denuncia-mpf",
+      "dossie": "trabalho-escravo",
+      "titulo": "Santa Juliana (MG): MPF denuncia produtor rural por aliciar 21 trabalhadores do Nordeste para colheita",
+      "resumo": "Segundo o MPF, em dezembro de 2025 o órgão denunciou à Justiça Federal um produtor rural do Triângulo Mineiro por aliciamento fraudulento e redução à condição análoga à de escravo: pelo menos 21 trabalhadores aliciados na Bahia, no Maranhão e em Pernambuco teriam sido submetidos a condições degradantes e servidão por dívida entre maio e julho de 2017, na colheita de feijão, batata e cebola em fazendas da zona rural de Santa Juliana (MG). O acusado é presumido inocente até o julgamento.",
+      "dataDoFato": "2017-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "municipioIbge": "3157708",
+        "nome": "Santa Juliana"
+      },
+      "situacao": "denunciado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "MPF denuncia fazendeiro por aliciar e manter 21 trabalhadores em condição análoga à de escravo em MG",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-mg/noticias/mpf-denuncia-fazendeiro-por-aliciar-e-manter-21-trabalhadores-em-condicao-analoga-a-de-escravo-em-mg",
+          "trecho": "O Ministério Público Federal (MPF) apresentou denúncia à Justiça Federal contra um produtor rural da região do Triângulo Mineiro",
+          "data": "2025-12-10",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "servidão por dívida",
+        "aliciamento",
+        "Minas Gerais",
+        "denúncia"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Denúncia: a nota não diz se foi recebida. Sem nomes."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [
+        "basf"
+      ],
+      "pessoas": [],
+      "id": "2023-uruguaiana-resgate-lavouras-de-arroz",
+      "dossie": "trabalho-escravo",
+      "titulo": "Uruguaiana (RS): resgate em fazendas de arroz fornecedoras da BASF; empresa assina TAC com o MPT",
+      "resumo": "Segundo o MPT-RS, na operação de 10 de março de 2023 foram resgatados trabalhadores em duas fazendas de arroz (estâncias Santa Adelaide e São Joaquim) em Uruguaiana (RS), o segundo maior resgate do estado naquele ano. Segundo o MPT-RS, as duas propriedades multiplicavam sementes como fornecedoras terceirizadas da BASF, que em 9 de maio de 2023 assinou termo de ajuste de conduta comprometendo-se a pagar R$ 2 milhões em danos morais individuais aos 85 resgatados; o TAC foi homologado na Justiça do Trabalho.",
+      "dataDoFato": "2023-03-10",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RS",
+        "municipioIbge": "4322400",
+        "nome": "Uruguaiana"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPT-RS",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPT em Uruguaiana e Basf firmam acordo em benefício de trabalhadores encontrados em condições degradantes em fazendas de arroz",
+          "url": "https://www.prt4.mpt.mp.br/procuradorias/ptm-uruguaiana/11874-mpt-em-uruguaiana-e-basf-firmam-acordo-em-beneficio-de-trabalhadores-encontrados-em-condicoes-degradantes-em-fazendas-de-arroz-no-rio-grande-do-sul",
+          "trecho": "As duas propriedades multiplicadoras de sementes de arroz são fornecedores terceirizados da Basf.",
+          "data": "2023-05-11",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "MPT-RS",
+          "tipo": "investigacao_oficial",
+          "titulo": "Atualizado para 82 o número de resgatados em fazendas de arroz em Uruguaiana",
+          "url": "https://www.prt4.mpt.mp.br/procuradorias/ptm-uruguaiana/11829-atualizado-para-82-o-numero-de-resgatados-em-fazendas-de-arroz-em-uruguaiana",
+          "trecho": "Após a análise de casos e coleta de depoimentos realizada ao longo do final de semana, foi atualizado para 82 o número de resgatados em duas fazendas de arroz",
+          "data": "2023-03-13",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "arroz",
+        "TAC",
+        "Rio Grande do Sul",
+        "cadeia produtiva"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). TAC não é condenação e não traz admissão de culpa na fonte lida; 'investigado' porque o MPT seguia apurando as fazendas. O número de resgatados oscila entre 82 e 85 nas notas oficiais (o resumo usa o do TAC). A nota do MTE (gov.br, 2023) declara data de publicação incompatível com o fato (03/01/2023): por isso não foi usada."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "id": "2006-paragominas-stj-restabelece-condenacao-fazendeiro",
+      "dossie": "trabalho-escravo",
+      "titulo": "Paragominas (PA): STJ restabelece condenação de fazendeiro e reafirma que trabalho escravo não exige restrição à liberdade",
+      "resumo": "Segundo o STJ, em junho de 2020 a Sexta Turma deu provimento a recurso do MPF (REsp 1843150) para restabelecer a condenação de um fazendeiro do Pará por fatos de Paragominas (PA): uma ação conjunta de 2006 encontrou trabalhadores sem água potável, sem banheiros e em alojamentos de palha e lona no meio da mata. Segundo o STJ, o TRF1 havia absolvido o réu por entender que não houve cerceamento da liberdade; a Sexta Turma reiterou que o crime não exige restrição à liberdade.",
+      "dataDoFato": "2006",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1505502",
+        "nome": "Paragominas"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Sexta Turma reitera que delito de trabalho escravo não exige restrição à liberdade",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/Sexta-Turma-reitera-que-delito-de-trabalho-escravo-nao-exige-restricao-a-liberdade.aspx",
+          "trecho": "deu provimento a recurso do Ministério Público Federal (MPF) para restabelecer a condenação de um fazendeiro do Pará",
+          "data": "2020-06-03",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "historico": [
+        {
+          "em": "2020-06-03",
+          "de": "absolvido",
+          "para": "condenado_1a_instancia",
+          "fonteId": "f1",
+          "nota": "Segundo o STJ, a Sexta Turma restabeleceu a condenação que o TRF1 havia afastado."
+        }
+      ],
+      "etiquetas": [
+        "trabalho análogo à escravidão",
+        "condições degradantes",
+        "jurisprudência",
+        "Pará"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trechos lidos por WebFetch. A nota não nomeia o fazendeiro nem diz o número de trabalhadores; não há informação de trânsito em julgado."
+    }
+  ]
+}
