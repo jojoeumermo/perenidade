@@ -115,7 +115,15 @@
     "menor": "我未满 18 岁",
     "codinome": "你的化名（3 到 30 个字符，不含 @ 和真名）",
     "entreNaConta": "登录后即可参与。无需账号即可阅读各学科的问答。",
-    "entrar": "登录"
+    "entrar": "登录",
+    "pitch": [
+      "没有广告、没有追踪器、没有算法：时间线按发布先后排列。",
+      "仅限 18 岁及以上。",
+      "你以化名出现，绝不显示真实姓名。"
+    ],
+    "criarConta": "创建账户",
+    "jaTenhoConta": "我已有账户",
+    "lerSemConta": "没有账户也可以阅读公共时间线和各科目的问题。"
   },
   "estados": {
     "carregando": "加载中…",
@@ -176,5 +184,23 @@
     "rotuloDaFaixa": "Alumia，Instituto Lúcia 的社交网络",
     "sairDaConta": "退出账号",
     "lema": "Instituto Lúcia 的社交网络"
+  },
+  "entradaCurta": {
+    "titulo": "加入 Alumia",
+    "passo1": "加入",
+    "passo2": "你的时间线（可选）",
+    "codinome": "你的化名",
+    "codinomeAjuda": "3 到 30 个字符。所有人都会看到这个名字：请不要使用真实姓名。",
+    "consentimentoTitulo": "敏感数据同意",
+    "saibaMais": "用途以及如何撤回",
+    "regras": "我已阅读并接受 Alumia 的规则。",
+    "verRegras": "四句话说清规则",
+    "entrar": "加入 Alumia",
+    "falta": "加入前：请选择化名并勾选三个选项。",
+    "prontoTitulo": "完成，你已加入 Alumia。",
+    "prontoTexto": "如果愿意，现在可以选择 3 项斗争和最多 3 条学习路线来组成你的时间线。也可以稍后在“探索”中完成。",
+    "montar": "现在选择",
+    "depois": "以后再说，进入 Alumia",
+    "cuidados": "四个快速安全提示"
   }
 }

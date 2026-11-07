@@ -115,7 +115,15 @@
     "menor": "I am under 18",
     "codinome": "Your pseudonym (3 to 30 characters, no @ and no real name)",
     "entreNaConta": "Sign in to take part. You can read the subject Q&A without an account.",
-    "entrar": "Sign in"
+    "entrar": "Sign in",
+    "pitch": [
+      "No ads, no trackers and no algorithm: the timeline is in order of arrival.",
+      "Only for people 18 or older.",
+      "You appear under a pseudonym, never your legal name."
+    ],
+    "criarConta": "Create account",
+    "jaTenhoConta": "I already have an account",
+    "lerSemConta": "Without an account you can read the general timeline and the course questions."
   },
   "estados": {
     "carregando": "Loading…",
@@ -176,5 +184,23 @@
     "rotuloDaFaixa": "Alumia, the social network of Instituto Lúcia",
     "sairDaConta": "Sign out",
     "lema": "the social network of Instituto Lúcia"
+  },
+  "entradaCurta": {
+    "titulo": "Join Alumia",
+    "passo1": "Join",
+    "passo2": "Your timeline (optional)",
+    "codinome": "Your pseudonym",
+    "codinomeAjuda": "3 to 30 characters. Everyone sees this name: do not use your real name.",
+    "consentimentoTitulo": "Consent for sensitive data",
+    "saibaMais": "What we use it for and how to withdraw",
+    "regras": "I have read and accept the Alumia rules.",
+    "verRegras": "The rules in four sentences",
+    "entrar": "Join Alumia",
+    "falta": "To join: choose a pseudonym and tick the three boxes.",
+    "prontoTitulo": "Done, you are on Alumia.",
+    "prontoTexto": "If you like, choose 3 struggles and up to 3 tracks now to build your timeline. You can do it later in Explore.",
+    "montar": "Choose struggles and tracks now",
+    "depois": "Not now, go to Alumia",
+    "cuidados": "Four quick safety tips"
   }
 }
