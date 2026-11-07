@@ -53,7 +53,7 @@
     "prazo": "As mensagens somem em",
     "dias": "{n} dias",
     "dia": "1 dia",
-    "prazoExplica": "Encurtar vale também para o que já foi escrito.",
+    "prazoExplica": "Vale para as mensagens novas. O que já foi escrito segue o prazo de antes.",
     "codigo": "Código de segurança",
     "codigoExplica": "Compare estes números com a outra pessoa, pessoalmente ou por um canal em que vocês se reconheçam. Se forem iguais, ninguém está no meio.",
     "verificado": "Comparamos e é igual",
@@ -63,7 +63,7 @@
     "bloquearConfirma": "Bloquear esta pessoa? Ela não consegue mais falar com você, aqui nem na Alumia.",
     "denunciar": "Denunciar",
     "apagar": "Apagar a conversa",
-    "apagarConfirma": "Apagar a conversa inteira, para as duas pessoas? Não tem volta."
+    "apagarConfirma": "Tirar esta conversa da sua lista? Ela some para você. A outra pessoa continua com as mensagens até o prazo delas acabar."
   },
   "denuncia": {
     "titulo": "Denunciar",
@@ -98,8 +98,8 @@
     "salvar": "Salvar",
     "salvo": "Salvo.",
     "apagarTudo": "Apagar tudo do chat",
-    "apagarTudoExplica": "Apaga todas as suas conversas (para as duas pessoas de cada uma), a sua chave e os seus ajustes. A conta continua. LGPD, art. 18, VI.",
-    "apagarTudoConfirma": "Apagar TODAS as suas conversas e a sua chave do chat? Não tem volta.",
+    "apagarTudoExplica": "Tira todas as conversas da sua lista e apaga a sua chave e os seus ajustes. A outra pessoa de cada conversa continua com as mensagens até o prazo delas acabar. A conta continua. LGPD, art. 18, VI.",
+    "apagarTudoConfirma": "Tirar TODAS as conversas da sua lista e apagar a sua chave do chat? Não tem volta.",
     "apagado": "Tudo do chat foi apagado."
   },
   "erros": {

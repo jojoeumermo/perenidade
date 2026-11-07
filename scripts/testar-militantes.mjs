@@ -61,19 +61,42 @@ await recusa("tipo inventado é recusado", () => rpc(anon("198.51.100.11"), "vol
 await recusa("militante sem consentimento é recusado (LGPD, art. 11, I)", () => rpc(anon("198.51.100.12"), "voluntariar", { p: militante({ consentimento: false }) }), "invalido:consentimento");
 await recusa("militante sem 18 anos declarados é recusado (LGPD, art. 14)", () => rpc(anon("198.51.100.13"), "voluntariar", { p: militante({ maior_idade: false }) }), "invalido:idade");
 await recusa("militante com a idade em texto não passa", () => rpc(anon("198.51.100.13"), "voluntariar", { p: militante({ maior_idade: "sim" }) }), "invalido:idade");
-await espera("a mesma pessoa se inscreve como militante (pedido separado do voluntariado)", () => rpc(anon("198.51.100.14"), "voluntariar", { p: militante() }), (r) => Boolean(r.id));
-await recusa("inscrição militante repetida não entra duas vezes", () => rpc(anon("198.51.100.15"), "voluntariar", { p: militante() }), "ja_pediu");
+await espera("a mesma pessoa se inscreve como militante (pedido separado do voluntariado)", () => rpc(anon("198.51.100.14"), "voluntariar", { p: militante() }), (r) => Boolean(r.id) && Object.keys(r).join() === "id");
+// T33: a inscrição militante só existe depois que a pessoa confirma o e-mail (link de uso único).
+await espera("antes da confirmação, a inscrição militante não está na fila da coordenação", () => dono("select count(*)::int as n from interno.inscricoes where tipo = 'militante'"), (r) => r.rows[0].n === 0);
+await espera("antes da confirmação, ninguém da liderança recebe aviso de militante", () => dono("select count(*)::int as n from interno.emails where tipo = 'inscricao_nova' and (texto ilike '%milit%' or texto ilike '%frente%' or assunto ilike '%milit%')"), (r) => r.rows[0].n === 0);
+const confirmacao = (await dono("select assunto, texto from interno.emails where para = 'rosa@teste.local' and texto like '%confirmar=%'")).rows;
+confere("vai um e-mail de confirmação, e ele não cita militância nem a Frente (T33)", confirmacao.length === 1 && !/milit|frente|revolucion/i.test(confirmacao[0].assunto + confirmacao[0].texto));
+const codigo = /confirmar=([0-9a-f]{64})/.exec(confirmacao[0]?.texto ?? "")?.[1] ?? "";
+// T33: repetido não é oráculo. A resposta tem a mesma forma do sucesso, e nada é gravado nem enviado.
+await espera("inscrição militante repetida responde igual ao sucesso, sem gravar nem mandar nada (sem 'ja_pediu')", async () => {
+  const r = await rpc(anon("198.51.100.15"), "voluntariar", { p: militante() });
+  const n = await dono("select (select count(*) from interno.inscricoes_a_confirmar where email = 'rosa@teste.local')::int as a, (select count(*) from interno.emails where para = 'rosa@teste.local')::int as e");
+  return { r, ...n.rows[0] };
+}, (x) => Object.keys(x.r).join() === "id" && x.a === 1 && x.e === 2);
+await espera("voluntário repetido também responde igual ao sucesso", () => rpc(anon("198.51.100.18"), "voluntariar", { p: pedido() }), (r) => Object.keys(r).join() === "id");
+await recusa("código errado não confirma nada", () => rpc(anon("198.51.100.19"), "inscricao_confirmar", { p_codigo: "0".repeat(64) }), "nao_encontrado");
+await espera("o link do e-mail confirma a inscrição", () => rpc(anon("198.51.100.20"), "inscricao_confirmar", { p_codigo: codigo }), (r) => r.ok === true);
+await recusa("o link só vale uma vez", () => rpc(anon("198.51.100.21"), "inscricao_confirmar", { p_codigo: codigo }), "nao_encontrado");
 await espera("a inscrição militante guarda o momento do consentimento e a maioridade", () => dono("select consentimento_em, maior_idade from interno.inscricoes where tipo = 'militante'"), (r) => r.rows.length === 1 && r.rows[0].consentimento_em !== null && r.rows[0].maior_idade === true);
+await espera("o aviso à liderança da inscrição militante não leva nome, e-mail, Instagram nem a Frente", () => dono("select texto, assunto from interno.emails where tipo = 'inscricao_nova' and assunto = 'Há uma inscrição nova no painel'"), (r) => r.rows.length >= 1 && r.rows.every((x) => !/rosa|teste\.local|instagram|milit|frente/i.test(x.texto + x.assunto)));
 await espera("o campo-isca continua valendo para militante", async () => {
   await rpc(anon("198.51.100.16"), "voluntariar", { p: militante({ email: "robo@teste.local", site: "http://spam" }) });
-  return dono("select count(*)::int as n from interno.inscricoes where email = 'robo@teste.local'");
-}, (r) => r.rows[0].n === 0);
-await espera("o e-mail de confirmação diz que é inscrição militante", () => dono("select count(*)::int as n from interno.emails where para = 'rosa@teste.local' and assunto = 'Recebemos sua inscrição de militante'"), (r) => r.rows[0].n === 1);
+  return dono("select (select count(*) from interno.inscricoes where email = 'robo@teste.local') + (select count(*) from interno.inscricoes_a_confirmar where email = 'robo@teste.local') as n");
+}, (r) => Number(r.rows[0].n) === 0);
+await espera("a supervisão não vê a inscrição militante (só a coordenação, T33)", async () => {
+  const sup = await criarUsuario("sup@teste.local", "Supervisora Teste");
+  await rpc({ papel: "authenticated", sub: sup }, "eu");
+  await dono(`insert into interno.papeis (usuario, papel) values ('${sup}', 'supervisao')`);
+  return rpc({ papel: "authenticated", sub: sup, aal: "aal2" }, "pedidos_supervisao");
+}, (r) => Array.isArray(r) && r.some((i) => i.nome === "Rosa Operária") && r.filter((i) => i.nome === "Rosa Operária").length === 1);
 await recusa("nem por fora da função entra militante sem consentimento", () => dono("insert into interno.inscricoes (nome, email, papel, mensagem, tipo) values ('Fulano de Tal', 'f@teste.local', 'revisao', 'Mensagem longa o bastante para passar na regra.', 'militante')"), "inscricoes_militante_check");
 await espera("a coordenação vê as duas inscrições na mesma lista, com o tipo", () => rpc(comoCoord, "inscricoes_listar"), (r) => r.filter((i) => i.email === "rosa@teste.local").map((i) => i.tipo).sort().join() === "militante,voluntario" && r.some((i) => i.tipo === "militante" && i.consentimento_em));
 await recusa("quem não é da coordenação não vê a lista", () => rpc(anon("198.51.100.17"), "inscricoes_listar"), "");
 await espera("rodar a migração de novo não muda nada", async () => {
   await banco.exclusivo(() => banco.pg.exec(sql));
+  // A correção T33 vem depois da T15 (no install.sql também): rodar a T15 de novo pede a T33 de novo.
+  await banco.exclusivo(() => banco.pg.exec(ler("supabase", "migracoes", "20261107-t33-seguranca.sql")));
   return dono("select count(*)::int as n, count(*) filter (where tipo = 'militante')::int as m from interno.inscricoes");
 }, (r) => r.rows[0].n === 2 && r.rows[0].m === 1);
 

@@ -21,7 +21,8 @@ const nomeDe = (id: string) => NOMES_DOS_DEPARTAMENTOS[id] ?? id;
 interface Resumo {
   id: string;
   descricao: string;
-  pessoas: number;
+  /** Nos Revolucionários, null para quem não é da coordenação nem do departamento (T33). */
+  pessoas: number | null;
   pedidos: number;
   meu: boolean;
   respondo: boolean;
