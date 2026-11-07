@@ -202,5 +202,27 @@
     "montar": "Choose struggles and tracks now",
     "depois": "Not now, go to Alumia",
     "cuidados": "Four quick safety tips"
+  },
+  "visual": {
+    "escreverConvite": "What do you want to share or ask?",
+    "entreParaUsar": "sign in to use",
+    "emBreve": "coming soon",
+    "principiosTitulo": "How Alumia works",
+    "principios": [
+      "Order of arrival: no algorithm decides what you see.",
+      "No ads, no trackers and no scoreboard.",
+      "Always a pseudonym: your legal name stays out.",
+      "On the Fediverse: talk with other free networks."
+    ]
+  },
+  "semear": {
+    "titulo": "Be the first person to write",
+    "texto": "Nothing here yet. Pick a question to start: it opens in the writing box and you can change anything before posting.",
+    "perguntas": [
+      "What changed in your neighbourhood or at work this year, and what is still missing?",
+      "Which class or teacher changed the way you study?",
+      "What is missing on the site for you to study better?"
+    ],
+    "doZero": "Write from scratch"
   }
 }
