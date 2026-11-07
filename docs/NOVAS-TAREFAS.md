@@ -9,8 +9,8 @@ Regras que valem para tudo: responder em português, curto. Commit e push a cada
 Privacidade: sem rastreio. Nunca "universidade"/"diploma" na interface. Imagens livres ou licenciadas, com crédito. Nunca digitar senha, chave ou token em campo.
 O site roda na VPS da Contabo (docs/HOSPEDAGEM.md): push no master publica sozinho em ~30 min.
 
-**Última atividade:** 2026-11-07 03:00 (sessão principal; leva 2 juntada e publicada; falta T31 (revisão) e T33 (auditoria)).
-**Ocupada até:** 2026-11-07 07:00 (horário local do computador). Se esta hora ainda não passou, outra sessão está trabalhando (frentes em paralelo, em worktrees): não comece nada. Quem trabalha estende esta hora antes de começar algo longo.
+**Última atividade:** 2026-11-07 03:10 (sessão principal; auditoria T33 e T31 rodando; ramos novos em .claude/worktrees/wf_779ea30e-2c8-N).
+**Ocupada até:** 2026-11-07 10:00 (horário local do computador). Se esta hora ainda não passou, outra sessão está trabalhando (frentes em paralelo, em worktrees): não comece nada. Quem trabalha estende esta hora antes de começar algo longo.
 
 Situação: `[ ]` a fazer, `[~]` em andamento, `[x]` feito (com o commit), `[!]` depende de algo de fora (explicado).
 
@@ -48,7 +48,7 @@ Situação: `[ ]` a fazer, `[~]` em andamento, `[x]` feito (com o commit), `[!]`
 | T30 | Departamentos atuais (grupos do WhatsApp, 29; Parcerias = coletivos parceiros) + RH + Revolucionários | [x] leva 1 (junção até f54b15c1) |
 | T31 | Vale o Escrito no nível do bl00d.money (texto longo no documento): só o que eleva o nível e ainda não existe | [~] prioridades feitas na leva 1; revisar o resto |
 | T32 | Alumia: os 7 itens do segundo texto longo (nome, rede vazia, vitrine, entrada, primeira impressão, Fediverso, detalhes): conferir o que falta | [x] 346ece18
-| T33 | Auditoria final de bugs e segurança; entrada do painel extremamente segura | [ ] |
+| T33 | Auditoria final de bugs e segurança; entrada do painel extremamente segura | [~] |
 
 ## Depende do Jonathan
 
