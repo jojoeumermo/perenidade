@@ -3,7 +3,6 @@
 
 import { useMemo, useState } from "react";
 import Link from "@/components/Link";
-import { localePath } from "@/i18n/config";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecos } from "@/lib/rede/tipos";
@@ -67,8 +66,10 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
         )}
       </header>
 
-      {/* Quem ainda não está na Alumia: UM convite no alto, em vez da mesma frase repetida em cada cartão. */}
-      {!pode && (
+      {/* Visitante: o convite a entrar já está no alto da Alumia (Entrada); aqui só diz o que ele vê, uma vez. Quem tem conta mas
+          ainda não entrou na Alumia: UM convite, em vez da mesma frase repetida em cada cartão. */}
+      {!situacao.logado && <p className="mx-[18px] mt-3 rounded-xl bg-parchment-deep p-3 text-sm">{l.conviteTexto}</p>}
+      {situacao.logado && !pode && (
         <section className="m-3 overflow-hidden rounded-[18px] border-[1.5px] border-ink bg-[#1f1a14] text-[#f4ecd8]" aria-labelledby="vitrine-convite">
           <div className="alumia-convite-faixa h-1.5" aria-hidden />
           <div className="flex flex-wrap items-center gap-3 p-4">
@@ -76,7 +77,7 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
               <h2 id="vitrine-convite" className="font-serif text-lg font-extrabold">{l.conviteTitulo}</h2>
               <p className="mt-1 text-sm opacity-90">{l.conviteTexto}</p>
             </div>
-            <Link href={situacao.logado ? enderecos.linha(lang) : `${localePath(lang, "/entrar")}?criar&volta=/comunidade/comunidades`} className="alumia-botao inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-white hover:text-[#1f1a14]">
+            <Link href={enderecos.linha(lang)} className="alumia-botao inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-white hover:text-[#1f1a14]">
               {l.conviteBotao}
             </Link>
           </div>
