@@ -1,10 +1,11 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Link from "@/components/Link";
 import type { Verbete } from "@/lib/jogos/base";
 import type { TextosDosJogos } from "@/i18n/jogos";
+import { useImersao, type Tom } from "./Imersao";
 
 /** O que todo jogo de treino recebe: os verbetes do glossário e os textos no idioma da página. */
 export interface PropsDoJogo {
@@ -13,8 +14,18 @@ export interface PropsDoJogo {
   lang: string;
 }
 
-/** Aviso lido pelo leitor de tela sem tirar o foco de onde a pessoa está. */
-export function Aviso({ children }: { children?: ReactNode }) {
+/**
+ * Aviso lido pelo leitor de tela sem tirar o foco de onde a pessoa está. Com `tom`, cada aviso novo também toca o som (se
+ * a pessoa ligou) e acende o retorno visual do palco (components/jogos/Imersao.tsx).
+ */
+export function Aviso({ children, tom }: { children?: ReactNode; tom?: Tom }) {
+  const { retorno } = useImersao();
+  const texto = typeof children === "string" ? children : "";
+  const anterior = useRef("");
+  useEffect(() => {
+    if (texto && tom && texto !== anterior.current) retorno(tom);
+    anterior.current = texto;
+  }, [texto, tom, retorno]);
   return (
     <p role="status" aria-live="polite" className="min-h-6 font-sans text-sm font-bold text-prelo-texto">
       {children}

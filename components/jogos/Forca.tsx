@@ -106,7 +106,7 @@ export function Forca({ verbetes, s, lang }: PropsDoJogo) {
           <Botao onClick={novo}>{s.comum.novo}</Botao>
           {fim && <LinkDaAula aula={alvo.aula} lang={lang} rotulo={s.comum.aula} />}
         </Acoes>
-        <Aviso>{aviso}</Aviso>
+        <Aviso tom={acertou(jogo) ? "fim" : perdeu(jogo) ? "erro" : undefined}>{aviso}</Aviso>
       </div>
     </Quadro>
   );

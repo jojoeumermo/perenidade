@@ -56,7 +56,7 @@ export function QuebraPalavras({ verbetes, s }: PropsDoJogo) {
         <Botao onClick={() => { setEscolhidas(ordemCerta(q)); setAviso(""); }}>{s.comum.mostrar}</Botao>
         <Botao onClick={() => novo()}>{s.comum.novo}</Botao>
       </Acoes>
-      <Aviso>{aviso}</Aviso>
+      <Aviso tom={aviso === t.certo ? "certo" : aviso === t.errado ? "erro" : undefined}>{aviso}</Aviso>
     </Quadro>
   );
 }
