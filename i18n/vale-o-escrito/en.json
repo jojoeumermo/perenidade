@@ -283,7 +283,26 @@
       "reportado": "Press only"
     },
     "construidoEm": "Data built on {data}",
-    "modoLeve": "Light mode: effects reduced on this device"
+    "modoLeve": "Light mode: effects reduced on this device",
+    "dinheiro": {
+      "titulo": "Documented money",
+      "total": "Amounts cited in sources",
+      "explica": "Sum of fines, reparations, settlements, official estimates and amounts under investigation written in the sources of {n} cases. They differ in nature: this is not a total of embezzlement nor proof of crime.",
+      "naFicha": "Money flows, largest first",
+      "quem": "Who is liable",
+      "suposto": "Amount under investigation: not proof of crime.",
+      "semValor": "No money amount written in the sources of this selection.",
+      "tipos": {
+        "multa": "fine",
+        "reparacao": "reparation",
+        "indenizacao": "ordered to pay",
+        "acordo": "settlement (TAC)",
+        "repasse": "transfer",
+        "emenda": "budget amendment",
+        "estimativa_oficial": "official estimate",
+        "movimentacao_suposta": "alleged movement"
+      }
+    }
   },
   "navegacao": {
     "inicio": "Observatory",

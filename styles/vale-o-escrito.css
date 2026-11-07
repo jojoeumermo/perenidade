@@ -2331,3 +2331,84 @@
   stroke-dasharray: none;
   stroke-opacity: 0.75;
 }
+
+/* ── T31 3.1/3.3: dinheiro documentado (número grande, barra por categoria, fluxos na ficha) ───────────────── */
+.ve-escala-dinheiro {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 0;
+}
+.ve-escala-dinheiro b {
+  font-family: var(--ve-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ve-ambar);
+  text-shadow: 0 0 10px rgb(255 176 32 / 45%);
+}
+.ve-dinheiro-barra {
+  display: inline-flex;
+  gap: 2px;
+  width: 120px;
+  height: 6px;
+  align-self: center;
+}
+.ve-dinheiro-barra i {
+  display: block;
+  min-width: 3px;
+  box-shadow: 0 0 6px currentColor;
+}
+.ve-dinheiro-n {
+  font-family: var(--ve-display);
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--ve-ambar);
+  text-shadow: 0 0 14px rgb(255 176 32 / 40%);
+}
+.ve-fluxos {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ve-fluxos li {
+  display: grid;
+  gap: 4px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--ve-linha);
+}
+.ve-fluxo-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+.ve-fluxo-valor {
+  font-family: var(--ve-mono);
+  font-size: 0.95rem;
+  color: var(--ve-ambar);
+}
+.ve-fluxo-tipo {
+  padding: 1px 6px;
+  border: 1px solid var(--ve-linha);
+  font-family: var(--ve-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ve-suave);
+}
+.ve-fluxo-barra {
+  display: block;
+  height: 3px;
+  background: var(--ve-ambar);
+  box-shadow: 0 0 8px rgb(255 176 32 / 60%);
+}
+.ve-fluxos li[data-tipo="movimentacao_suposta"] .ve-fluxo-barra,
+.ve-fluxos li[data-tipo="estimativa_oficial"] .ve-fluxo-barra,
+.ve-fluxos li[data-tipo="emenda"] .ve-fluxo-barra {
+  background: repeating-linear-gradient(90deg, var(--ve-ambar) 0 6px, transparent 6px 10px);
+  box-shadow: none;
+}
