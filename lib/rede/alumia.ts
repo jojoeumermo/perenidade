@@ -11,6 +11,9 @@
 //   - A sessão da conta fica no armazenamento do navegador, que é separado por endereço: quem entra pela Alumia entra de novo
 //     no próprio subdomínio (a página /[lang]/entrar também abre lá). Passo a passo em docs/rede/ALUMIA-DOMINIO.md.
 
+/** O nome da rede social do instituto, num lugar só (T32, item 1). O site continua "Instituto Lúcia". */
+export const NOME_REDE = "Alumia";
+
 /** O endereço próprio da Alumia, sem a barra do fim; vazio enquanto o domínio não está ligado. A referência é literal para o Next gravar o valor no navegador. */
 export const ALUMIA_URL = (process.env.NEXT_PUBLIC_ALUMIA_URL ?? "").trim().replace(/\/+$/, "");
 

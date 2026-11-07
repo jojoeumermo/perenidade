@@ -141,7 +141,7 @@ const { dono, criarUsuario, rpc } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 // As migrações de 6/11 vêm depois da da Alumia, inteiras; tiram-se do fim primeiro.
 let install = lerTexto("supabase/install.sql").trim();
-for (const m of ["20261106-t18-alumia-entrada", "20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
+for (const m of ["20261106-t32-alumia-vitrine", "20261106-t18-alumia-entrada", "20261106-pessoas-painel", "20261106-t15-frente-militantes"]) {
   const bloco = lerTexto(`supabase/migracoes/${m}.sql`).trim();
   if (install.endsWith(bloco)) install = install.slice(0, -bloco.length).trim();
 }
