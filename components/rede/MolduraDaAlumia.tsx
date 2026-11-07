@@ -1,6 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { VoltarAoSite } from "./VoltarAoSite";
+// O visual da Alumia (T18): só as telas dela baixam esta folha de estilo.
+import "@/styles/alumia.css";
 
 export { enderecoDoSite } from "./VoltarAoSite";
 

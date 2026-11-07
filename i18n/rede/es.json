@@ -202,5 +202,27 @@
     "montar": "Elegir luchas y rutas ahora",
     "depois": "Ahora no, ir a Alumia",
     "cuidados": "Cuatro cuidados rápidos"
+  },
+  "visual": {
+    "escreverConvite": "¿Qué quieres contar o preguntar?",
+    "entreParaUsar": "entra para usar",
+    "emBreve": "pronto",
+    "principiosTitulo": "Cómo funciona Alumia",
+    "principios": [
+      "Orden de llegada: ningún algoritmo decide lo que ves.",
+      "Sin anuncios, sin rastreadores y sin marcador.",
+      "Siempre seudónimo: el nombre civil queda fuera.",
+      "En el Fediverso: puedes conversar con otras redes libres."
+    ]
+  },
+  "semear": {
+    "titulo": "Sé la primera persona en escribir",
+    "texto": "Todavía no hay nada aquí. Elige una pregunta para empezar: se abre en la caja de escribir y cambias lo que quieras antes de publicar.",
+    "perguntas": [
+      "¿Qué cambió en tu barrio o en tu trabajo este año, y qué falta todavía?",
+      "¿Qué clase o profesora cambió tu forma de estudiar?",
+      "¿Qué le falta al sitio para que estudies mejor?"
+    ],
+    "doZero": "Escribir desde cero"
   }
 }

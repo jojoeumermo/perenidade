@@ -202,5 +202,27 @@
     "montar": "Choisir luttes et parcours maintenant",
     "depois": "Pas maintenant, aller sur Alumia",
     "cuidados": "Quatre précautions rapides"
+  },
+  "visual": {
+    "escreverConvite": "Que voulez-vous raconter ou demander ?",
+    "entreParaUsar": "connectez-vous pour utiliser",
+    "emBreve": "bientôt",
+    "principiosTitulo": "Comment fonctionne Alumia",
+    "principios": [
+      "Ordre d'arrivée : aucun algorithme ne décide de ce que vous voyez.",
+      "Sans publicité, sans traceur et sans classement.",
+      "Toujours un pseudonyme : le nom civil reste dehors.",
+      "Dans le Fédivers : on peut discuter avec d'autres réseaux libres."
+    ]
+  },
+  "semear": {
+    "titulo": "Soyez la première personne à écrire",
+    "texto": "Il n'y a encore rien ici. Choisissez une question pour commencer : elle s'ouvre dans la zone d'écriture et vous modifiez ce que vous voulez avant de publier.",
+    "perguntas": [
+      "Qu'est-ce qui a changé dans votre quartier ou votre travail cette année, et que manque-t-il encore ?",
+      "Quel cours ou quelle professeure a changé votre façon d'étudier ?",
+      "Que manque-t-il au site pour que vous étudiiez mieux ?"
+    ],
+    "doZero": "Écrire à partir de zéro"
   }
 }

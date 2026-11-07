@@ -99,7 +99,9 @@ export function Casca({
   }, [membroLogado, ativo]);
   if (!situacao) return <EsqueletoDaCasca rotulo={s.estados.carregando} />;
   const pode = situacao.logado && situacao.membro;
-  const fraco = "pointer-events-none opacity-40";
+  const fraco = "pointer-events-none opacity-60";
+  // Item apagado nunca fica sem explicação (T32, item 7a): visitante lê "entre para usar"; quem tem conta, "em breve".
+  const porQueApagado = situacao.logado ? s.visual.emBreve : s.visual.entreParaUsar;
   return (
     <div className="rede-lucia mx-auto grid max-w-[1280px] grid-cols-[minmax(0,1fr)] pb-[calc(4.5rem+var(--recuo-baixo,0px))] md:pb-0 xl:grid-cols-[250px_minmax(0,640px)_300px] xl:justify-center">
       {/* Enquanto a Rede está aberta, a barra de baixo do site sai de cena no celular. */}
@@ -108,12 +110,13 @@ export function Casca({
 
       <aside className="hidden px-5 py-6 xl:block" aria-label={s.menu.principal}>
         <div className="sticky top-[calc(var(--altura-topo,0px)+1rem)]">
-          <p className="flex items-center gap-2 font-serif text-2xl font-extrabold"><MarcaDaAlumia className="h-7 w-7" />{s.marca}</p>
+          <p className="flex items-center gap-2 font-serif text-[1.75rem] font-extrabold leading-none tracking-tight"><MarcaDaAlumia className="h-8 w-8" />{s.marca}</p>
+          <p className="mt-1 pl-10 font-sans text-xs font-bold uppercase tracking-[0.14em] text-[#c21f16]">{s.alumia.lema}</p>
           <nav className="mt-4" aria-label={s.menu.principal}>
             <ul className="space-y-1">
               {DESTINOS.map((d) => {
                 const href = d.href(lang, situacao);
-                const classes = `flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${ativo === d.chave ? "bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`;
+                const classes = `flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${ativo === d.chave ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`;
                 return (
                   <li key={d.chave}>
                     {href ? (
@@ -126,6 +129,7 @@ export function Casca({
                       <span className={`${classes} ${fraco}`} aria-disabled="true">
                         <Icone>{d.icone}</Icone>
                         {s.menu[d.chave]}
+                        <span className="ml-auto rounded-full border border-current px-2 text-[0.7rem] font-bold leading-5">{porQueApagado}</span>
                       </span>
                     )}
                   </li>
@@ -134,7 +138,7 @@ export function Casca({
             </ul>
           </nav>
           {pode && (
-            <button type="button" onClick={() => aoEscrever()} className="mt-4 min-h-12 w-full cursor-pointer rounded-full bg-[#c21f16] px-5 font-sans text-lg font-bold text-white hover:bg-[#1f1a14]">
+            <button type="button" onClick={() => aoEscrever()} className="alumia-botao mt-4 min-h-12 w-full cursor-pointer rounded-full bg-[#c21f16] px-5 font-sans text-lg font-bold text-white hover:bg-[#1f1a14]">
               {s.menu.escrever}
             </button>
           )}
@@ -162,6 +166,21 @@ export function Casca({
             <label className="sr-only" htmlFor="rede-busca">{s.menu.busca}</label>
             <input id="rede-busca" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4" />
           </form>
+          {/* Os princípios da Alumia à vista (o que a diferencia), em vez de "assuntos do momento". */}
+          <section className="overflow-hidden rounded-[18px] border-[1.5px] border-ink bg-folha" aria-labelledby="alumia-principios">
+            <div className="alumia-convite-faixa h-1.5" aria-hidden />
+            <div className="p-4">
+              <h2 id="alumia-principios" className="font-serif text-lg font-extrabold">{s.visual.principiosTitulo}</h2>
+              <ul className="mt-2 space-y-1.5 text-sm">
+                {s.visual.principios.map((p) => (
+                  <li key={p} className="flex gap-2">
+                    <span aria-hidden className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#c21f16]" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
           <div className="rounded-[14px] bg-[#1f1a14] p-4 text-sm text-[#f4ecd8] shadow-[5px_5px_0_#c21f16]">
             <p>{s.casca.cartaoSeguranca}</p>
             <p className="mt-2 text-xs opacity-80">{s.denuncia.sigilo}</p>
@@ -248,8 +267,9 @@ function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: Ite
           {conteudo}
         </Link>
       ) : (
-        <span className={`${classes} opacity-40`} aria-disabled="true">
+        <span className={`${classes} opacity-40`} aria-disabled="true" title={situacao.logado ? s.visual.emBreve : s.visual.entreParaUsar}>
           {conteudo}
+          <span className="sr-only">({situacao.logado ? s.visual.emBreve : s.visual.entreParaUsar})</span>
         </span>
       )}
     </li>
