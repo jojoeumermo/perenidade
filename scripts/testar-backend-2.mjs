@@ -182,6 +182,12 @@ ok("rota: o banco confere ANTES de falar com qualquer serviço; os tokens nunca 
   assert.match(rota, /purge_everything/);
   assert.match(rota, /"Cache-Control": "no-store"/);
 });
+ok("rota (T33): o GET só diz o que está ligado depois de o banco conferir que é a coordenação", () => {
+  const get = rota.slice(rota.indexOf("export async function GET"), rota.indexOf("async function publicacao"));
+  assert.ok(get.indexOf('rpcNoBanco<unknown>("operacao_situacao"') > 0);
+  assert.ok(get.indexOf('rpcNoBanco<unknown>("operacao_situacao"') < get.indexOf("ligado: ligado()"));
+  assert.match(get, /if \(!coordenacao\.ok\) return responder/);
+});
 
 // ── Telas ──
 ok("telas: sem cor escrita à mão, sem confirm/prompt do navegador, sem a palavra proibida", () => {
