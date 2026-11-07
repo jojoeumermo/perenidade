@@ -1,9 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "@/components/Link";
-import { localePath } from "@/i18n/config";
+import { htmlLang, localeNames, localePath, locales } from "@/i18n/config";
 import { getClient, hasSession } from "@/lib/backend";
 import { avisos } from "@/lib/rede/cliente-avisos";
 import type { TextosDaRede } from "@/lib/rede/textos";
@@ -158,6 +159,10 @@ export function Casca({
           </button>
         </div>
         {children}
+        {/* No celular e no tablet a coluna da direita some: os idiomas ficam no pé da coluna do meio. */}
+        <div className="border-t border-rule px-4 py-4 xl:hidden">
+          <Idiomas lang={lang} rotulo={s.alumia.idiomas} />
+        </div>
       </main>
 
       <aside className="hidden px-5 py-6 xl:block" aria-label={s.menu.busca}>
@@ -210,6 +215,7 @@ export function Casca({
               {s.alumia.sairDaConta}
             </button>
           )}
+          <Idiomas lang={lang} rotulo={s.alumia.idiomas} />
         </div>
       </aside>
 
@@ -273,5 +279,38 @@ function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: Ite
         </span>
       )}
     </li>
+  );
+}
+
+/**
+ * Os idiomas da Alumia como links de verdade (T32, item 7e), um por idioma, com o nome escrito na própria língua, hreflang e o
+ * atual marcado: o leitor de tela anuncia "link" e a pessoa vê que dá para tocar. Mantém a tela em que ela está.
+ */
+function Idiomas({ lang, rotulo }: { lang: string; rotulo: string }) {
+  // O endereço completo (/xx/comunidade/...) vale nos dois endereços (o do site e alumia.*): tira o idioma e o "comunidade" do
+  // caminho atual, venha ele como vier, e monta de novo com o idioma escolhido.
+  let partes = (usePathname() ?? "").split("/").filter(Boolean);
+  if ((locales as readonly string[]).includes(partes[0])) partes = partes.slice(1);
+  if (partes[0] === "comunidade") partes = partes.slice(1);
+  const resto = ["comunidade", ...partes].join("/");
+  return (
+    <nav aria-label={rotulo} className="font-sans text-sm">
+      <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">{rotulo}</p>
+      <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+        {locales.map((code) => (
+          <li key={code}>
+            <a
+              href={`/${code}/${resto}`}
+              hrefLang={htmlLang[code]}
+              lang={htmlLang[code]}
+              aria-current={code === lang ? "true" : undefined}
+              className={`inline-flex min-h-9 items-center underline underline-offset-2 ${code === lang ? "font-bold decoration-[#c21f16] decoration-2" : "hover:decoration-2"}`}
+            >
+              {localeNames[code]}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
