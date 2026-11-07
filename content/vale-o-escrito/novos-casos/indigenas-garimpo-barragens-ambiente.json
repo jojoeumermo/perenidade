@@ -1,0 +1,2058 @@
+{
+  "recorte": "indigenas-garimpo-barragens-ambiente",
+  "descricao": "Frente T12 (NOVAS TAREFAS, 07/11/2026): povos indígenas, garimpo ilegal (Yanomami, Munduruku, Kayapó, Tenharim), barragens e mineração (Braskem, Vale, garimpo no Amapá) e desmatamento com autuação do Ibama ou condenação. Casos pesquisados e conferidos por agente, todos 'pendente-curadoria': nada aqui é publicado até a curadoria humana aprovar (fonte oficial e situação jurídica preenchidas).",
+  "geradoEm": "2026-11-07",
+  "pessoas": [
+    {
+      "id": "bruno-mendes-de-jesus",
+      "nome": "Bruno Mendes de Jesus",
+      "publicaNoCaso": true,
+      "papel": "empresario",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    }
+  ],
+  "organizacoes": [
+    {
+      "id": "policia-federal",
+      "nome": "Polícia Federal",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "white-solder",
+      "nome": "White Solder Metalurgia e Mineração",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "coopertin",
+      "nome": "Cooperativa de Produtores de Estanho do Brasil (Coopertin)",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "cataratas-pocos-artesianos",
+      "nome": "Cataratas Poços Artesianos",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "tarp-taxi-aereo",
+      "nome": "TARP Táxi Aéreo",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "ibama",
+      "nome": "Ibama (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "prf",
+      "nome": "Polícia Rodoviária Federal (PRF)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "policia-militar-do-amazonas",
+      "nome": "Polícia Militar do Amazonas",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "uniao",
+      "nome": "União (governo federal)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "fd-gold",
+      "nome": "F.D'Gold DTVM",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "braskem",
+      "nome": "Braskem",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "vale",
+      "nome": "Vale S.A.",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "anm",
+      "nome": "Agência Nacional de Mineração (ANM)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "estado-do-amapa",
+      "nome": "Estado do Amapá",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "municipio-pedra-branca-do-amapari",
+      "nome": "Município de Pedra Branca do Amapari",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "icmbio",
+      "nome": "ICMBio (Instituto Chico Mendes de Conservação da Biodiversidade)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "municipio-de-moncao",
+      "nome": "Município de Monção (MA)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "municipio-de-cajari",
+      "nome": "Município de Cajari (MA)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "ligacoes": [
+    {
+      "id": "l-policia-federal-2021-forja-de-hefesto-cassiterita-yanomami-acao-penal",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-forja-de-hefesto-cassiterita-yanomami-acao-penal"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-forja-de-hefesto-cassiterita-yanomami-acao-penal"
+    },
+    {
+      "id": "l-white-solder-2021-forja-de-hefesto-empresas-acoes-civis",
+      "de": {
+        "tipo": "organizacao",
+        "id": "white-solder"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-forja-de-hefesto-empresas-acoes-civis"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-forja-de-hefesto-empresas-acoes-civis"
+    },
+    {
+      "id": "l-coopertin-2021-forja-de-hefesto-empresas-acoes-civis",
+      "de": {
+        "tipo": "organizacao",
+        "id": "coopertin"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-forja-de-hefesto-empresas-acoes-civis"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-forja-de-hefesto-empresas-acoes-civis"
+    },
+    {
+      "id": "l-cataratas-pocos-artesianos-2021-forja-de-hefesto-empresas-acoes-civis",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cataratas-pocos-artesianos"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-forja-de-hefesto-empresas-acoes-civis"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-forja-de-hefesto-empresas-acoes-civis"
+    },
+    {
+      "id": "l-tarp-taxi-aereo-2021-forja-de-hefesto-empresas-acoes-civis",
+      "de": {
+        "tipo": "organizacao",
+        "id": "tarp-taxi-aereo"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-forja-de-hefesto-empresas-acoes-civis"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-forja-de-hefesto-empresas-acoes-civis"
+    },
+    {
+      "id": "l-policia-federal-2020-ti-tenharim-marmelos-garimpo-reus",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-ti-tenharim-marmelos-garimpo-reus"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-ti-tenharim-marmelos-garimpo-reus"
+    },
+    {
+      "id": "l-ibama-2020-ti-tenharim-marmelos-garimpo-reus",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-ti-tenharim-marmelos-garimpo-reus"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-ti-tenharim-marmelos-garimpo-reus"
+    },
+    {
+      "id": "l-ibama-2023-pista-do-marcinho-aeronaves-garimpo-yanomami",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-pista-do-marcinho-aeronaves-garimpo-yanomami"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-pista-do-marcinho-aeronaves-garimpo-yanomami"
+    },
+    {
+      "id": "l-prf-2023-pista-do-marcinho-aeronaves-garimpo-yanomami",
+      "de": {
+        "tipo": "organizacao",
+        "id": "prf"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-pista-do-marcinho-aeronaves-garimpo-yanomami"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-pista-do-marcinho-aeronaves-garimpo-yanomami"
+    },
+    {
+      "id": "l-policia-federal-2023-ti-roosevelt-garimpo-diamantes-oraculum",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-ti-roosevelt-garimpo-diamantes-oraculum"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-ti-roosevelt-garimpo-diamantes-oraculum"
+    },
+    {
+      "id": "l-ibama-2023-ti-roosevelt-garimpo-diamantes-oraculum",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-ti-roosevelt-garimpo-diamantes-oraculum"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-ti-roosevelt-garimpo-diamantes-oraculum"
+    },
+    {
+      "id": "l-ibama-2018-ti-tenharim-igarape-preto-cassiterita",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2018-ti-tenharim-igarape-preto-cassiterita"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2018-ti-tenharim-igarape-preto-cassiterita"
+    },
+    {
+      "id": "l-policia-militar-do-amazonas-2020-rio-abacaxis-policiais-militares-reus",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-militar-do-amazonas"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-rio-abacaxis-policiais-militares-reus"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-rio-abacaxis-policiais-militares-reus"
+    },
+    {
+      "id": "l-uniao-2012-operacao-eldorado-uniao-condenada-munduruku",
+      "de": {
+        "tipo": "organizacao",
+        "id": "uniao"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2012-operacao-eldorado-uniao-condenada-munduruku"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2012-operacao-eldorado-uniao-condenada-munduruku"
+    },
+    {
+      "id": "l-policia-federal-2012-operacao-eldorado-uniao-condenada-munduruku",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2012-operacao-eldorado-uniao-condenada-munduruku"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2012-operacao-eldorado-uniao-condenada-munduruku"
+    },
+    {
+      "id": "l-policia-federal-2025-operacao-2-mandamento-ouro-ti-kayapo",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-operacao-2-mandamento-ouro-ti-kayapo"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-operacao-2-mandamento-ouro-ti-kayapo"
+    },
+    {
+      "id": "l-prf-2025-ponte-dos-macuxis-103-kg-ouro",
+      "de": {
+        "tipo": "organizacao",
+        "id": "prf"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-ponte-dos-macuxis-103-kg-ouro"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f2"
+      ],
+      "entradaId": "2025-ponte-dos-macuxis-103-kg-ouro"
+    },
+    {
+      "id": "l-bruno-mendes-de-jesus-2025-ponte-dos-macuxis-103-kg-ouro",
+      "de": {
+        "tipo": "pessoa",
+        "id": "bruno-mendes-de-jesus"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-ponte-dos-macuxis-103-kg-ouro"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-ponte-dos-macuxis-103-kg-ouro"
+    },
+    {
+      "id": "l-policia-federal-2023-manaus-47-kg-ouro-pronta-resposta",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-manaus-47-kg-ouro-pronta-resposta"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-manaus-47-kg-ouro-pronta-resposta"
+    },
+    {
+      "id": "l-fd-gold-2021-fd-gold-1-3-tonelada-ouro-acao-civil",
+      "de": {
+        "tipo": "organizacao",
+        "id": "fd-gold"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-fd-gold-1-3-tonelada-ouro-acao-civil"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-fd-gold-1-3-tonelada-ouro-acao-civil"
+    },
+    {
+      "id": "l-policia-federal-2021-operacao-ricezione-ouro-crepurizao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-operacao-ricezione-ouro-crepurizao"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-operacao-ricezione-ouro-crepurizao"
+    },
+    {
+      "id": "l-braskem-2018-braskem-sal-gema-maceio-acao-penal",
+      "de": {
+        "tipo": "organizacao",
+        "id": "braskem"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2018-braskem-sal-gema-maceio-acao-penal"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2018-braskem-sal-gema-maceio-acao-penal"
+    },
+    {
+      "id": "l-vale-2026-mina-de-fabrica-vale-vazamento-congonhas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "vale"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-mina-de-fabrica-vale-vazamento-congonhas"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-mina-de-fabrica-vale-vazamento-congonhas"
+    },
+    {
+      "id": "l-uniao-2025-barragem-garimpo-sao-domingos-amapa",
+      "de": {
+        "tipo": "organizacao",
+        "id": "uniao"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-barragem-garimpo-sao-domingos-amapa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-barragem-garimpo-sao-domingos-amapa"
+    },
+    {
+      "id": "l-anm-2025-barragem-garimpo-sao-domingos-amapa",
+      "de": {
+        "tipo": "organizacao",
+        "id": "anm"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-barragem-garimpo-sao-domingos-amapa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-barragem-garimpo-sao-domingos-amapa"
+    },
+    {
+      "id": "l-estado-do-amapa-2025-barragem-garimpo-sao-domingos-amapa",
+      "de": {
+        "tipo": "organizacao",
+        "id": "estado-do-amapa"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-barragem-garimpo-sao-domingos-amapa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-barragem-garimpo-sao-domingos-amapa"
+    },
+    {
+      "id": "l-municipio-pedra-branca-do-amapari-2025-barragem-garimpo-sao-domingos-amapa",
+      "de": {
+        "tipo": "organizacao",
+        "id": "municipio-pedra-branca-do-amapari"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-barragem-garimpo-sao-domingos-amapa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-barragem-garimpo-sao-domingos-amapa"
+    },
+    {
+      "id": "l-ibama-2025-barragem-garimpo-sao-domingos-amapa",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2025-barragem-garimpo-sao-domingos-amapa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2025-barragem-garimpo-sao-domingos-amapa"
+    },
+    {
+      "id": "l-anm-2024-apa-do-tapajos-828-permissoes-anm",
+      "de": {
+        "tipo": "organizacao",
+        "id": "anm"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-apa-do-tapajos-828-permissoes-anm"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-apa-do-tapajos-828-permissoes-anm"
+    },
+    {
+      "id": "l-icmbio-2024-apa-do-tapajos-828-permissoes-anm",
+      "de": {
+        "tipo": "organizacao",
+        "id": "icmbio"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-apa-do-tapajos-828-permissoes-anm"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-apa-do-tapajos-828-permissoes-anm"
+    },
+    {
+      "id": "l-ibama-2024-apa-do-tapajos-828-permissoes-anm",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-apa-do-tapajos-828-permissoes-anm"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-apa-do-tapajos-828-permissoes-anm"
+    },
+    {
+      "id": "l-municipio-de-moncao-2013-moncao-cajari-mineracao-irregular-assentamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "municipio-de-moncao"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2013-moncao-cajari-mineracao-irregular-assentamento"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2013-moncao-cajari-mineracao-irregular-assentamento"
+    },
+    {
+      "id": "l-municipio-de-cajari-2013-moncao-cajari-mineracao-irregular-assentamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "municipio-de-cajari"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2013-moncao-cajari-mineracao-irregular-assentamento"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2013-moncao-cajari-mineracao-irregular-assentamento"
+    },
+    {
+      "id": "l-policia-federal-2013-moncao-cajari-mineracao-irregular-assentamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2013-moncao-cajari-mineracao-irregular-assentamento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2013-moncao-cajari-mineracao-irregular-assentamento"
+    },
+    {
+      "id": "l-ibama-2022-fazenda-mata-verde-sao-felix-do-xingu-desmatamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-fazenda-mata-verde-sao-felix-do-xingu-desmatamento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-fazenda-mata-verde-sao-felix-do-xingu-desmatamento"
+    },
+    {
+      "id": "l-ibama-2015-pds-liberdade-portel-pacaja-desmatamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-pds-liberdade-portel-pacaja-desmatamento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-pds-liberdade-portel-pacaja-desmatamento"
+    },
+    {
+      "id": "l-policia-federal-2021-operacao-xingu-boca-do-acre-grilagem",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-operacao-xingu-boca-do-acre-grilagem"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-operacao-xingu-boca-do-acre-grilagem"
+    },
+    {
+      "id": "l-ibama-2024-ti-mangueirinha-araucarias-desmatamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-ti-mangueirinha-araucarias-desmatamento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-ti-mangueirinha-araucarias-desmatamento"
+    },
+    {
+      "id": "l-policia-federal-2024-ti-mangueirinha-araucarias-desmatamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-ti-mangueirinha-araucarias-desmatamento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-ti-mangueirinha-araucarias-desmatamento"
+    },
+    {
+      "id": "l-ibama-2017-apui-assentamento-juma-desmatamento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "ibama"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2017-apui-assentamento-juma-desmatamento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2017-apui-assentamento-juma-desmatamento"
+    }
+  ],
+  "entradas": [
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2021-forja-de-hefesto-cassiterita-yanomami-acao-penal",
+      "dossie": "povos-indigenas",
+      "titulo": "Operação Forja de Hefesto: seis pessoas e quatro empresas viram rés por cassiterita e ouro tirados da Terra Yanomami",
+      "resumo": "Segundo o MPF, a Justiça Federal em Roraima recebeu em agosto de 2026 a denúncia contra seis pessoas e quatro empresas acusadas de explorar ilegalmente cassiterita e ouro na região do Pupunha, na bacia do Rio Mucajaí, dentro da Terra Indígena Yanomami. Segundo o MPF, entre maio e agosto de 2021 a Polícia Federal identificou a movimentação de R$ 54,2 milhões ligada a mais de 525 toneladas de cassiterita, e uma cooperativa dava aparência de legalidade ao minério. Os acusados supostamente cometeram organização criminosa, lavagem de dinheiro e usurpação de bens da União; são réus, sem condenação.",
+      "dataDoFato": "2021-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "nome": "Terra Indígena Yanomami, região do Pupunha (bacia do Rio Mucajaí)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça recebe denúncia do MPF por esquema de exploração ilegal de cassiterita e ouro em terra indígena em RR",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/justica-recebe-denuncia-do-mpf-por-esquema-de-exploracao-ilegal-de-cassiterita-e-ouro-em-terra-indigena-em-rr",
+          "trecho": "recebeu denúncia do Ministério Público Federal (MPF) contra seis pessoas e quatro empresas por envolvimento em um esquema de exploração ilegal de cassiterita e ouro",
+          "data": "2026-08-31",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "cassiterita",
+        "Yanomami",
+        "Roraima",
+        "Operação Forja de Hefesto",
+        "lavagem de dinheiro"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A notícia do MPF não nomeia as seis pessoas nem as quatro empresas da ação penal (processo 1003352-22.2022.4.01.4200, número que consta da página); as empresas das ações civis estão na entrada 2021-forja-de-hefesto-empresas-acoes-civis. Notícia do MPF = versão da acusação."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "white-solder",
+        "coopertin",
+        "cataratas-pocos-artesianos",
+        "tarp-taxi-aereo"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2021-forja-de-hefesto-empresas-acoes-civis",
+      "dossie": "povos-indigenas",
+      "titulo": "Cassiterita da Terra Yanomami: MPF cobra R$ 1,7 bilhão de mineradora, cooperativa e táxi aéreo; Justiça bloqueia até R$ 146 milhões",
+      "resumo": "Segundo o MPF, duas ações civis públicas, desdobramentos da Operação Forja de Hefesto, acusam a White Solder Metalurgia e Mineração, a Cooperativa de Produtores de Estanho do Brasil (Coopertin), a Cataratas Poços Artesianos e a TARP Táxi Aéreo de integrar a cadeia da cassiterita tirada ilegalmente da região do Pupunha, na Terra Indígena Yanomami, entre março de 2021 e dezembro de 2022. Segundo o MPF, uma das ações atribui à causa R$ 1,7 bilhão; na outra, com base na Lei Anticorrupção, a Justiça Federal em Roraima determinou em setembro de 2026, em liminar, o bloqueio de até R$ 146 milhões das quatro empresas. As empresas são rés nas ações civis e podem se defender; não há julgamento.",
+      "dataDoFato": "2021-03",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "nome": "Terra Indígena Yanomami, região do Pupunha (bacia do Rio Mucajaí)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPF cobra R$ 1,7 bilhão e providências de mineradora por garimpo ilegal de cassiterita na Terra Indígena Yanomami (RR)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/mpf-cobra-r-1-7-bilhao-e-providencias-de-mineradora-por-garimpo-ilegal-de-cassiterita-na-terra-indigena-yanomami-rr",
+          "trecho": "A ação atribui à causa o valor de R$ 1,7 bilhão e pede a recuperação das áreas degradadas, indenizações pelos danos causados",
+          "data": "2026-09-10",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "MPF obtém bloqueio de até R$ 146 milhões de empresas acusadas de envolvimento em garimpo na Terra Indígena Yanomami (RR)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/mpf-obtem-bloqueio-de-ate-r-146-milhoes-de-empresas-acusadas-de-envolvimento-em-garimpo-na-terra-indigena-yanomami-rr",
+          "trecho": "Somados, os bloqueios podem alcançar R$ 146 milhões.",
+          "data": "2026-09-28",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "cassiterita",
+        "Yanomami",
+        "Lei Anticorrupção",
+        "ação civil pública",
+        "Operação Forja de Hefesto"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Situação 'réu' aqui é de AÇÃO CIVIL (ACP 1010705-74.2026.4.01.4200 e ACP 1011028-79.2026.4.01.4200, números das páginas do MPF), não penal: o bloqueio é liminar. A fonte f2 foi marcada 'processo' porque relata a decisão judicial; é notícia do MPF, não a decisão. Os mesmos fatos são objeto de ação penal (entrada 2021-forja-de-hefesto-cassiterita-yanomami-acao-penal)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal",
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2020-ti-tenharim-marmelos-garimpo-reus",
+      "dossie": "povos-indigenas",
+      "titulo": "Terra Indígena Tenharim Marmelos (AM): ex-cacique e gerente de garimpo viram réus por ouro e cassiterita",
+      "resumo": "Segundo o MPF, a Justiça Federal aceitou em setembro de 2026 a denúncia contra um ex-cacique e um gerente de garimpo acusados de extrair ilegalmente ouro e cassiterita na Terra Indígena Tenharim Marmelos, entre Manicoré e Humaitá, no sul do Amazonas. Segundo o MPF, a Operação Intruso, da Polícia Federal e do Ibama, achou uma estrutura de porte industrial que devastou 108,32 hectares de floresta entre 2020 e junho de 2023. Os dois supostamente cometeram usurpação de bens da União, desmatamento e garimpo ilegal; são réus, sem condenação.",
+      "dataDoFato": "2020",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "nome": "Terra Indígena Tenharim Marmelos (entre Manicoré e Humaitá)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça Federal aceita denúncia do MPF contra acusados de garimpo ilegal na Terra Indígena Tenharim Marmelos (AM)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/justica-federal-aceita-denuncia-do-mpf-contra-acusados-de-garimpo-ilegal-na-terra-indigena-tenharim-marmelos-am",
+          "trecho": "Com a decisão, a investigação se converte em ação penal, os denunciados passam à condição de réus",
+          "data": "2026-09-14",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "terra indígena",
+        "Amazonas",
+        "Operação Intruso",
+        "desmatamento"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus (um deles é indígena: cuidado redobrado para não expor a comunidade). Lugar sem município porque a terra indígena fica entre dois municípios."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "ibama",
+        "prf"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2023-pista-do-marcinho-aeronaves-garimpo-yanomami",
+      "dossie": "povos-indigenas",
+      "titulo": "Pista clandestina na Terra Yanomami: pilotos flagrados com 800 litros de combustível para o garimpo viram réus",
+      "resumo": "Segundo o MPF, a Justiça Federal em Roraima recebeu em setembro de 2026 a denúncia contra dois homens acusados de dar apoio aéreo ao garimpo ilegal na Terra Indígena Yanomami. Segundo o MPF, em dezembro de 2023, na Pista do Marcinho, em Iracema (RR), agentes do Ibama e da PRF os abordaram quando se preparavam para descarregar cerca de 800 litros de combustível de duas aeronaves com prefixos supostamente adulterados. Os dois são réus, sem condenação.",
+      "dataDoFato": "2023-12",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "municipioIbge": "1400282",
+        "nome": "Iracema; Terra Indígena Yanomami (Pista do Marcinho)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça recebe denúncia do MPF contra dois homens por exploração de ouro e cassiterita em terra indígena em RR",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/justica-recebe-denuncia-do-mpf-contra-dois-homens-por-exploracao-de-ouro-e-cassiterita-em-terra-indigena-em-rr",
+          "trecho": "os fatos ocorreram em dezembro de 2023, no município de Iracema, na denominada Pista do Marcinho, localizada na Terra Indígena Yanomami",
+          "data": "2026-09-04",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "Yanomami",
+        "aviação clandestina",
+        "Roraima",
+        "Operação Yanomami"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus nem dá o número do processo; conferir na Justiça Federal em Roraima."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal",
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2023-ti-roosevelt-garimpo-diamantes-oraculum",
+      "dossie": "povos-indigenas",
+      "titulo": "Terra Indígena Roosevelt (RO): acusado de liderar garimpo de diamantes vira réu",
+      "resumo": "Segundo o MPF, a Justiça Federal recebeu em agosto de 2026 a denúncia contra um garimpeiro acusado de liderar a extração ilegal de diamantes nas Terras Indígenas Roosevelt e Parque Aripuanã, em área de Vilhena (RO). Segundo o MPF, ele foi flagrado pela Polícia Federal na Operação Oraculum, em maio de 2023, com o Ibama, operando um rádio clandestino usado para avisar o grupo da chegada da fiscalização. É réu, sem condenação.",
+      "dataDoFato": "2023-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RO",
+        "municipioIbge": "1100304",
+        "nome": "Vilhena; Terras Indígenas Roosevelt e Parque Aripuanã"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça aceita denúncia do MPF contra líder de garimpo ilegal de diamantes na Terra Indígena Roosevelt, em Rondônia",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-ro/noticias/justica-aceita-denuncia-do-mpf-contra-lider-de-garimpo-ilegal-de-diamantes-na-terra-indigena-roosevelt-em-rondonia",
+          "trecho": "A Justiça Federal recebeu integralmente uma denúncia feita pelo Ministério Público Federal (MPF) contra um garimpeiro, acusado de liderar a extração ilegal de diamantes",
+          "data": "2026-08-17",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "diamantes",
+        "Cinta Larga",
+        "Rondônia",
+        "Operação Oraculum"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A etiqueta 'Cinta Larga' é o povo da TI Roosevelt (dado público, não está na notícia): a curadoria pode tirá-la. A fonte não nomeia o réu."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2020-boa-vista-empresa-de-fachada-ouro-yanomami",
+      "dossie": "povos-indigenas",
+      "titulo": "Boa Vista (RR): dupla condenada por vender ouro ilegal, inclusive da Terra Yanomami, por empresa de fachada",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou um homem e uma mulher por exploração ilegal de ouro e lavagem de dinheiro: entre 2020 e 2021 eles comercializaram cerca de 7,5 kg de ouro, movimentando mais de R$ 2,2 milhões, usando uma empresa de produtos agrícolas em Boa Vista como fachada. Segundo o MPF, parte do ouro vinha de garimpo ilegal na Terra Indígena Yanomami. A pena foi de quatro anos em regime aberto, trocada por penas alternativas; em maio de 2026 o MPF recorreu ao TRF1 para aumentá-la.",
+      "dataDoFato": "2020",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "municipioIbge": "1400100",
+        "nome": "Boa Vista"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "MPF recorre para aumentar penas de condenados por exploração ilegal de ouro e lavagem de dinheiro em Boa Vista (RR)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/mpf-recorre-para-aumentar-penas-de-condenados-por-exploracao-ilegal-de-ouro-e-lavagem-de-dinheiro-em-boa-vista-rr",
+          "trecho": "Os dois foram condenados a quatro anos de prisão e ao pagamento de 20 dias-multa.",
+          "data": "2026-05-18",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "ouro ilegal",
+        "lavagem de dinheiro",
+        "Yanomami",
+        "Roraima"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Fonte f1 marcada 'processo' porque relata a sentença (é notícia do MPF sobre o recurso). A fonte não nomeia os condenados nem a empresa; há recurso do MPF no TRF1."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2023-xitei-garimpeiro-condenado-yanomami",
+      "dossie": "povos-indigenas",
+      "titulo": "Terra Yanomami (região do Xitei): garimpeiro condenado por levar 10,5 g de ouro",
+      "resumo": "Segundo o MPF, a 4ª Vara Federal Criminal em Roraima condenou um garimpeiro flagrado em agosto de 2023 pela Força Nacional, na Base do Xitei, com 10,5 gramas de ouro extraído ilegalmente da Terra Indígena Yanomami. Segundo o MPF, a sentença reconheceu a usurpação de matéria-prima da União e citou a contaminação por mercúrio e o dano à saúde dos povos indígenas; a pena de 1 ano e 8 meses foi trocada por serviços à comunidade e prestação pecuniária. Cabe recurso.",
+      "dataDoFato": "2023-08",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "nome": "Terra Indígena Yanomami, região do Xitei"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "A pedido do MPF, Justiça condena garimpeiro por posse ilegal de ouro na Terra Indígena Yanomami",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/a-pedido-do-mpf-justica-condena-garimpeiro-por-posse-ilegal-de-ouro-na-terra-indigena-yanomami",
+          "trecho": "O réu foi condenado a 1 ano e 8 meses de detenção.",
+          "data": "2026-03-17",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "Yanomami",
+        "mercúrio",
+        "Roraima"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Caso pequeno em valor, mas mostra a cadeia do garimpo. A fonte não nomeia o condenado nem diz se houve recurso: conferir o trânsito."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2025-garimpo-do-rangel-yanomami-reu",
+      "dossie": "povos-indigenas",
+      "titulo": "Garimpo do Rangel, Terra Yanomami: homem preso pela Força Nacional vira réu",
+      "resumo": "Segundo o MPF, a Justiça Federal recebeu em 2026 a denúncia contra um homem flagrado extraindo ouro ilegalmente na Terra Indígena Yanomami, em junho de 2025, durante as operações 'TI Yanomami II – Roraima' e 'Asfixia', da Força Nacional. Segundo o MPF, ele disse trabalhar havia um ano e três meses no local conhecido como Garimpo do Rangel; o MPF pede R$ 10 mil por danos morais coletivos. É réu, sem condenação.",
+      "dataDoFato": "2025-06",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "nome": "Terra Indígena Yanomami (Garimpo do Rangel)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça Federal recebe denúncia do MPF contra garimpeiro flagrado extraindo ouro na Terra Indígena Yanomami (RR)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-mg/noticias/justica-federal-recebe-denuncia-do-mpf-contra-garimpeiro-flagrado-extraindo-ouro-na-terra-indigena-yanomami-rr",
+          "trecho": "A Justiça Federal recebeu denúncia do Ministério Público Federal (MPF) contra um homem flagrado extraindo ouro de maneira ilegal da Terra Indígena Yanomami",
+          "data": "2026-05-05",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "Yanomami",
+        "Força Nacional",
+        "Roraima"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processo 1006420-72.2025.4.01.4200 (número da página). A notícia saiu na página da PR-MG do MPF, mas o caso é de Roraima."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2018-ti-tenharim-igarape-preto-cassiterita",
+      "dossie": "povos-indigenas",
+      "titulo": "Terra Indígena Tenharim do Igarapé Preto (AM): dois réus por cassiterita, com dano estimado em R$ 38 milhões",
+      "resumo": "Segundo o MPF, a 2ª Vara Federal Criminal do Amazonas recebeu a denúncia contra dois homens acusados de extrair cassiterita sem autorização na Terra Indígena Tenharim do Igarapé Preto, em Novo Aripuanã (AM). Segundo o MPF, a atividade foi descoberta na Operação Warã II, iniciada em 22 de maio de 2018, imagens do Ibama confirmaram a presença dos acusados e o prejuízo ambiental foi estimado em R$ 38 milhões. Os dois são réus, sem condenação.",
+      "dataDoFato": "2018-05-22",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "municipioIbge": "1303304",
+        "nome": "Novo Aripuanã; Terra Indígena Tenharim do Igarapé Preto"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça torna réus dois acusados pelo MPF de exploração ilegal de cassiterita em área indígena em Novo Aripuanã (AM)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/justica-torna-reus-dois-acusados-pelo-mpf-de-exploracao-ilegal-de-cassiterita-em-area-indigena-em-novo-aripuana-am",
+          "trecho": "A denúncia já foi recebida pela 2ª Vara Federal Criminal da Seção Judiciária do Amazonas",
+          "data": "2025-02-07",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "cassiterita",
+        "terra indígena",
+        "Amazonas",
+        "Operação Warã II"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte é de fevereiro de 2025: reconferir se já houve sentença."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-militar-do-amazonas"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2020-rio-abacaxis-policiais-militares-reus",
+      "dossie": "povos-indigenas",
+      "titulo": "Rio Abacaxis (AM): onze policiais militares viram réus pelas mortes de dois Munduruku e de ribeirinhos",
+      "resumo": "Segundo o MPF, a Justiça Federal no Amazonas recebeu as denúncias e tornou réus onze policiais militares pela morte de dois indígenas Munduruku e de ribeirinhos na região do Rio Abacaxis, em Nova Olinda do Norte (AM), em agosto de 2020. Segundo o MPF, a operação teria sido feita sob o falso pretexto de combate ao narcotráfico e buscava supostamente vingar a morte de dois policiais; entre os réus estão o então secretário de Segurança Pública e o então comandante-geral da PM. Respondem por homicídio qualificado, ocultação de cadáver e sequestro; são réus, sem condenação.",
+      "dataDoFato": "2020-08",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "municipioIbge": "1303106",
+        "nome": "Nova Olinda do Norte (região do Rio Abacaxis)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça torna réus PMs denunciados pelo MPF pelos homicídios de indígenas e ribeirinhos na região do Rio Abacaxis (AM)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/justica-torna-reus-pms-denunciados-pelo-mpf-pelos-homicidios-de-indigenas-e-ribeirinhos-na-regiao-do-rio-abacaxis-am",
+          "trecho": "tornou réus onze policiais militares envolvidos na morte de dois indígenas da etnia Munduruku",
+          "data": "2025-05-12",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "violência policial",
+        "Munduruku",
+        "ribeirinhos",
+        "Amazonas",
+        "homicídio"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Os nomes dos agentes públicos não constam da notícia (só os cargos): a curadoria pode acrescentá-los com fonte. Há outras denúncias (tortura, fraude processual) no mesmo caso, citadas na página; processos 1010815-37.2024.4.01.3200, 1044987-05.2024.4.01.3200 e outros. Nenhuma pessoa morta é nomeada aqui."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "uniao",
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2012-operacao-eldorado-uniao-condenada-munduruku",
+      "dossie": "povos-indigenas",
+      "titulo": "Operação Eldorado (2012): TRF1 condena a União a pagar R$ 500 mil a povos Munduruku, Kayabi e Apiacá",
+      "resumo": "Segundo o MPF, o TRF1 condenou a União, por unanimidade, a pagar R$ 500 mil por danos morais coletivos pelas violações da Operação Eldorado, da Polícia Federal, na Terra Indígena Kayabi, em 2012, em que um líder Munduruku morreu. Segundo o MPF, o tribunal concluiu que houve excessos e manteve as obrigações de a Polícia Federal adotar protocolo de consulta prévia e cursos sobre direitos indígenas antes de novas operações em território Munduruku. Decisão de 2ª instância em ação civil; cabe recurso.",
+      "dataDoFato": "2012",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "nome": "Terra Indígena Kayabi (processo na Justiça Federal em Itaituba, PA)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "União é condenada a pagar R$ 500 mil aos povos Munduruku, Kayabi e Apiacá por violações durante a Operação Eldorado",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/prr1/noticias/uniao-e-condenada-a-pagar-r-500-mil-aos-povos-munduruku-kayabi-e-apiaca-por-violacoes-durante-a-operacao-eldorado",
+          "trecho": "a condenação da União ao pagamento de R$ 500 mil por danos morais coletivos decorrentes das violações ocorridas durante a Operação Eldorado",
+          "data": "2026-09-29",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "Munduruku",
+        "Kayabi",
+        "Apiacá",
+        "Polícia Federal",
+        "danos morais coletivos",
+        "ação civil pública"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL da União no TRF1 (2ª instância; processo 0002089-82.2016.4.01.3908). O modelo não tem o degrau '2ª instância' (ESPEC, pendência 4): ficou 'condenado em 1ª instância' por ser o mais próximo sem trânsito. A fonte nomeia o líder indígena morto; a ficha não o nomeia (regra da casa)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2025-operacao-2-mandamento-ouro-ti-kayapo",
+      "dossie": "povos-indigenas",
+      "titulo": "Operação 2º Mandamento: PF mira grupo suspeito de vender ouro tirado da Terra Indígena Kayapó",
+      "resumo": "Segundo o MPF, a Polícia Federal cumpriu em 19 de março de 2025, com autorização da Justiça Federal, sete mandados de busca em Redenção, Cumaru do Norte e Bannach (PA) contra um grupo suspeito de extrair ilegalmente ouro da Terra Indígena Kayapó e vendê-lo a joalherias da região. Segundo o MPF, as transações suspeitas passaram de R$ 30 milhões. Os alvos são investigados: não há denúncia citada na fonte.",
+      "dataDoFato": "2025-03-19",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1506138",
+        "nome": "Redenção (sudeste do Pará); Terra Indígena Kayapó"
+      },
+      "situacao": "investigado",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "A pedido do MPF e com autorização da Justiça, PF cumpre mandados contra comércio ilegal de ouro no PA",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-pa/noticias/a-pedido-do-mpf-e-com-autorizacao-da-justica-pf-cumpre-mandados-contra-comercio-ilegal-de-ouro-no-pa",
+          "trecho": "O grupo-alvo da operação é suspeito de extrair ilegalmente ouro da Terra Indígena Kayapó e vender em joalheiras da região.",
+          "data": "2025-03-20",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo ilegal",
+        "Kayapó",
+        "ouro ilegal",
+        "Pará",
+        "Operação 2º Mandamento"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). O trecho copia 'joalheiras' como está na fonte (erro de digitação do original). Fase de investigação: reconferir se houve denúncia."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "prf"
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "bruno-mendes-de-jesus",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o MPF, condenado em 1ª instância em dezembro de 2025 a 8 anos e 11 meses; cabe recurso."
+        }
+      ],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2025-ponte-dos-macuxis-103-kg-ouro",
+      "dossie": "crimes-ambientais",
+      "titulo": "Maior apreensão de ouro ilegal do país: empresário condenado por transportar 103 kg em Boa Vista",
+      "resumo": "Segundo o MPF, a Justiça Federal em Roraima condenou em dezembro de 2025 o empresário flagrado pela PRF em agosto de 2025, na BR-401 (Ponte dos Macuxis), em Boa Vista, com mais de 103 kg de ouro avaliados em mais de R$ 54 milhões, por transporte de matéria-prima da União sem autorização e porte de substância tóxica (mercúrio). Segundo o MPF, a pena foi de 8 anos e 11 meses em regime fechado, e o transporte tinha relação com o garimpo na Terra Indígena Yanomami. Cabe recurso; o MPF também recorreu.",
+      "dataDoFato": "2025-08",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "municipioIbge": "1400100",
+        "nome": "Boa Vista"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Justiça Federal condena empresário por transportar 103kg de ouro ilegal em Roraima",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/justica-federal-condena-empresario-por-transportar-103kg-de-ouro-ilegal-em-roraima",
+          "trecho": "A pena estipulada foi de 8 anos e 11 meses de prisão.",
+          "data": "2025-12-18",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPF reitera pedido de condenação de empresário envolvido na maior apreensão de ouro ilegal registrada no país",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/mpf-reitera-pedido-de-condenacao-de-empresario-envolvido-na-maior-apreensao-de-ouro-ilegal-registrada-no-pais",
+          "trecho": "Ele foi flagrado com 103,1 kg de ouro pela Polícia Rodoviária Federal (PRF), em agosto deste ano, na BR-401 (Ponte dos Macuxis), em Boa Vista",
+          "data": "2025-12-12",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "ouro ilegal",
+        "mercúrio",
+        "Yanomami",
+        "Roraima",
+        "BR-401"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Pessoa física privada nomeada porque há decisão judicial pública (sentença de 1ª instância) e o nome consta das duas notícias do MPF. A sentença menciona familiares que viajavam com o réu: a ficha não os cita. Reconferir o recurso."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2023-manaus-47-kg-ouro-pronta-resposta",
+      "dossie": "crimes-ambientais",
+      "titulo": "Operação Pronta Resposta: condenações pelo transporte de 47 kg de ouro de garimpo e pela tentativa de roubo em Manaus",
+      "resumo": "Segundo o MPF, em dezembro de 2023 dois homens foram flagrados em Manaus com cerca de 47 quilos de ouro em barras, avaliados em R$ 18,8 milhões, levados de avião de Itaituba (PA), depois de uma tentativa de assalto armado na Zona Norte da cidade. Segundo o MPF, foi a maior apreensão de ouro de garimpo ilegal da história do Amazonas, e a Justiça Federal condenou duas pessoas por tentativa de latrocínio e duas pelo transporte do ouro, além de fixar indenização por danos morais coletivos. A fonte não diz se houve trânsito em julgado.",
+      "dataDoFato": "2023-12",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "municipioIbge": "1302603",
+        "nome": "Manaus"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "COP30: MPF obtém condenação em maior apreensão de ouro extraído de garimpo ilegal na história do Amazonas",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/cop30-mpf-obtem-condenacao-em-maior-apreensao-de-ouro-extraido-de-garimpo-ilegal-na-historia-do-amazonas",
+          "trecho": "Em dezembro de 2023, dois homens foram flagrados transportando cerca de 47 quilos de ouro em barras, avaliados em R$18,8 milhões",
+          "data": "2025-10-05",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "ouro ilegal",
+        "garimpo ilegal",
+        "Amazonas",
+        "Operação Pronta Resposta",
+        "Itaituba"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Fonte f1 marcada 'processo' porque relata a sentença (notícia do MPF). A fonte não nomeia os condenados nem dá as penas nem o número do processo."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2019-caroebe-queda-de-aviao-com-ouro",
+      "dossie": "crimes-ambientais",
+      "titulo": "Caroebe (RR): piloto e vendedor condenados por levar quase 7 kg de ouro em avião clandestino que caiu",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou um piloto e um vendedor pelo transporte de quase 7 kg de ouro de garimpo, avaliados em cerca de R$ 2,26 milhões, achados depois que o monomotor clandestino em que estavam caiu perto da BR-210, em Caroebe (RR), em julho de 2019. Segundo o MPF, a sentença reconheceu a usurpação de patrimônio da União; a prisão foi trocada por multa e prestação de serviços, e o ouro foi mandado à Agência Nacional de Mineração. A fonte não diz se houve recurso.",
+      "dataDoFato": "2019-07",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RR",
+        "municipioIbge": "1400233",
+        "nome": "Caroebe"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "A pedido do MPF, Justiça condena piloto e vendedor pelo transporte ilegal de ouro em Roraima",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rr/noticias/a-pedido-do-mpf-justica-condena-piloto-e-vendedor-pelo-transporte-ilegal-de-ouro-em-roraima-1",
+          "trecho": "a Justiça condenou um piloto e um vendedor pelo transporte irregular de quase sete quilos de ouro, explorado sem autorização legal",
+          "data": "2025-09-22",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "ouro ilegal",
+        "aviação clandestina",
+        "Roraima",
+        "usurpação de bens da União"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processo 1002396-74.2020.4.01.4200 (número da página). Fonte não nomeia os condenados."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "fd-gold"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2021-fd-gold-1-3-tonelada-ouro-acao-civil",
+      "dossie": "crimes-ambientais",
+      "titulo": "FD'Gold: TRF1 anula sentença que absolvia empresa acusada de comprar 1,3 tonelada de ouro ilegal no Pará",
+      "resumo": "Segundo o MPF, a 12ª Turma do TRF1 anulou, por unanimidade, a sentença que julgou improcedente a ação civil pública contra a FD'Gold, acusada de comprar e vender mais de 1,3 tonelada de ouro de origem ilegal extraído em Itaituba, Jacareacanga e Novo Progresso (PA). Segundo o MPF, dados de satélite mostraram que as permissões de lavra declaradas para 'esquentar' o ouro eram áreas de floresta intacta, e os pedidos de indenização passam de R$ 3,2 bilhões. O processo volta à 1ª instância; a empresa é ré e não há condenação.",
+      "dataDoFato": "2021",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1503606",
+        "nome": "Itaituba, Jacareacanga e Novo Progresso (PA)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "A pedido do MPF, TRF1 anula sentença que absolvia empresa acusada da compra de 1,3 tonelada de ouro ilegal no Pará",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/prr1/noticias/a-pedido-do-mpf-trf1-anula-sentenca-que-absolvia-empresa-acusada-da-compra-de-1-3-tonelada-de-ouro-ilegal-no-para",
+          "trecho": "anulou sentença que julgava improcedente a ação civil pública contra a FD’Gold",
+          "data": "2026-07-08",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "ouro ilegal",
+        "DTVM",
+        "Tapajós",
+        "Pará",
+        "ação civil pública"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A data do fato é o ano da ação (processo 1001832-64.2021.4.01.3908): a fonte não dá o período das compras; conferir na petição inicial. O nome 'F.D'Gold DTVM' é como a empresa aparece nas ações do MPF de 2021; a página atual escreve 'FD’Gold' e 'F.D'Gold'. Ação CIVIL: 'réu' é da ação civil."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2021-operacao-ricezione-ouro-crepurizao",
+      "dossie": "crimes-ambientais",
+      "titulo": "Operação Ricezione: dez réus por esquema que 'esquentava' ouro do Tapajós com notas falsas",
+      "resumo": "Segundo o MPF, a Justiça Federal recebeu em outubro de 2026 a denúncia contra dez pessoas, entre empresários, pilotos e intermediários, acusadas de extrair, falsificar documentos e vender ouro ilegal do Pará, e manteve o bloqueio de R$ 146,2 milhões. Segundo o MPF, o caso começou em 20 de agosto de 2021, quando a PM paulista e a Polícia Federal abordaram no Campo de Marte, em São Paulo, um avião com 52 kg de ouro sem nota embarcado no distrito de Crepurizão, em Itaituba (PA). Os acusados são réus, sem condenação.",
+      "dataDoFato": "2021-08-20",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1503606",
+        "nome": "Itaituba (distrito de Crepurizão)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Justiça Federal inicia processo para julgar grupo denunciado pelo MPF por comércio ilegal de ouro no Pará",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-pa/noticias/justica-federal-inicia-processo-para-julgar-grupo-denunciado-pelo-mpf-por-comercio-ilegal-de-ouro-no-para",
+          "trecho": "A decisão – chamada juridicamente de recebimento da denúncia – tornou réus empresários, pilotos e intermediários envolvidos na negociação do minério",
+          "data": "2026-10-13",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "ouro ilegal",
+        "lavagem de dinheiro",
+        "Tapajós",
+        "Operação Ricezione",
+        "Pará"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os réus nem as empresas."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "braskem"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2018-braskem-sal-gema-maceio-acao-penal",
+      "dossie": "crimes-ambientais",
+      "titulo": "Afundamento de bairros em Maceió: Braskem e ex-gestores viram réus por crimes ligados à mineração de sal-gema",
+      "resumo": "Segundo o MPF, o caso Pinheiro/Braskem veio a público após um tremor de terra em março de 2018, seguido de rachaduras e afundamento do solo em bairros de Maceió. Segundo o MPF, em outubro de 2025 ele denunciou a Braskem e 15 pessoas por poluição qualificada, estudo ambiental falso, exploração de bens da União sem autorização e outros crimes; segundo o InfoMoney e o Movimento Econômico, a Justiça Federal em Alagoas recebeu parte da denúncia em junho de 2026, e a empresa e ex-dirigentes passaram a réus. Não há condenação.",
+      "dataDoFato": "2018-03",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AL",
+        "municipioIbge": "2704302",
+        "nome": "Maceió (bairros Pinheiro, Mutange e Bebedouro)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPF apresenta denúncia relacionada à exploração de sal-gema em Maceió (AL)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-al/noticias/mpf-apresenta-denuncia-relacionada-a-exploracao-de-sal-gema-em-maceio-al",
+          "trecho": "apresentou denúncia à Justiça Federal contra a empresa petroquímica Braskem e 15 pessoas físicas por crimes relacionados à exploração de sal-gema em Maceió",
+          "data": "2025-10-17",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Caso Pinheiro: entenda o caso",
+          "url": "https://www.mpf.mp.br/atuacao/como-e-a-atuacao-do-mpf/casos-de-destaque/caso-pinheiro/arquivos/entenda-o-caso",
+          "trecho": "O caso Pinheiro/Braskem tornou-se conhecido após um tremor de terra sentido por moradores de alguns bairros de Maceió, em março de 2018.",
+          "data": "2026-02-14",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f3",
+          "veiculo": "InfoMoney",
+          "tipo": "reportagem",
+          "titulo": "Braskem (BRKM5) fecha com queda de 9,2% após se tornar ré em ação sobre Maceió",
+          "url": "https://www.infomoney.com.br/mercados/braskem-brkm5-cai-mais-de-10-apos-se-tornar-re-em-acao-sobre-maceio/",
+          "trecho": "a Justiça Federal em Alagoas aceitou denúncia criminal apresentada pelo Ministério Público Federal (MPF) contra a petroquímica, tornando a empresa ré",
+          "data": "2026-06-16",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f4",
+          "veiculo": "Movimento Econômico",
+          "tipo": "reportagem",
+          "titulo": "Justiça aceita denúncia contra Braskem e ex-gestores por desastre em Maceió",
+          "url": "https://movimentoeconomico.com.br/estados/alagoas/2026/06/16/justica-aceita-denuncia-contra-braskem-e-ex-gestores-por-desastre-em-maceio/",
+          "trecho": "A Justiça Federal em Alagoas recebeu parcialmente a denúncia apresentada pelo Ministério Público Federal (MPF) contra a Braskem, ex-dirigentes e técnicos",
+          "data": "2026-06-16",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "Braskem",
+        "sal-gema",
+        "afundamento do solo",
+        "mineração",
+        "Alagoas",
+        "ação penal"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A situação 'réu' vem da imprensa (f3, f4): a curadoria deve confirmar o recebimento na Justiça Federal em Alagoas (as matérias divergem na data: dia 12 ou 15 de junho de 2026; o recebimento foi PARCIAL, com prescrição de condutas antigas). A denúncia (f1) é fonte oficial. Os 15 denunciados não são nomeados aqui. A data do fato é a do tremor que tornou o caso público (f2); a exploração é de décadas."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "vale"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2026-mina-de-fabrica-vale-vazamento-congonhas",
+      "dossie": "crimes-ambientais",
+      "titulo": "Mina de Fábrica (MG): MPF pede bloqueio de R$ 1 bilhão da Vale após vazamento de 262 mil m³ de água e sedimentos",
+      "resumo": "Segundo o MPF, em 25 de janeiro de 2026 vazaram cerca de 262 mil metros cúbicos de água e sedimentos da Cava Área 18 da Mina de Fábrica, da Vale, entre Ouro Preto e Congonhas (MG), assoreando córregos da bacia do Rio Paraopeba. Segundo o MPF, a licença proibia estrutura de contenção na cava, mas a empresa usava uma estrada interna como barramento, que colapsou com as chuvas, e demorou dez horas para avisar as autoridades. O MPF pediu à Justiça Federal o bloqueio de R$ 1 bilhão e dos direitos minerários da mina; a Vale é ré na ação civil, sem julgamento.",
+      "dataDoFato": "2026-01-25",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MG",
+        "municipioIbge": "3118007",
+        "nome": "Mina de Fábrica, entre Ouro Preto e Congonhas"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPF pede bloqueio de R$ 1 bilhão da Vale e interrupção de atividades após vazamento em mina",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-mg/noticias/mpf-pede-bloqueio-de-r-1-bilhao-da-vale-e-interrupcao-de-atividades-apos-vazamento-em-mina",
+          "trecho": "A medida decorre do extravasamento de aproximadamente 262 mil metros cúbicos de água e sedimentos, ocorrido em 25 de janeiro de 2026",
+          "data": "2026-01-30",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "Vale",
+        "barragem",
+        "rejeitos",
+        "Rio Paraopeba",
+        "Minas Gerais",
+        "ação civil pública"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Ação CIVIL (processo 6006902-93.2026.4.06.3800, número da página): 'réu' é da ação civil. Fonte de janeiro de 2026: conferir a decisão sobre o bloqueio. A página cita outro vazamento na Mina Viga no dia seguinte (não incluído)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "uniao",
+        "anm",
+        "estado-do-amapa",
+        "municipio-pedra-branca-do-amapari",
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2025-barragem-garimpo-sao-domingos-amapa",
+      "dossie": "crimes-ambientais",
+      "titulo": "Rompimento de barragem de garimpo ilegal no Amapá: MPF cobra R$ 51,6 milhões da União, da ANM, do estado e do município",
+      "resumo": "Segundo o MPF, em 11 de fevereiro de 2025 rompeu a barragem de rejeitos do garimpo ilegal São Domingos, em Pedra Branca do Amapari (AP), e metais pesados contaminaram os rios Cupixi, Araguari e Amapari; análises do Instituto Evandro Chagas acharam alumínio, ferro e mercúrio acima dos limites. Segundo o MPF, a área já tinha sido embargada pelo Ibama em 2024, e cerca de mil famílias foram atingidas. O MPF processa a União, a ANM, o estado do Amapá e o município por omissão na fiscalização e pede R$ 51,6 milhões; os entes são réus na ação civil, sem julgamento.",
+      "dataDoFato": "2025-02-11",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AP",
+        "municipioIbge": "1600154",
+        "nome": "Pedra Branca do Amapari (garimpo São Domingos, Igarapé Água Preta)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPF requer indenização de R$ 51,6 mi e descontaminação de rios após rompimento de barragem de garimpo ilegal no Amapá",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-ap/noticias/mpf-requer-indenizacao-de-r-51-6-mi-e-descontaminacao-de-rios-apos-rompimento-de-barragem-de-garimpo-ilegal-no-amapa",
+          "trecho": "em decorrência do rompimento de uma barragem de rejeitos no garimpo ilegal São Domingos, em 11 de fevereiro de 2025",
+          "data": "2025-12-18",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "barragem",
+        "garimpo ilegal",
+        "mercúrio",
+        "Amapá",
+        "ação civil pública",
+        "omissão do poder público"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Ação CIVIL (processo 1020508-20.2025.4.01.3100, número da página) contra entes públicos por omissão; quem operava o garimpo não é nomeado. O Ibama entra só como órgão que embargou a área em 2024."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "anm",
+        "icmbio",
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2024-apa-do-tapajos-828-permissoes-anm",
+      "dossie": "crimes-ambientais",
+      "titulo": "APA do Tapajós (PA): MPF processa a ANM por 828 permissões de garimpo dadas sem aval do ICMBio",
+      "resumo": "Segundo o MPF, desde dezembro de 2024 uma ação civil pública pede que a Agência Nacional de Mineração suspenda as permissões de pesquisa e lavra concedidas sem a autorização prévia do ICMBio na Área de Proteção Ambiental do Tapajós, no sudoeste do Pará, e pague R$ 100 milhões por danos morais coletivos. Segundo o MPF, o ICMBio achou 828 permissões de lavra garimpeira ativas na APA sem ter sido notificado, e uma fiscalização do Ibama suspendeu 331 delas no fim de 2024. Ainda não há decisão judicial; a ANM é ré na ação civil.",
+      "dataDoFato": "2024-11",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1503606",
+        "nome": "Área de Proteção Ambiental do Tapajós (sudoeste do Pará)"
+      },
+      "situacao": "reu",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "COP30: MPF atua contra emissão de mais de 800 permissões ilegais para garimpo em área de preservação no Pará",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/cop30-mpf-atua-contra-emissao-de-mais-de-800-permissoes-ilegais-para-garimpo-em-area-de-preservacao-no-para",
+          "trecho": "a agência descobriu a existência de 828 permissões de lavra garimpeira ativas na APA, concedidas pela ANM",
+          "data": "2025-10-01",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "garimpo",
+        "Tapajós",
+        "unidade de conservação",
+        "ANM",
+        "licenciamento",
+        "ação civil pública"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Data do fato = mês em que o ICMBio apresentou o problema (novembro de 2024, segundo a fonte). O município Itaituba é aproximação para o mapa (a APA abrange vários municípios): conferir. Fonte de outubro de 2025: reconferir se já há decisão."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "municipio-de-moncao",
+        "municipio-de-cajari",
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2013-moncao-cajari-mineracao-irregular-assentamento",
+      "dossie": "crimes-ambientais",
+      "titulo": "Monção e Cajari (MA): municípios condenados por retirar argila e piçarra sem autorização em assentamento",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou os municípios de Monção e Cajari, no Maranhão, por danos ambientais causados pela retirada de argila e piçarra, sem título da Agência Nacional de Mineração, em área de assentamento onde o desmatamento é proibido, para recuperar estradas vicinais. Segundo o MPF, laudo da Polícia Federal e imagens de satélite mostraram degradação a partir de 2013; os municípios terão de apresentar plano de recuperação e pagar R$ 180,6 mil. Cabe recurso.",
+      "dataDoFato": "2013",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MA",
+        "municipioIbge": "2106904",
+        "nome": "Monção e Cajari (MA)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Justiça condena Monção e Cajari por danos ambientais causados por mineração irregular no Maranhão",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-ma/noticias/justica-condena-moncao-e-cajari-por-danos-ambientais-causados-por-mineracao-irregular-no-maranhao",
+          "trecho": "condenou os municípios de Monção e Cajari, no Maranhão, por danos ambientais causados pela exploração mineral irregular em área de assentamento",
+          "data": "2026-03-24",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "mineração irregular",
+        "assentamento",
+        "Maranhão",
+        "poder público",
+        "ação civil pública"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL de entes públicos (processo 1056109-09.2020.4.01.3700, número da página). A fonte não diz se houve recurso."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2022-fazenda-mata-verde-sao-felix-do-xingu-desmatamento",
+      "dossie": "crimes-ambientais",
+      "titulo": "São Félix do Xingu (PA): condenação a pagar R$ 84,8 milhões por desmatar 75 km² em área protegida",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou em maio de 2026, em ação civil pública, o responsável pelo desmatamento ilegal de 7,5 mil hectares na Fazenda Mata Verde, dentro da APA Triunfo do Xingu e da Estação Ecológica Terra do Meio, em São Félix do Xingu (PA), a pagar mais de R$ 84,8 milhões. Segundo o MPF, o desmate foi detectado em março de 2022 pelo Ibama e pela Força Nacional, o Ibama aplicou multa de R$ 50 milhões e a área seria loteada e vendida. Cabe recurso.",
+      "dataDoFato": "2022-03",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1507300",
+        "nome": "São Félix do Xingu (Fazenda Mata Verde, APA Triunfo do Xingu)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Após ação do MPF, Justiça condena réu a pagar quase R$ 85 milhões por desmatamento de 75 km² no Pará",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-pa/noticias/apos-acao-do-mpf-justica-condena-reu-a-pagar-quase-r-85-milhoes-por-desmatamento-de-75-km2-no-para",
+          "trecho": "condenou um réu pelo desmatamento ilegal de 7,5 mil hectares (75 quilômetros quadrados) de floresta nativa no Pará",
+          "data": "2026-05-11",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "desmatamento",
+        "auto de infração",
+        "Terra do Meio",
+        "Pará",
+        "ação civil pública"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL (processo 1001200-76.2023.4.01.3905, número da página). A fonte não nomeia o condenado."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2015-pds-liberdade-portel-pacaja-desmatamento",
+      "dossie": "crimes-ambientais",
+      "titulo": "PDS Liberdade (PA): cinco condenados a até 19 anos por invasão, desmatamento e associação criminosa armada",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou em junho de 2025 cinco pessoas por invasão e desmatamento de terras federais e associação criminosa armada no Projeto de Desenvolvimento Sustentável Liberdade, em Portel e Pacajá (PA), em 2015 e 2016, com penas de 18 anos e dez meses a 19 anos e seis meses. Segundo o MPF, o Ibama confirmou a grilagem na Operação Onda Verde, em janeiro de 2016, e 'laranjas' figuravam nos cadastros rurais. Cabe recurso ao TRF1.",
+      "dataDoFato": "2015",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1505809",
+        "nome": "Portel e Pacajá (PDS Liberdade)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Justiça condena cinco denunciados pelo MPF por desmatamentos, invasões e associação criminosa armada no Pará",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-pa/noticias/justica-condena-cinco-denunciados-pelo-mpf-por-desmatamentos-invasoes-e-associacao-criminosa-armada-no-para",
+          "trecho": "As penas variam de 18 anos e dez meses a 19 anos e seis meses de reclusão.",
+          "data": "2025-06-26",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "desmatamento",
+        "grilagem",
+        "terras públicas",
+        "Pará",
+        "Operação Onda Verde"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Processos 0019720-29.2017.4.01.3900 e 0019721-14.2017.4.01.3900 (números da página). A fonte não nomeia os condenados. Pode ir também para o dossiê Conflitos no campo."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2021-operacao-xingu-boca-do-acre-grilagem",
+      "dossie": "crimes-ambientais",
+      "titulo": "Operação Xingu (AM): quatro condenados por grilagem e desmatamento de quase 2 mil hectares no sul do Amazonas",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou quatro pessoas, na Operação Xingu, por organização criminosa, invasão de terras públicas federais, desmatamento e falsidade ideológica na terra Bom Lugar/Maripuá, entre Boca do Acre, Pauini e Lábrea (AM), com penas de 6 a 11 anos em regime fechado. Segundo o MPF, o grupo desmatou quase dois mil hectares entre dezembro de 2021 e outubro de 2022 e a sentença fixou R$ 20,7 milhões para a reparação. Cabe recurso.",
+      "dataDoFato": "2021-12",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "municipioIbge": "1300706",
+        "nome": "Boca do Acre, Pauini e Lábrea (terra Bom Lugar/Maripuá)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Após ação do MPF, Justiça condena quatro pessoas por danos ambientais no sul do Amazonas",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/apos-acao-do-mpf-justica-condena-quatro-pessoas-por-danos-ambientais-no-sul-do-amazonas",
+          "trecho": "Os quatro homens foram condenados a penas de prisão que variam de 6 a 11 anos, em regime fechado, além de multa.",
+          "data": "2025-11-18",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "grilagem",
+        "desmatamento",
+        "Amazonas",
+        "Operação Xingu",
+        "organização criminosa"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia os condenados nem dá o número do processo; diz que um deles foi condenado antes no caso da morte de uma missionária em 2005 (não incluído)."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "ibama",
+        "policia-federal"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2024-ti-mangueirinha-araucarias-desmatamento",
+      "dossie": "crimes-ambientais",
+      "titulo": "Terra Indígena Mangueirinha (PR): homem condenado a regime fechado por desmatar 157,9 hectares de araucária",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou a 6 anos, 10 meses e 22 dias de prisão, em regime inicial fechado, um homem preso em flagrante em dezembro de 2024 desmatando 157,9 hectares de araucária na Terra Indígena Mangueirinha (PR), considerada a maior reserva de araucárias. Segundo o MPF, fiscais do Ibama e a perícia da Polícia Federal detalharam o histórico de desmatamento na área. Cabe recurso.",
+      "dataDoFato": "2024-12",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PR",
+        "municipioIbge": "4114401",
+        "nome": "Mangueirinha; Terra Indígena Mangueirinha"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Justiça Federal condena homem a prisão em regime fechado por desmatamento na Terra Indígena Mangueirinha (PR)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-pr/noticias/justica-federal-condena-um-homem-a-prisao-em-regime-fechado-por-desmatamento-na-terra-indigena-mangueirinha-pr",
+          "trecho": "A Justiça Federal condenou o homem a pena de prisão de 6 anos, 10 meses e 22 dias",
+          "data": "2025-06-05",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "desmatamento",
+        "araucária",
+        "terra indígena",
+        "Paraná",
+        "Mata Atlântica"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). A fonte não nomeia o condenado nem dá o número do processo."
+    },
+    {
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "organizacoes": [
+        "ibama"
+      ],
+      "pessoas": [],
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "confianca": "primaria",
+      "id": "2017-apui-assentamento-juma-desmatamento",
+      "dossie": "crimes-ambientais",
+      "titulo": "Apuí (AM): autor de desmatamento de 180 hectares no assentamento Juma condenado a recuperar a área e indenizar",
+      "resumo": "Segundo o MPF, a Justiça Federal condenou em ação civil pública um homem pelo desmatamento ilegal de 180 hectares de floresta no Projeto de Assentamento Juma, em Apuí (AM), entre janeiro e maio de 2017, constatado em fiscalização do Ibama. Segundo o MPF, ele terá de executar plano de recuperação da área e pagar R$ 1,9 milhão por danos materiais e R$ 96 mil por danos morais coletivos. Cabe recurso.",
+      "dataDoFato": "2017-01",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AM",
+        "municipioIbge": "1300144",
+        "nome": "Apuí (Projeto de Assentamento Juma)"
+      },
+      "situacao": "condenado_1a_instancia",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "mpf",
+          "veiculo": "MPF",
+          "tipo": "processo",
+          "titulo": "Justiça condena autor de desmatamento ilegal em Apuí (AM) a recuperar área degradada e a pagar indenizações",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-am/noticias/justica-condena-autor-de-desmatamento-ilegal-em-apui-am-a-recuperar-area-degradada-e-a-pagar-indenizacoes",
+          "trecho": "a Justiça condenou o responsável pelo desmatamento ao pagamento de R$ 1,9 milhão pelos danos materiais",
+          "data": "2025-06-06",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "etiquetas": [
+        "desmatamento",
+        "assentamento",
+        "Amazonas",
+        "ação civil pública"
+      ],
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): trecho copiado literalmente da fonte oficial, situação jurídica lida na fonte. Aguarda a curadoria humana (reconferir o andamento, arquivar no Internet Archive na aprovação). Condenação CIVIL (processo 1030904-18.2023.4.01.3200, número da página). A fonte não nomeia o condenado."
+    }
+  ]
+}
