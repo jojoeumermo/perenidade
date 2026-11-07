@@ -68,8 +68,11 @@ Funções: `podcast_ao_vivo_estado`, `podcast_ao_vivo_iniciar`, `podcast_ao_vivo
 ### Variáveis
 
 Nenhuma nova. Usa as que já existem: `CLOUDFLARE_TURN_KEY_ID`, `CLOUDFLARE_TURN_TOKEN` (e as do teto de gasto) para o
-TURN, e `NEXT_PUBLIC_VIDEO_HOSTS` para os PeerTube aceitos. Sem o TURN, a sala direta liga os navegadores entre si (como
-as aulas fazem hoje sem as chaves).
+TURN, e `NEXT_PUBLIC_VIDEO_HOSTS` para os PeerTube aceitos. Sem o TURN (chaves ausentes, Cloudflare fora do ar ou teto
+do mês, hoje 600 GB), o podcast NÃO liga direto (T33): quem transmite é avisado e a transmissão pelo navegador sai do ar, e
+quem assiste vê a transmissão aberta de reserva, se houver. A ligação direta mostraria o endereço de rede de quem transmite
+a qualquer visitante, e o de quem assiste a quem transmite. A rota do TURN tem limite por pessoa e entrega uma credencial
+por sala a cada 5 minutos.
 
 ### Peso
 
