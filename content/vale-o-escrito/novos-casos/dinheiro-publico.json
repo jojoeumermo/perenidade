@@ -1113,7 +1113,7 @@
       "id": "2010-collor-br-distribuidora-ap-1025",
       "dossie": "dinheiro-publico",
       "titulo": "BR Distribuidora: STF condena Fernando Collor por corrupção passiva e lavagem (AP 1025)",
-      "resumo": "Segundo o STF, o Plenário condenou em 31 de maio de 2023 o ex-senador e ex-presidente Fernando Collor a oito anos e dez meses de reclusão por corrupção passiva e lavagem de dinheiro na Ação Penal 1025: ele recebeu R$ 20 milhões para viabilizar irregularmente contratos da BR Distribuidora com a UTC Engenharia, em troca de apoio político para indicar e manter diretores da estatal; o relator apontou fatos entre 2010 e 2014. Segundo o STF, em abril de 2025 o ministro Alexandre de Moraes considerou protelatório o último recurso e determinou o cumprimento imediato da pena, decisão confirmada pelo Plenário.",
+      "resumo": "Segundo o STF, o Plenário condenou em 31 de maio de 2023 o ex-senador e ex-presidente Fernando Collor a oito anos e dez meses de reclusão por corrupção passiva e lavagem de dinheiro na Ação Penal 1025: ele recebeu R$ 20 milhões para viabilizar irregularmente contratos da BR Distribuidora com a UTC Engenharia, em troca de apoio político para indicar e manter diretores da estatal; o relator apontou fatos entre 2010 e 2014. Segundo o STF, em abril de 2025 o ministro Alexandre de Moraes considerou protelatório o último recurso e determinou o cumprimento imediato da pena; segundo a Conjur, o Plenário confirmou a ordem de prisão em sessão virtual encerrada em 28 de abril de 2025.",
       "dataDoFato": "2010",
       "lugar": {
         "pais": "BR",
@@ -1156,6 +1156,16 @@
           "trecho": "entre 2010 e 2014, a influência de Collor sobre a presidência e as diretorias da BR Distribuidora viabilizou a assinatura de quatro contratos da UTC Engenharia",
           "data": "2023-05-17",
           "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f4",
+          "veiculo": "Conjur",
+          "tipo": "reportagem",
+          "titulo": "STF confirma prisão de Collor por caso da 'lava jato'",
+          "url": "https://www.conjur.com.br/2025-abr-29/stf-confirma-prisao-de-collor-por-caso-da-lava-jato/",
+          "trecho": "O Plenário do Supremo Tribunal Federal confirmou a ordem de prisão imediata do ex-presidente",
+          "data": "2025-04-29",
+          "acessadoEm": "2026-11-07"
         }
       ],
       "pessoas": [
@@ -1180,7 +1190,7 @@
       "atualizadoEm": "2026-11-06",
       "revisao": "pendente-curadoria",
       "situacaoConferidaEm": "2026-11-06",
-      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Os dois empresários condenados na mesma ação não foram nomeados (pessoas privadas; preferimos a organização). O lugar é o do julgamento (STF), como no caso do Mensalão: as fontes não dizem onde os contratos foram assinados. Em 2025 o STF concedeu prisão domiciliar humanitária (não lida aqui). Quatro ministros votaram contra a certificação do trânsito: conferir se houve mudança depois de abril de 2025."
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Os dois empresários condenados na mesma ação não foram nomeados (pessoas privadas; preferimos a organização). O lugar é o do julgamento (STF), como no caso do Mensalão: as fontes não dizem onde os contratos foram assinados. Em 2025 o STF concedeu prisão domiciliar humanitária (não lida aqui). Quatro ministros votaram contra a certificação do trânsito: conferir se houve mudança depois de abril de 2025. Revisão de 07/11/2026: a página do STF (f2) só diz que a decisão iria a referendo; o referendo do Plenário vem da Conjur (f4). Achar a notícia oficial do STF sobre o referendo."
     },
     {
       "id": "1997-maluf-lavagem-obras-prefeitura-sp-ap-863",
@@ -1287,6 +1297,17 @@
           "trecho": "Em 20/6, o Plenário do STF determinou a certificação do trânsito em julgado da AP, independentemente da publicação do acórdão, para fins de início do cumprimento da pena.",
           "data": "2018-08-02",
           "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f3",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Ministra Cármen Lúcia determina cumprimento da pena do senador Ivo Cassol",
+          "url": "https://noticias.stf.jus.br/?p=45402",
+          "trecho": "substituída por pena restritiva de direitos (prestação de serviços à comunidade) e por multa de R$ 201 mil.",
+          "data": "2018-08-02",
+          "acessadoEm": "2026-11-07"
         }
       ],
       "pessoas": [
@@ -1481,6 +1502,17 @@
           "trecho": "prevaleceu o entendimento de que a Procuradoria-Geral da República (PGR) não apresentou elementos externos de prova que corroborassem as informações prestadas em colaborações premiadas",
           "data": "2018-06-19",
           "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "2ª Turma julga improcedente ação penal contra senadora Gleisi Hoffmann",
+          "url": "https://noticias.stf.jus.br/postsnoticias/2a-turma-julga-improcedente-acao-penal-contra-senadora-gleisi-hoffmann/",
+          "trecho": "da acusação de solicitar e receber R$ 1 milhão desviados da Petrobras",
+          "data": "2018-06-19",
+          "acessadoEm": "2026-11-07"
         }
       ],
       "pessoas": [

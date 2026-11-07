@@ -40,3 +40,25 @@ Rodar `node scripts/conferir-rastreio.mjs` depois de leituras novas de disco no 
 - SQL novo não executado em Postgres (sem Postgres no ambiente). Rodar em projeto de teste.
 - Interface testada só por conferência estática, tipos e eslint; não foi aberta no navegador com um banco real.
 - Pedido de arquivo depende de o Internet Archive aceitar o servidor (sem chave, com limite deles); a curadoria pode refazer.
+
+## Lotes de casos novos (`content/vale-o-escrito/novos-casos/`)
+
+Casos pesquisados pela equipe (ou por agente) e ainda não publicados ficam em `content/vale-o-escrito/novos-casos/<recorte>.json`,
+no formato `ArquivoDeEntradas`, todos com `revisao: "pendente-curadoria"`, `situacaoConferidaEm` e `notaDaCuradoria` (o que conferir).
+Regra da coordenação: só vai ao ar caso com **fonte oficial** (processo, investigação oficial ou dado oficial) e **situação jurídica**.
+
+`npm run vale-o-escrito:importar` (lógica em `lib/vale-o-escrito/novos-casos.ts`) confere cada lote com `regras.ts`, exige fonte
+oficial e situação, pula id já importado e barra a entrada cujo **link de fonte** já é de outra entrada (duplicata: mesclar na curadoria).
+
+- `-- --sql fila.sql`: gera o SQL que põe os casos na fila (`interno.vale_fila`, origem `equipe`, o mesmo caminho da entrada manual);
+  rodar no SQL Editor do Supabase. Não insere duas vezes (pula id já publicado ou ainda aberto na fila). A curadoria aprova no painel,
+  e a aprovação arquiva a fonte no Internet Archive.
+- `-- --arquivos`: junta os casos a `content/vale-o-escrito/entradas/<dossiê>.json` como pendentes (não vão ao ar; `dados.ts` os separa).
+  O exportador reescreve esses arquivos a partir do banco, então o caminho que dura é a fila.
+- `-- --lote <recorte>`: só um lote.
+
+`npm run testar:vale-o-escrito` confere todos os lotes (nada barrado, pendente-curadoria, valor em R$ com fonte que fale de valor).
+
+Lote `dinheiro-publico` (24 casos, 06 e 07/11/2026): 9 decisões do STF (condenações, absolvições) e 15 operações da PF/CGU com nota
+oficial. Para conferir antes de aprovar: trânsito em julgado da AP 1030 (Geddel); nota oficial do STF sobre o referendo do Plenário
+na prisão de Collor (hoje a fonte é a Conjur); a Operação Make Up não tem UF única (SP, RJ, CE e DF), por isso o lugar ficou só "BR".
