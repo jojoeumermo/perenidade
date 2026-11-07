@@ -1,0 +1,1947 @@
+{
+  "dossie": "violencia-policial",
+  "pessoas": [
+    {
+      "id": "marcos-aurelio-dias-de-alcantara",
+      "nome": "Marcos Aurélio Dias de Alcântara",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "fabricio-eleuterio",
+      "nome": "Fabrício Eleutério",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "thiago-henklain",
+      "nome": "Thiago Henklain",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "antonio-jose-de-abreu-vidal-filho",
+      "nome": "Antônio José de Abreu Vidal Filho",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "marcus-vinicius-sousa-da-costa",
+      "nome": "Marcus Vinícius Sousa da Costa",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "wellington-veras-chagas",
+      "nome": "Wellington Veras Chagas",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "ideraldo-amancio",
+      "nome": "Ideraldo Amâncio",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "mauro-jose-goncalves",
+      "nome": "Mauro José Gonçalves",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial civil"
+    },
+    {
+      "id": "maxwell-gomes-pereira",
+      "nome": "Maxwell Gomes Pereira",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial civil"
+    },
+    {
+      "id": "fernando-de-brito-meister",
+      "nome": "Fernando de Brito Meister",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial civil"
+    },
+    {
+      "id": "bruno-martins-barros",
+      "nome": "Bruno Martins Barros",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "angelo-maximo-morais-lacerda",
+      "nome": "Angelo Máximo Morais Lacerda",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    },
+    {
+      "id": "reginaldo-matos-lima",
+      "nome": "Reginaldo Matos Lima",
+      "publicaNoCaso": true,
+      "papel": "agente_de_seguranca",
+      "fonteIds": [
+        "f1"
+      ],
+      "cargo": "policial militar"
+    }
+  ],
+  "organizacoes": [
+    {
+      "id": "pcerj",
+      "nome": "Polícia Civil do Estado do Rio de Janeiro",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "pmesp",
+      "nome": "Polícia Militar do Estado de São Paulo",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "pmerj",
+      "nome": "Polícia Militar do Estado do Rio de Janeiro",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "pmce",
+      "nome": "Polícia Militar do Ceará",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "pmba",
+      "nome": "Polícia Militar da Bahia",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "pmpa",
+      "nome": "Polícia Militar do Pará",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "policia-federal",
+      "nome": "Polícia Federal",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "policia-rodoviaria-federal",
+      "nome": "Polícia Rodoviária Federal",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "pmgo",
+      "nome": "Polícia Militar de Goiás",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "brigada-militar-rs",
+      "nome": "Brigada Militar do Rio Grande do Sul",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "ligacoes": [
+    {
+      "id": "l-pcerj-2021-jacarezinho-operacao-exceptis",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pcerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-jacarezinho-operacao-exceptis"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-jacarezinho-operacao-exceptis"
+    },
+    {
+      "id": "l-pmesp-2019-paraisopolis-operacao-pancadao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmesp"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2019-paraisopolis-operacao-pancadao"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2019-paraisopolis-operacao-pancadao"
+    },
+    {
+      "id": "l-pmesp-2024-operacao-verao-baixada-santista",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmesp"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-operacao-verao-baixada-santista"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-operacao-verao-baixada-santista"
+    },
+    {
+      "id": "l-pmesp-2023-operacao-escudo-baixada-santista",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmesp"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-operacao-escudo-baixada-santista"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-operacao-escudo-baixada-santista"
+    },
+    {
+      "id": "l-marcos-aurelio-dias-de-alcantara-1993-chacina-da-candelaria",
+      "de": {
+        "tipo": "pessoa",
+        "id": "marcos-aurelio-dias-de-alcantara"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1993-chacina-da-candelaria"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1993-chacina-da-candelaria"
+    },
+    {
+      "id": "l-pmerj-1993-chacina-da-candelaria",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1993-chacina-da-candelaria"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1993-chacina-da-candelaria"
+    },
+    {
+      "id": "l-pmerj-2013-rocinha-desaparecimento-upp-amarildo",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2013-rocinha-desaparecimento-upp-amarildo"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2013-rocinha-desaparecimento-upp-amarildo"
+    },
+    {
+      "id": "l-fabricio-eleuterio-2015-chacina-de-osasco-e-barueri",
+      "de": {
+        "tipo": "pessoa",
+        "id": "fabricio-eleuterio"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-de-osasco-e-barueri"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-de-osasco-e-barueri"
+    },
+    {
+      "id": "l-thiago-henklain-2015-chacina-de-osasco-e-barueri",
+      "de": {
+        "tipo": "pessoa",
+        "id": "thiago-henklain"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-de-osasco-e-barueri"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-de-osasco-e-barueri"
+    },
+    {
+      "id": "l-pmesp-2015-chacina-de-osasco-e-barueri",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmesp"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-de-osasco-e-barueri"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-de-osasco-e-barueri"
+    },
+    {
+      "id": "l-pmerj-2015-costa-barros-carro-fuzilado",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-costa-barros-carro-fuzilado"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-costa-barros-carro-fuzilado"
+    },
+    {
+      "id": "l-antonio-jose-de-abreu-vidal-filho-2015-chacina-do-curio-grande-messejana",
+      "de": {
+        "tipo": "pessoa",
+        "id": "antonio-jose-de-abreu-vidal-filho"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-do-curio-grande-messejana"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-do-curio-grande-messejana"
+    },
+    {
+      "id": "l-marcus-vinicius-sousa-da-costa-2015-chacina-do-curio-grande-messejana",
+      "de": {
+        "tipo": "pessoa",
+        "id": "marcus-vinicius-sousa-da-costa"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-do-curio-grande-messejana"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-do-curio-grande-messejana"
+    },
+    {
+      "id": "l-wellington-veras-chagas-2015-chacina-do-curio-grande-messejana",
+      "de": {
+        "tipo": "pessoa",
+        "id": "wellington-veras-chagas"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-do-curio-grande-messejana"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-do-curio-grande-messejana"
+    },
+    {
+      "id": "l-ideraldo-amancio-2015-chacina-do-curio-grande-messejana",
+      "de": {
+        "tipo": "pessoa",
+        "id": "ideraldo-amancio"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-do-curio-grande-messejana"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-do-curio-grande-messejana"
+    },
+    {
+      "id": "l-pmce-2015-chacina-do-curio-grande-messejana",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmce"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-do-curio-grande-messejana"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-do-curio-grande-messejana"
+    },
+    {
+      "id": "l-pmba-2015-chacina-do-cabula",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmba"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2015-chacina-do-cabula"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2015-chacina-do-cabula"
+    },
+    {
+      "id": "l-pcerj-1994-favela-nova-brasilia-corte-idh",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pcerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1994-favela-nova-brasilia-corte-idh"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1994-favela-nova-brasilia-corte-idh"
+    },
+    {
+      "id": "l-pmerj-1994-favela-nova-brasilia-corte-idh",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1994-favela-nova-brasilia-corte-idh"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1994-favela-nova-brasilia-corte-idh"
+    },
+    {
+      "id": "l-pmesp-2002-operacao-castelinho-corte-idh",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmesp"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2002-operacao-castelinho-corte-idh"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2002-operacao-castelinho-corte-idh"
+    },
+    {
+      "id": "l-pmpa-1994-chacina-do-tapana-corte-idh",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmpa"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1994-chacina-do-tapana-corte-idh"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1994-chacina-do-tapana-corte-idh"
+    },
+    {
+      "id": "l-mauro-jose-goncalves-2020-sao-goncalo-salgueiro-morte-em-casa",
+      "de": {
+        "tipo": "pessoa",
+        "id": "mauro-jose-goncalves"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-sao-goncalo-salgueiro-morte-em-casa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-sao-goncalo-salgueiro-morte-em-casa"
+    },
+    {
+      "id": "l-maxwell-gomes-pereira-2020-sao-goncalo-salgueiro-morte-em-casa",
+      "de": {
+        "tipo": "pessoa",
+        "id": "maxwell-gomes-pereira"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-sao-goncalo-salgueiro-morte-em-casa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-sao-goncalo-salgueiro-morte-em-casa"
+    },
+    {
+      "id": "l-fernando-de-brito-meister-2020-sao-goncalo-salgueiro-morte-em-casa",
+      "de": {
+        "tipo": "pessoa",
+        "id": "fernando-de-brito-meister"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-sao-goncalo-salgueiro-morte-em-casa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-sao-goncalo-salgueiro-morte-em-casa"
+    },
+    {
+      "id": "l-pcerj-2020-sao-goncalo-salgueiro-morte-em-casa",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pcerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-sao-goncalo-salgueiro-morte-em-casa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-sao-goncalo-salgueiro-morte-em-casa"
+    },
+    {
+      "id": "l-policia-federal-2020-sao-goncalo-salgueiro-morte-em-casa",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-sao-goncalo-salgueiro-morte-em-casa"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-sao-goncalo-salgueiro-morte-em-casa"
+    },
+    {
+      "id": "l-policia-rodoviaria-federal-2022-complexo-do-chapadao-prf-denuncia",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-rodoviaria-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-complexo-do-chapadao-prf-denuncia"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-complexo-do-chapadao-prf-denuncia"
+    },
+    {
+      "id": "l-pmerj-2021-sao-goncalo-salgueiro-operacao-quatro-mortes",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmerj"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2021-sao-goncalo-salgueiro-operacao-quatro-mortes"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2021-sao-goncalo-salgueiro-operacao-quatro-mortes"
+    },
+    {
+      "id": "l-pmesp-2006-chacina-do-parque-bristol-federalizada",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmesp"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2006-chacina-do-parque-bristol-federalizada"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2006-chacina-do-parque-bristol-federalizada"
+    },
+    {
+      "id": "l-pmesp-2008-itaquera-estudante-abordagem-pm",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmesp"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2008-itaquera-estudante-abordagem-pm"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2008-itaquera-estudante-abordagem-pm"
+    },
+    {
+      "id": "l-bruno-martins-barros-2020-cristalina-fazenda-pms-reus",
+      "de": {
+        "tipo": "pessoa",
+        "id": "bruno-martins-barros"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-cristalina-fazenda-pms-reus"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-cristalina-fazenda-pms-reus"
+    },
+    {
+      "id": "l-angelo-maximo-morais-lacerda-2020-cristalina-fazenda-pms-reus",
+      "de": {
+        "tipo": "pessoa",
+        "id": "angelo-maximo-morais-lacerda"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-cristalina-fazenda-pms-reus"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-cristalina-fazenda-pms-reus"
+    },
+    {
+      "id": "l-reginaldo-matos-lima-2020-cristalina-fazenda-pms-reus",
+      "de": {
+        "tipo": "pessoa",
+        "id": "reginaldo-matos-lima"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-cristalina-fazenda-pms-reus"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-cristalina-fazenda-pms-reus"
+    },
+    {
+      "id": "l-pmgo-2020-cristalina-fazenda-pms-reus",
+      "de": {
+        "tipo": "organizacao",
+        "id": "pmgo"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-cristalina-fazenda-pms-reus"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-cristalina-fazenda-pms-reus"
+    },
+    {
+      "id": "l-brigada-militar-rs-2011-alvorada-chacina-bar-pms-denunciados",
+      "de": {
+        "tipo": "organizacao",
+        "id": "brigada-militar-rs"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2011-alvorada-chacina-bar-pms-denunciados"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2011-alvorada-chacina-bar-pms-denunciados"
+    }
+  ],
+  "entradas": [
+    {
+      "id": "2021-jacarezinho-operacao-exceptis",
+      "dossie": "violencia-policial",
+      "titulo": "Jacarezinho (RJ, 2021): operação da Polícia Civil com 28 mortos tem réus, denúncia rejeitada e investigações arquivadas",
+      "resumo": "Segundo o MPRJ, uma força-tarefa apura as mortes da operação policial de 6 de maio de 2021 no Jacarezinho, zona norte do Rio: denunciou policiais civis e promoveu o arquivamento de dez procedimentos de investigação criminal. Segundo o Poder360, em outubro de 2021 a 2ª Vara Criminal do Rio aceitou denúncia contra dois policiais da Core, que se tornaram os primeiros réus do caso (um por homicídio e fraude processual, outro por fraude processual). Segundo a Agência Brasil, em junho de 2022 a Justiça rejeitou outra denúncia do MPRJ, contra dois outros policiais civis, por homicídio; a operação deixou 28 mortos, entre eles um policial. Não há condenação nas fontes lidas: os réus são presumidos inocentes.",
+      "dataDoFato": "2021-05-06",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Jacarezinho, Rio de Janeiro"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPRJ",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPRJ denuncia outros dois policiais civis por homicídio doloso e fraude processual ocorridos durante operação no Jacarezinho",
+          "url": "https://www.mprj.mp.br/visualizar?noticiaId=112317",
+          "trecho": "Neste mesmo período, a FT-Jacarezinho/MPRJ promoveu o arquivamento de dez Procedimentos de Investigação Criminal (PICs), que estão sendo analisados pelo 2º Tribunal do Júri da Capital.",
+          "data": "2022-05-05",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Poder360",
+          "tipo": "reportagem",
+          "titulo": "Justiça aceita denúncia e afasta policiais envolvidos em operação no Jacarezinho",
+          "url": "https://www.poder360.com.br/justica/justica-aceita-denuncia-e-afasta-policiais-envolvidos-em-operacao-no-jacarezinho/",
+          "trecho": "A juíza Elizabeth Machado Louro, da 2ª Vara Criminal do Rio de Janeiro, aceitou denúncia contra 2 policiais da Core (Coordenadoria de Recursos Especiais) da Polícia Civil",
+          "data": "2021-10-18",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f3",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "Chacina do Jacarezinho: Justiça rejeita denúncia contra dois policiais",
+          "url": "https://agenciabrasil.ebc.com.br/justica/noticia/2022-06/chacina-do-jacarezinho-justica-rejeita-denuncia-contra-dois-policiais",
+          "trecho": "os elementos informativos e probatórios produzidos são inidôneos a formar a justa causa necessária ao recebimento da ação",
+          "data": "2022-06-08",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pcerj"
+      ],
+      "etiquetas": [
+        "operação policial",
+        "letalidade policial",
+        "Polícia Civil",
+        "ADPF 635",
+        "Rio de Janeiro"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Os nomes dos policiais não entram: as fontes lidas divergem na grafia dos dois réus de 2021 e os outros dois tiveram a denúncia rejeitada. Não conferimos se o MPRJ recorreu da rejeição (jun/2022) nem o andamento da ação de 2021: reconferir no TJRJ. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "2019-paraisopolis-operacao-pancadao",
+      "dossie": "violencia-policial",
+      "titulo": "Paraisópolis (SP, 2019): doze policiais militares vão a júri pelas nove mortes na dispersão de um baile funk",
+      "resumo": "Segundo o MPSP, doze policiais militares foram denunciados por homicídio pelas nove mortes ocorridas em 1º de dezembro de 2019, durante a chamada Operação Pancadão, num baile funk em Paraisópolis, zona sul de São Paulo; um 13º policial foi denunciado por colocar a vida alheia em perigo mediante explosão. Segundo a Agência Brasil, em agosto de 2026 a 1ª Vara do Júri do Foro Central Criminal decidiu que os doze serão julgados pelo Tribunal do Júri por homicídio qualificado. Os policiais respondem em liberdade e são presumidos inocentes: o júri ainda não ocorreu nas fontes lidas.",
+      "dataDoFato": "2019-12-01",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3550308",
+        "nome": "Paraisópolis, São Paulo"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPSP",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPSP denuncia 13 PMs por ação em favela que resultou na morte de nove pessoas",
+          "url": "https://www.mpsp.mp.br/w/mpsp-denuncia-13-pms-por-a%C3%A7%C3%A3o-em-favela-que-resultou-na-morte-de-nove-pessoas",
+          "trecho": "Doze policiais militares envolvidos na morte de nove jovens em Paraisópolis foram denunciados por homicídio pela Promotoria de Justiça do I Tribunal do Júri da Capital.",
+          "data": "2021-07-19",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "PMs envolvidos na morte de jovens em baile funk vão a júri popular",
+          "url": "https://agenciabrasil.ebc.com.br/radioagencia-nacional/justica/audio/2026-08/pms-envolvidos-na-morte-de-jovens-em-baile-funk-vao-juri-popular",
+          "trecho": "Os doze policiais militares serão julgados pelo Tribunal do Júri por homicídio qualificado dos nove jovens mortos em dezembro de 2019 num baile funk em Paraisópolis.",
+          "data": "2026-08-18",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmesp"
+      ],
+      "etiquetas": [
+        "Polícia Militar",
+        "baile funk",
+        "Tribunal do Júri",
+        "São Paulo",
+        "pronúncia"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. A pronúncia é de 17/08/2026 (Agência Brasil); não lemos a decisão no TJSP: a curadoria confere o número do processo e se houve recurso da defesa. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "2024-operacao-verao-baixada-santista",
+      "dossie": "violencia-policial",
+      "titulo": "Operação Verão (SP, 2024): três policiais militares viram réus por homicídios com indícios de execução",
+      "resumo": "Segundo o MPSP, dois oficiais e um cabo da Polícia Militar tornaram-se réus por homicídios na Baixada Santista no âmbito da Operação Verão 2023/2024: a denúncia contra um major foi recebida em 28 de janeiro de 2025 (Santos) e, em 4 de fevereiro de 2025, um capitão e um cabo passaram à condição de réus por homicídio duplamente qualificado (São Vicente). Segundo a Agência Brasil, a operação terminou com 56 mortes e o próprio MPSP encerrou 17 de 22 procedimentos de investigação relacionados a ela. Os réus são presumidos inocentes.",
+      "dataDoFato": "2024-02",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3548500",
+        "nome": "Baixada Santista (Santos e São Vicente)"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPSP",
+          "tipo": "investigacao_oficial",
+          "titulo": "Dois oficiais e um cabo da PM viram réus por homicídios na Operação Verão",
+          "url": "https://www.mpsp.mp.br/w/dois-oficiais-e-um-cabo-da-pm-viram-reus-por-homicidios-na-operacao-verao",
+          "trecho": "houve alteração da cena dos fatos, consistente em simular que as vítimas estavam armadas, e a obstrução de câmeras operacionais",
+          "data": "2025-02-04",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "Três PMs acusados de homicídio viram réus em São Paulo",
+          "url": "https://agenciabrasil.ebc.com.br/geral/noticia/2025-02/tres-pms-acusados-de-homicidio-viram-reus-em-sao-paulo",
+          "trecho": "O próprio MPSP encerrou 17 de 22 processos de investigação relacionados à Operação Verão, no final do ano passado.",
+          "data": "2025-02-04",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmesp"
+      ],
+      "etiquetas": [
+        "Operação Verão",
+        "Polícia Militar",
+        "Baixada Santista",
+        "câmeras corporais",
+        "São Paulo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. O trecho do MPSP fala em 'vítimas' porque é citação literal da denúncia; a ficha não nomeia ninguém que morreu. A Agência Brasil nomeia os réus; a ficha não, até a curadoria decidir. Lugar: o município marcado é Santos (um dos dois casos foi em São Vicente)."
+    },
+    {
+      "id": "2023-operacao-escudo-baixada-santista",
+      "dossie": "violencia-policial",
+      "titulo": "Operação Escudo (SP, 2023): 28 mortos, dois PMs réus e a maior parte das investigações arquivada",
+      "resumo": "Segundo o MPSP, uma força-tarefa investiga as 28 mortes decorrentes da Operação Escudo na Baixada Santista; em 19 de dezembro de 2023 a Justiça recebeu a denúncia contra dois policiais militares pela morte de um homem no Guarujá, que passaram a réus e foram afastados do policiamento ostensivo. Segundo o MPSP, em dezembro de 2024 o órgão recorreu da absolvição sumária de dois policiais militares denunciados por outra morte no Guarujá. Segundo a Agência Brasil, com dados do Geni/UFF, o MPSP arquivou 17 de 22 investigações sobre as mortes e a Defensoria pediu a revisão dos arquivamentos. Os acusados são presumidos inocentes.",
+      "dataDoFato": "2023-07",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3518701",
+        "nome": "Guarujá (Baixada Santista)"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPSP",
+          "tipo": "investigacao_oficial",
+          "titulo": "Dois PMs viram réus por morte durante Operação Escudo",
+          "url": "https://www.mpsp.mp.br/w/dois-pms-viram-reus-por-morte-durante-operacao-escudo",
+          "trecho": "O Poder Judiciário recebeu a denúncia, protocolada nesta terça-feira (19/12), e os dois PMs vão responder ao processo na condição de réus.",
+          "data": "2023-12-19",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "MPSP",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPSP recorre da decisão que absolveu policiais acusados de morte no Guarujá",
+          "url": "https://www.mpsp.mp.br/w/mpsp-recorre-da-decisao-que-absolveu-policiais-acusados-de-morte-no-guaruja",
+          "trecho": "o MPSP apresentou recurso contra a absolvição sumária de dois policiais militares denunciados pela morte de um homem em 28 de julho de 2023, no Guarujá, no âmbito da Operação Escudo.",
+          "data": "2024-12-10",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f3",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "MPSP arquiva 17 das 22 investigações sobre mortes na Operação Escudo",
+          "url": "https://agenciabrasil.ebc.com.br/justica/noticia/2025-01/mpsp-arquiva-17-das-22-investigacoes-sobre-mortes-na-operacao-escudo",
+          "trecho": "O Ministério Público de São Paulo (MPSP) arquivou 17 das 22 investigações que apuram as mortes provocadas por policiais militares na Operação Escudo",
+          "data": "2025-01-06",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmesp"
+      ],
+      "etiquetas": [
+        "Operação Escudo",
+        "Polícia Militar",
+        "Baixada Santista",
+        "arquivamento",
+        "São Paulo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Duas fontes do MPSP com o mesmo veículo: f1 (réus, dez/2023) e f2 (recurso contra absolvição sumária, dez/2024). Não sabemos se a absolvição sumária de f2 é do mesmo processo de f1: conferir. O caso como um todo fica em 'réu' (ação mais avançada); há absolvição sumária pendente de recurso e arquivamentos. A Agência Brasil nomeia os réus de 2023; a ficha não."
+    },
+    {
+      "id": "1993-chacina-da-candelaria",
+      "dossie": "violencia-policial",
+      "titulo": "Chacina da Candelária (RJ, 1993): policiais condenados pelo júri; penas extintas ou indultadas",
+      "resumo": "Segundo o STF, a chacina da Candelária ocorreu na madrugada de 23 de julho de 1993, no centro do Rio, quando sete meninos e um jovem em situação de rua foram mortos a tiros; em 2009 a Primeira Turma negou habeas corpus a um dos condenados, cuja pena de 204 anos fixada pelo Tribunal do Júri havia sido mantida pelo TJ-RJ e pelo STJ. Segundo a Agência Brasil, citando o Tribunal de Justiça do Rio, dois policiais militares e um ex-policial foram condenados pelo massacre, com penas acima de 200 anos, e cumpriram pena até a extinção (2008) ou até receberem indultos (2011 e 2012).",
+      "dataDoFato": "1993-07-23",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Candelária, centro do Rio de Janeiro"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "1ª Turma mantém pena de 204 anos de prisão a condenado pela chacina da Candelária",
+          "url": "https://noticias.stf.jus.br/postsnoticias/1a-turma-mantem-pena-de-204-anos-de-prisao-a-condenado-pela-chacina-da-candelaria/",
+          "trecho": "A sentença foi mantida integralmente pelo Tribunal de Justiça do Rio de Janeiro (TJ-RJ) e pelo Superior Tribunal de Justiça (STJ).",
+          "data": "2009-03-03",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "Chacina da Candelária: vítimas são lembradas após 30 anos do crime",
+          "url": "https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2023-07/chacina-da-candelaria-vitimas-sao-lembradas-apos-30-anos-do-crime",
+          "trecho": "Dois policiais militares e um ex-policial foram condenados pelo massacre, todos com penas que superam os 200 anos de prisão.",
+          "data": "2023-07-22",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "marcos-aurelio-dias-de-alcantara",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado pelo Tribunal do Júri a 204 anos de reclusão, sentença mantida pelo TJ-RJ e pelo STJ; segundo a Agência Brasil, a pena terminou por indulto em 2011."
+        }
+      ],
+      "organizacoes": [
+        "pmerj"
+      ],
+      "etiquetas": [
+        "chacina",
+        "Polícia Militar",
+        "população em situação de rua",
+        "Tribunal do Júri",
+        "Rio de Janeiro"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Situação escrita como 'condenado em 1ª instância' (degrau mais baixo de condenação do modelo), como no caso do Carandiru: a fonte primária (STF, HC 95006) confirma a condenação mantida pelo TJ-RJ e pelo STJ, mas não traz certidão de trânsito em julgado. A grafia do nome segue o STF ('Marcos Aurélio'); a Agência Brasil escreve 'Marco Aurélio'. Os outros dois condenados (citados pela Agência Brasil) não entram como nós até a curadoria conferir em fonte primária. Ninguém que morreu nem o sobrevivente é nomeado."
+    },
+    {
+      "id": "2013-rocinha-desaparecimento-upp-amarildo",
+      "dossie": "violencia-policial",
+      "titulo": "Rocinha (RJ, 2013): policiais militares da UPP condenados por tortura seguida de morte e ocultação de cadáver",
+      "resumo": "Segundo o STJ, em 22 de agosto de 2023 a Sexta Turma aumentou a pena de oito policiais militares condenados por tortura seguida de morte e ocultação de cadáver de um ajudante de pedreiro levado por policiais à Unidade de Polícia Pacificadora da Rocinha, no Rio, em 2013; segundo a denúncia, 25 policiais teriam participado e 17 foram absolvidos. Segundo o STJ, em abril de 2024 o vice-presidente da corte negou seguimento aos recursos extraordinários de cinco desses policiais ao STF.",
+      "dataDoFato": "2013-07",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Rocinha, Rio de Janeiro"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Sexta Turma aumenta pena de policiais condenados pela morte do pedreiro Amarildo",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2023/22082023-Sexta-Turma-aumenta-pena-de-policiais-condenados-pela-morte-do-pedreiro-Amarildo.aspx",
+          "trecho": "A pena mais alta, entre os oito réus, ficou em 16 anos, três meses e seis dias de reclusão.",
+          "data": "2023-08-22",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        },
+        {
+          "id": "f2",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "STJ nega seguimento a recursos extraordinários de policiais condenados pela morte do pedreiro Amarildo",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2024/22042024-STJ-nega-seguimento-a-recursos-extraordinarios-de-policiais-condenados-pela-morte-do-pedreiro-Amarildo.aspx",
+          "trecho": "negou seguimento aos recursos extraordinários de cinco policiais condenados por tortura e morte do ajudante de pedreiro",
+          "data": "2024-04-22",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmerj"
+      ],
+      "etiquetas": [
+        "UPP",
+        "Polícia Militar",
+        "tortura",
+        "desaparecimento",
+        "Rio de Janeiro"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. O caso é conhecido publicamente pelo nome de quem morreu (está nas URLs e títulos das fontes do STJ); a ficha não repete o nome no texto. Situação conservadora ('condenado em 1ª instância'): as condenações foram mantidas pelo TJRJ e pelo STJ e os recursos ao STF tiveram seguimento negado, mas não lemos certidão de trânsito em julgado. Os policiais não são nomeados nas fontes lidas."
+    },
+    {
+      "id": "2015-chacina-de-osasco-e-barueri",
+      "dossie": "violencia-policial",
+      "titulo": "Chacina de Osasco e Barueri (SP, 2015): dois policiais militares condenados; dois acusados absolvidos em novo júri",
+      "resumo": "Segundo o TJSP, a chacina de 13 de agosto de 2015, em Osasco e Barueri, levou à condenação de policiais pelo júri; em 24 de julho de 2019 a 7ª Câmara de Direito Criminal manteve a condenação de dois policiais militares, a 255 e 247 anos de reclusão, e anulou o veredicto contra outros dois acusados, mandando-os a novo júri. Segundo a denúncia citada pelo TJSP, foram 17 homicídios consumados e sete tentativas, supostamente por vingança pela morte de um policial militar e de um guarda civil. Segundo a Agência Brasil, no novo júri, em fevereiro de 2021, um ex-policial militar e um guarda civil foram absolvidos.",
+      "dataDoFato": "2015-08-13",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3534401",
+        "nome": "Osasco e Barueri"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "TJSP",
+          "tipo": "processo",
+          "titulo": "Mantida condenação de dois réus por chacina de Osasco. Outros dois acusados serão submetidos a novo júri",
+          "url": "https://www.tjsp.jus.br/Noticias/Noticia?codigoNoticia=58275",
+          "trecho": "A 7ª Câmara de Direito Criminal do Tribunal de Justiça de São Paulo manteve hoje (24) a condenação de dois policiais militares pela chacina ocorrida em agosto de 2015, nas cidades de Osasco e Barueri",
+          "data": "2019-07-24",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "TJSP",
+          "tipo": "processo",
+          "titulo": "Júri popular condena policial militar por chacina em Osasco e Barueri",
+          "url": "https://www.tjsp.jus.br/Noticias/Noticia?codigoNoticia=50359&pagina=1",
+          "trecho": "A Vara do Júri de Osasco condenou nesta sexta-feira (2) mais um policial militar pela chacina ocorrida em 13 de agosto de 2015, em Osasco e Barueri.",
+          "data": "2018-03-02",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f3",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "Réus são absolvidos da acusação de participar da chacina de Osasco",
+          "url": "https://agenciabrasil.ebc.com.br/justica/noticia/2021-02/reus-sao-absolvidos-da-acusacao-de-participar-da-chacina-de-osasco",
+          "trecho": "Esta foi a segunda vez que os dois réus foram julgados pela chacina.",
+          "data": "2021-02-26",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "fabricio-eleuterio",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJSP, condenado pelo júri a 255 anos, sete meses e dez dias de reclusão; condenação mantida pela 7ª Câmara de Direito Criminal em 2019."
+        },
+        {
+          "pessoaId": "thiago-henklain",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJSP, condenado pelo júri a 247 anos, sete meses e dez dias de reclusão; condenação mantida pela 7ª Câmara de Direito Criminal em 2019."
+        }
+      ],
+      "organizacoes": [
+        "pmesp"
+      ],
+      "etiquetas": [
+        "chacina",
+        "Polícia Militar",
+        "Guarda Civil",
+        "Tribunal do Júri",
+        "São Paulo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Os dois absolvidos no novo júri (2021) não entram como nós: absolvição definitiva, sem interesse público em ligar o nome ao caso. Não conferimos se houve recurso aos tribunais superiores contra a condenação dos dois PMs: situação conservadora ('condenado em 1ª instância'), embora mantida em 2ª instância. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "2015-costa-barros-carro-fuzilado",
+      "dossie": "violencia-policial",
+      "titulo": "Costa Barros (RJ, 2015): policiais militares condenados pelo júri pela morte de cinco jovens num carro",
+      "resumo": "Segundo o STJ, em março de 2017 a Sexta Turma manteve a prisão preventiva de dois policiais militares acusados de participar, em novembro de 2015, da execução de cinco jovens no bairro de Costa Barros, zona norte do Rio; o Ministério Público os denunciou, com outros dois agentes, por disparos contra sete jovens em via pública. Segundo a Agência Brasil, citando o TJRJ, em novembro de 2019 o II Tribunal do Júri condenou os dois a 52 anos e seis meses de reclusão por cinco homicídios duplamente qualificados; um terceiro policial foi absolvido e o MPRJ anunciou recurso. A perícia apontou 111 disparos dos policiais, segundo a mesma reportagem.",
+      "dataDoFato": "2015-11-28",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Costa Barros, Rio de Janeiro"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Policiais acusados de envolvimento em chacina no Rio permanecem presos",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias-antigas/2017/2017-03-08_13-34_Policiais-acusados-de-envolvimento-em-chacina-no-Rio-permanecem-presos.aspx",
+          "trecho": "Em conjunto com outros dois agentes, os policiais foram denunciados pelo Ministério Público por efetuarem disparos contra sete jovens em via pública do bairro carioca, causando a morte de cinco deles.",
+          "data": "2017-03-08",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "PMs são condenados por chacina que matou cinco jovens em carro no Rio",
+          "url": "https://agenciabrasil.ebc.com.br/geral/noticia/2019-11/pms-sao-condenados-por-chacina-que-matou-cinco-jovens-em-carro-no-rio",
+          "trecho": "Segundo o Tribunal de Justiça do Estado do Rio de Janeiro, o julgamento no II Tribunal do Júri durou mais de 20 horas e terminou às 2h da manhã de hoje.",
+          "data": "2019-11-09",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmerj"
+      ],
+      "etiquetas": [
+        "chacina",
+        "Polícia Militar",
+        "fraude processual",
+        "Tribunal do Júri",
+        "Rio de Janeiro"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. ATENÇÃO CURADORIA: a fonte primária lida (STJ, 2017) é anterior ao júri e só mostra os policiais como acusados; a condenação de 2019 vem da Agência Brasil citando o TJRJ (a notícia do TJRJ redireciona para a página inicial do portal). Conferir a sentença do II Tribunal do Júri e as apelações antes de aprovar. Os policiais não são nomeados na ficha por isso. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "2015-chacina-do-curio-grande-messejana",
+      "dossie": "violencia-policial",
+      "titulo": "Chacina do Curió (CE, 2015): policiais militares condenados e absolvidos em cinco júris; sexto júri em novembro de 2026",
+      "resumo": "Segundo o MPCE, a Chacina do Curió, na Grande Messejana, em Fortaleza, entre 11 e 12 de novembro de 2015, deixou 11 mortos; dos 45 acusados, 29 policiais militares foram a julgamento em cinco sessões do júri entre 2023 e 2025, com oito condenados e 21 absolvidos, e a Justiça anulou parte das condenações de dois réus, levando a um sexto júri marcado para 4 de novembro de 2026. Segundo o TJCE, no quinto júri, em setembro de 2025, os jurados condenaram dois réus por homicídio qualificado (11 vezes), tentativa de homicídio e tortura. Segundo o STJ, um policial condenado a 275 anos e 11 meses teve habeas corpus negado em 2023.",
+      "dataDoFato": "2015-11-11",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "CE",
+        "municipioIbge": "2304400",
+        "nome": "Grande Messejana, Fortaleza"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "TJCE",
+          "tipo": "processo",
+          "titulo": "Chacina do Curió (notícias do TJCE sobre os julgamentos)",
+          "url": "https://www.tjce.jus.br/newstopics/chacina-do-curio/",
+          "trecho": "o corpo de jurados(as) acolheu a pretensão ministerial e decidiu condenar os dois réus pelos crimes de homicídio qualificado (11 vezes), homicídio tentado (três vezes)",
+          "data": "2025-09-25",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "MPCE",
+          "tipo": "investigacao_oficial",
+          "titulo": "MP do Ceará atuará em sexto júri da Chacina do Curió após anulação parcial das condenações de dois réus",
+          "url": "https://mpce.mp.br/mp-do-ceara-atuara-em-sexto-juri-da-chacina-do-curio-apos-anulacao-parcial-das-condenacoes-de-dois-reus/",
+          "trecho": "Em razão do elevado número de acusados, 45 no total, o processo foi desmembrado em núcleos, levando 29 policiais militares a julgamento, oito deles foram condenados e 21 absolvidos.",
+          "data": "2026-10-29",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f3",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Policial condenado a 275 anos por participação na Chacina do Curió vai permanecer preso",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2023/05072023-Policial-condenado-a-275-anos-por-participacao-na-Chacina-do-Curio-vai-permanecer-preso.aspx",
+          "trecho": "A condenação do policial foi estabelecida pelo tribunal do júri.",
+          "data": "2023-07-05",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "antonio-jose-de-abreu-vidal-filho",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJCE, réu condenado por participação no caso; a 3ª Câmara Criminal julgou a apelação da defesa dos quatro condenados no primeiro júri."
+        },
+        {
+          "pessoaId": "marcus-vinicius-sousa-da-costa",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJCE, réu condenado por participação no caso; a 3ª Câmara Criminal julgou a apelação da defesa dos quatro condenados no primeiro júri."
+        },
+        {
+          "pessoaId": "wellington-veras-chagas",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJCE, réu condenado por participação no caso; a 3ª Câmara Criminal julgou a apelação da defesa dos quatro condenados no primeiro júri."
+        },
+        {
+          "pessoaId": "ideraldo-amancio",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o TJCE, réu condenado por participação no caso; a 3ª Câmara Criminal julgou a apelação da defesa dos quatro condenados no primeiro júri."
+        }
+      ],
+      "organizacoes": [
+        "pmce"
+      ],
+      "etiquetas": [
+        "chacina",
+        "Polícia Militar",
+        "Tribunal do Júri",
+        "tortura",
+        "Ceará"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. A página do TJCE é a de tópico (lista de notícias); a data da fonte é a do quinto júri (25/09/2025). Os quatro nomes vêm do TJCE (apelação dos condenados no primeiro júri); o resultado da apelação aparece truncado na lista: conferir a notícia completa. O sexto júri foi marcado para 04/11/2026 (MPCE): conferir o resultado antes de aprovar. Ninguém que morreu é nomeado (o MPCE lista os nomes; a ficha não)."
+    },
+    {
+      "id": "2015-chacina-do-cabula",
+      "dossie": "violencia-policial",
+      "titulo": "Chacina do Cabula (BA, 2015): absolvição sumária de nove PMs anulada; caso segue na Justiça da Bahia",
+      "resumo": "Segundo o STJ, a chacina ocorreu no bairro do Cabula, em Salvador, na noite de 5 e madrugada de 6 de fevereiro de 2015, com 12 mortos e seis feridos; nove policiais militares da Rondesp foram denunciados pelo Ministério Público da Bahia e absolvidos por uma juíza em julgamento antecipado, em julho de 2015. Segundo o MPBA, em setembro de 2018 o Tribunal de Justiça da Bahia acolheu recurso e declarou nula a sentença absolutória. Segundo o STJ, em novembro de 2018 a Terceira Seção negou o pedido do MPF para federalizar o caso. Os policiais são presumidos inocentes: não há julgamento pelo júri nas fontes lidas.",
+      "dataDoFato": "2015-02-06",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2927408",
+        "nome": "Cabula, Salvador"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPBA",
+          "tipo": "investigacao_oficial",
+          "titulo": "TJBA anula sentença de absolvição dos PMs acusados pelo MP de participar da chacina no Cabula",
+          "url": "https://www.mpba.mp.br/noticia/43589",
+          "trecho": "acatou recurso do Ministério Público estadual e declarou ontem, dia 4, a nulidade do julgamento e da sentença judicial que haviam absolvido os policiais militares",
+          "data": "2018-09-05",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Julgamento de envolvidos na Chacina do Cabula continua a cargo da Justiça da Bahia",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias-antigas/2018/2018-11-28_19-54_Julgamento-de-envolvidos-na-Chacina-do-Cabula-continua-a-cargo-da-Justica-da-Bahia.aspx",
+          "trecho": "Nove policiais militares integrantes da Rondesp (Rondas Especiais da PM/BA) são acusados de participar da chacina",
+          "data": "2018-11-28",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmba"
+      ],
+      "etiquetas": [
+        "chacina",
+        "Polícia Militar",
+        "federalização",
+        "Rondesp",
+        "Bahia"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. As fontes lidas são de 2018. Não achamos o andamento posterior (pronúncia, júri): reconferir no TJBA antes de aprovar. Situação 'réu' porque a absolvição foi anulada e o processo voltou à vara do júri. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "1994-favela-nova-brasilia-corte-idh",
+      "dossie": "violencia-policial",
+      "titulo": "Favela Nova Brasília (RJ, 1994 e 1995): Corte Interamericana condena o Brasil por chacinas em operações policiais",
+      "resumo": "Segundo o CNJ, a Corte Interamericana de Direitos Humanos condenou o Estado brasileiro, em fevereiro de 2017, por violência policial nas chacinas ocorridas durante operações policiais na comunidade de Nova Brasília, no Complexo do Alemão, no Rio, em 1994 e 1995, com 26 mortos; em 2021 cinco pontos da sentença seguiam pendentes de cumprimento. Segundo o MPRJ, em 2018 o órgão reabriu investigações em cumprimento à sentença; na incursão de 18 de outubro de 1994, quatro policiais civis e dois militares foram denunciados por homicídio duplamente qualificado, em processo no I Tribunal do Júri. A condenação internacional é do Estado; os policiais denunciados são presumidos inocentes.",
+      "dataDoFato": "1994-10-18",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Nova Brasília, Complexo do Alemão, Rio de Janeiro"
+      },
+      "situacao": "condenado_transitado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CNJ",
+          "tipo": "processo",
+          "titulo": "Caso Favela Nova Brasília: CNJ apresenta à Corte IDH balanço sobre cumprimento de sentença",
+          "url": "https://www.cnj.jus.br/caso-favela-nova-brasilia-cnj-apresenta-a-corte-idh-balanco-sobre-cumprimento-de-sentenca/",
+          "trecho": "A Corte IDH condenou o Estado brasileiro por violência policial no caso Cosme Rosa Genoveva e outros – Caso Favela Nova Brasília vs. Brasil – em fevereiro de 2017.",
+          "data": "2021-08-23",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "MPRJ",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPRJ reabre investigações de crimes das chacinas de Nova Brasília",
+          "url": "https://www.mprj.mp.br/web/guest/visualizar?noticiaId=62510",
+          "trecho": "A operação resultou nas mortes de 13 jovens, na qual foram denunciados quatro policiais civis e dois militares pelo MPRJ pelo crime de homicídio duplamente qualificado.",
+          "data": "2018-07-09",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f3",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "Favela Nova Brasília: MPF e entidades cobram cumprimento de sentença internacional por violações de direitos humanos",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rj/noticias/favela-nova-brasilia-mpf-e-entidades-cobram-cumprimento-de-sentenca-internacional-por-violacoes-de-direitos-humanos",
+          "trecho": "O documento denuncia o descumprimento da sentença da Corte Interamericana de Direitos Humanos",
+          "data": "2026-05-11",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pcerj",
+        "pmerj"
+      ],
+      "etiquetas": [
+        "Corte IDH",
+        "Estado brasileiro",
+        "Polícia Civil",
+        "Polícia Militar",
+        "Rio de Janeiro"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. 'Condenado com trânsito em julgado' refere-se ao ESTADO BRASILEIRO na Corte IDH (sentença de 16/02/2017; as sentenças da Corte são definitivas e inapeláveis, Convenção Americana, art. 67, promulgada pelo Decreto 678/1992), não aos policiais. A fonte do CNJ foi classificada como 'processo' por relatar a sentença e o seu cumprimento. Não sabemos o resultado do processo no I Tribunal do Júri (nº 0271673-52.2009.8.19.0001): conferir. O trecho do MPF foi lido por resumo de ferramenta (WebFetch): reconferir a literalidade. Ninguém que morreu ou sofreu violência sexual é nomeado."
+    },
+    {
+      "id": "2002-operacao-castelinho-corte-idh",
+      "dossie": "violencia-policial",
+      "titulo": "Operação Castelinho (SP, 2002): Corte Interamericana responsabiliza o Brasil pela execução de 12 pessoas pela PM paulista",
+      "resumo": "Segundo o CNJ, a Corte Interamericana de Direitos Humanos, em sentença de 2023 no caso Honorato e outros, responsabilizou o Estado brasileiro pela execução de 12 pessoas durante a chamada Operação Castelinho, realizada pela Polícia Militar paulista em 5 de março de 2002, na região de Sorocaba; a sentença determina, entre outras medidas, o afastamento temporário de policiais envolvidos em mortes em operações e reforço ao Ministério Público de São Paulo para investigar esses casos. Segundo o CNJ, em fevereiro de 2026 houve a primeira reunião interinstitucional para definir o cumprimento da sentença.",
+      "dataDoFato": "2002-03-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "nome": "Região de Sorocaba (Rodovia Castelinho)"
+      },
+      "situacao": "condenado_transitado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CNJ",
+          "tipo": "processo",
+          "titulo": "CNJ atua no monitoramento de sentença internacional sobre operação policial de 2002",
+          "url": "https://www.cnj.jus.br/cnj-atua-no-monitoramento-de-sentenca-internacional-sobre-operacao-policial-de-2002/",
+          "trecho": "A decisão responsabilizou o Estado brasileiro pela execução de 12 pessoas durante a chamada Operação Castelinho, realizada em 2002, no estado de São Paulo.",
+          "data": "2026-02-18",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmesp"
+      ],
+      "etiquetas": [
+        "Corte IDH",
+        "Estado brasileiro",
+        "Polícia Militar",
+        "execução",
+        "São Paulo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. 'Condenado com trânsito em julgado' refere-se ao ESTADO BRASILEIRO (sentença da Corte IDH de 2023, definitiva e inapelável: Convenção Americana, art. 67). Não lemos fonte primária sobre o processo criminal interno contra os policiais (a curadoria deve buscar no TJSP/MPSP antes de aprovar). Lugar aproximado: centro da UF (a fonte diz 'região de Sorocaba'). Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "1990-chacina-de-acari-corte-idh",
+      "dossie": "violencia-policial",
+      "titulo": "Chacina de Acari (RJ, 1990): Corte Interamericana condena o Brasil pelo desaparecimento forçado de 11 jovens",
+      "resumo": "Segundo o CNJ, a Corte Interamericana de Direitos Humanos proferiu sentença em 4 de julho de 2024 no caso Leite de Souza e outros vs. Brasil, conhecido como Chacina de Acari, e o CNJ editou em 2025 resolução para lavrar e retificar os assentos de óbito das vítimas em cumprimento à sentença. Segundo o Ministério dos Direitos Humanos, a Corte condenou o Estado brasileiro pelo desaparecimento forçado de onze jovens moradores da Favela de Acari, no Rio, em 26 de julho de 1990; os crimes enfrentaram prescrição no Brasil, e o julgamento dos policiais acusados pelos homicídios de 1993 ligados ao caso terminou em absolvição em 2024.",
+      "dataDoFato": "1990-07-26",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Acari, Rio de Janeiro"
+      },
+      "situacao": "condenado_transitado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CNJ",
+          "tipo": "processo",
+          "titulo": "Resolução nº 644 de 22/09/2025",
+          "url": "https://atos.cnj.jus.br/atos/detalhar/6322",
+          "trecho": "Dispõe sobre a lavratura e retificação dos assentos de óbito das vítimas da Chacina de Acari, em cumprimento à sentença da Corte Interamericana de Direitos Humanos no Caso Leite de Souza e outros vs. Brasil.",
+          "data": "2025-09-22",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Ministério dos Direitos Humanos e da Cidadania",
+          "tipo": "dado_oficial",
+          "titulo": "Caso Acari: Corte IDH divulga íntegra da sentença que condena o Estado brasileiro pelo desaparecimento de 11 jovens há 34 anos",
+          "url": "https://www.gov.br/mdh/pt-br/assuntos/noticias/2024/dezembro/caso-acari-corte-idh-divulga-integra-da-sentenca-que-condena-o-estado-brasileiro-pelo-desaparecimento-de-11-jovens-ha-34-anos",
+          "trecho": "O julgamento dos policiais acusados por esses homicídios, entretanto, resultou em absolvição em 2024.",
+          "data": "2024-12-05",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [],
+      "etiquetas": [
+        "Corte IDH",
+        "Estado brasileiro",
+        "desaparecimento forçado",
+        "grupo de extermínio",
+        "Rio de Janeiro"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. 'Condenado com trânsito em julgado' refere-se ao ESTADO BRASILEIRO (Corte IDH, sentença de 04/07/2024; Convenção Americana, art. 67). Segundo o MDHC, quem levou os jovens foi um grupo ligado a extermínio; a participação policial é apontada nas fontes, sem condenação interna. A fonte do CNJ é um ato normativo que cumpre a sentença: classificada como 'processo' por referir-se à decisão judicial internacional (a curadoria pode reclassificar). Os homicídios de 1993 (mães que buscavam os filhos) não são detalhados nem nomeados. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "1994-chacina-do-tapana-corte-idh",
+      "dossie": "violencia-policial",
+      "titulo": "Chacina do Tapanã (PA, 1994): PMs absolvidos no Brasil; Corte Interamericana responsabiliza o Estado",
+      "resumo": "Segundo o Ministério dos Direitos Humanos, o Brasil foi notificado em 24 de fevereiro de 2026 da sentença da Corte Interamericana de Direitos Humanos, de 25 de novembro de 2025, no caso Cley Mendes e outros (Chacina do Tapanã) vs. Brasil, sobre a morte de três jovens em dezembro de 1994, no bairro do Tapanã, em Belém, em ação envolvendo policiais militares; os policiais denunciados foram absolvidos pelo júri em 2018, sem recurso, e o Estado reconheceu parcialmente sua responsabilidade pelas falhas no processo penal. Segundo a Agência Brasil, a sentença responsabilizou parcialmente o Brasil por violações às garantias e à proteção judiciais.",
+      "dataDoFato": "1994-12",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PA",
+        "municipioIbge": "1501402",
+        "nome": "Tapanã, Belém"
+      },
+      "situacao": "absolvido",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "Ministério dos Direitos Humanos e da Cidadania",
+          "tipo": "dado_oficial",
+          "titulo": "MDHC recebe sentença da Corte IDH no caso Cley Mendes e outros (Chacina do Tapanã) vs. Brasil",
+          "url": "https://www.gov.br/mdh/pt-br/assuntos/noticias/2026/fevereiro/mdhc-recebe-sentenca-da-corte-idh-no-caso-cley-mendes-e-outros-chacina-do-tapana-vs-brasil",
+          "trecho": "Apenas em 2018, os policiais militares denunciados foram submetidos a julgamento pelo Tribunal do Júri, ao final do qual foram absolvidos. Não houve interposição de recurso contra a decisão absolutória.",
+          "data": "2026-02-24",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "Chacina do Tapanã: Brasil é notificado por condenação internacional",
+          "url": "https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2026-02/chacina-do-tapana-brasil-e-notificado-por-condenacao-internacional",
+          "trecho": "Em agosto de 2018, os julgamentos foram concluídos e todos os policiais absolvidos",
+          "data": "2026-02-25",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmpa"
+      ],
+      "etiquetas": [
+        "Corte IDH",
+        "Estado brasileiro",
+        "Polícia Militar",
+        "absolvição",
+        "Pará"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Situação 'absolvido' é a dos policiais (júri de 2018, sem recurso, segundo o MDHC). O Estado brasileiro foi responsabilizado parcialmente pela Corte IDH (sentença de 25/11/2025, definitiva: Convenção Americana, art. 67): a ficha diz isso no resumo; o modelo só tem uma situação por caso. Ninguém que morreu é nomeado (a Agência Brasil nomeia; a ficha não). 'Supostamente' não se aplica a absolvidos: o texto não lhes atribui crime."
+    },
+    {
+      "id": "2020-sao-goncalo-salgueiro-morte-em-casa",
+      "dossie": "violencia-policial",
+      "titulo": "Complexo do Salgueiro (RJ, 2020): policiais civis acusados de morte de adolescente dentro de casa vão a júri",
+      "resumo": "Segundo o MPRJ, um adolescente de 14 anos foi morto em maio de 2020 durante operação conjunta da Polícia Civil e da Polícia Federal no Complexo do Salgueiro, em São Gonçalo, e as investigações apontaram que o tiro partiu da arma de um policial; o GAESP/MPRJ denunciou três policiais civis por homicídio duplamente qualificado. Segundo o MPRJ, em 24 de junho de 2025 a Sexta Câmara Criminal do TJRJ aceitou, por unanimidade, o recurso para que os policiais sejam julgados pelo júri popular. Segundo a Agência Brasil, a decisão modificou a absolvição dos três em primeira instância, em julho de 2024. Os réus são presumidos inocentes.",
+      "dataDoFato": "2020-05-18",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304904",
+        "nome": "Complexo do Salgueiro, São Gonçalo"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPRJ",
+          "tipo": "investigacao_oficial",
+          "titulo": "Após recurso do GAESP/MPRJ, policiais acusados pela morte de João Pedro em São Gonçalo irão a júri popular",
+          "url": "https://portalsei.mprj.mp.br/web/guest/visualizar?noticiaId=185303",
+          "trecho": "O GAESP/MPRJ denunciou os policiais civis Mauro José Gonçalves, Maxwell Gomes Pereira e Fernando de Brito Meister por homicídio duplamente qualificado.",
+          "data": "2025-06-24",
+          "acessadoEm": "2026-11-07"
+        },
+        {
+          "id": "f2",
+          "veiculo": "Agência Brasil",
+          "tipo": "reportagem",
+          "titulo": "Caso de menino morto em ação policial vai a júri popular",
+          "url": "https://agenciabrasil.ebc.com.br/radioagencia-nacional/justica/audio/2025-06/caso-do-menino-joao-pedro-morto-em-acao-policial-vai-juri-popular",
+          "trecho": "A decisão modifica a absolvição, em primeira instância, em julho do ano passado, dos três policiais civis acusados do crime.",
+          "data": "2025-06-24",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "mauro-jose-goncalves",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPRJ, denunciado por homicídio duplamente qualificado; o TJRJ decidiu em 24/06/2025 que irá a júri popular. Presumido inocente."
+        },
+        {
+          "pessoaId": "maxwell-gomes-pereira",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPRJ, denunciado por homicídio duplamente qualificado; o TJRJ decidiu em 24/06/2025 que irá a júri popular. Presumido inocente."
+        },
+        {
+          "pessoaId": "fernando-de-brito-meister",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPRJ, denunciado por homicídio duplamente qualificado; o TJRJ decidiu em 24/06/2025 que irá a júri popular. Presumido inocente."
+        }
+      ],
+      "organizacoes": [
+        "pcerj",
+        "policia-federal"
+      ],
+      "etiquetas": [
+        "Polícia Civil",
+        "Polícia Federal",
+        "operação policial",
+        "júri popular",
+        "São Gonçalo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. O nome de quem morreu (adolescente: ECA, arts. 17 e 143) está no título e na URL das fontes oficiais, mas NÃO aparece no texto da ficha; o título da fonte da Agência Brasil foi encurtado sem o nome. Conferir se a curadoria quer manter os títulos originais. Situação 'réu': a pronúncia foi restabelecida pelo TJRJ; não conferimos recurso especial da defesa nem data do júri."
+    },
+    {
+      "id": "2022-complexo-do-chapadao-prf-denuncia",
+      "dossie": "violencia-policial",
+      "titulo": "Complexo do Chapadão (RJ, 2022): MPF denuncia quatro policiais rodoviários federais por morte de adolescente",
+      "resumo": "Segundo o MPF, quatro policiais rodoviários federais foram denunciados por crimes ligados a uma ação no Complexo do Chapadão, zona norte do Rio, em outubro de 2022, que resultou na morte de um adolescente de 14 anos: dois respondem por homicídio qualificado e tentativa de homicídio qualificado, e dois por privação ilegal da liberdade de dois adolescentes. Segundo o MPF, a incursão, poucas horas depois do latrocínio de um policial rodoviário federal, foi feita sem ordem formal de missão e extrapolou as atribuições constitucionais da PRF. O caso será analisado pela Justiça Federal; os denunciados são presumidos inocentes.",
+      "dataDoFato": "2022-10",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Complexo do Chapadão, Rio de Janeiro"
+      },
+      "situacao": "denunciado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPF",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPF denuncia quatro policiais rodoviários federais por crimes relacionados à morte de adolescente no Complexo do Chapadão (RJ)",
+          "url": "https://www.mpf.mp.br/o-mpf/unidades/pr-rj/noticias/mpf-denuncia-quatro-policiais-rodoviarios-federais-por-crimes-relacionados-a-morte-de-adolescente-no-complexo-do-chapadao-rj",
+          "trecho": "Dois policiais vão responder por homicídio qualificado e tentativa de homicídio qualificado.",
+          "data": "2026-07-13",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "mpf"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "policia-rodoviaria-federal"
+      ],
+      "etiquetas": [
+        "Polícia Rodoviária Federal",
+        "Justiça Federal",
+        "operação policial",
+        "Rio de Janeiro"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Fonte única (MPF, jul/2026). Não conferimos se a Justiça Federal recebeu a denúncia: reconferir. O MPF nomeia quem morreu e o policial morto no latrocínio; a ficha não nomeia ninguém. Os policiais denunciados não são nomeados na fonte lida."
+    },
+    {
+      "id": "2021-sao-goncalo-salgueiro-operacao-quatro-mortes",
+      "dossie": "violencia-policial",
+      "titulo": "Complexo do Salgueiro (RJ, 2021): MPRJ denuncia nove policiais militares por quatro mortes em operação",
+      "resumo": "Segundo o MPRJ, a 3ª Promotoria de Justiça de Investigação Penal Territorial do Núcleo São Gonçalo denunciou à Justiça, em março de 2023, nove policiais militares, à época lotados no 7º Batalhão, pelas mortes de quatro pessoas durante operação realizada em julho de 2021 no Complexo do Salgueiro, em São Gonçalo; a denúncia afirma que a operação foi feita fora dos padrões da ADPF 635 e que as declarações dos policiais estavam em desacordo com os vestígios. O MPRJ pediu a suspensão dos denunciados das funções públicas. Os denunciados são presumidos inocentes.",
+      "dataDoFato": "2021-07",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304904",
+        "nome": "Complexo do Salgueiro, São Gonçalo"
+      },
+      "situacao": "denunciado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPRJ",
+          "tipo": "investigacao_oficial",
+          "titulo": "MPRJ denuncia nove policiais militares pelas mortes de quatro pessoas no Complexo do Salgueiro, em 2021",
+          "url": "https://www.mprj.mp.br/web/guest/visualizar?noticiaId=122901",
+          "trecho": "Pelas investigações, ficou evidente que a operação foi realizada fora dos padrões previstos na citada legislação",
+          "data": "2023-03-04",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmerj"
+      ],
+      "etiquetas": [
+        "Polícia Militar",
+        "ADPF 635",
+        "operação policial",
+        "São Gonçalo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Fonte única (MPRJ, mar/2023). A imprensa fala em 11 denunciados; o MPRJ, em nove: fica o número do MPRJ. Não conferimos o recebimento da denúncia nem o andamento: reconferir no TJRJ. O MPRJ nomeia quem morreu (com apelidos); a ficha não nomeia ninguém."
+    },
+    {
+      "id": "2006-chacina-do-parque-bristol-federalizada",
+      "dossie": "violencia-policial",
+      "titulo": "Chacina do Parque Bristol (SP, 2006): STJ manda a investigação para a Justiça Federal",
+      "resumo": "Segundo o STJ, em 10 de agosto de 2022 a Terceira Seção acolheu, por unanimidade, o pedido da Procuradoria-Geral da República e determinou a reabertura e a transferência para a Justiça Federal dos inquéritos sobre a Chacina do Parque Bristol, série de assassinatos de maio de 2006, na zona sul de São Paulo, por grupo de extermínio supostamente ligado a agentes de segurança pública; três pessoas morreram. Segundo o STJ, os dois inquéritos haviam sido arquivados e, segundo os autos, uma viatura da Polícia Militar teria passado pelo local logo depois para recolher cartuchos e projéteis.",
+      "dataDoFato": "2006-05",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3550308",
+        "nome": "Parque Bristol, São Paulo"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "STJ",
+          "tipo": "processo",
+          "titulo": "Terceira Seção decide que Justiça Federal deve assumir investigação sobre Chacina do Parque Bristol",
+          "url": "https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/10082022-Terceira-Secao-decide-que-Justica-Federal-deve-assumir-investigacao-sobre-Chacina-do-Parque-Bristol.aspx",
+          "trecho": "determinou a reabertura e a transferência, para a Justiça Federal, de inquéritos relativos ao caso conhecido como Chacina do Parque Bristol",
+          "data": "2022-08-10",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmesp"
+      ],
+      "etiquetas": [
+        "Crimes de Maio",
+        "federalização",
+        "grupo de extermínio",
+        "Polícia Militar",
+        "São Paulo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Caso sem pessoa acusada: 'investigado' vale para a apuração (IDC 9, STJ). Fonte de 2022; não conferimos o andamento na Polícia Federal/Justiça Federal. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "2008-itaquera-estudante-abordagem-pm",
+      "dossie": "violencia-policial",
+      "titulo": "Itaquera (SP, 2008): STF mantém condenação de seis policiais militares pela morte de estudante em abordagem",
+      "resumo": "Segundo o STF, em fevereiro de 2024 a Primeira Turma manteve, por unanimidade, a condenação de seis policiais militares (um capitão, um sargento e quatro cabos) pelo homicídio de um estudante durante abordagem no bairro de Itaquera, em São Paulo, em 2008: segundo a decisão, dois policiais mandaram que os jovens engolissem um líquido que acreditavam ser lança-perfume, e um deles morreu. Segundo o STF, os policiais foram condenados pelo Tribunal do Júri por homicídio qualificado e constrangimento ilegal, com penas de 14 a 19 anos, confirmadas pelo TJ-SP.",
+      "dataDoFato": "2008",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3550308",
+        "nome": "Itaquera, São Paulo"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Supremo mantém condenação de policiais militares de SP por homicídio de estudante",
+          "url": "https://noticias.stf.jus.br/postsnoticias/supremo-mantem-condenacao-de-policiais-militares-de-sp-por-homicidio-de-estudante/",
+          "trecho": "manteve a condenação de seis policiais militares, um capitão, um sargento e quatro cabos, pelo homicídio de um estudante durante uma abordagem no bairro de Itaquera, na capital paulista.",
+          "data": "2024-02-23",
+          "acessadoEm": "2026-11-07",
+          "catalogoId": "stf-stj"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "pmesp"
+      ],
+      "etiquetas": [
+        "Polícia Militar",
+        "abordagem policial",
+        "Tribunal do Júri",
+        "São Paulo"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. ARE 1388045 em segredo de justiça; os policiais não são nomeados na fonte. Situação conservadora ('condenado em 1ª instância'): confirmada pelo TJ-SP e mantida pelo STF, mas sem certidão de trânsito lida. Ninguém que morreu é nomeado."
+    },
+    {
+      "id": "2020-cristalina-fazenda-pms-reus",
+      "dossie": "violencia-policial",
+      "titulo": "Cristalina (GO, 2020): três policiais militares vão a júri pela morte de três trabalhadores de fazenda",
+      "resumo": "Segundo o MPGO, três policiais militares do 3º Pelotão da Segunda Companhia de Patrulha Rural, denunciados pelo homicídio de três empregados de uma fazenda em Cristalina, em 22 de novembro de 2020, serão levados a julgamento pelo Tribunal do Júri; a denúncia, de março de 2022, foi recebida em abril de 2022, e a Vara Criminal de Cristalina entendeu haver indícios suficientes de autoria. Os réus são presumidos inocentes; o júri ainda não tinha data nas fontes lidas.",
+      "dataDoFato": "2020-11-22",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "GO",
+        "municipioIbge": "5206206",
+        "nome": "Cristalina"
+      },
+      "situacao": "reu",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPGO",
+          "tipo": "investigacao_oficial",
+          "titulo": "Policiais Militares denunciados pelo MPGO pela morte de empregados de uma fazenda em Cristalina serão levados a júri",
+          "url": "https://www.mpgo.mp.br/portal/noticia/policiais-militares-denunciados-pelo-mpgo-pela-morte-de-empregados-de-uma-fazenda-em-cristalina-serao-levados-a-juri",
+          "trecho": "existem indicativos suficientes para que, à primeira vista, imponha-se aos acusados a autoria delitiva para a submissão do feito ao Tribunal do Júri",
+          "data": "2024-08-07",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "bruno-martins-barros",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPGO, réu pronunciado para julgamento pelo Tribunal do Júri. Presumido inocente."
+        },
+        {
+          "pessoaId": "angelo-maximo-morais-lacerda",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPGO, réu pronunciado para julgamento pelo Tribunal do Júri. Presumido inocente."
+        },
+        {
+          "pessoaId": "reginaldo-matos-lima",
+          "situacao": "reu",
+          "papelNoCaso": "Segundo o MPGO, réu pronunciado para julgamento pelo Tribunal do Júri. Presumido inocente."
+        }
+      ],
+      "organizacoes": [
+        "pmgo"
+      ],
+      "etiquetas": [
+        "Polícia Militar",
+        "patrulha rural",
+        "Tribunal do Júri",
+        "Goiás"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. Fonte única (MPGO, ago/2024), que transcreve a pronúncia. Não conferimos se o júri ocorreu: reconferir no TJGO. O MPGO nomeia quem morreu; a ficha não."
+    },
+    {
+      "id": "2011-alvorada-chacina-bar-pms-denunciados",
+      "dossie": "violencia-policial",
+      "titulo": "Alvorada (RS, 2011): quatro policiais militares denunciados por chacina em frente a bar",
+      "resumo": "Segundo o MPRS, a Promotoria de Justiça de Alvorada denunciou em 2012 quatro policiais militares por homicídio qualificado, com agravante por abuso de poder, pelas mortes de quatro pessoas em 13 de julho de 2011, em frente a um bar na Vila Maria Regina; segundo a denúncia, a prisão em flagrante do dono do bar teria sido feita para dissimular a intenção de matar, e um dos motivos seria vingar uma denúncia feita por uma das pessoas mortas à Corregedoria-Geral da Brigada Militar. Os denunciados são presumidos inocentes.",
+      "dataDoFato": "2011-07-13",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RS",
+        "municipioIbge": "4300604",
+        "nome": "Vila Maria Regina, Alvorada"
+      },
+      "situacao": "denunciado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "MPRS",
+          "tipo": "investigacao_oficial",
+          "titulo": "Alvorada: PMs que praticaram chacina são denunciados",
+          "url": "https://www.mprs.mp.br/noticias/28431/",
+          "trecho": "A Promotoria de Justiça de Alvorada denunciou quatro policiais militares por homicídio qualificado, com agravante por abuso de poder",
+          "data": "2012-05-25",
+          "acessadoEm": "2026-11-07"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "brigada-militar-rs"
+      ],
+      "etiquetas": [
+        "Brigada Militar",
+        "chacina",
+        "corregedoria",
+        "Rio Grande do Sul"
+      ],
+      "publicadoEm": "2026-11-07",
+      "atualizadoEm": "2026-11-07",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-07",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 07/11/2026, frente T12 (violência policial e chacinas): fontes abertas e lidas no dia, trechos copiados literalmente. Aguarda a curadoria humana e a assessoria jurídica; o arquivo no Internet Archive é feito na aprovação. ATENÇÃO CURADORIA: fonte de 2012; não achamos o desfecho (júri, condenação ou absolvição). Não aprovar sem reconferir no TJRS. O título da fonte é do MPRS e afirma a autoria ('PMs que praticaram'); a ficha usa 'denunciados'. O MPRS nomeia os policiais e quem morreu; a ficha não nomeia ninguém."
+    }
+  ]
+}

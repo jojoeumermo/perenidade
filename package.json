@@ -152,7 +152,8 @@
     "testar:leveza": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-leveza.mjs",
     "testar:jogos-proprios2": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-jogos-proprios2.mjs",
     "testar:jogos-em-grupo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-jogos-em-grupo.mjs",
-    "pontilhar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/pontilhar.mjs"
+    "pontilhar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/pontilhar.mjs",
+    "vale-o-escrito:importar-novos-casos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/vale-o-escrito/importar-novos-casos.mjs"
   },
   "dependencies": {
     "@diffusionstudio/piper-wasm": "1.0.0",
