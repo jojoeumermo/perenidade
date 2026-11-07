@@ -8,10 +8,15 @@ publica com **fonte oficial e situação jurídica preenchidas** (decisão da co
 ## O que ele faz, em ordem
 
 1. Lê `content/vale-o-escrito/fontes.json` (48 fontes do catálogo; campo `acesso`: `aberto`, `cadastro-gratuito`,
-   `sem-acesso` ou `so-link`; campo `leitor`: `rss`, `querido-diario` ou `null`). Hoje lê RSS/Atom e a API aberta do
-   Querido Diário (sem cadastro). As demais ficam como link para a curadoria até alguém escrever o adaptador.
+   `sem-acesso` ou `so-link`; campo `leitor`: `rss`, `querido-diario` ou `null`). Hoje lê RSS/Atom (também RSS 1.0/RDF,
+   o formato dos portais gov.br) e a API aberta do Querido Diário (sem cadastro). Desde 07/11/2026 também lê o RSS de
+   notícias do **IBAMA** (fonte oficial: `gov.br/ibama/pt-br/assuntos/noticias/RSS`) e o da **Human Rights Watch** em
+   português (`hrw.org/pt/rss/news`), os dois conferidos com curl, e as notícias do **MPF** pela busca pública do site
+   (leitor `plone-busca`: a API REST do Plone, `https://www.mpf.mp.br/++api++/@search`, devolve JSON com título, link,
+   descrição e data, sem chave; o robô faz uma busca por tema dos dossiês e fica só com o que está em `/noticias/`). As
+   demais ficam como link para a curadoria até alguém escrever o adaptador.
 2. Filtra pelas palavras (`temas`) dos 6 dossiês de `content/vale-o-escrito/dossies.json` (sem acento, início de palavra).
-3. Tira repetidos por link (sem `utm_*`, sem `#`, sem barra final) e o que é mais velho que a janela (`--dias`, padrão 3).
+3. Tira repetidos por link (sem `utm_*`, sem `#`, sem barra final) e o que é mais velho que a janela (`--dias`, padrão 7).
    Texto que fala de criança ou adolescente é descartado.
 4. **Baixa a matéria** (só HTML, até 2 MB, 20 s) e tira dela só o texto: título, `og:description`,
    `article:published_time` (ou o JSON-LD `NewsArticle`), `og:site_name` e os parágrafos de `<article>` (sem menu, rodapé,
@@ -22,7 +27,7 @@ publica com **fonte oficial e situação jurídica preenchidas** (decisão da co
 6. **Estrutura o rascunho.** Com chave de IA gratuita (rodízio abaixo), a IA devolve JSON a partir do texto da matéria e o
    robô **confere tudo**; sem chave (ou sem cota, ou depois do orçamento de tempo), a extração é por **heurística**.
 7. **Arquiva no Internet Archive** (Save Page Now) e põe o link em `fontes[0].arquivoUrl`; se falhar, `arquivoFalhou: true`
-   (a curadoria tenta de novo na aprovação). Até `--max-arquivo` cópias por rodada (padrão 20).
+   (a curadoria tenta de novo na aprovação). Até `--max-arquivo` cópias por rodada (padrão 40).
 8. Grava com `public.vale_robo_sugerir` (chave de serviço). Link repetido o banco ignora. O rascunho vai na coluna
    `vale_fila.rascunho` (JSON livre), que a tela da curadoria já abre preenchida (`rascunhoDoItem`).
 
@@ -69,8 +74,11 @@ plano gratuito como estavam publicados em novembro de 2026 e **mudam sem aviso**
 | Cerebras | `CEREBRAS_API_KEY` | `gpt-oss-120b` (`CEREBRAS_MODEL`) | teste gratuito: 5 pedidos/min, 1 milhão de tokens/dia | cloud.cerebras.ai → entrar → "API Keys" → gerar |
 | OpenRouter (só modelos `:free`) | `OPENROUTER_API_KEY` | `meta-llama/llama-3.3-70b-instruct:free` (`OPENROUTER_MODEL`) | 20 pedidos/min; 50 por dia (1.000 por dia com US$ 10 de crédito comprado); saldo negativo bloqueia até os gratuitos | openrouter.ai → entrar → "Keys" → "Create Key" (não precisa de cartão para os `:free`) |
 
-Cada rodada faz no máximo `--max-ia` pedidos (padrão 40), uma rodada a cada 3 horas: cerca de 320 por dia, dentro da cota
-somada de duas chaves. Privacidade: só vai para a IA o texto público da matéria; nenhum dado de quem usa o site. Os
+Cada rodada faz no máximo `--max-ia` pedidos (padrão 50), uma rodada a cada 2 horas: até 600 por dia. A conta, com os
+limites da tabela: Groq aceita até 1.000 pedidos/dia, mas os 100 mil tokens/dia dão só umas 30 matérias; a Cerebras, com
+1 milhão de tokens/dia, umas 300; o OpenRouter, 50; o Gemini, o que o painel da conta mostrar. Com as quatro chaves, os
+600 cabem na cota gratuita somada; com menos chaves, quem esgota responde 429, sai do rodízio e o resto da rodada sai pela
+heurística (nada quebra, nada é cobrado: nenhum dos quatro cobra sem cartão cadastrado). Privacidade: só vai para a IA o texto público da matéria; nenhum dado de quem usa o site. Os
 planos gratuitos podem usar o que recebem para melhorar os modelos (veja os termos de cada um): por isso nada interno
 (nota, contato, envio do público) é mandado.
 
@@ -130,8 +138,8 @@ node scripts/vale-o-escrito/coletar.mjs                                         
 npm run testar:vale-o-escrito-robo                                               # sem rede: scripts/testes/vale-o-escrito/
 ```
 
-Opções: `--fonte <id>`, `--dias <n>` (3), `--max <n>` (60 sugestões), `--max-ia <n>` (40), `--max-arquivo <n>` (20),
-`--minutos <n>` (20: passado o orçamento, a parte cara para e o resto sai só com o que o feed trouxe), `--sem-ia`,
+Opções: `--fonte <id>`, `--dias <n>` (7), `--max <n>` (120 sugestões), `--max-ia <n>` (50), `--max-arquivo <n>` (40),
+`--minutos <n>` (25: passado o orçamento, a parte cara para e o resto sai só com o que o feed trouxe), `--sem-ia`,
 `--sem-materia`, `--sem-arquivo`, `--hoje AAAA-MM-DD`, `--fixtures <pasta>` (feeds em `<pasta>/<id>.xml|json` e matérias em
 `<pasta>/materias/<fim-do-link>.html`).
 
@@ -139,8 +147,26 @@ O workflow tem o botão "Run workflow" com a opção de rodada seca.
 
 ## Agendamento
 
-`.github/workflows/vale-o-escrito.yml`: a cada 3 horas (`17 */3 * * *`), só com `VALE_O_ESCRITO == 'sim'`, 25 minutos de
-limite (o robô para a parte cara aos 20), actions fixadas por SHA. Custo: ~8 rodadas por dia.
+`.github/workflows/vale-o-escrito.yml`: de 2 em 2 horas (`17 */2 * * *`), só com `VALE_O_ESCRITO == 'sim'`, 30 minutos de
+limite (o robô para a parte cara aos 25), actions fixadas por SHA. Custo: 12 rodadas por dia.
+
+### Serviço acelerado (07/11/2026)
+
+Pedido da coordenação: "faz o robô acelerar o serviço". O que mudou, tudo dentro das cotas gratuitas acima:
+
+| O quê | Antes | Agora | Por quê cabe |
+|---|---|---|---|
+| Intervalo das rodadas | 3 h (8 por dia) | **2 h (12 por dia)** | GitHub Actions: repositório público não paga minuto; em privado, 12 × 30 min no pior caso = 360 min/dia, acima dos 2.000 min/mês do plano gratuito, então **se o repositório for privado** volte para `*/3` ou baixe `--minutos` |
+| `--dias` (janela) | 3 | **7** | só lê feed; link repetido o banco ignora |
+| `--max` (sugestões por rodada) | 60 | **120** | gravação no Supabase gratuito: linhas pequenas (trecho de até 400 caracteres) |
+| `--max-ia` | 40 | **50** | 12 × 50 = 600 pedidos/dia (conta acima) |
+| `--max-arquivo` | 20 | **40** | 12 × 40 = 480 cópias/dia no Save Page Now; com conta (chaves S3) o limite diário do Internet Archive é bem maior; anônimo, o que falhar vira `arquivoFalhou` e a curadoria refaz |
+| `--minutos` (orçamento) | 20 | **25** | timeout do workflow subiu para 30 |
+| Fontes lidas | 17 feeds + Querido Diário | **+ MPF (oficial, busca do site), IBAMA (oficial, RSS) e HRW (RSS)** | conferidos com curl em 07/11/2026; a busca do MPF faz ~30 pedidos leves por rodada (um por tema), numa rodada seca de 07/11/2026 trouxe 226 notícias e 6 sugestões |
+
+Os padrões ficam em `PADROES_DA_RODADA` (`coletar.mjs`); o teste `npm run testar:vale-o-escrito-robo` confere os números.
+Fontes testadas e **sem** RSS em 07/11/2026 (ficam como link): PF, Funai, ICMBio, PRF e MTE no gov.br (404), MPF (o site
+novo não tem `/RSS`, por isso a busca); STF (`noticias.stf.jus.br/feed`), ISA, Alma Preta, Global Witness e TCU não responderam daqui.
 
 ## Pendências e limites conhecidos
 
