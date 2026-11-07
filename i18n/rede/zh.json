@@ -142,6 +142,7 @@
   },
   "perfil": {
     "trancado": "锁定的个人资料：关注需要批准。",
+    "conversar": "私信",
     "equipe": "研究所团队",
     "semContagens": "不公开显示关注者或支持数量。"
   },
