@@ -12,6 +12,7 @@ import { ERROS_DA_FORCA, LADOS, type Acao, type Lado, type VistaBingo, type Vist
 import { CORES_DOS_JOGADORES, EQUIPES, LIMITE_DO_ARGUMENTO } from "@/lib/jogos/grupo/sala";
 import { useImersao } from "../Imersao";
 import { idSorteado } from "./canal";
+import { urlsDasFontes } from "./preparar";
 
 type S = TextosDosJogos["grupo"];
 
@@ -218,6 +219,18 @@ function Barras({ contagem, s }: { contagem: Record<Lado, number>; s: S }) {
 
 export function PartidaDebate({ v, anfitriao, joga, agir, s }: PropsDaPartida<VistaDebate>) {
   const d = s.partida.debate;
+  // Fonte vira link só se o endereço é o mesmo do banco do site para este cartão (T33).
+  const [confiaveis, setConfiaveis] = useState<Set<string>>(() => new Set());
+  useEffect(() => {
+    let vivo = true;
+    urlsDasFontes(v.tema.slug).then(
+      (lista) => vivo && setConfiaveis(lista),
+      () => vivo && setConfiaveis(new Set()),
+    );
+    return () => {
+      vivo = false;
+    };
+  }, [v.tema.slug]);
   const [texto, setTexto] = useState("");
   const [lado, setLado] = useState<Lado>("concordo");
   const [meus, setMeus] = useState<string[]>([]);
@@ -370,7 +383,7 @@ export function PartidaDebate({ v, anfitriao, joga, agir, s }: PropsDaPartida<Vi
               {v.tema.fontes.map((f, i) => (
                 <span key={i}>
                   {i > 0 && " · "}
-                  {f.url && /^https:\/\//.test(f.url) ? (
+                  {f.url && /^https:\/\//.test(f.url) && confiaveis.has(f.url) ? (
                     <a href={f.url} target="_blank" rel="noopener noreferrer" className="underline">
                       {f.titulo}
                     </a>
