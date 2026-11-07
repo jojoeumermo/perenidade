@@ -20,8 +20,12 @@ const ligado = () => ({
 });
 
 export async function GET(pedido: Request) {
-  // Quais integrações estão ligadas é dado de configuração: só responde a quem manda o token de uma sessão (a tela é da coordenação).
-  if (!/^Bearer\s+[\w.-]+$/.test(pedido.headers.get("authorization") ?? "")) return responder({ erro: "Entre na sua conta de novo." }, 401);
+  // Quais integrações estão ligadas é dado de configuração: só a coordenação vê. O banco confere o token e o papel
+  // (operacao_situacao exige interno.coord()) ANTES de responder; só o formato do cabeçalho não basta (T33).
+  const token = /^Bearer\s+([\w.-]+)$/.exec(pedido.headers.get("authorization") ?? "")?.[1];
+  if (!token) return responder({ erro: "Entre na sua conta de novo." }, 401);
+  const coordenacao = await rpcNoBanco<unknown>("operacao_situacao", {}, token);
+  if (!coordenacao.ok) return responder({ erro: "Esta tela é da coordenação." }, /jwt|token|expired/i.test(coordenacao.erro) ? 401 : 403);
   return responder({ ligado: ligado() });
 }
 

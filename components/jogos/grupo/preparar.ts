@@ -38,6 +38,17 @@ function baixar<T>(banco: string): Promise<T> {
   return guardados.get(banco) as Promise<T>;
 }
 
+/**
+ * Os endereços das fontes de um cartão de debate, como estão no banco do próprio site (T33). Quem joga só mostra como link
+ * a fonte que bate com o banco: a vista pode vir de um anfitrião que não é o site, e um link qualquer levaria a criança para
+ * fora (um grupo de mensagens, por exemplo). Sem o banco, nenhum link.
+ */
+export async function urlsDasFontes(slug: string): Promise<Set<string>> {
+  const { temas } = await baixar<{ temas: TemaDeDebate[] }>("debates");
+  const tema = temas.find((t) => t.slug === slug);
+  return new Set((tema?.fontes ?? []).map((f) => f.url ?? "").filter(Boolean));
+}
+
 /** Bingo: cartela 3x3 com 18 conceitos (uma partida de uns 15 minutos), ou 4x4 com 30 quando pedem mais rodadas. */
 export const ladoDoBingo = (rodadas: number) => (rodadas >= 12 ? 4 : 3);
 

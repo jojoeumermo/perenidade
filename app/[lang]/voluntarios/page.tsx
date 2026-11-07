@@ -6,6 +6,7 @@ import { TarefasDeVoluntariado } from "@/components/governanca/Governanca";
 import { Markdown } from "@/components/Markdown";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { VolunteerForm } from "@/components/VolunteerForm";
+import { ConfirmarInscricao } from "@/components/ConfirmarInscricao";
 import voluntariado from "@/content/voluntariado.json";
 import { loadLang } from "@/i18n";
 import { pickSections } from "@/i18n/core";
@@ -68,6 +69,8 @@ export default async function Voluntarios({ params }: PageProps<"/[lang]/volunta
           {page.lead}
         </Cartaz>
       </div>
+      {/* T33: o link do e-mail de confirmação da inscrição militante cai aqui (?confirmar=...). */}
+      <ConfirmarInscricao lang={lang} />
       <Untranslated lang={lang} t={t} show={!page.translated} />
       {abertura && (
         <div className="mx-auto mt-8 max-w-3xl" {...idioma}>

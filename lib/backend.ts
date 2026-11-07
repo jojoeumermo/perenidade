@@ -340,13 +340,37 @@ export type AssistantResult =
  */
 export async function askAssistant(request: AssistantRequest): Promise<AssistantResult> {
   // Sem o serviço de contas nesta montagem, vai direto ao assistente aberto (se ligado).
-  if (!hasBackend) return (await estadoDoPublico()).ligado ? perguntarAoPublico(request) : { ok: false, recusa: false, erro: "assistente_desligado" };
+  if (!hasBackend) {
+    if (!(await estadoDoPublico()).ligado) return { ok: false, recusa: false, erro: "assistente_desligado" };
+    return fotoAoAberto(request) ? perguntarAoPublico(request) : { ok: false, recusa: false, erro: "assistente_sem_foto" };
+  }
   const daConta = await askAccountAssistant(request);
   if (daConta.ok || daConta.recusa || !CAI_NO_ABERTO.has(daConta.erro.split(":")[0])) return daConta;
   // T03: sem conta, com o assistente da conta desligado, sem vaga ou fora do ar, a pergunta vai ao assistente aberto
   // (app/api/assistente: IAs gratuitas, limite por pessoa sem guardar o IP). Desligado também, fica o erro da conta.
   if (!(await estadoDoPublico()).ligado) return daConta;
+  if (!fotoAoAberto(request)) return { ok: false, recusa: false, erro: "assistente_sem_foto" };
   return perguntarAoPublico(request);
+}
+
+/** O aviso antes de uma foto ir ao assistente aberto, no idioma da pergunta (T33). */
+const AVISO_DA_FOTO: Record<string, string> = {
+  pt: "A foto vai para um serviço gratuito de inteligência artificial (Google Gemini), fora do Brasil, que pode guardá-la e usá-la para treinar a IA, inclusive com leitura por pessoas da empresa. Confira se não aparece rosto, nome, escola ou dado de ninguém. Mandar mesmo assim?",
+  en: "The photo goes to a free artificial intelligence service (Google Gemini), outside Brazil, which may keep it and use it to train its AI, including review by people at the company. Check that no face, name, school or anyone's details appear. Send it anyway?",
+  es: "La foto va a un servicio gratuito de inteligencia artificial (Google Gemini), fuera de Brasil, que puede guardarla y usarla para entrenar su IA, incluso con lectura por personas de la empresa. Revisa que no aparezcan caras, nombres, escuela ni datos de nadie. ¿Enviarla igualmente?",
+  fr: "La photo part vers un service gratuit d'intelligence artificielle (Google Gemini), hors du Brésil, qui peut la garder et s'en servir pour entraîner son IA, y compris avec une lecture par des personnes de l'entreprise. Vérifiez qu'aucun visage, nom, école ni donnée de quelqu'un n'apparaît. L'envoyer quand même ?",
+  ru: "Фото уйдёт в бесплатный сервис искусственного интеллекта (Google Gemini) за пределами Бразилии, который может хранить его и использовать для обучения ИИ, в том числе с просмотром сотрудниками компании. Проверьте, что на нём нет лиц, имён, школы или чьих-то данных. Всё равно отправить?",
+  zh: "照片会发送到巴西境外的免费人工智能服务（Google Gemini），对方可能保存照片并用来训练人工智能，其中也可能由公司员工查看。请确认照片中没有人脸、姓名、学校或任何人的信息。仍要发送吗？",
+};
+
+/**
+ * Pergunta com foto que cai no assistente aberto (planos gratuitos): só com a confirmação explícita de quem pergunta, depois
+ * do aviso de que o provedor pode guardar e treinar com a foto (LGPD, arts. 9º e 14). Sem foto, nada muda.
+ */
+function fotoAoAberto(request: AssistantRequest): boolean {
+  if (!request.imagem) return true;
+  if (typeof window === "undefined" || typeof window.confirm !== "function") return false;
+  return window.confirm(AVISO_DA_FOTO[(request.idioma ?? "").slice(0, 2)] ?? AVISO_DA_FOTO.pt);
 }
 
 /** Os erros da função da conta que passam a pergunta ao assistente aberto. "area_interditada" e "envios_pausados" não:

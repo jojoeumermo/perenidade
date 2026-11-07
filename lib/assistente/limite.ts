@@ -19,6 +19,13 @@ export interface Limites {
   porDia: number;
   /** Perguntas do site inteiro no dia, para não estourar as cotas gratuitas dos provedores. */
   globalDia: number;
+  /**
+   * Teto por faixa de rede (IPv4 /24; IPv6 /56 e /48), na hora e no dia (T33). Quem tem muitos endereços (um /56 de casa
+   * tem 256 redes /64; um VPS, um /48 inteiro) não vira muitas "pessoas" e não esgota sozinho a cota do site. Sem valor,
+   * vale 5 vezes o limite da pessoa por hora e um quarto do limite do site por dia (no mínimo, 2 vezes o da pessoa).
+   */
+  faixaHora?: number;
+  faixaDia?: number;
 }
 
 export const LIMITES_PADRAO: Limites = { porHora: 40, porDia: 150, globalDia: 1200 };
@@ -61,9 +68,24 @@ export function ipDoPedido(cabecalhos: { get(nome: string): string | null }): st
   return ip.replace(/^::ffff:/, "");
 }
 
+/**
+ * As faixas de rede de quem pede, do resultado de ipDoPedido: IPv4 conta também pelo /24; IPv6 (já no /64), pelo /56 e
+ * pelo /48. Também viram resumo antes de qualquer conta: nenhuma faixa fica guardada em claro.
+ */
+export function faixasDoIp(ip: string): string[] {
+  const v6 = /^([0-9a-f]{1,4}):([0-9a-f]{1,4}):([0-9a-f]{1,4}):([0-9a-f]{1,4})::\/64$/.exec(ip);
+  if (v6) {
+    const quarto = (parseInt(v6[4], 16) & 0xff00).toString(16);
+    return [`${v6[1]}:${v6[2]}:${v6[3]}:${quarto}::/56`, `${v6[1]}:${v6[2]}:${v6[3]}::/48`];
+  }
+  const v4 = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.\d{1,3}$/.exec(ip);
+  if (v4) return [`${v4[1]}.${v4[2]}.${v4[3]}.0/24`];
+  return [];
+}
+
 export type Resultado =
   | { ok: true; restantesHora: number; restantesDia: number }
-  | { ok: false; motivo: "hora" | "dia" | "global"; tentarEm: number };
+  | { ok: false; motivo: "hora" | "dia" | "global" | "faixa"; tentarEm: number };
 
 /**
  * Cria o limitador, todo na memória. `agora` e `sortear` são trocáveis para o teste. O sal do dia nasce no primeiro pedido
@@ -108,41 +130,81 @@ export function criarLimitador(limites: Limites, opcoes: { agora?: () => number;
     for (const chave of [...naHora.keys()]) recentes(chave, t);
   }
 
-  /** Tenta gastar uma pergunta de quem tem este IP. */
-  function consumir(ip: string): Resultado & { chave: string } {
+  const faixaHora = limites.faixaHora ?? limites.porHora * 5;
+  const faixaDia = limites.faixaDia ?? Math.max(limites.porDia * 2, Math.ceil(limites.globalDia / 4));
+
+  /** Tenta gastar uma pergunta de quem tem este IP (e das faixas de rede dele). */
+  function consumir(ip: string): Resultado & { chave: string; faixas: string[] } {
     const t = agora();
     const chave = resumo(ip);
+    const faixas = faixasDoIp(ip).map((f) => `faixa:${resumo(`faixa:${f}`)}`);
     const amanha = Date.parse(`${dia}T03:00:00Z`) + 24 * HORA;
     const lista = recentes(chave, t);
-    if (lista.length >= limites.porHora) return { ok: false, motivo: "hora", tentarEm: Math.max(1, Math.ceil((lista[0] + HORA - t) / 1000)), chave };
+    if (lista.length >= limites.porHora) return { ok: false, motivo: "hora", tentarEm: Math.max(1, Math.ceil((lista[0] + HORA - t) / 1000)), chave, faixas };
     const doDia = noDia.get(chave) ?? 0;
-    if (doDia >= limites.porDia) return { ok: false, motivo: "dia", tentarEm: Math.max(1, Math.ceil((amanha - t) / 1000)), chave };
-    if (global >= limites.globalDia) return { ok: false, motivo: "global", tentarEm: Math.max(1, Math.ceil((amanha - t) / 1000)), chave };
+    if (doDia >= limites.porDia) return { ok: false, motivo: "dia", tentarEm: Math.max(1, Math.ceil((amanha - t) / 1000)), chave, faixas };
+    for (const f of faixas) {
+      const daFaixa = recentes(f, t);
+      if (daFaixa.length >= faixaHora) return { ok: false, motivo: "faixa", tentarEm: Math.max(1, Math.ceil((daFaixa[0] + HORA - t) / 1000)), chave, faixas };
+      if ((noDia.get(f) ?? 0) >= faixaDia) return { ok: false, motivo: "faixa", tentarEm: Math.max(1, Math.ceil((amanha - t) / 1000)), chave, faixas };
+    }
+    if (global >= limites.globalDia) return { ok: false, motivo: "global", tentarEm: Math.max(1, Math.ceil((amanha - t) / 1000)), chave, faixas };
     global++;
-    noDia.set(chave, doDia + 1);
-    naHora.set(chave, [...lista, t]);
+    for (const k of [chave, ...faixas]) {
+      noDia.set(k, (noDia.get(k) ?? 0) + 1);
+      naHora.set(k, [...recentes(k, t), t]);
+    }
     limpar(t);
-    return { ok: true, restantesHora: limites.porHora - lista.length - 1, restantesDia: limites.porDia - doDia - 1, chave };
+    return { ok: true, restantesHora: limites.porHora - lista.length - 1, restantesDia: limites.porDia - doDia - 1, chave, faixas };
   }
 
-  /** Devolve a pergunta quando nenhum provedor respondeu: falha do serviço não conta contra a pessoa. */
-  function devolver(chave: string) {
+  /** Devolve a pergunta quando o serviço falhou sem culpa do pedido: não conta contra a pessoa nem contra a faixa dela. */
+  function devolver(chave: string, faixas: string[] = []) {
     if (!noDia.has(chave)) return;
     global = Math.max(0, global - 1);
-    noDia.set(chave, Math.max(0, (noDia.get(chave) ?? 1) - 1));
-    const lista = naHora.get(chave) ?? [];
-    lista.pop();
-    if (lista.length) naHora.set(chave, lista);
-    else naHora.delete(chave);
+    for (const k of [chave, ...faixas]) {
+      if (!noDia.has(k)) continue;
+      noDia.set(k, Math.max(0, (noDia.get(k) ?? 1) - 1));
+      const lista = naHora.get(k) ?? [];
+      lista.pop();
+      if (lista.length) naHora.set(k, lista);
+      else naHora.delete(k);
+    }
   }
 
   /** Só números, para o teste e para o estado público (nunca os resumos). */
   function estado() {
     virarODia(agora());
-    return { dia, global, pessoas: noDia.size };
+    return { dia, global, pessoas: [...noDia.keys()].filter((k) => !k.startsWith("faixa:")).length };
   }
 
   return { consumir, devolver, estado, resumo };
+}
+
+/**
+ * Quantos pedidos esperam resposta ao mesmo tempo (T33): no site inteiro e por pessoa (o resumo do IP). Cada pedido em voo
+ * segura memória e uma conexão por até alguns minutos; sem teto, uma pessoa sozinha ocupa o servidor. `entrar` devolve a
+ * função de sair, ou null quando não há vaga.
+ */
+export function criarSemaforo(maximo: number, porChave: number) {
+  let total = 0;
+  const deCada = new Map<string, number>();
+  function entrar(chave: string): (() => void) | null {
+    const meus = deCada.get(chave) ?? 0;
+    if (total >= maximo || meus >= porChave) return null;
+    total++;
+    deCada.set(chave, meus + 1);
+    let saiu = false;
+    return () => {
+      if (saiu) return;
+      saiu = true;
+      total = Math.max(0, total - 1);
+      const restam = (deCada.get(chave) ?? 1) - 1;
+      if (restam > 0) deCada.set(chave, restam);
+      else deCada.delete(chave);
+    };
+  }
+  return { entrar, emVoo: () => total };
 }
 
 /**
@@ -170,5 +232,11 @@ export function criarRodizio(opcoes: { agora?: () => number } = {}) {
     if (ms) descanso.set(id, agora() + ms);
   }
 
-  return { ordem, falhou };
+  /** Quem não está descansando agora. Vazio: todos disseram "chega" há pouco, e a rota responde na hora, sem chamar ninguém (T33). */
+  function prontos(ids: string[]): string[] {
+    const t = agora();
+    return ids.filter((id) => (descanso.get(id) ?? 0) <= t);
+  }
+
+  return { ordem, falhou, prontos };
 }

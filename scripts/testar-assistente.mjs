@@ -399,6 +399,38 @@ const okAberto = { status: 200, corpo: { choices: [{ message: { content: "Respos
   roda.falhou("a", "chave_recusada");
   roda.falhou("b", "chave_recusada");
   igual("rodízio: todos descansando, tenta todos assim mesmo", roda.ordem(["a", "b"]).length, 2);
+  igual("rodízio (T33): 'prontos' diz quem não está descansando (vazio: a rota responde na hora)", roda.prontos(["a", "b"]), []);
+
+  // ── T33: faixas de rede, devolução e pedidos em voo ──
+  const { faixasDoIp, criarSemaforo } = await import("../lib/assistente/limite.ts");
+  igual("faixas: IPv4 conta também pelo /24", faixasDoIp("200.1.2.3"), ["200.1.2.0/24"]);
+  igual("faixas: IPv6 conta também pelo /56 e pelo /48", faixasDoIp("2804:14c:5b:80ab::/64"), ["2804:14c:5b:8000::/56", "2804:14c:5b::/48"]);
+  {
+    let t2 = Date.parse("2026-11-07T15:00:00Z");
+    const lim2 = criarLimitador({ porHora: 40, porDia: 150, globalDia: 1200 }, { agora: () => t2 });
+    let passaram = 0;
+    // 30 redes /64 de um mesmo /56: antes, 30 "pessoas" com 150 cada (4.500, o site inteiro); agora, o teto da faixa.
+    for (let rede = 0; rede < 30; rede++) for (let i = 0; i < 40; i++) if (lim2.consumir(`2804:14c:5b:80${rede.toString(16).padStart(2, "0")}::/64`).ok) passaram++;
+    confere("muitos /64 do mesmo /56 não esgotam o site: param no teto da faixa por hora", passaram === 200);
+    const outra = lim2.consumir("2804:aaaa:1:1::/64");
+    confere("outra rede segue perguntando", outra.ok);
+    confere("o estado não conta faixa como pessoa", lim2.estado().pessoas === 6);
+    t2 += 3_600_001;
+    let noDia = passaram;
+    for (let h = 0; h < 6; h++) {
+      for (let rede = 0; rede < 30; rede++) for (let i = 0; i < 40; i++) if (lim2.consumir(`2804:14c:5b:80${rede.toString(16).padStart(2, "0")}::/64`).ok) noDia++;
+      t2 += 3_600_001;
+    }
+    confere("no dia, a faixa para em um quarto da cota do site", noDia === 300);
+    const sem = criarSemaforo(2, 1);
+    const s1 = sem.entrar("x");
+    confere("semáforo: a mesma pessoa não tem dois pedidos em voo", s1 && sem.entrar("x") === null);
+    const s2 = sem.entrar("y");
+    confere("semáforo: o site tem teto de pedidos em voo", s2 && sem.entrar("z") === null);
+    s1();
+    s1();
+    confere("semáforo: quem sai libera a vaga (uma vez só)", sem.emVoo() === 1 && sem.entrar("z") !== null);
+  }
 
   // A rota e o botão: só a pergunta sai, nada de IP guardado, o Claude (pago) fora, e o botão carrega a janela sob demanda.
   const rota = readFileSync(new URL("../app/api/assistente/route.ts", import.meta.url), "utf8");
@@ -408,6 +440,14 @@ const okAberto = { status: 200, corpo: { choices: [{ message: { content: "Respos
   confere("rota: só pedidos do próprio site", rota.includes("doProprioSite(request)") && rota.includes('"sec-fetch-site") === "cross-site"'));
   confere("rota: respeita a chave do painel", rota.includes('recursoLigado("assistente-publico")'));
   confere("rota: 429 com Retry-After", rota.includes('"Retry-After"') && rota.includes("429"));
+  confere("rota (T33): o corpo é lido com corte, mesmo sem Content-Length", /lerCorpoLimitado\(request, TAMANHO_MAXIMO\)/.test(rota) && !/request\.json\(\)/.test(rota));
+  confere("rota (T33): com todos os provedores descansando, responde sem chamar ninguém", /rodizio\.prontos\(c\.comChave\)/.test(rota) && rota.indexOf("rodizio.prontos(") < rota.indexOf("limitador.consumir("));
+  confere("rota (T33): a vez só volta numa chamada só e sem culpa do pedido", /chamadas\.length <= 1 && chamadas\.every\(\(t\) => DEVOLVE\.has\(t\.falha\)\)/.test(rota) && !/"limite"|"tempo_esgotado"/.test(rota.match(/const DEVOLVE = new Set\(\[[^\]]*\]\)/)?.[0] ?? "x"));
+  confere("rota (T33): teto de pedidos em voo, liberado no finally", /emVoo\.entrar\(vez\.chave\)/.test(rota) && /finally \{\s*sair\(\);/.test(rota));
+  confere("rota (T33): OpenRouter só com provedores que não guardam nem treinam", /data_collection: "deny"/.test(rota) && /comPrivacidade\(url, opcoes\)/.test(rota));
+  confere("rota (T33): chave própria do assistente, separada da do robô do Vale", /env\[`ASSISTENTE_\$\{p\.segredo\}`\]/.test(rota));
+  const backendCliente = readFileSync(new URL("../lib/backend.ts", import.meta.url), "utf8");
+  confere("cliente (T33): foto só vai ao assistente aberto depois de confirmar o aviso", /function fotoAoAberto/.test(backendCliente) && /window\.confirm\(AVISO_DA_FOTO/.test(backendCliente) && (backendCliente.match(/fotoAoAberto\(request\)/g) ?? []).length === 2);
   const botao = readFileSync(new URL("../components/assistente/BotaoDoAssistente.tsx", import.meta.url), "utf8");
   confere("botão: a janela é carregada só quando usada", /dynamic\(carregarPainel, \{ ssr: false \}\)/.test(botao) && /usado &&/.test(botao));
   const painel = readFileSync(new URL("../components/assistente/PainelDoAssistente.tsx", import.meta.url), "utf8");
@@ -422,6 +462,7 @@ const okAberto = { status: 200, corpo: { choices: [{ message: { content: "Respos
   const idiomas = ["pt", "en", "es", "fr", "zh", "ru"].map((l) => JSON.parse(readFileSync(new URL(`../i18n/assistente/${l}.json`, import.meta.url), "utf8")));
   confere("textos da janela nos 6 idiomas, com as mesmas chaves", idiomas.every((j) => JSON.stringify(Object.keys(j).sort()) === JSON.stringify(Object.keys(idiomas[0]).sort())));
   confere("textos: nunca 'universidade' nem 'diploma'", !idiomas.some((j) => /universidade|diploma/i.test(JSON.stringify(j))));
+  confere("textos (T33): o aviso diz que o plano gratuito pode guardar e treinar, com leitura por pessoas", /treinar/.test(idiomas[0].privacidade) && /pessoas/.test(idiomas[0].privacidade) && /train/.test(idiomas[1].privacidade) && /rosto/.test(idiomas[0].naoEscreva));
 }
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
