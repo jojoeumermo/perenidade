@@ -4032,7 +4032,9 @@
     "assistente_falhou": "L'assistant n'a pas pu répondre pour le moment, et la question n'a pas été comptée. Réessayez dans un petit moment.",
     "imagem": "L'image n'a pas pu être lue. Utilisez une photo JPG, PNG ou WebP.",
     "pergunta_curta": "Décrivez votre question un peu plus en détail.",
-    "pergunta_longa": "La question dépasse le maximum (3 000 caractères)."
+    "pergunta_longa": "La question dépasse le maximum (3 000 caractères).",
+    "assistente_limite_hora": "Vous avez posé beaucoup de questions dans la dernière heure. Attendez un peu et redemandez ; en attendant, les leçons du site et les bénévoles sont toujours là.",
+    "assistente_sem_foto": "L'assistant ne peut pas lire de photos pour le moment. Écrivez votre question avec vos propres mots."
   },
   "community": {
     "eyebrow": "Communauté",
@@ -4304,7 +4306,9 @@
       "cut": "La réponse était trop longue et a été coupée à la fin.",
       "refused": "L'assistant ne peut pas aider sur cette question. Envoyez-la à un bénévole avec le formulaire ci-dessous.",
       "left": "Questions restantes aujourd'hui : {n}.",
-      "toVolunteer": "Toujours bloqué ? Demandez du soutien à un bénévole juste en dessous : votre question est déjà écrite."
+      "toVolunteer": "Toujours bloqué ? Demandez du soutien à un bénévole juste en dessous : votre question est déjà écrite.",
+      "warningOpen": "Avant de demander : seule votre question (et la photo, si vous en envoyez une) quitte le site. Elle passe par le serveur de l'institut et va vers un service gratuit d'intelligence artificielle d'une autre entreprise (Groq, Google Gemini, Cerebras ou OpenRouter), avec des serveurs hors du Brésil. Votre nom, votre compte, votre adresse réseau et la page où vous êtes ne sont pas envoyés. N'écrivez pas de données personnelles. L'institut ne garde ni la question ni la réponse.",
+      "openLimit": "Sans compte, chaque personne peut poser jusqu'à {h} questions par heure et {d} par jour."
     }
   },
   "materials": {
