@@ -83,7 +83,7 @@ conferir("escolha estragada não quebra", lerEscolha("{x").ligado === false && l
 
 // ---------------------------------------------------------------- podcast ao vivo
 const peertube = ["video.exemplo.org"];
-conferir("PeerTube da lista vira tocador", enderecoAberto("https://video.exemplo.org/w/abc123", peertube)?.tipo === "peertube");
+conferir("PeerTube da lista vira tocador", enderecoAberto("https://video.exemplo.org/w/9c9de5e8-0a1e-484a-b099-e80766180a6d", peertube)?.tipo === "peertube");
 conferir("YouTube vira tocador", enderecoAberto("https://www.youtube.com/watch?v=dQw4w9WgXcQ", peertube)?.tipo === "youtube");
 conferir("domínio de fora fica só como link", enderecoAberto("https://outro.exemplo.net/live", peertube)?.tipo === "link");
 conferir("http e lixo são recusados", enderecoAberto("http://video.exemplo.org/w/abc", peertube) === null && enderecoAberto("javascript:alert(1)", peertube) === null && enderecoAberto("", peertube) === null);

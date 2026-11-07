@@ -74,7 +74,7 @@ export default async function Podcasts({ params }: PageProps<"/[lang]/podcasts">
       )}
 
       <div className="mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8">
-        <PodcastAoVivo className="my-10" />
+        <PodcastAoVivo s={t.podcast.aoVivo} className="my-10" />
       </div>
 
       <div className="pont border-b-[3px] border-ink">

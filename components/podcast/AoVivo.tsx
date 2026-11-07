@@ -11,21 +11,23 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useId, useState } from "react";
 import { fill } from "@/i18n/config";
+import type { Dict } from "@/i18n/types";
 import { errorText } from "@/i18n/core";
 import { PEERTUBE_DOMINIOS } from "@/lib/aula-sala";
 import { BackendError, hasBackend, rpc } from "@/lib/backend";
 import { enderecoAberto, type EstadoAoVivo, LIMITE_DIRETO, type Modo } from "@/lib/podcast-ao-vivo";
 import { TocadorPeerTube } from "../aovivo/TocadorPeerTube";
 import { useI18n } from "../I18n";
+
+/** Os textos do ao vivo (t.podcast.aoVivo): chegam da página, como os de toda seção que não é do núcleo (i18n/core.ts). */
+export type TextosAoVivo = Dict["podcast"]["aoVivo"];
 import { TocadorYoutube } from "../TocadorYoutube";
 
 const Assistir = dynamic(() => import("./AoVivoSala").then((m) => m.Assistir), { ssr: false });
 const Transmitir = dynamic(() => import("./AoVivoSala").then((m) => m.Transmitir), { ssr: false });
 
 /** A transmissão aberta (PeerTube da lista ou YouTube, só depois do clique) ou, de outro endereço, só o link. */
-function Aberta({ endereco, titulo }: { endereco: string; titulo: string }) {
-  const { t } = useI18n();
-  const s = t.podcast.aoVivo;
+function Aberta({ endereco, titulo, s }: { endereco: string; titulo: string; s: TextosAoVivo }) {
   const e = enderecoAberto(endereco, PEERTUBE_DOMINIOS);
   if (!e) return null;
   if (e.tipo === "peertube") return <TocadorPeerTube url={e.url} titulo={titulo} aoVivo />;
@@ -40,9 +42,8 @@ function Aberta({ endereco, titulo }: { endereco: string; titulo: string }) {
 }
 
 /** O formulário de quem faz o podcast: título, modo, endereço e a confirmação do consentimento de quem aparece. */
-function Estudio({ aoComecar }: { aoComecar: () => void }) {
+function Estudio({ aoComecar, s }: { aoComecar: () => void; s: TextosAoVivo }) {
   const { t } = useI18n();
-  const s = t.podcast.aoVivo;
   const id = useId();
   const [titulo, setTitulo] = useState("");
   const [modo, setModo] = useState<Modo>("navegador");
@@ -110,9 +111,8 @@ function Estudio({ aoComecar }: { aoComecar: () => void }) {
  * O bloco do ao vivo. Fora do ar e para quem não faz o podcast, não aparece (nem ocupa espaço). Sem banco configurado,
  * também não.
  */
-export function PodcastAoVivo({ className = "mt-12" }: { className?: string }) {
+export function PodcastAoVivo({ s, className = "mt-12" }: { s: TextosAoVivo; className?: string }) {
   const { t } = useI18n();
-  const s = t.podcast.aoVivo;
   const [estado, setEstado] = useState<EstadoAoVivo | null>(null);
   const [assistindo, setAssistindo] = useState(false);
   const [aviso, setAviso] = useState("");
@@ -147,7 +147,7 @@ export function PodcastAoVivo({ className = "mt-12" }: { className?: string }) {
   const reserva = estado.endereco ? (
     <div className="space-y-2">
       <p className="font-sans text-sm font-semibold">{s.lotadoLink}</p>
-      <Aberta endereco={estado.endereco} titulo={titulo} />
+      <Aberta endereco={estado.endereco} titulo={titulo} s={s} />
     </div>
   ) : null;
 
@@ -172,16 +172,16 @@ export function PodcastAoVivo({ className = "mt-12" }: { className?: string }) {
           <p className="max-w-3xl font-sans text-xs text-[#d9ccac]">{s.aviso}</p>
           {estado.modo === "navegador" && estado.sala ? (
             estado.minha && estado.pode ? (
-              <Transmitir sala={estado.sala} aoEncerrar={() => void ler()} />
+              <Transmitir s={s} sala={estado.sala} aoEncerrar={() => void ler()} />
             ) : assistindo ? (
-              <Assistir sala={estado.sala} chaves={estado.chaves ?? []} reserva={reserva} aoSair={() => setAssistindo(false)} />
+              <Assistir s={s} sala={estado.sala} chaves={estado.chaves ?? []} reserva={reserva} aoSair={() => setAssistindo(false)} />
             ) : (
               <button type="button" onClick={() => setAssistindo(true)} className="min-h-11 cursor-pointer bg-[#c21f16] px-6 py-3 font-sans font-bold text-white hover:bg-[#a51810]">
                 ▶ {s.assistir}
               </button>
             )
           ) : estado.endereco ? (
-            <Aberta endereco={estado.endereco} titulo={titulo} />
+            <Aberta endereco={estado.endereco} titulo={titulo} s={s} />
           ) : null}
           {estado.modo === "link" && estado.minha && (
             <p className="font-sans text-sm">
@@ -198,7 +198,7 @@ export function PodcastAoVivo({ className = "mt-12" }: { className?: string }) {
         <>
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#d4a24c]">{s.rotulo}</p>
           <h2 id="podcast-ao-vivo" className="sr-only">{s.titulo}</h2>
-          <Estudio aoComecar={() => void ler()} />
+          <Estudio s={s} aoComecar={() => void ler()} />
         </>
       )}
     </section>
