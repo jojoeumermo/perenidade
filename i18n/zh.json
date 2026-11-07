@@ -175,6 +175,76 @@
     "quimicaLead": "酸碱滴定（真实计算的 pH 曲线和四种指示剂）、烧杯中的稀释，以及家中物品的 pH 标尺，附紫甘蓝指示剂。",
     "modelos": "模型实验室",
     "modelosLead": "概率、误导性图表、隔离、合作、财富、流行病、捕食者与猎物、轨道、波、元胞自动机、正则表达式，以及把手机当作仪器：预测、运行、比较、解释。",
+    "mapa": {
+      "porFinalidade": "按用途",
+      "porDisciplina": "按学科",
+      "comoAchar": "每个实验室都写明了用途、适合谁、在哪个学科和课程中有帮助，以及它在哪里。可以按你想做的事或正在学习的学科来选。",
+      "serve": "用途",
+      "quem": "适合谁",
+      "onde": "位置",
+      "ajudaEm": "帮助的学科",
+      "aulas": "有帮助的课程",
+      "abrir": "打开",
+      "ondeSite": "就在本站，有独立页面",
+      "ondeFora": "外部实验室：只有在你打开时才加载",
+      "ondeAula": "在课程里，正文之中",
+      "nenhumaAula": "适用于整个学科；暂未关联具体课程。",
+      "daAula": "本课的实验室",
+      "nestaAula": "本课使用",
+      "daDisciplina": "本学科",
+      "todos": "全部实验室（按用途）",
+      "maisAulas": "还有 {n} 课",
+      "outrosLugares": "其他练习的地方",
+      "ferramentas": "工具",
+      "ferramentasServe": "上课时可用的计算器、换算器、表格和快速练习。",
+      "estudio": "练习工作室",
+      "estudioServe": "练习代码、写作和习题的编辑器，作品保存在你的设备上。",
+      "jogos": "游戏",
+      "jogosServe": "通过游戏学习历史、政治和各学科，可单人也可小组。",
+      "externosTodos": "查看全部外部实验室（含许可和署名）",
+      "finalidades": {
+        "programar": {
+          "titulo": "编程",
+          "serve": "写代码、运行，并逐行看到发生了什么。"
+        },
+        "computador-e-rede": {
+          "titulo": "电脑、终端和网络",
+          "serve": "使用终端，理解机器如何在网络中通信。"
+        },
+        "seguranca": {
+          "titulo": "数字安全",
+          "serve": "练习防御、理解攻击、安全地处理数据。"
+        },
+        "eletrica-e-conserto": {
+          "titulo": "电工、电子与维修",
+          "serve": "测量、接线、组装和维修，没有触电或烧坏零件的风险。"
+        },
+        "ciencias": {
+          "titulo": "动手做科学",
+          "serve": "做学校常常没有条件做的物理、化学、生物和环境实验。"
+        },
+        "dados-e-modelos": {
+          "titulo": "数学、数据与模型",
+          "serve": "画图、运行模型，在相信一个想法之前先用数字检验。"
+        },
+        "sociedade-e-historia": {
+          "titulo": "社会与历史",
+          "serve": "看个人选择如何变成社会现象，以及世界在地图上如何变化。"
+        },
+        "ia": {
+          "titulo": "人工智能",
+          "serve": "训练真实的模型，理解人工智能做什么、哪里出错、偏见从哪里来。"
+        },
+        "criar": {
+          "titulo": "写作、整理与创作",
+          "serve": "文档、表格、演示和宣传设计，无需付费软件。"
+        },
+        "musica": {
+          "titulo": "音乐",
+          "serve": "聆听、作曲、看见声音，不用识谱。"
+        }
+      }
+    },
     "jogos": {
       "title": "培训游戏",
       "card": "Rumos(历史、哲学与政治中的抉择)、罢工!、斗争时间线和谁说的?:玩也是学习。",
