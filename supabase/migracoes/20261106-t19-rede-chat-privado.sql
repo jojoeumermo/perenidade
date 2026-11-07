@@ -336,6 +336,10 @@ begin
   return jsonb_build_object(
     'versao', c.versao,
     'versao_em', c.versao_em,
+    -- A versão atual foi embrulhada para a chave ATUAL de cada participante? Se não (alguém trocou de aparelho), o aparelho
+    -- de quem abre faz uma versão nova. Só um sim/não: o embrulho do outro nunca sai.
+    'atual_ok', c.versao > 0 and (select count(*) from rede_dm_embrulhos e join rede_dm_chaves k on k.usuario = e.para and k.versao = e.chave_versao
+      where e.conversa = c.id and e.versao = c.versao) = 2,
     'participantes', coalesce((select jsonb_agg(jsonb_build_object('usuario', k.usuario, 'identidade', k.identidade, 'publica', k.publica,
       'certificado', k.certificado, 'versao', k.versao)) from rede_dm_chaves k where k.usuario in (c.a, c.b)), '[]'::jsonb),
     'embrulhos', coalesce((select jsonb_agg(jsonb_build_object('versao', e.versao, 'chave_versao', e.chave_versao, 'embrulho', e.embrulho,
