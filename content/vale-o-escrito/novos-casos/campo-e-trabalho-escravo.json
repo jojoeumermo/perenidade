@@ -1075,7 +1075,7 @@
         "Pará",
         "mandante"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação confirmada em 2ª instância e no STJ, mas o STF (2019) fala em execução provisória: sem trânsito na fonte lida, por isso 'condenado em 1ª instância' (o modelo não tem 2ª instância). O título da fonte nomeia a missionária; a ficha não a nomeia (regra: nunca nome de quem morreu). Os outros condenados (executor, intermediários e outro mandante) estão em reportagens; achar fonte oficial antes de acrescentar."
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Condenação confirmada em 2ª instância e no STJ, mas o STF (2019) fala em execução provisória: sem trânsito na fonte lida, por isso 'condenado em 1ª instância' (o modelo não tem 2ª instância). No título da fonte o nome foi trocado por [nome omitido]; a ficha não nomeia quem morreu (regra da frente). Os outros condenados (executor, intermediários e outro mandante) estão em reportagens; achar fonte oficial antes de acrescentar."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1141,7 +1141,7 @@
         "Bahia",
         "júri"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A ficha não nomeia quem morreu (os títulos das fontes nomeiam). As penas de abril de 2026 divergem entre veículos (CNN dá 40 anos ao executor; outros invertem): conferir na sentença ou com o MPBA. Um terceiro condenado em abril morreu depois do julgamento, segundo a imprensa: não virou nó. O motivo apontado pela polícia envolve tráfico na região: a curadoria decide se o dossiê 'conflitos-no-campo' (tema quilombo) é o melhor lugar."
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). A ficha não nomeia quem morreu: nos títulos das fontes o nome foi trocado por [nome omitido] (o título original o traz). As penas de abril de 2026 divergem entre veículos (CNN dá 40 anos ao executor; outros invertem): conferir na sentença ou com o MPBA. Um terceiro condenado em abril morreu depois do julgamento, segundo a imprensa: não virou nó. O motivo apontado pela polícia envolve tráfico na região: a curadoria decide se o dossiê 'conflitos-no-campo' (tema quilombo) é o melhor lugar."
     },
     {
       "publicadoEm": "2026-11-07",
@@ -1226,7 +1226,7 @@
         "Amazonas",
         "grilagem"
       ],
-      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A ficha não nomeia o líder morto (a fonte nomeia). Sem investigados nomeados."
+      "notaDaCuradoria": "Pesquisado e conferido por agente (frente T12, 07/11/2026): fonte oficial e situação jurídica lidas na página; aguarda a curadoria humana e o arquivo no Internet Archive (feito na aprovação). Página do STJ montada por JavaScript: trecho lido por WebFetch. A ficha não nomeia o líder morto (a página do STJ nomeia). Sem investigados nomeados."
     },
     {
       "publicadoEm": "2026-11-07",

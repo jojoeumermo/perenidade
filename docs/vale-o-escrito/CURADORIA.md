@@ -35,6 +35,16 @@ papel de novo em cada função (`interno.curador()`).
 entrada com `regras.ts` e grava `content/vale-o-escrito/entradas/<slug>.json`. Sai com código 1 se barrou alguma entrada e 2 se não leu.
 Rodar `node scripts/conferir-rastreio.mjs` depois de leituras novas de disco no site (este script não roda no site).
 
+## Casos em lote (novos-casos)
+
+Casos pesquisados em lote ficam em `content/vale-o-escrito/novos-casos/<recorte>.json` (formato de `ArquivoDeEntradas`, com entradas de
+qualquer dossiê), todos com `revisao: "pendente-curadoria"` e `notaDaCuradoria` dizendo o que conferir. Nada ali é publicado.
+`npm run vale-o-escrito:importar` confere cada caso com `conferirDoc` e com a decisão da coordenação (05/11/2026: fonte oficial e
+situação jurídica de cada pessoa) e lista duplicatas (mesmo id ou mesmo link de fonte, sem âncora). `-- --fila` manda cada caso para
+`vale_fila_criar` (precisa de `VALE_CURADOR_TOKEN`, o token de acesso de quem tem papel curadoria ou coordenacao, além das duas variáveis
+públicas do Supabase); `-- --gravar` grava os pendentes nos arquivos de `entradas/` (ver o aviso no topo do script). O teste
+`testar:vale-o-escrito` confere os arquivos de novos casos.
+
 ## Pendências
 
 - SQL novo não executado em Postgres (sem Postgres no ambiente). Rodar em projeto de teste.
