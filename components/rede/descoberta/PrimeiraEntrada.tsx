@@ -82,7 +82,16 @@ export function PrimeiraEntrada({
   const entrar = () =>
     rodar(async () => {
       const nova = await rede.aderir(true, estado.regras_versao);
-      if (!nova.codinome_ok) await chamar("rede_codinome_definir", { p_codinome: nome.trim() });
+      if (!nova.codinome_ok) {
+        try {
+          await chamar("rede_codinome_definir", { p_codinome: nome.trim() });
+        } catch (x) {
+          // O consentimento e os 18+ já foram gravados: se só o codinome falhar (em uso, curto demais), a pessoa tenta outro
+          // na tela do codinome, sem repetir as caixas.
+          setFase("codinome");
+          throw x;
+        }
+      }
       setFase("depois");
     });
 
