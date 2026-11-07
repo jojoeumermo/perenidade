@@ -10,6 +10,7 @@
     "nucleos": "学习小组",
     "avisos": "通知",
     "salvos": "已保存",
+    "conversas": "私信",
     "perfil": "个人资料",
     "escrever": "写帖子",
     "busca": "搜索",
@@ -149,6 +150,7 @@
   },
   "perfil": {
     "trancado": "锁定的个人资料：关注需要批准。",
+    "conversar": "私信",
     "equipe": "研究所团队",
     "semContagens": "不公开显示关注者或支持数量。"
   },

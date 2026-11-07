@@ -55,6 +55,7 @@
     "testar:painel-fundacao": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-painel-fundacao.mjs",
     "testar:painel-confirms": "node scripts/testar-painel-confirms.mjs",
     "testar:controles": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-controles.mjs",
+    "testar:rede-chat": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-rede-chat.mjs",
     "testar:sigilo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-sigilo.mjs",
     "testar:progresso-qr": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-progresso-qr.mjs",
     "testar:mensagens": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-mensagens.mjs",
