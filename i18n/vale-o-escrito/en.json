@@ -397,5 +397,46 @@
     },
     "barra": "Legal status of published cases",
     "rodape": "Source, date and excerpt on every record. Living web: each point is a record, each line a sourced link."
+  },
+  "leituras": {
+    "titulo": "Reading dossiers",
+    "explica": "Entry points by theme: each dossier gathers cases already published, lights only them in the views and opens the reading sheet.",
+    "nCasos": "{n} cases",
+    "abrir": "Open dossier",
+    "fechar": "Close dossier",
+    "papel": "Reading sheet",
+    "verNaTeia": "See the record",
+    "casoCompleto": "Open full case",
+    "fontes": "{n} sources",
+    "itens": {
+      "barragens": {
+        "titulo": "Dams",
+        "descricao": "The Fundão (Mariana) and Córrego do Feijão (Brumadinho) dam collapses: the criminal cases, who answers and in what status, according to the MPF and the courts."
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "Mining and the Yanomami",
+        "descricao": "From the Haximu massacre to the financing of illegal mining in Roraima: what courts have decided and what is still under investigation."
+      },
+      "chacinas-do-campo": {
+        "titulo": "Rural massacres",
+        "descricao": "Eldorado dos Carajás, Pau d'Arco and Unaí: killings in rural conflicts and the path of each case."
+      },
+      "violencia-policial": {
+        "titulo": "Police violence",
+        "descricao": "Carandiru, massacres in Pará, the death in a PRF vehicle in Umbaúba and the operation in Alemão and Penha, with the legal status of each case."
+      },
+      "trabalho-escravo": {
+        "titulo": "Slave labour",
+        "descricao": "Rescues, convictions and the killing of labour inspectors in Unaí: cases of slavery-like labour already on the public record."
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "Public money and amendments",
+        "descricao": "Mensalão, INSS deductions and the secret budget: amounts written in the sources and the status of each investigation or case."
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "Invaded Indigenous lands",
+        "descricao": "Mining, illegal logging, deforestation and killings in Indigenous lands, according to the MPF, the STF and the press."
+      }
+    }
   }
 }
