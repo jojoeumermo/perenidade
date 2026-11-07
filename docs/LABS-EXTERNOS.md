@@ -44,6 +44,37 @@ fora usam `sandbox` e `referrerPolicy="no-referrer"`; os hosts liberados no `fra
   office@geogebra.org o uso incorporado, educacional e sem fins comerciais.
 - **Inventados/inexistentes:** nenhum dos itens do plano deixou de existir, exceto o Anatomy Atelier (domínio estacionado).
 
+## Organização de todos os laboratórios (NOVAS TAREFAS, T21, 07/11/2026)
+
+O Jonathan achou a página de fora "um aglomerado de ferramentas sem destino". Agora todo laboratório do site, os de fora e os
+simuladores que vivem dentro das aulas estão num mapa só: `lib/mapa-dos-laboratorios.ts`. Nenhum laboratório saiu.
+
+Cada item do mapa diz:
+
+- **serve para** (uma frase) e **para quem** (uma frase), em português e inglês (os outros idiomas mostram o inglês);
+- a **finalidade** (o tipo de atividade): Programar · Computador, terminal e rede · Segurança digital · Elétrica, eletrônica e conserto ·
+  Experimentar ciência · Matemática, dados e modelos · Sociedade e história · Inteligência artificial · Escrever, organizar e criar · Música;
+- as **disciplinas** (`/estantes/<area>`) em que ajuda e as **aulas** (`trilha/aula`) que o usam;
+- **onde fica**: página própria do site (`/laboratorios/<id>`), de fora (cartão em `/laboratorios/externos#<id>`, carrega só ao abrir) ou
+  dentro da aula (bloco ` ```simulador `: execução passo a passo, circuito, lâmpadas, instalação).
+
+Onde aparece:
+
+| Lugar | O que mostra |
+|---|---|
+| `/laboratorios` | Todos, agrupados por finalidade (cartão com serve para, para quem, onde fica, disciplinas e aulas) e, abaixo, o índice por disciplina; no fim, Ferramentas, Estúdio de prática e Jogos com uma frase de "serve para". |
+| `/laboratorios/externos` | Os de fora agrupados pela mesma finalidade, cada cartão com serve para, para quem, disciplinas e aulas; a nota de privacidade uma vez só no fim. |
+| Alto de cada laboratório do site | Faixa "Serve para / Para quem / Ajuda em / Aulas em que ajuda", com volta ao mapa (`SobreOLaboratorio`). |
+| Fim de cada aula | "Laboratórios para esta aula": primeiro os que citam a aula, depois até 4 da disciplina (`LabsDaAula`; some no modo leve, na impressão e no pacote). |
+| Página da disciplina (`/estantes/<area>`) | Linha "Laboratórios" com os que ajudam nela, ao lado das ferramentas. |
+
+Tudo é renderizado no servidor: nenhum JavaScript a mais vai para o navegador e nada de fora carrega antes do clique.
+
+**Para acrescentar um laboratório:** crie a entrada no mapa (id, morada, finalidade, rota, selo, disciplinas, aulas, textos pt/en). O teste
+`npm run testar:mapa-dos-laboratorios` falha se uma página em `app/[lang]/laboratorios/`, um item do `catalogo.json` ou um tipo de
+simulador de aula ficar fora do mapa, se uma aula citada não existir, se uma aula com ` ```simulador ` não estiver listada, ou se faltar
+texto da interface (`labs.mapa`) em algum idioma.
+
 ## Pendências
 
 1. Tradução de Parable of the Polygons para o português (o projeto tem `translator/`); hoje em inglês.
@@ -52,3 +83,4 @@ fora usam `sandbox` e `referrerPolicy="no-referrer"`; os hosts liberados no `fra
 3. Chrome Music Lab: compilar os experimentos que não usam `unsafe-eval` (ou aceitar só o link).
 4. Textos de descrição em es/fr/ru/zh: só interface traduzida (rascunho); descrições aparecem em inglês.
 5. Mais dados do Our World in Data (cada gráfico com a série conferida e a licença da fonte original).
+6. Textos "serve para" e "para quem" do mapa dos laboratórios (T21) em es/fr/ru/zh: hoje aparecem em inglês.
