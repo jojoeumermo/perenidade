@@ -4,6 +4,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { KEYS, notifyStored, useStored } from "./storage";
+import { estadoDoPublico, perguntarAoPublico } from "./assistente/publico";
 
 // Contas, fila de contribuições, comunidade e rádio dependem de um serviço externo opcional.
 // Sem as duas variáveis abaixo o site funciona normalmente e essas partes ficam escondidas.
@@ -291,11 +292,18 @@ export async function recoverPending(): Promise<boolean> {
 export function useAssistantOn(active = true): boolean {
   const [on, setOn] = useState(false);
   useEffect(() => {
-    if (!hasBackend || !active) return;
     let cancelled = false;
+    // T03: o assistente aberto a todo o site (sem conta, IAs gratuitas, app/api/assistente) também conta como ligado.
+    // Ele não depende de `active` (que só evita a consulta ao banco de quem nem entrou na conta).
+    void estadoDoPublico().then((publico) => {
+      if (!cancelled && publico.ligado) setOn(true);
+    });
+    if (!hasBackend || !active) return () => {
+      cancelled = true;
+    };
     rpc<{ ligado?: boolean } | null>("assistente_estado")
       .then((state) => {
-        if (!cancelled) setOn(state?.ligado === true);
+        if (!cancelled && state?.ligado === true) setOn(true);
       })
       .catch(() => {});
     return () => {
@@ -323,7 +331,7 @@ export interface AssistantRequest {
 }
 
 export type AssistantResult =
-  | { ok: true; texto: string; cortada: boolean; transcricao: string; conta: string; restantes: number | null }
+  | { ok: true; texto: string; cortada: boolean; transcricao: string; conta: string; restantes: number | null; restantesHora?: number | null }
   | { ok: false; recusa: boolean; erro: string };
 
 /**
@@ -331,6 +339,22 @@ export type AssistantResult =
  * inteligência artificial de outra empresa; o site não guarda nada disso. O banco só conta quantas perguntas a pessoa fez.
  */
 export async function askAssistant(request: AssistantRequest): Promise<AssistantResult> {
+  // Sem o serviço de contas nesta montagem, vai direto ao assistente aberto (se ligado).
+  if (!hasBackend) return (await estadoDoPublico()).ligado ? perguntarAoPublico(request) : { ok: false, recusa: false, erro: "assistente_desligado" };
+  const daConta = await askAccountAssistant(request);
+  if (daConta.ok || daConta.recusa || !CAI_NO_ABERTO.has(daConta.erro.split(":")[0])) return daConta;
+  // T03: sem conta, com o assistente da conta desligado, sem vaga ou fora do ar, a pergunta vai ao assistente aberto
+  // (app/api/assistente: IAs gratuitas, limite por pessoa sem guardar o IP). Desligado também, fica o erro da conta.
+  if (!(await estadoDoPublico()).ligado) return daConta;
+  return perguntarAoPublico(request);
+}
+
+/** Os erros da função da conta que passam a pergunta ao assistente aberto. "area_interditada" e "envios_pausados" não:
+ * são decisões da coordenação, valem para os dois. */
+const CAI_NO_ABERTO = new Set(["entre_primeiro", "assistente_desligado", "assistente_indisponivel", "assistente_falhou", "assistente_lotado", "assistente_limite", "falha", "sem_servico"]);
+
+/** O caminho de antes: a função "assistente" do serviço de contas, com a sessão de quem pergunta. */
+async function askAccountAssistant(request: AssistantRequest): Promise<AssistantResult> {
   try {
     const supabase = await getClient();
     const { data } = await supabase.auth.getSession();
