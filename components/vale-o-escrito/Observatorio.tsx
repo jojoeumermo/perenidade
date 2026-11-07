@@ -382,6 +382,8 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
               </ul>
             </nav>
             <div className="ve-esq-links">
+              <Link href={localePath(lang, "/vale-o-escrito/arsenal")}>{s.arsenal.titulo} →</Link>
+              <Link href={localePath(lang, "/vale-o-escrito/sobre")}>{s.navegacao.sobre} →</Link>
               <Link href={localePath(lang, "/vale-o-escrito/enviar")}>{s.ficha.enviarFonte} →</Link>
             </div>
           </aside>

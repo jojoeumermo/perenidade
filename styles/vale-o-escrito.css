@@ -2532,3 +2532,73 @@
   padding: 0;
   list-style: none;
 }
+
+/* ── T31 3.5/3.7: o catálogo "Arsenal" (casos, eventos, documentos, relações) ───────────────────────────────── */
+.ve-pagina-larga {
+  max-width: 1120px;
+}
+.ve-arsenal {
+  display: grid;
+  gap: 14px;
+}
+.ve-arsenal-filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: end;
+  gap: 10px 14px;
+}
+.ve-arsenal-busca {
+  grid-column: 1 / -1;
+}
+.ve-arsenal-abas {
+  justify-content: flex-start;
+  border: 1px solid var(--ve-linha);
+}
+.ve-arsenal-painel {
+  display: grid;
+  gap: 10px;
+}
+.ve-arsenal-lista {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ve-arsenal-lista > li {
+  display: grid;
+  gap: 6px;
+  padding: 12px 0 12px 14px;
+  border-bottom: 1px solid var(--ve-linha);
+  border-left: 2px solid var(--ve-linha-forte);
+}
+.ve-doc .ve-arsenal-lista h2 {
+  margin: 0 !important;
+  font-size: 1.3rem !important;
+  text-transform: none;
+}
+.ve-arsenal-lista h2 {
+  margin: 0;
+  font-family: var(--ve-display);
+  font-size: 1.3rem;
+  line-height: 1.15;
+  text-transform: none;
+}
+.ve-arsenal-lista h2 a {
+  color: var(--ve-texto);
+  text-decoration: none;
+}
+.ve-arsenal-lista h2 a:hover,
+.ve-arsenal-lista h2 a:focus-visible {
+  text-decoration: underline;
+}
+.ve-arsenal-lista p,
+.ve-arsenal-lista blockquote {
+  margin: 0;
+}
+.ve-arsenal-eventos > li[data-evento="valor"] .ve-codigo {
+  color: var(--ve-ambar);
+}
+.ve-arsenal-eventos > li[data-evento="mudanca"] .ve-codigo {
+  color: var(--ve-verde);
+}
