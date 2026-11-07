@@ -47,6 +47,14 @@ export function PainelDoAssistente({ textos: s, aberto, fechar }: { textos: Text
     if (aberto) campo.current?.focus();
   }, [aberto, publico]);
 
+  // O aviso de "pensando", o erro e a resposta nova ficam à vista dentro da janela (que rola por dentro).
+  const aviso = useRef<HTMLDivElement>(null);
+  const topoDaResposta = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (estado.fase === "resposta") topoDaResposta.current?.scrollIntoView({ block: "start" });
+    else if (estado.fase !== "parado") aviso.current?.scrollIntoView({ block: "nearest" });
+  }, [estado]);
+
   const curta = pergunta.trim().length < 10;
 
   async function perguntar(e: React.FormEvent) {
@@ -71,7 +79,7 @@ export function PainelDoAssistente({ textos: s, aberto, fechar }: { textos: Text
       role="dialog"
       aria-modal="false"
       aria-labelledby={tituloId}
-      className="assistente-janela absolute bottom-14 left-0 flex max-h-[min(78vh,40rem)] w-[min(24rem,calc(100vw-1.5rem))] flex-col border-2 border-ink bg-folha text-ink shadow-[6px_6px_0_var(--sombra)]"
+      className="assistente-janela absolute bottom-14 left-0 flex max-h-[max(16rem,min(calc(100dvh-19rem),40rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col border-2 border-ink bg-folha text-ink shadow-[6px_6px_0_var(--sombra)]"
     >
       <header className="flex items-start justify-between gap-3 border-b border-rule px-4 py-3">
         <div>
@@ -101,7 +109,7 @@ export function PainelDoAssistente({ textos: s, aberto, fechar }: { textos: Text
             </div>
 
             {estado.fase === "resposta" && (
-              <div className="mt-4">
+              <div ref={topoDaResposta} className="mt-4">
                 <p className="font-mono text-xs uppercase tracking-widest text-ink-soft">{s.suaPergunta}</p>
                 <p className="mt-1 whitespace-pre-wrap text-sm">{estado.pergunta}</p>
                 <section aria-label={s.resposta} className="mt-3 border-l-4 border-gold bg-parchment-deep px-3 py-2">
@@ -147,7 +155,7 @@ export function PainelDoAssistente({ textos: s, aberto, fechar }: { textos: Text
             </form>
           </>
         )}
-        <div role="status" aria-live="polite" className="text-sm">
+        <div ref={aviso} role="status" aria-live="polite" className="text-sm">
           {estado.fase === "pensando" && <p className="mt-2 text-ink-soft">{s.pensando}</p>}
           {estado.fase === "erro" && <p className="mt-2 text-oxblood">{estado.texto}</p>}
         </div>

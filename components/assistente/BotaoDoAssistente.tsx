@@ -35,7 +35,7 @@ export function BotaoDoAssistente({ textos }: { textos: TextosDoAssistente }) {
   }, [aberto, fechar]);
 
   return (
-    <div className="assistente-flutua no-print fixed bottom-[calc(8.25rem+var(--recuo-baixo,0px))] left-3 z-30 font-sans text-sm md:bottom-20 md:left-6">
+    <div className={`assistente-flutua no-print fixed bottom-[calc(8.25rem+var(--recuo-baixo,0px))] left-3 ${aberto ? "z-50" : "z-30"} font-sans text-sm md:bottom-20 md:left-6`}>
       {usado && (
         <div hidden={!aberto}>
           <PainelDoAssistente textos={textos} aberto={aberto} fechar={fechar} />
