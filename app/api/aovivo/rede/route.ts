@@ -2,7 +2,7 @@
 //
 // Aulas ao vivo: as credenciais do servidor de retransmissão (TURN da Cloudflare). Com elas o vídeo passa pelo servidor
 // e ninguém na sala (nem quem conduz) vê o endereço de rede de quem assiste. Só para aula que existe e está marcada ou no
-// ar, e por poucas horas. Sem as chaves (CLOUDFLARE_TURN_KEY_ID, CLOUDFLARE_TURN_TOKEN, CLOUDFLARE_ACCOUNT_ID e
+// ar (ou para a sala do podcast ao vivo que está no ar), e por poucas horas. Sem as chaves (CLOUDFLARE_TURN_KEY_ID, CLOUDFLARE_TURN_TOKEN, CLOUDFLARE_ACCOUNT_ID e
 // CLOUDFLARE_ANALYTICS_TOKEN, na Vercel), ou passado o teto de gasto (abaixo), responde vazio e a
 // sala segue como antes (ligação direta entre os navegadores).
 import { rpcNoBanco } from "@/lib/instagram";
@@ -57,10 +57,20 @@ export async function GET(pedido: Request) {
   const chave = process.env.CLOUDFLARE_TURN_KEY_ID ?? "";
   const token = process.env.CLOUDFLARE_TURN_TOKEN ?? "";
   if (!/^[a-f0-9]{32}$/i.test(chave) || !token) return vazio();
-  const aula = new URL(pedido.url).searchParams.get("aula") ?? "";
-  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(aula)) return Response.json({ erro: "aula" }, { status: 400, headers: semGuardar });
-  const dados = await rpcNoBanco<{ status?: string } | null>("aula_ao_vivo_ver", { p_id: aula });
-  if (!dados.ok || !dados.dados || !["agendada", "ao_vivo"].includes(dados.dados.status ?? "")) return Response.json({ erro: "aula" }, { status: 404, headers: semGuardar });
+  const busca = new URL(pedido.url).searchParams;
+  const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  // Podcast ao vivo (T17; docs/PODCAST-AO-VIVO.md): a mesma retransmissão, só para a sala da transmissão que está no ar.
+  const podcast = busca.get("podcast");
+  if (podcast !== null) {
+    if (!uuid.test(podcast)) return Response.json({ erro: "podcast" }, { status: 400, headers: semGuardar });
+    const vivo = await rpcNoBanco<{ no_ar?: boolean; modo?: string; sala?: string } | null>("podcast_ao_vivo_estado", {});
+    if (!vivo.ok || !vivo.dados?.no_ar || vivo.dados.modo !== "navegador" || vivo.dados.sala !== podcast) return Response.json({ erro: "podcast" }, { status: 404, headers: semGuardar });
+  } else {
+    const aula = busca.get("aula") ?? "";
+    if (!uuid.test(aula)) return Response.json({ erro: "aula" }, { status: 400, headers: semGuardar });
+    const dados = await rpcNoBanco<{ status?: string } | null>("aula_ao_vivo_ver", { p_id: aula });
+    if (!dados.ok || !dados.dados || !["agendada", "ao_vivo"].includes(dados.dados.status ?? "")) return Response.json({ erro: "aula" }, { status: 404, headers: semGuardar });
+  }
   if (!(await dentroDoTeto(chave))) return vazio();
   try {
     const resposta = await fetch(`https://rtc.live.cloudflare.com/v1/turn/keys/${chave}/credentials/generate-ice-servers`, {
