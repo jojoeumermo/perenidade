@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { aparelhoFraco } from "./desempenho";
 
 /**
  * O fundo vivo da moldura do Vale o Escrito: o canvas fica atrás de tudo (fixo, sem receber clique) e o código da rede
@@ -23,7 +24,7 @@ export function FundoVivo() {
     const comecar = () => {
       import("./redeNeural")
         .then(({ iniciarRede }) => {
-          if (!cancelado && tela.current) parar = iniciarRede(tela.current, { calmo });
+          if (!cancelado && tela.current) parar = iniciarRede(tela.current, { calmo, leve: aparelhoFraco() });
         })
         .catch(() => {
           // sem o fundo, a página continua igual
