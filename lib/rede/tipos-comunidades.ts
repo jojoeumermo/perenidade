@@ -17,6 +17,14 @@ export interface ItemDaLista {
   icone: string;
   cor: string;
   situacao: SituacaoNaComunidade;
+  /** T32: visitante vê das lutas e do Instituto só uma amostra (nome, descrição e regras), sem posts nem contagens. */
+  amostra?: boolean;
+  /** Posts da última semana (agregado, sem nome). Nulo na amostra; ausente antes da migração 20261106-t32-alumia-vitrine.sql. */
+  posts_7d?: number | null;
+  /** Pessoas que escreveram na última semana: só a partir de 3 (abaixo disso, nulo: "poucas"), nunca quem. */
+  pessoas_7d?: number | null;
+  /** As regras, só na amostra para visitante. */
+  regras?: { numero: number; titulo: string; texto: string }[] | null;
 }
 
 /** A página inteira: a comunidade (como `rede_comunidade`), a situação de quem lê, os fixados e, para a moderação, os pedidos. */

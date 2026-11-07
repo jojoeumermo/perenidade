@@ -7,7 +7,27 @@
     "instituto": "Instituto",
     "propor": "Propor uma comunidade",
     "vazio": "Nenhuma comunidade para mostrar.",
-    "turma": "Turma do mês e núcleos"
+    "turma": "Turma do mês e núcleos",
+    "regraOrdem": "Como ordenamos: as com mais posts nesta semana primeiro, depois em ordem alfabética. Sem algoritmo, sem patrocínio.",
+    "buscar": "Buscar comunidade",
+    "filtro": "Mostrar",
+    "todas": "Todas",
+    "soAtivas": "Só as com conversa nesta semana",
+    "semana": "{posts} posts e {pessoas} pessoas nesta semana",
+    "semanaPoucas": "{posts} posts nesta semana, de poucas pessoas",
+    "semanaQuieta": "Quieta nesta semana: puxe a conversa",
+    "amostraSelo": "Prévia",
+    "verRegras": "Ver as regras",
+    "conviteTitulo": "Quer conversar nestas comunidades?",
+    "conviteTexto": "As lutas e o Instituto são só para quem tem conta: aqui você vê o nome, a descrição e as regras. As disciplinas estão abertas para ler.",
+    "conviteBotao": "Criar conta ou entrar",
+    "nenhuma": "Nenhuma comunidade com esse nome.",
+    "privacidade": "Os números são da semana, somados e sem nome: ninguém vê de que comunidade você é.",
+    "tipoCurto": {
+      "aberta": "Aberta",
+      "restrita": "Restrita",
+      "fechada": "Fechada"
+    }
   },
   "tipo": {
     "aberta": "Aberta: quem é da Alumia entra na hora",

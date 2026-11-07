@@ -251,8 +251,13 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
               const lista = x.comunidades.filter((c) => c.categoria === cat);
               if (lista.length === 0) return null;
               return (
-                <div key={cat} className="mt-3">
-                  <h3 className="font-bold">{e.categorias[cat]}</h3>
+                // Seções recolhíveis (T32, item 3): as 77 disciplinas começam fechadas, para as lutas e o Instituto aparecerem.
+                <details key={cat} open={cat !== "disciplinas"} className="group mt-3">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+                    <span aria-hidden className="text-[#c21f16] transition-transform group-open:rotate-90">▸</span>
+                    <h3 className="font-bold">{e.categorias[cat]}</h3>
+                    <span className="rounded-full bg-parchment-deep px-2 text-sm font-bold">{lista.length}</span>
+                  </summary>
                   <ul className="mt-1 grid gap-2 sm:grid-cols-2">
                     {lista.map((c) => (
                       <li key={c.slug} className="rounded-xl border border-rule p-3">
@@ -264,7 +269,7 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
                       </li>
                     ))}
                   </ul>
-                </div>
+                </details>
               );
             })}
           </section>
