@@ -26077,7 +26077,7 @@ revoke all on function interno.convite_funcao_ok(text, text) from public, anon, 
 revoke all on function interno.convite_extras_gatilho() from public, anon, authenticated;
 revoke all on function interno.email_mascarado(text) from public, anon, authenticated;
 
--- ==== supabase/migracoes/20261106-t18-alumia-entrada.sql ====
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 --
 -- T18 (Alumia): a primeira entrada fica curta. O essencial continua obrigatório e gravado como antes, em rede_aderir:
 -- consentimento destacado para dado sensível (LGPD, art. 11, I, com a versão das regras), a declaração de 18 anos ou mais
