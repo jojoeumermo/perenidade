@@ -1,4 +1,4 @@
-# Territórios: NoizOcupa e Coletivo Kamikaze (Etapa 6, B1/B21)
+# Territórios: NoizOcupa, Coletivo Kamikaze, Coletivo Desordem e noismemo studios (Etapa 6, B1/B21; T20)
 
 Páginas novas em `/territorios/noizocupa` e `/territorios/coletivo-kamikaze`, mais a faixa de temas em todos os territórios.
 
@@ -35,6 +35,17 @@ Páginas novas em `/territorios/noizocupa` e `/territorios/coletivo-kamikaze`, m
 - Texto do NoizOcupa: legenda do post do anúncio (instagram.com/p/DfQT6U0uJ2G/) e perfil (instagram.com/noizocupa): coletivo de Itanhaém (SP), "A cultura acontece onde a vida acontece", educação popular gratuita e acessível, Festa das Crianças em 21 de novembro, 13h, Escola de Samba Unidos do Guapurá, apoio por mensagem direta. **Conferir data, ano e endereço com o coletivo antes de divulgar.** A página usa só texto: nenhuma foto de criança.
 - Texto do Kamikaze: perfil (instagram.com/coletivokamikaze): lema "Sonhando sem coleira"; temas audiovisual periférico, olhares negros e LGBTQIAPN+, cultura de favela "para os nossos". A biografia veio cortada ("Núcleo de...") e cidade e pessoas não aparecem no que é público: **o Jonathan deve pedir ao coletivo o texto de apresentação, a cidade e os nomes**.
 - **Identidade visual:** o Instagram bloqueou a leitura visual dos anúncios (do NoizOcupa veio só a legenda; do Kamikaze, nada do post). As cores e letras foram criadas de forma coerente com o que é público, sem copiar arte: NoizOcupa = amarelo de cartaz, azul-noite, laranja, letra grossa, adesivos inclinados; Kamikaze = sala de cinema escura, magenta, fita de filme e marcação de tempo. **Conferir com o anúncio de cada coletivo e ajustar em `lib/territorios-identidades.ts` e nas classes de `PaginaDoColetivo.tsx`.**
+  - **Atualizado em 06/11/2026 (T20):** os perfis foram abertos no Chrome do Jonathan e cada página ganhou o desenho da identidade real do coletivo; o que foi observado está em `docs/territorios/IDENTIDADES.md` (o parágrafo acima fica como registro do primeiro desenho).
+
+## Desenho próprio, logos e coletivos novos (T20, 06/11/2026)
+
+- Quatro páginas com identidade própria, nenhuma repetida: NoizOcupa (vinho, creme e mostarda, cartaz colado), Coletivo Kamikaze (amarelo da logo com verde-bandeira, rosa e azul dos cartazes e letreiro de lâmpadas; antes era só rosa e preto), Coletivo Desordem (`/territorios/coletivo-desordem`, Cubatão: preto, spray amarelo e vermelho, letras tortas) e noismemo studios (`/territorios/noisme-studios`: preto e branco, ficha técnica, a elipse NM).
+- A abertura de cada página mostra a **logo** do coletivo (campo `logo` em `content/territorios.json`, arquivo `public/territorios/<slug>/logo.webp`, crédito "Logo cedida pelo coletivo"). O cartaz da festa do NoizOcupa foi para a agenda. Na lista `/territorios`, os coletivos com logo aparecem pela logo.
+- As logos são a foto de perfil do Instagram (150 px ampliada): **pedir a cada coletivo o arquivo original**.
+- Os textos dos vídeos do NoizOcupa e do Kamikaze foram reescritos curtos, com o que os coletivos postaram (data, lugar, como apoiar), sem narração.
+- Desordem e noismemo têm só o que está público no perfil; **pedir a cada um o texto de apresentação, quem faz parte e os trabalhos**. Ainda não há vídeo de anúncio deles.
+- Contraste AA conferido pelo teste para `tinta`, `papel`, `rotulo`, `botaoTexto` e todas as cores de `acentos`.
+
 - Grafia: "NoizOcupa" (N e O maiúsculos, junto). O nome aparece sem `uppercase` no CSS para não virar "NOIZOCUPA".
 
 ## Lei (conferida em planalto.gov.br)
