@@ -5,7 +5,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { lerTudo } from "../lib/vale-o-escrito/dados.ts";
-import { normalizar, validarEntrada, validarValores, valorDoEscrito } from "../lib/vale-o-escrito/regras.ts";
+import { DOSSIES_DE_LEITURA, entradasDaLeitura } from "../lib/vale-o-escrito/leituras.ts";
+import { mencionaPapelProibido, normalizar, validarEntrada, validarValores, valorDoEscrito } from "../lib/vale-o-escrito/regras.ts";
 import { TIPOS_DE_VALOR } from "../lib/vale-o-escrito/tipos.ts";
 import { formatarReais, somaDocumentada, valoresDaPonta, valoresOrdenados } from "../lib/vale-o-escrito/valores.ts";
 
@@ -102,6 +103,42 @@ caso("ficha e topo mostram os fluxos e o aviso de que valor sob apuração não 
   assert.ok(fichas.includes("FluxosDeDinheiro") && fichas.includes("dinheiro.suposto") && fichas.includes("valoresDaPonta"));
   const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
   assert.ok(obs.includes("somaDocumentada") && obs.includes("dinheiro.explica"));
+});
+
+// ───────────────────────────── Dossiês de leitura ─────────────────────────────
+
+caso("dossiês de leitura: ao menos 6, slugs únicos, cada um com 2+ casos publicados e nenhum caso inventado", () => {
+  assert.ok(DOSSIES_DE_LEITURA.length >= 6);
+  assert.equal(new Set(DOSSIES_DE_LEITURA.map((d) => d.slug)).size, DOSSIES_DE_LEITURA.length);
+  const ids = new Set(publicadas.map((e) => e.id));
+  for (const d of DOSSIES_DE_LEITURA) {
+    for (const id of d.entradas) assert.ok(ids.has(id), `${d.slug}: ${id} não está publicado`);
+    assert.ok(entradasDaLeitura(d.slug, publicadas).length >= 2, d.slug);
+  }
+  for (const s of ["barragens", "garimpo-e-yanomami", "chacinas-do-campo", "violencia-policial", "trabalho-escravo", "dinheiro-publico-e-emendas"])
+    assert.ok(DOSSIES_DE_LEITURA.some((d) => d.slug === s), s);
+});
+caso("entradasDaLeitura: na ordem de leitura, sem pendentes, slug desconhecido vazio", () => {
+  const d = DOSSIES_DE_LEITURA[0];
+  assert.deepEqual(entradasDaLeitura(d.slug, publicadas).map((e) => e.id), [...d.entradas]);
+  assert.deepEqual(entradasDaLeitura("nao-existe", publicadas), []);
+  assert.deepEqual(entradasDaLeitura(d.slug, publicadas.filter((e) => e.id !== d.entradas[0])).map((e) => e.id), d.entradas.slice(1));
+});
+caso("dossiês de leitura: título e descrição nos 6 idiomas, sem vítima, criança ou testemunha", () => {
+  for (const l of idiomas) {
+    for (const k of ["titulo", "explica", "nCasos", "abrir", "fechar", "papel", "verNaTeia", "casoCompleto", "fontes"]) assert.ok(textos[l].leituras[k], `${l} leituras.${k}`);
+    for (const d of DOSSIES_DE_LEITURA) {
+      const t = textos[l].leituras.itens[d.slug];
+      assert.ok(t?.titulo && t?.descricao, `${l} ${d.slug}`);
+      if (l === "pt") assert.equal(mencionaPapelProibido(`${t.titulo} ${t.descricao}`), null, d.slug);
+    }
+  }
+});
+caso("papel de leitura mostra situação jurídica, 'segundo', avisos e o caso completo", () => {
+  const c = ler("components", "vale-o-escrito", "Leituras.tsx");
+  for (const k of ["data-situacao", "visual.ficha.segundo", "avisos.presuncao", "/vale-o-escrito/caso/", "casoCompleto"]) assert.ok(c.includes(k), k);
+  const obs = ler("components", "vale-o-escrito", "Observatorio.tsx");
+  assert.ok(obs.includes("PapelDeLeitura") && obs.includes("DOSSIES_DE_LEITURA") && obs.includes("aria-pressed={leitura === d.slug}"));
 });
 
 console.log(`\n${total} conferências do T31 (dinheiro, dossiês de leitura e Arsenal) passaram.`);

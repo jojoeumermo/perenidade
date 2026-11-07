@@ -397,5 +397,46 @@
     },
     "barra": "已发布案件的法律状态",
     "rodape": "每份档案都有来源、日期和摘录。活的网络：每个点是一条记录，每条线是一条有来源的关联。"
+  },
+  "leituras": {
+    "titulo": "专题档案",
+    "explica": "按主题进入：每个档案汇集已发布的案件，在视图中只点亮它们，并打开阅读页。",
+    "nCasos": "{n} 个案件",
+    "abrir": "打开档案",
+    "fechar": "关闭档案",
+    "papel": "阅读页",
+    "verNaTeia": "查看卡片",
+    "casoCompleto": "打开完整案件",
+    "fontes": "{n} 个来源",
+    "itens": {
+      "barragens": {
+        "titulo": "尾矿坝",
+        "descricao": "丰当（马里亚纳）和费让溪（布鲁马迪尼奥）溃坝：刑事诉讼、由谁担责及其法律状态，据联邦检察院和法院。"
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "非法采矿与亚诺马米人",
+        "descricao": "从阿西穆屠杀到罗赖马非法采矿的资助：法院已作出的裁决和仍在调查的内容。"
+      },
+      "chacinas-do-campo": {
+        "titulo": "农村屠杀",
+        "descricao": "埃尔多拉多-杜斯卡拉雅斯、帕乌达尔科和乌纳伊：农村冲突中的死亡及各案进程。"
+      },
+      "violencia-policial": {
+        "titulo": "警察暴力",
+        "descricao": "卡兰迪鲁、帕拉州屠杀、翁巴乌巴联邦公路警察车内死亡，以及阿莱芒和佩尼亚的行动，并写明各案法律状态。"
+      },
+      "trabalho-escravo": {
+        "titulo": "奴役劳动",
+        "descricao": "解救、判决以及乌纳伊劳动监察员遇害案：已见于公开来源的类奴役劳动案件。"
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "公共资金与修正案",
+        "descricao": "月费案、社保扣款和秘密预算：来源中写明的金额以及各项调查或诉讼的状态。"
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "被侵占的原住民土地",
+        "descricao": "原住民土地上的采矿、非法木材、毁林和死亡事件，据联邦检察院、最高法院和媒体。"
+      }
+    }
   }
 }

@@ -26,9 +26,11 @@ import {
   type DadosDoObservatorio,
   type PropsDoMapa,
 } from "@/lib/vale-o-escrito/visual";
+import { DOSSIES_DE_LEITURA, entradasDaLeitura } from "@/lib/vale-o-escrito/leituras";
 import { corDaCategoria, formatarReais, somaDocumentada } from "@/lib/vale-o-escrito/valores";
 import { medirQuadros, pausarForaDaTela } from "./desempenho";
 import { FichaDeAgente, FichaDoCaso } from "./Fichas";
+import { PapelDeLeitura } from "./Leituras";
 import { tocar } from "./som";
 import { useAoVivo } from "./useAoVivo";
 import { Contador, Revelar } from "./Vivos";
@@ -84,6 +86,8 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const [selecionado, setSelecionado] = useState<string | null>(null);
   const [zoomMapa, setZoomMapa] = useState<NivelDeZoom>("pais");
   const [listaAberta, setListaAberta] = useState(false);
+  // Dossiê de leitura aberto (lib/vale-o-escrito/leituras.ts): filtra a base e põe o papel de leitura na coluna da direita.
+  const [leitura, setLeitura] = useState<string | null>(null);
   // Destacar por tipo (legenda clicável): só o tipo escolhido fica aceso nas visões de grafo.
   const [destaque, setDestaque] = useState<TipoDeNo | null>(null);
   // Orçamento de desempenho: aparelho que não passa de ~30 quadros por segundo entra no modo leve (menos efeitos).
@@ -116,8 +120,14 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
 
   const { ligado, ultimo } = useAoVivo(dados, (id, entrada) => setDados((d) => aplicarEntradaAoVivo(d, id, entrada)));
 
-  const grafo = useMemo(() => montarGrafo(dados, dossie), [dados, dossie]);
-  const entradas = useMemo(() => (dossie ? dados.entradas.filter((e) => e.dossie === dossie) : dados.entradas), [dados, dossie]);
+  // Dossiê de leitura aberto: só os casos dele (e as ligações deles) entram nas visões.
+  const visiveis = useMemo(() => {
+    if (!leitura) return dados;
+    const ids = new Set(entradasDaLeitura(leitura, dados.entradas).map((e) => e.id));
+    return { ...dados, entradas: dados.entradas.filter((e) => ids.has(e.id)), ligacoes: dados.ligacoes.filter((l) => ids.has(l.entradaId)) };
+  }, [dados, leitura]);
+  const grafo = useMemo(() => montarGrafo(visiveis, dossie), [visiveis, dossie]);
+  const entradas = useMemo(() => (dossie ? visiveis.entradas.filter((e) => e.dossie === dossie) : visiveis.entradas), [visiveis, dossie]);
   const lista = useMemo(() => listaTextual(grafo), [grafo]);
   const porTipo = useMemo(() => contarPorTipo(grafo), [grafo]);
   const construidoEm = useMemo(() => dataDaBase(dados.entradas), [dados.entradas]);
@@ -133,6 +143,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const teclasDasVisoes = useTeclasDeAbas<HTMLButtonElement>(VISOES.length, visaoAtual, (i) => setVisao(VISOES[i]), false);
 
   function escolherDossie(slug: string | null) {
+    setLeitura(null);
     setDossie(slug);
     // A seleção só continua se o nó ainda existe no dossiê escolhido.
     setSelecionado((atual) => (atual && montarGrafo(dados, slug).nos.some((n) => n.chave === atual) ? atual : null));
@@ -154,6 +165,13 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const escolherDaLista = (chave: string) => {
     setSelecionado(chave);
     irParaFicha();
+  };
+  /** Abre (ou fecha, com null) um dossiê de leitura: tira a categoria e a seleção e leva ao papel de leitura. */
+  const abrirLeitura = (slug: string | null) => {
+    setLeitura(slug);
+    setDossie(null);
+    setSelecionado(null);
+    if (slug) irParaFicha();
   };
 
   const dossieAtual = dados.dossies.find((d) => d.slug === dossie);
@@ -261,7 +279,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
           {s.visual.pularParaLista}
         </a>
         {/* Com uma ficha aberta, o título continua na página (para leitor de tela), escondido da vista. */}
-        {selecionado && <h1 className="ve-so-leitor">{s.entrada.titulo}</h1>}
+        {(selecionado || leitura) && <h1 className="ve-so-leitor">{s.entrada.titulo}</h1>}
         <p className="ve-aviso-vivo" role="status" aria-live="polite">
           {ultimo ? fill(s.visual.aoVivo.atualizou, { titulo: ultimo }) : ""}
         </p>
@@ -339,6 +357,30 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                   </li>
                 ))}
             </ul>
+            {/* Dossiês de leitura (T31 3.4): portas de entrada por tema, que cruzam as categorias acima. */}
+            <nav className="ve-leituras" aria-labelledby="ve-leituras-titulo">
+              <h2 className="ve-rotulo" id="ve-leituras-titulo">
+                {s.leituras.titulo}
+              </h2>
+              <ul>
+                {DOSSIES_DE_LEITURA.map((d, i) => {
+                  const n = entradasDaLeitura(d.slug, dados.entradas).length;
+                  if (n === 0) return null;
+                  const t = s.leituras.itens[d.slug as keyof typeof s.leituras.itens];
+                  return (
+                    <li key={d.slug}>
+                      <button type="button" className="ve-leitura" aria-pressed={leitura === d.slug} onClick={() => abrirLeitura(leitura === d.slug ? null : d.slug)}>
+                        <span className="ve-leitura-n" aria-hidden="true">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="ve-leitura-nome">{t?.titulo ?? d.slug}</span>
+                        <span className="ve-leitura-casos">{fill(s.leituras.nCasos, { n })}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
             <div className="ve-esq-links">
               <Link href={localePath(lang, "/vale-o-escrito/enviar")}>{s.ficha.enviarFonte} →</Link>
             </div>
@@ -507,6 +549,21 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                 </div>
                 {fichaDoSelecionado()}
               </div>
+            ) : leitura ? (
+              <PapelDeLeitura
+                key={leitura}
+                slug={leitura}
+                entradas={entradas}
+                indiceDe={indiceDe}
+                dossies={dados.dossies}
+                s={s}
+                lang={lang}
+                aoVerFicha={(id) => {
+                  escolherCaso(id);
+                  irParaFicha();
+                }}
+                aoFechar={() => abrirLeitura(null)}
+              />
             ) : (
               <div className="ve-geral">
                 <span className="ve-rotulo ve-geral-rotulo">

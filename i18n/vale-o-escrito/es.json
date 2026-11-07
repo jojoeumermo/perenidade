@@ -397,5 +397,46 @@
     },
     "barra": "Situación jurídica de los casos publicados",
     "rodape": "Fuente, fecha y fragmento en cada ficha. Red viva: cada punto es un registro, cada línea un vínculo con fuente."
+  },
+  "leituras": {
+    "titulo": "Dosieres de lectura",
+    "explica": "Puertas de entrada por tema: cada dosier reúne casos ya publicados, ilumina solo esos en las vistas y abre la hoja de lectura.",
+    "nCasos": "{n} casos",
+    "abrir": "Abrir dosier",
+    "fechar": "Cerrar dosier",
+    "papel": "Hoja de lectura",
+    "verNaTeia": "Ver la ficha",
+    "casoCompleto": "Abrir caso completo",
+    "fontes": "{n} fuentes",
+    "itens": {
+      "barragens": {
+        "titulo": "Represas",
+        "descricao": "Las roturas de Fundão (Mariana) y Córrego do Feijão (Brumadinho): las acciones penales, quién responde y en qué situación, según el MPF y la Justicia."
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "Minería ilegal y yanomami",
+        "descricao": "De la masacre de Haximu a la financiación de la minería ilegal en Roraima: lo que la Justicia ya decidió y lo que sigue en investigación."
+      },
+      "chacinas-do-campo": {
+        "titulo": "Masacres en el campo",
+        "descricao": "Eldorado dos Carajás, Pau d'Arco y Unaí: muertes en conflictos rurales y el camino de cada proceso."
+      },
+      "violencia-policial": {
+        "titulo": "Violencia policial",
+        "descricao": "Carandiru, masacres en Pará, la muerte en un vehículo de la PRF en Umbaúba y la operación en Alemão y Penha, con la situación jurídica de cada caso."
+      },
+      "trabalho-escravo": {
+        "titulo": "Trabajo esclavo",
+        "descricao": "Rescates, condenas y la masacre de los inspectores de trabajo en Unaí: casos de trabajo análogo a la esclavitud ya registrados en fuentes públicas."
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "Dinero público y enmiendas",
+        "descricao": "Mensalão, descuentos del INSS y presupuesto secreto: valores escritos en las fuentes y la situación de cada investigación o proceso."
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "Tierras indígenas invadidas",
+        "descricao": "Minería, madera ilegal, deforestación y muertes en tierras indígenas, según el MPF, el STF y la prensa."
+      }
+    }
   }
 }
