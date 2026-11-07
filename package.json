@@ -141,6 +141,7 @@
     "testar:territorios": "node scripts/testar-territorios.mjs",
     "testar:docs-etapa12": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-docs-etapa12.mjs",
     "testar:labs-externos": "node scripts/testar-labs-externos.mjs",
+    "testar:mapa-dos-laboratorios": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-mapa-dos-laboratorios.mjs",
     "testar:backend-2": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-backend-2.mjs",
     "testar:backend-1": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-backend-1.mjs",
     "testar:eixos-equipe": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-eixos-equipe.mjs",

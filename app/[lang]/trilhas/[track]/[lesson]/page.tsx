@@ -17,6 +17,7 @@ import { ferramentasDaCaixa } from "@/lib/ferramentas/caixa";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { CartaoDoEducador, EducadoresDaDisciplina } from "@/components/Educadores";
 import { PhetLista } from "@/components/labs/Phet";
+import { LabsDaAula } from "@/components/labs/MapaDosLaboratorios";
 import sims from "@/content/phet.json";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
@@ -422,6 +423,8 @@ export default async function LessonPage({ params }: Props) {
             </p>
           </section>
         )}
+        {/* NOVAS TAREFAS T21: os laboratórios que ajudam nesta aula (os que a citam e os da disciplina), com ida e volta. */}
+        <LabsDaAula trilha={track.slug} aula={lesson.slug} area={track.area} t={t} lang={lang} />
         <div className="no-leve xl:hidden">
           <EducadoresDaDisciplina area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
         </div>

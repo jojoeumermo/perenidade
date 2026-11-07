@@ -180,6 +180,76 @@
     "quimicaLead": "Titulação ácido-base com a curva de pH calculada de verdade e quatro indicadores, diluição no béquer e a escala de pH das coisas de casa, com o indicador de repolho roxo.",
     "modelos": "Laboratório de modelos",
     "modelosLead": "Probabilidade, gráficos que enganam, segregação, cooperação, riqueza, epidemia, predador e presa, órbitas, ondas, autômatos, expressões regulares e o celular como instrumento: preveja, rode, compare e explique.",
+    "mapa": {
+      "porFinalidade": "Por finalidade",
+      "porDisciplina": "Por disciplina",
+      "comoAchar": "Cada laboratório diz para que serve, para quem é, em que disciplina e aula ajuda e onde fica. Escolha pelo que você quer fazer ou pela disciplina que está estudando.",
+      "serve": "Serve para",
+      "quem": "Para quem",
+      "onde": "Onde fica",
+      "ajudaEm": "Ajuda em",
+      "aulas": "Aulas em que ajuda",
+      "abrir": "Abrir",
+      "ondeSite": "Aqui no site, com página própria",
+      "ondeFora": "Laboratórios de fora: só carrega quando você abre",
+      "ondeAula": "Dentro das aulas, no meio do texto",
+      "nenhumaAula": "Serve à disciplina inteira; ainda sem aula específica ligada.",
+      "daAula": "Laboratórios para esta aula",
+      "nestaAula": "nesta aula",
+      "daDisciplina": "da disciplina",
+      "todos": "Todos os laboratórios, por finalidade",
+      "maisAulas": "e mais {n}",
+      "outrosLugares": "Outros lugares para praticar",
+      "ferramentas": "Ferramentas",
+      "ferramentasServe": "Calculadoras, conversores, tabelas e treinos rápidos para usar durante a aula.",
+      "estudio": "Estúdio de prática",
+      "estudioServe": "Editores para praticar código, texto e exercícios, com o que você fizer guardado no seu aparelho.",
+      "jogos": "Jogos",
+      "jogosServe": "Jogos de formação para estudar história, política e as disciplinas jogando, sozinho ou em grupo.",
+      "externosTodos": "Ver todos os laboratórios de fora, com licença e crédito",
+      "finalidades": {
+        "programar": {
+          "titulo": "Programar",
+          "serve": "Escrever código, rodar e ver o que acontece linha por linha."
+        },
+        "computador-e-rede": {
+          "titulo": "Computador, terminal e rede",
+          "serve": "Usar o terminal e entender como as máquinas conversam numa rede."
+        },
+        "seguranca": {
+          "titulo": "Segurança digital",
+          "serve": "Treinar defesa, entender ataques e mexer em dados com segurança."
+        },
+        "eletrica-e-conserto": {
+          "titulo": "Elétrica, eletrônica e conserto",
+          "serve": "Medir, ligar, montar e consertar sem risco de choque nem de queimar peça."
+        },
+        "ciencias": {
+          "titulo": "Experimentar ciência",
+          "serve": "Fazer os experimentos de física, química, biologia e meio ambiente que a escola nem sempre tem."
+        },
+        "dados-e-modelos": {
+          "titulo": "Matemática, dados e modelos",
+          "serve": "Desenhar gráficos, rodar modelos e testar uma ideia com números antes de acreditar nela."
+        },
+        "sociedade-e-historia": {
+          "titulo": "Sociedade e história",
+          "serve": "Ver como escolhas individuais viram fenômenos sociais e como o mundo mudou no mapa."
+        },
+        "ia": {
+          "titulo": "Inteligência artificial",
+          "serve": "Treinar modelos de verdade e entender o que a IA faz, onde erra e de onde vem o viés."
+        },
+        "criar": {
+          "titulo": "Escrever, organizar e criar",
+          "serve": "Documento, planilha, apresentação e arte para divulgar, sem programa pago."
+        },
+        "musica": {
+          "titulo": "Música",
+          "serve": "Ouvir, compor e ver o som, sem precisar ler partitura."
+        }
+      }
+    },
     "jogos": {
       "title": "Jogos de formação",
       "card": "Rumos (decisões na história, na filosofia e na política), Greve!, linha do tempo e Quem disse?: jogar também é estudar.",
