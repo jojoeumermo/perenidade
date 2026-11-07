@@ -9,8 +9,8 @@ Regras que valem para tudo: responder em português, curto. Commit e push a cada
 Privacidade: sem rastreio. Nunca "universidade"/"diploma" na interface. Imagens livres ou licenciadas, com crédito. Nunca digitar senha, chave ou token em campo.
 O site roda na VPS da Contabo (docs/HOSPEDAGEM.md): push no master publica sozinho em ~30 min.
 
-**Última atividade:** 2026-11-06 21:10 (sessão principal; leva 1 juntada e publicada; falta aplicar as migrações 20261106-* no Supabase; leva 2 a seguir).
-**Ocupada até:** 2026-11-06 23:00 (horário local do computador). Se esta hora ainda não passou, outra sessão está trabalhando (frentes em paralelo, em worktrees): não comece nada. Quem trabalha estende esta hora antes de começar algo longo.
+**Última atividade:** 2026-11-07 01:05 (sessão principal; leva 2 e Territórios retomados nos worktrees .claude/worktrees/wf_2b9dec8c-2a4-N, wf_f7917f82-ff1-N, wf_9bb3cd30-776-1).
+**Ocupada até:** 2026-11-07 07:00 (horário local do computador). Se esta hora ainda não passou, outra sessão está trabalhando (frentes em paralelo, em worktrees): não comece nada. Quem trabalha estende esta hora antes de começar algo longo.
 
 Situação: `[ ]` a fazer, `[~]` em andamento, `[x]` feito (com o commit), `[!]` depende de algo de fora (explicado).
 
