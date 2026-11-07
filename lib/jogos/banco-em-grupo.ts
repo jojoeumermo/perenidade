@@ -70,7 +70,7 @@ export interface DisciplinaDoJogo {
 
 /** A lista que a sala mostra para escolher a disciplina (o nome vem do dicionário em português). */
 export function disciplinasDosJogos(): DisciplinaDoJogo[] {
-  const nomes = (pt as { areas: Record<string, [string, string]> }).areas;
+  const nomes = (pt as unknown as { areas: Record<string, string[]> }).areas;
   return [...questoesPorDisciplina()]
     .filter(([, lista]) => lista.length >= MINIMO_POR_DISCIPLINA)
     .map(([area, lista]) => ({ area, nome: nomes[area]?.[0] ?? area, n: lista.length }))
