@@ -39,13 +39,39 @@ const TEXTOS: Record<string, { abrir: string; fechar: string; link: string; pagi
  * clica em "Abrir": os de cópia local vêm do próprio domínio; os de fora vêm de quem os mantém, sem cópia nem alteração;
  * os "só link" nem chegam a ser embutidos. Sempre com licença e crédito à vista.
  */
-export function LabsExternos({ area, compacto = false, ids }: { area?: AreaLab; compacto?: boolean; ids?: string[] }) {
+/** O que o mapa dos laboratórios (lib/mapa-dos-laboratorios.ts) acrescenta a cada cartão: para que serve, para quem e onde ajuda. */
+export interface ExtraDoLab {
+  serve: string;
+  quem: string;
+  rotulos: { serve: string; quem: string; ajudaEm: string; aulas: string };
+  disciplinas: { nome: string; href: string }[];
+  aulas: { titulo: string; href: string }[];
+}
+
+export function LabsExternos({
+  area,
+  compacto = false,
+  ids,
+  extras,
+  grafico,
+  nota = true,
+}: {
+  area?: AreaLab;
+  compacto?: boolean;
+  ids?: string[];
+  /** Por id: o resumo do mapa dos laboratórios, mostrado no cartão (página /laboratorios/externos). */
+  extras?: Record<string, ExtraDoLab>;
+  /** Mostra o gráfico do Our World in Data mesmo com `ids` (o grupo dele na página agrupada). */
+  grafico?: boolean;
+  /** A nota "nada carrega antes de abrir"; a página agrupada mostra só uma vez. */
+  nota?: boolean;
+}) {
   const { lang } = useI18n();
   const s = TEXTOS[lang] ?? TEXTOS.pt;
   const [aberto, setAberto] = useState<string | null>(null);
   const todos = catalogo as Lab[];
   const lista = ids ? ids.flatMap((id) => todos.filter((l) => l.id === id)) : todos.filter((l) => !area || l.areas.includes(area));
-  const comGrafico = !ids && (!area || area === "sociais");
+  const comGrafico = grafico ?? (!ids && (!area || area === "sociais"));
   if (lista.length === 0 && !comGrafico) return <p className="mt-6 text-ink-soft">{s.vazio}</p>;
   return (
     <div className={compacto ? "mt-4 space-y-3" : "mt-8 grid gap-4 md:grid-cols-2"}>
@@ -54,9 +80,10 @@ export function LabsExternos({ area, compacto = false, ids }: { area?: AreaLab; 
         const embutido = lab.forma !== "link";
         const marca = lab.forma === "local" ? s.local : lab.forma === "sob-demanda" ? s.demanda : s.so_link;
         return (
-          <article key={lab.id} className={`border border-rule bg-parchment-deep p-4 font-sans text-sm ${aberto === lab.id ? "md:col-span-2" : ""}`}>
+          <article key={lab.id} id={lab.id} className={`scroll-mt-24 border border-rule bg-parchment-deep p-4 font-sans text-sm ${aberto === lab.id ? "md:col-span-2" : ""}`}>
             <h3 className="font-serif text-lg font-semibold">{lab.nome}</h3>
             <p className="text-ink-soft">{tx.descricao}</p>
+            {extras?.[lab.id] && <ExtraDoCartao extra={extras[lab.id]} />}
             <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">{marca}</p>
             {aberto === lab.id && embutido ? (
               <>
@@ -84,11 +111,48 @@ export function LabsExternos({ area, compacto = false, ids }: { area?: AreaLab; 
         );
       })}
       {comGrafico && (
-        <div className="md:col-span-2">
+        <div id="owid-expectativa-vida" className="scroll-mt-24 md:col-span-2">
+          {extras?.["owid-expectativa-vida"] && <ExtraDoCartao extra={extras["owid-expectativa-vida"]} />}
           <GraficoOwid lang={lang} />
         </div>
       )}
-      <p className="text-xs text-ink-soft md:col-span-2">{s.nota}</p>
+      {nota && <p className="text-xs text-ink-soft md:col-span-2">{s.nota}</p>}
+    </div>
+  );
+}
+
+/** A nota "nada carrega antes de abrir", sozinha (a página agrupada mostra uma vez só, no fim). */
+export function NotaDosLabsExternos() {
+  const { lang } = useI18n();
+  return <p className="mt-10 font-sans text-xs text-ink-soft">{(TEXTOS[lang] ?? TEXTOS.pt).nota}</p>;
+}
+
+/** "Serve para", "para quem", disciplinas e aulas: o lugar do laboratório de fora no site. */
+function ExtraDoCartao({ extra }: { extra: ExtraDoLab }) {
+  return (
+    <div className="mt-2 space-y-1 border-l-2 border-oxblood pl-3">
+      <p className="leading-snug"><strong>{extra.rotulos.serve}:</strong> {extra.serve}</p>
+      <p className="leading-snug text-ink-soft"><strong className="text-ink">{extra.rotulos.quem}:</strong> {extra.quem}</p>
+      <p className="text-xs leading-snug text-ink-soft">
+        <strong className="text-ink">{extra.rotulos.ajudaEm}:</strong>{" "}
+        {extra.disciplinas.map((d, i) => (
+          <span key={d.href}>
+            {i > 0 && ", "}
+            <a href={d.href} className="underline hover:text-oxblood">{d.nome}</a>
+          </span>
+        ))}
+      </p>
+      {extra.aulas.length > 0 && (
+        <p className="text-xs leading-snug text-ink-soft">
+          <strong className="text-ink">{extra.rotulos.aulas}:</strong>{" "}
+          {extra.aulas.map((a, i) => (
+            <span key={a.href}>
+              {i > 0 && " · "}
+              <a href={a.href} className="underline hover:text-oxblood">{a.titulo}</a>
+            </span>
+          ))}
+        </p>
+      )}
     </div>
   );
 }

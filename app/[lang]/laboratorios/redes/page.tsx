@@ -6,6 +6,7 @@ import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { paginaMeta } from "@/lib/seo";
+import { SobreOLaboratorio } from "@/components/labs/MapaDosLaboratorios";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/laboratorios/redes">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -19,6 +20,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios/r
       <PageHeading eyebrow={t.labs.title} title={t.labs.redes}>
         {t.labs.redesLead}
       </PageHeading>
+      <SobreOLaboratorio id="redes" t={t} lang={lang} />
       <LabRedes />
       <section className="mt-12 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
         <h2 className="font-serif text-xl font-semibold text-ink">Quer ir além?</h2>
