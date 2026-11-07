@@ -17,6 +17,8 @@ export function criarClienteDescoberta(c: Chamar) {
     escolher: (lutas: string[], trilhas: string[], aparece = false) => c<EstadoDaEntrada>("rede_desc_entrada_escolher", { p_lutas: lutas, p_trilhas: trilhas, p_aparece: aparece }),
     /** O guia de segurança foi visto ou pulado (o único passo que se pode pular). */
     guia: (pulado: boolean) => c<EstadoDaEntrada>("rede_desc_entrada_guia", { p_pulado: pulado }),
+    /** "Agora não": lutas, trilhas e guia ficam para depois (T18: só consentimento, 18+ e codinome são obrigatórios). */
+    adiar: () => c<EstadoDaEntrada>("rede_desc_entrada_adiar"),
     aparecer: (sim: boolean) => c<EstadoDaEntrada>("rede_desc_aparecer", { p_sim: sim }),
     /** A linha com ordenação escrita e filtros (linha temática, tag, categoria, tipo, comunidade). */
     linha: (aba: Aba, ordem: Ordem = "novos", cursor: string | null = null, limite = 20, filtros: FiltrosDaLinha = {}) =>

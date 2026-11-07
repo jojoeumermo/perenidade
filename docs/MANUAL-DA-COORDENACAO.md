@@ -94,6 +94,7 @@ Também há um interruptor no painel (**Site e operação, Controles avançados*
 2. Leia o objetivo e as regras, confira os moderadores indicados e escolha **Aprovar** (a comunidade já entra no ar) ou **Recusar**. Recusar exige o motivo, com pelo menos 10 letras.
 3. Denúncias da Rede entram na fila por prioridade; as de prioridade 1 avisam a coordenação e a mediação. Post de núcleo fechado não é lido pela equipe geral: abrir o conteúdo fica registrado.
 4. A Rede v2 só existe com o recurso `rede-v2` ligado. Desligado, a Rede e o Fórum de hoje seguem como estão.
+5. **Comunidade e atendimento, Alumia: semeadura** (coordenação): o roteiro de docs/rede/SEMEAR.md em números, com os posts reais de cada comunidade e quantas pessoas moderam (a meta é 2). Só números, sem nome; nada ali publica.
 
 ### Convidar e cuidar da equipe
 

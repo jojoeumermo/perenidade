@@ -521,6 +521,31 @@ await espera("as telas não usam alert, confirm nem prompt, e a lib do pacote n�
 await espera("o menu da Rede tem 'explorar' nos seis idiomas", async () => ["pt", "en", "es", "fr", "ru", "zh"].every((l) => typeof JSON.parse(lerTexto(`i18n/rede/${l}.json`)).menu.explorar === "string"), (v) => v === true);
 await espera("a migração não toca no install.sql nem cria tabela no esquema public", async () => !/create table (if not exists )?public\./i.test(migracao) && !/install\.sql/.test(migracao.replace(/--[^\n]*/g, "")), (v) => v === true);
 
+// ── T18: a primeira entrada curta (lutas, trilhas e guia opcionais; consentimento, 18+ e codinome continuam obrigatórios) ──
+const curta = lerTexto("supabase/migracoes/20261106-t18-alumia-entrada.sql");
+await espera("a migração da entrada curta instala por cima (e de novo, sem estrago)", () => banco.exclusivo(async () => { await banco.pg.exec(curta); await banco.pg.exec(curta); }));
+const pressa = await criarUsuario("pressa@descoberta.local", "pressa");
+const comPressa = como(pressa);
+await rpc(comPressa, "eu");
+await dono("update interno.perfis set rede_codinome = null, rede_codinome_ok = false where id = $1", [pressa]);
+await recusa("adiar sem consentimento nem 18+ não passa", () => rpc(comPressa, "rede_desc_entrada_adiar"), "consentimento");
+await espera("adiar sem codinome não pula o codinome", async () => {
+  await rpc(comPressa, "rede_aderir", { p_maior: true, p_versao: 1 });
+  return (await rpc(comPressa, "rede_desc_entrada_estado")).passo;
+}, (p) => p === "codinome");
+await espera("com codinome, 'agora não' leva direto ao 'pronto', sem gravar luta nem trilha", async () => {
+  await rpc(comPressa, "rede_codinome_definir", { p_codinome: "Pressa Boa" });
+  const e = await rpc(comPressa, "rede_desc_entrada_adiar");
+  const n = (await um("select count(*)::int as n from interno.rede_desc_interesses where usuario = $1", [pressa])).n;
+  return [e.passo, e.adiou, n, (await um("select versao from interno.rede_consentimentos where usuario = $1", [pressa]))?.versao];
+}, (r) => r[0] === "pronto" && r[1] === true && r[2] === 0 && r[3] === 1);
+await espera("quem adiou escolhe depois normalmente (as escolhas continuam valendo)", async () => {
+  const lutas = (await rpc(comPressa, "rede_desc_entrada_opcoes")).lutas.map((l) => l.slug).slice(0, 3);
+  return [lutas, (await rpc(comPressa, "rede_desc_entrada_escolher", { p_lutas: lutas, p_trilhas: ["economia-basica"] })).lutas];
+}, (r) => r[0].length > 0 && igual([...r[0]].sort(), r[1]));
+await espera("quem já tinha escolhido continua 'pronto' com a função nova", async () => (await rpc(nova, "rede_desc_entrada_estado")).passo, (p) => p === "pronto");
+await espera("visitante e anon: estado sim, adiar não", async () => um(`select has_function_privilege('anon', 'public.rede_desc_entrada_estado()', 'execute') as estado, has_function_privilege('anon', 'public.rede_desc_entrada_adiar()', 'execute') as adiar`), (r) => r.estado === true && r.adiar === false);
+
 console.log(`Rede v2 (descoberta): ${certos} certos, ${falhas.length} falhas.`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);
 process.exit(falhas.length ? 1 : 0);
