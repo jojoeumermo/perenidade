@@ -301,14 +301,16 @@
         "emenda": "enmienda presupuestaria",
         "estimativa_oficial": "estimación oficial",
         "movimentacao_suposta": "movimiento supuesto"
-      }
+      },
+      "dataDaFonte": "sin fecha propia; fuente del {data}"
     }
   },
   "navegacao": {
     "inicio": "Observatorio",
     "sobre": "Sobre el método",
     "enviar": "Enviar una fuente",
-    "corrigir": "Pedir corrección"
+    "corrigir": "Pedir corrección",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Método y reglas",
@@ -437,6 +439,49 @@
         "titulo": "Tierras indígenas invadidas",
         "descricao": "Minería, madera ilegal, deforestación y muertes en tierras indígenas, según el MPF, el STF y la prensa."
       }
+    }
+  },
+  "arsenal": {
+    "olho": "Catálogo completo",
+    "titulo": "Arsenal",
+    "lead": "Todos los casos publicados, los eventos de cada uno (hecho, decisiones, cambios de situación, valores) y los documentos que los sostienen, en una lista con búsqueda. Las relaciones entre personas y organizaciones tienen su pestaña, solo cuando hay fuente.",
+    "buscar": "Buscar",
+    "buscarDica": "Nombre, lugar, medio, etiqueta…",
+    "categoria": "Categoría",
+    "situacao": "Situación jurídica",
+    "tipoFonte": "Tipo de fuente",
+    "todas": "Todas",
+    "limpar": "Limpiar filtros",
+    "resultados": "{n} resultados",
+    "nada": "Nada encontrado con estos filtros.",
+    "abas": {
+      "casos": "Casos",
+      "eventos": "Eventos",
+      "documentos": "Documentos",
+      "relacoes": "Relaciones"
+    },
+    "evento": {
+      "fato": "Hecho",
+      "publicado": "Publicado en Vale",
+      "mudanca": "Cambio de situación",
+      "valor": "Valor documentado",
+      "fonte": "Fuente publicada"
+    },
+    "relacoes": {
+      "explica": "Quién integra, dirige, financia o contrata a quién, y quién es citado en cada caso: solo vínculos con fuente. Punto lleno: fuente primaria; punto vacío: solo prensa.",
+      "citados": "Citados en el caso",
+      "semRelacoes": "Ninguna relación con fuente en esta selección."
+    },
+    "caso": "Caso",
+    "abrir": "Abrir",
+    "copiaArquivada": "copia archivada",
+    "tiposDeFonte": {
+      "processo": "Proceso",
+      "investigacao_oficial": "Investigación oficial",
+      "dado_oficial": "Dato oficial",
+      "relatorio_organizacao": "Informe de organización",
+      "reportagem": "Reportaje",
+      "checagem": "Verificación"
     }
   }
 }

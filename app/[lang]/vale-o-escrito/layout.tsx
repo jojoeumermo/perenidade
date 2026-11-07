@@ -29,6 +29,7 @@ export default async function ValeOEscritoLayout({ children, params }: LayoutPro
         ...s.casca,
         nav: [
           { href: raiz, texto: s.navegacao.inicio },
+          { href: `${raiz}/arsenal`, texto: s.navegacao.arsenal },
           { href: `${raiz}/sobre`, texto: s.navegacao.sobre },
           { href: `${raiz}/enviar`, texto: s.navegacao.enviar },
           { href: `${raiz}/correcao`, texto: s.navegacao.corrigir },

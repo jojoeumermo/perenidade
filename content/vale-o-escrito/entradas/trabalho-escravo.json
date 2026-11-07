@@ -259,7 +259,7 @@
           "escrito": "R$ 3.009.000,00",
           "tipo": "indenizacao",
           "data": "2025-04",
-          "resumo": "Condenação da Fênix, dos proprietários e de empresas associadas ao pagamento, segundo o MPT-RS; cabe recurso.",
+          "resumo": "Condenação da Fênix, dos proprietários e de empresas associadas ao pagamento, em ação trabalhista (não criminal), segundo o MPT-RS; cabe recurso.",
           "fonteId": "f1",
           "ponta": {
             "tipo": "organizacao",
@@ -271,7 +271,6 @@
           "valor": 7000000,
           "escrito": "R$ 7 milhões",
           "tipo": "acordo",
-          "data": "2023",
           "resumo": "Termo de ajustamento de conduta (TAC) assinado pelas três vinícolas contratantes, segundo o MPT-RS.",
           "fonteId": "f1"
         }
