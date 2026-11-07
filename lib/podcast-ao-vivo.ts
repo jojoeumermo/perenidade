@@ -11,8 +11,8 @@
 //     assistindo é uma cópia do vídeo saindo da conexão de quem transmite: por isso o teto LIMITE_DIRETO;
 //   - "link": uma transmissão aberta feita fora (OBS → PeerTube, ou YouTube). O PeerTube/YouTube distribui para quanta
 //     gente for; a página só embute o tocador depois do clique (PeerTube sem P2P; YouTube pelo endereço sem cookies).
-import { idDoYoutube, videoPeerTube } from "./aula-sala";
-import type { Presente } from "./tempo-real";
+import { idDoYoutube, videoPeerTube } from "./aula-sala.ts";
+import type { Presente } from "./tempo-real.ts";
 
 /** Quantas pessoas assistem direto do navegador de quem transmite (720p a ~1,5 Mbit/s cada: ~22 Mbit/s de subida). */
 export const LIMITE_DIRETO = 15;

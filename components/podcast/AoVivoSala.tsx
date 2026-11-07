@@ -14,6 +14,7 @@ import { BackendError, rpc } from "@/lib/backend";
 import { LIMITE_DIRETO, naSalaDireta, PULSO_SEGUNDOS } from "@/lib/podcast-ao-vivo";
 import { type Presente, Sala } from "@/lib/tempo-real";
 import { useI18n } from "../I18n";
+import type { TextosAoVivo } from "./AoVivo";
 
 const chaveSorteada = () => {
   const bytes = new Uint8Array(8);
@@ -54,9 +55,7 @@ function Tela({ fluxo, mudo = false, espelho = false, rotulo }: { fluxo: MediaSt
 }
 
 /** Quem assiste: entra na sala sem câmera nem microfone, confere a assinatura de quem transmite e recebe o vídeo. */
-export function Assistir({ sala, chaves, reserva, aoSair }: { sala: string; chaves: string[]; reserva: React.ReactNode; aoSair: () => void }) {
-  const { t } = useI18n();
-  const s = t.podcast.aoVivo;
+export function Assistir({ s, sala, chaves, reserva, aoSair }: { s: TextosAoVivo; sala: string; chaves: string[]; reserva: React.ReactNode; aoSair: () => void }) {
   const [fluxo, setFluxo] = useState<MediaStream | null>(null);
   const [fase, setFase] = useState<"ligando" | "esperando" | "sem" | "lotado">("ligando");
   const chavesRef = useRef(chaves);
@@ -163,9 +162,8 @@ type Fonte = "camera" | "tela" | "audio";
  * câmera e o microfone e manda o vídeo para até LIMITE_DIRETO pessoas. Dá sinal de vida ao banco a cada minuto (sem ele, a
  * transmissão sai do ar sozinha). Nada é gravado.
  */
-export function Transmitir({ sala, aoEncerrar }: { sala: string; aoEncerrar: () => void }) {
+export function Transmitir({ s, sala, aoEncerrar }: { s: TextosAoVivo; sala: string; aoEncerrar: () => void }) {
   const { t } = useI18n();
-  const s = t.podcast.aoVivo;
   const [local, setLocal] = useState<MediaStream | null>(null);
   const [fonte, setFonte] = useState<Fonte>("camera");
   const [mudo, setMudo] = useState(false);
