@@ -1,0 +1,2252 @@
+{
+  "dossie": "dinheiro-publico",
+  "pessoas": [
+    {
+      "id": "geddel-vieira-lima",
+      "nome": "Geddel Vieira Lima",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "cargo": "Ex-ministro e ex-deputado federal",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "lucio-vieira-lima",
+      "nome": "Lúcio Vieira Lima",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "cargo": "Ex-deputado federal",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "fernando-collor",
+      "nome": "Fernando Collor de Mello",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "cargo": "Ex-presidente da República e ex-senador",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "paulo-maluf",
+      "nome": "Paulo Maluf",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "cargo": "Ex-deputado federal e ex-prefeito de São Paulo",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "ivo-cassol",
+      "nome": "Ivo Cassol",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "cargo": "Ex-senador e ex-prefeito de Rolim de Moura (RO)",
+      "fonteIds": [
+        "f1",
+        "f2"
+      ]
+    },
+    {
+      "id": "josimar-maranhaozinho",
+      "nome": "Josimar Maranhãozinho",
+      "publicaNoCaso": true,
+      "papel": "parlamentar",
+      "cargo": "Deputado federal (PL-MA)",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "pastor-gil",
+      "nome": "Pastor Gil (Gildenemir de Lima Sousa)",
+      "publicaNoCaso": true,
+      "papel": "parlamentar",
+      "cargo": "Deputado federal (PL-MA)",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "bosco-costa",
+      "nome": "Bosco Costa (João Bosco da Costa)",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "cargo": "Ex-deputado federal (PL-SE)",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "celso-jacob",
+      "nome": "Celso Jacob",
+      "publicaNoCaso": true,
+      "papel": "acusado",
+      "cargo": "Ex-deputado federal e ex-prefeito de Três Rios (RJ)",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "gleisi-hoffmann",
+      "nome": "Gleisi Hoffmann",
+      "publicaNoCaso": true,
+      "papel": "parlamentar",
+      "cargo": "Senadora à época do julgamento",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "paulo-bernardo",
+      "nome": "Paulo Bernardo",
+      "publicaNoCaso": true,
+      "papel": "agente_publico",
+      "cargo": "Ex-ministro",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "beto-mansur",
+      "nome": "Beto Mansur (Paulo Roberto Gomes Mansur)",
+      "publicaNoCaso": true,
+      "papel": "parlamentar",
+      "cargo": "Ex-prefeito de Santos (SP) e deputado federal à época",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "organizacoes": [
+    {
+      "id": "br-distribuidora",
+      "nome": "BR Distribuidora",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "utc-engenharia",
+      "nome": "UTC Engenharia",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "petrobras",
+      "nome": "Petrobras",
+      "tipo": "empresa",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "dnocs",
+      "nome": "Departamento Nacional de Obras Contra as Secas (DNOCS)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "codevasf",
+      "nome": "Codevasf",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "fnde",
+      "nome": "Fundo Nacional de Desenvolvimento da Educação (FNDE)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "consorcio-nordeste",
+      "nome": "Consórcio Nordeste",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "detran-rn",
+      "nome": "Detran-RN",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "policia-federal",
+      "nome": "Polícia Federal",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    },
+    {
+      "id": "cgu",
+      "nome": "Controladoria-Geral da União (CGU)",
+      "tipo": "orgao_publico",
+      "fonteIds": [
+        "f1"
+      ]
+    }
+  ],
+  "ligacoes": [
+    {
+      "id": "l-geddel-vieira-lima-2017-geddel-r-51-milhoes-ap-1030",
+      "de": {
+        "tipo": "pessoa",
+        "id": "geddel-vieira-lima"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2017-geddel-r-51-milhoes-ap-1030"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2017-geddel-r-51-milhoes-ap-1030"
+    },
+    {
+      "id": "l-lucio-vieira-lima-2017-geddel-r-51-milhoes-ap-1030",
+      "de": {
+        "tipo": "pessoa",
+        "id": "lucio-vieira-lima"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2017-geddel-r-51-milhoes-ap-1030"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2017-geddel-r-51-milhoes-ap-1030"
+    },
+    {
+      "id": "l-fernando-collor-2010-collor-br-distribuidora-ap-1025",
+      "de": {
+        "tipo": "pessoa",
+        "id": "fernando-collor"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2010-collor-br-distribuidora-ap-1025"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2010-collor-br-distribuidora-ap-1025"
+    },
+    {
+      "id": "l-br-distribuidora-2010-collor-br-distribuidora-ap-1025",
+      "de": {
+        "tipo": "organizacao",
+        "id": "br-distribuidora"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2010-collor-br-distribuidora-ap-1025"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2010-collor-br-distribuidora-ap-1025"
+    },
+    {
+      "id": "l-utc-engenharia-2010-collor-br-distribuidora-ap-1025",
+      "de": {
+        "tipo": "organizacao",
+        "id": "utc-engenharia"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2010-collor-br-distribuidora-ap-1025"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2010-collor-br-distribuidora-ap-1025"
+    },
+    {
+      "id": "l-paulo-maluf-1997-maluf-lavagem-obras-prefeitura-sp-ap-863",
+      "de": {
+        "tipo": "pessoa",
+        "id": "paulo-maluf"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1997-maluf-lavagem-obras-prefeitura-sp-ap-863"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1997-maluf-lavagem-obras-prefeitura-sp-ap-863"
+    },
+    {
+      "id": "l-ivo-cassol-1998-cassol-fraude-licitacoes-rolim-de-moura-ap-565",
+      "de": {
+        "tipo": "pessoa",
+        "id": "ivo-cassol"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "1998-cassol-fraude-licitacoes-rolim-de-moura-ap-565"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "1998-cassol-fraude-licitacoes-rolim-de-moura-ap-565"
+    },
+    {
+      "id": "l-josimar-maranhaozinho-2020-emendas-sao-jose-de-ribamar-ap-2670",
+      "de": {
+        "tipo": "pessoa",
+        "id": "josimar-maranhaozinho"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-emendas-sao-jose-de-ribamar-ap-2670"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-emendas-sao-jose-de-ribamar-ap-2670"
+    },
+    {
+      "id": "l-pastor-gil-2020-emendas-sao-jose-de-ribamar-ap-2670",
+      "de": {
+        "tipo": "pessoa",
+        "id": "pastor-gil"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-emendas-sao-jose-de-ribamar-ap-2670"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-emendas-sao-jose-de-ribamar-ap-2670"
+    },
+    {
+      "id": "l-bosco-costa-2020-emendas-sao-jose-de-ribamar-ap-2670",
+      "de": {
+        "tipo": "pessoa",
+        "id": "bosco-costa"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-emendas-sao-jose-de-ribamar-ap-2670"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-emendas-sao-jose-de-ribamar-ap-2670"
+    },
+    {
+      "id": "l-celso-jacob-2003-celso-jacob-creche-tres-rios-ap-971",
+      "de": {
+        "tipo": "pessoa",
+        "id": "celso-jacob"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2003-celso-jacob-creche-tres-rios-ap-971"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2003-celso-jacob-creche-tres-rios-ap-971"
+    },
+    {
+      "id": "l-detran-rn-2002-detran-rn-livros-superfaturados-ao-2093",
+      "de": {
+        "tipo": "organizacao",
+        "id": "detran-rn"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2002-detran-rn-livros-superfaturados-ao-2093"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2002-detran-rn-livros-superfaturados-ao-2093"
+    },
+    {
+      "id": "l-gleisi-hoffmann-2010-gleisi-paulo-bernardo-absolvidos-ap-1003",
+      "de": {
+        "tipo": "pessoa",
+        "id": "gleisi-hoffmann"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2010-gleisi-paulo-bernardo-absolvidos-ap-1003"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2010-gleisi-paulo-bernardo-absolvidos-ap-1003"
+    },
+    {
+      "id": "l-paulo-bernardo-2010-gleisi-paulo-bernardo-absolvidos-ap-1003",
+      "de": {
+        "tipo": "pessoa",
+        "id": "paulo-bernardo"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2010-gleisi-paulo-bernardo-absolvidos-ap-1003"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2010-gleisi-paulo-bernardo-absolvidos-ap-1003"
+    },
+    {
+      "id": "l-petrobras-2010-gleisi-paulo-bernardo-absolvidos-ap-1003",
+      "de": {
+        "tipo": "organizacao",
+        "id": "petrobras"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2010-gleisi-paulo-bernardo-absolvidos-ap-1003"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2010-gleisi-paulo-bernardo-absolvidos-ap-1003"
+    },
+    {
+      "id": "l-beto-mansur-2003-santos-funcate-acusacao-improcedente-inq-2616",
+      "de": {
+        "tipo": "pessoa",
+        "id": "beto-mansur"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2003-santos-funcate-acusacao-improcedente-inq-2616"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2003-santos-funcate-acusacao-improcedente-inq-2616"
+    },
+    {
+      "id": "l-dnocs-2017-overclean-dnocs-bahia-emendas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "dnocs"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2017-overclean-dnocs-bahia-emendas"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2017-overclean-dnocs-bahia-emendas"
+    },
+    {
+      "id": "l-policia-federal-2017-overclean-dnocs-bahia-emendas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2017-overclean-dnocs-bahia-emendas"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2017-overclean-dnocs-bahia-emendas"
+    },
+    {
+      "id": "l-cgu-2017-overclean-dnocs-bahia-emendas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2017-overclean-dnocs-bahia-emendas"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2017-overclean-dnocs-bahia-emendas"
+    },
+    {
+      "id": "l-fnde-2019-hefesto-kits-robotica-alagoas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "fnde"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2019-hefesto-kits-robotica-alagoas"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2019-hefesto-kits-robotica-alagoas"
+    },
+    {
+      "id": "l-policia-federal-2019-hefesto-kits-robotica-alagoas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2019-hefesto-kits-robotica-alagoas"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2019-hefesto-kits-robotica-alagoas"
+    },
+    {
+      "id": "l-cgu-2019-hefesto-kits-robotica-alagoas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2019-hefesto-kits-robotica-alagoas"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2019-hefesto-kits-robotica-alagoas"
+    },
+    {
+      "id": "l-codevasf-2022-odoacro-codevasf-maranhao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "codevasf"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-odoacro-codevasf-maranhao"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-odoacro-codevasf-maranhao"
+    },
+    {
+      "id": "l-policia-federal-2022-odoacro-codevasf-maranhao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-odoacro-codevasf-maranhao"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-odoacro-codevasf-maranhao"
+    },
+    {
+      "id": "l-dnocs-2022-fake-road-dnocs-pavimentacao-ce-rn",
+      "de": {
+        "tipo": "organizacao",
+        "id": "dnocs"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-fake-road-dnocs-pavimentacao-ce-rn"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-fake-road-dnocs-pavimentacao-ce-rn"
+    },
+    {
+      "id": "l-cgu-2022-fake-road-dnocs-pavimentacao-ce-rn",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-fake-road-dnocs-pavimentacao-ce-rn"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-fake-road-dnocs-pavimentacao-ce-rn"
+    },
+    {
+      "id": "l-policia-federal-2022-fake-road-dnocs-pavimentacao-ce-rn",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2022-fake-road-dnocs-pavimentacao-ce-rn"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2022-fake-road-dnocs-pavimentacao-ce-rn"
+    },
+    {
+      "id": "l-policia-federal-2026-indefeso-seguro-defeso-maranhao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-indefeso-seguro-defeso-maranhao"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-indefeso-seguro-defeso-maranhao"
+    },
+    {
+      "id": "l-cgu-2026-indefeso-seguro-defeso-maranhao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-indefeso-seguro-defeso-maranhao"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-indefeso-seguro-defeso-maranhao"
+    },
+    {
+      "id": "l-policia-federal-2026-monte-sinai-emendas-fundeb-maranhao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-monte-sinai-emendas-fundeb-maranhao"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-monte-sinai-emendas-fundeb-maranhao"
+    },
+    {
+      "id": "l-cgu-2026-monte-sinai-emendas-fundeb-maranhao",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-monte-sinai-emendas-fundeb-maranhao"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-monte-sinai-emendas-fundeb-maranhao"
+    },
+    {
+      "id": "l-cgu-2026-corrente-reversa-aragarcas-go",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-corrente-reversa-aragarcas-go"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-corrente-reversa-aragarcas-go"
+    },
+    {
+      "id": "l-policia-federal-2026-corrente-reversa-aragarcas-go",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-corrente-reversa-aragarcas-go"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-corrente-reversa-aragarcas-go"
+    },
+    {
+      "id": "l-consorcio-nordeste-2020-cianose-respiradores-consorcio-nordeste",
+      "de": {
+        "tipo": "organizacao",
+        "id": "consorcio-nordeste"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-cianose-respiradores-consorcio-nordeste"
+      },
+      "tipo": "citado_em",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-cianose-respiradores-consorcio-nordeste"
+    },
+    {
+      "id": "l-policia-federal-2020-cianose-respiradores-consorcio-nordeste",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-cianose-respiradores-consorcio-nordeste"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-cianose-respiradores-consorcio-nordeste"
+    },
+    {
+      "id": "l-cgu-2020-cianose-respiradores-consorcio-nordeste",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-cianose-respiradores-consorcio-nordeste"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-cianose-respiradores-consorcio-nordeste"
+    },
+    {
+      "id": "l-cgu-2026-emendatio-oscs-rio-de-janeiro",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-emendatio-oscs-rio-de-janeiro"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-emendatio-oscs-rio-de-janeiro"
+    },
+    {
+      "id": "l-policia-federal-2026-emendatio-oscs-rio-de-janeiro",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-emendatio-oscs-rio-de-janeiro"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-emendatio-oscs-rio-de-janeiro"
+    },
+    {
+      "id": "l-policia-federal-2026-make-up-emendas-termo-de-fomento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-make-up-emendas-termo-de-fomento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-make-up-emendas-termo-de-fomento"
+    },
+    {
+      "id": "l-cgu-2026-make-up-emendas-termo-de-fomento",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-make-up-emendas-termo-de-fomento"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-make-up-emendas-termo-de-fomento"
+    },
+    {
+      "id": "l-policia-federal-2024-graco-emenda-pix-sena-madureira",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-graco-emenda-pix-sena-madureira"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-graco-emenda-pix-sena-madureira"
+    },
+    {
+      "id": "l-cgu-2024-graco-emenda-pix-sena-madureira",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2024-graco-emenda-pix-sena-madureira"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2024-graco-emenda-pix-sena-madureira"
+    },
+    {
+      "id": "l-cgu-2020-emendas-pix-auditorias-cgu-tcu",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-emendas-pix-auditorias-cgu-tcu"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-emendas-pix-auditorias-cgu-tcu"
+    },
+    {
+      "id": "l-policia-federal-2020-emendas-pix-auditorias-cgu-tcu",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2020-emendas-pix-auditorias-cgu-tcu"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2020-emendas-pix-auditorias-cgu-tcu"
+    },
+    {
+      "id": "l-policia-federal-2026-contrapiso-obras-municipios-ceara",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-contrapiso-obras-municipios-ceara"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-contrapiso-obras-municipios-ceara"
+    },
+    {
+      "id": "l-cgu-2026-contrapiso-obras-municipios-ceara",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2026-contrapiso-obras-municipios-ceara"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2026-contrapiso-obras-municipios-ceara"
+    },
+    {
+      "id": "l-cgu-2007-coaptacao-saude-ceara",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2007-coaptacao-saude-ceara"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2007-coaptacao-saude-ceara"
+    },
+    {
+      "id": "l-policia-federal-2007-coaptacao-saude-ceara",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2007-coaptacao-saude-ceara"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2007-coaptacao-saude-ceara"
+    },
+    {
+      "id": "l-policia-federal-2023-estagio-iv-saude-alagoas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "policia-federal"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-estagio-iv-saude-alagoas"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-estagio-iv-saude-alagoas"
+    },
+    {
+      "id": "l-cgu-2023-estagio-iv-saude-alagoas",
+      "de": {
+        "tipo": "organizacao",
+        "id": "cgu"
+      },
+      "para": {
+        "tipo": "entrada",
+        "id": "2023-estagio-iv-saude-alagoas"
+      },
+      "tipo": "investiga",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2023-estagio-iv-saude-alagoas"
+    },
+    {
+      "id": "l-collor-br-distribuidora",
+      "de": {
+        "tipo": "pessoa",
+        "id": "fernando-collor"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "br-distribuidora"
+      },
+      "tipo": "relacionada",
+      "fonteIds": [
+        "f1"
+      ],
+      "entradaId": "2010-collor-br-distribuidora-ap-1025",
+      "rotulo": "segundo o STF, recebeu R$ 20 milhões para viabilizar contratos da UTC com a estatal"
+    },
+    {
+      "id": "l-utc-br-distribuidora",
+      "de": {
+        "tipo": "organizacao",
+        "id": "utc-engenharia"
+      },
+      "para": {
+        "tipo": "organizacao",
+        "id": "br-distribuidora"
+      },
+      "tipo": "contrata",
+      "fonteIds": [
+        "f3"
+      ],
+      "entradaId": "2010-collor-br-distribuidora-ap-1025",
+      "rotulo": "segundo o STF, quatro contratos de bases de combustíveis (2010 a 2014)"
+    }
+  ],
+  "entradas": [
+    {
+      "id": "2017-geddel-r-51-milhoes-ap-1030",
+      "dossie": "dinheiro-publico",
+      "titulo": "R$ 51 milhões em apartamento de Salvador: STF condena Geddel e Lúcio Vieira Lima por lavagem (AP 1030)",
+      "resumo": "Segundo o STF, a Segunda Turma condenou em 22 de outubro de 2019 o ex-ministro Geddel Vieira Lima e o ex-deputado Lúcio Vieira Lima por lavagem de dinheiro e associação criminosa na Ação Penal 1030, ligada aos R$ 51 milhões em dinheiro encontrados num apartamento em Salvador em 2017. Segundo o STF, em agosto de 2021 a Turma acolheu em parte os embargos da defesa, excluiu a condenação por associação criminosa e a indenização por danos morais coletivos, e manteve a condenação por lavagem de dinheiro.",
+      "dataDoFato": "2017",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2927408",
+        "nome": "Salvador"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "2ª Turma condena Geddel e Lúcio Vieira Lima por lavagem de dinheiro e associação criminosa",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=427720",
+          "trecho": "O julgamento da Ação Penal (AP) 1030, relacionada aos R$ 51 milhões em dinheiro encontrados em um apartamento em Salvador (BA) em 2017, foi concluído nesta terça-feira (22)",
+          "data": "2019-10-22",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "2ª Turma acolhe embargos e afasta condenação de Geddel Vieira Lima por associação criminosa",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=471541&ori=1",
+          "trecho": "A condenação por lavagem de dinheiro permanece, mas também foi excluída a condenação ao pagamento por danos morais coletivos.",
+          "data": "2021-08-23",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "geddel-vieira-lima",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado na AP 1030; em 2021 ficou mantida só a condenação por lavagem de dinheiro."
+        },
+        {
+          "pessoaId": "lucio-vieira-lima",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado na AP 1030; em 2021 ficou mantida só a condenação por lavagem de dinheiro."
+        }
+      ],
+      "organizacoes": [],
+      "etiquetas": [
+        "lavagem de dinheiro",
+        "AP 1030",
+        "STF",
+        "Salvador"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Ação penal originária no STF (instância única): o modelo não tem o degrau próprio, então foi usado 'condenado em 1ª instância'. Em 20/10/2020 o STF ainda dizia que a condenação não tinha transitado; depois dos embargos de 2021 houve execução (progressão, liberdade condicional), mas nenhuma fonte lida certifica o trânsito: conferir no andamento da AP 1030 e, se houver, mudar para 'condenado com trânsito em julgado'. A mãe dos dois teve o processo mandado à 1ª instância e NÃO está na ficha."
+    },
+    {
+      "id": "2010-collor-br-distribuidora-ap-1025",
+      "dossie": "dinheiro-publico",
+      "titulo": "BR Distribuidora: STF condena Fernando Collor por corrupção passiva e lavagem (AP 1025)",
+      "resumo": "Segundo o STF, o Plenário condenou em 31 de maio de 2023 o ex-senador e ex-presidente Fernando Collor a oito anos e dez meses de reclusão por corrupção passiva e lavagem de dinheiro na Ação Penal 1025: ele recebeu R$ 20 milhões para viabilizar irregularmente contratos da BR Distribuidora com a UTC Engenharia, em troca de apoio político para indicar e manter diretores da estatal; o relator apontou fatos entre 2010 e 2014. Segundo o STF, em abril de 2025 o ministro Alexandre de Moraes considerou protelatório o último recurso e determinou o cumprimento imediato da pena, decisão confirmada pelo Plenário.",
+      "dataDoFato": "2010",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "DF",
+        "municipioIbge": "5300108",
+        "nome": "Brasília (STF)"
+      },
+      "situacao": "condenado_transitado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF condena Collor a oito anos e dez meses por crimes contra BR Distribuidora",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=508173&ori=1",
+          "trecho": "Ex-senador recebeu indevidamente R$ 20 milhões para viabilizar irregularmente contratos da UTC com a estatal.",
+          "data": "2023-05-31",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF determina cumprimento imediato da pena do ex-presidente Fernando Collor",
+          "url": "https://noticias.stf.jus.br/postsnoticias/stf-determina-cumprimento-imediato-da-pena-do-ex-presidente-fernando-collor/",
+          "trecho": "revela o caráter meramente protelatório dos infringentes, autorizando a certificação do trânsito em julgado e o imediato cumprimento da decisão condenatória",
+          "data": "2025-04-24",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f3",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Relator e revisor votam para condenar Fernando Collor por crimes ligados à BR Distribuidora",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=507453&tip=UN",
+          "trecho": "entre 2010 e 2014, a influência de Collor sobre a presidência e as diretorias da BR Distribuidora viabilizou a assinatura de quatro contratos da UTC Engenharia",
+          "data": "2023-05-17",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "fernando-collor",
+          "situacao": "condenado_transitado",
+          "papelNoCaso": "Segundo o STF, condenado na AP 1025; em abril de 2025 foi autorizada a certificação do trânsito em julgado e o cumprimento imediato da pena."
+        }
+      ],
+      "organizacoes": [
+        "br-distribuidora",
+        "utc-engenharia"
+      ],
+      "etiquetas": [
+        "corrupção passiva",
+        "lavagem de dinheiro",
+        "AP 1025",
+        "BR Distribuidora",
+        "Lava Jato"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Os dois empresários condenados na mesma ação não foram nomeados (pessoas privadas; preferimos a organização). O lugar é o do julgamento (STF), como no caso do Mensalão: as fontes não dizem onde os contratos foram assinados. Em 2025 o STF concedeu prisão domiciliar humanitária (não lida aqui). Quatro ministros votaram contra a certificação do trânsito: conferir se houve mudança depois de abril de 2025."
+    },
+    {
+      "id": "1997-maluf-lavagem-obras-prefeitura-sp-ap-863",
+      "dossie": "dinheiro-publico",
+      "titulo": "Paulo Maluf condenado pelo STF por lavagem de dinheiro desviado de obras da Prefeitura de São Paulo (AP 863)",
+      "resumo": "Segundo o STF, a Primeira Turma condenou em 23 de maio de 2017 o então deputado federal Paulo Maluf a 7 anos, 9 meses e 10 dias de reclusão por lavagem de dinheiro na Ação Penal 863; segundo a denúncia do MPF citada pelo STF, ele lavou dinheiro desviado de obras públicas e participou de esquema de propinas na Prefeitura de São Paulo em 1997 e 1998. Segundo o STF, em dezembro de 2017 o relator determinou o cumprimento imediato da pena e, em maio de 2023, declarou extintas as penas de prisão por indulto natalino, mantidos os demais efeitos da condenação.",
+      "dataDoFato": "1997",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3550308",
+        "nome": "São Paulo"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "1ª Turma condena Paulo Maluf por crime de lavagem de dinheiro",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=344207",
+          "trecho": "De acordo com a denúncia do Ministério Público Federal (MPF), Paulo Maluf atuou na lavagem de dinheiro desviado de obras públicas e fez remessas ilegais ao exterior, por meio de doleiros.",
+          "data": "2017-05-23",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Por preencher regras de indulto natalino, ex-deputado Paulo Maluf tem penas extintas pelo STF",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=507375&ori=1",
+          "trecho": "O indulto abrange apenas as penas privativas de liberdade, ficando mantidos os demais efeitos da condenação.",
+          "data": "2023-05-16",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f3",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Ministro rejeita recurso e determina cumprimento de pena de Paulo Maluf",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=365279",
+          "trecho": "O ministro Edson Fachin, do Supremo Tribunal Federal (STF), determinou o imediato cumprimento da pena imposta ao deputado federal Paulo Maluf (PP-SP) pelo crime de lavagem de dinheiro.",
+          "data": "2017-12-19",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "paulo-maluf",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado na AP 863 por lavagem de dinheiro; pena de prisão extinta por indulto em 2023."
+        }
+      ],
+      "organizacoes": [],
+      "etiquetas": [
+        "lavagem de dinheiro",
+        "AP 863",
+        "Prefeitura de São Paulo",
+        "indulto"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Houve execução da pena (2017) e indulto (2023), o que indica trânsito em julgado, mas nenhuma fonte lida diz 'trânsito' com todas as letras: por prudência ficou 'condenado em 1ª instância' (ação originária no STF). Conferir no andamento da AP 863 e subir para 'condenado com trânsito em julgado'. A AP 968 (falsidade ideológica eleitoral) não faz parte desta ficha."
+    },
+    {
+      "id": "1998-cassol-fraude-licitacoes-rolim-de-moura-ap-565",
+      "dossie": "dinheiro-publico",
+      "titulo": "Ivo Cassol condenado pelo STF por fraude a licitações em Rolim de Moura (AP 565)",
+      "resumo": "Segundo o STF, o Plenário condenou em 8 de agosto de 2013, por unanimidade, o então senador Ivo Cassol por fraude a licitações ocorridas quando ele era prefeito de Rolim de Moura (RO), entre 1998 e 2002, na Ação Penal 565; o presidente e o vice-presidente da comissão municipal de licitações também foram condenados e os empresários foram absolvidos por falta de provas. Segundo o STF, em junho de 2018 o Plenário determinou a certificação do trânsito em julgado e, em agosto de 2018, a presidente do STF mandou cumprir a pena, então de quatro anos de detenção em regime aberto, substituída por prestação de serviços e multa de R$ 201 mil.",
+      "dataDoFato": "1998",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RO",
+        "municipioIbge": "1100288",
+        "nome": "Rolim de Moura"
+      },
+      "situacao": "condenado_transitado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF condena senador Ivo Cassol e corréus por fraude a licitações",
+          "url": "https://noticias.stf.jus.br/?p=34203",
+          "trecho": "Para os ministros, ficou comprovada a participação em esquema que beneficiava empresas em licitações para a contratação de obras no município de Rolim de Moura (RO), entre os anos de 1998 e 2001",
+          "data": "2013-08-08",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Ministra Cármen Lúcia determina cumprimento da pena do senador Ivo Cassol",
+          "url": "https://noticias.stf.jus.br/?p=45402",
+          "trecho": "Em 20/6, o Plenário do STF determinou a certificação do trânsito em julgado da AP, independentemente da publicação do acórdão, para fins de início do cumprimento da pena.",
+          "data": "2018-08-02",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "ivo-cassol",
+          "situacao": "condenado_transitado",
+          "papelNoCaso": "Segundo o STF, condenado na AP 565 por fraude a licitações; trânsito em julgado certificado em 2018."
+        }
+      ],
+      "organizacoes": [],
+      "etiquetas": [
+        "fraude em licitação",
+        "AP 565",
+        "Rolim de Moura",
+        "prefeitura"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Os dois servidores da comissão de licitação, também condenados, não foram nomeados (preferimos o agente político). A pena original (2013) era de 4 anos, 8 meses e 26 dias; o STF a reduziu depois (a fonte de 2018 traz quatro anos em regime aberto). Em 2022 houve discussão de inelegibilidade no STF (não lida aqui)."
+    },
+    {
+      "id": "2020-emendas-sao-jose-de-ribamar-ap-2670",
+      "dossie": "dinheiro-publico",
+      "titulo": "Emendas em troca de propina: STF condena deputados do Maranhão por corrupção passiva (AP 2670)",
+      "resumo": "Segundo o STF, a Primeira Turma condenou por unanimidade, em 17 de março de 2026, por corrupção passiva, sete dos oito réus da Ação Penal 2670, entre eles os deputados federais Josimar Maranhãozinho e Pastor Gil e o ex-deputado Bosco Costa, acusados de pedir propina em troca de emendas parlamentares ao município de São José de Ribamar (MA). Segundo o STF, a PGR apontou que, entre janeiro e agosto de 2020, os deputados pediram ao então prefeito R$ 1,6 milhão em troca de cerca de R$ 6,7 milhões em emendas; as penas vão de 5 anos a 6 anos e 5 meses em regime semiaberto, e todos foram absolvidos da acusação de organização criminosa.",
+      "dataDoFato": "2020",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MA",
+        "municipioIbge": "2111201",
+        "nome": "São José de Ribamar"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF condena sete réus por desvio de emendas parlamentares destinadas a município do Maranhão",
+          "url": "https://noticias.stf.jus.br/postsnoticias/stf-condena-sete-reus-por-desvio-de-emendas-parlamentares-destinadas-a-municipio-do-maranhao-2/",
+          "trecho": "De acordo com a PGR, entre janeiro e agosto de 2020, os deputados solicitaram ao então prefeito do município o pagamento de R$ 1,6 milhão em contrapartida ao encaminhamento de cerca de R$ 6,7 milhões em emendas parlamentares para a cidade.",
+          "data": "2026-03-17",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "josimar-maranhaozinho",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado por corrupção passiva na AP 2670 e absolvido de organização criminosa; cabe recurso."
+        },
+        {
+          "pessoaId": "pastor-gil",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado por corrupção passiva na AP 2670 e absolvido de organização criminosa; cabe recurso."
+        },
+        {
+          "pessoaId": "bosco-costa",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenado por corrupção passiva na AP 2670 e absolvido de organização criminosa; cabe recurso."
+        }
+      ],
+      "organizacoes": [],
+      "etiquetas": [
+        "emendas parlamentares",
+        "corrupção passiva",
+        "AP 2670",
+        "STF"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Decisão de 17/03/2026 da 1ª Turma em ação originária (instância única no STF); ainda cabem embargos, então NÃO há trânsito. 'Condenado em 1ª instância' é o degrau mais próximo do modelo. Os quatro outros condenados (assessor e particulares) e o ex-prefeito citado na denúncia não foram nomeados. A Câmara decide sobre a perda dos mandatos (conferir)."
+    },
+    {
+      "id": "2003-celso-jacob-creche-tres-rios-ap-971",
+      "dossie": "dinheiro-publico",
+      "titulo": "Creche de Três Rios: STF mantém condenação de Celso Jacob por falsificação e dispensa indevida de licitação (AP 971)",
+      "resumo": "Segundo o STF, a Primeira Turma manteve em 28 de junho de 2016, por unanimidade, a condenação do então deputado federal Celso Jacob por falsificação de documento público e dispensa de licitação fora das hipóteses legais, com pena total de 7 anos e 2 meses em regime inicial semiaberto. Segundo o STF, quando ele era prefeito de Três Rios (RJ), em 2003, foi decretado estado de emergência para contratar sem licitação, para terminar uma creche, a construtora que havia sido desclassificada; segundo o MPF citado pelo STF, a emergência foi declarada falsamente.",
+      "dataDoFato": "2003",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3306008",
+        "nome": "Três Rios"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Mantida condenação do deputado Celso Jacob (PMDB-RJ) por falsificação de documento público e dispensa indevida de licitação",
+          "url": "https://noticias.stf.jus.br/postsnoticias/mantida-condenacao-do-deputado-celso-jacob-pmdb-rj-por-falsificacao-de-documento-publico-e-dispensa-indevida-de-licitacao/",
+          "trecho": "Segundo o Ministério Público Federal, o estado de emergência foi falsamente declarado para, indevidamente, justificar a dispensa de licitação.",
+          "data": "2016-06-28",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "celso-jacob",
+          "situacao": "condenado_1a_instancia",
+          "papelNoCaso": "Segundo o STF, condenação mantida em apelação na AP 971 (falsificação de documento público e dispensa indevida de licitação)."
+        }
+      ],
+      "organizacoes": [],
+      "etiquetas": [
+        "dispensa de licitação",
+        "falsificação",
+        "AP 971",
+        "creche",
+        "Três Rios"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Condenação em 1ª instância (Justiça do RJ) mantida pelo STF em apelação: o modelo não tem o degrau '2ª instância' (ESPEC, pendência 4). A fonte não fala em trânsito em julgado; conferir a execução (a imprensa noticiou prisão em 2017, não lida aqui). Os dois corréus e a construtora não foram nomeados."
+    },
+    {
+      "id": "2002-detran-rn-livros-superfaturados-ao-2093",
+      "dossie": "dinheiro-publico",
+      "titulo": "Detran-RN pagou R$ 28 por livro de R$ 7,50: STF mantém condenações por superfaturamento (AO 2093)",
+      "resumo": "Segundo o STF, a Segunda Turma concluiu em 3 de setembro de 2019 o julgamento da Ação Originária 2093 e manteve, com ajustes nas penas, as condenações de envolvidos num esquema de superfaturamento na compra de livros de educação para o trânsito pelo Detran do Rio Grande do Norte. Segundo o STF, em 2002 a autarquia pagou R$ 28 por exemplar quando o preço era R$ 7,50, recebeu 14.684 dos 32.108 livros pagos, e o prejuízo foi de cerca de R$ 800 mil em valores da época; os crimes foram peculato, falsificação de documento e dispensa ilegal de licitação.",
+      "dataDoFato": "2002",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RN",
+        "municipioIbge": "2408102",
+        "nome": "Natal"
+      },
+      "situacao": "condenado_1a_instancia",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "2ª Turma mantém condenação de envolvidos em esquema de superfaturamento no Detran-RN",
+          "url": "https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=422465",
+          "trecho": "Ficou comprovado que a autarquia estadual pagou R$ 28 por exemplar, quando o preço unitário era de R$ 7,50, e que, mesmo pagando por 32 mil livros, só havia recebido 14.684.",
+          "data": "2019-09-03",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "detran-rn"
+      ],
+      "etiquetas": [
+        "superfaturamento",
+        "peculato",
+        "dispensa de licitação",
+        "Detran-RN"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Sem pessoa nomeada de propósito: a fonte nomeia servidores e particulares sem dizer os cargos, e preferimos a organização. A sentença é da Justiça estadual (1ª instância) e a apelação foi julgada pelo STF porque o TJRN se declarou impedido; o modelo não tem o degrau '2ª instância'. Um réu teve a punibilidade extinta por prescrição."
+    },
+    {
+      "id": "2010-gleisi-paulo-bernardo-absolvidos-ap-1003",
+      "dossie": "dinheiro-publico",
+      "titulo": "Lava Jato: STF absolve Gleisi Hoffmann e Paulo Bernardo da acusação de receber R$ 1 milhão da Petrobras (AP 1003)",
+      "resumo": "Segundo o STF, a Segunda Turma absolveu em 19 de junho de 2018 a então senadora Gleisi Hoffmann, o ex-ministro Paulo Bernardo e um empresário da acusação de pedir e receber R$ 1 milhão desviados da Petrobras para a campanha ao Senado de 2010, na Ação Penal 1003, proposta pela PGR a partir da Operação Lava Jato. Segundo o STF, prevaleceu o entendimento de que a PGR não apresentou provas externas que confirmassem o que foi dito em colaborações premiadas.",
+      "dataDoFato": "2010",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "PR",
+        "nome": "Paraná"
+      },
+      "situacao": "absolvido",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "2ª Turma julga improcedente ação penal contra senadora Gleisi Hoffmann",
+          "url": "https://noticias.stf.jus.br/postsnoticias/2a-turma-julga-improcedente-acao-penal-contra-senadora-gleisi-hoffmann/",
+          "trecho": "prevaleceu o entendimento de que a Procuradoria-Geral da República (PGR) não apresentou elementos externos de prova que corroborassem as informações prestadas em colaborações premiadas",
+          "data": "2018-06-19",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "gleisi-hoffmann",
+          "situacao": "absolvido",
+          "papelNoCaso": "Segundo o STF, absolvida na AP 1003 em 19/06/2018."
+        },
+        {
+          "pessoaId": "paulo-bernardo",
+          "situacao": "absolvido",
+          "papelNoCaso": "Segundo o STF, absolvido na AP 1003 em 19/06/2018."
+        }
+      ],
+      "organizacoes": [
+        "petrobras"
+      ],
+      "etiquetas": [
+        "absolvição",
+        "AP 1003",
+        "Lava Jato",
+        "Petrobras",
+        "campanha eleitoral"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Ficha de ABSOLVIÇÃO (o Vale mostra também quem foi inocentado). O empresário absolvido não foi nomeado. Lugar: a fonte fala da campanha ao Senado (PR) sem município. Conferir se a PGR recorreu e se a absolvição transitou."
+    },
+    {
+      "id": "2003-santos-funcate-acusacao-improcedente-inq-2616",
+      "dossie": "dinheiro-publico",
+      "titulo": "Santos (SP): STF julga improcedente acusação de dispensa ilegal de licitação contra Beto Mansur (INQ 2616)",
+      "resumo": "Segundo o STF, o Plenário julgou improcedente em 29 de maio de 2014, por maioria, a acusação do MPF contra o ex-prefeito de Santos e então deputado federal Beto Mansur e sua secretária de Finanças à época, por suposta dispensa ilegal de licitação na contratação da Funcate, em 2003, para sistemas de gestão tributária e financeira. Segundo o STF, o relator considerou que a lei permite a contratação direta quando a licitação fracassa e que não houve prejuízo ao erário.",
+      "dataDoFato": "2003",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "SP",
+        "municipioIbge": "3548500",
+        "nome": "Santos"
+      },
+      "situacao": "absolvido",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "Improcedente acusação contra deputado por dispensa ilegal de licitação",
+          "url": "https://noticias.stf.jus.br/postsnoticias/improcedente-acusacao-contra-deputado-por-dispensa-ilegal-de-licitacao/",
+          "trecho": "Em 2003, na gestão de Beto Mansur (PRB/SP), a prefeitura contratou a Fundação de Ciência, Aplicação e Tecnologias Espaciais (Funcate), sem licitação",
+          "data": "2014-05-29",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [
+        {
+          "pessoaId": "beto-mansur",
+          "situacao": "absolvido",
+          "papelNoCaso": "Segundo o STF, a acusação de dispensa ilegal de licitação foi julgada improcedente no INQ 2616 em 29/05/2014."
+        }
+      ],
+      "organizacoes": [],
+      "etiquetas": [
+        "dispensa de licitação",
+        "INQ 2616",
+        "Santos",
+        "acusação improcedente"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Improcedência da acusação (art. 6º da Lei 8.038/1990) registrada como 'absolvido', o degrau mais próximo. A ex-secretária não foi nomeada. Conferir se a curadoria quer manter casos encerrados a favor do acusado nesta leva (a ESPEC diz que sim: absolvições aparecem)."
+    },
+    {
+      "id": "2017-overclean-dnocs-bahia-emendas",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Overclean: PF e CGU apuram desvio de emendas e fraude em contratos do DNOCS na Bahia",
+      "resumo": "Segundo a CGU, a CGU, a Polícia Federal, o MPF e a Receita Federal deflagraram em 10 de dezembro de 2024 a Operação Overclean contra uma suposta organização criminosa de fraudes licitatórias, desvios de recursos públicos, corrupção e lavagem de dinheiro que atingiu a coordenadoria do DNOCS na Bahia; segundo a CGU, o grupo movimentou cerca de R$ 1,4 bilhão no período investigado, com projetos executados a partir de 2017. Segundo a Polícia Federal, a nona fase, em 13 de janeiro de 2026, cumpriu nove mandados expedidos pelo STF e teve bloqueio de R$ 24 milhões. Há investigados; as fontes lidas não trazem denúncia nem condenação.",
+      "dataDoFato": "2017",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2927408",
+        "nome": "Salvador"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "Operação Overclean: CGU, PF, MPF e Receita desmontam esquema que desviou R$ 1,4 bilhão do DNOCS na Bahia",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2024/12/operacao-overclean-cgu-pf-mpf-e-receita-desmontam-esquema-que-desviou-r-1-4-bilhao-do-dnocs-na-bahia",
+          "trecho": "Durante o período investigado, a organização movimentou aproximadamente R$ 1,4 bilhão. Apenas em 2024, celebrou contratos no valor de R$ 825 milhões com diversos órgãos públicos.",
+          "data": "2024-12-10",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF, CGU e Receita Federal deflagram nova fase da Operação Overclean",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2026/01/pf-cgu-e-receita-federal-deflagram-nova-fase-da-operacao-overclean",
+          "trecho": "O STF determinou o bloqueio de R$ 24 milhões em contas bancárias de pessoas físicas e jurídicas investigadas",
+          "data": "2026-01-13",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "dnocs",
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "emendas parlamentares",
+        "DNOCS",
+        "fraude em licitação",
+        "Operação Overclean"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. R$ 1,4 bilhão é o que a organização MOVIMENTOU segundo a CGU, não o valor desviado (o título da nota da CGU diz 'desviou'; a ficha usa a frase mais prudente do corpo do texto). Ninguém nomeado: as notas oficiais não nomeiam investigados e a imprensa cita parlamentares sem denúncia. Houve fases 2 a 8 em 2025 (não lidas)."
+    },
+    {
+      "id": "2019-hefesto-kits-robotica-alagoas",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Hefesto: kits de robótica para 43 municípios de Alagoas com recursos do FNDE",
+      "resumo": "Segundo a Polícia Federal, a Operação Hefesto, deflagrada em 1º de junho de 2023 com apoio da CGU em Alagoas, investiga suposta fraude em licitação e lavagem de dinheiro na compra de equipamentos de robótica para 43 municípios alagoanos entre 2019 e 2022, com recursos federais do FNDE, que teriam sido direcionados a uma única fornecedora por especificações técnicas restritivas. Segundo a Polícia Federal, a CGU calculou prejuízo de R$ 8,1 milhões e prejuízo potencial de R$ 19,8 milhões nas despesas analisadas, e houve sequestro de bens de R$ 8,1 milhões.",
+      "dataDoFato": "2019",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AL",
+        "nome": "Alagoas (43 municípios)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF deflagra operação para combater lavagem de dinheiro e fraude em licitações em Alagoas",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2023/05/pf-deflagra-operacao-para-combater-lavagem-de-dinheiro-e-fraude-em-licitacoes-em-alagoas",
+          "trecho": "Segundo a CGU, as fraudes e superfaturamento geraram prejuízo ao erário de R$ 8,1 milhões e sobrepreço, com prejuízos potenciais de R$ 19,8 milhões, em relação às despesas até então analisadas.",
+          "data": "2023-06-01",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "fnde",
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "FNDE",
+        "kits de robótica",
+        "fraude em licitação",
+        "Operação Hefesto",
+        "educação"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Nenhum nome nas fontes lidas. O TCU também fiscalizou a compra (portal do TCU bloqueou a leitura automática: conferir à mão e acrescentar como fonte)."
+    },
+    {
+      "id": "2022-odoacro-codevasf-maranhao",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Odoacro: PF apura fraude em licitações e desvio de verbas da Codevasf no Maranhão",
+      "resumo": "Segundo a Polícia Federal, a segunda fase da Operação Odoacro, em 29 de setembro de 2022 em São Luís, mirou servidores públicos que supostamente ajudavam em fraudes licitatórias e desvios de verbas federais da Codevasf; segundo a Polícia Federal, empresas de fachada competiam entre si para que a empresa principal do grupo, com grandes contratos com a Codevasf, sempre vencesse. Segundo a Polícia Federal, um gerente da Codevasf recebeu cerca de R$ 250 mil das empresas investigadas e foi afastado da função.",
+      "dataDoFato": "2022",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MA",
+        "municipioIbge": "2111300",
+        "nome": "São Luís"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF deflagra segunda fase de operação contra fraudes licitatórias e desvios na CODEVASF",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2022/10/pf-deflagra-segunda-fase-de-operacao-contra-fraudes-licitatorias-e-desvios-na-codevasf",
+          "trecho": "Ao iniciar a análise dos materiais apreendidos na primeira fase da operação, foi possível visualizar a participação de um gerente da Codevasf na associação criminosa, o qual recebeu cerca de R$ 250 mil das empresas investigadas.",
+          "data": "2022-10-05",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "codevasf",
+        "policia-federal"
+      ],
+      "etiquetas": [
+        "Codevasf",
+        "fraude em licitação",
+        "Operação Odoacro",
+        "emendas parlamentares"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. dataDoFato = ano da 2ª fase (a nota da PF não dá o período dos contratos). A 3ª fase (Operação Benesse, 2023) tratou de emendas para pavimentação; a página da PF devolveu 404 e não foi lida. Ninguém nomeado."
+    },
+    {
+      "id": "2022-fake-road-dnocs-pavimentacao-ce-rn",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Fake Road: CGU e PF apuram pavimentação paga com emendas pelo DNOCS em Fortaleza e Natal",
+      "resumo": "Segundo a CGU, a Operação Fake Road, de 28 de novembro de 2025, feita com a Polícia Federal, investiga suspeitas de superfaturamento, serviços parciais ou inexistentes, medições irregulares e favorecimento de empresas em contratos de pavimentação do DNOCS financiados por emendas parlamentares entre 2022 e 2023. Segundo a CGU, foram cumpridos 11 mandados de busca expedidos pelo STF e o prejuízo possível é estimado em mais de R$ 22 milhões em Fortaleza (CE) e Natal (RN).",
+      "dataDoFato": "2022",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "CE",
+        "municipioIbge": "2304400",
+        "nome": "Fortaleza (e Natal, RN)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "Ação da CGU e da PF investiga suspeitas de irregularidades em contratos de pavimentação",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2025/11/acao-da-cgu-e-da-pf-investiga-suspeitas-de-irregularidades-em-contratos-de-pavimentacao",
+          "trecho": "A ação cumpre 11 mandados de busca e apreensão, expedidos pelo Supremo Tribunal Federal (STF), e apura um possível prejuízo estimado em mais de R$ 22 milhões em Fortaleza (CE) e Natal (RN).",
+          "data": "2025-11-28",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "dnocs",
+        "cgu",
+        "policia-federal"
+      ],
+      "etiquetas": [
+        "DNOCS",
+        "pavimentação",
+        "emendas parlamentares",
+        "Operação Fake Road"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. O caso ocorre em duas capitais; o mapa só aceita um município, então ficou Fortaleza (e Natal no nome). Ninguém nomeado."
+    },
+    {
+      "id": "2026-indefeso-seguro-defeso-maranhao",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Indefeso: PF apura fraude no Seguro Defeso em 16 municípios do Maranhão",
+      "resumo": "Segundo a Polícia Federal, a Operação Indefeso, deflagrada em 28 de outubro de 2026 com apoio da CGU, investiga uma suposta organização criminosa que fraudava a concessão do Seguro Defeso, benefício de pescadores artesanais, com dados falsos em sistemas do governo e documentos fraudulentos. Segundo a Polícia Federal, foram cumpridos 35 mandados de busca em 16 municípios maranhenses, dois agentes públicos foram afastados, houve bloqueio de cerca de R$ 400 milhões e o prejuízo possível seria de cerca de R$ 10 bilhões em cinco anos.",
+      "dataDoFato": "2026-10",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MA",
+        "nome": "Maranhão (16 municípios)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF desmonta esquema e impede desvio de até R$ 10 bi em recursos públicos",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2026/10/pf-desmonta-esquema-e-impede-desvio-de-ate-r-10-bi-em-recursos-publicos",
+          "trecho": "Segundo os indícios de prova já reunidos e análises realizadas, a atuação da organização criminosa poderia causar um prejuízo de, aproximadamente, R$ 10 bilhões aos cofres públicos em cinco anos.",
+          "data": "2026-10-28",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "Seguro Defeso",
+        "pescadores artesanais",
+        "fraude em benefício",
+        "Operação Indefeso"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. R$ 10 bilhões é PROJEÇÃO da PF (prejuízo possível em cinco anos), não valor desviado: a ficha diz isso. A nota não dá o período dos fatos; dataDoFato = mês da operação. Ninguém nomeado."
+    },
+    {
+      "id": "2026-monte-sinai-emendas-fundeb-maranhao",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Monte Sinai: CGU e PF apuram emendas e precatórios do Fundef/Fundeb em obras no Maranhão",
+      "resumo": "Segundo a CGU, a Operação Monte Sinai, feita pela Polícia Federal em 13 de agosto de 2026 com análises da CGU e da Receita Federal, apura suposta organização criminosa envolvida em fraudes licitatórias, desvio de recursos públicos e lavagem de dinheiro no Maranhão, com possíveis irregularidades em emendas parlamentares federais repassadas por convênios para obras em municípios maranhenses. Segundo a CGU, também são apurados indícios de uso de recursos de precatórios do Fundef/Fundeb em contratos de pavimentação, fora da destinação legal à educação.",
+      "dataDoFato": "2026-08",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "MA",
+        "municipioIbge": "2111300",
+        "nome": "São Luís e interior"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "CGU e PF investigam fraudes em licitações e desvio de recursos públicos no Maranhão",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2026/defeso-eleitoral/cgu-e-pf-investigam-fraudes-em-licitacoes-e-desvio-de-recursos-publicos-no-maranhao",
+          "trecho": "Também são apurados indícios de irregularidades na utilização de recursos vindos de precatórios do Fundef/Fundeb em contratos de pavimentação e de infraestrutura, em descumprimento da destinação legal dessas verbas",
+          "data": "2026-08-13",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "emendas parlamentares",
+        "Fundef",
+        "Fundeb",
+        "pavimentação",
+        "Operação Monte Sinai"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. A nota não dá o período dos fatos; dataDoFato = mês da operação. Ninguém nomeado. Página no período eleitoral de 2026 (seção 'defeso eleitoral' do gov.br): conferir se o endereço continua no ar."
+    },
+    {
+      "id": "2026-corrente-reversa-aragarcas-go",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Corrente Reversa: CGU e PF apuram sobrepreço e empresa de fachada em licitações de Aragarças (GO)",
+      "resumo": "Segundo a CGU, a CGU e a Polícia Federal fizeram em 3 de novembro de 2026 a Operação Corrente Reversa contra um suposto esquema de fraudes em licitações e contratos do município de Aragarças (GO), sobretudo em obras e serviços de engenharia. Segundo a CGU, os elementos reunidos apontam simulação de competitividade, sobrepreço e uso de empresa de fachada, por empresas formalmente distintas ligadas aos mesmos representantes e endereços; foram cumpridos cinco mandados de busca expedidos pela Justiça Federal em Goiás e Mato Grosso.",
+      "dataDoFato": "2026-11",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "GO",
+        "municipioIbge": "5201702",
+        "nome": "Aragarças"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "CGU e PF combatem esquema de fraudes em licitações em Goiás",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2026/10/cgu-e-pf-combatem-esquema-de-fraudes-em-licitacoes-em-goias",
+          "trecho": "Os elementos reunidos até o momento apontam para simulação de competitividade, sobrepreço e uso de empresa de fachada sem capacidade operacional efetiva.",
+          "data": "2026-11-03",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "cgu",
+        "policia-federal"
+      ],
+      "etiquetas": [
+        "fraude em licitação",
+        "sobrepreço",
+        "empresa de fachada",
+        "Operação Corrente Reversa"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Operação de 03/11/2026 (três dias antes da pesquisa): reconferir. A nota não dá o período dos contratos nem valores; dataDoFato = mês da operação. Ninguém nomeado."
+    },
+    {
+      "id": "2020-cianose-respiradores-consorcio-nordeste",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Cianose: respiradores pagos pelo Consórcio Nordeste e nunca entregues (R$ 48,7 milhões)",
+      "resumo": "Segundo a CGU, em abril de 2020 o Consórcio Nordeste contratou, por dispensa de licitação formalizada pela Secretaria de Saúde da Bahia, 300 respiradores de uma empresa que vendia medicamentos à base de Cannabis, pagou adiantado quase R$ 49 milhões sem garantias, e os equipamentos nunca foram entregues, com prejuízo de R$ 48.748.575,82. Segundo a CGU, a Operação Cianose, com a Polícia Federal, aprofundou em 26 de abril de 2022 a investigação de um suposto esquema com lobistas, empresários, agentes públicos e empresas na Bahia e em São Paulo; segundo a Polícia Federal, a segunda fase, em 1º de agosto de 2024, buscou recuperar os valores.",
+      "dataDoFato": "2020-04",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "BA",
+        "municipioIbge": "2927408",
+        "nome": "Salvador"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "CGU e PF combatem desvio de recursos pelo Consórcio Nordeste",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2022/04/cgu-e-policia-federal-combatem-desvio-de-recursos-pelo-consorcio-nordeste",
+          "trecho": "Por fim, os respiradores nunca foram entregues e o contrato foi rescindido sem que houvesse a restituição da quantia paga, resultando no prejuízo aos cofres públicos correspondente ao valor integral contratado (R$ 48.748.575,82).",
+          "data": "2022-04-26",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF deflagra operação para recuperar recursos desviados em aquisição de respiradores",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2024/08/pf-deflagra-operacao-para-recuperar-recursos-desviados-em-aquisicao-de-respiradores",
+          "trecho": "Os delitos investigados incluem crimes licitatórios, desvio de recursos públicos, lavagem de capitais e organização criminosa.",
+          "data": "2024-08-01",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "consorcio-nordeste",
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "respiradores",
+        "pandemia",
+        "dispensa de licitação",
+        "Operação Cianose",
+        "Consórcio Nordeste"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Ninguém nomeado: a empresa contratada e seus sócios aparecem na imprensa e numa CPI estadual, mas as notas oficiais não os nomeiam e não há denúncia lida. O TCU abriu tomada de contas especial (acórdão não lido: portal bloqueado)."
+    },
+    {
+      "id": "2026-emendatio-oscs-rio-de-janeiro",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Emendatio: CGU e PF apuram desvio de emendas destinadas a organizações sociais no Rio",
+      "resumo": "Segundo a CGU, a Operação Emendatio, feita pela Polícia Federal com a CGU em 9 de julho de 2026, busca desarticular um suposto esquema de desvio de emendas parlamentares federais destinadas a organizações da sociedade civil no Rio de Janeiro, com apuração de peculato, lavagem de dinheiro e organização criminosa. Segundo a CGU, foram cumpridos dois mandados de prisão preventiva e 21 de busca expedidos pelo STF, com bloqueio de R$ 100 milhões, e a análise apontou indícios de superfaturamento e conluio entre empresas nas cotações de preços.",
+      "dataDoFato": "2026-07",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "RJ",
+        "municipioIbge": "3304557",
+        "nome": "Rio de Janeiro"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "Operação Emendatio: CGU e PF combatem desvio emendas parlamentares no RJ",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2026/07-defeso-eleitoral/operacao-emendatio-cgu-e-pf-combatem-desvio-emendas-parlamentares-no-rj",
+          "trecho": "Estão sendo cumpridos dois mandados de prisão preventiva e 21 mandados de busca e apreensão expedidos pelo Supremo Tribunal Federal (STF) na cidade do Rio de Janeiro, além de medidas de bloqueio patrimonial no valor de R$100 milhões.",
+          "data": "2026-07-09",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "cgu",
+        "policia-federal"
+      ],
+      "etiquetas": [
+        "emendas parlamentares",
+        "organizações da sociedade civil",
+        "Operação Emendatio"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Mandados do STF indicam autoridade com foro, mas a nota não nomeia ninguém e nós também não. A nota não dá o período dos fatos; dataDoFato = mês da operação."
+    },
+    {
+      "id": "2026-make-up-emendas-termo-de-fomento",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Make Up: PF apura desvio de emendas repassadas a organização social por termo de fomento",
+      "resumo": "Segundo a Polícia Federal, a Operação Make Up, deflagrada em 10 de setembro de 2026 com apoio da CGU, apura suposto desvio de emendas parlamentares repassadas por termo de fomento a uma organização da sociedade civil, com 49 mandados de busca expedidos pelo STF em São Paulo, Rio de Janeiro, Ceará e Distrito Federal. Segundo a Polícia Federal, a suspeita é de uma organização criminosa de agentes públicos e privados que direcionava os valores a subcontratadas sem prova de que os serviços foram prestados, e as tentativas de dissimular os desvios teriam ido até julho de 2026.",
+      "dataDoFato": "2026",
+      "lugar": {
+        "pais": "BR",
+        "nome": "SP, RJ, CE e DF"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF apura desvio de recursos públicos oriundos de emendas parlamentares",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2026/09/pf-apura-desvio-de-recursos-publicos-oriundos-de-emendas-parlamentares",
+          "trecho": "As investigações apontam para a existência de uma organização criminosa, formada por agentes públicos e privados, suspeita de direcionar os valores recebidos para empresas subcontratadas de forma irregular",
+          "data": "2026-09-10",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "emendas parlamentares",
+        "termo de fomento",
+        "organizações da sociedade civil",
+        "Operação Make Up"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. A nota fala em 'centenas de milhões de reais' movimentados, sem número exato: a ficha não traz valor. Ninguém nomeado."
+    },
+    {
+      "id": "2024-graco-emenda-pix-sena-madureira",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Graco: PF e CGU apuram R$ 912 mil de 'emenda Pix' em shows de Sena Madureira (AC)",
+      "resumo": "Segundo a Polícia Federal, a Operação Graco, deflagrada com a CGU em 29 de janeiro de 2026, investiga possíveis irregularidades na contratação da empresa responsável por shows musicais pagos pela Secretaria Municipal de Cultura de Sena Madureira (AC) em setembro de 2024, com suspeita de desvio de cerca de R$ 912 mil vindos de 'emendas Pix'. Segundo a Polícia Federal, foram cumpridos 14 mandados de busca expedidos pelo STF, no Acre e no Distrito Federal.",
+      "dataDoFato": "2024-09",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AC",
+        "municipioIbge": "1200500",
+        "nome": "Sena Madureira"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF e CGU deflagram operação para apurar desvio de recursos públicos no Acre",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2026/01/pf-e-cgu-deflagram-operacao-para-apurar-desvio-de-recursos-publicos-no-acre",
+          "trecho": "As investigações apuram suspeita de desvio de recursos na ordem de R$ 912 mil, provenientes de emendas parlamentares, popularmente conhecidas como “Emenda Pix”",
+          "data": "2026-01-29",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "emendas Pix",
+        "shows",
+        "Sena Madureira",
+        "Operação Graco"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Sena Madureira está entre os municípios citados pela auditoria da CGU sobre emendas Pix (ver a ficha das emendas Pix). Ninguém nomeado."
+    },
+    {
+      "id": "2020-emendas-pix-auditorias-cgu-tcu",
+      "dossie": "dinheiro-publico",
+      "titulo": "Emendas Pix: auditorias da CGU e do TCU levam o STF a mandar a Polícia Federal investigar",
+      "resumo": "Segundo o STF, em setembro de 2025 o ministro Flávio Dino suspendeu repasses de 'emendas Pix' com indícios de crime e mandou à Polícia Federal o resultado de auditoria da CGU, que achou irregularidades em nove dos dez municípios que mais receberam essas emendas entre 2020 e 2024; segundo o STF, no período estados e municípios receberam mais de R$ 17,5 bilhões em emendas individuais. Segundo o STF, em agosto de 2026 Dino determinou que a Polícia Federal verifique indícios de crime a partir de relatório do TCU sobre 100 transferências (R$ 198,1 milhões), que apontou prejuízos de R$ 26,36 milhões, R$ 14,95 milhões e R$ 14,1 milhões. Inquérito não é acusação: ninguém é nomeado.",
+      "dataDoFato": "2020",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "DF",
+        "municipioIbge": "5300108",
+        "nome": "Brasília (STF)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF suspende repasse de ‘emendas Pix’ a nove municípios",
+          "url": "https://noticias.stf.jus.br/postsnoticias/stf-suspende-repasse-de-emendas-pix-a-nove-municipios/",
+          "trecho": "A auditoria indicou irregularidades em nove dos 10 municípios que mais receberam recursos entre 2020 e 2024. O material relativo aos municípios irregulares deve ser encaminhado à Polícia Federal para abertura de investigação.",
+          "data": "2025-09-15",
+          "acessadoEm": "2026-11-06"
+        },
+        {
+          "id": "f2",
+          "catalogoId": "stf-stj",
+          "veiculo": "STF",
+          "tipo": "processo",
+          "titulo": "STF determina que PF apure possíveis crimes na execução de ‘Emendas Pix’",
+          "url": "https://noticias.stf.jus.br/postsnoticias/stf-determina-que-pf-apure-possiveis-crimes-na-execucao-de-emendas-pix/",
+          "trecho": "No relatório encaminhado ao STF em 31 de julho, o TCU analisou 100 transferências destinadas a 74 entes federados, que somaram R$ 198,1 milhões.",
+          "data": "2026-08-07",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "cgu",
+        "policia-federal"
+      ],
+      "etiquetas": [
+        "emendas Pix",
+        "ADI 7688",
+        "ADPF 854",
+        "transparência",
+        "CGU",
+        "TCU"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Complementa (não duplica) a ficha já publicada '2024-emendas-parlamentares-orcamento-secreto' (ADPF 854, emendas de relator): aqui são as transferências especiais (ADI 7688). A curadoria pode preferir mesclar. A falta de transparência não é crime por si: a ficha diz 'indícios' e 'investigar'. Os municípios citados pela CGU não foram listados na ficha (alguns só têm falhas de transparência)."
+    },
+    {
+      "id": "2026-contrapiso-obras-municipios-ceara",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Contrapiso: PF, CGU e MPF apuram fraude em obras de três prefeituras do Ceará",
+      "resumo": "Segundo a Polícia Federal, a Operação Contrapiso, de 9 de setembro de 2026, com participação da CGU e do MPF, aprofunda investigação sobre suposto esquema de fraude em licitações e desvio de recursos federais na contratação de obras públicas em Carnaubal, Madalena e Guaraciaba do Norte (CE). Segundo a Polícia Federal, foram cumpridos sete mandados de busca expedidos pela 22ª Vara Federal do Ceará em endereços da empresa investigada, de um sócio, de dois agentes públicos municipais e nas três prefeituras.",
+      "dataDoFato": "2026-09",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "CE",
+        "municipioIbge": "2303402",
+        "nome": "Carnaubal, Madalena e Guaraciaba do Norte"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF, CGU e MPF apuram indícios de fraude em licitações e desvio de verba pública",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2026/09/pf-cgu-e-mpf-apuram-indicios-de-fraudes-em-licitacoes-e-desvio-de-verba-publica-no-ceara",
+          "trecho": "A ação cumpre sete mandados de busca e apreensão expedidos pela 22ª Vara Federal da Seção Judiciária do Ceará, nas cidades de Carnaubal, de Madalena e de Guaraciaba do Norte",
+          "data": "2026-09-09",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "obras públicas",
+        "fraude em licitação",
+        "prefeituras",
+        "Operação Contrapiso"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. A imprensa cita valores (R$ 20 milhões recebidos pela empresa entre 2019 e 2025) que NÃO estão no trecho lido da PF: ficaram fora. dataDoFato = mês da operação (a nota da PF não dá o período dos contratos)."
+    },
+    {
+      "id": "2007-coaptacao-saude-ceara",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Coaptação: CGU e PF apuram desvio em contratos de serviços de saúde no Ceará",
+      "resumo": "Segundo a CGU, a Operação Coaptação, feita com a Polícia Federal em 8 de outubro de 2026, apura suposto esquema de corrupção, lavagem de dinheiro e desvio de recursos federais em contratos de serviços de saúde; segundo a CGU, a empresa investigada recebeu, entre 2007 e 2025, mais de R$ 1,5 bilhão de recursos federais por contratos com estados e municípios. Segundo a CGU, foram cumpridos 24 mandados de busca e 5 de prisão preventiva em Fortaleza, Caucaia, Eusébio, Tauá e Campina Grande (PB), e a Justiça Federal no Ceará mandou sequestrar 38 imóveis e 82 veículos.",
+      "dataDoFato": "2007",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "CE",
+        "municipioIbge": "2304400",
+        "nome": "Fortaleza e outros municípios"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "veiculo": "CGU",
+          "tipo": "investigacao_oficial",
+          "titulo": "CGU e PF apuram suspeitas de desvios de recursos públicos da saúde no Ceará",
+          "url": "https://www.gov.br/cgu/pt-br/assuntos/noticias/2026/defeso-eleitoral/cgu-e-pf-apuram-suspeitas-de-desvios-de-recursos-publicos-da-saude-no-ceara",
+          "trecho": "De acordo com as análises, a empresa investigada recebeu, entre 2007 e 2025, mais de R$1,5 bilhão de recursos públicos de origem federal, a partir de contratos com entes subnacionais.",
+          "data": "2026-10-08",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "cgu",
+        "policia-federal"
+      ],
+      "etiquetas": [
+        "saúde",
+        "contratos",
+        "lavagem de dinheiro",
+        "Operação Coaptação"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. R$ 1,5 bilhão é o total RECEBIDO pela empresa em contratos, não o valor desviado: a ficha deixa isso claro. Ninguém nomeado."
+    },
+    {
+      "id": "2023-estagio-iv-saude-alagoas",
+      "dossie": "dinheiro-publico",
+      "titulo": "Operação Estágio IV: PF e CGU apuram contratos emergenciais e ressarcimentos do SUS na Saúde de Alagoas",
+      "resumo": "Segundo a Polícia Federal, a Operação Estágio IV, de 16 de dezembro de 2025, com a CGU, a Receita Federal e o Denasus, cumpriu 38 mandados de busca expedidos pelo TRF da 5ª Região em Alagoas, Pernambuco e no Distrito Federal, por indícios de favorecimento em contratos emergenciais da Secretaria de Saúde de Alagoas (Sesau), entre 2023 e 2025, que somam quase R$ 100 milhões. Segundo a Polícia Federal, também se apura desvio de recursos do SUS por ressarcimento superdimensionado de consultas e procedimentos que não teriam ocorrido, que somaram mais de R$ 18 milhões.",
+      "dataDoFato": "2023",
+      "lugar": {
+        "pais": "BR",
+        "regiao": "AL",
+        "municipioIbge": "2704302",
+        "nome": "Maceió (Secretaria de Saúde de Alagoas)"
+      },
+      "situacao": "investigado",
+      "confianca": "primaria",
+      "fontes": [
+        {
+          "id": "f1",
+          "catalogoId": "pf",
+          "veiculo": "Polícia Federal",
+          "tipo": "investigacao_oficial",
+          "titulo": "PF e CGU deflagram operação contra desvio de recursos públicos e lavagem de dinheiro em Alagoas",
+          "url": "https://www.gov.br/pf/pt-br/assuntos/noticias/2025/12/pf-e-cgu-deflagram-operacao-contra-desvio-de-recursos-publicos-e-lavagem-de-dinheiro-em-alagoas",
+          "trecho": "A investigação apura ainda o desvio de recursos públicos do Sistema Único de Saúde (SUS) por meio de ressarcimento superdimensionado de consultas e procedimentos médicos que não teriam ocorrido, os quais somaram mais de R$ 18 milhões.",
+          "data": "2025-12-16",
+          "acessadoEm": "2026-11-06"
+        }
+      ],
+      "pessoas": [],
+      "organizacoes": [
+        "policia-federal",
+        "cgu"
+      ],
+      "etiquetas": [
+        "saúde",
+        "SUS",
+        "contratos emergenciais",
+        "Operação Estágio IV"
+      ],
+      "publicadoEm": "2026-11-06",
+      "atualizadoEm": "2026-11-06",
+      "revisao": "pendente-curadoria",
+      "situacaoConferidaEm": "2026-11-06",
+      "notaDaCuradoria": "Pesquisado e conferido por agente (Claude) em 06/11/2026: cada trecho foi copiado da página oficial baixada nesse dia. Aguarda a curadoria humana (reler a fonte, conferir a situação jurídica e arquivar no Internet Archive) antes de publicar. Os quase R$ 100 milhões são o total dos contratos diretos (parte em execução), não o desvio. Mandados do TRF5 indicam autoridade com foro no tribunal; a nota não nomeia ninguém e nós também não."
+    }
+  ]
+}
