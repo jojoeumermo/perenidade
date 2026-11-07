@@ -84,7 +84,7 @@ export function Ditado({ verbetes, s, lang }: PropsDoJogo) {
         <Botao onClick={() => outro()}>{t.proximo}</Botao>
         {resultado && <LinkDaAula aula={item.verbete.aula} lang={lang} rotulo={s.comum.aula} />}
       </Acoes>
-      <Aviso>{aviso}</Aviso>
+      <Aviso tom={resultado === "certo" ? "certo" : resultado === "acento" || resultado === "errado" ? "erro" : undefined}>{aviso}</Aviso>
     </Quadro>
   );
 }

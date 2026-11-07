@@ -118,3 +118,27 @@ export const somDeFesta = () => {
   tocarNota(64, 0.25, 0.2);
   tocarNota(67, 0.5, 0.4);
 };
+
+// ───────── Os sons do palco dos jogos (components/jogos/Imersao.tsx) ─────────
+// Curtos e baixos; só tocam com o som ligado pela pessoa (desligado por padrão).
+
+/** Acertou: duas notas subindo, rápidas. */
+export const somDeAcerto = () => {
+  tocarNota(72, 0.16);
+  tocarNota(79, 0.3, 0.1);
+};
+/** Errou: um tom grave e curto, sem buzina. */
+export const somDeErro = () => {
+  tocarNota(55, 0.22);
+  tocarNota(52, 0.3, 0.14);
+};
+/** É a sua vez (ou chegou pergunta nova): um sino só. */
+export const somDeVez = () => tocarNota(76, 0.35);
+/** Os últimos segundos do relógio. */
+export const somDeTique = () => tocarBatida("chimbal");
+/** Acabou a partida: um arpejo e uma palma. */
+export const somDeFim = () => {
+  somDeFesta();
+  tocarNota(72, 0.6, 0.6);
+  tocarBatida("palma", 0.6);
+};
