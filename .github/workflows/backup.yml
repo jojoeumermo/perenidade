@@ -35,7 +35,8 @@ jobs:
         run: |
           if [ -z "$URL" ] || [ -z "$SENHA" ]; then echo "Faltam BACKUP_DB_URL e BACKUP_SENHA: nada foi copiado."; echo "ok=nao" >> "$GITHUB_OUTPUT"; else echo "ok=sim" >> "$GITHUB_OUTPUT"; fi
       # pg_dump da mesma versão do banco (Postgres 17), pela imagem oficial. Só os esquemas com dados: o resto o
-      # install.sql recria. A cópia nunca toca o disco sem cifra: sai do pg_dump direto para o gpg.
+      # install.sql recria. A cópia nunca toca o disco sem cifra: sai do pg_dump direto para o gpg. O segredo que embaralha
+      # os endereços de rede (interno.origem_segredo, T33) fica de fora: sem ele, a cópia não leva de volta a endereço nenhum.
       - if: steps.pronto.outputs.ok == 'sim'
         name: Copiar e cifrar
         env:
@@ -43,7 +44,7 @@ jobs:
           SENHA: ${{ secrets.BACKUP_SENHA }}
         run: |
           set -o pipefail
-          docker run --rm -e URL postgres:17 sh -c 'pg_dump "$URL" --schema=interno --schema=auth --schema=storage --no-owner --no-privileges --format=custom' \
+          docker run --rm -e URL postgres:17 sh -c 'pg_dump "$URL" --schema=interno --schema=auth --schema=storage --exclude-table-data=interno.origem_segredo --no-owner --no-privileges --format=custom' \
             | gpg --batch --yes --pinentry-mode loopback --passphrase "$SENHA" --symmetric --cipher-algo AES256 -o "lucia-banco-$(date -u +%F).dump.gpg"
           ls -lh lucia-banco-*.dump.gpg
       - if: steps.pronto.outputs.ok == 'sim'

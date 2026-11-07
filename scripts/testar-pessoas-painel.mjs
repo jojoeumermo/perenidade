@@ -121,6 +121,25 @@ await espera("a supervisão não vê a participação na lista da equipe", () =>
 await espera("a coordenação vê na lista da equipe", () => rpc(como(ids.coord), "voluntarios_listar"), (l) => l.find((p) => p.id === ids.militante).departamentos.includes("revolucionarios") && l.find((p) => p.id === ids.nova).departamentos.length === 2);
 confere("o registro não diz o nome do departamento sensível", (await linhas("select count(*)::int as n from interno.auditoria where acao = 'departamento_incluido' and detalhes ->> 'departamento' = 'revolucionarios'"))[0].n === 0);
 await recusa("a supervisão não tira ninguém dos Revolucionários", () => rpc(como(ids.sup), "departamento_membro_remover", { p_departamento: "revolucionarios", p_usuario: ids.militante }), "sem_permissao");
+
+// ── T33: quem participa ou representa os Revolucionários não vaza por outros caminhos ──
+await dono("insert into interno.departamento_bastoes (departamento, autor, texto) values ('revolucionarios', $1, 'Bastão deixado pela militante para a próxima pessoa.')", [ids.militante]);
+await dono("insert into interno.departamento_pedidos (de, para, titulo, autor, responsavel, status) values ('revolucionarios', 'rh', 'Pedido da Frente', $1, null, 'aberto')", [ids.militante]).catch(() => undefined);
+await espera("a coordenação nomeia representante dos Revolucionários", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.outra, p_papel: "representante", p_disciplina: "revolucionarios" }), (r) => r.ok === true);
+const semNome = (x) => !JSON.stringify(x).includes(ids.militante) && !JSON.stringify(x).includes(ids.outra);
+await espera("quem é de fora não vê bastões, quadro nem pedidos dos Revolucionários (nomes)", () => rpc(como(ids.edu), "departamento_ver", { p_id: "revolucionarios" }), (d) => d.reservado === true && d.bastoes.length === 0 && d.quadro.length === 0 && d.recebidos.length === 0 && d.enviados.length === 0 && semNome(d));
+await espera("o próprio departamento vê o bastão com o nome", () => rpc(como(ids.militante), "departamento_ver", { p_id: "revolucionarios" }), (d) => d.bastoes.length === 1 && d.bastoes[0].autor !== "");
+await espera("quem é de fora não vê quantas pessoas há nos Revolucionários", () => rpc(como(ids.edu), "departamentos_resumo"), (l) => l.find((d) => d.id === "revolucionarios").pessoas === null && typeof l.find((d) => d.id === "rh").pessoas === "number");
+await espera("o pedido vindo dos Revolucionários chega ao RH sem o nome de quem pediu", () => rpc(como(ids.edu), "departamento_ver", { p_id: "rh" }), (d) => d.recebidos.every((p) => p.de !== "revolucionarios" || p.autor === ""));
+await espera("a supervisão não vê a representação dos Revolucionários na lista da equipe", () => rpc(como(ids.sup), "voluntarios_listar"), (l) => l.every((p) => p.papeis.every((x) => x.disciplina !== "revolucionarios")));
+await espera("a coordenação vê a representação na lista da equipe", () => rpc(como(ids.coord), "voluntarios_listar"), (l) => l.find((p) => p.id === ids.outra).papeis.some((x) => x.disciplina === "revolucionarios"));
+await espera("a página dos Representantes não mostra quem só representa os Revolucionários", () => rpc(como(ids.edu), "departamento_ver", { p_id: "representantes" }), (d) => d.pessoas.every((p) => p.id !== ids.outra && (p.papeis ?? []).every((x) => x.disciplina !== "revolucionarios")));
+await espera("a equipe (rede interna) não mostra a representação dos Revolucionários", () => rpc(como(ids.edu), "equipe_membros"), (l) => l.every((p) => (p.papeis ?? []).every((x) => x.disciplina !== "revolucionarios")));
+await espera("a supervisão não vê a representação em equipe_supervisao", () => rpc(como(ids.sup), "equipe_supervisao"), (l) => l.every((p) => p.papeis.every((x) => x.disciplina !== "revolucionarios")));
+await espera("a lista pública da equipe não mostra a representação", () => rpc({ papel: "anon", ip: "203.0.113.99" }, "equipe"), (l) => l.every((p) => p.disciplina !== "revolucionarios"));
+confere("o registro não diz o nome do departamento sensível ao confiar a representação", (await linhas("select count(*)::int as n from interno.auditoria where detalhes ->> 'disciplina' = 'revolucionarios'"))[0].n === 0);
+await espera("a supervisão não vê no registro quem entrou ou representa os Revolucionários", () => rpc(como(ids.sup), "auditoria_listar", { p_pagina: 0, p_acao: null }), (l) => l.length > 0 && l.every((a) => !["reservado", "revolucionarios"].includes(a.detalhes?.disciplina) && !["reservado", "revolucionarios"].includes(a.detalhes?.departamento)));
+await espera("a coordenação vê no registro", () => rpc(como(ids.coord), "auditoria_listar", { p_pagina: 0, p_acao: null }), (l) => l.some((a) => a.detalhes?.disciplina === "reservado" || a.detalhes?.departamento === "reservado"));
 await espera("a pessoa sai sozinha de um departamento", () => rpc(como(ids.nova), "departamento_membro_remover", { p_departamento: "parcerias", p_usuario: ids.nova }), (r) => r.ok);
 confere("e sai do grupo de conversa dele", !(await noGrupo("parcerias", ids.nova)));
 
