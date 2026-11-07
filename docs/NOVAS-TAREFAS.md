@@ -9,8 +9,8 @@ Regras que valem para tudo: responder em português, curto. Commit e push a cada
 Privacidade: sem rastreio. Nunca "universidade"/"diploma" na interface. Imagens livres ou licenciadas, com crédito. Nunca digitar senha, chave ou token em campo.
 O site roda na VPS da Contabo (docs/HOSPEDAGEM.md): push no master publica sozinho em ~30 min.
 
-**Última atividade:** 2026-11-07 03:10 (sessão principal; auditoria T33 e T31 rodando; ramos novos em .claude/worktrees/wf_779ea30e-2c8-N).
-**Ocupada até:** 2026-11-07 12:00 (horário local do computador). Se esta hora ainda não passou, outra sessão está trabalhando (frentes em paralelo, em worktrees): não comece nada. Quem trabalha estende esta hora antes de começar algo longo.
+**Última atividade:** 2026-11-07 (sessão principal; tudo feito; só faltam os itens que dependem do Jonathan).
+**Ocupada até:** — (concluído; a retomada automática foi desligada).
 
 Situação: `[ ]` a fazer, `[~]` em andamento, `[x]` feito (com o commit), `[!]` depende de algo de fora (explicado).
 
@@ -46,10 +46,13 @@ Situação: `[ ]` a fazer, `[~]` em andamento, `[x]` feito (com o commit), `[!]`
 | T28 | Painel: várias funções/disciplinas por pessoa; departamentos mais claros (27) | [x] leva 1 (junção até f54b15c1) |
 | T29 | Painel: convites pendentes organizados; coordenação troca o e-mail de uma pessoa (28) | [x] leva 1 (junção até f54b15c1) |
 | T30 | Departamentos atuais (grupos do WhatsApp, 29; Parcerias = coletivos parceiros) + RH + Revolucionários | [x] leva 1 (junção até f54b15c1) |
-| T31 | Vale o Escrito no nível do bl00d.money (texto longo no documento): só o que eleva o nível e ainda não existe | [~] prioridades feitas na leva 1; revisar o resto |
+| T31 | Vale o Escrito no nível do bl00d.money (texto longo no documento): só o que eleva o nível e ainda não existe | [x] 75fa0d8c (dossiês, Arsenal, fluxos de dinheiro, linha do tempo; valores por ligação sem fonte ficam na seção 8 de CADASTROS-PARA-O-JONATHAN.md)
 | T32 | Alumia: os 7 itens do segundo texto longo (nome, rede vazia, vitrine, entrada, primeira impressão, Fediverso, detalhes): conferir o que falta | [x] 346ece18
-| T33 | Auditoria final de bugs e segurança; entrada do painel extremamente segura | [~] |
+| T33 | Auditoria final de bugs e segurança; entrada do painel extremamente segura | [x] 75fa0d8c (25 achados confirmados e corrigidos, alguns em parte: docs/AUDITORIA-2026-11-07.md)
 
 ## Depende do Jonathan
 
-- [!] **Aplicar as migrações de 6/11 no Supabase (agora são 9).** O bloqueio de segurança automático não deixa o agente rodar SQL no banco de produção. Elas já estão coladas, juntas, na aba do Chrome "SQL Editor | Instituto Lúcia | Supabase": é só clicar em **Run**. Arquivos: supabase/migracoes/20261106-t15-frente-militantes.sql, 20261106-painel-turmas.sql, 20261106-painel-recados.sql, 20261106-pessoas-painel.sql. Até lá: o formulário militante falha, a chave das Turmas não aparece e a troca de e-mail e as funções múltiplas não funcionam.
+- [!] **Aplicar as migrações de 6/11 e 7/11 no Supabase (10, a da auditoria por último).** O bloqueio de segurança automático não deixa o agente rodar SQL no banco de produção. Elas já estão coladas, juntas, na aba do Chrome "SQL Editor | Instituto Lúcia | Supabase": é só clicar em **Run**. Arquivos: supabase/migracoes/20261106-t15-frente-militantes.sql, 20261106-painel-turmas.sql, 20261106-painel-recados.sql, 20261106-pessoas-painel.sql. Até lá: o formulário militante falha, a chave das Turmas não aparece e a troca de e-mail e as funções múltiplas não funcionam.
+- [!] **Chave gratuita de IA para o assistente aberto** (T03): rodar `infra/contabo/segredos.ps1` e colar ao menos uma (GROQ_API_KEY, GEMINI_API_KEY, CEREBRAS_API_KEY ou OPENROUTER_API_KEY). Sem ela, o assistente aberto fica desligado sozinho.
+- [!] **Curadoria dos 96 casos novos do Vale** (T12): estão em `content/vale-o-escrito/novos-casos/`, conferidos pelas regras; para publicar, a curadoria aprova (pontos a reconferir em `CADASTROS-PARA-O-JONATHAN.md`).
+- [!] **Coletivos** (T20): pedir as logos originais e os textos do Desordem e do noismemo.
