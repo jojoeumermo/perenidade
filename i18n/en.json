@@ -4002,7 +4002,26 @@
       "latina": "Latin America",
       "mundo": "Europe and North America"
     },
-    "stationsNote": "The audio comes straight from each station, which is responsible for its own programming; the institute only points to them and stores nothing of what is played. Are you from one of these stations and want to be removed, or do you know another one that belongs here? Write to us through the Contribute page."
+    "stationsNote": "The audio comes straight from each station, which is responsible for its own programming; the institute only points to them and stores nothing of what is played. Are you from one of these stations and want to be removed, or do you know another one that belongs here? Write to us through the Contribute page.",
+    "espacial": {
+      "nome": "Spatial audio (binaural, open)",
+      "curto": "Spatial",
+      "ligar": "Turn spatial audio on",
+      "desligar": "Turn spatial audio off",
+      "ligadoAgora": "on",
+      "desligadoAgora": "off",
+      "ambiente": "Room",
+      "estudio": "Studio",
+      "sala": "Room",
+      "auditorio": "Hall",
+      "fones": "Best with headphones.",
+      "explicacao": "Your own browser spreads the sound around you (Web Audio, an open W3C standard), with a light room ambience computed on the spot. It is not a closed studio format: it is the open equivalent, with no extra file and nothing sent anywhere.",
+      "semSuporte": "This browser lacks the audio feature this mode needs. The episode plays normally.",
+      "indisponivel": "This audio comes from an outside server that does not let the browser process the sound: it plays normally, without spatial mode.",
+      "continua": "Your choice is kept only in this browser and stays on while you browse the site or just leave the page open.",
+      "lead": "Listen to the podcast as if you were in the circle: the voices come from in front of you, with the space of a room, not from inside your head.",
+      "celular": "Some phones pause audio processing when the screen is locked; when you come back to the page, the mode resumes on its own."
+    }
   },
   "errors": {
     "entre_primeiro": "Sign in to continue.",
@@ -4032,7 +4051,8 @@
     "assistente_falhou": "The assistant could not answer right now, and the question was not counted. Try again in a little while.",
     "imagem": "The image could not be read. Use a JPG, PNG or WebP photo.",
     "pergunta_curta": "Describe your question in a little more detail.",
-    "pergunta_longa": "The question is longer than the maximum (3,000 characters)."
+    "pergunta_longa": "The question is longer than the maximum (3,000 characters).",
+    "consentimento": "Confirm that everyone who appears and speaks agreed to the broadcast."
   },
   "community": {
     "eyebrow": "Community",
@@ -4773,7 +4793,48 @@
     "sortShortest": "Shortest",
     "sortBy": "Sort episodes",
     "size": "{n} MB",
-    "withTranscript": "with transcript"
+    "withTranscript": "with transcript",
+    "aoVivo": {
+      "rotulo": "Live",
+      "noAr": "On air now",
+      "titulo": "Podcast live",
+      "assistir": "Watch live",
+      "aviso": "Live broadcast, not recorded by the site and with no tracking. Everyone who appears agreed to be seen and heard (Brazil's LGPD, art. 7, I). Do not record or repost anyone's image or voice without permission.",
+      "avisoDireto": "The video comes straight from the broadcaster's browser. You only watch: your camera and microphone are not used.",
+      "conectando": "Connecting the video…",
+      "esperando": "Waiting for the broadcaster's video…",
+      "lotado": "The direct room is full (up to {n} people at a time).",
+      "lotadoLink": "Watch the open broadcast:",
+      "semCanal": "I could not connect the video right now. Try again in a moment.",
+      "sair": "Stop watching",
+      "aberta": "Open broadcast",
+      "abrirFora": "Open the broadcast in another tab",
+      "assistirAberta": "Watch the broadcast",
+      "avisoYoutube": "When you click, the YouTube player (no-advertising-cookies address) loads and receives your network address, as on any site.",
+      "estudio": "Live studio",
+      "estudioLead": "For the podcast team: start a video broadcast for everyone to watch on this page. Nothing is recorded by the site.",
+      "tituloCampo": "Broadcast title",
+      "modo": "How to broadcast",
+      "modoNavegador": "This browser's camera (direct, up to {n} people)",
+      "modoLink": "Open PeerTube or YouTube broadcast (for many people)",
+      "linkCampo": "Broadcast address (PeerTube from the institute's list, or YouTube)",
+      "linkReserva": "Address of an open broadcast for when the direct room is full (optional)",
+      "consentimento": "Everyone who will appear or speak has agreed, and no one under 18 appears without permission from the person responsible for them (LGPD, arts. 7, I, and 14; ECA, art. 17).",
+      "iniciar": "Start broadcasting",
+      "iniciando": "Starting…",
+      "encerrar": "End the broadcast",
+      "camera": "Camera",
+      "tela": "Screen",
+      "soAudio": "Audio only",
+      "mudo": "Mute the microphone",
+      "som": "Unmute the microphone",
+      "assistindo": "{n} people watching directly",
+      "voceTransmite": "You are broadcasting. Close this page only after ending.",
+      "outraPessoa": "Someone else from the podcast is broadcasting now.",
+      "linkInvalido": "Use an https address from a PeerTube on the institute's list, or from YouTube.",
+      "falhaMidia": "I could not open the camera or microphone. Check the browser permission.",
+      "limites": "Straight from the browser, each viewer gets the video through your connection: up to {n} people with good internet. For many people, stream with OBS to PeerTube (or YouTube) and use the open broadcast."
+    }
   },
   "loose": {
     "eyebrow": "Stand-alone material",

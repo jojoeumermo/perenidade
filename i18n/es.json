@@ -4002,7 +4002,26 @@
       "latina": "América Latina",
       "mundo": "Europa y América del Norte"
     },
-    "stationsNote": "El sonido viene directamente de cada emisora, que responde por su propia programación; el instituto solo las señala y no guarda nada de lo que suena. ¿Eres de una de estas radios y quieres salir de la lista, o conoces otra que debería estar aquí? Escríbenos desde la página Contribuir."
+    "stationsNote": "El sonido viene directamente de cada emisora, que responde por su propia programación; el instituto solo las señala y no guarda nada de lo que suena. ¿Eres de una de estas radios y quieres salir de la lista, o conoces otra que debería estar aquí? Escríbenos desde la página Contribuir.",
+    "espacial": {
+      "nome": "Audio espacial (binaural, abierto)",
+      "curto": "Espacial",
+      "ligar": "Activar el audio espacial",
+      "desligar": "Desactivar el audio espacial",
+      "ligadoAgora": "activado",
+      "desligadoAgora": "desactivado",
+      "ambiente": "Ambiente",
+      "estudio": "Estudio",
+      "sala": "Sala",
+      "auditorio": "Auditorio",
+      "fones": "Mejor con auriculares.",
+      "explicacao": "El propio navegador reparte el sonido a tu alrededor (Web Audio, estándar abierto del W3C), con un ambiente ligero calculado al momento. No es un formato cerrado de estudio: es el equivalente abierto, sin archivo extra y sin enviar nada a ningún lugar.",
+      "semSuporte": "Este navegador no tiene la función de audio que el modo necesita. El episodio suena normal.",
+      "indisponivel": "Este audio viene de un servidor externo que no deja al navegador procesar el sonido: suena normal, sin el modo espacial.",
+      "continua": "La elección se guarda solo en este navegador y sigue mientras navegas por el sitio o solo dejas la página abierta.",
+      "lead": "Escucha el podcast como si estuvieras en la ronda de conversación: las voces vienen de delante, con el espacio de una sala, y no desde dentro de la cabeza.",
+      "celular": "En algunos móviles el sistema pausa el procesamiento con la pantalla bloqueada; al volver a la página, el modo se reanuda solo."
+    }
   },
   "errors": {
     "entre_primeiro": "Entra en tu cuenta para continuar.",
@@ -4032,7 +4051,8 @@
     "assistente_falhou": "El asistente no pudo responder ahora, y la pregunta no se descontó. Inténtalo de nuevo en un rato.",
     "imagem": "No se pudo leer la imagen. Usa una foto en JPG, PNG o WebP.",
     "pergunta_curta": "Escribe la duda con un poco más de detalle.",
-    "pergunta_longa": "La duda supera el tamaño máximo (3000 caracteres)."
+    "pergunta_longa": "La duda supera el tamaño máximo (3000 caracteres).",
+    "consentimento": "Confirma que quien aparece y habla estuvo de acuerdo con la transmisión."
   },
   "community": {
     "eyebrow": "Comunidad",
@@ -4773,7 +4793,48 @@
     "sortShortest": "Más cortos",
     "sortBy": "Ordenar los episodios",
     "size": "{n} MB",
-    "withTranscript": "con transcripción"
+    "withTranscript": "con transcripción",
+    "aoVivo": {
+      "rotulo": "En vivo",
+      "noAr": "Al aire ahora",
+      "titulo": "Podcast en vivo",
+      "assistir": "Ver en vivo",
+      "aviso": "Transmisión en vivo, sin grabación por el sitio y sin rastreo. Quien aparece aceptó ser visto y oído (LGPD de Brasil, art. 7º, I). No grabes ni republiques la imagen o la voz de nadie sin autorización.",
+      "avisoDireto": "El video llega directo del navegador de quien transmite. Tú solo miras: tu cámara y tu micrófono no se usan.",
+      "conectando": "Conectando el video…",
+      "esperando": "Esperando el video de quien transmite…",
+      "lotado": "La sala directa está llena (hasta {n} personas a la vez).",
+      "lotadoLink": "Mira la transmisión abierta:",
+      "semCanal": "No pude conectar el video ahora. Inténtalo de nuevo en un momento.",
+      "sair": "Dejar de mirar",
+      "aberta": "Transmisión abierta",
+      "abrirFora": "Abrir la transmisión en otra pestaña",
+      "assistirAberta": "Ver la transmisión",
+      "avisoYoutube": "Al hacer clic, el reproductor de YouTube (dirección sin cookies de publicidad) se carga y recibe tu dirección de red, como en cualquier sitio.",
+      "estudio": "Estudio en vivo",
+      "estudioLead": "Para quien hace el podcast: inicia una transmisión con video para que todos la vean en esta página. El sitio no graba nada.",
+      "tituloCampo": "Título de la transmisión",
+      "modo": "Cómo transmitir",
+      "modoNavegador": "Cámara de este navegador (directo, hasta {n} personas)",
+      "modoLink": "Transmisión abierta de PeerTube o YouTube (para mucha gente)",
+      "linkCampo": "Dirección de la transmisión (PeerTube de la lista del instituto o YouTube)",
+      "linkReserva": "Dirección de una transmisión abierta para cuando la sala directa se llene (opcional)",
+      "consentimento": "Todas las personas que van a aparecer o hablar estuvieron de acuerdo, y nadie menor de 18 años aparece sin autorización de quien responde por ella (LGPD, arts. 7º, I, y 14; ECA, art. 17).",
+      "iniciar": "Iniciar la transmisión",
+      "iniciando": "Iniciando…",
+      "encerrar": "Terminar la transmisión",
+      "camera": "Cámara",
+      "tela": "Pantalla",
+      "soAudio": "Solo audio",
+      "mudo": "Silenciar el micrófono",
+      "som": "Activar el micrófono",
+      "assistindo": "{n} personas mirando en directo",
+      "voceTransmite": "Estás transmitiendo. Cierra esta página solo después de terminar.",
+      "outraPessoa": "Otra persona del podcast está transmitiendo ahora.",
+      "linkInvalido": "Usa una dirección https de un PeerTube de la lista del instituto o de YouTube.",
+      "falhaMidia": "No pude abrir la cámara o el micrófono. Revisa el permiso del navegador.",
+      "limites": "Directo del navegador, cada persona recibe el video por tu conexión: hasta {n} personas con buena internet. Para mucha gente, transmite con OBS a PeerTube (o YouTube) y usa la transmisión abierta."
+    }
   },
   "loose": {
     "eyebrow": "Material suelto",
