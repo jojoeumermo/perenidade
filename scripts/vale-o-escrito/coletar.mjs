@@ -15,10 +15,11 @@
 //
 //   node scripts/vale-o-escrito/coletar.mjs --seco          imprime em vez de gravar (nenhuma chave do Supabase)
 //   node scripts/vale-o-escrito/coletar.mjs                 grava (exige SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY)
-//   opções: --fonte <id> (só esta fonte)  --dias <n> (janela, padrão 3)  --max <n> (sugestões por rodada, padrão 60)
-//           --max-ia <n> (chamadas à IA por rodada, padrão 40)  --sem-ia  --hoje AAAA-MM-DD
+//   opções: --fonte <id> (só esta fonte)  --dias <n> (janela, padrão 7)  --max <n> (sugestões por rodada, padrão 120)
+//           --max-ia <n> (chamadas à IA por rodada, padrão 50)  --sem-ia  --hoje AAAA-MM-DD
 //           --sem-materia (não baixa a matéria: só o que o feed traz)  --sem-arquivo (não pede o Save Page Now)
-//           --max-arquivo <n> (cópias no Internet Archive por rodada, padrão 20)  --minutos <n> (orçamento, padrão 20)
+//           --max-arquivo <n> (cópias no Internet Archive por rodada, padrão 40)  --minutos <n> (orçamento, padrão 25)
+//           (padrões em PADROES_DA_RODADA; "acelerar o serviço", 07/11/2026: rodada de 2 em 2 horas, ver ROBO.md)
 //           --fixtures <pasta> (lê <pasta>/<id>.xml ou .json e <pasta>/materias/<fim-do-link>.html: teste sem rede)
 //
 // Variáveis: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY e, para estruturar com IA, qualquer uma de GEMINI_API_KEY,
@@ -1244,6 +1245,15 @@ export function paraOLogPublico(s) {
 
 const numero = (v, padrao) =>(Number.isFinite(Number(v)) && Number(v) >= 0 ? Number(v) : padrao);
 
+/**
+ * Padrões da rodada pela linha de comando. Pedido da coordenação (07/11/2026): "acelerar o serviço". Com o workflow de
+ * 2 em 2 horas (12 rodadas por dia), 50 pedidos à IA por rodada dão até 600 por dia, abaixo da cota gratuita somada dos
+ * provedores do rodízio documentada em docs/vale-o-escrito/ROBO.md (quem passa da cota responde 429 e sai do rodízio; o
+ * resto sai pela heurística). 40 cópias no Internet Archive por rodada dão até 480 por dia. A janela de 7 dias recupera
+ * o que uma rodada perdida deixou para trás (o banco ignora link repetido).
+ */
+export const PADROES_DA_RODADA = Object.freeze({ dias: 7, max: 120, maxIa: 50, maxArquivo: 40, minutos: 25 });
+
 export async function principal(argv = process.argv.slice(2), env = process.env) {
   const a = argumentos(argv);
   const inicio = Date.now();
@@ -1260,15 +1270,15 @@ export async function principal(argv = process.argv.slice(2), env = process.env)
     buscar = buscarDeArquivos(a.fixtures);
   }
 
-  const ia = a.semIa || a.fixtures ? null : criarIa({ env, buscar: buscarNaRede, limite: numero(a.maxIa, 40), log });
+  const ia = a.semIa || a.fixtures ? null : criarIa({ env, buscar: buscarNaRede, limite: numero(a.maxIa, PADROES_DA_RODADA.maxIa), log });
   if (ia && !ia.ativos().length) log("nenhuma chave de IA definida: os rascunhos saem pela heurística");
   // O Save Page Now só com a rede de verdade (nunca nos testes com --fixtures).
   const arquivar = a.semArquivo || a.fixtures ? null : (url) => arquivarNoInternetArchive(url, { buscar: buscarNaRede, env });
   const gravar = a.seco ? null : criarGravador(env, buscarNaRede);
 
   const resultado = await coletar({
-    ...cfg, fontes, buscar, ia, gravar, arquivar, baixar: !a.semMateria, maxArquivo: numero(a.maxArquivo, 20),
-    prazo: inicio + numero(a.minutos, 20) * 60_000, hoje, dias: numero(a.dias, 3), max: numero(a.max, 60), soFonte: a.fonte, log,
+    ...cfg, fontes, buscar, ia, gravar, arquivar, baixar: !a.semMateria, maxArquivo: numero(a.maxArquivo, PADROES_DA_RODADA.maxArquivo),
+    prazo: inicio + numero(a.minutos, PADROES_DA_RODADA.minutos) * 60_000, hoje, dias: numero(a.dias, PADROES_DA_RODADA.dias), max: numero(a.max, PADROES_DA_RODADA.max), soFonte: a.fonte, log,
   });
 
   if (a.seco) for (const s of resultado.sugestoes) console.log(JSON.stringify(env.GITHUB_ACTIONS === "true" ? paraOLogPublico(s) : s));
