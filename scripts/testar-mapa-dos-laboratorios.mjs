@@ -48,7 +48,6 @@ const existe = (chave) => {
   const [t, a] = chave.split("/");
   return fs.existsSync(path.join(trilhas, t, `${a}.md`));
 };
-const areaDaTrilha = (t) => fs.readFileSync(path.join(trilhas, t, "_trilha.md"), "utf8").match(/^area:\s*(\S+)/m)?.[1];
 for (const l of MAPA_DOS_LABORATORIOS) {
   for (const a of l.aulas) conferir(`${l.id}: aula ${a} existe`, existe(a));
   conferir(`${l.id}: aulas sem repetição`, new Set(l.aulas).size === l.aulas.length);
@@ -97,6 +96,15 @@ for (const lang of ["pt", "en", "es", "fr", "ru", "zh"]) {
   for (const f of FINALIDADES) conferir(`${lang}: finalidade ${f}`, !!m.finalidades?.[f]?.titulo && !!m.finalidades?.[f]?.serve);
   const texto = JSON.stringify(m).toLowerCase();
   conferir(`${lang}: sem palavra proibida`, !/universidade|diploma|university/.test(texto));
+}
+
+// Ida e volta: as páginas que levam ao mapa e as que voltam dele.
+const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8");
+conferir("aula mostra os laboratórios dela", ler("app", "[lang]", "trilhas", "[track]", "[lesson]", "page.tsx").includes("<LabsDaAula"));
+conferir("disciplina mostra os laboratórios dela", ler("app", "[lang]", "estantes", "[area]", "page.tsx").includes("labsDaDisciplina(area)"));
+for (const p of pastas) {
+  if (p === "planilha" || p === "externos") continue;
+  conferir(`/laboratorios/${p} mostra para que serve e as aulas`, ler("app", "[lang]", "laboratorios", p, "page.tsx").includes("<SobreOLaboratorio"));
 }
 
 if (falhas.length) {

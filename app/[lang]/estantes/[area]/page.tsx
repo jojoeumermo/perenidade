@@ -6,6 +6,8 @@ import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
 import { VideoaulasDaDisciplina } from "@/components/VideoaulasPublicas";
 import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
+import { ancoraDoLab, nomeDoLab } from "@/components/labs/MapaDosLaboratorios";
+import { labsDaDisciplina } from "@/lib/mapa-dos-laboratorios";
 import { BookCard, TrackCard } from "@/components/Cards";
 import { PageHeading } from "@/components/PageHeading";
 import { SecaoEstudioDePratica } from "@/components/EstudioDePraticaSecao";
@@ -45,6 +47,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
   const videos = getVideos(lang).filter((video) => video.area === area);
   const loose = getLooseMaterials(lang).filter((material) => material.area === area);
   const toolIds = areaTools[area] ?? [];
+  const labsDaArea = labsDaDisciplina(area);
   const heading = "mt-12 border-b border-rule pb-3 text-3xl font-semibold";
 
   return (
@@ -75,6 +78,18 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
           {toolIds.map((id) => (
             <Link key={id} href={to(`/ferramentas/${id}`)} className="underline hover:text-oxblood">
               {(t.toolNames as Record<string, string[]>)[id][0]}
+            </Link>
+          ))}
+        </p>
+      )}
+
+      {/* NOVAS TAREFAS T21: os laboratórios que ajudam nesta disciplina (o mapa em /laboratorios mostra para que serve cada um). */}
+      {labsDaArea.length > 0 && (
+        <p className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1 font-sans text-sm">
+          <Link href={to("/laboratorios#por-disciplina")} className="font-mono text-xs uppercase tracking-widest text-gold hover:text-oxblood">{t.labs.title}</Link>
+          {labsDaArea.map((lab) => (
+            <Link key={lab.id} href={lab.morada === "aula" ? `${to("/laboratorios")}#${ancoraDoLab(lab.id)}` : to(lab.rota)} className="underline hover:text-oxblood">
+              {nomeDoLab(lab, t, lang)}
             </Link>
           ))}
         </p>
