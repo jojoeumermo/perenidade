@@ -12,7 +12,7 @@ import {
   PAPEIS, PROIBIDOS, PROVEDORES, SITUACOES, TIPOS_DE_ORG, CAPITAIS, acharDossies, acharLugar, acharOrganizacoes, arquivarNoInternetArchive,
   carregarConfig, coletar, conferirRespostaIa, criarGravador, criarIa, dataDoFatoPorHeuristica, extrairMateria, falaDeMenor, lerFeed,
   lerQueridoDiario, linkDoArquivo, montarPrompt, normalizarUrl, podeArquivar, prepararMunicipios, relataCaso, resumoPorHeuristica,
-  paraOLogPublico, situacaoPorHeuristica, temSegundo,
+  paraOLogPublico, situacaoPorHeuristica, temSegundo, PADROES_DA_RODADA,
 } from "./vale-o-escrito/coletar.mjs";
 
 let total = 0;
@@ -249,9 +249,27 @@ await caso("linha de comando: --seco --fixtures imprime JSON e não pede chave n
   assert.throws(() => execFileSync(process.execPath, ["scripts/vale-o-escrito/coletar.mjs", "--nao-existe"], { cwd: raiz, stdio: "pipe" }));
 });
 
-await caso("workflow: agendado de 3 em 3 h, só com VALE_O_ESCRITO == 'sim', actions fixadas por SHA, timeout de até 30 min, chaves por segredo", () => {
+await caso("serviço acelerado (07/11/2026): limites maiores por rodada, dentro da cota gratuita somada, e fontes oficiais com RSS", () => {
+  assert.deepEqual({ ...PADROES_DA_RODADA }, { dias: 7, max: 120, maxIa: 50, maxArquivo: 40, minutos: 25 });
+  // 12 rodadas por dia (de 2 em 2 horas): até 600 pedidos à IA e 480 cópias no Internet Archive por dia (ROBO.md).
+  assert.ok(12 * PADROES_DA_RODADA.maxIa <= 600 && 12 * PADROES_DA_RODADA.maxArquivo <= 480);
+  // O orçamento da parte cara cabe no timeout do workflow (30 min), com folga para gravar.
+  assert.ok(PADROES_DA_RODADA.minutos <= 25);
+  for (const id of ["ibama", "hrw"]) {
+    const f = cfgFontes.find((x) => x.id === id);
+    assert.equal(f.leitor, "rss", id);
+    assert.equal(f.acesso, "aberto", id);
+    assert.match(f.feed, /^https:\/\//, id);
+  }
+  const robo = ler("docs", "vale-o-escrito", "ROBO.md");
+  assert.match(robo, /de 2 em 2 horas/);
+  assert.match(robo, /--max-ia <n>` \(50\)/);
+});
+
+await caso("workflow: agendado de 2 em 2 h, só com VALE_O_ESCRITO == 'sim', actions fixadas por SHA, timeout de até 30 min, chaves por segredo", () => {
   const y = ler(".github", "workflows", "vale-o-escrito.yml");
-  assert.match(y, /cron: "\d+ \*\/3 \* \* \*"/);
+  assert.match(y, /cron: "\d+ \*\/2 \* \* \*"/);
+  assert.match(y, /--minutos 25\b/);
   assert.match(y, /if: \$\{\{ vars\.VALE_O_ESCRITO == 'sim' \}\}/);
   assert.match(y, /timeout-minutes: ([5-9]|[12]\d|30)\b/);
   for (const k of ["ARCHIVE_ACCESS_KEY", "ARCHIVE_SECRET_KEY", "GEMINI_API_KEY", "GROQ_API_KEY", "CEREBRAS_API_KEY", "OPENROUTER_API_KEY"]) assert.ok(y.includes(`${k}: \${{ secrets.${k} }}`), k);

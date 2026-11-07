@@ -252,15 +252,16 @@
       "acesso": "aberto",
       "pedeCadastro": false,
       "licenca": "Conteúdo do portal gov.br sob CC BY-ND 3.0 (rodapé do portal, lido em 04/11/2026): citar trecho curto com link e crédito, sem adaptar. Os conjuntos do portal de dados abertos têm licença própria por conjunto (não lidas).",
-      "observacao": "Dados abertos (autos de infração); sem adaptador ainda.",
+      "observacao": "Notícias oficiais do IBAMA pelo RSS do portal gov.br (RDF/RSS 1.0, que o leitor de RSS já entende; respondeu 200 em 07/11/2026, conferido com curl). Dados abertos (autos de infração) seguem sem adaptador.",
       "verificacao": {
-        "data": "2026-11-04",
+        "data": "2026-11-07",
         "estado": "conferido",
-        "como": "curl com HTTP/HTTPS + WebFetch"
+        "como": "curl do RSS (200, application/atom+xml, itens <item> com dc:date)"
       },
       "grupo": "oficial",
-      "leitor": null,
-      "pagina": "https://dadosabertos.ibama.gov.br/"
+      "leitor": "rss",
+      "feed": "https://www.gov.br/ibama/pt-br/assuntos/noticias/RSS",
+      "feedConfirmado": true
     },
     {
       "id": "inpe",
@@ -643,20 +644,21 @@
       "nome": "Human Rights Watch",
       "tipo": "organizacao",
       "url": "https://www.hrw.org/americas/brazil",
-      "rss": "https://www.hrw.org/rss/news",
+      "rss": "https://www.hrw.org/pt/rss/news",
       "api": null,
-      "acesso": "so-link",
+      "acesso": "aberto",
       "pedeCadastro": false,
       "licenca": "Sem licença aberta na página inicial: tratar como direitos reservados. Só citação curta, com crédito e link (Lei 9.610/1998, art. 46, III: não conferido no planalto.gov.br nesta fase; assessoria confere).",
-      "observacao": "Sem feed confirmado. Só link.",
+      "observacao": "Feed das notícias em português da HRW (respondeu 200 em 07/11/2026, conferido com curl). O filtro de temas dos dossiês tira o que não é do Brasil.",
       "verificacao": {
-        "data": "2026-11-04",
+        "data": "2026-11-07",
         "estado": "conferido",
-        "como": "curl com HTTP/HTTPS + WebFetch"
+        "como": "curl do RSS (200, application/rss+xml)"
       },
       "grupo": "organizacao",
-      "leitor": null,
-      "pagina": "https://www.hrw.org/americas/brazil"
+      "leitor": "rss",
+      "feed": "https://www.hrw.org/pt/rss/news",
+      "feedConfirmado": true
     },
     {
       "id": "global-witness",
