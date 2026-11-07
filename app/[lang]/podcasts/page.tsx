@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { CopyButton } from "@/components/CopyButton";
+import { PodcastAoVivo } from "@/components/podcast/AoVivo";
 import { CartaoEspacial } from "@/components/podcast/AudioEspacial";
 import { Destaque } from "@/components/podcast/Destaque";
 import { Explorar } from "@/components/podcast/Explorar";
@@ -71,6 +72,10 @@ export default async function Podcasts({ params }: PageProps<"/[lang]/podcasts">
           </div>
         </section>
       )}
+
+      <div className="mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8">
+        <PodcastAoVivo className="my-10" />
+      </div>
 
       <div className="pont border-b-[3px] border-ink">
         <div className="mx-auto max-w-[78rem] px-4 pt-6 pb-12 sm:px-6 lg:px-8">
