@@ -597,4 +597,40 @@ caso("acessibilidade da moldura: botão de som com nome fixo, um só 'pular', r�
   assert.ok((lum(cor) + 0.05) / (lum(fundo) + 0.05) >= 4.5, "--ve-apagado com contraste de pelo menos 4,5:1 sobre o fundo");
 });
 
+const { chaveDoLink, conferirCaso, documentoDoCaso } = await import("./vale-o-escrito/importar-novos-casos.mjs");
+caso("novos casos em lote (content/vale-o-escrito/novos-casos): passam na curadoria, têm fonte oficial, chegam pendentes e não duplicam link", () => {
+  const pasta = path.join(raiz, "content", "vale-o-escrito", "novos-casos");
+  if (!fs.existsSync(pasta)) return;
+  // Links já usados nos arquivos de entradas (publicadas e pendentes): o lote não pode repeti-los.
+  const usados = new Map();
+  for (const slug of SLUGS_DOS_DOSSIES) for (const en of lerDossie(slug).entradas) for (const f of en.fontes) usados.set(chaveDoLink(f.url), en.id);
+  const ids = new Set(SLUGS_DOS_DOSSIES.flatMap((slug) => lerDossie(slug).entradas.map((x) => x.id)));
+  let n = 0;
+  for (const nome of fs.readdirSync(pasta).filter((x) => x.endsWith(".json"))) {
+    const bruto = JSON.parse(fs.readFileSync(path.join(pasta, nome), "utf8"));
+    const soltos = Array.isArray(bruto) ? bruto : Array.isArray(bruto?.dossies) ? bruto.dossies : [bruto];
+    for (const solto of soltos)
+      for (const en of solto.entradas ?? []) {
+        const doc = documentoDoCaso({ ...en, dossie: en.dossie ?? solto.dossie }, solto);
+        assert.deepEqual(conferirCaso(doc), [], `${nome} / ${en.id}`);
+        assert.equal(en.revisao, "pendente-curadoria", `${nome} / ${en.id}: tem de chegar pendente`);
+        assert.ok(!ids.has(en.id), `${nome} / ${en.id}: id repetido`);
+        ids.add(en.id);
+        for (const k of new Set(en.fontes.map((f) => chaveDoLink(f.url)))) {
+          assert.ok(!usados.has(k) || usados.get(k) === en.id, `${nome} / ${en.id}: link ${k} já está em ${usados.get(k)}`);
+          usados.set(k, en.id);
+        }
+        // Sem nome de quem morreu nos títulos das fontes deste recorte (os nomes foram trocados por [nome omitido]).
+        for (const f of en.fontes) assert.doesNotMatch(f.titulo, /Mãe Bernadete|Dorothy Stang/, `${nome} / ${en.id}: título com nome de quem morreu`);
+        n++;
+      }
+  }
+  assert.ok(n > 0);
+  // O importador barra caso só com imprensa (decisão da coordenação) e caso que chega "aprovado".
+  const soImprensa = entrada({ pessoas: [] });
+  assert.ok(conferirCaso(documentoDoCaso(soImprensa, {})).some((e) => e.includes("fonte oficial")));
+  assert.ok(conferirCaso(documentoDoCaso(entrada({ revisao: "aprovada" }), { pessoas: [pessoa()] })).some((e) => e.startsWith("revisao")));
+  assert.equal(chaveDoLink("https://WWW.Exemplo.gov.br/a/b/#x"), chaveDoLink("https://exemplo.gov.br/a/b"));
+});
+
 console.log(`\n${total} conferências do Vale o Escrito passaram.`);

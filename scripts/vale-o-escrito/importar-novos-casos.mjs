@@ -23,6 +23,10 @@
 // com papel curadoria ou coordenacao, copiado da sessão do painel; vale ~1 hora). A função do banco confere o papel de novo
 // (interno.curador()). Antes de mandar, lê public.vale_publicadas() para não duplicar link já publicado.
 //
+// Atenção ao --gravar: o exportador (vale-o-escrito:exportar) reescreve entradas/<dossie>.json a partir do banco, e o teste
+// "casos iniciais" (testar:vale-o-escrito) espera de 2 a 5 casos aprovados e nenhum pendente por dossiê. Para o caminho
+// definitivo, prefira --fila; use --gravar quando a coordenação decidir manter os pendentes em arquivo (e ajustar o teste).
+//
 // Sai com código 1 se algum caso foi barrado pelas regras e 2 se não conseguiu ler ou gravar.
 import fs from "node:fs";
 import path from "node:path";
