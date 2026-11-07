@@ -283,13 +283,34 @@
       "reportado": "仅媒体报道"
     },
     "construidoEm": "数据构建于 {data}",
-    "modoLeve": "轻量模式：此设备上已减少效果"
+    "modoLeve": "轻量模式：此设备上已减少效果",
+    "dinheiro": {
+      "titulo": "有记录的金额",
+      "total": "来源中引用的金额",
+      "explica": "{n} 个案件来源中写明的罚款、赔偿、和解、官方估计和调查中金额的合计。性质各不相同：不是挪用总额，也不是犯罪证据。",
+      "naFicha": "资金流向，从大到小",
+      "quem": "责任方",
+      "suposto": "调查中的金额：不是犯罪证据。",
+      "semValor": "此选择的来源中没有写明金额。",
+      "tipos": {
+        "multa": "罚款",
+        "reparacao": "赔偿",
+        "indenizacao": "判决支付",
+        "acordo": "和解（TAC）",
+        "repasse": "拨款",
+        "emenda": "预算修正案",
+        "estimativa_oficial": "官方估计",
+        "movimentacao_suposta": "涉嫌资金流动"
+      },
+      "dataDaFonte": "无确切日期；来源日期 {data}"
+    }
   },
   "navegacao": {
     "inicio": "观察站",
     "sobre": "关于方法",
     "enviar": "提交来源",
-    "corrigir": "申请更正"
+    "corrigir": "申请更正",
+    "arsenal": "资料库"
   },
   "sobre": {
     "olho": "方法与规则",
@@ -378,5 +399,89 @@
     },
     "barra": "已发布案件的法律状态",
     "rodape": "每份档案都有来源、日期和摘录。活的网络：每个点是一条记录，每条线是一条有来源的关联。"
+  },
+  "leituras": {
+    "titulo": "专题档案",
+    "explica": "按主题进入：每个档案汇集已发布的案件，在视图中只点亮它们，并打开阅读页。",
+    "nCasos": "{n} 个案件",
+    "abrir": "打开档案",
+    "fechar": "关闭档案",
+    "papel": "阅读页",
+    "verNaTeia": "查看卡片",
+    "casoCompleto": "打开完整案件",
+    "fontes": "{n} 个来源",
+    "itens": {
+      "barragens": {
+        "titulo": "尾矿坝",
+        "descricao": "丰当（马里亚纳）和费让溪（布鲁马迪尼奥）溃坝：刑事诉讼、由谁担责及其法律状态，据联邦检察院和法院。"
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "非法采矿与亚诺马米人",
+        "descricao": "从阿西穆屠杀到罗赖马非法采矿的资助：法院已作出的裁决和仍在调查的内容。"
+      },
+      "chacinas-do-campo": {
+        "titulo": "农村屠杀",
+        "descricao": "埃尔多拉多-杜斯卡拉雅斯、帕乌达尔科和乌纳伊：农村冲突中的死亡及各案进程。"
+      },
+      "violencia-policial": {
+        "titulo": "警察暴力",
+        "descricao": "卡兰迪鲁、帕拉州屠杀、翁巴乌巴联邦公路警察车内死亡，以及阿莱芒和佩尼亚的行动，并写明各案法律状态。"
+      },
+      "trabalho-escravo": {
+        "titulo": "奴役劳动",
+        "descricao": "解救、判决以及乌纳伊劳动监察员遇害案：已见于公开来源的类奴役劳动案件。"
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "公共资金与修正案",
+        "descricao": "月费案、社保扣款和秘密预算：来源中写明的金额以及各项调查或诉讼的状态。"
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "被侵占的原住民土地",
+        "descricao": "原住民土地上的采矿、非法木材、毁林和死亡事件，据联邦检察院、最高法院和媒体。"
+      }
+    }
+  },
+  "arsenal": {
+    "olho": "完整目录",
+    "titulo": "资料库",
+    "lead": "所有已发布的案件、每个案件的事件（事实、裁决、状态变化、金额）以及支撑它们的文件，可搜索列表。人与组织之间的关系另设标签，仅在有来源时显示。",
+    "buscar": "搜索",
+    "buscarDica": "姓名、地点、媒体、标签…",
+    "categoria": "类别",
+    "situacao": "法律状态",
+    "tipoFonte": "来源类型",
+    "todas": "全部",
+    "limpar": "清除筛选",
+    "resultados": "{n} 个结果",
+    "nada": "没有符合这些筛选的结果。",
+    "abas": {
+      "casos": "案件",
+      "eventos": "事件",
+      "documentos": "文件",
+      "relacoes": "关系"
+    },
+    "evento": {
+      "fato": "事实",
+      "publicado": "在 Vale 发布",
+      "mudanca": "状态变化",
+      "valor": "有记录的金额",
+      "fonte": "来源发布"
+    },
+    "relacoes": {
+      "explica": "谁隶属、领导、资助或雇用谁，以及每个案件中被提及的人：仅限有来源的关系。实心点：原始来源；空心点：仅媒体。",
+      "citados": "案件中提及",
+      "semRelacoes": "此选择中没有有来源的关系。"
+    },
+    "caso": "案件",
+    "abrir": "打开",
+    "copiaArquivada": "存档副本",
+    "tiposDeFonte": {
+      "processo": "诉讼",
+      "investigacao_oficial": "官方调查",
+      "dado_oficial": "官方数据",
+      "relatorio_organizacao": "组织报告",
+      "reportagem": "报道",
+      "checagem": "事实核查"
+    }
   }
 }

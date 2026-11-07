@@ -283,13 +283,34 @@
       "reportado": "Presse seulement"
     },
     "construidoEm": "Données construites le {data}",
-    "modoLeve": "Mode léger : effets réduits sur cet appareil"
+    "modoLeve": "Mode léger : effets réduits sur cet appareil",
+    "dinheiro": {
+      "titulo": "Argent documenté",
+      "total": "Montants cités dans les sources",
+      "explica": "Somme d'amendes, réparations, accords, estimations officielles et montants sous enquête écrits dans les sources de {n} cas. De natures différentes : ce n'est ni un total de détournements ni une preuve de crime.",
+      "naFicha": "Flux d'argent, du plus grand au plus petit",
+      "quem": "Qui répond",
+      "suposto": "Montant sous enquête : pas une preuve de crime.",
+      "semValor": "Aucun montant écrit dans les sources de cette sélection.",
+      "tipos": {
+        "multa": "amende",
+        "reparacao": "réparation",
+        "indenizacao": "condamnation à payer",
+        "acordo": "accord (TAC)",
+        "repasse": "transfert",
+        "emenda": "amendement budgétaire",
+        "estimativa_oficial": "estimation officielle",
+        "movimentacao_suposta": "mouvement présumé"
+      },
+      "dataDaFonte": "sans date propre ; source du {data}"
+    }
   },
   "navegacao": {
     "inicio": "Observatoire",
     "sobre": "À propos de la méthode",
     "enviar": "Envoyer une source",
-    "corrigir": "Demander une correction"
+    "corrigir": "Demander une correction",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Méthode et règles",
@@ -378,5 +399,89 @@
     },
     "barra": "Situation juridique des cas publiés",
     "rodape": "Source, date et extrait sur chaque fiche. Toile vivante : chaque point est un enregistrement, chaque ligne un lien sourcé."
+  },
+  "leituras": {
+    "titulo": "Dossiers de lecture",
+    "explica": "Des portes d'entrée par thème : chaque dossier réunit des cas déjà publiés, n'allume qu'eux dans les vues et ouvre la feuille de lecture.",
+    "nCasos": "{n} cas",
+    "abrir": "Ouvrir le dossier",
+    "fechar": "Fermer le dossier",
+    "papel": "Feuille de lecture",
+    "verNaTeia": "Voir la fiche",
+    "casoCompleto": "Ouvrir le cas complet",
+    "fontes": "{n} sources",
+    "itens": {
+      "barragens": {
+        "titulo": "Barrages",
+        "descricao": "Les ruptures de Fundão (Mariana) et de Córrego do Feijão (Brumadinho) : les actions pénales, qui répond et dans quelle situation, selon le MPF et la justice."
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "Orpaillage et Yanomami",
+        "descricao": "Du massacre de Haximu au financement de l'orpaillage illégal au Roraima : ce que la justice a déjà décidé et ce qui est encore en enquête."
+      },
+      "chacinas-do-campo": {
+        "titulo": "Massacres à la campagne",
+        "descricao": "Eldorado dos Carajás, Pau d'Arco et Unaí : des morts dans des conflits agraires et le parcours de chaque procès."
+      },
+      "violencia-policial": {
+        "titulo": "Violences policières",
+        "descricao": "Carandiru, des massacres au Pará, la mort dans un véhicule de la PRF à Umbaúba et l'opération à Alemão et Penha, avec la situation juridique de chaque cas."
+      },
+      "trabalho-escravo": {
+        "titulo": "Travail esclave",
+        "descricao": "Sauvetages, condamnations et le massacre des inspecteurs du travail à Unaí : des cas de travail analogue à l'esclavage déjà consignés dans des sources publiques."
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "Argent public et amendements",
+        "descricao": "Mensalão, prélèvements de l'INSS et budget secret : les montants écrits dans les sources et la situation de chaque enquête ou procès."
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "Terres autochtones envahies",
+        "descricao": "Orpaillage, bois illégal, déforestation et morts dans des terres autochtones, selon le MPF, le STF et la presse."
+      }
+    }
+  },
+  "arsenal": {
+    "olho": "Catalogue complet",
+    "titulo": "Arsenal",
+    "lead": "Tous les cas publiés, les événements de chacun (fait, décisions, changements de situation, montants) et les documents qui les fondent, dans une liste consultable. Les relations entre personnes et organisations ont leur onglet, seulement avec source.",
+    "buscar": "Rechercher",
+    "buscarDica": "Nom, lieu, média, étiquette…",
+    "categoria": "Catégorie",
+    "situacao": "Situation juridique",
+    "tipoFonte": "Type de source",
+    "todas": "Toutes",
+    "limpar": "Effacer les filtres",
+    "resultados": "{n} résultats",
+    "nada": "Rien trouvé avec ces filtres.",
+    "abas": {
+      "casos": "Cas",
+      "eventos": "Événements",
+      "documentos": "Documents",
+      "relacoes": "Relations"
+    },
+    "evento": {
+      "fato": "Fait",
+      "publicado": "Publié sur Vale",
+      "mudanca": "Changement de situation",
+      "valor": "Montant documenté",
+      "fonte": "Source publiée"
+    },
+    "relacoes": {
+      "explica": "Qui fait partie de, dirige, finance ou engage qui, et qui est cité dans chaque cas : uniquement les liens appuyés par une source. Point plein : source primaire ; point vide : presse seulement.",
+      "citados": "Cités dans le cas",
+      "semRelacoes": "Aucune relation sourcée dans cette sélection."
+    },
+    "caso": "Cas",
+    "abrir": "Ouvrir",
+    "copiaArquivada": "copie archivée",
+    "tiposDeFonte": {
+      "processo": "Procès",
+      "investigacao_oficial": "Enquête officielle",
+      "dado_oficial": "Donnée officielle",
+      "relatorio_organizacao": "Rapport d'organisation",
+      "reportagem": "Reportage",
+      "checagem": "Vérification"
+    }
   }
 }

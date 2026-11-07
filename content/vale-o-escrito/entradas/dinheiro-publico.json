@@ -200,7 +200,18 @@
         "descontos associativos",
         "Operação Sem Desconto"
       ],
-      "notaDaCuradoria": "Sem pessoa nomeada de propósito: as fontes lidas (CGU) não nomeiam investigados e a imprensa já noticiou indiciamentos e denúncias depois de dezembro de 2025 que NÃO foram lidos aqui. Reconferir na PF, no MPF e no STF antes de aprovar (e então nomear só quem for denunciado e já público)."
+      "notaDaCuradoria": "Sem pessoa nomeada de propósito: as fontes lidas (CGU) não nomeiam investigados e a imprensa já noticiou indiciamentos e denúncias depois de dezembro de 2025 que NÃO foram lidos aqui. Reconferir na PF, no MPF e no STF antes de aprovar (e então nomear só quem for denunciado e já público).",
+      "valores": [
+        {
+          "id": "v1",
+          "valor": 6300000000,
+          "escrito": "R$ 6,3 bilhões",
+          "tipo": "estimativa_oficial",
+          "data": "2025-04",
+          "resumo": "Valor estimado cobrado de aposentados e pensionistas entre 2019 e 2024, segundo a CGU; investigação em curso.",
+          "fonteId": "f1"
+        }
+      ]
     },
     {
       "publicadoEm": "2026-11-05",
@@ -254,7 +265,18 @@
         "Polícia Federal",
         "TCU"
       ],
-      "notaDaCuradoria": "A decisão que manda a PF investigar vem de reportagem (JB, 25/08/2025); achar a decisão do ministro Dino na ADPF 854 no site do STF. A fonte do STF lida (10/10/2024) trata da inconstitucionalidade e da suspensão, não dos inquéritos. Há outros desdobramentos em 2025 (PF, CGU, AGU) vistos só em buscas. Sem pessoa nomeada: ninguém foi denunciado nas fontes lidas."
+      "notaDaCuradoria": "A decisão que manda a PF investigar vem de reportagem (JB, 25/08/2025); achar a decisão do ministro Dino na ADPF 854 no site do STF. A fonte do STF lida (10/10/2024) trata da inconstitucionalidade e da suspensão, não dos inquéritos. Há outros desdobramentos em 2025 (PF, CGU, AGU) vistos só em buscas. Sem pessoa nomeada: ninguém foi denunciado nas fontes lidas.",
+      "valores": [
+        {
+          "id": "v1",
+          "valor": 694600000,
+          "escrito": "R$ 694,6 milhões",
+          "tipo": "emenda",
+          "data": "2025-08",
+          "resumo": "Emendas individuais com planos de trabalho não cadastrados corretamente, sob inquérito, segundo o JB citando nota técnica do TCU.",
+          "fonteId": "f2"
+        }
+      ]
     }
   ]
 }

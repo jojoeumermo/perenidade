@@ -102,7 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/criancas/imprimir",
   ];
   // O Vale o Escrito só entra no mapa com o recurso ligado pelo nome (enviar e correção ficam fora: noindex).
-  if (ligado("vale-o-escrito")) paths.push("/vale-o-escrito", "/vale-o-escrito/sobre");
+  if (ligado("vale-o-escrito")) paths.push("/vale-o-escrito", "/vale-o-escrito/arsenal", "/vale-o-escrito/sobre");
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
   for (const territorio of territorios) paths.push(`/territorios/${territorio.slug}`);

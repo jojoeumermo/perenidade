@@ -21,6 +21,7 @@ import {
   dominioDe,
   type DadosDoObservatorio,
 } from "@/lib/vale-o-escrito/visual";
+import { formatarReais, valoresDaPonta, valoresOrdenados, type ValorDoCaso } from "@/lib/vale-o-escrito/valores";
 import { CartaoDeArquivo } from "./CartaoDeArquivo";
 
 // As fichas do observatório (painel da direita) e das páginas próprias (caso, pessoa, organização). Sem estado: servem
@@ -271,6 +272,7 @@ export function FichaDoCaso({
         </section>
       )}
       <LigacoesDaFicha entrada={entrada} dados={dados} s={s} />
+      <FluxosDeDinheiro itens={valoresOrdenados([entrada])} dados={dados} s={s} lang={lang} />
       <section className="ve-bloco" aria-label={s.ficha.fontes}>
         <h3 className="ve-rotulo">{s.ficha.fontes}</h3>
         <FontesDaFicha entrada={entrada} s={s} lang={lang} />
@@ -361,8 +363,54 @@ export function FichaDeAgente({
           ))}
         </ul>
       </section>
+      <FluxosDeDinheiro itens={valoresDaPonta(dados.entradas, { tipo, id: agente.id })} dados={dados} s={s} lang={lang} comCaso />
       <p className="ve-aviso-fixo">{s.visual.ficha.nuncaVitima}</p>
     </article>
+  );
+}
+
+/**
+ * Os fluxos de dinheiro (T31 3.3): cada valor documentado com o tipo ("multa", "acordo", "emenda"...), a data, a linha
+ * de resumo com "segundo [fonte]", quem responde (quando a fonte diz) e o número da fonte. Do maior para o menor.
+ * Valor suposto ou estimado leva o aviso de que não é prova de crime. `comCaso`: na ficha de pessoa ou organização,
+ * diz de qual caso é cada valor.
+ */
+export function FluxosDeDinheiro({ itens, dados, s, lang, comCaso }: { itens: ValorDoCaso[]; dados: DadosDoObservatorio; s: S; lang: string; comCaso?: boolean }) {
+  if (itens.length === 0) return null;
+  const maior = itens[0].valor.valor || 1;
+  return (
+    <section className="ve-bloco" aria-label={s.visual.dinheiro.naFicha}>
+      <h3 className="ve-rotulo">{s.visual.dinheiro.naFicha}</h3>
+      <ol className="ve-fluxos">
+        {itens.map(({ entrada, valor, nFonte }) => (
+          <li key={`${entrada.id}-${valor.id}`} data-tipo={valor.tipo}>
+            <div className="ve-fluxo-topo">
+              <strong className="ve-fluxo-valor">{formatarReais(valor.valor, lang)}</strong>
+              <span className="ve-fluxo-tipo">{s.visual.dinheiro.tipos[valor.tipo]}</span>
+              <span className="ve-rotulo">
+                {valor.data
+                  ? formatarData(valor.data, lang)
+                  : fill(s.visual.dinheiro.dataDaFonte, { data: formatarData(entrada.fontes.find((f) => f.id === valor.fonteId)?.data ?? "", lang) })}
+              </span>
+            </div>
+            <i className="ve-fluxo-barra" aria-hidden="true" style={{ width: `${Math.max(2, (valor.valor / maior) * 100)}%` }} />
+            <span>
+              {valor.resumo}
+              {nFonte > 0 && (comCaso ? <> [{nFonte}]</> : <a href={`#fonte-${nFonte}`}> [{nFonte}]</a>)}
+            </span>
+            {valor.ponta && (
+              <span className="ve-aviso-fixo">
+                {s.visual.dinheiro.quem}: {nomeDaPonta(dados, valor.ponta)}
+              </span>
+            )}
+            {comCaso && <span className="ve-aviso-fixo">{entrada.titulo}</span>}
+            {(valor.tipo === "movimentacao_suposta" || valor.tipo === "estimativa_oficial" || valor.tipo === "emenda") && (
+              <span className="ve-aviso-fixo">{s.visual.dinheiro.suposto}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 

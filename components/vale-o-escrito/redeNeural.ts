@@ -5,7 +5,10 @@
 // dinâmico (FundoVivo.tsx), depois que a página já está de pé: nada disso pesa no carregamento inicial.
 //  - pausa sozinho quando o canvas sai da tela (IntersectionObserver) ou a aba fica escondida (visibilitychange);
 //  - com "reduzir movimento" desenha um quadro parado e só redesenha quando a janela muda de tamanho;
-//  - pixel ratio limitado a 1,5 e no máximo 110 nós (menos no celular): leve até em aparelho de entrada.
+//  - pixel ratio limitado a 1,5 e no máximo 110 nós (menos no celular): leve até em aparelho de entrada;
+//  - orçamento de desempenho (T31): no máximo 30 quadros por segundo (é fundo, não precisa de 60) e, se o desenho
+//    custar caro (média acima de 8 ms por quadro) ou o aparelho der sinal de fraco, entra no modo leve: metade dos nós,
+//    pixel ratio 1, sem as linhas do ponteiro.
 
 interface No {
   x: number;
@@ -29,10 +32,17 @@ const CORES = ["241,241,237", "225,16,47", "255,176,32"] as const;
 export interface OpcoesDaRede {
   /** Menos movimento: um quadro parado. */
   calmo: boolean;
+  /** Começa no modo leve (aparelho fraco ou economia de dados). */
+  leve?: boolean;
 }
 
+/** Intervalo mínimo entre dois quadros (30 por segundo). */
+const INTERVALO_MS = 1000 / 30;
+/** Custo médio do desenho acima do qual a rede entra no modo leve. */
+const CUSTO_MAXIMO_MS = 8;
+
 /** Liga a rede no canvas. Devolve a função que para tudo e solta os ouvintes. */
-export function iniciarRede(canvas: HTMLCanvasElement, { calmo }: OpcoesDaRede): () => void {
+export function iniciarRede(canvas: HTMLCanvasElement, { calmo, leve: leveDeSaida = false }: OpcoesDaRede): () => void {
   const g = canvas.getContext("2d", { alpha: true });
   if (!g) return () => {};
   const ctx2d: CanvasRenderingContext2D = g;
@@ -48,12 +58,16 @@ export function iniciarRede(canvas: HTMLCanvasElement, { calmo }: OpcoesDaRede):
   let visivel = true;
   let ponteiro: { x: number; y: number } | null = null;
   let parado = false;
+  let leve = leveDeSaida;
+  let ultimoDesenho = 0;
+  let custoTotal = 0;
+  let desenhos = 0;
 
   const sortear = (a: number, b: number) => a + Math.random() * (b - a);
 
   function semear() {
     const area = largura * altura;
-    const n = Math.round(Math.min(110, Math.max(26, area / 15000)));
+    const n = Math.round(Math.min(110, Math.max(26, area / 15000)) * (leve ? 0.5 : 1));
     distancia = largura < 700 ? 115 : 155;
     nos = Array.from({ length: n }, () => {
       const sorte = Math.random();
@@ -72,7 +86,7 @@ export function iniciarRede(canvas: HTMLCanvasElement, { calmo }: OpcoesDaRede):
 
   function medir() {
     const r = canvas.getBoundingClientRect();
-    dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    dpr = leve ? 1 : Math.min(1.5, window.devicePixelRatio || 1);
     const l = Math.max(1, Math.round(r.width));
     const a = Math.max(1, Math.round(r.height));
     const mudou = Math.abs(l - largura) > 40 || Math.abs(a - altura) > 40 || nos.length === 0;
@@ -120,7 +134,7 @@ export function iniciarRede(canvas: HTMLCanvasElement, { calmo }: OpcoesDaRede):
       }
     }
     // O ponteiro também puxa linhas finas para os nós de perto (só em mouse: no toque não há "perto").
-    if (ponteiro) {
+    if (ponteiro && !leve) {
       for (const a of nos) {
         const dx = a.x - ponteiro.x;
         const dy = a.y - ponteiro.y;
@@ -172,6 +186,12 @@ export function iniciarRede(canvas: HTMLCanvasElement, { calmo }: OpcoesDaRede):
   function passo(agora: number) {
     quadro = 0;
     if (parado || !visivel) return;
+    // 30 quadros por segundo bastam para o fundo: o quadro que chega cedo só agenda o próximo.
+    if (ultimoDesenho && agora - ultimoDesenho < INTERVALO_MS - 1) {
+      agendar();
+      return;
+    }
+    ultimoDesenho = agora;
     const dt = Math.min(48, ultimo ? agora - ultimo : 16) / 16;
     ultimo = agora;
     for (const a of nos) {
@@ -196,8 +216,27 @@ export function iniciarRede(canvas: HTMLCanvasElement, { calmo }: OpcoesDaRede):
       if (alvo) alvo.brilho = 1;
       return false;
     });
+    const t0 = performance.now();
     desenhar();
+    medirCusto(performance.now() - t0);
     agendar();
+  }
+
+  /** Média do custo do desenho a cada 60 quadros: caro demais, entra no modo leve (uma vez, sem volta). */
+  function medirCusto(ms: number) {
+    if (leve) return;
+    custoTotal += ms;
+    desenhos++;
+    if (desenhos < 60) return;
+    const media = custoTotal / desenhos;
+    custoTotal = 0;
+    desenhos = 0;
+    if (media <= CUSTO_MAXIMO_MS) return;
+    leve = true;
+    ponteiro = null;
+    nos = nos.filter((_, i) => i % 2 === 0);
+    pulsos = [];
+    medir();
   }
 
   function agendar() {
@@ -224,6 +263,7 @@ export function iniciarRede(canvas: HTMLCanvasElement, { calmo }: OpcoesDaRede):
   const aoMudarAba = () => {
     visivel = document.visibilityState === "visible";
     ultimo = 0;
+    ultimoDesenho = 0;
     agendar();
   };
   document.addEventListener("visibilitychange", aoMudarAba);

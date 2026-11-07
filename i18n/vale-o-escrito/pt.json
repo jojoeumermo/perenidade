@@ -283,13 +283,34 @@
       "reportado": "Só imprensa"
     },
     "construidoEm": "Dados construídos em {data}",
-    "modoLeve": "Modo leve: efeitos reduzidos neste aparelho"
+    "modoLeve": "Modo leve: efeitos reduzidos neste aparelho",
+    "dinheiro": {
+      "titulo": "Dinheiro documentado",
+      "total": "Valores citados em fonte",
+      "explica": "Soma de multas, reparações, acordos, estimativas oficiais e valores sob apuração escritos nas fontes de {n} casos. São naturezas diferentes: não é um total de desvios nem prova de crime.",
+      "naFicha": "Fluxos de dinheiro, do maior para o menor",
+      "quem": "Quem responde",
+      "suposto": "Valor sob apuração: não é prova de crime.",
+      "semValor": "Nenhum valor em dinheiro escrito nas fontes deste recorte.",
+      "tipos": {
+        "multa": "multa",
+        "reparacao": "reparação",
+        "indenizacao": "condenação a pagar",
+        "acordo": "acordo (TAC)",
+        "repasse": "repasse",
+        "emenda": "emenda",
+        "estimativa_oficial": "estimativa oficial",
+        "movimentacao_suposta": "movimentação suposta"
+      },
+      "dataDaFonte": "sem data própria; fonte de {data}"
+    }
   },
   "navegacao": {
     "inicio": "Observatório",
     "sobre": "Sobre o método",
     "enviar": "Enviar uma fonte",
-    "corrigir": "Pedir correção"
+    "corrigir": "Pedir correção",
+    "arsenal": "Arsenal"
   },
   "sobre": {
     "olho": "Método e regras",
@@ -378,5 +399,89 @@
     },
     "barra": "Situação jurídica dos casos publicados",
     "rodape": "Fonte, data e trecho em cada ficha. Teia viva: cada ponto é um registro, cada linha uma ligação com fonte."
+  },
+  "leituras": {
+    "titulo": "Dossiês de leitura",
+    "explica": "Portas de entrada por tema: cada dossiê junta casos já publicados, acende só eles nas visões e abre o papel de leitura.",
+    "nCasos": "{n} casos",
+    "abrir": "Abrir dossiê",
+    "fechar": "Fechar dossiê",
+    "papel": "Papel de leitura",
+    "verNaTeia": "Ver a ficha",
+    "casoCompleto": "Abrir caso completo",
+    "fontes": "{n} fontes",
+    "itens": {
+      "barragens": {
+        "titulo": "Barragens",
+        "descricao": "Os rompimentos de Fundão (Mariana) e do Córrego do Feijão (Brumadinho): as ações penais, quem responde e em que situação, segundo o MPF e a Justiça."
+      },
+      "garimpo-e-yanomami": {
+        "titulo": "Garimpo e Yanomami",
+        "descricao": "Do massacre de Haximu ao financiamento do garimpo ilegal em Roraima: o que a Justiça já decidiu e o que ainda está em apuração."
+      },
+      "chacinas-do-campo": {
+        "titulo": "Chacinas do campo",
+        "descricao": "Eldorado dos Carajás, Pau d'Arco e Unaí: mortes em conflitos no campo e o caminho de cada processo."
+      },
+      "violencia-policial": {
+        "titulo": "Violência policial",
+        "descricao": "Carandiru, massacres no Pará, a morte em viatura da PRF em Umbaúba e a operação no Alemão e na Penha, com a situação jurídica de cada caso."
+      },
+      "trabalho-escravo": {
+        "titulo": "Trabalho escravo",
+        "descricao": "Resgates, condenações e a chacina dos auditores fiscais em Unaí: casos de trabalho análogo à escravidão já registrados em fonte pública."
+      },
+      "dinheiro-publico-e-emendas": {
+        "titulo": "Dinheiro público e emendas",
+        "descricao": "Mensalão, descontos no INSS e orçamento secreto: valores escritos nas fontes e a situação de cada investigação ou processo."
+      },
+      "terras-indigenas-invadidas": {
+        "titulo": "Terras indígenas invadidas",
+        "descricao": "Garimpo, madeira ilegal, desmatamento e mortes em terras indígenas, segundo o MPF, o STF e a imprensa."
+      }
+    }
+  },
+  "arsenal": {
+    "olho": "Catálogo completo",
+    "titulo": "Arsenal",
+    "lead": "Todos os casos publicados, os eventos de cada um (fato, decisões, mudanças de situação, valores) e os documentos que os sustentam, em lista buscável. As relações entre pessoas e organizações ficam na aba própria, só quando há fonte.",
+    "buscar": "Buscar",
+    "buscarDica": "Nome, lugar, veículo, etiqueta…",
+    "categoria": "Categoria",
+    "situacao": "Situação jurídica",
+    "tipoFonte": "Tipo de fonte",
+    "todas": "Todas",
+    "limpar": "Limpar filtros",
+    "resultados": "{n} resultados",
+    "nada": "Nada encontrado com esses filtros.",
+    "abas": {
+      "casos": "Casos",
+      "eventos": "Eventos",
+      "documentos": "Documentos",
+      "relacoes": "Relações"
+    },
+    "evento": {
+      "fato": "Fato",
+      "publicado": "Publicado no Vale",
+      "mudanca": "Mudança de situação",
+      "valor": "Valor documentado",
+      "fonte": "Fonte publicada"
+    },
+    "relacoes": {
+      "explica": "Quem integra, dirige, financia ou contrata quem, e quem é citado em cada caso: só ligações que constam de fonte. Ponto cheio: fonte primária; ponto vazio: só imprensa.",
+      "citados": "Citados no caso",
+      "semRelacoes": "Nenhuma relação com fonte neste recorte."
+    },
+    "caso": "Caso",
+    "abrir": "Abrir",
+    "copiaArquivada": "cópia arquivada",
+    "tiposDeFonte": {
+      "processo": "Processo",
+      "investigacao_oficial": "Investigação oficial",
+      "dado_oficial": "Dado oficial",
+      "relatorio_organizacao": "Relatório de organização",
+      "reportagem": "Reportagem",
+      "checagem": "Checagem"
+    }
   }
 }
