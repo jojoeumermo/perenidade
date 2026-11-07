@@ -283,7 +283,26 @@
       "reportado": "Só imprensa"
     },
     "construidoEm": "Dados construídos em {data}",
-    "modoLeve": "Modo leve: efeitos reduzidos neste aparelho"
+    "modoLeve": "Modo leve: efeitos reduzidos neste aparelho",
+    "dinheiro": {
+      "titulo": "Dinheiro documentado",
+      "total": "Valores citados em fonte",
+      "explica": "Soma de multas, reparações, acordos, estimativas oficiais e valores sob apuração escritos nas fontes de {n} casos. São naturezas diferentes: não é um total de desvios nem prova de crime.",
+      "naFicha": "Fluxos de dinheiro, do maior para o menor",
+      "quem": "Quem responde",
+      "suposto": "Valor sob apuração: não é prova de crime.",
+      "semValor": "Nenhum valor em dinheiro escrito nas fontes deste recorte.",
+      "tipos": {
+        "multa": "multa",
+        "reparacao": "reparação",
+        "indenizacao": "condenação a pagar",
+        "acordo": "acordo (TAC)",
+        "repasse": "repasse",
+        "emenda": "emenda",
+        "estimativa_oficial": "estimativa oficial",
+        "movimentacao_suposta": "movimentação suposta"
+      }
+    }
   },
   "navegacao": {
     "inicio": "Observatório",

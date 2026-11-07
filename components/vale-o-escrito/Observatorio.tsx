@@ -26,6 +26,7 @@ import {
   type DadosDoObservatorio,
   type PropsDoMapa,
 } from "@/lib/vale-o-escrito/visual";
+import { corDaCategoria, formatarReais, somaDocumentada } from "@/lib/vale-o-escrito/valores";
 import { medirQuadros, pausarForaDaTela } from "./desempenho";
 import { FichaDeAgente, FichaDoCaso } from "./Fichas";
 import { tocar } from "./som";
@@ -176,6 +177,10 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     ] as const;
   }, [dados]);
   const totalDoRecorte = entradas.length || 1;
+  // O número grande (T31 3.1): a soma dos valores escritos nas fontes, no banco inteiro (topo) e no recorte (painel).
+  const somaDoBanco = useMemo(() => somaDocumentada(dados.entradas), [dados.entradas]);
+  const somaDoRecorte = useMemo(() => somaDocumentada(entradas), [entradas]);
+  const nomeDoDossie = (slug: string) => dados.dossies.find((d) => d.slug === slug)?.titulo ?? slug;
 
   // Som (só se a pessoa ligou, em som.ts): abrir a ficha faz o "papel", e um nó com ligações acende a teia.
   const temLigacao = useMemo(() => (selecionado ? grafo.arestas.some((a) => a.de === selecionado || a.para === selecionado) : false), [grafo, selecionado]);
@@ -271,6 +276,16 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
               </div>
             ))}
           </dl>
+          {somaDoBanco.total > 0 && (
+            <p className="ve-escala-dinheiro" title={fill(s.visual.dinheiro.explica, { n: somaDoBanco.casos })}>
+              <b>{formatarReais(somaDoBanco.total, lang, true)}</b> {s.visual.dinheiro.total}
+              <span className="ve-dinheiro-barra" aria-hidden="true">
+                {somaDoBanco.porDossie.map((p) => (
+                  <i key={p.dossie} style={{ flexGrow: p.total, background: corDaCategoria(p.dossie) }} />
+                ))}
+              </span>
+            </p>
+          )}
           {construidoEm && (
             <p className="ve-construido">
               <i aria-hidden="true" />
@@ -531,6 +546,27 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                         </li>
                       ))}
                     </ul>
+                  </div>
+                )}
+                {somaDoRecorte.total > 0 && (
+                  <div className="ve-barra-situacao ve-dinheiro">
+                    <span className="ve-rotulo">{s.visual.dinheiro.titulo}</span>
+                    <strong className="ve-dinheiro-n">{formatarReais(somaDoRecorte.total, lang)}</strong>
+                    <div className="ve-barra-trilho" aria-hidden="true">
+                      {somaDoRecorte.porDossie.map((p) => (
+                        <i key={p.dossie} style={{ flexGrow: p.total, background: corDaCategoria(p.dossie) }} />
+                      ))}
+                    </div>
+                    <ul className="ve-barra-legenda">
+                      {somaDoRecorte.porDossie.map((p) => (
+                        <li key={p.dossie}>
+                          <i style={{ background: corDaCategoria(p.dossie) }} aria-hidden="true" />
+                          <span>{nomeDoDossie(p.dossie)}</span>
+                          <b>{formatarReais(p.total, lang, true)}</b>
+                        </li>
+                      ))}
+                    </ul>
+                    <small className="ve-aviso-fixo">{fill(s.visual.dinheiro.explica, { n: somaDoRecorte.casos })}</small>
                   </div>
                 )}
                 <ul className="ve-avisos">

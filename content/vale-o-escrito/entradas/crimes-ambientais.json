@@ -331,7 +331,22 @@
         "mineração",
         "Samarco"
       ],
-      "notaDaCuradoria": "Condenação em 2ª instância por reversão de absolvição: o modelo não tem esse degrau; usamos 'réu' (sem trânsito) para os três e o resumo diz que há condenação. Absolvições entram com a data: o MPF disse que ainda vai analisar recursos, então reconferir. Fonte única (nota do MPF); pegar o acórdão do TRF6. A fonte fala em 19 mortes; a ficha não nomeia ninguém."
+      "notaDaCuradoria": "Condenação em 2ª instância por reversão de absolvição: o modelo não tem esse degrau; usamos 'réu' (sem trânsito) para os três e o resumo diz que há condenação. Absolvições entram com a data: o MPF disse que ainda vai analisar recursos, então reconferir. Fonte única (nota do MPF); pegar o acórdão do TRF6. A fonte fala em 19 mortes; a ficha não nomeia ninguém.",
+      "valores": [
+        {
+          "id": "v1",
+          "valor": 6000000,
+          "escrito": "R$ 6 milhões",
+          "tipo": "multa",
+          "data": "2026-09",
+          "resumo": "Multa penal de mais de R$ 6 milhões fixada para a Samarco na decisão do TRF6, segundo o MPF; cabe recurso.",
+          "fonteId": "f1",
+          "ponta": {
+            "tipo": "organizacao",
+            "id": "samarco"
+          }
+        }
+      ]
     },
     {
       "publicadoEm": "2026-11-05",
@@ -480,7 +495,18 @@
         "transgênicos",
         "Paraná"
       ],
-      "notaDaCuradoria": "Um dos sócios foi condenado já em 1ª instância (uso de substância nociva) e a condenação por desmatamento é do TRF4: usamos 'condenado em 1ª instância' para o caso, mas o degrau 'condenado em 2ª instância' não existe no modelo (pendência para a assessoria). A fonte não nomeia os sócios nem a empresa: sem nós."
+      "notaDaCuradoria": "Um dos sócios foi condenado já em 1ª instância (uso de substância nociva) e a condenação por desmatamento é do TRF4: usamos 'condenado em 1ª instância' para o caso, mas o degrau 'condenado em 2ª instância' não existe no modelo (pendência para a assessoria). A fonte não nomeia os sócios nem a empresa: sem nós.",
+      "valores": [
+        {
+          "id": "v1",
+          "valor": 6000000,
+          "escrito": "R$ 6 milhões",
+          "tipo": "reparacao",
+          "data": "2026-07",
+          "resumo": "Reparação mínima elevada pelo TRF4 de R$ 359 mil para R$ 6 milhões, segundo o MPF.",
+          "fonteId": "f1"
+        }
+      ]
     }
   ]
 }

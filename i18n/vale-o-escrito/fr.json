@@ -283,7 +283,26 @@
       "reportado": "Presse seulement"
     },
     "construidoEm": "Données construites le {data}",
-    "modoLeve": "Mode léger : effets réduits sur cet appareil"
+    "modoLeve": "Mode léger : effets réduits sur cet appareil",
+    "dinheiro": {
+      "titulo": "Argent documenté",
+      "total": "Montants cités dans les sources",
+      "explica": "Somme d'amendes, réparations, accords, estimations officielles et montants sous enquête écrits dans les sources de {n} cas. De natures différentes : ce n'est ni un total de détournements ni une preuve de crime.",
+      "naFicha": "Flux d'argent, du plus grand au plus petit",
+      "quem": "Qui répond",
+      "suposto": "Montant sous enquête : pas une preuve de crime.",
+      "semValor": "Aucun montant écrit dans les sources de cette sélection.",
+      "tipos": {
+        "multa": "amende",
+        "reparacao": "réparation",
+        "indenizacao": "condamnation à payer",
+        "acordo": "accord (TAC)",
+        "repasse": "transfert",
+        "emenda": "amendement budgétaire",
+        "estimativa_oficial": "estimation officielle",
+        "movimentacao_suposta": "mouvement présumé"
+      }
+    }
   },
   "navegacao": {
     "inicio": "Observatoire",

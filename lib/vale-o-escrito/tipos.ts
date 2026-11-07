@@ -215,6 +215,35 @@ export interface Entrada {
   situacaoConferidaEm?: string;
   /** Recado para a curadoria: o que conferir, o que a fonte não diz, por que a situação foi escrita assim. */
   notaDaCuradoria?: string;
+  /**
+   * Valores em dinheiro documentados no caso (multas, reparações, acordos, valores sob apuração), cada um com fonte. O
+   * valor tem de estar ESCRITO no resumo já revisado ou no trecho da fonte (regras.ts confere): nada calculado nem
+   * estimado pela equipe. Alimentam os "fluxos de dinheiro" da ficha e o total no topo do observatório.
+   */
+  valores?: ValorDocumentado[];
+}
+
+/** O que o valor é. "movimentacao_suposta" e "estimativa_oficial" nunca são prova de desvio: a ficha diz isso. */
+export const TIPOS_DE_VALOR = ["multa", "reparacao", "indenizacao", "acordo", "repasse", "emenda", "estimativa_oficial", "movimentacao_suposta"] as const;
+export type TipoDeValor = (typeof TIPOS_DE_VALOR)[number];
+
+/** Um valor em reais documentado num caso: um "fluxo de dinheiro" ligado (opcionalmente) a quem paga ou recebe. */
+export interface ValorDocumentado {
+  /** Identificador dentro da entrada ("v1", "v2"...). */
+  id: string;
+  /** Em reais. Tem de bater com `escrito`. */
+  valor: number;
+  /** O valor como está escrito no resumo ou no trecho da fonte ("R$ 6 milhões", "R$ 3.009.000,00"). */
+  escrito: string;
+  tipo: TipoDeValor;
+  /** AAAA, AAAA-MM ou AAAA-MM-DD da decisão, do acordo ou da apuração. */
+  data: string;
+  /** Uma linha, com "segundo [fonte]" ou "supostamente". */
+  resumo: string;
+  /** Id da fonte (da entrada) que sustenta o valor. */
+  fonteId: string;
+  /** Quem paga, recebe ou responde pelo valor, quando a fonte diz (só pessoa ou organização já citada no caso). */
+  ponta?: RefDeNo;
 }
 
 /** Uma mudança de situação, no histórico visível na ficha. Anônima: nunca diz quem da curadoria a fez. */

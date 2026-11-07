@@ -283,7 +283,26 @@
       "reportado": "仅媒体报道"
     },
     "construidoEm": "数据构建于 {data}",
-    "modoLeve": "轻量模式：此设备上已减少效果"
+    "modoLeve": "轻量模式：此设备上已减少效果",
+    "dinheiro": {
+      "titulo": "有记录的金额",
+      "total": "来源中引用的金额",
+      "explica": "{n} 个案件来源中写明的罚款、赔偿、和解、官方估计和调查中金额的合计。性质各不相同：不是挪用总额，也不是犯罪证据。",
+      "naFicha": "资金流向，从大到小",
+      "quem": "责任方",
+      "suposto": "调查中的金额：不是犯罪证据。",
+      "semValor": "此选择的来源中没有写明金额。",
+      "tipos": {
+        "multa": "罚款",
+        "reparacao": "赔偿",
+        "indenizacao": "判决支付",
+        "acordo": "和解（TAC）",
+        "repasse": "拨款",
+        "emenda": "预算修正案",
+        "estimativa_oficial": "官方估计",
+        "movimentacao_suposta": "涉嫌资金流动"
+      }
+    }
   },
   "navegacao": {
     "inicio": "观察站",

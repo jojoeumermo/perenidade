@@ -251,7 +251,31 @@
         "Rio Grande do Sul",
         "ação civil"
       ],
-      "notaDaCuradoria": "Condenação de 1ª instância na Justiça do Trabalho (ACC 0020243-42.2023.5.04.0512, número que consta do texto do MPT); a situação usa o vocabulário criminal porque é o único do modelo: o resumo diz que é ação civil. Os proprietários da Fênix não são nomeados (a fonte lida não os nomeia); as vinícolas não são nomeadas na fonte lida. Reconferir se houve recurso ou pagamento depois de abril/2025."
+      "notaDaCuradoria": "Condenação de 1ª instância na Justiça do Trabalho (ACC 0020243-42.2023.5.04.0512, número que consta do texto do MPT); a situação usa o vocabulário criminal porque é o único do modelo: o resumo diz que é ação civil. Os proprietários da Fênix não são nomeados (a fonte lida não os nomeia); as vinícolas não são nomeadas na fonte lida. Reconferir se houve recurso ou pagamento depois de abril/2025.",
+      "valores": [
+        {
+          "id": "v1",
+          "valor": 3009000,
+          "escrito": "R$ 3.009.000,00",
+          "tipo": "indenizacao",
+          "data": "2025-04",
+          "resumo": "Condenação da Fênix, dos proprietários e de empresas associadas ao pagamento, segundo o MPT-RS; cabe recurso.",
+          "fonteId": "f1",
+          "ponta": {
+            "tipo": "organizacao",
+            "id": "fenix-servicos-administrativos"
+          }
+        },
+        {
+          "id": "v2",
+          "valor": 7000000,
+          "escrito": "R$ 7 milhões",
+          "tipo": "acordo",
+          "data": "2023",
+          "resumo": "Termo de ajustamento de conduta (TAC) assinado pelas três vinícolas contratantes, segundo o MPT-RS.",
+          "fonteId": "f1"
+        }
+      ]
     },
     {
       "publicadoEm": "2026-11-05",

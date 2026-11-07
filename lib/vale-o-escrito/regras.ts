@@ -34,6 +34,7 @@ import {
   TIPOS_DE_FONTE,
   TIPOS_DE_LIGACAO,
   TIPOS_DE_NO,
+  TIPOS_DE_VALOR,
   TIPOS_PRIMARIOS,
   type Correcao,
   type EnvioDoPublico,
@@ -42,6 +43,7 @@ import {
   type Ligacao,
   type Lugar,
   type PessoaPublica,
+  type ValorDocumentado,
 } from "./tipos";
 import { IDS_DO_CATALOGO, SLUGS_DOS_DOSSIES } from "./catalogo";
 
@@ -294,7 +296,69 @@ export function validarEntrada(en: Entrada, opcoes: OpcoesDaEntrada = {}): Confe
       else if (mencionaPapelProibido(t)) e.push(`etiquetas[${i}]: menciona vítima, criança, adolescente ou testemunha`);
     });
   } else e.push("etiquetas: lista");
+  e.push(...validarValores(en));
   return resultado(e);
+}
+
+// ───────────────────────────── Valores em dinheiro ─────────────────────────────
+
+/**
+ * Lê um valor escrito em reais ("R$ 6 milhões", "R$ 6,3 bilhões", "R$ 3.009.000,00", "R$ 359 mil") e devolve o número
+ * em reais, ou null. Serve para conferir que o número guardado é o mesmo que a fonte escreve (nada calculado pela equipe).
+ */
+export function valorDoEscrito(escrito: string): number | null {
+  const m = /R\$\s*([\d.]+(?:,\d+)?)\s*(mil\b|milh(?:ão|ao|ões|oes)|bilh(?:ão|ao|ões|oes))?/i.exec(escrito ?? "");
+  if (!m) return null;
+  const n = Number(m[1].replace(/\./g, "").replace(",", "."));
+  if (!Number.isFinite(n)) return null;
+  const sufixo = (m[2] ?? "").toLowerCase();
+  const mult = !sufixo ? 1 : sufixo === "mil" ? 1e3 : sufixo.startsWith("milh") ? 1e6 : 1e9;
+  return Math.round(n * mult * 100) / 100;
+}
+
+/**
+ * Os valores de uma entrada: tipo conhecido, número igual ao escrito, o escrito presente no resumo da entrada ou no
+ * trecho da fonte citada, uma linha com "segundo [fonte]" ou "supostamente", e a ponta (quem paga ou responde) só entre
+ * pessoas e organizações já citadas no caso. Sem vítima: a ponta nunca é pessoa fora do caso.
+ */
+export function validarValores(en: Pick<Entrada, "resumo" | "fontes" | "pessoas" | "organizacoes"> & { valores?: ValorDocumentado[] }): string[] {
+  const e: string[] = [];
+  if (en.valores === undefined) return e;
+  if (!Array.isArray(en.valores)) return ["valores: lista"];
+  const ids = new Set<string>();
+  en.valores.forEach((v, i) => {
+    const p = `valores[${i}]`;
+    if (!v || typeof v !== "object") return void e.push(`${p}: falta`);
+    if (!/^v\d+$/.test(v.id ?? "")) e.push(`${p}.id: "v1", "v2"...`);
+    else if (ids.has(v.id)) e.push(`${p}.id: repetido`);
+    ids.add(v.id);
+    if (!(TIPOS_DE_VALOR as readonly string[]).includes(v.tipo)) e.push(`${p}.tipo: desconhecido`);
+    if (typeof v.valor !== "number" || !(v.valor > 0)) e.push(`${p}.valor: número positivo, em reais`);
+    const lido = valorDoEscrito(v.escrito);
+    if (lido === null) e.push(`${p}.escrito: "R$ ..." como a fonte escreve`);
+    else if (typeof v.valor === "number" && Math.abs(lido - v.valor) > 0.5) e.push(`${p}.valor: não bate com "${v.escrito}"`);
+    if (!dataParcialValida(v.data)) e.push(`${p}.data: AAAA, AAAA-MM ou AAAA-MM-DD`);
+    if (!textoComTamanho(v.resumo, 10, 240)) e.push(`${p}.resumo: de 10 a 240 caracteres`);
+    else {
+      if (!/\b(segundo|supostamente)\b/.test(normalizar(v.resumo))) e.push(`${p}.resumo: precisa de "segundo [fonte]" ou "supostamente"`);
+      if (mencionaPapelProibido(v.resumo)) e.push(`${p}.resumo: menciona vítima, criança, adolescente ou testemunha`);
+      if (contemCpf(v.resumo)) e.push(`${p}.resumo: tem CPF`);
+    }
+    const fonte = (en.fontes ?? []).find((f) => f.id === v.fonteId);
+    if (!fonte) e.push(`${p}.fonteId: não é fonte da entrada`);
+    else if (typeof v.escrito === "string" && v.escrito.trim()) {
+      const alvo = normalizar(v.escrito);
+      if (!normalizar(en.resumo ?? "").includes(alvo) && !normalizar(fonte.trecho ?? "").includes(alvo))
+        e.push(`${p}.escrito: "${v.escrito}" não está no resumo nem no trecho da fonte`);
+    }
+    if (v.ponta !== undefined) {
+      const ok =
+        (v.ponta?.tipo === "pessoa" && (en.pessoas ?? []).some((x) => x.pessoaId === v.ponta!.id)) ||
+        (v.ponta?.tipo === "organizacao" && (en.organizacoes ?? []).includes(v.ponta.id));
+      if (!ok) e.push(`${p}.ponta: só pessoa ou organização já citada no caso`);
+    }
+  });
+  return e;
 }
 
 // ───────────────────────────── Ligação ─────────────────────────────

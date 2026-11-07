@@ -244,7 +244,18 @@
         "Yanomami",
         "Roraima"
       ],
-      "notaDaCuradoria": "A fonte não nomeia os réus (a notícia do MPF fala em 'um empresário de Boa Vista' e outros cinco); por isso a ficha não tem nós de pessoa. Processo 1004325-11.2021.4.01.4200 (número que consta da notícia do MPF). Notícia do MPF = versão da acusação; reconferir o andamento."
+      "notaDaCuradoria": "A fonte não nomeia os réus (a notícia do MPF fala em 'um empresário de Boa Vista' e outros cinco); por isso a ficha não tem nós de pessoa. Processo 1004325-11.2021.4.01.4200 (número que consta da notícia do MPF). Notícia do MPF = versão da acusação; reconferir o andamento.",
+      "valores": [
+        {
+          "id": "v1",
+          "valor": 64000000,
+          "escrito": "R$ 64 milhões",
+          "tipo": "movimentacao_suposta",
+          "data": "2021",
+          "resumo": "Valor que os denunciados teriam movimentado para custear garimpo clandestino entre 2017 e 2021, segundo o MPF; ainda sem julgamento.",
+          "fonteId": "f1"
+        }
+      ]
     }
   ]
 }
