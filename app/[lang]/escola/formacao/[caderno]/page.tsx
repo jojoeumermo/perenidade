@@ -59,7 +59,7 @@ function materialDe(lang: Locale, c: CadernoVisto): LinkDoMaterial[] {
     const temProva = (pt?.lessons ?? []).reduce((s, l) => s + l.quiz.length, 0) >= 10;
     return linksDaTrilha(c.trilha, c.prontas[0]?.id ?? null, temProva);
   }
-  return [{ chave: "biblioteca", href: TELAS_DA_ESCOLA.biblioteca }, { chave: "aberta", href: c.contagem.tipo === "etapas" ? "/consciencia" : "/escola/cursos/ano-de-formacao-politica" }].filter((l) => l.href) as LinkDoMaterial[];
+  return [{ chave: "biblioteca", href: TELAS_DA_ESCOLA.biblioteca }, { chave: "aberta", href: c.contagem.tipo === "etapas" ? "/consciencia" : "/cursos/ano-de-formacao-politica" }].filter((l) => l.href) as LinkDoMaterial[];
 }
 
 /**
