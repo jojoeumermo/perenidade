@@ -4,18 +4,21 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { TextosDoAssistente } from "@/i18n/assistente";
+import type { PerguntaFrequente } from "@/lib/perguntas-frequentes";
 
-// A janela (com o formulário, a leitura do estado e o Markdown) só é baixada no primeiro clique, ou quando o ponteiro
-// passa por cima do botão. Antes disso, a página carrega só este botão: nenhum pedido sai dela.
+// O código da janela só é baixado no primeiro clique, ou quando o ponteiro passa por cima do botão. As perguntas e as
+// respostas já vêm com a página (do servidor, só as do idioma dela): abrir a janela e filtrar não pedem nada a ninguém.
 const carregarPainel = () => import("./PainelDoAssistente").then((m) => m.PainelDoAssistente);
 const PainelDoAssistente = dynamic(carregarPainel, { ssr: false });
 
 /**
- * O assistente em todas as páginas (T03): um botão discreto no canto de baixo, à esquerda (o da direita é o da
- * acessibilidade), logo acima do "voltar ao topo". Fica fora do painel da equipe e da área infantil (OutsidePanel, no
- * layout): criança não manda texto a IA de empresa de fora (LGPD, art. 14: dado de criança só no melhor interesse dela).
+ * O botão "?" em todas as páginas: um botão discreto no canto de baixo, à esquerda (o da direita é o da acessibilidade),
+ * logo acima do "voltar ao topo". Desde 08/11/2026 abre as PERGUNTAS FREQUENTES, com respostas prontas escritas à mão
+ * (content/perguntas-frequentes.json): sem IA e sem rede. Antes chamava a rota de IA do assistente aberto; ela continua para
+ * o reforço e as ferramentas de estudo, mas este botão não a usa mais. Fica fora do painel da equipe e da área infantil
+ * (OutsidePanel, no layout).
  */
-export function BotaoDoAssistente({ textos }: { textos: TextosDoAssistente }) {
+export function BotaoDoAssistente({ textos, perguntas, email }: { textos: TextosDoAssistente; perguntas: PerguntaFrequente[]; email: string }) {
   const [aberto, setAberto] = useState(false);
   const [usado, setUsado] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
@@ -38,12 +41,13 @@ export function BotaoDoAssistente({ textos }: { textos: TextosDoAssistente }) {
     <div className={`assistente-flutua no-print fixed bottom-[calc(8.25rem+var(--recuo-baixo,0px))] left-3 ${aberto ? "z-50" : "z-30"} font-sans text-sm md:bottom-20 md:left-6`}>
       {usado && (
         <div hidden={!aberto}>
-          <PainelDoAssistente textos={textos} aberto={aberto} fechar={fechar} />
+          <PainelDoAssistente textos={textos} perguntas={perguntas} email={email} aberto={aberto} fechar={fechar} />
         </div>
       )}
       <button
         ref={botao}
         type="button"
+        aria-haspopup="dialog"
         aria-expanded={aberto}
         aria-controls={usado ? "assistente-do-site" : undefined}
         aria-label={textos.botao}

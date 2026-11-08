@@ -27,6 +27,7 @@ import { Shortcuts } from "@/components/Shortcuts";
 import { VoltarAoTopo } from "@/components/VoltarAoTopo";
 import { BotaoDoAssistente } from "@/components/assistente/BotaoDoAssistente";
 import { textosDoAssistente } from "@/i18n/assistente";
+import { EMAIL_DE_CONTATO, perguntasFrequentes } from "@/lib/perguntas-frequentes-dados";
 import { PrefsScript } from "@/components/ThemeToggle";
 import abertura from "@/content/abertura.json";
 import comecar from "@/content/comecar.json";
@@ -137,9 +138,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <BottomNav />
             <CascaDoApp />
             <VoltarAoTopo label={t.lists.top} />
-            {/* T03: o assistente em todas as páginas, sem conta. Só o botão vem com a página; a janela, no primeiro uso.
-                Fora do painel e da área infantil (OutsidePanel): criança não manda texto a IA de fora (ECA e LGPD, art. 14). */}
-            {ligado("assistente-publico") && <BotaoDoAssistente textos={textosDoAssistente(lang)} />}
+            {/* O botão "?" em todas as páginas: perguntas frequentes com respostas prontas (sem IA, sem rede), só as do idioma
+                da página. Fora do painel e da área infantil (OutsidePanel). */}
+            <BotaoDoAssistente textos={textosDoAssistente(lang)} perguntas={perguntasFrequentes(lang)} email={EMAIL_DE_CONTATO} />
             <OpeningNotice initial={abertura.ativo ? abertura : null} close={t.a11y.close} />
             <MaisGaveta
               secoes={secoesDoSite(lang, t)}
