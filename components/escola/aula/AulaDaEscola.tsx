@@ -115,7 +115,10 @@ export function AulaDaEscola({ lang, t, tf, dados }: { lang: Locale; t: Dict; tf
 
   return (
     <div className="efa-aula pagina-da-aula" data-escola-escura="" data-tela-da-escola="aula">
-      <RememberLesson path={aula.href ?? hrefDoCaderno} title={lesson.title} track={caderno.nome} area={track.area} />
+      {/* O ponto de retomada das telas de início (públicas) guarda a aula de /trilhas, como a própria aula de /trilhas faz:
+          nem o endereço da Escola nem o nome do caderno saem daqui, para quem pega o aparelho não ver a militância
+          (modo discreto). */}
+      <RememberLesson path={caminhoNaTrilha} title={lesson.title} track={track.title} area={track.area} />
       <AcoesDaAula id={id} anterior={vizinha(anterior)} proxima={vizinha(proxima)} aulas={lista} escola={{ umaMao: sa.umaMao, letra: sa.letra, trilha: hrefDoCaderno }} />
 
       <header className="efa-cabeca">
