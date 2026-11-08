@@ -49,6 +49,7 @@ export function carregarVLibras(): Promise<void> {
   if (pedido && desligado) {
     // Já baixado nesta visita e desligado: só volta a aparecer (nada é baixado de novo).
     desligado = false;
+    pararDeVigiar();
     for (const peca of guardadas) if (!peca.isConnected) document.body.appendChild(peca);
     guardadas = [];
     quadroDoVLibras()?.style.removeProperty("display");
@@ -104,12 +105,45 @@ export function desligarVLibras() {
   } catch {
     // sem armazenamento: nada a fazer
   }
+  recolher(janela);
+  vigiarDepoisDeDesligar();
+  avisar();
+}
+
+/** Tira da página as peças do tradutor que estiverem nela e guarda para quando a pessoa ligar de novo. */
+function recolher(janela = janelaDoVLibras()) {
   for (const peca of [quadroDoVLibras(), janela]) {
     if (!peca) continue;
+    if (peca === janela) peca.dataset.active = "false";
     peca.remove();
     if (!guardadas.includes(peca)) guardadas.push(peca);
   }
-  avisar();
+}
+
+// Quanto tempo vigiar a página depois de desligar: o bastante para o aplicativo do avatar terminar de baixar.
+const VIGIA_MS = 20000;
+let vigia: { observador: MutationObserver; prazo: number } | null = null;
+
+function pararDeVigiar() {
+  if (!vigia) return;
+  vigia.observador.disconnect();
+  window.clearTimeout(vigia.prazo);
+  vigia = null;
+}
+
+/**
+ * Se a pessoa clicou no botão azul e desligou antes de o aplicativo do avatar (vlibras-plugin-app.js) acabar de
+ * baixar, a janela do avatar só chega depois, e o tradutor a abre (data-active="true") quando o script termina. Por
+ * um tempo depois de desligar, o que o tradutor puser de volta na página sai e fica guardado junto com o resto.
+ */
+function vigiarDepoisDeDesligar() {
+  pararDeVigiar();
+  const observador = new MutationObserver(() => {
+    if (!desligado) return pararDeVigiar();
+    if (janelaDoVLibras() || quadroDoVLibras()) recolher();
+  });
+  observador.observe(document.body, { childList: true });
+  vigia = { observador, prazo: window.setTimeout(pararDeVigiar, VIGIA_MS) };
 }
 
 const MUDOU = "lucia:vlibras-mudou";

@@ -7,7 +7,7 @@ import { assinarVLibras, botaoDoVLibras, quadroDoVLibras, vlibrasCarregado } fro
 
 // O tamanho do botão azul do VLibras (40 px na versão 7), para as contas da posição livre.
 const TAMANHO = "40px";
-const PROPRIEDADES = ["top", "bottom", "left", "right", "transform", "flex-direction"] as const;
+const PROPRIEDADES = ["top", "bottom", "left", "right", "transform", "flex-direction", "transition"] as const;
 
 /**
  * Põe o botão do VLibras na posição escolhida (ou devolve ao lugar de sempre, o do próprio tradutor). Na versão 7 o
@@ -31,6 +31,9 @@ function posicionar(posicao: Posicao | null) {
   for (const [p, v] of Object.entries(estilo)) caixa.style.setProperty(p, v, "important");
   // A versão antiga centralizava o botão na lateral com translateY(-50%): fora do lugar de sempre, ele sairia do ponto.
   caixa.style.setProperty("transform", "none", "important");
+  // A folha do tradutor anima tudo em meio segundo ("transition: all .5s ease"): arrastando, o botão iria atrás do
+  // ponteiro com atraso. Fica só a animação da largura, a do balão que abre ao passar o mouse.
+  caixa.style.setProperty("transition", "width .5s ease", "important");
   const esquerda = !ladoDe(posicao).direita;
   caixa.style.setProperty("flex-direction", esquerda ? "row-reverse" : "row", "important");
   if (interno) {
@@ -62,7 +65,11 @@ export default function VLibrasPosicao() {
       const antigo = quadro.querySelector<HTMLElement>("[vw-access-button]");
       if (antigo) antigo.style.touchAction = "none";
       else botaoDoVLibras()?.style.setProperty("touch-action", "none");
-      soltarArrasto = arrastavel(quadro, {
+      // A mão do botão da versão 7 é uma imagem, e o navegador começa a arrastar a imagem (e cancela o ponteiro) no
+      // primeiro movimento com o mouse: o arrasto fica sendo só o nosso.
+      const semArrastoDeImagem = (e: DragEvent) => e.preventDefault();
+      quadro.addEventListener("dragstart", semArrastoDeImagem);
+      const soltar = arrastavel(quadro, {
         // Versão antiga: só o botão azul arrasta (dentro do avatar, arrastar é do tradutor). Na versão 7 o quadro é só o
         // botão (o avatar é outra peça, com o arrasto dele), e o evento chega com o alvo no próprio quadro.
         podeComecar: (alvo) => !antigo || (alvo instanceof Element && Boolean(alvo.closest("[vw-access-button]"))),
@@ -75,6 +82,10 @@ export default function VLibrasPosicao() {
           gravarPosicao("vlibras", posicaoDoPonto(x, y, Math.min(r.width, r.height), r.height));
         },
       });
+      soltarArrasto = () => {
+        soltar();
+        quadro.removeEventListener("dragstart", semArrastoDeImagem);
+      };
     };
     const achado = quadroDoVLibras();
     if (achado) preparar(achado);
