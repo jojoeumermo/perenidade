@@ -217,6 +217,8 @@ interface Aula {
   descricao: string;
   inicio: string;
   status: string;
+  /** "escola": aula só de militantes (supabase/migracoes/2026-11-escola-aovivo.sql). Banco antigo não manda: é do site. */
+  publico?: "site" | "escola";
   educador: string;
   youtube: string | null;
   rtmp: string | null;
@@ -231,13 +233,21 @@ async function transmissao(id: string, sessao: string) {
 
   const token = await acesso();
   const inicio = new Date(Math.max(Date.parse(aula.inicio), Date.now() + 60000)).toISOString();
+  // Aula da Escola (só de militantes): SEMPRE não listada, mesmo que YOUTUBE_PRIVACIDADE diga "public"; na descrição,
+  // nada de nome de quem ensina, de link para a agenda pública ou de texto da aula (o banco já manda a descrição vazia).
+  // Limite honesto: "não listada" não é secreta (quem tiver o link assiste); o que fecha é o site só dar o id a militante.
+  // O chat do próprio YouTube não se desliga por esta API (o recurso liveBroadcast não tem campo para isso, veja
+  // https://developers.google.com/youtube/v3/live/docs/liveBroadcasts): quem conduz desliga no YouTube Studio.
+  const daEscola = aula.publico === "escola";
   const transmissao = await youtube<{ id: string }>(token, "liveBroadcasts?part=snippet,status,contentDetails", {
     snippet: {
       title: limpo(aula.titulo).slice(0, 100),
-      description: cortar(limpo(`${aula.descricao}\n\nAula ao vivo do Instituto Lúcia, com ${aula.educador || "a equipe de educação"}.\nAgenda e bate-papo: ${site}/pt/ao-vivo\n\n@institutoluciaorg`), 4900),
+      description: daEscola
+        ? "@institutoluciaorg"
+        : cortar(limpo(`${aula.descricao}\n\nAula ao vivo do Instituto Lúcia, com ${aula.educador || "a equipe de educação"}.\nAgenda e bate-papo: ${site}/pt/ao-vivo\n\n@institutoluciaorg`), 4900),
       scheduledStartTime: inicio,
     },
-    status: { privacyStatus: privacidade, selfDeclaredMadeForKids: false },
+    status: { privacyStatus: aula.publico === "escola" ? "unlisted" : privacidade, selfDeclaredMadeForKids: false },
     contentDetails: { enableAutoStart: true, enableAutoStop: true, enableDvr: true, recordFromStart: true, enableEmbed: true, latencyPreference: "low" },
   });
   const fluxo = await youtube<{ id: string; cdn: { ingestionInfo: { ingestionAddress: string; streamName: string } } }>(token, "liveStreams?part=snippet,cdn,contentDetails", {

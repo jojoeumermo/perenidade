@@ -4,11 +4,15 @@
 import { CalendarClock, ChevronRight, Copy, ExternalLink, Plus, Radio, Square, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { type Aula } from "@/lib/aovivo";
+import { textosDoAoVivo } from "@/i18n/escola/aovivo";
+import { type Aula as AulaDoSite } from "@/lib/aovivo";
 import { GALENE_URL, tipoNoSite } from "@/lib/aula-sala";
 import { areaSlugs } from "@/lib/areas";
 import { can, rpc, type Me } from "@/lib/backend";
 import { linkDoYoutube, mensagemDoCanal, pedirAoCanal } from "@/lib/canal-youtube";
+import { lerCadernoAula, podeMarcarNaEscola } from "@/lib/escola/aovivo";
+import { CADERNOS_DA_ESCOLA, caminhoDaSalaAoVivo } from "@/lib/escola/contratos";
+import { preencher } from "@/lib/escola/textos";
 import { JITSI_DOMINIO, novaSalaJitsi } from "@/lib/jitsi";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
@@ -44,6 +48,39 @@ function falta(iso: string, agora: number) {
   return `em ${Math.floor(horas / 24)} d ${horas % 24 ? `${horas % 24} h` : ""}`.trim();
 }
 
+/**
+ * A aula como o banco devolve desde a Escola de Formação (supabase/migracoes/2026-11-escola-aovivo.sql): "publico"
+ * 'escola' é aula só de militantes (fora da agenda pública, YouTube não listado, bate-papo pelo codinome) e
+ * "caderno_aula" a liga a uma aula de caderno. Banco antigo não manda os dois: é aula do site.
+ */
+type Aula = AulaDoSite & { publico?: "site" | "escola"; caderno_aula?: string | null };
+const daEscola = (aula: Aula | null) => aula?.publico === "escola";
+
+/** "Só para a Escola" aparece para quem a Escola reconhece como militante (ou coordenação); o banco confere de novo. */
+function usePodeEscola() {
+  const [pode, setPode] = useState(false);
+  useEffect(() => {
+    let vivo = true;
+    void podeMarcarNaEscola().then((sim) => vivo && setPode(sim), () => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, []);
+  return pode;
+}
+
+/** O limite honesto da aula da Escola, escrito na tela de quem marca e transmite (PLANO-ESCOLA.md, F3). */
+function LimiteDaEscola({ t, comChat = false }: { t: ReturnType<typeof textosDoAoVivo>["painel"]; comChat?: boolean }) {
+  return (
+    <div role="note" className="rounded-[var(--pn-raio-cartao)] border-l-4 border-[#c21f16] bg-[var(--pn-superficie)] p-3 text-sm">
+      <p className="font-semibold">{t.limiteTitulo}</p>
+      <p className="mt-1">{t.limite}</p>
+      <p className="mt-1">{t.camera}</p>
+      {comChat && <p className="mt-1">{t.chatDoYoutube}</p>}
+    </div>
+  );
+}
+
 interface Form {
   titulo: string;
   descricao: string;
@@ -69,7 +106,11 @@ export function AulasAoVivo({ me }: { me: Me }) {
   const [passadasAbertas, setPassadasAbertas] = useState(false);
   const [transmitir, setTransmitir] = useState<string | null>(null);
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
-  const abrirSala = (id: string) => `/${lang}/ao-vivo/sala?aula=${id}`;
+  const te = textosDoAoVivo(lang).painel;
+  // Aula da Escola tem a sala dentro da Escola (só militante entra); a do site, a sala de sempre.
+  const aulaPorId = new Map((lista.dados ?? []).map((a) => [a.id, a as Aula]));
+  const abrirSala = (id: string) => (daEscola(aulaPorId.get(id) ?? null) ? `/${lang}${caminhoDaSalaAoVivo(id)}` : `/${lang}/ao-vivo/sala?aula=${id}`);
+  const seloEscola = (aula: Aula) => (daEscola(aula) ? <Selo tom="aviso">{te.selo}</Selo> : null);
 
   useEffect(() => {
     const relogio = window.setInterval(() => setAgora(Date.now()), 30000);
@@ -136,6 +177,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
             Ao vivo agora
           </p>
           <h2 className="mt-2 font-serif text-3xl font-semibold leading-tight [text-wrap:balance]">{aula.titulo}</h2>
+          {daEscola(aula) && <p className="mt-1 text-sm font-semibold text-[var(--pn-menu-destaque)]">{te.selo} · {te.naAgenda}</p>}
           <p className="mt-1 text-sm text-[var(--pn-menu-texto-suave)]">
             {nomeDaArea(aula.disciplina)} · {quem(aula)} · desde {hora(aula.iniciada_em ?? aula.inicio)}
           </p>
@@ -168,7 +210,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
           </div>
           <div className="min-w-0">
             <p className="pn-rotulo-mono">{nomeDoDia(proxima)} · {hora(proxima.inicio)} · {proxima.duracao} min · {nomeDaArea(proxima.disciplina)}</p>
-            <h2 className="font-serif text-2xl font-semibold leading-snug">{proxima.titulo}</h2>
+            <h2 className="font-serif text-2xl font-semibold leading-snug">{proxima.titulo} {seloEscola(proxima)}</h2>
             <p className="text-sm text-ink-soft">{quem(proxima)} · {proxima.inscritos} {proxima.inscritos === 1 ? "pessoa marcou presença" : "pessoas marcaram presença"}</p>
             <div className="mt-3 flex flex-wrap gap-2">
               <a href={abrirSala(proxima.id)} target="_blank" rel="noopener noreferrer" className={`${botaoClaro} pn-botao-pequeno`}>Abrir a sala <ExternalLink aria-hidden /></a>
@@ -204,7 +246,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-xs text-ink-soft">{nomeDaArea(aula.disciplina)}{aula.sala_externa ? ` · sala ${{ propria: "do instituto", peertube: "PeerTube", meet: "no Google Meet", youtube: "no YouTube", jitsi: "no Jitsi", outro: aula.sala_externa.includes(JITSI_DOMINIO) ? "no Jitsi" : "em outro site", nenhum: "" }[tipoNoSite(aula.sala_externa)]}` : ""}</p>
-                        <p className="font-semibold leading-snug">{aula.titulo}</p>
+                        <p className="font-semibold leading-snug">{aula.titulo} {seloEscola(aula)}</p>
                         <p className="text-xs text-ink-soft">{quem(aula)} · {aula.inscritos} {aula.inscritos === 1 ? "presença" : "presenças"}</p>
                         <p className="mt-2 flex flex-wrap gap-1">
                           <a href={abrirSala(aula.id)} target="_blank" rel="noopener noreferrer" className="pn-botao pn-botao-discreto pn-botao-pequeno">Abrir a sala <ExternalLink aria-hidden /></a>
@@ -241,7 +283,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
                 <li key={aula.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-[var(--pn-borda)] px-3.5 py-3 text-sm last:border-b-0">
                   <span className="w-28 shrink-0 font-mono text-xs text-ink-soft">{dataHora(aula.inicio)}</span>
                   <span className="min-w-0 flex-1">
-                    <span className={`font-semibold ${aula.status === "cancelada" ? "line-through opacity-60" : ""}`}>{aula.titulo}</span>{" "}
+                    <span className={`font-semibold ${aula.status === "cancelada" ? "line-through opacity-60" : ""}`}>{aula.titulo}</span> {seloEscola(aula)}{" "}
                     {aula.status === "cancelada" ? <Selo>cancelada</Selo> : <span className="text-ink-soft">· {`${aula.inscritos} ${aula.inscritos === 1 ? "presença" : "presenças"}`}</span>}
                   </span>
                   <span className="flex flex-wrap gap-1">
@@ -266,6 +308,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
  * chave só serve para esta aula. A transmissão começa sozinha quando o programa manda imagem e termina quando ele para.
  */
 function TransmitirNoYoutube({ aula, escuro = false, aberto = false }: { aula: Aula; escuro?: boolean; aberto?: boolean }) {
+  const { lang } = useI18n();
   const [dados, setDados] = useState<{ rtmp: string; chave: string; youtube: string } | null>(null);
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
@@ -311,6 +354,11 @@ function TransmitirNoYoutube({ aula, escuro = false, aberto = false }: { aula: A
         Para turmas grandes: a aula passa no canal do instituto (não listada) e aqui no site, com o bate-papo do site. Use o OBS no computador ou o
         Larix Broadcaster no celular. A chave vale só para esta aula; ninguém recebe a senha do canal.
       </p>
+      {daEscola(aula) && (
+        <div className={`mt-3 ${escuro ? "text-ink" : ""}`}>
+          <LimiteDaEscola t={textosDoAoVivo(lang).painel} comChat />
+        </div>
+      )}
       {!dados ? (
         <Botao variante="principal" className="mt-3" carregando={ocupado} onClick={() => void gerar()}>
           {ocupado ? "Criando a transmissão…" : "Criar a transmissão e a chave desta aula"}
@@ -357,6 +405,16 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
       : { titulo: "", descricao: "", disciplina: disciplinas[0] ?? "", trilha: "", inicio: daquiAUmaHora(), duracao: 60, sala_externa: "", gravacao: "" },
   );
   const [colegas, setColegas] = useState<PessoaAchada[]>(() => (aula ? aula.co_educadores.map((c) => ({ id: c.id, nome: c.nome, email: "" })) : []));
+  // Aula "só para a Escola": o público nasce com a aula e não muda depois (o banco ignora a troca).
+  const te = textosDoAoVivo(lang).painel;
+  const podeEscola = usePodeEscola();
+  const [escola, setEscola] = useState(() => daEscola(aula));
+  const ligadaAntes = lerCadernoAula(aula?.caderno_aula);
+  const [caderno, setCaderno] = useState(ligadaAntes?.caderno.slug ?? "");
+  const [pedaco, setPedaco] = useState(ligadaAntes?.pedaco ?? "");
+  const cadernoEscolhido = CADERNOS_DA_ESCOLA.find((c) => c.slug === caderno) ?? null;
+  const trilhaDoCaderno = cadernoEscolhido?.fonte.tipo === "trilha" ? tracks.find((x) => x.slug === (cadernoEscolhido.fonte as { trilha: string }).trilha) : undefined;
+  const aulasDoCaderno = trilhaDoCaderno?.lessons ?? [];
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
   const ensina = (m: Membro) => m.papeis.some((p) => ["educacao", "educacao_secundaria", "mentoria", "coordenacao", "vice"].includes(p.papel));
   const funcoes = (m: Membro) => [...new Set(m.papeis.map((p) => `${papeis[p.papel]}${p.disciplina ? ` de ${nomeDaArea(p.disciplina)}` : ""}`))].join(", ");
@@ -377,8 +435,18 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
     if (Number.isNaN(inicio.getTime())) return acao.setAviso("Confira a data e a hora.");
     const ok = await acao.agir(
       "aula_ao_vivo_salvar",
-      { p_id: aula?.id ?? null, p: { ...form, inicio: inicio.toISOString(), trilha: form.trilha || null, co_educadores: colegas.map((c) => c.id) } },
-      aula ? "Aula alterada." : "Aula marcada: já aparece na agenda pública. Os colegas chamados receberam o recado.",
+      {
+        p_id: aula?.id ?? null,
+        p: {
+          ...form,
+          inicio: inicio.toISOString(),
+          trilha: form.trilha || null,
+          co_educadores: colegas.map((c) => c.id),
+          publico: escola ? "escola" : "site",
+          ...(escola ? { caderno_aula: caderno && pedaco.trim() ? `${caderno}/${pedaco.trim()}` : null, sala_externa: "" } : {}),
+        },
+      },
+      aula ? "Aula alterada." : escola ? te.naAgenda : "Aula marcada: já aparece na agenda pública. Os colegas chamados receberam o recado.",
     );
     if (ok) fechar();
   }
@@ -395,7 +463,44 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
           <Botao icone variante="discreto" simbolo={X} onClick={fechar} aria-label="Fechar" />
         </div>
         <form className="min-h-0 flex-1 space-y-5 overflow-y-auto px-5 py-5" onSubmit={(e) => { e.preventDefault(); void guardar(); }}>
-          <Cartao as="div" variante="plano" aria-label="Como aparece na agenda pública">
+          {podeEscola && !aula && (
+            <label className="pn-cartao flex cursor-pointer items-start gap-3">
+              <input type="checkbox" className="mt-1 h-5 w-5 shrink-0 accent-[#c21f16]" checked={escola} onChange={(e) => setEscola(e.target.checked)} />
+              <span>
+                <span className="block font-semibold">{te.caixa}</span>
+                <span className="block text-sm text-ink-soft">{te.caixaAjuda}</span>
+              </span>
+            </label>
+          )}
+
+          {escola && (
+            <fieldset className="pn-cartao space-y-3">
+              <legend className="px-1 font-semibold">{te.selo}</legend>
+              <p className="text-sm">{te.naAgenda}</p>
+              <LimiteDaEscola t={te} />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Selecao rotulo={te.caderno} value={caderno} onChange={(e) => { setCaderno(e.target.value); setPedaco(""); }}>
+                  <option value="">{te.soCaderno}</option>
+                  {CADERNOS_DA_ESCOLA.map((c) => (
+                    <option key={c.slug} value={c.slug}>{`${String(c.numero).padStart(2, "0")} · ${tracks.find((x) => c.fonte.tipo === "trilha" && x.slug === c.fonte.trilha)?.title ?? c.slug}`}</option>
+                  ))}
+                </Selecao>
+                {cadernoEscolhido && aulasDoCaderno.length > 0 ? (
+                  <Selecao rotulo={te.aula} value={pedaco} onChange={(e) => setPedaco(e.target.value)}>
+                    <option value="">{te.soCaderno}</option>
+                    {aulasDoCaderno.map((l) => (
+                      <option key={l.slug} value={l.slug}>{l.title}</option>
+                    ))}
+                  </Selecao>
+                ) : cadernoEscolhido ? (
+                  <Campo rotulo={te.aulaLivre} ajuda={preencher(te.aulaLivreAjuda, { caderno: cadernoEscolhido.slug })} value={pedaco} onChange={(e) => setPedaco(e.target.value.toLowerCase())} pattern="[a-z0-9-]{2,120}" maxLength={120} className="font-mono text-sm" />
+                ) : null}
+              </div>
+              {caderno && pedaco && <p className="text-xs text-ink-soft">{preencher(te.ligada, { codigo: `${caderno}/${pedaco}` })} · {te.gravacaoNaAula}</p>}
+            </fieldset>
+          )}
+
+          {!escola && <Cartao as="div" variante="plano" aria-label="Como aparece na agenda pública">
             <p className="pn-rotulo-mono">Como aparece na agenda pública</p>
             <div className="mt-2 flex gap-3">
               <div className="w-14 shrink-0 rounded-[var(--pn-raio)] bg-[var(--pn-menu-fundo)] py-2 text-center text-[var(--pn-menu-texto)]">
@@ -408,24 +513,28 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
                 {form.descricao && <p className="line-clamp-2 text-sm text-ink-soft">{form.descricao}</p>}
               </div>
             </div>
-          </Cartao>
+          </Cartao>}
 
           {!passou && (
             <>
               <Campo rotulo="Título" value={form.titulo} onChange={(e) => mudar("titulo", e.target.value)} maxLength={140} required />
               <Area rotulo="Sobre a aula" ajuda="O que vai ser visto, para quem é, o que levar." value={form.descricao} onChange={(e) => mudar("descricao", e.target.value)} rows={3} maxLength={2000} />
               <div className="grid gap-3 sm:grid-cols-2">
-                <Selecao rotulo="Disciplina" value={form.disciplina} onChange={(e) => { mudar("disciplina", e.target.value); mudar("trilha", ""); }}>
-                  {disciplinas.map((area) => (
-                    <option key={area} value={area}>{nomeDaArea(area)}</option>
-                  ))}
-                </Selecao>
-                <Selecao rotulo="Trilha (opcional)" value={form.trilha} onChange={(e) => mudar("trilha", e.target.value)}>
-                  <option value="">Nenhuma</option>
-                  {trilhas.map((x) => (
-                    <option key={x.slug} value={x.slug}>{x.title}</option>
-                  ))}
-                </Selecao>
+                {!escola && (
+                  <>
+                    <Selecao rotulo="Disciplina" value={form.disciplina} onChange={(e) => { mudar("disciplina", e.target.value); mudar("trilha", ""); }}>
+                      {disciplinas.map((area) => (
+                        <option key={area} value={area}>{nomeDaArea(area)}</option>
+                      ))}
+                    </Selecao>
+                    <Selecao rotulo="Trilha (opcional)" value={form.trilha} onChange={(e) => mudar("trilha", e.target.value)}>
+                      <option value="">Nenhuma</option>
+                      {trilhas.map((x) => (
+                        <option key={x.slug} value={x.slug}>{x.title}</option>
+                      ))}
+                    </Selecao>
+                  </>
+                )}
                 <Campo rotulo="Data e hora" type="datetime-local" value={form.inicio} onChange={(e) => mudar("inicio", e.target.value)} required />
                 <div>
                   <p className="pn-rotulo">Duração</p>
@@ -459,7 +568,7 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
                 )}
               </fieldset>
 
-              <div>
+              {!escola && <div>
                 <p className="pn-rotulo">Sala de vídeo</p>
                 <div className={`mt-2 grid gap-2 ${GALENE_URL ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
                   <button type="button" aria-pressed={!form.sala_externa} onClick={() => mudar("sala_externa", "")} className={opcaoDeSala(!form.sala_externa)}>
@@ -490,7 +599,7 @@ function Marcar({ me, aula, fechar, depois }: { me: Me; aula: Aula | null; fecha
                     />
                   </div>
                 )}
-              </div>
+              </div>}
             </>
           )}
 
