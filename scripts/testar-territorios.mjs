@@ -48,7 +48,7 @@ ok("trilhas indicadas existem e não há palavras proibidas", () => {
   }
 });
 
-const chaves = ["anuncioKicker", "anuncioLoad", "anuncioAviso", "anuncioAbrir", "anuncioQuadro", "anuncioLocal", "agendaKicker", "agendaQuando", "agendaOnde", "letreiroRotulo", "letreiroPausar", "letreiroRetomar", "cartaoVer"];
+const chaves = ["anuncioKicker", "anuncioLoad", "anuncioAviso", "anuncioAbrir", "anuncioQuadro", "anuncioLocal", "agendaKicker", "agendaQuando", "agendaOnde", "letreiroRotulo", "letreiroPausar", "letreiroRetomar", "cartaoVer", "quemSao", "videos", "videoRotulo", "videoOriginal", "agendaLinks", "parceria", "parceriaTexto"];
 ok("chaves novas nos 6 idiomas", () => {
   for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
     const d = JSON.parse(ler("i18n", `${l}.json`)).territorios;
@@ -185,6 +185,58 @@ ok("contraste AA nas cores de cada identidade", () => {
     ];
     for (const [qual, a, b] of pares) assert.ok(contraste(a, b) >= 4.5, `${nome} ${qual}: ${contraste(a, b).toFixed(2)}`);
   }
+});
+
+// 08/11/2026: a logo do Na Atividade vira a capa, as logos em 1920 px, vídeos novos e o redesenho das quatro páginas.
+ok("Na Atividade: a capa da página e do cartão é a logo (SVG, WebP e capa 1920 × 1080)", () => {
+  const t = por("na-atividade");
+  assert.equal(t.capa.src, "/territorios/na-atividade/capa.webp");
+  assert.equal(t.logo.src, "/territorios/na-atividade/logo.webp");
+  for (const f of ["logo.svg", "logo.webp", "capa.webp"]) assert.ok(fs.existsSync(path.join(raiz, "public", "territorios", "na-atividade", f)), f);
+  assert.match(ler("public", "territorios", "na-atividade", "logo.svg"), /#F80E11/i);
+  const indice = ler("app", "[lang]", "territorios", "page.tsx");
+  assert.ok(indice.indexOf("territorio.logo ?") < indice.indexOf("territorio.edicoes[0] ?"), "o cartão mostra a logo antes da capa da edição");
+  assert.match(ler("app", "[lang]", "territorios", "[slug]", "page.tsx"), /territorio\.capa \? \(/);
+});
+
+ok("logos em alta: logo-1920.webp de cada coletivo com identidade própria", () => {
+  for (const t of comVisual) {
+    assert.equal(t.logo.grande, `/territorios/${t.slug}/logo-1920.webp`);
+    const f = path.join(raiz, "public", t.logo.grande);
+    assert.ok(fs.existsSync(f), t.logo.grande);
+    assert.ok(fs.statSync(f).size < 300_000, `${t.logo.grande} grande demais`);
+  }
+  assert.ok(fs.existsSync(path.join(raiz, "public", "territorios", "noisme-studios", "logo.svg")));
+});
+
+ok("vídeos novos: arquivo local, capa, crédito com o link do reel e player com preload=metadata", () => {
+  const esperados = { "coletivo-desordem": ["DcwwKbapD_w", "DbQXOI2tH6k"], "noisme-studios": ["DdmiFfLzCsG"] };
+  for (const [slug, reels] of Object.entries(esperados)) {
+    const t = por(slug);
+    assert.deepEqual(t.videos.map((v) => v.reel), reels);
+    for (const v of t.videos) {
+      assert.match(v.src, new RegExp(`^/territorios/${slug}/[a-z0-9-]+\\.mp4$`));
+      assert.ok(fs.existsSync(path.join(raiz, "public", v.src)), v.src);
+      assert.ok(fs.statSync(path.join(raiz, "public", v.src)).size <= 20 * 1024 * 1024, `${v.src} acima de 20 MB`);
+      assert.ok(v.capa && fs.existsSync(path.join(raiz, "public", v.capa)), `${v.src} sem capa`);
+      assert.match(v.reel, /^[A-Za-z0-9_-]{6,20}$/);
+      assert.ok(v.titulo && v.texto && v.data && v.credito, `${v.src} sem legenda ou crédito`);
+    }
+  }
+  const p = ler("components", "territorios", "PaginaDoColetivo.tsx");
+  assert.match(p, /preload="metadata"/);
+  assert.match(p, /playsInline/);
+  assert.match(p, /instagram\.com\/reel\//);
+});
+
+ok("redesenho: uma letra por coletivo via next/font e o material de cada mundo no CSS", () => {
+  const f = ler("lib", "fontes-coletivos.ts");
+  for (const fonte of ["Titan_One", "Anton", "Rubik_Spray_Paint", "Inter_Tight"]) assert.match(f, new RegExp(fonte));
+  assert.equal((f.match(/preload: false/g) ?? []).length, 4);
+  const css = ler("styles", "territorios-coletivos.css");
+  for (const v of ["noizocupa", "kamikaze", "desordem", "noisme"]) assert.match(css, new RegExp(`\\[data-identidade="${v}"\\]`));
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(css, /:focus-visible/);
 });
 
 console.log(`${n} testes passaram`);
