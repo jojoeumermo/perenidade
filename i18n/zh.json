@@ -36,7 +36,11 @@
     "openInNewTab": "在新标签页中打开 ↗",
     "videoServer": "视频通过 {dominio} 上的 Jitsi Meet：不录制、不限时、无需账号；第一个进入的人担任主持。",
     "videoSwitch": "更换服务器",
-    "videoSwitchHint": "仅在此服务器打不开时使用。房间里的所有人必须选择同一个："
+    "videoSwitchHint": "仅在此服务器打不开时使用。房间里的所有人必须选择同一个：",
+    "figure": "题目图片",
+    "figureOption": "选项 {letra} 的图片",
+    "zoomFigure": "放大图片",
+    "closeFigure": "关闭"
   },
   "nav": {
     "main": "主导航",
@@ -425,7 +429,6 @@
     "publicPrev": "上一页",
     "publicNext": "下一页",
     "publicQuestion": "题",
-    "publicImage": "查看题目图片（打开来源网站）",
     "publicRight": "答对了！",
     "publicWrong": "还不对：答案是 {l}。这道题已放进你的错题本。",
     "publicAnswerIs": "答案：{l}",

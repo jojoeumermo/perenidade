@@ -40,7 +40,11 @@
     "openInNewTab": "Open in another tab ↗",
     "videoServer": "Video by Jitsi Meet on {dominio}: no recording, no time limit and no account; whoever joins first moderates.",
     "videoSwitch": "Switch server",
-    "videoSwitchHint": "Only if this one does not open. Everyone in the room must pick the same one:"
+    "videoSwitchHint": "Only if this one does not open. Everyone in the room must pick the same one:",
+    "figure": "Question image",
+    "figureOption": "Image for option {letra}",
+    "zoomFigure": "Enlarge the image",
+    "closeFigure": "Close"
   },
   "nav": {
     "main": "Main",
@@ -430,7 +434,6 @@
     "publicPrev": "Previous",
     "publicNext": "Next",
     "publicQuestion": "question",
-    "publicImage": "see the question image (opens the source)",
     "publicRight": "Right!",
     "publicWrong": "Not yet: the answer is {l}. The question went to your mistakes notebook.",
     "publicAnswerIs": "Answer: {l}",

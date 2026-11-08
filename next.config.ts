@@ -2,6 +2,7 @@
 import type { NextConfig } from "next";
 import { SERVIDORES_JITSI } from "./lib/jitsi";
 import { GALENE_URL } from "./lib/aula-sala";
+import { ORIGENS_DAS_FIGURAS } from "./lib/figuras-da-prova";
 import { ligado } from "./lib/recursos";
 
 const dev = process.env.NODE_ENV !== "production";
@@ -76,7 +77,9 @@ const policy = (script: string) =>
     `script-src 'self' ${script}`,
     `style-src 'self' 'unsafe-inline'${vlibras}`,
     // blob: é a prévia de uma imagem antes do envio; o serviço de contas mostra à equipe as imagens ainda em revisão.
-    `img-src 'self' data: blob: ${service}${vlibras}`.trim(),
+    // As figuras das provas públicas (Enem) vêm da fonte aberta que as transcreve (lib/figuras-da-prova.ts): só imagem,
+    // sem referência da página de origem (as tags pedem no-referrer).
+    `img-src 'self' data: blob: ${service} ${ORIGENS_DAS_FIGURAS.join(" ")}${vlibras}`.replace(/\s+/g, " ").trim(),
     `font-src 'self'${vlibras}`,
     `connect-src 'self' ${service} ${realtime}${dev ? " ws:" : ""}${vlibras}`.replace(/\s+/g, " ").trim(),
     // A rádio e o podcast tocam arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação;
