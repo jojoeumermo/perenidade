@@ -51,6 +51,10 @@ export function MostrarNaAlumia({ eu, t, tSelos, lang, cadernos, feitas }: {
   const [perguntando, setPerguntando] = useState(false);
   const dialogo = useRef<HTMLDialogElement>(null);
   const enviando = useRef(false);
+  // Uma declaração que falhou (rede, "muitos_pedidos", "sem_permissao", público velho) não é repetida sozinha: só
+  // depois que a pessoa mexe no público aqui ou recarrega a página. Sem isso, o efeito voltaria a rodar e chamaria o
+  // banco de novo, sem parar, gastando o limite do servidor.
+  const falhouEnvio = useRef(false);
 
   useEffect(() => {
     let vivo = true;
@@ -68,7 +72,7 @@ export function MostrarNaAlumia({ eu, t, tSelos, lang, cadernos, feitas }: {
   const publico = lido?.publico ?? null;
   const conquistas = lido?.conquistas;
   useEffect(() => {
-    if (!publico || publico === "ninguem" || !conquistas || enviando.current) return;
+    if (!publico || publico === "ninguem" || !conquistas || enviando.current || falhouEnvio.current) return;
     const faltam = aDeclarar(cadernos, feitas, conquistas);
     if (faltam.length === 0) return;
     enviando.current = true;
@@ -86,8 +90,10 @@ export function MostrarNaAlumia({ eu, t, tSelos, lang, cadernos, feitas }: {
         novas.push({ tipo: d.tipo, alvo: d.alvo, verificada: false, em: new Date().toISOString() });
       }
       enviando.current = false;
+      if (erro) falhouEnvio.current = true;
       if (!vivo) return;
-      setLido((l) => (l ? { ...l, conquistas: [...l.conquistas, ...novas] } : l));
+      // Só cria uma lista nova quando há o que acrescentar: uma lista igual mudaria a dependência e rodaria o efeito.
+      if (novas.length > 0) setLido((l) => (l ? { ...l, conquistas: [...l.conquistas, ...novas] } : l));
       setEnvio(erro ? { texto: t.erros[erro], erro: true } : { texto: t.emDia });
     })();
     return () => {
@@ -112,6 +118,7 @@ export function MostrarNaAlumia({ eu, t, tSelos, lang, cadernos, feitas }: {
       return;
     }
     setEscolha(null);
+    falhouEnvio.current = false;
     setLido((l) => (l ? { publico: p, conquistas: p === "ninguem" ? l.conquistas.filter((c) => c.verificada) : l.conquistas } : l));
     setAviso({ texto: p === "ninguem" ? t.desligado : preencher(t.salvo, { publico: t.publicos[p] }) });
   }
