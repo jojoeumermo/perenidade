@@ -58,7 +58,7 @@ Para chegar até a sala de prova, muita gente da periferia de Salvador depende d
 
 **6 de novembro.** A Secretaria de Mobilidade (Semob) detalhou a operação: gratuidade das 10h às 20h, com o cartão de meia passagem (Salvador Card) passado no validador sem descontar crédito, mais viagens nas linhas de maior movimento e ônibus da frota reguladora nas estações de transbordo e no BRT (Alô Alô Bahia).
 
-**7 de novembro, sexta-feira, a dois dias da prova.** A Semob anunciou que quem **não tem** o cartão estudantil também pode embarcar sem pagar, mostrando ao cobrador o comprovante de inscrição no ENEM; o cobrador libera a catraca com um cartão operacional, e cada passagem fica registrada no sistema de bilhetagem. Segundo o Portal Salvador FM, o secretário Pablo Souza disse que a medida busca evitar que a falta do cartão impeça candidatos de chegar ao local de prova. Nessa comunicação, o horário aparece como das **9h às 20h** (Portal Salvador FM, Liga da Notícia).
+**7 de novembro, sábado, véspera da prova.** A Semob anunciou que quem **não tem** o cartão estudantil também pode embarcar sem pagar, mostrando ao cobrador o comprovante de inscrição no ENEM; o cobrador libera a catraca com um cartão operacional, e cada passagem fica registrada no sistema de bilhetagem. Segundo o Portal Salvador FM, o secretário Pablo Souza disse que a medida busca evitar que a falta do cartão impeça candidatos de chegar ao local de prova. Nessa comunicação, o horário aparece como das **9h às 20h** (Portal Salvador FM, Liga da Notícia).
 
 Há, portanto, uma diferença de horário entre os textos publicados: 10h às 20h no dia 6 e 9h às 20h no dia 7. Não encontramos o texto do decreto para tirar a dúvida; a informação mais recente é a de 9h às 20h.
 
@@ -80,7 +80,7 @@ Não existe lei federal que garanta passagem de graça no dia do ENEM: cada cida
 
 *Opinião da Redação.* A gratuidade em Salvador existe, e é bom que exista. Mas três pontos merecem atenção.
 
-**Primeiro, quem fica de fora quando a regra exige carteirinha.** O ENEM não é só para quem está no terceiro ano. Quem terminou a escola há anos e não tem mais cartão estudantil ativo, quem trabalha de dia e tenta a universidade pela primeira vez: é a classe trabalhadora que depende do exame para entrar na universidade pública. Em 2025, a regra de Salvador também foi a do cartão de meia passagem, das 10h às 20h (Bahia Notícias, 2025). Em 2026, a correção veio, mas só na sexta-feira, 7, a dois dias da prova.
+**Primeiro, quem fica de fora quando a regra exige carteirinha.** O ENEM não é só para quem está no terceiro ano. Quem terminou a escola há anos e não tem mais cartão estudantil ativo, quem trabalha de dia e tenta a universidade pela primeira vez: é a classe trabalhadora que depende do exame para entrar na universidade pública. Em 2025, a regra de Salvador também foi a do cartão de meia passagem, das 10h às 20h (Bahia Notícias, 2025). Em 2026, a correção veio, mas só no sábado, 7, véspera da prova.
 
 **Segundo, o horário da volta.** A prova do primeiro dia termina às 19h. Quem mora longe do local de prova, em bairros de ponta de linha, tem uma hora para embarcar antes do fim da gratuidade, às 20h. Teresina foi até as 20h30; São Luís, até as 22h.
 
