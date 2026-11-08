@@ -48,6 +48,76 @@ máquina à parte só para a sala de aula ao vivo, veja "Aula ao vivo" mais abai
 Tudo o que não é hospedagem continua onde estava: Supabase (contas, banco, funções), Resend (e-mails), o Worker
 `estudio-lucia` (estudio.institutolucia.org), as rotinas do GitHub.
 
+## Robô do Vale o Escrito na VPS (desde 8 de novembro de 2026)
+
+O robô que coleta casos para a fila da curadoria do Vale o Escrito (`scripts/vale-o-escrito/coletar.mjs`, explicado em
+`docs/vale-o-escrito/ROBO.md`) rodava só no GitHub, que atrasa e às vezes pula os horários marcados. Agora ele pode rodar
+também na VPS, de 2 em 2 horas (00:17, 02:17, ... com até 5 minutos de atraso sorteado), por dois arquivos do systemd:
+`infra/contabo/vale-o-escrito.service` e `infra/contabo/vale-o-escrito.timer`. O GitHub fica de reserva.
+
+Como funciona: antes de cada rodada a VPS atualiza uma cópia parcial do repositório em `/opt/lucia/vale-o-escrito` (só
+as pastas do robô) e roda o robô num contêiner Node descartável (a VPS não tem Node instalado), sem privilégio e com o
+código só para leitura. As chaves ficam em `/etc/instituto-lucia/vale.env`, **fora do repositório**. O robô não publica
+nada: só põe sugestões na fila da curadoria.
+
+**Instalar (uma vez).** No computador da coordenação, dentro da pasta do repositório:
+
+```bash
+scp -P 22222 -i ~/.ssh/contabo_lucia infra/contabo/vale-o-escrito.service infra/contabo/vale-o-escrito.timer root@<IP da VPS>:/root/lucia-infra/
+ssh -p 22222 -i ~/.ssh/contabo_lucia root@<IP da VPS>
+```
+
+Já na VPS:
+
+```bash
+# 1. Cópia parcial do repositório (só o robô e as fontes)
+git clone --depth 1 --filter=blob:none --sparse https://github.com/jojoeumermo/perenidade.git /opt/lucia/vale-o-escrito
+git -C /opt/lucia/vale-o-escrito sparse-checkout set scripts/vale-o-escrito content/vale-o-escrito
+docker pull node:22-alpine
+
+# 2. Arquivo das chaves, só o root lê
+install -d -m 700 /etc/instituto-lucia
+install -m 600 /dev/null /etc/instituto-lucia/vale.env
+nano /etc/instituto-lucia/vale.env
+
+# 3. Rodada seca: não grava nada, não pede chave; deve terminar com "rodada seca: N sugestões"
+docker run --rm --user node -v /opt/lucia/vale-o-escrito:/app:ro -w /app node:22-alpine \
+  node scripts/vale-o-escrito/coletar.mjs --seco --sem-ia --minutos 5 > /dev/null
+
+# 4. Liga o horário e faz a primeira rodada de verdade agora
+install -m 644 /root/lucia-infra/vale-o-escrito.service /root/lucia-infra/vale-o-escrito.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now vale-o-escrito.timer
+systemctl start vale-o-escrito.service
+journalctl -u vale-o-escrito -n 30 --no-pager
+```
+
+O que vai em `/etc/instituto-lucia/vale.env` (uma variável por linha, `NOME=valor`, sem aspas). Os valores são os mesmos
+dos segredos do GitHub com o mesmo nome; nunca copie este arquivo para o repositório:
+
+| Variável | Para quê | Obrigatória |
+|---|---|---|
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | gravar na fila da curadoria (`public.vale_robo_sugerir`) | sim |
+| `GEMINI_API_KEY`, `GROQ_API_KEY`, `CEREBRAS_API_KEY`, `OPENROUTER_API_KEY` | a IA gratuita que organiza o rascunho (basta uma) | não: sem nenhuma, o rascunho sai por regras simples e a curadoria revisa |
+| `ARCHIVE_ACCESS_KEY`, `ARCHIVE_SECRET_KEY` | cópia no Internet Archive com conta (archive.org/account/s3.php) | não: sem elas o pedido é anônimo; se o Internet Archive recusar, o caso entra do mesmo jeito, marcado como cópia pendente |
+
+**Depois de ligar na VPS,** no GitHub (Settings → Secrets and variables → Actions → Variables) crie `VALE_O_ESCRITO_NA_VPS`
+com o valor `sim`: o horário do GitHub para de rodar, para não fazer a rodada em dobro. O botão "Run workflow" da rotina
+"Vale o Escrito (robô de coleta)" continua funcionando (é a reserva). Se a VPS cair, apague essa variável e o GitHub volta
+a rodar sozinho.
+
+**No dia a dia:**
+
+- Próxima rodada: `systemctl list-timers vale-o-escrito.timer`.
+- Registro das rodadas: `journalctl -u vale-o-escrito --since today`. A última linha de cada rodada diz quantas sugestões
+  achou e o que aconteceu com cada fonte. Se nenhuma fonte responder ou nada for gravado, a rodada sai com erro e aparece
+  como `failed` em `systemctl status vale-o-escrito`.
+- Rodar agora: `systemctl start vale-o-escrito.service`.
+- Trocou uma chave: edite `/etc/instituto-lucia/vale.env`; vale a partir da rodada seguinte (não precisa reiniciar nada).
+- Pausar: `systemctl disable --now vale-o-escrito.timer` (e apague `VALE_O_ESCRITO_NA_VPS` no GitHub se quiser que ele
+  assuma).
+- Mudou `vale-o-escrito.service` ou `.timer` no repositório: repita o `scp` e o passo 4.
+
 ## Situação atual (2 de novembro de 2026): paliativo na Vercel
 
 Enquanto a máquina da Oracle não sai (a rotina `oracle.yml` tenta de hora em hora e abre uma issue quando conseguir),

@@ -13,6 +13,7 @@ import {
   carregarConfig, coletar, conferirRespostaIa, criarGravador, criarIa, dataDoFatoPorHeuristica, extrairMateria, falaDeMenor, lerFeed,
   lerQueridoDiario, linkDoArquivo, montarPrompt, normalizarUrl, podeArquivar, prepararMunicipios, relataCaso, resumoPorHeuristica,
   paraOLogPublico, situacaoPorHeuristica, temSegundo, PADROES_DA_RODADA, lerBuscaPlone, consultasDaBuscaPlone, lerFonte,
+  AGENTE, TEMAS_EXTRAS_DO_ROBO, dossiesComTemasDoRobo, comNovaTentativa, criarArquivador,
 } from "./vale-o-escrito/coletar.mjs";
 
 let total = 0;
@@ -307,7 +308,7 @@ await caso("workflow: agendado de 2 em 2 h, só com VALE_O_ESCRITO == 'sim', act
   const y = ler(".github", "workflows", "vale-o-escrito.yml");
   assert.match(y, /cron: "\d+ \*\/2 \* \* \*"/);
   assert.match(y, /--minutos 25\b/);
-  assert.match(y, /if: \$\{\{ vars\.VALE_O_ESCRITO == 'sim' \}\}/);
+  assert.ok(y.includes("if: ${{ vars.VALE_O_ESCRITO == 'sim' && (vars.VALE_O_ESCRITO_NA_VPS != 'sim' || github.event_name == 'workflow_dispatch') }}"));
   assert.match(y, /timeout-minutes: ([5-9]|[12]\d|30)\b/);
   for (const k of ["ARCHIVE_ACCESS_KEY", "ARCHIVE_SECRET_KEY", "GEMINI_API_KEY", "GROQ_API_KEY", "CEREBRAS_API_KEY", "OPENROUTER_API_KEY"]) assert.ok(y.includes(`${k}: \${{ secrets.${k} }}`), k);
   for (const m of y.matchAll(/uses: (\S+)/g)) assert.match(m[1], /@[0-9a-f]{40}$/, m[1]);
@@ -517,6 +518,138 @@ await caso("data do fato que a matéria não diz: fica o mês da publicação e 
     if (/^\d{4}-\d{2}$/.test(r.dataDoFato)) assert.match(r.notaDaCuradoria, /Data do fato: a matéria não diz/, s.url);
     else assert.doesNotMatch(r.notaDaCuradoria, /Data do fato: a matéria não diz/, s.url);
   }
+});
+
+// ───── Frente vale-robo (08/11/2026): por que nada entrava ─────
+
+await caso("fontes consertadas: Querido Diário no endereço novo, Anistia e OC com feed real, Agência Brasil com dois feeds", () => {
+  const f = (id) => cfgFontes.find((x) => x.id === id);
+  assert.equal(f("querido-diario").url, "https://api.queridodiario.org.br/gazettes", "o endereço antigo (ok.org.br) recusa TLS");
+  assert.equal(f("anistia").feed, "https://anistia.org.br/feed/?post_type=informe");
+  assert.equal(f("observatorio-do-clima").feed, "https://oc.eco.br/feed/");
+  const ab = f("agencia-brasil");
+  assert.equal(ab.leitor, "rss");
+  assert.equal(ab.feeds.length, 2);
+  for (const u of ab.feeds) assert.match(u, /^https:\/\/agenciabrasil\.ebc\.com\.br\/rss\/[a-z-]+\/feed\.xml$/);
+  // Agente que se identifica (nome do robô e endereço) no formato que os servidores aceitam.
+  assert.match(AGENTE, /^Mozilla\/5\.0 \(compatible; InstitutoLucia-ValeOEscrito\/[\d.]+;.*institutolucia\.org\)$/);
+});
+
+await caso("leitor RSS: vários feeds por fonte; feed que falha não derruba o outro; página no lugar do feed vira aviso", async () => {
+  const xml = fx("reporter-brasil.xml");
+  const fonte = { id: "x", leitor: "rss", feed: "https://a.test/1", feeds: ["https://a.test/1", "https://a.test/2", "https://a.test/3"] };
+  const buscar = async (u) =>
+    u.endsWith("1") ? { status: 200, text: xml } : u.endsWith("2") ? { status: 500, text: "" } : { status: 200, text: "<!doctype html><html><body>início</body></html>" };
+  const { itens, erro } = await lerFonte(fonte, { dossies, buscar, hoje: HOJE, dias: 5 });
+  assert.equal(itens.length, lerFeed(xml).length);
+  assert.match(erro, /HTTP 500/);
+  assert.match(erro, /não é feed/);
+  const r = await coletar({ fontes: [{ ...fonte, nome: "X", grupo: "imprensa", acesso: "aberto" }], dossies, municipios: CAPITAIS, buscar, ia: null, gravar: null, hoje: HOJE, dias: 5, baixar: false });
+  assert.match(r.relatorio.fontes.x, /^\d+ itens \(aviso: /);
+});
+
+await caso("Querido Diário: uma consulta que falha não joga fora as outras", async () => {
+  const qd = cfgFontes.find((x) => x.id === "querido-diario");
+  let n = 0;
+  const buscar = async () => (++n === 1 ? { status: 503, text: "" } : { status: 200, text: fx("querido-diario.json") });
+  const { itens, erro } = await lerFonte(qd, { dossies, buscar, hoje: HOJE, dias: 5 });
+  assert.equal(erro, "HTTP 503");
+  assert.ok(itens.length > 0);
+});
+
+await caso("temas extras do robô: 'indígenas', 'trabalho escravo', 'corrupção' passam pelo filtro; as consultas às APIs não mudam", () => {
+  const largos = dossiesComTemasDoRobo(dossies);
+  assert.deepEqual(Object.keys(TEMAS_EXTRAS_DO_ROBO).sort(), dossies.map((d) => d.slug).sort());
+  for (const d of dossies) assert.deepEqual(largos.find((x) => x.slug === d.slug).temas.slice(0, d.temas.length), d.temas, "os temas originais vêm primeiro");
+  assert.deepEqual(acharDossies("Fazendeiro ataca indígenas Guarani Kaiowá", dossies), []);
+  assert.equal(acharDossies("Fazendeiro ataca indígenas Guarani Kaiowá", largos)[0].slug, "povos-indigenas");
+  assert.equal(acharDossies("Operação liberta 20 pessoas de trabalho escravo", largos)[0].slug, "trabalho-escravo");
+  assert.equal(acharDossies("PF investiga corrupção em prefeitura", largos)[0].slug, "dinheiro-publico");
+  for (const temas of Object.values(TEMAS_EXTRAS_DO_ROBO)) for (const t of temas) assert.equal(falaDeMenor(t), false, t);
+  // As consultas ao MPF e ao Querido Diário continuam só com os temas de dossies.json (não multiplicam pedidos).
+  assert.equal(consultasDaBuscaPlone(dossies).length, new Set(dossies.flatMap((d) => d.temas)).size);
+});
+
+await caso("nova tentativa: GET com 503 ou erro de rede tenta de novo uma vez; POST nunca é repetido", async () => {
+  const esperas = [];
+  const esperar = async (ms) => esperas.push(ms);
+  let n = 0;
+  const b1 = comNovaTentativa(async () => (++n === 1 ? { status: 503, text: "", headers: { get: () => "2" } } : { status: 200, text: "ok" }), { esperar });
+  assert.equal((await b1("https://a.test/feed")).status, 200);
+  assert.deepEqual(esperas, [2000]);
+  let m = 0;
+  const b2 = comNovaTentativa(async () => {
+    if (++m === 1) throw new Error("fetch failed");
+    return { status: 200, text: "ok" };
+  }, { esperar });
+  assert.equal((await b2("https://a.test/feed")).status, 200);
+  let p = 0;
+  const b3 = comNovaTentativa(async () => (p++, { status: 503, text: "" }), { esperar });
+  assert.equal((await b3("https://a.test/rpc", { method: "POST" })).status, 503);
+  assert.equal(p, 1);
+});
+
+await caso("Internet Archive: fila um por vez, com intervalo; 429 espera e tenta de novo; 429 repetido para e o caso entra pendente", async () => {
+  let relogio = 0;
+  const esperas = [];
+  const esperar = async (ms) => {
+    esperas.push(ms);
+    relogio += ms;
+  };
+  const respostas = [429, 200, 429, 429, 429];
+  const pedidos = [];
+  const arquivarUm = async (url, { ultimo }) => {
+    pedidos.push(url);
+    ultimo.status = respostas.shift() ?? 200;
+    ultimo.retryAfter = ultimo.status === 429 ? "5" : null;
+    return ultimo.status === 200 ? `https://web.archive.org/web/20261108000000/${url}` : null;
+  };
+  const arq = criarArquivador({ esperar, agora: () => relogio, intervaloMs: 1000, arquivarUm });
+  const [a, b, c] = await Promise.all([arq.arquivar("https://x.test/a"), arq.arquivar("https://x.test/b"), arq.arquivar("https://x.test/c")]);
+  assert.equal(a, "https://web.archive.org/web/20261108000000/https://x.test/a", "o 429 esperou o Retry-After e a segunda tentativa deu certo");
+  assert.ok(esperas.includes(5000));
+  assert.equal(b, null);
+  assert.equal(c, null, "depois de 3 respostas 429 a fila para");
+  assert.equal(arq.estado().parado, true);
+  assert.deepEqual(pedidos, ["https://x.test/a", "https://x.test/a", "https://x.test/b", "https://x.test/b"]);
+  // Na rodada, o caso entra do mesmo jeito, só com arquivoFalhou (pendente para a curadoria).
+  const { sugestoes } = await rodar({ arquivar: async () => null, soFonte: "reporter-brasil" });
+  assert.ok(sugestoes.length > 0);
+  for (const s of sugestoes) assert.equal(s.rascunho.fontes[0].arquivoFalhou, true);
+});
+
+await caso("rodada seca (--seco) sem chave nenhuma e sem rede: não grava, não arquiva, imprime as sugestões", () => {
+  const saida = execFileSync(process.execPath, ["scripts/vale-o-escrito/coletar.mjs", "--seco", "--fixtures", pastaFx, "--hoje", HOJE, "--dias", "5"], {
+    cwd: raiz,
+    env: { PATH: process.env.PATH, SYSTEMROOT: process.env.SYSTEMROOT ?? "" },
+    stdio: "pipe",
+  }).toString();
+  const linhas = saida.trim().split("\n").filter(Boolean);
+  assert.ok(linhas.length >= 1);
+  for (const l of linhas) assert.ok(JSON.parse(l).rascunho, "cada linha é uma sugestão completa");
+  const codigo = ler("scripts", "vale-o-escrito", "coletar.mjs");
+  assert.match(codigo, /a\.semArquivo \|\| a\.fixtures \|\| a\.seco \? null : criarArquivador/);
+  assert.match(codigo, /const gravar = a\.seco \? null : criarGravador/);
+});
+
+await caso("VPS da Contabo: serviço e timer do systemd, chaves fora do repositório; o GitHub fica de reserva sem rodar em dobro", () => {
+  const servico = ler("infra", "contabo", "vale-o-escrito.service");
+  const timer = ler("infra", "contabo", "vale-o-escrito.timer");
+  assert.match(servico, /^EnvironmentFile=\/etc\/instituto-lucia\/vale\.env$/m);
+  assert.match(servico, /^Type=oneshot$/m);
+  assert.match(servico, /coletar\.mjs --minutos 25/);
+  assert.match(timer, /^OnCalendar=\*-\*-\* 00\/2:17:00$/m);
+  assert.match(timer, /^RandomizedDelaySec=\d+min$/m);
+  assert.match(timer, /^Persistent=true$/m);
+  const wf = ler(".github", "workflows", "vale-o-escrito.yml");
+  assert.match(wf, /workflow_dispatch:/);
+  assert.match(wf, /concurrency:\s*\n\s*group: vale-o-escrito/);
+  assert.match(wf, /vars\.VALE_O_ESCRITO_NA_VPS != 'sim' \|\| github\.event_name == 'workflow_dispatch'/);
+  const hosp = ler("docs", "HOSPEDAGEM.md");
+  assert.match(hosp, /## Robô do Vale o Escrito na VPS/);
+  assert.match(hosp, /\/etc\/instituto-lucia\/vale\.env/);
+  // Nenhuma chave no repositório: o arquivo de chaves só é citado, nunca preenchido.
+  assert.doesNotMatch(servico + timer, /SERVICE_ROLE_KEY=|API_KEY=/);
 });
 
 console.log(`\n${total} conferências do robô do Vale o Escrito passaram.`);

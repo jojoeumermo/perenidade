@@ -181,7 +181,7 @@ console.log("Vale o Escrito: dados e catálogo");
 caso("catálogo: ids únicos e de formato seguro", () => {
   assert.equal(new Set(IDS_DO_CATALOGO).size, CATALOGO_DE_FONTES.length);
   for (const f of CATALOGO_DE_FONTES) assert.match(f.id, /^[a-z0-9-]{2,60}$/);
-  assert.equal(CATALOGO_DE_FONTES.length, 48);
+  assert.equal(CATALOGO_DE_FONTES.length, 49); // 48 do pedido original + Agência Brasil (08/11/2026)
 });
 caso("dossies.json: os 6 dossiês, na ordem, com título e descrição nos 6 idiomas", () => {
   const dossies = lerDossies();
@@ -322,7 +322,7 @@ caso("a ESPEC existe e nomeia os 6 pacotes", () => {
 
 console.log("Vale o Escrito: fontes e dossiês (pacote fontes-e-dossies)");
 const lerJson = (...partes) => JSON.parse(ler(...partes));
-caso("fontes.json: as 48 fontes do catálogo, com tipo, acesso, licença e a data da conferência", () => {
+caso("fontes.json: as 49 fontes do catálogo, com tipo, acesso, licença e a data da conferência", () => {
   const { fontes } = lerJson("content", "vale-o-escrito", "fontes.json");
   assert.deepEqual(fontes.map((f) => f.id).sort(), [...IDS_DO_CATALOGO].sort());
   for (const f of fontes) {

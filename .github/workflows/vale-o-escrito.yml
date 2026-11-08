@@ -28,7 +28,10 @@ concurrency:
 
 jobs:
   coletar:
-    if: ${{ vars.VALE_O_ESCRITO == 'sim' }}
+    # Reserva da VPS (08/11/2026): quando o robô roda na VPS da Contabo (vale-o-escrito.timer, docs/HOSPEDAGEM.md), crie a
+    # variável VALE_O_ESCRITO_NA_VPS = sim e o horário do GitHub para de rodar (sem rodada em dobro); o botão "Run workflow"
+    # continua valendo. O concurrency acima impede duas rodadas do GitHub ao mesmo tempo.
+    if: ${{ vars.VALE_O_ESCRITO == 'sim' && (vars.VALE_O_ESCRITO_NA_VPS != 'sim' || github.event_name == 'workflow_dispatch') }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

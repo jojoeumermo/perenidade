@@ -5,7 +5,8 @@
 // em content/vale-o-escrito/fontes.json; este arquivo é o contrato dos ids.
 //
 // Atenção ao nº de fontes: o pedido original dizia 47, mas a lista literal tem 48 nomes (21 oficiais, 16 organizações,
-// 9 da imprensa, 2 de checagem; "STF/STJ" conta como um). Está aqui como veio. Ver ESPEC, seção 9.
+// 9 da imprensa, 2 de checagem; "STF/STJ" conta como um). Está aqui como veio. Ver ESPEC, seção 9. Em 08/11/2026 entrou
+// a Agência Brasil (imprensa, RSS público): 49 fontes.
 //
 // Fontes que falam de vítimas (Disque 100, DATASUS, Atlas da Violência, Fogo Cruzado, Rede de Observatórios): só
 // agregados e contagens. Nome de vítima NUNCA é lido nem guardado (regra "agregado": true).
@@ -70,6 +71,8 @@ export const CATALOGO_DE_FONTES: readonly FonteDoCatalogo[] = [
   { id: "de-olho-nos-ruralistas", nome: "De Olho nos Ruralistas", grupo: "imprensa" },
   { id: "intercept-brasil", nome: "The Intercept Brasil", grupo: "imprensa" },
   { id: "brasil-de-fato", nome: "Brasil de Fato", grupo: "imprensa" },
+  // Acrescentada em 08/11/2026 (frente vale-robo): agência pública de notícias, com RSS aberto e conferido.
+  { id: "agencia-brasil", nome: "Agência Brasil", grupo: "imprensa" },
   // Checagem
   { id: "lupa", nome: "Agência Lupa", grupo: "checagem" },
   { id: "aos-fatos", nome: "Aos Fatos", grupo: "checagem" },
