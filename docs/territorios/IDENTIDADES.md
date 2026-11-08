@@ -6,7 +6,29 @@ Regra para todas as páginas: contraste AA (texto normal ≥ 4,5:1, texto grande
 
 ## Logos
 
-As quatro logos são a foto de perfil de cada coletivo no Instagram (a única versão pública, 150 × 150 px, ampliada para 480 × 480 em WebP). Crédito na página: "Logo cedida pelo coletivo". **Pedir a cada coletivo o arquivo original da logo (vetor ou PNG grande) e trocar em `public/territorios/<slug>/logo.webp`**: a ampliação de 150 px fica um pouco borrada.
+As quatro logos vieram da foto de perfil de cada coletivo no Instagram (a única versão pública, 150 × 150 px). Em 08/11/2026, com autorização do Jonathan para ampliar até Full HD, cada uma ganhou duas versões em `public/territorios/<slug>/`: `logo.webp` (1080 px, usada nos cartões) e `logo-1920.webp` (1920 px, usada na abertura grande de cada página; campo `logo.grande` em `content/territorios.json`). Crédito na página: "Logo cedida pelo coletivo".
+
+- **NoizOcupa, Coletivo Kamikaze e Coletivo Desordem:** super-resolução de verdade com um modelo Real-ESRGAN ×4 em ONNX (rodado localmente com onnxruntime em Python; só o arquivo `.onnx` foi baixado, nenhum executável), com o resultado ajustado para 1920 px. Comparada lado a lado com a ampliação antiga, ficou mais fiel nas bordas das letras e do spray.
+- **noismemo studios:** a elipse "NM" é forma chapada, então foi **redesenhada em vetor** (`logo.svg`: elipse vazada e o NM em polígono de retas) e conferida sobre a foto de perfil; o WebP de 1080 e 1920 sai desse SVG.
+- **Na Atividade:** a logo (a forma vermelha em degrau, `#F80E11` sobre branco) foi redesenhada em vetor a partir da foto de perfil (`logo.svg`, `logo.webp` de 1080 px). Desde 08/11/2026 ela é a **capa** da página (`capa.webp`, 1920 × 1080, a logo centralizada no branco) e a imagem do cartão em /territorios; o resto da página do Na Atividade não mudou.
+- Continua valendo: **pedir a cada coletivo o arquivo original da logo** (vetor ou PNG grande) e trocar os arquivos acima; a super-resolução melhora a nitidez, mas não recupera detalhe que a foto de 150 px não tinha.
+
+## Vídeos (08/11/2026)
+
+Reels autorizados pelo Jonathan, servidos do próprio site (`<video>` com `preload="metadata"`, `playsInline`, quadro parado tirado do vídeo), com legenda, data e crédito com link para o post original. Ficam no campo `videos` de `content/territorios.json`. Os dois que passavam de 10 MB foram recomprimidos com o ffmpeg 7.1 do pacote Python `imageio_ffmpeg` (H.264 `-crf 28 -preset slow`, `yuv420p`, AAC 128 kb/s, `-movflags +faststart`, mesma resolução vertical 720 × 1280): `processo-halftrack.mp4` passou de 12,8 MB para 9,5 MB e `galpao-pescaria.mp4` de 12,6 MB para 9,5 MB. O `notados.mp4` (2,0 MB) só foi reempacotado com `+faststart`, sem recodificar. As capas continuam batendo com o vídeo: as do Desordem são o primeiro quadro; a do halftrack é o quadro de ~3 s, porque o vídeo começa em preto.
+
+- **noismemo studios** — `processo-halftrack.mp4` (reel DdmiFfLzCsG, 22/09/2026): colaboração com @xangssss, o processo criativo do upcycling do tênis Oakley Halftrack Low II em chinelo; som de @kyanmaloka e @mu540.
+- **Coletivo Desordem** — `notados.mp4` (reel DcwwKbapD_w, 01/09/2026): "Fomos notados pela bruxona @amarinasena", #coletivodeteatro.
+- **Coletivo Desordem** — `galpao-pescaria.mp4` (reel DbQXOI2tH6k, 26/07/2026): post do Galpão Cultural Cubatão em colaboração com o coletivo, "Venham, vai ter pescaria!".
+
+## Redesenho das quatro páginas (08/11/2026)
+
+`components/territorios/PaginaDoColetivo.tsx` + `styles/territorios-coletivos.css` + uma letra por coletivo em `lib/fontes-coletivos.ts` (Google Fonts via next/font, sem pré-carga). Todas seguem a mesma ordem: abertura com a logo grande, quem são, trabalho em destaque, vídeos, cartazes, agenda e links, parceria com o Instituto (com as trilhas) e crédito. O que muda é o mundo de cada um:
+
+- **NoizOcupa** (Titan One): muro vinho com grão de papel, o nome em letra gorda arredondada com sombra escura, o lema numa tira de lambe mostarda de borda serrilhada, a logo como cartaz lambe-lambe rasgado preso com fita, a galeria como cartazes colados em ângulos diferentes.
+- **Coletivo Kamikaze** (Anton): abertura amarela com retícula de xerox, o número como canhoto de ingresso, o nome em letra de cartaz de cinema, o slogan em tarja preta e rosa, a logo numa marquise de lâmpadas amarelas e rosa, fita de filme; o resto é a sala escura com os acentos girando pela paleta dos cartazes.
+- **Coletivo Desordem** (Rubik Spray Paint): preto com halos e respingos de spray, as letras do nome tortas em amarelo com sombra vermelha deslocada, a bio com os símbolos ("D3$0rdeπ∆nDø a Arte¡!", decorativa: o leitor de tela lê o slogan), a logo colada torta com escorrido de tinta, os vídeos em molduras giradas.
+- **noismemo studios** (Inter Tight 900): ficha técnica com fio fino, régua de selos NM, o nome enorme e apertado, a logo numa prancha com marcas de corte e cota "FIG. 01", tudo em preto e branco puro.
 
 ## NoizOcupa (@noizocupa) — Itanhaém (SP)
 

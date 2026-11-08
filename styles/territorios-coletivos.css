@@ -1,0 +1,743 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * As páginas dos coletivos com identidade própria (components/territorios/PaginaDoColetivo.tsx), redesenho de 08/11/2026.
+ * Um mundo por coletivo, tirado do perfil de cada um (docs/territorios/IDENTIDADES.md):
+ *  - NoizOcupa: muro vinho, papel de lambe-lambe rasgado e colado com fita, letra gorda arredondada dos anos 70.
+ *  - Coletivo Kamikaze: amarelo puro, retícula de xerox, marquise de lâmpadas, letra de cartaz de cinema, sala escura.
+ *  - Coletivo Desordem: preto com halo de spray, amarelo com sombra vermelha deslocada, letras tortas, escorrido de tinta.
+ *  - noismemo studios: branco e preto puro, ficha técnica com fio fino, grotesca pesada e apertada, a elipse NM como selo.
+ * As cores vêm de lib/territorios-identidades.ts (contraste AA conferido por scripts/testar-territorios.mjs) pelas variáveis
+ * --col-*; as letras, de lib/fontes-coletivos.ts. Celular primeiro: tudo cabe em 360 px sem rolar de lado.
+ */
+
+.col {
+  --col-grao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --col-letra: var(--font-sans, system-ui), sans-serif;
+  overflow-x: clip;
+}
+.col ::selection {
+  background: var(--col-destaque);
+  color: var(--col-botao-texto);
+}
+.col :is(a, button, video, [tabindex]):focus-visible {
+  outline: 3px solid var(--col-destaque);
+  outline-offset: 3px;
+}
+.col-trilha {
+  border-bottom: 2px solid var(--col-destaque);
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* O grão (papel, xerox): uma camada de ruído por cima do fundo, sem pesar (SVG de 180 px repetido). */
+.col-grao::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--col-grao);
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+
+.col-sec {
+  padding-block: clamp(3.5rem, 8vw, 6rem);
+}
+.col-miolo {
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .col-miolo {
+    padding-inline: 2rem;
+  }
+}
+.col-papel {
+  background-color: var(--col-papel);
+}
+
+.col-h2 {
+  font-family: var(--col-letra);
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.col-h3 {
+  font-family: var(--col-letra);
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+.col-lide {
+  max-width: 38rem;
+  font-size: clamp(1.2rem, 3.6vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.col-texto {
+  max-width: 40rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.col-meta {
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.col-legenda {
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.col-link-post {
+  display: inline-block;
+  margin-top: 0.85rem;
+  color: var(--col-destaque);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.col-selo {
+  display: inline-block;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--col-rotulo);
+}
+
+/* Botões: alvo de 44 px, a cor de destaque cheia ou só o contorno. */
+.col-botao {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--col-destaque);
+  padding: 0.7rem 1.2rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms;
+}
+.col-botao-cheio {
+  background: var(--col-destaque);
+  color: var(--col-botao-texto);
+}
+.col-botao-vazado {
+  color: var(--col-destaque);
+}
+.col-botao:hover {
+  transform: translateY(-2px);
+}
+
+.col-tema {
+  border: 2px solid currentColor;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+.col-citacao {
+  border: 3px solid currentColor;
+  padding: 1.5rem;
+}
+.col-programa {
+  display: grid;
+  grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
+  gap: 1rem;
+  border-top: 2px solid;
+  padding-top: 0.9rem;
+}
+.col-hora {
+  font-family: var(--col-letra);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+.col-item {
+  border: 2px solid currentColor;
+  background: var(--col-fundo);
+  padding: 1rem;
+}
+.col-agenda {
+  border: 3px solid var(--col-tinta);
+  background: var(--col-tinta);
+  color: var(--col-fundo);
+  padding: 1.5rem;
+}
+
+/* O vídeo dentro da moldura do coletivo, levemente girado nos mundos de cartaz. */
+.col-video {
+  min-width: 0;
+}
+/* Um vídeo só: a tela de celular de um lado e a legenda do outro. */
+@media (min-width: 768px) {
+  .col-video-unico > .col-video {
+    display: grid;
+    grid-template-columns: minmax(0, 24rem) minmax(0, 30rem);
+    align-items: center;
+    gap: 3rem;
+  }
+  .col-video-unico .col-h3 {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+  }
+}
+.col-tela {
+  padding: 0.75rem;
+  border: 3px solid var(--col-destaque);
+  background: #000;
+  color: #fff;
+}
+.col-cartaz {
+  border: 3px solid var(--col-tinta);
+  background: var(--col-tinta);
+  color: var(--col-fundo);
+  transform: rotate(var(--col-giro, 0deg));
+}
+
+/* A linha do tempo: um fio com um ponto na cor de cada marco. */
+.col-linha {
+  display: grid;
+  gap: 1.75rem 2.5rem;
+  border-left: 3px solid var(--col-destaque);
+  padding-left: 1.5rem;
+}
+.col-linha > li {
+  position: relative;
+}
+.col-linha > li::before {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  left: calc(-1.5rem - 9.5px);
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 2px solid var(--col-papel);
+  border-radius: 50%;
+  background: var(--col-ponto, var(--col-destaque));
+}
+@media (min-width: 768px) {
+  .col-linha {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.col-parceria {
+  border-top: 3px solid var(--col-destaque);
+}
+.col-trilha-cartao {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border: 2px solid currentColor;
+  background: var(--col-papel);
+  color: var(--col-tinta);
+  padding: 1.25rem;
+  text-decoration: none;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.col-trilha-cartao:hover {
+  transform: translateY(-3px);
+}
+.col-creditos {
+  border-top: 1px solid currentColor;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+.col-logo {
+  margin-inline: auto;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .col-botao,
+  .col-trilha-cartao {
+    transition: none;
+  }
+  .col-botao:hover,
+  .col-trilha-cartao:hover {
+    transform: none;
+  }
+}
+
+/* ───────────────────────── NoizOcupa ───────────────────────── */
+[data-identidade="noizocupa"] {
+  --col-letra: var(--letra-noiz), "Arial Rounded MT Bold", sans-serif;
+}
+[data-identidade="noizocupa"] .col-grao::before {
+  opacity: 0.5;
+}
+/* O muro: vinho com manchas mais escuras, como parede pintada e repintada. */
+[data-identidade="noizocupa"] .col-abertura {
+  background:
+    radial-gradient(60% 50% at 15% 20%, rgb(255 255 255 / 0.05), transparent 70%),
+    radial-gradient(50% 60% at 90% 80%, rgb(0 0 0 / 0.25), transparent 70%),
+    var(--col-fundo);
+}
+[data-identidade="noizocupa"] .col-selo {
+  rotate: -1.5deg;
+  background: var(--col-tinta);
+  color: var(--col-fundo);
+  padding: 0.3rem 0.6rem;
+}
+.noiz-nome {
+  font-family: var(--col-letra);
+  font-size: clamp(2.8rem, 12vw, 5.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: var(--col-tinta);
+  text-shadow: 0.05em 0.05em 0 #2a0806;
+}
+/* A tira de lambe com o lema: papel mostarda de borda serrilhada, colada torta. */
+.noiz-tira {
+  display: inline-block;
+  rotate: -1.5deg;
+  background: var(--col-destaque);
+  color: #3a0b08;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--col-letra);
+  font-size: clamp(1rem, 3.6vw, 1.35rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  clip-path: polygon(0 6%, 4% 0, 12% 5%, 22% 0, 33% 4%, 45% 0, 57% 5%, 68% 0, 80% 4%, 91% 0, 100% 5%, 99% 52%, 100% 96%, 90% 100%, 79% 95%, 67% 100%, 55% 95%, 43% 100%, 31% 96%, 20% 100%, 9% 95%, 0 100%, 1% 50%);
+}
+/* O cartaz da logo: papel creme rasgado, com o vinco de cola atravessando. */
+.noiz-lambe {
+  rotate: 2deg;
+  background: #f6e8cc;
+  padding: 0.9rem;
+  filter: drop-shadow(10px 12px 0 rgb(42 8 6 / 0.85));
+  clip-path: polygon(0 2%, 7% 0, 15% 1.5%, 26% 0, 38% 1%, 50% 0, 61% 1.5%, 73% 0, 86% 1%, 100% 0, 99% 12%, 100% 27%, 98.5% 41%, 100% 56%, 99% 70%, 100% 85%, 99% 100%, 87% 98.5%, 74% 100%, 62% 98.5%, 49% 100%, 36% 98.5%, 24% 100%, 12% 98.5%, 0 100%, 1.5% 86%, 0 71%, 1% 55%, 0 40%, 1.5% 25%, 0 12%);
+}
+.noiz-vinco {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(104deg, transparent 38%, rgb(255 255 255 / 0.18) 40%, rgb(0 0 0 / 0.14) 42%, transparent 46%),
+    linear-gradient(8deg, transparent 64%, rgb(0 0 0 / 0.12) 66%, rgb(255 255 255 / 0.14) 67.5%, transparent 71%),
+    var(--col-grao);
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+}
+.col-fita {
+  position: absolute;
+  z-index: 3;
+  width: 5.5rem;
+  height: 1.6rem;
+  background: rgb(233 220 188 / 0.82);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+}
+[data-identidade="noizocupa"] .col-h2 {
+  color: var(--col-tinta);
+  text-shadow: 0.05em 0.05em 0 #2a0806;
+}
+[data-identidade="noizocupa"] .col-h2::after {
+  content: "";
+  display: block;
+  width: 5rem;
+  height: 0.5rem;
+  margin-top: 0.9rem;
+  background: var(--col-destaque);
+  rotate: -1deg;
+}
+[data-identidade="noizocupa"] .col-cartaz {
+  border-color: #f6e8cc;
+  background: #f6e8cc;
+  color: #3a0b08;
+  box-shadow: 6px 8px 0 #2a0806;
+}
+[data-identidade="noizocupa"] .col-tela {
+  border-color: var(--col-tinta);
+  background: #2a0806;
+  box-shadow: 8px 8px 0 var(--col-destaque);
+}
+[data-identidade="noizocupa"] .col-agenda {
+  rotate: -1deg;
+  box-shadow: 8px 8px 0 var(--col-destaque);
+}
+[data-identidade="noizocupa"] .col-citacao {
+  rotate: 1deg;
+  box-shadow: 8px 8px 0 #2a0806;
+}
+[data-identidade="noizocupa"] .col-trilha-cartao {
+  box-shadow: 6px 6px 0 #2a0806;
+}
+[data-identidade="noizocupa"] .col-letreiro .letreiro-trilho {
+  font-family: var(--col-letra);
+  font-weight: 400;
+}
+
+/* ───────────────────────── Coletivo Kamikaze ───────────────────────── */
+[data-identidade="kamikaze"] {
+  --col-letra: var(--letra-kamikaze), Impact, sans-serif;
+}
+[data-identidade="kamikaze"] .col-h2,
+[data-identidade="kamikaze"] .col-h3,
+[data-identidade="kamikaze"] .col-hora {
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+[data-identidade="kamikaze"] .col-h2 {
+  font-size: clamp(2.4rem, 9vw, 4.6rem);
+  line-height: 0.92;
+}
+/* A abertura: amarelo da logo com retícula de xerox (pontos que crescem para a direita). */
+.kami-abertura {
+  background:
+    radial-gradient(circle at center, rgb(17 16 16 / 0.16) 0 1.4px, transparent 1.8px) 0 0 / 9px 9px,
+    #ffe100;
+  color: #111010;
+}
+.kami-abertura::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #ffe100 30%, transparent 85%);
+}
+.kami-ingresso {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #111010;
+  color: #ffe100;
+  padding: 0.35rem 0.9rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  /* O canhoto do ingresso: dois recortes redondos nas pontas. */
+  mask: radial-gradient(circle at 0 50%, transparent 0.45rem, #000 0.5rem) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 0.45rem, #000 0.5rem) right / 51% 100% no-repeat;
+  padding-inline: 1.1rem;
+}
+.kami-nome {
+  font-family: var(--col-letra);
+  font-size: clamp(3.6rem, 17vw, 8rem);
+  line-height: 0.86;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+}
+.kami-tarja {
+  display: inline-block;
+  rotate: -1.2deg;
+  background: #111010;
+  color: #ff7eb6;
+  padding: 0.3rem 0.9rem 0.45rem;
+  font-size: clamp(1.4rem, 5vw, 2.1rem);
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1.15;
+}
+.kami-chip {
+  border: 2px solid #111010;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.kami-abertura .col-botao-cheio {
+  border-color: #111010;
+  background: #111010;
+  color: #ffe100;
+}
+.kami-abertura .col-selo,
+.kami-abertura .col-legenda {
+  color: #111010;
+  font-weight: 700;
+}
+.kami-abertura :is(a, button):focus-visible {
+  outline-color: #111010;
+}
+/* A marquise: a logo dentro de uma caixa preta com duas fileiras de lâmpadas (amarelo e rosa). */
+.kami-marquise {
+  background-color: #111010;
+  background-image: radial-gradient(circle, #ffe14d 0 3.5px, rgb(255 225 77 / 0.35) 4.5px, transparent 7px), radial-gradient(circle, #ff7eb6 0 3.5px, rgb(255 126 182 / 0.35) 4.5px, transparent 7px);
+  background-size: 26px 26px;
+  background-position: 0 0, 13px 13px;
+  padding: 1.6rem;
+  box-shadow: 0 18px 40px -18px rgb(17 16 16 / 0.7);
+}
+.kami-marquise > img {
+  outline: 3px solid #111010;
+}
+.kami-filme {
+  height: 1.9rem;
+  background:
+    repeating-linear-gradient(90deg, #ffe100 0 14px, transparent 14px 30px) center / 100% 10px repeat-x,
+    #111010;
+}
+[data-identidade="kamikaze"] .col-tela {
+  border-color: #ffe14d;
+  box-shadow: 0 0 0 6px #111010, 0 0 0 9px #3ddc84;
+}
+[data-identidade="kamikaze"] .col-cartaz {
+  border-width: 4px;
+  background: #111010;
+}
+[data-identidade="kamikaze"] .col-citacao,
+[data-identidade="kamikaze"] .col-trilha-cartao {
+  border-width: 2px;
+}
+[data-identidade="kamikaze"] .col-letreiro .letreiro-trilho {
+  font-family: var(--col-letra);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+/* ───────────────────────── Coletivo Desordem ───────────────────────── */
+[data-identidade="desordem"] {
+  --col-letra: var(--letra-desordem), "Arial Black", sans-serif;
+}
+/* Os halos de spray: amarelo no alto, vermelho embaixo, com respingos (o grão em pontos grossos). */
+.deso-abertura {
+  background:
+    radial-gradient(34rem 26rem at 8% 12%, rgb(255 210 31 / 0.2), transparent 70%),
+    radial-gradient(28rem 24rem at 96% 92%, rgb(215 38 30 / 0.24), transparent 70%),
+    var(--col-fundo);
+}
+.deso-abertura::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, rgb(255 210 31 / 0.55) 0 1.5px, transparent 2px) 0 0 / 37px 41px,
+    radial-gradient(circle, rgb(215 38 30 / 0.5) 0 1.2px, transparent 1.7px) 11px 17px / 53px 47px;
+  mask: radial-gradient(40rem 30rem at 12% 14%, #000, transparent 70%);
+  opacity: 0.6;
+}
+.deso-nome {
+  font-family: var(--col-letra);
+  font-size: clamp(3.2rem, 14vw, 6.8rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: #ffd21f;
+  text-shadow: 0.06em 0.06em 0 #d7261e;
+}
+.deso-faixa {
+  display: inline-block;
+  rotate: -2deg;
+  background: #d7261e;
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  font-family: var(--col-letra);
+  font-size: clamp(1.15rem, 4vw, 1.6rem);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.deso-bio {
+  /* A letra de spray não tem π, ∆, ø nem ¡: a bio vai numa grotesca pesada. */
+  font-family: "Arial Black", var(--font-sans, system-ui), sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.3rem, 5vw, 1.9rem);
+  color: var(--col-tinta);
+  letter-spacing: 0.04em;
+  rotate: 1deg;
+}
+[data-identidade="desordem"] .col-meta {
+  color: var(--col-rotulo);
+}
+.deso-cartaz {
+  rotate: -3deg;
+  border: 3px solid #ffd21f;
+  background: #fff;
+  box-shadow: 10px 10px 0 #d7261e;
+}
+.deso-cartaz + figcaption {
+  margin-top: 3.25rem;
+}
+/* O escorrido de tinta amarela saindo da borda de baixo do cartaz. */
+.deso-escorrido {
+  position: absolute;
+  z-index: 2;
+  left: 18%;
+  bottom: -2.6rem;
+  width: 62%;
+  height: 2.6rem;
+  pointer-events: none;
+  background:
+    linear-gradient(#ffd21f, #ffd21f) 4% 0 / 7px 70% no-repeat,
+    linear-gradient(#ffd21f, #ffd21f) 31% 0 / 5px 100% no-repeat,
+    linear-gradient(#ffd21f, #ffd21f) 63% 0 / 8px 45% no-repeat,
+    linear-gradient(#ffd21f, #ffd21f) 92% 0 / 5px 85% no-repeat;
+  -webkit-mask: linear-gradient(#000 60%, transparent);
+  mask: linear-gradient(#000 60%, transparent);
+}
+[data-identidade="desordem"] .col-h2 {
+  color: #ffd21f;
+  text-transform: uppercase;
+  text-shadow: 0.06em 0.06em 0 #d7261e;
+  rotate: -1deg;
+}
+[data-identidade="desordem"] .col-h3 {
+  text-transform: uppercase;
+}
+[data-identidade="desordem"] .col-tela {
+  border-color: #ffd21f;
+  box-shadow: 8px 8px 0 #d7261e;
+  rotate: var(--col-giro, 0deg);
+}
+[data-identidade="desordem"] .col-citacao,
+[data-identidade="desordem"] .col-trilha-cartao {
+  border-color: #ffd21f;
+}
+[data-identidade="desordem"] .col-trilha-cartao {
+  box-shadow: 6px 6px 0 #d7261e;
+}
+[data-identidade="desordem"] .col-letreiro .letreiro-trilho {
+  font-family: var(--col-letra);
+  font-weight: 400;
+}
+
+/* ───────────────────────── noismemo studios ───────────────────────── */
+[data-identidade="noisme"] {
+  --col-letra: var(--letra-noisme), "Helvetica Neue", Arial, sans-serif;
+}
+[data-identidade="noisme"] .col-grao::before {
+  display: none;
+}
+[data-identidade="noisme"] .col-trilha {
+  border-bottom-width: 1px;
+}
+[data-identidade="noisme"] .col-h2,
+[data-identidade="noisme"] .col-h3 {
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+[data-identidade="noisme"] .col-h2 {
+  font-size: clamp(2.4rem, 9vw, 5rem);
+  line-height: 0.86;
+}
+[data-identidade="noisme"] .col-hora {
+  font-weight: 900;
+}
+.nm-ficha {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-block: 1px solid #0a0a0a;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.nm-ficha > div {
+  min-width: 0;
+  padding: 0.55rem 0.75rem 0.55rem 0;
+}
+.nm-ficha > div:nth-child(even) {
+  border-left: 1px solid #0a0a0a;
+  padding-left: 0.75rem;
+}
+.nm-ficha > div:nth-child(-n + 2) {
+  border-bottom: 1px solid #0a0a0a;
+}
+.nm-ficha dt {
+  color: #4d4d4d;
+}
+.nm-ficha dd {
+  margin-top: 0.15rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 640px) {
+  .nm-ficha {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .nm-ficha > div:nth-child(-n + 2) {
+    border-bottom: 0;
+  }
+  .nm-ficha > div + div {
+    border-left: 1px solid #0a0a0a;
+    padding-left: 0.75rem;
+  }
+}
+.nm-regua {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  overflow: hidden;
+  border-bottom: 1px solid #0a0a0a;
+  padding-block: 0.6rem;
+  fill: #0a0a0a;
+}
+.nm-nome {
+  font-family: var(--col-letra);
+  font-size: clamp(3rem, 12.5vw, 7rem);
+  font-weight: 900;
+  line-height: 0.84;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.nm-slogan {
+  max-width: 34rem;
+  border-top: 1px solid #0a0a0a;
+  padding-top: 0.9rem;
+  font-family: var(--col-letra);
+  font-size: clamp(1.4rem, 4.5vw, 2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+/* A prancha da logo: fio fino, marcas de corte nos cantos e a cota da figura. */
+.nm-prancha {
+  border: 1px solid #0a0a0a;
+  background:
+    linear-gradient(#0a0a0a, #0a0a0a) 0 0 / 14px 1px no-repeat,
+    linear-gradient(#0a0a0a, #0a0a0a) 0 0 / 1px 14px no-repeat,
+    linear-gradient(#0a0a0a, #0a0a0a) 100% 100% / 14px 1px no-repeat,
+    linear-gradient(#0a0a0a, #0a0a0a) 100% 100% / 1px 14px no-repeat,
+    #fff;
+  padding: 0.6rem;
+  outline: 1px solid #0a0a0a;
+  outline-offset: 6px;
+}
+.nm-cota {
+  position: absolute;
+  z-index: 2;
+  top: 0.9rem;
+  left: 1rem;
+  font-family: var(--font-mono, ui-monospace), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: #4d4d4d;
+}
+[data-identidade="noisme"] .col-legenda {
+  color: #4d4d4d;
+}
+[data-identidade="noisme"] .col-tema,
+[data-identidade="noisme"] .col-citacao,
+[data-identidade="noisme"] .col-item,
+[data-identidade="noisme"] .col-trilha-cartao,
+[data-identidade="noisme"] .col-tela {
+  border-width: 1px;
+}
+[data-identidade="noisme"] .col-tela {
+  border-color: #0a0a0a;
+  background: #fff;
+  color: #0a0a0a;
+}
+[data-identidade="noisme"] .col-programa {
+  border-top-width: 1px;
+}
+[data-identidade="noisme"] .col-linha {
+  border-left-width: 1px;
+}
+[data-identidade="noisme"] .col-parceria {
+  border-top-width: 1px;
+}
+[data-identidade="noisme"] .col-letreiro .letreiro-trilho {
+  font-family: var(--col-letra);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
