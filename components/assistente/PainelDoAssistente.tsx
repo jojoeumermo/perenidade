@@ -143,8 +143,8 @@ export function PainelDoAssistente({
         </p>
         {nada && (
           <p className="mt-1 text-sm">
-            {s.naoAchei}{" "}
-            <a href={`mailto:${email}`} className="font-semibold underline hover:text-oxblood">{s.faleConosco}</a>.
+            {s.naoAchei}{s.entre}
+            <a href={`mailto:${email}`} className="font-semibold underline hover:text-oxblood">{s.faleConosco}</a>{s.fim}
           </p>
         )}
       </div>

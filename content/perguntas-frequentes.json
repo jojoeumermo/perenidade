@@ -196,12 +196,12 @@
     },
     {
       "id": "idioma",
-      "pt": { "pergunta": "Como mudo o idioma?", "resposta": "No alto da página, toque no globo e escolha: português, inglês, espanhol, francês, russo ou chinês. Na tela “Mais” também há o seletor de idioma.", "palavras": "idioma língua tradução inglês espanhol" },
-      "en": { "pergunta": "How do I change the language?", "resposta": "At the top of the page, tap the globe and choose: Portuguese, English, Spanish, French, Russian or Chinese. The “More” screen also has the language selector.", "palavras": "language translation english spanish" },
-      "es": { "pergunta": "¿Cómo cambio el idioma?", "resposta": "Arriba de la página, toca el globo y elige: portugués, inglés, español, francés, ruso o chino. En la pantalla “Más” también está el selector de idioma.", "palavras": "idioma lengua traducción inglés español" },
-      "fr": { "pergunta": "Comment changer de langue ?", "resposta": "En haut de la page, touchez le globe et choisissez : portugais, anglais, espagnol, français, russe ou chinois. L’écran « Plus » a aussi le sélecteur de langue.", "palavras": "langue traduction anglais espagnol" },
-      "ru": { "pergunta": "Как сменить язык?", "resposta": "Вверху страницы нажмите на глобус и выберите: португальский, английский, испанский, французский, русский или китайский. Выбор языка есть и на экране «Ещё».", "palavras": "язык перевод английский испанский" },
-      "zh": { "pergunta": "怎样切换语言？", "resposta": "在页面顶部点击地球图标，选择：葡萄牙语、英语、西班牙语、法语、俄语或中文。“更多”页面里也有语言选择。", "palavras": "语言 翻译 英语 中文" }
+      "pt": { "pergunta": "Como mudo o idioma?", "resposta": "No celular, abra a tela “Mais” e escolha o idioma; no computador, use o globo no alto da página. Há português, inglês, espanhol, francês, russo e chinês.", "palavras": "idioma língua tradução inglês espanhol" },
+      "en": { "pergunta": "How do I change the language?", "resposta": "On a phone, open the “More” screen and choose the language; on a computer, use the globe at the top of the page. There are Portuguese, English, Spanish, French, Russian and Chinese.", "palavras": "language translation english spanish" },
+      "es": { "pergunta": "¿Cómo cambio el idioma?", "resposta": "En el celular, abre la pantalla “Más” y elige el idioma; en la computadora, usa el globo arriba de la página. Hay portugués, inglés, español, francés, ruso y chino.", "palavras": "idioma lengua traducción inglés español" },
+      "fr": { "pergunta": "Comment changer de langue ?", "resposta": "Sur téléphone, ouvrez l’écran « Plus » et choisissez la langue ; sur ordinateur, utilisez le globe en haut de la page. Il y a le portugais, l’anglais, l’espagnol, le français, le russe et le chinois.", "palavras": "langue traduction anglais espagnol" },
+      "ru": { "pergunta": "Как сменить язык?", "resposta": "На телефоне откройте экран «Ещё» и выберите язык; на компьютере нажмите на глобус вверху страницы. Есть португальский, английский, испанский, французский, русский и китайский.", "palavras": "язык перевод английский испанский" },
+      "zh": { "pergunta": "怎样切换语言？", "resposta": "在手机上，打开“更多”页面选择语言；在电脑上，点击页面顶部的地球图标。可选葡萄牙语、英语、西班牙语、法语、俄语和中文。", "palavras": "语言 翻译 英语 中文" }
     },
     {
       "id": "acessibilidade",
