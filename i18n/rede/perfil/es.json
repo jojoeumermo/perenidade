@@ -18,7 +18,15 @@
       "trilha": "Ruta terminada: {nome}"
     },
     "selosAjuda": "La insignia de ruta la declara la propia persona, según lo que hizo en su aparato; el sitio no lo comprueba.",
-    "fotoDe": "Rostro de {codinome}"
+    "fotoDe": "Rostro de {codinome}",
+    "selosEscola": {
+      "titulo": "Escuela de Formación",
+      "carteirinha": "Militante de la Escuela",
+      "degrau": "Escalón {n} de la Escuela",
+      "caderno": "Cuaderno {n} de la Escuela",
+      "aulas": "Clases de la Escuela: {n}",
+      "ajuda": "Las clases y los cuadernos de la Escuela los declara la persona; el carné y el escalón los comprueba la coordinación."
+    }
   },
   "avatar": {
     "titulo": "Rostro",
@@ -117,7 +125,9 @@
     "filaTitulo": "Imágenes esperando a la moderación",
     "filaVazia": "Ninguna imagen esperando.",
     "aceitarImagem": "Aceptar",
-    "recusarImagem": "Rechazar"
+    "recusarImagem": "Rechazar",
+    "escolaAtalho": "Logros de la Escuela:",
+    "escolaAtalhoLink": "elegir en la Escuela"
   },
   "erros": {
     "handle_usado": "Ese @nombre ya tiene dueño. Elige otro.",
