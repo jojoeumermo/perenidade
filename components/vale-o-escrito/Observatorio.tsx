@@ -185,12 +185,13 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const origemDoFoco = useRef<HTMLElement | SVGElement | null>(null);
   /**
    * Fecha a ficha e devolve o foco ao nó que a abriu (na visão aberta), ou, se o nó não está na tela (mapa, linha do
-   * tempo), a quem tinha o foco antes de a ficha abrir.
+   * tempo), a quem tinha o foco antes de a ficha abrir. `devolverFoco` falso (clique fora que levou o foco a outro
+   * lugar, como a busca ou o menu): fecha sem mexer no foco, para não roubá-lo de onde a pessoa clicou.
    */
-  const fecharFicha = useCallback(() => {
+  const fecharFicha = useCallback((devolverFoco = true) => {
     const chave = selecionadoRef.current;
     setSelecionadoCru(null);
-    if (!chave) return;
+    if (!chave || !devolverFoco) return;
     window.requestAnimationFrame(() => {
       const no = viz.current?.querySelector<SVGGElement | HTMLElement>(`[data-chave="${CSS.escape(chave)}"]`);
       const alvo = no ?? (origemDoFoco.current?.isConnected ? origemDoFoco.current : null);
@@ -219,7 +220,9 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
       inicio = null;
       if (escolheu || andou || !alvo?.isConnected) return;
       if (ficha.current?.contains(alvo) || alvo.closest(".ve-hud, .ve-ir-ficha")) return;
-      fecharFicha();
+      // O foco só volta ao nó se ninguém o pegou com este clique: ainda dentro da ficha, ou solto (no body).
+      const ativo = document.activeElement;
+      fecharFicha(!ativo || ativo === document.body || (ficha.current?.contains(ativo) ?? false));
     };
     const tecla = (e: globalThis.KeyboardEvent) => {
       if (e.key !== "Escape" || e.defaultPrevented) return;
@@ -607,7 +610,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                   <span className="ve-rotulo">
                     {s.visual.aria.ficha} / {s.visual.tipoNo[dividir(selecionado)[0] as keyof typeof s.visual.tipoNo] ?? ""}
                   </span>
-                  <button type="button" className="ve-fechar" onClick={fecharFicha}>
+                  <button type="button" className="ve-fechar" onClick={() => fecharFicha()}>
                     {s.visual.ficha.fechar}
                   </button>
                 </div>
