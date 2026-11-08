@@ -69,7 +69,8 @@ Quem leu o formato não precisa de arquivo deste pacote em tempo de edição: o 
    ```
 
    Recusa (o bloco vira texto) imagem de fora do site, `fonte` sem https, bloco sem `fonte` ou sem `licenca`, área fora de 0 a 100 e mais de 24 áreas. Sempre mostra o selo "Explicação em revisão" e o link "Ver o original". Toque, Tab e Enter abrem a explicação; o leitor de tela lê o nome e o significado de cada área. Sem JavaScript aparece o texto do bloco.
-7. **Hub** (`/vida`): reúne tudo e aponta para o círculo de cultura digital do E4-15 (`/escola/turmas/circulo`), sem duplicar.
+7. **Hub** (`/vida`): reúne as peças abertas (tarefas, missões, caso do bairro, documentos). Desde a F7 não aponta para dentro
+   da Escola: vozes e lutas foram para a Biblioteca e o círculo de cultura digital para o Núcleo, os dois fechados.
 
 ## Pontos legais e de cuidado
 

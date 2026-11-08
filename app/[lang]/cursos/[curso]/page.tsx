@@ -13,9 +13,11 @@ import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { fill, htmlLang, localePath } from "@/i18n/config";
 import { textosDosCursos } from "@/i18n/escola/cursos";
+import { textosDaReorganizacao } from "@/i18n/escola/reorganizacao";
 import { textosDaVida } from "@/i18n/escola/vida";
 import { aulasDoCurso } from "@/lib/escola/cursos";
 import { carregarCursos, cursoPorSlug } from "@/lib/escola/cursos-servidor";
+import { cursoAberto } from "@/lib/escola/site-aberto";
 import { bibliografiaDo, bibliotecaDo, patronoDo, verCurso } from "@/lib/escola/cursos-vista";
 import { paginaMeta } from "@/lib/seo";
 import "@/styles/escola-cursos.css";
@@ -38,7 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const curso = cursoPorSlug((await params).curso);
   if (!curso) return {};
   const s = textosDosCursos(lang);
-  return paginaMeta(lang, `/cursos/${curso.slug}`, `${curso.titulo} · ${s.catalogo.olho}`, curso.resumo);
+  const meta = paginaMeta(lang, `/cursos/${curso.slug}`, `${curso.titulo} · ${s.catalogo.olho}`, curso.resumo);
+  // Curso da Formação (F7): a página segue no endereço até a F2 levar o curso para a Formação, mas fora da vitrine, da
+  // busca, do mapa do site e dos buscadores.
+  return cursoAberto(curso.slug) ? meta : { ...meta, robots: { index: false, follow: true } };
 }
 
 /** A página de um curso: o que é, entrar, horas, grade, tarefa e projeto, patrono, biblioteca, ementa, zine e turma. */
@@ -83,7 +88,7 @@ export default async function PaginaDoCurso({ params }: Props) {
       )}
 
       <div className="curso-topo">
-        <EntrarNoCurso slug={curso.slug} sensivel={Boolean(curso.sensivel)} aulas={aulas} titulos={titulos} idioma={htmlLang[lang]} s={s.entrar} />
+        <EntrarNoCurso slug={curso.slug} sensivel={Boolean(curso.sensivel)} aulas={aulas} titulos={titulos} idioma={htmlLang[lang]} s={s.entrar} aberto={textosDaReorganizacao(lang).entrar} />
         <HorasDoCurso slug={curso.slug} aulas={aulas} minutos={minutos} total={visto.horas} idioma={htmlLang[lang]} s={s.horas} />
       </div>
 
@@ -202,12 +207,6 @@ export default async function PaginaDoCurso({ params }: Props) {
           <Link href={localePath("pt", `/cursos/${curso.slug}/zine`)} className="link-do-curso" data-link-zine="">
             <span className="font-serif text-xl font-semibold">{s.curso.zine}</span>
             <span className="mt-1 block text-sm text-ink-soft">{s.curso.zineTexto}</span>
-          </Link>
-        </li>
-        <li>
-          <Link href={localePath(lang, "/escola/turmas")} className="link-do-curso">
-            <span className="font-serif text-xl font-semibold">{s.curso.turmas}</span>
-            <span className="mt-1 block text-sm text-ink-soft">{s.curso.turmasTexto}</span>
           </Link>
         </li>
       </ul>

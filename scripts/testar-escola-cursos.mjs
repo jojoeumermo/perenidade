@@ -163,7 +163,8 @@ conferir("sem armazenamento, não quebra", Object.keys(lerRespostas("manifesto-d
 
 // ───────────── Busca ─────────────
 const doscursos = entradasDosCursos("pt");
-conferir("um item de busca por curso", doscursos.length === cursos.length && doscursos.every((e) => e.kind === "pagina" && e.href.startsWith("/cursos/") && e.title && e.text && e.area));
+const abertos = cursos.filter((c) => cursoAberto(c.slug));
+conferir("um item de busca por curso aberto (os da Formação ficam fora, F7)", abertos.length < cursos.length && doscursos.length === abertos.length && !doscursos.some((e) => e.href === "/cursos/ano-de-formacao-politica") && doscursos.every((e) => e.kind === "pagina" && e.href.startsWith("/cursos/") && e.title && e.text && e.area));
 const escola = entradasDaEscola("en", textosDaBusca("en"));
 conferir("cursos na busca da Escola, modo seguro por último", escola.some((e) => e.href === "/cursos/aprender-a-estudar") && escola.at(-1).href === "/modo-seguro");
 conferir("contexto da busca no idioma", entradasDosCursos("en")[0]?.context === "School course");
