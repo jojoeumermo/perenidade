@@ -22,6 +22,10 @@ fontes:
     autor: "Wellton Máximo, Agência Brasil"
     url: "https://agenciabrasil.ebc.com.br/economia/noticia/2026-08/orcamento-de-2027-reserva-r-448-bilhoes-para-emendas-impositivas"
     ano: "31/8/2026"
+  - titulo: "STF considera orçamento secreto inconstitucional"
+    autor: "Andreia Verdélio, Agência Brasil"
+    url: "https://agenciabrasil.ebc.com.br/justica/noticia/2022-12/stf-considera-orcamento-secreto-inconstitucional"
+    ano: "19/12/2022"
 ---
 
 O Orçamento é onde um governo diz, em números, para quem ele trabalha. O projeto da Lei Orçamentária de 2027 (PLOA), enviado pelo governo federal ao Congresso na noite de 31 de agosto de 2026, mexe com três grupos ao mesmo tempo: quem vive do salário mínimo, quem trabalha no serviço público federal e os próprios parlamentares, que votam o texto. Com o fim do ano chegando e o valor do mínimo para ser fechado em dezembro, vale olhar de perto o que está na mesa.
@@ -48,7 +52,7 @@ Na prática, segundo a Agência Brasil, a regra impede reajustes com ganho real 
 
 Enquanto isso, o projeto reserva **R$ 44,8 bilhões** para emendas parlamentares individuais e de bancada, aquelas que o governo é obrigado a pagar. As emendas de comissão ficam fora dessa conta e têm teto de **R$ 12,9 bilhões** em 2027 (Agência Brasil, 31/8). No projeto do ano anterior, a previsão inicial para emendas era de R$ 40,8 bilhões: são R$ 4 bilhões a mais.
 
-As emendas individuais equivalem a 2% da receita corrente líquida do ano anterior, e as de bancada a até 1%; desde 2026, as de bancada são corrigidas pela mesma regra do arcabouço, com ganho real de até 2,5% (Agência Brasil, 31/8). O STF já derrubou, em 2022, as chamadas emendas de relator, o "orçamento secreto", e o ministro Flávio Dino determinou a nulidade de emendas com interferência de presidentes de partido ou de pessoas sem mandato.
+As emendas individuais equivalem a 2% da receita corrente líquida do ano anterior, e as de bancada a até 1%; desde 2026, as de bancada são corrigidas pela mesma regra do arcabouço, com ganho real de até 2,5% (Agência Brasil, 31/8). O STF já derrubou, em dezembro de 2022, por 6 votos a 5, as chamadas emendas de relator, o "orçamento secreto" (Agência Brasil, 19/12/2022), e o ministro Flávio Dino determinou a nulidade de emendas com interferência de presidentes de partido ou de pessoas sem mandato.
 
 *Opinião da Redação:* a emenda parlamentar pode levar uma obra a um município esquecido. Mas ela é decidida um a um, pelo interesse de cada mandato, e não por planejamento público. Quando a regra trava o servidor e o piso, mas reserva dezenas de bilhões para emendas, a pergunta é simples: quem decide para onde vai o dinheiro de todos?
 
