@@ -83,7 +83,13 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
   const [dados, setDados] = useState(inicial);
   const [dossie, setDossie] = useState<string | null>(null);
   const [visao, setVisao] = useState<Visao>("teia");
-  const [selecionado, setSelecionado] = useState<string | null>(null);
+  const [selecionado, setSelecionadoCru] = useState<string | null>(null);
+  // Marca "esta interação escolheu um nó": o clique que escolhe não pode ser lido, logo em seguida, como "clique fora da ficha".
+  const escolheuAgora = useRef(false);
+  const setSelecionado = useCallback((valor: string | null | ((atual: string | null) => string | null)) => {
+    escolheuAgora.current = true;
+    setSelecionadoCru(valor);
+  }, []);
   const [zoomMapa, setZoomMapa] = useState<NivelDeZoom>("pais");
   const [listaAberta, setListaAberta] = useState(false);
   // Dossiê de leitura aberto (lib/vale-o-escrito/leituras.ts): filtra a base e põe o papel de leitura na coluna da direita.
@@ -148,7 +154,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     // A seleção só continua se o nó ainda existe no dossiê escolhido.
     setSelecionado((atual) => (atual && montarGrafo(dados, slug).nos.some((n) => n.chave === atual) ? atual : null));
   }
-  const escolherCaso = useCallback((id: string) => setSelecionado(chaveDe("entrada", id)), []);
+  const escolherCaso = useCallback((id: string) => setSelecionado(chaveDe("entrada", id)), [setSelecionado]);
   /**
    * Escolha feita pela lista textual (ou pelo atalho "ver a ficha"): além de escolher, leva a pessoa até a ficha. No
    * celular a ficha fica abaixo do palco e da lista; sem isso parecia que "a ficha não abriu" (NOVAS-TAREFAS, T31 3.2).
@@ -173,6 +179,62 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
     setSelecionado(null);
     if (slug) irParaFicha();
   };
+
+  const selecionadoRef = useRef(selecionado);
+  // Quem tinha o foco quando a ficha abriu (fora da ficha): para onde o foco volta se o nó não estiver na tela.
+  const origemDoFoco = useRef<HTMLElement | SVGElement | null>(null);
+  /**
+   * Fecha a ficha e devolve o foco ao nó que a abriu (na visão aberta), ou, se o nó não está na tela (mapa, linha do
+   * tempo), a quem tinha o foco antes de a ficha abrir.
+   */
+  const fecharFicha = useCallback(() => {
+    const chave = selecionadoRef.current;
+    setSelecionadoCru(null);
+    if (!chave) return;
+    window.requestAnimationFrame(() => {
+      const no = viz.current?.querySelector<SVGGElement | HTMLElement>(`[data-chave="${CSS.escape(chave)}"]`);
+      const alvo = no ?? (origemDoFoco.current?.isConnected ? origemDoFoco.current : null);
+      alvo?.focus({ preventScroll: true });
+    });
+  }, []);
+  useEffect(() => {
+    selecionadoRef.current = selecionado;
+    const ativo = document.activeElement as HTMLElement | SVGElement | null;
+    if (selecionado && ativo && ativo !== document.body && !ficha.current?.contains(ativo)) origemDoFoco.current = ativo;
+  }, [selecionado]);
+  // Com a ficha aberta: Esc fecha; clicar fora dela também (menos o clique que escolhe outro nó, os botões de zoom e
+  // o arrasto do fundo da teia).
+  useEffect(() => {
+    if (!selecionado) return;
+    let inicio: { x: number; y: number } | null = null;
+    const baixou = (e: PointerEvent) => {
+      inicio = { x: e.clientX, y: e.clientY };
+      escolheuAgora.current = false;
+    };
+    const clicou = (e: MouseEvent) => {
+      const escolheu = escolheuAgora.current;
+      escolheuAgora.current = false;
+      const alvo = e.target as Element | null;
+      const andou = inicio !== null && Math.hypot(e.clientX - inicio.x, e.clientY - inicio.y) > 6;
+      inicio = null;
+      if (escolheu || andou || !alvo?.isConnected) return;
+      if (ficha.current?.contains(alvo) || alvo.closest(".ve-hud, .ve-ir-ficha")) return;
+      fecharFicha();
+    };
+    const tecla = (e: globalThis.KeyboardEvent) => {
+      if (e.key !== "Escape" || e.defaultPrevented) return;
+      e.preventDefault();
+      fecharFicha();
+    };
+    document.addEventListener("pointerdown", baixou, true);
+    document.addEventListener("click", clicou);
+    document.addEventListener("keydown", tecla);
+    return () => {
+      document.removeEventListener("pointerdown", baixou, true);
+      document.removeEventListener("click", clicou);
+      document.removeEventListener("keydown", tecla);
+    };
+  }, [selecionado, fecharFicha]);
 
   const dossieAtual = dados.dossies.find((d) => d.slug === dossie);
   const vazio = dados.entradas.length === 0;
@@ -390,7 +452,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
 
           {/* Palco: a visão escolhida e, embaixo, o seletor de visões. */}
           <section className="ve-palco" aria-label={s.entrada.titulo}>
-            <div ref={viz} className="ve-viz" role="tabpanel" id={painelId} aria-labelledby={`ve-aba-${dossie ?? "todos"}`}>
+            <div ref={viz} className="ve-viz" data-visao={visao} role="tabpanel" id={painelId} aria-labelledby={`ve-aba-${dossie ?? "todos"}`}>
               {vazio ? (
                 <div className="ve-vazio">
                   <strong>{s.entrada.olho}</strong>
@@ -545,7 +607,7 @@ export function Observatorio({ dados: inicial, s, lang }: { dados: DadosDoObserv
                   <span className="ve-rotulo">
                     {s.visual.aria.ficha} / {s.visual.tipoNo[dividir(selecionado)[0] as keyof typeof s.visual.tipoNo] ?? ""}
                   </span>
-                  <button type="button" className="ve-fechar" onClick={() => setSelecionado(null)}>
+                  <button type="button" className="ve-fechar" onClick={fecharFicha}>
                     {s.visual.ficha.fechar}
                   </button>
                 </div>

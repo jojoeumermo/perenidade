@@ -8,6 +8,9 @@ import { paginaMeta } from "@/lib/seo";
 import { dadosDoObservatorio } from "@/lib/vale-o-escrito/consulta";
 import { textosDoObservatorio } from "@/lib/vale-o-escrito/textos";
 
+// Os casos aprovados no banco entram sem novo deploy: a página é refeita a cada 5 minutos (lib/vale-o-escrito/banco.ts).
+export const revalidate = 300;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const s = textosDoObservatorio(lang);
@@ -33,5 +36,5 @@ export default async function ValeOEscrito({ params }: { params: Promise<{ lang:
       </div>
     );
   }
-  return <Observatorio dados={dadosDoObservatorio(lang)} s={s} lang={lang} />;
+  return <Observatorio dados={await dadosDoObservatorio(lang)} s={s} lang={lang} />;
 }

@@ -113,6 +113,7 @@
     "testar:vale-o-escrito-publico": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-publico.mjs",
     "testar:vale-o-escrito-novos-casos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-novos-casos.mjs",
     "testar:vale-o-escrito-arsenal": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-arsenal.mjs",
+    "testar:vale-o-escrito-banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-banco.mjs",
     "testar:vale-o-escrito-robo":"node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-vale-o-escrito-robo.mjs",
     "testar:escola": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola.mjs",
     "testar:militantes": "node scripts/testar-militantes.mjs",
