@@ -3,7 +3,7 @@ import { loadLang } from "@/i18n";
 import { locales } from "@/i18n/config";
 import { entradasDaBusca } from "@/lib/indice-de-busca";
 
-// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+// Refeita a cada hora.
 export const revalidate = 3600;
 
 // O índice da busca do alto: os mesmos itens do /indice.json, mas só com o começo do texto (o resumo vem primeiro),

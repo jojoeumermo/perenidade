@@ -1,8 +1,8 @@
 # Pesquisa: violência contra povos indígenas depois das eleições de 2026
 
 Anotações da apuração da matéria `content/jornal/2026-11-06-indigenas-sob-ataque-depois-das-urnas.md` (T14).
-Pesquisa feita em 6 de novembro de 2026, na internet (buscas e leitura das reportagens). Matéria com prazo: sai do ar em
-13 de novembro de 2026, 23h59 (Brasília), pelo campo `sai_do_ar_em` (`docs/jornal/EXPIRACAO.md`).
+Pesquisa feita em 6 de novembro de 2026, na internet (buscas e leitura das reportagens). Publicada com prazo, a matéria
+deixou de expirar em 8 de novembro de 2026 e ficou em destaque fixo (`destaque: true`, `docs/jornal/EXPIRACAO.md`).
 
 ## Regras seguidas
 

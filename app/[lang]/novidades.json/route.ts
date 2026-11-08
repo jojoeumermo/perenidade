@@ -4,7 +4,7 @@ import { locales } from "@/i18n/config";
 import { getArticles, getBooks } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 
-// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+// Refeita a cada hora.
 export const revalidate = 3600;
 
 // As matérias mais recentes do jornal e as obras que entraram por último no acervo, para o editor do boletim montar as
