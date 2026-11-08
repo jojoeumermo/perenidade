@@ -1,0 +1,270 @@
+{
+  "meta": {
+    "titulo": "Noyau · École de formation",
+    "descricao": "Le noyau de l'École de formation : ordre du jour, qui fait quoi, cercle, assemblée et jury de passage. Réservé aux militants."
+  },
+  "tela": {
+    "olho": "Votre noyau",
+    "semNucleoTitulo": "Pas encore de noyau",
+    "semNucleo": "La coordination attribue un noyau à chaque militant. En attendant, le kit de l'animation et l'assemblée sont déjà ici.",
+    "proximo": "Prochaine rencontre : {quando}.",
+    "semEncontro": "Aucune rencontre prévue pour l'instant.",
+    "alumia": "Les échanges et les actions du noyau se passent sur Alumia.",
+    "abrirAlumia": "Ouvrir sur Alumia",
+    "roteiro": "Déroulé du cercle",
+    "abas": {
+      "rotulo": "Noyau",
+      "pauta": "Ordre du jour",
+      "tarefas": "Tâches",
+      "circulo": "Cercle",
+      "assembleia": "Assemblée"
+    },
+    "carregando": "Chargement…",
+    "falha": "Impossible de charger pour le moment.",
+    "tentar": "Réessayer",
+    "ausente": "Le noyau de l'École n'est pas encore arrivé sur cette installation. Pour l'instant, organisez-vous via le noyau sur Alumia.",
+    "previa": "Aperçu de développement : données d'exemple, rien n'est réel."
+  },
+  "pauta": {
+    "titulo": "Ordre du jour de {dia}",
+    "tituloSemDia": "Ordre du jour",
+    "vazia": "L'ordre du jour est encore vide. L'animation le prépare ; vous pouvez proposer un sujet ci-dessous.",
+    "levado": "apporté par quelqu'un du noyau",
+    "quemFaz": "Qui fait quoi",
+    "euLevo": "Je m'en charge",
+    "soltar": "Lâcher",
+    "voce": "Vous",
+    "alguem": "Quelqu'un du noyau",
+    "feito": "fait",
+    "repete": "Vous l'avez fait au dernier cercle : laissez-la à quelqu'un d'autre.",
+    "semTarefas": "Pas encore de tâches. Les décisions du cercle arrivent ici, à tour de rôle.",
+    "presenca": "Présence aux {n} derniers cercles : {lista} personnes.",
+    "semPresenca": "La présence apparaît ici après les premiers cercles (seulement le nombre, jamais les noms).",
+    "anterior": "Le dernier cercle",
+    "anteriorSemBalanco": "Pas encore de bilan enregistré."
+  },
+  "tarefas": {
+    "titulo": "Tâches de la rencontre",
+    "texto": "Chaque décision a quelqu'un qui la porte. Tour de rôle : qui a fait une tâche au dernier cercle la laisse à une autre personne, pour que tout le monde apprenne à tout faire.",
+    "minhas": "Avec vous",
+    "abertas": "Personne pour l'instant",
+    "outras": "Avec d'autres personnes",
+    "nenhumaMinha": "Vous n'avez pris aucune tâche de cette rencontre."
+  },
+  "levar": {
+    "titulo": "Apporter au noyau",
+    "texto": "Une question, une idée, une situation du quartier : elle va à l'ordre du jour de la prochaine rencontre, sans votre nom.",
+    "rotulo": "Ce que vous apportez (200 caractères maximum)",
+    "enviar": "Ajouter à l'ordre du jour",
+    "ok": "Ajouté à l'ordre du jour de la prochaine rencontre, sans votre nom."
+  },
+  "pergunta": {
+    "titulo": "Question génératrice de la semaine",
+    "texto": "Comme dans le cercle de culture de Paulo Freire : une question tirée de la vie de celles et ceux qui étudient ouvre le cercle. Pensez à votre réponse et apportez-la au noyau.",
+    "vazia": "La coordination n'a pas encore défini la question de cette semaine.",
+    "rotulo": "Votre réponse, à apporter au cercle (200 caractères maximum)",
+    "enviar": "Apporter la réponse au cercle"
+  },
+  "mediar": {
+    "titulo": "Préparer la rencontre",
+    "so": "Seules l'animation du noyau et la coordination voient ceci.",
+    "novo": "Prévoir la prochaine rencontre",
+    "editar": "Modifier la rencontre",
+    "quando": "Date et heure (heure de Brasília)",
+    "pautaTitulo": "Ordre du jour (12 points maximum)",
+    "item": "Point {n} de l'ordre du jour",
+    "acrescentarItem": "Ajouter un point",
+    "tirar": "Retirer",
+    "usarRoda": "Construire en voir-juger-agir",
+    "tarefasTitulo": "Qui fait quoi (12 maximum)",
+    "tarefa": "Tâche {n}",
+    "acrescentarTarefa": "Ajouter une tâche",
+    "salvar": "Enregistrer la rencontre",
+    "salvo": "Rencontre enregistrée.",
+    "cancelar": "Annuler",
+    "fecharTitulo": "Clore le dernier cercle",
+    "presencaRotulo": "Combien de personnes sont venues",
+    "balancoRotulo": "Bilan : ce que nous avons vu, pensé, ce que nous allons faire (sans noms)",
+    "guardar": "Enregistrer le bilan",
+    "guardado": "Bilan enregistré."
+  },
+  "kit": {
+    "titulo": "Kit de l'animation",
+    "lead": "Un déroulé pour le cercle du noyau en voir-juger-agir, ouvert et clos par la mística. L'animation change à chaque rencontre (tour de rôle).",
+    "pautaModelo": [
+      "Mística d'ouverture (5 min)",
+      "Voir : ce qui s'est passé dans la semaine et dans la tâche dans le monde",
+      "Juger : le cercle du cahier",
+      "Agir : décisions et qui fait quoi",
+      "Mística de clôture"
+    ],
+    "misticaAbertura": {
+      "titulo": "Mística d'ouverture",
+      "tempo": "5 min",
+      "texto": "Un moment collectif avant la discussion : une chanson, un poème, une photo ou un objet des luttes du lieu, la lecture d'un extrait du cahier. Il rappelle pourquoi le noyau existe.",
+      "dica": "Décidez au cercle précédent qui la prépare. Pas de public : tout le monde participe."
+    },
+    "ver": {
+      "titulo": "Voir",
+      "tempo": "20 min",
+      "texto": "Chaque personne raconte ce qu'elle a vu : la tâche dans le monde, la conversation difficile, ce qui s'est passé dans le quartier, à l'école, au travail. La question de la semaine ouvre cette partie.",
+      "dica": "Parlez de situations, pas de personnes : aucun nom de tiers."
+    },
+    "julgar": {
+      "titulo": "Juger",
+      "tempo": "30 min",
+      "texto": "Le noyau relit ce qui a été raconté à la lumière du cahier étudié : pourquoi cela arrive-t-il ? qui gagne et qui perd ? qu'est-ce que le cahier aide à comprendre ?",
+      "dica": "L'animation pose plus de questions qu'elle n'apporte de réponses."
+    },
+    "agir": {
+      "titulo": "Agir",
+      "tempo": "15 min",
+      "texto": "Des décisions concrètes : ce que nous allons faire, pour quand et qui s'en charge. Chaque tâche va dans la liste « Qui fait quoi ».",
+      "dica": "Tour de rôle : qui a porté une tâche au dernier cercle la laisse à quelqu'un d'autre."
+    },
+    "misticaFechamento": {
+      "titulo": "Mística de clôture",
+      "tempo": "5 min",
+      "texto": "Clore ensemble : un mot de chaque personne sur la rencontre, une chanson, la lecture des décisions à voix haute.",
+      "dica": "Ensuite, l'animation enregistre la présence (seulement le nombre) et le bilan, sans noms."
+    },
+    "sistematizar": {
+      "titulo": "Systématiser",
+      "texto": "Le bilan du cercle garde la mémoire du noyau : ce que nous avons vu, pensé, décidé. Sans le nom de personne, pour pouvoir être lu par qui arrivera plus tard."
+    },
+    "circuloTitulo": "Cercle de culture sur l'appareil",
+    "circuloTexto": "L'outil de l'animation : mots générateurs, thème, questions et leçons de la rencontre, gardés seulement sur cet appareil.",
+    "banca": {
+      "titulo": "Jury de passage",
+      "texto": "Pour clore une marche, la personne présente au noyau ce qu'elle a étudié et la tâche dans le monde qu'elle a réalisée. Le jury fait un bilan collectif, sans note : ce que la personne a apporté, ce que le noyau a vu, ce qui reste pour la marche suivante.",
+      "passos": [
+        "La personne qui l'accompagne fixe le jury avec elle.",
+        "Le jour venu, la personne raconte le chemin de sa marche (10 min).",
+        "Le noyau pose des questions et commente, sans juger la personne (15 min).",
+        "La personne qui accompagne enregistre le bilan collectif : « marche ouverte » ou « reconvenir »."
+      ],
+      "fichaTitulo": "Fiche de retour par compétence (sur cet appareil)"
+    }
+  },
+  "banca": {
+    "titulo": "Qui vous accompagne et le jury",
+    "acompanha": "{nome}, de la Marche 3, accompagne votre formation.",
+    "alguem": "Une personne de la Marche 3",
+    "semAcompanha": "Personne n'accompagne encore votre formation. La coordination désigne quelqu'un de la Marche 3.",
+    "minhas": "Vos jurys",
+    "semMinhas": "Aucun jury prévu pour vous pour l'instant.",
+    "degrau": "Marche {n}",
+    "quando": "Quand : {quando}",
+    "semData": "date à convenir",
+    "situacao": {
+      "marcada": "Prévu",
+      "aprovada": "Marche ouverte",
+      "refazer": "Reconvenir"
+    },
+    "balanco": "Bilan collectif",
+    "acompanho": "Les personnes que vous accompagnez",
+    "marcar": "Prévoir le jury de la Marche {n}",
+    "marcarQuando": "Date et heure du jury (facultatif)",
+    "marcada": "Jury prévu.",
+    "decidirTitulo": "Enregistrer le bilan",
+    "balancoRotulo": "Bilan collectif, sans note (de 10 à 2000 caractères)",
+    "aprovar": "Marche ouverte",
+    "refazer": "Reconvenir",
+    "decidida": "Bilan enregistré."
+  },
+  "assembleia": {
+    "titulo": "Assemblée",
+    "texto": "L'assemblée vote le programme d'étude du semestre. Le vote est anonyme : le serveur ne fait qu'additionner.",
+    "semPauta": "Aucun programme ouvert au vote pour l'instant.",
+    "roteiroTitulo": "Faire l'assemblée dans le noyau"
+  },
+  "erros": {
+    "rodizio": "Vous avez fait cette tâche au dernier cercle. Laissez-la à quelqu'un d'autre.",
+    "ja_tem_quem": "Quelqu'un a déjà pris cette tâche.",
+    "sem_nucleo": "Vous n'êtes pas encore dans un noyau.",
+    "sem_encontro": "Aucune rencontre n'est prévue pour y apporter le sujet.",
+    "pauta_cheia": "L'ordre du jour de la prochaine rencontre a déjà 12 points.",
+    "sem_permissao": "Ceci n'est pas accessible à votre compte.",
+    "banca_ja_marcada": "Un jury est déjà prévu pour cette personne.",
+    "banca_ja_decidida": "Ce jury a déjà un bilan.",
+    "acompanhante_degrau_3": "Seule une personne de la Marche 3 peut accompagner.",
+    "nao_encontrado": "Introuvable. Rechargez la page.",
+    "muitas_tentativas": "Trop de tentatives d'affilée. Patientez un peu.",
+    "ausente": "Cette partie n'est pas encore arrivée sur cette installation.",
+    "sem_servico": "Pas de connexion au service.",
+    "invalido": "Vérifiez ce qui a été écrit.",
+    "falha": "Cela n'a pas fonctionné. Réessayez."
+  },
+  "painel": {
+    "lead": "L'École de formation par le nom de code d'Alumia : personne n'apparaît ici sous son nom civil ni son e-mail. L'entrée dans l'École se décide dans Personnes : ajouter la personne au département Révolutionnaires lui ouvre l'École ; l'en retirer efface ce que l'École avait gardé.",
+    "abas": {
+      "militantes": "Militants",
+      "bancas": "Jurys",
+      "pergunta": "Question de la semaine",
+      "recados": "Messages",
+      "nucleos": "Noyaux"
+    },
+    "carregando": "Chargement",
+    "militantes": {
+      "titulo": "Militants",
+      "vazio": "Personne dans l'École pour l'instant.",
+      "semCodinome": "sans nom de code",
+      "codinome": "Nom de code",
+      "degrau": "Marche",
+      "frente": "Front",
+      "nucleo": "Noyau",
+      "acompanha": "Accompagnement",
+      "desde": "Depuis",
+      "nenhum": "aucun",
+      "ninguem": "personne",
+      "ajustado": "Modifié.",
+      "marcarBanca": "Prévoir un jury",
+      "frentes": {
+        "estudantil": "Étudiant",
+        "bairros": "Quartiers",
+        "trabalho": "Travail",
+        "agitprop": "Agitation et propagande",
+        "atos": "Actions",
+        "cultura": "Culture",
+        "solidariedade": "Solidarité"
+      }
+    },
+    "bancas": {
+      "titulo": "Jurys de passage",
+      "vazio": "Aucun jury prévu.",
+      "militante": "Militant",
+      "decidir": "Enregistrer"
+    },
+    "pergunta": {
+      "titulo": "Question génératrice",
+      "texto": "Une question par semaine, tirée de la vie de celles et ceux qui étudient. Elle apparaît sur l'écran Aujourd'hui et ouvre le cercle du noyau. Un texte vide efface la question de la semaine.",
+      "semana": "Semaine qui commence le lundi",
+      "rotulo": "Question (300 caractères maximum)",
+      "salvar": "Définir la question",
+      "salva": "Question définie.",
+      "recentes": "Questions récentes et prévues",
+      "nenhuma": "Aucune question pour l'instant."
+    },
+    "recados": {
+      "titulo": "Messages de la formation",
+      "texto": "Ils apparaissent sur l'écran Aujourd'hui jusqu'à la date choisie. Pour toute l'École, ou pour un seul noyau.",
+      "rotulo": "Message (400 caractères maximum)",
+      "ate": "Valable jusqu'au",
+      "para": "Pour",
+      "todos": "Toute l'École",
+      "salvar": "Publier le message",
+      "salvo": "Message enregistré.",
+      "apagar": "Supprimer",
+      "apagado": "Message supprimé.",
+      "vencido": "expiré",
+      "nenhum": "Aucun message."
+    },
+    "nucleos": {
+      "titulo": "Noyaux d'Alumia",
+      "texto": "Les noyaux viennent d'Alumia ; l'animation de chacun prépare les rencontres de l'École. Placez chaque militant dans un noyau dans l'onglet Militants.",
+      "militantes": "{n} militants",
+      "nenhum": "Aucun noyau sur Alumia pour l'instant."
+    },
+    "limite": "Limite honnête : le panneau ne montre que le nom de code confirmé sur Alumia. Qui n'a pas encore choisi apparaît comme « sans nom de code »."
+  }
+}

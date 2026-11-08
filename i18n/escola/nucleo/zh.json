@@ -1,0 +1,270 @@
+{
+  "meta": {
+    "titulo": "小组 · 政治培训学校",
+    "descricao": "政治培训学校的小组：议程、分工、学习圈、大会和晋阶评议。仅限积极分子。"
+  },
+  "tela": {
+    "olho": "你的小组",
+    "semNucleoTitulo": "还没有小组",
+    "semNucleo": "协调组会为每位积极分子安排小组。在此之前，主持人工具包和大会已经在这里。",
+    "proximo": "下次聚会：{quando}。",
+    "semEncontro": "还没有安排聚会。",
+    "alumia": "小组的交流和行动都在 Alumia 上。",
+    "abrirAlumia": "在 Alumia 中打开",
+    "roteiro": "学习圈流程",
+    "abas": {
+      "rotulo": "小组",
+      "pauta": "议程",
+      "tarefas": "任务",
+      "circulo": "学习圈",
+      "assembleia": "大会"
+    },
+    "carregando": "加载中…",
+    "falha": "现在无法加载。",
+    "tentar": "再试一次",
+    "ausente": "学校的小组功能还没有安装到这里。暂时请通过 Alumia 上的小组商量。",
+    "previa": "开发预览：示例数据，都不是真实的。"
+  },
+  "pauta": {
+    "titulo": "{dia}的议程",
+    "tituloSemDia": "议程",
+    "vazia": "议程还是空的。由主持人整理；你可以在下面提一个话题。",
+    "levado": "由小组成员提出",
+    "quemFaz": "谁做什么",
+    "euLevo": "我来做",
+    "soltar": "放下",
+    "voce": "你",
+    "alguem": "小组里的某人",
+    "feito": "已完成",
+    "repete": "你上次学习圈做过这项：留给别人吧。",
+    "semTarefas": "还没有任务。学习圈的决定会轮流出现在这里。",
+    "presenca": "最近 {n} 次学习圈的出席：{lista} 人。",
+    "semPresenca": "前几次学习圈之后，这里会显示出席人数（只有数字，从不显示名字）。",
+    "anterior": "上一次学习圈",
+    "anteriorSemBalanco": "还没有记录总结。"
+  },
+  "tarefas": {
+    "titulo": "聚会任务",
+    "texto": "每项决定都有人负责。轮换：上次学习圈做过某项任务的人，把它留给别人，让每个人都学会做每件事。",
+    "minhas": "由你负责",
+    "abertas": "还没人负责",
+    "outras": "由其他人负责",
+    "nenhumaMinha": "你还没有领取这次聚会的任务。"
+  },
+  "levar": {
+    "titulo": "提交给小组",
+    "texto": "一个疑问、一个想法、社区里的一件事：会加入下次聚会的议程，不署你的名字。",
+    "rotulo": "要提交的内容（最多 200 字）",
+    "enviar": "加入议程",
+    "ok": "已加入下次聚会的议程，没有署你的名字。"
+  },
+  "pergunta": {
+    "titulo": "本周生成性问题",
+    "texto": "就像保罗·弗莱雷的文化圈：一个来自学习者自身生活的问题打开学习圈。想想你的回答，带到小组里。",
+    "vazia": "协调组还没有设定本周的问题。",
+    "rotulo": "你的回答，带到学习圈（最多 200 字）",
+    "enviar": "把回答带到学习圈"
+  },
+  "mediar": {
+    "titulo": "准备聚会",
+    "so": "只有小组主持人和协调组能看到这里。",
+    "novo": "安排下次聚会",
+    "editar": "修改聚会",
+    "quando": "日期和时间（巴西利亚时间）",
+    "pautaTitulo": "议程（最多 12 项）",
+    "item": "议程第 {n} 项",
+    "acrescentarItem": "添加一项",
+    "tirar": "删除",
+    "usarRoda": "按观察-判断-行动来编排",
+    "tarefasTitulo": "谁做什么（最多 12 项）",
+    "tarefa": "任务 {n}",
+    "acrescentarTarefa": "添加任务",
+    "salvar": "保存聚会",
+    "salvo": "聚会已保存。",
+    "cancelar": "取消",
+    "fecharTitulo": "结束上一次学习圈",
+    "presencaRotulo": "来了多少人",
+    "balancoRotulo": "总结：我们看到了什么、想到了什么、要做什么（不写名字）",
+    "guardar": "保存总结",
+    "guardado": "总结已保存。"
+  },
+  "kit": {
+    "titulo": "主持人工具包",
+    "lead": "小组学习圈的流程：观察-判断-行动，以仪式开场和结束。每次聚会轮换主持人。",
+    "pautaModelo": [
+      "开场仪式（5 分钟）",
+      "观察：本周发生了什么，世界中的任务进展如何",
+      "判断：围绕学习手册的讨论",
+      "行动：决定和分工",
+      "结束仪式"
+    ],
+    "misticaAbertura": {
+      "titulo": "开场仪式",
+      "tempo": "5 分钟",
+      "texto": "谈话前的集体时刻：一首歌、一首诗、一张当地斗争的照片或一件物品、朗读手册中的一段。提醒大家小组为什么存在。",
+      "dica": "在上次学习圈商定由谁准备。没有观众：每个人都参与。"
+    },
+    "ver": {
+      "titulo": "观察",
+      "tempo": "20 分钟",
+      "texto": "每个人讲讲看到了什么：世界中的任务、一次艰难的对话、社区、学校、工作中发生的事。本周的问题开启这一部分。",
+      "dica": "谈情况，不谈具体的人：不提第三方的名字。"
+    },
+    "julgar": {
+      "titulo": "判断",
+      "tempo": "30 分钟",
+      "texto": "小组借助所学的手册重新审视大家讲的内容：为什么会这样？谁得利，谁受损？手册帮助我们理解什么？",
+      "dica": "主持人多提问，少作答。"
+    },
+    "agir": {
+      "titulo": "行动",
+      "tempo": "15 分钟",
+      "texto": "具体的决定：我们要做什么、什么时候完成、谁负责。每项任务都列入“谁做什么”。",
+      "dica": "轮换：上次学习圈负责过任务的人，把它留给别人。"
+    },
+    "misticaFechamento": {
+      "titulo": "结束仪式",
+      "tempo": "5 分钟",
+      "texto": "一起结束：每人用一个词谈谈这次聚会、一首歌、大声朗读决定。",
+      "dica": "之后，主持人记录出席人数（只有数字）和总结，不写名字。"
+    },
+    "sistematizar": {
+      "titulo": "系统整理",
+      "texto": "学习圈的总结保存小组的记忆：我们看到的、想到的、决定的。不写任何人的名字，以便后来的人也能阅读。"
+    },
+    "circuloTitulo": "设备上的文化圈",
+    "circuloTexto": "主持人的工具：生成词、主题、问题和聚会要用的课程，只保存在这台设备上。",
+    "banca": {
+      "titulo": "晋阶评议",
+      "texto": "要完成一个阶段，当事人向小组介绍自己学了什么、完成了哪项世界中的任务。评议做集体总结，不打分：当事人带来了什么，小组看到了什么，哪些留到下一阶段。",
+      "passos": [
+        "陪伴人和当事人一起安排评议。",
+        "当天，当事人讲述这一阶段的历程（10 分钟）。",
+        "小组提问和评论，不评判当事人（15 分钟）。",
+        "陪伴人记录集体总结：“阶段开启”或“重新商定”。"
+      ],
+      "fichaTitulo": "按能力的反馈表（在这台设备上）"
+    }
+  },
+  "banca": {
+    "titulo": "你的陪伴人和评议",
+    "acompanha": "第 3 阶的 {nome} 陪伴你的学习。",
+    "alguem": "一位第 3 阶的成员",
+    "semAcompanha": "目前还没有人陪伴你的学习。协调组会安排一位第 3 阶的成员。",
+    "minhas": "你的评议",
+    "semMinhas": "还没有为你安排评议。",
+    "degrau": "第 {n} 阶",
+    "quando": "时间：{quando}",
+    "semData": "日期待定",
+    "situacao": {
+      "marcada": "已安排",
+      "aprovada": "阶段开启",
+      "refazer": "重新商定"
+    },
+    "balanco": "集体总结",
+    "acompanho": "你陪伴的人",
+    "marcar": "安排第 {n} 阶的评议",
+    "marcarQuando": "评议的日期和时间（可选）",
+    "marcada": "评议已安排。",
+    "decidirTitulo": "记录总结",
+    "balancoRotulo": "集体总结，不打分（10 到 2000 字）",
+    "aprovar": "阶段开启",
+    "refazer": "重新商定",
+    "decidida": "总结已记录。"
+  },
+  "assembleia": {
+    "titulo": "大会",
+    "texto": "大会投票决定本学期的学习议程。投票是匿名的：服务器只做加总。",
+    "semPauta": "现在没有开放投票的议程。",
+    "roteiroTitulo": "在小组里开大会"
+  },
+  "erros": {
+    "rodizio": "你上次学习圈做过这项任务。留给别人吧。",
+    "ja_tem_quem": "已经有人领取了这项任务。",
+    "sem_nucleo": "你还不在任何小组里。",
+    "sem_encontro": "还没有安排可以提交话题的聚会。",
+    "pauta_cheia": "下次聚会的议程已经有 12 项了。",
+    "sem_permissao": "你的账号无法使用这项功能。",
+    "banca_ja_marcada": "已经为这个人安排了评议。",
+    "banca_ja_decidida": "这次评议已经有总结了。",
+    "acompanhante_degrau_3": "只有第 3 阶的成员可以陪伴。",
+    "nao_encontrado": "没有找到。请刷新页面。",
+    "muitas_tentativas": "连续尝试次数太多。请稍等。",
+    "ausente": "这部分还没有安装到这里。",
+    "sem_servico": "无法连接服务。",
+    "invalido": "请检查填写的内容。",
+    "falha": "现在没有成功。请再试一次。"
+  },
+  "painel": {
+    "lead": "政治培训学校以 Alumia 代号显示：这里不会出现任何人的真实姓名或电子邮箱。谁能进入学校在“人员”中决定：把人加入“革命者”部门即为其开放学校；移出则删除学校保存的内容。",
+    "abas": {
+      "militantes": "积极分子",
+      "bancas": "评议",
+      "pergunta": "本周问题",
+      "recados": "通知",
+      "nucleos": "小组"
+    },
+    "carregando": "加载中",
+    "militantes": {
+      "titulo": "积极分子",
+      "vazio": "学校里还没有人。",
+      "semCodinome": "无代号",
+      "codinome": "代号",
+      "degrau": "阶",
+      "frente": "战线",
+      "nucleo": "小组",
+      "acompanha": "陪伴人",
+      "desde": "加入日期",
+      "nenhum": "无",
+      "ninguem": "无人",
+      "ajustado": "已调整。",
+      "marcarBanca": "安排评议",
+      "frentes": {
+        "estudantil": "学生",
+        "bairros": "社区",
+        "trabalho": "工作",
+        "agitprop": "宣传鼓动",
+        "atos": "行动",
+        "cultura": "文化",
+        "solidariedade": "团结互助"
+      }
+    },
+    "bancas": {
+      "titulo": "晋阶评议",
+      "vazio": "没有安排评议。",
+      "militante": "积极分子",
+      "decidir": "记录"
+    },
+    "pergunta": {
+      "titulo": "生成性问题",
+      "texto": "每周一个问题，来自学习者的生活。它出现在“今天”页面，并打开小组的学习圈。留空则删除本周的问题。",
+      "semana": "从星期一开始的一周",
+      "rotulo": "问题（最多 300 字）",
+      "salvar": "设定问题",
+      "salva": "问题已设定。",
+      "recentes": "最近和已安排的问题",
+      "nenhuma": "还没有问题。"
+    },
+    "recados": {
+      "titulo": "培训通知",
+      "texto": "在所选日期之前显示在“今天”页面。面向整个学校，或只面向一个小组。",
+      "rotulo": "通知（最多 400 字）",
+      "ate": "有效期至",
+      "para": "对象",
+      "todos": "整个学校",
+      "salvar": "发布通知",
+      "salvo": "通知已保存。",
+      "apagar": "删除",
+      "apagado": "通知已删除。",
+      "vencido": "已过期",
+      "nenhum": "没有通知。"
+    },
+    "nucleos": {
+      "titulo": "Alumia 小组",
+      "texto": "小组来自 Alumia；每个小组的主持人准备学校的聚会。在“积极分子”标签中为每位积极分子安排小组。",
+      "militantes": "{n} 名积极分子",
+      "nenhum": "Alumia 上还没有小组。"
+    },
+    "limite": "如实说明：面板只显示在 Alumia 上确认过的代号。还没有选择代号的人显示为“无代号”。"
+  }
+}
