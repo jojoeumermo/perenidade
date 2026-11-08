@@ -1,0 +1,485 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * A sala da aula ao vivo da Escola (/escola/ao-vivo/[id]) e a "Aula gravada" dentro da aula do caderno (F3). Mesmo
+ * desenho das pranchas aprovadas em 07/11 (não há prancha própria da sala): fundo #1A1311, cartões #110C0A com borda
+ * #3D2A24, vermelho #C21F16 para "ao vivo", ouro #F2C94C para pergunta e foco, giz #F1EEE6 no texto. Usa os tokens da
+ * casca (styles/escola-formacao.css, var(--ef-...)). Contraste AA conferido em scripts/testar-escola-aovivo.mjs.
+ */
+
+.ea-sala {
+  padding: 26px 32px 48px;
+  color: var(--ef-giz);
+}
+.ea-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ef-suave);
+  font-size: 15px;
+  text-decoration: none;
+}
+[data-escola-formacao] .ea-voltar:hover {
+  color: var(--ef-ouro);
+}
+.ea-corpo {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: flex-start;
+}
+.ea-principal {
+  flex: 999 1 560px;
+  min-width: 0;
+}
+.ea-lado {
+  flex: 1 1 320px;
+  min-width: 0;
+  max-width: 420px;
+}
+.ea-rotulo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ef-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ea-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 28px;
+  padding: 0 11px;
+  border-radius: 999px;
+  border: 2px solid var(--ef-borda);
+  color: var(--ef-giz);
+  letter-spacing: 0.06em;
+}
+.ea-selo[data-situacao="ao_vivo"] {
+  background: var(--ef-vermelho);
+  border-color: var(--ef-vermelho);
+  color: #fff;
+}
+.ea-selo[data-situacao="ao_vivo"]::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ea-selo[data-situacao="ao_vivo"]::before {
+    animation: ea-pulsa 1.6s ease-in-out infinite;
+  }
+}
+@keyframes ea-pulsa {
+  50% {
+    opacity: 0.35;
+  }
+}
+.ea-selo[data-situacao="encerrada"] {
+  border-color: var(--ef-ouro);
+  color: var(--ef-ouro);
+}
+.ea-titulo {
+  margin: 10px 0 0;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.ea-linha {
+  margin: 10px 0 0;
+  color: var(--ef-suave);
+  font-size: 16px;
+}
+
+/* O tocador: um quadro do site até o clique. */
+.ea-tocador {
+  position: relative;
+  margin-top: 22px;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--ef-fundo-fundo);
+  border: 3px solid var(--ef-borda);
+}
+.ea-tocador iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.ea-tocador-botao {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px;
+  border: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(194, 31, 22, 0.22), transparent 55%),
+    var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+.ea-tocador-play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--ef-vermelho);
+  color: #fff;
+}
+.ea-tocador-play[data-gravada] {
+  background: var(--ef-giz);
+  color: var(--ef-fundo-fundo);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ea-tocador-play {
+    transition: transform 0.15s ease;
+  }
+  .ea-tocador-botao:hover .ea-tocador-play {
+    transform: scale(1.07);
+  }
+}
+.ea-tocador-chamada {
+  font-size: 20px;
+  font-weight: 700;
+}
+.ea-tocador-aviso {
+  max-width: 46ch;
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+.ea-sem-video {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  color: var(--ef-suave);
+}
+.ea-nao-repasse {
+  margin: 12px 0 0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14.5px;
+  color: var(--ef-suave);
+}
+.ea-nao-repasse::before {
+  content: "";
+  flex: 0 0 4px;
+  align-self: stretch;
+  border-radius: 2px;
+  background: var(--ef-ouro);
+}
+
+.ea-blocos {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.ea-bloco {
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 20px 22px;
+  border-radius: 16px;
+  background: var(--ef-fundo-fundo);
+  border: 2px solid var(--ef-borda);
+}
+.ea-bloco h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.ea-bloco p {
+  margin: 6px 0 0;
+}
+.ea-bloco .ea-acoes {
+  margin-top: 14px;
+}
+.ea-bloco-caderno {
+  background: var(--ef-papel);
+  border-color: var(--ef-papel);
+  color: #1b1f1c;
+}
+.ea-bloco-caderno .ea-codigo {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ef-tinta);
+}
+[data-escola-formacao] .ea-bloco-caderno .ef-botao-vermelho {
+  color: #fff;
+}
+.ea-descricao {
+  margin: 18px 0 0;
+  max-width: 66ch;
+  white-space: pre-line;
+  font-size: 17px;
+}
+.ea-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.ea-estado {
+  margin-top: 26px;
+  padding: 26px;
+  border-radius: 16px;
+  background: var(--ef-fundo-fundo);
+  border: 2px solid var(--ef-borda);
+}
+.ea-estado p {
+  margin: 0 0 14px;
+}
+
+/* O bate-papo. */
+.ea-chat {
+  display: flex;
+  flex-direction: column;
+  height: min(720px, calc(100vh - 140px));
+  min-height: 420px;
+  border-radius: 16px;
+  background: var(--ef-fundo-fundo);
+  border: 2px solid var(--ef-borda);
+}
+.ea-chat-cabeca {
+  padding: 18px 20px 14px;
+  border-bottom: 2px solid var(--ef-borda);
+}
+.ea-chat-cabeca h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+.ea-chat-cabeca p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+.ea-falas {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 14px 16px;
+  list-style: none;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ef-borda) transparent;
+}
+.ea-fala {
+  padding: 2px 0 2px 12px;
+  border-left: 3px solid transparent;
+}
+.ea-fala[data-tipo="pergunta"] {
+  border-left-color: var(--ef-ouro);
+}
+.ea-fala[data-minha] {
+  border-left-color: var(--ef-percurso);
+}
+.ea-fala[data-oculta] .ea-fala-corpo {
+  opacity: 0.55;
+}
+.ea-fala-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  font-size: 13.5px;
+  color: var(--ef-suave);
+}
+.ea-fala-cabeca strong {
+  color: var(--ef-giz);
+  font-size: 15px;
+}
+.ea-etiqueta {
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ea-etiqueta-pergunta {
+  background: var(--ef-ouro);
+  color: var(--ef-fundo-fundo);
+}
+.ea-etiqueta-espera {
+  border: 1px solid var(--ef-nucleo);
+  color: var(--ef-nucleo);
+}
+.ea-fala-corpo {
+  margin: 2px 0 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.ea-fala-sistema {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ef-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+[data-escola-formacao] .ea-moderar {
+  margin-left: auto;
+  padding: 0 4px;
+  min-height: 24px;
+  border: 0;
+  background: none;
+  color: var(--ef-suave);
+  font: inherit;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+[data-escola-formacao] .ea-moderar:hover {
+  color: var(--ef-ouro);
+}
+.ea-chat-pe {
+  padding: 12px 14px 14px;
+  border-top: 2px solid var(--ef-borda);
+}
+.ea-chat-pe p {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--ef-suave);
+}
+.ea-escrever {
+  display: flex;
+  gap: 8px;
+}
+[data-escola-formacao] .ea-escrever textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  max-height: 140px;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: 2px solid var(--ef-borda);
+  background: var(--ef-fundo);
+  color: var(--ef-giz);
+  font: inherit;
+  font-size: 15.5px;
+  resize: vertical;
+}
+[data-escola-formacao] .ea-escrever textarea::placeholder {
+  color: var(--ef-apagado);
+}
+[data-escola-formacao] .ea-escrever .ef-botao-vermelho {
+  align-self: flex-end;
+}
+.ea-marcar-pergunta {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+.ea-marcar-pergunta input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--ef-ouro);
+}
+.ea-aviso {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--ef-ouro);
+}
+
+/* A aula gravada dentro da aula do caderno (papel ou escuro: segue quem a monta). */
+.ea-gravada {
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: 16px;
+  background: var(--ef-fundo-fundo, #110c0a);
+  border: 2px solid var(--ef-borda, #3d2a24);
+  color: var(--ef-giz, #f1eee6);
+}
+.ea-gravada h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+.ea-gravada > p {
+  margin: 6px 0 0;
+  color: var(--ef-suave, #cdbfb5);
+}
+.ea-gravada .ea-tocador {
+  margin-top: 16px;
+}
+.ea-gravada ul {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 767px) {
+  .ea-sala {
+    padding: 16px 16px 32px;
+  }
+  .ea-titulo {
+    font-size: 32px;
+  }
+  .ea-tocador {
+    border-radius: 12px;
+    border-width: 2px;
+  }
+  /* No celular, o bate-papo vem logo depois do vídeo; a aula do caderno e o texto da aula ficam embaixo. */
+  .ea-corpo {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0;
+  }
+  .ea-principal {
+    display: contents;
+  }
+  .ea-lado {
+    order: 1;
+    max-width: none;
+    margin-top: 22px;
+  }
+  .ea-blocos,
+  .ea-descricao {
+    order: 2;
+  }
+  .ea-chat {
+    height: 560px;
+  }
+  .ea-tocador-play {
+    width: 60px;
+    height: 60px;
+  }
+  .ea-tocador-chamada {
+    font-size: 17px;
+  }
+}
