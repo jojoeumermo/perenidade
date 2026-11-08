@@ -7,7 +7,7 @@ import { abrir } from "./ajuda";
 // Sem a flag, /pt/escola responde "não encontrado" e os testes são pulados.
 
 async function escolaLigada(page: Page): Promise<boolean> {
-  const resposta = await page.request.get("/pt/escola/cursos");
+  const resposta = await page.request.get("/pt/cursos");
   return resposta.status() === 200;
 }
 
@@ -27,8 +27,8 @@ async function matricular(page: Page, curso?: string) {
 }
 
 for (const lang of ["pt", "en"] as const) {
-  test(`catálogo /${lang}/escola/cursos: ciclos, cartões, selo e filtro`, async ({ page }) => {
-    await abrir(page, `/${lang}/escola/cursos`);
+  test(`catálogo /${lang}/cursos: ciclos, cartões, selo e filtro`, async ({ page }) => {
+    await abrir(page, `/${lang}/cursos`);
     await expect(page.locator("[data-catalogo-de-cursos]")).toBeVisible();
     const cartoes = page.locator("[data-curso]");
     expect(await cartoes.count()).toBeGreaterThanOrEqual(13);
@@ -44,7 +44,7 @@ for (const lang of ["pt", "en"] as const) {
 }
 
 test("ementa: abre, tem as seis partes e o botão de imprimir", async ({ page }) => {
-  await abrir(page, "/pt/escola/cursos/ano-de-formacao-politica");
+  await abrir(page, "/pt/cursos/ano-de-formacao-politica");
   await expect(page.locator("[data-aviso-sensivel]")).toBeVisible();
   await page.getByText("Ver a ementa completa").click();
   const ementa = page.locator("[data-ementa]");
@@ -55,16 +55,10 @@ test("ementa: abre, tem as seis partes e o botão de imprimir", async ({ page })
   await expect(page.locator("[data-obra='manifesto-do-partido-comunista']")).toContainText("Leitura guiada");
 });
 
-test("entrar no curso sem matrícula leva à matrícula com o curso", async ({ page }) => {
-  await abrir(page, "/pt/escola/cursos/aprender-a-estudar");
-  const link = page.locator("[data-fazer-matricula]");
-  await expect(link).toBeVisible();
-  await expect(link).toHaveAttribute("href", /\/pt\/escola\/matricula\?curso=aprender-a-estudar$/);
-});
-
-test("com matrícula, entrar no curso guarda a inscrição só no aparelho", async ({ page }) => {
-  await matricular(page);
-  await abrir(page, "/pt/escola/cursos/aprender-a-estudar");
+test("curso aberto: sem matrícula e sem conta, entrar guarda a inscrição só no aparelho", async ({ page }) => {
+  await abrir(page, "/pt/cursos/aprender-a-estudar");
+  // Nada no corpo do curso aberto leva para dentro da Escola fechada (o menu do site fica de fora da conta).
+  await expect(page.locator("[data-curso] a[href*=\"/escola/\"]")).toHaveCount(0);
   await page.locator("[data-entrar-no-curso]").click();
   await expect(page.locator("[data-no-curso]")).toBeVisible();
   const inscricoes = await page.evaluate(() => JSON.parse(localStorage.getItem("lucia:escola:cursos") ?? "[]"));
@@ -86,7 +80,7 @@ test("sem inscrição, a aula não mostra faixa", async ({ page }) => {
 });
 
 test("zine do curso: folhas A4 com QR, e os outros idiomas vão para o português", async ({ page }) => {
-  await abrir(page, "/pt/escola/cursos/aprender-a-estudar/zine");
+  await abrir(page, "/pt/cursos/aprender-a-estudar/zine");
   const folhas = page.locator(".folha-livrinho");
   expect(await folhas.count()).toBeGreaterThanOrEqual(4);
   await expect(folhas.first().locator("svg").first()).toBeVisible();
@@ -94,7 +88,7 @@ test("zine do curso: folhas A4 com QR, e os outros idiomas vão para o portuguê
   await page.emulateMedia({ media: "print" });
   await expect(page.locator(".zine-do-curso .no-print").first()).toBeHidden();
   await page.emulateMedia({ media: "screen" });
-  await abrir(page, "/en/escola/cursos/aprender-a-estudar/zine");
+  await abrir(page, "/en/cursos/aprender-a-estudar/zine");
   await expect(page).toHaveURL(/\/pt\/escola\/cursos\/aprender-a-estudar\/zine$/);
 });
 
@@ -110,7 +104,7 @@ test("leitura guiada guarda a resposta só no aparelho", async ({ page }) => {
 
 test("sem rolagem lateral em 360 px", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 640 });
-  for (const caminho of ["/pt/escola/cursos", "/pt/escola/cursos/eletricista-residencial", "/pt/escola/cursos/ano-de-formacao-politica/zine", "/pt/escola/leituras/manifesto-do-partido-comunista"]) {
+  for (const caminho of ["/pt/cursos", "/pt/cursos/eletricista-residencial", "/pt/cursos/ano-de-formacao-politica/zine", "/pt/escola/leituras/manifesto-do-partido-comunista"]) {
     await abrir(page, caminho);
     await page.keyboard.press("Escape");
     const sobra = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

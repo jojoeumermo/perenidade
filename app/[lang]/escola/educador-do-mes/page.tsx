@@ -44,7 +44,7 @@ export default async function Page({ params }: PageProps<"/[lang]/escola/educado
       {x.curso && (
         <p className="org-nota">
           {e.curso}{" "}
-          <Link href={to(`/escola/cursos/${x.curso}`)} className="underline hover:text-oxblood">
+          <Link href={to(`/cursos/${x.curso}`)} className="underline hover:text-oxblood">
             {x.curso}
           </Link>
         </p>

@@ -25,7 +25,7 @@ test("lutas: abre em chinês", async ({ page }) => {
 });
 
 test("tarefas: marca, desmarca e o estado volta depois de recarregar", async ({ page }) => {
-  await abrir(page, "/pt/escola/vida/tarefas");
+  await abrir(page, "/pt/vida/tarefas");
   const cartao = page.locator(`[data-tarefa-curso="${CURSO}"]`);
   await cartao.getByRole("button", { name: "Marcar como feita" }).click();
   await expect(cartao.getByText(/Feita em/)).toBeVisible();
@@ -47,14 +47,14 @@ test("vozes: sem microfone mostra a alternativa escrita e o roteiro", async ({ p
 });
 
 test("missões: abre o laboratório", async ({ page }) => {
-  await abrir(page, "/pt/escola/vida/missoes");
+  await abrir(page, "/pt/vida/missoes");
   await page.locator('[data-missao="sql-ver-os-dados"]').getByRole("link", { name: "Abrir o laboratório" }).click();
   await expect(page).toHaveURL(/\/laboratorios\/ide\?p=sql&ex=sql-01-select/);
 });
 
 test("360 px: nenhuma página da vida real rola para o lado", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 780 });
-  for (const caminho of ["/pt/escola/vida", "/pt/escola/vozes", "/pt/escola/lutas", "/pt/escola/vida/tarefas", "/pt/escola/vida/missoes", "/pt/escola/vida/caso-do-bairro", "/pt/escola/vida/documentos"]) {
+  for (const caminho of ["/pt/vida", "/pt/escola/vozes", "/pt/escola/lutas", "/pt/vida/tarefas", "/pt/vida/missoes", "/pt/vida/caso-do-bairro", "/pt/vida/documentos"]) {
     await abrir(page, caminho);
     const largura = await page.evaluate(() => document.documentElement.scrollWidth);
     expect(largura, caminho).toBeLessThanOrEqual(360);
@@ -64,13 +64,13 @@ test("360 px: nenhuma página da vida real rola para o lado", async ({ page }) =
 test("tema escuro: as páginas abrem sem erro", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   const erros = vigiarErros(page);
-  await abrir(page, "/pt/escola/vida");
+  await abrir(page, "/pt/vida");
   await expect(page.locator("[data-hub-da-vida]")).toBeVisible();
   expect(erros).toEqual([]);
 });
 
 test("caso do bairro: guarda o rascunho e ele volta depois de recarregar", async ({ page }) => {
-  await abrir(page, "/pt/escola/vida/caso-do-bairro");
+  await abrir(page, "/pt/vida/caso-do-bairro");
   await page.locator("#caso-passo-0").fill("Vi a rua alagada.");
   await page.getByRole("button", { name: "Guardar o rascunho" }).click();
   await page.reload();

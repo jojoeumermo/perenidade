@@ -37,7 +37,7 @@ export function OfertaDeDispensa({ trilha, registros, disponiveis, cursos, s }: 
         (meus.length === 0 ? (
           <p className="mt-2 text-sm">
             {s.semCurso}{" "}
-            <L href="/escola/cursos" className="font-semibold underline hover:text-oxblood">
+            <L href="/cursos" className="font-semibold underline hover:text-oxblood">
               {s.verCursos} →
             </L>
           </p>

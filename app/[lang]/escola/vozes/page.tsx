@@ -28,7 +28,7 @@ export default async function Page({ params }: Props) {
   const s = textosDaVida(lang);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12" data-pagina-vida="vozes">
-      <PageHeading eyebrow={s.vozes.olho} title={s.vozes.titulo} voltar={{ href: localePath(lang, "/escola/vida"), texto: s.comum.voltarVida }}>
+      <PageHeading eyebrow={s.vozes.olho} title={s.vozes.titulo} voltar={{ href: localePath(lang, "/vida"), texto: s.comum.voltarVida }}>
         {s.vozes.lead}
       </PageHeading>
       <section className="vida-bloco" aria-labelledby="vozes-publicadas">

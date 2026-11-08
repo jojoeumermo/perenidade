@@ -137,6 +137,7 @@
     "testar:escola-campus": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-campus.mjs",
     "testar:acompanhante": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-acompanhante.mjs",
     "testar:escola-vida": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-vida.mjs",
+    "testar:escola-reorganizacao": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-reorganizacao.mjs",
     "testar:escola-organizacao": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-organizacao.mjs",
     "testar:escola-avaliacao": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-avaliacao.mjs",
     "testar:escola-formatura": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-formatura.mjs",

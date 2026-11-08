@@ -1,0 +1,18 @@
+{
+  "mais": {
+    "cursos": {
+      "titulo": "Cursos",
+      "curta": "profissão e escolaridade",
+      "descricao": "Cursos gratuitos de profissão e de escolaridade feitos com as aulas do site: ENEM, costura, barbearia, inglês e outros. Abertos a todo mundo."
+    },
+    "vida": {
+      "titulo": "Vida real",
+      "curta": "estudo na prática",
+      "descricao": "Tarefas no mundo, missões de laboratório, estudo de caso do bairro e documentos reais: o estudo levado para o trabalho e para o bairro."
+    }
+  },
+  "entrar": {
+    "comecar": "Começar pela primeira aula: {titulo}",
+    "semJs": "Para guardar a inscrição neste aparelho, o navegador precisa de JavaScript. As aulas abrem sem ele."
+  }
+}

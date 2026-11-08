@@ -7,6 +7,8 @@ import { getArticles, getBooks, getTracks, idiomasDe } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { site } from "@/lib/site";
 import { ligado } from "@/lib/recursos";
+import { carregarCursos } from "@/lib/escola/cursos-servidor";
+import { cursoAberto, PAGINAS_DA_VIDA } from "@/lib/escola/site-aberto";
 
 // Refeita a cada hora.
 export const revalidate = 3600;
@@ -103,6 +105,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
   // O Vale o Escrito só entra no mapa com o recurso ligado pelo nome (enviar e correção ficam fora: noindex).
   if (ligado("vale-o-escrito")) paths.push("/vale-o-escrito", "/vale-o-escrito/arsenal", "/vale-o-escrito/sobre");
+  // F7 da Escola (prancha Mapa): os cursos, o campus e a vida real voltaram ao site aberto. Entram no mapa com o recurso
+  // "escola" ligado, como as páginas (desligado, elas não existem). O módulo e a zine de cada curso ficam fora (noindex).
+  if (ligado("escola")) {
+    paths.push("/cursos", "/campus", ...PAGINAS_DA_VIDA);
+    for (const curso of carregarCursos()) if (cursoAberto(curso.slug)) paths.push(`/cursos/${curso.slug}`);
+  }
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
   for (const territorio of territorios) paths.push(`/territorios/${territorio.slug}`);

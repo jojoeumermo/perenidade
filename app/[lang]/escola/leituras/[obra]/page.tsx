@@ -38,7 +38,7 @@ export default async function PaginaDaLeitura({ params }: Props) {
   const livro = getBooks("pt").find((b) => b.id === leitura.obra);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12" data-leitura-guiada={leitura.obra}>
-      <PageHeading eyebrow={s.leitura.olho} title={leitura.titulo} voltar={{ href: localePath(lang, "/escola/cursos"), texto: s.leitura.voltar }}>
+      <PageHeading eyebrow={s.leitura.olho} title={leitura.titulo} voltar={{ href: localePath(lang, "/cursos"), texto: s.leitura.voltar }}>
         {s.leitura.lead}
       </PageHeading>
       {leitura.revisao === "em-revisao" && <p className="selo-em-revisao mt-6 inline-block">{s.leitura.emRevisao}</p>}

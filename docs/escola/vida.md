@@ -19,15 +19,15 @@ Pacote da onda 4 da Etapa 4. Liga a Escola à vida de quem estuda, em 7 peças, 
 | `components/escola/vida/CasoDoBairro.tsx` | Os 5 passos, rascunho privado, registro na caderneta com aviso. |
 | `components/escola/vida/LutasDoAno.tsx`, `HojeNaLuta.tsx` | Mapa das lutas (servidor) e o pedaço de cliente (hoje, próxima data, `.ics`). |
 | `components/escola/vida/HubDaVida.tsx`, `ResumoDaVida.tsx` | O hub e o contador "N de M". |
-| `app/[lang]/escola/vida/{,tarefas,missoes,caso-do-bairro,documentos}/page.tsx` | Hub e as quatro páginas de baixo. |
+| `app/[lang]/vida/{,tarefas,missoes,caso-do-bairro,documentos}/page.tsx` | Hub e as quatro páginas de baixo. |
 | `app/[lang]/escola/{vozes,lutas}/page.tsx` | Substituem as provisórias (`lib/escola/rotas.ts` perdeu o `provisoria` das duas). |
-| `app/[lang]/escola/cursos/[curso]/page.tsx` | Só acréscimo: `TarefaNoMundo` embaixo do texto da tarefa e o link do caso nos cursos que o marcam. |
+| `app/[lang]/cursos/[curso]/page.tsx` | Só acréscimo: `TarefaNoMundo` embaixo do texto da tarefa e o link do caso nos cursos que o marcam. |
 | `content/escola/vida/*.json`, `LEIA-ME.md` | `vozes` (começa vazio), `trabalhadores-que-ensinam`, `missoes`, `documentos` (começa vazio). |
 | `i18n/escola/vida/*.json` | Textos nos 6 idiomas. |
 | `styles/escola-vida.css` | Visual, só com tokens que já existem; 360 px de entrada. |
 | `scripts/testar-escola-vida.mjs`, `e2e/escola-vida.spec.ts` | `npm run testar:escola-vida` e o Playwright. |
 
-Nenhuma rota nova em `lib/escola/rotas.ts` (para não exigir texto novo em `i18n/escola/base`): `/escola/vida/*` fica sob `/escola`, que já está em `lib/interdicao.ts` (área "estudo").
+Nenhuma rota nova em `lib/escola/rotas.ts` (para não exigir texto novo em `i18n/escola/base`): `/vida/*` fica sob `/escola`, que já está em `lib/interdicao.ts` (área "estudo").
 
 ## Chaves no aparelho
 
@@ -55,9 +55,9 @@ Quem leu o formato não precisa de arquivo deste pacote em tempo de edição: o 
 
 1. **Vozes do trabalho** (`/escola/vozes`): ouvir as vozes publicadas com autorização e transcrição ao lado; os "trabalhadores que ensinam" (pares Memorial + aula); e o gravador. O gravador mostra o aviso antes (só a sua voz, sem nomes, sem criança, sem dado de terceiros, fica só no aparelho, apagar sempre visível), grava até 120 s com contagem regressiva e parada automática, deixa ouvir, baixar (arquivo local) e apagar. **"Enviar para o Instituto" é só um link** para `/voluntarie-se` com o texto pronto para copiar: nada vai sozinho e o código não tem `fetch`. Sem `MediaRecorder` ou microfone, aparece "Seu aparelho não grava áudio" e o roteiro escrito continua servindo.
 2. **Mapa das lutas** (`/escola/lutas`): as 8 datas de `content/escola/feriados.json` (E4-09) cruzadas com os fatos de `content/neste-dia.json` pelo dia `MM-DD`, por mês, com fonte, aula do tema e "Pôr na agenda" (`.ics` de evento único, sem recorrência, feito no aparelho). É um **mapa no tempo**: não há coordenada com fonte. Só o feriado é "feriado do campus"; a data que só tem fato é "data de memória". O filtro é por links (`#so-feriados` e `#todas`, CSS `:target` + `:has`), sem JavaScript.
-3. **Tarefa no mundo** (em todo curso e em `/escola/vida/tarefas`): "Marcar como feita" (a fazer, feita em data, desfazer), nota curta com o aviso "sem nomes de outras pessoas" e "Registrar na caderneta" (tipo `tarefa`, com id `tarefa-<curso>`: registrar de novo troca o registro em vez de duplicar).
-4. **Laboratório como missão** (`/escola/vida/missoes`): missões curadas que apontam para laboratórios e exercícios que existem, com situação, tarefa e cuidado. A pessoa marca "Cumpri a missão"; o laboratório não manda resultado. Contador "N de M" só para quem estuda, sem ranking. O link da IDE segue `/laboratorios/ide?p=<perfil>&ex=<id>` (o que `IDEPagina` lê).
-5. **Estudo de caso do bairro** (`/escola/vida/caso-do-bairro`): 5 passos (o que vi; quem ouvi, sem nome; o que a aula diz; o que o caso mostra; o que se pode propor). Rascunho privado por curso (ou "livre"). Registrar na caderneta (tipo `caso`, sem `pessoas`) pede antes uma confirmação com o aviso de que a caderneta pode ser exportada e vista por outras pessoas. Os 3 cursos com `casoDoBairro` ganham o link na página do curso.
+3. **Tarefa no mundo** (em todo curso e em `/vida/tarefas`): "Marcar como feita" (a fazer, feita em data, desfazer), nota curta com o aviso "sem nomes de outras pessoas" e "Registrar na caderneta" (tipo `tarefa`, com id `tarefa-<curso>`: registrar de novo troca o registro em vez de duplicar).
+4. **Laboratório como missão** (`/vida/missoes`): missões curadas que apontam para laboratórios e exercícios que existem, com situação, tarefa e cuidado. A pessoa marca "Cumpri a missão"; o laboratório não manda resultado. Contador "N de M" só para quem estuda, sem ranking. O link da IDE segue `/laboratorios/ide?p=<perfil>&ex=<id>` (o que `IDEPagina` lê).
+5. **Estudo de caso do bairro** (`/vida/caso-do-bairro`): 5 passos (o que vi; quem ouvi, sem nome; o que a aula diz; o que o caso mostra; o que se pode propor). Rascunho privado por curso (ou "livre"). Registrar na caderneta (tipo `caso`, sem `pessoas`) pede antes uma confirmação com o aviso de que a caderneta pode ser exportada e vista por outras pessoas. Os 3 cursos com `casoDoBairro` ganham o link na página do curso.
 6. **Documentos reais nas aulas**: bloco ```` ```documento ````, só quando a aula o usa:
 
    ```documento
@@ -69,7 +69,8 @@ Quem leu o formato não precisa de arquivo deste pacote em tempo de edição: o 
    ```
 
    Recusa (o bloco vira texto) imagem de fora do site, `fonte` sem https, bloco sem `fonte` ou sem `licenca`, área fora de 0 a 100 e mais de 24 áreas. Sempre mostra o selo "Explicação em revisão" e o link "Ver o original". Toque, Tab e Enter abrem a explicação; o leitor de tela lê o nome e o significado de cada área. Sem JavaScript aparece o texto do bloco.
-7. **Hub** (`/escola/vida`): reúne tudo e aponta para o círculo de cultura digital do E4-15 (`/escola/turmas/circulo`), sem duplicar.
+7. **Hub** (`/vida`): reúne as peças abertas (tarefas, missões, caso do bairro, documentos). Desde a F7 não aponta para dentro
+   da Escola: vozes e lutas foram para a Biblioteca e o círculo de cultura digital para o Núcleo, os dois fechados.
 
 ## Pontos legais e de cuidado
 

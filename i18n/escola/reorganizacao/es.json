@@ -1,0 +1,18 @@
+{
+  "mais": {
+    "cursos": {
+      "titulo": "Cursos",
+      "curta": "oficio y escolaridad",
+      "descricao": "Cursos gratuitos de oficio y de escolaridad hechos con las lecciones del sitio: ENEM, costura, barbería, inglés y otros. Abiertos a todo el mundo."
+    },
+    "vida": {
+      "titulo": "Vida real",
+      "curta": "estudio en la práctica",
+      "descricao": "Tareas en el mundo, misiones de laboratorio, estudio de caso del barrio y documentos reales: el estudio llevado al trabajo y al barrio."
+    }
+  },
+  "entrar": {
+    "comecar": "Empezar por la primera lección: {titulo}",
+    "semJs": "Para guardar la inscripción en este aparato, el navegador necesita JavaScript. Las lecciones abren sin él."
+  }
+}

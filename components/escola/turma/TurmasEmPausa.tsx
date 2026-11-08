@@ -19,7 +19,7 @@ export function TurmasEmPausa({ lang, s, escola = true, olho }: { lang: Locale; 
       </PageHeading>
       <p className="mt-8 flex flex-wrap gap-3 font-sans">
         {escola && (
-          <Link href={to("/escola/cursos")} className="botao">
+          <Link href={to("/cursos")} className="botao">
             {s.cursos}
           </Link>
         )}

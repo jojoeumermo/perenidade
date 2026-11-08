@@ -13,15 +13,17 @@ import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { fill, htmlLang, localePath } from "@/i18n/config";
 import { textosDosCursos } from "@/i18n/escola/cursos";
+import { textosDaReorganizacao } from "@/i18n/escola/reorganizacao";
 import { textosDaVida } from "@/i18n/escola/vida";
 import { aulasDoCurso } from "@/lib/escola/cursos";
 import { carregarCursos, cursoPorSlug } from "@/lib/escola/cursos-servidor";
+import { cursoAberto } from "@/lib/escola/site-aberto";
 import { bibliografiaDo, bibliotecaDo, patronoDo, verCurso } from "@/lib/escola/cursos-vista";
 import { paginaMeta } from "@/lib/seo";
 import "@/styles/escola-cursos.css";
 import "@/styles/escola-vida.css";
 
-type Props = PageProps<"/[lang]/escola/cursos/[curso]">;
+type Props = PageProps<"/[lang]/cursos/[curso]">;
 
 // Todos os cursos em todos os idiomas saem na montagem; curso que não existe dá 404 sem ler nada em tempo de execução.
 export const dynamicParams = false;
@@ -38,7 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const curso = cursoPorSlug((await params).curso);
   if (!curso) return {};
   const s = textosDosCursos(lang);
-  return paginaMeta(lang, `/escola/cursos/${curso.slug}`, `${curso.titulo} · ${s.catalogo.olho}`, curso.resumo);
+  const meta = paginaMeta(lang, `/cursos/${curso.slug}`, `${curso.titulo} · ${s.catalogo.olho}`, curso.resumo);
+  // Curso da Formação (F7): a página segue no endereço até a F2 levar o curso para a Formação, mas fora da vitrine, da
+  // busca, do mapa do site e dos buscadores.
+  return cursoAberto(curso.slug) ? meta : { ...meta, robots: { index: false, follow: true } };
 }
 
 /** A página de um curso: o que é, entrar, horas, grade, tarefa e projeto, patrono, biblioteca, ementa, zine e turma. */
@@ -63,7 +68,7 @@ export default async function PaginaDoCurso({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12" data-curso={curso.slug}>
-      <PageHeading eyebrow={`${s.curso.olho} · ${s.ciclos[curso.ciclo].titulo}`} title={curso.titulo} voltar={{ href: localePath(lang, "/escola/cursos"), texto: s.curso.voltar }}>
+      <PageHeading eyebrow={`${s.curso.olho} · ${s.ciclos[curso.ciclo].titulo}`} title={curso.titulo} voltar={{ href: localePath(lang, "/cursos"), texto: s.curso.voltar }}>
         <span lang="pt">{curso.resumo}</span>
       </PageHeading>
 
@@ -83,7 +88,7 @@ export default async function PaginaDoCurso({ params }: Props) {
       )}
 
       <div className="curso-topo">
-        <EntrarNoCurso slug={curso.slug} sensivel={Boolean(curso.sensivel)} aulas={aulas} titulos={titulos} idioma={htmlLang[lang]} s={s.entrar} />
+        <EntrarNoCurso slug={curso.slug} sensivel={Boolean(curso.sensivel)} aulas={aulas} titulos={titulos} idioma={htmlLang[lang]} s={s.entrar} aberto={textosDaReorganizacao(lang).entrar} />
         <HorasDoCurso slug={curso.slug} aulas={aulas} minutos={minutos} total={visto.horas} idioma={htmlLang[lang]} s={s.horas} />
       </div>
 
@@ -108,7 +113,7 @@ export default async function PaginaDoCurso({ params }: Props) {
           <ul className="mt-2 font-sans">
             {requisitos.map((r) => (
               <li key={r.slug}>
-                <Link href={localePath(lang, `/escola/cursos/${r.slug}`)} className="font-semibold underline hover:text-oxblood" lang="pt">
+                <Link href={localePath(lang, `/cursos/${r.slug}`)} className="font-semibold underline hover:text-oxblood" lang="pt">
                   {r.titulo}
                 </Link>
               </li>
@@ -119,7 +124,7 @@ export default async function PaginaDoCurso({ params }: Props) {
         )}
         {temAprender && (
           <p className="mt-2 font-sans text-sm">
-            <Link href={localePath(lang, "/escola/cursos/aprender-a-estudar")} className="underline hover:text-oxblood">
+            <Link href={localePath(lang, "/cursos/aprender-a-estudar")} className="underline hover:text-oxblood">
               {s.curso.recomendado}
             </Link>
           </p>
@@ -175,7 +180,7 @@ export default async function PaginaDoCurso({ params }: Props) {
           {curso.casoDoBairro && <p className="mt-2 font-sans text-sm text-ink-soft">{s.curso.casoDoBairro}</p>}
           {curso.casoDoBairro && (
             <p className="mt-2 font-sans text-sm">
-              <Link href={localePath(lang, `/escola/vida/caso-do-bairro?curso=${curso.slug}`)} className="underline hover:text-oxblood">
+              <Link href={localePath(lang, `/vida/caso-do-bairro?curso=${curso.slug}`)} className="underline hover:text-oxblood">
                 {vida.caso.titulo}
               </Link>
             </p>
@@ -199,15 +204,9 @@ export default async function PaginaDoCurso({ params }: Props) {
 
       <ul className="links-do-curso no-print">
         <li>
-          <Link href={localePath("pt", `/escola/cursos/${curso.slug}/zine`)} className="link-do-curso" data-link-zine="">
+          <Link href={localePath("pt", `/cursos/${curso.slug}/zine`)} className="link-do-curso" data-link-zine="">
             <span className="font-serif text-xl font-semibold">{s.curso.zine}</span>
             <span className="mt-1 block text-sm text-ink-soft">{s.curso.zineTexto}</span>
-          </Link>
-        </li>
-        <li>
-          <Link href={localePath(lang, "/escola/turmas")} className="link-do-curso">
-            <span className="font-serif text-xl font-semibold">{s.curso.turmas}</span>
-            <span className="mt-1 block text-sm text-ink-soft">{s.curso.turmasTexto}</span>
           </Link>
         </li>
       </ul>

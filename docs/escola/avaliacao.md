@@ -17,7 +17,7 @@ Pacote da onda 3 da Etapa 4 (`docs/ESCOLA.md`). Ideias: D1-8, R1-26, R1-30, R1-3
 | Prova em dupla, proficiência e oferta de dispensa | `ProvaEmDupla.tsx`, `Proficiencia.tsx` |
 | Semana de provas e reconhecimento de saberes | `SemanaDeProvas.tsx`, `ReconhecimentoDeSaberes.tsx` |
 | Na aula: "lembra?" e "explique com suas palavras" | `components/aula/LembraDaAnterior.tsx`, `ExpliqueComSuasPalavras.tsx`, carregados por `AprenderAtivoSobDemanda.tsx` (sem servidor, só com a Escola ligada) |
-| Páginas | `app/[lang]/escola/provas`, `app/[lang]/escola/saberes`, `app/[lang]/escola/cursos/[curso]/modulo/[n]`, e a prova `app/[lang]/trilhas/[track]/prova` |
+| Páginas | `app/[lang]/escola/provas`, `app/[lang]/escola/saberes`, `app/[lang]/cursos/[curso]/modulo/[n]`, e a prova `app/[lang]/trilhas/[track]/prova` |
 | Textos (6 idiomas) | `i18n/escola/avaliacao/*.json`; no núcleo só `blocks.almost` ("Quase! A grafia é {w}") e `lesson.yourExplanation` |
 | Visual | `styles/escola-avaliacao.css` |
 | Testes | `npm run testar:escola-avaliacao` e `e2e/escola-avaliacao.spec.ts` |
@@ -35,7 +35,7 @@ Pacote da onda 3 da Etapa 4 (`docs/ESCOLA.md`). Ideias: D1-8, R1-26, R1-30, R1-3
 
 ## Como funciona
 
-- **Retorno por competência (R1-30).** Por tema: "já sabe" (80% ou mais, com 3 questões ou mais), "quase lá" (50 a 79%), "vale rever" (abaixo de 50%) e "pouco dado ainda" (menos de 3 questões). A tela só mostra a palavra e o link para rever a aula. Aparece no fim da prova (o tema é a aula) e em `/escola/cursos/[curso]/modulo/[n]`, que junta o teste de fim de aula de cada aula do módulo e os exercícios dessas aulas (`porTema` de `lib/meu-estudo.ts`), com links para o módulo anterior e o próximo. A página do módulo é `noindex` (o retorno é de cada pessoa).
+- **Retorno por competência (R1-30).** Por tema: "já sabe" (80% ou mais, com 3 questões ou mais), "quase lá" (50 a 79%), "vale rever" (abaixo de 50%) e "pouco dado ainda" (menos de 3 questões). A tela só mostra a palavra e o link para rever a aula. Aparece no fim da prova (o tema é a aula) e em `/cursos/[curso]/modulo/[n]`, que junta o teste de fim de aula de cada aula do módulo e os exercícios dessas aulas (`porTema` de `lib/meu-estudo.ts`), com links para o módulo anterior e o próximo. A página do módulo é `noindex` (o retorno é de cada pessoa).
 - **Prova de sempre.** Com a Escola ligada, a prova continua igual (resposta na hora, régua verde e vermelha, "Você acertou X de Y"), grava no aparelho e mostra o retorno. Embaixo do botão, os links "Em dupla" e "Prova de proficiência".
 - **Prova de proficiência (R1-31).** `/trilhas/[trilha]/prova?modo=proficiencia` (o parâmetro não identifica ninguém). São **todas** as questões da trilha e a resposta não aparece a cada questão. Antes, o texto diz que é para quem já sabe e que dá para refazer. No fim, para cada curso em que a pessoa está inscrita e que contém a trilha, se todos os temas deram "já sabe", aparece "Marcar esta trilha como dispensada no curso" (`marcarDispensa`). Aula com menos de 3 questões não chega a "já sabe" pela regra geral; nela vale acertar todas as que existem (`podeDispensar`). Nenhuma aula some: a dispensa só conta a trilha como feita no progresso do curso.
 - **Semana de provas solidária (D1-8).** `/escola/provas` usa `semanaDeProvas` (`lib/escola/tempo.ts`), calculada no navegador (a página é montada uma vez só). Fora da semana, mostra a data (a do semestre seguinte, nas férias) e diz que a prova de cada trilha continua aberta para treinar. Dentro, lista as trilhas com prova (10 questões ou mais) dos cursos em que a pessoa entrou, sozinho ou em dupla. A prova em dupla alterna "Pessoa A" e "Pessoa B" a cada questão, com "Combinem a resposta antes de tocar", e termina sem placar. "Estudar junto antes" leva a `/estudo-em-grupo` e a `/escola/turmas`. O lembrete `.ics` é um evento de dia inteiro do primeiro ao último dia, com aviso às 9h, no mesmo formato de `lib/agenda.ts`.
@@ -62,4 +62,4 @@ Pacote da onda 3 da Etapa 4 (`docs/ESCOLA.md`). Ideias: D1-8, R1-26, R1-30, R1-3
 
 - O roteiro de avaliação prática usa as tarefas de `pratica` dos cursos (E4-07) e está marcado "Roteiro em revisão" até alguém da coordenação revisar.
 - O calendário da semana de provas segue `content/escola/ano-letivo.json`, ainda proposto.
-- A página do curso (`GradeDoCurso`, do E4-07) ainda não aponta para `/escola/cursos/[curso]/modulo/[n]`; hoje se chega lá pela semana de provas. Um link por módulo na grade ajudaria.
+- A página do curso (`GradeDoCurso`, do E4-07) ainda não aponta para `/cursos/[curso]/modulo/[n]`; hoje se chega lá pela semana de provas. Um link por módulo na grade ajudaria.
