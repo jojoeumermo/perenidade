@@ -131,21 +131,24 @@ export function EscolherComQuem({ lang, t }: { lang: Locale; t: TextosDaBibliote
           </li>
         </ul>
 
-        <label htmlFor="ef6-duvida-texto">{t.escreva}</label>
-        <textarea
-          id="ef6-duvida-texto"
-          ref={campo}
-          rows={3}
-          maxLength={TEXTO_MAX}
-          placeholder={t.exemplo}
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
-          aria-describedby={eu.nucleo ? "ef6-duvida-dica" : undefined}
-        />
+        {/* O campo só serve para levar ao núcleo: sem núcleo, nada o enviaria (o cartão acima já diz t.nucleo.semNucleo). */}
         {eu.nucleo && (
-          <p id="ef6-duvida-dica" className="ef6-folha-dica">
-            {t.escrevaDica}
-          </p>
+          <>
+            <label htmlFor="ef6-duvida-texto">{t.escreva}</label>
+            <textarea
+              id="ef6-duvida-texto"
+              ref={campo}
+              rows={3}
+              maxLength={TEXTO_MAX}
+              placeholder={t.exemplo}
+              value={texto}
+              onChange={(e) => setTexto(e.target.value)}
+              aria-describedby="ef6-duvida-dica"
+            />
+            <p id="ef6-duvida-dica" className="ef6-folha-dica">
+              {t.escrevaDica}
+            </p>
+          </>
         )}
         <p className="ef6-folha-status" role="status" aria-live="polite">
           {aviso}
