@@ -1,49 +1,19 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
-import { AberturaDaEscola, ReverAbertura, type TrechoPublicado } from "@/components/escola/AberturaDaEscola";
 import { CartaoLuciaMaria } from "@/components/escola/CartaoLuciaMaria";
 import { CartazDaFrente } from "@/components/escola/frente/CartazDaFrente";
-import { semMarcador } from "@/lib/escola/quem-foi";
 import { QuemVolta } from "@/components/escola/QuemVolta";
 import Link from "@/components/Link";
 import { loadLang } from "@/i18n";
 import { localePath, type Locale } from "@/i18n/config";
 import { textosDaAvaliacao } from "@/i18n/escola/avaliacao";
 import { textosDaFrente } from "@/i18n/escola/frente";
-import { parseFrontmatter } from "@/lib/frontmatter";
 import { aulasDoAparelho, cursosDoAparelho, textosDaMatricula, textosDaPresenca } from "@/lib/escola/matricula-servidor";
 import { mapaDaEscola } from "@/lib/escola/rotas";
 import { calendarioProposto } from "@/lib/escola/tempo";
 import { textosDaBusca } from "@/lib/escola/textos-da-busca";
-import { textosDaBase, trechoDoQuemSomos } from "@/lib/escola/textos";
+import { textosDaBase } from "@/lib/escola/textos";
 import { paginaMeta } from "@/lib/seo";
-
-// Cada leitura escreve a pasta no próprio caminho: um caminho montado só com partes soltas faz o rastreio de arquivos da
-// Vercel levar o projeto inteiro nesta função (scripts/conferir-rastreio.mjs).
-const ler = (leitura: () => string) => {
-  try {
-    return leitura();
-  } catch {
-    return null;
-  }
-};
-
-/** O marcador (ou, quando chegar, o texto) de content/escola/quem-foi-lucia-maria.md, para o 2º quadro da abertura. */
-const textoDeLucia = () => semMarcador(parseFrontmatter(ler(() => fs.readFileSync(path.join(process.cwd(), "content", "escola", "quem-foi-lucia-maria.md"), "utf8")) ?? "").content.trim());
-
-/**
- * "Por que a escola existe": trecho copiado do "Quem somos" já publicado no idioma da página. Sem versão publicada
- * neste idioma, o original em português, com o aviso "(texto em português)". Nada é traduzido por conta própria.
- */
-function trechoPublicado(lang: Locale): TrechoPublicado | null {
-  const traduzido = lang === "pt" ? null : ler(() => fs.readFileSync(path.join(process.cwd(), "content", "paginas", `quem-somos.${lang}.md`), "utf8"));
-  const noIdioma = traduzido ? trechoDoQuemSomos(traduzido) : null;
-  if (noIdioma) return { texto: noIdioma, idioma: lang, emPortugues: false };
-  const original = trechoDoQuemSomos(ler(() => fs.readFileSync(path.join(process.cwd(), "content", "paginas", "quem-somos.md"), "utf8")) ?? "");
-  return original ? { texto: original, idioma: "pt", emPortugues: lang !== "pt" } : null;
-}
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/escola">): Promise<Metadata> {
   const { lang } = await loadLang(params);
@@ -157,10 +127,6 @@ export default async function Escola({ params }: PageProps<"/[lang]/escola">) {
         </div>
       </section>
 
-      <p className="mt-10">
-        <ReverAbertura texto={e.rever} />
-      </p>
-      <AberturaDaEscola lang={lang} s={s.abertura} textoDeLucia={textoDeLucia()} trecho={trechoPublicado(lang)} />
     </div>
   );
 }

@@ -27,7 +27,7 @@ export default async function Nucleos({ params }: PageProps<"/[lang]/nucleos">) 
           <p className="mt-4 max-w-3xl font-serif text-xl leading-relaxed">{s.montarTexto}</p>
           <p className="mt-5 flex flex-wrap gap-3">
             <Link href={to("/trilhas")} className="botao botao-prelo">{s.escolherTrilha}</Link>
-            <Link href={to("/consciencia-de-classe")} className="botao">{s.despertar}</Link>
+            <Link href={to("/consciencia")} className="botao">{s.despertar}</Link>
           </p>
         </Secao>
 
