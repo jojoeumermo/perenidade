@@ -1,0 +1,18 @@
+{
+  "mais": {
+    "cursos": {
+      "titulo": "Cours",
+      "curta": "métier et scolarité",
+      "descricao": "Des cours gratuits de métier et de scolarité faits avec les leçons du site : ENEM, couture, barbier, anglais et d'autres. Ouverts à tout le monde."
+    },
+    "vida": {
+      "titulo": "Vie réelle",
+      "curta": "l'étude en pratique",
+      "descricao": "Tâches dans le monde, missions de laboratoire, étude de cas du quartier et documents réels : l'étude portée au travail et au quartier."
+    }
+  },
+  "entrar": {
+    "comecar": "Commencer par la première leçon : {titulo}",
+    "semJs": "Pour garder l’inscription sur cet appareil, le navigateur a besoin de JavaScript. Les leçons s’ouvrent sans lui."
+  }
+}

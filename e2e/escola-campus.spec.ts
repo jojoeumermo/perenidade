@@ -17,14 +17,14 @@ async function abrirMais(page: Page) {
   await expect(page.getByRole("dialog")).toBeVisible();
 }
 
-test("sem a flag, o Mais é o de hoje (sem mapa) e /escola/campus não existe", async ({ page }, info) => {
+test("sem a flag, o Mais é o de hoje (sem mapa) e /campus não existe", async ({ page }, info) => {
   test.skip(await escolaLigada(page), "a Escola está ligada nesta montagem");
   await abrir(page, "/pt/explorar");
   await abrirMais(page);
   await expect(page.locator("[data-mapa-do-campus]")).toHaveCount(0);
   await expect(page.getByRole("dialog").getByRole("link", { name: "Glossário" }).first()).toBeAttached();
   await page.screenshot({ path: info.outputPath("mais-sem-flag.png") });
-  expect((await page.request.get("/pt/escola/campus")).status()).toBe(404);
+  expect((await page.request.get("/pt/campus")).status()).toBe(404);
   await expect(page.locator("[data-quadro-de-avisos]")).toHaveCount(0);
 });
 
@@ -64,10 +64,10 @@ test.describe("com a Escola ligada", () => {
     expect(await page.evaluate(() => localStorage.getItem("lucia:escola:passaporte"))).toBeNull();
   });
 
-  test("/escola/campus e /explorar mostram o mapa sem JavaScript", async ({ browser }) => {
+  test("/campus e /explorar mostram o mapa sem JavaScript", async ({ browser }) => {
     const contexto = await browser.newContext({ javaScriptEnabled: false });
     const page = await contexto.newPage();
-    for (const caminho of ["/pt/escola/campus", "/pt/explorar"]) {
+    for (const caminho of ["/pt/campus", "/pt/explorar"]) {
       await page.goto(caminho);
       await expect(page.locator("[data-mapa-do-campus] [data-predio]").first()).toBeAttached();
       expect(await page.locator("[data-mapa-do-campus] [data-predio]").count()).toBe(8);
@@ -121,13 +121,13 @@ test.describe("com a Escola ligada", () => {
   test("360 px sem rolagem lateral e tema escuro", async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 640 });
     await page.emulateMedia({ colorScheme: "dark" });
-    for (const caminho of ["/pt/escola/campus", "/pt/escola/calendario", "/zh/escola/calendario", "/pt/explorar"]) {
+    for (const caminho of ["/pt/campus", "/pt/escola/calendario", "/zh/escola/calendario", "/pt/explorar"]) {
       await abrir(page, caminho);
       const sobra = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(sobra, caminho).toBeLessThanOrEqual(0);
     }
     // No celular, a gaveta do prédio abre com o toque e mostra as seções.
-    await abrir(page, "/pt/escola/campus");
+    await abrir(page, "/pt/campus");
     const escola = page.locator('[data-predio="escola"] details');
     await escola.locator("summary").click();
     await expect(escola.getByRole("link").first()).toBeVisible();

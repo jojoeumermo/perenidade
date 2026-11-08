@@ -57,7 +57,7 @@ export function RetornoPorCompetencia({ itens, titulos, s }: { itens: RetornoDoT
 const SEM_TESTES: Record<string, Teste> = {};
 const SEM_RESPOSTAS: Record<string, RespostaGuardada> = {};
 
-/** O retorno de um módulo do curso, lido no aparelho (página /escola/cursos/[curso]/modulo/[n]). */
+/** O retorno de um módulo do curso, lido no aparelho (página /cursos/[curso]/modulo/[n]). */
 export function RetornoDoModulo({ aulas, titulos, s }: { aulas: string[]; titulos: Record<string, string>; s: TextosDaAvaliacao["retorno"] }) {
   const [testes] = useGuardado(lerTestes, SEM_TESTES);
   const [respostas] = useGuardado(lerRespostas, SEM_RESPOSTAS);

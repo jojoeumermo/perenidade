@@ -10,6 +10,7 @@ import { areaSlugs } from "../lib/areas.ts";
 import { aulasDoCurso, horasDoCurso, horasFeitas, moduloDe, proximaDoCurso } from "../lib/escola/cursos.ts";
 import { existeAula, existeMemorial, existeObra, lerCursosComErros, minutosDaAula } from "../lib/escola/cursos-servidor.ts";
 import { OBJETIVOS } from "../lib/escola/estudante.ts";
+import { cursoAberto } from "../lib/escola/site-aberto.ts";
 import { entradasDaEscola, entradasDosCursos, textosDaBusca } from "../lib/escola/indice.ts";
 import { apagarRespostas, CHAVE_DAS_LEITURAS, gravarResposta, lerRespostas, limpar, MAX_RESPOSTA, respondidas, validarLeitura } from "../lib/escola/leituras.ts";
 import { parseFrontmatter } from "../lib/frontmatter.ts";
@@ -162,23 +163,29 @@ conferir("sem armazenamento, não quebra", Object.keys(lerRespostas("manifesto-d
 
 // ───────────── Busca ─────────────
 const doscursos = entradasDosCursos("pt");
-conferir("um item de busca por curso", doscursos.length === cursos.length && doscursos.every((e) => e.kind === "pagina" && e.href.startsWith("/escola/cursos/") && e.title && e.text && e.area));
+const abertos = cursos.filter((c) => cursoAberto(c.slug));
+conferir("um item de busca por curso aberto (os da Formação ficam fora, F7)", abertos.length < cursos.length && doscursos.length === abertos.length && !doscursos.some((e) => e.href === "/cursos/ano-de-formacao-politica") && doscursos.every((e) => e.kind === "pagina" && e.href.startsWith("/cursos/") && e.title && e.text && e.area));
 const escola = entradasDaEscola("en", textosDaBusca("en"));
-conferir("cursos na busca da Escola, modo seguro por último", escola.some((e) => e.href === "/escola/cursos/aprender-a-estudar") && escola.at(-1).href === "/modo-seguro");
+conferir("cursos na busca da Escola, modo seguro por último", escola.some((e) => e.href === "/cursos/aprender-a-estudar") && escola.at(-1).href === "/modo-seguro");
 conferir("contexto da busca no idioma", entradasDosCursos("en")[0]?.context === "School course");
 
 // ───────────── Páginas e textos ─────────────
 const existe = (...p) => fs.existsSync(path.join(raiz, ...p));
 for (const p of [
-  ["app", "[lang]", "escola", "cursos", "page.tsx"],
-  ["app", "[lang]", "escola", "cursos", "[curso]", "page.tsx"],
-  ["app", "[lang]", "escola", "cursos", "[curso]", "zine", "page.tsx"],
+  // F7 (prancha Mapa): os cursos voltaram ao site aberto, em /cursos.
+  ["app", "[lang]", "cursos", "page.tsx"],
+  ["app", "[lang]", "cursos", "[curso]", "page.tsx"],
+  ["app", "[lang]", "cursos", "[curso]", "zine", "page.tsx"],
   ["app", "[lang]", "escola", "leituras", "[obra]", "page.tsx"],
 ])
   conferir(`página ${p.slice(1).join("/")}`, existe(...p));
-const catalogo = fs.readFileSync(path.join(raiz, "app", "[lang]", "escola", "cursos", "page.tsx"), "utf8");
+conferir("os cursos saíram de /escola", !existe("app", "[lang]", "escola", "cursos"));
+const catalogo = fs.readFileSync(path.join(raiz, "app", "[lang]", "cursos", "page.tsx"), "utf8");
+conferir("o catálogo aberto deixa o Ano de formação política para a Formação", /filter\(\(c\) => cursoAberto\(c\.slug\)\)/.test(catalogo) && !cursoAberto("ano-de-formacao-politica") && cursoAberto("costura"));
+conferir("o mapa do site leva os cursos abertos", /cursoAberto\(curso\.slug\)/.test(fs.readFileSync(path.join(raiz, "app", "sitemap.ts"), "utf8")));
+conferir("o Ano de formação política existe (senão o filtro não faz sentido)", cursos.some((c) => c.slug === "ano-de-formacao-politica"));
 conferir("o catálogo não é mais a página provisória", !/EmConstrucao/.test(catalogo));
-const paginaDoCurso = fs.readFileSync(path.join(raiz, "app", "[lang]", "escola", "cursos", "[curso]", "page.tsx"), "utf8");
+const paginaDoCurso = fs.readFileSync(path.join(raiz, "app", "[lang]", "cursos", "[curso]", "page.tsx"), "utf8");
 conferir("em construção sai sem link na página do curso", /emConstrucao\.map\(\(e\) => \(\s*<li[^>]*>\s*<span lang="pt">\{e\.titulo\}<\/span>/.test(paginaDoCurso));
 const aula = fs.readFileSync(path.join(raiz, "app", "[lang]", "trilhas", "[track]", "[lesson]", "page.tsx"), "utf8");
 conferir("faixa do curso logo acima do botão de concluir", /<FaixaDoCurso[\s\S]{0,400}?\/>\s*\)\}\s*<CompleteButton/.test(aula));
