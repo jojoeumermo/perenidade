@@ -36,7 +36,7 @@ export const RECURSOS = {
   "vale-o-escrito": "Vale o Escrito: observatório de crimes de interesse público já em fonte pública (teia, mapa, dossiês, envio de fonte e correção)",
   "rede-v2": "Alumia (Rede v2): Rede e Fórum numa só (posts curtos, discussões, dúvidas, enquetes), comunidades com página própria, perfil com @nome, endereços de post, perfil e comunidade",
   turmas: "Turmas: as turmas por curso da Escola (/escola/turmas) e a Turma do mês (/turmas). Em pausa até haver gente para acompanhar",
-  "assistente-publico": "Assistente em todo o site, sem conta: botão discreto em todas as páginas, IAs gratuitas em rodízio e limite por pessoa sem guardar o IP",
+  "assistente-publico": "Assistente de IA aberto, sem conta (/api/assistente), usado pelo reforço e pelas ferramentas de estudo: IAs gratuitas em rodízio e limite por pessoa sem guardar o IP. O botão \"?\" das páginas não usa IA: são perguntas frequentes prontas",
 } as const;
 
 export type Recurso = keyof typeof RECURSOS;

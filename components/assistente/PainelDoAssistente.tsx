@@ -1,164 +1,186 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useId, useRef, useState } from "react";
-import { L, useI18n } from "@/components/I18n";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { L } from "@/components/I18n";
 import { fill } from "@/i18n/config";
-import { errorText } from "@/i18n/core";
 import type { TextosDoAssistente } from "@/i18n/assistente";
-import { type EstadoPublico, estadoDoPublico, perguntarAoPublico } from "@/lib/assistente/publico";
+import { filtrarPerguntas, type PerguntaFrequente } from "@/lib/perguntas-frequentes";
 
-// O Markdown (com fórmulas) só é baixado quando chega a primeira resposta.
-const Markdown = dynamic(() => import("@/components/Markdown").then((m) => m.Markdown), { ssr: false });
-
-/** O mesmo teto da pergunta do assistente (supabase/functions/assistente/assistente.ts, LIMITES.pergunta). */
-const MAXIMO = 3000;
-
-type Estado =
-  | { fase: "parado" | "pensando" }
-  | { fase: "resposta"; pergunta: string; texto: string; cortada: boolean; restantesHora: number | null; restantesDia: number | null }
-  | { fase: "erro"; texto: string };
+const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 /**
- * A janela do assistente em todas as páginas (T03). Baixada só no primeiro uso (BotaoDoAssistente). Fala só com o próprio
- * site (/api/assistente): vai a pergunta, o idioma da página e nada mais. Nada fica guardado no aparelho nem no servidor:
- * fechar a janela e recarregar a página apaga a conversa.
+ * A janela do botão "?" em todas as páginas: perguntas frequentes com respostas PRONTAS (content/perguntas-frequentes.json).
+ * Sem IA, sem pedido a servidor nenhum e sem texto livre interpretado: a pessoa escolhe uma pergunta da lista ou digita
+ * para FILTRAR a lista (lib/perguntas-frequentes.ts, aqui no navegador). O que ela digita não sai do aparelho e não é guardado.
+ *
+ * Acessível: diálogo com o foco preso (Tab e Shift+Tab giram dentro dele; Esc fecha, no BotaoDoAssistente), o foco vai ao
+ * campo ao abrir, setas para cima e para baixo andam pela lista (Home e End vão ao começo e ao fim), cada pergunta é um botão
+ * que abre e fecha a resposta (aria-expanded), e a contagem do filtro é anunciada (role="status").
  */
-export function PainelDoAssistente({ textos: s, aberto, fechar }: { textos: TextosDoAssistente; aberto: boolean; fechar: () => void }) {
-  const { lang, t } = useI18n();
-  const [publico, setPublico] = useState<EstadoPublico | null>(null);
-  const [pergunta, setPergunta] = useState("");
-  const [estado, setEstado] = useState<Estado>({ fase: "parado" });
-  const campo = useRef<HTMLTextAreaElement>(null);
-  const tituloId = useId();
-  const avisoId = useId();
+export function PainelDoAssistente({
+  textos: s,
+  perguntas,
+  email,
+  aberto,
+  fechar,
+}: {
+  textos: TextosDoAssistente;
+  perguntas: PerguntaFrequente[];
+  email: string;
+  aberto: boolean;
+  fechar: () => void;
+}) {
+  const [busca, setBusca] = useState("");
+  const [abertaId, setAbertaId] = useState<string | null>(null);
+  const janela = useRef<HTMLElement>(null);
+  const campo = useRef<HTMLInputElement>(null);
+  const lista = useRef<HTMLUListElement>(null);
+  const base = useId();
+  const tituloId = `${base}-titulo`;
+  const leadId = `${base}-lead`;
+  const listaId = `${base}-lista`;
 
-  useEffect(() => {
-    let vivo = true;
-    void estadoDoPublico().then((e) => vivo && setPublico(e));
-    return () => {
-      vivo = false;
-    };
-  }, []);
+  const achadas = useMemo(() => filtrarPerguntas(perguntas, busca), [perguntas, busca]);
+  const nada = busca.trim() !== "" && achadas.length === 0;
+  // Sem nada que case, a lista inteira continua à vista ("veja as perguntas abaixo").
+  const mostradas = nada ? perguntas : achadas;
 
-  // Ao abrir, o foco vai para o campo (ou para o título, se o assistente estiver desligado).
+  // Ao abrir, o foco vai para o campo do filtro.
   useEffect(() => {
     if (aberto) campo.current?.focus();
-  }, [aberto, publico]);
+  }, [aberto]);
 
-  // O aviso de "pensando", o erro e a resposta nova ficam à vista dentro da janela (que rola por dentro).
-  const aviso = useRef<HTMLDivElement>(null);
-  const topoDaResposta = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (estado.fase === "resposta") topoDaResposta.current?.scrollIntoView({ block: "start" });
-    else if (estado.fase !== "parado") aviso.current?.scrollIntoView({ block: "nearest" });
-  }, [estado]);
+  function botoesDaLista(): HTMLButtonElement[] {
+    return Array.from(lista.current?.querySelectorAll<HTMLButtonElement>("button[data-pergunta]") ?? []);
+  }
 
-  const curta = pergunta.trim().length < 10;
-
-  async function perguntar(e: React.FormEvent) {
+  function andarNaLista(e: React.KeyboardEvent) {
+    const botoes = botoesDaLista();
+    if (!botoes.length) return;
+    const atual = botoes.indexOf(document.activeElement as HTMLButtonElement);
+    let proximo: number | null = null;
+    if (e.key === "ArrowDown") proximo = atual < 0 ? 0 : Math.min(botoes.length - 1, atual + 1);
+    else if (e.key === "ArrowUp") proximo = atual <= 0 ? -1 : atual - 1;
+    else if (e.key === "Home" && atual >= 0) proximo = 0;
+    else if (e.key === "End" && atual >= 0) proximo = botoes.length - 1;
+    if (proximo === null) return;
     e.preventDefault();
-    if (curta) {
-      setEstado({ fase: "erro", texto: s.curta });
-      return;
+    if (proximo < 0) campo.current?.focus();
+    else botoes[proximo].focus();
+  }
+
+  // O foco não sai da janela enquanto ela está aberta: Tab no último volta ao primeiro, e Shift+Tab no primeiro vai ao último.
+  function prenderFoco(e: React.KeyboardEvent) {
+    if (e.key !== "Tab" || !janela.current) return;
+    const focaveis = Array.from(janela.current.querySelectorAll<HTMLElement>(FOCAVEIS)).filter((el) => el.offsetParent !== null || el === document.activeElement);
+    if (!focaveis.length) return;
+    const primeiro = focaveis[0];
+    const ultimo = focaveis[focaveis.length - 1];
+    if (e.shiftKey && (document.activeElement === primeiro || !janela.current.contains(document.activeElement))) {
+      e.preventDefault();
+      ultimo.focus();
+    } else if (!e.shiftKey && document.activeElement === ultimo) {
+      e.preventDefault();
+      primeiro.focus();
     }
-    const texto = pergunta.trim();
-    setEstado({ fase: "pensando" });
-    // Só a pergunta e o idioma: sem disciplina, sem aulas, sem a página em que a pessoa está.
-    const r = await perguntarAoPublico({ modo: "pergunta", pergunta: texto, disciplina: "", idioma: lang, aulas: [] });
-    if (r.ok) {
-      setEstado({ fase: "resposta", pergunta: texto, texto: r.texto, cortada: r.cortada, restantesHora: r.restantesHora ?? null, restantesDia: r.restantes });
-      setPergunta("");
-    } else setEstado({ fase: "erro", texto: r.recusa ? s.recusa : errorText(t, r.erro) });
   }
 
   return (
     <section
+      ref={janela}
       id="assistente-do-site"
       role="dialog"
-      aria-modal="false"
+      aria-modal="true"
       aria-labelledby={tituloId}
+      aria-describedby={leadId}
+      onKeyDown={(e) => {
+        prenderFoco(e);
+        andarNaLista(e);
+      }}
       className="assistente-janela absolute bottom-14 left-0 flex max-h-[max(16rem,min(calc(100dvh-19rem),40rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col border-2 border-ink bg-folha text-ink shadow-[6px_6px_0_var(--sombra)]"
     >
       <header className="flex items-start justify-between gap-3 border-b border-rule px-4 py-3">
         <div>
           <h2 id={tituloId} className="font-serif text-xl font-semibold">{s.titulo}</h2>
-          <p className="mt-1 text-xs text-ink-soft">{s.lead}</p>
+          <p id={leadId} className="mt-1 text-xs text-ink-soft">{s.lead}</p>
         </div>
         <button type="button" onClick={fechar} aria-label={s.fechar} title={s.fechar} className="-mr-1 h-9 w-9 shrink-0 cursor-pointer text-xl leading-none hover:text-oxblood">
           <span aria-hidden>×</span>
         </button>
       </header>
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
-        {publico === null ? (
-          <p className="text-ink-soft">{s.carregando}</p>
-        ) : !publico.ligado ? (
-          <p>
-            {s.desligado}{" "}
-            <L href="/reforco" className="font-semibold underline hover:text-oxblood">{s.reforco}</L>
+      <div className="border-b border-rule px-4 py-3">
+        <label htmlFor={`${base}-filtro`} className="block text-sm font-semibold">{s.filtro}</label>
+        <input
+          id={`${base}-filtro`}
+          ref={campo}
+          type="search"
+          value={busca}
+          maxLength={120}
+          autoComplete="off"
+          spellCheck={false}
+          placeholder={s.dica}
+          aria-controls={listaId}
+          aria-describedby={`${base}-privacidade`}
+          onChange={(e) => setBusca(e.target.value)}
+          onKeyDown={(e) => {
+            // Enter no campo abre a primeira pergunta que sobrou (e nada mais: não há pedido a enviar).
+            if (e.key === "Enter") {
+              e.preventDefault();
+              const primeira = botoesDaLista()[0];
+              if (primeira && !nada) {
+                setAbertaId(primeira.dataset.pergunta ?? null);
+                primeira.focus();
+              }
+            }
+          }}
+          className="mt-1 w-full border-2 border-ink bg-parchment px-2 py-1.5 font-sans text-base"
+        />
+        <p id={`${base}-privacidade`} className="mt-1 text-xs text-ink-soft">{s.privacidade}</p>
+        <p role="status" aria-live="polite" className="mt-1 text-xs text-ink-soft">
+          {busca.trim() !== "" && !nada ? fill(s.contagem, { n: achadas.length, total: perguntas.length }) : ""}
+        </p>
+        {nada && (
+          <p className="mt-1 text-sm">
+            {s.naoAchei}{" "}
+            <a href={`mailto:${email}`} className="font-semibold underline hover:text-oxblood">{s.faleConosco}</a>.
           </p>
-        ) : (
-          <>
-            {/* O aviso fica ANTES do campo e do botão: a pessoa sabe para onde vai a pergunta antes de escrever. */}
-            <div id={avisoId} className="border-l-4 border-oxblood pl-3 text-xs">
-              <p>{s.privacidade}</p>
-              <p className="mt-1 font-semibold">{s.naoEscreva}</p>
-              <p className="mt-1 text-ink-soft">{fill(s.limites, { h: publico.porHora, d: publico.porDia })}</p>
-            </div>
-
-            {estado.fase === "resposta" && (
-              <div ref={topoDaResposta} className="mt-4">
-                <p className="font-mono text-xs uppercase tracking-widest text-ink-soft">{s.suaPergunta}</p>
-                <p className="mt-1 whitespace-pre-wrap text-sm">{estado.pergunta}</p>
-                <section aria-label={s.resposta} className="mt-3 border-l-4 border-gold bg-parchment-deep px-3 py-2">
-                  <p className="font-mono text-xs uppercase tracking-widest text-ink-soft">{s.resposta}</p>
-                  <div className="mt-1 font-serif text-base">
-                    <Markdown lang={lang}>{estado.texto}</Markdown>
-                  </div>
-                  {estado.cortada && <p className="mt-2 text-ink-soft">{s.cortada}</p>}
-                  <p className="mt-2 text-xs text-ink-soft">{s.podeErrar}</p>
-                </section>
-                {estado.restantesHora !== null && estado.restantesDia !== null && <p className="mt-2 text-xs text-ink-soft">{fill(s.restam, { h: estado.restantesHora, d: estado.restantesDia })}</p>}
-                <p className="mt-2 text-xs">
-                  <L href="/reforco" className="underline hover:text-oxblood">{s.reforco}</L>
-                </p>
-              </div>
-            )}
-
-            <form onSubmit={perguntar} className="mt-4">
-              <label htmlFor="assistente-do-site-campo" className="block font-semibold">
-                {estado.fase === "resposta" ? s.nova : s.rotulo}
-              </label>
-              <textarea
-                id="assistente-do-site-campo"
-                ref={campo}
-                value={pergunta}
-                maxLength={MAXIMO}
-                rows={3}
-                placeholder={s.dica}
-                aria-describedby={avisoId}
-                onChange={(e) => setPergunta(e.target.value)}
-                onKeyDown={(e) => {
-                  // Ctrl+Enter (ou Cmd+Enter) manda; Enter sozinho quebra a linha.
-                  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) e.currentTarget.form?.requestSubmit();
-                }}
-                className="mt-1 w-full resize-y border-2 border-ink bg-parchment p-2 font-serif text-base"
-              />
-              <p className="flex items-center justify-between gap-3 text-xs text-ink-soft">
-                <span>{fill(s.contador, { n: pergunta.length, max: MAXIMO })}</span>
-                <button type="submit" disabled={estado.fase === "pensando"} className="cursor-pointer bg-ink px-4 py-1.5 text-sm font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50">
-                  {s.perguntar}
-                </button>
-              </p>
-            </form>
-          </>
         )}
-        <div ref={aviso} role="status" aria-live="polite" className="text-sm">
-          {estado.fase === "pensando" && <p className="mt-2 text-ink-soft">{s.pensando}</p>}
-          {estado.fase === "erro" && <p className="mt-2 text-oxblood">{estado.texto}</p>}
-        </div>
+      </div>
+
+      <div className="min-h-0 flex-1 overflow-y-auto px-2 py-2">
+        <ul ref={lista} id={listaId} aria-label={s.lista} className="space-y-1">
+          {mostradas.map((p) => {
+            const aberta = abertaId === p.id;
+            const respostaId = `${base}-r-${p.id}`;
+            return (
+              <li key={p.id}>
+                <button
+                  type="button"
+                  data-pergunta={p.id}
+                  aria-expanded={aberta}
+                  aria-controls={respostaId}
+                  onClick={() => setAbertaId(aberta ? null : p.id)}
+                  className="flex w-full cursor-pointer items-start gap-2 px-2 py-2 text-left font-sans text-sm font-semibold hover:bg-parchment-deep hover:text-oxblood aria-expanded:bg-parchment-deep"
+                >
+                  <span aria-hidden className="mt-px w-3 shrink-0 font-mono text-oxblood">{aberta ? "−" : "+"}</span>
+                  <span>{p.pergunta}</span>
+                </button>
+                <div id={respostaId} hidden={!aberta} className="mx-2 mb-2 border-l-4 border-gold bg-parchment-deep px-3 py-2">
+                  <p className="font-serif text-base">{p.resposta}</p>
+                  {p.href && (
+                    <p className="mt-2 text-sm">
+                      <L href={p.href} onClick={fechar} className="font-semibold underline hover:text-oxblood">
+                        {s.abrir} <span aria-hidden>→</span>
+                      </L>
+                    </p>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

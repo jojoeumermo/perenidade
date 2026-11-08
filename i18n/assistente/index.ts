@@ -7,7 +7,8 @@ import pt from "./pt.json";
 import ru from "./ru.json";
 import zh from "./zh.json";
 
-// Os textos do assistente que fica em todas as páginas (components/assistente/BotaoDoAssistente.tsx), nos 6 idiomas.
+// Os textos do botão "?" que fica em todas as páginas (components/assistente/BotaoDoAssistente.tsx): a moldura das
+// perguntas frequentes, nos 6 idiomas. As perguntas e as respostas ficam em content/perguntas-frequentes.json.
 // Só o servidor importa este arquivo: o layout passa ao navegador só os textos do idioma da página.
 
 export type TextosDoAssistente = typeof pt;

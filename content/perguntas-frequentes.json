@@ -1,0 +1,317 @@
+{
+  "_sobre": "Perguntas frequentes do botão '?' (components/assistente). Escritas à mão, nos 6 idiomas. Sem IA e sem rede: o navegador só filtra esta lista. 'href' é rota interna (sem o idioma) e precisa existir em app/[lang]; 'recurso' mostra o item só com o recurso ligado; 'semRecurso', só com ele desligado. '{email}' vira o e-mail de contato de lib/site.ts. Teste: npm run testar:perguntas-frequentes.",
+  "itens": [
+    {
+      "id": "comecar",
+      "href": "/comecar",
+      "pt": { "pergunta": "Como começo a estudar?", "resposta": "Comece por “Por onde começar”: seis passos para quem está chegando, do que se vive no trabalho até os textos mais longos. Não precisa de conta.", "palavras": "estudar começo início primeiro passo chegando" },
+      "en": { "pergunta": "How do I start studying?", "resposta": "Start with “Where to begin”: six steps for newcomers, from everyday life at work to longer texts. No account needed.", "palavras": "study start begin first step new" },
+      "es": { "pergunta": "¿Cómo empiezo a estudiar?", "resposta": "Empieza por “Por dónde empezar”: seis pasos para quien llega, de lo que se vive en el trabajo a los textos más largos. No hace falta cuenta.", "palavras": "estudiar empezar inicio primer paso nuevo" },
+      "fr": { "pergunta": "Comment commencer à étudier ?", "resposta": "Commencez par « Par où commencer » : six étapes pour les nouveaux venus, du vécu au travail jusqu’aux textes plus longs. Pas besoin de compte.", "palavras": "étudier commencer début premier pas nouveau" },
+      "ru": { "pergunta": "С чего начать учёбу?", "resposta": "Начните с раздела «С чего начать»: шесть шагов для новичков, от жизни на работе до более длинных текстов. Учётная запись не нужна.", "palavras": "учёба начать начало первый шаг новичок" },
+      "zh": { "pergunta": "我该怎样开始学习？", "resposta": "从“从哪里开始”入手：为新来者准备的六个步骤，从工作中的日常经验到较长的文本。不需要账户。", "palavras": "学习 开始 入门 第一步 新手" }
+    },
+    {
+      "id": "perguntas",
+      "href": "/perguntas",
+      "pt": { "pergunta": "Tenho uma dúvida do dia a dia. Por onde estudo?", "resposta": "Em “Comece por uma pergunta” há dúvidas de quem trabalha (dinheiro, direitos, saúde, tecnologia), cada uma com aulas para seguir.", "palavras": "dúvida dia a dia trabalho dinheiro direitos" },
+      "en": { "pergunta": "I have an everyday question. Where do I study it?", "resposta": "“Start with a question” lists questions from working people (money, rights, health, technology), each with lessons to follow.", "palavras": "question everyday work money rights" },
+      "es": { "pergunta": "Tengo una duda del día a día. ¿Por dónde estudio?", "resposta": "En “Empieza por una pregunta” hay dudas de quien trabaja (dinero, derechos, salud, tecnología), cada una con clases para seguir.", "palavras": "duda día a día trabajo dinero derechos" },
+      "fr": { "pergunta": "J’ai une question de la vie quotidienne. Par où étudier ?", "resposta": "« Commencez par une question » réunit des questions de travailleuses et travailleurs (argent, droits, santé, technologie), chacune avec des cours à suivre.", "palavras": "question quotidien travail argent droits" },
+      "ru": { "pergunta": "У меня житейский вопрос. С чего начать?", "resposta": "В разделе «Начните с вопроса» собраны вопросы трудящихся (деньги, права, здоровье, технологии), к каждому подобраны уроки.", "palavras": "вопрос повседневный работа деньги права" },
+      "zh": { "pergunta": "我有一个日常生活中的问题，该从哪里学起？", "resposta": "“从一个问题开始”收集了劳动者的常见问题（钱、权利、健康、技术），每个问题都配有可以继续学习的课程。", "palavras": "问题 日常 工作 钱 权利" }
+    },
+    {
+      "id": "aulas",
+      "href": "/trilhas",
+      "pt": { "pergunta": "Onde estão as aulas?", "resposta": "Nas Disciplinas. Cada disciplina se divide em trilhas, com aulas curtas, em ordem, que terminam com um teste. O progresso fica salvo neste navegador.", "palavras": "aula disciplina trilha matéria curso" },
+      "en": { "pergunta": "Where are the lessons?", "resposta": "In Subjects. Each subject is split into tracks of short lessons, in order, ending with a quiz. Your progress is saved in this browser.", "palavras": "lesson subject track course class" },
+      "es": { "pergunta": "¿Dónde están las clases?", "resposta": "En las Disciplinas. Cada disciplina se divide en rutas, con clases cortas, en orden, que terminan con un test. El progreso queda guardado en este navegador.", "palavras": "clase disciplina ruta materia curso" },
+      "fr": { "pergunta": "Où sont les cours ?", "resposta": "Dans les Disciplines. Chaque discipline se divise en parcours de cours courts, dans l’ordre, qui se terminent par un test. La progression reste enregistrée dans ce navigateur.", "palavras": "cours discipline parcours matière leçon" },
+      "ru": { "pergunta": "Где уроки?", "resposta": "В разделе «Дисциплины». Каждая дисциплина делится на треки коротких уроков по порядку, в конце каждого урока тест. Прогресс сохраняется в этом браузере.", "palavras": "урок дисциплина трек предмет курс" },
+      "zh": { "pergunta": "课程在哪里？", "resposta": "在“学科”里。每个学科分成若干学习路径，课程简短、按顺序排列，最后有一个小测验。学习进度保存在这个浏览器里。", "palavras": "课程 学科 路径 科目 课" }
+    },
+    {
+      "id": "enem",
+      "href": "/enem",
+      "recurso": "enem-curso",
+      "pt": { "pergunta": "Onde vejo as aulas do ENEM?", "resposta": "Na página do ENEM: diagnóstico, plano de estudo, prática por habilidade, provas oficiais por ano e oficina de redação.", "palavras": "enem vestibular prova redação sisu" },
+      "en": { "pergunta": "Where are the ENEM lessons?", "resposta": "On the ENEM page: diagnostic test, study plan, practice by skill, official exams by year and an essay workshop.", "palavras": "enem exam university entrance essay" },
+      "es": { "pergunta": "¿Dónde veo las clases del ENEM?", "resposta": "En la página del ENEM: diagnóstico, plan de estudio, práctica por habilidad, exámenes oficiales por año y taller de redacción.", "palavras": "enem examen ingreso redacción" },
+      "fr": { "pergunta": "Où sont les cours pour l’ENEM ?", "resposta": "Sur la page ENEM : diagnostic, plan d’étude, entraînement par compétence, épreuves officielles par année et atelier de rédaction.", "palavras": "enem examen épreuve rédaction" },
+      "ru": { "pergunta": "Где уроки для подготовки к ENEM?", "resposta": "На странице ENEM: диагностика, план занятий, практика по навыкам, официальные экзамены по годам и мастерская сочинения.", "palavras": "enem экзамен поступление сочинение" },
+      "zh": { "pergunta": "ENEM 的课程在哪里？", "resposta": "在 ENEM 页面：诊断测试、学习计划、按能力练习、历年官方试题和作文工作坊。", "palavras": "enem 考试 高考 作文" }
+    },
+    {
+      "id": "enem-fechado",
+      "href": "/questoes",
+      "semRecurso": "enem-curso",
+      "pt": { "pergunta": "Onde vejo as aulas do ENEM?", "resposta": "A página do ENEM não está aberta agora. Enquanto isso, treine no Banco de questões, com resposta e explicação, e estude pelas disciplinas.", "palavras": "enem vestibular prova redação" },
+      "en": { "pergunta": "Where are the ENEM lessons?", "resposta": "The ENEM page is not open right now. Meanwhile, practise in the Question bank, with answers and explanations, and study by subject.", "palavras": "enem exam university entrance" },
+      "es": { "pergunta": "¿Dónde veo las clases del ENEM?", "resposta": "La página del ENEM no está abierta ahora. Mientras tanto, practica en el Banco de preguntas, con respuesta y explicación, y estudia por disciplinas.", "palavras": "enem examen ingreso" },
+      "fr": { "pergunta": "Où sont les cours pour l’ENEM ?", "resposta": "La page ENEM n’est pas ouverte pour le moment. En attendant, entraînez-vous dans la Banque de questions, avec réponse et explication, et étudiez par discipline.", "palavras": "enem examen épreuve" },
+      "ru": { "pergunta": "Где уроки для подготовки к ENEM?", "resposta": "Страница ENEM сейчас закрыта. Пока тренируйтесь в Банке вопросов, с ответами и объяснениями, и учитесь по дисциплинам.", "palavras": "enem экзамен поступление" },
+      "zh": { "pergunta": "ENEM 的课程在哪里？", "resposta": "ENEM 页面目前没有开放。在此期间，可以在题库里练习（附答案和解析），并按学科学习。", "palavras": "enem 考试 高考" }
+    },
+    {
+      "id": "questoes",
+      "href": "/questoes",
+      "pt": { "pergunta": "Onde treino com questões?", "resposta": "No Banco de questões: as questões das aulas do instituto num lugar só, com a resposta e a explicação.", "palavras": "questão exercício treino teste banco" },
+      "en": { "pergunta": "Where can I practise with questions?", "resposta": "In the Question bank: the questions from the institute’s lessons in one place, with the answer and the explanation.", "palavras": "question exercise practice quiz bank" },
+      "es": { "pergunta": "¿Dónde practico con preguntas?", "resposta": "En el Banco de preguntas: las preguntas de las clases del instituto en un solo lugar, con la respuesta y la explicación.", "palavras": "pregunta ejercicio práctica test banco" },
+      "fr": { "pergunta": "Où m’entraîner avec des questions ?", "resposta": "Dans la Banque de questions : les questions des cours de l’institut réunies au même endroit, avec la réponse et l’explication.", "palavras": "question exercice entraînement test banque" },
+      "ru": { "pergunta": "Где потренироваться на вопросах?", "resposta": "В Банке вопросов: вопросы из уроков института в одном месте, с ответом и объяснением.", "palavras": "вопрос упражнение тренировка тест банк" },
+      "zh": { "pergunta": "在哪里做题练习？", "resposta": "在题库里：研究所各课程的题目集中在一处，附有答案和解析。", "palavras": "题目 练习 测验 题库" }
+    },
+    {
+      "id": "podcasts",
+      "href": "/podcasts",
+      "pt": { "pergunta": "Onde acho os podcasts?", "resposta": "Na página Podcasts: conversas de formação política e popular, de graça, com transcrição e fontes. Dá para assinar no aplicativo de podcast que você já usa.", "palavras": "podcast áudio ouvir episódio rss" },
+      "en": { "pergunta": "Where are the podcasts?", "resposta": "On the Podcasts page: conversations for political and popular education, free, with transcripts and sources. You can subscribe in the podcast app you already use.", "palavras": "podcast audio listen episode rss" },
+      "es": { "pergunta": "¿Dónde encuentro los pódcasts?", "resposta": "En la página Pódcasts: conversaciones de formación política y popular, gratis, con transcripción y fuentes. Puedes suscribirte en la aplicación de pódcast que ya usas.", "palavras": "podcast pódcast audio escuchar episodio rss" },
+      "fr": { "pergunta": "Où trouver les podcasts ?", "resposta": "Sur la page Podcasts : des conversations de formation politique et populaire, gratuites, avec transcription et sources. Vous pouvez vous abonner dans votre application de podcasts habituelle.", "palavras": "podcast audio écouter épisode rss" },
+      "ru": { "pergunta": "Где найти подкасты?", "resposta": "На странице «Подкасты»: беседы о политическом и народном просвещении, бесплатно, с расшифровкой и источниками. Можно подписаться в привычном приложении для подкастов.", "palavras": "подкаст аудио слушать выпуск rss" },
+      "zh": { "pergunta": "播客在哪里？", "resposta": "在“播客”页面：关于政治和大众教育的对谈，免费，附文字稿和来源。也可以在你常用的播客应用里订阅。", "palavras": "播客 音频 收听 节目 rss" }
+    },
+    {
+      "id": "videoaulas",
+      "href": "/videoaulas",
+      "pt": { "pergunta": "Tem aulas em vídeo?", "resposta": "Sim. Em Aulas em vídeo há aulas curtas, de até 10 minutos, gravadas pelos educadores do instituto, com transcrição e velocidade ajustável.", "palavras": "vídeo videoaula assistir gravada" },
+      "en": { "pergunta": "Are there video lessons?", "resposta": "Yes. Video lessons has short lessons, up to 10 minutes, recorded by the institute’s educators, with transcripts and adjustable speed.", "palavras": "video watch recorded lesson" },
+      "es": { "pergunta": "¿Hay clases en video?", "resposta": "Sí. En Clases en video hay clases cortas, de hasta 10 minutos, grabadas por los educadores del instituto, con transcripción y velocidad ajustable.", "palavras": "video videoclase ver grabada" },
+      "fr": { "pergunta": "Y a-t-il des cours en vidéo ?", "resposta": "Oui. Les Cours en vidéo sont courts, 10 minutes au plus, enregistrés par les éducateurs de l’institut, avec transcription et vitesse réglable.", "palavras": "vidéo regarder enregistré cours" },
+      "ru": { "pergunta": "Есть ли видеоуроки?", "resposta": "Да. В разделе «Видеоуроки» короткие уроки до 10 минут, записанные педагогами института, с расшифровкой и регулируемой скоростью.", "palavras": "видео видеоурок смотреть запись" },
+      "zh": { "pergunta": "有视频课吗？", "resposta": "有。“视频课程”里有研究所教师录制的短课，每节不超过 10 分钟，附文字稿，可以调节播放速度。", "palavras": "视频 视频课 观看 录制" }
+    },
+    {
+      "id": "ao-vivo",
+      "href": "/ao-vivo",
+      "pt": { "pergunta": "Tem aula ao vivo?", "resposta": "Na página Aulas ao vivo os educadores marcam as aulas. Na hora, você entra, assiste e pergunta, de graça e sem instalar nada.", "palavras": "ao vivo agenda transmissão sala" },
+      "en": { "pergunta": "Are there live classes?", "resposta": "On the Live classes page, educators schedule classes. At the set time you join, watch and ask questions, free and with nothing to install.", "palavras": "live schedule stream room" },
+      "es": { "pergunta": "¿Hay clases en vivo?", "resposta": "En la página Clases en vivo los educadores programan las clases. A la hora, entras, miras y preguntas, gratis y sin instalar nada.", "palavras": "en vivo directo agenda sala" },
+      "fr": { "pergunta": "Y a-t-il des cours en direct ?", "resposta": "Sur la page Cours en direct, les éducateurs programment les cours. À l’heure dite, vous entrez, regardez et posez vos questions, gratuitement et sans rien installer.", "palavras": "direct agenda diffusion salle" },
+      "ru": { "pergunta": "Есть ли занятия в прямом эфире?", "resposta": "На странице «Занятия в прямом эфире» педагоги назначают уроки. В назначенное время вы заходите, смотрите и задаёте вопросы, бесплатно и без установки программ.", "palavras": "прямой эфир расписание трансляция" },
+      "zh": { "pergunta": "有直播课吗？", "resposta": "在“直播课”页面，教师会安排上课时间。到时你进入、观看并提问，免费，不用安装任何东西。", "palavras": "直播 日程 课堂" }
+    },
+    {
+      "id": "reforco",
+      "href": "/reforco",
+      "pt": { "pergunta": "Travei numa matéria. Quem me ajuda?", "resposta": "Peça uma Aula de reforço: escreva a dúvida e uma pessoa voluntária da equipe de ensino responde por e-mail, de graça. Não precisa de conta.", "palavras": "reforço ajuda dúvida professor voluntário" },
+      "en": { "pergunta": "I’m stuck on a subject. Who can help?", "resposta": "Ask for Tutoring: write your question and a volunteer from the teaching team answers by e-mail, free. No account needed.", "palavras": "tutoring help question teacher volunteer" },
+      "es": { "pergunta": "Me trabé en una materia. ¿Quién me ayuda?", "resposta": "Pide una Clase de refuerzo: escribe la duda y una persona voluntaria del equipo de enseñanza responde por correo, gratis. No hace falta cuenta.", "palavras": "refuerzo ayuda duda profesor voluntario" },
+      "fr": { "pergunta": "Je bloque sur une matière. Qui peut m’aider ?", "resposta": "Demandez du Soutien scolaire : écrivez votre question et une personne bénévole de l’équipe pédagogique répond par e-mail, gratuitement. Pas besoin de compte.", "palavras": "soutien aide question professeur bénévole" },
+      "ru": { "pergunta": "Застрял на предмете. Кто поможет?", "resposta": "Попросите дополнительное занятие: напишите вопрос, и волонтёр из учебной команды ответит по электронной почте, бесплатно. Учётная запись не нужна.", "palavras": "помощь вопрос учитель волонтёр репетитор" },
+      "zh": { "pergunta": "某门课卡住了，谁能帮我？", "resposta": "申请辅导：写下你的问题，教学团队的志愿者会通过电子邮件免费回答。不需要账户。", "palavras": "辅导 帮助 问题 老师 志愿者" }
+    },
+    {
+      "id": "alumia",
+      "href": "/comunidade",
+      "pt": { "pergunta": "O que é a Alumia?", "resposta": "A Alumia é a rede social do Instituto Lúcia: estudo e luta, com codinome, sem anúncio e sem rastreio. É para quem tem 18 anos ou mais.", "palavras": "alumia rede social comunidade fórum conversa" },
+      "en": { "pergunta": "What is Alumia?", "resposta": "Alumia is the social network of Instituto Lúcia: study and struggle, under a code name, with no ads and no tracking. It is for people aged 18 or over.", "palavras": "alumia social network community forum" },
+      "es": { "pergunta": "¿Qué es Alumia?", "resposta": "Alumia es la red social del Instituto Lúcia: estudio y lucha, con seudónimo, sin anuncios y sin rastreo. Es para mayores de 18 años.", "palavras": "alumia red social comunidad foro" },
+      "fr": { "pergunta": "Qu’est-ce qu’Alumia ?", "resposta": "Alumia est le réseau social de l’Instituto Lúcia : étude et lutte, sous pseudonyme, sans publicité ni pistage. Elle est réservée aux personnes de 18 ans ou plus.", "palavras": "alumia réseau social communauté forum" },
+      "ru": { "pergunta": "Что такое Alumia?", "resposta": "Alumia — социальная сеть Instituto Lúcia: учёба и борьба, под псевдонимом, без рекламы и слежки. Только для тех, кому 18 лет или больше.", "palavras": "alumia социальная сеть сообщество форум" },
+      "zh": { "pergunta": "Alumia 是什么？", "resposta": "Alumia 是 Instituto Lúcia 的社交网络：学习与斗争，使用代号，没有广告，没有追踪。仅限 18 岁及以上的人使用。", "palavras": "alumia 社交网络 社区 论坛" }
+    },
+    {
+      "id": "vale-o-escrito",
+      "href": "/vale-o-escrito",
+      "recurso": "vale-o-escrito",
+      "pt": { "pergunta": "O que é o Vale o Escrito?", "resposta": "Um observatório de crimes de interesse público que já constam de fonte pública: processo, investigação oficial, relatório de organização ou reportagem. Cada ficha traz fonte, data, trecho e a situação jurídica.", "palavras": "vale o escrito observatório crime poder" },
+      "en": { "pergunta": "What is Vale o Escrito?", "resposta": "An observatory of crimes of public interest that already appear in public sources: court records, official investigations, organisation reports or news stories. Every record shows source, date, excerpt and legal status.", "palavras": "vale o escrito observatory crime power" },
+      "es": { "pergunta": "¿Qué es Vale o Escrito?", "resposta": "Un observatorio de delitos de interés público que ya constan en fuentes públicas: proceso judicial, investigación oficial, informe de organización o reportaje. Cada ficha trae fuente, fecha, extracto y situación jurídica.", "palavras": "vale o escrito observatorio delito poder" },
+      "fr": { "pergunta": "Qu’est-ce que Vale o Escrito ?", "resposta": "Un observatoire de crimes d’intérêt public déjà présents dans des sources publiques : procédure judiciaire, enquête officielle, rapport d’organisation ou reportage. Chaque fiche indique source, date, extrait et situation juridique.", "palavras": "vale o escrito observatoire crime pouvoir" },
+      "ru": { "pergunta": "Что такое Vale o Escrito?", "resposta": "Обсерватория преступлений, представляющих общественный интерес и уже отражённых в открытых источниках: судебное дело, официальное расследование, доклад организации или репортаж. В каждой карточке есть источник, дата, цитата и юридический статус.", "palavras": "vale o escrito обсерватория преступление власть" },
+      "zh": { "pergunta": "Vale o Escrito 是什么？", "resposta": "一个记录公共利益犯罪案件的观察站，所有案件均已见于公开来源：诉讼、官方调查、组织报告或新闻报道。每份档案都列出来源、日期、摘录和法律状态。", "palavras": "vale o escrito 观察站 犯罪 权力" }
+    },
+    {
+      "id": "vale-o-escrito-preparo",
+      "semRecurso": "vale-o-escrito",
+      "pt": { "pergunta": "O que é o Vale o Escrito?", "resposta": "Um observatório de crimes de interesse público que já constam de fonte pública. Ainda está em preparação: só abre depois de a curadoria revisar as primeiras entradas e de a assessoria jurídica conferir o texto.", "palavras": "vale o escrito observatório crime poder" },
+      "en": { "pergunta": "What is Vale o Escrito?", "resposta": "An observatory of crimes of public interest that already appear in public sources. It is still in preparation: it opens only after the editorial team has reviewed the first entries and legal counsel has checked the text.", "palavras": "vale o escrito observatory crime power" },
+      "es": { "pergunta": "¿Qué es Vale o Escrito?", "resposta": "Un observatorio de delitos de interés público que ya constan en fuentes públicas. Todavía está en preparación: solo abre después de que la curaduría revise las primeras entradas y la asesoría jurídica revise el texto.", "palavras": "vale o escrito observatorio delito poder" },
+      "fr": { "pergunta": "Qu’est-ce que Vale o Escrito ?", "resposta": "Un observatoire de crimes d’intérêt public déjà présents dans des sources publiques. Il est encore en préparation : il n’ouvrira qu’après la relecture des premières fiches par l’équipe éditoriale et la vérification du texte par le conseil juridique.", "palavras": "vale o escrito observatoire crime pouvoir" },
+      "ru": { "pergunta": "Что такое Vale o Escrito?", "resposta": "Обсерватория преступлений, представляющих общественный интерес и уже отражённых в открытых источниках. Она ещё готовится: откроется только после того, как редакция проверит первые записи, а юристы — текст.", "palavras": "vale o escrito обсерватория преступление власть" },
+      "zh": { "pergunta": "Vale o Escrito 是什么？", "resposta": "一个记录已见于公开来源的公共利益犯罪案件的观察站。目前仍在筹备中：要等编辑团队审核首批条目、法律顾问核对文本之后才会开放。", "palavras": "vale o escrito 观察站 犯罪 权力" }
+    },
+    {
+      "id": "jornal",
+      "href": "/jornal",
+      "pt": { "pergunta": "Onde está o jornal?", "resposta": "Em Jornal: o Jornal Revolucionário Lúcia traz notícias e análises escritas por jornalistas voluntários, sempre com as fontes à vista. Dá para receber por e-mail.", "palavras": "jornal notícia imprensa boletim matéria" },
+      "en": { "pergunta": "Where is the newspaper?", "resposta": "Under Newspaper: Jornal Revolucionário Lúcia brings news and analysis written by volunteer journalists, always with the sources in view. You can get it by e-mail.", "palavras": "newspaper news press newsletter article" },
+      "es": { "pergunta": "¿Dónde está el periódico?", "resposta": "En Periódico: el Jornal Revolucionário Lúcia trae noticias y análisis escritos por periodistas voluntarios, siempre con las fuentes a la vista. Se puede recibir por correo.", "palavras": "periódico noticia prensa boletín" },
+      "fr": { "pergunta": "Où est le journal ?", "resposta": "Dans Journal : le Jornal Revolucionário Lúcia publie des informations et des analyses écrites par des journalistes bénévoles, toujours avec les sources visibles. On peut le recevoir par e-mail.", "palavras": "journal actualité presse lettre article" },
+      "ru": { "pergunta": "Где газета?", "resposta": "В разделе «Газета»: Jornal Revolucionário Lúcia публикует новости и аналитику, написанные журналистами-волонтёрами, всегда с указанием источников. Её можно получать по электронной почте.", "palavras": "газета новости пресса рассылка статья" },
+      "zh": { "pergunta": "报纸在哪里？", "resposta": "在“报纸”栏目：Jornal Revolucionário Lúcia 刊登志愿记者撰写的新闻和分析，始终标明来源。也可以通过电子邮件订阅。", "palavras": "报纸 新闻 媒体 简报 文章" }
+    },
+    {
+      "id": "memorial",
+      "href": "/memorial",
+      "pt": { "pergunta": "O que é o Memorial?", "resposta": "Um lugar para lembrar quem tombou lutando por justiça, por terra e por liberdade. É construído pela comunidade: falta alguém, dá para propor um nome.", "palavras": "memorial homenagem presente luta" },
+      "en": { "pergunta": "What is the Memorial?", "resposta": "A place to remember those who fell fighting for justice, land and freedom. It is built by the community: if someone is missing, you can propose a name.", "palavras": "memorial tribute remembrance struggle" },
+      "es": { "pergunta": "¿Qué es el Memorial?", "resposta": "Un lugar para recordar a quienes cayeron luchando por justicia, tierra y libertad. Lo construye la comunidad: si falta alguien, puedes proponer un nombre.", "palavras": "memorial homenaje presente lucha" },
+      "fr": { "pergunta": "Qu’est-ce que le Mémorial ?", "resposta": "Un lieu pour se souvenir de celles et ceux qui sont tombés en luttant pour la justice, la terre et la liberté. Il est construit par la communauté : s’il manque quelqu’un, vous pouvez proposer un nom.", "palavras": "mémorial hommage souvenir lutte" },
+      "ru": { "pergunta": "Что такое Мемориал?", "resposta": "Место памяти о тех, кто погиб в борьбе за справедливость, землю и свободу. Его создаёт сообщество: если кого-то не хватает, можно предложить имя.", "palavras": "мемориал память борьба" },
+      "zh": { "pergunta": "纪念馆是什么？", "resposta": "一个纪念为正义、土地和自由而牺牲的人的地方。它由社区共同建设：如果缺了谁，你可以提名。", "palavras": "纪念馆 纪念 斗争" }
+    },
+    {
+      "id": "contribuir",
+      "href": "/contribuir",
+      "pt": { "pergunta": "Como contribuo com o site?", "resposta": "Em Contribuir você envia uma aula, indica uma obra livre, corrige um erro ou dá uma ideia. Não precisa de conta: tudo é lido pela revisão antes de entrar no site.", "palavras": "contribuir enviar aula ideia correção colaborar" },
+      "en": { "pergunta": "How can I contribute to the site?", "resposta": "Under Contribute you can send a lesson, suggest a free work, fix a mistake or share an idea. No account needed: everything is read by reviewers before it goes on the site.", "palavras": "contribute send lesson idea fix collaborate" },
+      "es": { "pergunta": "¿Cómo contribuyo con el sitio?", "resposta": "En Contribuir envías una clase, indicas una obra libre, corriges un error o das una idea. No hace falta cuenta: todo lo lee la revisión antes de entrar en el sitio.", "palavras": "contribuir enviar clase idea corrección colaborar" },
+      "fr": { "pergunta": "Comment contribuer au site ?", "resposta": "Dans Contribuer, vous envoyez un cours, signalez une œuvre libre, corrigez une erreur ou proposez une idée. Pas besoin de compte : tout est relu avant d’entrer sur le site.", "palavras": "contribuer envoyer cours idée correction" },
+      "ru": { "pergunta": "Как помочь сайту своим вкладом?", "resposta": "В разделе «Внести вклад» можно отправить урок, предложить свободное произведение, исправить ошибку или поделиться идеей. Учётная запись не нужна: всё проходит проверку перед публикацией.", "palavras": "вклад отправить урок идея исправление" },
+      "zh": { "pergunta": "我怎样为网站做贡献？", "resposta": "在“贡献”页面，你可以提交一节课、推荐一部自由作品、纠正错误或提出想法。不需要账户：所有内容在上线前都会经过审核。", "palavras": "贡献 提交 课程 想法 纠错" }
+    },
+    {
+      "id": "voluntario",
+      "href": "/voluntarie-se",
+      "pt": { "pergunta": "Como viro voluntário?", "resposta": "Preencha a candidatura em Voluntarie-se. A coordenação lê cada candidatura e responde no e-mail informado.", "palavras": "voluntário voluntária equipe ajudar candidatura" },
+      "en": { "pergunta": "How do I become a volunteer?", "resposta": "Fill in the application under Volunteer. The coordination team reads every application and replies to the e-mail you give.", "palavras": "volunteer team help application" },
+      "es": { "pergunta": "¿Cómo me hago voluntario?", "resposta": "Completa la candidatura en Voluntariado. La coordinación lee cada candidatura y responde al correo indicado.", "palavras": "voluntario voluntaria equipo ayudar candidatura" },
+      "fr": { "pergunta": "Comment devenir bénévole ?", "resposta": "Remplissez la candidature dans Devenir bénévole. La coordination lit chaque candidature et répond à l’e-mail indiqué.", "palavras": "bénévole équipe aider candidature" },
+      "ru": { "pergunta": "Как стать волонтёром?", "resposta": "Заполните заявку в разделе «Стать волонтёром». Координаторы читают каждую заявку и отвечают на указанный адрес электронной почты.", "palavras": "волонтёр команда помочь заявка" },
+      "zh": { "pergunta": "怎样成为志愿者？", "resposta": "在“成为志愿者”页面填写申请。协调团队会阅读每一份申请，并回复到你填写的电子邮箱。", "palavras": "志愿者 团队 帮忙 申请" }
+    },
+    {
+      "id": "apoie",
+      "href": "/apoie",
+      "pt": { "pergunta": "Como apoio financeiramente?", "resposta": "Pela página Apoie, que leva à Benfeitoria, plataforma brasileira de financiamento coletivo. Doar é opcional: ninguém perde acesso a nada por não doar.", "palavras": "apoiar doar doação dinheiro financiamento pix" },
+      "en": { "pergunta": "How can I support the institute financially?", "resposta": "Through the Support page, which leads to Benfeitoria, a Brazilian crowdfunding platform. Giving is optional: nobody loses access to anything for not giving.", "palavras": "support donate donation money crowdfunding" },
+      "es": { "pergunta": "¿Cómo apoyo económicamente?", "resposta": "Por la página Apoya, que lleva a Benfeitoria, plataforma brasileña de financiación colectiva. Donar es opcional: nadie pierde acceso a nada por no donar.", "palavras": "apoyar donar donación dinero financiación" },
+      "fr": { "pergunta": "Comment soutenir financièrement ?", "resposta": "Par la page Soutenir, qui mène à Benfeitoria, plateforme brésilienne de financement participatif. Donner est facultatif : personne ne perd l’accès à quoi que ce soit en ne donnant pas.", "palavras": "soutenir don argent financement participatif" },
+      "ru": { "pergunta": "Как поддержать институт деньгами?", "resposta": "Через страницу «Поддержать», которая ведёт на Benfeitoria — бразильскую платформу коллективного финансирования. Пожертвование необязательно: никто ничего не теряет, если не жертвует.", "palavras": "поддержать пожертвование деньги краудфандинг" },
+      "zh": { "pergunta": "怎样在经济上支持？", "resposta": "通过“支持”页面，它会带你到巴西众筹平台 Benfeitoria。捐款完全自愿：不捐款的人也不会失去任何内容。", "palavras": "支持 捐款 捐赠 钱 众筹" }
+    },
+    {
+      "id": "painel",
+      "href": "/painel",
+      "pt": { "pergunta": "Como funciona o painel?", "resposta": "O painel é o ambiente de trabalho da equipe voluntária (escrever aulas, revisar, mediar), aberto depois de entrar com a conta. Cada seção tem o botão “Como funciona esta seção”. Para estudar, não precisa dele.", "palavras": "painel equipe conta entrar trabalho" },
+      "en": { "pergunta": "How does the panel work?", "resposta": "The panel is the volunteer team’s workspace (writing lessons, reviewing, moderating), opened after you sign in. Each section has a “How this section works” button. You don’t need it to study. The panel is in Portuguese only.", "palavras": "panel team account sign in work dashboard" },
+      "es": { "pergunta": "¿Cómo funciona el panel?", "resposta": "El panel es el espacio de trabajo del equipo voluntario (escribir clases, revisar, moderar), que se abre después de entrar con la cuenta. Cada sección tiene el botón “Cómo funciona esta sección”. Para estudiar no hace falta. El panel está solo en portugués.", "palavras": "panel equipo cuenta entrar trabajo" },
+      "fr": { "pergunta": "Comment fonctionne le panneau ?", "resposta": "Le panneau est l’espace de travail de l’équipe bénévole (écrire des cours, relire, modérer), accessible après connexion. Chaque section a un bouton « Comment fonctionne cette section ». Pour étudier, vous n’en avez pas besoin. Le panneau est uniquement en portugais.", "palavras": "panneau équipe compte connexion travail" },
+      "ru": { "pergunta": "Как работает панель?", "resposta": "Панель — рабочее место команды волонтёров (писать уроки, проверять, модерировать), она открывается после входа в учётную запись. В каждом разделе есть кнопка «Как работает этот раздел». Для учёбы панель не нужна. Панель только на португальском.", "palavras": "панель команда учётная запись вход работа" },
+      "zh": { "pergunta": "管理面板怎么用？", "resposta": "管理面板是志愿者团队的工作区（写课程、审核、管理讨论），登录账户后打开。每个栏目都有“本栏目怎么用”按钮。学习时不需要它。面板只有葡萄牙语。", "palavras": "面板 团队 账户 登录 工作" }
+    },
+    {
+      "id": "idioma",
+      "pt": { "pergunta": "Como mudo o idioma?", "resposta": "No alto da página, toque no globo e escolha: português, inglês, espanhol, francês, russo ou chinês. Na tela “Mais” também há o seletor de idioma.", "palavras": "idioma língua tradução inglês espanhol" },
+      "en": { "pergunta": "How do I change the language?", "resposta": "At the top of the page, tap the globe and choose: Portuguese, English, Spanish, French, Russian or Chinese. The “More” screen also has the language selector.", "palavras": "language translation english spanish" },
+      "es": { "pergunta": "¿Cómo cambio el idioma?", "resposta": "Arriba de la página, toca el globo y elige: portugués, inglés, español, francés, ruso o chino. En la pantalla “Más” también está el selector de idioma.", "palavras": "idioma lengua traducción inglés español" },
+      "fr": { "pergunta": "Comment changer de langue ?", "resposta": "En haut de la page, touchez le globe et choisissez : portugais, anglais, espagnol, français, russe ou chinois. L’écran « Plus » a aussi le sélecteur de langue.", "palavras": "langue traduction anglais espagnol" },
+      "ru": { "pergunta": "Как сменить язык?", "resposta": "Вверху страницы нажмите на глобус и выберите: португальский, английский, испанский, французский, русский или китайский. Выбор языка есть и на экране «Ещё».", "palavras": "язык перевод английский испанский" },
+      "zh": { "pergunta": "怎样切换语言？", "resposta": "在页面顶部点击地球图标，选择：葡萄牙语、英语、西班牙语、法语、俄语或中文。“更多”页面里也有语言选择。", "palavras": "语言 翻译 英语 中文" }
+    },
+    {
+      "id": "acessibilidade",
+      "pt": { "pergunta": "Como ativo a acessibilidade e o VLibras?", "resposta": "Toque no botão Acessibilidade, num canto de baixo da tela. Lá estão tamanho do texto, alto contraste, texto espaçado, modo foco, leitura em voz alta e o tradutor para Libras (VLibras). O que você escolher fica guardado neste aparelho.", "palavras": "acessibilidade vlibras libras surdo contraste letra grande leitor" },
+      "en": { "pergunta": "How do I turn on accessibility and VLibras?", "resposta": "Tap the Accessibility button in a bottom corner of the screen. It has text size, high contrast, spaced text, focus mode, read aloud and the Brazilian Sign Language translator (VLibras). Your choices stay on this device.", "palavras": "accessibility vlibras sign language deaf contrast large text" },
+      "es": { "pergunta": "¿Cómo activo la accesibilidad y VLibras?", "resposta": "Toca el botón Accesibilidad, en una esquina inferior de la pantalla. Ahí están el tamaño del texto, alto contraste, texto espaciado, modo foco, lectura en voz alta y el traductor a Libras, la lengua de señas brasileña (VLibras). Lo que elijas queda guardado en este dispositivo.", "palavras": "accesibilidad vlibras señas sordo contraste letra grande" },
+      "fr": { "pergunta": "Comment activer l’accessibilité et VLibras ?", "resposta": "Touchez le bouton Accessibilité, dans un coin en bas de l’écran. Vous y trouvez la taille du texte, le contraste élevé, le texte espacé, le mode focus, la lecture à voix haute et le traducteur en langue des signes brésilienne (VLibras). Vos choix restent sur cet appareil.", "palavras": "accessibilité vlibras langue des signes sourd contraste" },
+      "ru": { "pergunta": "Как включить специальные возможности и VLibras?", "resposta": "Нажмите кнопку «Доступность» в нижнем углу экрана. Там размер текста, высокий контраст, разреженный текст, режим фокуса, чтение вслух и переводчик на бразильский жестовый язык (VLibras). Ваш выбор сохраняется на этом устройстве.", "palavras": "доступность vlibras жестовый язык контраст крупный шрифт" },
+      "zh": { "pergunta": "怎样开启无障碍功能和 VLibras？", "resposta": "点击屏幕下方角落的“无障碍”按钮。里面有文字大小、高对比度、加宽间距、专注模式、朗读，以及巴西手语翻译（VLibras）。你的选择保存在这台设备上。", "palavras": "无障碍 vlibras 手语 对比度 大字" }
+    },
+    {
+      "id": "contato",
+      "href": "/relatar-erro",
+      "pt": { "pergunta": "Como entro em contato?", "resposta": "Escreva para {email}. Se achou um erro no site, conte em “Achei um erro”.", "palavras": "contato falar e-mail email mensagem erro" },
+      "en": { "pergunta": "How do I get in touch?", "resposta": "Write to {email}. If you found a mistake on the site, report it under “I found an error”.", "palavras": "contact talk email message error" },
+      "es": { "pergunta": "¿Cómo me pongo en contacto?", "resposta": "Escribe a {email}. Si encontraste un error en el sitio, cuéntalo en “Encontré un error”.", "palavras": "contacto hablar correo email mensaje error" },
+      "fr": { "pergunta": "Comment vous contacter ?", "resposta": "Écrivez à {email}. Si vous avez trouvé une erreur sur le site, signalez-la dans « J’ai trouvé une erreur ».", "palavras": "contact écrire e-mail email message erreur" },
+      "ru": { "pergunta": "Как с вами связаться?", "resposta": "Пишите на {email}. Если вы нашли ошибку на сайте, сообщите о ней в разделе «Я нашёл ошибку».", "palavras": "контакт связаться почта email сообщение ошибка" },
+      "zh": { "pergunta": "怎样联系你们？", "resposta": "请写信到 {email}。如果在网站上发现错误，请在“我发现了一个错误”页面告诉我们。", "palavras": "联系 电子邮件 email 消息 错误" }
+    },
+    {
+      "id": "conta",
+      "href": "/meus-dados",
+      "pt": { "pergunta": "Preciso de conta para estudar?", "resposta": "Não. Para estudar não é preciso cadastro: o que o site sabe do seu estudo fica guardado neste navegador. A conta só serve para participar da comunidade. Em Meus dados você baixa ou apaga tudo.", "palavras": "conta cadastro login senha progresso dados" },
+      "en": { "pergunta": "Do I need an account to study?", "resposta": "No. Studying needs no sign-up: what the site knows about your study is stored in this browser. An account is only for taking part in the community. Under My data you can download or delete everything.", "palavras": "account sign up login password progress data" },
+      "es": { "pergunta": "¿Necesito cuenta para estudiar?", "resposta": "No. Para estudiar no hace falta registrarse: lo que el sitio sabe de tu estudio queda guardado en este navegador. La cuenta solo sirve para participar en la comunidad. En Mis datos puedes descargar o borrar todo.", "palavras": "cuenta registro login contraseña progreso datos" },
+      "fr": { "pergunta": "Faut-il un compte pour étudier ?", "resposta": "Non. Étudier ne demande aucune inscription : ce que le site sait de votre étude reste dans ce navigateur. Le compte sert seulement à participer à la communauté. Dans Mes données, vous pouvez tout télécharger ou tout effacer.", "palavras": "compte inscription connexion mot de passe progression données" },
+      "ru": { "pergunta": "Нужна ли учётная запись для учёбы?", "resposta": "Нет. Для учёбы регистрация не нужна: всё, что сайт знает о вашей учёбе, хранится в этом браузере. Учётная запись нужна только для участия в сообществе. В разделе «Мои данные» можно всё скачать или удалить.", "palavras": "учётная запись регистрация вход пароль прогресс данные" },
+      "zh": { "pergunta": "学习需要账户吗？", "resposta": "不需要。学习无需注册：网站关于你学习情况的记录只保存在这个浏览器里。账户只用于参与社区。在“我的数据”里可以下载或删除全部记录。", "palavras": "账户 注册 登录 密码 进度 数据" }
+    },
+    {
+      "id": "privacidade",
+      "href": "/privacidade",
+      "pt": { "pergunta": "O site vende meus dados ou tem anúncios?", "resposta": "Não. O instituto não tem patrocinador e não vende curso nem os seus dados. O site não tem anúncios nem rastreamento publicitário. Os detalhes estão em Privacidade.", "palavras": "privacidade dados anúncio rastreamento lgpd" },
+      "en": { "pergunta": "Does the site sell my data or show ads?", "resposta": "No. The institute has no sponsor and sells neither courses nor your data. The site has no ads and no advertising tracking. The details are under Privacy.", "palavras": "privacy data ads tracking" },
+      "es": { "pergunta": "¿El sitio vende mis datos o tiene anuncios?", "resposta": "No. El instituto no tiene patrocinador y no vende cursos ni tus datos. El sitio no tiene anuncios ni rastreo publicitario. Los detalles están en Privacidad.", "palavras": "privacidad datos anuncio rastreo" },
+      "fr": { "pergunta": "Le site vend-il mes données ou affiche-t-il des publicités ?", "resposta": "Non. L’institut n’a pas de sponsor et ne vend ni cours ni vos données. Le site n’a ni publicité ni pistage publicitaire. Les détails sont dans Confidentialité.", "palavras": "confidentialité données publicité pistage" },
+      "ru": { "pergunta": "Продаёт ли сайт мои данные, есть ли реклама?", "resposta": "Нет. У института нет спонсоров, он не продаёт ни курсы, ни ваши данные. На сайте нет рекламы и рекламной слежки. Подробности — в разделе «Конфиденциальность».", "palavras": "конфиденциальность данные реклама слежка" },
+      "zh": { "pergunta": "网站会出售我的数据或投放广告吗？", "resposta": "不会。研究所没有赞助商，不卖课程，也不卖你的数据。网站没有广告，也没有广告追踪。详情见“隐私”页面。", "palavras": "隐私 数据 广告 追踪" }
+    },
+    {
+      "id": "acervo",
+      "href": "/acervo",
+      "pt": { "pergunta": "Onde acho livros e obras para ler?", "resposta": "No Acervo: obras de domínio público ou de licença livre, cada uma com a fonte e a licença.", "palavras": "acervo livro obra biblioteca ler texto" },
+      "en": { "pergunta": "Where can I find books and works to read?", "resposta": "In the Library: public-domain or freely licensed works, each with its source and licence.", "palavras": "library book work read text" },
+      "es": { "pergunta": "¿Dónde encuentro libros y obras para leer?", "resposta": "En el Acervo: obras de dominio público o de licencia libre, cada una con su fuente y su licencia.", "palavras": "acervo libro obra biblioteca leer" },
+      "fr": { "pergunta": "Où trouver des livres et des œuvres à lire ?", "resposta": "Dans le Fonds : des œuvres du domaine public ou sous licence libre, chacune avec sa source et sa licence.", "palavras": "fonds livre œuvre bibliothèque lire" },
+      "ru": { "pergunta": "Где найти книги и произведения для чтения?", "resposta": "В Фонде: произведения в общественном достоянии или под свободной лицензией, у каждого указаны источник и лицензия.", "palavras": "фонд книга произведение библиотека читать" },
+      "zh": { "pergunta": "在哪里找书和作品来读？", "resposta": "在“馆藏”里：公有领域或自由许可的作品，每部都标明来源和许可。", "palavras": "馆藏 书 作品 图书馆 阅读" }
+    },
+    {
+      "id": "meu-estudo",
+      "href": "/meu-estudo",
+      "recurso": "meu-estudo",
+      "pt": { "pergunta": "Onde vejo o que já estudei?", "resposta": "Em Meu estudo: o que você já estudou, o que vale revisar e como vão os temas. Fica só no seu aparelho, sem conta e sem nota.", "palavras": "progresso revisar estudei histórico" },
+      "en": { "pergunta": "Where can I see what I have studied?", "resposta": "Under My study: what you have studied, what is worth reviewing and how each topic is going. It stays only on your device, with no account and no grades.", "palavras": "progress review studied history" },
+      "es": { "pergunta": "¿Dónde veo lo que ya estudié?", "resposta": "En Mi estudio: lo que ya estudiaste, lo que conviene repasar y cómo van los temas. Queda solo en tu dispositivo, sin cuenta y sin nota.", "palavras": "progreso repasar estudié historial" },
+      "fr": { "pergunta": "Où voir ce que j’ai déjà étudié ?", "resposta": "Dans Mon étude : ce que vous avez étudié, ce qu’il vaut la peine de réviser et où vous en êtes par thème. Tout reste sur votre appareil, sans compte et sans note.", "palavras": "progression réviser étudié historique" },
+      "ru": { "pergunta": "Где посмотреть, что я уже изучил?", "resposta": "В разделе «Моя учёба»: что вы уже изучили, что стоит повторить и как идут темы. Всё хранится только на вашем устройстве, без учётной записи и без оценок.", "palavras": "прогресс повторить изучил история" },
+      "zh": { "pergunta": "在哪里看我已经学过什么？", "resposta": "在“我的学习”里：你学过什么、哪些值得复习、各个主题进展如何。只保存在你的设备上，不需要账户，也没有分数。", "palavras": "进度 复习 学过 记录" }
+    },
+    {
+      "id": "caderno",
+      "href": "/caderno",
+      "pt": { "pergunta": "Dá para juntar o que vou estudar num lugar só?", "resposta": "Sim, no Caderno de estudos: junte aulas e obras do site, textos seus e arquivos, e faça resumo, cartões, questionário e notas. De graça, sem conta, guardado só neste navegador.", "palavras": "caderno anotação resumo cartões notas" },
+      "en": { "pergunta": "Can I gather what I’m going to study in one place?", "resposta": "Yes, in the Study notebook: gather lessons and works from the site, your own texts and files, and make summaries, flashcards, quizzes and notes. Free, no account, stored only in this browser.", "palavras": "notebook notes summary flashcards" },
+      "es": { "pergunta": "¿Puedo juntar lo que voy a estudiar en un solo lugar?", "resposta": "Sí, en el Cuaderno de estudios: junta clases y obras del sitio, textos tuyos y archivos, y haz resumen, tarjetas, cuestionario y notas. Gratis, sin cuenta, guardado solo en este navegador.", "palavras": "cuaderno apuntes resumen tarjetas notas" },
+      "fr": { "pergunta": "Puis-je réunir ce que je vais étudier au même endroit ?", "resposta": "Oui, dans le Cahier d’étude : réunissez cours et œuvres du site, vos textes et vos fichiers, et faites résumé, fiches, questionnaire et notes. Gratuit, sans compte, enregistré seulement dans ce navigateur.", "palavras": "cahier notes résumé fiches" },
+      "ru": { "pergunta": "Можно ли собрать всё для учёбы в одном месте?", "resposta": "Да, в «Тетради»: соберите уроки и произведения с сайта, свои тексты и файлы и делайте конспект, карточки, тест и заметки. Бесплатно, без учётной записи, хранится только в этом браузере.", "palavras": "тетрадь конспект карточки заметки" },
+      "zh": { "pergunta": "能把要学的东西放在一个地方吗？", "resposta": "可以，在“学习笔记本”里：把网站上的课程和作品、你自己的文字和文件放在一起，做摘要、卡片、测验和笔记。免费，不需要账户，只保存在这个浏览器里。", "palavras": "笔记本 笔记 摘要 卡片" }
+    },
+    {
+      "id": "laboratorios",
+      "href": "/laboratorios",
+      "pt": { "pergunta": "Onde pratico programação e ciência?", "resposta": "Nos Laboratórios: programar, montar redes, usar o terminal, treinar segurança e simular ciência, tudo dentro do navegador.", "palavras": "laboratório programar código terminal ciência simulador" },
+      "en": { "pergunta": "Where can I practise programming and science?", "resposta": "In the Labs: programming, building networks, using the terminal, security training and science simulations, all inside the browser.", "palavras": "lab programming code terminal science simulator" },
+      "es": { "pergunta": "¿Dónde practico programación y ciencia?", "resposta": "En los Laboratorios: programar, montar redes, usar la terminal, entrenar seguridad y simular ciencia, todo dentro del navegador.", "palavras": "laboratorio programar código terminal ciencia simulador" },
+      "fr": { "pergunta": "Où pratiquer la programmation et les sciences ?", "resposta": "Dans les Laboratoires : programmer, monter des réseaux, utiliser le terminal, s’entraîner à la sécurité et simuler des expériences scientifiques, le tout dans le navigateur.", "palavras": "laboratoire programmer code terminal science simulateur" },
+      "ru": { "pergunta": "Где попрактиковаться в программировании и науке?", "resposta": "В Лабораториях: программирование, сборка сетей, работа в терминале, тренировка безопасности и научные симуляции — всё прямо в браузере.", "palavras": "лаборатория программирование код терминал наука симулятор" },
+      "zh": { "pergunta": "在哪里练习编程和科学？", "resposta": "在“实验室”里：编程、搭建网络、使用终端、练习网络安全和模拟科学实验，全部在浏览器里完成。", "palavras": "实验室 编程 代码 终端 科学 模拟" }
+    },
+    {
+      "id": "materiais",
+      "href": "/materiais",
+      "pt": { "pergunta": "Onde baixo materiais para imprimir?", "resposta": "Em Materiais: zines, panfletos, cartazes e banners feitos pelo instituto. Baixe, imprima e passe adiante.", "palavras": "materiais imprimir cartaz panfleto zine baixar" },
+      "en": { "pergunta": "Where can I download materials to print?", "resposta": "Under Materials: zines, leaflets, posters and banners made by the institute. Download, print and pass them on.", "palavras": "materials print poster leaflet zine download" },
+      "es": { "pergunta": "¿Dónde descargo materiales para imprimir?", "resposta": "En Materiales: fanzines, panfletos, carteles y pancartas hechos por el instituto. Descarga, imprime y compártelos.", "palavras": "materiales imprimir cartel panfleto fanzine descargar" },
+      "fr": { "pergunta": "Où télécharger des documents à imprimer ?", "resposta": "Dans Matériels : fanzines, tracts, affiches et banderoles faits par l’institut. Téléchargez, imprimez et faites circuler.", "palavras": "matériel imprimer affiche tract fanzine télécharger" },
+      "ru": { "pergunta": "Где скачать материалы для печати?", "resposta": "В разделе «Материалы»: зины, листовки, плакаты и баннеры, сделанные институтом. Скачайте, распечатайте и передайте дальше.", "palavras": "материалы печать плакат листовка зин скачать" },
+      "zh": { "pergunta": "在哪里下载可以打印的材料？", "resposta": "在“材料”里：研究所制作的小册子、传单、海报和横幅。下载、打印，然后传下去。", "palavras": "材料 打印 海报 传单 下载" }
+    },
+    {
+      "id": "busca",
+      "href": "/busca",
+      "pt": { "pergunta": "Como procuro um assunto no site?", "resposta": "Use a Busca: ela procura no texto das aulas, nas fichas das obras, no glossário e no jornal. Acentos e maiúsculas não importam.", "palavras": "buscar procurar pesquisa assunto achar" },
+      "en": { "pergunta": "How do I search the site for a topic?", "resposta": "Use Search: it looks through the text of the lessons, the records of the works, the glossary and the newspaper. Accents and capital letters don’t matter.", "palavras": "search find look topic" },
+      "es": { "pergunta": "¿Cómo busco un tema en el sitio?", "resposta": "Usa la Búsqueda: busca en el texto de las clases, en las fichas de las obras, en el glosario y en el periódico. Los acentos y las mayúsculas no importan.", "palavras": "buscar búsqueda encontrar tema" },
+      "fr": { "pergunta": "Comment chercher un sujet sur le site ?", "resposta": "Utilisez la Recherche : elle parcourt le texte des cours, les fiches des œuvres, le glossaire et le journal. Accents et majuscules ne comptent pas.", "palavras": "chercher recherche trouver sujet" },
+      "ru": { "pergunta": "Как найти тему на сайте?", "resposta": "Воспользуйтесь Поиском: он ищет в текстах уроков, в карточках произведений, в глоссарии и в газете. Регистр букв не важен.", "palavras": "поиск искать найти тема" },
+      "zh": { "pergunta": "怎样在网站上查找一个主题？", "resposta": "使用“搜索”：它会在课程全文、作品档案、词汇表和报纸里查找。不区分大小写和重音符号。", "palavras": "搜索 查找 主题" }
+    },
+    {
+      "id": "quem-somos",
+      "href": "/quem-somos",
+      "pt": { "pergunta": "Quem faz o Instituto Lúcia? É de graça?", "resposta": "Voluntárias e voluntários. O instituto não tem patrocinador, e tudo no site é gratuito e sem anúncios.", "palavras": "quem somos equipe instituto grátis gratuito" },
+      "en": { "pergunta": "Who runs Instituto Lúcia? Is it free?", "resposta": "Volunteers. The institute has no sponsor, and everything on the site is free and ad-free.", "palavras": "about team institute free" },
+      "es": { "pergunta": "¿Quién hace el Instituto Lúcia? ¿Es gratis?", "resposta": "Voluntarias y voluntarios. El instituto no tiene patrocinador, y todo en el sitio es gratuito y sin anuncios.", "palavras": "quiénes somos equipo instituto gratis gratuito" },
+      "fr": { "pergunta": "Qui fait l’Instituto Lúcia ? Est-ce gratuit ?", "resposta": "Des bénévoles. L’institut n’a pas de sponsor, et tout sur le site est gratuit et sans publicité.", "palavras": "qui sommes-nous équipe institut gratuit" },
+      "ru": { "pergunta": "Кто делает Instituto Lúcia? Это бесплатно?", "resposta": "Волонтёры. У института нет спонсоров, и всё на сайте бесплатно и без рекламы.", "palavras": "кто мы команда институт бесплатно" },
+      "zh": { "pergunta": "谁在运营 Instituto Lúcia？是免费的吗？", "resposta": "由志愿者运营。研究所没有赞助商，网站上的一切都免费，没有广告。", "palavras": "关于我们 团队 研究所 免费" }
+    }
+  ]
+}
