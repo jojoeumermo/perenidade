@@ -3255,7 +3255,12 @@
     "updated": "Actualizado el {date}",
     "more": "Más noticias",
     "back": "Volver a la portada",
-    "expires": "Artículo con plazo: en línea hasta el {date} (hora de Brasilia). Después sale del sitio.",
+    "alsoRead": "Lee también",
+    "archive": "Todos los artículos, en el archivo del Periódico",
+    "archiveTitle": "Archivo del Periódico",
+    "archiveLead": "Todos los artículos publicados, del más nuevo al más antiguo. Ninguno se retira.",
+    "featured": "Destacado",
+    "latest": "Último artículo publicado",
     "round": "Ronda de noticias",
     "newsletter": {
       "title": "Recibe el periódico por correo",

@@ -4,8 +4,8 @@ subtitulo: "Ameaça de envenenar a água de uma aldeia, atropelamentos, casa de 
 autor: "Redação do Jornal Revolucionário Lúcia"
 data: 2026-11-06
 editoria: "Urgente · Povos indígenas"
-# Matéria com prazo (docs/jornal/EXPIRACAO.md): sai do ar nesta hora de Brasília. A apuração está em docs/jornal/PESQUISA-INDIGENAS-2026-11.md.
-sai_do_ar_em: "2026-11-13 23:59"
+# Destaque fixo: no topo do arquivo do Jornal e ao lado (ou no fim) das outras matérias. A apuração está em docs/jornal/PESQUISA-INDIGENAS-2026-11.md.
+destaque: true
 fontes:
   - titulo: "Indígenas de MS denunciam casos de violência e ameaças após eleição"
     autor: "Iara Balduino, Agência Brasil"
@@ -137,4 +137,4 @@ Em carta enviada a Lula em 29 de outubro, a Apib e suas sete organizações regi
 - **MPF:** a sala de atendimento ao cidadão do Ministério Público Federal recebe denúncias pela internet.
 - Antes de compartilhar uma notícia, confira se ela veio de fonte oficial ou de um veículo de imprensa que diz de onde tirou a informação.
 
-*Matéria urgente, publicada por prazo: fica no ar até 13 de novembro de 2026, às 23h59 (horário de Brasília). Os fatos são de 4 de outubro a 6 de novembro de 2026 e podem mudar com as investigações. Os casos ainda em apuração não apontam culpados.*
+*Matéria urgente, em destaque permanente no Jornal. Os fatos são de 4 de outubro a 6 de novembro de 2026 e podem mudar com as investigações. Os casos ainda em apuração não apontam culpados.*

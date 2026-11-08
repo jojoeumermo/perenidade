@@ -3255,7 +3255,12 @@
     "updated": "Atualizado em {date}",
     "more": "Mais notícias",
     "back": "Voltar à capa do jornal",
-    "expires": "Matéria com prazo: fica no ar até {date} (horário de Brasília). Depois sai do site.",
+    "alsoRead": "Leia também",
+    "archive": "Todas as matérias, no arquivo do Jornal",
+    "archiveTitle": "Arquivo do Jornal",
+    "archiveLead": "Todas as matérias já publicadas, da mais nova para a mais antiga. Nenhuma sai do ar.",
+    "featured": "Em destaque",
+    "latest": "Última matéria publicada",
     "round": "Giro de notícias do país",
     "newsletter": {
       "title": "Receba o jornal por e-mail",

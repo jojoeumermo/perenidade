@@ -3255,7 +3255,12 @@
     "updated": "Mis à jour le {date}",
     "more": "Plus de nouvelles",
     "back": "Revenir à la une",
-    "expires": "Article à durée limitée : en ligne jusqu'au {date} (heure de Brasília). Ensuite, il quitte le site.",
+    "alsoRead": "À lire aussi",
+    "archive": "Tous les articles, dans les archives du Journal",
+    "archiveTitle": "Archives du Journal",
+    "archiveLead": "Tous les articles publiés, du plus récent au plus ancien. Aucun n'est retiré.",
+    "featured": "À la une",
+    "latest": "Dernier article publié",
     "round": "Revue de presse",
     "newsletter": {
       "title": "Recevez le journal par e-mail",
