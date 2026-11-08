@@ -109,13 +109,13 @@ dos textos abertos; quando não consegui abrir o documento, está dito.
 
 ## 3. Decisões para o manifesto do Instituto Lúcia
 
-1. Curto e numerado: abertura, "Nós acreditamos", 12 pontos por frente de luta (cada um com título curto, duas a
+1. Curto e numerado: abertura, "Nós acreditamos", 13 pontos por frente de luta (cada um com título curto, duas a
    cinco frases), "O que fazemos" (só o que o instituto faz de fato, com link), chamado final.
 2. **Educação vem primeiro**, e é o fio de todos os outros pontos.
 3. Frases curtas, voz "nós", sem jargão (nada de "conjuntura", "hegemonia", "vanguarda"). Lemas do próprio
    instituto: "Instruí-vos, agitai-vos, organizai-vos", "Conhecimento não é mercadoria", "Aprenda de graça. Contribua
    se quiser. Nada se perde", "Lúcia, presente!".
-4. Fatos só com fonte aberta: a Constituição (arts. 6º, 196, 205, 206, 225, 231 e art. 68 do ADCT, conferidos no
+4. Fatos só com fonte aberta: a Constituição (arts. 6º, 196, 205, 206, 215, 225, 231 e art. 68 do ADCT, conferidos no
    [Planalto](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm) e na cópia local
    `leis-do-brasil/constituicao.md`) e o fim da escala 6x1, promulgado pelo Congresso em 16/10/2026
    ([CNN Brasil](https://www.cnnbrasil.com.br/politica/congresso-promulga-pec-que-acaba-com-a-escala-6x1/)), com
