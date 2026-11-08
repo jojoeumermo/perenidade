@@ -102,7 +102,7 @@ export function ReconhecimentoDeSaberes({ cursos, s }: { cursos: CursoDosSaberes
             {!inscricao && (
               <p className="mt-2 text-sm text-ink-soft">
                 {s.entrar}{" "}
-                <L href={`/escola/cursos/${curso.slug}`} className="underline hover:text-oxblood">
+                <L href={`/cursos/${curso.slug}`} className="underline hover:text-oxblood">
                   {s.verCurso} →
                 </L>
               </p>

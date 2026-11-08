@@ -273,14 +273,28 @@ for (const l of lidos) conferir(`curso ${l.arquivo}`, l.erros.length === 0, l.er
 console.log(`cursos em content/escola/cursos: ${lidos.length}`);
 
 // ───────────── Rotas, interdição e textos ─────────────
-for (const r of ROTAS_DA_ESCOLA) conferir(`página de ${r.caminho}`, fs.existsSync(path.join(raiz, "app", "[lang]", ...r.caminho.split("/").filter(Boolean), "page.tsx")));
+// F7 (prancha Mapa): cursos, campus e vida saíram de /escola e voltaram ao site aberto. Enquanto lib/escola/rotas.ts (da F1)
+// ainda os listar, a página deles é procurada no endereço novo, para onde next.config.ts redireciona o antigo (308).
+const MOVIDAS_PARA_O_SITE_ABERTO = ["/escola/cursos", "/escola/campus", "/escola/vida"];
+const pastaDaRota = (caminho) => {
+  const movida = MOVIDAS_PARA_O_SITE_ABERTO.some((m) => caminho === m || caminho.startsWith(`${m}/`));
+  return path.join(raiz, "app", "[lang]", ...(movida ? caminho.replace(/^\/escola/, "") : caminho).split("/").filter(Boolean), "page.tsx");
+};
+for (const r of ROTAS_DA_ESCOLA) conferir(`página de ${r.caminho}`, fs.existsSync(pastaDaRota(r.caminho)));
 // Cada pacote que entrega a sua página tira dela a marca de provisória.
 // A marca confere com a página: provisória usa EmConstrucao; a que o pacote dono entregou tem página própria.
-conferir("provisórias usam EmConstrucao e as entregues não", ROTAS_DA_ESCOLA.every((r) => /EmConstrucao/.test(fs.readFileSync(path.join(raiz, "app", "[lang]", ...r.caminho.split("/").filter(Boolean), "page.tsx"), "utf8")) === Boolean(r.provisoria)));
+conferir("provisórias usam EmConstrucao e as entregues não", ROTAS_DA_ESCOLA.every((r) => /EmConstrucao/.test(fs.readFileSync(pastaDaRota(r.caminho), "utf8")) === Boolean(r.provisoria)));
 // T15: a Militância (chamado de voluntários militantes) e o Manifesto da Frente Revolucionária Lúcia entram logo depois de "Quem foi".
 conferir("faixa da Escola", FAIXA_DA_ESCOLA.map((r) => r.chave).join() === "entrada,quemFoi,militantes,manifesto,cursos,matricula,calendario,campus,turmas,acompanhante,caderneta");
 conferir("link aberto na faixa", abertaNaFaixa("/escola") === "entrada" && abertaNaFaixa("/escola/cursos/eja") === "cursos" && abertaNaFaixa("/escola/plano") === null && abertaNaFaixa("/escolar") === null);
-conferir("rotas da etapa na interdição (área estudo)", ["/escola", "/escola/cursos", "/libras", "/aula-do-dia"].every((c) => areaDoCaminho(c) === "estudo"));
+conferir("rotas da etapa na interdição (área estudo)", ["/escola", "/escola/cursos", "/cursos", "/cursos/eja", "/campus", "/vida/tarefas", "/libras", "/aula-do-dia"].every((c) => areaDoCaminho(c) === "estudo"));
+// F7: as páginas movidas não ficam mais dentro de /escola (onde a porta pede conta).
+for (const m of MOVIDAS_PARA_O_SITE_ABERTO) {
+  const aberta = m.replace(/^\/escola\//, "");
+  conferir(`${m} saiu da Escola`, !fs.existsSync(path.join(raiz, "app", "[lang]", ...m.split("/").filter(Boolean))));
+  conferir(`/${aberta} tem a página no site aberto`, fs.existsSync(path.join(raiz, "app", "[lang]", aberta, "page.tsx")));
+  conferir(`/${aberta} continua preso ao recurso escola`, /ligado\("escola"\)\) notFound\(\)/.test(fs.readFileSync(path.join(raiz, "app", "[lang]", aberta, "layout.tsx"), "utf8")));
+}
 const pt = textosDaBase("pt");
 conferir("textos de toda rota", ROTAS_DA_ESCOLA.every((r) => (r.naFaixa ? pt.nav[r.chave] : pt.paginas[r.chave])) && ROTAS_DA_ESCOLA.filter((r) => r.provisoria).every((r) => pt.paginas[r.chave]));
 conferir("idioma desconhecido cai no português", textosDaBase("xx") === pt && textosDaBase("en") !== pt);

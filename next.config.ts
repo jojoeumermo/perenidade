@@ -174,6 +174,13 @@ const nextConfig: NextConfig = {
       // Os jogos saíram de Laboratórios e ganharam página própria (Etapa 5): o endereço antigo leva ao novo, para sempre (308).
       { source: "/:lang(pt|en|es|fr|ru|zh)/laboratorios/jogos", destination: "/:lang/jogos", permanent: true },
       { source: "/laboratorios/jogos", destination: "/pt/jogos", permanent: true },
+      // F7 da Escola (docs/plano-2026-11/PLANO-ESCOLA.md, prancha Mapa): a Escola virou formação militante, fechada, e o
+      // que não é formação militante voltou ao site aberto. Os cursos, o campus e a vida real saíram de /escola; os
+      // endereços antigos (com e sem idioma, e tudo o que vem abaixo deles) levam ao novo para sempre (308).
+      ...["cursos", "campus", "vida"].flatMap((secao) => [
+        { source: `/:lang(pt|en|es|fr|ru|zh)/escola/${secao}/:resto*`, destination: `/:lang/${secao}/:resto*`, permanent: true },
+        { source: `/escola/${secao}/:resto*`, destination: `/pt/${secao}/:resto*`, permanent: true },
+      ]),
     ];
   },
   async headers() {

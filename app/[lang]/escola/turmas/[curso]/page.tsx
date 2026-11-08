@@ -123,7 +123,7 @@ export default async function Page({ params }: Props) {
       </PageHeading>
       <p className="mt-3 font-sans">
         <Link
-          href={to(`/escola/cursos/${curso.slug}`)}
+          href={to(`/cursos/${curso.slug}`)}
           className="underline hover:text-oxblood"
         >
           {s.curso.paginaDoCurso} →

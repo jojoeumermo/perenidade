@@ -14,7 +14,7 @@ import { site } from "@/lib/site";
 import { blocoDaAula, cortar, qrSvg, secoesDaAula } from "@/lib/zine";
 import "@/styles/escola-cursos.css";
 
-type Props = PageProps<"/[lang]/escola/cursos/[curso]/zine">;
+type Props = PageProps<"/[lang]/cursos/[curso]/zine">;
 
 // A zine do curso sai só em português (como o conteúdo das aulas): os outros idiomas redirecionam para ela.
 export const dynamicParams = false;
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const curso = cursoPorSlug((await params).curso);
   if (!curso) return {};
   const s = textosDosCursos("pt");
-  return { ...paginaMeta(lang, `/escola/cursos/${curso.slug}/zine`, `${s.zine.olho}: ${curso.titulo}`, s.zine.lead), robots: { index: false, follow: true } };
+  return { ...paginaMeta(lang, `/cursos/${curso.slug}/zine`, `${s.zine.olho}: ${curso.titulo}`, s.zine.lead), robots: { index: false, follow: true } };
 }
 
 /** Um quadro da folha (74 por 105 mm). Os quatro de cima saem de cabeça para baixo: é o que faz a dobra dar certo. */
@@ -57,11 +57,11 @@ export default async function ZineDoCurso({ params }: Props) {
   const { lang, t } = await loadLang(params);
   const curso = cursoPorSlug((await params).curso);
   if (!curso) notFound();
-  if (lang !== "pt") permanentRedirect(localePath("pt", `/escola/cursos/${curso.slug}/zine`));
+  if (lang !== "pt") permanentRedirect(localePath("pt", `/cursos/${curso.slug}/zine`));
   const s = textosDosCursos("pt");
   const k = t.kit;
   const visto = verCurso(curso);
-  const urlDoCurso = `${site.url}${localePath("pt", `/escola/cursos/${curso.slug}`)}`;
+  const urlDoCurso = `${site.url}${localePath("pt", `/cursos/${curso.slug}`)}`;
   const qrDoCurso = await qrSvg(urlDoCurso);
 
   // Em sequência (e não em paralelo), para a numeração "aula n de N" seguir a ordem do curso.
@@ -129,7 +129,7 @@ export default async function ZineDoCurso({ params }: Props) {
   return (
     <div className="zine-do-curso mx-auto max-w-6xl px-4 py-8">
       <div className="no-print">
-        <Link href={localePath("pt", `/escola/cursos/${curso.slug}`)} className="font-sans text-sm text-ink-soft hover:text-oxblood">
+        <Link href={localePath("pt", `/cursos/${curso.slug}`)} className="font-sans text-sm text-ink-soft hover:text-oxblood">
           ← {s.zine.voltar}
         </Link>
         <p className="rotulo mt-6">{s.zine.olho}</p>

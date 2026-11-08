@@ -15,7 +15,7 @@ type Props = { params: Promise<{ lang: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const s = textosDaVida(lang);
-  return paginaMeta(lang, "/escola/vida/documentos", `${s.meta.documentos.titulo} · ${textosDaBase(lang).meta.titulo}`, s.meta.documentos.descricao);
+  return paginaMeta(lang, "/vida/documentos", `${s.meta.documentos.titulo} · ${textosDaBase(lang).meta.titulo}`, s.meta.documentos.descricao);
 }
 
 /** Explica o bloco "documento" das aulas, as regras de fonte e de privacidade e lista as aulas que o usam. */
@@ -25,7 +25,7 @@ export default async function Page({ params }: Props) {
   const aulas = dados.aulas as { aula: string; titulo: string }[];
   return (
     <div className="mx-auto max-w-3xl px-4 py-12" data-pagina-vida="documentos">
-      <PageHeading eyebrow={s.documentos.olho} title={s.documentos.titulo} voltar={{ href: localePath(lang, "/escola/vida"), texto: s.comum.voltarVida }}>
+      <PageHeading eyebrow={s.documentos.olho} title={s.documentos.titulo} voltar={{ href: localePath(lang, "/vida"), texto: s.comum.voltarVida }}>
         {s.documentos.lead}
       </PageHeading>
       <section className="vida-bloco">
