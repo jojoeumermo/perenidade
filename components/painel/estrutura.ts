@@ -98,6 +98,7 @@ export const MAPA: Record<string, Mapeamento> = {
   nucleos: { espaco: "equipe", molde: "registro" },
   departamentos: { espaco: "equipe", molde: "registro" },
   pessoas: { espaco: "equipe", molde: "tabela" },
+  escola: { espaco: "equipe", molde: "tabela" },
   supervisao: { espaco: "equipe", molde: "fila" },
   horas: { espaco: "equipe", molde: "tabela" },
   termos: { espaco: "equipe", molde: "tabela" },
