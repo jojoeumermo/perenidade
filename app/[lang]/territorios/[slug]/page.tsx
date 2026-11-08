@@ -96,7 +96,13 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
             )}
             <Untranslated lang={lang} t={t} show={lang !== "pt"} />
           </div>
-          {territorio.foto ? (
+          {territorio.capa ? (
+            /* A capa é a logo do coletivo (pedido de 08/11/2026: no Na Atividade a logo vira a capa da página e do cartão). */
+            <figure className="mx-auto w-full max-w-[34rem]">
+              <Image src={territorio.capa.src} alt={territorio.capa.alt} width={1920} height={1080} priority sizes="(min-width: 768px) 34rem, 92vw" className="aspect-video h-auto w-full -rotate-1 border-2 border-[#f4ecd8] bg-white object-cover shadow-[10px_10px_0_#e01b22]" />
+              {territorio.logo && <figcaption className="mt-4 font-sans text-xs text-[#cdbb91]">{territorio.logo.credito} · @{territorio.instagram}</figcaption>}
+            </figure>
+          ) : territorio.foto ? (
             <div className="relative mx-auto w-full max-w-[30rem] px-4 pt-6 pr-10 sm:px-0 sm:pr-6">
               {territorio.fotoAtras && (
                 <Image src={territorio.fotoAtras.src} alt="" width={640} height={640} sizes="(min-width: 768px) 28rem, 85vw" className="absolute top-0 right-4 aspect-square h-auto w-[84%] rotate-[4deg] border-2 border-[#f4ecd8] object-cover opacity-90 sm:right-0 sm:w-[88%]" />
