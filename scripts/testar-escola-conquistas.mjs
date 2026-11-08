@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova a F5 da Escola de Formação (PLANO-ESCOLA.md, seções 4.5 e 6): Meu percurso e as conquistas na Alumia.
-//  1. O banco (install.sql + 2026-11-escola-formacao-base.sql + 2026-11-escola-conquistas.sql, num Postgres de verdade
+//  1. O banco (install.sql + 20261108-escola-formacao-base.sql + 20261108-escola-conquistas.sql, num Postgres de verdade
 //     dentro do Node): com 'ninguem', nem seguidor nem militante vê; 'militantes' só militante; 'seguidores' só seguidor
 //     aceito; 'todos' todo mundo com conta; aula declarada só aparece como contagem; desligar apaga o declarado na hora;
 //     sair do departamento apaga tudo e volta para 'ninguem'; quem não é militante não declara; anon não chama nada.

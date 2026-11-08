@@ -49,7 +49,7 @@ function falta(iso: string, agora: number) {
 }
 
 /**
- * A aula como o banco devolve desde a Escola de Formação (supabase/migracoes/2026-11-escola-aovivo.sql): "publico"
+ * A aula como o banco devolve desde a Escola de Formação (supabase/migracoes/20261108-escola-aovivo.sql): "publico"
  * 'escola' é aula só de militantes (fora da agenda pública, YouTube não listado, bate-papo pelo codinome) e
  * "caderno_aula" a liga a uma aula de caderno. Banco antigo não manda os dois: é aula do site.
  */

@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// As aulas ao vivo da Escola de Formação (PLANO-ESCOLA.md, F3; migração supabase/migracoes/2026-11-escola-aovivo.sql).
+// As aulas ao vivo da Escola de Formação (PLANO-ESCOLA.md, F3; migração supabase/migracoes/20261108-escola-aovivo.sql).
 // A aula da Escola é a mesma interno.aulas_ao_vivo do site, com publico = 'escola': o banco só a entrega a militante
 // (aula_ao_vivo_ver devolve nada para os outros, o bate-papo vem vazio e recusa quem escreve). O id do vídeo no YouTube
 // (não listado) só chega a quem o banco deixa ver; nada daqui fica gravado no aparelho.

@@ -20,7 +20,7 @@ export interface Estudando {
 }
 
 /**
- * Um selo da Escola de Formação no perfil (supabase/migracoes/2026-11-escola-conquistas.sql): 'escola:carteirinha',
+ * Um selo da Escola de Formação no perfil (supabase/migracoes/20261108-escola-conquistas.sql): 'escola:carteirinha',
  * 'escola:degrau-N', 'escola:caderno-NN' e a contagem 'escola:aulas-N' (nunca a lista de aulas). Vêm em `selos` JÁ
  * FILTRADOS no servidor pelo público que a pessoa escolheu na Escola (padrão: ninguém). Leitura: lib/escola/conquistas.ts.
  */

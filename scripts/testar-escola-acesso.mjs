@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova a fundação da Escola de Formação (PLANO-ESCOLA.md, F1):
-//  1. O banco (supabase/migracoes/2026-11-escola-formacao-base.sql, sobre o install.sql, num Postgres de verdade dentro do
+//  1. O banco (supabase/migracoes/20261108-escola-formacao-base.sql, sobre o install.sql, num Postgres de verdade dentro do
 //     Node): quem não é militante não recebe nada de escola_eu; o gatilho do departamento cria e apaga; anon e
 //     authenticated não leem tabela nenhuma; a migração roda duas vezes; nada de nome civil.
 //  2. O contrato (lib/escola/contratos.ts): todas as funções do plano, com dono; cadernos na ordem da tabela 1.6.
@@ -19,6 +19,7 @@ import { dataDeHoje, diaEHora, horaCurta, hojeISO, periodoDoDia } from "../compo
 
 const raiz = path.resolve(import.meta.dirname, "..");
 const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8");
+const semCR = (t) => t.replace(/\r\n/g, "\n");
 let certos = 0;
 const falhas = [];
 const confere = (nome, cond, detalhe = "") => (cond ? certos++ : falhas.push(`${nome}${detalhe ? `: ${detalhe}` : ""}`));
@@ -42,7 +43,7 @@ async function recusa(nome, promessa, codigo) {
 }
 
 // ───────────────────────────── 1. O banco ─────────────────────────────
-const MIGRACAO = ler("supabase", "migracoes", "2026-11-escola-formacao-base.sql");
+const MIGRACAO = ler("supabase", "migracoes", "20261108-escola-formacao-base.sql");
 const banco = await criarBanco();
 const { rpc, dono, criarUsuario, pg, exclusivo } = banco;
 const instalar = () => exclusivo(() => pg.exec(MIGRACAO));
@@ -169,14 +170,14 @@ await espera("escola_publico nasce 'ninguem' e só aceita os 4 públicos", async
 }, (x) => x);
 await espera("a pausa geral vale nos inserts da Escola (encontros, tarefas, perguntas, recados, bancas)", () => dono("select count(*)::int n from pg_trigger where tgname = 'lucia_pausa' and tgrelid::regclass::text = any($1)", [["interno.escola_encontros", "interno.escola_encontro_tarefas", "interno.escola_perguntas", "interno.escola_recados", "interno.escola_bancas"]]), (r) => r.rows[0].n === 5);
 confere("a migração não grava nome civil (perfis.nome) em lugar nenhum", !/perfis\.nome|f\.nome|p\.nome/.test(MIGRACAO));
-confere("a migração não toca no install.sql", !ler("supabase", "install.sql").includes("escola_eu()"));
+confere("a migração está inteira no install.sql", semCR(ler("supabase", "install.sql")).includes(semCR(ler("supabase", "migracoes", "20261108-escola-formacao-base.sql")).trim()));
 
 // ───────────────────────────── 2. O contrato ─────────────────────────────
 const DO_PLANO = ["escola_eu", "escola_aulas_hoje", "escola_gravacoes", "escola_nucleo", "escola_encontro_salvar", "escola_tarefa_pegar", "escola_levar_ao_nucleo", "escola_pergunta_da_semana", "escola_pergunta_definir", "escola_recados", "escola_recado_salvar", "escola_acompanhar", "escola_banca_marcar", "escola_banca_decidir", "escola_militantes_listar", "escola_militante_ajustar", "escola_conquista_declarar", "escola_publico_definir", "escola_conquistas_minhas", "escola_frente_escolher", "escola_frentes_somadas"];
 confere("contrato: todas as funções públicas do plano (4.1 a 4.6)", DO_PLANO.every((n) => n in FUNCOES_DA_ESCOLA) && Object.keys(FUNCOES_DA_ESCOLA).length === DO_PLANO.length);
 const contratoTs = ler("lib", "escola", "contratos.ts");
 confere("contrato: cada função também no tipo FuncoesDaEscola", DO_PLANO.every((n) => new RegExp(`\\n  ${n}: \\{ frente: "F\\d"`).test(contratoTs)));
-confere("contrato: as funções da F1 estão na migração da F1", Object.entries(FUNCOES_DA_ESCOLA).filter(([, f]) => f === "F1").every(([n]) => MIGRACAO.includes(`public.${n}(`)) && MIGRACOES_DA_ESCOLA.F1 === "2026-11-escola-formacao-base.sql");
+confere("contrato: as funções da F1 estão na migração da F1", Object.entries(FUNCOES_DA_ESCOLA).filter(([, f]) => f === "F1").every(([n]) => MIGRACAO.includes(`public.${n}(`)) && MIGRACOES_DA_ESCOLA.F1 === "20261108-escola-formacao-base.sql");
 for (const [frente, arquivo] of Object.entries(MIGRACOES_DA_ESCOLA)) {
   const caminho = path.join(raiz, "supabase", "migracoes", arquivo);
   if (frente === "F1" || !fs.existsSync(caminho)) continue;

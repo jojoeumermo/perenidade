@@ -161,7 +161,7 @@ for (const [texto, esperado] of [
   confere("acrescenta Na sua realidade, diário e treino", /<NaSuaRealidade/.test(aula) && /<DiarioDeFormacao/.test(aula) && /<TreinoDeConversa/.test(aula));
   confere("a gravação da F3 entra por next/dynamic", /dynamic\(\(\) => import\("\.\/GravacaoDaAula"\)\)/.test(aula));
   const esboco = ler("components", "escola", "aula", "GravacaoDaAula.tsx");
-  confere("o esboço da gravação devolve nada", /export default function GravacaoDaAula/.test(esboco) && /return null;/.test(esboco));
+  confere("a gravação (F3) exporta GravacaoDaAula por padrão", /export (default )?function GravacaoDaAula/.test(esboco) && /export default GravacaoDaAula/.test(esboco));
   const paginas = ["page.tsx", path.join("[caderno]", "page.tsx"), path.join("[caderno]", "[aula]", "page.tsx")].map((p) => ler("app", "[lang]", "escola", "formacao", p));
   confere("as três páginas pedem para não indexar", paginas.every((p) => /robots: \{ index: false \}/.test(p)));
 }

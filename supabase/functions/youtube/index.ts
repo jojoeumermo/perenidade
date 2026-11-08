@@ -217,7 +217,7 @@ interface Aula {
   descricao: string;
   inicio: string;
   status: string;
-  /** "escola": aula só de militantes (supabase/migracoes/2026-11-escola-aovivo.sql). Banco antigo não manda: é do site. */
+  /** "escola": aula só de militantes (supabase/migracoes/20261108-escola-aovivo.sql). Banco antigo não manda: é do site. */
   publico?: "site" | "escola";
   educador: string;
   youtube: string | null;

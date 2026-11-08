@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova o núcleo da Escola de Formação (PLANO-ESCOLA.md, F4):
-//  1. O banco (supabase/migracoes/2026-11-escola-nucleo.sql, sobre o install.sql e a migração da F1, num Postgres de
+//  1. O banco (supabase/migracoes/20261108-escola-nucleo.sql, sobre o install.sql e a migração da F1, num Postgres de
 //     verdade dentro do Node): militante de outro núcleo não lê a pauta; só a mediação ou a coordenação salva; "Eu levo"
 //     com rodízio; levar ao núcleo sem dizer de quem; presença só em números; pergunta e recados; quem acompanha é do
 //     Degrau 3; banca aprovada sobe o degrau e cria a conquista verificada; o painel recusa quem não é coordenação;
@@ -44,8 +44,8 @@ async function recusa(nome, promessa, codigo) {
 }
 
 // ───────────────────────────── 1. O banco ─────────────────────────────
-const BASE = ler("supabase", "migracoes", "2026-11-escola-formacao-base.sql");
-const MIGRACAO = ler("supabase", "migracoes", "2026-11-escola-nucleo.sql");
+const BASE = ler("supabase", "migracoes", "20261108-escola-formacao-base.sql");
+const MIGRACAO = ler("supabase", "migracoes", "20261108-escola-nucleo.sql");
 const banco = await criarBanco();
 const { rpc, dono, criarUsuario, pg, exclusivo } = banco;
 await espera("a migração da F1 instala", () => exclusivo(() => pg.exec(BASE)));
