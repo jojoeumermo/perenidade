@@ -94,7 +94,10 @@ export function useEscola(): EstadoDaEscola & { conferirDeNovo: () => void } {
         (erro: unknown) => {
           const motivo = erro instanceof BackendError ? erro.code : "falha";
           // Banco sem a função (migração ainda não rodou) ou conta suspensa: a porta fica fechada, sem quebrar.
-          if (motivo === "banco_desatualizado" || motivo === "conta_suspensa" || motivo === "entre_primeiro") definir({ estado: "sem-militancia" });
+          // Sessão vencida ou inválida: quem perdeu a sessão volta à porta de quem ainda não entrou ("Já sou militante: entrar"),
+          // e não lê que não é militante.
+          if (motivo === "entre_primeiro") definir({ estado: "sem-conta" });
+          else if (motivo === "banco_desatualizado" || motivo === "conta_suspensa") definir({ estado: "sem-militancia" });
           else definir({ estado: "falha", motivo });
         },
       );
