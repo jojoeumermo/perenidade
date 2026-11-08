@@ -74,9 +74,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       return { slug, name: t.areas[slug][0], description: t.areas[slug][1], essential: essential.includes(slug), counts, palavras };
     }),
   }));
-  // O lambe-lambe do dia (com o carimbo e a xilogravura do mesmo tema): nas datas especiais, o cartaz da data; nos
-  // outros dias, o navegador sorteia um da amostra (T16, veja lib/lambes.ts).
-  const { datas: lambes, sorteio } = lambesDoCartaz(lang);
+  // O lambe-lambe do dia (com o carimbo e a xilogravura do mesmo tema): um por dia, o mesmo para todo mundo; nas datas
+  // especiais, o cartaz da data (veja lib/lambes.ts). Vai a lista dos próximos dias e o navegador mostra o de hoje.
+  const lambes = lambesDoCartaz(lang);
   // A tiragem do cartaz, como num cartaz de gráfica: os números do acervo.
   const tiragem = `${h.posterPrint}: ${[
     [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
@@ -145,7 +145,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         }}
         doDia={<AulaDoDia aulas={aulasDoDia} />}
         quadro={quadro ? <QuadroDeAvisos {...quadro} className="block px-4 pt-6" /> : undefined}
-        lambe={<LambeDoDia dias={lambes} sorteio={sorteio} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />}
+        lambe={<LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />}
         aulaDaSemana={<JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />}
         extras={
           <>
@@ -231,7 +231,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
           {/* O lambe-lambe do dia colado na parede, com a projeção e as fitas crepe; os números do acervo vão na tiragem. */}
           <div className="relative px-2 pt-6 pb-10 max-md:hidden">
-            <LambeDoDia dias={lambes} sorteio={sorteio} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />
+            <LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />
           </div>
         </div>
       </section>
