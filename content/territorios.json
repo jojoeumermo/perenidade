@@ -127,6 +127,15 @@
       },
       "lancamento": {
         "titulo": "Mostra das fotos, roda de conversa e o primeiro núcleo do Coletivo"
+      },
+      "logo": {
+        "src": "/territorios/na-atividade/logo.webp",
+        "alt": "Logo do Na Atividade: uma forma vermelha em degrau, como um raio deitado, sobre fundo branco",
+        "credito": "Logo do coletivo, redesenhada em vetor a partir da foto de perfil do Instagram"
+      },
+      "capa": {
+        "src": "/territorios/na-atividade/capa.webp",
+        "alt": "Logo do Na Atividade, a forma vermelha em degrau, no centro de uma capa branca"
       }
     },
     {
@@ -158,6 +167,7 @@
       "visual": "noizocupa",
       "logo": {
         "src": "/territorios/noizocupa/logo.webp",
+        "grande": "/territorios/noizocupa/logo-1920.webp",
         "alt": "Logo do NoizOcupa: a palavra NOIZ em letras gordas vazadas numa placa branca, com OCUPA dentro do O, sobre fundo vinho",
         "credito": "Logo cedida pelo coletivo"
       },
@@ -184,11 +194,26 @@
         "titulo": "Chega junto na construção",
         "texto": "O NoizOcupa está convocando quem acredita na força do território para construir cuidado, brincadeira, acolhimento e fortalecimento na Festa das Crianças. Toda habilidade, iniciativa e contribuição tem força nessa construção.",
         "itens": [
-          { "titulo": "Trancistas e barbeiros", "texto": "Seu trampo pode transformar o dia de alguém: momentos de cuidado, autoestima e acolhimento." },
-          { "titulo": "Pintura facial e recreação", "texto": "Arte no rosto, criatividade e alegria: artistas, oficineiros e gente com atividades criativas para compartilhar com a criançada." },
-          { "titulo": "Fotógrafos e comunicadores", "texto": "Quem registra, fortalece: gente do audiovisual para registrar o encontro e ajudar a contar essa história." },
-          { "titulo": "Apoiadores voluntários", "texto": "Coletivos, projetos, comércios, empreendedores e voluntários que queiram somar com serviços, materiais, estrutura ou conectando o coletivo a novos parceiros." },
-          { "titulo": "Doações e cotas", "texto": "As quatro frentes da festa: lazer (brinquedos, pipoca e algodão-doce), alimentação (alimentos, frutas, água e sucos), cuidados (materiais para as atividades de beleza) e oficinas (tintas e materiais para atividades artísticas)." }
+          {
+            "titulo": "Trancistas e barbeiros",
+            "texto": "Seu trampo pode transformar o dia de alguém: momentos de cuidado, autoestima e acolhimento."
+          },
+          {
+            "titulo": "Pintura facial e recreação",
+            "texto": "Arte no rosto, criatividade e alegria: artistas, oficineiros e gente com atividades criativas para compartilhar com a criançada."
+          },
+          {
+            "titulo": "Fotógrafos e comunicadores",
+            "texto": "Quem registra, fortalece: gente do audiovisual para registrar o encontro e ajudar a contar essa história."
+          },
+          {
+            "titulo": "Apoiadores voluntários",
+            "texto": "Coletivos, projetos, comércios, empreendedores e voluntários que queiram somar com serviços, materiais, estrutura ou conectando o coletivo a novos parceiros."
+          },
+          {
+            "titulo": "Doações e cotas",
+            "texto": "As quatro frentes da festa: lazer (brinquedos, pipoca e algodão-doce), alimentação (alimentos, frutas, água e sucos), cuidados (materiais para as atividades de beleza) e oficinas (tintas e materiais para atividades artísticas)."
+          }
         ],
         "apoio": "Para participar, chame o NoizOcupa por mensagem direta no Instagram ou pelo link da bio. Contribuição em dinheiro: Pix do CNPJ 68.411.647/0001-40 (Estado Artístico), como o coletivo publicou. Não pode contribuir? Compartilhar o post já ajuda muito.",
         "post": "DfC7sK5EQaz"
@@ -210,34 +235,137 @@
       "marcos": {
         "titulo": "O caminho até aqui",
         "itens": [
-          { "quando": "7 de maio de 2026", "titulo": "Nasce o Quebrada Viva", "texto": "Um movimento para as quebradas de Itanhaém: arte urbana, música, esporte, lazer e convivência.", "post": "DYB950CFYZ9" },
-          { "quando": "24 de junho", "titulo": "O convite para o 1º encontro", "texto": "Oficinas, roda de conversa, grafite, hip-hop, break, escrita, capoeira, trancistas e barbeiros. Evento gratuito.", "post": "DaAmQ7UjSrR" },
-          { "quando": "26 de julho", "titulo": "O primeiro encontro de construção", "texto": "Na Subsede APEOESP de Itanhaém: conversa, escuta e a exposição “Maré: elas em cena”.", "post": "DbLelvPxjfX" },
-          { "quando": "31 de julho", "titulo": "O projeto ganha o nome NoizOcupa", "texto": "“Ninguém ocupa um território sozinho. Vem construir com NOIZ.”", "post": "DbeLXKBDxFM" },
-          { "quando": "5 de agosto", "titulo": "Ocupar é (r)existir", "texto": "O vídeo-manifesto: viver o território com a nossa história, a nossa cultura, os nossos corpos, os nossos afetos e a nossa voz.", "post": "DbqSx3KR_oM" },
-          { "quando": "27 de outubro", "titulo": "A festa ganha nova data", "texto": "A chuva adiou o encontro de 24 de outubro para 21 de novembro, na Escola de Samba Unidos do Guapurá.", "post": "De_59hVkfIJ" },
-          { "quando": "28 de outubro", "titulo": "Chamada para profissionais", "texto": "Barbeiros, trancistas, artistas, fotógrafos, comunicadores e apoiadores para a Festa das Crianças.", "post": "DfC7sK5EQaz" },
-          { "quando": "2 de novembro", "titulo": "Parceria com o Instituto Lúcia", "texto": "O NoizOcupa e o Instituto Lúcia passam a caminhar juntos.", "post": "DfQT6U0uJ2G" }
+          {
+            "quando": "7 de maio de 2026",
+            "titulo": "Nasce o Quebrada Viva",
+            "texto": "Um movimento para as quebradas de Itanhaém: arte urbana, música, esporte, lazer e convivência.",
+            "post": "DYB950CFYZ9"
+          },
+          {
+            "quando": "24 de junho",
+            "titulo": "O convite para o 1º encontro",
+            "texto": "Oficinas, roda de conversa, grafite, hip-hop, break, escrita, capoeira, trancistas e barbeiros. Evento gratuito.",
+            "post": "DaAmQ7UjSrR"
+          },
+          {
+            "quando": "26 de julho",
+            "titulo": "O primeiro encontro de construção",
+            "texto": "Na Subsede APEOESP de Itanhaém: conversa, escuta e a exposição “Maré: elas em cena”.",
+            "post": "DbLelvPxjfX"
+          },
+          {
+            "quando": "31 de julho",
+            "titulo": "O projeto ganha o nome NoizOcupa",
+            "texto": "“Ninguém ocupa um território sozinho. Vem construir com NOIZ.”",
+            "post": "DbeLXKBDxFM"
+          },
+          {
+            "quando": "5 de agosto",
+            "titulo": "Ocupar é (r)existir",
+            "texto": "O vídeo-manifesto: viver o território com a nossa história, a nossa cultura, os nossos corpos, os nossos afetos e a nossa voz.",
+            "post": "DbqSx3KR_oM"
+          },
+          {
+            "quando": "27 de outubro",
+            "titulo": "A festa ganha nova data",
+            "texto": "A chuva adiou o encontro de 24 de outubro para 21 de novembro, na Escola de Samba Unidos do Guapurá.",
+            "post": "De_59hVkfIJ"
+          },
+          {
+            "quando": "28 de outubro",
+            "titulo": "Chamada para profissionais",
+            "texto": "Barbeiros, trancistas, artistas, fotógrafos, comunicadores e apoiadores para a Festa das Crianças.",
+            "post": "DfC7sK5EQaz"
+          },
+          {
+            "quando": "2 de novembro",
+            "titulo": "Parceria com o Instituto Lúcia",
+            "texto": "O NoizOcupa e o Instituto Lúcia passam a caminhar juntos.",
+            "post": "DfQT6U0uJ2G"
+          }
         ]
       },
       "galeria": {
         "titulo": "No Instagram do NoizOcupa",
         "fotos": [
-          { "src": "/territorios/noizocupa/primeiro-encontro.webp", "alt": "Colagem de fotos do primeiro encontro de construção: uma pessoa fala ao microfone, outras sentadas em cadeiras de plástico numa sala de paredes vermelhas", "legenda": "Visão do primeiro encontro de construção", "credito": "Fotos: @lanecardozo, @liccazovinceoz e @italolesald" },
-          { "src": "/territorios/noizocupa/o-centro-sao-as-pessoas.webp", "alt": "Colagem de fotos do encontro com os textos “O centro do projeto são as pessoas”, “Noiz é coletivo” e “Ocupar é (r)existir”", "legenda": "O centro do projeto são as pessoas", "credito": "Fotos: @lanecardozo, @liccazovinceoz e @italolesald" },
-          { "src": "/territorios/noizocupa/vem-construir.webp", "alt": "O logo NOIZ OCUPA em letras escorridas sobre foto do encontro, com “Unir · organizar · fortalecer” e o convite “Vem construir com Noiz”", "legenda": "Vem construir com Noiz", "credito": "Fotos: @lanecardozo, @liccazovinceoz e @italolesald" },
-          { "src": "/territorios/noizocupa/unir-organizar-fortalecer.webp", "alt": "O logo NOIZ OCUPA em letras pretas escorridas sobre foto escurecida de uma roda de conversa, com “Unir · organizar · fortalecer” em vermelho", "legenda": "Unir · organizar · fortalecer" },
-          { "src": "/territorios/noizocupa/novo-nome.webp", "alt": "Foto de pessoas sentadas em cadeiras de plástico numa roda de conversa, com o texto: “Porque o projeto recebeu outro nome? Nós percebemos que já existia um projeto chamado Quebrada Viva e precisávamos encontrar o nosso nome”", "legenda": "Por que o projeto ganhou outro nome" },
-          { "src": "/territorios/noizocupa/brincar-e-viver.webp", "alt": "Cartaz vermelho: “Brincar é viver! Não existe futuro sem escuta e nem mudança sem inclusão. É preciso abrir espaço e construir junto com os jovens e crianças! Ocupar é (r)existir”", "legenda": "Brincar é viver" },
-          { "src": "/territorios/noizocupa/quatro-frentes.webp", "alt": "Cartaz das quatro frentes da festa, com barras de progresso: lazer, alimentação, cuidados e oficinas", "legenda": "As quatro frentes da festa" },
-          { "src": "/territorios/noizocupa/trancistas-e-barbeiros.webp", "alt": "Cartaz da chamada: “Trancistas e barbeiros: seu trampo pode transformar o dia de alguém”", "legenda": "Trancistas e barbeiros" },
-          { "src": "/territorios/noizocupa/pintura-facial.webp", "alt": "Cartaz da chamada: “Pintura facial e recreação: arte no rosto, criatividade e alegria”", "legenda": "Pintura facial e recreação" },
-          { "src": "/territorios/noizocupa/fotografos.webp", "alt": "Cartaz da chamada: “Fotógrafos e comunicadores: quem registra, fortalece”", "legenda": "Fotógrafos e comunicadores" },
-          { "src": "/territorios/noizocupa/doacoes.webp", "alt": "Cartaz “Doações e cotas: temos muito pra construir”, com as quatro frentes que precisam de apoio", "legenda": "Doações e cotas" },
-          { "src": "/territorios/noizocupa/chamada.webp", "alt": "Cartaz vermelho “Chamada para profissionais”: o NoizOcupa convoca profissionais, artistas e pessoas dispostas a fortalecer a ação cultural; 21/11, Escola de Samba Unidos do Guapurá, 13h", "legenda": "Chamada para profissionais" },
-          { "src": "/territorios/noizocupa/apoiadores.webp", "alt": "Cartaz “Apoiadores voluntários pra somar”, sobre foto de uma amarelinha pintada no chão: coletivos, projetos, comércios, empreendedores, organizações e pessoas que queiram fortalecer", "legenda": "Apoiadores voluntários" },
-          { "src": "/territorios/noizocupa/como-fortalecer.webp", "alt": "Cartaz vermelho explicando a rede de apoiadores da festa (lazer, alimentação, cuidados e materiais para as oficinas das crianças do Guapurá) e como contribuir, com o Pix do CNPJ 68.411.647/0001-40", "legenda": "Como fortalecer a festa" },
-          { "src": "/territorios/noizocupa/nova-data.webp", "alt": "Cartaz avisando que o encontro foi remarcado para 21 de novembro por causa da previsão de chuvas, com “Vamos juntos!”", "legenda": "A nova data da festa" }
+          {
+            "src": "/territorios/noizocupa/primeiro-encontro.webp",
+            "alt": "Colagem de fotos do primeiro encontro de construção: uma pessoa fala ao microfone, outras sentadas em cadeiras de plástico numa sala de paredes vermelhas",
+            "legenda": "Visão do primeiro encontro de construção",
+            "credito": "Fotos: @lanecardozo, @liccazovinceoz e @italolesald"
+          },
+          {
+            "src": "/territorios/noizocupa/o-centro-sao-as-pessoas.webp",
+            "alt": "Colagem de fotos do encontro com os textos “O centro do projeto são as pessoas”, “Noiz é coletivo” e “Ocupar é (r)existir”",
+            "legenda": "O centro do projeto são as pessoas",
+            "credito": "Fotos: @lanecardozo, @liccazovinceoz e @italolesald"
+          },
+          {
+            "src": "/territorios/noizocupa/vem-construir.webp",
+            "alt": "O logo NOIZ OCUPA em letras escorridas sobre foto do encontro, com “Unir · organizar · fortalecer” e o convite “Vem construir com Noiz”",
+            "legenda": "Vem construir com Noiz",
+            "credito": "Fotos: @lanecardozo, @liccazovinceoz e @italolesald"
+          },
+          {
+            "src": "/territorios/noizocupa/unir-organizar-fortalecer.webp",
+            "alt": "O logo NOIZ OCUPA em letras pretas escorridas sobre foto escurecida de uma roda de conversa, com “Unir · organizar · fortalecer” em vermelho",
+            "legenda": "Unir · organizar · fortalecer"
+          },
+          {
+            "src": "/territorios/noizocupa/novo-nome.webp",
+            "alt": "Foto de pessoas sentadas em cadeiras de plástico numa roda de conversa, com o texto: “Porque o projeto recebeu outro nome? Nós percebemos que já existia um projeto chamado Quebrada Viva e precisávamos encontrar o nosso nome”",
+            "legenda": "Por que o projeto ganhou outro nome"
+          },
+          {
+            "src": "/territorios/noizocupa/brincar-e-viver.webp",
+            "alt": "Cartaz vermelho: “Brincar é viver! Não existe futuro sem escuta e nem mudança sem inclusão. É preciso abrir espaço e construir junto com os jovens e crianças! Ocupar é (r)existir”",
+            "legenda": "Brincar é viver"
+          },
+          {
+            "src": "/territorios/noizocupa/quatro-frentes.webp",
+            "alt": "Cartaz das quatro frentes da festa, com barras de progresso: lazer, alimentação, cuidados e oficinas",
+            "legenda": "As quatro frentes da festa"
+          },
+          {
+            "src": "/territorios/noizocupa/trancistas-e-barbeiros.webp",
+            "alt": "Cartaz da chamada: “Trancistas e barbeiros: seu trampo pode transformar o dia de alguém”",
+            "legenda": "Trancistas e barbeiros"
+          },
+          {
+            "src": "/territorios/noizocupa/pintura-facial.webp",
+            "alt": "Cartaz da chamada: “Pintura facial e recreação: arte no rosto, criatividade e alegria”",
+            "legenda": "Pintura facial e recreação"
+          },
+          {
+            "src": "/territorios/noizocupa/fotografos.webp",
+            "alt": "Cartaz da chamada: “Fotógrafos e comunicadores: quem registra, fortalece”",
+            "legenda": "Fotógrafos e comunicadores"
+          },
+          {
+            "src": "/territorios/noizocupa/doacoes.webp",
+            "alt": "Cartaz “Doações e cotas: temos muito pra construir”, com as quatro frentes que precisam de apoio",
+            "legenda": "Doações e cotas"
+          },
+          {
+            "src": "/territorios/noizocupa/chamada.webp",
+            "alt": "Cartaz vermelho “Chamada para profissionais”: o NoizOcupa convoca profissionais, artistas e pessoas dispostas a fortalecer a ação cultural; 21/11, Escola de Samba Unidos do Guapurá, 13h",
+            "legenda": "Chamada para profissionais"
+          },
+          {
+            "src": "/territorios/noizocupa/apoiadores.webp",
+            "alt": "Cartaz “Apoiadores voluntários pra somar”, sobre foto de uma amarelinha pintada no chão: coletivos, projetos, comércios, empreendedores, organizações e pessoas que queiram fortalecer",
+            "legenda": "Apoiadores voluntários"
+          },
+          {
+            "src": "/territorios/noizocupa/como-fortalecer.webp",
+            "alt": "Cartaz vermelho explicando a rede de apoiadores da festa (lazer, alimentação, cuidados e materiais para as oficinas das crianças do Guapurá) e como contribuir, com o Pix do CNPJ 68.411.647/0001-40",
+            "legenda": "Como fortalecer a festa"
+          },
+          {
+            "src": "/territorios/noizocupa/nova-data.webp",
+            "alt": "Cartaz avisando que o encontro foi remarcado para 21 de novembro por causa da previsão de chuvas, com “Vamos juntos!”",
+            "legenda": "A nova data da festa"
+          }
         ]
       },
       "credito": "Textos, cartazes e fotos: @noizocupa no Instagram, uso autorizado pelo coletivo. Logo cedida pelo coletivo. As fotos do primeiro encontro são de @lanecardozo, @liccazovinceoz e @italolesald, como o coletivo creditou. O vídeo do anúncio é do Instituto Lúcia, feito com o coletivo. As imagens não estão sob a licença livre do site."
@@ -271,6 +399,7 @@
       "visual": "kamikaze",
       "logo": {
         "src": "/territorios/coletivo-kamikaze/logo.webp",
+        "grande": "/territorios/coletivo-kamikaze/logo-1920.webp",
         "alt": "Logo do Coletivo Kamikaze: uma boca preta com dente de ouro sobre fundo amarelo e, embaixo, COLETIVO KAMIKAZE em letras pretas",
         "credito": "Logo cedida pelo coletivo"
       },
@@ -292,9 +421,21 @@
         "titulo": "Manifesto Manicongo: travestilidade como metodologia",
         "texto": "Inspirado na memória de Xica Manicongo, a primeira travesti registrada na história do Brasil, o Manifesto Manicongo foi uma convocação política, artística e epistemológica que posiciona a travestilidade como metodologia e tecnologia socioespiritual. Realização do SARAVÁ Lab, produção geral do Coletivo Kamikaze. Evento gratuito, aberto ao público e transmitido ao vivo pela TV PUC.",
         "programa": [
-          { "hora": "17h", "titulo": "Pré-vivência socioeducativa: “Projeto de vida & política pública”", "texto": "Roda de conversa sobre projetos de vida, políticas públicas e estratégias de permanência nos estudos, com o CAE Casarão Brasil, o Núcleo de Consciência Trans da Unicamp e o Coletivo Travas da Sul." },
-          { "hora": "18h", "titulo": "Performance multilinguagem: “Corpo-rito: slam & ballroom”", "texto": "O corpo como tecnologia de sobrevivência: palavra e dança como ferramenta ancestral, com performers de ballroom, slammers e DJ." },
-          { "hora": "19h", "titulo": "Diálogo-ritual: “Epistemologicamente travesti”", "texto": "A travesti como produtora de conhecimento, com Erika Hilton, Puma Camillê, Diameyka Odara e Jup do Bairro; mediação de Rara Silva e Renala Francisco." }
+          {
+            "hora": "17h",
+            "titulo": "Pré-vivência socioeducativa: “Projeto de vida & política pública”",
+            "texto": "Roda de conversa sobre projetos de vida, políticas públicas e estratégias de permanência nos estudos, com o CAE Casarão Brasil, o Núcleo de Consciência Trans da Unicamp e o Coletivo Travas da Sul."
+          },
+          {
+            "hora": "18h",
+            "titulo": "Performance multilinguagem: “Corpo-rito: slam & ballroom”",
+            "texto": "O corpo como tecnologia de sobrevivência: palavra e dança como ferramenta ancestral, com performers de ballroom, slammers e DJ."
+          },
+          {
+            "hora": "19h",
+            "titulo": "Diálogo-ritual: “Epistemologicamente travesti”",
+            "texto": "A travesti como produtora de conhecimento, com Erika Hilton, Puma Camillê, Diameyka Odara e Jup do Bairro; mediação de Rara Silva e Renala Francisco."
+          }
         ],
         "post": "DdDLUiZEY2o"
       },
@@ -304,10 +445,22 @@
           "texto": "Contra o PL 994/2026, que quer extinguir a ANCINE, o órgão que garante dinheiro e estrutura para produzir cinema, séries e projetos no Brasil. Sem ela: menos favela e menos diversidade nas telas, menos trabalho para quem vive de cultura na periferia, da técnica ao figurino, e menos cinema de graça nas quebradas.",
           "post": "DeM8CrnFN1a",
           "fotos": [
-            { "src": "/territorios/coletivo-kamikaze/cinema-nacional-1.webp", "alt": "Cartaz amarelo com letras verdes: “Defenda o cinema nacional. Vote contra a PL 994/2026”" },
-            { "src": "/territorios/coletivo-kamikaze/cinema-nacional-2.webp", "alt": "Cartaz vermelho com uma silhueta preta e o retrato de uma senhora: “Defenda o cinema nacional”" },
-            { "src": "/territorios/coletivo-kamikaze/cinema-nacional-3.webp", "alt": "Cartaz laranja com um sol amarelo e o rosto de um cangaceiro de chapéu: “Defenda o cinema nacional”" },
-            { "src": "/territorios/coletivo-kamikaze/cinema-nacional-4.webp", "alt": "Cartaz verde-escuro com um grupo de personagens desenhados: “Defenda o cinema nacional”" }
+            {
+              "src": "/territorios/coletivo-kamikaze/cinema-nacional-1.webp",
+              "alt": "Cartaz amarelo com letras verdes: “Defenda o cinema nacional. Vote contra a PL 994/2026”"
+            },
+            {
+              "src": "/territorios/coletivo-kamikaze/cinema-nacional-2.webp",
+              "alt": "Cartaz vermelho com uma silhueta preta e o retrato de uma senhora: “Defenda o cinema nacional”"
+            },
+            {
+              "src": "/territorios/coletivo-kamikaze/cinema-nacional-3.webp",
+              "alt": "Cartaz laranja com um sol amarelo e o rosto de um cangaceiro de chapéu: “Defenda o cinema nacional”"
+            },
+            {
+              "src": "/territorios/coletivo-kamikaze/cinema-nacional-4.webp",
+              "alt": "Cartaz verde-escuro com um grupo de personagens desenhados: “Defenda o cinema nacional”"
+            }
           ]
         },
         {
@@ -315,19 +468,50 @@
           "texto": "Contra o PL 4439/2025, que proíbe mulheres trans de acessarem banheiros, vestiários e alas hospitalares femininos. O coletivo lembra a Operação Tarântula, de 1987, e a pesquisa de Berenice Bento: a transfobia não começou ontem, e proteger os direitos trans não é caridade.",
           "post": "DeS0bUilNG6",
           "fotos": [
-            { "src": "/territorios/coletivo-kamikaze/direitos-trans-1.webp", "alt": "Cartaz em tons de rosa e azul: “Proteja os direitos trans. Vote contra a PL 4439/2025”" },
-            { "src": "/territorios/coletivo-kamikaze/direitos-trans-2.webp", "alt": "Cartaz em tons de rosa e azul: “Protect the Brazilian dolls. Vote contra a PL 4439/2025”" }
+            {
+              "src": "/territorios/coletivo-kamikaze/direitos-trans-1.webp",
+              "alt": "Cartaz em tons de rosa e azul: “Proteja os direitos trans. Vote contra a PL 4439/2025”"
+            },
+            {
+              "src": "/territorios/coletivo-kamikaze/direitos-trans-2.webp",
+              "alt": "Cartaz em tons de rosa e azul: “Protect the Brazilian dolls. Vote contra a PL 4439/2025”"
+            }
           ]
         }
       ],
       "marcos": {
         "titulo": "O caminho até aqui",
         "itens": [
-          { "quando": "8 de setembro de 2026", "titulo": "SARAVÁ Lab & Kamikaze anunciam o Manifesto Manicongo", "texto": "O convite para o encontro-manifesto, gratuito e aberto ao público.", "post": "DdDLUiZEY2o" },
-          { "quando": "14 de setembro", "titulo": "Manifesto Manicongo no TUCARENA", "texto": "Pré-vivência, slam e ballroom e o diálogo-ritual “Epistemologicamente travesti”, com produção geral do Kamikaze.", "post": "DdPoyUykazK" },
-          { "quando": "7 de outubro", "titulo": "Defenda o cinema nacional", "texto": "Quatro cartazes contra o PL 994/2026 e pela ANCINE.", "post": "DeM8CrnFN1a" },
-          { "quando": "9 de outubro", "titulo": "Proteja os direitos trans", "texto": "Um post para ler e guardar: memória, colonialidade e o PL 4439/2025.", "post": "DeS0bUilNG6" },
-          { "quando": "2 de novembro", "titulo": "Em cartaz: Kamikaze × Instituto Lúcia", "texto": "A parceria firmada. “Vem coisa por aí.”", "post": "DfQoZbIOMZt" }
+          {
+            "quando": "8 de setembro de 2026",
+            "titulo": "SARAVÁ Lab & Kamikaze anunciam o Manifesto Manicongo",
+            "texto": "O convite para o encontro-manifesto, gratuito e aberto ao público.",
+            "post": "DdDLUiZEY2o"
+          },
+          {
+            "quando": "14 de setembro",
+            "titulo": "Manifesto Manicongo no TUCARENA",
+            "texto": "Pré-vivência, slam e ballroom e o diálogo-ritual “Epistemologicamente travesti”, com produção geral do Kamikaze.",
+            "post": "DdPoyUykazK"
+          },
+          {
+            "quando": "7 de outubro",
+            "titulo": "Defenda o cinema nacional",
+            "texto": "Quatro cartazes contra o PL 994/2026 e pela ANCINE.",
+            "post": "DeM8CrnFN1a"
+          },
+          {
+            "quando": "9 de outubro",
+            "titulo": "Proteja os direitos trans",
+            "texto": "Um post para ler e guardar: memória, colonialidade e o PL 4439/2025.",
+            "post": "DeS0bUilNG6"
+          },
+          {
+            "quando": "2 de novembro",
+            "titulo": "Em cartaz: Kamikaze × Instituto Lúcia",
+            "texto": "A parceria firmada. “Vem coisa por aí.”",
+            "post": "DfQoZbIOMZt"
+          }
         ]
       },
       "credito": "Textos e cartazes: @coletivokamikaze no Instagram, uso autorizado pelo coletivo. Logo cedida pelo coletivo. O Manifesto Manicongo foi publicado pelo @saravalab com o coletivo; as fotos desse encontro são de outros fotógrafos e não estão aqui. O vídeo do anúncio é do Instituto Lúcia, feito com o coletivo. As imagens não estão sob a licença livre do site."
@@ -361,6 +545,7 @@
       "visual": "desordem",
       "logo": {
         "src": "/territorios/coletivo-desordem/logo.webp",
+        "grande": "/territorios/coletivo-desordem/logo-1920.webp",
         "alt": "Logo do Coletivo Desordem: um triângulo de play pintado em spray amarelo com sombra vermelha, cercado das letras de DESORDEM soltas e tortas",
         "credito": "Logo cedida pelo coletivo"
       },
@@ -419,7 +604,27 @@
           }
         ]
       },
-      "credito": "Textos: @coletivodesordem no Instagram, uso autorizado pelo coletivo. Logo cedida pelo coletivo. A logo não está sob a licença livre do site."
+      "credito": "Textos e vídeos: @coletivodesordem no Instagram (um dos vídeos em colaboração com @galpaoculturalcubatao), uso autorizado pelo coletivo. Logo cedida pelo coletivo. A logo e os vídeos não estão sob a licença livre do site.",
+      "videos": [
+        {
+          "src": "/territorios/coletivo-desordem/notados.mp4",
+          "capa": "/territorios/coletivo-desordem/notados-capa.webp",
+          "titulo": "“Fomos notados pela bruxona @amarinasena”",
+          "texto": "O post do Desordem, com a marcação #coletivodeteatro.",
+          "data": "1º de setembro de 2026",
+          "reel": "DcwwKbapD_w",
+          "credito": "Vídeo: @coletivodesordem no Instagram, uso autorizado pelo coletivo."
+        },
+        {
+          "src": "/territorios/coletivo-desordem/galpao-pescaria.mp4",
+          "capa": "/territorios/coletivo-desordem/galpao-pescaria-capa.webp",
+          "titulo": "“Venham, vai ter pescaria!”",
+          "texto": "A chamada do Galpão Cultural Cubatão, que o Desordem ocupa, feita em colaboração com o coletivo.",
+          "data": "26 de julho de 2026",
+          "reel": "DbQXOI2tH6k",
+          "credito": "Vídeo: @galpaoculturalcubatao em colaboração com @coletivodesordem no Instagram, uso autorizado pelo coletivo."
+        }
+      ]
     },
     {
       "slug": "noisme-studios",
@@ -447,6 +652,7 @@
       "visual": "noisme",
       "logo": {
         "src": "/territorios/noisme-studios/logo.webp",
+        "grande": "/territorios/noisme-studios/logo-1920.webp",
         "alt": "Logo do noismemo studios: as letras NM, pesadas e inclinadas, dentro de uma elipse preta sobre fundo branco",
         "credito": "Logo cedida pelo coletivo"
       },
@@ -458,7 +664,18 @@
         "texto": "Com @xangssss: um tênis Oakley Halftrack Low II desmontado e refeito como chinelo. No post: “Satisfação máxima em transformar essa peça, dando um novo valor, identidade e pertencimento.”",
         "post": "DdmiFfLzCsG"
       },
-      "credito": "Textos: @noismemostudios no Instagram, uso autorizado pelo estúdio. O vídeo do processo criativo é de @xangssss com o estúdio. Logo cedida pelo coletivo. A logo não está sob a licença livre do site."
+      "credito": "Textos e vídeo: @noismemostudios no Instagram, uso autorizado pelo estúdio. O vídeo do processo criativo é de @xangssss com o estúdio; o som, de @kyanmaloka e @mu540. Logo cedida pelo coletivo. A logo e o vídeo não estão sob a licença livre do site.",
+      "videos": [
+        {
+          "src": "/territorios/noisme-studios/processo-halftrack.mp4",
+          "capa": "/territorios/noisme-studios/processo-halftrack-capa.webp",
+          "titulo": "Processo criativo: do Halftrack Low II ao chinelo",
+          "texto": "Em colaboração com @xangssss: o upcycling de um tênis Oakley Halftrack Low II em chinelo, do desmonte à peça nova. Som de @kyanmaloka e @mu540.",
+          "data": "22 de setembro de 2026",
+          "reel": "DdmiFfLzCsG",
+          "credito": "Vídeo: @noismemostudios com @xangssss no Instagram, uso autorizado pelo estúdio."
+        }
+      ]
     }
   ]
 }

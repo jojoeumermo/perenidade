@@ -5683,7 +5683,14 @@
     "letreiroRotulo": "Themes of the territory",
     "letreiroPausar": "Pause the themes ticker",
     "letreiroRetomar": "Resume the themes ticker",
-    "cartaoVer": "See the page"
+    "cartaoVer": "See the page",
+    "quemSao": "Who they are",
+    "videos": "Videos",
+    "videoRotulo": "Video",
+    "videoOriginal": "See the original post on Instagram",
+    "agendaLinks": "Calendar and links",
+    "parceria": "Partnership with Instituto Lúcia",
+    "parceriaTexto": "{nome} is a partner territory of Instituto Lúcia. Each territory brings its own perspective to the site: articles in the journal, lessons, photos and gatherings."
   },
   "rede": {
     "abaRede": "Alumia",
