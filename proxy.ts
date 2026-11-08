@@ -4,8 +4,6 @@ import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
-import { prazosDoJornal } from "@/lib/jornal/saidas";
-import { materiaDoCaminho, paginaRemovida, saiuDoAr } from "@/lib/jornal/validade";
 import { ligado } from "@/lib/recursos";
 import { site } from "@/lib/site";
 
@@ -177,15 +175,6 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     const url = request.nextUrl.clone();
     url.pathname = alvo;
     return NextResponse.rewrite(url);
-  }
-  // Matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts): passada a hora, o endereço responde 410
-  // (removida), mesmo que a página pronta ainda não tenha sido refeita. Cache curto e sem indexação.
-  const materia = materiaDoCaminho(pathname);
-  if (materia && saiuDoAr(prazosDoJornal().get(materia.slug))) {
-    return new NextResponse(paginaRemovida(materia.lang), {
-      status: 410,
-      headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=300", "X-Robots-Tag": "noindex" },
-    });
   }
   if (locales.some((code) => pathname === `/${code}` || pathname.startsWith(`/${code}/`))) return;
   const url = request.nextUrl.clone();

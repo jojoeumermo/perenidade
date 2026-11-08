@@ -284,12 +284,7 @@ const montar = {
     const editoria = linha(item.dados?.editoria, "editoria", { max: 40, obrigatorio: false });
     if (subtitulo) dados.subtitulo = subtitulo;
     if (editoria) dados.editoria = editoria;
-    // Matéria com prazo (lib/jornal/validade.ts): "2026-11-13" ou "2026-11-13 23:59" (hora de Brasília).
-    const saida = linha(item.dados?.sai_do_ar_em, "sai do ar em", { max: 25, obrigatorio: false });
-    if (saida) {
-      if (!/^\d{4}-\d{2}-\d{2}([T ]\d{2}:\d{2}(:\d{2})?)?$/.test(saida)) recusar(`"sai do ar em" deve ser AAAA-MM-DD ou AAAA-MM-DD HH:MM`);
-      dados.sai_do_ar_em = saida;
-    }
+    // As matérias não expiram (docs/jornal/EXPIRACAO.md): um "sai_do_ar_em" vindo do painel é ignorado.
     return { arquivo: livre("jornal", `${dia}-${slug(titulo) || "materia"}`), dados, texto: corpo(item.corpo, tipos.artigo.corpo.min) };
   },
   checagem(item) {
