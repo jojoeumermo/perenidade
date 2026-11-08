@@ -4,6 +4,9 @@ Anotações da pesquisa feita em 06/11/2026 para a T15 (docs/NOVAS-TAREFAS.md). 
 `content/escola/quem-foi-lucia-maria.md` usa **só** o que está aqui. Nada foi inventado: quando uma fonte não diz, o
 texto não diz.
 
+Desde 08/11/2026 o texto é escrito em primeira pessoa, pelo neto (quem criou o instituto, Jonathan Santos, nome já
+publicado em `content/paginas/quem-somos.md`). Mudou a voz, não os fatos: nenhum fato novo entrou.
+
 ## 1. Instagram do instituto (@institutoluciaorg)
 
 Lido no navegador, com a conta do instituto, em 06/11/2026.
