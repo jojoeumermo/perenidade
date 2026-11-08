@@ -5,10 +5,14 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import { type Fonte, limpar, type Marca, novoId } from "@/lib/caderno";
 import { agendar, apagarCartao, apagarErro, type CartaoDeRevisao, type Erro, filaDeErros, guardarCartoes, hoje, intercalar, lerCartoes, lerCopia, lerErros, montarCopia, type Nota, paraHoje, refazerErro, responderCartao, restaurarCopia } from "@/lib/estudo";
+import { semFiguras } from "@/lib/figuras-da-prova";
 import { ligado } from "@/lib/recursos";
 import { ComecoEmTresPassos } from "../estudo/ComecoEmTresPassos";
+import { AlternativaComFiguras } from "../FiguraDaProva";
 import { L } from "../I18n";
 import type { NotebookStrings } from "./Caderno";
+
+const LETRAS = "ABCDE";
 
 const botao = "cursor-pointer border-2 border-ink bg-ink px-4 py-2 font-sans text-sm font-bold uppercase tracking-wide text-parchment hover:border-oxblood hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const claro = "cursor-pointer border-2 border-ink bg-parchment px-3 py-1.5 font-sans text-sm font-bold uppercase tracking-wide hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
@@ -234,7 +238,7 @@ export function Erros({ s }: { s: NotebookStrings }) {
         <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {e.opcoes.map((o, j) => (
             <button key={j} type="button" disabled={escolha !== null} onClick={() => { setEscolha(j); const saiu = refazerErro(e.id, j === e.resposta, j); setRetorno(j === e.resposta ? (saiu ? s.mistakeOut : s.mistakeKeep) : s.wrong); }} className={`cursor-pointer border-2 bg-parchment px-3 py-2 text-left disabled:cursor-default ${escolha === null ? "border-rule hover:border-gold" : j === e.resposta ? "border-ok text-ok" : j === escolha ? "border-oxblood text-oxblood" : "border-rule opacity-60"}`}>
-              {o}
+              <AlternativaComFiguras texto={o} letra={LETRAS[j] ?? ""} />
             </button>
           ))}
         </div>
@@ -270,12 +274,12 @@ export function Erros({ s }: { s: NotebookStrings }) {
             <li key={e.id} className="border border-rule bg-parchment-deep p-3">
               <p className="font-mono text-[0.65rem] uppercase tracking-widest text-gold">{e.origem} · {new Date(e.quando).toLocaleDateString()}</p>
               <p className="mt-1 font-serif text-lg">{e.pergunta}</p>
-              <p className="mt-1 text-oxblood">✗ {s.yourAnswer}: {e.opcoes[e.escolhida] ?? "—"}</p>
-              <p className="text-ok">✓ {s.rightAnswer}: {e.opcoes[e.resposta]}</p>
+              <p className="mt-1 text-oxblood">✗ {s.yourAnswer}: {e.opcoes[e.escolhida] !== undefined ? <AlternativaComFiguras texto={e.opcoes[e.escolhida]} letra={LETRAS[e.escolhida] ?? ""} ampliar /> : "—"}</p>
+              <p className="text-ok">✓ {s.rightAnswer}: <AlternativaComFiguras texto={e.opcoes[e.resposta] ?? ""} letra={LETRAS[e.resposta] ?? ""} ampliar /></p>
               {e.explicacao && <p className="mt-1 border-l-4 border-gold pl-2 text-ink-soft">{e.explicacao}</p>}
               <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
                 {e.href && <L href={e.href} className={elo}>{s.studyAgain}</L>}
-                <button type="button" className={elo} onClick={() => { const n = guardarCartoes([{ frente: e.pergunta, verso: `${e.opcoes[e.resposta]}${e.explicacao ? ` — ${e.explicacao}` : ""}`, origem: e.origem }]); setAviso(fill(s.savedN, { n })); }}>{s.mistakeToCard}</button>
+                <button type="button" className={elo} onClick={() => { const n = guardarCartoes([{ frente: e.pergunta, verso: `${semFiguras(e.opcoes[e.resposta] ?? "")}${e.explicacao ? ` — ${e.explicacao}` : ""}`, origem: e.origem }]); setAviso(fill(s.savedN, { n })); }}>{s.mistakeToCard}</button>
                 <button type="button" className={elo} onClick={() => { apagarErro(e.id); recarregar(); }}>{s.deleteCard}</button>
               </p>
             </li>

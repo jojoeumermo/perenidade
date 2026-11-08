@@ -7,7 +7,7 @@ import { lerErros, refazerErro, registrarErro } from "@/lib/estudo";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { useI18n } from "../I18n";
 import { carregarProva, LETRAS, type QuestaoOficial } from "./dados";
-import { CorrecaoDaQuestao, TextoDaQuestao } from "./Questao";
+import { CorrecaoDaQuestao, TextoDaAlternativa, TextoDaQuestao } from "./Questao";
 
 type S = TextosDoEstudo["enem"];
 const campo = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
@@ -158,14 +158,14 @@ export function PraticaOficial({ anos, areas, objetos, habilidades, s }: { anos:
         {fill(p.posicao, { i: i + 1, n: fila.length })} · {areas[q.camada!.area]} · H{q.camada!.habilidade} · {q.camada!.topicoNome ?? q.camada!.objetoNome} · {fill(s.provas.nivel, { n: q.camada!.dificuldade })}
       </p>
       <div className="mt-3">
-        <TextoDaQuestao q={q} s={s.provas} titulo={fill(p.origem, { ano: q.camada!.ano, n: q.n })} />
+        <TextoDaQuestao q={q} titulo={fill(p.origem, { ano: q.camada!.ano, n: q.n })} />
       </div>
       <div className="mt-4 space-y-2" role="group" aria-label={fill(p.posicao, { i: i + 1, n: fila.length })}>
         {q.alternativas.map((alt, j) => {
           const estado = respondeu && j === q.resposta ? "border-ok text-ok" : respondeu && j === escolhida ? "border-oxblood text-oxblood" : "border-rule hover:border-gold";
           return (
             <button key={j} type="button" disabled={respondeu} onClick={() => responder(j)} className={`block w-full cursor-pointer border-2 bg-parchment px-4 py-2 text-left disabled:cursor-default ${estado}`}>
-              <strong className="font-mono">{LETRAS[j]})</strong> {alt || "—"}
+              <strong className="font-mono">{LETRAS[j]})</strong> <TextoDaAlternativa texto={alt} letra={LETRAS[j]} />
             </button>
           );
         })}
