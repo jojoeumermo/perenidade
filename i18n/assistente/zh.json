@@ -8,6 +8,8 @@
   "contagem": "{total} 个问题中的 {n} 个",
   "naoAchei": "没有找到。请看下面的问题，或",
   "faleConosco": "联系我们",
+  "entre": "",
+  "fim": "。",
   "abrir": "前往该页面",
   "lista": "问题列表",
   "privacidade": "你在这里输入的内容只在这台设备上筛选列表，不会发送任何内容。"
