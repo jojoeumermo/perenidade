@@ -61,7 +61,7 @@ igual("busca sem nada", filtrarCampus(montado, "zzz-nada", norm), []);
 
 // predioDoCaminho
 igual("semIdioma", [semIdioma("/pt/acervo/x"), semIdioma("/zh"), semIdioma("/acervo/?q=1#a"), semIdioma("/ptx/a")], ["/acervo/x", "/", "/acervo", "/ptx/a"]);
-igual("predioDoCaminho", ["/pt/trilhas/a/b", "/en/contribuir/guia", "/pt/contribuir", "/es/escola/campus", "/pt", "/pt/painel", "/fr/enem/simulado", "/pt/radiox", "/pt/eventos"].map(predioDoCaminho), ["escola", "secretaria", "secretaria", "escola", null, null, "escola", null, "territorio"]);
+igual("predioDoCaminho", ["/pt/trilhas/a/b", "/en/contribuir/guia", "/pt/contribuir", "/es/campus", "/pt", "/pt/painel", "/fr/enem/simulado", "/pt/radiox", "/pt/eventos"].map(predioDoCaminho), ["escola", "secretaria", "secretaria", "escola", null, null, "escola", null, "territorio"]);
 
 // ───────────── Passaporte ─────────────
 const memoria = () => {
@@ -198,11 +198,16 @@ for (const a of avisosJson.avisos) {
 igual("chave dos avisos lidos", CHAVES_DA_ESCOLA.avisosLidos, "lucia:escola:avisos-lidos");
 
 // ───────────── Rotas e textos ─────────────
-for (const caminho of ["/escola/campus", "/escola/calendario"]) {
+for (const caminho of ["/escola/calendario"]) {
   const r = ROTAS_DA_ESCOLA.find((x) => x.caminho === caminho);
   conferir(`${caminho} é do E4-09 e não é mais provisória`, r?.pacote === "E4-09" && !r.provisoria);
   conferir(`${caminho} não usa mais EmConstrucao`, !ler(`app/[lang]${caminho}/page.tsx`).includes("EmConstrucao"));
 }
+// F7 (prancha Mapa): o mapa do campus voltou ao site aberto, em /campus, ainda preso ao recurso "escola".
+conferir("/campus não usa EmConstrucao", !ler("app/[lang]/campus/page.tsx").includes("EmConstrucao"));
+conferir("/campus saiu de /escola", !fs.existsSync(path.join(raiz, "app/[lang]/escola/campus")));
+conferir("/campus preso ao recurso escola", /ligado\("escola"\)\) notFound\(\)/.test(ler("app/[lang]/campus/layout.tsx")));
+conferir("/campus sem link de volta para a Escola fechada", !/localePath\(lang, "\/escola"\)/.test(ler("app/[lang]/campus/page.tsx")));
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
 // "_rascunho" marca a tradução de máquina ainda não revisada: fica fora da comparação de chaves.
 const achatar = (v, p = "", s = new Map()) => {

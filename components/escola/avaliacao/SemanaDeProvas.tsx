@@ -66,7 +66,7 @@ export function SemanaDeProvas({ cursos, idioma, endereco, s }: { cursos: CursoD
           {meus.length === 0 ? (
             <p className="mt-2">
               {s.semInscricao}{" "}
-              <L href="/escola/cursos" className="font-semibold underline hover:text-oxblood">
+              <L href="/cursos" className="font-semibold underline hover:text-oxblood">
                 {s.verCursos} →
               </L>
             </p>
@@ -99,7 +99,7 @@ export function SemanaDeProvas({ cursos, idioma, endereco, s }: { cursos: CursoD
                     </ul>
                   )}
                   <p className="mt-2 text-sm">
-                    <L href={`/escola/cursos/${c.slug}/modulo/1`} className="underline hover:text-oxblood">
+                    <L href={`/cursos/${c.slug}/modulo/1`} className="underline hover:text-oxblood">
                       {s.modulos} →
                     </L>
                   </p>
@@ -115,7 +115,7 @@ export function SemanaDeProvas({ cursos, idioma, endereco, s }: { cursos: CursoD
           <ul className="space-y-1">
             {meus.map((c) => (
               <li key={c.slug}>
-                <L href={`/escola/cursos/${c.slug}/modulo/1`} className="underline hover:text-oxblood">
+                <L href={`/cursos/${c.slug}/modulo/1`} className="underline hover:text-oxblood">
                   {s.modulos}: <span lang="pt">{c.titulo}</span>
                 </L>
               </li>

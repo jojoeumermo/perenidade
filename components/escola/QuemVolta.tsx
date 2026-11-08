@@ -167,7 +167,7 @@ function ParaQuemTemMatricula({
             {ultima.title} →
           </Link>
         ) : (
-          <Link href={localePath(lang, "/escola/cursos")} className={`${claro} mt-3`}>
+          <Link href={localePath(lang, "/cursos")} className={`${claro} mt-3`}>
             {s.verCursos} →
           </Link>
         )}

@@ -30,7 +30,7 @@ export default async function Page({ params }: Props) {
   const lutas = lutasDoAno(FERIADOS, nesteDia.fatos as FatoDeLuta[]);
   return (
     <div className="mx-auto max-w-4xl px-4 py-12" data-pagina-vida="lutas">
-      <PageHeading eyebrow={s.lutas.olho} title={s.lutas.titulo} voltar={{ href: localePath(lang, "/escola/vida"), texto: s.comum.voltarVida }}>
+      <PageHeading eyebrow={s.lutas.olho} title={s.lutas.titulo} voltar={{ href: localePath(lang, "/vida"), texto: s.comum.voltarVida }}>
         {s.lutas.lead}
       </PageHeading>
       <LutasDoAno lutas={lutas} s={s.lutas} lang={lang} proposto={calendarioAindaProposto() ? textosDaBase(lang).calendario.proposto : null} />

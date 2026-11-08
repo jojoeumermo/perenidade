@@ -339,7 +339,7 @@ function GerirMatricula({
         {inscricoes.length === 0 ? (
           <p className="mt-2 text-ink-soft">
             {g.semCursos}{" "}
-            <Link href={localePath(lang, "/escola/cursos")} className="underline hover:text-oxblood">
+            <Link href={localePath(lang, "/cursos")} className="underline hover:text-oxblood">
               {g.verCursos}
             </Link>
           </p>
@@ -348,7 +348,7 @@ function GerirMatricula({
             {inscricoes.map((i) => (
               <li key={i.curso} className="flex flex-wrap items-center justify-between gap-3 border border-rule p-4" data-inscricao={i.curso}>
                 <span>
-                  <Link href={localePath(lang, `/escola/cursos/${i.curso}`)} className="font-serif text-xl font-semibold hover:text-oxblood">
+                  <Link href={localePath(lang, `/cursos/${i.curso}`)} className="font-serif text-xl font-semibold hover:text-oxblood">
                     {titulos.get(i.curso) ?? i.curso}
                   </Link>
                   <span className="block text-sm text-ink-soft">

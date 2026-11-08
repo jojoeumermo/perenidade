@@ -273,8 +273,9 @@ for (const caminho of ["/escola/provas", "/escola/saberes"]) {
   conferir(`${caminho} na interdição (área estudo)`, areaDoCaminho(caminho) === "estudo");
   conferir(`${caminho} tem página própria`, !ler("app", "[lang]", ...caminho.split("/").filter(Boolean), "page.tsx").includes("EmConstrucao"));
 }
-conferir("módulo do curso na interdição", areaDoCaminho("/escola/cursos/eja/modulo/1") === "estudo");
-conferir("página do módulo existe", fs.existsSync(path.join(raiz, "app", "[lang]", "escola", "cursos", "[curso]", "modulo", "[n]", "page.tsx")));
+conferir("módulo do curso na interdição", areaDoCaminho("/cursos/eja/modulo/1") === "estudo");
+// F7 (prancha Mapa): os cursos voltaram ao site aberto, em /cursos.
+conferir("página do módulo existe", fs.existsSync(path.join(raiz, "app", "[lang]", "cursos", "[curso]", "modulo", "[n]", "page.tsx")));
 
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
 for (const lang of IDIOMAS) {

@@ -16,7 +16,7 @@ const SEM_CARIMBO: Passaporte = {};
 /**
  * O mapa do campus (E4-09, D1-1): a grade de prédios (2 colunas no celular, 4 no computador), cada um com o nome, a frase
  * de porta e as seções de dentro. Abre no "Mais" (com a busca da própria janela, em `termo`), em /explorar e em
- * /escola/campus (com o campo de busca daqui, `comBusca`). Os links funcionam sem JavaScript. O passaporte (carimbo e
+ * /campus (com o campo de busca daqui, `comBusca`). Os links funcionam sem JavaScript. O passaporte (carimbo e
  * "Conheça o campus: 3 de 8 prédios") é lido só no aparelho, depois do primeiro desenho.
  * No computador, fora do "Mais", os prédios descem em colunas de jornal (styles/escola-campus.css, .mapa-em-colunas):
  * cada cartão com a altura do que tem. Na grade de antes, o prédio Escola (o de mais seções) esticava a linha inteira e

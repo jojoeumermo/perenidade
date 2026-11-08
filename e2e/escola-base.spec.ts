@@ -77,7 +77,7 @@ test("'apagar meus dados' limpa as chaves da Escola", async ({ page }) => {
 
 test("sem rolagem lateral em 360 px", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 640 });
-  for (const caminho of ["/pt/escola", "/pt/escola/quem-foi-lucia-maria", "/pt/escola/cursos"]) {
+  for (const caminho of ["/pt/escola", "/pt/escola/quem-foi-lucia-maria", "/pt/cursos"]) {
     await abrir(page, caminho);
     await page.keyboard.press("Escape");
     const sobra = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

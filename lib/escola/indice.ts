@@ -9,6 +9,7 @@
 import type { SearchEntry } from "../search";
 import { textosDosCursos } from "../../i18n/escola/cursos/index";
 import { carregarCursos } from "./cursos-servidor";
+import { cursoAberto } from "./site-aberto";
 import type { TextosDaBusca } from "./textos-da-busca";
 
 // Os textos moram em textos-da-busca.ts, que não lê o disco (o layout raiz importa de lá). Reexportados aqui para os
@@ -20,15 +21,15 @@ export type { TextosDaBusca } from "./textos-da-busca";
 const PAGINAS_DA_ESCOLA = [
   ["entrada", "/escola"],
   ["quemFoi", "/escola/quem-foi-lucia-maria"],
-  ["cursos", "/escola/cursos"],
+  ["cursos", "/cursos"],
   ["matricula", "/escola/matricula"],
   ["calendario", "/escola/calendario"],
-  ["campus", "/escola/campus"],
+  ["campus", "/campus"],
   ["turmas", "/escola/turmas"],
   ["acompanhante", "/escola/acompanhante"],
   ["caderneta", "/escola/caderneta"],
   ["formatura", "/escola/formatura"],
-  ["vida", "/escola/vida"],
+  ["vida", "/vida"],
   ["vozes", "/escola/vozes"],
   ["lutas", "/escola/lutas"],
   ["assembleia", "/escola/assembleia"],
@@ -45,11 +46,14 @@ export function entradaDoModoSeguro(t: TextosDaBusca): SearchEntry {
 /**
  * Os cursos da Escola (content/escola/cursos), cada um como uma página da busca: o título e o resumo do curso (em
  * português, como o conteúdo) e a área. O contexto diz "Curso da Escola" no idioma da busca. O tipo é "pagina" porque
- * lib/search.ts ainda não tem o tipo "curso" (pedido no relatório do E4-07).
+ * lib/search.ts ainda não tem o tipo "curso" (pedido no relatório do E4-07). Só os cursos abertos (F7, cursoAberto): os da
+ * Formação ficam fora da busca, como ficam fora de /cursos e do mapa do site.
  */
 export function entradasDosCursos(lang: string): SearchEntry[] {
   const contexto = textosDosCursos(lang).busca.contexto;
-  return carregarCursos().map((c) => ({ kind: "pagina", title: c.titulo, href: `/escola/cursos/${c.slug}`, area: c.area, context: contexto, text: `${c.resumo} ${c.objetivo}` }));
+  return carregarCursos()
+    .filter((c) => cursoAberto(c.slug))
+    .map((c) => ({ kind: "pagina", title: c.titulo, href: `/cursos/${c.slug}`, area: c.area, context: contexto, text: `${c.resumo} ${c.objetivo}` }));
 }
 
 /** As páginas da Escola (entrada, quem foi Lúcia Maria, cursos, matrícula, calendário, campus, turmas, acompanhante, caderneta, formatura, vida, vozes, lutas, assembleia, ouvidoria, educador do mês, agentes), os cursos e o modo seguro (por último). */
