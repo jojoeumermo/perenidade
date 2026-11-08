@@ -45,7 +45,7 @@ export interface Territorio {
    */
   visual?: "noizocupa" | "kamikaze" | "desordem" | "noisme";
   /** A logo do coletivo (a foto de perfil do Instagram, cedida pela parceria), com o crédito que aparece embaixo dela. */
-  logo?: Foto & { credito: string };
+  logo?: Foto & { credito: string; grande?: string };
   slogan?: string;
   /**
    * O post do anúncio no Instagram (só o código do endereço /p/<código>/) e o texto que o apresenta. `capa` é o quadro
@@ -71,6 +71,11 @@ export interface Territorio {
   campanhas?: { titulo: string; texto: string; post?: string; fotos: Foto[] }[];
   /** A linha do tempo feita com os posts. */
   marcos?: { titulo: string; itens: { quando: string; titulo: string; texto: string; post?: string }[] };
+  /**
+   * Os vídeos do perfil (reels autorizados pelo coletivo), servidos do próprio site: `src` e `capa` (o quadro parado) ficam
+   * em public/territorios/<slug>/; `reel` é o código do endereço /reel/<código>/ do post original, que vai no crédito.
+   */
+  videos?: { src: string; capa?: string; titulo: string; texto: string; data: string; reel: string; credito: string }[];
   /** As fotos e os cartazes do perfil, com o crédito de quem fotografou quando o coletivo creditou. */
   galeria?: { titulo: string; fotos: (Foto & { legenda?: string; credito?: string })[] };
 }

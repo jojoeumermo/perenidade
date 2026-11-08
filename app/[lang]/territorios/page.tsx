@@ -46,16 +46,17 @@ export default async function Territorios({ params }: PageProps<"/[lang]/territo
                 </a>
               </div>
             </div>
-            {territorio.edicoes[0] ? (
-              <div className="w-full max-md:max-w-[15rem]">
-                <CapaDaEdicao edicao={territorio.edicoes[0]} perfil={territorio.instagram} assinatura={s.byCollective} />
-              </div>
-            ) : territorio.logo ? (
+            {/* A logo vem antes da capa da edição: desde 08/11/2026 o cartão do Na Atividade também mostra a logo. */}
+            {territorio.logo ? (
               /* A logo do coletivo (cedida pela parceria), como na abertura da página dele. */
               <Link href={to(`/territorios/${territorio.slug}`)} tabIndex={-1} aria-hidden className="block w-full max-md:max-w-[15rem]">
                 <Image src={territorio.logo.src} alt="" width={480} height={480} sizes="(min-width: 768px) 16rem, 15rem" className="aspect-square h-auto w-full border-[1.5px] border-ink object-cover shadow-[6px_6px_0_var(--sombra)]" />
                 <span className="mt-1.5 block font-sans text-[0.7rem] text-ink-soft">{territorio.logo.credito}</span>
               </Link>
+            ) : territorio.edicoes[0] ? (
+              <div className="w-full max-md:max-w-[15rem]">
+                <CapaDaEdicao edicao={territorio.edicoes[0]} perfil={territorio.instagram} assinatura={s.byCollective} />
+              </div>
             ) : territorio.capa ? (
               <Link href={to(`/territorios/${territorio.slug}`)} tabIndex={-1} aria-hidden className="block w-full max-md:max-w-[15rem]">
                 <Image src={territorio.capa.src} alt="" width={640} height={800} sizes="(min-width: 768px) 16rem, 15rem" className="aspect-[4/5] h-auto w-full border-[1.5px] border-ink object-cover shadow-[6px_6px_0_var(--sombra)]" />

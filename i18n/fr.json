@@ -5694,7 +5694,14 @@
     "letreiroRotulo": "Thèmes du territoire",
     "letreiroPausar": "Mettre en pause le bandeau des thèmes",
     "letreiroRetomar": "Reprendre le bandeau des thèmes",
-    "cartaoVer": "Voir la page"
+    "cartaoVer": "Voir la page",
+    "quemSao": "Qui sont-ils",
+    "videos": "Vidéos",
+    "videoRotulo": "Vidéo",
+    "videoOriginal": "Voir la publication originale sur Instagram",
+    "agendaLinks": "Agenda et liens",
+    "parceria": "Partenariat avec l’Instituto Lúcia",
+    "parceriaTexto": "{nome} est un territoire partenaire de l’Instituto Lúcia. Chaque territoire apporte son regard au site : articles dans le journal, cours, photos et rencontres."
   },
   "rede": {
     "abaRede": "Alumia",
