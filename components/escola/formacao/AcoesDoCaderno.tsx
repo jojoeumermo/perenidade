@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
-import { localePath, type Locale } from "@/i18n/config";
+import { defaultLocale, localePath, type Locale } from "@/i18n/config";
 import type { TextosDaFormacao } from "@/i18n/escola/formacao";
 import { preencher } from "@/lib/escola/textos";
 import { useCompleted } from "@/lib/progress";
@@ -60,7 +60,11 @@ export function AcoesDoCaderno({ lang, nome, numero, prontas, t }: { lang: Local
     try {
       const lidas = await Promise.all(
         prontas.map(async (a) => {
-          const r = await fetch(localePath(lang, `/trilhas/${a.id}/texto`));
+          // Sem tradução, o texto num idioma responde 308 para o endereço absoluto do site em português; numa prévia ou em
+          // localhost isso seria outra origem (CORS). Então não segue o redirecionamento: busca direto o português.
+          const caminho = `/trilhas/${a.id}/texto`;
+          let r = await fetch(localePath(lang, caminho), { redirect: "manual" });
+          if (r.type === "opaqueredirect" && lang !== defaultLocale) r = await fetch(localePath(defaultLocale, caminho));
           if (!r.ok) throw new Error(String(r.status));
           const [, , , ...resto] = (await r.text()).split("\n");
           return { titulo: `${a.codigo ?? ""} · ${a.titulo}`, partes: textoLimpo(resto.join("\n")) };
