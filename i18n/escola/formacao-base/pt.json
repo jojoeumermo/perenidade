@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "titulo": "Escola Revolucionária Lúcia Maria",
+    "descricao": "A escola de formação de quem milita na Frente Revolucionária Lúcia: estudo em degraus, núcleo, tarefa no mundo e quem acompanha você. Só para militantes."
+  },
+  "porta": {
+    "instituto": "Instituto Lúcia",
+    "escola": "Escola",
+    "entrar": "Já sou militante: entrar",
+    "frente": "Frente Revolucionária Lúcia",
+    "titulo": "Escola Revolucionária Lúcia Maria",
+    "lema": "Instruí-vos, agitai-vos, organizai-vos.",
+    "texto": "A escola de formação de quem milita na Frente. Aqui dentro é só para militantes: estudo em degraus, núcleo, tarefa no mundo e quem acompanha você.",
+    "quero": "Quero militar",
+    "manifesto": "Ler o manifesto",
+    "resto": "O resto do site continua aberto a todo mundo:",
+    "aulas": "aulas",
+    "acervo": "acervo",
+    "jornal": "jornal",
+    "alumia": "Alumia",
+    "comoEntrar": "Como entrar na Escola",
+    "passos": [
+      { "titulo": "Faça a inscrição militante", "texto": "Para maiores de 18 anos. Nome, contato e em que frente quer atuar." },
+      { "titulo": "Confirme pelo e-mail", "texto": "Um link de uso único, válido por 3 dias. O e-mail não cita a Frente." },
+      { "titulo": "A coordenação acolhe você", "texto": "Ela aceita a inscrição e indica o seu núcleo." },
+      { "titulo": "Entre com a sua conta do site", "texto": "A Escola abre: começa pelo Degrau 1." }
+    ],
+    "degrausTitulo": "O que se aprende, em três degraus",
+    "degraus": [
+      { "rotulo": "Degrau 1", "nome": "Despertar", "texto": "Consciência de classe e os primeiros passos na militância." },
+      { "rotulo": "Degrau 2", "nome": "Base", "texto": "Trabalho de base, organização sindical, comunicação popular, segurança e cuidado." },
+      { "rotulo": "Degrau 3", "nome": "Quadros", "texto": "Análise de conjuntura, formar formadores, memória e o ano de formação política." }
+    ],
+    "semMilitancia": "Você entrou com a sua conta, mas ela ainda não está na militância. Se você já fez a inscrição militante, ela está com a coordenação: assim que ela acolher você, a Escola abre aqui.",
+    "semServico": "A Escola precisa do serviço de contas, que não está ligado nesta cópia do site.",
+    "falha": "Não deu para conferir a sua militância agora.",
+    "tentar": "Tentar de novo",
+    "conferindo": "Conferindo…"
+  },
+  "casca": {
+    "rotulo": "Escola",
+    "escolaRev": "Escola Revolucionária",
+    "luciaMaria": "Lúcia Maria",
+    "instituto": "Instituto Lúcia",
+    "nav": {
+      "hoje": "Hoje",
+      "formacao": "Formação",
+      "nucleo": "Núcleo",
+      "biblioteca": "Biblioteca",
+      "percurso": "Meu percurso",
+      "frente": "A Frente",
+      "eu": "Eu"
+    },
+    "duvida": "Tirar uma dúvida",
+    "discreto": "Modo discreto",
+    "discretoTexto": "aba com nome neutro, nada no histórico",
+    "tituloNeutro": "Anotações",
+    "degrau": "Degrau {n}",
+    "semNucleo": "sem núcleo ainda",
+    "semCodinome": "Sem codinome",
+    "escolherCodinome": "Escolher o codinome na Alumia"
+  },
+  "hoje": {
+    "titulo": "Hoje",
+    "linha": "{data} · Degrau {degrau}",
+    "linhaCaderno": "caderno {n}",
+    "saudacao": { "manha": "Bom dia", "tarde": "Boa tarde", "noite": "Boa noite" },
+    "saudacaoNome": "{saudacao}, {nome}.",
+    "saudacaoSo": "{saudacao}.",
+    "quadro": "Quadro da semana",
+    "quadroLegenda": "o que já foi, risca.",
+    "feitos": "{n} de {total} feitos",
+    "feitosCurto": "{n} de {total}",
+    "aula": "Aula:",
+    "rotuloNucleo": "núcleo",
+    "agora": "agora",
+    "encontro": "Encontro do núcleo · {quando}",
+    "continuar": "Continuar: {codigo} {titulo}",
+    "continuarCurto": "Continuar a aula",
+    "verCaderno": "Ver o caderno inteiro",
+    "quadroVazio": "As aulas deste caderno ainda estão sendo escritas. Enquanto isso, a Biblioteca e o núcleo seguem abertos.",
+    "tudoFeito": "Você terminou todas as aulas já escritas dos cadernos. Converse com quem acompanha você sobre a banca do degrau.",
+    "pergunta": "Pergunta geradora da semana",
+    "responder": "Responder para o núcleo",
+    "perguntaVazia": "A pergunta da semana ainda não foi definida pela coordenação.",
+    "percurso": "Onde você está no percurso",
+    "degrau1": "Degrau 1 · Despertar",
+    "degrau3": "Degrau 3 · Quadros",
+    "voceCaderno": "você está no caderno {n}",
+    "emPreparacao": "em preparação",
+    "cadernos": [
+      "Consciência de classe",
+      "Primeiros passos na militância",
+      "Conversar com quem pensa diferente",
+      "Organização de base",
+      "Organização sindical de base",
+      "Comunicação popular",
+      "Segurança e cuidado coletivo",
+      "Análise de conjuntura",
+      "Formar formadores",
+      "Guardar a memória",
+      "Ano de formação política"
+    ],
+    "nucleo": {
+      "titulo": "Seu núcleo",
+      "proximo": "Próximo encontro:",
+      "pauta": "Pauta:",
+      "abrir": "Abrir o núcleo na Alumia",
+      "semNucleo": "Você ainda não está num núcleo. A coordenação indica o seu.",
+      "semEncontro": "Nenhum encontro marcado ainda.",
+      "ausente": "A pauta do núcleo ainda não chegou a esta Escola. Por enquanto, combinem pelo núcleo na Alumia."
+    },
+    "acompanha": {
+      "titulo": "Quem acompanha você",
+      "texto": "{nome}, do Degrau 3, acompanha a sua formação.",
+      "alguem": "Uma pessoa do Degrau 3",
+      "mensagem": "Mandar mensagem",
+      "ninguem": "Ainda não tem ninguém acompanhando a sua formação. A coordenação indica alguém do Degrau 3."
+    },
+    "recados": {
+      "titulo": "Recados da formação",
+      "vazio": "Nenhum recado por enquanto.",
+      "ausente": "Os recados da formação ainda não chegaram a esta Escola."
+    },
+    "duvida": {
+      "titulo": "Travou numa aula?",
+      "texto": "Pergunte ao assistente, chame alguém da monitoria ou leve para o núcleo."
+    },
+    "aoVivo": {
+      "titulo": "Aula ao vivo hoje",
+      "as": "às {hora}",
+      "agora": "ao vivo agora",
+      "entrar": "Entrar na sala"
+    },
+    "carregando": "Carregando…",
+    "falha": "Não deu para carregar agora."
+  }
+}

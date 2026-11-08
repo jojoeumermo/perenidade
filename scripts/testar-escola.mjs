@@ -316,13 +316,15 @@ conferir("Acompanhante virou Assistente (a rota e a chave continuam)", pt.nav.ac
 for (const l of ["en", "es", "fr", "ru", "zh"]) conferir(`base ${l}: tradução marcada como rascunho`, textosDaBase(l)._rascunho === true);
 conferir("base pt não é rascunho", !("_rascunho" in pt));
 
-// A porta: a mesma conta da Comunidade (useMe de lib/backend, /entrar e /entrar?criar=1 só com cadastro aberto).
+// A porta (Escola de Formação, F1): só entra militante, conferido no banco (useEscola → escola_eu); o resto vê a porta
+// vermelha, que leva ao /entrar da Comunidade. O teste do banco e da porta por militância é o testar:escola-acesso.
 const layoutDaEscola = lerArq("app", "[lang]", "escola", "layout.tsx");
 const porta = lerArq("components", "escola", "PortaDaEscola.tsx");
-conferir("layout da Escola passa pela porta", /<PortaDaEscola[\s\S]*<NavDaEscola[\s\S]*\{children\}[\s\S]*<\/PortaDaEscola>/.test(layoutDaEscola));
-conferir("porta usa a sessão do site (useMe de lib/backend)", /import \{[^}]*\buseMe\b[^}]*\} from "@\/lib\/backend"/.test(porta) && /me\.status === "in"/.test(porta));
-conferir("porta leva aos fluxos da Comunidade", porta.includes('"/entrar?volta=/escola"') && porta.includes('"/entrar?criar=1&volta=/escola"') && /cadastro\.aberto &&/.test(porta));
-conferir("porta não pede dado nenhum", !/<input|<form|rpc\(/.test(porta));
+const portaVermelha = lerArq("components", "escola", "porta", "PortaVermelha.tsx");
+conferir("layout da Escola passa pela porta", /<PortaDaEscola[\s\S]*\{children\}[\s\S]*<\/PortaDaEscola>/.test(layoutDaEscola) && !/<NavDaEscola|<EstacaoDoAno|<FeriadoDoCampus/.test(layoutDaEscola));
+conferir("porta confere a militância no banco (useEscola de lib/escola/acesso)", /import \{[^}]*\buseEscola\b[^}]*\} from "@\/lib\/escola\/acesso"/.test(porta) && /estado === "militante"/.test(porta) && /<Casca\b/.test(porta));
+conferir("porta vermelha leva ao /entrar da Comunidade", portaVermelha.includes('"/entrar?volta=/escola"'));
+conferir("porta não pede dado nenhum", !/<input|<form|rpc\(/.test(porta) && !/<input|<form|rpc\(/.test(portaVermelha));
 conferir("textos da porta", ["lead", "comoEntrar", "entrar", "criar", "cadastroFechado", "menores", "conferindo", "semServico", "abertas", "verAulas", "privacidade"].every((k) => typeof pt.porta[k] === "string" && pt.porta[k].trim()) && pt.porta.passos.length === 3);
 
 // A faixa centrada no eixo do conteúdo e rolável no celular.

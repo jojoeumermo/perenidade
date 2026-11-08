@@ -120,6 +120,7 @@
     "testar:militantes": "node scripts/testar-militantes.mjs",
     "testar:textos-escola": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-textos-escola.mjs",
     "testar:etapa4": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-etapa4.mjs",
+    "testar:escola-acesso": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-acesso.mjs",
     "testar:escola-banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-banco.mjs",
     "testar:aula-viva": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-aula-viva.mjs",
     "legibilidade": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/legibilidade.mjs",

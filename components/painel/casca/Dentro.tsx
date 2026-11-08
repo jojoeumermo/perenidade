@@ -9,6 +9,7 @@
 import { Clapperboard, Columns2, Feather, Focus, LogOut, Monitor, Moon, PanelLeftClose, PenLine, Rows3, Star, Sun, CalendarPlus, Map as Mapa, Keyboard, BookA, Newspaper } from "lucide-react";
 import { AnimatePresence, LazyMotion, MotionConfig } from "motion/react";
 import * as m from "motion/react-m";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import nesteDia from "@/content/neste-dia.json";
@@ -97,6 +98,9 @@ import { AtalhosDeTeclado, ATALHOS_G } from "./AtalhosDeTeclado";
 import { BarraSuperior, POR_DISCIPLINA, type Previa } from "./BarraSuperior";
 import { Camadas } from "./Camadas";
 import { Glossario } from "./Glossario";
+
+/** O painel da Escola de Formação (PLANO-ESCOLA.md, F4): só baixa quando a coordenação abre a seção. */
+const PainelDaEscola = dynamic(() => import("../escola/PainelDaEscola").then((m) => m.PainelDaEscola));
 
 /** Os recursos do Framer Motion, carregados sob demanda (casca/recursos.ts). */
 const carregarRecursos = () => import("./recursos").then((r) => r.default);
@@ -271,6 +275,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "assembleias", nome: "Assembleias", sobre: "Decisões da equipe por voto: secreto de verdade, com o resultado só no fim.", grupo: "Pessoas", mostra: voluntario },
+      { id: "escola", nome: "Escola de Formação", sobre: "Os militantes da Escola pelo codinome: núcleo, degrau, quem acompanha, bancas de passagem, a pergunta geradora da semana e os recados da formação.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "vice") },
       { id: "nucleos", nome: "Núcleos", sobre: "O mapa dos núcleos de estudo por estado e cidade, sem endereço nem nome de quem participa.", grupo: "Pessoas", mostra: voluntario },
       { id: "departamentos", nome: "Departamentos", sobre: "Cada departamento com a meta do mês, o quadro da semana, os pedidos de outros departamentos com prazo, quem responde e como trabalha.", grupo: "Pessoas", mostra: voluntario },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
@@ -593,6 +598,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                         {atual.id === "gaveta" && <GavetaFila />}
                         {atual.id === "boletim" && <Boletim />}
                         {atual.id === "pessoas" && <Pessoas me={eu} />}
+                        {atual.id === "escola" && <PainelDaEscola />}
                         {atual.id === "supervisao" && (
                           <>
                             <Supervisao />

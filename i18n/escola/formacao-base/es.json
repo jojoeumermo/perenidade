@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "titulo": "Escuela Revolucionaria Lúcia Maria",
+    "descricao": "La escuela de formación de quien milita en el Frente Revolucionario Lúcia: estudio por escalones, núcleo, tarea en el mundo y alguien que te acompaña. Solo para militantes."
+  },
+  "porta": {
+    "instituto": "Instituto Lúcia",
+    "escola": "Escuela",
+    "entrar": "Ya soy militante: entrar",
+    "frente": "Frente Revolucionario Lúcia",
+    "titulo": "Escuela Revolucionaria Lúcia Maria",
+    "lema": "Instruíos, agitaos, organizaos.",
+    "texto": "La escuela de formación de quien milita en el Frente. Aquí dentro es solo para militantes: estudio por escalones, núcleo, tarea en el mundo y alguien que te acompaña.",
+    "quero": "Quiero militar",
+    "manifesto": "Leer el manifiesto",
+    "resto": "El resto del sitio sigue abierto a todo el mundo:",
+    "aulas": "clases",
+    "acervo": "acervo",
+    "jornal": "periódico",
+    "alumia": "Alumia",
+    "comoEntrar": "Cómo entrar en la Escuela",
+    "passos": [
+      { "titulo": "Haz la inscripción militante", "texto": "Para mayores de 18 años. Nombre, contacto y en qué frente quieres actuar." },
+      { "titulo": "Confirma por correo", "texto": "Un enlace de un solo uso, válido por 3 días. El correo no menciona el Frente." },
+      { "titulo": "La coordinación te acoge", "texto": "Acepta la inscripción y te indica tu núcleo." },
+      { "titulo": "Entra con tu cuenta del sitio", "texto": "La Escuela se abre: empiezas por el Escalón 1." }
+    ],
+    "degrausTitulo": "Lo que se aprende, en tres escalones",
+    "degraus": [
+      { "rotulo": "Escalón 1", "nome": "Despertar", "texto": "Conciencia de clase y los primeros pasos en la militancia." },
+      { "rotulo": "Escalón 2", "nome": "Base", "texto": "Trabajo de base, organización sindical, comunicación popular, seguridad y cuidado." },
+      { "rotulo": "Escalón 3", "nome": "Cuadros", "texto": "Análisis de coyuntura, formar formadores, memoria y el año de formación política." }
+    ],
+    "semMilitancia": "Entraste con tu cuenta, pero todavía no está en la militancia. Si ya hiciste la inscripción militante, está con la coordinación: en cuanto te acoja, la Escuela se abre aquí.",
+    "semServico": "La Escuela necesita el servicio de cuentas, que no está activado en esta copia del sitio.",
+    "falha": "No se pudo comprobar tu militancia ahora.",
+    "tentar": "Intentar de nuevo",
+    "conferindo": "Comprobando…"
+  },
+  "casca": {
+    "rotulo": "Escuela",
+    "escolaRev": "Escuela Revolucionaria",
+    "luciaMaria": "Lúcia Maria",
+    "instituto": "Instituto Lúcia",
+    "nav": {
+      "hoje": "Hoy",
+      "formacao": "Formación",
+      "nucleo": "Núcleo",
+      "biblioteca": "Biblioteca",
+      "percurso": "Mi recorrido",
+      "frente": "El Frente",
+      "eu": "Yo"
+    },
+    "duvida": "Resolver una duda",
+    "discreto": "Modo discreto",
+    "discretoTexto": "pestaña con nombre neutro, nada en el historial",
+    "tituloNeutro": "Notas",
+    "degrau": "Escalón {n}",
+    "semNucleo": "todavía sin núcleo",
+    "semCodinome": "Sin seudónimo",
+    "escolherCodinome": "Elegir el seudónimo en Alumia"
+  },
+  "hoje": {
+    "titulo": "Hoy",
+    "linha": "{data} · Escalón {degrau}",
+    "linhaCaderno": "cuaderno {n}",
+    "saudacao": { "manha": "Buenos días", "tarde": "Buenas tardes", "noite": "Buenas noches" },
+    "saudacaoNome": "{saudacao}, {nome}.",
+    "saudacaoSo": "{saudacao}.",
+    "quadro": "Cuadro de la semana",
+    "quadroLegenda": "lo que ya pasó, se tacha.",
+    "feitos": "{n} de {total} hechos",
+    "feitosCurto": "{n} de {total}",
+    "aula": "Clase:",
+    "rotuloNucleo": "núcleo",
+    "agora": "ahora",
+    "encontro": "Encuentro del núcleo · {quando}",
+    "continuar": "Continuar: {codigo} {titulo}",
+    "continuarCurto": "Continuar la clase",
+    "verCaderno": "Ver el cuaderno entero",
+    "quadroVazio": "Las clases de este cuaderno todavía se están escribiendo. Mientras tanto, la Biblioteca y el núcleo siguen abiertos.",
+    "tudoFeito": "Terminaste todas las clases ya escritas de los cuadernos. Habla con quien te acompaña sobre la mesa del escalón.",
+    "pergunta": "Pregunta generadora de la semana",
+    "responder": "Responder para el núcleo",
+    "perguntaVazia": "La coordinación todavía no definió la pregunta de la semana.",
+    "percurso": "Dónde estás en el recorrido",
+    "degrau1": "Escalón 1 · Despertar",
+    "degrau3": "Escalón 3 · Cuadros",
+    "voceCaderno": "estás en el cuaderno {n}",
+    "emPreparacao": "en preparación",
+    "cadernos": [
+      "Conciencia de clase",
+      "Primeros pasos en la militancia",
+      "Conversar con quien piensa diferente",
+      "Organización de base",
+      "Organización sindical de base",
+      "Comunicación popular",
+      "Seguridad y cuidado colectivo",
+      "Análisis de coyuntura",
+      "Formar formadores",
+      "Guardar la memoria",
+      "Año de formación política"
+    ],
+    "nucleo": {
+      "titulo": "Tu núcleo",
+      "proximo": "Próximo encuentro:",
+      "pauta": "Orden del día:",
+      "abrir": "Abrir el núcleo en Alumia",
+      "semNucleo": "Todavía no estás en un núcleo. La coordinación te indica el tuyo.",
+      "semEncontro": "Ningún encuentro marcado todavía.",
+      "ausente": "El orden del día del núcleo todavía no llegó a esta Escuela. Por ahora, combinen por el núcleo en Alumia."
+    },
+    "acompanha": {
+      "titulo": "Quién te acompaña",
+      "texto": "{nome}, del Escalón 3, acompaña tu formación.",
+      "alguem": "Una persona del Escalón 3",
+      "mensagem": "Enviar mensaje",
+      "ninguem": "Todavía nadie acompaña tu formación. La coordinación indica a alguien del Escalón 3."
+    },
+    "recados": {
+      "titulo": "Avisos de la formación",
+      "vazio": "Ningún aviso por ahora.",
+      "ausente": "Los avisos de la formación todavía no llegaron a esta Escuela."
+    },
+    "duvida": {
+      "titulo": "¿Te trabaste en una clase?",
+      "texto": "Pregunta al asistente, llama a alguien de la monitoría o llévalo al núcleo."
+    },
+    "aoVivo": {
+      "titulo": "Clase en vivo hoy",
+      "as": "a las {hora}",
+      "agora": "en vivo ahora",
+      "entrar": "Entrar en la sala"
+    },
+    "carregando": "Cargando…",
+    "falha": "No se pudo cargar ahora."
+  }
+}
