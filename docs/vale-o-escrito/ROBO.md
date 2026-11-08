@@ -7,7 +7,7 @@ publica com **fonte oficial e situação jurídica preenchidas** (decisão da co
 
 ## O que ele faz, em ordem
 
-1. Lê `content/vale-o-escrito/fontes.json` (48 fontes do catálogo; campo `acesso`: `aberto`, `cadastro-gratuito`,
+1. Lê `content/vale-o-escrito/fontes.json` (49 fontes do catálogo, com a Agência Brasil desde 08/11/2026; campo `acesso`: `aberto`, `cadastro-gratuito`,
    `sem-acesso` ou `so-link`; campo `leitor`: `rss`, `querido-diario` ou `null`). Hoje lê RSS/Atom (também RSS 1.0/RDF,
    o formato dos portais gov.br) e a API aberta do Querido Diário (sem cadastro). Desde 07/11/2026 também lê o RSS de
    notícias do **IBAMA** (fonte oficial: `gov.br/ibama/pt-br/assuntos/noticias/RSS`) e o da **Human Rights Watch** em
@@ -167,6 +167,34 @@ Pedido da coordenação: "faz o robô acelerar o serviço". O que mudou, tudo de
 Os padrões ficam em `PADROES_DA_RODADA` (`coletar.mjs`); o teste `npm run testar:vale-o-escrito-robo` confere os números.
 Fontes testadas e **sem** RSS em 07/11/2026 (ficam como link): PF, Funai, ICMBio, PRF e MTE no gov.br (404), MPF (o site
 novo não tem `/RSS`, por isso a busca); STF (`noticias.stf.jus.br/feed`), ISA, Alma Preta, Global Witness e TCU não responderam daqui.
+
+### Por que quase nada entrava, e o que mudou (08/11/2026)
+
+Rodada seca (`--seco --sem-ia --sem-arquivo`) feita em 08/11/2026, antes da mudança: **19 sugestões**. O que travava:
+
+| Problema | O que se viu | O que mudou |
+|---|---|---|
+| Querido Diário fora | `api.queridodiario.ok.org.br` recusa a conexão segura (falha no TLS); a fonte inteira caía com "fetch failed" | endereço novo `api.queridodiario.org.br` (o site antigo já redireciona para ele); uma consulta que falha não joga fora as outras |
+| Observatório do Clima com 403 | o servidor recusava o agente antigo do robô | o agente agora começa com `Mozilla/5.0 (compatible; ...)`, a forma comum de leitor automático, e continua dizendo quem é (`InstitutoLucia-ValeOEscrito` e o endereço do Instituto); feed novo `oc.eco.br/feed/` |
+| Anistia com 403 | o `/feed/` virou a página inicial; as notícias estão em `feed/?post_type=informe` | endereço do feed corrigido. **Ainda falha** pelo Node: o Cloudflare da Anistia devolve um desafio ("Just a moment") a programas; o robô não tenta contornar. Se continuar assim, troque `acesso` para `so-link` ou peça liberação à Anistia |
+| Filtro de temas estreito demais | 165 itens recentes caíam em "sem tema" porque diziam "indígenas", "trabalho escravo", "corrupção" e não a frase exata do tema | `TEMAS_EXTRAS_DO_ROBO` em `coletar.mjs`: palavras a mais por dossiê, só no filtro (as consultas às APIs continuam com os temas de `dossies.json`); o filtro "relata caso" e a curadoria continuam valendo |
+| Feed que virou página | respondia 200 com HTML e contava "0 itens" calado | vira aviso no relatório ("a resposta não é feed") |
+| Rede instável | um tempo esgotado derrubava a fonte | leitura (GET) com uma nova tentativa depois de erro de rede, 429, 502, 503 ou 504 |
+| Internet Archive com 429 | pedidos seguidos sem intervalo | fila um por vez, com intervalo (10 s anônimo, 3 s com conta); no 429 espera o Retry-After e tenta uma vez de novo; com 3 respostas 429 para até a rodada seguinte. **O caso entra do mesmo jeito**, com `arquivoFalhou: true` (cópia pendente para a curadoria) |
+| Falha calada | rodada sem nenhuma fonte, ou com tudo falhando ao gravar, terminava como "ok" | sai com erro (aparece vermelho no GitHub e `failed` no systemd) |
+| Fonte nova | | **Agência Brasil** (agência pública de notícias), feeds de Direitos Humanos e de Justiça, conferidos com curl em 08/11/2026 |
+
+Mesma rodada seca depois da mudança, sem chave nenhuma (sem IA, sem Supabase): **61 sugestões** (Querido Diário 25, MPF 7,
+Agência Brasil 6, Repórter Brasil 4, Brasil de Fato 4, CPT 3, Agência Pública 3, Cimi 2, InfoAmazonia 2, Ponte 2, Aos Fatos
+2, Amazônia Real 1). Não há checagem de link por HEAD no robô: a matéria é baixada por GET e, se falhar, o rascunho sai com
+o que o feed trouxe.
+
+Sem chave de IA o robô **não para**: monta o rascunho por regras simples (heurística), marca `extracao: "heuristica"` e manda
+para a curadoria revisar. `--seco` não pede chave nenhuma, não grava no Supabase e não pede cópia ao Internet Archive.
+
+Onde roda: na VPS da Contabo (`infra/contabo/vale-o-escrito.service` e `.timer`, passo a passo em `docs/HOSPEDAGEM.md`,
+seção "Robô do Vale o Escrito na VPS") e, de reserva, no GitHub. Com a variável `VALE_O_ESCRITO_NA_VPS = sim`, o horário do
+GitHub para (sem rodada em dobro) e o botão "Run workflow" continua valendo.
 
 ## Pendências e limites conhecidos
 

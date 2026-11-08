@@ -1,0 +1,16 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Dispara vale-o-escrito.service de 2 em 2 horas (00:17, 02:17, ... no fuso da VPS), com até 5 minutos de atraso
+# sorteado para não bater sempre no mesmo segundo nos servidores das fontes. Persistent=true: se a VPS estava desligada
+# na hora marcada, a rodada perdida roda assim que ela volta. Passo a passo: docs/HOSPEDAGEM.md.
+
+[Unit]
+Description=Instituto Lucia: roda o robo do Vale o Escrito a cada 2 horas
+
+[Timer]
+OnCalendar=*-*-* 00/2:17:00
+RandomizedDelaySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

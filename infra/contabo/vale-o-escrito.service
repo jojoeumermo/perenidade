@@ -1,0 +1,37 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Vale o Escrito: o robô de coleta (scripts/vale-o-escrito/coletar.mjs) rodando na VPS da Contabo. Disparado a cada
+# 2 horas por vale-o-escrito.timer. Instalação passo a passo: docs/HOSPEDAGEM.md, seção "Robô do Vale o Escrito na VPS".
+#
+# - O código vem de uma cópia rasa e parcial do repositório público em /opt/lucia/vale-o-escrito (só as pastas
+#   scripts/vale-o-escrito e content/vale-o-escrito), atualizada antes de cada rodada. Se o GitHub não responder, roda
+#   com a cópia que já está lá (o "-" antes do comando).
+# - O robô roda num contêiner Node descartável (a VPS não tem Node instalado), como usuário sem privilégio, com o código
+#   só para leitura e no máximo 512 MB de memória.
+# - As chaves ficam FORA do repositório, em /etc/instituto-lucia/vale.env (dono root, permissão 600). O systemd lê o
+#   arquivo e o Docker repassa ao contêiner só as variáveis listadas abaixo (pelo nome; o valor nunca aparece aqui).
+#   Sem chave de IA, o robô monta o rascunho por heurística e manda para a curadoria; sem as chaves do Supabase, a rodada
+#   falha e aparece no registro (journalctl -u vale-o-escrito).
+
+[Unit]
+Description=Instituto Lucia: robo de coleta do Vale o Escrito (fila da curadoria)
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/instituto-lucia/vale.env
+# 25 minutos de coleta (--minutos 25) mais a gravação; o systemd corta aos 40.
+TimeoutStartSec=40min
+ExecStartPre=-/bin/sh -c 'git -C /opt/lucia/vale-o-escrito fetch --quiet --depth 1 origin master && git -C /opt/lucia/vale-o-escrito reset --quiet --hard FETCH_HEAD'
+ExecStartPre=-/usr/bin/docker rm -f vale-o-escrito
+ExecStart=/usr/bin/docker run --rm --name vale-o-escrito \
+  --user node --read-only --tmpfs /tmp --memory 512m --cpus 1 \
+  -v /opt/lucia/vale-o-escrito:/app:ro -w /app \
+  -e SUPABASE_URL -e SUPABASE_SERVICE_ROLE_KEY \
+  -e GEMINI_API_KEY -e GROQ_API_KEY -e CEREBRAS_API_KEY -e OPENROUTER_API_KEY \
+  -e GEMINI_MODEL -e GROQ_MODEL -e CEREBRAS_MODEL -e OPENROUTER_MODEL \
+  -e ARCHIVE_ACCESS_KEY -e ARCHIVE_SECRET_KEY \
+  node:22-alpine node scripts/vale-o-escrito/coletar.mjs --minutos 25
+Nice=10
