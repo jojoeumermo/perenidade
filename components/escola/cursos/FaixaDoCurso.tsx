@@ -49,7 +49,7 @@ export function FaixaDoCurso({ aula, cursos, proximaDaTrilha, s, sProximo }: { a
             <p key={c.slug} data-faixa-do-curso={c.slug} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="rotulo">{s.rotulo}</span>
               <span className="font-semibold">{fill(s.linha, { curso: c.titulo, modulo: c.modulos[i] + 1, aula: i + 1, total: c.aulas.length })}</span>
-              <L href={`/escola/cursos/${c.slug}`} className="underline hover:text-oxblood">
+              <L href={`/cursos/${c.slug}`} className="underline hover:text-oxblood">
                 {s.ver} →
               </L>
             </p>

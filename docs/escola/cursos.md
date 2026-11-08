@@ -67,7 +67,7 @@ mundo e as práticas dos módulos de história) correndo junto. **A coordenaçã
 
 | Ideia | O que faz | Onde |
 | --- | --- | --- |
-| D1-11, R1-27 Três ciclos | Catálogo por ciclo, filtros por objetivo (os da matrícula) e por área (o grupo de disciplinas de `lib/areas.ts`), cartão com horas, aulas, semanas, formato, patrono, requisitos e o selo "curso montado só com aulas prontas". | `app/[lang]/escola/cursos/page.tsx`, `components/escola/cursos/CatalogoDeCursos.tsx` |
+| D1-11, R1-27 Três ciclos | Catálogo por ciclo, filtros por objetivo (os da matrícula) e por área (o grupo de disciplinas de `lib/areas.ts`), cartão com horas, aulas, semanas, formato, patrono, requisitos e o selo "curso montado só com aulas prontas". | `app/[lang]/cursos/page.tsx`, `components/escola/cursos/CatalogoDeCursos.tsx` |
 | R1-28 Horas | "x de y horas" com o selo da estimativa, contando `lucia:concluidas` e as trilhas dispensadas da inscrição (`horasFeitas`). | `components/escola/cursos/HorasDoCurso.tsx` |
 | R1-29 Ementa | Objetivo; Conteúdo (módulos e aulas, com minutos); Avaliação; Bibliografia (biblioteca + fontes das aulas, sem repetir); Requisitos; Carga horária estimada. "Imprimir ementa" imprime só ela (`data-imprimindo-ementa`). | `components/escola/cursos/Ementa.tsx`, `ImprimirEmenta.tsx` |
 | R1-66 Patrono | Nome, datas, a frase da ficha, link `/memorial#slug` e "Patrono proposto, a confirmar pela coordenação". | `components/escola/cursos/Patrono.tsx` |
@@ -77,7 +77,7 @@ mundo e as práticas dos módulos de história) correndo junto. **A coordenaçã
 | R1-40 Formação política | Dois semestres, eixos Consciência de classe, Teoria e História nos módulos e a Prática como tarefa no mundo e práticas dos módulos de história. Aviso de curso sensível. | `content/escola/cursos/ano-de-formacao-politica.json` |
 | R1-36 Interdisciplinar | A conta de luz. | `content/escola/cursos/a-conta-de-luz.json` |
 | R1-45, R1-47 | Aprender a estudar; EJA de ponta a ponta. | `content/escola/cursos/` |
-| R1-72 Zine do curso | Por módulo, folhas A4 deitadas que viram livrinhos de 8 páginas: capa do módulo, seis aulas (resumo, partes, palavras, primeira pergunta, QR) e contracapa com o QR do curso. Só em português (os outros idiomas redirecionam). | `app/[lang]/escola/cursos/[curso]/zine/page.tsx` |
+| R1-72 Zine do curso | Por módulo, folhas A4 deitadas que viram livrinhos de 8 páginas: capa do módulo, seis aulas (resumo, partes, palavras, primeira pergunta, QR) e contracapa com o QR do curso. Só em português (os outros idiomas redirecionam). | `app/[lang]/cursos/[curso]/zine/page.tsx` |
 | Entrar no curso | Sem matrícula: link para `/escola/matricula?curso=<slug>`. Com matrícula: `inscrever()` e `contarEscola('escola_matricula', slug, 'semestre')`. Inscrito: "Continuar: próxima aula". | `components/escola/cursos/EntrarNoCurso.tsx` |
 | Faixa na aula | Só para quem está inscrito num curso da aula: "Curso X · módulo 2 · aula 5 de 24", o próximo passo vira a próxima aula do curso, e `contarEscola('escola_presenca', curso, 'dia')`. Sem inscrição, nenhuma faixa e o próximo passo da trilha, como antes. Carga tardia e só nas aulas que fazem parte de algum curso. | `components/escola/cursos/FaixaDoCurso.tsx`, `FaixaDoCursoSobDemanda.tsx`, página da aula |
 | Busca | Cada curso entra no índice como página (título, resumo e objetivo, área do curso, contexto "Curso da Escola"). | `lib/escola/indice.ts` (`entradasDosCursos`) |

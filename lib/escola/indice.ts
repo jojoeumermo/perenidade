@@ -20,15 +20,15 @@ export type { TextosDaBusca } from "./textos-da-busca";
 const PAGINAS_DA_ESCOLA = [
   ["entrada", "/escola"],
   ["quemFoi", "/escola/quem-foi-lucia-maria"],
-  ["cursos", "/escola/cursos"],
+  ["cursos", "/cursos"],
   ["matricula", "/escola/matricula"],
   ["calendario", "/escola/calendario"],
-  ["campus", "/escola/campus"],
+  ["campus", "/campus"],
   ["turmas", "/escola/turmas"],
   ["acompanhante", "/escola/acompanhante"],
   ["caderneta", "/escola/caderneta"],
   ["formatura", "/escola/formatura"],
-  ["vida", "/escola/vida"],
+  ["vida", "/vida"],
   ["vozes", "/escola/vozes"],
   ["lutas", "/escola/lutas"],
   ["assembleia", "/escola/assembleia"],
@@ -49,7 +49,7 @@ export function entradaDoModoSeguro(t: TextosDaBusca): SearchEntry {
  */
 export function entradasDosCursos(lang: string): SearchEntry[] {
   const contexto = textosDosCursos(lang).busca.contexto;
-  return carregarCursos().map((c) => ({ kind: "pagina", title: c.titulo, href: `/escola/cursos/${c.slug}`, area: c.area, context: contexto, text: `${c.resumo} ${c.objetivo}` }));
+  return carregarCursos().map((c) => ({ kind: "pagina", title: c.titulo, href: `/cursos/${c.slug}`, area: c.area, context: contexto, text: `${c.resumo} ${c.objetivo}` }));
 }
 
 /** As páginas da Escola (entrada, quem foi Lúcia Maria, cursos, matrícula, calendário, campus, turmas, acompanhante, caderneta, formatura, vida, vozes, lutas, assembleia, ouvidoria, educador do mês, agentes), os cursos e o modo seguro (por último). */

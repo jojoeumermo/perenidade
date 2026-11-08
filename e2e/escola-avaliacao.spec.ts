@@ -145,7 +145,7 @@ test.fixme("resposta com erro de digitação aceita como quase", async () => {
 
 test("360 px: a semana de provas, a prova e os saberes cabem sem rolar para o lado", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 740 });
-  for (const caminho of ["/pt/escola/provas", `/pt/trilhas/${TRILHA}/prova`, "/pt/escola/saberes", "/pt/escola/cursos/ingles-do-zero/modulo/1"]) {
+  for (const caminho of ["/pt/escola/provas", `/pt/trilhas/${TRILHA}/prova`, "/pt/escola/saberes", "/pt/cursos/ingles-do-zero/modulo/1"]) {
     await abrir(page, caminho);
     const largura = await page.evaluate(() => document.documentElement.scrollWidth);
     expect(largura, caminho).toBeLessThanOrEqual(360);

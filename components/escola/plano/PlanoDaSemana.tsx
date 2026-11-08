@@ -128,7 +128,7 @@ export function PlanoDaSemana({ s, comum, aviso, cursos, aulas, lang }: { s: Tex
       {ativas.length === 0 ? (
         <section className="mt-6 border border-rule bg-parchment-deep p-6">
           <p>{s.semCursos}</p>
-          <Link href={localePath(lang, "/escola/cursos")} className="mt-4 inline-flex min-h-11 items-center bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood">
+          <Link href={localePath(lang, "/cursos")} className="mt-4 inline-flex min-h-11 items-center bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood">
             {s.verCursos}
           </Link>
         </section>
@@ -168,7 +168,7 @@ export function PlanoDaSemana({ s, comum, aviso, cursos, aulas, lang }: { s: Tex
             {acabou ? (
               <p className="mt-4 border border-rule bg-parchment-deep p-4">
                 {s.acabou}{" "}
-                <Link href={localePath(lang, "/escola/cursos")} className="underline hover:text-oxblood">
+                <Link href={localePath(lang, "/cursos")} className="underline hover:text-oxblood">
                   {s.verCursos}
                 </Link>
               </p>

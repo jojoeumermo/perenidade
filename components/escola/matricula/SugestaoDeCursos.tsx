@@ -29,7 +29,7 @@ function CartaoDoCurso({ sugestao, curso, marcado, alternar, s, lang, semMotivo 
         </span>
       </label>
       <p className="mt-3 pl-9 text-sm">
-        <Link href={localePath(lang, `/escola/cursos/${curso.slug}`)} className="underline hover:text-oxblood">
+        <Link href={localePath(lang, `/cursos/${curso.slug}`)} className="underline hover:text-oxblood">
           {s.verCurso} →
         </Link>
       </p>

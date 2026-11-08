@@ -9,25 +9,26 @@ import { textosDosCursos } from "@/i18n/escola/cursos";
 import { groups } from "@/lib/areas";
 import { carregarCursos } from "@/lib/escola/cursos-servidor";
 import { patronoDo, verCurso } from "@/lib/escola/cursos-vista";
+import { cursoAberto } from "@/lib/escola/site-aberto";
 import { paginaMeta } from "@/lib/seo";
 import "@/styles/escola-cursos.css";
 
-export async function generateMetadata({ params }: PageProps<"/[lang]/escola/cursos">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[lang]/cursos">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const s = textosDosCursos(lang);
-  return paginaMeta(lang, "/escola/cursos", s.meta.catalogoTitulo, s.meta.catalogoDescricao);
+  return paginaMeta(lang, "/cursos", s.meta.catalogoTitulo, s.meta.catalogoDescricao);
 }
 
 const grupoDa = (area: string) => groups.find((g) => (g.areas as readonly string[]).includes(area))?.id ?? "";
 
 /** O catálogo dos cursos da Escola Revolucionária Lúcia Maria (E4-07): por ciclo, com filtros, horas, aulas, formato e patrono. */
-export default async function Cursos({ params }: PageProps<"/[lang]/escola/cursos">) {
+export default async function Cursos({ params }: PageProps<"/[lang]/cursos">) {
   const { lang, t } = await loadLang(params);
   const s = textosDosCursos(lang);
   const cursos = carregarCursos();
   const titulo = new Map(cursos.map((c) => [c.slug, c.titulo]));
   const horas = new Intl.NumberFormat(htmlLang[lang], { maximumFractionDigits: 1 });
-  const cartoes: CartaoDoCurso[] = cursos.map((curso) => {
+  const cartoes: CartaoDoCurso[] = cursos.filter((c) => cursoAberto(c.slug)).map((curso) => {
     const visto = verCurso(curso);
     return {
       slug: curso.slug,
@@ -44,6 +45,8 @@ export default async function Cursos({ params }: PageProps<"/[lang]/escola/curso
       requisitos: curso.requisitos.map((r) => titulo.get(r) ?? r),
     };
   });
+  // F7 (prancha Mapa): a vitrine aberta mostra os cursos de profissão e de escolaridade; o Ano de formação política é
+  // da Formação da Escola (lib/escola/site-aberto.ts).
   // "Aprender a estudar" primeiro no básico: é o recomendado antes de qualquer curso longo.
   cartoes.sort((a, b) => Number(b.slug === "aprender-a-estudar") - Number(a.slug === "aprender-a-estudar"));
   const usados = new Set(cartoes.map((k) => k.grupo));
@@ -58,7 +61,7 @@ export default async function Cursos({ params }: PageProps<"/[lang]/escola/curso
       <p className="mt-6 font-sans text-sm text-ink-soft">{s.catalogo.conteudoEmPortugues}</p>
       {temAprender && (
         <p className="aviso-aprender-a-estudar">
-          <Link href={localePath(lang, "/escola/cursos/aprender-a-estudar")} className="font-semibold underline hover:text-oxblood">
+          <Link href={localePath(lang, "/cursos/aprender-a-estudar")} className="font-semibold underline hover:text-oxblood">
             {s.catalogo.comece}
           </Link>
         </p>
