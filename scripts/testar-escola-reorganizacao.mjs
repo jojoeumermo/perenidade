@@ -95,7 +95,7 @@ conferir("campus e vida sem link de volta para a Escola fechada", !/localePath\(
 // reescreve; enquanto isso, o redirecionamento cobre os links deles. Também os roteiros que conferem rotas.ts e a
 // lista de redirecionamentos. Só caminhos de endereço contam ("@/lib/escola/cursos" é um módulo, não um link).
 const DA_F1 = new Set(["lib/escola/rotas.ts", "app/[lang]/escola/page.tsx", "app/[lang]/escola/layout.tsx", "components/escola/PortaDaEscola.tsx", "components/escola/NavDaEscola.tsx"]);
-const PERMITIDOS = new Set(["next.config.ts", "lib/escola/site-aberto.ts", "scripts/testar-escola-reorganizacao.mjs", "scripts/testar-escola.mjs", "scripts/testar-escola-vida.mjs"]);
+const PERMITIDOS = new Set(["next.config.ts", "lib/escola/site-aberto.ts", "scripts/testar-escola-reorganizacao.mjs", "scripts/testar-escola.mjs", "scripts/testar-escola-vida.mjs", "scripts/testar-escola-acesso.mjs"]);
 const linkAntigo = /(^|[^A-Za-z0-9_.\]-])\/escola\/(cursos|campus|vida)(?![a-z0-9-])/;
 let arquivos = [];
 try {
