@@ -1,0 +1,280 @@
+{
+  "meta": {
+    "titulo": "Cell · Political Education School",
+    "descricao": "The cell of the Political Education School: agenda, who does what, study circle, assembly and step review. Members only."
+  },
+  "tela": {
+    "olho": "Your cell",
+    "semNucleoTitulo": "No cell yet",
+    "semNucleo": "The coordination assigns each member to a cell. Meanwhile, the facilitator's kit and the assembly are already here.",
+    "proximo": "Next meeting: {quando}.",
+    "semEncontro": "No meeting scheduled yet.",
+    "alumia": "The cell's conversations and actions live on Alumia.",
+    "abrirAlumia": "Open on Alumia",
+    "roteiro": "Circle guide",
+    "abas": {
+      "rotulo": "Cell",
+      "pauta": "Agenda",
+      "tarefas": "Tasks",
+      "circulo": "Circle",
+      "assembleia": "Assembly"
+    },
+    "carregando": "Loading…",
+    "falha": "Could not load right now.",
+    "tentar": "Try again",
+    "ausente": "The School's cell has not reached this installation yet. For now, organise through the cell on Alumia.",
+    "previa": "Development preview: sample data, nothing here is real."
+  },
+  "pauta": {
+    "titulo": "Agenda for {dia}",
+    "tituloSemDia": "Agenda",
+    "vazia": "The agenda is still blank. The facilitators put it together; you can bring a topic below.",
+    "levado": "brought by someone in the cell",
+    "quemFaz": "Who does what",
+    "euLevo": "I'll take it",
+    "soltar": "Let go",
+    "voce": "You",
+    "alguem": "Someone in the cell",
+    "feito": "done",
+    "repete": "You did this one at the last circle: leave it for someone else.",
+    "semTarefas": "No tasks yet. The circle's next steps go here, in rotation.",
+    "presenca": "Attendance at the last {n} circles: {lista} people.",
+    "semPresenca": "Attendance shows up here after the first circles (only the number, never the names).",
+    "anterior": "The last circle",
+    "anteriorSemBalanco": "No review recorded yet."
+  },
+  "tarefas": {
+    "titulo": "Meeting tasks",
+    "texto": "Every next step has someone who takes it. Rotation: whoever did a task at the last circle leaves it for someone else, so everyone learns to do everything.",
+    "minhas": "With you",
+    "abertas": "Nobody yet",
+    "outras": "With other people",
+    "nenhumaMinha": "You have not taken any task from this meeting."
+  },
+  "levar": {
+    "titulo": "Bring to the cell",
+    "texto": "A question, an idea, something from the neighbourhood: it goes on the next meeting's agenda, without your name.",
+    "rotulo": "What to bring (up to 200 characters)",
+    "enviar": "Add to the agenda",
+    "ok": "Added to the next meeting's agenda, without your name."
+  },
+  "pergunta": {
+    "titulo": "Generative question of the week",
+    "texto": "As in Paulo Freire's culture circle: a question drawn from the learners' own lives opens the circle. Think about your answer and bring it to the cell.",
+    "vazia": "The coordination has not set this week's question yet.",
+    "rotulo": "Your answer, to bring to the circle (up to 200 characters)",
+    "enviar": "Bring the answer to the circle"
+  },
+  "mediar": {
+    "titulo": "Prepare the meeting",
+    "so": "Only the cell's facilitators and the coordination see this.",
+    "novo": "Schedule the next meeting",
+    "editar": "Change the meeting",
+    "quando": "Date and time (Brasília time)",
+    "pautaTitulo": "Agenda (up to 12 items)",
+    "item": "Agenda item {n}",
+    "acrescentarItem": "Add item",
+    "tirar": "Remove",
+    "usarRoda": "Build as see-judge-act",
+    "tarefasTitulo": "Who does what (up to 12)",
+    "tarefa": "Task {n}",
+    "acrescentarTarefa": "Add task",
+    "salvar": "Save the meeting",
+    "salvo": "Meeting saved.",
+    "cancelar": "Cancel",
+    "fecharTitulo": "Close the last circle",
+    "presencaRotulo": "How many people came",
+    "balancoRotulo": "Review: what we saw, what we thought, what we will do (no names)",
+    "guardar": "Save the review",
+    "guardado": "Review saved.",
+    "recadosTitulo": "Cell notices",
+    "recadosNota": "Members of the cell see them until the chosen date. Notices for the whole School go through the coordination.",
+    "recadosVazio": "No cell notices right now.",
+    "recadoAteDia": "until {dia}",
+    "apagarRecado": "Delete",
+    "recadoApagado": "Notice deleted.",
+    "recadoTexto": "New notice (up to 400 characters)",
+    "recadoAte": "Valid until",
+    "publicarRecado": "Post the notice",
+    "recadoPublicado": "Notice posted."
+  },
+  "kit": {
+    "titulo": "Facilitator's kit",
+    "lead": "A guide for the cell's circle in see-judge-act, opened and closed by the mística. The facilitator changes at every meeting (rotation).",
+    "pautaModelo": [
+      "Opening mística (5 min)",
+      "See: what happened this week and in the task in the world",
+      "Judge: the workbook circle",
+      "Act: next steps and who does what",
+      "Closing mística"
+    ],
+    "misticaAbertura": {
+      "titulo": "Opening mística",
+      "tempo": "5 min",
+      "texto": "A shared moment before the conversation: a song, a poem, a photo or object from local struggles, a passage from the workbook read aloud. It reminds everyone why the cell exists.",
+      "dica": "Agree at the previous circle on who prepares it. No audience: everyone takes part."
+    },
+    "ver": {
+      "titulo": "See",
+      "tempo": "20 min",
+      "texto": "Each person tells what they saw: the task in the world, the difficult conversation, what happened in the neighbourhood, at school, at work. The question of the week opens this part.",
+      "dica": "Talk about situations, not people: no names of third parties."
+    },
+    "julgar": {
+      "titulo": "Judge",
+      "tempo": "30 min",
+      "texto": "The cell rereads what was shared in the light of the workbook: why does this happen? who wins and who loses? what does the workbook help us understand?",
+      "dica": "The facilitator asks more than answers."
+    },
+    "agir": {
+      "titulo": "Act",
+      "tempo": "15 min",
+      "texto": "Concrete next steps: what we will do, by when and who takes it. Each task goes on the \"Who does what\" list.",
+      "dica": "Rotation: whoever took a task at the last circle leaves it for someone else."
+    },
+    "misticaFechamento": {
+      "titulo": "Closing mística",
+      "tempo": "5 min",
+      "texto": "Close together: one word from each person about the meeting, a song, the next steps read aloud.",
+      "dica": "Afterwards, the facilitator records attendance (only the number) and the review, without names."
+    },
+    "sistematizar": {
+      "titulo": "Systematise",
+      "texto": "The circle's review keeps the cell's memory: what we saw, what we thought, what we decided. With nobody's name, so it can be read by whoever joins later."
+    },
+    "circuloTitulo": "Culture circle on this device",
+    "circuloTexto": "The facilitator's tool: generative words, theme, questions and lessons for the meeting, stored only on this device.",
+    "banca": {
+      "titulo": "Step review",
+      "texto": "To close a step, the person presents to the cell what they studied and the task in the world they carried out. The review panel makes a collective assessment, with no grade: what the person brought, what the cell saw, what carries over to the next step.",
+      "passos": [
+        "The person's mentor schedules the review with them.",
+        "On the day, the person tells the story of their step (10 min).",
+        "The cell asks and comments, without judging the person (15 min).",
+        "The mentor records the collective assessment: \"step opened\" or \"agree again\"."
+      ],
+      "fichaTitulo": "Feedback form by competence (on this device)"
+    }
+  },
+  "banca": {
+    "titulo": "Your mentor and the step review",
+    "acompanha": "{nome}, from Step 3, accompanies your education.",
+    "alguem": "A Step 3 member",
+    "semAcompanha": "Nobody is accompanying your education yet. The coordination assigns someone from Step 3.",
+    "minhas": "Your reviews",
+    "semMinhas": "No review scheduled for you yet.",
+    "degrau": "Step {n}",
+    "quando": "When: {quando}",
+    "semData": "date to be agreed",
+    "situacao": {
+      "marcada": "Scheduled",
+      "aprovada": "Step opened",
+      "refazer": "Agree again"
+    },
+    "balanco": "Collective assessment",
+    "acompanho": "People you accompany",
+    "marcar": "Schedule the Step {n} review",
+    "marcarQuando": "Date and time of the review (optional)",
+    "marcada": "Review scheduled.",
+    "decidirTitulo": "Record the assessment",
+    "balancoRotulo": "Collective assessment, no grade (10 to 2000 characters)",
+    "aprovar": "Step opened",
+    "refazer": "Agree again",
+    "decidida": "Assessment recorded."
+  },
+  "assembleia": {
+    "titulo": "Assembly",
+    "texto": "The assembly votes on the semester's study agenda. The vote is anonymous: the server only adds up.",
+    "semPauta": "No agenda open for voting right now.",
+    "roteiroTitulo": "Holding the assembly in the cell"
+  },
+  "erros": {
+    "rodizio": "You did this task at the last circle. Leave it for someone else.",
+    "ja_tem_quem": "Someone has already taken this task.",
+    "sem_nucleo": "You are not in a cell yet.",
+    "sem_encontro": "There is no meeting scheduled to bring the topic to.",
+    "pauta_cheia": "The next meeting's agenda already has 12 items.",
+    "sem_permissao": "This is not available to your account.",
+    "banca_ja_marcada": "A review is already scheduled for this person.",
+    "banca_ja_decidida": "This review already has an assessment.",
+    "acompanhante_degrau_3": "Only someone from Step 3 can accompany.",
+    "nao_encontrado": "Not found. Reload the page.",
+    "muitas_tentativas": "Too many attempts in a row. Wait a little.",
+    "ausente": "This part has not reached this installation yet.",
+    "sem_servico": "No connection to the service.",
+    "invalido": "Check what was written.",
+    "falha": "That did not work right now. Try again."
+  },
+  "painel": {
+    "lead": "The Political Education School by Alumia codename: nobody appears here by legal name or e-mail. Who enters the School is decided in People: adding the person to the Revolutionaries department opens the School to them; removing them deletes what the School stored.",
+    "abas": {
+      "militantes": "Members",
+      "bancas": "Reviews",
+      "pergunta": "Question of the week",
+      "recados": "Notices",
+      "nucleos": "Cells"
+    },
+    "carregando": "Loading",
+    "militantes": {
+      "titulo": "Members",
+      "vazio": "Nobody in the School yet.",
+      "semCodinome": "no codename",
+      "codinome": "Codename",
+      "degrau": "Step",
+      "frente": "Front",
+      "nucleo": "Cell",
+      "acompanha": "Mentor",
+      "desde": "Since",
+      "nenhum": "none",
+      "ninguem": "nobody",
+      "ajustado": "Updated.",
+      "marcarBanca": "Schedule review",
+      "frentes": {
+        "estudantil": "Students",
+        "bairros": "Neighbourhoods",
+        "trabalho": "Workplace",
+        "agitprop": "Agitation and propaganda",
+        "atos": "Actions",
+        "cultura": "Culture",
+        "solidariedade": "Solidarity"
+      }
+    },
+    "bancas": {
+      "titulo": "Step reviews",
+      "vazio": "No review scheduled.",
+      "militante": "Member",
+      "decidir": "Record"
+    },
+    "pergunta": {
+      "titulo": "Generative question",
+      "texto": "One question a week, drawn from the learners' lives. It shows on the Today screen and opens the cell's circle. Empty text deletes the week's question.",
+      "semana": "Week starting on Monday",
+      "rotulo": "Question (up to 300 characters)",
+      "salvar": "Set the question",
+      "salva": "Question set.",
+      "recentes": "Recent and scheduled questions",
+      "nenhuma": "No question yet."
+    },
+    "recados": {
+      "titulo": "School notices",
+      "texto": "They show on the Today screen until the chosen date. For the whole School, or for one cell only.",
+      "rotulo": "Notice (up to 400 characters)",
+      "ate": "Valid until",
+      "para": "For",
+      "todos": "The whole School",
+      "salvar": "Post the notice",
+      "salvo": "Notice saved.",
+      "apagar": "Delete",
+      "apagado": "Notice deleted.",
+      "vencido": "expired",
+      "nenhum": "No notices."
+    },
+    "nucleos": {
+      "titulo": "Alumia cells",
+      "texto": "The cells come from Alumia; each cell's facilitators prepare the School meetings. Place each member in a cell on the Members tab.",
+      "militantes": "{n} members",
+      "nenhum": "No cell on Alumia yet."
+    },
+    "limite": "Honest limit: the panel only shows the codename confirmed on Alumia. Whoever has not chosen a codename yet appears as \"no codename\"."
+  }
+}
