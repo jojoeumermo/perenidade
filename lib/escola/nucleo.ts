@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O núcleo da Escola de Formação (PLANO-ESCOLA.md, F4; migração supabase/migracoes/2026-11-escola-nucleo.sql): os tipos
+// O núcleo da Escola de Formação (PLANO-ESCOLA.md, F4; migração supabase/migracoes/20261108-escola-nucleo.sql): os tipos
 // que a tela do núcleo e o painel da coordenação recebem, as contas puras (pauta em ver-julgar-agir, presença, semana da
 // pergunta geradora) e o jeito único de chamar o banco daqui (chamarDoNucleo), que nunca lança.
 //

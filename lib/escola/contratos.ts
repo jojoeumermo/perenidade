@@ -192,12 +192,12 @@ type Ok = { ok: true };
  * "frente" diz quem implementa (a migração de cada frente em supabase/migracoes/).
  */
 export interface FuncoesDaEscola {
-  // F1 · 2026-11-escola-formacao-base.sql
+  // F1 · 20261108-escola-formacao-base.sql
   escola_eu: { frente: "F1"; args: Record<string, never>; volta: EscolaEu };
-  // F3 · 2026-11-escola-aovivo.sql
+  // F3 · 20261108-escola-aovivo.sql
   escola_aulas_hoje: { frente: "F3"; args: Record<string, never>; volta: EscolaAulasHoje };
   escola_gravacoes: { frente: "F3"; args: { p_caderno: string }; volta: AulaAoVivoDaEscola[] };
-  // F4 · 2026-11-escola-nucleo.sql
+  // F4 · 20261108-escola-nucleo.sql
   escola_nucleo: { frente: "F4"; args: Record<string, never>; volta: EscolaNucleo };
   escola_encontro_salvar: { frente: "F4"; args: { p: EncontroParaSalvar }; volta: Ok & { id: string } };
   escola_tarefa_pegar: { frente: "F4"; args: { p_id: string; p_pegar: boolean }; volta: Ok };
@@ -211,11 +211,11 @@ export interface FuncoesDaEscola {
   escola_banca_decidir: { frente: "F4"; args: { p_id: string; p_situacao: SituacaoDaBanca; p_balanco: string }; volta: Ok };
   escola_militantes_listar: { frente: "F4"; args: Record<string, never>; volta: MilitanteNoPainel[] };
   escola_militante_ajustar: { frente: "F4"; args: { p: { usuario: string; nucleo?: string | null; frente?: FrenteDeAtuacao | null; degrau?: Degrau } }; volta: Ok };
-  // F5 · 2026-11-escola-conquistas.sql
+  // F5 · 20261108-escola-conquistas.sql
   escola_conquista_declarar: { frente: "F5"; args: { p_tipo: "aula" | "caderno"; p_alvo: string; p_ligar: boolean }; volta: Ok };
   escola_publico_definir: { frente: "F5"; args: { p: PublicoDasConquistas }; volta: Ok };
   escola_conquistas_minhas: { frente: "F5"; args: Record<string, never>; volta: MinhasConquistas };
-  // F6 · 2026-11-escola-frente.sql
+  // F6 · 20261108-escola-frente.sql
   escola_frente_escolher: { frente: "F6"; args: { p_frente: FrenteDeAtuacao | null }; volta: Ok };
   escola_frentes_somadas: { frente: "F6"; args: Record<string, never>; volta: FrentesSomadas };
 }
@@ -249,11 +249,11 @@ export const FUNCOES_DA_ESCOLA: { readonly [N in FuncaoDaEscola]: FuncoesDaEscol
 
 /** A migração de cada frente (supabase/migracoes/). A F2 não tem SQL. */
 export const MIGRACOES_DA_ESCOLA = {
-  F1: "2026-11-escola-formacao-base.sql",
-  F3: "2026-11-escola-aovivo.sql",
-  F4: "2026-11-escola-nucleo.sql",
-  F5: "2026-11-escola-conquistas.sql",
-  F6: "2026-11-escola-frente.sql",
+  F1: "20261108-escola-formacao-base.sql",
+  F3: "20261108-escola-aovivo.sql",
+  F4: "20261108-escola-nucleo.sql",
+  F5: "20261108-escola-conquistas.sql",
+  F6: "20261108-escola-frente.sql",
 } as const;
 
 // ───────────────────────────── Endereços das telas (sem o idioma) ─────────────────────────────

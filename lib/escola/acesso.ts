@@ -2,7 +2,7 @@
 "use client";
 
 // Quem entra na Escola de Formação: a militância conferida NO BANCO (public.escola_eu, migração
-// supabase/migracoes/2026-11-escola-formacao-base.sql). A porta (components/escola/PortaDaEscola.tsx) usa useEscola(); as
+// supabase/migracoes/20261108-escola-formacao-base.sql). A porta (components/escola/PortaDaEscola.tsx) usa useEscola(); as
 // telas leem as funções das outras frentes por lerDaEscola(), que trata "função ainda não existe no banco" como vazio.
 //
 // Nada daqui fica gravado no aparelho: a resposta mora só na memória desta aba (ser militante revela opinião política, e

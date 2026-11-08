@@ -1,6 +1,6 @@
 -- ───────────────────────────── Escola de Formação (F6): a frente de atuação de cada militante, novembro de 2026 ─────────────────────────────
 -- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da migração da F1
--- (2026-11-escola-formacao-base.sql: interno.e_militante e interno.escola_militancia). Quem junta cola este bloco no fim do
+-- (20261108-escola-formacao-base.sql: interno.e_militante e interno.escola_militancia). Quem junta cola este bloco no fim do
 -- install.sql, por último na ordem da Escola (F1, F4, F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.6.
 -- Teste: npm run testar:escola-frente (Postgres de verdade dentro do Node, com o install.sql, a F1 e esta migração).
 --

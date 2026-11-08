@@ -18,7 +18,7 @@ export interface PropsDaGravacao {
   cadernoAula?: string;
 }
 
-/** O mesmo formato do check de interno.aulas_ao_vivo.caderno_aula (migração 2026-11-escola-aovivo.sql). */
+/** O mesmo formato do check de interno.aulas_ao_vivo.caderno_aula (migração 20261108-escola-aovivo.sql). */
 const CADERNO_AULA = /^[a-z0-9-]{2,80}\/[a-z0-9-]{2,120}$/;
 
 /**
