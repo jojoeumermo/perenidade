@@ -407,7 +407,6 @@
       "entregar": "交卷并批改",
       "confirmarEntrega": "还有 {n} 道题没有作答。仍然交卷吗？",
       "tempoAcabou": "时间到。试卷已按当前状态提交。",
-      "abrirImagem": "在来源处查看图片",
       "carregando": "正在加载试卷…",
       "erroCarregar": "无法加载试卷。请检查网络后重试。",
       "relatorio": "考得怎么样",
