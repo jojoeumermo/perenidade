@@ -3,7 +3,7 @@
 -- as tabelas nascem lá). Quem junta cola este bloco no fim do install.sql, DEPOIS da F1 (ordem: F1, F4, F5, F3, F6).
 -- Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seções 3 e 4.4. Teste: npm run testar:escola-nucleo.
 --
--- O que nasce aqui (só funções; nenhuma tabela nova):
+-- O que nasce aqui (funções e um índice; nenhuma tabela nova):
 --  1. O encontro do núcleo: escola_nucleo (o próximo encontro, a pauta, quem faz o quê, a presença SOMADA das 4 últimas
 --     rodas), escola_encontro_salvar (só a mediação do núcleo na Alumia ou a coordenação), escola_tarefa_pegar ("Eu levo",
 --     com rodízio: quem fez a mesma tarefa na roda anterior deixa para outra pessoa) e escola_levar_ao_nucleo (a dúvida
@@ -17,7 +17,11 @@
 -- interno.limite; nada de nome civil (codinome da Alumia, e só quando confirmado); no registro de atividades, nada diz
 -- "revolucionários": o departamento aparece como 'reservado'. Quem não é militante não recebe nada.
 
--- 0. Ajudantes ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- 0. Ajudantes e a trava da banca ─────────────────────────────────────────────────────────────────────────────────────
+/* Uma banca marcada por vez para cada pessoa, valendo também para pedidos ao mesmo tempo. Se já houver duas marcadas
+   (só se alguém as criou antes deste índice), a criação falha: decida uma delas no painel e rode de novo. */
+create unique index if not exists escola_bancas_uma_marcada on interno.escola_bancas (militante) where situacao = 'marcada';
+
 /** Uma pessoa como a Escola mostra: o codinome confirmado da Alumia e o @ (que some se ela estiver invisível). */
 create or replace function interno.escola_pessoa(p uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select case when p is null then null else (
@@ -149,6 +153,7 @@ declare
   x jsonb;
   v_item text;
   v_quem uuid;
+  v_feito boolean;
   antigas jsonb;
 begin
   perform interno.limite('escola_encontro_salvar', 60, 60);
@@ -199,8 +204,9 @@ begin
       else
         select (a ->> 'quem')::uuid into v_quem from jsonb_array_elements(antigas) a where a ->> 'item' = lower(v_item) and a ->> 'quem' is not null limit 1;
       end if;
+      begin v_feito := (x ->> 'feito')::boolean; exception when others then perform interno.erro('invalido:tarefas'); end;
       insert into escola_encontro_tarefas (encontro, item, quem, feito)
-      values (e_id, v_item, v_quem, coalesce((x ->> 'feito')::boolean,
+      values (e_id, v_item, v_quem, coalesce(v_feito,
         (select (a ->> 'feito')::boolean from jsonb_array_elements(antigas) a where a ->> 'item' = lower(v_item) limit 1), false));
     end loop;
   end if;
@@ -294,13 +300,14 @@ end $$;
 
 /** Criar, mudar ou apagar um recado. Para toda a Escola: só a coordenação. Para um núcleo: a coordenação ou a mediação dele. */
 create or replace function public.escola_recado_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); r escola_recados; id_ uuid; n uuid; t text; ate_ date;
+declare v uuid := interno.eu(); r escola_recados; id_ uuid; n uuid; t text; ate_ date; apagar boolean;
 begin
   perform interno.limite('escola_recado_salvar', 60, 60);
   if p is null or jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:recado'); end if;
   begin
     id_ := nullif(p ->> 'id', '')::uuid;
     n := nullif(p ->> 'nucleo', '')::uuid;
+    apagar := coalesce((p ->> 'apagar')::boolean, false);
   exception when others then perform interno.erro('invalido:recado');
   end;
   if id_ is not null then
@@ -308,7 +315,7 @@ begin
     if not found then perform interno.erro('nao_encontrado'); end if;
     -- Quem não pode mexer no núcleo do recado não mexe, nem para mudar de núcleo.
     if not (interno.coord() or (r.nucleo is not null and interno.escola_medeia(r.nucleo))) then perform interno.erro('sem_permissao'); end if;
-    if coalesce((p ->> 'apagar')::boolean, false) then
+    if apagar then
       delete from escola_recados where id = id_;
       perform interno.registrar('escola_recado_apagado', id_::text, jsonb_build_object('departamento', 'reservado'));
       return jsonb_build_object('ok', true);
@@ -379,7 +386,12 @@ begin
   if exists (select 1 from escola_bancas where militante = mil and situacao = 'marcada') then perform interno.erro('banca_ja_marcada'); end if;
   n := coalesce(n, m.nucleo);
   if n is not null and not exists (select 1 from rede_nucleos where id = n) then perform interno.erro('invalido:nucleo'); end if;
-  insert into escola_bancas (militante, degrau, nucleo, quando, por) values (mil, d, n, q, v) returning id into id_;
+  -- O "exists" acima dá a mensagem certa no caso comum; o índice único escola_bancas_uma_marcada barra os dois cliques
+  -- ao mesmo tempo (acompanhante e coordenação), que o "exists" sozinho deixaria passar.
+  begin
+    insert into escola_bancas (militante, degrau, nucleo, quando, por) values (mil, d, n, q, v) returning id into id_;
+  exception when unique_violation then perform interno.erro('banca_ja_marcada');
+  end;
   perform interno.registrar('escola_banca_marcada', id_::text, jsonb_build_object('departamento', 'reservado'));
   return jsonb_build_object('ok', true, 'id', id_);
 end $$;

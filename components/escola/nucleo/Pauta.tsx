@@ -124,7 +124,7 @@ export function Pauta({ lang, dados, pergunta, t, ocupado, pegar, depois }: { la
         </section>
       )}
 
-      {dados.medeia && <PreparaEncontro key={p?.id ?? "novo"} dados={dados} t={t} depois={depois} />}
+      {dados.medeia && <PreparaEncontro key={p?.id ?? "novo"} lang={lang} dados={dados} t={t} depois={depois} />}
     </>
   );
 }

@@ -86,7 +86,17 @@
     "presencaRotulo": "How many people came",
     "balancoRotulo": "Review: what we saw, what we thought, what we will do (no names)",
     "guardar": "Save the review",
-    "guardado": "Review saved."
+    "guardado": "Review saved.",
+    "recadosTitulo": "Cell notices",
+    "recadosNota": "Members of the cell see them until the chosen date. Notices for the whole School go through the coordination.",
+    "recadosVazio": "No cell notices right now.",
+    "recadoAteDia": "until {dia}",
+    "apagarRecado": "Delete",
+    "recadoApagado": "Notice deleted.",
+    "recadoTexto": "New notice (up to 400 characters)",
+    "recadoAte": "Valid until",
+    "publicarRecado": "Post the notice",
+    "recadoPublicado": "Notice posted."
   },
   "kit": {
     "titulo": "Facilitator's kit",

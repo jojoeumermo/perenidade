@@ -133,6 +133,7 @@ await espera("salvar de novo sem 'quem' mantém quem já tinha pegado (e marca f
   await rpc(como(ids.media), "escola_encontro_salvar", { p: { ...encontro, id: salvo.id, tarefas: [{ item: "Facilitar a roda" }, { item: "Ata da reunião" }, { item: "Levar o lanche", feito: true }] } });
   return rpc(como(ids.bia), "escola_nucleo");
 }, (r) => tarefa(r, "Levar o lanche").quem?.codinome === "Jurema Moça" && tarefa(r, "Levar o lanche").feito === true && tarefa(r, "Facilitar a roda").quem?.codinome === "Faísca");
+await recusa("feito inválido volta como erro da Escola, não do Postgres", () => rpc(como(ids.media), "escola_encontro_salvar", { p: { ...encontro, id: salvo.id, tarefas: [{ item: "Ata da reunião", feito: "talvez" }] } }), "invalido:tarefas");
 await recusa("a mediação não põe na tarefa alguém de fora do núcleo", () => rpc(como(ids.media), "escola_encontro_salvar", { p: { ...encontro, id: salvo.id, tarefas: [{ item: "Ata da reunião", quem: ids.caio }] } }), "invalido:quem");
 await espera("soltar a própria tarefa", async () => {
   const r = await rpc(como(ids.bia), "escola_nucleo");
@@ -175,6 +176,7 @@ await recusa("a mediação não deixa recado para outro núcleo", () => rpc(como
 await recusa("recado vencido não entra", () => rpc(como(ids.coord), "escola_recado_salvar", { p: { texto: "Recado velho", ate: "2020-01-01" } }), "invalido:ate");
 await espera("membro do núcleo lê o geral e o do núcleo", () => rpc(como(ids.bia), "escola_recados"), (r) => r.length === 2 && r[0].nucleo === null);
 await espera("militante de outro núcleo lê só o geral", () => rpc(como(ids.caio), "escola_recados"), (r) => r.length === 1 && r[0].nucleo === null);
+await recusa("apagar inválido volta como erro da Escola, não do Postgres", () => rpc(como(ids.media), "escola_recado_salvar", { p: { id: recadoZl.id, apagar: "talvez" } }), "invalido:recado");
 await recusa("membro comum não apaga o recado do núcleo", () => rpc(como(ids.bia), "escola_recado_salvar", { p: { id: recadoZl.id, apagar: true } }), "sem_permissao");
 await espera("a mediação apaga o recado do núcleo", () => rpc(como(ids.media), "escola_recado_salvar", { p: { id: recadoZl.id, apagar: true } }), (r) => r.ok);
 
@@ -190,6 +192,7 @@ await recusa("quem não acompanha não marca a banca", () => rpc(como(ids.media)
 await recusa("a banca é do degrau de hoje", () => rpc(como(ids.jurema), "escola_banca_marcar", { p: { militante: ids.bia, degrau: 2 } }), "invalido:degrau");
 const banca = await espera("quem acompanha marca a banca do Degrau 1", () => rpc(como(ids.jurema), "escola_banca_marcar", { p: { militante: ids.bia, degrau: 1, quando: futura(10) } }), (r) => r.ok && r.id);
 await recusa("uma banca marcada por vez", () => rpc(como(ids.jurema), "escola_banca_marcar", { p: { militante: ids.bia, degrau: 1 } }), "banca_ja_marcada");
+await recusa("o índice barra a segunda banca marcada mesmo sem o exists (cliques ao mesmo tempo)", () => dono("insert into interno.escola_bancas (militante, degrau, por) values ($1, 1, $2)", [ids.bia, ids.coord]), "escola_bancas_uma_marcada");
 await recusa("sem nota: só aprovada ou refazer", () => rpc(como(ids.jurema), "escola_banca_decidir", { p_id: banca.id, p_situacao: "nota 10", p_balanco: "Um balanço comprido o bastante." }), "invalido:situacao");
 await recusa("o balanço coletivo é obrigatório", () => rpc(como(ids.jurema), "escola_banca_decidir", { p_id: banca.id, p_situacao: "aprovada", p_balanco: "ok" }), "invalido:balanco");
 await recusa("quem não acompanha não decide", () => rpc(como(ids.caio), "escola_banca_decidir", { p_id: banca.id, p_situacao: "aprovada", p_balanco: "Um balanço comprido o bastante." }), "sem_permissao");
@@ -277,6 +280,8 @@ const previa = ler("components", "escola", "nucleo", "previa.ts");
 confere("prévia sem pessoa de verdade (exemplos marcados)", /EXEMPLO/i.test(previa));
 const painel = ler("components", "painel", "escola", "PainelDaEscola.tsx");
 confere("painel: preenchido (sem o esboço) e pelos nomes do contrato", !/data-painel-da-escola="esboco"/.test(painel) && /escola_militantes_listar/.test(painel + lib) && /escola_banca_decidir/.test(painel + lib));
+confere("painel: lê e grava no banco, sem a prévia (nada de fingir que salvou)", /chamarNoBanco\(/.test(painel) && !/chamarDoNucleo|emPrevia/.test(painel));
+confere("a mediação publica e apaga recados do núcleo pela tela do núcleo", /escola_recado_salvar/.test(comps) && /escola_recados/.test(comps));
 confere("painel: nada de nome civil nem e-mail", !/\.nome\b(?! *[:=])|email/i.test(painel.replace(/nucleo\.nome|n\.nome|\.nome\)/g, "")));
 
 if (falhas.length) {

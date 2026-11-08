@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { TEXTOS_DO_NUCLEO, type TextosDoNucleo } from "@/i18n/escola/nucleo";
 import { FRENTES_DE_ATUACAO, type MilitanteNoPainel } from "@/lib/escola/contratos";
-import { type BancaListada, chamarDoNucleo, type MilitanteDoPainel, type FuncaoDoNucleo, type FuncoesDoNucleo, proximaSegunda, type ResumoDoPainel } from "@/lib/escola/nucleo";
+import { type BancaListada, chamarNoBanco, type MilitanteDoPainel, type FuncaoDoNucleo, type FuncoesDoNucleo, proximaSegunda, type ResumoDoPainel } from "@/lib/escola/nucleo";
 import { escolher, preencher } from "@/lib/escola/textos";
 import { useI18n } from "../../I18n";
 import { dataHora, dia, PAINEL_MUDOU, useLista } from "../comum";
@@ -14,14 +14,17 @@ type T = TextosDoNucleo;
 type P = T["painel"];
 type Aba = "militantes" | "bancas" | "pergunta" | "recados" | "nucleos";
 
-/** Ação do painel com o aviso no idioma do painel (os motivos de i18n/escola/nucleo, "erros"). */
+/**
+ * Ação do painel com o aviso no idioma do painel (os motivos de i18n/escola/nucleo, "erros"). Sempre no banco, sem a
+ * prévia de desenvolvimento: as leituras (useLista) também vão direto ao banco.
+ */
 function useAgir(t: T, depois: () => void) {
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
   async function agir<N extends FuncaoDoNucleo>(nome: N, args: FuncoesDoNucleo[N]["args"], sucesso: string) {
     setOcupado(true);
     setAviso("");
-    const r = await chamarDoNucleo(nome, args);
+    const r = await chamarNoBanco(nome, args);
     setOcupado(false);
     if (!r.ok) {
       setAviso(t.erros[r.motivo]);
