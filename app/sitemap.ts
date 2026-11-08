@@ -44,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/debates",
     "/falacias",
     "/perguntas",
-    "/consciencia-de-classe",
+    "/consciencia",
     "/territorios",
     "/nucleos",
     // T08: com as turmas em pausa (recurso "turmas"), o endereço mostra só um aviso e fica fora do mapa.

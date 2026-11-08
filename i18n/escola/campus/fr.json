@@ -1,7 +1,7 @@
 {
   "_rascunho": true,
   "meta": {
-    "campus": { "titulo": "Plan du campus", "descricao": "Les bâtiments de l’École révolutionnaire Lúcia Maria et ce qu’il y a dans chacun : salles de classe, bibliothèque, radio, mémorial, ateliers, place, territoire et secrétariat." },
+    "campus": { "titulo": "Plan du campus", "descricao": "Les bâtiments de l’École révolutionnaire Lúcia Maria et ce qu’il y a dans chacun : salles de classe, bibliothèque, radio, mémoire et lutte, ateliers, place, territoire et secrétariat." },
     "calendario": { "titulo": "Calendrier de l’École", "descricao": "L’année scolaire de l’École révolutionnaire Lúcia Maria : début et fin du semestre, semaine d’examens, leçon inaugurale, jours fériés du campus et examens externes, avec la source de chaque date." }
   },
   "comum": {
@@ -13,7 +13,7 @@
     "escola": { "nome": "École", "frase": "Les salles de classe : parcours, groupes, cours en direct et ton étude." },
     "biblioteca": { "nome": "Bibliothèque", "frase": "Le fonds, les étagères, le glossaire et les sources." },
     "radio": { "nome": "Radio", "frase": "La radio, les podcasts et les vidéos." },
-    "memorial": { "nome": "Mémorial", "frase": "La mémoire de celles et ceux qui ont lutté avant nous." },
+    "memorial": { "nome": "Mémoire et lutte", "frase": "La mémoire de celles et ceux qui ont lutté avant nous." },
     "oficinas": { "nome": "Ateliers", "frase": "Laboratoires, outils et le cahier : on met la main à la pâte." },
     "praca": { "nome": "Place", "frase": "Là où l’on se retrouve : journal, débats, vérifications et mur." },
     "territorio": { "nome": "Territoire", "frase": "Les noyaux, les territoires et les services près de chez toi." },

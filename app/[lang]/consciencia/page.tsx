@@ -21,9 +21,9 @@ interface Etapa {
   roda: string[];
 }
 
-export async function generateMetadata({ params }: PageProps<"/[lang]/consciencia-de-classe">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/[lang]/consciencia">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
-  return paginaMeta(lang, "/consciencia-de-classe", t.despertar.title, t.despertar.lead);
+  return paginaMeta(lang, "/consciencia", t.despertar.title, t.despertar.lead);
 }
 
 /**
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/conscienci
  * várias disciplinas (as prontas abrem; as que ainda faltam escrever aparecem como "em preparação"), uma leitura do
  * acervo, uma tarefa no mundo real e o roteiro de um encontro de núcleo. O texto das etapas está em content/despertar.json.
  */
-export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]/consciencia-de-classe">) {
+export default async function ConscienciaDeClasse({ params }: PageProps<"/[lang]/consciencia">) {
   const { lang, t } = await loadLang(params);
   const s = t.despertar;
   const to = (path: string) => localePath(lang, path);
