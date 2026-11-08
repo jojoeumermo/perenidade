@@ -25,6 +25,22 @@ export function frentesNaTela(sua: FrenteDeAtuacao | null, somadas: FrentesSomad
 /** Tocar numa frente: escolhe essa; tocar na que já é a sua tira a escolha (null). */
 export const proximaEscolha = (sua: FrenteDeAtuacao | null, tocada: FrenteDeAtuacao): FrenteDeAtuacao | null => (sua === tocada ? null : tocada);
 
+/** O que a leitura de escola_eu (F1) trouxe para esta tela: null enquanto carrega. */
+export type EuLido = null | { ok: true; dados: { militante: boolean; frente?: FrenteDeAtuacao | null } } | { ok: false };
+
+/**
+ * Qual frente aparece como "a sua" e se já dá para tocar. A casca (escola_eu lido UMA vez por aba) fica velha depois de
+ * uma escolha: ao voltar à tela, ela ainda diz a frente de antes. Por isso: o que foi escolhido nesta montagem vale
+ * primeiro; depois, o escola_eu lido de novo ao montar; a casca é só o que se mostra enquanto ele não chega (e o reserva se
+ * a leitura falhar). Enquanto carrega, "pronta" é false: um toque agora mandaria a troca errada (proximaEscolha).
+ */
+export function frenteMarcada(escolhidaAqui: FrenteDeAtuacao | null | undefined, doBanco: EuLido, daCasca: FrenteDeAtuacao | null): { frente: FrenteDeAtuacao | null; pronta: boolean } {
+  if (escolhidaAqui !== undefined) return { frente: escolhidaAqui, pronta: true };
+  if (doBanco === null) return { frente: daCasca, pronta: false };
+  if (doBanco.ok && doBanco.dados.militante) return { frente: doBanco.dados.frente ?? null, pronta: true };
+  return { frente: daCasca, pronta: true };
+}
+
 /** O código de recusa do banco vira a chave do texto (i18n/escola/biblioteca, "frente"). */
 export function avisoDaEscolha(codigo: string): "ausente" | "semPermissao" | "falha" {
   if (codigo === "banco_desatualizado" || codigo === "ausente") return "ausente";
