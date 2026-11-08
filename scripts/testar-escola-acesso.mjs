@@ -237,6 +237,33 @@ const dentro = ler("components", "painel", "casca", "Dentro.tsx");
 confere("painel: uma entrada Escola, só para coordenação, carregada com dynamic", /id: "escola", nome: "Escola de Formação"[^\n]*mostra: can\(eu, "coordenacao", "vice"\)/.test(dentro) && /dynamic\(\(\) => import\("\.\.\/escola\/PainelDaEscola"\)/.test(dentro));
 confere("o esboço do painel existe", fs.existsSync(path.join(raiz, "components", "painel", "escola", "PainelDaEscola.tsx")));
 
+// 6. Sessão vencida volta à porta de quem não entrou (e não lê "ainda não está na militância"); a entrada do painel está no mapa.
+confere("sessão vencida (entre_primeiro) vira sem-conta", /motivo === "entre_primeiro"\) definir\(\{ estado: "sem-conta" \}\)/.test(acesso));
+confere("painel: escola no MAPA de estrutura.ts", /\n  escola: \{ espaco: "equipe", molde: "[a-z]+" \}/.test(ler("components", "painel", "estrutura.ts")));
+
+// 7. Risco 1.1 do plano (children no pacote RSC): o HTML servido sem sessão não traz nada de militante. Só roda com um
+//    servidor no ar: ESCOLA_URL=http://localhost:3110 npm run testar:escola-acesso. Sem ESCOLA_URL, avisa e segue.
+const base = process.env.ESCOLA_URL;
+const PROIBIDOS = [/Faísca/, /Jurema/, /Núcleo Zona Leste/, /Balanço da panfletagem/, /nome civil/i, /"codinome"/, /escola_nucleo|escola_recados|escola_pergunta/];
+if (base) {
+  for (const rota of ["/pt/escola", "/pt/escola/nucleo"]) {
+    try {
+      const r = await fetch(base + rota, { redirect: "manual", signal: AbortSignal.timeout(180_000) });
+      const html = await r.text();
+      if (r.status === 404 && rota !== "/pt/escola") {
+        console.log(`escola-acesso: ${rota} ainda não existe (404), pulei.`);
+        continue;
+      }
+      confere(`HTML sem sessão de ${rota}: responde`, r.status === 200, `status ${r.status}`);
+      const achados = PROIBIDOS.filter((re) => re.test(html)).map(String);
+      confere(`HTML sem sessão de ${rota}: nada de militante (pauta, núcleo, codinome, nome civil)`, achados.length === 0, achados.join(", "));
+      console.log(`escola-acesso: ${rota} sem sessão -> ${r.status}, ${html.length} bytes, proibidos achados: ${achados.length}`);
+    } catch (erro) {
+      falhas.push(`HTML sem sessão de ${rota}: ${erro.message}`);
+    }
+  }
+} else console.log("escola-acesso: sem ESCOLA_URL, a prova do HTML sem sessão não rodou.");
+
 if (falhas.length) {
   console.error(`escola-acesso: ${certos} certos, ${falhas.length} falhas:\n- ${falhas.join("\n- ")}`);
   process.exit(1);
