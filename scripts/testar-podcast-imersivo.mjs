@@ -137,6 +137,16 @@ for (const idioma of ["pt", "en", "es", "fr", "ru", "zh"]) {
   conferir(`${idioma}: textos do modo e do ao vivo`, Boolean(dic.radio?.espacial?.nome && dic.podcast?.aoVivo?.consentimento && dic.errors?.consentimento));
   conferir(`${idioma}: nada de "Dolby" na tela`, !JSON.stringify(dic.radio.espacial).includes("Dolby"));
 }
+// 08/11: o estúdio (começar, transmitir, encerrar) é ferramenta da equipe e mora no painel; a página pública só assiste.
+const publico = ler("components", "podcast", "AoVivo.tsx");
+conferir("a página pública não tem o estúdio (nem começar, nem transmitir, nem encerrar)", !/podcast_ao_vivo_iniciar|podcast_ao_vivo_encerrar|Transmitir|s\.iniciar\b/.test(publico) && publico.includes("Assistir"));
+const estudio = ler("components", "painel", "podcast", "AoVivo.tsx");
+conferir("o estúdio ao vivo está no painel, com começar, transmitir e encerrar", estudio.includes("podcast_ao_vivo_iniciar") && estudio.includes("Transmitir") && estudio.includes("podcast_ao_vivo_encerrar") && estudio.includes("estado.pode"));
+conferir("a aba Podcast do painel tem a subaba Ao vivo", /id: "aovivo"/.test(ler("components", "painel", "podcast", "Podcast.tsx")) && ler("components", "painel", "podcast", "Podcast.tsx").includes("<EstudioAoVivo />"));
+for (const idioma of ["pt", "en", "es", "fr", "ru", "zh"]) {
+  const a = JSON.parse(ler("i18n", `${idioma}.json`)).podcast?.aoVivo ?? {};
+  conferir(`${idioma}: textos do estúdio no painel`, Boolean(a.semPermissao && a.paginaPublica && a.noPainel));
+}
 for (const arq of ["AudioEspacial.tsx", "AoVivo.tsx"]) conferir(`components/podcast/${arq} sem "Dolby"`, !ler("components", "podcast", arq).includes("Dolby"));
 const migracao = ler("supabase", "migracoes", "20261106-t17-podcast-ao-vivo.sql");
 conferir("migração exige o consentimento (LGPD art. 7º, I)", migracao.includes("interno.erro('consentimento')") && /art\. 7º/.test(migracao));
