@@ -27548,3 +27548,1565 @@ begin
     end if;
   end loop;
 end $$;
+
+
+-- ========== supabase/migracoes/2026-11-escola-formacao-base.sql (Escola de Formação, onda 4) ==========
+-- ───────────────────────────── Escola de Formação (F1): militância e tabelas da Escola, novembro de 2026 ─────────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Quem junta cola este bloco no fim do
+-- install.sql (ordem da Escola: F1, F4, F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.1.
+-- Teste: npm run testar:escola-acesso (Postgres de verdade dentro do Node, com o install.sql e esta migração).
+--
+-- O que nasce aqui (TODAS as tabelas da Escola fechada; as funções de cada tela vêm nas migrações das outras frentes):
+--  1. interno.e_militante(p): quem está no departamento Revolucionários (ou a coordenação, para si mesma). Conta suspensa não é.
+--  2. Tabelas: escola_militancia, escola_encontros, escola_encontro_tarefas, escola_perguntas, escola_recados,
+--     escola_bancas, escola_conquistas; e perfis.escola_publico (padrão 'ninguem').
+--  3. Gatilho em departamento_membros: entrar nos Revolucionários cria a militância e a conquista 'carteirinha'
+--     verificada; sair apaga a militância, as conquistas e as bancas (direito de eliminação, LGPD art. 18, VI).
+--  4. public.escola_eu(): a única função de leitura desta frente. Quem não é militante recebe só {militante:false}.
+--
+-- Segurança (mesma regra de migracoes/2026-11-escola.sql): toda tabela em "interno", com segurança por linha ligada e
+-- sem permissão nenhuma para public, anon e authenticated. Só funções security definer, com search_path fixo, leem.
+-- Ser militante revela opinião política (dado sensível, LGPD art. 5º, II e art. 11): nada de nome civil aqui (a
+-- Escola mostra o codinome da Alumia, perfis.rede_codinome) e nada de militância no registro com o nome do departamento.
+
+-- 1. Quem é militante ────────────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * Militante = do departamento Revolucionários (pela participação ou por representá-lo), com a conta ativa. A coordenação
+ * também entra na Escola, mas só ela mesma (a checagem da coordenação olha a sessão de quem chama, com o segundo fator).
+ */
+create or replace function interno.e_militante(p uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p is not null and coalesce(interno.membro_direto(p, 'revolucionarios') or (p = auth.uid() and interno.coord()), false)
+$$;
+
+-- 2. As tabelas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- Uma linha por militante: o degrau (1 Despertar, 2 Base, 3 Quadros), a frente de atuação, o núcleo da Alumia e quem acompanha.
+create table if not exists interno.escola_militancia (
+  usuario uuid primary key references interno.perfis (id) on delete cascade,
+  degrau smallint not null default 1 check (degrau between 1 and 3),
+  frente text check (frente is null or frente in ('estudantil', 'bairros', 'trabalho', 'agitprop', 'atos', 'cultura', 'solidariedade')),
+  nucleo uuid references interno.rede_nucleos (id) on delete set null,
+  acompanha uuid references interno.perfis (id) on delete set null,
+  desde date not null default ((now() at time zone 'America/Sao_Paulo')::date),
+  constraint escola_militancia_acompanha_outra check (acompanha is distinct from usuario)
+);
+create index if not exists escola_militancia_nucleo on interno.escola_militancia (nucleo);
+create index if not exists escola_militancia_acompanha on interno.escola_militancia (acompanha);
+
+-- Os encontros do núcleo: quando, a pauta (até 12 itens), a presença SOMADA (só o número) e o balanço.
+create table if not exists interno.escola_encontros (
+  id uuid primary key default gen_random_uuid(),
+  nucleo uuid not null references interno.rede_nucleos (id) on delete cascade,
+  quando timestamptz not null,
+  pauta jsonb not null default '[]'::jsonb check (jsonb_typeof(pauta) = 'array' and jsonb_array_length(pauta) <= 12),
+  presenca smallint check (presenca is null or presenca between 0 and 500),
+  balanco text not null default '' check (char_length(balanco) <= 2000),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists escola_encontros_nucleo on interno.escola_encontros (nucleo, quando);
+
+-- Quem faz o quê (encaminhamentos do encontro, em rodízio).
+create table if not exists interno.escola_encontro_tarefas (
+  id uuid primary key default gen_random_uuid(),
+  encontro uuid not null references interno.escola_encontros (id) on delete cascade,
+  item text not null check (char_length(item) between 2 and 120),
+  quem uuid references interno.perfis (id) on delete set null,
+  feito boolean not null default false,
+  criado_em timestamptz not null default now()
+);
+create index if not exists escola_encontro_tarefas_encontro on interno.escola_encontro_tarefas (encontro);
+
+-- A pergunta geradora da semana (a semana começa na segunda-feira).
+create table if not exists interno.escola_perguntas (
+  semana date primary key check (extract(isodow from semana) = 1),
+  texto text not null check (char_length(texto) between 3 and 300),
+  por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+
+-- Recados da formação: para toda a Escola (nucleo nulo) ou para um núcleo, até uma data.
+create table if not exists interno.escola_recados (
+  id uuid primary key default gen_random_uuid(),
+  texto text not null check (char_length(texto) between 3 and 400),
+  ate date not null,
+  nucleo uuid references interno.rede_nucleos (id) on delete cascade,
+  por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists escola_recados_ate on interno.escola_recados (ate);
+
+-- A banca de passagem de degrau (balanço coletivo, sem nota). O balanço só é lido pelo militante, quem acompanha e a coordenação.
+create table if not exists interno.escola_bancas (
+  id uuid primary key default gen_random_uuid(),
+  militante uuid not null references interno.perfis (id) on delete cascade,
+  degrau smallint not null check (degrau between 1 and 3),
+  nucleo uuid references interno.rede_nucleos (id) on delete set null,
+  quando timestamptz,
+  situacao text not null default 'marcada' check (situacao in ('marcada', 'aprovada', 'refazer')),
+  balanco text not null default '' check (char_length(balanco) <= 2000),
+  por uuid references interno.perfis (id) on delete set null,
+  decidida_em timestamptz,
+  criado_em timestamptz not null default now()
+);
+create index if not exists escola_bancas_militante on interno.escola_bancas (militante);
+
+-- Conquistas: a carteirinha e o degrau são verificados pelo servidor; aula e caderno são declarados pelo aparelho (F5).
+create table if not exists interno.escola_conquistas (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  tipo text not null check (tipo in ('carteirinha', 'aula', 'caderno', 'degrau')),
+  alvo text not null check (alvo ~ '^[a-z0-9/-]{1,160}$'),
+  verificada boolean not null default false,
+  em timestamptz not null default now(),
+  primary key (usuario, tipo, alvo)
+);
+
+-- Quem vê as conquistas da Escola no perfil da Alumia. Padrão: ninguém (o selo da Alumia nasce ligado; este, não).
+alter table interno.perfis add column if not exists escola_publico text not null default 'ninguem';
+do $$
+begin
+  alter table interno.perfis add constraint perfis_escola_publico check (escola_publico in ('ninguem', 'militantes', 'seguidores', 'todos'));
+exception when duplicate_object then null;
+end $$;
+
+-- Trancadas duas vezes: segurança por linha ligada sem regra nenhuma (ninguém passa) e sem permissão para os papéis da API.
+do $$
+declare tabela text;
+begin
+  foreach tabela in array array['escola_militancia', 'escola_encontros', 'escola_encontro_tarefas', 'escola_perguntas', 'escola_recados', 'escola_bancas', 'escola_conquistas'] loop
+    execute format('alter table interno.%I enable row level security', tabela);
+    execute format('revoke all on interno.%I from public', tabela);
+    if exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on interno.%I from anon, authenticated', tabela);
+    end if;
+  end loop;
+  -- Com a pausa geral ligada, nada novo entra de quem não é da equipe (como no resto do site). A militância e as
+  -- conquistas ficam de fora: nascem do gatilho do departamento, e a pausa não pode impedir alguém de ser tirado ou posto.
+  foreach tabela in array array['escola_encontros', 'escola_encontro_tarefas', 'escola_perguntas', 'escola_recados', 'escola_bancas'] loop
+    execute format('drop trigger if exists lucia_pausa on interno.%I', tabela);
+    execute format('create trigger lucia_pausa before insert on interno.%I for each row execute function interno.pausa()', tabela);
+  end loop;
+end $$;
+
+-- 3. Entrar e sair do departamento ───────────────────────────────────────────────────────────────────────────────────────
+/** Cria a militância e a carteirinha (verificada). Rodar de novo não muda nada. */
+create or replace function interno.escola_militancia_criar(p uuid) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if p is null then return; end if;
+  insert into escola_militancia (usuario) values (p) on conflict (usuario) do nothing;
+  insert into escola_conquistas (usuario, tipo, alvo, verificada) values (p, 'carteirinha', 'carteirinha', true)
+  on conflict (usuario, tipo, alvo) do update set verificada = true;
+end $$;
+
+/** Sair da militância apaga o que a Escola guardou da pessoa no servidor (LGPD art. 18, VI) e solta quem ela acompanhava. */
+create or replace function interno.escola_militancia_apagar(p uuid) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if p is null then return; end if;
+  delete from escola_militancia where usuario = p;
+  delete from escola_conquistas where usuario = p;
+  delete from escola_bancas where militante = p;
+  update escola_militancia set acompanha = null where acompanha = p;
+  update escola_encontro_tarefas set quem = null where quem = p;
+end $$;
+
+create or replace function interno.escola_departamento_gatilho() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if tg_op in ('UPDATE', 'DELETE') and old.departamento = 'revolucionarios'
+     and (tg_op = 'DELETE' or new.departamento is distinct from 'revolucionarios' or new.usuario is distinct from old.usuario) then
+    -- Quem continua militante por outro caminho (representa o departamento) não perde nada.
+    if not interno.membro_direto(old.usuario, 'revolucionarios') then perform interno.escola_militancia_apagar(old.usuario); end if;
+  end if;
+  if tg_op in ('INSERT', 'UPDATE') and new.departamento = 'revolucionarios' then
+    perform interno.escola_militancia_criar(new.usuario);
+  end if;
+  return null;
+end $$;
+drop trigger if exists lucia_escola_militancia on interno.departamento_membros;
+create trigger lucia_escola_militancia after insert or update or delete on interno.departamento_membros for each row execute function interno.escola_departamento_gatilho();
+
+-- Representar o departamento (papeis: papel 'representante', disciplina 'revolucionarios') também faz militante, e tirar
+-- esse papel apaga a militância como sair do departamento (LGPD art. 18, VI), a menos que a pessoa continue por outro caminho.
+create or replace function interno.escola_papel_gatilho() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if tg_op in ('UPDATE', 'DELETE') and (old.papel = 'revolucionarios' or (old.papel = 'representante' and old.disciplina = 'revolucionarios')) then
+    if not interno.membro_direto(old.usuario, 'revolucionarios') then perform interno.escola_militancia_apagar(old.usuario); end if;
+  end if;
+  if tg_op in ('INSERT', 'UPDATE') and (new.papel = 'revolucionarios' or (new.papel = 'representante' and new.disciplina = 'revolucionarios'))
+     and interno.membro_direto(new.usuario, 'revolucionarios') then
+    perform interno.escola_militancia_criar(new.usuario);
+  end if;
+  return null;
+end $$;
+drop trigger if exists lucia_escola_militancia on interno.papeis;
+create trigger lucia_escola_militancia after insert or update or delete on interno.papeis for each row execute function interno.escola_papel_gatilho();
+
+-- Faxina de quem já tinha perdido a militância antes deste gatilho (rodar de novo não apaga quem ainda é militante).
+do $$
+declare u uuid;
+begin
+  for u in select e.usuario from interno.escola_militancia e where not interno.membro_direto(e.usuario, 'revolucionarios') loop
+    perform interno.escola_militancia_apagar(u);
+  end loop;
+end $$;
+
+-- Quem já estava no departamento quando a migração rodou (rodar de novo não duplica nada).
+insert into interno.escola_militancia (usuario)
+select m.usuario from interno.departamento_membros m where m.departamento = 'revolucionarios'
+on conflict (usuario) do nothing;
+insert into interno.escola_conquistas (usuario, tipo, alvo, verificada)
+select m.usuario, 'carteirinha', 'carteirinha', true from interno.departamento_membros m where m.departamento = 'revolucionarios'
+on conflict (usuario, tipo, alvo) do nothing;
+
+-- 4. Quem sou eu na Escola ───────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * A porta da Escola pergunta isto. Sem conta, conta suspensa ou sem militância: só {militante:false} (e "conta", para a
+ * porta saber se oferece "Entrar"). Militante: o codinome da Alumia (nunca o nome civil), o degrau, a frente, o núcleo,
+ * quem acompanha (pelo codinome e o @ da Alumia, se a pessoa não estiver invisível), desde quando e o público das conquistas.
+ * Quem representa o departamento (sem a linha de participação) ganha a militância aqui, na primeira vez.
+ */
+create or replace function public.escola_eu() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := auth.uid();
+  f perfis;
+  m escola_militancia;
+  n jsonb;
+  a jsonb;
+begin
+  if v is null then return jsonb_build_object('militante', false, 'conta', false); end if;
+  select * into f from perfis where id = v;
+  if not found or f.suspenso or not interno.e_militante(v) then return jsonb_build_object('militante', false, 'conta', true); end if;
+  perform interno.limite('escola_eu', 60, 1);
+  if interno.membro_direto(v, 'revolucionarios') then perform interno.escola_militancia_criar(v); end if;
+  select * into m from escola_militancia where usuario = v;
+  if m.nucleo is not null then
+    select jsonb_build_object('id', r.id, 'nome', r.nome) into n from rede_nucleos r where r.id = m.nucleo;
+  end if;
+  if m.acompanha is not null then
+    select jsonb_build_object(
+      'codinome', case when p.rede_codinome_ok then p.rede_codinome end,
+      'handle', case when not coalesce(p.rede_modo = 'invisivel' or p.rede_invisivel, false) then p.rede_handle end)
+    into a from perfis p where p.id = m.acompanha and not p.suspenso;
+  end if;
+  return jsonb_build_object(
+    'militante', true,
+    'conta', true,
+    'codinome', case when f.rede_codinome_ok then f.rede_codinome end,
+    'handle', f.rede_handle,
+    'degrau', coalesce(m.degrau, 1),
+    'frente', m.frente,
+    'nucleo', n,
+    'acompanha', a,
+    'desde', m.desde,
+    'publico', f.escola_publico,
+    'coordena', interno.coord());
+end $$;
+
+-- 5. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- O install.sql dá USAGE em "interno" para anon e authenticated: sem isto, uma conta poderia criar ou apagar a militância de
+-- qualquer uuid, ou saber se qualquer uuid é militante. As funções internas só rodam por dentro das security definer.
+revoke all on function interno.e_militante(uuid), interno.escola_militancia_criar(uuid), interno.escola_militancia_apagar(uuid),
+  interno.escola_departamento_gatilho(), interno.escola_papel_gatilho() from public;
+revoke all on function public.escola_eu() from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.e_militante(uuid), interno.escola_militancia_criar(uuid), interno.escola_militancia_apagar(uuid),
+      interno.escola_departamento_gatilho(), interno.escola_papel_gatilho() from anon, authenticated;
+    grant execute on function public.escola_eu() to anon, authenticated, service_role;
+  end if;
+end $$;
+
+
+-- ========== supabase/migracoes/2026-11-escola-nucleo.sql (Escola de Formação, onda 4) ==========
+-- ───────────────────────────── Escola de Formação (F4): núcleo, acompanhamento, banca e painel, novembro de 2026 ─────────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (2026-11-escola-formacao-base.sql:
+-- as tabelas nascem lá). Quem junta cola este bloco no fim do install.sql, DEPOIS da F1 (ordem: F1, F4, F5, F3, F6).
+-- Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seções 3 e 4.4. Teste: npm run testar:escola-nucleo.
+--
+-- O que nasce aqui (funções e um índice; nenhuma tabela nova):
+--  1. O encontro do núcleo: escola_nucleo (o próximo encontro, a pauta, quem faz o quê, a presença SOMADA das 4 últimas
+--     rodas), escola_encontro_salvar (só a mediação do núcleo na Alumia ou a coordenação), escola_tarefa_pegar ("Eu levo",
+--     com rodízio: quem fez a mesma tarefa na roda anterior deixa para outra pessoa) e escola_levar_ao_nucleo (a dúvida
+--     vira item da pauta, sem dizer de quem).
+--  2. A pergunta geradora da semana (Paulo Freire, círculo de cultura) e os recados da formação.
+--  3. Quem acompanha (só alguém do Degrau 3) e a banca de passagem: balanço coletivo, SEM nota. Aprovada, sobe o degrau e
+--     grava a conquista verificada 'degrau-N' (N = o degrau que a pessoa fechou).
+--  4. O painel da coordenação: militantes pelo codinome, ajuste de núcleo, frente e degrau.
+--
+-- Segurança (a mesma da F1): só funções security definer com search_path fixo; entrada por interno.eu(); freio por
+-- interno.limite; nada de nome civil (codinome da Alumia, e só quando confirmado); no registro de atividades, nada diz
+-- "revolucionários": o departamento aparece como 'reservado'. Quem não é militante não recebe nada.
+
+-- 0. Ajudantes e a trava da banca ─────────────────────────────────────────────────────────────────────────────────────
+/* Uma banca marcada por vez para cada pessoa, valendo também para pedidos ao mesmo tempo. Se já houver duas marcadas
+   (só se alguém as criou antes deste índice), a criação falha: decida uma delas no painel e rode de novo. */
+create unique index if not exists escola_bancas_uma_marcada on interno.escola_bancas (militante) where situacao = 'marcada';
+
+/** Uma pessoa como a Escola mostra: o codinome confirmado da Alumia e o @ (que some se ela estiver invisível). */
+create or replace function interno.escola_pessoa(p uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select case when p is null then null else (
+    select jsonb_build_object(
+      'codinome', case when f.rede_codinome_ok then f.rede_codinome end,
+      'handle', case when not coalesce(f.rede_modo = 'invisivel' or f.rede_invisivel, false) then f.rede_handle end)
+    from perfis f where f.id = p and not f.suspenso) end
+$$;
+
+/** Hoje em Brasília. */
+create or replace function interno.escola_hoje() returns date language sql stable set search_path = interno, pg_temp as $$
+  select (now() at time zone 'America/Sao_Paulo')::date
+$$;
+
+/** Quem chama, exigindo militância (ou coordenação). Devolve o id. */
+create or replace function interno.escola_militante_eu() returns uuid language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.e_militante(v) then perform interno.erro('sem_permissao'); end if;
+  return v;
+end $$;
+
+/** O núcleo da Escola de quem chama (nulo se ainda não tem). */
+create or replace function interno.escola_meu_nucleo() returns uuid language sql stable security definer set search_path = interno, pg_temp as $$
+  select nucleo from escola_militancia where usuario = auth.uid()
+$$;
+
+/**
+ * Quem pode mexer no encontro, na pauta e nos recados deste núcleo: a coordenação, ou quem faz a MEDIAÇÃO do núcleo na
+ * Alumia (rede_nucleo_membros.papel = 'mediacao') e é militante, em sessão confiável (com o segundo fator, se tiver).
+ */
+create or replace function interno.escola_medeia(p_nucleo uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_nucleo is not null and (interno.coord() or (
+    interno.sessao_confiavel() and interno.e_militante(auth.uid())
+    and exists (select 1 from rede_nucleo_membros m where m.nucleo = p_nucleo and m.usuario = auth.uid() and m.papel = 'mediacao')))
+$$;
+
+/** O encontro "seguinte" de um núcleo: o primeiro que ainda não acabou (até 3 horas depois do começo, a roda ainda vale). */
+create or replace function interno.escola_encontro_seguinte(p_nucleo uuid) returns uuid language sql stable security definer set search_path = interno, pg_temp as $$
+  select id from escola_encontros where nucleo = p_nucleo and quando >= now() - interval '3 hours' order by quando, criado_em limit 1
+$$;
+
+/** O encontro anterior a um momento (a roda que passou). */
+create or replace function interno.escola_encontro_anterior(p_nucleo uuid, p_antes timestamptz) returns uuid language sql stable security definer set search_path = interno, pg_temp as $$
+  select id from escola_encontros where nucleo = p_nucleo and quando < p_antes order by quando desc, criado_em desc limit 1
+$$;
+
+/** Os itens da pauta, limpos: até 12, cada um com 2 a 200 letras; "levado" só quando veio de uma dúvida. */
+create or replace function interno.escola_pauta_limpa(p jsonb) returns jsonb language plpgsql immutable set search_path = interno, pg_temp as $$
+declare x jsonb; t text; saida jsonb := '[]'::jsonb;
+begin
+  if p is null or jsonb_typeof(p) <> 'array' then perform interno.erro('invalido:pauta'); end if;
+  if jsonb_array_length(p) > 12 then perform interno.erro('invalido:pauta'); end if;
+  for x in select value from jsonb_array_elements(p) loop
+    t := btrim(regexp_replace(coalesce(case when jsonb_typeof(x) = 'object' then x ->> 'texto' else x #>> '{}' end, ''), '\s+', ' ', 'g'));
+    if char_length(t) < 2 or char_length(t) > 200 then perform interno.erro('invalido:pauta'); end if;
+    saida := saida || jsonb_build_array(case when jsonb_typeof(x) = 'object' and coalesce((x ->> 'levado')::boolean, false)
+      then jsonb_build_object('texto', t, 'levado', true) else jsonb_build_object('texto', t) end);
+  end loop;
+  return saida;
+end $$;
+
+/** Um encontro como o militante vê: pauta, tarefas (quem pelo codinome; "minha"; "repete" = eu fiz esta na roda anterior). */
+create or replace function interno.escola_encontro_json(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare e escola_encontros; v uuid := auth.uid(); antes uuid;
+begin
+  select * into e from escola_encontros where id = p_id;
+  if not found then return null; end if;
+  antes := interno.escola_encontro_anterior(e.nucleo, e.quando);
+  return jsonb_build_object(
+    'id', e.id,
+    'quando', e.quando,
+    'pauta', e.pauta,
+    'tarefas', coalesce((
+      select jsonb_agg(jsonb_build_object(
+        'id', t.id,
+        'item', t.item,
+        'quem', interno.escola_pessoa(t.quem),
+        'minha', t.quem is not distinct from v and v is not null,
+        'feito', t.feito,
+        'repete', t.quem is null and exists (select 1 from escola_encontro_tarefas a where a.encontro = antes and a.quem = v and lower(a.item) = lower(t.item)))
+        order by t.criado_em, t.id)
+      from escola_encontro_tarefas t where t.encontro = e.id), '[]'::jsonb));
+end $$;
+
+-- 1. O núcleo ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * O núcleo de quem chama: o nome, o encontro seguinte (pauta e quem faz o quê), a roda que passou (presença e balanço, para
+ * quem é do núcleo) e a presença das 4 últimas rodas, SÓ em números. Militante de outro núcleo não vê esta pauta: cada um
+ * só recebe a do próprio núcleo.
+ */
+create or replace function public.escola_nucleo() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_militante_eu(); n uuid; v_nome text; seguinte uuid; anterior uuid; a escola_encontros;
+begin
+  perform interno.limite('escola_nucleo', 120, 10);
+  n := interno.escola_meu_nucleo();
+  if n is not null then select r.nome into v_nome from rede_nucleos r where r.id = n; end if;
+  if n is null or v_nome is null then
+    return jsonb_build_object('nucleo', null, 'proximo', null, 'presenca', '[]'::jsonb, 'medeia', false, 'anterior', null);
+  end if;
+  seguinte := interno.escola_encontro_seguinte(n);
+  anterior := interno.escola_encontro_anterior(n, coalesce((select quando from escola_encontros where id = seguinte), now() - interval '3 hours'));
+  if anterior is not null then select * into a from escola_encontros where id = anterior; end if;
+  return jsonb_build_object(
+    'nucleo', jsonb_build_object('id', n, 'nome', v_nome),
+    'proximo', interno.escola_encontro_json(seguinte),
+    'anterior', case when anterior is null then null else jsonb_build_object('id', a.id, 'quando', a.quando, 'presenca', a.presenca, 'balanco', a.balanco) end,
+    'presenca', coalesce((
+      select jsonb_agg(jsonb_build_object('quando', x.quando, 'presenca', x.presenca) order by x.quando)
+      from (select quando, presenca from escola_encontros where nucleo = n and quando < now() - interval '3 hours' order by quando desc limit 4) x), '[]'::jsonb),
+    'medeia', interno.escola_medeia(n));
+end $$;
+
+/**
+ * Salvar o encontro (novo ou o mesmo): quando, a pauta, a presença somada, o balanço e quem faz o quê. Só a mediação do
+ * núcleo ou a coordenação. Num encontro que já existe, o que não vier fica como estava (quando, pauta, presença, balanço). As tarefas, quando vêm, substituem a lista; a tarefa sem "quem" na entrada mantém quem já
+ * tinha pegado a mesma tarefa neste encontro. "quem" dado tem de ser militante do mesmo núcleo.
+ */
+create or replace function public.escola_encontro_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.escola_militante_eu();
+  n uuid;
+  e_id uuid;
+  velho escola_encontros;
+  q timestamptz;
+  v_pauta jsonb;
+  pres smallint;
+  bal text;
+  x jsonb;
+  v_item text;
+  v_quem uuid;
+  v_feito boolean;
+  antigas jsonb;
+begin
+  perform interno.limite('escola_encontro_salvar', 60, 60);
+  if p is null or jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:encontro'); end if;
+  begin
+    n := (p ->> 'nucleo')::uuid;
+    e_id := nullif(p ->> 'id', '')::uuid;
+    q := (p ->> 'quando')::timestamptz;
+  exception when others then perform interno.erro('invalido:encontro');
+  end;
+  if n is null or (q is null and e_id is null) then perform interno.erro('invalido:encontro'); end if;
+  if not interno.escola_medeia(n) then perform interno.erro('sem_permissao'); end if;
+  if q is not null and (q < now() - interval '400 days' or q > now() + interval '400 days') then perform interno.erro('invalido:quando'); end if;
+  -- Sem "pauta" na entrada, a pauta fica como está (fechar a roda que passou manda só presença e balanço).
+  if p ? 'pauta' or e_id is null then v_pauta := interno.escola_pauta_limpa(coalesce(p -> 'pauta', '[]'::jsonb)); end if;
+  if p ? 'presenca' and jsonb_typeof(p -> 'presenca') <> 'null' then
+    begin pres := (p ->> 'presenca')::smallint; exception when others then perform interno.erro('invalido:presenca'); end;
+    if pres < 0 or pres > 500 then perform interno.erro('invalido:presenca'); end if;
+  end if;
+  bal := left(btrim(coalesce(p ->> 'balanco', '')), 2000);
+  if char_length(btrim(coalesce(p ->> 'balanco', ''))) > 2000 then perform interno.erro('invalido:balanco'); end if;
+
+  if e_id is not null then
+    select * into velho from escola_encontros where id = e_id;
+    if not found or velho.nucleo <> n then perform interno.erro('nao_encontrado'); end if;
+    update escola_encontros set quando = coalesce(q, velho.quando), pauta = coalesce(v_pauta, velho.pauta),
+      presenca = case when p ? 'presenca' then pres else velho.presenca end,
+      balanco = case when p ? 'balanco' then bal else velho.balanco end
+    where id = e_id;
+  else
+    insert into escola_encontros (nucleo, quando, pauta, presenca, balanco, criado_por) values (n, q, v_pauta, pres, bal, v) returning id into e_id;
+  end if;
+
+  if p ? 'tarefas' then
+    if jsonb_typeof(p -> 'tarefas') <> 'array' or jsonb_array_length(p -> 'tarefas') > 12 then perform interno.erro('invalido:tarefas'); end if;
+    select coalesce(jsonb_agg(jsonb_build_object('item', lower(t.item), 'quem', t.quem, 'feito', t.feito)), '[]'::jsonb) into antigas
+    from escola_encontro_tarefas t where t.encontro = e_id;
+    delete from escola_encontro_tarefas where encontro = e_id;
+    for x in select value from jsonb_array_elements(p -> 'tarefas') loop
+      v_item := btrim(regexp_replace(coalesce(x ->> 'item', ''), '\s+', ' ', 'g'));
+      if char_length(v_item) < 2 or char_length(v_item) > 120 then perform interno.erro('invalido:tarefas'); end if;
+      if x ? 'quem' then
+        if jsonb_typeof(x -> 'quem') = 'null' then v_quem := null;
+        else
+          begin v_quem := (x ->> 'quem')::uuid; exception when others then perform interno.erro('invalido:quem'); end;
+          if not exists (select 1 from escola_militancia m where m.usuario = v_quem and m.nucleo = n) then perform interno.erro('invalido:quem'); end if;
+        end if;
+      else
+        select (a ->> 'quem')::uuid into v_quem from jsonb_array_elements(antigas) a where a ->> 'item' = lower(v_item) and a ->> 'quem' is not null limit 1;
+      end if;
+      begin v_feito := (x ->> 'feito')::boolean; exception when others then perform interno.erro('invalido:tarefas'); end;
+      insert into escola_encontro_tarefas (encontro, item, quem, feito)
+      values (e_id, v_item, v_quem, coalesce(v_feito,
+        (select (a ->> 'feito')::boolean from jsonb_array_elements(antigas) a where a ->> 'item' = lower(v_item) limit 1), false));
+    end loop;
+  end if;
+  perform interno.registrar('escola_encontro_salvo', e_id::text, jsonb_build_object('departamento', 'reservado'));
+  return jsonb_build_object('ok', true, 'id', e_id);
+end $$;
+
+/**
+ * "Eu levo" (p_pegar = true) ou "soltar" (false) uma tarefa do encontro do PRÓPRIO núcleo. Rodízio: quem fez a mesma
+ * tarefa na roda anterior deixa para outra pessoa (a mediação ainda pode pôr pelo salvar, se ninguém mais pegar).
+ */
+create or replace function public.escola_tarefa_pegar(p_id uuid, p_pegar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_militante_eu(); t escola_encontro_tarefas; e escola_encontros; antes uuid;
+begin
+  perform interno.limite('escola_tarefa_pegar', 60, 60);
+  select * into t from escola_encontro_tarefas where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  select * into e from escola_encontros where id = t.encontro;
+  if e.nucleo is distinct from interno.escola_meu_nucleo() and not interno.escola_medeia(e.nucleo) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_pegar, false) then
+    if t.quem is not null and t.quem <> v then perform interno.erro('ja_tem_quem'); end if;
+    antes := interno.escola_encontro_anterior(e.nucleo, e.quando);
+    if t.quem is null and exists (select 1 from escola_encontro_tarefas a where a.encontro = antes and a.quem = v and lower(a.item) = lower(t.item)) then
+      perform interno.erro('rodizio');
+    end if;
+    update escola_encontro_tarefas set quem = v where id = p_id;
+  else
+    if t.quem is distinct from v and not interno.escola_medeia(e.nucleo) then perform interno.erro('sem_permissao'); end if;
+    update escola_encontro_tarefas set quem = null, feito = false where id = p_id;
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A dúvida (ou a resposta à pergunta da semana) vira item da pauta do próximo encontro do próprio núcleo, sem dizer de quem. */
+create or replace function public.escola_levar_ao_nucleo(p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_militante_eu(); n uuid; e uuid; t text; v_pauta jsonb;
+begin
+  perform interno.limite('escola_levar_ao_nucleo', 6, 60);
+  t := btrim(regexp_replace(coalesce(p_texto, ''), '\s+', ' ', 'g'));
+  if char_length(t) < 3 or char_length(t) > 200 then perform interno.erro('invalido:texto'); end if;
+  n := interno.escola_meu_nucleo();
+  if n is null then perform interno.erro('sem_nucleo'); end if;
+  e := interno.escola_encontro_seguinte(n);
+  if e is null then perform interno.erro('sem_encontro'); end if;
+  select x.pauta into v_pauta from escola_encontros x where x.id = e for update;
+  if jsonb_array_length(v_pauta) >= 12 then perform interno.erro('pauta_cheia'); end if;
+  update escola_encontros set pauta = v_pauta || jsonb_build_array(jsonb_build_object('texto', t, 'levado', true)) where id = e;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- 2. Pergunta geradora e recados ─────────────────────────────────────────────────────────────────────────────────────────
+/** A pergunta geradora desta semana (a semana começa na segunda, em Brasília), ou nulo. */
+create or replace function public.escola_pergunta_da_semana() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_militante_eu(); r escola_perguntas;
+begin
+  select * into r from escola_perguntas where semana = date_trunc('week', interno.escola_hoje())::date;
+  if not found then return null; end if;
+  return jsonb_build_object('semana', r.semana, 'texto', r.texto);
+end $$;
+
+/** A coordenação define (ou apaga, com texto vazio) a pergunta de uma semana (a data é a segunda-feira). */
+create or replace function public.escola_pergunta_definir(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s date; t text;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('escola_pergunta_definir', 60, 60);
+  begin s := (p ->> 'semana')::date; exception when others then perform interno.erro('invalido:semana'); end;
+  if s is null or extract(isodow from s) <> 1 or s < date_trunc('week', interno.escola_hoje())::date - 7 or s > interno.escola_hoje() + 120 then
+    perform interno.erro('invalido:semana');
+  end if;
+  t := btrim(regexp_replace(coalesce(p ->> 'texto', ''), '\s+', ' ', 'g'));
+  if t = '' then
+    delete from escola_perguntas where semana = s;
+  else
+    if char_length(t) < 3 or char_length(t) > 300 then perform interno.erro('invalido:texto'); end if;
+    insert into escola_perguntas (semana, texto, por) values (s, t, v)
+    on conflict (semana) do update set texto = excluded.texto, por = excluded.por, criado_em = now();
+  end if;
+  perform interno.registrar('escola_pergunta_definida', s::text, jsonb_build_object('departamento', 'reservado'));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Os recados que valem hoje: os de toda a Escola e os do próprio núcleo. */
+create or replace function public.escola_recados() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_militante_eu(); n uuid := interno.escola_meu_nucleo();
+begin
+  return coalesce((
+    select jsonb_agg(jsonb_build_object('id', r.id, 'texto', r.texto, 'ate', r.ate, 'nucleo', r.nucleo) order by r.nucleo nulls first, r.criado_em desc)
+    from escola_recados r where r.ate >= interno.escola_hoje() and (r.nucleo is null or r.nucleo = n)), '[]'::jsonb);
+end $$;
+
+/** Criar, mudar ou apagar um recado. Para toda a Escola: só a coordenação. Para um núcleo: a coordenação ou a mediação dele. */
+create or replace function public.escola_recado_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r escola_recados; id_ uuid; n uuid; t text; ate_ date; apagar boolean;
+begin
+  perform interno.limite('escola_recado_salvar', 60, 60);
+  if p is null or jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:recado'); end if;
+  begin
+    id_ := nullif(p ->> 'id', '')::uuid;
+    n := nullif(p ->> 'nucleo', '')::uuid;
+    apagar := coalesce((p ->> 'apagar')::boolean, false);
+  exception when others then perform interno.erro('invalido:recado');
+  end;
+  if id_ is not null then
+    select * into r from escola_recados where id = id_;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    -- Quem não pode mexer no núcleo do recado não mexe, nem para mudar de núcleo.
+    if not (interno.coord() or (r.nucleo is not null and interno.escola_medeia(r.nucleo))) then perform interno.erro('sem_permissao'); end if;
+    if apagar then
+      delete from escola_recados where id = id_;
+      perform interno.registrar('escola_recado_apagado', id_::text, jsonb_build_object('departamento', 'reservado'));
+      return jsonb_build_object('ok', true);
+    end if;
+    if not (p ? 'nucleo') then n := r.nucleo; end if;
+  end if;
+  if not (interno.coord() or (n is not null and interno.escola_medeia(n))) then perform interno.erro('sem_permissao'); end if;
+  if n is not null and not exists (select 1 from rede_nucleos where id = n) then perform interno.erro('invalido:nucleo'); end if;
+  t := btrim(regexp_replace(coalesce(p ->> 'texto', ''), '\s+', ' ', 'g'));
+  if char_length(t) < 3 or char_length(t) > 400 then perform interno.erro('invalido:texto'); end if;
+  begin ate_ := (p ->> 'ate')::date; exception when others then perform interno.erro('invalido:ate'); end;
+  if ate_ is null or ate_ < interno.escola_hoje() or ate_ > interno.escola_hoje() + 366 then perform interno.erro('invalido:ate'); end if;
+  if id_ is null then
+    insert into escola_recados (texto, ate, nucleo, por) values (t, ate_, n, v) returning id into id_;
+  else
+    update escola_recados set texto = t, ate = ate_, nucleo = n, por = v where id = id_;
+  end if;
+  perform interno.registrar('escola_recado_salvo', id_::text, jsonb_build_object('departamento', 'reservado'));
+  return jsonb_build_object('ok', true, 'id', id_);
+end $$;
+
+-- 3. Quem acompanha e a banca de passagem ────────────────────────────────────────────────────────────────────────────────
+/** A coordenação indica quem acompanha a formação de um militante (só alguém do Degrau 3), ou tira (nulo). */
+create or replace function public.escola_acompanhar(p_militante uuid, p_acompanha uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('escola_acompanhar', 120, 60);
+  if not exists (select 1 from escola_militancia where usuario = p_militante) then perform interno.erro('nao_encontrado'); end if;
+  if p_acompanha is not null then
+    if p_acompanha = p_militante then perform interno.erro('invalido:acompanha'); end if;
+    if not exists (select 1 from escola_militancia m join perfis f on f.id = m.usuario where m.usuario = p_acompanha and m.degrau = 3 and not f.suspenso) then
+      perform interno.erro('acompanhante_degrau_3');
+    end if;
+  end if;
+  update escola_militancia set acompanha = p_acompanha where usuario = p_militante;
+  perform interno.registrar('escola_acompanhante', p_militante::text, jsonb_build_object('departamento', 'reservado'));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Quem pode marcar e decidir a banca de um militante: a coordenação ou quem o acompanha hoje (e não a própria pessoa). */
+create or replace function interno.escola_decide_banca(p_militante uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_militante is not null and p_militante is distinct from auth.uid() and (interno.coord() or (
+    interno.sessao_confiavel() and interno.e_militante(auth.uid())
+    and exists (select 1 from escola_militancia m where m.usuario = p_militante and m.acompanha = auth.uid())))
+$$;
+
+/**
+ * Marcar a banca de passagem: o degrau é o que a pessoa vai FECHAR (o dela hoje). Uma banca marcada por vez. O núcleo,
+ * se não vier, é o da pessoa.
+ */
+create or replace function public.escola_banca_marcar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); mil uuid; d smallint; q timestamptz; n uuid; m escola_militancia; id_ uuid;
+begin
+  perform interno.limite('escola_banca_marcar', 30, 60);
+  begin
+    mil := (p ->> 'militante')::uuid;
+    d := (p ->> 'degrau')::smallint;
+    q := nullif(p ->> 'quando', '')::timestamptz;
+    n := nullif(p ->> 'nucleo', '')::uuid;
+  exception when others then perform interno.erro('invalido:banca');
+  end;
+  if not interno.escola_decide_banca(mil) then perform interno.erro('sem_permissao'); end if;
+  select * into m from escola_militancia where usuario = mil;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if d is null or d <> m.degrau then perform interno.erro('invalido:degrau'); end if;
+  if q is not null and (q < now() - interval '30 days' or q > now() + interval '400 days') then perform interno.erro('invalido:quando'); end if;
+  if exists (select 1 from escola_bancas where militante = mil and situacao = 'marcada') then perform interno.erro('banca_ja_marcada'); end if;
+  n := coalesce(n, m.nucleo);
+  if n is not null and not exists (select 1 from rede_nucleos where id = n) then perform interno.erro('invalido:nucleo'); end if;
+  -- O "exists" acima dá a mensagem certa no caso comum; o índice único escola_bancas_uma_marcada barra os dois cliques
+  -- ao mesmo tempo (acompanhante e coordenação), que o "exists" sozinho deixaria passar.
+  begin
+    insert into escola_bancas (militante, degrau, nucleo, quando, por) values (mil, d, n, q, v) returning id into id_;
+  exception when unique_violation then perform interno.erro('banca_ja_marcada');
+  end;
+  perform interno.registrar('escola_banca_marcada', id_::text, jsonb_build_object('departamento', 'reservado'));
+  return jsonb_build_object('ok', true, 'id', id_);
+end $$;
+
+/**
+ * Registrar o que a banca decidiu, com o BALANÇO COLETIVO (o que a pessoa trouxe, o que o núcleo viu, o que fica para o
+ * próximo degrau). Sem nota: só "aprovada" (o degrau se abre) ou "refazer" (combinar de novo). Aprovada: sobe o degrau
+ * (até 3) e grava a conquista verificada 'degrau-N', N = o degrau fechado.
+ */
+create or replace function public.escola_banca_decidir(p_id uuid, p_situacao text, p_balanco text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); b escola_bancas; t text;
+begin
+  perform interno.limite('escola_banca_decidir', 30, 60);
+  select * into b from escola_bancas where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not interno.escola_decide_banca(b.militante) then perform interno.erro('sem_permissao'); end if;
+  if b.situacao <> 'marcada' then perform interno.erro('banca_ja_decidida'); end if;
+  if coalesce(p_situacao, '') not in ('aprovada', 'refazer') then perform interno.erro('invalido:situacao'); end if;
+  t := btrim(coalesce(p_balanco, ''));
+  if char_length(t) < 10 or char_length(t) > 2000 then perform interno.erro('invalido:balanco'); end if;
+  update escola_bancas set situacao = p_situacao, balanco = t, decidida_em = now(), por = v where id = p_id;
+  if p_situacao = 'aprovada' then
+    update escola_militancia set degrau = least(3, degrau + 1) where usuario = b.militante and degrau = b.degrau;
+    insert into escola_conquistas (usuario, tipo, alvo, verificada) values (b.militante, 'degrau', 'degrau-' || b.degrau, true)
+    on conflict (usuario, tipo, alvo) do update set verificada = true, em = now();
+  end if;
+  perform interno.registrar('escola_banca_decidida', p_id::text, jsonb_build_object('departamento', 'reservado', 'situacao', p_situacao));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/**
+ * As bancas que quem chama pode ver: as próprias, as de quem acompanha e, para a coordenação, todas (as 300 mais novas).
+ * O balanço só vai a essas três pessoas (militante, quem acompanha, coordenação).
+ */
+create or replace function public.escola_bancas_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_militante_eu(); c boolean := interno.coord();
+begin
+  perform interno.limite('escola_bancas_listar', 120, 10);
+  return coalesce((
+    select jsonb_agg(x.j order by x.ordem desc) from (
+      select jsonb_build_object(
+        'id', b.id,
+        'militante', interno.escola_pessoa(b.militante),
+        'usuario', b.militante,
+        'degrau', b.degrau,
+        'quando', b.quando,
+        'situacao', b.situacao,
+        'balanco', b.balanco,
+        'minha', b.militante = v,
+        'decido', interno.escola_decide_banca(b.militante)) j, coalesce(b.quando, b.criado_em) ordem
+      from escola_bancas b left join escola_militancia m on m.usuario = b.militante
+      where b.militante = v or m.acompanha = v or c
+      order by coalesce(b.quando, b.criado_em) desc limit 300) x), '[]'::jsonb);
+end $$;
+
+/** Quem eu acompanho (para quem é do Degrau 3): codinome, degrau e o id (para marcar a banca). */
+create or replace function public.escola_acompanho() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_militante_eu();
+begin
+  return coalesce((
+    select jsonb_agg(interno.escola_pessoa(m.usuario) || jsonb_build_object('usuario', m.usuario, 'degrau', m.degrau,
+      'banca_marcada', exists (select 1 from escola_bancas b where b.militante = m.usuario and b.situacao = 'marcada')) order by m.desde)
+    from escola_militancia m join perfis f on f.id = m.usuario where m.acompanha = v and not f.suspenso), '[]'::jsonb);
+end $$;
+
+-- 4. O painel da coordenação ─────────────────────────────────────────────────────────────────────────────────────────────
+/** Os militantes, pelo codinome (sem nome civil, sem e-mail): degrau, frente, núcleo, quem acompanha, desde quando. */
+create or replace function public.escola_militantes_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  perform interno.registrar_acesso('escola_militantes', 'reservado');
+  return coalesce((
+    select jsonb_agg(jsonb_build_object(
+      'usuario', m.usuario,
+      'codinome', case when f.rede_codinome_ok then f.rede_codinome end,
+      'degrau', m.degrau,
+      'frente', m.frente,
+      'nucleo', case when r.id is null then null else jsonb_build_object('id', r.id, 'nome', r.nome) end,
+      'acompanha', interno.escola_pessoa(m.acompanha),
+      'acompanha_id', m.acompanha,
+      'desde', m.desde) order by m.degrau desc, lower(coalesce(f.rede_codinome, '')), m.desde)
+    from escola_militancia m join perfis f on f.id = m.usuario left join rede_nucleos r on r.id = m.nucleo
+    where not f.suspenso), '[]'::jsonb);
+end $$;
+
+/** A coordenação muda o núcleo, a frente e o degrau de um militante (só as chaves que vierem). */
+create or replace function public.escola_militante_ajustar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); u uuid; n uuid; d smallint; fr text;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('escola_militante_ajustar', 120, 60);
+  begin u := (p ->> 'usuario')::uuid; exception when others then perform interno.erro('invalido:usuario'); end;
+  if u is null or not exists (select 1 from escola_militancia where usuario = u) then perform interno.erro('nao_encontrado'); end if;
+  if p ? 'nucleo' then
+    begin n := nullif(p ->> 'nucleo', '')::uuid; exception when others then perform interno.erro('invalido:nucleo'); end;
+    if n is not null and not exists (select 1 from rede_nucleos where id = n) then perform interno.erro('invalido:nucleo'); end if;
+    update escola_militancia set nucleo = n where usuario = u;
+  end if;
+  if p ? 'frente' then
+    fr := nullif(p ->> 'frente', '');
+    if fr is not null and fr not in ('estudantil', 'bairros', 'trabalho', 'agitprop', 'atos', 'cultura', 'solidariedade') then perform interno.erro('invalido:frente'); end if;
+    update escola_militancia set frente = fr where usuario = u;
+  end if;
+  if p ? 'degrau' then
+    begin d := (p ->> 'degrau')::smallint; exception when others then perform interno.erro('invalido:degrau'); end;
+    if d is null or d not between 1 and 3 then perform interno.erro('invalido:degrau'); end if;
+    update escola_militancia set degrau = d where usuario = u;
+    -- Quem deixa o Degrau 3 deixa de acompanhar (só o Degrau 3 acompanha).
+    if d < 3 then update escola_militancia set acompanha = null where acompanha = u; end if;
+  end if;
+  perform interno.registrar('escola_militante_ajustado', u::text, jsonb_build_object('departamento', 'reservado'));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** O resto do painel: os núcleos da Alumia (com quantos militantes), os recados e as perguntas (as recentes e as marcadas). */
+create or replace function public.escola_painel_resumo() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'nucleos', coalesce((select jsonb_agg(jsonb_build_object('id', r.id, 'nome', r.nome, 'cidade', r.cidade,
+        'militantes', (select count(*) from escola_militancia m where m.nucleo = r.id)) order by r.nome) from rede_nucleos r), '[]'::jsonb),
+    'recados', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'texto', x.texto, 'ate', x.ate, 'nucleo', x.nucleo) order by x.ate desc, x.criado_em desc)
+        from escola_recados x where x.ate >= interno.escola_hoje() - 30), '[]'::jsonb),
+    'perguntas', coalesce((select jsonb_agg(jsonb_build_object('semana', q.semana, 'texto', q.texto) order by q.semana desc)
+        from escola_perguntas q where q.semana >= interno.escola_hoje() - 63), '[]'::jsonb),
+    'semana', date_trunc('week', interno.escola_hoje())::date);
+end $$;
+
+-- 5. Permissões e faxina ─────────────────────────────────────────────────────────────────────────────────────────────────
+-- As públicas: só para quem tem conta (anon fica de fora; com conta, cada função confere militância ou coordenação).
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and n.nspname = 'public' and p.proname in ('escola_nucleo', 'escola_encontro_salvar', 'escola_tarefa_pegar',
+             'escola_levar_ao_nucleo', 'escola_pergunta_da_semana', 'escola_pergunta_definir', 'escola_recados', 'escola_recado_salvar',
+             'escola_acompanhar', 'escola_banca_marcar', 'escola_banca_decidir', 'escola_bancas_listar', 'escola_acompanho',
+             'escola_militantes_listar', 'escola_militante_ajustar', 'escola_painel_resumo') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    if exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on function %s from anon', f.assinatura);
+      execute format('grant execute on function %s to authenticated, service_role', f.assinatura);
+    end if;
+  end loop;
+  -- As internas não são chamáveis de fora.
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and n.nspname = 'interno' and p.proname in ('escola_pessoa', 'escola_hoje', 'escola_militante_eu', 'escola_meu_nucleo',
+             'escola_medeia', 'escola_encontro_seguinte', 'escola_encontro_anterior', 'escola_pauta_limpa', 'escola_encontro_json',
+             'escola_decide_banca') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    if exists (select 1 from pg_roles where rolname = 'anon') then execute format('revoke all on function %s from anon, authenticated', f.assinatura); end if;
+  end loop;
+end $$;
+
+-- Faxina: recados vencidos há mais de 60 dias saem; perguntas com mais de 2 anos também. Os encontros ficam (são a
+-- memória do núcleo, sem nome de ninguém além do codinome de quem pegou a tarefa).
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('lucia-escola-recados-faxina', '41 5 * * *',
+      $c$delete from interno.escola_recados where ate < (now() at time zone 'America/Sao_Paulo')::date - 60; delete from interno.escola_perguntas where semana < (now() at time zone 'America/Sao_Paulo')::date - 730$c$);
+  end if;
+end $$;
+
+
+-- ========== supabase/migracoes/2026-11-escola-conquistas.sql (Escola de Formação, onda 4) ==========
+-- ───────────────────────────── Escola de Formação (F5): conquistas e a ligação com a Alumia, novembro de 2026 ─────────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Roda DEPOIS da 2026-11-escola-formacao-base.sql
+-- (F1, que cria interno.escola_conquistas, interno.escola_militancia e perfis.escola_publico) e da 2026-11-rede-perfil.sql
+-- (Alumia, que cria interno.rede3_perfil_selos). Quem junta cola este bloco no fim do install.sql (ordem da Escola: F1, F4,
+-- F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.5. Teste: npm run testar:escola-conquistas.
+--
+-- O que este arquivo faz, e só isto:
+--  1. perfis.escola_publico_em: quando a pessoa ligou a exibição (passou pela tela de consentimento). Nulo = ninguém.
+--  2. Quem vê: interno.escola_pode_ver(dono, quem) e interno.escola_conquistas_visiveis(dono, quem), o filtro de público
+--     (ninguem: só o dono; militantes: quem é militante; seguidores: quem segue com pedido aceito; todos: quem abre o perfil).
+--  3. interno.rede3_perfil_selos passa a acrescentar os selos da Escola ('escola:carteirinha', 'escola:degrau-N',
+--     'escola:caderno-NN' e a CONTAGEM 'escola:aulas-N', nunca a lista de aulas), JÁ FILTRADOS no servidor por quem pede
+--     (auth.uid()). O rede_selos_mostrar da Alumia não basta: o selo da Escola nasce escondido e só aparece para o público
+--     escolhido. Contrato com a Onda 5 (perfil novo da Alumia): o campo "selos" de rede_perfil_de já vem filtrado.
+--  4. Funções públicas: escola_publico_definir, escola_conquista_declarar e escola_conquistas_minhas (contrato em
+--     lib/escola/contratos.ts).
+--  5. Sair do departamento Revolucionários volta o público para 'ninguem' (a F1 já apaga as conquistas).
+--
+-- Privacidade: ser militante revela opinião política (dado sensível, LGPD art. 5º, II, e art. 11, I). Por isso: padrão
+-- 'ninguem'; ligar exige a tela de consentimento (o banco guarda quando); desligar esconde na hora e APAGA o que o aparelho
+-- declarou (aula e caderno), que só existia para ser mostrado (LGPD art. 6º, III, minimização; art. 18, VI, eliminação).
+-- Aula e caderno são declarados pelo aparelho (verificada = false), como o selo de trilha da Alumia; carteirinha e degrau
+-- são do servidor (gatilho do departamento, F1, e banca aprovada, F4). Nada de nome civil.
+
+-- 1. Quando a pessoa ligou ────────────────────────────────────────────────────────────────────────────────────────────────
+alter table interno.perfis add column if not exists escola_publico_em timestamptz;
+
+-- 2. Quem vê ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * `p_quem` pode ver as conquistas da Escola de `p_dono`? O dono sempre vê as próprias. Os outros, só se o dono é militante
+ * (tem a linha da militância), não está suspenso, não há bloqueio entre os dois e o público escolhido deixa.
+ * Sem sessão (p_quem nulo), nunca.
+ */
+create or replace function interno.escola_pode_ver(p_dono uuid, p_quem uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_dono is not null and p_quem is not null and (
+    p_dono = p_quem
+    or exists (
+      select 1 from perfis f join escola_militancia m on m.usuario = f.id
+      where f.id = p_dono and not f.suspenso and not interno.rede_bloqueado(p_dono, p_quem)
+        and case f.escola_publico
+              when 'todos' then true
+              when 'militantes' then interno.e_militante(p_quem)
+              when 'seguidores' then exists (select 1 from rede_seguindo s where s.quem = p_quem and s.segue = p_dono and not s.pendente)
+              else false
+            end))
+$$;
+
+/**
+ * Os selos da Escola de `p_dono` que `p_quem` pode ver, na ordem: carteirinha, o maior degrau verificado, os cadernos
+ * declarados e a contagem de aulas declaradas. Lista vazia quando não pode ver.
+ */
+create or replace function interno.escola_conquistas_visiveis(p_dono uuid, p_quem uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select case when not interno.escola_pode_ver(p_dono, p_quem) then '[]'::jsonb else coalesce((
+    select jsonb_agg(x.s order by x.o, x.s)
+    from (
+      select 'escola:carteirinha' as s, 1 as o from escola_conquistas c
+        where c.usuario = p_dono and c.tipo = 'carteirinha' and c.alvo = 'carteirinha' and c.verificada
+      union all
+      select 'escola:' || max(c.alvo), 2 from escola_conquistas c
+        where c.usuario = p_dono and c.tipo = 'degrau' and c.verificada and c.alvo ~ '^degrau-[1-3]$' having count(*) > 0
+      union all
+      select 'escola:' || c.alvo, 3 from escola_conquistas c
+        where c.usuario = p_dono and c.tipo = 'caderno' and c.alvo ~ '^caderno-(0[1-9]|1[01])$'
+      union all
+      select 'escola:aulas-' || count(*), 4 from escola_conquistas c
+        where c.usuario = p_dono and c.tipo = 'aula' having count(*) > 0
+    ) x), '[]'::jsonb) end
+$$;
+
+-- 3. Os selos do perfil da Alumia, com os da Escola já filtrados ─────────────────────────────────────────────────────────
+/**
+ * Os selos de trajetória de uma pessoa, como texto: 'equipe', 'educador', 'moderacao' (do papel), 'trilha:<slug>'
+ * (declarado) e, desde a Escola de Formação, os 'escola:*' que QUEM PEDE (auth.uid()) pode ver. Mesmo corpo da
+ * 2026-11-rede-perfil.sql, mais a última parte.
+ */
+create or replace function interno.rede3_perfil_selos(p_id uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(x.s order by x.o, x.s), '[]'::jsonb)
+  from (
+    select 'equipe' as s, 1 as o where interno.voluntario_e(p_id)
+    union all
+    select 'educador', 2 where exists (select 1 from papeis q where q.usuario = p_id and q.papel in ('educacao', 'educacao_secundaria'))
+    union all
+    select 'moderacao', 3 where exists (select 1 from papeis q where q.usuario = p_id and q.papel = 'mediacao')
+      or exists (select 1 from rede_comunidade_membros m where m.usuario = p_id and m.papel = 'moderacao' and m.situacao = 'ativo')
+    union all
+    select t, 4 from perfis f, unnest(f.rede_selos) t where f.id = p_id and t ~ '^trilha:[a-z0-9-]{2,80}$'
+    union all
+    select e.s, (4 + e.n)::int from jsonb_array_elements_text(interno.escola_conquistas_visiveis(p_id, auth.uid())) with ordinality as e(s, n)
+  ) x
+$$;
+
+-- 4. Funções públicas ────────────────────────────────────────────────────────────────────────────────────────────────────
+/** A linha da militância de quem chama, ou erro: só militante (com a linha criada pelo departamento) tem conquistas. */
+create or replace function interno.escola_exige_militancia() returns uuid language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.e_militante(v) or not exists (select 1 from escola_militancia where usuario = v) then perform interno.erro('sem_permissao'); end if;
+  return v;
+end $$;
+
+/**
+ * Quem vê as minhas conquistas da Escola no perfil da Alumia. A tela só chama com público diferente de 'ninguem' depois
+ * da tela de consentimento; o banco guarda quando. 'ninguem' esconde na hora e apaga o que o aparelho declarou.
+ */
+create or replace function public.escola_publico_definir(p text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_exige_militancia();
+begin
+  if p is null or p not in ('ninguem', 'militantes', 'seguidores', 'todos') then perform interno.erro('invalido:publico'); end if;
+  perform interno.limite('escola_publico', 30, 10);
+  update perfis set escola_publico = p, escola_publico_em = case when p = 'ninguem' then null else now() end where id = v;
+  if p = 'ninguem' then
+    delete from escola_conquistas where usuario = v and not verificada and tipo in ('aula', 'caderno');
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/**
+ * O aparelho declara (p_ligar = true) ou retira (false) uma aula ('trilha/aula', o mesmo lessonId de /trilhas) ou um
+ * caderno ('caderno-01' a 'caderno-11') feito. Fica verificada = false: o servidor não confere o estudo, e o perfil só
+ * mostra a CONTAGEM de aulas. Declarar só vale com a exibição ligada (sem público, não há para que guardar). Até 400 por pessoa.
+ */
+create or replace function public.escola_conquista_declarar(p_tipo text, p_alvo text, p_ligar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_exige_militancia(); n integer;
+begin
+  if p_tipo is null or p_tipo not in ('aula', 'caderno') then perform interno.erro('invalido:tipo'); end if;
+  if p_tipo = 'aula' and not (coalesce(p_alvo, '') ~ '^[a-z0-9-]{2,80}/[a-z0-9-]{1,120}$' and char_length(p_alvo) <= 160) then perform interno.erro('invalido:alvo'); end if;
+  if p_tipo = 'caderno' and coalesce(p_alvo, '') !~ '^caderno-(0[1-9]|1[01])$' then perform interno.erro('invalido:alvo'); end if;
+  if p_ligar is null then perform interno.erro('invalido:ligar'); end if;
+  perform interno.limite('escola_conquista', 600, 10);
+  if p_ligar then
+    if (select escola_publico from perfis where id = v) = 'ninguem' then perform interno.erro('invalido:publico'); end if;
+    if not exists (select 1 from escola_conquistas where usuario = v and tipo = p_tipo and alvo = p_alvo) then
+      select count(*) into n from escola_conquistas where usuario = v and not verificada;
+      if n >= 400 then perform interno.erro('invalido:muitas'); end if;
+      insert into escola_conquistas (usuario, tipo, alvo, verificada) values (v, p_tipo, p_alvo, false) on conflict do nothing;
+    end if;
+  else
+    delete from escola_conquistas where usuario = v and tipo = p_tipo and alvo = p_alvo and not verificada;
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** As minhas conquistas da Escola (todas, inclusive as que ninguém mais vê) e o público escolhido. Só militante. */
+create or replace function public.escola_conquistas_minhas() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.escola_exige_militancia();
+begin
+  return jsonb_build_object(
+    'publico', (select escola_publico from perfis where id = v),
+    'conquistas', coalesce((
+      select jsonb_agg(jsonb_build_object('tipo', c.tipo, 'alvo', c.alvo, 'verificada', c.verificada, 'em', c.em) order by c.tipo, c.alvo)
+      from escola_conquistas c where c.usuario = v), '[]'::jsonb));
+end $$;
+
+-- 5. Sair do departamento volta o público para 'ninguem' ─────────────────────────────────────────────────────────────────
+create or replace function interno.escola_publico_ao_sair() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if old.departamento = 'revolucionarios' and (tg_op = 'DELETE' or new.departamento is distinct from 'revolucionarios' or new.usuario is distinct from old.usuario)
+     and not interno.membro_direto(old.usuario, 'revolucionarios') then
+    update perfis set escola_publico = 'ninguem', escola_publico_em = null where id = old.usuario;
+  end if;
+  return null;
+end $$;
+drop trigger if exists lucia_escola_publico on interno.departamento_membros;
+create trigger lucia_escola_publico after update or delete on interno.departamento_membros for each row execute function interno.escola_publico_ao_sair();
+
+-- 6. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- Nenhuma função interna é chamável de fora; as públicas, só com conta.
+revoke all on function interno.escola_pode_ver(uuid, uuid), interno.escola_conquistas_visiveis(uuid, uuid), interno.escola_exige_militancia(),
+  interno.escola_publico_ao_sair() from public;
+revoke all on function public.escola_publico_definir(text), public.escola_conquista_declarar(text, text, boolean), public.escola_conquistas_minhas() from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.escola_pode_ver(uuid, uuid), interno.escola_conquistas_visiveis(uuid, uuid), interno.escola_exige_militancia(),
+      interno.escola_publico_ao_sair() from anon, authenticated;
+    revoke all on function public.escola_publico_definir(text), public.escola_conquista_declarar(text, text, boolean), public.escola_conquistas_minhas() from anon;
+    grant execute on function public.escola_publico_definir(text), public.escola_conquista_declarar(text, text, boolean), public.escola_conquistas_minhas() to authenticated, service_role;
+  end if;
+end $$;
+
+
+-- ========== supabase/migracoes/2026-11-escola-aovivo.sql (Escola de Formação, onda 4) ==========
+-- ───────────────────────────── Escola de Formação (F3): aulas ao vivo só da Escola, novembro de 2026 ─────────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (2026-11-escola-formacao-base.sql,
+-- interno.e_militante). Quem junta cola este bloco no fim do install.sql (ordem da Escola: F1, F4, F5, F3, F6).
+-- Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.3. Teste: npm run testar:escola-aovivo.
+--
+-- O que muda:
+--  1. interno.aulas_ao_vivo ganha "publico" ('site', o de sempre, ou 'escola') e "caderno_aula" ('caderno/aula').
+--  2. Aula 'escola' NÃO aparece para quem não é militante: nem na agenda pública (aulas_ao_vivo_listar nunca a lista),
+--     nem no calendário da equipe, nem no feed de atividade do painel; aula_ao_vivo_ver devolve nada; o bate-papo
+--     devolve lista vazia e recusa quem escreve. Decisão de 08/11: quem não é militante não vê nem que há aula.
+--  3. No bate-papo da Escola o nome gravado é o CODINOME da Alumia (rede_codinome confirmado), nunca perfis.nome; quem lê
+--     não recebe o id de quem escreveu (só "minha"). A moderação é de quem conduz e da coordenação: nada vai para a fila
+--     da mediação da Comunidade nem para a segunda avaliação externa (as regras do banco valem; o que fica em dúvida
+--     espera quem conduz). Quem escreveu pode esconder a própria fala, mas não pode mostrar de novo o que foi retido.
+--  4. public.escola_aulas_hoje() e public.escola_gravacoes(p_caderno) (contrato em lib/escola/contratos.ts).
+--  5. O bate-papo da aula 'escola' é apagado 30 dias depois de encerrada (ou cancelada, ou abandonada): pg_cron, se
+--     houver, e também a cada aula encerrada (para não depender só do agendador).
+--  6. O registro (auditoria) das aulas da Escola sai com departamento 'reservado' (padrão de install.sql, departamento_incluir).
+--
+-- Limite honesto (também escrito na tela do painel): "não listada" não é secreta. Quem tiver o link assiste no YouTube.
+-- O fechamento é o site só entregar o id do vídeo a militantes.
+
+-- 1. As colunas ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+alter table interno.aulas_ao_vivo add column if not exists publico text not null default 'site';
+alter table interno.aulas_ao_vivo add column if not exists caderno_aula text;
+do $$
+begin
+  alter table interno.aulas_ao_vivo add constraint aulas_ao_vivo_publico_check check (publico in ('site', 'escola'));
+exception when duplicate_object then null;
+end $$;
+do $$
+begin
+  alter table interno.aulas_ao_vivo add constraint aulas_ao_vivo_caderno_aula_check
+    check (caderno_aula is null or (publico = 'escola' and caderno_aula ~ '^[a-z0-9-]{2,80}/[a-z0-9-]{2,120}$'));
+exception when duplicate_object then null;
+end $$;
+create index if not exists aulas_ao_vivo_escola on interno.aulas_ao_vivo (inicio) where publico = 'escola';
+
+-- 2. Quem vê ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/** Quem chama é militante (ou a coordenação, para si mesma) com a conta ativa. */
+create or replace function interno.escola_aovivo_pode() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select auth.uid() is not null and interno.e_militante(auth.uid())
+     and coalesce((select not f.suspenso from perfis f where f.id = auth.uid()), false)
+$$;
+
+/** A aula aparece para quem chama? Aula do site: sempre. Aula da Escola: só para militante (ou coordenação). */
+create or replace function interno.escola_aula_ve(a interno.aulas_ao_vivo) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select a.publico = 'site' or interno.escola_aovivo_pode()
+$$;
+
+/** O codinome confirmado da Alumia, ou vazio. Nunca o nome civil. */
+create or replace function interno.escola_codinome(p uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select case when f.rede_codinome_ok then f.rede_codinome end from perfis f where f.id = p), '')
+$$;
+
+/** 'caderno/aula' de um dos 11 cadernos da Escola (lib/escola/contratos.ts, CADERNOS_DA_ESCOLA), ou nulo. */
+create or replace function interno.escola_caderno_aula_ok(p text) returns text language plpgsql immutable
+  set search_path = interno, pg_temp as $$
+begin
+  if p is null or btrim(p) = '' then return null; end if;
+  if p !~ '^[a-z0-9-]{2,80}/[a-z0-9-]{2,120}$' or split_part(p, '/', 1) <> all (array[
+    'consciencia-de-classe', 'primeiros-passos-na-militancia', 'conversar-com-quem-pensa-diferente', 'organizacao-de-base',
+    'organizacao-sindical-de-base', 'comunicacao-popular', 'seguranca-e-cuidado-na-militancia', 'analise-de-conjuntura',
+    'formar-formadores', 'guardar-a-memoria', 'ano-de-formacao-politica']) then
+    raise exception 'invalido:caderno_aula' using errcode = 'P0001';
+  end if;
+  return p;
+end $$;
+
+/** Pode dar aula da Escola junto: militante do departamento ou da coordenação/vice. */
+create or replace function interno.escola_pode_conduzir(p uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p is not null and (interno.membro_direto(p, 'revolucionarios') or exists (select 1 from papeis x where x.usuario = p and x.papel in ('coordenacao', 'vice')))
+$$;
+
+-- 3. A aula em JSON (o mesmo de antes, com publico e caderno_aula; na Escola, codinomes) ─────────────────────────────────
+create or replace function interno.aula_json(a interno.aulas_ao_vivo, p_completa boolean) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', a.id, 'titulo', a.titulo, 'descricao', a.descricao, 'disciplina', a.disciplina, 'trilha', a.trilha, 'inicio', a.inicio, 'duracao', a.duracao,
+    'status', a.status, 'iniciada_em', a.iniciada_em, 'encerrada_em', a.encerrada_em, 'gravacao', a.gravacao, 'sala_externa', a.sala_externa, 'youtube', a.youtube,
+    'publico', a.publico, 'caderno_aula', a.caderno_aula,
+    'educador', case when a.publico = 'escola'
+      then jsonb_build_object('id', case when interno.conduz(a) then a.educador end, 'nome', interno.escola_codinome(a.educador))
+      else jsonb_build_object('id', a.educador, 'nome', coalesce((select nome from perfis where id = a.educador), '')) end,
+    'co_educadores', case when a.publico = 'escola'
+      then coalesce((select jsonb_agg(jsonb_build_object('id', case when interno.conduz(a) then x end, 'nome', interno.escola_codinome(x)) order by x) from unnest(a.co_educadores) x), '[]'::jsonb)
+      else coalesce((select jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome) order by f.nome) from perfis f where f.id = any (a.co_educadores)), '[]'::jsonb) end,
+    'inscritos', (select count(*) from aulas_inscricoes i where i.aula = a.id),
+    'inscrito', auth.uid() is not null and exists (select 1 from aulas_inscricoes i where i.aula = a.id and i.usuario = auth.uid()),
+    'conduzo', interno.conduz(a),
+    'chaves', coalesce((select jsonb_agg(k.publica order by k.criado_em) from aulas_sala_chaves k where k.aula = a.id), '[]'::jsonb),
+    'mensagens', case when p_completa then (select count(*) from aulas_chat m where m.aula = a.id and not m.oculta) else null end)
+$$;
+
+-- 4. A agenda pública e a aula: a Escola fica de fora ───────────────────────────────────────────────────────────────────
+/** A agenda pública: só as aulas do site (as da Escola moram em escola_aulas_hoje, só para militante). */
+create or replace function public.aulas_ao_vivo_listar(p_disciplina text default null, p_dias integer default 60) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.aula_json(a, false) order by a.inicio), '[]'::jsonb)
+  from aulas_ao_vivo a
+  where a.publico = 'site'
+    and (p_disciplina is null or a.disciplina = p_disciplina)
+    and ((a.status in ('agendada', 'ao_vivo') and a.inicio < now() + make_interval(days => greatest(1, least(coalesce(p_dias, 60), 180))) and a.inicio > now() - interval '12 hours')
+         or (a.status = 'encerrada' and a.gravacao <> '' and a.inicio > now() - interval '30 days'))
+$$;
+
+create or replace function public.aula_ao_vivo_ver(p_id uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aula_json(a, true) from aulas_ao_vivo a
+  where a.id = p_id and (a.status <> 'cancelada' or interno.conduz(a)) and interno.escola_aula_ve(a)
+$$;
+
+/** Marca ou altera uma aula. Quem conduz edita; co-educadores recebem um recado ao serem chamados. Aula da Escola: só quem vê os Revolucionários marca. */
+create or replace function public.aula_ao_vivo_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  a aulas_ao_vivo;
+  v_co uuid[] := coalesce((select array_agg((x #>> '{}')::uuid) from jsonb_array_elements(coalesce(p -> 'co_educadores', '[]'::jsonb)) x), '{}');
+  v_inicio timestamptz;
+  v_disc text;
+  v_publico text := coalesce(nullif(p ->> 'publico', ''), 'site');
+  v_caderno text := interno.escola_caderno_aula_ok(p ->> 'caderno_aula');
+  v_reservado jsonb;
+  c uuid;
+begin
+  if not interno.educador() then perform interno.erro('sem_permissao'); end if;
+  if v_publico not in ('site', 'escola') then perform interno.erro('invalido:publico'); end if;
+  if p_id is not null then
+    select * into a from aulas_ao_vivo where id = p_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    if not interno.conduz(a) then perform interno.erro('sem_permissao'); end if;
+    if a.publico = 'escola' and not interno.escola_aovivo_pode() then perform interno.erro('sem_permissao'); end if;
+    if a.status = 'cancelada' or (a.status = 'encerrada' and a.publico = 'site') then perform interno.erro('ja_decidida'); end if;
+    -- Aula da Escola encerrada: só a gravação e a ligação com a aula do caderno (o resto ficou no passado). A do site
+    -- continua como antes (encerrada não se edita).
+    if a.status = 'encerrada' then
+      update aulas_ao_vivo set gravacao = coalesce(interno.txt(p ->> 'gravacao', 'gravacao', 0, 500), gravacao),
+        caderno_aula = case when a.publico = 'escola' and p ? 'caderno_aula' then v_caderno else caderno_aula end, atualizado_em = now()
+      where id = p_id returning * into a;
+      return interno.aula_json(a, true);
+    end if;
+    v_publico := a.publico; -- o público nasce com a aula e não muda
+  end if;
+  v_reservado := case when v_publico = 'escola' then jsonb_build_object('departamento', 'reservado') else '{}'::jsonb end;
+  if v_publico = 'site' then v_caderno := null; end if;
+  -- Aula da Escola: a disciplina é sempre a do departamento (o registro e a supervisão já tratam 'revolucionarios' como
+  -- reservado) e não há sala de fora: a aula passa pelo YouTube não listado, e só militante recebe o id.
+  v_disc := case when v_publico = 'escola' then 'revolucionarios' else interno.disciplina_ok(p ->> 'disciplina') end;
+  if v_publico = 'escola' then p := p || jsonb_build_object('sala_externa', '', 'trilha', null); end if;
+  if v_disc is null then perform interno.erro('invalido:disciplina'); end if;
+  begin
+    v_inicio := (p ->> 'inicio')::timestamptz;
+  exception when others then perform interno.erro('invalido:inicio');
+  end;
+  if v_inicio is null or v_inicio > now() + interval '365 days' then perform interno.erro('invalido:inicio'); end if;
+  if cardinality(v_co) > 8 then perform interno.erro('invalido:co_educadores'); end if;
+  v_co := array_remove(v_co, v);
+  if exists (select 1 from unnest(v_co) x where not exists (select 1 from papeis p2 where p2.usuario = x and p2.papel in ('educacao', 'educacao_secundaria', 'coordenacao', 'vice', 'mentoria'))) then
+    perform interno.erro('invalido:co_educadores');
+  end if;
+  -- Na Escola, quem dá a aula junto também tem de ser militante (ou da coordenação).
+  if v_publico = 'escola' and exists (select 1 from unnest(v_co) x where not interno.escola_pode_conduzir(x)) then
+    perform interno.erro('invalido:co_educadores');
+  end if;
+  if p_id is null then
+    if v_publico = 'escola' and not (interno.ve_revolucionarios() and interno.escola_aovivo_pode()) then perform interno.erro('sem_permissao'); end if;
+    if v_inicio < now() - interval '1 hour' then perform interno.erro('invalido:inicio'); end if;
+    perform interno.limite('aula_ao_vivo', 20, 1440);
+    insert into aulas_ao_vivo (titulo, descricao, disciplina, trilha, inicio, duracao, educador, co_educadores, sala_externa, publico, caderno_aula)
+    values (interno.txt(p ->> 'titulo', 'titulo', 3, 140), interno.txt(p ->> 'descricao', 'descricao', 0, 2000), v_disc,
+            nullif(interno.txt(p ->> 'trilha', 'trilha', 0, 80), ''), v_inicio, coalesce((p ->> 'duracao')::integer, 60), v, v_co,
+            interno.txt(p ->> 'sala_externa', 'sala_externa', 0, 500), v_publico, v_caderno)
+    returning * into a;
+    perform interno.registrar('aula_ao_vivo_marcada', a.titulo, jsonb_build_object('id', a.id, 'inicio', a.inicio) || v_reservado);
+    foreach c in array v_co loop
+      perform interno.avisar(c, format('%s chamou você para dar junto a aula ao vivo "%s", em %s. Veja em Aulas ao vivo.',
+        case when v_publico = 'escola' then coalesce(nullif(interno.escola_codinome(v), ''), 'Um colega') else coalesce((select nome from perfis where id = v), 'Um colega') end,
+        left(a.titulo, 100), to_char(a.inicio at time zone 'America/Sao_Paulo', 'DD/MM HH24:MI')));
+    end loop;
+  else
+    foreach c in array v_co loop
+      if not (c = any (a.co_educadores)) then
+        perform interno.avisar(c, format('%s chamou você para dar junto a aula ao vivo "%s". Veja em Aulas ao vivo.',
+          case when v_publico = 'escola' then coalesce(nullif(interno.escola_codinome(v), ''), 'Um colega') else coalesce((select nome from perfis where id = v), 'Um colega') end,
+          left(p ->> 'titulo', 100)));
+      end if;
+    end loop;
+    update aulas_ao_vivo set titulo = interno.txt(p ->> 'titulo', 'titulo', 3, 140), descricao = interno.txt(p ->> 'descricao', 'descricao', 0, 2000), disciplina = v_disc,
+      trilha = nullif(interno.txt(p ->> 'trilha', 'trilha', 0, 80), ''), inicio = v_inicio, duracao = coalesce((p ->> 'duracao')::integer, a.duracao),
+      co_educadores = v_co, sala_externa = interno.txt(p ->> 'sala_externa', 'sala_externa', 0, 500), gravacao = coalesce(interno.txt(p ->> 'gravacao', 'gravacao', 0, 500), a.gravacao),
+      caderno_aula = case when a.publico = 'escola' and p ? 'caderno_aula' then v_caderno else a.caderno_aula end, atualizado_em = now()
+    where id = p_id returning * into a;
+  end if;
+  return interno.aula_json(a, true);
+end $$;
+
+/** Começar, encerrar, cancelar ou voltar a "agendada" (o mesmo de antes; na Escola, registro reservado e faxina do bate-papo velho). */
+create or replace function public.aula_ao_vivo_estado(p_id uuid, p_status text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a aulas_ao_vivo; r record;
+begin
+  select * into a from aulas_ao_vivo where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not interno.conduz(a) then perform interno.erro('sem_permissao'); end if;
+  if a.publico = 'escola' and not interno.escola_aovivo_pode() then perform interno.erro('sem_permissao'); end if;
+  if p_status not in ('agendada', 'ao_vivo', 'encerrada', 'cancelada') then perform interno.erro('invalido:status'); end if;
+  if a.status = p_status then return interno.aula_json(a, true); end if;
+  if p_status = 'ao_vivo' then
+    if a.inicio > now() + interval '2 hours' then perform interno.erro('invalido:inicio'); end if;
+    update aulas_ao_vivo set status = 'ao_vivo', iniciada_em = coalesce(iniciada_em, now()), encerrada_em = null, atualizado_em = now() where id = p_id returning * into a;
+    insert into aulas_chat (aula, autor, nome, corpo, tipo) values (a.id, v, '', 'A aula começou.', 'sistema');
+    for r in select i.usuario from aulas_inscricoes i where i.aula = a.id and i.usuario <> v loop
+      perform interno.avisar(r.usuario, case when a.publico = 'escola'
+        then format('A aula ao vivo da Escola "%s" começou agora. Entre pela Escola.', left(a.titulo, 100))
+        else format('A aula ao vivo "%s" começou agora. Entre pela agenda de aulas ao vivo.', left(a.titulo, 100)) end);
+    end loop;
+  elsif p_status = 'encerrada' then
+    update aulas_ao_vivo set status = 'encerrada', encerrada_em = now(), atualizado_em = now(),
+      gravacao = case when gravacao = '' and youtube is not null then 'https://www.youtube.com/watch?v=' || youtube else gravacao end
+    where id = p_id returning * into a;
+    insert into aulas_chat (aula, autor, nome, corpo, tipo) values (a.id, v, '', 'A aula terminou. Obrigado a quem participou.', 'sistema');
+    perform interno.escola_aovivo_faxina();
+  elsif p_status = 'cancelada' then
+    update aulas_ao_vivo set status = 'cancelada', atualizado_em = now() where id = p_id returning * into a;
+    for r in select i.usuario from aulas_inscricoes i where i.aula = a.id and i.usuario <> v loop
+      perform interno.avisar(r.usuario, format('A aula ao vivo "%s" foi cancelada.', left(a.titulo, 100)));
+    end loop;
+  else
+    update aulas_ao_vivo set status = 'agendada', iniciada_em = null, encerrada_em = null, atualizado_em = now() where id = p_id returning * into a;
+  end if;
+  perform interno.registrar('aula_ao_vivo_' || p_status, a.titulo, jsonb_build_object('id', a.id)
+    || case when a.publico = 'escola' then jsonb_build_object('departamento', 'reservado') else '{}'::jsonb end);
+  return interno.aula_json(a, true);
+end $$;
+
+create or replace function public.aula_ao_vivo_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a aulas_ao_vivo;
+begin
+  select * into a from aulas_ao_vivo where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (interno.coord() or (a.educador = v and a.status <> 'ao_vivo')) then perform interno.erro('sem_permissao'); end if;
+  delete from aulas_ao_vivo where id = p_id;
+  perform interno.registrar('aula_ao_vivo_apagada', a.titulo, jsonb_build_object('id', p_id)
+    || case when a.publico = 'escola' then jsonb_build_object('departamento', 'reservado') else '{}'::jsonb end);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Quem tem conta marca presença: recebe recado quando a aula começa. Aula da Escola: só militante. */
+create or replace function public.aula_ao_vivo_inscrever(p_id uuid, p_inscrever boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not exists (select 1 from aulas_ao_vivo a where a.id = p_id and a.status in ('agendada', 'ao_vivo') and interno.escola_aula_ve(a)) then perform interno.erro('nao_encontrado'); end if;
+  if p_inscrever then
+    perform interno.limite('aula_inscrever', 60, 60);
+    insert into aulas_inscricoes (aula, usuario) values (p_id, v) on conflict do nothing;
+  else
+    delete from aulas_inscricoes where aula = p_id and usuario = v;
+  end if;
+  return jsonb_build_object('inscrito', p_inscrever, 'inscritos', (select count(*) from aulas_inscricoes where aula = p_id));
+end $$;
+
+-- 5. O bate-papo ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+/** A fala no bate-papo da Escola: sem o id de quem escreveu (só "minha"), com "esperando" quando espera quem conduz. */
+create or replace function interno.escola_chat_json(m interno.aulas_chat) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', m.id, 'autor', null, 'minha', m.autor is not null and m.autor = auth.uid(), 'nome', m.nome, 'corpo', m.corpo, 'tipo', m.tipo,
+    'oculta', m.oculta, 'retido', false, 'esperando', m.oculta and m.avaliacao = 'revisao', 'criado_em', m.criado_em)
+$$;
+
+/** Fala no bate-papo da aula (precisa de conta). Abre meia hora antes e fecha quando a aula termina. Na Escola: só militante, com o codinome. */
+create or replace function public.aula_chat_enviar(p_aula uuid, p_corpo text, p_tipo text default 'fala') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a aulas_ao_vivo; m aulas_chat; v_corpo text := interno.txt(p_corpo, 'corpo', 1, 500); v_nome text; v_av jsonb; v_veredito text;
+begin
+  select * into a from aulas_ao_vivo where id = p_aula;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if a.publico = 'escola' and not interno.escola_aovivo_pode() then perform interno.erro('sem_permissao'); end if;
+  if a.status in ('encerrada', 'cancelada') then perform interno.erro('topico_trancado'); end if;
+  if not (a.status = 'ao_vivo' or a.inicio < now() + interval '30 minutes' or interno.conduz(a)) then perform interno.erro('topico_trancado'); end if;
+  if p_tipo not in ('fala', 'pergunta') then perform interno.erro('invalido:tipo'); end if;
+  perform interno.limite('aula_chat', 40, 2);
+  if a.publico = 'escola' then
+    -- Na Escola só se fala pelo codinome da Alumia: sem ele confirmado, nada de nome nenhum (nem o civil).
+    if interno.escola_codinome(v) = '' then perform interno.erro('confirme_codinome'); end if;
+    -- Só as regras do banco: nada sai para a avaliação externa nem para a fila da mediação da Comunidade. O que fica em
+    -- dúvida espera quem conduz a aula (escondido para os outros, visível para quem escreveu).
+    v_av := interno.veredito(v_corpo, interno.conduz(a), v);
+    v_veredito := v_av ->> 'veredito';
+    if v_veredito = 'bloquear' then
+      perform interno.registrar('comunidade_bloqueada', p_aula::text, jsonb_build_object('tipo', 'aula_chat', 'motivo', v_av ->> 'motivo', 'departamento', 'reservado'));
+      perform interno.erro('conteudo_recusado');
+    end if;
+    insert into aulas_chat (aula, autor, nome, corpo, tipo, oculta, retido, avaliacao, motivo)
+    values (p_aula, v, interno.escola_codinome(v), v_corpo, p_tipo, v_veredito <> 'publicar', false,
+            case v_veredito when 'publicar' then 'publicada' else 'revisao' end, coalesce(v_av ->> 'motivo', '')) returning * into m;
+    return interno.escola_chat_json(m) || jsonb_build_object('avaliando', false);
+  end if;
+  -- Aula do site: como sempre (a mesma avaliação da Comunidade; quem conduz fala direto).
+  v_av := interno.moderar_texto(v_corpo, v, interno.conduz(a));
+  v_veredito := v_av ->> 'veredito';
+  if v_veredito = 'bloquear' then
+    perform interno.registrar('comunidade_bloqueada', p_aula::text, jsonb_build_object('tipo', 'aula_chat', 'motivo', v_av ->> 'motivo'));
+    perform interno.erro('conteudo_recusado');
+  end if;
+  select nome into v_nome from perfis where id = v;
+  insert into aulas_chat (aula, autor, nome, corpo, tipo, oculta, retido, avaliacao, motivo)
+  values (p_aula, v, coalesce(v_nome, ''), v_corpo, p_tipo, v_veredito <> 'publicar', v_veredito = 'revisar',
+          case v_veredito when 'publicar' then 'publicada' else 'revisao' end, v_av ->> 'motivo') returning * into m;
+  return interno.chat_aula_json(m) || jsonb_build_object('avaliando', coalesce((v_av ->> 'externa')::boolean, false));
+end $$;
+
+/** O bate-papo. Aula do site: qualquer visitante lê (como antes). Aula da Escola: só militante; os outros recebem lista vazia. */
+create or replace function public.aula_chat_listar(p_aula uuid, p_depois timestamptz default null) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare a aulas_ao_vivo; v_conduzo boolean := false;
+begin
+  select * into a from aulas_ao_vivo where id = p_aula;
+  if not found then return '[]'::jsonb; end if;
+  v_conduzo := interno.conduz(a);
+  if a.publico = 'escola' then
+    if not interno.escola_aovivo_pode() then return '[]'::jsonb; end if;
+    return coalesce((select jsonb_agg(interno.escola_chat_json(m) order by m.criado_em) from (
+      select * from aulas_chat m where m.aula = p_aula
+        and (not m.oculta or v_conduzo or (m.autor = auth.uid() and m.avaliacao = 'revisao'))
+        and (p_depois is null or m.criado_em > p_depois) order by m.criado_em desc limit 300) m), '[]'::jsonb);
+  end if;
+  return coalesce((select jsonb_agg(interno.chat_aula_json(m) order by m.criado_em) from (
+    select * from aulas_chat m where m.aula = p_aula and (not m.oculta or v_conduzo or (m.retido and m.autor = auth.uid()))
+      and (p_depois is null or m.criado_em > p_depois) order by m.criado_em desc limit 300) m), '[]'::jsonb);
+end $$;
+
+/**
+ * Esconder ou mostrar uma fala. Aula do site: quem conduz, a mediação, a coordenação e quem escreveu (como antes).
+ * Aula da Escola: quem conduz (a coordenação conduz todas); quem escreveu só esconde a própria fala. A mediação da
+ * Comunidade fica de fora (supervisão fora da Escola).
+ */
+create or replace function public.aula_chat_moderar(p_id uuid, p_ocultar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); m aulas_chat; a aulas_ao_vivo;
+begin
+  select * into m from aulas_chat where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  select * into a from aulas_ao_vivo where id = m.aula;
+  if a.publico = 'escola' then
+    if not interno.escola_aovivo_pode() then perform interno.erro('nao_encontrado'); end if;
+    if not (interno.conduz(a) or (m.autor = v and coalesce(p_ocultar, true))) then perform interno.erro('sem_permissao'); end if;
+    update aulas_chat set oculta = coalesce(p_ocultar, true),
+      avaliacao = case when not coalesce(p_ocultar, true) and avaliacao = 'revisao' then 'revista' else avaliacao end
+    where id = p_id;
+    return jsonb_build_object('ok', true);
+  end if;
+  if not (interno.conduz(a) or interno.media() or m.autor = v) then perform interno.erro('sem_permissao'); end if;
+  update aulas_chat set oculta = p_ocultar where id = p_id;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- 6. A Escola lê as suas aulas (contrato: lib/escola/contratos.ts) ─────────────────────────────────────────────────────────
+/** Uma aula da Escola no formato do contrato (AulaAoVivoDaEscola). "agendada" vira "marcada". */
+create or replace function interno.escola_aula_json(a interno.aulas_ao_vivo) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', a.id, 'titulo', a.titulo, 'inicio', a.inicio,
+    'status', case a.status when 'agendada' then 'marcada' else a.status end,
+    'caderno_aula', a.caderno_aula, 'youtube', a.youtube)
+$$;
+
+/** As aulas da Escola de hoje, as dos próximos 7 dias (horário de Brasília) e as gravadas dos últimos 90 dias. Só militante. */
+create or replace function public.escola_aulas_hoje() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_hoje date := (now() at time zone 'America/Sao_Paulo')::date;
+begin
+  if not interno.escola_aovivo_pode() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'hoje', coalesce((select jsonb_agg(interno.escola_aula_json(a) order by a.inicio) from aulas_ao_vivo a
+                      where a.publico = 'escola' and a.status in ('agendada', 'ao_vivo', 'encerrada')
+                        and ((a.inicio at time zone 'America/Sao_Paulo')::date = v_hoje or a.status = 'ao_vivo')), '[]'::jsonb),
+    'proximas', coalesce((select jsonb_agg(interno.escola_aula_json(a) order by a.inicio) from aulas_ao_vivo a
+                          where a.publico = 'escola' and a.status = 'agendada'
+                            and (a.inicio at time zone 'America/Sao_Paulo')::date between v_hoje + 1 and v_hoje + 7), '[]'::jsonb),
+    'gravadas', coalesce((select jsonb_agg(interno.escola_aula_json(g) order by g.inicio desc) from (
+                          select * from aulas_ao_vivo a where a.publico = 'escola' and a.status = 'encerrada' and a.youtube is not null
+                            and a.inicio > now() - interval '90 days' order by a.inicio desc limit 12) g), '[]'::jsonb));
+end $$;
+
+/**
+ * As gravações da Escola ligadas a um caderno ("caderno") ou a uma aula dele ("caderno/aula"): as aulas encerradas com
+ * vídeo no YouTube, da mais nova para a mais velha. Só militante.
+ */
+create or replace function public.escola_gravacoes(p_caderno text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.escola_aovivo_pode() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_caderno, '') !~ '^[a-z0-9-]{2,80}(/[a-z0-9-]{2,120})?$' then perform interno.erro('invalido:caderno'); end if;
+  return coalesce((select jsonb_agg(interno.escola_aula_json(g) order by g.inicio desc) from (
+    select * from aulas_ao_vivo a where a.publico = 'escola' and a.status = 'encerrada' and a.youtube is not null
+      and (a.caderno_aula = p_caderno or (strpos(p_caderno, '/') = 0 and a.caderno_aula like p_caderno || '/%'))
+    order by a.inicio desc limit 20) g), '[]'::jsonb);
+end $$;
+
+-- 7. O que mais lia as aulas: calendário da equipe, feed de atividade e a função do YouTube ───────────────────────────────
+/** O calendário único da equipe (o mesmo de antes): aula da Escola só para quem vê os Revolucionários, com o codinome. */
+create or replace function public.calendario_equipe(p_de date, p_ate date) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_de date := coalesce(p_de, current_date); v_ate date := least(coalesce(p_ate, current_date + 30), coalesce(p_de, current_date) + 120);
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(e order by e ->> 'dia', e ->> 'hora') from (
+    select jsonb_build_object('tipo', 'pauta', 'subtipo', x.tipo, 'id', x.id, 'titulo', x.titulo, 'dia', x.data_prevista, 'hora', '', 'situacao', x.status,
+             'quem', coalesce((select interno.nome_visto(nome) from perfis where id = x.responsavel), '')) as e
+      from pautas x where x.data_prevista between v_de and v_ate and x.status <> 'descartada'
+    union all
+    select jsonb_build_object('tipo', 'post', 'subtipo', d.formato, 'id', d.id, 'titulo', d.titulo, 'dia', d.data_prevista, 'hora', '', 'situacao', d.situacao, 'quem', '')
+      from divulgacao d where d.data_prevista between v_de and v_ate
+    union all
+    select jsonb_build_object('tipo', 'aula', 'subtipo', a.disciplina, 'id', a.id, 'titulo', a.titulo, 'dia', (a.inicio at time zone 'America/Sao_Paulo')::date,
+             'hora', to_char(a.inicio at time zone 'America/Sao_Paulo', 'HH24:MI'), 'situacao', a.status,
+             'quem', case when a.publico = 'escola' then interno.escola_codinome(a.educador) else coalesce((select interno.nome_visto(nome) from perfis where id = a.educador), '') end)
+      from aulas_ao_vivo a where a.status <> 'cancelada' and (a.inicio at time zone 'America/Sao_Paulo')::date between v_de and v_ate
+        and (a.publico = 'site' or interno.ve_revolucionarios())
+    union all
+    select jsonb_build_object('tipo', 'reuniao', 'subtipo', r.tipo, 'id', r.id, 'titulo', r.titulo, 'dia', (r.inicio at time zone 'America/Sao_Paulo')::date,
+             'hora', to_char(r.inicio at time zone 'America/Sao_Paulo', 'HH24:MI'), 'situacao', r.status, 'quem', '')
+      from reunioes r where r.status <> 'cancelada' and (r.inicio at time zone 'America/Sao_Paulo')::date between v_de and v_ate and (interno.reuniao_entra(r) or r.tipo = 'aberta')
+  ) eventos), '[]'::jsonb);
+end $$;
+
+-- O feed de atividade do painel ("Aula ao vivo marcada: <título>") é lido pela equipe toda: aula da Escola não entra.
+do $$
+begin
+  if to_regprocedure('interno.atividade_gatilho()') is not null then
+    drop trigger if exists atividade on interno.aulas_ao_vivo;
+    create trigger atividade after insert on interno.aulas_ao_vivo for each row when (new.publico = 'site') execute function interno.atividade_gatilho();
+  end if;
+end $$;
+
+/** Para a função do serviço "youtube": o mesmo de antes, com o público (aula da Escola vai sempre não listada) e, na Escola, sem nome. */
+create or replace function public.youtube_transmissao_dados(p_aula uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  return (select jsonb_build_object('id', a.id, 'titulo', a.titulo, 'descricao', case when a.publico = 'escola' then '' else a.descricao end, 'disciplina', a.disciplina, 'inicio', a.inicio,
+            'duracao', a.duracao, 'status', a.status, 'publico', a.publico,
+            'educador', case when a.publico = 'escola' then '' else coalesce((select nome from perfis where id = a.educador), '') end,
+            'youtube', t.broadcast, 'stream', t.stream, 'rtmp', t.rtmp, 'chave', t.chave)
+          from aulas_ao_vivo a left join transmissoes t on t.aula = a.id where a.id = p_aula);
+end $$;
+
+-- 8. O bate-papo da Escola some 30 dias depois ───────────────────────────────────────────────────────────────────────────
+/** Apaga o bate-papo das aulas da Escola encerradas (ou canceladas, ou abandonadas sem encerrar) há mais de 30 dias. */
+create or replace function interno.escola_aovivo_faxina() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
+declare n integer;
+begin
+  delete from aulas_chat m using aulas_ao_vivo a
+  where a.id = m.aula and a.publico = 'escola'
+    and ((a.status = 'encerrada' and coalesce(a.encerrada_em, a.inicio) < now() - interval '30 days')
+      or (a.status = 'cancelada' and a.atualizado_em < now() - interval '30 days')
+      or (a.status in ('agendada', 'ao_vivo') and a.inicio + make_interval(mins => a.duracao) < now() - interval '30 days'));
+  get diagnostics n = row_count;
+  return n;
+end $$;
+
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('lucia-escola-aovivo-faxina', '41 5 * * *', $c$select interno.escola_aovivo_faxina()$c$);
+  end if;
+end $$;
+
+-- 9. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- As de "public" abertas pela API (cada uma confere quem chama); as de "interno", fechadas.
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura, n.nspname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and (
+             (n.nspname = 'public' and p.proname in ('aulas_ao_vivo_listar', 'aula_ao_vivo_ver', 'aula_ao_vivo_salvar', 'aula_ao_vivo_estado', 'aula_ao_vivo_apagar',
+               'aula_ao_vivo_inscrever', 'aula_chat_enviar', 'aula_chat_listar', 'aula_chat_moderar', 'escola_aulas_hoje', 'escola_gravacoes', 'calendario_equipe', 'youtube_transmissao_dados'))
+             or (n.nspname = 'interno' and p.proname in ('escola_aovivo_pode', 'escola_aula_ve', 'escola_codinome', 'escola_caderno_aula_ok', 'escola_pode_conduzir',
+               'aula_json', 'escola_chat_json', 'escola_aula_json', 'escola_aovivo_faxina'))) loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    if f.nspname = 'public' then
+      execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+    elsif exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on function %s from anon, authenticated', f.assinatura);
+    end if;
+  end loop;
+end $$;
+
+
+-- ========== supabase/migracoes/2026-11-escola-frente.sql (Escola de Formação, onda 4) ==========
+-- ───────────────────────────── Escola de Formação (F6): a frente de atuação de cada militante, novembro de 2026 ─────────────────────────────
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da migração da F1
+-- (2026-11-escola-formacao-base.sql: interno.e_militante e interno.escola_militancia). Quem junta cola este bloco no fim do
+-- install.sql, por último na ordem da Escola (F1, F4, F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.6.
+-- Teste: npm run testar:escola-frente (Postgres de verdade dentro do Node, com o install.sql, a F1 e esta migração).
+--
+-- O que nasce aqui (nenhuma tabela nova; a coluna escola_militancia.frente já existe desde a F1):
+--  1. public.escola_frente_escolher(p_frente): o militante escolhe (ou tira) a própria frente de atuação, entre as 7
+--     confirmadas em 07/11. Só a própria: ninguém escolhe pelo outro aqui (a coordenação ajusta pelo painel, F4).
+--  2. public.escola_frentes_somadas(): só a CONTAGEM de militantes por frente, para a página A Frente. Nunca nomes.
+--     Frente com menos de 3 pessoas não aparece: número muito pequeno ajuda a descobrir quem é (ser militante revela
+--     opinião política, dado sensível, LGPD art. 5º, II e art. 11).
+--
+-- Segurança (mesma regra das outras migrações da Escola): security definer, search_path fixo, entrada por interno.eu(),
+-- freio por interno.limite. Quem não é militante recebe "sem_permissao" e não aprende nada.
+
+-- 1. Escolher a frente ───────────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * O militante escolhe a frente em que atua (ou null, para tirar). Valores: os mesmos do check de
+ * interno.escola_militancia.frente (lib/escola/contratos.ts, FRENTES_DE_ATUACAO). Quem representa o departamento e ainda
+ * não tinha a linha de militância ganha a linha aqui, como em escola_eu. A coordenação que não é do departamento não tem
+ * frente própria (não é militante de base): recebe "sem_militancia".
+ */
+create or replace function public.escola_frente_escolher(p_frente text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  f text := nullif(btrim(coalesce(p_frente, '')), '');
+begin
+  if not interno.e_militante(v) then perform interno.erro('sem_permissao'); end if;
+  if f is not null and f not in ('estudantil', 'bairros', 'trabalho', 'agitprop', 'atos', 'cultura', 'solidariedade') then
+    perform interno.erro('invalido:frente');
+  end if;
+  perform interno.limite('escola_frente_escolher', 20, 60);
+  if interno.membro_direto(v, 'revolucionarios') then perform interno.escola_militancia_criar(v); end if;
+  update escola_militancia set frente = f where usuario = v;
+  if not found then perform interno.erro('sem_militancia'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- 2. Quantos em cada frente ──────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * {frente: quantos}, só de militantes de verdade (do departamento, conta ativa). Frente com menos de 3 fica de fora.
+ * Só militante (ou a coordenação) pergunta; o resto recebe "sem_permissao".
+ */
+create or replace function public.escola_frentes_somadas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  r jsonb;
+begin
+  if not interno.e_militante(v) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('escola_frentes_somadas', 60, 1);
+  select coalesce(jsonb_object_agg(s.frente, s.n), '{}'::jsonb) into r
+  from (
+    select m.frente, count(*)::int as n
+    from escola_militancia m
+    join perfis p on p.id = m.usuario and not p.suspenso
+    where m.frente is not null and interno.membro_direto(m.usuario, 'revolucionarios')
+    group by m.frente
+    having count(*) >= 3
+  ) s;
+  return r;
+end $$;
+
+-- 3. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- Só os papéis da API chamam (a própria função recusa quem não é militante); "public" não herda execute.
+revoke all on function public.escola_frente_escolher(text), public.escola_frentes_somadas() from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    grant execute on function public.escola_frente_escolher(text), public.escola_frentes_somadas() to anon, authenticated, service_role;
+  end if;
+end $$;
