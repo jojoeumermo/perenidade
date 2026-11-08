@@ -18,7 +18,15 @@
       "trilha": "Parcours terminé : {nome}"
     },
     "selosAjuda": "Un badge de parcours est déclaré par la personne, d'après ce qu'elle a fait sur son appareil ; le site ne le vérifie pas.",
-    "fotoDe": "Visage de {codinome}"
+    "fotoDe": "Visage de {codinome}",
+    "selosEscola": {
+      "titulo": "École de formation",
+      "carteirinha": "Militant·e de l’École",
+      "degrau": "Palier {n} de l’École",
+      "caderno": "Cahier {n} de l’École",
+      "aulas": "Leçons de l’École : {n}",
+      "ajuda": "Les leçons et les cahiers de l’École sont déclarés par la personne ; la carte et le palier sont vérifiés par la coordination."
+    }
   },
   "avatar": {
     "titulo": "Visage",
@@ -117,7 +125,9 @@
     "filaTitulo": "Images en attente de la modération",
     "filaVazia": "Aucune image en attente.",
     "aceitarImagem": "Accepter",
-    "recusarImagem": "Refuser"
+    "recusarImagem": "Refuser",
+    "escolaAtalho": "Acquis de l’École :",
+    "escolaAtalhoLink": "choisir dans l’École"
   },
   "erros": {
     "handle_usado": "Ce @nom est déjà pris. Choisissez-en un autre.",

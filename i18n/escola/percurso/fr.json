@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "titulo": "Mon parcours",
+    "descricao": "Ta carte, ton carnet et ce qui reste pour fermer le palier à l’École révolutionnaire Lúcia Maria."
+  },
+  "titulo": "Mon parcours",
+  "carteirinha": {
+    "rotulo": "Carte",
+    "escola": "École révolutionnaire Lúcia Maria",
+    "semCodinome": "Pas encore de nom de code",
+    "desde": "Militant·e depuis {mes}",
+    "semNucleo": "Pas encore de noyau",
+    "concluido": "Palier {n} terminé",
+    "concluidos": "Paliers {lista} terminés",
+    "emCurso": "Palier {n} en cours",
+    "barra": "Palier {n} : {situacao}",
+    "situacoes": {
+      "feito": "terminé",
+      "agora": "en cours",
+      "depois": "à venir"
+    },
+    "aviso": "Instituto Lúcia · pas un document officiel"
+  },
+  "caderneta": {
+    "titulo": "Carnet",
+    "aulas": "Leçons faites",
+    "tarefas": "Tâches dans le monde",
+    "rodas": "Cercles du noyau",
+    "retornos": "Retours par compétence",
+    "ver": "voir",
+    "verRetornos": "voir les retours par compétence"
+  },
+  "fechar": {
+    "titulo": "Pour fermer le Palier {n}",
+    "faltam": "Il reste {lista}.",
+    "faltaSo": "Il ne reste que {item}.",
+    "cadernos": {
+      "one": "{n} cahier",
+      "few": "{n} cahiers",
+      "many": "{n} cahiers",
+      "other": "{n} cahiers"
+    },
+    "tarefas": {
+      "one": "{n} tâche dans le monde",
+      "few": "{n} tâches dans le monde",
+      "many": "{n} tâches dans le monde",
+      "other": "{n} tâches dans le monde"
+    },
+    "balanco": "le bilan avec le noyau"
+  },
+  "levar": {
+    "texto": "Ton parcours est gardé seulement sur cet appareil.",
+    "levar": "L’emporter sur un autre appareil",
+    "baixar": "Télécharger",
+    "baixado": "Fichier enregistré. Il contient ton étude de cet appareil et peut être restauré dans Mes données.",
+    "vazio": "Il n’y a pas encore d’étude enregistrée sur cet appareil à télécharger."
+  },
+  "alumia": {
+    "titulo": "Montrer sur Alumia",
+    "texto": "Tes acquis de l’École peuvent apparaître sur ton profil Alumia : la carte, le palier, les cahiers fermés et le nombre de leçons faites. Tu choisis qui les voit. Au départ, personne.",
+    "legenda": "Qui le voit sur ton profil",
+    "publicos": {
+      "ninguem": "Personne",
+      "militantes": "Militant·es",
+      "seguidores": "Qui te suit",
+      "todos": "Tout le monde sur Alumia"
+    },
+    "ajudas": {
+      "ninguem": "Toi seul·e le vois.",
+      "militantes": "Seulement qui est aussi de l’École.",
+      "seguidores": "Seulement qui tu as accepté comme abonné·e.",
+      "todos": "Toute personne avec un compte qui ouvre ton profil."
+    },
+    "salvar": "Enregistrer le choix",
+    "salvando": "Enregistrement...",
+    "salvo": "C’est fait. Qui le voit maintenant : {publico}.",
+    "desligado": "Désactivé : tes acquis ont quitté ton profil et ce que cet appareil avait déclaré a été effacé du serveur.",
+    "declaradas": "Les leçons et les cahiers sont déclarés par cet appareil (le site ne vérifie pas) ; le profil montre combien de leçons, jamais lesquelles. La carte et le palier sont vérifiés par la coordination.",
+    "enviando": "Envoi vers ton profil de ce que tu as terminé sur cet appareil...",
+    "emDia": "Ton profil est à jour avec cet appareil.",
+    "previa": "Comment ça apparaît sur le profil",
+    "nada": "Rien à montrer pour l’instant.",
+    "semPerfil": "Pour apparaître, il te faut un @ sur Alumia.",
+    "abrirAlumia": "Ouvrir Alumia",
+    "verPerfil": "Voir mon profil",
+    "carregando": "Vérification de ce qui est sur ton profil...",
+    "erros": {
+      "ausente": "L’affichage sur Alumia n’est pas encore installé sur le serveur.",
+      "sem_permissao": "Seules les personnes du département Révolutionnaires peuvent montrer des acquis de l’École.",
+      "sem_servico": "Pas de connexion au serveur pour l’instant. Réessaie plus tard.",
+      "falha": "Impossible d’enregistrer pour l’instant. Réessaie."
+    },
+    "consentimento": {
+      "titulo": "Avant d’activer",
+      "texto": "Montrer que tu es militant·e révèle une opinion politique (LGPD, loi brésilienne de protection des données, art. 5, II). Tu peux désactiver quand tu veux.",
+      "detalhe": "En désactivant, tout quitte le profil tout de suite et ce que cet appareil a déclaré est effacé du serveur.",
+      "quem": "Qui verra : {publico}.",
+      "ligar": "Compris, montrer",
+      "cancelar": "Pas maintenant"
+    }
+  },
+  "selos": {
+    "carteirinha": "Militant·e de l’École",
+    "degrau": "Palier {n} de l’École",
+    "caderno": "Cahier {n} de l’École",
+    "aulas": "Leçons de l’École : {n}"
+  }
+}

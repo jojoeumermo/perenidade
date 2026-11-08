@@ -122,6 +122,7 @@
     "testar:etapa4": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-etapa4.mjs",
     "testar:escola-acesso": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-acesso.mjs",
     "testar:escola-nucleo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-nucleo.mjs",
+    "testar:escola-conquistas": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-conquistas.mjs",
     "testar:escola-banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-banco.mjs",
     "testar:escola-cadernos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-cadernos.mjs",
     "testar:aula-viva": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-aula-viva.mjs",

@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "titulo": "Mi recorrido",
+    "descricao": "Tu carné, tu libreta y lo que falta para cerrar el escalón en la Escuela Revolucionaria Lúcia Maria."
+  },
+  "titulo": "Mi recorrido",
+  "carteirinha": {
+    "rotulo": "Carné",
+    "escola": "Escuela Revolucionaria Lúcia Maria",
+    "semCodinome": "Todavía sin nombre en clave",
+    "desde": "Militante desde {mes}",
+    "semNucleo": "Todavía sin núcleo",
+    "concluido": "Escalón {n} concluido",
+    "concluidos": "Escalones {lista} concluidos",
+    "emCurso": "Escalón {n} en curso",
+    "barra": "Escalón {n}: {situacao}",
+    "situacoes": {
+      "feito": "concluido",
+      "agora": "en curso",
+      "depois": "por venir"
+    },
+    "aviso": "Instituto Lúcia · no es un documento oficial"
+  },
+  "caderneta": {
+    "titulo": "Libreta",
+    "aulas": "Clases hechas",
+    "tarefas": "Tareas en el mundo",
+    "rodas": "Rondas de núcleo",
+    "retornos": "Devoluciones por competencia",
+    "ver": "ver",
+    "verRetornos": "ver las devoluciones por competencia"
+  },
+  "fechar": {
+    "titulo": "Para cerrar el Escalón {n}",
+    "faltam": "Faltan {lista}.",
+    "faltaSo": "Solo falta {item}.",
+    "cadernos": {
+      "one": "{n} cuaderno",
+      "few": "{n} cuadernos",
+      "many": "{n} cuadernos",
+      "other": "{n} cuadernos"
+    },
+    "tarefas": {
+      "one": "{n} tarea en el mundo",
+      "few": "{n} tareas en el mundo",
+      "many": "{n} tareas en el mundo",
+      "other": "{n} tareas en el mundo"
+    },
+    "balanco": "el balance con el núcleo"
+  },
+  "levar": {
+    "texto": "Tu recorrido se guarda solo en este aparato.",
+    "levar": "Llevar a otro aparato",
+    "baixar": "Descargar",
+    "baixado": "Archivo guardado. Trae tu estudio de este aparato y se puede restaurar en Mis datos.",
+    "vazio": "Todavía no hay estudio guardado en este aparato para descargar."
+  },
+  "alumia": {
+    "titulo": "Mostrar en Alumia",
+    "texto": "Tus logros de la Escuela pueden aparecer en tu perfil de Alumia: el carné, el escalón, los cuadernos cerrados y cuántas clases hiciste. Tú eliges quién los ve. Empieza en nadie.",
+    "legenda": "Quién lo ve en tu perfil",
+    "publicos": {
+      "ninguem": "Nadie",
+      "militantes": "Militantes",
+      "seguidores": "Quien te sigue",
+      "todos": "Todo el mundo en Alumia"
+    },
+    "ajudas": {
+      "ninguem": "Solo tú lo ves.",
+      "militantes": "Solo quien también es de la Escuela.",
+      "seguidores": "Solo quien aceptaste como seguidor.",
+      "todos": "Cualquier persona con cuenta que abra tu perfil."
+    },
+    "salvar": "Guardar la elección",
+    "salvando": "Guardando...",
+    "salvo": "Listo. Quién lo ve ahora: {publico}.",
+    "desligado": "Apagado: tus logros salieron de tu perfil y lo que este aparato había declarado se borró del servidor.",
+    "declaradas": "Las clases y los cuadernos los declara este aparato (el sitio no los comprueba); el perfil muestra cuántas clases, nunca cuáles. El carné y el escalón los comprueba la coordinación.",
+    "enviando": "Llevando a tu perfil lo que concluiste en este aparato...",
+    "emDia": "Tu perfil está al día con este aparato.",
+    "previa": "Cómo aparece en el perfil",
+    "nada": "Todavía no hay nada para mostrar.",
+    "semPerfil": "Para aparecer, necesitas una @ en Alumia.",
+    "abrirAlumia": "Abrir Alumia",
+    "verPerfil": "Ver mi perfil",
+    "carregando": "Comprobando lo que está en tu perfil...",
+    "erros": {
+      "ausente": "Mostrar en Alumia todavía no está instalado en el servidor.",
+      "sem_permissao": "Solo quien está en el departamento Revolucionarios puede mostrar logros de la Escuela.",
+      "sem_servico": "Sin conexión con el servidor ahora. Inténtalo más tarde.",
+      "falha": "No se pudo guardar ahora. Inténtalo de nuevo."
+    },
+    "consentimento": {
+      "titulo": "Antes de encender",
+      "texto": "Mostrar que eres militante revela una opinión política (LGPD de Brasil, art. 5, II). Puedes apagarlo cuando quieras.",
+      "detalhe": "Al apagarlo, todo sale del perfil en el momento y lo que este aparato declaró se borra del servidor.",
+      "quem": "Quién lo verá: {publico}.",
+      "ligar": "Entendido, mostrar",
+      "cancelar": "Ahora no"
+    }
+  },
+  "selos": {
+    "carteirinha": "Militante de la Escuela",
+    "degrau": "Escalón {n} de la Escuela",
+    "caderno": "Cuaderno {n} de la Escuela",
+    "aulas": "Clases de la Escuela: {n}"
+  }
+}
