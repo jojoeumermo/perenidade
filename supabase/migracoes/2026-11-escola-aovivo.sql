@@ -54,7 +54,8 @@ create or replace function interno.escola_codinome(p uuid) returns text language
 $$;
 
 /** 'caderno/aula' de um dos 11 cadernos da Escola (lib/escola/contratos.ts, CADERNOS_DA_ESCOLA), ou nulo. */
-create or replace function interno.escola_caderno_aula_ok(p text) returns text language plpgsql immutable as $$
+create or replace function interno.escola_caderno_aula_ok(p text) returns text language plpgsql immutable
+  set search_path = interno, pg_temp as $$
 begin
   if p is null or btrim(p) = '' then return null; end if;
   if p !~ '^[a-z0-9-]{2,80}/[a-z0-9-]{2,120}$' or split_part(p, '/', 1) <> all (array[

@@ -204,6 +204,11 @@ confere("sala: o sinal de tempo real não leva o id da aula", !/transmitir\([^)]
 confere("prévia só em desenvolvimento", /process\.env\.NODE_ENV !== "development"|emPrevia\(\)/.test(ler("lib", "escola", "aovivo.ts")) && !/^import .*previa/m.test(aovivo + ler("lib", "escola", "aovivo.ts")));
 const gravacao = ler("components", "escola", "aula", "GravacaoDaAula.tsx");
 confere("GravacaoDaAula: lê escola_gravacoes pelo contrato", /escola_gravacoes/.test(gravacao + aovivo));
+confere("GravacaoDaAula: segue o contrato da F2 (PropsDaGravacao, aula = lessonId, cadernoAula opcional)", /export interface PropsDaGravacao/.test(gravacao) && /cadernoAula\?: string/.test(gravacao) && /\(\{ lang, caderno, aula \}: PropsDaGravacao\)/.test(gravacao));
+confere("GravacaoDaAula: a chave é caderno/pedaço do endereço, como o painel grava", /`\$\{caderno\}\/\$\{pedacoDaAula\(doCaderno, aula\)\}`/.test(gravacao) && /CADERNO_AULA\.test\(chave\)/.test(gravacao));
+const chat = ler("components", "escola", "aovivo", "ChatDaEscola.tsx");
+confere("migração: toda função criada tem search_path fixo", [...MIGRACAO.matchAll(/create or replace function[\s\S]*?as \$\$/g)].every((m) => /set search_path/.test(m[0])));
+confere("bate-papo: o sinal de moderação faz todo mundo reler a lista inteira", /sinal\.tipo === "aula_chat_moderar"/.test(chat) && /buscar\(voltas %/.test(chat));
 const pagina = ler("app", "[lang]", "escola", "ao-vivo", "[id]", "page.tsx");
 confere("página da sala: só manda texto (nada do banco no servidor) e não é indexada", !/rpc|supabase|service/i.test(pagina) && /index: false/.test(pagina));
 

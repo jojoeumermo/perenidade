@@ -47,15 +47,20 @@ export function ChatDaEscola({ aula, lang, t, codinome }: { aula: AulaDaEscolaNa
 
   useEffect(() => {
     void buscar(true);
+    let voltas = 0;
     const relogio = window.setInterval(() => {
       if (document.visibilityState !== "visible") return;
       setAgora(Date.now());
-      void buscar();
+      // Uma fala escondida ou liberada não muda o "depois": de tempos em tempos (a cada ~1 min) relê tudo, para a
+      // moderação chegar mesmo quando o sinal de tempo real se perde ou não existe.
+      voltas += 1;
+      void buscar(voltas % (temTempoReal ? 6 : 20) === 0);
     }, temTempoReal ? 10_000 : 3000);
     return () => window.clearInterval(relogio);
   }, [buscar]);
-  // Uma fala escondida ou liberada não muda o "depois": quem conduz relê tudo.
-  useSinal(() => void buscar(aula.conduzo), ["aula_chat"]);
+  // Uma fala escondida ou liberada não muda o "depois" (a liberada tem criado_em antigo): com o sinal de moderação,
+  // todo mundo relê a lista inteira; com fala nova, só quem conduz (vê também as que esperam).
+  useSinal((sinal) => void buscar(aula.conduzo || sinal.tipo === "aula_chat_moderar"), ["aula_chat"]);
   useEffect(() => {
     const el = lista.current;
     if (el) el.scrollTop = el.scrollHeight;
