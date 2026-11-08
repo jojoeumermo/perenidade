@@ -1,7 +1,7 @@
 {
   "_rascunho": true,
   "meta": {
-    "campus": { "titulo": "Campus map", "descricao": "The buildings of the Lúcia Maria Revolutionary School and what is inside each one: classrooms, library, radio, memorial, workshops, square, territory and front office." },
+    "campus": { "titulo": "Campus map", "descricao": "The buildings of the Lúcia Maria Revolutionary School and what is inside each one: classrooms, library, radio, memory and struggle, workshops, square, territory and front office." },
     "calendario": { "titulo": "School calendar", "descricao": "The school year of the Lúcia Maria Revolutionary School: start and end of the term, exam week, opening lecture, campus holidays and external exams, with the source of each date." }
   },
   "comum": {
@@ -13,7 +13,7 @@
     "escola": { "nome": "School", "frase": "The classrooms: tracks, classes, live lessons and your studies." },
     "biblioteca": { "nome": "Library", "frase": "The collection, the shelves, the glossary and the sources." },
     "radio": { "nome": "Radio", "frase": "The radio, the podcasts and the videos." },
-    "memorial": { "nome": "Memorial", "frase": "The memory of those who fought before us." },
+    "memorial": { "nome": "Memory and struggle", "frase": "The memory of those who fought before us." },
     "oficinas": { "nome": "Workshops", "frase": "Labs, tools and the notebook: hands on." },
     "praca": { "nome": "Square", "frase": "Where we meet: newspaper, debates, fact-checks and the board." },
     "territorio": { "nome": "Territory", "frase": "The hubs, the territories and the services near you." },

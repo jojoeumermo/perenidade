@@ -664,7 +664,7 @@ function ConviteNucleo({ c, modo, qr, ev }: { c: Cores; modo: Modo; qr: string; 
         <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: mm(4) }}>
           <div style={{ background: "#fff", padding: mm(1) }}><Qr svg={qr} cor="#000000" tamanho={mm(22)} /></div>
           <div style={{ display: "grid", gap: mm(1.2) }}>
-            <span style={{ fontFamily: mono, fontSize: mm(3.4), fontWeight: 600 }}>institutolucia.org/consciencia-de-classe</span>
+            <span style={{ fontFamily: mono, fontSize: mm(3.4), fontWeight: 600 }}>institutolucia.org/consciencia</span>
             <Insta cor={tinta ? "#000" : "#F4ECD8"} tamanho={3.4} mm={mm} />
           </div>
         </div>
