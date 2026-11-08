@@ -24,9 +24,16 @@ export interface LambeDoDia {
   formato: Formato;
 }
 
-/** O número do dia no fuso de Brasília: o cartaz troca à meia-noite daqui, para todo mundo ao mesmo tempo. */
+const DATA_DE_SP = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo", year: "numeric", month: "2-digit", day: "2-digit" });
+
+/**
+ * O número do dia no fuso America/Sao_Paulo (dias desde 01/01/1970): o cartaz troca à meia-noite daqui, para todo mundo
+ * ao mesmo tempo, no servidor e no navegador. Lê a data pelo fuso (e não por um desconto fixo de 3 horas), para continuar
+ * certo se o horário de verão voltar.
+ */
 export function diaDe(data: Date): number {
-  return Math.floor((data.getTime() - 3 * 3600 * 1000) / 86_400_000);
+  const [ano, mes, dia] = DATA_DE_SP.format(data).split("-").map(Number);
+  return Math.floor(Date.UTC(ano, mes - 1, dia) / 86_400_000);
 }
 
 /** O número da semana em Brasília, contando de segunda a domingo (o dia 0, 01/01/1970, foi uma quinta). */
@@ -52,11 +59,14 @@ export function lambeDoDia(dia: number, total: number): number {
 // Pedido: "caso seja uma data especial, tipo consciência negra, natal, etc., o lambe-lambe do dia vai ser o mais
 // referente àquela data. Os outros dias ele tem que ser aleatório mesmo."
 //
-// Como escolhe: numa data deste mapa (ou num dia que o próprio estoque marca como festa), ganha o cartaz que mais
-// combina com ela: o que foi escrito para aquele dia do ano (campo "dia" de content/lambes.json) vale mais; depois, os
-// temas abaixo procurados no carimbo, no id e no texto do cartaz. Nos outros dias, o navegador sorteia (Math.random)
-// um cartaz do estoque e guarda o sorteio só no aparelho, para o dia inteiro (veja components/inicio/LambeDoDia.tsx):
-// recarregar não troca o cartaz, mas cada pessoa vê o seu, e o de amanhã não dá para prever.
+// Pedido seguinte (08/11/2026): "um por dia", o mesmo para todo mundo na mesma data (o sorteio por aparelho trocava o
+// cartaz a cada visita).
+//
+// Como escolhe (lib/lambes.ts, cartazDoDia): se a data tem cartaz próprio em content/lambes-datas.json, sai ele. Senão,
+// numa data deste mapa (ou num dia que o próprio estoque marca como festa), ganha o cartaz que mais combina com ela: o que
+// foi escrito para aquele dia do ano (campo "dia" de content/lambes.json) vale mais; depois, os temas abaixo procurados no
+// carimbo, no id e no texto do cartaz. Nos outros dias, a conta é fixa: lambeDoDia(dia, tamanho do estoque), com o dia
+// contado no fuso de São Paulo. Não há sorteio nem nada guardado no aparelho.
 
 /** Uma data especial: o nome (para quem lê o código e os testes) e as palavras dos temas, já sem acento. */
 export interface DataEspecial {
@@ -90,12 +100,14 @@ export const DATAS_ESPECIAIS: Record<string, DataEspecial> = {
   "07-13": { nome: "Aniversário do ECA", temas: ["eca", "crianca"] },
   "07-25": { nome: "Dia da Mulher Negra Latino-americana e Caribenha (Tereza de Benguela)", temas: ["tereza", "benguela", "mulher negra", "quilombo"] },
   "08-09": { nome: "Dia Internacional dos Povos Indígenas", temas: ["indigena", "povos"] },
+  "08-11": { nome: "Dia do Estudante", temas: ["estudante", "estudantil", "une"] },
   "08-29": { nome: "Visibilidade Lésbica", temas: ["lesbica", "visibilidade"] },
   "09-07": { nome: "7 de Setembro: independência pra quem? (Grito dos Excluídos)", temas: ["independencia", "grito dos", "excluidos"] },
   "09-21": { nome: "Dia de Luta da Pessoa com Deficiência", temas: ["anticapacitis*", "deficiencia", "libras"] },
   "10-12": { nome: "Dia das Crianças", temas: ["crianca", "infancia"] },
   "10-15": { nome: "Dia do Professor", temas: ["professor", "escola"] },
   "11-02": { nome: "Finados", temas: ["memoria"] },
+  "11-07": { nome: "Revolução Russa (1917)", temas: ["1917", "revolucao russa", "sovietes"] },
   "11-14": { nome: "Lanceiros Negros (Porongos)", temas: ["lanceiros", "porongos"] },
   "11-15": { nome: "Proclamação da República", temas: ["republica", "15 de novembro"] },
   "11-20": { nome: "Dia da Consciência Negra (Zumbi e Dandara)", temas: ["palmares", "zumbi", "dandara", "quilombo", "consciencia negra"] },
