@@ -19,7 +19,14 @@ export interface Estudando {
   titulo?: string;
 }
 
-/** O perfil de alguém, como a v2 mostra (amplia `Perfil` da fundação; `selos` são 'equipe', 'educador', 'moderacao' e 'trilha:<slug>'). */
+/**
+ * Um selo da Escola de Formação no perfil (supabase/migracoes/2026-11-escola-conquistas.sql): 'escola:carteirinha',
+ * 'escola:degrau-N', 'escola:caderno-NN' e a contagem 'escola:aulas-N' (nunca a lista de aulas). Vêm em `selos` JÁ
+ * FILTRADOS no servidor pelo público que a pessoa escolheu na Escola (padrão: ninguém). Leitura: lib/escola/conquistas.ts.
+ */
+export type SeloDaEscolaNoPerfil = "escola:carteirinha" | `escola:degrau-${1 | 2 | 3}` | `escola:caderno-${string}` | `escola:aulas-${number}`;
+
+/** O perfil de alguém, como a v2 mostra (amplia `Perfil` da fundação; `selos` são 'equipe', 'educador', 'moderacao', 'trilha:<slug>' e os 'escola:*'). */
 export interface PerfilDaRede extends Perfil {
   avatar: ImagemDePerfil;
   capa: ImagemDePerfil;

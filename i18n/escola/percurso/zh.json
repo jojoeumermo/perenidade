@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "titulo": "我的路径",
+    "descricao": "你的证件、你的学习记录本，以及在卢西娅·玛丽亚革命学校完成本阶段还差什么。"
+  },
+  "titulo": "我的路径",
+  "carteirinha": {
+    "rotulo": "证件",
+    "escola": "卢西娅·玛丽亚革命学校",
+    "semCodinome": "还没有代号",
+    "desde": "自 {mes} 起参与运动",
+    "semNucleo": "还没有小组",
+    "concluido": "第 {n} 阶完成",
+    "concluidos": "第 {lista} 阶完成",
+    "emCurso": "第 {n} 阶进行中",
+    "barra": "第 {n} 阶：{situacao}",
+    "situacoes": {
+      "feito": "完成",
+      "agora": "进行中",
+      "depois": "未开始"
+    },
+    "aviso": "Instituto Lúcia · 非官方文件"
+  },
+  "caderneta": {
+    "titulo": "学习记录本",
+    "aulas": "已完成的课",
+    "tarefas": "实践任务",
+    "rodas": "小组讨论",
+    "retornos": "按能力的反馈",
+    "ver": "查看",
+    "verRetornos": "查看按能力的反馈"
+  },
+  "fechar": {
+    "titulo": "完成第 {n} 阶还需要",
+    "faltam": "还差{lista}。",
+    "faltaSo": "只差{item}。",
+    "cadernos": {
+      "one": " {n} 本学习册",
+      "few": " {n} 本学习册",
+      "many": " {n} 本学习册",
+      "other": " {n} 本学习册"
+    },
+    "tarefas": {
+      "one": " {n} 项实践任务",
+      "few": " {n} 项实践任务",
+      "many": " {n} 项实践任务",
+      "other": " {n} 项实践任务"
+    },
+    "balanco": "与小组的总结"
+  },
+  "levar": {
+    "texto": "你的路径只保存在这台设备上。",
+    "levar": "带到另一台设备",
+    "baixar": "下载",
+    "baixado": "文件已保存。其中是你在这台设备上的学习，可以在“我的数据”中恢复。",
+    "vazio": "这台设备上还没有可以下载的学习记录。"
+  },
+  "alumia": {
+    "titulo": "在 Alumia 上展示",
+    "texto": "你在学校的成果可以出现在你的 Alumia 个人主页上：证件、阶段、完成的学习册以及完成的课数。由你决定谁能看到。默认是谁都看不到。",
+    "legenda": "谁能在你的主页上看到",
+    "publicos": {
+      "ninguem": "谁都不",
+      "militantes": "活动人士",
+      "seguidores": "关注你的人",
+      "todos": "Alumia 上的所有人"
+    },
+    "ajudas": {
+      "ninguem": "只有你自己能看到。",
+      "militantes": "只有同样在学校的人。",
+      "seguidores": "只有你接受的关注者。",
+      "todos": "任何有账号并打开你主页的人。"
+    },
+    "salvar": "保存选择",
+    "salvando": "正在保存……",
+    "salvo": "完成。现在能看到的人：{publico}。",
+    "desligado": "已关闭：你的成果已从主页消失，这台设备之前声明的内容已从服务器删除。",
+    "declaradas": "课和学习册由这台设备声明（网站不核实）；主页只显示课的数量，从不显示是哪些课。证件和阶段由协调组核实。",
+    "enviando": "正在把你在这台设备上完成的内容带到主页……",
+    "emDia": "主页与这台设备一致。",
+    "previa": "在主页上的样子",
+    "nada": "还没有可展示的内容。",
+    "semPerfil": "要出现在主页上，你需要一个 Alumia 的 @。",
+    "abrirAlumia": "打开 Alumia",
+    "verPerfil": "查看我的主页",
+    "carregando": "正在核对你主页上的内容……",
+    "erros": {
+      "ausente": "服务器上还没有安装在 Alumia 上展示的功能。",
+      "sem_permissao": "只有“革命者”部门的成员可以展示学校成果。",
+      "sem_servico": "现在连不上服务器。请稍后再试。",
+      "falha": "现在无法保存。请再试一次。"
+    },
+    "consentimento": {
+      "titulo": "开启之前",
+      "texto": "展示你是活动人士会透露政治观点（巴西数据保护法 LGPD，第 5 条第 II 项）。你随时可以关闭。",
+      "detalhe": "关闭后，所有内容立即从主页消失，这台设备声明的内容会从服务器删除。",
+      "quem": "能看到的人：{publico}。",
+      "ligar": "明白了，展示",
+      "cancelar": "暂不"
+    }
+  },
+  "selos": {
+    "carteirinha": "学校活动人士",
+    "degrau": "学校第 {n} 阶",
+    "caderno": "学校学习册 {n}",
+    "aulas": "学校课程：{n} 节"
+  }
+}
