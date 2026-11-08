@@ -4,34 +4,45 @@
 import { fill } from "@/i18n/config";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { L, useI18n } from "../I18n";
+import { figurasSoltas } from "@/lib/figuras-da-prova";
+import { AlternativaComFiguras, FiguraDaProva } from "../FiguraDaProva";
 import { Markdown } from "../Markdown";
 import { LETRAS, type QuestaoOficial } from "./dados";
 
 type S = TextosDoEstudo["enem"]["provas"];
 
-/** O texto da questão oficial: contexto, links das imagens (abrem na fonte, só se a pessoa pedir) e o comando. */
-export function TextoDaQuestao({ q, s, titulo }: { q: QuestaoOficial; s: S; titulo: string }) {
+/**
+ * O texto da questão oficial: contexto (com as figuras da prova na própria página, no lugar dos links da fonte), as
+ * figuras que a fonte lista sem pôr no texto e o comando.
+ */
+export function TextoDaQuestao({ q, titulo }: { q: QuestaoOficial; titulo: string }) {
   const { lang } = useI18n();
+  const soltas = figurasSoltas(q.imagens, q.contexto, q.enunciado, ...q.alternativas);
   return (
     <div lang="pt-BR">
       <p className="font-mono text-xs uppercase tracking-widest text-ink-soft">{titulo}</p>
       {q.contexto && (
         <div className="mt-2 font-serif text-base leading-relaxed">
-          <Markdown lang={lang}>{q.contexto}</Markdown>
+          <Markdown lang={lang} figuras>{q.contexto}</Markdown>
         </div>
       )}
-      {q.imagens.length > 0 && (
-        <p className="mt-2 font-sans text-xs">
-          {q.imagens.map((url, k) => (
-            <a key={url} href={url} target="_blank" rel="noopener noreferrer nofollow" className="mr-3 underline hover:text-oxblood">
-              {s.abrirImagem} {q.imagens.length > 1 ? k + 1 : ""}
-            </a>
+      {soltas.length > 0 && (
+        <p className="mt-2">
+          {soltas.map((url) => (
+            <span key={url} className="block">
+              <FiguraDaProva src={url} />
+            </span>
           ))}
         </p>
       )}
       <p className="mt-3 font-serif text-lg font-medium">{q.enunciado}</p>
     </div>
   );
+}
+
+/** Uma alternativa: a letra fica com quem chama; aqui o texto e, se houver, a figura (sem ampliar: o clique marca). */
+export function TextoDaAlternativa({ texto, letra }: { texto: string; letra: string }) {
+  return texto ? <AlternativaComFiguras texto={texto} letra={letra} /> : <>—</>;
 }
 
 /** A correção comentada de uma questão: gabarito, resolução, o engano da que a pessoa marcou e onde estudar. */

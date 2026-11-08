@@ -256,6 +256,37 @@ conferir("seções do ENEM: aula de orientação na reta final não cobra", conf
   conferir("erros: os da semana", filaDeErros(erros, agora - 7 * 86_400_000, () => 0.5).join() === "b,c");
 }
 
+// ── 10. Figuras das provas na página (lib/figuras-da-prova.ts) ──
+{
+  const { eFiguraDaProva, figurasSoltas, ORIGENS_DAS_FIGURAS, partesDoTexto, semFiguras } = await import("../lib/figuras-da-prova.ts");
+  const png = "https://enem.dev/2023/questions/24/78918e1a-00e2-4972-b8f7-9cc17a935ec2.png";
+  conferir("figura: endereço da enem.dev com imagem", eFiguraDaProva(png) && eFiguraDaProva("https://enem.dev/2013/questions/138/5d194d75-3537-44ca-a717-a3a797eab3be.bmp"));
+  conferir("figura: recusa outro site, http, caminho estranho e arquivo que não é imagem", ![png.replace("enem.dev", "enem.dev.mal.org"), png.replace("https", "http"), "https://enem.dev/../x.png", "https://enem.dev/2018/questions/136/23c2a29c.latex", "javascript:alert(1)", `${png}?x=1`].some(eFiguraDaProva));
+  const alt = partesDoTexto(`[🖼 imagem da alternativa](${png})`);
+  conferir("figura: alternativa só com imagem vira uma figura", alt.length === 1 && alt[0].tipo === "figura" && alt[0].src === png, JSON.stringify(alt));
+  const mista = partesDoTexto(`lei [🖼 imagem da questão](${png}) onde C é`);
+  conferir("figura: no meio do texto, o texto fica dos dois lados", mista.map((p) => p.tipo).join() === "texto,figura,texto" && mista[0].texto === "lei ", JSON.stringify(mista));
+  const latex = "[🖼 imagem da questão](https://enem.dev/2018/questions/136/23c2a29c.latex)";
+  conferir("figura: marca com endereço que não é imagem fica como texto", partesDoTexto(latex).length === 1 && partesDoTexto(latex)[0].tipo === "texto");
+  conferir("figura: texto sem marca fica igual", JSON.stringify(partesDoTexto("Divulgar o canal.")) === JSON.stringify([{ tipo: "texto", texto: "Divulgar o canal." }]));
+  conferir("figura: sem figuras, para busca e cartão", semFiguras(`a [🖼 imagem da alternativa](${png})`) === "a 🖼");
+  conferir("figura: soltas são só as que não estão no texto", figurasSoltas([png, png.replace("24/", "25/")], `x [🖼 imagem da questão](${png})`).join() === png.replace("24/", "25/"));
+  conferir("figura: a política de segurança libera a origem das figuras", /img-src[^`]*ORIGENS_DAS_FIGURAS/.test(fs.readFileSync(path.join(raiz, "next.config.ts"), "utf8")) && ORIGENS_DAS_FIGURAS.every((o) => eFiguraDaProva(`${o}/2023/questions/1/a.png`)));
+  // Os dados de verdade: toda figura listada numa questão do Enem é de um endereço aceito, ou um arquivo que não é imagem.
+  let figuras = 0;
+  const estranhas = [];
+  for (const arquivo of fs.readdirSync(path.join(raiz, "public/questoes")).filter((f) => /^enem-\d{4}\.json$/.test(f))) {
+    for (const q of JSON.parse(fs.readFileSync(path.join(raiz, "public/questoes", arquivo), "utf8")).questoes) {
+      for (const url of q.imagens) {
+        if (eFiguraDaProva(url)) figuras++;
+        else if (!/\.latex$/.test(url)) estranhas.push(`${q.id}: ${url}`);
+      }
+    }
+  }
+  conferir("figura: as provas importadas têm figuras", figuras > 1000, String(figuras));
+  conferir("figura: nenhuma figura de endereço inesperado", estranhas.length === 0, estranhas.slice(0, 3).join(" · "));
+}
+
 console.log(`enem: ${ok} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
 process.exit(falhas.length ? 1 : 0);

@@ -407,7 +407,6 @@
       "entregar": "Hand in and check",
       "confirmarEntrega": "There are still {n} blank questions. Hand in anyway?",
       "tempoAcabou": "Time is up. The exam was handed in as it was.",
-      "abrirImagem": "See the image at the source",
       "carregando": "Loading the exam…",
       "erroCarregar": "The exam could not be loaded. Check your internet connection and try again.",
       "relatorio": "How it went",

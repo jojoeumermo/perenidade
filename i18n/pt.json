@@ -40,7 +40,11 @@
     "openInNewTab": "Abrir em outra aba ↗",
     "videoServer": "Vídeo pelo Jitsi Meet em {dominio}: sem gravação, sem limite de tempo e sem conta; quem entra primeiro modera.",
     "videoSwitch": "Trocar de servidor",
-    "videoSwitchHint": "Só se este não abrir. Todos da sala precisam escolher o mesmo:"
+    "videoSwitchHint": "Só se este não abrir. Todos da sala precisam escolher o mesmo:",
+    "figure": "Imagem da questão",
+    "figureOption": "Imagem da alternativa {letra}",
+    "zoomFigure": "Ampliar a imagem",
+    "closeFigure": "Fechar"
   },
   "nav": {
     "main": "Principal",
@@ -430,7 +434,6 @@
     "publicPrev": "Anterior",
     "publicNext": "Próxima",
     "publicQuestion": "questão",
-    "publicImage": "ver a imagem da questão (abre a fonte)",
     "publicRight": "Certo!",
     "publicWrong": "Ainda não: o gabarito é {l}. A questão foi para o seu caderno de erros.",
     "publicAnswerIs": "Gabarito: {l}",

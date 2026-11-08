@@ -40,7 +40,11 @@
     "openInNewTab": "Abrir en otra pestaña ↗",
     "videoServer": "Video con Jitsi Meet en {dominio}: sin grabación, sin límite de tiempo y sin cuenta; quien entra primero modera.",
     "videoSwitch": "Cambiar de servidor",
-    "videoSwitchHint": "Solo si este no abre. Todos en la sala deben elegir el mismo:"
+    "videoSwitchHint": "Solo si este no abre. Todos en la sala deben elegir el mismo:",
+    "figure": "Imagen de la pregunta",
+    "figureOption": "Imagen de la alternativa {letra}",
+    "zoomFigure": "Ampliar la imagen",
+    "closeFigure": "Cerrar"
   },
   "nav": {
     "main": "Principal",
@@ -430,7 +434,6 @@
     "publicPrev": "Anterior",
     "publicNext": "Siguiente",
     "publicQuestion": "pregunta",
-    "publicImage": "ver la imagen de la pregunta (abre la fuente)",
     "publicRight": "¡Correcto!",
     "publicWrong": "Todavía no: la respuesta es {l}. La pregunta fue a tu cuaderno de errores.",
     "publicAnswerIs": "Respuesta: {l}",
