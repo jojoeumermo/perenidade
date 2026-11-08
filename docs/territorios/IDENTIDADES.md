@@ -15,7 +15,7 @@ As quatro logos vieram da foto de perfil de cada coletivo no Instagram (a única
 
 ## Vídeos (08/11/2026)
 
-Reels autorizados pelo Jonathan, servidos do próprio site (`<video>` com `preload="metadata"`, `playsInline`, quadro parado tirado do vídeo), com legenda, data e crédito com link para o post original. Ficam no campo `videos` de `content/territorios.json`. Sem ffmpeg nesta máquina, os arquivos de mais de 10 MB ficaram como vieram (12,6 MB e 12,8 MB); comprimir quando houver ffmpeg.
+Reels autorizados pelo Jonathan, servidos do próprio site (`<video>` com `preload="metadata"`, `playsInline`, quadro parado tirado do vídeo), com legenda, data e crédito com link para o post original. Ficam no campo `videos` de `content/territorios.json`. Os dois que passavam de 10 MB foram recomprimidos com o ffmpeg 7.1 do pacote Python `imageio_ffmpeg` (H.264 `-crf 28 -preset slow`, `yuv420p`, AAC 128 kb/s, `-movflags +faststart`, mesma resolução vertical 720 × 1280): `processo-halftrack.mp4` passou de 12,8 MB para 9,5 MB e `galpao-pescaria.mp4` de 12,6 MB para 9,5 MB. O `notados.mp4` (2,0 MB) só foi reempacotado com `+faststart`, sem recodificar. As capas continuam batendo com o vídeo: as do Desordem são o primeiro quadro; a do halftrack é o quadro de ~3 s, porque o vídeo começa em preto.
 
 - **noismemo studios** — `processo-halftrack.mp4` (reel DdmiFfLzCsG, 22/09/2026): colaboração com @xangssss, o processo criativo do upcycling do tênis Oakley Halftrack Low II em chinelo; som de @kyanmaloka e @mu540.
 - **Coletivo Desordem** — `notados.mp4` (reel DcwwKbapD_w, 01/09/2026): "Fomos notados pela bruxona @amarinasena", #coletivodeteatro.
