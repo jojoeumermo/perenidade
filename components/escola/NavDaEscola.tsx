@@ -11,6 +11,13 @@ import { useRecurso } from "@/lib/use-recursos-vivos";
 import "@/styles/escola-base.css";
 
 /**
+ * Desde a Escola de Formação (PLANO-ESCOLA.md, F1), a navegação da Escola é a coluna lateral (e a barra de baixo no
+ * celular) da casca: components/escola/casca. A faixa abaixo deixou de ser montada pelo layout e fica só para quem
+ * ainda a importa.
+ */
+export { ColunaDaEscola } from "./casca/ColunaDaEscola";
+
+/**
  * A faixa de links da Escola, logo abaixo do cabeçalho do site: Entrada, Quem foi Lúcia Maria, Cursos, Matrícula,
  * Calendário, Campus, Turmas, Assistente e Caderneta (lib/escola/rotas.ts). A lista fica centrada no mesmo eixo do
  * conteúdo (as páginas da Escola são colunas centradas); quando não cabe (no celular), rola de lado dentro de si, sem
