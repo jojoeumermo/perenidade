@@ -29,7 +29,8 @@ Arquivos: `lib/audio-imersivo.ts` (puro: impulso, posições, montagem da cadeia
 ## 2. Podcast ao vivo, com vídeo
 
 Quem faz o podcast (`interno.podcaster()`: coordenação, comunicação/jornalismo e quem tem a função do podcast no painel)
-vê na página `/podcasts` o **Estúdio ao vivo**. Para o público, o bloco só aparece quando há transmissão no ar.
+usa o **Estúdio ao vivo** no painel, na aba Podcast → Ao vivo (desde 08/11/2026; antes ficava na página pública). A
+página `/podcasts` só tem a parte de quem assiste: o bloco aparece quando há transmissão no ar.
 
 Dois jeitos, ambos reaproveitando o que o site já tem para as aulas ao vivo (`docs/AULA-AO-VIVO.md`):
 
@@ -82,7 +83,7 @@ do PeerTube/YouTube, só depois do clique.
 
 ### Arquivos
 
-`lib/podcast-ao-vivo.ts` · `components/podcast/AoVivo.tsx` · `components/podcast/AoVivoSala.tsx` ·
+`lib/podcast-ao-vivo.ts` · `components/podcast/AoVivo.tsx` (quem assiste) · `components/painel/podcast/AoVivo.tsx` (o estúdio) · `components/podcast/AoVivoSala.tsx` ·
 `app/api/aovivo/rede/route.ts` (aceita `?podcast=<sala>`) · `app/[lang]/podcasts/page.tsx` · textos em
 `i18n/*.json` (`podcast.aoVivo`, `radio.espacial`).
 
