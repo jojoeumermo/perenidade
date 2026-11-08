@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "biblioteca": {
+      "titulo": "Biblioteca de la Escuela",
+      "descricao": "Lectura guiada, las lecturas de cada cuaderno, memoria y luchas y el acervo del Instituto filtrado por formación militante."
+    },
+    "frente": {
+      "titulo": "El Frente",
+      "descricao": "La Escuela forma. El Frente organiza: el manifiesto, quién fue Lúcia Maria, los frentes de actuación, la asamblea y la defensoría."
+    },
+    "duvida": {
+      "titulo": "Resolver una duda",
+      "descricao": "Elija con quién hablar: el asistente de la Escuela, quien le acompaña o su núcleo."
+    }
+  },
+  "biblioteca": {
+    "titulo": "Biblioteca",
+    "buscarRotulo": "Buscar en la biblioteca",
+    "buscarDica": "Buscar obra, autora, tema",
+    "buscarBotao": "Buscar",
+    "leituraGuiada": "Lectura guiada",
+    "comRoteiro": "Con guion para leer en grupo",
+    "leituraTexto": "lectura guiada por partes, con preguntas para la ronda",
+    "soUma": "Hoy existe solo esta lectura guiada. Las próximas aparecerán aquí cuando se escriban.",
+    "nenhuma": "Todavía no hay lectura guiada. Las lecturas aparecerán aquí cuando se escriban.",
+    "porCaderno": "Por cuaderno",
+    "caderno": "Cuaderno {n}",
+    "prateleiras": {
+      "01": "lecturas de las 12 etapas",
+      "03": "Paulo Freire y las fuentes de las clases",
+      "05": "Ley de Huelga de Brasil (7.783/1989) y la huelga en la práctica",
+      "06": "periódico de barrio, radio, verificación",
+      "08": "Dieese, IBGE y el modelo de síntesis",
+      "09": "Paulo Freire y guiones de círculo"
+    },
+    "memoria": "Memoria y luchas",
+    "lutas": {
+      "titulo": "Mapa de las luchas",
+      "texto": "Las fechas de lucha del año y el \"En este día\"."
+    },
+    "vozes": {
+      "titulo": "Voces del trabajo",
+      "texto": "Trabajadores cuentan su oficio; ensaye su propio audio de hasta 2 minutos."
+    },
+    "acervo": {
+      "titulo": "Acervo del Instituto",
+      "texto": "Las obras abiertas del sitio, filtradas por formación militante."
+    }
+  },
+  "frente": {
+    "eyebrow": "Frente Revolucionario Lúcia",
+    "titulo": "La Escuela forma. El Frente organiza.",
+    "manifesto": "Leer el manifiesto",
+    "quemFoi": "Quién fue Lúcia Maria",
+    "frentesTitulo": "Frentes de actuación, en la calle",
+    "frentesTexto": "El Frente es presencial: núcleos en el barrio, en la escuela y en el trabajo. Cada militante actúa en un frente, acordado con el núcleo en Alumia. El suyo aparece destacado.",
+    "nomes": {
+      "estudantil": "Movimiento estudiantil",
+      "bairros": "Barrios y vivienda",
+      "trabalho": "Trabajo y sindicatos",
+      "agitprop": "Agitación y propaganda",
+      "atos": "Actos y movilización",
+      "cultura": "Cultura y periferia",
+      "solidariedade": "Solidaridad"
+    },
+    "aSua": "el suyo",
+    "escolher": "Toque un frente para elegir el suyo. Tocar de nuevo el suyo quita la elección.",
+    "quantos": "{n} militantes en este frente",
+    "contagem": "El número de cada frente es cuántos militantes actúan en él. Un frente con menos de 3 personas no muestra número.",
+    "guardando": "Guardando…",
+    "escolhida": "Listo: su frente ahora es {frente}.",
+    "tirada": "Listo: usted quedó sin frente elegido.",
+    "ausente": "Elegir el frente aquí todavía no está activado. Acuérdelo con su núcleo.",
+    "semPermissao": "Solo militantes eligen frente.",
+    "falha": "No se pudo guardar ahora. Inténtelo de nuevo.",
+    "assembleia": {
+      "titulo": "Asamblea del semestre",
+      "aberta": "La votación de la pauta está abierta hasta el {data}.",
+      "aConfirmar": "La coordinación todavía tiene que confirmar la pauta.",
+      "fechada": "La votación de este semestre está cerrada.",
+      "semPauta": "La coordinación todavía no armó la pauta de este semestre.",
+      "voto": "El voto es secreto y se guarda solo como conteo.",
+      "ver": "Ver la pauta"
+    },
+    "ouvidoria": {
+      "titulo": "Defensoría",
+      "texto": "Crítica, denuncia o sugerencia para la coordinación. Usted la sigue con el número de protocolo.",
+      "botao": "Hablar con la defensoría"
+    },
+    "dados": {
+      "titulo": "Sus datos, con cuidado",
+      "texto": "Militar revela opinión política, que la ley brasileña llama dato sensible (LGPD, art. 5, II). Solo la coordinación ve su inscripción, y usted puede pedir que se borre."
+    }
+  },
+  "duvida": {
+    "titulo": "Resolver una duda",
+    "sobreAula": "Sobre la clase {codigo}. Elija con quién hablar.",
+    "semAula": "Elija con quién hablar.",
+    "voltar": "Volver a la clase",
+    "assistente": {
+      "titulo": "Asistente de la Escuela",
+      "texto": "responde al momento, explica de otra manera"
+    },
+    "acompanha": {
+      "titulo": "Quien le acompaña",
+      "texto": "{nome} responde por la conversación en Alumia",
+      "alguem": "Quien le acompaña",
+      "ninguem": "la coordinación todavía va a indicar quién le acompaña",
+      "semConversa": "{nome} no tiene conversación abierta en Alumia: háblelo en la próxima ronda"
+    },
+    "nucleo": {
+      "titulo": "Llevar al núcleo",
+      "texto": "entra en la pauta de la próxima ronda",
+      "semNucleo": "todavía no tiene núcleo: la coordinación lo indica"
+    },
+    "escreva": "O escriba aquí",
+    "exemplo": "No entendí la diferencia entre...",
+    "escrevaDica": "Para llevarla al núcleo, escriba la duda aquí y toque \"Llevar al núcleo\". Va sin su nombre.",
+    "precisaTexto": "Primero escriba la duda en el campo de abajo.",
+    "levando": "Llevando…",
+    "levada": "Listo: la duda entró en la pauta de la próxima ronda, sin su nombre.",
+    "ausente": "La pauta del núcleo todavía no recibe dudas desde aquí. Llévela a la próxima ronda.",
+    "semPermissao": "Solo militantes con núcleo llevan dudas a la pauta.",
+    "falha": "No se pudo llevar ahora. Inténtelo de nuevo.",
+    "semEncontro": "El núcleo todavía no fijó la próxima ronda. Lleve la duda cuando la fijen.",
+    "pautaCheia": "La pauta de la próxima ronda ya está llena. Lleve la duda en persona a la ronda.",
+    "tamanho": "Escriba la duda con 3 a 200 caracteres."
+  }
+}
