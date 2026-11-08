@@ -25,7 +25,7 @@ Supabase gratuito, MapLibre com malhas do IBGE (sem tiles de terceiros), d3-forc
 
 ## 3. Modelo de dados
 `lib/vale-o-escrito/tipos.ts` (Entrada, Fonte, PessoaPublica, Organizacao, Ligacao, Lugar, Correcao, EnvioDoPublico,
-MudancaDeSituacao, RespostaPublicada). Regras puras e sem `@/` em `regras.ts`; catálogo de 48 fontes e 6 slugs em `catalogo.ts`.
+MudancaDeSituacao, RespostaPublicada). Regras puras e sem `@/` em `regras.ts`; catálogo de 48 fontes (49 desde 08/11/2026, com a Agência Brasil) e 6 slugs em `catalogo.ts`.
 
 ## 4. Dados publicados em arquivo
 `content/vale-o-escrito/`: `dossies.json`, `apresentacoes.json`, `fontes.json` (contrato do robô), `entradas/<dossiê>.json`.
