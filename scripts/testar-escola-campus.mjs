@@ -235,14 +235,15 @@ conferir("nenhuma notificação", !/Notification|showNotification|serviceWorker/
 // ───────────── Consertos de páginas (T01, T02, T07, T13, T22) ─────────────
 // T07: o mapa da página do campus desce em colunas de jornal no computador (sem a linha esticada pelo prédio Escola).
 conferir("campus em colunas no computador", ler("components/escola/campus/MapaDoCampus.tsx").includes("mapa-em-colunas") && /\.mapa-em-colunas\s*>\s*\.predio\s*\{[^}]*break-inside:\s*avoid/.test(ler("styles/escola-campus.css")));
-// T01: o percurso mora em /consciencia-de-classe e o endereço antigo leva para lá, para sempre.
+// T01: o percurso mora em /consciencia e os endereços antigos (/despertar e /consciencia-de-classe) levam para lá, para sempre.
 const configNext = ler("next.config.ts");
-conferir("/despertar leva a /consciencia-de-classe (308)", /source:\s*"\/:lang\([^)]*\)\/despertar",\s*destination:\s*"\/:lang\/consciencia-de-classe",\s*permanent:\s*true/.test(configNext) && /source:\s*"\/despertar",\s*destination:\s*"\/pt\/consciencia-de-classe",\s*permanent:\s*true/.test(configNext));
-conferir("página do percurso no endereço novo", fs.existsSync(path.join(raiz, "app/[lang]/consciencia-de-classe/page.tsx")) && !fs.existsSync(path.join(raiz, "app/[lang]/despertar/page.tsx")));
+conferir("/despertar leva a /consciencia (308)", /source:\s*"\/:lang\([^)]*\)\/despertar",\s*destination:\s*"\/:lang\/consciencia",\s*permanent:\s*true/.test(configNext) && /source:\s*"\/despertar",\s*destination:\s*"\/pt\/consciencia",\s*permanent:\s*true/.test(configNext));
+conferir("/consciencia-de-classe leva a /consciencia (308)", /source:\s*"\/:lang\([^)]*\)\/consciencia-de-classe",\s*destination:\s*"\/:lang\/consciencia",\s*permanent:\s*true/.test(configNext) && /source:\s*"\/consciencia-de-classe",\s*destination:\s*"\/pt\/consciencia",\s*permanent:\s*true/.test(configNext));
+conferir("página do percurso no endereço novo", fs.existsSync(path.join(raiz, "app/[lang]/consciencia/page.tsx")) && !fs.existsSync(path.join(raiz, "app/[lang]/consciencia-de-classe/page.tsx")) && !fs.existsSync(path.join(raiz, "app/[lang]/despertar/page.tsx")));
 // T02: o modelo do certificado recolhe com botão acessível, lembrando a escolha no aparelho.
 const recolhivel = ler("components/Recolhivel.tsx");
 conferir("Recolhivel com aria-expanded e aria-controls", recolhivel.includes("aria-expanded") && recolhivel.includes("aria-controls") && recolhivel.includes("hidden={!aberto}"));
-conferir("certificado dentro do Recolhivel", /<Recolhivel[^>]*>\s*<CertificadoComunitario/.test(ler("app/[lang]/consciencia-de-classe/page.tsx")));
+conferir("certificado dentro do Recolhivel", /<Recolhivel[^>]*>\s*<CertificadoComunitario/.test(ler("app/[lang]/consciencia/page.tsx")));
 // T13: soltar o arrasto libera a vitrine (mouse e foco), e o toque não segura a vitrine para sempre.
 const carrossel = ler("components/acervo/Carrossel.tsx");
 conferir("vitrine volta a andar depois de soltar", /segurando\.current\.mouse = false;\s*(?:\/\/[^\n]*\n\s*)*segurando\.current\.foco = false;\s*mexeu\(\);/.test(carrossel) && carrossel.includes('e.pointerType === "mouse"'));

@@ -24,7 +24,7 @@ Instituto Lúcia is not an online course. It is a school for life. Here we study
 
 Nobody should need a state diploma, or pay thousands, to have the right to knowledge. Expensive universities are not the only door: the knowledge they sell was produced by the people and can be given back to them, for free, with rigor and with sources.
 
-That is why every lesson tries to be an experience and not a handout: it starts from the learner's life, tells the story of those who fought, proposes a real-world task and ends with a question: what will you do with this? And that is why there is the [Class consciousness](/consciencia-de-classe) path, study groups, community conversations and the newspaper. Studying here is an act of organizing.
+That is why every lesson tries to be an experience and not a handout: it starts from the learner's life, tells the story of those who fought, proposes a real-world task and ends with a question: what will you do with this? And that is why there is the [Class consciousness](/consciencia) path, study groups, community conversations and the newspaper. Studying here is an act of organizing.
 
 We use no points, rankings or tricks to hook anyone. People study here out of revolt, curiosity and hope, not addiction.
 

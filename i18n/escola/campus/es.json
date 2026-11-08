@@ -1,7 +1,7 @@
 {
   "_rascunho": true,
   "meta": {
-    "campus": { "titulo": "Mapa del campus", "descricao": "Los edificios de la Escuela Revolucionaria Lúcia Maria y lo que hay dentro de cada uno: aulas, biblioteca, radio, memorial, talleres, plaza, territorio y secretaría." },
+    "campus": { "titulo": "Mapa del campus", "descricao": "Los edificios de la Escuela Revolucionaria Lúcia Maria y lo que hay dentro de cada uno: aulas, biblioteca, radio, memoria y lucha, talleres, plaza, territorio y secretaría." },
     "calendario": { "titulo": "Calendario de la Escuela", "descricao": "El año lectivo de la Escuela Revolucionaria Lúcia Maria: inicio y fin del semestre, semana de exámenes, clase magistral, feriados del campus y exámenes externos, con la fuente de cada fecha." }
   },
   "comum": {
@@ -13,7 +13,7 @@
     "escola": { "nome": "Escuela", "frase": "Las aulas: rutas, grupos, clases en vivo y tu estudio." },
     "biblioteca": { "nome": "Biblioteca", "frase": "El acervo, los estantes, el glosario y las fuentes." },
     "radio": { "nome": "Radio", "frase": "La radio, los pódcasts y los videos." },
-    "memorial": { "nome": "Memorial", "frase": "La memoria de quienes lucharon antes que nosotros." },
+    "memorial": { "nome": "Memoria y lucha", "frase": "La memoria de quienes lucharon antes que nosotros." },
     "oficinas": { "nome": "Talleres", "frase": "Laboratorios, herramientas y el cuaderno: manos a la obra." },
     "praca": { "nome": "Plaza", "frase": "Donde nos encontramos: periódico, debates, verificaciones y mural." },
     "territorio": { "nome": "Territorio", "frase": "Los núcleos, los territorios y los servicios cerca de ti." },
