@@ -1,5 +1,5 @@
 -- ───────────────────────────── Escola de Formação (F4): núcleo, acompanhamento, banca e painel, novembro de 2026 ─────────────────────────────
--- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (2026-11-escola-formacao-base.sql:
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (20261108-escola-formacao-base.sql:
 -- as tabelas nascem lá). Quem junta cola este bloco no fim do install.sql, DEPOIS da F1 (ordem: F1, F4, F5, F3, F6).
 -- Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seções 3 e 4.4. Teste: npm run testar:escola-nucleo.
 --

@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova a F6 da Escola de Formação (PLANO-ESCOLA.md: Biblioteca, A Frente e Tirar uma dúvida):
-//  1. O banco (supabase/migracoes/2026-11-escola-frente.sql, sobre o install.sql e a migração da F1, num Postgres de
+//  1. O banco (supabase/migracoes/20261108-escola-frente.sql, sobre o install.sql e a migração da F1, num Postgres de
 //     verdade dentro do Node): só militante escolhe a própria frente; as somas são só números, sem nomes, e escondem
 //     frente com menos de 3 pessoas; conta suspensa e quem saiu do departamento não contam; a migração roda duas vezes;
 //     execute só para os papéis da API; security definer e search_path fixo.
@@ -21,6 +21,7 @@ import { avisoDoLevar, contextoDaDuvida, textoParaLevar } from "../components/es
 
 const raiz = path.resolve(import.meta.dirname, "..");
 const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8");
+const semCR = (t) => t.replace(/\r\n/g, "\n");
 let certos = 0;
 const falhas = [];
 const confere = (nome, cond, detalhe = "") => (cond ? certos++ : falhas.push(`${nome}${detalhe ? `: ${detalhe}` : ""}`));
@@ -121,7 +122,7 @@ await espera("funções da F6: security definer e search_path fixo", () => dono(
   r.rows.length === 2 && r.rows.every((x) => x.prosecdef && (x.proconfig ?? []).some((c) => c === "search_path=interno, pg_temp")));
 confere("a migração da F6 não cria tabela (a coluna frente é da F1)", !/create table/i.test(F6));
 confere("a migração da F6 não grava nome civil", !/perfis\.nome|p\.nome\b|f\.nome\b/.test(F6));
-confere("a migração da F6 não toca no install.sql", !ler("supabase", "install.sql").includes("escola_frentes_somadas"));
+confere("a migração da F6 está inteira no install.sql", semCR(ler("supabase", "install.sql")).includes(semCR(ler("supabase", "migracoes", "20261108-escola-frente.sql")).trim()));
 confere("contrato: as funções da F6 estão na migração da F6", Object.entries(FUNCOES_DA_ESCOLA).filter(([, f]) => f === "F6").every(([n]) => F6.includes(`public.${n}(`)));
 confere("as 7 frentes do contrato são as do check da migração", FRENTES_DE_ATUACAO.every((f) => F6.includes(`'${f}'`)) && FRENTES_DE_ATUACAO.length === 7);
 

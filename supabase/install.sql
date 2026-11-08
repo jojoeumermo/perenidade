@@ -27550,7 +27550,6 @@ begin
 end $$;
 
 
--- ========== supabase/migracoes/2026-11-escola-formacao-base.sql (Escola de Formação, onda 4) ==========
 -- ───────────────────────────── Escola de Formação (F1): militância e tabelas da Escola, novembro de 2026 ─────────────────────────────
 -- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Quem junta cola este bloco no fim do
 -- install.sql (ordem da Escola: F1, F4, F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.1.
@@ -27816,9 +27815,8 @@ begin
 end $$;
 
 
--- ========== supabase/migracoes/2026-11-escola-nucleo.sql (Escola de Formação, onda 4) ==========
 -- ───────────────────────────── Escola de Formação (F4): núcleo, acompanhamento, banca e painel, novembro de 2026 ─────────────────────────────
--- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (2026-11-escola-formacao-base.sql:
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (20261108-escola-formacao-base.sql:
 -- as tabelas nascem lá). Quem junta cola este bloco no fim do install.sql, DEPOIS da F1 (ordem: F1, F4, F5, F3, F6).
 -- Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seções 3 e 4.4. Teste: npm run testar:escola-nucleo.
 --
@@ -28378,9 +28376,8 @@ begin
 end $$;
 
 
--- ========== supabase/migracoes/2026-11-escola-conquistas.sql (Escola de Formação, onda 4) ==========
 -- ───────────────────────────── Escola de Formação (F5): conquistas e a ligação com a Alumia, novembro de 2026 ─────────────────────────────
--- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Roda DEPOIS da 2026-11-escola-formacao-base.sql
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Roda DEPOIS da 20261108-escola-formacao-base.sql
 -- (F1, que cria interno.escola_conquistas, interno.escola_militancia e perfis.escola_publico) e da 2026-11-rede-perfil.sql
 -- (Alumia, que cria interno.rede3_perfil_selos). Quem junta cola este bloco no fim do install.sql (ordem da Escola: F1, F4,
 -- F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.5. Teste: npm run testar:escola-conquistas.
@@ -28560,9 +28557,8 @@ begin
 end $$;
 
 
--- ========== supabase/migracoes/2026-11-escola-aovivo.sql (Escola de Formação, onda 4) ==========
 -- ───────────────────────────── Escola de Formação (F3): aulas ao vivo só da Escola, novembro de 2026 ─────────────────────────────
--- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (2026-11-escola-formacao-base.sql,
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (20261108-escola-formacao-base.sql,
 -- interno.e_militante). Quem junta cola este bloco no fim do install.sql (ordem da Escola: F1, F4, F5, F3, F6).
 -- Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.3. Teste: npm run testar:escola-aovivo.
 --
@@ -29037,10 +29033,9 @@ begin
 end $$;
 
 
--- ========== supabase/migracoes/2026-11-escola-frente.sql (Escola de Formação, onda 4) ==========
 -- ───────────────────────────── Escola de Formação (F6): a frente de atuação de cada militante, novembro de 2026 ─────────────────────────────
 -- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da migração da F1
--- (2026-11-escola-formacao-base.sql: interno.e_militante e interno.escola_militancia). Quem junta cola este bloco no fim do
+-- (20261108-escola-formacao-base.sql: interno.e_militante e interno.escola_militancia). Quem junta cola este bloco no fim do
 -- install.sql, por último na ordem da Escola (F1, F4, F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.6.
 -- Teste: npm run testar:escola-frente (Postgres de verdade dentro do Node, com o install.sql, a F1 e esta migração).
 --

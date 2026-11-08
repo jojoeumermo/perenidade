@@ -319,7 +319,7 @@ function Nucleos({ p, resumo }: { p: P; resumo: ResumoDoPainel | null }) {
 /**
  * O painel da Escola de Formação, para a coordenação (PLANO-ESCOLA.md, F4): militantes pelo codinome (núcleo, frente,
  * degrau, quem acompanha), bancas de passagem com o balanço coletivo sem nota, a pergunta geradora da semana, os recados
- * da formação e os núcleos da Alumia. Tudo pelas funções do banco (supabase/migracoes/2026-11-escola-nucleo.sql), que
+ * da formação e os núcleos da Alumia. Tudo pelas funções do banco (supabase/migracoes/20261108-escola-nucleo.sql), que
  * recusam quem não é coordenação; nenhuma mostra nome civil nem e-mail. Os textos vêm de i18n/escola/nucleo, no idioma
  * do painel.
  */

@@ -1,5 +1,5 @@
 -- ───────────────────────────── Escola de Formação (F3): aulas ao vivo só da Escola, novembro de 2026 ─────────────────────────────
--- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (2026-11-escola-formacao-base.sql,
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Precisa da F1 (20261108-escola-formacao-base.sql,
 -- interno.e_militante). Quem junta cola este bloco no fim do install.sql (ordem da Escola: F1, F4, F5, F3, F6).
 -- Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.3. Teste: npm run testar:escola-aovivo.
 --

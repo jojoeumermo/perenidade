@@ -1,5 +1,5 @@
 -- ───────────────────────────── Escola de Formação (F5): conquistas e a ligação com a Alumia, novembro de 2026 ─────────────────────────────
--- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Roda DEPOIS da 2026-11-escola-formacao-base.sql
+-- Migração acrescentável: pode rodar mais de uma vez, sem apagar dado nenhum. Roda DEPOIS da 20261108-escola-formacao-base.sql
 -- (F1, que cria interno.escola_conquistas, interno.escola_militancia e perfis.escola_publico) e da 2026-11-rede-perfil.sql
 -- (Alumia, que cria interno.rede3_perfil_selos). Quem junta cola este bloco no fim do install.sql (ordem da Escola: F1, F4,
 -- F5, F3, F6). Plano: docs/plano-2026-11/PLANO-ESCOLA.md, seção 4.5. Teste: npm run testar:escola-conquistas.

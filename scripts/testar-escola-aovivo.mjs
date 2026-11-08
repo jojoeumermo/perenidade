@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova as aulas ao vivo da Escola de Formação (PLANO-ESCOLA.md, F3, modelo 4.3), num Postgres de verdade dentro do Node
-// (install.sql + a migração da F1 + supabase/migracoes/2026-11-escola-aovivo.sql):
+// (install.sql + a migração da F1 + supabase/migracoes/20261108-escola-aovivo.sql):
 //  1. Quem não é militante não vê nada: nem na agenda pública, nem a aula, nem o bate-papo, nem o calendário da equipe.
 //  2. O militante lê a aula (com o id do YouTube) e fala no bate-papo pelo CODINOME; sem codinome, não fala.
 //  3. Moderação de quem conduz e da coordenação; quem escreveu só esconde a própria fala; nada vai para a fila da
@@ -20,6 +20,7 @@ import { CADERNOS_DA_ESCOLA } from "../lib/escola/contratos.ts";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 const ler = (...p) => fs.readFileSync(path.join(raiz, ...p), "utf8");
+const semCR = (t) => t.replace(/\r\n/g, "\n");
 let certos = 0;
 const falhas = [];
 // Um passo que quebra o resto (uma aula que não nasceu, por exemplo) ainda mostra o que falhou antes dele.
@@ -51,8 +52,8 @@ async function recusa(nome, promessa, codigo) {
 }
 
 // ───────────────────────────── 1. O banco ─────────────────────────────
-const BASE = ler("supabase", "migracoes", "2026-11-escola-formacao-base.sql");
-const MIGRACAO = ler("supabase", "migracoes", "2026-11-escola-aovivo.sql");
+const BASE = ler("supabase", "migracoes", "20261108-escola-formacao-base.sql");
+const MIGRACAO = ler("supabase", "migracoes", "20261108-escola-aovivo.sql");
 const banco = await criarBanco();
 const { rpc, dono, criarUsuario, pg, exclusivo } = banco;
 await espera("a migração da F1 instala", () => exclusivo(() => pg.exec(BASE)));
@@ -187,7 +188,7 @@ for (const papel of ["anon", "authenticated"]) {
   }
 }
 confere("migração: o bate-papo da Escola grava o codinome", /interno\.escola_codinome\(v\), v_corpo/.test(MIGRACAO));
-confere("migração: não mexe no install.sql", !ler("supabase", "install.sql").includes("escola_aulas_hoje"));
+confere("migração: está inteira no install.sql", semCR(ler("supabase", "install.sql")).includes(semCR(ler("supabase", "migracoes", "20261108-escola-aovivo.sql")).trim()));
 
 // ───────────────────────────── 2. O código ─────────────────────────────
 confere("caderno_aula: do caderno e do lessonId", cadernoAulaDe(CADERNOS_DA_ESCOLA[2], "conversar-com-quem-pensa-diferente/discordar-sem-humilhar") === CADERNO_AULA);
