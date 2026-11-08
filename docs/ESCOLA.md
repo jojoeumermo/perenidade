@@ -77,9 +77,9 @@ Explicado em `content/escola/cursos/LEIA-ME.md`. Em resumo: um `<slug>.json` por
 
 ### Texto "Quem foi Lúcia Maria"
 
-1. A coordenação escreve o texto (sem foto, a não ser que decida pôr e tenha a autorização de uso da imagem).
-2. O texto substitui o marcador `[TEXTO A ENVIAR PELA COORDENAÇÃO]` em `content/escola/quem-foi-lucia-maria.md`. Pode usar Markdown. O mesmo texto aparece nos 6 idiomas (a moldura é traduzida e avisa "texto em português") e no 2º quadro da abertura.
-3. Ajustar o teste "Quem foi Lúcia Maria tem só o marcador" em `scripts/testar-escola.mjs` e a conferência do marcador em `e2e/escola-base.spec.ts`.
+1. O texto está publicado em `content/escola/quem-foi-lucia-maria.md`: em primeira pessoa, escrito pelo neto (o criador do Instituto), só com os fatos anotados em `docs/escola-revolucionaria/FONTES-LUCIA-MARIA.md`. Sem foto (a não ser que se decida pôr, com a autorização de uso da imagem). Fato novo só entra com fonte anotado nesse arquivo.
+2. O mesmo texto aparece nos 6 idiomas (a moldura é traduzida e avisa "texto em português"). O 2º quadro da abertura mostra só o 1º parágrafo, sem Markdown (`aberturaDoQuemFoi` em `lib/escola/quem-foi.ts`).
+3. `scripts/testar-escola.mjs` confere que o arquivo tem o texto (e não o marcador antigo) e que o quadro da abertura não leva intertítulo nem Markdown; `e2e/escola-base.spec.ts` confere o "Lúcia, presente!".
 4. Só então ligar `escola` em produção.
 
 Esta página não se mistura com `/dedicatoria`, que fala do nome "Lúcia" do instituto.
