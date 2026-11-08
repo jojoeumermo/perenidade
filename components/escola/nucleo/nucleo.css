@@ -1,0 +1,552 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * A tela do núcleo da Escola de Formação (PLANO-ESCOLA.md, F4; prancha aprovada Cel-Núcleo, 07/11). Usa os tokens da
+ * casca (styles/escola-formacao.css, var(--ef-...)): fundo #1A1311, coral do núcleo #E8604C, ouro #F2C94C no foco e
+ * no nome de quem leva a tarefa, giz #F1EEE6. Contraste AA conferido: #110C0A sobre o coral (5,7:1), #CDBFB5 sobre o
+ * fundo (9,4:1), ouro sobre #110C0A (12:1). Celular até 767 px, como a casca.
+ */
+
+.en-nucleo {
+  color: var(--ef-giz);
+  padding: 32px 40px 56px;
+  max-width: 1280px;
+}
+
+/* ───────────── A faixa coral (cabeça do núcleo) ───────────── */
+.en-cabeca {
+  background: var(--ef-nucleo);
+  color: var(--ef-fundo-fundo);
+  border-radius: 18px;
+  padding: 26px 30px 28px;
+}
+.en-olho {
+  font-size: 14px;
+  font-weight: 700;
+}
+.en-titulo {
+  margin: 2px 0 0;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1;
+}
+.en-cabeca-texto {
+  margin: 10px 0 0;
+  font-size: 17px;
+  max-width: 62ch;
+}
+.en-cabeca-acoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+[data-escola-formacao] :is(.en-botao-cheio, .en-botao-borda) {
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+[data-escola-formacao] .en-botao-cheio {
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+  border: 0;
+}
+[data-escola-formacao] .en-botao-borda {
+  background: none;
+  color: var(--ef-fundo-fundo);
+  border: 2px solid var(--ef-fundo-fundo);
+}
+[data-escola-formacao] .en-cabeca :is(a, button):focus-visible {
+  outline-color: var(--ef-fundo-fundo);
+}
+.en-previa {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--ef-ouro);
+}
+
+/* ───────────── Corpo: abas à esquerda, banca à direita ───────────── */
+.en-corpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 32px;
+  margin-top: 24px;
+  align-items: start;
+}
+.en-abas {
+  display: flex;
+  border-bottom: 2px solid var(--ef-borda);
+}
+[data-escola-formacao] .en-aba {
+  flex: 1;
+  padding: 12px 6px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  background: none;
+  color: var(--ef-suave);
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+[data-escola-formacao] .en-aba[aria-selected="true"] {
+  color: var(--ef-giz);
+  font-weight: 700;
+  border-bottom-color: var(--ef-ouro);
+}
+[data-escola-formacao] .en-aba:hover {
+  color: var(--ef-giz);
+}
+.en-painel {
+  padding-top: 18px;
+}
+.en-painel:focus-visible {
+  outline-offset: 6px;
+}
+.en-bloco + .en-bloco,
+.en-bloco + .en-presenca,
+.en-presenca + .en-bloco {
+  margin-top: 24px;
+}
+.en-h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+.en-h3 {
+  margin: 18px 0 6px;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.en-bloco > .en-h3:first-child {
+  margin-top: 0;
+}
+.en-vazio,
+.en-nota {
+  color: var(--ef-suave);
+}
+.en-nota {
+  margin: 6px 0 0;
+  font-size: 15px;
+}
+.en-vazio {
+  margin: 8px 0 0;
+}
+
+/* Pauta numerada */
+.en-pauta {
+  margin: 10px 0 0;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 17px;
+}
+.en-levado {
+  color: var(--ef-suave);
+  font-size: 14px;
+}
+
+/* Quem faz o quê */
+.en-tarefas {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.en-tarefa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--ef-fundo-fundo);
+  min-height: 56px;
+  box-sizing: border-box;
+}
+.en-tarefa-item {
+  flex: 1;
+  min-width: 0;
+}
+.en-tarefa[data-feito] .en-tarefa-item {
+  text-decoration: line-through;
+  text-decoration-color: var(--ef-percurso);
+  text-decoration-thickness: 2px;
+}
+.en-tarefa-feito {
+  color: var(--ef-suave);
+  font-size: 14px;
+}
+.en-tarefa-quem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.en-tarefa-quem strong {
+  color: var(--ef-ouro);
+}
+.en-tarefa-repete {
+  max-width: 50%;
+  font-size: 13px;
+  color: var(--ef-suave);
+  text-align: right;
+}
+[data-escola-formacao] :is(.en-botao-levo, .en-botao-pequeno, .en-botao-linha) {
+  font-family: inherit;
+  font-weight: 700;
+  color: var(--ef-giz);
+  background: none;
+  cursor: pointer;
+}
+[data-escola-formacao] .en-botao-levo {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 9px;
+  border: 2px solid var(--ef-giz);
+  font-size: 15px;
+  white-space: nowrap;
+}
+[data-escola-formacao] .en-botao-pequeno {
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--ef-borda);
+  font-size: 13px;
+  font-weight: 400;
+}
+[data-escola-formacao] .en-botao-linha {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 2px dashed var(--ef-borda);
+  font-size: 15px;
+  margin-top: 8px;
+}
+[data-escola-formacao] :is(.en-botao-levo, .en-botao-pequeno, .en-botao-linha):hover:not(:disabled) {
+  border-color: var(--ef-ouro);
+  color: var(--ef-ouro);
+}
+[data-escola-formacao] .en-nucleo button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.en-presenca {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+.en-anterior p,
+.en-balanco p {
+  margin: 4px 0 0;
+  white-space: pre-line;
+}
+
+/* Pergunta geradora */
+.en-pergunta {
+  border-left: 4px solid var(--ef-ouro);
+  padding-left: 16px;
+}
+.en-pergunta-texto {
+  margin: 4px 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Formulários */
+.en-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+.en-rotulo {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ef-giz-2);
+  margin: 6px 0 0;
+}
+[data-escola-formacao] .en-campo {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 2px solid var(--ef-borda);
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+  font-family: inherit;
+  font-size: 16px;
+  color-scheme: dark;
+}
+[data-escola-formacao] .en-campo:focus {
+  border-color: var(--ef-ouro);
+}
+[data-escola-formacao] .en-campo-curto {
+  max-width: 10ch;
+}
+.en-grupo {
+  border: 0;
+  padding: 0;
+  margin: 10px 0 0;
+}
+.en-campos {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.en-campos li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.en-acoes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.en-aviso {
+  min-height: 1.4em;
+  margin: 4px 0 0;
+  color: var(--ef-ouro);
+  font-size: 15px;
+}
+.en-aviso:empty {
+  min-height: 0;
+}
+.en-mediar {
+  margin-top: 28px;
+  padding: 20px;
+  border: 2px solid var(--ef-borda);
+  border-radius: 16px;
+}
+.en-fechar {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 2px solid var(--ef-borda);
+}
+
+/* ───────────── Kit de quem facilita ───────────── */
+.en-kit section:focus-visible {
+  outline: 3px solid var(--ef-ouro);
+  outline-offset: 6px;
+}
+.en-roda {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.en-etapa {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--ef-fundo-fundo);
+}
+.en-etapa p {
+  margin: 4px 0 0;
+}
+.en-etapa .en-h3 {
+  margin: 0;
+}
+.en-etapa-n {
+  flex: 0 0 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--ef-nucleo);
+  color: var(--ef-fundo-fundo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+}
+.en-etapa[data-etapa^="mistica"] .en-etapa-n {
+  background: var(--ef-ouro);
+}
+.en-etapa-tempo {
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--ef-suave);
+}
+.en-dica {
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+.en-sistematizar {
+  margin-top: 14px;
+}
+.en-sistematizar p {
+  margin: 0;
+}
+.en-passos {
+  margin: 10px 0 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.en-detalhe {
+  margin-top: 14px;
+}
+.en-detalhe > summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--ef-giz);
+}
+.en-detalhe > summary:focus-visible {
+  outline: 3px solid var(--ef-ouro);
+  outline-offset: 3px;
+}
+/* As ferramentas antigas (papel claro) numa folha de papel dentro da Escola escura. */
+.en-papel {
+  margin-top: 10px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--parchment, #fbfaf6);
+  color: var(--ink, #1f1a14);
+  font-family: var(--font-ui), system-ui, sans-serif;
+}
+.en-papel a {
+  color: inherit;
+}
+
+/* ───────────── Banca (lado) ───────────── */
+.en-lado-cartao {
+  padding: 22px;
+  border-radius: 16px;
+  background: var(--ef-fundo-fundo);
+}
+.en-lado-cartao > p {
+  margin: 8px 0 0;
+}
+.en-bancas {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.en-bancas > li {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid var(--ef-borda);
+}
+.en-banca-linha {
+  margin: 0;
+}
+.en-situacao[data-situacao="aprovada"] {
+  color: var(--ef-ouro);
+  font-weight: 700;
+}
+.en-balanco {
+  margin-top: 8px;
+}
+
+@media (max-width: 1100px) {
+  .en-corpo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .en-nucleo {
+    padding: 0 0 24px;
+  }
+  .en-cabeca {
+    border-radius: 0;
+    padding: 16px 16px 18px;
+  }
+  .en-olho {
+    font-size: 13px;
+  }
+  .en-titulo {
+    font-size: 36px;
+  }
+  .en-cabeca-texto {
+    margin-top: 6px;
+    font-size: 15px;
+  }
+  .en-cabeca-acoes {
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: nowrap;
+  }
+  [data-escola-formacao] :is(.en-botao-cheio, .en-botao-borda) {
+    flex: 1;
+    min-height: 44px;
+    padding: 0 8px;
+    font-size: 15px;
+  }
+  .en-previa {
+    padding: 0 16px;
+  }
+  .en-corpo {
+    margin-top: 0;
+    gap: 24px;
+  }
+  .en-abas {
+    padding: 0 8px;
+  }
+  [data-escola-formacao] .en-aba {
+    padding: 11px 4px;
+    font-size: 14.5px;
+  }
+  .en-painel {
+    padding: 14px 16px 0;
+  }
+  .en-h2 {
+    font-size: 22px;
+  }
+  .en-pauta {
+    padding-left: 22px;
+    font-size: 15.5px;
+  }
+  .en-aviso {
+    padding: 0 16px;
+  }
+  .en-lado {
+    padding: 0 16px;
+  }
+  .en-lado-cartao {
+    padding: 16px;
+  }
+  .en-mediar {
+    padding: 16px;
+  }
+  .en-papel {
+    padding: 12px;
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+}
+/* Recados do núcleo (mediação): a validade embaixo do texto. */
+.en-recado-ate {
+  display: block;
+  margin-top: 2px;
+  font-size: 15px;
+  color: var(--ef-suave);
+}
