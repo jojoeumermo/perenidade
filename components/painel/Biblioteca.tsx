@@ -19,7 +19,7 @@ const ESTANTES: [string, Item[]][] = [
   [
     "Formação militante da equipe",
     [
-      { nome: "Consciência de classe", sobre: "O percurso do zero à consciência de classe, em doze etapas. Bom para fazer em grupo, no núcleo.", href: "/consciencia-de-classe" },
+      { nome: "Consciência de classe", sobre: "O percurso do zero à consciência de classe, em doze etapas. Bom para fazer em grupo, no núcleo.", href: "/consciencia" },
       { nome: "Formação militante", sobre: "As trilhas de teoria, história das lutas e organização.", href: "/estantes/formacao-militante" },
       { nome: "Oratória e liderança", sobre: "Falar em assembleia, conduzir reunião, escutar.", href: "/estantes/oratoria-e-lideranca" },
       { nome: "Educação popular", sobre: "Paulo Freire e o jeito de ensinar do instituto.", href: "/estantes/educacao-popular" },
