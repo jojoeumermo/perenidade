@@ -67,8 +67,9 @@ export default function Teia({
   const base = useMemo(() => calcularPosicoes(grafo), [grafo]);
   const ajuste = useMemo(() => caber(base), [base]);
   // Sem gestos de toque nem roda: a página rola e aproxima normalmente por cima da teia; o desenho aproxima pelos
-  // botões +/−/◎ e pelo teclado, e o mouse arrasta o fundo.
-  const { t, svgRef, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste, { gestos: false });
+  // botões +/−/◎ e pelo teclado, e o mouse arrasta o fundo. Aproximada além da abertura, um dedo no fundo também
+  // arrasta (só então o SVG pede touch-action: none); os nós continuam parados.
+  const { t, svgRef, arrastoNoToque, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste, { gestos: false });
 
   const pos = (chave: string): Ponto => base.get(chave) ?? { x: L / 2, y: A / 2 };
   const nivel = nivelDaTeia(t.k);
@@ -115,7 +116,8 @@ export default function Teia({
         onPointerMove={mover}
         onPointerUp={soltar}
         onPointerCancel={soltar}
-        style={{ cursor: "grab" }}
+        data-arrasto-toque={arrastoNoToque ? "sim" : undefined}
+        style={{ cursor: "grab", touchAction: arrastoNoToque ? "none" : undefined }}
       >
         <DefsNeon />
         <g transform={`translate(${t.x} ${t.y}) scale(${t.k})`}>
