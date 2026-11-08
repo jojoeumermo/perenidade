@@ -264,6 +264,12 @@ const codigo = Object.fromEntries(arquivos.map((f) => [f, fs.readFileSync(path.j
 const mostrar = codigo["MostrarNaAlumia.tsx"] ?? "";
 confere("MostrarNaAlumia existe", Boolean(mostrar));
 confere("ligar passa pela tela de consentimento", /pedeConsentimento/.test(mostrar) && /role="dialog"|<dialog/.test(mostrar));
+{
+  // Uma declaração que falha não pode virar laço: nada de setLido com a lista vazia e nada de tentar de novo sozinho.
+  const efeito = mostrar.slice(mostrar.indexOf("escola_conquista_declarar\", {"), mostrar.indexOf("async function definir"));
+  confere("declarar ao banco: setLido só quando há conquistas novas", /if \(novas\.length > 0\) setLido\(/.test(efeito) && !/^\s*setLido\(\(l\) => \(l \? \{ \.\.\.l, conquistas: \[\.\.\.l\.conquistas, \.\.\.novas\]/m.test(efeito));
+  confere("declarar ao banco: depois de um erro não tenta de novo sozinho", /if \(erro\) falhouEnvio\.current = true/.test(efeito) && /falhouEnvio\.current\) return;/.test(mostrar));
+}
 confere("o público não é guardado no aparelho", !Object.values(codigo).some((t) => /localStorage\.setItem|sessionStorage\.setItem/.test(t)));
 confere("nenhuma tela da F5 chama o banco fora do contrato", Object.values(codigo).every((t) => !/\brpc\(/.test(t)));
 const pagina = lerSe("app", "[lang]", "escola", "percurso", "page.tsx");
