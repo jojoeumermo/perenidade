@@ -16,7 +16,7 @@ import { criarBanco } from "./banco-local.mjs";
 import { FRENTES_DE_ATUACAO, FUNCOES_DA_ESCOLA, MIGRACOES_DA_ESCOLA, TELAS_DA_ESCOLA } from "../lib/escola/contratos.ts";
 import { TELAS_DA_FORMACAO } from "../lib/escola/rotas.ts";
 import { COR_DO_DEGRAU, PRATELEIRAS, prateleirasDaBiblioteca } from "../components/escola/biblioteca/prateleiras.ts";
-import { avisoDaEscolha, cartaoDaAssembleia, diaPorExtenso, frentesNaTela, proximaEscolha } from "../components/escola/frente2/frentes.ts";
+import { avisoDaEscolha, cartaoDaAssembleia, diaPorExtenso, frenteMarcada, frentesNaTela, proximaEscolha } from "../components/escola/frente2/frentes.ts";
 import { avisoDoLevar, contextoDaDuvida, textoParaLevar } from "../components/escola/duvida/duvida.ts";
 
 const raiz = path.resolve(import.meta.dirname, "..");
@@ -138,6 +138,21 @@ const fs0 = frentesNaTela("bairros", { bairros: 12, trabalho: 2, atos: 3.5 });
 confere("frentes: as 7 na ordem do contrato, a sua marcada", fs0.map((f) => f.frente).join() === FRENTES_DE_ATUACAO.join() && fs0.filter((f) => f.sua).map((f) => f.frente).join() === "bairros");
 confere("frentes: só número inteiro >= 3 aparece", fs0.find((f) => f.frente === "bairros").conta === 12 && fs0.find((f) => f.frente === "trabalho").conta === null && fs0.find((f) => f.frente === "atos").conta === null);
 confere("frentes: sem soma, sem número", frentesNaTela(null, null).every((f) => f.conta === null && !f.sua));
+{
+  // Escolher, sair da tela e voltar: a casca (escola_eu lido uma vez por aba) ainda diz "bairros"; o banco já diz "atos".
+  const casca = "bairros";
+  const nova = proximaEscolha(frenteMarcada(undefined, { ok: true, dados: { militante: true, frente: casca } }, casca).frente, "atos");
+  const depois = frenteMarcada(nova, { ok: true, dados: { militante: true, frente: casca } }, casca);
+  confere("frente: escolher marca a nova na mesma montagem (mesmo com a leitura velha chegando depois)", nova === "atos" && depois.frente === "atos" && depois.pronta);
+  const carregando = frenteMarcada(undefined, null, casca);
+  confere("frente: ao remontar, enquanto escola_eu não chega, os botões esperam (nenhuma troca errada)", carregando.pronta === false);
+  const remontada = frenteMarcada(undefined, { ok: true, dados: { militante: true, frente: "atos" } }, casca);
+  const marcadas = frentesNaTela(remontada.frente, null).filter((f) => f.sua).map((f) => f.frente).join();
+  confere("frente: escolher, remontar, a marcada é a nova (não a da casca)", remontada.pronta && marcadas === "atos");
+  confere("frente: depois de remontar, tocar na nova tira a escolha e tocar noutra troca", proximaEscolha(remontada.frente, "atos") === null && proximaEscolha(remontada.frente, "bairros") === "bairros");
+  confere("frente: leitura de escola_eu falhou, vale a casca", frenteMarcada(undefined, { ok: false }, casca).frente === casca && frenteMarcada(undefined, { ok: false }, casca).pronta);
+  confere("frente: tirar a escolha (null) nesta montagem vale sobre a casca", frenteMarcada(null, null, casca).frente === null);
+}
 confere("tocar na sua tira; tocar em outra troca", proximaEscolha("bairros", "bairros") === null && proximaEscolha("bairros", "atos") === "atos" && proximaEscolha(null, "atos") === "atos");
 confere("avisos da escolha", avisoDaEscolha("banco_desatualizado") === "ausente" && avisoDaEscolha("ausente") === "ausente" && avisoDaEscolha("sem_militancia") === "semPermissao" && avisoDaEscolha("limite") === "falha");
 
@@ -178,6 +193,14 @@ confere("telas: nada no aparelho (nem a dúvida, nem a frente)", !/localStorage|
 confere("telas: chamadas ao banco só pelos nomes do contrato", [...codigo.matchAll(/(?:chamarDaEscola|useDaEscola|lerDaEscola)\("([a-z_]+)"/g)].every((m) => m[1] in FUNCOES_DA_ESCOLA));
 confere("levar ao núcleo chama escola_levar_ao_nucleo (F4) pelo contrato", /chamarDaEscola\("escola_levar_ao_nucleo", \{ p_texto: pronto \}\)/.test(ler("components", "escola", "duvida", "EscolherComQuem.tsx")) && FUNCOES_DA_ESCOLA.escola_levar_ao_nucleo === "F4");
 confere("escolher a frente chama escola_frente_escolher pelo contrato", /chamarDaEscola\("escola_frente_escolher", \{ p_frente: nova \}\)/.test(ler("components", "escola", "frente2", "EscolherFrente.tsx")));
+{
+  const ef = ler("components", "escola", "frente2", "EscolherFrente.tsx");
+  confere("A Frente lê escola_eu de novo ao montar e marca por frenteMarcada", /useDaEscola\("escola_eu"\)/.test(ef) && /frenteMarcada\(escolhidaAqui, euLido, eu\.frente\)/.test(ef) && !/useState<FrenteDeAtuacao \| null>\(eu\.frente\)/.test(ef));
+  confere("A Frente lê as somas de novo depois de escolher", /lerDaEscola\("escola_frentes_somadas"\)[\s\S]*\}, \[vez\]\)/.test(ef) && /setVez\(/.test(ef));
+  confere("A Frente: botões esperam a leitura de escola_eu", /disabled=\{guardando !== null \|\| !pronta\}/.test(ef));
+  const dq = ler("components", "escola", "duvida", "EscolherComQuem.tsx");
+  confere("Dúvida: sem núcleo, o campo de escrever some (nada o enviaria)", /\{eu\.nucleo && \(\s*<>\s*<label htmlFor="ef6-duvida-texto">/.test(dq));
+}
 confere("a prévia nunca vai ao banco (chamar passa pelo lerDaEscola)", /if \(emPrevia\(\)\) \{\s*const lido = await lerDaEscola/.test(ler("components", "escola", "duvida", "chamar.ts")));
 confere("nada de nome civil nas telas (só codinome)", !/\.nome_civil|perfis\.nome|eu\.nome\b/.test(codigo));
 const frente = ler("components", "escola", "frente2", "TelaDaFrente.tsx");
