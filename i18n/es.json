@@ -5683,7 +5683,14 @@
     "letreiroRotulo": "Temas del territorio",
     "letreiroPausar": "Pausar la cinta de temas",
     "letreiroRetomar": "Reanudar la cinta de temas",
-    "cartaoVer": "Ver la página"
+    "cartaoVer": "Ver la página",
+    "quemSao": "Quiénes son",
+    "videos": "Videos",
+    "videoRotulo": "Video",
+    "videoOriginal": "Ver la publicación original en Instagram",
+    "agendaLinks": "Agenda y enlaces",
+    "parceria": "Alianza con el Instituto Lúcia",
+    "parceriaTexto": "{nome} es territorio aliado del Instituto Lúcia. Cada territorio trae su mirada al sitio: artículos en el periódico, clases, fotos y encuentros."
   },
   "rede": {
     "abaRede": "Alumia",
