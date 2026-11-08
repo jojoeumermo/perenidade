@@ -448,11 +448,11 @@ const okAberto = { status: 200, corpo: { choices: [{ message: { content: "Respos
   confere("rota (T33): chave própria do assistente, separada da do robô do Vale", /env\[`ASSISTENTE_\$\{p\.segredo\}`\]/.test(rota));
   const backendCliente = readFileSync(new URL("../lib/backend.ts", import.meta.url), "utf8");
   confere("cliente (T33): foto só vai ao assistente aberto depois de confirmar o aviso", /function fotoAoAberto/.test(backendCliente) && /window\.confirm\(AVISO_DA_FOTO/.test(backendCliente) && (backendCliente.match(/fotoAoAberto\(request\)/g) ?? []).length === 2);
+  // 08/11/2026: o botão "?" virou perguntas frequentes prontas (scripts/testar-perguntas-frequentes.mjs): sem IA e sem rede.
   const botao = readFileSync(new URL("../components/assistente/BotaoDoAssistente.tsx", import.meta.url), "utf8");
   confere("botão: a janela é carregada só quando usada", /dynamic\(carregarPainel, \{ ssr: false \}\)/.test(botao) && /usado &&/.test(botao));
   const painel = readFileSync(new URL("../components/assistente/PainelDoAssistente.tsx", import.meta.url), "utf8");
-  confere("janela: só vão a pergunta e o idioma", /perguntarAoPublico\(\{ modo: "pergunta", pergunta: texto, disciplina: "", idioma: lang, aulas: \[\] \}\)/.test(painel));
-  confere("janela: o aviso de privacidade vem antes do campo", painel.indexOf("s.privacidade") < painel.indexOf("<textarea"));
+  confere("janela do botão: não fala com a IA nem com servidor nenhum", !/perguntarAoPublico|estadoDoPublico|lib\/assistente\/publico|fetch\(|\/api\//.test(painel + botao));
   const cliente = readFileSync(new URL("../lib/assistente/publico.ts", import.meta.url), "utf8");
   confere("cliente: sem cookie da conta no pedido", cliente.includes('credentials: "omit"'));
   const layout = readFileSync(new URL("../app/[lang]/layout.tsx", import.meta.url), "utf8");
@@ -462,7 +462,6 @@ const okAberto = { status: 200, corpo: { choices: [{ message: { content: "Respos
   const idiomas = ["pt", "en", "es", "fr", "zh", "ru"].map((l) => JSON.parse(readFileSync(new URL(`../i18n/assistente/${l}.json`, import.meta.url), "utf8")));
   confere("textos da janela nos 6 idiomas, com as mesmas chaves", idiomas.every((j) => JSON.stringify(Object.keys(j).sort()) === JSON.stringify(Object.keys(idiomas[0]).sort())));
   confere("textos: nunca 'universidade' nem 'diploma'", !idiomas.some((j) => /universidade|diploma/i.test(JSON.stringify(j))));
-  confere("textos (T33): o aviso diz que o plano gratuito pode guardar e treinar, com leitura por pessoas", /treinar/.test(idiomas[0].privacidade) && /pessoas/.test(idiomas[0].privacidade) && /train/.test(idiomas[1].privacidade) && /rosto/.test(idiomas[0].naoEscreva));
 }
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
