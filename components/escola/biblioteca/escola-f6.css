@@ -1,0 +1,614 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * As três telas da F6 da Escola de Formação (PLANO-ESCOLA.md): Biblioteca, A Frente e Tirar uma dúvida, desenhadas
+ * pelas pranchas aprovadas em 07/11 (Biblioteca, Frente e Cel-Dúvida). Usam os tokens da casca (styles/escola-formacao.css,
+ * var(--ef-...)), que é da F1 e não muda aqui. Escuras de propósito (data-escola-escura), sem versão clara.
+ *
+ * Duas diferenças conscientes das pranchas, por contraste AA (scripts/testar-escola-frente.mjs refaz a conta):
+ *  - o "Frente Revolucionária Lúcia" sobre o vermelho usa #FAE3A0 (o ouro #F2C94C dá 3,78:1 em letra de 16 px);
+ *  - a borda dos campos de escrever passa a 3:1 com o fundo (#7A6056 no escuro, #7A7468 no papel), como pede o
+ *    critério 1.4.11 da WCAG para o contorno de um campo.
+ * Os seletores começam por [data-escola-formacao] porque a casca sublinha e pinta todo link (.ef-casca a).
+ */
+
+[data-escola-formacao] .ef6-tela {
+  padding: 30px 32px 56px;
+  max-width: 1112px;
+}
+[data-escola-formacao] .ef6-h1 {
+  margin: 0;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1;
+}
+[data-escola-formacao] .ef6-h2 {
+  margin: 0 0 14px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+[data-escola-formacao] .ef6-secao {
+  margin-top: 32px;
+}
+[data-escola-formacao] .ef6-secao-primeira {
+  margin-top: 28px;
+}
+.ef6-leituras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+[data-escola-formacao] .ef6-nota {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+[data-escola-formacao] .ef6-olho {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ───────────── Biblioteca ───────────── */
+[data-escola-formacao] .ef6-topo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+[data-escola-formacao] .ef6-busca {
+  position: relative;
+  width: 360px;
+  max-width: 100%;
+  margin: 0;
+}
+[data-escola-formacao] .ef6-busca input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 46px;
+  border-radius: 12px;
+  border: 2px solid #7a6056;
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+  font-family: inherit;
+  font-size: 15.5px;
+  padding: 0 14px;
+}
+[data-escola-formacao] .ef6-busca input::placeholder {
+  color: var(--ef-apagado);
+  opacity: 1;
+}
+
+[data-escola-formacao] a.ef6-leitura {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--ef-papel);
+  color: #1b1f1c;
+  text-decoration: none;
+}
+[data-escola-formacao] a.ef6-leitura:hover {
+  color: #1b1f1c;
+}
+[data-escola-formacao] a.ef6-leitura:hover .ef6-leitura-titulo {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.ef6-capa {
+  flex: 0 0 110px;
+  height: 150px;
+  border-radius: 4px 10px 10px 4px;
+  background: var(--ef-vermelho);
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding: 12px;
+  box-sizing: border-box;
+  font-family: var(--font-serif-display), "EB Garamond", Georgia, serif;
+  font-size: 17px;
+  line-height: 1.1;
+  overflow: hidden;
+}
+.ef6-leitura-corpo {
+  flex: 1 1 300px;
+  min-width: 0;
+}
+.ef6-leitura .ef6-olho {
+  color: var(--ef-tinta);
+}
+[data-escola-formacao] .ef6-leitura-titulo {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #8a100b;
+}
+.ef6-leitura-linha {
+  display: block;
+  margin-top: 4px;
+  color: #4a4f4b;
+}
+
+.ef6-prateleiras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ef6-prateleiras > li {
+  flex: 1 1 220px;
+  min-width: 0;
+  display: flex;
+}
+[data-escola-formacao] a.ef6-livro {
+  flex: 1;
+  min-width: 0;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--ef-fundo-fundo);
+  border: 2px solid var(--ef-borda);
+  color: var(--ef-giz);
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+[data-escola-formacao] a.ef6-livro:hover {
+  color: var(--ef-giz);
+  transform: translateY(-3px);
+}
+.ef6-livro .ef6-olho {
+  font-size: 12.5px;
+}
+[data-escola-formacao] .ef6-livro-nome {
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.ef6-livro-itens {
+  display: block;
+  margin-top: 6px;
+  font-size: 13.5px;
+  color: var(--ef-suave);
+}
+
+.ef6-memoria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.ef6-memoria .ef6-h2 {
+  flex: 1 1 100%;
+  margin: 0;
+}
+[data-escola-formacao] a.ef6-luta {
+  flex: 1 1 280px;
+  padding: 20px;
+  border-radius: 16px;
+  color: var(--ef-fundo-fundo);
+  text-decoration: none;
+}
+[data-escola-formacao] a.ef6-luta:hover {
+  color: var(--ef-fundo-fundo);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+[data-escola-formacao] .ef6-luta-titulo {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-escola-formacao] a.ef6-livro {
+    transition: none;
+  }
+  [data-escola-formacao] a.ef6-livro:hover {
+    transform: none;
+  }
+}
+
+/* ───────────── A Frente ───────────── */
+.ef6-cartaz {
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--ef-vermelho);
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+.ef6-cartaz-texto {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+[data-escola-formacao] .ef6-cartaz-olho {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fae3a0;
+}
+[data-escola-formacao] .ef6-cartaz h1 {
+  margin: 4px 0 0;
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1;
+}
+.ef6-cartaz-acoes {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+[data-escola-formacao] .ef6-cartaz-acoes a {
+  min-height: 50px;
+  padding: 0 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+[data-escola-formacao] .ef6-cartaz-acoes a.ef6-cheio {
+  background: #fff;
+  color: #8a1610;
+}
+[data-escola-formacao] .ef6-cartaz-acoes a.ef6-vazado {
+  border: 2px solid #fff;
+  color: #fff;
+}
+[data-escola-formacao] .ef6-cartaz-acoes a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+[data-escola-formacao] .ef6-cartaz-acoes a.ef6-cheio:hover {
+  color: #8a1610;
+}
+[data-escola-formacao] .ef6-cartaz-acoes a.ef6-vazado:hover {
+  color: #fff;
+}
+
+[data-escola-formacao] .ef6-h2-frentes {
+  margin: 0;
+  font-size: 30px;
+}
+[data-escola-formacao] .ef6-frentes-texto {
+  margin: 6px 0 16px;
+  color: var(--ef-giz-2);
+  max-width: 64ch;
+}
+.ef6-frentes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+[data-escola-formacao] .ef6-frente {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  box-sizing: border-box;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.3;
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+  border: 2px solid var(--ef-borda);
+  text-align: left;
+}
+[data-escola-formacao] button.ef6-frente {
+  cursor: pointer;
+}
+[data-escola-formacao] button.ef6-frente:hover:not(:disabled) {
+  border-color: var(--ef-ouro);
+}
+[data-escola-formacao] button.ef6-frente:disabled {
+  cursor: progress;
+}
+[data-escola-formacao] .ef6-frente[data-sua] {
+  background: var(--ef-ouro);
+  color: var(--ef-fundo-fundo);
+  border-color: var(--ef-ouro);
+}
+.ef6-frente-conta {
+  font-weight: 400;
+  font-size: 14px;
+}
+.ef6-aviso {
+  margin: 12px 0 0;
+  font-size: 14.5px;
+  color: var(--ef-giz-2);
+  max-width: 64ch;
+}
+.ef6-aviso:empty {
+  display: none;
+}
+
+.ef6-cartoes {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.ef6-cartao {
+  flex: 1 1 300px;
+  min-width: 0;
+  padding: 22px;
+  border-radius: 16px;
+}
+.ef6-cartao h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.ef6-cartao p {
+  margin: 6px 0 0;
+}
+.ef6-cartao-giz {
+  background: var(--ef-giz);
+  color: var(--ef-fundo-fundo);
+}
+.ef6-cartao-borda {
+  border: 2px solid var(--ef-borda);
+}
+.ef6-cartao-fundo {
+  background: var(--ef-fundo-fundo);
+  border: 2px solid var(--ef-borda);
+}
+.ef6-cartao-fundo p {
+  color: var(--ef-giz-2);
+}
+[data-escola-formacao] .ef6-cartao a {
+  display: inline-flex;
+  margin-top: 12px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 10px;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+[data-escola-formacao] .ef6-cartao-giz a {
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+}
+[data-escola-formacao] .ef6-cartao-borda a {
+  border: 2px solid var(--ef-giz);
+  color: var(--ef-giz);
+}
+[data-escola-formacao] .ef6-cartao a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+[data-escola-formacao] .ef6-cartao-giz a:hover {
+  color: var(--ef-giz);
+}
+
+/* ───────────── Tirar uma dúvida (prancha Cel-Dúvida) ───────────── */
+.ef6-duvida-fundo {
+  padding: 30px 32px 56px;
+  display: flex;
+  justify-content: center;
+}
+.ef6-folha {
+  width: 100%;
+  max-width: 560px;
+  box-sizing: border-box;
+  border-radius: 22px;
+  background: var(--ef-giz);
+  color: var(--ef-fundo-fundo);
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.35);
+}
+.ef6-folha-alca {
+  display: none;
+}
+[data-escola-formacao] .ef6-folha h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+.ef6-folha-sobre {
+  margin: -6px 0 0;
+  font-size: 14.5px;
+  color: #4a4f4b;
+}
+[data-escola-formacao] .ef6-folha-sobre a,
+[data-escola-formacao] .ef6-folha-sobre a:hover {
+  color: var(--ef-tinta);
+}
+.ef6-opcoes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+[data-escola-formacao] .ef6-opcao {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid var(--ef-fundo-fundo);
+  background: transparent;
+  color: var(--ef-fundo-fundo);
+  text-decoration: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.4;
+  text-align: left;
+}
+[data-escola-formacao] button.ef6-opcao {
+  cursor: pointer;
+}
+[data-escola-formacao] button.ef6-opcao:disabled {
+  cursor: progress;
+}
+[data-escola-formacao] a.ef6-opcao:hover,
+[data-escola-formacao] button.ef6-opcao:hover:not(:disabled) {
+  color: var(--ef-fundo-fundo);
+  background: #e6e1d6;
+}
+[data-escola-formacao] .ef6-opcao-escura,
+[data-escola-formacao] a.ef6-opcao-escura:hover {
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+}
+[data-escola-formacao] a.ef6-opcao-escura:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+[data-escola-formacao] .ef6-opcao[data-parada] {
+  border-style: dashed;
+}
+.ef6-letra {
+  flex: 0 0 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: var(--ef-fundo-fundo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+}
+.ef6-opcao strong {
+  display: block;
+}
+.ef6-opcao-texto {
+  display: block;
+  font-size: 13.5px;
+  color: #4a4f4b;
+}
+.ef6-opcao-escura .ef6-opcao-texto {
+  color: var(--ef-suave);
+}
+[data-escola-formacao] .ef6-folha label {
+  font-size: 14px;
+  font-weight: 700;
+}
+[data-escola-formacao] .ef6-folha textarea {
+  margin-top: -6px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid #7a7468;
+  background: #fff;
+  color: var(--ef-fundo-fundo);
+  font-family: inherit;
+  font-size: 15px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+[data-escola-formacao] .ef6-folha textarea::placeholder {
+  color: #6b675f;
+  opacity: 1;
+}
+.ef6-folha-dica {
+  margin: -4px 0 0;
+  font-size: 13.5px;
+  color: #4a4f4b;
+}
+.ef6-folha-status {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ef-fundo-fundo);
+}
+.ef6-folha-status:empty {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  [data-escola-formacao] .ef6-tela {
+    padding: 4px 16px 24px;
+  }
+  [data-escola-formacao] .ef6-h1 {
+    font-size: 40px;
+  }
+  [data-escola-formacao] .ef6-h2,
+  [data-escola-formacao] .ef6-h2-frentes {
+    font-size: 24px;
+  }
+  [data-escola-formacao] .ef6-secao {
+    margin-top: 26px;
+  }
+  [data-escola-formacao] .ef6-busca {
+    width: 100%;
+  }
+  [data-escola-formacao] a.ef6-leitura {
+    padding: 16px;
+    gap: 16px;
+  }
+  .ef6-capa {
+    flex-basis: 84px;
+    height: 116px;
+    font-size: 14px;
+    padding: 8px;
+  }
+  [data-escola-formacao] .ef6-leitura-titulo {
+    font-size: 22px;
+  }
+  .ef6-cartaz {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+  [data-escola-formacao] .ef6-cartaz h1 {
+    font-size: 38px;
+  }
+  .ef6-cartaz-acoes {
+    flex-basis: 100%;
+  }
+  [data-escola-formacao] .ef6-frente {
+    font-size: 16px;
+    padding: 10px 14px;
+  }
+  .ef6-cartao {
+    flex-basis: 100%;
+  }
+  /* No celular, a dúvida é a folha que sobe de baixo (prancha Cel-Dúvida). */
+  .ef6-duvida-fundo {
+    padding: 8px 0 0;
+    min-height: calc(100vh - 150px);
+    align-items: stretch;
+  }
+  .ef6-folha {
+    max-width: none;
+    border-radius: 22px 22px 0 0;
+    padding: 10px 18px 18px;
+  }
+  .ef6-folha-alca {
+    display: block;
+    align-self: center;
+    width: 44px;
+    height: 5px;
+    border-radius: 3px;
+    background: #c9c4b8;
+  }
+}
