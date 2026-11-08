@@ -10,6 +10,7 @@ import { urlPublica } from "@/lib/podcast-audio";
 import { useI18n } from "../../I18n";
 import { Aviso, dia, textoDoErro, useLista } from "../comum";
 import { Abas, Botao, Busca, Campo, Cartao, Esqueleto, Faixa, ItemDeLista, Lista, Selecao, Selo, type TomDoSelo, Vazio } from "../ui";
+import { EstudioAoVivo } from "./AoVivo";
 import { EstudioDeArte } from "./Arte";
 import { GeradorDeCortes } from "./Cortes";
 import { EditorDeEpisodio } from "./Episodio";
@@ -19,7 +20,7 @@ import { CadernoNoPainel } from "../Caderno";
 import { Agenda, Ajustes, Convidados, Numeros, Pautas, Pedidos, Perguntas, Trilhas } from "./Listas";
 import { ETAPAS, type Etapa, NOME_DA_ETAPA, type PainelDoPodcast, type ResumoDoEpisodio, SOBRE_A_ETAPA } from "./tipos";
 
-type Aba = "episodios" | "publicar" | "caderno" | "agenda" | "pautas" | "perguntas" | "convidados" | "trilhas" | "artes" | "cortes" | "pedidos" | "numeros" | "guia" | "ajustes";
+type Aba = "episodios" | "publicar" | "aovivo" | "caderno" | "agenda" | "pautas" | "perguntas" | "convidados" | "trilhas" | "artes" | "cortes" | "pedidos" | "numeros" | "guia" | "ajustes";
 
 /** O tom do selo de cada etapa: a palavra diz a etapa; a cor só acompanha. */
 const TOM_DA_ETAPA: Record<Etapa, TomDoSelo> = { ideia: "neutro", roteiro: "neutro", gravacao: "info", edicao: "info", revisao: "bordo", aprovado: "ouro", publicado: "ok" };
@@ -94,6 +95,8 @@ export function Podcast() {
     ? [
         { id: "pedidos", nome: "Pedidos de arte", conta: p.contagens.pedidos },
         { id: "artes", nome: "Modelos de arte" },
+        // Quem é da arte e também tem função no podcast (eu.time = interno.podcaster()) pode pôr o programa no ar.
+        ...(eu.time ? [{ id: "aovivo" as const, nome: "Ao vivo" }] : []),
         { id: "guia", nome: "Guia" },
       ]
     : soRevisao
@@ -104,6 +107,7 @@ export function Podcast() {
     : [
         { id: "episodios", nome: "Episódios", conta: p.contagens.revisao },
         { id: "publicar", nome: "Publicar: passo a passo" },
+        { id: "aovivo", nome: "Ao vivo" },
         { id: "caderno", nome: "Caderno" },
         { id: "agenda", nome: "Agenda" },
         { id: "pautas", nome: "Pautas", conta: p.contagens.sugestoes },
@@ -217,6 +221,7 @@ export function Podcast() {
         </div>
       )}
       {atual === "publicar" && <Publicar painel={p} abrir={(id, passo) => abrir(id, passo)} recarregarPainel={painel.recarregar} />}
+      {atual === "aovivo" && <EstudioAoVivo />}
       {atual === "caderno" && <CadernoNoPainel modo="podcast" />}
       {atual === "agenda" && <Agenda painel={p} />}
       {atual === "pautas" && <Pautas podeDecidir={eu.producao || eu.supervisao} abrir={(id) => abrir(id)} />}

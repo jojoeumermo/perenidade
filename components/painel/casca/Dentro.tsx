@@ -176,6 +176,9 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   const resumo = useLista<Resumo>("painel_resumo");
   // O que espera por esta pessoa no podcast (aprovação, comentários, perguntas, pedidos de arte).
   const podcast = useLista<number>("podcast_contagem");
+  // Quem tem só uma função no podcast (podcast_funcoes), sem jornalismo nem design, também precisa achar a aba: o banco
+  // diz se a pessoa faz o podcast (interno.podcaster()) no mesmo estado que o estúdio ao vivo usa.
+  const podcastAoVivo = useLista<{ pode?: boolean }>("podcast_ao_vivo_estado", {}, { quieta: true });
   // Aulas em vídeo esperando a curadoria.
   const videos = useLista<number>("videoaulas_contagem");
   const r = resumo.dados;
@@ -289,7 +292,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "centro", nome: "Centro de controle", sobre: "Os controles do coordenador num lugar só: canais no celular, sala da equipe, rádio, moderadores, núcleos da Rede, arquivos bloqueados e Publicar agora.", grupo: "Site", mostra: lidera },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
-      { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
+      { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria") || (!previa && podcastAoVivo.dados?.pode === true), conta: podcast.dados ?? undefined },
       { id: "emissoras", nome: "Rádio", sobre: "Pôr a Rádio Lúcia no ar (live do YouTube ou áudio) e indicar emissoras populares e comunitárias para o diretório público.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoio e transparência", sobre: "A página de Apoie (faixas, metas, custos), o mural de apoiadores, as contas do mês e o texto para a Benfeitoria.", grupo: "Site", mostra: lidera },
       { id: "erros", nome: "Erros relatados", sobre: "O que o público relatou na página Achei um erro.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento") },
