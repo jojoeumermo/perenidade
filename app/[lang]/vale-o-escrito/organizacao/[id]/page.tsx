@@ -12,6 +12,9 @@ import { lerTudo } from "@/lib/vale-o-escrito/dados";
 import { textosDoObservatorio } from "@/lib/vale-o-escrito/textos";
 import { acharOrganizacao, casosDaOrganizacao, listaComE, veiculosDaEntrada } from "@/lib/vale-o-escrito/visual";
 
+// Os casos aprovados no banco entram sem novo deploy: a página é refeita a cada 5 minutos (lib/vale-o-escrito/banco.ts).
+export const revalidate = 300;
+
 export const dynamicParams = true;
 
 export function generateStaticParams() {
@@ -22,7 +25,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; id: string }> }): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const { id } = await params;
-  const dados = dadosDoObservatorio(lang);
+  const dados = await dadosDoObservatorio(lang);
   const org = acharOrganizacao(dados, id);
   if (!org) return {};
   const s = textosDoObservatorio(lang);
@@ -35,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function OrganizacaoPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
   const { lang } = await loadLang(params);
   const { id } = await params;
-  const dados = dadosDoObservatorio(lang);
+  const dados = await dadosDoObservatorio(lang);
   const org = acharOrganizacao(dados, id);
   if (!org || casosDaOrganizacao(dados, id).length === 0) notFound();
   const s = textosDoObservatorio(lang);

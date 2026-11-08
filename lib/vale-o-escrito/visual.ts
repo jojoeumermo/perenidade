@@ -305,6 +305,60 @@ export function curvaDaAresta(p: Ponto, q: Ponto, id: string, curvatura = 0.22):
   return { d: `M${f(p.x)},${f(p.y)} Q${f(cx)},${f(cy)} ${f(q.x)},${f(q.y)}`, mx: 0.25 * p.x + 0.5 * cx + 0.25 * q.x, my: 0.25 * p.y + 0.5 * cy + 0.25 * q.y };
 }
 
+/** Sorteio com semente (mulberry32): o mesmo texto dá sempre a mesma sequência de números entre 0 e 1. */
+export function sorteioComSemente(semente: string): () => number {
+  let h = 2166136261;
+  for (let i = 0; i < semente.length; i++) h = Math.imul(h ^ semente.charCodeAt(i), 16777619);
+  let a = h >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/** A semente de um fio: o par de nós em ordem fixa (de→para e para→de dão o mesmo fio) mais o id da ligação. */
+export const sementeDoPar = (de: string, para: string, id: string): string => `${de < para ? de : para}|${de < para ? para : de}|${id}`;
+
+/**
+ * Um fio de teia de aranha entre dois nós: curva cúbica com os dois pontos de controle deslocados ao acaso (com
+ * semente, então o mesmo par dá sempre o mesmo fio, render após render), ora barriga para um lado, ora em "S", com
+ * leve caimento, como seda que cede. Devolve também a espessura e a opacidade do fio (variação pequena, para a teia
+ * não parecer feita à régua) e o ponto do meio (onde vão o texto e o ponto de confiança).
+ */
+export function fioDaTeia(p: Ponto, q: Ponto, semente: string): { d: string; mx: number; my: number; espessura: number; opacidade: number } {
+  const sorte = sorteioComSemente(semente);
+  const dx = q.x - p.x;
+  const dy = q.y - p.y;
+  const comp = Math.hypot(dx, dy) || 1;
+  // Normal unitária à reta p→q.
+  const nx = -dy / comp;
+  const ny = dx / comp;
+  // Barriga: 6% a 26% do comprimento, para um lado ou outro; um terço dos fios faz "S" (pontos em lados opostos).
+  const lado = sorte() < 0.5 ? -1 : 1;
+  const barriga = comp * (0.06 + sorte() * 0.2) * lado;
+  const emS = sorte() < 0.33;
+  const b1 = barriga * (0.7 + sorte() * 0.6);
+  const b2 = (emS ? -barriga * 0.6 : barriga) * (0.7 + sorte() * 0.6);
+  // Onde, ao longo do fio, ficam os pontos de controle (não sempre a 1/3 e 2/3).
+  const t1 = 0.2 + sorte() * 0.2;
+  const t2 = 0.6 + sorte() * 0.2;
+  // Caimento: o fio cede um pouco para baixo, como seda com peso.
+  const cai = comp * 0.04 * sorte();
+  const c1 = { x: p.x + dx * t1 + nx * b1, y: p.y + dy * t1 + ny * b1 + cai };
+  const c2 = { x: p.x + dx * t2 + nx * b2, y: p.y + dy * t2 + ny * b2 + cai };
+  const f = (n: number) => Math.round(n * 10) / 10;
+  return {
+    d: `M${f(p.x)},${f(p.y)} C${f(c1.x)},${f(c1.y)} ${f(c2.x)},${f(c2.y)} ${f(q.x)},${f(q.y)}`,
+    // Bézier cúbica em t = 0,5.
+    mx: (p.x + 3 * c1.x + 3 * c2.x + q.x) / 8,
+    my: (p.y + 3 * c1.y + 3 * c2.y + q.y) / 8,
+    espessura: Math.round((0.6 + sorte() * 0.8) * 100) / 100,
+    opacidade: Math.round((0.55 + sorte() * 0.45) * 100) / 100,
+  };
+}
+
 /** Uma ramificação do ponto no mapa: pessoa, organização (nó da teia) ou fonte (link) ligada ao caso. */
 export interface RamoDoCaso {
   tipo: "pessoa" | "organizacao" | "fonte";

@@ -2602,3 +2602,27 @@
 .ve-arsenal-eventos > li[data-evento="mudanca"] .ve-codigo {
   color: var(--ve-verde);
 }
+
+/* ── Teia de aranha: cada fio com espessura e opacidade próprias (sorteadas com semente em fioDaTeia) ───────── */
+.ve-aresta {
+  stroke-width: calc(0.8px * var(--ve-fio, 1));
+  opacity: var(--ve-fio-op, 1);
+}
+.ve-aresta[data-implicita="false"] {
+  stroke-width: calc(1.1px * var(--ve-fio, 1));
+}
+.ve-aresta[data-realce="true"] {
+  stroke-width: 1.8px;
+  opacity: 1;
+}
+.ve-aresta[data-apagado="true"] {
+  opacity: 0.1;
+}
+/* Na teia os nós ficam parados e o toque é da página: rolar e aproximar com dois dedos funcionam como em qualquer
+   página (o zoom do desenho fica nos botões +/−/◎ e no teclado). */
+.ve-viz[data-visao="teia"] {
+  touch-action: auto;
+}
+.ve-viz[data-visao="teia"] .ve-svg {
+  touch-action: auto;
+}
