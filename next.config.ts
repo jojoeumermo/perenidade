@@ -145,6 +145,9 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/*/trilhas/**": ["./content/**/*", "./historico/**/*"],
     "/*/acervo/*": ["./content/**/*", "./historico/**/*", "./public/capas/**/*"],
+    // A aula da Escola de Formação (/escola/formacao/<caderno>/<aula>) também sai na primeira visita e lê as trilhas, o
+    // léxico das vozes e os exercícios na hora.
+    "/*/escola/formacao/**": ["./content/**/*"],
   },
   // Só em desenvolvimento: abrir o painel também em 127.0.0.1 faz de conta que é um segundo aparelho (outro navegador, outras
   // chaves), o que serve para testar a aprovação de aparelhos das conversas sem dois computadores.

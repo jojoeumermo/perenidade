@@ -313,8 +313,8 @@ export function useAssistantOn(active = true): boolean {
   return on;
 }
 
-/** Os modos do acompanhante do estudante (E4-10) e dos agentes de trabalho (E4-16), além de "pergunta" e "foto". */
-export type AssistantMode = "pergunta" | "foto" | "socratico" | "pistas" | "outro-jeito" | "redacao" | "documento" | "conversa" | "entrevista" | "oratoria" | "papelada" | "turma" | "educador";
+/** Os modos do acompanhante do estudante (E4-10), dos agentes de trabalho (E4-16) e do treino de conversa da Escola de Formação (F2), além de "pergunta" e "foto". */
+export type AssistantMode = "pergunta" | "foto" | "socratico" | "pistas" | "outro-jeito" | "redacao" | "documento" | "conversa" | "entrevista" | "oratoria" | "papelada" | "turma" | "educador" | "treino-conversa";
 
 export interface AssistantRequest {
   modo: AssistantMode;
@@ -327,7 +327,7 @@ export interface AssistantRequest {
   /** Só nos modos novos (opcional): a conversa curta até aqui, cortada no aparelho (lib/escola/acompanhante.ts). */
   historico?: { de: "pessoa" | "assistente"; texto: string }[];
   /** Só nos modos novos (opcional): o trecho da aula, o exercício, o nível da pista, o trabalho, o idioma da prática… */
-  contexto?: { aula?: string; trecho?: string; enunciado?: string; alternativas?: string[]; nivel?: 1 | 2 | 3; trabalho?: string; idiomaAlvo?: "en" | "es"; vaga?: string };
+  contexto?: { aula?: string; trecho?: string; enunciado?: string; alternativas?: string[]; nivel?: 1 | 2 | 3; trabalho?: string; idiomaAlvo?: "en" | "es"; vaga?: string; papel?: string };
 }
 
 export type AssistantResult =
