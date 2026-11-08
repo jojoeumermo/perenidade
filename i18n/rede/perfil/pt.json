@@ -17,7 +17,15 @@
       "trilha": "Trilha concluída: {nome}"
     },
     "selosAjuda": "Selo de trilha é declarado pela própria pessoa, a partir do que ela fez no aparelho dela; o site não confere.",
-    "fotoDe": "Rosto de {codinome}"
+    "fotoDe": "Rosto de {codinome}",
+    "selosEscola": {
+      "titulo": "Escola de Formação",
+      "carteirinha": "Militante da Escola",
+      "degrau": "Degrau {n} da Escola",
+      "caderno": "Caderno {n} da Escola",
+      "aulas": "Aulas da Escola: {n}",
+      "ajuda": "Aulas e cadernos da Escola são declarados pela pessoa; a carteirinha e o degrau são conferidos pela coordenação."
+    }
   },
   "avatar": {
     "titulo": "Rosto",
@@ -116,7 +124,9 @@
     "filaTitulo": "Imagens esperando a mediação",
     "filaVazia": "Nenhuma imagem esperando.",
     "aceitarImagem": "Aceitar",
-    "recusarImagem": "Recusar"
+    "recusarImagem": "Recusar",
+    "escolaAtalho": "Conquistas da Escola:",
+    "escolaAtalhoLink": "escolher na Escola"
   },
   "erros": {
     "handle_usado": "Esse @nome já tem dono. Escolha outro.",

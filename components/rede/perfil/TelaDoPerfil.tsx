@@ -10,6 +10,8 @@ import { enderecoDeEditarPerfil, estudandoDaUltimaAula, nomeDaTrilha, origemDaIm
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
 import type { PerfilDaRede } from "@/lib/rede/tipos-perfil";
+import { SelosDaEscola } from "@/components/escola/percurso/SelosDaEscola";
+import { selosDaEscola } from "@/lib/escola/conquistas";
 import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
@@ -156,6 +158,11 @@ export default function TelaDoPerfil({ handle, lang, s, situacao, aoResponder }:
             </ul>
           )}
           {selos.some((x) => slugDoSelo(x)) && <p className="mt-1 text-xs text-ink-soft">{sp.perfil.selosAjuda}</p>}
+
+          {/* Selos da Escola de Formação ('escola:*'): rede_perfil_de já os manda FILTRADOS pelo público que a pessoa escolheu. */}
+          {selosDaEscola(dado.selos).length > 0 && (
+            <SelosDaEscola selos={selosDaEscola(dado.selos)} t={sp.perfil.selosEscola} rotulo={sp.perfil.selosEscola.titulo} className="mt-2" />
+          )}
 
           {dado.bio && <p className="mt-2 whitespace-pre-line break-words">{dado.bio}</p>}
 
