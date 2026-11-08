@@ -1,0 +1,270 @@
+{
+  "meta": {
+    "titulo": "Núcleo · Escola de Formação",
+    "descricao": "O núcleo da Escola de Formação: pauta, quem faz o quê, roda, assembleia e banca de passagem. Só para militantes."
+  },
+  "tela": {
+    "olho": "Seu núcleo",
+    "semNucleoTitulo": "Ainda sem núcleo",
+    "semNucleo": "A coordenação indica o núcleo de cada militante. Enquanto isso, o kit de quem facilita e a assembleia já estão aqui.",
+    "proximo": "Próximo encontro: {quando}.",
+    "semEncontro": "Ainda não há encontro marcado.",
+    "alumia": "A conversa e os atos do núcleo ficam na Alumia.",
+    "abrirAlumia": "Abrir na Alumia",
+    "roteiro": "Roteiro da roda",
+    "abas": {
+      "rotulo": "Núcleo",
+      "pauta": "Pauta",
+      "tarefas": "Tarefas",
+      "circulo": "Círculo",
+      "assembleia": "Assembleia"
+    },
+    "carregando": "Carregando…",
+    "falha": "Não deu para carregar agora.",
+    "tentar": "Tentar de novo",
+    "ausente": "O núcleo da Escola ainda não chegou a esta instalação. Por enquanto, combinem pelo núcleo na Alumia.",
+    "previa": "Prévia de desenvolvimento: dados de exemplo, nada é de verdade."
+  },
+  "pauta": {
+    "titulo": "Pauta de {dia}",
+    "tituloSemDia": "Pauta",
+    "vazia": "A pauta ainda está em branco. Quem faz a mediação monta; você pode levar um assunto aqui embaixo.",
+    "levado": "levado por alguém do núcleo",
+    "quemFaz": "Quem faz o quê",
+    "euLevo": "Eu levo",
+    "soltar": "Soltar",
+    "voce": "Você",
+    "alguem": "Alguém do núcleo",
+    "feito": "feito",
+    "repete": "Você fez esta na roda passada: deixe para outra pessoa.",
+    "semTarefas": "Nenhuma tarefa ainda. Os encaminhamentos da roda entram aqui, em rodízio.",
+    "presenca": "Presença das últimas {n} rodas: {lista} pessoas.",
+    "semPresenca": "A presença aparece aqui depois das primeiras rodas (só o número, nunca os nomes).",
+    "anterior": "A roda que passou",
+    "anteriorSemBalanco": "Ainda sem balanço registrado."
+  },
+  "tarefas": {
+    "titulo": "Tarefas do encontro",
+    "texto": "Cada encaminhamento tem alguém que leva. Rodízio: quem fez uma tarefa na roda passada deixa para outra pessoa, para todo mundo aprender a fazer tudo.",
+    "minhas": "Com você",
+    "abertas": "Sem ninguém ainda",
+    "outras": "Com outras pessoas",
+    "nenhumaMinha": "Você não pegou nenhuma tarefa deste encontro."
+  },
+  "levar": {
+    "titulo": "Levar para o núcleo",
+    "texto": "Uma dúvida, uma ideia, um caso do bairro: vai para a pauta do próximo encontro, sem o seu nome.",
+    "rotulo": "O que levar (até 200 letras)",
+    "enviar": "Levar para a pauta",
+    "ok": "Foi para a pauta do próximo encontro, sem o seu nome."
+  },
+  "pergunta": {
+    "titulo": "Pergunta geradora da semana",
+    "texto": "Como no círculo de cultura de Paulo Freire: uma pergunta tirada da vida de quem estuda abre a roda. Pense na sua resposta e leve para o núcleo.",
+    "vazia": "A coordenação ainda não definiu a pergunta desta semana.",
+    "rotulo": "Sua resposta, para levar à roda (até 200 letras)",
+    "enviar": "Levar a resposta à roda"
+  },
+  "mediar": {
+    "titulo": "Preparar o encontro",
+    "so": "Só quem faz a mediação do núcleo e a coordenação veem isto.",
+    "novo": "Marcar o próximo encontro",
+    "editar": "Mudar o encontro",
+    "quando": "Dia e hora (horário de Brasília)",
+    "pautaTitulo": "Pauta (até 12 itens)",
+    "item": "Item {n} da pauta",
+    "acrescentarItem": "Acrescentar item",
+    "tirar": "Tirar",
+    "usarRoda": "Montar em ver-julgar-agir",
+    "tarefasTitulo": "Quem faz o quê (até 12)",
+    "tarefa": "Tarefa {n}",
+    "acrescentarTarefa": "Acrescentar tarefa",
+    "salvar": "Salvar o encontro",
+    "salvo": "Encontro salvo.",
+    "cancelar": "Cancelar",
+    "fecharTitulo": "Fechar a roda que passou",
+    "presencaRotulo": "Quantas pessoas vieram",
+    "balancoRotulo": "Balanço: o que vimos, o que pensamos, o que vamos fazer (sem nomes)",
+    "guardar": "Guardar o balanço",
+    "guardado": "Balanço guardado."
+  },
+  "kit": {
+    "titulo": "Kit de quem facilita",
+    "lead": "Um roteiro para a roda do núcleo em ver-julgar-agir, aberto e fechado pela mística. Quem facilita muda a cada encontro (rodízio).",
+    "pautaModelo": [
+      "Mística de abertura (5 min)",
+      "Ver: o que aconteceu na semana e na tarefa no mundo",
+      "Julgar: a roda do caderno",
+      "Agir: encaminhamentos e quem faz o quê",
+      "Mística de fechamento"
+    ],
+    "misticaAbertura": {
+      "titulo": "Mística de abertura",
+      "tempo": "5 min",
+      "texto": "Um momento coletivo antes da conversa: uma música, um poema, uma foto ou objeto da luta do lugar, a leitura de um trecho do caderno. Serve para lembrar por que o núcleo existe.",
+      "dica": "Combine na roda anterior quem prepara. Sem plateia: todo mundo participa."
+    },
+    "ver": {
+      "titulo": "Ver",
+      "tempo": "20 min",
+      "texto": "Cada pessoa conta o que viu: a tarefa no mundo, a conversa difícil, o que aconteceu no bairro, na escola, no trabalho. A pergunta geradora da semana abre essa parte.",
+      "dica": "Fale de situações, não de pessoas: nada de nome de terceiros."
+    },
+    "julgar": {
+      "titulo": "Julgar",
+      "tempo": "30 min",
+      "texto": "O núcleo relê o que foi contado à luz do caderno estudado: por que isso acontece? quem ganha e quem perde? o que o caderno ajuda a entender?",
+      "dica": "Quem facilita pergunta mais do que responde."
+    },
+    "agir": {
+      "titulo": "Agir",
+      "tempo": "15 min",
+      "texto": "Encaminhamentos concretos: o que vamos fazer, até quando e quem leva. Cada tarefa vai para a lista \"Quem faz o quê\".",
+      "dica": "Rodízio: quem levou uma tarefa na roda passada deixa para outra pessoa."
+    },
+    "misticaFechamento": {
+      "titulo": "Mística de fechamento",
+      "tempo": "5 min",
+      "texto": "Fechar juntos: uma palavra de cada pessoa sobre o encontro, uma canção, a leitura dos encaminhamentos em voz alta.",
+      "dica": "Depois, quem faz a mediação registra a presença (só o número) e o balanço, sem nomes."
+    },
+    "sistematizar": {
+      "titulo": "Sistematizar",
+      "texto": "O balanço da roda guarda a memória do núcleo: o que vimos, o que pensamos, o que decidimos. Sem nome de ninguém, para poder ser lido por quem chegar depois."
+    },
+    "circuloTitulo": "Círculo de cultura no aparelho",
+    "circuloTexto": "A ferramenta de quem facilita: palavras geradoras, tema, perguntas e aulas do encontro, guardadas só neste aparelho.",
+    "banca": {
+      "titulo": "Banca de passagem",
+      "texto": "Para fechar um degrau, a pessoa apresenta ao núcleo o que estudou e a tarefa no mundo que fez. A banca faz um balanço coletivo, sem nota: o que a pessoa trouxe, o que o núcleo viu, o que fica para o próximo degrau.",
+      "passos": [
+        "Quem acompanha a pessoa marca a banca com ela.",
+        "No dia, a pessoa conta o caminho do degrau (10 min).",
+        "O núcleo pergunta e comenta, sem julgar a pessoa (15 min).",
+        "Quem acompanha registra o balanço coletivo: \"degrau aberto\" ou \"combinar de novo\"."
+      ],
+      "fichaTitulo": "Ficha de devolutiva, por competência (neste aparelho)"
+    }
+  },
+  "banca": {
+    "titulo": "Quem acompanha você e a banca",
+    "acompanha": "{nome}, do Degrau 3, acompanha a sua formação.",
+    "alguem": "Uma pessoa do Degrau 3",
+    "semAcompanha": "Ainda não tem ninguém acompanhando a sua formação. A coordenação indica alguém do Degrau 3.",
+    "minhas": "Suas bancas",
+    "semMinhas": "Nenhuma banca marcada para você ainda.",
+    "degrau": "Degrau {n}",
+    "quando": "Quando: {quando}",
+    "semData": "data a combinar",
+    "situacao": {
+      "marcada": "Marcada",
+      "aprovada": "Degrau aberto",
+      "refazer": "Combinar de novo"
+    },
+    "balanco": "Balanço coletivo",
+    "acompanho": "Quem você acompanha",
+    "marcar": "Marcar a banca do Degrau {n}",
+    "marcarQuando": "Dia e hora da banca (opcional)",
+    "marcada": "Banca marcada.",
+    "decidirTitulo": "Registrar o balanço",
+    "balancoRotulo": "Balanço coletivo, sem nota (10 a 2000 letras)",
+    "aprovar": "Degrau aberto",
+    "refazer": "Combinar de novo",
+    "decidida": "Balanço registrado."
+  },
+  "assembleia": {
+    "titulo": "Assembleia",
+    "texto": "A assembleia vota a pauta de estudo do semestre. O voto é anônimo: o servidor só soma.",
+    "semPauta": "Sem pauta aberta para votar agora.",
+    "roteiroTitulo": "Fazer a assembleia no núcleo"
+  },
+  "erros": {
+    "rodizio": "Você fez esta tarefa na roda passada. Deixe para outra pessoa.",
+    "ja_tem_quem": "Alguém já pegou esta tarefa.",
+    "sem_nucleo": "Você ainda não está num núcleo.",
+    "sem_encontro": "Ainda não há encontro marcado para levar o assunto.",
+    "pauta_cheia": "A pauta do próximo encontro já tem 12 itens.",
+    "sem_permissao": "Isto não é para a sua conta.",
+    "banca_ja_marcada": "Já existe uma banca marcada para esta pessoa.",
+    "banca_ja_decidida": "Esta banca já tem balanço.",
+    "acompanhante_degrau_3": "Só alguém do Degrau 3 pode acompanhar.",
+    "nao_encontrado": "Não encontrado. Recarregue a página.",
+    "muitas_tentativas": "Muitas tentativas seguidas. Espere um pouco.",
+    "ausente": "Esta parte ainda não chegou a esta instalação.",
+    "sem_servico": "Sem conexão com o serviço.",
+    "invalido": "Confira o que foi escrito.",
+    "falha": "Não deu certo agora. Tente de novo."
+  },
+  "painel": {
+    "lead": "A Escola de Formação pelo codinome da Alumia: ninguém aparece aqui pelo nome civil nem pelo e-mail. Quem entra na Escola é decidido em Pessoas: pôr a pessoa no departamento Revolucionários abre a Escola para ela; tirar apaga o que a Escola guardou.",
+    "abas": {
+      "militantes": "Militantes",
+      "bancas": "Bancas",
+      "pergunta": "Pergunta da semana",
+      "recados": "Recados",
+      "nucleos": "Núcleos"
+    },
+    "carregando": "Carregando",
+    "militantes": {
+      "titulo": "Militantes",
+      "vazio": "Ninguém na Escola ainda.",
+      "semCodinome": "sem codinome",
+      "codinome": "Codinome",
+      "degrau": "Degrau",
+      "frente": "Frente",
+      "nucleo": "Núcleo",
+      "acompanha": "Quem acompanha",
+      "desde": "Desde",
+      "nenhum": "nenhum",
+      "ninguem": "ninguém",
+      "ajustado": "Ajustado.",
+      "marcarBanca": "Marcar banca",
+      "frentes": {
+        "estudantil": "Estudantil",
+        "bairros": "Bairros",
+        "trabalho": "Trabalho",
+        "agitprop": "Agitação e propaganda",
+        "atos": "Atos",
+        "cultura": "Cultura",
+        "solidariedade": "Solidariedade"
+      }
+    },
+    "bancas": {
+      "titulo": "Bancas de passagem",
+      "vazio": "Nenhuma banca marcada.",
+      "militante": "Militante",
+      "decidir": "Registrar"
+    },
+    "pergunta": {
+      "titulo": "Pergunta geradora",
+      "texto": "Uma pergunta por semana, tirada da vida de quem estuda. Aparece na tela Hoje e abre a roda do núcleo. Texto vazio apaga a pergunta da semana.",
+      "semana": "Semana que começa na segunda",
+      "rotulo": "Pergunta (até 300 letras)",
+      "salvar": "Definir a pergunta",
+      "salva": "Pergunta definida.",
+      "recentes": "Perguntas recentes e marcadas",
+      "nenhuma": "Nenhuma pergunta ainda."
+    },
+    "recados": {
+      "titulo": "Recados da formação",
+      "texto": "Aparecem na tela Hoje até a data escolhida. Para toda a Escola, ou só para um núcleo.",
+      "rotulo": "Recado (até 400 letras)",
+      "ate": "Vale até",
+      "para": "Para",
+      "todos": "Toda a Escola",
+      "salvar": "Deixar o recado",
+      "salvo": "Recado salvo.",
+      "apagar": "Apagar",
+      "apagado": "Recado apagado.",
+      "vencido": "vencido",
+      "nenhum": "Nenhum recado."
+    },
+    "nucleos": {
+      "titulo": "Núcleos da Alumia",
+      "texto": "Os núcleos vêm da Alumia; a mediação de cada um é quem prepara os encontros da Escola. Ponha cada militante num núcleo na aba Militantes.",
+      "militantes": "{n} militantes",
+      "nenhum": "Nenhum núcleo na Alumia ainda."
+    },
+    "limite": "Limite honesto: o painel mostra só o codinome confirmado na Alumia. Quem ainda não escolheu codinome aparece como \"sem codinome\"."
+  }
+}
