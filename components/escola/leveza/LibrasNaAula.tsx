@@ -1,13 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SelosDePrivacidade } from "@/components/SeloDePrivacidade";
 import type { TextosDaLeveza } from "@/i18n/escola/leveza";
 import { type AulaEmLibras, preencherTexto as preencher } from "@/lib/escola/leveza";
 import { usePrefs } from "@/lib/prefs";
 import { SELOS_DE_FORA } from "@/lib/selos";
-import { carregarVLibras, vlibrasCarregado, vlibrasLembrado } from "@/lib/vlibras";
+import { assinarVLibras, carregarVLibras, vlibrasCarregado, vlibrasLembrado } from "@/lib/vlibras";
 
 // "ligado": já estava ligado (nesta visita ou lembrado pelo painel); "ligado-agora": acabou de carregar.
 type Estado = "fechado" | "aviso" | "carregando" | "ligado" | "ligado-agora" | "erro";
@@ -31,6 +31,16 @@ export function LibrasNaAula({
 }) {
   const prefs = usePrefs();
   const [estado, setEstado] = useState<Estado>(() => (vlibrasCarregado() || vlibrasLembrado() ? "ligado" : "fechado"));
+
+  // Desligado pelo painel de acessibilidade: o botão "Ver em Libras" volta (e ligado por lá, a nota de ligado aparece).
+  useEffect(
+    () =>
+      assinarVLibras(() => {
+        const agora = vlibrasCarregado();
+        setEstado((antes) => (agora ? (antes === "fechado" ? "ligado" : antes) : antes === "ligado" || antes === "ligado-agora" ? "fechado" : antes));
+      }),
+    [],
+  );
 
   if (!vlibrasLigado && !libras) return null;
 
