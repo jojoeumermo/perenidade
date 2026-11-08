@@ -8,7 +8,7 @@ import { fileHistory } from "@/lib/history";
 import { site } from "@/lib/site";
 import { ligado } from "@/lib/recursos";
 
-// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
+// Refeita a cada hora.
 export const revalidate = 3600;
 
 // Mapa do site para os buscadores. Cada endereço aparece uma vez por idioma, com a indicação das

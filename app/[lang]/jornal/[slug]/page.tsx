@@ -1,23 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import Link from "@/components/Link";
 import { notFound } from "next/navigation";
-import { SourceList } from "@/components/Cards";
-import { Markdown } from "@/components/Markdown";
-import { Masthead } from "@/components/Masthead";
-import { ContarLeitura } from "@/components/jornal/MaisLidas";
-import { originalLang, Untranslated } from "@/components/Untranslated";
+import { MateriaCompleta } from "@/components/jornal/MateriaCompleta";
 import { loadLang } from "@/i18n";
-import { defaultLocale, fill, htmlLang, localePath } from "@/i18n/config";
-import { getArticles, getGlossary } from "@/lib/content";
+import { defaultLocale } from "@/i18n/config";
+import { getArticles } from "@/lib/content";
 import { withLangs } from "@/lib/params";
 import { paginaMeta } from "@/lib/seo";
-import { site } from "@/lib/site";
-import { Compartilhar } from "@/components/Compartilhar";
 
-// Refeita a cada hora: uma matéria do Jornal com prazo ("sai_do_ar_em", lib/jornal/validade.ts) sai daqui sem esperar a próxima publicação.
-export const revalidate = 3600;
-
+// O endereço de cada matéria é permanente: nenhuma expira (docs/jornal/EXPIRACAO.md).
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -36,42 +27,8 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/jornal/[sl
 export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slug]">) {
   const { lang, t } = await loadLang(params);
   const { slug } = await params;
-  const article = getArticles(lang).find((item) => item.slug === slug);
+  const articles = getArticles(lang);
+  const article = articles.find((item) => item.slug === slug);
   if (!article) notFound();
-  const date = new Intl.DateTimeFormat(htmlLang[lang], { dateStyle: "long", timeZone: "UTC" });
-  const terms = article.translated ? getGlossary(lang).filter((term) => term.translated).map(({ slug: s, term, summary }) => ({ slug: s, term, summary })) : [];
-
-  return (
-    <article className="mx-auto max-w-3xl px-4 py-8">
-      <ContarLeitura slug={article.slug} />
-      <Masthead lang={lang} s={t.journal} slogan={t.slogans.jornal} small />
-      <div className="mt-6" {...originalLang(article.translated)}>
-        <span className="jornal-editoria">{article.section || t.journal.eyebrow}</span>
-        <h1 className="jornal-manchete mt-3 text-4xl sm:text-6xl">{article.title}</h1>
-        {article.subtitle && <p className="mt-4 text-2xl font-semibold text-ink-soft">{article.subtitle}</p>}
-        <p className="mt-5 border-y border-ink py-2 font-sans text-xs font-semibold uppercase tracking-wide">
-          {fill(t.lesson.by, { names: article.author })} · {date.format(new Date(article.date))} · {fill(t.tracks.minutes, { n: article.minutes })}
-        </p>
-      </div>
-      {article.expires && (
-        // Matéria com prazo ("sai_do_ar_em"): quem lê sabe até quando ela fica no ar. A hora é a de Brasília.
-        <p className="mt-4 border-l-4 border-oxblood bg-parchment-deep px-3 py-2 font-sans text-sm" role="note">
-          {fill(t.journal.expires, {
-            date: new Intl.DateTimeFormat(htmlLang[lang], { dateStyle: "long", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(new Date(article.expires)),
-          })}
-        </p>
-      )}
-      <Untranslated lang={lang} t={t} show={!article.translated} />
-      <div {...originalLang(article.translated)}>
-        <div className="jornal-materia mt-8">
-          <Markdown lang={lang} terms={terms}>{article.body}</Markdown>
-        </div>
-        <SourceList sources={article.sources} title={t.common.sources} />
-      </div>
-      <Compartilhar url={`${site.url}${localePath(lang, `/jornal/${article.slug}`)}`} texto={`${t.compartilhar.materia} ${article.title}`} s={t.compartilhar} />
-      <p className="no-print mt-10 border-t-4 border-ink pt-4 font-sans text-sm">
-        <Link href={localePath(lang, "/jornal")} className="voltar-da-pagina font-semibold uppercase tracking-wide hover:text-oxblood">← {t.journal.back}</Link>
-      </p>
-    </article>
-  );
+  return <MateriaCompleta lang={lang} t={t} article={article} articles={articles} />;
 }

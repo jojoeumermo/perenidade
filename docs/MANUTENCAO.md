@@ -191,7 +191,7 @@ O resolvedor também aceita **foto do exercício**: a foto vai para o assistente
 | `autores` | `nome, anos, origem`, opcionais `arquivo` (https), `arquivo_fonte`; o texto é a biografia |
 | `memorial` | `nome, nascimento, morte, local`, opcionais `foto` (em `/imagens/memorial/`), `foto_credito` e `foto_fonte`; o texto é a homenagem |
 | `glossario` | `termo, resumo`; texto opcional |
-| `jornal` | `titulo, autor, data (AAAA-MM-DD), fontes`, opcionais `subtitulo`, `editoria`, `imagem` com `credito_imagem` e `sai_do_ar_em` ("AAAA-MM-DD HH:MM", hora de Brasília: a matéria sai do ar nessa hora e o endereço responde 410; `docs/jornal/EXPIRACAO.md`) |
+| `jornal` | `titulo, autor, data (AAAA-MM-DD), fontes`, opcionais `subtitulo`, `editoria`, `imagem` com `credito_imagem`, `destaque: true` (destaque fixo no arquivo e ao lado das outras matérias) e `hora` ("HH:MM", só desempata matérias do mesmo dia). As matérias não expiram (`docs/jornal/EXPIRACAO.md`) |
 | `checagens` | `alegacao, veredito (Falso, Enganoso, Falta contexto ou Verdadeiro), data, fontes` |
 | `debates` | `afirmacao, resposta, fontes`, opcional `falacias: [slug]` (as falácias que a frase usa; slug que não existe quebra a montagem); texto opcional |
 | `falacias` | `nome, resumo` (uma linha), `familia` (`relevancia`, `provas`, `premissas`, `desvio` ou `sentido`), `o_que_e, dia_a_dia, debate_publico, como_responder, fontes`, opcionais `original` (nome em latim ou inglês) e `parecidas: [slug]`; texto opcional. O exemplo do debate público é sóbrio e não cita pessoa viva nem partido pelo nome |

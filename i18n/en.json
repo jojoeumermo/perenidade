@@ -3258,7 +3258,12 @@
     "updated": "Updated on {date}",
     "more": "More news",
     "back": "Back to the front page",
-    "expires": "Time-limited article: online until {date} (Brasília time). Then it leaves the site.",
+    "alsoRead": "Read also",
+    "archive": "All articles, in the Journal archive",
+    "archiveTitle": "Journal archive",
+    "archiveLead": "Every article ever published, newest first. None of them is taken down.",
+    "featured": "Featured",
+    "latest": "Latest article",
     "round": "News round-up",
     "newsletter": {
       "title": "Get the journal by e-mail",

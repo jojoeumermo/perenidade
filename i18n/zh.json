@@ -3187,7 +3187,12 @@
     "updated": "更新于 {date}",
     "more": "更多新闻",
     "back": "返回头版",
-    "expires": "限时文章：在线至 {date}（巴西利亚时间），之后将从网站下线。",
+    "alsoRead": "延伸阅读",
+    "archive": "全部文章，见报刊档案",
+    "archiveTitle": "报刊档案",
+    "archiveLead": "所有已发表的文章，从新到旧。没有一篇会下线。",
+    "featured": "重点关注",
+    "latest": "最新文章",
     "round": "新闻速览",
     "newsletter": {
       "title": "通过电子邮件接收报纸",
