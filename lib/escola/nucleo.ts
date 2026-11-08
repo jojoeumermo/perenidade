@@ -6,7 +6,9 @@
 //
 // Nada daqui fica gravado no aparelho: pauta, tarefas, banca e recados moram só no banco e na memória da aba.
 // Prévia SÓ em desenvolvimento (?previa=militante, lib/escola/acesso.ts): os dados de exemplo vêm por import() dinâmico,
-// dentro do bloco de desenvolvimento, e ficam fora do pacote de produção.
+// dentro do bloco de desenvolvimento. O build ainda gera o pedaço (chunk) da prévia, mas em produção ele nunca é
+// carregado (emPrevia() é sempre false) e só tem dados inventados. O painel da coordenação não usa a prévia: lê e grava
+// sempre no banco (chamarNoBanco), para não mostrar dado do banco e fingir que salvou.
 // Sem os atalhos "@/" de propósito (o teste importa este arquivo direto no Node).
 
 import { BackendError, rpc } from "../backend";
@@ -130,6 +132,11 @@ export async function chamarDoNucleo<N extends FuncaoDoNucleo>(nome: N, args?: F
     const { exemploDoNucleo } = await import("../../components/escola/nucleo/previa");
     return exemploDoNucleo(nome, (args ?? {}) as Record<string, unknown>) as Resposta<FuncoesDoNucleo[N]["volta"]>;
   }
+  return chamarNoBanco(nome, args);
+}
+
+/** Como chamarDoNucleo, mas sempre no banco, sem prévia (o painel da coordenação lê pelo banco e grava pelo banco). */
+export async function chamarNoBanco<N extends FuncaoDoNucleo>(nome: N, args?: FuncoesDoNucleo[N]["args"]): Promise<Resposta<FuncoesDoNucleo[N]["volta"]>> {
   try {
     const dados = await rpc<FuncoesDoNucleo[N]["volta"]>(nome, (args ?? {}) as Record<string, unknown>);
     return { ok: true, dados };

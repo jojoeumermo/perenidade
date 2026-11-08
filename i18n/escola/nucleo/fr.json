@@ -86,7 +86,17 @@
     "presencaRotulo": "Combien de personnes sont venues",
     "balancoRotulo": "Bilan : ce que nous avons vu, pensé, ce que nous allons faire (sans noms)",
     "guardar": "Enregistrer le bilan",
-    "guardado": "Bilan enregistré."
+    "guardado": "Bilan enregistré.",
+    "recadosTitulo": "Messages du noyau",
+    "recadosNota": "Les membres du noyau les voient jusqu’à la date choisie. Les messages pour toute l’École passent par la coordination.",
+    "recadosVazio": "Aucun message du noyau en cours.",
+    "recadoAteDia": "jusqu’au {dia}",
+    "apagarRecado": "Supprimer",
+    "recadoApagado": "Message supprimé.",
+    "recadoTexto": "Nouveau message (400 caractères maximum)",
+    "recadoAte": "Valable jusqu’au",
+    "publicarRecado": "Publier le message",
+    "recadoPublicado": "Message publié."
   },
   "kit": {
     "titulo": "Kit de l'animation",

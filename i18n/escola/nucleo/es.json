@@ -86,7 +86,17 @@
     "presencaRotulo": "Cuántas personas vinieron",
     "balancoRotulo": "Balance: lo que vimos, lo que pensamos, lo que vamos a hacer (sin nombres)",
     "guardar": "Guardar el balance",
-    "guardado": "Balance guardado."
+    "guardado": "Balance guardado.",
+    "recadosTitulo": "Avisos del núcleo",
+    "recadosNota": "Los ve quien es del núcleo hasta la fecha elegida. Los avisos para toda la Escuela los da la coordinación.",
+    "recadosVazio": "No hay avisos del núcleo vigentes ahora.",
+    "recadoAteDia": "hasta el {dia}",
+    "apagarRecado": "Borrar",
+    "recadoApagado": "Aviso borrado.",
+    "recadoTexto": "Aviso nuevo (hasta 400 caracteres)",
+    "recadoAte": "Vale hasta",
+    "publicarRecado": "Publicar el aviso",
+    "recadoPublicado": "Aviso publicado."
   },
   "kit": {
     "titulo": "Kit de quien facilita",

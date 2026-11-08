@@ -86,7 +86,17 @@
     "presencaRotulo": "Quantas pessoas vieram",
     "balancoRotulo": "Balanço: o que vimos, o que pensamos, o que vamos fazer (sem nomes)",
     "guardar": "Guardar o balanço",
-    "guardado": "Balanço guardado."
+    "guardado": "Balanço guardado.",
+    "recadosTitulo": "Recados do núcleo",
+    "recadosNota": "Aparecem para quem é do núcleo até a data escolhida. Recado para toda a Escola é com a coordenação.",
+    "recadosVazio": "Nenhum recado do núcleo valendo agora.",
+    "recadoAteDia": "até {dia}",
+    "apagarRecado": "Apagar",
+    "recadoApagado": "Recado apagado.",
+    "recadoTexto": "Recado novo (até 400 letras)",
+    "recadoAte": "Vale até",
+    "publicarRecado": "Publicar o recado",
+    "recadoPublicado": "Recado publicado."
   },
   "kit": {
     "titulo": "Kit de quem facilita",

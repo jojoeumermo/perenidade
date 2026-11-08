@@ -1,9 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useId, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import type { TextosDaTelaDoNucleo } from "@/i18n/escola/nucleo";
-import type { EncontroParaSalvar } from "@/lib/escola/contratos";
+import type { EncontroParaSalvar, RecadoDaFormacao } from "@/lib/escola/contratos";
 import { chamarDoNucleo, deCampoParaIso, deIsoParaCampo, MAX_ITENS_DA_PAUTA, MAX_TAREFAS, type MotivoDoErro, type NucleoCompleto, pautaEmRoda } from "@/lib/escola/nucleo";
 import { preencher } from "@/lib/escola/textos";
 
@@ -35,12 +35,114 @@ function ListaDeCampos({ valores, mudar, rotulo, acrescentar, tirar, maximo, lim
   );
 }
 
+
+/** "16 de novembro" (a data AAAA-MM-DD do recado, sem fuso). */
+function diaDoRecado(lang: string, ate: string): string {
+  try {
+    return new Intl.DateTimeFormat(lang, { day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(`${ate}T12:00:00Z`));
+  } catch {
+    return ate;
+  }
+}
+
+/**
+ * Os recados do PRÓPRIO núcleo (plano 4.4: escola_recado_salvar é "coord ou mediação do núcleo"): a mediação publica,
+ * com data de validade, e apaga. Os recados para toda a Escola continuam só no painel da coordenação.
+ */
+function RecadosDoNucleo({ lang, nucleo, t }: { lang: string; nucleo: string; t: T }) {
+  const m = t.mediar;
+  const id = useId();
+  const [lista, setLista] = useState<RecadoDaFormacao[] | null>(null);
+  const [texto, setTexto] = useState("");
+  const [ate, setAte] = useState("");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+
+  const ler = useCallback(async () => {
+    const r = await chamarDoNucleo("escola_recados");
+    if (!r.ok) return setAviso(t.erros[r.motivo]);
+    setLista(r.dados.filter((x) => x.nucleo === nucleo));
+  }, [nucleo, t]);
+
+  useEffect(() => {
+    // Primeira leitura ao abrir: o estado muda só quando o banco responde.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void ler();
+  }, [ler]);
+
+  async function publicar(e: React.FormEvent) {
+    e.preventDefault();
+    if (texto.trim().length < 3 || !/^\d{4}-\d{2}-\d{2}$/.test(ate)) return setAviso(t.erros.invalido);
+    setOcupado(true);
+    const r = await chamarDoNucleo("escola_recado_salvar", { p: { texto: texto.trim(), ate, nucleo } });
+    setOcupado(false);
+    if (!r.ok) return setAviso(t.erros[r.motivo]);
+    setTexto("");
+    setAte("");
+    setAviso(m.recadoPublicado);
+    void ler();
+  }
+
+  async function apagar(r: RecadoDaFormacao) {
+    setOcupado(true);
+    const x = await chamarDoNucleo("escola_recado_salvar", { p: { id: r.id, texto: r.texto, ate: r.ate, nucleo, apagar: true } });
+    setOcupado(false);
+    if (!x.ok) return setAviso(t.erros[x.motivo]);
+    setAviso(m.recadoApagado);
+    void ler();
+  }
+
+  return (
+    <div className="en-form en-fechar">
+      <h3 id={`${id}-t`} className="ef-t en-h3">
+        {m.recadosTitulo}
+      </h3>
+      <p className="en-nota">{m.recadosNota}</p>
+      {lista === null ? null : lista.length === 0 ? (
+        <p className="en-vazio">{m.recadosVazio}</p>
+      ) : (
+        <ul className="en-tarefas" aria-labelledby={`${id}-t`}>
+          {lista.map((r) => (
+            <li key={r.id} className="en-tarefa">
+              <span className="en-tarefa-item">
+                {r.texto}
+                <span className="en-recado-ate">{preencher(m.recadoAteDia, { dia: diaDoRecado(lang, r.ate) })}</span>
+              </span>
+              <button type="button" className="en-botao-pequeno" disabled={ocupado} onClick={() => apagar(r)} aria-label={`${m.apagarRecado}: ${r.texto}`}>
+                {m.apagarRecado}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <form onSubmit={publicar} className="en-form">
+        <label htmlFor={`${id}-texto`} className="en-rotulo">
+          {m.recadoTexto}
+        </label>
+        <textarea id={`${id}-texto`} className="en-campo" rows={2} minLength={3} maxLength={400} required value={texto} onChange={(e) => setTexto(e.target.value)} />
+        <label htmlFor={`${id}-ate`} className="en-rotulo">
+          {m.recadoAte}
+        </label>
+        <input id={`${id}-ate`} type="date" className="en-campo en-campo-curto" required value={ate} onChange={(e) => setAte(e.target.value)} />
+        <div className="en-acoes">
+          <button type="submit" className="ef-botao-vazado" disabled={ocupado}>
+            {m.publicarRecado}
+          </button>
+        </div>
+      </form>
+      <p role="status" className="en-aviso">
+        {aviso}
+      </p>
+    </div>
+  );
+}
+
 /**
  * O que só a mediação do núcleo e a coordenação veem (prancha Cel-Núcleo, sem desenho próprio: segue os tokens da
  * Escola): marcar ou mudar o encontro, a pauta (com o botão que monta a roda em ver-julgar-agir, aberta e fechada pela
- * mística), quem faz o quê e, para a roda que passou, a presença SOMADA e o balanço sem nomes.
+ * mística), quem faz o quê, para a roda que passou, a presença SOMADA e o balanço sem nomes, e os recados do núcleo.
  */
-export function PreparaEncontro({ dados, t, depois }: { dados: NucleoCompleto; t: T; depois: () => void }) {
+export function PreparaEncontro({ lang, dados, t, depois }: { lang: string; dados: NucleoCompleto; t: T; depois: () => void }) {
   const m = t.mediar;
   const id = useId();
   const proximo = dados.proximo;
@@ -150,6 +252,7 @@ export function PreparaEncontro({ dados, t, depois }: { dados: NucleoCompleto; t
       <p role="status" className="en-aviso">
         {aviso}
       </p>
+      {dados.nucleo && <RecadosDoNucleo lang={lang} nucleo={dados.nucleo.id} t={t} />}
     </section>
   );
 }
