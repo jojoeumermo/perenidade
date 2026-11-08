@@ -10,7 +10,6 @@ import { plainText } from "./text";
 import { comFatosDaEdicao } from "./enem-conteudo";
 import { type Acontecimento, lugaresDaLinha, type LugarDaLinha, temasDaLinha, type TemaDaLinha } from "./linha-do-tempo";
 import { regiaoDoLocal, type RegiaoDoMemorial } from "./memorial";
-import { instanteDeSaida, saiuDoAr } from "./jornal/validade";
 
 // O cache do React vale para uma página só. Na montagem do site, cada uma das milhares de páginas relia e conferia
 // o acervo inteiro. Ali o conteúdo não muda no meio do caminho, então o que foi lido fica guardado enquanto o
@@ -191,10 +190,12 @@ export interface Article extends Localized {
   body: string;
   minutes: number;
   /**
-   * Quando a matéria sai do ar (instante ISO com fuso), ou "" se não tem prazo. Vem de "sai_do_ar_em" no cabeçalho
-   * (lib/jornal/validade.ts, docs/jornal/EXPIRACAO.md). getArticles já deixa de fora as que saíram.
+   * A matéria fica em destaque fixo ("destaque: true" no cabeçalho): no topo do arquivo do Jornal e ao lado (ou no fim)
+   * das outras matérias, sem sumir quando chegam as novas. As matérias não expiram: todas ficam no ar, no endereço de sempre.
    */
-  expires: string;
+  featured: boolean;
+  /** Hora da publicação ("HH:MM", Brasília), opcional: só desempata matérias do mesmo dia (a mais tarde vem antes). */
+  time: string;
 }
 
 export interface FactCheck extends Localized {
@@ -733,14 +734,10 @@ export const getGlossaryIndex = cache((lang: Locale): IndexedTerm[] => {
 });
 
 /**
- * As matérias do Jornal no ar, da mais nova para a mais antiga. A que tem prazo ("sai_do_ar_em") e já passou dele fica
- * de fora daqui, e por isso da capa, da página inicial, dos Territórios, da busca, do sitemap e do novidades.json; o
- * endereço dela responde 410 pelo proxy.ts. Todas, inclusive as que saíram: todasAsMaterias.
+ * Todas as matérias do Jornal, da mais nova para a mais antiga (no mesmo dia, pela hora, se houver). Nenhuma expira:
+ * a matéria publicada fica no ar no endereço dela e no arquivo do Jornal.
  */
-// Sem cache de propósito: em produção o cache dura o processo inteiro, e a hora de saída precisa ser conferida a cada vez.
-export const getArticles = (lang: Locale): Article[] => todasAsMaterias(lang).filter((article) => !saiuDoAr(article.expires));
-
-export const todasAsMaterias = cache((lang: Locale): Article[] =>
+export const getArticles = cache((lang: Locale): Article[] =>
   collection("jornal", lang, ({ slug, file, data, body, translated }) => {
     if (!body) fail(file, "o texto está vazio");
     return {
@@ -760,16 +757,16 @@ export const todasAsMaterias = cache((lang: Locale): Article[] =>
       sources: parseSources(data.fontes, file, true),
       body,
       minutes: minutesOf(body),
-      expires: (() => {
-        if (data.sai_do_ar_em === undefined || data.sai_do_ar_em === null || data.sai_do_ar_em === "") return "";
-        const instante = instanteDeSaida(data.sai_do_ar_em);
-        if (!instante) fail(file, `"sai_do_ar_em" deve ser uma data ("2026-11-13") ou data e hora de Brasília entre aspas ("2026-11-13 23:59")`);
-        return instante;
+      featured: data.destaque === true,
+      time: (() => {
+        const hora = optional(data, "hora") ?? "";
+        if (hora && !/^([01]\d|2[0-3]):[0-5]\d$/.test(hora)) fail(file, `"hora" deve estar no formato HH:MM (hora de Brasília)`);
+        return hora;
       })(),
       translated,
       file,
     };
-  }).sort((a, b) => b.date.localeCompare(a.date)),
+  }).sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time) || a.slug.localeCompare(b.slug)),
 );
 
 export const getFactChecks = cache((lang: Locale): FactCheck[] =>
