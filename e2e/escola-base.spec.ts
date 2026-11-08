@@ -35,7 +35,7 @@ for (const lang of ["pt", "en"] as const) {
     await expect(primeiroDepoisDoTitulo).toHaveAttribute("data-cartao-lucia-maria", "");
     await primeiroDepoisDoTitulo.click();
     await expect(page).toHaveURL(new RegExp(`/${lang}/escola/quem-foi-lucia-maria$`));
-    await expect(page.locator("[data-quem-foi-lucia-maria]")).toHaveText("[TEXTO A ENVIAR PELA COORDENAÇÃO]");
+    await expect(page.locator("[data-quem-foi-lucia-maria]")).toContainText("Lúcia, presente!");
   });
 }
 

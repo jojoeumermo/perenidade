@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/escola/que
 }
 
 /**
- * Quem foi Lúcia Maria: a página que a entrada da Escola abre primeiro. O texto é o que a coordenação mandar
- * (docs/ESCOLA.md); até lá, o arquivo tem só o marcador. Nada é escrito aqui sobre ela, nem foto, e esta página não se
- * mistura com /dedicatoria (que fala do nome "Lúcia" do instituto).
+ * Quem foi Lúcia Maria: a página que a entrada da Escola abre primeiro. O texto, escrito pelo neto (quem criou o
+ * instituto) com os fatos de docs/escola-revolucionaria/FONTES-LUCIA-MARIA.md, mora no arquivo .md. Nada é escrito aqui
+ * sobre ela, nem foto, e esta página não se mistura com /dedicatoria (que fala do nome "Lúcia" do instituto).
  */
 export default async function QuemFoiLuciaMaria({ params }: PageProps<"/[lang]/escola/quem-foi-lucia-maria">) {
   const { lang } = await loadLang(params);
