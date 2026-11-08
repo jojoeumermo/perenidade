@@ -86,7 +86,17 @@
     "presencaRotulo": "来了多少人",
     "balancoRotulo": "总结：我们看到了什么、想到了什么、要做什么（不写名字）",
     "guardar": "保存总结",
-    "guardado": "总结已保存。"
+    "guardado": "总结已保存。",
+    "recadosTitulo": "小组通知",
+    "recadosNota": "小组成员在所选日期之前都能看到。面向全校的通知由协调组发布。",
+    "recadosVazio": "目前没有有效的小组通知。",
+    "recadoAteDia": "有效至 {dia}",
+    "apagarRecado": "删除",
+    "recadoApagado": "通知已删除。",
+    "recadoTexto": "新通知（最多 400 字）",
+    "recadoAte": "有效至",
+    "publicarRecado": "发布通知",
+    "recadoPublicado": "通知已发布。"
   },
   "kit": {
     "titulo": "主持人工具包",
