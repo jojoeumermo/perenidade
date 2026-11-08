@@ -65,6 +65,50 @@ export const PUBLICAS_DA_ESCOLA: readonly string[] = ["/escola/militantes", "/es
 /** O caminho (sem o idioma) abre sem conta? Vale também para a barra no fim. */
 export const publicaDaEscola = (caminhoSemIdioma: string) => PUBLICAS_DA_ESCOLA.includes(caminhoSemIdioma.replace(/\/+$/, "") || "/");
 
+// ───────────────────────────── Escola de Formação (redesign de 07/11, PLANO-ESCOLA.md) ─────────────────────────────
+// A Escola fechada (só militantes) e as suas telas: a coluna lateral no computador e a barra de baixo no celular
+// (components/escola/casca). Cada tela tem a frente que a constrói; a página de cada uma nasce na frente dona (a F1 só
+// faz Hoje, em /escola). As rotas antigas de ROTAS_DA_ESCOLA continuam aqui até a F7 levar ao site aberto as que voltam.
+
+export type ChaveDaTela = "hoje" | "formacao" | "nucleo" | "biblioteca" | "percurso" | "frente" | "duvida" | "aoVivo";
+
+export interface TelaDaFormacao {
+  chave: ChaveDaTela;
+  /** Caminho sem o idioma. */
+  caminho: string;
+  /** A frente do plano que faz a página. */
+  frente: "F1" | "F2" | "F3" | "F4" | "F5" | "F6";
+  /** A cor do marcador na coluna e na barra (prancha Hoje). */
+  cor?: string;
+  naColuna?: boolean;
+  naBarra?: boolean;
+}
+
+export const TELAS_DA_FORMACAO: readonly TelaDaFormacao[] = [
+  { chave: "hoje", caminho: "/escola", frente: "F1", cor: "#F2C94C", naColuna: true, naBarra: true },
+  { chave: "formacao", caminho: "/escola/formacao", frente: "F2", cor: "#E63B2A", naColuna: true, naBarra: true },
+  { chave: "nucleo", caminho: "/escola/nucleo", frente: "F4", cor: "#E8604C", naColuna: true, naBarra: true },
+  { chave: "biblioteca", caminho: "/escola/biblioteca", frente: "F6", cor: "#EA7A24", naColuna: true, naBarra: true },
+  { chave: "percurso", caminho: "/escola/percurso", frente: "F5", cor: "#F1EEE6", naColuna: true, naBarra: true },
+  { chave: "frente", caminho: "/escola/frente", frente: "F6", cor: "#C21F16", naColuna: true },
+  { chave: "duvida", caminho: "/escola/duvida", frente: "F6" },
+  { chave: "aoVivo", caminho: "/escola/ao-vivo", frente: "F3" },
+];
+
+export const COLUNA_DA_ESCOLA = TELAS_DA_FORMACAO.filter((t) => t.naColuna);
+export const BARRA_DA_ESCOLA = TELAS_DA_FORMACAO.filter((t) => t.naBarra);
+
+/** A tela aberta num caminho sem idioma (Hoje só vale exata; as outras valem para as páginas de baixo). */
+export function telaAberta(caminhoSemIdioma: string): ChaveDaTela | null {
+  const c = caminhoSemIdioma.replace(/\/+$/, "") || "/";
+  let achada: TelaDaFormacao | null = null;
+  for (const t of TELAS_DA_FORMACAO) {
+    const casa = t.caminho === BASE_DA_ESCOLA ? c === t.caminho : c === t.caminho || c.startsWith(`${t.caminho}/`);
+    if (casa && (!achada || t.caminho.length > achada.caminho.length)) achada = t;
+  }
+  return achada?.chave ?? null;
+}
+
 /** As da faixa de navegação, na ordem. */
 export const FAIXA_DA_ESCOLA = ROTAS_DA_ESCOLA.filter((r) => r.naFaixa);
 

@@ -115,6 +115,7 @@ export const icones: Record<string, LucideIcon> = {
   nucleos: MapPin,
   departamentos: Building2,
   pessoas: UserPlus,
+  escola: NotebookPen,
   supervisao: Eye,
   reunioes: CalendarClock,
   horas: Clock,
