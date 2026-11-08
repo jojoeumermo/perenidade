@@ -24,14 +24,33 @@ let desligado = false;
 /** O VLibras está ligado e à vista nesta página. */
 export const vlibrasCarregado = () => pedido !== null && !desligado;
 
-/** O quadro que o tradutor põe na página (o botão azul e, aberto, o avatar). */
-export const quadroDoVLibras = () => document.querySelector<HTMLElement>("div[vw]");
+/**
+ * O que o tradutor põe na página. Na versão 7 (conferido em 08/11/2026 com a v7.12.2) são duas peças soltas no fim do
+ * <body>: "#vlibras-access-wrapper", o botão azul com a mão (dentro de uma shadow root aberta, onde o elemento que fica
+ * fixo na tela é "#vlibras-access"), e "#vlibras-app-root", a janela do avatar, que só aparece depois do primeiro clique
+ * no botão. A versão antiga usava um único "div[vw]"; ele continua aceito, caso o governo volte ao formato antigo.
+ */
+export const quadroDoVLibras = () => document.getElementById("vlibras-access-wrapper") ?? document.querySelector<HTMLElement>("div[vw]");
+
+/** O elemento do botão que fica fixo na tela (o que se move para trocar o botão de lugar). */
+export function botaoDoVLibras(): HTMLElement | null {
+  const quadro = quadroDoVLibras();
+  return quadro?.shadowRoot?.getElementById("vlibras-access") ?? quadro;
+}
+
+/** A janela do avatar (versão 7), quando a pessoa já abriu. */
+const janelaDoVLibras = () => document.getElementById("vlibras-app-root");
+
+// Desligado: as peças saem da página e ficam guardadas aqui, para voltar sem baixar nada se a pessoa ligar de novo.
+let guardadas: HTMLElement[] = [];
 
 /** Baixa o programa do VLibras e liga o tradutor (ele põe o próprio botão na lateral da tela). Uma vez por visita. */
 export function carregarVLibras(): Promise<void> {
   if (pedido && desligado) {
     // Já baixado nesta visita e desligado: só volta a aparecer (nada é baixado de novo).
     desligado = false;
+    for (const peca of guardadas) if (!peca.isConnected) document.body.appendChild(peca);
+    guardadas = [];
     quadroDoVLibras()?.style.removeProperty("display");
     avisar();
     return pedido;
@@ -48,7 +67,11 @@ export function carregarVLibras(): Promise<void> {
       try {
         if (!janela.VLibras) throw new Error("vlibras");
         new janela.VLibras.Widget(ENDERECO_VLIBRAS);
-        resolve();
+        // O tradutor põe o botão na página um instante depois (setTimeout ou DOMContentLoaded): "ligado" só com ele lá,
+        // para "Desligar" e "mudar de lugar" acharem o que tirar ou mover.
+        const inicio = Date.now();
+        const esperar = () => (quadroDoVLibras() || Date.now() - inicio > 3000 ? resolve() : window.setTimeout(esperar, 50));
+        esperar();
       } catch (erro) {
         reject(erro);
       }
@@ -64,13 +87,28 @@ export function carregarVLibras(): Promise<void> {
 
 /**
  * Desliga o VLibras de volta (T11: "hoje parece não ter volta"). O programa do governo não tem um "desligar": o site
- * esconde o quadro dele (botão e avatar) e esquece o "lembrar neste aparelho", para ele não voltar sozinho na próxima
- * página. Uma página nova (ou recarregar) não baixa mais nada de vlibras.gov.br até a pessoa ativar de novo.
+ * fecha o avatar, tira da página o botão azul e a janela do avatar e esquece o "lembrar neste aparelho", para ele não
+ * voltar sozinho na próxima página. Uma página nova (ou recarregar) não baixa mais nada de vlibras.gov.br até a pessoa
+ * ativar de novo; ligar de novo nesta mesma página só devolve as peças guardadas.
  */
 export function desligarVLibras() {
   desligado = true;
   lembrarVLibras(false);
-  quadroDoVLibras()?.style.setProperty("display", "none", "important");
+  const janela = janelaDoVLibras();
+  // Fecha o avatar antes de tirar da página (o próprio botão do tradutor abre pondo data-active="true").
+  if (janela) janela.dataset.active = "false";
+  try {
+    // O tradutor reabre sozinho o avatar na próxima carga se ele ficou aberto: fica fechado.
+    const estado = localStorage.getItem("@vlibras-widget");
+    if (estado?.includes('"isOpen":true')) localStorage.setItem("@vlibras-widget", estado.replace('"isOpen":true', '"isOpen":false'));
+  } catch {
+    // sem armazenamento: nada a fazer
+  }
+  for (const peca of [quadroDoVLibras(), janela]) {
+    if (!peca) continue;
+    peca.remove();
+    if (!guardadas.includes(peca)) guardadas.push(peca);
+  }
   avisar();
 }
 
