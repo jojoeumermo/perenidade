@@ -2,6 +2,7 @@
 import type { Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { textosDoPlantao } from "@/i18n/plantao";
+import { textosDaReorganizacao } from "@/i18n/escola/reorganizacao";
 import { textosDaBase } from "@/lib/escola/textos";
 import { ligado } from "@/lib/recursos";
 import { menuDosJogos } from "@/lib/jogos/menu";
@@ -13,7 +14,8 @@ export interface SecaoDoSite {
   items: { label: string; path: string; description: string; short: string }[];
 }
 
-type Item = [string, string, string];
+/** Rótulo, caminho e descrição; e a descrição curta quando o texto vem de fora do dicionário do site. */
+type Item = [string, string, string] | [string, string, string, string];
 
 /**
  * Tudo o que não cabe no menu do topo, por objetivo. A mesma lista abre na janela do "Mais" (no cabeçalho e nas
@@ -26,8 +28,9 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
   const d = t.more.items as Record<string, string>;
   const curtas = t.more.short as Record<string, string>;
   // A descrição curta (duas ou três palavras) vai ao lado do nome na janela do "Mais"; a longa fica na dica e no celular.
-  const itens = (lista: Item[]) => lista.map(([label, path, description]) => ({ label, path, description, short: curtas[path] ?? "" }));
+  const itens = (lista: Item[]) => lista.map(([label, path, description, curta]) => ({ label, path, description, short: curta ?? curtas[path] ?? "" }));
   const se = (recurso: Parameters<typeof ligado>[0], item: Item): Item[] => (ligado(recurso) ? [item] : []);
+  const aberto = textosDaReorganizacao(lang).mais;
   return [
     {
       title: t.lists.study,
@@ -42,6 +45,9 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [n.videos, "/videos", d.videos],
         [n.notebook, "/caderno", d.notebook],
         ...se("escola", [textosDaBase(lang).meta.titulo, "/escola", textosDaBase(lang).meta.descricao]),
+        // F7 da Escola (prancha Mapa): os cursos e a vida real saíram de /escola e voltaram ao site aberto, sem conta.
+        ...se("escola", [aberto.cursos.titulo, "/cursos", aberto.cursos.descricao, aberto.cursos.curta]),
+        ...se("escola", [aberto.vida.titulo, "/vida", aberto.vida.descricao, aberto.vida.curta]),
         ...se("meu-estudo", [novos.meuEstudo.titulo, "/meu-estudo", novos.meuEstudo.descricao]),
         ...se("nivelamento", [novos.nivelamento.menu, "/nivelamento", novos.nivelamento.descricao]),
         ...se("turma", [novos.turma.titulo, "/turma", novos.turma.descricao]),

@@ -33,8 +33,8 @@ export const PREDIOS: readonly Predio[] = [
     id: "escola",
     tom: "journal",
     desenho: "predio-escola",
-    secoes: ["/escola", "/trilhas", "/consciencia", "/comecar", "/meu-estudo", "/nivelamento", "/turma", "/turmas", "/ao-vivo", "/videoaulas", "/reforco", "/plantao", "/professores", "/perguntas", "/questoes", "/sala-livre"],
-    outras: ["/enem", "/estantes", "/avulsos", "/estudo-em-grupo", "/estudio-de-pratica"],
+    secoes: ["/escola", "/cursos", "/vida", "/trilhas", "/consciencia", "/comecar", "/meu-estudo", "/nivelamento", "/turma", "/turmas", "/ao-vivo", "/videoaulas", "/reforco", "/plantao", "/professores", "/perguntas", "/questoes", "/sala-livre"],
+    outras: ["/campus", "/enem", "/estantes", "/avulsos", "/estudo-em-grupo", "/estudio-de-pratica"],
   },
   {
     id: "biblioteca",

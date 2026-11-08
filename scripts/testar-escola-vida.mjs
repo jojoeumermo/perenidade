@@ -309,18 +309,22 @@ const pastaVida = path.join(raiz, "components", "escola", "vida");
 const arquivosDaVida = fs.readdirSync(pastaVida).map((a) => ({ a, t: fs.readFileSync(path.join(pastaVida, a), "utf8") }));
 conferir("estrutura: componentes da vida sem fs", arquivosDaVida.every(({ t }) => !/node:fs|from\s+["']fs["']/.test(t)));
 conferir("estrutura: nada vai ao servidor (sem fetch, rpc nem backend)", [...arquivosDaVida, { a: "vida.ts", t: vidaTs }, { a: "lutas.ts", t: lutasTs }].every(({ t }) => !/\bfetch\s*\(|\.rpc\s*\(|@\/lib\/backend|XMLHttpRequest|sendBeacon/.test(t)), "");
-const paginas = ["vozes", "lutas", "vida", "vida/tarefas", "vida/missoes", "vida/caso-do-bairro", "vida/documentos"];
-conferir("estrutura: as 7 páginas existem", paginas.every((p) => fs.existsSync(path.join(raiz, "app", "[lang]", "escola", ...p.split("/"), "page.tsx"))));
-conferir("estrutura: nenhuma página nova usa generateStaticParams", paginas.every((p) => !/generateStaticParams/.test(ler("app", "[lang]", "escola", ...p.split("/"), "page.tsx"))));
+// F7 (prancha Mapa): a vida real (hub, tarefas, missões, caso do bairro, documentos) voltou ao site aberto, em /vida;
+// vozes e lutas ficam na Escola (vão para a Biblioteca).
+const paginas = ["escola/vozes", "escola/lutas", "vida", "vida/tarefas", "vida/missoes", "vida/caso-do-bairro", "vida/documentos"];
+conferir("estrutura: as 7 páginas existem", paginas.every((p) => fs.existsSync(path.join(raiz, "app", "[lang]", ...p.split("/"), "page.tsx"))));
+conferir("estrutura: nenhuma página nova usa generateStaticParams", paginas.every((p) => !/generateStaticParams/.test(ler("app", "[lang]", ...p.split("/"), "page.tsx"))));
+conferir("estrutura: a vida real saiu de /escola", !fs.existsSync(path.join(raiz, "app", "[lang]", "escola", "vida")));
+conferir("estrutura: o hub aponta para os endereços abertos", ["/vida/tarefas", "/vida/missoes", "/vida/caso-do-bairro", "/vida/documentos"].every((c) => ler("components", "escola", "vida", "HubDaVida.tsx").includes(`"${c}"`)));
 conferir("estrutura: vozes e lutas não são mais provisórias", ["vozes", "lutas"].every((c) => { const r = ROTAS_DA_ESCOLA.find((x) => x.chave === c); return r && !r.provisoria && !/EmConstrucao/.test(ler("app", "[lang]", "escola", c, "page.tsx")); }));
-// Integração da onda 4: só o hub /escola/vida consta em rotas.ts (com texto em i18n/escola/base); as quatro de baixo, não.
-conferir("estrutura: só o hub da vida consta em rotas.ts", ROTAS_DA_ESCOLA.filter((r) => r.caminho.startsWith("/escola/vida")).map((r) => r.caminho).join() === "/escola/vida");
+// Integração da onda 4: as quatro páginas de baixo da vida nunca constaram em rotas.ts (F7: o hub também saiu da Escola).
+conferir("estrutura: nenhuma página de baixo da vida em rotas.ts", ROTAS_DA_ESCOLA.every((r) => !r.caminho.startsWith("/escola/vida/")));
 const importadoresGlobais = [ler("app", "[lang]", "layout.tsx"), ler("app", "[lang]", "trilhas", "[track]", "[lesson]", "page.tsx")];
 conferir("estrutura: layout raiz e aula não importam nada de vida", importadoresGlobais.every((t) => !/escola\/vida|lib\/escola\/(vida|lutas)|DocumentoReal/.test(t)));
 for (const arq of ["vozes.json", "trabalhadores-que-ensinam.json", "missoes.json", "documentos.json"]) conferir(`conteúdo: ${arq} é JSON válido`, (() => { try { json("content", "escola", "vida", arq); return true; } catch { return false; } })());
 conferir("conteúdo: LEIA-ME existe", fs.existsSync(path.join(raiz, "content", "escola", "vida", "LEIA-ME.md")));
 conferir("estrutura: o hub aponta para o círculo do E4-15 sem duplicar", /\/escola\/turmas\/circulo/.test(ler("components", "escola", "vida", "HubDaVida.tsx")) && !fs.existsSync(path.join(pastaVida, "CirculoDeCultura.tsx")));
-const cursoPagina = ler("app", "[lang]", "escola", "cursos", "[curso]", "page.tsx");
+const cursoPagina = ler("app", "[lang]", "cursos", "[curso]", "page.tsx");
 conferir("estrutura: a página do curso ganhou a tarefa e o link do caso", /<TarefaNoMundo curso=/.test(cursoPagina) && /caso-do-bairro\?curso=/.test(cursoPagina));
 conferir("estrutura: o teste está no package.json", /testar:escola-vida/.test(ler("package.json")));
 

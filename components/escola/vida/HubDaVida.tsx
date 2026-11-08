@@ -7,10 +7,10 @@ import { ResumoDaVida } from "./ResumoDaVida";
 const CARTOES = [
   { chave: "vozes", caminho: "/escola/vozes" },
   { chave: "lutas", caminho: "/escola/lutas" },
-  { chave: "tarefas", caminho: "/escola/vida/tarefas" },
-  { chave: "missoes", caminho: "/escola/vida/missoes" },
-  { chave: "caso", caminho: "/escola/vida/caso-do-bairro" },
-  { chave: "documentos", caminho: "/escola/vida/documentos" },
+  { chave: "tarefas", caminho: "/vida/tarefas" },
+  { chave: "missoes", caminho: "/vida/missoes" },
+  { chave: "caso", caminho: "/vida/caso-do-bairro" },
+  { chave: "documentos", caminho: "/vida/documentos" },
   // O círculo de cultura digital é do E4-15: aqui só entra o link, sem duplicar.
   { chave: "circulo", caminho: "/escola/turmas/circulo" },
 ] as const;

@@ -132,12 +132,12 @@ export function eventosDoSemestre(
   }
   for (const e of fontes.exames) {
     if (dentro(e.data))
-      eventos.push({ tipo: "exame", data: e.data, titulo: `${e.exame} ${e.edicao}: ${e.etapa}`, link: e.curso === "enem" ? "/enem" : e.curso ? `/escola/cursos/${e.curso}` : e.fonte, fonte: e.fonte, orgao: e.orgao, consultadoEm: e.consultadoEm, id: `exame-${e.fato ?? e.data}` });
+      eventos.push({ tipo: "exame", data: e.data, titulo: `${e.exame} ${e.edicao}: ${e.etapa}`, link: e.curso === "enem" ? "/enem" : e.curso ? `/cursos/${e.curso}` : e.fonte, fonte: e.fonte, orgao: e.orgao, consultadoEm: e.consultadoEm, id: `exame-${e.fato ?? e.data}` });
   }
   for (const m of fontes.aulasMagnas) {
     if (m.semestre !== semestre.id) continue;
     if (m.data && !DATA.test(m.data)) continue;
-    eventos.push({ tipo: "aula-magna", data: m.data ?? "", titulo: m.titulo, link: m.curso ? `/escola/cursos/${m.curso}` : "/ao-vivo", proposto: !CALENDARIO.confirmado, id: `magna-${m.aoVivoId ?? `${m.semestre}-${m.titulo}`}` });
+    eventos.push({ tipo: "aula-magna", data: m.data ?? "", titulo: m.titulo, link: m.curso ? `/cursos/${m.curso}` : "/ao-vivo", proposto: !CALENDARIO.confirmado, id: `magna-${m.aoVivoId ?? `${m.semestre}-${m.titulo}`}` });
   }
   return eventos.sort((x, y) => (x.data || "9999").localeCompare(y.data || "9999") || x.tipo.localeCompare(y.tipo));
 }

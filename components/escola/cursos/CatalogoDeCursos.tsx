@@ -106,7 +106,7 @@ export function CatalogoDeCursos({ cartoes, grupos, s }: { cartoes: CartaoDoCurs
             <ul className="cartoes-de-curso">
               {doCiclo.map((k) => (
                 <li key={k.slug} data-curso={k.slug}>
-                  <L href={`/escola/cursos/${k.slug}`} className="cartao-de-curso">
+                  <L href={`/cursos/${k.slug}`} className="cartao-de-curso">
                     <span className="cartao-de-curso-titulo" lang="pt">
                       {k.titulo}
                     </span>

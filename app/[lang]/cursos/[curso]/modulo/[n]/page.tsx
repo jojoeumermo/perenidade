@@ -12,7 +12,7 @@ import { verCurso } from "@/lib/escola/cursos-vista";
 import { paginaMeta } from "@/lib/seo";
 import "@/styles/escola-avaliacao.css";
 
-type Props = PageProps<"/[lang]/escola/cursos/[curso]/modulo/[n]">;
+type Props = PageProps<"/[lang]/cursos/[curso]/modulo/[n]">;
 
 // Cada módulo de cada curso sai na montagem; módulo ou curso que não existe dá 404 sem ler nada em tempo de execução.
 export const dynamicParams = false;
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { curso, indice } = achado;
   const s = textosDaAvaliacao(lang).modulo;
   // O retorno é de cada pessoa (lido no aparelho): a página não entra na busca.
-  return { ...paginaMeta(lang, `/escola/cursos/${curso.slug}/modulo/${indice + 1}`, `${curso.modulos[indice].titulo} · ${curso.titulo}`, s.lead), robots: { index: false } };
+  return { ...paginaMeta(lang, `/cursos/${curso.slug}/modulo/${indice + 1}`, `${curso.modulos[indice].titulo} · ${curso.titulo}`, s.lead), robots: { index: false } };
 }
 
 /**
@@ -57,11 +57,11 @@ export default async function ModuloDoCurso({ params }: Props) {
   const total = visto.modulos.length;
   const aulas = modulo.aulas.map((a) => a.id);
   const titulos = Object.fromEntries(modulo.aulas.map((a) => [a.id, a.titulo]));
-  const para = (n: number) => localePath(lang, `/escola/cursos/${curso.slug}/modulo/${n}`);
+  const para = (n: number) => localePath(lang, `/cursos/${curso.slug}/modulo/${n}`);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12" data-modulo-do-curso={`${curso.slug}/${indice + 1}`}>
-      <PageHeading eyebrow={fill(s.olho, { n: indice + 1, total })} title={modulo.titulo} voltar={{ href: localePath(lang, `/escola/cursos/${curso.slug}`), texto: `${s.voltar}: ${curso.titulo}` }}>
+      <PageHeading eyebrow={fill(s.olho, { n: indice + 1, total })} title={modulo.titulo} voltar={{ href: localePath(lang, `/cursos/${curso.slug}`), texto: `${s.voltar}: ${curso.titulo}` }}>
         <span>{s.lead}</span>
       </PageHeading>
       {lang !== "pt" && <p className="mt-3 font-sans text-sm text-ink-soft">{s.conteudoEmPortugues}</p>}
