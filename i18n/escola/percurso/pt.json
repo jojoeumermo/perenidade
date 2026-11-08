@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "titulo": "Meu percurso",
+    "descricao": "A sua carteirinha, a caderneta e o que falta para fechar o degrau na Escola Revolucionária Lúcia Maria."
+  },
+  "titulo": "Meu percurso",
+  "carteirinha": {
+    "rotulo": "Carteirinha",
+    "escola": "Escola Revolucionária Lúcia Maria",
+    "semCodinome": "Sem codinome ainda",
+    "desde": "Militante desde {mes}",
+    "semNucleo": "Sem núcleo ainda",
+    "concluido": "Degrau {n} concluído",
+    "concluidos": "Degraus {lista} concluídos",
+    "emCurso": "Degrau {n} em curso",
+    "barra": "Degrau {n}: {situacao}",
+    "situacoes": {
+      "feito": "concluído",
+      "agora": "em curso",
+      "depois": "por vir"
+    },
+    "aviso": "Instituto Lúcia · não é documento oficial"
+  },
+  "caderneta": {
+    "titulo": "Caderneta",
+    "aulas": "Aulas feitas",
+    "tarefas": "Tarefas no mundo",
+    "rodas": "Rodas de núcleo",
+    "retornos": "Retornos por competência",
+    "ver": "ver",
+    "verRetornos": "ver os retornos por competência"
+  },
+  "fechar": {
+    "titulo": "Para fechar o Degrau {n}",
+    "faltam": "Faltam {lista}.",
+    "faltaSo": "Falta só {item}.",
+    "cadernos": {
+      "one": "{n} caderno",
+      "few": "{n} cadernos",
+      "many": "{n} cadernos",
+      "other": "{n} cadernos"
+    },
+    "tarefas": {
+      "one": "{n} tarefa no mundo",
+      "few": "{n} tarefas no mundo",
+      "many": "{n} tarefas no mundo",
+      "other": "{n} tarefas no mundo"
+    },
+    "balanco": "o balanço com o núcleo"
+  },
+  "levar": {
+    "texto": "Seu percurso fica guardado só neste aparelho.",
+    "levar": "Levar para outro aparelho",
+    "baixar": "Baixar",
+    "baixado": "Arquivo salvo. Ele traz o seu estudo deste aparelho e pode ser restaurado em Meus dados.",
+    "vazio": "Ainda não há estudo guardado neste aparelho para baixar."
+  },
+  "alumia": {
+    "titulo": "Mostrar na Alumia",
+    "texto": "As suas conquistas da Escola podem aparecer no seu perfil da Alumia: a carteirinha, o degrau, os cadernos fechados e quantas aulas você fez. Você escolhe quem vê. Começa em ninguém.",
+    "legenda": "Quem vê no seu perfil",
+    "publicos": {
+      "ninguem": "Ninguém",
+      "militantes": "Militantes",
+      "seguidores": "Quem segue você",
+      "todos": "Todo mundo na Alumia"
+    },
+    "ajudas": {
+      "ninguem": "Só você vê.",
+      "militantes": "Só quem também é da Escola.",
+      "seguidores": "Só quem você aceitou como seguidor.",
+      "todos": "Qualquer pessoa com conta que abrir o seu perfil."
+    },
+    "salvar": "Salvar a escolha",
+    "salvando": "Salvando...",
+    "salvo": "Pronto. Quem vê agora: {publico}.",
+    "desligado": "Desligado: as conquistas sumiram do seu perfil e o que este aparelho tinha declarado foi apagado do servidor.",
+    "declaradas": "Aulas e cadernos são declarados por este aparelho (o site não confere); o perfil mostra quantas aulas, nunca quais. A carteirinha e o degrau são conferidos pela coordenação.",
+    "enviando": "Levando ao perfil o que você concluiu neste aparelho...",
+    "emDia": "O perfil está em dia com este aparelho.",
+    "previa": "Como aparece no perfil",
+    "nada": "Nada para mostrar ainda.",
+    "semPerfil": "Para aparecer, você precisa de um @ na Alumia.",
+    "abrirAlumia": "Abrir a Alumia",
+    "verPerfil": "Ver o meu perfil",
+    "carregando": "Conferindo o que está no seu perfil...",
+    "erros": {
+      "ausente": "A exibição na Alumia ainda não foi instalada no servidor.",
+      "sem_permissao": "Só quem está no departamento Revolucionários pode mostrar conquistas da Escola.",
+      "sem_servico": "Sem conexão com o servidor agora. Tente mais tarde.",
+      "falha": "Não deu para salvar agora. Tente de novo."
+    },
+    "consentimento": {
+      "titulo": "Antes de ligar",
+      "texto": "Mostrar que você é militante revela opinião política (LGPD, art. 5º, II). Você pode desligar quando quiser.",
+      "detalhe": "Ao desligar, tudo some do perfil na hora e o que este aparelho declarou é apagado do servidor.",
+      "quem": "Quem vai ver: {publico}.",
+      "ligar": "Entendi, mostrar",
+      "cancelar": "Agora não"
+    }
+  },
+  "selos": {
+    "carteirinha": "Militante da Escola",
+    "degrau": "Degrau {n} da Escola",
+    "caderno": "Caderno {n} da Escola",
+    "aulas": "Aulas da Escola: {n}"
+  }
+}

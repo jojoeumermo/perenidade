@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "titulo": "My path",
+    "descricao": "Your card, your logbook and what is left to close the step at the Lúcia Maria Revolutionary School."
+  },
+  "titulo": "My path",
+  "carteirinha": {
+    "rotulo": "Card",
+    "escola": "Lúcia Maria Revolutionary School",
+    "semCodinome": "No code name yet",
+    "desde": "Activist since {mes}",
+    "semNucleo": "No cell yet",
+    "concluido": "Step {n} completed",
+    "concluidos": "Steps {lista} completed",
+    "emCurso": "Step {n} in progress",
+    "barra": "Step {n}: {situacao}",
+    "situacoes": {
+      "feito": "completed",
+      "agora": "in progress",
+      "depois": "still ahead"
+    },
+    "aviso": "Instituto Lúcia · not an official document"
+  },
+  "caderneta": {
+    "titulo": "Logbook",
+    "aulas": "Lessons done",
+    "tarefas": "Tasks in the world",
+    "rodas": "Cell circles",
+    "retornos": "Feedback by competence",
+    "ver": "see",
+    "verRetornos": "see the feedback by competence"
+  },
+  "fechar": {
+    "titulo": "To close Step {n}",
+    "faltam": "Still to do: {lista}.",
+    "faltaSo": "Only {item} is left.",
+    "cadernos": {
+      "one": "{n} workbook",
+      "few": "{n} workbooks",
+      "many": "{n} workbooks",
+      "other": "{n} workbooks"
+    },
+    "tarefas": {
+      "one": "{n} task in the world",
+      "few": "{n} tasks in the world",
+      "many": "{n} tasks in the world",
+      "other": "{n} tasks in the world"
+    },
+    "balanco": "the review with your cell"
+  },
+  "levar": {
+    "texto": "Your path is kept only on this device.",
+    "levar": "Take it to another device",
+    "baixar": "Download",
+    "baixado": "File saved. It holds your study from this device and can be restored in My data.",
+    "vazio": "There is no study saved on this device to download yet."
+  },
+  "alumia": {
+    "titulo": "Show on Alumia",
+    "texto": "Your School achievements can appear on your Alumia profile: the card, the step, the workbooks you closed and how many lessons you did. You choose who sees them. It starts with nobody.",
+    "legenda": "Who sees it on your profile",
+    "publicos": {
+      "ninguem": "Nobody",
+      "militantes": "Activists",
+      "seguidores": "People who follow you",
+      "todos": "Everyone on Alumia"
+    },
+    "ajudas": {
+      "ninguem": "Only you see it.",
+      "militantes": "Only people who are also in the School.",
+      "seguidores": "Only people you accepted as followers.",
+      "todos": "Anyone with an account who opens your profile."
+    },
+    "salvar": "Save my choice",
+    "salvando": "Saving...",
+    "salvo": "Done. Who sees it now: {publico}.",
+    "desligado": "Turned off: your achievements left your profile and what this device had declared was deleted from the server.",
+    "declaradas": "Lessons and workbooks are declared by this device (the site does not check them); the profile shows how many lessons, never which ones. The card and the step are checked by the coordination.",
+    "enviando": "Taking what you completed on this device to your profile...",
+    "emDia": "Your profile is up to date with this device.",
+    "previa": "How it looks on your profile",
+    "nada": "Nothing to show yet.",
+    "semPerfil": "To appear, you need an @ on Alumia.",
+    "abrirAlumia": "Open Alumia",
+    "verPerfil": "See my profile",
+    "carregando": "Checking what is on your profile...",
+    "erros": {
+      "ausente": "Showing on Alumia is not installed on the server yet.",
+      "sem_permissao": "Only people in the Revolutionaries department can show School achievements.",
+      "sem_servico": "No connection to the server right now. Try again later.",
+      "falha": "Could not save right now. Try again."
+    },
+    "consentimento": {
+      "titulo": "Before you turn it on",
+      "texto": "Showing that you are an activist reveals a political opinion (Brazilian data protection law, LGPD, art. 5, II). You can turn it off whenever you want.",
+      "detalhe": "When you turn it off, everything leaves your profile at once and what this device declared is deleted from the server.",
+      "quem": "Who will see it: {publico}.",
+      "ligar": "I understand, show it",
+      "cancelar": "Not now"
+    }
+  },
+  "selos": {
+    "carteirinha": "School activist",
+    "degrau": "School step {n}",
+    "caderno": "School workbook {n}",
+    "aulas": "School lessons: {n}"
+  }
+}

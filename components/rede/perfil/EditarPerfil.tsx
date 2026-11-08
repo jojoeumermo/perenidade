@@ -165,6 +165,11 @@ export default function EditarPerfil({ lang, s, situacao }: PropsDaTelaDoPacote)
       <BlocoEstudando sp={sp} meu={meu} ocupado={ocupado === "estudando"} aviso={mensagem("estudando")} aoMudar={(pedido) => editar("estudando", pedido)} />
 
       <BlocoSelos sp={sp} meu={meu} ocupado={ocupado === "selos"} aviso={mensagem("selos")} aoSalvar={(pedido) => editar("selos", pedido)} />
+      {meu.selos.includes("escola:carteirinha") && (
+        <p className="-mt-2 px-1 text-sm">
+          {sp.editar.escolaAtalho} <Link href={`/${lang}/escola/percurso`} className="font-bold underline">{sp.editar.escolaAtalhoLink}</Link>
+        </p>
+      )}
 
       <BlocoFixado sp={sp} s={s} meu={meu} aoFixar={(id) => rodar("fixar", () => redePerfil.fixar(id), () => carregar())} ocupado={ocupado === "fixar"} aviso={mensagem("fixar")} />
 

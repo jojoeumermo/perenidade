@@ -1,0 +1,365 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Meu percurso (Escola de Formação, F5): pranchas Cel-Percurso e o bloco do percurso da Hoje (07/11). Usa os tokens da
+ * casca (styles/escola-formacao.css, --ef-*) e as classes do percurso da Hoje (.ef-percurso, .ef-postos). Prefixo "ep-".
+ * Escuro sempre (a Escola é escura); foco de 3 px em ouro vem da casca.
+ */
+
+.ep-percurso {
+  padding: 30px 32px 48px;
+  max-width: 1120px;
+  box-sizing: border-box;
+}
+.ep-titulo {
+  margin: 0;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.05;
+}
+.ep-grade {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  margin-top: 22px;
+}
+.ep-coluna {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ep-coluna-esquerda {
+  flex: 0 1 460px;
+}
+
+/* Carteirinha vermelha (papel do caderno com a faixa vermelha) */
+.ep-carteirinha {
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--ef-papel);
+  color: #1b1f1c;
+  box-shadow: 0 10px 24px rgba(10, 5, 3, 0.35);
+  max-width: 460px;
+}
+.ep-carteirinha-faixa {
+  background: var(--ef-vermelho);
+  color: #ffffff;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+}
+.ep-carteirinha-corpo {
+  padding: 14px 16px;
+}
+.ep-carteirinha-nome {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: #8a100b;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.ep-carteirinha-linha {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #4a4f4b;
+}
+.ep-barras {
+  display: flex;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ep-barra {
+  flex: 1;
+  height: 10px;
+  border-radius: 5px;
+  background: #e9e6dc;
+}
+.ep-barra[data-situacao="feito"] {
+  background: var(--ef-ouro);
+}
+.ep-barra[data-situacao="agora"] {
+  background: var(--ef-nucleo);
+  opacity: 0.45;
+}
+.ep-carteirinha-degraus {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #4a4f4b;
+}
+.ep-carteirinha-aviso {
+  margin: 8px 0 0;
+  font-family: var(--font-escola-aviso), "EB Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14px;
+  color: #5a5f5b;
+}
+
+/* Caderneta */
+.ep-caderneta h2,
+.ep-alumia h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 800;
+}
+.ep-caderneta dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.ep-caderneta-linha {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 2px solid var(--ef-borda);
+}
+.ep-caderneta-linha:last-child {
+  border-bottom: 2px solid var(--ef-borda);
+}
+.ep-caderneta dt {
+  flex: 1;
+}
+.ep-caderneta dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Para fechar o degrau */
+.ep-fechar {
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--ef-fundo-fundo);
+  border: 2px solid var(--ef-borda);
+}
+.ep-fechar h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+}
+.ep-fechar p {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  color: var(--ef-giz-2);
+}
+
+/* Levar e baixar */
+.ep-levar {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--ef-suave);
+}
+.ep-casca-link,
+.ep-percurso .ep-levar a,
+.ep-percurso .ep-levar button {
+  color: var(--ef-giz);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.ep-percurso .ep-levar button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.ep-percurso .ep-levar a:hover,
+.ep-percurso .ep-levar button:hover {
+  color: var(--ef-ouro);
+}
+.ep-levar-aviso {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  color: var(--ef-giz-2);
+}
+
+/* Mostrar na Alumia */
+.ep-alumia {
+  padding: 22px;
+  border-radius: 16px;
+  border: 2px solid var(--ef-borda);
+}
+.ep-alumia > p {
+  margin: 0 0 12px;
+  color: var(--ef-giz-2);
+}
+.ep-alumia fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.ep-alumia legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.ep-publico {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 10px;
+  border: 2px solid var(--ef-borda);
+  cursor: pointer;
+}
+.ep-publico:has(input:checked) {
+  border-color: var(--ef-ouro);
+}
+.ep-publico input {
+  margin: 4px 0 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--ef-ouro);
+  flex: 0 0 auto;
+}
+.ep-publico strong {
+  display: block;
+}
+.ep-publico span span {
+  display: block;
+  font-size: 13.5px;
+  color: var(--ef-suave);
+}
+.ep-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.ep-botao,
+.ep-botao-linha {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+.ep-botao {
+  background: var(--ef-vermelho);
+  color: #ffffff;
+  border: 2px solid var(--ef-vermelho);
+}
+.ep-botao:hover {
+  background: var(--ef-tinta);
+}
+.ep-botao:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.ep-botao-linha,
+.ep-percurso a.ep-botao-linha {
+  background: transparent;
+  color: var(--ef-giz);
+  border: 2px solid var(--ef-percurso);
+}
+.ep-aviso {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--ef-fundo-fundo);
+  border-left: 5px solid var(--ef-ouro);
+  color: var(--ef-giz);
+}
+.ep-aviso[data-erro] {
+  border-left-color: var(--ef-percurso);
+}
+.ep-nota {
+  margin: 12px 0 0;
+  font-size: 13.5px;
+  color: var(--ef-suave);
+}
+.ep-previa {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 2px solid var(--ef-borda);
+}
+.ep-previa h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ef-giz-2);
+}
+
+/* A tela de consentimento */
+.ep-dialogo {
+  margin: auto;
+  max-width: min(480px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 22px;
+  border-radius: 16px;
+  border: 2px solid var(--ef-percurso);
+  background: var(--ef-fundo-fundo);
+  color: var(--ef-giz);
+  font-family: var(--font-escola-texto), "Atkinson Hyperlegible", system-ui, sans-serif;
+  line-height: 1.5;
+}
+.ep-dialogo::backdrop {
+  background: rgba(10, 5, 3, 0.75);
+}
+.ep-dialogo h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  font-family: var(--font-escola-titulo), "Bricolage Grotesque", system-ui, sans-serif;
+  font-variation-settings: "wdth" 80;
+}
+.ep-dialogo p {
+  margin: 8px 0 0;
+}
+.ep-dialogo .ep-dialogo-lgpd {
+  font-size: 17px;
+  font-weight: 700;
+}
+.ep-dialogo :is(button):focus-visible {
+  outline: 3px solid var(--ef-ouro);
+  outline-offset: 3px;
+}
+
+/* O percurso da Hoje entra só no computador (a prancha Cel-Percurso não o tem) */
+.ep-postos {
+  margin-top: 22px;
+}
+
+@media (max-width: 767px) {
+  .ep-percurso {
+    padding: 16px;
+  }
+  .ep-titulo {
+    font-size: 32px;
+  }
+  .ep-postos {
+    display: none;
+  }
+  /* No celular, a ordem da prancha: carteirinha, caderneta, para fechar, levar; depois, Mostrar na Alumia. */
+  .ep-grade {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 12px;
+  }
+  .ep-coluna {
+    display: contents;
+  }
+  .ep-a-carteirinha { order: 1; }
+  .ep-a-caderneta { order: 2; }
+  .ep-a-fechar { order: 3; }
+  .ep-a-levar { order: 4; }
+  .ep-a-alumia { order: 5; }
+  .ep-carteirinha {
+    max-width: none;
+  }
+  .ep-alumia {
+    padding: 16px;
+  }
+}

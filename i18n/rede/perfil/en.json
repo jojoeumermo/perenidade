@@ -18,7 +18,15 @@
       "trilha": "Finished track: {nome}"
     },
     "selosAjuda": "A track badge is declared by the person, from what they did on their own device; the site does not check it.",
-    "fotoDe": "Face of {codinome}"
+    "fotoDe": "Face of {codinome}",
+    "selosEscola": {
+      "titulo": "Training School",
+      "carteirinha": "School activist",
+      "degrau": "School step {n}",
+      "caderno": "School workbook {n}",
+      "aulas": "School lessons: {n}",
+      "ajuda": "School lessons and workbooks are declared by the person; the card and the step are checked by the coordination."
+    }
   },
   "avatar": {
     "titulo": "Face",
@@ -117,7 +125,9 @@
     "filaTitulo": "Images waiting for moderation",
     "filaVazia": "No image waiting.",
     "aceitarImagem": "Accept",
-    "recusarImagem": "Decline"
+    "recusarImagem": "Decline",
+    "escolaAtalho": "School achievements:",
+    "escolaAtalhoLink": "choose in the School"
   },
   "erros": {
     "handle_usado": "That @name is taken. Pick another.",

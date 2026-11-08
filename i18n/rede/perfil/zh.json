@@ -18,7 +18,15 @@
       "trilha": "已完成路线：{nome}"
     },
     "selosAjuda": "路线徽章由本人根据其在自己设备上的学习情况自行声明，网站不核实。",
-    "fotoDe": "{codinome} 的头像"
+    "fotoDe": "{codinome} 的头像",
+    "selosEscola": {
+      "titulo": "培训学校",
+      "carteirinha": "学校活动人士",
+      "degrau": "学校第 {n} 阶",
+      "caderno": "学校学习册 {n}",
+      "aulas": "学校课程：{n} 节",
+      "ajuda": "学校的课和学习册由本人声明；证件和阶段由协调组核实。"
+    }
   },
   "avatar": {
     "titulo": "头像",
@@ -117,7 +125,9 @@
     "filaTitulo": "等待审核的图片",
     "filaVazia": "没有等待中的图片。",
     "aceitarImagem": "接受",
-    "recusarImagem": "拒绝"
+    "recusarImagem": "拒绝",
+    "escolaAtalho": "学校成果：",
+    "escolaAtalhoLink": "在学校里选择"
   },
   "erros": {
     "handle_usado": "这个 @用户名已被占用，请换一个。",
