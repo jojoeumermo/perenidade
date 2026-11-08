@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "biblioteca": {
+      "titulo": "Bibliothèque de l'École",
+      "descricao": "Lecture guidée, les lectures de chaque cahier, mémoire et luttes, et le fonds de l'Institut filtré par formation militante."
+    },
+    "frente": {
+      "titulo": "Le Front",
+      "descricao": "L'École forme. Le Front organise : le manifeste, qui était Lúcia Maria, les fronts d'action, l'assemblée et la médiation."
+    },
+    "duvida": {
+      "titulo": "Poser une question",
+      "descricao": "Choisissez à qui parler : l'assistant de l'École, la personne qui vous accompagne ou votre noyau."
+    }
+  },
+  "biblioteca": {
+    "titulo": "Bibliothèque",
+    "buscarRotulo": "Chercher dans la bibliothèque",
+    "buscarDica": "Chercher une œuvre, une autrice, un thème",
+    "buscarBotao": "Chercher",
+    "leituraGuiada": "Lecture guidée",
+    "comRoteiro": "Avec un guide pour lire en groupe",
+    "leituraTexto": "lecture guidée par parties, avec des questions pour le cercle",
+    "soUma": "Pour l'instant, il n'existe que cette lecture guidée. Les suivantes apparaîtront ici une fois écrites.",
+    "nenhuma": "Il n'y a pas encore de lecture guidée. Les lectures apparaîtront ici une fois écrites.",
+    "porCaderno": "Par cahier",
+    "caderno": "Cahier {n}",
+    "prateleiras": {
+      "01": "lectures des 12 étapes",
+      "03": "Paulo Freire et les sources des leçons",
+      "05": "Loi brésilienne sur la grève (7.783/1989) et la grève en pratique",
+      "06": "journal de quartier, radio, vérification",
+      "08": "Dieese, IBGE et le modèle de synthèse",
+      "09": "Paulo Freire et guides de cercle"
+    },
+    "memoria": "Mémoire et luttes",
+    "lutas": {
+      "titulo": "Carte des luttes",
+      "texto": "Les dates de lutte de l'année et le « Ce jour-là »."
+    },
+    "vozes": {
+      "titulo": "Voix du travail",
+      "texto": "Des travailleurs racontent leur métier ; entraînez-vous à votre audio de 2 minutes maximum."
+    },
+    "acervo": {
+      "titulo": "Fonds de l'Institut",
+      "texto": "Les œuvres libres du site, filtrées par formation militante."
+    }
+  },
+  "frente": {
+    "eyebrow": "Front révolutionnaire Lúcia",
+    "titulo": "L'École forme. Le Front organise.",
+    "manifesto": "Lire le manifeste",
+    "quemFoi": "Qui était Lúcia Maria",
+    "frentesTitulo": "Fronts d'action, dans la rue",
+    "frentesTexto": "Le Front agit en présentiel : des noyaux dans le quartier, à l'école et au travail. Chaque militant agit dans un front, convenu avec le noyau sur Alumia. Le vôtre est mis en avant.",
+    "nomes": {
+      "estudantil": "Mouvement étudiant",
+      "bairros": "Quartiers et logement",
+      "trabalho": "Travail et syndicats",
+      "agitprop": "Agitation et propagande",
+      "atos": "Manifestations et mobilisation",
+      "cultura": "Culture et périphérie",
+      "solidariedade": "Solidarité"
+    },
+    "aSua": "le vôtre",
+    "escolher": "Touchez un front pour choisir le vôtre. Toucher à nouveau le vôtre retire le choix.",
+    "quantos": "{n} militants dans ce front",
+    "contagem": "Le nombre sur chaque front indique combien de militants y agissent. Un front de moins de 3 personnes n'affiche pas de nombre.",
+    "guardando": "Enregistrement…",
+    "escolhida": "C'est fait : votre front est maintenant {frente}.",
+    "tirada": "C'est fait : vous n'avez plus de front choisi.",
+    "ausente": "Choisir le front ici n'est pas encore activé. Convenez-en avec votre noyau.",
+    "semPermissao": "Seuls les militants choisissent un front.",
+    "falha": "Impossible d'enregistrer pour l'instant. Réessayez.",
+    "assembleia": {
+      "titulo": "Assemblée du semestre",
+      "aberta": "Le vote de l'ordre du jour est ouvert jusqu'au {data}.",
+      "aConfirmar": "L'ordre du jour doit encore être confirmé par la coordination.",
+      "fechada": "Le vote de ce semestre est clos.",
+      "semPauta": "La coordination n'a pas encore établi l'ordre du jour de ce semestre.",
+      "voto": "Le vote est secret et n'est conservé que comme décompte.",
+      "ver": "Voir l'ordre du jour"
+    },
+    "ouvidoria": {
+      "titulo": "Médiation",
+      "texto": "Critique, signalement ou suggestion pour la coordination. Vous suivez avec le numéro de protocole.",
+      "botao": "Parler à la médiation"
+    },
+    "dados": {
+      "titulo": "Vos données, avec soin",
+      "texto": "Militer révèle une opinion politique, que la loi brésilienne appelle donnée sensible (LGPD, art. 5, II). Seule la coordination voit votre inscription, et vous pouvez demander sa suppression."
+    }
+  },
+  "duvida": {
+    "titulo": "Poser une question",
+    "sobreAula": "À propos de la leçon {codigo}. Choisissez à qui parler.",
+    "semAula": "Choisissez à qui parler.",
+    "voltar": "Retour à la leçon",
+    "assistente": {
+      "titulo": "Assistant de l'École",
+      "texto": "répond tout de suite, explique autrement"
+    },
+    "acompanha": {
+      "titulo": "La personne qui vous accompagne",
+      "texto": "{nome} répond par la conversation sur Alumia",
+      "alguem": "La personne qui vous accompagne",
+      "ninguem": "la coordination va encore désigner qui vous accompagne",
+      "semConversa": "{nome} n'a pas de conversation ouverte sur Alumia : parlez-en au prochain cercle"
+    },
+    "nucleo": {
+      "titulo": "Porter au noyau",
+      "texto": "entre à l'ordre du jour du prochain cercle",
+      "semNucleo": "vous n'avez pas encore de noyau : la coordination l'indique"
+    },
+    "escreva": "Ou écrivez ici",
+    "exemplo": "Je n'ai pas compris la différence entre...",
+    "escrevaDica": "Pour la porter au noyau, écrivez la question ici et touchez « Porter au noyau ». Elle part sans votre nom.",
+    "precisaTexto": "Écrivez d'abord la question dans le champ ci-dessous.",
+    "levando": "Envoi…",
+    "levada": "C'est fait : la question est à l'ordre du jour du prochain cercle, sans votre nom.",
+    "ausente": "L'ordre du jour du noyau ne reçoit pas encore de questions d'ici. Portez-la au prochain cercle.",
+    "semPermissao": "Seuls les militants avec un noyau portent une question à l'ordre du jour.",
+    "falha": "Impossible d'envoyer pour l'instant. Réessayez.",
+    "semEncontro": "Le noyau n'a pas encore fixé la prochaine réunion. Apportez la question quand elle sera fixée.",
+    "pautaCheia": "L'ordre du jour de la prochaine réunion est déjà plein. Apportez la question en personne à la réunion.",
+    "tamanho": "Écrivez la question en 3 à 200 caractères."
+  }
+}
