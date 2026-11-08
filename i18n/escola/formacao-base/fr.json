@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "titulo": "École Révolutionnaire Lúcia Maria",
+    "descricao": "L'école de formation des militants du Front Révolutionnaire Lúcia : étude par paliers, noyau, tâche dans le monde et quelqu'un qui vous accompagne. Réservée aux militants."
+  },
+  "porta": {
+    "instituto": "Instituto Lúcia",
+    "escola": "École",
+    "entrar": "Je suis déjà militant·e : entrer",
+    "frente": "Front Révolutionnaire Lúcia",
+    "titulo": "École Révolutionnaire Lúcia Maria",
+    "lema": "Instruisez-vous, agitez-vous, organisez-vous.",
+    "texto": "L'école de formation de celles et ceux qui militent dans le Front. Ici, c'est réservé aux militants : étude par paliers, noyau, tâche dans le monde et quelqu'un qui vous accompagne.",
+    "quero": "Je veux militer",
+    "manifesto": "Lire le manifeste",
+    "resto": "Le reste du site reste ouvert à tout le monde :",
+    "aulas": "leçons",
+    "acervo": "fonds",
+    "jornal": "journal",
+    "alumia": "Alumia",
+    "comoEntrar": "Comment entrer dans l'École",
+    "passos": [
+      { "titulo": "Faites l'inscription militante", "texto": "Pour les personnes de 18 ans ou plus. Nom, contact et le front où vous voulez agir." },
+      { "titulo": "Confirmez par e-mail", "texto": "Un lien à usage unique, valable 3 jours. L'e-mail ne mentionne pas le Front." },
+      { "titulo": "La coordination vous accueille", "texto": "Elle accepte l'inscription et vous indique votre noyau." },
+      { "titulo": "Connectez-vous avec votre compte du site", "texto": "L'École s'ouvre : vous commencez par le Palier 1." }
+    ],
+    "degrausTitulo": "Ce qu'on apprend, en trois paliers",
+    "degraus": [
+      { "rotulo": "Palier 1", "nome": "Éveil", "texto": "Conscience de classe et premiers pas dans le militantisme." },
+      { "rotulo": "Palier 2", "nome": "Base", "texto": "Travail de base, organisation syndicale, communication populaire, sécurité et soin." },
+      { "rotulo": "Palier 3", "nome": "Cadres", "texto": "Analyse de conjoncture, former des formateurs, mémoire et l'année de formation politique." }
+    ],
+    "semMilitancia": "Vous êtes connecté·e, mais votre compte n'est pas encore dans le groupe militant. Si vous avez déjà fait l'inscription militante, elle est entre les mains de la coordination : dès qu'elle vous accueille, l'École s'ouvre ici.",
+    "semServico": "L'École a besoin du service de comptes, qui n'est pas activé dans cette copie du site.",
+    "falha": "Impossible de vérifier votre adhésion pour le moment.",
+    "tentar": "Réessayer",
+    "conferindo": "Vérification…"
+  },
+  "casca": {
+    "rotulo": "École",
+    "escolaRev": "École Révolutionnaire",
+    "luciaMaria": "Lúcia Maria",
+    "instituto": "Instituto Lúcia",
+    "nav": {
+      "hoje": "Aujourd'hui",
+      "formacao": "Formation",
+      "nucleo": "Noyau",
+      "biblioteca": "Bibliothèque",
+      "percurso": "Mon parcours",
+      "frente": "Le Front",
+      "eu": "Moi"
+    },
+    "duvida": "Poser une question",
+    "discreto": "Mode discret",
+    "discretoTexto": "onglet au nom neutre, rien dans l'historique",
+    "tituloNeutro": "Notes",
+    "degrau": "Palier {n}",
+    "semNucleo": "pas encore de noyau",
+    "semCodinome": "Sans pseudonyme",
+    "escolherCodinome": "Choisir le pseudonyme sur Alumia"
+  },
+  "hoje": {
+    "titulo": "Aujourd'hui",
+    "linha": "{data} · Palier {degrau}",
+    "linhaCaderno": "cahier {n}",
+    "saudacao": { "manha": "Bonjour", "tarde": "Bon après-midi", "noite": "Bonsoir" },
+    "saudacaoNome": "{saudacao}, {nome}.",
+    "saudacaoSo": "{saudacao}.",
+    "quadro": "Tableau de la semaine",
+    "quadroLegenda": "ce qui est fait, on le raye.",
+    "feitos": "{n} sur {total} faits",
+    "feitosCurto": "{n} sur {total}",
+    "aula": "Leçon :",
+    "rotuloNucleo": "noyau",
+    "agora": "maintenant",
+    "encontro": "Réunion du noyau · {quando}",
+    "continuar": "Continuer : {codigo} {titulo}",
+    "continuarCurto": "Continuer la leçon",
+    "verCaderno": "Voir tout le cahier",
+    "quadroVazio": "Les leçons de ce cahier sont encore en cours d'écriture. En attendant, la Bibliothèque et le noyau restent ouverts.",
+    "tudoFeito": "Vous avez terminé toutes les leçons déjà écrites des cahiers. Parlez du jury de palier avec la personne qui vous accompagne.",
+    "pergunta": "Question génératrice de la semaine",
+    "responder": "Répondre pour le noyau",
+    "perguntaVazia": "La coordination n'a pas encore défini la question de la semaine.",
+    "percurso": "Où vous en êtes du parcours",
+    "degrau1": "Palier 1 · Éveil",
+    "degrau3": "Palier 3 · Cadres",
+    "voceCaderno": "vous êtes au cahier {n}",
+    "emPreparacao": "en préparation",
+    "cadernos": [
+      "Conscience de classe",
+      "Premiers pas dans le militantisme",
+      "Discuter avec qui pense autrement",
+      "Organisation de base",
+      "Organisation syndicale de base",
+      "Communication populaire",
+      "Sécurité et soin collectif",
+      "Analyse de conjoncture",
+      "Former des formateurs",
+      "Garder la mémoire",
+      "Année de formation politique"
+    ],
+    "nucleo": {
+      "titulo": "Votre noyau",
+      "proximo": "Prochaine réunion :",
+      "pauta": "Ordre du jour :",
+      "abrir": "Ouvrir le noyau sur Alumia",
+      "semNucleo": "Vous n'êtes pas encore dans un noyau. La coordination vous en indique un.",
+      "semEncontro": "Aucune réunion prévue pour l'instant.",
+      "ausente": "L'ordre du jour du noyau n'est pas encore arrivé dans cette École. Pour l'instant, organisez-vous dans le noyau sur Alumia."
+    },
+    "acompanha": {
+      "titulo": "Qui vous accompagne",
+      "texto": "{nome}, du Palier 3, accompagne votre formation.",
+      "alguem": "Une personne du Palier 3",
+      "mensagem": "Envoyer un message",
+      "ninguem": "Personne n'accompagne encore votre formation. La coordination désigne quelqu'un du Palier 3."
+    },
+    "recados": {
+      "titulo": "Annonces de la formation",
+      "vazio": "Aucune annonce pour l'instant.",
+      "ausente": "Les annonces de la formation ne sont pas encore arrivées dans cette École."
+    },
+    "duvida": {
+      "titulo": "Bloqué·e sur une leçon ?",
+      "texto": "Demandez à l'assistant, appelez quelqu'un du tutorat ou apportez-la au noyau."
+    },
+    "aoVivo": {
+      "titulo": "Cours en direct aujourd'hui",
+      "as": "à {hora}",
+      "agora": "en direct",
+      "entrar": "Entrer dans la salle"
+    },
+    "carregando": "Chargement…",
+    "falha": "Chargement impossible pour le moment."
+  }
+}

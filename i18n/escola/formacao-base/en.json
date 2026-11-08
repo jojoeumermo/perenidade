@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "titulo": "Lúcia Maria Revolutionary School",
+    "descricao": "The training school for activists of the Lúcia Revolutionary Front: study in steps, base group, a task in the world and someone who walks with you. For activists only."
+  },
+  "porta": {
+    "instituto": "Instituto Lúcia",
+    "escola": "School",
+    "entrar": "I'm already an activist: sign in",
+    "frente": "Lúcia Revolutionary Front",
+    "titulo": "Lúcia Maria Revolutionary School",
+    "lema": "Educate, agitate, organize.",
+    "texto": "The training school for those who are active in the Front. Inside, it is for activists only: study in steps, base group, a task in the world and someone who walks with you.",
+    "quero": "I want to join",
+    "manifesto": "Read the manifesto",
+    "resto": "The rest of the site stays open to everyone:",
+    "aulas": "lessons",
+    "acervo": "library",
+    "jornal": "newspaper",
+    "alumia": "Alumia",
+    "comoEntrar": "How to get into the School",
+    "passos": [
+      { "titulo": "Sign up as an activist", "texto": "For people aged 18 or over. Name, contact and the front you want to work in." },
+      { "titulo": "Confirm by e-mail", "texto": "A single-use link, valid for 3 days. The e-mail does not mention the Front." },
+      { "titulo": "The coordination welcomes you", "texto": "It accepts the sign-up and points you to your base group." },
+      { "titulo": "Sign in with your site account", "texto": "The School opens: you start at Step 1." }
+    ],
+    "degrausTitulo": "What you learn, in three steps",
+    "degraus": [
+      { "rotulo": "Step 1", "nome": "Awakening", "texto": "Class consciousness and the first steps as an activist." },
+      { "rotulo": "Step 2", "nome": "Base", "texto": "Grassroots work, union organizing, people's communication, security and care." },
+      { "rotulo": "Step 3", "nome": "Cadres", "texto": "Analysis of the current situation, training trainers, memory and the year of political education." }
+    ],
+    "semMilitancia": "You are signed in, but your account is not in the activist group yet. If you have already signed up as an activist, it is with the coordination: as soon as they welcome you, the School opens here.",
+    "semServico": "The School needs the accounts service, which is not turned on in this copy of the site.",
+    "falha": "We could not check your membership right now.",
+    "tentar": "Try again",
+    "conferindo": "Checking…"
+  },
+  "casca": {
+    "rotulo": "School",
+    "escolaRev": "Revolutionary School",
+    "luciaMaria": "Lúcia Maria",
+    "instituto": "Instituto Lúcia",
+    "nav": {
+      "hoje": "Today",
+      "formacao": "Training",
+      "nucleo": "Base group",
+      "biblioteca": "Library",
+      "percurso": "My path",
+      "frente": "The Front",
+      "eu": "Me"
+    },
+    "duvida": "Ask a question",
+    "discreto": "Discreet mode",
+    "discretoTexto": "neutral tab name, nothing in the history",
+    "tituloNeutro": "Notes",
+    "degrau": "Step {n}",
+    "semNucleo": "no base group yet",
+    "semCodinome": "No code name",
+    "escolherCodinome": "Choose your code name on Alumia"
+  },
+  "hoje": {
+    "titulo": "Today",
+    "linha": "{data} · Step {degrau}",
+    "linhaCaderno": "notebook {n}",
+    "saudacao": { "manha": "Good morning", "tarde": "Good afternoon", "noite": "Good evening" },
+    "saudacaoNome": "{saudacao}, {nome}.",
+    "saudacaoSo": "{saudacao}.",
+    "quadro": "This week's board",
+    "quadroLegenda": "what's done gets crossed out.",
+    "feitos": "{n} of {total} done",
+    "feitosCurto": "{n} of {total}",
+    "aula": "Lesson:",
+    "rotuloNucleo": "group",
+    "agora": "now",
+    "encontro": "Base group meeting · {quando}",
+    "continuar": "Continue: {codigo} {titulo}",
+    "continuarCurto": "Continue the lesson",
+    "verCaderno": "See the whole notebook",
+    "quadroVazio": "The lessons of this notebook are still being written. Meanwhile, the Library and your base group stay open.",
+    "tudoFeito": "You have finished every lesson written so far in the notebooks. Talk to the person who walks with you about the step review.",
+    "pergunta": "This week's generative question",
+    "responder": "Answer for the base group",
+    "perguntaVazia": "The coordination has not set this week's question yet.",
+    "percurso": "Where you are on the path",
+    "degrau1": "Step 1 · Awakening",
+    "degrau3": "Step 3 · Cadres",
+    "voceCaderno": "you are in notebook {n}",
+    "emPreparacao": "in preparation",
+    "cadernos": [
+      "Class consciousness",
+      "First steps as an activist",
+      "Talking with people who think differently",
+      "Grassroots organizing",
+      "Rank-and-file union organizing",
+      "People's communication",
+      "Security and collective care",
+      "Analysis of the current situation",
+      "Training trainers",
+      "Keeping the memory",
+      "Year of political education"
+    ],
+    "nucleo": {
+      "titulo": "Your base group",
+      "proximo": "Next meeting:",
+      "pauta": "Agenda:",
+      "abrir": "Open the group on Alumia",
+      "semNucleo": "You are not in a base group yet. The coordination will point you to one.",
+      "semEncontro": "No meeting scheduled yet.",
+      "ausente": "The group's agenda has not reached this School yet. For now, arrange things in the group on Alumia."
+    },
+    "acompanha": {
+      "titulo": "Who walks with you",
+      "texto": "{nome}, from Step 3, walks with you through your training.",
+      "alguem": "Someone from Step 3",
+      "mensagem": "Send a message",
+      "ninguem": "Nobody is walking with you through your training yet. The coordination will name someone from Step 3."
+    },
+    "recados": {
+      "titulo": "Training notices",
+      "vazio": "No notices for now.",
+      "ausente": "Training notices have not reached this School yet."
+    },
+    "duvida": {
+      "titulo": "Stuck on a lesson?",
+      "texto": "Ask the assistant, call someone from the monitors or take it to your base group."
+    },
+    "aoVivo": {
+      "titulo": "Live class today",
+      "as": "at {hora}",
+      "agora": "live now",
+      "entrar": "Enter the room"
+    },
+    "carregando": "Loading…",
+    "falha": "Could not load right now."
+  }
+}
