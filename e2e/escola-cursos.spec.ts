@@ -55,16 +55,10 @@ test("ementa: abre, tem as seis partes e o botão de imprimir", async ({ page })
   await expect(page.locator("[data-obra='manifesto-do-partido-comunista']")).toContainText("Leitura guiada");
 });
 
-test("entrar no curso sem matrícula leva à matrícula com o curso", async ({ page }) => {
+test("curso aberto: sem matrícula e sem conta, entrar guarda a inscrição só no aparelho", async ({ page }) => {
   await abrir(page, "/pt/cursos/aprender-a-estudar");
-  const link = page.locator("[data-fazer-matricula]");
-  await expect(link).toBeVisible();
-  await expect(link).toHaveAttribute("href", /\/pt\/escola\/matricula\?curso=aprender-a-estudar$/);
-});
-
-test("com matrícula, entrar no curso guarda a inscrição só no aparelho", async ({ page }) => {
-  await matricular(page);
-  await abrir(page, "/pt/cursos/aprender-a-estudar");
+  // Nada no corpo do curso aberto leva para dentro da Escola fechada (o menu do site fica de fora da conta).
+  await expect(page.locator("[data-curso] a[href*=\"/escola/\"]")).toHaveCount(0);
   await page.locator("[data-entrar-no-curso]").click();
   await expect(page.locator("[data-no-curso]")).toBeVisible();
   const inscricoes = await page.evaluate(() => JSON.parse(localStorage.getItem("lucia:escola:cursos") ?? "[]"));

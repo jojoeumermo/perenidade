@@ -2,9 +2,10 @@
 "use client";
 
 import { useState } from "react";
-import { useInscricoes, useMatricula } from "@/components/escola/guardado-escola";
+import { useInscricoes } from "@/components/escola/guardado-escola";
 import { fill } from "@/i18n/config";
 import type { TextosDosCursos } from "@/i18n/escola/cursos";
+import type { TextosDaReorganizacao } from "@/i18n/escola/reorganizacao";
 import { contarEscola } from "@/lib/escola/banco";
 import { proximaDoCurso } from "@/lib/escola/cursos";
 import { inscrever, lerInscricoes } from "@/lib/escola/estudante";
@@ -16,14 +17,13 @@ import { L } from "../../I18n";
 const dia = (data: string, idioma: string) => new Intl.DateTimeFormat(idioma, { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${data}T12:00:00Z`));
 
 /**
- * Entrar no curso. Sem matrícula: o link para /escola/matricula?curso=<slug> (o slug é público; a matrícula fica no
- * aparelho). Com matrícula: inscrever() guarda a inscrição só no aparelho e contarEscola soma +1 anônimo, uma vez por
- * semestre neste aparelho. Já inscrito: "continuar" leva à próxima aula do curso. O servidor e a hidratação mostram o
- * link da matrícula (serve também a quem está sem JavaScript); o estado real chega depois.
+ * Entrar no curso. O curso é aberto (F7, prancha Mapa): ninguém precisa de matrícula nem de conta, e nada passa pela porta
+ * da Escola. inscrever() guarda a inscrição só no aparelho e contarEscola soma +1 anônimo, uma vez por semestre neste
+ * aparelho. Já inscrito: "continuar" leva à próxima aula do curso. O servidor e a hidratação mostram o link da primeira
+ * aula (serve também a quem está sem JavaScript); o botão de entrar chega depois.
  */
-export function EntrarNoCurso({ slug, sensivel, aulas, titulos, idioma, s }: { slug: string; sensivel: boolean; aulas: string[]; titulos: string[]; idioma: string; s: TextosDosCursos["entrar"] }) {
+export function EntrarNoCurso({ slug, sensivel, aulas, titulos, idioma, s, aberto }: { slug: string; sensivel: boolean; aulas: string[]; titulos: string[]; idioma: string; s: TextosDosCursos["entrar"]; aberto: TextosDaReorganizacao["entrar"] }) {
   const pronto = useHydrated();
-  const matricula = useMatricula();
   const inscricao = useInscricoes().find((i) => i.curso === slug);
   const feitas = useCompleted();
   const [erro, setErro] = useState(false);
@@ -42,15 +42,17 @@ export function EntrarNoCurso({ slug, sensivel, aulas, titulos, idioma, s }: { s
   const botao = "inline-flex min-h-11 items-center border-2 border-ink bg-ink px-5 py-2.5 font-sans font-semibold text-parchment hover:border-oxblood hover:bg-oxblood";
 
   let corpo: React.ReactNode;
-  if (!pronto || !matricula) {
-    corpo = (
+  if (!pronto) {
+    corpo = aulas[0] ? (
       <>
-        <p>{s.semMatricula}</p>
-        <L href={`/escola/matricula?curso=${encodeURIComponent(slug)}`} className={`${botao} mt-3`} data-fazer-matricula="">
-          {s.fazerMatricula} →
+        <L href={`/trilhas/${aulas[0]}`} className={botao} data-primeira-aula="">
+          <span>{fill(aberto.comecar, { titulo: titulos[0] ?? aulas[0] })}</span>
         </L>
+        <noscript>
+          <p className="mt-2 text-sm text-ink-soft">{aberto.semJs}</p>
+        </noscript>
       </>
-    );
+    ) : null;
   } else if (!inscricao || inscricao.trancadoEm) {
     corpo = (
       <>

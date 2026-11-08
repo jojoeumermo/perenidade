@@ -323,7 +323,7 @@ const importadoresGlobais = [ler("app", "[lang]", "layout.tsx"), ler("app", "[la
 conferir("estrutura: layout raiz e aula não importam nada de vida", importadoresGlobais.every((t) => !/escola\/vida|lib\/escola\/(vida|lutas)|DocumentoReal/.test(t)));
 for (const arq of ["vozes.json", "trabalhadores-que-ensinam.json", "missoes.json", "documentos.json"]) conferir(`conteúdo: ${arq} é JSON válido`, (() => { try { json("content", "escola", "vida", arq); return true; } catch { return false; } })());
 conferir("conteúdo: LEIA-ME existe", fs.existsSync(path.join(raiz, "content", "escola", "vida", "LEIA-ME.md")));
-conferir("estrutura: o hub aponta para o círculo do E4-15 sem duplicar", /\/escola\/turmas\/circulo/.test(ler("components", "escola", "vida", "HubDaVida.tsx")) && !fs.existsSync(path.join(pastaVida, "CirculoDeCultura.tsx")));
+conferir("estrutura: o hub aberto não aponta para dentro da Escola (vozes, lutas e círculo ficam lá) e não duplica o círculo", !/"\/escola\//.test(ler("components", "escola", "vida", "HubDaVida.tsx")) && !fs.existsSync(path.join(pastaVida, "CirculoDeCultura.tsx")));
 const cursoPagina = ler("app", "[lang]", "cursos", "[curso]", "page.tsx");
 conferir("estrutura: a página do curso ganhou a tarefa e o link do caso", /<TarefaNoMundo curso=/.test(cursoPagina) && /caso-do-bairro\?curso=/.test(cursoPagina));
 conferir("estrutura: o teste está no package.json", /testar:escola-vida/.test(ler("package.json")));
