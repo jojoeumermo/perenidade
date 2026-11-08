@@ -8,6 +8,8 @@
   "contagem": "{n} sur {total} questions",
   "naoAchei": "Rien trouvé. Voyez les questions ci-dessous ou",
   "faleConosco": "écrivez-nous",
+  "entre": " ",
+  "fim": ".",
   "abrir": "Aller à la page",
   "lista": "Liste des questions",
   "privacidade": "Ce que vous tapez ici filtre seulement la liste, sur cet appareil. Rien n’est envoyé."

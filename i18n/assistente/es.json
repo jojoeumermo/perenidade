@@ -8,6 +8,8 @@
   "contagem": "{n} de {total} preguntas",
   "naoAchei": "No encontré nada. Mira las preguntas de abajo o",
   "faleConosco": "habla con nosotros",
+  "entre": " ",
+  "fim": ".",
   "abrir": "Ir a la página",
   "lista": "Lista de preguntas",
   "privacidade": "Lo que escribes aquí solo filtra la lista, en este dispositivo. No se envía nada."

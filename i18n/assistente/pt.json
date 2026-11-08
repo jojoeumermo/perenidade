@@ -8,6 +8,8 @@
   "contagem": "{n} de {total} perguntas",
   "naoAchei": "Não achei. Veja as perguntas abaixo ou",
   "faleConosco": "fale com a gente",
+  "entre": " ",
+  "fim": ".",
   "abrir": "Ir para a página",
   "lista": "Lista de perguntas",
   "privacidade": "O que você digita aqui só filtra a lista, neste aparelho. Nada é enviado."
