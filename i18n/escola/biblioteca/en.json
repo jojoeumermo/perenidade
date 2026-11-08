@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "biblioteca": {
+      "titulo": "School library",
+      "descricao": "Guided reading, the readings of each notebook, memory and struggles, and the Institute's collection filtered by militant education."
+    },
+    "frente": {
+      "titulo": "The Front",
+      "descricao": "The School educates. The Front organizes: the manifesto, who Lúcia Maria was, the fronts of action, the assembly and the ombuds office."
+    },
+    "duvida": {
+      "titulo": "Ask a question",
+      "descricao": "Choose who to talk to: the School assistant, the person who accompanies you, or your cell."
+    }
+  },
+  "biblioteca": {
+    "titulo": "Library",
+    "buscarRotulo": "Search the library",
+    "buscarDica": "Search work, author, topic",
+    "buscarBotao": "Search",
+    "leituraGuiada": "Guided reading",
+    "comRoteiro": "With a guide for reading in a group",
+    "leituraTexto": "guided reading in parts, with questions for the circle",
+    "soUma": "Right now there is only this guided reading. The next ones will appear here once they are written.",
+    "nenhuma": "There is no guided reading yet. Readings will appear here once they are written.",
+    "porCaderno": "By notebook",
+    "caderno": "Notebook {n}",
+    "prateleiras": {
+      "01": "readings for the 12 stages",
+      "03": "Paulo Freire and the sources of the lessons",
+      "05": "Brazil's Strike Law (7,783/1989) and strikes in practice",
+      "06": "neighbourhood paper, radio, fact-checking",
+      "08": "Dieese, IBGE and the synthesis template",
+      "09": "Paulo Freire and circle guides"
+    },
+    "memoria": "Memory and struggles",
+    "lutas": {
+      "titulo": "Map of struggles",
+      "texto": "The year's dates of struggle and \"On this day\"."
+    },
+    "vozes": {
+      "titulo": "Voices of work",
+      "texto": "Workers tell about their trade; rehearse your own audio of up to 2 minutes."
+    },
+    "acervo": {
+      "titulo": "Institute collection",
+      "texto": "The site's open works, filtered by militant education."
+    }
+  },
+  "frente": {
+    "eyebrow": "Lúcia Revolutionary Front",
+    "titulo": "The School educates. The Front organizes.",
+    "manifesto": "Read the manifesto",
+    "quemFoi": "Who Lúcia Maria was",
+    "frentesTitulo": "Fronts of action, on the street",
+    "frentesTexto": "The Front works in person: cells in the neighbourhood, at school and at work. Each militant acts in one front, agreed with the cell on Alumia. Yours is highlighted.",
+    "nomes": {
+      "estudantil": "Student movement",
+      "bairros": "Neighbourhoods and housing",
+      "trabalho": "Work and unions",
+      "agitprop": "Agitation and propaganda",
+      "atos": "Rallies and mobilization",
+      "cultura": "Culture and the outskirts",
+      "solidariedade": "Solidarity"
+    },
+    "aSua": "yours",
+    "escolher": "Tap a front to choose yours. Tapping yours again removes the choice.",
+    "quantos": "{n} militants in this front",
+    "contagem": "The number on each front is how many militants act in it. Fronts with fewer than 3 people show no number.",
+    "guardando": "Saving…",
+    "escolhida": "Done: your front is now {frente}.",
+    "tirada": "Done: you have no front chosen.",
+    "ausente": "Choosing your front here is not switched on yet. Agree on it with your cell.",
+    "semPermissao": "Only militants choose a front.",
+    "falha": "Could not save right now. Try again.",
+    "assembleia": {
+      "titulo": "Semester assembly",
+      "aberta": "Voting on the agenda is open until {data}.",
+      "aConfirmar": "The agenda still has to be confirmed by the coordination.",
+      "fechada": "Voting for this semester is closed.",
+      "semPauta": "The coordination has not put together this semester's agenda yet.",
+      "voto": "The vote is secret and is stored only as a count.",
+      "ver": "See the agenda"
+    },
+    "ouvidoria": {
+      "titulo": "Ombuds office",
+      "texto": "Criticism, complaint or suggestion for the coordination. You follow it up with the protocol number.",
+      "botao": "Talk to the ombuds office"
+    },
+    "dados": {
+      "titulo": "Your data, with care",
+      "texto": "Being a militant reveals a political opinion, which Brazilian law calls sensitive data (LGPD, art. 5, II). Only the coordination sees your registration, and you can ask for it to be deleted."
+    }
+  },
+  "duvida": {
+    "titulo": "Ask a question",
+    "sobreAula": "About lesson {codigo}. Choose who to talk to.",
+    "semAula": "Choose who to talk to.",
+    "voltar": "Back to the lesson",
+    "assistente": {
+      "titulo": "School assistant",
+      "texto": "answers right away, explains it another way"
+    },
+    "acompanha": {
+      "titulo": "The person who accompanies you",
+      "texto": "{nome} answers through the conversation on Alumia",
+      "alguem": "The person who accompanies you",
+      "ninguem": "the coordination will still name who accompanies you",
+      "semConversa": "{nome} has no open conversation on Alumia: bring it up at the next circle"
+    },
+    "nucleo": {
+      "titulo": "Take it to the cell",
+      "texto": "goes on the agenda of the next circle",
+      "semNucleo": "you have no cell yet: the coordination will assign one"
+    },
+    "escreva": "Or write it here",
+    "exemplo": "I didn't understand the difference between...",
+    "escrevaDica": "To take it to the cell, write the question here and tap \"Take it to the cell\". It goes without your name.",
+    "precisaTexto": "Write the question in the field below first.",
+    "levando": "Sending…",
+    "levada": "Done: the question is on the agenda of the next circle, without your name.",
+    "ausente": "The cell agenda does not take questions from here yet. Bring it up at the next circle.",
+    "semPermissao": "Only militants with a cell can put a question on the agenda.",
+    "falha": "Could not send it right now. Try again.",
+    "semEncontro": "Your cell has not scheduled the next meeting yet. Bring the question once it is scheduled.",
+    "pautaCheia": "The agenda for the next meeting is already full. Bring the question in person to the meeting.",
+    "tamanho": "Write the question in 3 to 200 characters."
+  }
+}
