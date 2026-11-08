@@ -8,7 +8,7 @@ import { lerErros, refazerErro, registrarErro } from "@/lib/estudo";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { L, useI18n } from "../I18n";
 import { carregarProva, doDia, LETRAS, type QuestaoOficial } from "./dados";
-import { CorrecaoDaQuestao, TextoDaQuestao } from "./Questao";
+import { CorrecaoDaQuestao, TextoDaAlternativa, TextoDaQuestao } from "./Questao";
 
 type S = TextosDoEstudo["enem"];
 type Fase = { tipo: "escolha" } | { tipo: "prova"; questoes: QuestaoOficial[]; fim: number | null; inicio: number } | { tipo: "fim"; questoes: QuestaoOficial[]; respostas: Record<string, number>; tempoAcabou: boolean; segundos: number };
@@ -211,7 +211,7 @@ export function ProvaOficial({ fonte, habilidades, areas, s }: { fonte: FonteDaP
         </div>
         <div className="mt-4 grid gap-6 lg:grid-cols-[minmax(0,1fr)_16rem]">
           <article id="questao-atual" tabIndex={-1} className="border border-rule bg-parchment-deep p-5 outline-none" aria-label={fill(p.questao, { n: q.n })}>
-            <TextoDaQuestao q={q} s={p} titulo={`${fill(p.questao, { n: q.n })} · ${areas[q.areaAuditada] ?? q.areaAuditada}`} />
+            <TextoDaQuestao q={q} titulo={`${fill(p.questao, { n: q.n })} · ${areas[q.areaAuditada] ?? q.areaAuditada}`} />
             <fieldset className="mt-4">
               <legend className="sr-only">{fill(p.questao, { n: q.n })}</legend>
               <div className="space-y-2">
@@ -229,7 +229,7 @@ export function ProvaOficial({ fonte, habilidades, areas, s }: { fonte: FonteDaP
                       }}
                     />
                     <span>
-                      <strong className="font-mono">{LETRAS[j]})</strong> {alt || "—"}
+                      <strong className="font-mono">{LETRAS[j]})</strong> <TextoDaAlternativa texto={alt} letra={LETRAS[j]} />
                     </span>
                   </label>
                 ))}
@@ -338,7 +338,7 @@ export function ProvaOficial({ fonte, habilidades, areas, s }: { fonte: FonteDaP
       <ol className="mt-4 space-y-5">
         {questoes.map((q) => (
           <li key={q.id} className={`border-2 bg-parchment-deep p-4 ${r[q.id] === q.resposta ? "border-ok" : "border-oxblood"}`}>
-            <TextoDaQuestao q={q} s={p} titulo={`${fill(p.questao, { n: q.n })} · ${areas[q.areaAuditada] ?? q.areaAuditada}`} />
+            <TextoDaQuestao q={q} titulo={`${fill(p.questao, { n: q.n })} · ${areas[q.areaAuditada] ?? q.areaAuditada}`} />
             <CorrecaoDaQuestao q={q} escolhida={r[q.id]} s={p} praticar={q.camada ? `/enem/praticar?area=${q.camada.area}&habilidade=${q.camada.habilidade}` : undefined} />
           </li>
         ))}

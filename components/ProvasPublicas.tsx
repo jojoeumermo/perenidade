@@ -7,6 +7,8 @@ import type { Dict } from "@/i18n/types";
 import { can, hasBackend, rpc, useMe } from "@/lib/backend";
 import { idDaQuestao, registrarErro } from "@/lib/estudo";
 import { normalize } from "@/lib/text";
+import { figurasSoltas, semFiguras } from "@/lib/figuras-da-prova";
+import { AlternativaComFiguras, FiguraDaProva } from "./FiguraDaProva";
 import { useI18n } from "./I18n";
 import { Markdown } from "./Markdown";
 
@@ -48,7 +50,8 @@ const campo = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 /**
  * As provas públicas no banco de questões: o ENEM inteiro, os vestibulares da Unicamp e da Fuvest e o Exame da OAB, trazidos
  * toda semana das fontes abertas (scripts/importar-questoes.mjs).
- * O site baixa só a prova aberta; as imagens das questões ficam na fonte e abrem só se a pessoa pedir. As resoluções
+ * O site baixa só a prova aberta; as figuras das questões aparecem na página, buscadas na fonte (enem.dev) só quando
+ * chegam perto da tela (lib/figuras-da-prova.ts). As resoluções
  * comentadas são escritas pelos educadores do instituto.
  */
 export function ProvasPublicas({ s }: { s: S }) {
@@ -100,7 +103,7 @@ export function ProvasPublicas({ s }: { s: S }) {
 
   const n = normalize(termo.trim());
   const filtradas = useMemo(
-    () => (questoes ?? []).filter((q) => (!area || q.area === area) && (!q.lingua || q.lingua === lingua) && (!n || normalize(`${q.contexto} ${q.enunciado} ${q.alternativas.join(" ")}`).includes(n))),
+    () => (questoes ?? []).filter((q) => (!area || q.area === area) && (!q.lingua || q.lingua === lingua) && (!n || normalize(semFiguras(`${q.contexto} ${q.enunciado} ${q.alternativas.join(" ")}`)).includes(n))),
     [questoes, area, lingua, n],
   );
   const paginas = Math.max(1, Math.ceil(filtradas.length / POR_PAGINA));
@@ -193,18 +196,18 @@ export function ProvasPublicas({ s }: { s: S }) {
               return (
                 <li key={q.id} className="border border-rule bg-parchment-deep p-4">
                   <p className="font-mono text-[0.65rem] uppercase tracking-widest text-gold">{fonte.provas.find((p) => p.arquivo === arquivo)?.titulo} · {s.publicQuestion} {q.n} · {areas.find(([id]) => id === q.area)?.[1] ?? q.area}</p>
-                  {q.contexto && <div className="mt-2 font-serif" lang="pt-BR"><Markdown lang={lang}>{q.contexto}</Markdown></div>}
-                  {q.imagens.length > 0 && (
-                    <p className="mt-1 text-xs">
-                      {q.imagens.map((url, k) => <a key={url} href={url} target="_blank" rel="noopener noreferrer nofollow" className="mr-3 underline hover:text-oxblood">{s.publicImage} {q.imagens.length > 1 ? k + 1 : ""}</a>)}
+                  {q.contexto && <div className="mt-2 font-serif" lang="pt-BR"><Markdown lang={lang} figuras>{q.contexto}</Markdown></div>}
+                  {figurasSoltas(q.imagens, q.contexto, q.enunciado, ...q.alternativas).map((url) => (
+                    <p key={url} className="mt-2">
+                      <FiguraDaProva src={url} />
                     </p>
-                  )}
+                  ))}
                   {q.enunciado && <p className="mt-2 font-serif text-lg" lang="pt-BR">{q.enunciado}</p>}
                   <ol className="mt-2 space-y-1">
                     {q.alternativas.map((alt, k) => (
                       <li key={k}>
                         <button type="button" disabled={respondida} onClick={() => responder(q, k)} className={`w-full cursor-pointer border px-3 py-1.5 text-left disabled:cursor-default ${respondida && k === q.resposta ? "border-ok bg-ok/10 font-semibold" : respondida && k === dada ? "border-oxblood bg-oxblood/10" : "border-rule hover:border-gold"}`}>
-                          <span className="font-mono">{LETRAS[k]})</span> <span lang="pt-BR">{alt.replace(/\[🖼[^\]]*\]\([^)]*\)/g, "🖼")}</span>
+                          <span className="font-mono">{LETRAS[k]})</span> <span lang="pt-BR"><AlternativaComFiguras texto={alt} letra={LETRAS[k]} /></span>
                         </button>
                       </li>
                     ))}

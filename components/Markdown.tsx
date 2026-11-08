@@ -7,10 +7,12 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { localePath } from "@/i18n/config";
+import { eFiguraDaProva } from "@/lib/figuras-da-prova";
 import { eInterativo } from "@/lib/interativos";
 import { Interativo } from "./blocos/Interativo";
 import { Agir, Escondido, Formula, Historia, Leve, NaVidaReal, OutroJeito, OutroLado, Provocacao, Realidade, Roda, SuaRealidade } from "./aula/Blocos";
 import { SimuladorDaAula } from "./aula/SimuladorDaAula";
+import { FiguraDaProva } from "./FiguraDaProva";
 import { InlineCheck } from "./InlineCheck";
 import { AnexoPendente, PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
@@ -102,7 +104,9 @@ function Calculation({ spec }: { spec: string }) {
 // HTML cru não é interpretado. Imagens só as guardadas no próprio site (/arquivos, /imagens): nada de
 // terceiros é carregado, e toda imagem publicada passou pela equipe. Vídeo só aparece quando a pessoa pede.
 // Links internos ("/acervo/...") ganham o prefixo do idioma atual.
-export function Markdown({ children, lang, terms, tryCode, sala, audio = false }: { children: string; lang: string; terms?: GlossaryLink[]; tryCode?: string; sala?: string; audio?: boolean }) {
+// Exceção, só com `figuras` (as questões das provas públicas): o link de uma figura da prova (enem.dev, veja
+// lib/figuras-da-prova.ts) vira a figura na página, no lugar de um link que abre outro site. Precisa de I18nProvider.
+export function Markdown({ children, lang, terms, tryCode, sala, audio = false, figuras = false }: { children: string; lang: string; terms?: GlossaryLink[]; tryCode?: string; sala?: string; audio?: boolean; figuras?: boolean }) {
   return (
     <div className="prose-lesson">
       <ReactMarkdown
@@ -126,7 +130,9 @@ export function Markdown({ children, lang, terms, tryCode, sala, audio = false }
             );
           },
           a: ({ href = "", children: label, className, title }) =>
-            pendingPdf.test(href) ? (
+            figuras && eFiguraDaProva(href) ? (
+              <FiguraDaProva src={href} />
+            ) : pendingPdf.test(href) ? (
               <AnexoPendente path={pendingPdf.exec(href)![1]}>{label}</AnexoPendente>
             ) : publishedPdf.test(href) ? (
               <a href={href} download className="anexo" title={title}>{label} <span className="font-sans text-sm text-ink-soft">(PDF)</span></a>
