@@ -95,6 +95,8 @@ export function Podcast() {
     ? [
         { id: "pedidos", nome: "Pedidos de arte", conta: p.contagens.pedidos },
         { id: "artes", nome: "Modelos de arte" },
+        // Quem é da arte e também tem função no podcast (eu.time = interno.podcaster()) pode pôr o programa no ar.
+        ...(eu.time ? [{ id: "aovivo" as const, nome: "Ao vivo" }] : []),
         { id: "guia", nome: "Guia" },
       ]
     : soRevisao

@@ -5,7 +5,8 @@
 // Reaproveita a sala e a transmissão das aulas ao vivo (lib/tempo-real.ts, lib/aovivo.ts): presença assinada por quem
 // transmite (quem assiste só aceita vídeo da chave registrada no banco), e o TURN da Cloudflare de /api/aovivo/rede quando
 // está configurado, que faz o vídeo passar pelo servidor e esconde o endereço de rede de todo mundo. Só carrega quando a
-// pessoa clica em "Assistir ao vivo" ou começa a transmitir (components/podcast/AoVivo.tsx o importa sob demanda).
+// pessoa clica em "Assistir ao vivo" (components/podcast/AoVivo.tsx, na página pública) ou começa a transmitir no painel
+// (components/painel/podcast/AoVivo.tsx importa o Transmitir sob demanda).
 import { useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
