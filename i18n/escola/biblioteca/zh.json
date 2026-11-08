@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "biblioteca": {
+      "titulo": "学校图书馆",
+      "descricao": "导读、每本手册的阅读材料、记忆与斗争，以及按战士培养筛选的研究所馆藏。"
+    },
+    "frente": {
+      "titulo": "阵线",
+      "descricao": "学校培养，阵线组织：宣言、露西娅·玛丽亚是谁、行动阵线、大会和意见受理处。"
+    },
+    "duvida": {
+      "titulo": "提一个问题",
+      "descricao": "选择找谁：学校助手、陪伴你的人，或你的小组。"
+    }
+  },
+  "biblioteca": {
+    "titulo": "图书馆",
+    "buscarRotulo": "在图书馆中搜索",
+    "buscarDica": "搜索作品、作者、主题",
+    "buscarBotao": "搜索",
+    "leituraGuiada": "导读",
+    "comRoteiro": "附小组阅读提纲",
+    "leituraTexto": "分段导读，附讨论圈的问题",
+    "soUma": "目前只有这一篇导读。之后的导读写好后会出现在这里。",
+    "nenhuma": "还没有导读。导读写好后会出现在这里。",
+    "porCaderno": "按手册",
+    "caderno": "手册 {n}",
+    "prateleiras": {
+      "01": "12 个阶段的阅读材料",
+      "03": "保罗·弗莱雷与课程的资料来源",
+      "05": "巴西罢工法（7.783/1989）与罢工实践",
+      "06": "社区报、电台、事实核查",
+      "08": "Dieese、IBGE 与综述模板",
+      "09": "保罗·弗莱雷与学习圈提纲"
+    },
+    "memoria": "记忆与斗争",
+    "lutas": {
+      "titulo": "斗争地图",
+      "texto": "一年中的斗争纪念日和“这一天”。"
+    },
+    "vozes": {
+      "titulo": "劳动之声",
+      "texto": "劳动者讲述自己的行当；练习录一段不超过 2 分钟的音频。"
+    },
+    "acervo": {
+      "titulo": "研究所馆藏",
+      "texto": "网站上的开放作品，按战士培养筛选。"
+    }
+  },
+  "frente": {
+    "eyebrow": "露西娅革命阵线",
+    "titulo": "学校培养，阵线组织。",
+    "manifesto": "阅读宣言",
+    "quemFoi": "露西娅·玛丽亚是谁",
+    "frentesTitulo": "行动阵线，在街头",
+    "frentesTexto": "阵线在线下行动：社区、学校和工作场所里的小组。每位战士在一条阵线上行动，并与 Alumia 上的小组商定。你的阵线会突出显示。",
+    "nomes": {
+      "estudantil": "学生运动",
+      "bairros": "社区与住房",
+      "trabalho": "劳动与工会",
+      "agitprop": "鼓动与宣传",
+      "atos": "集会与动员",
+      "cultura": "文化与城郊",
+      "solidariedade": "团结互助"
+    },
+    "aSua": "你的",
+    "escolher": "点一条阵线来选择你的阵线。再点一次你的阵线即取消选择。",
+    "quantos": "此阵线有 {n} 位战士",
+    "contagem": "每条阵线上的数字是在其中行动的战士人数。少于 3 人的阵线不显示数字。",
+    "guardando": "正在保存…",
+    "escolhida": "完成：你的阵线现在是“{frente}”。",
+    "tirada": "完成：你目前没有选择阵线。",
+    "ausente": "在这里选择阵线的功能尚未开启。请与你的小组商定。",
+    "semPermissao": "只有战士可以选择阵线。",
+    "falha": "暂时无法保存。请再试一次。",
+    "assembleia": {
+      "titulo": "学期大会",
+      "aberta": "议程投票开放至 {data}。",
+      "aConfirmar": "议程仍需协调组确认。",
+      "fechada": "本学期的投票已结束。",
+      "semPauta": "协调组尚未拟定本学期的议程。",
+      "voto": "投票是秘密的，只以计数形式保存。",
+      "ver": "查看议程"
+    },
+    "ouvidoria": {
+      "titulo": "意见受理处",
+      "texto": "向协调组提出批评、举报或建议。你可以凭受理编号跟进。",
+      "botao": "联系意见受理处"
+    },
+    "dados": {
+      "titulo": "你的数据，谨慎对待",
+      "texto": "参加战斗会透露政治观点，巴西法律称之为敏感数据（LGPD 第 5 条第 II 项）。只有协调组能看到你的报名，你也可以要求删除。"
+    }
+  },
+  "duvida": {
+    "titulo": "提一个问题",
+    "sobreAula": "关于课程 {codigo}。选择找谁。",
+    "semAula": "选择找谁。",
+    "voltar": "返回课程",
+    "assistente": {
+      "titulo": "学校助手",
+      "texto": "马上回答，换一种方式解释"
+    },
+    "acompanha": {
+      "titulo": "陪伴你的人",
+      "texto": "{nome} 会在 Alumia 的对话里回答",
+      "alguem": "陪伴你的人",
+      "ninguem": "协调组还会指定陪伴你的人",
+      "semConversa": "{nome} 在 Alumia 上没有开放对话：请在下次讨论圈提出"
+    },
+    "nucleo": {
+      "titulo": "带到小组",
+      "texto": "列入下次讨论圈的议程",
+      "semNucleo": "你还没有小组：由协调组指定"
+    },
+    "escreva": "或者写在这里",
+    "exemplo": "我没弄懂……之间的区别",
+    "escrevaDica": "要带到小组，请在这里写下问题，再点“带到小组”。问题不会带上你的名字。",
+    "precisaTexto": "请先在下面的框里写下问题。",
+    "levando": "正在提交…",
+    "levada": "完成：问题已列入下次讨论圈的议程，不带你的名字。",
+    "ausente": "小组议程暂时还不能从这里接收问题。请在下次讨论圈提出。",
+    "semPermissao": "只有已加入小组的战士可以把问题列入议程。",
+    "falha": "暂时无法提交。请再试一次。",
+    "semEncontro": "小组还没有安排下次讨论圈。安排好以后再提出这个问题。",
+    "pautaCheia": "下次讨论圈的议程已经满了。请在讨论圈上当面提出。",
+    "tamanho": "问题请写 3 到 200 个字。"
+  }
+}

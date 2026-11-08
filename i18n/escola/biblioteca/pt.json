@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "biblioteca": {
+      "titulo": "Biblioteca da Escola",
+      "descricao": "Leitura guiada, as leituras de cada caderno, memória e lutas e o acervo do Instituto filtrado por formação militante."
+    },
+    "frente": {
+      "titulo": "A Frente",
+      "descricao": "A Escola forma. A Frente organiza: o manifesto, quem foi Lúcia Maria, as frentes de atuação, a assembleia e a ouvidoria."
+    },
+    "duvida": {
+      "titulo": "Tirar uma dúvida",
+      "descricao": "Escolha com quem falar: o assistente da Escola, quem acompanha você ou o seu núcleo."
+    }
+  },
+  "biblioteca": {
+    "titulo": "Biblioteca",
+    "buscarRotulo": "Buscar na biblioteca",
+    "buscarDica": "Buscar obra, autora, tema",
+    "buscarBotao": "Buscar",
+    "leituraGuiada": "Leitura guiada",
+    "comRoteiro": "Com roteiro para ler em grupo",
+    "leituraTexto": "leitura guiada por partes, com perguntas para a roda",
+    "soUma": "Hoje existe só esta leitura guiada. As próximas entram aqui quando forem escritas.",
+    "nenhuma": "Ainda não há leitura guiada. As leituras entram aqui quando forem escritas.",
+    "porCaderno": "Por caderno",
+    "caderno": "Caderno {n}",
+    "prateleiras": {
+      "01": "leituras das 12 etapas",
+      "03": "Paulo Freire e as fontes das aulas",
+      "05": "Lei de Greve (7.783/1989) e a greve na prática",
+      "06": "jornal de bairro, rádio, checagem",
+      "08": "Dieese, IBGE e o modelo de síntese",
+      "09": "Paulo Freire e roteiros de círculo"
+    },
+    "memoria": "Memória e lutas",
+    "lutas": {
+      "titulo": "Mapa das lutas",
+      "texto": "As datas de luta do ano e o \"Neste dia\"."
+    },
+    "vozes": {
+      "titulo": "Vozes do trabalho",
+      "texto": "Trabalhadores contam o ofício; ensaie o seu áudio de até 2 minutos."
+    },
+    "acervo": {
+      "titulo": "Acervo do Instituto",
+      "texto": "As obras abertas do site, filtradas por formação militante."
+    }
+  },
+  "frente": {
+    "eyebrow": "Frente Revolucionária Lúcia",
+    "titulo": "A Escola forma. A Frente organiza.",
+    "manifesto": "Ler o manifesto",
+    "quemFoi": "Quem foi Lúcia Maria",
+    "frentesTitulo": "Frentes de atuação, na rua",
+    "frentesTexto": "A Frente é presencial: núcleos no bairro, na escola e no trabalho. Cada militante atua numa frente, combinada com o núcleo na Alumia. A sua aparece em destaque.",
+    "nomes": {
+      "estudantil": "Movimento estudantil",
+      "bairros": "Bairros e moradia",
+      "trabalho": "Trabalho e sindicatos",
+      "agitprop": "Agitação e propaganda",
+      "atos": "Atos e mobilização",
+      "cultura": "Cultura e periferia",
+      "solidariedade": "Solidariedade"
+    },
+    "aSua": "a sua",
+    "escolher": "Toque numa frente para escolher a sua. Tocar de novo na sua tira a escolha.",
+    "quantos": "{n} militantes nesta frente",
+    "contagem": "O número em cada frente é quantos militantes atuam nela. Frente com menos de 3 pessoas não mostra número.",
+    "guardando": "Guardando…",
+    "escolhida": "Pronto: a sua frente agora é {frente}.",
+    "tirada": "Pronto: você ficou sem frente escolhida.",
+    "ausente": "Escolher a frente por aqui ainda não está ligado. Combine com o seu núcleo.",
+    "semPermissao": "Só militante escolhe a frente.",
+    "falha": "Não deu para guardar agora. Tente de novo.",
+    "assembleia": {
+      "titulo": "Assembleia do semestre",
+      "aberta": "A votação da pauta está aberta até {data}.",
+      "aConfirmar": "A pauta ainda vai ser confirmada pela coordenação.",
+      "fechada": "A votação deste semestre está fechada.",
+      "semPauta": "A pauta deste semestre ainda não foi montada pela coordenação.",
+      "voto": "O voto é secreto e fica guardado só como contagem.",
+      "ver": "Ver a pauta"
+    },
+    "ouvidoria": {
+      "titulo": "Ouvidoria",
+      "texto": "Crítica, denúncia ou sugestão para a coordenação. Você acompanha pelo número de protocolo.",
+      "botao": "Falar com a ouvidoria"
+    },
+    "dados": {
+      "titulo": "Seus dados, com cuidado",
+      "texto": "Militar revela opinião política, que a lei chama de dado sensível (LGPD, art. 5º, II). Só a coordenação vê a sua inscrição, e você pode pedir para apagar."
+    }
+  },
+  "duvida": {
+    "titulo": "Tirar uma dúvida",
+    "sobreAula": "Sobre a aula {codigo}. Escolha com quem falar.",
+    "semAula": "Escolha com quem falar.",
+    "voltar": "Voltar à aula",
+    "assistente": {
+      "titulo": "Assistente da Escola",
+      "texto": "responde na hora, explica de outro jeito"
+    },
+    "acompanha": {
+      "titulo": "Quem acompanha você",
+      "texto": "{nome} responde pela conversa na Alumia",
+      "alguem": "Quem acompanha você",
+      "ninguem": "a coordenação ainda vai indicar quem acompanha você",
+      "semConversa": "{nome} está sem conversa aberta na Alumia: fale na próxima roda"
+    },
+    "nucleo": {
+      "titulo": "Levar para o núcleo",
+      "texto": "entra na pauta da próxima roda",
+      "semNucleo": "você ainda não tem núcleo: a coordenação indica"
+    },
+    "escreva": "Ou escreva aqui",
+    "exemplo": "Não entendi a diferença entre...",
+    "escrevaDica": "Para levar ao núcleo, escreva a dúvida aqui e toque em \"Levar para o núcleo\". Ela vai sem o seu nome.",
+    "precisaTexto": "Escreva a dúvida no campo abaixo primeiro.",
+    "levando": "Levando…",
+    "levada": "Pronto: a dúvida entrou na pauta da próxima roda, sem o seu nome.",
+    "ausente": "A pauta do núcleo ainda não recebe dúvidas por aqui. Leve a dúvida na próxima roda.",
+    "semPermissao": "Só militante com núcleo leva dúvida para a pauta.",
+    "falha": "Não deu para levar agora. Tente de novo.",
+    "semEncontro": "O núcleo ainda não marcou a próxima roda. Leve a dúvida quando ela for marcada.",
+    "pautaCheia": "A pauta da próxima roda já está cheia. Leve a dúvida pessoalmente na roda.",
+    "tamanho": "Escreva a dúvida com 3 a 200 letras."
+  }
+}
