@@ -6,7 +6,8 @@
 // telas leem as funções das outras frentes por lerDaEscola(), que trata "função ainda não existe no banco" como vazio.
 //
 // Nada daqui fica gravado no aparelho: a resposta mora só na memória desta aba (ser militante revela opinião política, e
-// o aparelho pode ser dividido). Trocar de conta ou sair zera a memória (a chave é a sessão guardada).
+// o aparelho pode ser dividido). Trocar de conta ou sair zera a memória (a chave é o id da conta, tirado da sessão guardada:
+// renovar o token, de hora em hora, não muda a conta e não fecha a Escola na cara de quem está escrevendo).
 //
 // Prévia SÓ em desenvolvimento (npx next dev): /pt/escola?previa=militante mostra a Escola com dados de exemplo, sem banco.
 // Em produção, process.env.NODE_ENV é "production" e o bloco some do pacote (o import da prévia é dinâmico e fica de fora).
@@ -39,19 +40,40 @@ export function emPrevia(): boolean {
   }
 }
 
-// A memória da aba: uma resposta por sessão guardada.
-let memoria: { sessao: string; eu: EscolaEu } | null = null;
-let pedido: { sessao: string; promessa: Promise<EscolaEu> } | null = null;
+/**
+ * O id da conta (o "sub") na sessão guardada pelo Supabase. A sessão muda a cada renovação do token; a conta, não.
+ * Sessão ilegível: o próprio texto serve de chave (melhor conferir de novo do que mostrar a Escola à conta errada).
+ */
+export function contaDaSessao(sessao: string | null): string | null {
+  if (!sessao) return null;
+  try {
+    const s = JSON.parse(sessao) as { user?: { id?: unknown }; access_token?: unknown; currentSession?: { user?: { id?: unknown } } };
+    const id = s?.user?.id ?? s?.currentSession?.user?.id;
+    if (typeof id === "string" && id) return id;
+    if (typeof s?.access_token === "string") {
+      const meio = s.access_token.split(".")[1] ?? "";
+      const corpo = JSON.parse(atob(meio.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(meio.length / 4) * 4, "="))) as { sub?: unknown };
+      if (typeof corpo.sub === "string" && corpo.sub) return corpo.sub;
+    }
+  } catch {
+    // cai no texto cru
+  }
+  return sessao;
+}
 
-function perguntar(sessao: string): Promise<EscolaEu> {
-  if (memoria?.sessao === sessao) return Promise.resolve(memoria.eu);
-  if (pedido?.sessao === sessao) return pedido.promessa;
+// A memória da aba: uma resposta por conta.
+let memoria: { conta: string; eu: EscolaEu } | null = null;
+let pedido: { conta: string; promessa: Promise<EscolaEu> } | null = null;
+
+function perguntar(conta: string): Promise<EscolaEu> {
+  if (memoria?.conta === conta) return Promise.resolve(memoria.eu);
+  if (pedido?.conta === conta) return pedido.promessa;
   const promessa = rpc<EscolaEu>("escola_eu").then((eu) => {
     const limpo: EscolaEu = eu && eu.militante === true ? eu : { militante: false, conta: Boolean(eu?.conta) };
-    memoria = { sessao, eu: limpo };
+    memoria = { conta, eu: limpo };
     return limpo;
   });
-  pedido = { sessao, promessa };
+  pedido = { conta, promessa };
   promessa.catch(() => (pedido = null));
   return promessa;
 }
@@ -73,23 +95,24 @@ function estadoDe(eu: EscolaEu): EstadoDaEscola {
  */
 export function useEscola(): EstadoDaEscola & { conferirDeNovo: () => void } {
   const hidratado = useHydrated();
-  const sessao = useStored(KEYS.session);
+  const conta = contaDaSessao(useStored(KEYS.session));
   const [vez, setVez] = useState(0);
-  const [resposta, setResposta] = useState<{ chave: string; estado: EstadoDaEscola } | null>(null);
+  const [resposta, setResposta] = useState<{ chave: string; conta: string; estado: EstadoDaEscola } | null>(null);
   const previa = hidratado && emPrevia();
-  const chave = `${previa ? "previa" : sessao}#${vez}`;
+  const dono = previa ? "previa" : (conta ?? "");
+  const chave = `${dono}#${vez}`;
 
   // Sem serviço ou sem sessão, a resposta sai na hora, sem ir à rede (e sem efeito).
-  const imediato: EstadoDaEscola | null = !hidratado ? { estado: "conferindo" } : previa ? null : !hasBackend ? { estado: "sem-servico" } : !sessao ? { estado: "sem-conta" } : null;
+  const imediato: EstadoDaEscola | null = !hidratado ? { estado: "conferindo" } : previa ? null : !hasBackend ? { estado: "sem-servico" } : !conta ? { estado: "sem-conta" } : null;
 
   useEffect(() => {
-    if (!hidratado || (!previa && (!hasBackend || !sessao))) return;
+    if (!hidratado || (!previa && (!hasBackend || !conta))) return;
     let vivo = true;
-    const definir = (estado: EstadoDaEscola) => vivo && setResposta({ chave, estado });
+    const definir = (estado: EstadoDaEscola) => vivo && setResposta({ chave, conta: dono, estado });
     if (previa) {
       import("./previa").then((m) => definir({ estado: "militante", eu: m.EU_DE_EXEMPLO }));
     } else {
-      perguntar(sessao).then(
+      perguntar(conta!).then(
         (eu) => definir(estadoDe(eu)),
         (erro: unknown) => {
           const motivo = erro instanceof BackendError ? erro.code : "falha";
@@ -105,9 +128,17 @@ export function useEscola(): EstadoDaEscola & { conferirDeNovo: () => void } {
     return () => {
       vivo = false;
     };
-  }, [hidratado, previa, sessao, chave]);
+  }, [hidratado, previa, conta, dono, chave]);
 
-  const estado: EstadoDaEscola = imediato ?? (resposta?.chave === chave ? resposta.estado : { estado: "conferindo" });
+  // Conferindo de novo para a MESMA conta: a Escola continua de pé com a última resposta de militante (nada desmonta, nada
+  // do que está digitado se perde). Conta nova, ou saiu: zera.
+  const estado: EstadoDaEscola =
+    imediato ??
+    (resposta?.chave === chave
+      ? resposta.estado
+      : resposta?.conta === dono && resposta.estado.estado === "militante"
+        ? resposta.estado
+        : { estado: "conferindo" });
   return {
     ...estado,
     conferirDeNovo: () => {

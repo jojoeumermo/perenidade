@@ -170,6 +170,31 @@ end $$;
 drop trigger if exists lucia_escola_militancia on interno.departamento_membros;
 create trigger lucia_escola_militancia after insert or update or delete on interno.departamento_membros for each row execute function interno.escola_departamento_gatilho();
 
+-- Representar o departamento (papeis: papel 'representante', disciplina 'revolucionarios') também faz militante, e tirar
+-- esse papel apaga a militância como sair do departamento (LGPD art. 18, VI), a menos que a pessoa continue por outro caminho.
+create or replace function interno.escola_papel_gatilho() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if tg_op in ('UPDATE', 'DELETE') and (old.papel = 'revolucionarios' or (old.papel = 'representante' and old.disciplina = 'revolucionarios')) then
+    if not interno.membro_direto(old.usuario, 'revolucionarios') then perform interno.escola_militancia_apagar(old.usuario); end if;
+  end if;
+  if tg_op in ('INSERT', 'UPDATE') and (new.papel = 'revolucionarios' or (new.papel = 'representante' and new.disciplina = 'revolucionarios'))
+     and interno.membro_direto(new.usuario, 'revolucionarios') then
+    perform interno.escola_militancia_criar(new.usuario);
+  end if;
+  return null;
+end $$;
+drop trigger if exists lucia_escola_militancia on interno.papeis;
+create trigger lucia_escola_militancia after insert or update or delete on interno.papeis for each row execute function interno.escola_papel_gatilho();
+
+-- Faxina de quem já tinha perdido a militância antes deste gatilho (rodar de novo não apaga quem ainda é militante).
+do $$
+declare u uuid;
+begin
+  for u in select e.usuario from interno.escola_militancia e where not interno.membro_direto(e.usuario, 'revolucionarios') loop
+    perform interno.escola_militancia_apagar(u);
+  end loop;
+end $$;
+
 -- Quem já estava no departamento quando a migração rodou (rodar de novo não duplica nada).
 insert into interno.escola_militancia (usuario)
 select m.usuario from interno.departamento_membros m where m.departamento = 'revolucionarios'
@@ -220,4 +245,19 @@ begin
     'desde', m.desde,
     'publico', f.escola_publico,
     'coordena', interno.coord());
+end $$;
+
+-- 5. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- O install.sql dá USAGE em "interno" para anon e authenticated: sem isto, uma conta poderia criar ou apagar a militância de
+-- qualquer uuid, ou saber se qualquer uuid é militante. As funções internas só rodam por dentro das security definer.
+revoke all on function interno.e_militante(uuid), interno.escola_militancia_criar(uuid), interno.escola_militancia_apagar(uuid),
+  interno.escola_departamento_gatilho(), interno.escola_papel_gatilho() from public;
+revoke all on function public.escola_eu() from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.e_militante(uuid), interno.escola_militancia_criar(uuid), interno.escola_militancia_apagar(uuid),
+      interno.escola_departamento_gatilho(), interno.escola_papel_gatilho() from anon, authenticated;
+    grant execute on function public.escola_eu() to anon, authenticated, service_role;
+  end if;
 end $$;

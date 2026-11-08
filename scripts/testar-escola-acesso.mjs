@@ -114,6 +114,32 @@ await rpc(como(rep), "eu");
 await dono("insert into interno.papeis (usuario, papel, disciplina) values ($1, 'representante', 'revolucionarios')", [rep]);
 await espera("representante dos Revolucionários entra e ganha a militância", () => rpc(como(rep), "escola_eu"), async (r) => r.militante === true && (await dono("select count(*)::int n from interno.escola_militancia where usuario = $1", [rep])).rows[0].n === 1);
 
+await dono("insert into interno.escola_conquistas (usuario, tipo, alvo) values ($1, 'aula', 'conversar-com-quem-pensa-diferente/escutar-antes-de-responder')", [rep]);
+await dono("delete from interno.papeis where usuario = $1 and papel = 'representante' and disciplina = 'revolucionarios'", [rep]);
+await espera("deixar de representar os Revolucionários apaga militância e conquistas", () => dono("select (select count(*) from interno.escola_militancia where usuario = $1)::int + (select count(*) from interno.escola_conquistas where usuario = $1)::int as n", [rep]), (r) => r.rows[0].n === 0);
+await dono("insert into interno.papeis (usuario, papel, disciplina) values ($1, 'representante', 'revolucionarios')", [rep]);
+await espera("voltar a representar cria a militância de novo", () => dono("select count(*)::int n from interno.escola_militancia where usuario = $1", [rep]), (r) => r.rows[0].n === 1);
+await entrar(rep);
+await dono("delete from interno.papeis where usuario = $1 and papel = 'representante' and disciplina = 'revolucionarios'", [rep]);
+await espera("quem continua no departamento não perde nada ao deixar de representar", () => dono("select count(*)::int n from interno.escola_militancia where usuario = $1", [rep]), (r) => r.rows[0].n === 1);
+
+// Funções internas fechadas para os papéis da API; escola_eu aberta para anon e authenticated.
+for (const papel of ["anon", "authenticated"]) {
+  for (const chamada of [`interno.escola_militancia_criar('${ids.comum}')`, `interno.escola_militancia_apagar('${ids.militante}')`, `interno.e_militante('${ids.militante}')`]) {
+    await recusa(`${papel} não executa ${chamada.split("(")[0]}`, () => exclusivo(async () => {
+      await pg.exec(`set role ${papel}`);
+      try {
+        return (await pg.query(`select ${chamada}`)).rows;
+      } finally {
+        await pg.exec("reset role");
+      }
+    }), "permission denied");
+  }
+}
+await espera("escola_eu: execute só para anon, authenticated e service_role (não para public)", () => dono(
+  "select has_function_privilege('anon', 'public.escola_eu()', 'execute') a, has_function_privilege('authenticated', 'public.escola_eu()', 'execute') b, exists (select 1 from pg_proc, aclexplode(proacl) x where proname = 'escola_eu' and x.grantee = 0) p"),
+  (r) => r.rows[0].a === true && r.rows[0].b === true && r.rows[0].p === false);
+
 // Tabelas trancadas para os papéis da API.
 const TABELAS = ["escola_militancia", "escola_encontros", "escola_encontro_tarefas", "escola_perguntas", "escola_recados", "escola_bancas", "escola_conquistas"];
 await espera("todas as tabelas da Escola com segurança por linha ligada", () => dono("select relname, relrowsecurity from pg_class where relnamespace = 'interno'::regnamespace and relname = any($1)", [TABELAS]), (r) => r.rows.length === TABELAS.length && r.rows.every((x) => x.relrowsecurity));
@@ -129,8 +155,8 @@ for (const papel of ["anon", "authenticated"]) {
     }), "permission denied");
   }
 }
-await espera("funções da Escola: security definer e search_path fixo", () => dono("select proname, prosecdef, proconfig from pg_proc where proname in ('escola_eu', 'e_militante', 'escola_militancia_criar', 'escola_militancia_apagar', 'escola_departamento_gatilho')"), (r) =>
-  r.rows.length === 5 && r.rows.every((x) => x.prosecdef && (x.proconfig ?? []).some((c) => c === "search_path=interno, pg_temp")));
+await espera("funções da Escola: security definer e search_path fixo", () => dono("select proname, prosecdef, proconfig from pg_proc where proname in ('escola_eu', 'e_militante', 'escola_militancia_criar', 'escola_militancia_apagar', 'escola_departamento_gatilho', 'escola_papel_gatilho')"), (r) =>
+  r.rows.length === 6 && r.rows.every((x) => x.prosecdef && (x.proconfig ?? []).some((c) => c === "search_path=interno, pg_temp")));
 await espera("escola_publico nasce 'ninguem' e só aceita os 4 públicos", async () => {
   const p = (await dono("select escola_publico from interno.perfis where id = $1", [ids.comum])).rows[0].escola_publico;
   let recusou = false;
@@ -223,6 +249,16 @@ confere("CSS: o par fraco da prancha (#CDBFB5 na porta vermelha) não é usado",
 const acesso = ler("lib", "escola", "acesso.ts");
 confere("prévia só em desenvolvimento", /if \(process\.env\.NODE_ENV !== "development"\) return false;/.test(acesso) && /import\("\.\/previa"\)/.test(acesso) && !/^import .*previa/m.test(acesso));
 confere("a militância não vai para o aparelho (nada de localStorage nem useStored de escrita)", !/localStorage|setItem\(KEYS/.test(acesso));
+{
+  const { contaDaSessao } = await import("../lib/escola/acesso.ts");
+  const jwt = (sub, n) => `x.${Buffer.from(JSON.stringify({ sub, n })).toString("base64url")}.y`;
+  const s1 = JSON.stringify({ access_token: jwt("u-1", 1), user: { id: "u-1" } });
+  const s2 = JSON.stringify({ access_token: jwt("u-1", 2), user: { id: "u-1" } });
+  confere("renovar o token não muda a chave da Escola (é o id da conta)", contaDaSessao(s1) === "u-1" && contaDaSessao(s1) === contaDaSessao(s2));
+  confere("sem user na sessão: a chave sai do sub do token", contaDaSessao(JSON.stringify({ access_token: jwt("u-2", 1) })) === "u-2");
+  confere("outra conta, outra chave; sem sessão, nenhuma", contaDaSessao(JSON.stringify({ user: { id: "u-3" } })) === "u-3" && contaDaSessao(null) === null);
+  confere("mesma conta conferindo de novo: a Escola não desmonta (guarda a última resposta de militante)", /resposta\?\.conta === dono && resposta\.estado\.estado === "militante"/.test(acesso));
+}
 confere("escola_eu pelo nome do contrato", /rpc<EscolaEu>\("escola_eu"\)/.test(acesso));
 confere("função inexistente vira vazio honesto ('ausente')", /banco_desatualizado"\) return \{ ok: false, motivo: "ausente" \}/.test(acesso));
 const pastaHoje = path.join(raiz, "components", "escola", "hoje");
