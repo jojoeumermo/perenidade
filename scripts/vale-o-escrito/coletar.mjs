@@ -14,7 +14,8 @@
 // Supabase (função public.vale_robo_sugerir, só com a chave de serviço). Nada é publicado por aqui: a aprovação é humana
 // (decisão da coordenação: só publica com fonte oficial e situação jurídica preenchidas e conferidas).
 //
-//   node scripts/vale-o-escrito/coletar.mjs --seco          imprime em vez de gravar (nenhuma chave do Supabase)
+//   node scripts/vale-o-escrito/coletar.mjs --seco          imprime em vez de gravar: não pede chave nenhuma, não grava no
+//                                                           Supabase e não pede cópia ao Internet Archive (teste local)
 //   node scripts/vale-o-escrito/coletar.mjs                 grava (exige SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY)
 //   opções: --fonte <id> (só esta fonte)  --dias <n> (janela, padrão 7)  --max <n> (sugestões por rodada, padrão 120)
 //           --max-ia <n> (chamadas à IA por rodada, padrão 50)  --sem-ia  --hoje AAAA-MM-DD
@@ -65,7 +66,10 @@ const CODIGO_DA_UF = { RO: "11", AC: "12", AM: "13", RR: "14", PA: "15", AP: "16
 /** Grupo da fonte (fontes.json) → tipo da Fonte (tipos.ts). Só "oficial" é primária (dado oficial). */
 const TIPO_DA_FONTE = { oficial: "dado_oficial", organizacao: "relatorio_organizacao", imprensa: "reportagem", checagem: "checagem" };
 
-const AGENTE = "InstitutoLucia-ValeOEscrito/1.0 (observatorio; leitura de feeds publicos)";
+// "Mozilla/5.0 (compatible; ...)" é a forma comum de um leitor automático se identificar. Sem ela, servidores atrás de
+// proteção contra robôs (o Observatório do Clima, em 08/11/2026) respondiam 403 ao robô e o feed ficava vazio. O nome do
+// robô e o endereço do Instituto continuam no agente: ninguém é enganado sobre quem lê.
+export const AGENTE = "Mozilla/5.0 (compatible; InstitutoLucia-ValeOEscrito/1.1; observatorio de leitura de feeds publicos; +https://institutolucia.org)";
 
 // ───────────────────────────── Texto ─────────────────────────────
 
@@ -201,6 +205,26 @@ function escapar(s) {
 const MENOR = /\b(crian[cç]as?|adolescentes?|menor(es)? de idade|menores?\b|infantil|infantojuvenil|ato infracional|estupro de vulner[aá]vel)/i;
 export function falaDeMenor(texto) {
   return MENOR.test(texto) || MENOR.test(normalizar(texto));
+}
+
+/**
+ * Palavras a mais que o ROBÔ procura em cada dossiê, além dos `temas` de dossies.json (que são poucos e servem também ao
+ * site). Na rodada seca de 08/11/2026, 165 itens recentes caíram em "semTema" porque o título dizia "indígenas",
+ * "trabalho escravo" ou "corrupção" e não a frase exata do tema. Mesmo critério de acharDossies (sem acento, começo de
+ * palavra). Só alarga a PORTA: o filtro "relata caso" e a curadoria continuam valendo.
+ */
+export const TEMAS_EXTRAS_DO_ROBO = Object.freeze({
+  "povos-indigenas": ["indígena", "indígenas", "povo indígena", "aldeia", "yanomami", "munduruku", "guarani", "kaiowá", "pataxó", "terra yanomami", "território indígena"],
+  "conflitos-no-campo": ["sem-terra", "acampamento", "assentamento", "reintegração de posse", "posseiro", "pistoleiro", "quilombola", "conflito no campo", "conflitos no campo", "fazendeiro"],
+  "violencia-policial": ["violência policial", "policial militar", "policiais militares", "morto pela polícia", "morta pela polícia", "mortos pela polícia", "abordagem policial", "ação policial", "tortura", "letalidade"],
+  "trabalho-escravo": ["trabalho escravo", "escravidão contemporânea", "condição análoga", "condições análogas", "trabalhadores resgatados", "resgatados", "resgate de"],
+  "crimes-ambientais": ["garimpo", "desmate", "crime ambiental", "crimes ambientais", "incêndio florestal", "madeira ilegal", "extração ilegal", "embargo ambiental", "multa ambiental", "mineração ilegal"],
+  "dinheiro-publico": ["corrupção", "fraude em licitação", "superfaturamento", "propina", "lavagem de dinheiro", "peculato", "desvio de recursos", "verba pública", "dinheiro público", "rachadinha"],
+});
+
+/** Os dossiês com os temas extras do robô somados (sem repetir). Os temas originais vêm primeiro. */
+export function dossiesComTemasDoRobo(dossies, extras = TEMAS_EXTRAS_DO_ROBO) {
+  return dossies.map((d) => ({ ...d, temas: [...new Set([...(d.temas ?? []), ...(extras[d.slug] ?? [])])] }));
 }
 
 /** Dossiês cujas palavras aparecem no texto: [{slug, temas}] do mais forte para o mais fraco. */
@@ -781,8 +805,11 @@ export function linkDoArquivo(candidato) {
  * sem elas, o pedido anônimo (GET /save/<link>, que devolve o endereço da cópia no cabeçalho). Devolve o link da cópia
  * ou null (o rascunho leva arquivoFalhou: true e a curadoria tenta de novo na aprovação).
  */
-export async function arquivarNoInternetArchive(url, { buscar, env = {}, esperar = (ms) => new Promise((r) => setTimeout(r, ms)), tentativas = 8 }) {
+export async function arquivarNoInternetArchive(url, { buscar, env = {}, esperar = (ms) => new Promise((r) => setTimeout(r, ms)), tentativas = 8, ultimo = {} }) {
   if (!podeArquivar(url)) return null;
+  // `ultimo.status` guarda o HTTP do pedido de cópia (criarArquivador olha o 429 para esperar e tentar de novo).
+  ultimo.status = 0;
+  ultimo.retryAfter = null;
   try {
     if (env.ARCHIVE_ACCESS_KEY && env.ARCHIVE_SECRET_KEY) {
       const auth = { accept: "application/json", authorization: `LOW ${env.ARCHIVE_ACCESS_KEY}:${env.ARCHIVE_SECRET_KEY}` };
@@ -792,6 +819,8 @@ export async function arquivarNoInternetArchive(url, { buscar, env = {}, esperar
         headers: { ...auth, "content-type": "application/x-www-form-urlencoded" },
         body: `url=${encodeURIComponent(url)}&if_not_archived_within=86400`,
       });
+      ultimo.status = r.status;
+      ultimo.retryAfter = r.headers?.get?.("retry-after") ?? null;
       if (r.status !== 200) return null;
       const job = JSON.parse(r.text)?.job_id;
       if (!job || !/^[\w-]{6,80}$/.test(job)) return null;
@@ -806,6 +835,9 @@ export async function arquivarNoInternetArchive(url, { buscar, env = {}, esperar
       return null;
     }
     const r = await buscar(`https://web.archive.org/save/${url}`, { arquivo: true, headers: { accept: "text/html" } });
+    ultimo.status = r.status;
+    ultimo.retryAfter = r.headers?.get?.("retry-after") ?? null;
+    if (r.status === 429) return null;
     const cab = r.headers ?? { get: () => null };
     for (const c of [cab.get?.("content-location"), cab.get?.("location"), r.url]) {
       const link = linkDoArquivo(c);
@@ -815,6 +847,47 @@ export async function arquivarNoInternetArchive(url, { buscar, env = {}, esperar
   } catch {
     return null;
   }
+}
+
+/**
+ * Fila do Internet Archive: um pedido por vez, com intervalo mínimo entre eles (o Save Page Now limita por conta e por
+ * IP e responde 429 quando se pede rápido demais). Com 429: espera o Retry-After (até 2 min; sem ele, 60 s) e tenta UMA
+ * vez de novo; com 3 respostas 429 na rodada, para de pedir até a rodada seguinte. Em todos os casos o caso ENTRA na fila
+ * da curadoria do mesmo jeito: só leva `arquivoFalhou: true` (pendente), e a curadoria pede a cópia na aprovação.
+ * Devolve `arquivar(url)` → link ou null, e `estado()` com as contagens.
+ */
+export function criarArquivador({ buscar, env = {}, esperar = (ms) => new Promise((r) => setTimeout(r, ms)), agora = () => Date.now(), intervaloMs, log = () => {}, arquivarUm = arquivarNoInternetArchive }) {
+  const intervalo = intervaloMs ?? (env.ARCHIVE_ACCESS_KEY && env.ARCHIVE_SECRET_KEY ? 3000 : 10000);
+  let fila = Promise.resolve();
+  let ultimoPedido = 0;
+  let respostas429 = 0;
+  let parado = false;
+  const um = async (url) => {
+    if (parado) return null;
+    for (let tentativa = 0; tentativa < 2; tentativa++) {
+      const falta = ultimoPedido + intervalo - agora();
+      if (falta > 0) await esperar(falta);
+      ultimoPedido = agora();
+      const ultimo = {};
+      const link = await arquivarUm(url, { buscar, env, esperar, ultimo });
+      if (link || ultimo.status !== 429) return link;
+      respostas429++;
+      if (respostas429 >= 3) {
+        parado = true;
+        log("Internet Archive: 429 repetido; as próximas cópias ficam pendentes para a curadoria");
+        return null;
+      }
+      const pedido = Number(ultimo.retryAfter);
+      await esperar(Number.isFinite(pedido) && pedido > 0 ? Math.min(pedido, 120) * 1000 : 60000);
+    }
+    return null;
+  };
+  const arquivar = (url) => {
+    const vez = fila.then(() => um(url));
+    fila = vez.catch(() => null);
+    return vez.catch(() => null);
+  };
+  return { arquivar, estado: () => ({ respostas429, parado }) };
 }
 
 // ───────────────────────────── Rascunho completo ─────────────────────────────
@@ -959,6 +1032,29 @@ export function montarRascunho({ fonte, item, url, materia, ia, achados, prep, h
 
 // ───────────────────────────── Coleta ─────────────────────────────
 
+/**
+ * Busca com UMA nova tentativa para leitura (GET) de feed e de API: se a rede falhar, ou a resposta for 429, 502, 503 ou
+ * 504, espera (Retry-After, até 30 s; senão 3 s) e tenta de novo. Pedido com corpo (POST: IA, Supabase, arquivo) não é
+ * repetido aqui: quem chama decide. `esperar` e `buscar` vêm por parâmetro nos testes.
+ */
+export function comNovaTentativa(buscar, { esperar = (ms) => new Promise((r) => setTimeout(r, ms)), log = () => {} } = {}) {
+  return async (url, opcoes = {}, fonte) => {
+    const repetivel = !opcoes?.method || opcoes.method === "GET";
+    try {
+      const r = await buscar(url, opcoes, fonte);
+      if (!repetivel || ![429, 502, 503, 504].includes(r.status)) return r;
+      const pedido = Number(r.headers?.get?.("retry-after"));
+      await esperar(Number.isFinite(pedido) && pedido > 0 ? Math.min(pedido, 30) * 1000 : 3000);
+      log(`${new URL(url).hostname}: HTTP ${r.status}; tentando de novo`);
+    } catch (e) {
+      if (!repetivel) throw e;
+      await esperar(3000);
+      log(`${new URL(url).hostname}: ${String(e?.cause?.code ?? e?.message ?? e).slice(0, 80)}; tentando de novo`);
+    }
+    return buscar(url, opcoes, fonte);
+  };
+}
+
 /** Busca uma URL com tempo-limite. Devolve {status, text, headers, url}. Nunca lança por HTTP; lança por rede (o chamador conta como falha). */
 export async function buscarNaRede(url, opcoes = {}) {
   // "materia" e "arquivo" são marcas internas (o tempo-limite e os testes usam), não opções do fetch.
@@ -989,13 +1085,30 @@ export function consultasDoQueridoDiario(dossies) {
 export async function lerFonte(fonte, { dossies, buscar, hoje, dias }) {
   try {
     if (fonte.leitor === "rss") {
-      const r = await buscar(fonte.feed, undefined, fonte);
-      if (r.status !== 200) return { itens: [], erro: `HTTP ${r.status}` };
-      return { itens: lerFeed(r.text) };
+      // Uma fonte pode ter mais de um feed (campo "feeds", ex.: Agência Brasil: Direitos Humanos e Justiça). Um feed que
+      // falha não derruba os outros; a fonte só conta como falha se nenhum respondeu.
+      const enderecos = Array.isArray(fonte.feeds) && fonte.feeds.length ? fonte.feeds : [fonte.feed];
+      const itens = [];
+      const erros = [];
+      for (const endereco of enderecos) {
+        const r = await buscar(endereco, undefined, fonte);
+        if (r.status !== 200) {
+          erros.push(`HTTP ${r.status}`);
+          continue;
+        }
+        // Endereço de feed que virou página (redireciona para a página inicial): avisa em vez de "0 itens" calado.
+        if (!/<(rss|feed|rdf:RDF)\b/i.test(String(r.text ?? "").slice(0, 5000))) {
+          erros.push("a resposta não é feed RSS/Atom (o endereço mudou?)");
+          continue;
+        }
+        itens.push(...lerFeed(r.text));
+      }
+      return erros.length ? { itens, erro: erros.join("; ") } : { itens };
     }
     if (fonte.leitor === "querido-diario") {
       const desde = new Date(Date.parse(`${hoje}T00:00:00Z`) - dias * 86_400_000).toISOString().slice(0, 10);
       const itens = [];
+      let erroQd = "";
       for (const c of consultasDoQueridoDiario(dossies)) {
         const u = new URL(fonte.url);
         u.searchParams.set("querystring", c.q);
@@ -1005,10 +1118,14 @@ export async function lerFonte(fonte, { dossies, buscar, hoje, dias }) {
         u.searchParams.set("number_of_excerpts", "1");
         u.searchParams.set("sort_by", "descending_date");
         const r = await buscar(u.toString(), undefined, fonte);
-        if (r.status !== 200) return { itens, erro: `HTTP ${r.status}` };
+        // Uma consulta que falha (a API do Querido Diário às vezes demora) não joga fora as outras.
+        if (r.status !== 200) {
+          erroQd = `HTTP ${r.status}`;
+          continue;
+        }
         itens.push(...lerQueridoDiario(JSON.parse(r.text)));
       }
-      return { itens };
+      return erroQd ? { itens, erro: erroQd } : { itens };
     }
     if (fonte.leitor === "plone-busca") {
       const vistos = new Set();
@@ -1045,9 +1162,11 @@ export async function lerFonte(fonte, { dossies, buscar, hoje, dias }) {
  */
 export async function coletar({
   fontes, dossies, municipios, buscar, ia, gravar, arquivar = null, baixar = true, maxArquivo = 20, prazo = Infinity, agora = () => Date.now(),
-  hoje, dias = 3, max = 60, soFonte, log = () => {},
+  hoje, dias = 3, max = 60, soFonte, log = () => {}, temasExtras = TEMAS_EXTRAS_DO_ROBO,
 }) {
   const prep = prepararMunicipios(municipios);
+  // O filtro usa os temas + as palavras extras do robô; as CONSULTAS às APIs (Querido Diário, MPF) usam só os temas.
+  const dossiesDoFiltro = dossiesComTemasDoRobo(dossies, temasExtras ?? {});
   const vistos = new Set();
   const sugestoes = [];
   const relatorio = {
@@ -1072,7 +1191,7 @@ export async function coletar({
     }
     if (fonte.acesso === "sem-acesso" || fonte.acesso === "so-link") continue;
     const { itens, erro } = await lerFonte(fonte, { dossies, buscar, hoje, dias });
-    relatorio.fontes[fonte.id] = erro ? `falhou: ${erro}` : `${itens.length} itens`;
+    relatorio.fontes[fonte.id] = erro ? (itens.length ? `${itens.length} itens (aviso: ${erro})` : `falhou: ${erro}`) : `${itens.length} itens`;
     if (erro && !itens.length) {
       log(`${fonte.id}: ${erro}`);
       continue;
@@ -1099,7 +1218,7 @@ export async function coletar({
         relatorio.descartados.menor++;
         continue;
       }
-      const achados = acharDossies(texto, dossies);
+      const achados = acharDossies(texto, dossiesDoFiltro);
       if (!achados.length) {
         relatorio.descartados.semTema++;
         continue;
@@ -1305,7 +1424,7 @@ export async function principal(argv = process.argv.slice(2), env = process.env)
   const cfg = carregarConfig();
   const log = (m) => console.error(`[vale-o-escrito] ${m}`);
 
-  let buscar = buscarNaRede;
+  let buscar = comNovaTentativa(buscarNaRede, { log });
   let fontes = cfg.fontes;
   if (a.fixtures) {
     // Teste sem rede: cada fonte lê o arquivo com o seu id; fonte sem arquivo é pulada.
@@ -1315,9 +1434,11 @@ export async function principal(argv = process.argv.slice(2), env = process.env)
   }
 
   const ia = a.semIa || a.fixtures ? null : criarIa({ env, buscar: buscarNaRede, limite: numero(a.maxIa, PADROES_DA_RODADA.maxIa), log });
-  if (ia && !ia.ativos().length) log("nenhuma chave de IA definida: os rascunhos saem pela heurística");
-  // O Save Page Now só com a rede de verdade (nunca nos testes com --fixtures).
-  const arquivar = a.semArquivo || a.fixtures ? null : (url) => arquivarNoInternetArchive(url, { buscar: buscarNaRede, env });
+  if (ia && !ia.ativos().length) log("nenhuma chave de IA definida: os rascunhos saem pela heurística (a curadoria revisa)");
+  // O Save Page Now só com a rede de verdade (nunca nos testes com --fixtures) e nunca na rodada seca: a rodada seca não
+  // deixa rastro em lugar nenhum (nem no Internet Archive), só imprime.
+  const arquivador = a.semArquivo || a.fixtures || a.seco ? null : criarArquivador({ buscar: buscarNaRede, env, log });
+  const arquivar = arquivador ? arquivador.arquivar : null;
   const gravar = a.seco ? null : criarGravador(env, buscarNaRede);
 
   const resultado = await coletar({
@@ -1327,6 +1448,17 @@ export async function principal(argv = process.argv.slice(2), env = process.env)
 
   if (a.seco) for (const s of resultado.sugestoes) console.log(JSON.stringify(env.GITHUB_ACTIONS === "true" ? paraOLogPublico(s) : s));
   console.error(`[vale-o-escrito] ${a.seco ? "rodada seca" : "rodada"}: ${resultado.sugestoes.length} sugestões; relatório: ${JSON.stringify(resultado.relatorio)}`);
+  const rel = resultado.relatorio;
+  const fontesLidas = Object.values(rel.fontes).filter((v) => /^\d+ itens/.test(v)).length;
+  if (!fontesLidas && Object.keys(rel.fontes).length) {
+    // Nenhuma fonte respondeu: é a rede da máquina (ou tudo mudou de endereço). Sai com erro para aparecer no registro.
+    console.error("[vale-o-escrito] nenhuma fonte respondeu: confira a rede da máquina e os endereços em content/vale-o-escrito/fontes.json");
+    process.exitCode = 1;
+  } else if (gravar && rel.falhasAoGravar > 0 && rel.gravadas + rel.repetidasNoBanco === 0) {
+    // Tudo o que achou falhou ao gravar (função do banco ausente, chave errada): erro visível, não "rodada ok" calada.
+    console.error("[vale-o-escrito] nada foi gravado: confira SUPABASE_URL, a chave de serviço e se public.vale_robo_sugerir existe (supabase/install.sql)");
+    process.exitCode = 1;
+  }
   return resultado;
 }
 
