@@ -681,7 +681,7 @@ Todo recurso novo entra desligado (`lib/recursos.ts`; a lista e o texto de cada 
 
 | Recurso | O que abre | O que precisa estar pronto antes de ligar |
 | --- | --- | --- |
-| `escola` | Escola Lúcia Maria: entrada, cursos, matrícula, campus, calendário | o texto "Quem foi Lúcia Maria" vindo da coordenação, no lugar do marcador de `content/escola/quem-foi-lucia-maria.md` (`docs/ESCOLA.md`) |
+| `escola` | Escola Lúcia Maria: entrada, cursos, matrícula, campus, calendário | o texto "Quem foi Lúcia Maria" já está publicado em `content/escola/quem-foi-lucia-maria.md` (primeira pessoa, escrito pelo neto com os fatos de `docs/escola-revolucionaria/FONTES-LUCIA-MARIA.md`); falta a coordenação decidir ligar (`docs/ESCOLA.md`) |
 | `vale-o-escrito` | observatório de crimes de interesse público já em fonte pública (teia, mapa, dossiês, envio de fonte e correção) | migração rodada no Supabase, curadoria revisando as entradas (18 casos esperam), assessoria jurídica e o robô de coleta configurado (`docs/vale-o-escrito/ESPEC.md`, `ROBO.md`) |
 | `rede-v2` | Rede e Fórum numa só, comunidades, perfil com `@nome`, avisos | as dez migrações `rede-*` rodadas, funções republicadas, segredos, semeadura e revisão jurídica da idade (`docs/rede/V2.md`, seção 12) |
 

@@ -5,7 +5,8 @@ import type { TextosDaBase } from "@/lib/escola/textos";
 
 /**
  * O primeiro item da entrada da Escola: o cartão que leva a "Quem foi Lúcia Maria". Sem foto e sem texto sobre ela
- * aqui: o texto é o que a coordenação mandar, e mora só na página dele.
+ * aqui: o texto, publicado em primeira pessoa e escrito pelo neto com os fatos de
+ * docs/escola-revolucionaria/FONTES-LUCIA-MARIA.md, mora só na página dele.
  */
 export function CartaoLuciaMaria({ lang, s }: { lang: Locale; s: TextosDaBase["cartao"] }) {
   return (

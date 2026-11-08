@@ -26,6 +26,7 @@ import {
   trancar,
   validarMatricula,
 } from "../lib/escola/estudante.ts";
+import { AVISO_SEM_TEXTO, aberturaDoQuemFoi } from "../lib/escola/quem-foi.ts";
 import { ANO_LETIVO, calendarioProposto, hojeEmBrasilia, semanaDeProvas, semestreDe } from "../lib/escola/tempo.ts";
 import { aulaAtual, arredondarHoras, cicloDeRequisitos, horasDoCurso, horasFeitas, moduloDe, proximaDoCurso, tempoDaAula, validarCurso } from "../lib/escola/cursos.ts";
 import { existeAula, existeMemorial, existeObra, lerCursosComErros, minutosDaAula } from "../lib/escola/cursos-servidor.ts";
@@ -288,6 +289,10 @@ conferir("idioma desconhecido cai no português", textosDaBase("xx") === pt && t
 // docs/escola-revolucionaria/FONTES-LUCIA-MARIA.md (npm run testar:militantes confere o resto).
 const quemFoi = fs.readFileSync(path.join(raiz, "content", "escola", "quem-foi-lucia-maria.md"), "utf8");
 conferir("Quem foi Lúcia Maria tem o título e o texto (sem o marcador)", /^---\r?\ntitulo: "Quem foi Lúcia Maria"\r?\n---\r?\n/.test(quemFoi) && !quemFoi.includes("[TEXTO A ENVIAR PELA COORDENAÇÃO]") && quemFoi.replace(/^---[\s\S]*?---/, "").trim().length > 500);
+// O 2º quadro da abertura (texto puro, 10 s) leva só o 1º parágrafo: nada de intertítulo, ênfase, link ou "---".
+const quadroDeLucia = aberturaDoQuemFoi(quemFoi.replace(/^---[\s\S]*?---/, "").trim());
+conferir("abertura: quadro de Lúcia é só o 1º parágrafo, sem Markdown", quadroDeLucia.length > 0 && quadroDeLucia.length < 400 && !/##|\*|\[|\]\(|---/.test(quadroDeLucia) && quemFoi.includes(quadroDeLucia));
+conferir("abertura: corta antes do intertítulo e limpa ênfase e link", aberturaDoQuemFoi("Um *dois* [três](/x).\nQuatro.\n\n## Título\n\nOutro.") === "Um dois três. Quatro." && aberturaDoQuemFoi("Só\n## Título") === "Só" && aberturaDoQuemFoi("[TEXTO A ENVIAR PELA COORDENAÇÃO]") === AVISO_SEM_TEXTO);
 
 // O trecho da abertura é cópia literal do "Quem somos" publicado (em cada idioma que tem a página).
 for (const nome of fs.readdirSync(path.join(raiz, "content", "paginas")).filter((n) => /^quem-somos(\.[a-z]{2})?\.md$/.test(n))) {
