@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "titulo": "露西亚·玛丽亚革命学校",
+    "descricao": "露西亚革命阵线战士的培训学校：分阶段学习、基层小组、在世界中的任务，以及陪伴你的人。仅限战士。"
+  },
+  "porta": {
+    "instituto": "露西亚学会",
+    "escola": "学校",
+    "entrar": "我已是战士：登录",
+    "frente": "露西亚革命阵线",
+    "titulo": "露西亚·玛丽亚革命学校",
+    "lema": "学习，鼓动，组织起来。",
+    "texto": "在阵线中行动的人的培训学校。这里面只对战士开放：分阶段学习、基层小组、在世界中的任务，以及陪伴你的人。",
+    "quero": "我想加入",
+    "manifesto": "阅读宣言",
+    "resto": "网站的其余部分继续向所有人开放：",
+    "aulas": "课程",
+    "acervo": "藏书",
+    "jornal": "报纸",
+    "alumia": "Alumia",
+    "comoEntrar": "如何进入学校",
+    "passos": [
+      { "titulo": "报名成为战士", "texto": "限 18 岁及以上。姓名、联系方式，以及想在哪条战线行动。" },
+      { "titulo": "通过电子邮件确认", "texto": "一次性链接，有效期 3 天。邮件中不提及阵线。" },
+      { "titulo": "协调组接纳你", "texto": "协调组接受报名并为你指定基层小组。" },
+      { "titulo": "用你的网站账户登录", "texto": "学校向你打开：从第 1 阶开始。" }
+    ],
+    "degrausTitulo": "学什么：三个台阶",
+    "degraus": [
+      { "rotulo": "第 1 阶", "nome": "觉醒", "texto": "阶级意识和投身斗争的第一步。" },
+      { "rotulo": "第 2 阶", "nome": "基层", "texto": "基层工作、工会组织、人民传播、安全与关怀。" },
+      { "rotulo": "第 3 阶", "nome": "骨干", "texto": "形势分析、培养培训者、记忆，以及政治教育年。" }
+    ],
+    "semMilitancia": "你已登录，但你的账户还不在战士之列。如果你已经报名，报名正在协调组手中：协调组一接纳你，学校就会在这里打开。",
+    "semServico": "学校需要账户服务，而本网站副本没有启用该服务。",
+    "falha": "现在无法确认你的战士身份。",
+    "tentar": "再试一次",
+    "conferindo": "正在确认…"
+  },
+  "casca": {
+    "rotulo": "学校",
+    "escolaRev": "革命学校",
+    "luciaMaria": "露西亚·玛丽亚",
+    "instituto": "露西亚学会",
+    "nav": {
+      "hoje": "今天",
+      "formacao": "培训",
+      "nucleo": "小组",
+      "biblioteca": "图书馆",
+      "percurso": "我的路径",
+      "frente": "阵线",
+      "eu": "我"
+    },
+    "duvida": "提一个问题",
+    "discreto": "低调模式",
+    "discretoTexto": "标签页用中性名称，不留历史记录",
+    "tituloNeutro": "笔记",
+    "degrau": "第 {n} 阶",
+    "semNucleo": "尚无小组",
+    "semCodinome": "尚无代号",
+    "escolherCodinome": "在 Alumia 选择代号"
+  },
+  "hoje": {
+    "titulo": "今天",
+    "linha": "{data} · 第 {degrau} 阶",
+    "linhaCaderno": "第 {n} 册",
+    "saudacao": { "manha": "早上好", "tarde": "下午好", "noite": "晚上好" },
+    "saudacaoNome": "{saudacao}，{nome}。",
+    "saudacaoSo": "{saudacao}。",
+    "quadro": "本周看板",
+    "quadroLegenda": "完成的就划掉。",
+    "feitos": "已完成 {n}/{total}",
+    "feitosCurto": "{n}/{total}",
+    "aula": "课程：",
+    "rotuloNucleo": "小组",
+    "agora": "现在",
+    "encontro": "小组会议 · {quando}",
+    "continuar": "继续：{codigo} {titulo}",
+    "continuarCurto": "继续上课",
+    "verCaderno": "查看整册",
+    "quadroVazio": "这一册的课程还在编写中。在此期间，图书馆和小组照常开放。",
+    "tudoFeito": "你已学完各册中已写好的全部课程。和陪伴你的人谈谈本阶的评议会。",
+    "pergunta": "本周启发性问题",
+    "responder": "为小组作答",
+    "perguntaVazia": "协调组还没有确定本周的问题。",
+    "percurso": "你在路径上的位置",
+    "degrau1": "第 1 阶 · 觉醒",
+    "degrau3": "第 3 阶 · 骨干",
+    "voceCaderno": "你在第 {n} 册",
+    "emPreparacao": "准备中",
+    "cadernos": [
+      "阶级意识",
+      "投身斗争的第一步",
+      "与想法不同的人交谈",
+      "基层组织",
+      "基层工会组织",
+      "人民传播",
+      "安全与集体关怀",
+      "形势分析",
+      "培养培训者",
+      "守护记忆",
+      "政治教育年"
+    ],
+    "nucleo": {
+      "titulo": "你的小组",
+      "proximo": "下次会议：",
+      "pauta": "议程：",
+      "abrir": "在 Alumia 打开小组",
+      "semNucleo": "你还没有加入小组。协调组会为你指定。",
+      "semEncontro": "还没有安排会议。",
+      "ausente": "小组议程还没有接入这所学校。目前请在 Alumia 的小组里商量。"
+    },
+    "acompanha": {
+      "titulo": "谁陪伴你",
+      "texto": "第 3 阶的 {nome} 陪伴你的培训。",
+      "alguem": "一位第 3 阶的同志",
+      "mensagem": "发消息",
+      "ninguem": "还没有人陪伴你的培训。协调组会指定一位第 3 阶的同志。"
+    },
+    "recados": {
+      "titulo": "培训通知",
+      "vazio": "暂时没有通知。",
+      "ausente": "培训通知还没有接入这所学校。"
+    },
+    "duvida": {
+      "titulo": "课上卡住了？",
+      "texto": "问问助手，找辅导员，或者带到小组里讨论。"
+    },
+    "aoVivo": {
+      "titulo": "今天的直播课",
+      "as": "{hora}",
+      "agora": "正在直播",
+      "entrar": "进入教室"
+    },
+    "carregando": "加载中…",
+    "falha": "暂时无法加载。"
+  }
+}
