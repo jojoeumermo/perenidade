@@ -4,7 +4,7 @@
 import "@/styles/vale-o-escrito.css";
 // D3 SÓ AQUI (d3-force) e só chega ao navegador quando alguém abre a visão "Teia" (next/dynamic em Observatorio.tsx).
 import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY, type SimulationLinkDatum, type SimulationNodeDatum } from "d3-force";
-import { useMemo, useRef, useState, type PointerEvent } from "react";
+import { useMemo } from "react";
 import type { TipoDeNo } from "@/lib/vale-o-escrito/tipos";
 import { limitarEscala, nivelDaTeia, posicaoInicial, rotuloVisivel, type Grafo, type Ponto } from "@/lib/vale-o-escrito/visual";
 import { ArestaSvg, DefsNeon, NoSvg, type S } from "./Primitivas";
@@ -17,7 +17,11 @@ interface NoSim extends SimulationNodeDatum {
   chave: string;
 }
 
-/** A simulação de força roda inteira, de uma vez, ao montar o grafo: o desenho não treme e quem prefere menos movimento não vê nada se mexer. */
+/**
+ * A simulação de força roda inteira, de uma vez, ao montar o grafo, e para: depois disso nada se mexe (os nós não se
+ * arrastam nem se pinçam). Determinística: ponto de partida fixo (posicaoInicial) e o sorteio do d3-force com semente
+ * própria, então o mesmo grafo dá sempre o mesmo desenho, no servidor de testes e em qualquer navegador.
+ */
 function calcularPosicoes(g: Grafo): Map<string, Ponto> {
   const nos: NoSim[] = g.nos.map((n, i) => ({ chave: n.chave, ...posicaoInicial(i, g.nos.length, L, A) }));
   const ligas: SimulationLinkDatum<NoSim>[] = g.arestas.map((a) => ({ source: a.de, target: a.para }));
@@ -61,47 +65,16 @@ export default function Teia({
   s: S;
 }) {
   const base = useMemo(() => calcularPosicoes(grafo), [grafo]);
-  const [movidos, setMovidos] = useState<Map<string, Ponto>>(new Map());
   const ajuste = useMemo(() => caber(base), [base]);
-  const { t, svgRef, unidade, baixar, mover: moverVisor, soltar: soltarVisor, tecla, proximoNivel, recentrar, consumirMexeu, prenderArrasto } = useVisor(L, A, ajuste);
-  const arrasto = useRef<{ chave: string; px: number; py: number; ox: number; oy: number; andou: boolean } | null>(null);
+  // Sem gestos de toque nem roda: a página rola e aproxima normalmente por cima da teia; o desenho aproxima pelos
+  // botões +/−/◎ e pelo teclado, e o mouse arrasta o fundo. Aproximada além da abertura, um dedo no fundo também
+  // arrasta (só então o SVG pede touch-action: none); os nós continuam parados.
+  const { t, svgRef, arrastoNoToque, baixar, mover, soltar, tecla, proximoNivel, recentrar, consumirMexeu } = useVisor(L, A, ajuste, { gestos: false });
 
-  // Grafo novo: os nós arrastados voltam ao lugar (o visor volta ao começo sozinho, pelo ajuste novo).
-  const [grafoAnterior, setGrafoAnterior] = useState(grafo);
-  if (grafoAnterior !== grafo) {
-    setGrafoAnterior(grafo);
-    setMovidos(new Map());
-  }
-
-  const pos = (chave: string): Ponto => movidos.get(chave) ?? base.get(chave) ?? { x: L / 2, y: A / 2 };
+  const pos = (chave: string): Ponto => base.get(chave) ?? { x: L / 2, y: A / 2 };
   const nivel = nivelDaTeia(t.k);
 
-  const noNo = (e: PointerEvent<SVGGElement>, chave: string) => {
-    // Sem capturar o ponteiro aqui: um toque simples tem de chegar ao onClick do nó. A captura começa quando o nó é arrastado.
-    const p = pos(chave);
-    arrasto.current = { chave, px: e.clientX, py: e.clientY, ox: p.x, oy: p.y, andou: false };
-  };
-  const mover = (e: PointerEvent<SVGSVGElement>) => {
-    if (moverVisor(e)) {
-      arrasto.current = null;
-      return;
-    }
-    const a = arrasto.current;
-    if (!a) return;
-    const { u } = unidade();
-    const dx = (e.clientX - a.px) * u;
-    const dy = (e.clientY - a.py) * u;
-    if (!a.andou && Math.abs(dx) + Math.abs(dy) > 4 * u) {
-      a.andou = true;
-      prenderArrasto(e.pointerId);
-    }
-    if (a.andou) setMovidos((m) => new Map(m).set(a.chave, { x: a.ox + dx / t.k, y: a.oy + dy / t.k }));
-  };
-  const soltar = (e: PointerEvent<SVGSVGElement>) => {
-    soltarVisor(e);
-    arrasto.current = null;
-  };
-  /** Clique de verdade (sem arrasto nem pinça) escolhe o nó; o arrasto só o move. */
+  /** Clique de verdade (sem arrastar o fundo) escolhe o nó. */
   const escolher = (chave: string) => {
     if (consumirMexeu()) return;
     aoSelecionar(chave);
@@ -143,7 +116,8 @@ export default function Teia({
         onPointerMove={mover}
         onPointerUp={soltar}
         onPointerCancel={soltar}
-        style={{ cursor: "grab" }}
+        data-arrasto-toque={arrastoNoToque ? "sim" : undefined}
+        style={{ cursor: "grab", touchAction: arrastoNoToque ? "none" : undefined }}
       >
         <DefsNeon />
         <g transform={`translate(${t.x} ${t.y}) scale(${t.k})`}>
@@ -177,7 +151,6 @@ export default function Teia({
                 apagado={(selecionado !== null && !vizinhosDoSel.has(n.chave)) || foraDoDestaque(n.chave)}
                 mostrarRotulo={rotuloVisivel(n.tipo, nivel, selecionado === n.chave || destaque === n.tipo)}
                 aoSelecionar={escolher}
-                aoPressionar={noNo}
               />
             );
           })}

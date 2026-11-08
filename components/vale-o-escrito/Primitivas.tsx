@@ -2,9 +2,9 @@
 "use client";
 
 import "@/styles/vale-o-escrito.css";
-import type { KeyboardEvent, PointerEvent, ReactNode } from "react";
+import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
 import type { TextosDoObservatorio } from "@/lib/vale-o-escrito/textos";
-import { curvaDaAresta, type ArestaDaTeia, type NoDaTeia, type Ponto } from "@/lib/vale-o-escrito/visual";
+import { fioDaTeia, sementeDoPar, type ArestaDaTeia, type NoDaTeia, type Ponto } from "@/lib/vale-o-escrito/visual";
 
 export type S = TextosDoObservatorio;
 
@@ -29,7 +29,7 @@ export function nomeDoNo(no: NoDaTeia, s: S): string {
   return no.situacao ? `${base}. ${s.ficha.situacao}: ${s.situacao[no.situacao]}` : base;
 }
 
-/** Um nó de SVG, focável e acionável por teclado (Enter ou espaço). `escala` mantém o tamanho legível ao aproximar. */
+/** Um nó de SVG, focável e acionável por teclado (Enter ou espaço). Fixo: não se arrasta. `escala` mantém o tamanho legível ao aproximar. */
 export function NoSvg({
   no,
   x,
@@ -40,7 +40,6 @@ export function NoSvg({
   mostrarRotulo,
   escala = 1,
   aoSelecionar,
-  aoPressionar,
 }: {
   no: NoDaTeia;
   x: number;
@@ -51,7 +50,6 @@ export function NoSvg({
   mostrarRotulo: boolean;
   escala?: number;
   aoSelecionar: (chave: string) => void;
-  aoPressionar?: (e: PointerEvent<SVGGElement>, chave: string) => void;
 }) {
   const r = raioDoNo(no) / Math.sqrt(escala);
   // Neon em todos os nós: um halo de gradiente (sem filtro: barato até no celular) na cor do tipo, maior e mais forte
@@ -76,7 +74,8 @@ export function NoSvg({
       aria-label={nomeDoNo(no, s)}
       onClick={() => aoSelecionar(no.chave)}
       onKeyDown={tecla}
-      onPointerDown={aoPressionar ? (e) => aoPressionar(e, no.chave) : undefined}
+      // A ficha, ao fechar, devolve o foco a este nó (Observatorio.tsx procura por data-chave).
+      data-chave={no.chave}
     >
       <title>{nomeDoNo(no, s)}</title>
       <circle className="ve-halo" r={halo} fill={`url(#ve-halo-${no.tipo})`} style={{ opacity: 0.45 + forca * 0.55 }} aria-hidden="true" />
@@ -130,10 +129,18 @@ export function ArestaSvg({
   comConfianca?: boolean;
   children?: (meio: Ponto) => ReactNode;
 }) {
-  const c = curvaDaAresta(p, q, aresta.id);
+  // Fio de teia: curva com semente no par de nós (não muda a cada render), espessura e opacidade próprias.
+  const c = fioDaTeia(p, q, sementeDoPar(aresta.de, aresta.para, aresta.id));
   return (
     <g>
-      <path className="ve-aresta" data-implicita={aresta.implicita} data-realce={realce} data-apagado={apagado ? "true" : "false"} d={c.d} />
+      <path
+        className="ve-aresta"
+        data-implicita={aresta.implicita}
+        data-realce={realce}
+        data-apagado={apagado ? "true" : "false"}
+        d={c.d}
+        style={{ "--ve-fio": c.espessura, "--ve-fio-op": c.opacidade } as CSSProperties}
+      />
       {comConfianca && aresta.confianca && (
         <circle
           className="ve-confianca"

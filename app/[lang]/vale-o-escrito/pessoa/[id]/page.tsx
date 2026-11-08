@@ -12,6 +12,9 @@ import { lerTudo } from "@/lib/vale-o-escrito/dados";
 import { textosDoObservatorio } from "@/lib/vale-o-escrito/textos";
 import { acharPessoa, casosDaPessoa, listaComE, veiculosDaEntrada } from "@/lib/vale-o-escrito/visual";
 
+// Os casos aprovados no banco entram sem novo deploy: a página é refeita a cada 5 minutos (lib/vale-o-escrito/banco.ts).
+export const revalidate = 300;
+
 // Pessoa pública no caso (marca publicaNoCaso, com fonte): só existe aqui quem passou em regras.ts. Nunca vítima, criança nem testemunha.
 export const dynamicParams = true;
 
@@ -23,7 +26,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; id: string }> }): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const { id } = await params;
-  const dados = dadosDoObservatorio(lang);
+  const dados = await dadosDoObservatorio(lang);
   const pessoa = acharPessoa(dados, id);
   if (!pessoa) return {};
   const s = textosDoObservatorio(lang);
@@ -38,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function PessoaPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
   const { lang } = await loadLang(params);
   const { id } = await params;
-  const dados = dadosDoObservatorio(lang);
+  const dados = await dadosDoObservatorio(lang);
   const pessoa = acharPessoa(dados, id);
   // Pessoa sem nenhum caso publicado não tem página: o nome só aparece ligado a um caso com fonte.
   if (!pessoa || casosDaPessoa(dados, id).length === 0) notFound();

@@ -19,11 +19,21 @@ export interface Transformacao {
 
 export const IDENTIDADE: Transformacao = { k: 1, x: 0, y: 0 };
 
+export interface OpcoesDoVisor {
+  /**
+   * Falso: o toque (dedo, caneta) e a roda do mouse ficam com a PÁGINA (rolar e aproximar como em qualquer página); o
+   * desenho só aproxima pelos botões e pelo teclado, e o mouse ainda arrasta o fundo. É o modo da Teia. Exceção: com o
+   * desenho aproximado além da vista de abertura, um dedo no FUNDO (nunca num nó) arrasta o desenho; veja
+   * `arrastoNoToque`, que diz quando o SVG deve pedir `touch-action: none`.
+   */
+  gestos?: boolean;
+}
+
 /**
  * Estado e gestos do visor. `L` e `A` são a largura e a altura do viewBox. `ajuste` é a vista de abertura (e do botão
  * recentrar). `mexeu` fica verdadeiro depois de um arrasto ou pinça, para o clique que vem junto não escolher um nó.
  */
-export function useVisor(L: number, A: number, ajuste: Transformacao) {
+export function useVisor(L: number, A: number, ajuste: Transformacao, { gestos = true }: OpcoesDoVisor = {}) {
   const [t, setT] = useState(ajuste);
   const svg = useRef<SVGSVGElement>(null);
   const mexeu = useRef(false);
@@ -72,7 +82,7 @@ export function useVisor(L: number, A: number, ajuste: Transformacao) {
   // proporcional ao gesto; roda comum, 15% por passo.
   useEffect(() => {
     const el = svg.current;
-    if (!el) return;
+    if (!el || !gestos) return;
     const roda = (e: WheelEvent) => {
       e.preventDefault();
       const fator = Math.abs(e.deltaY) < 40 && e.deltaMode === 0 ? Math.exp(-e.deltaY * 0.01) : e.deltaY < 0 ? 1.15 : 1 / 1.15;
@@ -80,7 +90,7 @@ export function useVisor(L: number, A: number, ajuste: Transformacao) {
     };
     el.addEventListener("wheel", roda, { passive: false });
     return () => el.removeEventListener("wheel", roda);
-  }, [zoomarEm, paraDesenho]);
+  }, [zoomarEm, paraDesenho, gestos]);
 
   const comecarPinca = () => {
     const [a, b] = [...ponteiros.current.values()];
@@ -91,8 +101,24 @@ export function useVisor(L: number, A: number, ajuste: Transformacao) {
     mexeu.current = true;
   };
 
+  // Sem gestos, o toque só arrasta quando o desenho está aproximado além da abertura (aí não há mais como vê-lo inteiro
+  // rolando a página). Na abertura, ou afastado, o toque continua da página.
+  const arrastoNoToque = !gestos && t.k > ajuste.k * 1.001;
+
   /** Ponteiro desceu no SVG. `noFundo` = falso quando caiu num nó (o nó cuida do próprio arrasto). */
   const baixar = (e: PointerEvent<SVGSVGElement>) => {
+    if (!gestos && e.pointerType !== "mouse") {
+      // Sem gestos, dedo e caneta são da página (rolar, aproximar), salvo o arrasto de UM dedo no fundo com o desenho
+      // aproximado. Nós ficam parados: um toque neles só escolhe. Sem pinça nesse modo.
+      if (!arrastoNoToque || pan.current || ponteiros.current.size > 0 || (e.target as Element).closest(".ve-no")) return;
+      ponteiros.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      mexeu.current = false;
+      try {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      } catch {}
+      pan.current = { px: e.clientX, py: e.clientY, ox: tRef.current.x, oy: tRef.current.y };
+      return;
+    }
     ponteiros.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (ponteiros.current.size === 1) mexeu.current = false;
     if (ponteiros.current.size >= 2) {
@@ -111,6 +137,8 @@ export function useVisor(L: number, A: number, ajuste: Transformacao) {
 
   /** Devolve verdadeiro quando o movimento foi do visor (pinça ou arrasto do fundo). */
   const mover = (e: PointerEvent<SVGSVGElement>): boolean => {
+    // Sem gestos, um segundo dedo (ou caneta) que não começou o arrasto não mexe em nada.
+    if (!gestos && e.pointerType !== "mouse" && !ponteiros.current.has(e.pointerId)) return false;
     if (ponteiros.current.has(e.pointerId)) ponteiros.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     const pc = pinca.current;
     if (pc && ponteiros.current.size >= 2) {
@@ -134,6 +162,8 @@ export function useVisor(L: number, A: number, ajuste: Transformacao) {
   };
 
   const soltar = (e: PointerEvent<SVGSVGElement>) => {
+    // Sem gestos, soltar um dedo que o visor não acompanha não pode encerrar o arrasto do outro.
+    if (!gestos && e.pointerType !== "mouse" && !ponteiros.current.has(e.pointerId)) return;
     ponteiros.current.delete(e.pointerId);
     if (ponteiros.current.size < 2) pinca.current = null;
     pan.current = null;
@@ -178,7 +208,7 @@ export function useVisor(L: number, A: number, ajuste: Transformacao) {
   };
 
   // Desestruture na chamada (const { t, ... } = useVisor()): assim a regra de refs do React não confunde `t` com um ref.
-  return { t, setT, svgRef: svg, unidade, zoomarEm, baixar, mover, soltar, tecla, proximoNivel, consumirMexeu, prenderArrasto, recentrar: () => setT(ajuste) };
+  return { t, setT, svgRef: svg, arrastoNoToque, unidade, zoomarEm, baixar, mover, soltar, tecla, proximoNivel, consumirMexeu, prenderArrasto, recentrar: () => setT(ajuste) };
 }
 
 /** Os botões +/−/recentrar, o nível nomeado ("ZOOM 03 — CASO") e a leitura de coordenadas, sempre visíveis. */

@@ -12,6 +12,9 @@ import { lerTudo } from "@/lib/vale-o-escrito/dados";
 import { textosDoObservatorio } from "@/lib/vale-o-escrito/textos";
 import { acharEntrada, indicesDeArquivo, listaComE, veiculosDaEntrada } from "@/lib/vale-o-escrito/visual";
 
+// Os casos aprovados no banco entram sem novo deploy: a página é refeita a cada 5 minutos (lib/vale-o-escrito/banco.ts).
+export const revalidate = 300;
+
 // Casos novos entram sem novo deploy quando o job de exportação atualiza os arquivos; o que não existe dá 404.
 export const dynamicParams = true;
 
@@ -22,7 +25,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; id: string }> }): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const { id } = await params;
-  const entrada = acharEntrada(dadosDoObservatorio(lang), id);
+  const entrada = acharEntrada(await dadosDoObservatorio(lang), id);
   if (!entrada) return {};
   const s = textosDoObservatorio(lang);
   // Descrição com a situação jurídica e a fonte ("segundo [veículo]") sempre à vista, antes do resumo.
@@ -34,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function CasoPage({ params }: { params: Promise<{ lang: string; id: string }> }) {
   const { lang } = await loadLang(params);
   const { id } = await params;
-  const dados = dadosDoObservatorio(lang);
+  const dados = await dadosDoObservatorio(lang);
   const entrada = acharEntrada(dados, id);
   if (!entrada) notFound();
   const s = textosDoObservatorio(lang);
