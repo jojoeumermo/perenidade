@@ -532,12 +532,12 @@
     "dia": "02-14",
     "xilo": "rede/estrelas/chao",
     "formato": "cordel",
-    "pt": { "linhas": ["O que a vida", "quer da gente", "é coragem."], "texto": "A frase é de Guimarães Rosa, em Grande Sertão: Veredas. A luta também pede.", "carimbo": ["Grande", "Sertão"] },
-    "en": { "linhas": ["What life", "wants from us", "is courage."], "texto": "The line is from Guimarães Rosa's novel Grande Sertão: Veredas (The Devil to Pay in the Backlands). The struggle asks for it too.", "carimbo": ["Grande", "Sertão"] },
-    "es": { "linhas": ["Lo que la vida", "quiere de nosotros", "es coraje."], "texto": "La frase es de Guimarães Rosa, en Gran Sertón: Veredas. La lucha también lo pide.", "carimbo": ["Gran", "Sertón"] },
-    "fr": { "linhas": ["Ce que la vie", "veut de nous,", "c'est du courage."], "texto": "La phrase est de Guimarães Rosa, dans Diadorim (Grande Sertão : Veredas). La lutte en demande aussi.", "carimbo": ["Grande", "Sertão"] },
-    "ru": { "linhas": ["Жизнь", "хочет от нас", "смелости."], "texto": "Это слова Гимарайнса Розы из романа «Большой сертан: тропы». Борьба тоже требует смелости.", "carimbo": ["Большой", "сертан"] },
-    "zh": { "linhas": ["生活", "要我们拿出的，", "是勇气。"], "texto": "这句话出自吉马良斯·罗萨的小说《广阔腹地：小径》。斗争同样需要勇气。", "carimbo": ["广阔", "腹地"] }
+    "pt": { "linhas": ["O que a vida", "quer da gente", "é coragem."], "texto": "A frase é de Guimarães Rosa, em Grande Sertão: Veredas. Vale para a vida e vale para a luta.", "carimbo": ["Grande", "Sertão"] },
+    "en": { "linhas": ["What life", "wants from us", "is courage."], "texto": "The line is from Guimarães Rosa's novel Grande Sertão: Veredas (The Devil to Pay in the Backlands). It holds for life and for the struggle.", "carimbo": ["Grande", "Sertão"] },
+    "es": { "linhas": ["Lo que la vida", "quiere de nosotros", "es coraje."], "texto": "La frase es de Guimarães Rosa, en Gran Sertón: Veredas. Vale para la vida y vale para la lucha.", "carimbo": ["Gran", "Sertón"] },
+    "fr": { "linhas": ["Ce que la vie", "veut de nous,", "c'est du courage."], "texto": "La phrase est de Guimarães Rosa, dans Diadorim (Grande Sertão : Veredas). Elle vaut pour la vie comme pour la lutte.", "carimbo": ["Grande", "Sertão"] },
+    "ru": { "linhas": ["Жизнь", "хочет от нас", "смелости."], "texto": "Это слова Гимарайнса Розы из романа «Большой сертан: тропы». Это верно и для жизни, и для борьбы.", "carimbo": ["Большой", "сертан"] },
+    "zh": { "linhas": ["生活", "要我们拿出的，", "是勇气。"], "texto": "这句话出自吉马良斯·罗萨的小说《广阔腹地：小径》。生活如此，斗争也是如此。", "carimbo": ["广阔", "腹地"] }
   },
   {
     "id": "renda-na-mao-da-mae-vira-caderno",
@@ -700,12 +700,12 @@
     "dia": "02-28",
     "xilo": "roda/chuva/morro",
     "formato": "cordel",
-    "pt": { "linhas": ["Sozinha,", "medo.", "Juntas, roda."], "texto": "O medo isola. A roda devolve a voz a quem foi calada por tempo demais.", "carimbo": ["juntas", "somos mais"] },
-    "en": { "linhas": ["Alone,", "fear.", "Together, a circle."], "texto": "Fear isolates. The circle gives back a voice to those who were silenced for too long.", "carimbo": ["together", "we're more"] },
-    "es": { "linhas": ["Sola,", "miedo.", "Juntas, ronda."], "texto": "El miedo aísla. La ronda le devuelve la voz a quien fue callada por demasiado tiempo.", "carimbo": ["juntas", "somos más"] },
-    "fr": { "linhas": ["Seule,", "la peur.", "Ensemble, le cercle."], "texto": "La peur isole. Le cercle rend la voix à celles qu'on a fait taire trop longtemps.", "carimbo": ["ensemble", "plus fortes"] },
-    "ru": { "linhas": ["Одна —", "страх.", "Вместе — круг."], "texto": "Страх разъединяет. Круг возвращает голос тем, кого слишком долго заставляли молчать.", "carimbo": ["вместе", "нас больше"] },
-    "zh": { "linhas": ["一个人，", "是恐惧；", "在一起，是圆圈。"], "texto": "恐惧让人孤立。围成一圈，就能让被压抑太久的人重新发声。", "carimbo": ["在一起", "更强大"] }
+    "pt": { "linhas": ["Sozinha,", "medo.", "Juntas, voz."], "texto": "O medo isola. Na roda de mulheres, quem foi calada por tempo demais volta a falar.", "carimbo": ["juntas", "somos mais"] },
+    "en": { "linhas": ["Alone,", "fear.", "Together, a voice."], "texto": "Fear isolates. In a circle of women, those silenced for too long speak again.", "carimbo": ["together", "we're more"] },
+    "es": { "linhas": ["Sola,", "miedo.", "Juntas, voz."], "texto": "El miedo aísla. En la ronda de mujeres, quien fue callada por demasiado tiempo vuelve a hablar.", "carimbo": ["juntas", "somos más"] },
+    "fr": { "linhas": ["Seule,", "la peur.", "Ensemble, la voix."], "texto": "La peur isole. Dans le cercle des femmes, celles qu'on a fait taire trop longtemps reprennent la parole.", "carimbo": ["ensemble", "plus fortes"] },
+    "ru": { "linhas": ["Одна —", "страх.", "Вместе — голос."], "texto": "Страх разъединяет. В женском кругу те, кого слишком долго заставляли молчать, снова говорят.", "carimbo": ["вместе", "нас больше"] },
+    "zh": { "linhas": ["一个人，", "是恐惧；", "在一起，有声音。"], "texto": "恐惧让人孤立。在女性的圆圈里，被压抑太久的人重新开口说话。", "carimbo": ["在一起", "更强大"] }
   },
   {
     "id": "dia-a-mais-no-calendario-hora-extra-nao",
@@ -796,12 +796,12 @@
     "dia": "03-07",
     "xilo": "livro/nascente/chao",
     "formato": "cordel",
-    "pt": { "linhas": ["Diploma", "é bom.", "Consciência é melhor."], "texto": "Aqui se estuda por revolta popular, não por vício de diploma. Estudar é entender para mudar.", "carimbo": ["estudar", "é resistir"] },
-    "en": { "linhas": ["A diploma", "is good.", "Awareness is better."], "texto": "Here people study out of popular revolt, not diploma addiction. Studying is understanding in order to change.", "carimbo": ["studying", "is resisting"] },
-    "es": { "linhas": ["El título", "es bueno.", "La conciencia, mejor."], "texto": "Aquí se estudia por rebeldía popular, no por vicio de título. Estudiar es entender para cambiar.", "carimbo": ["estudiar", "es resistir"] },
-    "fr": { "linhas": ["Le diplôme,", "c'est bien.", "La conscience, mieux."], "texto": "Ici on étudie par révolte populaire, pas par manie du diplôme. Étudier, c'est comprendre pour changer.", "carimbo": ["étudier", "c'est résister"] },
-    "ru": { "linhas": ["Диплом —", "хорошо.", "Сознание — лучше."], "texto": "Здесь учатся из народного бунта, а не ради корочки. Учиться — значит понимать, чтобы менять.", "carimbo": ["учёба —", "сопротивление"] },
-    "zh": { "linhas": ["文凭", "是好东西，", "觉悟更好。"], "texto": "在这里学习，是出于人民的反抗，不是为了文凭。学习是为了理解，理解是为了改变。", "carimbo": ["学习", "就是抵抗"] }
+    "pt": { "linhas": ["Diploma", "é bom.", "Consciência é melhor."], "texto": "Aqui se estuda para entender o mundo e mudar o que está errado, não só para pendurar diploma na parede.", "carimbo": ["estudar", "é resistir"] },
+    "en": { "linhas": ["A diploma", "is good.", "Awareness is better."], "texto": "Here we study to understand the world and change what is wrong, not just to hang a diploma on the wall.", "carimbo": ["studying", "is resisting"] },
+    "es": { "linhas": ["El título", "es bueno.", "La conciencia, mejor."], "texto": "Aquí se estudia para entender el mundo y cambiar lo que está mal, no solo para colgar un título en la pared.", "carimbo": ["estudiar", "es resistir"] },
+    "fr": { "linhas": ["Le diplôme,", "c'est bien.", "La conscience, mieux."], "texto": "Ici, on étudie pour comprendre le monde et changer ce qui ne va pas, pas seulement pour accrocher un diplôme au mur.", "carimbo": ["étudier", "c'est résister"] },
+    "ru": { "linhas": ["Диплом —", "хорошо.", "Сознание — лучше."], "texto": "Здесь учатся, чтобы понять мир и изменить то, что в нём неправильно, а не только ради диплома на стене.", "carimbo": ["учёба —", "сопротивление"] },
+    "zh": { "linhas": ["文凭", "是好东西，", "觉悟更好。"], "texto": "在这里学习，是为了理解世界、改变不对的东西，而不只是为了把文凭挂在墙上。", "carimbo": ["学习", "就是抵抗"] }
   },
   {
     "id": "flor-e-bonito-direito-e-melhor",
@@ -2056,12 +2056,12 @@
     "dia": "06-20",
     "xilo": "trem/chuva/calcada",
     "formato": "grito",
-    "pt": { "linhas": ["Quem foge", "da guerra", "não é a guerra."], "texto": "20 de junho é o Dia Mundial do Refugiado. Quem atravessa fronteira para viver e trabalhar é vizinho, colega, irmão de classe.", "carimbo": ["refúgio", "é direito"] },
-    "en": { "linhas": ["Those fleeing", "war", "aren't the war."], "texto": "20 June is World Refugee Day. People who cross borders to live and work are neighbours, co-workers, siblings in class.", "carimbo": ["asylum", "is a right"] },
-    "es": { "linhas": ["Quien huye", "de la guerra", "no es la guerra."], "texto": "El 20 de junio es el Día Mundial del Refugiado. Quien cruza fronteras para vivir y trabajar es vecino, compañero, hermano de clase.", "carimbo": ["el refugio", "es derecho"] },
-    "fr": { "linhas": ["Qui fuit", "la guerre", "n'est pas la guerre."], "texto": "Le 20 juin est la Journée mondiale des réfugiés. Qui traverse une frontière pour vivre et travailler est un voisin, un collègue, un frère de classe.", "carimbo": ["l'asile", "est un droit"] },
-    "ru": { "linhas": ["Тот, кто бежит", "от войны, —", "не война."], "texto": "20 июня — Всемирный день беженцев. Тот, кто пересекает границу, чтобы жить и работать, — сосед, коллега, брат по классу.", "carimbo": ["убежище —", "право"] },
-    "zh": { "linhas": ["逃离战争的人，", "不是", "战争本身。"], "texto": "6月20日是世界难民日。越过边境来生活、工作的人，是邻居、同事、阶级兄弟。", "carimbo": ["避难", "是权利"] }
+    "pt": { "linhas": ["Quem foge", "da guerra", "não é inimigo."], "texto": "20 de junho é o Dia Mundial do Refugiado. Quem atravessa fronteira para viver e trabalhar é vizinho, colega, irmão de classe.", "carimbo": ["refúgio", "é direito"] },
+    "en": { "linhas": ["Those fleeing", "war", "aren't the enemy."], "texto": "20 June is World Refugee Day. People who cross borders to live and work are neighbours, co-workers, siblings in class.", "carimbo": ["asylum", "is a right"] },
+    "es": { "linhas": ["Quien huye", "de la guerra", "no es enemigo."], "texto": "El 20 de junio es el Día Mundial del Refugiado. Quien cruza fronteras para vivir y trabajar es vecino, compañero, hermano de clase.", "carimbo": ["el refugio", "es derecho"] },
+    "fr": { "linhas": ["Qui fuit", "la guerre", "n'est pas l'ennemi."], "texto": "Le 20 juin est la Journée mondiale des réfugiés. Qui traverse une frontière pour vivre et travailler est un voisin, un collègue, un frère de classe.", "carimbo": ["l'asile", "est un droit"] },
+    "ru": { "linhas": ["Тот, кто бежит", "от войны, —", "не враг."], "texto": "20 июня — Всемирный день беженцев. Тот, кто пересекает границу, чтобы жить и работать, — сосед, коллега, брат по классу.", "carimbo": ["убежище —", "право"] },
+    "zh": { "linhas": ["逃离战争的人，", "不是", "敌人。"], "texto": "6月20日是世界难民日。越过边境来生活、工作的人，是邻居、同事、阶级兄弟。", "carimbo": ["避难", "是权利"] }
   },
   {
     "id": "o-maior-escritor-do-brasil-era-negro",
@@ -2488,12 +2488,12 @@
     "dia": "07-26",
     "xilo": "estrela/estrelas/mar",
     "formato": "grito",
-    "pt": { "linhas": ["Perderam", "o quartel.", "Ganharam a história."], "texto": "Em 26 de julho de 1953, jovens atacaram o quartel Moncada, em Cuba, e foram derrotados. No julgamento, Fidel Castro encerrou a defesa com a frase “A história me absolverá”.", "carimbo": ["26 de", "julho"] },
-    "en": { "linhas": ["They lost", "the barracks.", "They won history."], "texto": "On 26 July 1953, young rebels attacked the Moncada barracks in Cuba and were defeated. At his trial, Fidel Castro ended his defence with the line 'History will absolve me'.", "carimbo": ["26th of", "July"] },
-    "es": { "linhas": ["Perdieron", "el cuartel.", "Ganaron la historia."], "texto": "El 26 de julio de 1953, jóvenes atacaron el cuartel Moncada, en Cuba, y fueron derrotados. En el juicio, Fidel Castro cerró su defensa con la frase «La historia me absolverá».", "carimbo": ["26 de", "julio"] },
-    "fr": { "linhas": ["Caserne perdue,", "histoire", "gagnée."], "texto": "Le 26 juillet 1953, de jeunes rebelles ont attaqué la caserne Moncada, à Cuba, et ont été vaincus. À son procès, Fidel Castro a conclu sa défense par la phrase « L'histoire m'acquittera ».", "carimbo": ["26", "juillet"] },
-    "ru": { "linhas": ["Казарму", "не взяли.", "Историю — взяли."], "texto": "26 июля 1953 года молодые повстанцы атаковали казарму Монкада на Кубе и потерпели поражение. На суде Фидель Кастро закончил речь словами «История меня оправдает».", "carimbo": ["26", "июля"] },
-    "zh": { "linhas": ["兵营没打下，", "历史", "却赢了。"], "texto": "1953年7月26日，一群年轻人进攻古巴的蒙卡达兵营，失败了。在审判中，菲德尔·卡斯特罗以“历史将宣判我无罪”结束了辩护。", "carimbo": ["7月", "26日"] }
+    "pt": { "linhas": ["Perderam", "a batalha.", "Ganharam a história."], "texto": "Em 26 de julho de 1953, jovens atacaram o quartel Moncada, em Cuba, e foram derrotados. No julgamento, Fidel Castro encerrou a defesa com a frase “A história me absolverá”.", "carimbo": ["26 de", "julho"] },
+    "en": { "linhas": ["They lost", "the battle.", "They won history."], "texto": "On 26 July 1953, young rebels attacked the Moncada barracks in Cuba and were defeated. At his trial, Fidel Castro ended his defence with the line 'History will absolve me'.", "carimbo": ["26th of", "July"] },
+    "es": { "linhas": ["Perdieron", "la batalla.", "Ganaron la historia."], "texto": "El 26 de julio de 1953, jóvenes atacaron el cuartel Moncada, en Cuba, y fueron derrotados. En el juicio, Fidel Castro cerró su defensa con la frase «La historia me absolverá».", "carimbo": ["26 de", "julio"] },
+    "fr": { "linhas": ["Bataille perdue,", "histoire", "gagnée."], "texto": "Le 26 juillet 1953, de jeunes rebelles ont attaqué la caserne Moncada, à Cuba, et ont été vaincus. À son procès, Fidel Castro a conclu sa défense par la phrase « L'histoire m'acquittera ».", "carimbo": ["26", "juillet"] },
+    "ru": { "linhas": ["Бой", "проиграли.", "Историю — выиграли."], "texto": "26 июля 1953 года молодые повстанцы атаковали казарму Монкада на Кубе и потерпели поражение. На суде Фидель Кастро закончил речь словами «История меня оправдает».", "carimbo": ["26", "июля"] },
+    "zh": { "linhas": ["仗打输了，", "历史", "却赢了。"], "texto": "1953年7月26日，一群年轻人进攻古巴的蒙卡达兵营，失败了。在审判中，菲德尔·卡斯特罗以“历史将宣判我无罪”结束了辩护。", "carimbo": ["7月", "26日"] }
   },
   {
     "id": "quem-disse-um-audio-no-grupo",
@@ -3316,12 +3316,12 @@
     "dia": "10-03",
     "xilo": "lapis/chuva/morro",
     "formato": "cordel",
-    "pt": { "linhas": ["Fiado, troco", "e juros:", "o povo faz conta."], "texto": "Quem calcula troco, receita e prestação já faz matemática todo dia. Dá para ir além, e o juro do cartão é o primeiro problema.", "carimbo": ["conta", "do povo"] },
-    "en": { "linhas": ["Tabs, change", "and interest:", "people do maths."], "texto": "Anyone who works out change, recipes and instalments already does maths every day. You can go further, and credit card interest is the first problem.", "carimbo": ["people's", "maths"] },
-    "es": { "linhas": ["Fiado, vuelto", "e intereses:", "el pueblo cuenta."], "texto": "Quien calcula vuelto, receta y cuota ya hace matemática todos los días. Se puede ir más allá, y el interés de la tarjeta es el primer problema.", "carimbo": ["cuenta", "del pueblo"] },
-    "fr": { "linhas": ["Ardoise, monnaie", "et intérêts :", "le peuple calcule."], "texto": "Qui calcule la monnaie, une recette et des mensualités fait déjà des maths tous les jours. On peut aller plus loin, et les intérêts de la carte sont le premier problème.", "carimbo": ["calcul", "populaire"] },
-    "ru": { "linhas": ["В долг, сдача", "и проценты:", "народ считает."], "texto": "Кто считает сдачу, рецепт и рассрочку, каждый день занимается математикой. Можно идти дальше — и проценты по кредитке будут первой задачей.", "carimbo": ["народная", "математика"] },
-    "zh": { "linhas": ["赊账、找零", "和利息：", "百姓都会算。"], "texto": "会算找零、菜谱和分期付款的人，每天都在做数学。还可以更进一步：信用卡利息就是第一道题。", "carimbo": ["百姓", "算术"] }
+    "pt": { "linhas": ["Fiado, troco", "e juros:", "o povo faz conta."], "texto": "Quem calcula troco, receita e prestação já faz matemática todo dia. Dá para ir além: comece pela conta do juro do cartão.", "carimbo": ["conta", "do povo"] },
+    "en": { "linhas": ["Tabs, change", "and interest:", "people do maths."], "texto": "Anyone who works out change, recipes and instalments already does maths every day. You can go further: start by working out the interest on your credit card.", "carimbo": ["people's", "maths"] },
+    "es": { "linhas": ["Fiado, vuelto", "e intereses:", "el pueblo cuenta."], "texto": "Quien calcula vuelto, receta y cuota ya hace matemática todos los días. Se puede ir más allá: empiece por la cuenta del interés de la tarjeta.", "carimbo": ["cuenta", "del pueblo"] },
+    "fr": { "linhas": ["Ardoise, monnaie", "et intérêts :", "le peuple calcule."], "texto": "Qui calcule la monnaie, une recette et des mensualités fait déjà des maths tous les jours. On peut aller plus loin : commencez par calculer les intérêts de la carte.", "carimbo": ["calcul", "populaire"] },
+    "ru": { "linhas": ["В долг, сдача", "и проценты:", "народ считает."], "texto": "Кто считает сдачу, рецепт и рассрочку, каждый день занимается математикой. Можно пойти дальше: начните с расчёта процентов по кредитке.", "carimbo": ["народная", "математика"] },
+    "zh": { "linhas": ["赊账、找零", "和利息：", "百姓都会算。"], "texto": "会算找零、菜谱和分期付款的人，每天都在做数学。还可以更进一步：先从算清信用卡利息开始。", "carimbo": ["百姓", "算术"] }
   },
   {
     "id": "vacina-nao-e-opiniao",
@@ -3760,12 +3760,12 @@
     "dia": "11-09",
     "xilo": "montanha/chuva/chao",
     "formato": "grito",
-    "pt": { "linhas": ["Do México", "à Patagônia,", "o mesmo saque."], "texto": "Do México à Patagônia, a mesma história de saque, de resistência e de esperança teimosa. A saída também é comum.", "carimbo": ["Pátria", "Grande"] },
-    "en": { "linhas": ["From Mexico", "to Patagonia,", "the same plunder."], "texto": "From Mexico to Patagonia, the same story of plunder, resistance and stubborn hope. The way out is shared too.", "carimbo": ["Great", "Homeland"] },
-    "es": { "linhas": ["De México", "a la Patagonia,", "el mismo saqueo."], "texto": "De México a la Patagonia, la misma historia de saqueo, resistencia y esperanza terca. La salida también es común.", "carimbo": ["Patria", "Grande"] },
-    "fr": { "linhas": ["Du Mexique", "à la Patagonie,", "le même pillage."], "texto": "Du Mexique à la Patagonie, la même histoire de pillage, de résistance et d'espoir têtu. La sortie aussi est commune.", "carimbo": ["Grande", "Patrie"] },
-    "ru": { "linhas": ["От Мексики", "до Патагонии —", "один грабёж."], "texto": "От Мексики до Патагонии — одна история грабежа, сопротивления и упрямой надежды. И выход у нас общий.", "carimbo": ["Большая", "Родина"] },
-    "zh": { "linhas": ["从墨西哥", "到巴塔哥尼亚，", "同样的掠夺。"], "texto": "从墨西哥到巴塔哥尼亚，是同样的掠夺、抵抗和倔强希望的历史。出路也是共同的。", "carimbo": ["大", "祖国"] }
+    "pt": { "linhas": ["América Latina,", "saqueada de", "ponta a ponta."], "texto": "Do México à Patagônia, levaram ouro, prata, borracha e minério, e hoje levam petróleo, lítio e soja. O saque vai de ponta a ponta do continente, e a resistência também.", "carimbo": ["Pátria", "Grande"] },
+    "en": { "linhas": ["Latin America,", "plundered from", "end to end."], "texto": "From Mexico to Patagonia, they took gold, silver, rubber and ore, and today they take oil, lithium and soy. The plunder runs from one end of the continent to the other, and so does the resistance.", "carimbo": ["Great", "Homeland"] },
+    "es": { "linhas": ["América Latina,", "saqueada de", "punta a punta."], "texto": "De México a la Patagonia se llevaron oro, plata, caucho y minerales, y hoy se llevan petróleo, litio y soja. El saqueo va de punta a punta del continente, y la resistencia también.", "carimbo": ["Patria", "Grande"] },
+    "fr": { "linhas": ["L'Amérique latine,", "pillée d'un bout", "à l'autre."], "texto": "Du Mexique à la Patagonie, on a emporté l'or, l'argent, le caoutchouc et les minerais, et aujourd'hui le pétrole, le lithium et le soja. Le pillage traverse tout le continent, et la résistance aussi.", "carimbo": ["Grande", "Patrie"] },
+    "ru": { "linhas": ["Латинская Америка", "разграблена", "от края до края."], "texto": "От Мексики до Патагонии вывозили золото, серебро, каучук и руду, а сегодня вывозят нефть, литий и сою. Грабёж идёт от края до края континента — и сопротивление тоже.", "carimbo": ["Большая", "Родина"] },
+    "zh": { "linhas": ["拉丁美洲，", "从头到尾", "被掠夺。"], "texto": "从墨西哥到巴塔哥尼亚，他们运走了黄金、白银、橡胶和矿石，今天又运走石油、锂和大豆。掠夺贯穿整个大陆，抵抗也是。", "carimbo": ["大", "祖国"] }
   },
   {
     "id": "onde-o-estado-falta-a-panela-junta",
@@ -4072,11 +4072,11 @@
     "dia": "12-05",
     "xilo": "punho/estrelas/chao",
     "formato": "grito",
-    "pt": { "linhas": ["O fascismo", "também chega", "pelo zap."], "texto": "Nem na rua, nem na escola, nem no grupo da família: o ódio organizado se combate com informação e gente junta.", "carimbo": ["no", "pasarán"] },
-    "en": { "linhas": ["Fascism", "also arrives", "by text message."], "texto": "Not in the street, not at school, not in the family group chat: organized hate is fought with information and people together.", "carimbo": ["no", "pasarán"] },
-    "es": { "linhas": ["El fascismo", "también llega", "por el WhatsApp."], "texto": "Ni en la calle, ni en la escuela, ni en el grupo de la familia: el odio organizado se combate con información y gente junta.", "carimbo": ["no", "pasarán"] },
-    "fr": { "linhas": ["Le fascisme", "arrive aussi", "par messagerie."], "texto": "Ni dans la rue, ni à l'école, ni dans le groupe de la famille : la haine organisée se combat par l'information et le collectif.", "carimbo": ["no", "pasarán"] },
-    "ru": { "linhas": ["Фашизм", "приходит и", "через мессенджер."], "texto": "Ни на улице, ни в школе, ни в семейном чате: с организованной ненавистью борются информацией и сплочённостью.", "carimbo": ["но", "пасаран"] },
+    "pt": { "linhas": ["O fascismo", "também chega", "pelo zap."], "texto": "Na rua, na escola ou no grupo da família: o ódio organizado se combate com informação e gente junta.", "carimbo": ["no", "pasarán"] },
+    "en": { "linhas": ["Fascism", "also arrives", "by text message."], "texto": "In the street, at school or in the family group chat: organized hate is fought with information and people together.", "carimbo": ["no", "pasarán"] },
+    "es": { "linhas": ["El fascismo", "también llega", "por el WhatsApp."], "texto": "En la calle, en la escuela o en el grupo de la familia: el odio organizado se combate con información y gente junta.", "carimbo": ["no", "pasarán"] },
+    "fr": { "linhas": ["Le fascisme", "arrive aussi", "par messagerie."], "texto": "Dans la rue, à l'école ou dans le groupe de la famille : la haine organisée se combat par l'information et le collectif.", "carimbo": ["no", "pasarán"] },
+    "ru": { "linhas": ["Фашизм", "приходит и", "через мессенджер."], "texto": "На улице, в школе или в семейном чате: с организованной ненавистью борются информацией и сплочённостью.", "carimbo": ["но", "пасаран"] },
     "zh": { "linhas": ["法西斯", "也会从", "聊天群里来。"], "texto": "不论在街头、学校还是家族群里：对付有组织的仇恨，要靠信息和团结的人。", "carimbo": ["他们", "不得通过"] }
   },
   {
