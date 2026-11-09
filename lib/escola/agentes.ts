@@ -10,6 +10,7 @@ import { estaLigado } from "../modo-seguro";
 import type { ModoDeAgente } from "./acompanhante";
 import { termosDe } from "./respostas-locais";
 import { normalize } from "../text";
+import { armazemPrivado } from "./cofre";
 
 export type ChaveDeAgente = "entrevista" | "oratoria" | "papelada" | "turma" | "educador" | "revisao" | "traducao";
 export type ParaQuem = "estudante" | "turma" | "equipe";
@@ -164,13 +165,8 @@ export interface Ensaio {
 type Armazenamento = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 type Sessao = Pick<Storage, "getItem" | "setItem" | "removeItem"> | null;
 
-const local = (): Armazenamento | null => {
-  try {
-    return globalThis.localStorage ?? null;
-  } catch {
-    return null;
-  }
-};
+/** O armazenamento das chaves privadas: o localStorage, ou o cofre cifrado da Escola quando ele existe (lib/escola/cofre.ts). */
+const local = (): Armazenamento | null => armazemPrivado();
 const sessaoDoNavegador = (): Sessao => {
   try {
     return globalThis.sessionStorage ?? null;

@@ -7,6 +7,7 @@ import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import type { EscolaEuDentro } from "@/lib/escola/contratos";
 import { BarraDeBaixo, CabecaDoCelular } from "./BarraDeBaixo";
 import { ColunaDaEscola } from "./ColunaDaEscola";
+import { FaixaDoCofre, useCofre } from "./CofreDaEscola";
 import { FaixaDeCores } from "./FaixaDeCores";
 import { useModoDiscreto } from "./ModoDiscreto";
 
@@ -29,6 +30,7 @@ export function useEuDaEscola(): EscolaEuDentro {
  */
 export function Casca({ lang, t, eu, children }: { lang: Locale; t: TextosDaFormacaoBase["casca"]; eu: EscolaEuDentro; children: React.ReactNode }) {
   const discreto = useModoDiscreto(t.tituloNeutro);
+  const cofre = useCofre();
   return (
     <EuDaEscola.Provider value={eu}>
       <div className="ef-casca" data-escola-formacao="" data-escola-casca="">
@@ -36,7 +38,11 @@ export function Casca({ lang, t, eu, children }: { lang: Locale; t: TextosDaForm
         <CabecaDoCelular lang={lang} t={t} discreto={discreto.ligado} />
         <div className="ef-casca-corpo">
           <ColunaDaEscola lang={lang} t={t} eu={eu} discreto={discreto} />
-          <div className="ef-conteudo">{children}</div>
+          <div className="ef-conteudo">
+            <FaixaDoCofre t={t} estado={cofre} />
+            {/* O conteúdo remonta quando o cofre abre ou fecha: as telas releem o que o cofre guarda. */}
+            <div key={cofre ?? "sem-cofre"}>{children}</div>
+          </div>
         </div>
         <BarraDeBaixo lang={lang} t={t} discreto={discreto.ligado} />
       </div>
