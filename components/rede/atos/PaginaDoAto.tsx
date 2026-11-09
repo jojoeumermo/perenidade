@@ -52,7 +52,7 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
             ato={estado.dados}
             t={t}
             lang={lang}
-            logado={situacao.logado}
+            logado={situacao.logado || PREVIA_DOS_ATOS}
             nivel={1}
             depois={<MaisDoAto ato={estado.dados} t={t} lang={lang} />}
           />
