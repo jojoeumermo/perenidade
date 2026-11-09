@@ -137,12 +137,13 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   // Caddy servir os dois) e conta o host pedido de verdade em x-lucia-host. A regra de transformação do Cloudflare
   // ESCREVE esse cabeçalho em todo pedido (sobrescreve o que vier de fora), e a VPS só aceita o Cloudflare: não se forja.
   const hostDoPedido = (request.headers.get("host") ?? "").toLowerCase();
-  const pelaMarca = escolaComEndereco && hostDaEscola(request.headers.get("x-lucia-host"));
+  const hostMarcado = (request.headers.get("x-lucia-host") ?? "").toLowerCase();
+  const pelaMarca = hostDaEscola(hostMarcado);
   if (pelaMarca || hostDaEscola(hostDoPedido)) {
     const decisao = rotaNaEscola(pathname);
     if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, pelaMarca ? dominio : siteVistoDaEscola(request.nextUrl.protocol, hostDoPedido, dominio)), 307);
     if (decisao.tipo === "redirecionar") {
-      const url = pelaMarca ? new URL(decisao.destino, ESCOLA_URL) : request.nextUrl.clone();
+      const url = pelaMarca ? new URL(decisao.destino, escolaComEndereco ? ESCOLA_URL : `https://${hostMarcado}`) : request.nextUrl.clone();
       url.pathname = decisao.destino;
       url.search = "";
       return NextResponse.redirect(url, 307);
