@@ -13,6 +13,7 @@ import { atosDeExemplo, criarDuble } from "../lib/rede/atos/exemplos.ts";
 import { conferirAto, pontoEDetalhe } from "../lib/rede/atos/formulario.ts";
 import { icsDoAto, nomeDoIcs } from "../lib/rede/atos/ics.ts";
 import { linkDeApoioSeguro, linkDoMapa, textoParaChamar } from "../lib/rede/atos/chegar.ts";
+import { contarNovos, CHAVE_DOS_VISTOS } from "../lib/rede/atos/novos.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 let certos = 0;
@@ -123,6 +124,17 @@ ok("nenhuma tela pede a posição do aparelho", !/geolocation|getCurrentPosition
 ok("Chegar sai sem Referer", /rel="noopener noreferrer"[^>]*referrerPolicy="no-referrer"/.test(telas));
 const encaixe = ler("components/rede/atos/encaixe.tsx");
 ok("encaixe vazio com as flags desligadas", /const LIGADO = rotaNovaLigada\("atos"\)/.test(encaixe) && /!LIGADO \? \{\}/.test(encaixe));
+ok("emblema dos atos só com conta", /emblema: \(\{ situacao \}\) => \(situacao\.logado \? atosNovos\(\) : null\)/.test(encaixe));
+ok("alto do Início nulo com as flags desligadas", /TopoDoInicioEncaixado[^=]*= !LIGADO\s*\?\s*null/.test(encaixe));
+
+// ── "Há ato novo": conta atos (nunca gente), só no aparelho, e o "Sair rápido" apaga ──
+const novosAtos = [{ id: "a", situacao: "confirmado" }, { id: "b", situacao: "adiado" }, { id: "c", situacao: "cancelado" }];
+igual("novos: cancelado não conta", contarNovos(novosAtos, new Set()), 2);
+igual("novos: visto não conta", contarNovos(novosAtos, new Set(["a"])), 1);
+igual("novos: tudo visto dá 0", contarNovos(novosAtos, new Set(["a", "b"])), 0);
+ok("vistos na chave que o Sair rápido apaga", CHAVE_DOS_VISTOS.startsWith("lucia:rede"));
+ok("vistos nunca vão ao servidor", !/chamar|rpc\(|fetch\(/.test(ler("lib/rede/atos/novos.ts").replace(/import\("\.\.\/cliente-atos"\)[\s\S]*?atos\.atos\("seguindo"\)/, "")));
+
 for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
   const pt = JSON.parse(ler("i18n/rede/atos/pt.json"));
   const outro = JSON.parse(ler(`i18n/rede/atos/${l}.json`));
