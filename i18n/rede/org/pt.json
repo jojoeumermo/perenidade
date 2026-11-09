@@ -1,0 +1,371 @@
+{
+  "marca": {
+    "alumia": "Alumia",
+    "instituto": "Instituto Lúcia",
+    "inicio": "Início da Alumia"
+  },
+  "tipos": {
+    "partido": "Partido",
+    "mandato": "Mandato",
+    "sindicato": "Sindicato",
+    "movimento": "Movimento",
+    "coletivo": "Coletivo",
+    "gremio": "Grêmio",
+    "dce": "DCE",
+    "outro": "Organização"
+  },
+  "pagina": {
+    "titulo": "Traga sua organização",
+    "entrar": "Entrar",
+    "criarConta": "Criar conta",
+    "chamada": "Sua base não cabe no algoritmo de um bilionário",
+    "lead": "A Alumia é a rede social militante do Instituto Lúcia: livre, sem anúncio, sem algoritmo e ligada ao Fediverso. Traga sua organização e chame sua base para cá.",
+    "pedirSelo": "Pedir o selo da organização",
+    "verExemplo": "Ver um perfil de exemplo",
+    "para": "Para partidos, mandatos, sindicatos, movimentos, coletivos, grêmios e DCEs.",
+    "mosaicoPalavra": "VEM",
+    "mosaicoRotulo": "Exemplo de mosaico de ato com a palavra VEM, quase todo aceso; o cartão dourado é você.",
+    "mosaicoLegenda": "Cada cartão é uma pessoa que confirmou presença. Na Alumia, o ato aparece assim.",
+    "porQue": {
+      "titulo": "Por que trocar o X pela Alumia",
+      "tema": "Tema",
+      "noX": "No X",
+      "naAlumia": "Na Alumia",
+      "linhas": [
+        {
+          "tema": "Quem decide o que a base vê",
+          "x": "O algoritmo da empresa, que muda sem aviso.",
+          "alumia": "Ninguém. Ordem de chegada: quem te segue vê tudo."
+        },
+        {
+          "tema": "Alcance",
+          "x": "Pode ser comprado, e cai quando o algoritmo quer.",
+          "alumia": "Não se compra e ninguém corta: seu post chega a quem te segue, em ordem."
+        },
+        {
+          "tema": "Dono",
+          "x": "Uma empresa de um bilionário.",
+          "alumia": "Software livre do Instituto Lúcia, ligado ao Fediverso."
+        },
+        {
+          "tema": "Organizar",
+          "x": "Post, curtida e pronto.",
+          "alumia": "Atos, núcleos, consultas à base, plenárias e prestação de contas."
+        },
+        {
+          "tema": "Seus dados",
+          "x": "Usados para anúncio.",
+          "alumia": "Sem anúncio e sem rastreio. Codinome sempre."
+        },
+        {
+          "tema": "Estudo",
+          "x": "Não tem.",
+          "alumia": "Cada debate pode virar aula, cada aula pode virar debate."
+        }
+      ]
+    },
+    "ferramentas": {
+      "titulo": "Ferramentas para organizar, não só para postar",
+      "verNoExemplo": "Ver no perfil de exemplo",
+      "atos": {
+        "titulo": "Chame atos e veja a base acender",
+        "texto": "O ato tem data, lugar, conversa e o mosaico: cada confirmação acende um cartão. A organização vê quantos vão; o resto vê a palavra ficando nítida. Adiou ou cancelou? O carimbo fica, ninguém é pego de surpresa.",
+        "carimbos": {
+          "confirmado": "Confirmado",
+          "adiado": "Adiado",
+          "cancelado": "Cancelado"
+        }
+      },
+      "consulta": {
+        "titulo": "Consulte a base antes de decidir",
+        "texto": "Consultas que só quem está num núcleo vota, com prazo e resultado público. O mandato diz antes se vai seguir o resultado.",
+        "rotulo": "Exemplo de resultado de uma consulta à base",
+        "opcoes": [
+          {
+            "texto": "Votar contra",
+            "p": 71
+          },
+          {
+            "texto": "A favor com emendas",
+            "p": 18
+          },
+          {
+            "texto": "Abster",
+            "p": 11
+          }
+        ]
+      },
+      "plenaria": {
+        "titulo": "Plenária aberta e prestação de contas",
+        "texto": "A base manda pergunta, a organização responde ao vivo, em ordem de chegada. Cada voto fica numa tabela com o porquê, para quem quiser conferir.",
+        "rotulo": "Exemplo de fila de perguntas de uma plenária",
+        "naFila": 214,
+        "perguntas": [
+          {
+            "handle": "ritadazl",
+            "texto": "Por que o mandato votou contra a concessão dos parques?"
+          },
+          {
+            "handle": "joaocobrador",
+            "texto": "Quando volta a discussão da tarifa zero aos domingos?"
+          }
+        ]
+      },
+      "nucleos": {
+        "titulo": "Núcleos, formação e o Fediverso",
+        "texto": "Divida a base por bairro, categoria ou escola. Ligue cada debate às aulas do Instituto Lúcia. E fale com quem está no Mastodon, no Lemmy e no Misskey sem sair daqui.",
+        "rotulo": "Exemplo de núcleos de uma organização",
+        "lista": [
+          {
+            "nome": "Núcleo Zona Leste",
+            "quando": "terças, 19h",
+            "cor": 3
+          },
+          {
+            "nome": "Núcleo Centro",
+            "quando": "sábados, 10h",
+            "cor": 1
+          },
+          {
+            "nome": "Núcleo Estudantes",
+            "quando": "quartas, 18h",
+            "cor": 2
+          }
+        ]
+      }
+    },
+    "comoEntrar": {
+      "titulo": "Como entrar",
+      "passos": [
+        {
+          "titulo": "Crie a conta da organização",
+          "texto": "Codinome, descrição e quem cuida da conta."
+        },
+        {
+          "titulo": "Peça o selo",
+          "texto": "A equipe confere um documento público: CNPJ, registro do partido ou diploma do mandato."
+        },
+        {
+          "titulo": "Chame sua base",
+          "texto": "Um link de convite para os núcleos, com o primeiro ato já marcado."
+        }
+      ]
+    },
+    "regra": "Regras iguais para todo mundo: o selo diz que a conta é de quem diz ser, não é apoio do Instituto Lúcia. Organização verificada não ganha alcance a mais e segue as mesmas regras de cuidado da rede.",
+    "pedirOSelo": "Pedir o selo"
+  },
+  "selo": {
+    "texto": "Organização verificada",
+    "desde": "desde {data}",
+    "regra": "O selo diz que a conta é de quem diz ser, não é apoio do Instituto Lúcia.",
+    "conferido": "Documento público conferido: {documento}.",
+    "semSelo": "Ainda sem selo: a equipe não conferiu o documento desta organização."
+  },
+  "perfil": {
+    "seguir": "Seguir",
+    "seguindo": "Seguindo",
+    "sino": "Avisar quando postar",
+    "sinoAjuda": "O aviso chega sem o texto do post.",
+    "entrarNucleo": "Entrar num núcleo",
+    "gerencio": "Você cuida desta conta. Ninguém mais vê que é você.",
+    "capa": "Capa de {codinome}: a palavra {palavra} em mosaico",
+    "semContagens": "Sem contagem de seguidores e sem lista de quem segue.",
+    "entreParaSeguir": "Entre na Alumia para seguir.",
+    "abas": {
+      "rotulo": "Seções do perfil de {codinome}",
+      "posts": "Posts",
+      "atos": "Atos",
+      "contas": "Prestação de contas",
+      "consultas": "Consultas à base",
+      "plenarias": "Plenárias"
+    },
+    "vazioAtos": "Nenhum ato chamado por esta organização.",
+    "nucleos": {
+      "titulo": "Núcleos",
+      "entrar": "Entrar",
+      "entrarNo": "Pedir para entrar no {nome}",
+      "pedido": "Pedido enviado",
+      "sou": "Você é daqui",
+      "ajuda": "Quem media o núcleo aceita o pedido. Ninguém vê a lista de quem é de um núcleo.",
+      "vazio": "Esta organização ainda não tem núcleos."
+    }
+  },
+  "contas": {
+    "titulo": "Como votamos",
+    "intro": "Cada voto, com o porquê e a fonte pública, para quem quiser conferir.",
+    "data": "Data",
+    "projeto": "Projeto",
+    "voto": "Voto",
+    "porque": "Porquê",
+    "resultado": "Resultado",
+    "fonte": "Fonte",
+    "abrirFonte": "Conferir",
+    "semFonte": "sem fonte",
+    "votos": {
+      "sim": "Sim",
+      "nao": "Não",
+      "abstencao": "Abstenção",
+      "obstrucao": "Obstrução",
+      "ausente": "Ausente"
+    },
+    "vazio": "Nenhuma votação registrada ainda.",
+    "registrar": {
+      "titulo": "Registrar votação",
+      "fonteAjuda": "Site da Câmara, ata ou diário oficial (endereço https). Sem fonte, a votação não entra.",
+      "enviar": "Registrar",
+      "feito": "Votação registrada."
+    }
+  },
+  "consulta": {
+    "aberta": "Consulta aberta",
+    "fechada": "Consulta encerrada",
+    "fechaEm": "fecha em {tempo}",
+    "fechou": "fechou em {data}",
+    "dias": "{d} d {h} h",
+    "horas": "{h} h",
+    "compromisso": "Compromisso escrito antes de abrir",
+    "quemVota": "Só quem está num núcleo vota: {nucleos}.",
+    "quorum": "Quórum: {n} pessoas.",
+    "quorumOk": "Quórum atingido.",
+    "quorumNao": "Quórum não atingido: o resultado não obriga.",
+    "votantes": "{pessoas} votaram.",
+    "pessoas": {
+      "exato": "{n} pessoas",
+      "maisDe": "mais de {n} pessoas",
+      "poucas": "Poucas pessoas"
+    },
+    "ranqueada": "Votação ranqueada: ponha as opções na sua ordem (1 é a preferida). Apuração por segundo turno instantâneo.",
+    "simples": "Escolha uma opção.",
+    "subir": "Subir {opcao}",
+    "descer": "Descer {opcao}",
+    "votar": "Votar",
+    "secreto": "O voto é secreto: nem a organização vê o que você votou. Depois de votar não dá para trocar.",
+    "votei": "Seu voto foi registrado. É secreto: só o total aparece quando a consulta fechar.",
+    "naoPosso": "Só quem está num núcleo desta organização vota.",
+    "verNucleos": "Ver os núcleos",
+    "resultadoDepois": "O resultado sai para todo mundo quando a consulta fechar.",
+    "resultado": "Resultado",
+    "barra": "{opcao}: {p}%",
+    "vazio": "Nenhuma consulta por enquanto."
+  },
+  "plenaria": {
+    "aoVivo": "Ao vivo agora",
+    "marcada": "Marcada para {data}",
+    "naSala": {
+      "exato": "{n} na sala",
+      "maisDe": "mais de {n} na sala",
+      "poucas": "poucas pessoas na sala"
+    },
+    "naFila": "{n} perguntas na fila",
+    "entrarNaSala": "Entrar na sala",
+    "salaDepois": "O link da sala aparece quando começar.",
+    "salaFora": "abre fora da Alumia",
+    "mandarPergunta": "Mandar pergunta",
+    "pergunta": "Sua pergunta",
+    "perguntaAjuda": "Até 280 caracteres. Entra no fim da fila, por ordem de chegada: ninguém passa na frente.",
+    "mostrar": "Mostrar meu @ na fila",
+    "mostrarAjuda": "Desligado, a pergunta aparece sem o seu @.",
+    "enviar": "Mandar",
+    "enviada": "Sua pergunta entrou na fila.",
+    "jaPergunte": "Você já mandou pergunta para esta plenária.",
+    "fila": "Fila de perguntas",
+    "anonimo": "Anônima",
+    "respondida": "respondida",
+    "ordem": "em ordem de chegada, sem filtro de assessoria",
+    "vazio": "Nenhuma plenária marcada.",
+    "vazioFila": "Ninguém perguntou ainda.",
+    "comA": "com {org}",
+    "eu": "você"
+  },
+  "pedir": {
+    "titulo": "Pedir o selo",
+    "intro": "Crie a conta da organização e mande um documento público para a equipe conferir. O selo diz só que a conta é de quem diz ser.",
+    "entre": "Entre na Alumia para pedir o selo. A conta da organização fica separada da sua.",
+    "entrar": "Entrar",
+    "codinome": "Nome da organização",
+    "codinomeAjuda": "O nome público (\"Mandata Popular\"). Nada de nome civil de pessoa.",
+    "handle": "@ da organização",
+    "handleAjuda": "De 3 a 20 letras minúsculas sem acento, números ou _.",
+    "tipo": "Tipo",
+    "cidade": "Cidade",
+    "cidadeAjuda": "Só a cidade, escrita por você. A Alumia não usa localização do aparelho.",
+    "docTipo": "Documento público",
+    "docTipos": {
+      "cnpj": "CNPJ",
+      "tse": "Registro do partido no TSE",
+      "diploma": "Diploma do mandato",
+      "ata": "Ata de fundação ou de eleição (grêmio, DCE, coletivo)"
+    },
+    "documento": "Número ou link do documento",
+    "documentoAjuda": "Só documento PÚBLICO da organização. Nunca RG, CPF ou documento de uma pessoa.",
+    "sobre": "Uma frase sobre a organização",
+    "maior": "Quem cuida desta conta tem 18 anos ou mais.",
+    "regras": "Entendi: o selo não é apoio do Instituto Lúcia e não dá alcance a mais. A organização segue as mesmas regras de todo mundo.",
+    "privacidade": "Quem cuida da conta não aparece para ninguém: o vínculo fica guardado à parte e só sai com ordem judicial. Filiação política é dado sensível (LGPD, art. 11).",
+    "enviar": "Mandar o pedido",
+    "enviado": "Pedido na fila. A equipe confere o documento e responde nos seus avisos.",
+    "faltou": "Preencha {campo}.",
+    "docPessoal": "Isso parece um documento de pessoa (CPF). Mande só o documento público da organização."
+  },
+  "exemplo": {
+    "aviso": "Dados ilustrativos",
+    "texto": "Este é um perfil de exemplo: a organização, as pessoas e os números são inventados, e nada do que você fizer aqui é guardado.",
+    "voltar": "Voltar para Traga sua organização"
+  },
+  "pessoa": {
+    "abas": {
+      "rotulo": "Seções do perfil de {codinome}",
+      "posts": "Posts",
+      "respostas": "Respostas",
+      "midia": "Mídia"
+    },
+    "status": {
+      "greve": "Em greve",
+      "ato": "Em ato",
+      "estudando": "Estudando",
+      "cuidando": "Cuidando de alguém",
+      "ferias": "De férias"
+    },
+    "ate": "até {data}",
+    "pronomes": "Pronomes",
+    "campos": "Sobre {codinome}",
+    "destaques": "Destaques",
+    "destaqueTipos": {
+      "post": "Post",
+      "ato": "Ato"
+    },
+    "editar": {
+      "titulo": "Status, pronomes e campos",
+      "ajuda": "Aparece no seu perfil para quem pode ver o perfil. Links só com https. Nada de dado pessoal (telefone, endereço, CPF).",
+      "status": "Status",
+      "semStatus": "Sem status",
+      "statusTexto": "Texto curto (opcional)",
+      "statusHoras": "Por quanto tempo",
+      "horas": {
+        "24": "1 dia",
+        "72": "3 dias",
+        "168": "1 semana"
+      },
+      "pronomes": "Pronomes",
+      "campos": "Campos (até 4)",
+      "rotulo": "Rótulo",
+      "valor": "Valor",
+      "adicionar": "Adicionar campo",
+      "remover": "Tirar o campo {n}",
+      "salvar": "Salvar",
+      "salvo": "Salvo."
+    },
+    "vazio": {
+      "respostas": "Nenhuma resposta por aqui.",
+      "midia": "Nenhuma imagem por aqui."
+    }
+  },
+  "coluna": {
+    "entrarNaSala": "Entrar na sala",
+    "mandarPergunta": "Mandar pergunta"
+  },
+  "erros": {
+    "semBanco": "Esta parte ainda não está no ar.",
+    "falha": "Não deu certo. Tente de novo."
+  }
+}
