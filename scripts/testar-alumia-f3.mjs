@@ -87,9 +87,23 @@ ok("a página de hoje continua inteira", pag.includes("function PaginaDaComunida
 const conv = ler("components/rede/conversa/TelaDaConversa.tsx");
 ok("a conversa escolhe pela Alumia nova", /const nova = useAlumia2\(\);\s*return nova \? <TelaDaConversaAlumia/.test(conv));
 ok("a conversa de hoje continua inteira", conv.includes("function TelaDaConversaDeHoje("));
-ok("useAlumia2 lê o [data-al=\"2\"] do layout", /querySelector\('\[data-al="2"\]'\)/.test(ler("components/rede/conversa/base3.tsx")));
+const lay = ler("app/[lang]/alumia/layout.tsx");
+ok("useAlumia2 vem do layout por contexto, só com a Alumia nova", /if \(!alumia2Ligada\(\)\) return moldura;/.test(lay) && /<ComAlumia2>\{moldura\}<\/ComAlumia2>/.test(lay));
+ok("sem o provedor, useAlumia2 é false", /createContext\(false\)/.test(ler("components/rede/conversa/Alumia2.tsx")));
 const enc = ler("components/rede/conversa/encaixe.tsx");
 ok("o encaixe pendura a busca e Comunidades ativas na coluna", /colunaDireita: \[BuscaDaColuna, ComunidadesAtivas\]/.test(enc));
+
+// ── Correções da revisão: sem lista de quem modera, sem contornar bloqueio, denúncia no post compacto, sem enfeite quebrado ──
+const pagNova = ler("components/rede/comunidades/PaginaDaComunidadeAlumia.tsx");
+ok("a aba Sobre não lista quem modera (só quantas, a partir de 3)", !/moderacao\.join|moderacao\.map/.test(pagNova) && /totalVisivel\(comunidade\.moderacao\.length\)/.test(pagNova));
+ok("o '…' da comunidade é disclosure, sem papéis de menu", !/role="menu(item)?"/.test(pagNova) && /aria-controls=\{idDoMenu\}/.test(pagNova));
+ok("Entrar não usa disabled: aria-disabled e motivo visível", !/disabled=\{ocupado \|\| !podeEntrar/.test(pagNova) && /aria-describedby=\{motivo \? idDoMotivo/.test(pagNova));
+ok("as quatro abas têm painel (aria-controls não aponta para o vazio)", ["posts", "atos", "aulas", "sobre"].every((c) => pagNova.includes(`id="al3-painel-${c}"`)));
+const telaNova = ler("components/rede/conversa/TelaDaConversaAlumia.tsx");
+ok("'Enviar assim mesmo' só depois de alerta, nunca de bloqueio", /\{!conferir\.bloqueia && <button/.test(telaNova) && /if \(mesmoAssim && conferir\?\.bloqueia !== false\) return;/.test(telaNova));
+ok("o texto da resposta fica fora do botão", !/role="button"/.test(telaNova));
+ok("sem reações com emoji enquanto a função do banco não existe", !/reagirEmoji|<Reacoes/.test(telaNova) && !/rede_reagir_emoji/.test(ler("lib/rede/cliente-conversa.ts")));
+ok("o post compacto tem Denunciar/Silenciar/Moderar", /<AcoesDeCuidado post=\{post\}/.test(ler("components/rede/conversa/base3.tsx")));
 
 // ── A folha só vale dentro de [data-al="2"] ──
 const css = ler("components/rede/conversa/alumia3.css").replace(/\/\*[\s\S]*?\*\//g, "");
@@ -111,7 +125,8 @@ for (const m of css.matchAll(/([^{}]+)\{/g)) {
   }
   seletores.push(atual.trim());
 }
-const fora = seletores.filter((sel) => !/^(:root(\[[^\]]+\]|:is\([^)]*\))\s+)?\[data-al="2"\]/.test(sel));
+// ":root:has([data-al=\"2\"] …) …" também vale: só casa quando a tela nova está na página (os flutuantes sobem por causa dela).
+const fora = seletores.filter((sel) => !/^(:root(\[[^\]]+\]|:is\([^)]*\))\s+)?\[data-al="2"\]/.test(sel) && !/^:root:has\(\[data-al="2"\]/.test(sel));
 ok(`todos os ${seletores.length} seletores da folha estão dentro de [data-al="2"] (fora: ${fora.slice(0, 3).join(" | ")})`, fora.length === 0 && seletores.length > 50);
 ok("cores só por token (nenhum hex solto fora da capa e do contraste)", !/color:\s*#(?!0f0e0d|f3efe6|000\b|fff\b)/i.test(css));
 for (const f of ["descoberta/Buscar", "descoberta/Explorar", "descoberta/Tag", "descoberta/ListaOrdenada", "avisos/Tela", "alumia/Salvos", "comunidades/Lista", "comunidades/TelaAula", "comunidades/Propor"]) {
