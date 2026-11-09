@@ -7,13 +7,16 @@
 //                                            (rede_fed_perfil_remoto: se a pessoa segue, se bloqueou);
 //   ?post=<url>                            → o fio: o post (só público ou não listado), até 5 posts acima dele e as respostas que o
 //                                            banco guardou (rede_fed_fio_remoto, que só devolve o que a pessoa pode ver);
-//   ?midia=<url>&midia=<url>…              → os endereços da rota-proxy para as mídias dadas (até 40), para a linha mista.
-// Nada de só-seguidores nem de mensagem direta é lido aqui: o que não é público não aparece.
+//   ?linha=1[&cursor=…&limite=…]           → a linha mista (rede_fed_linha_mista, COMO a pessoa: só o que ela pode ver) com o avatar
+//                                            e a mídia já pela rota-proxy assinada.
+// Nada de só-seguidores nem de mensagem direta é lido aqui (a linha mista só traz só-seguidores a quem segue o autor, regra do banco).
+// A rota NÃO assina URL que a tela manda: só endereço lido de um documento de fora agora mesmo ou guardado pelo banco. Assim ninguém
+// usa a rota-proxy de mídia como proxy aberto (o "?midia=" de antes deixava qualquer conta assinar qualquer URL).
 import { lerConta } from "@/lib/rede/fediverso/enderecos";
 import { dominio, idDe, lerNota, type NotaRecebida } from "@/lib/rede/fediverso/entrada/nota";
 import { buscarNaOrigem } from "@/lib/rede/fediverso/entrada/repasse";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
-import { atorPorConta, banco, buscarDocumento, fed, lerAtorRemoto, modoTotal, semFederacao, urlDaMidia } from "@/lib/rede/fediverso/servidor";
+import { assinarCartao, atorPorConta, banco, buscarDocumento, fed, lerAtorRemoto, modoTotal, semFederacao, urlDaMidia } from "@/lib/rede/fediverso/servidor";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
 export const runtime = "nodejs";
@@ -107,7 +110,7 @@ async function fio(token: string, postId: string) {
     pai = n.em_resposta_a;
   }
   const respostas = await chamarComoPessoa<unknown[]>(token, "rede_fed_fio_remoto", { p_id: nota.id });
-  return resposta({ post: paraTela(nota), acima, respostas: respostas.ok ? respostas.dado : [] });
+  return resposta({ post: paraTela(nota), acima, respostas: respostas.ok && Array.isArray(respostas.dado) ? respostas.dado.map(assinarCartao) : [] });
 }
 
 export async function GET(pedido: Request) {
@@ -118,12 +121,18 @@ export async function GET(pedido: Request) {
   if (!token) return resposta({ erro: "entre_primeiro" }, 401);
   const p = new URL(pedido.url).searchParams;
 
-  // A sessão é conferida no banco ANTES de tudo (inclusive de assinar mídia: sem isso a rota-proxy viraria proxy aberto).
-  const eu = await chamarComoPessoa<{ perfil: string }>(token, "rede_fed_eu", { p_acao: "buscar" });
-  if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
+  if (p.has("linha")) {
+    const cursor = p.get("cursor");
+    const limite = Number(p.get("limite") ?? 20);
+    if ((cursor && !/^[^s<>"']{1,700}$/.test(cursor)) || !Number.isInteger(limite) || limite < 1 || limite > 50) return resposta({ erro: "invalido:pedido" }, 400);
+    const linha = await chamarComoPessoa<{ itens?: unknown[]; proximo?: string | null }>(token, "rede_fed_linha_mista", { p_cursor: cursor || null, p_limite: limite });
+    if (!linha.ok) return resposta({ erro: linha.codigo }, statusDoCodigo(linha.codigo));
+    return resposta({ itens: Array.isArray(linha.dado?.itens) ? linha.dado.itens.map(assinarCartao) : [], proximo: linha.dado?.proximo ?? null });
+  }
 
-  const midias = p.getAll("midia").slice(0, 40);
-  if (midias.length) return resposta({ midia: Object.fromEntries(midias.map((m) => [m, urlDaMidia(m)])) });
+  // A sessão é conferida no banco ANTES de buscar qualquer coisa lá fora (com o teto por pessoa de rede_fed_eu).
+  const eu = await chamarComoPessoa<{ perfil: string }>(token, "rede_fed_eu", { p_acao: "remoto" });
+  if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
 
   const post = urlOk(p.get("post"));
   if (post) return fio(token, post);
