@@ -20,7 +20,7 @@ function daquiA(iso: string, lang: string): string {
   const ms = new Date(iso).getTime() - Date.now();
   if (!Number.isFinite(ms)) return "";
   try {
-    const f = new Intl.RelativeTimeFormat(lang, { numeric: "auto" });
+    const f = new Intl.RelativeTimeFormat(lang, { numeric: "always" });
     const h = Math.round(ms / 3_600_000);
     return Math.abs(h) >= 24 ? f.format(Math.round(h / 24), "day") : f.format(Math.max(1, h), "hour");
   } catch {

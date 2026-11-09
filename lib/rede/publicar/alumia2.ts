@@ -158,3 +158,62 @@ export function enderecoParaCompartilhar(origem: string, caminho: string): strin
   const c = caminho.startsWith("/") ? caminho : `/${caminho}`;
   return `${o}${c.split(/[?#]/)[0]}`;
 }
+
+/**
+ * O tempo curto do cartão, como nas pranchas: "12 min", "3 h", "2 dias" (sem "há"); de uma semana para trás, o dia ("12 nov").
+ * Menos de um minuto vira "1 min". Data inválida: "".
+ */
+export function tempoCurto(iso: string, lang: string, agora: number = Date.now()): string {
+  const t = new Date(iso).getTime();
+  if (!Number.isFinite(t)) return "";
+  const min = Math.max(1, Math.floor((agora - t) / 60_000));
+  const unidade = (n: number, u: "minute" | "hour" | "day") => {
+    try {
+      return new Intl.NumberFormat(lang, { style: "unit", unit: u, unitDisplay: u === "day" ? "long" : "short" }).format(n);
+    } catch {
+      return new Intl.NumberFormat("pt", { style: "unit", unit: u, unitDisplay: u === "day" ? "long" : "short" }).format(n);
+    }
+  };
+  if (min < 60) return unidade(min, "minute");
+  const h = Math.floor(min / 60);
+  if (h < 24) return unidade(h, "hour");
+  const d = Math.floor(h / 24);
+  if (d < 7) return unidade(d, "day");
+  let f: Intl.DateTimeFormat;
+  try {
+    f = new Intl.DateTimeFormat(lang, { day: "numeric", month: "short" });
+  } catch {
+    f = new Intl.DateTimeFormat("pt", { day: "numeric", month: "short" });
+  }
+  return f.format(t).replace(/\.$/, "").replace(" de ", " ");
+}
+
+/**
+ * O quando do chamado embutido, como na prancha: "amanhã, 11h" / "hoje, 18h30" / "sex, 18h" (até 6 dias) / "16 nov, 11h".
+ * Em pt, a hora vai no jeito brasileiro ("11h", "18h30"); nos outros idiomas, a hora do próprio idioma.
+ */
+export function quandoDoChamado(iso: string, lang: string, agora: number = Date.now()): string {
+  const t = new Date(iso);
+  if (Number.isNaN(t.getTime())) return "";
+  const l = (() => {
+    try {
+      return Intl.DateTimeFormat.supportedLocalesOf([lang]).length ? lang : "pt";
+    } catch {
+      return "pt";
+    }
+  })();
+  const hora = l.startsWith("pt")
+    ? `${t.getHours()}h${t.getMinutes() ? String(t.getMinutes()).padStart(2, "0") : ""}`
+    : new Intl.DateTimeFormat(l, { hour: "numeric", minute: "2-digit" }).format(t);
+  const meiaNoite = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const dias = Math.round((meiaNoite(t) - meiaNoite(new Date(agora))) / 86_400_000);
+  let dia: string;
+  if (dias >= -1 && dias <= 1) {
+    dia = new Intl.RelativeTimeFormat(l, { numeric: "auto" }).format(dias, "day");
+  } else if (dias > 1 && dias < 7) {
+    dia = new Intl.DateTimeFormat(l, { weekday: "short" }).format(t).replace(/\.$/, "");
+  } else {
+    dia = new Intl.DateTimeFormat(l, { day: "numeric", month: "short" }).format(t).replace(/\.$/, "").replace(" de ", " ");
+  }
+  return `${dia}, ${hora}`;
+}

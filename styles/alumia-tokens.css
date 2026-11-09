@@ -46,7 +46,8 @@
   --al-cartao-aceso: #f3efe6;
   --al-cartao-apagado: #2a2622;
   --al-letra-acesa: #e8321f;
-  --al-letra-apagada: #4d1a14;
+  /* Um pouco mais clara que o vermelho-noite, para a palavra se ler apagada como na prancha (cartão do ato). */
+  --al-letra-apagada: #7a281d;
   --al-voce: #ffc21a;
   --al-cartao-borda: transparent;
   /* Foco visível: dourado, 2 px, sempre (WCAG 2.4.7). */
@@ -116,8 +117,9 @@
   --al-cartao-aceso: #ffffff;
   --al-cartao-apagado: #000000;
   --al-letra-acesa: #ff5a45;
-  /* A letra apagada continua à vista no alto contraste (vermelho escuro sobre preto), para a palavra se ler antes de acender. */
-  --al-letra-apagada: #8c2a1e;
+  /* A letra apagada continua à vista no alto contraste: 3,3:1 sobre o preto (WCAG 1.4.11, componente gráfico) e ainda distinta
+     da letra acesa, para a palavra se ler antes de acender. */
+  --al-letra-apagada: #a8382a;
   --al-cartao-borda: #ffffff;
   --al-foco: #ffd400;
 }
