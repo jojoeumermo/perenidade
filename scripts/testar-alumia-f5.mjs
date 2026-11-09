@@ -149,7 +149,7 @@ const figs = [
 ];
 const sSeg = await espera("publica para seguidores com contagem, enquete e pergunta", () => C.autora.publicar({ ...base, figurinhas: figs }), (r) => r.id && Math.abs(Date.parse(r.expira_em) - Date.now() - 24 * 3600_000) < 120_000);
 const sMem = await espera("publica para membros (com link https)", () => C.autora.publicar({ ...base, publico: "membros", texto: "ATO HOJE", figurinhas: [{ tipo: "link", url: "https://exemplo.org/ato", rotulo: "Saiba mais" }] }), (r) => r.id);
-const sProx = await espera("publica para próximos", () => C.autora.publicar({ ...base, publico: "proximos", texto: "SÓ PRA QUEM É PERTO", figurinhas: [] }), (r) => r.id);
+await espera("publica para próximos", () => C.autora.publicar({ ...base, publico: "proximos", texto: "SÓ PRA QUEM É PERTO", figurinhas: [] }), (r) => r.id);
 
 await recusa("CPF no texto é recusado", () => C.autora.publicar({ ...base, texto: "meu cpf 123.456.789-09", figurinhas: [] }), "dado_pessoal");
 await recusa("telefone na pergunta é recusado", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "pergunta", texto: "liga (11) 98765-4321" }] }), "dado_pessoal");
