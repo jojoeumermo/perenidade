@@ -18,6 +18,8 @@ export interface OpcoesDoPedido {
   maxBytes?: number;
   /** Devolve também os bytes crus do corpo (imagem da rota-proxy de mídia), além do texto. */
   binario?: boolean;
+  /** Conferido ANTES de cada salto (o primeiro endereço e cada redirecionamento); falso corta tudo (instância bloqueada, por exemplo). */
+  conferirSalto?: (url: URL) => Promise<boolean>;
   /** Só para teste: aceita http e qualquer porta, e troca a conferência do IP e a resolução de nomes. */
   teste?: { ipAceito?: (ip: string) => boolean; resolver?: (nome: string) => Promise<string[]> };
 }
@@ -123,6 +125,7 @@ export async function pedirAoFediverso(endereco: string, o: OpcoesDoPedido = {})
   let url = urlDoFediverso(endereco, Boolean(o.teste));
   const saltos = (o.metodo ?? "GET") === "GET" ? 3 : 0;
   for (let salto = 0; url && salto <= saltos; salto++) {
+    if (o.conferirSalto && !(await o.conferirSalto(url).catch(() => false))) return null;
     let r;
     try {
       r = duble ? await duble(url, o) : await umPedido(url, o);
