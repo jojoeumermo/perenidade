@@ -17,7 +17,7 @@ import { PerguntaVer } from "../figurinhas/Pergunta";
 import { Avatar16 } from "../ui/Avatar16";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar, IconePausar, IconeSetaDir, IconeSetaEsq, IconeTocar, IconeTresPontos } from "./icones";
-import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, usarModal } from "./usar";
+import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, useModalDosStories } from "./usar";
 
 /** As reações da prancha (conjunto fechado, sem emoji livre: PLANO-ALUMIA §12). */
 const DESENHO_DA_REACAO: Record<ReacaoDoStory, string> = { punho: "✊", chama: "\u{1F525}", coracao: "❤️" };
@@ -76,7 +76,7 @@ export function Visor({
   /** Quando o dedo desceu numa área de toque: soltar depois de ~250 ms foi "segurar" (pausa), não um toque que troca. */
   const tocouEm = useRef(0);
   const idDoTitulo = useId();
-  usarModal(raiz);
+  useModalDosStories(raiz);
 
   // Carrega os stories da autora (ou os meus). Uma leitura igual a abrir um perfil: o servidor não registra quem abriu.
   useEffect(() => {

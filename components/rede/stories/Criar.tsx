@@ -18,7 +18,7 @@ import { LinkEditar } from "../figurinhas/Link";
 import { PerguntaEditar } from "../figurinhas/Pergunta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar } from "./icones";
-import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, usarModal } from "./usar";
+import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, useModalDosStories } from "./usar";
 
 type Modo = "texto" | "desenhar" | "figurinha";
 
@@ -104,7 +104,7 @@ export function Criar({
     cliente.atos().then(setAtos).catch(() => setAtos([]));
   }, [querAtos, atos, cliente]);
 
-  usarModal(raiz);
+  useModalDosStories(raiz);
 
   // Prende a rolagem da página de trás e devolve o foco ao fechar. Abre escrevendo, com o cursor dourado no texto (prancha).
   useEffect(() => {
