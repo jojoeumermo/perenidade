@@ -225,5 +225,16 @@
     "vazio": { "respostas": "这里还没有回复。", "midia": "这里还没有图片。" }
   },
   "coluna": { "entrarNaSala": "进入会场", "mandarPergunta": "提交问题" },
-  "erros": { "semBanco": "这部分尚未上线。", "falha": "没有成功，请再试一次。" }
+  "erros": { "semBanco": "这部分尚未上线。", "falha": "没有成功，请再试一次。" },
+  "cuidar": {
+    "titulo": "管理此账号",
+    "ajuda": "只有管理此账号的人能看到这一部分。你在这里做的事以组织的名义发出；没有人能看到是你。",
+    "feito": "已完成。页面已更新。",
+    "voto": {"titulo": "记录一次投票（我们如何投票）", "data": "投票日期", "projeto": "议案", "voto": "投票", "porque": "理由", "resultado": "议会结果", "fonte": "公开来源链接", "fonteAjuda": "议会网站、会议记录或政府公报：任何人都可以核对。", "mandar": "记录", "votos": {"sim": "赞成", "nao": "反对", "abstencao": "弃权", "obstrucao": "阻挠", "ausente": "缺席"}},
+    "nucleo": {"titulo": "新的小组", "nome": "小组名称", "quando": "聚会时间", "onde": "街区或城市", "cor": "颜色", "mandar": "创建小组"},
+    "pedidos": {"titulo": "加入小组的申请", "ver": "查看申请", "vazio": "没有待处理的申请。", "aceitar": "接受", "recusar": "拒绝", "ajuda": "只显示申请人的代号和 @。拒绝不会通知对方。", "de": "{codinome}（@{handle}）想加入{nucleo}"},
+    "consulta": {"titulo": "发起基层征询", "pergunta": "问题", "metodo": "方式", "simples": "简单（选一项）", "ranqueada": "排序（按偏好顺序）", "opcoes": "选项（每行一个，2 到 8 个）", "prazo": "截止时间", "quorum": "法定人数（可选，3 人以上）", "compromisso": "组织将如何对待结果", "ajuda": "组织小组的成员可以投票。发起后一切不变：问题、选项和期限都不变。", "mandar": "发起征询"},
+    "plenaria": {"titulo": "安排全体会议", "nome": "标题", "descricao": "说明", "inicio": "开始时间", "sala": "会议室链接（https）", "mandar": "安排全体会议", "noAr": "开始直播", "encerrar": "结束", "fila": "{titulo} 的提问队列", "filaVazia": "队列中没有问题。", "respondida": "已回答", "tirar": "移出队列", "motivo": "移出理由", "ajudaFila": "顺序按到达先后，不会改变。问题只会因以下理由之一移出队列，并会被记录。", "motivos": {"ofensa": "冒犯", "dado_pessoal": "个人信息", "fora_do_tema": "离题", "repetida": "重复"}},
+    "gestores": {"titulo": "谁在管理此账号", "handle": "此人的 @", "adicionar": "加入管理", "remover": "移除", "sair": "退出此账号", "ajuda": "只有创建账号的人可以添加或移除人员。管理者名单不会出现在任何地方，这里也不会。"}
+  }
 }

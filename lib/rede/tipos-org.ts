@@ -1,8 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Os tipos da F4 (perfis e organizações) da Alumia (docs/plano-2026-11/PLANO-ALUMIA.md §5 F4): o que as funções rede_org_* e
-// rede_perfil_extras devolvem. O BANCO ainda não existe: a etapa de back-end cria as funções com estes nomes e estas formas
-// (os dublês e os dados de exemplo vivem em lib/rede/org/). Sem os atalhos "@/" de propósito (roda no Node nos testes).
+// rede_perfil_extras de supabase/migracoes/20261109-alumia-f4.sql devolvem (os dados de exemplo vivem em lib/rede/org/). Sem os atalhos "@/" de propósito (roda no Node nos testes).
 //
 // Regras de privacidade que os tipos já carregam (PLANO-ALUMIA §6; LGPD art. 5º, II e art. 11: filiação e opinião política são
 // dado sensível):
@@ -141,6 +140,44 @@ export type PlenariaAoVivo = Pick<PlenariaDaOrg, "id" | "org" | "titulo" | "desc
 /** O que um gestor registra em "Como votamos". */
 export type PedidoDeVotacao = Omit<VotacaoDaOrg, "id">;
 
+/** O que um gestor manda para criar um núcleo da organização. */
+export interface PedidoDeNucleo {
+  nome: string;
+  quando: string;
+  onde: string;
+  cor: 1 | 2 | 3 | 4 | 5;
+}
+
+/** Um pedido para entrar num núcleo (só gestores e a mediação do núcleo veem): codinome e @, nada mais. */
+export interface PedidoParaONucleo {
+  nucleo: string;
+  nucleoNome: string;
+  handle: string | null;
+  codinome: string | null;
+}
+
+/** O que um gestor manda para abrir uma consulta (não muda depois de aberta). */
+export interface PedidoDeConsulta {
+  pergunta: string;
+  metodo: "simples" | "ranqueada";
+  opcoes: string[];
+  /** Fecha em (ISO), entre 1 hora e 60 dias. */
+  prazo: string;
+  compromisso: string;
+  quorum: number | null;
+  /** Os núcleos que votam (vazio = todos os da organização). */
+  nucleos: string[];
+}
+
+/** O que um gestor manda para marcar uma plenária. */
+export interface PedidoDePlenaria {
+  titulo: string;
+  descricao: string;
+  inicio: string;
+  /** Link https da sala (YouTube não listado ou Galène). */
+  sala: string | null;
+}
+
 /** O pedido do selo (fila do painel). Só documento público (CNPJ, registro de partido no TSE, diploma do mandato, ata). */
 export interface PedidoDeSelo {
   /** O codinome da organização (o nome público: "Mandata Popular"). */
@@ -163,6 +200,8 @@ export interface PedidoNaFila extends PedidoDeSelo {
   id: string;
   criadoEm: string;
   situacao: "esperando" | "aceito" | "recusado";
+  /** O motivo da recusa (vazio quando o selo foi dado ou ainda espera). */
+  motivo?: string;
 }
 
 /** Os extras do perfil de pessoa (F4): status curto, pronomes, até 4 campos e até 6 destaques. */
