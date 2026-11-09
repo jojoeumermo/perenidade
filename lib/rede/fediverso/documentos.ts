@@ -75,6 +75,8 @@ export interface AtorLocal {
 /** Uma imagem de um post (vem de interno.rede_midia: o banco devolve no post, contrato 3.1, ação "post": midia). */
 export interface MidiaFederada {
   ordem: number;
+  /** Onde o arquivo mora no depósito privado "rede-midia" (pasta do perfil/arquivo). Só a rota de mídia lê; NUNCA sai num documento. */
+  caminho?: string | null;
   tipo: string;
   alt: string;
   largura?: number | null;
@@ -114,6 +116,29 @@ const TIPOS_DE_IMAGEM = /^image\/(jpeg|png|webp|gif|avif)$/;
 export function visibilidadeQueSai(p: Pick<PostFederado, "visibilidade">): VisibilidadeQueSai | null {
   const v = p.visibilidade ?? "publico";
   return v === "publico" || v === "nao_listado" ? v : null;
+}
+
+const DATA_URL = /^data:(image\/(?:webp|png|jpeg));base64,([A-Za-z0-9+/]+={0,2})$/;
+
+/** Os bytes de uma imagem guardada no banco como data URL (a foto enviada do perfil: interno.perfis.rede_avatar_dados). */
+export function lerDataUrl(valor: unknown, maxCaracteres = 120_000): { tipo: string; bytes: Buffer } | null {
+  if (typeof valor !== "string" || valor.length > maxCaracteres) return null;
+  const m = DATA_URL.exec(valor);
+  if (!m) return null;
+  const bytes = Buffer.from(m[2], "base64");
+  return bytes.length > 0 ? { tipo: m[1], bytes } : null;
+}
+
+/**
+ * A foto ou a capa do perfil como o banco devolve (contrato 3.1, ação "ator": avatar_url, capa_url) virada em endereço público:
+ * a imagem enviada (data URL) sai pela rota estável u/[handle]/imagem/[tipo]; um endereço https sai como está. Os rostos e capas da
+ * galeria (SVG em /rede/avatares e /rede/capas) NÃO saem: o Mastodon não aceita SVG como foto de perfil.
+ */
+export function imagemDoBanco(e: EnderecosDaFederacao, handle: string, tipo: "avatar" | "capa", valor: unknown): ImagemPublica | null {
+  const dados = lerDataUrl(valor);
+  if (dados) return { url: e.imagemDoPerfil(handle, tipo), tipo: dados.tipo };
+  if (https(valor) && !/\.svg(\?|$)/i.test(valor)) return { url: valor };
+  return null;
 }
 
 function imagemAP(i: ImagemPublica | null | undefined) {
