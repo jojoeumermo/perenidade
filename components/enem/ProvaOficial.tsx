@@ -197,12 +197,13 @@ export function ProvaOficial({ fonte, habilidades, areas, s }: { fonte: FonteDaP
         <div className="sticky top-0 z-10 flex flex-wrap items-center gap-3 border-2 border-ink bg-parchment px-4 py-2">
           <span role="status" className="font-mono text-xs">{fill(p.respondidas, { a: marcadas, b: qs.length })}</span>
           {fase.fim && <span className={`font-mono text-sm ${fase.fim - agora < 300_000 ? "text-oxblood" : ""}`}>{fill(p.restam, { t: relogio((fase.fim - agora) / 1000) })}</span>}
+          {/* Só entrega com tudo marcado; quando o tempo acaba, a prova sai como estiver (entregar com tempoAcabou). */}
           <button
             type="button"
             className={`ml-auto ${botao}`}
+            disabled={marcadas < qs.length}
             onClick={() => {
-              const brancas = qs.length - Object.keys(respostasRef.current).length;
-              if (brancas > 0 && !window.confirm(fill(p.confirmarEntrega, { n: brancas }))) return;
+              if (Object.keys(respostasRef.current).length < qs.length) return;
               entregar(qs, fase.inicio, false);
             }}
           >

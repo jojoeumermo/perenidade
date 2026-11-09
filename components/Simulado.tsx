@@ -110,7 +110,7 @@ export function Simulado({ questoes, nome }: { questoes: QuestaoDoBanco[]; nome:
           <strong className="font-serif text-lg">{s.mockTitle}</strong>
           <span role="status" className="font-mono text-xs">{fill(s.mockAnswered, { a: feitas, b: fase.questoes.length })}</span>
           {fase.fim && <span className={`font-mono text-sm ${fase.fim - agora < 60_000 ? "text-oxblood" : ""}`} aria-live="off">{fill(s.mockLeft, { t: relogio(fase.fim - agora) })}</span>}
-          <button type="button" className="ml-auto cursor-pointer bg-ink px-4 py-1.5 font-semibold text-parchment hover:bg-oxblood" onClick={() => entregar(fase.questoes, false)}>{s.mockFinish}</button>
+          <button type="button" disabled={feitas < fase.questoes.length} className="ml-auto cursor-pointer bg-ink px-4 py-1.5 font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50" onClick={() => entregar(fase.questoes, false)}>{s.mockFinish}</button>
         </div>
         <ol className="mt-4 space-y-5">
           {fase.questoes.map((q, i) => (
@@ -130,7 +130,7 @@ export function Simulado({ questoes, nome }: { questoes: QuestaoDoBanco[]; nome:
             </li>
           ))}
         </ol>
-        <p className="mt-4 text-right"><button type="button" className="cursor-pointer bg-ink px-6 py-2.5 font-semibold text-parchment hover:bg-oxblood" onClick={() => entregar(fase.questoes, false)}>{s.mockFinish}</button></p>
+        <p className="mt-4 flex items-center justify-end gap-3"><span className="font-mono text-xs">{fill(s.mockAnswered, { a: feitas, b: fase.questoes.length })}</span><button type="button" disabled={feitas < fase.questoes.length} className="cursor-pointer bg-ink px-6 py-2.5 font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50" onClick={() => entregar(fase.questoes, false)}>{s.mockFinish}</button></p>
       </section>
     );
   }
