@@ -94,9 +94,11 @@
 [data-al="2"] .al-ato-cartao-largo .al-ato-cartao-titulo { font-size: 2.6rem; }
 [data-al="2"] .al-ato-cartao-largo .al-ato-cartao-quando { font-size: 0.9rem; max-width: 34rem; }
 /* computador: a frase ocupa o que sobra (3 linhas, como na prancha) e os botões não encolhem */
-[data-al="2"] .al-ato-cartao-pe { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-[data-al="2"] .al-ato-cartao-pe .al-ato-frase { flex: 1 1 14rem; min-width: 14rem; font-size: 0.82rem; }
-[data-al="2"] .al-ato-cartao-pe .al-ato-cartao-botoes { flex: none; flex-wrap: nowrap; }
+[data-al="2"] .al-ato-cartao-pe { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1rem; }
+[data-al="2"] .al-ato-cartao-pe .al-ato-frase { flex: 1 1 12rem; min-width: 12rem; font-size: 0.82rem; }
+[data-al="2"] .al-ato-cartao-pe .al-ato-cartao-botoes { flex: none; flex-wrap: nowrap; gap: 0.5rem; }
+/* os botões do cartão largo são os pequenos da prancha computador-inicio: assim a frase fica com 3 linhas e nada vaza do cartão */
+[data-al="2"] .al-ato-cartao-pe .al-ato-cartao-botoes > :is(a, button) { font-size: 0.82rem; padding: 0.5rem 0.85rem; min-height: 40px; white-space: nowrap; }
 [data-al="2"] .al-ato-cartao-largo .al-ato-chamar-icone { margin-top: -0.2rem; }
 [data-al="2"] .al-ato-chamar-icone { display: inline-grid; justify-items: start; gap: 0.2rem; }
 [data-al="2"] .al-ato-quadrado-p { width: 40px; height: 40px; padding: 0; justify-content: center; }
