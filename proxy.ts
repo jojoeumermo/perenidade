@@ -134,10 +134,10 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   // Escola no endereço próprio (lib/escola/endereco.ts): no host dela só abre a Escola (e entrar e as regras); no site do
   // instituto, com NEXT_PUBLIC_ESCOLA_URL ligada, a Escola fechada vai para lá. Sem a variável, nada muda.
   // Na VPS, o Cloudflare entrega os pedidos de escola.institutolucia.org com o host do instituto (regra de origem, para a
-  // Caddy e o certificado servirem os dois) e marca a origem com x-lucia-escola: 1. Uma regra de transformação do
-  // Cloudflare apaga essa marca de todo pedido que não veio pelo host da Escola, então ela não pode ser forjada de fora.
+  // Caddy servir os dois) e conta o host pedido de verdade em x-lucia-host. A regra de transformação do Cloudflare
+  // ESCREVE esse cabeçalho em todo pedido (sobrescreve o que vier de fora), e a VPS só aceita o Cloudflare: não se forja.
   const hostDoPedido = (request.headers.get("host") ?? "").toLowerCase();
-  const pelaMarca = request.headers.get("x-lucia-escola") === "1" && escolaComEndereco;
+  const pelaMarca = escolaComEndereco && hostDaEscola(request.headers.get("x-lucia-host"));
   if (pelaMarca || hostDaEscola(hostDoPedido)) {
     const decisao = rotaNaEscola(pathname);
     if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, pelaMarca ? dominio : siteVistoDaEscola(request.nextUrl.protocol, hostDoPedido, dominio)), 307);
