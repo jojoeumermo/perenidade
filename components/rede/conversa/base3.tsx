@@ -4,27 +4,20 @@
 // O que as telas novas da F3 (PLANO-ALUMIA §8 F3) usam juntas: saber se a Alumia nova está ligada, os textos dela, o post
 // compacto das pranchas (comunidade e Salvos) e os ícones de traço. Tudo aqui só muda a tela com "rede-v2" + "alumia-2".
 import "./alumia3.css";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useState } from "react";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
 import { previaDaAlumiaLigada } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import type { TextosDaRede } from "@/lib/rede/textos";
 import { carregarTextosDaAlumia3, type TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import { enderecos, type Post } from "@/lib/rede/tipos";
 import { tempoCurto, trilhaDoCaminho } from "@/lib/rede/tipos-conversa";
+import { AcoesDeCuidado } from "../moderacao/NoCartao";
 import { Avatar16 } from "../ui/Avatar16";
 
-const nada = () => () => undefined;
-const temAlumia2 = () => document.querySelector('[data-al="2"]') !== null;
-
-/**
- * A Alumia nova está ligada nesta página? O layout (app/[lang]/alumia/layout.tsx) só põe [data-al="2"] com "rede-v2" e
- * "alumia-2" ligadas no servidor (inclusive pela decisão do painel), então a tela pergunta ao próprio HTML: a mesma resposta do
- * servidor, sem ler a flag de novo. Fora do navegador, não.
- */
-export function useAlumia2(): boolean {
-  return useSyncExternalStore(nada, temAlumia2, () => false);
-}
+/** A Alumia nova está ligada nesta página? Vem do layout por contexto (./Alumia2.tsx), com a decisão do servidor. */
+export { useAlumia2 } from "./Alumia2";
 
 /** Os textos das telas novas da F3 no idioma da página (nulo até chegar). */
 export function useTextosAlumia3(lang: string): TextosDaAlumia3 | null {
@@ -175,16 +168,30 @@ export function NomeDoAutor({ lang, post, className = "" }: { lang: string; post
 
 /**
  * O post compacto das pranchas (celular-comunidade): rosto de 16 cartões, nome, @nome (ou "organização verificada") e tempo, o
- * texto, e "18 respostas · Acender · Salvar". Responder abre a conversa. Sem contagem de quem acendeu (só o autor sabe).
+ * texto, e "18 respostas · Acender · Salvar". Responder abre a conversa. Sem contagem de quem acendeu (só o autor sabe). O "…" no
+ * canto abre as ações de cuidado do cartão de hoje (Denunciar com protocolo, Silenciar e, para quem modera, Moderar): a página
+ * nova não pode ficar sem como denunciar um post.
  */
-export function PostCompacto({ post, lang, t, logado, aoErro }: { post: Post; lang: string; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
+export function PostCompacto({ post, lang, s, t, logado, aoErro }: { post: Post; lang: string; s: TextosDaRede; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
   const { apoiei, salvei, ocupado, acender, salvar } = useAcenderSalvar(post, aoErro);
+  const [cuidado, setCuidado] = useState(false);
+  const idDoCuidado = useId();
   const handle = post.org?.handle ?? post.autor.handle ?? "";
   const respostas = post.respostas === 1 ? t.comum.respostaUma : preencher(t.comum.respostas, { n: post.respostas });
   return (
     <article className="al3-post" aria-labelledby={`al3-p-${post.id}`}>
       <Avatar16 handle={handle || post.id} tamanho={40} />
-      <div>
+      <div className="al3-post-corpo">
+        <button
+          type="button"
+          className="al3-post-mais"
+          aria-expanded={cuidado}
+          aria-controls={idDoCuidado}
+          aria-label={preencher(t.comum.maisDoPost, { codinome: post.org?.codinome ?? post.autor.codinome })}
+          onClick={() => setCuidado((c) => !c)}
+        >
+          <IconeMais />
+        </button>
         <p className="al3-post-cabeca" id={`al3-p-${post.id}`}>
           <NomeDoAutor lang={lang} post={post} />
           {post.org ? (
@@ -208,6 +215,9 @@ export function PostCompacto({ post, lang, t, logado, aoErro }: { post: Post; la
           <button type="button" className="al3-acao" aria-pressed={salvei} disabled={!logado || ocupado} onClick={() => void salvar()}>
             {salvei ? t.comum.salvo : t.comum.salvar}
           </button>
+        </div>
+        <div className="al3-post-cuidado" id={idDoCuidado} hidden={!cuidado}>
+          {cuidado && <AcoesDeCuidado post={post} lang={lang} s={s} logado={logado} classe="al3-acao" />}
         </div>
       </div>
     </article>

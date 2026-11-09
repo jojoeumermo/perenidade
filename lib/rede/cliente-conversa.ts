@@ -20,12 +20,6 @@ export function criarClienteDaConversa(c: Chamar) {
     sugerir: (prefixo: string, post: string | null = null) => c<SugestaoDeMencao[]>("rede_conv_sugerir", { p_prefixo: prefixo, p_post: post }),
     /** Publica uma citação de outro post (todas as conferências de publicar valem). */
     citar: (pedido: PedidoDeCitacao) => c<Post>("rede_conv_citar", { p: pedido }),
-    /**
-     * Onda 5 (F3): reage (ou desfaz) com um emoji da lista fechada (REACOES, lib/rede/tipos-conversa.ts). Volta só os totais por
-     * emoji (nulo abaixo de 3) e as minhas; NUNCA quem reagiu. A função do banco vem na migração da F3 (back-end).
-     */
-    reagirEmoji: (post: string, emoji: string, sim: boolean) =>
-      c<{ reacoes: { emoji: string; total: number | null; minha: boolean }[] }>("rede_reagir_emoji", { p_post: post, p_emoji: emoji, p_sim: sim }),
   };
 }
 
