@@ -53,22 +53,21 @@ function abaInicial(membro: boolean): Aba {
  * redirecionado pelo servidor é levado ao endereço novo daqui mesmo.
  */
 export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede; tela: Tela }) {
-  const [situacao, setSituacao] = useState<Situacao | null>(null);
+  // Prévia: a Faísca das pranchas (nada vai ao banco; os posts de exemplo têm id "exemplo-…").
+  const [situacao, setSituacao] = useState<Situacao | null>(PREVIA ? SITUACAO_DE_EXEMPLO : null);
   const [falha, setFalha] = useState("");
   const [escrevendo, setEscrevendo] = useState<{ respostaA: Post | null; comunidade: Comunidade | null; texto?: string; tipo?: TipoAoEscrever } | null>(null);
   // Alumia nova: os textos dela (só baixados com a flag ligada) e o nome e a cor das comunidades para as pílulas do cartão.
   const t2 = useTextosAlumia2(lang, AL2);
-  const [nomesDasComunidades, setNomesDasComunidades] = useState<ContextoAlumia2["comunidades"]>({});
+  const [nomesDasComunidades, setNomesDasComunidades] = useState<ContextoAlumia2["comunidades"]>(() =>
+    PREVIA ? Object.fromEntries(Object.entries(COMUNIDADES_DE_EXEMPLO).map(([k, c]) => [k, { nome: c.nome, cor: c.cor }])) : {},
+  );
   const [aba, setAba] = useState<Aba | null>(null);
   const [recarregar, setRecarregar] = useState(0);
   const [comunidade, setComunidade] = useState<Comunidade | null>(null);
 
   useEffect(() => {
-    if (!AL2) return;
-    if (PREVIA) {
-      setNomesDasComunidades(Object.fromEntries(Object.entries(COMUNIDADES_DE_EXEMPLO).map(([k, c]) => [k, { nome: c.nome, cor: c.cor }])));
-      return;
-    }
+    if (!AL2 || PREVIA) return;
     let vivo = true;
     clienteComunidades.lista().then(
       (r) => vivo && setNomesDasComunidades(Object.fromEntries(r.itens.map((c) => [c.slug, { nome: c.nome, cor: corDaComunidade(c.slug) as CorDaComunidadeNum }]))),
@@ -82,11 +81,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
 
   useEffect(() => {
     let vivo = true;
-    // Prévia: a Faísca das pranchas (nada vai ao banco; os posts de exemplo têm id "exemplo-…").
-    if (PREVIA) {
-      setSituacao(SITUACAO_DE_EXEMPLO);
-      return;
-    }
+    if (PREVIA) return;
     rede
       .situacao()
       .then((x) => vivo && setSituacao(x))
