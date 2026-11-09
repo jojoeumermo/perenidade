@@ -1,7 +1,11 @@
 {
   "menu": "Actions",
   "tipo": "Action",
-  "situacao": { "confirmado": "Confirmé", "adiado": "Reporté", "cancelado": "Annulé" },
+  "situacao": {
+    "confirmado": "Confirmé",
+    "adiado": "Reporté",
+    "cancelado": "Annulé"
+  },
   "era": "était le {data}",
   "chamadoPor": "appel de @{handle}",
   "faixa": {
@@ -112,5 +116,11 @@
       "palavra": "Utilise des lettres : le nom devient le mot de la mosaïque."
     }
   },
-  "aba": { "titulo": "Actions", "vazio": "Aucune action prévue ici pour l'instant." }
+  "aba": {
+    "titulo": "Actions",
+    "vazio": "Aucune action prévue ici pour l'instant."
+  },
+  "calendario": {
+    "titulo": "Calendrier"
+  }
 }

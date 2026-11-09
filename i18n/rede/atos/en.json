@@ -1,7 +1,11 @@
 {
   "menu": "Actions",
   "tipo": "Action",
-  "situacao": { "confirmado": "Confirmed", "adiado": "Postponed", "cancelado": "Cancelled" },
+  "situacao": {
+    "confirmado": "Confirmed",
+    "adiado": "Postponed",
+    "cancelado": "Cancelled"
+  },
   "era": "was {data}",
   "chamadoPor": "called by @{handle}",
   "faixa": {
@@ -112,5 +116,11 @@
       "palavra": "Use letters: the name becomes the mosaic word."
     }
   },
-  "aba": { "titulo": "Actions", "vazio": "No action scheduled here yet." }
+  "aba": {
+    "titulo": "Actions",
+    "vazio": "No action scheduled here yet."
+  },
+  "calendario": {
+    "titulo": "Calendar"
+  }
 }
