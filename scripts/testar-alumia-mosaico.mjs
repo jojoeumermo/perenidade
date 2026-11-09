@@ -184,6 +184,48 @@ for (const p of [null, 0.35, 48]) {
   }
 }
 
+// ── Os tokens: contraste de verdade, calculado (WCAG 1.4.3) ──
+{
+  const css = (await import("node:fs")).readFileSync(path.join(raiz, "styles/alumia-tokens.css"), "utf8");
+  const bloco = (seletor) => {
+    const i = css.indexOf(`${seletor} {`);
+    return i < 0 ? "" : css.slice(i, css.indexOf("}", i));
+  };
+  const token = (b, nome) => (b.match(new RegExp(`--${nome}:[ ]*(#[0-9a-fA-F]{6})`)) ?? [])[1];
+  const lum = (hex) => {
+    const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  };
+  const razao = (a, b) => (Math.max(lum(a), lum(b)) + 0.05) / (Math.min(lum(a), lum(b)) + 0.05);
+  const padrao = bloco('[data-al="2"]');
+  const temas = {
+    padrao,
+    claro: bloco('[data-al="2"][data-al-tema="claro"]'),
+    contraste: bloco(':root[data-contrast] [data-al="2"]'),
+    eink: bloco(':root[data-eink] [data-al="2"]'),
+  };
+  for (const [nome, b] of Object.entries(temas)) {
+    const fundo = token(b, "al-vermelho-texto") ?? token(padrao, "al-vermelho-texto");
+    const texto = token(b, "al-sobre-vermelho") ?? token(padrao, "al-sobre-vermelho");
+    ok(`tema ${nome}: texto pequeno sobre o vermelho (selo, botão p/m) passa de 4,5:1 (${fundo}/${texto})`, !!fundo && !!texto && razao(fundo, texto) >= 4.5);
+    ok(`tema ${nome}: a chama do lampião tem token`, !!token(b, "al-vermelho-chama"));
+  }
+  ok("o botão grande primário usa o vermelho das pranchas e passa como texto grande (3:1)", razao(token(padrao, "al-vermelho"), token(padrao, "al-sobre-vermelho")) >= 3
+    && /\.al-botao-primario\.al-botao-g \{ background: var\(--al-vermelho\); \}/.test(css));
+  ok("selo e botão primário usam o vermelho de texto", /\.al-botao-primario \{ background: var\(--al-vermelho-texto\)/.test(css) && /\.al-selo \{[^}]*background: var\(--al-vermelho-texto\)/.test(css));
+  ok("no e-ink e no alto contraste o fantasma ligado inverte o fundo (não depende só da cor)",
+    /:root:is\(\[data-contrast\], \[data-eink\]\) \[data-al="2"\] \.al-botao\[aria-pressed="true"\]\.al-botao-fantasma \{ background: var\(--al-texto\); color: var\(--al-fundo\); \}/.test(css));
+  const fs = await import("node:fs");
+  const pasta = path.join(raiz, "components/rede/ui");
+  const definidos = new Set([...css.matchAll(/(--al-[a-z0-9-]+):/g)].map((m) => m[1]));
+  const faltando = fs.readdirSync(pasta).filter((f) => f.endsWith(".tsx"))
+    .flatMap((f) => [...fs.readFileSync(path.join(pasta, f), "utf8").matchAll(/var\((--al-[a-z0-9-]+)/g)].map((m) => `${f}: ${m[1]}`))
+    // "--al-com-${n}" é montado na hora (com-1 a com-5): confere só os nomes inteiros.
+    .filter((x) => !x.endsWith("-") && !definidos.has(x.split(": ")[1]));
+  ok("as cores por comunidade com-1 a com-5 existem", [1, 2, 3, 4, 5].every((n) => definidos.has(`--al-com-${n}`)));
+  igual("nenhum componente base usa token que não existe em alumia-tokens.css", faltando, []);
+}
+
 console.log(`Alumia (F0, mosaico e componentes): ${certos} certos, ${falhas.length} falhas.`);
 for (const f of falhas) console.log("  ✗", f);
 process.exit(falhas.length ? 1 : 0);
