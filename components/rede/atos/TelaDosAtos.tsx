@@ -144,7 +144,7 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
         ) : !atual ? (
           <div className="al-atos-vazio">
             <p>{filtro === "perto" ? preencherAto(t.tela.vazioPerto, { cidade: cidade ?? "" }) : t.tela.vazioSeguindo}</p>
-            {situacao.logado ? (
+            {situacao.logado || PREVIA_DOS_ATOS ? (
               <Botao variante="primario" icone={Icone.bandeira(18)} onClick={() => aoEscrever()}>
                 {t.tela.chamarUm}
               </Botao>
@@ -159,7 +159,7 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
               </button>
             ) : null}
             <p className="al-so-leitor">{preencherAto(t.tela.contagem, { i: indice + 1, n: itens.length })}</p>
-            <AtoAberto key={atual.id} ato={atual} t={t} lang={lang} logado={situacao.logado} />
+            <AtoAberto key={atual.id} ato={atual} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />
             {proximo ? (
               <div className="al-atos-proximo">
                 <ItemDoAto
