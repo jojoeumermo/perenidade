@@ -1,0 +1,203 @@
+{
+  "faixa": {
+    "rotulo": "Stories",
+    "seuStory": "Seu story",
+    "criar": "Criar um story",
+    "verOsSeus": "Ver os seus stories ({n} no ar)",
+    "ver": "Ver os stories de {nome}",
+    "verVisto": "Ver de novo os stories de {nome} (já vistos)",
+    "aviso": "Ninguém fica sabendo que você viu. Some em 24 h.",
+    "erro": "Os stories não carregaram.",
+    "tentar": "Tentar de novo",
+    "entrar": "Entre na sua conta para ver e criar stories.",
+    "anteriores": "Stories anteriores",
+    "seguintes": "Mais stories"
+  },
+  "abas": {
+    "rotulo": "Linhas"
+  },
+  "criar": {
+    "titulo": "Criar story",
+    "fechar": "Fechar sem publicar",
+    "descartar": "Fechar sem publicar? O que você fez aqui some.",
+    "descartarSim": "Fechar",
+    "descartarNao": "Continuar editando",
+    "modos": "Ferramentas",
+    "modoTexto": "Texto",
+    "modoTextoAa": "Aa",
+    "modoDesenhar": "Desenhar",
+    "modoFigurinha": "Figurinha",
+    "texto": "Texto do story",
+    "textoVazio": "Escreva aqui",
+    "tarja": "Tarja embaixo do texto (opcional)",
+    "tarjaVazia": "Uma linha embaixo (opcional)",
+    "restam": "Restam {n} letras",
+    "cores": "Cor do fundo",
+    "coresDoTraco": "Cor do traço",
+    "cor": {
+      "azul": "Azul",
+      "vermelho": "Vermelho",
+      "dourado": "Dourado",
+      "verde": "Verde",
+      "rosa": "Rosa",
+      "noite": "Noite"
+    },
+    "desenho": "Área de desenho: arraste para desenhar",
+    "desfazer": "Desfazer o último traço",
+    "limpar": "Apagar o desenho",
+    "figurinhas": "Figurinhas",
+    "figurinhaLigada": "{nome}: no story (toque para tirar)",
+    "limiteDeFigurinhas": "No máximo 3 figurinhas por story.",
+    "tipo": {
+      "contagem": "Contagem",
+      "pergunta": "Pergunta",
+      "enquete": "Enquete",
+      "link": "Link"
+    },
+    "quemVe": "Quem vê",
+    "publico": {
+      "seguidores": "Seguidores",
+      "membros": "Comunidade",
+      "proximos": "Próximos"
+    },
+    "publicoAjuda": {
+      "seguidores": "Só quem segue você.",
+      "membros": "Quem é da Alumia.",
+      "proximos": "Só a sua lista de próximos."
+    },
+    "regra": "Some em 24 h. Não vai para o Fediverso. Ninguém vê quem assistiu.",
+    "galeria": "Galeria",
+    "trocarImagem": "Trocar imagem",
+    "tirarImagem": "Tirar a imagem",
+    "alt": "Descreva a imagem para quem não vê (opcional)",
+    "semMetadado": "A imagem é refeita no seu aparelho: sai sem localização e sem dados da câmera.",
+    "publicar": "Publicar story",
+    "publicando": "Publicando…",
+    "publicado": "Story publicado. Some em 24 h.",
+    "vazio": "Escreva um texto, desenhe ou escolha uma imagem.",
+    "deUmPost": "Story a partir de um post: o link para o post vai junto.",
+    "erro": {
+      "grande": "Imagem grande demais (até 3 MB depois de pronta).",
+      "invalida": "Não deu para ler essa imagem. Use JPG, PNG ou WEBP.",
+      "link": "O link precisa começar com https:// e ter um endereço válido.",
+      "ato": "Escolha um ato para a contagem.",
+      "pergunta": "Escreva a pergunta.",
+      "enquete": "Escreva a pergunta e as duas opções da enquete.",
+      "dadoPessoal": "Parece ter um dado pessoal (telefone, CPF, e-mail ou endereço). Tire antes de publicar.",
+      "semConta": "Entre na sua conta para publicar.",
+      "limite": "Você publicou muitos stories agora. Espere um pouco.",
+      "banco": "O banco ainda não tem os stories (falta a atualização do servidor).",
+      "falha": "Não deu para publicar. Tente de novo."
+    }
+  },
+  "figurinha": {
+    "contagem": {
+      "rotulo": "Ato",
+      "escolha": "Escolha o ato",
+      "semAtos": "Você não tem ato marcado. Chame um ato para usar a contagem.",
+      "dias": "Dias",
+      "horas": "Horas",
+      "min": "Min",
+      "avisar": "Me avise quando começar",
+      "avisado": "Vamos te avisar quando começar",
+      "desavisar": "Não avisar mais",
+      "comecou": "Já começou",
+      "verAto": "Ver o ato",
+      "falta": "Faltam {dias} dias, {horas} horas e {min} minutos para {titulo}"
+    },
+    "pergunta": {
+      "rotulo": "Pergunta",
+      "vazio": "Escreva a pergunta",
+      "soParaVoce": "Respostas só para você",
+      "responder": "Responder à pergunta",
+      "soParaAutora": "Respostas só para {nome}."
+    },
+    "enquete": {
+      "rotulo": "Enquete",
+      "pergunta": "Pergunta da enquete",
+      "perguntaVazia": "Pergunte algo",
+      "opcao": "Opção {n}",
+      "padraoA": "Vou",
+      "padraoB": "Não dá",
+      "notaAutora": "Só você vê a soma. O nome de quem votou não aparece.",
+      "nota": "Só {nome} vê a soma. Seu nome não aparece.",
+      "votou": "Voto enviado só para a soma.",
+      "soma": "{pct}%",
+      "total": "{n} votos",
+      "poucas": "Poucas pessoas votaram ainda: a soma aparece a partir de 3."
+    },
+    "link": {
+      "rotulo": "Link",
+      "endereco": "Endereço (https://…)",
+      "texto": "Texto do link (opcional)",
+      "abrir": "Abrir {dominio} (sai da Alumia)"
+    }
+  },
+  "visor": {
+    "rotulo": "Story de {nome}",
+    "ajuda": "Setas para trocar de story, espaço para pausar, Esc para fechar.",
+    "progresso": "Story {i} de {n}",
+    "publico": {
+      "seguidores": "Para quem me segue",
+      "membros": "Para a comunidade",
+      "proximos": "Para os próximos"
+    },
+    "agora": "agora",
+    "min": "{n} min",
+    "h": "{n} h",
+    "pausar": "Pausar",
+    "continuar": "Continuar",
+    "mais": "Mais opções",
+    "fechar": "Fechar",
+    "anterior": "Story anterior",
+    "proximo": "Próximo story",
+    "silenciar": "Não ver os stories de {nome} neste aparelho",
+    "silenciado": "Você não vai mais ver os stories de {nome} neste aparelho. Ninguém fica sabendo.",
+    "denunciar": "Denunciar este story",
+    "denunciaTitulo": "Denunciar este story",
+    "denunciaAjuda": "Quem denuncia nunca é revelado. Ameaça, exposição e risco a criança tiram o story do ar na hora, até a moderação ver.",
+    "denunciaEnviar": "Enviar denúncia",
+    "denunciaEnviada": "Denúncia recebida. Protocolo {protocolo}.",
+    "cancelar": "Cancelar",
+    "apagar": "Apagar este story",
+    "apagarConfirma": "Apagar agora? Some para todo mundo, com as respostas.",
+    "apagarSim": "Apagar",
+    "apagado": "Story apagado.",
+    "seu": "Seu story",
+    "respostasChegam": "As respostas e reações chegam só para você, nos seus avisos.",
+    "responder": "Responder só para {nome}…",
+    "responderRotulo": "Responder só para {nome}",
+    "enviar": "Enviar",
+    "enviado": "Enviado só para {nome}.",
+    "reacoes": "Reagir (só {nome} vê)",
+    "reacao": {
+      "punho": "Punho erguido",
+      "chama": "Chama",
+      "coracao": "Coração"
+    },
+    "reagiu": "{reacao}: enviado só para {nome}.",
+    "sumiu": "Este story já sumiu.",
+    "carregando": "Carregando o story…",
+    "erro": "Não deu para abrir este story.",
+    "deUmPost": "Ver o post",
+    "imagem": "Imagem do story",
+    "categorias": {
+      "menores": "Criança ou adolescente em risco",
+      "ameaca": "Ameaça",
+      "exposicao": "Exposição de dados pessoais",
+      "violencia": "Incitação à violência",
+      "autolesao": "Autolesão ou risco de vida (urgente: ligue 188, CVV)",
+      "odio": "Discurso de ódio ou discriminação",
+      "assedio": "Assédio ou perseguição",
+      "golpe": "Golpe ou fraude",
+      "spam": "Propaganda ou repetição",
+      "outro": "Outro motivo"
+    },
+    "erroAoEnviar": "Não deu para enviar. Tente de novo."
+  },
+  "cartao": {
+    "porNoStory": "Pôr no story",
+    "porNoStoryAjuda": "Cria um story com o link deste post (some em 24 h)"
+  },
+  "previa": "Prévia com dados de exemplo: nada aqui é enviado."
+}
