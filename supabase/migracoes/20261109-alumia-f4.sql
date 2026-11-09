@@ -658,7 +658,7 @@ begin
   if v_org is null or not exists (select 1 from rede_org_gestores where org = v_org and gestor = v and papel = 'dono') then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('alumia_org_gestor', 10, 1440);
   select id into v_quem from perfis where rede_handle = lower(btrim(coalesce(p_handle, ''), ' @')) and not suspenso;
-  if v_quem is null or v_quem = v_org or not interno.rede2_membro(v_quem) or interno.rede_bloqueado(v, v_quem)
+  if v_quem is null or v_quem = v_org or not interno.rede2_membro(v_quem) or interno.rede_bloqueado(v, v_quem) or interno.rede_bloqueado(v_org, v_quem)
      or exists (select 1 from rede_orgs where perfil = v_quem) or exists (select 1 from rede_identidades where identidade = v_quem) then
     perform interno.erro('nao_encontrado');
   end if;
@@ -728,6 +728,9 @@ begin
   perform interno.rede3_perfil_exige_membro(v);
   if v_org is null then perform interno.erro('sem_permissao'); end if;
   v_gere := interno.alumia_org_gere(v, v_org);
+  if not v_gere and not exists (select 1 from rede_nucleo_membros m join rede_nucleos n on n.id = m.nucleo where n.org = v_org and m.usuario = v and m.papel = 'mediacao') then
+    perform interno.erro('sem_permissao');
+  end if;
   perform interno.limite('alumia_org_ler', 300, 10);
   return coalesce((
     select jsonb_agg(jsonb_build_object('nucleo', n.id, 'nucleoNome', n.nome, 'handle', f.rede_handle, 'codinome', f.rede_codinome) order by q.criado_em, f.rede_handle)
