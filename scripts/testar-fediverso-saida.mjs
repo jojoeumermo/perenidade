@@ -8,9 +8,12 @@
 // (scripts/dados/nodeinfo-2.*.schema.json, copiados de github.com/jhass/nodeinfo, CC0) e o HTML de fora limpo por lista permitida.
 // E, com as flags desligadas, que nada muda.
 //
-// Não sobe banco: as ações do banco (contrato 3.1 e as pedidas à frente F3) são um dublê aqui, pelo fetch. As rotas de verdade
-// (app/.well-known/**, app/api/fediverso/**) são chamadas direto, com Request.
+// Não sobe banco: as ações do banco são um dublê aqui, pelo fetch, com o MESMO formato que a F3 devolve
+// (supabase/migracoes/20261109-fediverso-total.sql: public.rede_fed_servidor e interno.rede_fed_post_json). As rotas de verdade
+// (app/.well-known/**, app/api/fediverso/**) são chamadas direto, com Request. O caso "produção" (NEXT_PUBLIC_RECURSOS=todos, sem
+// painel) roda num processo à parte, porque lib/recursos.ts lê a variável uma vez, ao carregar.
 // Uso: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-fediverso-saida.mjs
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import { register } from "node:module";
 
@@ -49,53 +52,60 @@ async function espera(nome, promessa, conferir = (v) => v !== false) {
   }
 }
 
-// ── As flags: o painel (definirVivos) liga e desliga na hora, sem remontar ──
+// ── As flags. O estado padrão é SEM painel e sem os nomes na variável; o painel (definirVivos) liga e desliga na hora ──
+const padrao = () => recursos.definirVivos({ ligados: new Set(), desligados: new Set() });
 const ligar = (...nomes) => recursos.definirVivos({ ligados: new Set(nomes), desligados: new Set() });
-const desligarTudo = () => recursos.definirVivos({ ligados: new Set(), desligados: new Set(["fediverso-total", "fediverso-grupos"]) });
+const emergencia = () => recursos.definirVivos({ ligados: new Set(), desligados: new Set(["fediverso-total", "fediverso-grupos"]) });
 
-// ── O dublê do banco (public.rede_fed_servidor) e do depósito de mídia ──
+// ── O dublê do banco (public.rede_fed_servidor, no formato da F3) e do depósito de mídia ──
 const UUID = "0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d";
 const UUID2 = "1a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d";
+const MIDIA = "2b2b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d";
 const PERFIL = "9f8e7d6c-5b4a-4f3e-8d2c-1b0a9f8e7d6c";
 const ARQUIVO = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee";
 const par = gerarParDeChaves();
-const AVATAR = `data:image/webp;base64,${Buffer.from("RIFF0000WEBPVP8 fotinha").toString("base64")}`;
 const BYTES_DA_IMAGEM = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 1, 2, 3, 4, 0xff, 0xd9]);
 const agora = new Date().toISOString();
 
+// interno.rede_fed_post_json: midia SEM caminho ({id, tipo, alt, largura, altura, blurhash, ordem}); mencoes só de fora
+// ({handle, ator, inbox}, de rede_fed_remotos); "comunidade" é o slug; visibilidade sempre "publico".
 const postBase = {
-  id: UUID, tipo: "post", titulo: null, texto: "Oi @bia@mastodon.social e @carla! #Estudo", corpo: null, aviso: "", criado_em: agora, editado_em: null,
-  resposta_a: null, handle: "ana_1", comunidade: null,
-  midia: [{ ordem: 0, caminho: `${PERFIL}/${ARQUIVO}.jpg`, tipo: "image/jpeg", alt: "Um cartaz da greve", largura: 800, altura: 600, blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }],
-  mencoes: [
-    { handle: "bia@mastodon.social", ator: "https://mastodon.social/users/bia", inbox: "https://mastodon.social/inbox", url: "https://mastodon.social/@bia" },
-    { handle: `carla@${CURTO}`, ator: `${BASE}/api/fediverso/u/carla`, inbox: null, url: `${BASE}/@carla` },
-  ],
-  visibilidade: "publico",
+  id: UUID, tipo: "post", titulo: null, texto: "Oi @bia@mastodon.social! #Estudo", corpo: null, aviso: "", criado_em: agora, editado_em: null,
+  resposta_a: null, comunidade: null, handle: "ana_1", raiz: UUID, visibilidade: "publico",
   resposta_a_remota: "https://mastodon.social/users/bia/statuses/123",
-  raiz: null,
+  midia: [{ id: MIDIA, tipo: "image/jpeg", alt: "Um cartaz da greve", largura: 800, altura: 600, blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj", ordem: 0 }],
+  mencoes: [{ handle: "bia@mastodon.social", ator: "https://mastodon.social/users/bia", inbox: "https://mastodon.social/inbox" }],
 };
 let postDoBanco = postBase;
+let midiaDoBanco = { caminho: `${PERFIL}/${ARQUIVO}.jpg`, tipo: "image/jpeg", alt: "Um cartaz da greve", largura: 800, altura: 600 };
+const chavesDosGrupos = new Map([["luta", par.publica]]);
 const chamadas = [];
 const acoes = {
+  // A ação "ator" da F3: avatar_url/capa_url só da galeria (caminho relativo do SVG), nunca a imagem enviada.
   ator: (p) =>
     p.handle === "ana_1"
-      ? { estado: "ligado", perfil: PERFIL, handle: "ana_1", nome: "Ana", bio: "Estudo e luta", ligado_em: agora, chave_publica: par.publica, chave_privada: "v1:cifrada", avatar_url: AVATAR, capa_url: "/rede/capas/c01.svg", discoverable: true, trancado: true }
+      ? { estado: "ligado", perfil: PERFIL, handle: "ana_1", nome: "Ana", bio: "Estudo e luta", ligado_em: agora, chave_publica: par.publica, chave_privada: "v1:cifrada",
+          avatar_url: "/rede/avatares/a03.svg", capa_url: "/rede/capas/c01.svg", discoverable: true, trancado: true, total: true, consentimento_versao: 2 }
       : p.handle === "luta"
-        ? { estado: "ligado", perfil: PERFIL, handle: "luta", nome: "Luta", bio: "", ligado_em: agora, chave_publica: par.publica, chave_privada: "v1:x" }
+        ? { estado: "ligado", perfil: PERFIL, handle: "luta", nome: "Luta", bio: "", ligado_em: agora, chave_publica: par.publica, chave_privada: "v1:x", avatar_url: null, capa_url: null, discoverable: false, trancado: false }
         : { estado: "inexistente" },
   post: (p) => (p.id === UUID ? postDoBanco : null),
+  midia: (p) => (p.id === MIDIA ? midiaDoBanco : null),
+  outbox: (p) => (p.handle === "ana_1" ? { total: 2, itens: [{ ...postBase, mencoes: [] }, { ...postBase, id: UUID2, visibilidade: "nao_listado", mencoes: [], midia: [] }] } : { total: 0, itens: [] }),
   seguindo_publico: () => ({ total: 7 }),
-  destaques: () => ({ itens: [{ ...postBase, id: UUID2, mencoes: [], midia: [], resposta_a_remota: null }] }),
-  respostas: () => ({ itens: [UUID2, "nao-e-uuid"] }),
-  contagem: () => ({ usuarios: 3, posts: 12, ativos_mes: 2, ativos_semestre: 3 }),
+  contagem: () => ({ usuarios: 3, posts: 12 }),
+  contagem_ativos: () => ({ mes: 2, semestre: 3 }),
   comunidade: (p) =>
-    ["luta", "estudo-coletivo"].includes(p.slug)
-      ? { estado: "ligado", slug: p.slug, nome: "Luta coletiva", descricao: "Comunidade <aberta>", criada_em: agora, moderadores: ["ana_1", "Inválido!"], chave_publica: p.slug === "luta" ? par.publica : null, chave_privada: null }
-      : p.slug === "nucleo-x" ? { estado: "fechada" } : null,
-  comunidade_chaves: (p) => ({ chave_publica: p.publica, chave_privada: p.privada }),
-  comunidade_outbox: () => ({ total: 1, itens: [{ ...postBase, titulo: "Assembleia", mencoes: [], comunidade_slug: "luta" }, { ...postBase, id: UUID2, visibilidade: "seguidores" }] }),
+    ["luta", "estudo-coletivo", "outra-aberta"].includes(p.slug)
+      ? { estado: "ligado", slug: p.slug, nome: "Luta coletiva", descricao: "Comunidade <aberta>", categoria: "luta", criada_em: agora, chave_publica: chavesDosGrupos.get(p.slug) ?? null, chave_privada: null, moderadores: ["ana_1", "Inválido!"], seguidores: 4 }
+      : { estado: "inexistente" },
+  comunidade_chaves: (p) => {
+    if (!chavesDosGrupos.has(p.slug)) chavesDosGrupos.set(p.slug, p.publica);
+    return { chave_publica: chavesDosGrupos.get(p.slug), chave_privada: p.privada };
+  },
+  comunidade_outbox: () => ({ total: 1, itens: [{ ...postBase, titulo: "Assembleia", mencoes: [], comunidade: "luta" }, { ...postBase, id: UUID2, visibilidade: "seguidores" }] }),
   comunidade_seguidores: () => ({ total: 4 }),
+  // "destaques" e "respostas" NÃO existem na F3: o dublê responde como ela (invalido:acao).
 };
 globalThis.fetch = async (url, init = {}) => {
   const u = String(url);
@@ -120,10 +130,10 @@ const rotaHostMeta = await import("../app/.well-known/host-meta/route.ts");
 const rotaIndiceNodeinfo = await import("../app/.well-known/nodeinfo/route.ts");
 const rotaNodeinfo = await import("../app/api/fediverso/nodeinfo/route.ts");
 const rotaAtor = await import("../app/api/fediverso/u/[handle]/route.ts");
-const rotaImagem = await import("../app/api/fediverso/u/[handle]/imagem/[tipo]/route.ts");
 const rotaSeguindo = await import("../app/api/fediverso/u/[handle]/seguindo/route.ts");
 const rotaDestaques = await import("../app/api/fediverso/u/[handle]/destaques/route.ts");
 const rotaPost = await import("../app/api/fediverso/p/[id]/route.ts");
+const rotaOutbox = await import("../app/api/fediverso/u/[handle]/outbox/route.ts");
 const rotaRespostas = await import("../app/api/fediverso/p/[id]/respostas/route.ts");
 const rotaMidia = await import("../app/api/fediverso/p/[id]/midia/[ordem]/route.ts");
 const rotaGrupo = await import("../app/api/fediverso/c/[slug]/route.ts");
@@ -138,26 +148,45 @@ const json = async (r) => ({ status: r.status, tipo: r.headers.get("content-type
 const webfinger = (resource, host = ALUMIA) => rotaWebfinger.GET(pedir(`/.well-known/webfinger?resource=${encodeURIComponent(resource)}`, { host, aceita: "application/jrd+json" })).then(json);
 const semSegredo = (o) => !/PRIVATE|chave_privada|v1:cifrada/.test(JSON.stringify(o));
 
-// ═══════════════════ Com as flags DESLIGADAS: nada muda ═══════════════════
-desligarTudo();
+// ═══════════════════ Produção: NEXT_PUBLIC_RECURSOS=todos, sem painel. As flags ficam DESLIGADAS ═══════════════════
+const sonda = `
+  const end = await import(${JSON.stringify(new URL("../lib/rede/fediverso/enderecos.ts", import.meta.url).href)});
+  console.log(JSON.stringify({ total: end.modoTotal(), grupos: end.gruposLigados() }));`;
+const flagsCom = (recursosDaMontagem) =>
+  JSON.parse(execFileSync(process.execPath, [...process.execArgv, "--input-type=module", "-e", sonda], { env: { ...process.env, NEXT_PUBLIC_RECURSOS: recursosDaMontagem }, encoding: "utf8" }).trim().split("\n").at(-1));
+await espera("produção (todos, sem painel): modo total e grupos DESLIGADOS", async () => flagsCom("todos"), (r) => r.total === false && r.grupos === false);
+await espera("todos + o nome escrito liga; '-nome' desliga; grupos só junto do total", async () => [flagsCom("todos,fediverso-total"), flagsCom("fediverso-total,fediverso-grupos"), flagsCom("todos,fediverso-total,-fediverso-total"), flagsCom("fediverso-grupos")], ([a, b, c, d]) =>
+  a.total && !a.grupos && b.total && b.grupos && !c.total && !d.total && !d.grupos);
+
+// ═══════════════════ Estado padrão (variável sem os nomes, sem painel): nada muda ═══════════════════
+padrao();
+await espera("padrão: modoTotal() e gruposLigados() falsos", async () => [end.modoTotal(), end.gruposLigados()], (r) => r.every((x) => x === false));
 await espera("desligado: WebFinger no domínio curto dá 404; no da Alumia, o subject de sempre", async () => [await webfinger(`acct:ana_1@${CURTO}`, CURTO), await webfinger(`acct:ana_1@${ALUMIA}`)], ([curto, alumia]) =>
   curto.status === 404 && alumia.status === 200 && alumia.corpo.subject === `acct:ana_1@${ALUMIA}` && !("properties" in alumia.corpo.links[0]));
 await espera("desligado: o ator da instância não responde no WebFinger", async () => webfinger(`acct:${ALUMIA}@${ALUMIA}`), (r) => r.status === 404);
 await espera("desligado: o ator sai como antes (sem following, featured, foto; fora do diretório)", async () => json(await rotaAtor.GET(pedir("/api/fediverso/u/ana_1"), ctx({ handle: "ana_1" }))), ({ status, corpo }) =>
   status === 200 && corpo.type === "Person" && !("following" in corpo) && !("featured" in corpo) && !("icon" in corpo) && corpo.discoverable === false && corpo.manuallyApprovesFollowers === false && semSegredo(corpo));
 await espera("desligado: a Note sai como antes (sem menção, anexo, resposta remota nem replies), mesmo que o banco mande os campos", async () => json(await rotaPost.GET(pedir(`/api/fediverso/p/${UUID}`), ctx({ id: UUID }))), ({ status, corpo }) =>
-  status === 200 && !("attachment" in corpo) && corpo.inReplyTo === null && !("replies" in corpo) && corpo.tag.every((t) => t.type === "Hashtag") && corpo.cc.length === 1 && !/h-card/.test(corpo.content));
+  status === 200 && !("attachment" in corpo) && corpo.inReplyTo === null && !("replies" in corpo) && !("context" in corpo) && corpo.tag.every((t) => t.type === "Hashtag") && corpo.cc.length === 1 && !/h-card/.test(corpo.content));
 await espera("desligado: as rotas novas respondem 404", async () => Promise.all([
   rotaSeguindo.GET(pedir("/api/fediverso/u/ana_1/seguindo"), ctx({ handle: "ana_1" })),
   rotaDestaques.GET(pedir("/api/fediverso/u/ana_1/destaques"), ctx({ handle: "ana_1" })),
-  rotaImagem.GET(pedir("/api/fediverso/u/ana_1/imagem/avatar"), ctx({ handle: "ana_1", tipo: "avatar" })),
   rotaRespostas.GET(pedir(`/api/fediverso/p/${UUID}/respostas`), ctx({ id: UUID })),
   rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/0`), ctx({ id: UUID, ordem: "0" })),
   rotaGrupo.GET(pedir("/api/fediverso/c/luta"), ctx({ slug: "luta" })),
 ]), (rs) => rs.every((r) => r.status === 404));
-await espera("desligado: o índice do NodeInfo só aponta o 2.1, e o documento não traz ativos", async () => [await (await rotaIndiceNodeinfo.GET(pedir("/.well-known/nodeinfo"))).json(), await (await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo?esquema=2.0"))).json()], ([i, n]) =>
-  i.links.length === 1 && n.version === "2.1" && !("activeMonth" in n.usage.users));
+await espera("desligado: o índice do NodeInfo só aponta o 2.1, e o documento não traz ativos (nem pergunta)", async () => {
+  chamadas.length = 0;
+  return [await (await rotaIndiceNodeinfo.GET(pedir("/.well-known/nodeinfo"))).json(), await (await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo?esquema=2.0"))).json(), [...chamadas]];
+}, ([i, n, c]) => i.links.length === 1 && n.version === "2.1" && !("activeMonth" in n.usage.users) && !c.includes("contagem_ativos"));
 await espera("desligado: host-meta aponta sempre o WebFinger da Alumia", async () => (await rotaHostMeta.GET(pedir("/.well-known/host-meta", { host: CURTO }))).text(), (x) => x.includes(`${BASE}/.well-known/webfinger`));
+await espera("desligado: a caixa de saída sai como antes (sem anexo nem menção)", async () => json(await rotaOutbox.GET(pedir("/api/fediverso/u/ana_1/outbox?pagina=1"), ctx({ handle: "ana_1" }))), ({ corpo }) =>
+  corpo.type === "OrderedCollectionPage" && corpo.orderedItems.every((c) => !("attachment" in c.object) && c.object.to[0] === doc.PUBLICO));
+ligar("fediverso-total", "fediverso-grupos");
+await espera("ligado pelo painel: vale na hora", async () => [end.modoTotal(), end.gruposLigados()], (r) => r.every((x) => x === true));
+emergencia();
+await espera("o interruptor de emergência do painel desliga os dois", async () => [end.modoTotal(), end.gruposLigados()], (r) => r.every((x) => x === false));
+padrao();
 
 // ═══════════════════ Modo total ligado (só fediverso-total) ═══════════════════
 ligar("fediverso-total");
@@ -174,32 +203,43 @@ await espera("WebFinger: sem fediverso-grupos, comunidade não responde", async 
 await espera("host-meta: cada host aponta o PRÓPRIO WebFinger; host desconhecido cai na Alumia", async () => Promise.all([CURTO, ALUMIA, "localhost:3000"].map(async (h) => (await rotaHostMeta.GET(pedir("/.well-known/host-meta", { host: h }))).text())), ([c, a, l]) =>
   c.includes(`https://${CURTO}/.well-known/webfinger?resource={uri}`) && a.includes(`https://${ALUMIA}/.well-known/webfinger`) && l.includes(`${BASE}/.well-known/webfinger`));
 
-await espera("ator completo: following, featured, foto enviada em endereço estável (webp), capa SVG da galeria fora, trancado e descoberta da pessoa", async () => json(await rotaAtor.GET(pedir("/api/fediverso/u/ana_1"), ctx({ handle: "ana_1" }))), ({ status, corpo: a }) =>
-  status === 200 && a.following === `${BASE}/api/fediverso/u/ana_1/seguindo` && a.featured === `${BASE}/api/fediverso/u/ana_1/destaques` && a.icon?.type === "Image" && a.icon.url === `${BASE}/api/fediverso/u/ana_1/imagem/avatar` && a.icon.mediaType === "image/webp" &&
-  !("image" in a) && a.manuallyApprovesFollowers === true && a.discoverable === true && a.indexable === true && a.published && a.publicKey.owner === a.id && semSegredo(a) && !/data:image/.test(JSON.stringify(a)) &&
+await espera("ator completo: following, rosto e capa da galeria em PNG no host da Alumia, trancado e descoberta da pessoa; featured só quando o banco tiver a ação", async () => json(await rotaAtor.GET(pedir("/api/fediverso/u/ana_1"), ctx({ handle: "ana_1" }))), ({ status, corpo: a }) =>
+  status === 200 && a.following === `${BASE}/api/fediverso/u/ana_1/seguindo` && ("featured" in a) === doc.COLECOES_DO_BANCO.destaques &&
+  a.icon?.type === "Image" && a.icon.url === `${BASE}/rede/avatares/a03.png` && a.icon.mediaType === "image/png" && a.image?.url === `${BASE}/rede/capas/c01.png` &&
+  a.manuallyApprovesFollowers === true && a.discoverable === true && a.indexable === true && a.published && a.publicKey.owner === a.id && semSegredo(a) && !/\.svg|data:image/.test(JSON.stringify(a)) &&
   JSON.stringify(a["@context"]).includes("toot:featured"));
-await espera("a foto sai pela rota estável com o tipo certo, nosniff e sandbox; capa da galeria (SVG) não sai", async () => [await rotaImagem.GET(pedir("/api/fediverso/u/ana_1/imagem/avatar"), ctx({ handle: "ana_1", tipo: "avatar" })), await rotaImagem.GET(pedir("/api/fediverso/u/ana_1/imagem/capa"), ctx({ handle: "ana_1", tipo: "capa" })), await rotaImagem.GET(pedir("/api/fediverso/u/ana_1/imagem/x"), ctx({ handle: "ana_1", tipo: "x" }))], ([a, c, x]) => {
-  return a.status === 200 && a.headers.get("content-type") === "image/webp" && a.headers.get("x-content-type-options") === "nosniff" && /sandbox/.test(a.headers.get("content-security-policy")) && c.status === 404 && x.status === 404;
-});
+await espera("os PNG da galeria existem em public/ (24 rostos, 8 capas)", async () => {
+  const pasta = (p) => fs.readdirSync(new URL(`../public/rede/${p}/`, import.meta.url)).filter((f) => f.endsWith(".png"));
+  return [pasta("avatares").length, pasta("capas").length];
+}, ([a, c]) => a === 24 && c === 8);
+await espera("imagemDoBanco: só a galeria (vira PNG) ou https não SVG; data URL, SVG de fora, caminho estranho e foto enviada NÃO saem", async () =>
+  [doc.imagemDoBanco(fed, "/rede/avatares/a24.svg"), doc.imagemDoBanco(fed, "/rede/avatares/a25.svg"), doc.imagemDoBanco(fed, "/rede/../segredo.svg"), doc.imagemDoBanco(fed, "data:image/webp;base64,AAAA"), doc.imagemDoBanco(fed, "https://x.org/a.svg"), doc.imagemDoBanco(fed, "https://x.org/a.png"), doc.imagemDoBanco(fed, "/rede/fotos/abc.webp")], (r) =>
+  r[0]?.url === `${BASE}/rede/avatares/a24.png` && r[1] === null && r[2] === null && r[3] === null && r[4] === null && r[5]?.url === "https://x.org/a.png" && r[6] === null);
 await espera("following: só o total (a lista de quem a pessoa segue não sai)", async () => json(await rotaSeguindo.GET(pedir("/api/fediverso/u/ana_1/seguindo"), ctx({ handle: "ana_1" }))), ({ corpo }) =>
   corpo.type === "OrderedCollection" && corpo.totalItems === 7 && !("orderedItems" in corpo) && !("first" in corpo));
-await espera("featured: os fixados como Note", async () => json(await rotaDestaques.GET(pedir("/api/fediverso/u/ana_1/destaques"), ctx({ handle: "ana_1" }))), ({ corpo }) =>
-  corpo.totalItems === 1 && corpo.orderedItems[0].type === "Note" && corpo.orderedItems[0].id === `${BASE}/api/fediverso/p/${UUID2}`);
+await espera("featured: sem a ação no banco (pendência com a F3), a coleção sai vazia, sem erro", async () => json(await rotaDestaques.GET(pedir("/api/fediverso/u/ana_1/destaques"), ctx({ handle: "ana_1" }))), ({ status, corpo }) =>
+  status === 200 && corpo.totalItems === 0 && corpo.orderedItems.length === 0);
+await espera("colecaoDeDestaques: os fixados como Note (pronto para quando a ação existir)", async () => doc.colecaoDeDestaques(fed, "ana_1", [{ ...postBase, id: UUID2, mencoes: [], midia: [] }, { ...postBase, visibilidade: "seguidores" }], { total: true, grupos: false }), (c) =>
+  c.totalItems === 1 && c.orderedItems[0].type === "Note" && c.orderedItems[0].id === `${BASE}/api/fediverso/p/${UUID2}`);
 
 postDoBanco = postBase;
-await espera("Note: Mention de quem é de fora e de quem é daqui, os dois em cc; h-card no HTML", async () => json(await rotaPost.GET(pedir(`/api/fediverso/p/${UUID}`), ctx({ id: UUID }))), ({ corpo: n }) => {
+await espera("Note: Mention de quem é de fora (formato da F3, sem url), em cc; h-card no HTML com o ator como link", async () => json(await rotaPost.GET(pedir(`/api/fediverso/p/${UUID}`), ctx({ id: UUID }))), ({ corpo: n }) => {
   const mencoes = n.tag.filter((t) => t.type === "Mention");
-  return n.to[0] === doc.PUBLICO && n.cc.includes(`${BASE}/api/fediverso/u/ana_1/seguidores`) && n.cc.includes("https://mastodon.social/users/bia") && n.cc.includes(`${BASE}/api/fediverso/u/carla`) &&
-    mencoes.length === 2 && mencoes[0].href === "https://mastodon.social/users/bia" && mencoes[0].name === "@bia@mastodon.social" && mencoes[1].name === `@carla@${CURTO}` &&
-    n.content.includes('<span class="h-card" translate="no"><a href="https://mastodon.social/@bia" class="u-url mention">@<span>bia</span></a></span>') &&
-    n.content.includes(`<a href="${BASE}/@carla" class="u-url mention">@<span>carla</span></a></span>!`) && n.tag.some((t) => t.type === "Hashtag" && t.name === "#estudo");
+  return n.to[0] === doc.PUBLICO && n.cc.includes(`${BASE}/api/fediverso/u/ana_1/seguidores`) && n.cc.includes("https://mastodon.social/users/bia") &&
+    mencoes.length === 1 && mencoes[0].href === "https://mastodon.social/users/bia" && mencoes[0].name === "@bia@mastodon.social" &&
+    n.content.includes('<span class="h-card" translate="no"><a href="https://mastodon.social/users/bia" class="u-url mention">@<span>bia</span></a></span>') && n.tag.some((t) => t.type === "Hashtag" && t.name === "#estudo");
 });
+await espera("Note: menção de alguém daqui (domínio curto) também vira Mention + cc, com o perfil como link", async () => doc.documentoDoPost(fed, { ...postBase, texto: "Oi @carla!", mencoes: [{ handle: `carla@${CURTO}`, ator: `${BASE}/api/fediverso/u/carla`, inbox: null, url: `${BASE}/@carla` }] }, true, { total: true, grupos: false }), (n) =>
+  n.cc.includes(`${BASE}/api/fediverso/u/carla`) && n.tag.some((t) => t.type === "Mention" && t.name === `@carla@${CURTO}`) && n.content.includes(`<a href="${BASE}/@carla" class="u-url mention">@<span>carla</span></a></span>!`));
 await espera("Note: imagem com texto alternativo, blurhash e tamanho, num endereço estável SEM o caminho do depósito", async () => json(await rotaPost.GET(pedir(`/api/fediverso/p/${UUID}`), ctx({ id: UUID }))), ({ corpo: n }) =>
   n.attachment?.length === 1 && n.attachment[0].type === "Image" && n.attachment[0].mediaType === "image/jpeg" && n.attachment[0].url === `${BASE}/api/fediverso/p/${UUID}/midia/0` && n.attachment[0].name === "Um cartaz da greve" &&
   n.attachment[0].blurhash === "LEHV6nWB2yk8pyo0adR*.7kCMdnj" && n.attachment[0].width === 800 && n.attachment[0].height === 600 && !JSON.stringify(n).includes(PERFIL) && !JSON.stringify(n).includes(ARQUIVO));
-await espera("Note: inReplyTo para post de fora, coleção de respostas; sem raiz conhecida numa resposta, sem context", async () => json(await rotaPost.GET(pedir(`/api/fediverso/p/${UUID}`), ctx({ id: UUID }))), ({ corpo: n }) =>
-  n.inReplyTo === "https://mastodon.social/users/bia/statuses/123" && n.replies === `${BASE}/api/fediverso/p/${UUID}/respostas` && !("context" in n));
-await espera("Note: post que abre o fio tem context = ele mesmo; resposta daqui usa a raiz", async () => [doc.documentoDoPost(fed, { ...postBase, resposta_a_remota: null }, true, { total: true, grupos: false }), doc.documentoDoPost(fed, { ...postBase, resposta_a: UUID2, raiz: UUID2, resposta_a_remota: "https://x.org/ignorado" }, true, { total: true, grupos: false })], ([a, b]) =>
+await espera("Note: inReplyTo para post de fora; context = a raiz que o banco manda; replies só quando o banco tiver a ação", async () => json(await rotaPost.GET(pedir(`/api/fediverso/p/${UUID}`), ctx({ id: UUID }))), ({ corpo: n }) =>
+  n.inReplyTo === "https://mastodon.social/users/bia/statuses/123" && ("replies" in n) === doc.COLECOES_DO_BANCO.respostas && n.context === `${BASE}/api/fediverso/p/${UUID}`);
+await espera("Note: sem raiz conhecida numa resposta, sem context", async () => doc.documentoDoPost(fed, { ...postBase, raiz: null }, true, { total: true, grupos: false }), (n) => !("context" in n));
+await espera("Note de comunidade (campo 'comunidade' da F3): com fediverso-grupos, audience e o Group em cc; sem, nada", async () => [doc.documentoDoPost(fed, { ...postBase, comunidade: "luta", titulo: "Ato" }, true, { total: true, grupos: true }), doc.documentoDoPost(fed, { ...postBase, comunidade: "luta" }, true, { total: true, grupos: false })], ([g, s]) =>
+  g.audience === `${BASE}/api/fediverso/c/luta` && g.cc.includes(`${BASE}/api/fediverso/c/luta`) && g.name === "Ato" && !("audience" in s) && !s.cc.includes(`${BASE}/api/fediverso/c/luta`));
+await espera("Note: post que abre o fio tem context = ele mesmo; resposta daqui usa a raiz", async () => [doc.documentoDoPost(fed, { ...postBase, resposta_a_remota: null, raiz: null }, true, { total: true, grupos: false }), doc.documentoDoPost(fed, { ...postBase, resposta_a: UUID2, raiz: UUID2, resposta_a_remota: "https://x.org/ignorado" }, true, { total: true, grupos: false })], ([a, b]) =>
   a.context === `${BASE}/api/fediverso/p/${UUID}` && a.inReplyTo === null && b.context === `${BASE}/api/fediverso/p/${UUID2}` && b.inReplyTo === `${BASE}/api/fediverso/p/${UUID2}`);
 await espera("Note não listada: seguidores em to, Public em cc", async () => doc.documentoDoPost(fed, { ...postBase, visibilidade: "nao_listado", mencoes: [] }, true, { total: true, grupos: false }), (n) =>
   n.to.length === 1 && n.to[0] === `${BASE}/api/fediverso/u/ana_1/seguidores` && n.cc[0] === doc.PUBLICO);
@@ -210,33 +250,59 @@ await espera("só-seguidores e direto NUNCA saem: o construtor recusa e a rota r
   postDoBanco = postBase;
   return [...recusas, p.status === 404, m.status === 404];
 }, (r) => r.every(Boolean));
+await espera("caixa de saída paginada no modo total: Create com anexo e menção; não listado com Public em cc; próxima só com página cheia", async () => json(await rotaOutbox.GET(pedir("/api/fediverso/u/ana_1/outbox?pagina=1"), ctx({ handle: "ana_1" }))), ({ status, corpo: o }) =>
+  status === 200 && o.type === "OrderedCollectionPage" && o.orderedItems.length === 2 && !("next" in o) && JSON.stringify(o["@context"]).includes("toot:blurhash") &&
+  o.orderedItems[0].type === "Create" && o.orderedItems[0].object.attachment?.[0].url === `${BASE}/api/fediverso/p/${UUID}/midia/0` &&
+  o.orderedItems[1].object.to[0] === `${BASE}/api/fediverso/u/ana_1/seguidores` && o.orderedItems[1].object.cc[0] === doc.PUBLICO && o.orderedItems[1].cc[0] === doc.PUBLICO);
+await espera("caixa de saída: a coleção só dá o total e a primeira página", async () => json(await rotaOutbox.GET(pedir("/api/fediverso/u/ana_1/outbox"), ctx({ handle: "ana_1" }))), ({ corpo: o }) =>
+  o.type === "OrderedCollection" && o.totalItems === 2 && o.first === `${BASE}/api/fediverso/u/ana_1/outbox?pagina=1`);
 await espera("Create leva o mesmo to/cc da Note (o mencionado recebe)", async () => doc.atividadeCreate(fed, postBase, { total: true, grupos: false }), (c) => c.cc.includes("https://mastodon.social/users/bia") && c.object.attachment.length === 1 && c.to[0] === doc.PUBLICO);
 
-await espera("mídia: a rota lê o depósito como VISITANTE (chave pública) e devolve a imagem com o tipo do banco", async () => {
+await espera("mídia: acha a imagem pela ordem, pede o caminho à ação 'midia' da F3 e lê o depósito como VISITANTE, com o tipo do banco", async () => {
+  chamadas.length = 0;
   const r = await rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/0`), ctx({ id: UUID, ordem: "0" }));
-  return { status: r.status, tipo: r.headers.get("content-type"), nosniff: r.headers.get("x-content-type-options"), bytes: Buffer.from(await r.arrayBuffer()).equals(BYTES_DA_IMAGEM) };
-}, (r) => r.status === 200 && r.tipo === "image/jpeg" && r.nosniff === "nosniff" && r.bytes);
-await espera("mídia: ordem sem imagem, ordem inválida e caminho estranho dão 404", async () => {
+  return { status: r.status, tipo: r.headers.get("content-type"), nosniff: r.headers.get("x-content-type-options"), sandbox: r.headers.get("content-security-policy"), bytes: Buffer.from(await r.arrayBuffer()).equals(BYTES_DA_IMAGEM), acoes: [...chamadas] };
+}, (r) => r.status === 200 && r.tipo === "image/jpeg" && r.nosniff === "nosniff" && /sandbox/.test(r.sandbox) && r.bytes && r.acoes.join() === "post,midia");
+await espera("mídia: ordem sem imagem, ordem inválida, caminho estranho, tipo fora da lista e 'midia' nula dão 404", async () => {
   const a = await rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/1`), ctx({ id: UUID, ordem: "1" }));
   const b = await rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/9`), ctx({ id: UUID, ordem: "9" }));
-  postDoBanco = { ...postBase, midia: [{ ...postBase.midia[0], caminho: "../../segredo.jpg" }] };
+  const original = midiaDoBanco;
+  midiaDoBanco = { ...original, caminho: "../../segredo.jpg" };
   const c = await rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/0`), ctx({ id: UUID, ordem: "0" }));
+  midiaDoBanco = { ...original, tipo: "image/svg+xml" };
+  const d = await rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/0`), ctx({ id: UUID, ordem: "0" }));
+  midiaDoBanco = null;
+  const e = await rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/0`), ctx({ id: UUID, ordem: "0" }));
+  midiaDoBanco = original;
+  postDoBanco = { ...postBase, midia: [{ ...postBase.midia[0], id: "nao-e-uuid" }] };
+  const f = await rotaMidia.GET(pedir(`/api/fediverso/p/${UUID}/midia/0`), ctx({ id: UUID, ordem: "0" }));
   postDoBanco = postBase;
-  return [a.status, b.status, c.status];
+  return [a.status, b.status, c.status, d.status, e.status, f.status];
 }, (r) => r.every((s) => s === 404));
-await espera("respostas: coleção com a primeira página embutida, só ids válidos", async () => json(await rotaRespostas.GET(pedir(`/api/fediverso/p/${UUID}/respostas`), ctx({ id: UUID }))), ({ corpo }) =>
-  corpo.type === "Collection" && corpo.first.items.length === 1 && corpo.first.items[0] === `${BASE}/api/fediverso/p/${UUID2}`);
+await espera("respostas: sem a ação no banco (pendência com a F3), a coleção sai vazia, sem erro", async () => json(await rotaRespostas.GET(pedir(`/api/fediverso/p/${UUID}/respostas`), ctx({ id: UUID }))), ({ status, corpo }) =>
+  status === 200 && corpo.type === "Collection" && corpo.first.items.length === 0);
+await espera("colecaoDeRespostas: primeira página embutida, só ids válidos", async () => doc.colecaoDeRespostas(fed, UUID, [UUID2, "nao-e-uuid"]), (c) => c.first.items.length === 1 && c.first.items[0] === `${BASE}/api/fediverso/p/${UUID2}`);
 
 // ═══════════════════ Construtores de interação (contrato 3.3) ═══════════════════
 const NOTA_DE_FORA = "https://mastodon.social/users/bia/statuses/9";
-await espera("Like e Announce saem do ator daqui; o Announce vai a Public e aos seguidores, com o autor em cc", async () => [doc.atividadeLike(fed, "ana_1", NOTA_DE_FORA, "l1"), doc.atividadeAnnounce(fed, "ana_1", NOTA_DE_FORA, "a1", "https://mastodon.social/users/bia")], ([l, a]) =>
-  l.type === "Like" && l.actor === `${BASE}/api/fediverso/u/ana_1` && l.object === NOTA_DE_FORA && l.id === `${BASE}/api/fediverso/atividades/like/l1` &&
-  a.type === "Announce" && a.to[0] === doc.PUBLICO && a.cc.includes(`${BASE}/api/fediverso/u/ana_1/seguidores`) && a.cc.includes("https://mastodon.social/users/bia"));
-await espera("Undo leva a atividade original inteira (sem @context) e o mesmo ator", async () => doc.atividadeUndo(fed, "ana_1", doc.atividadeLike(fed, "ana_1", NOTA_DE_FORA, "l1")), (u) =>
-  u.type === "Undo" && u.object.type === "Like" && u.object.id === `${BASE}/api/fediverso/atividades/like/l1` && !("@context" in u.object) && u.actor === u.object.actor && u.id.startsWith(u.object.id));
-await espera("Flag sai do ator da INSTÂNCIA (quem denunciou não aparece), com os alvos e o comentário cortado", async () => doc.atividadeFlag(fed, ["https://mastodon.social/users/bia", NOTA_DE_FORA, "javascript:x"], "spam ".repeat(400), "f1"), (f) =>
-  f.type === "Flag" && f.actor === `${BASE}/api/fediverso/ator` && f.object.length === 2 && Array.from(f.content).length <= 1000 && !/u\/ana_1/.test(JSON.stringify(f)));
-await espera("Block: ator daqui → alvo", async () => doc.atividadeBlock(fed, "ana_1", "https://mastodon.social/users/bia", "b1"), (b) => b.type === "Block" && b.object === "https://mastodon.social/users/bia" && b.id.endsWith("/block/b1"));
+// O mesmo argumento que a F2 passa (lib/rede/fediverso/entrega.ts, idDaAtividade): a URL completa, fed.atividade(tipo, hash).
+const ID_DA_F2 = (tipo) => fed.atividade(tipo, "0123456789abcdef0123456789abcdef");
+await espera("Like e Announce com o id da F2 (URL completa): o id sai como veio, sem embrulhar de novo", async () => [doc.atividadeLike(fed, "ana_1", NOTA_DE_FORA, ID_DA_F2("like")), doc.atividadeAnnounce(fed, "ana_1", NOTA_DE_FORA, ID_DA_F2("announce"), "https://mastodon.social/users/bia")], ([l, a]) =>
+  l.type === "Like" && l.actor === `${BASE}/api/fediverso/u/ana_1` && l.object === NOTA_DE_FORA && l.id === `${BASE}/api/fediverso/atividades/like/0123456789abcdef0123456789abcdef` &&
+  a.id === ID_DA_F2("announce") && a.type === "Announce" && a.to[0] === doc.PUBLICO && a.cc.includes(`${BASE}/api/fediverso/u/ana_1/seguidores`) && a.cc.includes("https://mastodon.social/users/bia"));
+await espera("id de atividade: sufixo simples vira URL daqui; id de outro host, http ou com espaço é recusado", async () => {
+  const recusa = (id) => { try { doc.atividadeLike(fed, "ana_1", NOTA_DE_FORA, id); return false; } catch (e) { return e.message === "id_de_atividade_invalido"; } };
+  return [doc.atividadeBlock(fed, "ana_1", "https://mastodon.social/users/bia", "b1").id, recusa("https://outra.org/atividades/like/1"), recusa(`http://${ALUMIA}/api/fediverso/atividades/like/1`), recusa("a b"), recusa(`${BASE}.evil.org/x`)];
+}, ([b, ...r]) => b === `${BASE}/api/fediverso/atividades/block/b1` && r.every(Boolean));
+await espera("Undo leva a atividade original inteira (sem @context) e o mesmo ator", async () => doc.atividadeUndo(fed, "ana_1", doc.atividadeLike(fed, "ana_1", NOTA_DE_FORA, ID_DA_F2("like"))), (u) =>
+  u.type === "Undo" && u.object.type === "Like" && u.object.id === ID_DA_F2("like") && !("@context" in u.object) && u.actor === u.object.actor && u.id.startsWith(`${u.object.id}#undo-`));
+await espera("curtir, descurtir e curtir de novo: os dois Undo têm ids diferentes; com id da fila, vale ele", async () => {
+  const like = doc.atividadeLike(fed, "ana_1", NOTA_DE_FORA, ID_DA_F2("like"));
+  return [doc.atividadeUndo(fed, "ana_1", like, undefined, new Date(1_000)).id, doc.atividadeUndo(fed, "ana_1", like, undefined, new Date(2_000)).id, doc.atividadeUndo(fed, "ana_1", like, ID_DA_F2("undo")).id];
+}, ([a, b, c]) => a !== b && c === ID_DA_F2("undo"));
+await espera("Flag sai do ator da INSTÂNCIA (quem denunciou não aparece), com os alvos e o comentário cortado", async () => doc.atividadeFlag(fed, ["https://mastodon.social/users/bia", NOTA_DE_FORA, "javascript:x"], "spam ".repeat(400), ID_DA_F2("flag")), (f) =>
+  f.type === "Flag" && f.id === ID_DA_F2("flag") && f.actor === `${BASE}/api/fediverso/ator` && f.object.length === 2 && Array.from(f.content).length <= 1000 && !/u\/ana_1/.test(JSON.stringify(f)));
+await espera("Block: ator daqui → alvo, com o id da F2", async () => doc.atividadeBlock(fed, "ana_1", "https://mastodon.social/users/bia", ID_DA_F2("block")), (b) => b.type === "Block" && b.object === "https://mastodon.social/users/bia" && b.id === ID_DA_F2("block"));
 
 // ═══════════════════ Group (fediverso-grupos) ═══════════════════
 await espera("sem fediverso-grupos, as rotas do Group dão 404 mesmo com o modo total", async () => Promise.all([rotaGrupo.GET(pedir("/api/fediverso/c/luta"), ctx({ slug: "luta" })), rotaGrupoOutbox.GET(pedir("/api/fediverso/c/luta/outbox"), ctx({ slug: "luta" }))]), (rs) => rs.every((r) => r.status === 404));
@@ -252,6 +318,11 @@ await espera("Group sem chave: o par é gerado aqui e a privada vai CIFRADA ao b
   const r = await json(await rotaGrupo.GET(pedir("/api/fediverso/c/estudo-coletivo"), ctx({ slug: "estudo-coletivo" })));
   return { r, chamou: chamadas.includes("comunidade_chaves") };
 }, ({ r, chamou }) => r.status === 200 && chamou && r.corpo.publicKey.publicKeyPem.startsWith("-----BEGIN PUBLIC KEY-----"));
+await espera("Group: pedidos simultâneos sem chave geram UM par só, e todos saem com a mesma chave", async () => {
+  chamadas.length = 0;
+  const rs = await Promise.all([1, 2, 3, 4].map(() => rotaGrupo.GET(pedir("/api/fediverso/c/outra-aberta"), ctx({ slug: "outra-aberta" })).then(json)));
+  return { rs, geracoes: chamadas.filter((c) => c === "comunidade_chaves").length };
+}, ({ rs, geracoes }) => geracoes === 1 && rs.every((r) => r.status === 200 && r.corpo.publicKey.publicKeyPem === rs[0].corpo.publicKey.publicKeyPem));
 await espera("Group: comunidade fechada ou inexistente dá 404", async () => Promise.all([rotaGrupo.GET(pedir("/api/fediverso/c/nucleo-x"), ctx({ slug: "nucleo-x" })), rotaGrupo.GET(pedir("/api/fediverso/c/nada"), ctx({ slug: "nada" }))]), (rs) => rs.every((r) => r.status === 404));
 await espera("Group: outbox com Announce(Create(Note)) e audience; só-seguidores fica de fora", async () => json(await rotaGrupoOutbox.GET(pedir("/api/fediverso/c/luta/outbox"), ctx({ slug: "luta" }))), ({ corpo: o }) =>
   o.orderedItems.length === 1 && o.orderedItems[0].type === "Announce" && o.orderedItems[0].actor === `${BASE}/api/fediverso/c/luta` && o.orderedItems[0].object.type === "Create" &&
@@ -262,13 +333,19 @@ await espera("Announce do Group: id estável e no host da Alumia, mesmo para ati
   a.id === b.id && a.id.startsWith(`${BASE}/api/fediverso/atividades/`) && a.cc[0] === `${BASE}/api/fediverso/c/luta/seguidores` && a.object.type === "Create");
 
 // ═══════════════════ NodeInfo contra os esquemas oficiais ═══════════════════
-/** Um conferidor pequeno do JSON Schema draft-04, só com o que os esquemas do NodeInfo usam. */
+/**
+ * Um conferidor pequeno do JSON Schema draft-04, com TODAS as palavras-chave que os esquemas do NodeInfo usam. Palavra-chave fora
+ * da lista é erro (o conferidor não finge validar o que não sabe).
+ */
+const CONHECIDAS = new Set(["$schema", "id", "description", "type", "additionalProperties", "required", "properties", "enum", "pattern", "minItems", "items", "minimum", "minProperties"]);
 function valida(esquema, valor, caminho = "$") {
   const erros = [];
+  for (const k of Object.keys(esquema)) if (!CONHECIDAS.has(k)) throw new Error(`palavra-chave que o conferidor não sabe: ${k} em ${caminho}`);
   const tipoDe = (v) => (Array.isArray(v) ? "array" : v === null ? "null" : Number.isInteger(v) ? "integer" : typeof v);
   if (esquema.type) {
     const t = tipoDe(valor);
-    if (!(t === esquema.type || (esquema.type === "number" && t === "integer"))) erros.push(`${caminho}: tipo ${t}, esperado ${esquema.type}`);
+    const aceitos = Array.isArray(esquema.type) ? esquema.type : [esquema.type];
+    if (!aceitos.some((a) => a === t || (a === "number" && t === "integer"))) erros.push(`${caminho}: tipo ${t}, esperado ${aceitos.join("|")}`);
   }
   if (esquema.enum && !esquema.enum.includes(valor)) erros.push(`${caminho}: ${JSON.stringify(valor)} fora de ${esquema.enum.join("|")}`);
   if (esquema.pattern && typeof valor === "string" && !new RegExp(esquema.pattern).test(valor)) erros.push(`${caminho}: não casa ${esquema.pattern}`);
@@ -278,17 +355,25 @@ function valida(esquema, valor, caminho = "$") {
     if (esquema.items) valor.forEach((v, i) => erros.push(...valida(esquema.items, v, `${caminho}[${i}]`)));
   }
   if (valor && typeof valor === "object" && !Array.isArray(valor)) {
+    if (esquema.minProperties !== undefined && Object.keys(valor).length < esquema.minProperties) erros.push(`${caminho}: menos de ${esquema.minProperties} campos`);
     for (const r of esquema.required ?? []) if (!(r in valor)) erros.push(`${caminho}: falta ${r}`);
     for (const [k, v] of Object.entries(valor)) {
       if (esquema.properties?.[k]) erros.push(...valida(esquema.properties[k], v, `${caminho}.${k}`));
       else if (esquema.additionalProperties === false) erros.push(`${caminho}: campo a mais ${k}`);
+      else if (esquema.additionalProperties && typeof esquema.additionalProperties === "object") erros.push(...valida(esquema.additionalProperties, v, `${caminho}.${k}`));
     }
   }
   return erros;
 }
 const esquema21 = JSON.parse(fs.readFileSync(new URL("./dados/nodeinfo-2.1.schema.json", import.meta.url), "utf8"));
 const esquema20 = JSON.parse(fs.readFileSync(new URL("./dados/nodeinfo-2.0.schema.json", import.meta.url), "utf8"));
-await espera("o conferidor de esquema pega erro (campo a mais, nome fora do padrão)", async () => valida(esquema21, { ...doc.documentoNodeinfo({ usuarios: 1, posts: 1 }, "1.0"), extra: 1, software: { name: "Alumia", version: "1" } }), (e) => e.length >= 2);
+await espera("o conferidor de esquema pega erro (campo a mais, nome fora do padrão, minProperties) e recusa palavra-chave que não sabe", async () => {
+  const erros = valida(esquema21, { ...doc.documentoNodeinfo({ usuarios: 1, posts: 1 }, "1.0"), extra: 1, software: { name: "Alumia", version: "1" } });
+  const minimo = valida({ type: "object", minProperties: 1 }, {});
+  let recusou = false;
+  try { valida({ type: "string", maxLength: 3 }, "abcd"); } catch { recusou = true; }
+  return { erros, minimo, recusou };
+}, ({ erros, minimo, recusou }) => erros.length >= 2 && minimo.length === 1 && recusou);
 await espera("NodeInfo 2.1 (modo total, com ativos) passa no esquema 2.1 oficial", async () => (await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo"))).json(), (n) =>
   valida(esquema21, n).length === 0 && n.usage.users.activeMonth === 2 && n.usage.users.activeHalfyear === 3 && n.version === "2.1");
 await espera("NodeInfo 2.0 (modo total) passa no esquema 2.0 oficial, com o profile certo", async () => {
@@ -332,7 +417,7 @@ await espera("nenhum documento que sai leva chave privada", async () => {
   return saidas.every((s) => s.status === 200 && semSegredo(s.corpo));
 });
 
-desligarTudo();
+padrao();
 if (falhas.length) {
   console.error(`${certos} conferências certas, ${falhas.length} com problema:\n- ${falhas.join("\n- ")}`);
   process.exit(1);
