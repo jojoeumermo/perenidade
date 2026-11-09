@@ -7,6 +7,7 @@ import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { useEscola } from "@/lib/escola/acesso";
 import { publicaDaEscola } from "@/lib/escola/rotas";
 import { Casca } from "./casca/Casca";
+import { PortaPublica } from "./porta/PortaPublica";
 import { PortaVermelha } from "./porta/PortaVermelha";
 
 /**
@@ -30,9 +31,15 @@ import { PortaVermelha } from "./porta/PortaVermelha";
 export function PortaDaEscola({ lang, t, children }: { lang: Locale; t: Pick<TextosDaFormacaoBase, "porta" | "casca">; children: React.ReactNode }) {
   const caminho = usePathname() ?? "";
   const escola = useEscola();
-  // As páginas abertas (o chamado e o manifesto) abrem para todo mundo; quem já é militante as lê dentro da casca, como
-  // o resto da Escola, sem sair para o site.
-  if (publicaDaEscola(caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/") && escola.estado !== "militante") return <>{children}</>;
+  // As páginas abertas (o chamado, o manifesto e o entrar) abrem para todo mundo, sempre no desenho da Escola: quem já é
+  // militante as lê dentro da casca; os outros, na moldura da porta (PortaPublica), sem cair no papel claro do site.
+  if (publicaDaEscola(caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/") && escola.estado !== "militante") {
+    return (
+      <PortaPublica lang={lang} t={t.porta} caminho={caminho}>
+        {children}
+      </PortaPublica>
+    );
+  }
   if (escola.estado === "militante") {
     return (
       <Casca lang={lang} t={t.casca} eu={escola.eu}>

@@ -216,7 +216,7 @@ confere("data de hoje por extenso", /^quarta, 11 de novembro$/.test(dataDeHoje("
 confere("coluna: Hoje, Formação, Núcleo, Biblioteca, Meu percurso, A Frente", COLUNA_DA_ESCOLA.map((x) => x.chave).join() === "hoje,formacao,nucleo,biblioteca,percurso,frente");
 confere("barra do celular: Hoje, Formação, Núcleo, Biblioteca, Eu", BARRA_DA_ESCOLA.map((x) => x.chave).join() === "hoje,formacao,nucleo,biblioteca,percurso");
 confere("tela aberta", telaAberta("/escola") === "hoje" && telaAberta("/escola/formacao/x/y") === "formacao" && telaAberta("/escola/ao-vivo/123") === "aoVivo" && telaAberta("/escola/cursos") === null && telaAberta("/escolar") === null);
-confere("públicas continuam só militantes e manifesto", PUBLICAS_DA_ESCOLA.join() === "/escola/militantes,/escola/manifesto" && publicaDaEscola("/escola/manifesto/") && !publicaDaEscola("/escola"));
+confere("públicas: o chamado, o manifesto e o entrar da Escola", PUBLICAS_DA_ESCOLA.join() === "/escola/militantes,/escola/manifesto,/escola/entrar" && publicaDaEscola("/escola/manifesto/") && !publicaDaEscola("/escola"));
 const semPagina = TELAS_DA_FORMACAO.filter((x) => x.frente === "F1" && !fs.existsSync(path.join(raiz, "app", "[lang]", ...x.caminho.split("/").filter(Boolean), "page.tsx")));
 confere("as telas da F1 têm página", semPagina.length === 0, semPagina.map((x) => x.caminho).join());
 
