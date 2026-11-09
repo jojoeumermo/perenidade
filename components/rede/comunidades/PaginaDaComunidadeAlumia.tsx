@@ -84,7 +84,9 @@ export function PaginaDaComunidadeAlumia({
 
   useEffect(() => {
     let vivo = true;
-    const pedir = previa() ? Promise.resolve(paginaDeExemplo(slug)) : comunidades.pagina(slug);
+    // rede_alumia_com_pagina (20261109-alumia-f3.sql): a página de hoje + "N posts esta semana", agregado e nulo abaixo de 3. Banco
+    // sem a migração da F3 ainda: cai na página de hoje (sem a contagem, que aparece como "poucos").
+    const pedir = previa() ? Promise.resolve(paginaDeExemplo(slug)) : comunidades.paginaAlumia(slug).catch(() => comunidades.pagina(slug));
     pedir
       .then((dado) => vivo && setEstado({ slug, dado, erro: "" }))
       .catch((e) => vivo && setEstado({ slug, dado: null, erro: textoDoErro(s, e) }));
@@ -234,9 +236,12 @@ export function PaginaDaComunidadeAlumia({
           <button type="button" className="al3-capa-acao al3-capa-acao-contorno" onClick={verRegras}>
             {preencher(t.comunidade.regras, { n: comunidade.regras.length })}
           </button>
-          <p className="al3-capa-semana" title={t.comunidade.semanaRegra}>
-            {semana === null ? t.comunidade.semanaPoucos : preencher(t.comunidade.semana, { n: semana.toLocaleString(lang) })}
-          </p>
+          {/* Sem o campo (banco ainda sem a F3), nada: "poucos" seria afirmar o que não se sabe. */}
+          {dado.posts_7d !== undefined && (
+            <p className="al3-capa-semana" title={t.comunidade.semanaRegra}>
+              {semana === null ? t.comunidade.semanaPoucos : preencher(t.comunidade.semana, { n: semana.toLocaleString(lang) })}
+            </p>
+          )}
         </div>
         {motivo && <p className="al3-capa-aviso" id={idDoMotivo}>{motivo}</p>}
         {dado.modero && Boolean(dado.pedidos) && <p className="al3-capa-aviso">{preencher(t.comunidade.pedidos, { n: dado.pedidos ?? 0 })}</p>}
