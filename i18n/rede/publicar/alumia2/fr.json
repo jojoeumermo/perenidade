@@ -10,6 +10,7 @@
     "nucleos": "Cellules",
     "avisos": "Notifications",
     "avisosNovos": "Notifications, {n} nouvelles",
+    "emblema": "{n} avec du nouveau",
     "conversas": "Messages",
     "salvos": "Enregistrés",
     "perfil": "Profil",
@@ -76,7 +77,9 @@
     "aula": "Cours de l’Instituto Lúcia",
     "obra": "Œuvre du fonds de l’Instituto Lúcia",
     "materia": "Article de l’Instituto Lúcia",
-    "indisponivel": "Cela arrive avec la prochaine mise à jour d’Alumia."
+    "indisponivel": "Cela arrive avec la prochaine mise à jour d’Alumia.",
+    "naoRepostavel": "On ne peut repartager qu'une publication d'une autre personne écrite pour tout le monde (pas une réponse, ni une publication pour un groupe plus restreint).",
+    "veioDeRepost": "Repartagé par une personne que vous suivez"
   },
   "enquete": {
     "rotulo": "Sondage",
@@ -137,7 +140,9 @@
     "continuar": "Continuer",
     "apagar": "Effacer",
     "semTexto": "(sans texte)",
-    "semAlt": "Une image n’a pas de description : les personnes qui utilisent un lecteur d’écran ne sauront pas ce qu’elle montre. Décrivez-la, ou touchez à nouveau pour publier ainsi."
+    "semAlt": "Une image n’a pas de description : les personnes qui utilisent un lecteur d’écran ne sauront pas ce qu’elle montre. Décrivez-la, ou touchez à nouveau pour publier ainsi.",
+    "naoDesfez": "Impossible d'annuler : la publication est déjà partie. Vous pouvez la supprimer depuis le menu de la publication.",
+    "rascunhosCheios": "Vous avez déjà 20 brouillons dans votre compte : celui-ci reste seulement sur cet appareil. Supprimez-en un pour l'enregistrer dans le compte."
   },
   "direita": {
     "rotulo": "Sur Alumia maintenant",

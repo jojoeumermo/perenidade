@@ -3,6 +3,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { rede } from "@/lib/rede/cliente";
+import { redePub } from "@/lib/rede/cliente-publicar";
+import { misturarRepostes } from "@/lib/rede/publicar/alumia2";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { lerSilenciosLocais, silenciadoNoAparelho, type SilencioLocal } from "@/lib/rede/silenciar-local";
@@ -15,6 +17,16 @@ import { Icone } from "./publicar/alumia2/icones";
 
 /** De quanto em quanto tempo se pergunta "N novos" (só com a página à vista; nada de tempo real por enquanto). */
 const ESPERA_DOS_NOVOS_MS = 60_000;
+
+/**
+ * Alumia nova (F1): os reposts de quem a pessoa segue que caem na janela de tempo de uma página da aba Seguindo (de `ate` até o
+ * post mais antigo da página; na última página, sem fim). Sem a função no banco (ou com erro), a página vem só com os posts, como hoje.
+ */
+async function comRepostes(itens: Post[], proximo: string | null, ate: string | null, jaVistos?: ReadonlySet<string>): Promise<{ itens: Post[]; desde: string | null }> {
+  const desde = proximo && itens.length ? itens[itens.length - 1].criado_em : null;
+  const repostes = await redePub.repostes(ate, desde, 20).catch(() => []);
+  return { itens: Array.isArray(repostes) && repostes.length ? misturarRepostes(itens, repostes, jaVistos) : itens, desde };
+}
 
 /**
  * Uma linha de posts: carrega 20 por vez por cursor, mostra o esqueleto enquanto espera, a faixa "N novos posts, mostrar" no alto e
@@ -50,6 +62,10 @@ export function Linha({
   // Alumia nova (flag "alumia-2"): a faixa "N posts novos" vira a pílula da prancha; na prévia, os posts de exemplo.
   const al2 = useAlumia2();
   const previa = Boolean(al2?.previa) && !aba.includes(":");
+  // Na aba Seguindo da Alumia nova, os reposts de quem a pessoa segue entram na ordem de chegada (só com a flag "alumia-2").
+  const comReposts = Boolean(al2) && !previa && logado && aba === "seguindo";
+  // Até onde já vieram reposts (o post mais antigo da última página carregada).
+  const repostesAte = useRef<string | null>(null);
   // "Silenciar só neste aparelho": a lista fica no navegador e só esconde o que a tela mostra (o servidor não sabe dela).
   const [silencios] = useState<SilencioLocal[]>(() => {
     try {
@@ -66,11 +82,18 @@ export function Linha({
     const antes = new Date().toISOString();
     // Prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): os posts das pranchas, nunca misturados com os de verdade; "3 posts novos".
     // Os exemplos só são baixados na prévia (import sob demanda): fora dela, não pesam no pacote da Rede de hoje.
-    const pedido = previa ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({ itens: m.postsDeExemplo(), proximo: null })) : rede.linha(aba, null, 20);
+    const pedido = previa
+      ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({ itens: m.postsDeExemplo(), proximo: null }))
+      : rede.linha(aba, null, 20).then(async (r) => {
+          if (!comReposts) return r;
+          const m = await comRepostes(r.itens, r.proximo, null);
+          return { itens: m.itens, proximo: r.proximo, desde: m.desde };
+        });
     pedido
       .then((r) => {
         if (!vivo) return;
         desde.current = antes;
+        repostesAte.current = "desde" in r ? (r.desde ?? null) : null;
         setItens(r.itens);
         setProximo(r.proximo);
         setNovos(previa && versao === 0 ? 3 : 0);
@@ -84,7 +107,7 @@ export function Linha({
     return () => {
       vivo = false;
     };
-  }, [aba, s, versao, previa]);
+  }, [aba, s, versao, previa, comReposts]);
 
   const carregar = () => {
     setEstado("carregando");
@@ -106,9 +129,15 @@ export function Linha({
     setMaisCarregando(true);
     try {
       const r = await rede.linha(aba, proximo, 20);
+      let pagina = r.itens;
+      if (comReposts) {
+        const m = await comRepostes(r.itens, r.proximo, repostesAte.current, new Set(itens.map((p) => p.id)));
+        pagina = m.itens;
+        repostesAte.current = m.desde;
+      }
       setItens((atual) => {
         const vistos = new Set(atual.map((p) => p.id));
-        return [...atual, ...r.itens.filter((p) => !vistos.has(p.id))];
+        return [...atual, ...pagina.filter((p) => !vistos.has(p.id))];
       });
       setProximo(r.proximo);
     } catch (e) {
