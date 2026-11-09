@@ -29,7 +29,8 @@
     "nota": "Each building's stamp stays on this device only. It is not worth points and there is no ranking.",
     "secoes": "{n} places",
     "abrir": "See what is in the {nome} building",
-    "verTudo": "See all ({n})"
+    "verTudo": "See all ({n})",
+    "verMenos": "Show less"
   },
   "calendario": {
     "atual": "This term",
