@@ -117,3 +117,187 @@
     transition: none;
   }
 }
+
+/* ───────────── Alumia nova (Onda 5, F1: casca, linha, cartão e escrever) ─────────────
+ * Só dentro de [data-al="2"] (as flags "rede-v2" + "alumia-2"); desligadas, nada abaixo casa com nada. Os tokens vêm de
+ * styles/alumia-tokens.css (F0). As telas antigas que abrem dentro da casca nova (conversa, comunidade, perfil, pacotes) usam
+ * as cores do site (--parchment, --ink…): aqui elas passam a apontar para os tokens da noite, para nada ficar claro no escuro.
+ */
+[data-al="2"] {
+  --parchment: var(--al-fundo);
+  --parchment-deep: var(--al-superficie-2);
+  --ink: var(--al-texto);
+  --ink-soft: var(--al-texto-3);
+  --oxblood: #ff7a6b;
+  --rule: var(--al-linha);
+  --folha: var(--al-superficie);
+}
+:root[data-eink] [data-al="2"] { --oxblood: #000; }
+:root[data-contrast] [data-al="2"] { --oxblood: #ff8a7a; }
+[data-al="2"] .alumia-moldura { background: var(--al-fundo); min-height: 100vh; }
+body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
+
+/* O texto das pranchas: Archivo, sem serifa, também nas telas antigas que abrem na casca nova. */
+[data-al="2"] .al2 { font-family: var(--al-fonte); color: var(--al-texto); }
+[data-al="2"] .al2 :is(.font-serif, .font-sans) { font-family: var(--al-fonte); }
+
+/* Menu do computador: item com ícone; o atual em superfície. */
+[data-al="2"] .al2-menu-item {
+  display: flex; align-items: center; gap: 0.85rem; min-height: 46px; padding: 0 0.85rem; border-radius: 10px;
+  color: var(--al-texto-2); font-size: 1.0625rem; text-decoration: none;
+}
+[data-al="2"] .al2-menu-item:hover { background: var(--al-superficie); color: var(--al-texto); }
+[data-al="2"] .al2-menu-item[aria-current="page"] { background: var(--al-superficie); color: var(--al-texto); font-weight: 700; }
+[data-al="2"] .al2-menu-item[aria-current="page"] svg { color: var(--al-vermelho); }
+[data-al="2"] .al2-menu-item[aria-disabled="true"] { opacity: 0.55; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-menu-item[aria-current="page"] { outline: 2px solid var(--al-texto); }
+[data-al="2"] .al2-emblema {
+  margin-left: auto; display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; padding: 0 0.3rem;
+  border-radius: 999px; font-size: 0.75rem; font-weight: 800; line-height: 1;
+}
+[data-al="2"] .al2-emblema-dourado { background: var(--al-dourado); color: var(--al-sobre-dourado); }
+[data-al="2"] .al2-emblema-vermelho { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+
+/* Abas da linha: texto; a atual em negrito com o traço vermelho embaixo. */
+[data-al="2"] .al2-aba {
+  position: relative; min-height: 46px; padding: 0 0.85rem; background: none; border: 0; cursor: pointer;
+  color: var(--al-texto-3); font-family: var(--al-fonte); font-weight: 600; font-size: 0.9375rem;
+}
+[data-al="2"] .al2-aba[aria-selected="true"] { color: var(--al-texto); font-weight: 800; }
+[data-al="2"] .al2-aba[aria-selected="true"]::after {
+  content: ""; position: absolute; left: 0.5rem; right: 0.5rem; bottom: 0; height: 3px; background: var(--al-vermelho);
+}
+:root[data-eink] [data-al="2"] .al2-aba[aria-selected="true"] { text-decoration: underline; text-underline-offset: 6px; }
+
+/* Cartão de post: separado por fio, sem caixa (como nas pranchas). */
+[data-al="2"] .al2-cartao { border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .al2-acao {
+  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; min-width: 44px; padding: 0 0.35rem;
+  background: none; border: 0; border-radius: 8px; cursor: pointer; color: var(--al-texto-3);
+  font-family: var(--al-fonte); font-size: 0.8125rem; font-weight: 600; text-decoration: none;
+}
+[data-al="2"] .al2-acao:hover { color: var(--al-texto); background: var(--al-superficie); }
+[data-al="2"] .al2-acao:disabled { cursor: not-allowed; opacity: 0.55; }
+[data-al="2"] .al2-acao[aria-pressed="true"] { color: var(--al-vermelho); }
+[data-al="2"] .al2-acao-acender[aria-pressed="true"] svg { fill: currentColor; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-acao[aria-pressed="true"] { background: var(--al-texto); color: var(--al-fundo); }
+
+/* Enquete com barras (prancha computador-inicio). */
+[data-al="2"] .al2-barra {
+  position: relative; display: flex; align-items: center; justify-content: space-between; min-height: 36px; padding: 0 0.8rem;
+  overflow: hidden; border-radius: 4px; background: var(--al-superficie-2); color: var(--al-texto); font-weight: 700; font-size: 0.8125rem;
+}
+[data-al="2"] .al2-barra-cheia { position: absolute; inset: 0 auto 0 0; background: color-mix(in srgb, var(--al-com-5) 45%, var(--al-superficie-2)); }
+[data-al="2"] .al2-barra-minha .al2-barra-cheia { background: color-mix(in srgb, var(--al-com-5) 65%, var(--al-superficie-2)); }
+[data-al="2"] .al2-barra > span:not(.al2-barra-cheia) { position: relative; }
+:root[data-eink] [data-al="2"] .al2-barra { border: 1px solid #000; }
+:root[data-eink] [data-al="2"] .al2-barra-cheia { background: repeating-linear-gradient(45deg, #000 0 2px, #fff 2px 6px); }
+:root[data-eink] [data-al="2"] .al2-barra > span:not(.al2-barra-cheia) { background: #fff; padding: 0 0.2rem; }
+:root[data-contrast] [data-al="2"] .al2-barra { border: 1px solid #fff; }
+
+/* Campo: superfície com borda fina, cantos das pranchas. */
+[data-al="2"] .al2-campo {
+  display: block; width: 100%; border: 1.5px solid var(--al-superficie-2); border-radius: 14px; background: var(--al-superficie);
+  color: var(--al-texto); font-family: var(--al-fonte); padding: 0.8rem 1rem;
+}
+[data-al="2"] .al2-campo::placeholder { color: var(--al-texto-3); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-campo { border-color: var(--al-texto); }
+[data-al="2"] .al2-rotulo { display: block; margin-bottom: 0.4rem; color: var(--al-texto-3); font-size: 0.875rem; font-weight: 700; }
+
+/* Tipo do compositor: pílulas; a escolhida em dourado (prancha celular-escrever-ato). */
+[data-al="2"] .al2-tipo {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 1.1rem; border-radius: 999px; cursor: pointer;
+  border: 1.5px solid var(--al-superficie-2); background: transparent; color: var(--al-texto-2); font-family: var(--al-fonte); font-weight: 700;
+  white-space: nowrap;
+}
+[data-al="2"] .al2-tipo[aria-checked="true"] { background: var(--al-dourado); border-color: var(--al-dourado); color: var(--al-sobre-dourado); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-tipo { border-color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al2-tipo[aria-checked="true"] { background: #000; color: #fff; }
+
+/* Linha de escolha (Onde publicar, Quem vê, Quem responde). */
+[data-al="2"] .al2-escolha {
+  display: flex; width: 100%; align-items: center; gap: 0.75rem; min-height: 56px; padding: 0.5rem 0; cursor: pointer;
+  border: 0; border-top: 1px solid var(--al-linha); background: none; color: var(--al-texto-3); font-family: var(--al-fonte);
+  font-size: 1rem; text-align: left;
+}
+[data-al="2"] .al2-escolha strong { margin-left: auto; color: var(--al-texto); text-align: right; }
+
+/* O aviso flutuante ("Enviando em 10 s · Desfazer"). */
+[data-al="2"] .al2-aviso-flutuante {
+  position: fixed; left: 50%; bottom: calc(5.5rem + var(--recuo-baixo, 0px)); transform: translateX(-50%); z-index: 60;
+  display: flex; align-items: center; gap: 0.75rem; max-width: calc(100vw - 32px); padding: 0.35rem 0.35rem 0.35rem 1rem;
+  border-radius: 999px; background: var(--al-texto); color: var(--al-fundo); font-weight: 700; box-shadow: 0 6px 24px #0008;
+}
+@media (min-width: 768px) { [data-al="2"] .al2-aviso-flutuante { bottom: 2rem; } }
+:root[data-eink] [data-al="2"] .al2-aviso-flutuante { background: #fff; color: #000; border: 2px solid #000; box-shadow: none; }
+
+/* Barra de baixo do celular. */
+[data-al="2"] .al2-barra-baixo { background: var(--al-fundo); border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al2-barra-item {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem; min-height: 60px;
+  color: var(--al-texto-3); font-size: 0.75rem; font-weight: 600; text-decoration: none;
+}
+[data-al="2"] .al2-barra-item[aria-current="page"] { color: var(--al-texto); font-weight: 800; }
+[data-al="2"] .al2-barra-item[aria-current="page"] svg { color: var(--al-vermelho); }
+:root[data-eink] [data-al="2"] .al2-barra-item[aria-current="page"] { text-decoration: underline; }
+
+/* Blocos da coluna da direita. */
+[data-al="2"] .al2-bloco { border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-bloco { border-color: var(--al-texto); }
+
+/* Na casca nova, a faixa escura "Voltar ao site" da moldura sai (a faixa tecida e o menu da conta fazem esse papel). */
+[data-al="2"] .alumia-moldura > nav:first-of-type { display: none; }
+
+/* Faixa dourada do próximo ato (prancha: "PRÓXIMO ATO … [2d] [04h]"). */
+[data-al="2"] .al2-faixa-ato { background: var(--al-dourado); color: var(--al-sobre-dourado); text-decoration: none; }
+[data-al="2"] .al2-faixa-ato .al-flap { background: var(--al-fundo); color: var(--al-dourado); }
+:root[data-eink] [data-al="2"] .al2-faixa-ato { background: #fff; color: #000; border-block: 2px solid #000; }
+:root[data-eink] [data-al="2"] .al2-faixa-ato .al-flap { background: #000; color: #fff; }
+
+/* "↑ 3 posts novos": pílula no meio da linha. */
+[data-al="2"] .al2-novos {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 40px; padding: 0 1rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte);
+  font-size: 0.8125rem; font-weight: 800; box-shadow: 0 4px 16px #0006;
+}
+[data-al="2"] .al2-novos-n { display: inline-grid; place-items: center; min-width: 1.3rem; height: 1.3rem; border-radius: 4px; background: var(--al-dourado); color: var(--al-sobre-dourado); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-novos { border-color: var(--al-texto); box-shadow: none; }
+
+/* O "+" da barra de baixo: quadrado vermelho de cantos redondos. */
+[data-al="2"] .al2-mais { background: var(--al-vermelho); color: var(--al-sobre-vermelho); border: 0; cursor: pointer; }
+:root[data-eink] [data-al="2"] .al2-mais { background: #000; color: #fff; }
+
+/* Abas da linha no celular: o traço vermelho ocupa a aba inteira. */
+@media (max-width: 1023px) {
+  [data-al="2"] .al2-aba { font-size: 1.05rem; min-height: 52px; }
+  [data-al="2"] .al2-aba[aria-selected="true"]::after { left: 0; right: 0; }
+}
+
+/* Os campos do pacote publicar (imagens, enquete, agendar) dentro do Escrever novo. */
+[data-al="2"] .al2-extras :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea) {
+  background: var(--al-superficie); color: var(--al-texto); border-color: var(--al-superficie-2); border-radius: 10px;
+}
+[data-al="2"] .al2-extras fieldset { border-color: var(--al-superficie-2); border-radius: 14px; }
+
+/* A conta no pé do menu. */
+[data-al="2"] .al2-conta[open] > summary { border-bottom: 0; }
+
+/* A linha nova não tem caixa por post (pranchas): o cartão é separado por fio. */
+[data-al="2"] .al2 .alumia-lista { display: block; gap: 0; padding: 0; }
+[data-al="2"] .al2 .alumia-lista > li > article { border: 0; border-bottom: 1px solid var(--al-linha); border-radius: 0; background: transparent; transition: none; }
+[data-al="2"] .al2 .alumia-lista > li > article:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); }
+
+/* No celular estreito as quatro pílulas de tipo cabem numa linha (prancha celular-escrever-ato). */
+@media (max-width: 399px) {
+  [data-al="2"] .al2-tipos { gap: 0.35rem; flex-wrap: nowrap; }
+  [data-al="2"] .al2-tipos .al2-tipo { padding: 0 0.7rem; gap: 0.3rem; font-size: 0.875rem; }
+  [data-al="2"] .al2-tipos .al2-tipo svg { width: 1rem; height: 1rem; }
+}
+
+/* Os extras (Imagens, Áudio, Publicar mais tarde) com a cara das pranchas: blocos de superfície com cantos redondos. */
+[data-al="2"] .al2-extras fieldset { background: var(--al-superficie); border: 1px solid var(--al-superficie-2); padding: 0.85rem 1rem; }
+[data-al="2"] .al2-extras legend { padding: 0 0.35rem; color: var(--al-texto-2); font-weight: 700; font-size: 0.875rem; }
+[data-al="2"] .al2-extras :is(button, label) :is(img, video) { border-radius: 10px; }
+[data-al="2"] .al2-extras input[type="datetime-local"] { border-width: 1.5px; min-height: 48px; color-scheme: dark; }
+:root[data-eink] [data-al="2"] .al2-extras input[type="datetime-local"] { color-scheme: light; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-extras fieldset { border-color: var(--al-texto); }
