@@ -87,6 +87,8 @@ export interface Encaixe {
   abasDaComunidade?: AbaEncaixada<{ slug: string }>[];
   abasDoNucleo?: AbaEncaixada<{ nucleo: string }>[];
   colunaDireita?: ComponentType<ContextoDoEncaixe>[];
+  /** No alto da linha de Início, acima das abas (a faixa de stories da F5). */
+  topoDaLinha?: ComponentType<ContextoDoEncaixe>[];
   secoesDeAjustes?: { chave: string; titulo: (ctx: ContextoDoEncaixe) => string; Componente: ComponentType<ContextoDoEncaixe> }[];
   aoSairRapido?: LimpezaAoSair[];
 }
@@ -98,7 +100,7 @@ export type EncaixesJuntos = { [K in keyof Encaixe]-?: NonNullable<Encaixe[K]> }
 export function juntarEncaixes(lista: readonly Encaixe[]): EncaixesJuntos {
   const junto: EncaixesJuntos = {
     menu: [], acoesDoCartao: [], anexosDoCartao: [], tiposDoCompositor: [], antesDePublicar: [], abasDoPerfil: [],
-    abasDaComunidade: [], abasDoNucleo: [], colunaDireita: [], secoesDeAjustes: [], aoSairRapido: [],
+    abasDaComunidade: [], abasDoNucleo: [], colunaDireita: [], topoDaLinha: [], secoesDeAjustes: [], aoSairRapido: [],
   };
   for (const e of lista) {
     for (const chave of Object.keys(junto) as (keyof EncaixesJuntos)[]) {

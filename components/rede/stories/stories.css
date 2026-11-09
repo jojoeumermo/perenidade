@@ -1,0 +1,663 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Os stories da Alumia (PLANO-ALUMIA F5; pranchas celular-stories-na-linha, celular-criar-story e celular-ver-story). Tudo dentro
+ * de [data-al="2"] (as flags "rede-v2" + "alumia-2"; a tela ainda pede "alumia-stories"): desligado, nenhum seletor casa.
+ * Medidas tiradas das pranchas (390 px de largura): bolinha de 62 px, anel de 3 px, texto grande em Archivo condensada.
+ * E-ink e alto contraste: o fundo colorido some (papel/preto), o texto e as figurinhas ganham borda, nada depende só de cor.
+ */
+
+/* ───────────── Faixa de stories (alto da linha) ───────────── */
+[data-al="2"] .al-st-faixa {
+  /* A faixa traz o próprio fundo e a cor do texto da Alumia: os nomes ficam legíveis em qualquer casca (clara ou escura). */
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  border-bottom: 1px solid var(--al-linha);
+  padding: 14px 0 12px;
+}
+[data-al="2"] .al-st-faixa-trilho {
+  display: flex;
+  gap: 13px;
+  overflow-x: auto;
+  padding: 2px 16px 4px;
+  margin: 0;
+  list-style: none;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+[data-al="2"] .al-st-faixa-trilho::-webkit-scrollbar { display: none; }
+[data-al="2"] .al-st-faixa-item { flex: 0 0 76px; scroll-snap-align: start; }
+[data-al="2"] .al-st-bolinha {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  width: 76px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--al-texto);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+[data-al="2"] .al-st-anel {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 17px;
+  padding: 3px;
+  background: var(--al-st-anel);
+}
+[data-al="2"] .al-st-anel-miolo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: var(--al-fundo);
+  padding: 2px;
+  overflow: hidden;
+}
+[data-al="2"] .al-st-anel-miolo svg { width: 100%; height: 100%; display: block; }
+[data-al="2"] .al-st-anel-seu {
+  background: none;
+  border: 2px dashed var(--al-texto-3);
+  padding: 4px;
+}
+[data-al="2"] .al-st-anel-seu.al-st-no-ar { border-style: solid; border-color: var(--al-vermelho); }
+[data-al="2"] .al-st-mais {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--al-vermelho-texto);
+  color: var(--al-sobre-vermelho);
+  border: 2px solid var(--al-fundo);
+}
+[data-al="2"] .al-st-mais svg { width: 14px; height: 14px; }
+[data-al="2"] .al-st-nome {
+  max-width: 76px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+[data-al="2"] .al-st-bolinha[data-visto="sim"] .al-st-nome { color: var(--al-texto-3); font-weight: 600; }
+[data-al="2"] .al-st-aviso {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 16px 0;
+  color: var(--al-texto-3);
+  font-size: 13px;
+  line-height: 1.3;
+}
+[data-al="2"] .al-st-aviso svg { flex: 0 0 18px; width: 18px; height: 18px; }
+[data-al="2"] .al-st-esqueleto { width: 62px; height: 62px; border-radius: 17px; background: var(--al-superficie); }
+[data-al="2"] .al-st-erro { margin: 8px 16px 0; color: var(--al-texto-2); font-size: 13px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+/* Anéis sem cor: o visto continua dizendo "visto" pela borda tracejada fina e pelo nome mais fraco (WCAG 1.4.1). */
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-anel { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-bolinha[data-visto="sim"] .al-st-anel { background: none; border: 2px dashed var(--al-texto); padding: 1px; }
+
+/* As abas da linha (as mesmas da casca: Seguindo / Comunidades / Tudo). */
+[data-al="2"] .al-st-abas { background: var(--al-fundo); display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .al-st-aba {
+  min-height: 56px;
+  padding: 0 8px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--al-texto-3);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+[data-al="2"] .al-st-aba[aria-selected="true"] { color: var(--al-texto); border-bottom-color: var(--al-vermelho); }
+[data-al="2"] .al-st-aba-painel { color: var(--al-texto); }
+
+/* ───────────── A tela de um story (visor e prévia do criar) ───────────── */
+[data-al="2"] .al-st-tela {
+  --st-fundo: #23408e;
+  --st-texto: #f3efe6;
+  position: relative;
+  overflow: hidden;
+  background: var(--st-fundo);
+  color: var(--st-texto);
+  isolation: isolate;
+}
+[data-al="2"] .al-st-fundo { position: absolute; inset: 0; z-index: -1; }
+[data-al="2"] .al-st-fundo svg,
+[data-al="2"] .al-st-fundo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+[data-al="2"] .al-st-texto {
+  margin: 0;
+  font-family: var(--al-fonte);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+  color: var(--st-texto);
+}
+[data-al="2"] .al-st-texto-sombra { text-shadow: 3px 4px 0 rgba(0, 0, 0, 0.35); }
+[data-al="2"] .al-st-tarja {
+  display: inline-block;
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  background: #0f0e0d;
+  color: #f3efe6;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+/* E-ink: papel e tinta; o fundo de cor some. Alto contraste: preto, branco, borda. */
+:root[data-eink] [data-al="2"] .al-st-tela { --st-fundo: #ffffff !important; --st-texto: #000000 !important; }
+:root[data-contrast] [data-al="2"] .al-st-tela { --st-fundo: #000000 !important; --st-texto: #ffffff !important; }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-fundo { display: none; }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-fundo.al-st-fundo-imagem { display: block; }
+:root[data-eink] [data-al="2"] .al-st-fundo-imagem img { filter: grayscale(1); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-texto-sombra { text-shadow: none; }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-tarja { background: var(--st-texto); color: var(--st-fundo); }
+
+/* ───────────── Figurinhas ───────────── */
+[data-al="2"] .al-fg { font-family: var(--al-fonte); color: #0f0e0d; }
+[data-al="2"] .al-fg-papel {
+  background: #f3efe6;
+  border-radius: 18px;
+  padding: 14px 16px 16px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
+}
+[data-al="2"] .al-fg-torto-dir { transform: rotate(1.8deg); }
+[data-al="2"] .al-fg-torto-esq { transform: rotate(-2deg); }
+[data-al="2"] .al-fg-etiqueta {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a5180e;
+}
+[data-al="2"] .al-fg-pergunta-texto { margin: 0 0 10px; font-size: 17px; font-weight: 800; line-height: 1.2; }
+[data-al="2"] .al-fg-campo {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #e4dfd4;
+  color: #0f0e0d;
+  font: inherit;
+  font-size: 15px;
+}
+[data-al="2"] .al-fg-campo::placeholder { color: #5c554d; }
+[data-al="2"] .al-fg-campo-limpo { background: transparent; padding: 0; min-height: 0; font-weight: 800; font-size: 17px; border-radius: 4px; }
+[data-al="2"] .al-fg-linha { display: flex; gap: 8px; margin-top: 8px; }
+
+/* Contagem do ato (cartão dourado). */
+[data-al="2"] .al-fg-contagem {
+  background: #ffc21a;
+  border-radius: 16px;
+  padding: 14px 14px 14px;
+  box-shadow: 0 7px 0 rgba(0, 0, 0, 0.22);
+}
+[data-al="2"] .al-fg-contagem .al-fg-titulo { margin: 0 0 8px; font-size: 17px; }
+[data-al="2"] .al-fg-flaps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0; }
+[data-al="2"] .al-fg-flap {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 6px 4px 6px;
+  border-radius: 8px;
+  background: #0f0e0d;
+}
+[data-al="2"] .al-fg-flap dd { margin: 0; color: #ffc21a; font-size: 34px; line-height: 0.95; order: 1; }
+[data-al="2"] .al-fg-flap dt { color: #f3efe6; font-size: 11px; letter-spacing: 0.04em; order: 2; }
+[data-al="2"] .al-fg-botao-noite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 14px;
+  background: #0f0e0d;
+  color: #f3efe6;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+[data-al="2"] .al-fg-botao-noite[aria-pressed="true"] { background: #2a2622; outline: 2px solid #0f0e0d; }
+[data-al="2"] .al-fg-escolha { display: block; width: 100%; min-height: 44px; border-radius: 10px; border: 0; padding: 0 10px; background: #0f0e0d; color: #ffc21a; font: inherit; font-weight: 800; }
+
+/* Enquete (papel, sem giro). */
+[data-al="2"] .al-fg-enquete { background: #f3efe6; border-radius: 20px; padding: 16px 12px 12px; text-align: center; box-shadow: 0 6px 0 rgba(0, 0, 0, 0.18); }
+[data-al="2"] .al-fg-enquete-pergunta { margin: 0 0 12px; font-size: 16px; font-weight: 800; }
+[data-al="2"] .al-fg-opcoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+[data-al="2"] .al-fg-opcao {
+  position: relative;
+  min-height: 44px;
+  border: 2px solid #0f0e0d;
+  border-radius: 12px;
+  background: transparent;
+  color: #0f0e0d;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  overflow: hidden;
+}
+[data-al="2"] .al-fg-opcao[aria-pressed="true"] { background: #0f0e0d; color: #f3efe6; }
+[data-al="2"] .al-fg-opcao:disabled { cursor: default; }
+[data-al="2"] .al-fg-opcao-barra { position: absolute; inset: 0 auto 0 0; background: rgba(232, 50, 31, 0.22); z-index: -1; }
+[data-al="2"] .al-fg-opcao input { width: 100%; border: 0; background: none; text-align: center; font: inherit; color: inherit; min-height: 40px; }
+[data-al="2"] .al-fg-nota { margin: 8px 0 0; font-size: 12px; color: #5c554d; line-height: 1.3; }
+
+/* Link. */
+[data-al="2"] .al-fg-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: #f3efe6;
+  color: #0f0e0d;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18);
+}
+[data-al="2"] .al-fg-link svg { flex: 0 0 18px; width: 18px; height: 18px; color: #c21f16; }
+[data-al="2"] .al-fg-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-al="2"] .al-fg-link small { font-weight: 600; color: #5c554d; }
+[data-al="2"] .al-fg-tirar {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 2px solid #f3efe6;
+  background: #0f0e0d;
+  color: #f3efe6;
+  cursor: pointer;
+}
+[data-al="2"] .al-fg-tirar svg { width: 14px; height: 14px; }
+/* Figurinhas no e-ink e no alto contraste: papel branco/preto com borda, sem dourado. */
+:root[data-eink] [data-al="2"] :is(.al-fg-papel, .al-fg-contagem, .al-fg-enquete, .al-fg-link) { background: #fff; border: 2px solid #000; box-shadow: none; transform: none; }
+:root[data-eink] [data-al="2"] .al-fg-etiqueta { color: #000; }
+:root[data-eink] [data-al="2"] .al-fg-flap dd { color: #fff; }
+:root[data-contrast] [data-al="2"] :is(.al-fg-papel, .al-fg-contagem, .al-fg-enquete, .al-fg-link) { background: #fff; border: 3px solid #ffd400; box-shadow: none; }
+:root[data-contrast] [data-al="2"] .al-fg-etiqueta { color: #000; }
+:root[data-contrast] [data-al="2"] .al-fg-flap dd { color: #ffd400; }
+
+/* ───────────── Visor (tela cheia) ───────────── */
+[data-al="2"] .al-st-visor {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  background: #000;
+  color: #f3efe6;
+}
+[data-al="2"] .al-st-visor-palco { position: relative; min-height: 0; display: grid; place-items: stretch; }
+[data-al="2"] .al-st-visor .al-st-tela { border-radius: 0 0 20px 20px; height: 100%; }
+[data-al="2"] .al-st-barras { position: absolute; z-index: 3; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al-st-barra { flex: 1; height: 3px; border-radius: 2px; background: rgba(243, 239, 230, 0.35); overflow: hidden; }
+[data-al="2"] .al-st-barra > span { display: block; height: 100%; background: #f3efe6; transform-origin: left; }
+[data-al="2"] .al-st-topo {
+  position: absolute;
+  z-index: 3;
+  top: 22px;
+  left: 12px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+[data-al="2"] .al-st-topo-quem { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; color: inherit; text-decoration: none; }
+[data-al="2"] .al-st-topo-quem > svg { flex: 0 0 38px; border-radius: 8px; }
+[data-al="2"] .al-st-topo-nome { display: grid; min-width: 0; line-height: 1.2; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45); }
+[data-al="2"] .al-st-topo-nome strong { font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+[data-al="2"] .al-st-topo-nome strong span { font-weight: 400; }
+[data-al="2"] .al-st-topo-nome small { font-size: 13px; color: #f3efe6; opacity: 0.92; }
+[data-al="2"] .al-st-icone {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: #f3efe6;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+[data-al="2"] .al-st-icone svg { width: 26px; height: 26px; }
+[data-al="2"] .al-st-icone:hover { background: rgba(0, 0, 0, 0.25); }
+[data-al="2"] .al-st-miolo {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 140px 22px 24px;
+  pointer-events: none;
+}
+[data-al="2"] .al-st-miolo > * { pointer-events: auto; }
+[data-al="2"] .al-st-miolo .al-st-texto { font-size: var(--st-tamanho, 64px); }
+[data-al="2"] .al-st-miolo .al-st-tarja { align-self: flex-start; }
+[data-al="2"] .al-st-figurinhas { display: grid; gap: 22px; margin-top: auto; justify-items: center; }
+[data-al="2"] .al-st-figurinhas > * { width: min(100%, 330px); }
+[data-al="2"] .al-st-figurinhas > .al-fg-link-caixa { width: auto; }
+/* As áreas de toque: esquerda volta, direita avança (atrás de tudo o que se toca). */
+[data-al="2"] .al-st-toque { position: absolute; z-index: 1; top: 0; bottom: 0; width: 34%; border: 0; background: none; cursor: pointer; }
+[data-al="2"] .al-st-toque-esq { left: 0; }
+[data-al="2"] .al-st-toque-dir { right: 0; width: 66%; }
+[data-al="2"] .al-st-toque:focus-visible { outline-offset: -4px; }
+[data-al="2"] .al-st-rodape { display: flex; align-items: center; gap: 10px; padding: 18px 10px calc(14px + env(safe-area-inset-bottom, 0px)); background: #000; }
+[data-al="2"] .al-st-responder { flex: 1; display: flex; min-width: 0; }
+[data-al="2"] .al-st-responder input {
+  flex: 1;
+  min-width: 0;
+  min-height: 46px;
+  border: 1.5px solid #5c554d;
+  border-radius: 999px;
+  padding: 0 16px;
+  background: transparent;
+  color: #f3efe6;
+  font: inherit;
+  font-size: 16px;
+}
+[data-al="2"] .al-st-responder input::placeholder { color: #a9a29a; }
+[data-al="2"] .al-st-responder button { margin-left: 6px; }
+[data-al="2"] .al-st-reacao {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 46px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+[data-al="2"] .al-st-reacao[aria-pressed="true"] { background: rgba(243, 239, 230, 0.16); }
+[data-al="2"] .al-st-recado {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #0f0e0d;
+  color: #f3efe6;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+[data-al="2"] .al-st-menu {
+  position: absolute;
+  z-index: 6;
+  top: 70px;
+  right: 10px;
+  width: min(320px, calc(100% - 20px));
+  padding: 6px;
+  margin: 0;
+  list-style: none;
+  border-radius: 14px;
+  background: #1b1917;
+  border: 1px solid #2a2622;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+[data-al="2"] .al-st-menu button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: #f3efe6;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+[data-al="2"] .al-st-menu button:hover { background: #2a2622; }
+[data-al="2"] .al-st-menu .al-st-perigo { color: #ff8a7a; }
+[data-al="2"] .al-st-caixa {
+  position: absolute;
+  z-index: 7;
+  inset: auto 10px 10px 10px;
+  max-height: calc(100% - 20px);
+  overflow: auto;
+  padding: 16px;
+  border-radius: 18px;
+  background: #1b1917;
+  border: 1px solid #2a2622;
+  color: #f3efe6;
+}
+[data-al="2"] .al-st-caixa h2 { margin: 0 0 6px; font-size: 18px; }
+[data-al="2"] .al-st-caixa p { margin: 0 0 10px; color: #d9d3c9; font-size: 14px; line-height: 1.4; }
+[data-al="2"] .al-st-caixa fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 2px; }
+[data-al="2"] .al-st-caixa label { display: flex; gap: 10px; align-items: center; min-height: 40px; font-size: 15px; }
+[data-al="2"] .al-st-caixa textarea { width: 100%; min-height: 70px; margin-top: 8px; border-radius: 10px; border: 1px solid #5c554d; background: #0f0e0d; color: #f3efe6; padding: 8px; font: inherit; }
+[data-al="2"] .al-st-caixa-acoes { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; flex-wrap: wrap; }
+[data-al="2"] .al-st-seta { display: none; }
+[data-al="2"] .al-st-estado { display: grid; place-items: center; height: 100%; padding: 24px; text-align: center; font-size: 16px; }
+:root[data-eink] [data-al="2"] .al-st-visor,
+:root[data-eink] [data-al="2"] .al-st-rodape { background: #fff; color: #000; }
+:root[data-eink] [data-al="2"] .al-st-visor .al-st-tela { border: 2px solid #000; }
+:root[data-eink] [data-al="2"] :is(.al-st-icone, .al-st-topo-nome, .al-st-topo-nome small) { color: #000; filter: none; text-shadow: none; }
+:root[data-eink] [data-al="2"] .al-st-barra { background: #bbb; }
+:root[data-eink] [data-al="2"] .al-st-barra > span { background: #000; }
+:root[data-eink] [data-al="2"] .al-st-responder input { border-color: #000; color: #000; }
+:root[data-eink] [data-al="2"] .al-st-responder input::placeholder { color: #333; }
+:root[data-contrast] [data-al="2"] .al-st-visor .al-st-tela { border: 2px solid #fff; }
+:root[data-contrast] [data-al="2"] .al-st-responder input { border-color: #fff; }
+:root[data-contrast] [data-al="2"] .al-st-barra { background: #555; }
+
+/* Computador: o story em pé no meio, setas dos lados, a resposta embaixo na mesma largura. */
+@media (min-width: 768px) {
+  [data-al="2"] .al-st-visor { background: #0b0a09; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; padding-top: 20px; }
+  [data-al="2"] .al-st-visor-palco { width: min(440px, calc((100vh - 120px) * 9 / 16)); }
+  [data-al="2"] .al-st-visor .al-st-tela { border-radius: 20px; }
+  [data-al="2"] .al-st-rodape { width: min(440px, calc((100vh - 120px) * 9 / 16)); background: transparent; padding-inline: 0; }
+  [data-al="2"] .al-st-seta {
+    position: absolute;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    border: 0;
+    background: #f3efe6;
+    color: #0f0e0d;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  [data-al="2"] .al-st-seta svg { width: 22px; height: 22px; }
+  [data-al="2"] .al-st-seta-esq { left: -72px; }
+  [data-al="2"] .al-st-seta-dir { right: -72px; }
+  [data-al="2"] .al-st-seta:disabled { opacity: 0.3; cursor: default; }
+  [data-al="2"] .al-st-fechar-fora { position: fixed; top: 16px; right: 16px; }
+}
+
+/* ───────────── Criar ───────────── */
+[data-al="2"] .al-st-criar {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow-y: auto;
+  background: var(--al-fundo);
+  color: var(--al-texto);
+}
+[data-al="2"] .al-st-criar-grade { display: grid; min-height: 100%; }
+[data-al="2"] .al-st-criar .al-st-tela { min-height: 470px; border-radius: 0 0 20px 20px; padding: 16px 0 24px; }
+[data-al="2"] .al-st-criar-topo { display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+[data-al="2"] .al-st-criar-topo .al-st-icone { margin-left: -8px; margin-right: auto; }
+[data-al="2"] .al-st-modo {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(10, 12, 24, 0.5);
+  color: #f3efe6;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+[data-al="2"] .al-st-modo[aria-pressed="true"] { background: #f3efe6; color: #0f0e0d; }
+[data-al="2"] .al-st-escrita { position: relative; margin: 54px 24px 0; padding-left: 13px; border-left: 3px solid #ffc21a; }
+[data-al="2"] .al-st-escrita textarea {
+  display: block;
+  width: 100%;
+  min-height: 1.9em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  resize: none;
+  overflow: hidden;
+  caret-color: #ffc21a;
+  outline: none;
+  font-size: var(--st-tamanho, 48px);
+}
+[data-al="2"] .al-st-escrita textarea::placeholder { color: color-mix(in srgb, var(--st-texto) 55%, transparent); }
+/* O foco no texto aparece como na prancha: a barra dourada engrossa e o cursor dourado pisca (sem caixa por cima do texto). */
+[data-al="2"] .al-st-escrita:focus-within { border-left-width: 6px; padding-left: 10px; }
+[data-al="2"] .al-st-escrita textarea:focus-visible,
+[data-al="2"] .al-st-escrita .al-st-tarja input:focus-visible { outline: none; box-shadow: none; }
+[data-al="2"] .al-st-escrita .al-st-tarja input:focus-visible { text-decoration: underline; text-decoration-color: #ffc21a; text-underline-offset: 4px; }
+/* A tarja vazia só aparece com o texto em edição (pelo teclado também: o foco nela a mostra). */
+/* A tarja vazia não ocupa lugar (a barra dourada tem só a altura do texto, como na prancha): fica logo abaixo, transparente mas
+   clicável, e aparece quando ela mesma recebe o foco (Tab a partir do texto, ou o clique). */
+[data-al="2"] .al-st-escrita .al-st-tarja[data-vazia="sim"] { opacity: 0; position: absolute; left: 13px; top: 100%; margin-top: 10px; }
+[data-al="2"] .al-st-escrita .al-st-tarja[data-vazia="sim"]:focus-within { opacity: 1; }
+[data-al="2"] .al-st-escrita .al-st-tarja input { border: 0; background: none; color: inherit; font: inherit; width: min(100%, 300px); outline: none; }
+[data-al="2"] .al-st-escrita .al-st-tarja input::placeholder { color: #a9a29a; }
+[data-al="2"] .al-st-restam { position: absolute; right: 0; bottom: -20px; font-size: 12px; color: var(--st-texto); opacity: 0.8; }
+[data-al="2"] .al-st-cores { display: flex; gap: 6px; margin: 40px 20px 0; padding: 0; border: 0; }
+[data-al="2"] .al-st-cores legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+[data-al="2"] .al-st-cor {
+  width: 32px;
+  height: 32px;
+  margin: 2px;
+  border-radius: 9px;
+  border: 2px solid rgba(243, 239, 230, 0.45);
+  cursor: pointer;
+  padding: 0;
+}
+[data-al="2"] .al-st-cor[aria-checked="true"] { width: 34px; height: 34px; margin: 1px; border: 3px solid #f3efe6; box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.35); }
+[data-al="2"] .al-st-palco-figurinhas { display: grid; gap: 22px; margin: 34px 24px 0; justify-items: start; }
+[data-al="2"] .al-st-palco-figurinhas > * { position: relative; width: min(100%, 230px * 1.1); }
+[data-al="2"] .al-st-palco-figurinhas > .al-fg-enquete { width: min(100%, 320px); }
+[data-al="2"] .al-st-desenho { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; touch-action: none; }
+[data-al="2"] .al-st-desenho[data-ativo="sim"] { z-index: 4; cursor: crosshair; }
+[data-al="2"] .al-st-desenho-acoes { position: relative; z-index: 5; display: flex; gap: 8px; margin: 12px 20px 0; }
+[data-al="2"] .al-st-painel { padding: 24px 16px calc(24px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 0; align-content: start; }
+[data-al="2"] .al-st-titulo-secao { margin: 0 0 14px; font-size: 22px; }
+[data-al="2"] .al-st-tipos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin: 0 0 30px; padding: 0; list-style: none; }
+[data-al="2"] .al-st-tipo {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 70px;
+  border: 1px solid var(--al-superficie-2);
+  border-radius: 14px;
+  background: var(--al-superficie);
+  color: var(--al-texto);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+[data-al="2"] .al-st-tipo[aria-pressed="true"] { border: 1.5px solid var(--al-dourado); }
+[data-al="2"] .al-st-tipo-icone { font-size: 21px; line-height: 1; }
+[data-al="2"] .al-st-quem { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 0; padding: 0; border: 0; }
+[data-al="2"] .al-st-quem legend { padding: 0; }
+[data-al="2"] .al-st-quem-op {
+  min-height: 44px;
+  border: 1px solid var(--al-superficie-2);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--al-texto);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+[data-al="2"] .al-st-quem-op[aria-checked="true"] { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+[data-al="2"] .al-st-regra { margin: 12px 0 0; color: var(--al-texto-3); font-size: 13px; line-height: 1.45; }
+[data-al="2"] .al-st-dica { margin: 6px 0 0; color: var(--al-texto-3); font-size: 13px; }
+[data-al="2"] .al-st-erro-criar { margin: 14px 0 0; color: #ff8a7a; font-size: 14px; font-weight: 700; }
+[data-al="2"] .al-st-feito { margin: 14px 0 0; color: var(--al-texto); font-size: 14px; font-weight: 700; }
+[data-al="2"] .al-st-alt { display: grid; gap: 6px; margin-top: 16px; font-size: 13px; color: var(--al-texto-2); }
+[data-al="2"] .al-st-alt input { min-height: 44px; border-radius: 10px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); padding: 0 12px; font: inherit; }
+[data-al="2"] .al-st-acoes { display: grid; grid-template-columns: auto 1fr; gap: 16px; margin-top: 28px; }
+[data-al="2"] .al-st-acoes .al-botao { min-height: 52px; border-radius: 14px; font-size: 16px; }
+[data-al="2"] .al-st-acoes .al-st-galeria { padding-inline: 30px; border-color: var(--al-superficie-2); font-size: 16px; }
+[data-al="2"] .al-st-acoes .al-botao-primario { font-size: 19px; }
+[data-al="2"] .al-st-tipos-alumia { display: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-tipo[aria-pressed="true"] { border-width: 3px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-cor[aria-checked="true"] { outline: 3px solid var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-modo { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-modo[aria-pressed="true"] { background: var(--al-texto); color: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-escrita { border-left-color: var(--st-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-erro-criar { color: var(--al-texto); text-decoration: underline; }
+
+@media (min-width: 1024px) {
+  [data-al="2"] .al-st-criar-grade {
+    grid-template-columns: minmax(0, 460px) minmax(0, 440px);
+    justify-content: center;
+    align-items: start;
+    gap: 48px;
+    padding: 32px 24px;
+  }
+  [data-al="2"] .al-st-criar .al-st-tela { min-height: min(820px, calc(100vh - 64px)); border-radius: 20px; }
+  [data-al="2"] .al-st-painel { padding-top: 8px; position: sticky; top: 32px; }
+}
+
+/* A prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): avisa que é exemplo. */
+[data-al="2"] .al-st-previa { margin: 0; padding: 6px 16px; background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 12px; font-weight: 800; }
+
+/* ───────────── Ajustes contra as pranchas (revisão) ───────────── */
+/* Contagem como em celular-ver-story: mais estreita (~72 % da tela), recuada da esquerda e inclinada ~-3°. */
+[data-al="2"] .al-st-figurinhas > .al-fg-contagem { width: min(72%, 290px); justify-self: start; margin-left: 13%; }
+[data-al="2"] .al-fg-contagem.al-fg-torto-esq { transform: rotate(-3deg); }
+/* O título da Pergunta em edição: a letra inclinada não encosta na borda do campo (o "p" de "pauta?" saía cortado). */
+[data-al="2"] .al-fg-campo-limpo { padding-inline: 3px; margin-inline: -3px; width: calc(100% + 6px); }
+/* No alto contraste e no e-ink a barra da esquerda vira a cor do texto: o foco do campo ganha um contorno visível. */
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-escrita:focus-within { outline: 3px solid var(--st-texto); outline-offset: 6px; }
+/* O celular do site (app/celular.css) vira todo button[aria-pressed] dentro de <main> em pílula (999px, especificidade 0,4,2):
+   aqui os botões dos stories voltam aos cantos da prancha (retângulos de 10–14 px), com especificidade maior. */
+:root:not([data-leitor]) [data-al="2"] :is(.al-st-modo, .al-st-icone)[aria-pressed] { border-radius: 10px; }
+:root:not([data-leitor]) [data-al="2"] :is(.al-st-tipo, .al-fg-botao-noite)[aria-pressed] { border-radius: 14px; }
+:root:not([data-leitor]) [data-al="2"] :is(.al-st-reacao, .al-fg-opcao)[aria-pressed] { border-radius: 12px; }

@@ -14,6 +14,7 @@ import { PortaDaEntrada } from "./descoberta/PortaDaEntrada";
 import { Entrada } from "./Entrada";
 import { textoDoErro } from "./erros";
 import { Escrever } from "./Escrever";
+import { ENCAIXES } from "./encaixes";
 import { Linha } from "./Linha";
 import { REGISTRO } from "./registro";
 import { TelaDaComunidade, TelaDoPerfil } from "./Telas";
@@ -179,6 +180,10 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
           )}
           {tela.tipo === "linha" && !contexto2 && (
             <>
+              {/* O que as frentes penduram no alto da linha (a faixa de stories da F5); cada peça confere a própria flag. */}
+              {ENCAIXES.topoDaLinha.map((NoAlto, k) => (
+                <NoAlto key={k} lang={lang} s={s} situacao={aberta} />
+              ))}
               {/* "O que você quer contar?" no alto da linha (como no Mastodon e no Bluesky): abre a mesma caixa de escrever. */}
               {pode && (
                 <button
