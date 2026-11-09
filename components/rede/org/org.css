@@ -1,0 +1,257 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * As telas da F4 (perfis e organizações) da Alumia nova: a página "Traga sua organização" (prancha traga-sua-organizacao), o perfil
+ * de organização (sem prancha: segue a linguagem da computador-inicio), o cartão "Ao vivo agora" (computador-inicio) e o perfil de
+ * pessoa com abas. Tudo só dentro de [data-al="2"] (flags "rede-v2" + "alumia-2"): desligadas, nada aqui casa com nada.
+ * Usa só os tokens de styles/alumia-tokens.css; alto contraste e e-ink trocam a cor por borda, peso e texto (WCAG 1.4.1).
+ */
+
+/* ───────────── Página "Traga sua organização" ───────────── */
+[data-al="2"] .al-org-pagina { background: var(--al-fundo); color: var(--al-texto); font-family: var(--al-fonte); }
+[data-al="2"] .al-org-miolo { max-width: 1200px; margin: 0 auto; padding-inline: 16px; }
+@media (min-width: 768px) { [data-al="2"] .al-org-miolo { padding-inline: 40px; } }
+@media (min-width: 1280px) { [data-al="2"] .al-org-miolo { padding-inline: 56px; } }
+
+[data-al="2"] .al-org-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 18px; }
+[data-al="2"] .al-org-marca { display: inline-flex; align-items: center; gap: 10px; color: var(--al-texto); text-decoration: none; }
+[data-al="2"] .al-org-marca > span { display: grid; line-height: 1; }
+[data-al="2"] .al-org-marca-nome { font-size: 1.55rem; }
+[data-al="2"] .al-org-marca-instituto { font-size: 0.8rem; color: var(--al-texto-2); margin-top: 2px; }
+[data-al="2"] .al-org-topo-acoes { display: flex; gap: 8px; }
+
+[data-al="2"] .al-org-heroi { display: grid; gap: 32px; padding-block: 24px 56px; align-items: center; }
+@media (min-width: 1024px) { [data-al="2"] .al-org-heroi { grid-template-columns: 1.05fr 1fr; gap: 56px; padding-block: 40px 88px; } }
+[data-al="2"] .al-org-chamada { margin: 0; font-size: clamp(3rem, 12.5vw, 5.6rem); max-width: 11ch; }
+[data-al="2"] .al-org-lead { margin: 22px 0 0; max-width: 33rem; font-size: 1.1rem; line-height: 1.55; color: var(--al-texto-2); }
+[data-al="2"] .al-org-heroi-acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+[data-al="2"] .al-org-para { margin: 18px 0 0; font-size: 0.82rem; color: var(--al-texto-3); }
+[data-al="2"] .al-org-heroi-mosaico figure { margin: 0; }
+[data-al="2"] .al-org-heroi-mosaico figcaption { margin-top: 10px; font-size: 0.78rem; color: var(--al-texto-3); }
+
+/* "Por que trocar o X": a faixa de papel (invertida), como na prancha. */
+[data-al="2"] .al-org-papel { background: var(--al-texto); color: var(--al-fundo); padding-block: 56px 64px; }
+[data-al="2"] .al-org-papel h2 { margin: 0 0 36px; font-size: clamp(2.4rem, 8vw, 3.6rem); max-width: 12ch; }
+[data-al="2"] .al-org-tabela { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+[data-al="2"] .al-org-tabela thead th { text-align: left; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 0 12px; color: color-mix(in srgb, var(--al-fundo) 70%, transparent); }
+[data-al="2"] .al-org-tabela thead th.al-org-na-alumia { color: var(--al-vermelho-texto); }
+[data-al="2"] .al-org-tabela tbody tr { border-top: 2px solid var(--al-fundo); }
+[data-al="2"] .al-org-tabela tbody tr:last-child { border-bottom: 2px solid var(--al-fundo); }
+[data-al="2"] .al-org-tabela tbody th,
+[data-al="2"] .al-org-tabela td { text-align: left; vertical-align: top; padding: 16px 16px 16px 0; line-height: 1.45; }
+[data-al="2"] .al-org-tabela tbody th { font-size: 1.35rem; width: 32%; }
+[data-al="2"] .al-org-tabela td.al-org-x { color: color-mix(in srgb, var(--al-fundo) 72%, transparent); width: 30%; }
+[data-al="2"] .al-org-tabela td.al-org-alumia { font-weight: 700; }
+/* No celular a tabela vira blocos: o tema em cima, "No X" e "Na Alumia" escritos (o cabeçalho some da vista). */
+@media (max-width: 767px) {
+  [data-al="2"] .al-org-tabela thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  [data-al="2"] .al-org-tabela tbody tr { display: block; padding-block: 14px; }
+  [data-al="2"] .al-org-tabela tbody th,
+  [data-al="2"] .al-org-tabela td { display: block; width: auto !important; padding: 2px 0; }
+  [data-al="2"] .al-org-tabela td::before { content: attr(data-rotulo) ": "; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+  [data-al="2"] .al-org-tabela td.al-org-alumia::before { color: var(--al-vermelho-texto); }
+}
+
+[data-al="2"] .al-org-ferramentas { padding-block: 64px 24px; }
+[data-al="2"] .al-org-ferramentas > h2,
+[data-al="2"] .al-org-como > h2 { margin: 0 0 40px; font-size: clamp(2.4rem, 8vw, 3.6rem); max-width: 14ch; }
+[data-al="2"] .al-org-ferramenta { display: grid; gap: 24px; padding-block: 32px; border-top: 1px solid var(--al-linha); align-items: center; }
+[data-al="2"] .al-org-ferramenta:first-of-type { border-top: 0; }
+@media (min-width: 1024px) {
+  [data-al="2"] .al-org-ferramenta { grid-template-columns: 1fr 1fr; gap: 48px; }
+  [data-al="2"] .al-org-ferramenta.al-org-invertida .al-org-ferramenta-texto { order: 2; }
+}
+[data-al="2"] .al-org-ferramenta h3 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+[data-al="2"] .al-org-ferramenta p { margin: 10px 0 0; max-width: 32rem; color: var(--al-texto-2); line-height: 1.55; }
+[data-al="2"] .al-org-ferramenta-ver { display: inline-block; margin-top: 12px; color: var(--al-dourado); font-weight: 700; font-size: 0.9rem; }
+[data-al="2"] .al-org-carimbos { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center; }
+
+[data-al="2"] .al-org-como { padding-block: 48px 40px; }
+[data-al="2"] .al-org-passos { display: grid; gap: 28px; list-style: none; margin: 0; padding: 0; }
+@media (min-width: 768px) { [data-al="2"] .al-org-passos { grid-template-columns: repeat(3, 1fr); } }
+[data-al="2"] .al-org-passo { border-top: 2px solid var(--al-cor-passo); padding-top: 14px; }
+[data-al="2"] .al-org-passo-n { display: block; font-size: 2.6rem; color: var(--al-cor-passo); }
+[data-al="2"] .al-org-passo h3 { margin: 12px 0 6px; font-size: 1.05rem; font-weight: 800; }
+[data-al="2"] .al-org-passo p { margin: 0; color: var(--al-texto-2); line-height: 1.5; font-size: 0.95rem; }
+[data-al="2"] .al-org-regra { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin: 0 0 64px; padding: 18px 20px; border: 1px solid var(--al-superficie-2); border-radius: var(--al-raio); }
+[data-al="2"] .al-org-regra p { margin: 0; max-width: 46rem; font-size: 0.9rem; line-height: 1.5; color: var(--al-texto-2); }
+
+/* E-ink: a faixa de papel vira branca com bordas pretas (nada de bloco preto chapado). */
+:root[data-eink] [data-al="2"] .al-org-papel { background: #fff; color: #000; border-block: 2px solid #000; }
+:root[data-eink] [data-al="2"] .al-org-tabela tbody tr { border-color: #000; }
+:root[data-eink] [data-al="2"] .al-org-tabela thead th,
+:root[data-eink] [data-al="2"] .al-org-tabela td.al-org-x { color: #000; }
+:root[data-contrast] [data-al="2"] .al-org-tabela thead th,
+:root[data-contrast] [data-al="2"] .al-org-tabela td.al-org-x { color: #000; }
+:root[data-contrast] [data-al="2"] .al-org-papel { background: #fff; color: #000; }
+:root[data-contrast] [data-al="2"] .al-org-tabela tbody tr { border-color: #000; }
+:root[data-contrast] [data-al="2"] .al-org-tabela thead th.al-org-na-alumia,
+:root[data-contrast] [data-al="2"] .al-org-tabela td.al-org-alumia::before { color: #a3160a; }
+
+/* ───────────── Barras de resultado (consulta) ───────────── */
+[data-al="2"] .al-org-barras { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al-org-barra { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 0 14px; border-radius: 8px; overflow: hidden; background: var(--al-superficie-2); color: var(--al-texto); font-weight: 700; font-size: 0.92rem; isolation: isolate; }
+[data-al="2"] .al-org-barra-cheia { position: absolute; inset: 0 auto 0 0; z-index: -1; background: var(--al-vermelho-escuro); }
+[data-al="2"] .al-org-barra-primeira .al-org-barra-cheia { background: color-mix(in srgb, var(--al-vermelho) 72%, var(--al-fundo)); }
+[data-al="2"] .al-org-barra-p { font-variant-numeric: tabular-nums; }
+:root[data-eink] [data-al="2"] .al-org-barra { background: #fff; border: 1.5px solid #000; }
+:root[data-eink] [data-al="2"] .al-org-barra-cheia { background: #c8c8c8; }
+:root[data-eink] [data-al="2"] .al-org-barra-primeira .al-org-barra-cheia { background: #9a9a9a; }
+:root[data-contrast] [data-al="2"] .al-org-barra { border: 1px solid #fff; }
+
+/* ───────────── Cartão "Ao vivo agora" (coluna e perfil) ───────────── */
+[data-al="2"] .al-org-aovivo { border: 1px solid var(--al-superficie-2); border-radius: var(--al-raio); overflow: hidden; background: var(--al-superficie); }
+[data-al="2"] .al-org-aovivo-topo { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+[data-al="2"] .al-org-aovivo-selo { display: inline-flex; align-items: center; gap: 8px; font-size: 1rem; letter-spacing: 0.02em; }
+[data-al="2"] .al-org-aovivo-ponto { width: 10px; height: 10px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 35%, transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-al="2"] .al-org-aovivo-ponto { animation: al-org-pulsa 1.6s ease-in-out infinite; }
+}
+@keyframes al-org-pulsa { 50% { opacity: 0.45; } }
+[data-al="2"] .al-org-aovivo-conta { font-size: 0.8rem; font-weight: 700; white-space: nowrap; }
+[data-al="2"] .al-org-aovivo-corpo { padding: 14px; }
+[data-al="2"] .al-org-aovivo-corpo h3 { margin: 0; font-size: 1.12rem; font-weight: 800; line-height: 1.3; }
+[data-al="2"] .al-org-aovivo-corpo p { margin: 6px 0 0; font-size: 0.86rem; line-height: 1.5; color: var(--al-texto-2); }
+[data-al="2"] .al-org-aovivo-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+[data-al="2"] .al-org-aovivo-acoes > * { width: 100%; }
+[data-al="2"] .al-org-aovivo-fila { list-style: none; margin: 0; padding: 12px 14px; display: grid; gap: 8px; font-size: 0.86rem; color: var(--al-texto-2); }
+[data-al="2"] .al-org-aovivo-fila b { color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al-org-aovivo-topo { background: #000; color: #fff; }
+:root[data-eink] [data-al="2"] .al-org-aovivo { border-color: #000; }
+
+/* ───────────── Núcleos ───────────── */
+[data-al="2"] .al-org-nucleos { list-style: none; margin: 0; padding: 0; }
+[data-al="2"] .al-org-nucleo { display: flex; align-items: center; gap: 12px; min-height: 52px; border-bottom: 1px solid var(--al-linha); padding-block: 6px; }
+[data-al="2"] .al-org-nucleo:first-child { border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al-org-anel { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 3.5px solid var(--al-cor, var(--al-com-1)); }
+[data-al="2"] .al-org-nucleo-nome { flex: 1; min-width: 0; font-weight: 700; font-size: 0.95rem; }
+[data-al="2"] .al-org-nucleo-quando { font-size: 0.8rem; color: var(--al-texto-3); white-space: nowrap; }
+[data-al="2"] .al-org-nucleo-onde { display: block; font-weight: 400; font-size: 0.8rem; color: var(--al-texto-3); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-org-anel { border-color: var(--al-texto); }
+
+/* ───────────── Perfil de organização e de pessoa ───────────── */
+[data-al="2"] .al-perfil { font-family: var(--al-fonte); color: var(--al-texto); background: var(--al-fundo); }
+[data-al="2"] .al-perfil-aviso { display: flex; gap: 12px; align-items: flex-start; margin: 12px 16px 0; padding: 12px 14px; border: 2px dashed var(--al-dourado); border-radius: var(--al-raio); font-size: 0.9rem; line-height: 1.45; }
+[data-al="2"] .al-perfil-aviso strong { color: var(--al-dourado); display: block; font-size: 1rem; }
+[data-al="2"] .al-perfil-aviso a { color: var(--al-texto); text-decoration: underline; }
+[data-al="2"] .al-perfil-capa { padding: 12px 16px 0; }
+[data-al="2"] .al-perfil-capa-imagem { display: block; width: 100%; aspect-ratio: 3 / 1; object-fit: cover; border-radius: var(--al-raio); }
+[data-al="2"] .al-perfil-capa-vazia { height: 64px; border-radius: var(--al-raio); background: var(--al-superficie); }
+[data-al="2"] .al-perfil-cabeca { padding: 16px; display: grid; gap: 10px; }
+[data-al="2"] .al-perfil-linha1 { display: flex; gap: 14px; align-items: center; }
+[data-al="2"] .al-perfil-nomes { min-width: 0; flex: 1; }
+[data-al="2"] .al-perfil-nome { margin: 0; font-size: clamp(2rem, 8vw, 2.6rem); overflow-wrap: anywhere; }
+[data-al="2"] .al-perfil-handle { margin: 4px 0 0; font-size: 0.9rem; color: var(--al-texto-3); overflow-wrap: anywhere; }
+[data-al="2"] .al-perfil-selo { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 0.82rem; color: var(--al-texto-3); }
+[data-al="2"] .al-perfil-bio { margin: 0; line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere; color: var(--al-texto-2); }
+[data-al="2"] .al-perfil-acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+[data-al="2"] .al-perfil-nota { margin: 0; font-size: 0.78rem; color: var(--al-texto-3); }
+[data-al="2"] .al-perfil-erro { margin: 0; color: var(--al-vermelho); font-size: 0.9rem; }
+[data-al="2"] .al-perfil-bloco { padding: 4px 16px 16px; }
+[data-al="2"] .al-perfil-bloco > h2 { margin: 0 0 10px; font-size: 1.5rem; }
+[data-al="2"] .al-perfil-status { display: inline-flex; align-items: center; gap: 6px; width: fit-content; padding: 4px 10px; border-radius: var(--al-raio-pilula); background: color-mix(in srgb, var(--al-dourado) 16%, transparent); color: var(--al-dourado); font-weight: 700; font-size: 0.85rem; }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-perfil-status { background: transparent; border: 1.5px solid currentColor; }
+[data-al="2"] .al-perfil-campos { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; margin: 0; font-size: 0.9rem; }
+[data-al="2"] .al-perfil-campos dt { color: var(--al-texto-3); font-weight: 700; }
+[data-al="2"] .al-perfil-campos dd { margin: 0; overflow-wrap: anywhere; }
+[data-al="2"] .al-perfil-campos a { color: var(--al-texto); }
+[data-al="2"] .al-perfil-destaques { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; list-style: none; margin: 0; padding: 0; }
+[data-al="2"] .al-perfil-destaques a { display: grid; gap: 4px; min-height: 64px; padding: 10px 12px; border-radius: 10px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+[data-al="2"] .al-perfil-destaques a span { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-dourado); }
+[data-al="2"] .al-perfil-destaques a:hover { border-color: var(--al-texto-3); }
+
+/* As abas: sublinhado vermelho na escolhida (como Seguindo na prancha); a escolhida também em negrito e com aria-selected. */
+[data-al="2"] .al-abas { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid var(--al-linha); padding-inline: 8px; scrollbar-width: thin; }
+[data-al="2"] .al-aba { flex: none; min-height: 48px; padding: 0 12px; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--al-texto-3); font: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer; white-space: nowrap; }
+[data-al="2"] .al-aba[aria-selected="true"] { color: var(--al-texto); font-weight: 800; border-bottom-color: var(--al-vermelho); }
+[data-al="2"] .al-aba:hover { color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al-aba[aria-selected="true"] { border-bottom-width: 4px; text-decoration: underline; }
+[data-al="2"] .al-painel { padding: 16px; }
+[data-al="2"] .al-painel-vazio { margin: 0; padding: 24px 16px; color: var(--al-texto-3); }
+
+/* "Como votamos": tabela no computador, cartões no celular. */
+[data-al="2"] .al-contas-intro { margin: 0 0 14px; color: var(--al-texto-2); font-size: 0.9rem; }
+[data-al="2"] .al-contas { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+[data-al="2"] .al-contas caption { text-align: left; }
+[data-al="2"] .al-contas th { text-align: left; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-texto-3); padding: 0 10px 8px 0; }
+[data-al="2"] .al-contas td { vertical-align: top; padding: 12px 10px 12px 0; border-top: 1px solid var(--al-linha); line-height: 1.45; }
+[data-al="2"] .al-contas td.al-contas-projeto { font-weight: 700; }
+[data-al="2"] .al-contas a { color: var(--al-dourado); font-weight: 700; }
+[data-al="2"] .al-voto { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 800; font-size: 0.8rem; white-space: nowrap; border: 1.5px solid currentColor; }
+[data-al="2"] .al-voto-sim { color: var(--al-com-1); }
+[data-al="2"] .al-voto-nao { color: var(--al-vermelho); }
+[data-al="2"] .al-voto-abstencao,
+[data-al="2"] .al-voto-obstrucao,
+[data-al="2"] .al-voto-ausente { color: var(--al-texto-3); }
+@media (max-width: 639px) {
+  [data-al="2"] .al-contas thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  [data-al="2"] .al-contas tr { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; padding: 12px 0; border-top: 1px solid var(--al-linha); }
+  [data-al="2"] .al-contas td { display: block; border: 0; padding: 0; }
+  [data-al="2"] .al-contas td.al-contas-projeto,
+  [data-al="2"] .al-contas td.al-contas-porque,
+  [data-al="2"] .al-contas td.al-contas-resultado { grid-column: 1 / -1; }
+  [data-al="2"] .al-contas td.al-contas-resultado::before,
+  [data-al="2"] .al-contas td.al-contas-porque::before { content: attr(data-rotulo) ": "; color: var(--al-texto-3); font-weight: 700; }
+}
+
+/* Formulários das telas da F4. */
+[data-al="2"] .al-form { display: grid; gap: 14px; }
+[data-al="2"] .al-campo { display: grid; gap: 6px; font-size: 0.9rem; }
+[data-al="2"] .al-campo > span:first-child { font-weight: 700; }
+[data-al="2"] .al-campo small { color: var(--al-texto-3); font-size: 0.8rem; line-height: 1.4; }
+[data-al="2"] .al-entrada { min-height: 44px; width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; }
+[data-al="2"] textarea.al-entrada { min-height: 88px; resize: vertical; }
+[data-al="2"] .al-entrada:focus-visible { border-color: var(--al-dourado); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-entrada { border-color: var(--al-texto); }
+[data-al="2"] .al-marcar { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; line-height: 1.45; cursor: pointer; }
+[data-al="2"] .al-marcar input { width: 22px; height: 22px; margin: 0; flex: none; accent-color: var(--al-vermelho); }
+[data-al="2"] .al-ok { margin: 0; color: var(--al-com-1); font-weight: 700; }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-ok { color: var(--al-texto); }
+
+/* Consulta. */
+[data-al="2"] .al-consulta { border: 1px solid var(--al-superficie-2); border-radius: var(--al-raio); background: var(--al-superficie); padding: 16px; display: grid; gap: 12px; }
+[data-al="2"] .al-consulta + .al-consulta { margin-top: 14px; }
+[data-al="2"] .al-consulta-topo { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; font-size: 0.8rem; color: var(--al-texto-3); }
+[data-al="2"] .al-consulta-estado { font-size: 0.95rem; color: var(--al-dourado); }
+[data-al="2"] .al-consulta-estado-fechada { color: var(--al-texto-3); }
+[data-al="2"] .al-consulta h3 { margin: 0; font-size: 1.15rem; font-weight: 800; line-height: 1.3; }
+[data-al="2"] .al-consulta-compromisso { margin: 0; padding: 10px 12px; border-left: 3px solid var(--al-dourado); background: var(--al-fundo); font-size: 0.88rem; line-height: 1.45; border-radius: 0 8px 8px 0; }
+[data-al="2"] .al-consulta-compromisso b { display: block; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-dourado); margin-bottom: 2px; }
+[data-al="2"] .al-consulta-nota { margin: 0; font-size: 0.82rem; color: var(--al-texto-3); line-height: 1.45; }
+[data-al="2"] .al-opcoes { border: 0; margin: 0; padding: 0; display: grid; gap: 8px; }
+[data-al="2"] .al-opcao { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 12px; border: 1.5px solid var(--al-superficie-2); border-radius: 10px; cursor: pointer; font-weight: 600; }
+[data-al="2"] .al-opcao:has(input:checked) { border-color: var(--al-vermelho); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-opcao:has(input:checked) { border-width: 3px; border-color: var(--al-texto); }
+[data-al="2"] .al-opcao input { width: 20px; height: 20px; accent-color: var(--al-vermelho); }
+[data-al="2"] .al-ranking { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+[data-al="2"] .al-ranking li { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 4px 6px 4px 12px; border: 1.5px solid var(--al-superficie-2); border-radius: 10px; font-weight: 600; }
+[data-al="2"] .al-ranking-n { width: 1.6em; color: var(--al-dourado); font-size: 1.3rem; }
+[data-al="2"] .al-ranking-texto { flex: 1; }
+
+/* Plenária. */
+[data-al="2"] .al-plenaria { display: grid; gap: 14px; }
+[data-al="2"] .al-fila { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--al-linha); counter-reset: fila; }
+[data-al="2"] .al-fila li { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 10px 0; border-bottom: 1px solid var(--al-linha); font-size: 0.9rem; line-height: 1.45; counter-increment: fila; }
+[data-al="2"] .al-fila li::before { content: counter(fila); grid-row: span 2; font-weight: 800; color: var(--al-texto-3); min-width: 1.6em; font-variant-numeric: tabular-nums; }
+[data-al="2"] .al-fila-quem { font-weight: 800; }
+[data-al="2"] .al-fila-quem-anonimo { font-weight: 600; color: var(--al-texto-3); }
+[data-al="2"] .al-fila-respondida { margin-left: 8px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--al-com-1); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-fila-respondida { color: var(--al-texto); text-decoration: underline; }
+
+/* Atos do exemplo e posts do exemplo (sem banco). */
+[data-al="2"] .al-lista-simples { list-style: none; margin: 0; padding: 0; }
+[data-al="2"] .al-lista-simples > li { padding: 14px 0; border-bottom: 1px solid var(--al-linha); display: grid; gap: 6px; }
+[data-al="2"] .al-ato-linha { display: flex; gap: 14px; align-items: center; }
+[data-al="2"] .al-ato-dia { display: grid; justify-items: center; min-width: 2.4em; line-height: 0.9; }
+[data-al="2"] .al-ato-dia b { font-size: 1.8rem; }
+[data-al="2"] .al-ato-dia span { font-size: 0.75rem; color: var(--al-vermelho); }
+[data-al="2"] .al-ato-info { flex: 1; min-width: 0; }
+[data-al="2"] .al-ato-info strong { display: block; }
+[data-al="2"] .al-ato-info span { font-size: 0.85rem; color: var(--al-texto-3); }
+[data-al="2"] .al-post-exemplo-topo { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 0.85rem; color: var(--al-texto-3); }
+[data-al="2"] .al-post-exemplo-topo b { color: var(--al-texto); font-size: 0.95rem; }
+[data-al="2"] .al-post-exemplo-texto { margin: 0; line-height: 1.55; }
+
+/* O selo como na prancha computador-inicio: papel, quadradinho vermelho com o visto, texto noite (F0 desenha o vermelho cheio;
+   aqui só a variante, com as variáveis trocadas no lugar). */
+[data-al="2"] .al-selo.al-selo-papel { background: var(--al-texto); color: var(--al-fundo); --al-sobre-vermelho: var(--al-vermelho-texto); --al-vermelho: var(--al-texto); border: 1px solid var(--al-texto); }
+:root[data-eink] [data-al="2"] .al-selo.al-selo-papel { background: #fff; color: #000; border: 1.5px solid #000; --al-sobre-vermelho: #000; --al-vermelho: #fff; }
