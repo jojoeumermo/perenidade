@@ -13,6 +13,7 @@ import { TextoComMencoes } from "./conversa/TextoComMencoes";
 import { TextoComTags } from "./descoberta/TextoComTags";
 import { textoDoErro } from "./erros";
 import { AcoesDeCuidado, RotuloDoPost } from "./moderacao/NoCartao";
+import { SeloNoCartao } from "./org/SeloNoCartao";
 import { Avatar } from "./perfil/Avatar";
 import { Complementos } from "./publicar/Complementos";
 import { useAlumia2 } from "./publicar/alumia2/contexto";
@@ -163,6 +164,8 @@ function CartaoClassico({
           ) : (
             <span className="text-ink">{nomeDoAutor}</span>
           )}
+          {/* F4: o selo de organização verificada (só com "alumia-org" e post de organização verificada; senão, nada). */}
+          {post.org ? <SeloNoCartao post={post} lang={lang} /> : null}
           {post.autor.equipe && <span className="rounded bg-ink px-1 text-[0.6rem] font-semibold uppercase tracking-wider text-parchment">{s.perfil.equipe}</span>}
           {post.comunidade && (
             <Link href={enderecos.comunidade(lang, post.comunidade)} className="alumia-comunidade inline-flex items-center rounded-full px-2 text-xs font-bold hover:underline">
