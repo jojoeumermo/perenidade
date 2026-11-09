@@ -128,16 +128,24 @@ export interface OrgPublica {
   sino: boolean;
   /** Eu posso agir como esta organização (sou gestor)? Só para mim; nunca diz quem mais é. */
   gerencio: boolean;
-  /** Seguidores, agregado e a partir de 3 (nulo abaixo). */
-  seguidores: Pessoas;
+  /** Sem contagem de seguidores: a regra da casa continua (2026-11-rede-perfil.sql:14; PLANO-ALUMIA §4.6, "manter"). */
   nucleos: NucleoDaOrg[];
   votacoes: VotacaoDaOrg[];
   consultas: ConsultaDaOrg[];
   plenarias: PlenariaDaOrg[];
 }
 
+/** Uma plenária ao vivo para a coluna da direita ("Ao vivo agora"): só das organizações que a pessoa segue ou públicas. */
+export type PlenariaAoVivo = Pick<PlenariaDaOrg, "id" | "org" | "titulo" | "descricao" | "inicio" | "aoVivo" | "sala" | "naSala" | "naFila">;
+
+/** O que um gestor registra em "Como votamos". */
+export type PedidoDeVotacao = Omit<VotacaoDaOrg, "id">;
+
 /** O pedido do selo (fila do painel). Só documento público (CNPJ, registro de partido no TSE, diploma do mandato, ata). */
 export interface PedidoDeSelo {
+  /** O codinome da organização (o nome público: "Mandata Popular"). */
+  codinome: string;
+  /** O @nome da conta da organização (nova, criada sem senha por lib/rede/contas-extra.ts, ou uma já existente que a pessoa gere). */
   handle: string;
   tipo: TipoDeOrg;
   cidade: string;
@@ -153,7 +161,6 @@ export interface PedidoDeSelo {
 /** O pedido na fila do painel (só a equipe vê). */
 export interface PedidoNaFila extends PedidoDeSelo {
   id: string;
-  codinome: string;
   criadoEm: string;
   situacao: "esperando" | "aceito" | "recusado";
 }
