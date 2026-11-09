@@ -142,3 +142,11 @@ export function useVou(ato: Ato) {
   }, [ato, ocupado]);
   return { alternar, ocupado, erro };
 }
+
+/** Ouve as mudanças de UM ato (o chamado embutido num post acompanha o "Você vai" dado na faixa ou no cartão). */
+export function useOuvirAto(id: string, aoMudar: (a: Ato) => void): void {
+  const filtro = useCallback((a: Ato) => {
+    if (a.id === id) aoMudar(a);
+  }, [id, aoMudar]);
+  useOuvirAtos(filtro);
+}
