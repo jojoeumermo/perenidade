@@ -55,6 +55,9 @@ async function banco(funcao: string, argumentos: Record<string, unknown>, sessao
   }
 }
 
+/** Provedores que, pela política de uso da API, não treinam com o que recebem (a Anthropic, na API paga). */
+const SEM_TREINO = new Set(["anthropic"]);
+
 Deno.serve(comCors(async (pedido) => {
   if (pedido.method !== "POST") return responder({ erro: "metodo" }, 405);
   if (!base || !servico) return responder({ erro: "assistente_indisponivel" }, 503);
@@ -118,7 +121,11 @@ Deno.serve(comCors(async (pedido) => {
   const restantes = typeof uso.dados?.restantes === "number" ? uso.dados.restantes : null;
   // Falha do serviço devolve a vez da pessoa; o banco anota só se deu certo, quem respondeu e o tipo de falha.
   const config = await banco("assistente_provedores", {});
-  const ordem = config.ok && Array.isArray(config.dados?.ordem) ? (config.dados.ordem as string[]) : ["anthropic"];
+  const escolhida = config.ok && Array.isArray(config.dados?.ordem) ? (config.dados.ordem as string[]) : ["anthropic"];
+  // Pergunta feita dentro da Escola (militantes): só provedor que não treina com o texto nem o guarda para isso. Os planos
+  // gratuitos (Groq, Cerebras, Gemini, OpenRouter) podem guardar e treinar; a pergunta de um militante pode dizer onde
+  // trabalha ou o que o núcleo faz. Sem provedor assim disponível, a pergunta falha e a Escola responde só no aparelho.
+  const ordem = corpo.escola === true ? escolhida.filter((id) => SEM_TREINO.has(id)).concat(escolhida.some((id) => SEM_TREINO.has(id)) ? [] : ["anthropic"]) : escolhida;
   const r = await perguntar({ ordem, chaves, modelos, entrada: conferido.entrada, buscar: fetch, claude });
   const falhou = "erro" in r.lido;
   await banco("assistente_resultado", { p: { ok: !falhou, falha: falhou ? (r.lido as { erro: string }).erro : "", provedor: r.provedor, tentativas: r.tentativas, usuario: falhou ? usuario : "" } });

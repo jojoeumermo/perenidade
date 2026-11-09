@@ -22,7 +22,7 @@
     "tentar": "Try again",
     "assistir": "Watch the class",
     "assistirGravada": "Watch the recording",
-    "avisoTocador": "The video comes from YouTube, through the address without advertising cookies. Nothing from Google loads before you click.",
+    "avisoTocador": "The video comes from YouTube, through the address without advertising cookies. Nothing from Google loads before you click. When you click, Google sees your internet address (IP). If that is a risk for you, watch through a VPN or the Tor Browser.",
     "semTransmissao": "The stream has not been created yet. When the person leading creates it, the video shows up here.",
     "antes": "The class starts {quando}. The chat opens half an hour before.",
     "avisar": "Let me know when it starts",

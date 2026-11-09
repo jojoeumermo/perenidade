@@ -22,7 +22,7 @@
     "tentar": "Intentar de nuevo",
     "assistir": "Ver la clase",
     "assistirGravada": "Ver la grabación",
-    "avisoTocador": "El video viene de YouTube, por la dirección sin cookies de publicidad. Nada de Google se carga antes de tu clic.",
+    "avisoTocador": "El video viene de YouTube, por la dirección sin cookies de publicidad. Nada de Google se carga antes de tu clic. Al hacer clic, Google ve tu dirección de internet (IP). Si eso es un riesgo para ti, mira con una VPN o con el Tor Browser.",
     "semTransmissao": "La transmisión todavía no fue creada. Cuando quien conduce la cree, el video aparece aquí.",
     "antes": "La clase empieza {quando}. El chat se abre media hora antes.",
     "avisar": "Avísame cuando empiece",
