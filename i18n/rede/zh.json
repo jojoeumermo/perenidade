@@ -177,6 +177,7 @@
     "nivel_links": "你的等级暂不允许在一个帖子里放这么多链接。请在“Alumia 如何守护”中查看限制。",
     "nivel_imagens": "你的等级暂不允许在一个帖子里放这么多图片。请在“Alumia 如何守护”中查看限制。",
     "limite_diario": "你已达到今天按你等级可发的帖子上限。",
+    "limite_identidades": "这类账号（身份或组织）你已达到 5 个的上限。",
     "lista_bloqueio": "此处的调解人不允许你在这里发帖。"
   },
   "alumia": {
