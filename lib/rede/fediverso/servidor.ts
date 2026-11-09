@@ -3,7 +3,8 @@
 // O lado do servidor da federação: se ela está ligada, como chamar o banco (public.rede_fed_servidor, com o segredo), as chaves
 // (geradas aqui, guardadas cifradas no banco), o ator remoto (buscado com a trava de SSRF e guardado em cache) e o limite de pedidos.
 // Só roda no servidor (rotas app/api/fediverso/** e app/.well-known/**). Sem "@/".
-import { ligado } from "../../recursos";
+import { createHash, createHmac, timingSafeEqual } from "node:crypto";
+import { ligado, lerRecursos, RECURSOS, type Recurso } from "../../recursos";
 import { gerarParDeChaves } from "./assinatura";
 import { cifrar, decifrar } from "./cifra";
 import { enderecosDaFederacao, type EnderecosDaFederacao } from "./enderecos";
@@ -26,6 +27,21 @@ export function federacaoLigada(): boolean {
 }
 
 export const fed: EnderecosDaFederacao = enderecosDaFederacao();
+
+// ── As chaves do modo "mesclado" (PLANO-FEDIVERSO, seção 4, F5) ──
+// "fediverso-total": a Alumia como servidor do Fediverso (entrada de respostas, menções, curtidas, impulsos, denúncias e bloqueios de
+// qualquer instância não bloqueada; curtir, impulsionar e responder post de fora). "fediverso-grupos": as comunidades como Group.
+// As duas nascem DESLIGADAS: desligadas, a caixa de entrada e a fila fazem exatamente o que faziam antes.
+// Até a junção com F5 (que as põe em lib/recursos.ts), só ligam com o nome escrito na lista: "todos" NÃO as liga. Quando entrarem
+// em RECURSOS, vale ligado() (e elas precisam estar em SO_PELO_NOME, para "todos" continuar sem ligá-las).
+export type ChaveDaFederacao = "fediverso-total" | "fediverso-grupos";
+export function recursoDaFederacao(nome: ChaveDaFederacao): boolean {
+  if (nome in RECURSOS) return ligado(nome as Recurso);
+  const lista = lerRecursos(process.env.NEXT_PUBLIC_RECURSOS);
+  return lista.has(nome) && !lista.has(`-${nome}`);
+}
+export const modoTotal = () => recursoDaFederacao("fediverso-total");
+export const gruposLigados = () => modoTotal() && recursoDaFederacao("fediverso-grupos");
 
 export class ErroDoBanco extends Error {}
 
@@ -99,12 +115,19 @@ export interface AtorRemoto {
   resumo: string | null;
   url: string | null;
   buscado_em?: string;
+  /** A coleção de seguidores (só quando o documento acabou de ser lido; o cache do banco não a guarda). */
+  seguidores?: string | null;
+  /** O avatar (https), só quando o documento acabou de ser lido. */
+  avatar?: string | null;
 }
 
 const ACEITA_AP = 'application/activity+json, application/ld+json; profile="https://www.w3.org/ns/activitystreams"';
 
-/** Busca um documento ActivityPub de fora, assinado pelo ator da instância (há instâncias que exigem assinatura até para ler). */
-export async function buscarDocumento(url: string): Promise<Record<string, unknown> | null> {
+/**
+ * Busca um documento ActivityPub de fora, assinado pelo ator da instância (há instâncias que exigem assinatura até para ler).
+ * Devolve também o status (0 = não conectou), para quem precisa distinguir "sumiu lá" (404/410) de "fora do ar".
+ */
+export async function buscarDocumentoComStatus(url: string): Promise<{ status: number; doc: Record<string, unknown> | null; final: string | null }> {
   let assinatura: Record<string, string> = {};
   try {
     const chave = await chaveDaInstancia();
@@ -113,9 +136,14 @@ export async function buscarDocumento(url: string): Promise<Record<string, unkno
     // sem a chave da instância: tenta sem assinar
   }
   const r = await pedirAoFediverso(url, { cabecalhos: { Accept: ACEITA_AP, ...assinatura }, maxBytes: 512 * 1024 });
-  if (!r || r.status < 200 || r.status >= 300) return null;
-  if (!/json/.test(r.tipo)) return null;
-  return lerJson(r.texto);
+  if (!r) return { status: 0, doc: null, final: null };
+  if (r.status < 200 || r.status >= 300 || !/json/.test(r.tipo)) return { status: r.status, doc: null, final: r.url.href };
+  return { status: r.status, doc: lerJson(r.texto), final: r.url.href };
+}
+
+/** Busca um documento ActivityPub de fora (nulo se não veio). */
+export async function buscarDocumento(url: string): Promise<Record<string, unknown> | null> {
+  return (await buscarDocumentoComStatus(url)).doc;
 }
 
 const texto = (v: unknown) => (typeof v === "string" ? v : null);
@@ -152,6 +180,8 @@ export function lerAtorRemoto(doc: Record<string, unknown>, esperado?: string): 
     nome: textoCurto(doc.name, 100) || null,
     resumo: typeof doc.summary === "string" ? textoCurto(doc.summary, 500) : null,
     url: pagina,
+    seguidores: urlHttps(doc.followers) && mesmoDominio(String(doc.followers), id) ? String(doc.followers) : null,
+    avatar: urlHttps(typeof doc.icon === "object" && doc.icon ? (doc.icon as { url?: unknown }).url : doc.icon),
   };
 }
 
@@ -204,6 +234,30 @@ export function permitir(chave: string, max: number, janelaMs = 60_000): boolean
 /** O endereço de rede de quem pede (só para o limite em memória; nunca é guardado). */
 export function origemDe(pedido: Request): string {
   return (pedido.headers.get("cf-connecting-ip") ?? pedido.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || "?";
+}
+
+// ── Mídia de fora pela rota-proxy (app/api/fediverso/midia) ──
+// O navegador de quem lê nunca toca a instância de fora (ela não vê o IP de ninguém): a imagem passa pela nossa rota, que só serve
+// o endereço que o servidor assinou (HMAC com uma chave derivada do segredo da federação), para a rota não virar proxy aberto.
+
+const chaveDaMidia = () => (SEGREDO ? createHash("sha256").update(`alumia-fediverso-midia-v1:${SEGREDO}`).digest() : null);
+const assinarUrl = (url: string, chave: Buffer) => createHmac("sha256", chave).update(url).digest("base64url").slice(0, 32);
+
+/** O endereço da rota-proxy para uma mídia de fora (https). Nulo se o endereço não serve ou se falta o segredo. */
+export function urlDaMidia(url: unknown): string | null {
+  const u = urlHttps(url);
+  const chave = chaveDaMidia();
+  if (!u || !chave) return null;
+  return `/api/fediverso/midia?u=${encodeURIComponent(u)}&s=${assinarUrl(u, chave)}`;
+}
+
+/** A assinatura de uma URL de mídia confere? (comparação em tempo constante) */
+export function midiaAssinada(url: string, s: string): boolean {
+  const chave = chaveDaMidia();
+  if (!chave || !/^[A-Za-z0-9_-]{32}$/.test(s)) return false;
+  const a = Buffer.from(assinarUrl(url, chave));
+  const b = Buffer.from(s);
+  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 export const respostaAP = (corpo: unknown, status = 200, segundos = 60) =>
