@@ -76,7 +76,9 @@
     "aula": "Instituto Lúcia lesson",
     "obra": "Work from the Instituto Lúcia collection",
     "materia": "Instituto Lúcia article",
-    "indisponivel": "This arrives with the next Alumia update."
+    "indisponivel": "This arrives with the next Alumia update.",
+    "naoRepostavel": "You can only repost someone else's post written for everyone (not a reply, nor a post for a smaller group).",
+    "veioDeRepost": "Reposted by someone you follow"
   },
   "enquete": {
     "rotulo": "Poll",
@@ -137,7 +139,9 @@
     "continuar": "Continue",
     "apagar": "Delete",
     "semTexto": "(no text)",
-    "semAlt": "An image has no description: screen reader users won't know what's in it. Describe it, or tap again to post as is."
+    "semAlt": "An image has no description: screen reader users won't know what's in it. Describe it, or tap again to post as is.",
+    "naoDesfez": "Could not undo: the post was already published. You can delete it from the post menu.",
+    "rascunhosCheios": "You already have 20 drafts in your account: this one stays only on this device. Delete one to save it to your account."
   },
   "direita": {
     "rotulo": "On Alumia now",

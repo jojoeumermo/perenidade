@@ -1,13 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
 import { rede } from "@/lib/rede/cliente";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
-import { enderecoParaCompartilhar, servidorDoFediverso, tempoCurto } from "@/lib/rede/publicar/alumia2";
+import { enderecoParaCompartilhar, podeRepostar, servidorDoFediverso, tempoCurto } from "@/lib/rede/publicar/alumia2";
+import { jaRepostei } from "@/lib/rede/publicar/repostados";
 import { enqueteDeExemplo } from "@/lib/rede/publicar/exemplos-alumia2";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Post } from "@/lib/rede/tipos";
@@ -54,7 +55,8 @@ export function CartaoDaAlumia2({
   aoResponder,
   extras,
 }: {
-  post: Post;
+  /** `repostado_em`: o post chegou à aba Seguindo por um repost de quem a pessoa segue (sem dizer quem). */
+  post: Post & { repostado_em?: string };
   lang: string;
   s: TextosDaRede;
   logado: boolean;
@@ -69,6 +71,25 @@ export function CartaoDaAlumia2({
   const [erro, setErro] = useState("");
   const [nota, setNota] = useState("");
   const [ocupado, setOcupado] = useState(false);
+  const repostavel = podeRepostar(post);
+  // O estado do Repostar vem do banco (um pedido por página, rede_pub_repostados): só o da própria pessoa.
+  const buscarRepost = logado && repostavel && !deExemplo(post.id) && !repostarForaDoBanco;
+  useEffect(() => {
+    if (!buscarRepost) return;
+    let vivo = true;
+    jaRepostei(post.id).then(
+      (sim) => vivo && setRepostei(sim),
+      (e) => {
+        if (vivo && faltaNoBanco(e)) {
+          repostarForaDoBanco = true;
+          setSemRepostar(true);
+        }
+      },
+    );
+    return () => {
+      vivo = false;
+    };
+  }, [buscarRepost, post.id]);
   if (!al2) return null;
   const { t, previa, comunidades } = al2;
   const exemplo = previa && deExemplo(post.id);
@@ -166,6 +187,13 @@ export function CartaoDaAlumia2({
       )}
 
       <div className="min-w-0 flex-1">
+        {/* Chegou por um repost de quem a pessoa segue: nunca o nome de quem repostou nem quantos (LGPD art. 11). */}
+        {post.repostado_em && (
+          <p className="mb-1 flex items-center gap-1 text-xs font-semibold text-[var(--al-texto-3)]">
+            <Icone nome="repostar" className="h-3.5 w-3.5" />
+            {t.cartao.veioDeRepost}
+          </p>
+        )}
         <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.8125rem] text-[var(--al-texto-3)]">
           {perfilHref ? (
             <Link href={perfilHref} className="text-[0.9375rem] hover:underline">
@@ -272,7 +300,14 @@ export function CartaoDaAlumia2({
             </Link>
           )}
           {logado && (
-            <button type="button" className="al2-acao" aria-pressed={repostei} disabled={ocupado || (semRepostar && !exemplo)} title={semRepostar && !exemplo ? t.cartao.indisponivel : undefined} onClick={() => void repostar()}>
+            <button
+              type="button"
+              className="al2-acao"
+              aria-pressed={repostei}
+              disabled={ocupado || (!exemplo && (semRepostar || (!repostavel && !repostei)))}
+              title={exemplo ? undefined : semRepostar ? t.cartao.indisponivel : !repostavel && !repostei ? t.cartao.naoRepostavel : undefined}
+              onClick={() => void repostar()}
+            >
               <Icone nome="repostar" className="h-[18px] w-[18px]" />
               <span className="max-[420px]:sr-only">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
             </button>
