@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { Archivo, EB_Garamond } from "next/font/google";
 import { MolduraDaAlumia } from "@/components/rede/MolduraDaAlumia";
+import { ComAlumia2 } from "@/components/rede/conversa/Alumia2";
 import { loadLang } from "@/i18n";
 import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import { textosDaRede } from "@/lib/rede/textos";
@@ -31,7 +32,7 @@ export default async function LayoutDaAlumia({ children, params }: LayoutProps<"
   if (!alumia2Ligada()) return moldura;
   return (
     <div data-al="2" className={`${archivo.variable} ${garamond.variable}`}>
-      {moldura}
+      <ComAlumia2>{moldura}</ComAlumia2>
     </div>
   );
 }

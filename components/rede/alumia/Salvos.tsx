@@ -9,6 +9,8 @@ import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 /**
  * Salvos (/alumia/salvos): o que a pessoa guardou para ler depois, do mais novo ao mais antigo. A lista é privada (rede_salvos,
@@ -67,7 +69,7 @@ export default function Salvos({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
 
   if (!t) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   return (
-    <section aria-labelledby="alumia-salvos-titulo">
+    <section aria-labelledby="alumia-salvos-titulo" className="al3-tela">
       <header className="border-b border-rule px-[18px] py-4 font-sans">
         <h1 id="alumia-salvos-titulo" className="font-serif text-2xl font-extrabold">{t.salvos.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{t.salvos.lead}</p>

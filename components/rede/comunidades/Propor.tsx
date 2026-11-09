@@ -8,6 +8,8 @@ import { quandoFoi } from "../CartaoDePost";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { botao, campo, erroCom, textosDe, useCarregar } from "./util";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 /** @nomes de uma lista escrita livre (uma por linha, ou separados por vírgula ou espaço). */
 const nomesDe = (texto: string): string[] => texto.split(/[\s,;]+/).map((x) => x.replace(/^@+/, "").trim().toLowerCase()).filter(Boolean);
@@ -52,7 +54,7 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
   }
 
   return (
-    <div className="font-sans">
+    <div className="al3-tela font-sans">
       <header className="border-b border-rule px-[18px] py-4">
         <h1 className="font-serif text-2xl font-extrabold">{p.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{p.intro}</p>

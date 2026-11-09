@@ -9,6 +9,8 @@ import type { PaginaOrdenada } from "@/lib/rede/tipos-descoberta";
 import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 /**
  * Uma lista de posts com ordenação escrita: o seletor de ordem, o "por que esta ordem?" com a fórmula inteira, a lista de 20 em
@@ -90,7 +92,7 @@ export function ListaOrdenada({
   const o = d.ordens as unknown as Record<string, { nome: string; formula: string }>;
   const pronto = estado?.pedido === pedido;
   return (
-    <div>
+    <div className="al3-tela">
       <div className="border-b border-rule px-[18px] py-3 font-sans">
         <div role="radiogroup" aria-label={d.ordens.rotulo} className="flex flex-wrap gap-2">
           {ordens.map((x) => (
