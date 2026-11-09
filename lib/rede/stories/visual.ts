@@ -86,10 +86,12 @@ export function nomeCurto(nome: string, max = 8): string {
 export function tamanhoDoTexto(texto: string, largura = 390): number {
   const n = [...texto.trim()].length;
   const base = largura * 0.19;
-  if (n <= 24) return Math.round(base);
-  if (n <= 48) return Math.round(base * 0.78);
-  if (n <= 90) return Math.round(base * 0.58);
-  return Math.max(28, Math.round(base * 0.44));
+  const porTamanho = n <= 24 ? base : n <= 48 ? base * 0.78 : n <= 90 ? base * 0.58 : base * 0.44;
+  // A palavra mais longa precisa caber inteira numa linha (a letra condensada em maiúsculas ocupa ~0,47 do tamanho): sem isso,
+  // "PARALISAÇÃO" quebrava no meio.
+  const maior = Math.max(1, ...texto.trim().split(/\s+/).map((p) => [...p].length));
+  const porPalavra = (largura - 44) / (maior * 0.47);
+  return Math.max(28, Math.round(Math.min(porTamanho, porPalavra)));
 }
 
 /** Quanto dura cada story na tela, em ms: 6 s; com figurinha de toque (enquete, pergunta), 10 s. */

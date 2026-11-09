@@ -18,7 +18,7 @@ import { LinkEditar } from "../figurinhas/Link";
 import { PerguntaEditar } from "../figurinhas/Pergunta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar } from "./icones";
-import { codigoDoErro, preencherStory, useAgora } from "./usar";
+import { codigoDoErro, larguraDaTela, preencherStory, useAgora } from "./usar";
 
 type Modo = "texto" | "desenhar" | "figurinha";
 
@@ -222,7 +222,7 @@ export function Criar({
     }
   }
 
-  const tamanho = tamanhoDoTexto(texto || t.criar.textoVazio, 390);
+  const tamanho = tamanhoDoTexto(texto || t.criar.textoVazio, larguraDaTela(460));
   const restam = LIMITES_DO_STORY.texto - [...texto].length;
 
   return (
@@ -300,7 +300,7 @@ export function Criar({
               {restam <= 30 ? preencherStory(t.criar.restam, { n: restam }) : ""}
             </span>
             {texto.trim() || legenda ? (
-              <p className="al-st-tarja">
+              <p className="al-st-tarja" data-vazia={legenda ? "nao" : "sim"}>
                 <label htmlFor={`${id}-tarja`} className="sr-only">
                   {t.criar.tarja}
                 </label>
