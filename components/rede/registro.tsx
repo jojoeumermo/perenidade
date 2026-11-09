@@ -56,4 +56,25 @@ export const REGISTRO: Record<string, EntradaDoRegistro> = {
   fediverso: { componente: dynamic(() => import("./alumia/Fediverso"), { ssr: false }), menu: "fediverso" },
   // Chat privado cifrado de ponta a ponta (/alumia/conversas; docs/rede/CHAT-PRIVADO.md). Nada dele vai ao Fediverso.
   conversas: { componente: dynamic(() => import("./chat/Tela"), { ssr: false }), menu: "conversas" },
+
+  // ───── Onda 5 (PLANO-ALUMIA F0): as telas novas, cada uma no arquivo da frente dona; as rotas e as flags em
+  // lib/rede/rotas-novas.ts. Por enquanto todas mostram "em construção" (components/rede/onda5/EmConstrucao.tsx). ─────
+  // F2 · atos (/alumia/atos, /alumia/ato/[id], /alumia/calendario).
+  atos: { componente: dynamic(() => import("./atos/TelaDosAtos"), { ssr: false }), menu: "chamados" },
+  ato: { componente: dynamic(() => import("./atos/PaginaDoAto"), { ssr: false }), menu: "chamados" },
+  calendario: { componente: dynamic(() => import("./atos/Calendario"), { ssr: false }), menu: "chamados" },
+  // F4 · organizações (/alumia/organizacoes).
+  organizacoes: { componente: dynamic(() => import("./org/PaginaParaOrganizacoes"), { ssr: false }), menu: "comunidades" },
+  // F5 · stories (/alumia/stories).
+  stories: { componente: dynamic(() => import("./stories/TelaDeStories"), { ssr: false }), menu: "inicio" },
+  // F6 · segurança pessoal (/alumia/{seguranca,identidades,aparelhos,o-que-guardamos}).
+  seguranca: { componente: dynamic(() => import("./seguranca/TelaDaSeguranca"), { ssr: false }), menu: "perfil" },
+  identidades: { componente: dynamic(() => import("./seguranca/TelaDasIdentidades"), { ssr: false }), menu: "perfil" },
+  aparelhos: { componente: dynamic(() => import("./seguranca/TelaDosAparelhos"), { ssr: false }), menu: "perfil" },
+  "o-que-guardamos": { componente: dynamic(() => import("./seguranca/OQueGuardamos"), { ssr: false }), menu: "perfil" },
+  // F8 · transparência (/alumia/transparencia).
+  transparencia: { componente: dynamic(() => import("./protecao/TelaDaTransparencia"), { ssr: false }), menu: "perfil" },
+  // F9 · alcance (/alumia/listas, /alumia/leve).
+  listas: { componente: dynamic(() => import("./alcance/TelaDasListas"), { ssr: false }), menu: "inicio" },
+  leve: { componente: dynamic(() => import("./alcance/VersaoLeve"), { ssr: false }), menu: "inicio" },
 };

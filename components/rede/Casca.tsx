@@ -10,6 +10,8 @@ import { avisos } from "@/lib/rede/cliente-avisos";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
+import { sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
+import { ENCAIXES } from "./encaixes";
 import { EsqueletoDaCasca } from "./Esqueletos";
 import { enderecoDoSite, MarcaDaAlumia } from "./MolduraDaAlumia";
 
@@ -48,16 +50,12 @@ function Icone({ children, ativo }: { children: React.ReactNode; ativo?: boolean
   );
 }
 
-/** "Sair rápido": apaga o que a Alumia guardou neste aparelho e vai para uma página neutra do site (a página inicial do instituto). */
+/**
+ * "Sair rápido": apaga o que a Alumia guardou neste aparelho (lib/rede/saida.ts), roda a limpeza que cada frente encaixou
+ * (aoSairRapido: chaveiro do chat, modo ato…) e vai para uma página neutra do site (a página inicial do instituto).
+ */
 function sairRapido(lang: string) {
-  try {
-    for (const armazem of [window.localStorage, window.sessionStorage]) {
-      for (const chave of Object.keys(armazem)) if (chave.startsWith("lucia:rede")) armazem.removeItem(chave);
-    }
-  } catch {
-    // sem armazenamento: nada para apagar
-  }
-  window.location.replace(enderecoDoSite(lang));
+  void sairRapidoDaRede(enderecoDoSite(lang), ENCAIXES.aoSairRapido);
 }
 
 /** Sair da conta neste endereço (a sessão da Alumia é guardada à parte da do site: docs/rede/ALUMIA-DOMINIO.md). */
@@ -118,7 +116,9 @@ export function Casca({
           <nav className="mt-4" aria-label={s.menu.principal}>
             <ul className="space-y-1">
               {DESTINOS.map((d) => {
-                const href = d.href(lang, situacao);
+                // Uma frente pode dar destino a um item que já existe (ex.: "chamados" → /alumia/atos) pelo encaixe do menu.
+                const troca = ENCAIXES.menu.find((m) => m.substitui === d.chave);
+                const href = troca ? troca.href({ lang, s, situacao }) : d.href(lang, situacao);
                 const classes = `flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${ativo === d.chave ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`;
                 return (
                   <li key={d.chave}>
@@ -138,6 +138,24 @@ export function Casca({
                   </li>
                 );
               })}
+              {/* Os itens novos que as frentes encaixam (components/rede/encaixes.tsx); sem encaixe, nada aparece aqui. */}
+              {ENCAIXES.menu
+                .filter((m) => !m.substitui)
+                .map((m) => {
+                  const ctx = { lang, s, situacao };
+                  const href = m.href(ctx);
+                  if (!href) return null;
+                  const n = m.emblema?.(ctx) ?? null;
+                  return (
+                    <li key={m.chave}>
+                      <Link href={href} className="flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg hover:bg-parchment-deep">
+                        <Icone>{m.icone}</Icone>
+                        {m.rotulo(ctx)}
+                        {n !== null && n > 0 && <Emblema n={n} />}
+                      </Link>
+                    </li>
+                  );
+                })}
             </ul>
           </nav>
           {pode && (

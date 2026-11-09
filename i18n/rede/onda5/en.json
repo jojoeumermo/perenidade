@@ -1,0 +1,23 @@
+{
+  "emConstrucao": {
+    "selo": "Under construction",
+    "aviso": "This Alumia screen is still being built. Nothing is stored here for now.",
+    "voltar": "Back to the Alumia home",
+    "rodape": "Order of arrival · no ads · no tracking · always a code name",
+    "marca": "Instituto Lúcia"
+  },
+  "telas": {
+    "atos": { "titulo": "Actions", "descricao": "Actions near you (by the city you type in, never by GPS) and those of the communities you follow, with the mosaic that lights up with each confirmation." },
+    "ato": { "titulo": "Action", "descricao": "An action's page: when, where, the call, the mosaic, \"You're going\", Get there and Invite. Nobody sees the list of who is going." },
+    "calendario": { "titulo": "Calendar", "descricao": "The meetings and actions of your communities and groups in one calendar, to take to your own agenda." },
+    "organizacoes": { "titulo": "Organizations", "descricao": "Parties, mandates, unions, movements, collectives and student unions on Alumia. The badge says the account belongs to who it claims to be; it is not an endorsement by Instituto Lúcia." },
+    "stories": { "titulo": "Stories", "descricao": "24-hour stories, with no record of who viewed them, that never go out to the Fediverse." },
+    "seguranca": { "titulo": "Safety", "descricao": "Protest mode, \"I was detained\" and \"I'm safe\": protection for those who take to the streets." },
+    "identidades": { "titulo": "Identities", "descricao": "More than one identity in the same account, without anyone linking one to the other." },
+    "aparelhos": { "titulo": "Devices", "descricao": "The devices where your account is open, so you can sign out of one remotely. No network address." },
+    "o-que-guardamos": { "titulo": "What we keep", "descricao": "What Alumia keeps about you, for how long and why, with the law alongside." },
+    "transparencia": { "titulo": "Transparency", "descricao": "Moderation numbers per semester, with nothing that points to a person." },
+    "listas": { "titulo": "Lists", "descricao": "Timelines you put together, with your own rules. Only you see your lists." },
+    "leve": { "titulo": "Light version", "descricao": "Alumia in text only, for weak connections and small data plans." }
+  }
+}

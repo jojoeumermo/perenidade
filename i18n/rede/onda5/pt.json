@@ -1,0 +1,23 @@
+{
+  "emConstrucao": {
+    "selo": "Em construção",
+    "aviso": "Esta tela da Alumia ainda está sendo feita. Nada é guardado aqui por enquanto.",
+    "voltar": "Voltar para o início da Alumia",
+    "rodape": "Ordem de chegada · sem anúncio · sem rastreio · codinome sempre",
+    "marca": "Instituto Lúcia"
+  },
+  "telas": {
+    "atos": { "titulo": "Atos", "descricao": "Os atos perto de você (pela cidade que você escrever, nunca pelo GPS) e os das comunidades que você segue, com o mosaico que acende a cada confirmação." },
+    "ato": { "titulo": "Ato", "descricao": "A página de um ato: quando, onde, o chamado, o mosaico, \"Você vai\", Chegar e Chamar. Ninguém vê a lista de quem vai." },
+    "calendario": { "titulo": "Calendário", "descricao": "Os encontros e os atos das suas comunidades e núcleos num calendário só, para levar para a sua agenda." },
+    "organizacoes": { "titulo": "Organizações", "descricao": "Partidos, mandatos, sindicatos, movimentos, coletivos, grêmios e DCEs na Alumia. O selo diz que a conta é de quem diz ser; não é apoio do Instituto Lúcia." },
+    "stories": { "titulo": "Stories", "descricao": "Stories de 24 horas, sem registro de quem viu, que nunca saem para o Fediverso." },
+    "seguranca": { "titulo": "Segurança", "descricao": "Modo ato, \"Fui detido\" e \"Estou bem\": proteção para quem vai para a rua." },
+    "identidades": { "titulo": "Identidades", "descricao": "Mais de uma identidade na mesma conta, sem que ninguém ligue uma à outra." },
+    "aparelhos": { "titulo": "Aparelhos", "descricao": "Os aparelhos em que a sua conta está aberta, para sair de um deles a distância. Sem endereço de rede." },
+    "o-que-guardamos": { "titulo": "O que guardamos", "descricao": "O que a Alumia guarda sobre você, por quanto tempo e por quê, com a lei ao lado." },
+    "transparencia": { "titulo": "Transparência", "descricao": "Os números da moderação por semestre, sem nada que aponte para uma pessoa." },
+    "listas": { "titulo": "Listas", "descricao": "Linhas montadas por você, com as suas regras. Só você vê as suas listas." },
+    "leve": { "titulo": "Versão leve", "descricao": "A Alumia só em texto, para internet fraca e pacote de dados curto." }
+  }
+}
