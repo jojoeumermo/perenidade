@@ -12,13 +12,13 @@ import {
  * As cores de fundo (as listras da faixa tecida, styles/alumia-tokens.css): fundo, a listra mais escura, e a cor do texto por cima.
  * O texto em cima de cada uma passa de 4,5:1 (papel #F3EFE6 sobre o azul dá 9,2:1; noite sobre o dourado, 10:1).
  */
-export const PALETA_DO_STORY: Readonly<Record<CorDoStory, { fundo: string; listra: string; texto: string; quentes: readonly string[] }>> = {
-  azul: { fundo: "#23408e", listra: "#1d3679", texto: "#f3efe6", quentes: ["#2b4ca3", "#1a3170", "#3a5cb8"] },
-  vermelho: { fundo: "#c21f16", listra: "#a91a12", texto: "#f3efe6", quentes: ["#d9351f", "#e8661f", "#f08a24", "#b81c14"] },
-  dourado: { fundo: "#f0b323", listra: "#d99e14", texto: "#0f0e0d", quentes: ["#ffc21a", "#e8a412", "#f6c84a"] },
-  verde: { fundo: "#2e6b4f", listra: "#265b43", texto: "#f3efe6", quentes: ["#357b5b", "#245540", "#3f8a67"] },
-  rosa: { fundo: "#e4577f", listra: "#cf4a70", texto: "#0f0e0d", quentes: ["#ec6d92", "#d54872", "#f2849f"] },
-  noite: { fundo: "#0f0e0d", listra: "#1b1917", texto: "#f3efe6", quentes: ["#1b1917", "#2a2622", "#141210"] },
+export const PALETA_DO_STORY: Readonly<Record<CorDoStory, { fundo: string; listra: string; escuro: string; texto: string; quentes: readonly string[] }>> = {
+  azul: { fundo: "#23408e", listra: "#1d3679", escuro: "#172a5e", texto: "#f3efe6", quentes: ["#2b4ca3", "#3a5cb8", "#d99e14"] },
+  vermelho: { fundo: "#c21f16", listra: "#a91a12", escuro: "#8e1610", texto: "#f3efe6", quentes: ["#d9351f", "#e8661f", "#f08a24", "#de7a2a"] },
+  dourado: { fundo: "#f0b323", listra: "#d99e14", escuro: "#c98a10", texto: "#0f0e0d", quentes: ["#ffc21a", "#f6c84a", "#e8661f"] },
+  verde: { fundo: "#2e6b4f", listra: "#265b43", escuro: "#1d4734", texto: "#f3efe6", quentes: ["#357b5b", "#3f8a67", "#d99e14"] },
+  rosa: { fundo: "#e4577f", listra: "#cf4a70", escuro: "#b83c60", texto: "#0f0e0d", quentes: ["#ec6d92", "#f2849f", "#f08a24"] },
+  noite: { fundo: "#0f0e0d", listra: "#1b1917", escuro: "#080707", texto: "#f3efe6", quentes: ["#2a2622", "#141210", "#3a3430"] },
 };
 
 /** A cor é uma das 6? (o que vem do banco ou do aparelho passa por aqui). Outra coisa vira "azul", a primeira da prancha. */
@@ -36,14 +36,15 @@ export function fundoListrado(cor: CorDoStory): string {
  * O mosaico de fundo (prancha "ver story": cartões quadrados vermelhos e laranja). A grade e as cores saem só da semente (o id do
  * story): o mesmo story desenha sempre o mesmo fundo, em todo aparelho. Devolve uma cor por cartão, linha a linha.
  */
-export function mosaicoDeFundo(semente: string, cor: CorDoStory, colunas = 18, linhas = 34): string[] {
+export function mosaicoDeFundo(semente: string, cor: CorDoStory, colunas = 26, linhas = 48): string[] {
   const p = PALETA_DO_STORY[corValida(cor)];
   const sorte = gerador(sementeDe(semente));
   const cartoes: string[] = [];
   for (let i = 0; i < colunas * linhas; i++) {
     const r = sorte();
-    // 70 % na cor do fundo, o resto espalhado pelas "quentes" (como na prancha: poucos cartões laranja no meio dos vermelhos).
-    cartoes.push(r < 0.7 ? p.fundo : p.quentes[Math.floor(((r - 0.7) / 0.3) * p.quentes.length) % p.quentes.length]);
+    // Como na prancha: metade na cor do fundo, um terço no tom escuro (o vinho entre os vermelhos) e poucos cartões quentes
+    // (laranja) espalhados.
+    cartoes.push(r < 0.5 ? p.fundo : r < 0.82 ? p.escuro : p.quentes[Math.floor(((r - 0.82) / 0.18) * p.quentes.length) % p.quentes.length]);
   }
   return cartoes;
 }
@@ -81,11 +82,12 @@ export function nomeCurto(nome: string, max = 8): string {
 
 /**
  * O tamanho da letra do texto grande, em px, para caber na tela de `largura` px: começa grande (a prancha usa ~70 px para 2 linhas
- * em 390 px) e diminui com o tamanho do texto; nunca abaixo de 28 px.
+ * em 390 px) e diminui com o tamanho do texto; nunca abaixo de 28 px. `escala` encolhe tudo (o "criar" usa 0,76: a prancha mostra o
+ * texto em edição menor que no visor, para as cores e a figurinha caberem acima da dobra).
  */
-export function tamanhoDoTexto(texto: string, largura = 390): number {
+export function tamanhoDoTexto(texto: string, largura = 390, escala = 1): number {
   const n = [...texto.trim()].length;
-  const base = largura * 0.19;
+  const base = largura * 0.19 * escala;
   const porTamanho = n <= 24 ? base : n <= 48 ? base * 0.78 : n <= 90 ? base * 0.58 : base * 0.44;
   // A palavra mais longa precisa caber inteira numa linha (a letra condensada em maiúsculas ocupa ~0,47 do tamanho): sem isso,
   // "PARALISAÇÃO" quebrava no meio.
