@@ -32,7 +32,7 @@ const ler = (p) => fs.readFileSync(new URL(`../${p}`, import.meta.url), "utf8");
 
 const f0 = ler("supabase/migracoes/20261109-alumia-f0-contrato.sql");
 const f1 = ler("supabase/migracoes/20261109-alumia-f1.sql");
-await espera("a F1 NÃO está colada no install.sql (o integrador cola)", async () => ler("supabase/install.sql").includes("Alumia · Onda 5 · F1"), (v) => v === false);
+await espera("a F1 está colada no install.sql (o integrador colou)", async () => ler("supabase/install.sql").includes("Alumia · Onda 5 · F1"), (v) => v === true);
 
 const banco = await criarBanco();
 const { dono, criarUsuario, rpc } = banco;
