@@ -324,6 +324,8 @@ export interface AssistantRequest {
   /** Aulas do próprio site que podem ajudar: o assistente só recomenda estas. */
   aulas: { titulo: string; caminho: string }[];
   imagem?: { tipo: string; dados: string };
+  /** Feita de dentro da Escola: a função só usa provedor que não treina com o texto. Posto por askAssistant. */
+  escola?: boolean;
   /** Só nos modos novos (opcional): a conversa curta até aqui, cortada no aparelho (lib/escola/acompanhante.ts). */
   historico?: { de: "pessoa" | "assistente"; texto: string }[];
   /** Só nos modos novos (opcional): o trecho da aula, o exercício, o nível da pista, o trabalho, o idioma da prática… */
@@ -338,7 +340,12 @@ export type AssistantResult =
  * Pergunta ao assistente de reforço (a função "assistente"). A pergunta, e a foto se houver, vão para um serviço de
  * inteligência artificial de outra empresa; o site não guarda nada disso. O banco só conta quantas perguntas a pessoa fez.
  */
-export async function askAssistant(request: AssistantRequest): Promise<AssistantResult> {
+export async function askAssistant(pedido: AssistantRequest): Promise<AssistantResult> {
+  // Dentro da Escola (militantes), a pergunta só vai ao provedor que não treina com o texto (a função "assistente" filtra)
+  // e nunca cai no assistente aberto, que usa planos gratuitos que podem guardar e treinar.
+  const escola = typeof location !== "undefined" && /^\/[a-z]{2}\/escola(\/|$)/.test(location.pathname);
+  const request = escola ? { ...pedido, escola: true } : pedido;
+  if (escola) return hasBackend ? askAccountAssistant(request) : { ok: false, recusa: false, erro: "assistente_desligado" };
   // Sem o serviço de contas nesta montagem, vai direto ao assistente aberto (se ligado).
   if (!hasBackend) {
     if (!(await estadoDoPublico()).ligado) return { ok: false, recusa: false, erro: "assistente_desligado" };
