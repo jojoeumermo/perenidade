@@ -17,10 +17,11 @@ import "./atos.css";
  */
 export function atoDoPost(post: Post): Ato | null {
   const c = post.chamado;
-  if (post.tipo !== "chamado" || !c) return null;
+  // O chamado vem no post do tipo "chamado" e também embutido num post comum (prancha computador-inicio): vale o campo, não o tipo.
+  if (!c || !c.quando) return null;
   return {
     id: post.id,
-    titulo: post.titulo || c.palavra || "",
+    titulo: post.titulo || c.palavra || c.tipo || "",
     palavra: c.palavra || post.titulo || "",
     comunidade: post.comunidade ? { slug: post.comunidade, nome: post.comunidade } : null,
     chamado_por: post.autor?.handle ?? null,
