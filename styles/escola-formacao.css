@@ -1220,6 +1220,10 @@ main#conteudo .ef-conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagin
   outline-offset: 2px;
 }
 .ef-sair-caixa {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
   max-width: min(30rem, calc(100vw - 32px));
   padding: 24px;
   border-radius: 16px;
