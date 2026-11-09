@@ -19,6 +19,8 @@ export type FiltroDosAtos = "perto" | "seguindo";
 export interface ComunidadeDoAto {
   slug: string;
   nome: string;
+  /** A cor que a comunidade escolheu (1–5, tokens --al-com-N). Sem ela, a cor sai do slug (corDaComunidade). */
+  cor?: 1 | 2 | 3 | 4 | 5 | null;
 }
 
 /** Um ato como a tela mostra. `id` é o id do post do chamado (a conversa do ato é a conversa desse post). */
@@ -107,3 +109,8 @@ export const LIMITES_DO_ATO = {
   /** Até um ano à frente (rede_publicar: quando > now() + 365 days é inválido). */
   diasMax: 365,
 } as const;
+
+/** A cor guardada da comunidade, se for uma das 5 (o resto vira indefinido e a pílula usa a cor pelo slug). */
+export function corValida(cor: unknown): 1 | 2 | 3 | 4 | 5 | undefined {
+  return cor === 1 || cor === 2 || cor === 3 || cor === 4 || cor === 5 ? cor : undefined;
+}

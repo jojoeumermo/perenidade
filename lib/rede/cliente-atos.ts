@@ -9,7 +9,7 @@ import { proporcaoValida } from "./mosaico";
 import { chamar, type Chamar } from "./cliente";
 import { linkDeApoioSeguro } from "./atos/chegar";
 import { criarDuble } from "./atos/exemplos";
-import type { Ato, DadosDoAto, FiltroDosAtos, PaginaDeAtos, PedidoDeMudanca, RespostaDoVou } from "./tipos-atos";
+import { corValida, type Ato, type DadosDoAto, type FiltroDosAtos, type PaginaDeAtos, type PedidoDeMudanca, type RespostaDoVou } from "./tipos-atos";
 
 /** A prévia com dados de exemplo está ligada? (A referência é literal para o Next gravar o valor no código do navegador.) */
 export const PREVIA_DOS_ATOS = process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
@@ -25,6 +25,7 @@ export function limparAto(a: Ato): Ato {
     total: a.meu && typeof a.total === "number" ? a.total : null,
     link_apoio: linkDeApoioSeguro(a.link_apoio),
     respostas: Number.isFinite(a.respostas) && a.respostas > 0 ? Math.floor(a.respostas) : 0,
+    comunidade: a.comunidade ? { slug: a.comunidade.slug, nome: a.comunidade.nome, cor: corValida(a.comunidade.cor) ?? null } : null,
   };
 }
 

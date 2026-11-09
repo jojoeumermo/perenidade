@@ -10,7 +10,7 @@ import { pontoEDetalhe } from "@/lib/rede/atos/formulario";
 import { dataCurta, dataPorExtenso } from "@/lib/rede/atos/tempo";
 import { enderecos } from "@/lib/rede/tipos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
-import type { Ato } from "@/lib/rede/tipos-atos";
+import { corValida, type Ato } from "@/lib/rede/tipos-atos";
 
 export interface PropsDoCartaoDoAto {
   ato: Ato;
@@ -49,7 +49,7 @@ export function CartaoDoAto({ ato, t, lang, logado = true }: PropsDoCartaoDoAto)
     <article className={`al-ato-cartao${largo ? " al-ato-cartao-largo" : ""}`} aria-labelledby={`al-ato-titulo-${ato.id}`} data-situacao={ato.situacao}>
       <div className="al-ato-cartao-topo">
         <div className="al-ato-cartao-quem">
-          {ato.comunidade ? <Pilula texto={ato.comunidade.nome} slug={ato.comunidade.slug} href={enderecos.comunidade(lang, ato.comunidade.slug)} tamanho={largo ? "p" : "m"} /> : null}
+          {ato.comunidade ? <Pilula texto={ato.comunidade.nome} slug={ato.comunidade.slug} cor={corValida(ato.comunidade.cor)} href={enderecos.comunidade(lang, ato.comunidade.slug)} tamanho={largo ? "p" : "m"} /> : null}
           {largo && ato.chamado_por ? <span className="al-ato-chamado-por">{preencherAto(t.chamadoPor, { handle: ato.chamado_por })}</span> : null}
         </div>
         <CarimboDoAto ato={ato} t={t} tamanho={largo ? "m" : "g"} className="al-ato-cartao-carimbo" />
