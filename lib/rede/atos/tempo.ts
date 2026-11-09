@@ -78,6 +78,12 @@ export function dataLonga(iso: string, lang: string, o: OpcoesDeData = {}): stri
   return `${diaDaSemana(iso, lang, "longo", o)}, ${diaMes(iso, lang, o)} · ${hora(iso, lang, o)}`;
 }
 
+/** "Sexta, 15 de novembro, 18h" (cartão do ato no computador). */
+export function dataPorExtenso(iso: string, lang: string, o: OpcoesDeData = {}): string {
+  const dia = new Intl.DateTimeFormat(loc(lang), { timeZone: o.timeZone, day: "numeric", month: "long" }).format(new Date(iso));
+  return `${diaDaSemana(iso, lang, "longo", o)}, ${dia}, ${hora(iso, lang, o)}`;
+}
+
 /** "sex 18h" (faixa do próximo ato e listas: o dia da semana basta quando é nos próximos dias). */
 export function diaEHora(iso: string, lang: string, o: OpcoesDeData = {}): string {
   return `${diaDaSemana(iso, lang, "curto", o)} ${hora(iso, lang, o)}`;
