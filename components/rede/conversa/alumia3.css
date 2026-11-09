@@ -67,10 +67,12 @@
 [data-al="2"] .al3-capa-acao-contorno { background: transparent; color: #0f0e0d; }
 [data-al="2"] .al3-capa-acao[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
 [data-al="2"] .al3-capa-semana { flex: 1; margin: 0; text-align: right; white-space: nowrap; font-weight: 700; font-size: 0.95rem; }
+/* A regra global "main button[aria-pressed] vira pílula" não vale aqui: na prancha, Entrar e Regras são retângulos de canto 12px. */
+:root [data-al="2"] main .al3-capa-acao.al3-capa-acao[aria-pressed] { border-radius: 12px; }
 @media (max-width: 400px) {
-  [data-al="2"] .al3-capa-acoes { gap: 0.6rem; }
-  [data-al="2"] .al3-capa-acao { padding: 0.5rem 0.9rem; font-size: 1rem; }
-  [data-al="2"] .al3-capa-semana { font-size: 0.85rem; }
+  [data-al="2"] .al3-capa-acoes { gap: 0.5rem; }
+  [data-al="2"] .al3-capa-acao { padding: 0.45rem 0.8rem; font-size: 0.95rem; }
+  [data-al="2"] .al3-capa-semana { font-size: 0.8rem; }
 }
 /* E-ink: a cor da comunidade vira preto (tokens), então a capa vira papel branco com tinta preta e uma borda embaixo. */
 :root[data-eink] [data-al="2"] .al3-capa { background: #fff; color: #000; border-bottom: 2px solid #000; }
@@ -275,11 +277,15 @@
 @media (max-width: 767px) {
   /* Dentro da casca, a caixa fica logo acima da barra de baixo do celular (4.5rem). */
   [data-al="2"] .rede-lucia .al3-responder { bottom: calc(4.5rem + var(--recuo-baixo, 0px)); }
+  /* A faixa entre a caixa e a barra de baixo fica com o fundo da caixa: o fio não aparece espremido ali. */
+  [data-al="2"] .rede-lucia .al3-responder::after { content: ""; position: absolute; inset-inline: 0; top: 100%; height: 1.25rem; background: inherit; }
   /* Os botões flutuantes do site (ajuda e acessibilidade) sobem para não cobrir o enviar. */
   :root:has([data-al="2"] .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(10.5rem + var(--recuo-baixo, 0px)); }
-  :root:has([data-al="2"] .al3-responder) .botao-da-caixa { bottom: calc(14rem + env(safe-area-inset-bottom, 0px)); }
+  :root:has([data-al="2"] .al3-responder) .assistente-flutua { bottom: calc(14rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al3-responder) .botao-da-caixa { bottom: calc(17.5rem + env(safe-area-inset-bottom, 0px)); }
   :root:has([data-al="2"] .rede-lucia .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(15rem + var(--recuo-baixo, 0px)); }
-  :root:has([data-al="2"] .rede-lucia .al3-responder) .botao-da-caixa { bottom: calc(18.5rem + env(safe-area-inset-bottom, 0px)); }
+  :root:has([data-al="2"] .rede-lucia .al3-responder) .assistente-flutua { bottom: calc(18.5rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .rede-lucia .al3-responder) .botao-da-caixa { bottom: calc(22rem + env(safe-area-inset-bottom, 0px)); }
 }
 [data-al="2"] .al3-enviar:disabled { opacity: 0.55; cursor: not-allowed; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-enviar { border: 2px solid var(--al-texto); }
