@@ -245,8 +245,8 @@
 [data-al="2"] .al3-ativas h2 { margin: 0 0 0.6rem; font-size: 1.55rem; }
 [data-al="2"] .al3-ativas ol { margin: 0; padding: 0; list-style: none; }
 [data-al="2"] .al3-ativas li + li { border-top: 1px solid var(--al-linha); }
-[data-al="2"] .al3-ativas a { display: grid; grid-template-columns: 30px 1fr; gap: 0 12px; align-items: center; padding: 0.7rem 0; text-decoration: none; min-height: 44px; }
-[data-al="2"] .al3-ativas a:hover .al3-nome { text-decoration: underline; }
+[data-al="2"] .al3-ativas li a { display: grid; grid-template-columns: 30px 1fr; gap: 0 12px; align-items: center; padding: 0.7rem 0; text-decoration: none; min-height: 44px; }
+[data-al="2"] .al3-ativas li a:hover .al3-nome { text-decoration: underline; }
 [data-al="2"] .al3-anel { width: 30px; height: 30px; border-radius: 999px; border: 3px solid var(--al3-cor, var(--al-com-1)); grid-row: span 2; }
 [data-al="2"] .al3-ativas .al3-cinza { font-size: 0.85rem; }
 [data-al="2"] .al3-cor-1 { --al3-cor: var(--al-com-1); }
@@ -293,3 +293,9 @@
   [data-al="2"] .al3-banca-meio { border-inline: 1px solid var(--al-linha); }
   [data-al="2"] .al3-banca-coluna { display: grid; align-content: start; gap: 1.6rem; padding-top: 1.2rem; }
 }
+
+/* Alto contraste e e-ink: o que era borda cinza (invisível no papel branco) vira tinta. */
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-reacao, .al3-ordem button, .al3-responder textarea, .al3-busca, .al3-paleta, .al3-etiquetas li) {
+  border-color: var(--al-texto);
+}
+[data-al="2"] .al3-regra a { text-decoration: underline; }
