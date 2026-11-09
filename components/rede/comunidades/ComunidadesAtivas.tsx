@@ -21,7 +21,9 @@ export function ComunidadesAtivas({ lang }: ContextoDoEncaixe) {
   const [lista, setLista] = useState<ItemDaLista[] | null>(null);
   useEffect(() => {
     let vivo = true;
-    (previa() ? Promise.resolve({ itens: listaDeExemplo() }) : comunidades.lista())
+    // rede_alumia_ativas (20261109-alumia-f3.sql): o banco já ordena e só manda as com 3 posts ou mais na semana. Banco sem a
+    // migração da F3 ainda: a lista de hoje, com a mesma conta feita aqui.
+    (previa() ? Promise.resolve({ itens: listaDeExemplo() }) : comunidades.ativas(4).catch(() => comunidades.lista()))
       .then((r) => vivo && setLista(comunidadesAtivas(r.itens)))
       .catch(() => vivo && setLista([]));
     return () => {

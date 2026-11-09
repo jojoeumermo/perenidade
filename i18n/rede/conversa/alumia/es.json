@@ -80,7 +80,7 @@
     "ajudouQuem": "ayudó a quien preguntó",
     "marcarAjudou": "Marcar que ayudó",
     "desmarcarAjudou": "Quitar la marca de que ayudó",
-    "ajudouRegra": "Solo quien abrió la conversación (y la moderación) marca la respuesta que ayudó. Hay una sola por conversación.",
+    "ajudouRegra": "Solo quien abrió la conversación marca la respuesta que ayudó, ni siquiera la moderación. Hay una sola por conversación.",
     "fediverso": "Respuesta del Fediverso, del servidor {servidor}",
     "responderPara": "Responder a @{handle}",
     "responderParaNome": "Responder a {codinome}",
