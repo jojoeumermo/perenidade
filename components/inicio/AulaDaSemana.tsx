@@ -74,7 +74,7 @@ export function JanelaAulaDaSemana({ semanas, lang, url, s, sc, area }: { semana
   const [, mes, dia] = aula.inicio.split("-");
   const mensagem = aulaEmUmMinuto({ titulo: aula.titulo, trilha: aula.trilhaTitulo, resumo: aula.resumo, termos: aula.termos, pergunta: aula.pergunta, url: `${url}${caminho}`, s: sc });
   return (
-    <article className="cartao flex flex-col p-6" aria-labelledby="aula-da-semana">
+    <article className="cartao flex flex-col p-5" aria-labelledby="aula-da-semana">
       <p className="rotulo">
         {s.titulo} · {dia}/{mes}
       </p>
