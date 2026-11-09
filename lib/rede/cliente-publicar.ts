@@ -26,8 +26,8 @@ export function criarClientePublicar(c: Chamar) {
     /** Onde está o arquivo no depósito (para pedir o endereço assinado). */
     caminhoDaMidia: (id: string) => c<{ bucket: string; caminho: string; tipo: string }>("rede_pub_midia_caminho", { p_id: id }),
 
-    // ───── Alumia nova (Onda 5, F1). As funções do banco chegam com a etapa de back-end (supabase/migracoes/20261109-alumia-f1.sql);
-    // até lá a chamada falha com "banco_desatualizado" e a tela diz isso, sem fingir que deu certo. ─────
+    // ───── Alumia nova (Onda 5, F1): supabase/migracoes/20261109-alumia-f1.sql. Num banco sem a migração, a chamada falha com
+    // "banco_desatualizado" (ou função inexistente) e a tela diz isso, sem fingir que deu certo. ─────
     /** Repostar (ou desfazer): o post aparece na linha de quem segue a pessoa. Só o próprio estado volta, nunca quem repostou. */
     repostar: (post: string, sim: boolean) => c<{ repostei: boolean }>("rede_pub_repostar", { p_post: post, p_sim: sim }),
     /** Guarda (ou atualiza) um rascunho na conta. Só texto e escolhas; até 20 por pessoa, apagados em 30 dias. */
@@ -35,6 +35,18 @@ export function criarClientePublicar(c: Chamar) {
     /** Os rascunhos da própria pessoa (nunca os de outra), do mais novo ao mais antigo. */
     rascunhos: () => c<RascunhoDoServidor[]>("rede_pub_rascunhos"),
     apagarRascunho: (id: string) => c<{ apagado: boolean }>("rede_pub_rascunho_apagar", { p_id: id }),
+    /** Dos posts pedidos (até 50), quais a PRÓPRIA pessoa repostou. Nunca diz nada de outra pessoa. */
+    repostados: (ids: string[]) => c<string[]>("rede_pub_repostados", { p_ids: ids.slice(0, 50) }),
+    /**
+     * Os posts que quem a pessoa segue repostou, com o repost mais recente em (desde, ate], do mais novo ao mais antigo, para a
+     * aba Seguindo. Cada um com `repostado_em`, sem dizer quem repostou nem quantos.
+     */
+    repostes: (ate: string | null, desde: string | null, limite = 20) =>
+      c<(Post & { repostado_em: string })[]>("rede_pub_repostes", { p_ate: ate, p_desde: desde, p_limite: limite }),
+    /** Desfaz um post que acabou de sair (até 30 s, só o autor, nunca o que a triagem segurou). */
+    desfazer: (post: string) => c<{ desfeito: boolean }>("rede_pub_desfazer", { p_post: post }),
+    /** Os números dos emblemas do menu, todos da própria pessoa: avisos não lidos, conversas com novidade, atos confirmados. */
+    emblemas: () => c<{ avisos: number; conversas: number; atos: number }>("rede_alumia_emblemas"),
   };
 }
 

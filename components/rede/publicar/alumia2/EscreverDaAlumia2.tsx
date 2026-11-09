@@ -109,11 +109,13 @@ export function EscreverDaAlumia2({
   const [agora, setAgora] = useState(0);
   const [lembrouAlt, setLembrouAlt] = useState(false);
   const [rascunhoId, setRascunhoId] = useState<string | null>(null);
-  const [rascunhoOnde, setRascunhoOnde] = useState<"conta" | "aparelho" | null>(null);
+  const [rascunhoOnde, setRascunhoOnde] = useState<"conta" | "aparelho" | "cheio" | null>(null);
   const [rascunhos, setRascunhos] = useState<RascunhoDoServidor[]>([]);
   const [tc, setTc] = useState<TextosDaConversa | null>(null);
   const dialogo = useRef<HTMLDivElement>(null);
   const semServidor = useRef(false);
+  // "Desfazer" tocado quando o pedido já tinha saído (o relógio chegou a zero): o post volta pelo rede_pub_desfazer.
+  const desfeitoNoEnvio = useRef(false);
 
   const tipoBanco: TipoDePost = tipo === "ato" ? "post" : (tipoDoBanco(tipo, longoComo) ?? "post");
   const longo = !resposta && tipo === "longo";
@@ -229,7 +231,8 @@ export function EscreverDaAlumia2({
         },
         (e) => {
           if (faltaNoBanco(e)) semServidor.current = true;
-          setRascunhoOnde("aparelho");
+          // 20 rascunhos na conta: este fica no aparelho, e a tela diz como abrir vaga.
+          setRascunhoOnde(codigoDoErro(e) === "limite_rascunhos" ? "cheio" : "aparelho");
         },
       );
     }, ESPERA_DO_RASCUNHO_MS);
@@ -281,13 +284,37 @@ export function EscreverDaAlumia2({
       const pedido = await montarPedido();
       if (!resposta && pub.agendar && tipo !== "ato") {
         const quando = new Date(pub.agendar);
-        await redePub.agendar(pedido, quando.toISOString());
+        const agendado = await redePub.agendar(pedido, quando.toISOString());
+        if (desfeitoNoEnvio.current) {
+          // Desfeito no meio do caminho: o agendamento é cancelado e o texto continua na caixa.
+          await redePub.cancelarAgendado(agendado.id);
+          return;
+        }
         pub.limpar();
         setEnvio(null);
         setAviso(preencher(pub.t?.agendar.agendado ?? "", { quando: quando.toLocaleString(lang, { dateStyle: "short", timeStyle: "short" }) }));
         return;
       }
       const post = await rede.publicar(pedido);
+      if (desfeitoNoEnvio.current && post.id) {
+        // Desfeito no meio do caminho: o banco apaga o post (até 30 s, só o autor) e o texto continua na caixa.
+        const volta = await redePub.desfazer(post.id).then(
+          (r) => r.desfeito,
+          () => false,
+        );
+        if (volta) return;
+        // Não deu (a triagem segurou, ou alguém já respondeu): o post fica publicado e a tela diz.
+        desfeitoNoEnvio.current = false;
+        aoPublicar(post);
+        pub.limpar();
+        setTexto("");
+        setTitulo("");
+        setCorpo("");
+        if (rascunhoId) void redePub.apagarRascunho(rascunhoId).catch(() => undefined);
+        setAviso("");
+        setErro(al2?.t.escrever.naoDesfez ?? "");
+        return;
+      }
       if (post.avaliar && post.id) void evaluatePost("rede", post.id);
       pub.limpar();
       if (rascunhoId) void redePub.apagarRascunho(rascunhoId).catch(() => undefined);
@@ -302,6 +329,7 @@ export function EscreverDaAlumia2({
       setEnvio(null);
       setErro((pub.t && textoDoErroPublicar(pub.t, codigoDoErro(e))) || textoDoErro(s, e));
     } finally {
+      desfeitoNoEnvio.current = false;
       setOcupado(false);
     }
   }, [previa, al2, montarPedido, resposta, pub, tipo, lang, rascunhoId, aoPublicar, s, aoFechar]);
@@ -340,11 +368,14 @@ export function EscreverDaAlumia2({
       if (r.bloqueia) return;
     }
     const n = Date.now();
+    desfeitoNoEnvio.current = false;
     setAgora(n);
     setEnvio({ desde: n });
   }
 
   function desfazer() {
+    // O pedido já saiu? O envio termina e desfaz no banco (rede_pub_desfazer); antes disso, ele nem sai.
+    if (ocupado) desfeitoNoEnvio.current = true;
     setEnvio(null);
     setAviso(al2?.t.escrever.desfeito ?? "");
     window.setTimeout(() => botaoPrincipal.current?.focus(), 0);
@@ -600,7 +631,7 @@ export function EscreverDaAlumia2({
             )}
 
             <p className="text-xs text-[var(--al-texto-3)]">{preencher(t.escrever.codinome, { codinome: situacao.codinome ?? "" })}</p>
-            {rascunhoOnde && <p className="text-xs text-[var(--al-texto-3)]" role="status">{rascunhoOnde === "conta" ? t.escrever.rascunhoNaConta : t.escrever.rascunhoSoAqui}</p>}
+            {rascunhoOnde && <p className="text-xs text-[var(--al-texto-3)]" role="status">{rascunhoOnde === "conta" ? t.escrever.rascunhoNaConta : rascunhoOnde === "cheio" ? t.escrever.rascunhosCheios : t.escrever.rascunhoSoAqui}</p>}
           </div>
 
           <div aria-live="polite" className="px-4 pb-4">
