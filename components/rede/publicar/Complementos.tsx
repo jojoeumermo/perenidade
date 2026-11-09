@@ -13,6 +13,8 @@ import { textoDoErro } from "../erros";
 import { enderecoDaMidia } from "./api";
 import { detalhesDe, invalidar, publicarVencidosUmaVez } from "./detalhes";
 import { textoDoErroPublicar, useTextosPublicar } from "./textos";
+import { useAlumia2 } from "./alumia2/contexto";
+import { EnqueteDaAlumia2 } from "./alumia2/EnqueteDaAlumia2";
 
 const codigoDe = (e: unknown) => (typeof e === "object" && e !== null && "code" in e ? String((e as { code: unknown }).code) : "falha");
 const quando = (iso: string, lang: string) => {
@@ -256,18 +258,38 @@ function HistoricoDoPost({ id, t, lang }: { id: string; t: TextosPublicar; lang:
  * prévia de link (gerada no servidor), fio, "quem pode responder", o botão de editar para quem escreveu e o histórico de edições.
  * Os detalhes chegam em lote e só depois do texto: o cartão nunca espera por eles.
  */
-export function Complementos({ post, lang, s, logado, completo, aoAtualizar }: { post: Post; lang: string; s: TextosDaRede; logado: boolean; completo?: boolean; aoAtualizar?: (p: Post) => void }) {
+export function Complementos({
+  post,
+  lang,
+  s,
+  logado,
+  completo,
+  aoAtualizar,
+  detalhesIniciais,
+}: {
+  post: Post;
+  lang: string;
+  s: TextosDaRede;
+  logado: boolean;
+  completo?: boolean;
+  aoAtualizar?: (p: Post) => void;
+  /** Detalhes já conhecidos (a prévia da Alumia nova, com dados de exemplo): não pergunta ao banco. */
+  detalhesIniciais?: DetalhesDoPost | null;
+}) {
   const t = useTextosPublicar(lang);
-  const [det, setDet] = useState<DetalhesDoPost | null>(null);
+  // Dentro da casca nova (flag "alumia-2"), a enquete sai com as barras da prancha.
+  const al2 = useAlumia2();
+  const [det, setDet] = useState<DetalhesDoPost | null>(detalhesIniciais ?? null);
   const [editando, setEditando] = useState(false);
 
   useEffect(() => {
+    if (detalhesIniciais) return;
     let vivo = true;
     detalhesDe(post.id).then((d) => vivo && setDet(d));
     return () => {
       vivo = false;
     };
-  }, [post.id, post.editado_em]);
+  }, [post.id, post.editado_em, detalhesIniciais]);
   useEffect(() => {
     if (logado) publicarVencidosUmaVez();
   }, [logado]);
@@ -286,7 +308,12 @@ export function Complementos({ post, lang, s, logado, completo, aoAtualizar }: {
         </div>
       )}
       {det?.audio && <AudioDoPost id={det.audio.id} duracao={det.audio.duracao} t={t} />}
-      {det?.enquete && <EnqueteDoPost post={post} inicial={det.enquete} t={t} lang={lang} logado={logado} s={s} />}
+      {det?.enquete &&
+        (al2 ? (
+          <EnqueteDaAlumia2 postId={post.id} inicial={det.enquete} t={al2.t} tp={t} s={s} lang={lang} logado={logado} />
+        ) : (
+          <EnqueteDoPost post={post} inicial={det.enquete} t={t} lang={lang} logado={logado} s={s} />
+        ))}
       {det?.previa && (
         <a href={det.previa.url} target="_blank" rel="noopener noreferrer nofollow ugc" className="mt-2 flex overflow-hidden rounded-lg border border-rule bg-folha text-sm hover:border-ink">
           {det.previa.imagem && (
