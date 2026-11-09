@@ -245,7 +245,7 @@ export function CartaoDaAlumia2({
 
         {!exemplo && <RotuloDoPost post={post} lang={lang} />}
 
-        <div className="-ml-1.5 mt-2 flex flex-wrap items-center gap-x-2">
+        <div className="-ml-1.5 mt-2 flex flex-wrap items-center gap-x-0.5 sm:gap-x-2">
           {logado && !post.travado && aoResponder ? (
             <button type="button" className="al2-acao" onClick={() => aoResponder(post)} aria-label={`${t.cartao.responder} · ${preencher(t.cartao.respostas, { n: post.respostas })}`}>
               <Icone nome="responder" className="h-[18px] w-[18px]" />
@@ -260,13 +260,13 @@ export function CartaoDaAlumia2({
           {logado && (
             <button type="button" className="al2-acao" aria-pressed={repostei} disabled={ocupado} onClick={() => void repostar()}>
               <Icone nome="repostar" className="h-[18px] w-[18px]" />
-              {repostei ? t.cartao.repostado : t.cartao.repostar}
+              <span className="max-[420px]:sr-only">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
             </button>
           )}
           {logado && !post.meu && (
             <button type="button" className="al2-acao al2-acao-acender" aria-pressed={post.apoiei} disabled={ocupado} onClick={() => void acender()}>
               <Icone nome="acender" className="h-[18px] w-[18px]" />
-              {post.apoiei ? t.cartao.aceso : t.cartao.acender}
+              <span className="max-[420px]:sr-only">{post.apoiei ? t.cartao.aceso : t.cartao.acender}</span>
             </button>
           )}
           {/* O total do Acender só chega para quem escreveu (decisão 3 da ESPEC). */}

@@ -43,7 +43,8 @@ function abaInicial(membro: boolean): Aba {
   } catch {
     // sem endereço legível: vale o padrão
   }
-  return membro ? "tudo" : "geral";
+  // Na cara nova (alumia-2), a aba das pranchas é "Seguindo"; na de hoje, "Tudo".
+  return membro ? (AL2 ? "seguindo" : "tudo") : "geral";
 }
 
 /**

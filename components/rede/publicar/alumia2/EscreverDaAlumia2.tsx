@@ -589,7 +589,7 @@ function FormularioDoAtoDuble({ aoMudar }: { aoMudar: (d: Record<string, unknown
     <div className="space-y-4">
       <label className="block">
         <span className="al2-rotulo">{t.previa.nomeDoAto}</span>
-        <input className="al2-campo al-cond min-h-14 text-[1.9rem] font-black uppercase" value={d.nome} maxLength={40} onChange={mudar("nome")} />
+        <input className="al2-campo al-cond min-h-14 !text-[1.9rem] !font-black uppercase" value={d.nome} maxLength={40} onChange={mudar("nome")} />
       </label>
       <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] gap-3">
         <label className="block">
@@ -603,7 +603,7 @@ function FormularioDoAtoDuble({ aoMudar }: { aoMudar: (d: Record<string, unknown
       </div>
       <label className="block">
         <span className="al2-rotulo">{t.previa.chamado}</span>
-        <textarea className="al2-campo min-h-32 resize-y text-[1.05rem] leading-relaxed" value={d.chamado} onChange={mudar("chamado")} />
+        <textarea rows={5} className="al2-campo min-h-40 resize-y !text-[1.05rem] leading-relaxed" value={d.chamado} onChange={mudar("chamado")} />
       </label>
       <div className="rounded-xl border border-dashed border-[var(--al-superficie-2)] p-2">
         <Mosaico palavra={d.nome.split(" ")[0] || " "} semente="previa-novo-ato" proporcao={null} quebrar={31} rotulo={preencher(t.previa.mosaico, { palavra: d.nome })} />
