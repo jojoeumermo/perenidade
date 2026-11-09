@@ -258,18 +258,18 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       {/* ── As quatro janelas: onde parou, a aula da semana, o jornal e o que está no ar ── */}
       <section>
         {quadro && <QuadroDeAvisos {...quadro} className="mx-auto block max-w-[78rem] px-4 pt-14 sm:px-6 lg:px-8 max-md:pt-8" />}
-        <div className="mx-auto grid max-w-[78rem] gap-8 px-4 py-14 sm:px-6 md:grid-cols-2 lg:px-8 xl:grid-cols-4 max-md:py-8">
+        <div className="mx-auto grid max-w-[78rem] gap-6 px-4 py-14 sm:px-6 md:auto-rows-[17rem] md:grid-cols-2 lg:px-8 xl:grid-cols-4 max-md:py-8">
           <JanelaContinue textos={{ continuar: t.tracks.continue, retomar: t.tracks.resume, comecar: t.nav.start, comecarTexto: h.startText }} />
 
           <JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />
 
           {articles.length > 0 ? (
-            <article className="cartao p-6">
+            <article className="cartao overflow-hidden p-5">
               <p className="rotulo">{h.journalWindow}</p>
               <ul className="mt-3 flex flex-col">
-                {articles.map((article) => (
-                  <li key={article.slug} className="border-b-[1.5px] border-dashed border-rule py-3.5 last:border-b-0">
-                    <Link href={to(`/jornal/${article.slug}`)} className="text-[1.3rem] leading-tight text-ink hover:text-ink hover:underline hover:decoration-[#c21f16] hover:decoration-2">
+                {articles.slice(0, 2).map((article) => (
+                  <li key={article.slug} className="border-b-[1.5px] border-dashed border-rule py-2.5 last:border-b-0">
+                    <Link href={to(`/jornal/${article.slug}`)} className="line-clamp-2 text-[1.12rem] leading-snug text-ink hover:text-ink hover:underline hover:decoration-[#c21f16] hover:decoration-2">
                       {article.title}
                     </Link>
                     <p className="mt-1.5 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ink-soft">

@@ -30,7 +30,7 @@ export function JanelaContinue({ textos }: { textos: { continuar: string; retoma
   const feitas = useCompleted();
   const tem = hydrated && ultima?.path;
   return (
-    <article className="cartao-v flex flex-col p-6">
+    <article className="cartao-v flex flex-col p-5">
       <p className="rotulo">{tem ? textos.continuar : textos.comecar}</p>
       {tem ? (
         <>
@@ -81,7 +81,7 @@ export function JanelaNoAr({ textos }: { textos: { noAr: string; ouvir: string; 
   }, []);
   const [novo, anterior] = episodios;
   return (
-    <article className="cartao-preto flex flex-col p-6">
+    <article className="cartao-preto flex flex-col p-5">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#e0837a]">● {textos.noAr}</p>
       {novo ? (
         <>
