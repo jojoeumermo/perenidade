@@ -1,10 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// As chamadas dos atos ao banco (Onda 5, frente F2; contrato em lib/rede/tipos-atos.ts). A etapa de back-end cria as funções
-// com estes nomes e parâmetros (supabase/migracoes/20261109-alumia-f2-atos.sql). Com NEXT_PUBLIC_ALUMIA_PREVIA=sim, as telas usam
-// o dublê com os dados das pranchas (lib/rede/atos/exemplos.ts) e nada vai ao servidor. Sem "@/" de propósito.
+// As chamadas dos atos ao banco (Onda 5, frente F2; contrato em lib/rede/tipos-atos.ts; funções em
+// supabase/migracoes/20261109-alumia-f2.sql). Com NEXT_PUBLIC_ALUMIA_PREVIA=sim, as telas usam o dublê com os dados das pranchas
+// (lib/rede/atos/exemplos.ts) e nada vai ao servidor. Sem "@/" de propósito.
 //
-// Publicar um ato é o rede_publicar de sempre com tipo "chamado" e o campo `chamado` (pedidoDoAto, abaixo): o compositor é da F1.
+// Publicar um ato é rede_ato_publicar (publicar(), abaixo): ele chama o rede_publicar de sempre por dentro (todas as conferências
+// dele valem) e grava o chamado na mesma transação. O compositor da F1, com o tipo "Ato" escolhido, chama atos.publicar(extras)
+// no lugar do rede_publicar.
 import { proporcaoValida } from "./mosaico";
 import { chamar, type Chamar } from "./cliente";
 import { linkDeApoioSeguro } from "./atos/chegar";
@@ -55,6 +57,9 @@ export function criarClienteDosAtos(c: Chamar) {
       const r = await c<RespostaDoVou>("rede_ato_vou", { p_id: id, p_sim: sim });
       return { vou_eu: !!r.vou_eu, acesos: proporcaoValida(r.acesos), total: typeof r.total === "number" ? r.total : null };
     },
+    /** Chama um ato (o tipo "Ato" do compositor). Devolve o ato como a tela mostra. */
+    publicar: async (d: DadosDoAto, comum: { publico?: string; comunidade?: string | null } = {}) =>
+      limparAto(await c<Ato>("rede_ato_publicar", { p: pedidoDoAto(d, comum) })),
     /** Adiar, cancelar ou confirmar de novo (só quem organizou). O aviso "ato_mudou" vai só a quem confirmou. */
     mudar: async (id: string, m: PedidoDeMudanca) =>
       limparAto(await c<Ato>("rede_ato_mudar", { p_id: id, p_situacao: m.situacao, p_inicio: m.inicio ?? null, p_motivo: m.motivo ?? "" })),
@@ -74,14 +79,17 @@ export function chamarDuble(duble = criarDuble()): Chamar {
 
 export const atos = criarClienteDosAtos(PREVIA_DOS_ATOS ? chamarDuble() : chamar);
 
-/** O pedido do rede_publicar para um ato (tipo "chamado" no banco). O texto do post é o chamado; o resto vai em `chamado`. */
+/** O pedido do rede_ato_publicar para um ato. O texto do post é o chamado; o nome, a palavra, a data, o ponto e a cidade vão junto. */
 export function pedidoDoAto(d: DadosDoAto, comum: { publico?: string; comunidade?: string | null } = {}) {
   return {
-    tipo: "chamado" as const,
+    tipo: d.tipo,
     titulo: d.titulo,
-    texto: d.descricao,
+    palavra: d.palavra,
+    inicio: d.quando,
+    onde: d.onde,
+    cidade: d.cidade,
+    descricao: d.descricao,
     publico: comum.publico,
     comunidade: comum.comunidade ?? null,
-    chamado: { tipo: "ato", inicio: d.quando, ponto: d.onde, cidade: d.cidade, palavra: d.palavra },
   };
 }

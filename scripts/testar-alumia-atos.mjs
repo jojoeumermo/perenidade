@@ -96,7 +96,7 @@ igual("mais de um ano à frente", conferirAto({ ...bom, quando: "2028-01-01T00:0
 igual("nome só de números não desenha o mosaico", conferirAto({ ...bom, titulo: "2026" }, agora).problemas.titulo, "palavra");
 igual("chamado acima de 500", conferirAto({ ...bom, descricao: "a".repeat(501) }, agora).problemas.descricao, "longo");
 const pedido = pedidoDoAto(bom, { publico: "publico", comunidade: "moradia-zona-leste" });
-ok("o pedido vai como chamado, com a palavra e a cidade", pedido.tipo === "chamado" && pedido.chamado.palavra === "FICA ESPERANCA" && pedido.chamado.cidade === "São Paulo");
+ok("o pedido do rede_ato_publicar leva a palavra, a data, o ponto e a cidade", pedido.tipo === "ato" && pedido.palavra === "FICA ESPERANCA" && pedido.cidade === "São Paulo" && pedido.inicio === bom.quando && pedido.descricao === "Vigília." && pedido.comunidade === "moradia-zona-leste");
 igual("ponto e detalhe", pontoEDetalhe("Praça da Sé · concentração na escadaria"), { ponto: "Praça da Sé", detalhe: "concentração na escadaria" });
 
 // ── .ics (RFC 5545) ──
@@ -125,6 +125,8 @@ ok("Chegar sai sem Referer", /rel="noopener noreferrer"[^>]*referrerPolicy="no-r
 const encaixe = ler("components/rede/atos/encaixe.tsx");
 ok("encaixe vazio com as flags desligadas", /const LIGADO = rotaNovaLigada\("atos"\)/.test(encaixe) && /!LIGADO \? \{\}/.test(encaixe));
 ok("emblema dos atos só com conta", /emblema: \(\{ situacao \}\) => \(situacao\.logado \? atosNovos\(\) : null\)/.test(encaixe));
+ok("chamado embutido vale pelo campo, não pelo tipo do post", !/post\.tipo !== "chamado"/.test(ler("components/rede/atos/AnexoChamado.tsx")));
+ok("Você vai vence a pílula do celular", /:root \[data-al="2"\] \.al-ato-coluna \.al-ato-quadrado:is\(\.al-ato-quadrado-vou/.test(ler("components/rede/atos/atos.css")));
 ok("alto do Início nulo com as flags desligadas", /TopoDoInicioEncaixado[^=]*= !LIGADO\s*\?\s*null/.test(encaixe));
 
 // ── "Há ato novo": conta atos (nunca gente), só no aparelho, e o "Sair rápido" apaga ──
