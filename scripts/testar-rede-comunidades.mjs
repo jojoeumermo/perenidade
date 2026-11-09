@@ -605,14 +605,14 @@ await espera("nenhuma função do pacote devolve e-mail ou nome do painel", asyn
 await espera("as funções de endereço e de conferência batem com o banco", async () => [
   enderecosCom.lista("pt"), enderecosCom.propor("en"), enderecosCom.aula("pt", "matematica-basica", "fracoes", "matematica"), enderecosCom.nucleo("pt", "x"),
   aulaOk("matematica-basica/fracoes"), aulaOk("../fora"), aulaOk("so-um"), mesOk("2026-11"), mesOk("2026-13"),
-], (r) => r[0] === "/pt/comunidade/comunidades" && r[1] === "/en/comunidade/propor" && r[2] === "/pt/comunidade/aula/matematica-basica/fracoes?c=matematica" && r[3] === "/pt/comunidade/nucleos/x" && r[4] === true && r[5] === false && r[6] === false && r[7] === true && r[8] === false);
+], (r) => r[0] === "/pt/alumia/comunidades" && r[1] === "/en/alumia/propor" && r[2] === "/pt/alumia/aula/matematica-basica/fracoes?c=matematica" && r[3] === "/pt/alumia/nucleos/x" && r[4] === true && r[5] === false && r[6] === false && r[7] === true && r[8] === false);
 await espera("o botão da aula leva à comunidade da disciplina; 'trabalho' vai para 'oficios-e-trabalho'; slug estranho não vira endereço", async () => [
   enderecoDiscutirAula("pt", "matematica-basica", "fracoes", "matematica"),
   enderecoDiscutirAula("en", "oficios", "eletrica", "trabalho"),
   enderecoDiscutirAula("pt", "Ma Ti", "fracoes", "matematica"),
   enderecoDiscutirAula("pt", "a", "fracoes", "matematica"),
   rotuloDiscutirAula("pt"), rotuloDiscutirAula("xx") === rotuloDiscutirAula("pt"), ["en", "es", "fr", "ru", "zh"].every((l) => rotuloDiscutirAula(l) !== rotuloDiscutirAula("pt")),
-], (r) => r[0] === "/pt/comunidade/aula/matematica-basica/fracoes?c=matematica" && r[1] === "/en/comunidade/aula/oficios/eletrica?c=oficios-e-trabalho" && r[2] === null && r[3] === null && r[4].includes("aula") && r[5] && r[6]);
+], (r) => r[0] === "/pt/alumia/aula/matematica-basica/fracoes?c=matematica" && r[1] === "/en/alumia/aula/oficios/eletrica?c=oficios-e-trabalho" && r[2] === null && r[3] === null && r[4].includes("aula") && r[5] && r[6]);
 await espera("os seis idiomas do pacote têm as mesmas chaves (pt é o final; os outros cinco são rascunho marcado)", async () => {
   const achatar = (o, pre = "") => Object.entries(o).flatMap(([k, v]) => (v && typeof v === "object" ? achatar(v, `${pre}${k}.`) : [`${pre}${k}`]));
   const pt = achatar(JSON.parse(lerTexto("i18n/rede/comunidades/pt.json"))).filter((k) => k !== "_rascunho").sort();
@@ -631,12 +631,12 @@ await espera("todo texto do pacote usado nos componentes existe no português", 
   return faltando;
 }, (r) => r.length === 0);
 await espera("as rotas do pacote existem, dão 404 com o recurso desligado e não indexam", async () => {
-  const dir = "app/[lang]/comunidade";
+  const dir = "app/[lang]/alumia";
   const rotas = [`${dir}/comunidades/page.tsx`, `${dir}/propor/page.tsx`, `${dir}/aula/[track]/[lesson]/page.tsx`, `${dir}/nucleos/page.tsx`, `${dir}/nucleos/[id]/page.tsx`];
   return rotas.map((a) => ({ a, ok: fs.existsSync(new URL(`../${a}`, import.meta.url)) && /notFound\(\)/.test(lerTexto(a)) && /ligado\("rede-v2"\)/.test(lerTexto(a)) && /index: false/.test(lerTexto(a)) }));
 }, (r) => r.every((x) => x.ok));
 await espera("a rota da comunidade traz os textos do pacote e a página da aula só entra com o recurso ligado, sem ler disco", async () => {
-  const rota = lerTexto("app/[lang]/comunidade/c/[slug]/page.tsx");
+  const rota = lerTexto("app/[lang]/alumia/c/[slug]/page.tsx");
   const aula = lerTexto("app/[lang]/trilhas/[track]/[lesson]/page.tsx");
   const modulo = lerTexto("lib/rede/discutir-aula.ts");
   return [/comTextos\(lang\)/.test(rota), /ligado\("rede-v2"\) && \(\s*<p[^>]*>\s*<Link href=\{enderecoDiscutirAula/.test(aula), /from "@\/lib\/rede\/discutir-aula"/.test(aula), /node:fs|readFile|from "@\//.test(modulo)];

@@ -94,7 +94,7 @@ const AMOSTRA = "Vamos de #Greve! e #greve de novo, #Educação, a#b, http://x.c
 await espera("tags no banco: sem acento, sem repetir, ignora meio de palavra, endereço, número puro e tag grande demais", async () => (await um("select interno.rede3_desc_tags(null, $1, '') as t", [AMOSTRA])).t, (t) => JSON.stringify(t) === JSON.stringify(["2026ano", "educacao", "greve"]));
 await espera("tags no navegador (partirComTags) batem com as do banco", async () => [...new Set(partirComTags(AMOSTRA).filter((p) => p.tag).map((p) => p.tag))].sort(), (t) => JSON.stringify(t) === JSON.stringify(["2026ano", "educacao", "greve"]));
 await espera("partirComTags devolve o texto inteiro, sem perder nem repetir pedaço", async () => partirComTags(AMOSTRA).map((p) => p.texto).join(""), (t) => t === AMOSTRA);
-await espera("tagOk e normalizarTag seguem o banco", async () => [tagOk("greve"), tagOk("123"), tagOk("a"), normalizarTag("#Educação"), enderecosDescoberta.tag("pt", "greve"), enderecosDescoberta.buscar("pt", "a b")], (r) => r[0] && !r[1] && !r[2] && r[3] === "educacao" && r[4] === "/pt/comunidade/tag/greve" && r[5] === "/pt/comunidade/buscar?q=a%20b");
+await espera("tagOk e normalizarTag seguem o banco", async () => [tagOk("greve"), tagOk("123"), tagOk("a"), normalizarTag("#Educação"), enderecosDescoberta.tag("pt", "greve"), enderecosDescoberta.buscar("pt", "a b")], (r) => r[0] && !r[1] && !r[2] && r[3] === "educacao" && r[4] === "/pt/alumia/tag/greve" && r[5] === "/pt/alumia/buscar?q=a%20b");
 await espera("o texto sem acento: 'educação' vira 'educacao', outras letras ficam", async () => (await um("select interno.rede3_desc_sa('Educação Ñandú ЖИ') as t")).t, (t) => t === "educacao nandu жи");
 
 // ── A página da hashtag respeita a matriz ──
@@ -496,7 +496,7 @@ await espera("o passo a passo tem os seis passos na ordem da ESPEC e só o guia 
 
 // ── Telas, rotas e ligações ──
 await espera("as rotas explorar, buscar e tag existem, atrás do recurso (404 desligado) e sem trecho de conteúdo nos metadados", async () => {
-  const dir = "app/[lang]/comunidade";
+  const dir = "app/[lang]/alumia";
   return ["explorar/page.tsx", "buscar/page.tsx", "tag/[tag]/page.tsx"].map((a) => {
     const f = lerTexto(`${dir}/${a}`);
     return { a, ok: /ligado\("rede-v2"\)/.test(f) && /notFound\(\)/.test(f) && /index: false/.test(f) && /RedeSobDemanda/.test(f) };
@@ -505,7 +505,7 @@ await espera("as rotas explorar, buscar e tag existem, atrás do recurso (404 de
 await espera("o registro tem as três telas com import dinâmico; a casca liga Explorar e leva a busca para a Rede", async () => {
   const reg = lerTexto("components/rede/registro.tsx");
   const casca = lerTexto("components/rede/Casca.tsx");
-  return [/explorar: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Explorar"\)/.test(reg), /buscar: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Buscar"\)/.test(reg), /tag: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Tag"\)/.test(reg), /chave: "explorar"/.test(casca), /comunidade\/buscar/.test(casca)];
+  return [/explorar: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Explorar"\)/.test(reg), /buscar: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Buscar"\)/.test(reg), /tag: \{ componente: dynamic\(\(\) => import\("\.\/descoberta\/Tag"\)/.test(reg), /chave: "explorar"/.test(casca), /alumia\/buscar/.test(casca)];
 }, (r) => r.every(Boolean));
 await espera("a Rede usa a porta da primeira entrada (com a entrada simples de reserva) e o cartão de post liga as hashtags", async () => [/PortaDaEntrada/.test(lerTexto("components/rede/Rede.tsx")), /alternativa=/.test(lerTexto("components/rede/Rede.tsx")), /TextoComTags/.test(lerTexto("components/rede/CartaoDePost.tsx"))], (r) => r.every(Boolean));
 await espera("a lista de trilhas é estática, atrás do recurso, e lê o catálogo só na rota (nunca em componente)", async () => {
