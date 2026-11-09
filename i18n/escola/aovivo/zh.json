@@ -22,7 +22,7 @@
     "tentar": "再试一次",
     "assistir": "观看课程",
     "assistirGravada": "观看录像",
-    "avisoTocador": "视频来自 YouTube，通过不带广告 Cookie 的地址播放。点击之前不会加载任何 Google 内容。",
+    "avisoTocador": "视频来自 YouTube，通过不带广告 Cookie 的地址播放。点击之前不会加载任何 Google 内容。 点击后，Google 会看到你的网络地址（IP）。如果这对你有风险，请通过 VPN 或 Tor 浏览器观看。",
     "semTransmissao": "直播还没有创建。主讲人创建后，视频会出现在这里。",
     "antes": "课程将于{quando}开始。聊天在开课前半小时开放。",
     "avisar": "开始时提醒我",
