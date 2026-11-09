@@ -10,7 +10,7 @@ import type { PropsDaTelaDoPacote } from "../registro";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { useTextosDescoberta } from "./textos";
 
-/** A página de uma hashtag (/comunidade/tag/[tag]): os posts que a trazem, na ordem escolhida, só os que a pessoa pode ver. */
+/** A página de uma hashtag (/alumia/tag/[tag]): os posts que a trazem, na ordem escolhida, só os que a pessoa pode ver. */
 export default function Tag({ lang, s, situacao, params, aoEscrever }: PropsDaTelaDoPacote) {
   const d = useTextosDescoberta(lang);
   const tag = params.tag ?? "";

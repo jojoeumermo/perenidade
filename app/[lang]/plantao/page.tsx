@@ -30,7 +30,7 @@ export default async function Plantao({ params }: PageProps<"/[lang]/plantao">) 
   const canais = [
     { id: "reforco", href: "/reforco", titulo: t.tutoring.title, oque: t.tutoring.lead, ...p.canais.reforco },
     { id: "assistente", href: "/reforco", titulo: t.tutoring.assistant.title, oque: t.tutoring.assistant.lead, ...p.canais.assistente, extra: ligado("escola") ? { href: "/escola/acompanhante", texto: p.canais.assistente.acompanhante } : null },
-    { id: "comunidade", href: "/comunidade", titulo: t.community.title, oque: t.community.lead, ...p.canais.comunidade },
+    { id: "comunidade", href: "/alumia", titulo: t.community.title, oque: t.community.lead, ...p.canais.comunidade },
     { id: "aovivo", href: "/ao-vivo", titulo: t.live.title, oque: t.live.lead, ...p.canais.aovivo },
     { id: "grupo", href: "/estudo-em-grupo", titulo: t.studyGroup.title, oque: t.studyGroup.lead, ...p.canais.grupo },
   ];

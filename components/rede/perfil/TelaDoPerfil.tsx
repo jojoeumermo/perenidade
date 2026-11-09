@@ -30,7 +30,7 @@ function lerUltimaAula(): unknown {
 }
 
 /**
- * A página de um perfil (/comunidade/u/[handle]): capa, rosto, codinome, @nome, selos, bio, "estudando agora", post fixado e a
+ * A página de um perfil (/alumia/u/[handle]): capa, rosto, codinome, @nome, selos, bio, "estudando agora", post fixado e a
  * linha da pessoa. Seguir (ou pedir para seguir, no perfil trancado). Sem contagem de seguidores, de seguidos ou de apoios, e
  * nada do nome civil. No próprio perfil: editar, pedidos pendentes e a atualização do "estudando agora" se estiver ligado.
  */

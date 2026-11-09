@@ -11,7 +11,7 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 
 /**
- * Salvos (/comunidade/salvos): o que a pessoa guardou para ler depois, do mais novo ao mais antigo. A lista é privada (rede_salvos,
+ * Salvos (/alumia/salvos): o que a pessoa guardou para ler depois, do mais novo ao mais antigo. A lista é privada (rede_salvos,
  * só a própria pessoa lê) e passa pela mesma matriz de visibilidade de sempre: post apagado, retido ou que ela deixou de poder ver some.
  */
 export default function Salvos({ lang, s, situacao, aoEscrever }: PropsDaTelaDoPacote) {

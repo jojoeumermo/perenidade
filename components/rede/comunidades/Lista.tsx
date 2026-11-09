@@ -22,7 +22,7 @@ const simples = (t: string) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowe
 const pelaRegra = (a: ItemDaLista, b: ItemDaLista) => (b.posts_7d ?? 0) - (a.posts_7d ?? 0) || a.nome.localeCompare(b.nome, "pt");
 
 /**
- * A vitrine das comunidades (/comunidade/comunidades), T32 item 3. Lutas, Disciplinas e Instituto em seções recolhíveis, com
+ * A vitrine das comunidades (/alumia/comunidades), T32 item 3. Lutas, Disciplinas e Instituto em seções recolhíveis, com
  * busca e filtro; a ordem é pública e está escrita na tela. Cada cartão mostra só contagens AGREGADAS e anônimas da semana (posts
  * e pessoas, estas só a partir de 3: abaixo disso, "poucas"), nunca quem: estar numa luta pode revelar opinião política (LGPD,
  * art. 5º, II e art. 11; minimização, art. 6º, III). Um único chamado por cartão: quem tem conta, o botão de entrar; visitante, o

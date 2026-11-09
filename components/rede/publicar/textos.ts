@@ -29,7 +29,7 @@ export function carregarTextosPublicar(lang: string): Promise<TextosPublicar> {
   return p;
 }
 
-/** O idioma pelo endereço (/pt/comunidade…), para quem não recebe `lang` por props. */
+/** O idioma pelo endereço (/pt/alumia…), para quem não recebe `lang` por props. */
 export function idiomaDoEndereco(): string {
   try {
     return window.location.pathname.split("/")[1] || "pt";

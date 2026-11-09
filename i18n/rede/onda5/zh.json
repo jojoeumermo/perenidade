@@ -1,0 +1,23 @@
+{
+  "emConstrucao": {
+    "selo": "建设中",
+    "aviso": "Alumia 的这个页面还在制作中。目前这里不保存任何内容。",
+    "voltar": "返回 Alumia 首页",
+    "rodape": "按到达顺序 · 无广告 · 无追踪 · 始终使用代号",
+    "marca": "Instituto Lúcia"
+  },
+  "telas": {
+    "atos": { "titulo": "行动", "descricao": "你附近的行动（按你填写的城市，绝不用 GPS）以及你关注的社区的行动，每有一个人确认，马赛克就亮起一格。" },
+    "ato": { "titulo": "行动", "descricao": "一次行动的页面：时间、地点、号召、马赛克、「你会去」、怎么去和邀请。没有人能看到谁会去的名单。" },
+    "calendario": { "titulo": "日历", "descricao": "把你的社区和小组的聚会与行动放在一个日历里，可以导入你自己的日程。" },
+    "organizacoes": { "titulo": "组织", "descricao": "Alumia 上的政党、议员办公室、工会、运动、团体和学生会。认证标志只说明账号属于它声称的组织，并不代表 Lúcia 研究所的支持。" },
+    "stories": { "titulo": "快拍", "descricao": "24 小时快拍，不记录谁看过，也永远不会发到联邦宇宙。" },
+    "seguranca": { "titulo": "安全", "descricao": "行动模式、「我被拘留了」和「我没事」：为走上街头的人提供保护。" },
+    "identidades": { "titulo": "身份", "descricao": "同一个账号里有多个身份，没有人能把它们联系起来。" },
+    "aparelhos": { "titulo": "设备", "descricao": "你的账号已登录的设备，可以远程退出其中之一。不显示网络地址。" },
+    "o-que-guardamos": { "titulo": "我们保存什么", "descricao": "Alumia 保存了你的哪些信息、保存多久、为什么，并附上相关法律。" },
+    "transparencia": { "titulo": "透明度", "descricao": "每半年的审核数据，没有任何指向个人的信息。" },
+    "listas": { "titulo": "列表", "descricao": "按你自己的规则组成的时间线。只有你能看到你的列表。" },
+    "leve": { "titulo": "轻量版", "descricao": "纯文字的 Alumia，适合网络差、流量少的时候。" }
+  }
+}
