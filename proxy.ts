@@ -165,8 +165,11 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
       url.search = "";
       return NextResponse.redirect(url, 307);
     }
-    // O endereço antigo (/pt/comunidade/…) no host da Alumia: 308 para /pt/alumia/…, com a busca.
+    // O endereço antigo (/pt/comunidade/…) no host da Alumia: 308 para o caminho curto (/, /p/<id>), com a busca. Um endereço
+    // antigo do Fórum (?t=, ?sala=, ?post=) vai direto ao destino final, como no domínio do instituto: um salto só.
     if (decisao.tipo === "mover") {
+      const antigoDoForum = await enderecoAntigoDaRede(request, decisao.completo);
+      if (antigoDoForum) return antigoDoForum;
       const url = request.nextUrl.clone();
       url.pathname = decisao.destino;
       return NextResponse.redirect(url, 308);
