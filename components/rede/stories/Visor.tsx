@@ -17,7 +17,7 @@ import { PerguntaVer } from "../figurinhas/Pergunta";
 import { Avatar16 } from "../ui/Avatar16";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar, IconePausar, IconeSetaDir, IconeSetaEsq, IconeTocar, IconeTresPontos } from "./icones";
-import { codigoDoErro, larguraDaTela, preencherStory, useAgora } from "./usar";
+import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, usarModal } from "./usar";
 
 /** As reações da prancha (conjunto fechado, sem emoji livre: PLANO-ALUMIA §12). */
 const DESENHO_DA_REACAO: Record<ReacaoDoStory, string> = { punho: "✊", chama: "\u{1F525}", coracao: "❤️" };
@@ -30,7 +30,8 @@ type Caixa = null | "menu" | "denunciar" | "apagar";
  * link); e embaixo "Responder só para…" e as três reações — tudo vai SÓ para a autora. Nada aqui conta ao servidor que eu vi:
  * o "visto" é marcado só no aparelho (PLANO-ALUMIA §6.4; LGPD art. 11, opinião política é dado sensível).
  *
- * Teclado: setas trocam, espaço pausa, Esc fecha. Toque: esquerda volta, direita avança, segurar pausa.
+ * Teclado: com o foco no visor (não num botão), setas trocam e espaço pausa; Esc fecha. O Tab não sai do visor (o que está atrás
+ * fica inert). Toque: esquerda volta, direita avança, segurar pausa (soltar depois de segurar não troca de story).
  */
 export function Visor({
   t,
@@ -71,7 +72,11 @@ export function Visor({
   const [detalhe, setDetalhe] = useState("");
   const agora = useAgora(15_000);
   const raiz = useRef<HTMLDivElement>(null);
+  const botaoMais = useRef<HTMLButtonElement>(null);
+  /** Quando o dedo desceu numa área de toque: soltar depois de ~250 ms foi "segurar" (pausa), não um toque que troca. */
+  const tocouEm = useRef(0);
   const idDoTitulo = useId();
+  usarModal(raiz);
 
   // Carrega os stories da autora (ou os meus). Uma leitura igual a abrir um perfil: o servidor não registra quem abriu.
   useEffect(() => {
@@ -170,14 +175,16 @@ export function Visor({
   useEffect(() => {
     const aoTeclar = (e: KeyboardEvent) => {
       const alvo = e.target as HTMLElement | null;
-      const escrevendo = alvo && /^(INPUT|TEXTAREA|SELECT)$/.test(alvo.tagName);
       if (e.key === "Escape") {
         e.preventDefault();
         if (caixa) setCaixa(null);
         else aoFechar();
         return;
       }
-      if (escrevendo || caixa) return;
+      // Espaço e setas só valem com o foco no próprio visor (ou numa área de toque): num botão, o Espaço aciona o botão
+      // (WCAG 2.1.1); num campo, escreve.
+      const livre = !alvo || alvo === raiz.current || alvo === document.body || alvo.classList.contains("al-st-toque");
+      if (!livre || caixa) return;
       if (e.key === "ArrowRight") avancar();
       else if (e.key === "ArrowLeft") voltar();
       else if (e.key === " ") {
@@ -188,6 +195,20 @@ export function Visor({
     window.addEventListener("keydown", aoTeclar);
     return () => window.removeEventListener("keydown", aoTeclar);
   }, [aoFechar, avancar, voltar, caixa]);
+
+  // O foco acompanha a caixa aberta: o menu leva ao primeiro item, a denúncia à primeira categoria, o "apagar" ao Cancelar; ao
+  // fechar qualquer uma, volta ao botão ⋯.
+  const caixaAntes = useRef<Caixa>(null);
+  useEffect(() => {
+    const antes = caixaAntes.current;
+    caixaAntes.current = caixa;
+    const r = raiz.current;
+    if (!r) return;
+    if (caixa === "menu") r.querySelector<HTMLElement>(".al-st-menu [role=menuitem]")?.focus();
+    else if (caixa === "denunciar") r.querySelector<HTMLElement>(".al-st-caixa input[type=radio]")?.focus();
+    else if (caixa === "apagar") r.querySelector<HTMLElement>(".al-st-caixa .al-botao")?.focus();
+    else if (antes) botaoMais.current?.focus();
+  }, [caixa]);
 
   // Sem stories (sumiram ou nada a ver): segue para a próxima autora.
   useEffect(() => {
@@ -369,6 +390,7 @@ export function Visor({
               type="button"
               className="al-st-icone"
               aria-label={t.visor.mais}
+              ref={botaoMais}
               aria-haspopup="menu"
               aria-expanded={caixa === "menu"}
               disabled={!atual}
@@ -382,26 +404,33 @@ export function Visor({
           </div>
 
           {/* Toque: esquerda volta, direita avança, segurar pausa. Atrás do texto e das figurinhas. */}
-          <button
-            type="button"
-            className="al-st-toque al-st-toque-esq"
-            aria-label={t.visor.anterior}
-            tabIndex={-1}
-            onClick={voltar}
-            onPointerDown={() => setSegurando(true)}
-            onPointerUp={() => setSegurando(false)}
-            onPointerLeave={() => setSegurando(false)}
-          />
-          <button
-            type="button"
-            className="al-st-toque al-st-toque-dir"
-            aria-label={t.visor.proximo}
-            tabIndex={-1}
-            onClick={avancar}
-            onPointerDown={() => setSegurando(true)}
-            onPointerUp={() => setSegurando(false)}
-            onPointerLeave={() => setSegurando(false)}
-          />
+          {(["esq", "dir"] as const).map((lado) => (
+            <button
+              key={lado}
+              type="button"
+              className={`al-st-toque al-st-toque-${lado}`}
+              aria-label={lado === "esq" ? t.visor.anterior : t.visor.proximo}
+              tabIndex={-1}
+              onClick={() => {
+                const segurou = tocouEm.current > 0 && performance.now() - tocouEm.current > 250;
+                tocouEm.current = 0;
+                if (segurou) return;
+                if (lado === "esq") voltar();
+                else avancar();
+              }}
+              onPointerDown={() => {
+                tocouEm.current = performance.now();
+                setSegurando(true);
+              }}
+              onPointerUp={() => setSegurando(false)}
+              onPointerLeave={() => setSegurando(false)}
+              onPointerCancel={() => {
+                tocouEm.current = 0;
+                setSegurando(false);
+              }}
+              onContextMenu={(e) => e.preventDefault()}
+            />
+          ))}
 
           {atual ? (
             <div className="al-st-miolo" style={{ "--st-tamanho": `${tamanhoDoTexto(atual.texto, larguraDaTela())}px` } as CSSProperties}>
@@ -430,22 +459,39 @@ export function Visor({
           )}
 
           {caixa === "menu" && atual ? (
-            <ul className="al-st-menu" role="menu">
+            <ul
+              className="al-st-menu"
+              role="menu"
+              aria-label={t.visor.mais}
+              onKeyDown={(e) => {
+                const itens = Array.from(e.currentTarget.querySelectorAll<HTMLElement>("[role=menuitem]"));
+                const k = indiceDaSeta(e.key, Math.max(0, itens.indexOf(document.activeElement as HTMLElement)), itens.length, "vertical");
+                if (k === null) {
+                  if (e.key === "Tab") {
+                    e.preventDefault();
+                    setCaixa(null);
+                  }
+                  return;
+                }
+                e.preventDefault();
+                focarNoGrupo(e.target as HTMLElement, "[role=menuitem]", k);
+              }}
+            >
               {meu ? (
                 <li role="none">
-                  <button type="button" role="menuitem" className="al-st-perigo" onClick={() => setCaixa("apagar")}>
+                  <button type="button" role="menuitem" tabIndex={-1} className="al-st-perigo" onClick={() => setCaixa("apagar")}>
                     {t.visor.apagar}
                   </button>
                 </li>
               ) : (
                 <>
                   <li role="none">
-                    <button type="button" role="menuitem" onClick={silenciar}>
+                    <button type="button" role="menuitem" tabIndex={-1} onClick={silenciar}>
                       {preencherStory(t.visor.silenciar, { nome })}
                     </button>
                   </li>
                   <li role="none">
-                    <button type="button" role="menuitem" className="al-st-perigo" onClick={() => setCaixa("denunciar")}>
+                    <button type="button" role="menuitem" tabIndex={-1} className="al-st-perigo" onClick={() => setCaixa("denunciar")}>
                       {t.visor.denunciar}
                     </button>
                   </li>

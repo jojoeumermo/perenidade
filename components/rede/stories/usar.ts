@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type RefObject } from "react";
 import { clienteDosStories, type ClienteDeStories } from "@/lib/rede/cliente-stories";
 import { carregarTextosDosStories, type TextosDosStories } from "@/lib/rede/textos-stories";
 
@@ -59,4 +59,50 @@ export function codigoDoErro(e: unknown): string {
 /** A largura da tela do story em px (no celular, a da janela; no computador, a da moldura em pé), para o texto grande caber. */
 export function larguraDaTela(maximo = 440): number {
   return typeof window === "undefined" ? 390 : Math.min(window.innerWidth, maximo);
+}
+
+/**
+ * Prende o foco num diálogo de tela cheia (o visor e o "criar"): tudo o que está atrás dele (a linha, o menu, a barra) vira `inert`
+ * enquanto ele está aberto — o Tab e o leitor de tela não saem do diálogo (WCAG 2.4.3; aria-modal sozinho não basta). Ao fechar,
+ * devolve o que estava antes.
+ */
+export function usarModal(raiz: RefObject<HTMLElement | null>): void {
+  useEffect(() => {
+    const el = raiz.current;
+    if (!el) return;
+    const travados: HTMLElement[] = [];
+    let no: HTMLElement | null = el;
+    while (no && no.parentElement && no !== document.body) {
+      for (const irmao of Array.from(no.parentElement.children)) {
+        if (irmao === no || !(irmao instanceof HTMLElement) || irmao.inert || /^(SCRIPT|STYLE|LINK)$/.test(irmao.tagName)) continue;
+        irmao.inert = true;
+        travados.push(irmao);
+      }
+      no = no.parentElement;
+    }
+    return () => {
+      for (const t of travados) t.inert = false;
+    };
+  }, [raiz]);
+}
+
+/**
+ * Setas num grupo de opções (radiogroup, tablist, menu): devolve o índice para onde ir com a tecla, ou nulo se a tecla não é de
+ * navegação. `vertical` usa ↑/↓; senão ←/→ (e as duas no radiogroup, como no padrão ARIA).
+ */
+export function indiceDaSeta(tecla: string, atual: number, total: number, eixo: "horizontal" | "vertical" | "ambos" = "ambos"): number | null {
+  if (total <= 0) return null;
+  const antes = (eixo !== "vertical" && tecla === "ArrowLeft") || (eixo !== "horizontal" && tecla === "ArrowUp");
+  const depois = (eixo !== "vertical" && tecla === "ArrowRight") || (eixo !== "horizontal" && tecla === "ArrowDown");
+  if (antes) return (atual - 1 + total) % total;
+  if (depois) return (atual + 1) % total;
+  if (tecla === "Home") return 0;
+  if (tecla === "End") return total - 1;
+  return null;
+}
+
+/** Leva o foco para o irmão de índice `i` do mesmo grupo (o pai do botão). */
+export function focarNoGrupo(atual: HTMLElement, seletor: string, i: number): void {
+  const grupo = atual.closest("[role=radiogroup], [role=tablist], [role=menu]");
+  grupo?.querySelectorAll<HTMLElement>(seletor)[i]?.focus();
 }

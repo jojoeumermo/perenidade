@@ -56,8 +56,9 @@ igual("nome curto como na prancha", [nomeCurto("Rosa Vermelha"), nomeCurto("Pass
 ok("anel: vermelho no alto e 4 cores sem repetir", (() => { const c = coresDoAnel("rosavermelha"); return c[0] === "#c21f16" && new Set(c).size === 4; })());
 ok("anel visto fica cinza (sem cor nenhuma)", anelEmCss("x", true) === "var(--al-superficie-2)" && anelEmCss("x", false).startsWith("conic-gradient"));
 igual("cor desconhecida vira azul", [corValida("rosa"), corValida("roxo"), corValida(null)], ["rosa", "azul", "azul"]);
-ok("o mosaico de fundo é o mesmo para o mesmo story", JSON.stringify(mosaicoDeFundo("a", "vermelho")) === JSON.stringify(mosaicoDeFundo("a", "vermelho")) && mosaicoDeFundo("a", "vermelho").length === 18 * 34);
+ok("o mosaico de fundo é o mesmo para o mesmo story", JSON.stringify(mosaicoDeFundo("a", "vermelho")) === JSON.stringify(mosaicoDeFundo("a", "vermelho")) && mosaicoDeFundo("a", "vermelho").length === 26 * 48);
 ok("texto longo encolhe, nunca abaixo de 28 px", tamanhoDoTexto("Paralisação na quinta") > tamanhoDoTexto("x".repeat(80)) && tamanhoDoTexto("x".repeat(140)) >= 28);
+ok("o criar usa o texto menor (escala 0,76): a frase da prancha em 2 linhas", tamanhoDoTexto("Plenária do Núcleo Leste", 375, 0.76) < tamanhoDoTexto("Plenária do Núcleo Leste", 375) && tamanhoDoTexto("Plenária do Núcleo Leste", 375, 0.76) <= 56);
 igual("link: só https, sem usuário/senha", [
   linkSeguro("https://institutolucia.org/a"), linkSeguro("institutolucia.org"), linkSeguro("http://x.org"), linkSeguro("javascript:alert(1)"),
   linkSeguro("https://user:senha@x.org"), linkSeguro("https://localhost"), linkSeguro(""),
@@ -161,7 +162,7 @@ igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQue
   const valor = (o, k) => k.split(".").reduce((x, c) => x?.[c], o);
   const pt = JSON.parse(fs.readFileSync(path.join(pasta, "pt.json"), "utf8"));
   const lista = chaves(pt);
-  ok("as frases da prancha em pt", pt.faixa.aviso === "Ninguém fica sabendo que você viu. Some em 24 h." && pt.criar.regra === "Some em 24 h. Não vai para o Fediverso. Ninguém vê quem assistiu." && pt.figurinha.enquete.nota === "Só {nome} vê a soma. Seu nome não aparece." && pt.figurinha.contagem.avisar === "Me avise quando começar");
+  ok("as frases da prancha em pt", pt.faixa.aviso === "Ninguém fica sabendo que você viu. Some em 24 h." && pt.criar.regra === "Some em 24 h. Não vai para o Fediverso. Ninguém vê quem assistiu." && pt.figurinha.enquete.nota === "A soma fica só com {nome}. Seu nome não aparece." && pt.figurinha.contagem.avisar === "Me avise quando começar");
   for (const l of ["en", "es", "fr", "ru", "zh"]) {
     const j = JSON.parse(fs.readFileSync(path.join(pasta, `${l}.json`), "utf8"));
     igual(`${l}: as mesmas chaves do pt`, chaves(j).sort(), [...lista].sort());
@@ -186,7 +187,7 @@ igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQue
     const { EnqueteVer } = await jiti.import(path.join(raiz, "components/rede/figurinhas/Enquete.tsx"));
     const f = { tipo: "enquete", pergunta: "Você vai na panfletagem?", opcoes: ["Vou", "Não dá"], meu_voto: null, soma: [5, 1] };
     const quemVe = renderToStaticMarkup(h(EnqueteVer, { f, t: t.figurinha.enquete, nome: "Rosa", meu: false, ocupado: false, aoVotar() {} }));
-    ok("enquete para quem vê: a nota da prancha e nenhuma porcentagem", quemVe.includes("Só Rosa vê a soma. Seu nome não aparece.") && !quemVe.includes("%"));
+    ok("enquete para quem vê: a nota da prancha e nenhuma porcentagem", quemVe.includes("A soma fica só com Rosa. Seu nome não aparece.") && !quemVe.includes("%"));
     const autora = renderToStaticMarkup(h(EnqueteVer, { f, t: t.figurinha.enquete, nome: "Rosa", meu: true, ocupado: false, aoVotar() {} }));
     ok("enquete para a autora: a soma em porcentagem", autora.includes("83%") && autora.includes("17%") && autora.includes("6 votos"));
     const poucas = renderToStaticMarkup(h(EnqueteVer, { f: { ...f, soma: [1, 1] }, t: t.figurinha.enquete, nome: "Rosa", meu: true, ocupado: false, aoVotar() {} }));

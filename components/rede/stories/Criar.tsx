@@ -2,7 +2,7 @@
 "use client";
 
 import "./stories.css";
-import { useEffect, useId, useRef, useState, type CSSProperties, type PointerEvent as EventoDePonteiro } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent as EventoDePonteiro } from "react";
 import { checarTexto } from "@/lib/rede/publicar/checagem";
 import { desenhoEmImagem, refazerImagem, type Traco } from "@/lib/rede/stories/imagem";
 import { alternarFigurinha, linkSeguro, PALETA_DO_STORY, tamanhoDoTexto } from "@/lib/rede/stories/visual";
@@ -18,7 +18,7 @@ import { LinkEditar } from "../figurinhas/Link";
 import { PerguntaEditar } from "../figurinhas/Pergunta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar } from "./icones";
-import { codigoDoErro, larguraDaTela, preencherStory, useAgora } from "./usar";
+import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, usarModal } from "./usar";
 
 type Modo = "texto" | "desenhar" | "figurinha";
 
@@ -91,6 +91,7 @@ export function Criar({
   const galeria = useRef<HTMLInputElement>(null);
   const painelFigurinhas = useRef<HTMLHeadingElement>(null);
   const raiz = useRef<HTMLDivElement>(null);
+  const campoDoTexto = useRef<HTMLTextAreaElement>(null);
   const agora = useAgora(30_000);
   const id = useId();
 
@@ -103,10 +104,12 @@ export function Criar({
     cliente.atos().then(setAtos).catch(() => setAtos([]));
   }, [querAtos, atos, cliente]);
 
-  // Prende a rolagem da página de trás e devolve o foco ao fechar.
+  usarModal(raiz);
+
+  // Prende a rolagem da página de trás e devolve o foco ao fechar. Abre escrevendo, com o cursor dourado no texto (prancha).
   useEffect(() => {
     const antes = document.activeElement as HTMLElement | null;
-    raiz.current?.focus();
+    (campoDoTexto.current ?? raiz.current)?.focus({ preventScroll: true });
     const rolagem = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
@@ -222,7 +225,17 @@ export function Criar({
     }
   }
 
-  const tamanho = tamanhoDoTexto(texto || t.criar.textoVazio, larguraDaTela(460));
+  // No "criar" o texto fica um pouco menor que no visor (a prancha: "PLENÁRIA DO / NÚCLEO LESTE" em 2 linhas, com as cores e a
+  // figurinha acima da dobra).
+  const tamanho = tamanhoDoTexto(texto || t.criar.textoVazio, larguraDaTela(460), 0.76);
+
+  // O campo cresce só com o texto (a barra dourada tem a altura do que está escrito): mede de novo a cada letra e a cada tamanho.
+  useLayoutEffect(() => {
+    const c = campoDoTexto.current;
+    if (!c) return;
+    c.style.height = "auto";
+    c.style.height = `${c.scrollHeight}px`;
+  }, [texto, tamanho]);
   const restam = LIMITES_DO_STORY.texto - [...texto].length;
 
   return (
@@ -284,17 +297,14 @@ export function Criar({
             </label>
             <textarea
               id={`${id}-texto`}
+              ref={campoDoTexto}
               className="al-st-texto"
-              rows={2}
+              rows={1}
               value={texto}
               maxLength={LIMITES_DO_STORY.texto}
               placeholder={t.criar.textoVazio}
               aria-describedby={`${id}-restam`}
-              onChange={(e) => {
-                setTexto(e.target.value);
-                e.target.style.height = "auto";
-                e.target.style.height = `${e.target.scrollHeight}px`;
-              }}
+              onChange={(e) => setTexto(e.target.value)}
             />
             <span id={`${id}-restam`} className="al-st-restam" aria-live="polite">
               {restam <= 30 ? preencherStory(t.criar.restam, { n: restam }) : ""}
@@ -311,8 +321,9 @@ export function Criar({
 
           <fieldset className="al-st-cores" role="radiogroup" style={{ position: "relative", zIndex: 5 }}>
             <legend>{modo === "desenhar" ? t.criar.coresDoTraco : t.criar.cores}</legend>
-            {CORES_DO_STORY.map((c) => {
+            {CORES_DO_STORY.map((c, k) => {
               const escolhida = modo === "desenhar" ? corDoTraco === c : cor === c;
+              const escolher = (x: CorDoStory) => (modo === "desenhar" ? setCorDoTraco(x) : setCor(x));
               return (
                 <button
                   key={c}
@@ -320,9 +331,17 @@ export function Criar({
                   role="radio"
                   aria-checked={escolhida}
                   aria-label={t.criar.cor[c]}
+                  tabIndex={escolhida ? 0 : -1}
                   className="al-st-cor"
                   style={{ background: PALETA_DO_STORY[c].fundo }}
-                  onClick={() => (modo === "desenhar" ? setCorDoTraco(c) : setCor(c))}
+                  onClick={() => escolher(c)}
+                  onKeyDown={(e) => {
+                    const n = indiceDaSeta(e.key, k, CORES_DO_STORY.length);
+                    if (n === null) return;
+                    e.preventDefault();
+                    escolher(CORES_DO_STORY[n]);
+                    focarNoGrupo(e.currentTarget, "[role=radio]", n);
+                  }}
                 />
               );
             })}
@@ -390,8 +409,24 @@ export function Criar({
 
           <fieldset className="al-st-quem" role="radiogroup" aria-describedby={`${id}-regra`}>
             <legend className="al-cond al-st-titulo-secao">{t.criar.quemVe}</legend>
-            {PUBLICOS_DO_STORY.map((p) => (
-              <button key={p} type="button" role="radio" aria-checked={publico === p} className="al-st-quem-op" title={t.criar.publicoAjuda[p]} onClick={() => setPublico(p)}>
+            {PUBLICOS_DO_STORY.map((p, k) => (
+              <button
+                key={p}
+                type="button"
+                role="radio"
+                aria-checked={publico === p}
+                tabIndex={publico === p ? 0 : -1}
+                className="al-st-quem-op"
+                title={t.criar.publicoAjuda[p]}
+                onClick={() => setPublico(p)}
+                onKeyDown={(e) => {
+                  const n = indiceDaSeta(e.key, k, PUBLICOS_DO_STORY.length);
+                  if (n === null) return;
+                  e.preventDefault();
+                  setPublico(PUBLICOS_DO_STORY[n]);
+                  focarNoGrupo(e.currentTarget, "[role=radio]", n);
+                }}
+              >
                 {t.criar.publico[p]}
               </button>
             ))}

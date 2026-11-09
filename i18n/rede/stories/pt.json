@@ -120,7 +120,7 @@
       "padraoA": "Vou",
       "padraoB": "Não dá",
       "notaAutora": "Só você vê a soma. O nome de quem votou não aparece.",
-      "nota": "Só {nome} vê a soma. Seu nome não aparece.",
+      "nota": "A soma fica só com {nome}. Seu nome não aparece.",
       "votou": "Voto enviado só para a soma.",
       "soma": "{pct}%",
       "total": "{n} votos",
