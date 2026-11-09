@@ -17,7 +17,7 @@ import { PerguntaVer } from "../figurinhas/Pergunta";
 import { Avatar16 } from "../ui/Avatar16";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar, IconePausar, IconeSetaDir, IconeSetaEsq, IconeTocar, IconeTresPontos } from "./icones";
-import { codigoDoErro, preencherStory, useAgora } from "./usar";
+import { codigoDoErro, larguraDaTela, preencherStory, useAgora } from "./usar";
 
 /** As reações da prancha (conjunto fechado, sem emoji livre: PLANO-ALUMIA §12). */
 const DESENHO_DA_REACAO: Record<ReacaoDoStory, string> = { punho: "✊", chama: "\u{1F525}", coracao: "❤️" };
@@ -404,7 +404,7 @@ export function Visor({
           />
 
           {atual ? (
-            <div className="al-st-miolo" style={{ "--st-tamanho": `${tamanhoDoTexto(atual.texto, 390)}px` } as CSSProperties}>
+            <div className="al-st-miolo" style={{ "--st-tamanho": `${tamanhoDoTexto(atual.texto, larguraDaTela())}px` } as CSSProperties}>
               {atual.texto ? <h2 className="al-st-texto al-st-texto-sombra">{atual.texto}</h2> : null}
               {atual.legenda ? <p className="al-st-tarja">{atual.legenda}</p> : null}
               {atual.figurinhas.length > 0 ? (

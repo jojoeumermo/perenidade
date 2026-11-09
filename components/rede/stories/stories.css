@@ -546,7 +546,14 @@
   font-size: var(--st-tamanho, 48px);
 }
 [data-al="2"] .al-st-escrita textarea::placeholder { color: color-mix(in srgb, var(--st-texto) 55%, transparent); }
-[data-al="2"] .al-st-escrita:focus-within { outline: 2px solid var(--al-foco); outline-offset: 6px; border-radius: 2px; }
+/* O foco no texto aparece como na prancha: a barra dourada engrossa e o cursor dourado pisca (sem caixa por cima do texto). */
+[data-al="2"] .al-st-escrita:focus-within { border-left-width: 6px; padding-left: 10px; }
+[data-al="2"] .al-st-escrita textarea:focus-visible,
+[data-al="2"] .al-st-escrita .al-st-tarja input:focus-visible { outline: none; box-shadow: none; }
+[data-al="2"] .al-st-escrita .al-st-tarja input:focus-visible { text-decoration: underline; text-decoration-color: #ffc21a; text-underline-offset: 4px; }
+/* A tarja vazia só aparece com o texto em edição (pelo teclado também: o foco nela a mostra). */
+[data-al="2"] .al-st-escrita .al-st-tarja[data-vazia="sim"] { opacity: 0; }
+[data-al="2"] .al-st-escrita:focus-within .al-st-tarja[data-vazia="sim"] { opacity: 1; }
 [data-al="2"] .al-st-escrita .al-st-tarja input { border: 0; background: none; color: inherit; font: inherit; width: min(100%, 300px); outline: none; }
 [data-al="2"] .al-st-escrita .al-st-tarja input::placeholder { color: #a9a29a; }
 [data-al="2"] .al-st-restam { position: absolute; right: 0; bottom: -20px; font-size: 12px; color: var(--st-texto); opacity: 0.8; }

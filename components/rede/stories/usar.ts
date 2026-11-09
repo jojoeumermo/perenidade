@@ -55,3 +55,8 @@ export function codigoDoErro(e: unknown): string {
   if (/limite|rate/i.test(m)) return "limite";
   return "falha";
 }
+
+/** A largura da tela do story em px (no celular, a da janela; no computador, a da moldura em pé), para o texto grande caber. */
+export function larguraDaTela(maximo = 440): number {
+  return typeof window === "undefined" ? 390 : Math.min(window.innerWidth, maximo);
+}
