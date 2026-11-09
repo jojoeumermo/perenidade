@@ -125,6 +125,8 @@ ok("Chegar sai sem Referer", /rel="noopener noreferrer"[^>]*referrerPolicy="no-r
 const encaixe = ler("components/rede/atos/encaixe.tsx");
 ok("encaixe vazio com as flags desligadas", /const LIGADO = rotaNovaLigada\("atos"\)/.test(encaixe) && /!LIGADO \? \{\}/.test(encaixe));
 ok("emblema dos atos só com conta", /emblema: \(\{ situacao \}\) => \(situacao\.logado \? atosNovos\(\) : null\)/.test(encaixe));
+ok("chamado embutido vale pelo campo, não pelo tipo do post", !/post\.tipo !== "chamado"/.test(ler("components/rede/atos/AnexoChamado.tsx")));
+ok("Você vai vence a pílula do celular", /:root \[data-al="2"\] \.al-ato-coluna \.al-ato-quadrado:is\(\.al-ato-quadrado-vou/.test(ler("components/rede/atos/atos.css")));
 ok("alto do Início nulo com as flags desligadas", /TopoDoInicioEncaixado[^=]*= !LIGADO\s*\?\s*null/.test(encaixe));
 
 // ── "Há ato novo": conta atos (nunca gente), só no aparelho, e o "Sair rápido" apaga ──
