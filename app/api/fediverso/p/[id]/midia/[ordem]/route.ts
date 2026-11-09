@@ -5,8 +5,11 @@
 // endereço do anexo; por isso a imagem sai por aqui. Esta rota só serve imagem de post que pode sair agora (a ação "post" do banco
 // confere interno.rede_fed_federavel a cada pedido) e lê o depósito como VISITANTE (chave pública do banco): a regra do próprio
 // depósito (rede_midia_leitura → rede_pub_midia_pode) só deixa ler o que um visitante já vê. O endereço leva o id do post e a ordem
-// da imagem, nunca o caminho no depósito (que tem o id interno do perfil). A imagem já foi limpa de EXIF/XMP no envio
-// (lib/rede/publicar/midia.ts). Só no modo total (fediverso-total).
+// da imagem (única por post), nunca o caminho no depósito (que tem o id interno do perfil). A imagem já foi limpa de EXIF/XMP no
+// envio (lib/rede/publicar/midia.ts). Só no modo total (fediverso-total).
+//
+// Contrato 3.1 com a F3: o post traz midia:[{id, tipo, alt, largura, altura, blurhash, ordem}] SEM o caminho; o caminho vem só da
+// ação "midia" {id} → {caminho, tipo, alt, largura, altura}, que confere de novo se o post pode sair.
 import { visibilidadeQueSai, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { ID_DE_POST, modoTotal } from "@/lib/rede/fediverso/enderecos";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
@@ -34,8 +37,12 @@ export async function GET(pedido: Request, { params }: { params: Promise<{ id: s
   const post = await banco<PostFederado | { apagado: true } | null>("post", { id }).catch(() => undefined);
   if (post === undefined) return indisponivel();
   if (!post || "apagado" in post || !visibilidadeQueSai(post)) return naoAchado();
-  const m = (post.midia ?? []).find((x) => x && x.ordem === ordem);
-  if (!m || !m.caminho || !CAMINHO.test(m.caminho) || !TIPOS.has(m.tipo)) return naoAchado();
+  const item = (Array.isArray(post.midia) ? post.midia : []).find((x) => x && x.ordem === ordem);
+  if (!item || typeof item.id !== "string" || !ID_DE_POST.test(item.id.toLowerCase())) return naoAchado();
+  const m = await banco<{ caminho?: unknown; tipo?: unknown } | null>("midia", { id: item.id.toLowerCase() }).catch(() => undefined);
+  if (m === undefined) return indisponivel();
+  if (!m || typeof m.caminho !== "string" || typeof m.tipo !== "string" || !CAMINHO.test(m.caminho) || !TIPOS.has(m.tipo)) return naoAchado();
+  const tipo = m.tipo;
   let r: Response;
   try {
     r = await fetch(`${urlDoBanco}/storage/v1/object/authenticated/rede-midia/${m.caminho.split("/").map(encodeURIComponent).join("/")}`, {
@@ -55,7 +62,7 @@ export async function GET(pedido: Request, { params }: { params: Promise<{ id: s
   return new Response(bytes, {
     headers: {
       // O tipo é o que o banco registrou no envio, não o que o depósito diz.
-      "Content-Type": m.tipo,
+      "Content-Type": tipo,
       "Content-Length": String(bytes.length),
       "Cache-Control": "public, max-age=600",
       "X-Content-Type-Options": "nosniff",
