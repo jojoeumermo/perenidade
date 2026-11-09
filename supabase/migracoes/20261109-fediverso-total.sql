@@ -17,10 +17,25 @@
 --      (consentimento livre, específico e destacado, com versão e data); art. 11, I (opinião política e filiação sindical são dado
 --      sensível); art. 33, VIII (transferência internacional só com consentimento específico e em destaque, avisando que servidor de
 --      fora não pode ser obrigado a apagar); art. 8º, § 5º e art. 18, VI (revogar e apagar a qualquer momento: desligar no perfil).
---   3. O que sai (D3): para quem consentiu na versão 2, sai todo post público do perfil (o "membros" do perfil) e das comunidades
---      abertas das disciplinas (e das de lutas e do instituto só com "comunidades_de_luta"). Nunca saem: núcleo, comunidade fechada
---      ou restrita, "seguidores", "comunidade", "equipe", aviso do instituto, compartilhamento, retido, oculto ou apagado. Quem
---      consentiu só na versão 1 continua com a regra antiga (só "internet"). D5: "seguidores" nunca sai.
+--      A regra de quem marcou o item com a flag desligada: rede_consentimentos.fediverso_versao guarda a versão em vigor quando a
+--      pessoa respondeu o item (1 sem a flag, 2 com ela). Só o item marcado na versão 2 liga a federação. Quem marcou na versão 1 NÃO é ligado
+--      sozinho quando a flag liga: a tela pede de novo (rede_fed_situacao devolve pedir_fediverso = true) e a pessoa aceita pelo
+--      rede_aderir (ou rede_fed_ligar com a versão 2). A flag pode ter ficado desligada por meses e o texto da tela pode ter mudado:
+--      consentimento é para a finalidade determinada que a pessoa leu (LGPD art. 8º, § 4º), então pedir de novo é o caminho seguro.
+--   3. O que sai (D3): para quem consentiu na versão 2, sai todo post em que a PESSOA escolheu o público mais aberto ("internet"),
+--      no perfil e nas comunidades abertas das disciplinas (e das de lutas e do instituto só com "comunidades_de_luta"), mesmo que a
+--      matriz o tenha rebaixado para "membros" fora das disciplinas. O "membros" escolhido de propósito (a tela diz "Membros da
+--      Alumia") NUNCA sai: a escolha da pessoa manda (LGPD art. 6º, I e III: finalidade e necessidade). DECISÃO PENDENTE (Jonathan,
+--      F4): hoje public.rede_publicar recusa "internet" fora das disciplinas, então post de perfil escrito pela tela é sempre
+--      "membros" e não sai; para o perfil federar, a junção precisa deixar rede_publicar aceitar "internet" no perfil no modo total
+--      (rótulo "Internet e Fediverso"), ou mudar o rótulo de "membros". A resposta a nota de fora (rede_fed_responder_remoto) já
+--      sai como "internet". Nunca saem também: núcleo,
+--      comunidade fechada ou restrita, "seguidores", "comunidade", "equipe", aviso do instituto, compartilhamento, retido, oculto ou
+--      apagado. Quem consentiu só na versão 1 continua com a regra antiga (só "internet" que a matriz mostra sem conta). D5:
+--      "seguidores" nunca sai. Perfil trancado ou invisível continua fora (rede_fed_impedimento não muda, plano F3.1): a ação
+--      'ator' devolve trancado = false sempre, e manuallyApprovesFollowers fica false.
+--      Quem a pessoa menciona lá fora (e o autor da nota de fora que ela responde) recebe o Create, o Update e o Delete na própria
+--      caixa, mesmo sem segui-la (sem isso a menção não notifica e a edição e a retirada não chegam).
 --   4. O que entra: nota de fora guardada também quando responde ou menciona alguém daqui (não só de quem alguém segue), com HTML
 --      já limpo pelo servidor do site e conferido de novo aqui (lista permitida; o que não passa fica só como texto), mídia só como
 --      endereço https e metadados (o navegador busca pela rota-proxy, sem o IP de quem lê sair), visibilidade, fio e contexto.
@@ -34,6 +49,18 @@
 --   6. Avisos: interno.avisos ganha ator_remoto e objeto_remoto; tipos fed_seguidor, fed_resposta, fed_mencao, fed_curtida,
 --      fed_impulso, que respeitam a preferência do tipo de sempre (seguidor, resposta, mencao, apoio, citacao).
 --   7. As ações novas de public.rede_fed_servidor (seção 3.1), as RPCs da tela (seção 3.2) e os tipos novos da fila (seção 3.4).
+--      Com a flag desligada, as ações que já existiam respondem como antes (fila_pegar até 100 itens, fila_feito sem circuito, 410
+--      ou 429); nota_recebida guarda só o que 'recebido' guardava (nota de quem alguém daqui segue); e interacao,
+--      denuncia_recebida e bloqueio_recebido respondem {ok: false, motivo: 'desligado'} sem gravar nada.
+--
+-- Nomes (diferentes do PLANO-FEDIVERSO.md, de propósito): o arquivo é 20261109 (e não 20261108) e as tabelas novas são
+-- interno.fediverso_* (e não rede_fed_*): fediverso_interacoes = rede_fed_interacoes, fediverso_mencoes = rede_fed_mencoes,
+-- fediverso_dominios = rede_fed_dominios, fediverso_denuncias = rede_fed_denuncias, fediverso_bloqueios_recebidos =
+-- rede_fed_bloqueios_recebidos. Nenhuma frente lê essas tabelas direto (só pelas RPCs e ações), então só o plano muda.
+-- Contrato 3.1, ação 'interacao': o Announce de uma nota de FORA vem em objeto_remoto (o post_local continua aceito para isso, por
+-- compatibilidade); post_local é só o endereço de um post daqui.
+-- rede_aviso_listar é remendado no lugar (seção 4): quem recriar a função no pacote avisos precisa levar ator_remoto,
+-- atores_remotos e objeto_remoto para a definição oficial. O teste do banco do Fediverso confere que os três estão lá.
 --
 -- Privacidade: nada de IP; nada de quem denunciou sai na Flag (ela sai assinada pela instância); DMs (rede_dm_*) e "seguidores"
 -- nunca são lidos aqui; nada sai de quem não consentiu.
@@ -113,6 +140,8 @@ create index if not exists rede_posts_resposta_remota on interno.rede_posts (res
 
 -- O item destacado do consentimento de entrada da Alumia: "meus posts públicos também vão para o Fediverso" (D2).
 alter table interno.rede_consentimentos add column if not exists fediverso boolean not null default false;
+-- A versão do consentimento da federação em vigor quando a pessoa respondeu o item (1 sem a flag, 2 com ela). Só marcado na 2 liga.
+alter table interno.rede_consentimentos add column if not exists fediverso_versao smallint;
 
 -- Avisos com gente de fora: o ator remoto (endereço público) e a nota de fora (resposta ou menção).
 alter table interno.avisos add column if not exists ator_remoto text check (ator_remoto is null or (ator_remoto ~ '^https://' and char_length(ator_remoto) <= 500));
@@ -386,9 +415,12 @@ $$;
  * Este post pode sair para o Fediverso? Sempre: de quem ligou a federação, escrito depois de ligar, @nome igual ao do ator, nunca
  * aviso do instituto, núcleo ou compartilhamento, e resposta só se o post respondido também pode sair.
  * Regra da versão 1 (opt-in, e de quem só consentiu na versão 1): só o que qualquer pessoa lê sem conta ("internet").
- * Regra do modo total (D3), para quem consentiu na versão 2: todo post público do perfil ("internet" ou "membros") e das comunidades
- * abertas que podem sair (interno.rede_fed_comunidade_ok); nunca "seguidores", "comunidade", "nucleo", "equipe", nem retido,
- * oculto ou apagado.
+ * Regra do modo total (D3), para quem consentiu na versão 2: o post em que a pessoa escolheu "internet" (o público mais aberto),
+ * no perfil e nas comunidades abertas que podem sair (interno.rede_fed_comunidade_ok), mesmo que a matriz o rebaixe para "membros"
+ * fora das disciplinas (é esse rebaixamento que D3 abre). O "membros" escolhido de propósito ("Membros da Alumia") nunca sai;
+ * nunca "seguidores", "comunidade", "nucleo", "equipe", nem retido, oculto ou apagado. Quando a matriz deixa o post em "internet",
+ * ele também tem de passar por interno.rede_ve(p, null), como na versão 1; o rebaixado passa pelas mesmas travas da matriz que não
+ * dependem do público (comunidade fechada, restrita ou "fechado-…", retido, oculto, apagado).
  */
 create or replace function interno.rede_fed_federavel(p interno.rede_posts, p_nivel integer default 0) returns boolean
 language plpgsql stable security definer set search_path = interno, pg_temp as $$
@@ -403,8 +435,13 @@ begin
   if interno.rede_fed_total() and coalesce(a.consentimento_versao, 0) >= 2 then
     if p.oculto or p.retido or p.apagado_em is not null then return false; end if;
     if p.comunidade is not null and p.comunidade like 'fechado-%' then return false; end if;
+    -- A escolha da pessoa (o mesmo cálculo de interno.rede2_publico antes do rebaixamento): só "internet" sai.
+    if coalesce(p.publico, case p.alcance when 'seguidores' then 'seguidores' when 'equipe' then 'equipe' else 'internet' end) <> 'internet' then
+      return false;
+    end if;
     v_pub := interno.rede2_publico(p);
     if v_pub not in ('internet', 'membros') then return false; end if;
+    if v_pub = 'internet' and not interno.rede_ve(p, null) then return false; end if;
     if p.comunidade is not null and not interno.rede_fed_comunidade_ok(p.comunidade) then return false; end if;
   else
     if coalesce(p.publico, 'internet') <> 'internet' then return false; end if;
@@ -416,6 +453,19 @@ begin
   end if;
   return true;
 end $$;
+
+/**
+ * Quem de fora (já conhecido, com caixa, de instância não bloqueada) este post daqui menciona: @nome@servidor no título, no texto
+ * ou no corpo, mais o autor da nota de fora que ele responde (resposta_a_remota). Post nulo: ninguém.
+ */
+create or replace function interno.rede_fed_mencionados(p interno.rede_posts) returns setof interno.rede_fed_remotos
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select r.* from rede_fed_remotos r
+  where p.id is not null and r.inbox is not null and not interno.rede_fed_bloqueado(r.ator)
+    and (lower(r.handle) in (select lower(m[1] || '@' || m[2]) from regexp_matches(coalesce(p.titulo, '') || ' ' || coalesce(p.texto, '') || ' ' || coalesce(p.corpo, ''),
+                               '@([A-Za-z0-9_.-]{1,100})@([A-Za-z0-9.-]{1,200}\.[A-Za-z]{2,})', 'g') m)
+         or r.ator = (select c.ator from rede_fed_recebidos c where c.id = p.resposta_a_remota))
+$$;
 
 /**
  * O post como sai para o Fediverso. Além do de sempre: a mídia (id, tipo, texto alternativo, tamanho e blurhash; o caminho do
@@ -433,19 +483,42 @@ create or replace function interno.rede_fed_post_json(p interno.rede_posts) retu
                                                            'blurhash', m.blurhash, 'ordem', m.ordem) order by m.ordem), '[]'::jsonb)
               from rede_midia m where m.post = p.id),
     'mencoes', (select coalesce(jsonb_agg(jsonb_build_object('handle', r.handle, 'ator', r.ator, 'inbox', r.inbox) order by r.handle), '[]'::jsonb)
-                from rede_fed_remotos r
-                where r.inbox is not null and not interno.rede_fed_bloqueado(r.ator)
-                  and (lower(r.handle) in (select lower(m[1] || '@' || m[2]) from regexp_matches(coalesce(p.titulo, '') || ' ' || p.texto || ' ' || coalesce(p.corpo, ''),
-                                             '@([A-Za-z0-9_.-]{1,100})@([A-Za-z0-9.-]{1,200}\.[A-Za-z]{2,})', 'g') m)
-                       or r.ator = (select c.ator from rede_fed_recebidos c where c.id = p.resposta_a_remota))))
+                from interno.rede_fed_mencionados(p) r))
 $$;
+
+/**
+ * Entrega um Create, Update ou Delete de um post daqui também a quem ele menciona lá fora e ao autor da nota de fora que ele
+ * responde (p_antes: a versão anterior do post, para que quem saiu das menções numa edição também receba a mudança). Vai para a
+ * caixa compartilhada (ou a própria) de cada um; não repete o destino que os seguidores já recebem (rede_fed_espalhar), nem o que
+ * já está na fila para o mesmo post e tipo; nunca para instância bloqueada, para quem a pessoa bloqueou ou para quem a bloqueou lá
+ * fora. Só no modo total. Devolve quantas entregas pôs na fila.
+ */
+create or replace function interno.rede_fed_entregar_mencionados(p interno.rede_posts, p_tipo text, p_perfil uuid, p_antes interno.rede_posts default null) returns integer
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_n integer;
+begin
+  if p.id is null or p_perfil is null or not interno.rede_fed_total() then return 0; end if;
+  insert into rede_fed_fila (perfil, tipo, objeto, destino)
+  select distinct p_perfil, p_tipo, p.id::text, d.destino
+  from (select r.ator, coalesce(r.inbox_compartilhada, r.inbox) as destino from interno.rede_fed_mencionados(p) r
+        union
+        select r.ator, coalesce(r.inbox_compartilhada, r.inbox) from interno.rede_fed_mencionados(p_antes) r where p_antes.id is not null) d
+  where d.destino is not null
+    and not interno.rede_fed_bloqueado(d.destino)
+    and not exists (select 1 from fediverso_filtros f where f.usuario = p_perfil and f.ator = d.ator and f.tipo = 'bloqueio')
+    and not exists (select 1 from fediverso_bloqueios_recebidos b where b.perfil = p_perfil and b.ator = d.ator)
+    and not exists (select 1 from rede_fed_seguidores s where s.perfil = p_perfil and coalesce(s.inbox_compartilhada, s.inbox) = d.destino)
+    and not exists (select 1 from rede_fed_fila q where q.feito_em is null and q.tipo = p_tipo and q.objeto = p.id::text and q.destino = d.destino);
+  get diagnostics v_n = row_count;
+  return v_n;
+end $$;
 
 /**
  * Um post mudou: sai (Create), muda (Update) ou é retirado (Delete) do Fediverso, conforme pode ou não sair agora. Com
  * "fediverso-grupos", o post de uma comunidade também vai para quem segue a comunidade (Group) de fora, como Announce do grupo.
  */
 create or replace function interno.rede_fed_post_mudou() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_p rede_posts; v_fed boolean := false; v_env rede_fed_enviados; v_atividade text;
+declare v_p rede_posts; v_antes rede_posts; v_fed boolean := false; v_env rede_fed_enviados; v_atividade text;
 begin
   -- O caminho rápido: ninguém ligou a federação e nada foi enviado. Custa uma consulta a uma tabela quase sempre vazia.
   if not exists (select 1 from rede_fed_atores) then return null; end if;
@@ -462,6 +535,11 @@ begin
     update rede_fed_enviados set apagado_em = now() where post = v_p.id;
     perform interno.rede_fed_espalhar(v_env.perfil, 'delete', v_p.id::text);
     v_atividade := 'delete';
+  end if;
+  -- Modo total: quem foi mencionado lá fora (e o autor da nota respondida) recebe também, mesmo sem seguir a pessoa.
+  if v_atividade is not null then
+    if tg_op = 'UPDATE' then v_antes := old; end if;
+    perform interno.rede_fed_entregar_mencionados(v_p, v_atividade, case when v_atividade = 'delete' then v_env.perfil else v_p.autor end, v_antes);
   end if;
   if v_atividade is not null and v_p.comunidade is not null and v_p.resposta_a is null
      and (v_atividade = 'delete' or interno.rede_fed_grupo_ok(v_p.comunidade)) then
@@ -494,11 +572,14 @@ end $$;
  * agora, desfaz também o que ela curtiu e impulsionou lá fora (Undo) e apaga esses registros.
  */
 create or replace function interno.rede_fed_desligar(p_perfil uuid) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
-declare e record;
+declare e record; v_p rede_posts;
 begin
   if not exists (select 1 from rede_fed_atores where perfil = p_perfil and ligado) then return; end if;
   for e in select post from rede_fed_enviados where perfil = p_perfil and apagado_em is null loop
     perform interno.rede_fed_espalhar(p_perfil, 'delete', e.post::text);
+    -- Quem foi mencionado lá fora (modo total) recebeu o Create; recebe também a retirada.
+    select * into v_p from rede_posts where id = e.post;
+    if found then perform interno.rede_fed_entregar_mencionados(v_p, 'delete', p_perfil); end if;
   end loop;
   update rede_fed_enviados set apagado_em = now() where perfil = p_perfil and apagado_em is null;
   insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
@@ -525,7 +606,8 @@ end $$;
 create or replace function interno.rede_fed_consentimento_fediverso() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   if new.revogado_em is not null then return null; end if;
-  if new.fediverso and interno.rede_fed_total() then
+  -- Só o item marcado na versão 2 (com a flag ligada) liga: quem marcou na versão 1 é pedido de novo (cabeçalho, item 2).
+  if new.fediverso and coalesce(new.fediverso_versao, 1) >= 2 and interno.rede_fed_total() then
     if not exists (select 1 from rede_fed_atores where perfil = new.usuario and ligado and consentimento_versao >= interno.rede_fed_versao()) then
       perform interno.rede_fed_ligar_perfil(new.usuario);
     end if;
@@ -536,7 +618,7 @@ begin
 end $$;
 
 drop trigger if exists fediverso_consentimento on interno.rede_consentimentos;
-create trigger fediverso_consentimento after insert or update of fediverso on interno.rede_consentimentos
+create trigger fediverso_consentimento after insert or update of fediverso, fediverso_versao on interno.rede_consentimentos
   for each row execute function interno.rede_fed_consentimento_fediverso();
 
 /**
@@ -586,16 +668,18 @@ $$;
 /**
  * Entrar na Alumia com o item destacado do Fediverso (D2): o mesmo rede_aderir de sempre, mais a escolha "meus posts públicos
  * também vão para o Fediverso" (marcada por padrão na tela, mas é a pessoa que decide). Com o modo total ligado, marcar liga a
- * federação (gatilho em rede_consentimentos); desmarcar desliga. Sem o modo total, a escolha só fica guardada.
+ * federação (gatilho em rede_consentimentos); desmarcar desliga. Sem o modo total, a escolha só fica guardada, como versão 1: não liga
+ * nada quando a flag ligar depois (a tela pede de novo: pedir_fediverso em rede_fed_situacao).
  */
 create or replace function public.rede_aderir(p_maior boolean, p_versao integer, p_fediverso boolean) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_res jsonb;
 begin
   v_res := public.rede_aderir(p_maior, p_versao);
-  update rede_consentimentos set fediverso = coalesce(p_fediverso, false)
+  -- fediverso_versao: a versão do item respondido (1 sem a flag, 2 com ela), marcado ou não. Marcar de novo na versão 2 é aceite novo.
+  update rede_consentimentos set fediverso = coalesce(p_fediverso, false), fediverso_versao = interno.rede_fed_versao()
   where usuario = v and revogado_em is null and versao = (select rede_consentimento from perfis where id = v)
-    and fediverso is distinct from coalesce(p_fediverso, false);
+    and (fediverso, fediverso_versao) is distinct from (coalesce(p_fediverso, false), interno.rede_fed_versao()::smallint);
   return v_res || jsonb_build_object('fediverso', public.rede_fed_situacao());
 end $$;
 
@@ -617,7 +701,13 @@ begin
     'versao', interno.rede_fed_versao(),
     'total', interno.rede_fed_total(),
     'consentimento_versao', case when a.ligado then a.consentimento_versao end,
-    'descobrivel', coalesce(a.ligado and a.descobrivel, false));
+    'descobrivel', coalesce(a.ligado and a.descobrivel, false),
+    -- A tela pede o item do Fediverso (de novo) para quem pode federar e ainda não aceitou a versão 2: inclusive quem marcou o
+    -- item com a flag desligada (versão 1), que não é ligado sozinho, e quem está ligado só na versão 1. Quem já respondeu o item
+    -- na versão 2 (marcado ou não) e quem desligou no perfil não são pedidos (decidiram; religam no perfil quando quiserem).
+    'pedir_fediverso', interno.rede_fed_total() and interno.rede_fed_impedimento(v) is null
+      and (a.perfil is null or (a.ligado and coalesce(a.consentimento_versao, 1) < 2))
+      and not exists (select 1 from rede_consentimentos c where c.usuario = v and c.revogado_em is null and c.fediverso_versao >= 2));
 end $$;
 
 /** Aparecer (ou não) em diretórios e buscas de fora (discoverable/indexable no ator). Só com a federação ligada. */
@@ -800,6 +890,50 @@ begin
 end $$;
 
 /**
+ * As respostas de fora a um post daqui ("tudo no mesmo fio"): as notas de fora da conversa desse post (post_local, direta ou
+ * indiretamente), no formato de cartão (rede_fed_cartao, com resposta_a para a tela encaixar no fio), da mais antiga para a mais
+ * nova, cada uma pela regra de quem pode ver (interno.rede_fed_nota_ve: só-seguidores só para quem segue o autor). O post daqui
+ * passa antes pela matriz (interno.rede_ve). Cursor = "<criado_em>|<id>"; total = quantas a pessoa pode ver. Sem o modo total: vazia.
+ * rede_post_v2 e rede_fio não mudam (são da linha local): a tela chama esta junto e junta por data.
+ */
+create or replace function public.rede_fed_respostas_de(p_post uuid, p_cursor text default null, p_limite integer default 50) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); v_p rede_posts; v_limite integer := least(greatest(coalesce(p_limite, 50), 1), 100);
+  v_t timestamptz; v_k text; v_itens jsonb; v_n integer; v_total integer; v_prox text;
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede2_ler', 600, 60);
+  select * into v_p from rede_posts where id = p_post;
+  if not found or not interno.rede_ve(v_p, v) then perform interno.erro('nao_encontrado'); end if;
+  if not interno.rede_fed_total() then return jsonb_build_object('itens', '[]'::jsonb, 'proximo', null, 'total', 0); end if;
+  if nullif(p_cursor, '') is not null then
+    if position('|' in p_cursor) = 0 then perform interno.erro('invalido:cursor'); end if;
+    begin
+      v_t := split_part(p_cursor, '|', 1)::timestamptz;
+    exception when others then
+      perform interno.erro('invalido:cursor');
+    end;
+    v_k := substr(p_cursor, position('|' in p_cursor) + 1);
+  end if;
+  select count(*)::integer into v_total from rede_fed_recebidos c where c.post_local = p_post and interno.rede_fed_nota_ve(c, v);
+  with lista as (
+    select c, coalesce(c.publicado, c.recebido_em) as q, c.id as k from rede_fed_recebidos c
+    where c.post_local = p_post and interno.rede_fed_nota_ve(c, v)
+      and (v_t is null or (coalesce(c.publicado, c.recebido_em), c.id) > (v_t, v_k))
+    order by 2, 3 limit v_limite + 1
+  ), numerada as (select l.*, row_number() over (order by l.q, l.k) as n from lista l)
+  select coalesce(jsonb_agg(interno.rede_fed_cartao(x.c, v) order by x.n) filter (where x.n <= v_limite), '[]'::jsonb), count(*)::integer
+  into v_itens, v_n from numerada x;
+  if v_n > v_limite then
+    select z.q::text || '|' || z.k into v_prox from (select coalesce(c.publicado, c.recebido_em) as q, c.id as k from rede_fed_recebidos c
+      where c.post_local = p_post and interno.rede_fed_nota_ve(c, v) and (v_t is null or (coalesce(c.publicado, c.recebido_em), c.id) > (v_t, v_k))
+      order by 1, 2 limit v_limite) z order by z.q desc, z.k desc limit 1;
+  end if;
+  return jsonb_build_object('itens', v_itens, 'proximo', v_prox, 'total', v_total);
+end $$;
+
+/**
  * Curtir (like) ou impulsionar (announce) uma nota de fora, ou desfazer (p_sim = false). Põe na fila a atividade para a caixa do
  * autor (e, no impulso, também para quem segue a pessoa). Precisa do modo total e da federação ligada (a atividade sai assinada).
  * Impulsionar só-seguidores não pode (como no Mastodon).
@@ -849,7 +983,7 @@ end $$;
  */
 create or replace function public.rede_fed_responder_remoto(p_post_remoto text, p_texto text, p_aviso text default '') returns jsonb
 language plpgsql volatile security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_c rede_fed_recebidos; v_r rede_fed_remotos; v_res jsonb; v_id uuid; v_fed boolean;
+declare v uuid := interno.eu(); v_c rede_fed_recebidos; v_p rede_posts; v_res jsonb; v_id uuid; v_fed boolean;
 begin
   perform interno.aberta('comunidade');
   if not interno.rede_fed_total() or interno.rede_fed_impedimento(v) is not null or not exists (select 1 from rede_fed_atores where perfil = v and ligado) then
@@ -860,13 +994,12 @@ begin
   if v_c.visibilidade = 'seguidores' then perform interno.erro('sem_permissao'); end if;
   v_res := public.rede_publicar(jsonb_build_object('tipo', 'post', 'texto', p_texto, 'aviso', coalesce(p_aviso, '')));
   v_id := (v_res ->> 'id')::uuid;
-  update rede_posts set resposta_a_remota = v_c.id where id = v_id;
+  -- Responder a uma nota de fora é falar no Fediverso: o público escolhido é "internet" (rede_publicar só o aceita nas
+  -- disciplinas, então ele é posto aqui, depois). Com isso o gatilho manda o Create aos seguidores e ao autor da nota
+  -- (interno.rede_fed_entregar_mencionados); o Update e o Delete depois seguem o mesmo caminho.
+  update rede_posts set resposta_a_remota = v_c.id, publico = 'internet' where id = v_id returning * into v_p;
   v_fed := exists (select 1 from rede_fed_enviados e where e.post = v_id and e.apagado_em is null);
-  select * into v_r from rede_fed_remotos where ator = v_c.ator;
-  if v_fed and v_r.inbox is not null and not interno.rede_fed_bloqueado(v_r.inbox)
-     and not exists (select 1 from rede_fed_fila q where q.tipo = 'create' and q.objeto = v_id::text and q.destino in (v_r.inbox, coalesce(v_r.inbox_compartilhada, v_r.inbox))) then
-    insert into rede_fed_fila (perfil, tipo, objeto, destino) values (v, 'create', v_id::text, v_r.inbox);
-  end if;
+  if v_fed then perform interno.rede_fed_entregar_mencionados(v_p, 'create', v); end if;
   return v_res || jsonb_build_object('resposta_a_remota', v_c.id, 'federado', v_fed);
 end $$;
 
@@ -1006,7 +1139,9 @@ end $$;
  *   seguidor                    → no modo total, avisa a pessoa (fed_seguidor); recusa quem ela bloqueou
  *   remoto_salvar               → também {avatar, tipo}
  *   seguindo_publico {handle}   → {total}  (só o número de quem a pessoa segue lá fora)
- *   interacao {tipo: like|announce, ator, atividade_id, post_local, sim} → {ok, perfil_autor} (avisa o autor; sim=false desfaz)
+ *   interacao {tipo: like|announce, ator, atividade_id, post_local | objeto_remoto, sim} → {ok, perfil_autor} (avisa o autor;
+ *                  sim=false desfaz). post_local = endereço de um post daqui; objeto_remoto = nota de fora impulsionada
+ *   ator: trancado é sempre false (perfil trancado não federa: rede_fed_impedimento); 'ligado' só para quem tem o consentimento
  *   nota_recebida {id, ator, url, html_limpo, texto, aviso, sensivel, publicado, em_resposta_a, contexto, visibilidade,
  *                  mencoes_locais, midia} → {guardado, motivo}
  *   denuncia_recebida {ator_instancia, alvos, conteudo} → {protocolo}
@@ -1059,7 +1194,9 @@ begin
         -- (rede_perfil_imagem): não sai para fora sem um consentimento próprio (LGPD art. 6º, III).
         'avatar_url', case when f.rede_avatar ~ '^a(0[1-9]|1[0-9]|2[0-4])$' then '/rede/avatares/' || f.rede_avatar || '.svg' end,
         'capa_url', case when f.rede_capa ~ '^c0[1-8]$' then '/rede/capas/' || f.rede_capa || '.svg' end,
-        'discoverable', a.descobrivel, 'trancado', f.rede_modo = 'trancado',
+        -- Perfil trancado não federa (rede_fed_impedimento, que o plano manda não mudar): aqui ele nunca chega, então trancado é
+        -- sempre false e manuallyApprovesFollowers também. Abrir o trancado com aprovação manual é decisão à parte.
+        'discoverable', a.descobrivel, 'trancado', false,
         'total', interno.rede_fed_total(), 'consentimento_versao', a.consentimento_versao);
     end if;
     -- Desligado com entregas ainda na fila (as retiradas): o ator continua com a chave, sem nada mais.
@@ -1264,7 +1401,10 @@ begin
     if v_novo then
       if v_resp_local is not null then
         select autor into v_autor from rede_posts where id = v_resp_local;
-        perform interno.rede_fed_avisar(v_autor, 'fed_resposta', v_resp_local, v_ator, v_id);
+        -- Só-seguidores: só avisa (e só entrega o endereço da nota) a quem pode vê-la, como nas menções (interno.rede_fed_nota_ve).
+        if v_vis <> 'seguidores' or exists (select 1 from rede_fed_seguindo s where s.perfil = v_autor and s.ator = v_ator and s.aceito) then
+          perform interno.rede_fed_avisar(v_autor, 'fed_resposta', v_resp_local, v_ator, v_id);
+        end if;
       end if;
       perform interno.rede_fed_avisar(u, 'fed_mencao', null, v_ator, v_id) from unnest(v_mencoes) u
       where u is distinct from v_autor
@@ -1287,7 +1427,8 @@ begin
     if not interno.rede_fed_total() then return jsonb_build_object('ok', false, 'motivo', 'desligado'); end if;
     if interno.rede_fed_bloqueado(v_ator) then return jsonb_build_object('ok', false, 'motivo', 'bloqueado'); end if;
     v_id := nullif(left(coalesce(p ->> 'atividade_id', ''), 500), '');
-    v_ref := nullif(left(coalesce(p ->> 'post_local', ''), 500), '');
+    -- objeto_remoto: a nota de fora impulsionada; post_local: o post daqui (aceito também para a nota de fora, por compatibilidade).
+    v_ref := nullif(left(coalesce(nullif(p ->> 'objeto_remoto', ''), p ->> 'post_local', ''), 500), '');
     v_post := interno.rede_fed_post_local(v_ref);
     if v_post is not null then select autor into v_autor from rede_posts where id = v_post; end if;
     if v_sim then
@@ -1323,6 +1464,8 @@ begin
     return jsonb_build_object('ok', true, 'perfil_autor', v_autor);
 
   when 'denuncia_recebida' then
+    -- Flag de fora: só no modo total (com a flag desligada nada novo entra; cabeçalho, item 7).
+    if not interno.rede_fed_total() then return jsonb_build_object('protocolo', null, 'ok', false, 'motivo', 'desligado'); end if;
     v_ref := left(coalesce(nullif(p ->> 'ator_instancia', ''), v_ator), 500);
     if v_ref !~ '^https://[^\s]+$' then perform interno.erro('invalido:ator'); end if;
     if interno.rede_fed_bloqueado(v_ref) then return jsonb_build_object('protocolo', null, 'ok', false, 'motivo', 'bloqueado'); end if;
@@ -1357,6 +1500,7 @@ begin
 
   when 'bloqueio_recebido' then
     if v_ator = '' then perform interno.erro('invalido:ator'); end if;
+    if not interno.rede_fed_total() then return jsonb_build_object('ok', false, 'motivo', 'desligado'); end if;
     v_ref := coalesce(interno.rede_fed_handle_local(p ->> 'alvo_handle'), lower(split_part(btrim(coalesce(p ->> 'alvo_handle', ''), ' @'), '@', 1)));
     select ra.perfil into v_perfil from rede_fed_atores ra where ra.handle = v_ref order by ra.ligado desc limit 1;
     if v_perfil is null or not exists (select 1 from perfis where id = v_perfil) then return jsonb_build_object('ok', false, 'motivo', 'inexistente'); end if;
@@ -1390,13 +1534,14 @@ begin
     return jsonb_build_object('ok', true);
 
   when 'fila_pegar' then
-    v_limite := least(greatest(coalesce((p ->> 'limite')::integer, 20), 1), 200);
+    -- Até 200 por chamada no modo total; sem a flag, o teto de antes (100).
+    v_limite := least(greatest(coalesce((p ->> 'limite')::integer, 20), 1), case when interno.rede_fed_total() then 200 else 100 end);
     if random() < 0.05 then perform interno.rede_fed_limpar(); end if;
     -- Domínio morto (circuito aberto): os itens dele esperam sem gastar tentativa.
     with escolhidos as (
       select q.id from rede_fed_fila q
       where q.feito_em is null and q.proxima <= now()
-        and not exists (select 1 from fediverso_dominios d where d.dominio = interno.rede_fed_dominio(q.destino) and d.morto_ate > now())
+        and not (interno.rede_fed_total() and exists (select 1 from fediverso_dominios d where d.dominio = interno.rede_fed_dominio(q.destino) and d.morto_ate > now()))
       order by q.proxima, q.id limit v_limite for update skip locked
     ), reservados as (
       update rede_fed_fila q set proxima = now() + interval '3 minutes', tentativas = q.tentativas + 1 from escolhidos e where q.id = e.id returning q.*
@@ -1412,8 +1557,10 @@ begin
 
   when 'fila_feito' then
     select * into v_q from rede_fed_fila where id = (p ->> 'id')::bigint;
-    if not found then return jsonb_build_object('ok', false); end if;
+    if not found then return jsonb_build_object('ok', true); end if;
     v_t := v_q.tentativas;
+    -- Sem a flag, o de antes: sem circuito por domínio, sem tratar 410 e 429 à parte.
+    if not interno.rede_fed_total() then p := p - 'status'; end if;
     v_status := case when coalesce(p ->> 'status', '') ~ '^[0-9]{1,3}$' then (p ->> 'status')::integer end;
     v_dom := coalesce(case when lower(coalesce(p ->> 'dominio', '')) ~ '^[a-z0-9.-]{3,253}$' then lower(p ->> 'dominio') end, interno.rede_fed_dominio(v_q.destino));
     if coalesce((p ->> 'ok')::boolean, false) then
@@ -1576,11 +1723,12 @@ declare
     'rede_fed_host_local()', 'rede_fed_uuid_local(text)', 'rede_fed_handle_local(text)', 'rede_fed_post_local(text)', 'rede_fed_html_ok(text)',
     'rede_fed_aviso_base(text)', 'rede3_aviso_pref(uuid, text, text)', 'rede3_aviso_chave(text, uuid, uuid)', 'rede_fed_avisar(uuid, text, uuid, text, text)',
     'rede_fed_aviso_remoto(uuid[])', 'rede_fed_comunidade_ok(text)', 'rede_fed_grupo_ok(text)', 'rede_fed_federavel(interno.rede_posts, integer)',
+    'rede_fed_mencionados(interno.rede_posts)', 'rede_fed_entregar_mencionados(interno.rede_posts, text, uuid, interno.rede_posts)',
     'rede_fed_post_json(interno.rede_posts)', 'rede_fed_post_mudou()', 'rede_fed_ligar_perfil(uuid)', 'rede_fed_desligar(uuid)',
     'rede_fed_consentimento_fediverso()', 'rede_fed_nota_ve(interno.rede_fed_recebidos, uuid)',
     'rede_fed_cartao(interno.rede_fed_recebidos, uuid, jsonb)', 'rede_fed_limpar()'];
   v_publicas text[] := array['rede_aderir(boolean, integer, boolean)', 'rede_fed_descoberta(boolean)', 'rede_fed_eu(text)',
-    'rede_fed_bloquear(text, boolean, text)', 'rede_fed_linha_mista(text, integer)', 'rede_fed_perfil_remoto(text)', 'rede_fed_fio_remoto(text)',
+    'rede_fed_bloquear(text, boolean, text)', 'rede_fed_linha_mista(text, integer)', 'rede_fed_perfil_remoto(text)', 'rede_fed_fio_remoto(text)', 'rede_fed_respostas_de(uuid, text, integer)',
     'rede_fed_interagir(text, text, boolean)', 'rede_fed_responder_remoto(text, text, text)', 'rede_fed_denunciar_remoto(text, text, text, boolean)',
     'rede_fed_bloquear_pessoa(text, boolean)', 'rede_fed_silenciar_pessoa(text, boolean)', 'rede_fed_denuncias_listar(text)',
     'rede_fed_denuncia_decidir(uuid, text)'];
