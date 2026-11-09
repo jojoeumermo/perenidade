@@ -249,7 +249,7 @@ export const GUIAS: Record<string, Guia> = {
   },
   // ── Atendimento ──
   comunidade: {
-    paraQue: "Cuidar da Comunidade: fila de revisão, denúncias, banimentos, anotações e o filtro de palavras.",
+    paraQue: "Cuidar da Alumia: fila de revisão, denúncias, banimentos, anotações e o filtro de palavras.",
     passos: [
       { titulo: "Comece pela fila", texto: "Fila de revisão mostra o que ficou retido pelo filtro. Aprovar, Editar ou Recusar." },
       { titulo: "Veja as denúncias", texto: "Em Denúncias, leia o contexto e Marcar como resolvida depois de agir." },
