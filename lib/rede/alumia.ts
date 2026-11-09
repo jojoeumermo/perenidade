@@ -78,8 +78,12 @@ export type DecisaoDaAlumia =
   | { tipo: "reescrever"; destino: string }
   /** Seguir como está (a rota já existe: /[lang]/alumia/**, entrar, regras…). */
   | { tipo: "seguir" }
-  /** O endereço antigo (/[lang]/comunidade/…): redirecionar (308, permanente) para o novo no mesmo host, MANTENDO a busca. */
-  | { tipo: "mover"; destino: string }
+  /**
+   * O endereço antigo (/[lang]/comunidade/…): redirecionar (308, permanente) para o caminho curto no mesmo host (destino),
+   * MANTENDO a busca. `completo` é o mesmo lugar em /[lang]/alumia/…: o proxy passa ele ao enderecoAntigoDaRede, para um
+   * ?t=/?post= do Fórum ir direto ao destino final, num salto só.
+   */
+  | { tipo: "mover"; destino: string; completo: string }
   /** Redirecionar (307) para outro caminho no mesmo host da Alumia. */
   | { tipo: "redirecionar"; destino: string }
   /** O resto do site mora no endereço do instituto: redirecionar (307) para lá, mesmo caminho. */
@@ -111,14 +115,25 @@ export function rotaNaAlumia(pathname: string, aceita = ""): DecisaoDaAlumia {
 
   if (resto.length === 0) return { tipo: "reescrever", destino: `/${lang}/alumia` };
 
-  // O endereço antigo (/pt/comunidade/…) vai com 308 para o novo, com a busca: um salto só (os ?t=/?post= do Fórum seguem daí).
-  if (resto[0] === "comunidade") return { tipo: "mover", destino: `/${lang}/alumia${resto.length > 1 ? `/${resto.slice(1).join("/")}` : ""}` };
-
-  // O endereço completo (/pt/alumia/…) continua valendo no host da Alumia: os links internos da rede usam ele.
-  const telas = resto[0] === "alumia" ? resto.slice(1) : resto;
+  // O endereço completo (/pt/alumia/…) continua valendo no host da Alumia: os links internos da rede usam ele. O antigo
+  // (/pt/comunidade/…) também é lido aqui, para o ActivityPub abaixo.
+  const antigo = resto[0] === "comunidade";
+  const telas = resto[0] === "alumia" || antigo ? resto.slice(1) : resto;
   const jaCompleto = resto[0] === "alumia";
+  // Um servidor do Fediverso que guardou o "url" antigo (/pt/comunidade/p/<id>, /pt/comunidade/u/<nome>) recebe o documento
+  // direto, sem depender de seguir redirecionamento.
   if (ap && telas.length === 2 && telas[0] === "u" && HANDLE.test(telas[1])) return { tipo: "reescrever", destino: `/api/fediverso/u/${telas[1]}` };
   if (ap && telas.length === 2 && telas[0] === "p" && ID.test(telas[1])) return { tipo: "reescrever", destino: `/api/fediverso/p/${telas[1].toLowerCase()}` };
+
+  // O endereço antigo (/pt/comunidade/…) vai com 308, com a busca, para o caminho CURTO do host próprio (/, /p/<id>, /en/p/<id>)
+  // quando ele é uma tela da Alumia; senão para /pt/alumia/… (que dá 404, sem laço). O ?t=/?post= do Fórum vai direto ao
+  // destino final pelo `completo` (um salto só).
+  if (antigo) {
+    const completo = `/${lang}/alumia${telas.length ? `/${telas.join("/")}` : ""}`;
+    if (telas.length && !(ROTAS_DA_ALUMIA as readonly string[]).includes(telas[0])) return { tipo: "mover", destino: completo, completo };
+    const curto = lang === "pt" ? `/${telas.join("/")}` : `/${lang}${telas.length ? `/${telas.join("/")}` : ""}`;
+    return { tipo: "mover", destino: curto, completo };
+  }
   if (jaCompleto) return comIdioma ? { tipo: "seguir" } : { tipo: "reescrever", destino: `/pt/${resto.join("/")}` };
 
   if ((ROTAS_DA_ALUMIA as readonly string[]).includes(resto[0])) return { tipo: "reescrever", destino: `/${lang}/alumia/${resto.join("/")}` };
