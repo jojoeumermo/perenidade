@@ -92,3 +92,4 @@ graphify-out/
 /ios/
 *.jks
 *.keystore
+public/versao.txt
