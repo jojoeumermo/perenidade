@@ -66,7 +66,7 @@ export function larguraDaTela(maximo = 440): number {
  * enquanto ele está aberto — o Tab e o leitor de tela não saem do diálogo (WCAG 2.4.3; aria-modal sozinho não basta). Ao fechar,
  * devolve o que estava antes.
  */
-export function usarModal(raiz: RefObject<HTMLElement | null>): void {
+export function useModalDosStories(raiz: RefObject<HTMLElement | null>): void {
   useEffect(() => {
     const el = raiz.current;
     if (!el) return;
