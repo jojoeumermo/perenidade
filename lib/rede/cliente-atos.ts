@@ -10,8 +10,9 @@
 import { proporcaoValida } from "./mosaico";
 import { chamar, type Chamar } from "./cliente";
 import { linkDeApoioSeguro } from "./atos/chegar";
+import { limparCorrente, limparFarol } from "./atos/corrente";
 import { criarDuble } from "./atos/exemplos";
-import { corValida, type Ato, type DadosDoAto, type FiltroDosAtos, type PaginaDeAtos, type PedidoDeMudanca, type RespostaDoVou } from "./tipos-atos";
+import { corValida, type Ato, type Corrente, type DadosDoAto, type EstadoDoFarol, type FarolDoAto, type FiltroDosAtos, type OrgQuePosso, type PaginaDeAtos, type PedidoDeCorrente, type PedidoDeMudanca, type RespostaDoVou } from "./tipos-atos";
 
 /** A prévia com dados de exemplo está ligada? (A referência é literal para o Next gravar o valor no código do navegador.) */
 export const PREVIA_DOS_ATOS = process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
@@ -63,6 +64,19 @@ export function criarClienteDosAtos(c: Chamar) {
     /** Adiar, cancelar ou confirmar de novo (só quem organizou). O aviso "ato_mudou" vai só a quem confirmou. */
     mudar: async (id: string, m: PedidoDeMudanca) =>
       limparAto(await c<Ato>("rede_ato_mudar", { p_id: id, p_situacao: m.situacao, p_inicio: m.inicio ?? null, p_motivo: m.motivo ?? "" })),
+    /** O farol do ato (só para quem confirmou ou coordena; os outros recebem nulo). */
+    farol: async (id: string): Promise<FarolDoAto | null> => limparFarol(await c<FarolDoAto | null>("rede_ato_farol", { p_id: id })),
+    /** Pedir (ou, sendo a segunda pessoa, confirmar) um estado do farol. Só quem coordena. */
+    farolPedir: async (id: string, estado: EstadoDoFarol, texto = ""): Promise<FarolDoAto | null> =>
+      limparFarol(await c<FarolDoAto>("rede_ato_farol_pedir", { p_id: id, p_estado: estado, p_texto: texto })),
+    /** As correntes abertas da cidade ESCRITA (nunca a posição). */
+    correntes: async (cidade: string): Promise<Corrente[]> => ((await c<Corrente[]>("rede_correntes", { p_cidade: cidade.trim() })) ?? []).map(limparCorrente),
+    /** "Vou" (ou desfazer) numa corrente. */
+    correnteVou: async (id: string, sim: boolean): Promise<Corrente> => limparCorrente(await c<Corrente>("rede_corrente_vou", { p_id: id, p_sim: sim })),
+    /** As organizações com selo que esta pessoa gerencia (só sobre si). */
+    correntePosso: async (): Promise<OrgQuePosso[]> => (await c<OrgQuePosso[]>("rede_corrente_posso")) ?? [],
+    /** Abrir uma corrente como uma organização com selo. */
+    correnteAbrir: async (p: PedidoDeCorrente): Promise<Corrente> => limparCorrente(await c<Corrente>("rede_corrente_abrir", { p })),
   };
 }
 

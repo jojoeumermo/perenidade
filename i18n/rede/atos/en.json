@@ -32,7 +32,19 @@
     "apoio": "Support (external link)",
     "apoioAjuda": "Opens outside Alumia. No payment goes through here.",
     "erroVou": "Couldn't confirm right now. Try again.",
-    "entrarParaIr": "Sign in to Alumia to confirm"
+    "entrarParaIr": "Sign in to Alumia to confirm",
+    "chegarTitulo": "How to get there",
+    "chegarExplica": "The map opens outside Alumia, with only the action's public meeting point. Nobody learns that you opened it.",
+    "chegarApp": "Phone maps app",
+    "chegarOsm": "OpenStreetMap",
+    "chegarCopiar": "Copy the address",
+    "enderecoCopiado": "Address copied.",
+    "fechar": "Close",
+    "lembrete": "Calendar reminder",
+    "lembreteAjuda": "Downloads an .ics file: your calendar reminds you 24 h and 2 h before. Nothing goes to the server.",
+    "baixado": "Calendar file downloaded. Open it to save the reminder.",
+    "vouFeito": "Confirmed. You are in the mosaic.",
+    "vouDesfeito": "Confirmation undone."
   },
   "mosaico": {
     "voce": "You're in the mosaic: the golden card.",
@@ -67,7 +79,10 @@
     "cidadeAjuda": "\"Nearby\" uses the city you type. Alumia never uses your device's location, and the city stays only on this device.",
     "cidadeVer": "See actions",
     "trocarCidade": "change city ({cidade})",
-    "previa": "Preview with sample data"
+    "previa": "Preview with sample data",
+    "posicao": "Action {i} of {n}",
+    "puxar": "release to go to the next action",
+    "atalhos": "Shortcuts: J goes to the next action and K back to the previous one."
   },
   "pagina": {
     "naoAchado": "This action doesn't exist or you can't see it.",
@@ -122,5 +137,76 @@
   },
   "calendario": {
     "titulo": "Calendar"
+  },
+  "erros": {
+    "ato_cancelado": "This action was cancelled: you can no longer confirm.",
+    "ato_passou": "This action already happened: you can no longer confirm.",
+    "muitos_pedidos": "Too many requests in a row. Wait a little and try again.",
+    "consentimento": "To do this, first accept the Alumia rules.",
+    "entre_primeiro": "Sign in to Alumia to do this.",
+    "nao_encontrado": "This action no longer exists or you can't see it.",
+    "so_quem_organizou": "Only whoever called the action can change this.",
+    "so_coordenacao": "Only the action's coordination can change the beacon.",
+    "so_org_verificada": "Only a verified organization can open a chain.",
+    "corrente_fechada": "This chain has already closed: the goal was reached.",
+    "dado_pessoal": "Remove the personal data (phone, e-mail, ID) from the text.",
+    "data": "Pick a future date within the allowed range.",
+    "texto": "Check the text: it is too short, too long or missing.",
+    "sem_rede": "No connection right now. Check your internet and try again.",
+    "generico": "That didn't work. Try again."
+  },
+  "farol": {
+    "titulo": "Action beacon",
+    "estado": {
+      "tranquilo": "Calm",
+      "atencao": "Heads up",
+      "dispersar": "Disperse",
+      "ponto2": "Meeting point 2"
+    },
+    "explica": {
+      "tranquilo": "All good here.",
+      "atencao": "Stay close to your group and watch for updates.",
+      "dispersar": "Leave calmly, in groups, by the agreed route.",
+      "ponto2": "The meeting point moved to:"
+    },
+    "confirmadoPor": "Confirmed by the coordination",
+    "agora": "just now",
+    "minutos": "{n} min ago",
+    "horas": "{n} h ago",
+    "nunca": "unchanged since the call",
+    "coordenar": "Change the beacon",
+    "coordenarAjuda": "It only takes effect when two people from the coordination request the same state within 15 minutes. Those who confirmed get a notice with no text.",
+    "pedir": "Request: {estado}",
+    "novoPonto": "New meeting point",
+    "novoPontoExemplo": "e.g. Silva Teles Square, in front of the school",
+    "esperando": "You requested {estado}. A second person from the coordination still has to confirm (until {hora}).",
+    "outraPediu": "Someone from the coordination requested {estado}.",
+    "confirmar": "Confirm: {estado}",
+    "rotulo": "Action beacon: {estado}",
+    "atual": "now"
+  },
+  "corrente": {
+    "titulo": "Solidarity chain",
+    "chama": "@{handle} calls",
+    "vou": "I'm going",
+    "voceVai": "You're going",
+    "elos": "{pct}% of the chain closed",
+    "poucos": "Links show up from 3 replies on.",
+    "fechada": "Chain closed: the goal was reached!",
+    "meta": "goal of {n} people",
+    "total": "{n} replied. Only the organization sees this number.",
+    "abrir": "Open a chain",
+    "abrirAjuda": "For an urgent call for people (eviction, picket, work party). Shown to whoever looks at actions in the written city. Up to 2 a week.",
+    "como": "Open as",
+    "texto": "The request",
+    "textoExemplo": "We need 30 people at 5 am at the Esperança occupation",
+    "cidade": "City",
+    "metaRotulo": "How many people",
+    "horaRotulo": "When (optional)",
+    "publicar": "Open the chain",
+    "deixar": "Leave it for later",
+    "aberta": "Chain opened.",
+    "barra": "Chain: {pct}% closed",
+    "barraVazia": "Chain: the links are still open"
   }
 }
