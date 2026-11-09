@@ -29,9 +29,10 @@ export function carregarTextosAlumia2(lang: string): Promise<TextosAlumia2> {
   return p;
 }
 
-export function useTextosAlumia2(lang: string): TextosAlumia2 | null {
+export function useTextosAlumia2(lang: string, ativo = true): TextosAlumia2 | null {
   const [t, setT] = useState<TextosAlumia2 | null>(null);
   useEffect(() => {
+    if (!ativo) return;
     let vivo = true;
     carregarTextosAlumia2(lang).then(
       (x) => vivo && setT(x),
@@ -40,6 +41,6 @@ export function useTextosAlumia2(lang: string): TextosAlumia2 | null {
     return () => {
       vivo = false;
     };
-  }, [lang]);
-  return t;
+  }, [lang, ativo]);
+  return ativo ? t : null;
 }

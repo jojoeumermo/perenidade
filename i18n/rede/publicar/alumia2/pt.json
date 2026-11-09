@@ -135,7 +135,8 @@
     "rascunhosAjuda": "Guardamos até 20, e cada um some depois de 30 dias. Só você vê.",
     "continuar": "Continuar",
     "apagar": "Apagar",
-    "semTexto": "(sem texto)"
+    "semTexto": "(sem texto)",
+    "semAlt": "Uma imagem está sem descrição: quem usa leitor de tela não vai saber o que tem nela. Descreva, ou toque de novo para publicar assim."
   },
   "direita": {
     "rotulo": "Na Alumia agora",
