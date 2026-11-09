@@ -10,6 +10,7 @@ import { ItemDoAto } from "./ItemDoAto";
 import { Icone } from "./partes";
 import { useListaDeAtos, useTextosDosAtos } from "./usar";
 import { cidadeGuardada, guardarCidade } from "@/lib/rede/atos/aparelho";
+import { marcarVistos } from "@/lib/rede/atos/novos";
 import { PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
 import { enderecos } from "@/lib/rede/tipos";
 import { preencherAto } from "@/lib/rede/textos-atos";
@@ -47,6 +48,11 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
   const itens = estado.fase === "pronto" ? estado.dados : [];
   const atual = itens[Math.min(indice, Math.max(0, itens.length - 1))];
   const proximo = itens[indice + 1];
+
+  // O ato que apareceu deixa de ser "novo" (o emblema do menu e o ponto da barra; a lista fica só neste aparelho).
+  useEffect(() => {
+    if (atual) marcarVistos([atual.id]);
+  }, [atual]);
 
   useEffect(() => {
     if (!focarTitulo.current || !atual) return;

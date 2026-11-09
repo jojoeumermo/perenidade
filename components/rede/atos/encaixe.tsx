@@ -1,6 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import dynamic from "next/dynamic";
-import type { Encaixe } from "../encaixes";
+import type { ComponentType } from "react";
+import type { ContextoDoEncaixe, Encaixe } from "../encaixes";
+import { atosNovos } from "@/lib/rede/atos/novos";
 import { rotaNovaLigada } from "@/lib/rede/rotas-novas";
 import type { DadosDoAto } from "@/lib/rede/tipos-atos";
 
@@ -15,7 +17,12 @@ import type { DadosDoAto } from "@/lib/rede/tipos-atos";
  *   antesDePublicar    não deixa sair um ato com campo faltando (o servidor confere de novo);
  *   abasDaComunidade   a aba "Atos" da comunidade;
  *   colunaDireita      "Atos perto de você".
- * A faixa PRÓXIMO ATO + cartão do ato do alto do Início ficam em ./TopoDoInicio (a Linha da F1 o põe; ver o comentário lá).
+ * O emblema do item Atos ("2" no menu do computador; o ponto dourado na barra do celular) é quantos atos de quem a pessoa segue
+ * ainda não apareceram na tela dos atos neste aparelho (lib/rede/atos/novos.ts).
+ *
+ * A faixa PRÓXIMO ATO + cartão do ato do alto do Início saem daqui como `TopoDoInicioEncaixado` (o contrato da F0 não tem um
+ * ponto para o alto da linha): na junta, o TopoDaLinha2 da F1 troca os dublês FaixaProximoAtoDuble/CartaoDoAtoDuble por ele,
+ * só na aba "Seguindo". Com as flags desligadas é nulo.
  */
 
 // Só o nome do menu e do tipo, nos 6 idiomas (o resto dos textos vem sob demanda de i18n/rede/atos/).
@@ -61,6 +68,7 @@ export const encaixe: Encaixe = !LIGADO ? {} : {
         </svg>
       ),
       href: ({ lang }) => `/${lang}/alumia/atos`,
+      emblema: ({ situacao }) => (situacao.logado ? atosNovos() : null),
     },
   ],
   anexosDoCartao: [AnexoChamado],
@@ -75,3 +83,8 @@ export const encaixe: Encaixe = !LIGADO ? {} : {
   abasDaComunidade: [{ chave: "atos", rotulo: ({ lang }) => nome(lang).menu, Componente: AbaDosAtos }],
   colunaDireita: [AtosPerto],
 };
+
+/** O alto do Início (faixa PRÓXIMO ATO + cartão do ato). Nulo com as flags desligadas: quem monta não mostra nada. */
+export const TopoDoInicioEncaixado: ComponentType<ContextoDoEncaixe> | null = !LIGADO
+  ? null
+  : dynamic(() => import("./TopoDoInicio").then((m) => m.TopoDoInicio), { ssr: false });

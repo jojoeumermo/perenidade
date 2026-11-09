@@ -11,8 +11,8 @@ import "./atos.css";
  * O alto da linha do Início (pranchas celular-inicio e computador-inicio): a faixa dourada "PRÓXIMO ATO" com as plaquinhas e,
  * logo embaixo, o cartão do ato com o mosaico. Sem próximo ato (ou se o servidor falhar), não mostra nada.
  *
- * Para quem junta (F1/integrador): a Linha da F1 põe <TopoDoInicio {...ctx} /> entre as abas e os posts, só na aba "Seguindo"
- * (o contrato de encaixes da F0 não tem um ponto para isto; ver a nota da F2).
+ * Para quem junta (F1/integrador): o encaixe exporta este componente como `TopoDoInicioEncaixado` (./encaixe); o TopoDaLinha2 da
+ * F1 o põe entre as abas e os posts, só na aba "Seguindo", no lugar dos dublês da prévia (o contrato da F0 não tem esse ponto).
  */
 export function TopoDoInicio({ lang, situacao }: ContextoDoEncaixe) {
   const t = useTextosDosAtos(lang);
