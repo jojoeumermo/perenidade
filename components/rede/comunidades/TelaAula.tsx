@@ -11,6 +11,8 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { Compositor } from "./Compositor";
 import { erroCom, textosDe, useCarregar } from "./util";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 /**
  * "Discutir esta aula" (R4, item 38): a comunidade da disciplina filtrada por uma aula. Mostra só os posts ligados à aula (a
@@ -75,7 +77,7 @@ export default function TelaAula({ lang, s, situacao, params, aoEscrever }: Prop
   const slugReal = resumo?.comunidade.slug ?? comunidade;
 
   return (
-    <div className="font-sans">
+    <div className="al3-tela font-sans">
       <header className="border-b border-rule px-[18px] py-4">
         <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">{a.titulo}</p>
         <h1 className="mt-1 font-serif text-2xl font-extrabold capitalize">{nomeDaAula}</h1>

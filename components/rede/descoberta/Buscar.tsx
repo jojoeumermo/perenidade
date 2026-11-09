@@ -11,6 +11,8 @@ import { enderecosDescoberta, normalizarTag, tagOk, type OrdemDaBusca, type Pagi
 import type { PropsDaTelaDoPacote } from "../registro";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { useTextosDescoberta } from "./textos";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 /**
  * A busca da Rede (/alumia/buscar?q=): posts, pessoas e comunidades, em português e sem depender de acento. O que aparece
@@ -27,7 +29,7 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
   const tag = q.startsWith("#") ? normalizarTag(q) : "";
   const r = achados?.q === q ? achados.r : null;
   return (
-    <div>
+    <div className="al3-tela">
       <header className="border-b border-rule px-[18px] py-4 font-sans">
         <h1 className="font-serif text-2xl font-extrabold">{b.titulo}</h1>
         <form action={`/${lang}/alumia/buscar`} method="get" role="search" className="mt-3 flex gap-2">

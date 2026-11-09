@@ -13,6 +13,8 @@ import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { desligarPush, estadoDoPush, ligarPush, type EstadoDoPush } from "./push";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 type Aba = "avisos" | "preferencias";
 
@@ -331,7 +333,7 @@ export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote)
   if (!t) return <EsqueletoDaLinha rotulo="…" quantos={3} />;
 
   return (
-    <div>
+    <div className="al3-tela">
       <h1 className="sr-only">{t.titulo}</h1>
       <div role="tablist" aria-label={t.abas.rotulo} className="sticky top-[var(--altura-topo,0px)] z-10 flex border-b border-rule bg-parchment">
         {(["avisos", "preferencias"] as Aba[]).map((a) => (

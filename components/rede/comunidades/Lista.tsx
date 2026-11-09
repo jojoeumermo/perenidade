@@ -12,6 +12,8 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { AcoesDaComunidade } from "./AcoesDaComunidade";
 import { erroCom, textosDe, useCarregar } from "./util";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 const ORDEM: ItemDaLista["categoria"][] = ["lutas", "disciplinas", "instituto"];
 
@@ -54,7 +56,7 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const procurando = busca.trim().length > 0 || soAtivas;
 
   return (
-    <div className="font-sans">
+    <div className="al3-tela font-sans">
       <header className="border-b border-rule px-[18px] py-4">
         <h1 className="font-serif text-2xl font-extrabold">{l.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{l.intro}</p>
