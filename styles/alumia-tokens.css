@@ -108,7 +108,8 @@
   --al-cartao-aceso: #ffffff;
   --al-cartao-apagado: #000000;
   --al-letra-acesa: #ff5a45;
-  --al-letra-apagada: #000000;
+  /* A letra apagada continua à vista no alto contraste (vermelho escuro sobre preto), para a palavra se ler antes de acender. */
+  --al-letra-apagada: #8c2a1e;
   --al-cartao-borda: #ffffff;
   --al-foco: #ffd400;
 }
@@ -312,6 +313,8 @@
   box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--al-texto) 12%, transparent);
 }
 [data-al="2"] .al-flap-texto { padding-inline: 0.5em; }
+/* As pranchas escrevem "2d 04h" em minúsculas: a Archivo condensada aqui não passa para maiúsculas. */
+[data-al="2"] .al-flap.al-cond { text-transform: none; }
 :root[data-eink] [data-al="2"] .al-flap { background: #000; color: #fff; }
 
 /* Tela "em construção" das rotas novas (components/rede/onda5/EmConstrucao.tsx). */
