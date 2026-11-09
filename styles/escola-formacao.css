@@ -1352,3 +1352,18 @@ main#conteudo .ef-conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagin
     margin: 10px 12px 0;
   }
 }
+
+/* A moldura das páginas abertas da Escola para quem não é militante (components/escola/porta/PortaPublica.tsx). */
+.ef-porta-publica {
+  background: var(--ef-fundo);
+}
+.ef-porta-publica .ef-porta-cabeca {
+  border-bottom: 2px solid var(--ef-borda);
+  max-width: none;
+}
+.ef-porta-publica .ef-porta-escola {
+  text-decoration: none;
+}
+.ef-porta-publica-corpo {
+  min-height: calc(100vh - 80px);
+}
