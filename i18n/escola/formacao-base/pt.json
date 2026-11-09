@@ -58,7 +58,17 @@
     "degrau": "Degrau {n}",
     "semNucleo": "sem núcleo ainda",
     "semCodinome": "Sem codinome",
-    "escolherCodinome": "Escolher o codinome na Alumia"
+    "escolherCodinome": "Escolher o codinome na Alumia",
+    "voltarSite": "Voltar ao site",
+    "voltarSiteCurto": "Site",
+    "sair": "Sair da escola",
+    "sairCurto": "Sair",
+    "sairTitulo": "Sair da escola",
+    "sairTexto": "Encerra a sua sessão neste aparelho e apaga as conversas e rascunhos privados da Escola guardados aqui. Para voltar, é preciso entrar de novo com a sua conta.",
+    "sairApagarTudo": "Apagar também o meu estudo guardado neste aparelho (percurso, caderneta, leituras)",
+    "sairConfirmar": "Sair agora",
+    "sairCancelar": "Continuar na escola",
+    "saindo": "Saindo…"
   },
   "hoje": {
     "titulo": "Hoje",

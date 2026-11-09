@@ -7,14 +7,17 @@ import { localePath, type Locale } from "@/i18n/config";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { BARRA_DA_ESCOLA, telaAberta } from "@/lib/escola/rotas";
 import { LogoDaEscola } from "./ColunaDaEscola";
+import { SaidaDaEscola, VoltarAoSiteDaEscola } from "./SaidaDaEscola";
 
 const semIdioma = (caminho: string) => caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
 
-/** A cabeça da Escola no celular (prancha Cel-Hoje): o logo e o "?" que leva a "Tirar uma dúvida". */
+/** A cabeça da Escola no celular (prancha Cel-Hoje): o logo, "Site", "Sair" e o "?" que leva a "Tirar uma dúvida". */
 export function CabecaDoCelular({ lang, t, discreto }: { lang: Locale; t: TextosDaFormacaoBase["casca"]; discreto: boolean }) {
   return (
     <header className="ef-cabeca-celular">
       <LogoDaEscola lang={lang} t={t} discreto={discreto} celular />
+      <VoltarAoSiteDaEscola lang={lang} t={t} celular />
+      <SaidaDaEscola lang={lang} t={t} celular />
       <Link href={localePath(lang, "/escola/duvida")} replace={discreto} aria-label={t.duvida} className="ef-botao-pergunta">
         ?
       </Link>

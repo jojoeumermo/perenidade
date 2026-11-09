@@ -515,16 +515,67 @@ body:has([data-escola-formacao]) {
   flex: 1;
   min-width: 0;
 }
-/* As páginas antigas da Escola (de papel claro) ganham a folha do site dentro da casca até serem refeitas. */
+/* As páginas antigas da Escola (de papel claro) entram no escuro da casca: as cores do site são trocadas pelas da
+   Escola só aqui dentro, então cartões, textos, bordas e campos seguem as telas novas sem refazer cada página. */
 .ef-conteudo:not(:has([data-escola-escura])) {
-  margin: 24px;
-  border-radius: 18px;
-  background: var(--parchment);
-  color: var(--ink);
-  font-family: var(--font-ui), system-ui, sans-serif;
+  --parchment: var(--ef-fundo);
+  --parchment-deep: #241a17;
+  --ink: var(--ef-giz);
+  --ink-soft: var(--ef-suave);
+  --gold: var(--ef-ouro);
+  --oxblood: #f08a7e;
+  --rule: var(--ef-borda);
+  --ok: #8fc796;
+  --folha: #221815;
+  --sombra: #000;
+  --prelo: var(--ef-vermelho);
+  --prelo-texto: #f08a7e;
+  --pontos: transparent;
+  --linha-pauta: var(--ef-borda);
+  --margem-pauta: #7d3029;
+  --borda-forte: #5a4038;
+  --texto-meio: var(--ef-giz-2);
+  --papel: #221815;
+  --papel-tinta: var(--ef-giz);
+  background: var(--ef-fundo);
+  color: var(--ef-giz);
+  font-family: var(--font-escola-texto), var(--font-ui), system-ui, sans-serif;
+}
+.ef-conteudo:not(:has([data-escola-escura])) :is(.cartao, .cartao-v, .border-ink, .botao:not(.botao-tinta)) {
+  border-color: var(--borda-forte);
+}
+.ef-conteudo:not(:has([data-escola-escura])) :is(input, textarea, select) {
+  background: #221815;
+  color: var(--ef-giz);
+  border-color: var(--borda-forte);
 }
 .ef-conteudo:not(:has([data-escola-escura])) a {
   color: inherit;
+}
+/* O alto das páginas do site (PageHeading) se estica de ponta a ponta da janela; dentro da casca ele fica na coluna
+   do conteúdo, sem passar por cima da coluna lateral, e ganha a letra dos títulos da Escola. */
+main#conteudo .ef-conteudo .cabeca-da-pagina,
+.ef-conteudo .cabeca-da-pagina {
+  margin: 0 0 2rem;
+  padding: 0 0 1.5rem;
+  background: none;
+  border-bottom: 2px solid var(--ef-borda);
+}
+main#conteudo .ef-conteudo :is(.py-12, .pt-12, .py-10, .pt-10) > .cabeca-da-pagina:first-child,
+main#conteudo .ef-conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagina:first-child {
+  margin-top: 0;
+}
+.ef-conteudo .cabeca-da-pagina h1 {
+  font-family: var(--font-escola-titulo), system-ui, sans-serif;
+  font-weight: 800;
+  font-variation-settings: "wdth" 80;
+  color: var(--ef-giz);
+}
+.ef-conteudo .cabeca-da-pagina .rotulo {
+  color: var(--ef-ouro);
+}
+.ef-conteudo .pont {
+  background-image: none;
 }
 .ef-cabeca-celular,
 .ef-barra {
@@ -600,7 +651,7 @@ body:has([data-escola-formacao]) {
     border-radius: 3px;
   }
   .ef-conteudo:not(:has([data-escola-escura])) {
-    margin: 8px;
+    margin: 0;
   }
   .ef-porta-cabeca {
     padding: 14px 16px;
@@ -1123,5 +1174,105 @@ body:has([data-escola-formacao]) {
   }
   .ef-percurso-legenda {
     font-size: 12.5px;
+  }
+}
+
+/* "Voltar ao site" (abaixo do logo) e "Sair da escola" (no pé da coluna; no celular, na cabeça). */
+.ef-casca a.ef-voltar-site {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin: -8px 0 10px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 2px solid var(--ef-borda);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ef-giz-2);
+  text-decoration: none;
+}
+.ef-casca a.ef-voltar-site:hover {
+  border-color: var(--ef-ouro);
+  color: var(--ef-ouro);
+}
+.ef-casca .ef-sair {
+  margin-top: 10px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 2px solid var(--ef-borda);
+  background: transparent;
+  color: var(--ef-suave);
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.ef-casca .ef-sair:hover {
+  border-color: #f08a7e;
+  color: #f08a7e;
+}
+.ef-casca .ef-sair:focus-visible,
+.ef-casca a.ef-voltar-site:focus-visible {
+  outline: 3px solid var(--ef-ouro);
+  outline-offset: 2px;
+}
+.ef-sair-caixa {
+  max-width: min(30rem, calc(100vw - 32px));
+  padding: 24px;
+  border-radius: 16px;
+  border: 2px solid var(--ef-borda);
+  background: var(--ef-fundo);
+  color: var(--ef-giz);
+  font-family: var(--font-escola-texto), system-ui, sans-serif;
+}
+.ef-sair-caixa::backdrop {
+  background: rgba(17, 12, 10, 0.8);
+}
+.ef-sair-caixa h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 800;
+}
+.ef-sair-caixa p {
+  margin: 0 0 14px;
+  color: var(--ef-giz-2);
+  line-height: 1.5;
+}
+.ef-sair-tudo {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 15px;
+  cursor: pointer;
+}
+.ef-sair-tudo input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  margin-top: 2px;
+  accent-color: var(--ef-ouro);
+}
+.ef-sair-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+@media (max-width: 767px) {
+  .ef-casca a.ef-voltar-site-celular {
+    margin: 0 0 0 auto;
+    padding: 0 10px;
+    font-size: 13.5px;
+  }
+  .ef-casca .ef-sair-celular {
+    margin: 0;
+    padding: 0 10px;
+    font-size: 13.5px;
+  }
+  .ef-casca .ef-cabeca-celular .ef-botao-pergunta {
+    margin-left: 0;
   }
 }

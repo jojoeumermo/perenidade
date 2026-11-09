@@ -58,7 +58,17 @@
     "degrau": "Step {n}",
     "semNucleo": "no base group yet",
     "semCodinome": "No code name",
-    "escolherCodinome": "Choose your code name on Alumia"
+    "escolherCodinome": "Choose your code name on Alumia",
+    "voltarSite": "Back to the site",
+    "voltarSiteCurto": "Site",
+    "sair": "Leave the school",
+    "sairCurto": "Leave",
+    "sairTitulo": "Leave the school",
+    "sairTexto": "Ends your session on this device and erases the School’s private conversations and drafts stored here. To come back, you will need to sign in again.",
+    "sairApagarTudo": "Also erase my study saved on this device (path, record, readings)",
+    "sairConfirmar": "Leave now",
+    "sairCancelar": "Stay in the school",
+    "saindo": "Leaving…"
   },
   "hoje": {
     "titulo": "Today",
