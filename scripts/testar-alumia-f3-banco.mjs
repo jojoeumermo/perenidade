@@ -34,7 +34,10 @@ const { dono, criarUsuario, rpc } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
 const sql = fs.readFileSync(new URL("../supabase/migracoes/20261109-alumia-f3.sql", import.meta.url), "utf8");
 
-await espera("a migração instala sobre o install.sql", () => banco.exclusivo(() => banco.pg.exec(sql)));
+// A ordem do integrador: install.sql → F0 (o contrato) → F3.
+const f0 = fs.readFileSync(new URL("../supabase/migracoes/20261109-alumia-f0-contrato.sql", import.meta.url), "utf8");
+await espera("o contrato da F0 instala antes", () => banco.exclusivo(() => banco.pg.exec(f0)));
+await espera("a migração instala sobre o install.sql e a F0", () => banco.exclusivo(() => banco.pg.exec(sql)));
 await espera("instalar de novo não quebra (idempotente)", () => banco.exclusivo(() => banco.pg.exec(sql)));
 
 let ip = 10;
