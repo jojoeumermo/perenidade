@@ -58,14 +58,27 @@
 [data-al="2"] .al3-capa-descricao { margin: 0.7rem 0 0; font-size: 1.05rem; line-height: 1.45; max-width: 46rem; }
 [data-al="2"] .al3-capa-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.75rem; margin-top: 1.1rem; }
 [data-al="2"] .al3-capa-acao {
-  min-height: 44px; padding: 0.55rem 1.2rem; border-radius: 10px; font: inherit; font-weight: 800; font-size: 1.05rem;
-  cursor: pointer; border: 2px solid #0f0e0d;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0.55rem 1.3rem; border-radius: 12px; font: inherit; font-weight: 800; font-size: 1.05rem;
+  cursor: pointer; border: 2px solid #0f0e0d; text-decoration: none; white-space: nowrap;
 }
 [data-al="2"] .al3-capa-acao-cheia { background: #0f0e0d; color: #f3efe6; }
 [data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"] { background: transparent; color: #0f0e0d; }
 [data-al="2"] .al3-capa-acao-contorno { background: transparent; color: #0f0e0d; }
-[data-al="2"] .al3-capa-acao:disabled { opacity: 0.6; cursor: not-allowed; }
-[data-al="2"] .al3-capa-semana { margin: 0 0 0 auto; font-weight: 700; font-size: 0.95rem; }
+[data-al="2"] .al3-capa-acao[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
+[data-al="2"] .al3-capa-semana { flex: 1; margin: 0; text-align: right; white-space: nowrap; font-weight: 700; font-size: 0.95rem; }
+@media (max-width: 400px) {
+  [data-al="2"] .al3-capa-acoes { gap: 0.6rem; }
+  [data-al="2"] .al3-capa-acao { padding: 0.5rem 0.9rem; font-size: 1rem; }
+  [data-al="2"] .al3-capa-semana { font-size: 0.85rem; }
+}
+/* E-ink: a cor da comunidade vira preto (tokens), então a capa vira papel branco com tinta preta e uma borda embaixo. */
+:root[data-eink] [data-al="2"] .al3-capa { background: #fff; color: #000; border-bottom: 2px solid #000; }
+:root[data-eink] [data-al="2"] .al3-capa-acao { border-color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al3-capa-acao-cheia { background: var(--al-texto); color: var(--al-fundo); }
+:root[data-eink] [data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"],
+:root[data-eink] [data-al="2"] .al3-capa-acao-contorno { background: var(--al-fundo); color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al3-capa-botao:hover { background: none; outline: 2px solid var(--al-texto); }
 [data-al="2"] .al3-capa-aviso { margin: 0.6rem 0 0; font-weight: 700; font-size: 0.9rem; }
 [data-al="2"] .al3-menu {
   position: absolute; right: 0; top: 100%; z-index: 20; min-width: 15rem; display: grid; padding: 0.35rem;
@@ -77,6 +90,8 @@
   color: inherit; font: inherit; text-align: left; cursor: pointer; text-decoration: none;
 }
 [data-al="2"] .al3-menu > *:hover { background: var(--al-superficie-2); }
+[data-al="2"] .al3-menu[hidden] { display: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-menu { border: 2px solid var(--al-texto); box-shadow: none; }
 
 [data-al="2"] .al3-abas { display: flex; border-bottom: 1px solid var(--al-linha); background: var(--al-fundo); }
 [data-al="2"] .al3-aba {
@@ -100,7 +115,26 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fixado { border-color: var(--al-texto); }
 
 /* Post compacto (a lista da comunidade e "Salvos"). */
+[data-al="2"] .al3-comunidade { padding-bottom: 2rem; }
+@media (max-width: 767px) {
+  /* Os botões flutuantes do site (ajuda e acessibilidade) ficam no canto de baixo: a página termina acima deles. */
+  [data-al="2"] .al3-comunidade { padding-bottom: 9rem; }
+}
 [data-al="2"] .al3-post { display: grid; grid-template-columns: 40px 1fr; gap: 0 12px; padding: 1rem 16px 0.6rem; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al3-post-corpo { position: relative; min-width: 0; }
+[data-al="2"] .al3-post-mais,
+[data-al="2"] .al3-resposta-mais {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none; border: 0; border-radius: 999px; background: none;
+  color: var(--al-texto-3); cursor: pointer;
+}
+[data-al="2"] .al3-post-mais { position: absolute; top: -0.55rem; right: -0.5rem; }
+[data-al="2"] :is(.al3-post-mais, .al3-resposta-mais) .al3-icone { width: 20px; height: 20px; }
+[data-al="2"] :is(.al3-post-mais, .al3-resposta-mais):hover,
+[data-al="2"] :is(.al3-post-mais, .al3-resposta-mais)[aria-expanded="true"] { color: var(--al-texto); background: var(--al-superficie); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-post-mais, .al3-resposta-mais)[aria-expanded="true"] { outline: 2px solid var(--al-texto); }
+[data-al="2"] .al3-post-cuidado { display: flex; flex-wrap: wrap; gap: 0 0.4rem; margin: 0 0 0.4rem -0.5rem; background: none; }
+[data-al="2"] .al3-post-cuidado[hidden] { display: none; }
+[data-al="2"] .al3-post-cabeca { padding-right: 2rem; }
 [data-al="2"] .al3-post-cabeca { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.35rem; font-size: 0.98rem; line-height: 1.35; }
 [data-al="2"] .al3-nome { font-weight: 800; color: var(--al-texto); text-decoration: none; }
 [data-al="2"] a.al3-nome:hover { text-decoration: underline; }
@@ -130,6 +164,8 @@
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-regras li::before { color: var(--al-texto); }
 [data-al="2"] .al3-etiquetas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al3-falar { margin-top: 0.8rem; color: var(--al-texto); border-color: var(--al-texto); background: transparent; }
+[data-al="2"] .al3-falar-form { margin-top: 0.8rem; }
 [data-al="2"] .al3-etiquetas li { padding: 0.15rem 0.6rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); font-size: 0.85rem; }
 
 /* Cartão de aula ("O que é mais-valia · aula do Instituto Lúcia · Marxismo"): azul da prancha. */
@@ -167,18 +203,10 @@
 [data-al="2"] .al3-raiz-autor p { margin: 0; line-height: 1.3; }
 [data-al="2"] .al3-raiz-nome { font-size: 1.2rem; }
 [data-al="2"] .al3-raiz-texto { margin: 0.9rem 0 0; font-size: 1.28rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* As ações do post aberto: uma linha discreta logo abaixo (a prancha não desenha; elas existem e não empurram o fio). */
+[data-al="2"] .al3-raiz-acoes { margin-top: 0.4rem; }
+[data-al="2"] .al3-raiz-acoes .al3-acao { font-size: 0.92rem; }
 [data-al="2"] .al3-raiz-titulo { margin: 0.9rem 0 0; font-size: 1.4rem; font-weight: 900; }
-[data-al="2"] .al3-reacoes { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.9rem; align-items: center; }
-[data-al="2"] .al3-reacao {
-  min-height: 36px; padding: 0 0.7rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie);
-  color: var(--al-texto); font: inherit; font-size: 0.92rem; cursor: pointer; display: inline-flex; gap: 0.35rem; align-items: center;
-}
-[data-al="2"] .al3-reacao[aria-pressed="true"] { border-color: var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 16%, var(--al-superficie)); }
-:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-reacao[aria-pressed="true"] { border-width: 2px; border-color: var(--al-texto); font-weight: 800; }
-[data-al="2"] .al3-reacao:disabled { cursor: not-allowed; opacity: 0.6; }
-[data-al="2"] .al3-paleta { display: flex; flex-wrap: wrap; gap: 0.25rem; padding: 0.35rem; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); }
-[data-al="2"] .al3-paleta button { min-width: 44px; min-height: 44px; font-size: 1.3rem; border-radius: 10px; border: 0; background: none; cursor: pointer; }
-[data-al="2"] .al3-paleta button:hover { background: var(--al-superficie-2); }
 [data-al="2"] .al3-regra { margin: 0.4rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
 
 [data-al="2"] .al3-ordem { display: flex; gap: 0.6rem; padding: 1.1rem 16px 0.6rem; }
@@ -206,10 +234,17 @@
   background: var(--al-superficie-2);
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-resposta[data-tem-filhos="sim"]::before { background: var(--al-texto); }
-[data-al="2"] .al3-resposta-cabeca { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 0.45rem; font-size: 1.02rem; }
+[data-al="2"] .al3-resposta-topo { display: flex; align-items: flex-start; gap: 0.25rem; margin-top: -0.35rem; }
+[data-al="2"] .al3-resposta-topo .al3-resposta-mais { margin: -0.1rem -0.6rem 0 auto; }
+[data-al="2"] .al3-resposta-cabeca { flex: 1; min-width: 0; margin: 0.35rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 0.45rem; font-size: 1.02rem; }
+@media (max-width: 400px) {
+  [data-al="2"] .al3-resposta-cabeca { gap: 0.1rem 0.3rem; font-size: 0.98rem; }
+  [data-al="2"] .al3-resposta-cabeca .al3-arroba { font-size: 0.88rem; }
+  [data-al="2"] .al3-ajudou { font-size: 0.78rem; padding: 0.05rem 0.45rem; }
+  [data-al="2"] .al3-post-cabeca { gap: 0 0.3rem; }
+  [data-al="2"] .al3-post-cabeca .al3-cinza { font-size: 0.9rem; }
+}
 [data-al="2"] .al3-resposta-texto { margin: 0.3rem 0 0; font-size: 1.05rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--al-texto-2); }
-[data-al="2"] .al3-resposta-corpo { cursor: pointer; border-radius: 8px; }
-[data-al="2"] .al3-resposta-corpo:hover .al3-resposta-texto { color: var(--al-texto); }
 [data-al="2"] .al3-ajudou {
   display: inline-flex; align-items: center; padding: 0.08rem 0.6rem; border-radius: 999px; background: var(--al-dourado);
   color: var(--al-sobre-dourado); font-weight: 800; font-size: 0.85rem;
@@ -219,6 +254,7 @@
   border: 1px solid var(--al-superficie-2); font-weight: 700; font-size: 0.85rem; color: var(--al-texto-2);
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-servidor { border-color: var(--al-texto); }
+[data-al="2"] .al3-resposta-acoes[hidden] { display: none; }
 [data-al="2"] .al3-resposta-acoes { display: flex; flex-wrap: wrap; gap: 0 0.25rem; margin: 0.15rem 0 0 -0.5rem; }
 [data-al="2"] .al3-silenciada { margin: 0; padding: 0.7rem 16px; color: var(--al-texto-3); font-size: 0.92rem; }
 
@@ -228,13 +264,22 @@
   padding: 0.75rem 12px calc(0.75rem + env(safe-area-inset-bottom, 0px)); background: var(--al-fundo); border-top: 1px solid var(--al-linha);
 }
 [data-al="2"] .al3-responder textarea {
-  width: 100%; min-height: 52px; max-height: 40vh; resize: vertical; padding: 0.85rem 1.1rem; border-radius: 16px;
+  display: block; width: 100%; min-height: 52px; max-height: 40vh; resize: none; overflow-y: auto; field-sizing: content; padding: 0.85rem 1.1rem; border-radius: 16px;
   background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto); font: inherit; font-size: 1.05rem;
 }
 [data-al="2"] .al3-responder textarea::placeholder { color: var(--al-texto-3); opacity: 1; }
 [data-al="2"] .al3-enviar {
   width: 56px; height: 52px; border-radius: 14px; border: 0; background: var(--al-vermelho); color: var(--al-sobre-vermelho);
   display: grid; place-items: center; cursor: pointer;
+}
+@media (max-width: 767px) {
+  /* Dentro da casca, a caixa fica logo acima da barra de baixo do celular (4.5rem). */
+  [data-al="2"] .rede-lucia .al3-responder { bottom: calc(4.5rem + var(--recuo-baixo, 0px)); }
+  /* Os botões flutuantes do site (ajuda e acessibilidade) sobem para não cobrir o enviar. */
+  :root:has([data-al="2"] .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(10.5rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al3-responder) .botao-da-caixa { bottom: calc(14rem + env(safe-area-inset-bottom, 0px)); }
+  :root:has([data-al="2"] .rede-lucia .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(15rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .rede-lucia .al3-responder) .botao-da-caixa { bottom: calc(18.5rem + env(safe-area-inset-bottom, 0px)); }
 }
 [data-al="2"] .al3-enviar:disabled { opacity: 0.55; cursor: not-allowed; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-enviar { border: 2px solid var(--al-texto); }
@@ -295,7 +340,7 @@
 }
 
 /* Alto contraste e e-ink: o que era borda cinza (invisível no papel branco) vira tinta. */
-:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-reacao, .al3-ordem button, .al3-responder textarea, .al3-busca, .al3-paleta, .al3-etiquetas li) {
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-ordem button, .al3-responder textarea, .al3-busca, .al3-etiquetas li) {
   border-color: var(--al-texto);
 }
 [data-al="2"] .al3-regra a { text-decoration: underline; }
