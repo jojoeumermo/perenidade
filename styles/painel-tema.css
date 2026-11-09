@@ -2783,3 +2783,10 @@ html[data-escrita-foco="1"] #painel-corpo {
 .pn-barra-superior .pn-trilha-espaco {
   white-space: nowrap;
 }
+/* "Também aqui" (components/painel/casca/Dentro.tsx, DENTRO_DE): as seções que saíram do menu e moram nesta. */
+.pn-tambem-aqui {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+}
