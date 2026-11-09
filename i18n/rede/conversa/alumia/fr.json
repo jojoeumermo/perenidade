@@ -18,7 +18,8 @@
     "respostaUma": "1 réponse",
     "orgVerificada": "organisation vérifiée",
     "orgRegra": "Le badge dit que le compte appartient à qui il prétend être, vérifié par un document public. Ce n'est pas un soutien de l'Instituto Lúcia.",
-    "previa": "Aperçu avec des données d'exemple : rien n'est réel ici."
+    "previa": "Aperçu avec des données d'exemple : rien n'est réel ici.",
+    "maisDoPost": "Plus d’actions pour le post de {codinome}"
   },
   "comunidade": {
     "mais": "Plus d'options de la communauté",
@@ -48,7 +49,7 @@
     "discutir": "Discuter ce cours ici",
     "tipo": "Comment entrer",
     "regrasTitulo": "Règles",
-    "moderacao": "Qui modère (pseudonymes)",
+    "moderacao": "Modération",
     "etiquetas": "Étiquettes",
     "pedidos": "{n} demande(s) en attente de la modération",
     "entrar": "Rejoindre",
@@ -60,7 +61,12 @@
     "entreNaAlumia": "Connectez-vous à Alumia pour participer à cette communauté.",
     "entrou": "Vous avez rejoint la communauté.",
     "saiu": "Vous avez quitté la communauté.",
-    "pediu": "Demande envoyée à la modération."
+    "pediu": "Demande envoyée à la modération.",
+    "moderadaPor": "Modérée par {n} personnes, toutes sous pseudonyme. Nous ne montrons pas qui : personne ne devient une cible pour avoir pris soin de ce lieu.",
+    "moderadaPoucas": "Modérée par peu de personnes, toutes sous pseudonyme. Nous ne montrons pas qui : personne ne devient une cible pour avoir pris soin de ce lieu.",
+    "falarModeracao": "Écrire à la modération",
+    "entrarNaAlumia": "Rejoindre Alumia",
+    "soConvite": "Cette communauté est sur invitation : la modération invite qui entre."
   },
   "conversa": {
     "titulo": "Conversation",

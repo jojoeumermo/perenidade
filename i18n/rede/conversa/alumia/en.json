@@ -18,7 +18,8 @@
     "respostaUma": "1 reply",
     "orgVerificada": "verified organization",
     "orgRegra": "The badge says the account belongs to who it claims to be, checked against a public document. It is not an endorsement by Instituto Lúcia.",
-    "previa": "Preview with sample data: nothing here is real."
+    "previa": "Preview with sample data: nothing here is real.",
+    "maisDoPost": "More actions for {codinome}'s post"
   },
   "comunidade": {
     "mais": "More community options",
@@ -48,7 +49,7 @@
     "discutir": "Discuss this lesson here",
     "tipo": "How to join",
     "regrasTitulo": "Rules",
-    "moderacao": "Moderators (code names)",
+    "moderacao": "Moderation",
     "etiquetas": "Tags",
     "pedidos": "{n} request(s) waiting for the moderators",
     "entrar": "Join",
@@ -60,7 +61,12 @@
     "entreNaAlumia": "Sign in to Alumia to take part in this community.",
     "entrou": "You joined the community.",
     "saiu": "You left the community.",
-    "pediu": "Request sent to the moderators."
+    "pediu": "Request sent to the moderators.",
+    "moderadaPor": "Moderated by {n} people, all by code name. We don't show who, so nobody becomes a target for looking after this place.",
+    "moderadaPoucas": "Moderated by a few people, all by code name. We don't show who, so nobody becomes a target for looking after this place.",
+    "falarModeracao": "Talk to the moderators",
+    "entrarNaAlumia": "Join Alumia",
+    "soConvite": "This community is invite only: the moderators invite who joins."
   },
   "conversa": {
     "titulo": "Conversation",

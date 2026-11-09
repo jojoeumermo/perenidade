@@ -17,7 +17,8 @@
     "respostaUma": "1 resposta",
     "orgVerificada": "organização verificada",
     "orgRegra": "O selo diz que a conta é de quem diz ser, conferida por documento público. Não é apoio do Instituto Lúcia.",
-    "previa": "Prévia com dados de exemplo: nada aqui é de verdade."
+    "previa": "Prévia com dados de exemplo: nada aqui é de verdade.",
+    "maisDoPost": "Mais ações do post de {codinome}"
   },
   "comunidade": {
     "mais": "Mais opções da comunidade",
@@ -47,7 +48,7 @@
     "discutir": "Discutir esta aula aqui",
     "tipo": "Como se entra",
     "regrasTitulo": "Regras",
-    "moderacao": "Quem modera (codinomes)",
+    "moderacao": "Moderação",
     "etiquetas": "Etiquetas",
     "pedidos": "{n} pedido(s) esperando a moderação",
     "entrar": "Entrar",
@@ -59,7 +60,12 @@
     "entreNaAlumia": "Entre na Alumia para participar desta comunidade.",
     "entrou": "Você entrou na comunidade.",
     "saiu": "Você saiu da comunidade.",
-    "pediu": "Pedido enviado à moderação."
+    "pediu": "Pedido enviado à moderação.",
+    "moderadaPor": "Moderada por {n} pessoas, todas por codinome. Não mostramos quem: assim ninguém vira alvo por cuidar daqui.",
+    "moderadaPoucas": "Moderada por poucas pessoas, todas por codinome. Não mostramos quem: assim ninguém vira alvo por cuidar daqui.",
+    "falarModeracao": "Falar com a moderação",
+    "entrarNaAlumia": "Entrar na Alumia",
+    "soConvite": "Esta comunidade é só por convite: quem entra é convidado pela moderação."
   },
   "conversa": {
     "titulo": "Conversa",
