@@ -8,7 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { caminhoNovoDaAlumia, destinoDaComunidade, ehCaminhoDaAlumia } from "../lib/rede/rota-alumia.ts";
+import { caminhoNovoDaAlumia, destinoDaComunidade, ehCaminhoDaAlumia, encaixeAtivo } from "../lib/rede/rota-alumia.ts";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "../lib/rede/antigos.ts";
 import { caminhoDoSiteParaAlumia, enderecoDaAlumia, ROTAS_DA_ALUMIA, rotaNaAlumia } from "../lib/rede/alumia.ts";
 import { enderecos, ERROS_DA_REDE } from "../lib/rede/tipos.ts";
@@ -317,6 +317,19 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
   const casca = ler("components/rede/Casca.tsx");
   ok("a casca usa o Sair rápido de lib/rede/saida.ts com os encaixes", /sairRapidoDaRede\(enderecoDoSite\(lang\), ENCAIXES\.aoSairRapido\)/.test(casca));
   ok("a casca lê o menu dos encaixes", /ENCAIXES\.menu/.test(casca));
+  // O "substitui" vale nos dois lugares: o menu do computador e a barra do celular passam pela mesma hrefDoItem.
+  ok("menu do computador e barra do celular usam o mesmo destino (com o substitui)", (casca.match(/const href = hrefDoItem\(d, lang, s, situacao\);/g) ?? []).length === 2
+    && /function ItemDaBarra[\s\S]*hrefDoItem\(d, lang, s, situacao\)/.test(casca));
+  ok("os itens encaixados marcam aria-current", /const atual = encaixeAtivo\(href, caminho\);[\s\S]{0,200}aria-current=\{atual \? "page" : undefined\}/.test(casca));
+  igual("encaixeAtivo: tela aberta, tela dentro, outra tela, a linha, host próprio", [
+    encaixeAtivo("/pt/alumia/atos", "/pt/alumia/atos"),
+    encaixeAtivo("/pt/alumia/atos", "/pt/alumia/atos/abc"),
+    encaixeAtivo("/pt/alumia/atos", "/pt/alumia/atosx"),
+    encaixeAtivo("/pt/alumia", "/pt/alumia/atos"),
+    encaixeAtivo("/pt/alumia", "/pt/alumia"),
+    encaixeAtivo("https://alumia.exemplo.org/atos", "/atos"),
+    encaixeAtivo("https://alumia.exemplo.org/en/atos", "/en/alumia/atos?x=1"),
+  ], [true, true, false, false, true, true, true]);
 }
 
 // ═══════════════════ 10. Sair rápido ═══════════════════

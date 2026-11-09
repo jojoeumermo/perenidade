@@ -10,6 +10,7 @@ import { avisos } from "@/lib/rede/cliente-avisos";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
+import { encaixeAtivo } from "@/lib/rede/rota-alumia";
 import { sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
 import { ENCAIXES } from "./encaixes";
 import { EsqueletoDaCasca } from "./Esqueletos";
@@ -41,6 +42,15 @@ const DESTINOS: Destino[] = [
 ];
 /** A barra de baixo do celular: Início, Comunidades, Escrever (no meio), Avisos, Perfil. */
 const BARRA: ItemDoMenu[] = ["inicio", "comunidades", "avisos", "perfil"];
+
+/**
+ * O destino de um item, no menu do computador E na barra do celular: se uma frente encaixou um "substitui" para ele
+ * (components/rede/encaixes.tsx, ex.: "chamados" → /alumia/atos), vale o do encaixe; senão, o de DESTINOS.
+ */
+function hrefDoItem(d: Destino, lang: string, s: TextosDaRede, situacao: Situacao): string | null {
+  const troca = ENCAIXES.menu.find((m) => m.substitui === d.chave);
+  return troca ? troca.href({ lang, s, situacao }) : d.href(lang, situacao);
+}
 
 function Icone({ children, ativo }: { children: React.ReactNode; ativo?: boolean }) {
   return (
@@ -89,6 +99,8 @@ export function Casca({
   aoEscrever: () => void;
   children: React.ReactNode;
 }) {
+  // O caminho aberto: marca como atual (aria-current) os itens que as frentes encaixam, que não têm chave em ItemDoMenu.
+  const caminho = usePathname() ?? "";
   // O número de avisos não lidos (grupos) no menu e na barra de baixo; sem a migração de avisos no banco, fica sem número.
   const membroLogado = Boolean(situacao?.logado && situacao?.membro);
   const [naoLidos, setNaoLidos] = useState(0);
@@ -117,14 +129,15 @@ export function Casca({
             <ul className="space-y-1">
               {DESTINOS.map((d) => {
                 // Uma frente pode dar destino a um item que já existe (ex.: "chamados" → /alumia/atos) pelo encaixe do menu.
-                const troca = ENCAIXES.menu.find((m) => m.substitui === d.chave);
-                const href = troca ? troca.href({ lang, s, situacao }) : d.href(lang, situacao);
-                const classes = `flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${ativo === d.chave ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`;
+                const trocado = ENCAIXES.menu.some((m) => m.substitui === d.chave);
+                const href = hrefDoItem(d, lang, s, situacao);
+                const atual = ativo === d.chave || (trocado && href !== null && encaixeAtivo(href, caminho));
+                const classes = `flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${atual ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`;
                 return (
                   <li key={d.chave}>
                     {href ? (
-                      <Link href={href} className={classes} aria-current={ativo === d.chave ? "page" : undefined}>
-                        <Icone ativo={ativo === d.chave}>{d.icone}</Icone>
+                      <Link href={href} className={classes} aria-current={atual ? "page" : undefined}>
+                        <Icone ativo={atual}>{d.icone}</Icone>
                         {s.menu[d.chave]}
                         {d.chave === "avisos" && naoLidos > 0 && <Emblema n={naoLidos} />}
                       </Link>
@@ -146,10 +159,15 @@ export function Casca({
                   const href = m.href(ctx);
                   if (!href) return null;
                   const n = m.emblema?.(ctx) ?? null;
+                  const atual = encaixeAtivo(href, caminho);
                   return (
                     <li key={m.chave}>
-                      <Link href={href} className="flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg hover:bg-parchment-deep">
-                        <Icone>{m.icone}</Icone>
+                      <Link
+                        href={href}
+                        aria-current={atual ? "page" : undefined}
+                        className={`flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${atual ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`}
+                      >
+                        <Icone ativo={atual}>{m.icone}</Icone>
                         {m.rotulo(ctx)}
                         {n !== null && n > 0 && <Emblema n={n} />}
                       </Link>
@@ -243,7 +261,7 @@ export function Casca({
       <nav aria-label={s.menu.barra} className="no-print fixed inset-x-0 bottom-0 z-30 border-t-[3px] border-[#c21f16] bg-[#1f1a14] pb-[var(--recuo-baixo,0px)] md:hidden">
         <ul className="grid grid-cols-5">
           {BARRA.slice(0, 2).map((chave) => (
-            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} />
+            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} caminho={caminho} />
           ))}
           <li>
             <button
@@ -259,7 +277,7 @@ export function Casca({
             </button>
           </li>
           {BARRA.slice(2).map((chave) => (
-            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} />
+            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} caminho={caminho} />
           ))}
         </ul>
       </nav>
@@ -272,14 +290,17 @@ function Emblema({ n }: { n: number }) {
   return <span className="ml-auto grid min-w-6 place-items-center rounded-full bg-[#c21f16] px-1.5 text-xs font-bold leading-6 text-white">{n > 99 ? "99+" : n}</span>;
 }
 
-function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: ItemDoMenu; lang: string; s: TextosDaRede; situacao: Situacao; ativo: ItemDoMenu; naoLidos: number }) {
+function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos, caminho }: { chave: ItemDoMenu; lang: string; s: TextosDaRede; situacao: Situacao; ativo: ItemDoMenu; naoLidos: number; caminho: string }) {
   const d = DESTINOS.find((x) => x.chave === chave);
   if (!d) return null;
-  const href = d.href(lang, situacao);
-  const classes = `flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${ativo === chave ? "bg-[#c21f16] font-bold text-white" : "text-[#f4ecd8]"}`;
+  // O mesmo destino do menu do computador, com o "substitui" dos encaixes (o celular não fica com o destino antigo).
+  const href = hrefDoItem(d, lang, s, situacao);
+  const trocado = ENCAIXES.menu.some((m) => m.substitui === chave);
+  const atual = ativo === chave || (trocado && href !== null && encaixeAtivo(href, caminho));
+  const classes = `flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${atual ? "bg-[#c21f16] font-bold text-white" : "text-[#f4ecd8]"}`;
   const conteudo = (
     <>
-      <Icone ativo={ativo === chave}>{d.icone}</Icone>
+      <Icone ativo={atual}>{d.icone}</Icone>
       <span className="max-w-full truncate">
         {s.menu[chave]}
         {chave === "avisos" && naoLidos > 0 && <span className="ml-1 font-bold text-[#f0a79f]">({naoLidos > 99 ? "99+" : naoLidos})</span>}
@@ -289,7 +310,7 @@ function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: Ite
   return (
     <li>
       {href ? (
-        <Link href={href} className={classes} aria-current={ativo === chave ? "page" : undefined}>
+        <Link href={href} className={classes} aria-current={atual ? "page" : undefined}>
           {conteudo}
         </Link>
       ) : (
