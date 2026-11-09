@@ -28,7 +28,12 @@ for (const [ch, glifo] of Object.entries(FONTE_5X7)) ok(`a letra "${ch}" tem 7 l
 ok("a fonte tem A–Z e 0–9", [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"].every((c) => c in FONTE_5X7));
 
 // ── A palavra ──
-igual("maiúsculas, sem acento, espaços simples", normalizarPalavra("  já   livre! "), "JA LIVRE!");
+igual("maiúsculas, sem acento, espaços simples; sinal vira espaço", normalizarPalavra("  já   livre! "), "JA LIVRE");
+igual("números e sinais saem (o banco da F2 só aceita A–Z e espaço)", [normalizarPalavra("ATO 2"), normalizarPalavra("8M"), normalizarPalavra("FORA-JA!")], ["ATO", "M", "FORA JA"]);
+for (const p of ["Passe Livre", "já livre!", "Ocupação São", "ATO 2", "GREVE@GERAL#", "abcdefghijklmnopq"]) {
+  const n = normalizarPalavra(p);
+  ok(`"${p}" → "${n}" cabe no check do banco (^[A-Z ]{2,14}$)`, /^[A-Z ]{2,14}$/.test(n));
+}
 igual("ç e til", normalizarPalavra("Ocupação São"), "OCUPACAO SAO");
 igual("no máximo 14", normalizarPalavra("ABCDEFGHIJKLMNOPQ"), "ABCDEFGHIJKLMN");
 igual("sinais fora da fonte viram espaço", normalizarPalavra("GREVE@GERAL#"), "GREVE GERAL");
@@ -99,6 +104,19 @@ for (const p of [null, 0.35, 48]) {
   igual("nada aceso, sem cartão dourado", cartaoDoVoce(cartoesAcesos(celular, 1, null), 1), null);
   const m = montarMosaico("PASSE LIVRE", "ato-1", 0.6, { quebrar: 31, voce: true, sementeLocal: "aparelho-A" });
   igual("montarMosaico: um só cartão dourado", m.cartoes.filter((c) => c === "voce").length, 1);
+  {
+    // O dourado nunca apaga um pixel da palavra: em várias sementes de aparelho, todas as letras acesas continuam acesas.
+    let intactas = true;
+    for (let i = 0; i < 40; i++) {
+      const mm = montarMosaico("PASSE LIVRE", "ato-1", 0.6, { quebrar: 31, voce: true, sementeLocal: `aparelho-${i}` });
+      const g = gradeDaPalavra("PASSE LIVRE", { quebrar: 31 });
+      const ac = cartoesAcesos(g, sementeDe("ato-1"), 0.6);
+      if (g.letra.some((l, j) => l && ac[j] && mm.cartoes[j] !== "letra-acesa")) intactas = false;
+    }
+    ok("o cartão dourado cai fora da palavra (40 aparelhos)", intactas);
+    const soLetra = celular.letra.map((l) => l);
+    igual("só cai numa letra quando todo aceso é letra", cartaoDoVoce(soLetra, 7, celular.letra) !== null && celular.letra[cartaoDoVoce(soLetra, 7, celular.letra)], true);
+  }
   igual("sem ter confirmado, nenhum dourado", montarMosaico("PASSE LIVRE", "ato-1", 0.6, { quebrar: 31 }).cartoes.includes("voce"), false);
   const sem = montarMosaico("PASSE LIVRE", "ato-1", null, { quebrar: 31, voce: true });
   igual("abaixo de 3: tudo apagado, a palavra só em vermelho escuro, sem dourado", [...new Set(sem.cartoes)].sort(), ["apagado", "letra-apagada"]);
