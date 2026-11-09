@@ -7,6 +7,9 @@
 // Modo total (flag fediverso-total, decisão D1): a conta canônica passa a ser "@nome@institutolucia.org". Os dois hosts caem neste
 // mesmo app (a Caddy serve os dois), e esta rota aceita os dois domínios no acct: e responde com o "subject" canônico e o "self" no
 // ator do host da Alumia. É o caso "subject differs" do Mastodon ([M-WF]): ele refaz a busca no subject e chega ao MESMO ator.
+// ANTES de ligar: conferir que institutolucia.org/.well-known/webfinger e /.well-known/host-meta chegam a ESTE app (a ponte do
+// Cloudflare, o Worker da Escola, e a Caddy podem desviar o host curto). Se não chegarem, o Mastodon refaz a busca no subject e não
+// acha ninguém. Quem confere é scripts/fediverso-interop.mjs (F5), com o A1 do roteiro nos dois hosts.
 // Também responde pelo ator da instância ("acct:<domínio>@<domínio>") e, com fediverso-grupos, pelas comunidades abertas (Group).
 import { documentoWebfinger, documentoWebfingerDaComunidade, documentoWebfingerDaInstancia, juntarWebfinger } from "@/lib/rede/fediverso/documentos";
 import { dominiosDaConta, gruposLigados, handleDoWebfinger, modoTotal, slugDoWebfinger, webfingerDaInstancia } from "@/lib/rede/fediverso/enderecos";
