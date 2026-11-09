@@ -1280,3 +1280,75 @@ main#conteudo .ef-conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagin
     margin-left: 0;
   }
 }
+
+/* O cofre deste aparelho (components/escola/casca/CofreDaEscola.tsx): a faixa no alto do conteúdo. */
+.ef-cofre {
+  margin: 20px 24px 0;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 2px solid var(--ef-borda);
+  background: #221815;
+  color: var(--ef-giz);
+  font-family: var(--font-escola-texto), system-ui, sans-serif;
+}
+.ef-cofre h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 800;
+}
+.ef-cofre p {
+  margin: 0 0 12px;
+  color: var(--ef-giz-2);
+  line-height: 1.5;
+  max-width: 46rem;
+}
+.ef-cofre-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.ef-cofre-form-criar {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ef-cofre input {
+  min-height: 44px;
+  min-width: min(20rem, 100%);
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 2px solid var(--ef-borda);
+  background: var(--ef-fundo);
+  color: var(--ef-giz);
+  font: inherit;
+}
+.ef-cofre input:focus-visible {
+  outline: 3px solid var(--ef-ouro);
+  outline-offset: 2px;
+}
+.ef-cofre .ef-cofre-aviso {
+  margin: 4px 0;
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+.ef-cofre .ef-cofre-erro {
+  margin: 10px 0 0;
+  color: #f08a7e;
+  font-weight: 700;
+}
+.ef-casca .ef-cofre-esqueci {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ef-suave);
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .ef-cofre {
+    margin: 10px 12px 0;
+  }
+}

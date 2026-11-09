@@ -251,7 +251,7 @@ export const entraNaCopia = (chave: string) => CHAVES_DA_COPIA.has(chave) || PRE
  */
 export const SO_APAGAR: readonly string[] = ["lucia:historico", "lucia:historico-ligado", "lucia:radio-retomar", "lucia:modo-pacote-convite"];
 /** Prefixos que ficam fora da cópia e saem no "apagar": o privado da Escola e as marcas do "Isso ajudou?". */
-export const PREFIXOS_SO_APAGAR: readonly string[] = ["lucia:escola-privado:", "lucia:ajudou-contou:"];
+export const PREFIXOS_SO_APAGAR: readonly string[] = ["lucia:escola-privado:", "lucia:escola-cofre:", "lucia:ajudou-contou:"];
 const soApagar = (chave: string) => SO_APAGAR.includes(chave) || PREFIXOS_SO_APAGAR.some((p) => chave.startsWith(p));
 
 /** As chaves "só apagar" que existem neste armazenamento. */
