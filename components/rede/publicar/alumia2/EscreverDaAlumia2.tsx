@@ -89,7 +89,9 @@ export function EscreverDaAlumia2({
   const [onde, setOnde] = useState<string | null>(comunidade?.slug ?? null);
   const [publico, setPublico] = useState<Publico>(comunidade ? (comunidade.publico_padrao === "internet" ? "internet" : comunidade.publico_padrao === "comunidade" ? "comunidade" : "membros") : "membros");
   const [aberta, setAberta] = useState<"onde" | "quem" | "responde" | null>(null);
-  const [lugares, setLugares] = useState<Lugar[]>([]);
+  const [lugares, setLugares] = useState<Lugar[]>(() =>
+    previa ? Object.entries(COMUNIDADES_DE_EXEMPLO).map(([slug, c]) => ({ slug, nome: c.nome, categoria: "lutas", cor: c.cor })) : [],
+  );
   const [dadosDoAto, setDadosDoAto] = useState<Record<string, unknown>>({});
   const [erro, setErro] = useState("");
   const [aviso, setAviso] = useState("");
@@ -124,11 +126,7 @@ export function EscreverDaAlumia2({
 
   // As comunidades onde a pessoa pode publicar (Onde publicar). Na prévia, as das pranchas.
   useEffect(() => {
-    if (resposta) return;
-    if (previa) {
-      setLugares(Object.entries(COMUNIDADES_DE_EXEMPLO).map(([slug, c]) => ({ slug, nome: c.nome, categoria: "lutas", cor: c.cor })));
-      return;
-    }
+    if (resposta || previa) return;
     let vivo = true;
     clienteComunidades.lista().then(
       (r) => {
