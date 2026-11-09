@@ -110,6 +110,62 @@ export const LIMITES_DO_ATO = {
   diasMax: 365,
 } as const;
 
+// ───── Farol do ato (ALUMIA-FUNCOES-E-IDEIAS §2.1, ideia 1; supabase/migracoes/20261110-alumia-atos.sql) ─────
+
+/** Os quatro estados do farol: tranquilo (verde), atenção (âmbar), dispersar (vermelho), ponto de encontro 2 (azul, com o texto). */
+export type EstadoDoFarol = "tranquilo" | "atencao" | "dispersar" | "ponto2";
+export const ESTADOS_DO_FAROL: readonly EstadoDoFarol[] = ["tranquilo", "atencao", "dispersar", "ponto2"];
+
+/** O farol como a tela recebe. Só vem para quem confirmou presença ou coordena (para os outros, nulo). */
+export interface FarolDoAto {
+  estado: EstadoDoFarol;
+  /** O novo ponto, quando o estado é ponto2; vazio nos outros. */
+  texto: string;
+  /** Quando a coordenação mudou o farol pela última vez (nulo: nunca mudou). */
+  mudado_em: string | null;
+  /** Quem lê coordena o ato (pode pedir e confirmar mudança). */
+  coordena: boolean;
+  /** Só para quem coordena: o pedido esperando a segunda pessoa (15 min). `meu` diz se foi esta pessoa que pediu; quem, nunca. */
+  pendente: { estado: EstadoDoFarol; texto: string; meu: boolean; expira_em: string } | null;
+}
+
+// ───── Corrente de solidariedade (ideia 7) ─────
+
+/** Uma corrente aberta por uma organização com selo, para uma cidade escrita. */
+export interface Corrente {
+  id: string;
+  /** "Precisamos de 30 pessoas às 5h na ocupação Esperança." */
+  texto: string;
+  cidade: string;
+  /** A meta que a organização publicou (é um número dela, não uma contagem de quem vai). */
+  meta: number;
+  quando: string | null;
+  expira_em: string;
+  org: { handle: string | null; nome: string };
+  /** A proporção de elos fechados (passos de 10 %), nula abaixo de 3 respostas. NUNCA um número de pessoas. */
+  elos: number | null;
+  fechada: boolean;
+  vou_eu: boolean;
+  /** Só para quem age como a organização que abriu; para os outros, nulo. */
+  total: number | null;
+}
+
+/** Uma organização com selo que esta pessoa gerencia (para abrir corrente). */
+export interface OrgQuePosso {
+  id: string;
+  handle: string | null;
+  nome: string;
+}
+
+/** O pedido de abrir uma corrente. */
+export interface PedidoDeCorrente {
+  org: string;
+  texto: string;
+  cidade: string;
+  meta: number;
+  quando: string | null;
+}
+
 /** A cor guardada da comunidade, se for uma das 5 (o resto vira indefinido e a pílula usa a cor pelo slug). */
 export function corValida(cor: unknown): 1 | 2 | 3 | 4 | 5 | undefined {
   return cor === 1 || cor === 2 || cor === 3 || cor === 4 || cor === 5 ? cor : undefined;
