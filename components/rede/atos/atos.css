@@ -217,8 +217,9 @@
   text-decoration: none;
 }
 [data-al="2"] .al-ato-coluna .al-ato-quadrado:hover { filter: brightness(1.15); }
-/* o "Você vai" é o maior da coluna (prancha celular-modo-atos) */
-[data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 64px; height: 64px; border-radius: 18px; }
+/* o "Você vai" é o maior da coluna (prancha celular-modo-atos); o :root vence a regra do celular que faz pílula de todo
+   button[aria-pressed] (app/celular.css), para ele continuar quadrado arredondado como os outros três */
+:root [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 64px; height: 64px; border-radius: 18px; }
 [data-al="2"] .al-ato-coluna .al-ato-quadrado-vou { background: var(--al-vermelho); color: var(--al-sobre-vermelho); border-color: transparent; }
 [data-al="2"] .al-ato-coluna .al-ato-quadrado-ligado { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: transparent; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-quadrado { border-color: var(--al-texto); }
@@ -227,7 +228,7 @@
 [data-al="2"] .al-ato-acao-numero { font-size: 0.95rem; }
 @media (min-width: 420px) {
   [data-al="2"] .al-ato-coluna .al-ato-quadrado { width: 64px; height: 64px; }
-  [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 72px; height: 72px; border-radius: 20px; }
+  :root [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 72px; height: 72px; border-radius: 20px; }
 }
 
 /* página do ato: o painel de quem organizou e as ações a mais */
