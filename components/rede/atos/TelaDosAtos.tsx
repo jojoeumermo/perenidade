@@ -30,6 +30,8 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
   const [indice, setIndice] = useState(0);
   const toque = useRef<number | null>(null);
   const topo = useRef<HTMLDivElement>(null);
+  // Depois de trocar de ato (pelo gesto, pelo item "próximo" ou pelo "anterior"), o foco vai ao título do ato novo.
+  const focarTitulo = useRef(false);
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -46,10 +48,17 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
   const atual = itens[Math.min(indice, Math.max(0, itens.length - 1))];
   const proximo = itens[indice + 1];
 
+  useEffect(() => {
+    if (!focarTitulo.current || !atual) return;
+    focarTitulo.current = false;
+    const titulo = document.getElementById(`al-ato-aberto-${atual.id}`);
+    (titulo ?? topo.current)?.focus();
+  }, [atual]);
+
   const ir = (i: number) => {
     if (i < 0 || i >= itens.length) return;
+    focarTitulo.current = true;
     setIndice(i);
-    topo.current?.focus();
   };
   const trocarFiltro = (f: FiltroDosAtos) => {
     setFiltro(f);
@@ -107,7 +116,7 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
         </p>
       ) : null}
 
-      <div ref={topo} tabIndex={-1} className="al-atos-miolo" aria-live="polite" aria-busy={estado.fase === "carregando" && !precisaCidade}>
+      <div ref={topo} tabIndex={-1} className="al-atos-miolo" aria-busy={estado.fase === "carregando" && !precisaCidade}>
         {precisaCidade ? (
           <form className="al-atos-cidade-form" onSubmit={salvarCidade}>
             <label htmlFor="al-atos-cidade" className="al-atos-rotulo">
@@ -158,7 +167,10 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
                 {t.tela.irAnterior}
               </button>
             ) : null}
-            <p className="al-so-leitor">{preencherAto(t.tela.contagem, { i: indice + 1, n: itens.length })}</p>
+            {/* Só a contagem é anunciada na troca ("Ato 2 de 4: Vigília…"); o ato inteiro não é relido. */}
+            <p className="al-so-leitor" role="status">
+              {`${preencherAto(t.tela.contagem, { i: indice + 1, n: itens.length })}: ${atual.titulo}`}
+            </p>
             <AtoAberto key={atual.id} ato={atual} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />
             {proximo ? (
               <div className="al-atos-proximo">

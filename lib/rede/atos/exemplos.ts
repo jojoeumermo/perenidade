@@ -8,10 +8,17 @@
 import { proporcaoDoMosaico } from "../mosaico";
 import type { Ato, FiltroDosAtos, PaginaDeAtos, PedidoDeMudanca, RespostaDoVou } from "../tipos-atos";
 
-/** Os atos de exemplo, com datas relativas a `agora` (a faixa mostra "2d 04h" como na prancha). */
+/**
+ * Os atos de exemplo, com o DIA relativo a `agora` e a HORA fixa como nas pranchas (Passe Livre às 18h, Vigília às 6h, RU às
+ * 11h): a foto de uma hora e a de outra mostram a mesma hora. A contagem da faixa ("2d 04h") fica só aproximada.
+ */
 export function atosDeExemplo(agora: number = Date.now()): { ato: Ato; confirmados: number }[] {
-  const hora = 3_600_000;
-  const cheia = (ms: number) => new Date(Math.ceil(ms / hora) * hora).toISOString();
+  const dia = (n: number, h: number) => {
+    const d = new Date(agora);
+    d.setDate(d.getDate() + n);
+    d.setHours(h, 0, 0, 0);
+    return d.toISOString();
+  };
   const base = {
     inicio_anterior: null,
     motivo: "",
@@ -28,9 +35,9 @@ export function atosDeExemplo(agora: number = Date.now()): { ato: Ato; confirmad
         id: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01",
         titulo: "Passe Livre Já",
         palavra: "PASSE LIVRE",
-        comunidade: { slug: "passe-livre-sp", nome: "Passe Livre SP" },
+        comunidade: { slug: "passe-livre-sp", nome: "Passe Livre SP", cor: 1 },
         chamado_por: "passelivre_sp",
-        inicio: cheia(agora + 2 * 24 * hora + 4 * hora),
+        inicio: dia(2, 18),
         onde: "Praça da Sé · concentração na escadaria da catedral",
         cidade: "São Paulo",
         descricao: "Tarifa zero para estudantes e desempregados. Traga sua faixa, água e o cartão de transporte.",
@@ -48,10 +55,10 @@ export function atosDeExemplo(agora: number = Date.now()): { ato: Ato; confirmad
         id: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d02",
         titulo: "Vigília na ocupação Esperança",
         palavra: "FICA ESPERANCA",
-        comunidade: { slug: "moradia-zona-leste", nome: "Moradia Zona Leste" },
+        comunidade: { slug: "moradia-zona-leste", nome: "Moradia Zona Leste", cor: 3 },
         chamado_por: "moradia_zl",
-        inicio: cheia(agora + 9 * 24 * hora + 12 * hora),
-        inicio_anterior: cheia(agora + 6 * 24 * hora + 12 * hora),
+        inicio: dia(9, 6),
+        inicio_anterior: dia(6, 6),
         onde: "Ocupação Esperança, Itaquera · na porta da ocupação",
         cidade: "São Paulo",
         descricao: "Vigília na porta da ocupação no dia da reintegração. 140 famílias. Precisamos de gente às 6h e de quem filme com o celular na horizontal.",
@@ -69,9 +76,9 @@ export function atosDeExemplo(agora: number = Date.now()): { ato: Ato; confirmad
         id: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d03",
         titulo: "Aula pública no vão do MASP",
         palavra: "AULA PUBLICA",
-        comunidade: { slug: "marxismo-aula-em-debate", nome: "Marxismo · aula em debate" },
+        comunidade: { slug: "marxismo-aula-em-debate", nome: "Marxismo · aula em debate", cor: 4 },
         chamado_por: "liaquilombo",
-        inicio: cheia(agora + 4 * 24 * hora + 6 * hora),
+        inicio: dia(4, 15),
         onde: "Vão livre do MASP, Av. Paulista",
         cidade: "São Paulo",
         descricao: "Aula aberta sobre mais-valia e trabalho por aplicativo. Leve um banquinho.",
@@ -88,9 +95,9 @@ export function atosDeExemplo(agora: number = Date.now()): { ato: Ato; confirmad
         id: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d04",
         titulo: "Panfletagem no RU",
         palavra: "RU",
-        comunidade: { slug: "estudantes-ufpe", nome: "Estudantes UFPE" },
+        comunidade: { slug: "estudantes-ufpe", nome: "Estudantes UFPE", cor: 2 },
         chamado_por: "rosavermelha",
-        inicio: cheia(agora + 3 * 24 * hora + 5 * hora),
+        inicio: dia(3, 11),
         onde: "Restaurante Universitário",
         cidade: "Recife",
         descricao: "O núcleo vai panfletar no RU. Leva água e uma caneta.",
