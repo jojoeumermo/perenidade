@@ -267,7 +267,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: produz },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design", "marketing") },
       { id: "divulgacao", nome: "Divulgação", sobre: "Calendário de posts e stories, kit da marca e acesso ao Instagram.", grupo: "Produção", mostra: can(eu, "coordenacao", "marketing"), conta: r?.divulgacao },
-      { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
+      { id: "comunidade", nome: "Alumia", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
       { id: "rede-propostas", nome: "Rede: propostas de comunidade", sobre: "Comunidade nova da Alumia só nasce por proposta: ler o objetivo e as regras, conferir os moderadores e aprovar ou recusar com o motivo.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") },
       { id: "rede-semeadura", nome: "Alumia: semeadura", sobre: "O roteiro da semeadura em números: posts reais por comunidade e se há 2 pessoas moderando. Nada aqui publica.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mentoria", "educacao"), conta: r?.reforco },
@@ -449,9 +449,9 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   const noMenu = modoFoco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes;
   // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
   const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
-  const funcao = !voluntario ? "Comunidade" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
+  const funcao = !voluntario ? "Alumia" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
   // O nome do ambiente diz de quem ele é: só a coordenação vê "Coordenação".
-  const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
+  const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Alumia";
   const fixada = atalhos.fixadas.includes(atual.id);
   const Simbolo = iconeDe(atual.id);
   const { t } = useI18n();

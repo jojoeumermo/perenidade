@@ -216,7 +216,7 @@ export function Convites({ me }: { me: Me }) {
                     className={convite.sit === "valendo" ? undefined : "opacity-75"}
                     titulo={
                       <>
-                        <span className="break-all">{convite.email || "Comunidade"}</span> · {nomeDoConvite(convite)}
+                        <span className="break-all">{convite.email || "Alumia"}</span> · {nomeDoConvite(convite)}
                       </>
                     }
                     meta={
