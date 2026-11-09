@@ -28,12 +28,21 @@ import { ENCAIXES, verificarAntesDePublicar } from "../../encaixes";
 import { codigoDoErro, textoDoErro } from "../../erros";
 import { Mosaico } from "../../mosaico/Mosaico";
 import { corDaComunidade } from "../../ui/Pilula";
-import { ExtrasDoEscrever, useEscreverPub } from "../ExtrasDoEscrever";
+import { escreverRascunho, ExtrasDoEscrever, useEscreverPub } from "../ExtrasDoEscrever";
 import { textoDoErroPublicar } from "../textos";
 import { faltaNoBanco } from "./CartaoDaAlumia2";
 import type { TipoAoEscrever } from "./CascaDaAlumia2";
 import { useAlumia2 } from "./contexto";
-import { Icone } from "./icones";
+import { Icone, type NomeDoIcone } from "./icones";
+import { Pilulas } from "./Pilulas";
+
+/** O que dá para focar com Tab dentro do diálogo (para prender o foco nele). */
+const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]';
+
+/** O ícone de "Quem vê" pelo público: o globo do Fediverso só quando o post sai para a internet (federa); os outros não saem. */
+export function iconeDoPublico(p: Publico): NomeDoIcone {
+  return p === "internet" ? "fediverso" : p === "comunidade" ? "comunidades" : p === "seguidores" ? "perfil" : p === "equipe" ? "cadeado" : "nucleos";
+}
 
 type ComunidadeResumida = Pick<Comunidade, "slug" | "nome" | "categoria" | "publico_padrao">;
 interface Lugar {
@@ -174,14 +183,26 @@ export function EscreverDaAlumia2({
     return () => window.clearTimeout(id);
   }, [tipoInicial]);
 
-  // Esc fecha (menos durante o envio: aí o Desfazer é que manda).
+  // Foco (WCAG 2.4.3): ao abrir, vai para o campo principal (no Ato, o nome do ato); ao fechar, volta para quem abriu.
   useEffect(() => {
-    const sair = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && !envio) aoFechar();
+    const antes = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const id = window.setTimeout(() => {
+      const d = dialogo.current;
+      if (!d || d.contains(document.activeElement)) return;
+      (d.querySelector<HTMLElement>("[data-al2-foco]") ?? d.querySelector<HTMLElement>("textarea, input:not([type=file]):not([type=hidden])") ?? d).focus();
+    }, 0);
+    return () => {
+      window.clearTimeout(id);
+      if (antes?.isConnected) antes.focus();
     };
-    window.addEventListener("keydown", sair);
-    return () => window.removeEventListener("keydown", sair);
-  }, [aoFechar, envio]);
+  }, []);
+
+  // O "Enviando em N s": o foco vai para o Desfazer; desfeito, volta para o botão principal.
+  const botaoDesfazer = useRef<HTMLButtonElement>(null);
+  const botaoPrincipal = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (envio) botaoDesfazer.current?.focus();
+  }, [envio]);
 
   const lugar = lugares.find((l) => l.slug === onde) ?? (comunidade && onde === comunidade.slug ? { slug: comunidade.slug, nome: comunidade.nome, categoria: comunidade.categoria, cor: corDaComunidade(comunidade.slug) } : null);
 
@@ -326,7 +347,75 @@ export function EscreverDaAlumia2({
   function desfazer() {
     setEnvio(null);
     setAviso(al2?.t.escrever.desfeito ?? "");
+    window.setTimeout(() => botaoPrincipal.current?.focus(), 0);
   }
+
+  /**
+   * Fechar sem perder texto: o rascunho é guardado NA HORA (na conta, e no aparelho como hoje), sem esperar os 2,5 s. A resposta
+   * não tem rascunho: com texto, pergunta antes de descartar.
+   */
+  function fechar() {
+    if (envio) return;
+    if (!previa && rascunhoTemTexto(rascunhoAtual)) {
+      if (resposta) {
+        if (!window.confirm(al2?.t.escrever.descartarResposta ?? "")) return;
+      } else {
+        escreverRascunho({ tipo: tipoBanco, texto, titulo, corpo });
+        if (!semServidor.current) void redePub.salvarRascunho(rascunhoAtual).catch(() => undefined);
+      }
+    }
+    aoFechar();
+  }
+  const fecharRef = useRef(fechar);
+  useEffect(() => {
+    fecharRef.current = fechar;
+  });
+
+  // Esc: primeiro fecha a lista aberta (Onde publicar, Quem vê, Quem responde); só depois o Escrever. Durante o envio, quem
+  // manda é o Desfazer.
+  useEffect(() => {
+    const sair = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || e.defaultPrevented || envio) return;
+      if (aberta) {
+        setAberta(null);
+        return;
+      }
+      fecharRef.current();
+    };
+    window.addEventListener("keydown", sair);
+    return () => window.removeEventListener("keydown", sair);
+  }, [envio, aberta]);
+
+  // Tab preso dentro do diálogo (aria-modal): do último volta ao primeiro e vice-versa; o que estiver fora não recebe foco.
+  function prenderTab(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key !== "Tab") return;
+    const d = dialogo.current;
+    if (!d) return;
+    const lista = Array.from(d.querySelectorAll<HTMLElement>(FOCAVEIS)).filter((el) => el.tabIndex >= 0 && el.getClientRects().length > 0);
+    if (!lista.length) return;
+    const primeiro = lista[0];
+    const ultimo = lista[lista.length - 1];
+    const ativo = document.activeElement;
+    if (e.shiftKey && (ativo === primeiro || !d.contains(ativo))) {
+      e.preventDefault();
+      ultimo.focus();
+    } else if (!e.shiftKey && (ativo === ultimo || !d.contains(ativo))) {
+      e.preventDefault();
+      primeiro.focus();
+    }
+  }
+  // Se o foco escapar por outro caminho (clique fora no computador, leitor de tela), volta para dentro.
+  useEffect(() => {
+    if (envio) return;
+    const guarda = (e: FocusEvent) => {
+      const d = dialogo.current;
+      const alvo = e.target as Node | null;
+      if (!d || !alvo || d.contains(alvo)) return;
+      d.querySelector<HTMLElement>(FOCAVEIS)?.focus();
+    };
+    document.addEventListener("focusin", guarda);
+    return () => document.removeEventListener("focusin", guarda);
+  }, [envio]);
 
   function continuarRascunho(r: RascunhoDoServidor) {
     const tp = tipoDoRascunho(r.tipo);
@@ -357,17 +446,17 @@ export function EscreverDaAlumia2({
 
   return (
     <>
-      <div className={`al2 fixed inset-0 z-50 flex flex-col bg-[var(--al-fundo)] md:items-center md:justify-center md:bg-black/70 md:p-6 ${envio ? "hidden" : ""}`} role="dialog" aria-modal="true" aria-labelledby="al2-escrever-titulo">
-        <div ref={dialogo} className="flex h-full w-full flex-col bg-[var(--al-fundo)] md:h-auto md:max-h-[92vh] md:max-w-xl md:rounded-2xl md:border md:border-[var(--al-superficie-2)]">
+      <div className={`al2 fixed inset-0 z-50 flex flex-col bg-[var(--al-fundo)] md:items-center md:justify-center md:bg-black/70 md:p-6 ${envio ? "hidden" : ""}`} role="dialog" aria-modal="true" aria-labelledby="al2-escrever-titulo" onKeyDown={prenderTab}>
+        <div ref={dialogo} tabIndex={-1} className="flex h-full w-full flex-col bg-[var(--al-fundo)] md:h-auto md:max-h-[92vh] md:max-w-xl md:rounded-2xl md:border md:border-[var(--al-superficie-2)]">
           <div className="al-faixa" aria-hidden />
           <div className="flex items-center justify-between gap-3 px-4 py-3">
-            <button type="button" onClick={aoFechar} className="al2-acao !text-[1.05rem] !text-[var(--al-texto-2)]">
+            <button type="button" onClick={fechar} className="al2-acao !text-[1.05rem] !text-[var(--al-texto-2)]">
               {t.escrever.cancelar}
             </button>
             <h2 id="al2-escrever-titulo" className="sr-only">
               {resposta ? t.escrever.resposta : t.escrever.titulo}
             </h2>
-            <button type="button" onClick={() => void publicar()} disabled={!pronto || ocupado} className="al-botao al-botao-primario al-botao-g">
+            <button ref={botaoPrincipal} type="button" onClick={() => void publicar()} disabled={!pronto || ocupado} className="al-botao al-botao-primario al-botao-g">
               {ocupado ? t.escrever.publicando : principal}
             </button>
           </div>
@@ -380,14 +469,21 @@ export function EscreverDaAlumia2({
             )}
 
             {!resposta && (
-              <div role="radiogroup" aria-label={t.escrever.tipos} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
-                {tipos.map((x) => (
-                  <button key={x} type="button" role="radio" aria-checked={tipo === x} onClick={() => setTipo(x)} className="al2-tipo">
-                    {x === "ato" && <Icone nome="atos" className="h-5 w-5" />}
-                    {t.escrever[x]}
-                  </button>
-                ))}
-              </div>
+              <Pilulas
+                rotulo={t.escrever.tipos}
+                className="al2-tipos flex flex-wrap gap-2"
+                opcoes={tipos.map((x) => ({
+                  valor: x,
+                  conteudo: (
+                    <>
+                      {x === "ato" && <Icone nome="atos" className="h-5 w-5" />}
+                      {t.escrever[x]}
+                    </>
+                  ),
+                }))}
+                escolhido={tipo}
+                aoMudar={setTipo}
+              />
             )}
 
             {!resposta && rascunhos.length > 0 && !rascunhoTemTexto({ texto, titulo, corpo }) && (
@@ -416,13 +512,14 @@ export function EscreverDaAlumia2({
               <>
                 {longo && (
                   <>
-                    <div className="flex gap-2" role="radiogroup" aria-label={t.escrever.longoComo}>
-                      {(["discussao", "duvida"] as const).map((x) => (
-                        <button key={x} type="button" role="radio" aria-checked={longoComo === x} onClick={() => setLongoComo(x)} className="al2-tipo !min-h-10 !px-3 text-sm">
-                          {t.escrever[x]}
-                        </button>
-                      ))}
-                    </div>
+                    <Pilulas
+                      rotulo={t.escrever.longoComo}
+                      className="flex gap-2"
+                      classeItem="al2-tipo !min-h-10 !px-3 text-sm"
+                      opcoes={(["discussao", "duvida"] as const).map((x) => ({ valor: x, conteudo: t.escrever[x] }))}
+                      escolhido={longoComo}
+                      aoMudar={setLongoComo}
+                    />
                     <label className="block">
                       <span className="al2-rotulo">{t.escrever.tituloDoLongo}</span>
                       <input className="al2-campo min-h-12 text-lg font-bold" value={titulo} maxLength={140} onChange={(e) => setTitulo(e.target.value)} />
@@ -469,26 +566,24 @@ export function EscreverDaAlumia2({
                   valor={lugar?.nome ?? t.escrever.noPerfil}
                   aberta={aberta === "onde"}
                   aoAbrir={() => setAberta(aberta === "onde" ? null : "onde")}
+                  aoFecharLista={() => setAberta(null)}
                   opcoes={[{ valor: "", texto: t.escrever.noPerfil }, ...lugares.map((l) => ({ valor: l.slug, texto: l.nome }))]}
                   escolhido={onde ?? ""}
                   aoEscolher={(v) => {
                     setOnde(v || null);
                     if (!v && publico === "comunidade") setPublico("membros");
-                    setAberta(null);
                   }}
                 />
                 <Escolha
-                  icone={<Icone nome="fediverso" className="h-5 w-5 text-[var(--al-dourado)]" />}
+                  icone={<Icone nome={iconeDoPublico(publico)} className={`h-5 w-5 ${publico === "internet" ? "text-[var(--al-dourado)]" : ""}`} />}
                   rotulo={t.escrever.quemVe}
                   valor={rotuloDoPublico(publico)}
                   aberta={aberta === "quem"}
                   aoAbrir={() => setAberta(aberta === "quem" ? null : "quem")}
+                  aoFecharLista={() => setAberta(null)}
                   opcoes={publicos.map((p) => ({ valor: p, texto: rotuloDoPublico(p) }))}
                   escolhido={publico}
-                  aoEscolher={(v) => {
-                    setPublico(v as Publico);
-                    setAberta(null);
-                  }}
+                  aoEscolher={(v) => setPublico(v as Publico)}
                 />
                 <Escolha
                   icone={<Icone nome="responder" className="h-5 w-5" />}
@@ -496,12 +591,10 @@ export function EscreverDaAlumia2({
                   valor={rotuloResponde(pub.respondeQuem)}
                   aberta={aberta === "responde"}
                   aoAbrir={() => setAberta(aberta === "responde" ? null : "responde")}
+                  aoFecharLista={() => setAberta(null)}
                   opcoes={responde.map((q) => ({ valor: q, texto: rotuloResponde(q) }))}
                   escolhido={pub.respondeQuem}
-                  aoEscolher={(v) => {
-                    pub.setRespondeQuem(v as RespondeQuem);
-                    setAberta(null);
-                  }}
+                  aoEscolher={(v) => pub.setRespondeQuem(v as RespondeQuem)}
                 />
               </div>
             )}
@@ -524,7 +617,7 @@ export function EscreverDaAlumia2({
       {envio && (
         <div className="al2 al2-aviso-flutuante" role="status" aria-live="polite">
           <span>{preencher(t.escrever.enviandoEm, { s: faltam })}</span>
-          <button type="button" onClick={desfazer} className="al-botao al-botao-primario al-botao-p">
+          <button ref={botaoDesfazer} type="button" onClick={desfazer} className="al-botao al-botao-primario al-botao-p">
             {t.escrever.desfazer}
           </button>
         </div>
@@ -533,13 +626,17 @@ export function EscreverDaAlumia2({
   );
 }
 
-/** Uma linha de escolha (Onde publicar, Quem vê, Quem responde): abre a lista ali mesmo, como na prancha. */
+/**
+ * Uma linha de escolha (Onde publicar, Quem vê, Quem responde): abre a lista ali mesmo, como na prancha. Aberta, o foco vai para a
+ * opção escolhida; as setas trocam, Enter/Espaço/clique confirma e fecha, Esc fecha sem fechar o Escrever. O foco volta à linha.
+ */
 function Escolha({
   icone,
   rotulo,
   valor,
   aberta,
   aoAbrir,
+  aoFecharLista,
   opcoes,
   escolhido,
   aoEscolher,
@@ -549,25 +646,40 @@ function Escolha({
   valor: string;
   aberta: boolean;
   aoAbrir: () => void;
+  aoFecharLista: () => void;
   opcoes: { valor: string; texto: string }[];
   escolhido: string;
   aoEscolher: (v: string) => void;
 }) {
+  const linha = useRef<HTMLButtonElement>(null);
+  const lista = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (aberta) lista.current?.querySelector<HTMLElement>('[tabindex="0"]')?.focus();
+  }, [aberta]);
+  const fecharLista = () => {
+    aoFecharLista();
+    window.setTimeout(() => linha.current?.focus(), 0);
+  };
   return (
     <div>
-      <button type="button" className="al2-escolha" aria-expanded={aberta} onClick={aoAbrir}>
+      <button ref={linha} type="button" className="al2-escolha" aria-expanded={aberta} onClick={aoAbrir}>
         <span className="grid w-6 place-items-center">{icone}</span>
         <span>{rotulo}</span>
         <strong>{valor}</strong>
         <Icone nome="chevron" className={`h-5 w-5 shrink-0 transition-transform ${aberta ? "rotate-90" : ""}`} />
       </button>
       {aberta && (
-        <div role="radiogroup" aria-label={rotulo} className="mb-3 flex flex-wrap gap-2 pl-9">
-          {opcoes.map((o) => (
-            <button key={o.valor} type="button" role="radio" aria-checked={escolhido === o.valor} onClick={() => aoEscolher(o.valor)} className="al2-tipo !min-h-10 !px-3 text-sm">
-              {o.texto}
-            </button>
-          ))}
+        <div ref={lista}>
+          <Pilulas
+            rotulo={rotulo}
+            className="mb-3 flex flex-wrap gap-2 pl-9"
+            classeItem="al2-tipo !min-h-10 !px-3 text-sm"
+            opcoes={opcoes.map((o) => ({ valor: o.valor, conteudo: o.texto }))}
+            escolhido={escolhido}
+            aoMudar={aoEscolher}
+            aoConfirmar={fecharLista}
+            aoEsc={fecharLista}
+          />
         </div>
       )}
     </div>
@@ -589,7 +701,7 @@ function FormularioDoAtoDuble({ aoMudar }: { aoMudar: (d: Record<string, unknown
     <div className="space-y-4">
       <label className="block">
         <span className="al2-rotulo">{t.previa.nomeDoAto}</span>
-        <input className="al2-campo al-cond min-h-14 !text-[1.9rem] !font-black uppercase" value={d.nome} maxLength={40} onChange={mudar("nome")} />
+        <input data-al2-foco className="al2-campo al-cond min-h-14 !text-[1.9rem] !font-black uppercase" value={d.nome} maxLength={40} onChange={mudar("nome")} />
       </label>
       <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] gap-3">
         <label className="block">

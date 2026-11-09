@@ -50,7 +50,8 @@ const lerRascunho = (): RascunhoGuardado | null => {
     return null;
   }
 };
-const escreverRascunho = (r: RascunhoGuardado | null) => {
+/** Guarda (ou apaga, com null) o rascunho do aparelho na hora; o Escrever novo usa ao fechar, para não perder o que ainda não foi guardado. */
+export const escreverRascunho = (r: RascunhoGuardado | null) => {
   try {
     if (r) window.localStorage.setItem(CHAVE_RASCUNHO, JSON.stringify(r));
     else window.localStorage.removeItem(CHAVE_RASCUNHO);
@@ -526,7 +527,7 @@ export function ExtrasDoEscrever({ pub, resposta, lang, semQuemResponde = false 
         <div className="space-y-1">
           <label className="block text-sm">
             <span className="font-bold">{t.agendar.rotulo}</span>
-            <input type="datetime-local" className={`${campo} mt-1 min-h-11`} min={minimo} max={maximo} value={pub.agendar} onChange={(e) => pub.setAgendar(e.target.value)} />
+            <input type="datetime-local" lang={lang} className={`${campo} mt-1 min-h-11`} min={minimo} max={maximo} value={pub.agendar} onChange={(e) => pub.setAgendar(e.target.value)} />
           </label>
           {pub.agendar && !pub.agendaOk && <p role="alert" className="text-sm text-oxblood">{t.agendar.cedo}</p>}
           <Agendados t={t} lang={lang} />

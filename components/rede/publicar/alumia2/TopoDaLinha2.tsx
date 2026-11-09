@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { useRef } from "react";
 import type { Aba, Situacao } from "@/lib/rede/tipos";
 import { ENCAIXES } from "../../encaixes";
 import { Avatar16 } from "../../ui/Avatar16";
@@ -8,6 +9,10 @@ import type { TipoAoEscrever } from "./CascaDaAlumia2";
 import { useAlumia2 } from "./contexto";
 import { Icone } from "./icones";
 import { CartaoDoAtoDuble, FaixaProximoAtoDuble } from "./previa/Dubles";
+
+/** O id do painel da linha (role=tabpanel, em Rede.tsx) e o de cada aba, para aria-controls / aria-labelledby. */
+export const PAINEL_DA_LINHA = "al2-painel-linha";
+export const idDaAba = (a: Aba) => `al2-aba-${a}`;
 
 /**
  * O alto da linha na cara nova (pranchas computador-inicio e celular-inicio): "INÍCIO" e "Ordem de chegada, sem algoritmo" no
@@ -31,12 +36,27 @@ export function TopoDaLinha2({
   aoEscrever: (tipo?: TipoAoEscrever) => void;
 }) {
   const al2 = useAlumia2();
+  const botoes = useRef<(HTMLButtonElement | null)[]>([]);
   if (!al2) return null;
   const { t, previa } = al2;
   const pode = situacao.logado && situacao.membro;
   const temAto = previa || ENCAIXES.tiposDoCompositor.some((x) => x.tipo === "ato");
   const rotuloDaAba = (a: Aba, curto: boolean) =>
     a === "seguindo" ? t.linha.seguindo : a === "comunidades" ? (curto ? t.linha.comunidadesCurto : t.linha.comunidades) : a === "tudo" ? t.linha.tudo : t.linha.geral;
+
+  // Padrão de abas (WAI-ARIA APG, ativação automática): setas e Home/End trocam a aba e levam o foco; só a aba atual fica no Tab.
+  function trocarPelaSeta(e: React.KeyboardEvent<HTMLButtonElement>, i: number) {
+    const n = abas.length;
+    let alvo = -1;
+    if (e.key === "ArrowRight") alvo = (i + 1) % n;
+    else if (e.key === "ArrowLeft") alvo = (i - 1 + n) % n;
+    else if (e.key === "Home") alvo = 0;
+    else if (e.key === "End") alvo = n - 1;
+    if (alvo < 0) return;
+    e.preventDefault();
+    aoAba(abas[alvo]);
+    botoes.current[alvo]?.focus();
+  }
 
   return (
     <>
@@ -45,8 +65,22 @@ export function TopoDaLinha2({
         <p className="text-xs text-[var(--al-texto-2)]">{t.linha.ordem}</p>
       </div>
       <div role="tablist" aria-label={t.linha.abas} className="al2-abas sticky top-0 z-10 mt-1 flex border-b border-[var(--al-linha)] bg-[var(--al-fundo)] lg:mt-3 lg:gap-2 lg:px-3">
-        {abas.map((a) => (
-          <button key={a} type="button" role="tab" aria-selected={aba === a} onClick={() => aoAba(a)} className="al2-aba flex-1 lg:flex-none">
+        {abas.map((a, i) => (
+          <button
+            key={a}
+            ref={(b) => {
+              botoes.current[i] = b;
+            }}
+            type="button"
+            role="tab"
+            id={idDaAba(a)}
+            aria-selected={aba === a}
+            aria-controls={PAINEL_DA_LINHA}
+            tabIndex={aba === a ? 0 : -1}
+            onClick={() => aoAba(a)}
+            onKeyDown={(e) => trocarPelaSeta(e, i)}
+            className="al2-aba flex-1 lg:flex-none"
+          >
             <span className="lg:hidden">{rotuloDaAba(a, true)}</span>
             <span className="hidden lg:inline">{rotuloDaAba(a, false)}</span>
           </button>

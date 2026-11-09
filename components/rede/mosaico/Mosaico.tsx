@@ -10,7 +10,7 @@ const COR: Record<Exclude<TipoDoCartao, "voce">, string> = {
   aceso: "var(--al-cartao-aceso, #f3efe6)",
   apagado: "var(--al-cartao-apagado, #2a2622)",
   "letra-acesa": "var(--al-letra-acesa, #e8321f)",
-  "letra-apagada": "var(--al-letra-apagada, #4d1a14)",
+  "letra-apagada": "var(--al-letra-apagada, #7a281d)",
 };
 
 export interface PropsDoMosaico {

@@ -8,11 +8,11 @@
 import { useState } from "react";
 import Link from "@/components/Link";
 import { preencher } from "@/lib/rede/preencher";
-import { contagemDePessoas, diaEMes } from "@/lib/rede/publicar/alumia2";
+import { contagemDePessoas, diaEMes, enderecoParaCompartilhar, quandoDoChamado } from "@/lib/rede/publicar/alumia2";
 import { ATOS_PERTO_DE_EXEMPLO, atoDeExemplo, COMUNIDADES_DE_EXEMPLO, PLENARIA_DE_EXEMPLO } from "@/lib/rede/publicar/exemplos-alumia2";
 import { enderecos, type Post } from "@/lib/rede/tipos";
 import { Mosaico } from "../../../mosaico/Mosaico";
-import { Botao } from "../../../ui/Botao";
+import { Botao, LinkBotao } from "../../../ui/Botao";
 import { Carimbo } from "../../../ui/Carimbo";
 import { Flaps } from "../../../ui/Flaps";
 import { Pilula } from "../../../ui/Pilula";
@@ -26,7 +26,7 @@ export function AnexoDoChamadoDuble({ post, lang, t }: { post: Post; lang: strin
   const [vou, setVou] = useState(false);
   if (!post.chamado) return null;
   const dm = diaEMes(post.chamado.quando, lang);
-  const hora = new Date(post.chamado.quando).toLocaleTimeString(lang, { hour: "numeric", minute: "2-digit" });
+  const quando = quandoDoChamado(post.chamado.quando, lang);
   return (
     <div className="mt-3 flex items-center gap-4 rounded-xl border border-[var(--al-superficie-2)] px-4 py-3">
       {dm && (
@@ -38,7 +38,7 @@ export function AnexoDoChamadoDuble({ post, lang, t }: { post: Post; lang: strin
       <span className="min-w-0 flex-1">
         <span className="block font-extrabold text-[var(--al-texto)]">{post.chamado.tipo}</span>
         <span className="block truncate text-[0.8125rem] text-[var(--al-texto-3)]">
-          {hora} · {post.chamado.onde}
+          {quando} · {post.chamado.onde}
         </span>
       </span>
       <Botao variante={vou ? "claro" : "primario"} tamanho="p" pressionado={vou} onClick={() => setVou((v) => !v)}>
@@ -71,6 +71,26 @@ export function CartaoDoAtoDuble({ t, lang }: { t: T; lang: string }) {
   const [vai, setVai] = useState(true);
   const com = COMUNIDADES_DE_EXEMPLO[ato.comunidade];
   const rotulo = preencher(t.previa.mosaico, { palavra: ato.palavra });
+  const [nota, setNota] = useState("");
+  const atos = enderecos.linha(lang) + "/atos";
+  // O mesmo compartilhar do cartão: a janela do aparelho, ou a cópia do link (sem ?ref=, sem rastreio).
+  async function compartilhar() {
+    const url = enderecoParaCompartilhar(window.location.origin, atos);
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({ url, title: ato.nome });
+        return;
+      } catch {
+        // fechou a janela, ou o aparelho recusou: copia o link
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setNota(t.cartao.copiado);
+    } catch {
+      setNota(url);
+    }
+  }
   return (
     <article className="al2-ato mx-4 my-4 rounded-[18px] border border-[var(--al-superficie-2)] bg-[var(--al-superficie)] p-4 md:mx-5 md:p-5" aria-label={ato.nome}>
       <div className="flex items-start gap-3">
@@ -100,19 +120,23 @@ export function CartaoDoAtoDuble({ t, lang }: { t: T; lang: string }) {
           {vai && <strong className="text-[var(--al-dourado)]">{t.previa.voceNoMosaico} </strong>}
           {t.previa.voceNoMosaicoResto}
         </p>
-        <div className="grid grid-cols-2 gap-3 md:flex">
-          <Botao variante={vai ? "claro" : "primario"} pressionado={vai} onClick={() => setVai((v) => !v)} icone={vai ? <Icone nome="visto" className="h-5 w-5" grosso /> : undefined} className="max-md:min-h-14 max-md:text-lg">
+        <div className="grid grid-cols-2 gap-3 md:flex md:shrink-0 md:gap-2">
+          <Botao variante={vai ? "claro" : "primario"} tamanho="p" pressionado={vai} onClick={() => setVai((v) => !v)} icone={vai ? <Icone nome="visto" className="h-5 w-5" grosso /> : undefined} className="max-md:min-h-14 max-md:text-lg">
             {vai ? t.previa.voceVai : t.previa.euVou}
           </Botao>
-          <Botao variante="contorno" className="max-md:min-h-14 max-md:text-lg">
+          <LinkBotao href={atos} variante="contorno" tamanho="p" className="max-md:min-h-14 max-md:text-lg">
             <span className="md:hidden">{preencher(t.previa.conversa, { n: ato.conversa })}</span>
             <span className="hidden md:inline">{preencher(t.previa.conversaDoAto, { n: ato.conversa })}</span>
-          </Botao>
+          </LinkBotao>
         </div>
       </div>
-      <Botao variante="contorno" tamanho="p" className="mt-3 hidden md:inline-flex" aria-label={t.previa.compartilharAto} title={t.previa.compartilharAto}>
-        <Icone nome="compartilhar" className="h-[18px] w-[18px]" />
-      </Botao>
+      {/* Só no computador, como na prancha. A classe hidden fica num invólucro: no próprio .al-botao, o display dele ganha. */}
+      <div className="mt-3 hidden items-center gap-3 md:flex">
+        <Botao variante="contorno" tamanho="p" aria-label={t.previa.compartilharAto} title={t.previa.compartilharAto} onClick={() => void compartilhar()}>
+          <Icone nome="compartilhar" className="h-[18px] w-[18px]" />
+        </Botao>
+        <span role="status" className="text-xs text-[var(--al-texto-3)]">{nota}</span>
+      </div>
     </article>
   );
 }
@@ -133,9 +157,11 @@ export function AoVivoDuble({ t, lang }: { t: T; lang: string }) {
         <p className="text-[1.05rem] font-extrabold leading-snug">{p.titulo}</p>
         <p className="mt-1 text-[0.8125rem] leading-snug text-[var(--al-texto-2)]">{p.texto}</p>
         <div className="mt-3 flex flex-wrap gap-2">
-          <Botao variante="claro" tamanho="p">{t.previa.entrarNaSala}</Botao>
-          <Botao variante="contorno" tamanho="p">{t.previa.mandarPergunta}</Botao>
+          {/* A sala ao vivo é da F4: até lá, os botões ficam desativados e dizem por quê. */}
+          <Botao variante="claro" tamanho="p" disabled title={t.previa.salaEmBreve}>{t.previa.entrarNaSala}</Botao>
+          <Botao variante="contorno" tamanho="p" disabled title={t.previa.salaEmBreve}>{t.previa.mandarPergunta}</Botao>
         </div>
+        <p className="mt-2 text-[0.75rem] text-[var(--al-texto-3)]">{t.previa.salaEmBreve}</p>
       </div>
     </section>
   );
