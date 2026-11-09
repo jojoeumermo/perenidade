@@ -1,11 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
+import Link from "@/components/Link";
 import { PageHeading } from "@/components/PageHeading";
 import { SignIn } from "@/components/SignIn";
-import { VolunteerForm } from "@/components/VolunteerForm";
+import { localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
-import { pickSections } from "@/i18n/core";
-import { I18nProvider } from "@/components/I18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/entrar">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -20,14 +19,13 @@ export default async function Entrar({ params }: PageProps<"/[lang]/entrar">) {
         {t.auth.lead}
       </PageHeading>
       <SignIn s={t.auth} />
-      {/* Quem quer ser voluntário não precisa de conta para se candidatar: o formulário abre aqui mesmo. */}
-      <details className="mt-12 border-2 border-oxblood bg-parchment-deep p-5">
-        <summary className="flex cursor-pointer items-center gap-3 font-sans text-lg font-semibold text-oxblood hover:underline">
-          <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center bg-oxblood font-sans text-xl font-black italic text-parchment">+</span>
-          {t.auth.volunteerLink}
-        </summary>
-        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><VolunteerForm s={t.volunteer} /></I18nProvider>
-      </details>
+      {/* A candidatura a voluntário mora na página de voluntariado: colada embaixo do entrar, deixava a tela comprida e
+          misturava duas coisas (09/11/2026). Quem quer ser voluntário não precisa de conta. */}
+      <p className="mt-10 max-w-md border-l-4 border-oxblood pl-4 font-sans">
+        <Link href={localePath(lang, "/voluntarios")} className="font-semibold text-oxblood underline underline-offset-4 hover:text-ink">
+          {t.auth.volunteerLink} →
+        </Link>
+      </p>
     </div>
   );
 }
