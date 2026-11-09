@@ -4,9 +4,9 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Mosaico } from "../mosaico/Mosaico";
 import type { ContextoDoEncaixe } from "../encaixes";
-import { useTextosDosAtos } from "./usar";
+import { useTelaLarga, useTextosDosAtos } from "./usar";
 import { CAMPOS_VAZIOS, conferirAto, type CamposDoAto } from "@/lib/rede/atos/formulario";
-import { doCampoLocal, paraCampoLocal } from "@/lib/rede/atos/tempo";
+import { dataLonga, doCampoLocal, paraCampoLocal } from "@/lib/rede/atos/tempo";
 import { normalizarPalavra } from "@/lib/rede/mosaico";
 import { preencherAto } from "@/lib/rede/textos-atos";
 import { LIMITES_DO_ATO, type DadosDoAto } from "@/lib/rede/tipos-atos";
@@ -22,6 +22,7 @@ type Campo = keyof CamposDoAto;
  */
 export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar: (dados: Record<string, unknown>) => void }) {
   const t = useTextosDosAtos(lang);
+  const largo = useTelaLarga();
   const id = useId();
   const [c, setC] = useState<CamposDoAto>(CAMPOS_VAZIOS);
   const [tocado, setTocado] = useState<Partial<Record<Campo, boolean>>>({});
@@ -43,12 +44,13 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
     const p = tocado[campo] ? dados.problemas[campo] : undefined;
     return p ? t.formulario.problemas[p] : null;
   };
-  const props = (campo: Campo) => {
+  const props = (campo: Campo, extra?: string) => {
     const p = problema(campo);
+    const descricao = [p ? `${id}-${campo}-p` : null, extra ?? null].filter(Boolean).join(" ");
     return {
       id: `${id}-${campo}`,
       "aria-invalid": p ? true : undefined,
-      "aria-describedby": p ? `${id}-${campo}-p` : undefined,
+      "aria-describedby": descricao || undefined,
       onBlur: () => sair(campo),
     } as const;
   };
@@ -87,12 +89,18 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
             {t.formulario.quando}
           </label>
           <input
-            {...props("quando")}
+            {...props("quando", c.quando ? `${id}-quando-legivel` : undefined)}
             type="datetime-local"
             className="al-ato-form-campo"
             value={paraCampoLocal(c.quando)}
             onChange={(e) => mudar("quando", doCampoLocal(e.target.value))}
           />
+          {/* O campo nativo escreve a data no formato do navegador; embaixo vai a data como o ato vai mostrar ("Terça, 19/11 · 6h"). */}
+          {c.quando ? (
+            <p id={`${id}-quando-legivel`} className="al-ato-form-legivel">
+              {dataLonga(c.quando, lang)}
+            </p>
+          ) : null}
           {aviso("quando")}
         </div>
         <div className="al-ato-form-grupo">
@@ -149,7 +157,8 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
       </div>
 
       <div className="al-ato-form-previa">
-        <Mosaico palavra={palavra} semente={`previa-${palavra}`} proporcao={null} rotulo={preencherAto(t.formulario.previaRotulo, { palavra })} />
+        {/* No celular a palavra quebra nos espaços (31 cartões de largura, como o cartão do ato), para sair grande e legível. */}
+        <Mosaico palavra={palavra} semente={`previa-${palavra}`} proporcao={null} quebrar={largo ? undefined : 31} rotulo={preencherAto(t.formulario.previaRotulo, { palavra })} />
       </div>
       <p className="al-ato-form-previa-texto">{t.formulario.previa}</p>
     </div>

@@ -17,15 +17,22 @@
   border: 0;
 }
 
+/*
+ * O dourado como COR DE TEXTO: no tema claro, #b98600 sobre #f3efe6 dá só 3,4:1; para texto usa-se um dourado mais escuro (5,3:1,
+ * WCAG 1.4.3). O #b98600 fica para fundos e bordas. No escuro, no alto contraste e no e-ink, vale o --al-dourado de cada um.
+ */
+[data-al="2"] { --al-ato-dourado-texto: var(--al-dourado); }
+:root:not([data-contrast]):not([data-eink]) [data-al="2"][data-al-tema="claro"] { --al-ato-dourado-texto: #8a6400; }
+
 /* ───── peças comuns ───── */
 [data-al="2"] .al-ato-era { color: var(--al-texto-3); text-decoration-thickness: 2px; }
 [data-al="2"] .al-ato-motivo { margin: 0.25rem 0 0; color: var(--al-texto-3); font-size: 0.95rem; }
 [data-al="2"] .al-ato-chamado-por { color: var(--al-texto-3); font-size: 0.8rem; }
-[data-al="2"] .al-ato-dourado { color: var(--al-dourado); }
+[data-al="2"] .al-ato-dourado { color: var(--al-ato-dourado-texto); }
 [data-al="2"] .al-ato-forte { font-weight: 700; }
 [data-al="2"] .al-ato-frase { margin: 0; color: var(--al-texto-2); font-size: 0.9rem; line-height: 1.45; }
 [data-al="2"] .al-ato-erro { display: block; margin-top: 0.25rem; color: var(--al-vermelho); font-size: 0.85rem; font-weight: 600; }
-[data-al="2"] .al-ato-copiado { display: block; color: var(--al-dourado); font-size: 0.8rem; min-height: 0; }
+[data-al="2"] .al-ato-copiado { display: block; color: var(--al-ato-dourado-texto); font-size: 0.8rem; min-height: 0; }
 [data-al="2"] .al-ato-copiado:empty { display: none; }
 
 [data-al="2"] .al-ato-bloco { display: inline-grid; justify-items: center; min-width: 2.6rem; line-height: 1; }
@@ -86,9 +93,11 @@
 [data-al="2"] .al-ato-cartao-largo { margin: 1rem 1.25rem; padding: 1.1rem 1.25rem 1.25rem; }
 [data-al="2"] .al-ato-cartao-largo .al-ato-cartao-titulo { font-size: 2.6rem; }
 [data-al="2"] .al-ato-cartao-largo .al-ato-cartao-quando { font-size: 0.9rem; max-width: 34rem; }
+/* computador: a frase ocupa o que sobra (3 linhas, como na prancha) e os botões não encolhem */
 [data-al="2"] .al-ato-cartao-pe { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-[data-al="2"] .al-ato-cartao-pe .al-ato-frase { font-size: 0.82rem; max-width: 19rem; }
-[data-al="2"] .al-ato-cartao-pe .al-ato-cartao-botoes { flex: none; }
+[data-al="2"] .al-ato-cartao-pe .al-ato-frase { flex: 1 1 14rem; min-width: 14rem; font-size: 0.82rem; }
+[data-al="2"] .al-ato-cartao-pe .al-ato-cartao-botoes { flex: none; flex-wrap: nowrap; }
+[data-al="2"] .al-ato-cartao-largo .al-ato-chamar-icone { margin-top: -0.2rem; }
 [data-al="2"] .al-ato-chamar-icone { display: inline-grid; justify-items: start; gap: 0.2rem; }
 [data-al="2"] .al-ato-quadrado-p { width: 40px; height: 40px; padding: 0; justify-content: center; }
 
@@ -146,7 +155,7 @@
 [data-al="2"] .al-atos-filtro-botao[aria-pressed="true"] { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-atos-filtro { border: 1px solid var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-atos-filtro-botao[aria-pressed="true"] { background: #000; color: #fff; }
-[data-al="2"] .al-atos-previa { margin: 0 0 0.6rem; font-size: 0.75rem; color: var(--al-dourado); text-transform: uppercase; letter-spacing: 0.06em; }
+[data-al="2"] .al-atos-previa { margin: 0 0 0.6rem; font-size: 0.75rem; color: var(--al-ato-dourado-texto); text-transform: uppercase; letter-spacing: 0.06em; }
 [data-al="2"] .al-atos-cidade { margin: 0 0 0.6rem; }
 [data-al="2"] .al-atos-link { background: none; border: 0; padding: 0; color: var(--al-texto-3); font: inherit; font-size: 0.85rem; text-decoration: underline; cursor: pointer; }
 [data-al="2"] .al-atos-miolo { display: grid; gap: 1rem; outline: none; }
@@ -165,6 +174,13 @@
   font: inherit;
   font-size: 1.1rem;
 }
+/* alto contraste e e-ink: a caixa do campo precisa aparecer (WCAG 1.4.11); no e-ink o exemplo fica em itálico e cinza-escuro,
+   para não ser lido como valor já preenchido */
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al-atos-campo, .al-ato-form-campo) { border: 2px solid var(--al-texto); }
+:root[data-eink] [data-al="2"] :is(.al-atos-campo, .al-ato-form-campo)::placeholder { color: #000; opacity: 0.62; font-style: italic; }
+:root[data-contrast] [data-al="2"] :is(.al-atos-campo, .al-ato-form-campo)::placeholder { color: #c8c8c8; opacity: 1; font-style: italic; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-form-previa { border: 2px dashed var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-anexo { border-color: var(--al-texto); }
 [data-al="2"] .al-atos-ajuda { margin: 0; color: var(--al-texto-3); font-size: 0.9rem; line-height: 1.45; }
 [data-al="2"] .al-atos-vazio { display: grid; gap: 0.9rem; justify-items: start; padding: 1.5rem 0; color: var(--al-texto-2); }
 [data-al="2"] .al-atos-vazio p { margin: 0; }
@@ -183,11 +199,11 @@
 [data-al="2"] .al-ato-aberto-onde { margin: 0; color: var(--al-texto-2); font-size: 1.05rem; line-height: 1.4; }
 [data-al="2"] .al-ato-aberto-chamado { margin: 0.4rem 0 0; font-size: 1.05rem; line-height: 1.45; white-space: pre-line; }
 [data-al="2"] .al-ato-aberto .al-ato-frase { font-size: 1.05rem; }
-[data-al="2"] .al-ato-aberto .al-ato-frase.al-ato-dourado { color: var(--al-dourado); }
+[data-al="2"] .al-ato-aberto .al-ato-frase.al-ato-dourado { color: var(--al-ato-dourado-texto); }
 
 [data-al="2"] .al-ato-coluna { display: grid; gap: 1.1rem; justify-items: center; padding-top: 0.2rem; }
 [data-al="2"] .al-ato-acao { display: grid; justify-items: center; gap: 0.35rem; text-align: center; max-width: 6.2rem; }
-[data-al="2"] .al-ato-quadrado {
+[data-al="2"] .al-ato-coluna .al-ato-quadrado {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -200,15 +216,18 @@
   cursor: pointer;
   text-decoration: none;
 }
-[data-al="2"] .al-ato-quadrado:hover { filter: brightness(1.15); }
-[data-al="2"] .al-ato-quadrado-vou { background: var(--al-vermelho); color: var(--al-sobre-vermelho); border-color: transparent; }
-[data-al="2"] .al-ato-quadrado-ligado { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: transparent; }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado:hover { filter: brightness(1.15); }
+/* o "Você vai" é o maior da coluna (prancha celular-modo-atos) */
+[data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 64px; height: 64px; border-radius: 18px; }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado-vou { background: var(--al-vermelho); color: var(--al-sobre-vermelho); border-color: transparent; }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado-ligado { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: transparent; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-quadrado { border-color: var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-ato-quadrado-ligado { background: #000; color: #fff; }
 [data-al="2"] .al-ato-acao-rotulo { font-weight: 700; font-size: 0.85rem; color: var(--al-texto-2); line-height: 1.2; }
 [data-al="2"] .al-ato-acao-numero { font-size: 0.95rem; }
 @media (min-width: 420px) {
-  [data-al="2"] .al-ato-quadrado { width: 64px; height: 64px; }
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado { width: 64px; height: 64px; }
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 72px; height: 72px; border-radius: 20px; }
 }
 
 /* página do ato: o painel de quem organizou e as ações a mais */
@@ -233,6 +252,12 @@
 [data-al="2"] .al-ato-form-grupo { display: grid; gap: 0.45rem; }
 [data-al="2"] .al-ato-form-rotulo { font-weight: 700; font-size: 0.95rem; color: var(--al-texto-3); }
 [data-al="2"] .al-ato-form-dupla { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 0.75rem; }
+/* celular estreito: Quando e Onde um embaixo do outro (o campo de data e hora não cabe em 140 px) */
+@media (max-width: 479px) {
+  [data-al="2"] .al-ato-form-dupla { grid-template-columns: minmax(0, 1fr); }
+}
+[data-al="2"] .al-ato-form-quando { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 0.5rem; }
+[data-al="2"] .al-ato-form-legivel { margin: 0; color: var(--al-texto-2); font-weight: 700; font-size: 0.95rem; }
 [data-al="2"] .al-ato-form-campo { width: 100%; flex: none; }
 [data-al="2"] .al-ato-form-nome { font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; text-transform: uppercase; font-size: 2.3rem; line-height: 1; padding: 0.75rem 1rem; }
 [data-al="2"] .al-ato-form-chamado { min-height: 8.5rem; resize: vertical; line-height: 1.45; }

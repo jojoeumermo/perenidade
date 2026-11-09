@@ -10,7 +10,7 @@ import { pontoEDetalhe } from "@/lib/rede/atos/formulario";
 import { dataLonga } from "@/lib/rede/atos/tempo";
 import { enderecos } from "@/lib/rede/tipos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
-import type { Ato } from "@/lib/rede/tipos-atos";
+import { corValida, type Ato } from "@/lib/rede/tipos-atos";
 
 /**
  * O ato aberto (prancha celular-modo-atos): o mosaico em cima, a comunidade e o carimbo, o nome grande, quando, onde (ponto,
@@ -27,10 +27,10 @@ export function AtoAberto({ ato, t, lang, logado = true, nivel = 2, depois }: { 
       <div className="al-ato-aberto-corpo">
         <div className="al-ato-aberto-texto">
           <div className="al-ato-aberto-marcas">
-            {ato.comunidade ? <Pilula texto={ato.comunidade.nome} slug={ato.comunidade.slug} href={enderecos.comunidade(lang, ato.comunidade.slug)} tamanho="m" /> : null}
+            {ato.comunidade ? <Pilula texto={ato.comunidade.nome} slug={ato.comunidade.slug} cor={corValida(ato.comunidade.cor)} href={enderecos.comunidade(lang, ato.comunidade.slug)} tamanho="m" /> : null}
             <CarimboDoAto ato={ato} t={t} tamanho="g" />
           </div>
-          <Titulo id={`al-ato-aberto-${ato.id}`} className={`al-cond al-ato-aberto-titulo${cancelado ? " al-riscado" : ""}`}>
+          <Titulo id={`al-ato-aberto-${ato.id}`} tabIndex={-1} className={`al-cond al-ato-aberto-titulo${cancelado ? " al-riscado" : ""}`}>
             {ato.titulo}
           </Titulo>
           <p className="al-ato-aberto-quando">
