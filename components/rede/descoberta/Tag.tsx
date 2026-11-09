@@ -9,6 +9,8 @@ import { ORDENS, enderecosDescoberta, tagOk, type Ordem, type PaginaDaTag, type 
 import type { PropsDaTelaDoPacote } from "../registro";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { useTextosDescoberta } from "./textos";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 /** A página de uma hashtag (/alumia/tag/[tag]): os posts que a trazem, na ordem escolhida, só os que a pessoa pode ver. */
 export default function Tag({ lang, s, situacao, params, aoEscrever }: PropsDaTelaDoPacote) {
@@ -18,7 +20,7 @@ export default function Tag({ lang, s, situacao, params, aoEscrever }: PropsDaTe
   if (!d) return <p role="status" className="px-[18px] py-6 font-sans text-ink-soft">{s.estados.carregando}</p>;
   if (!tagOk(tag)) return <p role="alert" className="px-[18px] py-8 font-sans text-ink-soft">{s.estados.naoEncontrado}</p>;
   return (
-    <div>
+    <div className="al3-tela">
       <header className="border-b border-rule px-[18px] py-4 font-sans">
         <h1 className="font-serif text-2xl font-extrabold">{preencher(d.tag.titulo, { tag })}</h1>
         {linha && <p className="mt-1 text-sm text-ink-soft">{preencher(d.tag.regraDaLinha, { titulo: linha.titulo, regra: linha.regra })}</p>}
