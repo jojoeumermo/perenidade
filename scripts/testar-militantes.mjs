@@ -111,6 +111,10 @@ const porta = ler("components", "escola", "PortaDaEscola.tsx");
 confere("manifesto e chamado militante são públicos (a porta deixa passar)", /PUBLICAS_DA_ESCOLA/.test(porta) && /PUBLICAS_DA_ESCOLA/.test(rotas));
 const manifesto = ler("content", "escola", "manifesto.md");
 confere("o manifesto está marcado como versão inicial, em discussão", /versão inicial/i.test(manifesto) && /em discussão/i.test(manifesto));
+confere("um manifesto só: o da Escola é o do site (/sobre), antes de O combinado", (() => {
+  const corpo = (t) => t.replace(/^---[\s\S]*?---\s*/, "").split("## O combinado")[0].trim();
+  return corpo(ler("content", "paginas", "sobre.md")) === corpo(manifesto);
+})());
 confere("o manifesto é o mesmo do docs", ler("docs", "escola-revolucionaria", "MANIFESTO.md").includes(manifesto.replace(/^---[\s\S]*?---\s*/, "").trim().split("\n")[0]));
 const quemFoi = ler("content", "escola", "quem-foi-lucia-maria.md");
 confere("Quem foi Lúcia Maria tem texto (não só o marcador)", !quemFoi.includes("[TEXTO A ENVIAR PELA COORDENAÇÃO]") && quemFoi.length > 1500);
