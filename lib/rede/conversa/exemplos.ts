@@ -98,6 +98,7 @@ export function paginaDeExemplo(slug: string, agora: number = Date.now()): Pagin
     situacao: null,
     modero: false,
     pedidos: null,
+    posts_7d: 214,
     fixados: [
       postDeExemplo(
         {

@@ -36,6 +36,11 @@ export interface PaginaDaComunidade {
   /** Só a moderação vê quantos pedidos esperam; para os outros vem nulo. */
   pedidos: number | null;
   fixados: Post[];
+  /**
+   * Onda 5 (F3): posts dos últimos 7 dias, agregado e sem nome ("214 posts esta semana"); nulo abaixo de 3 ("poucos"). Ausente
+   * antes do back-end da F3.
+   */
+  posts_7d?: number | null;
 }
 
 export interface PedidoDeEntrada {

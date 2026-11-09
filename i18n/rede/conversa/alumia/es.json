@@ -50,7 +50,17 @@
     "regrasTitulo": "Reglas",
     "moderacao": "Quién modera (seudónimos)",
     "etiquetas": "Etiquetas",
-    "pedidos": "{n} solicitud(es) esperando a la moderación"
+    "pedidos": "{n} solicitud(es) esperando a la moderación",
+    "entrar": "Entrar",
+    "participa": "Participando",
+    "pedir": "Pedir entrar",
+    "pendente": "Pedido enviado",
+    "fechadaSo": "Solo por invitación",
+    "voltarLista": "Volver a las comunidades",
+    "entreNaAlumia": "Entra en Alumia para participar en esta comunidad.",
+    "entrou": "Entraste en la comunidad.",
+    "saiu": "Saliste de la comunidad.",
+    "pediu": "Pedido enviado a la moderación."
   },
   "conversa": {
     "titulo": "Conversación",
@@ -86,7 +96,9 @@
     "materia": "artículo del Instituto Lúcia",
     "conferirAntes": "Antes de enviar: {aviso}",
     "enviarMesmo": "Enviar igual",
-    "revisar": "Revisar"
+    "revisar": "Revisar",
+    "voltar": "Volver",
+    "reagirComo": "Reaccionar con {nome}"
   },
   "reacoes": {
     "rotulo": "Reacciones",
@@ -116,5 +128,12 @@
   "busca": {
     "rotulo": "Buscar en Alumia y en el Fediverso",
     "placeholder": "Buscar personas, actos, #temas"
+  },
+  "telas": {
+    "explorar": "Explorar",
+    "buscar": "Buscar",
+    "avisos": "Avisos",
+    "salvos": "Guardados",
+    "comunidades": "Comunidades"
   }
 }
