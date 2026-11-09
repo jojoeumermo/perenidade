@@ -188,7 +188,8 @@
       "sou": "Você é daqui",
       "ajuda": "Quem media o núcleo aceita o pedido. Ninguém vê a lista de quem é de um núcleo.",
       "vazio": "Esta organização ainda não tem núcleos."
-    }
+    },
+    "tipoECidade": "{tipo} · {cidade}"
   },
   "contas": {
     "titulo": "Como votamos",
@@ -274,7 +275,8 @@
     "ordem": "Ordem de chegada, sem filtro de assessoria.",
     "vazio": "Nenhuma plenária marcada.",
     "vazioFila": "Ninguém perguntou ainda.",
-    "comA": "com {org}"
+    "comA": "com {org}",
+    "eu": "você"
   },
   "pedir": {
     "titulo": "Pedir o selo",

@@ -255,3 +255,20 @@
    aqui só a variante, com as variáveis trocadas no lugar). */
 [data-al="2"] .al-selo.al-selo-papel { background: var(--al-texto); color: var(--al-fundo); --al-sobre-vermelho: var(--al-vermelho-texto); --al-vermelho: var(--al-texto); border: 1px solid var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-selo.al-selo-papel { background: #fff; color: #000; border: 1.5px solid #000; --al-sobre-vermelho: #000; --al-vermelho: #fff; }
+
+/* ───────────── Perfil de organização: grade (computador: principal + lado; celular: uma coluna) ───────────── */
+[data-al="2"] .al-perfil-org-grade { display: grid; gap: 8px; max-width: 1200px; margin: 0 auto; }
+@media (min-width: 1024px) {
+  [data-al="2"] .al-perfil-org-grade { grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; padding-inline: 24px; }
+  [data-al="2"] .al-perfil-org-lado { position: sticky; top: 16px; align-self: start; padding-top: 12px; }
+}
+[data-al="2"] .al-perfil-org-lado .al-perfil-bloco > h2 { font-size: 1.6rem; }
+[data-al="2"] .al-perfil-org-lado section:focus { outline: none; }
+[data-al="2"] .al-perfil-tipo { margin: 0 0 4px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-dourado); }
+[data-al="2"] .al-perfil-capa-mosaico { max-height: 260px; overflow: hidden; }
+[data-al="2"] .al-org-passo h3 a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+[data-al="2"] .al-org-ferramenta-ver:hover { text-decoration: underline; }
+[data-al="2"] .al-perfil-org .al-perfil-aviso { max-width: 1152px; }
+@media (min-width: 1024px) { [data-al="2"] .al-perfil-org .al-perfil-aviso { margin-inline: auto; } }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-perfil-tipo,
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-org-ferramenta-ver { color: var(--al-texto); text-decoration: underline; }
