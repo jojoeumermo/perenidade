@@ -177,6 +177,7 @@
     "nivel_links": "Your level does not allow that many links in a post yet. See the limits in How Alumia cares.",
     "nivel_imagens": "Your level does not allow that many images in a post yet. See the limits in How Alumia cares.",
     "limite_diario": "You reached today's post limit for your level.",
+    "limite_identidades": "You already have the maximum of 5 accounts of this kind (identities or organizations).",
     "lista_bloqueio": "This place's mediators do not allow posts from you here."
   },
   "alumia": {

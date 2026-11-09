@@ -177,6 +177,7 @@
     "nivel_links": "Tu nivel aún no permite tantos enlaces en una publicación. Mira los límites en Cómo cuida Alumia.",
     "nivel_imagens": "Tu nivel aún no permite tantas imágenes en una publicación. Mira los límites en Cómo cuida Alumia.",
     "limite_diario": "Llegaste al límite de publicaciones de hoy para tu nivel.",
+    "limite_identidades": "Ya tienes el máximo de 5 cuentas de este tipo (identidades u organizaciones).",
     "lista_bloqueio": "La mediación de este lugar no permite publicaciones tuyas aquí."
   },
   "alumia": {

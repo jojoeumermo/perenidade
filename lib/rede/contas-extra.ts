@@ -81,6 +81,7 @@ export async function criarContaExtra(pedido: PedidoDeContaExtra, config: Config
   const cabecalhos = { apikey: config.chave, Authorization: `Bearer ${config.chave}`, "Content-Type": "application/json" };
 
   let id = "";
+  let erro = "falha";
   try {
     const r = await buscar(`${config.url}/auth/v1/admin/users`, { method: "POST", headers: cabecalhos, body: JSON.stringify(corpoDoUsuario(pedido.codinome)) });
     if (!r.ok) return { ok: false, erro: r.status === 422 ? "falha" : "sem_servico" };
@@ -97,6 +98,8 @@ export async function criarContaExtra(pedido: PedidoDeContaExtra, config: Config
       body: JSON.stringify({ p_dono: pedido.dono, p_identidade: id, p_tipo: pedido.tipo }),
     });
     if (r.ok) return { ok: true, id };
+    // O teto de 5 por dono é o único erro que a pessoa precisa ler; o resto vira "falha" (sem detalhe do servidor).
+    if ((await r.text().catch(() => "")).includes("limite_identidades")) erro = "limite_identidades";
   } catch {
     // cai no desfazer abaixo
   }
@@ -106,5 +109,5 @@ export async function criarContaExtra(pedido: PedidoDeContaExtra, config: Config
   } catch {
     // sem conexão para desfazer: a conta fica sem dono e sem senha (ninguém entra nela); a faxina da F6 apaga
   }
-  return { ok: false, erro: "falha" };
+  return { ok: false, erro };
 }
