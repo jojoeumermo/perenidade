@@ -217,3 +217,33 @@ export function quandoDoChamado(iso: string, lang: string, agora: number = Date.
   }
   return `${dia}, ${hora}`;
 }
+
+// ───── Repostar ─────
+
+/**
+ * O post pode ser repostado? A mesma regra do banco (interno.rede_alumia_repostavel): de outra pessoa, de primeiro nível, que não
+ * some sozinho e escrito para o público amplo (internet ou quem está na Alumia). O que foi escrito para um grupo menor não se
+ * espalha. O banco confere de novo.
+ */
+export function podeRepostar(p: { meu: boolean; resposta_a: string | null; publico: string; expira_em?: string | null }): boolean {
+  return !p.meu && !p.resposta_a && !p.expira_em && (p.publico === "internet" || p.publico === "membros");
+}
+
+/**
+ * Mistura os reposts (de quem a pessoa segue) com uma página da aba Seguindo, na ordem de chegada: o repost conta pelo momento
+ * em que foi repostado. Um post que já está na página (ou já apareceu) não entra de novo.
+ */
+export function misturarRepostes<T extends { id: string; criado_em: string }>(
+  pagina: readonly T[],
+  repostes: readonly (T & { repostado_em: string })[],
+  jaVistos: ReadonlySet<string> = new Set(),
+): (T & { repostado_em?: string })[] {
+  const ids = new Set([...jaVistos, ...pagina.map((p) => p.id)]);
+  const novos = repostes.filter((r) => {
+    if (ids.has(r.id)) return false;
+    ids.add(r.id);
+    return true;
+  });
+  const quando = (p: T & { repostado_em?: string }) => p.repostado_em ?? p.criado_em;
+  return [...pagina, ...novos].sort((a, b) => quando(b).localeCompare(quando(a)));
+}

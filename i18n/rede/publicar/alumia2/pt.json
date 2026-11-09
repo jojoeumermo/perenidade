@@ -76,7 +76,9 @@
     "aula": "Aula do Instituto Lúcia",
     "obra": "Obra do acervo do Instituto Lúcia",
     "materia": "Matéria do Instituto Lúcia",
-    "indisponivel": "Isso chega com a próxima atualização da Alumia."
+    "indisponivel": "Isso chega com a próxima atualização da Alumia.",
+    "naoRepostavel": "Só dá para repostar post de outra pessoa escrito para todo mundo (não resposta, nem post para um grupo menor).",
+    "veioDeRepost": "Repostado por quem você segue"
   },
   "enquete": {
     "rotulo": "Enquete",
@@ -137,7 +139,9 @@
     "continuar": "Continuar",
     "apagar": "Apagar",
     "semTexto": "(sem texto)",
-    "semAlt": "Uma imagem está sem descrição: quem usa leitor de tela não vai saber o que tem nela. Descreva, ou toque de novo para publicar assim."
+    "semAlt": "Uma imagem está sem descrição: quem usa leitor de tela não vai saber o que tem nela. Descreva, ou toque de novo para publicar assim.",
+    "naoDesfez": "Não deu para desfazer: o post já foi publicado. Se quiser, apague-o no menu do post.",
+    "rascunhosCheios": "Você já tem 20 rascunhos na conta: este fica só neste aparelho. Apague um para guardar na conta."
   },
   "direita": {
     "rotulo": "Na Alumia agora",
