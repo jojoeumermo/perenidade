@@ -244,3 +244,40 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
 /* Blocos da coluna da direita. */
 [data-al="2"] .al2-bloco { border-radius: var(--al-raio); background: var(--al-superficie); border: 1px solid var(--al-linha); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-bloco { border-color: var(--al-texto); }
+
+/* Na casca nova, a faixa escura "Voltar ao site" da moldura sai (a faixa tecida e o menu da conta fazem esse papel). */
+[data-al="2"] .alumia-moldura > nav:first-of-type { display: none; }
+
+/* Faixa dourada do próximo ato (prancha: "PRÓXIMO ATO … [2d] [04h]"). */
+[data-al="2"] .al2-faixa-ato { background: var(--al-dourado); color: var(--al-sobre-dourado); text-decoration: none; }
+[data-al="2"] .al2-faixa-ato .al-flap { background: var(--al-fundo); color: var(--al-dourado); }
+:root[data-eink] [data-al="2"] .al2-faixa-ato { background: #fff; color: #000; border-block: 2px solid #000; }
+:root[data-eink] [data-al="2"] .al2-faixa-ato .al-flap { background: #000; color: #fff; }
+
+/* "↑ 3 posts novos": pílula no meio da linha. */
+[data-al="2"] .al2-novos {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 40px; padding: 0 1rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte);
+  font-size: 0.8125rem; font-weight: 800; box-shadow: 0 4px 16px #0006;
+}
+[data-al="2"] .al2-novos-n { display: inline-grid; place-items: center; min-width: 1.3rem; height: 1.3rem; border-radius: 4px; background: var(--al-dourado); color: var(--al-sobre-dourado); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-novos { border-color: var(--al-texto); box-shadow: none; }
+
+/* O "+" da barra de baixo: quadrado vermelho de cantos redondos. */
+[data-al="2"] .al2-mais { background: var(--al-vermelho); color: var(--al-sobre-vermelho); border: 0; cursor: pointer; }
+:root[data-eink] [data-al="2"] .al2-mais { background: #000; color: #fff; }
+
+/* Abas da linha no celular: o traço vermelho ocupa a aba inteira. */
+@media (max-width: 1023px) {
+  [data-al="2"] .al2-aba { font-size: 1.05rem; min-height: 52px; }
+  [data-al="2"] .al2-aba[aria-selected="true"]::after { left: 0; right: 0; }
+}
+
+/* Os campos do pacote publicar (imagens, enquete, agendar) dentro do Escrever novo. */
+[data-al="2"] .al2-extras :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea) {
+  background: var(--al-superficie); color: var(--al-texto); border-color: var(--al-superficie-2); border-radius: 10px;
+}
+[data-al="2"] .al2-extras fieldset { border-color: var(--al-superficie-2); border-radius: 14px; }
+
+/* A conta no pé do menu. */
+[data-al="2"] .al2-conta[open] > summary { border-bottom: 0; }

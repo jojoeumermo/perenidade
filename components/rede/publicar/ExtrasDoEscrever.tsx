@@ -360,7 +360,7 @@ function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
 }
 
 /** Os campos do pacote publicar dentro do Escrever (enquete, imagens, áudio, prévia, quem responde, fio, agendamento, avisos). */
-export function ExtrasDoEscrever({ pub, resposta, lang }: { pub: PubDoEscrever; resposta: boolean; lang: string }) {
+export function ExtrasDoEscrever({ pub, resposta, lang, semQuemResponde = false }: { pub: PubDoEscrever; resposta: boolean; lang: string; /** A casca nova (alumia-2) mostra "Quem responde" como linha de escolha própria. */ semQuemResponde?: boolean }) {
   const { t } = pub;
   const [borrando, setBorrando] = useState<string | null>(null);
   const [erroImagem, setErroImagem] = useState("");
@@ -502,7 +502,7 @@ export function ExtrasDoEscrever({ pub, resposta, lang }: { pub: PubDoEscrever; 
         </div>
       )}
 
-      {!resposta && (
+      {!resposta && !semQuemResponde && (
         <label className="block text-sm">
           <span className="font-bold">{t.quem.rotulo}</span>
           <select className={`${campo} mt-1 min-h-11`} value={pub.respondeQuem} onChange={(e) => pub.setRespondeQuem(e.target.value as RespondeQuem)}>
