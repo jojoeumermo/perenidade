@@ -178,7 +178,7 @@ conferir("PAINEL-COMPONENTES: TanStack Table na versão 8", /"@tanstack\/react-t
 const capa = ler("components", "pagina", "Capa.tsx");
 for (const p of ["Capa", "Corpo", "Secao"]) conferir(`Capa.tsx exporta ${p} (DESENHO o descreve)`, new RegExp(`export function ${p}\\b`).test(capa));
 for (const tom of ["papel", "preto", "vermelho"]) conferir(`DESENHO descreve o tom ${tom}`, texto.desenho.includes(`\`${tom}\``) && capa.includes(`"${tom}"`));
-for (const rota of ["jogos", "vale-o-escrito", "imprensa", "territorios", "comunidade", "laboratorios/externos"]) conferir(`DESENHO cobre a rota ${rota} e ela existe`, texto.desenho.includes(rota) && existe("app", "[lang]", ...rota.split("/")));
+for (const rota of ["jogos", "vale-o-escrito", "imprensa", "territorios", "alumia", "laboratorios/externos"]) conferir(`DESENHO cobre a rota ${rota} e ela existe`, texto.desenho.includes(rota) && existe("app", "[lang]", ...rota.split("/")));
 for (const sec of ["Jogos", "Vale o Escrito", "Rede v2", "Territórios", "Imprensa", "Laboratórios abertos de fora", "O aplicativo", "O painel"]) conferir(`DESENHO tem a seção "${sec}"`, new RegExp(`^### ${sec}`, "m").test(texto.desenho));
 conferir("DESENHO: o Vale o Escrito é a exceção declarada e o CSS está sob .ve", texto.desenho.includes("único lugar do site fora da identidade") && /^\.ve\b/m.test(ler("styles", "vale-o-escrito.css")));
 conferir("DESENHO: o layout do Vale o Escrito responde 404 desligado", /notFound\(\)/.test(ler("app", "[lang]", "vale-o-escrito", "layout.tsx")));

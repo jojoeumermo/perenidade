@@ -399,7 +399,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
   const { dono, criarUsuario, rpc } = banco;
   const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
   const migracao = ler("supabase/migracoes/20261109-alumia-f0-contrato.sql");
-  ok("a migração NÃO está colada no install.sql (o integrador cola)", !ler("supabase/install.sql").includes("Alumia · Onda 5 · F0"));
+  ok("a migração está colada no fim do install.sql (o integrador colou)", ler("supabase/install.sql").includes("Alumia · Onda 5 · F0"));
   await espera("a migração instala sobre o install.sql", () => banco.exclusivo(() => banco.pg.exec(migracao)));
   await espera("e instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(migracao)));
   await espera("as colunas novas de rede_posts existem", async () => (await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'rede_posts' and column_name in ('expira_em', 'ato', 'como') order by 1")).rows.map((r) => r.column_name), (c) => c.join() === "ato,como,expira_em");

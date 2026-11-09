@@ -40,6 +40,8 @@
     "testar:fediverso-banco": "node scripts/testar-fediverso-banco.mjs",
     "testar:fediverso-saida": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-fediverso-saida.mjs",
     "testar:fediverso-entrada": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-fediverso-entrada.mjs",
+    "testar:alumia-rota": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-rota.mjs",
+    "testar:alumia-mosaico": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-mosaico.mjs",
     "testar:mural": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-mural-saude.mjs && node scripts/mural-saude-sincronizar.mjs --conferir",
     "mural:sincronizar": "node scripts/mural-saude-sincronizar.mjs",
     "testar:moderacao": "node scripts/testar-moderacao.mjs",

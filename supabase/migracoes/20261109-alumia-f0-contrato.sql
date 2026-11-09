@@ -205,8 +205,8 @@ begin
   if cardinality(v_lista) > 0 then
     v_titulos := E'\n\nConversas públicas com novidade:\n' || (select string_agg('- ' || t, E'\n') from unnest(v_lista) t);
   end if;
-  return jsonb_build_object('n', v_n, 'assunto', 'Seu resumo da semana na Rede Lúcia',
-    'texto', format(E'Nesta semana você teve %s %s na Rede Lúcia:\n%s%s\n\nAbrir os avisos:\n\n%s\n\nVocê recebe este resumo porque ligou, em Avisos → Preferências, a opção "Resumo semanal por e-mail". Ele leva só contagens e títulos de conversas públicas, nunca o texto de um post. Para desligar, entre em Avisos → Preferências.',
+  return jsonb_build_object('n', v_n, 'assunto', 'Seu resumo da semana na Alumia',
+    'texto', format(E'Nesta semana você teve %s %s na Alumia:\n%s%s\n\nAbrir os avisos:\n\n%s\n\nVocê recebe este resumo porque ligou, em Avisos → Preferências, a opção "Resumo semanal por e-mail". Ele leva só contagens e títulos de conversas públicas, nunca o texto de um post. Para desligar, entre em Avisos → Preferências.',
       v_n, case when v_n = 1 then 'aviso novo' else 'avisos novos' end, v_linhas, v_titulos, interno.endereco() || '/pt/alumia/avisos'));
 end $$;
 
