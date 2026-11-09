@@ -4,9 +4,10 @@
 // próprio perfil; para o resto, 404 (nunca existiu) ou 410 (desligou: as outras instâncias apagam o que tinham). Só sai o
 // codinome, o @nome, a bio pública e a chave PÚBLICA. Quem abre no navegador vai para a página do perfil.
 //
-// No modo total (fediverso-total): também a foto e a capa (só as aprovadas pela moderação, num endereço público estável), as
-// coleções "following" e "featured", o perfil trancado (manuallyApprovesFollowers) e a escolha da pessoa de aparecer no diretório
-// e na busca de texto (discoverable/indexable). Tudo vem da ação "ator" do banco (contrato 3.1).
+// No modo total (fediverso-total): também a foto e a capa (só o rosto e a capa da galeria, em PNG público; a imagem enviada pela
+// pessoa não sai sem consentimento próprio, LGPD art. 6º, III), a coleção "following", o perfil trancado
+// (manuallyApprovesFollowers) e a escolha da pessoa de aparecer no diretório e na busca de texto (discoverable/indexable). Tudo vem
+// da ação "ator" do banco (contrato 3.1).
 import { documentoDoAtor, documentoDoAtorSaindo, imagemDoBanco } from "@/lib/rede/fediverso/documentos";
 import { HANDLE_FED, modoTotal } from "@/lib/rede/fediverso/enderecos";
 import { conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
@@ -37,8 +38,8 @@ export async function GET(pedido: Request, { params }: { params: Promise<{ handl
     return respostaAP(
       documentoDoAtor(fed, {
         ...base,
-        avatar: imagemDoBanco(fed, handle, "avatar", x.avatar_url),
-        capa: imagemDoBanco(fed, handle, "capa", x.capa_url),
+        avatar: imagemDoBanco(fed, x.avatar_url),
+        capa: imagemDoBanco(fed, x.capa_url),
         discoverable: x.discoverable === true,
         trancado: x.trancado === true,
       }),
