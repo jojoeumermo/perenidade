@@ -7,7 +7,6 @@ import { fill, localePath, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
 import { corDaCapa } from "@/lib/capas";
-import { useLastLesson } from "@/lib/progress";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { normalize } from "@/lib/text";
 import { useI18n } from "./I18n";
@@ -52,8 +51,6 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
   const termos = normalize(busca).split(/\s+/).filter(Boolean);
   const filter: Filter = hydrated && (stored === "essencial" || stored === "revolucao" || (stages as readonly string[]).includes(stored)) ? (stored as Filter) : "todas";
   const options: [Filter, string][] = [["todas", s.filterAll], ["essencial", s.filterEssential], ["revolucao", s.filterRevolution], ...stages.map((stage): [Filter, string] => [stage, stageNames[stage]])];
-  // O caderno da última aula estudada leva o caquinho de azulejo na etiqueta (só um por estante).
-  const ultima = useLastLesson()?.area;
 
   const total = (card: DisciplineCard): [number, number] =>
     filter === "todas" || filter === "essencial" || filter === "revolucao" ? stages.reduce<[number, number]>((sum, stage) => [sum[0] + card.counts[stage][0], sum[1] + card.counts[stage][1]], [0, 0]) : card.counts[filter];
@@ -135,7 +132,6 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
                       <span className="line-clamp-2">{etapa}</span>
                     </span>
                     <span className="etiqueta relative mx-3 mt-4 ml-8 block px-3 py-2.5 sm:mr-5 sm:ml-9 sm:px-3.5 sm:py-3">
-                      {ultima === card.slug && <span aria-hidden className="caquinho-de-azulejo" />}
                       <span className="block text-[1.2rem] font-semibold leading-[1.05] sm:text-[1.5rem]">{card.name}</span>
                       <span className="mt-1 block line-clamp-3 text-[0.85rem] leading-snug text-[#5a4e3c] sm:text-[0.95rem]">{card.description}</span>
                     </span>
