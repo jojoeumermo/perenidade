@@ -715,6 +715,13 @@ O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente*
 | `20261106-t32-alumia-vitrine.sql` | Alumia: vitrine das comunidades com contagens da semana só agregadas, amostra para visitante e painel de semeadura |
 | `20261106-t19-rede-chat-privado.sql` | Alumia: chat privado entre maiores de 18, só entre participantes, nada federado (`docs/rede/CHAT-PRIVADO.md`) |
 | `20261107-t33-seguranca.sql` | auditoria de 7/11 (T33): resumo do IP com HMAC e segredo do banco, Revolucionários e inscrições militantes só para quem deve ver, confirmação por e-mail da inscrição militante, limites do chat privado da Alumia (`docs/AUDITORIA-2026-11-07.md`) |
+| `20261108-escola-formacao-base.sql` | Escola de Formação: base (degraus, percurso e caderneta); as outras da Escola de 08/11 rodam depois dela |
+| `20261108-escola-conquistas.sql` | Escola de Formação: conquistas e selos, mostrados na Alumia só com consentimento |
+| `20261108-escola-nucleo.sql` | Escola de Formação: núcleos de estudo |
+| `20261108-escola-frente.sql` | Escola de Formação: ligação com a Frente Revolucionária Lúcia |
+| `20261108-escola-aovivo.sql` | Escola de Formação: aulas ao vivo |
+| `20261109-escola-menos-metadados.sql` | Escola: menos metadados guardados (minimização, LGPD art. 6º, III) |
+| `20261109-fediverso-total.sql` | Alumia mesclada ao Fediverso (atrás de `fediverso-total`/`fediverso-grupos`): consentimento v2, o que sai, entrada de respostas, menções, curtidas, impulsos, Flag e Block, linha mista, circuito por domínio (`docs/plano-2026-11/PLANO-FEDIVERSO.md`) |
 
 **Migrações datadas (`AAAAMMDD-*.sql`)**: a partir de 6/11/2026 cada migração nova tem a data no nome e vai inteira para o fim do `install.sql`; os testes que conferem a ordem do fim tiram essas primeiro (`scripts/install-posteriores.mjs`). Todas podem rodar mais de uma vez.
 

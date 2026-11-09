@@ -116,7 +116,7 @@ for (const v of ["NEXT_PUBLIC_GALENE_URL", "GALENE_JWT_KEY", "REDE_PREVIA_SEGRED
 conferir("HOSPEDAGEM: o aviso sobre a rotina producao.yml é verdadeiro (repassa GALENE e VAPID públicas à montagem)", /NEXT_PUBLIC_GALENE_URL/.test(ler(".github/workflows/producao.yml")) && /NEXT_PUBLIC_VAPID_PUBLIC_KEY/.test(ler(".github/workflows/producao.yml")) && /repassa à montagem da imagem `NEXT_PUBLIC_GALENE_URL`/.test(texto.hospedagem));
 conferir("HOSPEDAGEM: portas e tag do Galène batem com a máquina da sala", ["10000", "1194", "galene-1.2.1"].every((x) => texto.hospedagem.includes(x) && (ler("infra/aula-ao-vivo/docker-compose.yml") + ler("infra/aula-ao-vivo/.env.exemplo")).includes(x)));
 conferir("HOSPEDAGEM: token da sala de 90 segundos", /90 segundos/.test(texto.hospedagem) && /90/.test(ler("lib/aula-sala.ts")));
-conferir("HOSPEDAGEM: o recurso do Vale o Escrito só liga pelo nome", /vale-o-escrito/.test(texto.hospedagem) && ler("lib/recursos.ts").includes('SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2"]'));
+conferir("HOSPEDAGEM: o recurso do Vale o Escrito só liga pelo nome", /vale-o-escrito/.test(texto.hospedagem) && ler("lib/recursos.ts").includes('SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2"'));
 
 // 5. MANUTENÇÃO: rotinas, migrações, testes e o limite do rastreio.
 const rotinas = fs.readdirSync(caminho(".github", "workflows")).filter((f) => f.endsWith(".yml"));

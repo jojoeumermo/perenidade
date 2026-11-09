@@ -23341,7 +23341,8 @@ insert into interno.recursos_catalogo (nome, so_pelo_nome) values
   ('guia-contribuir', false), ('pratica-sem-placar', false), ('enem-video', false), ('enem-curso', false),
   ('escola', true), ('vale-o-escrito', true), ('rede-v2', true),
   ('turmas', false), -- em pausa (T08): "todos" não liga (lib/recursos.ts, EM_PAUSA); ligar pelo painel vale na hora
-  ('assistente-publico', false) -- T03: o assistente em todo o site, sem conta (app/api/assistente); ligado por padrão
+  ('assistente-publico', false), -- T03: o assistente em todo o site, sem conta (app/api/assistente); ligado por padrão
+  ('fediverso-total', true), ('fediverso-grupos', true) -- Alumia mesclada ao Fediverso (PLANO-FEDIVERSO): só pelo nome, desligadas
 on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;
 
 /** O que a coordenação decidiu pelo painel. Linha existe = decisão explícita (ligado true liga, false desliga). */

@@ -35,10 +35,17 @@ export const fed: EnderecosDaFederacao = enderecosDaFederacao();
 // Até a junção com F5 (que as põe em lib/recursos.ts), só ligam com o nome escrito na lista: "todos" NÃO as liga. Quando entrarem
 // em RECURSOS, vale ligado() (e elas precisam estar em SO_PELO_NOME, para "todos" continuar sem ligá-las).
 export type ChaveDaFederacao = "fediverso-total" | "fediverso-grupos";
+// A lista da montagem, lida uma vez como lib/recursos.ts faz: serve para saber se foi o painel que decidiu.
+const LISTA_DA_MONTAGEM = lerRecursos(process.env.NEXT_PUBLIC_RECURSOS);
 export function recursoDaFederacao(nome: ChaveDaFederacao): boolean {
-  if (nome in RECURSOS) return ligado(nome as Recurso);
-  const lista = lerRecursos(process.env.NEXT_PUBLIC_RECURSOS);
-  return lista.has(nome) && !lista.has(`-${nome}`);
+  const agora = lerRecursos(process.env.NEXT_PUBLIC_RECURSOS);
+  if (!(nome in RECURSOS)) return agora.has(nome) && !agora.has(`-${nome}`);
+  const r = nome as Recurso;
+  // Se o painel ligou ou desligou (o resultado geral difere do que a montagem sozinha daria), vale o painel. Senão vale a lista
+  // lida agora: em produção é a mesma da montagem; nos testes, que trocam a variável no meio, desligar a chave desliga de verdade.
+  const geral = ligado(r);
+  if (geral !== ligado(r, LISTA_DA_MONTAGEM)) return geral;
+  return ligado(r, agora);
 }
 export const modoTotal = () => recursoDaFederacao("fediverso-total");
 export const gruposLigados = () => modoTotal() && recursoDaFederacao("fediverso-grupos");

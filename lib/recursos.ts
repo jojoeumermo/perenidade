@@ -36,6 +36,8 @@ export const RECURSOS = {
   "vale-o-escrito": "Vale o Escrito: observatório de crimes de interesse público já em fonte pública (teia, mapa, dossiês, envio de fonte e correção)",
   "rede-v2": "Alumia (Rede v2): Rede e Fórum numa só (posts curtos, discussões, dúvidas, enquetes), comunidades com página própria, perfil com @nome, endereços de post, perfil e comunidade",
   turmas: "Turmas: as turmas por curso da Escola (/escola/turmas) e a Turma do mês (/turmas). Em pausa até haver gente para acompanhar",
+  "fediverso-total": "Alumia mesclada ao Fediverso: todo perfil que consentiu federa, posts públicos saem, respostas, menções, curtidas e impulsos de fora entram no mesmo feed e nos mesmos avisos (docs/plano-2026-11/PLANO-FEDIVERSO.md)",
+  "fediverso-grupos": "Comunidades abertas da Alumia como Group do Fediverso (Lemmy); só vale com fediverso-total ligado",
   "assistente-publico": "Assistente de IA aberto, sem conta (/api/assistente), usado pelo reforço e pelas ferramentas de estudo: IAs gratuitas em rodízio e limite por pessoa sem guardar o IP. O botão \"?\" das páginas não usa IA: são perguntas frequentes prontas",
 } as const;
 
@@ -66,7 +68,7 @@ export const PADRAO: readonly Recurso[] = [
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */
-export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2"];
+export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2", "fediverso-total", "fediverso-grupos"];
 
 /**
  * Recursos EM PAUSA: prontos e testados, mas desligados por decisão da coordenação (T08, 06/11/2026: "deixa desativado pelo
