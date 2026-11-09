@@ -284,3 +284,12 @@
 [data-al="2"] .al3-tela :is(input, select, textarea) { background: var(--al-superficie); color: var(--al-texto); border-color: var(--al-superficie-2); }
 [data-al="2"] .al3-tela :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-tela :is(.border-rule, .rounded-xl.border) { border-color: var(--al-texto); }
+
+/* A banca de conferência da F3 (só na prévia, /alumia/comunidades/prancha-f3): meio e coluna como na prancha do computador. */
+[data-al="2"] .al3-banca { display: grid; grid-template-columns: minmax(0, 1fr); }
+[data-al="2"] .al3-banca-coluna { display: none; }
+@media (min-width: 1024px) {
+  [data-al="2"] .al3-banca { grid-template-columns: minmax(0, 600px) 300px; justify-content: center; gap: 0 22px; }
+  [data-al="2"] .al3-banca-meio { border-inline: 1px solid var(--al-linha); }
+  [data-al="2"] .al3-banca-coluna { display: grid; align-content: start; gap: 1.6rem; padding-top: 1.2rem; }
+}
