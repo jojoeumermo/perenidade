@@ -63,7 +63,7 @@
     "publicoAjuda": {
       "seguidores": "Only people who follow you.",
       "membros": "Everyone in Alumia.",
-      "proximos": "Only your close ones list."
+      "proximos": "Only people you follow who follow you back."
     },
     "regra": "Gone in 24 h. Doesn't go to the Fediverse. Nobody sees who watched.",
     "galeria": "Gallery",
