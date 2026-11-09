@@ -17,8 +17,9 @@ import { Mosaico } from "../mosaico/Mosaico";
 import { Botao } from "../ui/Botao";
 import { Carimbo } from "../ui/Carimbo";
 import { Pilula } from "../ui/Pilula";
+import { Abas } from "./Abas";
 import { type AcoesDaOrg, BlocoDaPlenaria, CartaoDaConsulta, ComoVotamos, NucleosDaOrg } from "./Blocos";
-import { SeloDaOrg } from "./partes";
+import { SeloDaOrg, SeloPequeno } from "./partes";
 import "./org.css";
 
 export interface PropsDoPerfilDaOrg {
@@ -154,30 +155,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
             </section>
           ) : null}
 
-          <div ref={abasRef} className="al-abas" role="tablist" aria-label={preencher(tp.abas.rotulo, { codinome: org.codinome })}>
-            {ABAS_DA_ORG.map((a) => (
-              <button
-                key={a}
-                type="button"
-                role="tab"
-                id={`${id}-aba-${a}`}
-                aria-selected={aba === a}
-                aria-controls={`${id}-painel`}
-                tabIndex={aba === a ? 0 : -1}
-                className="al-aba"
-                onClick={() => setAba(a)}
-                onKeyDown={(e) => {
-                  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-                  const i = ABAS_DA_ORG.indexOf(aba);
-                  const n = ABAS_DA_ORG[(i + (e.key === "ArrowRight" ? 1 : ABAS_DA_ORG.length - 1)) % ABAS_DA_ORG.length];
-                  setAba(n);
-                  document.getElementById(`${id}-aba-${n}`)?.focus();
-                }}
-              >
-                {tp.abas[a]}
-              </button>
-            ))}
-          </div>
+          <Abas ref={abasRef} id={id} abas={ABAS_DA_ORG} atual={aba} aoMudar={setAba} rotulos={tp.abas} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
           <div id={`${id}-painel`} role="tabpanel" aria-labelledby={`${id}-aba-${aba}`} className="al-painel">
             {painel[aba]}
           </div>
@@ -227,13 +205,15 @@ export function ListaDeAtos({ atos, t, lang }: { atos: { id: string; nome: strin
 }
 
 /** Os posts de exemplo (aba Posts do perfil de exemplo). */
-export function PostsDeExemplo({ posts, org }: { posts: { id: string; quando: string; comunidade: string; cor: 1 | 2 | 3 | 4 | 5; texto: string }[]; org: OrgPublica }) {
+export function PostsDeExemplo({ posts, org, t, lang }: { posts: { id: string; quando: string; comunidade: string; cor: 1 | 2 | 3 | 4 | 5; texto: string }[]; org: OrgPublica; t: Pick<TextosDaOrg, "selo">; lang: string }) {
   return (
     <ul className="al-lista-simples">
       {posts.map((p) => (
         <li key={p.id}>
           <span className="al-post-exemplo-topo">
-            <b>{org.codinome}</b> @{org.handle} · {p.quando}
+            <b>{org.codinome}</b>
+            {org.verificadaEm ? <SeloPequeno t={t} lang={lang} /> : null}
+            <span>@{org.handle} · {p.quando}</span>
             <Pilula texto={p.comunidade} cor={p.cor} />
           </span>
           <p className="al-post-exemplo-texto">{p.texto}</p>

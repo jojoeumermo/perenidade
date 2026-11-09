@@ -16,7 +16,7 @@ import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Linha } from "../Linha";
-import { alumia2Ligada } from "@/lib/rede/rotas-novas";
+import { orgLigada } from "@/lib/rede/org/flag";
 import { Avatar } from "./Avatar";
 import PerfilDaAlumia2 from "./PerfilDaAlumia2";
 import { useTextosDoPerfil } from "./useTextos";
@@ -37,8 +37,9 @@ function lerUltimaAula(): unknown {
  * nada do nome civil. No próprio perfil: editar, pedidos pendentes e a atualização do "estudando agora" se estiver ligado.
  */
 export default function TelaDoPerfil(props: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
-  // Alumia nova ("rede-v2" + "alumia-2"): perfil com abas e, com "alumia-org", o perfil de organização. Desligada, a tela de hoje.
-  if (alumia2Ligada()) return <PerfilDaAlumia2 {...props} />;
+  // O perfil novo (abas, extras e o perfil de organização) é da F4: só com "rede-v2" + "alumia-2" + "alumia-org". Com qualquer
+  // uma delas desligada, a tela de hoje (a frente pode ser desligada sozinha).
+  if (orgLigada()) return <PerfilDaAlumia2 {...props} />;
   return <TelaDoPerfilDeHoje {...props} />;
 }
 

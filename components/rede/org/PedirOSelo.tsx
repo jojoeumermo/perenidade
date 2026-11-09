@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
 import { redeOrg } from "@/lib/rede/cliente-org";
@@ -29,6 +29,8 @@ export function PedirOSelo({ lang }: { lang: string }) {
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [feito, setFeito] = useState(false);
+  const id = useId();
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     let vivo = true;
@@ -57,13 +59,20 @@ export function PedirOSelo({ lang }: { lang: string }) {
     regras: tp.regras,
     docPessoal: tp.documento,
   };
+  // A ajuda do campo sempre ligada a ele; com erro naquele campo, a mensagem de erro também (anunciada junto ao campo).
+  const errado = (campo: FaltaNoPedido | "regras") => falta === campo || (campo === "documento" && falta === "docPessoal");
+  const descricao = (campo: "codinome" | "handle" | "cidade" | "documento") => `${id}-${campo}${errado(campo) ? ` ${id}-erro` : ""}`;
   const mudar = <K extends keyof PedidoDeSelo>(k: K, v: PedidoDeSelo[K]) => setP((x) => ({ ...x, [k]: v }));
 
   async function mandar() {
     const f = conferirPedido(p) ?? (regras ? null : "regras");
     setFalta(f);
     setErro("");
-    if (f) return;
+    if (f) {
+      // O foco vai ao campo com problema (o leitor de tela anuncia o campo e o erro ligado a ele), não ao fim do formulário.
+      requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
+      return;
+    }
     setOcupado(true);
     try {
       await redeOrg.pedirSelo({ ...p, codinome: p.codinome.trim(), cidade: p.cidade.trim(), documento: p.documento.trim(), sobre: p.sobre.trim() });
@@ -94,7 +103,10 @@ export function PedirOSelo({ lang }: { lang: string }) {
             <p className="al-perfil-bio" style={{ width: "100%" }}>
               {tp.entre}
             </p>
-            <LinkBotao href={`${enderecosDaOrg.entrar(lang)}/selo`} variante="primario">
+            <LinkBotao href={`${enderecosDaOrg.entrar(lang, true)}/selo`} variante="primario">
+              {t.pagina.criarConta}
+            </LinkBotao>
+            <LinkBotao href={`${enderecosDaOrg.entrar(lang)}/selo`} variante="contorno">
               {tp.entrar}
             </LinkBotao>
           </div>
@@ -104,6 +116,7 @@ export function PedirOSelo({ lang }: { lang: string }) {
           </p>
         ) : (
           <form
+            ref={formRef}
             className="al-form"
             style={{ marginTop: 16 }}
             noValidate
@@ -114,8 +127,8 @@ export function PedirOSelo({ lang }: { lang: string }) {
           >
             <label className="al-campo">
               <span>{tp.codinome}</span>
-              <input className="al-entrada" value={p.codinome} maxLength={60} onChange={(e) => mudar("codinome", e.target.value)} aria-invalid={falta === "codinome"} />
-              <small>{tp.codinomeAjuda}</small>
+              <input className="al-entrada" value={p.codinome} maxLength={60} onChange={(e) => mudar("codinome", e.target.value)} aria-invalid={falta === "codinome"} aria-describedby={descricao("codinome")} />
+              <small id={`${id}-codinome`}>{tp.codinomeAjuda}</small>
             </label>
             <label className="al-campo">
               <span>{tp.handle}</span>
@@ -127,8 +140,9 @@ export function PedirOSelo({ lang }: { lang: string }) {
                 spellCheck={false}
                 onChange={(e) => mudar("handle", e.target.value.toLowerCase().replace(/^@/, ""))}
                 aria-invalid={falta === "handle"}
+                aria-describedby={descricao("handle")}
               />
-              <small>{tp.handleAjuda}</small>
+              <small id={`${id}-handle`}>{tp.handleAjuda}</small>
             </label>
             <label className="al-campo">
               <span>{tp.tipo}</span>
@@ -142,8 +156,8 @@ export function PedirOSelo({ lang }: { lang: string }) {
             </label>
             <label className="al-campo">
               <span>{tp.cidade}</span>
-              <input className="al-entrada" value={p.cidade} maxLength={60} onChange={(e) => mudar("cidade", e.target.value)} aria-invalid={falta === "cidade"} />
-              <small>{tp.cidadeAjuda}</small>
+              <input className="al-entrada" value={p.cidade} maxLength={60} onChange={(e) => mudar("cidade", e.target.value)} aria-invalid={falta === "cidade"} aria-describedby={descricao("cidade")} />
+              <small id={`${id}-cidade`}>{tp.cidadeAjuda}</small>
             </label>
             <label className="al-campo">
               <span>{tp.docTipo}</span>
@@ -163,24 +177,25 @@ export function PedirOSelo({ lang }: { lang: string }) {
                 maxLength={LIMITES.documento}
                 onChange={(e) => mudar("documento", e.target.value)}
                 aria-invalid={falta === "documento" || falta === "docPessoal"}
+                aria-describedby={descricao("documento")}
               />
-              <small>{tp.documentoAjuda}</small>
+              <small id={`${id}-documento`}>{tp.documentoAjuda}</small>
             </label>
             <label className="al-campo">
               <span>{tp.sobre}</span>
-              <textarea className="al-entrada" value={p.sobre} maxLength={LIMITES.sobre} onChange={(e) => mudar("sobre", e.target.value)} aria-invalid={falta === "sobre"} />
+              <textarea className="al-entrada" value={p.sobre} maxLength={LIMITES.sobre} onChange={(e) => mudar("sobre", e.target.value)} aria-invalid={falta === "sobre"} aria-describedby={falta === "sobre" ? `${id}-erro` : undefined} />
             </label>
             <label className="al-marcar">
-              <input type="checkbox" checked={p.maior} onChange={(e) => mudar("maior", e.target.checked)} />
+              <input type="checkbox" checked={p.maior} onChange={(e) => mudar("maior", e.target.checked)} aria-invalid={falta === "maior"} aria-describedby={falta === "maior" ? `${id}-erro` : undefined} />
               <span>{tp.maior}</span>
             </label>
             <label className="al-marcar">
-              <input type="checkbox" checked={regras} onChange={(e) => setRegras(e.target.checked)} />
+              <input type="checkbox" checked={regras} onChange={(e) => setRegras(e.target.checked)} aria-invalid={falta === "regras"} aria-describedby={falta === "regras" ? `${id}-erro` : undefined} />
               <span>{tp.regras}</span>
             </label>
             <p className="al-perfil-nota">{tp.privacidade}</p>
             {falta ? (
-              <p className="al-perfil-erro" role="alert">
+              <p id={`${id}-erro`} className="al-perfil-erro" role="alert">
                 {falta === "docPessoal" ? tp.docPessoal : preencher(tp.faltou, { campo: rotulos[falta] })}
               </p>
             ) : null}
