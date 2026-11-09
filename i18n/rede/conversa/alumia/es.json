@@ -18,7 +18,8 @@
     "respostaUma": "1 respuesta",
     "orgVerificada": "organización verificada",
     "orgRegra": "El sello dice que la cuenta es de quien dice ser, comprobada con un documento público. No es apoyo del Instituto Lúcia.",
-    "previa": "Vista previa con datos de ejemplo: nada aquí es real."
+    "previa": "Vista previa con datos de ejemplo: nada aquí es real.",
+    "maisDoPost": "Más acciones del post de {codinome}"
   },
   "comunidade": {
     "mais": "Más opciones de la comunidad",
@@ -48,7 +49,7 @@
     "discutir": "Debatir esta clase aquí",
     "tipo": "Cómo se entra",
     "regrasTitulo": "Reglas",
-    "moderacao": "Quién modera (seudónimos)",
+    "moderacao": "Moderación",
     "etiquetas": "Etiquetas",
     "pedidos": "{n} solicitud(es) esperando a la moderación",
     "entrar": "Entrar",
@@ -60,7 +61,12 @@
     "entreNaAlumia": "Entra en Alumia para participar en esta comunidad.",
     "entrou": "Entraste en la comunidad.",
     "saiu": "Saliste de la comunidad.",
-    "pediu": "Pedido enviado a la moderación."
+    "pediu": "Pedido enviado a la moderación.",
+    "moderadaPor": "Moderada por {n} personas, todas con seudónimo. No mostramos quién: así nadie se vuelve blanco por cuidar este lugar.",
+    "moderadaPoucas": "Moderada por pocas personas, todas con seudónimo. No mostramos quién: así nadie se vuelve blanco por cuidar este lugar.",
+    "falarModeracao": "Hablar con la moderación",
+    "entrarNaAlumia": "Entrar en Alumia",
+    "soConvite": "Esta comunidad es solo por invitación: la moderación invita a quien entra."
   },
   "conversa": {
     "titulo": "Conversación",
