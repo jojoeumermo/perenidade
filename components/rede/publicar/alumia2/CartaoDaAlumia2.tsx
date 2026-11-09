@@ -7,11 +7,10 @@ import { localePath } from "@/i18n/config";
 import { rede } from "@/lib/rede/cliente";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
-import { enderecoParaCompartilhar, servidorDoFediverso } from "@/lib/rede/publicar/alumia2";
+import { enderecoParaCompartilhar, servidorDoFediverso, tempoCurto } from "@/lib/rede/publicar/alumia2";
 import { enqueteDeExemplo } from "@/lib/rede/publicar/exemplos-alumia2";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Post } from "@/lib/rede/tipos";
-import { quandoFoi } from "../../CartaoDePost";
 import { TextoComMencoes } from "../../conversa/TextoComMencoes";
 import { TextoComTags } from "../../descoberta/TextoComTags";
 import { ENCAIXES } from "../../encaixes";
@@ -30,6 +29,12 @@ export function faltaNoBanco(e: unknown): boolean {
   const c = codigoDoErro(e);
   return c.includes("desatualizado") || c === "PGRST202" || c === "42883";
 }
+
+/**
+ * O Repostar depende de rede_pub_repostar, que só chega com a migração 20261109-alumia-f1. Na primeira vez que o banco diz que
+ * ela não existe, o botão fica desativado em todos os cartões desta página (com o porquê no title), em vez de dar erro a cada toque.
+ */
+let repostarForaDoBanco = false;
 
 /** Post de exemplo da prévia (ids "exemplo-…"): as ações mudam só na tela, nada vai ao banco. */
 const deExemplo = (id: string) => id.startsWith("exemplo-");
@@ -60,6 +65,7 @@ export function CartaoDaAlumia2({
   const al2 = useAlumia2();
   const [post, setPost] = useState(inicial);
   const [repostei, setRepostei] = useState(false);
+  const [semRepostar, setSemRepostar] = useState(repostarForaDoBanco);
   const [erro, setErro] = useState("");
   const [nota, setNota] = useState("");
   const [ocupado, setOcupado] = useState(false);
@@ -117,8 +123,16 @@ export function CartaoDaAlumia2({
     acao(async () => {
       const quer = !repostei;
       if (exemplo) return setRepostei(quer);
-      const r = await redePub.repostar(post.id, quer);
-      setRepostei(r.repostei);
+      try {
+        const r = await redePub.repostar(post.id, quer);
+        setRepostei(r.repostei);
+      } catch (e) {
+        if (faltaNoBanco(e)) {
+          repostarForaDoBanco = true;
+          setSemRepostar(true);
+        }
+        throw e;
+      }
     });
   const compartilhar = () =>
     acao(async () => {
@@ -172,7 +186,7 @@ export function CartaoDaAlumia2({
           )}
           <span aria-hidden>·</span>
           <Link href={caminhoDoPost} className="hover:underline">
-            <time dateTime={post.criado_em}>{quandoFoi(post.criado_em, lang)}</time>
+            <time dateTime={post.criado_em}>{tempoCurto(post.criado_em, lang)}</time>
           </Link>
           {post.editado_em && <span>({s.post.editado})</span>}
         </div>
@@ -258,7 +272,7 @@ export function CartaoDaAlumia2({
             </Link>
           )}
           {logado && (
-            <button type="button" className="al2-acao" aria-pressed={repostei} disabled={ocupado} onClick={() => void repostar()}>
+            <button type="button" className="al2-acao" aria-pressed={repostei} disabled={ocupado || (semRepostar && !exemplo)} title={semRepostar && !exemplo ? t.cartao.indisponivel : undefined} onClick={() => void repostar()}>
               <Icone nome="repostar" className="h-[18px] w-[18px]" />
               <span className="max-[420px]:sr-only">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
             </button>

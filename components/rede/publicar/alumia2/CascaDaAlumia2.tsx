@@ -130,7 +130,8 @@ export function CascaDaAlumia2({
       <a href="#rede-linha" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-[var(--al-fundo)] focus:p-2">{s.casca.saltarParaConteudo}</a>
       <div className="mx-auto grid max-w-[1280px] grid-cols-[minmax(0,1fr)] pb-[calc(4.75rem+var(--recuo-baixo,0px))] lg:grid-cols-[250px_minmax(0,600px)_300px] lg:justify-center lg:pb-0 xl:grid-cols-[290px_minmax(0,600px)_330px]">
         {/* ───── Menu (computador) ───── */}
-        <aside className="hidden border-r border-[var(--al-linha)] px-5 lg:block" aria-label={t.menu.principal}>
+        {/* Sem rótulo próprio: o ponto de referência é o <nav> dentro (dois rótulos iguais confundem o leitor de tela). */}
+        <div className="hidden border-r border-[var(--al-linha)] px-5 lg:block">
           <div className="sticky top-0 flex min-h-[calc(100vh-6px)] flex-col py-6">
             <Link href={enderecos.linha(lang)} className="flex items-center gap-3 px-2" aria-label={t.marca.inicio}>
               <Lampiao tamanho={34} />
@@ -206,10 +207,10 @@ export function CascaDaAlumia2({
               </button>
             </div>
           </div>
-        </aside>
+        </div>
 
         {/* ───── Coluna do meio ───── */}
-        <main id="rede-linha" className="min-w-0 border-[var(--al-linha)] lg:border-r" aria-label={t.marca.nome}>
+        <main id="rede-linha" className="min-w-0 border-[var(--al-linha)] lg:border-r" aria-label={t.linha.titulo}>
           {/* Celular: marca, busca, avisos e Sair rápido no alto (prancha celular-inicio). */}
           <header className="flex items-center gap-2 px-4 pb-1 pt-4 lg:hidden">
             <Link href={enderecos.linha(lang)} className="flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio}>
@@ -331,19 +332,20 @@ function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; situacao:
     : [];
   return (
     <details className="al2-conta group rounded-xl border border-[var(--al-linha)] bg-[var(--al-superficie)]">
-      <summary className="flex cursor-pointer list-none items-center gap-3 p-3 [&::-webkit-details-marker]:hidden" aria-label={t.conta.abrir}>
+      <summary className="flex cursor-pointer list-none items-center gap-3 p-3 [&::-webkit-details-marker]:hidden">
         {situacao.logado ? (
           <>
             <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={36} className="shrink-0" />
             <span className="min-w-0 flex-1 leading-tight">
               <span className="block truncate text-[0.9375rem] font-extrabold">{situacao.codinome ?? t.conta.visitante}</span>
-              {situacao.handle && <span className="block truncate text-[0.75rem] text-[var(--al-texto-3)]">{enderecoNoFediverso(situacao.handle).slice(1)}</span>}
+              {situacao.handle && <span className="block break-all text-[0.75rem] text-[var(--al-texto-3)]">{enderecoNoFediverso(situacao.handle).slice(1)}</span>}
             </span>
           </>
         ) : (
           <span className="flex-1 text-[0.9375rem] font-extrabold">{t.conta.visitante}</span>
         )}
         <Icone nome="pontos" className="h-5 w-5 shrink-0 text-[var(--al-texto-3)]" />
+        <span className="sr-only">{t.conta.abrir}</span>
       </summary>
       <div className="space-y-1 border-t border-[var(--al-linha)] p-2 text-sm">
         <Link href={enderecoDoSite(lang)} className="al2-acao w-full justify-start">{t.conta.voltarAoSite}</Link>

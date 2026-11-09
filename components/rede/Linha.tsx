@@ -12,7 +12,6 @@ import { textoDoErro } from "./erros";
 import { EsqueletoDaLinha } from "./Esqueletos";
 import { useAlumia2 } from "./publicar/alumia2/contexto";
 import { Icone } from "./publicar/alumia2/icones";
-import { postsDeExemplo } from "@/lib/rede/publicar/exemplos-alumia2";
 
 /** De quanto em quanto tempo se pergunta "N novos" (só com a página à vista; nada de tempo real por enquanto). */
 const ESPERA_DOS_NOVOS_MS = 60_000;
@@ -66,7 +65,8 @@ export function Linha({
     // O instante é o de antes do pedido: o que chegar durante a espera ainda conta como novo.
     const antes = new Date().toISOString();
     // Prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): os posts das pranchas, nunca misturados com os de verdade; "3 posts novos".
-    const pedido = previa ? Promise.resolve({ itens: postsDeExemplo(), proximo: null }) : rede.linha(aba, null, 20);
+    // Os exemplos só são baixados na prévia (import sob demanda): fora dela, não pesam no pacote da Rede de hoje.
+    const pedido = previa ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({ itens: m.postsDeExemplo(), proximo: null })) : rede.linha(aba, null, 20);
     pedido
       .then((r) => {
         if (!vivo) return;

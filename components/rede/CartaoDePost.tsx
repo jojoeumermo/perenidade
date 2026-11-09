@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "@/components/Link";
 import { useState } from "react";
 import { localePath } from "@/i18n/config";
@@ -14,7 +15,6 @@ import { textoDoErro } from "./erros";
 import { AcoesDeCuidado, RotuloDoPost } from "./moderacao/NoCartao";
 import { Avatar } from "./perfil/Avatar";
 import { Complementos } from "./publicar/Complementos";
-import { CartaoDaAlumia2 } from "./publicar/alumia2/CartaoDaAlumia2";
 import { useAlumia2 } from "./publicar/alumia2/contexto";
 
 /** "há 3 min", "há 2 h", "há 5 d" no idioma da página; depois de um mês, a data. */
@@ -42,6 +42,9 @@ export function corDaComunidade(slug: string): string {
 }
 
 /** Os ícones das ações do cartão (desenho próprio, traço de 24 px). O rótulo em texto continua ao lado. */
+// O cartão da Alumia nova só é baixado com a flag "alumia-2" ligada (quem usa é a casca nova): fora dela, nada muda no pacote.
+const CartaoDaAlumia2 = dynamic(() => import("./publicar/alumia2/CartaoDaAlumia2").then((m) => m.CartaoDaAlumia2));
+
 const ICONES = {
   respostas: "M4 5h16v11H10l-4.5 4v-4H4z",
   responder: "M10 8 5 12.5l5 4.5M5.5 12.5H14a5 5 0 0 1 5 5V19",

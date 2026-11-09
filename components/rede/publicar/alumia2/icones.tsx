@@ -32,6 +32,7 @@ export const ICONES = {
   pontos: "M5 12h.01M12 12h.01M19 12h.01",
   fechar: "M6 6l12 12M18 6 6 18",
   ponto: "M12 12h.01",
+  cadeado: "M7.5 11V8a4.5 4.5 0 0 1 9 0v3M5.5 11h13v9.5h-13zM12 14.5v2.5",
 } as const;
 
 export type NomeDoIcone = keyof typeof ICONES;

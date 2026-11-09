@@ -10,7 +10,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   contagemDePessoas, diaEMes, enderecoNoFediverso, enderecoParaCompartilhar, LIMITE_DE_RASCUNHOS, porcentagensDaEnquete, previaLigada,
-  rascunhosValidos, rascunhoTemTexto, segundosQueFaltam, SEGUNDOS_PARA_DESFAZER, servidorDoFediverso, tipoDoBanco, tipoDoRascunho,
+  quandoDoChamado, rascunhosValidos, rascunhoTemTexto, segundosQueFaltam, SEGUNDOS_PARA_DESFAZER, servidorDoFediverso, tempoCurto, tipoDoBanco,
+  tipoDoRascunho,
 } from "../lib/rede/publicar/alumia2.ts";
 import { ATOS_PERTO_DE_EXEMPLO, COMUNIDADES_DE_EXEMPLO, enqueteDeExemplo, PLENARIA_DE_EXEMPLO, postsDeExemplo, SITUACAO_DE_EXEMPLO } from "../lib/rede/publicar/exemplos-alumia2.ts";
 
@@ -91,6 +92,23 @@ igual("rascunho de ato fica ato", tipoDoRascunho("ato"), "ato");
   ok("mês curto em maiúsculas", d && /^[A-Z]{3}/.test(d.mes));
   igual("data ruim", diaEMes("x", "pt"), null);
 }
+{
+  // O tempo curto das pranchas ("12 min", sem "há") e o quando do chamado ("amanhã, 11h").
+  const agora = new Date(2026, 10, 9, 10, 0).getTime();
+  const antes = (ms) => new Date(agora - ms).toISOString();
+  igual("12 min", tempoCurto(antes(12 * 60_000), "pt", agora), "12 min");
+  igual("menos de 1 min vira 1 min", tempoCurto(antes(5_000), "pt", agora), "1 min");
+  igual("3 h", tempoCurto(antes(3 * 3_600_000), "pt", agora), "3 h");
+  igual("2 dias", tempoCurto(antes(2 * 86_400_000), "pt", agora), "2 dias");
+  ok("de uma semana para trás, o dia", /^20 out/.test(tempoCurto(antes(20 * 86_400_000), "pt", agora)));
+  ok("sem 'há'", !tempoCurto(antes(12 * 60_000), "pt", agora).includes("há"));
+  igual("tempo de data ruim", tempoCurto("x", "pt", agora), "");
+  igual("chamado amanhã, 11h", quandoDoChamado(new Date(2026, 10, 10, 11, 0).toISOString(), "pt", agora), "amanhã, 11h");
+  igual("chamado hoje, 18h30", quandoDoChamado(new Date(2026, 10, 9, 18, 30).toISOString(), "pt", agora), "hoje, 18h30");
+  igual("chamado na semana: o dia da semana", quandoDoChamado(new Date(2026, 10, 13, 18, 0).toISOString(), "pt", agora), "sex, 18h");
+  ok("chamado em inglês: tomorrow", quandoDoChamado(new Date(2026, 10, 10, 11, 0).toISOString(), "en", agora).startsWith("tomorrow"));
+  for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) ok(`tempo curto em ${l}`, tempoCurto(antes(12 * 60_000), l, agora).includes("12"));
+}
 
 // ── Prévia: só com "sim", e os exemplos seguem a seção 6 ──
 ok("prévia desligada sem a variável", !previaLigada(undefined));
@@ -134,7 +152,13 @@ ok("sem o contexto, o Escrever de hoje", /escrevendo && pode && !contexto2 && \(
 const cartao = ler("components/rede/CartaoDePost.tsx");
 ok("cartão novo só com o contexto", /al2 \? <CartaoDaAlumia2 \{\.\.\.props\} \/> : <CartaoClassico \{\.\.\.props\} \/>/.test(cartao));
 const linha = ler("components/rede/Linha.tsx");
-ok("a linha só usa exemplo na prévia", /previa \? Promise\.resolve\(\{ itens: postsDeExemplo\(\)/.test(linha));
+ok("a linha só usa exemplo na prévia", linha.includes('previa ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({ itens: m.postsDeExemplo()'));
+// Desligada, nada da Alumia nova vai no pacote da Rede de hoje: as peças e os exemplos chegam sob demanda.
+for (const p of ["CascaDaAlumia2", "EscreverDaAlumia2", "TopoDaLinha2"]) {
+  ok(`${p} sob demanda`, redeTsx.includes(`const ${p} = dynamic(() => import("./publicar/alumia2/${p}")`) && !new RegExp(`^import \\{[^}]*\\b${p}\\b`, "m").test(redeTsx));
+}
+ok("cartão novo sob demanda", cartao.includes("const CartaoDaAlumia2 = dynamic(") && !/^import \{ CartaoDaAlumia2/m.test(cartao));
+ok("exemplos fora do pacote", ![redeTsx, linha].some((x) => /^import [^;]*exemplos-alumia2/m.test(x)));
 const css = ler("styles/alumia.css");
 const novas = css.slice(css.indexOf("Alumia nova (Onda 5, F1"));
 const seletores = novas.replace(/\/\*[\s\S]*?\*\//g, "").match(/[^{}]+(?=\{)/g) ?? [];
@@ -155,6 +179,20 @@ ok("escrever: rascunho na conta", escrever.includes("redePub.salvarRascunho(") &
 ok("escrever: verificações das frentes", escrever.includes("verificarAntesDePublicar("));
 ok("escrever: Quem vê / Quem responde / Onde publicar", ["t.escrever.quemVe", "t.escrever.quemResponde", "t.escrever.ondePublicar"].every((k) => escrever.includes(k)));
 ok("escrever: o Ato vem do encaixe da F2", escrever.includes('ENCAIXES.tiposDoCompositor.find((x) => x.tipo === "ato")'));
+// Teclado e foco (WCAG 2.1.1, 2.4.3): o diálogo prende o Tab e devolve o foco; Esc fecha a lista antes do Escrever; fechar guarda o rascunho.
+ok("escrever: Tab preso no diálogo", escrever.includes("onKeyDown={prenderTab}") && escrever.includes('document.addEventListener("focusin"'));
+ok("escrever: foco volta a quem abriu", escrever.includes("if (antes?.isConnected) antes.focus()"));
+ok("escrever: Esc fecha a lista primeiro", /if \(aberta\) \{\s*setAberta\(null\);\s*return;/.test(escrever));
+ok("escrever: fechar guarda o rascunho na hora", /function fechar\(\)[\s\S]*escreverRascunho\(/.test(escrever));
+ok("escrever: pílulas com setas (rádio de verdade)", ler("components/rede/publicar/alumia2/Pilulas.tsx").includes("ArrowRight") && !escrever.includes('role="radio"'));
+ok("escrever: globo só quando federa", escrever.includes('p === "internet" ? "fediverso"'));
+const topo = ler("components/rede/publicar/alumia2/TopoDaLinha2.tsx");
+ok("abas completas: aria-controls, tabIndex móvel e setas", topo.includes("aria-controls={PAINEL_DA_LINHA}") && topo.includes("tabIndex={aba === a ? 0 : -1}") && topo.includes("ArrowLeft"));
+ok("o painel da linha", redeTsx.includes('role="tabpanel" id="al2-painel-linha"'));
+const dubles = ler("components/rede/publicar/alumia2/previa/Dubles.tsx");
+ok("compartilhar o ato faz algo", dubles.includes("onClick={() => void compartilhar()}"));
+ok("nenhum hidden direto num botão (o display do .al-botao ganharia)", !/<(Botao|LinkBotao)[^>]*className="[^"]*\bhidden\b/.test(dubles));
+ok("repostar se desliga sem a função no banco", cartaoNovo.includes("repostarForaDoBanco = true"));
 
 console.log(`testar-alumia-f1: ${certos} certos, ${falhas.length} falhas`);
 for (const f of falhas) console.log("  ✗", f);

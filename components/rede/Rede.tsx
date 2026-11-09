@@ -6,7 +6,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { rede } from "@/lib/rede/cliente";
 import { comunidades as clienteComunidades } from "@/lib/rede/cliente-comunidades";
 import { previaLigada, type CorDaComunidadeNum } from "@/lib/rede/publicar/alumia2";
-import { COMUNIDADES_DE_EXEMPLO, SITUACAO_DE_EXEMPLO } from "@/lib/rede/publicar/exemplos-alumia2";
 import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Aba, Comunidade, Post, Situacao, Tela } from "@/lib/rede/tipos";
@@ -19,16 +18,26 @@ import { Linha } from "./Linha";
 import { REGISTRO } from "./registro";
 import { TelaDaComunidade, TelaDoPerfil } from "./Telas";
 import { EsqueletoDaLinha } from "./Esqueletos";
-import { CascaDaAlumia2, type TipoAoEscrever } from "./publicar/alumia2/CascaDaAlumia2";
+import type { TipoAoEscrever } from "./publicar/alumia2/CascaDaAlumia2";
 import { ProvedorAlumia2, type ContextoAlumia2 } from "./publicar/alumia2/contexto";
-import { EscreverDaAlumia2 } from "./publicar/alumia2/EscreverDaAlumia2";
 import { useTextosAlumia2 } from "./publicar/alumia2/textos";
-import { TopoDaLinha2 } from "./publicar/alumia2/TopoDaLinha2";
 import { corDaComunidade } from "./ui/Pilula";
 
 // A cara nova (flags "rede-v2" + "alumia-2", lidas na montagem) e a prévia com dados de exemplo (NEXT_PUBLIC_ALUMIA_PREVIA=sim).
 const AL2 = alumia2Ligada();
 const PREVIA = AL2 && previaLigada();
+
+// As peças da Alumia nova só chegam ao navegador com a flag ligada (sob demanda): desligada, o pacote da Rede de hoje não muda.
+const CascaDaAlumia2 = dynamic(() => import("./publicar/alumia2/CascaDaAlumia2").then((m) => m.CascaDaAlumia2));
+const EscreverDaAlumia2 = dynamic(() => import("./publicar/alumia2/EscreverDaAlumia2").then((m) => m.EscreverDaAlumia2), { ssr: false });
+const TopoDaLinha2 = dynamic(() => import("./publicar/alumia2/TopoDaLinha2").then((m) => m.TopoDaLinha2));
+
+// Com a flag ligada, os pedaços começam a descer já, junto com os textos (sem esperar a primeira pintura).
+if (AL2 && typeof window !== "undefined") {
+  void import("./publicar/alumia2/CascaDaAlumia2");
+  void import("./publicar/alumia2/TopoDaLinha2");
+  void import("./publicar/alumia2/CartaoDaAlumia2");
+}
 
 // A conversa em árvore (pacote conversa) só chega ao navegador quando um post é aberto.
 const TelaDaConversa = dynamic(() => import("./conversa/TelaDaConversa"), { ssr: false, loading: () => <EsqueletoDaLinha rotulo="…" quantos={3} /> });
@@ -55,17 +64,32 @@ function abaInicial(membro: boolean): Aba {
  */
 export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede; tela: Tela }) {
   // Prévia: a Faísca das pranchas (nada vai ao banco; os posts de exemplo têm id "exemplo-…").
-  const [situacao, setSituacao] = useState<Situacao | null>(PREVIA ? SITUACAO_DE_EXEMPLO : null);
+  const [situacao, setSituacao] = useState<Situacao | null>(null);
   const [falha, setFalha] = useState("");
   const [escrevendo, setEscrevendo] = useState<{ respostaA: Post | null; comunidade: Comunidade | null; texto?: string; tipo?: TipoAoEscrever } | null>(null);
   // Alumia nova: os textos dela (só baixados com a flag ligada) e o nome e a cor das comunidades para as pílulas do cartão.
   const t2 = useTextosAlumia2(lang, AL2);
-  const [nomesDasComunidades, setNomesDasComunidades] = useState<ContextoAlumia2["comunidades"]>(() =>
-    PREVIA ? Object.fromEntries(Object.entries(COMUNIDADES_DE_EXEMPLO).map(([k, c]) => [k, { nome: c.nome, cor: c.cor }])) : {},
-  );
+  const [nomesDasComunidades, setNomesDasComunidades] = useState<ContextoAlumia2["comunidades"]>({});
   const [aba, setAba] = useState<Aba | null>(null);
   const [recarregar, setRecarregar] = useState(0);
   const [comunidade, setComunidade] = useState<Comunidade | null>(null);
+
+  // Prévia: a Faísca e as comunidades das pranchas, baixadas só aqui (import sob demanda).
+  useEffect(() => {
+    if (!PREVIA) return;
+    let vivo = true;
+    import("@/lib/rede/publicar/exemplos-alumia2").then(
+      (m) => {
+        if (!vivo) return;
+        setSituacao(m.SITUACAO_DE_EXEMPLO);
+        setNomesDasComunidades(Object.fromEntries(Object.entries(m.COMUNIDADES_DE_EXEMPLO).map(([k, c]) => [k, { nome: c.nome, cor: c.cor }])));
+      },
+      () => undefined,
+    );
+    return () => {
+      vivo = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!AL2 || PREVIA) return;
@@ -139,6 +163,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
           {tela.tipo === "linha" && contexto2 && (
             <>
               <TopoDaLinha2 lang={lang} situacao={aberta} abas={pode ? ABAS_DO_MEMBRO.filter((a) => a !== "geral") : ["geral"]} aba={abaAtual === "geral" && pode ? "tudo" : abaAtual} aoAba={setAba} aoEscrever={aoEscrever2} />
+              <div role="tabpanel" id="al2-painel-linha" aria-labelledby={`al2-aba-${abaAtual === "geral" && pode ? "tudo" : abaAtual}`}>
               <Linha
                 key={`${abaAtual}:${recarregar}`}
                 aba={abaAtual === "geral" && pode ? "tudo" : abaAtual}
@@ -149,6 +174,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
                 vazio={abaAtual === "seguindo" ? s.estados.vazioSeguindo : abaAtual === "comunidades" ? s.estados.vazioComunidades : undefined}
                 aoEscreverCom={pode ? (texto) => setEscrevendo({ respostaA: null, comunidade: null, texto }) : undefined}
               />
+              </div>
             </>
           )}
           {tela.tipo === "linha" && !contexto2 && (
