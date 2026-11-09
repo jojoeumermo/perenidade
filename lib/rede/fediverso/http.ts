@@ -16,6 +16,10 @@ export interface OpcoesDoPedido {
   corpo?: string;
   tempoMs?: number;
   maxBytes?: number;
+  /** Devolve também os bytes crus do corpo (imagem da rota-proxy de mídia), além do texto. */
+  binario?: boolean;
+  /** Conferido ANTES de cada salto (o primeiro endereço e cada redirecionamento); falso corta tudo (instância bloqueada, por exemplo). */
+  conferirSalto?: (url: URL) => Promise<boolean>;
   /** Só para teste: aceita http e qualquer porta, e troca a conferência do IP e a resolução de nomes. */
   teste?: { ipAceito?: (ip: string) => boolean; resolver?: (nome: string) => Promise<string[]> };
 }
@@ -25,6 +29,10 @@ export interface RespostaDoPedido {
   url: URL;
   tipo: string;
   texto: string;
+  /** Os bytes crus (só com `binario`). */
+  bytes?: Buffer;
+  /** O cabeçalho Retry-After da resposta (429 e 503), como veio. */
+  retryAfter?: string | null;
 }
 
 export const AGENTE = `${NOME_REDE}/1.0 (+https://institutolucia.org; ActivityPub)`;
@@ -38,7 +46,9 @@ export function urlDoFediverso(texto: string, teste = false): URL | null {
   return u;
 }
 
-function umPedido(url: URL, o: OpcoesDoPedido): Promise<{ status: number; local?: string; tipo: string; texto: string }> {
+type RespostaCrua = { status: number; local?: string; tipo: string; texto: string; bytes?: Buffer; retryAfter?: string | null };
+
+function umPedido(url: URL, o: OpcoesDoPedido): Promise<RespostaCrua> {
   const aceito = o.teste?.ipAceito ?? ((ip: string) => !ipPrivado(ip));
   const resolver = o.teste?.resolver ?? resolverPadrao;
   const max = o.maxBytes ?? 1024 * 1024;
@@ -71,6 +81,7 @@ function umPedido(url: URL, o: OpcoesDoPedido): Promise<{ status: number; local?
           return;
         }
         const tipo = String(resposta.headers["content-type"] ?? "").toLowerCase();
+        const retryAfter = typeof resposta.headers["retry-after"] === "string" ? resposta.headers["retry-after"].slice(0, 100) : null;
         const pedacos: Buffer[] = [];
         let total = 0;
         let acabou = false;
@@ -85,7 +96,9 @@ function umPedido(url: URL, o: OpcoesDoPedido): Promise<{ status: number; local?
         const fim = () => {
           if (acabou) return;
           acabou = true;
-          resolve({ status, tipo, texto: total > max ? "" : Buffer.concat(pedacos).toString("utf8") });
+          if (total > max) return resolve({ status, tipo, texto: "", retryAfter });
+          const tudo = Buffer.concat(pedacos);
+          resolve({ status, tipo, texto: o.binario ? "" : tudo.toString("utf8"), ...(o.binario ? { bytes: tudo } : {}), retryAfter });
         };
         resposta.on("end", fim);
         resposta.on("close", fim);
@@ -99,14 +112,24 @@ function umPedido(url: URL, o: OpcoesDoPedido): Promise<{ status: number; local?
   });
 }
 
+// Só para os testes de ponta a ponta (scripts/testar-fediverso-entrada.mjs): no lugar da rede, um dublê que responde como as
+// instâncias de fora. A URL passa ANTES pela mesma conferência (https, porta 443, nome público): o dublê nunca abre a trava.
+type DubleDeRede = (url: URL, o: OpcoesDoPedido) => Promise<RespostaCrua | null>;
+let duble: DubleDeRede | null = null;
+export function usarDubleDeRede(f: DubleDeRede | null): void {
+  duble = f;
+}
+
 /** Um pedido com tudo conferido. Nulo se o destino é proibido, falhou ou demorou demais (o status volta mesmo quando não é 2xx). */
 export async function pedirAoFediverso(endereco: string, o: OpcoesDoPedido = {}): Promise<RespostaDoPedido | null> {
   let url = urlDoFediverso(endereco, Boolean(o.teste));
   const saltos = (o.metodo ?? "GET") === "GET" ? 3 : 0;
   for (let salto = 0; url && salto <= saltos; salto++) {
+    if (o.conferirSalto && !(await o.conferirSalto(url).catch(() => false))) return null;
     let r;
     try {
-      r = await umPedido(url, o);
+      r = duble ? await duble(url, o) : await umPedido(url, o);
+      if (!r) return null;
     } catch {
       return null;
     }
@@ -119,7 +142,7 @@ export async function pedirAoFediverso(endereco: string, o: OpcoesDoPedido = {})
       }
       continue;
     }
-    return { status: r.status, url, tipo: r.tipo, texto: r.texto };
+    return { status: r.status, url, tipo: r.tipo, texto: r.texto, ...(r.bytes ? { bytes: r.bytes } : {}), retryAfter: r.retryAfter ?? null };
   }
   return null;
 }
