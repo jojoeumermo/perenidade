@@ -19,6 +19,7 @@ import { Carimbo } from "../ui/Carimbo";
 import { Pilula } from "../ui/Pilula";
 import { Abas } from "./Abas";
 import { type AcoesDaOrg, BlocoDaPlenaria, CartaoDaConsulta, ComoVotamos, NucleosDaOrg } from "./Blocos";
+import { type AcoesDeGestor, CuidarDaOrg } from "./CuidarDaOrg";
 import { SeloDaOrg, SeloPequeno } from "./partes";
 import "./org.css";
 
@@ -37,9 +38,13 @@ export interface PropsDoPerfilDaOrg {
   abaInicial?: string | null;
   /** O aviso de cima (o perfil de exemplo põe "Dados ilustrativos"). */
   aviso?: ReactNode;
+  /** As ações de quem gerencia (só no perfil de verdade; aparecem só quando o banco diz `gerencio`). */
+  cuidar?: AcoesDeGestor;
+  /** Depois de uma ação de quem gerencia: recarregar o perfil. */
+  aoMudar?: () => void;
 }
 
-export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso }: PropsDoPerfilDaOrg) {
+export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
   const inicial = (ABAS_DA_ORG as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDaOrg) : "posts";
@@ -148,6 +153,8 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
               </p>
             ) : null}
           </header>
+
+          {org.gerencio && cuidar ? <CuidarDaOrg org={org} t={t} acoes={cuidar} aoMudar={aoMudar ?? (() => undefined)} /> : null}
 
           {abertas.length > 0 && aba !== "consultas" ? (
             <section className="al-perfil-bloco" aria-label={t.consulta.aberta}>

@@ -225,5 +225,16 @@
     "vazio": { "respostas": "Aucune réponse ici.", "midia": "Aucune image ici." }
   },
   "coluna": { "entrarNaSala": "Entrer dans la salle", "mandarPergunta": "Envoyer une question" },
-  "erros": { "semBanco": "Cette partie n'est pas encore en ligne.", "falha": "Ça n'a pas marché. Réessayez." }
+  "erros": { "semBanco": "Cette partie n'est pas encore en ligne.", "falha": "Ça n'a pas marché. Réessayez." },
+  "cuidar": {
+    "titulo": "Gérer le compte",
+    "ajuda": "Seules les personnes qui gèrent le compte voient cette partie. Ce que vous faites ici sort au nom de l'organisation ; personne ne voit que c'était vous.",
+    "feito": "Fait. La page a été mise à jour.",
+    "voto": {"titulo": "Enregistrer un vote (Comment nous avons voté)", "data": "Date du vote", "projeto": "Projet", "voto": "Vote", "porque": "Pourquoi", "resultado": "Résultat à l'assemblée", "fonte": "Lien de la source publique", "fonteAjuda": "Site de l'assemblée, procès-verbal ou journal officiel : chacun peut vérifier.", "mandar": "Enregistrer", "votos": {"sim": "Pour", "nao": "Contre", "abstencao": "Abstention", "obstrucao": "Obstruction", "ausente": "Absent"}},
+    "nucleo": {"titulo": "Nouveau noyau", "nome": "Nom du noyau", "quando": "Quand il se réunit", "onde": "Quartier ou ville", "cor": "Couleur", "mandar": "Créer le noyau"},
+    "pedidos": {"titulo": "Demandes pour rejoindre les noyaux", "ver": "Voir les demandes", "vazio": "Aucune demande en attente.", "aceitar": "Accepter", "recusar": "Refuser", "ajuda": "Seulement le pseudonyme et l'@ de la personne. Refuser ne la prévient pas.", "de": "{codinome} (@{handle}) veut rejoindre {nucleo}"},
+    "consulta": {"titulo": "Ouvrir une consultation de la base", "pergunta": "Question", "metodo": "Méthode", "simples": "Simple (une option)", "ranqueada": "Par ordre de préférence", "opcoes": "Options (une par ligne, de 2 à 8)", "prazo": "Ferme le", "quorum": "Quorum en personnes (facultatif, 3 ou plus)", "compromisso": "Ce que l'organisation fera du résultat", "ajuda": "Votent les membres d'un noyau de l'organisation. Une fois ouverte, rien ne change : ni la question, ni les options, ni le délai.", "mandar": "Ouvrir la consultation"},
+    "plenaria": {"titulo": "Programmer une plénière", "nome": "Titre", "descricao": "Description", "inicio": "Commence le", "sala": "Lien de la salle (https)", "mandar": "Programmer la plénière", "noAr": "Passer en direct", "encerrar": "Terminer", "fila": "File de {titulo}", "filaVazia": "Aucune question dans la file.", "respondida": "Répondue", "tirar": "Retirer de la file", "motivo": "Motif du retrait", "ajudaFila": "L'ordre est celui d'arrivée et ne change pas. Une question ne sort de la file que pour l'un de ces motifs, et c'est enregistré.", "motivos": {"ofensa": "Offense", "dado_pessoal": "Donnée personnelle", "fora_do_tema": "Hors sujet", "repetida": "Répétée"}},
+    "gestores": {"titulo": "Qui gère le compte", "handle": "@ de la personne", "adicionar": "Ajouter à la gestion", "remover": "Retirer", "sair": "Quitter ce compte", "ajuda": "Seule la personne qui a créé le compte ajoute ou retire des gens. La liste des gestionnaires n'apparaît nulle part, pas même ici."}
+  }
 }

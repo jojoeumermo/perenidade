@@ -225,5 +225,16 @@
     "vazio": { "respostas": "No replies here.", "midia": "No images here." }
   },
   "coluna": { "entrarNaSala": "Enter the room", "mandarPergunta": "Send a question" },
-  "erros": { "semBanco": "This part is not live yet.", "falha": "That didn't work. Try again." }
+  "erros": { "semBanco": "This part is not live yet.", "falha": "That didn't work. Try again." },
+  "cuidar": {
+    "titulo": "Manage this account",
+    "ajuda": "Only the people who manage this account see this part. What you do here goes out in the organization's name; nobody sees it was you.",
+    "feito": "Done. The page was updated.",
+    "voto": {"titulo": "Record a vote (How we voted)", "data": "Date of the vote", "projeto": "Bill", "voto": "Vote", "porque": "Why", "resultado": "Result in the chamber", "fonte": "Link to the public source", "fonteAjuda": "Chamber website, minutes or official gazette: anyone can check.", "mandar": "Record", "votos": {"sim": "Yes", "nao": "No", "abstencao": "Abstention", "obstrucao": "Obstruction", "ausente": "Absent"}},
+    "nucleo": {"titulo": "New local group", "nome": "Group name", "quando": "When it meets", "onde": "Neighborhood or city", "cor": "Color", "mandar": "Create group"},
+    "pedidos": {"titulo": "Requests to join the groups", "ver": "See requests", "vazio": "No requests waiting.", "aceitar": "Accept", "recusar": "Decline", "ajuda": "Only the code name and @ of who asked. Declining does not notify the person.", "de": "{codinome} (@{handle}) wants to join {nucleo}"},
+    "consulta": {"titulo": "Open a members' consultation", "pergunta": "Question", "metodo": "Method", "simples": "Simple (one option)", "ranqueada": "Ranked (order of preference)", "opcoes": "Options (one per line, 2 to 8)", "prazo": "Closes at", "quorum": "Quorum in people (optional, 3 or more)", "compromisso": "What the organization will do with the result", "ajuda": "Members of the organization's local groups vote. Once open, nothing changes: not the question, the options or the deadline.", "mandar": "Open consultation"},
+    "plenaria": {"titulo": "Schedule a plenary", "nome": "Title", "descricao": "Description", "inicio": "Starts at", "sala": "Room link (https)", "mandar": "Schedule plenary", "noAr": "Go live", "encerrar": "End", "fila": "Queue for {titulo}", "filaVazia": "No questions in the queue.", "respondida": "Answered", "tirar": "Remove from queue", "motivo": "Reason to remove", "ajudaFila": "The order is first come, first served and does not change. A question only leaves the queue for one of these reasons, and it is recorded.", "motivos": {"ofensa": "Offensive", "dado_pessoal": "Personal data", "fora_do_tema": "Off topic", "repetida": "Repeated"}},
+    "gestores": {"titulo": "Who manages this account", "handle": "Person's @", "adicionar": "Add as manager", "remover": "Remove", "sair": "Leave this account", "ajuda": "Only the account's creator adds or removes people. The list of managers does not appear anywhere, not even here."}
+  }
 }

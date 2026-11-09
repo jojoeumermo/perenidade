@@ -367,5 +367,88 @@
   "erros": {
     "semBanco": "Esta parte ainda não está no ar.",
     "falha": "Não deu certo. Tente de novo."
+  },
+  "cuidar": {
+    "titulo": "Cuidar da conta",
+    "ajuda": "Só quem cuida da conta vê esta parte. O que você faz aqui sai em nome da organização; ninguém vê que foi você.",
+    "feito": "Feito. A página foi atualizada.",
+    "voto": {
+      "titulo": "Registrar um voto (Como votamos)",
+      "data": "Data da votação",
+      "projeto": "Projeto",
+      "voto": "Voto",
+      "porque": "Por quê",
+      "resultado": "Resultado na casa",
+      "fonte": "Link da fonte pública",
+      "fonteAjuda": "Site da Câmara, ata ou diário oficial: quem quiser confere.",
+      "mandar": "Registrar",
+      "votos": {
+        "sim": "Sim",
+        "nao": "Não",
+        "abstencao": "Abstenção",
+        "obstrucao": "Obstrução",
+        "ausente": "Ausente"
+      }
+    },
+    "nucleo": {
+      "titulo": "Novo núcleo",
+      "nome": "Nome do núcleo",
+      "quando": "Quando se encontra",
+      "onde": "Bairro ou cidade",
+      "cor": "Cor",
+      "mandar": "Criar núcleo"
+    },
+    "pedidos": {
+      "titulo": "Pedidos para entrar nos núcleos",
+      "ver": "Ver pedidos",
+      "vazio": "Nenhum pedido esperando.",
+      "aceitar": "Aceitar",
+      "recusar": "Recusar",
+      "ajuda": "Só o codinome e o @ de quem pediu. Recusar não avisa a pessoa.",
+      "de": "{codinome} (@{handle}) quer entrar no {nucleo}"
+    },
+    "consulta": {
+      "titulo": "Abrir consulta à base",
+      "pergunta": "Pergunta",
+      "metodo": "Método",
+      "simples": "Simples (uma opção)",
+      "ranqueada": "Ranqueada (ordem de preferência)",
+      "opcoes": "Opções (uma por linha, de 2 a 8)",
+      "prazo": "Fecha em",
+      "quorum": "Quórum em pessoas (opcional, 3 ou mais)",
+      "compromisso": "O que a organização fará com o resultado",
+      "ajuda": "Vota quem é de um núcleo da organização. Depois de aberta, nada muda: nem a pergunta, nem as opções, nem o prazo.",
+      "mandar": "Abrir consulta"
+    },
+    "plenaria": {
+      "titulo": "Marcar plenária",
+      "nome": "Título",
+      "descricao": "Descrição",
+      "inicio": "Começa em",
+      "sala": "Link da sala (https)",
+      "mandar": "Marcar plenária",
+      "noAr": "Pôr no ar",
+      "encerrar": "Encerrar",
+      "fila": "Fila de {titulo}",
+      "filaVazia": "Nenhuma pergunta na fila.",
+      "respondida": "Respondida",
+      "tirar": "Tirar da fila",
+      "motivo": "Motivo para tirar",
+      "ajudaFila": "A ordem é a de chegada e não muda. Só sai da fila por um destes motivos, e fica registrado.",
+      "motivos": {
+        "ofensa": "Ofensa",
+        "dado_pessoal": "Dado pessoal",
+        "fora_do_tema": "Fora do tema",
+        "repetida": "Repetida"
+      }
+    },
+    "gestores": {
+      "titulo": "Quem cuida da conta",
+      "handle": "@ da pessoa",
+      "adicionar": "Pôr para cuidar",
+      "remover": "Tirar",
+      "sair": "Sair desta conta",
+      "ajuda": "Só quem criou a conta põe ou tira pessoas. A lista de quem cuida não aparece em lugar nenhum, nem aqui."
+    }
   }
 }
