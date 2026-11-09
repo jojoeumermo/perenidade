@@ -10,6 +10,7 @@ import { preencher } from "@/lib/escola/textos";
 import { COLUNA_DA_ESCOLA, TELAS_DA_FORMACAO, telaAberta } from "@/lib/escola/rotas";
 import { Estrela } from "./FaixaDeCores";
 import { CaixaDoModoDiscreto, type ModoDiscreto } from "./ModoDiscreto";
+import { SaidaDaEscola, VoltarAoSiteDaEscola } from "./SaidaDaEscola";
 
 const semIdioma = (caminho: string) => caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
 
@@ -29,7 +30,8 @@ export function LogoDaEscola({ lang, t, discreto, celular = false }: { lang: Loc
 
 /**
  * A coluna lateral da Escola no computador (prancha Hoje): logo, Hoje, Formação, Núcleo, Biblioteca, Meu percurso,
- * A Frente, "Tirar uma dúvida", o modo discreto e, no pé, o codinome com o degrau e o núcleo.
+ * A Frente, "Tirar uma dúvida", o modo discreto e, no pé, o codinome com o degrau e o núcleo. Logo abaixo do logo, o
+ * "Voltar ao site"; no fim, o "Sair da escola", que encerra a sessão deste aparelho.
  */
 export function ColunaDaEscola({ lang, t, eu, discreto }: { lang: Locale; t: TextosDaFormacaoBase["casca"]; eu: EscolaEuDentro; discreto: ModoDiscreto }) {
   const aberta = telaAberta(semIdioma(usePathname() ?? ""));
@@ -37,6 +39,7 @@ export function ColunaDaEscola({ lang, t, eu, discreto }: { lang: Locale; t: Tex
   return (
     <nav aria-label={t.rotulo} className="ef-coluna">
       <LogoDaEscola lang={lang} t={t} discreto={discreto.ligado} />
+      <VoltarAoSiteDaEscola lang={lang} t={t} />
       {COLUNA_DA_ESCOLA.map((tela) => (
         <Link
           key={tela.chave}
@@ -68,6 +71,7 @@ export function ColunaDaEscola({ lang, t, eu, discreto }: { lang: Locale; t: Tex
           {preencher(t.degrau, { n: eu.degrau })} · {eu.nucleo?.nome ?? t.semNucleo}
         </span>
       </div>
+      <SaidaDaEscola lang={lang} t={t} />
     </nav>
   );
 }

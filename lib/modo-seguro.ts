@@ -15,7 +15,7 @@ export const DESTINO_NEUTRO = "https://www.google.com/search?q=previs%C3%A3o+do+
 /** Os caches das vozes naturais: arquivos de modelo de voz, iguais para todo mundo, que não revelam nada. */
 const DE_VOZ = /^lucia-voz/;
 /** As bases conhecidas, para os navegadores que não sabem listar as bases (indexedDB.databases). */
-export const BASES_CONHECIDAS = ["lucia-busca", "lucia-sigilo", "lucia-explicacoes"];
+export const BASES_CONHECIDAS = ["lucia-busca", "lucia-sigilo", "lucia-explicacoes", "lucia-alumia-chat"];
 
 type Sessao = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 
@@ -120,6 +120,24 @@ async function apagarBases() {
   );
 }
 
+/**
+ * Encerra a sessão da conta no servidor, não só no aparelho: quem copiou o token de renovação antes (ou quem pegar o
+ * aparelho e restaurar uma cópia do armazenamento) não consegue mais usá-lo. Lê o token de acesso guardado e chama a
+ * saída do Supabase só para esta sessão, com keepalive, para o pedido sair mesmo com a troca de página logo depois.
+ */
+function revogarSessao() {
+  try {
+    const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
+    const chave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+    const guardada = globalThis.localStorage?.getItem("lucia:sessao");
+    const token = guardada ? (JSON.parse(guardada) as { access_token?: unknown }).access_token : null;
+    if (!url || !chave || typeof token !== "string") return;
+    void fetch(`${url}/auth/v1/logout?scope=local`, { method: "POST", keepalive: true, headers: { apikey: chave, Authorization: `Bearer ${token}` } }).catch(() => {});
+  } catch {
+    // sem sessão guardada ou sem rede: a sessão local sai do mesmo jeito
+  }
+}
+
 async function apagarCaches() {
   try {
     const armazem = globalThis.caches;
@@ -144,6 +162,7 @@ export async function sairRapido(destino = DESTINO_NEUTRO) {
   } catch {
     // segue
   }
+  revogarSessao();
   try {
     if (globalThis.localStorage) apagarChaves(localStorage);
   } catch {

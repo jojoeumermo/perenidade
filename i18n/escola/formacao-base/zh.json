@@ -58,7 +58,17 @@
     "degrau": "第 {n} 阶",
     "semNucleo": "尚无小组",
     "semCodinome": "尚无代号",
-    "escolherCodinome": "在 Alumia 选择代号"
+    "escolherCodinome": "在 Alumia 选择代号",
+    "voltarSite": "返回网站",
+    "voltarSiteCurto": "网站",
+    "sair": "退出学校",
+    "sairCurto": "退出",
+    "sairTitulo": "退出学校",
+    "sairTexto": "结束你在此设备上的会话，并删除此处保存的学校私人对话和草稿。要回来，需要重新登录。",
+    "sairApagarTudo": "同时删除此设备上保存的学习记录（进度、记录册、阅读）",
+    "sairConfirmar": "立即退出",
+    "sairCancelar": "留在学校",
+    "saindo": "正在退出…"
   },
   "hoje": {
     "titulo": "今天",
