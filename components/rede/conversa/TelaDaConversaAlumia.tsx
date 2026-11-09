@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
 import { conversa } from "@/lib/rede/cliente-conversa";
@@ -13,6 +13,9 @@ import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
 import {
   generoDoAjudou,
   montarArvore,
+  REACOES,
+  reacaoOk,
+  reacoesParaMostrar,
   servidorDaResposta,
   tempoCurto,
   type Arvore,
@@ -40,10 +43,11 @@ const arroba = (p: Post) => (p.autor.handle ? `@${p.autor.handle.replace(/^@/, "
  * com a aula citada, "Mais antigas / Mais novas", o fio
  * com as linhas, o selo "ajudou a autora" (pelo pronome que a pessoa escreveu, nunca por palpite), a resposta vinda do
  * Fediverso com o selo do servidor (só o nome do servidor, que já é público no @; nada de IP) e a caixa "Responder para @…"
- * fixa embaixo. O "…" de cada resposta abre Responder, Acender e (para quem abriu a conversa) "ajudou".
+ * fixa embaixo. O "…" de cada resposta abre Responder, Acender e (só para quem abriu a conversa) "ajudou".
  *
- * As reações com emoji (PLANO-ALUMIA §6.3) NÃO aparecem aqui: a prancha não tem essa fileira e a função do banco ainda não
- * existe. Elas voltam quando a migração do back-end da F3 entrar, atrás de flag própria.
+ * Os dados vêm de rede_alumia_conversa (supabase/migracoes/20261109-alumia-f3.sql): a árvore de hoje + a marca "ajudou" (que só
+ * quem abriu a conversa põe, rede_alumia_ajudou) e as reações com emoji do post aberto (PLANO-ALUMIA §6.3: lista fechada, só o
+ * total, nunca quem; LGPD art. 5º, II, e art. 11). A fileira de reações só aparece quando o banco manda `post.reacoes`.
  */
 export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: string; lang: string; s: TextosDaRede; situacao: Situacao }) {
   const t = useTextosAlumia3(lang);
@@ -57,7 +61,8 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
 
   useEffect(() => {
     let vivo = true;
-    const pedir = previa() ? Promise.resolve(arvoreDeExemplo(id)) : conversa.arvore(id, ordem);
+    // Banco sem a migração da F3 ainda: a árvore de hoje (sem reações; "ajudou" pelo `aceita` da dúvida).
+    const pedir = previa() ? Promise.resolve(arvoreDeExemplo(id)) : conversa.alumia(id, ordem).catch(() => conversa.arvore(id, ordem));
     pedir
       .then((dado) => {
         if (!vivo) return;
@@ -87,7 +92,8 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   const dado = estado.dado;
   const post = dado.post;
   const raizPost = post.id === dado.raiz ? post : dado.acima.find((p) => p.id === dado.raiz) ?? null;
-  const aceitaId = raizPost?.aceita ?? null;
+  // A marca nova (só da autora) quando o banco a manda; na prévia, o `aceita` dos exemplos.
+  const aceitaId = dado.ajudou !== undefined ? dado.ajudou : raizPost?.aceita ?? null;
   const genero = generoDoAjudou(dado.pronomes_da_raiz);
   const seloAjudou = genero === "a" ? t.conversa.ajudouA : genero === "o" ? t.conversa.ajudouO : t.conversa.ajudouQuem;
   const nos = emFila(montarArvore(post.id, dado.respostas));
@@ -101,7 +107,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
       return;
     }
     try {
-      await conversa.aceitar(resposta.id, quer);
+      await conversa.ajudou(resposta.id, quer);
       setVersao((n) => n + 1);
     } catch (e) {
       aoErro(e);
@@ -153,7 +159,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
                 aoAbrir={() => setAberta((a) => (a === no.post.id ? null : no.post.id))}
                 ajudou={aceitaId === no.post.id}
                 seloAjudou={seloAjudou}
-                podeAjudou={dado.pode_aceitar || (previa() && raizPost?.meu === true)}
+                podeAjudou={previa() ? raizPost?.meu === true : dado.pode_ajudou === true}
                 podeResponder={podeResponder}
                 logado={situacao.logado}
                 aoResponder={() => {
@@ -221,6 +227,7 @@ function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lan
       {post.titulo && <h2 className="al3-raiz-titulo">{post.titulo}</h2>}
       <p className="al3-raiz-texto">{post.texto}</p>
       {post.cita && <CartaoDeAula lang={lang} cita={post.cita} t={t} />}
+      {post.reacoes && <Reacoes post={post} t={t} logado={logado} aoErro={aoErro} />}
       <div className="al3-post-acoes al3-raiz-acoes">
         <button type="button" className="al3-acao" aria-pressed={apoiei} disabled={!logado || ocupado} onClick={() => void acender()}>
           {apoiei ? t.comum.aceso : t.comum.acender}
@@ -232,6 +239,78 @@ function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lan
         {copiado && <span className="al3-cinza" role="status">{t.comum.copiado}</span>}
       </div>
     </article>
+  );
+}
+
+/**
+ * As reações com emoji (PLANO-ALUMIA §6.3): lista FECHADA, total por emoji (abaixo de 3, "poucas"), e a minha marcada. Ninguém vê
+ * quem reagiu, nem quem escreveu. "Reagir" abre a paleta com os 8 da lista; o banco confere a lista de novo (rede_alumia_reagir).
+ */
+function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
+  const [reacoes, setReacoes] = useState(post.reacoes ?? []);
+  const [paleta, setPaleta] = useState(false);
+  const [ocupado, setOcupado] = useState(false);
+  const idDaRegra = useId();
+  const idDaPaleta = useId();
+  const mostrar = reacoesParaMostrar(reacoes);
+
+  async function reagir(emoji: string) {
+    if (!reacaoOk(emoji) || ocupado) return;
+    const minha = reacoes.find((r) => r.emoji === emoji)?.minha ?? false;
+    setPaleta(false);
+    if (previa()) {
+      setReacoes((lista) => {
+        const achada = lista.find((r) => r.emoji === emoji);
+        if (!achada) return [...lista, { emoji, total: null, minha: true }];
+        return lista.map((r) => (r.emoji === emoji ? { ...r, minha: !minha, total: r.total === null ? null : r.total + (minha ? -1 : 1) } : r));
+      });
+      return;
+    }
+    setOcupado(true);
+    try {
+      const r = await conversa.reagirEmoji(post.id, emoji, !minha);
+      setReacoes(r.reacoes);
+    } catch (e) {
+      aoErro(e);
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  if (mostrar.length === 0 && !logado) return null;
+  return (
+    <div className="al3-reacoes-bloco">
+      <div className="al3-reacoes" role="group" aria-label={t.reacoes.rotulo} aria-describedby={idDaRegra}>
+        {mostrar.map((r) => (
+          <button
+            key={r.emoji}
+            type="button"
+            className="al3-reacao"
+            aria-pressed={r.minha}
+            disabled={!logado || ocupado}
+            aria-label={`${t.reacoes.nomes[r.nome]}: ${r.total ?? t.reacoes.poucas}${r.minha ? ` (${t.reacoes.minha})` : ""}`}
+            onClick={() => void reagir(r.emoji)}
+          >
+            <span aria-hidden>{r.emoji}</span>
+            <span aria-hidden>{r.total ?? t.reacoes.poucas}</span>
+          </button>
+        ))}
+        {logado && (
+          <button type="button" className="al3-reacao" aria-expanded={paleta} aria-controls={idDaPaleta} disabled={ocupado} onClick={() => setPaleta((p) => !p)}>
+            {paleta ? t.reacoes.fechar : `+ ${t.reacoes.reagir}`}
+          </button>
+        )}
+      </div>
+      <div className="al3-paleta" id={idDaPaleta} role="group" aria-label={t.reacoes.reagir} hidden={!paleta}>
+        {paleta &&
+          REACOES.map((r) => (
+            <button key={r.emoji} type="button" aria-label={preencher(t.conversa.reagirComo, { nome: t.reacoes.nomes[r.nome] })} onClick={() => void reagir(r.emoji)}>
+              {r.emoji}
+            </button>
+          ))}
+      </div>
+      <p className="al3-regra" id={idDaRegra}>{t.reacoes.regra}</p>
+    </div>
   );
 }
 

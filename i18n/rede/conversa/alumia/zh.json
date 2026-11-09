@@ -80,7 +80,7 @@
     "ajudouQuem": "帮到了提问的人",
     "marcarAjudou": "标记为有帮助",
     "desmarcarAjudou": "取消有帮助标记",
-    "ajudouRegra": "只有发起讨论的人（和版主）可以标记有帮助的回复。每个讨论只有一个。",
+    "ajudouRegra": "只有发起讨论的人可以标记有帮助的回复，版主也不行。每个讨论只有一个。",
     "fediverso": "来自联邦宇宙的回复，服务器：{servidor}",
     "responderPara": "回复 @{handle}",
     "responderParaNome": "回复 {codinome}",
