@@ -58,7 +58,17 @@
     "degrau": "Escalón {n}",
     "semNucleo": "todavía sin núcleo",
     "semCodinome": "Sin seudónimo",
-    "escolherCodinome": "Elegir el seudónimo en Alumia"
+    "escolherCodinome": "Elegir el seudónimo en Alumia",
+    "voltarSite": "Volver al sitio",
+    "voltarSiteCurto": "Sitio",
+    "sair": "Salir de la escuela",
+    "sairCurto": "Salir",
+    "sairTitulo": "Salir de la escuela",
+    "sairTexto": "Cierra tu sesión en este dispositivo y borra las conversaciones y borradores privados de la Escuela guardados aquí. Para volver, tendrás que entrar de nuevo con tu cuenta.",
+    "sairApagarTudo": "Borrar también mi estudio guardado en este dispositivo (recorrido, libreta, lecturas)",
+    "sairConfirmar": "Salir ahora",
+    "sairCancelar": "Seguir en la escuela",
+    "saindo": "Saliendo…"
   },
   "hoje": {
     "titulo": "Hoy",

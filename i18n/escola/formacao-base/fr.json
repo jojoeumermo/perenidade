@@ -58,7 +58,17 @@
     "degrau": "Palier {n}",
     "semNucleo": "pas encore de noyau",
     "semCodinome": "Sans pseudonyme",
-    "escolherCodinome": "Choisir le pseudonyme sur Alumia"
+    "escolherCodinome": "Choisir le pseudonyme sur Alumia",
+    "voltarSite": "Retour au site",
+    "voltarSiteCurto": "Site",
+    "sair": "Quitter l’école",
+    "sairCurto": "Quitter",
+    "sairTitulo": "Quitter l’école",
+    "sairTexto": "Termine votre session sur cet appareil et efface les conversations et brouillons privés de l’École enregistrés ici. Pour revenir, il faudra vous reconnecter.",
+    "sairApagarTudo": "Effacer aussi mon étude enregistrée sur cet appareil (parcours, carnet, lectures)",
+    "sairConfirmar": "Quitter maintenant",
+    "sairCancelar": "Rester dans l’école",
+    "saindo": "Sortie…"
   },
   "hoje": {
     "titulo": "Aujourd'hui",
