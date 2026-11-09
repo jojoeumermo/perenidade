@@ -9,6 +9,7 @@
 // Sem os atalhos "@/" de propósito: `npm run testar:acompanhante` roda este arquivo no Node.
 
 import { estaLigado } from "../modo-seguro";
+import { armazemPrivado } from "./cofre";
 
 export const CHAVE_CONVERSAS = "lucia:escola-privado:conversas";
 export const CHAVE_TRABALHO = "lucia:escola-privado:trabalho";
@@ -65,13 +66,8 @@ export interface Contexto {
 type Armazenamento = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 type Sessao = Pick<Storage, "getItem" | "setItem" | "removeItem"> | null;
 
-const local = (): Armazenamento | null => {
-  try {
-    return globalThis.localStorage ?? null;
-  } catch {
-    return null;
-  }
-};
+/** O armazenamento das chaves privadas: o localStorage, ou o cofre cifrado da Escola quando ele existe (lib/escola/cofre.ts). */
+const local = (): Armazenamento | null => armazemPrivado();
 const sessaoDoNavegador = (): Sessao => {
   try {
     return globalThis.sessionStorage ?? null;

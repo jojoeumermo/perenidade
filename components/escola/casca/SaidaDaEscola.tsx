@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { localePath, type Locale } from "@/i18n/config";
 import type { TextosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { getClient } from "@/lib/backend";
+import { apagarCofre } from "@/lib/escola/cofre";
 import { BASE_DOS_AUDIOS_DA_VIDA } from "@/lib/escola/vida";
 import { KEYS, notifyStored } from "@/lib/storage";
 
@@ -50,6 +51,8 @@ async function sairDaEscola(lang: Locale, tudo: boolean) {
       if (chave && /^sb-.*-auth-token/.test(chave)) localStorage.removeItem(chave);
     }
     apagar(localStorage, tudo);
+    // O cofre guarda o mesmo privado, cifrado: sai junto.
+    apagarCofre();
     apagar(sessionStorage, true);
   } catch {
     // armazenamento bloqueado

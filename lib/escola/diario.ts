@@ -11,6 +11,7 @@
 // Sem os atalhos "@/" de propósito: scripts/testar-escola-cadernos.mjs roda este arquivo no Node.
 
 import { estaLigado } from "../modo-seguro";
+import { armazemPrivado } from "./cofre";
 
 export const CHAVE_DIARIO = "lucia:escola-privado:diario";
 export const CHAVE_FICHAS = "lucia:escola-privado:fichas";
@@ -25,13 +26,8 @@ export interface Armazenamento {
   removeItem(chave: string): void;
 }
 
-function local(): Armazenamento | null {
-  try {
-    return globalThis.localStorage ?? null;
-  } catch {
-    return null;
-  }
-}
+/** O armazenamento das chaves privadas: o localStorage, ou o cofre cifrado da Escola quando ele existe (lib/escola/cofre.ts). */
+const local = (): Armazenamento | null => armazemPrivado();
 
 /** Gravar é permitido? Não no modo seguro (aba neutra) nem sem armazenamento. */
 export const podeGravar = (armazenamento: Armazenamento | null = local(), seguro = estaLigado()) => Boolean(armazenamento) && !seguro;

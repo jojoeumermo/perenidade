@@ -10,6 +10,7 @@ import { preencher } from "@/lib/escola/textos";
 import { COLUNA_DA_ESCOLA, TELAS_DA_FORMACAO, telaAberta } from "@/lib/escola/rotas";
 import { Estrela } from "./FaixaDeCores";
 import { CaixaDoModoDiscreto, type ModoDiscreto } from "./ModoDiscreto";
+import { FecharCofre, useCofre } from "./CofreDaEscola";
 import { SaidaDaEscola, VoltarAoSiteDaEscola } from "./SaidaDaEscola";
 
 const semIdioma = (caminho: string) => caminho.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
@@ -35,6 +36,7 @@ export function LogoDaEscola({ lang, t, discreto, celular = false }: { lang: Loc
  */
 export function ColunaDaEscola({ lang, t, eu, discreto }: { lang: Locale; t: TextosDaFormacaoBase["casca"]; eu: EscolaEuDentro; discreto: ModoDiscreto }) {
   const aberta = telaAberta(semIdioma(usePathname() ?? ""));
+  const cofre = useCofre();
   const duvida = TELAS_DA_FORMACAO.find((x) => x.chave === "duvida")!;
   return (
     <nav aria-label={t.rotulo} className="ef-coluna">
@@ -71,6 +73,7 @@ export function ColunaDaEscola({ lang, t, eu, discreto }: { lang: Locale; t: Tex
           {preencher(t.degrau, { n: eu.degrau })} · {eu.nucleo?.nome ?? t.semNucleo}
         </span>
       </div>
+      <FecharCofre t={t} estado={cofre} />
       <SaidaDaEscola lang={lang} t={t} />
     </nav>
   );
