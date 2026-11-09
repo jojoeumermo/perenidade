@@ -64,15 +64,16 @@ export const MINIMO_PARA_ACENDER = 3;
 export const PISO_DO_DENOMINADOR = 30;
 
 /**
- * A palavra como o mosaico desenha: maiúsculas, sem acento (Á → A, Ç → C), só o que a fonte tem, espaços simples, no máximo
- * 14 caracteres (a mesma regra do banco: palavra ~ '^[A-Z ]{2,14}$', com os números e sinais da fonte a mais). Vazia se não sobrar nada.
+ * A palavra como o mosaico desenha: maiúsculas, sem acento (Á → A, Ç → C), só letras A–Z e espaços simples, no máximo 14
+ * caracteres. É EXATAMENTE a regra do banco da F2 (PLANO-ALUMIA §5: palavra ~ '^[A-Z ]{2,14}$'): o que a tela mostra é o que o
+ * banco aceita. Números e sinais viram espaço (a fonte tem os algarismos, mas a palavra do ato não usa). Vazia se não sobrar nada.
  */
 export function normalizarPalavra(palavra: string): string {
   const sem = palavra
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .toUpperCase()
-    .replace(/[^A-Z0-9!\- ]/g, " ")
+    .replace(/[^A-Z ]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
   return sem.slice(0, 14).trim();
@@ -219,11 +220,14 @@ export function cartoesAcesos(grade: Grade, semente: number, proporcao: number |
 
 /**
  * O cartão dourado de quem confirmou: um cartão aceso escolhido com uma semente DO APARELHO (sementeLocal), para que a posição
- * não diga nada a ninguém. Nulo se nada está aceso.
+ * não diga nada a ninguém. Com `letra` (a grade da palavra), escolhe só entre os acesos FORA da palavra, para não apagar um pixel
+ * dela; só cai num cartão de letra quando todo aceso é de letra. Nulo se nada está aceso.
  */
-export function cartaoDoVoce(acesos: readonly boolean[], sementeLocal: number): number | null {
-  const candidatos: number[] = [];
-  acesos.forEach((aceso, i) => aceso && candidatos.push(i));
+export function cartaoDoVoce(acesos: readonly boolean[], sementeLocal: number, letra?: readonly boolean[]): number | null {
+  const todos: number[] = [];
+  acesos.forEach((aceso, i) => aceso && todos.push(i));
+  const foraDaPalavra = letra ? todos.filter((i) => !letra[i]) : todos;
+  const candidatos = foraDaPalavra.length ? foraDaPalavra : todos;
   if (candidatos.length === 0) return null;
   return candidatos[Math.floor(gerador(sementeLocal)() * candidatos.length)];
 }
@@ -248,7 +252,7 @@ export function montarMosaico(
   const grade = gradeDaPalavra(palavra, opcoes);
   const p = proporcaoValida(proporcao);
   const acesos = cartoesAcesos(grade, sementeDe(semente), p);
-  const voce = opcoes.voce ? cartaoDoVoce(acesos, sementeDe(`${opcoes.sementeLocal ?? ""}:${semente}:voce`)) : null;
+  const voce = opcoes.voce ? cartaoDoVoce(acesos, sementeDe(`${opcoes.sementeLocal ?? ""}:${semente}:voce`), grade.letra) : null;
   const cartoes = grade.letra.map<TipoDoCartao>((letra, i) =>
     i === voce ? "voce" : letra ? (acesos[i] ? "letra-acesa" : "letra-apagada") : acesos[i] ? "aceso" : "apagado",
   );
