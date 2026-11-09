@@ -1,0 +1,203 @@
+{
+  "faixa": {
+    "rotulo": "快拍",
+    "seuStory": "你的快拍",
+    "criar": "发布快拍",
+    "verOsSeus": "查看你的快拍（{n} 条在线）",
+    "ver": "查看 {nome} 的快拍",
+    "verVisto": "再看 {nome} 的快拍（已看过）",
+    "aviso": "没有人会知道你看过。24 小时后消失。",
+    "erro": "快拍没有加载出来。",
+    "tentar": "重试",
+    "entrar": "登录后才能查看和发布快拍。",
+    "anteriores": "上一组快拍",
+    "seguintes": "更多快拍"
+  },
+  "abas": {
+    "rotulo": "时间线"
+  },
+  "criar": {
+    "titulo": "发布快拍",
+    "fechar": "不发布并关闭",
+    "descartar": "不发布就关闭？这里做的内容会丢失。",
+    "descartarSim": "关闭",
+    "descartarNao": "继续编辑",
+    "modos": "工具",
+    "modoTexto": "文字",
+    "modoTextoAa": "Aa",
+    "modoDesenhar": "画笔",
+    "modoFigurinha": "贴纸",
+    "texto": "快拍文字",
+    "textoVazio": "在这里写",
+    "tarja": "文字下方的横条（可选）",
+    "tarjaVazia": "下面一行（可选）",
+    "restam": "还剩 {n} 个字",
+    "cores": "背景颜色",
+    "coresDoTraco": "笔画颜色",
+    "cor": {
+      "azul": "蓝",
+      "vermelho": "红",
+      "dourado": "金",
+      "verde": "绿",
+      "rosa": "粉",
+      "noite": "夜"
+    },
+    "desenho": "画布：拖动来画",
+    "desfazer": "撤销上一笔",
+    "limpar": "清除画作",
+    "figurinhas": "贴纸",
+    "figurinhaLigada": "{nome}：已加入快拍（点按移除）",
+    "limiteDeFigurinhas": "每条快拍最多 3 个贴纸。",
+    "tipo": {
+      "contagem": "倒计时",
+      "pergunta": "提问",
+      "enquete": "投票",
+      "link": "链接"
+    },
+    "quemVe": "谁能看",
+    "publico": {
+      "seguidores": "关注者",
+      "membros": "社区",
+      "proximos": "亲密好友"
+    },
+    "publicoAjuda": {
+      "seguidores": "只有关注你的人。",
+      "membros": "Alumia 的所有成员。",
+      "proximos": "只有你的亲密好友名单。"
+    },
+    "regra": "24 小时后消失。不会发到联邦宇宙。没有人能看到谁看过。",
+    "galeria": "相册",
+    "trocarImagem": "更换图片",
+    "tirarImagem": "移除图片",
+    "alt": "为看不见的人描述这张图片（可选）",
+    "semMetadado": "图片会在你的设备上重新生成：发出时不带位置和相机信息。",
+    "publicar": "发布快拍",
+    "publicando": "发布中…",
+    "publicado": "快拍已发布，24 小时后消失。",
+    "vazio": "写点文字、画一画或选一张图片。",
+    "deUmPost": "从帖子生成的快拍：会附上帖子的链接。",
+    "erro": {
+      "grande": "图片太大（处理后最多 3 MB）。",
+      "invalida": "无法读取这张图片。请使用 JPG、PNG 或 WEBP。",
+      "link": "链接必须以 https:// 开头并且地址有效。",
+      "ato": "请为倒计时选择一个行动。",
+      "pergunta": "请写下问题。",
+      "enquete": "请写下问题和两个投票选项。",
+      "dadoPessoal": "这里似乎有个人信息（电话、证件号、邮箱或地址）。发布前请删除。",
+      "semConta": "登录后才能发布。",
+      "limite": "你刚刚发布了很多快拍，请稍等。",
+      "banco": "数据库还没有快拍功能（服务器尚未更新）。",
+      "falha": "发布失败，请重试。"
+    }
+  },
+  "figurinha": {
+    "contagem": {
+      "rotulo": "行动",
+      "escolha": "选择行动",
+      "semAtos": "你还没有安排行动。发起一个行动才能使用倒计时。",
+      "dias": "天",
+      "horas": "小时",
+      "min": "分",
+      "avisar": "开始时提醒我",
+      "avisado": "开始时会提醒你",
+      "desavisar": "不再提醒",
+      "comecou": "已经开始",
+      "verAto": "查看行动",
+      "falta": "距离 {titulo} 还有 {dias} 天 {horas} 小时 {min} 分钟"
+    },
+    "pergunta": {
+      "rotulo": "提问",
+      "vazio": "写下问题",
+      "soParaVoce": "回答只有你能看到",
+      "responder": "回答问题",
+      "soParaAutora": "回答只发给 {nome}。"
+    },
+    "enquete": {
+      "rotulo": "投票",
+      "pergunta": "投票问题",
+      "perguntaVazia": "问点什么",
+      "opcao": "选项 {n}",
+      "padraoA": "我去",
+      "padraoB": "去不了",
+      "notaAutora": "只有你能看到总数。投票者的名字不会出现。",
+      "nota": "只有 {nome} 能看到总数。你的名字不会出现。",
+      "votou": "投票只计入总数。",
+      "soma": "{pct}%",
+      "total": "{n} 票",
+      "poucas": "投票的人还很少：满 3 票才显示总数。"
+    },
+    "link": {
+      "rotulo": "链接",
+      "endereco": "地址（https://…）",
+      "texto": "链接文字（可选）",
+      "abrir": "打开 {dominio}（离开 Alumia）"
+    }
+  },
+  "visor": {
+    "rotulo": "{nome} 的快拍",
+    "ajuda": "方向键切换快拍，空格暂停，Esc 关闭。",
+    "progresso": "第 {i} 条，共 {n} 条",
+    "publico": {
+      "seguidores": "给关注我的人",
+      "membros": "给社区",
+      "proximos": "给亲密好友"
+    },
+    "agora": "刚刚",
+    "min": "{n} 分钟",
+    "h": "{n} 小时",
+    "pausar": "暂停",
+    "continuar": "继续",
+    "mais": "更多选项",
+    "fechar": "关闭",
+    "anterior": "上一条",
+    "proximo": "下一条",
+    "silenciar": "在此设备上不再看 {nome} 的快拍",
+    "silenciado": "你在此设备上不会再看到 {nome} 的快拍。没有人会知道。",
+    "denunciar": "举报这条快拍",
+    "denunciaTitulo": "举报这条快拍",
+    "denunciaAjuda": "举报人永远不会被透露。威胁、曝光个人信息和危及儿童的内容会立即下架，直到审核人员查看。",
+    "denunciaEnviar": "提交举报",
+    "denunciaEnviada": "已收到举报。编号 {protocolo}。",
+    "cancelar": "取消",
+    "apagar": "删除这条快拍",
+    "apagarConfirma": "现在删除？所有人都将看不到，连同回复。",
+    "apagarSim": "删除",
+    "apagado": "快拍已删除。",
+    "seu": "你的快拍",
+    "respostasChegam": "回复和回应只会发给你，出现在你的通知里。",
+    "responder": "只回复给 {nome}…",
+    "responderRotulo": "只回复给 {nome}",
+    "enviar": "发送",
+    "enviado": "只发给了 {nome}。",
+    "reacoes": "回应（只有 {nome} 能看到）",
+    "reacao": {
+      "punho": "举起的拳头",
+      "chama": "火焰",
+      "coracao": "爱心"
+    },
+    "reagiu": "{reacao}：只发给了 {nome}。",
+    "sumiu": "这条快拍已经消失。",
+    "carregando": "正在加载快拍…",
+    "erro": "无法打开这条快拍。",
+    "deUmPost": "查看帖子",
+    "imagem": "快拍图片",
+    "categorias": {
+      "menores": "儿童或青少年处于危险中",
+      "ameaca": "威胁",
+      "exposicao": "曝光个人信息",
+      "violencia": "煽动暴力",
+      "autolesao": "自伤或生命危险（紧急：在巴西请拨打 188，CVV）",
+      "odio": "仇恨言论或歧视",
+      "assedio": "骚扰或跟踪",
+      "golpe": "诈骗",
+      "spam": "广告或刷屏",
+      "outro": "其他原因"
+    },
+    "erroAoEnviar": "发送失败，请重试。"
+  },
+  "cartao": {
+    "porNoStory": "放进快拍",
+    "porNoStoryAjuda": "用这条帖子的链接发布快拍（24 小时后消失）"
+  },
+  "previa": "示例数据预览：这里的内容不会发送。"
+}

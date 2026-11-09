@@ -1,0 +1,203 @@
+{
+  "faixa": {
+    "rotulo": "Historias",
+    "seuStory": "Tu historia",
+    "criar": "Crear una historia",
+    "verOsSeus": "Ver tus historias ({n} activas)",
+    "ver": "Ver las historias de {nome}",
+    "verVisto": "Ver de nuevo las historias de {nome} (ya vistas)",
+    "aviso": "Nadie se entera de que viste. Desaparece en 24 h.",
+    "erro": "Las historias no cargaron.",
+    "tentar": "Intentar de nuevo",
+    "entrar": "Entra en tu cuenta para ver y crear historias.",
+    "anteriores": "Historias anteriores",
+    "seguintes": "Más historias"
+  },
+  "abas": {
+    "rotulo": "Líneas"
+  },
+  "criar": {
+    "titulo": "Crear historia",
+    "fechar": "Cerrar sin publicar",
+    "descartar": "¿Cerrar sin publicar? Lo que hiciste aquí se pierde.",
+    "descartarSim": "Cerrar",
+    "descartarNao": "Seguir editando",
+    "modos": "Herramientas",
+    "modoTexto": "Texto",
+    "modoTextoAa": "Aa",
+    "modoDesenhar": "Dibujar",
+    "modoFigurinha": "Sticker",
+    "texto": "Texto de la historia",
+    "textoVazio": "Escribe aquí",
+    "tarja": "Franja bajo el texto (opcional)",
+    "tarjaVazia": "Una línea abajo (opcional)",
+    "restam": "Quedan {n} letras",
+    "cores": "Color de fondo",
+    "coresDoTraco": "Color del trazo",
+    "cor": {
+      "azul": "Azul",
+      "vermelho": "Rojo",
+      "dourado": "Dorado",
+      "verde": "Verde",
+      "rosa": "Rosa",
+      "noite": "Noche"
+    },
+    "desenho": "Área de dibujo: arrastra para dibujar",
+    "desfazer": "Deshacer el último trazo",
+    "limpar": "Borrar el dibujo",
+    "figurinhas": "Stickers",
+    "figurinhaLigada": "{nome}: en la historia (toca para quitar)",
+    "limiteDeFigurinhas": "Como máximo 3 stickers por historia.",
+    "tipo": {
+      "contagem": "Cuenta atrás",
+      "pergunta": "Pregunta",
+      "enquete": "Encuesta",
+      "link": "Enlace"
+    },
+    "quemVe": "Quién ve",
+    "publico": {
+      "seguidores": "Seguidores",
+      "membros": "Comunidad",
+      "proximos": "Cercanos"
+    },
+    "publicoAjuda": {
+      "seguidores": "Solo quien te sigue.",
+      "membros": "Quien es de Alumia.",
+      "proximos": "Solo tu lista de cercanos."
+    },
+    "regra": "Desaparece en 24 h. No va al Fediverso. Nadie ve quién la vio.",
+    "galeria": "Galería",
+    "trocarImagem": "Cambiar imagen",
+    "tirarImagem": "Quitar la imagen",
+    "alt": "Describe la imagen para quien no ve (opcional)",
+    "semMetadado": "La imagen se rehace en tu dispositivo: sale sin ubicación ni datos de la cámara.",
+    "publicar": "Publicar historia",
+    "publicando": "Publicando…",
+    "publicado": "Historia publicada. Desaparece en 24 h.",
+    "vazio": "Escribe un texto, dibuja o elige una imagen.",
+    "deUmPost": "Historia a partir de una publicación: el enlace va junto.",
+    "erro": {
+      "grande": "Imagen demasiado grande (hasta 3 MB una vez lista).",
+      "invalida": "No se pudo leer esta imagen. Usa JPG, PNG o WEBP.",
+      "link": "El enlace debe empezar con https:// y tener una dirección válida.",
+      "ato": "Elige un acto para la cuenta atrás.",
+      "pergunta": "Escribe la pregunta.",
+      "enquete": "Escribe la pregunta y las dos opciones de la encuesta.",
+      "dadoPessoal": "Parece haber un dato personal (teléfono, documento, correo o dirección). Quítalo antes de publicar.",
+      "semConta": "Entra en tu cuenta para publicar.",
+      "limite": "Publicaste muchas historias ahora. Espera un poco.",
+      "banco": "La base de datos aún no tiene las historias (falta la actualización del servidor).",
+      "falha": "No se pudo publicar. Intenta de nuevo."
+    }
+  },
+  "figurinha": {
+    "contagem": {
+      "rotulo": "Acto",
+      "escolha": "Elige el acto",
+      "semAtos": "No tienes acto programado. Convoca un acto para usar la cuenta atrás.",
+      "dias": "Días",
+      "horas": "Horas",
+      "min": "Min",
+      "avisar": "Avísame cuando empiece",
+      "avisado": "Te avisaremos cuando empiece",
+      "desavisar": "No avisar más",
+      "comecou": "Ya empezó",
+      "verAto": "Ver el acto",
+      "falta": "Faltan {dias} días, {horas} horas y {min} minutos para {titulo}"
+    },
+    "pergunta": {
+      "rotulo": "Pregunta",
+      "vazio": "Escribe la pregunta",
+      "soParaVoce": "Respuestas solo para ti",
+      "responder": "Responder a la pregunta",
+      "soParaAutora": "Respuestas solo para {nome}."
+    },
+    "enquete": {
+      "rotulo": "Encuesta",
+      "pergunta": "Pregunta de la encuesta",
+      "perguntaVazia": "Pregunta algo",
+      "opcao": "Opción {n}",
+      "padraoA": "Voy",
+      "padraoB": "No puedo",
+      "notaAutora": "Solo tú ves la suma. El nombre de quien votó no aparece.",
+      "nota": "Solo {nome} ve la suma. Tu nombre no aparece.",
+      "votou": "Voto enviado solo a la suma.",
+      "soma": "{pct}%",
+      "total": "{n} votos",
+      "poucas": "Pocas personas votaron aún: la suma aparece a partir de 3."
+    },
+    "link": {
+      "rotulo": "Enlace",
+      "endereco": "Dirección (https://…)",
+      "texto": "Texto del enlace (opcional)",
+      "abrir": "Abrir {dominio} (sale de Alumia)"
+    }
+  },
+  "visor": {
+    "rotulo": "Historia de {nome}",
+    "ajuda": "Flechas para cambiar de historia, espacio para pausar, Esc para cerrar.",
+    "progresso": "Historia {i} de {n}",
+    "publico": {
+      "seguidores": "Para quien me sigue",
+      "membros": "Para la comunidad",
+      "proximos": "Para los cercanos"
+    },
+    "agora": "ahora",
+    "min": "{n} min",
+    "h": "{n} h",
+    "pausar": "Pausar",
+    "continuar": "Continuar",
+    "mais": "Más opciones",
+    "fechar": "Cerrar",
+    "anterior": "Historia anterior",
+    "proximo": "Historia siguiente",
+    "silenciar": "No ver las historias de {nome} en este dispositivo",
+    "silenciado": "Ya no verás las historias de {nome} en este dispositivo. Nadie se entera.",
+    "denunciar": "Denunciar esta historia",
+    "denunciaTitulo": "Denunciar esta historia",
+    "denunciaAjuda": "Quien denuncia nunca se revela. Amenaza, exposición y riesgo a menores sacan la historia del aire al instante, hasta que la moderación la vea.",
+    "denunciaEnviar": "Enviar denuncia",
+    "denunciaEnviada": "Denuncia recibida. Protocolo {protocolo}.",
+    "cancelar": "Cancelar",
+    "apagar": "Borrar esta historia",
+    "apagarConfirma": "¿Borrar ahora? Desaparece para todos, con las respuestas.",
+    "apagarSim": "Borrar",
+    "apagado": "Historia borrada.",
+    "seu": "Tu historia",
+    "respostasChegam": "Las respuestas y reacciones llegan solo a ti, en tus avisos.",
+    "responder": "Responder solo a {nome}…",
+    "responderRotulo": "Responder solo a {nome}",
+    "enviar": "Enviar",
+    "enviado": "Enviado solo a {nome}.",
+    "reacoes": "Reaccionar (solo {nome} ve)",
+    "reacao": {
+      "punho": "Puño en alto",
+      "chama": "Llama",
+      "coracao": "Corazón"
+    },
+    "reagiu": "{reacao}: enviado solo a {nome}.",
+    "sumiu": "Esta historia ya desapareció.",
+    "carregando": "Cargando la historia…",
+    "erro": "No se pudo abrir esta historia.",
+    "deUmPost": "Ver la publicación",
+    "imagem": "Imagen de la historia",
+    "categorias": {
+      "menores": "Niño, niña o adolescente en riesgo",
+      "ameaca": "Amenaza",
+      "exposicao": "Exposición de datos personales",
+      "violencia": "Incitación a la violencia",
+      "autolesao": "Autolesión o riesgo de vida (urgente: en Brasil llama al 188, CVV)",
+      "odio": "Discurso de odio o discriminación",
+      "assedio": "Acoso o persecución",
+      "golpe": "Estafa o fraude",
+      "spam": "Propaganda o repetición",
+      "outro": "Otro motivo"
+    },
+    "erroAoEnviar": "No se pudo enviar. Intenta de nuevo."
+  },
+  "cartao": {
+    "porNoStory": "Poner en la historia",
+    "porNoStoryAjuda": "Crea una historia con el enlace de esta publicación (desaparece en 24 h)"
+  },
+  "previa": "Vista previa con datos de ejemplo: nada aquí se envía."
+}

@@ -1,10 +1,60 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { EmConstrucao } from "../onda5/EmConstrucao";
+import "./stories.css";
+import { useState } from "react";
+import type { Aba } from "@/lib/rede/tipos";
+import { Linha } from "../Linha";
 import type { PropsDaTelaDoPacote } from "../registro";
+import StoriesNoAlto from "./NoAlto";
+import { focarNoGrupo, indiceDaSeta, useTextosDosStories } from "./usar";
 
-/** Os stories (pranchas celular-stories-na-linha, celular-criar-story, celular-ver-story) (/alumia/stories). Esboço da F0: "em construção" até a F5 pôr a tela de verdade. */
-export default function TelaDeStories(props: PropsDaTelaDoPacote) {
-  return <EmConstrucao {...props} nome="stories" />;
+const ABAS: readonly ("seguindo" | "comunidades" | "tudo")[] = ["seguindo", "comunidades", "tudo"];
+
+/**
+ * Os stories (/alumia/stories; pranchas celular-stories-na-linha, celular-criar-story e celular-ver-story): a faixa no alto
+ * (a mesma do alto da linha de Início, components/rede/stories/NoAlto.tsx), as abas Seguindo / Comunidades / Tudo e a linha de
+ * sempre embaixo; o visor e o "criar" abrem por cima, com o endereço dizendo o que está aberto (?ver=@nome, ?criar=1). É o
+ * destino do "Pôr no story" do cartão. Atrás das flags rede-v2 + alumia-2 + alumia-stories (lib/rede/rotas-novas.ts):
+ * desligadas, a página dá 404.
+ */
+export default function TelaDeStories({ lang, s, situacao }: PropsDaTelaDoPacote) {
+  const t = useTextosDosStories(lang);
+  const [aba, setAba] = useState<Aba>("seguindo");
+  // A prancha diz só "Comunidades" (o rótulo curto do menu), não "Minhas comunidades".
+  const rotulo = (a: (typeof ABAS)[number]) => (a === "comunidades" ? s.menu.comunidades : s.abas[a]);
+
+  return (
+    <div>
+      <StoriesNoAlto lang={lang} situacao={situacao} />
+
+      <div className="al-st-abas" role="tablist" aria-label={t?.abas.rotulo ?? s.abas.rotulo}>
+        {ABAS.map((a, k) => (
+          <button
+            key={a}
+            type="button"
+            role="tab"
+            id={`al-st-aba-${a}`}
+            aria-controls="al-st-aba-painel"
+            aria-selected={aba === a}
+            tabIndex={aba === a ? 0 : -1}
+            className="al-st-aba"
+            onClick={() => setAba(a)}
+            onKeyDown={(e) => {
+              const n = indiceDaSeta(e.key, k, ABAS.length, "horizontal");
+              if (n === null) return;
+              e.preventDefault();
+              setAba(ABAS[n]);
+              focarNoGrupo(e.currentTarget, "[role=tab]", n);
+            }}
+          >
+            {rotulo(a)}
+          </button>
+        ))}
+      </div>
+      <div id="al-st-aba-painel" role="tabpanel" aria-labelledby={`al-st-aba-${aba}`} className="al-st-aba-painel">
+        <Linha key={aba} aba={aba} lang={lang} s={s} logado={situacao.logado} vazio={aba === "seguindo" ? s.estados.vazioSeguindo : aba === "comunidades" ? s.estados.vazioComunidades : undefined} />
+      </div>
+    </div>
+  );
 }
