@@ -22,7 +22,15 @@ export const CORES_DO_STORY: readonly CorDoStory[] = ["azul", "vermelho", "doura
 export type FundoDoStory =
   | { tipo: "listras"; cor: CorDoStory }
   | { tipo: "mosaico"; cor: CorDoStory }
-  | { tipo: "imagem"; cor: CorDoStory; /** Endereço assinado, de vida curta, do depósito privado rede-stories. */ url: string; alt: string };
+  | {
+      tipo: "imagem";
+      cor: CorDoStory;
+      /** Endereço assinado, de vida curta, do depósito privado rede-stories (o cliente pede a partir do caminho). */
+      url: string;
+      alt: string;
+      /** O caminho no depósito ("<uid>/<id>.webp"), como o banco devolve; o cliente troca por `url`. */
+      caminho?: string;
+    };
 
 /** As 4 figurinhas da prancha. */
 export type TipoDeFigurinha = "contagem" | "pergunta" | "enquete" | "link";
