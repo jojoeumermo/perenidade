@@ -20,7 +20,9 @@ import {
 import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
+import { useAlumia2 } from "./base3";
 import { Citar } from "./Citar";
+import TelaDaConversaAlumia from "./TelaDaConversaAlumia";
 import { Ordem } from "./Ordem";
 import { Sintese } from "./Sintese";
 
@@ -36,7 +38,7 @@ function emFila(nos: readonly NoDaArvore[]): NoDaArvore[] {
  * menções com link para o perfil. Substitui a lista simples da fundação; carregada sob demanda (components/rede/Rede.tsx).
  * Tudo o que a pessoa não pode ver já foi cortado no banco (a matriz vale para cada resposta).
  */
-export default function TelaDaConversa({
+function TelaDaConversaDeHoje({
   id,
   lang,
   s,
@@ -214,4 +216,15 @@ export default function TelaDaConversa({
       </section>
     </div>
   );
+}
+
+type PropsDaConversa = { id: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void };
+
+/**
+ * A conversa de um post. Com a Alumia nova ligada ("rede-v2" + "alumia-2", o layout põe [data-al="2"]) é a da prancha
+ * celular-conversa-fediverso (TelaDaConversaAlumia.tsx); desligada, a de hoje, sem mudar nada.
+ */
+export default function TelaDaConversa(props: PropsDaConversa) {
+  const nova = useAlumia2();
+  return nova ? <TelaDaConversaAlumia id={props.id} lang={props.lang} s={props.s} situacao={props.situacao} /> : <TelaDaConversaDeHoje {...props} />;
 }
