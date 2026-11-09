@@ -60,7 +60,7 @@ export const ROTAS_DA_ESCOLA: readonly RotaDaEscola[] = [
  * voluntários militantes e o manifesto da Frente Revolucionária Lúcia (T15). O chamado precisa chegar a quem ainda
  * não é da casa, e a inscrição, como a do voluntariado, não pede conta. Caminhos sem o idioma.
  */
-export const PUBLICAS_DA_ESCOLA: readonly string[] = ["/escola/militantes", "/escola/manifesto"];
+export const PUBLICAS_DA_ESCOLA: readonly string[] = ["/escola/militantes", "/escola/manifesto", "/escola/entrar"];
 
 /** O caminho (sem o idioma) abre sem conta? Vale também para a barra no fim. */
 export const publicaDaEscola = (caminhoSemIdioma: string) => PUBLICAS_DA_ESCOLA.includes(caminhoSemIdioma.replace(/\/+$/, "") || "/");
