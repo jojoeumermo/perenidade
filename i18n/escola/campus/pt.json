@@ -28,7 +28,8 @@
     "nota": "O carimbo de cada prédio fica só neste aparelho. Não vale ponto nem entra em ranking.",
     "secoes": "{n} lugares",
     "abrir": "Ver o que tem no prédio {nome}",
-    "verTudo": "Ver tudo ({n})"
+    "verTudo": "Ver tudo ({n})",
+    "verMenos": "Ver menos"
   },
   "calendario": {
     "atual": "Este semestre",
