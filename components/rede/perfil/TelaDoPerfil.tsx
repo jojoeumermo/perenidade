@@ -16,7 +16,9 @@ import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Linha } from "../Linha";
+import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import { Avatar } from "./Avatar";
+import PerfilDaAlumia2 from "./PerfilDaAlumia2";
 import { useTextosDoPerfil } from "./useTextos";
 
 /** O que a pessoa liga em "estudando agora" é lido do aparelho (a última aula aberta); só se ela ligou, e só aqui, no próprio perfil. */
@@ -34,7 +36,13 @@ function lerUltimaAula(): unknown {
  * linha da pessoa. Seguir (ou pedir para seguir, no perfil trancado). Sem contagem de seguidores, de seguidos ou de apoios, e
  * nada do nome civil. No próprio perfil: editar, pedidos pendentes e a atualização do "estudando agora" se estiver ligado.
  */
-export default function TelaDoPerfil({ handle, lang, s, situacao, aoResponder }: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
+export default function TelaDoPerfil(props: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
+  // Alumia nova ("rede-v2" + "alumia-2"): perfil com abas e, com "alumia-org", o perfil de organização. Desligada, a tela de hoje.
+  if (alumia2Ligada()) return <PerfilDaAlumia2 {...props} />;
+  return <TelaDoPerfilDeHoje {...props} />;
+}
+
+function TelaDoPerfilDeHoje({ handle, lang, s, situacao, aoResponder }: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
   const sp = useTextosDoPerfil(lang);
   const [estado, setEstado] = useState<{ handle: string; dado: PerfilDaRede | null; erro: string } | null>(null);
   const [ocupado, setOcupado] = useState(false);

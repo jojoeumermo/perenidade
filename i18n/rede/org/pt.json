@@ -188,8 +188,7 @@
       "sou": "Você é daqui",
       "ajuda": "Quem media o núcleo aceita o pedido. Ninguém vê a lista de quem é de um núcleo.",
       "vazio": "Esta organização ainda não tem núcleos."
-    },
-    "tipoECidade": "{tipo} · {cidade}"
+    }
   },
   "contas": {
     "titulo": "Como votamos",
@@ -355,6 +354,10 @@
       "remover": "Tirar o campo {n}",
       "salvar": "Salvar",
       "salvo": "Salvo."
+    },
+    "vazio": {
+      "respostas": "Nenhuma resposta por aqui.",
+      "midia": "Nenhuma imagem por aqui."
     }
   },
   "coluna": {

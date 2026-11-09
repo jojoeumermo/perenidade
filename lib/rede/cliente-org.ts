@@ -9,6 +9,7 @@
 // vínculo entre a organização e quem cuida dela (PLANO-ALUMIA §6.1 e §6.6; LGPD art. 5º, II e art. 11).
 import { chamar, type Chamar } from "./cliente";
 import { aoVivoDeExemplo, extrasDeExemplo, HANDLE_DE_EXEMPLO, orgDeExemplo, previaLigada } from "./org/exemplos";
+import type { PaginaDaLinha } from "./tipos";
 import type { ExtrasDoPerfil, OrgPublica, PedidoDeExtras, PedidoDeSelo, PedidoDeVotacao, PedidoNaFila, PlenariaAoVivo, VotacaoDaOrg } from "./tipos-org";
 
 /**
@@ -61,6 +62,12 @@ export function criarClienteOrg(c: Chamar, previa: () => boolean = previaLigada)
     /** Os extras do perfil de pessoa (status, pronomes, campos, destaques). Sem banco: nada (ou o exemplo na prévia). */
     extras: (handle: string) =>
       lerOuExemplo<ExtrasDoPerfil | null>(() => c<ExtrasDoPerfil | null>("rede_perfil_extras", { p_handle: handle }), () => (previa() ? extrasDeExemplo(handle) : null)),
+    /**
+     * As abas Respostas e Mídia do perfil de pessoa: os posts da pessoa que respondem a outro, ou que têm imagem, na ordem de
+     * chegada e com a mesma visibilidade da linha (rede_linha). Sem banco: página vazia.
+     */
+    linhaDaPessoa: (handle: string, aba: "respostas" | "midia", cursor: string | null = null) =>
+      lerOuExemplo<PaginaDaLinha>(() => c<PaginaDaLinha>("rede_perfil_linha", { p_handle: handle, p_aba: aba, p_cursor: cursor }), () => ({ itens: [], proximo: null })),
     /** Editar os meus extras. */
     editarExtras: (p: PedidoDeExtras) => c<ExtrasDoPerfil>("rede_perfil_extras_editar", { p }),
   };
