@@ -50,7 +50,7 @@ const hrefs = [...pagina.matchAll(/href: "(\/[a-z0-9-/]+)"/g)].map((m) => m[1]);
 ok(hrefs.length >= 5, `canais com endereço (achei ${hrefs.length})`);
 for (const h of new Set([...hrefs, "/sala-livre", "/busca", "/perguntas", "/glossario"])) ok(existe(`app/[lang]${h}/page.tsx`), `o canal ${h} não existe como página`);
 // Cada canal aponta para uma página que já tinha o texto dele: nada de canal novo.
-for (const rota of ["/reforco", "/comunidade", "/ao-vivo", "/estudo-em-grupo", "/escola/acompanhante"]) ok(pagina.includes(`"${rota}"`), `o plantão devia citar ${rota}`);
+for (const rota of ["/reforco", "/alumia", "/ao-vivo", "/estudo-em-grupo", "/escola/acompanhante"]) ok(pagina.includes(`"${rota}"`), `o plantão devia citar ${rota}`);
 ok(/ligado\("escola"\)/.test(pagina), "o acompanhante da Escola só aparece com o recurso escola ligado");
 ok(ler("app/sitemap.ts").includes('"/plantao"'), "falta /plantao no sitemap");
 ok(ler("lib/interdicao.ts").includes('"/plantao"'), "falta /plantao numa área de lib/interdicao.ts");

@@ -536,14 +536,14 @@ await espera("nenhuma tabela nova no esquema public", async () => (await um("sel
 // ── Endereços antigos (?t=, ?sala=, ?post=) e endereços novos ──
 const ID = "0b9c5f0e-7f3a-4c1e-9d55-2f6a8f0d1c11";
 await espera("pedidoAntigo reconhece ?t=, ?sala= e ?post= só na linha de cada idioma", async () => [
-  pedidoAntigo("/pt/comunidade", `?t=${ID}`),
-  pedidoAntigo("/en/comunidade/", "?sala=matematica"),
-  pedidoAntigo("/pt/comunidade", `?post=${ID}`),
-  pedidoAntigo("/pt/comunidade", "?t=nao-e-id"),
-  pedidoAntigo("/pt/comunidade", "?sala=Maiuscula!"),
+  pedidoAntigo("/pt/alumia", `?t=${ID}`),
+  pedidoAntigo("/en/alumia/", "?sala=matematica"),
+  pedidoAntigo("/pt/alumia", `?post=${ID}`),
+  pedidoAntigo("/pt/alumia", "?t=nao-e-id"),
+  pedidoAntigo("/pt/alumia", "?sala=Maiuscula!"),
   pedidoAntigo("/pt/trilhas", `?t=${ID}`),
-  pedidoAntigo("/xx/comunidade", `?t=${ID}`),
-  pedidoAntigo("/pt/comunidade", ""),
+  pedidoAntigo("/xx/alumia", `?t=${ID}`),
+  pedidoAntigo("/pt/alumia", ""),
 ], (r) => r[0]?.tipo === "topico" && r[1]?.tipo === "sala" && r[1].lang === "en" && r[2]?.tipo === "post" && r.slice(3).every((x) => x === null));
 await espera("destinoNovo só devolve endereço bem formado (nada de ir para fora do site)", async () => [
   destinoNovo("pt", { tipo: "post", novo: ID }),
@@ -553,16 +553,16 @@ await espera("destinoNovo só devolve endereço bem formado (nada de ir para for
   destinoNovo("pt", null),
   destinoDireto({ lang: "pt", tipo: "post", antigo: ID }),
   destinoDireto({ lang: "pt", tipo: "topico", antigo: ID }),
-], (r) => r[0] === `/pt/comunidade/p/${ID}` && r[1] === "/pt/comunidade/c/matematica" && r[2] === null && r[3] === null && r[4] === null && r[5] === `/pt/comunidade/p/${ID}` && r[6] === null);
+], (r) => r[0] === `/pt/alumia/p/${ID}` && r[1] === "/pt/alumia/c/matematica" && r[2] === null && r[3] === null && r[4] === null && r[5] === `/pt/alumia/p/${ID}` && r[6] === null);
 await espera("os endereços da v2 e as conferências de formato batem com o banco", async () => [
   enderecos.post("pt", ID), enderecos.comunidade("pt", "luta-pela-terra"), enderecos.perfil("pt", "maria_luta"), idOk(ID), slugOk("Ab"), handleOk("a_b"), handleOk("ab"),
-], (r) => r[0] === `/pt/comunidade/p/${ID}` && r[1] === "/pt/comunidade/c/luta-pela-terra" && r[2] === "/pt/comunidade/u/maria_luta" && r[3] === true && r[4] === false && r[5] === true && r[6] === false);
+], (r) => r[0] === `/pt/alumia/p/${ID}` && r[1] === "/pt/alumia/c/luta-pela-terra" && r[2] === "/pt/alumia/u/maria_luta" && r[3] === true && r[4] === false && r[5] === true && r[6] === false);
 await espera("o proxy só redireciona com o recurso ligado e responde 301", async () => {
   const proxy = lerTexto("proxy.ts");
   return [/ligado\("rede-v2"\)/.test(proxy), /NextResponse\.redirect\(url, 301\)/.test(proxy), /rede_antigo/.test(proxy)];
 }, (r) => r.every(Boolean));
-await espera("a página /comunidade escolhe a v2 só com o recurso ligado e carrega sob demanda; a Rede de hoje continua no resto", async () => {
-  const pagina = lerTexto("app/[lang]/comunidade/page.tsx");
+await espera("a página /alumia escolhe a v2 só com o recurso ligado e carrega sob demanda; a Rede de hoje continua no resto", async () => {
+  const pagina = lerTexto("app/[lang]/alumia/page.tsx");
   const sob = lerTexto("components/rede/RedeSobDemanda.tsx");
   return [/if \(ligado\("rede-v2"\)\)/.test(pagina), /ComunidadeComRede forum=\{t\.community\} rede=\{t\.rede\}/.test(pagina), /dynamic\(\(\) => import\("\.\/Rede"\)/.test(sob), /ssr: false/.test(sob)];
 }, (r) => r.every(Boolean));
@@ -586,7 +586,7 @@ await espera("os seis idiomas têm as mesmas chaves (pt é o texto final; os out
   return resultado;
 }, (r) => Object.values(r).every((x) => x.iguais && x.rascunho));
 await espera("a rota de cada tela da v2 existe e responde 404 com o recurso desligado", async () => {
-  const dir = "app/[lang]/comunidade";
+  const dir = "app/[lang]/alumia";
   const lista = [`${dir}/p/[id]/page.tsx`, `${dir}/c/[slug]/page.tsx`, `${dir}/u/[handle]/page.tsx`];
   return lista.map((a) => ({ a, ok: fs.existsSync(new URL(`../${a}`, import.meta.url)) && /notFound\(\)/.test(lerTexto(a)) && /ligado\("rede-v2"\)/.test(lerTexto(a)) }));
 }, (r) => r.every((x) => x.ok));

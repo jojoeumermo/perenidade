@@ -41,7 +41,7 @@ ok("cada endereço cai na aba certa", () => {
     "/pt/acervo": "estudar",
     "/pt/jogos": "jogos",
     "/pt/laboratorios/quimica": "jogos",
-    "/pt/comunidade": "comunidade",
+    "/pt/alumia": "comunidade",
     "/pt/meu-estudo/praticar": "eu",
     "/pt/caderno": "eu",
     "/zh/entrar": "eu",
@@ -69,8 +69,8 @@ ok("a página de cima: aula sobe para a trilha, estante para as disciplinas, aba
 });
 ok("painel e Rede v2 (só quando ligada) têm a casca própria; o resto não", () => {
   assert.equal(ehTelaComCascaPropria("/pt/painel/equipe", false), true);
-  assert.equal(ehTelaComCascaPropria("/pt/comunidade", true), true);
-  assert.equal(ehTelaComCascaPropria("/pt/comunidade", false), false);
+  assert.equal(ehTelaComCascaPropria("/pt/alumia", true), true);
+  assert.equal(ehTelaComCascaPropria("/pt/alumia", false), false);
   assert.equal(ehTelaComCascaPropria("/pt/trilhas", true), false);
 });
 ok("laboratório aberto é tela cheia; a lista de laboratórios não", () => {

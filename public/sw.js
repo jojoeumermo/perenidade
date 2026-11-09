@@ -35,7 +35,7 @@ const TAMANHO_MAXIMO_LEVE = 4 * 1024 * 1024;
 const MAXIMO_DE_EXTRAS = 12;
 
 /** As telas das abas do aplicativo (components/app/modo.ts RAIZ_DA_ABA), sem o idioma. Início é "". */
-const RAIZES_DAS_ABAS = ["", "/trilhas", "/jogos", "/comunidade", "/meu-estudo"];
+const RAIZES_DAS_ABAS = ["", "/trilhas", "/jogos", "/alumia", "/meu-estudo"];
 
 // A página "sem conexão" no idioma do endereço. Sem prefixo, português.
 // [html lang, título, h1, texto, link para as disciplinas, botão "tentar de novo"]
@@ -66,7 +66,7 @@ const fixo = (caminho) => /^\/(_next\/static\/|imagens\/|arquivos\/|marca|icon|a
 const leve = (caminho) => /^\/(labs|blockly|jscpp|fontes|capas|territorios|tri|workers|_next\/image)(\/|$)/.test(caminho);
 const privado = (caminho) => /^\/[a-z]{2}\/(painel|entrar|meus-dados|certificado)(\/|$)/.test(caminho) || caminho.startsWith("/_vercel/") || caminho.startsWith("/api/");
 
-/** As telas das abas de um idioma: ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/comunidade", "/pt/meu-estudo"]. */
+/** As telas das abas de um idioma: ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/alumia", "/pt/meu-estudo"]. */
 function urlsDaCasca(lang) {
   return IDIOMAS.includes(lang) ? RAIZES_DAS_ABAS.map((raiz) => `/${lang}${raiz}`) : [];
 }
@@ -304,7 +304,7 @@ self.addEventListener("push", (evento) => {
 self.addEventListener("notificationclick", (evento) => {
   evento.notification.close();
   const lang = typeof evento.notification.data?.lang === "string" && evento.notification.data.lang in TEXTOS_AVISO ? evento.notification.data.lang : "pt";
-  const destino = `/${lang}/comunidade/avisos`;
+  const destino = `/${lang}/alumia/avisos`;
   evento.waitUntil(
     (async () => {
       const abertas = await self.clients.matchAll({ type: "window", includeUncontrolled: true });

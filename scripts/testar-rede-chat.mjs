@@ -356,7 +356,7 @@ const textosPt = JSON.parse(ler("i18n/rede/chat/pt.json"));
 await espera("os textos do chat têm as mesmas chaves nos seis idiomas", async () => IDIOMAS.filter((l) => JSON.stringify(chavesDe(JSON.parse(ler(`i18n/rede/chat/${l}.json`)))) !== JSON.stringify(chavesDe(textosPt))), (l) => l.length === 0);
 await espera("menu.conversas e perfil.conversar existem nos seis idiomas da Alumia", async () => IDIOMAS.filter((l) => { const j = JSON.parse(ler(`i18n/rede/${l}.json`)); return !j.menu?.conversas || !j.perfil?.conversar; }), (l) => l.length === 0);
 await espera("nenhum texto do chat usa as palavras proibidas na interface", async () => IDIOMAS.filter((l) => /universidade|diploma/i.test(ler(`i18n/rede/chat/${l}.json`))), (l) => l.length === 0);
-await espera("a página /comunidade/conversas não é indexada", async () => ler("app/[lang]/comunidade/conversas/page.tsx"), (t) => /index:\s*false/.test(t));
+await espera("a página /alumia/conversas não é indexada", async () => ler("app/[lang]/alumia/conversas/page.tsx"), (t) => /index:\s*false/.test(t));
 await espera("o perfil leva ao chat (?com=@handle) só para membro e nunca no próprio perfil", async () => ler("components/rede/perfil/TelaDoPerfil.tsx"), (t) => /!dado\.meu && situacao\.logado && situacao\.membro[\s\S]{0,200}\/conversas\?com=/.test(t));
 await espera("o documento docs/rede/CHAT-PRIVADO.md existe e cita a LGPD (arts. 6º, 14, 18 e 46)", async () => ler("docs/rede/CHAT-PRIVADO.md"), (t) => ["art. 6", "art. 14", "art. 18", "art. 46"].every((a) => t.includes(a)));
 

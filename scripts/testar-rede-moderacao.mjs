@@ -570,7 +570,7 @@ await espera("os códigos de erro do banco têm texto nos seis idiomas (pacote e
   return faltam;
 }, (f) => f.length === 0);
 await espera("as quatro rotas existem, guardam o recurso rede-v2 (404 desligado) e não são indexadas", async () => {
-  const dir = "app/[lang]/comunidade";
+  const dir = "app/[lang]/alumia";
   return ["moderacao", "denuncias", "silenciados", "cuidado"].map((r) => {
     const t = existe(`${dir}/${r}/page.tsx`) ? lerTexto(`${dir}/${r}/page.tsx`) : "";
     return { r, ok: /ligado\("rede-v2"\)/.test(t) && /notFound\(\)/.test(t) && /index: false/.test(t) && t.includes(`nome: "${r}"`) };
@@ -590,7 +590,7 @@ await espera("nenhuma tela usa alert, confirm ou prompt do navegador", async () 
   return achados;
 }, (a) => a.length === 0);
 await espera("a rota de moderação só manda slug, título e veredito das checagens, e nada lê disco em componente global", async () => {
-  const pagina = lerTexto("app/[lang]/comunidade/moderacao/page.tsx");
+  const pagina = lerTexto("app/[lang]/alumia/moderacao/page.tsx");
   const base = lerTexto("components/rede/moderacao/base.tsx");
   return [/getFactChecks\(lang\)\.map\(\(c\) => \[c\.slug, c\.title \?\? c\.claim, c\.verdict\]\)/.test(pagina), !/from "node:fs"|from "fs"/.test(base + lerTexto("components/rede/moderacao/NoCartao.tsx"))];
 }, (r) => r[0] && r[1]);
