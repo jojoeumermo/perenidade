@@ -10,6 +10,9 @@ import type { Aba, Post } from "@/lib/rede/tipos";
 import { CartaoDePost } from "./CartaoDePost";
 import { textoDoErro } from "./erros";
 import { EsqueletoDaLinha } from "./Esqueletos";
+import { useAlumia2 } from "./publicar/alumia2/contexto";
+import { Icone } from "./publicar/alumia2/icones";
+import { postsDeExemplo } from "@/lib/rede/publicar/exemplos-alumia2";
 
 /** De quanto em quanto tempo se pergunta "N novos" (só com a página à vista; nada de tempo real por enquanto). */
 const ESPERA_DOS_NOVOS_MS = 60_000;
@@ -45,6 +48,9 @@ export function Linha({
   const [novos, setNovos] = useState(0);
   const desde = useRef(new Date().toISOString());
   const [versao, setVersao] = useState(0);
+  // Alumia nova (flag "alumia-2"): a faixa "N posts novos" vira a pílula da prancha; na prévia, os posts de exemplo.
+  const al2 = useAlumia2();
+  const previa = Boolean(al2?.previa) && !aba.includes(":");
   // "Silenciar só neste aparelho": a lista fica no navegador e só esconde o que a tela mostra (o servidor não sabe dela).
   const [silencios] = useState<SilencioLocal[]>(() => {
     try {
@@ -59,14 +65,15 @@ export function Linha({
     let vivo = true;
     // O instante é o de antes do pedido: o que chegar durante a espera ainda conta como novo.
     const antes = new Date().toISOString();
-    rede
-      .linha(aba, null, 20)
+    // Prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): os posts das pranchas, nunca misturados com os de verdade; "3 posts novos".
+    const pedido = previa ? Promise.resolve({ itens: postsDeExemplo(), proximo: null }) : rede.linha(aba, null, 20);
+    pedido
       .then((r) => {
         if (!vivo) return;
         desde.current = antes;
         setItens(r.itens);
         setProximo(r.proximo);
-        setNovos(0);
+        setNovos(previa && versao === 0 ? 3 : 0);
         setEstado("ok");
       })
       .catch((e) => {
@@ -77,7 +84,7 @@ export function Linha({
     return () => {
       vivo = false;
     };
-  }, [aba, s, versao]);
+  }, [aba, s, versao, previa]);
 
   const carregar = () => {
     setEstado("carregando");
@@ -86,13 +93,13 @@ export function Linha({
 
   // A faixa "N novos": pergunta só enquanto a página está à vista e a linha já carregou.
   useEffect(() => {
-    if (estado !== "ok") return;
+    if (estado !== "ok" || previa) return;
     const id = window.setInterval(() => {
       if (document.visibilityState !== "visible") return;
       rede.novos(aba, desde.current).then((n) => setNovos(typeof n === "number" ? n : 0)).catch(() => undefined);
     }, ESPERA_DOS_NOVOS_MS);
     return () => window.clearInterval(id);
-  }, [aba, estado]);
+  }, [aba, estado, previa]);
 
   async function maisPosts() {
     if (!proximo || maisCarregando) return;
@@ -126,7 +133,16 @@ export function Linha({
   const visiveis = silencios.length ? itens.filter((p) => !silenciadoNoAparelho(p, silencios)) : itens;
   return (
     <div>
-      {novos > 0 && (
+      {novos > 0 && al2 && (
+        <div className="sticky top-12 z-10 flex justify-center py-3">
+          <button type="button" onClick={carregar} className="al2-novos" aria-label={preencher(al2.t.linha.mostrarNovos, { n: novos })}>
+            <Icone nome="setaCima" className="h-4 w-4" grosso />
+            <span className="al2-novos-n">{novos}</span>
+            {novos === 1 ? al2.t.linha.novosUm : al2.t.linha.novosOutros}
+          </button>
+        </div>
+      )}
+      {novos > 0 && !al2 && (
         <button
           type="button"
           onClick={carregar}
