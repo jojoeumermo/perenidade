@@ -80,7 +80,7 @@
     "ajudouQuem": "helped who asked",
     "marcarAjudou": "Mark as helpful",
     "desmarcarAjudou": "Remove the helpful mark",
-    "ajudouRegra": "Only who opened the conversation (and the moderators) marks the reply that helped. There is only one per conversation.",
+    "ajudouRegra": "Only the person who opened the conversation marks the reply that helped, not even the moderators. There is only one per conversation.",
     "fediverso": "Reply from the Fediverse, from the server {servidor}",
     "responderPara": "Reply to @{handle}",
     "responderParaNome": "Reply to {codinome}",

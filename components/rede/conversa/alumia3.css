@@ -68,7 +68,7 @@
 [data-al="2"] .al3-capa-acao[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
 [data-al="2"] .al3-capa-semana { flex: 1; margin: 0; text-align: right; white-space: nowrap; font-weight: 700; font-size: 0.95rem; }
 /* A regra global "main button[aria-pressed] vira pílula" não vale aqui: na prancha, Entrar e Regras são retângulos de canto 12px. */
-:root [data-al="2"] main .al3-capa-acao.al3-capa-acao[aria-pressed] { border-radius: 12px; }
+[data-al="2"] main .al3-capa-acao.al3-capa-acao[aria-pressed] { border-radius: 12px; }
 @media (max-width: 400px) {
   [data-al="2"] .al3-capa-acoes { gap: 0.5rem; }
   [data-al="2"] .al3-capa-acao { padding: 0.45rem 0.8rem; font-size: 0.95rem; }
@@ -208,6 +208,24 @@
 /* As ações do post aberto: uma linha discreta logo abaixo (a prancha não desenha; elas existem e não empurram o fio). */
 [data-al="2"] .al3-raiz-acoes { margin-top: 0.4rem; }
 [data-al="2"] .al3-raiz-acoes .al3-acao { font-size: 0.92rem; }
+/* Reações com emoji (só o total, nunca quem): pílulas discretas abaixo do post aberto; a minha com borda dourada. */
+[data-al="2"] .al3-reacoes-bloco { margin-top: 0.9rem; }
+[data-al="2"] .al3-reacoes { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+[data-al="2"] .al3-reacao {
+  min-height: 44px; padding: 0 0.8rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie);
+  color: var(--al-texto); font: inherit; font-size: 0.92rem; cursor: pointer; display: inline-flex; gap: 0.35rem; align-items: center;
+}
+[data-al="2"] .al3-reacao[aria-pressed="true"] { border-color: var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 16%, var(--al-superficie)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-reacao { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-reacao[aria-pressed="true"] { border-width: 2px; font-weight: 800; }
+[data-al="2"] .al3-reacao:disabled { cursor: not-allowed; opacity: 0.6; }
+[data-al="2"] .al3-paleta:not([hidden]) {
+  display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.4rem; padding: 0.35rem; border-radius: 12px;
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2);
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-paleta { border-color: var(--al-texto); }
+[data-al="2"] .al3-paleta button { min-width: 44px; min-height: 44px; font-size: 1.3rem; border-radius: 10px; border: 0; background: none; cursor: pointer; }
+[data-al="2"] .al3-paleta button:hover { background: var(--al-superficie-2); }
 [data-al="2"] .al3-raiz-titulo { margin: 0.9rem 0 0; font-size: 1.4rem; font-weight: 900; }
 [data-al="2"] .al3-regra { margin: 0.4rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
 
@@ -275,6 +293,12 @@
   display: grid; place-items: center; cursor: pointer;
 }
 @media (max-width: 767px) {
+  /* No celular a caixa fica presa embaixo da tela o tempo todo (sticky soltava no fim da página e os flutuantes cobriam o enviar);
+     o bloco que a contém ganha um respiro embaixo para a última resposta não ficar escondida atrás dela. */
+  [data-al="2"] .al3-responder { position: fixed; inset-inline: 0; }
+  [data-al="2"] :has(> .al3-responder) { padding-bottom: 7rem; }
+  /* O mesmo respiro no fim da página: o rodapé (idiomas) também não fica atrás da caixa. */
+  :root:has([data-al="2"] .al3-responder) body::after { content: ""; display: block; height: 6rem; }
   /* Dentro da casca, a caixa fica logo acima da barra de baixo do celular (4.5rem). */
   [data-al="2"] .rede-lucia .al3-responder { bottom: calc(4.5rem + var(--recuo-baixo, 0px)); }
   /* A faixa entre a caixa e a barra de baixo fica com o fundo da caixa: o fio não aparece espremido ali. */

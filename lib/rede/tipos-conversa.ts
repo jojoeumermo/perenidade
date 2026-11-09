@@ -59,6 +59,20 @@ export interface Arvore {
    * errar o gênero de ninguém. Sem pronomes, o selo diz "ajudou quem perguntou". Ausente antes do back-end da F3/F4.
    */
   pronomes_da_raiz?: string | null;
+  /**
+   * Onda 5 (F3, rede_alumia_conversa): a resposta que ajudou quem abriu a conversa (só ela marca), ou nulo. Ausente na árvore de
+   * hoje (rede_conv_arvore): aí vale o `aceita` da dúvida.
+   */
+  ajudou?: string | null;
+  /** Quem lê é quem abriu a conversa (e é membro): só essa pessoa marca "ajudou". */
+  pode_ajudou?: boolean;
+}
+
+/** Uma reação com emoji como o banco devolve: o total (nulo abaixo de 3) e se é minha. Nunca quem reagiu. */
+export interface ReacaoDoPost {
+  emoji: string;
+  total: number | null;
+  minha: boolean;
 }
 
 export interface SugestaoDeMencao {
