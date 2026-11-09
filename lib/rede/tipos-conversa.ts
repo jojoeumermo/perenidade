@@ -17,6 +17,11 @@ export const NIVEIS_COM_RECUO = 4;
 /** Um post dentro da árvore: `silenciada` vem quando a pessoa silenciou o autor (o texto vem vazio). */
 export interface PostDaArvore extends Post {
   silenciada?: boolean;
+  /**
+   * Onda 5 (F3 + F-FED): a resposta veio do Fediverso; este é o servidor de quem escreveu ("mastodon.social"). Só o nome do
+   * servidor, que já é público no @ da pessoa; nada de IP nem de endereço de caixa. Ausente nas respostas daqui.
+   */
+  servidor?: string | null;
 }
 
 /** A síntese em vigor no alto da conversa. `versoes` é quantas já foram escritas (a atual e o histórico). */
@@ -49,6 +54,11 @@ export interface Arvore {
   pode_sintese: boolean;
   /** A lista foi cortada em 400: o resto se abre numa resposta mais abaixo. */
   mais: boolean;
+  /**
+   * Onda 5 (F3): os pronomes que quem abriu a conversa escreveu no perfil ("ela/dela"), só para o selo "ajudou a autora" não
+   * errar o gênero de ninguém. Sem pronomes, o selo diz "ajudou quem perguntou". Ausente antes do back-end da F3/F4.
+   */
+  pronomes_da_raiz?: string | null;
 }
 
 export interface SugestaoDeMencao {
@@ -139,4 +149,87 @@ export function inserirMencao(texto: string, cursor: number, handle: string): { 
   const inserido = `@${handle}${espaco}`;
   const novoCursor = aberta.inicio + inserido.length + (espaco === "" ? 1 : 0);
   return { texto: texto.slice(0, aberta.inicio) + inserido + resto, cursor: novoCursor };
+}
+
+// ── Onda 5 (PLANO-ALUMIA F3): contas puras das telas novas ────────────────────────────────────────────────────────────────
+
+/**
+ * A partir de quantas pessoas um total aparece (PLANO-ALUMIA §6.1, docs/rede/PRIVACIDADE.md §8): abaixo disso, "poucas". Vale
+ * para reações e para qualquer contagem nova; opinião política é dado sensível (LGPD art. 5º, II, e art. 11).
+ */
+export const MINIMO_AGREGADO = 3;
+
+/** O total que pode aparecer na tela: nulo (= "poucas") quando veio nulo, não é número inteiro ou fica abaixo de 3. */
+export function totalVisivel(n: number | null | undefined): number | null {
+  return typeof n === "number" && Number.isInteger(n) && n >= MINIMO_AGREGADO ? n : null;
+}
+
+/**
+ * As reações com emoji (PLANO-ALUMIA §6.3): um conjunto FECHADO, sem emoji livre que vire xingamento. O banco tem a mesma lista
+ * no check da tabela (a migração da F3); a tela só mostra o que estiver aqui. Total por emoji é público; quem reagiu, nunca.
+ */
+export const REACOES = [
+  { emoji: "✊", nome: "punho" },
+  { emoji: "❤️", nome: "coracao" },
+  { emoji: "🔥", nome: "fogo" },
+  { emoji: "👏", nome: "palmas" },
+  { emoji: "🤔", nome: "pensando" },
+  { emoji: "😢", nome: "triste" },
+  { emoji: "😡", nome: "raiva" },
+  { emoji: "📚", nome: "livro" },
+] as const;
+export type NomeDaReacao = (typeof REACOES)[number]["nome"];
+export const reacaoOk = (emoji: string): boolean => REACOES.some((r) => r.emoji === emoji);
+
+/** As reações de um post como a tela mostra: só as da lista fechada, na ordem da lista, com o total já passado pelo mínimo. */
+export function reacoesParaMostrar(
+  reacoes: readonly { emoji: string; total: number | null; minha: boolean }[] | undefined,
+): { emoji: string; nome: NomeDaReacao; total: number | null; minha: boolean }[] {
+  if (!reacoes) return [];
+  return REACOES.flatMap((r) => {
+    const achada = reacoes.find((x) => x.emoji === r.emoji);
+    if (!achada || (!achada.minha && achada.total === 0)) return [];
+    return [{ emoji: r.emoji, nome: r.nome, total: totalVisivel(achada.total), minha: achada.minha }];
+  });
+}
+
+/** Qual selo vai na resposta que ajudou: pelo pronome que a pessoa escreveu, nunca por palpite ("quem perguntou" sem pronome). */
+export function generoDoAjudou(pronomes: string | null | undefined): "a" | "o" | "quem" {
+  const p = (pronomes ?? "").trim().toLowerCase();
+  if (/^(ela|she|elle|ella)\b/.test(p)) return "a";
+  if (/^(ele|he|il|él)\b/.test(p)) return "o";
+  return "quem";
+}
+
+/**
+ * O servidor de quem respondeu do Fediverso: o que veio do banco, ou o que está depois do segundo @ do @nome
+ * ("@porto@mastodon.social" → "mastodon.social"). Nulo para quem é daqui.
+ */
+export function servidorDaResposta(post: Pick<PostDaArvore, "servidor"> & { autor: { handle: string | null } }): string | null {
+  if (post.servidor) return post.servidor;
+  const m = /^@?[^@\s]+@([a-z0-9.-]+\.[a-z]{2,})$/i.exec(post.autor.handle ?? "");
+  return m ? m[1].toLowerCase() : null;
+}
+
+/** "20 min", "1 h", "3 dias": o tempo curto das pranchas, no idioma da página; depois de 30 dias, a data. */
+export function tempoCurto(iso: string, lang: string, agora: number = Date.now()): string {
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return "";
+  const seg = Math.max(0, Math.round((agora - t) / 1000));
+  try {
+    const em = (n: number, unit: "minute" | "hour" | "day") => new Intl.NumberFormat(lang, { style: "unit", unit, unitDisplay: "short" }).format(n);
+    if (seg < 3600) return em(Math.max(1, Math.round(seg / 60)), "minute");
+    if (seg < 86400) return em(Math.round(seg / 3600), "hour");
+    if (seg < 86400 * 30) return em(Math.round(seg / 86400), "day");
+    return new Intl.DateTimeFormat(lang, { dateStyle: "medium" }).format(t);
+  } catch {
+    return new Date(t).toISOString().slice(0, 10);
+  }
+}
+
+/** O nome bonito de uma trilha a partir do caminho da aula ("marxismo/mais-valia" → "Marxismo"). */
+export function trilhaDoCaminho(caminho: string): string {
+  const trilha = caminho.split("/")[0] ?? "";
+  const nome = trilha.replace(/-/g, " ").trim();
+  return nome ? nome.charAt(0).toLocaleUpperCase("pt-BR") + nome.slice(1) : "";
 }
