@@ -7,6 +7,7 @@ import Link from "@/components/Link";
 import { htmlLang, localeNames, localePath, locales } from "@/i18n/config";
 import { getClient, hasSession } from "@/lib/backend";
 import { avisos } from "@/lib/rede/cliente-avisos";
+import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecoNoFediverso } from "@/lib/rede/publicar/alumia2";
 import { encaixeAtivo } from "@/lib/rede/rota-alumia";
@@ -99,15 +100,22 @@ export function CascaDaAlumia2({
   const caminho = usePathname() ?? "";
   const membroLogado = Boolean(situacao?.logado && situacao?.membro);
   const [naoLidos, setNaoLidos] = useState(0);
+  const [doBanco, setDoBanco] = useState<{ conversas: number; atos: number } | null>(null);
   useEffect(() => {
     if (!membroLogado || al2?.previa) return;
     let vivo = true;
-    avisos.contar().then(
-      (n) => {
-        if (vivo && typeof n === "number") setNaoLidos(n);
-      },
-      () => undefined,
-    );
+    // Os emblemas numa chamada só (rede_alumia_emblemas, só números da própria pessoa); num banco sem a F1, só os avisos, como hoje.
+    redePub
+      .emblemas()
+      .then(
+        (e) => {
+          if (!vivo || !e) return;
+          if (typeof e.avisos === "number") setNaoLidos(e.avisos);
+          setDoBanco({ conversas: Number(e.conversas) || 0, atos: Number(e.atos) || 0 });
+        },
+        () => avisos.contar().then((n) => vivo && typeof n === "number" && setNaoLidos(n)),
+      )
+      .catch(() => undefined);
     return () => {
       vivo = false;
     };
@@ -118,7 +126,12 @@ export function CascaDaAlumia2({
   const pode = situacao.logado && situacao.membro;
   // Na prévia, os números das pranchas (Avisos 5, Atos 2); de verdade, os da própria pessoa (e o dos atos vem da F2).
   const avisosN = previa ? 5 : naoLidos;
-  const emblemas: Partial<Record<Chave, number | null>> = { avisos: avisosN, chamados: previa ? 2 : emblemaDe("chamados", lang, s, situacao) };
+  // Atos: o número da F2 (encaixe) quando ela chega; até lá, os atos que a própria pessoa confirmou e ainda vão acontecer.
+  const emblemas: Partial<Record<Chave, number | null>> = {
+    avisos: avisosN,
+    conversas: previa ? null : (doBanco?.conversas ?? null),
+    chamados: previa ? 2 : (emblemaDe("chamados", lang, s, situacao) ?? doBanco?.atos ?? null),
+  };
   const sairRapido = () => void sairRapidoDaRede(enderecoDoSite(lang), ENCAIXES.aoSairRapido);
   const atualDe = (d: Destino, href: string | null) => ativo === d.chave || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
   const ctx = { lang, s, situacao };
@@ -153,7 +166,7 @@ export function CascaDaAlumia2({
                       {n !== null && n > 0 && (
                         <span className={`al2-emblema ${d.chave === "avisos" ? "al2-emblema-vermelho" : "al2-emblema-dourado"}`}>
                           <span aria-hidden>{n > 99 ? "99+" : n}</span>
-                          <span className="sr-only">{preencher(t.menu.avisosNovos, { n })}</span>
+                          <span className="sr-only">{preencher(d.chave === "avisos" ? t.menu.avisosNovos : t.menu.emblema, { n })}</span>
                         </span>
                       )}
                     </>

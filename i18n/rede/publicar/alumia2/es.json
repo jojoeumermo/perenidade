@@ -10,6 +10,7 @@
     "nucleos": "Núcleos",
     "avisos": "Avisos",
     "avisosNovos": "Avisos, {n} nuevos",
+    "emblema": "{n} con novedades",
     "conversas": "Conversaciones",
     "salvos": "Guardados",
     "perfil": "Perfil",
@@ -76,7 +77,9 @@
     "aula": "Clase del Instituto Lúcia",
     "obra": "Obra del acervo del Instituto Lúcia",
     "materia": "Artículo del Instituto Lúcia",
-    "indisponivel": "Esto llega con la próxima actualización de Alumia."
+    "indisponivel": "Esto llega con la próxima actualización de Alumia.",
+    "naoRepostavel": "Solo se puede repostear una publicación de otra persona escrita para todo el mundo (no una respuesta ni una publicación para un grupo más pequeño).",
+    "veioDeRepost": "Reposteado por alguien que sigues"
   },
   "enquete": {
     "rotulo": "Encuesta",
@@ -137,7 +140,9 @@
     "continuar": "Continuar",
     "apagar": "Borrar",
     "semTexto": "(sin texto)",
-    "semAlt": "Una imagen no tiene descripción: quien usa lector de pantalla no sabrá qué hay en ella. Descríbela, o toca de nuevo para publicar así."
+    "semAlt": "Una imagen no tiene descripción: quien usa lector de pantalla no sabrá qué hay en ella. Descríbela, o toca de nuevo para publicar así.",
+    "naoDesfez": "No se pudo deshacer: la publicación ya salió. Si quieres, bórrala desde el menú de la publicación.",
+    "rascunhosCheios": "Ya tienes 20 borradores en tu cuenta: este se queda solo en este dispositivo. Borra uno para guardarlo en la cuenta."
   },
   "direita": {
     "rotulo": "En Alumia ahora",

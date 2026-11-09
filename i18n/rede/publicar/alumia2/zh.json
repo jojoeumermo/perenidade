@@ -10,6 +10,7 @@
     "nucleos": "小组",
     "avisos": "通知",
     "avisosNovos": "通知，{n} 条新的",
+    "emblema": "{n} 项有新动态",
     "conversas": "私信",
     "salvos": "收藏",
     "perfil": "个人主页",
@@ -76,7 +77,9 @@
     "aula": "Instituto Lúcia 课程",
     "obra": "Instituto Lúcia 馆藏作品",
     "materia": "Instituto Lúcia 文章",
-    "indisponivel": "这项功能将在 Alumia 下次更新时推出。"
+    "indisponivel": "这项功能将在 Alumia 下次更新时推出。",
+    "naoRepostavel": "只能转发他人写给所有人的帖子（不能转发回复，也不能转发写给小范围群体的帖子）。",
+    "veioDeRepost": "由你关注的人转发"
   },
   "enquete": {
     "rotulo": "投票",
@@ -137,7 +140,9 @@
     "continuar": "继续",
     "apagar": "删除",
     "semTexto": "（无文字）",
-    "semAlt": "有一张图片没有描述：使用读屏软件的人不会知道图里有什么。请描述它，或再点一次照样发布。"
+    "semAlt": "有一张图片没有描述：使用读屏软件的人不会知道图里有什么。请描述它，或再点一次照样发布。",
+    "naoDesfez": "无法撤销：帖子已经发布。你可以在帖子菜单中删除它。",
+    "rascunhosCheios": "你的账户里已有 20 份草稿：这一份只保存在本设备上。删除一份即可保存到账户。"
   },
   "direita": {
     "rotulo": "Alumia 此刻",
