@@ -5,7 +5,7 @@
 // corpo com tamanho máximo. Só roda no servidor. Sem "@/".
 import { after } from "next/server";
 import { lerCorpoLimitado } from "../publicar/servidor";
-import { receber } from "./caixa";
+import { receber, type DestinoDaCaixa } from "./caixa";
 import { processarFila } from "./entrega";
 import { federacaoLigada, muitosPedidos, origemDe, permitir, semFederacao } from "./servidor";
 
@@ -22,7 +22,7 @@ export function conferirTeto(pedido: Request, rota: string, max = 120): Response
 }
 
 /** Uma caixa de entrada (a de uma pessoa ou a compartilhada): confere tudo e responde 202, 400, 401, 403 ou 413. */
-export async function caixaDeEntrada(pedido: Request): Promise<Response> {
+export async function caixaDeEntrada(pedido: Request, destino: DestinoDaCaixa = {}): Promise<Response> {
   const barrado = conferirTeto(pedido, "inbox", 300);
   if (barrado) return barrado;
   const tipo = pedido.headers.get("content-type") ?? "";
@@ -32,7 +32,7 @@ export async function caixaDeEntrada(pedido: Request): Promise<Response> {
   const url = new URL(pedido.url);
   let r;
   try {
-    r = await receber("POST", `${url.pathname}${url.search}`, (nome) => pedido.headers.get(nome), corpo);
+    r = await receber("POST", `${url.pathname}${url.search}`, (nome) => pedido.headers.get(nome), corpo, destino);
   } catch {
     return new Response("Service Unavailable", { status: 503, headers: { "Retry-After": "120" } });
   }
