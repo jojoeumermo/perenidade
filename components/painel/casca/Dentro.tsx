@@ -148,6 +148,28 @@ interface Secao {
   conta?: number;
 }
 
+/**
+ * Menu mais curto (09/11/2026): a coordenação tinha opções demais no menu. Estas seções saem do menu e passam a abrir pelo
+ * "Também aqui" da seção-mãe (a linha de botões logo abaixo do título) e pela busca do painel (Ctrl+K). Nada foi apagado:
+ * cada uma continua com o mesmo endereço e as mesmas permissões.
+ */
+const DENTRO_DE: Record<string, string> = {
+  site: "centro",
+  "controles-avancados": "centro",
+  operacao: "centro",
+  tecnico: "centro",
+  abertura: "centro",
+  reunioes: "conversas",
+  "rede-propostas": "comunidade",
+  "rede-semeadura": "comunidade",
+  juntas: "minhas",
+  contribuicoes: "minhas",
+  previa: "conta",
+  "eixos-equipe": "conta",
+  termos: "pessoas",
+  triagem: "fila",
+};
+
 /** As seções "tela" ocupam a altura inteira, sem margem e sem cabeçalho (o nome fica na trilha). */
 const TELA = new Set(["conversas", "reunioes"]);
 /** As seções amplas ocupam a largura inteira. */
@@ -446,7 +468,12 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   }, [atual.id]);
 
   const essenciais = ["mesa", "conversas", "escrever", "minhas", "fila", "caderno", "horas", "conta"];
-  const noMenu = modoFoco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes;
+  // Fora do menu: as que moram dentro de outra (DENTRO_DE), quando a mãe aparece para esta pessoa; a aberta agora fica visível.
+  const ids = new Set(secoes.map((secao) => secao.id));
+  const recolhida = (secao: Secao) => secao.id !== atual.id && Boolean(DENTRO_DE[secao.id]) && ids.has(DENTRO_DE[secao.id]);
+  const noMenu = modoFoco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes.filter((secao) => !recolhida(secao));
+  const tambemAqui = secoes.filter((secao) => DENTRO_DE[secao.id] === atual.id);
+  const mae = DENTRO_DE[atual.id] ? secoes.find((secao) => secao.id === DENTRO_DE[atual.id]) : undefined;
   // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
   const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
   const funcao = !voluntario ? "Alumia" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
@@ -562,6 +589,21 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                           </>
                         }
                       />
+                    )}
+                    {(tambemAqui.length > 0 || mae) && (
+                      <nav aria-label="Também nesta seção" className="pn-tambem-aqui no-print">
+                        {mae && (
+                          <Botao variante="discreto" pequeno onClick={() => ir(mae.id)}>
+                            ← {mae.nome}
+                          </Botao>
+                        )}
+                        {tambemAqui.map((secao) => (
+                          <Botao key={secao.id} variante="padrao" pequeno onClick={() => ir(secao.id)}>
+                            {secao.nome}
+                            {secao.conta ? ` (${secao.conta})` : ""}
+                          </Botao>
+                        ))}
+                      </nav>
                     )}
                     <AnimatePresence mode="popLayout" initial={false}>
                       <m.div key={atual.id} className="pn-secao-viva" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.18, ease: [0.2, 0.7, 0.2, 1] } }} exit={{ opacity: 0, transition: { duration: 0.1 } }}>
