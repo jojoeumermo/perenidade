@@ -214,9 +214,15 @@ igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQue
   try {
     const { encaixe } = await jiti.import(path.join(raiz, "components/rede/stories/encaixe.tsx"));
     const ctx = { lang: "pt", s: {}, situacao: { logado: true, membro: true, regras_versao: 1 } };
-    igual("sem as flags, o item Stories não aparece no menu", encaixe.menu.map((m) => m.href(ctx)), [null]);
-    igual("o rótulo do menu nos 6 idiomas", ["pt", "en", "es", "fr", "ru", "zh"].map((lang) => encaixe.menu[0].rotulo({ ...ctx, lang })), ["Stories", "Stories", "Historias", "Stories", "Истории", "快拍"]);
-    ok("o encaixe não pendura nada além do menu e do Pôr no story", Object.keys(encaixe).sort().join() === "acoesDoCartao,menu");
+    const { renderToStaticMarkup } = await import("react-dom/server");
+    const { createElement: h } = await import("react");
+    ok("sem item próprio no menu (a faixa vive no Início: um só aria-current)", !("menu" in encaixe));
+    igual("sem as flags, a faixa do alto da linha não desenha nada", encaixe.topoDaLinha.map((C) => renderToStaticMarkup(h(C, ctx))), [""]);
+    igual("sem as flags, o Pôr no story não desenha nada", encaixe.acoesDoCartao.map((C) => renderToStaticMarkup(h(C, { ...ctx, post: { id: "x" } }))), [""]);
+    ok("o encaixe só pendura a faixa no alto da linha e o Pôr no story", Object.keys(encaixe).sort().join() === "acoesDoCartao,topoDaLinha");
+    const fonte = ler("components/rede/stories/encaixe.tsx");
+    ok("o Pôr no story só baixa os textos depois de conferir a flag", /function PorNoStory\([^)]*\) \{\s*if \(!situacao\.logado \|\| !rotaNovaLigada\("stories"\)\) return null;/.test(fonte) && !/function PorNoStory\([^)]*\) \{[^}]*useTextosDosStories/.test(fonte));
+    ok("a linha de Início desenha o topoDaLinha acima das abas", /ENCAIXES\.topoDaLinha\.map[\s\S]*role="tablist"/.test(ler("components/rede/Rede.tsx")));
   } catch (e) {
     falhas.push(`encaixe: ${e?.stack?.split("\n").slice(0, 3).join(" | ") ?? e}`);
   }
