@@ -1,7 +1,11 @@
 {
   "menu": "Atos",
   "tipo": "Ato",
-  "situacao": { "confirmado": "Confirmado", "adiado": "Adiado", "cancelado": "Cancelado" },
+  "situacao": {
+    "confirmado": "Confirmado",
+    "adiado": "Adiado",
+    "cancelado": "Cancelado"
+  },
   "era": "era {data}",
   "chamadoPor": "chamado por @{handle}",
   "faixa": {
@@ -112,5 +116,11 @@
       "palavra": "Use letras: o nome vira a palavra do mosaico."
     }
   },
-  "aba": { "titulo": "Atos", "vazio": "Nenhum ato marcado aqui por enquanto." }
+  "aba": {
+    "titulo": "Atos",
+    "vazio": "Nenhum ato marcado aqui por enquanto."
+  },
+  "calendario": {
+    "titulo": "Calendário"
+  }
 }

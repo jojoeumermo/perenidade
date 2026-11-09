@@ -1,7 +1,11 @@
 {
   "menu": "Actos",
   "tipo": "Acto",
-  "situacao": { "confirmado": "Confirmado", "adiado": "Aplazado", "cancelado": "Cancelado" },
+  "situacao": {
+    "confirmado": "Confirmado",
+    "adiado": "Aplazado",
+    "cancelado": "Cancelado"
+  },
   "era": "era {data}",
   "chamadoPor": "convocado por @{handle}",
   "faixa": {
@@ -112,5 +116,11 @@
       "palavra": "Usa letras: el nombre se vuelve la palabra del mosaico."
     }
   },
-  "aba": { "titulo": "Actos", "vazio": "Ningún acto convocado aquí por ahora." }
+  "aba": {
+    "titulo": "Actos",
+    "vazio": "Ningún acto convocado aquí por ahora."
+  },
+  "calendario": {
+    "titulo": "Calendario"
+  }
 }

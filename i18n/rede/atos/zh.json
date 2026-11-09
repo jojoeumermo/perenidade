@@ -1,7 +1,11 @@
 {
   "menu": "行动",
   "tipo": "行动",
-  "situacao": { "confirmado": "已确认", "adiado": "已延期", "cancelado": "已取消" },
+  "situacao": {
+    "confirmado": "已确认",
+    "adiado": "已延期",
+    "cancelado": "已取消"
+  },
   "era": "原为 {data}",
   "chamadoPor": "由 @{handle} 发起",
   "faixa": {
@@ -112,5 +116,11 @@
       "palavra": "请使用拉丁字母：名称会成为马赛克上的字。"
     }
   },
-  "aba": { "titulo": "行动", "vazio": "这里暂时没有行动。" }
+  "aba": {
+    "titulo": "行动",
+    "vazio": "这里暂时没有行动。"
+  },
+  "calendario": {
+    "titulo": "日历"
+  }
 }
