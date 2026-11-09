@@ -7,7 +7,7 @@ import { randomUUID } from "node:crypto";
 import { after } from "next/server";
 import { processarFila } from "@/lib/rede/fediverso/entrega";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
-import { atorRemoto, banco, ErroDoBanco, fed } from "@/lib/rede/fediverso/servidor";
+import { atorRemoto, banco, ErroDoBanco, fed, modoTotal } from "@/lib/rede/fediverso/servidor";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
 export const runtime = "nodejs";
@@ -25,7 +25,8 @@ export async function POST(pedido: Request) {
   const sim = corpo?.sim !== false;
   const eu = await chamarComoPessoa<{ perfil: string; ligado: boolean }>(token, "rede_fed_eu", { p_acao: "seguir" });
   if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
-  if (!eu.dado.ligado) return resposta({ erro: "fediverso_desligado" }, 409);
+  // No modo "fediverso-total" todo perfil elegível já é federado (o consentimento entra na entrada da Alumia): não pede "ligado".
+  if (!eu.dado.ligado && !modoTotal()) return resposta({ erro: "fediverso_desligado" }, 409);
   if (sim && !(await atorRemoto(ator).catch(() => null))?.inbox) return resposta({ erro: "nao_encontrado" }, 404);
   try {
     await banco("seguir", { perfil: eu.dado.perfil, ator, pedido: fed.atividade("follow", randomUUID()), sim });
