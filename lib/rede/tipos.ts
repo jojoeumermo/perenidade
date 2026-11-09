@@ -52,7 +52,19 @@ export interface Post {
   nivel: number;
   aviso: string;
   cita: { tipo: "aula" | "obra" | "materia"; caminho: string; titulo: string } | null;
-  chamado: { tipo: string; quando: string; onde: string } | null;
+  chamado: {
+    tipo: string;
+    quando: string;
+    onde: string;
+    /** Onda 5 (F2): a situação do ato; sem ela (banco de antes da migração), vale "confirmado". */
+    situacao?: "confirmado" | "adiado" | "cancelado";
+    /** Onda 5 (F2): a data de antes quando o ato foi adiado ("era 12/11"). */
+    inicio_anterior?: string | null;
+    /** Onda 5 (F2): a palavra do mosaico (só A–Z e espaço, até 14). */
+    palavra?: string | null;
+    /** Onda 5 (F2): a proporção acesa do mosaico, em passos de 10 %; nula abaixo de 3 confirmações. Nunca um número de pessoas. */
+    acesos?: number | null;
+  } | null;
   meu: boolean;
   retido: boolean;
   motivo: string;
@@ -75,6 +87,19 @@ export interface Post {
   citado: { id: string; codinome: string; trecho: string } | { restrito: true } | null;
   /** Só na resposta de `rede_publicar`: a avaliação externa ainda precisa rodar para este post. */
   avaliar?: boolean;
+
+  // ───── Onda 5 (PLANO-ALUMIA §5 F0): campos OPCIONAIS do contrato. As funções de hoje não os mandam; cada frente passa a
+  // mandar o seu. Quem lê confere se veio. ─────
+  /** F3: total por emoji (conjunto fechado). Só totais, NUNCA quem reagiu; total abaixo de 3 vem nulo ("poucas pessoas"). */
+  reacoes?: { emoji: string; total: number | null; minha: boolean }[];
+  /** F2: o ato a que este post pertence (linha ao vivo do ato, publicada com o atraso do modo ato). */
+  ato?: string | null;
+  /** F4: a organização que publicou (quando a conta é de organização verificada). O vínculo com a pessoa que gere NUNCA vem. */
+  org?: { handle: string; codinome: string; verificada_em: string | null } | null;
+  /** F4: coautores que ACEITARAM (só @nome e codinome). */
+  coautores?: { handle: string; codinome: string }[];
+  /** F6: quando o post some sozinho (posts de 24 h, "apagar depois de X semanas"). */
+  expira_em?: string | null;
 }
 
 /** Uma página da linha: o `proximo` é o cursor da próxima (nulo quando acabou). */
