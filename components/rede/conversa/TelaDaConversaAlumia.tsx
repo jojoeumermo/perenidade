@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
 import { conversa } from "@/lib/rede/cliente-conversa";
@@ -13,9 +13,6 @@ import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
 import {
   generoDoAjudou,
   montarArvore,
-  REACOES,
-  reacaoOk,
-  reacoesParaMostrar,
   servidorDaResposta,
   tempoCurto,
   type Arvore,
@@ -26,7 +23,7 @@ import { verificarAntesDePublicar } from "../encaixes";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Avatar16 } from "../ui/Avatar16";
-import { CartaoDeAula, FaixaDaPrevia, IconeEnviar, IconeGlobo, IconeVoltar, NomeDoAutor, previa, useAcenderSalvar, useTextosAlumia3 } from "./base3";
+import { CartaoDeAula, FaixaDaPrevia, IconeEnviar, IconeGlobo, IconeMais, IconeVoltar, NomeDoAutor, previa, useAcenderSalvar, useTextosAlumia3 } from "./base3";
 
 const LIMITE = 500;
 
@@ -40,10 +37,13 @@ const arroba = (p: Post) => (p.autor.handle ? `@${p.autor.handle.replace(/^@/, "
 
 /**
  * A conversa na Alumia nova (prancha celular-conversa-fediverso; PLANO-ALUMIA §3 e §8 F3): barra "CONVERSA · N respostas", o post
- * com a aula citada e as reações (total por emoji, nunca quem; LGPD art. 5º, II, e art. 11), "Mais antigas / Mais novas", o fio
+ * com a aula citada, "Mais antigas / Mais novas", o fio
  * com as linhas, o selo "ajudou a autora" (pelo pronome que a pessoa escreveu, nunca por palpite), a resposta vinda do
  * Fediverso com o selo do servidor (só o nome do servidor, que já é público no @; nada de IP) e a caixa "Responder para @…"
- * fixa embaixo. Tocar numa resposta abre Responder, Acender e (para quem abriu a conversa) "ajudou".
+ * fixa embaixo. O "…" de cada resposta abre Responder, Acender e (para quem abriu a conversa) "ajudou".
+ *
+ * As reações com emoji (PLANO-ALUMIA §6.3) NÃO aparecem aqui: a prancha não tem essa fileira e a função do banco ainda não
+ * existe. Elas voltam quando a migração do back-end da F3 entrar, atrás de flag própria.
  */
 export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: string; lang: string; s: TextosDaRede; situacao: Situacao }) {
   const t = useTextosAlumia3(lang);
@@ -191,7 +191,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   );
 }
 
-/** O post aberto (a dúvida da Lia na prancha), com a aula citada, as reações e Acender/Salvar/Compartilhar. */
+/** O post aberto (a dúvida da Lia na prancha), com a aula citada e uma linha discreta com Acender, Salvar e Compartilhar. */
 function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lang: string; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
   const { apoiei, salvei, ocupado, acender, salvar } = useAcenderSalvar(post, aoErro);
   const handle = post.org?.handle ?? post.autor.handle ?? post.id;
@@ -221,8 +221,7 @@ function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lan
       {post.titulo && <h2 className="al3-raiz-titulo">{post.titulo}</h2>}
       <p className="al3-raiz-texto">{post.texto}</p>
       {post.cita && <CartaoDeAula lang={lang} cita={post.cita} t={t} />}
-      <Reacoes post={post} t={t} logado={logado} aoErro={aoErro} />
-      <div className="al3-post-acoes">
+      <div className="al3-post-acoes al3-raiz-acoes">
         <button type="button" className="al3-acao" aria-pressed={apoiei} disabled={!logado || ocupado} onClick={() => void acender()}>
           {apoiei ? t.comum.aceso : t.comum.acender}
         </button>
@@ -237,77 +236,9 @@ function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lan
 }
 
 /**
- * As reações com emoji (PLANO-ALUMIA §6.3): lista FECHADA, total por emoji (abaixo de 3, "poucas"), e a minha marcada. Ninguém vê
- * quem reagiu, nem quem escreveu. O botão "Reagir" abre a paleta com os 8 da lista.
+ * Uma resposta do fio: rosto, nome, @, selo "ajudou", selo do servidor do Fediverso, texto e, ao lado do nome, um "…" visível
+ * (disclosure com aria-expanded) que abre as ações. O texto fica fora do botão: o leitor de tela lê a resposta inteira.
  */
-function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
-  const [reacoes, setReacoes] = useState(post.reacoes ?? []);
-  const [paleta, setPaleta] = useState(false);
-  const [ocupado, setOcupado] = useState(false);
-  const idDaRegra = useId();
-  const mostrar = reacoesParaMostrar(reacoes);
-
-  async function reagir(emoji: string) {
-    if (!reacaoOk(emoji) || ocupado) return;
-    const minha = reacoes.find((r) => r.emoji === emoji)?.minha ?? false;
-    setPaleta(false);
-    if (previa()) {
-      setReacoes((lista) => {
-        const achada = lista.find((r) => r.emoji === emoji);
-        if (!achada) return [...lista, { emoji, total: null, minha: true }];
-        return lista.map((r) => (r.emoji === emoji ? { ...r, minha: !minha, total: r.total === null ? null : r.total + (minha ? -1 : 1) } : r));
-      });
-      return;
-    }
-    setOcupado(true);
-    try {
-      const r = await conversa.reagirEmoji(post.id, emoji, !minha);
-      setReacoes(r.reacoes);
-    } catch (e) {
-      aoErro(e);
-    } finally {
-      setOcupado(false);
-    }
-  }
-
-  return (
-    <div>
-      <div className="al3-reacoes" role="group" aria-label={t.reacoes.rotulo} aria-describedby={idDaRegra}>
-        {mostrar.map((r) => (
-          <button
-            key={r.emoji}
-            type="button"
-            className="al3-reacao"
-            aria-pressed={r.minha}
-            disabled={!logado || ocupado}
-            aria-label={`${t.reacoes.nomes[r.nome]}: ${r.total ?? t.reacoes.poucas}${r.minha ? ` (${t.reacoes.minha})` : ""}`}
-            onClick={() => void reagir(r.emoji)}
-          >
-            <span aria-hidden>{r.emoji}</span>
-            <span aria-hidden>{r.total ?? t.reacoes.poucas}</span>
-          </button>
-        ))}
-        {logado && (
-          <button type="button" className="al3-reacao" aria-expanded={paleta} onClick={() => setPaleta((p) => !p)}>
-            {paleta ? t.reacoes.fechar : `+ ${t.reacoes.reagir}`}
-          </button>
-        )}
-      </div>
-      {paleta && (
-        <div className="al3-paleta" role="group" aria-label={t.reacoes.reagir}>
-          {REACOES.map((r) => (
-            <button key={r.emoji} type="button" aria-label={preencher(t.conversa.reagirComo, { nome: t.reacoes.nomes[r.nome] })} onClick={() => void reagir(r.emoji)}>
-              {r.emoji}
-            </button>
-          ))}
-        </div>
-      )}
-      <p className="al3-regra" id={idDaRegra}>{t.reacoes.regra}</p>
-    </div>
-  );
-}
-
-/** Uma resposta do fio: rosto, nome, @, selo "ajudou", selo do servidor do Fediverso, texto; tocar abre as ações. */
 function Resposta({
   no,
   lang,
@@ -354,47 +285,46 @@ function Resposta({
     <li className="al3-resposta" data-nivel={nivel} data-tem-filhos={no.filhos.length > 0 ? "sim" : "nao"}>
       <Avatar16 handle={p.autor.handle ?? p.id} tamanho={32} />
       <div>
-        <p className="al3-resposta-cabeca">
-          <NomeDoAutor lang={lang} post={p} />
-          <span className="al3-cinza">{arroba(p)}</span>
-          {ajudou && <span className="al3-ajudou">{seloAjudou}</span>}
-        </p>
+        <div className="al3-resposta-topo">
+          <p className="al3-resposta-cabeca">
+            <NomeDoAutor lang={lang} post={p} />
+            <span className="al3-cinza al3-arroba">{arroba(p)}</span>
+            {ajudou && <span className="al3-ajudou">{seloAjudou}</span>}
+          </p>
+          <button
+            type="button"
+            className="al3-resposta-mais"
+            aria-expanded={aberta}
+            aria-controls={idDasAcoes}
+            aria-label={preencher(t.conversa.acoesDe, { codinome: p.autor.codinome })}
+            onClick={aoAbrir}
+          >
+            <IconeMais />
+          </button>
+        </div>
         {servidor && (
           <span className="al3-servidor" role="note" aria-label={preencher(t.conversa.fediverso, { servidor })} title={preencher(t.conversa.fediverso, { servidor })}>
             <IconeGlobo />
             <span aria-hidden>{servidor}</span>
           </span>
         )}
-        <div
-          className="al3-resposta-corpo"
-          role="button"
-          tabIndex={0}
-          aria-expanded={aberta}
-          aria-controls={idDasAcoes}
-          aria-label={preencher(t.conversa.acoesDe, { codinome: p.autor.codinome })}
-          onClick={aoAbrir}
-          onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), aoAbrir())}
-        >
-          <p className="al3-resposta-texto">{p.texto}</p>
-        </div>
-        {aberta && (
-          <div className="al3-resposta-acoes" id={idDasAcoes}>
-            {podeResponder && (
-              <button type="button" className="al3-acao" onClick={aoResponder}>{t.comum.responder}</button>
-            )}
-            <button type="button" className="al3-acao" aria-pressed={apoiei} disabled={!logado || ocupado} onClick={() => void acender()}>
-              {apoiei ? t.comum.aceso : t.comum.acender}
+        <p className="al3-resposta-texto">{p.texto}</p>
+        <div className="al3-resposta-acoes" id={idDasAcoes} hidden={!aberta}>
+          {podeResponder && (
+            <button type="button" className="al3-acao" onClick={aoResponder}>{t.comum.responder}</button>
+          )}
+          <button type="button" className="al3-acao" aria-pressed={apoiei} disabled={!logado || ocupado} onClick={() => void acender()}>
+            {apoiei ? t.comum.aceso : t.comum.acender}
+          </button>
+          {podeAjudou && (
+            <button type="button" className="al3-acao" aria-pressed={ajudou} title={t.conversa.ajudouRegra} onClick={() => aoAjudou(!ajudou)}>
+              {ajudou ? t.conversa.desmarcarAjudou : t.conversa.marcarAjudou}
             </button>
-            {podeAjudou && (
-              <button type="button" className="al3-acao" aria-pressed={ajudou} title={t.conversa.ajudouRegra} onClick={() => aoAjudou(!ajudou)}>
-                {ajudou ? t.conversa.desmarcarAjudou : t.conversa.marcarAjudou}
-              </button>
-            )}
-            {p.respostas > no.filhos.length && (
-              <Link href={enderecos.post(lang, p.id)} className="al3-acao">{preencher(t.conversa.continuar, { n: p.respostas })}</Link>
-            )}
-          </div>
-        )}
+          )}
+          {p.respostas > no.filhos.length && (
+            <Link href={enderecos.post(lang, p.id)} className="al3-acao">{preencher(t.conversa.continuar, { n: p.respostas })}</Link>
+          )}
+        </div>
       </div>
     </li>
   );
@@ -426,7 +356,8 @@ function CaixaDeResposta({
 }) {
   const [texto, setTexto] = useState("");
   const [enviando, setEnviando] = useState(false);
-  const [conferir, setConferir] = useState<string | null>(null);
+  // O resultado da última conferência: um alerta deixa "Enviar assim mesmo"; um bloqueio não (o servidor recusa de novo).
+  const [conferir, setConferir] = useState<{ aviso: string; bloqueia: boolean } | null>(null);
   const campo = useRef<HTMLTextAreaElement>(null);
   const handle = destino.autor.handle?.replace(/^@/, "");
   const rotulo = handle ? preencher(t.conversa.responderPara, { handle }) : preencher(t.conversa.responderParaNome, { codinome: destino.autor.codinome });
@@ -442,6 +373,8 @@ function CaixaDeResposta({
   async function enviar(mesmoAssim = false) {
     const limpo = texto.trim();
     if (!limpo || enviando) return;
+    // Um bloqueio nunca é contornado pela tela: "assim mesmo" só vale depois de um alerta.
+    if (mesmoAssim && conferir?.bloqueia !== false) return;
     setEnviando(true);
     try {
       if (!mesmoAssim) {
@@ -450,8 +383,7 @@ function CaixaDeResposta({
           { lang, s, situacao },
         );
         if (!r.ok) {
-          setConferir(r.aviso);
-          if (r.bloqueia) return;
+          setConferir({ aviso: r.aviso, bloqueia: Boolean(r.bloqueia) });
           return;
         }
       }
@@ -460,6 +392,7 @@ function CaixaDeResposta({
         ? postDeExemplo({ id: crypto.randomUUID(), texto: limpo, resposta_a: destino.id, raiz: raiz.id, nivel: (destino.nivel ?? 0) + 1, meu: true, criado_em: new Date().toISOString() })
         : await rede.publicar({ texto: limpo, resposta_a: destino.id });
       setTexto("");
+      if (campo.current) campo.current.style.height = "";
       aoEnviar(nova);
     } catch (e) {
       aoErro(e);
@@ -481,9 +414,9 @@ function CaixaDeResposta({
           {destino.id !== raiz.id && <button type="button" onClick={aoVoltarAoPost}>{t.conversa.voltarAoPost}</button>}
           {conferir && (
             <>
-              <span role="alert">{preencher(t.conversa.conferirAntes, { aviso: conferir })}</span>
+              <span role="alert">{preencher(t.conversa.conferirAntes, { aviso: conferir.aviso })}</span>
               <button type="button" onClick={() => (setConferir(null), campo.current?.focus())}>{t.conversa.revisar}</button>
-              <button type="button" onClick={() => void enviar(true)}>{t.conversa.enviarMesmo}</button>
+              {!conferir.bloqueia && <button type="button" onClick={() => void enviar(true)}>{t.conversa.enviarMesmo}</button>}
             </>
           )}
         </div>
@@ -496,7 +429,13 @@ function CaixaDeResposta({
         maxLength={LIMITE}
         placeholder={rotulo}
         value={texto}
-        onChange={(e) => setTexto(e.target.value)}
+        onChange={(e) => {
+          setTexto(e.target.value);
+          // Altura automática (sem a alça de redimensionar da prancha): cresce com o texto até o teto do CSS.
+          const el = e.currentTarget;
+          el.style.height = "auto";
+          el.style.height = `${el.scrollHeight}px`;
+        }}
         aria-describedby="al3-contador"
       />
       <button type="submit" className="al3-enviar" disabled={enviando || !texto.trim()} aria-label={enviando ? t.conversa.enviando : t.conversa.enviar}>
