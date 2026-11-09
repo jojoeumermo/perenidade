@@ -6,7 +6,7 @@
 
 /** Cada área e os caminhos (depois do idioma) que ela fecha. Área nova: acrescente aqui, no banco e no painel. */
 export const areasPublicas = [
-  { id: "comunidade", nome: "Comunidade", caminhos: ["/comunidade"] },
+  { id: "comunidade", nome: "Alumia", caminhos: ["/comunidade"] },
   { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/mural", "/saude"] },
   { id: "reforco", nome: "Aula de reforço", caminhos: ["/reforco"] },
   { id: "contribuir", nome: "Contribuir, denunciar e relatar erros", caminhos: ["/contribuir", "/denunciar", "/relatar-erro"] },
@@ -29,7 +29,7 @@ export type AreaPublica = (typeof areasPublicas)[number]["id"];
 
 /** O que o expurgo pode limpar: só o que o público escreve (igual a interno.areas_expurgo). */
 export const areasDeExpurgo = [
-  { id: "comunidade", nome: "Comunidade: conversas, respostas e votos" },
+  { id: "comunidade", nome: "Alumia: conversas, respostas e votos" },
   { id: "mural", nome: "Mural dos Trabalhadores: anúncios" },
   { id: "anotacoes", nome: "Anotações públicas das aulas" },
   { id: "reforco", nome: "Pedidos de reforço não concluídos" },
