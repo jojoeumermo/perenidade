@@ -2,7 +2,7 @@
 "use client";
 
 import "./stories.css";
-import { useCallback, useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { armazemDoAparelho, grupoVisto, lerSilenciados, lerVistos, ordenarFaixa, primeiroNaoVisto } from "@/lib/rede/stories/aparelho";
 import { anelEmCss, nomeCurto } from "@/lib/rede/stories/visual";
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
@@ -65,6 +65,9 @@ export function FaixaDeStories({
       .faixa()
       .then((d) => {
         if (!vivo) return;
+        // O que eu já vi e de quem silenciei: só deste aparelho, lido junto com a faixa.
+        const a = armazemDoAparelho();
+        setAparelho({ vistos: lerVistos(a, Date.now()), silenciados: lerSilenciados(a) });
         setDados(d);
         setErro(null);
       })
@@ -74,16 +77,9 @@ export function FaixaDeStories({
     };
   }, [cliente, logado, versao, tentativa]);
 
-  // O que eu já vi e de quem silenciei: só deste aparelho (lido depois de montar, para o servidor e o navegador desenharem igual).
-  useEffect(() => {
-    const a = armazemDoAparelho();
-    const agora = Date.now();
-    setAparelho({ vistos: lerVistos(a, agora), silenciados: lerSilenciados(a) });
-  }, [versao, dados]);
-
   const grupos = dados ? ordenarFaixa(dados.grupos, aparelho.vistos, aparelho.silenciados) : [];
   const fila = grupos.map((g) => g.autora.handle);
-  const abrir = useCallback((g: GrupoDaFaixa) => aoAbrir(g.autora.handle, primeiroNaoVisto(g, aparelho.vistos), fila), [aoAbrir, aparelho.vistos, fila]);
+  const abrir = (g: GrupoDaFaixa) => aoAbrir(g.autora.handle, primeiroNaoVisto(g, aparelho.vistos), fila);
   const meus = dados?.meus.length ?? 0;
 
   return (
