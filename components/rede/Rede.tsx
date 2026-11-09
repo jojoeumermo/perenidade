@@ -70,7 +70,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     const pedido = t ? rede.antigo("topico", t) : sala ? rede.antigo("sala", sala) : null;
     pedido
       ?.then((r) => {
-        if (r) window.location.replace(r.tipo === "post" ? `/${lang}/comunidade/p/${r.novo}` : `/${lang}/comunidade/c/${r.novo}`);
+        if (r) window.location.replace(r.tipo === "post" ? `/${lang}/alumia/p/${r.novo}` : `/${lang}/alumia/c/${r.novo}`);
       })
       .catch(() => undefined);
   }, [lang, tela.tipo]);

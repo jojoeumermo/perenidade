@@ -16,7 +16,7 @@ const SEM_O_SITE = [".cabecalho-site", ".faixa-de-avisos", ".fio-das-fitas", ".f
   .join(", ");
 
 /**
- * A moldura da Alumia, em todas as telas dela (app/[lang]/comunidade/layout.tsx): uma faixa fina no alto com o botão "Voltar ao
+ * A moldura da Alumia, em todas as telas dela (app/[lang]/alumia/layout.tsx): uma faixa fina no alto com o botão "Voltar ao
  * site" e o nome da rede. Componente de servidor, sem leitura de disco: só recebe os textos de um idioma.
  */
 export function MolduraDaAlumia({ lang, s, children }: { lang: string; s: TextosDaRede; children: React.ReactNode }) {

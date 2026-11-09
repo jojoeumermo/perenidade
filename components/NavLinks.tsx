@@ -20,7 +20,7 @@ export const SAIR_MAIS = "lucia:sair-mais";
 export const abrirMais = (mouse = false) => window.dispatchEvent(new CustomEvent(ABRIR_MAIS, { detail: { mouse } }));
 
 /** O que já está no menu do topo do computador: a janela do "Mais" não repete. */
-export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/jogos", "/saude", "/dedicatoria", "/apoie", ...(ligado("escola") ? ["/escola"] : []), ...(ligado("vale-o-escrito") ? [ROTA_DO_OBSERVATORIO] : [])];
+export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/alumia", "/jogos", "/saude", "/dedicatoria", "/apoie", ...(ligado("escola") ? ["/escola"] : []), ...(ligado("vale-o-escrito") ? [ROTA_DO_OBSERVATORIO] : [])];
 
 export function NavLinks() {
   const pathname = usePathname();
@@ -37,7 +37,7 @@ export function NavLinks() {
     [t.nav.library, "/acervo"],
     [t.nav.journal, "/jornal"],
     [t.nav.podcasts, "/podcasts"],
-    [t.nav.community, "/comunidade"],
+    [t.nav.community, "/alumia"],
     [menuDosJogos(lang).rotulo, "/jogos"],
     [t.nav.health, "/saude"],
     [t.nav.dedication, "/dedicatoria"],
@@ -50,7 +50,7 @@ export function NavLinks() {
     <>
       {links.map(([label, path]) => {
         // A Comunidade é a Alumia: com o endereço próprio ligado, o link vai direto para lá (lib/rede/alumia.ts).
-        const href = path === "/comunidade" ? enderecoDaAlumia(lang) : localePath(lang, path);
+        const href = path === "/alumia" ? enderecoDaAlumia(lang) : localePath(lang, path);
         const active = pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
         return (
           <Link key={path} href={href} aria-current={active ? "page" : undefined} className={`${item} ${active ? "border-[#c21f16] font-bold" : "border-transparent hover:border-[#c21f16]"}`}>

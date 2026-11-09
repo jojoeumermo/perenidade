@@ -63,7 +63,7 @@ export default async function Comecar({ params }: PageProps<"/[lang]/comecar">) 
         {" · "}
         <Link href={localePath(lang, "/acervo")} className="underline hover:text-oxblood">{t.nav.library}</Link>
         {" · "}
-        <Link href={localePath(lang, "/comunidade")} className="underline hover:text-oxblood">{t.nav.community}</Link>
+        <Link href={localePath(lang, "/alumia")} className="underline hover:text-oxblood">{t.nav.community}</Link>
       </p>
     </div>
   );

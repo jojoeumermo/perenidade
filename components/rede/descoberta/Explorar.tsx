@@ -84,7 +84,7 @@ function Pacote({ lang, slug, titulo, descricao, pessoas, d, s }: { lang: string
 }
 
 /**
- * Explorar (/comunidade/explorar): comunidades, linhas temáticas com a regra pública, pacotes de pessoas para seguir e as hashtags da
+ * Explorar (/alumia/explorar): comunidades, linhas temáticas com a regra pública, pacotes de pessoas para seguir e as hashtags da
  * semana. Com ?linha=<slug> mostra a linha temática, com a ordenação escrita. Nada aqui é "para você": é o mesmo para quem tem a mesma permissão.
  */
 export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoPacote) {

@@ -22,5 +22,5 @@ const COMUNIDADE_DA_DISCIPLINA: Record<string, string> = { trabalho: "oficios-e-
 export function enderecoDiscutirAula(lang: string, trilha: string, aula: string, disciplina: string): string | null {
   const ok = (s: string) => /^[a-z0-9-]{2,80}$/.test(s);
   if (!ok(trilha) || !ok(aula) || !ok(disciplina)) return null;
-  return `/${lang}/comunidade/aula/${trilha}/${aula}?c=${COMUNIDADE_DA_DISCIPLINA[disciplina] ?? disciplina}`;
+  return `/${lang}/alumia/aula/${trilha}/${aula}?c=${COMUNIDADE_DA_DISCIPLINA[disciplina] ?? disciplina}`;
 }

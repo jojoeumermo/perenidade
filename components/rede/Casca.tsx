@@ -152,7 +152,7 @@ export function Casca({
         {/* No celular: a marca, a busca e o "sair rápido" ficam no alto, no lugar das colunas dos lados. */}
         <div className="flex items-center gap-2 border-b border-rule px-4 py-2 xl:hidden">
           <p className="flex items-center gap-1.5 font-serif text-lg font-extrabold"><MarcaDaAlumia className="h-5 w-5" />{s.marca}</p>
-          <form action={localePath(lang, "/comunidade/buscar")} method="get" role="search" className="ml-auto min-w-0 flex-1">
+          <form action={localePath(lang, "/alumia/buscar")} method="get" role="search" className="ml-auto min-w-0 flex-1">
             <label className="sr-only" htmlFor="rede-busca-celular">{s.menu.busca}</label>
             <input id="rede-busca-celular" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4 font-sans" />
           </form>
@@ -169,7 +169,7 @@ export function Casca({
 
       <aside className="hidden px-5 py-6 xl:block" aria-label={s.menu.busca}>
         <div className="sticky top-[calc(var(--altura-topo,0px)+1rem)] space-y-4 font-sans">
-          <form action={localePath(lang, "/comunidade/buscar")} method="get" role="search">
+          <form action={localePath(lang, "/alumia/buscar")} method="get" role="search">
             <label className="sr-only" htmlFor="rede-busca">{s.menu.busca}</label>
             <input id="rede-busca" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4" />
           </form>
@@ -202,7 +202,7 @@ export function Casca({
                   ...(situacao.cuida ? [["moderacao", s.casca.cuidados.moderacao]] : []),
                 ].map(([rota, texto]) => (
                   <li key={rota}>
-                    <Link href={localePath(lang, `/comunidade/${rota}`)} className="inline-flex min-h-11 items-center underline">{texto}</Link>
+                    <Link href={localePath(lang, `/alumia/${rota}`)} className="inline-flex min-h-11 items-center underline">{texto}</Link>
                   </li>
                 ))}
               </ul>
@@ -289,12 +289,12 @@ function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: Ite
  * atual marcado: o leitor de tela anuncia "link" e a pessoa vê que dá para tocar. Mantém a tela em que ela está.
  */
 function Idiomas({ lang, rotulo }: { lang: string; rotulo: string }) {
-  // O endereço completo (/xx/comunidade/...) vale nos dois endereços (o do site e alumia.*): tira o idioma e o "comunidade" do
+  // O endereço completo (/xx/alumia/...) vale nos dois endereços (o do site e alumia.*): tira o idioma e o "comunidade" do
   // caminho atual, venha ele como vier, e monta de novo com o idioma escolhido.
   let partes = (usePathname() ?? "").split("/").filter(Boolean);
   if ((locales as readonly string[]).includes(partes[0])) partes = partes.slice(1);
-  if (partes[0] === "comunidade") partes = partes.slice(1);
-  const resto = ["comunidade", ...partes].join("/");
+  if (partes[0] === "alumia" || partes[0] === "comunidade") partes = partes.slice(1);
+  const resto = ["alumia", ...partes].join("/");
   return (
     <nav aria-label={rotulo} className="font-sans text-sm">
       <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">{rotulo}</p>

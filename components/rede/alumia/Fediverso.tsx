@@ -71,7 +71,7 @@ function PostDeForaCartao({ p, t, lang }: { p: PostDeFora; t: TextosDaAlumia; la
 }
 
 /**
- * A Alumia no Fediverso (/comunidade/fediverso): ligar ou desligar a federação do próprio perfil (desligada por padrão, com
+ * A Alumia no Fediverso (/alumia/fediverso): ligar ou desligar a federação do próprio perfil (desligada por padrão, com
  * consentimento específico e destacado: LGPD arts. 7º, I, 8º, 11, I, e 33, VIII), achar e seguir alguém de outra instância e ler
  * os posts públicos de quem se segue lá. `params.federacao` diz se o servidor está com a federação ligada (lib/rede/fediverso/servidor.ts).
  */

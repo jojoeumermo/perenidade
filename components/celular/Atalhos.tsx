@@ -171,7 +171,7 @@ export const ATALHOS: Record<Chave, Atalho> = {
   // A Praça: a árvore e o banco.
   "predio-praca": predio(
     "news",
-    "/comunidade",
+    "/alumia",
     <>
       <circle cx="9" cy="8" r="4.5" />
       <path d="M9 12.5V20M3 20h18" />

@@ -166,7 +166,7 @@ export function MostrarNaAlumia({ eu, t, tSelos, lang, cadernos, feitas }: {
               {ocupado ? t.salvando : t.salvar}
             </button>
             {eu.handle ? (
-              <Link href={localePath(lang, `/comunidade/u/${encodeURIComponent(eu.handle)}`)} className="ep-botao-linha">
+              <Link href={localePath(lang, `/alumia/u/${encodeURIComponent(eu.handle)}`)} className="ep-botao-linha">
                 {t.verPerfil}
               </Link>
             ) : null}
@@ -174,7 +174,7 @@ export function MostrarNaAlumia({ eu, t, tSelos, lang, cadernos, feitas }: {
           {!eu.handle && (
             <p className="ep-nota">
               {t.semPerfil}{" "}
-              <Link href={localePath(lang, "/comunidade")} className="ep-casca-link">
+              <Link href={localePath(lang, "/alumia")} className="ep-casca-link">
                 {t.abrirAlumia}
               </Link>
             </p>

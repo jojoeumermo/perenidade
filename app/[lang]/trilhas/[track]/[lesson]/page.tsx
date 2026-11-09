@@ -372,7 +372,7 @@ export default async function LessonPage({ params }: Props) {
         {/* Rede v2 (só com o recurso ligado pelo nome): a conversa desta aula, na comunidade da disciplina. */}
         {ligado("rede-v2") && (
           <p className="no-print mt-6 font-sans text-sm">
-            <Link href={enderecoDiscutirAula(lang, track.slug, lesson.slug, track.area) ?? to("/comunidade")} className="font-bold underline hover:text-oxblood">
+            <Link href={enderecoDiscutirAula(lang, track.slug, lesson.slug, track.area) ?? to("/alumia")} className="font-bold underline hover:text-oxblood">
               {rotuloDiscutirAula(lang)}
             </Link>
           </p>
@@ -440,7 +440,7 @@ export default async function LessonPage({ params }: Props) {
           </p>
           <p className="no-print flex flex-wrap gap-x-5 gap-y-1">
             <Link href={fix} className="underline hover:text-oxblood">{t.common.suggestFix}</Link>
-            <Link href={`${to("/comunidade")}?nova=1&alvo=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}&sala=${track.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>{" · "}
+            <Link href={`${to("/alumia")}?nova=1&alvo=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}&sala=${track.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>{" · "}
             <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}`} className="underline hover:text-oxblood">{t.lesson.studyInNotebook}</Link>
             <a href={to(`${path(lesson.slug)}/texto`)} className="underline hover:text-oxblood">{t.lesson.plainText}</a>
             <CiteButton citation={`${lesson.authors.join(", ") || site.name}. “${lesson.title}”. ${track.title}. ${site.name}.`} />

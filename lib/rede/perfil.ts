@@ -88,4 +88,4 @@ export type TipoDeSelo = (typeof TIPOS_DE_SELO)[number];
 export const tipoDoSelo = (selo: string): TipoDeSelo | null => (selo === "equipe" || selo === "educador" || selo === "moderacao" ? selo : slugDoSelo(selo) ? "trilha" : null);
 
 /** O endereço da tela de editar o próprio perfil (rota do pacote, no idioma da página). */
-export const enderecoDeEditarPerfil = (lang: string): string => `/${lang}/comunidade/editar-perfil`;
+export const enderecoDeEditarPerfil = (lang: string): string => `/${lang}/alumia/editar-perfil`;

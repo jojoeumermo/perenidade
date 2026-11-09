@@ -64,7 +64,7 @@ export function ColunaDaEscola({ lang, t, eu, discreto }: { lang: Locale; t: Tex
         ) : (
           <>
             <strong className="ef-quem-nome">{t.semCodinome}</strong>
-            <Link href={localePath(lang, "/comunidade/editar-perfil")} className="ef-quem-link">
+            <Link href={localePath(lang, "/alumia/editar-perfil")} className="ef-quem-link">
               {t.escolherCodinome}
             </Link>
           </>

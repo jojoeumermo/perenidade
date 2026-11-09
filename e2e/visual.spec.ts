@@ -7,7 +7,7 @@ import { expect, test } from "@playwright/test";
 //   VISUAL=1 npx playwright test e2e/visual --update-snapshots
 test.skip(!process.env.VISUAL, "o teste visual só roda com VISUAL=1");
 
-const paginas = ["/pt", "/pt/trilhas", "/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humanos", "/pt/comunidade", "/pt/territorios/na-atividade"];
+const paginas = ["/pt", "/pt/trilhas", "/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humanos", "/pt/alumia", "/pt/territorios/na-atividade"];
 
 for (const tema of ["light", "dark"] as const) {
   for (const caminho of paginas) {
