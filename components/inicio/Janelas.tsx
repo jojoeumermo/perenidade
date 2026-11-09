@@ -30,12 +30,12 @@ export function JanelaContinue({ textos }: { textos: { continuar: string; retoma
   const feitas = useCompleted();
   const tem = hydrated && ultima?.path;
   return (
-    <article className="cartao-v flex flex-col p-5">
+    <article className="cartao-v flex min-h-0 flex-col overflow-hidden p-5">
       <p className="rotulo">{tem ? textos.continuar : textos.comecar}</p>
       {tem ? (
         <>
-          <h2 className="mt-3 text-[1.7rem] font-semibold leading-tight">{ultima.track}</h2>
-          <p className="mt-1 text-lg text-ink-soft">{ultima.title}</p>
+          <h2 className="mt-2 line-clamp-2 text-[1.35rem] font-semibold leading-tight">{ultima.track}</h2>
+          <p className="mt-1 line-clamp-2 text-base text-ink-soft">{ultima.title}</p>
           {feitas.size > 0 && (
             <p className="mt-4 flex flex-wrap gap-1" aria-hidden>
               {Array.from({ length: Math.min(feitas.size, 24) }, (_, i) => (
@@ -49,8 +49,8 @@ export function JanelaContinue({ textos }: { textos: { continuar: string; retoma
         </>
       ) : (
         <>
-          <p className="mt-3 text-xl leading-snug">{textos.comecarTexto}</p>
-          <L href="/comecar" className="botao botao-tinta mt-6 self-start">
+          <p className="mt-2 line-clamp-4 text-base leading-snug">{textos.comecarTexto}</p>
+          <L href="/comecar" className="botao botao-tinta mt-auto self-start">
             {textos.comecar} →
           </L>
         </>
@@ -79,13 +79,13 @@ export function JanelaNoAr({ textos }: { textos: { noAr: string; ouvir: string; 
       vivo = false;
     };
   }, []);
-  const [novo, anterior] = episodios;
+  const [novo] = episodios;
   return (
-    <article className="cartao-preto flex flex-col p-5">
+    <article className="cartao-preto flex min-h-0 flex-col overflow-hidden p-5">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#e0837a]">● {textos.noAr}</p>
       {novo ? (
         <>
-          <p className="mt-3 text-2xl leading-tight">{novo.numero ? `Ep. ${novo.numero} · ` : ""}{novo.titulo}</p>
+          <p className="mt-2 line-clamp-2 text-[1.35rem] font-semibold leading-tight">{novo.numero ? `Ep. ${novo.numero} · ` : ""}{novo.titulo}</p>
           <div className="mt-4 flex items-center gap-3.5">
             <L href={`/podcasts/${novo.slug}`} aria-label={`${textos.ouvir}: ${novo.titulo}`} className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full border-2 border-[#f4ecd8] bg-[#c21f16] hover:bg-[#a51810]">
               <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="#fff"><path d="M8 5v14l11-7z" /></svg>
@@ -97,20 +97,15 @@ export function JanelaNoAr({ textos }: { textos: { noAr: string; ouvir: string; 
             </span>
           </div>
           <p className="mt-3 font-mono text-[0.7rem] uppercase tracking-[0.1em] text-[#b3a584]">{minutos(novo.duracao)} min</p>
-          {anterior && (
-            <L href={`/podcasts/${anterior.slug}`} className="mt-4 block border-t border-[#5a4e3c] pt-3 text-lg text-[#f4ecd8] hover:text-white hover:underline">
-              {anterior.numero ? `Ep. ${anterior.numero} · ` : ""}{anterior.titulo}
-            </L>
-          )}
-          <L href="/podcasts" className="mt-auto pt-4 font-sans font-bold text-[#f4ecd8] underline-offset-4 hover:text-white hover:underline">
+          <L href="/podcasts" className="mt-auto pt-3 font-sans font-bold text-[#f4ecd8] underline-offset-4 hover:text-white hover:underline">
             {textos.todos} →
           </L>
         </>
       ) : (
         <>
-          <p className="mt-3 text-2xl leading-tight">{textos.radio}</p>
-          <p className="mt-2 text-lg leading-snug text-[#e9dcbc]">{textos.radioTexto}</p>
-          <div className="mt-auto flex flex-wrap items-center gap-4 pt-5">
+          <p className="mt-2 text-[1.35rem] font-semibold leading-tight">{textos.radio}</p>
+          <p className="mt-1 line-clamp-3 text-base leading-snug text-[#e9dcbc]">{textos.radioTexto}</p>
+          <div className="mt-auto flex flex-wrap items-center gap-4 pt-4">
             <L href="/radio" className="flex h-13 w-13 items-center justify-center rounded-full border-2 border-[#f4ecd8] bg-[#c21f16] hover:bg-[#a51810]" aria-label={`${textos.ouvir}: ${textos.radio}`}>
               <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="#fff"><path d="M8 5v14l11-7z" /></svg>
             </L>
