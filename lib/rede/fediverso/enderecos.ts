@@ -3,21 +3,43 @@
 // Os endereços da Alumia no Fediverso (ActivityPub). Todos moram no endereço próprio da Alumia (NEXT_PUBLIC_ALUMIA_URL): o id de
 // um ator ou de um post não pode mudar depois que saiu, então a federação só liga com esse endereço definido (docs/rede/FEDIVERSO.md).
 // Lógica pura, sem os atalhos "@/" (roda nos testes).
-import { ligado, type Recurso } from "../../recursos";
+import { lerRecursos, ligado, type Recurso } from "../../recursos";
 import { ALUMIA_URL, urlDaAlumiaOk } from "../alumia";
 
 /**
- * Os dois recursos do "Fediverso total" (o plano do Fediverso de 08/11/2026, frente F1). Desligados por padrão: sem eles, tudo o que a
- * Alumia publica fica exatamente como antes. Os nomes entram em lib/recursos.ts pela frente F5; até lá o `ligado` já sabe ler
- * qualquer nome da variável e do painel, e o "as Recurso" só cala o tipo.
+ * Os dois recursos do "Fediverso total" (o plano do Fediverso de 08/11/2026, frente F1). DESLIGADOS por padrão: sem eles, tudo o
+ * que a Alumia publica fica exatamente como antes. Os nomes entram em lib/recursos.ts (RECURSOS e SO_PELO_NOME) pela frente F5;
+ * o "as Recurso" só cala o tipo até lá.
+ *
+ * A produção roda com NEXT_PUBLIC_RECURSOS=todos, e "todos" liga qualquer nome que não esteja em SO_PELO_NOME. Por isso estes dois
+ * só ligam com o NOME escrito na lista (ou pelo painel), nunca por "todos", mesmo antes de a F5 os pôr em SO_PELO_NOME: mudar o @
+ * de todo mundo (D1) e abrir o ator completo não pode acontecer por acaso numa montagem.
  */
 export const RECURSO_TOTAL = "fediverso-total";
 export const RECURSO_GRUPOS = "fediverso-grupos";
 
+/**
+ * Ligado só pelo nome: o nome na variável de montagem ou a decisão do painel; "todos" não conta. O interruptor de emergência do
+ * painel (desligado no banco) e o "-nome" da lista sempre desligam, porque passam por `ligado`.
+ *
+ * Como lib/recursos.ts não expõe o que o painel ligou, a conta é: ligado agora E (ligado pela lista sem "todos" OU ligado só por
+ * causa do painel, isto é, a lista sozinha não liga). Limite honesto: com "todos" na variável, o painel só consegue ligar estes
+ * dois depois que a F5 os puser em SO_PELO_NOME (hoje o painel nem aceita o nome: lib/recursos-vivos.ts filtra o que não está em
+ * RECURSOS). Falha para o lado desligado.
+ */
+export function ligadoPeloNome(nome: string): boolean {
+  const recurso = nome as Recurso;
+  if (!ligado(recurso)) return false;
+  // A referência literal, como em lib/recursos.ts.
+  const lista = lerRecursos(process.env.NEXT_PUBLIC_RECURSOS);
+  const semTodos = new Set([...lista].filter((n) => n !== "todos"));
+  return ligado(recurso, semTodos) || !ligado(recurso, lista);
+}
+
 /** O modo "servidor do Fediverso": @ no domínio curto, ator completo, Note com menções, mídia e fio, NodeInfo completo. */
-export const modoTotal = (): boolean => ligado(RECURSO_TOTAL as Recurso);
+export const modoTotal = (): boolean => ligadoPeloNome(RECURSO_TOTAL);
 /** As comunidades abertas como Group (Lemmy). Só vale junto com o modo total. */
-export const gruposLigados = (): boolean => modoTotal() && ligado(RECURSO_GRUPOS as Recurso);
+export const gruposLigados = (): boolean => modoTotal() && ligadoPeloNome(RECURSO_GRUPOS);
 
 /** As escolhas que mudam o que sai: lidas das flags na hora (os testes passam as suas). */
 export interface OpcoesDaSaida {
@@ -63,15 +85,16 @@ export function enderecosDaFederacao(base: string = ALUMIA_URL) {
     seguidores: (handle: string) => `${api}/u/${handle}/seguidores`,
     seguindo: (handle: string) => `${api}/u/${handle}/seguindo`,
     destaques: (handle: string) => `${api}/u/${handle}/destaques`,
-    /** A foto (avatar) e a capa do perfil num endereço estável e público (a imagem enviada mora no banco, não num depósito). */
-    imagemDoPerfil: (handle: string, tipo: "avatar" | "capa") => `${api}/u/${handle}/imagem/${tipo}`,
     inboxCompartilhada: `${api}/inbox`,
     /** O ator da instância (assina as buscas de perfis remotos que pedem assinatura). */
     instancia: `${api}/ator`,
     chaveDaInstancia: `${api}/ator#main-key`,
     post: (id: string) => `${api}/p/${id}`,
     respostas: (id: string) => `${api}/p/${id}/respostas`,
-    /** A imagem de um post federado, num endereço estável (o depósito "rede-midia" é privado e só dá links assinados que expiram). */
+    /**
+     * A imagem de um post federado, num endereço estável (o depósito "rede-midia" é privado e só dá links assinados que expiram).
+     * A ordem identifica a imagem no post (interno.rede_midia: unique (post, ordem)).
+     */
     midiaDoPost: (id: string, ordem: number) => `${api}/p/${id}/midia/${ordem}`,
     /** Comunidade aberta como Group (Lemmy, FEP-1b12). */
     comunidade: (slug: string) => `${api}/c/${slug}`,
