@@ -215,8 +215,9 @@ export async function entregar(destino: string, atividade: Atividade, handle: st
 }
 
 /** Entrega até `limite` itens vencidos da fila. Devolve quantos saíram, quantos voltaram para a fila e quantos foram descartados. */
-export async function processarFila(limite = 20): Promise<{ entregues: number; adiados: number; descartados: number }> {
-  if (modoTotal()) return processarFilaTotal(Math.min(Math.max(limite, 1), LIMITE_TOTAL));
+// `orcamentoMs`: só no modo total (padrão ORCAMENTO_MS); os testes o encurtam.
+export async function processarFila(limite = 20, orcamentoMs?: number): Promise<{ entregues: number; adiados: number; descartados: number }> {
+  if (modoTotal()) return processarFilaTotal(Math.min(Math.max(limite, 1), LIMITE_TOTAL), orcamentoMs);
   const itens = await banco<ItemDaFila[]>("fila_pegar", { limite });
   const total = { entregues: 0, adiados: 0, descartados: 0 };
   // Poucas de cada vez, para não abrir conexões demais de uma só instância do servidor.
