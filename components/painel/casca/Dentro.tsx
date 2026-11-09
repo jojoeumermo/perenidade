@@ -802,7 +802,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
             {voluntario && !can(me, "marketing") && <SugerirAoMarketing />}
             {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
             {!can(me, "coordenacao") && <Candidatura me={me} />}
-            <div className="grid items-start gap-4 md:grid-cols-2">
+            <div className="grid items-start gap-4">
               {voluntario && (
                 <details className="pn-cartao">
                   <summary className="cursor-pointer font-semibold">Guia de primeiros passos da sua função</summary>
