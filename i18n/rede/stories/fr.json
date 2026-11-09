@@ -1,0 +1,203 @@
+{
+  "faixa": {
+    "rotulo": "Stories",
+    "seuStory": "Votre story",
+    "criar": "Créer une story",
+    "verOsSeus": "Voir vos stories ({n} en ligne)",
+    "ver": "Voir les stories de {nome}",
+    "verVisto": "Revoir les stories de {nome} (déjà vues)",
+    "aviso": "Personne ne sait que vous avez regardé. Disparaît en 24 h.",
+    "erro": "Les stories n'ont pas chargé.",
+    "tentar": "Réessayer",
+    "entrar": "Connectez-vous pour voir et créer des stories.",
+    "anteriores": "Stories précédentes",
+    "seguintes": "Plus de stories"
+  },
+  "abas": {
+    "rotulo": "Fils"
+  },
+  "criar": {
+    "titulo": "Créer une story",
+    "fechar": "Fermer sans publier",
+    "descartar": "Fermer sans publier ? Ce que vous avez fait ici sera perdu.",
+    "descartarSim": "Fermer",
+    "descartarNao": "Continuer",
+    "modos": "Outils",
+    "modoTexto": "Texte",
+    "modoTextoAa": "Aa",
+    "modoDesenhar": "Dessiner",
+    "modoFigurinha": "Sticker",
+    "texto": "Texte de la story",
+    "textoVazio": "Écrivez ici",
+    "tarja": "Bandeau sous le texte (facultatif)",
+    "tarjaVazia": "Une ligne en dessous (facultatif)",
+    "restam": "Encore {n} caractères",
+    "cores": "Couleur du fond",
+    "coresDoTraco": "Couleur du trait",
+    "cor": {
+      "azul": "Bleu",
+      "vermelho": "Rouge",
+      "dourado": "Doré",
+      "verde": "Vert",
+      "rosa": "Rose",
+      "noite": "Nuit"
+    },
+    "desenho": "Zone de dessin : glissez pour dessiner",
+    "desfazer": "Annuler le dernier trait",
+    "limpar": "Effacer le dessin",
+    "figurinhas": "Stickers",
+    "figurinhaLigada": "{nome} : dans la story (touchez pour retirer)",
+    "limiteDeFigurinhas": "3 stickers au maximum par story.",
+    "tipo": {
+      "contagem": "Compte à rebours",
+      "pergunta": "Question",
+      "enquete": "Sondage",
+      "link": "Lien"
+    },
+    "quemVe": "Qui voit",
+    "publico": {
+      "seguidores": "Abonnés",
+      "membros": "Communauté",
+      "proximos": "Proches"
+    },
+    "publicoAjuda": {
+      "seguidores": "Seulement vos abonnés.",
+      "membros": "Les membres d'Alumia.",
+      "proximos": "Seulement votre liste de proches."
+    },
+    "regra": "Disparaît en 24 h. Ne va pas sur le Fédivers. Personne ne voit qui a regardé.",
+    "galeria": "Galerie",
+    "trocarImagem": "Changer l'image",
+    "tirarImagem": "Retirer l'image",
+    "alt": "Décrivez l'image pour qui ne voit pas (facultatif)",
+    "semMetadado": "L'image est refaite sur votre appareil : elle part sans localisation ni données de l'appareil photo.",
+    "publicar": "Publier la story",
+    "publicando": "Publication…",
+    "publicado": "Story publiée. Disparaît en 24 h.",
+    "vazio": "Écrivez un texte, dessinez ou choisissez une image.",
+    "deUmPost": "Story à partir d'une publication : le lien l'accompagne.",
+    "erro": {
+      "grande": "Image trop lourde (3 Mo maximum une fois prête).",
+      "invalida": "Impossible de lire cette image. Utilisez JPG, PNG ou WEBP.",
+      "link": "Le lien doit commencer par https:// et avoir une adresse valide.",
+      "ato": "Choisissez une action pour le compte à rebours.",
+      "pergunta": "Écrivez la question.",
+      "enquete": "Écrivez la question et les deux options du sondage.",
+      "dadoPessoal": "Il semble y avoir une donnée personnelle (téléphone, numéro d'identité, e-mail ou adresse). Retirez-la avant de publier.",
+      "semConta": "Connectez-vous pour publier.",
+      "limite": "Vous avez publié beaucoup de stories à l'instant. Patientez un peu.",
+      "banco": "La base de données n'a pas encore les stories (la mise à jour du serveur manque).",
+      "falha": "Publication impossible. Réessayez."
+    }
+  },
+  "figurinha": {
+    "contagem": {
+      "rotulo": "Action",
+      "escolha": "Choisissez l'action",
+      "semAtos": "Vous n'avez pas d'action prévue. Lancez un appel pour utiliser le compte à rebours.",
+      "dias": "Jours",
+      "horas": "Heures",
+      "min": "Min",
+      "avisar": "Prévenez-moi quand ça commence",
+      "avisado": "On vous préviendra quand ça commence",
+      "desavisar": "Ne plus me prévenir",
+      "comecou": "Déjà commencé",
+      "verAto": "Voir l'action",
+      "falta": "Encore {dias} jours, {horas} heures et {min} minutes avant {titulo}"
+    },
+    "pergunta": {
+      "rotulo": "Question",
+      "vazio": "Écrivez la question",
+      "soParaVoce": "Réponses pour vous seulement",
+      "responder": "Répondre à la question",
+      "soParaAutora": "Réponses pour {nome} seulement."
+    },
+    "enquete": {
+      "rotulo": "Sondage",
+      "pergunta": "Question du sondage",
+      "perguntaVazia": "Posez une question",
+      "opcao": "Option {n}",
+      "padraoA": "J'y vais",
+      "padraoB": "Je ne peux pas",
+      "notaAutora": "Vous seul voyez le total. Le nom des votants n'apparaît pas.",
+      "nota": "Seul·e {nome} voit le total. Votre nom n'apparaît pas.",
+      "votou": "Vote envoyé uniquement au total.",
+      "soma": "{pct} %",
+      "total": "{n} votes",
+      "poucas": "Peu de personnes ont voté : le total apparaît à partir de 3."
+    },
+    "link": {
+      "rotulo": "Lien",
+      "endereco": "Adresse (https://…)",
+      "texto": "Texte du lien (facultatif)",
+      "abrir": "Ouvrir {dominio} (quitte Alumia)"
+    }
+  },
+  "visor": {
+    "rotulo": "Story de {nome}",
+    "ajuda": "Flèches pour changer de story, espace pour mettre en pause, Échap pour fermer.",
+    "progresso": "Story {i} sur {n}",
+    "publico": {
+      "seguidores": "Pour mes abonnés",
+      "membros": "Pour la communauté",
+      "proximos": "Pour les proches"
+    },
+    "agora": "maintenant",
+    "min": "{n} min",
+    "h": "{n} h",
+    "pausar": "Pause",
+    "continuar": "Reprendre",
+    "mais": "Plus d'options",
+    "fechar": "Fermer",
+    "anterior": "Story précédente",
+    "proximo": "Story suivante",
+    "silenciar": "Ne plus voir les stories de {nome} sur cet appareil",
+    "silenciado": "Vous ne verrez plus les stories de {nome} sur cet appareil. Personne n'est prévenu.",
+    "denunciar": "Signaler cette story",
+    "denunciaTitulo": "Signaler cette story",
+    "denunciaAjuda": "Qui signale n'est jamais révélé. Menace, exposition et risque pour un enfant retirent la story tout de suite, jusqu'à l'examen de la modération.",
+    "denunciaEnviar": "Envoyer le signalement",
+    "denunciaEnviada": "Signalement reçu. Référence {protocolo}.",
+    "cancelar": "Annuler",
+    "apagar": "Supprimer cette story",
+    "apagarConfirma": "Supprimer maintenant ? Elle disparaît pour tout le monde, avec les réponses.",
+    "apagarSim": "Supprimer",
+    "apagado": "Story supprimée.",
+    "seu": "Votre story",
+    "respostasChegam": "Les réponses et réactions n'arrivent qu'à vous, dans vos notifications.",
+    "responder": "Répondre seulement à {nome}…",
+    "responderRotulo": "Répondre seulement à {nome}",
+    "enviar": "Envoyer",
+    "enviado": "Envoyé seulement à {nome}.",
+    "reacoes": "Réagir (seul·e {nome} voit)",
+    "reacao": {
+      "punho": "Poing levé",
+      "chama": "Flamme",
+      "coracao": "Cœur"
+    },
+    "reagiu": "{reacao} : envoyé seulement à {nome}.",
+    "sumiu": "Cette story a déjà disparu.",
+    "carregando": "Chargement de la story…",
+    "erro": "Impossible d'ouvrir cette story.",
+    "deUmPost": "Voir la publication",
+    "imagem": "Image de la story",
+    "categorias": {
+      "menores": "Enfant ou adolescent en danger",
+      "ameaca": "Menace",
+      "exposicao": "Exposition de données personnelles",
+      "violencia": "Incitation à la violence",
+      "autolesao": "Automutilation ou danger de mort (urgent : au Brésil appelez le 188, CVV)",
+      "odio": "Discours de haine ou discrimination",
+      "assedio": "Harcèlement ou traque",
+      "golpe": "Arnaque ou fraude",
+      "spam": "Publicité ou répétition",
+      "outro": "Autre motif"
+    },
+    "erroAoEnviar": "Envoi impossible. Réessayez."
+  },
+  "cartao": {
+    "porNoStory": "Mettre en story",
+    "porNoStoryAjuda": "Crée une story avec le lien de cette publication (disparaît en 24 h)"
+  },
+  "previa": "Aperçu avec des données d'exemple : rien n'est envoyé."
+}
