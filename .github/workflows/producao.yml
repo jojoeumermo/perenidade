@@ -119,6 +119,8 @@ jobs:
             if [ -n "$valor" ]; then printf '%s=%s\n' "$nome" "$valor" >> .env.production.local; fi
           done
           echo "Variáveis públicas da montagem: $(cut -d= -f1 .env.production.local | tr '\n' ' ')"
+          # O commit vai num arquivo público: o passo de baixo espera o site no ar mostrar ESTE commit antes de limpar o cache.
+          echo "$COMMIT" > public/versao.txt
           docker build --pull \
             --label "org.opencontainers.image.revision=$COMMIT" \
             -t "$IMAGEM:$COMMIT" -t "$IMAGEM:producao" .
@@ -132,12 +134,26 @@ jobs:
           ZONA: ${{ vars.CF_ZONE_ID }}
         run: |
           set -euo pipefail
-          # A VPS confere a imagem a cada 2 minutos e leva cerca de 1 minuto para subir a versão nova.
-          sleep 240
+          # A VPS confere a imagem a cada 2 minutos e leva alguns minutos para subir a versão nova. Antes, este passo
+          # esperava 4 minutos fixos e limpava o cache: quando a troca demorava mais, o Cloudflare guardava de novo as
+          # páginas da versão ANTIGA logo depois da limpeza e as servia por horas. Agora ele espera o site mostrar este
+          # commit em /versao.txt (até 20 minutos), limpa, e limpa de novo 1 minuto depois (pedidos que já estavam a caminho).
+          no_ar=""
+          for _ in $(seq 1 120); do
+            no_ar=$(curl -fsS --max-time 10 "https://institutolucia.org/versao.txt?v=$RANDOM$RANDOM" 2>/dev/null | tr -d '[:space:]' || true)
+            [ "$no_ar" = "$COMMIT" ] && break
+            sleep 10
+          done
+          if [ "$no_ar" = "$COMMIT" ]; then echo "Versão $COMMIT no ar."; else echo "::warning::A VPS não mostrou o commit $COMMIT em 20 minutos (no ar: ${no_ar:-?}). Limpando o cache assim mesmo."; fi
           if [ -z "$TOKEN" ] || [ -z "$ZONA" ]; then echo "Sem CF_TOKEN_CACHE/CF_ZONE_ID: o cache expira sozinho em até 4 horas."; exit 0; fi
-          resposta=$(curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$ZONA/purge_cache" \
-            -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data '{"purge_everything":true}')
-          echo "$resposta" | grep -q '"success":true' && echo "Cache do Cloudflare limpo." || echo "::warning::O Cloudflare recusou a limpeza: $resposta"
+          limpar() {
+            resposta=$(curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$ZONA/purge_cache" \
+              -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" --data '{"purge_everything":true}')
+            echo "$resposta" | grep -q '"success":true' && echo "Cache do Cloudflare limpo." || echo "::warning::O Cloudflare recusou a limpeza: $resposta"
+          }
+          limpar
+          sleep 60
+          limpar
 
       - name: Trocar a versão no ar (Coolify)
         # Com COOLIFY_URL mas sem COOLIFY_APP_UUID (servidor em preparo), a rotina só monta e guarda a imagem.
