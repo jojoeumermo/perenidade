@@ -2,7 +2,8 @@
 //
 // Os posts fixados no perfil (a coleção "featured" do ator), como o Mastodon mostra no topo de um perfil. Só os que podem sair
 // (o banco confere com interno.rede_fed_federavel; aqui, de novo, a visibilidade). Só no modo total (fediverso-total).
-// A ação "destaques" do banco ({handle} → {itens: post[]}) é pedida à frente F3; enquanto não existe, a coleção sai vazia.
+// A ação "destaques" do banco ({handle} → {itens: post[]}) é pendência do contrato 3.1 com a F3: enquanto não existe, a coleção sai
+// vazia e o ator NÃO a anuncia (COLECOES_DO_BANCO.destaques em lib/rede/fediverso/documentos.ts).
 import { colecaoDeDestaques, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { HANDLE_FED, modoTotal } from "@/lib/rede/fediverso/enderecos";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";

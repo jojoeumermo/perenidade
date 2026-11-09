@@ -63,7 +63,7 @@ export interface AtorLocal {
   ligado_em: string | null;
   chave_publica: string;
   // ── modo total (contrato 3.1, ação "ator") ──
-  /** A foto do perfil, já aprovada pela moderação, num endereço público estável (ver a rota u/[handle]/imagem/[tipo]). */
+  /** A foto do perfil num endereço público (hoje só o rosto da galeria, em PNG: ver `imagemDoBanco`). */
   avatar?: ImagemPublica | null;
   capa?: ImagemPublica | null;
   /** A pessoa escolheu aparecer no diretório e na busca de texto das outras instâncias. Sem escolha: fora (false). */
@@ -72,11 +72,15 @@ export interface AtorLocal {
   trancado?: boolean;
 }
 
-/** Uma imagem de um post (vem de interno.rede_midia: o banco devolve no post, contrato 3.1, ação "post": midia). */
+/**
+ * Uma imagem de um post, como o banco devolve no post (contrato 3.1, ação "post": midia; interno.rede_fed_post_json da F3):
+ * `{id, tipo, alt, largura, altura, blurhash, ordem}`. O caminho no depósito NÃO vem no post (ele tem o id interno do perfil): só a
+ * rota de mídia o pede, pela ação "midia" {id} → {caminho, tipo, alt, largura, altura}.
+ */
 export interface MidiaFederada {
+  /** O id da imagem em interno.rede_midia (uuid). */
+  id?: string | null;
   ordem: number;
-  /** Onde o arquivo mora no depósito privado "rede-midia" (pasta do perfil/arquivo). Só a rota de mídia lê; NUNCA sai num documento. */
-  caminho?: string | null;
   tipo: string;
   alt: string;
   largura?: number | null;
@@ -106,9 +110,19 @@ export interface PostFederado {
   resposta_a_remota?: string | null;
   /** O id do post que abriu o fio (para "context"). */
   raiz?: string | null;
-  /** O slug da comunidade aberta onde o post está (para "audience", só com fediverso-grupos). */
+  /** O slug da comunidade onde o post está (para "audience", só com fediverso-grupos). É o nome que a F3 devolve. */
+  comunidade?: string | null;
+  /** Nome antigo do mesmo campo (aceito só por compatibilidade; o banco devolve `comunidade`). */
   comunidade_slug?: string | null;
 }
+
+/**
+ * As coleções "featured" (u/[handle]/destaques) e "replies" (p/[id]/respostas) dependem das ações "destaques" {handle} →
+ * {itens: post[]} e "respostas" {id, limite} → {itens: id[]}, que ainda NÃO existem no banco (pendência do contrato 3.1 com a F3).
+ * Enquanto não existem, o ator e a Note não anunciam as coleções (uma coleção sempre vazia só engana a outra instância). Quando a
+ * F3 entregar, é só virar para true.
+ */
+export const COLECOES_DO_BANCO: { readonly destaques: boolean; readonly respostas: boolean } = { destaques: false, respostas: false };
 
 const TIPOS_DE_IMAGEM = /^image\/(jpeg|png|webp|gif|avif)$/;
 
@@ -118,25 +132,20 @@ export function visibilidadeQueSai(p: Pick<PostFederado, "visibilidade">): Visib
   return v === "publico" || v === "nao_listado" ? v : null;
 }
 
-const DATA_URL = /^data:(image\/(?:webp|png|jpeg));base64,([A-Za-z0-9+/]+={0,2})$/;
-
-/** Os bytes de uma imagem guardada no banco como data URL (a foto enviada do perfil: interno.perfis.rede_avatar_dados). */
-export function lerDataUrl(valor: unknown, maxCaracteres = 120_000): { tipo: string; bytes: Buffer } | null {
-  if (typeof valor !== "string" || valor.length > maxCaracteres) return null;
-  const m = DATA_URL.exec(valor);
-  if (!m) return null;
-  const bytes = Buffer.from(m[2], "base64");
-  return bytes.length > 0 ? { tipo: m[1], bytes } : null;
-}
+/** Os rostos e as capas da galeria (arquivos públicos do site), como a ação "ator" devolve: "/rede/avatares/a03.svg". */
+const IMAGEM_DA_GALERIA = /^\/rede\/(avatares\/a(?:0[1-9]|1[0-9]|2[0-4])|capas\/c0[1-8])\.svg$/;
 
 /**
- * A foto ou a capa do perfil como o banco devolve (contrato 3.1, ação "ator": avatar_url, capa_url) virada em endereço público:
- * a imagem enviada (data URL) sai pela rota estável u/[handle]/imagem/[tipo]; um endereço https sai como está. Os rostos e capas da
- * galeria (SVG em /rede/avatares e /rede/capas) NÃO saem: o Mastodon não aceita SVG como foto de perfil.
+ * A foto ou a capa do perfil como o banco devolve (contrato 3.1, ação "ator": avatar_url, capa_url) virada em endereço público.
+ *
+ * O banco só devolve o rosto ou a capa da GALERIA (caminho relativo de um SVG público). A imagem enviada pela pessoa não sai para
+ * fora sem um consentimento próprio (LGPD, art. 6º, III, necessidade; art. 8º, § 4º, finalidade determinada): é a decisão da F3,
+ * e por isso esta frente não tem rota que sirva a foto enviada. O Mastodon não aceita SVG como foto de perfil, então sai a versão
+ * PNG do mesmo desenho (public/rede/avatares/aNN.png e public/rede/capas/cNN.png), no host da Alumia. O nome do arquivo muda
+ * quando a pessoa troca de rosto, e com ele a URL: a outra instância busca a foto nova sozinha. Um https que não é SVG sai como está.
  */
-export function imagemDoBanco(e: EnderecosDaFederacao, handle: string, tipo: "avatar" | "capa", valor: unknown): ImagemPublica | null {
-  const dados = lerDataUrl(valor);
-  if (dados) return { url: e.imagemDoPerfil(handle, tipo), tipo: dados.tipo };
+export function imagemDoBanco(e: EnderecosDaFederacao, valor: unknown): ImagemPublica | null {
+  if (typeof valor === "string" && IMAGEM_DA_GALERIA.test(valor)) return { url: `${e.base}${valor.replace(/\.svg$/, ".png")}`, tipo: "image/png" };
   if (https(valor) && !/\.svg(\?|$)/i.test(valor)) return { url: valor };
   return null;
 }
@@ -173,7 +182,7 @@ export function documentoDoAtor(e: EnderecosDaFederacao, a: AtorLocal, opcoes: O
   return {
     ...base,
     following: e.seguindo(a.handle),
-    featured: e.destaques(a.handle),
+    ...(COLECOES_DO_BANCO.destaques ? { featured: e.destaques(a.handle) } : {}),
     manuallyApprovesFollowers: Boolean(a.trancado),
     // A escolha é da pessoa (LGPD, art. 8º: consentimento por finalidade); sem escolha, fica fora do diretório e da busca.
     discoverable: a.discoverable === true,
@@ -278,7 +287,8 @@ export function documentoDoPost(e: EnderecosDaFederacao, p: PostFederado, comCon
   if (!opcoes.total) return base;
 
   const destinos = destinosDeMencao(mencoes);
-  const grupo = opcoes.grupos && p.comunidade_slug && /^[a-z0-9-]{2,60}$/.test(p.comunidade_slug) ? e.comunidade(p.comunidade_slug) : null;
+  const slug = p.comunidade ?? p.comunidade_slug ?? null;
+  const grupo = opcoes.grupos && slug && /^[a-z0-9-]{2,60}$/.test(slug) ? e.comunidade(slug) : null;
   // [M-AP]: público = Public em "to"; não listado = Public em "cc". O mencionado vai em "cc" (senão não há aviso).
   const to = visibilidade === "publico" ? [PUBLICO] : [e.seguidores(p.handle)];
   const cc = [...new Set([visibilidade === "publico" ? e.seguidores(p.handle) : PUBLICO, ...destinos, ...(grupo ? [grupo] : [])])];
@@ -291,7 +301,7 @@ export function documentoDoPost(e: EnderecosDaFederacao, p: PostFederado, comCon
     cc,
     inReplyTo: p.resposta_a ? e.post(p.resposta_a) : respostaRemota,
     ...(contexto ? { context: contexto } : {}),
-    replies: e.respostas(p.id),
+    ...(COLECOES_DO_BANCO.respostas ? { replies: e.respostas(p.id) } : {}),
     ...(anexos.length ? { attachment: anexos } : {}),
     ...(grupo ? { audience: grupo, ...(p.titulo ? { name: p.titulo.slice(0, 200) } : {}) } : {}),
     tag: [...hashtags, ...tagsDeMencao(mencoes)],
@@ -333,9 +343,21 @@ export function atividadeUndoFollow(e: EnderecosDaFederacao, handle: string, alv
 
 // ── Interações (contrato 3.3: usados pela fila, frente F2) ──
 
-/** Curtir (favoritar) um post, daqui ou de fora. `objeto` é o id do post; `id` é único (uuid). */
+/**
+ * O id de uma atividade que sai daqui. Contrato 3.3: `id` é a URL COMPLETA da atividade, no host da Alumia (é o que a F2 passa:
+ * `fed.atividade(tipo, hash)` ou o `extra.atividade` guardado na fila). Um sufixo simples (letras, números, "-" e "_") também é
+ * aceito e vira `e.atividade(tipo, sufixo)`. Qualquer outra coisa (http, outro host, espaço) lança erro: uma atividade com id de
+ * outro servidor seria recusada lá fora e poderia se passar por outra.
+ */
+export function idDeAtividade(e: EnderecosDaFederacao, tipo: string, id: string): string {
+  if (https(id) && id.startsWith(`${e.base}/`)) return id;
+  if (/^[A-Za-z0-9_-]{1,100}$/.test(id)) return e.atividade(tipo, id);
+  throw new Error("id_de_atividade_invalido");
+}
+
+/** Curtir (favoritar) um post, daqui ou de fora. `objeto` é o id do post; `id` é a URL da atividade (ver `idDeAtividade`). */
 export function atividadeLike(e: EnderecosDaFederacao, handle: string, objeto: string, id: string) {
-  return { "@context": CONTEXTO, id: e.atividade("like", id), type: "Like", actor: e.ator(handle), object: objeto };
+  return { "@context": CONTEXTO, id: idDeAtividade(e, "like", id), type: "Like", actor: e.ator(handle), object: objeto };
 }
 
 /**
@@ -345,7 +367,7 @@ export function atividadeLike(e: EnderecosDaFederacao, handle: string, objeto: s
 export function atividadeAnnounce(e: EnderecosDaFederacao, handle: string, objeto: string, id: string, autorDoObjeto?: string | null, quando = new Date()) {
   return {
     "@context": CONTEXTO,
-    id: e.atividade("announce", id),
+    id: idDeAtividade(e, "announce", id),
     type: "Announce",
     actor: e.ator(handle),
     published: quando.toISOString(),
@@ -355,13 +377,24 @@ export function atividadeAnnounce(e: EnderecosDaFederacao, handle: string, objet
   };
 }
 
-/** Desfaz uma atividade que saiu daqui (Like, Announce, Block, Follow): o Undo leva a atividade original dentro, sem o contexto. */
-export function atividadeUndo(e: EnderecosDaFederacao, handle: string, atividadeOriginal: { id: string; type: string; [campo: string]: unknown }) {
+/**
+ * Desfaz uma atividade que saiu daqui (Like, Announce, Block, Follow): o Undo leva a atividade original dentro, sem o contexto.
+ * O id do original é fixo (a F2 deriva de pessoa + objeto, para o Undo achar o que desfazer), então o id do Undo NÃO pode ser fixo:
+ * curtir, descurtir e curtir de novo daria dois Undo com o mesmo id, e quem deduplica por id ignoraria o segundo. Sem `id`, vai um
+ * fragmento com o instante; com `id` (a fila pode passar um uuid), vale `idDeAtividade`.
+ */
+export function atividadeUndo(
+  e: EnderecosDaFederacao,
+  handle: string,
+  atividadeOriginal: { id: string; type: string; [campo: string]: unknown },
+  id?: string,
+  quando = new Date(),
+) {
   const { ["@context"]: _contexto, ...original } = atividadeOriginal;
   void _contexto;
   return {
     "@context": CONTEXTO,
-    id: `${atividadeOriginal.id}#undo`,
+    id: id ? idDeAtividade(e, "undo", id) : `${atividadeOriginal.id}#undo-${quando.getTime().toString(36)}`,
     type: "Undo",
     actor: e.ator(handle),
     ...(Array.isArray(original.to) ? { to: original.to } : {}),
@@ -378,7 +411,7 @@ export function atividadeUndo(e: EnderecosDaFederacao, handle: string, atividade
 export function atividadeFlag(e: EnderecosDaFederacao, alvos: readonly string[], conteudo: string, id: string) {
   return {
     "@context": CONTEXTO,
-    id: e.atividade("flag", id),
+    id: idDeAtividade(e, "flag", id),
     type: "Flag",
     actor: e.instancia,
     object: [...new Set(alvos.filter((a) => https(a)))].slice(0, 20),
@@ -388,7 +421,7 @@ export function atividadeFlag(e: EnderecosDaFederacao, alvos: readonly string[],
 
 /** Bloquear um ator de fora. O Mastodon esconde quem bloqueou; nada mais sai além do par ator → alvo. */
 export function atividadeBlock(e: EnderecosDaFederacao, handle: string, alvo: string, id: string) {
-  return { "@context": CONTEXTO, id: e.atividade("block", id), type: "Block", actor: e.ator(handle), object: alvo };
+  return { "@context": CONTEXTO, id: idDeAtividade(e, "block", id), type: "Block", actor: e.ator(handle), object: alvo };
 }
 
 // ── Comunidade como Group (Lemmy, FEP-1b12; só com fediverso-grupos) ──
@@ -473,7 +506,7 @@ export function caixaDeSaidaDaComunidade(e: EnderecosDaFederacao, slug: string, 
   const itens: Record<string, unknown>[] = [];
   for (const p of posts) {
     if (!visibilidadeQueSai(p)) continue;
-    const { ["@context"]: _c, ...criar } = atividadeCreate(e, { ...p, comunidade_slug: slug }, comGrupo);
+    const { ["@context"]: _c, ...criar } = atividadeCreate(e, { ...p, comunidade: slug }, comGrupo);
     void _c;
     const { ["@context"]: _a, ...anuncio } = atividadeAnnounceDoGrupo(e, slug, criar);
     void _a;
@@ -581,7 +614,10 @@ export function juntarWebfinger(pessoa: ReturnType<typeof documentoWebfinger>, g
 export interface ContagemDoNodeinfo {
   usuarios: number;
   posts: number;
-  /** Quem federa e usou a Alumia nos últimos 30 e 180 dias (só no modo total, e só se o banco devolve). */
+  /**
+   * Quem federa e teve post saindo nos últimos 30 e 180 dias (só no modo total). Vêm da ação "contagem_ativos" da F3 ({mes,
+   * semestre}), mapeados pela rota do NodeInfo.
+   */
   ativos_mes?: number | null;
   ativos_semestre?: number | null;
 }
