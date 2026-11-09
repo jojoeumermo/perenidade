@@ -23,7 +23,7 @@ www.institutolucia.org {
 	redir https://institutolucia.org{uri} permanent
 }
 
-institutolucia.org, alumia.institutolucia.org {
+institutolucia.org, alumia.institutolucia.org, escola.institutolucia.org {
 	import origem
 	encode zstd gzip
 
