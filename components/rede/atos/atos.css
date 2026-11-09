@@ -277,3 +277,5 @@
   [data-al="2"] .al-ato-pagina { padding-inline: 1.5rem; }
   [data-al="2"] .al-ato-aberto-titulo { font-size: 5.6rem; }
 }
+[data-al="2"] .al-cal-item { display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .al-cal-item .al-ato-item { border-bottom: 0; flex: 1; min-width: 0; }
