@@ -1,0 +1,707 @@
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+//
+// Prova a frente F2 do PLANO-FEDIVERSO (entrada, interações e fila do modo "fediverso-total"): atividades ASSINADAS por chaves de
+// teste chegam à caixa de entrada (lib/rede/fediverso/caixa.ts), a fila entrega (lib/rede/fediverso/entrega.ts) e as rotas novas
+// respondem (chamadas direto pelos handlers). O banco é um DUBLÊ em memória que imita as ações da F3 como estão em
+// supabase/migracoes/20261109-fediverso-total.sql (nota_recebida, interacao, fila_pegar, fila_feito, dominio_estado, ator, chaves,
+// comunidade, comunidade_chaves, comunidade_seguidor…). ATENÇÃO: o que é regra do BANCO (o 410 apagar o seguidor, o circuito contar
+// as falhas entre as chamadas, só-seguidores só com seguidor daqui, o impulso de quem alguém segue) aqui é o dublê; o que este teste
+// prova é que o código manda os campos certos e reage ao que o banco devolve. Essas regras precisam ser repetidas com o SQL real em
+// scripts/testar-fediverso-banco.mjs (docs/rede/FEDIVERSO-JUNCAO-F2.md). A rede também é um dublê (http.ts → usarDubleDeRede), DEPOIS da
+// trava de SSRF: endereço interno nem chega ao dublê.
+// Uso: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-fediverso-entrada.mjs
+import { register } from "node:module";
+
+// As rotas importam "next/server" sem extensão (o Next resolve; o Node puro, não).
+register("data:text/javascript," + encodeURIComponent(`export async function resolve(e, c, p) { return p(e === "next/server" ? "next/server.js" : e, c); }`));
+
+// O ambiente ANTES de importar os módulos (eles leem as variáveis ao carregar).
+const SEGREDO = "segredo-de-teste-da-federacao-com-mais-de-32-caracteres";
+const BASE = "https://alumia.teste";
+const LIGADO = "rede-v2,fediverso-total,fediverso-grupos";
+process.env.NEXT_PUBLIC_SUPABASE_URL = "http://banco.teste";
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "chave-publica-de-teste";
+process.env.ALUMIA_FEDIVERSO_SEGREDO = SEGREDO;
+process.env.NEXT_PUBLIC_ALUMIA_URL = BASE;
+process.env.NEXT_PUBLIC_RECURSOS = LIGADO;
+
+const { assinarPedido, conferirAssinatura, gerarParDeChaves } = await import("../lib/rede/fediverso/assinatura.ts");
+const { cifrar } = await import("../lib/rede/fediverso/cifra.ts");
+const { pedirAoFediverso, usarDubleDeRede } = await import("../lib/rede/fediverso/http.ts");
+const servidor = await import("../lib/rede/fediverso/servidor.ts");
+const { receber } = await import("../lib/rede/fediverso/caixa.ts");
+const entrega = await import("../lib/rede/fediverso/entrega.ts");
+const nota = await import("../lib/rede/fediverso/entrada/nota.ts");
+const rotas = {
+  interagir: await import("../app/api/fediverso/interagir/route.ts"),
+  responder: await import("../app/api/fediverso/responder/route.ts"),
+  remoto: await import("../app/api/fediverso/remoto/route.ts"),
+  denunciar: await import("../app/api/fediverso/denunciar/route.ts"),
+  midia: await import("../app/api/fediverso/midia/route.ts"),
+  seguir: await import("../app/api/fediverso/seguir/route.ts"),
+  inboxDaComunidade: await import("../app/api/fediverso/c/[slug]/inbox/route.ts"),
+};
+
+let certos = 0;
+const falhas = [];
+async function espera(nome, promessa, conferir = (v) => v !== false) {
+  try {
+    const valor = await promessa();
+    if (!conferir(valor)) throw new Error(`resultado inesperado: ${JSON.stringify(valor)?.slice(0, 400)}`);
+    certos++;
+  } catch (erro) {
+    falhas.push(`${nome}: ${erro.message}`);
+  }
+}
+
+// ═══════════════════ O banco (dublê das ações da F3) ═══════════════════
+const PUBLICO = "https://www.w3.org/ns/activitystreams#Public";
+const POST_LOCAL = "0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d";
+const URL_POST_LOCAL = `${BASE}/api/fediverso/p/${POST_LOCAL}`;
+const GRUPO = `${BASE}/api/fediverso/c/hortas`;
+const db = {
+  bloqueados: new Set(),
+  remotos: new Map(),
+  seguidores: [],
+  seguindo: new Set(),
+  notas: new Map(),
+  interacoes: new Map(),
+  avisos: [],
+  denuncias: [],
+  bloqueios: [],
+  fila: [],
+  pegos: new Map(),
+  feitos: [],
+  dominios: new Map(),
+  instancia: {},
+  chamadas: [],
+  // As pessoas daqui (ação "ator"): ligada ou não, e as chaves (nulas até alguém gerar).
+  atores: new Map([
+    ["autora", { perfil: "perfil-da-autora", ligado: true, pub: null, priv: null }],
+    ["desligada", { perfil: "perfil-da-desligada", ligado: false, pub: null, priv: null }],
+  ]),
+  // As comunidades que podem sair como Group (ação "comunidade").
+  comunidades: new Map([["hortas", { pub: null, priv: null }]]),
+  grupoSeguidores: [],
+  // As funções que a tela chama com a sessão (chamarComoPessoa).
+  pessoa: { handle: "autora", ligado: true },
+  rpcs: [],
+};
+const dominioDe = (u) => { try { return new URL(u).host; } catch { return ""; } };
+const bloqueado = (u) => { const h = dominioDe(u); return Boolean(h) && [...db.bloqueados].some((d) => h === d || h.endsWith(`.${d}`)); };
+const conexao = (s) => s === 0 || s === 502 || s === 503 || s === 504 || (s >= 520 && s <= 526) || s === 530;
+const acoes = {
+  bloqueado: (p) => bloqueado(p.url),
+  remoto: (p) => db.remotos.get(p.ator) ?? null,
+  remoto_salvar: (p) => { db.remotos.set(p.ator, { ator: p.ator, chave_id: p.chave_id, chave_publica: p.chave_publica, inbox: p.inbox, inbox_compartilhada: p.compartilhada, handle: p.handle, nome: p.nome, resumo: p.resumo, url: p.url, buscado_em: new Date().toISOString() }); return true; },
+  instancia: (p) => { if (p.publica) db.instancia = { publica: p.publica, privada: p.privada }; return db.instancia; },
+  ator: (p) => {
+    const a = db.atores.get(p.handle);
+    if (!a) return { estado: "inexistente" };
+    if (!a.ligado) return { estado: "desligado" };
+    return { estado: "ligado", perfil: a.perfil, handle: p.handle, nome: p.handle, chave_publica: a.pub, chave_privada: a.priv };
+  },
+  chaves: (p) => {
+    const a = [...db.atores.values()].find((x) => x.perfil === p.perfil);
+    if (!a.pub) { a.pub = p.publica; a.priv = p.privada; }
+    return { chave_publica: a.pub, chave_privada: a.priv };
+  },
+  comunidade: (p) => {
+    const c = db.comunidades.get(p.slug);
+    return c ? { estado: "ligado", slug: p.slug, nome: p.slug, chave_publica: c.pub, chave_privada: c.priv } : { estado: "inexistente" };
+  },
+  comunidade_chaves: (p) => {
+    const c = db.comunidades.get(p.slug);
+    if (!c.pub) { c.pub = p.publica; c.priv = p.privada; }
+    return { chave_publica: c.pub, chave_privada: c.priv };
+  },
+  comunidade_seguidor: (p) => { db.grupoSeguidores.push(p); return { ok: true }; },
+  seguidor: (p) => {
+    db.seguidores = db.seguidores.filter((s) => !(s.handle === p.handle && s.ator === p.ator));
+    if (p.sim) db.seguidores.push({ handle: p.handle, ator: p.ator, inbox: p.inbox, compartilhada: p.compartilhada });
+    return { ok: true };
+  },
+  resposta_follow: () => true,
+  nota_recebida: (p) => {
+    const segue = db.seguindo.has(p.ator);
+    const respondeDaqui = Boolean(p.em_resposta_a && (p.em_resposta_a.startsWith(`${BASE}/api/fediverso/p/`) || db.notas.has(p.em_resposta_a)));
+    const menciona = p.mencoes_locais.length > 0;
+    // Regra proposta à F3 (nota de junção): guarda a nota impulsionada se o impulso já foi aceito pela ação interacao.
+    const impulso = Boolean(p.impulso && db.interacoes.has(p.impulso.atividade_id));
+    if (!["publico", "nao_listado", "seguidores"].includes(p.visibilidade)) return { guardado: false, motivo: "direto" };
+    if (p.visibilidade === "seguidores") { if (!segue) return { guardado: false, motivo: "sem_seguidor" }; }
+    else if (!segue && !respondeDaqui && !menciona && !impulso) return { guardado: false, motivo: "sem_ligacao" };
+    db.notas.set(p.id, p);
+    if (respondeDaqui) db.avisos.push({ tipo: "fed_resposta", ator: p.ator, nota: p.id });
+    for (const h of p.mencoes_locais) db.avisos.push({ tipo: "fed_mencao", ator: p.ator, handle: h });
+    return { guardado: true };
+  },
+  recebido_apagado: (p) => { db.notas.delete(p.id); return true; },
+  ator_apagado: () => true,
+  // Como a F3: Like/Announce de post daqui guarda e avisa; Announce de nota de fora só se alguém daqui segue quem impulsionou; o
+  // Undo apaga pela atividade (e pelo objeto), sempre só do mesmo ator.
+  interacao: (p) => {
+    const local = typeof p.post_local === "string" && !p.post_local.startsWith("https://") ? p.post_local : null;
+    if (p.sim) {
+      if (local) {
+        db.interacoes.set(p.atividade_id, p);
+        db.avisos.push({ tipo: p.tipo === "like" ? "fed_curtida" : "fed_impulso", ator: p.ator, atividade: p.atividade_id });
+        return { ok: true, perfil_autor: "perfil-da-autora" };
+      }
+      if (p.tipo === "announce" && p.post_local && db.seguindo.has(p.ator)) {
+        db.interacoes.set(p.atividade_id, p);
+        return { ok: true, perfil_autor: null };
+      }
+      return { ok: false, motivo: "sem_ligacao" };
+    }
+    for (const [k, v] of db.interacoes) if (v.ator === p.ator && (k === p.atividade_id || (p.post_local && v.post_local === p.post_local && (!p.tipo || v.tipo === p.tipo)))) db.interacoes.delete(k);
+    db.avisos = db.avisos.filter((a) => !(a.ator === p.ator && a.atividade === p.atividade_id));
+    return { ok: true, perfil_autor: null };
+  },
+  denuncia_recebida: (p) => { db.denuncias.push(p); return { protocolo: `FED-${db.denuncias.length}` }; },
+  bloqueio_recebido: (p) => { db.bloqueios.push(p); return { ok: true }; },
+  post: (p) => ({ id: p.id, tipo: "post", titulo: null, texto: "Post daqui.", corpo: null, aviso: "", criado_em: new Date().toISOString(), editado_em: null, resposta_a: null, handle: "autora" }),
+  fila_pegar: (p) => {
+    const pegos = db.fila.splice(0, p.limite);
+    for (const i of pegos) db.pegos.set(i.id, i);
+    return pegos;
+  },
+  // Como a F3: ok zera o domínio; 410 apaga quem seguia por aquela caixa; 429 devolve a tentativa e espera "espera" segundos; a 5ª
+  // falha de conexão seguida mata o domínio por 1 h e devolve morto_ate.
+  fila_feito: (p) => {
+    db.feitos.push(p);
+    const item = db.pegos.get(p.id);
+    const d = p.dominio ?? dominioDe(item?.destino ?? "");
+    const e = db.dominios.get(d) ?? { falhas: 0, morto_ate: null };
+    db.dominios.set(d, e);
+    if (p.ok) { e.falhas = 0; e.morto_ate = null; return { ok: true }; }
+    if (p.status === 410) { db.seguidores = db.seguidores.filter((s) => s.inbox !== item?.destino && s.compartilhada !== item?.destino); return { ok: true }; }
+    if (p.status === 429) return { ok: true };
+    if ("status" in p && conexao(p.status)) {
+      e.falhas++;
+      if (e.falhas >= 5) { e.morto_ate = new Date(Date.now() + 3_600_000).toISOString(); e.falhas = 0; return { ok: true, morto_ate: e.morto_ate }; }
+    }
+    return { ok: true };
+  },
+  dominio_estado: (p) => ({ morto_ate: db.dominios.get(p.dominio)?.morto_ate ?? null }),
+};
+// As funções da tela (com a sessão da pessoa), no formato do PostgREST.
+const funcoesDaPessoa = {
+  rede_fed_eu: () => ({ perfil: `perfil-da-${db.pessoa.handle}`, handle: db.pessoa.handle, ligado: db.pessoa.ligado, total: true }),
+  rede_fed_interagir: (a) => ({ ok: true, curti: a.p_tipo === "like" && a.p_sim, impulsionei: a.p_tipo === "announce" && a.p_sim }),
+  rede_fed_linha_mista: () => ({
+    itens: [{ id: "https://remota.teste/notes/l1", origem: "fediverso", avatar: "https://remota.teste/av.png", midia: [{ url: "https://remota.teste/m/l1.png", tipo: "image/png", alt: "x" }, { url: "javascript:alert(1)", tipo: "image/png" }] }],
+    proximo: null,
+  }),
+};
+globalThis.fetch = async (url, init = {}) => {
+  const u = String(url);
+  const funcao = /^http:\/\/banco\.teste\/rest\/v1\/rpc\/([a-z_0-9]+)$/.exec(u)?.[1];
+  if (!funcao) throw new Error(`fetch inesperado: ${u}`);
+  const corpo = JSON.parse(String(init.body ?? "{}"));
+  if (funcao !== "rede_fed_servidor") {
+    db.rpcs.push(funcao);
+    const f = funcoesDaPessoa[funcao];
+    if (!f) return new Response(JSON.stringify({ message: `funcao_desconhecida:${funcao}` }), { status: 400 });
+    return new Response(JSON.stringify(f(corpo)), { status: 200, headers: { "Content-Type": "application/json" } });
+  }
+  db.chamadas.push(corpo.p_acao);
+  const f = acoes[corpo.p_acao];
+  if (corpo.p_segredo !== SEGREDO || !f) return new Response(JSON.stringify({ message: `acao_desconhecida:${corpo.p_acao}` }), { status: 400 });
+  return new Response(JSON.stringify(f(corpo.p ?? {}) ?? null), { status: 200, headers: { "Content-Type": "application/json" } });
+};
+
+// ═══════════════════ A rede (dublê, depois da trava de SSRF) ═══════════════════
+const rede = { docs: new Map(), gets: [], entregas: [], redirecionar: new Map(), post: () => ({ status: 202 }) };
+usarDubleDeRede(async (url, o) => {
+  if ((o.metodo ?? "GET") === "GET") {
+    rede.gets.push(url.href);
+    if (rede.redirecionar.has(url.href)) return { status: 302, local: rede.redirecionar.get(url.href), tipo: "", texto: "" };
+    const d = rede.docs.get(url.href);
+    if (typeof d === "number") return { status: d, tipo: "", texto: "" };
+    if (d === undefined) return { status: 404, tipo: "text/html", texto: "" };
+    if (o.binario) return { status: 200, tipo: "image/png", texto: "", bytes: d };
+    return { status: 200, tipo: "application/activity+json", texto: JSON.stringify(d) };
+  }
+  const entregaFeita = { url: url.href, corpo: JSON.parse(o.corpo), cab: o.cabecalhos, inicio: Date.now() };
+  rede.entregas.push(entregaFeita);
+  const r = await rede.post(url, entregaFeita);
+  return r === null ? null : { status: r.status, tipo: "", texto: "", retryAfter: r.retryAfter ?? null };
+});
+
+// Os atores de fora, com chaves de teste (os documentos ficam na "instância" de cada um, como no Mastodon).
+const atorDoc = (id, pem) => ({ "@context": ["https://www.w3.org/ns/activitystreams"], id, type: "Person", preferredUsername: id.split("/").pop(), inbox: `${id}/inbox`, followers: `${id}/followers`, endpoints: { sharedInbox: `https://${dominioDe(id)}/inbox` }, publicKey: { id: `${id}#main-key`, owner: id, publicKeyPem: pem } });
+const BIA = "https://remota.teste/users/bia";
+const CID = "https://ponte.teste/users/cid";
+const INST = "https://remota.teste/actor";
+const chaves = { bia: gerarParDeChaves(), cid: gerarParDeChaves(), inst: gerarParDeChaves() };
+rede.docs.set(BIA, atorDoc(BIA, chaves.bia.publica));
+rede.docs.set(CID, atorDoc(CID, chaves.cid.publica));
+rede.docs.set(INST, { ...atorDoc(INST, chaves.inst.publica), type: "Application" });
+
+const leitor = (c) => (n) => { const k = Object.keys(c).find((x) => x.toLowerCase() === n.toLowerCase()); return k ? c[k] : null; };
+const CAMINHO = "/api/fediverso/inbox";
+/** Manda uma atividade assinada à caixa compartilhada (ou, com `comunidade`, à do Group). */
+async function enviar(atividade, { quem = BIA, chave = chaves.bia.privada, data, corpoEnviado, comunidade } = {}) {
+  const corpo = JSON.stringify(atividade);
+  const caminho = comunidade ? `/api/fediverso/c/${comunidade}/inbox` : CAMINHO;
+  const cab = assinarPedido({ metodo: "POST", url: `${BASE}${caminho}`, corpo, chaveId: `${quem}#main-key`, chavePrivada: chave, data });
+  return receber("POST", caminho, leitor(cab), new TextEncoder().encode(corpoEnviado ?? corpo), comunidade ? { comunidade } : {});
+}
+let n = 0;
+const AS = "https://www.w3.org/ns/activitystreams";
+const novaNota = (extra = {}) => ({ id: `https://remota.teste/notes/${++n}`, type: "Note", attributedTo: BIA, content: "<p>Olá daqui de fora</p>", to: [PUBLICO], cc: [`${BIA}/followers`], published: new Date().toISOString(), ...extra });
+const criar = (objeto, ator = BIA) => ({ "@context": AS, id: `${objeto.id}/activity`, type: "Create", actor: ator, object: objeto });
+const TOKEN = "Bearer token-de-teste-da-sessao-0123456789";
+const pedidoDaTela = (caminho, { metodo = "POST", corpo, token = true } = {}) =>
+  new Request(`${BASE}${caminho}`, { method: metodo, headers: { "content-type": "application/json", ...(token ? { authorization: TOKEN } : {}), "cf-connecting-ip": `203.0.113.${++n % 250}` }, ...(corpo ? { body: JSON.stringify(corpo) } : {}) });
+
+// ═══════════════════ HTML limpo, visibilidade e mídia (puros) ═══════════════════
+await espera("HTML de fora: só a lista permitida (sem script, img, onclick, javascript:, style), links com rel e as classes do Mastodon", async () =>
+  nota.limparHtml('<p>oi <script>alert(1)</script><a href="javascript:alert(1)" onclick="x">x</a><img src=x onerror=alert(1)><a href="https://ok.teste/@a" class="u-url mention evil" style="color:red">@a</a> <b>forte<i>junto</b></p><style>p{}</style><iframe src="https://x"></iframe>&lt;script&gt;'),
+(h) => !/<script|<img|onclick|onerror|javascript:|style|<iframe|evil/i.test(h) && /<a href="https:\/\/ok\.teste\/@a" rel="nofollow noopener noreferrer" target="_blank" class="u-url mention">@a<\/a>/.test(h) && h.includes("&lt;script&gt;") && h.endsWith("&lt;script&gt;") && /<b>forte<i>junto<\/i><\/b>/.test(h));
+await espera("HTML de fora: marca aberta é fechada, título vira parágrafo, comentário e <!doctype> somem, '<' solto vira texto", async () => nota.limparHtml("<!doctype html><h1>Título</h1><!-- x --><p>a < b<ul><li>um"), (h) => h === "<p>Título</p><p>a &lt; b<ul><li>um</li></ul></p>");
+await espera("visibilidade pelo to/cc: Public em to = público; em cc = não listado; seguidores; o resto é direto", async () => [
+  nota.visibilidadeDe({ to: [PUBLICO] }, BIA),
+  nota.visibilidadeDe({ to: [`${BIA}/followers`], cc: ["as:Public"] }, BIA),
+  nota.visibilidadeDe({ to: [`${BIA}/followers`] }, BIA),
+  nota.visibilidadeDe({ to: [`${BASE}/api/fediverso/u/autora`] }, BIA),
+  nota.visibilidadeDe({ to: ["https://remota.teste/users/outra/followers"] }, BIA),
+], (r) => r.join() === "publico,nao_listado,seguidores,direto,direto");
+await espera("mídia: só https, até 4, com alt, tamanho e blurhash; tipo estranho e http ficam de fora", async () => nota.midiaDe({ attachment: [
+  { type: "Image", url: "https://remota.teste/m/1.png", mediaType: "image/png", name: "um gato", width: 640, height: 480, blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" },
+  { type: "Document", url: "http://remota.teste/m/2.png", mediaType: "image/png" },
+  { type: "Document", url: { type: "Link", href: "https://remota.teste/m/3.webp" }, mediaType: "image/webp" },
+  { type: "Document", url: "https://remota.teste/m/4.exe", mediaType: "application/x-msdownload" },
+] }), (m) => m.length === 2 && m[0].alt === "um gato" && m[0].largura === 640 && m[0].blurhash && m[1].url === "https://remota.teste/m/3.webp");
+await espera("rota-proxy: a URL da mídia sai assinada com validade e só a assinatura certa, ainda valendo, confere", async () => {
+  const proxy = servidor.urlDaMidia("https://remota.teste/m/1.png");
+  const q = new URL(proxy, BASE).searchParams;
+  const [u, e, s] = [q.get("u"), q.get("e"), q.get("s")];
+  const ate = Number(e) * 1000 - Date.now();
+  return [
+    proxy.startsWith("/api/fediverso/midia?u="),
+    servidor.midiaAssinada(u, e, s),
+    servidor.midiaAssinada("https://remota.teste/m/2.png", e, s),
+    servidor.midiaAssinada(u, e, "x".repeat(32)),
+    servidor.midiaAssinada(u, String(Number(e) + 604800), s),
+    servidor.midiaAssinada(u, e, s, Number(e) * 1000 + 1),
+    servidor.urlDaMidia("http://remota.teste/a.png"),
+    ate > 7 * 86_400_000 - 1000 && ate <= 14 * 86_400_000,
+  ];
+}, (r) => r[0] && r[1] && !r[2] && !r[3] && !r[4] && !r[5] && r[6] === null && r[7]);
+await espera("trava de SSRF antes do dublê: IP interno, localhost e http não chegam nem a sair", async () => {
+  const antes = rede.gets.length;
+  const r = await Promise.all(["https://127.0.0.1/a.png", "https://10.0.0.1/a", "https://localhost/a", "http://remota.teste/a", "https://[::1]/a"].map((u) => pedirAoFediverso(u)));
+  return r.every((x) => x === null) && rede.gets.length === antes;
+});
+
+// ═══════════════════ A caixa de entrada no modo total ═══════════════════
+await espera("resposta de quem ninguém daqui segue a um post daqui: guardada (HTML limpo e texto), e vira aviso", async () => {
+  const objeto = novaNota({ inReplyTo: URL_POST_LOCAL, content: '<p>Concordo! <script>x</script><a href="https://remota.teste/tags/a">#a</a></p>' });
+  const r = await enviar(criar(objeto));
+  const g = db.notas.get(objeto.id);
+  return [r.status, r.motivo, g?.texto, /<script/.test(g?.html_limpo ?? "<script"), g?.visibilidade, db.avisos.some((a) => a.tipo === "fed_resposta" && a.nota === objeto.id)];
+}, (r) => r[0] === 202 && r[1] === "recebido" && r[2] === "Concordo! #a" && r[3] === false && r[4] === "publico" && r[5]);
+await espera("nota de quem ninguém segue, sem responder nem mencionar nada daqui: não é guardada (202 do mesmo jeito)", async () => {
+  const objeto = novaNota();
+  const r = await enviar(criar(objeto));
+  return [r.status, r.motivo, db.notas.has(objeto.id)];
+}, (r) => r[0] === 202 && r[1] === "sem_ligacao" && r[2] === false);
+await espera("menção a alguém daqui (tag Mention): guardada e vira aviso para a pessoa mencionada", async () => {
+  const objeto = novaNota({ tag: [{ type: "Mention", href: `${BASE}/api/fediverso/u/autora`, name: "@autora@alumia.teste" }], cc: [`${BASE}/api/fediverso/u/autora`] });
+  const r = await enviar(criar(objeto));
+  return [r.motivo, db.notas.get(objeto.id)?.mencoes_locais, db.avisos.some((a) => a.tipo === "fed_mencao" && a.handle === "autora")];
+}, (r) => r[0] === "recebido" && r[1]?.join() === "autora" && r[2]);
+await espera("só-seguidores sem seguidor daqui: descartado", async () => {
+  const objeto = novaNota({ to: [`${BIA}/followers`], cc: [] });
+  const r = await enviar(criar(objeto));
+  return [r.motivo, db.notas.has(objeto.id)];
+}, (r) => r[0] === "sem_seguidor" && r[1] === false);
+await espera("só-seguidores com seguidor daqui: guardado como 'seguidores' (o banco mostra só a quem segue)", async () => {
+  db.seguindo.add(BIA);
+  const objeto = novaNota({ to: [`${BIA}/followers`], cc: [] });
+  const r = await enviar(criar(objeto));
+  db.seguindo.delete(BIA);
+  return [r.motivo, db.notas.get(objeto.id)?.visibilidade];
+}, (r) => r[0] === "recebido" && r[1] === "seguidores");
+await espera("mensagem direta (mesmo mencionando alguém daqui e respondendo a post daqui): NUNCA chega ao banco", async () => {
+  const objeto = novaNota({ to: [`${BASE}/api/fediverso/u/autora`], cc: [], inReplyTo: URL_POST_LOCAL, tag: [{ type: "Mention", href: `${BASE}/api/fediverso/u/autora` }] });
+  const antes = db.chamadas.filter((c) => c === "nota_recebida").length;
+  const r = await enviar(criar(objeto));
+  return [r.status, r.motivo, db.notas.has(objeto.id), db.chamadas.filter((c) => c === "nota_recebida").length - antes];
+}, (r) => r[0] === 202 && r[1] === "direto" && r[2] === false && r[3] === 0);
+await espera("nota com autor declarado diferente de quem assinou: recusada", async () => (await enviar(criar(novaNota({ attributedTo: "https://remota.teste/users/outra", inReplyTo: URL_POST_LOCAL })))).motivo, (m) => m === "nota_de_outro");
+await espera("enquete (Question) entra como texto + opções", async () => {
+  const objeto = novaNota({ type: "Question", inReplyTo: URL_POST_LOCAL, content: "<p>Qual?</p>", oneOf: [{ type: "Note", name: "A" }, { type: "Note", name: "B" }] });
+  await enviar(criar(objeto));
+  return db.notas.get(objeto.id)?.texto;
+}, (t) => t === "Qual?\n\n• A\n• B");
+
+await espera("Like de fora num post daqui: vira aviso de curtida para a autora", async () => {
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/likes/1", type: "Like", actor: BIA, object: URL_POST_LOCAL });
+  return [r.motivo, db.interacoes.get("https://remota.teste/likes/1")?.post_local, db.avisos.some((a) => a.tipo === "fed_curtida" && a.ator === BIA)];
+}, (r) => r[0] === "like" && r[1] === POST_LOCAL && r[2]);
+await espera("Undo do Like (objeto embutido, mesmo ator): a curtida e o aviso somem", async () => {
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/likes/1/undo", type: "Undo", actor: BIA, object: { id: "https://remota.teste/likes/1", type: "Like", actor: BIA, object: URL_POST_LOCAL } });
+  return [r.motivo, db.interacoes.has("https://remota.teste/likes/1"), db.avisos.some((a) => a.atividade === "https://remota.teste/likes/1")];
+}, (r) => r[0] === "desfez_like" && r[1] === false && r[2] === false);
+await espera("Undo de um Like de OUTRO ator: ignorado", async () => {
+  await enviar({ "@context": AS, id: "https://remota.teste/likes/2", type: "Like", actor: BIA, object: URL_POST_LOCAL });
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/u/2", type: "Undo", actor: BIA, object: { id: "https://remota.teste/likes/2", type: "Like", actor: "https://remota.teste/users/outra", object: URL_POST_LOCAL } });
+  return [r.motivo, db.interacoes.has("https://remota.teste/likes/2")];
+}, (r) => r[0] === "ignorado" && r[1] === true);
+await espera("Announce de um post daqui: vira aviso de impulso", async () => (await enviar({ "@context": AS, id: "https://remota.teste/announces/1", type: "Announce", actor: BIA, object: URL_POST_LOCAL, to: [PUBLICO] })).motivo, (m) => m === "announce");
+await espera("impulso de nota de FORA, de quem alguém segue: a nota é buscada NA ORIGEM (o corpo do impulso não vale)", async () => {
+  db.seguindo.add(BIA);
+  const original = { id: "https://outra.teste/notes/9", type: "Note", attributedTo: "https://outra.teste/users/dani", content: "<p>Texto de verdade</p>", to: [PUBLICO] };
+  rede.docs.set(original.id, original);
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/announces/2", type: "Announce", actor: BIA, object: { ...original, content: "<p>Texto forjado</p>" }, to: [PUBLICO] });
+  db.seguindo.delete(BIA);
+  const g = db.notas.get(original.id);
+  return [r.motivo, g?.texto, g?.impulso?.ator];
+}, (r) => r[0] === "impulso" && r[1] === "Texto de verdade" && r[2] === BIA);
+
+await espera("Flag (vinda do ator da instância): vira denúncia na mediação, só com os alvos daqui e o comentário", async () => {
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/flags/1", type: "Flag", actor: INST, object: [`${BASE}/api/fediverso/u/autora`, URL_POST_LOCAL, "https://outra.teste/users/x"], content: "Spam <b>repetido</b>" }, { quem: INST, chave: chaves.inst.privada });
+  const d = db.denuncias.at(-1);
+  return [r.motivo, d?.ator_instancia, d?.alvos?.length, d?.conteudo];
+}, (r) => r[0] === "denuncia" && r[1] === INST && r[2] === 2 && r[3] === "Spam repetido");
+await espera("Block de fora a alguém daqui e o Undo dele vão para bloqueio_recebido", async () => {
+  const bloqueio = { id: "https://remota.teste/blocks/1", type: "Block", actor: BIA, object: `${BASE}/api/fediverso/u/autora` };
+  const a = await enviar({ "@context": AS, ...bloqueio });
+  const b = await enviar({ "@context": AS, id: "https://remota.teste/blocks/1/undo", type: "Undo", actor: BIA, object: bloqueio });
+  return [a.motivo, b.motivo, db.bloqueios.map((x) => `${x.alvo_handle}:${x.sim}`).join()];
+}, (r) => r[0] === "bloqueio" && r[1] === "desbloqueio" && r[2] === "autora:true,autora:false");
+
+// Repasse: a resposta de Bia chega pela instância de Cid, assinada por Cid.
+await espera("repasse (keyId de outro domínio): confere a assinatura de quem repassou e guarda o que a ORIGEM confirma, não o corpo", async () => {
+  const original = novaNota({ inReplyTo: URL_POST_LOCAL, content: "<p>Original da origem</p>" });
+  rede.docs.set(original.id, original);
+  const r = await enviar(criar({ ...original, content: "<p>Adulterado no repasse</p>" }), { quem: CID, chave: chaves.cid.privada });
+  return [r.status, r.motivo, db.notas.get(original.id)?.texto];
+}, (r) => r[0] === 202 && r[1] === "recebido" && r[2] === "Original da origem");
+await espera("repasse de nota que a origem não confirma (404): nada é guardado", async () => {
+  const falsa = novaNota({ inReplyTo: URL_POST_LOCAL });
+  const r = await enviar(criar(falsa), { quem: CID, chave: chaves.cid.privada });
+  return [r.status, r.motivo, db.notas.has(falsa.id)];
+}, (r) => r[0] === 202 && r[1] === "repasse_nao_confirmado" && r[2] === false);
+await espera("repasse com a assinatura de quem repassou errada: 401", async () => (await enviar(criar(novaNota({ inReplyTo: URL_POST_LOCAL })), { quem: CID, chave: gerarParDeChaves().privada })).status, (s) => s === 401);
+await espera("repasse de Like (que não se repassa): ignorado, nada gravado", async () => {
+  const antes = db.interacoes.size;
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/likes/9", type: "Like", actor: BIA, object: URL_POST_LOCAL }, { quem: CID, chave: chaves.cid.privada });
+  return [r.motivo, db.interacoes.size - antes];
+}, (r) => r[0] === "repasse_nao_confirmado" && r[1] === 0);
+await espera("Delete repassado só vale se a origem diz que sumiu (410)", async () => {
+  const guardada = [...db.notas.keys()].find((k) => k.startsWith("https://remota.teste/notes/"));
+  rede.docs.set(guardada, { id: guardada, type: "Note", attributedTo: BIA, content: "ainda existe", to: [PUBLICO] });
+  const a = await enviar({ "@context": AS, id: `${guardada}#delete`, type: "Delete", actor: BIA, object: guardada }, { quem: CID, chave: chaves.cid.privada });
+  const ficou = db.notas.has(guardada);
+  rede.docs.set(guardada, 410);
+  const b = await enviar({ "@context": AS, id: `${guardada}#delete`, type: "Delete", actor: BIA, object: guardada }, { quem: CID, chave: chaves.cid.privada });
+  return [a.motivo, ficou, b.motivo, db.notas.has(guardada)];
+}, (r) => r[0] === "repasse_nao_confirmado" && r[1] === true && r[2] === "apagado" && r[3] === false);
+
+await espera("domínio bloqueado pela mediação: 403 (direto e no repasse)", async () => {
+  db.bloqueados.add("remota.teste");
+  const a = await enviar(criar(novaNota({ inReplyTo: URL_POST_LOCAL })));
+  db.bloqueados.delete("remota.teste");
+  db.bloqueados.add("ponte.teste");
+  const b = await enviar(criar(novaNota({ inReplyTo: URL_POST_LOCAL })), { quem: CID, chave: chaves.cid.privada });
+  db.bloqueados.delete("ponte.teste");
+  return [a.status, b.status];
+}, (r) => r[0] === 403 && r[1] === 403);
+await espera("assinatura velha (13 h): 401", async () => (await enviar(criar(novaNota({ inReplyTo: URL_POST_LOCAL })), { data: new Date(Date.now() - 13 * 3_600_000) })).motivo, (m) => m === "data_fora_da_janela");
+await espera("Digest errado (corpo trocado depois de assinar): 401", async () => {
+  const a = criar(novaNota({ inReplyTo: URL_POST_LOCAL }));
+  const r = await enviar(a, { corpoEnviado: JSON.stringify({ ...a, object: { ...a.object, content: "<p>trocado</p>" } }) });
+  return [r.status, r.motivo, db.notas.has(a.object.id)];
+}, (r) => r[0] === 401 && r[1] === "digest_diferente" && r[2] === false);
+
+// ═══════════════════ Impulso, Undo só com id, caixa do Group ═══════════════════
+await espera("impulso de nota de fora de quem NINGUÉM daqui segue: 202 sem tocar na rede (nenhum GET)", async () => {
+  const antes = rede.gets.length;
+  rede.docs.set("https://outra.teste/notes/50", { id: "https://outra.teste/notes/50", type: "Note", attributedTo: "https://outra.teste/users/dani", content: "<p>x</p>", to: [PUBLICO] });
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/announces/50", type: "Announce", actor: BIA, object: "https://outra.teste/notes/50", to: [PUBLICO] });
+  return [r.status, r.motivo, rede.gets.length - antes, db.notas.has("https://outra.teste/notes/50")];
+}, (r) => r[0] === 202 && r[1] === "sem_ligacao" && r[2] === 0 && r[3] === false);
+await espera("impulso de nota numa instância BLOQUEADA (mesmo de quem alguém segue): nenhum GET", async () => {
+  db.seguindo.add(BIA);
+  db.bloqueados.add("bloqueada.teste");
+  const antes = rede.gets.length;
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/announces/51", type: "Announce", actor: BIA, object: "https://bloqueada.teste/notes/1", to: [PUBLICO] });
+  db.bloqueados.delete("bloqueada.teste");
+  db.seguindo.delete(BIA);
+  return [r.motivo, rede.gets.length - antes];
+}, (r) => r[0] === "instancia_bloqueada" && r[1] === 0);
+await espera("Undo só com o id (Pleroma/Akkoma): a curtida some; id de outro domínio é ignorado", async () => {
+  await enviar({ "@context": AS, id: "https://remota.teste/likes/70", type: "Like", actor: BIA, object: URL_POST_LOCAL });
+  const tinha = db.interacoes.has("https://remota.teste/likes/70");
+  const fora = await enviar({ "@context": AS, id: "https://remota.teste/u/71", type: "Undo", actor: BIA, object: "https://outra.teste/likes/70" });
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/u/70", type: "Undo", actor: BIA, object: "https://remota.teste/likes/70" });
+  return [tinha, fora.motivo, r.motivo, db.interacoes.has("https://remota.teste/likes/70")];
+}, (r) => r[0] === true && r[1] === "ignorado" && r[2] === "desfez" && r[3] === false);
+await espera("Follow ao Group (caixa da comunidade): vira seguidor da comunidade (comunidade_seguidor) e pede entrega", async () => {
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/follows/g1", type: "Follow", actor: BIA, object: GRUPO }, { comunidade: "hortas" });
+  const s = db.grupoSeguidores.at(-1);
+  return [r.motivo, r.entregar, s?.slug, s?.ator, s?.inbox];
+}, (r) => r[0] === "seguidor_da_comunidade" && r[1] === true && r[2] === "hortas" && r[3] === BIA && r[4] === `${BIA}/inbox`);
+await espera("nota na caixa do Group SEM endereçar o Group (to/cc/audience): não vira post da comunidade", async () => {
+  db.seguindo.add(BIA);
+  const solta = novaNota();
+  const certa = novaNota({ to: [GRUPO], cc: [PUBLICO], audience: GRUPO });
+  const a = await enviar(criar(solta), { comunidade: "hortas" });
+  const b = await enviar(criar(certa), { comunidade: "hortas" });
+  db.seguindo.delete(BIA);
+  return [a.motivo, db.notas.get(solta.id)?.comunidade ?? null, b.motivo, db.notas.get(certa.id)?.comunidade];
+}, (r) => r[0] === "recebido" && r[1] === null && r[2] === "recebido" && r[3] === "hortas");
+
+// ═══════════════════ As rotas novas ═══════════════════
+const ctxSlug = (slug) => ({ params: Promise.resolve({ slug }) });
+await espera("rotas com a chave ligada e sem sessão: 401 (interagir, responder, remoto, denunciar)", async () => [
+  (await rotas.interagir.POST(pedidoDaTela("/api/fediverso/interagir", { token: false, corpo: { post: "https://remota.teste/notes/1", tipo: "like" } }))).status,
+  (await rotas.responder.POST(pedidoDaTela("/api/fediverso/responder", { token: false, corpo: { post: "https://remota.teste/notes/1", texto: "oi" } }))).status,
+  (await rotas.remoto.GET(pedidoDaTela("/api/fediverso/remoto?linha=1", { metodo: "GET", token: false }))).status,
+  (await rotas.denunciar.POST(pedidoDaTela("/api/fediverso/denunciar", { token: false, corpo: { alvo: BIA, categoria: "spam" } }))).status,
+], (r) => r.every((s) => s === 401));
+await espera("rota-proxy de mídia: assinatura errada, vencida ou de outra URL dá 404 sem tocar na rede; a certa serve a imagem", async () => {
+  const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 13, 0x49, 0x48, 0x44, 0x52]);
+  rede.docs.set("https://remota.teste/m/9.png", png);
+  const certa = servidor.urlDaMidia("https://remota.teste/m/9.png");
+  const q = new URL(certa, BASE).searchParams;
+  const antes = rede.gets.length;
+  const errada = await rotas.midia.GET(new Request(`${BASE}/api/fediverso/midia?u=${encodeURIComponent("https://remota.teste/m/9.png")}&e=${q.get("e")}&s=${"A".repeat(32)}`));
+  const outra = await rotas.midia.GET(new Request(`${BASE}/api/fediverso/midia?u=${encodeURIComponent("https://remota.teste/m/8.png")}&e=${q.get("e")}&s=${q.get("s")}`));
+  const velha = servidor.urlDaMidia("https://remota.teste/m/9.png", Date.now() - 30 * 24 * 3_600_000);
+  const vencida = await rotas.midia.GET(new Request(`${BASE}${velha}`));
+  const semRede = rede.gets.length === antes;
+  const boa = await rotas.midia.GET(new Request(`${BASE}${certa}`));
+  return [errada.status, outra.status, vencida.status, semRede, boa.status, boa.headers.get("content-type"), boa.headers.get("cache-control")];
+}, (r) => r[0] === 404 && r[1] === 404 && r[2] === 404 && r[3] && r[4] === 200 && r[5] === "image/png" && !/immutable/.test(r[6]));
+await espera("rota-proxy de mídia: redirecionamento para instância bloqueada não é seguido nem servido", async () => {
+  db.bloqueados.add("bloqueada.teste");
+  rede.redirecionar.set("https://remota.teste/m/10.png", "https://bloqueada.teste/m/10.png");
+  rede.docs.set("https://bloqueada.teste/m/10.png", new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0, 0, 0, 0, 0, 0, 0, 0]));
+  const r = await rotas.midia.GET(new Request(`${BASE}${servidor.urlDaMidia("https://remota.teste/m/10.png")}`));
+  db.bloqueados.delete("bloqueada.teste");
+  return [r.status, rede.gets.includes("https://bloqueada.teste/m/10.png")];
+}, (r) => r[0] === 404 && r[1] === false);
+await espera("remoto ?linha: a linha mista vem com avatar e mídia pela rota-proxy assinada (nada de URL de fora, nada de javascript:)", async () => {
+  const r = await rotas.remoto.GET(pedidoDaTela("/api/fediverso/remoto?linha=1", { metodo: "GET" }));
+  const j = await r.json();
+  const c = j.itens?.[0];
+  return [r.status, c?.avatar?.startsWith("/api/fediverso/midia?u="), c?.midia?.length, c?.midia?.[0]?.url?.startsWith("/api/fediverso/midia?u="), JSON.stringify(j).includes('"https://remota.teste/m/l1.png"')];
+}, (r) => r[0] === 200 && r[1] && r[2] === 1 && r[3] && r[4] === false);
+await espera("remoto: o '?midia=' (assinar URL que a tela manda) não existe mais", async () => {
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?midia=${encodeURIComponent("https://qualquer.teste/x.png")}`, { metodo: "GET" }));
+  return [r.status, JSON.stringify(await r.json()).includes("/api/fediverso/midia")];
+}, (r) => r[0] === 400 && r[1] === false);
+await espera("seguir e interagir: quem DESLIGOU a federação recebe 409 e nada vai para a fila (nem no modo total)", async () => {
+  db.pessoa = { handle: "desligada", ligado: false };
+  const antes = db.rpcs.filter((f) => f === "rede_fed_interagir").length;
+  const a = await rotas.seguir.POST(pedidoDaTela("/api/fediverso/seguir", { corpo: { ator: BIA } }));
+  const b = await rotas.interagir.POST(pedidoDaTela("/api/fediverso/interagir", { corpo: { post: "https://remota.teste/notes/1", tipo: "like" } }));
+  const c = await rotas.responder.POST(pedidoDaTela("/api/fediverso/responder", { corpo: { post: "https://remota.teste/notes/1", texto: "oi" } }));
+  // E se o banco ainda dissesse "ligado" no rede_fed_eu, a ação "ator" (que confere impedimento) segura do mesmo jeito.
+  db.pessoa = { handle: "desligada", ligado: true };
+  const d = await rotas.interagir.POST(pedidoDaTela("/api/fediverso/interagir", { corpo: { post: "https://remota.teste/notes/1", tipo: "like" } }));
+  db.pessoa = { handle: "autora", ligado: true };
+  return [a.status, b.status, c.status, d.status, db.rpcs.filter((f) => f === "rede_fed_interagir").length - antes, db.atores.get("desligada").pub];
+}, (r) => r.slice(0, 4).every((s) => s === 409) && r[4] === 0 && r[5] === null);
+await espera("interagir de quem federa e nunca teve chave: o par é gerado ANTES de ir para a fila", async () => {
+  db.atores.get("autora").pub = null;
+  db.atores.get("autora").priv = null;
+  const antes = db.rpcs.filter((f) => f === "rede_fed_interagir").length;
+  // O after() do Next só existe dentro de um pedido de verdade: aqui ele pode falhar DEPOIS de a fila receber o item.
+  await rotas.interagir.POST(pedidoDaTela("/api/fediverso/interagir", { corpo: { post: "https://remota.teste/notes/1", tipo: "like" } })).catch(() => null);
+  return [Boolean(db.atores.get("autora").pub), db.rpcs.filter((f) => f === "rede_fed_interagir").length - antes];
+}, (r) => r[0] === true && r[1] === 1);
+await espera("caixa do Group: comunidade que não pode sair (ou não existe) dá 404 sem ler a atividade", async () => {
+  const r = await rotas.inboxDaComunidade.POST(new Request(`${BASE}/api/fediverso/c/fechada/inbox`, { method: "POST", headers: { "content-type": "application/activity+json" }, body: "{}" }), ctxSlug("fechada"));
+  return r.status;
+}, (s) => s === 404);
+
+// ═══════════════════ Com a chave desligada: como antes ═══════════════════
+process.env.NEXT_PUBLIC_RECURSOS = "rede-v2";
+await espera("chave desligada: modoTotal falso; Like ignorado; repasse 401", async () => {
+  const like = await enviar({ "@context": AS, id: "https://remota.teste/likes/50", type: "Like", actor: BIA, object: URL_POST_LOCAL });
+  const repasse = await enviar(criar(novaNota({ inReplyTo: URL_POST_LOCAL })), { quem: CID, chave: chaves.cid.privada });
+  return [servidor.modoTotal(), servidor.gruposLigados(), like.motivo, repasse.status, repasse.motivo, db.interacoes.has("https://remota.teste/likes/50")];
+}, (r) => r[0] === false && r[1] === false && r[2] === "ignorado" && r[3] === 401 && r[4] === "chave_de_outro_dominio" && r[5] === false);
+await espera("chave desligada: TODAS as rotas novas respondem 404 (interagir, responder, remoto, denunciar, midia, c/[slug]/inbox)", async () => {
+  const midia = servidor.urlDaMidia("https://remota.teste/m/9.png");
+  return [
+    (await rotas.interagir.POST(pedidoDaTela("/api/fediverso/interagir", { corpo: { post: "https://remota.teste/notes/1", tipo: "like" } }))).status,
+    (await rotas.responder.POST(pedidoDaTela("/api/fediverso/responder", { corpo: { post: "https://remota.teste/notes/1", texto: "oi" } }))).status,
+    (await rotas.remoto.GET(pedidoDaTela("/api/fediverso/remoto?linha=1", { metodo: "GET" }))).status,
+    (await rotas.denunciar.POST(pedidoDaTela("/api/fediverso/denunciar", { corpo: { alvo: BIA, categoria: "spam" } }))).status,
+    (await rotas.midia.GET(new Request(`${BASE}${midia}`))).status,
+    (await rotas.inboxDaComunidade.POST(new Request(`${BASE}/api/fediverso/c/hortas/inbox`, { method: "POST", body: "{}" }), ctxSlug("hortas"))).status,
+  ];
+}, (r) => r.every((s) => s === 404));
+await espera("chave desligada: seguir continua pedindo 'ligado' (como antes)", async () => {
+  db.pessoa = { handle: "desligada", ligado: false };
+  const r = await rotas.seguir.POST(pedidoDaTela("/api/fediverso/seguir", { corpo: { ator: BIA } }));
+  db.pessoa = { handle: "autora", ligado: true };
+  return r.status;
+}, (s) => s === 409);
+await espera("chave desligada: 'todos' NÃO liga o modo total (só pelo nome)", async () => {
+  process.env.NEXT_PUBLIC_RECURSOS = "todos,rede-v2";
+  const v = servidor.modoTotal();
+  process.env.NEXT_PUBLIC_RECURSOS = "rede-v2,fediverso-total,-fediverso-total";
+  const w = servidor.modoTotal();
+  return [v, w];
+}, (r) => r[0] === false && r[1] === false);
+process.env.NEXT_PUBLIC_RECURSOS = LIGADO;
+
+// ═══════════════════ A fila do modo total ═══════════════════
+const autora = gerarParDeChaves();
+db.atores.get("autora").pub = autora.publica;
+db.atores.get("autora").priv = cifrar(autora.privada, SEGREDO);
+let proximoId = 1;
+const item = (tipo, destino, extra = {}, objeto = "https://remota.teste/notes/1", resto = {}) => ({ id: proximoId++, tipo, objeto, destino, extra, tentativas: 1, handle: "autora", assinante: "pessoa", chave_publica: autora.publica, chave_privada: cifrar(autora.privada, SEGREDO), ...resto });
+const conferirEntrega = (e, publica) => conferirAssinatura({ metodo: "POST", caminho: new URL(e.url).pathname, ler: leitor(e.cab), corpo: JSON.stringify(e.corpo), chavePublica: publica }).ok;
+const keyId = (e) => /keyId="([^"]+)"/.exec(e?.cab?.Signature ?? "")?.[1];
+const feito = (id) => db.feitos.find((x) => x.id === id);
+
+await espera("like, undo-like, announce, undo-announce, block e undo-block saem assinados pela pessoa; cada Undo repete o id do original", async () => {
+  rede.entregas = [];
+  rede.post = () => ({ status: 202 });
+  const uuid = "6f1d2c3b-4a5e-4f60-8172-93a4b5c6d7e8";
+  db.fila.push(
+    item("like", "https://remota.teste/inbox", { atividade: uuid }),
+    item("undo-like", "https://remota.teste/inbox", { atividade: uuid }),
+    item("announce", "https://remota.teste/inbox"),
+    item("undo-announce", "https://remota.teste/inbox"),
+    item("block", "https://remota.teste/inbox", {}, BIA),
+    item("undo-block", "https://remota.teste/inbox", {}, BIA),
+  );
+  const r = await entrega.processarFila(200);
+  const de = (t, dentro) => rede.entregas.find((e) => e.corpo.type === t && (!dentro || e.corpo.object?.type === dentro));
+  const [like, ulike, ann, uann, blk, ublk] = [de("Like"), de("Undo", "Like"), de("Announce"), de("Undo", "Announce"), de("Block"), de("Undo", "Block")];
+  return [
+    r.entregues,
+    like?.corpo.id === `${BASE}/api/fediverso/atividades/like/${uuid}`,
+    ulike?.corpo.object.id === like?.corpo.id,
+    uann?.corpo.object.id === ann?.corpo.id,
+    ublk?.corpo.object.id === blk?.corpo.id && blk?.corpo.object === BIA,
+    ann?.corpo.to?.[0] === PUBLICO,
+    [like, ulike, ann, uann, blk, ublk].every((e) => e && conferirEntrega(e, autora.publica) && keyId(e) === `${BASE}/api/fediverso/u/autora#main-key`),
+  ];
+}, (r) => r[0] === 6 && r.slice(1).every(Boolean));
+await espera("item de pessoa SEM chave (só aceitou o consentimento novo): a chave é gerada e o item sai; desligada, é descartado", async () => {
+  rede.entregas = [];
+  db.atores.set("nova", { perfil: "perfil-da-nova", ligado: true, pub: null, priv: null });
+  const a = item("like", "https://remota.teste/inbox", {}, "https://remota.teste/notes/2", { handle: "nova", chave_publica: null, chave_privada: null });
+  const b = item("like", "https://remota.teste/inbox", {}, "https://remota.teste/notes/3", { handle: "desligada", chave_publica: null, chave_privada: null });
+  db.fila.push(a, b);
+  await entrega.processarFila(200);
+  const nova = db.atores.get("nova");
+  const e = rede.entregas.find((x) => x.corpo.actor === `${BASE}/api/fediverso/u/nova`);
+  return [feito(a.id)?.ok, Boolean(nova.pub), e && conferirEntrega(e, nova.pub), feito(b.id)?.erro, feito(b.id)?.definitivo, rede.entregas.some((x) => x.corpo.actor?.endsWith("/desligada"))];
+}, (r) => r[0] === true && r[1] && r[2] && r[3] === "sem_chave" && r[4] === true && r[5] === false);
+await espera("Flag sai assinada pelo ATOR DA INSTÂNCIA, sem o @ de quem denunciou; id estranho do banco não vira id da atividade", async () => {
+  rede.entregas = [];
+  db.fila.push(item("flag", "https://remota.teste/inbox", { alvos: [BIA, "https://remota.teste/notes/1"], conteudo: "spam", atividade: "https://malvado.teste/atividade" }, BIA, { handle: null, assinante: "instancia", chave_privada: null }));
+  await entrega.processarFila(200);
+  const e = rede.entregas[0];
+  return [e?.corpo.type, e?.corpo.actor, JSON.stringify(e?.corpo ?? {}).includes("autora"), keyId(e), e && conferirEntrega(e, db.instancia.publica), e?.corpo.id?.startsWith(`${BASE}/api/fediverso/atividades/flag/`)];
+}, (r) => r[0] === "Flag" && r[1] === `${BASE}/api/fediverso/ator` && r[2] === false && r[3] === `${BASE}/api/fediverso/ator#main-key` && r[4] && r[5]);
+await espera("group-accept e group-announce (criar e apagar) saem pelo Group, com a chave da comunidade gerada na hora", async () => {
+  rede.entregas = [];
+  const doGrupo = { handle: null, assinante: "grupo", comunidade: "hortas", chave_publica: null, chave_privada: null };
+  db.fila.push(
+    item("group-accept", `${BIA}/inbox`, { pedido: "https://remota.teste/follows/g1" }, BIA, doGrupo),
+    item("group-announce", "https://remota.teste/inbox", { atividade: "create" }, POST_LOCAL, doGrupo),
+    item("group-announce", "https://remota.teste/inbox", { atividade: "delete" }, POST_LOCAL, doGrupo),
+  );
+  await entrega.processarFila(200);
+  const pub = db.comunidades.get("hortas").pub;
+  const [ac, cria, apaga] = [rede.entregas.find((e) => e.corpo.type === "Accept"), rede.entregas.find((e) => e.corpo.object?.type === "Create"), rede.entregas.find((e) => e.corpo.object?.type === "Delete")];
+  return [
+    Boolean(pub),
+    ac?.corpo.actor === GRUPO && ac?.corpo.object.object === GRUPO && ac?.corpo.object.id === "https://remota.teste/follows/g1",
+    cria?.corpo.type === "Announce" && cria?.corpo.actor === GRUPO && cria?.corpo.object.object?.id === `${BASE}/api/fediverso/p/${POST_LOCAL}`,
+    apaga?.corpo.type === "Announce" && apaga?.corpo.object.object?.id === `${BASE}/api/fediverso/p/${POST_LOCAL}`,
+    [ac, cria, apaga].every((e) => e && keyId(e) === `${GRUPO}#main-key` && conferirEntrega(e, pub)),
+  ];
+}, (r) => r.every(Boolean));
+await espera("410 numa caixa: o fila_feito leva status 410 e o banco apaga o seguidor daquela caixa", async () => {
+  db.seguidores.push({ handle: "autora", ator: "https://sumiu.teste/users/z", inbox: "https://sumiu.teste/users/z/inbox", compartilhada: null });
+  rede.post = (url) => ({ status: url.host === "sumiu.teste" ? 410 : 202 });
+  const i = item("create", "https://sumiu.teste/users/z/inbox", {}, POST_LOCAL);
+  db.fila.push(i);
+  const r = await entrega.processarFila(200);
+  return [r.descartados, feito(i.id)?.status, feito(i.id)?.definitivo, db.seguidores.some((s) => s.ator === "https://sumiu.teste/users/z")];
+}, (r) => r[0] === 1 && r[1] === 410 && r[2] === true && r[3] === false);
+await espera("429 com Retry-After: o item espera o pedido (espera em segundos) e os outros do domínio esperam junto, sem tocar na rede", async () => {
+  rede.entregas = [];
+  rede.post = (url) => (url.host === "calma.teste" ? { status: 429, retryAfter: "120" } : { status: 202 });
+  const itens = [1, 2, 3, 4].map(() => item("like", "https://calma.teste/inbox"));
+  db.fila.push(...itens);
+  await entrega.processarFila(200);
+  const feitos = itens.map((i) => feito(i.id));
+  return [rede.entregas.length, feitos.every((f) => f?.status === 429 && f.espera >= 110 && f.espera <= 125), feitos.filter((f) => f?.erro === "http_429").length];
+}, (r) => r[0] <= 2 && r[1] && r[2] === 4);
+await espera("Retry-After como data HTTP e sem valor: lido entre agora e 24 h (sem valor, 5 min)", async () => {
+  const agora = Date.now();
+  return [entrega.lerRetryAfter(new Date(agora + 600_000).toUTCString(), agora).getTime() - agora, entrega.lerRetryAfter(null, agora).getTime() - agora, entrega.lerRetryAfter("999999", agora).getTime() - agora];
+}, (r) => r[0] > 590_000 && r[0] <= 600_000 && r[1] === 300_000 && r[2] === 24 * 3_600_000);
+await espera("circuito: na 5ª falha de conexão o banco devolve morto_ate e os itens seguintes do domínio voltam sem tocar na rede", async () => {
+  rede.entregas = [];
+  rede.post = (url) => (url.host === "morto.teste" ? null : { status: 202 });
+  const itens = Array.from({ length: 10 }, () => item("like", "https://morto.teste/inbox"));
+  db.fila.push(...itens);
+  await entrega.processarFila(200);
+  const tentativas = rede.entregas.filter((e) => new URL(e.url).host === "morto.teste").length;
+  const esperando = itens.filter((i) => feito(i.id)?.erro === "dominio_morto" && feito(i.id)?.status === 429).length;
+  return [tentativas, esperando, db.dominios.get("morto.teste")?.morto_ate];
+}, (r) => r[0] >= 5 && r[0] <= 6 && r[1] === 10 - r[0] && Boolean(r[2]));
+await espera("circuito: na chamada seguinte, o banco diz que está morto e NENHUM pedido sai para lá", async () => {
+  rede.entregas = [];
+  const [a, b] = [item("like", "https://morto.teste/inbox"), item("like", "https://vivo.teste/inbox")];
+  db.fila.push(a, b);
+  await entrega.processarFila(200);
+  return [rede.entregas.map((e) => new URL(e.url).host).join(), feito(a.id)?.status, feito(a.id)?.erro];
+}, (r) => r[0] === "vivo.teste" && r[1] === 429 && r[2] === "dominio_morto");
+await espera("orçamento de tempo esgotado: nada sai e todo item volta sem gastar tentativa", async () => {
+  rede.entregas = [];
+  rede.post = () => ({ status: 202 });
+  const itens = [item("like", "https://a.teste/inbox"), item("like", "https://b.teste/inbox")];
+  db.fila.push(...itens);
+  const r = await entrega.processarFila(200, -1);
+  return [rede.entregas.length, r.adiados, itens.every((i) => feito(i.id)?.erro === "sem_tempo" && feito(i.id)?.status === 429)];
+}, (r) => r[0] === 0 && r[1] === 2 && r[2]);
+await espera("no máximo 2 entregas ao mesmo tempo por domínio e até 10 no total (15 domínios)", async () => {
+  let agora = 0;
+  let maxDominio = 0;
+  let maxTotal = 0;
+  const porDominio = new Map();
+  await entrega.emParalelo(Array.from({ length: 60 }, (_, i) => ({ d: i < 30 ? `d${i % 3}` : `d${i % 15}` })), (t) => t.d, async (t) => {
+    agora++;
+    porDominio.set(t.d, (porDominio.get(t.d) ?? 0) + 1);
+    maxTotal = Math.max(maxTotal, agora);
+    maxDominio = Math.max(maxDominio, ...porDominio.values());
+    await new Promise((r) => setTimeout(r, 5));
+    porDominio.set(t.d, porDominio.get(t.d) - 1);
+    agora--;
+  });
+  return [maxDominio, maxTotal];
+}, (r) => r[0] === 2 && r[1] === 10);
+await espera("com a chave desligada, um tipo novo na fila não sai (nada muda em produção)", async () => {
+  process.env.NEXT_PUBLIC_RECURSOS = "rede-v2";
+  rede.entregas = [];
+  rede.post = () => ({ status: 202 });
+  const i = item("like", "https://remota.teste/inbox");
+  db.fila.push(i);
+  await entrega.processarFila(40);
+  process.env.NEXT_PUBLIC_RECURSOS = LIGADO;
+  return [rede.entregas.length, feito(i.id)?.ok, "status" in (feito(i.id) ?? {})];
+}, (r) => r[0] === 0 && r[1] === true && r[2] === false);
+
+usarDubleDeRede(null);
+console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
+if (falhas.length) {
+  for (const f of falhas) console.error(`  ✗ ${f}`);
+  process.exit(1);
+}
