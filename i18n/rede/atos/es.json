@@ -1,0 +1,126 @@
+{
+  "menu": "Actos",
+  "tipo": "Acto",
+  "situacao": {
+    "confirmado": "Confirmado",
+    "adiado": "Aplazado",
+    "cancelado": "Cancelado"
+  },
+  "era": "era {data}",
+  "chamadoPor": "convocado por @{handle}",
+  "faixa": {
+    "rotulo": "Próximo acto",
+    "abrir": "Abrir el próximo acto: {titulo}",
+    "faltamDias": "faltan {d} días y {h} horas",
+    "faltamHoras": "faltan {h} horas y {m} minutos",
+    "agora": "ahora"
+  },
+  "acoes": {
+    "euVou": "Voy",
+    "voceVai": "Vas",
+    "vouAjuda": "Toca de nuevo para deshacer. Nadie ve quién confirmó.",
+    "conversa": "Charla",
+    "conversaDoAto": "Charla del acto",
+    "respostas": "{n} respuestas",
+    "chegar": "Llegar",
+    "chegarAjuda": "Abre el mapa libre (OpenStreetMap) con el punto del acto, fuera de Alumia. Alumia no pide ni guarda tu ubicación.",
+    "chamar": "Convocar",
+    "chamarAjuda": "Compartir el acto",
+    "copiado": "Enlace copiado. Pégalo donde quieras convocar gente.",
+    "agenda": "Añadir a la agenda (.ics)",
+    "agendaAjuda": "El archivo se crea en este dispositivo; el recordatorio queda en tu agenda.",
+    "apoio": "Apoyar (enlace externo)",
+    "apoioAjuda": "Se abre fuera de Alumia. Ningún pago pasa por aquí.",
+    "erroVou": "No se pudo confirmar ahora. Inténtalo de nuevo.",
+    "entrarParaIr": "Entra en Alumia para confirmar"
+  },
+  "mosaico": {
+    "voce": "Estás en el mosaico: la tarjeta dorada.",
+    "voceLongo": "Estás en el mosaico",
+    "voceLongoResto": "(la tarjeta dorada).",
+    "explica": "Cada tarjeta encendida es alguien que confirmó; cuanta más gente, más nítida la palabra.",
+    "poucas": "El mosaico se enciende a partir de 3 confirmaciones. Hasta entonces no aparece ningún número.",
+    "voceConfirmou": "Confirmaste. El mosaico se enciende cuando confirmen 3 personas.",
+    "rotuloAceso": "Mosaico del acto {palavra}: {pct}% encendido",
+    "rotuloApagado": "Mosaico del acto {palavra}: aún apagado",
+    "rotuloVoce": "; tú eres la tarjeta dorada",
+    "cancelado": "Acto cancelado: el mosaico queda apagado."
+  },
+  "tela": {
+    "titulo": "Actos",
+    "voltar": "Volver",
+    "filtro": "Qué actos mostrar",
+    "perto": "Cerca",
+    "seguindo": "Siguiendo",
+    "deslize": "desliza para el próximo acto",
+    "irProximo": "Ir al próximo acto: {titulo}",
+    "irAnterior": "Volver al acto anterior",
+    "contagem": "Acto {i} de {n}",
+    "carregando": "Cargando los actos…",
+    "erro": "No se pudieron cargar los actos.",
+    "tentar": "Intentar de nuevo",
+    "vazioPerto": "Ningún acto convocado en {cidade} por ahora.",
+    "vazioSeguindo": "Nadie a quien sigues convocó un acto por ahora.",
+    "chamarUm": "Convocar un acto",
+    "cidade": "Tu ciudad",
+    "cidadeExemplo": "São Paulo",
+    "cidadeAjuda": "\"Cerca\" usa la ciudad que escribes. Alumia no usa la ubicación del dispositivo, y la ciudad queda solo en este dispositivo.",
+    "cidadeVer": "Ver actos",
+    "trocarCidade": "cambiar ciudad ({cidade})",
+    "previa": "Vista previa con datos de ejemplo"
+  },
+  "pagina": {
+    "naoAchado": "Este acto no existe o no puedes verlo.",
+    "todos": "Todos los actos",
+    "organizou": "Tú convocaste este acto",
+    "total": "{n} personas confirmaron. Solo tú ves este número.",
+    "totalPoucas": "Menos de 3 personas confirmaron. Solo tú ves esto.",
+    "adiar": "Aplazar",
+    "cancelar": "Cancelar el acto",
+    "confirmarDeNovo": "Confirmar de nuevo",
+    "novaData": "Nueva fecha",
+    "motivo": "Motivo (aparece en el acto)",
+    "motivoExemplo": "ej.: cancelado por la lluvia · nueva fecha pronto",
+    "salvarAdiar": "Aplazar el acto",
+    "salvarCancelar": "Sí, cancelar",
+    "desistir": "Dejarlo como está",
+    "aviso": "Quien confirmó recibe un aviso. Nadie se lleva una sorpresa.",
+    "erroMudar": "No se pudo cambiar el acto. Inténtalo de nuevo.",
+    "dataRuim": "Elige una fecha futura, hasta un año adelante."
+  },
+  "perto": {
+    "titulo": "Actos cerca de ti",
+    "verTodos": "Ver todos",
+    "semCidade": "Escribe tu ciudad en Actos para ver los actos cercanos. Nada de GPS.",
+    "vazio": "Ningún acto cerca por ahora."
+  },
+  "formulario": {
+    "nome": "Nombre del acto (se vuelve la palabra del mosaico)",
+    "nomeExemplo": "FICA ESPERANÇA",
+    "quando": "Cuándo",
+    "onde": "Dónde",
+    "ondeExemplo": "Ocupación Esperança, Itaquera",
+    "cidade": "Ciudad (pone el acto en \"Cerca\")",
+    "cidadeExemplo": "São Paulo",
+    "chamado": "Convocatoria",
+    "chamadoExemplo": "Por qué ir, a qué hora llegar y qué llevar.",
+    "previa": "El mosaico empieza apagado y se enciende con cada persona que confirme.",
+    "previaRotulo": "Vista previa del mosaico apagado: {palavra}",
+    "restam": "{n} caracteres",
+    "problemas": {
+      "vazio": "Completa este campo.",
+      "curto": "Es demasiado corto.",
+      "longo": "Pasó del límite.",
+      "passado": "La fecha ya pasó.",
+      "longe": "Hasta un año adelante.",
+      "palavra": "Usa letras: el nombre se vuelve la palabra del mosaico."
+    }
+  },
+  "aba": {
+    "titulo": "Actos",
+    "vazio": "Ningún acto convocado aquí por ahora."
+  },
+  "calendario": {
+    "titulo": "Calendario"
+  }
+}
