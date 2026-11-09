@@ -217,6 +217,7 @@ export const ERROS_DA_REDE = [
   "entre_primeiro", "conta_suspensa", "area_interditada", "confirme_idade", "idade_minima", "consentimento", "confirme_codinome",
   "dado_pessoal", "sem_permissao", "nao_encontrado", "travado", "limite_de_niveis", "muitos_pedidos", "banco_desatualizado",
   "sem_servico", "sem_conexao", "modo_lento", "nivel_links", "nivel_imagens", "limite_diario", "lista_bloqueio", "falha",
+  "limite_identidades",
 ] as const;
 export type ErroDaRede = (typeof ERROS_DA_REDE)[number];
 

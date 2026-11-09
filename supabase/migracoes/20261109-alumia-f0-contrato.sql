@@ -1,6 +1,8 @@
 -- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 --
 -- ═══════════════════════════ Alumia · Onda 5 · F0 · o contrato comum (09/11/2026) ═══════════════════════════
+-- Nome do arquivo: 20261109 (a data em que a F0 foi refeita), e não 20261108 como na lista do plano (§5/§8): as migrações da
+-- Onda 5 seguem o padrão supabase/migracoes/20261109-alumia-<frente>.sql. O integrador cola na ordem F0→F9 do mesmo jeito.
 -- docs/plano-2026-11/PLANO-ALUMIA.md, seções 1, 5 (F0), 6 e 8. Idempotente: pode rodar duas vezes sem estrago (o teste
 -- scripts/testar-alumia-rota.mjs roda duas vezes no banco local). NÃO está no install.sql: o integrador cola no fim, antes das
 -- migrações F1..F9. NÃO rodar em produção sem o Jonathan.
@@ -45,11 +47,13 @@ create index if not exists rede_posts_expira on interno.rede_posts (expira_em) w
 
 -- ── 2. Checks ampliados ───────────────────────────────────────────────────────────────────────────────────────────────────
 -- Denúncia: os alvos de antes + os das frentes novas (stories, notas, organizações, consultas, perguntas da plenária, arquivos
--- do núcleo, wiki, figurinhas, petições). Tudo cai na mesma fila (PLANO-ALUMIA §7.1).
+-- do núcleo, wiki, figurinhas, petições). Tudo cai na mesma fila (PLANO-ALUMIA §7.1). O laço derruba só o check da LISTA de
+-- alvos (o Postgres guarda "alvo_tipo in (...)" como "alvo_tipo = ANY (ARRAY[...])"), e não outro check que só cite a coluna.
 do $$
 declare r record;
 begin
-  for r in select conname from pg_constraint where conrelid = 'interno.rede_denuncias'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%alvo_tipo%' loop
+  for r in select conname from pg_constraint where conrelid = 'interno.rede_denuncias'::regclass and contype = 'c'
+             and pg_get_constraintdef(oid) ~* '\(\(?alvo_tipo = ANY|alvo_tipo IN \(' loop
     execute format('alter table interno.rede_denuncias drop constraint %I', r.conname);
   end loop;
   alter table interno.rede_denuncias add constraint rede_denuncias_alvo_tipo_v5 check (alvo_tipo in (
@@ -60,7 +64,8 @@ end $$;
 do $$
 declare r record;
 begin
-  for r in select conname from pg_constraint where conrelid = 'interno.rede_moderacao'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%alvo_tipo%' loop
+  for r in select conname from pg_constraint where conrelid = 'interno.rede_moderacao'::regclass and contype = 'c'
+             and pg_get_constraintdef(oid) ~* '\(\(?alvo_tipo = ANY|alvo_tipo IN \(' loop
     execute format('alter table interno.rede_moderacao drop constraint %I', r.conname);
   end loop;
   alter table interno.rede_moderacao add constraint rede_moderacao_alvo_tipo_v5 check (alvo_tipo in (
@@ -71,7 +76,8 @@ end $$;
 do $$
 declare r record;
 begin
-  for r in select conname from pg_constraint where conrelid = 'interno.rede_avisos_prefs'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%tipo%' loop
+  for r in select conname from pg_constraint where conrelid = 'interno.rede_avisos_prefs'::regclass and contype = 'c'
+             and pg_get_constraintdef(oid) ~* '\(\(?tipo = ANY|[^_]tipo IN \(' loop
     execute format('alter table interno.rede_avisos_prefs drop constraint %I', r.conname);
   end loop;
   alter table interno.rede_avisos_prefs add constraint rede_avisos_prefs_tipo_v5 check (tipo in (
@@ -129,7 +135,7 @@ begin
   if exists (select 1 from rede_identidades where identidade = p_dono) then perform interno.erro('invalido:dono'); end if;
   if exists (select 1 from rede_identidades where dono = p_identidade) then perform interno.erro('invalido:identidade'); end if;
   if exists (select 1 from rede_identidades where identidade = p_identidade) then perform interno.erro('invalido:identidade'); end if;
-  if (select count(*) from rede_identidades where dono = p_dono and tipo = p_tipo) >= 5 then perform interno.erro('limite_diario'); end if;
+  if (select count(*) from rede_identidades where dono = p_dono and tipo = p_tipo) >= 5 then perform interno.erro('limite_identidades'); end if;
   insert into rede_identidades (dono, identidade, tipo) values (p_dono, p_identidade, p_tipo);
   return jsonb_build_object('ok', true);
 end $$;
@@ -157,8 +163,8 @@ begin
 end $$;
 
 -- ── 5. Catálogo de recursos: as flags da Onda 5 (lib/recursos.ts), todas só pelo nome ───────────────────────────────────────
--- (Ao colar no install.sql, o integrador também acrescenta estas linhas ao PRIMEIRO insert do catálogo: o teste
--- scripts/testar-backend-1.mjs compara aquele bloco com lib/recursos.ts.)
+-- As mesmas linhas já estão no PRIMEIRO insert do catálogo no install.sql e em 2026-11-backend-1.sql (o teste
+-- scripts/testar-backend-1.mjs compara aquele bloco com lib/recursos.ts). Esta cópia serve ao banco que já existe.
 insert into interno.recursos_catalogo (nome, so_pelo_nome) values
   ('alumia-2', true), ('alumia-stories', true), ('alumia-modo-ato', true), ('alumia-org', true), ('alumia-chat-grupo', true)
 on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;
@@ -166,6 +172,9 @@ on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;
 -- ── 6. A rota mudou para /alumia (lib/rede/rota-alumia.ts) ──────────────────────────────────────────────────────────────────
 -- As mesmas funções de antes, com o caminho novo: o link do resumo semanal leva a /pt/alumia/avisos, e a ponte da página
 -- /denunciar reconhece um post pelos dois caminhos (/comunidade/p/<id>, dos links antigos, e /alumia/p/<id>).
+-- Ficam DE PROPÓSITO no caminho antigo: os links '/comunidade?t=<id>' que o gatilho dos tópicos grava na linha do tempo da
+-- coordenação (interno.atividade_nova, no install.sql). São de tópicos do fórum de antes, já gravados em linhas antigas e
+-- conferidos por scripts/testar-banco.mjs; o proxy leva '/comunidade?t=' ao destino num salto só (lib/rede/alumia.ts).
 create or replace function interno.rede3_aviso_resumo(p_usuario uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
 declare
   r record; v_n integer := 0; v_linhas text := ''; v_titulos text := ''; v_lista text[] := '{}'; v_t text;

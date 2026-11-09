@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 import { caminhoNovoDaAlumia, destinoDaComunidade, ehCaminhoDaAlumia } from "../lib/rede/rota-alumia.ts";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "../lib/rede/antigos.ts";
 import { caminhoDoSiteParaAlumia, enderecoDaAlumia, ROTAS_DA_ALUMIA, rotaNaAlumia } from "../lib/rede/alumia.ts";
-import { enderecos } from "../lib/rede/tipos.ts";
+import { enderecos, ERROS_DA_REDE } from "../lib/rede/tipos.ts";
 import { areaDoCaminho, fechado } from "../lib/interdicao.ts";
 import { ligado, lerRecursos, RECURSOS, SO_PELO_NOME } from "../lib/recursos.ts";
 import { ROTAS_NOVAS, alumia2Ligada, rotaNovaLigada } from "../lib/rede/rotas-novas.ts";
@@ -240,10 +240,10 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
   ok("e-mail aleatório no domínio .invalid, diferente a cada vez", /^[0-9a-f]{32}@contas\.alumia\.invalid$/.test(emailAleatorio()) && emailAleatorio() !== emailAleatorio());
   igual("codinome: recusa e-mail, telefone e vazio", [codinomeOk("Coletivo Lume"), codinomeOk("a@b"), codinomeOk("(11) 98765-4321"), codinomeOk(" ")], [true, false, false, false]);
   const chamadas = [];
-  const fetchFalso = (falharLigacao) => async (url, init) => {
+  const fetchFalso = (falharLigacao, corpoDoErro = "{}") => async (url, init) => {
     chamadas.push({ url, metodo: init.method, corpo: init.body ? JSON.parse(init.body) : null });
     if (url.endsWith("/auth/v1/admin/users")) return new Response(JSON.stringify({ id: "99999999-8888-4777-8666-555555555555" }), { status: 200 });
-    if (url.includes("/rpc/rede_identidade_ligar")) return new Response(falharLigacao ? "{}" : JSON.stringify({ ok: true }), { status: falharLigacao ? 400 : 200 });
+    if (url.includes("/rpc/rede_identidade_ligar")) return new Response(falharLigacao ? corpoDoErro : JSON.stringify({ ok: true }), { status: falharLigacao ? 400 : 200 });
     return new Response("{}", { status: 200 });
   };
   await espera("cria e liga a conta; o dono só vai para a função do banco, nunca para auth.users", async () => {
@@ -256,7 +256,14 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
     chamadas.length = 0;
     const r = await criarContaExtra({ dono: DONO, tipo: "identidade", codinome: "Outra Voz" }, { url: "https://banco.exemplo", chave: "k", buscar: fetchFalso(true) });
     return { r, apagou: chamadas.some((c) => c.metodo === "DELETE" && c.url.endsWith("/auth/v1/admin/users/99999999-8888-4777-8666-555555555555")) };
-  }, (v) => v.r.ok === false && v.apagou);
+  }, (v) => v.r.ok === false && v.r.erro === "falha" && v.apagou);
+  await espera("no teto de 5, o erro é limite_identidades (traduzido) e a conta criada é apagada", async () => {
+    chamadas.length = 0;
+    const r = await criarContaExtra({ dono: DONO, tipo: "org", codinome: "Sexta Org" }, { url: "https://banco.exemplo", chave: "k", buscar: fetchFalso(true, JSON.stringify({ code: "P0001", message: "limite_identidades" })) });
+    return { r, apagou: chamadas.some((c) => c.metodo === "DELETE") };
+  }, (v) => v.r.ok === false && v.r.erro === "limite_identidades" && v.apagou);
+  ok("limite_identidades é erro da Rede e tem texto nos 6 idiomas", ERROS_DA_REDE.includes("limite_identidades")
+    && ["pt", "en", "es", "fr", "ru", "zh"].every((l) => typeof JSON.parse(ler(`i18n/rede/${l}.json`)).erros?.limite_identidades === "string"));
   await espera("sem chave de serviço, nem tenta", () => criarContaExtra({ dono: DONO, tipo: "org", codinome: "X Y" }, null), (r) => r.ok === false && r.erro === "sem_servico");
   ok("a chave de serviço nunca é NEXT_PUBLIC_", /process\.env\.SUPABASE_SERVICE_ROLE_KEY/.test(ler("lib/rede/contas-extra.ts")) && !/NEXT_PUBLIC_SUPABASE_SERVICE/.test(ler("lib/rede/contas-extra.ts")));
 }
@@ -293,6 +300,20 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
   await espera("a chave de serviço liga a organização ao dono", () => rpc({ papel: "service_role" }, "rede_identidade_ligar", { p_dono: a, p_identidade: b, p_tipo: "org" }), (r) => r.ok === true);
   await recusa("uma identidade não tem dois donos", () => rpc({ papel: "service_role" }, "rede_identidade_ligar", { p_dono: c, p_identidade: b, p_tipo: "org" }), "invalido:identidade");
   await recusa("sem cadeia: quem é identidade não vira dono", () => rpc({ papel: "service_role" }, "rede_identidade_ligar", { p_dono: b, p_identidade: c, p_tipo: "identidade" }), "invalido:dono");
+  await espera("no teto de 5 organizações por dono, o erro é limite_identidades (não é limite diário)", async () => {
+    const extras = [];
+    for (let i = 0; i < 6; i++) extras.push(await criarUsuario(`org${i}@f0.local`, `org${i}`));
+    for (const x of extras) await rpc(como(x), "eu");
+    for (const x of extras.slice(0, 5)) await rpc({ papel: "service_role" }, "rede_identidade_ligar", { p_dono: c, p_identidade: x, p_tipo: "org" });
+    try {
+      await rpc({ papel: "service_role" }, "rede_identidade_ligar", { p_dono: c, p_identidade: extras[5], p_tipo: "org" });
+      return "passou";
+    } catch (e) {
+      return String(e?.message ?? e);
+    }
+  }, (m) => m.includes("limite_identidades"));
+  await espera("o laço da migração só derruba o check da lista: o check de canal das preferências continua", async () =>
+    (await dono("select count(*)::int as n from pg_constraint where conrelid = 'interno.rede_avisos_prefs'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%canal%'")).rows[0].n, (n) => n === 1);
   await espera("rede_age_como: o dono age como a org; outro não; cada um como si mesmo", async () =>
     (await um("select interno.rede_age_como($1, $2) as a, interno.rede_age_como($3, $2) as b, interno.rede_age_como($3, $3) as c, interno.rede_age_como($2, $1) as d", [a, b, c])), (r) => r.a === true && r.b === false && r.c === true && r.d === false);
   await espera("o vínculo guarda só a data, sem hora", async () => (await um("select data_type from information_schema.columns where table_schema = 'interno' and table_name = 'rede_identidades' and column_name = 'criada_em'")).data_type, (t) => t === "date");
