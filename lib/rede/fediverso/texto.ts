@@ -29,10 +29,12 @@ export function textoParaHtml(texto: string, linkDaTag: (tag: string) => string,
         .replace(/\n/g, "<br>")
         .replace(/(^|\s)#([\p{L}\p{N}_]{2,40})/gu, (_, antes: string, tag: string) => `${antes}<a href="${escaparHtml(linkDaTag(tag.toLowerCase()))}" class="mention hashtag" rel="tag">#<span>${tag}</span></a>`);
       if (mencoes && mencoes.size > 0) {
-        html = html.replace(MENCAO_NO_TEXTO, (inteira: string, antes: string, nome: string, dominio: string | undefined) => {
-          const href = mencoes.get((dominio ? `${nome}@${dominio}` : nome).toLowerCase());
+        html = html.replace(MENCAO_NO_TEXTO, (inteira: string, antes: string, bruto: string, dominio: string | undefined) => {
+          // "@ana." no fim da frase: o ponto não é do nome.
+          const nome = dominio ? bruto : bruto.replace(/[.-]+$/, "");
+          const href = nome ? mencoes.get((dominio ? `${nome}@${dominio}` : nome).toLowerCase()) : undefined;
           if (!href) return inteira;
-          return `${antes}<span class="h-card" translate="no"><a href="${escaparHtml(href)}" class="u-url mention">@<span>${nome}</span></a></span>`;
+          return `${antes}<span class="h-card" translate="no"><a href="${escaparHtml(href)}" class="u-url mention">@<span>${nome}</span></a></span>${bruto.slice(nome.length)}`;
         });
       }
       return `<p>${html}</p>`;
