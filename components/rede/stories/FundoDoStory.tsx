@@ -3,8 +3,8 @@ import type { CSSProperties } from "react";
 import { corValida, fundoListrado, mosaicoDeFundo, PALETA_DO_STORY } from "@/lib/rede/stories/visual";
 import type { CorDoStory } from "@/lib/rede/tipos-stories";
 
-const COLUNAS = 18;
-const LINHAS = 34;
+const COLUNAS = 26;
+const LINHAS = 48;
 
 /** As variáveis de cor da tela de um story (o e-ink e o alto contraste trocam por papel/preto em stories.css). */
 export function estiloDaTela(cor: CorDoStory, extra: CSSProperties = {}): CSSProperties {
