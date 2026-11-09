@@ -172,7 +172,8 @@ await espera("sem a flag: rede_aviso_listar devolve o de antes para os tipos ant
   const novo = await rpc(como(pessoas.ana), "rede_aviso_listar", { p_cursor: null, p_limite: 20 });
   const velho = await rpc(como(pessoas.ana), "rede_aviso_listar_antes", { p_cursor: null, p_limite: 20 });
   await dono("drop function public.rede_aviso_listar_antes(text, integer)");
-  const sem = (l) => JSON.stringify({ ...l, itens: l.itens.map(({ ator_remoto, atores_remotos, objeto_remoto, ...resto }) => resto) });
+  const novos = new Set(["ator_remoto", "atores_remotos", "objeto_remoto"]);
+  const sem = (l) => JSON.stringify({ ...l, itens: l.itens.map((x) => Object.fromEntries(Object.entries(x).filter(([k]) => !novos.has(k)))) });
   const novosNulos = novo.itens.every((x) => x.ator_remoto === null && x.objeto_remoto === null && Array.isArray(x.atores_remotos) && x.atores_remotos.length === 0);
   return [novo.itens.length, sem(novo) === sem(velho), novosNulos];
 }, ([n, iguais, nulos]) => n >= 2 && iguais && nulos);
