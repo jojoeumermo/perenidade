@@ -65,7 +65,7 @@ await espera("as funções públicas da federação são security definer com se
 });
 await espera("visitante não chama as RPCs novas da tela", async () => {
   const r = await um(`select count(*)::int as n from pg_proc p join pg_namespace n on n.oid = p.pronamespace
-    where n.nspname = 'public' and p.proname in ('rede_fed_linha_mista', 'rede_fed_interagir', 'rede_fed_responder_remoto', 'rede_fed_denunciar_remoto', 'rede_fed_perfil_remoto', 'rede_fed_fio_remoto')
+    where n.nspname = 'public' and p.proname in ('rede_fed_linha_mista', 'rede_fed_interagir', 'rede_fed_responder_remoto', 'rede_fed_denunciar_remoto', 'rede_fed_perfil_remoto', 'rede_fed_fio_remoto', 'rede_fed_respostas_de')
       and has_function_privilege('anon', p.oid, 'execute')`);
   return r.n;
 }, (n) => n === 0);
@@ -107,7 +107,7 @@ await dono(`insert into interno.rede_comunidades (slug, nome, categoria, tipo, p
   ('teste-restrita', 'Restrita de teste', 'disciplinas', 'restrita', 'membros') on conflict do nothing`);
 const postar = async (quem, texto, extra = {}) =>
   (await um("insert into interno.rede_posts (autor, texto, comunidade, publico, alcance, nucleo) values ($1, $2, $3, $4, $5, $6) returning id",
-    [quem, texto, extra.comunidade === undefined ? null : extra.comunidade, extra.publico ?? "membros", extra.alcance ?? "publico", extra.nucleo ?? null])).id;
+    [quem, texto, extra.comunidade === undefined ? null : extra.comunidade, "publico" in extra ? extra.publico : "internet", extra.alcance ?? "publico", extra.nucleo ?? null])).id;
 const federavel = async (id) => (await um("select interno.rede_fed_federavel(p) as f from interno.rede_posts p where p.id = $1", [id])).f;
 
 // ═══════════════════ Desligado por padrão: nada muda ═══════════════════
@@ -125,10 +125,66 @@ await espera("sem a flag: o servidor não guarda nota de quem ninguém segue, ne
 }, ([g, ok]) => g === false && ok === false);
 await espera("sem a flag: a linha mista vem vazia", async () => rpc(como(pessoas.ana), "rede_fed_linha_mista", { p_cursor: null, p_limite: 20 }), (r) => r.itens.length === 0 && r.proximo === null);
 await recusa("sem a flag: curtir de fora é recusado", () => rpc(como(pessoas.ana), "rede_fed_interagir", { p_post_remoto: "https://remota.teste/notes/x0", p_tipo: "like", p_sim: true }), "fediverso_desligado");
+await espera("sem a flag: Flag e Block de fora não gravam nada (nem denúncia, nem bloqueio, nem seguidor apagado)", async () => {
+  const f = await srv("denuncia_recebida", { ator_instancia: INSTANCIA, alvos: [`${BASE}/api/fediverso/u/ana`], conteudo: "x" });
+  const b = await srv("bloqueio_recebido", { ator: ATOR, alvo_handle: "ana", sim: true });
+  const n = await um("select (select count(*) from interno.fediverso_denuncias)::int + (select count(*) from interno.fediverso_bloqueios_recebidos)::int + (select count(*) from interno.rede_denuncias where texto like 'Denúncia recebida de outro servidor%')::int as n");
+  return [f.ok, f.motivo, b.ok, b.motivo, n.n];
+}, ([fo, fm, bo, bm, n]) => fo === false && fm === "desligado" && bo === false && bm === "desligado" && n === 0);
+await espera("sem a flag: o item marcado fica guardado como versão 1", async () => (await um("select fediverso_versao from interno.rede_consentimentos where usuario = $1 and revogado_em is null", [pessoas.ana])).fediverso_versao, (v) => v === 1);
+await espera("sem a flag: fila_pegar devolve o de antes para os tipos antigos (e o teto de 100)", async () => {
+  await dono("insert into interno.rede_fed_atores (perfil, handle, ligado, consentimento_versao, ligado_em, chave_publica, chave_privada) values ($1, 'ana', true, 1, now(), '-----BEGIN PUBLIC KEY-----v', 'v1:v')", [pessoas.ana]);
+  await dono("insert into interno.rede_fed_fila (perfil, tipo, objeto, destino, extra) select $1, 'create', 'o' || g, 'https://velha.teste/inbox', '{\"a\": 1}'::jsonb from generate_series(1, 130) g", [pessoas.ana]);
+  const l = await srv("fila_pegar", { limite: 500 });
+  const antigas = ["id", "tipo", "objeto", "destino", "extra", "tentativas", "handle", "chave_publica", "chave_privada"];
+  const i = l[0];
+  const db = await um("select id, tipo, objeto, destino, extra, tentativas from interno.rede_fed_fila where id = $1", [i.id]);
+  return [l.length, antigas.every((k) => k in i), i.tipo === db.tipo && i.objeto === db.objeto && i.destino === db.destino && JSON.stringify(i.extra) === JSON.stringify(db.extra)
+    && i.tentativas === db.tentativas && i.handle === "ana" && i.chave_publica === "-----BEGIN PUBLIC KEY-----v" && i.chave_privada === "v1:v"];
+}, ([n, chaves, iguais]) => n === 100 && chaves && iguais);
+await espera("sem a flag: fila_feito faz o de antes (sem circuito, 410 não apaga seguidor, 429 é falha comum)", async () => {
+  await dono("insert into interno.rede_fed_seguidores (perfil, ator, inbox, inbox_compartilhada, pedido) values ($1, 'https://velha.teste/u/v', 'https://velha.teste/u/v/inbox', 'https://velha.teste/inbox', 'x')", [pessoas.ana]);
+  const ids = (await dono("select id from interno.rede_fed_fila where feito_em is null and tentativas = 1 order by id limit 7")).rows.map((x) => x.id);
+  for (const id of ids.slice(0, 5)) await srv("fila_feito", { id, ok: false, erro: "fora do ar", status: 503, dominio: "velha.teste" });
+  await srv("fila_feito", { id: ids[5], ok: false, erro: "sumiu", status: 410 });
+  await srv("fila_feito", { id: ids[6], ok: false, erro: "calma", status: 429, espera: 3600 });
+  const r = (await dono("select erro, tentativas, feito_em, proxima < now() + interval '3 minutes' as perto from interno.rede_fed_fila where id = any($1::bigint[])", [ids])).rows;
+  const seg = (await um("select count(*)::int as n from interno.rede_fed_seguidores where perfil = $1", [pessoas.ana])).n;
+  const dom = (await um("select count(*)::int as n from interno.fediverso_dominios")).n;
+  const sumido = await srv("fila_feito", { id: 999999999, ok: true });
+  return [r.every((x) => x.feito_em === null && x.tentativas === 1 && x.perto), seg, dom, sumido.ok];
+}, ([comuns, s, d, ok]) => comuns && s === 1 && d === 0 && ok === true);
+await dono("delete from interno.rede_fed_fila");
+await dono("delete from interno.rede_fed_seguidores");
+await dono("delete from interno.rede_fed_atores where perfil = $1", [pessoas.ana]);
+await espera("rede_aviso_listar traz ator_remoto, atores_remotos e objeto_remoto (o remendo não sumiu)", async () => {
+  const def = (await um("select pg_get_functiondef('public.rede_aviso_listar(text, integer)'::regprocedure) as d")).d;
+  return ["'ator_remoto'", "'atores_remotos'", "'objeto_remoto'"].every((k) => def.includes(k));
+});
+await espera("sem a flag: rede_aviso_listar devolve o de antes para os tipos antigos (só os três campos novos, nulos)", async () => {
+  const def = (await um("select pg_get_functiondef('public.rede_aviso_listar(text, integer)'::regprocedure) as d")).d;
+  const antes = def.replace(/\n\s*'ator_remoto', interno\.rede_fed_aviso_remoto[^\n]*\n\s*'atores_remotos'[^\n]*\n\s*'objeto_remoto'[^\n]*/, "")
+    .replace(/public\.rede_aviso_listar\(/, "public.rede_aviso_listar_antes(");
+  if (antes.includes("ator_remoto")) throw new Error("não deu para tirar o remendo");
+  await dono(antes);
+  await dono("grant execute on function public.rede_aviso_listar_antes(text, integer) to authenticated");
+  await dono("insert into interno.avisos (para, texto, categoria, tipo) values ($1, 'Aviso antigo de moderação.', 'rede', 'moderacao'), ($1, 'Aviso geral.', 'rede', null)", [pessoas.ana]);
+  const novo = await rpc(como(pessoas.ana), "rede_aviso_listar", { p_cursor: null, p_limite: 20 });
+  const velho = await rpc(como(pessoas.ana), "rede_aviso_listar_antes", { p_cursor: null, p_limite: 20 });
+  await dono("drop function public.rede_aviso_listar_antes(text, integer)");
+  const sem = (l) => JSON.stringify({ ...l, itens: l.itens.map(({ ator_remoto, atores_remotos, objeto_remoto, ...resto }) => resto) });
+  const novosNulos = novo.itens.every((x) => x.ator_remoto === null && x.objeto_remoto === null && Array.isArray(x.atores_remotos) && x.atores_remotos.length === 0);
+  return [novo.itens.length, sem(novo) === sem(velho), novosNulos];
+}, ([n, iguais, nulos]) => n >= 2 && iguais && nulos);
 
 // ═══════════════════ O modo total liga quem aceitou ═══════════════════
 await ligarTotal(true);
 await espera("com a flag: versão 2 do consentimento", async () => rpc(como(pessoas.ana), "rede_fed_situacao"), (r) => r.versao === 2 && r.total === true);
+await espera("ligar a flag não liga quem marcou o item na versão 1: a tela pede de novo", async () => {
+  await dono("update interno.rede_consentimentos set fediverso = fediverso, fediverso_versao = fediverso_versao where usuario = $1", [pessoas.ana]);
+  const n = (await um("select count(*)::int as n from interno.rede_fed_atores where perfil = $1", [pessoas.ana])).n;
+  return [n, (await rpc(como(pessoas.ana), "rede_fed_situacao")).pedir_fediverso];
+}, ([n, pedir]) => n === 0 && pedir === true);
 await espera("aceitar a Alumia com o item marcado liga a federação sozinho (consentimento versão 2)", async () => {
   for (const nome of ["beto", "cris"]) await rpc(como(pessoas[nome]), "rede_aderir", { p_maior: true, p_versao: vigente, p_fediverso: true });
   return (await dono("select perfil, ligado, consentimento_versao from interno.rede_fed_atores where perfil = any($1::uuid[])", [[pessoas.beto, pessoas.cris]])).rows;
@@ -137,6 +193,7 @@ await espera("quem desmarcou o item não liga", async () => {
   await rpc(como(pessoas.duda), "rede_aderir", { p_maior: true, p_versao: vigente, p_fediverso: false });
   return (await um("select count(*)::int as n from interno.rede_fed_atores where perfil = $1", [pessoas.duda])).n;
 }, (n) => n === 0);
+await espera("quem respondeu o item na versão 2 (marcado ou não) não é pedido de novo", async () => Promise.all([pessoas.beto, pessoas.duda].map(async (p) => (await rpc(como(p), "rede_fed_situacao")).pedir_fediverso)), (r) => r.every((x) => x === false));
 await espera("quem já estava na Alumia aceita a versão 2 uma vez (rede_fed_ligar)", async () => rpc(como(pessoas.ana), "rede_fed_ligar", { p_sim: true, p_versao: 2 }), (r) => r.ligado === true && r.consentimento_versao === 2);
 await recusa("ligar com a versão antiga, no modo total, é recusado", () => rpc(como(pessoas.duda), "rede_fed_ligar", { p_sim: true, p_versao: 1 }), "invalido:versao");
 await dono("update interno.rede_fed_atores set ligado_em = now() - interval '1 minute' where ligado");
@@ -154,9 +211,17 @@ const posts = {
   equipe: await postar(pessoas.beto, "Post da equipe.", { publico: "equipe", alcance: "equipe" }),
   nucleo: await postar(pessoas.beto, "Post do núcleo.", { publico: "nucleo", nucleo }),
   deDuda: await postar(pessoas.duda, "Post público de quem desmarcou o item."),
+  membrosPerfil: await postar(pessoas.beto, "Post só para os membros da Alumia, no perfil.", { publico: "membros" }),
+  membrosDisciplina: await postar(pessoas.beto, "Post só para os membros da Alumia, na disciplina.", { comunidade: disciplina, publico: "membros" }),
+  semPublico: await postar(pessoas.beto, "Post antigo, sem público escolhido (vale o alcance).", { publico: null }),
 };
-await espera("sai: post público do perfil, da disciplina aberta e o 'internet'", async () => Promise.all([posts.perfil, posts.disciplina, posts.internet].map(federavel)), (r) => r.every((f) => f === true));
+await espera("o 'internet' do perfil é rebaixado para 'membros' pela matriz (é esse que D3 abre)", async () => (await um("select interno.rede2_publico(p) as v from interno.rede_posts p where p.id = $1", [posts.perfil])).v, (v) => v === "membros");
+await espera("sai: o 'internet' do perfil (rebaixado), da disciplina aberta e o post antigo sem público", async () => Promise.all([posts.perfil, posts.disciplina, posts.internet, posts.semPublico].map(federavel)), (r) => r.every((f) => f === true));
 await espera("não sai: núcleo, comunidade fechada, restrita, seguidores, equipe e quem não consentiu", async () => Promise.all([posts.nucleo, posts.fechada, posts.restrita, posts.seguidores, posts.equipe, posts.deDuda].map(federavel)), (r) => r.every((f) => f === false));
+await espera("não sai: o 'membros' escolhido de propósito ('Membros da Alumia'), no perfil e na disciplina", async () => Promise.all([posts.membrosPerfil, posts.membrosDisciplina].map(federavel)), (r) => r.every((f) => f === false));
+await espera("e o 'membros' de propósito não entra na fila nem tem documento", async () => [
+  (await um("select count(*)::int as n from interno.rede_fed_enviados where post = any($1::uuid[])", [[posts.membrosPerfil, posts.membrosDisciplina]])).n,
+  await srv("post", { id: posts.membrosPerfil })], ([n, d]) => n === 0 && d === null);
 await espera("comunidade de luta aberta só sai com 'comunidades_de_luta' (D3, à espera da decisão)", async () => {
   const antes = await federavel(posts.luta);
   await dono("update interno.configuracoes set valor = valor || '{\"comunidades_de_luta\": true}'::jsonb where chave = 'fediverso'");
@@ -164,11 +229,18 @@ await espera("comunidade de luta aberta só sai com 'comunidades_de_luta' (D3, �
   await dono("update interno.configuracoes set valor = valor - 'comunidades_de_luta' where chave = 'fediverso'");
   return [antes, depois];
 }, ([a, d]) => a === false && d === true);
-await espera("post retido ou oculto deixa de sair", async () => {
+await espera("post retido deixa de sair", async () => {
   const id = await postar(pessoas.beto, "Vai ser retido.");
   await dono("update interno.rede_posts set retido = true where id = $1", [id]);
   return federavel(id);
 }, (f) => f === false);
+await espera("post oculto pela moderação deixa de sair e fica marcado como retirado", async () => {
+  const id = await postar(pessoas.beto, "Vai ser ocultado.");
+  const antes = await federavel(id);
+  await dono("update interno.rede_posts set oculto = true where id = $1", [id]);
+  const e = await um("select apagado_em from interno.rede_fed_enviados where post = $1", [id]);
+  return [antes, await federavel(id), e?.apagado_em];
+}, ([a, d, ap]) => a === true && d === false && ap !== null && ap !== undefined);
 await espera("quem consentiu só na versão 1 continua com a regra antiga (o 'membros' do perfil não sai)", async () => {
   await dono("update interno.rede_fed_atores set consentimento_versao = 1 where perfil = $1", [pessoas.beto]);
   const f = await federavel(posts.perfil);
@@ -198,6 +270,24 @@ await espera("seguidor de fora: aviso fed_seguidor com o ator remoto", async () 
   const l = await rpc(como(pessoas.beto), "rede_aviso_listar", { p_cursor: null, p_limite: 20 });
   return l.itens.find((x) => x.tipo === "fed_seguidor");
 }, (a) => a && a.ator_remoto?.ator === ATOR && a.ator_remoto?.handle === "bia@remota.teste" && Array.isArray(a.atores_remotos));
+
+// ═══════════════════ Quem é mencionado lá fora recebe ═══════════════════
+await espera("menção a quem não segue: Create, Update e Delete vão para a caixa dele; quem já segue não recebe repetido", async () => {
+  const id = await postar(pessoas.beto, "Oi @caio@outra.teste e @bia@remota.teste!");
+  const fila = async (tipo, destino) => (await um("select count(*)::int as n from interno.rede_fed_fila where tipo = $1 and objeto = $2 and destino = $3", [tipo, id, destino])).n;
+  const create = [await fila("create", "https://outra.teste/inbox"), await fila("create", "https://remota.teste/inbox")];
+  await dono("update interno.rede_posts set texto = 'Oi @caio@outra.teste, editado.' where id = $1", [id]);
+  const update = [await fila("update", "https://outra.teste/inbox"), await fila("update", "https://remota.teste/inbox")];
+  await dono("delete from interno.rede_posts where id = $1", [id]);
+  const del = await fila("delete", "https://outra.teste/inbox");
+  return [create, update, del];
+}, ([c, u, d]) => c[0] === 1 && c[1] === 1 && u[0] === 1 && u[1] === 1 && d === 1);
+await espera("menção a quem a pessoa bloqueou não sai", async () => {
+  await dono("insert into interno.fediverso_filtros (usuario, ator, tipo) values ($1, $2, 'bloqueio')", [pessoas.beto, ATOR2]);
+  const id = await postar(pessoas.beto, "Falando de @caio@outra.teste.");
+  await dono("delete from interno.fediverso_filtros where usuario = $1", [pessoas.beto]);
+  return (await um("select count(*)::int as n from interno.rede_fed_fila where objeto = $1 and destino = 'https://outra.teste/inbox'", [id])).n;
+}, (n) => n === 0);
 
 // ═══════════════════ O que entra ═══════════════════
 const nota = (n, extra = {}) => ({ id: `https://remota.teste/notes/${n}`, ator: ATOR, url: `https://remota.teste/@bia/${n}`, texto: `Nota ${n}`, aviso: "", sensivel: false, publicado: new Date().toISOString(), visibilidade: "publico", mencoes_locais: [], midia: [], ...extra });
@@ -264,6 +354,32 @@ await dono("insert into interno.rede_fed_seguindo (perfil, ator, pedido, aceito)
 await srv("nota_recebida", nota("l1", { publicado: new Date(Date.now() - 60_000).toISOString() }));
 await srv("nota_recebida", nota("l2", { ator: ATOR2, id: "https://outra.teste/notes/l2", texto: "Fala sobre abacaxi" }));
 await srv("nota_recebida", nota("l3", { visibilidade: "seguidores" }));
+await espera("resposta só-seguidores a um post daqui: quem não segue o autor de fora não recebe aviso (nem o endereço da nota)", async () => {
+  const r = await srv("nota_recebida", nota("rs", { ator: ATOR2, id: "https://outra.teste/notes/rs", visibilidade: "seguidores", em_resposta_a: `${BASE}/api/fediverso/p/${posts.perfil}` }));
+  const av = (await um("select count(*)::int as n from interno.avisos where para = $1 and objeto_remoto = 'https://outra.teste/notes/rs'", [pessoas.beto])).n;
+  return [r.guardado, av];
+}, ([g, a]) => g === true && a === 0);
+await espera("respostas de fora de um post daqui (rede_fed_respostas_de): cada um vê só o que pode", async () => {
+  const beto = await rpc(como(pessoas.beto), "rede_fed_respostas_de", { p_post: posts.perfil, p_cursor: null, p_limite: 50 });
+  const ana = await rpc(como(pessoas.ana), "rede_fed_respostas_de", { p_post: posts.perfil, p_cursor: null, p_limite: 50 });
+  const idsB = beto.itens.map((x) => x.id);
+  const idsA = ana.itens.map((x) => x.id);
+  return [idsB.includes("https://remota.teste/notes/r1"), idsB.includes("https://outra.teste/notes/rs"), idsA.includes("https://outra.teste/notes/rs"),
+    beto.total === beto.itens.length, beto.itens.every((x) => x.origem === "fediverso" && x.post_local === posts.perfil)];
+}, ([r1, rsB, rsA, total, cartoes]) => r1 && !rsB && rsA && total && cartoes);
+await espera("rede_fed_respostas_de pagina por cursor sem repetir nem pular", async () => {
+  const todas = await rpc(como(pessoas.beto), "rede_fed_respostas_de", { p_post: posts.perfil, p_cursor: null, p_limite: 100 });
+  const vistas = [];
+  let cursor = null;
+  for (let i = 0; i < 20; i++) {
+    const p = await rpc(como(pessoas.beto), "rede_fed_respostas_de", { p_post: posts.perfil, p_cursor: cursor, p_limite: 2 });
+    vistas.push(...p.itens.map((x) => x.id));
+    if (!p.proximo) break;
+    cursor = p.proximo;
+  }
+  return [todas.itens.map((x) => x.id).join(), vistas.join(), todas.itens.length];
+}, ([a, b, n]) => a === b && n >= 3);
+await recusa("rede_fed_respostas_de de um post que a pessoa não vê é recusado", () => rpc(como(pessoas.ana), "rede_fed_respostas_de", { p_post: posts.seguidores, p_cursor: null, p_limite: 10 }), "nao_encontrado");
 await espera("linha mista: as notas de quem a pessoa segue, no formato de cartão (origem fediverso, autor, avatar)", async () => rpc(como(pessoas.ana), "rede_fed_linha_mista", { p_cursor: null, p_limite: 20 }), (r) => {
   const ids = r.itens.map((x) => x.id);
   const c = r.itens.find((x) => x.id === "https://remota.teste/notes/l1");
@@ -277,7 +393,7 @@ await espera("a paginação por cursor não repete nem pula", async () => {
   return [p1.itens[0]?.id, p2.itens[0]?.id, p1.proximo];
 }, ([a, b, c]) => a && b && a !== b && typeof c === "string");
 await espera("impulso de uma nota de fora por quem a pessoa segue entra como impulso", async () => {
-  await srv("interacao", { tipo: "announce", ator: ATOR, atividade_id: "https://remota.teste/a/2", post_local: "https://outra.teste/notes/l2", sim: true });
+  await srv("interacao", { tipo: "announce", ator: ATOR, atividade_id: "https://remota.teste/a/2", objeto_remoto: "https://outra.teste/notes/l2", sim: true });
   const r = await rpc(como(pessoas.ana), "rede_fed_linha_mista", { p_cursor: null, p_limite: 20 });
   return r.itens.find((x) => x.impulsionado_por?.ator === ATOR);
 }, (c) => c?.id === "https://outra.teste/notes/l2");
@@ -319,8 +435,15 @@ await espera("responder a uma nota de fora: post daqui com resposta_a_remota, Cr
   const p = await um("select resposta_a_remota from interno.rede_posts where id = $1", [r.id]);
   const fila = (await dono("select destino from interno.rede_fed_fila where tipo = 'create' and objeto = $1", [r.id])).rows.map((x) => x.destino);
   const doc = await srv("post", { id: r.id });
-  return [r.federado, p.resposta_a_remota, fila.includes(`${ATOR}/inbox`), doc?.resposta_a_remota, doc?.mencoes?.some((m) => m.ator === ATOR)];
-}, ([f, rr, fila, drr, men]) => f === true && rr === "https://remota.teste/notes/l1" && fila && drr === rr && men);
+  return [r.federado, p.resposta_a_remota, fila.filter((d) => d === "https://remota.teste/inbox").length, doc?.resposta_a_remota, doc?.mencoes?.some((m) => m.ator === ATOR)];
+}, ([f, rr, fila, drr, men]) => f === true && rr === "https://remota.teste/notes/l1" && fila === 1 && drr === rr && men);
+await espera("editar e apagar a resposta daqui: o Update e o Delete chegam ao autor da nota de fora (que não segue a pessoa)", async () => {
+  const r = await rpc(como(pessoas.ana), "rede_fed_responder_remoto", { p_post_remoto: "https://remota.teste/notes/l1", p_texto: "Vou editar esta.", p_aviso: "" });
+  await dono("update interno.rede_posts set texto = 'Editada.' where id = $1", [r.id]);
+  await dono("delete from interno.rede_posts where id = $1", [r.id]);
+  const n = async (t) => (await um("select count(*)::int as n from interno.rede_fed_fila where tipo = $1 and objeto = $2 and destino = 'https://remota.teste/inbox'", [t, r.id])).n;
+  return [await n("create"), await n("update"), await n("delete")];
+}, ([c, u, d]) => c === 1 && u === 1 && d === 1);
 await espera("o fio da nota de fora mostra a resposta daqui", async () => rpc(como(pessoas.ana), "rede_fed_fio_remoto", { p_id: "https://remota.teste/notes/l1" }), (f) => f.post.id === "https://remota.teste/notes/l1" && f.respostas.some((x) => x.texto === "Concordo com você!"));
 await espera("o fio de uma resposta de fora mostra acima o post daqui", async () => rpc(como(pessoas.beto), "rede_fed_fio_remoto", { p_id: "https://remota.teste/notes/r1" }), (f) => f.acima.length === 1 && f.acima[0].id === posts.perfil);
 await espera("perfil remoto: o que se sabe, se segue e as notas visíveis", async () => rpc(como(pessoas.ana), "rede_fed_perfil_remoto", { p_ator: ATOR }), (p) => p.handle === "bia@remota.teste" && p.seguindo === "sim" && p.posts.length >= 1 && p.posts.every((x) => x.ator_remoto === ATOR));
