@@ -50,7 +50,17 @@
     "regrasTitulo": "Rules",
     "moderacao": "Moderators (code names)",
     "etiquetas": "Tags",
-    "pedidos": "{n} request(s) waiting for the moderators"
+    "pedidos": "{n} request(s) waiting for the moderators",
+    "entrar": "Join",
+    "participa": "Joined",
+    "pedir": "Ask to join",
+    "pendente": "Request sent",
+    "fechadaSo": "Invitation only",
+    "voltarLista": "Back to communities",
+    "entreNaAlumia": "Sign in to Alumia to take part in this community.",
+    "entrou": "You joined the community.",
+    "saiu": "You left the community.",
+    "pediu": "Request sent to the moderators."
   },
   "conversa": {
     "titulo": "Conversation",
@@ -86,7 +96,9 @@
     "materia": "Instituto Lúcia article",
     "conferirAntes": "Before sending: {aviso}",
     "enviarMesmo": "Send anyway",
-    "revisar": "Review"
+    "revisar": "Review",
+    "voltar": "Back",
+    "reagirComo": "React with {nome}"
   },
   "reacoes": {
     "rotulo": "Reactions",
@@ -116,5 +128,12 @@
   "busca": {
     "rotulo": "Search Alumia and the Fediverse",
     "placeholder": "Search people, actions, #topics"
+  },
+  "telas": {
+    "explorar": "Explore",
+    "buscar": "Search",
+    "avisos": "Notifications",
+    "salvos": "Saved",
+    "comunidades": "Communities"
   }
 }

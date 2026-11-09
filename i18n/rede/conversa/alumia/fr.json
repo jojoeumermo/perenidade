@@ -50,7 +50,17 @@
     "regrasTitulo": "Règles",
     "moderacao": "Qui modère (pseudonymes)",
     "etiquetas": "Étiquettes",
-    "pedidos": "{n} demande(s) en attente de la modération"
+    "pedidos": "{n} demande(s) en attente de la modération",
+    "entrar": "Rejoindre",
+    "participa": "Membre",
+    "pedir": "Demander à rejoindre",
+    "pendente": "Demande envoyée",
+    "fechadaSo": "Sur invitation",
+    "voltarLista": "Retour aux communautés",
+    "entreNaAlumia": "Connectez-vous à Alumia pour participer à cette communauté.",
+    "entrou": "Vous avez rejoint la communauté.",
+    "saiu": "Vous avez quitté la communauté.",
+    "pediu": "Demande envoyée à la modération."
   },
   "conversa": {
     "titulo": "Conversation",
@@ -86,7 +96,9 @@
     "materia": "article de l'Instituto Lúcia",
     "conferirAntes": "Avant d'envoyer : {aviso}",
     "enviarMesmo": "Envoyer quand même",
-    "revisar": "Relire"
+    "revisar": "Relire",
+    "voltar": "Retour",
+    "reagirComo": "Réagir avec {nome}"
   },
   "reacoes": {
     "rotulo": "Réactions",
@@ -116,5 +128,12 @@
   "busca": {
     "rotulo": "Chercher dans Alumia et le Fediverse",
     "placeholder": "Chercher des personnes, actions, #thèmes"
+  },
+  "telas": {
+    "explorar": "Explorer",
+    "buscar": "Rechercher",
+    "avisos": "Notifications",
+    "salvos": "Enregistrés",
+    "comunidades": "Communautés"
   }
 }
