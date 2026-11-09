@@ -7,6 +7,7 @@
 // Publicar um ato é o rede_publicar de sempre com tipo "chamado" e o campo `chamado` (pedidoDoAto, abaixo): o compositor é da F1.
 import { proporcaoValida } from "./mosaico";
 import { chamar, type Chamar } from "./cliente";
+import { linkDeApoioSeguro } from "./atos/chegar";
 import { criarDuble } from "./atos/exemplos";
 import type { Ato, DadosDoAto, FiltroDosAtos, PaginaDeAtos, PedidoDeMudanca, RespostaDoVou } from "./tipos-atos";
 
@@ -18,12 +19,11 @@ export const PREVIA_DOS_ATOS = process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
  * organizou, o link de apoio só https. Uma função do banco com defeito não consegue mostrar um número de pessoas na tela.
  */
 export function limparAto(a: Ato): Ato {
-  const apoio = typeof a.link_apoio === "string" && /^https:\/\//.test(a.link_apoio) ? a.link_apoio : null;
   return {
     ...a,
     acesos: proporcaoValida(a.acesos),
     total: a.meu && typeof a.total === "number" ? a.total : null,
-    link_apoio: apoio,
+    link_apoio: linkDeApoioSeguro(a.link_apoio),
     respostas: Number.isFinite(a.respostas) && a.respostas > 0 ? Math.floor(a.respostas) : 0,
   };
 }
