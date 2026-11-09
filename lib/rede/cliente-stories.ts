@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// As chamadas dos stories ao banco (PLANO-ALUMIA F5 e §5). As funções rede_story_* são da etapa de back-end da F5
-// (supabase/migracoes/20261109-alumia-f5-stories.sql): o front-end chama pelos nomes daqui. Enquanto o banco não as tem, a tela
+// As chamadas dos stories ao banco (PLANO-ALUMIA F5 e §5). As funções rede_story_* estão em
+// supabase/migracoes/20261109-alumia-f5.sql: o front-end chama pelos nomes daqui. Enquanto o banco não as tem, a tela
 // mostra "o banco ainda não tem os stories" (nunca dado inventado). Só com NEXT_PUBLIC_ALUMIA_PREVIA=sim a tela usa o dublê de
 // lib/rede/stories/exemplos.ts, com dados de exemplo e sem enviar nada. Sem "@/" de propósito (roda no Node nos testes).
 //
@@ -17,6 +17,12 @@ import type { CategoriaDeDenuncia } from "./tipos-moderacao";
 
 /** O depósito privado dos stories (§5): caminho "<uid>/<id>.webp", leitura só por endereço assinado de vida curta. */
 export const DEPOSITO_DOS_STORIES = "rede-stories";
+
+/** Quanto vale o endereço assinado da imagem (10 min): basta para ver o story; depois disso, abrir de novo pede outro. */
+export const VIDA_DO_ENDERECO = 600;
+
+/** Troca caminhos do depósito por endereços assinados (só os que a regra do depósito deixa esta pessoa ler). */
+export type Assinar = (caminhos: string[]) => Promise<Record<string, string>>;
 
 export interface ClienteDeStories {
   /** É o dublê da prévia (dados de exemplo; nada vai ao servidor)? */
@@ -45,12 +51,16 @@ export interface ClienteDeStories {
 }
 
 /** O cliente de verdade sobre uma forma de chamar (os testes passam uma simulada). */
-export function criarClienteDeStories(c: Chamar, enviar: (imagem: Blob) => Promise<string> = enviarAoDeposito): ClienteDeStories {
+export function criarClienteDeStories(
+  c: Chamar,
+  enviar: (imagem: Blob) => Promise<string> = enviarAoDeposito,
+  assinar: Assinar = assinarNoDeposito,
+): ClienteDeStories {
   return {
     previa: false,
     faixa: () => c<FaixaDeStories>("rede_story_faixa"),
-    abrir: (handle) => c<Story[]>("rede_story_abrir", { p_handle: handle }),
-    meus: () => c<Story[]>("rede_story_meus"),
+    abrir: (handle) => c<Story[]>("rede_story_abrir", { p_handle: handle }).then((l) => comEnderecos(l, assinar)),
+    meus: () => c<Story[]>("rede_story_meus").then((l) => comEnderecos(l, assinar)),
     publicar: (pedido) => c<{ id: string; expira_em: string }>("rede_story_publicar", { p: pedido }),
     apagar: (id) => c<{ apagado: boolean }>("rede_story_apagar", { p_id: id }),
     responder: (id, texto) => c<{ ok: boolean }>("rede_story_responder", { p_id: id, p_texto: texto }),
@@ -72,6 +82,45 @@ function idDoArquivo(): string {
   return Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
 }
 
+/**
+ * O banco devolve o caminho da imagem (fundo.caminho), nunca um endereço: aqui cada caminho vira um endereço assinado de vida curta,
+ * pedido com a sessão da própria pessoa (a regra do depósito, public.rede_story_pode, decide de novo). Sem endereço, o story
+ * aparece com o fundo de cor, sem a imagem. Puro sobre `assinar` (os testes passam um simulado).
+ */
+export async function comEnderecos(lista: Story[], assinar: Assinar): Promise<Story[]> {
+  if (!Array.isArray(lista)) return lista;
+  const caminhos = [...new Set(lista.flatMap((s) => (s.fundo?.tipo === "imagem" && s.fundo.caminho ? [s.fundo.caminho] : [])))];
+  if (caminhos.length === 0) return lista;
+  let enderecos: Record<string, string> = {};
+  try {
+    enderecos = await assinar(caminhos);
+  } catch {
+    enderecos = {};
+  }
+  return lista.map((s) => {
+    if (s.fundo?.tipo !== "imagem" || !s.fundo.caminho) return s;
+    const url = enderecos[s.fundo.caminho];
+    return url ? { ...s, fundo: { ...s.fundo, url } } : { ...s, fundo: { tipo: "listras", cor: s.fundo.cor } };
+  });
+}
+
+async function assinarNoDeposito(caminhos: string[]): Promise<Record<string, string>> {
+  const { getClient } = await import("../backend");
+  const cliente = await getClient();
+  const { data, error } = await cliente.storage.from(DEPOSITO_DOS_STORIES).createSignedUrls(caminhos, VIDA_DO_ENDERECO);
+  if (error || !data) return {};
+  const saida: Record<string, string> = {};
+  for (const x of data) if (x.path && x.signedUrl && !x.error) saida[x.path] = x.signedUrl;
+  return saida;
+}
+
+/** A extensão pelo tipo que o canvas devolveu (o Safari antigo devolve PNG quando não sabe fazer WEBP). */
+export function extensaoDaImagem(tipo: string): { ext: "webp" | "png" | "jpg"; tipo: string } {
+  if (tipo === "image/png") return { ext: "png", tipo };
+  if (tipo === "image/jpeg") return { ext: "jpg", tipo };
+  return { ext: "webp", tipo: "image/webp" };
+}
+
 /** Envia ao depósito com a sessão da própria pessoa (a regra do depósito confere a pasta = uid). */
 async function enviarAoDeposito(imagem: Blob): Promise<string> {
   const { getClient } = await import("../backend");
@@ -79,8 +128,9 @@ async function enviarAoDeposito(imagem: Blob): Promise<string> {
   const { data } = await cliente.auth.getSession();
   const uid = data.session?.user.id;
   if (!uid) throw new Error("sem_sessao");
-  const caminho = `${uid}/${idDoArquivo()}.webp`;
-  const { error } = await cliente.storage.from(DEPOSITO_DOS_STORIES).upload(caminho, imagem, { contentType: "image/webp", upsert: false, cacheControl: "3600" });
+  const { ext, tipo } = extensaoDaImagem(imagem.type);
+  const caminho = `${uid}/${idDoArquivo()}.${ext}`;
+  const { error } = await cliente.storage.from(DEPOSITO_DOS_STORIES).upload(caminho, imagem, { contentType: tipo, upsert: false, cacheControl: "3600" });
   if (error) throw new Error(error.message || "falha_no_envio");
   return caminho;
 }

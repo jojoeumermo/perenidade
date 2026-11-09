@@ -63,7 +63,7 @@
     "publicoAjuda": {
       "seguidores": "只有关注你的人。",
       "membros": "Alumia 的所有成员。",
-      "proximos": "只有你的亲密好友名单。"
+      "proximos": "只有你关注且也关注你的人。"
     },
     "regra": "24 小时后消失。不会发到联邦宇宙。没有人能看到谁看过。",
     "galeria": "相册",

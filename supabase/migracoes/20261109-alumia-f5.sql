@@ -487,10 +487,11 @@ begin
   if p_categoria is null or p_categoria not in ('menores', 'ameaca', 'exposicao', 'violencia', 'autolesao', 'odio', 'assedio', 'golpe', 'spam', 'outro') then
     perform interno.erro('invalido:categoria');
   end if;
+  -- A mesma pessoa denunciando de novo recebe o mesmo protocolo, mesmo que o story já tenha sido retido (e ela não o veja mais).
+  select * into d from rede_denuncias where quem = v and alvo_tipo = 'story' and alvo = p_id::text and situacao in ('aberta', 'em_analise') limit 1;
+  if found then return jsonb_build_object('protocolo', d.protocolo, 'retido', coalesce((select retido from rede_stories where id = p_id), false), 'ja', true); end if;
   s := interno.rede5_story_visivel(p_id, v);
   if s.autor = v then perform interno.erro('sem_permissao'); end if;
-  select * into d from rede_denuncias where quem = v and alvo_tipo = 'story' and alvo = s.id::text and situacao in ('aberta', 'em_analise') limit 1;
-  if found then return jsonb_build_object('protocolo', d.protocolo, 'retido', s.retido, 'ja', true); end if;
   perform interno.rede2_limite('denunciar');
   v_pri := interno.rede2_prioridade(p_categoria);
   insert into rede_denuncias (alvo_tipo, alvo, categoria, prioridade, texto, quem) values ('story', s.id::text, p_categoria, v_pri, v_texto, v) returning * into d;
