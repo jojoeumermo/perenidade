@@ -6,7 +6,7 @@
 // seguidores. Só-seguidores e mensagem direta NUNCA saem por aqui: a resposta é sempre um post público da pessoa.
 import { after } from "next/server";
 import { processarFila } from "@/lib/rede/fediverso/entrega";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirTeto, pessoaFederada, recusaDaFederacao } from "@/lib/rede/fediverso/rotas";
 import { modoTotal, semFederacao } from "@/lib/rede/fediverso/servidor";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
@@ -26,6 +26,12 @@ export async function POST(pedido: Request) {
   const texto = typeof corpo?.texto === "string" ? corpo.texto.trim() : "";
   if (!texto || texto.length > 5000) return resposta({ erro: "invalido:texto" }, 400);
   const aviso = typeof corpo?.aviso === "string" ? corpo.aviso.trim().slice(0, 200) : "";
+  // Quem desligou a federação (ou tem impedimento) não manda nada para fora; quem federa ganha o par de chaves antes da fila.
+  const eu = await chamarComoPessoa<{ handle?: string | null; ligado?: boolean }>(token, "rede_fed_eu", { p_acao: "responder" });
+  if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
+  if (!eu.dado.ligado) return resposta({ erro: "fediverso_desligado" }, 409);
+  const federada = await pessoaFederada(eu.dado.handle);
+  if (federada !== "ok") return recusaDaFederacao(federada);
   const r = await chamarComoPessoa<{ id?: string }>(token, "rede_fed_responder_remoto", { p_post_remoto: post, p_texto: texto, p_aviso: aviso });
   if (!r.ok) return resposta({ erro: r.codigo }, statusDoCodigo(r.codigo));
   after(() => processarFila(10).then(() => undefined, () => undefined));

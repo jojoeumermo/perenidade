@@ -13,8 +13,8 @@
 import { conferirAssinatura } from "./assinatura";
 import { atorRemoto, banco, fed, gruposLigados, lerAtorRemoto, modoTotal } from "./servidor";
 import { htmlParaTexto, textoCurto } from "./texto";
-import { comunidadeLocal, dominio, handleLocal, idDe, lerNota, TIPOS_DE_ATOR } from "./entrada/nota";
-import { desfazerInteracao, receberInteracao } from "./entrada/interacao";
+import { comunidadeLocal, dominio, handleLocal, idDe, lerNota, listaDeIds, TIPOS_DE_ATOR } from "./entrada/nota";
+import { desfazerInteracao, desfazerPeloId, receberInteracao } from "./entrada/interacao";
 import { receberBloqueio, receberDenuncia } from "./entrada/moderacao";
 import { confirmarNaOrigem, conferirRepassador } from "./entrada/repasse";
 
@@ -27,9 +27,17 @@ export interface ResultadoDaCaixa {
   entregar?: boolean;
 }
 
-/** De onde o pedido chegou: a caixa de uma pessoa, a compartilhada ou a de uma comunidade (Group, com "fediverso-grupos"). */
+/**
+ * De onde o pedido chegou: a caixa de uma pessoa, a compartilhada ou a de uma comunidade (Group, com "fediverso-grupos"). A rota
+ * da comunidade só passa "comunidade" depois de o banco confirmar que ela existe e pode sair (app/api/fediverso/c/[slug]/inbox).
+ */
 export interface DestinoDaCaixa {
   comunidade?: string;
+}
+
+/** A nota é endereçada ao Group (o id dele em to, cc ou audience, como o Lemmy manda)? Só então ela é "da comunidade". */
+export function enderecadaAoGrupo(nota: Record<string, unknown>, slug: string): boolean {
+  return [...listaDeIds(nota.to), ...listaDeIds(nota.cc), ...listaDeIds(nota.audience)].some((id) => comunidadeLocal(id) === slug);
 }
 
 type Remoto = Awaited<ReturnType<typeof atorRemoto>>;
@@ -147,7 +155,7 @@ async function seguir(tipo: string, atividade: Record<string, unknown>, autor: s
       const comunidade = gruposLigados() ? comunidadeLocal(idDe(objeto)) : null;
       if (comunidade && (!destino.comunidade || destino.comunidade === comunidade)) {
         if (!remoto?.inbox) return { status: 202, motivo: "sem_caixa" };
-        const r = await banco<{ ok: boolean; motivo?: string }>("grupo_seguidor", { slug: comunidade, ator: autor, inbox: remoto.inbox, compartilhada: remoto.inbox_compartilhada, pedido: idDe(atividade) ?? "", sim: true });
+        const r = await banco<{ ok: boolean; motivo?: string }>("comunidade_seguidor", { slug: comunidade, ator: autor, inbox: remoto.inbox, compartilhada: remoto.inbox_compartilhada, pedido: idDe(atividade) ?? "", sim: true });
         return r.ok ? { status: 202, motivo: "seguidor_da_comunidade", entregar: true } : { status: 202, motivo: r.motivo ?? "recusado" };
       }
       const handle = handleLocal(idDe(objeto));
@@ -168,7 +176,7 @@ async function seguir(tipo: string, atividade: Record<string, unknown>, autor: s
       const dentro = (objeto as { object?: unknown }).object;
       const comunidade = gruposLigados() ? comunidadeLocal(idDe(dentro)) : null;
       if (comunidade) {
-        await banco("grupo_seguidor", { slug: comunidade, ator: autor, sim: false });
+        await banco("comunidade_seguidor", { slug: comunidade, ator: autor, sim: false });
         return { status: 202, motivo: "deixou_de_seguir" };
       }
       const alvo = handleLocal(idDe(dentro));
@@ -200,6 +208,8 @@ async function decidirTotal(atividade: Record<string, unknown>, autor: string, r
       return seguir(tipo, atividade, autor, remoto, destino);
     case "Undo": {
       if (objetoTipo === "Follow") return seguir(tipo, atividade, autor, remoto, destino);
+      // Undo só com o id (alguns Pleroma/Akkoma mandam assim): o banco desfaz a curtida ou o impulso pela chave (atividade, ator).
+      if (typeof objeto === "string") return desfazerPeloId(objeto, autor);
       if (!objeto || typeof objeto !== "object") return { status: 202, motivo: "ignorado" };
       if (objetoTipo === "Block") return receberBloqueio(objeto as Record<string, unknown>, autor, false);
       return desfazerInteracao(objeto as Record<string, unknown>, autor);
@@ -218,7 +228,9 @@ async function decidirTotal(atividade: Record<string, unknown>, autor: string, r
       if (!objeto || typeof objeto !== "object") return { status: 202, motivo: "ignorado" };
       const lida = lerNota(objeto as Record<string, unknown>, autor, { seguidores: remoto?.seguidores ?? null });
       if (!lida.ok) return { status: 202, motivo: lida.motivo };
-      const r = await banco<{ guardado: boolean; motivo?: string }>("nota_recebida", { ...lida.nota, ...(destino.comunidade ? { comunidade: destino.comunidade } : {}) });
+      // "comunidade" só quando a nota é endereçada ao Group daquela caixa: escolher a caixa não basta para entrar na comunidade.
+      const daComunidade = destino.comunidade && enderecadaAoGrupo(objeto as Record<string, unknown>, destino.comunidade) ? destino.comunidade : null;
+      const r = await banco<{ guardado: boolean; motivo?: string }>("nota_recebida", { ...lida.nota, ...(daComunidade ? { comunidade: daComunidade } : {}) });
       return { status: 202, motivo: r.guardado ? "recebido" : (r.motivo ?? "descartado") };
     }
     case "Delete":
