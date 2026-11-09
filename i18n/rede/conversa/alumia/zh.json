@@ -50,7 +50,17 @@
     "regrasTitulo": "规则",
     "moderacao": "版主（化名）",
     "etiquetas": "标签",
-    "pedidos": "{n} 个申请等待审核"
+    "pedidos": "{n} 个申请等待审核",
+    "entrar": "加入",
+    "participa": "已加入",
+    "pedir": "申请加入",
+    "pendente": "申请已发送",
+    "fechadaSo": "仅限邀请",
+    "voltarLista": "返回社区列表",
+    "entreNaAlumia": "登录 Alumia 以参与这个社区。",
+    "entrou": "你已加入社区。",
+    "saiu": "你已退出社区。",
+    "pediu": "申请已发送给版主。"
   },
   "conversa": {
     "titulo": "讨论",
@@ -86,7 +96,9 @@
     "materia": "卢西亚研究所的文章",
     "conferirAntes": "发送前：{aviso}",
     "enviarMesmo": "仍然发送",
-    "revisar": "修改"
+    "revisar": "修改",
+    "voltar": "返回",
+    "reagirComo": "用{nome}回应"
   },
   "reacoes": {
     "rotulo": "表情回应",
@@ -116,5 +128,12 @@
   "busca": {
     "rotulo": "在 Alumia 和联邦宇宙中搜索",
     "placeholder": "搜索人、行动、#话题"
+  },
+  "telas": {
+    "explorar": "探索",
+    "buscar": "搜索",
+    "avisos": "通知",
+    "salvos": "收藏",
+    "comunidades": "社区"
   }
 }
