@@ -44,7 +44,7 @@ export function Orientacao({
                 <p className="mt-1 text-sm">
                   {fill(s.pelaRede, { perfil: arrobaNaRede(o.contato.valor) })}{" "}
                   <Link
-                    href={localePath(lang, "/comunidade")}
+                    href={localePath(lang, "/alumia")}
                     className="underline hover:text-oxblood"
                   >
                     {s.abrirRede}

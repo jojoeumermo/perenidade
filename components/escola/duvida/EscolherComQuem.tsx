@@ -89,7 +89,7 @@ export function EscolherComQuem({ lang, t }: { lang: Locale; t: TextosDaBibliote
           </li>
           <li>
             {quem?.handle ? (
-              <Link href={localePath(lang, `/comunidade/conversas?com=${encodeURIComponent(quem.handle)}`)} className="ef6-opcao">
+              <Link href={localePath(lang, `/alumia/conversas?com=${encodeURIComponent(quem.handle)}`)} className="ef6-opcao">
                 <LetraDe nome={quem.codinome} fundo="#E63B2A" reserva="?" />
                 <span>
                   <strong>{t.acompanha.titulo}</strong>

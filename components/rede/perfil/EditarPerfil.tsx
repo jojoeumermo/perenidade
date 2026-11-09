@@ -45,7 +45,7 @@ const botaoCheio = "min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-
 const botaoVazado = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
 
 /**
- * Editar o perfil da Rede (/comunidade/editar-perfil): @nome, bio, rosto (galeria de desenhos ou foto enviada), capa, quem pode achar
+ * Editar o perfil da Rede (/alumia/editar-perfil): @nome, bio, rosto (galeria de desenhos ou foto enviada), capa, quem pode achar
  * (aberto, trancado, invisível), "estudando agora" (opt-in), selos de trilha, post fixado e os pedidos para seguir. Cada bloco salva
  * sozinho e diz o que aconteceu dentro da página. Quem cuida da Rede também vê aqui a fila de imagens enviadas.
  */

@@ -538,7 +538,7 @@ await espera("os seis idiomas têm as mesmas chaves; pt é final e os outros cin
   return r;
 }, (r) => r.pt.rascunho === false && r.pt.nomes === 32 && ["en", "es", "fr", "ru", "zh"].every((l) => r[l].iguais && r[l].rascunho && r[l].nomes === 32));
 await espera("a rota editar-perfil existe, dá 404 com o recurso desligado e está no registro da casca; a página do perfil carrega sob demanda", async () => {
-  const rota = lerTexto("app/[lang]/comunidade/editar-perfil/page.tsx");
+  const rota = lerTexto("app/[lang]/alumia/editar-perfil/page.tsx");
   const registro = lerTexto("components/rede/registro.tsx");
   const telas = lerTexto("components/rede/Telas.tsx");
   const casca = lerTexto("components/rede/Casca.tsx");

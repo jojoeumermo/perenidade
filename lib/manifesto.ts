@@ -62,7 +62,7 @@ export function montarManifesto(lang: Locale, t: TextosDoManifesto): MetadataRou
     shortcuts: [
       { name: abas.estudar, short_name: abas.estudar, description: t.nav.disciplines, url: localePath(lang, "/trilhas"), icons: [icone] },
       { name: abas.jogos, short_name: abas.jogos, url: localePath(lang, "/jogos"), icons: [icone] },
-      { name: t.nav.community, short_name: abas.comunidade, url: localePath(lang, "/comunidade"), icons: [icone] },
+      { name: t.nav.community, short_name: abas.comunidade, url: localePath(lang, "/alumia"), icons: [icone] },
       { name: abas.eu, short_name: abas.eu, url: localePath(lang, "/meu-estudo"), icons: [icone] },
       { name: t.nav.library, url: localePath(lang, "/acervo"), icons: [icone] },
       { name: t.nav.radio, url: localePath(lang, "/radio"), icons: [icone] },

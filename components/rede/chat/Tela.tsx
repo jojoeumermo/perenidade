@@ -18,7 +18,7 @@ import { botaoForte, botaoLeve, erroDoChat } from "./comum";
 type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho" } | { estado: "erro"; texto: string };
 
 /**
- * Conversas da Alumia (/comunidade/conversas): o chat privado, cifrado de ponta a ponta com a mesma tecnologia das conversas da
+ * Conversas da Alumia (/alumia/conversas): o chat privado, cifrado de ponta a ponta com a mesma tecnologia das conversas da
  * equipe (docs/rede/CHAT-PRIVADO.md). Componentes próprios, sem mexer no visual do resto da Alumia. Nada daqui vai ao Fediverso.
  */
 export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {

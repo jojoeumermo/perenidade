@@ -50,7 +50,7 @@ export const PREDIOS: readonly Predio[] = [
     id: "praca",
     tom: "news",
     desenho: "predio-praca",
-    secoes: ["/comunidade", "/jornal", "/noticias", "/debates", "/checagens", "/falacias", "/mural"],
+    secoes: ["/alumia", "/jornal", "/noticias", "/debates", "/checagens", "/falacias", "/mural"],
     outras: [],
   },
   { id: "territorio", tom: "questionBank", desenho: "predio-territorio", secoes: ["/nucleos", "/territorios", "/saude", "/direitos"], outras: ["/eventos"] },

@@ -83,7 +83,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [n.memorial, "/memorial", d.memorial],
         [n.materials, "/materiais", d.materials],
         [n.mural, "/mural", d.mural],
-        [n.community, "/comunidade", d.community ?? n.community],
+        [n.community, "/alumia", d.community ?? n.community],
         [n.territories, "/territorios", d.territories],
         [t.nucleos.menu, "/nucleos", t.nucleos.menuDescricao],
         // T08: a Turma do mês sai do menu enquanto as turmas estão em pausa (recurso "turmas", ligado pelo painel).

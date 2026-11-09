@@ -55,7 +55,7 @@ El acervo solo indexa: guarda el título, el autor, una sinopsis y el enlace a l
 
 ### Mediador
 
-La [Comunidad](/comunidade) es abierta: cualquiera puede leer, y quien crea una cuenta puede preguntar y responder. El mediador facilita ese debate, vela por el cumplimiento de las reglas e interviene cuando hace falta. Actúa en denuncias y situaciones que exigen valoración humana, orienta a los participantes, pide ajustes cuando corresponde y toma medidas ante ataques, propaganda indebida y discurso de odio. También cuida los anuncios del [Mural de los Trabajadores](/mural) y hace la primera lectura de las contribuciones que llegan de fuera, antes de enviarlas a los educadores. Cuando alguien insiste en pasarse de los límites, el mediador puede bloquear la cuenta. Todas las decisiones quedan registradas y la coordinación puede revisarlas.
+La [Comunidad](/alumia) es abierta: cualquiera puede leer, y quien crea una cuenta puede preguntar y responder. El mediador facilita ese debate, vela por el cumplimiento de las reglas e interviene cuando hace falta. Actúa en denuncias y situaciones que exigen valoración humana, orienta a los participantes, pide ajustes cuando corresponde y toma medidas ante ataques, propaganda indebida y discurso de odio. También cuida los anuncios del [Mural de los Trabajadores](/mural) y hace la primera lectura de las contribuciones que llegan de fuera, antes de enviarlas a los educadores. Cuando alguien insiste en pasarse de los límites, el mediador puede bloquear la cuenta. Todas las decisiones quedan registradas y la coordinación puede revisarlas.
 
 ### Periodista, locutor de radio y podcaster
 
