@@ -48,3 +48,28 @@ export function destinoDaComunidade(pathname: string, search = ""): string | nul
 export function ehCaminhoDaAlumia(caminho: string): boolean {
   return /^\/(alumia|comunidade)(\/|$)/.test(caminho);
 }
+
+/** A tela de um caminho, sem idioma nem "alumia"/"comunidade" na frente (vale no site e no host próprio): "/pt/alumia/atos/x" → "atos/x". */
+export function telaDoCaminho(caminho: string): string {
+  let partes = caminho.split(/[?#]/)[0].split("/").filter(Boolean);
+  if ((IDIOMAS_DA_ALUMIA as readonly string[]).includes(partes[0])) partes = partes.slice(1);
+  if (partes[0] === "alumia" || partes[0] === "comunidade") partes = partes.slice(1);
+  return partes.join("/");
+}
+
+/**
+ * Um link do menu (o de um encaixe, components/rede/encaixes.tsx) é a tela aberta, ou uma tela dentro dela? Serve para o
+ * aria-current dos itens que as frentes penduram, no menu do computador e na barra do celular. `href` pode ser o endereço
+ * próprio (https://alumia…/atos) ou o do site (/pt/alumia/atos). A linha ("") só conta quando é exatamente ela.
+ */
+export function encaixeAtivo(href: string, caminho: string): boolean {
+  let alvo: string;
+  try {
+    alvo = new URL(href, "http://x").pathname;
+  } catch {
+    return false;
+  }
+  const a = telaDoCaminho(alvo);
+  const c = telaDoCaminho(caminho);
+  return a === "" ? c === "" : c === a || c.startsWith(`${a}/`);
+}
