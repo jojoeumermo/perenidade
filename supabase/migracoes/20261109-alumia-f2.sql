@@ -94,7 +94,7 @@ create index if not exists rede_chamados_cidade on interno.rede_chamados (intern
  */
 create or replace function interno.rede_ato_proporcao(p_confirmados bigint, p_meta integer) returns numeric language sql immutable set search_path = interno, pg_temp as $$
   select case when p_confirmados is null or p_confirmados < 3 then null
-    else least(10, greatest(1, floor(p_confirmados::numeric * 10 / greatest(30, coalesce(p_meta, 0)))))::numeric / 10 end
+    else round(least(10, greatest(1, floor(p_confirmados::numeric * 10 / greatest(30, coalesce(p_meta, 0)))))::numeric / 10, 1) end
 $$;
 
 -- ── 3. O chamado de antes ganha a linha dele (sem perder dado) ──────────────────────────────────────────────────────────────

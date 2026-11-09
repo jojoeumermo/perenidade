@@ -96,7 +96,7 @@ igual("mais de um ano à frente", conferirAto({ ...bom, quando: "2028-01-01T00:0
 igual("nome só de números não desenha o mosaico", conferirAto({ ...bom, titulo: "2026" }, agora).problemas.titulo, "palavra");
 igual("chamado acima de 500", conferirAto({ ...bom, descricao: "a".repeat(501) }, agora).problemas.descricao, "longo");
 const pedido = pedidoDoAto(bom, { publico: "publico", comunidade: "moradia-zona-leste" });
-ok("o pedido vai como chamado, com a palavra e a cidade", pedido.tipo === "chamado" && pedido.chamado.palavra === "FICA ESPERANCA" && pedido.chamado.cidade === "São Paulo");
+ok("o pedido do rede_ato_publicar leva a palavra, a data, o ponto e a cidade", pedido.tipo === "ato" && pedido.palavra === "FICA ESPERANCA" && pedido.cidade === "São Paulo" && pedido.inicio === bom.quando && pedido.descricao === "Vigília." && pedido.comunidade === "moradia-zona-leste");
 igual("ponto e detalhe", pontoEDetalhe("Praça da Sé · concentração na escadaria"), { ponto: "Praça da Sé", detalhe: "concentração na escadaria" });
 
 // ── .ics (RFC 5545) ──

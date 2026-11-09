@@ -1,8 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O DUBLÊ das funções de atos (rede_atos, rede_ato, rede_ato_proximo, rede_ato_vou, rede_ato_mudar) com os dados das pranchas,
-// só para a prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): a etapa de back-end cria as funções de verdade com o mesmo contrato
-// (lib/rede/tipos-atos.ts). Tudo fica na memória da aba; nada sai do aparelho. Os nomes são ilustrativos (não são pessoas).
+// O DUBLÊ das funções de atos (rede_atos, rede_ato, rede_ato_proximo, rede_ato_vou, rede_ato_mudar, rede_ato_publicar) com os
+// dados das pranchas, só para a prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): as funções de verdade (supabase/migracoes/
+// 20261109-alumia-f2.sql) têm o mesmo contrato (lib/rede/tipos-atos.ts). Tudo fica na memória da aba; nada sai do aparelho. Os nomes são ilustrativos (não são pessoas).
 // O dublê segue as mesmas regras do banco: proporção em passos de 10 % e nula abaixo de 3; total só para quem organizou.
 // Sem "@/" de propósito (roda no Node nos testes).
 import { proporcaoDoMosaico } from "../mosaico";
@@ -159,6 +159,33 @@ export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo() }) {
       x.ato = { ...x.ato, vou_eu: sim };
       const atual = comProporcao(x);
       return { vou_eu: sim, acesos: atual.acesos, total: atual.total };
+    },
+    rede_ato_publicar(a: { p?: Record<string, unknown> }): Ato {
+      const p = a.p ?? {};
+      const texto = (k: string) => (typeof p[k] === "string" ? (p[k] as string) : "");
+      if (!texto("titulo") || !texto("inicio") || !texto("onde") || !texto("cidade") || !texto("descricao")) throw new Error("invalido:ato");
+      const ato: Ato = {
+        id: `previa-${estado.atos.length + 1}`,
+        titulo: texto("titulo"),
+        palavra: texto("palavra") || "ATO",
+        comunidade: null,
+        chamado_por: null,
+        inicio: texto("inicio"),
+        inicio_anterior: null,
+        onde: texto("onde"),
+        cidade: texto("cidade"),
+        descricao: texto("descricao"),
+        situacao: "confirmado",
+        motivo: "",
+        acesos: null,
+        total: null,
+        vou_eu: false,
+        meu: true,
+        respostas: 0,
+        link_apoio: null,
+      };
+      estado.atos.push({ ato, confirmados: 0 });
+      return comProporcao(estado.atos[estado.atos.length - 1]);
     },
     rede_ato_mudar(a: { p_id?: string } & Partial<Record<`p_${keyof PedidoDeMudanca}`, unknown>>): Ato {
       const x = achar(a.p_id);
