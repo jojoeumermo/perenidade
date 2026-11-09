@@ -2,6 +2,7 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
+import { caminhoDoSiteParaEscola, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
 import { ligado } from "@/lib/recursos";
@@ -129,6 +130,22 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   if (pathname.startsWith("/api/")) {
     if (estado.geral) return NextResponse.json({ erro: "area_interditada" }, { status: 503, headers: { "Cache-Control": "no-store", "Retry-After": "600" } });
     return;
+  }
+  // Escola no endereço próprio (lib/escola/endereco.ts): no host dela só abre a Escola (e entrar e as regras); no site do
+  // instituto, com NEXT_PUBLIC_ESCOLA_URL ligada, a Escola fechada vai para lá. Sem a variável, nada muda.
+  const hostDoPedido = (request.headers.get("host") ?? "").toLowerCase();
+  if (hostDaEscola(hostDoPedido)) {
+    const decisao = rotaNaEscola(pathname);
+    if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, siteVistoDaEscola(request.nextUrl.protocol, hostDoPedido, dominio)), 307);
+    if (decisao.tipo === "redirecionar") {
+      const url = request.nextUrl.clone();
+      url.pathname = decisao.destino;
+      url.search = "";
+      return NextResponse.redirect(url, 307);
+    }
+  } else if (hostDoPedido === dominio.host) {
+    const paraEscola = caminhoDoSiteParaEscola(pathname, request.nextUrl.search);
+    if (paraEscola) return NextResponse.redirect(paraEscola, 307);
   }
   // Alumia: o caminho de verdade (alvo) de um pedido no host dela; fora dele, a Comunidade vai para o endereço próprio.
   let alvo = pathname;

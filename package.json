@@ -128,6 +128,7 @@
     "testar:escola-banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-banco.mjs",
     "testar:escola-cadernos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-cadernos.mjs",
     "testar:escola-cofre": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-cofre.mjs",
+    "testar:escola-endereco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-escola-endereco.mjs",
     "testar:aula-viva": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-aula-viva.mjs",
     "legibilidade": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/legibilidade.mjs",
     "testar:privacidade": "node scripts/testar-privacidade.mjs",
