@@ -13,7 +13,7 @@ const CHAMA = [".d.", ".ve", "vvv", "vdv", ".v."];
  * com `rotulo`, vira imagem com nome para o leitor de tela.
  */
 export function Lampiao({ tamanho = 32, rotulo, ref, className = "" }: { tamanho?: number; rotulo?: string; ref?: Ref<SVGSVGElement>; className?: string }) {
-  const cor = { d: "var(--al-dourado, #ffc21a)", v: "var(--al-vermelho, #e8321f)", e: "var(--al-vermelho-escuro-chama, #b8261a)" } as const;
+  const cor = { d: "var(--al-dourado, #ffc21a)", v: "var(--al-vermelho, #e8321f)", e: "var(--al-vermelho-chama, #b8261a)" } as const;
   return (
     <svg
       ref={ref}

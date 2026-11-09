@@ -1,7 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // A rota da Alumia mudou de /[lang]/comunidade para /[lang]/alumia (PLANO-ALUMIA, seção 1). Este arquivo é a lógica pura da
-// troca de endereço, usada pelo proxy.ts e pelos testes (npm run testar:alumia-rota). Sem os atalhos "@/" de propósito: roda
+// troca de endereço, usada pelo proxy.ts e pelos testes (scripts/testar-alumia-rota.mjs; o integrador cria "testar:alumia-rota" e
+// "testar:alumia-mosaico" no package.json). Sem os atalhos "@/" de propósito: roda
 // direto no Node.
 //
 // Regras:
