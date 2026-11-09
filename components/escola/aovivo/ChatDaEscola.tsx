@@ -148,7 +148,7 @@ export function ChatDaEscola({ aula, lang, t, codinome }: { aula: AulaDaEscolaNa
         ) : !codinome ? (
           <>
             <p>{t.semCodinome}</p>
-            <Link href={localePath(lang, "/comunidade/editar-perfil")} className="ef-botao-vazado" style={{ marginTop: 10, minHeight: 42 }}>
+            <Link href={localePath(lang, "/alumia/editar-perfil")} className="ef-botao-vazado" style={{ marginTop: 10, minHeight: 42 }}>
               {t.irAlumia}
             </Link>
           </>

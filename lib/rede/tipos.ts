@@ -197,10 +197,10 @@ export type ErroDaRede = (typeof ERROS_DA_REDE)[number];
 
 /** Os endereços da v2 (relativos ao idioma): um lugar só, para a casca, os links e os testes. */
 export const enderecos = {
-  linha: (lang: string) => `/${lang}/comunidade`,
-  post: (lang: string, id: string) => `/${lang}/comunidade/p/${id}`,
-  comunidade: (lang: string, slug: string) => `/${lang}/comunidade/c/${slug}`,
-  perfil: (lang: string, handle: string) => `/${lang}/comunidade/u/${handle}`,
+  linha: (lang: string) => `/${lang}/alumia`,
+  post: (lang: string, id: string) => `/${lang}/alumia/p/${id}`,
+  comunidade: (lang: string, slug: string) => `/${lang}/alumia/c/${slug}`,
+  perfil: (lang: string, handle: string) => `/${lang}/alumia/u/${handle}`,
 } as const;
 
 /** Só letras minúsculas, números e "-" (comunidade) ou "_" (handle): o que o banco aceita. Confere antes de montar um endereço. */

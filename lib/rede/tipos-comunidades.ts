@@ -104,10 +104,10 @@ export const mesOk = (s: string): boolean => /^[0-9]{4}-(0[1-9]|1[0-2])$/.test(s
 
 /** Os endereços do pacote (relativos ao idioma): um lugar só, para as telas, os links e os testes. */
 export const enderecosCom = {
-  lista: (lang: string) => `/${lang}/comunidade/comunidades`,
-  propor: (lang: string) => `/${lang}/comunidade/propor`,
+  lista: (lang: string) => `/${lang}/alumia/comunidades`,
+  propor: (lang: string) => `/${lang}/alumia/propor`,
   /** "Discutir esta aula": a comunidade da disciplina (c) filtrada pela aula. */
-  aula: (lang: string, trilha: string, aula: string, comunidade: string) => `/${lang}/comunidade/aula/${trilha}/${aula}?c=${comunidade}`,
-  nucleos: (lang: string) => `/${lang}/comunidade/nucleos`,
-  nucleo: (lang: string, id: string) => `/${lang}/comunidade/nucleos/${id}`,
+  aula: (lang: string, trilha: string, aula: string, comunidade: string) => `/${lang}/alumia/aula/${trilha}/${aula}?c=${comunidade}`,
+  nucleos: (lang: string) => `/${lang}/alumia/nucleos`,
+  nucleo: (lang: string, id: string) => `/${lang}/alumia/nucleos/${id}`,
 } as const;

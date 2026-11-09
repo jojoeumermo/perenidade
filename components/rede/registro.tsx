@@ -25,7 +25,7 @@ export interface EntradaDoRegistro {
 
 /**
  * As telas que os pacotes acrescentam à casca, por nome. Cada pacote põe UMA linha aqui (e a rota dele em
- * app/[lang]/comunidade/<rota>/page.tsx, com tela={{ tipo: "pacote", nome: "avisos" }}), sempre com import dinâmico, para a
+ * app/[lang]/alumia/<rota>/page.tsx, com tela={{ tipo: "pacote", nome: "avisos" }}), sempre com import dinâmico, para a
  * tela só chegar ao navegador quando é aberta:
  *
  *   avisos: { componente: dynamic(() => import("./avisos/Tela"), { ssr: false }), menu: "avisos" },
@@ -33,27 +33,27 @@ export interface EntradaDoRegistro {
  * Sem entrada, a casca mostra "em breve" (estados.emBreve) em vez de quebrar.
  */
 export const REGISTRO: Record<string, EntradaDoRegistro> = {
-  // Pacote comunidades: lista, proposta, "discutir esta aula", núcleos e turma (/comunidade/{comunidades,propor,aula/…,nucleos}).
+  // Pacote comunidades: lista, proposta, "discutir esta aula", núcleos e turma (/alumia/{comunidades,propor,aula/…,nucleos}).
   comunidades: { componente: dynamic(() => import("./comunidades/Lista"), { ssr: false }), menu: "comunidades" },
   propor: { componente: dynamic(() => import("./comunidades/Propor"), { ssr: false }), menu: "comunidades" },
   aula: { componente: dynamic(() => import("./comunidades/TelaAula"), { ssr: false }), menu: "comunidades" },
   nucleos: { componente: dynamic(() => import("./comunidades/Nucleos"), { ssr: false }), menu: "nucleos" },
-  // Pacote avisos: avisos agrupados e preferências (/comunidade/avisos).
+  // Pacote avisos: avisos agrupados e preferências (/alumia/avisos).
   avisos: { componente: dynamic(() => import("./avisos/Tela"), { ssr: false }), menu: "avisos" },
   // Pacote descoberta: Explorar, busca e página de hashtag.
   explorar: { componente: dynamic(() => import("./descoberta/Explorar"), { ssr: false }), menu: "explorar" },
   buscar: { componente: dynamic(() => import("./descoberta/Buscar"), { ssr: false }), menu: "explorar" },
   tag: { componente: dynamic(() => import("./descoberta/Tag"), { ssr: false }), menu: "explorar" },
-  // Pacote perfil: editar o perfil (/comunidade/editar-perfil).
+  // Pacote perfil: editar o perfil (/alumia/editar-perfil).
   "editar-perfil": { componente: dynamic(() => import("./perfil/EditarPerfil"), { ssr: false }), menu: "perfil" },
-  // Pacote moderacao: painel, denúncias e recursos, silenciados e a página de regras (/comunidade/{moderacao,denuncias,silenciados,cuidado}).
+  // Pacote moderacao: painel, denúncias e recursos, silenciados e a página de regras (/alumia/{moderacao,denuncias,silenciados,cuidado}).
   moderacao: { componente: dynamic(() => import("./moderacao/TelaModeracao"), { ssr: false }), menu: "perfil" },
   denuncias: { componente: dynamic(() => import("./moderacao/TelaDenuncias"), { ssr: false }), menu: "perfil" },
   silenciados: { componente: dynamic(() => import("./moderacao/TelaSilenciados"), { ssr: false }), menu: "perfil" },
   cuidado: { componente: dynamic(() => import("./moderacao/TelaCuidado"), { ssr: false }), menu: "perfil" },
-  // Pacote alumia: Salvos e a federação com o Fediverso (/comunidade/{salvos,fediverso}; docs/rede/FEDIVERSO.md).
+  // Pacote alumia: Salvos e a federação com o Fediverso (/alumia/{salvos,fediverso}; docs/rede/FEDIVERSO.md).
   salvos: { componente: dynamic(() => import("./alumia/Salvos"), { ssr: false }), menu: "salvos" },
   fediverso: { componente: dynamic(() => import("./alumia/Fediverso"), { ssr: false }), menu: "fediverso" },
-  // Chat privado cifrado de ponta a ponta (/comunidade/conversas; docs/rede/CHAT-PRIVADO.md). Nada dele vai ao Fediverso.
+  // Chat privado cifrado de ponta a ponta (/alumia/conversas; docs/rede/CHAT-PRIVADO.md). Nada dele vai ao Fediverso.
   conversas: { componente: dynamic(() => import("./chat/Tela"), { ssr: false }), menu: "conversas" },
 };
