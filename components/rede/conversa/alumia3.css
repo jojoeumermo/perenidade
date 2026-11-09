@@ -68,7 +68,7 @@
 [data-al="2"] .al3-capa-acao[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
 [data-al="2"] .al3-capa-semana { flex: 1; margin: 0; text-align: right; white-space: nowrap; font-weight: 700; font-size: 0.95rem; }
 /* A regra global "main button[aria-pressed] vira pílula" não vale aqui: na prancha, Entrar e Regras são retângulos de canto 12px. */
-:root [data-al="2"] main .al3-capa-acao.al3-capa-acao[aria-pressed] { border-radius: 12px; }
+[data-al="2"] main .al3-capa-acao.al3-capa-acao[aria-pressed] { border-radius: 12px; }
 @media (max-width: 400px) {
   [data-al="2"] .al3-capa-acoes { gap: 0.5rem; }
   [data-al="2"] .al3-capa-acao { padding: 0.45rem 0.8rem; font-size: 0.95rem; }
@@ -275,6 +275,12 @@
   display: grid; place-items: center; cursor: pointer;
 }
 @media (max-width: 767px) {
+  /* No celular a caixa fica presa embaixo da tela o tempo todo (sticky soltava no fim da página e os flutuantes cobriam o enviar);
+     o bloco que a contém ganha um respiro embaixo para a última resposta não ficar escondida atrás dela. */
+  [data-al="2"] .al3-responder { position: fixed; inset-inline: 0; }
+  [data-al="2"] :has(> .al3-responder) { padding-bottom: 7rem; }
+  /* O mesmo respiro no fim da página: o rodapé (idiomas) também não fica atrás da caixa. */
+  :root:has([data-al="2"] .al3-responder) body::after { content: ""; display: block; height: 6rem; }
   /* Dentro da casca, a caixa fica logo acima da barra de baixo do celular (4.5rem). */
   [data-al="2"] .rede-lucia .al3-responder { bottom: calc(4.5rem + var(--recuo-baixo, 0px)); }
   /* A faixa entre a caixa e a barra de baixo fica com o fundo da caixa: o fio não aparece espremido ali. */
