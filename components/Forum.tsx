@@ -278,7 +278,7 @@ function TopicList({ s }: { s: S }) {
         filtrar(() => setTick((value) => value + 1));
         return;
       }
-      router.push(`/${lang}/comunidade?t=${created.id}`);
+      router.push(`/${lang}/alumia?t=${created.id}`);
     } catch (error) {
       setMessage(errorText(t, error instanceof BackendError ? error.code : "falha"));
     }
@@ -298,7 +298,7 @@ function TopicList({ s }: { s: S }) {
   const salvar = (row: TopicRow) => mudarPref((p) => ({ ...p, salvas: p.salvas.some((x) => x.id === row.id) ? p.salvas.filter((x) => x.id !== row.id) : [{ id: row.id, titulo: row.titulo, sala: row.disciplina, tipo: row.tipo, em: new Date().toISOString() }, ...p.salvas].slice(0, 300) }));
   const esconder = (id: string) => { mudarPref((p) => ({ ...p, escondidas: [...p.escondidas.filter((x) => x !== id), id].slice(-500) })); setEscondidaAgora((l) => [...l, id]); };
   const desfazer = (id: string) => { mudarPref((p) => ({ ...p, escondidas: p.escondidas.filter((x) => x !== id) })); setEscondidaAgora((l) => l.filter((x) => x !== id)); };
-  const linkDe = (id: string) => `${window.location.origin}${localePath(lang, `/comunidade?t=${id}`)}`;
+  const linkDe = (id: string) => `${window.location.origin}${localePath(lang, `/alumia?t=${id}`)}`;
   const dividir = async (row: TopicRow) => {
     if (await compartilhar(linkDe(row.id), row.titulo)) {
       setAviso({ id: row.id, texto: s.copied });
@@ -451,7 +451,7 @@ function TopicList({ s }: { s: S }) {
               <span className="border border-gold px-2 py-1">
                 {s.about}: <L href={alvo} className="font-semibold underline hover:text-oxblood">{alvoTitulo || alvo}</L>
               </span>
-              <L href="/comunidade" className="underline hover:text-oxblood">{s.clearAbout}</L>
+              <L href="/alumia" className="underline hover:text-oxblood">{s.clearAbout}</L>
             </p>
           )}
 
@@ -504,7 +504,7 @@ function TopicList({ s }: { s: S }) {
                   <li key={x.id} className="flex items-center gap-3 rounded-md border border-rule bg-parchment p-3">
                     <div className="min-w-0 flex-1">
                       <p className="flex flex-wrap items-center gap-2 text-xs text-ink-soft">{chipSala(x.sala)}<span>{x.tipo === "duvida" ? s.kinds.question : s.kinds.talk}</span></p>
-                      <L href={`/comunidade?t=${x.id}`} className="font-serif text-lg font-semibold hover:text-oxblood">{x.titulo}</L>
+                      <L href={`/alumia?t=${x.id}`} className="font-serif text-lg font-semibold hover:text-oxblood">{x.titulo}</L>
                     </div>
                     <button type="button" onClick={() => mudarPref((p) => ({ ...p, salvas: p.salvas.filter((y) => y.id !== x.id) }))} className="cursor-pointer text-xs underline hover:text-oxblood">{s.savedDone} ✕</button>
                   </li>
@@ -526,14 +526,14 @@ function TopicList({ s }: { s: S }) {
                     );
                   }
                   const respostas = (
-                    <L href={`/comunidade?t=${row.id}`} className={acao}><Selo nome="balao" className="h-4 w-4" />{plural(lang, row.respostas, s.replies)}</L>
+                    <L href={`/alumia?t=${row.id}`} className={acao}><Selo nome="balao" className="h-4 w-4" />{plural(lang, row.respostas, s.replies)}</L>
                   );
                   if (compacto) {
                     return (
                       <li key={row.id} className={`flex items-center gap-2 py-2 ${row.oculto ? "opacity-60" : ""}`}>
                         <Util kind="topico" id={row.id} points={row.pontos} mine={row.meu_voto} s={s} disabled={!logged} deitado />
                         <div className="min-w-0 flex-1">
-                          <L href={`/comunidade?t=${row.id}`} className="font-semibold hover:text-oxblood">{row.titulo}</L>
+                          <L href={`/alumia?t=${row.id}`} className="font-semibold hover:text-oxblood">{row.titulo}</L>
                           {row.tipo === "duvida" && row.resolvida && <span className="ml-2 rounded-full bg-ok/15 px-1.5 text-xs font-semibold text-ok">✓ {s.solved}</span>}
                           <p className="flex flex-wrap items-center gap-x-2 text-xs text-ink-soft">{chipSala(row.disciplina)}<span>{row.autor || "—"}</span><span>· {plural(lang, row.respostas, s.replies)}</span><span>· {relativo(row.ultima ?? row.criado_em, lang)}</span>{row.oculto && <span>· {row.retido ? s.pending : s.hidden}</span>}</p>
                         </div>
@@ -549,7 +549,7 @@ function TopicList({ s }: { s: S }) {
                           <span>{row.disciplina ? "· " : ""}{row.autor || "—"}<SeloDoAutor selo={row.autor_selo} s={s} /></span>
                           <span>· <time dateTime={row.criado_em}>{relativo(row.criado_em, lang)}</time></span>
                         </p>
-                        <L href={`/comunidade?t=${row.id}`} className="mt-1 block font-serif text-xl font-semibold leading-snug hover:text-oxblood">{row.titulo}</L>
+                        <L href={`/alumia?t=${row.id}`} className="mt-1 block font-serif text-xl font-semibold leading-snug hover:text-oxblood">{row.titulo}</L>
                         <p className="mt-1 flex flex-wrap gap-1.5 text-xs">
                           <span className={`rounded-full px-2 py-0.5 font-semibold ${row.tipo === "duvida" ? "bg-oxblood/10 text-oxblood" : "bg-parchment-deep"}`}>{row.tipo === "duvida" ? s.kinds.question : s.kinds.talk}</span>
                           {row.tipo === "duvida" && row.resolvida && <span className="rounded-full bg-ok/15 px-2 py-0.5 font-semibold text-ok">✓ {s.solved}</span>}
@@ -729,7 +729,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
       window.setTimeout(() => setCopiado((c) => (c === chave ? "" : c)), 2000);
     }
   };
-  const linkDaConversa = () => `${window.location.origin}${localePath(lang, `/comunidade?t=${topic.id}`)}`;
+  const linkDaConversa = () => `${window.location.origin}${localePath(lang, `/alumia?t=${topic.id}`)}`;
   // Gente da equipe não se bane por aqui (o serviço recusa); o botão nem aparece para as respostas marcadas como da equipe.
   const ban = (key: string, author: string | null | undefined) =>
     topic?.pode_banir && author ? (
@@ -762,8 +762,8 @@ function TopicView({ id, s }: { id: string; s: S }) {
   return (
     <div className="mt-8 font-sans text-sm">
       <p className="flex flex-wrap items-center gap-3">
-        <L href="/comunidade" className="text-ink-soft hover:text-oxblood">← {s.back}</L>
-        {topic.disciplina && <L href={`/comunidade?sala=${topic.disciplina}`} className="flex items-center gap-1 font-semibold hover:text-oxblood"><Bolinha slug={topic.disciplina} nome={nomeDaSala(topic.disciplina)} />{s.roomOf}/{nomeDaSala(topic.disciplina)}</L>}
+        <L href="/alumia" className="text-ink-soft hover:text-oxblood">← {s.back}</L>
+        {topic.disciplina && <L href={`/alumia?sala=${topic.disciplina}`} className="flex items-center gap-1 font-semibold hover:text-oxblood"><Bolinha slug={topic.disciplina} nome={nomeDaSala(topic.disciplina)} />{s.roomOf}/{nomeDaSala(topic.disciplina)}</L>}
       </p>
       <article className={`mt-4 flex gap-2 rounded-md border-2 border-ink bg-parchment p-3 ${topic.oculto ? "opacity-60" : ""}`}>
         <Util key={`${topic.id}${topic.pontos}`} kind="topico" id={topic.id} points={topic.pontos} mine={topic.meu_voto} s={s} disabled={!logged} />
@@ -785,7 +785,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
             <span className={acao.replace("cursor-pointer ", "")}><Selo nome="balao" className="h-4 w-4" />{plural(lang, replies.length, s.replies)}</span>
             <button type="button" onClick={() => void dividir(topic.id, linkDaConversa(), topic.titulo)} className={acao}><span aria-hidden>↗</span>{copiado === topic.id ? s.copied : s.share}</button>
             <button type="button" aria-pressed={salva} onClick={() => mudarPref((p) => ({ ...p, salvas: salva ? p.salvas.filter((x) => x.id !== topic.id) : [{ id: topic.id, titulo: topic.titulo, sala: topic.disciplina, tipo: topic.tipo, em: new Date().toISOString() }, ...p.salvas].slice(0, 300) }))} className={acao}><span aria-hidden>{salva ? "🔖" : "🏷️"}</span>{salva ? s.savedDone : s.save}</button>
-            <L href={`/denunciar?item=${encodeURIComponent(`/comunidade?t=${topic.id}`)}`} className={acao}><span aria-hidden>⚑</span>{t.common.report}</L>
+            <L href={`/denunciar?item=${encodeURIComponent(`/alumia?t=${topic.id}`)}`} className={acao}><span aria-hidden>⚑</span>{t.common.report}</L>
             {topic.pode_cuidar && care("topico", topic.id, topic.oculto ? "mostrar" : "ocultar", topic.oculto ? s.show : s.hide)}
             {topic.pode_cuidar && care("topico", topic.id, topic.trancado ? "destrancar" : "trancar", topic.trancado ? s.unlock : s.lock)}
             {!topic.meu && ban(topic.id, topic.autor_id)}

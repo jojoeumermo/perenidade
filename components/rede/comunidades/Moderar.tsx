@@ -158,7 +158,7 @@ export default function Moderar({
         <h3 id="mod-fixar" className="font-serif text-lg font-semibold">{m.fixar}</h3>
         <label className="block text-sm text-ink-soft">
           {m.postEndereco}
-          <input value={post} onChange={(e) => setPost(e.target.value)} placeholder="…/comunidade/p/…" className={campo} />
+          <input value={post} onChange={(e) => setPost(e.target.value)} placeholder="…/alumia/p/…" className={campo} />
         </label>
         <div className="mt-2 flex flex-wrap gap-2">
           {([true, false] as const).map((sim) => (

@@ -23,7 +23,7 @@ const PAGINAS: [string, RegExp | null][] = [
   ["/pt/trilhas/historia-antiga", null],
   ["/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humanos", /Pré-história/],
   ["/pt/acervo", null],
-  ["/pt/comunidade", null],
+  ["/pt/alumia", null],
   ["/pt/territorios", null],
   ["/pt/territorios/na-atividade", null],
   ["/pt/territorios/noizocupa", /NoizOcupa/],

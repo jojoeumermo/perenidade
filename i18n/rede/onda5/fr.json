@@ -1,0 +1,23 @@
+{
+  "emConstrucao": {
+    "selo": "En construction",
+    "aviso": "Cet écran d'Alumia est encore en préparation. Rien n'est enregistré ici pour l'instant.",
+    "voltar": "Retour à l'accueil d'Alumia",
+    "rodape": "Ordre d'arrivée · sans publicité · sans pistage · toujours un pseudonyme",
+    "marca": "Instituto Lúcia"
+  },
+  "telas": {
+    "atos": { "titulo": "Actions", "descricao": "Les actions près de chez vous (selon la ville que vous écrivez, jamais par GPS) et celles des communautés que vous suivez, avec la mosaïque qui s'allume à chaque confirmation." },
+    "ato": { "titulo": "Action", "descricao": "La page d'une action : quand, où, l'appel, la mosaïque, « J'y vais », Y aller et Appeler. Personne ne voit la liste de qui y va." },
+    "calendario": { "titulo": "Calendrier", "descricao": "Les réunions et les actions de vos communautés et noyaux dans un seul calendrier, à emporter dans votre agenda." },
+    "organizacoes": { "titulo": "Organisations", "descricao": "Partis, mandats, syndicats, mouvements, collectifs et associations étudiantes sur Alumia. Le badge dit que le compte appartient à qui il prétend être ; ce n'est pas un soutien de l'Instituto Lúcia." },
+    "stories": { "titulo": "Stories", "descricao": "Des stories de 24 heures, sans trace de qui les a vues, qui ne sortent jamais vers le Fédivers." },
+    "seguranca": { "titulo": "Sécurité", "descricao": "Mode manif, « J'ai été arrêté·e » et « Je vais bien » : une protection pour qui descend dans la rue." },
+    "identidades": { "titulo": "Identités", "descricao": "Plus d'une identité sur le même compte, sans que personne ne relie l'une à l'autre." },
+    "aparelhos": { "titulo": "Appareils", "descricao": "Les appareils où votre compte est ouvert, pour en déconnecter un à distance. Sans adresse réseau." },
+    "o-que-guardamos": { "titulo": "Ce que nous gardons", "descricao": "Ce qu'Alumia garde sur vous, combien de temps et pourquoi, avec la loi à côté." },
+    "transparencia": { "titulo": "Transparence", "descricao": "Les chiffres de la modération par semestre, sans rien qui désigne une personne." },
+    "listas": { "titulo": "Listes", "descricao": "Des fils composés par vous, avec vos règles. Vous seul·e voyez vos listes." },
+    "leve": { "titulo": "Version légère", "descricao": "Alumia en texte seulement, pour une connexion faible et un petit forfait." }
+  }
+}

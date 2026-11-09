@@ -1,0 +1,23 @@
+{
+  "emConstrucao": {
+    "selo": "En construcción",
+    "aviso": "Esta pantalla de Alumia todavía se está haciendo. Por ahora no se guarda nada aquí.",
+    "voltar": "Volver al inicio de Alumia",
+    "rodape": "Orden de llegada · sin anuncios · sin rastreo · siempre un seudónimo",
+    "marca": "Instituto Lúcia"
+  },
+  "telas": {
+    "atos": { "titulo": "Actos", "descricao": "Los actos cerca de ti (por la ciudad que escribas, nunca por GPS) y los de las comunidades que sigues, con el mosaico que se enciende con cada confirmación." },
+    "ato": { "titulo": "Acto", "descricao": "La página de un acto: cuándo, dónde, la convocatoria, el mosaico, \"Vas\", Llegar y Convocar. Nadie ve la lista de quién va." },
+    "calendario": { "titulo": "Calendario", "descricao": "Los encuentros y los actos de tus comunidades y núcleos en un solo calendario, para llevar a tu agenda." },
+    "organizacoes": { "titulo": "Organizaciones", "descricao": "Partidos, mandatos, sindicatos, movimientos, colectivos y centros de estudiantes en Alumia. El sello dice que la cuenta es de quien dice ser; no es apoyo del Instituto Lúcia." },
+    "stories": { "titulo": "Historias", "descricao": "Historias de 24 horas, sin registro de quién las vio, que nunca salen al Fediverso." },
+    "seguranca": { "titulo": "Seguridad", "descricao": "Modo acto, \"Me detuvieron\" y \"Estoy bien\": protección para quien sale a la calle." },
+    "identidades": { "titulo": "Identidades", "descricao": "Más de una identidad en la misma cuenta, sin que nadie relacione una con otra." },
+    "aparelhos": { "titulo": "Dispositivos", "descricao": "Los dispositivos donde tu cuenta está abierta, para cerrar uno a distancia. Sin dirección de red." },
+    "o-que-guardamos": { "titulo": "Lo que guardamos", "descricao": "Lo que Alumia guarda sobre ti, por cuánto tiempo y por qué, con la ley al lado." },
+    "transparencia": { "titulo": "Transparencia", "descricao": "Los números de la moderación por semestre, sin nada que señale a una persona." },
+    "listas": { "titulo": "Listas", "descricao": "Líneas armadas por ti, con tus reglas. Solo tú ves tus listas." },
+    "leve": { "titulo": "Versión ligera", "descricao": "Alumia solo en texto, para internet débil y pocos datos." }
+  }
+}

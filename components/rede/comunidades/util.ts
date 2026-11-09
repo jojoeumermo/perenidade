@@ -36,7 +36,7 @@ export function useCarregar<T>(buscar: () => Promise<T>, chave: string) {
   return { dado: pronto ? estado.dado : null, erro: pronto ? estado.erro : null, pronto, recarregar: () => setVersao((n) => n + 1) };
 }
 
-/** O código de um post a partir do que a pessoa colou: o código solto ou um endereço .../comunidade/p/<código>. */
+/** O código de um post a partir do que a pessoa colou: o código solto ou um endereço .../alumia/p/<código>. */
 export function idDoPost(texto: string): string | null {
   const m = texto.trim().match(/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);
   return m ? m[1].toLowerCase() : null;

@@ -59,7 +59,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
     {
       title: t.footer.join,
       links: [
-        [t.nav.community, "/comunidade"],
+        [t.nav.community, "/alumia"],
         [t.nav.volunteers, "/voluntarios"],
         [t.nav.contribute, "/contribuir"],
         [t.nav.support, "/apoie"],
@@ -119,7 +119,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
             <ul className="mt-2.5 text-ink-soft">
               {column.links.map(([label, href]) => (
                 <li key={href}>
-                  <Link href={href === "/comunidade" ? enderecoDaAlumia(lang) : localePath(lang, href)} className="block py-[0.3rem] text-[0.92rem] text-ink underline-offset-4 hover:text-prelo-texto hover:underline">
+                  <Link href={href === "/alumia" ? enderecoDaAlumia(lang) : localePath(lang, href)} className="block py-[0.3rem] text-[0.92rem] text-ink underline-offset-4 hover:text-prelo-texto hover:underline">
                     {label}
                   </Link>
                 </li>

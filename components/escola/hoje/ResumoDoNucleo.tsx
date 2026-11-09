@@ -48,7 +48,7 @@ export function ResumoDoNucleo({ lang, t, eu, lido }: { lang: Locale; t: TextosD
       </h2>
       {corpo}
       {nucleo && (
-        <Link href={localePath(lang, `/comunidade/nucleos/${nucleo.id}`)} className="ef-botao-escuro ef-nucleo-abrir">
+        <Link href={localePath(lang, `/alumia/nucleos/${nucleo.id}`)} className="ef-botao-escuro ef-nucleo-abrir">
           {n.abrir}
         </Link>
       )}
