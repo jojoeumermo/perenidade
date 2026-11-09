@@ -2,7 +2,7 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/config";
 import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao } from "@/lib/interdicao";
-import { caminhoDoSiteParaEscola, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
+import { caminhoDoSiteParaEscola, ESCOLA_URL, escolaComEndereco, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
 import { ligado } from "@/lib/recursos";
@@ -133,12 +133,16 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   }
   // Escola no endereço próprio (lib/escola/endereco.ts): no host dela só abre a Escola (e entrar e as regras); no site do
   // instituto, com NEXT_PUBLIC_ESCOLA_URL ligada, a Escola fechada vai para lá. Sem a variável, nada muda.
+  // Na VPS, o Cloudflare entrega os pedidos de escola.institutolucia.org com o host do instituto (regra de origem, para a
+  // Caddy e o certificado servirem os dois) e marca a origem com x-lucia-escola: 1. Uma regra de transformação do
+  // Cloudflare apaga essa marca de todo pedido que não veio pelo host da Escola, então ela não pode ser forjada de fora.
   const hostDoPedido = (request.headers.get("host") ?? "").toLowerCase();
-  if (hostDaEscola(hostDoPedido)) {
+  const pelaMarca = request.headers.get("x-lucia-escola") === "1" && escolaComEndereco;
+  if (pelaMarca || hostDaEscola(hostDoPedido)) {
     const decisao = rotaNaEscola(pathname);
-    if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, siteVistoDaEscola(request.nextUrl.protocol, hostDoPedido, dominio)), 307);
+    if (decisao.tipo === "site") return NextResponse.redirect(new URL(decisao.destino + request.nextUrl.search, pelaMarca ? dominio : siteVistoDaEscola(request.nextUrl.protocol, hostDoPedido, dominio)), 307);
     if (decisao.tipo === "redirecionar") {
-      const url = request.nextUrl.clone();
+      const url = pelaMarca ? new URL(decisao.destino, ESCOLA_URL) : request.nextUrl.clone();
       url.pathname = decisao.destino;
       url.search = "";
       return NextResponse.redirect(url, 307);
