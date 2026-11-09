@@ -145,7 +145,7 @@ export function GuiaDasDisciplinas({ caminhos, s, etapas, cursoEnem }: { caminho
             </ol>
             {extra && (
               <p className="mt-4 font-sans text-sm">
-                <Link href={localePath(lang, extra === "despertar" ? "/consciencia" : "/nivelamento")} className="underline underline-offset-4 hover:text-prelo-texto">
+                <Link href={localePath(lang, extra === "despertar" ? "/escola" : "/nivelamento")} className="underline underline-offset-4 hover:text-prelo-texto">
                   {extra === "despertar" ? s.extraDespertar : s.extraNivelamento}
                 </Link>
               </p>
