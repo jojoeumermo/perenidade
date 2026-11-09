@@ -42,7 +42,7 @@ export async function receberInteracao(atividade: Record<string, unknown>, autor
   const lida = lerNota(doc, autorDaNota);
   if (!lida.ok) return { status: 202, motivo: lida.motivo };
   if (lida.nota.visibilidade !== "publico" && lida.nota.visibilidade !== "nao_listado") return { status: 202, motivo: "impulso_nao_publico" };
-  // "impulso" diz ao banco por que guardar a nota de quem ninguém segue (nota de junção para a F3: docs/FEDIVERSO-JUNCAO-F2.md).
+  // "impulso" diz ao banco por que guardar a nota de quem ninguém segue (nota de junção para a F3: docs/rede/FEDIVERSO-JUNCAO-F2.md).
   const r = await banco<{ guardado: boolean; motivo?: string }>("nota_recebida", { ...lida.nota, impulso: { ator: autor, atividade_id: atividadeId } });
   return { status: 202, motivo: r.guardado ? "impulso" : (r.motivo ?? "descartado") };
 }

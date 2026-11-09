@@ -124,7 +124,7 @@ export async function GET(pedido: Request) {
   if (p.has("linha")) {
     const cursor = p.get("cursor");
     const limite = Number(p.get("limite") ?? 20);
-    if ((cursor && !/^[^s<>"']{1,700}$/.test(cursor)) || !Number.isInteger(limite) || limite < 1 || limite > 50) return resposta({ erro: "invalido:pedido" }, 400);
+    if ((cursor && !/^[^\s<>"']{1,700}$/.test(cursor)) || !Number.isInteger(limite) || limite < 1 || limite > 50) return resposta({ erro: "invalido:pedido" }, 400);
     const linha = await chamarComoPessoa<{ itens?: unknown[]; proximo?: string | null }>(token, "rede_fed_linha_mista", { p_cursor: cursor || null, p_limite: limite });
     if (!linha.ok) return resposta({ erro: linha.codigo }, statusDoCodigo(linha.codigo));
     return resposta({ itens: Array.isArray(linha.dado?.itens) ? linha.dado.itens.map(assinarCartao) : [], proximo: linha.dado?.proximo ?? null });
