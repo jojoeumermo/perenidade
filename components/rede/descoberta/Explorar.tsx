@@ -16,6 +16,8 @@ import type { PropsDaTelaDoPacote } from "../registro";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { PassoEscolhas } from "./PassoEscolhas";
 import { useTextosDescoberta } from "./textos";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 const botao = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-bold hover:bg-parchment-deep disabled:opacity-50";
 
@@ -131,7 +133,7 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
   }
 
   return (
-    <div className="font-sans">
+    <div className="al3-tela font-sans">
       <header className="border-b border-rule px-[18px] py-4">
         <h1 className="font-serif text-2xl font-extrabold">{e.titulo}</h1>
         <p className="mt-1 text-ink-soft">{e.lead}</p>
