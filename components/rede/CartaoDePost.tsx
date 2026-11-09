@@ -14,6 +14,8 @@ import { textoDoErro } from "./erros";
 import { AcoesDeCuidado, RotuloDoPost } from "./moderacao/NoCartao";
 import { Avatar } from "./perfil/Avatar";
 import { Complementos } from "./publicar/Complementos";
+import { CartaoDaAlumia2 } from "./publicar/alumia2/CartaoDaAlumia2";
+import { useAlumia2 } from "./publicar/alumia2/contexto";
 
 /** "há 3 min", "há 2 h", "há 5 d" no idioma da página; depois de um mês, a data. */
 export function quandoFoi(iso: string, lang: string): string {
@@ -55,12 +57,32 @@ function IconeDaAcao({ d }: { d: string }) {
   );
 }
 
+/** As props do cartão de post (as mesmas nas duas caras). */
+type PropsDoCartao = {
+  post: Post;
+  lang: string;
+  s: TextosDaRede;
+  logado: boolean;
+  completo?: boolean;
+  aoResponder?: (post: Post) => void;
+  extras?: React.ReactNode;
+};
+
+/**
+ * O cartão de post. Dentro da casca nova (flag "alumia-2", contexto da Alumia 2) sai o cartão das pranchas
+ * (publicar/alumia2/CartaoDaAlumia2); fora dela, o de sempre, sem mudar nada.
+ */
+export function CartaoDePost(props: PropsDoCartao) {
+  const al2 = useAlumia2();
+  return al2 ? <CartaoDaAlumia2 {...props} /> : <CartaoClassico {...props} />;
+}
+
 /**
  * O cartão de um post na linha, na página do post e nas respostas. Mostra só o que a matriz deixou chegar: o número de apoios só
  * aparece para o autor, o "eu vou" só para quem organizou, ninguém vê lista de nomes. Os pacotes acrescentam ações em
  * `extras` (editar, fixar, etiqueta de desinformação…) sem mexer aqui.
  */
-export function CartaoDePost({
+function CartaoClassico({
   post: inicial,
   lang,
   s,
