@@ -44,6 +44,7 @@ export function PedirOSelo({ lang }: { lang: string }) {
 
   if (!t) return <div aria-busy className="al-perfil" style={{ minHeight: "60vh" }} />;
   const tp = t.pedir;
+  const erros = t.erros;
   const rotulos: Record<FaltaNoPedido | "regras", string> = {
     codinome: tp.codinome,
     handle: tp.handle,
@@ -69,7 +70,7 @@ export function PedirOSelo({ lang }: { lang: string }) {
       setFeito(true);
     } catch (e) {
       const codigo = typeof e === "object" && e !== null && "code" in e ? String((e as { code: unknown }).code) : "";
-      setErro(codigo === "banco_desatualizado" || codigo === "sem_servico" ? t.erros.semBanco : t.erros.falha);
+      setErro(codigo === "banco_desatualizado" || codigo === "sem_servico" ? erros.semBanco : erros.falha);
     } finally {
       setOcupado(false);
     }
