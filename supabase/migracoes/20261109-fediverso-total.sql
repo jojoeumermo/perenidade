@@ -580,3 +580,417 @@ create or replace function interno.rede_fed_cartao(c interno.rede_fed_recebidos,
     'midia', c.midia, 'citado', null, 'post_local', c.post_local, 'impulsionado_por', p_impulso)
   from (select 1) u left join rede_fed_remotos r on r.ator = c.ator
 $$;
+
+-- ── 6. O que a pessoa chama (com a sessão dela) ────────────────────────────────────────────────────────────────────────
+
+/**
+ * Entrar na Alumia com o item destacado do Fediverso (D2): o mesmo rede_aderir de sempre, mais a escolha "meus posts públicos
+ * também vão para o Fediverso" (marcada por padrão na tela, mas é a pessoa que decide). Com o modo total ligado, marcar liga a
+ * federação (gatilho em rede_consentimentos); desmarcar desliga. Sem o modo total, a escolha só fica guardada.
+ */
+create or replace function public.rede_aderir(p_maior boolean, p_versao integer, p_fediverso boolean) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_res jsonb;
+begin
+  v_res := public.rede_aderir(p_maior, p_versao);
+  update rede_consentimentos set fediverso = coalesce(p_fediverso, false)
+  where usuario = v and revogado_em is null and versao = (select rede_consentimento from perfis where id = v)
+    and fediverso is distinct from coalesce(p_fediverso, false);
+  return v_res || jsonb_build_object('fediverso', public.rede_fed_situacao());
+end $$;
+
+/** A situação da federação para quem está na sessão (a de sempre, mais: modo total, descoberta e o item do consentimento). */
+create or replace function public.rede_fed_situacao() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); a rede_fed_atores;
+begin
+  if v is null then return jsonb_build_object('logado', false, 'ligado', false, 'pode', false, 'motivo', 'entre_primeiro', 'versao', interno.rede_fed_versao(), 'total', interno.rede_fed_total()); end if;
+  select * into a from rede_fed_atores where perfil = v;
+  return jsonb_build_object(
+    'logado', true,
+    'handle', (select rede_handle from perfis where id = v),
+    'motivo', interno.rede_fed_impedimento(v),
+    'pode', interno.rede_fed_impedimento(v) is null,
+    'ligado', coalesce(a.ligado, false),
+    'desde', case when a.ligado then a.ligado_em end,
+    'seguidores', (select count(*)::integer from rede_fed_seguidores where perfil = v),
+    'seguindo', (select count(*)::integer from rede_fed_seguindo where perfil = v),
+    'versao', interno.rede_fed_versao(),
+    'total', interno.rede_fed_total(),
+    'consentimento_versao', case when a.ligado then a.consentimento_versao end,
+    'descobrivel', coalesce(a.ligado and a.descobrivel, false));
+end $$;
+
+/** Aparecer (ou não) em diretórios e buscas de fora (discoverable/indexable no ator). Só com a federação ligada. */
+create or replace function public.rede_fed_descoberta(p_sim boolean) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede_fed_ligar', 10, 60);
+  update rede_fed_atores set descobrivel = coalesce(p_sim, false) where perfil = v and ligado;
+  if not found then perform interno.erro('fediverso_desligado'); end if;
+  return public.rede_fed_situacao();
+end $$;
+
+/**
+ * Quem está pedindo, para as rotas do servidor que agem em nome da pessoa. Confere a sessão, a adesão à rede e o limite por
+ * pessoa; devolve o perfil e o estado da federação. Ações: buscar, seguir, interagir, responder, remoto, denunciar.
+ */
+create or replace function public.rede_fed_eu(p_acao text) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a rede_fed_atores;
+begin
+  perform interno.aberta('comunidade');
+  if p_acao is null or p_acao not in ('buscar', 'seguir', 'interagir', 'responder', 'remoto', 'denunciar') then perform interno.erro('invalido:acao'); end if;
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  perform interno.limite('rede_fed_' || p_acao, case p_acao when 'buscar' then 30 when 'seguir' then 20 when 'interagir' then 120
+                                                           when 'responder' then 30 when 'remoto' then 120 else 10 end, 60);
+  select * into a from rede_fed_atores where perfil = v;
+  return jsonb_build_object('perfil', v, 'handle', (select rede_handle from perfis where id = v), 'ligado', coalesce(a.ligado, false), 'total', interno.rede_fed_total());
+end $$;
+
+/**
+ * A mediação bloqueia (ou desbloqueia) uma instância inteira: nada entra dela, nada sai para ela, e o que havia dela some (agora
+ * também curtidas, impulsos, avisos, seguidores das comunidades e bloqueios dela). Domínio vazio e p_sim nulo: só a lista.
+ */
+create or replace function public.rede_fed_bloquear(p_dominio text, p_sim boolean, p_motivo text default '') returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_d text := lower(btrim(coalesce(p_dominio, '')));
+begin
+  if not (interno.media() or interno.cuida()) then perform interno.erro('sem_permissao'); end if;
+  if v_d = '' and p_sim is null then
+    return coalesce((select jsonb_agg(jsonb_build_object('dominio', dominio, 'motivo', motivo, 'desde', criado_em) order by dominio) from rede_fed_bloqueados), '[]'::jsonb);
+  end if;
+  if v_d !~ '^[a-z0-9.-]{3,253}$' or v_d !~ '\.' then perform interno.erro('invalido:dominio'); end if;
+  if coalesce(p_sim, true) then
+    insert into rede_fed_bloqueados (dominio, motivo, por) values (v_d, left(coalesce(p_motivo, ''), 300), v)
+    on conflict (dominio) do update set motivo = excluded.motivo, por = excluded.por, criado_em = now();
+    delete from rede_fed_seguidores where interno.rede_fed_bloqueado(ator);
+    delete from rede_fed_seguindo where interno.rede_fed_bloqueado(ator);
+    delete from rede_fed_recebidos where interno.rede_fed_bloqueado(ator);
+    delete from rede_fed_remotos where interno.rede_fed_bloqueado(ator);
+    delete from fediverso_interacoes where interno.rede_fed_bloqueado(ator) or interno.rede_fed_bloqueado(objeto_remoto);
+    delete from fediverso_grupo_seguidores where interno.rede_fed_bloqueado(ator);
+    delete from fediverso_bloqueios_recebidos where interno.rede_fed_bloqueado(ator);
+    delete from avisos where ator_remoto is not null and interno.rede_fed_bloqueado(ator_remoto);
+    update rede_fed_fila set feito_em = now(), erro = 'instancia_bloqueada' where feito_em is null and interno.rede_fed_bloqueado(destino);
+  else
+    delete from rede_fed_bloqueados where dominio = v_d;
+  end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('dominio', dominio, 'motivo', motivo, 'desde', criado_em) order by dominio) from rede_fed_bloqueados), '[]'::jsonb);
+end $$;
+
+/**
+ * A linha de fora para juntar à linha local (rede_linha) por data, sem aba à parte: as notas de primeiro nível de quem a pessoa
+ * segue lá fora e os impulsos (Announce) que essas pessoas fizeram de notas de fora. No MESMO formato de cartão (rede_fed_cartao);
+ * criado_em é a hora que ordena (no impulso, a hora do impulso; a da nota fica em publicado_em). Cursor = "<criado_em>|<chave>".
+ * Nunca: instância bloqueada, quem a pessoa bloqueou ou silenciou, quem a bloqueou lá fora, palavra silenciada. Modo total
+ * desligado: vazia.
+ */
+create or replace function public.rede_fed_linha_mista(p_cursor text default null, p_limite integer default 20) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  v_limite integer := least(greatest(coalesce(p_limite, 20), 1), 50);
+  v_t timestamptz; v_k text;
+  v_itens jsonb := '[]'::jsonb; v_n integer := 0; v_proximo text;
+  v_linha record; v_nota rede_fed_recebidos; v_impulso jsonb;
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede2_ler', 600, 60);
+  if not interno.rede_fed_total() then return jsonb_build_object('itens', '[]'::jsonb, 'proximo', null); end if;
+  if nullif(p_cursor, '') is not null then
+    if position('|' in p_cursor) = 0 then perform interno.erro('invalido:cursor'); end if;
+    begin
+      v_t := split_part(p_cursor, '|', 1)::timestamptz;
+    exception when others then
+      perform interno.erro('invalido:cursor');
+    end;
+    v_k := substr(p_cursor, position('|' in p_cursor) + 1);
+  end if;
+  for v_linha in
+    select x.nota, x.quando, x.chave, x.quem from (
+      select c.id as nota, coalesce(c.publicado, c.recebido_em) as quando, c.id as chave, null::text as quem
+      from rede_fed_recebidos c
+      where c.em_resposta_a is null and exists (select 1 from rede_fed_seguindo s where s.perfil = v and s.ator = c.ator and s.aceito)
+      union all
+      select c.id, i.criado_em, c.id || '#' || i.id::text, i.ator
+      from fediverso_interacoes i join rede_fed_recebidos c on c.id = i.objeto_remoto
+      where i.direcao = 'entrada' and i.tipo = 'announce' and c.visibilidade <> 'seguidores'
+        and exists (select 1 from rede_fed_seguindo s where s.perfil = v and s.ator = i.ator and s.aceito)
+    ) x join rede_fed_recebidos c on c.id = x.nota
+    where (v_t is null or (x.quando, x.chave) < (v_t, v_k))
+      and interno.rede_fed_nota_ve(c, v)
+      and not exists (select 1 from fediverso_filtros f where f.usuario = v and (f.ator = c.ator or f.ator = x.quem))
+      and (x.quem is null or (not interno.rede_fed_bloqueado(x.quem) and not exists (select 1 from fediverso_bloqueios_recebidos b where b.perfil = v and b.ator = x.quem)))
+      and not exists (select 1 from rede_silenciados s where s.usuario = v and s.palavra is not null and (s.ate is null or s.ate > now())
+                      and position(interno.normal(s.palavra) in interno.normal(c.texto || ' ' || c.aviso)) > 0)
+    order by x.quando desc, x.chave desc
+    limit v_limite + 1
+  loop
+    v_n := v_n + 1;
+    if v_n > v_limite then exit; end if;
+    select * into v_nota from rede_fed_recebidos where id = v_linha.nota;
+    v_impulso := null;
+    if v_linha.quem is not null then
+      select jsonb_build_object('ator', v_linha.quem, 'handle', q.handle, 'nome', q.nome, 'avatar', q.avatar, 'em', v_linha.quando)
+      into v_impulso from (select 1) u left join rede_fed_remotos q on q.ator = v_linha.quem;
+    end if;
+    v_itens := v_itens || jsonb_build_array(interno.rede_fed_cartao(v_nota, v, v_impulso)
+      || jsonb_build_object('criado_em', v_linha.quando, 'publicado_em', coalesce(v_nota.publicado, v_nota.recebido_em), 'chave', v_linha.chave));
+    v_proximo := v_linha.quando::text || '|' || v_linha.chave;
+  end loop;
+  return jsonb_build_object('itens', v_itens, 'proximo', case when v_n > v_limite then v_proximo end);
+end $$;
+
+/** O perfil de alguém de fora como a Alumia o conhece (só o que é público e já foi buscado) e as últimas notas dele que a pessoa pode ver. */
+create or replace function public.rede_fed_perfil_remoto(p_ator text) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_r rede_fed_remotos; v_s rede_fed_seguindo;
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede_fed_remoto', 120, 60);
+  select * into v_r from rede_fed_remotos where ator = left(btrim(coalesce(p_ator, '')), 500);
+  if not found or interno.rede_fed_bloqueado(v_r.ator) or exists (select 1 from fediverso_bloqueios_recebidos b where b.perfil = v and b.ator = v_r.ator) then
+    perform interno.erro('nao_encontrado');
+  end if;
+  select * into v_s from rede_fed_seguindo where perfil = v and ator = v_r.ator;
+  return jsonb_build_object('ator', v_r.ator, 'handle', v_r.handle, 'nome', v_r.nome, 'resumo', v_r.resumo, 'url', v_r.url, 'avatar', v_r.avatar,
+    'tipo', v_r.tipo, 'servidor', interno.rede_fed_dominio(v_r.ator),
+    'seguindo', case when v_s.ator is null then 'nao' when v_s.aceito then 'sim' else 'pedido' end,
+    'segue_voce', exists (select 1 from rede_fed_seguidores x where x.perfil = v and x.ator = v_r.ator),
+    'bloqueado', exists (select 1 from fediverso_filtros f where f.usuario = v and f.ator = v_r.ator and f.tipo = 'bloqueio'),
+    'silenciado', exists (select 1 from fediverso_filtros f where f.usuario = v and f.ator = v_r.ator and f.tipo = 'silencio'),
+    'posts', coalesce((select jsonb_agg(interno.rede_fed_cartao(c, v) order by coalesce(c.publicado, c.recebido_em) desc)
+                       from rede_fed_recebidos c where c.id in (
+                         select y.id from rede_fed_recebidos y where y.ator = v_r.ator and interno.rede_fed_nota_ve(y, v)
+                         order by coalesce(y.publicado, y.recebido_em) desc limit 20)), '[]'::jsonb));
+end $$;
+
+/**
+ * O fio de uma nota de fora: a nota, o que vem acima (até 10 níveis: notas de fora guardadas ou o post daqui que começou a
+ * conversa) e as respostas (de fora e daqui), cada uma pela regra de quem pode ver.
+ */
+create or replace function public.rede_fed_fio_remoto(p_id text) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_c rede_fed_recebidos; v_x rede_fed_recebidos; v_l rede_posts; v_acima jsonb := '[]'::jsonb; v_ref text; v_n integer := 0;
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede2_ler', 600, 60);
+  select * into v_c from rede_fed_recebidos where id = left(coalesce(p_id, ''), 500);
+  if not found or not interno.rede_fed_nota_ve(v_c, v) then perform interno.erro('nao_encontrado'); end if;
+  v_ref := v_c.em_resposta_a;
+  while v_ref is not null and v_n < 10 loop
+    v_n := v_n + 1;
+    select * into v_x from rede_fed_recebidos where id = v_ref;
+    if found then
+      if not interno.rede_fed_nota_ve(v_x, v) then exit; end if;
+      v_acima := jsonb_build_array(interno.rede_fed_cartao(v_x, v)) || v_acima;
+      v_ref := v_x.em_resposta_a;
+    else
+      select * into v_l from rede_posts where id = interno.rede_fed_post_local(v_ref);
+      if found and interno.rede_ve(v_l, v) then v_acima := jsonb_build_array(interno.rede_post_v2(v_l, v)) || v_acima; end if;
+      exit;
+    end if;
+  end loop;
+  return jsonb_build_object('post', interno.rede_fed_cartao(v_c, v), 'acima', v_acima,
+    'respostas', coalesce((select jsonb_agg(z.j order by z.q) from (
+        select interno.rede_fed_cartao(c, v) as j, coalesce(c.publicado, c.recebido_em) as q
+        from rede_fed_recebidos c where c.em_resposta_a = v_c.id and interno.rede_fed_nota_ve(c, v)
+        union all
+        select interno.rede_post_v2(p, v), p.criado_em
+        from rede_posts p where p.resposta_a_remota = v_c.id and interno.rede_ve(p, v) and not interno.rede_silenciado(p, v)
+        order by 2 limit 200) z), '[]'::jsonb));
+end $$;
+
+/**
+ * Curtir (like) ou impulsionar (announce) uma nota de fora, ou desfazer (p_sim = false). Põe na fila a atividade para a caixa do
+ * autor (e, no impulso, também para quem segue a pessoa). Precisa do modo total e da federação ligada (a atividade sai assinada).
+ * Impulsionar só-seguidores não pode (como no Mastodon).
+ */
+create or replace function public.rede_fed_interagir(p_post_remoto text, p_tipo text, p_sim boolean default true) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_c rede_fed_recebidos; v_r rede_fed_remotos; v_i fediverso_interacoes; v_ativ text;
+begin
+  perform interno.aberta('comunidade');
+  if p_tipo is null or p_tipo not in ('like', 'announce') then perform interno.erro('invalido:tipo'); end if;
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  if not interno.rede_fed_total() or interno.rede_fed_impedimento(v) is not null or not exists (select 1 from rede_fed_atores where perfil = v and ligado) then
+    perform interno.erro('fediverso_desligado');
+  end if;
+  perform interno.limite('rede_fed_interagir', 300, 60);
+  select * into v_c from rede_fed_recebidos where id = left(coalesce(p_post_remoto, ''), 500);
+  if not found or not interno.rede_fed_nota_ve(v_c, v) then perform interno.erro('nao_encontrado'); end if;
+  if p_tipo = 'announce' and v_c.visibilidade = 'seguidores' then perform interno.erro('sem_permissao'); end if;
+  select * into v_r from rede_fed_remotos where ator = v_c.ator;
+  if v_r.inbox is null then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_sim, true) then
+    v_ativ := gen_random_uuid()::text;
+    insert into fediverso_interacoes (direcao, tipo, ator, perfil, objeto_remoto, atividade_id) values ('saida', p_tipo, v_c.ator, v, v_c.id, v_ativ)
+    on conflict do nothing returning * into v_i;
+  else
+    delete from fediverso_interacoes where direcao = 'saida' and tipo = p_tipo and perfil = v and objeto_remoto = v_c.id returning * into v_i;
+  end if;
+  if v_i.id is not null then
+    insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
+    values (v, case when coalesce(p_sim, true) then p_tipo else 'undo-' || p_tipo end, v_c.id, v_r.inbox, jsonb_build_object('atividade', v_i.atividade_id, 'ator_objeto', v_c.ator));
+    if p_tipo = 'announce' then
+      insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
+      select distinct v, case when coalesce(p_sim, true) then 'announce' else 'undo-announce' end, v_c.id, coalesce(s.inbox_compartilhada, s.inbox),
+             jsonb_build_object('atividade', v_i.atividade_id, 'ator_objeto', v_c.ator)
+      from rede_fed_seguidores s where s.perfil = v and not interno.rede_fed_bloqueado(s.inbox) and coalesce(s.inbox_compartilhada, s.inbox) <> v_r.inbox;
+    end if;
+  end if;
+  return jsonb_build_object('ok', true,
+    'curti', exists (select 1 from fediverso_interacoes i where i.direcao = 'saida' and i.tipo = 'like' and i.perfil = v and i.objeto_remoto = v_c.id),
+    'impulsionei', exists (select 1 from fediverso_interacoes i where i.direcao = 'saida' and i.tipo = 'announce' and i.perfil = v and i.objeto_remoto = v_c.id));
+end $$;
+
+/**
+ * Responder a uma nota de fora: cria o post daqui pelo rede_publicar de sempre (todas as regras: adesão, limite, dado pessoal),
+ * guarda a nota respondida (resposta_a_remota, que sai como inReplyTo) e garante a entrega na caixa do autor da nota. Nota só para
+ * seguidores não se responde daqui (a resposta sairia pública).
+ */
+create or replace function public.rede_fed_responder_remoto(p_post_remoto text, p_texto text, p_aviso text default '') returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_c rede_fed_recebidos; v_r rede_fed_remotos; v_res jsonb; v_id uuid; v_fed boolean;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede_fed_total() or interno.rede_fed_impedimento(v) is not null or not exists (select 1 from rede_fed_atores where perfil = v and ligado) then
+    perform interno.erro('fediverso_desligado');
+  end if;
+  select * into v_c from rede_fed_recebidos where id = left(coalesce(p_post_remoto, ''), 500);
+  if not found or not interno.rede_fed_nota_ve(v_c, v) then perform interno.erro('nao_encontrado'); end if;
+  if v_c.visibilidade = 'seguidores' then perform interno.erro('sem_permissao'); end if;
+  v_res := public.rede_publicar(jsonb_build_object('tipo', 'post', 'texto', p_texto, 'aviso', coalesce(p_aviso, '')));
+  v_id := (v_res ->> 'id')::uuid;
+  update rede_posts set resposta_a_remota = v_c.id where id = v_id;
+  v_fed := exists (select 1 from rede_fed_enviados e where e.post = v_id and e.apagado_em is null);
+  select * into v_r from rede_fed_remotos where ator = v_c.ator;
+  if v_fed and v_r.inbox is not null and not interno.rede_fed_bloqueado(v_r.inbox)
+     and not exists (select 1 from rede_fed_fila q where q.tipo = 'create' and q.objeto = v_id::text and q.destino in (v_r.inbox, coalesce(v_r.inbox_compartilhada, v_r.inbox))) then
+    insert into rede_fed_fila (perfil, tipo, objeto, destino) values (v, 'create', v_id::text, v_r.inbox);
+  end if;
+  return v_res || jsonb_build_object('resposta_a_remota', v_c.id, 'federado', v_fed);
+end $$;
+
+/**
+ * Denunciar uma nota ou um ator de fora. Fica na mediação daqui (fediverso_denuncias, saída). Com p_encaminhar, a Flag vai para a
+ * instância de lá, assinada pela instância daqui: leva os alvos e o comentário, nunca quem denunciou (LGPD art. 6º, III).
+ */
+create or replace function public.rede_fed_denunciar_remoto(p_alvo text, p_categoria text, p_texto text default '', p_encaminhar boolean default false) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); v_c rede_fed_recebidos; v_r rede_fed_remotos; v_alvo text := left(btrim(coalesce(p_alvo, '')), 500);
+  v_ator text; v_alvos jsonb; v_d fediverso_denuncias; v_destino text; v_texto text := interno.txt(coalesce(p_texto, ''), 'texto', 0, 1000);
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  if p_categoria is null or p_categoria not in ('menores', 'ameaca', 'exposicao', 'violencia', 'autolesao', 'odio', 'assedio', 'golpe', 'spam', 'outro') then perform interno.erro('invalido:categoria'); end if;
+  select * into v_c from rede_fed_recebidos where id = v_alvo;
+  if found then
+    if not interno.rede_fed_nota_ve(v_c, v) then perform interno.erro('nao_encontrado'); end if;
+    v_ator := v_c.ator; v_alvos := jsonb_build_array(v_c.ator, v_c.id);
+  else
+    select * into v_r from rede_fed_remotos where ator = v_alvo;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    v_ator := v_r.ator; v_alvos := jsonb_build_array(v_r.ator);
+  end if;
+  if interno.rede_fed_bloqueado(v_ator) then perform interno.erro('instancia_bloqueada'); end if;
+  select * into v_d from fediverso_denuncias where direcao = 'saida' and quem = v and alvos = v_alvos and situacao in ('aberta', 'em_analise') limit 1;
+  if found then return jsonb_build_object('protocolo', v_d.protocolo, 'encaminhada', v_d.encaminhar, 'ja', true); end if;
+  perform interno.rede2_limite('denunciar');
+  insert into fediverso_denuncias (direcao, dominio, ator, alvos, categoria, conteudo, quem, encaminhar)
+  values ('saida', interno.rede_fed_dominio(v_ator), v_ator, v_alvos, p_categoria, v_texto, v, coalesce(p_encaminhar, false))
+  returning * into v_d;
+  if v_d.encaminhar then
+    select coalesce(q.inbox_compartilhada, q.inbox) into v_destino from rede_fed_remotos q where q.ator = v_ator;
+    if v_destino is not null then
+      insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
+      values (null, 'flag', v_ator, v_destino, jsonb_build_object('alvos', v_alvos, 'conteudo', v_texto, 'denuncia', v_d.protocolo));
+    end if;
+  end if;
+  if interno.rede2_prioridade(p_categoria) = 1 then
+    insert into avisos (para, texto)
+    select distinct p.usuario, left('Denúncia prioritária ' || v_d.protocolo || ' sobre conteúdo de outro servidor do Fediverso (' || p_categoria || '). Abra a mediação de instâncias.', 500)
+    from papeis p where p.papel in ('coordenacao', 'vice', 'mediacao') and p.usuario <> v;
+  end if;
+  return jsonb_build_object('protocolo', v_d.protocolo, 'encaminhada', v_d.encaminhar and v_destino is not null, 'ja', false);
+end $$;
+
+/**
+ * Bloquear (ou desbloquear) alguém de fora: some da linha, dos avisos e do fio; deixa de seguir e de ser seguido; com a federação
+ * ligada, sai um Block (e um Undo dele ao desbloquear).
+ */
+create or replace function public.rede_fed_bloquear_pessoa(p_ator text, p_sim boolean default true) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); v_ator text := left(btrim(coalesce(p_ator, '')), 500); v_f fediverso_filtros; v_inbox text; v_ativ text;
+  v_ligado boolean := exists (select 1 from rede_fed_atores where perfil = v and ligado);
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede_fed_filtro', 60, 60);
+  if v_ator !~ '^https://[^\s]+$' then perform interno.erro('invalido:ator'); end if;
+  select inbox into v_inbox from rede_fed_remotos where ator = v_ator;
+  select * into v_f from fediverso_filtros where usuario = v and ator = v_ator;
+  if coalesce(p_sim, true) then
+    if v_f.tipo is distinct from 'bloqueio' then
+      v_ativ := case when v_ligado and v_inbox is not null and not interno.rede_fed_bloqueado(v_inbox) then gen_random_uuid()::text end;
+      insert into fediverso_filtros (usuario, ator, tipo, atividade) values (v, v_ator, 'bloqueio', v_ativ)
+      on conflict (usuario, ator) do update set tipo = 'bloqueio', atividade = excluded.atividade, criado_em = now();
+      if v_ativ is not null then
+        insert into rede_fed_fila (perfil, tipo, objeto, destino, extra) values (v, 'block', v_ator, v_inbox, jsonb_build_object('atividade', v_ativ));
+      end if;
+    end if;
+    delete from avisos where para = v and ator_remoto = v_ator;
+    delete from rede_fed_seguidores where perfil = v and ator = v_ator;
+    if v_ligado and v_inbox is not null then
+      insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
+      select v, 'undo-follow', s.ator, v_inbox, jsonb_build_object('pedido', s.pedido) from rede_fed_seguindo s where s.perfil = v and s.ator = v_ator;
+    end if;
+    delete from rede_fed_seguindo where perfil = v and ator = v_ator;
+  elsif v_f.tipo = 'bloqueio' then
+    delete from fediverso_filtros where usuario = v and ator = v_ator;
+    if v_f.atividade is not null and v_ligado and v_inbox is not null then
+      insert into rede_fed_fila (perfil, tipo, objeto, destino, extra) values (v, 'undo-block', v_ator, v_inbox, jsonb_build_object('atividade', v_f.atividade));
+    end if;
+  end if;
+  return jsonb_build_object('ok', true, 'bloqueado', exists (select 1 from fediverso_filtros f where f.usuario = v and f.ator = v_ator and f.tipo = 'bloqueio'));
+end $$;
+
+/** Silenciar (ou não) alguém de fora: some da linha e dos avisos, só aqui (nada sai). Quem está bloqueado continua bloqueado. */
+create or replace function public.rede_fed_silenciar_pessoa(p_ator text, p_sim boolean default true) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_ator text := left(btrim(coalesce(p_ator, '')), 500);
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede_fed_filtro', 60, 60);
+  if v_ator !~ '^https://[^\s]+$' then perform interno.erro('invalido:ator'); end if;
+  if coalesce(p_sim, true) then
+    insert into fediverso_filtros (usuario, ator, tipo) values (v, v_ator, 'silencio') on conflict (usuario, ator) do nothing;
+  else
+    delete from fediverso_filtros where usuario = v and ator = v_ator and tipo = 'silencio';
+  end if;
+  return jsonb_build_object('ok', true, 'silenciado', exists (select 1 from fediverso_filtros f where f.usuario = v and f.ator = v_ator and f.tipo = 'silencio'));
+end $$;
+
+/** A mediação lê as denúncias com o Fediverso (as que chegaram de fora e as que saem daqui). Sem o nome de quem denunciou. */
+create or replace function public.rede_fed_denuncias_listar(p_situacao text default 'aberta') returns jsonb
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.media() or interno.cuida()) then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', d.id, 'protocolo', d.protocolo, 'direcao', d.direcao, 'dominio', d.dominio, 'ator', d.ator,
+      'alvos', d.alvos, 'categoria', d.categoria, 'conteudo', d.conteudo, 'encaminhar', d.encaminhar, 'situacao', d.situacao,
+      'denuncias', to_jsonb(d.denuncias), 'criado_em', d.criado_em) order by d.criado_em desc)
+    from (select * from fediverso_denuncias where p_situacao is null or situacao = p_situacao order by criado_em desc limit 200) d), '[]'::jsonb);
+end $$;
+
+/** A mediação decide uma denúncia com o Fediverso. */
+create or replace function public.rede_fed_denuncia_decidir(p_id uuid, p_situacao text) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.media() or interno.cuida()) then perform interno.erro('sem_permissao'); end if;
+  if p_situacao is null or p_situacao not in ('aberta', 'em_analise', 'resolvida', 'descartada') then perform interno.erro('invalido:situacao'); end if;
+  update fediverso_denuncias set situacao = p_situacao where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('rede_fed_denuncia', p_id::text, jsonb_build_object('situacao', p_situacao));
+  return jsonb_build_object('ok', true);
+end $$;
