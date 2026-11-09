@@ -565,7 +565,7 @@ create or replace function interno.rede_fed_cartao(c interno.rede_fed_recebidos,
     'fixado', false, 'travado', false, 'aceita', null, 'verificada', false,
     'resposta_a', c.em_resposta_a, 'raiz', coalesce(c.contexto, c.id), 'nivel', 0,
     'aviso', c.aviso, 'sensivel', c.sensivel or c.aviso <> '', 'cita', null, 'chamado', null,
-    'meu', false, 'retido', false, 'motivo', '', 'modero', false,
+    'meu', false, 'retido', false, 'motivo', '', 'modero', false) || jsonb_build_object(
     'autor', jsonb_build_object('id', null, 'codinome', coalesce(nullif(r.nome, ''), r.handle, interno.rede_fed_dominio(c.ator)),
                                 'handle', r.handle, 'perfil', false, 'equipe', false, 'remoto', true),
     'ator_remoto', c.ator, 'handle_remoto', r.handle, 'nome_remoto', r.nome, 'avatar', r.avatar,
@@ -993,4 +993,612 @@ begin
   if not found then perform interno.erro('nao_encontrado'); end if;
   perform interno.registrar('rede_fed_denuncia', p_id::text, jsonb_build_object('situacao', p_situacao));
   return jsonb_build_object('ok', true);
+end $$;
+
+-- ── 7. O que o servidor do site chama (com o segredo da federação) ─────────────────────────────────────────────────────
+
+/**
+ * As ações do servidor do site, numa função só, todas atrás do segredo (interno.rede_fed_segredo). As de 2026-11-alumia continuam
+ * iguais (ator, chaves, instancia, outbox, post, seguidores, seguidor, remoto, remoto_salvar, resposta_follow, ator_apagado,
+ * recebido, recebido_apagado, seguir, fila_pegar, fila_feito, contagem, bloqueado), com estas mudanças e as novas (seção 3.1):
+ *   ator {handle}               → também {avatar_url, capa_url, discoverable, trancado, total, consentimento_versao}
+ *   post {id}                   → também {midia, mencoes, visibilidade, resposta_a_remota, raiz} (rede_fed_post_json)
+ *   seguidor                    → no modo total, avisa a pessoa (fed_seguidor); recusa quem ela bloqueou
+ *   remoto_salvar               → também {avatar, tipo}
+ *   seguindo_publico {handle}   → {total}  (só o número de quem a pessoa segue lá fora)
+ *   interacao {tipo: like|announce, ator, atividade_id, post_local, sim} → {ok, perfil_autor} (avisa o autor; sim=false desfaz)
+ *   nota_recebida {id, ator, url, html_limpo, texto, aviso, sensivel, publicado, em_resposta_a, contexto, visibilidade,
+ *                  mencoes_locais, midia} → {guardado, motivo}
+ *   denuncia_recebida {ator_instancia, alvos, conteudo} → {protocolo}
+ *   bloqueio_recebido {ator, alvo_handle, sim} → {ok}
+ *   fila_pegar {limite ≤ 200}   → pula domínio morto; cada item diz quem assina (pessoa, grupo ou instância)
+ *   fila_feito {id, ok, definitivo, erro, status, dominio, espera} → 410 apaga o seguidor, 429 respeita a espera, circuito por domínio
+ *   dominio_estado {dominio}    → {morto_ate, falhas}
+ *   midia {id}                  → {caminho, tipo, alt} da mídia de um post que pode sair (para a rota pública da mídia)
+ *   contagem_ativos             → {mes, semestre} (NodeInfo: activeMonth, activeHalfyear)
+ *   comunidade {slug}, comunidade_chaves {slug, publica, privada}, comunidade_seguidores {slug},
+ *   comunidade_seguidor {slug, ator, inbox, compartilhada, pedido, sim}, comunidade_outbox {slug, antes, limite} (Group)
+ */
+create or replace function public.rede_fed_servidor(p_segredo text, p_acao text, p jsonb default '{}'::jsonb) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  a rede_fed_atores;
+  f perfis;
+  x rede_posts;
+  v_limite integer;
+  v_antes timestamptz;
+  v_res jsonb;
+  v_n integer;
+  v_t smallint;
+  v_ator text := left(coalesce(p ->> 'ator', ''), 500);
+  v_q rede_fed_fila;
+  v_d fediverso_dominios;
+  v_i fediverso_interacoes;
+  v_g fediverso_grupos;
+  v_com rede_comunidades;
+  v_tipo text; v_sim boolean; v_id text; v_ref text; v_vis text; v_html text; v_midia jsonb; v_dom text; v_slug text; v_prot text; v_texto text;
+  v_post uuid; v_resp_local uuid; v_post_local uuid; v_autor uuid; v_perfil uuid; v_uuid uuid;
+  v_segue boolean; v_resp_nota boolean; v_novo boolean; v_conexao boolean;
+  v_mencoes uuid[]; v_den uuid[];
+  v_publicado timestamptz; v_status integer; v_espera integer;
+begin
+  perform interno.rede_fed_segredo(p_segredo);
+  p := coalesce(p, '{}'::jsonb);
+  if v_ator <> '' and v_ator !~ '^https://[^\s]+$' then perform interno.erro('invalido:ator'); end if;
+
+  case p_acao
+  when 'ator' then
+    select * into a from rede_fed_atores where handle = lower(coalesce(p ->> 'handle', '')) order by ligado desc, desligado_em desc nulls first limit 1;
+    if not found then return jsonb_build_object('estado', 'inexistente'); end if;
+    select * into f from perfis where id = a.perfil;
+    if a.ligado and interno.rede_fed_impedimento(a.perfil) is null then
+      return jsonb_build_object('estado', 'ligado', 'perfil', a.perfil, 'handle', a.handle, 'nome', coalesce(nullif(f.rede_codinome, ''), a.handle),
+        'bio', case when f.rede_codinome_ok then left(coalesce(f.rede_bio, ''), 500) else '' end, 'ligado_em', a.ligado_em,
+        'chave_publica', a.chave_publica, 'chave_privada', a.chave_privada,
+        -- Só o rosto e a capa da galeria (arquivos públicos do site). A imagem enviada pela pessoa só aparece para quem tem conta
+        -- (rede_perfil_imagem): não sai para fora sem um consentimento próprio (LGPD art. 6º, III).
+        'avatar_url', case when f.rede_avatar ~ '^a(0[1-9]|1[0-9]|2[0-4])$' then '/rede/avatares/' || f.rede_avatar || '.svg' end,
+        'capa_url', case when f.rede_capa ~ '^c0[1-8]$' then '/rede/capas/' || f.rede_capa || '.svg' end,
+        'discoverable', a.descobrivel, 'trancado', f.rede_modo = 'trancado',
+        'total', interno.rede_fed_total(), 'consentimento_versao', a.consentimento_versao);
+    end if;
+    -- Desligado com entregas ainda na fila (as retiradas): o ator continua com a chave, sem nada mais.
+    if exists (select 1 from rede_fed_fila q where q.perfil = a.perfil and q.feito_em is null) and a.chave_publica is not null then
+      return jsonb_build_object('estado', 'saindo', 'perfil', a.perfil, 'handle', a.handle, 'chave_publica', a.chave_publica, 'chave_privada', a.chave_privada);
+    end if;
+    return jsonb_build_object('estado', 'desligado');
+
+  when 'chaves' then
+    if coalesce(p ->> 'publica', '') !~ '^-----BEGIN PUBLIC KEY-----' or char_length(coalesce(p ->> 'privada', '')) < 100 then perform interno.erro('invalido:chave'); end if;
+    update rede_fed_atores set chave_publica = p ->> 'publica', chave_privada = p ->> 'privada'
+    where perfil = (p ->> 'perfil')::uuid and chave_publica is null;
+    select * into a from rede_fed_atores where perfil = (p ->> 'perfil')::uuid;
+    return jsonb_build_object('chave_publica', a.chave_publica, 'chave_privada', a.chave_privada);
+
+  when 'instancia' then
+    if (p ->> 'publica') is not null then
+      if (p ->> 'publica') !~ '^-----BEGIN PUBLIC KEY-----' or char_length(coalesce(p ->> 'privada', '')) < 100 then perform interno.erro('invalido:chave'); end if;
+      insert into configuracoes (chave, valor) values ('fediverso_instancia', jsonb_build_object('publica', p ->> 'publica', 'privada', p ->> 'privada'))
+      on conflict (chave) do nothing;
+    end if;
+    return coalesce((select valor from configuracoes where chave = 'fediverso_instancia'), '{}'::jsonb);
+
+  when 'outbox' then
+    select * into a from rede_fed_atores where handle = lower(coalesce(p ->> 'handle', '')) and ligado;
+    if not found then return jsonb_build_object('total', 0, 'itens', '[]'::jsonb); end if;
+    v_limite := least(greatest(coalesce((p ->> 'limite')::integer, 20), 1), 40);
+    v_antes := nullif(p ->> 'antes', '')::timestamptz;
+    select count(*)::integer into v_n from rede_fed_enviados e where e.perfil = a.perfil and e.apagado_em is null;
+    select coalesce(jsonb_agg(interno.rede_fed_post_json(r) order by r.criado_em desc), '[]'::jsonb) into v_res
+    from (select r.* from rede_fed_enviados e join rede_posts r on r.id = e.post
+          where e.perfil = a.perfil and e.apagado_em is null and (v_antes is null or r.criado_em < v_antes) and interno.rede_fed_federavel(r)
+          order by r.criado_em desc limit v_limite) r;
+    return jsonb_build_object('total', v_n, 'itens', v_res);
+
+  when 'post' then
+    begin
+      select * into x from rede_posts where id = (p ->> 'id')::uuid;
+    exception when others then
+      return 'null'::jsonb;
+    end;
+    if not found or not interno.rede_fed_federavel(x) then
+      -- Já saiu e foi retirado: a federação responde 410 (Gone) em vez de 404.
+      if exists (select 1 from rede_fed_enviados e where e.post::text = p ->> 'id' and e.apagado_em is not null) then return jsonb_build_object('apagado', true); end if;
+      return 'null'::jsonb;
+    end if;
+    return interno.rede_fed_post_json(x);
+
+  when 'midia' then
+    begin
+      v_uuid := (p ->> 'id')::uuid;
+    exception when others then
+      return 'null'::jsonb;
+    end;
+    select * into x from rede_posts where id = (select m.post from rede_midia m where m.id = v_uuid);
+    if not found or not interno.rede_fed_federavel(x) then return 'null'::jsonb; end if;
+    return (select jsonb_build_object('caminho', m.caminho, 'tipo', m.tipo, 'alt', m.alt, 'largura', m.largura, 'altura', m.altura) from rede_midia m where m.id = v_uuid);
+
+  when 'seguidores' then
+    select * into a from rede_fed_atores where handle = lower(coalesce(p ->> 'handle', '')) and ligado;
+    if not found then return jsonb_build_object('total', 0); end if;
+    return jsonb_build_object('total', (select count(*)::integer from rede_fed_seguidores where perfil = a.perfil));
+
+  when 'seguindo_publico' then
+    select * into a from rede_fed_atores where handle = lower(coalesce(p ->> 'handle', '')) and ligado;
+    if not found then return jsonb_build_object('total', 0); end if;
+    return jsonb_build_object('total', (select count(*)::integer from rede_fed_seguindo where perfil = a.perfil and aceito));
+
+  when 'seguidor' then
+    select * into a from rede_fed_atores where handle = lower(coalesce(p ->> 'handle', '')) and ligado;
+    if not found or interno.rede_fed_impedimento(a.perfil) is not null then return jsonb_build_object('ok', false, 'motivo', 'desligado'); end if;
+    if interno.rede_fed_bloqueado(v_ator) or interno.rede_fed_bloqueado(p ->> 'inbox') then return jsonb_build_object('ok', false, 'motivo', 'bloqueado'); end if;
+    if coalesce((p ->> 'sim')::boolean, true) then
+      if exists (select 1 from fediverso_filtros ff where ff.usuario = a.perfil and ff.ator = v_ator and ff.tipo = 'bloqueio') then
+        return jsonb_build_object('ok', false, 'motivo', 'bloqueado');
+      end if;
+      if coalesce(p ->> 'inbox', '') !~ '^https://[^\s]+$' or interno.rede_fed_dominio(p ->> 'inbox') <> interno.rede_fed_dominio(v_ator) then perform interno.erro('invalido:inbox'); end if;
+      v_novo := null;
+      insert into rede_fed_seguidores (perfil, ator, inbox, inbox_compartilhada, pedido)
+      values (a.perfil, v_ator, p ->> 'inbox',
+              case when coalesce(p ->> 'compartilhada', '') ~ '^https://[^\s]+$' and interno.rede_fed_dominio(p ->> 'compartilhada') = interno.rede_fed_dominio(v_ator) then p ->> 'compartilhada' end,
+              left(coalesce(p ->> 'pedido', ''), 500))
+      on conflict (perfil, ator) do update set inbox = excluded.inbox, inbox_compartilhada = excluded.inbox_compartilhada, pedido = excluded.pedido
+      returning (xmax = 0) into v_novo;
+      insert into rede_fed_fila (perfil, tipo, objeto, destino, extra) values (a.perfil, 'accept', v_ator, p ->> 'inbox', jsonb_build_object('pedido', left(coalesce(p ->> 'pedido', ''), 500)));
+      delete from fediverso_bloqueios_recebidos where perfil = a.perfil and ator = v_ator;
+      if coalesce(v_novo, false) and interno.rede_fed_total() then perform interno.rede_fed_avisar(a.perfil, 'fed_seguidor', null, v_ator, null); end if;
+    else
+      delete from rede_fed_seguidores where perfil = a.perfil and ator = v_ator;
+      delete from avisos where para = a.perfil and tipo = 'fed_seguidor' and ator_remoto = v_ator;
+    end if;
+    return jsonb_build_object('ok', true, 'perfil', a.perfil);
+
+  when 'remoto' then
+    return coalesce((select to_jsonb(r) from rede_fed_remotos r where r.ator = v_ator or r.chave_id = left(coalesce(p ->> 'chave_id', ''), 600) limit 1), 'null'::jsonb);
+
+  when 'remoto_salvar' then
+    if v_ator = '' then perform interno.erro('invalido:ator'); end if;
+    if interno.rede_fed_bloqueado(v_ator) then return jsonb_build_object('ok', false, 'motivo', 'bloqueado'); end if;
+    insert into rede_fed_remotos (ator, chave_id, chave_publica, inbox, inbox_compartilhada, handle, nome, resumo, url, avatar, tipo, buscado_em)
+    values (v_ator, left(p ->> 'chave_id', 600), left(p ->> 'chave_publica', 4000),
+            case when coalesce(p ->> 'inbox', '') ~ '^https://[^\s]+$' then left(p ->> 'inbox', 500) end,
+            case when coalesce(p ->> 'compartilhada', '') ~ '^https://[^\s]+$' then left(p ->> 'compartilhada', 500) end,
+            left(p ->> 'handle', 200), left(p ->> 'nome', 200), left(p ->> 'resumo', 1000),
+            case when coalesce(p ->> 'url', '') ~ '^https://[^\s]+$' then left(p ->> 'url', 500) end,
+            case when coalesce(p ->> 'avatar', '') ~ '^https://[^\s"''<>]+$' and char_length(p ->> 'avatar') <= 500 then p ->> 'avatar' end,
+            case when coalesce(p ->> 'tipo', '') ~ '^[A-Za-z]{2,40}$' then p ->> 'tipo' end, now())
+    on conflict (ator) do update set chave_id = excluded.chave_id, chave_publica = excluded.chave_publica, inbox = excluded.inbox,
+      inbox_compartilhada = excluded.inbox_compartilhada, handle = excluded.handle, nome = excluded.nome, resumo = excluded.resumo,
+      url = excluded.url, avatar = coalesce(excluded.avatar, case when p ? 'avatar' then null else rede_fed_remotos.avatar end),
+      tipo = coalesce(excluded.tipo, rede_fed_remotos.tipo), buscado_em = now();
+    return jsonb_build_object('ok', true);
+
+  when 'resposta_follow' then
+    if coalesce((p ->> 'aceito')::boolean, false) then
+      update rede_fed_seguindo set aceito = true where ator = v_ator and (pedido = coalesce(p ->> 'pedido', '') or coalesce(p ->> 'pedido', '') = '');
+    else
+      delete from rede_fed_seguindo where ator = v_ator and (pedido = coalesce(p ->> 'pedido', '') or coalesce(p ->> 'pedido', '') = '');
+    end if;
+    get diagnostics v_n = row_count;
+    return jsonb_build_object('ok', v_n > 0);
+
+  when 'ator_apagado' then
+    delete from rede_fed_seguidores where ator = v_ator;
+    delete from rede_fed_seguindo where ator = v_ator;
+    delete from rede_fed_recebidos where ator = v_ator;
+    delete from rede_fed_remotos where ator = v_ator;
+    delete from fediverso_interacoes where direcao = 'entrada' and ator = v_ator;
+    delete from fediverso_grupo_seguidores where ator = v_ator;
+    delete from fediverso_bloqueios_recebidos where ator = v_ator;
+    delete from avisos where ator_remoto = v_ator;
+    return jsonb_build_object('ok', true);
+
+  when 'recebido' then
+    if not exists (select 1 from rede_fed_seguindo s where s.ator = v_ator and s.aceito) or interno.rede_fed_bloqueado(v_ator) then
+      return jsonb_build_object('guardado', false);
+    end if;
+    if coalesce(p ->> 'id', '') !~ '^https://[^\s]+$' or interno.rede_fed_dominio(p ->> 'id') <> interno.rede_fed_dominio(v_ator) then perform interno.erro('invalido:id'); end if;
+    insert into rede_fed_recebidos (id, ator, url, texto, aviso, publicado)
+    values (left(p ->> 'id', 500), v_ator, case when coalesce(p ->> 'url', '') ~ '^https://[^\s]+$' then left(p ->> 'url', 500) end,
+            left(coalesce(p ->> 'texto', ''), 3000), left(coalesce(p ->> 'aviso', ''), 200),
+            least(coalesce(nullif(p ->> 'publicado', '')::timestamptz, now()), now()))
+    on conflict (id) do update set texto = excluded.texto, aviso = excluded.aviso;
+    return jsonb_build_object('guardado', true);
+
+  when 'nota_recebida' then
+    v_id := left(coalesce(p ->> 'id', ''), 500);
+    if v_ator = '' then perform interno.erro('invalido:ator'); end if;
+    if interno.rede_fed_bloqueado(v_ator) then return jsonb_build_object('guardado', false, 'motivo', 'bloqueado'); end if;
+    if v_id !~ '^https://[^\s]+$' or interno.rede_fed_dominio(v_id) <> interno.rede_fed_dominio(v_ator) then perform interno.erro('invalido:id'); end if;
+    v_vis := coalesce(nullif(p ->> 'visibilidade', ''), 'publico');
+    -- Direto ou limitado: nunca guardado (a Alumia não tem DM federada); quem mandou recebe 202 do mesmo jeito.
+    if v_vis not in ('publico', 'nao_listado', 'seguidores') then return jsonb_build_object('guardado', false, 'motivo', 'direto'); end if;
+    v_segue := exists (select 1 from rede_fed_seguindo s where s.ator = v_ator and s.aceito);
+    v_ref := nullif(left(coalesce(p ->> 'em_resposta_a', ''), 500), '');
+    v_resp_local := null; v_post_local := null; v_resp_nota := false; v_mencoes := '{}';
+    if interno.rede_fed_total() then
+      v_resp_local := interno.rede_fed_post_local(v_ref);
+      v_post_local := v_resp_local;
+      if v_resp_local is null and v_ref is not null then
+        select true, rc.post_local into v_resp_nota, v_post_local from rede_fed_recebidos rc where rc.id = v_ref;
+        v_resp_nota := coalesce(v_resp_nota, false);
+      end if;
+      select coalesce(array_agg(distinct ra.perfil), '{}') into v_mencoes
+      from jsonb_array_elements_text(case when jsonb_typeof(p -> 'mencoes_locais') = 'array' then p -> 'mencoes_locais' else '[]'::jsonb end) with ordinality h (nome, o)
+      join rede_fed_atores ra on ra.handle = lower(split_part(btrim(h.nome, ' @'), '@', 1)) and ra.ligado
+      where h.o <= 50 and interno.rede_fed_impedimento(ra.perfil) is null
+        and not exists (select 1 from fediverso_bloqueios_recebidos b where b.perfil = ra.perfil and b.ator = v_ator);
+    end if;
+    -- Só-seguidores: só se alguém daqui segue o autor (e só essa pessoa vê: interno.rede_fed_nota_ve).
+    if v_vis = 'seguidores' and not v_segue then return jsonb_build_object('guardado', false, 'motivo', 'sem_seguidor'); end if;
+    if not (v_segue or v_post_local is not null or v_resp_nota or cardinality(v_mencoes) > 0) then
+      return jsonb_build_object('guardado', false, 'motivo', 'sem_ligacao');
+    end if;
+    v_html := left(p ->> 'html_limpo', 20000);
+    if not interno.rede_fed_html_ok(v_html) then v_html := null; end if;
+    v_midia := coalesce((select jsonb_agg(jsonb_build_object(
+        'url', e ->> 'url', 'tipo', e ->> 'tipo', 'alt', left(coalesce(e ->> 'alt', ''), 1500),
+        'largura', case when coalesce(e ->> 'largura', '') ~ '^[0-9]{1,5}$' then (e ->> 'largura')::integer end,
+        'altura', case when coalesce(e ->> 'altura', '') ~ '^[0-9]{1,5}$' then (e ->> 'altura')::integer end,
+        'blurhash', case when coalesce(e ->> 'blurhash', '') ~ '^[^\s"''<>\\]{6,100}$' then e ->> 'blurhash' end) order by o)
+      from jsonb_array_elements(case when jsonb_typeof(p -> 'midia') = 'array' then p -> 'midia' else '[]'::jsonb end) with ordinality m (e, o)
+      where o <= 4 and jsonb_typeof(e) = 'object' and coalesce(e ->> 'url', '') ~ '^https://[^\s"''<>\\]+$' and char_length(e ->> 'url') <= 500
+        and coalesce(e ->> 'tipo', '') ~ '^(image|video|audio)/[a-z0-9.+-]{1,60}$'), '[]'::jsonb);
+    begin
+      v_publicado := least(coalesce(nullif(p ->> 'publicado', '')::timestamptz, now()), now());
+    exception when others then
+      v_publicado := now();
+    end;
+    v_novo := null;
+    insert into rede_fed_recebidos (id, ator, url, texto, aviso, publicado, html, sensivel, visibilidade, em_resposta_a, contexto, midia, post_local)
+    values (v_id, v_ator, case when coalesce(p ->> 'url', '') ~ '^https://[^\s]+$' then left(p ->> 'url', 500) end,
+            left(coalesce(p ->> 'texto', ''), 3000), left(coalesce(p ->> 'aviso', ''), 200), v_publicado,
+            v_html, coalesce(p ->> 'sensivel', '') = 'true', v_vis, v_ref,
+            case when coalesce(p ->> 'contexto', '') ~ '^https://[^\s]+$' then left(p ->> 'contexto', 500) end, v_midia, v_post_local)
+    on conflict (id) do update set texto = excluded.texto, aviso = excluded.aviso, html = excluded.html, sensivel = excluded.sensivel,
+      midia = excluded.midia, editado_em = now()
+    where rede_fed_recebidos.ator = excluded.ator
+    returning (xmax = 0) into v_novo;
+    if v_novo is null then return jsonb_build_object('guardado', false, 'motivo', 'outro_ator'); end if;
+    insert into fediverso_mencoes (nota, perfil) select v_id, u from unnest(v_mencoes) u on conflict do nothing;
+    if v_novo then
+      if v_resp_local is not null then
+        select autor into v_autor from rede_posts where id = v_resp_local;
+        perform interno.rede_fed_avisar(v_autor, 'fed_resposta', v_resp_local, v_ator, v_id);
+      end if;
+      perform interno.rede_fed_avisar(u, 'fed_mencao', null, v_ator, v_id) from unnest(v_mencoes) u
+      where u is distinct from v_autor
+        and (v_vis <> 'seguidores' or exists (select 1 from rede_fed_seguindo s where s.perfil = u and s.ator = v_ator and s.aceito));
+    end if;
+    return jsonb_build_object('guardado', true, 'novo', v_novo,
+      'motivo', case when v_resp_local is not null then 'resposta' when cardinality(v_mencoes) > 0 then 'mencao' when v_post_local is not null or v_resp_nota then 'fio' else 'segue' end);
+
+  when 'recebido_apagado' then
+    delete from rede_fed_recebidos where id = left(coalesce(p ->> 'id', ''), 500) and ator = v_ator;
+    delete from fediverso_interacoes where direcao = 'entrada' and objeto_remoto = left(coalesce(p ->> 'id', ''), 500);
+    delete from avisos where objeto_remoto = left(coalesce(p ->> 'id', ''), 500) and ator_remoto = v_ator;
+    return jsonb_build_object('ok', true);
+
+  when 'interacao' then
+    v_tipo := nullif(p ->> 'tipo', '');
+    v_sim := coalesce(p ->> 'sim', 'true') <> 'false';
+    if (v_sim or v_tipo is not null) and (v_tipo is null or v_tipo not in ('like', 'announce')) then perform interno.erro('invalido:tipo'); end if;
+    if v_ator = '' then perform interno.erro('invalido:ator'); end if;
+    if not interno.rede_fed_total() then return jsonb_build_object('ok', false, 'motivo', 'desligado'); end if;
+    if interno.rede_fed_bloqueado(v_ator) then return jsonb_build_object('ok', false, 'motivo', 'bloqueado'); end if;
+    v_id := nullif(left(coalesce(p ->> 'atividade_id', ''), 500), '');
+    v_ref := nullif(left(coalesce(p ->> 'post_local', ''), 500), '');
+    v_post := interno.rede_fed_post_local(v_ref);
+    if v_post is not null then select autor into v_autor from rede_posts where id = v_post; end if;
+    if v_sim then
+      if v_post is not null then
+        if exists (select 1 from fediverso_filtros ff where ff.usuario = v_autor and ff.ator = v_ator and ff.tipo = 'bloqueio') then
+          return jsonb_build_object('ok', false, 'motivo', 'bloqueado');
+        end if;
+        v_i := null;
+        insert into fediverso_interacoes (direcao, tipo, ator, post_local, atividade_id) values ('entrada', v_tipo, v_ator, v_post, v_id)
+        on conflict do nothing returning * into v_i;
+        if v_i.id is not null then
+          perform interno.rede_fed_avisar(v_autor, case v_tipo when 'like' then 'fed_curtida' else 'fed_impulso' end, v_post, v_ator, null);
+        end if;
+        return jsonb_build_object('ok', true, 'perfil_autor', v_autor);
+      elsif v_tipo = 'announce' and coalesce(v_ref, '') ~ '^https://[^\s]+$' and not interno.rede_fed_bloqueado(v_ref)
+            and exists (select 1 from rede_fed_seguindo s where s.ator = v_ator and s.aceito) then
+        -- Impulso de uma nota de fora por quem alguém daqui segue: entra na linha como impulso (rede_fed_linha_mista).
+        insert into fediverso_interacoes (direcao, tipo, ator, objeto_remoto, atividade_id) values ('entrada', 'announce', v_ator, v_ref, v_id)
+        on conflict do nothing;
+        return jsonb_build_object('ok', true, 'perfil_autor', null);
+      end if;
+      return jsonb_build_object('ok', false, 'motivo', 'sem_ligacao');
+    end if;
+    -- Undo: pelo post, pela nota impulsionada ou pelo id da atividade desfeita.
+    with apagadas as (
+      delete from fediverso_interacoes fi
+      where fi.direcao = 'entrada' and fi.ator = v_ator and (v_tipo is null or fi.tipo = v_tipo)
+        and ((v_post is not null and fi.post_local = v_post) or (v_ref is not null and fi.objeto_remoto = v_ref) or (v_id is not null and fi.atividade_id = v_id))
+      returning fi.post_local, fi.tipo
+    )
+    delete from avisos av using apagadas d
+    where av.ator_remoto = v_ator and av.post = d.post_local and av.tipo = case d.tipo when 'like' then 'fed_curtida' else 'fed_impulso' end;
+    return jsonb_build_object('ok', true, 'perfil_autor', v_autor);
+
+  when 'denuncia_recebida' then
+    v_ref := left(coalesce(nullif(p ->> 'ator_instancia', ''), v_ator), 500);
+    if v_ref !~ '^https://[^\s]+$' then perform interno.erro('invalido:ator'); end if;
+    if interno.rede_fed_bloqueado(v_ref) then return jsonb_build_object('protocolo', null, 'ok', false, 'motivo', 'bloqueado'); end if;
+    v_dom := interno.rede_fed_dominio(v_ref);
+    -- Freio por instância: até 30 Flags por hora.
+    if (select count(*) from fediverso_denuncias fd where fd.direcao = 'entrada' and fd.dominio = v_dom and fd.criado_em > now() - interval '1 hour') >= 30 then
+      return jsonb_build_object('protocolo', null, 'ok', false, 'motivo', 'muitos_pedidos');
+    end if;
+    v_res := coalesce((select jsonb_agg(left(e, 500) order by o) from jsonb_array_elements_text(case when jsonb_typeof(p -> 'alvos') = 'array' then p -> 'alvos' else '[]'::jsonb end) with ordinality z (e, o)
+                       where o <= 20 and e ~ '^https://[^\s]+$'), '[]'::jsonb);
+    v_texto := left('Denúncia recebida de outro servidor do Fediverso (' || v_dom || '): ' || left(coalesce(p ->> 'conteudo', ''), 1800), 2000);
+    v_den := '{}';
+    -- Cada post e cada perfil daqui apontado vira uma denúncia na fila da mediação (rede_denuncias), sem autor (veio de fora).
+    for v_uuid in
+      select distinct e.post from jsonb_array_elements_text(v_res) z (u) join rede_fed_enviados e on e.post = interno.rede_fed_uuid_local(z.u)
+      join rede_posts rp on rp.id = e.post
+    loop
+      insert into rede_denuncias (alvo_tipo, alvo, categoria, prioridade, texto, quem) values ('post', v_uuid::text, 'outro', 3, v_texto, null) returning id into v_post;
+      v_den := v_den || v_post;
+    end loop;
+    for v_uuid in
+      select distinct ra.perfil from jsonb_array_elements_text(v_res) z (u) join rede_fed_atores ra on ra.handle = interno.rede_fed_handle_local(z.u)
+      join perfis pf on pf.id = ra.perfil
+    loop
+      insert into rede_denuncias (alvo_tipo, alvo, categoria, prioridade, texto, quem) values ('perfil', v_uuid::text, 'outro', 3, v_texto, null) returning id into v_post;
+      v_den := v_den || v_post;
+    end loop;
+    insert into fediverso_denuncias (direcao, dominio, ator, alvos, conteudo, denuncias)
+    values ('entrada', v_dom, v_ref, v_res, left(coalesce(p ->> 'conteudo', ''), 2000), v_den)
+    returning protocolo into v_prot;
+    return jsonb_build_object('protocolo', v_prot, 'ok', true, 'locais', cardinality(v_den));
+
+  when 'bloqueio_recebido' then
+    if v_ator = '' then perform interno.erro('invalido:ator'); end if;
+    v_ref := coalesce(interno.rede_fed_handle_local(p ->> 'alvo_handle'), lower(split_part(btrim(coalesce(p ->> 'alvo_handle', ''), ' @'), '@', 1)));
+    select ra.perfil into v_perfil from rede_fed_atores ra where ra.handle = v_ref order by ra.ligado desc limit 1;
+    if v_perfil is null or not exists (select 1 from perfis where id = v_perfil) then return jsonb_build_object('ok', false, 'motivo', 'inexistente'); end if;
+    if coalesce(p ->> 'sim', 'true') <> 'false' then
+      insert into fediverso_bloqueios_recebidos (perfil, ator) values (v_perfil, v_ator) on conflict do nothing;
+      delete from rede_fed_seguidores where perfil = v_perfil and ator = v_ator;
+      delete from rede_fed_seguindo where perfil = v_perfil and ator = v_ator;
+      delete from avisos where para = v_perfil and ator_remoto = v_ator;
+    else
+      delete from fediverso_bloqueios_recebidos where perfil = v_perfil and ator = v_ator;
+    end if;
+    return jsonb_build_object('ok', true);
+
+  when 'seguir' then
+    select * into a from rede_fed_atores where perfil = (p ->> 'perfil')::uuid and ligado;
+    if not found then perform interno.erro('fediverso_desligado'); end if;
+    if interno.rede_fed_bloqueado(v_ator) then perform interno.erro('instancia_bloqueada'); end if;
+    if coalesce((p ->> 'sim')::boolean, true) then
+      if not exists (select 1 from rede_fed_remotos r where r.ator = v_ator and r.inbox is not null) then perform interno.erro('nao_encontrado'); end if;
+      if (select count(*) from rede_fed_seguindo where perfil = a.perfil) >= 2000 then perform interno.erro('muitos_pedidos'); end if;
+      insert into rede_fed_seguindo (perfil, ator, pedido) values (a.perfil, v_ator, left(coalesce(p ->> 'pedido', ''), 500))
+      on conflict (perfil, ator) do update set pedido = excluded.pedido, aceito = false;
+      insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
+      select a.perfil, 'follow', v_ator, r.inbox, jsonb_build_object('pedido', left(coalesce(p ->> 'pedido', ''), 500)) from rede_fed_remotos r where r.ator = v_ator;
+    else
+      insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
+      select a.perfil, 'undo-follow', v_ator, r.inbox, jsonb_build_object('pedido', s.pedido)
+      from rede_fed_seguindo s join rede_fed_remotos r on r.ator = s.ator where s.perfil = a.perfil and s.ator = v_ator and r.inbox is not null;
+      delete from rede_fed_seguindo where perfil = a.perfil and ator = v_ator;
+    end if;
+    return jsonb_build_object('ok', true);
+
+  when 'fila_pegar' then
+    v_limite := least(greatest(coalesce((p ->> 'limite')::integer, 20), 1), 200);
+    if random() < 0.05 then perform interno.rede_fed_limpar(); end if;
+    -- Domínio morto (circuito aberto): os itens dele esperam sem gastar tentativa.
+    with escolhidos as (
+      select q.id from rede_fed_fila q
+      where q.feito_em is null and q.proxima <= now()
+        and not exists (select 1 from fediverso_dominios d where d.dominio = interno.rede_fed_dominio(q.destino) and d.morto_ate > now())
+      order by q.proxima, q.id limit v_limite for update skip locked
+    ), reservados as (
+      update rede_fed_fila q set proxima = now() + interval '3 minutes', tentativas = q.tentativas + 1 from escolhidos e where q.id = e.id returning q.*
+    )
+    select coalesce(jsonb_agg(jsonb_build_object('id', r.id, 'tipo', r.tipo, 'objeto', r.objeto, 'destino', r.destino, 'extra', r.extra,
+      'tentativas', r.tentativas, 'handle', t.handle, 'comunidade', r.comunidade,
+      'assinante', case when r.perfil is not null then 'pessoa' when r.comunidade is not null then 'grupo' else 'instancia' end,
+      'chave_publica', coalesce(t.chave_publica, g.chave_publica), 'chave_privada', coalesce(t.chave_privada, g.chave_privada)) order by r.id), '[]'::jsonb)
+    into v_res from reservados r left join rede_fed_atores t on t.perfil = r.perfil left join fediverso_grupos g on g.comunidade = r.comunidade
+    where (r.perfil is not null and t.perfil is not null) or (r.perfil is null and r.comunidade is not null and g.comunidade is not null)
+       or (r.perfil is null and r.comunidade is null);
+    return v_res;
+
+  when 'fila_feito' then
+    select * into v_q from rede_fed_fila where id = (p ->> 'id')::bigint;
+    if not found then return jsonb_build_object('ok', false); end if;
+    v_t := v_q.tentativas;
+    v_status := case when coalesce(p ->> 'status', '') ~ '^[0-9]{1,3}$' then (p ->> 'status')::integer end;
+    v_dom := coalesce(case when lower(coalesce(p ->> 'dominio', '')) ~ '^[a-z0-9.-]{3,253}$' then lower(p ->> 'dominio') end, interno.rede_fed_dominio(v_q.destino));
+    if coalesce((p ->> 'ok')::boolean, false) then
+      update rede_fed_fila set feito_em = now(), erro = '' where id = v_q.id;
+      update fediverso_dominios set falhas = 0, nivel = 0, morto_ate = null, ultimo_ok = now() where dominio = v_dom;
+      return jsonb_build_object('ok', true);
+    end if;
+    if v_status = 410 then
+      -- A caixa não existe mais (Gone): quem seguia por ela sai.
+      update rede_fed_fila set feito_em = now(), erro = left(coalesce(p ->> 'erro', 'http_410'), 300) where id = v_q.id;
+      delete from rede_fed_seguidores where inbox = v_q.destino or inbox_compartilhada = v_q.destino;
+      delete from fediverso_grupo_seguidores where inbox = v_q.destino or inbox_compartilhada = v_q.destino;
+      return jsonb_build_object('ok', true);
+    end if;
+    if v_status = 429 then
+      v_espera := least(greatest(case when coalesce(p ->> 'espera', '') ~ '^[0-9]{1,6}$' then (p ->> 'espera')::integer else 600 end, 30), 43200);
+      update rede_fed_fila set erro = left(coalesce(p ->> 'erro', 'http_429'), 300), proxima = now() + make_interval(secs => v_espera),
+        tentativas = greatest(tentativas - 1, 0) where id = v_q.id;
+      return jsonb_build_object('ok', true);
+    end if;
+    v_conexao := p ? 'status' and (v_status is null or v_status = 0 or v_status in (502, 503, 504, 520, 521, 522, 523, 524, 525, 526, 530));
+    if v_conexao and v_dom is not null then
+      insert into fediverso_dominios (dominio, falhas, ultima_falha) values (v_dom, 1, now())
+      on conflict (dominio) do update set falhas = fediverso_dominios.falhas + 1, ultima_falha = now()
+      returning * into v_d;
+      if v_d.falhas >= 5 then
+        update fediverso_dominios set morto_ate = now() + case nivel when 0 then interval '1 hour' when 1 then interval '6 hours' else interval '24 hours' end,
+          nivel = least(nivel + 1, 2), falhas = 0
+        where dominio = v_dom returning * into v_d;
+        update rede_fed_fila set proxima = greatest(proxima, v_d.morto_ate) where feito_em is null and interno.rede_fed_dominio(destino) = v_dom;
+        update rede_fed_fila set erro = left(coalesce(p ->> 'erro', 'dominio_fora_do_ar'), 300), tentativas = greatest(tentativas - 1, 0) where id = v_q.id;
+        return jsonb_build_object('ok', true, 'morto_ate', v_d.morto_ate);
+      end if;
+    end if;
+    if coalesce((p ->> 'definitivo')::boolean, false) or coalesce(v_t, 0) >= 8 then
+      update rede_fed_fila set feito_em = now(), erro = left(coalesce(p ->> 'erro', 'falha'), 300) where id = v_q.id;
+    else
+      update rede_fed_fila set erro = left(coalesce(p ->> 'erro', 'falha'), 300),
+        proxima = now() + least(interval '12 hours', interval '1 minute' * power(2, greatest(coalesce(v_t, 1), 1)))
+      where id = v_q.id;
+    end if;
+    return jsonb_build_object('ok', true);
+
+  when 'dominio_estado' then
+    select * into v_d from fediverso_dominios where dominio = lower(coalesce(p ->> 'dominio', ''));
+    return jsonb_build_object('morto_ate', case when v_d.morto_ate > now() then v_d.morto_ate end, 'falhas', coalesce(v_d.falhas, 0));
+
+  when 'contagem' then
+    return jsonb_build_object('usuarios', (select count(*)::integer from rede_fed_atores where ligado),
+                              'posts', (select count(*)::integer from rede_fed_enviados where apagado_em is null));
+
+  when 'contagem_ativos' then
+    return jsonb_build_object(
+      'mes', (select count(distinct e.perfil)::integer from rede_fed_enviados e join rede_fed_atores t on t.perfil = e.perfil and t.ligado where e.enviado_em > now() - interval '30 days'),
+      'semestre', (select count(distinct e.perfil)::integer from rede_fed_enviados e join rede_fed_atores t on t.perfil = e.perfil and t.ligado where e.enviado_em > now() - interval '180 days'));
+
+  when 'bloqueado' then
+    return to_jsonb(interno.rede_fed_bloqueado(coalesce(p ->> 'url', '')));
+
+  when 'comunidade' then
+    v_slug := lower(coalesce(p ->> 'slug', ''));
+    if not interno.rede_fed_grupo_ok(v_slug) then return jsonb_build_object('estado', 'inexistente'); end if;
+    select * into v_com from rede_comunidades where slug = v_slug;
+    select * into v_g from fediverso_grupos where comunidade = v_slug;
+    return jsonb_build_object('estado', 'ligado', 'slug', v_com.slug, 'nome', v_com.nome, 'descricao', v_com.descricao, 'categoria', v_com.categoria,
+      'criada_em', v_com.criada_em, 'chave_publica', v_g.chave_publica, 'chave_privada', v_g.chave_privada,
+      -- Só os moderadores que têm a própria federação ligada aparecem lá fora (attributedTo / moderators).
+      'moderadores', coalesce((select jsonb_agg(ra.handle order by ra.handle) from rede_comunidade_membros m join rede_fed_atores ra on ra.perfil = m.usuario and ra.ligado
+                               where m.comunidade = v_slug and m.papel = 'moderacao' and m.situacao = 'ativo' and interno.rede_fed_impedimento(ra.perfil) is null), '[]'::jsonb),
+      'seguidores', (select count(*)::integer from fediverso_grupo_seguidores s where s.comunidade = v_slug));
+
+  when 'comunidade_chaves' then
+    v_slug := lower(coalesce(p ->> 'slug', ''));
+    if not interno.rede_fed_grupo_ok(v_slug) then perform interno.erro('nao_encontrado'); end if;
+    if coalesce(p ->> 'publica', '') !~ '^-----BEGIN PUBLIC KEY-----' or char_length(coalesce(p ->> 'privada', '')) < 100 then perform interno.erro('invalido:chave'); end if;
+    insert into fediverso_grupos (comunidade, chave_publica, chave_privada) values (v_slug, p ->> 'publica', p ->> 'privada')
+    on conflict (comunidade) do update set chave_publica = excluded.chave_publica, chave_privada = excluded.chave_privada where fediverso_grupos.chave_publica is null;
+    select * into v_g from fediverso_grupos where comunidade = v_slug;
+    return jsonb_build_object('chave_publica', v_g.chave_publica, 'chave_privada', v_g.chave_privada);
+
+  when 'comunidade_seguidores' then
+    v_slug := lower(coalesce(p ->> 'slug', ''));
+    if not interno.rede_fed_grupo_ok(v_slug) then return jsonb_build_object('total', 0); end if;
+    return jsonb_build_object('total', (select count(*)::integer from fediverso_grupo_seguidores s where s.comunidade = v_slug));
+
+  when 'comunidade_seguidor' then
+    v_slug := lower(coalesce(p ->> 'slug', ''));
+    if not interno.rede_fed_grupo_ok(v_slug) then return jsonb_build_object('ok', false, 'motivo', 'desligado'); end if;
+    if v_ator = '' then perform interno.erro('invalido:ator'); end if;
+    if interno.rede_fed_bloqueado(v_ator) or interno.rede_fed_bloqueado(p ->> 'inbox') then return jsonb_build_object('ok', false, 'motivo', 'bloqueado'); end if;
+    if coalesce((p ->> 'sim')::boolean, true) then
+      if coalesce(p ->> 'inbox', '') !~ '^https://[^\s]+$' or interno.rede_fed_dominio(p ->> 'inbox') <> interno.rede_fed_dominio(v_ator) then perform interno.erro('invalido:inbox'); end if;
+      insert into fediverso_grupo_seguidores (comunidade, ator, inbox, inbox_compartilhada, pedido)
+      values (v_slug, v_ator, p ->> 'inbox',
+              case when coalesce(p ->> 'compartilhada', '') ~ '^https://[^\s]+$' and interno.rede_fed_dominio(p ->> 'compartilhada') = interno.rede_fed_dominio(v_ator) then p ->> 'compartilhada' end,
+              left(coalesce(p ->> 'pedido', ''), 500))
+      on conflict (comunidade, ator) do update set inbox = excluded.inbox, inbox_compartilhada = excluded.inbox_compartilhada, pedido = excluded.pedido;
+      insert into rede_fed_fila (perfil, comunidade, tipo, objeto, destino, extra)
+      values (null, v_slug, 'group-accept', v_ator, p ->> 'inbox', jsonb_build_object('pedido', left(coalesce(p ->> 'pedido', ''), 500)));
+    else
+      delete from fediverso_grupo_seguidores where comunidade = v_slug and ator = v_ator;
+    end if;
+    return jsonb_build_object('ok', true);
+
+  when 'comunidade_outbox' then
+    v_slug := lower(coalesce(p ->> 'slug', ''));
+    if not interno.rede_fed_grupo_ok(v_slug) then return jsonb_build_object('total', 0, 'itens', '[]'::jsonb); end if;
+    v_limite := least(greatest(coalesce((p ->> 'limite')::integer, 20), 1), 40);
+    v_antes := nullif(p ->> 'antes', '')::timestamptz;
+    select count(*)::integer into v_n from rede_fed_enviados e join rede_posts r on r.id = e.post
+    where e.apagado_em is null and r.comunidade = v_slug and r.resposta_a is null;
+    select coalesce(jsonb_agg(interno.rede_fed_post_json(r) order by r.criado_em desc), '[]'::jsonb) into v_res
+    from (select r.* from rede_fed_enviados e join rede_posts r on r.id = e.post
+          where e.apagado_em is null and r.comunidade = v_slug and r.resposta_a is null and (v_antes is null or r.criado_em < v_antes)
+            and interno.rede_fed_federavel(r)
+          order by r.criado_em desc limit v_limite) r;
+    return jsonb_build_object('total', v_n, 'itens', v_res);
+
+  else
+    perform interno.erro('invalido:acao');
+  end case;
+  return null;
+end $$;
+
+/**
+ * A faxina da federação. Agora: nota de fora sem ligação com nada daqui sai em 30 dias; a que responde a um post daqui (post_local),
+ * menciona alguém daqui ou foi respondida daqui fica enquanto essa ligação existir (LGPD art. 15 e 16). Impulsos de notas que já
+ * saíram, domínios sem falha há 30 dias e entregas sem quem as assine também saem.
+ */
+create or replace function interno.rede_fed_limpar() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  delete from rede_fed_fila where feito_em is not null and feito_em < now() - interval '14 days';
+  delete from rede_fed_recebidos c where c.recebido_em < now() - interval '30 days' and c.post_local is null
+    and not exists (select 1 from fediverso_mencoes m where m.nota = c.id)
+    and not exists (select 1 from rede_posts l where l.resposta_a_remota = c.id);
+  delete from fediverso_interacoes i where i.direcao = 'entrada' and i.objeto_remoto is not null
+    and not exists (select 1 from rede_fed_recebidos c where c.id = i.objeto_remoto);
+  delete from rede_fed_remotos r where r.buscado_em < now() - interval '60 days'
+    and not exists (select 1 from rede_fed_seguidores s where s.ator = r.ator) and not exists (select 1 from rede_fed_seguindo s where s.ator = r.ator)
+    and not exists (select 1 from rede_fed_recebidos c where c.ator = r.ator) and not exists (select 1 from fediverso_grupo_seguidores g where g.ator = r.ator);
+  -- Chaves de quem desligou e já não tem nada na fila: apagadas (religar gera um par novo).
+  update rede_fed_atores a set chave_publica = null, chave_privada = null
+  where not a.ligado and a.chave_privada is not null and a.desligado_em < now() - interval '1 day'
+    and not exists (select 1 from rede_fed_fila q where q.perfil = a.perfil and q.feito_em is null);
+  -- Conta apagada (interno.rede_fed_conta_apagada): as retiradas já saíram ou desistiram; a linha e a fila dela somem.
+  delete from rede_fed_atores a where not exists (select 1 from perfis f where f.id = a.perfil)
+    and not exists (select 1 from rede_fed_fila q where q.perfil = a.perfil and q.feito_em is null);
+  delete from rede_fed_fila q where q.feito_em is not null and q.perfil is not null and not exists (select 1 from perfis f where f.id = q.perfil);
+  -- Entrega de pessoa sem ator (nunca vai ser assinada): encerrada.
+  update rede_fed_fila q set feito_em = now(), erro = 'sem_assinante'
+  where q.feito_em is null and q.perfil is not null and not exists (select 1 from rede_fed_atores a where a.perfil = q.perfil);
+  delete from fediverso_dominios where (morto_ate is null or morto_ate < now()) and coalesce(ultima_falha, 'epoch'::timestamptz) < now() - interval '30 days';
+end $$;
+
+-- ── 8. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────
+-- Nenhuma função interna é chamável de fora. As da pessoa pedem conta (cada uma confere a sessão); a do servidor continua só com o segredo.
+do $$
+declare
+  v_internas text[] := array['rede_fed_config_bool(text)', 'rede_fed_recurso_vivo(text)', 'rede_fed_total()', 'rede_fed_grupos_ligado()', 'rede_fed_versao()',
+    'rede_fed_host_local()', 'rede_fed_uuid_local(text)', 'rede_fed_handle_local(text)', 'rede_fed_post_local(text)', 'rede_fed_html_ok(text)',
+    'rede_fed_aviso_base(text)', 'rede3_aviso_pref(uuid, text, text)', 'rede3_aviso_chave(text, uuid, uuid)', 'rede_fed_avisar(uuid, text, uuid, text, text)',
+    'rede_fed_aviso_remoto(uuid[])', 'rede_fed_comunidade_ok(text)', 'rede_fed_grupo_ok(text)', 'rede_fed_federavel(interno.rede_posts, integer)',
+    'rede_fed_post_json(interno.rede_posts)', 'rede_fed_post_mudou()', 'rede_fed_ligar_perfil(uuid)', 'rede_fed_desligar(uuid)',
+    'rede_fed_consentimento_fediverso()', 'rede_fed_nota_ve(interno.rede_fed_recebidos, uuid)',
+    'rede_fed_cartao(interno.rede_fed_recebidos, uuid, jsonb)', 'rede_fed_limpar()'];
+  v_publicas text[] := array['rede_aderir(boolean, integer, boolean)', 'rede_fed_descoberta(boolean)', 'rede_fed_eu(text)',
+    'rede_fed_bloquear(text, boolean, text)', 'rede_fed_linha_mista(text, integer)', 'rede_fed_perfil_remoto(text)', 'rede_fed_fio_remoto(text)',
+    'rede_fed_interagir(text, text, boolean)', 'rede_fed_responder_remoto(text, text, text)', 'rede_fed_denunciar_remoto(text, text, text, boolean)',
+    'rede_fed_bloquear_pessoa(text, boolean)', 'rede_fed_silenciar_pessoa(text, boolean)', 'rede_fed_denuncias_listar(text)',
+    'rede_fed_denuncia_decidir(uuid, text)'];
+  v_f text;
+  v_papeis boolean := exists (select 1 from pg_roles where rolname = 'anon');
+begin
+  foreach v_f in array v_internas loop
+    execute format('revoke all on function interno.%s from public', v_f);
+    if v_papeis then execute format('revoke all on function interno.%s from anon, authenticated', v_f); end if;
+  end loop;
+  foreach v_f in array v_publicas || array['rede_fed_situacao()', 'rede_fed_servidor(text, text, jsonb)'] loop
+    execute format('revoke all on function public.%s from public', v_f);
+    if v_papeis then execute format('revoke all on function public.%s from anon, authenticated', v_f); end if;
+  end loop;
+  if v_papeis then
+    foreach v_f in array v_publicas loop
+      execute format('grant execute on function public.%s to authenticated, service_role', v_f);
+    end loop;
+    grant execute on function public.rede_fed_situacao(), public.rede_fed_servidor(text, text, jsonb) to anon, authenticated, service_role;
+  end if;
 end $$;
