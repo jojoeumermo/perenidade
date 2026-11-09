@@ -14,6 +14,7 @@ import { dataCurta, escreverPessoas, faltaPara, linkSeguro, pessoasParaMostrar, 
 import { aoVivoDeExemplo, HANDLE_DE_EXEMPLO, orgDeExemplo } from "../lib/rede/org/exemplos.ts";
 import { conferirPedido, pareceCpf } from "../lib/rede/org/pedido.ts";
 import { bancoSemAFuncao, criarClienteOrg } from "../lib/rede/cliente-org.ts";
+import { abaDaTecla } from "../lib/rede/org/abas.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 let certos = 0;
@@ -149,9 +150,37 @@ const ok = (nome, cond) => (cond ? certos++ : falhas.push(nome));
   const exemplo = fs.readFileSync(path.join(raiz, "app/[lang]/alumia/organizacoes/exemplo/page.tsx"), "utf8");
   ok("exemplo: fora da busca (dados ilustrativos)", /index: false/.test(exemplo));
   const tela = fs.readFileSync(path.join(raiz, "components/rede/perfil/TelaDoPerfil.tsx"), "utf8");
-  ok("perfil: a tela de hoje continua quando a Alumia nova está desligada", /if \(alumia2Ligada\(\)\) return <PerfilDaAlumia2/.test(tela) && /return <TelaDoPerfilDeHoje/.test(tela));
+  ok("perfil: a tela de hoje continua quando a Alumia nova está desligada", /if \(orgLigada\(\)\) return <PerfilDaAlumia2/.test(tela) && /return <TelaDoPerfilDeHoje/.test(tela));
+  ok("perfil: o novo só com alumia-org (alumia-2 ligada e alumia-org desligada = tela de hoje)", !/alumia2Ligada\(\)/.test(tela));
+  const flag = fs.readFileSync(path.join(raiz, "lib/rede/org/flag.ts"), "utf8");
+  ok("orgLigada exige alumia-2 e alumia-org", /alumia2Ligada\(\) && ligado\(recurso\)/.test(flag) && /recursoLigado\("alumia-org"\)/.test(flag));
+  // O selo no cartão do post (prancha computador-inicio, Mandata Popular).
+  const cartao = fs.readFileSync(path.join(raiz, "components/rede/CartaoDePost.tsx"), "utf8");
+  ok("cartão: desenha o selo da organização depois do codinome", /<SeloNoCartao post=\{post\} lang=\{lang\} \/>/.test(cartao) && cartao.indexOf("<SeloNoCartao") > cartao.indexOf("{nomeDoAutor}"));
+  const noCartao = fs.readFileSync(path.join(raiz, "components/rede/org/SeloNoCartao.tsx"), "utf8");
+  ok("selo no cartão: só com verificada_em e a flag alumia-org", /post\.org\?\.verificada_em\) && orgLigada\(\)/.test(noCartao) && /if \(!verificada \|\| !t\) return null/.test(noCartao));
+  const perfilOrg = fs.readFileSync(path.join(raiz, "components/rede/org/PerfilDaOrg.tsx"), "utf8");
+  ok("posts de exemplo: com o selo ao lado do nome", /org\.verificadaEm \? <SeloPequeno/.test(perfilOrg));
   const ao = fs.readFileSync(path.join(raiz, "components/rede/org/AoVivoAgora.tsx"), "utf8");
   ok("Ao vivo agora: confere a flag alumia-org", /recursoLigado\("alumia-org"\)/.test(ao));
+}
+
+// ── Teclado das abas (padrão ARIA: setas em roda, Home e End) ──
+{
+  const abas = ["posts", "atos", "contas", "consultas", "plenarias"];
+  igual("abas: seta para a direita", abaDaTecla("ArrowRight", abas, "atos"), "contas");
+  igual("abas: seta para a direita na última volta à primeira", abaDaTecla("ArrowRight", abas, "plenarias"), "posts");
+  igual("abas: seta para a esquerda na primeira vai à última", abaDaTecla("ArrowLeft", abas, "posts"), "plenarias");
+  igual("abas: Home", abaDaTecla("Home", abas, "consultas"), "posts");
+  igual("abas: End", abaDaTecla("End", abas, "atos"), "plenarias");
+  igual("abas: outra tecla não muda nada", abaDaTecla("Enter", abas, "atos"), null);
+}
+
+// ── Textos da fila (sem repetir a ideia; anônima por extenso) ──
+{
+  const pt = JSON.parse(fs.readFileSync(path.join(raiz, "i18n/rede/org/pt.json"), "utf8"));
+  igual("fila: título e ordem sem repetir", `${pt.plenaria.fila} · ${pt.plenaria.ordem}`, "Fila de perguntas · em ordem de chegada, sem filtro de assessoria");
+  ok("fila: pergunta anônima não aparece como \"sem @\"", !/@/.test(pt.plenaria.anonimo));
 }
 
 console.log(`Alumia (F4, organizações e perfis): ${certos} certos, ${falhas.length} falhas.`);

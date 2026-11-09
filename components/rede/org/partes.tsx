@@ -19,6 +19,14 @@ export function SeloDaOrg({ t, lang, desde }: { t: Pick<TextosDaOrg, "selo">; la
 }
 
 /**
+ * O selo pequeno, ao lado do codinome no cartão do post (prancha computador-inicio, "Mandata Popular ☑ Organização verificada")
+ * e nos posts do perfil de exemplo. Mesma regra junto (leitor de tela e dica) e o mesmo destino que explica o selo.
+ */
+export function SeloPequeno({ t, lang }: { t: Pick<TextosDaOrg, "selo">; lang: string }) {
+  return <Selo texto={t.selo.texto} regra={t.selo.regra} href={`/${lang}/alumia/organizacoes`} className="al-selo-papel al-selo-p" />;
+}
+
+/**
  * As barras do resultado de uma consulta (prancha: "Votar contra 71%"). A maior vem mais forte. A porcentagem está sempre escrita
  * (a barra é só reforço) e cada linha tem a frase inteira para o leitor de tela.
  */

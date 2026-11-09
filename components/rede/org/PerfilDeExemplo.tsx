@@ -58,7 +58,7 @@ export function PerfilDeExemplo({ lang, aba }: { lang: string; aba: string | nul
         acoes={acoes}
         membro
         abaInicial={aba}
-        posts={<PostsDeExemplo posts={postsDeExemplo()} org={org} />}
+        posts={<PostsDeExemplo posts={postsDeExemplo()} org={org} t={t} lang={lang} />}
         atos={<ListaDeAtos atos={atosDeExemplo()} t={t} lang={lang} />}
         aviso={
           <div className="al-perfil-aviso" role="note">

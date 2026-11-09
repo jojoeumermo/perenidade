@@ -22,6 +22,7 @@ import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Linha } from "../Linha";
+import { Abas } from "../org/Abas";
 import type { AcoesDaOrg } from "../org/Blocos";
 import { PerfilDaOrg } from "../org/PerfilDaOrg";
 import { Botao, LinkBotao } from "../ui/Botao";
@@ -247,30 +248,7 @@ function PerfilDePessoa({ dado: inicial, extras, t, lang, s, situacao, aoRespond
         </section>
       ) : null}
 
-      <div className="al-abas" role="tablist" aria-label={preencher(tp.abas.rotulo, { codinome: dado.codinome })}>
-        {ABAS_DA_PESSOA.map((a) => (
-          <button
-            key={a}
-            type="button"
-            role="tab"
-            id={`${id}-aba-${a}`}
-            aria-selected={aba === a}
-            aria-controls={`${id}-painel`}
-            tabIndex={aba === a ? 0 : -1}
-            className="al-aba"
-            onClick={() => setAba(a)}
-            onKeyDown={(e) => {
-              if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-              const i = ABAS_DA_PESSOA.indexOf(aba);
-              const n = ABAS_DA_PESSOA[(i + (e.key === "ArrowRight" ? 1 : ABAS_DA_PESSOA.length - 1)) % ABAS_DA_PESSOA.length];
-              setAba(n);
-              document.getElementById(`${id}-aba-${n}`)?.focus();
-            }}
-          >
-            {tp.abas[a]}
-          </button>
-        ))}
-      </div>
+      <Abas id={id} abas={ABAS_DA_PESSOA} atual={aba} aoMudar={setAba} rotulos={tp.abas} rotulo={preencher(tp.abas.rotulo, { codinome: dado.codinome })} />
       <div id={`${id}-painel`} role="tabpanel" aria-labelledby={`${id}-aba-${aba}`}>
         {painel[aba]}
       </div>
