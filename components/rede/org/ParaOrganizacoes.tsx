@@ -69,7 +69,7 @@ export function ConteudoParaOrganizacoes({ t, lang }: { t: TextosDaOrg; lang: st
           </div>
           <div className="al-org-heroi-mosaico">
             <figure>
-              <Mosaico palavra={p.mosaicoPalavra} semente="traga-sua-organizacao" proporcao={0.8} voce sementeLocal="exemplo" rotulo={p.mosaicoRotulo} />
+              <Mosaico palavra={p.mosaicoPalavra} semente="traga-sua-organizacao" proporcao={0.9} voce sementeLocal="exemplo" rotulo={p.mosaicoRotulo} />
               <figcaption>{p.mosaicoLegenda}</figcaption>
             </figure>
           </div>
