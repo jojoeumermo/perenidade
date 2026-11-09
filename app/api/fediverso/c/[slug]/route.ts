@@ -6,6 +6,8 @@
 //
 // O Group tem par de chaves próprio (ele assina os repasses, Announce, aos seguidores): gerado aqui na primeira leitura, com a
 // privada cifrada pelo segredo da federação antes de ir ao banco, como as chaves das pessoas (lib/rede/fediverso/servidor.ts).
+// A gravação é idempotente (comunidade_chaves só grava se ainda não há chave) e, para pedidos simultâneos não gerarem vários pares
+// RSA (CPU), cada slug tem no máximo uma geração em andamento neste processo: os outros pedidos esperam a mesma.
 //
 // Ações do banco pedidas à frente F3 (fora do contrato 3.1, que não tinha o Group):
 //   comunidade {slug} → {estado: 'ligado'|'inexistente'|'fechada', slug, nome, descricao, criada_em, moderadores: handle[],
@@ -33,6 +35,21 @@ interface ComunidadeDoBanco {
   capa_url?: string | null;
 }
 
+/** As gerações de chave em andamento, por slug (no máximo uma por comunidade neste processo). */
+const gerando = new Map<string, Promise<string | null>>();
+
+function chaveDoGrupo(slug: string): Promise<string | null> {
+  const andamento = gerando.get(slug);
+  if (andamento) return andamento;
+  const promessa = (async () => {
+    const par = gerarParDeChaves();
+    const guardado = await banco<{ chave_publica?: string | null }>("comunidade_chaves", { slug, publica: par.publica, privada: cifrar(par.privada, SEGREDO) }).catch(() => null);
+    return guardado?.chave_publica ?? null;
+  })().finally(() => gerando.delete(slug));
+  gerando.set(slug, promessa);
+  return promessa;
+}
+
 const httpsSemSvg = (v: unknown) => (typeof v === "string" && /^https:\/\/[^\s]{1,1990}$/.test(v) && !/\.svg(\?|$)/i.test(v) ? { url: v } : null);
 
 export async function GET(pedido: Request, { params }: { params: Promise<{ slug: string }> }) {
@@ -47,9 +64,7 @@ export async function GET(pedido: Request, { params }: { params: Promise<{ slug:
   let publica = c.chave_publica ?? null;
   if (!publica) {
     if (SEGREDO.length < 32) return new Response("Service Unavailable", { status: 503, headers: { "Retry-After": "60" } });
-    const par = gerarParDeChaves();
-    const guardado = await banco<{ chave_publica?: string | null }>("comunidade_chaves", { slug, publica: par.publica, privada: cifrar(par.privada, SEGREDO) }).catch(() => null);
-    publica = guardado?.chave_publica ?? null;
+    publica = await chaveDoGrupo(slug);
     if (!publica) return new Response("Service Unavailable", { status: 503, headers: { "Retry-After": "60" } });
   }
   return respostaAP(
