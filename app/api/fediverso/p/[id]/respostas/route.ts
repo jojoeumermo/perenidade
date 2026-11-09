@@ -2,7 +2,8 @@
 //
 // As respostas a um post da Alumia (a coleção "replies" da Note): os ids das respostas DAQUI que também podem sair, para a outra
 // instância montar o fio. Só no modo total (fediverso-total) e só para post que pode sair; o resto é 404.
-// A ação "respostas" do banco ({id, limite} → {itens: id[]}) é pedida à frente F3; enquanto não existe, a coleção sai vazia.
+// A ação "respostas" do banco ({id, limite} → {itens: id[]}) é pendência do contrato 3.1 com a F3: enquanto não existe, a coleção
+// sai vazia e a Note NÃO a anuncia (COLECOES_DO_BANCO.respostas em lib/rede/fediverso/documentos.ts).
 import { colecaoDeRespostas, visibilidadeQueSai, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { ID_DE_POST, modoTotal } from "@/lib/rede/fediverso/enderecos";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
