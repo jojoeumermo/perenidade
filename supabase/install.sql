@@ -30012,7 +30012,7 @@ begin
 end $$;
 
 /**
- * Denunciar uma nota ou um ator de fora. Fica na mediação daqui (fediverso_denuncias, saída). Com p_encaminhar, a Flag vai para a
+ * Denunciar uma nota ou um ator de fora. Fica na mediação daqui (fediverso_denuncias, saída). Com p_encaminhar (e o modo total), a Flag vai para a
  * instância de lá, assinada pela instância daqui: leva os alvos e o comentário, nunca quem denunciou (LGPD art. 6º, III).
  */
 create or replace function public.rede_fed_denunciar_remoto(p_alvo text, p_categoria text, p_texto text default '', p_encaminhar boolean default false) returns jsonb
@@ -30038,7 +30038,7 @@ begin
   if found then return jsonb_build_object('protocolo', v_d.protocolo, 'encaminhada', v_d.encaminhar, 'ja', true); end if;
   perform interno.rede2_limite('denunciar');
   insert into fediverso_denuncias (direcao, dominio, ator, alvos, categoria, conteudo, quem, encaminhar)
-  values ('saida', interno.rede_fed_dominio(v_ator), v_ator, v_alvos, p_categoria, v_texto, v, coalesce(p_encaminhar, false))
+  values ('saida', interno.rede_fed_dominio(v_ator), v_ator, v_alvos, p_categoria, v_texto, v, coalesce(p_encaminhar, false) and interno.rede_fed_total())
   returning * into v_d;
   if v_d.encaminhar then
     select coalesce(q.inbox_compartilhada, q.inbox) into v_destino from rede_fed_remotos q where q.ator = v_ator;
@@ -30063,7 +30063,7 @@ create or replace function public.rede_fed_bloquear_pessoa(p_ator text, p_sim bo
 language plpgsql volatile security definer set search_path = interno, pg_temp as $$
 declare
   v uuid := interno.eu(); v_ator text := left(btrim(coalesce(p_ator, '')), 500); v_f fediverso_filtros; v_inbox text; v_ativ text;
-  v_ligado boolean := exists (select 1 from rede_fed_atores where perfil = v and ligado);
+  v_ligado boolean := interno.rede_fed_total() and exists (select 1 from rede_fed_atores where perfil = v and ligado);
 begin
   perform interno.aberta('comunidade');
   perform interno.limite('rede_fed_filtro', 60, 60);
