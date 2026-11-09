@@ -87,21 +87,109 @@ igual("o mapa do banco dá o endereço novo", destinoNovo("pt", { tipo: "comunid
 }
 igual("?t= estranho não é pedido antigo", pedidoAntigo("/pt/alumia", "?t=../../x"), null);
 
-// ═══════════════════ 3. O proxy usa a função pura, com 308, antes da interdição e do idioma ═══════════════════
+// ═══════════════════ 3. O proxy de verdade: proxy() com NextRequest, status, Location e saltos ═══════════════════
 {
-  const proxy = ler("proxy.ts");
-  ok("o proxy importa caminhoNovoDaAlumia de lib/rede/rota-alumia", /import \{ caminhoNovoDaAlumia \} from "@\/lib\/rede\/rota-alumia"/.test(proxy));
-  ok("o proxy responde 308 para o caminho novo", /caminhoNovoDaAlumia\(pathname\)[\s\S]{0,400}NextResponse\.redirect\(url, 308\)/.test(proxy));
-  ok("o proxy tenta o endereço antigo do Fórum antes do 308 (um salto)", /caminhoNovoDaAlumia\(pathname\)[\s\S]{0,200}enderecoAntigoDaRede\(request, novo\)/.test(proxy));
-  ok("o 308 vem antes da interdição", proxy.indexOf("caminhoNovoDaAlumia(pathname)") < proxy.indexOf("const area = fechado(alvo, estado)"));
-  ok("no host da Alumia o 'mover' mantém a busca (não zera url.search)", /decisao\.tipo === "mover"\) \{\s*const url = request\.nextUrl\.clone\(\);\s*url\.pathname = decisao\.destino;\s*return NextResponse\.redirect\(url, 308\);/.test(proxy));
+  // O proxy.ts importa "next/server" sem extensão (o Next resolve); aqui o Node precisa de "next/server.js".
+  const { register } = await import("node:module");
+  register("data:text/javascript," + encodeURIComponent(`
+export async function resolve(e, c, proximo) { return proximo(e === "next/server" ? "next/server.js" : e, c); }`));
+  // Sem banco (a interdição abre o site) e fora da Vercel: o teste não sai da máquina.
+  delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+  delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  delete process.env.VERCEL_ENV;
+  const { proxy } = await import("../proxy.ts");
+  const { NextRequest } = await import("next/server.js");
+  const { definirVivos } = await import("../lib/recursos.ts");
+  const { site } = await import("../lib/site.ts");
+  const SITE = site.url; // http://localhost:3000 fora da produção
+  const ALUMIA = SITE.replace("://", "://alumia.");
+  const AP = "application/activity+json";
+  const REDIR = [301, 307, 308];
+  /** Um pedido ao proxy: status lógico (200 = passou ou reescreveu), Location absoluta e o destino da reescrita. */
+  const pedir = async (url, aceita = "text/html") => {
+    const r = await proxy(new NextRequest(url, { headers: { accept: aceita, host: new URL(url).host } }), { waitUntil() {} });
+    if (!r) return { status: 200, url };
+    const local = r.headers.get("location");
+    const reescrita = r.headers.get("x-middleware-rewrite");
+    return { status: r.status, url, local: local ? new URL(local, url).href : null, reescrita: reescrita ? new URL(reescrita).pathname : null };
+  };
+  /** Segue os redirecionamentos (no máximo 5) até um 200 lógico; devolve os saltos e o fim. Laço = não chega. */
+  const seguir = async (url, aceita) => {
+    const saltos = [];
+    let r = await pedir(url, aceita);
+    while (REDIR.includes(r.status) && saltos.length < 5) {
+      saltos.push(`${r.status} ${r.local}`);
+      r = await pedir(r.local, aceita);
+    }
+    return { saltos, fim: r };
+  };
+  const vivos = (ligados) => definirVivos({ ligados: new Set(ligados), desligados: new Set() });
+
+  vivos([]);
+  {
+    const r = await pedir(`${SITE}/pt/comunidade?t=${ID}`);
+    igual("site, rede-v2 desligada: /pt/comunidade?t= dá 308 para /pt/alumia?t= (a busca vai junto)", [r.status, r.local], [308, `${SITE}/pt/alumia?t=${ID}`]);
+    const f = await seguir(`${SITE}/pt/comunidade?t=${ID}`);
+    igual("e chega num 200 em um salto", [f.saltos.length, f.fim.status], [1, 200]);
+  }
+  igual("site: /comunidade (sem idioma) vai num salto a /pt/alumia", (await seguir(`${SITE}/comunidade/p/${ID}`)).saltos, [`308 ${SITE}/pt/alumia/p/${ID}`]);
+  igual("site: /comunidades não é da Alumia (só o idioma entra)", (await pedir(`${SITE}/comunidades`)).local, `${SITE}/pt/comunidades`);
+  igual("site: /pt/comunidades segue como está", (await pedir(`${SITE}/pt/comunidades`)).status, 200);
+  {
+    const r = await pedir(`${SITE}/pt/comunidade//evil.example/x`);
+    ok(`site: /pt/comunidade//evil fica no próprio site (${r.local})`, r.status === 308 && new URL(r.local).host === new URL(SITE).host && new URL(r.local).pathname === "/pt/alumia/evil.example/x");
+  }
+
+  vivos(["rede-v2"]);
+  igual("site, rede-v2 ligada: /pt/comunidade?post= vai DIRETO ao post (301, um salto)", (await seguir(`${SITE}/pt/comunidade?post=${ID}`)).saltos, [`301 ${SITE}/pt/alumia/p/${ID}`]);
+  igual("site: /comunidade?post= também", (await seguir(`${SITE}/comunidade?post=${ID}`)).saltos, [`301 ${SITE}/pt/alumia/p/${ID}`]);
+  igual("host da Alumia: /pt/comunidade?post= vai direto ao post, um salto só", (await seguir(`${ALUMIA}/pt/comunidade?post=${ID}`)).saltos, [`301 ${ALUMIA}/pt/alumia/p/${ID}`]);
+  igual("host da Alumia: /pt/alumia?post= também (ainda no caminho completo)", (await seguir(`${ALUMIA}/pt/alumia?post=${ID}`)).saltos, [`301 ${ALUMIA}/pt/alumia/p/${ID}`]);
+  {
+    const f = await seguir(`${ALUMIA}/pt/comunidade?t=${ID}`);
+    // Sem banco não há o par do tópico: vai para a raiz curta com a busca, e lá a página resolve no navegador.
+    igual("host da Alumia: /pt/comunidade?t= sem banco vai num salto à raiz curta, com a busca", [f.saltos, f.fim.status, f.fim.reescrita], [[`308 ${ALUMIA}/?t=${ID}`], 200, "/pt/alumia"]);
+  }
+  vivos([]);
+
+  {
+    const f = await seguir(`${ALUMIA}/comunidade`);
+    igual("host da Alumia: /comunidade vai à raiz curta / (e a raiz é a linha)", [f.saltos, f.fim.reescrita], [[`308 ${ALUMIA}/`], "/pt/alumia"]);
+  }
+  {
+    const f = await seguir(`${ALUMIA}/en/comunidade/p/${ID}?x=1`);
+    igual("host da Alumia: /en/comunidade/p/<id> vai a /en/p/<id> com a busca, e ali é o post", [f.saltos, f.fim.reescrita], [[`308 ${ALUMIA}/en/p/${ID}?x=1`], `/en/alumia/p/${ID}`]);
+  }
+  {
+    const r = await pedir(`${ALUMIA}/pt/comunidade/p/${ID}`, AP);
+    igual("host da Alumia, ActivityPub no url antigo: o documento da federação, sem 308", [r.status, r.reescrita], [200, `/api/fediverso/p/${ID}`]);
+    const u = await pedir(`${ALUMIA}/pt/comunidade/u/ana_1`, AP);
+    igual("e o perfil antigo também", [u.status, u.reescrita], [200, "/api/fediverso/u/ana_1"]);
+  }
+  {
+    const f = await seguir(`${ALUMIA}/pt/comunidade//evil`);
+    ok(`host da Alumia: /pt/comunidade//evil fica no host e termina (${f.saltos.join(" → ")})`, f.saltos.length === 1 && new URL(f.saltos[0].split(" ")[1]).host === new URL(ALUMIA).host && f.fim.status === 200);
+  }
+  // Nenhum laço: todo caminho termina em até 2 saltos (o "site" leva ao domínio do instituto, que pode pôr o idioma).
+  for (const c of ["/", "/p/" + ID, "/alumia", "/alumia/salvos", "/pt/alumia", "/pt/alumia/", "/comunidade", "/comunidade/", "/pt/comunidade/", "/en/comunidade/buscar",
+    "/comunidades", "/pt/comunidades", "/painel", "/pt/painel", "/trilhas", "/entrar", "/@ana_1", "/atos", "/pt/comunidade/nao-existe"]) {
+    const f = await seguir(`${ALUMIA}${c}`);
+    ok(`host da Alumia: ${c} termina sem laço (${f.saltos.join(" → ") || "direto"})`, f.saltos.length <= 2 && f.fim.status === 200);
+  }
+  for (const c of ["/", "/comunidade", "/pt/comunidade", "/pt/comunidade/", "/alumia", "/pt/alumia", "/comunidades"]) {
+    const f = await seguir(`${SITE}${c}`);
+    ok(`site: ${c} termina sem laço (${f.saltos.join(" → ") || "direto"})`, f.saltos.length <= 2 && f.fim.status === 200);
+  }
   ok("next.config.ts não tem redirecionamento de /comunidade (dois saltos)", !/source:\s*["'`][^"'`]*comunidade/.test(ler("next.config.ts")));
 }
 
 // ═══════════════════ 4. Host próprio (alumia.institutolucia.org) ═══════════════════
 igual("/ é a linha em /pt/alumia", rotaNaAlumia("/"), { tipo: "reescrever", destino: "/pt/alumia" });
-igual("/pt/comunidade/p/<id> no host da Alumia: 308 para /pt/alumia/p/<id>", rotaNaAlumia(`/pt/comunidade/p/${ID}`), { tipo: "mover", destino: `/pt/alumia/p/${ID}` });
-igual("/comunidade no host da Alumia: 308 para /pt/alumia", rotaNaAlumia("/comunidade"), { tipo: "mover", destino: "/pt/alumia" });
+igual("/pt/comunidade/p/<id> no host da Alumia: 308 para o curto /p/<id>", rotaNaAlumia(`/pt/comunidade/p/${ID}`), { tipo: "mover", destino: `/p/${ID}`, completo: `/pt/alumia/p/${ID}` });
+igual("/comunidade no host da Alumia: 308 para a raiz curta", rotaNaAlumia("/comunidade"), { tipo: "mover", destino: "/", completo: "/pt/alumia" });
+igual("/en/comunidade no host da Alumia: 308 para /en", rotaNaAlumia("/en/comunidade"), { tipo: "mover", destino: "/en", completo: "/en/alumia" });
+igual("/pt/comunidade//evil no host da Alumia fica em /pt/alumia/evil (não é tela: não vira caminho curto)", rotaNaAlumia("/pt/comunidade//evil"), { tipo: "mover", destino: "/pt/alumia/evil", completo: "/pt/alumia/evil" });
+igual("ActivityPub no url antigo: o documento, sem 308", rotaNaAlumia(`/pt/comunidade/p/${ID}`, "application/activity+json"), { tipo: "reescrever", destino: `/api/fediverso/p/${ID}` });
 igual("/pt/alumia/salvos segue", rotaNaAlumia("/pt/alumia/salvos"), { tipo: "seguir" });
 igual("/@nome vira o perfil em /alumia", rotaNaAlumia("/@maria_luta"), { tipo: "reescrever", destino: "/pt/alumia/u/maria_luta" });
 igual("ActivityPub continua no documento da federação", rotaNaAlumia(`/pt/alumia/p/${ID}`, "application/activity+json"), { tipo: "reescrever", destino: `/api/fediverso/p/${ID}` });
@@ -121,22 +209,45 @@ ok("o sitemap anuncia /alumia e não /comunidade", /"\/alumia"/.test(ler("app/si
 
 // ═══════════════════ 6. Nenhum link velho no site ═══════════════════
 {
-  // Só estes arquivos podem citar o caminho antigo: o redirecionamento, a compatibilidade e a interdição.
-  const PERMITIDOS = new Set(["proxy.ts", "lib/rede/rota-alumia.ts", "lib/rede/alumia.ts", "lib/rede/antigos.ts", "lib/interdicao.ts", "components/rede/Casca.tsx", "components/app/modo.ts"]);
+  // Só estes arquivos podem citar o caminho antigo, cada um por um motivo:
+  const PERMITIDOS = new Map([
+    ["proxy.ts", "faz o 308 do caminho antigo"],
+    ["lib/rede/rota-alumia.ts", "a regra do 308"],
+    ["lib/rede/alumia.ts", "o host próprio lê o caminho antigo (308 e ActivityPub)"],
+    ["lib/rede/antigos.ts", "os ?t=/?post= do Fórum pelo caminho antigo"],
+    ["lib/interdicao.ts", "o caminho antigo fecha junto com a área"],
+    ["scripts/testar-alumia-rota.mjs", "este teste"],
+    ["scripts/testar-fediverso.mjs", "confere o 308 e o ActivityPub do caminho antigo no host próprio"],
+    ["scripts/testar-interdicao.mjs", "confere que o caminho antigo também fecha"],
+    ["scripts/testar-rede-moderacao.mjs", "a ponte de /denunciar aceita o link antigo de um post"],
+    ["scripts/testar-banco.mjs", "denúncia com ?post= antigo e a linha do tempo dos tópicos do fórum (de propósito, ver a migração da F0)"],
+  ]);
   const achados = [];
   const andar = (dir) => {
+    if (!existe(dir)) return;
     for (const e of fs.readdirSync(path.join(raiz, dir), { withFileTypes: true })) {
       const rel = `${dir}/${e.name}`;
-      if (e.isDirectory()) andar(rel);
-      else if (/\.(tsx?|mjs|json|md)$/.test(e.name) && !PERMITIDOS.has(rel)) {
+      if (e.isDirectory()) {
+        if (e.name !== "node_modules" && !e.name.startsWith(".")) andar(rel);
+      } else if (/\.(tsx?|mjs|js|json|md|html)$/.test(e.name) && !PERMITIDOS.has(rel)) {
         const texto = ler(rel);
         // "/comunidade" como caminho de rota (seguido de /, ?, aspas, crase, parêntese ou fim), fora de import de pasta.
         for (const m of texto.matchAll(/(?<!components)(?<!"\.)\/comunidade(?=[/?"'`)\s]|$)/gm)) achados.push(`${rel}@${m.index}`);
       }
     }
   };
-  for (const d of ["app", "components", "lib", "i18n"]) andar(d);
-  andar("content/paginas");
+  for (const d of ["app", "components", "lib", "i18n", "scripts", "e2e", "public", "content/paginas"]) andar(d);
+  ok("proxy.ts é varrido de fora da lista só porque faz o 308", PERMITIDOS.has("proxy.ts"));
+  // O banco: as migrações antigas são história (o install.sql é colado nelas); o que vale é a última definição de cada função.
+  // As que gravavam /comunidade num link novo foram refeitas na F0; os links de tópico da linha do tempo ficam de propósito.
+  {
+    const f0 = ler("supabase/migracoes/20261109-alumia-f0-contrato.sql");
+    for (const fn of ["interno.rede3_aviso_resumo(", "interno.rede3_aviso_resumo_semanal(", "interno.rede3_mod_ponte_denuncia("]) {
+      ok(`a F0 refaz ${fn}) com o caminho novo`, f0.includes(`create or replace function ${fn}`));
+    }
+    ok("a F0 não grava /comunidade em link novo", !/'\/pt\/comunidade|'\/comunidade\?/.test(f0.replace(/--.*$/gm, "")));
+    ok("a F0 explica por que '/comunidade?t=' da linha do tempo fica", /Ficam DE PROPÓSITO no caminho antigo: os links '\/comunidade\?t=<id>'/.test(f0));
+  }
   igual("nenhum link para /comunidade fora dos arquivos de compatibilidade", achados, []);
   ok("a pasta da rota mudou (app/[lang]/alumia) e a antiga sumiu", existe("app/[lang]/alumia/page.tsx") && !existe("app/[lang]/comunidade"));
   ok("o layout usa LayoutProps<\"/[lang]/alumia\">", /LayoutProps<"\/\[lang\]\/alumia">/.test(ler("app/[lang]/alumia/layout.tsx")));
