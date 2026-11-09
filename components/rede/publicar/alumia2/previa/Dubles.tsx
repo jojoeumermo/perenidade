@@ -156,10 +156,10 @@ export function AoVivoDuble({ t, lang }: { t: T; lang: string }) {
       <div className="p-4">
         <p className="text-[1.05rem] font-extrabold leading-snug">{p.titulo}</p>
         <p className="mt-1 text-[0.8125rem] leading-snug text-[var(--al-texto-2)]">{p.texto}</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {/* A sala ao vivo é da F4: até lá, os botões ficam desativados e dizem por quê. */}
-          <Botao variante="claro" tamanho="p" disabled title={t.previa.salaEmBreve}>{t.previa.entrarNaSala}</Botao>
-          <Botao variante="contorno" tamanho="p" disabled title={t.previa.salaEmBreve}>{t.previa.mandarPergunta}</Botao>
+        <div className="mt-3 flex gap-2">
+          {/* A sala ao vivo é da F4: até lá, os botões ficam desativados e dizem por quê. Lado a lado, como na prancha. */}
+          <Botao variante="claro" tamanho="p" disabled title={t.previa.salaEmBreve} className="!px-3 !text-[0.8125rem] whitespace-nowrap">{t.previa.entrarNaSala}</Botao>
+          <Botao variante="contorno" tamanho="p" disabled title={t.previa.salaEmBreve} className="!px-3 !text-[0.8125rem] whitespace-nowrap">{t.previa.mandarPergunta}</Botao>
         </div>
         <p className="mt-2 text-[0.75rem] text-[var(--al-texto-3)]">{t.previa.salaEmBreve}</p>
       </div>

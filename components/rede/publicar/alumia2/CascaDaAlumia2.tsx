@@ -332,19 +332,19 @@ function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; situacao:
     : [];
   return (
     <details className="al2-conta group rounded-xl border border-[var(--al-linha)] bg-[var(--al-superficie)]">
-      <summary className="flex cursor-pointer list-none items-center gap-3 p-3 [&::-webkit-details-marker]:hidden">
+      <summary className="relative flex cursor-pointer list-none items-center gap-3 p-3 [&::-webkit-details-marker]:hidden">
         {situacao.logado ? (
           <>
             <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={36} className="shrink-0" />
             <span className="min-w-0 flex-1 leading-tight">
-              <span className="block truncate text-[0.9375rem] font-extrabold">{situacao.codinome ?? t.conta.visitante}</span>
-              {situacao.handle && <span className="block break-all text-[0.75rem] text-[var(--al-texto-3)]">{enderecoNoFediverso(situacao.handle).slice(1)}</span>}
+              <span className="block truncate pr-6 text-[0.9375rem] font-extrabold">{situacao.codinome ?? t.conta.visitante}</span>
+              {situacao.handle && <span className="block break-all text-[0.6875rem] text-[var(--al-texto-3)]">{enderecoNoFediverso(situacao.handle).slice(1)}</span>}
             </span>
           </>
         ) : (
           <span className="flex-1 text-[0.9375rem] font-extrabold">{t.conta.visitante}</span>
         )}
-        <Icone nome="pontos" className="h-5 w-5 shrink-0 text-[var(--al-texto-3)]" />
+        <Icone nome="pontos" className={`h-5 w-5 shrink-0 text-[var(--al-texto-3)] ${situacao.logado ? "absolute right-3 top-3" : ""}`} />
         <span className="sr-only">{t.conta.abrir}</span>
       </summary>
       <div className="space-y-1 border-t border-[var(--al-linha)] p-2 text-sm">

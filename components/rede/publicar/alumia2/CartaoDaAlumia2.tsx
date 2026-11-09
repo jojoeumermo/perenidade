@@ -166,7 +166,7 @@ export function CartaoDaAlumia2({
       )}
 
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem] text-[var(--al-texto-3)]">
+        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.8125rem] text-[var(--al-texto-3)]">
           {perfilHref ? (
             <Link href={perfilHref} className="text-[0.9375rem] hover:underline">
               {nome}
@@ -178,14 +178,14 @@ export function CartaoDaAlumia2({
           {post.autor.equipe && <span className="rounded bg-[var(--al-texto)] px-1 text-[0.6rem] font-bold uppercase tracking-wider text-[var(--al-fundo)]">{s.perfil.equipe}</span>}
           {post.autor.handle && <span className={servidor ? "hidden md:inline" : ""}>@{post.autor.handle}</span>}
           {servidor && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--al-superficie-2)] px-2 py-0.5 text-[0.75rem] font-semibold text-[var(--al-texto-2)]">
+            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--al-superficie-2)] px-1.5 py-0.5 text-[0.6875rem] font-semibold text-[var(--al-texto-2)]">
               <Icone nome="fediverso" className="h-3.5 w-3.5" />
               <span className="md:hidden">{servidor}</span>
               <span className="hidden md:inline">{preencher(t.cartao.doFediverso, { servidor })}</span>
             </span>
           )}
           <span aria-hidden>·</span>
-          <Link href={caminhoDoPost} className="hover:underline">
+          <Link href={caminhoDoPost} className="whitespace-nowrap hover:underline">
             <time dateTime={post.criado_em}>{tempoCurto(post.criado_em, lang)}</time>
           </Link>
           {post.editado_em && <span>({s.post.editado})</span>}
