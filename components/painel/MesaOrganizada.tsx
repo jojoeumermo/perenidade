@@ -294,16 +294,19 @@ export function MesaOrganizada({
       </Cartao>
 
       {lateral && partes.includes("recados") ? (
+        // Na lateral, abaixo dos recados, entram os atalhos e o que vem com eles: seções fixadas, sugestão à divulgação,
+        // guias (09/11/2026). A coluna principal fica com o trabalho (pendências, segurança, saúde da casa).
         <div className="pn-mesa-grade">
           <div className="pn-mesa-principal">
             {partes
-              .filter((p) => p !== "recados")
+              .filter((p) => p !== "recados" && p !== "atalhos")
               .map((p) => (
                 <div key={p}>{conteudo[p]}</div>
               ))}
           </div>
-          <aside className="pn-mesa-lateral" aria-label="Recados e agradecimentos">
+          <aside className="pn-mesa-lateral" aria-label="Recados, agradecimentos e atalhos">
             {conteudo.recados}
+            {partes.includes("atalhos") && <div>{conteudo.atalhos}</div>}
           </aside>
         </div>
       ) : (
