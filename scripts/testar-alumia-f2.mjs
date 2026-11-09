@@ -43,7 +43,7 @@ async function recusa(nome, promessa, codigo) {
 
 const f0 = ler("supabase/migracoes/20261109-alumia-f0-contrato.sql");
 const f2 = ler("supabase/migracoes/20261109-alumia-f2.sql");
-ok("a migração NÃO está colada no install.sql (o integrador cola)", !ler("supabase/install.sql").includes("Alumia · Onda 5 · F2"));
+ok("a migração está colada no install.sql (o integrador colou)", ler("supabase/install.sql").includes("Alumia · Onda 5 · F2"));
 ok("toda função nova é security definer com search_path fixo", (() => {
   const funcoes = f2.match(/create or replace function [^(]+\([\s\S]*?\$\$/g) ?? [];
   return funcoes.length >= 10 && funcoes.every((f) => /set search_path = interno, pg_temp/.test(f) && (/security definer/.test(f) || /immutable/.test(f)));

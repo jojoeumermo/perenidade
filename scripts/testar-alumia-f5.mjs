@@ -93,7 +93,7 @@ await banco.exclusivo(() => banco.pg.exec(`
   grant execute on function storage.foldername(text) to anon, authenticated;
 `));
 
-ok("a migração NÃO está colada no install.sql (o integrador cola)", !ler("supabase/install.sql").includes("Alumia · Onda 5 · F5"));
+ok("a migração está colada no install.sql (o integrador colou)", ler("supabase/install.sql").includes("Alumia · Onda 5 · F5"));
 await espera("a F0 instala", () => banco.exclusivo(() => banco.pg.exec(ler("supabase/migracoes/20261109-alumia-f0-contrato.sql"))));
 await espera("a F5 instala", () => banco.exclusivo(() => banco.pg.exec(ler("supabase/migracoes/20261109-alumia-f5.sql"))));
 await espera("e instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(ler("supabase/migracoes/20261109-alumia-f5.sql"))));

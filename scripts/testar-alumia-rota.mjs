@@ -290,7 +290,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
     const pagina = `app/[lang]/alumia${r.caminho}/page.tsx`;
     ok(`a página de ${r.caminho} existe`, existe(pagina));
     const fonte = existe(pagina) ? ler(pagina) : "";
-    ok(`${r.caminho} passa pela PaginaNova (404 com a flag desligada)`, fonte.includes(`nome="${r.nome}"`) && fonte.includes("metadadosDaRotaNova"));
+    ok(`${r.caminho} passa pela PaginaNova ou tem tela própria com a mesma trava (404 com a flag desligada)`, fonte.includes("metadadosDaRotaNova") && (fonte.includes(`nome="${r.nome}"`) || fonte.includes(`if (!rotaNovaLigada("${r.nome}")) notFound();`)));
     const linha = new RegExp(`"?${r.nome}"?: \\{ componente: dynamic\\(\\(\\) => import\\("\\./([^"]+)"\\), \\{ ssr: false \\}\\)`).exec(registro);
     ok(`${r.nome} está no registro com import dinâmico`, !!linha);
     if (linha) ok(`o arquivo da tela de ${r.nome} existe (components/rede/${linha[1]}.tsx)`, existe(`components/rede/${linha[1]}.tsx`));

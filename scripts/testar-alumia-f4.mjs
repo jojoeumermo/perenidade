@@ -45,7 +45,7 @@ const banco = await criarBanco();
 const { dono: sql, criarUsuario, rpc } = banco;
 const um = async (t, v = []) => (await sql(t, v)).rows[0];
 const migracao = ler("supabase/migracoes/20261109-alumia-f4.sql");
-ok("a migração NÃO está colada no install.sql (o integrador cola)", !ler("supabase/install.sql").includes("Alumia · Onda 5 · F4"));
+ok("a migração está colada no install.sql (o integrador colou)", ler("supabase/install.sql").includes("Alumia · Onda 5 · F4"));
 await espera("a F0 instala", () => banco.exclusivo(() => banco.pg.exec(ler("supabase/migracoes/20261109-alumia-f0-contrato.sql"))));
 await espera("a F4 instala sobre a F0", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 await espera("e instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(migracao)));
