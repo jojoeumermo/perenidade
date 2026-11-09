@@ -24,10 +24,14 @@
   /* As duas cores da casa. */
   --al-vermelho: #e8321f;
   --al-vermelho-escuro: #4d1a14;
+  /* O vermelho escuro da chama do lampião (components/rede/ui/Lampiao.tsx). Só enfeite da marca. */
+  --al-vermelho-chama: #b8261a;
+  /* O vermelho de FUNDO onde vai texto pequeno (selo, botão primário p e m): branco sobre #D42A18 dá 5,1:1 (WCAG 1.4.3, AA).
+     O #E8321F das pranchas (branco em cima dá 4,3:1) fica só onde é enfeite ou texto grande (botão g: negrito de 19 px). */
+  --al-vermelho-texto: #d42a18;
   --al-dourado: #ffc21a;
-  /* O que vai escrito em cima de cada cor. Branco sobre #E8321F dá 4,3:1 (o desenho das pranchas): passa no AA de texto grande
-     (negrito ≥ 18,7 px) e fica 0,2 abaixo para texto menor; quem precisa de mais liga o alto contraste do site, onde o vermelho
-     clareia e o texto vira preto (mais de 7:1). Noite sobre dourado dá 12:1. */
+  /* O que vai escrito em cima de cada cor. No alto contraste do site o vermelho clareia e o texto vira preto (mais de 7:1).
+     Noite sobre dourado dá 12:1. */
   --al-sobre-vermelho: #ffffff;
   --al-sobre-dourado: #0f0e0d;
   --al-sobre-papel: #0f0e0d;
@@ -85,6 +89,8 @@
   --al-texto-2: #2a2622;
   --al-texto-3: #5c554d;
   --al-vermelho: #c8261a;
+  --al-vermelho-texto: #c8261a;
+  --al-vermelho-chama: #9e1f15;
   --al-dourado: #b98600;
   --al-sobre-dourado: #ffffff;
   --al-mosaico-fundo: #0f0e0d;
@@ -101,6 +107,8 @@
   --al-texto-2: #ffffff;
   --al-texto-3: #e6e6e6;
   --al-vermelho: #ff5a45;
+  --al-vermelho-texto: #ff5a45;
+  --al-vermelho-chama: #c43a2a;
   --al-dourado: #ffd400;
   --al-sobre-vermelho: #000000;
   --al-sobre-dourado: #000000;
@@ -125,6 +133,8 @@
   --al-texto-3: #000000;
   --al-vermelho: #000000;
   --al-vermelho-escuro: #ffffff;
+  --al-vermelho-texto: #000000;
+  --al-vermelho-chama: #000000;
   --al-dourado: #000000;
   --al-sobre-vermelho: #ffffff;
   --al-sobre-dourado: #ffffff;
@@ -239,15 +249,22 @@
 [data-al="2"] .al-botao-g { padding: 0.7rem 1.4rem; font-size: 1.1875rem; min-height: 52px; border-radius: 14px; }
 [data-al="2"] .al-botao-icone { display: inline-flex; }
 [data-al="2"] .al-botao-icone svg { width: 1.15em; height: 1.15em; }
-[data-al="2"] .al-botao-primario { background: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+[data-al="2"] .al-botao-primario { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+/* Só o botão grande (negrito de 19 px = texto grande) leva o vermelho das pranchas: ali 4,3:1 passa (WCAG 1.4.3). */
+[data-al="2"] .al-botao-primario.al-botao-g { background: var(--al-vermelho); }
 [data-al="2"] .al-botao-claro { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
 [data-al="2"] .al-botao-contorno { background: transparent; color: var(--al-texto); border-color: var(--al-superficie-2); }
 [data-al="2"] .al-botao-dourado { background: var(--al-dourado); color: var(--al-sobre-dourado); }
 [data-al="2"] .al-botao-fantasma { background: transparent; color: var(--al-texto-2); padding-inline: 0.4rem; }
 [data-al="2"] .al-botao:not(:disabled):hover { filter: brightness(1.08); }
+/* Clarear o primário de texto pequeno derrubaria o contraste abaixo de 4,5:1: ele escurece. */
+[data-al="2"] .al-botao-primario:not(.al-botao-g):not(:disabled):hover { filter: brightness(0.92); }
 [data-al="2"] .al-botao-contorno:not(:disabled):hover,
 [data-al="2"] .al-botao-fantasma:not(:disabled):hover { background: var(--al-superficie); filter: none; }
 [data-al="2"] .al-botao[aria-pressed="true"].al-botao-fantasma { color: var(--al-vermelho); }
+/* No e-ink (e no alto contraste) a cor do ligado some ou some quase: o ligado vira fundo invertido, além do aria-pressed
+   (WCAG 1.4.1, a cor não é o único meio). */
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-botao[aria-pressed="true"].al-botao-fantasma { background: var(--al-texto); color: var(--al-fundo); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-botao { border-color: var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-botao-claro { background: #fff; color: #000; }
 
@@ -285,7 +302,7 @@
   gap: 0.35em;
   border-radius: 6px;
   padding: 0.1rem 0.45rem 0.1rem 0.2rem;
-  background: var(--al-vermelho);
+  background: var(--al-vermelho-texto);
   color: var(--al-sobre-vermelho);
   font-family: var(--al-fonte);
   font-size: 0.75rem;
