@@ -66,7 +66,7 @@ export function Visor({
   const [recado, setRecado] = useState<string | null>(null);
   const [ocupado, setOcupado] = useState(false);
   const [resposta, setResposta] = useState("");
-  const [reagiu, setReagiu] = useState<ReacaoDoStory | null>(null);
+  const [reacaoFeita, setReacaoFeita] = useState<{ id: string; r: ReacaoDoStory } | null>(null);
   const [categoria, setCategoria] = useState<CategoriaDeDenuncia | null>(null);
   const [detalhe, setDetalhe] = useState("");
   const agora = useAgora(15_000);
@@ -109,11 +109,16 @@ export function Visor({
     if (!atual) return;
     marcarVisto(armazemDoAparelho(), atual.id, Date.now());
     aoMudou?.();
-    setReagiu(null);
-    setResposta("");
     // aoMudou muda a cada render do pai; só o story importa aqui.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [atual?.id]);
+
+  const fracaoAtual = useRef(0);
+  const zerar = () => {
+    fracaoAtual.current = 0;
+    setFracao(0);
+    setResposta("");
+  };
 
   const proximaAutora = useCallback(() => {
     const k = fila.indexOf(quem);
@@ -122,7 +127,7 @@ export function Visor({
       setStories(null);
       setQuem(seguinte);
       setI(0);
-      setFracao(0);
+      zerar();
     } else aoFechar();
   }, [aoFechar, fila, quem]);
 
@@ -130,14 +135,18 @@ export function Visor({
     if (!vivos) return;
     if (i + 1 < vivos.length) {
       setI(i + 1);
-      setFracao(0);
+      zerar();
     } else proximaAutora();
   }, [i, proximaAutora, vivos]);
 
   const voltar = useCallback(() => {
-    setFracao(0);
+    zerar();
     if (i > 0) setI(i - 1);
   }, [i]);
+  const avancarAgora = useRef(avancar);
+  useEffect(() => {
+    avancarAgora.current = avancar;
+  }, [avancar]);
 
   // O relógio da barra: anda só com o story à vista e sem pausa (tela escondida também pausa).
   const duracao = atual ? duracaoDoStory(atual.figurinhas) : 6000;
@@ -148,15 +157,14 @@ export function Visor({
     const passo = (t0: number) => {
       const dt = document.hidden ? 0 : t0 - anterior;
       anterior = t0;
-      setFracao((f) => Math.min(1, f + dt / duracao));
-      quadro = requestAnimationFrame(passo);
+      fracaoAtual.current = Math.min(1, fracaoAtual.current + dt / duracao);
+      setFracao(fracaoAtual.current);
+      if (fracaoAtual.current >= 1) avancarAgora.current();
+      else quadro = requestAnimationFrame(passo);
     };
     quadro = requestAnimationFrame(passo);
     return () => cancelAnimationFrame(quadro);
   }, [atual, pausado, duracao]);
-  useEffect(() => {
-    if (fracao >= 1) avancar();
-  }, [fracao, avancar]);
 
   // Teclado.
   useEffect(() => {
@@ -195,6 +203,7 @@ export function Visor({
   };
 
   const nome = atual?.autora.nome ?? "";
+  const reagiu = reacaoFeita && atual && reacaoFeita.id === atual.id ? reacaoFeita.r : null;
   const meu = !!atual?.meu;
 
   async function enviarResposta(texto: string): Promise<boolean> {
@@ -217,7 +226,7 @@ export function Visor({
     setOcupado(true);
     try {
       await cliente.reagir(atual.id, r);
-      setReagiu(r);
+      setReacaoFeita({ id: atual.id, r });
       avisar(preencherStory(t.visor.reagiu, { reacao: t.visor.reacao[r], nome }));
     } catch {
       avisar(t.visor.erroAoEnviar);
