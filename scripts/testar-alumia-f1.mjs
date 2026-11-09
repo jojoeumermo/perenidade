@@ -9,7 +9,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  contagemDePessoas, diaEMes, enderecoNoFediverso, enderecoParaCompartilhar, LIMITE_DE_RASCUNHOS, porcentagensDaEnquete, previaLigada,
+  contagemDePessoas, diaEMes, misturarRepostes, podeRepostar, enderecoNoFediverso, enderecoParaCompartilhar, LIMITE_DE_RASCUNHOS, porcentagensDaEnquete, previaLigada,
   quandoDoChamado, rascunhosValidos, rascunhoTemTexto, segundosQueFaltam, SEGUNDOS_PARA_DESFAZER, servidorDoFediverso, tempoCurto, tipoDoBanco,
   tipoDoRascunho,
 } from "../lib/rede/publicar/alumia2.ts";
@@ -152,7 +152,7 @@ ok("sem o contexto, o Escrever de hoje", /escrevendo && pode && !contexto2 && \(
 const cartao = ler("components/rede/CartaoDePost.tsx");
 ok("cartão novo só com o contexto", /al2 \? <CartaoDaAlumia2 \{\.\.\.props\} \/> : <CartaoClassico \{\.\.\.props\} \/>/.test(cartao));
 const linha = ler("components/rede/Linha.tsx");
-ok("a linha só usa exemplo na prévia", linha.includes('previa ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({ itens: m.postsDeExemplo()'));
+ok("a linha só usa exemplo na prévia", /previa\s*\?\s*import\("@\/lib\/rede\/publicar\/exemplos-alumia2"\)\.then\(\(m\) => \(\{ itens: m\.postsDeExemplo\(\)/.test(linha));
 // Desligada, nada da Alumia nova vai no pacote da Rede de hoje: as peças e os exemplos chegam sob demanda.
 for (const p of ["CascaDaAlumia2", "EscreverDaAlumia2", "TopoDaLinha2"]) {
   ok(`${p} sob demanda`, redeTsx.includes(`const ${p} = dynamic(() => import("./publicar/alumia2/${p}")`) && !new RegExp(`^import \\{[^}]*\\b${p}\\b`, "m").test(redeTsx));
@@ -193,6 +193,28 @@ const dubles = ler("components/rede/publicar/alumia2/previa/Dubles.tsx");
 ok("compartilhar o ato faz algo", dubles.includes("onClick={() => void compartilhar()}"));
 ok("nenhum hidden direto num botão (o display do .al-botao ganharia)", !/<(Botao|LinkBotao)[^>]*className="[^"]*\bhidden\b/.test(dubles));
 ok("repostar se desliga sem a função no banco", cartaoNovo.includes("repostarForaDoBanco = true"));
+
+// ── Repostar: a mesma regra do banco, e a mistura na aba Seguindo (o banco é provado em testar-alumia-f1-banco.mjs) ──
+const basePost = { meu: false, resposta_a: null, publico: "membros", expira_em: null };
+ok("repostar: post de outra pessoa para a Alumia", podeRepostar(basePost));
+ok("repostar: público da internet também", podeRepostar({ ...basePost, publico: "internet" }));
+ok("repostar: o próprio post não", !podeRepostar({ ...basePost, meu: true }));
+ok("repostar: resposta não", !podeRepostar({ ...basePost, resposta_a: "x" }));
+ok("repostar: post para seguidores, comunidade, núcleo ou equipe não", ["seguidores", "comunidade", "nucleo", "equipe"].every((p) => !podeRepostar({ ...basePost, publico: p })));
+ok("repostar: post que some sozinho não", !podeRepostar({ ...basePost, expira_em: "2026-11-10T00:00:00Z" }));
+const pagina = [{ id: "a", criado_em: "2026-11-09T12:00:00Z" }, { id: "b", criado_em: "2026-11-09T10:00:00Z" }];
+const reps = [{ id: "c", criado_em: "2026-11-01T00:00:00Z", repostado_em: "2026-11-09T11:00:00Z" }, { id: "a", criado_em: "2026-11-09T12:00:00Z", repostado_em: "2026-11-09T11:30:00Z" }];
+igual("mistura: o repost entra pela hora do repost, sem repetir o que já está na página", misturarRepostes(pagina, reps).map((p) => p.id), ["a", "c", "b"]);
+igual("mistura: o que já apareceu em página anterior não volta", misturarRepostes(pagina, reps, new Set(["c"])).map((p) => p.id), ["a", "b"]);
+ok("cartão: o estado do repostar vem do banco em lote", cartaoNovo.includes("jaRepostei(post.id)") && ler("lib/rede/publicar/repostados.ts").includes("redePub.repostados"));
+ok("cartão: repost de quem se segue sem o nome de quem repostou", cartaoNovo.includes("t.cartao.veioDeRepost") && !/repostado_por|quem_repostou/.test(cartaoNovo));
+ok("escrever: Desfazer no meio do envio desfaz no banco", escrever.includes("redePub.desfazer(post.id)") && escrever.includes("desfeitoNoEnvio.current = true"));
+ok("escrever: 20 rascunhos cheios avisa", escrever.includes('"limite_rascunhos"') && escrever.includes("t.escrever.rascunhosCheios"));
+ok("linha: reposts só na aba Seguindo da Alumia nova", ler("components/rede/Linha.tsx").includes('const comReposts = Boolean(al2) && !previa && logado && aba === "seguindo"'));
+const cascaNova = ler("components/rede/publicar/alumia2/CascaDaAlumia2.tsx");
+ok("cascaNova: emblemas numa chamada, com os avisos de hoje se faltar a F1", /redePub\s*\.emblemas\(\)/.test(cascaNova) && cascaNova.includes("avisos.contar()"));
+const sqlF1 = ler("supabase/migracoes/20261109-alumia-f1.sql");
+ok("a migração da F1 tem as funções que o cliente chama", ["rede_pub_repostar", "rede_pub_repostados", "rede_pub_repostes", "rede_pub_rascunho_salvar", "rede_pub_rascunhos", "rede_pub_rascunho_apagar", "rede_pub_desfazer", "rede_alumia_emblemas"].every((f) => sqlF1.includes(`function public.${f}(`) && ler("lib/rede/cliente-publicar.ts").includes(`"${f}"`)));
 
 console.log(`testar-alumia-f1: ${certos} certos, ${falhas.length} falhas`);
 for (const f of falhas) console.log("  ✗", f);
