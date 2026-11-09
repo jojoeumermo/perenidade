@@ -24,6 +24,7 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import { Linha } from "../Linha";
 import { Abas } from "../org/Abas";
 import type { AcoesDaOrg } from "../org/Blocos";
+import type { AcoesDeGestor } from "../org/CuidarDaOrg";
 import { PerfilDaOrg } from "../org/PerfilDaOrg";
 import { Botao, LinkBotao } from "../ui/Botao";
 import { Avatar } from "./Avatar";
@@ -47,6 +48,24 @@ function abaDoEndereco(): string | null {
   }
 }
 
+/** As ações de quem gerencia a organização: o banco (lib/rede/cliente-org.ts), que confere de novo se a pessoa gerencia. */
+function cuidarPeloBanco(handle: string): AcoesDeGestor {
+  return {
+    registrarVotacao: (v) => redeOrg.registrarVotacao(handle, v),
+    criarNucleo: (p) => redeOrg.criarNucleo(handle, p),
+    pedidos: () => redeOrg.pedidosDosNucleos(handle),
+    decidirNucleo: (nucleo, quem, aceitar) => redeOrg.decidirNucleo(nucleo, quem, aceitar),
+    abrirConsulta: (p) => redeOrg.abrirConsulta(handle, p),
+    abrirPlenaria: (p) => redeOrg.abrirPlenaria(handle, p),
+    mudarPlenaria: (id, situacao) => redeOrg.mudarPlenaria(id, situacao),
+    responder: (pergunta) => redeOrg.responderPergunta(pergunta),
+    retirar: (pergunta, motivo) => redeOrg.retirarPergunta(pergunta, motivo),
+    adicionarGestor: (quem) => redeOrg.adicionarGestor(handle, quem),
+    removerGestor: (quem) => redeOrg.removerGestor(handle, quem),
+    sair: () => redeOrg.sairDaGestao(handle),
+  };
+}
+
 /** As ações do perfil de organização de verdade: o banco (lib/rede/cliente-org.ts). */
 function acoesDoBanco(handle: string): AcoesDaOrg {
   return {
@@ -60,6 +79,7 @@ function acoesDoBanco(handle: string): AcoesDaOrg {
 
 export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder }: Props) {
   const [t, setT] = useState<TextosDaOrg | null>(null);
+  const [volta, setVolta] = useState(0);
   const [estado, setEstado] = useState<{ handle: string; org: OrgPublica | null; pessoa: PerfilDaRede | null; extras: ExtrasDoPerfil | null; erro: string } | null>(null);
 
   useEffect(() => {
@@ -85,7 +105,7 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
     return () => {
       vivo = false;
     };
-  }, [handle, s]);
+  }, [handle, s, volta]);
 
   if (!t || !estado || estado.handle !== handle) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   if (estado.org) {
@@ -95,6 +115,8 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
         t={t}
         lang={lang}
         acoes={acoesDoBanco(estado.org.handle)}
+        cuidar={cuidarPeloBanco(estado.org.handle)}
+        aoMudar={() => setVolta((v) => v + 1)}
         membro={situacao.membro}
         abaInicial={abaDoEndereco()}
         posts={<Linha aba={`u:${estado.org.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
