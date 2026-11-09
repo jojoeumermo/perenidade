@@ -8,6 +8,7 @@
 // aqui devolve quem reagiu, votou ou confirmou.
 
 /** Os dados de exemplo só aparecem com NEXT_PUBLIC_ALUMIA_PREVIA=sim (para conferir as telas sem banco). Nunca em produção. */
+// A referência precisa ser literal (process.env.NEXT_PUBLIC_ALUMIA_PREVIA) para o Next gravar o valor no código do navegador.
 export function previaLigada(valor: string | undefined = process.env.NEXT_PUBLIC_ALUMIA_PREVIA): boolean {
   return valor === "sim";
 }
@@ -126,4 +127,34 @@ export function tipoDoBanco(t: TipoDoCompositor, longoComo: "discussao" | "duvid
   if (t === "ato") return null;
   if (t === "longo") return longoComo;
   return t;
+}
+
+/** O tipo do compositor de um rascunho guardado (o banco guarda o tipo do compositor; o que não se conhece vira "post"). */
+export function tipoDoRascunho(t: string): TipoDoCompositor {
+  return t === "ato" || t === "enquete" || t === "longo" || t === "aviso" ? t : "post";
+}
+
+// ───── Cartão ─────
+
+/** As cinco cores de comunidade das pranchas (tokens --al-com-1..5). */
+export type CorDaComunidadeNum = 1 | 2 | 3 | 4 | 5;
+
+/** O dia e o mês curto de uma data, como no calendário do cartão ("16" / "NOV"), no idioma da página. */
+export function diaEMes(iso: string, lang: string): { dia: string; mes: string } | null {
+  const t = new Date(iso);
+  if (Number.isNaN(t.getTime())) return null;
+  let mes: string;
+  try {
+    mes = new Intl.DateTimeFormat(lang, { month: "short" }).format(t);
+  } catch {
+    mes = new Intl.DateTimeFormat("pt", { month: "short" }).format(t);
+  }
+  return { dia: String(t.getDate()).padStart(2, "0"), mes: mes.replace(/\.$/, "").toUpperCase() };
+}
+
+/** O endereço completo de um post para compartilhar: nunca leva dado de quem compartilha (sem ?ref=, sem rastreio). */
+export function enderecoParaCompartilhar(origem: string, caminho: string): string {
+  const o = origem.replace(/\/+$/, "");
+  const c = caminho.startsWith("/") ? caminho : `/${caminho}`;
+  return `${o}${c.split(/[?#]/)[0]}`;
 }
