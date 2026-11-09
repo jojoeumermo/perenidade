@@ -7,10 +7,14 @@
 //   • os tipos novos (contrato 3.4): like, undo-like, announce, undo-announce, flag (assinada pelo ATOR DA INSTÂNCIA: quem denunciou
 //     aqui não aparece lá), block, undo-block, group-announce e group-accept;
 //   • vazão maior: até 200 itens por chamada, 10 de cada vez e no máximo 2 por domínio;
-//   • circuito por domínio: um domínio "morto" (o banco diz até quando, em dominio_estado) não gasta tentativa: o item só espera.
-//     Dentro de uma mesma chamada, 5 falhas de conexão seguidas num domínio já param os itens seguintes dele;
-//   • 410 numa caixa: recusa definitiva com o status, e o banco apaga o seguidor daquela caixa (fila_feito com status 410);
-//   • 429: respeita o Retry-After (segundos ou data), e os outros itens do domínio esperam junto, sem gastar tentativa.
+//   • circuito por domínio: o banco conta as falhas de conexão entre as chamadas (fila_feito com status e domínio) e, na 5ª seguida,
+//     mata o domínio (1 h, 6 h, 24 h) e devolve "morto_ate"; fila_pegar nem entrega item de domínio morto. Na mesma rodada, os itens
+//     seguintes de um domínio morto (ou que pediu calma) voltam sem tocar na rede e sem gastar tentativa;
+//   • 410 numa caixa: o banco apaga o seguidor daquela caixa (fila_feito com status 410);
+//   • 429: respeita o Retry-After (segundos ou data; "espera", em segundos, no fila_feito), e os outros itens do domínio esperam junto;
+//   • orçamento de tempo: a rodada para de começar entregas em 45 s (a rota tem 60 s); o que sobrou volta sem gastar tentativa;
+//   • chave que falta (quem só aceitou o consentimento novo e nunca teve o ator lido lá fora; a comunidade cujo Group ninguém leu)
+//     é gerada aqui, como em atorComChaves (RSA não se gera no SQL). Só sem chave mesmo depois disso o item é descartado.
 // Sem "@/". Só roda no servidor.
 import { createHash, randomUUID } from "node:crypto";
 import { assinarPedido } from "./assinatura";
@@ -18,7 +22,7 @@ import * as documentos from "./documentos";
 import { atividadeCreate, atividadeDelete, atividadeFollow, atividadeResposta, atividadeUndoFollow, atividadeUpdate, CONTEXTO, PUBLICO, type PostFederado } from "./documentos";
 import type { EnderecosDaFederacao } from "./enderecos";
 import { pedirAoFediverso } from "./http";
-import { abrirChave, banco, chaveDaInstancia, fed, modoTotal } from "./servidor";
+import { abrirChave, atorComChaves, banco, chaveDaInstancia, comunidadeComChaves, fed, modoTotal } from "./servidor";
 
 type TipoDaFila =
   | "create"
@@ -43,10 +47,19 @@ interface ItemDaFila {
   tipo: TipoDaFila;
   objeto: string;
   destino: string;
-  /** pedido: o id do Follow; atividade: o id da atividade (Like, Announce, Flag, Block) para o Undo bater; alvos/conteudo: da Flag; slug: da comunidade. */
+  /**
+   * pedido: o id do Follow; atividade: o id (ou o uuid) da atividade (Like, Announce, Flag, Block), para o Undo bater, ou, no
+   * group-announce, qual atividade o Group repassa ('create' | 'update' | 'delete'); alvos/conteudo: da Flag; slug: reserva da
+   * comunidade (o banco manda em "comunidade").
+   */
   extra: { pedido?: string; atividade?: string; alvos?: string[]; conteudo?: string; slug?: string };
   tentativas: number;
-  handle: string;
+  /** O @ de quem assina (nulo nos itens da instância e do Group). */
+  handle: string | null;
+  /** A comunidade (Group) dona do item, quando é o Group que assina. */
+  comunidade?: string | null;
+  /** Quem assina, como o banco diz: a pessoa, o Group ou o ator da instância. */
+  assinante?: "pessoa" | "grupo" | "instancia";
   chave_publica: string | null;
   chave_privada: string | null;
 }
@@ -93,74 +106,96 @@ export const construtores: Construtores = {
 };
 
 /**
- * O id da atividade de um item (Like, Announce, Block, Flag): o que o banco guardou em extra.atividade ou, sem ele, um id FIXO por
- * pessoa e objeto (o Undo precisa repetir o mesmo id do original para a outra instância achar o que desfazer).
+ * O id da atividade de um item (Like, Announce, Block, Flag): o que o banco guardou em extra.atividade (um endereço nosso daquele
+ * tipo, ou o uuid que o banco gerou) ou, sem ele, um id FIXO por pessoa e objeto (o Undo precisa repetir o mesmo id do original
+ * para a outra instância achar o que desfazer). Nenhum outro valor vindo do banco vira id de atividade assinada por nós.
  */
 function idDaAtividade(item: ItemDaFila, tipo: string): string {
   const guardado = item.extra?.atividade;
-  if (typeof guardado === "string" && guardado.startsWith(`${fed.base}/`)) return guardado;
-  return fed.atividade(tipo, createHash("sha256").update(`${item.handle}\n${item.objeto}`).digest("hex").slice(0, 32));
+  if (typeof guardado === "string") {
+    if (guardado.startsWith(`${fed.atividade(tipo, "")}`) && /^[A-Za-z0-9_-]{1,64}$/.test(guardado.slice(fed.atividade(tipo, "").length))) return guardado;
+    if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(guardado)) return fed.atividade(tipo, guardado.toLowerCase());
+  }
+  return fed.atividade(tipo, createHash("sha256").update(`${item.handle ?? ""}\n${item.objeto}`).digest("hex").slice(0, 32));
+}
+
+/** A comunidade de um item do Group (o banco manda em "comunidade"; extra.slug fica de reserva). */
+function slugDe(item: ItemDaFila): string | null {
+  const s = item.comunidade ?? item.extra?.slug ?? "";
+  return /^[a-z0-9-]{2,60}$/.test(s) ? s : null;
 }
 
 /** Monta a atividade de um item; nulo quando ela não deve mais sair (o post deixou de poder sair, por exemplo). */
 async function montar(item: ItemDaFila): Promise<Atividade | null> {
   const c = construtores;
+  if (item.tipo === "create" || item.tipo === "update") {
+    const post = await banco<PostFederado | { apagado: true } | null>("post", { id: item.objeto });
+    if (!post || "apagado" in post) return null;
+    return item.tipo === "create" ? atividadeCreate(fed, post) : atividadeUpdate(fed, post);
+  }
+  const handle = item.handle ?? "";
   switch (item.tipo) {
-    case "create":
-    case "update": {
-      const post = await banco<PostFederado | { apagado: true } | null>("post", { id: item.objeto });
-      if (!post || "apagado" in post) return null;
-      return item.tipo === "create" ? atividadeCreate(fed, post) : atividadeUpdate(fed, post);
-    }
     case "delete":
-      return atividadeDelete(fed, item.handle, item.objeto);
+      return handle ? atividadeDelete(fed, handle, item.objeto) : null;
     case "accept":
-      return atividadeResposta(fed, "Accept", item.handle, item.objeto, item.extra.pedido ?? "", randomUUID());
+      return handle ? atividadeResposta(fed, "Accept", handle, item.objeto, item.extra.pedido ?? "", randomUUID()) : null;
     case "reject":
-      return atividadeResposta(fed, "Reject", item.handle, item.objeto, item.extra.pedido ?? "", randomUUID());
+      return handle ? atividadeResposta(fed, "Reject", handle, item.objeto, item.extra.pedido ?? "", randomUUID()) : null;
     case "follow":
-      return item.extra.pedido ? atividadeFollow(fed, item.handle, item.objeto, item.extra.pedido) : null;
+      return handle && item.extra.pedido ? atividadeFollow(fed, handle, item.objeto, item.extra.pedido) : null;
     case "undo-follow":
-      return item.extra.pedido ? atividadeUndoFollow(fed, item.handle, item.objeto, item.extra.pedido, randomUUID()) : null;
+      return handle && item.extra.pedido ? atividadeUndoFollow(fed, handle, item.objeto, item.extra.pedido, randomUUID()) : null;
     default:
-      return modoTotal() ? montarTotal(item, c) : null;
+      return modoTotal() ? montarTotal(item, handle, c) : null;
   }
 }
 
 /** Os tipos do modo total (contrato 3.4). */
-async function montarTotal(item: ItemDaFila, c: Construtores): Promise<Atividade | null> {
+async function montarTotal(item: ItemDaFila, handle: string, c: Construtores): Promise<Atividade | null> {
   switch (item.tipo) {
-    case "like":
-      return c.atividadeLike(fed, item.handle, item.objeto, idDaAtividade(item, "like"));
-    case "undo-like":
-      return c.atividadeUndo(fed, item.handle, c.atividadeLike(fed, item.handle, item.objeto, idDaAtividade(item, "like")));
-    case "announce":
-      return c.atividadeAnnounce(fed, item.handle, item.objeto, idDaAtividade(item, "announce"));
-    case "undo-announce":
-      return c.atividadeUndo(fed, item.handle, c.atividadeAnnounce(fed, item.handle, item.objeto, idDaAtividade(item, "announce")));
-    case "block":
-      return c.atividadeBlock(fed, item.handle, item.objeto, idDaAtividade(item, "block"));
-    case "undo-block":
-      return c.atividadeUndo(fed, item.handle, c.atividadeBlock(fed, item.handle, item.objeto, idDaAtividade(item, "block")));
     case "flag": {
       // Só os alvos de fora (o perfil e os posts denunciados) e o comentário que a pessoa escolheu encaminhar.
-      const alvos = (Array.isArray(item.extra.alvos) ? item.extra.alvos : [item.objeto]).filter((x) => typeof x === "string" && /^https:\/\//.test(x)).slice(0, 20);
+      const alvos = (Array.isArray(item.extra.alvos) ? item.extra.alvos : [item.objeto]).filter((x) => typeof x === "string" && /^https:\/\/[^\s]{1,490}$/.test(x)).slice(0, 20);
       if (!alvos.length) return null;
-      return c.atividadeFlag(fed, alvos, typeof item.extra.conteudo === "string" ? item.extra.conteudo.slice(0, 1000) : "", item.extra.atividade ?? fed.atividade("flag", randomUUID()));
+      // O id passa pela mesma conferência dos outros tipos; sem um id aceitável, um novo.
+      const id = typeof item.extra.atividade === "string" ? idDaAtividade(item, "flag") : fed.atividade("flag", randomUUID());
+      return c.atividadeFlag(fed, alvos, typeof item.extra.conteudo === "string" ? item.extra.conteudo.slice(0, 1000) : "", id);
     }
     case "group-announce": {
-      const slug = item.extra.slug;
+      const slug = slugDe(item);
       if (!slug) return null;
+      // O Group repassa o que aconteceu com o post da comunidade: criado, editado ou apagado (o banco diz qual em extra.atividade).
+      if (item.extra.atividade === "delete") {
+        const grupo = doGrupo(fed, slug);
+        return c.atividadeAnnounceDoGrupo(fed, slug, { id: `${fed.post(item.objeto)}#delete`, type: "Delete", actor: grupo, to: [PUBLICO], object: { id: fed.post(item.objeto), type: "Tombstone" } });
+      }
       const post = await banco<PostFederado | { apagado: true } | null>("post", { id: item.objeto });
       if (!post || "apagado" in post) return null;
-      return c.atividadeAnnounceDoGrupo(fed, slug, atividadeCreate(fed, post));
+      return c.atividadeAnnounceDoGrupo(fed, slug, item.extra.atividade === "update" ? atividadeUpdate(fed, post) : atividadeCreate(fed, post));
     }
     case "group-accept": {
-      const slug = item.extra.slug;
+      const slug = slugDe(item);
       if (!slug || !item.extra.pedido) return null;
       const grupo = doGrupo(fed, slug);
-      return { "@context": CONTEXTO, id: `${grupo}#accepts/${randomUUID()}`, type: "Accept", actor: grupo, object: { id: item.extra.pedido, type: "Follow", actor: item.objeto, object: grupo } };
+      return { "@context": CONTEXTO, id: fed.atividade("accept", randomUUID()), type: "Accept", actor: grupo, object: { id: item.extra.pedido, type: "Follow", actor: item.objeto, object: grupo } };
     }
+    default:
+      break;
+  }
+  if (!handle) return null;
+  switch (item.tipo) {
+    case "like":
+      return c.atividadeLike(fed, handle, item.objeto, idDaAtividade(item, "like"));
+    case "undo-like":
+      return c.atividadeUndo(fed, handle, c.atividadeLike(fed, handle, item.objeto, idDaAtividade(item, "like")));
+    case "announce":
+      return c.atividadeAnnounce(fed, handle, item.objeto, idDaAtividade(item, "announce"));
+    case "undo-announce":
+      return c.atividadeUndo(fed, handle, c.atividadeAnnounce(fed, handle, item.objeto, idDaAtividade(item, "announce")));
+    case "block":
+      return c.atividadeBlock(fed, handle, item.objeto, idDaAtividade(item, "block"));
+    case "undo-block":
+      return c.atividadeUndo(fed, handle, c.atividadeBlock(fed, handle, item.objeto, idDaAtividade(item, "block")));
     default:
       return null;
   }
@@ -205,7 +240,7 @@ export async function processarFila(limite = 20): Promise<{ entregues: number; a
           total.descartados++;
           return;
         }
-        const status = await entregar(item.destino, atividade, item.handle, chave);
+        const status = await entregar(item.destino, atividade, item.handle ?? "", chave);
         if (status >= 200 && status < 300) {
           await banco("fila_feito", { id: item.id, ok: true });
           total.entregues++;
@@ -228,17 +263,9 @@ export async function processarFila(limite = 20): Promise<{ entregues: number; a
 export const LIMITE_TOTAL = 200;
 export const DE_CADA_VEZ = 10;
 export const POR_DOMINIO = 2;
-/** Falhas de conexão seguidas que matam um domínio, e as esperas dele morto (1 h, 6 h e 24 h; o banco guarda quantas vezes já morreu). */
-export const FALHAS_PARA_MORRER = 5;
-export const ESPERAS_DO_CIRCUITO_MS = [3_600_000, 6 * 3_600_000, 24 * 3_600_000] as const;
 /** O Retry-After de um 429 vale até 24 h; sem ele (ou ilegível), 5 minutos. */
 const RETRY_PADRAO_MS = 5 * 60_000;
 const RETRY_MAXIMO_MS = 24 * 3_600_000;
-
-/** Até quando um domínio fica morto na n-ésima vez (0 = primeira). */
-export function mortoAte(vezes: number, agora = Date.now()): Date {
-  return new Date(agora + ESPERAS_DO_CIRCUITO_MS[Math.min(Math.max(vezes, 0), ESPERAS_DO_CIRCUITO_MS.length - 1)]);
-}
 
 /** Lê o Retry-After (segundos ou data HTTP) e devolve até quando esperar, entre agora e 24 h. */
 export function lerRetryAfter(valor: string | null | undefined, agora = Date.now()): Date {
@@ -295,10 +322,16 @@ interface EstadoDoDominio {
   /** Até quando o domínio espera (morto pelo circuito ou pedindo calma com 429). */
   esperaAte: number | null;
   motivo: string;
-  falhasSeguidas: number;
 }
 
-async function processarFilaTotal(limite: number): Promise<{ entregues: number; adiados: number; descartados: number }> {
+/** Orçamento de uma rodada: depois disso, nenhuma entrega nova começa (cada uma leva até 10 s; a rota tem 60 s). */
+export const ORCAMENTO_MS = 45_000;
+
+/** Segundos até uma data (o "espera" do fila_feito), entre 30 s e 12 h, como o banco aceita. */
+const segundosAte = (ate: number) => Math.min(Math.max(Math.ceil((ate - Date.now()) / 1000), 30), 43_200);
+
+async function processarFilaTotal(limite: number, orcamentoMs = ORCAMENTO_MS): Promise<{ entregues: number; adiados: number; descartados: number }> {
+  const inicio = Date.now();
   const itens = await banco<ItemDaFila[]>("fila_pegar", { limite });
   const total = { entregues: 0, adiados: 0, descartados: 0 };
   const estados = new Map<string, Promise<EstadoDoDominio>>();
@@ -308,88 +341,108 @@ async function processarFilaTotal(limite: number): Promise<{ entregues: number; 
       e = banco<{ morto_ate?: string | null } | null>("dominio_estado", { dominio })
         .then((r) => {
           const ate = r?.morto_ate ? Date.parse(r.morto_ate) : NaN;
-          return { esperaAte: Number.isFinite(ate) && ate > Date.now() ? ate : null, motivo: "dominio_morto", falhasSeguidas: 0 };
+          return { esperaAte: Number.isFinite(ate) && ate > Date.now() ? ate : null, motivo: "dominio_morto" };
         })
-        .catch(() => ({ esperaAte: null, motivo: "", falhasSeguidas: 0 }));
+        .catch(() => ({ esperaAte: null, motivo: "" }));
       estados.set(dominio, e);
     }
     return e;
   };
-  let instancia: { privada: string } | null | undefined;
+  // As chaves desta rodada (uma busca por pessoa, comunidade e instância, mesmo com muitos itens).
+  let instancia: Promise<string | null> | undefined;
+  const pessoas = new Map<string, Promise<string | null>>();
+  const grupos = new Map<string, Promise<string | null>>();
+  const chaveDe = (item: ItemDaFila): { chave: Promise<string | null>; chaveId: string } => {
+    const assinante = item.tipo === "flag" ? "instancia" : (item.assinante ?? (item.tipo.startsWith("group-") ? "grupo" : "pessoa"));
+    if (assinante === "instancia") {
+      instancia ??= chaveDaInstancia().then((k) => k.privada, () => null);
+      return { chave: instancia, chaveId: fed.chaveDaInstancia };
+    }
+    if (assinante === "grupo") {
+      const slug = slugDe(item);
+      if (!slug) return { chave: Promise.resolve(null), chaveId: "" };
+      const chaveId = `${doGrupo(fed, slug)}#main-key`;
+      const aberta = abrirChave(item.chave_privada);
+      if (aberta) return { chave: Promise.resolve(aberta), chaveId };
+      // O Group ainda sem chave (ninguém leu o documento dele): gera agora, como app/api/fediverso/c/[slug] faria.
+      let g = grupos.get(slug);
+      if (!g) grupos.set(slug, (g = comunidadeComChaves(slug).catch(() => null)));
+      return { chave: g, chaveId };
+    }
+    const handle = item.handle ?? "";
+    if (!handle) return { chave: Promise.resolve(null), chaveId: "" };
+    const aberta = abrirChave(item.chave_privada);
+    if (aberta) return { chave: Promise.resolve(aberta), chaveId: fed.chave(handle) };
+    // Sem chave: quem só aceitou o consentimento novo (modo total) nunca teve o ator lido lá fora. Gera agora, se a pessoa ainda
+    // federa ("ator" só devolve chave a quem está ligado e sem impedimento, ou saindo com entregas pendentes).
+    let k = pessoas.get(handle);
+    if (!k) pessoas.set(handle, (k = atorComChaves(handle).then((a) => a?.privada ?? null, () => null)));
+    return { chave: k, chaveId: fed.chave(handle) };
+  };
+  /** Devolve o item à fila sem tocar na rede e sem gastar tentativa (o caminho do 429 no fila_feito devolve a tentativa). */
+  const devolver = async (item: ItemDaFila, dominio: string, ate: number, motivo: string) => {
+    await banco("fila_feito", { id: item.id, ok: false, definitivo: false, erro: motivo, status: 429, dominio, espera: segundosAte(ate) });
+    total.adiados++;
+  };
 
   await emParalelo(
     itens,
     (item) => dominioDe(item.destino),
     async (item) => {
       const dominio = dominioDe(item.destino);
+      if (Date.now() - inicio > orcamentoMs) return devolver(item, dominio, Date.now() + 30_000, "sem_tempo");
       const estado = await estadoDe(dominio);
       // Domínio esperando (morto ou com 429): o item volta para a fila sem gastar tentativa e sem tocar na rede.
-      if (estado.esperaAte && estado.esperaAte > Date.now()) {
-        await banco("fila_feito", { id: item.id, ok: false, definitivo: false, erro: estado.motivo, status: 0, dominio, adiar_ate: new Date(estado.esperaAte).toISOString(), sem_tentativa: true });
-        total.adiados++;
-        return;
-      }
-      // A Flag sai assinada pelo ator da instância; os Group pela chave da comunidade (que vem no item); o resto pela pessoa.
-      let chave: string | null;
-      let chaveId: string;
-      if (item.tipo === "flag") {
-        if (instancia === undefined) instancia = await chaveDaInstancia().catch(() => null);
-        chave = instancia?.privada ?? null;
-        chaveId = fed.chaveDaInstancia;
-      } else if (item.tipo === "group-announce" || item.tipo === "group-accept") {
-        chave = abrirChave(item.chave_privada);
-        chaveId = `${doGrupo(fed, item.extra.slug ?? "")}#main-key`;
-      } else {
-        chave = abrirChave(item.chave_privada);
-        chaveId = fed.chave(item.handle);
-      }
-      if (!chave) {
-        await banco("fila_feito", { id: item.id, ok: false, definitivo: true, erro: "sem_chave", status: 0, dominio });
+      if (estado.esperaAte && estado.esperaAte > Date.now()) return devolver(item, dominio, estado.esperaAte, estado.motivo);
+      const { chave: prometida, chaveId } = chaveDe(item);
+      const chave = await prometida;
+      if (!chave || !chaveId) {
+        await banco("fila_feito", { id: item.id, ok: false, definitivo: true, erro: "sem_chave" });
         total.descartados++;
         return;
       }
       const atividade = await montar(item).catch(() => undefined);
       if (atividade === undefined) {
-        await banco("fila_feito", { id: item.id, ok: false, erro: "banco", status: 0, dominio, sem_tentativa: false });
+        // Falha do banco ao montar: tenta de novo mais tarde (sem "status": não conta para o circuito do domínio).
+        await banco("fila_feito", { id: item.id, ok: false, erro: "banco" });
         total.adiados++;
         return;
       }
       if (atividade === null) {
-        await banco("fila_feito", { id: item.id, ok: true, erro: "", status: 0, dominio });
+        await banco("fila_feito", { id: item.id, ok: true, erro: "" });
         total.descartados++;
         return;
       }
       const { status, retryAfter } = await entregarAssinado(item.destino, atividade, chaveId, chave);
       if (status >= 200 && status < 300) {
-        estado.falhasSeguidas = 0;
         await banco("fila_feito", { id: item.id, ok: true, status, dominio });
         total.entregues++;
         return;
       }
       if (status === 429) {
         // A outra instância pediu calma: este item e os outros do mesmo domínio esperam o que ela pediu.
-        const ate = lerRetryAfter(retryAfter);
-        estado.esperaAte = Math.max(estado.esperaAte ?? 0, ate.getTime());
+        const ate = lerRetryAfter(retryAfter).getTime();
+        estado.esperaAte = Math.max(estado.esperaAte ?? 0, ate);
         estado.motivo = "http_429";
-        await banco("fila_feito", { id: item.id, ok: false, definitivo: false, erro: "http_429", status, dominio, adiar_ate: ate.toISOString() });
+        await banco("fila_feito", { id: item.id, ok: false, definitivo: false, erro: "http_429", status, dominio, espera: segundosAte(ate) });
         total.adiados++;
         return;
       }
       if (falhaDeConexao(status)) {
-        estado.falhasSeguidas++;
-        // Cinco seguidas nesta chamada: o domínio para aqui (o banco, que conta entre as chamadas, decide até quando de verdade).
-        if (estado.falhasSeguidas >= FALHAS_PARA_MORRER && !estado.esperaAte) {
-          estado.esperaAte = mortoAte(0).getTime();
+        // O banco conta as falhas seguidas do domínio (entre as chamadas) e, na 5ª, devolve até quando ele fica morto: daí em
+        // diante, nesta rodada, os itens dele voltam sem tocar na rede.
+        const r = await banco<{ morto_ate?: string | null } | null>("fila_feito", { id: item.id, ok: false, definitivo: false, erro: `http_${status}`, status, dominio }).catch(() => null);
+        const morto = r?.morto_ate ? Date.parse(r.morto_ate) : NaN;
+        if (Number.isFinite(morto) && morto > Date.now()) {
+          estado.esperaAte = Math.max(estado.esperaAte ?? 0, morto);
           estado.motivo = "dominio_morto";
         }
-        await banco("fila_feito", { id: item.id, ok: false, definitivo: false, erro: `http_${status}`, status, dominio });
         total.adiados++;
         return;
       }
-      estado.falhasSeguidas = 0;
       // 410 numa caixa: o ator sumiu lá; o banco apaga o seguidor daquela caixa. Outro 4xx (menos 408) é recusa definitiva.
       const definitivo = status >= 400 && status < 500 && status !== 408;
-      await banco("fila_feito", { id: item.id, ok: false, definitivo, erro: `http_${status}`, status, dominio, ...(status === 410 ? { sumiu: item.destino } : {}) });
+      await banco("fila_feito", { id: item.id, ok: false, definitivo, erro: `http_${status}`, status, dominio });
       if (definitivo) total.descartados++;
       else total.adiados++;
     },

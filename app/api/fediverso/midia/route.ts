@@ -2,9 +2,12 @@
 //
 // A rota-proxy da mídia de fora (imagem de post e avatar de perfil remoto). O navegador de quem lê pede a imagem AQUI e nunca toca a
 // instância de fora: ela não vê o IP, o navegador nem o cookie de ninguém (só o nosso servidor, com o nome da Alumia). Só no modo
-// "fediverso-total" (desligado por padrão: 404). Só serve o endereço que o servidor assinou (HMAC derivado do segredo da federação:
-// não é proxy aberto); a busca passa pela trava de SSRF de lib/rede/fediverso/http.ts (só https na 443, DNS conferido ao conectar,
-// nada de endereço interno), com tamanho máximo, e o tipo é conferido pelos BYTES (JPG, PNG, WebP, GIF e AVIF; nunca SVG).
+// "fediverso-total" (desligado por padrão: 404). Só serve o endereço que o servidor assinou (HMAC derivado do segredo da federação,
+// com validade: não é proxy aberto, e ninguém pede para assinar uma URL qualquer); a busca passa pela trava de SSRF de
+// lib/rede/fediverso/http.ts (só https na 443, DNS conferido ao conectar, nada de endereço interno), o bloqueio de instância é
+// conferido em CADA salto (um redirecionamento não leva a instância bloqueada), com tamanho máximo, e o tipo é conferido pelos
+// BYTES (JPG, PNG, WebP, GIF e AVIF; nunca SVG). O cache é curto (1 dia na borda) para imagem de instância que a mediação bloqueou
+// depois sumir logo.
 import { urlDoFediverso, pedirAoFediverso } from "@/lib/rede/fediverso/http";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, midiaAssinada, modoTotal, semFederacao } from "@/lib/rede/fediverso/servidor";
@@ -24,17 +27,25 @@ function tipoPelosBytes(b: Uint8Array): string | null {
   return null;
 }
 
+/** Instância liberada? (falha do banco = não: na dúvida, não busca) */
+const liberada = (url: string) => banco<boolean>("bloqueado", { url }).then((b) => !b, () => false);
+
 export async function GET(pedido: Request) {
   if (!modoTotal()) return semFederacao();
   const barrado = conferirTeto(pedido, "midia", 600);
   if (barrado) return barrado;
   const p = new URL(pedido.url).searchParams;
   const alvo = p.get("u") ?? "";
-  if (!midiaAssinada(alvo, p.get("s") ?? "")) return nada(404);
+  if (!midiaAssinada(alvo, p.get("e") ?? "", p.get("s") ?? "")) return nada(404);
   if (!urlDoFediverso(alvo)) return nada(404);
-  // Instância bloqueada pela mediação depois que a imagem foi assinada: não serve mais.
-  if (await banco<boolean>("bloqueado", { url: alvo }).catch(() => true)) return nada(404);
-  const r = await pedirAoFediverso(alvo, { binario: true, maxBytes: 8 * 1024 * 1024, tempoMs: 10_000, cabecalhos: { Accept: "image/avif,image/webp,image/png,image/jpeg,image/gif;q=0.9" } });
+  const r = await pedirAoFediverso(alvo, {
+    binario: true,
+    maxBytes: 8 * 1024 * 1024,
+    tempoMs: 10_000,
+    cabecalhos: { Accept: "image/avif,image/webp,image/png,image/jpeg,image/gif;q=0.9" },
+    // O primeiro endereço e cada redirecionamento: instância bloqueada pela mediação (mesmo depois de a imagem ser assinada) não serve.
+    conferirSalto: (u) => liberada(u.href),
+  });
   if (!r || r.status !== 200 || !r.bytes?.length) return nada(404);
   const tipo = tipoPelosBytes(r.bytes);
   if (!tipo) return nada(404);
@@ -42,7 +53,7 @@ export async function GET(pedido: Request) {
     headers: {
       "Content-Type": tipo,
       "Content-Length": String(r.bytes.length),
-      "Cache-Control": "public, max-age=86400, s-maxage=604800, immutable",
+      "Cache-Control": "public, max-age=3600, s-maxage=86400",
       "X-Content-Type-Options": "nosniff",
       "Content-Security-Policy": "default-src 'none'; sandbox",
       "Cross-Origin-Resource-Policy": "same-origin",
