@@ -103,7 +103,10 @@ for (const m of css.matchAll(/([^{}]+)\{/g)) {
   for (const ch of sel) {
     if (ch === "(") fundo++;
     if (ch === ")") fundo--;
-    if (ch === "," && fundo === 0) (seletores.push(atual.trim()), (atual = ""));
+    if (ch === "," && fundo === 0) {
+      seletores.push(atual.trim());
+      atual = "";
+    }
     else atual += ch;
   }
   seletores.push(atual.trim());
