@@ -313,3 +313,15 @@
 }
 [data-al="2"] .al-flap-texto { padding-inline: 0.5em; }
 :root[data-eink] [data-al="2"] .al-flap { background: #000; color: #fff; }
+
+/* Tela "em construção" das rotas novas (components/rede/onda5/EmConstrucao.tsx). */
+[data-al="2"] .al-em-construcao { background: var(--al-fundo); color: var(--al-texto); min-height: 70vh; }
+[data-al="2"] .al-em-construcao-miolo { max-width: 40rem; margin: 0 auto; padding: 2rem 16px 3rem; display: grid; gap: 1rem; justify-items: start; }
+[data-al="2"] .al-em-construcao-marca { display: flex; align-items: center; gap: 0.6rem; margin: 0; }
+[data-al="2"] .al-em-construcao-marca > span { display: grid; line-height: 1; }
+[data-al="2"] .al-em-construcao-nome { font-size: 1.6rem; }
+[data-al="2"] .al-em-construcao-selo { margin: 1rem 0 0; color: var(--al-dourado); font-size: 1rem; letter-spacing: 0.04em; }
+[data-al="2"] .al-em-construcao-titulo { margin: 0; font-size: clamp(3rem, 14vw, 5.5rem); overflow-wrap: anywhere; }
+[data-al="2"] .al-em-construcao-texto { margin: 0; font-size: 1.15rem; line-height: 1.45; color: var(--al-texto-2); }
+[data-al="2"] .al-em-construcao-aviso { margin: 0; font-size: 0.95rem; color: var(--al-texto-3); }
+[data-al="2"] .al-em-construcao-rodape { margin: 1.5rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
