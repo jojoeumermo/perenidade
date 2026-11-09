@@ -315,3 +315,14 @@
   :root:has(.al-perfil, .al-org-pagina, .al-selo-form) .assistente-flutua { left: auto; right: 16px; bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
 }
 [data-al="2"] .al-perfil-org-principal, [data-al="2"] .al-perfil-org-lado { min-width: 0; }
+
+/* "Cuidar da conta" (só quem gerencia a organização vê). */
+[data-al="2"] .al-cuidar { display: grid; gap: 10px; }
+[data-al="2"] .al-cuidar-parte { border-top: 1px solid var(--al-superficie-2); padding-top: 10px; }
+[data-al="2"] .al-cuidar-parte > summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 700; }
+[data-al="2"] .al-cuidar-parte > :not(summary) { margin-top: 10px; }
+[data-al="2"] .al-cuidar-linha { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--al-superficie-2); overflow-wrap: anywhere; }
+[data-al="2"] .al-cuidar-botoes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+[data-al="2"] .al-cuidar-motivo { width: auto; min-width: 0; }
+[data-al="2"] .al-cuidar-plenaria { display: grid; gap: 8px; margin-top: 16px; }
+[data-al="2"] .al-cuidar-plenaria h3 { margin: 0; font-size: 1.05rem; }

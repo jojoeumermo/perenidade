@@ -225,5 +225,16 @@
     "vazio": { "respostas": "Ninguna respuesta por aquí.", "midia": "Ninguna imagen por aquí." }
   },
   "coluna": { "entrarNaSala": "Entrar en la sala", "mandarPergunta": "Enviar pregunta" },
-  "erros": { "semBanco": "Esta parte todavía no está en línea.", "falha": "No funcionó. Inténtalo de nuevo." }
+  "erros": { "semBanco": "Esta parte todavía no está en línea.", "falha": "No funcionó. Inténtalo de nuevo." },
+  "cuidar": {
+    "titulo": "Cuidar de la cuenta",
+    "ajuda": "Solo quien cuida de la cuenta ve esta parte. Lo que hagas aquí sale en nombre de la organización; nadie ve que fuiste tú.",
+    "feito": "Hecho. La página se actualizó.",
+    "voto": {"titulo": "Registrar un voto (Cómo votamos)", "data": "Fecha de la votación", "projeto": "Proyecto", "voto": "Voto", "porque": "Por qué", "resultado": "Resultado en la cámara", "fonte": "Enlace de la fuente pública", "fonteAjuda": "Sitio de la cámara, acta o diario oficial: quien quiera lo comprueba.", "mandar": "Registrar", "votos": {"sim": "Sí", "nao": "No", "abstencao": "Abstención", "obstrucao": "Obstrucción", "ausente": "Ausente"}},
+    "nucleo": {"titulo": "Nuevo núcleo", "nome": "Nombre del núcleo", "quando": "Cuándo se reúne", "onde": "Barrio o ciudad", "cor": "Color", "mandar": "Crear núcleo"},
+    "pedidos": {"titulo": "Pedidos para entrar en los núcleos", "ver": "Ver pedidos", "vazio": "Ningún pedido esperando.", "aceitar": "Aceptar", "recusar": "Rechazar", "ajuda": "Solo el alias y la @ de quien pidió. Rechazar no avisa a la persona.", "de": "{codinome} (@{handle}) quiere entrar en {nucleo}"},
+    "consulta": {"titulo": "Abrir consulta a la base", "pergunta": "Pregunta", "metodo": "Método", "simples": "Simple (una opción)", "ranqueada": "Por orden de preferencia", "opcoes": "Opciones (una por línea, de 2 a 8)", "prazo": "Cierra el", "quorum": "Quórum en personas (opcional, 3 o más)", "compromisso": "Lo que la organización hará con el resultado", "ajuda": "Vota quien es de un núcleo de la organización. Una vez abierta, nada cambia: ni la pregunta, ni las opciones, ni el plazo.", "mandar": "Abrir consulta"},
+    "plenaria": {"titulo": "Programar plenaria", "nome": "Título", "descricao": "Descripción", "inicio": "Empieza el", "sala": "Enlace de la sala (https)", "mandar": "Programar plenaria", "noAr": "Poner en vivo", "encerrar": "Terminar", "fila": "Fila de {titulo}", "filaVazia": "Ninguna pregunta en la fila.", "respondida": "Respondida", "tirar": "Quitar de la fila", "motivo": "Motivo para quitar", "ajudaFila": "El orden es el de llegada y no cambia. Solo sale de la fila por uno de estos motivos, y queda registrado.", "motivos": {"ofensa": "Ofensa", "dado_pessoal": "Dato personal", "fora_do_tema": "Fuera de tema", "repetida": "Repetida"}},
+    "gestores": {"titulo": "Quién cuida de la cuenta", "handle": "@ de la persona", "adicionar": "Poner a cuidar", "remover": "Quitar", "sair": "Salir de esta cuenta", "ajuda": "Solo quien creó la cuenta pone o quita personas. La lista de quién cuida no aparece en ningún lugar, ni aquí."}
+  }
 }
