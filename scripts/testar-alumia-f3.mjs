@@ -102,7 +102,12 @@ ok("as quatro abas têm painel (aria-controls não aponta para o vazio)", ["post
 const telaNova = ler("components/rede/conversa/TelaDaConversaAlumia.tsx");
 ok("'Enviar assim mesmo' só depois de alerta, nunca de bloqueio", /\{!conferir\.bloqueia && <button/.test(telaNova) && /if \(mesmoAssim && conferir\?\.bloqueia !== false\) return;/.test(telaNova));
 ok("o texto da resposta fica fora do botão", !/role="button"/.test(telaNova));
-ok("sem reações com emoji enquanto a função do banco não existe", !/reagirEmoji|<Reacoes/.test(telaNova) && !/rede_reagir_emoji/.test(ler("lib/rede/cliente-conversa.ts")));
+// As reações voltaram com o back-end da F3 (20261109-alumia-f3.sql): só quando o banco manda post.reacoes, pela função de verdade.
+const clienteConversa = ler("lib/rede/cliente-conversa.ts");
+ok("reações com emoji só quando o banco manda (post.reacoes) e pela função de verdade", /\{post\.reacoes && <Reacoes/.test(telaNova) && /"rede_alumia_reagir"/.test(clienteConversa));
+ok("'ajudou' pela função nova (só a autora marca), nunca pela de hoje", /conversa\.ajudou\(/.test(telaNova) && !/conversa\.aceitar\(/.test(telaNova) && /dado\.pode_ajudou === true/.test(telaNova));
+ok("as telas novas chamam as funções da F3", /"rede_alumia_conversa"/.test(clienteConversa) && /"rede_alumia_com_pagina"/.test(ler("lib/rede/cliente-comunidades.ts")) && /"rede_alumia_ativas"/.test(ler("lib/rede/cliente-comunidades.ts")));
+ok("a regra de 'ajudou' não diz mais que a moderação marca", !/moderação\)/.test(ler("i18n/rede/conversa/alumia/pt.json")));
 ok("o post compacto tem Denunciar/Silenciar/Moderar", /<AcoesDeCuidado post=\{post\}/.test(ler("components/rede/conversa/base3.tsx")));
 
 // ── A folha só vale dentro de [data-al="2"] ──
