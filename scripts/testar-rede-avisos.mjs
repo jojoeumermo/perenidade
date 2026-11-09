@@ -290,7 +290,7 @@ await dono("select interno.rede3_aviso_criar($1, 'resposta', $2, $2, $3, null)",
 await dono("select interno.rede3_aviso_criar($1, 'apoio', $2, null, $3, null)", [pessoas.autor, privado1, pessoas.dora]);
 await espera("a prévia do resumo leva contagens e só o título PÚBLICO, sem link, sem nome, sem texto de post", async () => (await rpc(como(pessoas.autor), "rede_aviso_resumo_ver")), (r) =>
   r.n === 4 && r.texto.includes("3 respostas") && r.texto.includes("1 apoio") && r.texto.includes("Como calcular a área de um terreno") && !r.texto.includes("golpe.example") && !r.texto.includes("https://golpe")
-  && !r.texto.includes("Título de conversa só para membros") && !r.texto.includes("SEGREDO") && !Object.keys(pessoas).some((n) => r.texto.includes(codinome(n))) && r.texto.includes("/pt/comunidade/avisos"));
+  && !r.texto.includes("Título de conversa só para membros") && !r.texto.includes("SEGREDO") && !Object.keys(pessoas).some((n) => r.texto.includes(codinome(n))) && /\/pt\/(alumia|comunidade)\/avisos/.test(r.texto));
 await espera("desligado por padrão: a rotina semanal não manda nada", async () => {
   const n = (await um("select interno.rede3_aviso_resumo_semanal() as n")).n;
   return [n, (await um("select count(*)::int as n from interno.emails where tipo = 'rede_resumo'")).n];
@@ -300,7 +300,7 @@ await espera("ligado: a rotina semanal enfileira UM e-mail com a mesma coisa, e 
   const n = (await um("select interno.rede3_aviso_resumo_semanal() as n")).n;
   const e = await um("select para, assunto, texto, sair, status from interno.emails where tipo = 'rede_resumo'");
   return { n, e };
-}, ({ n, e }) => n === 1 && e.para === "autor@avisos.local" && e.status === "pendente" && e.texto.includes("3 respostas") && !e.texto.includes("SEGREDO") && !e.texto.includes("golpe.example") && e.sair.endsWith("/pt/comunidade/avisos"));
+}, ({ n, e }) => n === 1 && e.para === "autor@avisos.local" && e.status === "pendente" && e.texto.includes("3 respostas") && !e.texto.includes("SEGREDO") && !e.texto.includes("golpe.example") && /\/pt\/(alumia|comunidade)\/avisos$/.test(e.sair));
 await espera("na mesma semana não manda outro", async () => (await um("select interno.rede3_aviso_resumo_semanal() as n")).n, (n) => n === 0);
 await espera("quem leu tudo não recebe resumo vazio", async () => {
   await dono("delete from interno.emails");
@@ -536,10 +536,10 @@ await espera("cada idioma tem as frases de todos os tipos agrupados, com os mesm
 }, (f) => f.length === 0);
 await espera("o service worker trata push e clique, mostra só o número e não guarda texto de post", async () => {
   const sw = lerTexto("public/sw.js");
-  return [/addEventListener\("push"/.test(sw), /addEventListener\("notificationclick"/.test(sw), /showNotification/.test(sw), /\/comunidade\/avisos/.test(sw), /dados\.(texto|corpo|body|titulo)\b/.test(sw), /const VERSAO = "v\d+"/.test(sw)];
+  return [/addEventListener\("push"/.test(sw), /addEventListener\("notificationclick"/.test(sw), /showNotification/.test(sw), /\/alumia\/avisos/.test(sw), /dados\.(texto|corpo|body|titulo)\b/.test(sw), /const VERSAO = "v\d+"/.test(sw)];
 }, (r) => r[0] && r[1] && r[2] && r[3] && !r[4] && r[5]);
-await espera("a rota /comunidade/avisos existe, dá 404 com o recurso desligado e entra no registro e no menu", async () => {
-  const rota = lerTexto("app/[lang]/comunidade/avisos/page.tsx");
+await espera("a rota /alumia/avisos existe, dá 404 com o recurso desligado e entra no registro e no menu", async () => {
+  const rota = lerTexto("app/[lang]/alumia/avisos/page.tsx");
   const registro = lerTexto("components/rede/registro.tsx");
   const casca = lerTexto("components/rede/Casca.tsx");
   return [/ligado\("rede-v2"\)/.test(rota), /notFound\(\)/.test(rota), /nome: "avisos"/.test(rota), /avisos: \{[^}]*avisos\/Tela/.test(registro), /chave: "avisos"[^\n]*\/avisos/.test(casca)];
