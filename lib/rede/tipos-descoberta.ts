@@ -107,10 +107,10 @@ export interface FiltrosDaLinha {
 
 /** Os endereços do pacote (relativos ao idioma). */
 export const enderecosDescoberta = {
-  explorar: (lang: string, linha?: string) => `/${lang}/comunidade/explorar${linha ? `?linha=${encodeURIComponent(linha)}` : ""}`,
+  explorar: (lang: string, linha?: string) => `/${lang}/alumia/explorar${linha ? `?linha=${encodeURIComponent(linha)}` : ""}`,
   buscar: (lang: string, q?: string, ordem?: OrdemDaBusca) =>
-    `/${lang}/comunidade/buscar${q ? `?q=${encodeURIComponent(q)}${ordem && ordem !== "relevancia" ? `&ordem=${ordem}` : ""}` : ""}`,
-  tag: (lang: string, tag: string) => `/${lang}/comunidade/tag/${tag}`,
+    `/${lang}/alumia/buscar${q ? `?q=${encodeURIComponent(q)}${ordem && ordem !== "relevancia" ? `&ordem=${ordem}` : ""}` : ""}`,
+  tag: (lang: string, tag: string) => `/${lang}/alumia/tag/${tag}`,
 } as const;
 
 /** Só o que o banco aceita como hashtag: letras minúsculas sem acento, números e "_", 2 a 40, com ao menos uma letra. */

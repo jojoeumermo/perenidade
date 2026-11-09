@@ -83,4 +83,4 @@ export function fraseDoAviso(item: Pick<ItemDeAviso, "tipo" | "total" | "pessoas
 }
 
 /** O endereço da tela de avisos. */
-export const enderecoDosAvisos = (lang: string): string => `/${lang}/comunidade/avisos`;
+export const enderecoDosAvisos = (lang: string): string => `/${lang}/alumia/avisos`;

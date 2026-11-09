@@ -229,7 +229,7 @@ const MODELOS_DA_MARCA: Modelo[] = [
         texto({ x: 188, y: 1230, w: 160, texto: "Resolvida", fonte: "sans", tamanho: 19, peso: 800, cor: COR.Branco, fundo: COR.Verde, recuo: 10, alinhar: "center", espacamento: 0.08, maiusculas: true }),
         texto({ x: 188, y: 1290, w: 768, texto: "Ache o delta: b² − 4ac. Depois, aplique a fórmula de Bhaskara.", fonte: "serifa", tamanho: 40, peso: 400, entrelinha: 1.2, nome: "Resposta" }),
         texto({ x: 88, y: 1500, w: 904, texto: "Pergunte. Alguém responde.", fonte: "serifa", tamanho: 66, peso: 500, italico: true, cor: COR["Bordô"], nome: "Chamada" }),
-        texto({ x: 88, y: 1600, w: 904, texto: "{link}/comunidade", fonte: "mono", tamanho: 24, peso: 500, espacamento: 0.1, maiusculas: true }),
+        texto({ x: 88, y: 1600, w: 904, texto: "{link}/alumia", fonte: "mono", tamanho: 24, peso: 500, espacamento: 0.1, maiusculas: true }),
       ];
       return d;
     },

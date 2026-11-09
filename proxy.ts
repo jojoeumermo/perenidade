@@ -5,6 +5,7 @@ import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao }
 import { caminhoDoSiteParaEscola, ESCOLA_URL, escolaComEndereco, hostDaEscola, rotaNaEscola, siteVistoDaEscola } from "@/lib/escola/endereco";
 import { caminhoDoSiteParaAlumia, hostDaAlumia, rotaNaAlumia } from "@/lib/rede/alumia";
 import { destinoDireto, destinoNovo, pedidoAntigo } from "@/lib/rede/antigos";
+import { caminhoNovoDaAlumia } from "@/lib/rede/rota-alumia";
 import { ligado } from "@/lib/recursos";
 import { site } from "@/lib/site";
 
@@ -61,7 +62,7 @@ async function interdicao(): Promise<EstadoDaInterdicao> {
 }
 
 // Rede Lúcia v2 (recurso "rede-v2", só liga pelo nome): os endereços do Fórum antigo (?t=<tópico>, ?sala=<disciplina>) e o ?post= da Rede
-// de hoje vão (301) para /comunidade/p/[id] e /comunidade/c/[slug]. O mapa antigo → novo está no banco (rede_antigo, só devolve o par de
+// de hoje vão (301) para /alumia/p/[id] e /alumia/c/[slug]. O mapa antigo → novo está no banco (rede_antigo, só devolve o par de
 // endereços, nunca conteúdo). Sem resposta do banco, o endereço segue como está e a própria página faz o redirecionamento no navegador.
 // Desligado, esta função não faz nada: o endereço de hoje continua exatamente como era.
 async function enderecoAntigoDaRede(request: NextRequest, caminho: string): Promise<NextResponse | null> {
@@ -103,8 +104,8 @@ function foraDoDominio(request: NextRequest): NextResponse | null {
 }
 
 // Alumia, a rede social do instituto (lib/rede/alumia.ts, docs/rede/ALUMIA-DOMINIO.md). No host dela (alumia.institutolucia.org;
-// alumia.localhost para testar), o endereço é reescrito para as rotas /[lang]/comunidade/** sem a URL mudar; o resto do site vai
-// (307) para o endereço do instituto. No endereço do instituto, com NEXT_PUBLIC_ALUMIA_URL ligada, /[lang]/comunidade/** vai (307,
+// alumia.localhost para testar), o endereço é reescrito para as rotas /[lang]/alumia/** sem a URL mudar; o resto do site vai
+// (307) para o endereço do instituto. No endereço do instituto, com NEXT_PUBLIC_ALUMIA_URL ligada, /[lang]/alumia/** (e o antigo /[lang]/comunidade/**) vai (307,
 // temporário de propósito: desligar a variável volta tudo como era) para o endereço próprio. Sem a variável, nada muda aqui.
 function siteVistoDaAlumia(request: NextRequest): URL {
   const host = (request.headers.get("host") ?? "").toLowerCase();
@@ -152,7 +153,7 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
     const paraEscola = caminhoDoSiteParaEscola(pathname, request.nextUrl.search);
     if (paraEscola) return NextResponse.redirect(paraEscola, 307);
   }
-  // Alumia: o caminho de verdade (alvo) de um pedido no host dela; fora dele, a Comunidade vai para o endereço próprio.
+  // Alumia: o caminho de verdade (alvo) de um pedido no host dela; fora dele, a Alumia vai para o endereço próprio.
   let alvo = pathname;
   let reescrever = false;
   if (hostDaAlumia(request.headers.get("host"))) {
@@ -163,6 +164,12 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
       url.pathname = decisao.destino;
       url.search = "";
       return NextResponse.redirect(url, 307);
+    }
+    // O endereço antigo (/pt/comunidade/…) no host da Alumia: 308 para /pt/alumia/…, com a busca.
+    if (decisao.tipo === "mover") {
+      const url = request.nextUrl.clone();
+      url.pathname = decisao.destino;
+      return NextResponse.redirect(url, 308);
     }
     if (decisao.tipo === "reescrever") {
       alvo = decisao.destino;
@@ -175,9 +182,21 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
         return NextResponse.rewrite(url);
       }
     }
-  } else if ((request.headers.get("host") ?? "").toLowerCase() === dominio.host) {
-    const fora = caminhoDoSiteParaAlumia(pathname, request.nextUrl.search);
-    if (fora) return NextResponse.redirect(fora, 307);
+  } else {
+    if ((request.headers.get("host") ?? "").toLowerCase() === dominio.host) {
+      const fora = caminhoDoSiteParaAlumia(pathname, request.nextUrl.search);
+      if (fora) return NextResponse.redirect(fora, 307);
+    }
+    // A rota mudou: /<idioma>/comunidade/… (e /comunidade/… sem idioma) vai com 308 para /<idioma>/alumia/…, com a busca
+    // (lib/rede/rota-alumia.ts). Um endereço antigo do Fórum (?t=, ?sala=, ?post=) vai direto ao destino final: um salto só.
+    const novo = caminhoNovoDaAlumia(pathname);
+    if (novo !== null) {
+      const antigoDoForum = await enderecoAntigoDaRede(request, novo);
+      if (antigoDoForum) return antigoDoForum;
+      const url = request.nextUrl.clone();
+      url.pathname = novo;
+      return NextResponse.redirect(url, 308);
+    }
   }
   const area = fechado(alvo, estado);
   if (area) {

@@ -13,7 +13,7 @@ import { ListaOrdenada } from "./ListaOrdenada";
 import { useTextosDescoberta } from "./textos";
 
 /**
- * A busca da Rede (/comunidade/buscar?q=): posts, pessoas e comunidades, em português e sem depender de acento. O que aparece
+ * A busca da Rede (/alumia/buscar?q=): posts, pessoas e comunidades, em português e sem depender de acento. O que aparece
  * já vem filtrado pelo banco (matriz de visibilidade, silenciados, perfil invisível); a tela só mostra.
  */
 export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoPacote) {
@@ -30,7 +30,7 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
     <div>
       <header className="border-b border-rule px-[18px] py-4 font-sans">
         <h1 className="font-serif text-2xl font-extrabold">{b.titulo}</h1>
-        <form action={`/${lang}/comunidade/buscar`} method="get" role="search" className="mt-3 flex gap-2">
+        <form action={`/${lang}/alumia/buscar`} method="get" role="search" className="mt-3 flex gap-2">
           <label className="sr-only" htmlFor="rede-buscar-q">{b.rotulo}</label>
           <input id="rede-buscar-q" name="q" type="search" defaultValue={q} maxLength={200} placeholder={b.rotulo} className="min-h-11 min-w-0 flex-1 rounded-full border border-rule bg-folha px-4" />
           <button type="submit" className="min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14]">

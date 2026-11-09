@@ -41,10 +41,10 @@ export function Entrada({ s, lang, situacao, aoEntrar }: { s: TextosDaRede; lang
             ))}
           </ul>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link href={`${localePath(lang, "/entrar")}?criar&volta=/comunidade`} className="alumia-botao inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-white hover:text-[#1f1a14]">
+            <Link href={`${localePath(lang, "/entrar")}?criar&volta=/alumia`} className="alumia-botao inline-flex min-h-11 items-center rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-white hover:text-[#1f1a14]">
               {e.criarConta}
             </Link>
-            <Link href={`${localePath(lang, "/entrar")}?volta=/comunidade`} className="inline-flex min-h-11 items-center rounded-full border-[1.5px] border-[#f4ecd8] px-5 font-bold hover:bg-white hover:text-[#1f1a14]">
+            <Link href={`${localePath(lang, "/entrar")}?volta=/alumia`} className="inline-flex min-h-11 items-center rounded-full border-[1.5px] border-[#f4ecd8] px-5 font-bold hover:bg-white hover:text-[#1f1a14]">
               {e.jaTenhoConta}
             </Link>
           </div>

@@ -17,7 +17,7 @@ export const RAIZ_DA_ABA: Record<AbaDoApp, string> = {
   inicio: "/",
   estudar: "/trilhas",
   jogos: "/jogos",
-  comunidade: "/comunidade",
+  comunidade: "/alumia",
   eu: "/meu-estudo",
 };
 
@@ -25,7 +25,7 @@ export const RAIZ_DA_ABA: Record<AbaDoApp, string> = {
 const TRECHOS_DA_ABA: Record<Exclude<AbaDoApp, "inicio">, readonly string[]> = {
   estudar: ["trilhas", "estantes", "acervo", "enem", "escola", "nivelamento", "questoes", "glossario", "estudo-em-grupo", "reforco", "professores", "materiais", "guia", "comecar", "busca"],
   jogos: ["jogos", "laboratorios", "ferramentas", "estudio-de-pratica", "criancas"],
-  comunidade: ["comunidade", "mural", "nucleos", "debates", "eventos", "plantao"],
+  comunidade: ["alumia", "comunidade", "mural", "nucleos", "debates", "eventos", "plantao"],
   eu: ["meu-estudo", "caderno", "meus-dados", "entrar", "historico", "por-onde-andei", "modo-seguro", "privacidade"],
 };
 
@@ -64,7 +64,7 @@ export function ehTelaCheiaPorEndereco(pathname: string | null | undefined): boo
 /** A Rede Lúcia v2 (quando ligada) e o painel têm a barra e o gesto deles; a casca fica de fora. */
 export function ehTelaComCascaPropria(pathname: string | null | undefined, redeV2Ligada: boolean): boolean {
   const t = trechosDoEndereco(pathname);
-  return t[0] === "painel" || (redeV2Ligada && t[0] === "comunidade");
+  return t[0] === "painel" || (redeV2Ligada && (t[0] === "alumia" || t[0] === "comunidade"));
 }
 
 /** A página de cima de um endereço: a aula volta para a trilha, a trilha para as disciplinas, o resto para a aba. */

@@ -66,7 +66,7 @@ function DecisaoCartao({ d, lang, s, sm, aoMudar }: { d: Decisao; lang: string; 
   );
 }
 
-/** "Denúncias e recursos" (/comunidade/denuncias): as denúncias que eu fiz, com protocolo e andamento, e as decisões sobre o que escrevi, com o recurso de 30 dias. */
+/** "Denúncias e recursos" (/alumia/denuncias): as denúncias que eu fiz, com protocolo e andamento, e as decisões sobre o que escrevi, com o recurso de 30 dias. */
 export default function TelaDenuncias({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const sm = useTextosMod(lang);
   const [aba, setAba] = useState<"minhas" | "decisoes">("minhas");
