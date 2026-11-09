@@ -63,7 +63,13 @@ export function Abas<A extends string>({
             tabIndex={atual === a ? 0 : -1}
             className="al-aba"
             onClick={() => aoMudar(a)}
-            onFocus={(e) => e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" })}
+            onFocus={(e) => {
+              // A primeira e a última levam a faixa até a ponta (o degradê daquele lado some); as outras, só o necessário.
+              const f = faixa.current;
+              const i = abas.indexOf(a);
+              if (f && (i === 0 || i === abas.length - 1)) f.scrollTo({ left: i === 0 ? 0 : f.scrollWidth });
+              else e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
+            }}
             onKeyDown={(e) => {
               const n = abaDaTecla(e.key, abas, atual);
               if (n === null) return;

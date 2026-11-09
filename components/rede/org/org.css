@@ -23,7 +23,7 @@
 @media (min-width: 1024px) { [data-al="2"] .al-org-heroi { grid-template-columns: 1.05fr 1fr; gap: 56px; padding-block: 40px 88px; } }
 [data-al="2"] .al-org-chamada { margin: 0; font-size: clamp(2.9rem, 12vw, 5.4rem); max-width: 14ch; }
 /* No computador a chamada quebra como na prancha ("SUA BASE / NÃO CABE NO / ALGORITMO DE / UM BILIONÁRIO"). */
-@media (min-width: 1024px) { [data-al="2"] .al-org-chamada { max-width: 10.5ch; } }
+@media (min-width: 1024px) { [data-al="2"] .al-org-chamada { font-size: clamp(3.6rem, 5.2vw, 4.7rem); max-width: 13.5ch; text-wrap: balance; } }
 [data-al="2"] .al-org-lead { margin: 22px 0 0; max-width: 33rem; font-size: 1.1rem; line-height: 1.55; color: var(--al-texto-2); }
 [data-al="2"] .al-org-heroi-acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 [data-al="2"] .al-org-para { margin: 18px 0 0; font-size: 0.82rem; color: var(--al-texto-3); }
@@ -308,4 +308,10 @@
 [data-al="2"] .al-perfil,
 [data-al="2"] .al-org-pagina,
 [data-al="2"] .al-selo-form { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+/* No celular, nessas páginas não há a barra de abas de baixo: os dois botões flutuantes globais (assistente e acessibilidade)
+   descem e encostam na borda, com 16 px de margem, em vez de ficarem no meio do texto. Só aqui (o :has só pega as telas da F4). */
+@media (max-width: 767px) {
+  :root:has(.al-perfil, .al-org-pagina, .al-selo-form) .app-flutua { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  :root:has(.al-perfil, .al-org-pagina, .al-selo-form) .assistente-flutua { left: auto; right: 16px; bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
+}
 [data-al="2"] .al-perfil-org-principal, [data-al="2"] .al-perfil-org-lado { min-width: 0; }
