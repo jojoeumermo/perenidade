@@ -272,3 +272,7 @@
 @media (min-width: 1024px) { [data-al="2"] .al-perfil-org .al-perfil-aviso { margin-inline: auto; } }
 :root:is([data-eink], [data-contrast]) [data-al="2"] .al-perfil-tipo,
 :root:is([data-eink], [data-contrast]) [data-al="2"] .al-org-ferramenta-ver { color: var(--al-texto); text-decoration: underline; }
+
+/* Pedir o selo. */
+[data-al="2"] .al-selo-form { max-width: 640px; margin: 0 auto; padding: 20px 16px 64px; display: grid; gap: 10px; }
+[data-al="2"] .al-selo-form .al-perfil-nome { font-size: clamp(2.4rem, 9vw, 3.4rem); }
