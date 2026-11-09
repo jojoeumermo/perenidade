@@ -249,7 +249,7 @@ export function CascaDaAlumia2({
               <label className="sr-only" htmlFor="al2-busca">{t.direita.buscar}</label>
               <span className="relative block">
                 <Icone nome="lupa" className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[var(--al-texto-3)]" />
-                <input id="al2-busca" name="q" type="search" placeholder={t.direita.buscar} className="al2-campo min-h-12 !rounded-xl !py-2 pl-10 text-sm" />
+                <input id="al2-busca" name="q" type="search" placeholder={t.direita.buscar} className="al2-campo min-h-12 !rounded-xl !py-2 !pl-10 text-sm" />
               </span>
             </form>
             {direitaEncaixada.map((Peca, i) => (
