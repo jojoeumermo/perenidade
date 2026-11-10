@@ -788,3 +788,11 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   [data-al="2"] .al2-menu-pe .al2-conta-menu .al2-acao { min-height: 38px; }
   [data-al="2"] .al2-menu-pe .al2-conta-menu { max-height: calc(100dvh - 12rem); }
 }
+/* No celular o aviso da prévia quebra em duas linhas curtas em vez de cortar o "nada é publicado" (a altura fixa só importa para
+   o menu da esquerda, que só existe no computador). */
+@media (max-width: 1023px) {
+  [data-al="2"] .al2-aviso-previa { height: auto; min-height: 28px; padding: 0.3rem 1rem; white-space: normal; line-height: 1.3; text-wrap: balance; }
+}
+/* As páginas embrulham a casca num "pb-8": no fim da rolagem o menu fixo da esquerda subia 32 px junto com a coluna (o logo
+   cortado em cima, uma fresta embaixo). A casca já tem a própria folga embaixo. */
+[data-al="2"] .pb-8:has(> .al2 > .al2-grade) { padding-bottom: 0; }
