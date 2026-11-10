@@ -155,7 +155,7 @@ export function codigoDaChave(chaveBase64: string): string {
 }
 /** O contrário: aceita com ou sem os tracinhos e espaços. Nulo se não for uma chave de 32 bytes. */
 export function chaveDoCodigo(codigo: string): string | null {
-  const limpo = codigo.replace(/[\s-]+/g, "");
+  const limpo = codigo.replace(/[\s-]+/g, "").replace(/=+$/, "");
   if (!/^[A-Za-z0-9+/]{43}$/.test(limpo)) return null;
   const b64 = `${limpo}=`;
   try {
