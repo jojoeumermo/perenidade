@@ -97,8 +97,10 @@ igual("enquete: a partir de 3, porcentagens que somam 100", somaDaEnquete([2, 1]
 // ── Os endereços ──
 igual("ver e criar", [enderecosDosStories.ver("pt", "rosavermelha", 2), enderecosDosStories.criar("en", "nada"), enderecosDosStories.stories("fr")],
   ["/pt/alumia/stories?ver=rosavermelha&i=2", "/en/alumia/stories?criar=1", "/fr/alumia/stories"]);
-igual("o endereço só aceita o formato certo", lerPedidoDoEndereco(new URLSearchParams("ver=../../x&i=999&criar=1&post=<script>")), { ver: null, i: 0, criar: true, post: null });
+igual("o endereço só aceita o formato certo", lerPedidoDoEndereco(new URLSearchParams("ver=../../x&i=999&criar=1&post=<script>&destaque=../x")), { ver: null, i: 0, criar: true, post: null, destaque: null });
 igual("ver eu", lerPedidoDoEndereco(new URLSearchParams("ver=eu&i=1")).ver, "eu");
+igual("ver com @ (como a pessoa escreve)", [lerPedidoDoEndereco(new URLSearchParams("ver=%40passelivresp")).ver, lerPedidoDoEndereco(new URLSearchParams("ver=@@x")).ver], ["passelivresp", null]);
+igual("destaque pelo endereço (uuid ou exemplo)", [lerPedidoDoEndereco(new URLSearchParams("destaque=ex-dest-meu")).destaque, lerPedidoDoEndereco(new URLSearchParams("destaque=0b4f3c1e-1111-4222-8333-944455556666")).destaque, lerPedidoDoEndereco(new URLSearchParams("destaque=<b>")).destaque], ["ex-dest-meu", "0b4f3c1e-1111-4222-8333-944455556666", null]);
 
 // ── A imagem ──
 igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQueCabe(500, 400), medidaQueCabe(0, 10)], [{ largura: 1080, altura: 810 }, { largura: 500, altura: 400 }, { largura: 0, altura: 0 }]);
