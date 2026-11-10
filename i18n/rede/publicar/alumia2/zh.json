@@ -39,7 +39,9 @@
     "denuncias": "我的举报",
     "silenciados": "已屏蔽",
     "moderacao": "管理",
-    "idiomas": "语言"
+    "idiomas": "语言",
+    "acessibilidade": "无障碍",
+    "ajuda": "常见问题"
   },
   "linha": {
     "titulo": "首页",
@@ -163,7 +165,17 @@
     "ajudaEquipe": "只有研究所团队。",
     "publicoRoda": "只给信任圈",
     "rodaEmBreve": "你的信任名单会随新个人页一起上线。没人会知道名单里有谁。",
-    "notaFediverso": "也发到联邦宇宙：在 Mastodon、Lemmy 和 Misskey 关注你的人会以你的代号看到这条帖子。"
+    "notaFediverso": "也发到联邦宇宙：在 Mastodon、Lemmy 和 Misskey 关注你的人会以你的代号看到这条帖子。",
+    "respostaA": "写下你给 {nome} 的回复",
+    "falta": "还缺：{campos}",
+    "campos": {
+      "titulo": "行动名称",
+      "quando": "时间",
+      "onde": "地点",
+      "cidade": "城市",
+      "descricao": "号召"
+    },
+    "escolherQuando": "选择日期和时间"
   },
   "direita": {
     "rotulo": "Alumia 此刻",

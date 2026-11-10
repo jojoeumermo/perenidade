@@ -114,7 +114,9 @@
       "passado": "A data já passou.",
       "longe": "Até um ano à frente.",
       "palavra": "Use letras: o nome vira a palavra do mosaico."
-    }
+    },
+    "escolherQuando": "Escolher dia e hora",
+    "cidadeCurta": "Cidade"
   },
   "aba": {
     "titulo": "Atos",
