@@ -23,7 +23,14 @@
     "buscar": "搜索",
     "emBreve": "即将推出",
     "entreParaUsar": "登录后使用",
-    "novidade": "有新内容"
+    "novidade": "有新内容",
+    "mais": "更多",
+    "maisTitulo": "Alumia 更多",
+    "maisAbrir": "打开 Alumia 更多选项",
+    "fechar": "关闭",
+    "organizacoes": "组织",
+    "calendario": "日历",
+    "aqui": "当前位置"
   },
   "conta": {
     "rotulo": "你的账号",
@@ -41,7 +48,9 @@
     "moderacao": "管理",
     "idiomas": "语言",
     "acessibilidade": "无障碍",
-    "ajuda": "常见问题"
+    "ajuda": "常见问题",
+    "seguranca": "安全",
+    "verPerfil": "查看你的个人资料"
   },
   "linha": {
     "titulo": "首页",
