@@ -11,7 +11,8 @@
  * prefers-reduced-motion e com o modo parado do site (:root[data-parado]).
  */
 
-[data-al="2"] {
+[data-al="2"],
+:root:has([data-al="2"]) .al-pele {
   /* Fundo noite e superfícies. */
   --al-fundo: #0f0e0d;
   --al-superficie: #1b1917;
@@ -99,7 +100,8 @@
 }
 
 /* Alto contraste do site: preto e branco puros, cores mais fortes, bordas visíveis nos cartões. */
-:root[data-contrast] [data-al="2"] {
+:root[data-contrast] [data-al="2"],
+:root[data-contrast]:has([data-al="2"]) .al-pele {
   --al-fundo: #000000;
   --al-superficie: #000000;
   --al-superficie-2: #1a1a1a;
@@ -125,7 +127,8 @@
 }
 
 /* E-ink: papel branco, tinta preta, nada de cor; o que a cor dizia passa a ser dito por borda, peso e texto. */
-:root[data-eink] [data-al="2"] {
+:root[data-eink] [data-al="2"],
+:root[data-eink]:has([data-al="2"]) .al-pele {
   --al-fundo: #ffffff;
   --al-superficie: #ffffff;
   --al-superficie-2: #ffffff;
@@ -354,7 +357,8 @@
  * valores do escuro, e o texto sem cor própria sai claro sobre o fundo noite (e não tinta escura sobre escuro). O alto contraste
  * e o e-ink continuam mandando (têm os próprios tokens).
  */
-:root:not([data-contrast]):not([data-eink]) [data-al="2"]:not([data-al-tema="claro"]) {
+:root:not([data-contrast]):not([data-eink]) [data-al="2"]:not([data-al-tema="claro"]),
+:root:not([data-contrast]):not([data-eink]):has([data-al="2"]:not([data-al-tema="claro"])) .al-pele {
   --parchment: #141310;
   --parchment-deep: #23211c;
   --paper: #1b1917;
@@ -371,7 +375,7 @@
 
 /* O vermelho do TEXTO sobre o escuro (carimbo "CONFIRMADO" de 16 px): #FF4F3A dá 5,4:1 sobre o cartão (#1B1917). O #E8321F das
    pranchas (4,1:1) fica para os fundos e o que é grande. */
-[data-al="2"] { --al-vermelho-sobre-escuro: #ff4f3a; }
+[data-al="2"], :root:has([data-al="2"]) .al-pele { --al-vermelho-sobre-escuro: #ff4f3a; }
 [data-al="2"][data-al-tema="claro"] { --al-vermelho-sobre-escuro: #c8261a; }
 [data-al="2"] .al-carimbo-confirmado { color: var(--al-vermelho-sobre-escuro); }
 /* O selo "Novo" dos avisos (11,5 px): branco sobre o vermelho de texto pequeno (#D42A18, 5,1:1). */

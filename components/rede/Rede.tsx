@@ -22,7 +22,9 @@ import { TelaDaComunidade, TelaDoPerfil } from "./Telas";
 import { EsqueletoDaLinha } from "./Esqueletos";
 import type { TipoAoEscrever } from "./publicar/alumia2/CascaDaAlumia2";
 import { ProvedorAlumia2, type ContextoAlumia2 } from "./publicar/alumia2/contexto";
+import { Icone } from "./publicar/alumia2/icones";
 import { useTextosAlumia2 } from "./publicar/alumia2/textos";
+import { Botao } from "./ui/Botao";
 import { corDaComunidade } from "./ui/Pilula";
 
 // A cara nova (flags "rede-v2" + "alumia-2", lidas na montagem) e a prévia com dados de exemplo (NEXT_PUBLIC_ALUMIA_PREVIA=sim).
@@ -191,7 +193,19 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     <CascaDaVez lang={lang} s={s} situacao={aberta} ativo={(contexto2 ? ativo : ativo === "nenhum" ? "inicio" : ativo) as ItemDoMenu /* a casca nova aceita também "nenhum" */} aoEscrever={contexto2 ? aoEscrever2 : () => aoEscrever()}>
       {aberta && (
         <>
-          {falha && <p role="alert" className="px-[18px] py-3 font-sans text-oxblood">{falha}</p>}
+          {falha &&
+            (contexto2 ? (
+              // Na Alumia nova, o aviso da casa: caixa com o alerta e o "Tentar de novo" claro em pílula (o estado vazio da linha é igual).
+              <div role="alert" className="al2-aviso-erro mx-4 mt-3">
+                <Icone nome="alerta" />
+                <p>{falha}</p>
+                <Botao variante="claro" tamanho="p" pilula icone={<Icone nome="desfazer" />} onClick={() => window.location.reload()}>
+                  {s.estados.tentar}
+                </Botao>
+              </div>
+            ) : (
+              <p role="alert" className="px-[18px] py-3 font-sans text-oxblood">{falha}</p>
+            ))}
           {/* Conta ou visitante que ainda não entrou na Rede: a primeira entrada vem antes; as dúvidas abertas seguem visíveis. */}
           {aberta.logado ? (
             <PortaDaEntrada lang={lang} s={s} situacao={aberta} aoSituacao={setSituacao} alternativa={!pode ? <Entrada s={s} lang={lang} situacao={aberta} aoEntrar={setSituacao} /> : null} />

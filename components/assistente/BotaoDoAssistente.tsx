@@ -78,7 +78,7 @@ export function BotaoDoAssistente({ textos, perguntas, email }: { textos: Textos
           setUsado(true);
           setAberto((a) => !a);
         }}
-        className="assistente-gatilho flex h-11 w-11 cursor-pointer items-center justify-center border-2 border-ink bg-parchment text-ink shadow-[3px_3px_0_var(--ink)] hover:border-oxblood hover:text-oxblood aria-expanded:bg-ink aria-expanded:text-parchment"
+        className="assistente-gatilho al-pele flex h-11 w-11 cursor-pointer items-center justify-center border-2 border-ink bg-parchment text-ink shadow-[3px_3px_0_var(--ink)] hover:border-oxblood hover:text-oxblood aria-expanded:bg-ink aria-expanded:text-parchment"
       >
         {/* Um balão de conversa com um ponto de interrogação: desenho próprio, sem biblioteca de ícones. */}
         <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
