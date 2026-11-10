@@ -8,6 +8,9 @@ import { conversa } from "@/lib/rede/cliente-conversa";
 import { arvoreDeExemplo, postDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
 import { comReserva, faltaFuncaoNoBanco } from "@/lib/rede/reserva";
+import { marcarLido } from "@/lib/rede/tipos-b1";
+import { LembrarMaisTarde } from "../b1/Lembrar";
+import { NotasDeContexto } from "./NotasDeContexto";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
@@ -134,6 +137,10 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   }, [id, ordem, chave, s]);
 
   const aoErro = useCallback((e: unknown) => avisar({ texto: textoDoErro(s, e), erro: true }), [s, avisar]);
+  // "Leu antes de compartilhar?" (B1): abrir a conversa marca o post como lido NESTE aparelho (nada vai ao servidor).
+  useEffect(() => {
+    marcarLido(id);
+  }, [id]);
   const dado = estado?.dado ?? null;
   // A cascata de entrada vale só para a primeira abertura: depois disso o fio fica "assentado" e trocar a ordem usa só o FLIP.
   const temFio = Boolean(dado && dado.respostas.length > 0);
@@ -246,6 +253,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         <h1 className="al3-cond">{t.conversa.titulo}</h1>
         <p className="al3-barra-conta" key={total}>{total === 1 ? t.comum.respostaUma : preencher(t.comum.respostas, { n: total })}</p>
         {situacao.logado && situacao.membro && <SeguirConversa raiz={dado.raiz} t={t} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />}
+        {situacao.logado && situacao.membro && <LembrarMaisTarde post={post.id} lang={lang} s={s} aoAvisar={(texto, erro) => avisar({ texto, erro })} />}
       </div>
 
       {post.id !== dado.raiz && (
@@ -274,6 +282,9 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
       ) : (
         <PostAberto post={post} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />
       )}
+
+      {/* Notas de contexto (B1): a que aparece fica logo abaixo do post, com a fonte; a regra a um toque. */}
+      <NotasDeContexto post={post.id} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />
 
       <Torradas estado={torradas} />
 

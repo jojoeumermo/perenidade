@@ -4,6 +4,7 @@
 // Usa `chamar` da fundação; os testes podem trocar por uma forma simulada. Sem "@/" de propósito.
 import { chamar, type Chamar } from "./cliente";
 import type { Post } from "./tipos";
+import type { NotasDoPost } from "./tipos-b1";
 import type { ReacaoDoPost } from "./tipos-conversa";
 import type { Arvore, OrdemDasRespostas, PedidoDeCitacao, SinteseDaConversa, SugestaoDeMencao, VersaoDaSintese } from "./tipos-conversa";
 
@@ -42,6 +43,17 @@ export function criarClienteDaConversa(c: Chamar) {
     seguirTag: (tag: string, sim: boolean) => c<{ seguindo: boolean }>("rede_alumia_seguir_tag", { p_tag: tag, p_sim: sim }),
     /** Os #temas que a própria pessoa segue (só ela vê a lista dela). */
     tagsSeguidas: () => c<{ tags: string[] }>("rede_alumia_tags_seguidas", {}),
+
+    // B1 (20261110-alumia-b1-comunidade.sql): notas de contexto. Quem propôs e quem avaliou nunca voltam; o total de votos também não.
+    /** As notas do post: as que aparecem, as que a pessoa pode avaliar, a dela e o que ela pode fazer. */
+    notas: (post: string) => c<NotasDoPost>("rede_alumia_notas", { p_post: post }),
+    /** Propõe (ou reescreve) a nota da pessoa: nível 2, com fonte, sem dado pessoal. Reescrever zera os votos. */
+    proporNota: (post: string, texto: string, fonte: string) => c<{ id: string; situacao: string }>("rede_alumia_nota_propor", { p_post: post, p_texto: texto, p_fonte: fonte }),
+    /** "Ajuda" (true), "não ajuda" (false) ou tira a avaliação (null). Volta só a avaliação dela e se a nota aparece. */
+    avaliarNota: (nota: string, ajuda: boolean | null) => c<{ minha: boolean | null; mostrada: boolean }>("rede_alumia_nota_avaliar", { p_nota: nota, p_ajuda: ajuda }),
+    retirarNota: (nota: string) => c<{ retirada: boolean }>("rede_alumia_nota_retirar", { p_nota: nota }),
+    /** A moderação oculta (sim) ou devolve (não) uma nota. */
+    ocultarNota: (nota: string, sim: boolean) => c<{ situacao: string }>("rede_alumia_nota_ocultar", { p_nota: nota, p_sim: sim }),
   };
 }
 
