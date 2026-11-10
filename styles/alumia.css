@@ -798,3 +798,6 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 /* As páginas embrulham a casca num "pb-8": no fim da rolagem o menu fixo da esquerda subia 32 px junto com a coluna (o logo
    cortado em cima, uma fresta embaixo). A casca já tem a própria folga embaixo. */
 [data-al="2"] .pb-8:has(> .al2 > .al2-grade) { padding-bottom: 0; }
+/* No menu "…" do cartão, tudo alinhado à esquerda (os itens que as frentes encaixam vinham centralizados). */
+[data-al="2"] .al2-mais-acoes[open] > div > :is(a, button, form, div) { justify-content: flex-start; text-align: left; }
+[data-al="2"] .al2-mais-acoes[open] > div :is(a, button) { width: 100%; justify-content: flex-start; text-align: left; }
