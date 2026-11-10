@@ -328,8 +328,10 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-direita { scrollbar-width: thin; scrollbar-color: var(--al-superficie-2) transparent; }
 
 /* A tela que chega (de uma rota da Alumia para outra): sobe 8 px e acende. */
+/* Entradas com "backwards" (não "both"): terminada a animação, o transform some de vez. Com "both" o transform: none ficava
+   valendo e fazia da tela (ou do cartão) o "contêiner" dos fixos: o Escrever aberto do Perfil ficava preso num pedaço da tela. */
 @keyframes al2-tela-entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-[data-al="2"] .al2-tela-entra { animation: al2-tela-entra 280ms var(--al2-mola-suave) both; }
+[data-al="2"] .al2-tela-entra { animation: al2-tela-entra 280ms var(--al2-mola-suave) backwards; }
 
 /* Menu: o item escorrega um pouco no hover e o ícone do atual dá um pulinho. */
 [data-al="2"] .al2-menu-item { transition: background-color 160ms ease, color 160ms ease, transform 220ms var(--al2-mola); }
@@ -395,7 +397,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 
 /* Cartão que entra: sobe e acende, um depois do outro (no máximo 10 de atraso). */
 @keyframes al2-cartao-entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-[data-al="2"] .al2-entra { animation: al2-cartao-entra 520ms var(--al2-mola-suave) both; animation-delay: calc(var(--i, 0) * 45ms); }
+[data-al="2"] .al2-entra { animation: al2-cartao-entra 520ms var(--al2-mola-suave) backwards; animation-delay: calc(var(--i, 0) * 45ms); }
 
 /* Esqueletos com brilho que atravessa (no lugar do pulso). */
 @keyframes al2-brilho { from { background-position: 150% 0; } to { background-position: -50% 0; } }
@@ -404,7 +406,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   background: linear-gradient(100deg, var(--al-superficie) 30%, color-mix(in srgb, var(--al-superficie-2) 70%, var(--al-texto-3)) 50%, var(--al-superficie) 70%);
   background-size: 250% 100%;
 }
-[data-al="2"] .al-esq-post { animation: al2-cartao-entra 400ms ease-out both; animation-delay: calc(var(--i, 0) * 70ms); }
+[data-al="2"] .al-esq-post { animation: al2-cartao-entra 400ms ease-out backwards; animation-delay: calc(var(--i, 0) * 70ms); }
 [data-al="2"] .al-esq-casca { background: var(--al-fundo); min-height: 100vh; }
 
 /* Estados (vazio, erro) bonitos: centralizados, com desenho e um passo claro. */
@@ -493,7 +495,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-saindo { animation: al2-fundo-sai 180ms var(--al2-sai) both !important; }
 [data-al="2"] .al2-saindo .al2-escrever { animation: al2-some 180ms var(--al2-sai) both; }
 [data-al="2"] .al2-escrever-corpo { scrollbar-width: thin; scrollbar-color: var(--al-superficie-2) transparent; }
-[data-al="2"] .al2-troca-tipo { animation: al2-tela-entra 260ms var(--al2-mola-suave) both; }
+[data-al="2"] .al2-troca-tipo { animation: al2-tela-entra 260ms var(--al2-mola-suave) backwards; }
 [data-al="2"] .al2-campo { transition: border-color 160ms ease, box-shadow 200ms ease; }
 [data-al="2"] .al2-campo:focus { outline: none; border-color: var(--al-dourado); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-dourado) 22%, transparent); }
 [data-al="2"] .al2-tipo { transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 220ms var(--al2-mola); }
@@ -509,7 +511,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-publicar:disabled { border: 2px dashed var(--al-texto); background: transparent; color: var(--al-texto); }
 
 /* Anexos: cartões leves no lugar das caixas cinzas. */
-[data-al="2"] .al2-anexo { border-radius: 14px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); padding: 0.75rem 0.9rem; animation: al2-tela-entra 260ms var(--al2-mola-suave) both; }
+[data-al="2"] .al2-anexo { border-radius: 14px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); padding: 0.75rem 0.9rem; animation: al2-tela-entra 260ms var(--al2-mola-suave) backwards; }
 [data-al="2"] .al2-ferramentas { display: flex; align-items: center; gap: 0.15rem; padding-top: 0.25rem; border-top: 1px solid var(--al-linha); }
 [data-al="2"] .al2-ferramenta {
   position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 0; background: none; cursor: pointer;
@@ -559,7 +561,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-gravando::before { content: ""; display: inline-block; width: 0.6rem; height: 0.6rem; margin-right: 0.4rem; border-radius: 999px; background: var(--al-vermelho); animation: al2-piscar 1s ease-in-out infinite; }
 @keyframes al2-piscar { 50% { opacity: 0.25; } }
 [data-al="2"] .al2-agendados summary { font-size: 0.8125rem; font-weight: 700; color: var(--al-texto-2); }
-[data-al="2"] .al2-aviso-escrever { border-radius: 12px; border: 1px dashed var(--al-texto-3); padding: 0.6rem 0.8rem; font-size: 0.875rem; animation: al2-tela-entra 240ms ease-out both; }
+[data-al="2"] .al2-aviso-escrever { border-radius: 12px; border: 1px dashed var(--al-texto-3); padding: 0.6rem 0.8rem; font-size: 0.875rem; animation: al2-tela-entra 240ms ease-out backwards; }
 
 /* Onde publicar, Quem vê, Quem responde: a lista desliza; "Quem vê" em linhas com ícone, ajuda e o visto. */
 [data-al="2"] .al2-escolha { transition: color 150ms ease; }
@@ -751,7 +753,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-agenda .al-quando { width: 100%; }
 
 /* O que falta para o Ato, embaixo do botão desligado. */
-[data-al="2"] .al2-falta { animation: al2-tela-entra 220ms ease-out both; }
+[data-al="2"] .al2-falta { animation: al2-tela-entra 220ms ease-out backwards; }
 
 @media (prefers-reduced-motion: reduce) {
   [data-al="2"] :is(.al2-conta-menu, .al2-mais-acoes[open] > div, .al2-falta) { animation: none !important; }
