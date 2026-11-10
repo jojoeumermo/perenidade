@@ -15,7 +15,8 @@
     "escrever": "Escribir",
     "busca": "Buscar",
     "explorar": "Explorar",
-    "fediverso": "Fediverso"
+    "fediverso": "Fediverso",
+    "editarPerfil": "Editar perfil"
   },
   "abas": {
     "rotulo": "Líneas de Alumia",
@@ -86,7 +87,7 @@
     "comunidade": "Comunidad (opcional)",
     "saltarParaConteudo": "Ir a la línea",
     "sairRapido": "Salir rápido",
-    "sairRapidoAjuda": "Abre una página neutra y borra los datos de Alumia en este dispositivo.",
+    "sairRapidoAjuda": "Borra lo que Alumia guardó en este aparato y abre una página común de fuera (el pronóstico del tiempo), sin nada del Instituto.",
     "cartaoSeguranca": "La seguridad primero: nunca publiques tu dirección, teléfono o documento. Si algo te preocupa, denuncia.",
     "cuidados": {
       "titulo": "Cuidado",
@@ -169,7 +170,7 @@
     "limite_de_niveis": "La conversación llegó al límite de niveles: continúa desde una respuesta anterior.",
     "muitos_pedidos": "Calma: demasiadas solicitudes seguidas. Inténtalo de nuevo en un rato.",
     "banco_desatualizado": "La base de datos aún no recibió la actualización de Alumia.",
-    "sem_servico": "El servicio de cuentas no está activado en este entorno.",
+    "sem_servico": "Esta parte de Alumia aún no está disponible aquí. Inténtalo de nuevo más tarde.",
     "sem_conexao": "Sin conexión. Revisa tu internet e inténtalo de nuevo.",
     "falha": "Algo salió mal. Inténtalo de nuevo.",
     "invalido": "Revisa el campo: {campo}.",
