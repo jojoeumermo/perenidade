@@ -5,6 +5,10 @@ import { useEffect, useState, type RefObject } from "react";
 import { clienteDosStories, type ClienteDeStories } from "@/lib/rede/cliente-stories";
 import { carregarTextosDosStories, type TextosDosStories } from "@/lib/rede/textos-stories";
 
+/** Avisa às fileiras de destaques abertas que um story foi guardado ou tirado (só dentro desta aba do navegador). */
+export const EVENTO_DOS_DESTAQUES = "lucia:stories-destaques";
+export const avisarDestaques = () => window.dispatchEvent(new Event(EVENTO_DOS_DESTAQUES));
+
 /** Os textos dos stories no idioma da pessoa (baixa só aquele idioma). Nulo enquanto carrega. */
 export function useTextosDosStories(lang: string): TextosDosStories | null {
   const [t, setT] = useState<{ lang: string; t: TextosDosStories } | null>(null);

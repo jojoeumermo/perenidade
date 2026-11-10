@@ -664,7 +664,9 @@
 
 /* ───────────── Onda A: stories como os do Instagram (vídeo, gestos, cubo, destaques) ───────────── */
 /* As 5 figurinhas numa fileira que desliza (no computador cabem todas; no celular a 5ª aparece pela metade, convidando). */
-[data-al="2"] .al-st-tipos { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(78px, 1fr); grid-template-columns: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-bottom: 2px; }
+[data-al="2"] .al-st-tipos { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(74px, 1fr); grid-template-columns: none; gap: 7px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-bottom: 2px; }
+[data-al="2"] .al-st-tipo { font-size: 12.5px; padding-inline: 2px; }
+[data-al="2"] .al-st-topo-nome small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 [data-al="2"] .al-st-tipos::-webkit-scrollbar { display: none; }
 [data-al="2"] .al-st-tipos > li { scroll-snap-align: start; }
 [data-al="2"] .al-st-tipo { transition: transform 0.2s cubic-bezier(0.2, 1.5, 0.4, 1), border-color 0.15s; }

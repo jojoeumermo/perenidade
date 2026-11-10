@@ -72,6 +72,10 @@ function faltaNaFigurinha(f: Figurinha): "ato" | "pergunta" | "enquete" | "link"
   return linkSeguro(f.url) ? null : "link";
 }
 
+/** Movimento reduzido (o do sistema ou o "parado" do site). */
+const semMovimento = () =>
+  typeof window === "undefined" || document.documentElement.hasAttribute("data-parado") || !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
 const IconeCamera = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
     <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.7l1.3-2h5l1.3 2h1.7A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5z" />
@@ -284,6 +288,8 @@ export function Criar({
     if (!arquivo) return;
     setErro(null);
     setCamera(false);
+    // A mídia nova aparece na tela do story: volta ao alto (no celular o painel fica embaixo).
+    raiz.current?.scrollTo({ top: 0, behavior: semMovimento() ? "auto" : "smooth" });
     const ehVideo = arquivo.type.startsWith("video/") || (deOnde === "camera" && !arquivo.type.startsWith("image/"));
     if (ehVideo) {
       if (deOnde === "galeria" && !(TIPOS_DE_VIDEO_ACEITOS as readonly string[]).includes(arquivo.type)) return setErro(t.criar.erroMidia.video);
@@ -509,6 +515,7 @@ export function Criar({
               data-fonte={est.fonte}
               data-caixa={est.caixa ? "sim" : "nao"}
               rows={1}
+              spellCheck={false}
               value={texto}
               maxLength={LIMITES_DO_STORY.texto}
               placeholder={t.criar.textoVazio}

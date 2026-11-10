@@ -2,8 +2,8 @@
 "use client";
 
 import "./stories.css";
-import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type PointerEvent as EventoDePonteiro } from "react";
-import { armazemDoAparelho, alternarSilencio, marcarVisto } from "@/lib/rede/stories/aparelho";
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type PointerEvent as EventoDePonteiro } from "react";
+import { armazemDoAparelho, alternarSilencio, lerSilenciados, lerVistos, marcarVisto, ordenarFaixa } from "@/lib/rede/stories/aparelho";
 import { haQuanto, noAr } from "@/lib/rede/stories/tempo";
 import { barrasDoProgresso, duracaoNaTela, estiloDoTexto, tamanhoDoTexto } from "@/lib/rede/stories/visual";
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
@@ -19,7 +19,7 @@ import { Avatar16 } from "../ui/Avatar16";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { GuardarNoDestaque } from "./GuardarNoDestaque";
 import { IconeFechar, IconePausar, IconeSetaDir, IconeSetaEsq, IconeTocar, IconeTresPontos } from "./icones";
-import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, useModalDosStories } from "./usar";
+import { avisarDestaques, codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, useModalDosStories } from "./usar";
 
 /** As reações da prancha (conjunto fechado, sem emoji livre: PLANO-ALUMIA §12). */
 const DESENHO_DA_REACAO: Record<ReacaoDoStory, string> = { punho: "✊", chama: "\u{1F525}", coracao: "❤️" };
@@ -31,6 +31,7 @@ const somDaSessao = { mudo: false };
 /** A chave de cada festa de reação (só para o React saber que é outra). */
 const contagemDeExplosoes = { n: 0 };
 const novaExplosao = () => ++contagemDeExplosoes.n;
+const SEM_FILA: string[] = [];
 
 const IconeSom = ({ ligado }: { ligado: boolean }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -62,7 +63,7 @@ export function Visor({
   lang,
   handle,
   inicio = 0,
-  fila = [],
+  fila = SEM_FILA,
   destaque = null,
   aoFechar,
   aoMudou,
@@ -126,6 +127,25 @@ export function Visor({
 
   // Carrega os stories da autora (ou os meus, ou os do destaque). Uma leitura igual a abrir um perfil: o servidor não registra quem abriu.
   const idDoDestaque = destaque?.id ?? null;
+  // Aberto pelo endereço (?ver=@nome, sem a fila da faixa): a fila vem da mesma faixa, na mesma ordem (uma leitura, sem rastro).
+  const [filaDaFaixa, setFilaDaFaixa] = useState<string[] | null>(null);
+  const precisaDaFila = fila.length === 0 && !idDoDestaque;
+  useEffect(() => {
+    if (!precisaDaFila) return;
+    let vivo = true;
+    cliente
+      .faixa()
+      .then((d) => {
+        if (!vivo) return;
+        const a = armazemDoAparelho();
+        setFilaDaFaixa(ordenarFaixa(d.grupos, lerVistos(a, Date.now()), lerSilenciados(a)).map((g) => g.autora.handle));
+      })
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [cliente, precisaDaFila]);
+  const filaDeVerdade = useMemo(() => (precisaDaFila ? (filaDaFaixa ?? []) : fila), [precisaDaFila, filaDaFaixa, fila]);
   useEffect(() => {
     let vivo = true;
     const pronto = precarga.current?.handle === quem && !idDoDestaque ? precarga.current.lista : null;
@@ -183,11 +203,11 @@ export function Visor({
   const vizinha = useCallback(
     (direcao: 1 | -1): string | undefined => {
       if (idDoDestaque) return undefined;
-      const k = fila.indexOf(quem);
-      if (direcao === 1) return quem === "eu" ? fila[0] : k >= 0 ? fila[k + 1] : undefined;
-      return k > 0 ? fila[k - 1] : undefined;
+      const k = filaDeVerdade.indexOf(quem);
+      if (direcao === 1) return quem === "eu" ? filaDeVerdade[0] : k >= 0 ? filaDeVerdade[k + 1] : undefined;
+      return k > 0 ? filaDeVerdade[k - 1] : undefined;
     },
-    [idDoDestaque, fila, quem],
+    [idDoDestaque, filaDeVerdade, quem],
   );
   const precarregar = useCallback(
     (h: string | undefined) => {
@@ -470,6 +490,7 @@ export function Visor({
       setCaixa(null);
       setStories((lista) => lista?.filter((s) => s.id !== atual.id) ?? null);
       aoMudou?.();
+      avisarDestaques();
       avisar(t.destaques.tirado);
     } catch {
       avisar(t.visor.erroAoEnviar);
@@ -586,7 +607,7 @@ export function Visor({
         <div ref={tela} className="al-st-tela" style={atual ? estiloDaTela(atual.fundo.cor) : undefined}>
           {atual ? (
             <FundoDoStory
-              key={atual.id}
+              key={`fundo-${atual.id}`}
               tipo={atual.fundo.tipo}
               cor={atual.fundo.cor}
               semente={atual.id}
@@ -695,7 +716,7 @@ export function Visor({
           ))}
 
           {atual && est ? (
-            <div key={atual.id} className="al-st-miolo al-st-entra" style={{ "--st-tamanho": `${tamanhoDoTexto(atual.texto, larguraDaTela())}px` } as CSSProperties}>
+            <div key={`miolo-${atual.id}`} className="al-st-miolo al-st-entra" style={{ "--st-tamanho": `${tamanhoDoTexto(atual.texto, larguraDaTela())}px` } as CSSProperties}>
               {atual.texto ? (
                 <h2
                   className={`al-st-texto${est.caixa ? "" : " al-st-texto-sombra"}`}
@@ -808,6 +829,7 @@ export function Visor({
                 setStories((lista) => lista?.map((s) => (s.id === atual.id ? { ...s, destaques: [...(s.destaques ?? []), d] } : s)) ?? null);
                 setCaixa(null);
                 aoMudou?.();
+                avisarDestaques();
                 avisar(texto);
               }}
             />
