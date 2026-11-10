@@ -722,9 +722,9 @@ export function Visor({
                   className={`al-st-texto${est.caixa ? "" : " al-st-texto-sombra"}`}
                   data-fonte={est.fonte}
                   data-caixa={est.caixa ? "sim" : "nao"}
-                  style={{ fontFamily: est.familia, color: est.cor, textAlign: est.alinhar === "esq" ? "left" : est.alinhar === "dir" ? "right" : "center" }}
+                  style={{ fontFamily: est.familia, "--st-letra": est.cor, "--st-caixa": est.caixa ?? "transparent", textAlign: est.alinhar === "esq" ? "left" : est.alinhar === "dir" ? "right" : "center" } as CSSProperties}
                 >
-                  {est.caixa ? <span style={{ background: est.caixa }}>{atual.texto}</span> : atual.texto}
+                  {est.caixa ? <span>{atual.texto}</span> : atual.texto}
                 </h2>
               ) : null}
               {atual.legenda ? <p className="al-st-tarja">{atual.legenda}</p> : null}
