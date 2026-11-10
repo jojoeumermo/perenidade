@@ -4,7 +4,7 @@
 import "./stories.css";
 import { useEffect, useState, type CSSProperties } from "react";
 import { armazemDoAparelho, grupoVisto, lerSilenciados, lerVistos, ordenarFaixa, primeiroNaoVisto } from "@/lib/rede/stories/aparelho";
-import { anelEmCss, nomeCurto } from "@/lib/rede/stories/visual";
+import { anelEmCss } from "@/lib/rede/stories/visual";
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import type { AutoraDoStory, FaixaDeStories as DadosDaFaixa, GrupoDaFaixa } from "@/lib/rede/tipos-stories";
@@ -22,7 +22,7 @@ function Bolinha({ autora, visto, rotulo, aoAbrir }: { autora: AutoraDoStory; vi
         </span>
       </span>
       <span className="al-st-nome" aria-hidden>
-        {nomeCurto(autora.nome)}
+        {autora.nome}
       </span>
     </button>
   );
