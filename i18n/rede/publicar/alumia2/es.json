@@ -228,5 +228,11 @@
     "onde": "Dónde",
     "chamado": "Convocatoria",
     "mosaicoApagado": "El mosaico empieza apagado y se enciende con cada persona que confirma."
+  },
+  "naoEncontrada": {
+    "titulo": "No encontramos esto",
+    "texto": "Esta dirección no existe en Alumia, o la publicación ya no está. Tu línea sigue en el mismo lugar.",
+    "voltar": "Volver al inicio de Alumia",
+    "buscar": "Buscar"
   }
 }
