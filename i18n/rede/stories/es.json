@@ -11,7 +11,9 @@
     "tentar": "Intentar de nuevo",
     "entrar": "Entra en tu cuenta para ver y crear historias.",
     "anteriores": "Historias anteriores",
-    "seguintes": "Más historias"
+    "seguintes": "Más historias",
+    "abrindo": "Abriendo las historias de {nome}…",
+    "maisUm": "Poner otra historia"
   },
   "abas": {
     "rotulo": "Líneas"
@@ -40,19 +42,21 @@
       "dourado": "Dorado",
       "verde": "Verde",
       "rosa": "Rosa",
-      "noite": "Noche"
+      "noite": "Noche",
+      "papel": "Papel"
     },
     "desenho": "Área de dibujo: arrastra para dibujar",
     "desfazer": "Deshacer el último trazo",
     "limpar": "Borrar el dibujo",
     "figurinhas": "Stickers",
     "figurinhaLigada": "{nome}: en la historia (toca para quitar)",
-    "limiteDeFigurinhas": "Como máximo 3 stickers por historia.",
+    "limiteDeFigurinhas": "Ya hay 3. Quita uno para poner otro.",
     "tipo": {
       "contagem": "Cuenta atrás",
       "pergunta": "Pregunta",
       "enquete": "Encuesta",
-      "link": "Enlace"
+      "link": "Enlace",
+      "comunidade": "Comunidad"
     },
     "quemVe": "Quién ve",
     "publico": {
@@ -74,7 +78,7 @@
     "publicar": "Publicar historia",
     "publicando": "Publicando…",
     "publicado": "Historia publicada. Desaparece en 24 h.",
-    "vazio": "Escribe un texto, dibuja o elige una imagen.",
+    "vazio": "Escribe un texto, dibuja, toma una foto o elige de la galería.",
     "deUmPost": "Historia a partir de una publicación: el enlace va junto.",
     "erro": {
       "grande": "Imagen demasiado grande (hasta 3 MB una vez lista).",
@@ -88,7 +92,87 @@
       "limite": "Publicaste muchas historias ahora. Espera un poco.",
       "banco": "La base de datos aún no tiene las historias (falta la actualización del servidor).",
       "falha": "No se pudo publicar. Intenta de nuevo."
-    }
+    },
+    "camera": "Cámara",
+    "galeriaAjuda": "Foto o video (hasta 60 s)",
+    "corDaLetra": "Color de la letra",
+    "corAlvo": {
+      "fundo": "Fondo",
+      "letra": "Letra"
+    },
+    "estilo": {
+      "rotulo": "Estilo del texto",
+      "fonte": {
+        "condensada": "Cartel",
+        "serifa": "Clásica",
+        "maquina": "Máquina",
+        "marcador": "Marcador"
+      },
+      "alinhar": "Alineación: {lado}",
+      "alinhamento": {
+        "esq": "a la izquierda",
+        "centro": "al centro",
+        "dir": "a la derecha"
+      },
+      "caixa": "Fondo detrás del texto"
+    },
+    "pincel": {
+      "rotulo": "Pincel",
+      "caneta": "Bolígrafo",
+      "marca": "Resaltador",
+      "espessura": "Grosor"
+    },
+    "midia": {
+      "titulo": "Foto y video",
+      "filtros": "Filtros",
+      "filtro": {
+        "nenhum": "Normal",
+        "vivo": "Vivo",
+        "quente": "Cálido",
+        "frio": "Frío",
+        "antigo": "Antiguo",
+        "pb": "B/N",
+        "lambe": "Cartel pegado"
+      },
+      "cortar": "Recortar el video",
+      "inicio": "Inicio del tramo",
+      "fim": "Fin del tramo",
+      "trecho": "Tramo de {dur} ({ini} a {fim})",
+      "som": "Sonido del video",
+      "comSom": "Con sonido",
+      "semSom": "Sin sonido",
+      "somAjuda": "Sin sonido, el audio ni sale de tu dispositivo.",
+      "ajustar": "Posición",
+      "gestos": "Arrastra para mover. Con dos dedos (o la rueda del ratón), gira y haz zoom.",
+      "girar": "Girar 90°",
+      "maior": "Agrandar",
+      "menor": "Achicar",
+      "centralizar": "Centrar",
+      "tirar": "Quitar foto o video",
+      "video": "Video de la historia",
+      "foto": "Foto de la historia",
+      "semMetadadoVideo": "El video se rehace en tu dispositivo en 720p: sale sin ubicación ni datos de la cámara.",
+      "altVideo": "Describe el video para quien no ve (opcional)",
+      "lendo": "Abriendo el video…"
+    },
+    "progresso": {
+      "preparando": "Preparando el video en tu dispositivo… {pct}%",
+      "foto": "Preparando la foto…",
+      "enviando": "Enviando… {pct}%",
+      "publicando": "Publicando…",
+      "cancelar": "Cancelar",
+      "ajuda": "El video se rehace aquí, sin ubicación. Deja esta pantalla abierta."
+    },
+    "erroMidia": {
+      "video": "No se pudo leer ese video. Usa MP4, MOV o WEBM.",
+      "videoGrande": "El video quedó demasiado grande (hasta 20 MB). Recorta un tramo más corto.",
+      "semGravador": "Este navegador no rehace videos. Usa una foto u otro navegador.",
+      "comunidade": "Elige la comunidad.",
+      "cancelado": "Envío cancelado. Nada salió del dispositivo."
+    },
+    "contaDeFigurinhas": "{n} de {max}",
+    "figurinhaMover": "Mover el sticker {nome}",
+    "figurinhaDica": "Arrastra para mover; con dos dedos, gira y cambia el tamaño. Con el teclado: flechas mueven, + y − cambian el tamaño, [ y ] giran."
   },
   "figurinha": {
     "contagem": {
@@ -131,6 +215,13 @@
       "endereco": "Dirección (https://…)",
       "texto": "Texto del enlace (opcional)",
       "abrir": "Abrir {dominio} (sale de Alumia)"
+    },
+    "comunidade": {
+      "rotulo": "Comunidad",
+      "escolha": "Elige la comunidad",
+      "nenhuma": "Todavía no estás en ninguna comunidad.",
+      "carregando": "Cargando tus comunidades…",
+      "abrir": "Abrir la comunidad {nome}"
     }
   },
   "visor": {
@@ -193,11 +284,75 @@
       "spam": "Propaganda o repetición",
       "outro": "Otro motivo"
     },
-    "erroAoEnviar": "No se pudo enviar. Intenta de nuevo."
+    "erroAoEnviar": "No se pudo enviar. Intenta de nuevo.",
+    "ajudaToque": "Al tocar: el lado derecho avanza, el izquierdo vuelve, mantener pausa, deslizar al costado cambia de persona y hacia abajo cierra. La tecla M activa el sonido.",
+    "som": "Activar el sonido",
+    "mudo": "Silenciar",
+    "semSomNoVideo": "Este video se publicó sin sonido",
+    "tocarParaOuvir": "Toca para escuchar",
+    "video": "Video de la historia",
+    "carregandoVideo": "Cargando el video…",
+    "destaque": "Destacada · {titulo}",
+    "guardar": "Guardar en destacadas",
+    "tirarDoDestaque": "Quitar de esta destacada",
+    "apagarDestaque": "Borrar esta destacada",
+    "pessoaAnterior": "Persona anterior",
+    "proximaPessoa": "Siguiente persona",
+    "verAoLado": "Ir a las historias de {nome}"
   },
   "cartao": {
     "porNoStory": "Poner en la historia",
     "porNoStoryAjuda": "Crea una historia con el enlace de esta publicación (desaparece en 24 h)"
   },
-  "previa": "Vista previa con datos de ejemplo: nada aquí se envía."
+  "previa": "Vista previa con datos de ejemplo: nada aquí se envía.",
+  "camera": {
+    "titulo": "Cámara",
+    "fechar": "Cerrar la cámara",
+    "modos": "Foto o video",
+    "foto": "Foto",
+    "video": "Video",
+    "disparo": "Tomar foto (mantén para grabar video)",
+    "gravar": "Empezar a grabar",
+    "parar": "Dejar de grabar",
+    "dica": "Toca para foto, mantén para video",
+    "virar": "Girar la cámara",
+    "galeria": "Elegir de la galería",
+    "abrindo": "Abriendo la cámara…",
+    "negada": "Sin permiso para la cámara. Habilítalo en el navegador o usa la galería.",
+    "semCamera": "No encontramos una cámara en este dispositivo. Usa la galería.",
+    "gravando": "Grabando {tempo} de 1:00",
+    "privacidade": "Nada sale del dispositivo antes de que publiques."
+  },
+  "destaques": {
+    "rotulo": "Destacadas",
+    "guardarTitulo": "Guardar en destacadas",
+    "aviso": "Queda en tu perfil después de 24 h, para el mismo público de ahora. La quitas cuando quieras. Nunca va al Fediverso.",
+    "novo": "Nueva destacada",
+    "nome": "Nombre de la destacada",
+    "criar": "Crear y guardar",
+    "guardar": "Guardar aquí",
+    "guardado": "Guardada en {titulo}.",
+    "jaEsta": "Ya está en {titulo}",
+    "tirado": "Quitada de la destacada.",
+    "limite": "Como máximo 6 destacadas.",
+    "apagarConfirma": "¿Borrar la destacada {titulo}? Sus historias de más de 24 h desaparecen.",
+    "apagado": "Destacada borrada.",
+    "vazioDono": "Aún no hay destacadas. En tu historia, toca ⋯ y \"Guardar en destacadas\".",
+    "erro": "Las destacadas no cargaron.",
+    "cor": "Color de la portada",
+    "fechar": "Cerrar",
+    "abrirN": {
+      "one": "Ver la destacada {titulo} ({n} historia)",
+      "few": "Ver la destacada {titulo} ({n} historias)",
+      "many": "Ver la destacada {titulo} ({n} historias)",
+      "other": "Ver la destacada {titulo} ({n} historias)"
+    },
+    "seus": "Tus destacadas",
+    "contaN": {
+      "one": "{n} destacada",
+      "few": "{n} destacadas",
+      "many": "{n} destacadas",
+      "other": "{n} destacadas"
+    }
+  }
 }

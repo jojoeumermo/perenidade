@@ -11,7 +11,9 @@
     "tentar": "Tentar de novo",
     "entrar": "Entre na sua conta para ver e criar stories.",
     "anteriores": "Stories anteriores",
-    "seguintes": "Mais stories"
+    "seguintes": "Mais stories",
+    "abrindo": "Abrindo os stories de {nome}…",
+    "maisUm": "Pôr mais um story"
   },
   "abas": {
     "rotulo": "Linhas"
@@ -40,19 +42,21 @@
       "dourado": "Dourado",
       "verde": "Verde",
       "rosa": "Rosa",
-      "noite": "Noite"
+      "noite": "Noite",
+      "papel": "Papel"
     },
     "desenho": "Área de desenho: arraste para desenhar",
     "desfazer": "Desfazer o último traço",
     "limpar": "Apagar o desenho",
     "figurinhas": "Figurinhas",
     "figurinhaLigada": "{nome}: no story (toque para tirar)",
-    "limiteDeFigurinhas": "No máximo 3 figurinhas por story.",
+    "limiteDeFigurinhas": "Chegou a 3. Tire uma para pôr outra.",
     "tipo": {
       "contagem": "Contagem",
       "pergunta": "Pergunta",
       "enquete": "Enquete",
-      "link": "Link"
+      "link": "Link",
+      "comunidade": "Comunidade"
     },
     "quemVe": "Quem vê",
     "publico": {
@@ -74,7 +78,7 @@
     "publicar": "Publicar story",
     "publicando": "Publicando…",
     "publicado": "Story publicado. Some em 24 h.",
-    "vazio": "Escreva um texto, desenhe ou escolha uma imagem.",
+    "vazio": "Escreva um texto, desenhe, tire uma foto ou escolha da galeria.",
     "deUmPost": "Story a partir de um post: o link para o post vai junto.",
     "erro": {
       "grande": "Imagem grande demais (até 3 MB depois de pronta).",
@@ -88,7 +92,87 @@
       "limite": "Você publicou muitos stories agora. Espere um pouco.",
       "banco": "O banco ainda não tem os stories (falta a atualização do servidor).",
       "falha": "Não deu para publicar. Tente de novo."
-    }
+    },
+    "camera": "Câmera",
+    "galeriaAjuda": "Foto ou vídeo (até 60 s)",
+    "corDaLetra": "Cor da letra",
+    "corAlvo": {
+      "fundo": "Fundo",
+      "letra": "Letra"
+    },
+    "estilo": {
+      "rotulo": "Estilo do texto",
+      "fonte": {
+        "condensada": "Cartaz",
+        "serifa": "Clássica",
+        "maquina": "Máquina",
+        "marcador": "Marcador"
+      },
+      "alinhar": "Alinhamento: {lado}",
+      "alinhamento": {
+        "esq": "à esquerda",
+        "centro": "no centro",
+        "dir": "à direita"
+      },
+      "caixa": "Fundo atrás do texto"
+    },
+    "pincel": {
+      "rotulo": "Pincel",
+      "caneta": "Caneta",
+      "marca": "Marca-texto",
+      "espessura": "Espessura"
+    },
+    "midia": {
+      "titulo": "Foto e vídeo",
+      "filtros": "Filtros",
+      "filtro": {
+        "nenhum": "Normal",
+        "vivo": "Vivo",
+        "quente": "Quente",
+        "frio": "Frio",
+        "antigo": "Antigo",
+        "pb": "P&B",
+        "lambe": "Lambe-lambe"
+      },
+      "cortar": "Cortar o vídeo",
+      "inicio": "Começo do trecho",
+      "fim": "Fim do trecho",
+      "trecho": "Trecho de {dur} ({ini} a {fim})",
+      "som": "Som do vídeo",
+      "comSom": "Com som",
+      "semSom": "Sem som",
+      "somAjuda": "Sem som, o áudio nem sai do seu aparelho.",
+      "ajustar": "Posição",
+      "gestos": "Arraste para mover. Com dois dedos (ou a roda do mouse), gire e dê zoom.",
+      "girar": "Girar 90°",
+      "maior": "Aumentar",
+      "menor": "Diminuir",
+      "centralizar": "Centralizar",
+      "tirar": "Remover foto ou vídeo",
+      "video": "Vídeo do story",
+      "foto": "Foto do story",
+      "semMetadadoVideo": "O vídeo é refeito no seu aparelho em 720p: sai sem localização e sem dados da câmera.",
+      "altVideo": "Descreva o vídeo para quem não vê (opcional)",
+      "lendo": "Abrindo o vídeo…"
+    },
+    "progresso": {
+      "preparando": "Preparando o vídeo no seu aparelho… {pct}%",
+      "foto": "Preparando a foto…",
+      "enviando": "Enviando… {pct}%",
+      "publicando": "Publicando…",
+      "cancelar": "Cancelar",
+      "ajuda": "O vídeo é refeito aqui, sem localização. Deixe esta tela aberta."
+    },
+    "erroMidia": {
+      "video": "Não deu para ler esse vídeo. Use MP4, MOV ou WEBM.",
+      "videoGrande": "O vídeo ficou grande demais (até 20 MB). Corte um trecho menor.",
+      "semGravador": "Este navegador não refaz vídeos. Use uma foto, ou outro navegador.",
+      "comunidade": "Escolha a comunidade.",
+      "cancelado": "Envio cancelado. Nada saiu do aparelho."
+    },
+    "contaDeFigurinhas": "{n} de {max}",
+    "figurinhaMover": "Mover a figurinha {nome}",
+    "figurinhaDica": "Arraste para mover; com dois dedos, gire e mude o tamanho. No teclado: setas movem, + e − mudam o tamanho, [ e ] giram."
   },
   "figurinha": {
     "contagem": {
@@ -131,6 +215,13 @@
       "endereco": "Endereço (https://…)",
       "texto": "Texto do link (opcional)",
       "abrir": "Abrir {dominio} (sai da Alumia)"
+    },
+    "comunidade": {
+      "rotulo": "Comunidade",
+      "escolha": "Escolha a comunidade",
+      "nenhuma": "Você ainda não está em nenhuma comunidade.",
+      "carregando": "Carregando as suas comunidades…",
+      "abrir": "Abrir a comunidade {nome}"
     }
   },
   "visor": {
@@ -193,11 +284,75 @@
       "spam": "Propaganda ou repetição",
       "outro": "Outro motivo"
     },
-    "erroAoEnviar": "Não deu para enviar. Tente de novo."
+    "erroAoEnviar": "Não deu para enviar. Tente de novo.",
+    "ajudaToque": "No toque: lado direito avança, esquerdo volta, segurar pausa, deslizar para o lado troca de pessoa e para baixo fecha. Tecla M liga e desliga o som.",
+    "som": "Ligar o som",
+    "mudo": "Desligar o som",
+    "semSomNoVideo": "Este vídeo foi publicado sem som",
+    "tocarParaOuvir": "Toque para ouvir",
+    "video": "Vídeo do story",
+    "carregandoVideo": "Carregando o vídeo…",
+    "destaque": "Destaque · {titulo}",
+    "guardar": "Guardar no destaque",
+    "tirarDoDestaque": "Tirar deste destaque",
+    "apagarDestaque": "Apagar este destaque",
+    "pessoaAnterior": "Pessoa anterior",
+    "proximaPessoa": "Próxima pessoa",
+    "verAoLado": "Ir para os stories de {nome}"
   },
   "cartao": {
     "porNoStory": "Pôr no story",
     "porNoStoryAjuda": "Cria um story com o link deste post (some em 24 h)"
   },
-  "previa": "Prévia com dados de exemplo: nada aqui é enviado."
+  "previa": "Prévia com dados de exemplo: nada aqui é enviado.",
+  "camera": {
+    "titulo": "Câmera",
+    "fechar": "Fechar a câmera",
+    "modos": "Foto ou vídeo",
+    "foto": "Foto",
+    "video": "Vídeo",
+    "disparo": "Tirar foto (segure para gravar vídeo)",
+    "gravar": "Começar a gravar",
+    "parar": "Parar de gravar",
+    "dica": "Toque para foto, segure para vídeo",
+    "virar": "Virar a câmera",
+    "galeria": "Escolher da galeria",
+    "abrindo": "Abrindo a câmera…",
+    "negada": "Sem permissão para a câmera. Libere nas configurações do navegador, ou use a galeria.",
+    "semCamera": "Não achamos uma câmera neste aparelho. Use a galeria.",
+    "gravando": "Gravando {tempo} de 1:00",
+    "privacidade": "Nada sai do aparelho antes de você publicar."
+  },
+  "destaques": {
+    "rotulo": "Destaques",
+    "guardarTitulo": "Guardar no destaque",
+    "aviso": "Fica no seu perfil depois das 24 h, para o mesmo público de agora. Você tira quando quiser. Nunca vai para o Fediverso.",
+    "novo": "Novo destaque",
+    "nome": "Nome do destaque",
+    "criar": "Criar e guardar",
+    "guardar": "Guardar aqui",
+    "guardado": "Guardado em {titulo}.",
+    "jaEsta": "Já está em {titulo}",
+    "tirado": "Tirado do destaque.",
+    "limite": "No máximo 6 destaques.",
+    "apagarConfirma": "Apagar o destaque {titulo}? Os stories dele que já passaram de 24 h somem.",
+    "apagado": "Destaque apagado.",
+    "vazioDono": "Sem destaques ainda. No seu story, toque em ⋯ e em \"Guardar no destaque\".",
+    "erro": "Os destaques não carregaram.",
+    "cor": "Cor da capa",
+    "fechar": "Fechar",
+    "abrirN": {
+      "one": "Ver o destaque {titulo} ({n} story)",
+      "few": "Ver o destaque {titulo} ({n} stories)",
+      "many": "Ver o destaque {titulo} ({n} stories)",
+      "other": "Ver o destaque {titulo} ({n} stories)"
+    },
+    "seus": "Seus destaques",
+    "contaN": {
+      "one": "{n} destaque",
+      "few": "{n} destaques",
+      "many": "{n} destaques",
+      "other": "{n} destaques"
+    }
+  }
 }
