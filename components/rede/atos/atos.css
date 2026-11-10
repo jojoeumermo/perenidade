@@ -1088,3 +1088,47 @@
 [data-al="2"] .al-ato-org-form .al-ato-form-campo[aria-invalid="true"] { border-color: var(--al-vermelho); box-shadow: 0 0 0 1px var(--al-vermelho); }
 /* campos com problema (validação nossa, frase ao lado): a borda acende em vermelho */
 [data-al="2"] :is(.al-corrente-form, .al-farol-ponto-form) .al-ato-form-campo[aria-invalid="true"] { border-color: var(--al-vermelho); box-shadow: 0 0 0 1px var(--al-vermelho); }
+
+/* ════════════════════════ QA da rodada 2 ════════════════════════ */
+
+/* ───── o ato aberto: o topo, as ações e o resto ─────
+   No computador as ações ficam numa coluna à direita do topo e do resto (prancha celular-modo-atos). Abaixo de 1024 px a casca
+   tem a barra de baixo fixa: a coluna descia sob ela (o "Chamar" cortado, o Lembrete escondido, o toque caindo no Escrever). Ali as
+   ações viram uma linha logo abaixo do nome, de ponta a ponta, sempre à vista na primeira tela. */
+[data-al="2"] .al-ato-aberto-corpo {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "topo coluna" "resto coluna";
+  grid-template-rows: auto 1fr;
+  row-gap: 0.6rem;
+}
+[data-al="2"] .al-ato-aberto-topo { grid-area: topo; }
+[data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna { grid-area: coluna; }
+[data-al="2"] .al-ato-aberto-resto { grid-area: resto; align-content: start; }
+@media (max-width: 1023px) {
+  [data-al="2"] .al-ato-aberto-corpo { grid-template-columns: minmax(0, 1fr); grid-template-areas: "topo" "coluna" "resto"; grid-template-rows: auto; row-gap: 0.85rem; }
+  [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 0.25rem;
+    padding: 0.7rem 0.15rem 0.6rem;
+    border-block: 1px solid var(--al-linha);
+  }
+  [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna > .al-ato-acao {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 6.5rem;
+    grid-template-rows: 60px auto;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-acao-rotulo { overflow-wrap: anywhere; }
+  /* na linha, todos do mesmo tamanho (o "Você vai" continua o maior e o único colorido) e o Lembrete não encolhe */
+  [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-quadrado:not(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 52px; height: 52px; border-radius: 15px; }
+  :root [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 60px; height: 60px; border-radius: 17px; }
+}
+@media (max-width: 359px) {
+  [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-quadrado:not(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 46px; height: 46px; border-radius: 13px; }
+  :root [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 54px; height: 54px; }
+  [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-acao-rotulo { font-size: 0.72rem; }
+}
