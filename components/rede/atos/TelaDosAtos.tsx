@@ -46,6 +46,10 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
   const proximoRef = useRef<HTMLDivElement>(null);
   const proximoAVista = useRef(false);
   const trocando = useRef(false);
+  // J/K (ou toques) seguidos durante a animação não se perdem: o último pedido fica na fila e roda quando a troca termina
+  const alvo = useRef(0);
+  const fila = useRef<number | null>(null);
+  const irDepois = useRef<(i: number) => void>(() => {});
   const topo = useRef<HTMLDivElement>(null);
   const campo = useRef<HTMLInputElement>(null);
   const idErroCidade = useId();
@@ -107,7 +111,13 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
 
   const ir = useCallback(
     (i: number) => {
-      if (i < 0 || i >= itens.length || i === indice || trocando.current) return;
+      if (i < 0 || i >= itens.length) return;
+      if (trocando.current) {
+        fila.current = i === alvo.current ? null : i;
+        return;
+      }
+      if (i === indice) return;
+      alvo.current = i;
       focarTitulo.current = "sim";
       const frente = i > indice;
       const trocar = () => {
@@ -139,6 +149,9 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
         const fim = () => {
           trocando.current = false;
           window.setTimeout(() => delete raiz.dataset.alIr, 400);
+          const depois = fila.current;
+          fila.current = null;
+          if (depois !== null) requestAnimationFrame(() => irDepois.current(depois));
         };
         entra.finished.then(fim, fim);
       };
@@ -147,15 +160,21 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
     [itens.length, indice],
   );
 
-  // J vai ao próximo ato, K volta (fora de campos de texto)
+  useEffect(() => {
+    irDepois.current = ir;
+    if (!trocando.current) alvo.current = indice;
+  }, [ir, indice]);
+
+  // J vai ao próximo ato, K volta (fora de campos de texto); seguidos, contam a partir do ato para onde já se está indo
   useEffect(() => {
     const tecla = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
-      const alvo = e.target as HTMLElement | null;
-      if (alvo && (alvo.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(alvo.tagName))) return;
-      if (alvo?.closest("dialog[open]")) return;
-      if (e.key === "j" || e.key === "J") ir(indice + 1);
-      else if (e.key === "k" || e.key === "K") ir(indice - 1);
+      const onde = e.target as HTMLElement | null;
+      if (onde && (onde.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(onde.tagName))) return;
+      if (onde?.closest("dialog[open]")) return;
+      const daqui = trocando.current ? (fila.current ?? alvo.current) : indice;
+      if (e.key === "j" || e.key === "J") ir(daqui + 1);
+      else if (e.key === "k" || e.key === "K") ir(daqui - 1);
     };
     window.addEventListener("keydown", tecla);
     return () => window.removeEventListener("keydown", tecla);
