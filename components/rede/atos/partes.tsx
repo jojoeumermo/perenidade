@@ -3,10 +3,11 @@
 
 // As peças comuns das telas dos atos: ícones, o mosaico do ato (com o cartão dourado escolhido NESTE aparelho), o carimbo com a
 // data de antes riscada, o bloco da data e as ações Chegar, Chamar e Pôr na agenda. Cada peça tem uma função: nada é enfeite.
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Carimbo } from "../ui/Carimbo";
-import { Mosaico } from "../mosaico/Mosaico";
+import { MosaicoVivo } from "./MosaicoVivo";
 import { sementeDoAparelho } from "@/lib/rede/atos/aparelho";
+import { MOLAS, podeMexer } from "@/lib/rede/atos/movimento";
 import { linkDoMapa, textoParaChamar } from "@/lib/rede/atos/chegar";
 import { pontoEDetalhe } from "@/lib/rede/atos/formulario";
 import { icsDoAto, nomeDoIcs } from "@/lib/rede/atos/ics";
@@ -32,6 +33,8 @@ export const Icone = {
   voltar: (t?: number) => svg(<path d="M15 5l-7 7 7 7" />, t),
   bandeira: (t?: number) => svg(<path d="M5 21V4M5 5h13l-2.5 4 2.5 4H5" />, t),
   fora: (t?: number) => svg(<><path d="M14 5h5v5M19 5l-8 8" /><path d="M18 14v5H5V6h5" /></>, t),
+  copiar: (t?: number) => svg(<><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></>, t),
+  sino: (t?: number) => svg(<><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" /><path d="M10 20a2 2 0 0 0 4 0" /></>, t),
 };
 
 /** O que o leitor de tela ouve do mosaico: a palavra e a proporção (nunca um número de pessoas). */
@@ -46,14 +49,15 @@ export function rotuloDoMosaico(t: TextosDosAtos, ato: Pick<Ato, "palavra" | "ac
  * O mosaico de um ato. O cartão dourado só aparece depois de montar no navegador: a semente que escolhe a posição dele nasce e
  * fica neste aparelho (lib/rede/atos/aparelho.ts). Ato cancelado fica apagado.
  */
-export function MosaicoDoAto({ ato, t, quebrar, className }: { ato: Ato; t: TextosDosAtos; quebrar?: number; className?: string }) {
+export function MosaicoDoAto({ ato, t, quebrar, className, inclinar }: { ato: Ato; t: TextosDosAtos; quebrar?: number; className?: string; inclinar?: boolean }) {
   const [semente, setSemente] = useState<string | null>(null);
   useEffect(() => {
     queueMicrotask(() => setSemente(sementeDoAparelho()));
   }, []);
   const apagado = ato.situacao === "cancelado";
   return (
-    <Mosaico
+    <MosaicoVivo
+      inclinar={inclinar}
       palavra={ato.palavra || ato.titulo}
       semente={ato.id}
       proporcao={apagado ? null : ato.acesos}
@@ -66,9 +70,64 @@ export function MosaicoDoAto({ ato, t, quebrar, className }: { ato: Ato; t: Text
   );
 }
 
-/** O carimbo da situação, no idioma da tela. */
-export function CarimboDoAto({ ato, t, tamanho = "m", className }: { ato: Pick<Ato, "situacao">; t: TextosDosAtos; tamanho?: "p" | "m" | "g"; className?: string }) {
-  return <Carimbo situacao={ato.situacao} texto={t.situacao[ato.situacao]} tamanho={tamanho} className={className} />;
+/**
+ * Bate o carimbo: cai de cima, grande e torto, bate na mesa com mola (quica um pouco), solta a tinta em volta e dá um tranco no
+ * cartão. `forte` é a troca de situação (o organizador acabou de adiar ou cancelar): cai de mais alto e o tranco é maior.
+ */
+export function baterCarimbo(el: HTMLElement, forte = false, atraso = 0): void {
+  if (!podeMexer()) return;
+  const carimbo = el.querySelector<HTMLElement>(".al-carimbo");
+  const tinta = el.querySelector<HTMLElement>(".al-carimbo-tinta");
+  carimbo?.animate(
+    [
+      { scale: forte ? 3.2 : 2.3, rotate: forte ? "-16deg" : "-9deg", opacity: 0, filter: "blur(3px)" },
+      { scale: 1, rotate: "0deg", opacity: 1, filter: "blur(0px)" },
+    ],
+    { duration: MOLAS.quique.duracao, easing: MOLAS.quique.easing, delay: atraso, fill: "backwards" },
+  );
+  tinta?.animate([{ opacity: 0, scale: 0.6 }, { opacity: 0.55, scale: 1.05, offset: 0.25 }, { opacity: 0, scale: 1.35 }], {
+    duration: 700,
+    delay: atraso + 150,
+    easing: "ease-out",
+  });
+  const cartao = el.closest<HTMLElement>("article, .al-ato-item");
+  cartao?.animate([{ translate: "0 0" }, { translate: `0 ${forte ? 4 : 2}px` }, { translate: "0 0" }], { duration: 260, delay: atraso + 150, easing: "cubic-bezier(.3,1.5,.5,1)" });
+}
+
+/**
+ * O carimbo da situação, no idioma da tela, com física: bate quando aparece na tela pela primeira vez e bate de novo, mais forte,
+ * quando a situação muda. Carimbo nunca é enfeite: só aparece por decisão humana registrada (a situação do ato).
+ */
+export function CarimboDoAto({ ato, t, tamanho = "m", className = "", bater = true }: { ato: Pick<Ato, "situacao">; t: TextosDosAtos; tamanho?: "p" | "m" | "g"; className?: string; bater?: boolean }) {
+  const caixa = useRef<HTMLSpanElement>(null);
+  const antes = useRef<Ato["situacao"] | null>(null);
+  useEffect(() => {
+    const el = caixa.current;
+    const velha = antes.current;
+    antes.current = ato.situacao;
+    if (!el || !bater) return;
+    if (velha !== null && velha !== ato.situacao) {
+      baterCarimbo(el, true);
+      return;
+    }
+    if (velha !== null || typeof IntersectionObserver === "undefined") return;
+    const olho = new IntersectionObserver(
+      (entradas) => {
+        if (!entradas.some((e) => e.isIntersecting)) return;
+        olho.disconnect();
+        baterCarimbo(el, false, 200 + Math.random() * 180);
+      },
+      { threshold: 0.6 },
+    );
+    olho.observe(el);
+    return () => olho.disconnect();
+  }, [ato.situacao, bater]);
+  return (
+    <span ref={caixa} className={`al-carimbo-vivo ${className}`.trim()}>
+      <span className="al-carimbo-tinta" aria-hidden data-situacao={ato.situacao} />
+      <Carimbo situacao={ato.situacao} texto={t.situacao[ato.situacao]} tamanho={tamanho} />
+    </span>
+  );
 }
 
 /** "era 12/11", riscado, quando o ato foi adiado (a data de antes continua legível: ninguém é pego de surpresa). */
