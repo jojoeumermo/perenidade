@@ -1,9 +1,17 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // "Sair rápido" da Alumia (antes dentro de components/rede/Casca.tsx; PLANO-ALUMIA F0, dono depois: F6). Apaga o que a Alumia
-// guardou neste aparelho e vai para uma página neutra do site. As frentes acrescentam a limpeza delas pelo encaixe aoSairRapido
+// guardou neste aparelho e vai para uma página neutra de fora (DESTINO_DA_SAIDA). As frentes acrescentam a limpeza delas pelo encaixe aoSairRapido
 // (components/rede/encaixes.tsx): a F7 apaga o chaveiro do chat, a F6 o modo ato, a F5 os rascunhos de story…
 // Sem "@/" de propósito: as funções puras rodam no Node nos testes.
+import { DESTINO_NEUTRO } from "../modo-seguro";
+
+/**
+ * Para onde o "Sair rápido" leva: a mesma página comum, DE FORA, do modo seguro do site (lib/modo-seguro.ts; a previsão do tempo,
+ * sem nada da pessoa no endereço). A página inicial do Instituto não serve: tem "Alumia" no menu e na barra de baixo, e quem
+ * olha por cima do ombro veria a ligação com a rede.
+ */
+export const DESTINO_DA_SAIDA = DESTINO_NEUTRO;
 
 /** O prefixo das chaves que a Alumia grava no armazenamento do navegador (localStorage e sessionStorage). */
 export const PREFIXO_DA_REDE = "lucia:rede";
