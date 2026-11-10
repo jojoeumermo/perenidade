@@ -435,11 +435,13 @@ export function Criar({
   }, [texto, tamanho, estilo, legenda]);
   const restam = LIMITES_DO_STORY.texto - [...texto].length;
 
-  const coresDaFileira = modo === "desenhar" || alvoDaCor === "letra" ? CORES_DA_LETRA : CORES_DO_STORY;
-  const corEscolhida = (c: string) => (modo === "desenhar" ? pincel.cor === c : alvoDaCor === "letra" ? (estilo.cor_texto ?? null) === c : cor === c);
+  // Com foto ou vídeo, a cor de fundo não aparece (a mídia cobre a tela): só sobra a cor da letra.
+  const alvo = midia ? "letra" : alvoDaCor;
+  const coresDaFileira = modo === "desenhar" || alvo === "letra" ? CORES_DA_LETRA : CORES_DO_STORY;
+  const corEscolhida = (c: string) => (modo === "desenhar" ? pincel.cor === c : alvo === "letra" ? (estilo.cor_texto ?? null) === c : cor === c);
   const escolherCor = (c: string) => {
     if (modo === "desenhar") setPincel((p) => ({ ...p, cor: c as CorDaLetra }));
-    else if (alvoDaCor === "letra") setEstilo((e) => ({ ...e, cor_texto: c as CorDaLetra }));
+    else if (alvo === "letra") setEstilo((e) => ({ ...e, cor_texto: c as CorDaLetra }));
     else setCor(c as CorDoStory);
   };
   const amostra = midia?.tipo === "imagem" ? midia.url : miniaturas[0] ?? null;
@@ -569,7 +571,7 @@ export function Criar({
           </div>
 
           <div className="al-ed-cores-linha" style={{ position: "relative", zIndex: 5 }}>
-            {modo !== "desenhar" ? (
+            {modo !== "desenhar" && !midia ? (
               <div className="al-ed-alvo" role="radiogroup" aria-label={t.criar.cores}>
                 {(["fundo", "letra"] as const).map((a, k) => (
                   <button
@@ -594,7 +596,7 @@ export function Criar({
               </div>
             ) : null}
             <fieldset className="al-st-cores" role="radiogroup">
-              <legend>{modo === "desenhar" ? t.criar.coresDoTraco : alvoDaCor === "letra" ? t.criar.corDaLetra : t.criar.cores}</legend>
+              <legend>{modo === "desenhar" ? t.criar.coresDoTraco : alvo === "letra" ? t.criar.corDaLetra : t.criar.cores}</legend>
               {coresDaFileira.map((c, k) => {
                 const escolhida = corEscolhida(c);
                 const nenhumaMarcada = !coresDaFileira.some((x) => corEscolhida(x));
@@ -816,18 +818,18 @@ export function Criar({
           </p>
           {postRef ? <p className="al-st-dica">{t.criar.deUmPost}</p> : null}
 
-          {erro ? (
-            <p className="al-st-erro-criar" role="alert">
-              {erro}
-            </p>
-          ) : null}
-          {estado === "publicado" ? (
-            <p className="al-st-feito" role="status">
-              {t.criar.publicado}
-            </p>
-          ) : null}
-
           <div className="al-st-acoes al-ed-acoes">
+            {/* O erro e o "publicado" ficam na barra das ações (fixa no celular), à vista de quem tocou em Publicar. */}
+            {erro ? (
+              <p className="al-st-erro-criar" role="alert">
+                {erro}
+              </p>
+            ) : null}
+            {estado === "publicado" ? (
+              <p className="al-st-feito" role="status">
+                {t.criar.publicado}
+              </p>
+            ) : null}
             <input
               ref={galeria}
               type="file"
@@ -869,7 +871,7 @@ export function Criar({
                   : t.criar.progresso.publicando}
           </p>
           <p id={`${id}-prog-ajuda`} className="al-st-dica">
-            {t.criar.progresso.ajuda}
+            {midia?.tipo === "video" ? t.criar.progresso.ajuda : t.criar.progresso.ajudaFoto}
           </p>
           {progresso.fase === "preparando" || progresso.fase === "foto" ? (
             <button type="button" className="al-botao al-botao-fantasma al-botao-m" autoFocus onClick={() => cancelar.current?.abort()}>

@@ -161,7 +161,8 @@
       "enviando": "正在上传… {pct}%",
       "publicando": "正在发布…",
       "cancelar": "取消",
-      "ajuda": "视频在这里重新生成，不含位置。请保持此页面打开。"
+      "ajuda": "视频在这里重新生成，不含位置。请保持此页面打开。",
+      "ajudaFoto": "照片在这里重新生成，不含位置。请保持此页面打开。"
     },
     "erroMidia": {
       "video": "无法读取该视频。请使用 MP4、MOV 或 WEBM。",
@@ -257,6 +258,7 @@
     "seu": "你的快拍",
     "respostasChegam": "回复和回应只会发给你，出现在你的通知里。",
     "responder": "只回复给 {nome}…",
+    "responderCurto": "回复…",
     "responderRotulo": "只回复给 {nome}",
     "enviar": "发送",
     "enviado": "只发给了 {nome}。",
@@ -354,5 +356,10 @@
       "many": "{n} 个精选",
       "other": "{n} 个精选"
     }
+  },
+  "pagina": {
+    "titulo": "快拍",
+    "lede": "你关注的人和你所在社区的快拍。点一个圆圈观看，或点“你的快拍”来发布。",
+    "inicio": "查看首页时间线"
   }
 }
