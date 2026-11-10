@@ -8,7 +8,7 @@ import { focarNoGrupo, indiceDaSeta } from "../stories/usar";
 
 /**
  * Os filtros (lista fechada): uma fileira de amostras da própria foto ou de um quadro do vídeo, cada uma já com o filtro. Grupo de
- * opções de verdade (setas trocam, o leitor de tela diz qual está marcado). Também desliza com o dedo na prévia (no Criar).
+ * opções de verdade (setas trocam, o leitor de tela diz qual está marcado). A fileira desliza com o dedo.
  */
 export function Filtros({ t, filtro, amostra, aoEscolher }: { t: TextosDosStories["criar"]["midia"]; filtro: FiltroDoStory; amostra: string | null; aoEscolher: (f: FiltroDoStory) => void }) {
   return (
