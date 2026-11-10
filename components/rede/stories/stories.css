@@ -704,6 +704,8 @@
 /* O cubo: o palco dá a perspectiva, a tela gira em volta da borda. */
 [data-al="2"] .al-st-visor { background: rgba(0, 0, 0, var(--al-st-escurece, 1)); }
 [data-al="2"] .al-st-visor-palco { perspective: 1400px; touch-action: none; }
+/* As caixas (denunciar, guardar) e o menu rolam com o dedo, apesar do palco segurar os gestos. */
+[data-al="2"] .al-st-visor-palco :is(.al-st-caixa, .al-st-menu) { touch-action: pan-y; overscroll-behavior: contain; }
 [data-al="2"] .al-st-visor .al-st-tela { backface-visibility: hidden; transform-style: flat; will-change: transform; }
 [data-al="2"] .al-st-visor .al-st-tela::after { content: ""; position: absolute; inset: 0; z-index: 7; pointer-events: none; background: #000; opacity: 0; transition: opacity 0.2s; }
 /* O que entra no story aparece com um respiro (o texto sobe um pouco). */
