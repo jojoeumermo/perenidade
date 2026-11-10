@@ -260,8 +260,10 @@
 :root[data-eink] [data-al="2"] .al-selo.al-selo-papel { background: #fff; color: #000; border: 1.5px solid #000; --al-sobre-vermelho: #000; --al-vermelho: #fff; }
 
 /* ───────────── Perfil de organização: grade (computador: principal + lado; celular: uma coluna) ───────────── */
+/* Pela largura da COLUNA (container), não da janela: na casca da Alumia o meio tem 600 px e as duas colunas não cabem. */
+[data-al="2"] .al-perfil-org { container-type: inline-size; }
 [data-al="2"] .al-perfil-org-grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; max-width: 1200px; margin: 0 auto; }
-@media (min-width: 1024px) {
+@container (min-width: 900px) {
   [data-al="2"] .al-perfil-org-grade { grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; padding-inline: 24px; }
   [data-al="2"] .al-perfil-org-lado { position: sticky; top: 16px; align-self: start; padding-top: 12px; }
 }
