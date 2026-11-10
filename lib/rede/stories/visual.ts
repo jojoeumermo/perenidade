@@ -163,9 +163,9 @@ export function posicaoValida(p: Partial<PosicaoDaFigurinha> | null | undefined)
  */
 export function posicaoInicial(k: number): PosicaoDaFigurinha {
   const lugares: PosicaoDaFigurinha[] = [
-    { x: 0.5, y: 0.66, giro: -3, escala: 0.92 },
-    { x: 0.5, y: 0.84, giro: 2, escala: 0.86 },
-    { x: 0.5, y: 0.48, giro: -1.5, escala: 0.86 },
+    { x: 0.5, y: 0.66, giro: -3, escala: 0.84 },
+    { x: 0.5, y: 0.85, giro: 2, escala: 0.78 },
+    { x: 0.5, y: 0.47, giro: -1.5, escala: 0.78 },
   ];
   return lugares[Math.max(0, k) % lugares.length];
 }
