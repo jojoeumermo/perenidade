@@ -620,5 +620,11 @@
       "feitas": "Exams and practice tests taken",
       "linhaProva": "{titulo} ({data}): {a} of {b}"
     }
+  },
+  "fimDaAula": {
+    "titulo": "After the lesson",
+    "compartilhar": "Share and save",
+    "estudar": "Study more",
+    "melhorar": "Help improve this lesson"
   }
 }

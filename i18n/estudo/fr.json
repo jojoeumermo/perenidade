@@ -620,5 +620,11 @@
       "feitas": "Épreuves et examens blancs faits",
       "linhaProva": "{titulo} ({data}) : {a} sur {b}"
     }
+  },
+  "fimDaAula": {
+    "titulo": "Après la leçon",
+    "compartilhar": "Partager et garder",
+    "estudar": "Étudier plus",
+    "melhorar": "Aider à améliorer la leçon"
   }
 }

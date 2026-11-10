@@ -620,5 +620,11 @@
       "feitas": "做过的真题和模拟考",
       "linhaProva": "{titulo}（{data}）：{a}/{b}"
     }
+  },
+  "fimDaAula": {
+    "titulo": "课后",
+    "compartilhar": "分享与保存",
+    "estudar": "继续学习",
+    "melhorar": "帮助改进这节课"
   }
 }
