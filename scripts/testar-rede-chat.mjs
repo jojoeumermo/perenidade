@@ -764,6 +764,66 @@ await espera("pendurado no Sair rápido, o apagar tudo cabe com folga no teto de
   reabrirDepoisDeApagar();
   return [tinha, falso.bancos.size, ms < 400];
 }, (r) => r[0] === true && r[1] === 0 && r[2] === true);
+// Duas abas: cada import com "?aba=" é outra instância do módulo (outra página), sobre o MESMO IndexedDB de mentira.
+await espera("ATAQUE (achado alto): o pânico numa aba limpa também a OUTRA aba aberta, e a busca que estava no caminho não recria o banco", async () => {
+  reabrirDepoisDeApagar();
+  porIndexedDB(falso);
+  falso.modo = "normal";
+  const abaB = await import("../lib/rede/chat/gaveta.ts?aba=B");
+  // A aba A ativa o chat; a aba B está com a conversa aberta (gravou o que chegou e a tela registrou a limpeza dela).
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
+  await abaB.guardarNaGaveta(ORDEM, { chave: "u1:c1:u2:1", desde: 1, maior: 1, vistas: { a: "s1" } });
+  let limpouB = 0;
+  abaB.aoApagarTudoDoChat(() => void limpouB++);
+  const criadosAntes = falso.criados;
+  await apagarTudoDoChat();
+  await new Promise((pronto) => setTimeout(pronto, 50));
+  // O aviso entre abas: a aba B se limpa SEM precisar tocar no banco (as chaves na memória dela somem na hora).
+  const antesDeTocar = [limpouB, abaB.chatApagadoAqui()];
+  // Depois do pânico, a aba B continua tentando: a busca de 8 s que estava no caminho grava e lê.
+  await abaB.guardarNaGaveta(ORDEM, { chave: "u1:c1:u2:1", desde: 1, maior: 2, vistas: { b: "s2" } });
+  const mudou = await abaB.mudarNaGaveta(ORDEM, "u1:c1:u2:1", () => ({ chave: "u1:c1:u2:1", desde: 1, maior: 3, vistas: {} }));
+  const lido = await abaB.lerDaGaveta(ORDEM, "u1:c1:u2:1");
+  const porPrefixo = await abaB.lerPrefixoDaGaveta(ORDEM, "u1:");
+  return [...antesDeTocar, limpouB, abaB.chatApagadoAqui(), falso.bancos.has(BANCO_DO_CHAT), falso.criados - criadosAntes, mudou, lido, porPrefixo.length];
+}, (r) => JSON.stringify(r) === "[1,true,1,true,false,0,null,null,0]");
+await espera("ATAQUE (achado alto/médio): a saída do site apaga o banco por fora, sem aviso entre abas; a aba que já tinha visto o banco se limpa e não o recria, nem com uma leitura no caminho", async () => {
+  reabrirDepoisDeApagar();
+  const original = globalThis.BroadcastChannel;
+  globalThis.BroadcastChannel = undefined;
+  const abaC = await import("../lib/rede/chat/gaveta.ts?aba=C");
+  let limpouC = 0;
+  abaC.aoApagarTudoDoChat(() => void limpouC++);
+  globalThis.BroadcastChannel = original;
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
+  await abaC.guardarNaGaveta(ORDEM, { chave: "u1:c9:u2:1", desde: 1, maior: 1, vistas: { a: "s1" } });
+  const criadosAntes = falso.criados;
+  // A saída do site (lib/modo-seguro.ts) apaga o banco direto, enquanto a aba C está no meio de uma leitura.
+  const noCaminho = abaC.lerPrefixoDaGaveta(ORDEM, "u1:");
+  const apagando = new Promise((pronto) => {
+    const p = indexedDB.deleteDatabase(BANCO_DO_CHAT);
+    p.onsuccess = pronto;
+  });
+  const lidaNoCaminho = await noCaminho;
+  await apagando;
+  await abaC.guardarNaGaveta(ORDEM, { chave: "u1:c9:u2:1", desde: 1, maior: 5, vistas: {} });
+  const depois = await abaC.lerDaGaveta(ORDEM, "u1:c9:u2:1");
+  // E uma aba que só soube depois (a primeira leitura dela já acha o banco sumido): também se limpa, sem recriar.
+  const abaD = await import("../lib/rede/chat/gaveta.ts?aba=D");
+  let limpouD = 0;
+  abaD.aoApagarTudoDoChat(() => void limpouD++);
+  const lidaD = await abaD.lerDaGaveta(CONTAS, "u1");
+  return [lidaNoCaminho.length <= 1, limpouC, abaC.chatApagadoAqui(), depois, falso.bancos.has(BANCO_DO_CHAT), falso.criados - criadosAntes, lidaD, limpouD];
+}, (r) => JSON.stringify(r) === "[true,1,true,null,false,0,null,0]");
+await espera("depois do pânico, só a ativação (criar) recria o banco e solta a trava", async () => {
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
+  const ok = [falso.bancos.has(BANCO_DO_CHAT), (await lerDaGaveta(CONTAS, "u1"))?.usuario];
+  await apagarTudoDoChat();
+  reabrirDepoisDeApagar();
+  return ok;
+}, (r) => r[0] === true && r[1] === "u1");
+await espera("a tela das conversas e a da conversa aberta se limpam no pânico de qualquer aba (lista, conversa, rascunho, códigos)", async () => [ler("components/rede/chat/Tela.tsx"), ler("components/rede/chat/Conversa.tsx")],
+  (r) => /aoApagarTudoDoChat\(\(\) => \{\s*setAberta\(null\);\s*setLista\(\[\]\);/.test(r[0]) && /aoApagarTudoDoChat\(\(\) => \{\s*sessaoRef\.current = null;[\s\S]{0,200}setTexto\(""\);/.test(r[1]));
 await espera("o encaixe do chat pendura o apagar tudo no Sair rápido, o chaveiro o exporta, e a gaveta não importa nada", async () => [ler("components/rede/chat/encaixe.tsx"), ler("lib/rede/chat-chaveiro.ts"), ler("lib/rede/chat/gaveta.ts")],
   (r) => /aoSairRapido:\s*\[\(\) => apagarTudoDoChat\(\)\]/.test(r[0]) && /export async function apagarTudoDoChat\(\): Promise<void>/.test(r[1]) && /aoApagarTudoDoChat\(esquecerSessoes\)/.test(r[1]) && !/^import /m.test(r[2]));
 await espera("mensagem aberta, rascunho e chave de conversa nunca vão para o armazenamento do navegador", async () => [...telas, ...pecas, "lib/rede/chat-chaveiro.ts", "lib/rede/chat-privado.ts"].filter((f) => /localStorage|sessionStorage/.test(ler(f))), (l) => l.length === 0);

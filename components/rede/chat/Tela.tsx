@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { ativarNesteAparelho, estadoDoAparelho } from "@/lib/rede/chat-chaveiro";
 import type { Eu } from "@/lib/rede/chat-privado";
+import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
 import { chat, type ConversaDoChat, type SituacaoDoChat } from "@/lib/rede/cliente-chat";
 import { preencher } from "@/lib/rede/preencher";
 import { carregarTextosDoChat, type TextosDoChat } from "@/lib/rede/textos-chat";
@@ -74,6 +75,21 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
       vivo = false;
     };
   }, [situacao.logado, situacao.membro, t, s, recarregar]);
+
+  // "Sair rápido" (nesta aba ou em OUTRA, ou a saída do site apagando o banco do chat): a tela esquece a lista de conversas,
+  // fecha a conversa aberta e volta à ativação. A lista não é buscada de novo sozinha (só com a chave ativa).
+  useEffect(
+    () =>
+      aoApagarTudoDoChat(() => {
+        setAberta(null);
+        setLista([]);
+        setHandle("");
+        setAjustes(false);
+        setEntendi(false);
+        setAparelho({ estado: "outro_aparelho", tinhaChaveAqui: false });
+      }),
+    [],
+  );
 
   // A lista se atualiza sozinha a cada 30 s, só com a aba visível e sem conversa aberta.
   useEffect(() => {
