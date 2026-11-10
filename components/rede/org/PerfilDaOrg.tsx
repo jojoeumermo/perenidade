@@ -134,6 +134,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
             {org.bio ? <p className="al-perfil-bio">{org.bio}</p> : null}
             <div className="al-perfil-acoes">
               <Botao
+                pilula
                 variante={sigo ? "claro" : "primario"}
                 pressionado={sigo}
                 disabled={!membro || ocupado}
@@ -141,10 +142,10 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
               >
                 {sigo ? tp.seguindo : tp.seguir}
               </Botao>
-              <Botao variante={sino ? "claro" : "contorno"} pressionado={sino} disabled={!membro || ocupado} onClick={() => void mudar(() => acoes.sino(!sino), (r) => setSino(r.sino))} title={tp.sinoAjuda}>
+              <Botao pilula variante={sino ? "claro" : "contorno"} pressionado={sino} disabled={!membro || ocupado} onClick={() => void mudar(() => acoes.sino(!sino), (r) => setSino(r.sino))} title={tp.sinoAjuda}>
                 {tp.sino}
               </Botao>
-              <Botao variante="contorno" onClick={verNucleos} disabled={org.nucleos.length === 0}>
+              <Botao pilula variante="contorno" onClick={verNucleos} disabled={org.nucleos.length === 0}>
                 {tp.entrarNucleo}
               </Botao>
             </div>
