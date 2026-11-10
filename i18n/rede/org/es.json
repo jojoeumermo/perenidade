@@ -1,6 +1,6 @@
 {
   "_rascunho": true,
-  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Inicio de Alumia" },
+  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Inicio de Alumia", "acessibilidade": "Accesibilidad", "ajuda": "Preguntas frecuentes" },
   "tipos": { "partido": "Partido", "mandato": "Mandato", "sindicato": "Sindicato", "movimento": "Movimiento", "coletivo": "Colectivo", "gremio": "Centro de estudiantes", "dce": "Federación universitaria", "outro": "Organización" },
   "pagina": {
     "titulo": "Trae tu organización",

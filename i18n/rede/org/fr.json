@@ -1,6 +1,6 @@
 {
   "_rascunho": true,
-  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Accueil d'Alumia" },
+  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Accueil d'Alumia", "acessibilidade": "Accessibilité", "ajuda": "Questions fréquentes" },
   "tipos": { "partido": "Parti", "mandato": "Mandat", "sindicato": "Syndicat", "movimento": "Mouvement", "coletivo": "Collectif", "gremio": "Conseil des élèves", "dce": "Union étudiante", "outro": "Organisation" },
   "pagina": {
     "titulo": "Amenez votre organisation",
