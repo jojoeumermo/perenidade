@@ -171,6 +171,17 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
 
 /* Cartão de post: separado por fio, sem caixa (como nas pranchas). */
 [data-al="2"] .al2-cartao { border-bottom: 1px solid var(--al-linha); }
+/* O mesmo cartão em todas as telas: nas listas, tocar no cartão abre a conversa (o texto continua selecionável). */
+[data-al="2"] .al2-cartao[data-abre] { cursor: pointer; transition: background-color 160ms ease; }
+[data-al="2"] .al2-cartao[data-abre] :is(p, h3) { cursor: auto; }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-cartao[data-abre]:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); } }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al2-cartao[data-abre]:active { background: color-mix(in srgb, var(--al-superficie) 70%, transparent); } }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-cartao[data-abre] { transition: none; } }
+:root[data-eink] [data-al="2"] .al2-cartao[data-abre]:hover { background: none; }
+/* No alto da conversa, o cartão aberto fica dentro da faixa da raiz (o fio de baixo é dela). */
+[data-al="2"] .al3-raiz.al3-raiz-cartao { padding: 0; }
+[data-al="2"] .al3-raiz-cartao .al2-cartao { border-bottom: 0; }
+[data-al="2"] .al3-raiz-cartao .al3-reacoes-bloco { margin-top: 0.75rem; }
 [data-al="2"] .al2-acao {
   display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px; min-width: 44px; padding: 0 0.35rem;
   background: none; border: 0; border-radius: 8px; cursor: pointer; color: var(--al-texto-3);
