@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Aba, Situacao } from "@/lib/rede/tipos";
@@ -30,8 +30,11 @@ export function comMovimento(): boolean {
  * Troca o que está na tela com a View Transitions API do navegador (um cruzamento suave entre o antes e o depois), quando ele tem
  * e a pessoa não pediu menos movimento. Sem a API, só troca.
  */
-export function trocarComTransicao(mudar: () => void) {
+export function trocarComTransicao(mudar: () => void, lado?: "direita" | "esquerda") {
   const d = document as DocumentoComTransicao;
+  // Para que lado a linha desliza (o CSS lê data-al2-lado no <html>); sem lado, o cruzamento de sempre.
+  if (lado) d.documentElement.dataset.al2Lado = lado;
+  else delete d.documentElement.dataset.al2Lado;
   if (!d.startViewTransition || !comMovimento()) {
     mudar();
     return;
@@ -67,6 +70,16 @@ export function TopoDaLinha2({
   const botoes = useRef<(HTMLButtonElement | null)[]>([]);
   const lista = useRef<HTMLDivElement>(null);
   const [traco, setTraco] = useState<{ x: number; w: number } | null>(null);
+  const sentinela = useRef<HTMLDivElement>(null);
+  const [grudada, setGrudada] = useState(false);
+
+  useEffect(() => {
+    const alvo = sentinela.current;
+    if (!alvo || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(([e]) => setGrudada(!e.isIntersecting && e.boundingClientRect.top < 0));
+    obs.observe(alvo);
+    return () => obs.disconnect();
+  }, [al2]);
 
   // O traço vermelho: mede a aba escolhida e desliza até ela (CSS faz a mola; com menos movimento, só aparece no lugar).
   useLayoutEffect(() => {
@@ -93,7 +106,8 @@ export function TopoDaLinha2({
 
   const escolher = (a: Aba) => {
     if (a === aba) return;
-    trocarComTransicao(() => aoAba(a));
+    // A linha desliza para o lado da aba escolhida (à direita entra da direita), para dar sentido de lugar.
+    trocarComTransicao(() => aoAba(a), abas.indexOf(a) > abas.indexOf(aba) ? "direita" : "esquerda");
   };
 
   // Padrão de abas (WAI-ARIA APG, ativação automática): setas e Home/End trocam a aba e levam o foco; só a aba atual fica no Tab.
@@ -126,11 +140,13 @@ export function TopoDaLinha2({
         </div>
       )}
 
+      {/* Marca o ponto onde as abas grudam no alto: dali para baixo elas ganham uma sombra fina (fundo sólido, nada borrado atrás). */}
+      <div ref={sentinela} aria-hidden className="h-px" />
       <div
         ref={lista}
         role="tablist"
         aria-label={t.linha.abas}
-        className={`al2-abas sticky top-[0px] z-20 mt-1 flex border-b border-[var(--al-linha)] lg:mt-3 lg:gap-2 lg:px-3 2xl:px-5 ${traco ? "al2-abas-com-traco" : ""}`}
+        className={`al2-abas sticky top-[0px] z-20 flex border-b border-[var(--al-linha)] lg:mt-3 lg:gap-2 lg:px-3 2xl:px-5 ${traco ? "al2-abas-com-traco" : ""} ${grudada ? "al2-abas-grudada" : ""}`}
       >
         {abas.map((a, i) => (
           <button
@@ -154,7 +170,6 @@ export function TopoDaLinha2({
         ))}
         {traco && <span aria-hidden className="al2-abas-traco" style={{ transform: `translateX(${traco.x}px)`, width: traco.w }} />}
       </div>
-      <p className="px-4 pt-2 text-xs text-[var(--al-texto-3)] lg:hidden">{t.linha.ordem}</p>
 
       {pode && (
         <div className="hidden border-b border-[var(--al-linha)] px-5 pb-3 pt-4 lg:block 2xl:px-7">

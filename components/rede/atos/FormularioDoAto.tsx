@@ -3,6 +3,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { Mosaico } from "../mosaico/Mosaico";
+import { CampoDeQuando } from "../ui/CampoDeQuando";
 import type { ContextoDoEncaixe } from "../encaixes";
 import { useTelaLarga, useTextosDosAtos } from "./usar";
 import { CAMPOS_VAZIOS, conferirAto, type CamposDoAto } from "@/lib/rede/atos/formulario";
@@ -27,6 +28,8 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
   const [c, setC] = useState<CamposDoAto>(CAMPOS_VAZIOS);
   const [tocado, setTocado] = useState<Partial<Record<Campo, boolean>>>({});
   const aoMudarRef = useRef(aoMudar);
+  // A pessoa escreveu a cidade à mão: a sugestão tirada do Onde para de mexer nela.
+  const cidadeMexida = useRef(false);
   useEffect(() => {
     aoMudarRef.current = aoMudar;
   }, [aoMudar]);
@@ -39,6 +42,13 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
   if (!t) return <div className="al-ato-form" aria-busy="true" />;
 
   const mudar = (campo: Campo, valor: string | null) => setC((x) => ({ ...x, [campo]: valor }));
+  const mudarOnde = (valor: string) =>
+    setC((x) => {
+      if (cidadeMexida.current) return { ...x, onde: valor };
+      const i = valor.lastIndexOf(",");
+      const sugerida = i > 0 ? valor.slice(i + 1).trim() : "";
+      return { ...x, onde: valor, cidade: sugerida.slice(0, LIMITES_DO_ATO.cidadeMax) };
+    });
   const sair = (campo: Campo) => setTocado((x) => ({ ...x, [campo]: true }));
   const problema = (campo: Exclude<Campo, never>) => {
     const p = tocado[campo] ? dados.problemas[campo] : undefined;
@@ -88,16 +98,17 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
           <label htmlFor={`${id}-quando`} className="al-ato-form-rotulo">
             {t.formulario.quando}
           </label>
-          <input
+          {/* O resumo como a prancha ("ter 19/11 · 6h") no lugar do "mm/dd/yyyy" do campo nativo; o leitor de tela ouve a data longa. */}
+          <CampoDeQuando
             {...props("quando", c.quando ? `${id}-quando-legivel` : undefined)}
-            type="datetime-local"
             className="al-ato-form-campo"
-            value={paraCampoLocal(c.quando)}
-            onChange={(e) => mudar("quando", doCampoLocal(e.target.value))}
+            valor={paraCampoLocal(c.quando)}
+            aoMudar={(v) => mudar("quando", doCampoLocal(v))}
+            lang={lang}
+            vazio={t.formulario.escolherQuando}
           />
-          {/* O campo nativo escreve a data no formato do navegador; embaixo vai a data como o ato vai mostrar ("Terça, 19/11 · 6h"). */}
           {c.quando ? (
-            <p id={`${id}-quando-legivel`} className="al-ato-form-legivel">
+            <p id={`${id}-quando-legivel`} className="sr-only">
               {dataLonga(c.quando, lang)}
             </p>
           ) : null}
@@ -111,29 +122,37 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
             {...props("onde")}
             className="al-ato-form-campo"
             value={c.onde}
-            onChange={(e) => mudar("onde", e.target.value)}
+            onChange={(e) => mudarOnde(e.target.value)}
             placeholder={t.formulario.ondeExemplo}
             maxLength={LIMITES_DO_ATO.ondeMax}
             autoComplete="off"
           />
           {aviso("onde")}
+          {/* A cidade mora junto do Onde (é ela que põe o ato em "Perto"; nada de GPS): curta, embaixo do ponto, e já sugerida pelo
+              que vem depois da última vírgula ("Ocupação Esperança, Itaquera" → Itaquera) enquanto a pessoa não mexe nela. */}
+          <span className="al-ato-form-cidade">
+            <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11zM12 7.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z" />
+            </svg>
+            <span aria-hidden className="al-ato-form-cidade-rotulo">
+              {t.formulario.cidadeCurta}
+            </span>
+            <input
+              {...props("cidade")}
+              aria-label={t.formulario.cidade}
+              className="al-ato-form-cidade-campo"
+              value={c.cidade}
+              onChange={(e) => {
+                cidadeMexida.current = true;
+                mudar("cidade", e.target.value);
+              }}
+              placeholder={t.formulario.cidadeExemplo}
+              maxLength={LIMITES_DO_ATO.cidadeMax}
+              autoComplete="address-level2"
+            />
+          </span>
+          {aviso("cidade")}
         </div>
-      </div>
-
-      <div className="al-ato-form-grupo">
-        <label htmlFor={`${id}-cidade`} className="al-ato-form-rotulo">
-          {t.formulario.cidade}
-        </label>
-        <input
-          {...props("cidade")}
-          className="al-ato-form-campo"
-          value={c.cidade}
-          onChange={(e) => mudar("cidade", e.target.value)}
-          placeholder={t.formulario.cidadeExemplo}
-          maxLength={LIMITES_DO_ATO.cidadeMax}
-          autoComplete="off"
-        />
-        {aviso("cidade")}
       </div>
 
       <div className="al-ato-form-grupo">

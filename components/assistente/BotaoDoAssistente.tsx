@@ -18,14 +18,34 @@ const PainelDoAssistente = dynamic(carregarPainel, { ssr: false });
  * o reforço e as ferramentas de estudo, mas este botão não a usa mais. Fica fora do painel da equipe e da área infantil
  * (OutsidePanel, no layout).
  */
+/** Pede para abrir (ou fechar) as perguntas frequentes de outro lugar da tela (o menu da conta da Alumia, onde o "?" não flutua). */
+export const ALTERNAR_ASSISTENTE = "lucia:alternar-assistente";
+export const alternarAssistente = () => window.dispatchEvent(new Event(ALTERNAR_ASSISTENTE));
+
 export function BotaoDoAssistente({ textos, perguntas, email }: { textos: TextosDoAssistente; perguntas: PerguntaFrequente[]; email: string }) {
   const [aberto, setAberto] = useState(false);
   const [usado, setUsado] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
+  // Quem abriu de fora (o item do menu da Alumia): ao fechar, o foco volta para ele, e não para o "?" escondido.
+  const origem = useRef<HTMLElement | null>(null);
 
   const fechar = useCallback(() => {
     setAberto(false);
-    botao.current?.focus();
+    const o = origem.current;
+    origem.current = null;
+    if (o && o.isConnected && o.getClientRects().length > 0) o.focus();
+    else botao.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    const alternar = () => {
+      origem.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      void carregarPainel();
+      setUsado(true);
+      setAberto((a) => !a);
+    };
+    window.addEventListener(ALTERNAR_ASSISTENTE, alternar);
+    return () => window.removeEventListener(ALTERNAR_ASSISTENTE, alternar);
   }, []);
 
   useEffect(() => {
@@ -58,7 +78,7 @@ export function BotaoDoAssistente({ textos, perguntas, email }: { textos: Textos
           setUsado(true);
           setAberto((a) => !a);
         }}
-        className="flex h-11 w-11 cursor-pointer items-center justify-center border-2 border-ink bg-parchment text-ink shadow-[3px_3px_0_var(--ink)] hover:border-oxblood hover:text-oxblood aria-expanded:bg-ink aria-expanded:text-parchment"
+        className="assistente-gatilho flex h-11 w-11 cursor-pointer items-center justify-center border-2 border-ink bg-parchment text-ink shadow-[3px_3px_0_var(--ink)] hover:border-oxblood hover:text-oxblood aria-expanded:bg-ink aria-expanded:text-parchment"
       >
         {/* Um balão de conversa com um ponto de interrogação: desenho próprio, sem biblioteca de ícones. */}
         <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

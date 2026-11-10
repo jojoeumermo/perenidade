@@ -39,7 +39,9 @@
     "denuncias": "Minhas denúncias",
     "silenciados": "Silenciados",
     "moderacao": "Moderação",
-    "idiomas": "Idiomas"
+    "idiomas": "Idiomas",
+    "acessibilidade": "Acessibilidade",
+    "ajuda": "Perguntas frequentes"
   },
   "linha": {
     "titulo": "Início",
@@ -163,7 +165,17 @@
     "ajudaEquipe": "Só a equipe do instituto.",
     "publicoRoda": "Só a roda de confiança",
     "rodaEmBreve": "A sua lista de confiança chega com o perfil novo. Ninguém fica sabendo quem está nela.",
-    "notaFediverso": "Também no Fediverso: o post sai para quem te segue no Mastodon, no Lemmy e no Misskey, com o seu codinome."
+    "notaFediverso": "Também no Fediverso: o post sai para quem te segue no Mastodon, no Lemmy e no Misskey, com o seu codinome.",
+    "respostaA": "Escreva sua resposta a {nome}",
+    "falta": "Falta: {campos}",
+    "campos": {
+      "titulo": "nome do ato",
+      "quando": "quando",
+      "onde": "onde",
+      "cidade": "cidade",
+      "descricao": "chamado"
+    },
+    "escolherQuando": "Escolher dia e hora"
   },
   "direita": {
     "rotulo": "Na Alumia agora",

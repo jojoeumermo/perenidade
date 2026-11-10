@@ -1,7 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { CampoDeQuando } from "../../ui/CampoDeQuando";
 import { preencher } from "@/lib/rede/preencher";
 import { LIMITES_PUBLICAR } from "@/lib/rede/tipos-publicar";
 import { BorrarRostos } from "../BorrarRostos";
@@ -43,6 +44,29 @@ export function AnexosDoEscrever({
   const [borrando, setBorrando] = useState<string | null>(null);
   const [gravador, setGravador] = useState(false);
   const [agenda, setAgenda] = useState(Boolean(pub.agendar));
+  // Foco (WCAG 2.4.3): o cartão que abre recebe o foco (o botão Gravar, o campo da hora, a primeira opção da enquete); o cartão que
+  // fecha devolve o foco ao ícone que o abriu. Sem isso, o foco caía no <body>, fora do diálogo.
+  const cartaoAudio = useRef<HTMLDivElement>(null);
+  const cartaoAgenda = useRef<HTMLDivElement>(null);
+  const cartaoEnquete = useRef<HTMLFieldSetElement>(null);
+  const iconeAudio = useRef<HTMLButtonElement>(null);
+  const iconeAgenda = useRef<HTMLButtonElement>(null);
+  const iconeEnquete = useRef<HTMLButtonElement>(null);
+  const comAudio = gravador || Boolean(pub.audio);
+  const foiAberto = useRef({ audio: comAudio, agenda, enquete: pub.enquete });
+  useEffect(() => {
+    const antes = foiAberto.current;
+    const agora = { audio: comAudio, agenda, enquete: pub.enquete };
+    foiAberto.current = agora;
+    const focar = (abriu: boolean, fechou: boolean, cartao: HTMLElement | null, icone: HTMLElement | null, alvo: string) => {
+      if (abriu) window.setTimeout(() => cartao?.querySelector<HTMLElement>(alvo)?.focus(), 30);
+      // Só devolve quando o foco ficou perdido (no <body> ou num cartão que sumiu), para não roubar o foco de quem já foi adiante.
+      else if (fechou && (document.activeElement === document.body || !document.activeElement?.isConnected)) icone?.focus();
+    };
+    focar(!antes.audio && agora.audio, antes.audio && !agora.audio, cartaoAudio.current, iconeAudio.current, "button:not([disabled])");
+    focar(!antes.agenda && agora.agenda, antes.agenda && !agora.agenda, cartaoAgenda.current, iconeAgenda.current, "input");
+    focar(!antes.enquete && agora.enquete, antes.enquete && !agora.enquete, cartaoEnquete.current, iconeEnquete.current, "input");
+  }, [comAudio, agenda, pub.enquete]);
   if (!tp) return null;
   const noBorrado = pub.imagens.find((i) => i.id === borrando);
   const cabeImagem = pub.imagens.length < LIMITES_PUBLICAR.imagens && !pub.audio && !gravador;
@@ -61,7 +85,7 @@ export function AnexosDoEscrever({
 
       {/* Enquete: as opções em fileira, como as barras do cartão. */}
       {pub.enquete && (
-        <fieldset className="al2-anexo al2-anexo-enquete">
+        <fieldset ref={cartaoEnquete} className="al2-anexo al2-anexo-enquete">
           <legend className="sr-only">{tp.enquete.rotulo}</legend>
           <ol className="space-y-2">
             {pub.opcoes.map((o, i) => (
@@ -159,7 +183,7 @@ export function AnexosDoEscrever({
 
       {/* Áudio: só aparece quando a pessoa toca no microfone (ou já gravou). */}
       {cabeAudio && (gravador || pub.audio) && (
-        <div className="al2-anexo flex items-center gap-2">
+        <div ref={cartaoAudio} className="al2-anexo flex items-center gap-2">
           <Icone nome="microfone" className="h-5 w-5 shrink-0 text-[var(--al-vermelho)]" />
           <div className="min-w-0 flex-1">
             <Gravador
@@ -183,11 +207,13 @@ export function AnexosDoEscrever({
 
       {/* Mais tarde: a hora numa pílula; a fila das agendadas embaixo. */}
       {!resposta && agenda && (
-        <div className="al2-anexo space-y-2">
-          <label className="flex flex-wrap items-center gap-2">
-            <Icone nome="relogio" className="h-5 w-5 text-[var(--al-dourado)]" />
-            <span className="text-sm font-bold">{tp.agendar.rotulo}</span>
-            <input type="datetime-local" lang={lang} className="al2-chip-data ml-auto" min={minimo} max={maxAgenda} value={pub.agendar} onChange={(e) => pub.setAgendar(e.target.value)} />
+        <div ref={cartaoAgenda} className="al2-anexo al2-agenda">
+          {/* Título e o X numa linha; o dia e a hora numa linha própria, com a largura toda (no celular nada fica recuado). */}
+          <div className="flex items-center gap-2">
+            <Icone nome="relogio" className="h-5 w-5 shrink-0 text-[var(--al-dourado)]" />
+            <label htmlFor="al2-agenda-quando" className="min-w-0 flex-1 text-sm font-bold">
+              {tp.agendar.rotulo}
+            </label>
             <button
               type="button"
               className="al2-acao"
@@ -200,9 +226,10 @@ export function AnexosDoEscrever({
             >
               <Icone nome="fechar" className="h-4 w-4" />
             </button>
-          </label>
-          {pub.agendar && !pub.agendaOk && <p role="alert" className="text-sm text-[var(--oxblood)]">{tp.agendar.cedo}</p>}
-          <div className="al2-agendados text-[var(--al-texto-2)]">
+          </div>
+          <CampoDeQuando id="al2-agenda-quando" className="mt-2 w-full" valor={pub.agendar} aoMudar={pub.setAgendar} lang={lang} vazio={t.escrever.escolherQuando} min={minimo} max={maxAgenda} />
+          {pub.agendar && !pub.agendaOk && <p role="alert" className="mt-2 text-sm text-[var(--oxblood)]">{tp.agendar.cedo}</p>}
+          <div className="al2-agendados mt-2 text-[var(--al-texto-2)] empty:hidden">
             <Agendados t={tp} lang={lang} />
           </div>
         </div>
@@ -258,16 +285,16 @@ export function AnexosDoEscrever({
           <Icone nome="imagem" className="h-[22px] w-[22px]" />
           {pub.imagens.length > 0 && <span className="al2-ferramenta-n">{pub.imagens.length}</span>}
         </button>
-        <button type="button" className="al2-ferramenta" onClick={() => setGravador(true)} disabled={!cabeAudio || gravador || Boolean(pub.audio)} aria-pressed={gravador || Boolean(pub.audio)} aria-label={t.escrever.gravarAudio} title={t.escrever.gravarAudio}>
+        <button ref={iconeAudio} type="button" className="al2-ferramenta" onClick={() => setGravador(true)} disabled={!cabeAudio || gravador || Boolean(pub.audio)} aria-pressed={gravador || Boolean(pub.audio)} aria-label={t.escrever.gravarAudio} title={t.escrever.gravarAudio}>
           <Icone nome="microfone" className="h-[22px] w-[22px]" />
         </button>
         {aoEnquete && (
-          <button type="button" className="al2-ferramenta" onClick={() => aoEnquete(!enquete)} aria-pressed={enquete} aria-label={t.compositor.enquete} title={t.compositor.enquete}>
+          <button ref={iconeEnquete} type="button" className="al2-ferramenta" onClick={() => aoEnquete(!enquete)} aria-pressed={enquete} aria-label={t.compositor.enquete} title={t.compositor.enquete}>
             <Icone nome="enquete" className="h-[22px] w-[22px]" />
           </button>
         )}
         {!resposta && (
-          <button type="button" className="al2-ferramenta" onClick={() => setAgenda((x) => !x)} aria-pressed={agenda} aria-label={tp.agendar.rotulo} title={tp.agendar.rotulo}>
+          <button ref={iconeAgenda} type="button" className="al2-ferramenta" onClick={() => setAgenda((x) => !x)} aria-pressed={agenda} aria-label={tp.agendar.rotulo} title={tp.agendar.rotulo}>
             <Icone nome="relogio" className="h-[22px] w-[22px]" />
           </button>
         )}
@@ -296,23 +323,28 @@ export function AnexosDoEscrever({
  * vermelho no limite; o número aparece quando faltam 50 ou menos. O leitor de tela lê "N de MAX" (o anel é decorativo).
  */
 export function Contador({ n, max, rotulo }: { n: number; max: number; rotulo: string }) {
-  const parte = Math.min(1, n / max);
   const faltam = max - n;
-  const r = 10;
+  const perto = faltam <= 50;
+  // Longe do limite, o anel é um aro cinza parado (um arco pela metade parecia "carregando"). Perto, ele enche de dourado e o
+  // número que falta aparece dentro; no limite, fica vermelho.
+  const parte = perto ? Math.min(1, n / max) : 0;
+  const r = 11;
   const volta = 2 * Math.PI * r;
-  const cor = faltam <= 0 ? "var(--al-vermelho)" : parte >= 0.9 ? "var(--al-dourado)" : "var(--al-texto-2)";
+  const cor = faltam <= 0 ? "var(--al-vermelho)" : "var(--al-dourado)";
   return (
-    <span className={`al2-contador ${faltam <= 50 ? "al2-contador-perto" : ""}`} title={rotulo}>
-      <span className="sr-only" aria-live="polite">{faltam <= 50 ? rotulo : ""}</span>
-      <svg aria-hidden viewBox="0 0 26 26" className="h-[26px] w-[26px] -rotate-90">
-        <circle cx="13" cy="13" r={r} fill="none" stroke="var(--al-superficie-2)" strokeWidth="2.5" />
-        <circle cx="13" cy="13" r={r} fill="none" stroke={cor} strokeWidth="2.5" strokeLinecap="round" strokeDasharray={volta} strokeDashoffset={volta * (1 - parte)} className="al2-contador-arco" />
-      </svg>
-      {faltam <= 50 && (
-        <span aria-hidden className={`al2-contador-n ${faltam <= 0 ? "text-[var(--al-vermelho)]" : ""}`}>
-          {faltam}
-        </span>
-      )}
+    <span className={`al2-contador ${perto ? "al2-contador-perto" : ""}`} title={rotulo}>
+      <span className="sr-only" aria-live="polite">{perto ? rotulo : ""}</span>
+      <span className="relative grid h-[30px] w-[30px] place-items-center">
+        <svg aria-hidden viewBox="0 0 30 30" className="absolute inset-0 h-full w-full -rotate-90">
+          <circle cx="15" cy="15" r={r} fill="none" stroke="var(--al-superficie-2)" strokeWidth="2.5" />
+          {perto && <circle cx="15" cy="15" r={r} fill="none" stroke={cor} strokeWidth="2.5" strokeLinecap="round" strokeDasharray={volta} strokeDashoffset={volta * (1 - parte)} className="al2-contador-arco" />}
+        </svg>
+        {perto && (
+          <span aria-hidden className={`al2-contador-n relative text-[0.6875rem] tabular-nums ${faltam <= 0 ? "text-[var(--al-vermelho)]" : "text-[var(--al-texto)]"}`}>
+            {faltam}
+          </span>
+        )}
+      </span>
     </span>
   );
 }
