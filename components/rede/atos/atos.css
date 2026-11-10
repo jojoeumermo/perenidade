@@ -1132,3 +1132,83 @@
   :root [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 54px; height: 54px; }
   [data-al="2"] .al-ato-aberto-corpo > .al-ato-coluna .al-ato-acao-rotulo { font-size: 0.72rem; }
 }
+
+/* ───── "Você vai" desfeito: o aviso com Desfazer (como o "Enviando em 8 s" do Escrever) ───── */
+[data-al="2"] .al-vou-desfeito {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: calc(1.5rem + var(--recuo-baixo, 0px));
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  overflow: hidden;
+  padding: 0.35rem 0.35rem 0.35rem 1rem;
+  border-radius: 999px;
+  background: var(--al-texto);
+  color: var(--al-fundo);
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 24px #0008;
+}
+@media (max-width: 1023px) {
+  [data-al="2"] .al-vou-desfeito { bottom: calc(5.5rem + var(--recuo-baixo, 0px)); }
+}
+[data-al="2"] .al-vou-desfeito-relogio {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+}
+[data-al="2"] .al-vou-desfeito-texto { min-width: 0; }
+[data-al="2"] .al-vou-desfeito-botao {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--al-vermelho);
+  color: var(--al-sobre-vermelho);
+  font: inherit;
+  cursor: pointer;
+}
+[data-al="2"] .al-vou-desfeito-botao:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .al-vou-desfeito-barra {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--al-dourado);
+  transform-origin: left;
+  animation: al-vou-esvazia var(--al-vou-espera, 8s) linear both;
+}
+@keyframes al-vou-esvazia { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-vou-desfeito { animation: al-copiado-entra 0.42s cubic-bezier(0.3, 1.5, 0.5, 1); }
+}
+:root:is([data-parado], [data-eink]) [data-al="2"] .al-vou-desfeito-barra { display: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-vou-desfeito { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); box-shadow: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-vou-desfeito-relogio { border: 1px solid var(--al-texto); }
+:root[data-eink] [data-al="2"] .al-vou-desfeito-botao { background: #000; color: #fff; }
+
+/* ───── o carimbo diz de quem é a decisão: "Confirmado / pela coordenação" (não é o "você confirmou") ───── */
+[data-al="2"] .al-carimbo-com-quem { flex-direction: column; align-items: center; line-height: 1; padding-block: 0.22em 0.2em; }
+[data-al="2"] .al-carimbo-quem {
+  margin-top: 0.2em;
+  font-size: max(0.55em, 0.625rem);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
