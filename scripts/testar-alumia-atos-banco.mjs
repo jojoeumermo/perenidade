@@ -13,6 +13,7 @@ import { proporcaoDoMosaico } from "../lib/rede/mosaico.ts";
 import { elosDaCorrente } from "../lib/rede/atos/corrente.ts";
 import { criarClienteDosAtos } from "../lib/rede/cliente-atos.ts";
 import { criarBanco } from "./banco-local.mjs";
+import { noFimDoInstall } from "./install-posteriores.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ler = (c) => fs.readFileSync(path.join(raiz, c), "utf8");
@@ -42,7 +43,7 @@ async function recusa(nome, promessa, codigo) {
 }
 
 const sql = ler("supabase/migracoes/20261110-alumia-atos.sql");
-ok("a migração está colada no FIM do install.sql", ler("supabase/install.sql").trimEnd().endsWith(sql.trimEnd()));
+ok("a migração está colada no FIM do install.sql (seguida só das datadas posteriores)", noFimDoInstall(sql, ler("supabase/install.sql")));
 ok("toda função nova é security definer (ou imutável) com search_path fixo", (() => {
   const funcoes = sql.match(/create or replace function [^(]+\([\s\S]*?\$\$/g) ?? [];
   return funcoes.length >= 9 && funcoes.every((f) => /set search_path = interno, pg_temp/.test(f) && (/security definer/.test(f) || /immutable/.test(f)));

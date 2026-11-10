@@ -8,6 +8,7 @@
 // Uso: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-perfil.mjs
 import fs from "node:fs";
 import { criarBanco } from "./banco-local.mjs";
+import { noFimDoInstall } from "./install-posteriores.mjs";
 import {
   alternarAba, APARENCIA_PADRAO, arrumarAbas, arrumarAparencia, arrumarPalavraDaCapa, CORES_DA_PALETA, contraste, corLegivel, FUNDO_NOITE, FUNDO_PAPEL, gradienteDaFaixa,
   hexDoAcento, laudoDeContraste, linkLimpo, pedacosDaBio, pedidoDaAparencia, pintarRosto, rostoSorteado, rostoValido, textoSobre, variaveisDoAcento,
@@ -115,7 +116,7 @@ for (const ruim of ["http://exemplo.org", "javascript:alert(1)", "https://user:s
 const banco = await criarBanco();
 const { dono: sql, criarUsuario, rpc } = banco;
 const migracao = ler("supabase/migracoes/20261110-alumia-perfil.sql");
-ok("a migração está colada no fim do install.sql", ler("supabase/install.sql").replace(/\r\n/g, "\n").trim().endsWith(migracao.replace(/\r\n/g, "\n").trim()));
+ok("a migração está colada no fim do install.sql (seguida só das datadas posteriores)", noFimDoInstall(migracao, ler("supabase/install.sql")));
 await espera("instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 await espera("e uma terceira vez", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 

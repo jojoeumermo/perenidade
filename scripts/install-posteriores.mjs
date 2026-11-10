@@ -19,6 +19,14 @@ export function migracoesDatadas() {
     .map((n) => ({ nome: n, sql: normal(fs.readFileSync(path.join(pasta, n), "utf8")) }));
 }
 
+/** A migração está inteira no install.sql e, depois dela, só vêm outras migrações datadas inteiras (as que entraram depois). */
+export function noFimDoInstall(migracao, texto = fs.readFileSync(path.join(raiz, "supabase", "install.sql"), "utf8")) {
+  const tudo = normal(texto);
+  const m = normal(migracao);
+  const k = tudo.lastIndexOf(m);
+  return m.length > 0 && k >= 0 && semPosteriores(tudo.slice(k + m.length)) === "";
+}
+
 /** O texto do install.sql (ou o passado) sem as migrações datadas que estão inteiras no fim. */
 export function semPosteriores(texto = fs.readFileSync(path.join(raiz, "supabase", "install.sql"), "utf8")) {
   let resto = normal(texto);
