@@ -3,8 +3,6 @@
 
 import { BackendError, getClient, signedStorageUrl } from "@/lib/backend";
 import { redePub } from "@/lib/rede/cliente-publicar";
-import { caminhoDaCapa } from "@/lib/rede/perfil";
-import { previaLigada } from "@/lib/rede/publicar/alumia2";
 import type { PreviaDoPost } from "@/lib/rede/tipos-publicar";
 
 /** O token da sessão (as rotas do servidor repassam ao banco: tudo é conferido como a própria pessoa). */
@@ -52,9 +50,6 @@ export async function gerarPrevia(url: string): Promise<PreviaDoPost | null> {
 
 /** O endereço assinado de uma imagem ou de um áudio do post (vale uma hora; só sai se a matriz deixa ver o post). */
 export async function enderecoDaMidia(id: string): Promise<string> {
-  // Só na prévia (dados de exemplo, sem banco): as imagens dos posts de exemplo são os desenhos de capa do projeto.
-  const exemplo = /^exemplo-capa-(c0[1-8])$/.exec(id);
-  if (exemplo && previaLigada()) return caminhoDaCapa(exemplo[1]);
   const { bucket, caminho } = await redePub.caminhoDaMidia(id);
   return signedStorageUrl(bucket, caminho, 3600);
 }

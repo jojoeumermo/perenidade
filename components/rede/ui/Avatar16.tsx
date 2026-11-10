@@ -1,10 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-"use client";
-
 import type { Ref } from "react";
-import { CORES_DO_ROSTO } from "@/lib/rede/aparencia";
 import { celulasDoAvatar } from "@/lib/rede/mosaico";
-import { useRostoDe } from "@/lib/rede/rostos";
 import type { CorDaComunidade } from "./Pilula";
 
 const CORES = ["transparent", "var(--al-cartao-aceso, #f3efe6)", "", "var(--al-vermelho, #e8321f)", "var(--al-superficie-2, #2a2622)"];
@@ -26,35 +22,9 @@ export interface PropsDoAvatar16 {
  * INVENTARIO.md §1). Cantos arredondados no conjunto, como nas pranchas.
  */
 export function Avatar16({ handle, cor, tamanho = 40, rotulo, ref, className = "" }: PropsDoAvatar16) {
-  // O rosto de pixels que a pessoa desenhou no perfil livre, quando a gente já o conhece (lib/rede/rostos.ts): a identidade
-  // montada no editor aparece na rede inteira, não só no perfil.
-  const px = useRostoDe(handle);
-  const id = `al-av-${handle.replace(/[^a-z0-9_]/gi, "")}`;
-  if (px) {
-    return (
-      <svg
-        ref={ref}
-        viewBox="0 0 8 8"
-        width={tamanho}
-        height={tamanho}
-        shapeRendering="crispEdges"
-        className={`al-avatar16 al-avatar16-rosto ${className}`.trim()}
-        {...(rotulo ? { role: "img", "aria-label": rotulo } : { "aria-hidden": true })}
-      >
-        <defs>
-          <clipPath id={`${id}-px`}>
-            <rect width={8} height={8} rx={1.6} />
-          </clipPath>
-        </defs>
-        <g clipPath={`url(#${id}-px)`}>
-          <rect width={8} height={8} fill="var(--al-superficie-2, #2a2622)" />
-          {[...px].map((d, i) => (d === "0" ? null : <rect key={i} x={i % 8} y={Math.floor(i / 8)} width={1.02} height={1.02} fill={CORES_DO_ROSTO[Number(d)]} />))}
-        </g>
-      </svg>
-    );
-  }
   const celulas = celulasDoAvatar(handle);
   const propria = `var(--al-com-${cor ?? ((celulas.reduce<number>((s, c, i) => s + c * (i + 1), 0) % 5) + 1)})`;
+  const id = `al-av-${handle.replace(/[^a-z0-9_]/gi, "")}`;
   return (
     <svg
       ref={ref}
