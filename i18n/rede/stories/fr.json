@@ -12,7 +12,8 @@
     "entrar": "Connectez-vous pour voir et créer des stories.",
     "anteriores": "Stories précédentes",
     "seguintes": "Plus de stories",
-    "abrindo": "Ouverture des stories de {nome}…"
+    "abrindo": "Ouverture des stories de {nome}…",
+    "maisUm": "Ajouter une autre story"
   },
   "abas": {
     "rotulo": "Fils"
@@ -49,7 +50,7 @@
     "limpar": "Effacer le dessin",
     "figurinhas": "Stickers",
     "figurinhaLigada": "{nome} : dans la story (touchez pour retirer)",
-    "limiteDeFigurinhas": "3 stickers au maximum par story.",
+    "limiteDeFigurinhas": "Il y en a 3. Retirez-en un pour en ajouter un autre.",
     "tipo": {
       "contagem": "Compte à rebours",
       "pergunta": "Question",
@@ -168,7 +169,10 @@
       "semGravador": "Ce navigateur ne sait pas refaire les vidéos. Utilisez une photo ou un autre navigateur.",
       "comunidade": "Choisissez la communauté.",
       "cancelado": "Envoi annulé. Rien n'a quitté l'appareil."
-    }
+    },
+    "contaDeFigurinhas": "{n} sur {max}",
+    "figurinhaMover": "Déplacer le sticker {nome}",
+    "figurinhaDica": "Faites glisser pour déplacer ; à deux doigts, tournez et redimensionnez. Au clavier : flèches pour déplacer, + et − pour la taille, [ et ] pour tourner."
   },
   "figurinha": {
     "contagem": {
@@ -293,7 +297,8 @@
     "tirarDoDestaque": "Retirer de cette une",
     "apagarDestaque": "Supprimer cette une",
     "pessoaAnterior": "Personne précédente",
-    "proximaPessoa": "Personne suivante"
+    "proximaPessoa": "Personne suivante",
+    "verAoLado": "Aller aux stories de {nome}"
   },
   "cartao": {
     "porNoStory": "Mettre en story",
@@ -320,7 +325,6 @@
   },
   "destaques": {
     "rotulo": "À la une",
-    "abrir": "Voir {titulo} ({n} stories)",
     "guardarTitulo": "Ajouter à la une",
     "aviso": "Reste sur votre profil après 24 h, pour le même public qu'aujourd'hui. Retirez-la quand vous voulez. Ne part jamais dans le Fédivers.",
     "novo": "Nouvelle une",
@@ -336,6 +340,19 @@
     "vazioDono": "Pas encore d'une. Sur votre story, touchez ⋯ puis « Ajouter à la une ».",
     "erro": "Les unes n'ont pas chargé.",
     "cor": "Couleur de la couverture",
-    "fechar": "Fermer"
+    "fechar": "Fermer",
+    "abrirN": {
+      "one": "Voir {titulo} ({n} story)",
+      "few": "Voir {titulo} ({n} stories)",
+      "many": "Voir {titulo} ({n} stories)",
+      "other": "Voir {titulo} ({n} stories)"
+    },
+    "seus": "Vos stories à la une",
+    "contaN": {
+      "one": "{n} à la une",
+      "few": "{n} à la une",
+      "many": "{n} à la une",
+      "other": "{n} à la une"
+    }
   }
 }

@@ -110,7 +110,18 @@ export interface FigurinhaComunidade {
   nome: string;
 }
 
-export type Figurinha = FigurinhaContagem | FigurinhaPergunta | FigurinhaEnquete | FigurinhaLink | FigurinhaComunidade;
+/**
+ * Onde a figurinha fica na tela do story, como a autora a deixou no "criar" (arrastar, dois dedos giram e mudam o tamanho): o
+ * centro dela em x e y de 0 a 1, o giro em graus (até 45 para cada lado) e o tamanho (0,5 a 1,6). Sem isso, a tela escolhe.
+ */
+export interface PosicaoDaFigurinha {
+  x: number;
+  y: number;
+  giro: number;
+  escala: number;
+}
+
+export type Figurinha = (FigurinhaContagem | FigurinhaPergunta | FigurinhaEnquete | FigurinhaLink | FigurinhaComunidade) & { pos?: PosicaoDaFigurinha | null };
 
 /** Uma comunidade que posso mencionar (as minhas). */
 export interface ComunidadeParaMencao {

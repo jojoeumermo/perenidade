@@ -5,17 +5,18 @@ import "./stories.css";
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type PointerEvent as EventoDePonteiro } from "react";
 import { armazemDoAparelho, alternarSilencio, lerSilenciados, lerVistos, marcarVisto, ordenarFaixa } from "@/lib/rede/stories/aparelho";
 import { haQuanto, noAr } from "@/lib/rede/stories/tempo";
-import { barrasDoProgresso, duracaoNaTela, estiloDoTexto, tamanhoDoTexto } from "@/lib/rede/stories/visual";
+import { anelEmCss, barrasDoProgresso, duracaoNaTela, estiloDoTexto, PALETA_DO_STORY, posicaoInicial, posicaoValida, tamanhoDoTexto } from "@/lib/rede/stories/visual";
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import { CATEGORIAS_DE_DENUNCIA, type CategoriaDeDenuncia } from "@/lib/rede/tipos-moderacao";
-import { LIMITES_DO_STORY, REACOES_DO_STORY, type FigurinhaEnquete, type ReacaoDoStory, type Story } from "@/lib/rede/tipos-stories";
+import { LIMITES_DO_STORY, REACOES_DO_STORY, type AutoraDoStory, type Figurinha, type FigurinhaEnquete, type ReacaoDoStory, type Story } from "@/lib/rede/tipos-stories";
 import { ComunidadeVer } from "../figurinhas/Comunidade";
 import { ContagemVer } from "../figurinhas/Contagem";
 import { EnqueteVer } from "../figurinhas/Enquete";
 import { LinkVer } from "../figurinhas/Link";
 import { PerguntaVer } from "../figurinhas/Pergunta";
 import { Avatar16 } from "../ui/Avatar16";
+import { estiloDaPosicao } from "./FigurinhaSolta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { GuardarNoDestaque } from "./GuardarNoDestaque";
 import { IconeFechar, IconePausar, IconeSetaDir, IconeSetaEsq, IconeTocar, IconeTresPontos } from "./icones";
@@ -39,6 +40,27 @@ const IconeSom = ({ ligado }: { ligado: boolean }) => (
     {ligado ? <path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.6 7.6 0 0 1 0 11" /> : <path d="M16 9.5l5 5M21 9.5l-5 5" />}
   </svg>
 );
+
+/**
+ * Como chamar a autora nas frases curtas ("Responda à Rosa"): o nome inteiro quando é curto (organizações e coletivos, como
+ * "Passe Livre SP", não viram "Passe"), senão a primeira palavra. O campo de resposta usa o nome inteiro, cortado pelo CSS.
+ */
+export function nomeDeChamada(nome: string): string {
+  const n = nome.trim();
+  return n.length <= 16 ? n : (n.split(/\s+/)[0] ?? n);
+}
+
+/** O que, com o foco, fica com as setas (o resto do visor usa ← → para trocar de story). */
+const DONO_DAS_SETAS = "input, textarea, select, [contenteditable='true'], [role=menu], [role=radiogroup], [role=slider]";
+
+/** As faces do cubo: a que sai e a que entra, para a fração `q` (0 a 1) do giro na direção `d` (1 = próxima). */
+function faceQueSai(d: 1 | -1, q: number) {
+  return { transform: `translateX(${-d * q * 100}%) rotateY(${-d * q * 90}deg)`, filter: `brightness(${1 - q * 0.45})` };
+}
+function faceQueEntra(d: 1 | -1, q: number) {
+  const r = 1 - q;
+  return { transform: r === 0 ? "none" : `translateX(${d * r * 100}%) rotateY(${d * r * 90}deg)`, filter: `brightness(${0.55 + q * 0.45})` };
+}
 
 /** Movimento reduzido (o do sistema ou o "parado" do site): sem cubo, sem mola, troca seca. */
 function semMovimento(): boolean {
@@ -65,8 +87,10 @@ export function Visor({
   inicio = 0,
   fila = SEM_FILA,
   destaque = null,
+  autoras,
   aoFechar,
   aoMudou,
+  aoTrocar,
 }: {
   t: TextosDosStories;
   cliente: ClienteDeStories;
@@ -78,9 +102,13 @@ export function Visor({
   fila?: string[];
   /** Os stories de um destaque do perfil, em vez dos que estão no ar. */
   destaque?: { id: string; titulo: string } | null;
+  /** O rosto e o nome de quem está na fila (as vizinhas aparecem dos lados no computador e na face do cubo que entra). */
+  autoras?: Record<string, AutoraDoStory>;
   aoFechar: () => void;
   /** Algo mudou (vi, apaguei, silenciei, guardei): a faixa relê. */
   aoMudou?: () => void;
+  /** Passou para outra pessoa ou outro story: o endereço acompanha (?ver=<handle>&i=<i>), para recarregar e compartilhar. */
+  aoTrocar?: (handle: string, i: number) => void;
 }) {
   const [quem, setQuem] = useState(handle);
   const [stories, setStories] = useState<Story[] | null>(null);
@@ -116,6 +144,15 @@ export function Visor({
   const arrastou = useRef(false);
   /** Os stories da próxima/anterior pessoa, buscados enquanto o dedo ainda desliza (a troca já chega pronta). */
   const precarga = useRef<{ handle: string; lista: Promise<Story[]> } | null>(null);
+  /** A outra face do cubo: a pessoa que entra, já com o story em que ela vai abrir (ou carregando). */
+  const [face, setFace] = useState<{ handle: string; direcao: 1 | -1; story: Story | null } | null>(null);
+  const faceAgora = useRef(face);
+  useEffect(() => {
+    faceAgora.current = face;
+  }, [face]);
+  const telaVizinha = useRef<HTMLDivElement>(null);
+  /** Em que story cada pessoa parou (voltar para alguém retoma dali, como no Instagram). */
+  const lembrado = useRef<Record<string, number>>({});
   const idDoTitulo = useId();
   useModalDosStories(raiz);
 
@@ -129,6 +166,7 @@ export function Visor({
   const idDoDestaque = destaque?.id ?? null;
   // Aberto pelo endereço (?ver=@nome, sem a fila da faixa): a fila vem da mesma faixa, na mesma ordem (uma leitura, sem rastro).
   const [filaDaFaixa, setFilaDaFaixa] = useState<string[] | null>(null);
+  const [autorasDaFaixa, setAutorasDaFaixa] = useState<Record<string, AutoraDoStory>>({});
   const precisaDaFila = fila.length === 0 && !idDoDestaque;
   useEffect(() => {
     if (!precisaDaFila) return;
@@ -139,6 +177,7 @@ export function Visor({
         if (!vivo) return;
         const a = armazemDoAparelho();
         setFilaDaFaixa(ordenarFaixa(d.grupos, lerVistos(a, Date.now()), lerSilenciados(a)).map((g) => g.autora.handle));
+        setAutorasDaFaixa(Object.fromEntries(d.grupos.map((g) => [g.autora.handle, g.autora])));
       })
       .catch(() => undefined);
     return () => {
@@ -146,6 +185,7 @@ export function Visor({
     };
   }, [cliente, precisaDaFila]);
   const filaDeVerdade = useMemo(() => (precisaDaFila ? (filaDaFaixa ?? []) : fila), [precisaDaFila, filaDaFaixa, fila]);
+  const conhecidas = useMemo(() => ({ ...autorasDaFaixa, ...autoras }), [autorasDaFaixa, autoras]);
   useEffect(() => {
     let vivo = true;
     const pronto = precarga.current?.handle === quem && !idDoDestaque ? precarga.current.lista : null;
@@ -155,8 +195,14 @@ export function Visor({
         if (!vivo) return;
         setStories(lista);
         setErro(null);
+        // A tela de verdade já tem o story: a face do cubo que cobria a troca sai.
+        setFace(null);
       })
-      .catch((e) => vivo && setErro(codigoDoErro(e)));
+      .catch((e) => {
+        if (!vivo) return;
+        setErro(codigoDoErro(e));
+        setFace(null);
+      });
     return () => {
       vivo = false;
     };
@@ -168,6 +214,18 @@ export function Visor({
   const ehVideo = atual?.fundo.tipo === "video" && !!atual.fundo.url;
   const temSom = ehVideo && atual?.fundo.tipo === "video" && atual.fundo.som;
   const pausado = pausadoPelaPessoa || segurando || digitando || caixa !== null || ocupado || trocando;
+  const indiceNaTela = vivos && vivos.length > 0 ? Math.min(i, vivos.length - 1) : null;
+
+  // Em que story estou: guardado para quando eu voltar a esta pessoa, e no endereço (recarregar abre aqui mesmo).
+  const aoTrocarAgora = useRef(aoTrocar);
+  useEffect(() => {
+    aoTrocarAgora.current = aoTrocar;
+  });
+  useEffect(() => {
+    if (indiceNaTela === null || idDoDestaque) return;
+    lembrado.current[quem] = indiceNaTela;
+    aoTrocarAgora.current?.(quem, indiceNaTela);
+  }, [quem, indiceNaTela, idDoDestaque]);
 
   // Foco no visor ao abrir (o teclado já funciona) e de volta para onde estava ao fechar.
   useEffect(() => {
@@ -217,50 +275,75 @@ export function Visor({
     },
     [cliente],
   );
+  /** Monta a face de quem vem (na direção `d`): os stories dela já vêm da precarga, no story em que ela parou. */
+  const prepararFace = useCallback(
+    (d: 1 | -1): string | undefined => {
+      const h = vizinha(d);
+      if (!h) {
+        if (faceAgora.current) setFace(null);
+        return undefined;
+      }
+      const f = faceAgora.current;
+      if (f && f.handle === h && f.direcao === d) return h;
+      precarregar(h);
+      setFace({ handle: h, direcao: d, story: null });
+      precarga.current?.lista
+        .then((lista) => {
+          const vivas = lista.filter((x) => noAr(x.expira_em, Date.now()));
+          const k = Math.min(lembrado.current[h] ?? 0, Math.max(0, vivas.length - 1));
+          setFace((x) => (x && x.handle === h ? { ...x, story: vivas[k] ?? null } : x));
+        })
+        .catch(() => undefined);
+      return h;
+    },
+    [precarregar, vizinha],
+  );
 
   const girar = useCallback(async (direcao: 1 | -1, trocar: () => void, deOnde = 0) => {
-    const el = tela.current;
-    if (!el || semMovimento() || !el.animate) {
+    const a = tela.current;
+    if (!a || semMovimento() || !a.animate) {
       trocar();
       return;
     }
     setTrocando(true);
-    const sai = direcao === 1 ? "translateX(-100%) rotateY(-90deg)" : "translateX(100%) rotateY(90deg)";
-    const entra = direcao === 1 ? "translateX(100%) rotateY(90deg)" : "translateX(-100%) rotateY(-90deg)";
-    el.style.transformOrigin = direcao === 1 ? "100% 50%" : "0% 50%";
-    const de = el.style.transform || "none";
-    try {
-      await el.animate([{ transform: de }, { transform: sai }], { duration: Math.max(140, 300 * (1 - deOnde)), easing: "cubic-bezier(.45,0,.75,.6)", fill: "forwards" }).finished;
-    } catch {
-      /* interrompida */
+    // A face que entra acabou de ser montada (troca pelo teclado ou pela seta): espera ela existir.
+    if (!telaVizinha.current) await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    const b = telaVizinha.current;
+    const duracao = Math.max(200, 460 * (1 - deOnde));
+    const jeito: KeyframeAnimationOptions = { duration: duracao, easing: "cubic-bezier(.25,.8,.3,1)", fill: "forwards" };
+    a.style.transformOrigin = direcao === 1 ? "100% 50%" : "0% 50%";
+    const anims = [a.animate([{ transform: a.style.transform || "none", filter: a.style.filter || "none" }, faceQueSai(direcao, 1)], jeito)];
+    if (b) {
+      b.style.transformOrigin = direcao === 1 ? "0% 50%" : "100% 50%";
+      anims.push(b.animate([{ transform: b.style.transform || faceQueEntra(direcao, 0).transform, filter: b.style.filter || faceQueEntra(direcao, 0).filter }, faceQueEntra(direcao, 1)], jeito));
     }
+    await Promise.allSettled(anims.map((x) => x.finished));
+    // A face que entrou fica parada no lugar (cobrindo a tela) até os stories da pessoa chegarem; aí ela sai (setFace(null)).
     trocar();
     await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-    el.getAnimations().forEach((a) => a.cancel());
-    el.style.transform = "";
-    el.style.transformOrigin = direcao === 1 ? "0% 50%" : "100% 50%";
-    const a = el.animate([{ transform: entra, filter: "brightness(.55)" }, { transform: "none", filter: "brightness(1)" }], { duration: 360, easing: "cubic-bezier(.2,.85,.3,1.04)" });
-    a.finished.finally(() => {
-      el.style.transformOrigin = "";
-      setTrocando(false);
-    });
+    a.getAnimations().forEach((x) => x.cancel());
+    a.style.transform = "";
+    a.style.filter = "";
+    a.style.transformOrigin = "";
+    setTrocando(false);
   }, []);
 
   const irPara = useCallback(
     (h: string, direcao: 1 | -1, deOnde = 0) => {
-      precarregar(h);
+      if (vizinha(direcao) === h) prepararFace(direcao);
+      else precarregar(h);
       void girar(
         direcao,
         () => {
           setStories(null);
           setQuem(h);
-          setI(0);
+          setI(lembrado.current[h] ?? 0);
           zerar();
         },
         deOnde,
       );
     },
-    [girar, precarregar],
+    [girar, precarregar, prepararFace, vizinha],
   );
 
   const proximaAutora = useCallback(() => {
@@ -332,20 +415,34 @@ export function Visor({
   // Teclado.
   useEffect(() => {
     const aoTeclar = (e: KeyboardEvent) => {
-      const alvo = e.target as HTMLElement | null;
+      const alvo = e.target instanceof HTMLElement ? e.target : null;
+      const campo = !!alvo && alvo.matches("input:not([type=radio]):not([type=checkbox]), textarea, [contenteditable='true']");
       if (e.key === "Escape") {
         e.preventDefault();
         if (caixa) setCaixa(null);
-        else aoFechar();
+        else if (campo && alvo) {
+          // O primeiro Esc num campo só sai dele (e desiste da resposta que estava escrevendo); o segundo fecha o visor.
+          if (alvo === campoResposta.current) setResposta("");
+          alvo.blur();
+          raiz.current?.focus({ preventScroll: true });
+        } else aoFechar();
         return;
       }
-      // Espaço e setas só valem com o foco no próprio visor (ou numa área de toque): num botão, o Espaço aciona o botão
+      if (caixa) return;
+      // As setas trocam de story com o foco em qualquer lugar do visor (até num botão), menos onde elas têm outro uso: num
+      // campo (mexem o cursor), num menu ou num grupo de opções.
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        if (alvo?.closest(DONO_DAS_SETAS) || e.altKey || e.ctrlKey || e.metaKey) return;
+        e.preventDefault();
+        if (e.key === "ArrowRight") avancar();
+        else voltar();
+        return;
+      }
+      // O Espaço e o M só valem com o foco no próprio visor (ou numa área de toque): num botão, o Espaço aciona o botão
       // (WCAG 2.1.1); num campo, escreve.
       const livre = !alvo || alvo === raiz.current || alvo === document.body || alvo.classList.contains("al-st-toque");
-      if (!livre || caixa) return;
-      if (e.key === "ArrowRight") avancar();
-      else if (e.key === "ArrowLeft") voltar();
-      else if (e.key === " ") {
+      if (!livre) return;
+      if (e.key === " ") {
         e.preventDefault();
         setPausadoPelaPessoa((p) => !p);
       } else if ((e.key === "m" || e.key === "M") && temSom) setMudo(!mudo);
@@ -472,8 +569,15 @@ export function Visor({
     try {
       await cliente.apagar(atual.id);
       setCaixa(null);
-      setStories((lista) => lista?.filter((s) => s.id !== atual.id) ?? null);
+      const restam = (vivos ?? []).filter((s) => s.id !== atual.id);
       aoMudou?.();
+      if (restam.length === 0) {
+        // Era o único no ar: não há o que mostrar; o visor fecha (ou segue para a próxima pessoa, se veio da fila).
+        if (quem === "eu" || meu) aoFechar();
+        else proximaAutora();
+        return;
+      }
+      setStories((lista) => lista?.filter((s) => s.id !== atual.id) ?? null);
       avisar(t.visor.apagado);
     } catch {
       avisar(t.visor.erroAoEnviar);
@@ -488,9 +592,13 @@ export function Visor({
     try {
       await cliente.tirarDoDestaque(destaque.id, atual.id);
       setCaixa(null);
-      setStories((lista) => lista?.filter((s) => s.id !== atual.id) ?? null);
       aoMudou?.();
       avisarDestaques();
+      if ((vivos ?? []).filter((s) => s.id !== atual.id).length === 0) {
+        aoFechar();
+        return;
+      }
+      setStories((lista) => lista?.filter((s) => s.id !== atual.id) ?? null);
       avisar(t.destaques.tirado);
     } catch {
       avisar(t.visor.erroAoEnviar);
@@ -526,18 +634,25 @@ export function Visor({
       g.eixo = Math.abs(g.dx) > Math.abs(g.dy) ? "x" : g.dy > 0 ? "baixo" : "cima";
       e.currentTarget.setPointerCapture(e.pointerId);
       setSegurando(true);
-      if (g.eixo === "x") precarregar(vizinha(g.dx < 0 ? 1 : -1));
+      if (g.eixo === "x") prepararFace(g.dx < 0 ? 1 : -1);
     }
     const el = tela.current;
     const p = palco.current;
     if (!el || !p || semMovimento()) return;
     if (g.eixo === "x") {
       const w = el.clientWidth || 1;
-      const temVizinha = !!vizinha(g.dx < 0 ? 1 : -1);
-      // Sem vizinha, o cubo resiste (borracha); com ela, gira até 90°.
+      const d: 1 | -1 = g.dx < 0 ? 1 : -1;
+      // Mudou de lado no meio do gesto: a outra vizinha vira a face que entra.
+      const temVizinha = !!prepararFace(d);
+      // Sem vizinha, o cubo resiste (borracha); com ela, gira até 90° e a face de quem vem entra junto.
       const q = Math.min(1, Math.abs(g.dx) / w) * (temVizinha ? 1 : 0.18);
-      el.style.transformOrigin = g.dx < 0 ? "100% 50%" : "0% 50%";
-      el.style.transform = g.dx < 0 ? `translateX(${-q * 100}%) rotateY(${-q * 90}deg)` : `translateX(${q * 100}%) rotateY(${q * 90}deg)`;
+      el.style.transformOrigin = d === 1 ? "100% 50%" : "0% 50%";
+      Object.assign(el.style, faceQueSai(d, q));
+      const b = telaVizinha.current;
+      if (b && temVizinha) {
+        b.style.transformOrigin = d === 1 ? "0% 50%" : "100% 50%";
+        Object.assign(b.style, faceQueEntra(d, q));
+      }
     } else if (g.eixo === "baixo") {
       const dy = Math.max(0, g.dy);
       p.style.transform = `translateY(${dy}px) scale(${1 - Math.min(0.22, dy / 1800)})`;
@@ -557,11 +672,20 @@ export function Visor({
     const voltarAoLugar = (alvo: HTMLElement | null) => {
       if (!alvo) return;
       const de = alvo.style.transform;
+      const luz = alvo.style.filter || "none";
       alvo.style.transform = "";
+      alvo.style.filter = "";
       if (!de || semMovimento() || !alvo.animate) return;
-      alvo.animate([{ transform: de }, { transform: "none" }], { duration: 420, easing: "cubic-bezier(.2,1.35,.35,1)" }).finished.finally(() => {
+      alvo.animate([{ transform: de, filter: luz }, { transform: "none", filter: "none" }], { duration: 420, easing: "cubic-bezier(.2,1.35,.35,1)" }).finished.finally(() => {
         alvo.style.transformOrigin = "";
       });
+    };
+    /** Desistiu do giro: a face de quem vinha volta para o lado e some. */
+    const recolherFace = (d: 1 | -1) => {
+      const b = telaVizinha.current;
+      if (!b || semMovimento() || !b.animate) return setFace(null);
+      const de = { transform: b.style.transform || faceQueEntra(d, 0).transform, filter: b.style.filter || "none" };
+      b.animate([de, faceQueEntra(d, 0)], { duration: 380, easing: "cubic-bezier(.2,1.1,.35,1)", fill: "forwards" }).finished.finally(() => setFace(null));
     };
     if (g.eixo === "x") {
       const direcao: 1 | -1 = g.dx < 0 ? 1 : -1;
@@ -569,7 +693,10 @@ export function Visor({
       const w = el?.clientWidth || 1;
       const q = Math.abs(g.dx) / w;
       if (destino && (q > 0.28 || Math.abs(g.dx) / ms > 0.55)) irPara(destino, direcao, Math.min(0.9, q));
-      else voltarAoLugar(el);
+      else {
+        voltarAoLugar(el);
+        if (destino) recolherFace(direcao);
+      }
     } else if (g.eixo === "baixo") {
       raiz.current?.style.removeProperty("--al-st-escurece");
       if (g.dy > 110 || g.dy / ms > 0.6) {
@@ -588,6 +715,24 @@ export function Visor({
   const barras = vivos ? barrasDoProgresso(vivos.length, Math.min(i, vivos.length - 1), fracao) : [];
   const est = atual ? estiloDoTexto(atual.estilo, atual.fundo.cor) : null;
   const temAnterior = i > 0 || !!vizinha(-1);
+  const chamada = nomeDeChamada(nome);
+  const lados = ([-1, 1] as const).map((d) => ({ d, h: vizinha(d) })).filter((x): x is { d: -1 | 1; h: string } => !!x.h);
+  const corDoFundo = atual ? PALETA_DO_STORY[atual.fundo.cor]?.fundo : undefined;
+  const figurinhasSoltas = !!atual && atual.figurinhas.some((f) => f.pos);
+
+  /** Uma figurinha como quem vê a recebe (a mesma para a pilha antiga e para a solta). */
+  const figurinhaNaTela = (f: Figurinha, k: number) =>
+    !atual ? null : f.tipo === "contagem" ? (
+      <ContagemVer key={k} f={f} t={t.figurinha.contagem} agora={agora} lang={lang} ocupado={ocupado} aoAvisar={meu ? null : pedirAviso} />
+    ) : f.tipo === "enquete" ? (
+      <EnqueteVer key={k} f={f} t={t.figurinha.enquete} nome={chamada} meu={meu} ocupado={ocupado} aoVotar={votar} />
+    ) : f.tipo === "pergunta" ? (
+      <PerguntaVer key={k} texto={f.texto} t={t.figurinha.pergunta} nome={chamada} meu={meu} enviar={enviarResposta} aoFoco={setDigitando} />
+    ) : f.tipo === "comunidade" ? (
+      <ComunidadeVer key={k} slug={f.slug} nome={f.nome} lang={lang} t={t.figurinha.comunidade} />
+    ) : (
+      <LinkVer key={k} url={f.url} rotulo={f.rotulo} t={t.figurinha.link} />
+    );
 
   return (
     <div
@@ -603,7 +748,85 @@ export function Visor({
       <p id={`${idDoTitulo}-ajuda`} className="sr-only">
         {t.visor.ajuda} {t.visor.ajudaToque}
       </p>
+      {/* Computador: a cor (e a foto) do story, bem desfocada, atrás de tudo: o story não fica solto num preto chapado. */}
+      <div className="al-st-visor-fundo" aria-hidden style={corDoFundo ? ({ "--al-st-visor-cor": corDoFundo } as CSSProperties) : undefined}>
+        {atual?.fundo.tipo === "imagem" && atual.fundo.url ? (
+          // Endereço assinado do próprio story (já baixado pela tela); só a cópia desfocada.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={atual.id} src={atual.fundo.url} alt="" />
+        ) : null}
+      </div>
       <div ref={palco} className="al-st-visor-palco" onPointerDown={aoBaixar} onPointerMove={aoMover} onPointerUp={aoSoltar} onPointerCancel={aoSoltar}>
+        {/* Computador largo: quem vem antes e depois, pequenas e escurecidas dos lados (um clique leva a elas). */}
+        {lados.map(({ d, h }) => {
+          const a = conhecidas[h];
+          const rotulo = a?.nome ?? (h === "eu" ? t.visor.seu : h);
+          return (
+            <button
+              key={`lado-${d}`}
+              type="button"
+              tabIndex={-1}
+              className={`al-st-lado al-st-lado-${d === 1 ? "dir" : "esq"}`}
+              aria-label={preencherStory(t.visor.verAoLado, { nome: rotulo })}
+              style={{ "--al-st-anel": anelEmCss(a?.handle ?? h, false) } as CSSProperties}
+              onClick={() => !trocando && irPara(h, d)}
+            >
+              <span className="al-st-lado-rosto" aria-hidden>
+                <Avatar16 handle={a?.handle ?? h} cor={a?.cor ?? undefined} tamanho={64} />
+              </span>
+              <span className="al-st-lado-nome" aria-hidden>
+                {rotulo}
+              </span>
+            </button>
+          );
+        })}
+        {/* A face do cubo de quem vem (durante o deslizar e o giro): já com o fundo, o texto e o nome dela, sem tela preta. */}
+        {face ? (
+          <div
+            ref={telaVizinha}
+            key={`face-${face.handle}`}
+            className="al-st-tela al-st-tela-vizinha"
+            aria-hidden
+            style={{
+              ...(face.story ? estiloDaTela(face.story.fundo.cor) : {}),
+              transform: faceQueEntra(face.direcao, 0).transform,
+              transformOrigin: face.direcao === 1 ? "0% 50%" : "100% 50%",
+            }}
+          >
+            {face.story ? (
+              <>
+                <FundoDoStory
+                  tipo={face.story.fundo.tipo === "video" ? "listras" : face.story.fundo.tipo}
+                  cor={face.story.fundo.cor}
+                  semente={face.story.id}
+                  url={face.story.fundo.tipo === "imagem" ? face.story.fundo.url : undefined}
+                  alt=""
+                />
+                <div className="al-st-topo al-st-topo-vizinha">
+                  <div className="al-st-topo-quem">
+                    <Avatar16 handle={face.story.autora.handle} cor={face.story.autora.cor ?? undefined} tamanho={38} />
+                    <span className="al-st-topo-nome">
+                      <strong>{face.story.meu ? t.visor.seu : face.story.autora.nome}</strong>
+                    </span>
+                  </div>
+                </div>
+                {face.story.texto ? (
+                  <div className="al-st-miolo">
+                    <h2
+                      className="al-st-texto al-st-texto-sombra"
+                      data-fonte={estiloDoTexto(face.story.estilo, face.story.fundo.cor).fonte}
+                      style={{ fontFamily: estiloDoTexto(face.story.estilo, face.story.fundo.cor).familia, fontSize: `${tamanhoDoTexto(face.story.texto, larguraDaTela())}px` }}
+                    >
+                      {face.story.texto}
+                    </h2>
+                  </div>
+                ) : null}
+              </>
+            ) : (
+              <span className="al-st-girando" />
+            )}
+          </div>
+        ) : null}
         <div ref={tela} className="al-st-tela" style={atual ? estiloDaTela(atual.fundo.cor) : undefined}>
           {atual ? (
             <FundoDoStory
@@ -650,27 +873,30 @@ export function Visor({
                 </span>
               )
             ) : null}
-            <button
-              type="button"
-              className="al-st-icone"
-              aria-label={pausadoPelaPessoa ? t.visor.continuar : t.visor.pausar}
-              aria-pressed={pausadoPelaPessoa}
-              onClick={() => setPausadoPelaPessoa((p) => !p)}
-            >
-              {pausadoPelaPessoa ? <IconeTocar /> : <IconePausar />}
-            </button>
-            <button
-              type="button"
-              className="al-st-icone"
-              aria-label={t.visor.mais}
-              ref={botaoMais}
-              aria-haspopup="menu"
-              aria-expanded={caixa === "menu"}
-              disabled={!atual}
-              onClick={() => setCaixa((c) => (c === "menu" ? null : "menu"))}
-            >
-              <IconeTresPontos />
-            </button>
+            {atual ? (
+              <>
+                <button
+                  type="button"
+                  className="al-st-icone"
+                  aria-label={pausadoPelaPessoa ? t.visor.continuar : t.visor.pausar}
+                  aria-pressed={pausadoPelaPessoa}
+                  onClick={() => setPausadoPelaPessoa((p) => !p)}
+                >
+                  {pausadoPelaPessoa ? <IconeTocar /> : <IconePausar />}
+                </button>
+                <button
+                  type="button"
+                  className="al-st-icone"
+                  aria-label={t.visor.mais}
+                  ref={botaoMais}
+                  aria-haspopup="menu"
+                  aria-expanded={caixa === "menu"}
+                  onClick={() => setCaixa((c) => (c === "menu" ? null : "menu"))}
+                >
+                  <IconeTresPontos />
+                </button>
+              </>
+            ) : null}
             <button type="button" className="al-st-icone" aria-label={t.visor.fechar} onClick={aoFechar}>
               <IconeFechar />
             </button>
@@ -728,29 +954,24 @@ export function Visor({
                 </h2>
               ) : null}
               {atual.legenda ? <p className="al-st-tarja">{atual.legenda}</p> : null}
-              {atual.figurinhas.length > 0 ? (
-                <div className="al-st-figurinhas">
-                  {atual.figurinhas.map((f, k) =>
-                    f.tipo === "contagem" ? (
-                      <ContagemVer key={k} f={f} t={t.figurinha.contagem} agora={agora} lang={lang} ocupado={ocupado} aoAvisar={meu ? null : pedirAviso} />
-                    ) : f.tipo === "enquete" ? (
-                      <EnqueteVer key={k} f={f} t={t.figurinha.enquete} nome={nome.split(" ")[0]} meu={meu} ocupado={ocupado} aoVotar={votar} />
-                    ) : f.tipo === "pergunta" ? (
-                      <PerguntaVer key={k} texto={f.texto} t={t.figurinha.pergunta} nome={nome.split(" ")[0]} meu={meu} enviar={enviarResposta} aoFoco={setDigitando} />
-                    ) : f.tipo === "comunidade" ? (
-                      <ComunidadeVer key={k} slug={f.slug} nome={f.nome} lang={lang} t={t.figurinha.comunidade} />
-                    ) : (
-                      <LinkVer key={k} url={f.url} rotulo={f.rotulo} t={t.figurinha.link} />
-                    ),
-                  )}
-                </div>
-              ) : null}
+              {atual.figurinhas.length > 0 && !figurinhasSoltas ? <div className="al-st-figurinhas">{atual.figurinhas.map(figurinhaNaTela)}</div> : null}
             </div>
           ) : (
             <p className="al-st-estado" role="status">
               {erro ? (erro === "banco" ? t.criar.erro.banco : t.visor.erro) : vivos && vivos.length === 0 ? t.visor.sumiu : t.visor.carregando}
             </p>
           )}
+
+          {/* As figurinhas no lugar em que a autora deixou (arrastadas, giradas, no tamanho dela). */}
+          {atual && figurinhasSoltas ? (
+            <div key={`soltas-${atual.id}`} className="al-st-figurinhas-soltas al-st-entra">
+              {atual.figurinhas.map((f, k) => (
+                <div key={k} className="al-st-fig-solta" data-tipo={f.tipo} style={estiloDaPosicao(posicaoValida(f.pos ?? posicaoInicial(k)))}>
+                  {figurinhaNaTela(f, k)}
+                </div>
+              ))}
+            </div>
+          ) : null}
 
           {explosao ? (
             <span key={explosao.n} className="al-st-explosao" aria-hidden>
@@ -895,13 +1116,13 @@ export function Visor({
         </button>
       </div>
 
-      <div className="al-st-rodape">
-        {meu || destaque ? (
+      <div className="al-st-rodape" hidden={!atual}>
+        {!atual ? null : meu || destaque ? (
           <p className="al-st-dica" style={{ margin: "0 6px", color: "inherit" }}>
             {meu ? t.visor.respostasChegam : null}
           </p>
         ) : null}
-        {!meu ? (
+        {atual && !meu ? (
           <>
             <form
               className="al-st-responder"
@@ -912,15 +1133,16 @@ export function Visor({
               }}
             >
               <label htmlFor={`${idDoTitulo}-r`} className="sr-only">
-                {preencherStory(t.visor.responderRotulo, { nome: nome.split(" ")[0] })}
+                {preencherStory(t.visor.responderRotulo, { nome })}
               </label>
               <input
                 id={`${idDoTitulo}-r`}
                 ref={campoResposta}
                 value={resposta}
                 maxLength={LIMITES_DO_STORY.resposta}
-                placeholder={preencherStory(t.visor.responder, { nome: nome.split(" ")[0] })}
-                disabled={!atual || ocupado}
+                placeholder={preencherStory(t.visor.responder, { nome })}
+                title={preencherStory(t.visor.responder, { nome })}
+                disabled={ocupado}
                 autoComplete="off"
                 enterKeyHint="send"
                 onChange={(e) => setResposta(e.target.value)}
@@ -933,7 +1155,7 @@ export function Visor({
                 </button>
               ) : null}
             </form>
-            <div role="group" aria-label={preencherStory(t.visor.reacoes, { nome: nome.split(" ")[0] })} style={{ display: "flex" }}>
+            <div role="group" aria-label={preencherStory(t.visor.reacoes, { nome: chamada })} style={{ display: "flex" }}>
               {REACOES_DO_STORY.map((r) => (
                 <button
                   key={r}

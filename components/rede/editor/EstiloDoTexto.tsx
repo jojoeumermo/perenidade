@@ -2,6 +2,7 @@
 "use client";
 
 import "./editor.css";
+import { useEffect, useRef } from "react";
 import { FAMILIA_DA_FONTE } from "@/lib/rede/stories/visual";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import { FONTES_DO_STORY, type Alinhamento, type EstiloDoStory, type FonteDoStory } from "@/lib/rede/tipos-stories";
@@ -28,20 +29,44 @@ export function EstiloDoTexto({ t, estilo, aoMudar }: { t: TextosDosStories["cri
   const fonte: FonteDoStory = estilo.fonte ?? "condensada";
   const alinhar: Alinhamento = estilo.alinhar ?? "esq";
   const caixa = estilo.caixa === "caixa";
+  const trilho = useRef<HTMLDivElement>(null);
+  // A faixa das fontes rola sozinha: o degradê aparece só do lado onde ainda há fonte escondida, e a escolhida fica à vista.
+  useEffect(() => {
+    const el = trilho.current;
+    if (!el) return;
+    const marcar = () => {
+      el.dataset.inicio = el.scrollLeft > 2 ? "nao" : "sim";
+      el.dataset.fim = el.scrollLeft + el.clientWidth >= el.scrollWidth - 2 ? "sim" : "nao";
+    };
+    marcar();
+    el.addEventListener("scroll", marcar, { passive: true });
+    const o = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(marcar);
+    o?.observe(el);
+    return () => {
+      el.removeEventListener("scroll", marcar);
+      o?.disconnect();
+    };
+  }, []);
+  useEffect(() => {
+    const el = trilho.current?.querySelector<HTMLElement>('[aria-checked="true"]');
+    el?.scrollIntoView?.({ block: "nearest", inline: "nearest", behavior: "smooth" });
+  }, [fonte]);
   return (
     <div className="al-ed-estilo" role="group" aria-label={t.rotulo}>
-      <button
-        type="button"
-        className="al-ed-estilo-botao"
-        aria-label={preencherStory(t.alinhar, { lado: t.alinhamento[alinhar] })}
-        onClick={() => aoMudar({ ...estilo, alinhar: PROXIMO[alinhar] })}
-      >
-        <IconeAlinhar lado={alinhar} />
-      </button>
-      <button type="button" className="al-ed-estilo-botao al-ed-estilo-caixa" aria-pressed={caixa} aria-label={t.caixa} onClick={() => aoMudar({ ...estilo, caixa: caixa ? "nenhuma" : "caixa" })}>
-        <span aria-hidden>A</span>
-      </button>
-      <div className="al-ed-fontes" role="radiogroup" aria-label={t.rotulo}>
+      <div className="al-ed-estilo-fixos">
+        <button
+          type="button"
+          className="al-ed-estilo-botao"
+          aria-label={preencherStory(t.alinhar, { lado: t.alinhamento[alinhar] })}
+          onClick={() => aoMudar({ ...estilo, alinhar: PROXIMO[alinhar] })}
+        >
+          <IconeAlinhar lado={alinhar} />
+        </button>
+        <button type="button" className="al-ed-estilo-botao al-ed-estilo-caixa" aria-pressed={caixa} aria-label={t.caixa} onClick={() => aoMudar({ ...estilo, caixa: caixa ? "nenhuma" : "caixa" })}>
+          <span aria-hidden>A</span>
+        </button>
+      </div>
+      <div ref={trilho} className="al-ed-fontes" role="radiogroup" aria-label={t.rotulo} data-inicio="sim" data-fim="nao">
         {FONTES_DO_STORY.map((f, k) => (
           <button
             key={f}

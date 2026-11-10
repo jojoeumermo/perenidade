@@ -10,13 +10,13 @@ import {
   comporFoto, filtroEmCss, lerVideo, miniaturasDoVideo, regravarVideo, SEM_TRANSFORMACAO, TIPOS_DE_VIDEO_ACEITOS, transformacaoEmCss,
   transformacaoNeutra, transformacaoValida, VIDEO_ORIGINAL_MAXIMO, type FiltroDoStory, type TracoDoStory, type Transformacao,
 } from "@/lib/rede/stories/midia";
-import { alternarFigurinha, corDaLetraEmHex, estiloDoTexto, linkSeguro, PALETA_DO_STORY, tamanhoDoTexto } from "@/lib/rede/stories/visual";
+import { alternarFigurinha, corDaLetraEmHex, estiloDoTexto, linkSeguro, PALETA_DO_STORY, posicaoInicial, tamanhoDoTexto } from "@/lib/rede/stories/visual";
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import {
   CORES_DA_LETRA, CORES_DO_STORY, LIMITES_DO_STORY, PUBLICOS_DO_STORY, TIPOS_DE_FIGURINHA,
   type AtoParaContagem, type ComunidadeParaMencao, type CorDaLetra, type CorDoStory, type EstiloDoStory, type Figurinha, type PedidoDeStory,
-  type PublicoDoStory, type TipoDeFigurinha,
+  type PosicaoDaFigurinha, type PublicoDoStory, type TipoDeFigurinha,
 } from "@/lib/rede/tipos-stories";
 import { Camera } from "../editor/Camera";
 import { Cortar } from "../editor/Cortar";
@@ -28,6 +28,7 @@ import { ContagemEditar } from "../figurinhas/Contagem";
 import { EnqueteEditar } from "../figurinhas/Enquete";
 import { LinkEditar } from "../figurinhas/Link";
 import { PerguntaEditar } from "../figurinhas/Pergunta";
+import { FigurinhaSolta } from "./FigurinhaSolta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar } from "./icones";
 import { codigoDoErro, focarNoGrupo, indiceDaSeta, larguraDaTela, preencherStory, useAgora, useModalDosStories } from "./usar";
@@ -47,8 +48,11 @@ const ICONE_DO_TIPO: Record<TipoDeFigurinha, { texto: string; cor: string }> = {
   comunidade: { texto: "@", cor: "#f6c84a" },
 };
 
-/** Uma figurinha nova, com o que a prancha já mostra preenchido. */
-function figurinhaNova(tipo: TipoDeFigurinha, t: TextosDosStories): Figurinha {
+/** Uma figurinha nova, com o que a prancha já mostra preenchido, no lugar livre seguinte da tela. */
+function figurinhaNova(tipo: TipoDeFigurinha, t: TextosDosStories, k: number): Figurinha {
+  return { ...conteudoNovo(tipo, t), pos: posicaoInicial(k) } as Figurinha;
+}
+function conteudoNovo(tipo: TipoDeFigurinha, t: TextosDosStories): Figurinha {
   switch (tipo) {
     case "contagem":
       return { tipo, ato: null, titulo: "", inicio: "" };
@@ -139,12 +143,15 @@ export function Criar({
   const [progresso, setProgresso] = useState<{ fase: Fase; pct: number } | null>(null);
   const [confirmarSaida, setConfirmarSaida] = useState(false);
   const [larguraDaPrevia, setLarguraDaPrevia] = useState(390);
+  /** A figurinha tocada por último fica por cima (e vai por último no story, para o visor empilhar igual). */
+  const [frente, setFrente] = useState<TipoDeFigurinha | null>(null);
   const desenhando = useRef<TracoDoStory | null>(null);
   const galeria = useRef<HTMLInputElement>(null);
   const painelFigurinhas = useRef<HTMLHeadingElement>(null);
   const raiz = useRef<HTMLDivElement>(null);
   const tela = useRef<HTMLDivElement>(null);
   const campoDoTexto = useRef<HTMLTextAreaElement>(null);
+  const campoDaTarja = useRef<HTMLTextAreaElement>(null);
   const areaDeGestos = useRef<HTMLDivElement>(null);
   const caixaDaMidia = useRef<HTMLDivElement>(null);
   const guias = useRef<HTMLDivElement>(null);
@@ -244,14 +251,21 @@ export function Criar({
     if (m === "texto") campoDoTexto.current?.focus({ preventScroll: true });
   }
 
+  const cheio = figurinhas.length >= LIMITES_DO_STORY.figurinhas;
   function alternar(tipo: TipoDeFigurinha) {
+    const ligada = figurinhas.some((f) => f.tipo === tipo);
+    // Já são 3: o botão está desligado (aria-disabled) e a dica embaixo do título explica; nada de erro.
+    if (!ligada && cheio) return;
     setErro(null);
-    const antes = figurinhas.length;
-    const nova = alternarFigurinha(figurinhas, figurinhaNova(tipo, t));
-    if (nova.length === antes && !figurinhas.some((f) => f.tipo === tipo)) setErro(t.criar.limiteDeFigurinhas);
-    setFigurinhas(nova);
+    // A nova nasce num lugar que ainda não está ocupado.
+    const ocupados = new Set(figurinhas.map((f) => f.pos?.y));
+    const k = [0, 1, 2].find((n) => !ocupados.has(posicaoInicial(n).y)) ?? figurinhas.length;
+    setFigurinhas(alternarFigurinha(figurinhas, figurinhaNova(tipo, t, k)));
+    if (!ligada) setFrente(tipo);
   }
 
+  const moverFigurinha = (tipo: TipoDeFigurinha, pos: PosicaoDaFigurinha) =>
+    setFigurinhas((lista) => lista.map((f) => (f.tipo === tipo ? ({ ...f, pos } as Figurinha) : f)));
   const mudarFigurinha = (tipo: TipoDeFigurinha, novo: Partial<Figurinha>) =>
     setFigurinhas((lista) => lista.map((f) => (f.tipo === tipo ? ({ ...f, ...novo } as Figurinha) : f)));
 
@@ -377,7 +391,9 @@ export function Criar({
         video,
         estilo: Object.keys(estilo).length > 0 ? estilo : undefined,
         alt: caminho ? alt.trim() || null : null,
-        figurinhas: figurinhas.map((f) => (f.tipo === "link" ? { ...f, url: linkSeguro(f.url) ?? "" } : f)),
+        figurinhas: [...figurinhas.filter((f) => f.tipo !== frente), ...figurinhas.filter((f) => f.tipo === frente)].map((f) =>
+          f.tipo === "link" ? { ...f, url: linkSeguro(f.url) ?? "" } : f,
+        ),
         post_ref: postRef,
       };
       await cliente.publicar(pedido);
@@ -410,7 +426,13 @@ export function Criar({
     if (!c) return;
     c.style.height = "auto";
     c.style.height = `${c.scrollHeight}px`;
-  }, [texto, tamanho, estilo]);
+    // A tarja: onde o navegador não tem field-sizing, a altura acompanha (até 2 linhas, o resto o CSS esconde).
+    const j = campoDaTarja.current;
+    if (j && typeof CSS !== "undefined" && !CSS.supports("field-sizing", "content")) {
+      j.style.height = "auto";
+      j.style.height = `${j.scrollHeight}px`;
+    }
+  }, [texto, tamanho, estilo, legenda]);
   const restam = LIMITES_DO_STORY.texto - [...texto].length;
 
   const coresDaFileira = modo === "desenhar" || alvoDaCor === "letra" ? CORES_DA_LETRA : CORES_DO_STORY;
@@ -531,7 +553,17 @@ export function Criar({
                 <label htmlFor={`${id}-tarja`} className="sr-only">
                   {t.criar.tarja}
                 </label>
-                <input id={`${id}-tarja`} value={legenda} maxLength={LIMITES_DO_STORY.legenda} placeholder={t.criar.tarjaVazia} onChange={(e) => setLegenda(e.target.value)} />
+                <textarea
+                  ref={campoDaTarja}
+                  id={`${id}-tarja`}
+                  rows={1}
+                  value={legenda}
+                  maxLength={LIMITES_DO_STORY.legenda}
+                  placeholder={t.criar.tarjaVazia}
+                  // A tarja cresce com o texto (field-sizing) e quebra em até 2 linhas, como no visor; Enter não pula linha.
+                  onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
+                  onChange={(e) => setLegenda(e.target.value.replace(/\s*\n\s*/g, " "))}
+                />
               </p>
             ) : null}
           </div>
@@ -613,32 +645,44 @@ export function Criar({
           ) : null}
 
           {figurinhas.length > 0 ? (
-            <div className="al-st-palco-figurinhas" style={{ position: "relative", zIndex: modo === "desenhar" ? 0 : 3 }}>
+            <div className="al-st-palco-figurinhas" data-guia="nao" data-ativo={modo === "desenhar" ? "nao" : "sim"}>
               {figurinhas.map((f) => (
-                <div key={f.tipo} style={{ position: "relative" }} className={`al-ed-figurinha-entra${f.tipo === "enquete" ? " al-fg-enquete-caixa" : ""}`}>
-                  {f.tipo === "contagem" ? (
-                    <ContagemEditar t={t.figurinha.contagem} atos={atos} ato={f.ato} agora={agora} aoEscolher={(a) => mudarFigurinha("contagem", { ato: a.id, titulo: a.titulo, inicio: a.inicio })} />
-                  ) : f.tipo === "pergunta" ? (
-                    <PerguntaEditar texto={f.texto} t={t.figurinha.pergunta} aoMudar={(x) => mudarFigurinha("pergunta", { texto: x })} />
-                  ) : f.tipo === "enquete" ? (
-                    <EnqueteEditar pergunta={f.pergunta} opcoes={f.opcoes} t={t.figurinha.enquete} aoMudar={(p, o) => mudarFigurinha("enquete", { pergunta: p, opcoes: o })} />
-                  ) : f.tipo === "comunidade" ? (
-                    <ComunidadeEditar t={t.figurinha.comunidade} lista={comunidades} slug={f.slug} aoEscolher={(c) => mudarFigurinha("comunidade", { slug: c.slug, nome: c.nome })} />
-                  ) : (
-                    <LinkEditar
-                      url={f.url}
-                      rotulo={f.rotulo}
-                      t={t.figurinha.link}
-                      invalido={linkInvalido ? t.criar.erro.link : null}
-                      aoMudar={(u, r) => {
-                        setLinkInvalido(false);
-                        mudarFigurinha("link", { url: u, rotulo: r });
-                      }}
-                    />
-                  )}
-                  <button type="button" className="al-fg-tirar" aria-label={preencherStory(t.criar.figurinhaLigada, { nome: t.criar.tipo[f.tipo] })} onClick={() => alternar(f.tipo)}>
-                    <IconeFechar />
-                  </button>
+                <div key={f.tipo} className="al-st-fig-camada" style={{ zIndex: f.tipo === frente ? 2 : 1 }}>
+                  <FigurinhaSolta
+                    tipo={f.tipo}
+                    pos={f.pos ?? posicaoInicial(0)}
+                    ativa={modo !== "desenhar" && estado === "editando"}
+                    rotulo={preencherStory(t.criar.figurinhaMover, { nome: t.criar.tipo[f.tipo] })}
+                    idDaDica={`${id}-fig-dica`}
+                    aoMudar={(p) => moverFigurinha(f.tipo, p)}
+                    aoTocar={() => setFrente(f.tipo)}
+                  >
+                    <div className={f.tipo === "enquete" ? "al-fg-enquete-caixa" : undefined}>
+                      {f.tipo === "contagem" ? (
+                        <ContagemEditar t={t.figurinha.contagem} atos={atos} ato={f.ato} agora={agora} aoEscolher={(a) => mudarFigurinha("contagem", { ato: a.id, titulo: a.titulo, inicio: a.inicio })} />
+                      ) : f.tipo === "pergunta" ? (
+                        <PerguntaEditar texto={f.texto} t={t.figurinha.pergunta} aoMudar={(x) => mudarFigurinha("pergunta", { texto: x })} />
+                      ) : f.tipo === "enquete" ? (
+                        <EnqueteEditar pergunta={f.pergunta} opcoes={f.opcoes} t={t.figurinha.enquete} aoMudar={(p, o) => mudarFigurinha("enquete", { pergunta: p, opcoes: o })} />
+                      ) : f.tipo === "comunidade" ? (
+                        <ComunidadeEditar t={t.figurinha.comunidade} lista={comunidades} slug={f.slug} aoEscolher={(c) => mudarFigurinha("comunidade", { slug: c.slug, nome: c.nome })} />
+                      ) : (
+                        <LinkEditar
+                          url={f.url}
+                          rotulo={f.rotulo}
+                          t={t.figurinha.link}
+                          invalido={linkInvalido ? t.criar.erro.link : null}
+                          aoMudar={(u, r) => {
+                            setLinkInvalido(false);
+                            mudarFigurinha("link", { url: u, rotulo: r });
+                          }}
+                        />
+                      )}
+                    </div>
+                    <button type="button" className="al-fg-tirar" aria-label={preencherStory(t.criar.figurinhaLigada, { nome: t.criar.tipo[f.tipo] })} onClick={() => alternar(f.tipo)}>
+                      <IconeFechar />
+                    </button>
+                  </FigurinhaSolta>
                 </div>
               ))}
             </div>
@@ -679,16 +723,16 @@ export function Criar({
                 </>
               ) : null}
               <div className="al-ed-ajustar" role="group" aria-label={t.criar.midia.ajustar}>
-                <button type="button" className="al-botao al-botao-fantasma al-botao-p" onClick={() => ajustar((x) => ({ giro: x.giro + Math.PI / 2 }))}>
+                <button type="button" className="al-botao al-botao-contorno al-botao-p" onClick={() => ajustar((x) => ({ giro: x.giro + Math.PI / 2 }))}>
                   {t.criar.midia.girar}
                 </button>
-                <button type="button" className="al-botao al-botao-fantasma al-botao-p" aria-label={t.criar.midia.menor} onClick={() => ajustar((x) => ({ escala: x.escala / 1.15 }))}>
+                <button type="button" className="al-botao al-botao-contorno al-botao-p" aria-label={t.criar.midia.menor} onClick={() => ajustar((x) => ({ escala: x.escala / 1.15 }))}>
                   −
                 </button>
-                <button type="button" className="al-botao al-botao-fantasma al-botao-p" aria-label={t.criar.midia.maior} onClick={() => ajustar((x) => ({ escala: x.escala * 1.15 }))}>
+                <button type="button" className="al-botao al-botao-contorno al-botao-p" aria-label={t.criar.midia.maior} onClick={() => ajustar((x) => ({ escala: x.escala * 1.15 }))}>
                   +
                 </button>
-                <button type="button" className="al-botao al-botao-fantasma al-botao-p" disabled={transformacaoNeutra(transf)} onClick={() => setTransf(SEM_TRANSFORMACAO)}>
+                <button type="button" className="al-botao al-botao-contorno al-botao-p" disabled={transformacaoNeutra(transf)} onClick={() => setTransf(SEM_TRANSFORMACAO)}>
                   {t.criar.midia.centralizar}
                 </button>
               </div>
@@ -698,26 +742,48 @@ export function Criar({
                 <input value={alt} maxLength={200} onChange={(e) => setAlt(e.target.value)} />
               </label>
               <p className="al-st-dica">{midia.tipo === "video" ? t.criar.midia.semMetadadoVideo : t.criar.semMetadado}</p>
-              <button type="button" className="al-botao al-botao-fantasma al-botao-p" style={{ justifySelf: "start", marginTop: 8 }} onClick={limparMidia}>
+              <button type="button" className="al-botao al-botao-contorno al-botao-p al-ed-remover" onClick={limparMidia}>
                 {t.criar.midia.tirar}
               </button>
             </section>
           ) : null}
 
-          <h2 ref={painelFigurinhas} tabIndex={-1} className="al-cond al-st-titulo-secao">
-            {t.criar.figurinhas}
-          </h2>
+          <div className="al-st-titulo-linha">
+            <h2 ref={painelFigurinhas} tabIndex={-1} className="al-cond al-st-titulo-secao">
+              {t.criar.figurinhas}
+            </h2>
+            <span className="al-st-conta" data-cheio={cheio ? "sim" : "nao"} aria-hidden>
+              {preencherStory(t.criar.contaDeFigurinhas, { n: figurinhas.length, max: LIMITES_DO_STORY.figurinhas })}
+            </span>
+          </div>
+          <p id={`${id}-fig-cheio`} className="al-st-dica al-st-dica-figurinhas" aria-live="polite">
+            {cheio ? t.criar.limiteDeFigurinhas : figurinhas.length > 0 ? t.criar.figurinhaDica : ""}
+          </p>
+          <p id={`${id}-fig-dica`} className="sr-only">
+            {t.criar.figurinhaDica}
+          </p>
           <ul className="al-st-tipos">
-            {TIPOS_DE_FIGURINHA.map((tipo) => (
-              <li key={tipo}>
-                <button type="button" className="al-st-tipo" aria-pressed={figurinhas.some((f) => f.tipo === tipo)} onClick={() => alternar(tipo)}>
-                  <span className="al-st-tipo-icone al-cond" aria-hidden style={{ color: ICONE_DO_TIPO[tipo].cor }}>
-                    {ICONE_DO_TIPO[tipo].texto}
-                  </span>
-                  {t.criar.tipo[tipo]}
-                </button>
-              </li>
-            ))}
+            {TIPOS_DE_FIGURINHA.map((tipo) => {
+              const ligada = figurinhas.some((f) => f.tipo === tipo);
+              const desligado = cheio && !ligada;
+              return (
+                <li key={tipo}>
+                  <button
+                    type="button"
+                    className="al-st-tipo"
+                    aria-pressed={ligada}
+                    aria-disabled={desligado || undefined}
+                    aria-describedby={desligado ? `${id}-fig-cheio` : undefined}
+                    onClick={() => alternar(tipo)}
+                  >
+                    <span className="al-st-tipo-icone al-cond" aria-hidden style={{ color: ICONE_DO_TIPO[tipo].cor }}>
+                      {ICONE_DO_TIPO[tipo].texto}
+                    </span>
+                    <span className="al-st-tipo-nome">{t.criar.tipo[tipo]}</span>
+                  </button>
+                </li>
+              );
+            })}
           </ul>
 
           <fieldset className="al-st-quem" role="radiogroup" aria-describedby={`${id}-regra`}>

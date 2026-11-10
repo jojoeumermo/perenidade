@@ -12,7 +12,8 @@
     "entrar": "Entre na sua conta para ver e criar stories.",
     "anteriores": "Stories anteriores",
     "seguintes": "Mais stories",
-    "abrindo": "Abrindo os stories de {nome}…"
+    "abrindo": "Abrindo os stories de {nome}…",
+    "maisUm": "Pôr mais um story"
   },
   "abas": {
     "rotulo": "Linhas"
@@ -49,7 +50,7 @@
     "limpar": "Apagar o desenho",
     "figurinhas": "Figurinhas",
     "figurinhaLigada": "{nome}: no story (toque para tirar)",
-    "limiteDeFigurinhas": "No máximo 3 figurinhas por story.",
+    "limiteDeFigurinhas": "Chegou a 3. Tire uma para pôr outra.",
     "tipo": {
       "contagem": "Contagem",
       "pergunta": "Pergunta",
@@ -147,7 +148,7 @@
       "maior": "Aumentar",
       "menor": "Diminuir",
       "centralizar": "Centralizar",
-      "tirar": "Tirar a foto ou o vídeo",
+      "tirar": "Remover foto ou vídeo",
       "video": "Vídeo do story",
       "foto": "Foto do story",
       "semMetadadoVideo": "O vídeo é refeito no seu aparelho em 720p: sai sem localização e sem dados da câmera.",
@@ -168,7 +169,10 @@
       "semGravador": "Este navegador não refaz vídeos. Use uma foto, ou outro navegador.",
       "comunidade": "Escolha a comunidade.",
       "cancelado": "Envio cancelado. Nada saiu do aparelho."
-    }
+    },
+    "contaDeFigurinhas": "{n} de {max}",
+    "figurinhaMover": "Mover a figurinha {nome}",
+    "figurinhaDica": "Arraste para mover; com dois dedos, gire e mude o tamanho. No teclado: setas movem, + e − mudam o tamanho, [ e ] giram."
   },
   "figurinha": {
     "contagem": {
@@ -293,7 +297,8 @@
     "tirarDoDestaque": "Tirar deste destaque",
     "apagarDestaque": "Apagar este destaque",
     "pessoaAnterior": "Pessoa anterior",
-    "proximaPessoa": "Próxima pessoa"
+    "proximaPessoa": "Próxima pessoa",
+    "verAoLado": "Ir para os stories de {nome}"
   },
   "cartao": {
     "porNoStory": "Pôr no story",
@@ -320,7 +325,6 @@
   },
   "destaques": {
     "rotulo": "Destaques",
-    "abrir": "Ver o destaque {titulo} ({n} stories)",
     "guardarTitulo": "Guardar no destaque",
     "aviso": "Fica no seu perfil depois das 24 h, para o mesmo público de agora. Você tira quando quiser. Nunca vai para o Fediverso.",
     "novo": "Novo destaque",
@@ -336,6 +340,19 @@
     "vazioDono": "Sem destaques ainda. No seu story, toque em ⋯ e em \"Guardar no destaque\".",
     "erro": "Os destaques não carregaram.",
     "cor": "Cor da capa",
-    "fechar": "Fechar"
+    "fechar": "Fechar",
+    "abrirN": {
+      "one": "Ver o destaque {titulo} ({n} story)",
+      "few": "Ver o destaque {titulo} ({n} stories)",
+      "many": "Ver o destaque {titulo} ({n} stories)",
+      "other": "Ver o destaque {titulo} ({n} stories)"
+    },
+    "seus": "Seus destaques",
+    "contaN": {
+      "one": "{n} destaque",
+      "few": "{n} destaques",
+      "many": "{n} destaques",
+      "other": "{n} destaques"
+    }
   }
 }

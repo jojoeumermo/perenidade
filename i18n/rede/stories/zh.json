@@ -12,7 +12,8 @@
     "entrar": "登录后才能查看和发布快拍。",
     "anteriores": "上一组快拍",
     "seguintes": "更多快拍",
-    "abrindo": "正在打开 {nome} 的快拍…"
+    "abrindo": "正在打开 {nome} 的快拍…",
+    "maisUm": "再发一条快拍"
   },
   "abas": {
     "rotulo": "时间线"
@@ -49,7 +50,7 @@
     "limpar": "清除画作",
     "figurinhas": "贴纸",
     "figurinhaLigada": "{nome}：已加入快拍（点按移除）",
-    "limiteDeFigurinhas": "每条快拍最多 3 个贴纸。",
+    "limiteDeFigurinhas": "已有 3 个。移除一个才能再加。",
     "tipo": {
       "contagem": "倒计时",
       "pergunta": "提问",
@@ -168,7 +169,10 @@
       "semGravador": "此浏览器无法处理视频。请改用照片或其他浏览器。",
       "comunidade": "请选择社区。",
       "cancelado": "已取消上传。没有任何内容离开设备。"
-    }
+    },
+    "contaDeFigurinhas": "{n}/{max}",
+    "figurinhaMover": "移动贴纸：{nome}",
+    "figurinhaDica": "拖动即可移动；双指可旋转和缩放。键盘：方向键移动，+ 和 − 缩放，[ 和 ] 旋转。"
   },
   "figurinha": {
     "contagem": {
@@ -293,7 +297,8 @@
     "tirarDoDestaque": "从此精选移除",
     "apagarDestaque": "删除此精选",
     "pessoaAnterior": "上一个人",
-    "proximaPessoa": "下一个人"
+    "proximaPessoa": "下一个人",
+    "verAoLado": "前往 {nome} 的快拍"
   },
   "cartao": {
     "porNoStory": "放进快拍",
@@ -320,7 +325,6 @@
   },
   "destaques": {
     "rotulo": "精选",
-    "abrir": "查看精选 {titulo}（{n} 条快拍）",
     "guardarTitulo": "存入精选",
     "aviso": "24 小时后仍留在你的主页，受众与现在相同。随时可以移除。绝不会进入联邦宇宙。",
     "novo": "新建精选",
@@ -336,6 +340,19 @@
     "vazioDono": "还没有精选。在你的快拍中点 ⋯ 再点“存入精选”。",
     "erro": "精选没有加载出来。",
     "cor": "封面颜色",
-    "fechar": "关闭"
+    "fechar": "关闭",
+    "abrirN": {
+      "one": "查看精选 {titulo}（{n} 条快拍）",
+      "few": "查看精选 {titulo}（{n} 条快拍）",
+      "many": "查看精选 {titulo}（{n} 条快拍）",
+      "other": "查看精选 {titulo}（{n} 条快拍）"
+    },
+    "seus": "你的精选",
+    "contaN": {
+      "one": "{n} 个精选",
+      "few": "{n} 个精选",
+      "many": "{n} 个精选",
+      "other": "{n} 个精选"
+    }
   }
 }

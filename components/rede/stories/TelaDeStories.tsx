@@ -15,7 +15,8 @@ const ABAS: readonly ("seguindo" | "comunidades" | "tudo")[] = ["seguindo", "com
 /**
  * Os stories (/alumia/stories; pranchas celular-stories-na-linha, celular-criar-story e celular-ver-story): a faixa no alto
  * (a mesma do alto da linha de Início, components/rede/stories/NoAlto.tsx), as abas Seguindo / Comunidades / Tudo e a linha de
- * sempre embaixo; o visor e o "criar" abrem por cima, com o endereço dizendo o que está aberto (?ver=@nome, ?criar=1). É o
+ * sempre embaixo; o visor e o "criar" abrem por cima, com o endereço dizendo o que está aberto (?ver=nome&i=0, ?criar=1,
+ * ?destaque=id; o "@" no ?ver=@nome também vale). É o
  * destino do "Pôr no story" do cartão. Atrás das flags rede-v2 + alumia-2 + alumia-stories (lib/rede/rotas-novas.ts):
  * desligadas, a página dá 404.
  */
@@ -28,8 +29,9 @@ export default function TelaDeStories({ lang, s, situacao }: PropsDaTelaDoPacote
   return (
     <div>
       <StoriesNoAlto lang={lang} situacao={situacao} />
-      {/* Os meus destaques (os mesmos do perfil): aqui também, para abrir e arrumar sem sair dos stories. */}
-      <DestaquesDoPerfil lang={lang} situacao={situacao} handle={situacao.handle ?? "voce"} />
+      {/* Os meus destaques (os mesmos do perfil; a prancha os põe no perfil): aqui só numa linha recolhível, fechada de início,
+          para abrir e arrumar sem sair dos stories e sem empurrar a linha para baixo. */}
+      <DestaquesDoPerfil lang={lang} situacao={situacao} handle={situacao.handle ?? "voce"} compacto />
 
       <div className="al-st-abas" role="tablist" aria-label={t?.abas.rotulo ?? s.abas.rotulo}>
         {ABAS.map((a, k) => (

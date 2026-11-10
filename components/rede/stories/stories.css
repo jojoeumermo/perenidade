@@ -771,3 +771,162 @@
 }
 :root[data-parado] [data-al="2"] :is(.al-st-entra, .al-st-explosao, .al-st-ouvir, .al-st-tipo-icone) { animation: none !important; }
 :root[data-parado] [data-al="2"] .al-st-explosao { display: none; }
+
+/* ───────────── Revisão: a tela do "criar" é a do story (9:16), figurinhas soltas, fileira de tipos inteira ───────────── */
+/* A prévia é exatamente o que vai ao ar: 9:16, nada estica a tela; o que passar da borda fica de fora, como no story. */
+[data-al="2"] .al-st-criar .al-st-tela { aspect-ratio: 9 / 16; min-height: 0; height: auto; overflow: hidden; box-sizing: border-box; }
+@media (min-width: 1024px) {
+  [data-al="2"] .al-st-criar-grade { grid-template-columns: minmax(0, min(460px, calc((100dvh - 64px) * 9 / 16))) minmax(0, 440px); }
+  [data-al="2"] .al-st-criar .al-st-tela { min-height: 0; }
+}
+/* A camada das figurinhas cobre a tela inteira; cada uma fica no x/y dela (FigurinhaSolta), girada e no tamanho escolhido. */
+[data-al="2"] .al-st-palco-figurinhas { position: absolute; inset: 0; z-index: 3; margin: 0; display: block; pointer-events: none; }
+[data-al="2"] .al-st-palco-figurinhas::before {
+  content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1.5px dashed rgba(255, 194, 26, 0.95);
+  opacity: 0; transition: opacity 0.15s; pointer-events: none;
+}
+[data-al="2"] .al-st-palco-figurinhas[data-guia="sim"]::before { opacity: 1; }
+[data-al="2"] .al-st-fig-camada { position: absolute; inset: 0; pointer-events: none; }
+[data-al="2"] .al-st-fig-solta {
+  position: absolute; width: min(74%, 330px); pointer-events: auto; transform-origin: 50% 50%; will-change: transform;
+  transition: filter 0.18s ease;
+}
+[data-al="2"] .al-st-palco-figurinhas .al-st-fig-solta { touch-action: none; cursor: grab; -webkit-user-select: none; user-select: none; }
+[data-al="2"] .al-st-palco-figurinhas .al-st-fig-solta :is(input, textarea, select) { -webkit-user-select: text; user-select: text; cursor: text; }
+[data-al="2"] .al-st-fig-solta[data-pegando="sim"] { cursor: grabbing; filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.45)); }
+[data-al="2"] .al-st-fig-solta[data-tipo="contagem"] { width: min(66%, 290px); }
+[data-al="2"] .al-st-fig-solta:is([data-tipo="link"], [data-tipo="comunidade"]) { width: max-content; max-width: 80%; }
+[data-al="2"] .al-st-palco-figurinhas .al-st-fig-solta:is([data-tipo="link"], [data-tipo="comunidade"]) { width: min(74%, 300px); }
+/* A inclinação agora é a da autora (giro); a torta fixa da F5 sairia somada. */
+[data-al="2"] .al-st-fig-solta :is(.al-fg-torto-esq, .al-fg-torto-dir) { transform: none; }
+[data-al="2"] .al-st-alca {
+  position: absolute; z-index: 2; left: 50%; top: -15px; translate: -50% 0; display: grid; place-items: center;
+  width: 44px; height: 24px; padding: 0; border: 2px solid #f3efe6; border-radius: 999px; background: #0f0e0d; color: #f3efe6;
+  cursor: grab; touch-action: none;
+}
+[data-al="2"] .al-st-alca svg { width: 20px; height: 20px; }
+[data-al="2"] .al-st-fig-solta[data-ativa="nao"] .al-st-alca { display: none; }
+/* No visor as figurinhas soltas ficam no lugar que a autora deixou (sem alça, sem arrastar). */
+[data-al="2"] .al-st-figurinhas-soltas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+[data-al="2"] .al-st-figurinhas-soltas .al-st-fig-solta { will-change: auto; }
+
+/* A tarja cresce com o que se escreve e quebra em até 2 linhas (como no visor), sem cortar o fim. */
+[data-al="2"] .al-st-escrita .al-st-tarja { max-width: 100%; box-sizing: border-box; }
+[data-al="2"] .al-st-escrita .al-st-tarja textarea {
+  display: block; field-sizing: content; min-width: 12ch; max-width: 100%; max-height: 2.4em; padding: 0; margin: 0; border: 0;
+  background: none; color: inherit; font: inherit; line-height: 1.2; resize: none; overflow: hidden; outline: none;
+}
+@supports not (field-sizing: content) {
+  [data-al="2"] .al-st-escrita .al-st-tarja textarea { width: min(34ch, 100%); }
+}
+[data-al="2"] .al-st-escrita .al-st-tarja textarea::placeholder { color: #a9a29a; }
+[data-al="2"] .al-st-escrita .al-st-tarja textarea:focus-visible { outline: none; text-decoration: underline; text-decoration-color: #ffc21a; text-underline-offset: 4px; }
+
+/* As 5 figurinhas numa grade de 5 (cabem em 375 px sem rolar; o rótulo pequeno quebra se for longo: "Compte à rebours"). */
+[data-al="2"] .al-st-tipos { grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-auto-columns: auto; gap: 6px; overflow: visible; margin-bottom: 30px; }
+[data-al="2"] .al-st-tipo { min-height: 74px; padding: 8px 3px; font-size: 12px; line-height: 1.1; }
+[data-al="2"] .al-st-tipo-nome { display: block; max-width: 100%; text-align: center; overflow-wrap: anywhere; hyphens: auto; }
+[data-al="2"] .al-st-tipo[aria-disabled="true"] { opacity: 0.38; cursor: not-allowed; filter: saturate(0.4); }
+[data-al="2"] .al-st-tipo[aria-disabled="true"]:active { transform: none; }
+@media (min-width: 1024px) { [data-al="2"] .al-st-tipo { font-size: 13px; padding-inline: 4px; } }
+[data-al="2"] .al-st-titulo-linha { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+[data-al="2"] .al-st-titulo-linha .al-st-titulo-secao { margin-bottom: 0; }
+[data-al="2"] .al-st-conta {
+  flex: 0 0 auto; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--al-superficie-2); color: var(--al-texto-3);
+  font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; transition: color 0.2s, border-color 0.2s;
+}
+[data-al="2"] .al-st-conta[data-cheio="sim"] { color: var(--al-dourado); border-color: var(--al-dourado); }
+[data-al="2"] .al-st-dica-figurinhas { margin: 6px 0 12px; min-height: 1.35em; line-height: 1.35; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-tipo[aria-disabled="true"] { opacity: 1; filter: none; border-style: dashed; color: var(--al-texto-3); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-conta[data-cheio="sim"] { color: var(--al-texto); border-color: var(--al-texto); border-width: 2px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-palco-figurinhas::before { border-left-color: var(--al-texto); }
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] :is(.al-st-fig-solta, .al-st-palco-figurinhas::before, .al-st-conta) { transition: none; }
+}
+
+/* Os destaques na tela dos stories: uma linha só ("Seus destaques · 2 destaques" e as cores), que abre a fileira ao tocar. */
+[data-al="2"] .al-st-destaques-compactos { padding: 0; background: var(--al-fundo); border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .al-st-destaques-compactos summary {
+  display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; cursor: pointer; list-style: none;
+  color: var(--al-texto-2); font-size: 14px;
+}
+[data-al="2"] .al-st-destaques-compactos summary::-webkit-details-marker { display: none; }
+[data-al="2"] .al-st-destaques-titulo { font-weight: 800; color: var(--al-texto); }
+[data-al="2"] .al-st-destaques-conta { color: var(--al-texto-3); font-size: 13px; }
+[data-al="2"] .al-st-destaques-rostos { display: inline-flex; margin-left: auto; }
+[data-al="2"] .al-st-destaques-rostos > span { width: 18px; height: 18px; border-radius: 999px; border: 2px solid var(--al-fundo); margin-left: -6px; }
+[data-al="2"] .al-st-destaques-seta { width: 18px; height: 18px; flex: 0 0 18px; transition: transform 0.25s cubic-bezier(0.2, 1.4, 0.4, 1); }
+[data-al="2"] .al-st-destaques-compactos details[open] .al-st-destaques-seta { transform: rotate(180deg); }
+[data-al="2"] .al-st-destaques-compactos details[open] > .al-st-faixa-trilho { padding-bottom: 12px; animation: al-st-entra 0.3s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+[data-al="2"] .al-st-destaques-compactos summary:focus-visible { outline: 3px solid var(--al-dourado); outline-offset: -3px; }
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] .al-st-destaques-seta { transition: none; }
+  [data-al="2"] .al-st-destaques-compactos details[open] > .al-st-faixa-trilho { animation: none; }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-st-destaques-rostos > span { border-color: var(--al-texto); }
+
+/* ───────────── Revisão: visor com presença, cubo de duas faces, faixa maior no computador ───────────── */
+/* O visor ocupa a tela sem sobrar: a tela do story nunca passa da largura (box-sizing nas bordas do e-ink e do contraste). */
+[data-al="2"] .al-st-visor, [data-al="2"] .al-st-visor .al-st-tela { box-sizing: border-box; max-width: 100vw; }
+[data-al="2"] .al-st-visor-palco { min-width: 0; }
+[data-al="2"] .al-st-visor > :is(.al-st-visor-palco, .al-st-rodape) { position: relative; z-index: 1; }
+/* O fundo desfocado (só no computador; no celular o story já é a tela inteira). */
+[data-al="2"] .al-st-visor-fundo { display: none; }
+@media (min-width: 768px) {
+  [data-al="2"] .al-st-visor-fundo {
+    display: block; position: absolute; inset: -10%; z-index: 0; pointer-events: none; overflow: hidden;
+    background: radial-gradient(60% 60% at 50% 45%, var(--al-st-visor-cor, #23408e), transparent 75%);
+    opacity: calc(0.42 * var(--al-st-escurece, 1)); filter: blur(70px) saturate(1.15); transition: background 0.6s ease;
+  }
+  [data-al="2"] .al-st-visor-fundo img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+}
+/* As vizinhas dos lados, pequenas e escurecidas (só onde cabem, longe das setas). */
+[data-al="2"] .al-st-lado { display: none; }
+@media (min-width: 1100px) {
+  [data-al="2"] .al-st-lado {
+    position: absolute; top: 50%; display: grid; place-content: center; justify-items: center; gap: 12px;
+    width: 46%; aspect-ratio: 9 / 16; translate: 0 -50%; padding: 12px; border: 0; border-radius: 16px; cursor: pointer;
+    background: radial-gradient(120% 80% at 50% 30%, color-mix(in srgb, var(--al-st-anel, #333) 55%, #000), #0b0a09);
+    color: #f3efe6; font: inherit; opacity: 0.55; filter: brightness(0.75);
+    transition: opacity 0.25s ease, filter 0.25s ease, scale 0.35s cubic-bezier(0.2, 1.4, 0.4, 1);
+  }
+  [data-al="2"] .al-st-lado:hover { opacity: 0.9; filter: none; scale: 1.03; }
+  [data-al="2"] .al-st-lado-esq { right: calc(100% + 104px); }
+  [data-al="2"] .al-st-lado-dir { left: calc(100% + 104px); }
+  [data-al="2"] .al-st-lado-rosto { display: grid; place-items: center; width: 72px; height: 72px; padding: 3px; border-radius: 19px; background: var(--al-st-anel, #555); }
+  [data-al="2"] .al-st-lado-rosto svg { width: 100%; height: 100%; border-radius: 15px; background: #0b0a09; }
+  [data-al="2"] .al-st-lado-nome { max-width: 100%; font-weight: 800; font-size: 15px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  [data-al="2"] .al-st-visor[data-segurando="sim"] .al-st-lado { opacity: 0; }
+}
+/* A face de quem vem, no cubo: do mesmo tamanho da tela, por cima dela só enquanto a troca termina. */
+[data-al="2"] .al-st-tela-vizinha { position: absolute; inset: 0; z-index: 1; pointer-events: none; backface-visibility: hidden; will-change: transform; }
+[data-al="2"] .al-st-visor .al-st-tela-vizinha { border-radius: 0 0 20px 20px; height: auto; }
+@media (min-width: 768px) { [data-al="2"] .al-st-visor .al-st-tela-vizinha { border-radius: 20px; } }
+[data-al="2"] .al-st-topo-vizinha { pointer-events: none; }
+/* O campo da resposta mostra o nome inteiro ("Responder só para Passe Livre SP…") e corta com reticências se não couber. */
+[data-al="2"] .al-st-responder input { min-width: 0; text-overflow: ellipsis; }
+[data-al="2"] .al-st-rodape[hidden] { display: none; }
+
+/* O "+" solto sobre "Seu story" quando já há story no ar (como no Instagram): um atalho para pôr mais um. */
+[data-al="2"] .al-st-faixa-item:has(.al-st-mais-solto) { position: relative; }
+[data-al="2"] .al-st-mais-solto { right: 0; top: 47px; bottom: auto; padding: 0; cursor: pointer; transition: scale 0.2s cubic-bezier(0.2, 1.5, 0.4, 1); }
+[data-al="2"] .al-st-mais-solto:hover { scale: 1.12; }
+[data-al="2"] .al-st-mais-solto:active { scale: 0.92; }
+
+/* Computador: as bolinhas maiores (72 px) e o nome com mais espaço; sobra coluna para isso. */
+@media (min-width: 900px) {
+  [data-al="2"] .al-st-faixa-trilho { gap: 16px; }
+  [data-al="2"] .al-st-faixa-item { flex-basis: 92px; }
+  [data-al="2"] .al-st-bolinha { width: 92px; }
+  [data-al="2"] .al-st-anel { width: 74px; height: 74px; border-radius: 20px; }
+  [data-al="2"] .al-st-anel-miolo { border-radius: 16px; }
+  [data-al="2"] .al-st-nome { max-width: 92px; font-size: 13.5px; }
+  [data-al="2"] .al-st-esqueleto { width: 74px; height: 74px; border-radius: 20px; }
+  [data-al="2"] .al-st-mais-solto { right: 4px; top: 56px; }
+  [data-al="2"] .al-st-destaque-capa { width: 74px; height: 74px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] :is(.al-st-lado, .al-st-mais-solto, .al-st-visor-fundo) { transition: none; }
+}
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-visor-fundo { display: none; }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-lado { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); filter: none; opacity: 1; }

@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 import { createJiti } from "jiti";
 import { doisDigitos, faltaParaOAto, haQuanto, noAr } from "../lib/rede/stories/tempo.ts";
 import {
-  alternarFigurinha, anelEmCss, barrasDoProgresso, coresDoAnel, corValida, dominioDoLink, duracaoDoStory, linkSeguro, mosaicoDeFundo,
+  alternarFigurinha, anelEmCss, posicaoInicial, posicaoValida, barrasDoProgresso, coresDoAnel, corValida, dominioDoLink, duracaoDoStory, linkSeguro, mosaicoDeFundo,
   nomeCurto, somaDaEnquete, tamanhoDoTexto,
 } from "../lib/rede/stories/visual.ts";
 import {
@@ -68,6 +68,9 @@ igual("domínio sem www", dominioDoLink("https://www.cartacapital.com.br/x"), "c
   const p = { tipo: "pergunta" }, e = { tipo: "enquete" }, c = { tipo: "contagem" }, l = { tipo: "link" };
   igual("figurinha liga e desliga", alternarFigurinha(alternarFigurinha([], p), p), []);
   igual("no máximo 3 figurinhas", alternarFigurinha([p, e, c], l).map((f) => f.tipo), ["pergunta", "enquete", "contagem"]);
+  igual("o lugar da figurinha fica dentro da tela", posicaoValida({ x: 9, y: -1, giro: 300, escala: 40 }), { x: 0.95, y: 0.05, giro: 45, escala: 1.6 });
+  igual("lugar estranho vira o padrão", posicaoValida({ x: Number.NaN, y: "1" }), { x: 0.5, y: 0.7, giro: 0, escala: 1 });
+  igual("as figurinhas novas nascem em lugares diferentes", new Set([0, 1, 2].map((k) => posicaoInicial(k).y)).size, 3);
   ok("o limite do contrato é 3", LIMITES_DO_STORY.figurinhas === 3);
 }
 igual("enquete: abaixo de 3 votos não há soma", [somaDaEnquete([1, 1]), somaDaEnquete(null), somaDaEnquete([0, 2])], [null, null, null]);
