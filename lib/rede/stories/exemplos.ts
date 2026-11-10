@@ -5,7 +5,7 @@
 // do back-end existir. Fora da prévia este arquivo nem é baixado (lib/rede/cliente-stories.ts importa sob demanda).
 // Codinomes e organizações de exemplo, nenhuma pessoa real. Sem "@/" de propósito (roda no Node nos testes).
 import type { ClienteDeStories } from "../cliente-stories";
-import type { AutoraDoStory, FigurinhaEnquete, PedidoDeStory, Story } from "../tipos-stories";
+import type { AutoraDoStory, DestaqueDeStories, FigurinhaEnquete, PedidoDeStory, Story } from "../tipos-stories";
 import { LIMITES_DO_STORY } from "../tipos-stories";
 
 const H = 60 * 60 * 1000;
@@ -55,13 +55,79 @@ export function storiesDeExemplo(agora: number): Story[] {
     story("ex-leste-1", LESTE, 5 * H, { publico: "proximos", fundo: { tipo: "listras", cor: "azul" }, texto: "Plenária do Núcleo Leste", legenda: "Sábado, 15h · sede da ocupação" }),
     story("ex-leste-2", LESTE, 40 * MIN, { publico: "proximos", fundo: { tipo: "listras", cor: "noite" }, texto: "Pauta aberta", figurinhas: [{ tipo: "pergunta", texto: "O que não pode faltar na pauta?" }] }),
     story("ex-dce-1", DCE, 7 * H, { publico: "membros", fundo: { tipo: "mosaico", cor: "dourado" }, texto: "Calourada de luta", legenda: "Sexta, 18h · pátio" }),
+    // Um vídeo de exemplo: o endereço é gerado no próprio navegador (gerarVideoDeExemplo), nada vem de fora.
+    story("ex-dce-2", DCE, 20 * MIN, {
+      publico: "membros",
+      fundo: { tipo: "video", cor: "vermelho", url: "", alt: "Vídeo de exemplo: cartões da faixa acendendo", duracao: 5000, som: false },
+      texto: "Ato na reitoria",
+      legenda: "Gravado agora · sem som",
+      estilo: { fonte: "condensada", alinhar: "esq", caixa: "nenhuma" },
+      figurinhas: [{ tipo: "comunidade", slug: "estudantes-ufpe", nome: "Estudantes UFPE" }],
+    }),
   ];
+}
+
+/**
+ * Um vídeo de exemplo feito no próprio navegador (5 s de cartões acendendo, 720 × 1280, sem som), para a prévia mostrar um story
+ * de vídeo sem baixar nada. Nulo onde não há canvas nem gravador (Node, navegador antigo).
+ */
+export async function gerarVideoDeExemplo(ms = 5000): Promise<string | null> {
+  if (typeof document === "undefined" || typeof MediaRecorder === "undefined") return null;
+  const canvas = document.createElement("canvas");
+  canvas.width = 360;
+  canvas.height = 640;
+  const ctx = canvas.getContext("2d");
+  if (!ctx || !("captureStream" in canvas)) return null;
+  const tipos = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"];
+  const tipo = tipos.find((x) => MediaRecorder.isTypeSupported(x));
+  if (!tipo) return null;
+  const fluxo = canvas.captureStream(30);
+  const gravador = new MediaRecorder(fluxo, { mimeType: tipo, videoBitsPerSecond: 800_000 });
+  const partes: Blob[] = [];
+  gravador.ondataavailable = (e) => e.data.size && partes.push(e.data);
+  const cores = ["#c21f16", "#8e1610", "#e8661f", "#f08a24", "#a91a12"];
+  const inicio = performance.now();
+  let quadro = 0;
+  const desenhar = () => {
+    const t = (performance.now() - inicio) / 1000;
+    for (let y = 0; y < 32; y++)
+      for (let x = 0; x < 18; x++) {
+        const k = Math.abs(Math.sin(x * 12.9898 + y * 78.233 + Math.floor(t * 3 + (x + y) / 6)) * 43758.5453) % 1;
+        ctx.fillStyle = cores[Math.floor(k * cores.length)];
+        ctx.fillRect(x * 20 + 1, y * 20 + 1, 18, 18);
+      }
+    quadro = requestAnimationFrame(desenhar);
+  };
+  desenhar();
+  gravador.start(500);
+  await new Promise((r) => setTimeout(r, ms));
+  cancelAnimationFrame(quadro);
+  await new Promise<void>((r) => {
+    gravador.onstop = () => r();
+    gravador.stop();
+  });
+  fluxo.getTracks().forEach((x) => x.stop());
+  return URL.createObjectURL(new Blob(partes, { type: tipo.split(";")[0] }));
 }
 
 /** O dublê: o mesmo contrato do cliente de verdade, na memória. */
 export function criarClienteDaPrevia(relogio: () => number = Date.now): ClienteDeStories {
   const todos = storiesDeExemplo(relogio());
   const meus: Story[] = [];
+  // O vídeo de exemplo começa a ser feito já (5 s), para estar pronto quando alguém tocar na bolinha.
+  const video = gerarVideoDeExemplo().catch(() => null);
+  const comVideo = async (lista: Story[]): Promise<Story[]> => {
+    if (!lista.some((s) => s.fundo.tipo === "video" && !s.fundo.url)) return lista;
+    const url = await video;
+    return lista.map((s) => (s.fundo.tipo === "video" && !s.fundo.url ? (url ? { ...s, fundo: { ...s.fundo, url } } : { ...s, fundo: { tipo: "mosaico", cor: s.fundo.cor } }) : s));
+  };
+  // Destaques de exemplo: os stories guardados não somem (na prévia, cópias dos exemplos com 3 dias).
+  const guardado = (s: Story, dias: number): Story => ({ ...s, id: `${s.id}-d`, criado_em: new Date(relogio() - dias * 24 * H).toISOString(), expira_em: new Date(relogio() - dias * 24 * H + LIMITES_DO_STORY.vida).toISOString() });
+  const destaques: { autora: string; d: DestaqueDeStories; stories: Story[] }[] = [
+    { autora: "rosavermelha", d: { id: "ex-dest-greve", titulo: "Greve 2026", cor: "vermelho", n: 2 }, stories: [guardado(todos[0], 3), guardado(todos[1], 3)] },
+    { autora: "rosavermelha", d: { id: "ex-dest-pauta", titulo: "Pauta", cor: "dourado", n: 1 }, stories: [guardado(todos[2], 5)] },
+    { autora: "voce", d: { id: "ex-dest-meu", titulo: "Atos", cor: "azul", n: 1 }, stories: [{ ...guardado(todos[4], 2), autora: EU_NA_PREVIA, meu: true }] },
+  ];
   const espera = <T,>(v: T): Promise<T> => new Promise((r) => setTimeout(() => r(structuredClone(v)), 120));
   const noAr = (s: Story) => Date.parse(s.expira_em) > relogio();
   const achar = (id: string) => [...todos, ...meus].find((s) => s.id === id);
@@ -79,14 +145,16 @@ export function criarClienteDaPrevia(relogio: () => number = Date.now): ClienteD
       }));
       return espera({ meus: meus.filter(noAr).map((s) => s.id), grupos });
     },
-    abrir: (handle) => espera(todos.filter((s) => s.autora.handle === handle && noAr(s))),
+    abrir: (handle) => espera(todos.filter((s) => s.autora.handle === handle && noAr(s))).then(comVideo),
     meus: () => espera(meus.filter(noAr)),
     publicar: (pedido: PedidoDeStory) => {
       const id = `ex-meu-${++n}`;
       const agora = relogio();
-      const fundo = pedido.imagem
-        ? { tipo: "imagem" as const, cor: pedido.fundo.cor, url: pedido.imagem.replace(/^previa:/, ""), alt: pedido.alt ?? "" }
-        : { tipo: pedido.fundo.tipo === "mosaico" ? ("mosaico" as const) : ("listras" as const), cor: pedido.fundo.cor };
+      const fundo: Story["fundo"] = pedido.imagem
+        ? pedido.fundo.tipo === "video"
+          ? { tipo: "video", cor: pedido.fundo.cor, url: pedido.imagem.replace(/^previa:/, ""), alt: pedido.alt ?? "", duracao: pedido.video?.duracao_ms ?? 5000, som: !!pedido.video?.som }
+          : { tipo: "imagem", cor: pedido.fundo.cor, url: pedido.imagem.replace(/^previa:/, ""), alt: pedido.alt ?? "" }
+        : { tipo: pedido.fundo.tipo === "mosaico" ? "mosaico" : "listras", cor: pedido.fundo.cor };
       const s: Story = {
         id,
         autora: EU_NA_PREVIA,
@@ -98,6 +166,8 @@ export function criarClienteDaPrevia(relogio: () => number = Date.now): ClienteD
         legenda: pedido.legenda,
         figurinhas: pedido.figurinhas.map((f) => (f.tipo === "enquete" ? { ...f, meu_voto: null, soma: null } : f)),
         meu: true,
+        estilo: pedido.estilo ?? {},
+        destaques: [],
       };
       meus.push(s);
       return espera({ id, expira_em: s.expira_em });
@@ -129,6 +199,51 @@ export function criarClienteDaPrevia(relogio: () => number = Date.now): ClienteD
     },
     denunciar: () => espera({ protocolo: "PREVIA-0001" }),
     // Na prévia a imagem nunca sai do aparelho: vira um endereço local do navegador.
-    enviarImagem: (imagem) => espera(`previa:${typeof URL !== "undefined" && "createObjectURL" in URL ? URL.createObjectURL(imagem) : ""}`),
+    enviarImagem: async (imagem, aoProgresso) => {
+      // Um envio de mentira, com andamento, para a prévia mostrar o anel de progresso.
+      for (let k = 1; k <= 5; k++) {
+        await new Promise((r) => setTimeout(r, 160));
+        aoProgresso?.(k / 5);
+      }
+      return `previa:${typeof URL !== "undefined" && "createObjectURL" in URL ? URL.createObjectURL(imagem) : ""}`;
+    },
+    comunidades: () =>
+      espera([
+        { slug: "estudantes-ufpe", nome: "Estudantes UFPE" },
+        { slug: "passe-livre-sp", nome: "Passe Livre SP" },
+        { slug: "moradia-leste", nome: "Moradia Zona Leste" },
+      ]),
+    destaques: (handle) =>
+      espera(destaques.filter((x) => x.autora === handle || (handle === "eu" && x.autora === "voce")).map((x) => ({ ...x.d, n: x.stories.length }))),
+    destaque: (id) => espera(destaques.find((x) => x.d.id === id)?.stories ?? []).then(comVideo),
+    salvarDestaque: ({ destaque, titulo, story, cor }) => {
+      let alvo = destaques.find((x) => x.d.id === destaque && x.autora === "voce");
+      if (!alvo) {
+        if (destaques.filter((x) => x.autora === "voce").length >= LIMITES_DO_STORY.destaques) return Promise.reject(new Error("limite:destaques"));
+        alvo = { autora: "voce", d: { id: `ex-dest-${++n}`, titulo: titulo ?? "Destaque", cor: cor ?? "vermelho", n: 0 }, stories: [] };
+        destaques.push(alvo);
+      } else {
+        if (titulo) alvo.d.titulo = titulo;
+        if (cor) alvo.d.cor = cor;
+      }
+      const s = meus.find((x) => x.id === story);
+      if (s && !alvo.stories.some((x) => x.id === s.id)) {
+        alvo.stories.push(s);
+        s.destaques = [...(s.destaques ?? []), alvo.d.id];
+      }
+      return espera({ id: alvo.d.id, titulo: alvo.d.titulo, cor: alvo.d.cor });
+    },
+    tirarDoDestaque: (destaque, story) => {
+      const alvo = destaques.find((x) => x.d.id === destaque);
+      if (alvo) alvo.stories = alvo.stories.filter((s) => s.id !== story);
+      const s = meus.find((x) => x.id === story);
+      if (s) s.destaques = (s.destaques ?? []).filter((d) => d !== destaque);
+      return espera({ ok: true });
+    },
+    apagarDestaque: (destaque) => {
+      const i = destaques.findIndex((x) => x.d.id === destaque && x.autora === "voce");
+      if (i >= 0) destaques.splice(i, 1);
+      return espera({ apagado: i >= 0 });
+    },
   };
 }

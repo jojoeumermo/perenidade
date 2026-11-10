@@ -11,7 +11,8 @@
     "tentar": "重试",
     "entrar": "登录后才能查看和发布快拍。",
     "anteriores": "上一组快拍",
-    "seguintes": "更多快拍"
+    "seguintes": "更多快拍",
+    "abrindo": "正在打开 {nome} 的快拍…"
   },
   "abas": {
     "rotulo": "时间线"
@@ -40,7 +41,8 @@
       "dourado": "金",
       "verde": "绿",
       "rosa": "粉",
-      "noite": "夜"
+      "noite": "夜",
+      "papel": "纸白"
     },
     "desenho": "画布：拖动来画",
     "desfazer": "撤销上一笔",
@@ -52,7 +54,8 @@
       "contagem": "倒计时",
       "pergunta": "提问",
       "enquete": "投票",
-      "link": "链接"
+      "link": "链接",
+      "comunidade": "社区"
     },
     "quemVe": "谁能看",
     "publico": {
@@ -74,7 +77,7 @@
     "publicar": "发布快拍",
     "publicando": "发布中…",
     "publicado": "快拍已发布，24 小时后消失。",
-    "vazio": "写点文字、画一画或选一张图片。",
+    "vazio": "写点文字、画画、拍照或从相册选择。",
     "deUmPost": "从帖子生成的快拍：会附上帖子的链接。",
     "erro": {
       "grande": "图片太大（处理后最多 3 MB）。",
@@ -88,6 +91,83 @@
       "limite": "你刚刚发布了很多快拍，请稍等。",
       "banco": "数据库还没有快拍功能（服务器尚未更新）。",
       "falha": "发布失败，请重试。"
+    },
+    "camera": "相机",
+    "galeriaAjuda": "照片或视频（最长 60 秒）",
+    "corDaLetra": "文字颜色",
+    "corAlvo": {
+      "fundo": "背景",
+      "letra": "文字"
+    },
+    "estilo": {
+      "rotulo": "文字样式",
+      "fonte": {
+        "condensada": "海报",
+        "serifa": "经典",
+        "maquina": "打字机",
+        "marcador": "马克笔"
+      },
+      "alinhar": "对齐：{lado}",
+      "alinhamento": {
+        "esq": "左对齐",
+        "centro": "居中",
+        "dir": "右对齐"
+      },
+      "caixa": "文字底色"
+    },
+    "pincel": {
+      "rotulo": "画笔",
+      "caneta": "钢笔",
+      "marca": "荧光笔",
+      "espessura": "粗细"
+    },
+    "midia": {
+      "titulo": "照片和视频",
+      "filtros": "滤镜",
+      "filtro": {
+        "nenhum": "原图",
+        "vivo": "鲜艳",
+        "quente": "暖色",
+        "frio": "冷色",
+        "antigo": "复古",
+        "pb": "黑白",
+        "lambe": "街头海报"
+      },
+      "cortar": "剪辑视频",
+      "inicio": "片段开始",
+      "fim": "片段结束",
+      "trecho": "{dur} 片段（{ini} 至 {fim}）",
+      "som": "视频声音",
+      "comSom": "有声",
+      "semSom": "静音",
+      "somAjuda": "静音时，音频根本不会离开你的设备。",
+      "ajustar": "位置",
+      "gestos": "拖动可移动。用两根手指（或鼠标滚轮）旋转和缩放。",
+      "girar": "旋转 90°",
+      "maior": "放大",
+      "menor": "缩小",
+      "centralizar": "居中",
+      "tirar": "移除照片或视频",
+      "video": "快拍视频",
+      "foto": "快拍照片",
+      "semMetadadoVideo": "视频会在你的设备上重新生成为 720p：不含位置和相机信息。",
+      "altVideo": "为看不见的人描述视频（可选）",
+      "lendo": "正在打开视频…"
+    },
+    "progresso": {
+      "preparando": "正在设备上处理视频… {pct}%",
+      "foto": "正在处理照片…",
+      "enviando": "正在上传… {pct}%",
+      "publicando": "正在发布…",
+      "cancelar": "取消",
+      "ajuda": "视频在这里重新生成，不含位置。请保持此页面打开。"
+    },
+    "erroMidia": {
+      "video": "无法读取该视频。请使用 MP4、MOV 或 WEBM。",
+      "videoGrande": "视频太大（最多 20 MB）。请剪短一些。",
+      "semGravador": "此浏览器无法处理视频。请改用照片或其他浏览器。",
+      "comunidade": "请选择社区。",
+      "cancelado": "已取消上传。没有任何内容离开设备。"
     }
   },
   "figurinha": {
@@ -131,6 +211,13 @@
       "endereco": "地址（https://…）",
       "texto": "链接文字（可选）",
       "abrir": "打开 {dominio}（离开 Alumia）"
+    },
+    "comunidade": {
+      "rotulo": "社区",
+      "escolha": "选择社区",
+      "nenhuma": "你还没有加入任何社区。",
+      "carregando": "正在加载你的社区…",
+      "abrir": "打开社区 {nome}"
     }
   },
   "visor": {
@@ -193,11 +280,62 @@
       "spam": "广告或刷屏",
       "outro": "其他原因"
     },
-    "erroAoEnviar": "发送失败，请重试。"
+    "erroAoEnviar": "发送失败，请重试。",
+    "ajudaToque": "触摸：右侧前进，左侧后退，按住暂停，左右滑动切换人，向下滑动关闭。M 键开关声音。",
+    "som": "打开声音",
+    "mudo": "关闭声音",
+    "semSomNoVideo": "此视频发布时没有声音",
+    "tocarParaOuvir": "轻点收听",
+    "video": "快拍视频",
+    "carregandoVideo": "正在加载视频…",
+    "destaque": "精选 · {titulo}",
+    "guardar": "存入精选",
+    "tirarDoDestaque": "从此精选移除",
+    "apagarDestaque": "删除此精选",
+    "pessoaAnterior": "上一个人",
+    "proximaPessoa": "下一个人"
   },
   "cartao": {
     "porNoStory": "放进快拍",
     "porNoStoryAjuda": "用这条帖子的链接发布快拍（24 小时后消失）"
   },
-  "previa": "示例数据预览：这里的内容不会发送。"
+  "previa": "示例数据预览：这里的内容不会发送。",
+  "camera": {
+    "titulo": "相机",
+    "fechar": "关闭相机",
+    "modos": "照片或视频",
+    "foto": "照片",
+    "video": "视频",
+    "disparo": "拍照（按住录像）",
+    "gravar": "开始录制",
+    "parar": "停止录制",
+    "dica": "轻点拍照，按住录像",
+    "virar": "切换摄像头",
+    "galeria": "从相册选择",
+    "abrindo": "正在打开相机…",
+    "negada": "没有相机权限。请在浏览器设置中允许，或使用相册。",
+    "semCamera": "此设备上没有找到相机。请使用相册。",
+    "gravando": "正在录制 {tempo} / 1:00",
+    "privacidade": "发布之前，任何内容都不会离开设备。"
+  },
+  "destaques": {
+    "rotulo": "精选",
+    "abrir": "查看精选 {titulo}（{n} 条快拍）",
+    "guardarTitulo": "存入精选",
+    "aviso": "24 小时后仍留在你的主页，受众与现在相同。随时可以移除。绝不会进入联邦宇宙。",
+    "novo": "新建精选",
+    "nome": "精选名称",
+    "criar": "新建并存入",
+    "guardar": "存到这里",
+    "guardado": "已存入 {titulo}。",
+    "jaEsta": "已在 {titulo} 中",
+    "tirado": "已从精选移除。",
+    "limite": "最多 6 个精选。",
+    "apagarConfirma": "删除精选 {titulo}？其中超过 24 小时的快拍将消失。",
+    "apagado": "精选已删除。",
+    "vazioDono": "还没有精选。在你的快拍中点 ⋯ 再点“存入精选”。",
+    "erro": "精选没有加载出来。",
+    "cor": "封面颜色",
+    "fechar": "关闭"
+  }
 }
