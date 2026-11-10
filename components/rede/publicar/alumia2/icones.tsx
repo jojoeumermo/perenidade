@@ -41,6 +41,13 @@ export const ICONES = {
   acessibilidade: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7.2h.01M7.5 9.5l4.5 1 4.5-1M12 10.5v3M9.5 17.5l2.5-4 2.5 4",
   ajuda: "M4 5h16v11H9l-5 4zM10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4M12 14.2h.01",
   calendario: "M4.5 6h15v14h-15zM4.5 10h15M8.5 3.5v4M15.5 3.5v4",
+  menu: "M4 7h16M4 12h16M4 17h16",
+  voltar: "M10 6 4 12l6 6M4.5 12H20",
+  escudo: "M12 3.5 19 6v5.5c0 4.3-2.9 7.6-7 9-4.1-1.4-7-4.7-7-9V6z",
+  moderar: "M12 3.5 19 6v5.5c0 4.3-2.9 7.6-7 9-4.1-1.4-7-4.7-7-9V6zM9 12l2 2 4-4.2",
+  silenciar: "M4 9.5h3.5L12 5.5v13l-4.5-4H4zM16 9.5l4.5 5M20.5 9.5 16 14.5",
+  organizacao: "M4 20V9l8-4.5L20 9v11M9.5 20v-5h5v5M3 20h18",
+  idioma: "M4 5.5h9M8.5 4v1.5c0 4-2 7-4.5 8.5M6 9c1.2 2.4 3 4 5.5 5M12.5 20l3.5-8.5 3.5 8.5M13.7 17.5h4.6",
 } as const;
 
 export type NomeDoIcone = keyof typeof ICONES;

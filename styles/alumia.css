@@ -801,3 +801,102 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 /* No menu "…" do cartão, tudo alinhado à esquerda (os itens que as frentes encaixam vinham centralizados). */
 [data-al="2"] .al2-mais-acoes[open] > div > :is(a, button, form, div) { justify-content: flex-start; text-align: left; }
 [data-al="2"] .al2-mais-acoes[open] > div :is(a, button) { width: 100%; justify-content: flex-start; text-align: left; }
+
+/* ───── A conta e o painel "Mais" (revisão da casca, 10/11) ───── */
+/* Os itens da conta, todos com ícone, no menu do computador e no painel do celular. */
+[data-al="2"] .al2-conta-itens { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al2-conta-item {
+  display: flex; align-items: center; gap: 0.75rem; width: 100%; min-height: 44px; padding: 0 0.65rem; border: 0; border-radius: 10px;
+  background: none; color: var(--al-texto-2); font: 600 0.9375rem/1.2 var(--al-fonte); text-align: start; text-decoration: none; cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, transform 200ms var(--al2-mola);
+}
+[data-al="2"] .al2-conta-item svg { flex: none; color: var(--al-texto-3); transition: color 150ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  [data-al="2"] .al2-conta-item:hover { background: var(--al-superficie-2); color: var(--al-texto); }
+  [data-al="2"] .al2-conta-item:hover svg { color: var(--al-dourado); }
+}
+[data-al="2"] .al2-conta-item:active { transform: scale(0.98); }
+[data-al="2"] .al2-conta-secao {
+  display: flex; align-items: center; gap: 0.4rem; margin: 0 0.5rem 0.4rem; color: var(--al-texto-3);
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+}
+[data-al="2"] .al2-idiomas { padding-top: 0.6rem; }
+[data-al="2"] .al2-idiomas ul { margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al2-idioma {
+  display: flex; align-items: center; gap: 0.35rem; min-height: 40px; padding: 0 0.65rem; border: 1px solid var(--al-linha); border-radius: 10px;
+  color: var(--al-texto-2); font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: border-color 150ms ease, background-color 150ms ease;
+}
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-idioma:hover { background: var(--al-superficie-2); color: var(--al-texto); } }
+[data-al="2"] .al2-idioma[aria-current="true"] { border-color: var(--al-dourado); color: var(--al-texto); font-weight: 800; }
+[data-al="2"] .al2-idioma[aria-current="true"] svg { color: var(--al-dourado); }
+
+/* Computador: o menu da conta abre AO LADO do menu da esquerda, ancorado embaixo (não cobre Atos, Escrever nem o resto do menu). */
+@media (min-width: 1024px) {
+  [data-al="2"] .al2-menu-lateral:has(.al2-conta[open]) { z-index: 40; }
+  /* Ancorado no pé do menu (e não no cartão da conta, mais estreito): sai rente à borda da coluna. */
+  [data-al="2"] .al2-menu-pe { position: relative; }
+  [data-al="2"] .al2-menu-pe .al2-conta { position: static; }
+  [data-al="2"] .al2-menu-pe .al2-conta-menu {
+    left: calc(100% + 13px); right: auto; bottom: 0.9rem; width: 300px; max-height: min(86dvh, 640px); padding: 0.5rem;
+    box-shadow: 0 18px 50px #000a, 0 0 0 1px #0006; transform-origin: bottom left; animation-name: al2-conta-abre-lado;
+  }
+}
+@keyframes al2-conta-abre-lado { from { opacity: 0; transform: translateX(-8px) scale(0.97); } to { opacity: 1; transform: none; } }
+
+/* Celular: o botão "Mais" do alto acende quando a tela atual mora no painel. */
+[data-al="2"] .al2-botao-mais[data-atual] { color: var(--al-texto); background: var(--al-superficie); }
+[data-al="2"] .al2-botao-mais[data-atual]::after {
+  content: ""; position: absolute; left: 30%; right: 30%; bottom: 4px; height: 2px; border-radius: 2px; background: var(--al-vermelho);
+}
+:root:has([data-al="2"] .al2-painel-mais[open]) { overflow: hidden; }
+[data-al="2"] .al2-painel-mais {
+  position: fixed; inset: 0 0 0 auto; width: min(88vw, 380px); height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0;
+  border: 0; border-inline-start: 1px solid var(--al-superficie-2); background: var(--al-fundo); color: var(--al-texto);
+  overflow-y: auto; overscroll-behavior: contain; box-shadow: -24px 0 60px #000c;
+  animation: al2-painel-entra 340ms var(--al2-mola-suave) both;
+}
+[data-al="2"] .al2-painel-mais::backdrop { background: rgb(0 0 0 / 0.6); backdrop-filter: blur(3px); animation: al2-painel-fundo 260ms ease both; }
+[data-al="2"] .al2-painel-mais[data-fechando] { animation: al2-painel-sai 200ms cubic-bezier(0.4, 0, 1, 1) both; }
+[data-al="2"] .al2-painel-mais[data-fechando]::backdrop { animation: al2-painel-fundo 200ms ease reverse both; }
+@keyframes al2-painel-entra { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes al2-painel-sai { from { transform: none; } to { transform: translateX(100%); } }
+@keyframes al2-painel-fundo { from { opacity: 0; } to { opacity: 1; } }
+[data-al="2"] .al2-painel-mais-miolo {
+  display: grid; gap: 1rem; padding: calc(0.75rem + env(safe-area-inset-top, 0px)) 16px calc(1.5rem + var(--recuo-baixo, 0px));
+}
+[data-al="2"] .al2-painel-mais-miolo > header { position: sticky; top: 0; z-index: 1; margin: -0.75rem -16px 0; padding: 0.75rem 16px 0.5rem; background: var(--al-fundo); }
+[data-al="2"] .al2-painel-conta {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; border: 1px solid var(--al-linha); border-radius: 14px;
+  background: var(--al-superficie); color: var(--al-texto); text-decoration: none; transition: transform 200ms var(--al2-mola);
+}
+[data-al="2"] .al2-painel-conta:active { transform: scale(0.98); }
+[data-al="2"] .al2-painel-mais nav ul { margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al2-painel-destino {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 0.6rem; min-height: 88px; padding: 0.85rem;
+  border: 1px solid var(--al-linha); border-radius: 14px; background: var(--al-superficie); color: var(--al-texto-2);
+  font-size: 0.9375rem; font-weight: 700; text-decoration: none; max-width: 100%; overflow: hidden;
+  transition: transform 220ms var(--al2-mola), border-color 160ms ease, background-color 160ms ease;
+}
+[data-al="2"] .al2-painel-destino > span:nth-child(2) { max-width: 100%; }
+[data-al="2"] .al2-painel-destino svg { color: var(--al-texto-3); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-painel-destino:hover { border-color: var(--al-superficie-2); color: var(--al-texto); } }
+[data-al="2"] .al2-painel-destino:active { transform: scale(0.96); }
+[data-al="2"] .al2-painel-destino[aria-current="page"] { border-color: var(--al-vermelho); color: var(--al-texto); background: color-mix(in srgb, var(--al-vermelho) 10%, var(--al-superficie)); }
+[data-al="2"] .al2-painel-destino[aria-current="page"] svg { color: var(--al-vermelho); }
+[data-al="2"] .al2-painel-destino[aria-disabled="true"] { opacity: 0.55; }
+/* Os blocos entram em cascata, um depois do outro, só com o painel abrindo. */
+[data-al="2"] .al2-painel-mais[open]:not([data-fechando]) :is(.al2-painel-conta, nav li, .al2-painel-bloco) {
+  animation: al2-painel-item 380ms var(--al2-mola-suave) backwards; animation-delay: calc(min(var(--i, 8), 10) * 28ms + 80ms);
+}
+[data-al="2"] .al2-painel-bloco { --i: 10; border-top: 1px solid var(--al-linha); padding-top: 0.9rem; }
+@keyframes al2-painel-item { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] :is(.al2-painel-mais, .al2-painel-mais[data-fechando], .al2-painel-mais *) { animation: none !important; }
+  [data-al="2"] .al2-painel-mais::backdrop { animation: none !important; }
+}
+:root:is([data-parado], [data-eink]) [data-al="2"] :is(.al2-painel-mais, .al2-painel-mais *) { animation: none !important; }
+:root:is([data-parado], [data-eink]) [data-al="2"] .al2-painel-mais::backdrop { animation: none !important; backdrop-filter: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al2-painel-mais, .al2-painel-conta, .al2-painel-destino, .al2-idioma) { border-color: var(--al-texto); box-shadow: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-painel-destino[aria-current="page"] { border-width: 3px; background: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-idioma[aria-current="true"] { border-width: 3px; }
