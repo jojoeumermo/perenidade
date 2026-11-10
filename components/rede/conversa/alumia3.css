@@ -435,6 +435,7 @@
 [data-al="2"] .al3-tela .rounded-xl.border { border-color: var(--al-superficie-2); background: var(--al-superficie); border-radius: var(--al-raio); }
 [data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"] { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); border-radius: 12px; }
 [data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"]:hover { filter: brightness(0.92); }
+[data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"][class~="rounded-full"] { border-radius: var(--al-raio-pilula); }
 [data-al="2"] .al3-tela [class*="border-b-[3px]"] { border-bottom-color: var(--al-vermelho); }
 [data-al="2"] .al3-tela :is(input, select, textarea) { background: var(--al-superficie); color: var(--al-texto); border-color: var(--al-superficie-2); }
 [data-al="2"] .al3-tela :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
