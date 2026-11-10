@@ -35700,6 +35700,13 @@ end $$;
 --      public.rede_fed_perfil_remoto ganha página: a forma com três argumentos (ator, cursor, limite) devolve "proximo".
 --   9. public.rede_fed_perfil_remoto, rede_fed_fio_remoto, rede_fed_bloquear_pessoa e rede_fed_silenciar_pessoa passam a conferir
 --      a adesão (interno.rede2_membro: "consentimento") e o modo total ("fediverso_desligado"), como as outras RPCs da tela.
+--  10. Curtida e impulso de fora não guardam mais quem foi: a linha do aviso leva um apelido (interno.rede_fed_apelido, resumo de
+--      um segredo deste banco, de quem recebe e de quem curtiu). Assim o "baixar meus dados" não entrega o endereço de quem curtiu,
+--      e bloquear alguém não apaga esses avisos (bloquear candidatos não revela quem curtiu). Os já guardados trocam na hora.
+--  11. O histórico do consentimento usa a coluna "usuario" (entra no "baixar meus dados"), ganha a carga inicial de quem já estava
+--      ligado e tem teto por pessoa (a primeira linha e as 99 mais novas).
+--  12. public.rede_fed_bloqueou_voce: a rota do fio pergunta se quem escreveu bloqueou a pessoa, também para nota lida na origem.
+--      E o endereço da conta (rede_fed_situacao) sai só para quem está ligado, sem o ponto final do nome e com a porta, se houver.
 --
 -- Fica para depois (docs/rede/PEDIDOS-ENTRE-FAIXAS.md, P12): guardar a mídia de fora no depósito daqui; e os "sotaques" por
 -- software (Lemmy, Misskey, Pleroma).
@@ -35719,10 +35726,13 @@ $$;
 /**
  * O domínio do endereço da conta (@nome@dominio). No modo total é o curto ("alumia.exemplo.org" vira "exemplo.org", se sobrar um
  * nome com ponto); sem ele, o do servidor da Alumia. Nulo enquanto o endereço do servidor (url_entrega) não foi configurado.
+ * Igual a lib/rede/fediverso/enderecos.ts (o host da URL): minúsculo, com a porta quando há, e sem o ponto final do nome
+ * ("exemplo.org." vira "exemplo.org"). url_entrega precisa ter o mesmo host do site, senão o @ não é o que o WebFinger responde.
  */
 create or replace function interno.rede_fed_dominio_da_conta() returns text language sql stable security definer set search_path = interno, pg_temp as $$
   select case when interno.rede_fed_total() and x.h ~ '^alumia\.' and substr(x.h, 8) ~ '\.' then substr(x.h, 8) else x.h end
-  from (select interno.rede_fed_host_local() as h) x
+  from (select nullif(regexp_replace(lower(substring(coalesce((select valor ->> 'url_entrega' from configuracoes where chave = 'fediverso'), '')
+                                                       from '^https://([^/?#@\s]+)')), '\.+(:[0-9]+)?$', '\1'), '') as h) x
 $$;
 
 -- ── 2. Avisos sem lista de pessoas ────────────────────────────────────────────────────────────────────────────────────────
@@ -35746,6 +35756,73 @@ create or replace function interno.rede_fed_aviso_remoto(p_ids uuid[]) returns j
     'objeto', (select u.objeto_remoto from u where u.objeto_remoto is not null order by u.criado_em desc limit 1)) end
 $$;
 
+-- Curtida e impulso de fora não guardam QUEM foi. Até aqui, a linha do aviso guardava o endereço de quem curtiu e de quem
+-- impulsionou: a tela não mostrava, mas o "baixar meus dados" (public.conta_meus_dados, que despeja as linhas de interno.avisos)
+-- mostrava; e bloquear alguém apagava os avisos com o endereço dele, então bloquear candidatos um a um revelava quem tinha curtido.
+-- Agora esses dois tipos guardam só um apelido: o resumo (SHA-256) de um segredo deste banco, de quem recebe e de quem curtiu.
+-- O mesmo par dá sempre o mesmo apelido (o total de pessoas e o desfazer continuam certos), mas ninguém volta do apelido para a
+-- pessoa sem o segredo, e o apelido de alguém muda de uma conta daqui para outra (duas contas não cruzam os "meus dados").
+create table if not exists interno.rede_fed_segredo (
+  unico boolean primary key default true check (unico),
+  valor text not null
+);
+alter table interno.rede_fed_segredo enable row level security;
+revoke all on interno.rede_fed_segredo from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on interno.rede_fed_segredo from anon, authenticated;
+  end if;
+end $$;
+-- 244 bits sorteados, uma vez só (rodar de novo não troca o segredo: os apelidos já gravados continuam valendo).
+insert into interno.rede_fed_segredo (valor)
+select replace(gen_random_uuid()::text || gen_random_uuid()::text, '-', '') on conflict (unico) do nothing;
+
+/** O apelido de quem curtiu ou impulsionou, para uma conta daqui: "anon:" e 64 algarismos hexadecimais. */
+create or replace function interno.rede_fed_apelido(p_para uuid, p_ator text) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select 'anon:' || encode(sha256(convert_to((select s.valor from rede_fed_segredo s) || ':' || p_para::text || ':' || coalesce(p_ator, ''), 'UTF8')), 'hex')
+$$;
+
+-- A regra da coluna aceita o apelido (antes, só endereço https). Sai a regra antiga, com o nome que tiver; entra a nova, com nome fixo.
+do $$
+declare r record;
+begin
+  for r in select conname from pg_constraint
+           where conrelid = 'interno.avisos'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%ator_remoto%' loop
+    execute format('alter table interno.avisos drop constraint %I', r.conname);
+  end loop;
+end $$;
+alter table interno.avisos add constraint avisos_ator_remoto_formato check (
+  ator_remoto is null or (char_length(ator_remoto) <= 500 and (ator_remoto ~ '^https://' or ator_remoto ~ '^anon:[0-9a-f]{64}$'))
+);
+
+/**
+ * Um aviso de algo que veio de fora (como em 20261109-fediverso-total.sql), com uma diferença: em curtida e impulso, a linha
+ * guarda o apelido de quem foi, nunca o endereço. O silêncio e o bloqueio continuam conferidos pelo endereço, antes.
+ */
+create or replace function interno.rede_fed_avisar(p_para uuid, p_tipo text, p_post uuid, p_ator text, p_objeto text default null) returns void
+language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if p_para is null or p_tipo not in ('fed_seguidor', 'fed_resposta', 'fed_mencao', 'fed_curtida', 'fed_impulso') or coalesce(p_ator, '') !~ '^https://' then return; end if;
+  if not exists (select 1 from perfis where id = p_para and not suspenso) then return; end if;
+  if exists (select 1 from fediverso_filtros f where f.usuario = p_para and f.ator = p_ator) then return; end if;
+  insert into avisos (para, texto, categoria, tipo, post, ator_remoto, objeto_remoto)
+  values (p_para, case p_tipo
+      when 'fed_seguidor' then 'Uma pessoa de outro servidor do Fediverso começou a seguir você.'
+      when 'fed_resposta' then 'Uma pessoa de outro servidor do Fediverso respondeu ao seu post.'
+      when 'fed_mencao' then 'Uma pessoa de outro servidor do Fediverso mencionou você.'
+      when 'fed_curtida' then 'Uma pessoa de outro servidor do Fediverso curtiu o seu post.'
+      else 'Uma pessoa de outro servidor do Fediverso impulsionou o seu post.' end,
+    'rede', p_tipo, p_post,
+    case when p_tipo in ('fed_curtida', 'fed_impulso') then interno.rede_fed_apelido(p_para, left(p_ator, 500)) else left(p_ator, 500) end,
+    case when coalesce(p_objeto, '') ~ '^https://' then left(p_objeto, 500) end)
+  on conflict do nothing;
+end $$;
+
+-- Os avisos de curtida e impulso que já estavam guardados trocam o endereço pelo apelido (rodar de novo não acha mais nenhum).
+update interno.avisos set ator_remoto = interno.rede_fed_apelido(para, ator_remoto)
+where tipo in ('fed_curtida', 'fed_impulso') and ator_remoto ~ '^https://';
+
 -- rede_aviso_listar é do pacote de avisos: aqui ela é remendada no lugar (como em 20261109-fediverso-total.sql), só no total e nas
 -- pessoas. Quem recriar a função precisa rodar este arquivo de novo; o teste do banco do Fediverso confere que o remendo está lá.
 do $$
@@ -35767,14 +35844,24 @@ end $$;
 
 -- Cada vez que a federação de uma pessoa liga, desliga ou muda de versão do consentimento. Só o mínimo: quem, qual versão do
 -- texto, ligou ou desligou, e quando. Nada de IP, de navegador ou de por qual tela foi.
+-- A coluna da pessoa se chama "usuario": é por esse nome que o "baixar meus dados" (public.conta_meus_dados) acha as linhas de
+-- cada um, e a pessoa tem direito de ver a prova que guardamos dela (LGPD art. 18, II). Um banco que já tinha a tabela com a
+-- coluna "perfil" (versão de teste desta migração) tem a coluna renomeada.
 create table if not exists interno.fediverso_consentimentos (
   id bigserial primary key,
-  perfil uuid not null references interno.perfis (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
   versao integer,
   ligado boolean not null,
   quando timestamptz not null default now()
 );
-create index if not exists fediverso_consentimentos_perfil on interno.fediverso_consentimentos (perfil, quando desc);
+do $$
+begin
+  if exists (select 1 from information_schema.columns where table_schema = 'interno' and table_name = 'fediverso_consentimentos' and column_name = 'perfil') then
+    alter table interno.fediverso_consentimentos rename column perfil to usuario;
+  end if;
+end $$;
+drop index if exists interno.fediverso_consentimentos_perfil;
+create index if not exists fediverso_consentimentos_usuario on interno.fediverso_consentimentos (usuario, quando desc);
 alter table interno.fediverso_consentimentos enable row level security;
 revoke all on interno.fediverso_consentimentos from public;
 do $$
@@ -35785,7 +35872,11 @@ begin
   end if;
 end $$;
 
-/** Grava no histórico quando a federação de alguém liga, desliga ou muda de versão. Conta já apagada não ganha linha. */
+/**
+ * Grava no histórico quando a federação de alguém liga, desliga ou muda de versão. Conta já apagada não ganha linha. O histórico
+ * de cada pessoa tem teto: fica a PRIMEIRA linha (o primeiro consentimento) e as 99 mais novas; as do meio saem. Ligar e desligar
+ * no perfil já tem limite (10 por hora, rede_fed_ligar), mas sem o teto uma conta gravaria linhas para sempre.
+ */
 create or replace function interno.rede_fed_consentimento_historico() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   if tg_op = 'INSERT' then
@@ -35793,14 +35884,25 @@ begin
   elsif new.ligado = old.ligado and (not new.ligado or new.consentimento_versao is not distinct from old.consentimento_versao) then
     return null;
   end if;
-  insert into fediverso_consentimentos (perfil, versao, ligado)
+  insert into fediverso_consentimentos (usuario, versao, ligado)
   select new.perfil, new.consentimento_versao, new.ligado where exists (select 1 from perfis f where f.id = new.perfil);
+  delete from fediverso_consentimentos c
+  where c.usuario = new.perfil
+    and c.id <> (select min(p.id) from fediverso_consentimentos p where p.usuario = new.perfil)
+    and c.id not in (select n.id from fediverso_consentimentos n where n.usuario = new.perfil order by n.id desc limit 99);
   return null;
 end $$;
 
 drop trigger if exists fediverso_consentimento_historico on interno.rede_fed_atores;
 create trigger fediverso_consentimento_historico after insert or update of ligado, consentimento_versao on interno.rede_fed_atores
   for each row execute function interno.rede_fed_consentimento_historico();
+
+-- Carga inicial: quem já estava com a federação ligada antes desta migração ganha a linha do "liga", com a data em que ligou
+-- (rede_fed_atores.ligado_em). Só quem ainda não tem nenhuma linha: rodar de novo não repete.
+insert into interno.fediverso_consentimentos (usuario, versao, ligado, quando)
+select a.perfil, a.consentimento_versao, true, coalesce(a.ligado_em, now()) from interno.rede_fed_atores a
+where a.ligado and exists (select 1 from interno.perfis f where f.id = a.perfil)
+  and not exists (select 1 from interno.fediverso_consentimentos c where c.usuario = a.perfil);
 
 /**
  * Liga (com o consentimento da versão em vigor) ou desliga a federação do próprio perfil. Desligar retira o que saiu. Igual à de
@@ -35896,10 +35998,11 @@ begin
     'total', interno.rede_fed_total(),
     'consentimento_versao', case when a.ligado then a.consentimento_versao end,
     'descobrivel', coalesce(a.ligado and a.descobrivel, false),
-    -- O endereço completo (@nome@dominio) e o domínio da conta: o curto no modo total, o da Alumia sem ele. Nulo sem @nome ou
-    -- enquanto o endereço do servidor não foi configurado (url_entrega).
+    -- O endereço completo (@nome@dominio) e o domínio da conta: o curto no modo total, o da Alumia sem ele. Nulo sem @nome,
+    -- enquanto o endereço do servidor não foi configurado (url_entrega) e para quem não está com a federação ligada (esse @ não
+    -- existe lá fora: o WebFinger não responde por ele).
     'dominio', interno.rede_fed_dominio_da_conta(),
-    'endereco', '@' || (select rede_handle from perfis where id = v) || '@' || interno.rede_fed_dominio_da_conta(),
+    'endereco', case when a.ligado then '@' || (select rede_handle from perfis where id = v) || '@' || interno.rede_fed_dominio_da_conta() end,
     -- A tela pede o item do Fediverso (de novo) para quem pode federar e ainda não aceitou a versão 2: inclusive quem marcou o
     -- item com a flag desligada (versão 1), que não é ligado sozinho, e quem está ligado só na versão 1. Quem já respondeu o item
     -- na versão 2 (marcado ou não) e quem desligou no perfil não são pedidos (decidiram; religam no perfil quando quiserem).
@@ -36069,6 +36172,8 @@ begin
         insert into rede_fed_fila (perfil, tipo, objeto, destino, extra) values (v, 'block', v_ator, v_inbox, jsonb_build_object('atividade', v_ativ));
       end if;
     end if;
+    -- Só os avisos que já dizem quem foi (seguidor, resposta, menção). Os de curtida e impulso guardam o apelido e ficam: se o
+    -- bloqueio os apagasse, bloquear candidatos um a um revelaria quem curtiu.
     delete from avisos where para = v and ator_remoto = v_ator;
     delete from rede_fed_seguidores where perfil = v and ator = v_ator;
     if v_ligado and v_inbox is not null then
@@ -36101,6 +36206,24 @@ begin
     delete from fediverso_filtros where usuario = v and ator = v_ator and tipo = 'silencio';
   end if;
   return jsonb_build_object('ok', true, 'silenciado', exists (select 1 from fediverso_filtros f where f.usuario = v and f.ator = v_ator and f.tipo = 'silencio'));
+end $$;
+
+/**
+ * Alguém de fora bloqueou quem pede? Pelo endereço do ator (p_ator) ou pelo autor de uma nota que o banco guarda (p_nota). É o
+ * que a rota do fio (app/api/fediverso/remoto) pergunta antes de oferecer "buscar este post lá" e depois de ler uma nota na
+ * origem: o fio de quem bloqueou continua respondendo "não achamos isto", também pelo caminho de fora. Só a própria pessoa
+ * fica sabendo (só responde sobre quem está na sessão). Só para quem aderiu e com o modo total ligado.
+ */
+create or replace function public.rede_fed_bloqueou_voce(p_ator text default null, p_nota text default null) returns boolean
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_ator text := nullif(left(btrim(coalesce(p_ator, '')), 500), '');
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  if not interno.rede_fed_total() then perform interno.erro('fediverso_desligado'); end if;
+  return exists (select 1 from fediverso_bloqueios_recebidos b where b.perfil = v and b.ator = v_ator)
+      or exists (select 1 from rede_fed_recebidos c join fediverso_bloqueios_recebidos b on b.perfil = v and b.ator = c.ator
+                 where c.id = left(coalesce(p_nota, ''), 500));
 end $$;
 
 -- ── 5. O que o servidor do site chama ─────────────────────────────────────────────────────────────────────────────────────
@@ -36283,6 +36406,10 @@ begin
     return jsonb_build_object('ok', v_n > 0);
 
   when 'ator_apagado' then
+    -- Os avisos vão primeiro: os de curtida e impulso guardam o apelido, achado pelas interações dele (que saem logo abaixo).
+    delete from avisos where ator_remoto = v_ator
+      or (tipo in ('fed_curtida', 'fed_impulso') and post in (select fi.post_local from fediverso_interacoes fi where fi.direcao = 'entrada' and fi.ator = v_ator)
+          and ator_remoto = interno.rede_fed_apelido(para, v_ator));
     delete from rede_fed_seguidores where ator = v_ator;
     delete from rede_fed_seguindo where ator = v_ator;
     delete from rede_fed_recebidos where ator = v_ator;
@@ -36290,7 +36417,6 @@ begin
     delete from fediverso_interacoes where direcao = 'entrada' and ator = v_ator;
     delete from fediverso_grupo_seguidores where ator = v_ator;
     delete from fediverso_bloqueios_recebidos where ator = v_ator;
-    delete from avisos where ator_remoto = v_ator;
     return jsonb_build_object('ok', true);
 
   when 'recebido' then
@@ -36428,8 +36554,10 @@ begin
         and ((v_post is not null and fi.post_local = v_post) or (v_ref is not null and fi.objeto_remoto = v_ref) or (v_id is not null and fi.atividade_id = v_id))
       returning fi.post_local, fi.tipo
     )
+    -- O aviso de curtida e de impulso guarda o apelido de quem foi (interno.rede_fed_apelido), não o endereço.
     delete from avisos av using apagadas d
-    where av.ator_remoto = v_ator and av.post = d.post_local and av.tipo = case d.tipo when 'like' then 'fed_curtida' else 'fed_impulso' end;
+    where av.ator_remoto in (v_ator, interno.rede_fed_apelido(av.para, v_ator)) and av.post = d.post_local
+      and av.tipo = case d.tipo when 'like' then 'fed_curtida' else 'fed_impulso' end;
     return jsonb_build_object('ok', true, 'perfil_autor', v_autor);
 
   when 'denuncia_recebida' then
@@ -36660,9 +36788,11 @@ end $$;
 do $$
 declare
   v_internas text[] := array['rede_fed_piso(integer)', 'rede_fed_aviso_total(text, integer)', 'rede_fed_dominio_da_conta()', 'rede_fed_aviso_remoto(uuid[])',
-    'rede_fed_consentimento_historico()', 'rede_fed_cartao(interno.rede_fed_recebidos, uuid, jsonb)'];
+    'rede_fed_consentimento_historico()', 'rede_fed_cartao(interno.rede_fed_recebidos, uuid, jsonb)', 'rede_fed_apelido(uuid, text)',
+    'rede_fed_avisar(uuid, text, uuid, text, text)'];
   v_publicas text[] := array['rede_fed_ligar(boolean, integer)', 'rede_fed_perfil_remoto(text)', 'rede_fed_perfil_remoto(text, text, integer)', 'rede_fed_fio_remoto(text)',
-    'rede_fed_respostas_de(uuid, text, integer)', 'rede_fed_bloquear_pessoa(text, boolean)', 'rede_fed_silenciar_pessoa(text, boolean)'];
+    'rede_fed_respostas_de(uuid, text, integer)', 'rede_fed_bloquear_pessoa(text, boolean)', 'rede_fed_silenciar_pessoa(text, boolean)',
+    'rede_fed_bloqueou_voce(text, text)'];
   v_f text;
   v_papeis boolean := exists (select 1 from pg_roles where rolname = 'anon');
 begin

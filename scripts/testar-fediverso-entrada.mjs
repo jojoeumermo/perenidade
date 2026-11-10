@@ -90,6 +90,9 @@ const db = {
   // O que rede_fed_fio_remoto e rede_fed_perfil_remoto guardam (por id da nota e por ator) e o que a denúncia responde.
   fios: new Map(),
   perfis: new Map(),
+  // Quem de fora bloqueou a pessoa (rede_fed_bloqueou_voce): por ator e por id de nota guardada.
+  meBloquearam: new Set(),
+  notasDeQuemBloqueou: new Set(),
   denunciaDaTela: () => ({ protocolo: "FED-1", encaminhada: false, ja: false }),
   // O que a tela mandou por último à linha mista e às respostas de um post daqui, e o que estas devolvem.
   ultimaLinha: null,
@@ -205,6 +208,7 @@ const funcoesDaPessoa = {
   // rede_fed_fio_remoto devolve um OBJETO { post, acima, respostas }; o post daqui no meio vem no formato de rede_post_v2 (id em uuid).
   rede_fed_fio_remoto: (a) => db.fios.get(a.p_id) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
   rede_fed_perfil_remoto: (a) => db.perfis.get(a.p_ator) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
+  rede_fed_bloqueou_voce: (a) => db.meBloquearam.has(a.p_ator) || db.notasDeQuemBloqueou.has(a.p_nota),
   rede_fed_denunciar_remoto: (a) => db.denunciaDaTela(a),
   rede_fed_respostas_de: (a) => { db.ultimasRespostas = a; return db.respostasDe(a); },
   rede_fed_seguindo_lista: () => [],
@@ -581,6 +585,30 @@ await espera("ataque: abrir um link com ?post=<endereço qualquer> NÃO faz o se
   const comToque = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(armada.id)}&buscar=1`, { metodo: "GET" }));
   return [r.status, j.erro, j.servidor, "post" in j, zero.status, semRede, comToque.status, rede.gets.includes(armada.id)];
 }, (r) => r[0] === 404 && r[1] === "so_na_origem" && r[2] === "remota.teste" && r[3] === false && r[4] === 404 && r[5] === 0 && r[6] === 200 && r[7] === true);
+await espera("ATAQUE (achado baixo): quem foi bloqueado lá fora não lê o fio de quem bloqueou pelo caminho da origem (nem a nota, nem uma de cima), nem ganha o 'buscar lá'", async () => {
+  const BLOQUEADORA = "https://remota.teste/users/quem-bloqueou";
+  const dela = novaNota({ id: "https://remota.teste/notes/de-quem-bloqueou", attributedTo: BLOQUEADORA });
+  const pai = novaNota({ id: "https://remota.teste/notes/pai-de-quem-bloqueou", attributedTo: BLOQUEADORA });
+  const filha = novaNota({ id: "https://remota.teste/notes/resposta-a-quem-bloqueou", inReplyTo: pai.id });
+  for (const n of [dela, pai, filha]) rede.docs.set(n.id, n);
+  db.meBloquearam.add(BLOQUEADORA);
+  db.notasDeQuemBloqueou.add("https://remota.teste/notes/guardada-de-quem-bloqueou");
+  try {
+    const direto = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(dela.id)}&buscar=1`, { metodo: "GET" }));
+    const subindo = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}&buscar=1`, { metodo: "GET" }));
+    const js = await subindo.json();
+    const guardada = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent("https://remota.teste/notes/guardada-de-quem-bloqueou")}`, { metodo: "GET" }));
+    // O banco falhou ao responder: na dúvida, o fio não sai.
+    const antes = funcoesDaPessoa.rede_fed_bloqueou_voce;
+    funcoesDaPessoa.rede_fed_bloqueou_voce = () => new Response(JSON.stringify({ message: "falha" }), { status: 500 });
+    const semResposta = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}&buscar=1`, { metodo: "GET" }));
+    funcoesDaPessoa.rede_fed_bloqueou_voce = antes;
+    return [direto.status, (await direto.json()).erro, subindo.status, js.post?.id === filha.id, JSON.stringify(js.acima), guardada.status, (await guardada.json()).erro, semResposta.status];
+  } finally {
+    db.meBloquearam.clear();
+    db.notasDeQuemBloqueou.clear();
+  }
+}, (r) => JSON.stringify(r) === '[404,"nao_encontrado",200,true,"[]",404,"nao_encontrado",404]');
 await espera("remoto ?linha: o cursor no formato REAL do banco (data com espaço e fuso, '|', a chave) passa e chega inteiro à função", async () => {
   const cursor = "2026-11-10 12:34:56.789+00|https://remota.teste/notes/l1#impulso-de-https://ponte.teste/users/cid";
   const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?linha=1&limite=20&cursor=${encodeURIComponent(cursor)}`, { metodo: "GET" }));

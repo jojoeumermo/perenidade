@@ -14,7 +14,9 @@
 //                                            (rede_fed_fio_remoto, que só devolve o que a pessoa pode ver). Senão a rota responde
 //                                            "so_na_origem" e NÃO busca nada: só com buscar=1 (um toque da pessoa na tela) o post
 //                                            (só público ou não listado) e até 5 acima são lidos na origem, sem respostas. Assim
-//                                            um link armado não faz o servidor bater num endereço qualquer só por ser aberto;
+//                                            um link armado não faz o servidor bater num endereço qualquer só por ser aberto.
+//                                            O fio de quem bloqueou a pessoa (rede_fed_bloqueou_voce) responde "nao_encontrado"
+//                                            pelos dois caminhos, o do banco e o da origem;
 //   ?linha=1[&cursor=…&limite=…]           → a linha mista (rede_fed_linha_mista, COMO a pessoa: só o que ela pode ver) com o avatar
 //                                            e a mídia já pela rota-proxy assinada;
 //   ?respostas=<id do post daqui>[&cursor=…] → as respostas de fora a um post DAQUI (rede_fed_respostas_de, COMO a pessoa), cada
@@ -179,17 +181,30 @@ async function fioDoBanco(token: string, id: string) {
   return { post: assinarCartao(r.dado.post), acima: itensDoFio(r.dado.acima), respostas: itensDoFio(r.dado.respostas) };
 }
 
+/**
+ * Quem escreveu (o ator, ou o autor da nota que o banco guarda) bloqueou quem pede? Na dúvida (o banco não respondeu), sim: o
+ * fio de quem bloqueou não pode aparecer por falha.
+ */
+async function bloqueouVoce(token: string, quem: { ator?: string; nota?: string }) {
+  const r = await chamarComoPessoa<boolean>(token, "rede_fed_bloqueou_voce", { p_ator: quem.ator ?? null, p_nota: quem.nota ?? null });
+  return !r.ok || r.dado !== false;
+}
+
 async function fio(token: string, postId: string, buscarLa: boolean) {
   if (await bloqueado(postId)) return resposta({ erro: "instancia_bloqueada" }, 403);
   const guardado = await fioDoBanco(token, postId);
   if (guardado) return resposta(guardado);
+  // O banco guarda a nota, mas quem a escreveu bloqueou a pessoa: "não achamos isto", sem oferecer a busca lá fora (o banco
+  // responde nao_encontrado igual para nota que não existe e para nota de quem bloqueou).
+  if (await bloqueouVoce(token, { nota: postId })) return resposta({ erro: "nao_encontrado" }, 404);
   // O banco não guarda a nota. Só o toque da pessoa em "buscar este post em <servidor>" faz o servidor ir lá fora: abrir um link
   // não basta (senão quem arma o link fica sabendo a hora em que cada pessoa o abriu).
   if (!buscarLa) return resposta({ erro: "so_na_origem", servidor: dominio(postId) }, 404);
+  // Lida na origem, a nota (e cada uma acima dela) passa pela mesma regra: de quem bloqueou a pessoa, não sai.
   const lerPublica = async (id: string) => {
     const { doc } = await buscarNaOrigem(id);
     const autor = doc ? (Array.isArray(doc.attributedTo) ? idDe(doc.attributedTo[0]) : idDe(doc.attributedTo)) : null;
-    if (!doc || !autor || (await bloqueado(autor))) return null;
+    if (!doc || !autor || (await bloqueado(autor)) || (await bloqueouVoce(token, { ator: autor }))) return null;
     const lida = lerNota(doc, autor);
     return lida.ok && (lida.nota.visibilidade === "publico" || lida.nota.visibilidade === "nao_listado") ? lida.nota : null;
   };

@@ -665,23 +665,23 @@ await recusa("nem a coordenação desbloqueia o Bridgy Fed", () => rpc(coordena(
 await espera("os três continuam fixos e o domínio escrito de outro jeito continua bloqueado", async () => [await fixos(), await bloqueado("https://x@threads.net./ap/users/1/")], ([d, b]) => d === "brid.gy,threads.com,threads.net" && b === true);
 await espera("as funções novas e as redefinidas seguem o padrão (security definer, search_path fixo)", async () => {
   const r = await dono(`select p.proname, p.prosecdef, array_to_string(p.proconfig, ',') as cfg from pg_proc p join pg_namespace n on n.oid = p.pronamespace
-    where (n.nspname = 'public' and p.proname in ('rede_fed_ligar', 'rede_fed_perfil_remoto', 'rede_fed_fio_remoto', 'rede_fed_respostas_de', 'rede_fed_bloquear_pessoa', 'rede_fed_silenciar_pessoa', 'rede_fed_situacao', 'rede_fed_servidor'))
-       or (n.nspname = 'interno' and p.proname in ('rede_fed_dominio_da_conta', 'rede_fed_aviso_remoto', 'rede_fed_consentimento_historico', 'rede_fed_cartao'))`);
+    where (n.nspname = 'public' and p.proname in ('rede_fed_ligar', 'rede_fed_perfil_remoto', 'rede_fed_fio_remoto', 'rede_fed_respostas_de', 'rede_fed_bloquear_pessoa', 'rede_fed_silenciar_pessoa', 'rede_fed_situacao', 'rede_fed_servidor', 'rede_fed_bloqueou_voce'))
+       or (n.nspname = 'interno' and p.proname in ('rede_fed_dominio_da_conta', 'rede_fed_aviso_remoto', 'rede_fed_consentimento_historico', 'rede_fed_cartao', 'rede_fed_apelido', 'rede_fed_avisar'))`);
   return [r.rows.length, r.rows.filter((x) => !x.prosecdef || !/search_path=interno, pg_temp/.test(x.cfg)).map((x) => x.proname)];
-}, ([n, ruins]) => n === 13 && ruins.length === 0);
+}, ([n, ruins]) => n === 16 && ruins.length === 0);
 await espera("visitante não chama o perfil de fora (nenhuma das duas formas); quem entrou chama", async () => um(`select
   has_function_privilege('anon', 'public.rede_fed_perfil_remoto(text)', 'execute') as a1, has_function_privilege('anon', 'public.rede_fed_perfil_remoto(text, text, integer)', 'execute') as a3,
   has_function_privilege('authenticated', 'public.rede_fed_perfil_remoto(text, text, integer)', 'execute') as p3, has_function_privilege('anon', 'public.rede_fed_ligar(boolean, integer)', 'execute') as al`),
   (r) => r.a1 === false && r.a3 === false && r.p3 === true && r.al === false);
 await espera("nenhuma função interna da federação abre para anon ou authenticated", async () => (await dono(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
   where n.nspname = 'interno' and p.proname like 'rede_fed_%' and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))`)).rows.map((x) => x.proname), (l) => l.length === 0);
-await espera("a tabela do histórico: só perfil, versão, ligado e quando (nada de IP), com RLS, sem política e sem permissão direta", async () => {
+await espera("a tabela do histórico: só usuario, versão, ligado e quando (nada de IP), com RLS, sem política e sem permissão direta", async () => {
   const colunas = (await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'fediverso_consentimentos' order by column_name")).rows.map((x) => x.column_name).join();
   const t = await um(`select c.relrowsecurity as rls, (select count(*)::int from pg_policy where polrelid = c.oid) as politicas,
     exists (select 1 from information_schema.role_table_grants g where g.table_schema = 'interno' and g.table_name = 'fediverso_consentimentos' and g.grantee in ('anon', 'authenticated', 'PUBLIC')) as aberta
     from pg_class c where c.oid = 'interno.fediverso_consentimentos'::regclass`);
   return [colunas, t.rls, t.politicas, t.aberta];
-}, ([c, rls, pol, aberta]) => c === "id,ligado,perfil,quando,versao" && rls === true && pol === 0 && aberta === false);
+}, ([c, rls, pol, aberta]) => c === "id,ligado,quando,usuario,versao" && rls === true && pol === 0 && aberta === false);
 
 // O cenário: pessoas novas daqui (eva, fabio, gil; hugo não adere) e gente de fora em longe.teste (nada do que veio antes entra na conta).
 const URL_DE_ENTREGA = "https://alumia.teste/api/fediverso/entregar";
@@ -747,6 +747,29 @@ await espera("o remendo do total está em rede_aviso_listar, junto com o de quem
   (d) => d.includes("rede_fed_aviso_total") && d.includes("ator_remoto") && d.includes("atores_remotos") && d.includes("objeto_remoto"));
 await espera("o piso do aviso só vale para curtida e impulso de fora (o resto não muda)", async () => um("select interno.rede_fed_aviso_total('fed_curtida', 2) as a, interno.rede_fed_aviso_total('fed_impulso', 3) as b, interno.rede_fed_aviso_total('resposta', 2) as c, interno.rede_fed_aviso_total('fed_seguidor', 1) as d, interno.rede_fed_aviso_total(null, 2) as e"),
   (r) => r.a === 1 && r.b === 3 && r.c === 2 && r.d === 1 && r.e === 2);
+await espera("ATAQUE (achado médio): o banco não guarda quem curtiu nem quem impulsionou, só um apelido por conta (anon: + 64 hex)", async () =>
+  (await dono("select ator_remoto from interno.avisos where para = $1 and tipo in ('fed_curtida', 'fed_impulso')", [pessoas.eva])).rows.map((x) => x.ator_remoto),
+  (l) => l.length === 4 && l.every((a) => /^anon:[0-9a-f]{64}$/.test(a)) && new Set(l).size === 3);
+await espera("ATAQUE (achado médio): o 'baixar meus dados' da autora não entrega o endereço de quem curtiu nem de quem impulsionou", async () => {
+  const dados = await rpc(como(pessoas.eva), "conta_meus_dados");
+  const avisos = Object.entries(dados).filter(([k]) => k.startsWith("avisos")).flatMap(([, v]) => (Array.isArray(v) ? v : []));
+  const deCurtida = avisos.filter((a) => ["fed_curtida", "fed_impulso"].includes(a.tipo));
+  return [deCurtida.length, deCurtida.some((a) => /longe\.teste/.test(JSON.stringify(a))), deCurtida.every((a) => /^anon:/.test(a.ator_remoto))];
+}, (r) => JSON.stringify(r) === "[4,false,true]");
+await espera("o apelido é outro para cada conta daqui (duas contas não cruzam o 'meus dados') e o mesmo para a mesma pessoa", async () =>
+  um("select interno.rede_fed_apelido($1, $3) = interno.rede_fed_apelido($1, $3) as igual, interno.rede_fed_apelido($1, $3) <> interno.rede_fed_apelido($2, $3) as outro, interno.rede_fed_apelido($1, $3) <> interno.rede_fed_apelido($1, $4) as pessoa", [pessoas.eva, pessoas.fabio, gente(1), gente(2)]),
+  (r) => r.igual && r.outro && r.pessoa);
+await espera("desfazer a curtida continua achando o aviso pelo apelido (3 vira 'alguém'; curtir de novo volta a 3)", async () => {
+  await srv("interacao", { tipo: "like", ator: gente(3), atividade_id: `${LONGE}/likes/3`, post_local: enderecoDoPost(postEva), sim: false });
+  const depois = (await avisosDe("eva", "fed_curtida"))[0];
+  await curtir(3);
+  return [depois.total, depois.pessoas, (await avisosDe("eva", "fed_curtida"))[0].total];
+}, (r) => r.join() === "1,1,3");
+await espera("visitante e quem entrou não leem o segredo dos apelidos nem chamam a função", async () => um(`select
+  has_table_privilege('authenticated', 'interno.rede_fed_segredo', 'select') as t, has_function_privilege('authenticated', 'interno.rede_fed_apelido(uuid, text)', 'execute') as f,
+  has_function_privilege('anon', 'interno.rede_fed_apelido(uuid, text)', 'execute') as a, (select relrowsecurity from pg_class where oid = 'interno.rede_fed_segredo'::regclass) as rls,
+  (select count(*)::int from interno.rede_fed_segredo) as n, (select char_length(valor) from interno.rede_fed_segredo) as tam`),
+  (r) => r.t === false && r.f === false && r.a === false && r.rls === true && r.n === 1 && r.tam === 64);
 
 // 2. Piso de 3 nas contagens ─────────────────────────────────────────────────────────────────────────────────────────────
 await espera("a função do piso: 0, 2 e nulo viram 0; 3 em diante passa", async () => um("select interno.rede_fed_piso(0) as a, interno.rede_fed_piso(2) as b, interno.rede_fed_piso(3) as c, interno.rede_fed_piso(null) as d, interno.rede_fed_piso(40) as e"),
@@ -900,7 +923,7 @@ await espera("com a flag desligada o impulso não guarda nota de quem ninguém s
 }, (r) => r.guardado === false);
 
 // 7. A prova do consentimento ────────────────────────────────────────────────────────────────────────────────────────────
-const historico = async (quem) => (await dono("select versao, ligado from interno.fediverso_consentimentos where perfil = $1 order by id", [pessoas[quem]])).rows.map((x) => `${x.versao}:${x.ligado}`).join();
+const historico = async (quem) => (await dono("select versao, ligado from interno.fediverso_consentimentos where usuario = $1 order by id", [pessoas[quem]])).rows.map((x) => `${x.versao}:${x.ligado}`).join();
 const itemDoConsentimento = async (quem) => um("select fediverso, fediverso_versao from interno.rede_consentimentos where usuario = $1 and revogado_em is null order by criado_em desc limit 1", [pessoas[quem]]);
 await espera("aceitar o item na entrada já deixa a prova no histórico (versão 2, ligado)", () => historico("gil"), (h) => h === "2:true");
 await espera("desligar no perfil grava no histórico e desmarca o item do consentimento de entrada", async () => {
@@ -918,8 +941,8 @@ await espera("desmarcar o item na entrada também grava (o gatilho vale para tod
   await rpc(como(pessoas.gil), "rede_aderir", { p_maior: true, p_versao: vigente, p_fediverso: false });
   return [await historico("gil"), (await um("select ligado from interno.rede_fed_atores where perfil = $1", [pessoas.gil])).ligado];
 }, (r) => r.join("|") === "2:true,2:false,2:true,2:false|false");
-await espera("o histórico tem data e não guarda mais nada da pessoa", async () => (await dono("select * from interno.fediverso_consentimentos where perfil = $1", [pessoas.gil])).rows,
-  (l) => l.length === 4 && l.every((x) => x.quando instanceof Date && Object.keys(x).sort().join() === "id,ligado,perfil,quando,versao"));
+await espera("o histórico tem data e não guarda mais nada da pessoa", async () => (await dono("select * from interno.fediverso_consentimentos where usuario = $1", [pessoas.gil])).rows,
+  (l) => l.length === 4 && l.every((x) => x.quando instanceof Date && Object.keys(x).sort().join() === "id,ligado,quando,usuario,versao"));
 await espera("suspender a conta desliga a federação e isso também fica no histórico", async () => {
   await rpc(como(pessoas.gil), "rede_fed_ligar", { p_sim: true, p_versao: 2 });
   await dono("update interno.perfis set suspenso = true where id = $1", [pessoas.gil]);
@@ -942,7 +965,7 @@ const comEndereco = async (url, total) => {
 await espera("situação: o endereço completo no domínio curto, no modo total", () => comEndereco("https://alumia.exemplo.org/api/fediverso/entregar", true), (s) => s.endereco === "@eva@exemplo.org" && s.dominio === "exemplo.org" && s.handle === "eva");
 await espera("sem o modo total: o endereço no domínio da Alumia", () => comEndereco("https://alumia.exemplo.org/api/fediverso/entregar", false), (s) => s.endereco === "@eva@alumia.exemplo.org" && s.dominio === "alumia.exemplo.org");
 await espera("domínio que não dá para encurtar fica inteiro (alumia.teste, rede.exemplo.org)", async () => [(await comEndereco("https://alumia.teste/x", true)).endereco, (await comEndereco("https://rede.exemplo.org:8443/x", true)).endereco],
-  (r) => r.join() === "@eva@alumia.teste,@eva@rede.exemplo.org");
+  (r) => r.join() === "@eva@alumia.teste,@eva@rede.exemplo.org:8443");
 await espera("sem o endereço do servidor configurado: endereço nulo (e nada quebra)", async () => {
   await dono("update interno.configuracoes set valor = valor - 'url_entrega' where chave = 'fediverso'");
   try {
@@ -984,6 +1007,78 @@ await espera("com a flag desligada, as quatro recusam (fediverso_desligado) e na
 }, ([r, n]) => r.every((m) => m.includes("fediverso_desligado")) && n === 0);
 await recusa("visitante não chama nenhuma delas", () => rpc(anon, "rede_fed_fio_remoto", { p_id: LIA1 }), "permission denied");
 await espera("com a flag ligada e a adesão feita, tudo volta a valer", () => motivos(chamadasDaTela("eva").slice(0, 3)), (r) => r.every((m) => m === "passou"));
+
+// 9b. Os achados da revisão (10/11/2026), cada um com o ataque ───────────────────────────────────────────────────────────
+const curtidasDaEva = async () => {
+  const a = (await avisosDe("eva", "fed_curtida"))[0];
+  return `${a?.total}/${a?.pessoas}`;
+};
+await espera("ATAQUE (achado baixo): bloquear candidatos um a um não revela quem curtiu (bloquear quem curtiu e quem não curtiu dá o mesmo)", async () => {
+  for (const n of [7, 8]) await conhecer(gente(n), `k${n}`, `K${n}`);
+  await curtir(7);
+  const antes = await curtidasDaEva();
+  const r = [antes];
+  for (const n of [8, 7]) {
+    await rpc(como(pessoas.eva), "rede_fed_bloquear_pessoa", { p_ator: gente(n), p_sim: true });
+    r.push(await curtidasDaEva());
+    await rpc(como(pessoas.eva), "rede_fed_bloquear_pessoa", { p_ator: gente(n), p_sim: false });
+  }
+  return r;
+}, (r) => r.length === 3 && r.every((x) => x === r[0]) && r[0] === "4/4");
+await espera("o ator apagado lá fora leva junto o aviso de curtida dele (achado pelo apelido)", async () => {
+  await srv("ator_apagado", { ator: gente(7) });
+  return curtidasDaEva();
+}, (t) => t === "3/3");
+await espera("aviso de curtida antigo, com o endereço, troca pelo apelido quando a migração roda de novo", async () => {
+  const post2 = await postar(pessoas.eva, "Outro post da Eva.");
+  await dono("insert into interno.avisos (para, texto, categoria, tipo, post, ator_remoto) values ($1, 'x', 'rede', 'fed_curtida', $2, $3)", [pessoas.eva, post2, gente(4)]);
+  await banco.exclusivo(() => banco.pg.exec(privacidade));
+  const a = await um("select ator_remoto, interno.rede_fed_apelido(para, $2) as esperado from interno.avisos where post = $1 and tipo = 'fed_curtida'", [post2, gente(4)]);
+  await dono("delete from interno.avisos where post = $1", [post2]);
+  return a;
+}, (a) => a.ator_remoto === a.esperado && /^anon:/.test(a.ator_remoto));
+await espera("a regra da coluna recusa outra coisa que não endereço https ou apelido", async () => dono("insert into interno.avisos (para, texto, categoria, tipo, ator_remoto) values ($1, 'x', 'rede', 'fed_curtida', 'anon:zz')", [pessoas.eva]).then(() => "aceitou", (e) => e.message), (m) => /check|violates/.test(m));
+await espera("ATAQUE (achado médio): quem já estava ligado antes da migração ganha a prova do consentimento (carga inicial, sem repetir)", async () => {
+  // O banco de hoje: a Eva ligada, sem nenhuma linha no histórico (como antes desta migração).
+  await dono("delete from interno.fediverso_consentimentos where usuario = $1", [pessoas.eva]);
+  const ligouEm = (await um("select ligado_em from interno.rede_fed_atores where perfil = $1", [pessoas.eva])).ligado_em;
+  await banco.exclusivo(() => banco.pg.exec(privacidade));
+  await banco.exclusivo(() => banco.pg.exec(privacidade));
+  const linhas = (await dono("select versao, ligado, quando from interno.fediverso_consentimentos where usuario = $1", [pessoas.eva])).rows;
+  return [linhas.length, linhas[0]?.ligado, linhas[0]?.versao, linhas[0]?.quando?.getTime() === ligouEm.getTime()];
+}, (r) => JSON.stringify(r) === "[1,true,2,true]");
+await espera("ATAQUE (achado baixo): a prova do consentimento entra no 'baixar meus dados' da pessoa", async () => {
+  const dados = await rpc(como(pessoas.eva), "conta_meus_dados");
+  const chave = Object.keys(dados).find((k) => k.startsWith("fediverso_consentimentos"));
+  return [chave, Array.isArray(dados[chave]) && dados[chave].length === 1 && dados[chave][0].ligado === true];
+}, (r) => typeof r[0] === "string" && r[1] === true);
+await espera("ATAQUE (achado baixo): o histórico tem teto por pessoa (a primeira linha e as 99 mais novas), mesmo com milhares de trocas", async () => {
+  const primeira = (await um("select min(id)::text as id from interno.fediverso_consentimentos where usuario = $1", [pessoas.eva])).id;
+  await dono("insert into interno.fediverso_consentimentos (usuario, versao, ligado) select $1, 2, (g % 2 = 0) from generate_series(1, 300) g", [pessoas.eva]);
+  // Uma troca de verdade (o gatilho roda): desliga e liga de novo.
+  await dono("update interno.rede_fed_atores set ligado = false where perfil = $1", [pessoas.eva]);
+  await dono("update interno.rede_fed_atores set ligado = true where perfil = $1", [pessoas.eva]);
+  const r = await um("select count(*)::int as n, min(id)::text as primeira, bool_and(true) as ok from interno.fediverso_consentimentos where usuario = $1", [pessoas.eva]);
+  const ultima = await um("select ligado from interno.fediverso_consentimentos where usuario = $1 order by id desc limit 1", [pessoas.eva]);
+  return [r.n, r.primeira === primeira, ultima.ligado];
+}, (r) => JSON.stringify(r) === "[100,true,true]");
+await espera("ATAQUE (achado baixo): o endereço da conta sem o ponto final do nome, com a porta, e só para quem está ligado", async () => {
+  const comPonto = (await comEndereco("https://alumia.exemplo.org./api/fediverso/entregar", true)).endereco;
+  const pontoEPorta = (await comEndereco("https://Rede.Exemplo.org.:8443/x", true)).endereco;
+  const hugo = await rpc(como(pessoas.hugo), "rede_fed_situacao");
+  return [comPonto, pontoEPorta, hugo.ligado, hugo.endereco];
+}, (r) => JSON.stringify(r) === '["@eva@exemplo.org","@eva@rede.exemplo.org:8443",false,null]');
+await espera("ATAQUE (achado baixo): o fio de quem bloqueou: o banco diz à rota que quem escreveu bloqueou a pessoa, pelo ator e pela nota", async () => [
+  await rpc(como(pessoas.fabio), "rede_fed_bloqueou_voce", { p_ator: LIA, p_nota: null }),
+  await rpc(como(pessoas.fabio), "rede_fed_bloqueou_voce", { p_ator: null, p_nota: LIA1 }),
+  await rpc(como(pessoas.eva), "rede_fed_bloqueou_voce", { p_ator: LIA, p_nota: LIA1 }),
+  await rpc(como(pessoas.fabio), "rede_fed_bloqueou_voce", { p_ator: TEO, p_nota: `${LONGE}/notes/nao-existe` }),
+  await rpc(anon, "rede_fed_bloqueou_voce", { p_ator: LIA }).then(() => "passou", (e) => (String(e.message).includes("permission denied") ? "negado" : e.message)),
+  await rpc(como(pessoas.hugo), "rede_fed_bloqueou_voce", { p_ator: LIA }).then(() => "passou", (e) => (String(e.message).includes("consentimento") ? "consentimento" : e.message)),
+], (r) => JSON.stringify(r) === '[true,true,false,false,"negado","consentimento"]');
+await espera("e a rota do fio pergunta antes de oferecer 'buscar lá' e depois de ler cada nota na origem, e na dúvida não mostra", async () => lerTexto("app/api/fediverso/remoto/route.ts"),
+  (t) => /if \(await bloqueouVoce\(token, \{ nota: postId \}\)\) return resposta\(\{ erro: "nao_encontrado" \}, 404\);\s*\/\/[^\n]*\n[^\n]*\n\s*if \(!buscarLa\) return resposta\(\{ erro: "so_na_origem"/.test(t)
+    && /\(await bloqueouVoce\(token, \{ ator: autor \}\)\)\) return null;/.test(t) && /return !r\.ok \|\| r\.dado !== false;/.test(t));
 
 // 10. No fim de tudo, a trava do bloqueio fixo segue de pé ───────────────────────────────────────────────────────────────
 await espera("rodar a privacidade mais uma vez, com dados, não muda nada do que foi gravado", async () => {
