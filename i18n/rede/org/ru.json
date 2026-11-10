@@ -1,6 +1,6 @@
 {
   "_rascunho": true,
-  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Главная Alumia" },
+  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Главная Alumia", "acessibilidade": "Доступность", "ajuda": "Частые вопросы" },
   "tipos": { "partido": "Партия", "mandato": "Депутатский мандат", "sindicato": "Профсоюз", "movimento": "Движение", "coletivo": "Коллектив", "gremio": "Школьный совет", "dce": "Студенческий союз", "outro": "Организация" },
   "pagina": {
     "titulo": "Приведите свою организацию",

@@ -21,6 +21,7 @@ import { codigoDoErro, textoDoErro } from "../../erros";
 import { EsqueletoDaLinha } from "../../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../../registro";
 import { CabecalhoDoPerfil, estiloDoAcento } from "./Cabecalho";
+import { avisarCodinome } from "@/lib/rede/codinome-da-conta";
 import { aparenciaDe, extrasDe, meuDaPrevia, meusPosts, previa, salvarAparencia, salvarExtras, guardarMeuNaPrevia, trocarCodinome, type OrgNoPerfil } from "./dados";
 import { CartoesDeEscolha, EditorDePixels, EscolhaDeCor, OrdemDasAbas, TearDaFaixa } from "./Ferramentas";
 import { comTransicao } from "./PaginaDoPerfil";
@@ -98,6 +99,23 @@ function textoDoErroLivre(t: TextosDoPerfilLivre, s: PropsDaTelaDoPacote["s"], e
 }
 
 // ───────────────────────────── A tela ─────────────────────────────
+
+/**
+ * O campo que recebe o foco (Tab, erro) não fica escondido atrás das barras que grudam: a de salvar embaixo e a das seções no
+ * alto. O navegador já rola até o campo; isto só completa o que falta para ele sair de baixo delas.
+ */
+function fugirDasBarras(alvo: EventTarget, raiz: HTMLElement) {
+  if (!(alvo instanceof HTMLElement) || !alvo.matches("input, textarea, select, button, [tabindex]")) return;
+  if (alvo.closest(".pfe-salvar, .pfe-barra-secoes")) return;
+  requestAnimationFrame(() => {
+    const campo = alvo.getBoundingClientRect();
+    const baixo = raiz.querySelector(".pfe-salvar")?.getBoundingClientRect();
+    const alto = raiz.querySelector(".pfe-barra-secoes")?.getBoundingClientRect();
+    const folga = 12;
+    if (baixo && campo.bottom > baixo.top - folga && campo.top < baixo.bottom) window.scrollBy({ top: campo.bottom - baixo.top + folga });
+    else if (alto && alto.top <= 1 && campo.top < alto.bottom + folga && campo.bottom > alto.top) window.scrollBy({ top: campo.top - alto.bottom - folga });
+  });
+}
 
 export default function EditorDoPerfil({ lang, s, situacao, conta }: PropsDaTelaDoPacote & { conta: ReactNode }) {
   const t = useTextosDoPerfilLivre(lang);
@@ -269,7 +287,11 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
         const lida = await salvarAparencia(handle, limpa, r.orgs);
         novo = { ...novo, aparencia: lida.aparencia, orgs: lida.orgs.length ? lida.orgs : r.orgs.filter((o) => lida.aparencia.orgs.includes(o.handle)) };
       }
-      if (r.codinome.trim() !== salvo.codinome.trim()) novo.codinome = await trocarCodinome(handle, r.codinome.trim());
+      if (r.codinome.trim() !== salvo.codinome.trim()) {
+        novo.codinome = await trocarCodinome(handle, r.codinome.trim());
+        // O cartão da conta na casca troca o nome na hora (lib/rede/codinome-da-conta.ts).
+        avisarCodinome(novo.codinome);
+      }
       if (r.bio.trim() !== salvo.bio.trim()) {
         if (previa()) guardarMeuNaPrevia(handle, { bio: r.bio.trim() });
         else await redePerfil.editar({ bio: r.bio.trim() });
@@ -439,7 +461,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
   const rotuloDaSecao = (x: Secao) => t.abasDoEditor[x];
 
   return (
-    <div className="pfe" style={estiloDoAcento(r.aparencia.acento)}>
+    <div className="pfe" style={estiloDoAcento(r.aparencia.acento)} onFocus={(e) => fugirDasBarras(e.target, e.currentTarget)}>
       <header className="pfe-topo">
         <div>
           <h1 className="al-cond pfe-h1">{t.editor.titulo}</h1>

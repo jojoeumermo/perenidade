@@ -285,6 +285,30 @@ await recusa("ninguém chama a função de conferir direto", () => banco.exclusi
   }
 }), "permission denied");
 
+// ── O QA de 10/11: o editor usa a grade da casca, a barra de salvar não esconde campos, o cartão da conta troca o nome, e as
+// páginas da F4 entram na casca para quem tem sessão (sem Entrar/Criar conta) e sem os redondos flutuantes por cima do texto.
+{
+  const css = ler("components/rede/perfil/livre/editor.css");
+  ok("editor: não troca a largura das colunas da casca", !/\.al2:has\(\.pfe-corpo\)[^{]*\{[^}]*grid-template-columns/.test(css));
+  ok("editor: ocupa o meio e a direita da MESMA grade", css.includes(".al2:has(.pfe-corpo) > .al2-grade > #rede-linha { grid-column: 2 / -1;"));
+  ok("editor: Salvar desligado sem a cor apagada", /\.pfe-botao-salvar:disabled \{ opacity: 1; background: var\(--al-superficie-2\); color: var\(--al-texto-2\)/.test(css));
+  const editor = ler("components/rede/perfil/livre/Editor.tsx");
+  ok("editor: o foco foge das barras que grudam", editor.includes("onFocus={(e) => fugirDasBarras(e.target, e.currentTarget)}"));
+  ok("editor: avisa a casca do codinome novo", editor.includes("avisarCodinome(novo.codinome)"));
+  const redeTsx = ler("components/rede/Rede.tsx");
+  ok("casca: ouve o codinome novo", redeTsx.includes("window.addEventListener(EVENTO_DO_CODINOME, aoTrocar)") && redeTsx.includes("codinomeDaPrevia("));
+  ok("prévia: a mesma chave nos dois lados", ler("components/rede/perfil/livre/dados.ts").includes("const CHAVE = CHAVE_DA_PREVIA_DO_PERFIL;"));
+  for (const rota of ["app/[lang]/alumia/organizacoes/page.tsx", "app/[lang]/alumia/organizacoes/exemplo/page.tsx"]) ok(`${rota}: casca para quem tem sessão`, ler(rota).includes("<CascaSeLogado"));
+  ok("registro: o exemplo também abre na casca", ler("components/rede/registro.tsx").includes('"organizacoes-exemplo"'));
+  const pagina = ler("components/rede/org/ParaOrganizacoes.tsx");
+  ok("F4: na casca, sem Entrar e Criar conta", pagina.includes("{naCasca ? null : (") && ler("components/rede/org/PaginaParaOrganizacoes.tsx").includes("naCasca />"));
+  ok("F4: acessibilidade e ajuda no alto, sem os redondos por cima", pagina.includes("<BotoesDoSiteDaOrg") && ler("components/rede/org/org.css").includes(":root:has([data-al=\"2\"] .al-org-botoes-site) :is(.a11y-gatilho:not([data-falando]), .assistente-gatilho)"));
+  for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
+    const m = JSON.parse(ler(`i18n/rede/org/${l}.json`)).marca;
+    ok(`F4 ${l}: rótulos de acessibilidade e ajuda`, Boolean(m.acessibilidade && m.ajuda));
+  }
+}
+
 console.log(`testar-alumia-perfil: ${certos} certos, ${falhas.length} falhas`);
 if (falhas.length) {
   for (const f of falhas) console.log("  ✗ " + f);

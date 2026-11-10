@@ -65,6 +65,7 @@ export const REGISTRO: Record<string, EntradaDoRegistro> = {
   calendario: { componente: dynamic(() => import("./atos/Calendario"), { ssr: false }), menu: "chamados" },
   // F4 · organizações (/alumia/organizacoes).
   organizacoes: { componente: dynamic(() => import("./org/PaginaParaOrganizacoes"), { ssr: false }), menu: "comunidades" },
+  "organizacoes-exemplo": { componente: dynamic(() => import("./org/PerfilDeExemplo"), { ssr: false }), menu: "comunidades" },
   // F5 · stories (/alumia/stories).
   stories: { componente: dynamic(() => import("./stories/TelaDeStories"), { ssr: false }), menu: "inicio" },
   // F6 · segurança pessoal (/alumia/{seguranca,identidades,aparelhos,o-que-guardamos}).
