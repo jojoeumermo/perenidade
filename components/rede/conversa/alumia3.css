@@ -200,6 +200,12 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula-icone { background: var(--al-texto); color: var(--al-fundo); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula-de { color: var(--al-texto); }
 [data-al="2"] .al3-aulas { display: grid; gap: 0.6rem; }
+/* Os cartões de /comunidades com a cor da comunidade: a faixa no alto, como a capa dela, e a borda acende ao passar. */
+[data-al="2"] .al3-vitrine-cartao { position: relative; overflow: hidden; padding-top: 1.35rem; transition: border-color 0.2s, transform 0.2s; }
+[data-al="2"] .al3-vitrine-cartao::before { content: ""; position: absolute; inset: 0 0 auto; height: 6px; background: var(--al3-cor); }
+[data-al="2"] .al3-vitrine-cartao:hover, [data-al="2"] .al3-vitrine-cartao:focus-within { border-color: var(--al3-cor); }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-vitrine-cartao:hover { transform: translateY(-2px); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-vitrine-cartao::before { background: var(--al-texto); }
 [data-al="2"] .al3-aulas .al3-aula { margin-top: 0; }
 /* A aula com o atalho para a conversa dela: o atalho encaixa embaixo do cartão, como uma aba presa nele. */
 [data-al="2"] .al3-aula-com-conversa .al3-aula { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }

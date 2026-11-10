@@ -7,7 +7,7 @@ import { comunidades } from "@/lib/rede/cliente-comunidades";
 import { listaDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecos } from "@/lib/rede/tipos";
-import { enderecosCom, type ItemDaLista, type SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
+import { corDaComunidadeNova, enderecosCom, type ItemDaLista, type SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
@@ -79,9 +79,9 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
         <h1 className="al3-cond al3-titulo-tela">{l.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{l.intro}</p>
         {(pode || !situacao.logado) && (
-          <p className="mt-3 flex flex-wrap gap-4 text-sm">
-            {pode && <Link href={enderecosCom.propor(lang)} className="font-bold underline">{l.propor}</Link>}
-            {pode && <Link href={enderecosCom.nucleos(lang)} className="font-bold underline">{l.turma}</Link>}
+          <p className="mt-2 flex flex-wrap gap-x-5 text-sm">
+            {pode && <Link href={enderecosCom.propor(lang)} className="inline-flex min-h-11 items-center font-bold underline">{l.propor}</Link>}
+            {pode && <Link href={enderecosCom.nucleos(lang)} className="inline-flex min-h-11 items-center font-bold underline">{l.turma}</Link>}
           </p>
         )}
       </header>
@@ -184,7 +184,7 @@ function Cartao({
           ? preencher(l.semana, { posts: i.posts_7d, pessoas: i.pessoas_7d })
           : preencher(l.semanaPoucas, { posts: i.posts_7d });
   return (
-    <article style={cor ? ({ "--cor-da-comunidade": cor } as React.CSSProperties) : undefined} className="alumia-vitrine-cartao flex h-full flex-col rounded-[18px] border-[1.5px] border-rule bg-folha p-4">
+    <article style={cor ? ({ "--cor-da-comunidade": cor } as React.CSSProperties) : undefined} className={`alumia-vitrine-cartao al3-vitrine-cartao al3-cor-${corDaComunidadeNova(i.slug, i.cor)} flex h-full flex-col rounded-[18px] border-[1.5px] border-rule bg-folha p-4`}>
       <div className="flex items-start gap-2">
         <h3 className="min-w-0 flex-1 font-serif text-lg font-bold leading-snug">
           {i.amostra ? i.nome : <Link href={enderecos.comunidade(lang, i.slug)} className="underline decoration-1 underline-offset-2 hover:decoration-2">{i.nome}</Link>}
