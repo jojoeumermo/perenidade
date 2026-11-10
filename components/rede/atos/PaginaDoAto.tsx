@@ -1,13 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { AtoAberto } from "./AtoAberto";
-import { baixarIcs, Icone } from "./partes";
-import { avisarAto, useAto, useTextosDosAtos } from "./usar";
+import { PainelDoFarol } from "./Farol";
+import { Icone } from "./partes";
+import { avisarAto, frase, useAto, useTextosDosAtos } from "./usar";
+import { codigoDoErro } from "@/lib/rede/atos/erros";
 import { linkDeApoioSeguro } from "@/lib/rede/atos/chegar";
 import { doCampoLocal, paraCampoLocal } from "@/lib/rede/atos/tempo";
 import { atos as cliente, PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
@@ -17,7 +19,7 @@ import "./atos.css";
 
 /**
  * A página de um ato (/alumia/ato/[id]; prancha celular-modo-atos): o ato aberto com Você vai, Conversa, Chegar e Chamar; embaixo,
- * Pôr na agenda (.ics feito no aparelho) e o link de apoio externo, quando houver. Quem chamou o ato vê o total exato (só ela) e
+ * o lembrete na agenda (.ics feito no aparelho, com avisos 24 h e 2 h antes), o farol da coordenação e o link de apoio externo, quando houver. Quem chamou o ato vê o total exato (só ela) e
  * pode adiar, cancelar ou confirmar de novo; quem confirmou recebe o aviso "ato_mudou" (o servidor manda).
  */
 export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPacote) {
@@ -33,6 +35,8 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
         <Link href={`/${lang}/alumia/atos`} className="al-cond al-atos-titulo" style={{ color: "inherit", textDecoration: "none" }}>
           {t.tela.titulo}
         </Link>
+        {/* no celular, o lugar dos botões flutuantes do site (veja .al-atos-vaga em atos.css) */}
+        <span className="al-atos-vaga" aria-hidden />
       </header>
       {PREVIA_DOS_ATOS ? <p className="al-atos-previa">{t.tela.previa}</p> : null}
       {estado.fase === "carregando" ? (
@@ -41,7 +45,7 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
         </p>
       ) : estado.fase === "erro" ? (
         <div className="al-atos-vazio" role="alert">
-          <p>{/nao_encontrado|not.found|PGRST116/i.test(estado.erro) ? t.pagina.naoAchado : t.tela.erro}</p>
+          <p>{codigoDoErro(estado.erro) === "nao_encontrado" ? t.pagina.naoAchado : codigoDoErro(estado.erro) === "generico" ? t.tela.erro : frase(t, estado.erro)}</p>
           <Botao variante="contorno" onClick={recarregar}>
             {t.tela.tentar}
           </Botao>
@@ -54,8 +58,9 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
             lang={lang}
             logado={situacao.logado || PREVIA_DOS_ATOS}
             nivel={1}
-            depois={<MaisDoAto ato={estado.dados} t={t} lang={lang} />}
+            depois={<MaisDoAto ato={estado.dados} t={t} />}
           />
+          <PainelDoFarol ato={estado.dados} t={t} lang={lang} />
           {estado.dados.meu ? <PainelDeQuemChamou ato={estado.dados} t={t} /> : null}
         </>
       )}
@@ -63,23 +68,16 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
   );
 }
 
-/** Pôr na agenda e o link de apoio externo (só https; nada de pagamento aqui). */
-function MaisDoAto({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; lang: string }) {
+/** O link de apoio externo (só https; nada de pagamento aqui). O lembrete na agenda fica na coluna de ações. */
+function MaisDoAto({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
   const apoio = linkDeApoioSeguro(ato.link_apoio);
-  if (ato.situacao === "cancelado" && !apoio) return null;
+  if (!apoio) return null;
   return (
     <div className="al-ato-pagina-mais">
-      {ato.situacao !== "cancelado" ? (
-        <Botao variante="contorno" icone={Icone.agenda(18)} onClick={() => baixarIcs(ato, lang)} title={t.acoes.agendaAjuda}>
-          {t.acoes.agenda}
-        </Botao>
-      ) : null}
-      {apoio ? (
-        <a href={apoio} target="_blank" rel="noopener noreferrer nofollow" referrerPolicy="no-referrer" className="al-botao al-botao-m al-botao-contorno" title={t.acoes.apoioAjuda}>
-          <span className="al-botao-icone">{Icone.fora(18)}</span>
-          {t.acoes.apoio}
-        </a>
-      ) : null}
+      <a href={apoio} target="_blank" rel="noopener noreferrer nofollow" referrerPolicy="no-referrer" className="al-botao al-botao-m al-botao-contorno" title={t.acoes.apoioAjuda}>
+        <span className="al-botao-icone">{Icone.fora(18)}</span>
+        {t.acoes.apoio}
+      </a>
     </div>
   );
 }
@@ -94,6 +92,42 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
   const [motivo, setMotivo] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [dataRuim, setDataRuim] = useState(false);
+  const idErro = useId();
+  // O foco acompanha: abrir "Adiar" ou "Cancelar" leva ao primeiro campo; fechar (desistir, Esc ou depois de salvar) devolve
+  // ao botão que abriu (ou, se ele sumiu com a mudança, ao título do painel). Nada de foco perdido no corpo da página.
+  const primeiro = useRef<HTMLInputElement>(null);
+  const titulo = useRef<HTMLHeadingElement>(null);
+  const botoes = useRef<HTMLDivElement>(null);
+  const voltarPara = useRef<"adiado" | "cancelado" | null>(null);
+  useEffect(() => {
+    if (modo) {
+      primeiro.current?.focus();
+      return;
+    }
+    const de = voltarPara.current;
+    if (!de) return;
+    voltarPara.current = null;
+    const botao = botoes.current?.querySelector<HTMLElement>(`[data-modo="${de}"]`);
+    (botao ?? titulo.current)?.focus();
+  }, [modo]);
+  const abrir = (m: "adiado" | "cancelado") => {
+    setErro(null);
+    setDataRuim(false);
+    voltarPara.current = m;
+    setModo(m);
+  };
+  const fechar = () => {
+    setErro(null);
+    setDataRuim(false);
+    setModo(null);
+  };
+  const aoTecla = (e: KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Escape" && !ocupado) {
+      e.preventDefault();
+      fechar();
+    }
+  };
 
   const mudar = async (situacao: SituacaoDoAto, inicio?: string | null) => {
     setOcupado(true);
@@ -101,10 +135,11 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
     try {
       const novo = await cliente.mudar(ato.id, { situacao, inicio, motivo: motivo.trim() });
       avisarAto(novo);
+      if (!voltarPara.current) voltarPara.current = situacao === "confirmado" ? "adiado" : null;
       setModo(null);
       setMotivo("");
-    } catch {
-      setErro(t.pagina.erroMudar);
+    } catch (e) {
+      setErro(codigoDoErro(e) === "generico" ? t.pagina.erroMudar : frase(t, e));
     } finally {
       setOcupado(false);
     }
@@ -117,6 +152,8 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
       const ms = iso ? new Date(iso).getTime() : NaN;
       if (!iso || !(ms > Date.now()) || ms > Date.now() + LIMITES_DO_ATO.diasMax * 86_400_000) {
         setErro(t.pagina.dataRuim);
+        setDataRuim(true);
+        primeiro.current?.focus();
         return;
       }
       void mudar("adiado", iso);
@@ -125,40 +162,60 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
 
   return (
     <section className="al-ato-org" aria-labelledby={`al-ato-org-${ato.id}`}>
-      <h2 id={`al-ato-org-${ato.id}`} className="al-cond">
+      <h2 id={`al-ato-org-${ato.id}`} ref={titulo} tabIndex={-1} className="al-cond al-ato-org-titulo">
         {t.pagina.organizou}
       </h2>
       <p>{ato.total !== null && ato.total >= 3 ? preencherAto(t.pagina.total, { n: ato.total }) : t.pagina.totalPoucas}</p>
       {modo ? (
-        <form className="al-ato-org-form" onSubmit={enviar}>
+        <form className="al-ato-org-form" onSubmit={enviar} onKeyDown={aoTecla} noValidate>
           {modo === "adiado" ? (
             <label>
               {t.pagina.novaData}
-              <input type="datetime-local" className="al-ato-form-campo" value={data} onChange={(e) => setData(e.target.value)} required />
+              <input
+                ref={primeiro}
+                type="datetime-local"
+                className="al-ato-form-campo"
+                value={data}
+                onChange={(e) => {
+                  setData(e.target.value);
+                  if (dataRuim) {
+                    setDataRuim(false);
+                    setErro(null);
+                  }
+                }}
+                required
+                aria-invalid={dataRuim || undefined}
+                aria-describedby={dataRuim ? idErro : undefined}
+              />
             </label>
           ) : null}
           <label>
             {t.pagina.motivo}
-            <input className="al-ato-form-campo" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={140} placeholder={t.pagina.motivoExemplo} />
+            <input ref={modo === "cancelado" ? primeiro : undefined} className="al-ato-form-campo" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={140} placeholder={t.pagina.motivoExemplo} />
           </label>
           <p>{t.pagina.aviso}</p>
+          {erro ? (
+            <p id={idErro} role="alert" className="al-ato-erro">
+              {erro}
+            </p>
+          ) : null}
           <div className="al-ato-org-botoes">
             <Botao type="submit" variante={modo === "cancelado" ? "primario" : "dourado"} aria-busy={ocupado} disabled={ocupado}>
               {modo === "adiado" ? t.pagina.salvarAdiar : t.pagina.salvarCancelar}
             </Botao>
-            <Botao variante="fantasma" onClick={() => setModo(null)}>
+            <Botao variante="fantasma" onClick={fechar} disabled={ocupado}>
               {t.pagina.desistir}
             </Botao>
           </div>
         </form>
       ) : (
-        <div className="al-ato-org-botoes">
+        <div ref={botoes} className="al-ato-org-botoes">
           {ato.situacao !== "cancelado" ? (
             <>
-              <Botao variante="contorno" onClick={() => setModo("adiado")}>
+              <Botao variante="contorno" data-modo="adiado" onClick={() => abrir("adiado")}>
                 {t.pagina.adiar}
               </Botao>
-              <Botao variante="contorno" onClick={() => setModo("cancelado")}>
+              <Botao variante="contorno" data-modo="cancelado" onClick={() => abrir("cancelado")}>
                 {t.pagina.cancelar}
               </Botao>
             </>
@@ -170,8 +227,8 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
           ) : null}
         </div>
       )}
-      {erro ? (
-        <p role="alert" className="al-ato-erro">
+      {erro && !modo ? (
+        <p id={idErro} role="alert" className="al-ato-erro">
           {erro}
         </p>
       ) : null}

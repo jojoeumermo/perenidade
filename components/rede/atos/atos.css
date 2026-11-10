@@ -158,8 +158,6 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-atos-filtro { border: 1px solid var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-atos-filtro-botao[aria-pressed="true"] { background: #000; color: #fff; }
 [data-al="2"] .al-atos-previa { margin: 0 0 0.6rem; font-size: 0.75rem; color: var(--al-ato-dourado-texto); text-transform: uppercase; letter-spacing: 0.06em; }
-[data-al="2"] .al-atos-cidade { margin: 0 0 0.6rem; }
-[data-al="2"] .al-atos-link { background: none; border: 0; padding: 0; color: var(--al-texto-3); font: inherit; font-size: 0.85rem; text-decoration: underline; cursor: pointer; }
 [data-al="2"] .al-atos-miolo { display: grid; gap: 1rem; outline: none; }
 [data-al="2"] .al-atos-cidade-form { display: grid; gap: 0.5rem; padding: 1.25rem; border-radius: 18px; background: var(--al-superficie); border: 1px solid var(--al-linha); }
 [data-al="2"] .al-atos-rotulo { font-weight: 700; color: var(--al-texto-2); }
@@ -218,7 +216,9 @@
   cursor: pointer;
   text-decoration: none;
 }
-[data-al="2"] .al-ato-coluna .al-ato-quadrado:hover { filter: brightness(1.15); }
+@media (hover: hover) {
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado:hover { filter: brightness(1.15); }
+}
 /* o "Você vai" é o maior da coluna (prancha celular-modo-atos); o :root vence a regra do celular que faz pílula de todo
    button[aria-pressed] (app/celular.css), para ele continuar quadrado arredondado como os outros três */
 :root [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 64px; height: 64px; border-radius: 18px; }
@@ -334,3 +334,757 @@
   :root[data-eink] [data-al="2"] .al-faixa-ato-flaps .al-flaps-grupo { background: #000; }
   [data-al="2"] .al-ato-cartao-botoes-celular .al-botao { padding-inline: 0.6rem; white-space: nowrap; }
 }
+
+/* ════════════════════════ Onda A: polimento (movimento, farol, corrente, chegar) ════════════════════════ */
+
+/* ───── mosaico vivo: cartões que viram como cartas; o painel inclina com o ponteiro no computador ───── */
+[data-al="2"] .al-mosaico-vivo {
+  position: relative;
+  background: var(--al-mosaico-fundo, #0b0a09);
+  border: 1px solid var(--al-linha, #2a2622);
+  border-radius: var(--al-raio, 14px);
+  padding: clamp(8px, 2.5%, 18px);
+  isolation: isolate;
+}
+[data-al="2"] .al-mosaico-vivo-svg { display: block; height: auto; overflow: visible; }
+[data-al="2"] .al-mosaico-vivo :is(.al-mv-cartao, .al-mv-anel) { transform-box: fill-box; transform-origin: center; }
+/* o anel do seu cartão respira devagar (só com movimento) */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-mosaico-vivo .al-mv-anel { animation: al-mv-respira 2.8s ease-in-out infinite; }
+}
+@keyframes al-mv-respira {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+[data-al="2"] .al-mosaico-inclina { perspective: 900px; }
+[data-al="2"] .al-mosaico-inclina > svg {
+  transform: rotateX(var(--al-mv-rx, 0deg)) rotateY(var(--al-mv-ry, 0deg));
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+/* um brilho que segue o ponteiro, como luz rasante numa mesa de cartões */
+[data-al="2"] .al-mosaico-inclina::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--al-mv-luz-x, 50%) var(--al-mv-luz-y, 30%), color-mix(in srgb, var(--al-cartao-aceso) 10%, transparent), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+[data-al="2"] .al-mosaico-inclina:hover::after { opacity: 1; }
+:root:is([data-parado], [data-eink], [data-contrast]) [data-al="2"] .al-mosaico-inclina::after { display: none; }
+:root:is([data-parado], [data-eink]) [data-al="2"] .al-mosaico-inclina > svg { transform: none; }
+
+/* ───── carimbo com física: a tinta que espirra quando ele bate ───── */
+[data-al="2"] .al-carimbo-vivo { position: relative; display: inline-flex; isolation: isolate; }
+[data-al="2"] .al-carimbo-tinta {
+  position: absolute;
+  inset: -35% -18%;
+  z-index: -1;
+  border-radius: 40%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(closest-side, currentColor, transparent 75%);
+}
+[data-al="2"] .al-carimbo-tinta[data-situacao="confirmado"] { color: color-mix(in srgb, var(--al-vermelho) 45%, transparent); }
+[data-al="2"] .al-carimbo-tinta[data-situacao="adiado"] { color: color-mix(in srgb, var(--al-dourado) 45%, transparent); }
+[data-al="2"] .al-carimbo-tinta[data-situacao="cancelado"] { color: color-mix(in srgb, var(--al-texto-3) 40%, transparent); }
+[data-al="2"] .al-carimbo-vivo .al-carimbo { transform-origin: 50% 60%; }
+/* o carimbo inclina um pouco mais quando passa o ponteiro (tinta ainda fresca) */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  [data-al="2"] .al-carimbo-vivo .al-carimbo { transition: rotate 0.35s cubic-bezier(0.3, 1.6, 0.5, 1); }
+  [data-al="2"] .al-carimbo-vivo:hover .al-carimbo { rotate: -3deg; }
+}
+
+/* ───── plaquinhas de aeroporto (split-flap) ───── */
+[data-al="2"] .al-flap-vivo { position: relative; perspective: 160px; --al-flap-fundo: var(--al-fundo); }
+[data-al="2"] .al-flap-medida { visibility: hidden; }
+[data-al="2"] .al-flap-vivo :is(.al-flap-fixo, .al-flap-folha) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  background: var(--al-flap-fundo);
+  backface-visibility: hidden;
+}
+[data-al="2"] .al-flap-vivo :is(.al-flap-cima, .al-flap-folha-cima) { clip-path: inset(0 0 50% 0); }
+[data-al="2"] .al-flap-vivo :is(.al-flap-baixo, .al-flap-folha-baixo) { clip-path: inset(50% 0 0 0); }
+/* a dobradiça: um fio escuro no meio da plaquinha */
+[data-al="2"] .al-flap-vivo::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: calc(50% - 0.5px);
+  height: 1px;
+  background: color-mix(in srgb, #000 55%, transparent);
+  pointer-events: none;
+  z-index: 3;
+}
+[data-al="2"] .al-flap-folha-cima { z-index: 2; transform-origin: 50% 50%; animation: al-flap-cai 0.16s cubic-bezier(0.55, 0, 0.9, 0.5) both; }
+[data-al="2"] .al-flap-folha-baixo { z-index: 2; transform-origin: 50% 50%; animation: al-flap-pousa 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.25) 0.15s both; }
+@keyframes al-flap-cai {
+  from { transform: rotateX(0deg); filter: brightness(1); }
+  to { transform: rotateX(-90deg); filter: brightness(0.6); }
+}
+@keyframes al-flap-pousa {
+  from { transform: rotateX(90deg); filter: brightness(1.4); }
+  to { transform: rotateX(0deg); filter: brightness(1); }
+}
+:root[data-eink] [data-al="2"] .al-flap-vivo { --al-flap-fundo: #000; }
+:root[data-eink] [data-al="2"] .al-flap-vivo::after { background: #fff; opacity: 0.4; }
+@media (max-width: 767px) {
+  [data-al="2"] .al-faixa-ato-flaps .al-flap-vivo { --al-flap-fundo: var(--al-fundo); }
+}
+
+/* ───── faixa PRÓXIMO ATO: o farol muda a cor e ela pulsa ───── */
+[data-al="2"] .al-faixa-ato { position: relative; overflow: hidden; transition: background-color 0.5s ease, color 0.5s ease; }
+[data-al="2"] .al-faixa-ato::before {
+  /* um brilho que atravessa a faixa quando o mouse passa (o convite ao toque) */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.28) 50%, transparent 70%);
+  translate: -110% 0;
+  pointer-events: none;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  [data-al="2"] .al-faixa-ato:hover::before { translate: 110% 0; transition: translate 0.9s ease; }
+}
+[data-al="2"] .al-faixa-ato-farol { display: inline-flex; align-items: center; gap: 0.35rem; flex: none; padding: 0.2rem 0.55rem; border-radius: 999px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; background: rgb(0 0 0 / 0.22); }
+[data-al="2"] .al-faixa-ato[data-farol="atencao"] { background: #f08a00; color: #0f0e0d; }
+[data-al="2"] .al-faixa-ato[data-farol="dispersar"] { background: var(--al-vermelho-texto); color: #fff; }
+[data-al="2"] .al-faixa-ato[data-farol="ponto2"] { background: #2d63c8; color: #fff; }
+[data-al="2"] .al-faixa-ato[data-farol="dispersar"] .al-flap,
+[data-al="2"] .al-faixa-ato[data-farol="ponto2"] .al-flap { color: #fff; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-faixa-ato[data-farol-novo] { animation: al-faixa-pulsa 1.1s ease-in-out 4; }
+}
+@keyframes al-faixa-pulsa {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgb(255 255 255 / 0); filter: brightness(1); }
+  50% { box-shadow: inset 0 0 0 4px rgb(255 255 255 / 0.55); filter: brightness(1.12); }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-faixa-ato[data-farol] { background: var(--al-fundo); color: var(--al-texto); border: 3px solid var(--al-texto); }
+
+/* ───── farol do ato ───── */
+[data-al="2"] :is(.al-farol, .al-farol-botao, .al-farol-pedido) { --al-farol-cor: #2fb36b; }
+[data-al="2"] [data-estado="atencao"] { --al-farol-cor: #f5a400; }
+[data-al="2"] [data-estado="dispersar"] { --al-farol-cor: var(--al-vermelho); }
+[data-al="2"] [data-estado="ponto2"] { --al-farol-cor: #5b8cff; }
+[data-al="2"] .al-farol {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--al-farol-cor) 12%, var(--al-superficie));
+  border: 1px solid color-mix(in srgb, var(--al-farol-cor) 55%, transparent);
+  border-inline-start: 6px solid var(--al-farol-cor);
+}
+[data-al="2"] .al-farol-lampada {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: var(--al-farol-cor);
+  background: color-mix(in srgb, var(--al-farol-cor) 18%, transparent);
+  box-shadow: 0 0 0 0 var(--al-farol-cor);
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-farol .al-farol-lampada { animation: al-farol-gira 2.6s ease-in-out infinite; }
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-farol[data-estado="dispersar"] .al-farol-lampada { animation-duration: 0.9s; }
+}
+@keyframes al-farol-gira {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--al-farol-cor) 55%, transparent); }
+  50% { box-shadow: 0 0 0 9px transparent; }
+}
+[data-al="2"] .al-farol-texto { display: grid; gap: 0.25rem; min-width: 0; }
+[data-al="2"] .al-farol-linha { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem; }
+[data-al="2"] .al-farol-estado { font-size: 1.7rem; line-height: 1; color: var(--al-texto); }
+[data-al="2"] .al-farol-carimbo {
+  display: inline-block;
+  padding: 0.12rem 0.45rem;
+  border: 2px solid var(--al-farol-cor);
+  border-radius: 5px;
+  color: var(--al-texto);
+  font-size: 0.78rem;
+  rotate: -3deg;
+  box-shadow: inset 0 0 0 1px var(--al-fundo), inset 0 0 0 2px var(--al-farol-cor);
+}
+[data-al="2"] .al-farol-explica { margin: 0; color: var(--al-texto-2); line-height: 1.4; }
+[data-al="2"] .al-farol-ponto { color: var(--al-texto); }
+[data-al="2"] .al-farol-quando { margin: 0; color: var(--al-texto-3); font-size: 0.8rem; }
+[data-al="2"] .al-farol-painel { display: grid; gap: 0.7rem; padding: 1rem 1.1rem; border-radius: 18px; background: var(--al-superficie); border: 1px solid var(--al-linha); }
+[data-al="2"] .al-farol-painel h2 { margin: 0; font-size: 1.6rem; }
+[data-al="2"] .al-farol-ajuda { margin: 0; color: var(--al-texto-3); font-size: 0.88rem; line-height: 1.45; }
+[data-al="2"] .al-farol-botoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+[data-al="2"] .al-farol-botao {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.15rem 0.6rem;
+  min-height: 56px;
+  padding: 0.55rem 0.7rem;
+  border-radius: 14px;
+  border: 1.5px solid var(--al-superficie-2);
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  font: inherit;
+  font-weight: 700;
+  text-align: start;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+[data-al="2"] .al-farol-botao .al-farol-lampada { grid-row: span 2; width: 2.1rem; height: 2.1rem; }
+@media (hover: hover) {
+  [data-al="2"] .al-farol-botao:hover:not(:disabled) { border-color: var(--al-farol-cor); }
+}
+[data-al="2"] .al-farol-botao:active:not(:disabled) { transform: scale(0.97); }
+[data-al="2"] .al-farol-botao[aria-pressed="true"] { border-color: var(--al-farol-cor); background: color-mix(in srgb, var(--al-farol-cor) 14%, var(--al-fundo)); }
+[data-al="2"] .al-farol-botao-atual { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--al-texto-3); }
+[data-al="2"] .al-farol-pedido { display: grid; gap: 0.6rem; margin: 0; padding: 0.75rem 0.9rem; border-radius: 14px; border: 2px dashed var(--al-farol-cor); }
+[data-al="2"] .al-farol-pedido p { margin: 0; }
+[data-al="2"] .al-farol-ponto-form { display: grid; gap: 0.45rem; }
+[data-al="2"] .al-farol-ponto-form label { font-weight: 700; color: var(--al-texto-2); font-size: 0.9rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-farol { background: var(--al-fundo); border: 3px solid var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-farol-botao { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-farol-botao[aria-pressed="true"] { background: var(--al-texto); color: var(--al-fundo); }
+
+/* ───── corrente de solidariedade ───── */
+[data-al="2"] .al-correntes { display: grid; gap: 0.75rem; }
+[data-al="2"] .al-corrente {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(135deg, color-mix(in srgb, var(--al-dourado) 7%, transparent) 0 10px, transparent 10px 20px),
+    var(--al-superficie);
+  border: 1.5px solid color-mix(in srgb, var(--al-dourado) 55%, transparent);
+}
+[data-al="2"] .al-corrente-cabeca { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.75rem; }
+[data-al="2"] .al-corrente-rotulo { font-size: 1.15rem; color: var(--al-ato-dourado-texto); }
+[data-al="2"] .al-corrente-org { color: var(--al-texto-3); font-size: 0.85rem; }
+[data-al="2"] .al-corrente-texto { margin: 0; font-size: 1.2rem; line-height: 1.3; color: var(--al-texto); }
+[data-al="2"] .al-corrente-meta { margin: 0; color: var(--al-texto-2); font-size: 0.9rem; }
+[data-al="2"] .al-corrente-barra { display: block; width: 100%; max-width: 30rem; height: auto; margin-block: 0.2rem; overflow: visible; }
+[data-al="2"] .al-corrente-barra g { transform-box: view-box; }
+[data-al="2"] .al-corrente-elo { stroke: var(--al-texto-3); transition: stroke 0.3s ease; }
+[data-al="2"] .al-corrente-barra [data-fechado] .al-corrente-elo { stroke: var(--al-dourado); }
+[data-al="2"] .al-corrente-barra[data-fechada] .al-corrente-elo { stroke: var(--al-dourado); filter: drop-shadow(0 0 4px color-mix(in srgb, var(--al-dourado) 60%, transparent)); }
+[data-al="2"] .al-corrente-elos { margin: 0; font-weight: 700; color: var(--al-texto-2); font-size: 0.9rem; }
+[data-al="2"] .al-corrente-total { margin: 0; color: var(--al-texto-3); font-size: 0.82rem; }
+[data-al="2"] .al-corrente-botao { justify-self: start; }
+[data-al="2"] .al-corrente[data-fechada] { border-style: solid; border-color: var(--al-dourado); }
+[data-al="2"] .al-corrente-abrir { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+[data-al="2"] .al-corrente-form { display: grid; gap: 0.6rem; padding: 1rem 1.1rem; border-radius: 18px; border: 1px dashed var(--al-superficie-2); }
+[data-al="2"] .al-corrente-form h3 { margin: 0; font-size: 1.5rem; }
+[data-al="2"] .al-corrente-form label { display: grid; gap: 0.3rem; font-weight: 700; color: var(--al-texto-2); font-size: 0.9rem; }
+[data-al="2"] .al-corrente-form-linha { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.6rem; }
+[data-al="2"] .al-correntes-compacta .al-corrente { padding: 0.8rem 0.9rem; }
+[data-al="2"] .al-correntes-compacta .al-corrente-texto { font-size: 1rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-corrente { background: var(--al-fundo); border: 2px solid var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-corrente-barra [data-fechado] .al-corrente-elo { stroke: var(--al-texto); }
+
+/* ───── Chegar: a folha (popover nativo) que sobe de baixo no celular e aparece no meio no computador ───── */
+[data-al="2"] .al-chegar-folha,
+.al-chegar-folha {
+  position: fixed;
+  inset: auto 0 0 0;
+  margin: 0 auto;
+  width: min(100%, 30rem);
+  max-height: 85dvh;
+  overflow: auto;
+  padding: 1rem 16px calc(1.25rem + env(safe-area-inset-bottom));
+  border: 1px solid var(--al-linha, #2a2622);
+  border-radius: 22px 22px 0 0;
+  background: var(--al-superficie, #1a1816);
+  color: var(--al-texto, #f3efe6);
+  box-shadow: 0 -18px 60px rgb(0 0 0 / 0.5);
+  opacity: 1;
+  translate: 0 0;
+  transition: translate 0.38s cubic-bezier(0.2, 0.9, 0.25, 1.05), opacity 0.25s ease, overlay 0.38s allow-discrete, display 0.38s allow-discrete;
+}
+.al-chegar-folha:not([open]) { translate: 0 100%; opacity: 0; }
+@starting-style {
+  .al-chegar-folha[open] { translate: 0 100%; opacity: 0; }
+}
+.al-chegar-folha::backdrop { background: rgb(0 0 0 / 0.55); backdrop-filter: blur(3px); }
+@media (min-width: 768px) {
+  [data-al="2"] .al-chegar-folha,
+  .al-chegar-folha { inset: 0; margin: auto; height: fit-content; border-radius: 22px; padding-bottom: 1.25rem; }
+  .al-chegar-folha:not([open]) { translate: 0 18px; opacity: 0; }
+  @starting-style {
+    .al-chegar-folha[open] { translate: 0 18px; opacity: 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .al-chegar-folha { transition: none; }
+}
+:root[data-parado] .al-chegar-folha { transition: none; }
+.al-chegar-folha .al-chegar-cabeca { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.al-chegar-folha h2 { margin: 0; font-size: 1.8rem; }
+.al-chegar-fechar { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 0; background: transparent; color: inherit; cursor: pointer; }
+.al-chegar-fechar:hover { background: var(--al-superficie-2, #2a2622); }
+.al-chegar-endereco { display: flex; gap: 0.5rem; align-items: flex-start; margin: 0.6rem 0 0.9rem; font-weight: 700; line-height: 1.35; }
+.al-chegar-endereco svg { flex: none; margin-top: 0.1rem; color: var(--al-vermelho, #e8321f); }
+.al-chegar-opcoes { display: grid; gap: 0.5rem; }
+.al-chegar-opcao {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 52px;
+  padding: 0.7rem 0.95rem;
+  border-radius: 14px;
+  border: 1px solid var(--al-superficie-2, #2a2622);
+  background: var(--al-fundo, #0f0e0d);
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+@media (hover: hover) {
+  .al-chegar-opcao:hover { background: var(--al-superficie-2, #2a2622); }
+}
+.al-chegar-opcao:active { transform: scale(0.98); }
+.al-chegar-explica { margin: 0.9rem 0 0; color: var(--al-texto-3, #a9a29a); font-size: 0.85rem; line-height: 1.45; }
+:root:is([data-contrast], [data-eink]) .al-chegar-folha,
+:root:is([data-contrast], [data-eink]) .al-chegar-opcao { border: 2px solid var(--al-texto); }
+
+/* ───── a coluna de ações: aperto com mola, o "Você vai" solta faíscas douradas ───── */
+[data-al="2"] .al-ato-coluna .al-ato-quadrado { position: relative; transition: transform 0.35s cubic-bezier(0.3, 1.7, 0.5, 1), background-color 0.3s ease, color 0.3s ease, filter 0.15s ease; }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado:active { transform: scale(0.9); }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 3px; }
+[data-al="2"] .al-ato-faisca {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px;
+  border-radius: 2px;
+  background: var(--al-voce);
+  pointer-events: none;
+}
+[data-al="2"] .al-ato-acao-rotulo { transition: color 0.3s ease; }
+
+/* ───── trocar de ato: arrastar com o dedo (o ato segue o dedo) e a transição de vista ───── */
+[data-al="2"] .al-atos-palco { display: grid; gap: 1rem; touch-action: pan-y; }
+[data-al="2"] .al-atos-palco[data-arrastando] .al-ato-aberto { transition: none; }
+[data-al="2"] .al-atos-palco .al-ato-aberto {
+  translate: 0 var(--al-arraste, 0px);
+  transition: translate 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.1), opacity 0.3s ease;
+  opacity: calc(1 - var(--al-arraste-p, 0) * 0.35);
+}
+[data-al="2"] .al-atos-proximo .al-ato-item { transition: transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1), border-color 0.2s ease; }
+[data-al="2"] .al-atos-palco[data-puxou] .al-atos-proximo .al-ato-item { transform: translateY(-6px) scale(1.02); border-color: var(--al-dourado); }
+[data-al="2"] .al-atos-deslize { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+[data-al="2"] .al-atos-deslize-seta { display: inline-flex; rotate: 180deg; color: var(--al-texto-3); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-atos-deslize-seta { animation: al-deslize 1.8s ease-in-out infinite; }
+}
+@keyframes al-deslize {
+  0%, 100% { translate: 0 0; opacity: 0.6; }
+  50% { translate: 0 -6px; opacity: 1; }
+}
+[data-al="2"] .al-atos-pontos { display: flex; justify-content: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al-atos-pontos li { width: 6px; height: 6px; border-radius: 99px; background: var(--al-superficie-2); transition: width 0.35s cubic-bezier(0.3, 1.5, 0.5, 1), background-color 0.3s ease; }
+[data-al="2"] .al-atos-pontos li[aria-current="true"] { width: 20px; background: var(--al-dourado); }
+[data-al="2"] .al-atos-atalhos { margin: 0; text-align: center; color: var(--al-texto-3); font-size: 0.78rem; }
+@media (pointer: coarse), (hover: none) {
+  [data-al="2"] .al-atos-atalhos { display: none; }
+}
+[data-al="2"] .al-atos-filtro-botao { transition: background-color 0.3s ease, color 0.3s ease; }
+
+/* ───── avisos curtos (confirmado, lembrete baixado) ───── */
+[data-al="2"] .al-ato-aviso {
+  margin: 0;
+  padding: 0.55rem 0.8rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--al-dourado) 14%, var(--al-superficie));
+  color: var(--al-texto);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+[data-al="2"] .al-ato-aviso:empty { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-al="2"] .al-ato-aviso:not(:empty) { animation: al-aviso-entra 0.45s cubic-bezier(0.3, 1.5, 0.5, 1); }
+}
+@keyframes al-aviso-entra { from { translate: 0 8px; opacity: 0; } }
+
+/* ───── cartão do ato no Início: sobe ao passar o mouse; o mosaico fica em primeiro plano ───── */
+[data-al="2"] .al-ato-cartao { transition: border-color 0.25s ease, box-shadow 0.35s ease, translate 0.35s cubic-bezier(0.3, 1.4, 0.5, 1); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  [data-al="2"] .al-ato-cartao:hover { border-color: var(--al-superficie-2); box-shadow: 0 18px 40px -22px rgb(0 0 0 / 0.75); translate: 0 -2px; }
+}
+[data-al="2"] .al-ato-cartao .al-botao { transition: filter 0.12s ease, background-color 0.25s ease, transform 0.3s cubic-bezier(0.3, 1.7, 0.5, 1); }
+[data-al="2"] .al-ato-cartao .al-botao:active:not(:disabled) { transform: scale(0.95); }
+[data-al="2"] .al-ato-pagina .al-farol,
+[data-al="2"] .al-ato-aberto .al-farol { margin-top: 0.3rem; }
+[data-al="2"] .al-ato-lembrete { display: inline-grid; justify-items: start; gap: 0.25rem; }
+[data-al="2"] .al-ato-aberto-texto > .al-ato-lembrete { margin-top: 0.4rem; }
+.al-chegar-folha { text-align: start; }
+
+/* ════════════════════════ revisão: celular, farol, gesto, chegar, mosaico ════════════════════════ */
+
+/* ───── cabeça e linha da cidade: alvos de 44 px; a cidade é um chip ("São Paulo · trocar") na mesma linha dos pontos ───── */
+[data-al="2"] .al-atos-voltar { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+[data-al="2"] .al-atos-meta { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0 0 0.6rem; min-height: 44px; }
+[data-al="2"] .al-atos-meta .al-atos-pontos { margin-inline-start: auto; }
+[data-al="2"] .al-atos-cidade {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  margin: 0 0 0 -0.5rem;
+  padding: 0 0.6rem;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--al-texto-2);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  [data-al="2"] .al-atos-cidade:hover { background: var(--al-superficie); }
+}
+[data-al="2"] .al-atos-cidade-pino { display: inline-flex; color: var(--al-vermelho); }
+[data-al="2"] .al-atos-cidade-nome { font-weight: 700; color: var(--al-texto); }
+[data-al="2"] .al-atos-cidade-trocar { color: var(--al-texto-3); text-decoration: underline; text-underline-offset: 3px; }
+/* o exemplo do campo não pode parecer valor preenchido: itálico e mais apagado */
+[data-al="2"] :is(.al-atos-campo, .al-ato-form-campo)::placeholder { color: var(--al-texto-3); opacity: 0.7; font-style: italic; font-weight: 400; }
+[data-al="2"] .al-atos-campo[aria-invalid="true"] { border-color: var(--al-vermelho); }
+
+/* "era 15/11" riscado não se separa */
+[data-al="2"] .al-ato-era { white-space: nowrap; }
+
+/* ───── o chamado: 3 linhas com "mais" no celular ───── */
+[data-al="2"] .al-ato-chamado { display: grid; gap: 0.35rem; justify-items: start; }
+[data-al="2"] .al-ato-chamado .al-ato-aberto-chamado { margin: 0.2rem 0 0; }
+[data-al="2"] .al-ato-chamado-mais {
+  display: none;
+  min-height: 44px;
+  margin-top: -0.5rem;
+  padding: 0 0.6rem 0 0;
+  border: 0;
+  background: none;
+  color: var(--al-texto);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-ato-chamado:not([data-aberto]) .al-ato-aberto-chamado { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  [data-al="2"] .al-ato-chamado:not([data-aberto]) .al-ato-chamado-por { display: none; }
+  [data-al="2"] .al-ato-chamado-mais { display: inline-flex; align-items: center; }
+}
+
+/* ───── farol: carimbo numa linha só dele, legível; no celular, compacto ───── */
+[data-al="2"] .al-farol { grid-template-columns: auto 1fr auto; align-items: center; }
+[data-al="2"] .al-farol-linha { align-items: baseline; gap: 0.15rem 0.6rem; }
+[data-al="2"] .al-farol-estado { white-space: nowrap; }
+[data-al="2"] .al-farol-quando { white-space: nowrap; }
+[data-al="2"] .al-farol-carimbo {
+  justify-self: start;
+  margin-top: 0.15rem;
+  padding: 0.18rem 0.5rem;
+  border: 2.5px solid var(--al-farol-cor);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  rotate: -1.5deg;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--al-farol-cor) 10%, transparent);
+}
+[data-al="2"] .al-farol-ponto { display: block; font-size: 1.05rem; color: var(--al-texto); }
+[data-al="2"] .al-farol-mais { display: none; }
+[data-al="2"] .al-farol-explica { margin-top: 0.1rem; }
+@media (max-width: 767px) {
+  /* compacto: lâmpada, estado e quando numa linha; o carimbo, o novo ponto e a explicação usam a largura toda embaixo */
+  [data-al="2"] .al-farol { padding: 0.55rem 0.3rem 0.6rem 0.6rem; gap: 0.35rem 0.6rem; border-inline-start-width: 5px; }
+  [data-al="2"] .al-farol-texto { display: contents; }
+  [data-al="2"] .al-farol-linha { grid-column: 2; }
+  [data-al="2"] .al-farol-mais { grid-column: 3; grid-row: 1; }
+  [data-al="2"] :is(.al-farol-carimbo, .al-farol-ponto, .al-farol-explica) { grid-column: 1 / -1; }
+  [data-al="2"] .al-farol-carimbo { font-size: 0.75rem; letter-spacing: 0; padding: 0.15rem 0.4rem; margin-top: 0; }
+  [data-al="2"] .al-farol-quando { font-size: 0.78rem; }
+  [data-al="2"] .al-farol .al-farol-lampada { width: 2.1rem; height: 2.1rem; }
+  [data-al="2"] .al-farol-estado { font-size: 1.35rem; }
+  [data-al="2"] .al-farol-mais {
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: var(--al-texto-2);
+    cursor: pointer;
+  }
+  /* o alvo de toque continua com 44 px (WCAG 2.5.8), sem engordar a linha */
+  [data-al="2"] .al-farol-mais::before { content: ""; position: absolute; inset: -4px; }
+  [data-al="2"] .al-farol-mais svg { transition: rotate 0.3s cubic-bezier(0.3, 1.5, 0.5, 1); }
+  [data-al="2"] .al-farol[data-aberto] .al-farol-mais svg { rotate: 180deg; }
+  /* fechado, a explicação sai da vista mas o leitor de tela continua ouvindo (a caixa é role=status) */
+  [data-al="2"] .al-farol:not([data-aberto]) .al-farol-explica {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-farol-carimbo { border-color: var(--al-texto); background: none; }
+
+/* ───── painel do farol: cartões iguais, nunca pílulas (vence o button[aria-pressed] do app/celular.css, que é 0,4,2) ───── */
+:root:not([data-leitor]) [data-al="2"] .al-farol-botoes .al-farol-botao[aria-pressed] { border-radius: 14px; }
+[data-al="2"] .al-farol-botao { align-content: center; min-height: 64px; }
+[data-al="2"] .al-farol-botao-nome { line-height: 1.2; }
+[data-al="2"] .al-farol-botao-espera { color: var(--al-texto-2); }
+[data-al="2"] .al-farol-botao[data-esperando] { border-style: dashed; border-width: 2px; border-color: var(--al-farol-cor); cursor: default; }
+[data-al="2"] .al-farol-botao[data-armado] { border-color: var(--al-farol-cor); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-farol-cor) 35%, transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-farol-botao[data-armado] { animation: al-farol-armado 0.9s ease-in-out infinite; }
+}
+@keyframes al-farol-armado {
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--al-farol-cor) 20%, transparent); }
+}
+[data-al="2"] .al-farol-armado { margin: 0; color: var(--al-texto); font-weight: 700; font-size: 0.9rem; }
+[data-al="2"] .al-farol-armado:empty { display: none; }
+@media (max-width: 479px) {
+  /* celular estreito: a lâmpada em cima e o nome embaixo, centrados; os quatro do mesmo tamanho */
+  [data-al="2"] .al-farol-botao { grid-template-columns: 1fr; justify-items: center; text-align: center; min-height: 104px; padding: 0.6rem 0.4rem; gap: 0.3rem; }
+  [data-al="2"] .al-farol-botao .al-farol-lampada { grid-row: auto; }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-farol-botao[data-esperando] { border: 3px dashed var(--al-texto); }
+
+/* ───── coluna de ações: o lembrete é o quinto quadrado (menor); no celular a coluna encolhe para o próximo ato aparecer ───── */
+[data-al="2"] .al-ato-coluna .al-ato-quadrado-menor { width: 48px; height: 48px; border-radius: 14px; }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado[data-feito] { border-color: var(--al-dourado); color: var(--al-ato-dourado-texto); }
+@media (min-width: 420px) {
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado-menor { width: 52px; height: 52px; }
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-ato-aberto { gap: 0.9rem; }
+  [data-al="2"] .al-ato-aberto-corpo { gap: 0.75rem; }
+  [data-al="2"] .al-ato-coluna { gap: 0.55rem; }
+  [data-al="2"] .al-ato-acao { gap: 0.2rem; }
+  [data-al="2"] .al-ato-acao-rotulo { font-size: 0.8rem; }
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado:not(.al-ato-quadrado-menor) { width: 52px; height: 52px; border-radius: 15px; }
+  :root [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 60px; height: 60px; border-radius: 17px; }
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado-menor { width: 44px; height: 44px; }
+  [data-al="2"] .al-ato-aberto-texto { gap: 0.45rem; }
+  [data-al="2"] .al-ato-aberto-marcas { flex-wrap: nowrap; gap: 0.6rem; }
+  [data-al="2"] .al-ato-aberto-marcas .al-pilula { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.95rem; }
+  [data-al="2"] .al-ato-aberto-marcas .al-carimbo { flex: none; font-size: 0.95rem; }
+  [data-al="2"] .al-ato-aberto-titulo { font-size: clamp(2.8rem, 14vw, 4.4rem); margin: 0; }
+  [data-al="2"] .al-ato-aberto-quando { font-size: 1.05rem; }
+  [data-al="2"] .al-ato-aberto-onde { font-size: 0.98rem; }
+  [data-al="2"] .al-ato-aberto-chamado { font-size: 1rem; }
+  [data-al="2"] .al-ato-aberto .al-ato-frase { font-size: 0.95rem; }
+  [data-al="2"] .al-ato-aberto-mosaico { padding: 8px; }
+  [data-al="2"] .al-atos-proximo { margin-top: 0.4rem; gap: 0.5rem; }
+  [data-al="2"] .al-atos-cabeca { padding: 0.6rem 0 0.4rem; }
+  [data-al="2"] .al-atos-titulo { font-size: 2.3rem; }
+  [data-al="2"] .al-atos-filtro-botao { padding: 0.5rem 0.9rem; font-size: 1rem; min-height: 44px; }
+  [data-al="2"] .al-atos-meta { margin-bottom: 0.3rem; }
+  [data-al="2"] .al-atos-previa { margin-bottom: 0.1rem; }
+}
+
+/* ───── gesto: para a frente, o cartão do próximo sobe com o dedo; para trás, o ato aberto desce ───── */
+[data-al="2"] .al-atos-palco .al-ato-aberto { translate: none; opacity: 1; }
+[data-al="2"] .al-atos-palco[data-arrastando="tras"] .al-ato-aberto { translate: 0 var(--al-arraste, 0px); opacity: calc(1 - var(--al-arraste-p, 0) * 0.35); transition: none; }
+[data-al="2"] .al-atos-proximo .al-ato-item { transition: translate 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.1), transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1), border-color 0.2s ease, box-shadow 0.25s ease; }
+[data-al="2"] .al-atos-palco[data-arrastando="frente"] .al-atos-proximo .al-ato-item { translate: 0 var(--al-arraste, 0px); transition: transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1), border-color 0.2s ease, box-shadow 0.25s ease; }
+[data-al="2"] .al-atos-palco[data-puxou] .al-atos-proximo .al-ato-item { transform: scale(1.02); border-color: var(--al-dourado); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-dourado) 35%, transparent); }
+[data-al="2"] .al-atos-palco[data-arrastando="frente"] .al-atos-deslize { opacity: calc(1 - var(--al-arraste-p, 0)); }
+[data-al="2"] .al-atos-deslize-solte { display: none; color: var(--al-ato-dourado-texto); font-weight: 700; }
+[data-al="2"] .al-atos-palco[data-puxou][data-arrastando="frente"] .al-atos-deslize { opacity: 1; }
+[data-al="2"] .al-atos-palco[data-puxou][data-arrastando="frente"] .al-atos-deslize-texto { display: none; }
+[data-al="2"] .al-atos-palco[data-puxou][data-arrastando="frente"] .al-atos-deslize-solte { display: inline; }
+[data-al="2"] .al-atos-anterior { min-height: 44px; }
+
+/* ───── correntes dobradas embaixo do próximo ato ───── */
+[data-al="2"] .al-correntes-dobra { border: 1.5px solid color-mix(in srgb, var(--al-dourado) 45%, transparent); border-radius: 18px; background: var(--al-superficie); }
+[data-al="2"] .al-correntes-dobra > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+}
+[data-al="2"] .al-correntes-dobra > summary::-webkit-details-marker { display: none; }
+[data-al="2"] .al-correntes-dobra > summary::after { content: ""; flex: none; width: 0.55rem; height: 0.55rem; margin-inline-start: auto; border: solid var(--al-texto-2); border-width: 0 2px 2px 0; rotate: 45deg; translate: 0 -2px; transition: rotate 0.3s ease; }
+[data-al="2"] .al-correntes-dobra[open] > summary::after { rotate: -135deg; translate: 0 2px; }
+[data-al="2"] .al-correntes-dobra-elo { display: inline-flex; color: var(--al-ato-dourado-texto); }
+[data-al="2"] .al-correntes-dobra-titulo { min-width: 0; }
+[data-al="2"] .al-correntes-dobra-n { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; padding: 0 0.35rem; border-radius: 99px; background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.85rem; }
+[data-al="2"] .al-correntes-dobra > .al-correntes { padding: 0 0.6rem 0.7rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-correntes-dobra { border: 2px solid var(--al-texto); }
+/* o "Quando" da corrente ocupa a linha inteira (data e hora não cabem em 9 rem) */
+[data-al="2"] .al-corrente-form-linha > label:has(input[type="datetime-local"]) { grid-column: 1 / -1; }
+[data-al="2"] .al-corrente-fechou:empty { display: none; }
+
+/* ───── Chegar: agora um <dialog> modal ───── */
+[data-al="2"] .al-chegar-folha,
+.al-chegar-folha { max-width: none; transition: translate 0.38s cubic-bezier(0.2, 0.9, 0.25, 1.05), opacity 0.25s ease, overlay 0.38s allow-discrete, display 0.38s allow-discrete; }
+.al-chegar-folha::backdrop { transition: opacity 0.3s ease, overlay 0.38s allow-discrete, display 0.38s allow-discrete; opacity: 1; }
+.al-chegar-folha:not([open])::backdrop { opacity: 0; }
+@starting-style {
+  .al-chegar-folha[open]::backdrop { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .al-chegar-folha,
+  .al-chegar-folha::backdrop { transition: none; }
+}
+.al-chegar-icone { display: inline-flex; }
+.al-chegar-opcao[data-feito] { border-color: var(--al-dourado, #ffc21a); color: var(--al-ato-dourado-texto, #ffc21a); }
+@media (prefers-reduced-motion: no-preference) {
+  .al-chegar-opcao[data-feito] .al-chegar-icone { animation: al-chegar-visto 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
+}
+@keyframes al-chegar-visto { from { scale: 0.4; rotate: -20deg; } }
+
+/* ───── mosaico: a palavra lê de longe ─────
+   Como na prancha (celular-modo-atos e computador-inicio): o fundo aceso é creme (só um pouco abaixo do creme cheio, para a
+   letra ganhar), o apagado some no fundo, a letra acesa é o vermelho cheio e a letra apagada é um vermelho médio (bem acima do
+   fundo): a palavra é sempre a figura. Alto contraste e e-ink: os tokens de sempre. */
+[data-al="2"] .al-mosaico-vivo {
+  --al-mv-aceso: color-mix(in srgb, var(--al-cartao-aceso) 88%, var(--al-mosaico-fundo));
+  --al-mv-apagado: color-mix(in srgb, var(--al-cartao-apagado) 60%, var(--al-mosaico-fundo));
+  --al-mv-letra: #ff3a1f;
+  --al-mv-letra-apagada: color-mix(in srgb, var(--al-letra-acesa) 58%, var(--al-mosaico-fundo));
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-mosaico-vivo {
+  --al-mv-aceso: var(--al-cartao-aceso);
+  --al-mv-apagado: var(--al-cartao-apagado);
+  --al-mv-letra: var(--al-letra-acesa);
+  --al-mv-letra-apagada: var(--al-letra-apagada);
+}
+
+/* ───── os botões flutuantes do site (ajuda e acessibilidade) não tapam a coluna de ações nem o farol ─────
+   No celular, as telas de ato guardam uma vaga vazia na linha da cidade (tela) ou na cabeça (página): os dois botões se ancoram
+   nela (CSS anchor positioning) e rolam junto com ela, como se fossem parte da página; somem quando a vaga sai da tela. Sem anchor
+   positioning, eles ficam no canto de cima do mosaico e somem ao rolar. Quem escolheu outra posição para o botão de acessibilidade
+   continua com a sua (o estilo em linha vence). */
+[data-al="2"] .al-atos-vaga { display: none; }
+@media (min-width: 768px) {
+  [data-al="2"] .al-atos-meta:not(:has(.al-atos-cidade, .al-atos-pontos)) { display: none; }
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-atos-vaga { display: block; flex: none; width: 6rem; height: 2.75rem; margin-inline-start: auto; anchor-name: --al-flutua; }
+  [data-al="2"] .al-atos-meta .al-atos-pontos { margin-inline-start: 0; }
+  :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .assistente-flutua .assistente-janela { top: 3.5rem; bottom: auto; left: auto; right: 0; }
+  @supports (anchor-name: --a) {
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .app-flutua {
+      position-anchor: --al-flutua;
+      top: anchor(top);
+      left: calc(anchor(left) + 3.25rem);
+      bottom: auto;
+      right: auto;
+      position-visibility: anchors-visible;
+    }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .assistente-flutua {
+      position-anchor: --al-flutua;
+      top: anchor(top);
+      left: anchor(left);
+      bottom: auto;
+      right: auto;
+      position-visibility: anchors-visible;
+    }
+  }
+  @supports not (anchor-name: --a) {
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .app-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: 1.5rem; left: auto; }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .assistente-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: calc(1.5rem + 2.75rem + 0.5rem); left: auto; }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) :is(.app-flutua, .assistente-flutua) { transition: opacity 0.2s ease-out; }
+    :root[data-lendo]:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) :is(.app-flutua, .assistente-flutua):not(:focus-within) { opacity: 0; pointer-events: none; }
+  }
+}
+/* o título recebe o foco por programa (troca de ato, cidade escrita): é um título, não um controle; não ganha anel de foco */
+[data-al="2"] .al-ato-aberto-titulo[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; }
+/* e-ink: o farol é preto no branco (o estado vai escrito; a cor não é a única pista) */
+:root[data-eink] [data-al="2"] :is(.al-farol, .al-farol-botao, .al-farol-pedido) { --al-farol-cor: #000; }
+/* ───── o aviso do Chamar ("link copiado" ou o endereço para copiar à mão) ─────
+   Na coluna de ações (estreita), vira um aviso flutuante embaixo, acima da barra do celular, que entra com mola e some sozinho.
+   O endereço quebra em qualquer ponto (nunca estoura a tela). */
+[data-al="2"] .al-ato-copiado { overflow-wrap: anywhere; }
+[data-al="2"] .al-ato-copiado[data-falhou] { color: var(--al-texto); }
+[data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0;
+  width: max-content;
+  max-width: min(calc(100vw - 32px), 28rem);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--al-superficie-2);
+  background: var(--al-superficie);
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.8);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: start;
+  user-select: text;
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) { bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) { animation: al-copiado-entra 0.42s cubic-bezier(0.3, 1.5, 0.5, 1); }
+}
+@keyframes al-copiado-entra { from { opacity: 0; translate: -50% 18px; scale: 0.96; } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) { border: 2px solid var(--al-texto); box-shadow: none; }
+/* ───── calendário: o "Pôr na agenda" de cada linha (alvo de 44 px; vira um visto dourado quando baixou) ───── */
+[data-al="2"] .al-cal-agenda { flex: none; display: inline-flex; }
+[data-al="2"] .al-cal-agenda-botao {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--al-texto-2);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.2s ease, border-color 0.2s ease, transform 0.3s cubic-bezier(0.3, 1.7, 0.5, 1);
+}
+@media (hover: hover) {
+  [data-al="2"] .al-cal-agenda-botao:hover { background: var(--al-superficie); color: var(--al-texto); }
+}
+[data-al="2"] .al-cal-agenda-botao:active { transform: scale(0.9); }
+[data-al="2"] .al-cal-agenda-botao:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .al-cal-agenda-botao[data-feito] { color: var(--al-ato-dourado-texto); border-color: var(--al-dourado); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-cal-agenda-botao[data-feito] svg { animation: al-chegar-visto 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-cal-agenda-botao { border-color: var(--al-texto); color: var(--al-texto); }
+/* ───── painel de quem chamou: o título recebe o foco por programa (sem anel); o formulário entra deslizando ───── */
+[data-al="2"] .al-ato-org-titulo[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-ato-org-form { animation: al-org-abre 0.35s cubic-bezier(0.2, 0.9, 0.3, 1); }
+}
+@keyframes al-org-abre { from { opacity: 0; translate: 0 -8px; } }
+[data-al="2"] .al-ato-org-form .al-ato-form-campo[aria-invalid="true"] { border-color: var(--al-vermelho); box-shadow: 0 0 0 1px var(--al-vermelho); }
+/* campos com problema (validação nossa, frase ao lado): a borda acende em vermelho */
+[data-al="2"] :is(.al-corrente-form, .al-farol-ponto-form) .al-ato-form-campo[aria-invalid="true"] { border-color: var(--al-vermelho); box-shadow: 0 0 0 1px var(--al-vermelho); }
