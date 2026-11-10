@@ -1,0 +1,16 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Dispara lucia-fediverso.service a cada 30 segundos (a primeira vez, 1 minuto depois de a VPS ligar). AccuracySec=1s: sem
+# isso o systemd pode juntar disparos e atrasar até 1 minuto. Se uma rodada ainda estiver em andamento, a seguinte espera
+# ela acabar: nunca rodam duas ao mesmo tempo. Passo a passo: docs/rede/FEDIVERSO-OPERACAO.md.
+
+[Unit]
+Description=Instituto Lucia: cutuca a fila do Fediverso da Alumia a cada 30 segundos
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=30s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

@@ -40,4 +40,11 @@ WantedBy=timers.target
 EOF
 systemctl daemon-reload
 systemctl enable --now lucia-atualizar.timer
+
+# Fediverso da Alumia: a cada 30 segundos, cutuca a fila de entrega no próprio site (docs/rede/FEDIVERSO-OPERACAO.md).
+# Com a federação desligada o site responde 404 e nada acontece: pode ficar instalado desde já.
+install -m 755 fediverso-entregar.sh /usr/local/sbin/lucia-fediverso
+install -m 644 lucia-fediverso.service lucia-fediverso.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now lucia-fediverso.timer
 echo "Instalado."

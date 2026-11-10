@@ -1,0 +1,34 @@
+# Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+#
+# Fediverso da Alumia: cutuca a fila de entrega (POST /api/fediverso/entregar no contêiner do site). Disparado a cada
+# 30 segundos por lucia-fediverso.timer. Instalação passo a passo: docs/rede/FEDIVERSO-OPERACAO.md.
+#
+# - O que roda é /usr/local/sbin/lucia-fediverso (infra/contabo/fediverso-entregar.sh): tenta a porta 3001 e, se falhar,
+#   a 3002. Com a federação desligada (404) ele sai em silêncio; erro de verdade nas duas portas deixa a unidade em
+#   "failed" e a explicação no registro (journalctl -u lucia-fediverso).
+# - Não precisa de chave nenhuma: a rota não leva segredo.
+# - Roda como um usuário descartável, sem privilégio, com o disco só para leitura e a rede fechada: só fala com a própria
+#   máquina (127.0.0.1). O site é que fala com as outras instâncias.
+
+[Unit]
+Description=Instituto Lucia: entrega a fila do Fediverso da Alumia
+After=docker.service network.target
+
+[Service]
+Type=oneshot
+# Duas tentativas de até 75 s cada (a rota trabalha por até 60 s); o systemd corta aos 170.
+TimeoutStartSec=170
+ExecStart=/usr/local/sbin/lucia-fediverso
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+MemoryMax=64M
+Nice=10
