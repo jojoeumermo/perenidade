@@ -2626,3 +2626,25 @@
 .ve-viz[data-visao="teia"] .ve-svg {
   touch-action: auto;
 }
+
+/* Teia em duas camadas (09/11/2026): o canvas por trás pinta fios, halos e faíscas; o SVG por cima, só núcleos e
+   rótulos (botões de verdade). O núcleo dos casos perde o drop-shadow aqui: o halo do canvas já brilha, e o filtro em
+   dezenas de nós era o que mais pesava ao arrastar. */
+.ve-teia-caixa {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.ve-teia-fundo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.ve-teia-caixa .ve-svg {
+  position: relative;
+}
+.ve-teia-caixa .ve-no--entrada .ve-nucleo {
+  filter: none;
+}
