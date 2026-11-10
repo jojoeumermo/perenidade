@@ -22,13 +22,13 @@
 
 /* A prévia ao vivo */
 [data-al="2"] .pfe-previa-moldura { margin: 12px 12px 0; border-radius: 18px; border: 1px solid var(--al-superficie-2); overflow: hidden; background: var(--al-superficie); }
-[data-al="2"] .pfe-previa-rotulo { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-texto-3); }
-[data-al="2"] .pfe-ao-vivo { display: inline-flex; align-items: center; gap: 6px; }
+[data-al="2"] .pfe-previa-rotulo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 8px 12px; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--al-texto-3); }
+[data-al="2"] .pfe-ao-vivo { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 [data-al="2"] .pfe-ao-vivo i { width: 8px; height: 8px; border-radius: 50%; background: var(--pf-acento); box-shadow: 0 0 0 0 var(--pf-acento); animation: pfe-vivo 1.8s ease-out infinite; }
 @keyframes pfe-vivo { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pf-acento) 60%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
 [data-al="2"] .pfe-previa { border-top: 1px solid var(--al-superficie-2); view-transition-name: pfe-previa; }
 [data-al="2"] .pfe-previa .pf { pointer-events: none; }
-[data-al="2"] .pfe-previa-abas { display: flex; gap: 2px; overflow: hidden; padding: 0 8px; border-top: 1px solid var(--al-linha); background: var(--al-fundo); }
+[data-al="2"] .pfe-previa-abas { display: flex; gap: 2px; overflow: hidden; padding: 0 8px; border-top: 1px solid var(--al-linha); background: var(--al-fundo); -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }
 [data-al="2"] .pfe-previa-abas span { flex: none; padding: 12px 10px; font-weight: 600; font-size: 0.9rem; color: var(--al-texto-3); border-bottom: 3px solid transparent; }
 [data-al="2"] .pfe-previa-abas span[data-atual] { color: var(--al-texto); font-weight: 800; border-bottom-color: var(--pf-acento); }
 [data-al="2"] .pfe-link { border: 0; background: none; color: var(--pf-ler); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; min-height: 32px; padding: 0 4px; text-transform: none; letter-spacing: 0; }
@@ -61,7 +61,7 @@
 [data-al="2"] .pfe-titulo { margin: 0; font-size: 1.05rem; font-weight: 800; }
 
 /* Amostras de cor */
-[data-al="2"] .pfe-amostras { --amostra: 44px; display: grid; grid-template-columns: repeat(auto-fill, var(--amostra)); gap: 10px; margin-top: 12px; }
+[data-al="2"] .pfe-amostras { --amostra: 44px; display: grid; grid-template-columns: repeat(auto-fill, var(--amostra)); gap: 10px; margin-top: 12px; padding: 6px; /* o anel da cor escolhida (5 px e escala) não corta na borda */ }
 [data-al="2"] .pfe-amostras-p { --amostra: 34px; }
 /* 8 cores numa linha só; 10 cores em 10 (ou 5 + 5 no celular). As amostras encolhem um pouco antes de quebrar. */
 [data-al="2"] .pfe-amostras:has(> :nth-child(8):last-child) { grid-template-columns: repeat(8, minmax(0, var(--amostra))); }
@@ -129,6 +129,8 @@
 [data-al="2"] .pfe-fio[data-escura] { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--al-texto) 30%, transparent); }
 /* O fio escolhido sobe e ganha um anel por fora (nunca um contorno por dentro, que parecia um defeito na borda). */
 [data-al="2"] .pfe-fio[aria-checked="true"] { z-index: 1; transform: scaleY(1.22); border-radius: 4px; box-shadow: 0 0 0 2px var(--al-fundo), 0 0 0 4px var(--al-texto); }
+/* Os fios finos (proporção da faixa) ganham uma área de toque maior que o desenho. */
+[data-al="2"] .pfe-fio::after { content: ""; position: absolute; inset: -6px -5px; }
 [data-al="2"] .pfe-fio:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 4px; }
 [data-al="2"] .pfe-modelos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
 [data-al="2"] .pfe-modelo { display: grid; gap: 6px; min-width: 0; padding: 8px 10px; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
@@ -178,7 +180,14 @@
 [data-al="2"] .pfe-icone:disabled { opacity: 0.35; cursor: not-allowed; }
 [data-al="2"] .pfe-lista-campos { display: grid; gap: 10px; list-style: none; margin: 12px 0; padding: 0; }
 [data-al="2"] .pfe-item-campo { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr) auto; gap: 8px; align-items: center; padding: 10px; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); }
-@media (max-width: 520px) { [data-al="2"] .pfe-item-campo { grid-template-columns: minmax(0, 1fr) auto; } [data-al="2"] .pfe-item-campo > input:nth-child(2) { grid-column: 1; } [data-al="2"] .pfe-item-acoes { grid-row: 1 / span 2; grid-column: 2; flex-direction: column; } }
+/* Coluna estreita (celular ou a coluna de 440 px ao lado da prévia): rótulo e botões em cima, o valor (links longos) na largura toda. */
+[data-al="2"] .pfe-lista-campos { container-type: inline-size; }
+@container (max-width: 520px) {
+  [data-al="2"] .pfe-item-campo { grid-template-columns: minmax(0, 1fr) auto; }
+  [data-al="2"] .pfe-item-campo > input:nth-child(1) { grid-area: 1 / 1; }
+  [data-al="2"] .pfe-item-campo > input:nth-child(2) { grid-area: 2 / 1 / 3 / -1; }
+  [data-al="2"] .pfe-item-acoes { grid-area: 1 / 2; }
+}
 [data-al="2"] .pfe-item-acoes { display: flex; gap: 4px; }
 [data-al="2"] .pfe-item-link { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; margin: 0; font-size: 0.82rem; font-weight: 600; }
 [data-al="2"] .pfe-ok { color: #4cc38a; }
@@ -262,7 +271,8 @@
 
 /* ───────────── O corpo: prévia e controles ───────────── */
 [data-al="2"] .pfe-lado-controles { min-width: 0; }
-[data-al="2"] .pfe-previa-botoes { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 10px; }
+[data-al="2"] .pfe-previa-botoes { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 14px; margin-left: auto; }
+[data-al="2"] .pfe-previa-botoes > * { white-space: nowrap; }
 
 /* Telas estreitas e médias: a prévia começa compacta (capa, rosto e nome) e abre inteira num toque. */
 @media (max-width: 1279px) {
@@ -285,7 +295,8 @@
   [data-al="2"] .pfe-lado-controles .pfe-barra-secoes { margin-top: 0; border: 1px solid var(--al-superficie-2); border-radius: 16px; }
   [data-al="2"] .pfe-lado-controles .pfe-painel { padding-inline: 4px; }
   [data-al="2"] .pfe-lado-controles .pfe-seguro { margin-inline: 4px; }
-  [data-al="2"] .pfe-lado-controles .pfe-salvar { margin-inline: 0; }
+  [data-al="2"] .pfe-lado-controles .pfe-salvar { margin-inline: 0; flex-wrap: nowrap; }
+  [data-al="2"] .pfe-lado-controles .pfe-salvar-estado { flex: 1 1 0; min-width: 0; line-height: 1.25; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
   [data-al="2"] .pfe-topo { padding-inline: 12px 16px; }
   [data-al="2"] .pfe-nota-previa { margin-inline: 12px 16px; }
 }
@@ -303,7 +314,7 @@
 [data-al="2"] .pfe-conta-lista button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* O diálogo de sair sem salvar. */
-[data-al="2"] .pfe-dialogo { width: min(440px, calc(100vw - 32px)); padding: 22px; border: 1px solid var(--al-superficie-2); border-radius: 20px; background: var(--al-superficie); color: var(--al-texto); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
+[data-al="2"] .pfe-dialogo { position: fixed; inset: 0; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); overflow: auto; width: min(440px, calc(100vw - 32px)); padding: 22px; border: 1px solid var(--al-superficie-2); border-radius: 20px; background: var(--al-superficie); color: var(--al-texto); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
 [data-al="2"] .pfe-dialogo[open] { animation: pfe-dialogo 0.4s var(--pf-mola); }
 [data-al="2"] .pfe-dialogo::backdrop { background: rgba(15, 14, 13, 0.6); backdrop-filter: blur(3px); }
 [data-al="2"] .pfe-dialogo h2 { margin: 0; font-size: 1.8rem; line-height: 1; }
@@ -311,4 +322,9 @@
 [data-al="2"] .pfe-dialogo-botoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 18px; }
 @keyframes pfe-dialogo { from { opacity: 0; transform: translateY(12px) scale(0.97); } to { opacity: 1; transform: none; } }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pfe-dialogo { box-shadow: none; border: 2px solid var(--al-texto); background: var(--al-fundo); }
-@media (max-width: 559px) { [data-al="2"] .pfe-dialogo-botoes > * { flex: 1 1 100%; } }
+/* O reset da casa zera a margem de todo elemento: sem isto o diálogo modal gruda no canto de cima. No celular, vira folha de baixo. */
+[data-al="2"] .pfe-dialogo { margin: auto; }
+@media (max-width: 559px) {
+  [data-al="2"] .pfe-dialogo-botoes > * { flex: 1 1 100%; }
+  [data-al="2"] .pfe-dialogo { margin: auto 0 0; width: 100%; max-width: 100%; border-radius: 20px 20px 0 0; padding-bottom: calc(22px + var(--recuo-baixo, 0px)); }
+}

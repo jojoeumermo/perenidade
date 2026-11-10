@@ -28,13 +28,16 @@ export function RostoDePixels({ px, tamanho = 72, redondo = true, className = ""
  * brilham (sorteio pela semente, sempre o mesmo para a mesma capa). Os ladrilhos acendem em onda ao abrir (some com
  * prefers-reduced-motion e no e-ink, pelos tokens da casa).
  */
-export function CapaDeMosaico({ capa, acento, className = "" }: { capa: CapaEmMosaico; acento: string; className?: string }) {
+export function CapaDeMosaico({ capa, acento, alta = false, className = "" }: { capa: CapaEmMosaico; acento: string; alta?: boolean; className?: string }) {
+  // "alta" (modelo cartaz): a capa é mais alta que larga em proporção (16:10 a 2,1:1) e o nome vem por cima da metade de baixo;
+  // a palavra sobe para a metade de cima e o desenho corta só embaixo (slice), sem faixas vazias.
+  const proporcao = alta ? 1.6 : 3;
   const desenho = useMemo(() => {
     const grade = gradeDaPalavra(capa.palavra || " ");
-    const linhas = Math.max(grade.linhas, 9, Math.ceil(grade.colunas / 3));
-    const colunas = Math.max(grade.colunas, linhas * 3);
+    const linhas = Math.max(grade.linhas, 9, Math.ceil(grade.colunas / proporcao));
+    const colunas = Math.max(grade.colunas, Math.ceil(linhas * proporcao));
     const deslocX = Math.floor((colunas - grade.colunas) / 2);
-    const deslocY = Math.floor((linhas - grade.linhas) / 2);
+    const deslocY = alta ? Math.max(1, Math.floor((linhas * 0.5 - grade.linhas) / 2)) : Math.floor((linhas - grade.linhas) / 2);
     const sorte = gerador(capa.semente * 7919 + 17);
     const ladrilhos: { x: number; y: number; tipo: "letra" | "brilho" | "apagado"; atraso: number }[] = [];
     for (let y = 0; y < linhas; y++) {
@@ -47,10 +50,10 @@ export function CapaDeMosaico({ capa, acento, className = "" }: { capa: CapaEmMo
       }
     }
     return { colunas, linhas, ladrilhos };
-  }, [capa.palavra, capa.semente]);
+  }, [capa.palavra, capa.semente, alta, proporcao]);
   const cor = hexDoAcento(acento);
   return (
-    <svg aria-hidden viewBox={`0 0 ${desenho.colunas} ${desenho.linhas}`} preserveAspectRatio="xMidYMid meet" className={`pf-capa-mosaico ${className}`.trim()} style={{ ["--pf-cor-capa" as string]: cor }}>
+    <svg aria-hidden viewBox={`0 0 ${desenho.colunas} ${desenho.linhas}`} preserveAspectRatio={alta ? "xMidYMin slice" : "xMidYMid meet"} className={`pf-capa-mosaico ${className}`.trim()} style={{ ["--pf-cor-capa" as string]: cor }}>
       <rect width={desenho.colunas} height={desenho.linhas} className="pf-capa-fundo" />
       {desenho.ladrilhos.map((l) => (
         <rect key={`${l.x}-${l.y}`} x={l.x + 0.08} y={l.y + 0.08} width="0.84" height="0.84" rx="0.14" className={`pf-ladrilho pf-ladrilho-${l.tipo}`} style={{ ["--atraso" as string]: `${l.atraso}ms` }} />
