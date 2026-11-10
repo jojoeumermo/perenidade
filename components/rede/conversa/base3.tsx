@@ -21,10 +21,12 @@ import { Avatar16 } from "../ui/Avatar16";
 /** A Alumia nova está ligada nesta página? Vem do layout por contexto (./Alumia2.tsx), com a decisão do servidor. */
 export { useAlumia2 } from "./Alumia2";
 
-/** Os textos das telas novas da F3 no idioma da página (nulo até chegar). */
-export function useTextosAlumia3(lang: string): TextosDaAlumia3 | null {
+/** Os textos das telas novas da F3 no idioma da página (nulo até chegar; com `lang` nulo, nunca baixa). */
+export function useTextosAlumia3(lang: string | null): TextosDaAlumia3 | null {
   const [t, setT] = useState<{ lang: string; t: TextosDaAlumia3 } | null>(null);
   useEffect(() => {
+    // Nulo: a tela não precisa dos textos (a rede de hoje), e nada é baixado.
+    if (lang === null) return;
     let vivo = true;
     carregarTextosDaAlumia3(lang).then((x) => vivo && setT({ lang, t: x }));
     return () => {

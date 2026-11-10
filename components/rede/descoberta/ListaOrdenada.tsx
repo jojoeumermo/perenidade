@@ -7,6 +7,7 @@ import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Post } from "@/lib/rede/tipos";
 import type { PaginaOrdenada } from "@/lib/rede/tipos-descoberta";
 import { CartaoDePost } from "../CartaoDePost";
+import { PostCompacto, Torradas, useAlumia2, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { useRegua } from "../conversa/movimento";
@@ -44,6 +45,10 @@ export function ListaOrdenada({
   /** Avisa a tela de cada primeira página recebida (a página da tag usa para mostrar a linha temática). */
   aoPagina?: (pagina: PaginaOrdenada) => void;
 }) {
+  // Na Alumia nova, o cartão único da F3 (o mesmo da comunidade, com a ficha da comunidade); na de hoje, o cartão de sempre.
+  const nova = useAlumia2();
+  const t3 = useTextosAlumia3(nova ? lang : null);
+  const torradas = useTorrada();
   const [ordem, setOrdem] = useState(ordemInicial);
   const [itens, setItens] = useState<Post[]>([]);
   const [proximo, setProximo] = useState<string | null>(null);
@@ -146,7 +151,11 @@ export function ListaOrdenada({
             <ol aria-label={o[ordem]?.nome} className="al3-lista-entra" key={pedido}>
               {itens.map((p, i) => (
                 <li key={p.id} style={{ "--i": i } as CSSProperties}>
-                  <CartaoDePost post={p} lang={lang} s={s} logado={logado} aoResponder={aoResponder} />
+                  {nova && t3 ? (
+                    <PostCompacto post={p} lang={lang} s={s} t={t3} logado={logado} comComunidade aoErro={(e) => torradas.mostrar({ texto: textoDoErro(s, e), erro: true })} />
+                  ) : (
+                    <CartaoDePost post={p} lang={lang} s={s} logado={logado} aoResponder={aoResponder} />
+                  )}
                 </li>
               ))}
             </ol>
@@ -162,6 +171,7 @@ export function ListaOrdenada({
           )}
         </>
       )}
+      {nova && <Torradas estado={torradas} />}
     </div>
   );
 }

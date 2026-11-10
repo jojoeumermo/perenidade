@@ -873,3 +873,46 @@
 [data-al="2"] .al3-reacao-abrir { min-width: 44px; justify-content: center; padding: 0 0.6rem; }
 [data-al="2"] .al3-reacao-mais { display: inline-block; font-size: 1.25rem; font-weight: 800; line-height: 1; transition: transform 0.3s var(--al3-pulo); }
 [data-al="2"] .al3-reacao-mais[data-aberta="sim"] { transform: rotate(45deg); }
+
+/* #temas da semana com a barra de volume (Explorar): fichas lado a lado também no celular, a barrinha cresce até o volume dela. */
+[data-al="2"] .al3-fichas-volume .al3-ficha { position: relative; overflow: hidden; padding-bottom: 2px; }
+[data-al="2"] .al3-ficha-barra {
+  position: absolute; left: 0.95rem; right: 0.95rem; bottom: 6px; height: 3px; border-radius: 3px; background: var(--al-superficie-2); overflow: hidden;
+}
+[data-al="2"] .al3-ficha-barra::after {
+  content: ""; position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--vol, 0)); border-radius: inherit;
+  background: var(--al-vermelho); animation: al3-volume 0.7s 0.15s var(--al3-mola) backwards;
+}
+@keyframes al3-volume { from { transform: scaleX(0); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-ficha-barra::after { background: var(--al-texto); }
+
+/* Comunidades no Explorar como mini-capas: a faixa na cor da comunidade com o nome condensado, e o selo "✓ Você participa" embaixo. */
+[data-al="2"] .al3-minicapa { padding: 0; overflow: hidden; grid-template-rows: auto 1fr; gap: 0; }
+[data-al="2"] .al3-minicapa-faixa {
+  display: flex; align-items: flex-end; min-height: 68px; padding: 0.75rem 1rem 0.6rem; background: var(--al3-cor); color: #0f0e0d;
+  transition: filter 0.25s;
+}
+[data-al="2"] .al3-minicapa:hover .al3-minicapa-faixa { filter: brightness(1.08) saturate(1.1); }
+[data-al="2"] .al3-minicapa-nome { font-size: 1.65rem; overflow-wrap: anywhere; }
+[data-al="2"] .al3-minicapa-pe { display: grid; gap: 0.35rem; align-content: start; padding: 0.7rem 1rem 0.9rem; }
+[data-al="2"] .al3-minicapa .al3-cartao-membro { justify-self: start; margin: 0; white-space: nowrap; font-size: 0.75rem; padding: 0.1rem 0.55rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-minicapa-faixa { background: var(--al-fundo); color: var(--al-texto); border-bottom: 2px solid var(--al-texto); }
+
+/* Avisos: o rosto em mosaico de quem fez com o ícone do tipo no canto (cor por tipo); sem ninguém, só o ícone. */
+[data-al="2"] .al3-aviso-linha { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 0 12px; align-items: start; }
+[data-al="2"] .al3-aviso-rosto { position: relative; width: 40px; height: 40px; margin-top: 2px; }
+[data-al="2"] .al3-aviso-rosto-vazio { display: block; width: 40px; height: 40px; border-radius: 10px; background: var(--al-superficie-2); }
+[data-al="2"] .al3-aviso-tipo {
+  --al3-tipo: var(--al-texto-3);
+  position: absolute; right: -6px; bottom: -6px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 999px;
+  background: var(--al3-tipo); color: #0f0e0d; border: 2px solid var(--al-fundo);
+}
+[data-al="2"] .al3-aviso-rosto:has(.al3-aviso-rosto-vazio) .al3-aviso-tipo { right: 9px; bottom: 9px; transform: scale(1.25); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="resposta"] .al3-aviso-tipo { --al3-tipo: var(--al-com-1); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="mencao"] .al3-aviso-tipo { --al3-tipo: var(--al-com-4); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="citacao"] .al3-aviso-tipo { --al3-tipo: var(--al-com-5); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="apoio"] .al3-aviso-tipo { --al3-tipo: var(--al-com-3); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="seguidor"] .al3-aviso-tipo { --al3-tipo: var(--al-com-2); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="chamado"] .al3-aviso-tipo { --al3-tipo: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="moderacao"] .al3-aviso-tipo { --al3-tipo: var(--al-dourado); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-tipo { background: var(--al-fundo); color: var(--al-texto); border-color: var(--al-texto); }
