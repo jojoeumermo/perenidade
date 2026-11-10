@@ -381,14 +381,17 @@ export function PaginaDaComunidadeAlumia({
                 {comunidade.aulas.map((a) => {
                   const [trilha, aula] = a.split("/");
                   return (
-                    <div key={a}>
-                      <CartaoDeAula lang={lang} t={t} cita={{ tipo: "aula", caminho: `trilhas/${a}`, titulo: aula.replace(/-/g, " ") }} />
-                      <Link href={enderecosCom.aula(lang, trilha, aula, comunidade.slug)} className="al3-acao">{t.comunidade.discutir}</Link>
+                    <div key={a} className="al3-aula-com-conversa">
+                      <CartaoDeAula lang={lang} t={t} cita={{ tipo: "aula", caminho: `/trilhas/${a}`, titulo: "" }} />
+                      <Link href={enderecosCom.aula(lang, trilha, aula, comunidade.slug)} className="al3-aula-discutir">
+                        {t.comunidade.discutir}
+                        <span aria-hidden> →</span>
+                      </Link>
                     </div>
                   );
                 })}
                 {comunidade.trilhas.map((tr) => (
-                  <CartaoDeAula key={tr} lang={lang} t={t} cita={{ tipo: "materia", caminho: `trilhas/${tr}`, titulo: tr.replace(/-/g, " ") }} />
+                  <CartaoDeAula key={tr} lang={lang} t={t} cita={{ tipo: "materia", caminho: `/trilhas/${tr}`, titulo: "" }} />
                 ))}
               </div>
             ))}

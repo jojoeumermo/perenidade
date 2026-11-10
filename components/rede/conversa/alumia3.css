@@ -201,6 +201,18 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula-de { color: var(--al-texto); }
 [data-al="2"] .al3-aulas { display: grid; gap: 0.6rem; }
 [data-al="2"] .al3-aulas .al3-aula { margin-top: 0; }
+/* A aula com o atalho para a conversa dela: o atalho encaixa embaixo do cartão, como uma aba presa nele. */
+[data-al="2"] .al3-aula-com-conversa .al3-aula { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+[data-al="2"] .al3-aula-discutir {
+  display: flex; align-items: center; justify-content: flex-end; gap: 0.25rem; min-height: 44px; padding: 0 1rem;
+  border: 1px solid color-mix(in srgb, var(--al-com-4) 45%, transparent); border-top: 0; border-radius: 0 0 var(--al-raio) var(--al-raio);
+  font-weight: 800; font-size: 0.95rem; color: var(--al-texto); background: color-mix(in srgb, var(--al-com-4) 10%, transparent);
+  transition: background 0.2s;
+}
+[data-al="2"] .al3-aula-discutir:hover { background: color-mix(in srgb, var(--al-com-4) 22%, transparent); }
+[data-al="2"] .al3-aula-discutir span { transition: transform 0.2s; }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-aula-discutir:hover span { transform: translateX(3px); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula-discutir { background: var(--al-fundo); border: 2px solid var(--al-texto); border-top: 0; }
 
 /* ── Conversa (prancha celular-conversa-fediverso) ─────────────────────────────────────────────────────────────────── */
 [data-al="2"] .al3-conversa { padding-bottom: 6.5rem; }
@@ -586,6 +598,10 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fixado { border-color: var(--al-texto); }
 [data-al="2"] .al3-post-entra { animation: al3-entra 0.4s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 4) * 40ms); }
 [data-al="2"] .al3-post { transition: background 0.2s; }
+[data-al="2"] .al3-post-abre { cursor: pointer; }
+[data-al="2"] .al3-post-abre :is(.al3-post-texto, .al3-post-cabeca) { cursor: auto; }
+[data-al="2"] .al3-post-abre .al3-post-texto a { cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-post-abre:active { background: color-mix(in srgb, var(--al-superficie) 70%, transparent); } }
 @media (hover: hover) { [data-al="2"] .al3-post:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); } }
 
 /* No celular estreito, "18 respostas · Acender · Salvar" cabe numa linha, como na prancha. */
