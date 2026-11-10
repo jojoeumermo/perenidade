@@ -462,10 +462,13 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
             className="al3-reacao al3-reacao-abrir"
             aria-expanded={paleta}
             aria-controls={idDaPaleta}
+            aria-label={paleta ? t.reacoes.fechar : t.reacoes.reagir}
+            title={paleta ? t.reacoes.fechar : t.reacoes.reagir}
             disabled={ocupado}
             onClick={() => setPaleta((p) => !p)}
           >
-            {paleta ? t.reacoes.fechar : `+ ${t.reacoes.reagir}`}
+            {/* Só o "+" (o rótulo vai no aria-label): as reações e o (i) cabem numa linha no celular. */}
+            <span aria-hidden className="al3-reacao-mais" data-aberta={paleta ? "sim" : undefined}>+</span>
           </button>
         )}
         {/* A explicação das "poucas" num (i): a regra continua sendo a descrição do grupo para o leitor de tela. */}
