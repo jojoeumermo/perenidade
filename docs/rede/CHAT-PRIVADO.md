@@ -28,7 +28,7 @@ trocar de tecnologia. Uma biblioteca de sigilo para a frente (a do Matrix) fica 
 | O formato "c3" das mensagens | `lib/rede/chat/c3.ts` |
 | O preenchimento em blocos | `lib/rede/chat/padding.ts` |
 | Repetição e ordem | `lib/rede/chat/ordem.ts` |
-| Comparar o código (QR e grupo digitado) | `lib/rede/chat/verificacao.ts` |
+| Comparar o código (QR e a metade da outra pessoa, digitada) | `lib/rede/chat/verificacao.ts` |
 | O que fica guardado neste aparelho (IndexedDB próprio, `lucia-alumia-chat`) e o "apagar tudo" | `lib/rede/chat/gaveta.ts` |
 | O chaveiro deste aparelho (sessões, envio, leitura) | `lib/rede/chat-chaveiro.ts` |
 | As chamadas ao banco | `lib/rede/cliente-chat.ts` |
@@ -51,8 +51,10 @@ sem biblioteca de fora.
 - **Chave da conversa:** AES-GCM-256, uma por versão, **embrulhada** (ECDH + HKDF-SHA-256 + AES-GCM) para a chave de cada um dos
   dois participantes. O embrulho é amarrado à conversa, à versão, a quem recebe e à versão da chave de quem recebe. O aparelho só
   embrulha para chave certificada pela identidade em que ele confia.
-- **Confiar na primeira vez, avisar quando mudar:** o aparelho guarda a identidade de cada pessoa com quem conversou. Se ela
-  mudar, a conversa avisa e **não entrega chave nem envia nada** até a pessoa confirmar (veja "Identidade trocada").
+- **Confiar na primeira vez, avisar quando mudar:** o aparelho guarda a identidade e a chave do aparelho de cada pessoa com quem
+  conversou. Se uma delas mudar, a conversa avisa e **não entrega chave nem envia nada** até a pessoa confirmar (veja "Identidade
+  trocada"). **No primeiro contato não há o que comparar:** quem controla o servidor nesse momento pode entregar uma identidade
+  falsa, e só a comparação do código (QR ou números, pessoalmente) descobre.
 - **Contextos próprios** (`alumia-dm:…`): nada assinado ou cifrado no chat da Alumia serve nas conversas da equipe, nem o contrário.
 
 ### O formato das mensagens: "c3"
@@ -61,9 +63,12 @@ sem biblioteca de fora.
 corpo     c3.<versão>.<vetor de 12 bytes>.<cifrado>            (base64url, sem "=")
 cifrado   AES-GCM-256, com a chave da conversa, sobre um BLOCO de tamanho fixo
 bloco     [4 bytes: comprimento do conteúdo][conteúdo][zeros até o fim do bloco]
-conteúdo  [16 bytes: identificador sorteado][4 bytes: contador][texto em UTF-8]
+conteúdo  [16 bytes: identificador sorteado][4 bytes: contador][8 bytes: até onde eu já tinha recebido][texto em UTF-8]
 amarra    alumia-dm:c3:<conversa>:<autor>:v<versão>            (dado autenticado do AES-GCM)
 ```
+
+"Até onde eu já tinha recebido" são a versão da chave e o contador (4 bytes cada) da última mensagem da OUTRA pessoa que o
+aparelho de quem escreve já tinha quando escreveu (zero e zero se nenhuma). Veja "Repetição e ordem".
 
 **Blocos.** Antes de cifrar, a mensagem é completada até o menor bloco em que cabe: 256, 512, 1024 ou 2048 bytes; acima disso,
 de 2048 em 2048 até 8192 (4096, 6144, 8192). O AES-GCM acrescenta 16 bytes. Em base64url, a última parte do corpo fica com
@@ -71,13 +76,15 @@ exatamente um destes tamanhos:
 
 | Bloco (bytes) | Cifrado (bytes) | Caracteres no banco | Cabe um texto de até |
 |---|---|---|---|
-| 256 | 272 | 363 | 232 bytes |
-| 512 | 528 | 704 | 488 bytes |
-| 1024 | 1040 | 1387 | 1000 bytes |
-| 2048 | 2064 | 2752 | 2024 bytes |
-| 4096 | 4112 | 5483 | 4072 bytes |
-| 6144 | 6160 | 8214 | 6120 bytes |
-| 8192 | 8208 | 10944 | 8168 bytes (o chat aceita até 8000) |
+| 256 | 272 | 363 | 224 bytes |
+| 512 | 528 | 704 | 480 bytes |
+| 1024 | 1040 | 1387 | 992 bytes |
+| 2048 | 2064 | 2752 | 2016 bytes |
+| 4096 | 4112 | 5483 | 4064 bytes |
+| 6144 | 6160 | 8214 | 6112 bytes |
+| 8192 | 8208 | 10944 | 8160 bytes (o chat aceita até 8000) |
+
+(O texto que cabe é o bloco menos 4 bytes do comprimento e 28 do começo do conteúdo.)
 
 O banco **recusa** corpo "c3" com qualquer outro tamanho (regra na tabela e na função de enviar). O corpo inteiro tem no máximo
 10972 caracteres. Ao abrir, o aparelho confere o bloco todo: tamanho da lista, comprimento que bate, o menor bloco possível, sobra
@@ -88,7 +95,11 @@ esconde: quantas mensagens foram trocadas, quando, e em qual das sete faixas cad
 
 **O formato antigo, "c2"** (assinado, de tamanho livre), continua na tabela **só para leitura**: o aparelho abre e confere a
 assinatura como antes, e o banco recusa "c2" novo. Como toda mensagem vence em no máximo 30 dias, em 30 dias depois da migração
-não sobra nenhuma.
+não sobra nenhuma legítima. O aparelho não depende de o servidor apagar: o c2 não tem identificador nem contador, então o
+servidor poderia regravar uma c2 antiga quantas vezes quisesse. Por isso o aparelho (a) guarda o resumo (SHA-256) de cada corpo
+c2 que já viu e trata o mesmo corpo como outra mensagem como **repetida**; (b) mostra **com aviso** a c2 que chega numa versão em
+que o mesmo autor já mandou c3; e (c) **deixa de abrir toda c2 depois de `C2_ABRE_ATE`** (`lib/rede/chat-privado.ts`, hoje
+20/12/2026: a migração mais 30 dias). Se a migração for aplicada depois de 20/11/2026, mude essa data no código (passo a passo).
 
 ### Negabilidade: sem assinatura nas mensagens
 
@@ -116,22 +127,39 @@ não vê nenhum dos dois.
 
 - **Repetição.** O aparelho guarda, por conversa, autor e versão, quais identificadores já viu e em qual mensagem do servidor.
   Se o mesmo identificador aparecer como outra mensagem (alguém regravando uma mensagem antiga como se fosse nova), ela **não é
-  mostrada de novo**: fica só a linha discreta "Mensagem repetida". Depois de 45 dias a lista de uma versão é apagada e fica só
-  um piso; mensagem que aparecer depois numa versão fechada também é tratada como repetição.
-- **Ordem.** Se falta um contador entre duas mensagens que chegaram, a tela mostra, discreta, "Pode faltar mensagem aqui". O
+  mostrada de novo**: fica só a linha discreta "Mensagem repetida". A mesma linha devolvida duas vezes pelo servidor sai uma
+  vez só. Depois de 45 dias a lista de uma versão ANTIGA é apagada e fica só um piso; mensagem que aparecer depois numa versão
+  fechada é mostrada **com aviso** ("este aparelho não consegue conferir se é nova ou repetida"), nunca escondida. A versão
+  atual nunca fecha.
+- **Relógio do aparelho.** Ele não é de confiança (rede hostil, relógio sem bateria). Nenhum registro vence numa leitura em que
+  a hora andou para trás ou saltou mais de 2 dias desde a leitura anterior, e o contador de quem escreve nunca recomeça.
+- **Buraco.** Se falta um contador entre duas mensagens que chegaram, a tela mostra, discreta, "Pode faltar mensagem aqui". O
   aparelho não sabe se a mensagem foi apagada por quem escreveu, venceu, ou foi retida no caminho: por isso é um aviso, não um
   erro. O começo da conversa (mensagens antigas já vencidas) não conta como buraco.
-- **Os limites.** A memória é do aparelho: num aparelho novo, ou depois do "Sair rápido", ela começa do zero. Se o servidor
-  segurar as últimas mensagens, o aparelho só nota quando chegar uma posterior. A hora mostrada em cada mensagem é a do servidor.
-  Sem IndexedDB (alguns modos privados), a conferência vale só enquanto a aba está aberta.
-- No aparelho ficam só identificadores e contadores, nunca texto.
+- **Ordem.** Dentro de cada pessoa a tela usa a ordem em que ela escreveu (versão da chave e contador, que o servidor não
+  mexe); a hora do servidor só decide como as duas pessoas se intercalam. Quando a hora do servidor discorda, a mensagem ganha
+  o aviso "a ordem desta mensagem não bate com a hora do servidor". Cada mensagem leva também "até onde eu já tinha recebido":
+  se uma resposta aparece antes da mensagem que quem respondeu já tinha recebido, ela ganha o mesmo aviso; e as minhas
+  mensagens que a outra pessoa ainda não tinha recebido quando escreveu a última dela ganham "ainda não tinha recebido esta".
+- **Os limites (o que continua SEM aviso).** O servidor ainda consegue, sem que o aparelho note: segurar as últimas mensagens
+  enquanto nenhuma posterior chega; sumir com o começo de uma versão (o começo não é buraco); sumir com uma versão inteira de
+  uma pessoa que não foi respondida; e atrasar a entrega. A memória é do aparelho: num aparelho novo, ou depois do "Sair
+  rápido", ela começa do zero. A hora mostrada em cada mensagem é a do servidor. Sem IndexedDB (alguns modos privados), a
+  conferência vale só enquanto a aba está aberta.
+- No aparelho ficam só identificadores, contadores e resumos de corpo cifrado, nunca texto.
 
 ### Rotação da chave
 
 - O aparelho faz versão nova quando alguém troca de aparelho e quando a versão atual passa de **7 dias**. Isso é conferido ao
   abrir a conversa **e de novo a cada envio** (a conversa pode ficar aberta por dias).
 - O banco recusa envio em versão com mais de **8 dias** (um dia de folga para relógio e conversa aberta): o aparelho faz a versão
-  nova e tenta de novo.
+  nova **sem olhar o próprio relógio** (ele pode estar atrasado) e tenta de novo, uma vez.
+- **A troca não depende só da palavra do servidor.** O aparelho guarda, por conversa, a maior versão da chave que já viu e
+  quando a viu (pela hora dele). Versão menor que uma já vista é recusada ("dm_versao_voltou"): o servidor não faz o aparelho
+  voltar a escrever numa chave antiga. E se, pela conta do aparelho, a versão atual passou de 7 dias e o servidor não deixa
+  fazer a nova (ou mente a idade dela), **nada é enviado** ("dm_versao_presa").
+- O envio trava a linha da conversa no banco (`for update`, como a versão nova): uma versão nova não confirma nem apaga os
+  embrulhos da versão conferida no meio de um envio.
 - **Faxina certa, sem sorteio:** a cada envio, a cada versão nova e a cada leitura da conversa, somem as mensagens vencidas
   daquela conversa e os **embrulhos das versões antigas que não têm mais mensagem viva**. Sem o embrulho, aquela chave não pode
   mais ser entregue a ninguém. A faxina geral antiga (por sorteio, de todas as conversas) continua como rede de segurança.
@@ -142,9 +170,20 @@ não vê nenhum dos dois.
   ("Confio na chave nova") depois de falar com a outra por outro canal.
 - **Pessoa que estava VERIFICADA:** a marca de verificado **some na hora**, com aviso claro, e o envio fica retido. **Um clique
   não basta:** a tela só segue quando a pessoa compara o código de novo, de um destes jeitos: lendo com a câmera o QR da outra
-  pessoa, ou digitando um grupo do código (sorteado, escondido na própria tela) que ela precisa ouvir da outra. Conferiu, a
-  conversa volta a ficar verificada. A exigência vale também depois de recarregar a página, e o chaveiro recusa a confirmação
-  sem comparação mesmo que a tela tente.
+  pessoa (os sessenta números), ou digitando os **seis grupos da metade da outra pessoa** (trinta números), que ficam escondidos
+  na própria tela e ela precisa ouvir da outra. Conferiu, a conversa volta a ficar verificada. A exigência vale também depois de
+  recarregar a página, e o chaveiro recusa a confirmação sem comparação mesmo que a tela tente.
+  - *Por que a metade inteira da outra pessoa.* O código é a metade de cada identidade, em ordem fixa. A minha metade não muda
+    quando o servidor troca a identidade da outra pessoa: um grupo da minha metade confere com qualquer identidade falsa (a
+    regra antiga sorteava entre os doze grupos e passava em metade das vezes). E um grupo só (cinco algarismos) é pouco: quem
+    fabrica identidades acerta um grupo em cerca de cem mil tentativas. Trinta algarismos não se acertam assim.
+  - O que fica confiado é a identidade **para a qual o código comparado foi calculado**. Se o servidor trocar a identidade de
+    novo entre a comparação e o clique, o chaveiro recusa ("a chave de segurança mudou de novo enquanto você comparava").
+- **Chave do aparelho trocada com a MESMA identidade:** neste chat a identidade e a chave do aparelho nascem juntas, então isso
+  nunca é legítimo. É o que conseguiria quem rodou um script na página da pessoa uma vez (veja abaixo) e fez a identidade dela
+  assinar a chave dele. O aparelho guarda também a chave do aparelho de cada pessoa e, se ela mudar sem a identidade mudar, a
+  conversa avisa, **nada é enviado nem aberto com essa chave e não há botão de aceitar**: só a pessoa ativando o chat de novo
+  (o que muda a identidade e cai no caso acima).
 - **A PRÓPRIA conta:** se o servidor mostra para a conta uma chave que não é a deste aparelho, a tela não oferece mais "usar este
   aparelho" num clique. Ela explica o risco (quem conversa com a pessoa recebe aviso, as conversas verificadas perdem a marca, o
   que foi escrito antes não abre aqui) e pede um "entendi" antes. Se este aparelho **tinha** a chave do chat, há um alerta a
@@ -159,6 +198,10 @@ verificada; se não confere, a tela diz para não marcar. A **câmera só liga c
 tela e quando a aba vai para o fundo. A imagem não sai do aparelho: lê o leitor do próprio navegador ou, na falta dele, a
 biblioteca `jsqr`, que já era do site (como a `qrcode`, que desenha).
 
+**Limite do QR:** o código é calculável por qualquer um que conheça as duas identidades públicas, inclusive o servidor. O QR só
+prova alguma coisa quando é lido **na tela da outra pessoa, pessoalmente**: um QR mandado por mensagem, foto ou print pode ter
+sido feito por quem está no meio. A tela diz isso junto do QR.
+
 ### O que fica neste aparelho, e o "Sair rápido"
 
 No IndexedDB do chat (`lucia-alumia-chat`) ficam: a chave do aparelho e a identidade (não exportáveis), as identidades conhecidas
@@ -167,12 +210,53 @@ rascunho e chave de conversa nunca são gravados**: vivem só na memória da aba
 
 O **"Sair rápido" da Alumia apaga tudo isso** (`apagarTudoDoChat`): o banco IndexedDB inteiro, de todas as contas deste aparelho,
 e o que estiver na memória (chaves de conversa, rascunho, mensagens abertas). Termina em menos de meio segundo, dentro do teto de
-0,8 s do "Sair rápido", e nunca lança. **Consequência, dita na tela de Ajustes:** depois do "Sair rápido" é preciso ativar o chat
-de novo neste aparelho; a chave nova muda o código de segurança (as outras pessoas recebem o aviso de chave trocada) e o que foi
-escrito antes não abre mais aqui. É o preço de não deixar a chave num aparelho que pode ser tomado.
+0,8 s do "Sair rápido", e nunca lança. Três cuidados para o apagar valer de verdade (`lib/rede/chat/gaveta.ts`, testados com
+duas abas sobre o mesmo IndexedDB):
+
+1. **As outras abas** são avisadas (BroadcastChannel, sem dado nenhum no aviso) e cada uma apaga a própria memória, fecha a
+   conversa aberta, esquece a lista de conversas e volta à ativação.
+2. **O banco só é criado na ativação.** Qualquer outra leitura ou gravação que encontre o banco sumido desfaz a criação; e a
+   página que já tinha visto o banco entende que ele foi apagado por fora (outra aba, ou a saída do site, três Esc, em
+   `lib/modo-seguro.ts`) e se limpa também. Uma busca que estava no caminho não recria o banco com ids de conversa e de pessoa.
+3. Depois de apagar, a página não grava mais nada até a pessoa ativar o chat de novo.
+
+**Consequências, ditas na tela de Ajustes:** depois do "Sair rápido" é preciso ativar o chat de novo neste aparelho; a chave nova
+muda o código de segurança (as outras pessoas recebem o aviso de chave trocada) e o que foi escrito antes não abre mais aqui.
+**E todas as verificações se perdem:** o aparelho esquece as identidades que conhecia (guardá-las seria deixar a lista de
+contatos no aparelho). Ao reativar, cada conversa volta a "confiar na primeira vez": se o servidor entregar nesse momento uma
+identidade falsa de alguém que estava verificado, **não aparece aviso nenhum**. Por isso a conversa mostra "não verificado"
+no alto, e os Ajustes pedem para comparar o código de novo com cada pessoa antes de escrever algo sensível. É o preço de não
+deixar a chave num aparelho que pode ser tomado.
+
+**Limites que continuam (pedidos à Faixa 1, `docs/rede/PEDIDOS-ENTRE-FAIXAS.md`):**
+
+- **O "Sair rápido" da Alumia não encerra a sessão da conta** (`lib/rede/saida.ts` só apaga as chaves `lucia:rede*`; a sessão
+  mora em `lucia:sessao`). Quem pega o aparelho abre a Alumia já dentro da conta, vê a lista de conversas (vinda do servidor) e
+  pode ativar o chat com chave nova e escrever em nome da pessoa; quem não tinha verificado aceita a chave nova num clique.
+  Pedido P17. Enquanto não for atendido, o texto dos Ajustes diz que a sessão continua aberta.
+- **A saída do site** (três Esc) apaga o banco do chat direto, sem rodar as limpezas do chat: a aba que já tinha visto o banco
+  se limpa quando nota (item 2 acima), mas a memória das abas só é limpa nesse momento, não na hora. Pedido P16.
+- Apagar o IndexedDB não garante que os arquivos do navegador no disco não guardem restos até a compactação. Não é testável
+  aqui.
 
 Diferenças de propósito em relação à equipe (menos comodidade, menos coisa que pode vazar): **um aparelho por conta**, sem cópia
 de recuperação e sem aprovação de outro aparelho.
+
+### O que um script rodando na página consegue (XSS na mesma origem)
+
+O formato c3 não muda nada contra isto. "Não exportável" impede COPIAR a chave do aparelho e a identidade, não USAR. Um script
+que rode **uma vez** na página do chat (uma falha de XSS no site, uma extensão do navegador com acesso à página) consegue:
+
+1. tirar, com a chave do aparelho, o segredo ECDH cru com a chave de cada contato (`deriveBits`) e, com ele e o que está no
+   banco, abrir os embrulhos **passados e futuros** daquela conversa sem voltar ao aparelho, até alguém ativar o chat de novo;
+2. fazer a identidade assinar um certificado para uma chave do atacante. Isso o aparelho da outra pessoa agora nota (chave do
+   aparelho trocada com a mesma identidade: aviso, nada sai, sem botão de aceitar), **mas só se ela já conhecia a chave antiga**:
+   no primeiro contato, ou depois de um "Sair rápido" dela, a chave do atacante é aceita como a primeira;
+3. ler as chaves de conversa da memória e as mensagens abertas na tela, e escrever em nome da pessoa.
+
+Trocar o uso da chave para só `deriveKey` ajudaria pouco: o script ainda derivaria de antemão as chaves das versões seguintes.
+O conserto de verdade é a etapa da biblioteca do Matrix (Olm par-a-par, num Worker em origem própria). Até lá, a defesa contra
+isto é não ter XSS: a CSP do site e a revisão das telas.
 
 ## As regras, todas conferidas no servidor
 
@@ -275,7 +359,9 @@ perde). Para o intervalo ser de minutos: deixe a imagem nova do site pronta para
    ```
 2. No SQL editor do Supabase, cole e rode o arquivo `supabase/migracoes/20261110-chat-blocos.sql` inteiro. Pode rodar de novo
    sem medo: não apaga dado nenhum e não cria coluna nem tabela.
-3. Publique o site novo em seguida.
+3. Publique o site novo em seguida. **Se a migração for aplicada depois de 20/11/2026**, antes de publicar mude
+   `C2_ABRE_ATE` em `lib/rede/chat-privado.ts` para o dia da migração mais 30 dias (depois dessa data o aparelho deixa de abrir
+   mensagem no formato antigo: nenhuma legítima existe mais).
 4. Se algum dia a T19 ou a T33 forem rodadas de novo, rode esta de novo logo depois (ela redefine três funções daquelas duas;
    sem isso, enviar voltaria a aceitar só "c2" e o site novo pararia de enviar).
 
