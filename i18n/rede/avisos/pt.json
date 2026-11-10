@@ -20,7 +20,11 @@
     "mencao": { "um": "{a} mencionou você.", "vezes": "{a} mencionou você {n} vezes.", "varios": "{a} e mais {n} mencionaram você.", "anonimo": "Alguém mencionou você.", "anonimoVarios": "{n} pessoas mencionaram você." },
     "citacao": { "um": "{a} citou o seu post.", "vezes": "{a} citou o seu post {n} vezes.", "varios": "{a} e mais {n} citaram o seu post.", "anonimo": "Alguém citou o seu post.", "anonimoVarios": "{n} pessoas citaram o seu post." },
     "seguidor": { "um": "{a} começou a seguir você.", "vezes": "{a} começou a seguir você.", "varios": "{a} e mais {n} começaram a seguir você.", "anonimo": "Alguém começou a seguir você.", "anonimoVarios": "{n} pessoas começaram a seguir você." },
-    "apoio": { "um": "1 pessoa apoiou o seu post.", "vezes": "1 pessoa apoiou o seu post.", "varios": "{n} pessoas apoiaram o seu post.", "anonimo": "1 pessoa apoiou o seu post.", "anonimoVarios": "{n} pessoas apoiaram o seu post." }
+    "apoio": { "um": "1 pessoa apoiou o seu post.", "vezes": "1 pessoa apoiou o seu post.", "varios": "{n} pessoas apoiaram o seu post.", "anonimo": "1 pessoa apoiou o seu post.", "anonimoVarios": "{n} pessoas apoiaram o seu post." },
+    "conversa_seguida": {"um": "{a} respondeu numa conversa que você segue.", "vezes": "{a} respondeu {n} vezes numa conversa que você segue.", "varios": "{a} e mais {n} responderam numa conversa que você segue.", "anonimo": "Há uma resposta nova numa conversa que você segue.", "anonimoVarios": "{n} pessoas responderam numa conversa que você segue."},
+    "ajudou": {"um": "Sua resposta ajudou quem abriu a conversa.", "vezes": "Sua resposta ajudou quem abriu a conversa.", "varios": "Suas respostas ajudaram em {n} conversas.", "anonimo": "Sua resposta ajudou quem abriu a conversa.", "anonimoVarios": "Suas respostas ajudaram em {n} conversas."},
+    "reacao_story": {"um": "Alguém reagiu ao seu story.", "vezes": "Seu story recebeu {n} reações.", "varios": "Seu story recebeu reações.", "anonimo": "Alguém reagiu ao seu story.", "anonimoVarios": "Seu story recebeu reações."},
+    "lembrete": {"um": "Você pediu para lembrar deste post agora.", "vezes": "Você pediu para lembrar deste post agora.", "varios": "Você pediu para lembrar destes posts agora.", "anonimo": "Você pediu para lembrar deste post agora.", "anonimoVarios": "Você pediu para lembrar destes posts agora."}
   },
   "prefs": {
     "titulo": "Como você quer ser avisado",
@@ -37,7 +41,12 @@
         "chamado": "Chamados",
         "nucleo": "Núcleos",
         "moderacao": "Moderação (sempre ligado)",
-        "apoio": "Apoios (só a quantidade, nunca quem apoiou)"
+        "apoio": "Apoios (só a quantidade, nunca quem apoiou)",
+        "conversa_seguida": "Respostas em conversas que você segue",
+        "ajudou": "Quando sua resposta ajudou (nunca quem marcou)",
+        "ato": "Atos que você acompanha (farol, corrente, consulta)",
+        "reacao_story": "Reações aos seus stories (nunca quem reagiu)",
+        "lembrete": "Lembretes que você marcou"
       }
     },
     "resumo": {

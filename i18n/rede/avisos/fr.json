@@ -21,7 +21,11 @@
     "mencao": { "um": "{a} vous a mentionné.", "vezes": "{a} vous a mentionné {n} fois.", "varios": "{a} et {n} autres vous ont mentionné.", "anonimo": "Quelqu'un vous a mentionné.", "anonimoVarios": "{n} personnes vous ont mentionné." },
     "citacao": { "um": "{a} a cité votre message.", "vezes": "{a} a cité votre message {n} fois.", "varios": "{a} et {n} autres ont cité votre message.", "anonimo": "Quelqu'un a cité votre message.", "anonimoVarios": "{n} personnes ont cité votre message." },
     "seguidor": { "um": "{a} a commencé à vous suivre.", "vezes": "{a} a commencé à vous suivre.", "varios": "{a} et {n} autres ont commencé à vous suivre.", "anonimo": "Quelqu'un a commencé à vous suivre.", "anonimoVarios": "{n} personnes ont commencé à vous suivre." },
-    "apoio": { "um": "1 personne a soutenu votre message.", "vezes": "1 personne a soutenu votre message.", "varios": "{n} personnes ont soutenu votre message.", "anonimo": "1 personne a soutenu votre message.", "anonimoVarios": "{n} personnes ont soutenu votre message." }
+    "apoio": { "um": "1 personne a soutenu votre message.", "vezes": "1 personne a soutenu votre message.", "varios": "{n} personnes ont soutenu votre message.", "anonimo": "1 personne a soutenu votre message.", "anonimoVarios": "{n} personnes ont soutenu votre message." },
+    "conversa_seguida": {"um": "{a} a répondu dans une conversation que vous suivez.", "vezes": "{a} a répondu {n} fois dans une conversation que vous suivez.", "varios": "{a} et {n} autres ont répondu dans une conversation que vous suivez.", "anonimo": "Il y a une nouvelle réponse dans une conversation que vous suivez.", "anonimoVarios": "{n} personnes ont répondu dans une conversation que vous suivez."},
+    "ajudou": {"um": "Votre réponse a aidé la personne qui a ouvert la conversation.", "vezes": "Votre réponse a aidé la personne qui a ouvert la conversation.", "varios": "Vos réponses ont aidé dans {n} conversations.", "anonimo": "Votre réponse a aidé la personne qui a ouvert la conversation.", "anonimoVarios": "Vos réponses ont aidé dans {n} conversations."},
+    "reacao_story": {"um": "Quelqu’un a réagi à votre story.", "vezes": "Votre story a reçu {n} réactions.", "varios": "Votre story a reçu des réactions.", "anonimo": "Quelqu’un a réagi à votre story.", "anonimoVarios": "Votre story a reçu des réactions."},
+    "lembrete": {"um": "Vous avez demandé un rappel de ce post maintenant.", "vezes": "Vous avez demandé un rappel de ce post maintenant.", "varios": "Vous avez demandé un rappel de ces posts maintenant.", "anonimo": "Vous avez demandé un rappel de ce post maintenant.", "anonimoVarios": "Vous avez demandé un rappel de ces posts maintenant."}
   },
   "prefs": {
     "titulo": "Comment vous voulez être prévenu",
@@ -38,7 +42,12 @@
         "chamado": "Appels",
         "nucleo": "Noyaux locaux",
         "moderacao": "Modération (toujours activée)",
-        "apoio": "Soutiens (seulement le nombre, jamais qui)"
+        "apoio": "Soutiens (seulement le nombre, jamais qui)",
+        "conversa_seguida": "Réponses dans les conversations que vous suivez",
+        "ajudou": "Quand votre réponse a aidé (jamais qui l’a marquée)",
+        "ato": "Actions que vous suivez (phare, chaîne, consultation)",
+        "reacao_story": "Réactions à vos stories (jamais qui a réagi)",
+        "lembrete": "Rappels que vous avez programmés"
       }
     },
     "resumo": {
