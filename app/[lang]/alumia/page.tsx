@@ -7,7 +7,7 @@ import { pickSections } from "@/i18n/core";
 import { I18nProvider } from "@/components/I18n";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
 import { alumiaComEndereco, enderecoDaAlumia } from "@/lib/rede/alumia";
-import { textosDaRede } from "@/lib/rede/textos";
+import { textosDaRede, tituloDaTela } from "@/lib/rede/textos";
 import { textosDosConsertos } from "@/lib/rede/textos-consertos";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
@@ -17,7 +17,8 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/alumia">):
   const { lang } = await loadLang(params);
   // O nome da rede é Alumia (o nome interno continua "comunidade"/"rede"). Com o endereço próprio ligado, o endereço canônico é o dela.
   const s = textosDaRede(lang);
-  const meta = paginaMeta(lang, "/alumia", s.marca, s.alumia.descricao, { kicker: s.alumia.lema });
+  // Com a Rede nova, "Início · Alumia" (como as outras telas: cada aba se distingue); sem ela, a marca, como sempre.
+  const meta = paginaMeta(lang, "/alumia", ligado("rede-v2") ? tituloDaTela(lang, "inicio") : s.marca, s.alumia.descricao, { kicker: s.alumia.lema, titulo: s.marca });
   if (!alumiaComEndereco) return meta;
   return {
     ...meta,
