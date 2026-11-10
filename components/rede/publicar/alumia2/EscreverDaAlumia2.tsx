@@ -97,6 +97,7 @@ export function EscreverDaAlumia2({
   const [texto, setTexto] = useState(textoInicial);
   const [titulo, setTitulo] = useState("");
   const [corpo, setCorpo] = useState("");
+  const [anuncioDoTipo, setAnuncioDoTipo] = useState("");
   const [onde, setOnde] = useState<string | null>(comunidade?.slug ?? null);
   const [publico, setPublico] = useState<Publico>(comunidade ? (comunidade.publico_padrao === "internet" ? "internet" : comunidade.publico_padrao === "comunidade" ? "comunidade" : "membros") : "membros");
   const [aberta, setAberta] = useState<"onde" | "quem" | "responde" | null>(null);
@@ -207,6 +208,29 @@ export function EscreverDaAlumia2({
   const botaoPrincipal = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (envio) botaoDesfazer.current?.focus();
+  }, [envio]);
+  // O aviso fica no rodapé da COLUNA DO MEIO (no computador, centrado nela, e não no meio da tela por cima do cartão do ato); no
+  // celular, logo acima da barra de baixo. Enquanto ele está na tela, a coluna ganha uma folga embaixo (alumia.css) para nada
+  // clicável ficar escondido atrás dele.
+  const [centroDoAviso, setCentroDoAviso] = useState<number | null>(null);
+  useEffect(() => {
+    if (!envio) return;
+    let quadro = 0;
+    const medir = () => {
+      cancelAnimationFrame(quadro);
+      quadro = requestAnimationFrame(() => {
+        const coluna = document.getElementById("rede-linha");
+        if (!coluna || window.innerWidth < 1024) return setCentroDoAviso(null);
+        const r = coluna.getBoundingClientRect();
+        setCentroDoAviso(Math.round(r.left + r.width / 2));
+      });
+    };
+    medir();
+    window.addEventListener("resize", medir);
+    return () => {
+      cancelAnimationFrame(quadro);
+      window.removeEventListener("resize", medir);
+    };
   }, [envio]);
 
   const lugar = lugares.find((l) => l.slug === onde) ?? (comunidade && onde === comunidade.slug ? { slug: comunidade.slug, nome: comunidade.nome, categoria: comunidade.categoria, cor: corDaComunidade(comunidade.slug) } : null);
@@ -500,6 +524,16 @@ export function EscreverDaAlumia2({
   const { t } = al2;
   const faltam = envio ? segundosQueFaltam(envio.desde, agora || envio.desde) : SEGUNDOS_PARA_DESFAZER;
   const principal = tipo === "ato" ? t.escrever.chamarAto : resposta ? t.escrever.resposta : t.escrever.publicar;
+  // Trocar de tipo leva o texto junto (o post vira o corpo do texto longo e volta), e avisa ao leitor de tela que o botão principal
+  // mudou de nome ("Chamar ato"). No Ato, o texto fica guardado e volta se a pessoa trocar de novo (o aviso embaixo diz isso).
+  const trocarTipo = (novo: TipoDoCompositor) => {
+    if (novo === tipo) return;
+    if (novo === "longo" && !corpo.trim() && texto.trim()) setCorpo(texto);
+    if (tipo === "longo" && novo !== "longo" && !texto.trim() && corpo.trim() && corpo.length <= LIMITE_POST) setTexto(corpo);
+    setTipo(novo);
+    const botao = novo === "ato" ? t.escrever.chamarAto : t.escrever.publicar;
+    setAnuncioDoTipo(preencher(t.escrever.tipoAnuncio, { tipo: t.escrever[novo], botao }));
+  };
   const placeholder =
     resposta && respostaA
       ? preencher(t.escrever.respostaA, { nome: respostaA.autor.codinome })
@@ -541,7 +575,10 @@ export function EscreverDaAlumia2({
               {resposta ? t.escrever.resposta : t.escrever.titulo}
             </h2>
             <button ref={botaoPrincipal} type="button" onClick={() => void publicar()} disabled={!pronto || ocupado} data-pronto={pronto && !ocupado ? "sim" : undefined} aria-describedby={falta ? "al2-escrever-falta" : undefined} className="al-botao al-botao-primario al-botao-g al2-publicar">
-              {ocupado ? t.escrever.publicando : principal}
+              {/* O nome novo entra com um pulinho (o botão muda de "Publicar" para "Chamar ato" à vista de quem olha). */}
+              <span key={ocupado ? "ocupado" : principal} className="al2-publicar-nome">
+                {ocupado ? t.escrever.publicando : principal}
+              </span>
             </button>
           </div>
           {falta && (
@@ -572,7 +609,7 @@ export function EscreverDaAlumia2({
                   ),
                 }))}
                 escolhido={tipo}
-                aoMudar={setTipo}
+                aoMudar={trocarTipo}
               />
             )}
 
@@ -592,7 +629,17 @@ export function EscreverDaAlumia2({
               </details>
             )}
 
+            {/* Fora do bloco que troca com o tipo: a região viva continua a mesma e o anúncio é lido. */}
+            <p role="status" className="sr-only">
+              {anuncioDoTipo}
+            </p>
             <div key={tipo === "ato" ? "ato" : "texto"} className="al2-troca-tipo space-y-4">
+              {tipo === "ato" && texto.trim() && (
+                <p className="al2-texto-guardado">
+                  <Icone nome="escrever" className="h-4 w-4 shrink-0" />
+                  {t.escrever.textoGuardado}
+                </p>
+              )}
               {tipo === "ato" ? (
                 encaixeDoAto ? (
                   <encaixeDoAto.Formulario lang={lang} s={s} situacao={situacao} aoMudar={setDadosDoAto} />
@@ -740,7 +787,7 @@ export function EscreverDaAlumia2({
       </div>
 
       {envio && (
-        <div className="al2 al2-aviso-flutuante" role="status" aria-live="polite" style={{ ["--al2-espera" as string]: `${SEGUNDOS_PARA_DESFAZER}s` }}>
+        <div className="al2 al2-aviso-flutuante" role="status" aria-live="polite" style={{ ["--al2-espera" as string]: `${SEGUNDOS_PARA_DESFAZER}s`, ...(centroDoAviso !== null ? { left: `${centroDoAviso}px` } : {}) }}>
           <span className="al2-aviso-relogio" aria-hidden>
             {faltam}
           </span>

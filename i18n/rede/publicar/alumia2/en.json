@@ -23,7 +23,14 @@
     "buscar": "Search",
     "emBreve": "coming soon",
     "entreParaUsar": "sign in to use",
-    "novidade": "something new"
+    "novidade": "something new",
+    "mais": "More",
+    "maisTitulo": "More of Alumia",
+    "maisAbrir": "Open more Alumia options",
+    "fechar": "Close",
+    "organizacoes": "Organizations",
+    "calendario": "Calendar",
+    "aqui": "you are here"
   },
   "conta": {
     "rotulo": "Your account",
@@ -31,7 +38,7 @@
     "visitante": "Visitor",
     "entrar": "Join Alumia",
     "sairRapido": "Quick exit",
-    "sairRapidoAjuda": "Erases what Alumia stored on this device and opens a neutral page of the site.",
+    "sairRapidoAjuda": "Erases what Alumia stored on this device and opens an ordinary outside page (the weather forecast), with nothing from the Institute.",
     "sairDaConta": "Sign out",
     "voltarAoSite": "Back to the site",
     "cuidados": "Care",
@@ -41,7 +48,9 @@
     "moderacao": "Moderation",
     "idiomas": "Languages",
     "acessibilidade": "Accessibility",
-    "ajuda": "Frequently asked questions"
+    "ajuda": "Frequently asked questions",
+    "seguranca": "Security",
+    "verPerfil": "See your profile"
   },
   "linha": {
     "titulo": "Home",
@@ -175,7 +184,9 @@
       "cidade": "city",
       "descricao": "call"
     },
-    "escolherQuando": "Pick day and time"
+    "escolherQuando": "Pick day and time",
+    "tipoAnuncio": "{tipo} selected. The main button now says “{botao}”.",
+    "textoGuardado": "Your text is kept: it comes back if you switch to Post, Poll or Long text."
   },
   "direita": {
     "rotulo": "On Alumia now",

@@ -23,7 +23,14 @@
     "buscar": "Buscar",
     "emBreve": "em breve",
     "entreParaUsar": "entre para usar",
-    "novidade": "tem novidade"
+    "novidade": "tem novidade",
+    "mais": "Mais",
+    "maisTitulo": "Mais da Alumia",
+    "maisAbrir": "Abrir mais opções da Alumia",
+    "fechar": "Fechar",
+    "organizacoes": "Organizações",
+    "calendario": "Calendário",
+    "aqui": "você está aqui"
   },
   "conta": {
     "rotulo": "Sua conta",
@@ -31,7 +38,7 @@
     "visitante": "Visitante",
     "entrar": "Entrar na Alumia",
     "sairRapido": "Sair rápido",
-    "sairRapidoAjuda": "Apaga o que a Alumia guardou neste aparelho e abre uma página neutra do site.",
+    "sairRapidoAjuda": "Apaga o que a Alumia guardou neste aparelho e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
     "sairDaConta": "Sair da conta",
     "voltarAoSite": "Voltar ao site",
     "cuidados": "Cuidados",
@@ -41,7 +48,9 @@
     "moderacao": "Moderação",
     "idiomas": "Idiomas",
     "acessibilidade": "Acessibilidade",
-    "ajuda": "Perguntas frequentes"
+    "ajuda": "Perguntas frequentes",
+    "seguranca": "Segurança",
+    "verPerfil": "Ver seu perfil"
   },
   "linha": {
     "titulo": "Início",
@@ -175,7 +184,9 @@
       "cidade": "cidade",
       "descricao": "chamado"
     },
-    "escolherQuando": "Escolher dia e hora"
+    "escolherQuando": "Escolher dia e hora",
+    "tipoAnuncio": "{tipo} escolhido. O botão principal agora diz “{botao}”.",
+    "textoGuardado": "Seu texto fica guardado: ele volta se você trocar para Post, Enquete ou Texto longo."
   },
   "direita": {
     "rotulo": "Na Alumia agora",
