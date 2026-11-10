@@ -89,6 +89,18 @@ for (const ruim of ["http://exemplo.org", "javascript:alert(1)", "https://user:s
   ok("o pedido não leva chave fora da lista", Object.keys(pedidoDaAparencia(a)).sort().join() === Object.keys(APARENCIA_PADRAO).sort().join());
 }
 
+// As telas: os 6 idiomas com as mesmas chaves; nada de HTML cru; a cor só por variáveis calculadas.
+{
+  const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (k === "_rascunho" ? [] : v && typeof v === "object" && !Array.isArray(v) ? chaves(v, `${p}${k}.`) : [`${p}${k}${Array.isArray(v) ? `[${v.length}]` : ""}`])).sort().join("|");
+  const base = chaves(JSON.parse(ler("i18n/rede/perfil-livre/pt.json")));
+  for (const l of ["en", "es", "fr", "ru", "zh"]) ok(`perfil-livre/${l}.json tem as mesmas chaves do pt`, chaves(JSON.parse(ler(`i18n/rede/perfil-livre/${l}.json`))) === base);
+  const telas = ["Cabecalho.tsx", "Pecas.tsx", "Editor.tsx", "Ferramentas.tsx", "PaginaDoPerfil.tsx"].map((f) => ler(`components/rede/perfil/livre/${f}`)).join("\n") + ler("components/rede/org/Tear.tsx");
+  ok("nenhuma tela do perfil livre usa dangerouslySetInnerHTML", !/dangerouslySetInnerHTML\s*=/.test(telas));
+  ok("a cor do perfil entra só por variaveisDoAcento (nada de style com texto da pessoa)", /variaveisDoAcento\(acento\)/.test(ler("components/rede/perfil/livre/Cabecalho.tsx")) && !/style=\{\{[^}]*(bio|codinome|texto|palavra)/.test(telas));
+  ok("a bio vira pedaços (pedacosDaBio), nunca HTML", /pedacosDaBio\(bio\)/.test(ler("components/rede/perfil/livre/Pecas.tsx")));
+  ok("o editor respeita o alto contraste e o e-ink", /data-contrast\], \[data-eink\]\) \[data-al="2"\] :is\(\.pf, \.pf-pagina\)/.test(ler("components/rede/perfil/livre/livre.css")));
+}
+
 // ── 2. Banco ──
 const banco = await criarBanco();
 const { dono: sql, criarUsuario, rpc } = banco;
