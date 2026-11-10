@@ -279,7 +279,7 @@ function LinhaDaAba({ handle, aba, vazio, lang, s, situacao, aoResponder }: { ha
 }
 
 /** Na prévia, os posts das pranchas (a linha de verdade pede o banco). */
-function PostsDaPrevia({ handle, lang, s, situacao, aoResponder }: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
+export function PostsDaPrevia({ handle, lang, s, situacao, aoResponder }: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
   const [posts, setPosts] = useState<Post[] | null>(null);
   useEffect(() => {
     let vivo = true;

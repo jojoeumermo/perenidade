@@ -208,7 +208,7 @@ export async function linhaDoPerfil(handle: string, aba: "respostas" | "midia" |
     const m = await import("@/lib/rede/publicar/exemplos-alumia2");
     const todos = m.postsDeExemplo();
     const fatia = aba === "respostas" ? todos.slice(1, 3) : aba === "midia" ? todos.slice(3, 4) : todos.filter((p) => p.chamado).slice(0, 3);
-    return { itens: handle === "faisca" ? fatia : [], proximo: null };
+    return { itens: fatia, proximo: null };
   }
   try {
     return await chamar<PaginaDaLinha>("rede_perfil_linha", { p_handle: handle, p_aba: aba, p_cursor: cursor });

@@ -23,7 +23,7 @@ import type { AcoesDeGestor } from "../org/CuidarDaOrg";
 import { PerfilDaOrg } from "../org/PerfilDaOrg";
 import { useTextosDoPerfil } from "./useTextos";
 import { aparenciaDe, extrasDe, perfilDaPrevia, previa, type AparenciaLida } from "./livre/dados";
-import { PaginaDoPerfil } from "./livre/PaginaDoPerfil";
+import { PaginaDoPerfil, PostsDaPrevia } from "./livre/PaginaDoPerfil";
 import { useTextosDoPerfilLivre } from "./livre/textos";
 import "../org/org.css";
 
@@ -122,7 +122,7 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
         aoMudar={() => setVolta((v) => v + 1)}
         membro={situacao.membro}
         abaInicial={abaDoEndereco()}
-        posts={<Linha aba={`u:${estado.org.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
+        posts={previa() ? <PostsDaPrevia handle={estado.org.handle} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} /> : <Linha aba={`u:${estado.org.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
       />
     );
   }
