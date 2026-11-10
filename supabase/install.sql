@@ -34117,13 +34117,60 @@ begin
   return public.rede_org_tear(p_handle);
 end $$;
 
+-- ── 4b. As abas Respostas, Mídia e Atos do perfil ─────────────────────────────────────────────────────────────────────────
+
+/**
+ * Uma aba do perfil de pessoa (o cliente da F4 já chama esta função; faltava no banco): os posts da pessoa que respondem a outro
+ * (respostas), que trazem imagem (midia: imagem no corpo em markdown ou link direto de imagem) ou que convocam um ato (atos), na
+ * ordem de chegada, com a MESMA matriz da linha (rede_ve, silenciados) e a do perfil (invisível, bloqueado, suspenso = nada).
+ */
+create or replace function public.rede_perfil_linha(p_handle text, p_aba text, p_cursor text default null) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := auth.uid(); f perfis; v_t timestamptz; v_id uuid; v_itens jsonb; v_n integer; v_ultimo jsonb; v_proximo text;
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede2_ler', 600, 60);
+  if coalesce(p_aba, '') not in ('respostas', 'midia', 'atos') then perform interno.erro('invalido:aba'); end if;
+  select * into f from perfis where rede_handle = lower(btrim(coalesce(p_handle, ''), ' @'));
+  if not found or f.suspenso or ((f.rede_modo = 'invisivel' or f.rede_invisivel) and f.id is distinct from v) or interno.rede_bloqueado(v, f.id) then
+    return jsonb_build_object('itens', '[]'::jsonb, 'proximo', null);
+  end if;
+  if nullif(p_cursor, '') is not null then
+    begin
+      v_t := split_part(p_cursor, '|', 1)::timestamptz;
+      v_id := split_part(p_cursor, '|', 2)::uuid;
+    exception when others then perform interno.erro('invalido:cursor');
+    end;
+  end if;
+  select coalesce(jsonb_agg(interno.rede_post_v2(r, v) order by r.criado_em desc, r.id desc), '[]'::jsonb), count(*)::integer into v_itens, v_n
+  from rede_posts r where r.id in (
+    select p.id from rede_posts p
+    where p.autor = f.id and not p.oculto and p.repost_de is null
+      and (v_t is null or (p.criado_em, p.id) < (v_t, v_id))
+      and case p_aba
+        when 'respostas' then p.resposta_a is not null
+        when 'midia' then coalesce(p.corpo, '') ~ '!\[[^\]]*\]\(https://' or p.texto ~* 'https://[^[:space:]]+\.(png|jpe?g|webp|gif|avif)([?#][^[:space:]]*)?([[:space:]]|$)'
+        else (p.chamado ->> 'tipo') = 'ato' or p.ato is not null
+      end
+      and interno.rede_ve(p, v) and not interno.rede_silenciado(p, v)
+    order by p.criado_em desc, p.id desc
+    limit 21);
+  if v_n > 20 then
+    select coalesce(jsonb_agg(e.valor order by e.n), '[]'::jsonb) into v_itens from jsonb_array_elements(v_itens) with ordinality e(valor, n) where e.n <= 20;
+    v_ultimo := v_itens -> 19;
+    v_proximo := (v_ultimo ->> 'criado_em') || '|' || (v_ultimo ->> 'id');
+  end if;
+  return jsonb_build_object('itens', v_itens, 'proximo', v_proximo);
+end $$;
+
 -- ── 5. Permissões das funções ─────────────────────────────────────────────────────────────────────────────────────────────
 do $$
 declare f text;
 begin
   revoke all on function interno.alumia_aparencia_valida(jsonb, uuid) from public;
   foreach f in array array['public.rede_perfil_aparencia(text)', 'public.rede_perfil_aparencia_editar(jsonb)', 'public.rede_perfil_extras_editar(jsonb)',
-    'public.rede_org_tear(text)', 'public.rede_org_tear_fio(text, jsonb)'] loop
+    'public.rede_org_tear(text)', 'public.rede_org_tear_fio(text, jsonb)', 'public.rede_perfil_linha(text, text, text)'] loop
     execute format('revoke all on function %s from public', f);
     if exists (select 1 from pg_roles where rolname = 'anon') then
       execute format('revoke all on function %s from anon, authenticated', f);
@@ -34131,9 +34178,9 @@ begin
   end loop;
   if exists (select 1 from pg_roles where rolname = 'anon') then
     revoke all on function interno.alumia_aparencia_valida(jsonb, uuid) from anon, authenticated;
-    grant execute on function public.rede_perfil_aparencia(text), public.rede_org_tear(text) to anon;
+    grant execute on function public.rede_perfil_aparencia(text), public.rede_org_tear(text), public.rede_perfil_linha(text, text, text) to anon;
     grant execute on function public.rede_perfil_aparencia(text), public.rede_perfil_aparencia_editar(jsonb), public.rede_perfil_extras_editar(jsonb),
-      public.rede_org_tear(text), public.rede_org_tear_fio(text, jsonb) to authenticated;
+      public.rede_org_tear(text), public.rede_org_tear_fio(text, jsonb), public.rede_perfil_linha(text, text, text) to authenticated;
   end if;
 end $$;
 
