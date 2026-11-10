@@ -186,6 +186,8 @@ function usePausarVideos(ativo: boolean) {
 /** Pede para abrir o painel de acessibilidade (o item "Acessibilidade" do "Mais", no aplicativo). */
 export const ABRIR_ACESSIBILIDADE = "lucia:abrir-acessibilidade";
 export const abrirAcessibilidade = () => window.dispatchEvent(new Event(ABRIR_ACESSIBILIDADE));
+/** Liga e desliga o painel (o botão próprio da Alumia, que fica no lugar do redondo flutuante). */
+export const ALTERNAR_ACESSIBILIDADE = "lucia:alternar-acessibilidade";
 
 /**
  * Botão flutuante de acessibilidade: texto (tamanho, linhas, letras, letra legível, links), cores (contraste, e-ink,
@@ -244,8 +246,14 @@ export function A11yWidget() {
 
   useEffect(() => {
     const abrir = () => setOpen(true);
+    // O botão de acessibilidade da Alumia (no menu e no alto do celular, onde o redondo não flutua) liga e desliga o painel.
+    const alternar = () => setOpen((x) => !x);
     window.addEventListener(ABRIR_ACESSIBILIDADE, abrir);
-    return () => window.removeEventListener(ABRIR_ACESSIBILIDADE, abrir);
+    window.addEventListener(ALTERNAR_ACESSIBILIDADE, alternar);
+    return () => {
+      window.removeEventListener(ABRIR_ACESSIBILIDADE, abrir);
+      window.removeEventListener(ALTERNAR_ACESSIBILIDADE, alternar);
+    };
   }, []);
 
   useEffect(() => {
@@ -257,6 +265,8 @@ export function A11yWidget() {
     const onDown = (e: PointerEvent) => {
       const target = e.target as Node;
       if (panelRef.current?.contains(target) || buttonRef.current?.contains(target)) return;
+      // Os botões que alternam o painel de outro lugar fecham sozinhos (sem fechar aqui e abrir de novo no clique).
+      if (target instanceof Element && target.closest("[data-alterna-acessibilidade]")) return;
       setOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
@@ -440,7 +450,8 @@ export function A11yWidget() {
           aria-expanded={open}
           aria-label={speaking ? `${a.button} (${a.reading})` : a.button}
           title={a.button}
-          className={`relative flex h-11 w-11 cursor-pointer touch-none items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood ${speaking || open ? "" : "app:hidden"}`}
+          data-falando={speaking ? "" : undefined}
+          className={`a11y-gatilho relative flex h-11 w-11 cursor-pointer touch-none items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood ${speaking || open ? "" : "app:hidden"}`}
         >
           <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="4.5" r="1.5" fill="currentColor" />

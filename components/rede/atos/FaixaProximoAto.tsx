@@ -17,12 +17,15 @@ import "./atos.css";
 export function FaixaProximoAto({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; lang: string }) {
   if (ato.situacao === "cancelado") return null;
   const { ponto } = pontoEDetalhe(ato.onde);
+  // No celular, o lugar curto como na prancha ("Praça da Sé" → "Sé"): a última palavra quando o ponto é comprido.
+  const palavras = ponto.split(/\s+/);
+  const pontoCurto = ponto.length > 10 && palavras.length > 1 && palavras[palavras.length - 1].length >= 2 ? palavras[palavras.length - 1] : ponto;
   return (
     <Link href={`/${lang}/alumia/ato/${ato.id}`} className="al-faixa-ato" data-situacao={ato.situacao}>
       <span className="al-cond al-faixa-ato-rotulo">{t.faixa.rotulo}</span>
       <span className="al-faixa-ato-texto">
         <span className="al-faixa-ato-curto">
-          {ato.titulo} · {diaEHora(ato.inicio, lang)} · {ponto}
+          {ato.titulo} · {diaEHora(ato.inicio, lang)} · {pontoCurto}
         </span>
         <span className="al-faixa-ato-longo">
           {ato.titulo} · {dataCurta(ato.inicio, lang)} · {ponto}, {ato.cidade}

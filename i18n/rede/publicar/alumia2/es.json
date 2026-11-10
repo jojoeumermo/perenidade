@@ -1,5 +1,9 @@
 {
-  "marca": { "nome": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia, inicio" },
+  "marca": {
+    "nome": "Alumia",
+    "instituto": "Instituto Lúcia",
+    "inicio": "Alumia, inicio"
+  },
   "menu": {
     "principal": "Menú de Alumia",
     "barra": "Barra de Alumia",
@@ -35,7 +39,9 @@
     "denuncias": "Mis denuncias",
     "silenciados": "Silenciados",
     "moderacao": "Moderación",
-    "idiomas": "Idiomas"
+    "idiomas": "Idiomas",
+    "acessibilidade": "Accesibilidad",
+    "ajuda": "Preguntas frecuentes"
   },
   "linha": {
     "titulo": "Inicio",
@@ -48,7 +54,13 @@
     "geral": "Línea general",
     "novosUm": "post nuevo",
     "novosOutros": "posts nuevos",
-    "mostrarNovos": "Mostrar {n} posts nuevos"
+    "mostrarNovos": "Mostrar {n} posts nuevos",
+    "erroTitulo": "La línea no cargó",
+    "fimTitulo": "Ya lo viste todo",
+    "fimTexto": "No hay nada más de quien sigues por ahora. Sin desplazamiento infinito: ¿qué tal ir a una comunidad o a un acto?",
+    "fimComunidades": "Ir a las comunidades",
+    "fimAtos": "Ver los actos",
+    "fimTopo": "Volver arriba"
   },
   "compositor": {
     "convite": "¿Qué está pasando en tu lucha?",
@@ -142,7 +154,28 @@
     "semTexto": "(sin texto)",
     "semAlt": "Una imagen no tiene descripción: quien usa lector de pantalla no sabrá qué hay en ella. Descríbela, o toca de nuevo para publicar así.",
     "naoDesfez": "No se pudo deshacer: la publicación ya salió. Si quieres, bórrala desde el menú de la publicación.",
-    "rascunhosCheios": "Ya tienes 20 borradores en tu cuenta: este se queda solo en este dispositivo. Borra uno para guardarlo en la cuenta."
+    "rascunhosCheios": "Ya tienes 20 borradores en tu cuenta: este se queda solo en este dispositivo. Borra uno para guardarlo en la cuenta.",
+    "anexos": "Adjuntos",
+    "gravarAudio": "Grabar audio (hasta 1 minuto)",
+    "ajudaInternet": "Cualquier persona, también en Mastodon, Lemmy, Misskey y el resto del Fediverso.",
+    "ajudaMembros": "Solo quien tiene cuenta en Alumia.",
+    "ajudaSeguidores": "Solo quien te sigue.",
+    "ajudaComunidade": "Solo quien está en esta comunidad.",
+    "ajudaNucleo": "Solo quien está en este núcleo.",
+    "ajudaEquipe": "Solo el equipo del instituto.",
+    "publicoRoda": "Solo tu círculo de confianza",
+    "rodaEmBreve": "Tu lista de confianza llega con el perfil nuevo. Nadie sabe quién está en ella.",
+    "notaFediverso": "También en el Fediverso: el post llega a quien te sigue en Mastodon, Lemmy y Misskey, con tu seudónimo.",
+    "respostaA": "Escribe tu respuesta a {nome}",
+    "falta": "Falta: {campos}",
+    "campos": {
+      "titulo": "nombre del acto",
+      "quando": "cuándo",
+      "onde": "dónde",
+      "cidade": "ciudad",
+      "descricao": "convocatoria"
+    },
+    "escolherQuando": "Elegir día y hora"
   },
   "direita": {
     "rotulo": "En Alumia ahora",

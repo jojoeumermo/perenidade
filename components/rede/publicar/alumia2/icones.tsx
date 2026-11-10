@@ -33,6 +33,14 @@ export const ICONES = {
   fechar: "M6 6l12 12M18 6 6 18",
   ponto: "M12 12h.01",
   cadeado: "M7.5 11V8a4.5 4.5 0 0 1 9 0v3M5.5 11h13v9.5h-13zM12 14.5v2.5",
+  microfone: "M12 3.5a3 3 0 0 0-3 3V12a3 3 0 0 0 6 0V6.5a3 3 0 0 0-3-3zM5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3",
+  relogio: "M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zM12 7.5V12l3 2",
+  roda: "M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z",
+  alerta: "M12 4 21 19.5H3zM12 10v4.5M12 17h.01",
+  desfazer: "M9 14 4.5 9.5 9 5M4.5 9.5H15a5 5 0 0 1 0 10h-3",
+  acessibilidade: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7.2h.01M7.5 9.5l4.5 1 4.5-1M12 10.5v3M9.5 17.5l2.5-4 2.5 4",
+  ajuda: "M4 5h16v11H9l-5 4zM10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4M12 14.2h.01",
+  calendario: "M4.5 6h15v14h-15zM4.5 10h15M8.5 3.5v4M15.5 3.5v4",
 } as const;
 
 export type NomeDoIcone = keyof typeof ICONES;

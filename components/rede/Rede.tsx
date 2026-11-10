@@ -43,6 +43,13 @@ if (AL2 && typeof window !== "undefined") {
 // A conversa em árvore (pacote conversa) só chega ao navegador quando um post é aberto.
 const TelaDaConversa = dynamic(() => import("./conversa/TelaDaConversa"), { ssr: false, loading: () => <EsqueletoDaLinha rotulo="…" quantos={3} /> });
 
+/**
+ * O que a última tela já sabia (cada rota da Alumia monta a Rede de novo): a situação da pessoa, o nome e a cor das comunidades e
+ * a aba escolhida. A tela seguinte começa com isso e confere no servidor por trás, sem piscar o esqueleto a cada clique no menu.
+ * Fica só na memória da aba do navegador (some ao recarregar e no Sair rápido, que recarrega a página).
+ */
+const memoria: { situacao: Situacao | null; comunidades: ContextoAlumia2["comunidades"] | null; aba: Aba | null; geracao: number } = { situacao: null, comunidades: null, aba: null, geracao: 0 };
+
 const ABAS_DO_MEMBRO: Aba[] = ["seguindo", "comunidades", "tudo", "geral"];
 
 /** A aba pedida no endereço (?aba=), se o idioma da pessoa pode usá-la; senão a de sempre. */
@@ -65,14 +72,26 @@ function abaInicial(membro: boolean): Aba {
  */
 export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede; tela: Tela }) {
   // Prévia: a Faísca das pranchas (nada vai ao banco; os posts de exemplo têm id "exemplo-…").
-  const [situacao, setSituacao] = useState<Situacao | null>(null);
+  const [situacao, setSituacaoCrua] = useState<Situacao | null>(() => memoria.situacao);
+  const setSituacao = useCallback((x: Situacao | null) => {
+    memoria.situacao = x;
+    setSituacaoCrua(x);
+  }, []);
   const [falha, setFalha] = useState("");
   const [escrevendo, setEscrevendo] = useState<{ respostaA: Post | null; comunidade: Comunidade | null; texto?: string; tipo?: TipoAoEscrever } | null>(null);
   // Alumia nova: os textos dela (só baixados com a flag ligada) e o nome e a cor das comunidades para as pílulas do cartão.
   const t2 = useTextosAlumia2(lang, AL2);
-  const [nomesDasComunidades, setNomesDasComunidades] = useState<ContextoAlumia2["comunidades"]>({});
-  const [aba, setAba] = useState<Aba | null>(null);
-  const [recarregar, setRecarregar] = useState(0);
+  const [nomesDasComunidades, setNomesCrus] = useState<ContextoAlumia2["comunidades"]>(() => memoria.comunidades ?? {});
+  const setNomesDasComunidades = useCallback((x: ContextoAlumia2["comunidades"]) => {
+    memoria.comunidades = x;
+    setNomesCrus(x);
+  }, []);
+  const [aba, setAbaCrua] = useState<Aba | null>(() => (tela.tipo === "linha" ? memoria.aba : null));
+  const setAba = useCallback((a: Aba) => {
+    memoria.aba = a;
+    setAbaCrua(a);
+  }, []);
+  const [recarregar, setRecarregar] = useState(() => memoria.geracao);
   const [comunidade, setComunidade] = useState<Comunidade | null>(null);
 
   // Prévia: a Faísca e as comunidades das pranchas, baixadas só aqui (import sob demanda).
@@ -90,7 +109,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     return () => {
       vivo = false;
     };
-  }, []);
+  }, [setSituacao, setNomesDasComunidades]);
 
   useEffect(() => {
     if (!AL2 || PREVIA) return;
@@ -102,7 +121,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     return () => {
       vivo = false;
     };
-  }, []);
+  }, [setNomesDasComunidades]);
   const contexto2 = useMemo<ContextoAlumia2 | null>(() => (AL2 && t2 ? { t: t2, previa: PREVIA, comunidades: nomesDasComunidades } : null), [t2, nomesDasComunidades]);
 
   useEffect(() => {
@@ -119,7 +138,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     return () => {
       vivo = false;
     };
-  }, [s]);
+  }, [s, setSituacao]);
 
   // Endereços antigos do Fórum: o servidor já redireciona (301); isto só pega o que passou por fora dele.
   useEffect(() => {
@@ -163,10 +182,11 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
 
           {tela.tipo === "linha" && contexto2 && (
             <>
-              <TopoDaLinha2 lang={lang} situacao={aberta} abas={pode ? ABAS_DO_MEMBRO.filter((a) => a !== "geral") : ["geral"]} aba={abaAtual === "geral" && pode ? "tudo" : abaAtual} aoAba={setAba} aoEscrever={aoEscrever2} />
+              <TopoDaLinha2 lang={lang} s={s} situacao={aberta} abas={pode ? ABAS_DO_MEMBRO.filter((a) => a !== "geral") : ["geral"]} aba={abaAtual === "geral" && pode ? "tudo" : abaAtual} aoAba={setAba} aoEscrever={aoEscrever2} />
               <div role="tabpanel" id="al2-painel-linha" aria-labelledby={`al2-aba-${abaAtual === "geral" && pode ? "tudo" : abaAtual}`}>
               <Linha
                 key={`${abaAtual}:${recarregar}`}
+                geracao={recarregar}
                 aba={abaAtual === "geral" && pode ? "tudo" : abaAtual}
                 lang={lang}
                 s={s}
@@ -244,7 +264,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
               textoInicial={escrevendo.texto}
               tipoInicial={escrevendo.tipo}
               aoFechar={() => setEscrevendo(null)}
-              aoPublicar={() => setRecarregar((n) => n + 1)}
+              aoPublicar={() => setRecarregar(++memoria.geracao)}
             />
           )}
           {escrevendo && pode && !contexto2 && (
@@ -255,7 +275,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
               respostaA={escrevendo.respostaA}
               textoInicial={escrevendo.texto}
               aoFechar={() => setEscrevendo(null)}
-              aoPublicar={() => setRecarregar((n) => n + 1)}
+              aoPublicar={() => setRecarregar(++memoria.geracao)}
             />
           )}
         </>

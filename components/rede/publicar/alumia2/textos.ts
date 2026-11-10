@@ -18,29 +18,36 @@ const CARREGADORES: Record<string, () => Promise<{ default: unknown }>> = {
 };
 
 const guardados = new Map<string, Promise<TextosAlumia2>>();
+/** Os já chegados: a tela seguinte (cada rota monta a Rede de novo) começa com eles, sem um quadro de esqueleto no meio. */
+const prontos = new Map<string, TextosAlumia2>();
 
 export function carregarTextosAlumia2(lang: string): Promise<TextosAlumia2> {
   const l = lang in CARREGADORES ? lang : "pt";
   let p = guardados.get(l);
   if (!p) {
-    p = CARREGADORES[l]().then((m) => m.default as TextosAlumia2);
+    p = CARREGADORES[l]().then((m) => {
+      const t = m.default as TextosAlumia2;
+      prontos.set(l, t);
+      return t;
+    });
     guardados.set(l, p);
   }
   return p;
 }
 
 export function useTextosAlumia2(lang: string, ativo = true): TextosAlumia2 | null {
-  const [t, setT] = useState<TextosAlumia2 | null>(null);
+  const l = lang in CARREGADORES ? lang : "pt";
+  const [t, setT] = useState<TextosAlumia2 | null>(() => prontos.get(l) ?? null);
   useEffect(() => {
-    if (!ativo) return;
+    if (!ativo || prontos.get(l) === t) return;
     let vivo = true;
-    carregarTextosAlumia2(lang).then(
+    carregarTextosAlumia2(l).then(
       (x) => vivo && setT(x),
       () => undefined,
     );
     return () => {
       vivo = false;
     };
-  }, [lang, ativo]);
+  }, [l, ativo, t]);
   return ativo ? t : null;
 }

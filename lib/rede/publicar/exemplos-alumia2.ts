@@ -129,6 +129,36 @@ export function postsDeExemplo(agora: number = Date.now()): Post[] {
   ];
 }
 
+/**
+ * Os "3 posts novos" da prévia: chegam no alto quando a pessoa toca na pílula, para a entrada dos cartões novos poder ser vista
+ * (sem eles, a lista voltava igual). Também "exemplo-…": nunca vão ao banco.
+ */
+export function postsNovosDeExemplo(agora: number = Date.now()): Post[] {
+  return [
+    {
+      ...base("exemplo-novo-sara", agora, 0.5),
+      comunidade: "passe-livre-sp",
+      texto: "Saiu a pauta da plenária de quinta: tarifa, linhas cortadas na zona sul e a passagem da madrugada. Quem quiser propor ponto, manda até quarta.",
+      autor: { id: "exemplo-sara", codinome: "Sara do Grajaú", handle: "saradograjau", perfil: true, equipe: false },
+      respostas: 3,
+    },
+    {
+      ...base("exemplo-novo-joao", agora, 1),
+      comunidade: "estudantes-ufpe",
+      texto: "Faixas prontas para a paralisação. Faltam mãos para pendurar no CFCH amanhã às 7h.",
+      autor: { id: "exemplo-joao", codinome: "João Candeeiro", handle: "joaocandeeiro", perfil: true, equipe: false },
+      respostas: 5,
+    },
+    {
+      ...base("exemplo-novo-cohab", agora, 2),
+      comunidade: "moradia-zona-leste",
+      texto: "Atualização da Esperança: a Defensoria conseguiu mais 15 dias. A vigília de segunda continua de pé, só que agora para a assembleia das famílias.",
+      autor: { id: "exemplo-cohab", codinome: "Núcleo Cohab 2", handle: "nucleocohab2", perfil: true, equipe: false },
+      respostas: 11,
+    },
+  ];
+}
+
 /** A enquete do post de exemplo (61 votos, 42/35/23 %, fecha em 1 dia), como `rede_pub_detalhes` devolveria. */
 export function enqueteDeExemplo(agora: number = Date.now()): EnqueteDoPost {
   return {
