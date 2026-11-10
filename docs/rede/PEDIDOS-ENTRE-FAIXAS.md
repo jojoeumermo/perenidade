@@ -23,4 +23,15 @@ Ou seja: quando uma faixa terminar, a faixa que ainda tem trabalho **divide o qu
 
 ## Pedidos
 
-(nenhum ainda)
+### 10/11/2026 · Faixa 1 → Faixa 2 · "Combinar pelo chat" das caronas do ato
+
+- **Onde:** `lib/rede/atos/combinar.ts` (Faixa 1) já tem o encaixe. A Faixa 2 só registra, no encaixe do chat
+  (`components/rede/chat/encaixe.tsx` ou onde o chat privado carrega), a função que abre a conversa:
+  `registrarConversaDaCarona(async ({ id, ato }) => { ... })`.
+- **O que a função faz:** abre (ou cria) a conversa privada cifrada com a pessoa que publicou a carona `id` do ato `ato` e navega
+  para ela. A pessoa sai de `interno.rede_ato_caronas.quem` (`supabase/migracoes/20261110-alumia-b1-atos.sql`), resolvida NO
+  SERVIDOR numa função da Faixa 2 (security definer, `search_path = interno, pg_temp`, membro 18+, quem chama vê o ato por
+  `interno.rede_ato_achar`, não bloqueado, limite de uso). Nenhuma resposta devolve o id nem o codinome de quem ofereceu antes de
+  a conversa existir; nenhuma lista de quem combinou.
+- **Enquanto não houver:** o botão "Combinar pelo chat" aparece desligado com a frase "O chat das caronas chega em breve" (já
+  nos 6 idiomas, `i18n/rede/atos/*.json` → `caronas.combinarEmBreve`). Quem atender marca "feito <hash>" aqui.

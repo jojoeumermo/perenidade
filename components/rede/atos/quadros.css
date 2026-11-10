@@ -45,6 +45,7 @@
 }
 [data-al="2"] .al-q-ladrilho[data-completa] .al-q-selo { border: 2px solid var(--al-dourado); background: var(--al-dourado); }
 [data-al="2"] .al-q-ladrilho[data-eu] { border-color: var(--al-dourado); box-shadow: inset 4px 0 0 var(--al-dourado); }
+[data-al="2"] .al-q-ladrilho[data-eu]:not([data-completa]) .al-q-selo { border-style: solid; border-color: var(--al-dourado); color: var(--al-ato-dourado-texto, var(--al-dourado)); }
 [data-al="2"] .al-q-corpo { min-width: 0; display: grid; gap: 0.15rem; }
 [data-al="2"] .al-q-item { margin: 0; font-weight: 700; color: var(--al-texto); overflow-wrap: anywhere; }
 [data-al="2"] .al-q-linha { margin: 0; color: var(--al-texto-3); font-size: 0.85rem; }
