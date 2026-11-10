@@ -174,7 +174,7 @@ const POSTS_DA_PREVIA: Record<string, PostDaPrevia[]> = {
     { texto: "Boa! Mando o roteiro da panfletagem para vocês adaptarem.", minutos: 20, resposta: "exemplo-faisca-1", respostas: 1 },
   ],
   liaquilombo: [
-    { texto: "Roda de conversa sobre trabalho por aplicativo no sábado, 15h, no centro cultural. Traga a sua conta de quanto fica com o app.", comunidade: "marxismo-aula", minutos: 400, ato: { tipo: "Roda sobre trabalho por app", dias: 4, hora: 15, onde: "Centro cultural do bairro" }, respostas: 12 },
+    { texto: "Roda de conversa sobre trabalho por aplicativo no sábado, 15h, no centro cultural. Traga a sua conta de quanto fica com o app.", comunidade: "marxismo", minutos: 400, ato: { tipo: "Roda sobre trabalho por app", dias: 4, hora: 15, onde: "Centro cultural do bairro" }, respostas: 12 },
     { texto: "O mural do quilombo urbano ficou pronto.", minutos: 1200, imagem: { capa: "c07", alt: "Mural colorido pintado num muro do bairro" }, respostas: 9 },
     { texto: "Fiz a conta aqui: em média, 38% de cada corrida fica com o app.", minutos: 50, resposta: "exemplo-lia", respostas: 4 },
   ],
