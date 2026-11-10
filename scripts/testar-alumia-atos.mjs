@@ -14,6 +14,8 @@ import { conferirAto, pontoEDetalhe } from "../lib/rede/atos/formulario.ts";
 import { icsDoAto, nomeDoIcs } from "../lib/rede/atos/ics.ts";
 import { linkDeApoioSeguro, linkDoMapa, textoParaChamar } from "../lib/rede/atos/chegar.ts";
 import { contarNovos, CHAVE_DOS_VISTOS } from "../lib/rede/atos/novos.ts";
+import { codigoDoErro, fraseDoErro, CODIGOS_DE_ERRO } from "../lib/rede/atos/erros.ts";
+import { mola, MOLAS } from "../lib/rede/atos/movimento.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 let certos = 0;
@@ -119,7 +121,7 @@ igual("Chamar: só nome, quando e onde", textoParaChamar(" Passe Livre Já ", "s
 
 // ── O código das telas: sem GPS, sem lista, sem rastreio ──
 const ler = (p) => readFileSync(path.join(raiz, p), "utf8");
-const telas = ["Acoes", "AtoAberto", "CartaoDoAto", "FaixaProximoAto", "ItemDoAto", "TelaDosAtos", "PaginaDoAto", "FormularioDoAto", "AtosPerto", "AnexoChamado", "TopoDoInicio", "Calendario", "AbaDosAtos", "partes", "usar"].map((n) => ler(`components/rede/atos/${n}.${n === "usar" ? "ts" : "tsx"}`)).join("\n");
+const telas = ["Acoes", "AtoAberto", "CartaoDoAto", "FaixaProximoAto", "ItemDoAto", "TelaDosAtos", "PaginaDoAto", "FormularioDoAto", "AtosPerto", "AnexoChamado", "TopoDoInicio", "Calendario", "AbaDosAtos", "partes", "usar", "Chegar", "Farol", "Corrente", "FlapsDoAto", "MosaicoVivo"].map((n) => ler(`components/rede/atos/${n}.${n === "usar" ? "ts" : "tsx"}`)).join("\n");
 ok("nenhuma tela pede a posição do aparelho", !/geolocation|getCurrentPosition|watchPosition/.test(telas));
 ok("Chegar sai sem Referer", /rel="noopener noreferrer"[^>]*referrerPolicy="no-referrer"/.test(telas));
 const encaixe = ler("components/rede/atos/encaixe.tsx");
@@ -142,6 +144,27 @@ for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
   const outro = JSON.parse(ler(`i18n/rede/atos/${l}.json`));
   const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (typeof v === "object" ? chaves(v, `${p}${k}.`) : [`${p}${k}`])).sort();
   igual(`textos em ${l} com as mesmas chaves do pt`, chaves(outro), chaves(pt));
+}
+
+// ── Erros com a frase certa (não o genérico) ──
+igual("ato_cancelado vira a frase do ato cancelado", codigoDoErro(new Error("ato_cancelado")), "ato_cancelado");
+igual("muitos_pedidos vira a frase de esperar", codigoDoErro(new Error("muitos_pedidos")), "muitos_pedidos");
+igual("429 do servidor também é muitos_pedidos", codigoDoErro(new Error("HTTP 429 Too Many Requests")), "muitos_pedidos");
+igual("sem rede", codigoDoErro(new TypeError("Failed to fetch")), "sem_rede");
+igual("desconhecido vira genérico", codigoDoErro(new Error("xyz")), "generico");
+{
+  const pt = JSON.parse(ler("i18n/rede/atos/pt.json"));
+  ok("todo código de erro tem frase em pt", CODIGOS_DE_ERRO.every((c) => typeof pt.erros[c] === "string" && pt.erros[c].length > 5));
+  ok("a frase do ato cancelado não é a genérica", fraseDoErro(pt.erros, new Error("ato_cancelado")) !== pt.erros.generico);
+}
+ok("nenhuma tela mostra mais o erro genérico do Você vai", !/t\.acoes\.erroVou/.test(telas));
+// ── Movimento: a mola termina em 1 e respeita quem pediu menos movimento ──
+{
+  const m = mola(240, 13);
+  ok("mola vira linear() terminando em 1", m.easing.startsWith("linear(0") && m.easing.endsWith(", 1)") && m.duracao > 200 && m.duracao < 2500);
+  ok("mola com quique passa do fim (overshoot)", MOLAS.quique.easing.split(",").some((v) => parseFloat(v.replace("linear(", "")) > 1));
+  const mv = ler("lib/rede/atos/movimento.ts");
+  ok("pode mexer olha prefers-reduced-motion, modo parado e e-ink", /prefers-reduced-motion/.test(mv) && /data-parado/.test(mv) && /data-eink/.test(mv));
 }
 
 console.log(`testar-alumia-atos: ${certos} certos, ${falhas.length} falhas`);
