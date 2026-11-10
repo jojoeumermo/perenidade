@@ -146,8 +146,9 @@
 [data-al="2"] .al3-post-cabeca { padding-right: 2rem; }
 /* Uma linha só, como na prancha: o nome não quebra, o @ encolhe com reticências e "· 20 min" fica grudado no fim. */
 [data-al="2"] .al3-post-cabeca { margin: 0; display: flex; flex-wrap: nowrap; align-items: baseline; gap: 0 0.35rem; font-size: 0.98rem; line-height: 1.35; min-width: 0; }
-[data-al="2"] .al3-post-cabeca .al3-nome { flex: 0 1 auto; min-width: 0; max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-[data-al="2"] .al3-post-quem { flex: 0 1 auto; min-width: 2.5ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-al="2"] .al3-post-cabeca .al3-nome { flex: 0 0 auto; max-width: 68%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* O @ (ou "organização verificada") é o que encolhe primeiro; abaixo de 4 letras ele sai e fica nome e tempo. */
+[data-al="2"] .al3-post-quem { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 [data-al="2"] .al3-post-tempo { flex: none; white-space: nowrap; }
 [data-al="2"] .al3-nome { font-weight: 800; color: var(--al-texto); text-decoration: none; }
 [data-al="2"] a.al3-nome:hover { text-decoration: underline; }
@@ -855,17 +856,20 @@
 [data-al="2"] .al3-resposta-acoes-sempre .al3-acao { min-height: 40px; font-size: 0.9rem; }
 
 /*
- * Os botões flutuantes do site (acessibilidade e assistente) no celular da Alumia: menores, um em cima do outro logo acima da barra
- * (ou da caixa de resposta), e saem da frente enquanto a pessoa rola para baixo lendo (voltam ao rolar para cima). Quem arrastou o
- * botão para outro lugar (style na própria caixa) fica com o lugar que escolheu.
+ * Os botões flutuantes do site no celular da Alumia: não cobrem mais o conteúdo (o "…" dos posts, o fim das linhas, o enviar).
+ * O de acessibilidade vai para a vaga que a casca deixa no alto, ao lado do sino (CascaDaAlumia2: .al2-vaga-flutua, medida em
+ * --al2-vaga-x/y), e rola junto com o cabeçalho; o painel dele abre para baixo. O do assistente das aulas sai no celular da Alumia
+ * (no computador continua). Quem arrastou o botão de acessibilidade para outro lugar (style na própria caixa) fica com o lugar
+ * que escolheu.
  */
 @media (max-width: 1023px) {
-  :root:has([data-al="2"] .al2) :is(.app-flutua, .assistente-flutua):not([style]) {
-    right: 10px; left: auto; transition: opacity 0.25s, translate 0.35s var(--al3-mola, ease-out);
+  :root:has([data-al="2"] .al2 .al2-vaga-flutua) .app-flutua:not([style]) {
+    position: absolute; top: var(--al2-vaga-y, 64px); left: var(--al2-vaga-x, auto); right: auto; bottom: auto; opacity: 1; pointer-events: auto;
   }
-  :root:has([data-al="2"] .al2) .app-flutua:not([style]) { bottom: calc(64px + 10px + var(--recuo-baixo, 0px)); }
-  :root:has([data-al="2"] .al2) .assistente-flutua:not([style]) { bottom: calc(64px + 10px + 52px + var(--recuo-baixo, 0px)); }
-  :root:has([data-al="2"] .al2 .al3-responder) .app-flutua:not([style]) { bottom: calc(var(--al3-caixa-h, 5rem) + 10px); }
-  :root:has([data-al="2"] .al2 .al3-responder) .assistente-flutua:not([style]) { bottom: calc(var(--al3-caixa-h, 5rem) + 62px); }
-  :root:has([data-al="2"] .al2)[data-al-rolando] :is(.app-flutua, .assistente-flutua):not(:focus-within) { opacity: 0; translate: 0 12px; pointer-events: none; }
+  :root:has([data-al="2"] .al2 .al2-vaga-flutua) .app-flutua:not([style]) > button:last-child { width: 44px; height: 44px; }
+  :root:has([data-al="2"] .al2 .al2-vaga-flutua) .app-flutua:not([style]) > [role="dialog"] { top: 3.5rem; bottom: auto; right: 0; left: auto; }
+  :root:has([data-al="2"] .al2) :is(.assistente-flutua, .voltar-ao-topo) { display: none; }
 }
+[data-al="2"] .al3-reacao-abrir { min-width: 44px; justify-content: center; padding: 0 0.6rem; }
+[data-al="2"] .al3-reacao-mais { display: inline-block; font-size: 1.25rem; font-weight: 800; line-height: 1; transition: transform 0.3s var(--al3-pulo); }
+[data-al="2"] .al3-reacao-mais[data-aberta="sim"] { transform: rotate(45deg); }

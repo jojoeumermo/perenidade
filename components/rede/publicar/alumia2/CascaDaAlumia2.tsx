@@ -2,7 +2,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { htmlLang, localeNames, localePath, locales } from "@/i18n/config";
 import { getClient, hasSession } from "@/lib/backend";
@@ -125,28 +125,30 @@ export function CascaDaAlumia2({
     };
   }, [membroLogado, ativo, al2?.previa]);
 
-  // Rolando para baixo (lendo), os botões flutuantes do site saem da frente no celular (alumia3.css); ao rolar para cima, voltam.
+  // A vaga do botão de acessibilidade no alto do celular (alumia3.css põe o botão do site ali, rolando junto com o cabeçalho, em
+  // vez de flutuar por cima do conteúdo): mede onde a vaga está na página e passa para o CSS.
+  const vaga = useRef<HTMLSpanElement>(null);
+  const prontoParaVaga = Boolean(situacao && al2);
   useEffect(() => {
+    const el = vaga.current;
+    if (!el) return;
     const raiz = document.documentElement;
-    let antes = window.scrollY;
-    let quadro = 0;
-    const ver = () => {
-      cancelAnimationFrame(quadro);
-      quadro = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (Math.abs(y - antes) < 10) return;
-        if (y > antes && y > 120) raiz.setAttribute("data-al-rolando", "");
-        else raiz.removeAttribute("data-al-rolando");
-        antes = y;
-      });
+    const medir = () => {
+      const r = el.getBoundingClientRect();
+      raiz.style.setProperty("--al2-vaga-x", `${Math.round(r.left + window.scrollX)}px`);
+      raiz.style.setProperty("--al2-vaga-y", `${Math.round(r.top + window.scrollY)}px`);
     };
-    window.addEventListener("scroll", ver, { passive: true });
+    medir();
+    const ro = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(medir);
+    ro?.observe(document.body);
+    window.addEventListener("resize", medir);
     return () => {
-      cancelAnimationFrame(quadro);
-      window.removeEventListener("scroll", ver);
-      raiz.removeAttribute("data-al-rolando");
+      ro?.disconnect();
+      window.removeEventListener("resize", medir);
+      raiz.style.removeProperty("--al2-vaga-x");
+      raiz.style.removeProperty("--al2-vaga-y");
     };
-  }, []);
+  }, [prontoParaVaga]);
 
   if (!situacao || !al2) return <EsqueletoDaCasca rotulo={s.estados.carregando} />;
   const { t, previa } = al2;
@@ -277,6 +279,8 @@ export function CascaDaAlumia2({
             <button type="button" onClick={sairRapido} className="al2-acao" aria-label={t.conta.sairRapido} title={t.conta.sairRapidoAjuda}>
               <Icone nome="sair" className="h-6 w-6" />
             </button>
+            {/* A vaga do botão de acessibilidade do site (ele vem para cá no celular, sem cobrir o conteúdo). */}
+            <span ref={vaga} aria-hidden className="al2-vaga-flutua block h-11 w-11 shrink-0" />
           </header>
           {children}
           {/* Celular: a conta, os cuidados e os idiomas no pé (o menu do computador não aparece aqui). */}
