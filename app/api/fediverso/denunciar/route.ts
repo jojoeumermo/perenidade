@@ -27,8 +27,11 @@ export async function POST(pedido: Request) {
   if (!categoria) return resposta({ erro: "invalido:categoria" }, 400);
   const texto = typeof corpo?.texto === "string" ? corpo.texto.trim().slice(0, 1000) : "";
   const encaminhar = corpo?.encaminhar === true;
-  const r = await chamarComoPessoa<{ protocolo?: string }>(token, "rede_fed_denunciar_remoto", { p_alvo: alvo, p_categoria: categoria, p_texto: texto, p_encaminhar: encaminhar });
+  const r = await chamarComoPessoa<{ protocolo?: string; encaminhada?: boolean; ja?: boolean }>(token, "rede_fed_denunciar_remoto", { p_alvo: alvo, p_categoria: categoria, p_texto: texto, p_encaminhar: encaminhar });
   if (!r.ok) return resposta({ erro: r.codigo }, statusDoCodigo(r.codigo));
-  if (encaminhar) after(() => processarFila(10).then(() => undefined, () => undefined));
-  return resposta({ ok: true, protocolo: r.dado?.protocolo ?? null, encaminhada: encaminhar });
+  // "encaminhada" é o que o banco FEZ (a Flag entrou na fila), não o que a tela pediu; "ja" = a pessoa já tinha denunciado isto.
+  const encaminhada = r.dado?.encaminhada === true;
+  const ja = r.dado?.ja === true;
+  if (encaminhada && !ja) after(() => processarFila(10).then(() => undefined, () => undefined));
+  return resposta({ ok: true, protocolo: r.dado?.protocolo ?? null, encaminhada, ja });
 }

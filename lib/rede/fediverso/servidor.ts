@@ -289,20 +289,31 @@ export function midiaAssinada(url: string, vence: string, s: string, agora = Dat
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+const ID_LOCAL = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+const avatarAssinado = (v: unknown) => (typeof v === "string" && /^https:/.test(v) ? urlDaMidia(v) : typeof v === "string" && /^\/(?!\/)/.test(v) ? v : null);
+
 /**
- * Troca, num cartão que veio do banco (linha mista, fio), os endereços de fora pela rota-proxy assinada: "avatar" e "midia[].url".
- * Endereço que não serve some (o navegador nunca recebe a URL de fora para buscar sozinho).
+ * Troca, em TUDO o que vai do banco para a tela (cartão da linha mista, do fio, das respostas; o perfil guardado, com os posts
+ * dele), os endereços de fora pela rota-proxy assinada: "avatar", "midia[].url", "impulsionado_por.avatar", "autor.avatar" e, por
+ * dentro, "posts[]". Endereço que não serve some (o navegador nunca recebe a URL de fora para buscar sozinho).
+ * Um post DAQUI no meio do fio (id em uuid, sem origem 'fediverso') passa como veio: a mídia dele é do nosso depósito.
  */
 export function assinarCartao<T>(cartao: T): T {
   if (!cartao || typeof cartao !== "object" || Array.isArray(cartao)) return cartao;
   const c = { ...(cartao as Record<string, unknown>) };
-  if ("avatar" in c) c.avatar = typeof c.avatar === "string" && /^https:/.test(c.avatar) ? urlDaMidia(c.avatar) : typeof c.avatar === "string" && c.avatar.startsWith("/") ? c.avatar : null;
+  if (c.origem !== "fediverso" && typeof c.id === "string" && ID_LOCAL.test(c.id)) return cartao;
+  if ("avatar" in c) c.avatar = avatarAssinado(c.avatar);
   if (Array.isArray(c.midia)) {
     c.midia = c.midia
       .filter((m): m is Record<string, unknown> => Boolean(m) && typeof m === "object")
       .map((m) => ({ ...m, url: urlDaMidia(m.url) }))
       .filter((m) => m.url);
   }
+  for (const chave of ["impulsionado_por", "autor"]) {
+    const v = c[chave];
+    if (v && typeof v === "object" && !Array.isArray(v) && "avatar" in v) c[chave] = { ...v, avatar: avatarAssinado((v as { avatar: unknown }).avatar) };
+  }
+  if (Array.isArray(c.posts)) c.posts = c.posts.map(assinarCartao);
   return c as T;
 }
 

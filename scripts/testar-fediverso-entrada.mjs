@@ -86,6 +86,10 @@ const db = {
   // As funções que a tela chama com a sessão (chamarComoPessoa).
   pessoa: { handle: "autora", ligado: true },
   rpcs: [],
+  // O que rede_fed_fio_remoto e rede_fed_perfil_remoto guardam (por id da nota e por ator) e o que a denúncia responde.
+  fios: new Map(),
+  perfis: new Map(),
+  denunciaDaTela: () => ({ protocolo: "FED-1", encaminhada: false, ja: false }),
 };
 const dominioDe = (u) => { try { return new URL(u).host; } catch { return ""; } };
 const bloqueado = (u) => { const h = dominioDe(u); return Boolean(h) && [...db.bloqueados].some((d) => h === d || h.endsWith(`.${d}`)); };
@@ -193,6 +197,10 @@ const funcoesDaPessoa = {
     itens: [{ id: "https://remota.teste/notes/l1", origem: "fediverso", avatar: "https://remota.teste/av.png", midia: [{ url: "https://remota.teste/m/l1.png", tipo: "image/png", alt: "x" }, { url: "javascript:alert(1)", tipo: "image/png" }] }],
     proximo: null,
   }),
+  // rede_fed_fio_remoto devolve um OBJETO { post, acima, respostas }; o post daqui no meio vem no formato de rede_post_v2 (id em uuid).
+  rede_fed_fio_remoto: (a) => db.fios.get(a.p_id) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
+  rede_fed_perfil_remoto: (a) => db.perfis.get(a.p_ator) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
+  rede_fed_denunciar_remoto: (a) => db.denunciaDaTela(a),
 };
 globalThis.fetch = async (url, init = {}) => {
   const u = String(url);
@@ -203,7 +211,8 @@ globalThis.fetch = async (url, init = {}) => {
     db.rpcs.push(funcao);
     const f = funcoesDaPessoa[funcao];
     if (!f) return new Response(JSON.stringify({ message: `funcao_desconhecida:${funcao}` }), { status: 400 });
-    return new Response(JSON.stringify(f(corpo)), { status: 200, headers: { "Content-Type": "application/json" } });
+    const dado = f(corpo);
+    return dado instanceof Response ? dado : new Response(JSON.stringify(dado), { status: 200, headers: { "Content-Type": "application/json" } });
   }
   db.chamadas.push(corpo.p_acao);
   const f = acoes[corpo.p_acao];
@@ -496,6 +505,89 @@ await espera("remoto: o '?midia=' (assinar URL que a tela manda) não existe mai
   const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?midia=${encodeURIComponent("https://qualquer.teste/x.png")}`, { metodo: "GET" }));
   return [r.status, JSON.stringify(await r.json()).includes("/api/fediverso/midia")];
 }, (r) => r[0] === 400 && r[1] === false);
+// O formato que a tela recebe: sempre o cartão do banco, e NENHUM endereço de fora para o navegador buscar.
+const semEnderecoDeForaParaBuscar = (j) => {
+  const ruins = [];
+  const olhar = (v, chave) => {
+    if (Array.isArray(v)) return v.forEach((x) => olhar(x, chave));
+    if (v && typeof v === "object") return Object.entries(v).forEach(([k, x]) => olhar(x, k === "url" && Array.isArray(v.midia) ? "pagina" : k));
+    if ((chave === "avatar" && v !== null && !String(v).startsWith("/api/fediverso/midia?u=")) || (typeof v === "string" && /\.png/.test(v) && !v.startsWith("/api/fediverso/midia?u="))) ruins.push(`${chave}=${v}`);
+  };
+  olhar(j, "");
+  return ruins;
+};
+const cartaoDoBanco = (id, extra = {}) => ({ id, origem: "fediverso", tipo: "post", texto: "oi", html: "<p>oi</p>", visibilidade: "publico", criado_em: "2026-11-01T10:00:00Z", autor: { id: null, codinome: "Bia", handle: "bia@remota.teste", perfil: false, equipe: false, remoto: true }, ator_remoto: BIA, handle_remoto: "bia@remota.teste", nome_remoto: "Bia", avatar: "https://remota.teste/av.png", servidor: "remota.teste", url: id, respostas: 1, curti: true, impulsionei: false, midia: [{ url: `https://remota.teste/m/${id.split("/").pop()}.png`, tipo: "image/png", alt: "" }], impulsionado_por: null, ...extra });
+await espera("assinarCartao: uma função só troca avatar, mídia, impulsionado_por.avatar, autor.avatar e posts[] pelo proxy; '//host' e http somem; post daqui passa como veio", async () => {
+  const c = servidor.assinarCartao({ ...cartaoDoBanco("https://remota.teste/notes/a1"), autor: { codinome: "Bia", avatar: "https://remota.teste/av2.png" }, impulsionado_por: { ator: CID, handle: "cid@ponte.teste", nome: "Cid", avatar: "https://ponte.teste/cid.png", em: "2026-11-01T10:00:00Z" }, posts: [cartaoDoBanco("https://remota.teste/notes/a2")] });
+  const ruim = servidor.assinarCartao({ origem: "fediverso", id: "https://remota.teste/notes/a3", avatar: "//remota.teste/av.png", impulsionado_por: { avatar: "http://remota.teste/av.png" }, midia: [{ url: "//remota.teste/m.png" }, { url: "data:image/png;base64,AAAA" }] });
+  const daqui = { id: POST_LOCAL, tipo: "post", midia: [{ id: "m1", alt: "" }], autor: { codinome: "Autora" } };
+  return [semEnderecoDeForaParaBuscar(c), c.impulsionado_por.avatar?.startsWith("/api/fediverso/midia?u="), c.autor.avatar?.startsWith("/api/fediverso/midia?u="), c.posts[0].midia[0].url.startsWith("/api/fediverso/midia?u="), c.posts[0].avatar?.startsWith("/api/fediverso/midia?u="), ruim.avatar, ruim.impulsionado_por.avatar, ruim.midia.length, servidor.assinarCartao(daqui) === daqui];
+}, (r) => r[0].length === 0 && r[1] && r[2] && r[3] && r[4] && r[5] === null && r[6] === null && r[7] === 0 && r[8] === true);
+await espera("remoto ?post: com a nota no banco, vem o fio de rede_fed_fio_remoto (post, acima e RESPOSTAS de verdade), tudo em cartão e pelo proxy; o post daqui vem embrulhado", async () => {
+  const id = "https://remota.teste/notes/f1";
+  const daqui = { id: POST_LOCAL, tipo: "post", texto: "resposta daqui", midia: [], autor: { id: "x", codinome: "Autora", handle: "autora", perfil: true, equipe: false } };
+  db.fios.set(id, { post: cartaoDoBanco(id), acima: [daqui, cartaoDoBanco("https://remota.teste/notes/f0")], respostas: [cartaoDoBanco("https://remota.teste/notes/f2", { impulsionado_por: { ator: CID, avatar: "https://ponte.teste/cid.png" } }), daqui] });
+  const antes = rede.gets.length;
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(id)}`, { metodo: "GET" }));
+  const j = await r.json();
+  return [r.status, j.post?.id, j.post?.curti, j.post?.handle_remoto, j.respostas?.length, j.respostas?.[0]?.origem, j.respostas?.[1]?.local, j.respostas?.[1]?.post?.texto, j.acima?.length, j.acima?.[0]?.local, j.acima?.[1]?.id, semEnderecoDeForaParaBuscar(j), rede.gets.length - antes];
+}, (r) => r[0] === 200 && r[1] === "https://remota.teste/notes/f1" && r[2] === true && r[3] === "bia@remota.teste" && r[4] === 2 && r[5] === "fediverso" && r[6] === POST_LOCAL && r[7] === "resposta daqui" && r[8] === 2 && r[9] === POST_LOCAL && r[10] === "https://remota.teste/notes/f0" && r[11].length === 0 && r[12] === 0);
+await espera("remoto ?post: sem a nota no banco, o post e os de cima são lidos na origem e saem no MESMO formato de cartão (neutros, 'ao_vivo'), com a mídia pelo proxy", async () => {
+  const pai = novaNota({ content: "<p>o de cima</p>" });
+  const filha = novaNota({ inReplyTo: pai.id, content: '<p>ao vivo <img src="https://remota.teste/x.png"></p>', attachment: [{ type: "Document", mediaType: "image/png", url: "https://remota.teste/m/v1.png", name: "foto" }] });
+  rede.docs.set(pai.id, pai);
+  rede.docs.set(filha.id, filha);
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}`, { metodo: "GET" }));
+  const j = await r.json();
+  const p = j.post ?? {};
+  return [r.status, p.id === filha.id, p.origem, p.ao_vivo, p.curti, p.impulsionei, p.respostas, p.servidor, p.ator_remoto, p.handle_remoto, p.autor?.remoto, p.autor?.codinome, p.visibilidade, p.midia?.[0]?.url?.startsWith("/api/fediverso/midia?u="), /<img/.test(p.html ?? ""), j.acima?.length, j.acima?.[0]?.id === pai.id, j.acima?.[0]?.origem, Array.isArray(j.respostas) && j.respostas.length, semEnderecoDeForaParaBuscar(j)];
+}, (r) => r[0] === 200 && r[1] && r[2] === "fediverso" && r[3] === true && r[4] === false && r[5] === false && r[6] === 0 && r[7] === "remota.teste" && r[8] === BIA && r[9] === "bia@remota.teste" && r[10] === true && r[11] === "bia@remota.teste" && r[12] === "publico" && r[13] === true && r[14] === false && r[15] === 1 && r[16] && r[17] === "fediverso" && r[18] === 0 && r[19].length === 0);
+await espera("remoto ?post: o post daqui acima de uma nota lida na origem vem como { local: <id> }; nota que não existe dá 404", async () => {
+  const filha = novaNota({ inReplyTo: URL_POST_LOCAL });
+  rede.docs.set(filha.id, filha);
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}`, { metodo: "GET" }));
+  const j = await r.json();
+  const nada = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent("https://remota.teste/notes/nao-existe")}`, { metodo: "GET" }));
+  return [r.status, JSON.stringify(j.acima), nada.status, (await nada.json()).erro];
+}, (r) => r[0] === 200 && r[1] === JSON.stringify([{ local: POST_LOCAL }]) && r[2] === 404 && r[3] === "nao_encontrado");
+await espera("remoto ?ator: o perfil junta numa lista só os posts lidos agora e os do banco (o do banco ganha), tudo em cartão; 'local' vem sem avatar nem mídia de fora", async () => {
+  const DUDA = "https://remota.teste/users/duda";
+  const n1 = novaNota({ attributedTo: DUDA, cc: [`${DUDA}/followers`], published: "2026-11-03T10:00:00Z" });
+  const n2 = novaNota({ attributedTo: DUDA, cc: [`${DUDA}/followers`], published: "2026-11-02T10:00:00Z" });
+  rede.docs.set(DUDA, { ...atorDoc(DUDA, chaves.bia.publica), name: "Duda", outbox: `${DUDA}/outbox`, icon: { type: "Image", url: "https://remota.teste/duda.png" } });
+  rede.docs.set(`${DUDA}/outbox`, { type: "OrderedCollection", orderedItems: [criar(n1, DUDA), criar(n2, DUDA)] });
+  db.perfis.set(DUDA, { ator: DUDA, handle: "duda@remota.teste", avatar: "https://remota.teste/duda.png", seguindo: "sim", segue_voce: true, bloqueado: false, silenciado: false,
+    posts: [cartaoDoBanco(n2.id, { criado_em: "2026-11-02T10:00:00Z" }), cartaoDoBanco("https://remota.teste/notes/so-seguidores", { visibilidade: "seguidores", criado_em: "2026-11-01T10:00:00Z" })] });
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(DUDA)}`, { metodo: "GET" }));
+  const j = await r.json();
+  return [r.status, j.handle, j.avatar?.startsWith("/api/fediverso/midia?u="), j.servidor, j.posts?.map((p) => p.id).join(" ") === [n1.id, n2.id, "https://remota.teste/notes/so-seguidores"].join(" "), j.posts?.[0]?.ao_vivo, j.posts?.[0]?.nome_remoto, j.posts?.[1]?.curti, j.posts?.[1]?.ao_vivo, j.local?.seguindo, j.local?.segue_voce, "posts" in (j.local ?? {}), j.local?.avatar?.startsWith("/api/fediverso/midia?u="), semEnderecoDeForaParaBuscar(j)];
+}, (r) => r[0] === 200 && r[1] === "duda@remota.teste" && r[2] === true && r[3] === "remota.teste" && r[4] === true && r[5] === true && r[6] === "Duda" && r[7] === true && r[8] === undefined && r[9] === "sim" && r[10] === true && r[11] === false && r[12] === true && r[13].length === 0);
+await espera("interagir: a resposta traz o estado de verdade que o banco devolve (curti, impulsionei)", async () => {
+  const pedir = async (corpo) => {
+    const r = await rotas.interagir.POST(pedidoDaTela("/api/fediverso/interagir", { corpo })).catch(() => null);
+    return r ? await r.json() : null;
+  };
+  const a = await pedir({ post: "https://remota.teste/notes/1", tipo: "like" });
+  const b = await pedir({ post: "https://remota.teste/notes/1", tipo: "announce", sim: false });
+  // Fora de um pedido de verdade o after() do Next lança depois de o banco responder e não sobra corpo para ler: aí confere-se
+  // no código da rota que a resposta é montada com o que o banco devolveu (e não com o que a tela pediu).
+  if (a === null && b === null) {
+    const { readFileSync } = await import("node:fs");
+    const fonte = readFileSync(new URL("../app/api/fediverso/interagir/route.ts", import.meta.url), "utf8");
+    return fonte.includes("return resposta({ ok: true, tipo, sim, curti: r.dado?.curti === true, impulsionei: r.dado?.impulsionei === true });");
+  }
+  return a?.ok === true && a.curti === true && a.impulsionei === false && b?.curti === false && b.impulsionei === false;
+}, (r) => r === true);
+await espera("denunciar: 'encaminhada' é o que o banco FEZ (não o que a tela pediu) e 'ja' chega à tela", async () => {
+  // Pediu para encaminhar, mas o banco não encaminhou (sem caixa de destino): a tela não pode dizer que avisou o servidor de lá.
+  db.denunciaDaTela = () => ({ protocolo: "FED-7", encaminhada: false, ja: false });
+  const a = await (await rotas.denunciar.POST(pedidoDaTela("/api/fediverso/denunciar", { corpo: { alvo: BIA, categoria: "spam", encaminhar: true } }))).json();
+  // Já tinha denunciado (e aquela foi encaminhada): volta o protocolo antigo com "ja".
+  db.denunciaDaTela = () => ({ protocolo: "FED-3", encaminhada: true, ja: true });
+  const b = await (await rotas.denunciar.POST(pedidoDaTela("/api/fediverso/denunciar", { corpo: { alvo: BIA, categoria: "spam" } }))).json();
+  db.denunciaDaTela = () => ({ protocolo: "FED-1", encaminhada: false, ja: false });
+  return [a.ok, a.protocolo, a.encaminhada, a.ja, b.protocolo, b.encaminhada, b.ja];
+}, (r) => r[0] === true && r[1] === "FED-7" && r[2] === false && r[3] === false && r[4] === "FED-3" && r[5] === true && r[6] === true);
 await espera("seguir e interagir: quem DESLIGOU a federação recebe 409 e nada vai para a fila (nem no modo total)", async () => {
   db.pessoa = { handle: "desligada", ligado: false };
   const antes = db.rpcs.filter((f) => f === "rede_fed_interagir").length;

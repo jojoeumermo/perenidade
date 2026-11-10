@@ -32,8 +32,9 @@ export async function POST(pedido: Request) {
   if (!eu.dado.ligado) return resposta({ erro: "fediverso_desligado" }, 409);
   const federada = await pessoaFederada(eu.dado.handle);
   if (federada !== "ok") return recusaDaFederacao(federada);
-  const r = await chamarComoPessoa<{ ok?: boolean }>(token, "rede_fed_interagir", { p_post_remoto: post, p_tipo: tipo, p_sim: sim });
+  const r = await chamarComoPessoa<{ ok?: boolean; curti?: boolean; impulsionei?: boolean }>(token, "rede_fed_interagir", { p_post_remoto: post, p_tipo: tipo, p_sim: sim });
   if (!r.ok) return resposta({ erro: r.codigo }, statusDoCodigo(r.codigo));
   after(() => processarFila(10).then(() => undefined, () => undefined));
-  return resposta({ ok: true, tipo, sim });
+  // O estado de verdade depois da ação (o banco é quem sabe: um pedido repetido não muda nada).
+  return resposta({ ok: true, tipo, sim, curti: r.dado?.curti === true, impulsionei: r.dado?.impulsionei === true });
 }
