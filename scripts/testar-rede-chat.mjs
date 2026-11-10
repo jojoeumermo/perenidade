@@ -608,11 +608,6 @@ function indexedDBDeMentira() {
   const bancos = new Map();
   const esperando = [];
   const tarde = (fazer) => setTimeout(fazer, 0);
-  const depois = (resultado) => {
-    const pedido = { result: resultado };
-    tarde(() => pedido.onsuccess?.({ target: pedido }));
-    return pedido;
-  };
   const dentro = (faixa, chave) => (typeof faixa === "object" && faixa !== null ? chave >= faixa.lower && chave <= faixa.upper : chave === faixa);
   const soltar = () => {
     for (const item of [...esperando]) {
@@ -627,22 +622,44 @@ function indexedDBDeMentira() {
       onversionchange: null,
       objectStoreNames: { contains: (n) => dados.gavetas.has(n) },
       createObjectStore: (n, { keyPath }) => void dados.gavetas.set(n, { keyPath, linhas: new Map() }),
-      transaction: (n) => {
+      // Como no navegador: transações "readwrite" na mesma gaveta rodam uma depois da outra (mesmo vindas de abas diferentes), e
+      // cada pedido roda na vez da transação dele. A transação termina quando um pedido acaba sem que outro tenha sido feito.
+      transaction: (n, modo = "readonly") => {
         if (c.fechada) throw new DOMException("conexão fechada", "InvalidStateError");
+        let pendentes = 0;
+        let terminar;
+        const terminou = new Promise((pronto) => (terminar = pronto));
+        const vez = modo === "readwrite" ? (dados.filas.get(n) ?? Promise.resolve()) : Promise.resolve();
+        if (modo === "readwrite") dados.filas.set(n, vez.then(() => terminou));
+        const talvezTermine = () => tarde(() => pendentes === 0 && terminar());
+        void vez.then(talvezTermine);
+        const pedir = (fazer) => {
+          const pedido = {};
+          pendentes++;
+          void vez.then(() =>
+            tarde(() => {
+              pedido.result = fazer();
+              pedido.onsuccess?.({ target: pedido });
+              pendentes--;
+              talvezTermine();
+            }),
+          );
+          return pedido;
+        };
         return {
           objectStore: () => {
             const g = dados.gavetas.get(n);
             return {
-              get: (k) => depois(structuredClone(g.linhas.get(k))),
-              getAll: (faixa) => depois([...g.linhas].filter(([k]) => dentro(faixa, k)).map(([, v]) => structuredClone(v))),
+              get: (k) => pedir(() => structuredClone(g.linhas.get(k))),
+              getAll: (faixa) => pedir(() => [...g.linhas].filter(([k]) => dentro(faixa, k)).map(([, v]) => structuredClone(v))),
               put: (v) => {
-                g.linhas.set(v[g.keyPath], structuredClone(v));
-                return depois(v[g.keyPath]);
+                const copia = structuredClone(v);
+                return pedir(() => (g.linhas.set(copia[g.keyPath], copia), copia[g.keyPath]));
               },
-              delete: (faixa) => {
-                for (const k of [...g.linhas.keys()]) if (dentro(faixa, k)) g.linhas.delete(k);
-                return depois(undefined);
-              },
+              delete: (faixa) =>
+                pedir(() => {
+                  for (const k of [...g.linhas.keys()]) if (dentro(faixa, k)) g.linhas.delete(k);
+                }),
             };
           },
         };
@@ -668,7 +685,7 @@ function indexedDBDeMentira() {
         let dados = bancos.get(nome);
         const criado = !dados;
         const antiga = dados?.versao ?? 0;
-        if (!dados) bancos.set(nome, (dados = { versao: 0, gavetas: new Map(), conexoes: new Set() }));
+        if (!dados) bancos.set(nome, (dados = { versao: 0, gavetas: new Map(), conexoes: new Set(), filas: new Map() }));
         const c = conexao(dados);
         dados.conexoes.add(c);
         pedido.result = c;
@@ -825,6 +842,24 @@ await espera("ATAQUE (achado alto/médio): a saída do site apaga o banco por fo
   const lidaD = await abaD.lerDaGaveta(CONTAS, "u1");
   return [lidaNoCaminho.length <= 1, limpouC, abaC.chatApagadoAqui(), depois, falso.bancos.has(BANCO_DO_CHAT), falso.criados - criadosAntes, lidaD, limpouD];
 }, (r) => JSON.stringify(r) === "[true,1,true,null,false,0,null,0]");
+await espera("ATAQUE (achado baixo, duas abas enviando juntas): o contador é lido e gravado numa transação só, e nenhum número se repete", async () => {
+  reabrirDepoisDeApagar();
+  const abaE = await import("../lib/rede/chat/gaveta.ts?aba=E");
+  const abaF = await import("../lib/rede/chat/gaveta.ts?aba=F");
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
+  const chave = chaveDaOrdem("u1", "c-contador", "u1", 1);
+  const reservar = (aba) => aba.mudarNaGaveta(ORDEM, chave, (registro) => comContadorUsado(registro, chave, proximoContador(registro)));
+  const usados = (await Promise.all(Array.from({ length: 12 }, (_, i) => reservar(i % 2 ? abaE : abaF)))).map((r) => r.maior);
+  // Sem a transação única (ler e depois gravar, separados), as duas abas leem o mesmo número: o falso mostra isso também.
+  const separado = async (aba) => {
+    const r = await aba.lerDaGaveta(ORDEM, `${chave}:sem-trava`);
+    const novo = comContadorUsado(r, `${chave}:sem-trava`, proximoContador(r));
+    await aba.guardarNaGaveta(ORDEM, novo);
+    return novo.maior;
+  };
+  const semTrava = await Promise.all([separado(abaE), separado(abaF)]);
+  return [new Set(usados).size, Math.max(...usados), semTrava[0] === semTrava[1]];
+}, (r) => JSON.stringify(r) === "[12,12,true]");
 await espera("depois do pânico, só a ativação (criar) recria o banco e solta a trava", async () => {
   await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
   const ok = [falso.bancos.has(BANCO_DO_CHAT), (await lerDaGaveta(CONTAS, "u1"))?.usuario];
