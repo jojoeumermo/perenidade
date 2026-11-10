@@ -15,7 +15,7 @@ import { SenhaCampo, senhaForte, type SenhaLabels } from "./SenhaCampo";
 import { EsqueciASenha } from "./rede/consertos/EsqueciASenha";
 
 /** O formulário em cartão (09/11/2026): campos e botão do mesmo tamanho, rótulos legíveis, dentro de uma moldura só. */
-const cartao = "mt-8 max-w-md space-y-5 border-2 border-ink bg-folha p-6 font-sans text-[0.95rem] shadow-[6px_6px_0_var(--sombra)] sm:p-8 [&_label]:font-semibold";
+const cartao = "mt-8 w-full max-w-md space-y-5 border-2 border-ink bg-folha p-6 font-sans text-[0.95rem] shadow-[6px_6px_0_var(--sombra)] sm:p-8 [&_label]:font-semibold";
 const field = "mt-1.5 w-full border-2 border-ink bg-parchment px-3 py-3 text-base font-normal";
 // No aplicativo os botões ocupam a largura toda e ficam mais altos: é o polegar que aperta.
 const primary = "w-full cursor-pointer bg-ink px-6 py-3 text-base font-bold text-parchment shadow-[4px_4px_0_var(--prelo)] hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none";
