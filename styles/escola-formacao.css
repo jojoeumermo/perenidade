@@ -517,7 +517,8 @@ body:has([data-escola-formacao]) {
 }
 /* As páginas antigas da Escola (de papel claro) entram no escuro da casca: as cores do site são trocadas pelas da
    Escola só aqui dentro, então cartões, textos, bordas e campos seguem as telas novas sem refazer cada página. */
-.ef-conteudo:not(:has([data-escola-escura])) {
+.ef-conteudo:not(:has([data-escola-escura])),
+.ef-tons-escuros {
   --parchment: var(--ef-fundo);
   --parchment-deep: #241a17;
   --ink: var(--ef-giz);
@@ -541,10 +542,12 @@ body:has([data-escola-formacao]) {
   color: var(--ef-giz);
   font-family: var(--font-escola-texto), var(--font-ui), system-ui, sans-serif;
 }
-.ef-conteudo:not(:has([data-escola-escura])) :is(.cartao, .cartao-v, .border-ink, .botao:not(.botao-tinta)) {
+.ef-conteudo:not(:has([data-escola-escura])) :is(.cartao, .cartao-v, .border-ink, .botao:not(.botao-tinta)),
+.ef-tons-escuros :is(.cartao, .cartao-v, .border-ink, .botao:not(.botao-tinta)) {
   border-color: var(--borda-forte);
 }
-.ef-conteudo:not(:has([data-escola-escura])) :is(input, textarea, select) {
+.ef-conteudo:not(:has([data-escola-escura])) :is(input, textarea, select),
+.ef-tons-escuros :is(input, textarea, select) {
   background: #221815;
   color: var(--ef-giz);
   border-color: var(--borda-forte);
@@ -1366,4 +1369,115 @@ main#conteudo .ef-conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagin
 }
 .ef-porta-publica-corpo {
   min-height: calc(100vh - 80px);
+}
+
+/* O manifesto no desenho da Escola (app/[lang]/escola/manifesto/page.tsx). */
+.ef-manifesto {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+[data-escola-formacao] .ef-manifesto-lema {
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fae3a0;
+}
+[data-escola-formacao] .ef-manifesto-situacao {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: var(--ef-suave);
+}
+[data-escola-formacao] .ef-manifesto-texto {
+  margin-top: 28px;
+  color: var(--ef-giz-2);
+  font-family: var(--font-escola-texto), system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+}
+[data-escola-formacao] .ef-manifesto-texto :is(h2, h3) {
+  margin: 40px 0 12px;
+  color: var(--ef-giz);
+  font-family: var(--font-escola-titulo), system-ui, sans-serif;
+  font-weight: 800;
+  font-variation-settings: "wdth" 80;
+  line-height: 1.1;
+}
+[data-escola-formacao] .ef-manifesto-texto h2 {
+  font-size: 32px;
+  padding-top: 16px;
+  border-top: 2px solid var(--ef-borda);
+}
+[data-escola-formacao] .ef-manifesto-texto h3 {
+  font-size: 22px;
+}
+[data-escola-formacao] .ef-manifesto-texto p {
+  margin: 0 0 16px;
+}
+[data-escola-formacao] .ef-manifesto-texto strong {
+  color: var(--ef-giz);
+}
+[data-escola-formacao] .ef-manifesto-texto :is(ul, ol) {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+[data-escola-formacao] .ef-manifesto-texto li {
+  margin: 6px 0;
+}
+[data-escola-formacao] .ef-manifesto-texto li::marker {
+  color: var(--ef-ouro);
+}
+[data-escola-formacao] .ef-manifesto-texto a {
+  color: var(--ef-ouro);
+}
+[data-escola-formacao] .ef-manifesto-fim {
+  margin-top: 48px;
+}
+[data-escola-formacao] .ef-manifesto-fim h2 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.05;
+}
+@media (max-width: 767px) {
+  .ef-manifesto {
+    padding: 20px 12px 48px;
+  }
+  [data-escola-formacao] .ef6-cartaz h1 {
+    font-size: 40px;
+  }
+}
+
+/* O chamado de militantes (app/[lang]/escola/militantes/page.tsx). */
+[data-escola-formacao] .ef-passos-militantes {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+[data-escola-formacao] .ef-passos-militantes li {
+  margin: 0;
+  padding: 16px;
+  border-radius: 14px;
+  border: 2px solid var(--ef-borda);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 16px;
+}
+[data-escola-formacao] .ef-passos-militantes strong {
+  font-family: var(--font-escola-titulo), system-ui, sans-serif;
+  font-size: 19px;
+}
+[data-escola-formacao] .ef-militantes-cuidado {
+  margin-top: 32px;
+}
+.ef-militantes-form {
+  margin-top: 32px;
+  border-radius: 18px;
+  padding: 8px 24px 24px;
+  border: 2px solid var(--ef-borda);
+  background: var(--ef-fundo);
+  color: var(--ef-giz);
 }
