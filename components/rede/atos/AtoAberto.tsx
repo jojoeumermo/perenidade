@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Pilula } from "../ui/Pilula";
 import { ColunaDeAcoes } from "./Acoes";
 import { FraseDoMosaico } from "./CartaoDoAto";
+import { FaixaDoFarol } from "./Farol";
 import { CarimboDoAto, Era, MosaicoDoAto } from "./partes";
 import { pontoEDetalhe } from "@/lib/rede/atos/formulario";
 import { dataLonga } from "@/lib/rede/atos/tempo";
@@ -23,7 +24,7 @@ export function AtoAberto({ ato, t, lang, logado = true, nivel = 2, depois }: { 
   const cancelado = ato.situacao === "cancelado";
   return (
     <article className="al-ato-aberto" aria-labelledby={`al-ato-aberto-${ato.id}`} data-situacao={ato.situacao}>
-      <MosaicoDoAto ato={ato} t={t} quebrar={31} className="al-ato-aberto-mosaico" />
+      <MosaicoDoAto ato={ato} t={t} quebrar={31} className="al-ato-aberto-mosaico" inclinar />
       <div className="al-ato-aberto-corpo">
         <div className="al-ato-aberto-texto">
           <div className="al-ato-aberto-marcas">
@@ -42,6 +43,7 @@ export function AtoAberto({ ato, t, lang, logado = true, nivel = 2, depois }: { 
             {detalhe ? <> · {detalhe}</> : null}
           </p>
           {ato.motivo && ato.situacao !== "confirmado" ? <p className="al-ato-motivo">{ato.motivo}</p> : null}
+          <FaixaDoFarol ato={ato} t={t} />
           <p className="al-ato-aberto-chamado">{ato.descricao}</p>
           {ato.chamado_por ? <p className="al-ato-chamado-por">{preencherAto(t.chamadoPor, { handle: ato.chamado_por })}</p> : null}
           <FraseDoMosaico ato={ato} t={t} />
