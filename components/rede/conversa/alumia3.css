@@ -72,6 +72,10 @@
 [data-al="2"] .al3-capa-semana { flex: 1; margin: 0; text-align: right; white-space: nowrap; font-weight: 700; font-size: 0.95rem; }
 /* A regra global "main button[aria-pressed] vira pílula" não vale aqui: na prancha, Entrar e Regras são retângulos de canto 12px. */
 [data-al="2"] main .al3-capa-acao.al3-capa-acao[aria-pressed] { border-radius: 12px; }
+@media (max-width: 560px) {
+  /* "214 posts esta semana" numa linha própria desde o começo: trocar Entrar por Participando não empurra nada. */
+  [data-al="2"] .al3-capa-semana { flex: 1 0 100%; order: 3; text-align: left; }
+}
 @media (max-width: 400px) {
   [data-al="2"] .al3-capa-acoes { gap: 0.5rem; }
   [data-al="2"] .al3-capa-acao { padding: 0.45rem 0.8rem; font-size: 0.95rem; }
@@ -140,7 +144,11 @@
 [data-al="2"] .al3-post-cuidado { display: flex; flex-wrap: wrap; gap: 0 0.4rem; margin: 0 0 0.4rem -0.5rem; background: none; }
 [data-al="2"] .al3-post-cuidado[hidden] { display: none; }
 [data-al="2"] .al3-post-cabeca { padding-right: 2rem; }
-[data-al="2"] .al3-post-cabeca { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.35rem; font-size: 0.98rem; line-height: 1.35; }
+/* Uma linha só, como na prancha: o nome não quebra, o @ encolhe com reticências e "· 20 min" fica grudado no fim. */
+[data-al="2"] .al3-post-cabeca { margin: 0; display: flex; flex-wrap: nowrap; align-items: baseline; gap: 0 0.35rem; font-size: 0.98rem; line-height: 1.35; min-width: 0; }
+[data-al="2"] .al3-post-cabeca .al3-nome { flex: 0 1 auto; min-width: 0; max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-al="2"] .al3-post-quem { flex: 0 1 auto; min-width: 2.5ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-al="2"] .al3-post-tempo { flex: none; white-space: nowrap; }
 [data-al="2"] .al3-nome { font-weight: 800; color: var(--al-texto); text-decoration: none; }
 [data-al="2"] a.al3-nome:hover { text-decoration: underline; }
 [data-al="2"] .al3-post-texto { margin: 0.3rem 0 0; font-size: 1.05rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -444,11 +452,12 @@
 [data-al="2"] .al3-entra { animation: al3-entra 0.42s var(--al3-mola) both; }
 
 /* A conversa abre em cascata: cada resposta sobe com um tico de atraso, e as linhas do fio se desenham de cima para baixo. */
-[data-al="2"] .al3-fio > .al3-resposta { animation: al3-entra 0.5s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 55ms + 80ms); }
-[data-al="2"] .al3-filhos > .al3-resposta { animation: al3-entra 0.5s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 55ms + 220ms); }
-[data-al="2"] .al3-fio-linha { animation: al3-desenha 0.6s var(--al3-mola) both; animation-delay: 0.35s; }
-[data-al="2"] .al3-filhos > .al3-resposta::before { animation: al3-cotovelo 0.45s ease-out both; animation-delay: calc(min(var(--i, 0), 8) * 55ms + 0.5s); }
-[data-al="2"] .al3-filhos > .al3-resposta::after { transform-origin: top; animation: al3-desenha 0.5s var(--al3-mola) both; animation-delay: 0.55s; }
+/* Só na primeira abertura (.al3-fio sem data-assentado): trocar a ordem depois usa só o FLIP, sem refazer a entrada. */
+[data-al="2"] .al3-fio:not([data-assentado]) > .al3-resposta { animation: al3-entra 0.42s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 3) * 40ms + 40ms); }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-filhos > .al3-resposta { animation: al3-entra 0.42s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 2) * 40ms + 110ms); }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-fio-linha { animation: al3-desenha 0.5s var(--al3-mola) both; animation-delay: 0.14s; }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-filhos > .al3-resposta::before { animation: al3-cotovelo 0.38s ease-out both; animation-delay: calc(min(var(--i, 0), 2) * 40ms + 0.18s); }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-filhos > .al3-resposta::after { transform-origin: top; animation: al3-desenha 0.42s var(--al3-mola) both; animation-delay: 0.2s; }
 
 /* A gaveta das ações: o recuo vai na gaveta (a lista dentro corta o que passa da borda). */
 [data-al="2"] .al3-gaveta { margin-left: -0.5rem; }
@@ -556,23 +565,24 @@
 [data-al="2"] .al3-abas-regua [role="tab"] { transition: color 0.2s, background 0.2s; }
 [data-al="2"] .al3-abas-regua [role="tab"][aria-selected="true"] { color: var(--al-texto); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-abas-linha { background: var(--al-texto) !important; }
-[data-al="2"] .al3-painel:not([hidden]) { animation: al3-entra 0.38s var(--al3-mola) both; }
+[data-al="2"] .al3-painel:not([hidden]) { animation: al3-aparece 0.22s ease-out both; }
 [data-al="2"] .al3-aba { transition: color 0.2s; }
 
 /* A capa da comunidade: o nome, a descrição e os botões entram subindo, um depois do outro. */
-[data-al="2"] .al3-capa h1 { animation: al3-entra 0.55s var(--al3-mola) both; }
-[data-al="2"] .al3-capa-descricao { animation: al3-entra 0.55s 0.06s var(--al3-mola) both; }
-[data-al="2"] .al3-capa-acoes { animation: al3-entra 0.55s 0.12s var(--al3-mola) both; }
+/* Só na primeira visita da sessão (data-primeira, PaginaDaComunidadeAlumia): voltar à comunidade não refaz a cascata. */
+[data-al="2"] .al3-capa[data-primeira="sim"] h1 { animation: al3-entra 0.5s var(--al3-mola) both; }
+[data-al="2"] .al3-capa[data-primeira="sim"] .al3-capa-descricao { animation: al3-entra 0.5s 0.05s var(--al3-mola) both; }
+[data-al="2"] .al3-capa[data-primeira="sim"] .al3-capa-acoes { animation: al3-entra 0.5s 0.1s var(--al3-mola) both; }
 [data-al="2"] .al3-capa-acao { transition: background 0.25s, color 0.25s, transform 0.18s var(--al3-pulo); }
 [data-al="2"] .al3-capa-acao:active { transform: scale(0.95); }
 [data-al="2"] .al3-capa-acao-contorno:hover { background: rgb(15 14 13 / 0.1); }
 [data-al="2"] .al3-menu:not([hidden]) { transform-origin: top right; animation: al3-paleta 0.28s var(--al3-mola); }
 /* O alfinete do fixado assenta no lugar (a moderação fixou) e o cartão ganha a cor da comunidade de leve. */
-[data-al="2"] .al3-fixado { animation: al3-entra 0.45s 0.1s var(--al3-mola) both; border-color: color-mix(in srgb, var(--al3-cor, var(--al-com-1)) 30%, var(--al-superficie-2)); }
-[data-al="2"] .al3-fixado-rotulo svg { animation: al3-alfinete 0.6s 0.35s var(--al3-pulo) both; transform-origin: 50% 100%; }
+[data-al="2"] .al3-fixado { animation: al3-entra 0.4s var(--al3-mola) backwards; border-color: color-mix(in srgb, var(--al3-cor, var(--al-com-1)) 30%, var(--al-superficie-2)); }
+[data-al="2"] .al3-fixado-rotulo svg { animation: al3-alfinete 0.6s 0.2s var(--al3-pulo) both; transform-origin: 50% 100%; }
 @keyframes al3-alfinete { from { opacity: 0; transform: translateY(-10px) rotate(-25deg); } }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fixado { border-color: var(--al-texto); }
-[data-al="2"] .al3-post-entra { animation: al3-entra 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 50ms + 120ms); }
+[data-al="2"] .al3-post-entra { animation: al3-entra 0.4s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 4) * 40ms); }
 [data-al="2"] .al3-post { transition: background 0.2s; }
 @media (hover: hover) { [data-al="2"] .al3-post:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); } }
 
@@ -603,7 +613,7 @@
 
 /* Fichas de #tema: entram em cascata e sobem um tico no passar do mouse. */
 [data-al="2"] .al3-fichas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
-[data-al="2"] .al3-fichas > li { animation: al3-entra 0.4s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 35ms); }
+[data-al="2"] .al3-fichas > li { animation: al3-entra 0.36s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 5) * 30ms); }
 [data-al="2"] .al3-ficha, [data-al="2"] .al3-fichas > li > a {
   display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 0.95rem; border-radius: 999px; text-decoration: none;
   background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto);
@@ -617,7 +627,7 @@
 /* Cartões (linhas temáticas e comunidades): a comunidade com o anel na cor dela; o cartão sobe e a seta anda no passar do mouse. */
 [data-al="2"] .al3-cartoes { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
 @media (min-width: 640px) { [data-al="2"] .al3-cartoes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-[data-al="2"] .al3-cartoes > li { animation: al3-entra 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 45ms); }
+[data-al="2"] .al3-cartoes > li { animation: al3-entra 0.4s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 5) * 35ms); }
 [data-al="2"] .al3-cartao {
   position: relative; display: grid; grid-template-columns: 1fr; gap: 0.25rem; height: 100%; padding: 0.9rem 2.4rem 0.9rem 1rem; border-radius: var(--al-raio, 14px);
   background: var(--al-superficie); border: 1px solid var(--al-superficie-2); text-decoration: none; color: var(--al-texto);
@@ -670,7 +680,7 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento > button[aria-checked="true"] { color: var(--al-fundo); }
 [data-al="2"] .al3-porque[open] > p { animation: al3-entra 0.3s var(--al3-mola) both; }
 /* A lista que chega (trocar a ordem, abrir a página) sobe em cascata. */
-[data-al="2"] .al3-lista-entra > li { animation: al3-entra 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 50ms); }
+[data-al="2"] .al3-lista-entra > li { animation: al3-entra 0.4s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 4) * 40ms); }
 
 /* A página do #tema: o "#" na cor da casa, o tema grande, e "Seguir #tema" com o sino. */
 [data-al="2"] .al3-tag-capa { position: relative; padding: 0.8rem 16px 1.1rem; border-bottom: 1px solid var(--al-linha); }
@@ -693,12 +703,12 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-seguir[aria-pressed="true"] .al3-icone-sino { color: var(--al-texto); }
 
 /* Avisos: chegam em cascata; o não lido tem a faixa vermelha à esquerda (que se desenha) e o selo "novo" carimbado. */
-[data-al="2"] .al3-avisos > li { animation: al3-entra 0.42s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 45ms); }
+[data-al="2"] .al3-avisos > li { animation: al3-entra 0.38s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 5) * 35ms); }
 [data-al="2"] .al3-aviso-item { position: relative; transition: background 0.3s; }
 [data-al="2"] .al3-aviso-item[data-lido="nao"] { background: color-mix(in srgb, var(--al-vermelho) 6%, transparent); }
 [data-al="2"] .al3-aviso-item[data-lido="nao"]::before {
   content: ""; position: absolute; left: 0; top: 0.6rem; bottom: 0.6rem; width: 3px; border-radius: 0 3px 3px 0; background: var(--al-vermelho);
-  transform-origin: top; animation: al3-desenha 0.5s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 45ms + 0.2s);
+  transform-origin: top; animation: al3-desenha 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 5) * 35ms + 0.12s);
 }
 [data-al="2"] .al3-aviso-novo {
   flex: none; margin-top: 0.2rem; padding: 0 0.45rem; border-radius: 999px; background: var(--al-vermelho); color: var(--al-sobre-vermelho);
@@ -718,3 +728,88 @@
   :root:has([data-al="2"] .al2 .al3-responder) .assistente-flutua { bottom: calc(18.5rem + var(--recuo-baixo, 0px)); }
   :root:has([data-al="2"] .al2 .al3-responder) .botao-da-caixa { bottom: calc(22rem + env(safe-area-inset-bottom, 0px)); }
 }
+/* ═══ Revisão 2 da área comunidade (10/11/2026) ════════════════════════════════════════════════════════════════════════ */
+
+/* Entrar / Participando: os rótulos empilhados na mesma célula (o botão já nasce com a largura do maior, nada pula). */
+[data-al="2"] .al3-rotulos { display: inline-grid; justify-items: center; }
+[data-al="2"] .al3-rotulos > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 0.4rem; visibility: hidden; }
+[data-al="2"] .al3-rotulos > span[data-vale="sim"] { visibility: visible; }
+/* Participando: papel claro com o check carimbado (a mudança se vê de longe, não só a borda). */
+[data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"] { background: #f3efe6; color: #0f0e0d; border-color: #0f0e0d; }
+[data-al="2"] .al3-check { flex: none; }
+[data-al="2"] .al3-capa-acao[aria-pressed="true"] .al3-check path { stroke-dasharray: 24; animation: al3-risca 0.45s 0.12s ease-out both; }
+@keyframes al3-risca { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
+:root[data-eink] [data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"] { background: var(--al-fundo); color: var(--al-texto); }
+
+/* Avisos flutuantes (Torradas, base3.tsx): por cima de tudo, sem empurrar a página; no celular, acima da barra de baixo e da caixa. */
+[data-al="2"] .al3-torradas {
+  position: fixed; z-index: 60; left: 50%; translate: -50% 0; bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  width: max-content; max-width: min(30rem, calc(100vw - 32px)); pointer-events: none;
+}
+@media (max-width: 1023px) {
+  [data-al="2"] .al3-torradas { bottom: calc(var(--al3-baixo, 64px) + 12px + var(--recuo-baixo, 0px)); }
+}
+[data-al="2"] .al3-torrada {
+  display: flex; align-items: center; gap: 0.9rem; padding: 0.7rem 0.8rem 0.7rem 1.1rem; border-radius: 14px; pointer-events: auto;
+  background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font-weight: 700; font-size: 0.95rem;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 0.45); animation: al3-torrada 0.42s var(--al3-mola, ease-out) both;
+}
+[data-al="2"] .al3-torrada[data-erro="sim"] { background: var(--al-vermelho-texto, var(--al-vermelho)); color: var(--al-sobre-vermelho); }
+[data-al="2"] .al3-torrada button {
+  min-height: 36px; padding: 0 0.7rem; border: 0; border-radius: 8px; background: rgb(0 0 0 / 0.08); color: inherit; font: inherit;
+  font-weight: 900; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+[data-al="2"] .al3-torrada button:hover { background: rgb(0 0 0 / 0.16); }
+@keyframes al3-torrada { from { opacity: 0; transform: translateY(14px) scale(0.96); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-torrada { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); box-shadow: none; }
+
+/* A pergunta antes de sair (Confirmar, base3.tsx): folha que sobe de baixo no celular, cartão no meio no computador. */
+[data-al="2"] .al3-folha {
+  margin: auto auto 0; width: 100%; max-width: 100%; padding: 0; border: 0; border-radius: 20px 20px 0 0;
+  background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte); box-shadow: 0 -12px 40px rgb(0 0 0 / 0.5);
+}
+[data-al="2"] .al3-folha[open] { animation: al3-folha 0.42s var(--al3-mola, ease-out); }
+[data-al="2"] .al3-folha::backdrop { background: rgb(0 0 0 / 0.55); animation: al3-aparece 0.25s ease-out; }
+@keyframes al3-folha { from { transform: translateY(100%); } }
+[data-al="2"] .al3-folha-corpo { padding: 1.4rem 16px calc(1.2rem + env(safe-area-inset-bottom, 0px)); }
+[data-al="2"] .al3-folha h2 { margin: 0; font-size: 2rem; }
+[data-al="2"] .al3-folha p { margin: 0.6rem 0 0; color: var(--al-texto-2); line-height: 1.5; }
+[data-al="2"] .al3-folha-botoes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1.2rem; }
+[data-al="2"] .al3-folha-botoes button { min-height: 52px; border-radius: 12px; font: inherit; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: transform 0.18s var(--al3-pulo, ease-out), filter 0.2s; }
+[data-al="2"] .al3-folha-botoes button:active { transform: scale(0.96); }
+[data-al="2"] .al3-folha-nao { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border: 2px solid var(--al-cartao-aceso); }
+[data-al="2"] .al3-folha-sim { background: transparent; color: var(--al-vermelho); border: 2px solid currentColor; }
+[data-al="2"] .al3-folha-sim:hover { filter: brightness(1.15); }
+@media (min-width: 640px) {
+  [data-al="2"] .al3-folha { margin: auto; max-width: 26rem; border-radius: 20px; }
+  [data-al="2"] .al3-folha[open] { animation: al3-paleta 0.32s var(--al3-mola, ease-out); }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-folha { border: 2px solid var(--al-texto); box-shadow: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-folha-nao { background: var(--al-texto); color: var(--al-fundo); border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-folha-sim { color: var(--al-texto); }
+
+/* Comunidade que não existe: o 404 grande, a frase e o caminho de volta. */
+[data-al="2"] .al3-nao-achou-corpo { padding: 2.5rem 16px 3rem; display: grid; justify-items: start; gap: 0.6rem; }
+[data-al="2"] .al3-nao-achou-sinal { margin: 0; font-size: clamp(5rem, 28vw, 9rem); color: var(--al-superficie-2); line-height: 0.85; }
+[data-al="2"] .al3-nao-achou h1 { margin: 0; font-size: clamp(2.2rem, 10vw, 3.2rem); }
+[data-al="2"] .al3-nao-achou p:not(.al3-nao-achou-sinal) { margin: 0; color: var(--al-texto-2); max-width: 32rem; line-height: 1.5; }
+[data-al="2"] .al3-nao-achou-ir { margin-top: 0.8rem; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+
+/* O cartão único em listas misturadas (#tema, busca, Salvos): a ficha com o nome da comunidade e a borda na cor dela. */
+[data-al="2"] .al3-post-com { box-shadow: inset 3px 0 0 color-mix(in srgb, var(--al3-cor) 75%, transparent); }
+[data-al="2"] .al3-post-ficha {
+  display: inline-flex; align-items: center; gap: 0.4rem; max-width: calc(100% - 2.5rem); min-height: 28px; margin: -0.15rem 0 0.15rem;
+  padding: 0 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 800; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--al3-cor) 70%, var(--al-texto)); background: color-mix(in srgb, var(--al3-cor) 14%, transparent);
+  transition: background 0.2s;
+}
+[data-al="2"] .al3-post-ficha:hover { background: color-mix(in srgb, var(--al3-cor) 26%, transparent); }
+[data-al="2"] .al3-post-ficha-ponto { width: 8px; height: 8px; flex: none; border-radius: 999px; background: var(--al3-cor); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-post-com { box-shadow: inset 3px 0 0 var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-post-ficha { color: var(--al-texto); background: none; border: 1px solid var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-post-ficha-ponto { background: var(--al-texto); }
+
+/* Sair da lista de Salvos: o cartão encolhe e some (grade 1fr → 0fr), sem pulo. */
+[data-al="2"] .al3-saindo { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.38s var(--al3-mola, ease-out), opacity 0.25s; }
+[data-al="2"] .al3-saindo > * { overflow: hidden; min-height: 0; }
+[data-al="2"] .al3-saindo[data-saindo="sim"] { grid-template-rows: 0fr; opacity: 0; }

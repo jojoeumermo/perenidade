@@ -20,8 +20,8 @@ import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
-import { CartaoDeAula, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, useTextosAlumia3 } from "../conversa/base3";
-import { pular, useRegua } from "../conversa/movimento";
+import { CartaoDeAula, Confirmar, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
+import { MOLA_PULO, pular, semMovimento, useRegua } from "../conversa/movimento";
 
 // As ferramentas da moderação só chegam ao navegador de quem modera (e só quando abre a aba Sobre).
 const Moderar = dynamic(() => import("./Moderar"), { ssr: false });
@@ -57,9 +57,22 @@ export function PaginaDaComunidadeAlumia({
   const [versao, setVersao] = useState(0);
   const [aba, setAba] = useState<AbaDaComunidade>("posts");
   const [minha, setMinha] = useState<{ slug: string; valor: SituacaoNaComunidade } | null>(null);
-  const [aviso, setAviso] = useState<{ texto: string; erro: boolean } | null>(null);
+  const torradas = useTorrada();
+  const avisar = torradas.mostrar;
   const [ocupado, setOcupado] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [perguntaSair, setPerguntaSair] = useState(false);
+  // A capa entra subindo só na primeira visita desta comunidade na sessão: voltar a ela (ou trocar de aba) não refaz a cascata.
+  const [primeira] = useState(() => {
+    try {
+      const chave = `al3-capa:${slug}`;
+      if (sessionStorage.getItem(chave)) return false;
+      sessionStorage.setItem(chave, "1");
+      return true;
+    } catch {
+      return true;
+    }
+  });
   const regrasRef = useRef<HTMLElement>(null);
   const maisRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -90,6 +103,7 @@ export function PaginaDaComunidadeAlumia({
     let vivo = true;
     // rede_alumia_com_pagina (20261109-alumia-f3.sql): a página de hoje + "N posts esta semana", agregado e nulo abaixo de 3. Banco
     // sem a migração da F3 ainda: cai na página de hoje (sem a contagem, que aparece como "poucos").
+    // Na prévia, a comunidade do slug (com nome, cor e descrição dela); slug que não existe: nulo, e a tela diz "não encontrada".
     const pedir = previa() ? Promise.resolve(paginaDeExemplo(slug)) : comunidades.paginaAlumia(slug).catch(() => comunidades.pagina(slug));
     pedir
       .then((dado) => vivo && setEstado({ slug, dado, erro: "" }))
@@ -104,9 +118,23 @@ export function PaginaDaComunidadeAlumia({
     if (comunidade) aoCarregar(comunidade);
   }, [comunidade, aoCarregar]);
 
-  const aoErro = useCallback((e: unknown) => setAviso({ texto: textoDoErro(s, e), erro: true }), [s]);
+  const aoErro = useCallback((e: unknown) => avisar({ texto: textoDoErro(s, e), erro: true }), [s, avisar]);
 
   if (!t || !estado || estado.slug !== slug) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
+  // Comunidade que não existe (ou que a pessoa não pode ver): uma tela própria, com o caminho de volta, nunca a de outra.
+  if (!estado.dado && !estado.erro) {
+    return (
+      <div className="al3 al3-nao-achou">
+        <FaixaDaPrevia t={t} />
+        <div className="al3-nao-achou-corpo">
+          <p className="al3-nao-achou-sinal al3-cond" aria-hidden>404</p>
+          <h1 className="al3-cond">{t.comunidade.naoEncontrada}</h1>
+          <p>{t.comunidade.naoEncontradaTexto}</p>
+          <Link href={enderecosCom.lista(lang)} className="al3-capa-acao al3-capa-acao-cheia al3-nao-achou-ir">{t.comunidade.verComunidades}</Link>
+        </div>
+      </div>
+    );
+  }
   if (!estado.dado || !comunidade) {
     return (
       <div className="al3 al3-vazio" role="alert">
@@ -131,17 +159,23 @@ export function PaginaDaComunidadeAlumia({
 
   async function entrarOuSair() {
     if (ocupado || !t || bloqueado) return;
-    if (situacaoAqui === "membro" && !window.confirm(t.comunidade.confirmarSair)) return;
+    // Sair pergunta antes, na folha da Alumia (não no confirm do navegador, que não traduz os botões).
+    if (situacaoAqui === "membro") return setPerguntaSair(true);
+    await mudarParticipacao();
+  }
+
+  async function mudarParticipacao() {
+    if (!t) return;
     const sair = situacaoAqui === "membro" || situacaoAqui === "pendente";
     setOcupado(true);
-    setAviso(null);
     try {
       const r = previa()
         ? { situacao: (sair ? null : comunidade!.tipo === "aberta" ? "membro" : "pendente") as SituacaoNaComunidade }
         : await (sair ? comunidades.sair(slug) : comunidades.entrar(slug));
       setMinha({ slug, valor: r.situacao });
-      pular(entrarRef.current, 1.1);
-      setAviso({ texto: r.situacao === "membro" ? t.comunidade.entrou : r.situacao === "pendente" ? t.comunidade.pediu : t.comunidade.saiu, erro: false });
+      if (r.situacao === "membro") carimbar(entrarRef.current);
+      else pular(entrarRef.current, 1.06);
+      avisar({ texto: r.situacao === "membro" ? t.comunidade.entrou : r.situacao === "pendente" ? t.comunidade.pediu : t.comunidade.saiu });
     } catch (e) {
       aoErro(e);
     } finally {
@@ -159,7 +193,7 @@ export function PaginaDaComunidadeAlumia({
     setMenu(false);
     try {
       await navigator.clipboard.writeText(new URL(enderecos.comunidade(lang, comunidade!.slug), window.location.origin).toString());
-      setAviso({ texto: t!.comum.copiado, erro: false });
+      avisar({ texto: t!.comum.copiado });
     } catch (e) {
       aoErro(e);
     }
@@ -171,6 +205,8 @@ export function PaginaDaComunidadeAlumia({
     : comunidade.tipo === "aberta" ? t.comunidade.entrar
     : comunidade.tipo === "restrita" ? t.comunidade.pedir
     : t.comunidade.fechadaSo;
+  // Todos os rótulos que este botão pode ter, para reservar a largura do maior.
+  const rotulos = [...new Set([comunidade.tipo === "aberta" ? t.comunidade.entrar : comunidade.tipo === "restrita" ? t.comunidade.pedir : t.comunidade.fechadaSo, t.comunidade.participa, ...(comunidade.tipo === "aberta" ? [] : [t.comunidade.pendente]), rotuloEntrar])];
   const abas: [AbaDaComunidade, string][] = [
     ["posts", t.comunidade.posts],
     ["atos", t.comunidade.atos],
@@ -181,7 +217,7 @@ export function PaginaDaComunidadeAlumia({
   return (
     <div className="al3 al3-comunidade">
       <FaixaDaPrevia t={t} />
-      <header className="al3-capa" data-cor={cor}>
+      <header className="al3-capa" data-cor={cor} data-primeira={primeira ? "sim" : undefined}>
         <div className="al3-capa-topo">
           <Link href={enderecosCom.lista(lang)} className="al3-capa-botao" aria-label={t.comunidade.voltarLista}>
             <IconeVoltar />
@@ -236,7 +272,15 @@ export function PaginaDaComunidadeAlumia({
               aria-describedby={motivo ? idDoMotivo : undefined}
               onClick={() => void entrarOuSair()}
             >
-              {rotuloEntrar}
+              {/* Os rótulos possíveis empilhados na mesma célula: o botão tem desde o início a largura do maior, e nada pula ao trocar. */}
+              <span className="al3-rotulos">
+                {rotulos.map((r) => (
+                  <span key={r} data-vale={r === rotuloEntrar ? "sim" : undefined} aria-hidden={r !== rotuloEntrar ? true : undefined}>
+                    {r === t.comunidade.participa && <IconeCheck />}
+                    {r}
+                  </span>
+                ))}
+              </span>
             </button>
           )}
           <button type="button" className="al3-capa-acao al3-capa-acao-contorno" onClick={verRegras}>
@@ -252,11 +296,17 @@ export function PaginaDaComunidadeAlumia({
         {motivo && <p className="al3-capa-aviso" id={idDoMotivo}>{motivo}</p>}
         {dado.modero && Boolean(dado.pedidos) && <p className="al3-capa-aviso">{preencher(t.comunidade.pedidos, { n: dado.pedidos ?? 0 })}</p>}
       </header>
-      {aviso && (
-        <p className="al3-aviso al3-entra" role={aviso.erro ? "alert" : "status"} key={aviso.texto}>
-          {aviso.texto}
-        </p>
-      )}
+      <Torradas estado={torradas} />
+      <Confirmar
+        aberto={perguntaSair}
+        titulo={preencher(t.comunidade.sairTitulo, { nome: comunidade.nome })}
+        texto={t.comunidade.sairTexto}
+        sim={t.comunidade.sim}
+        nao={t.comunidade.nao}
+        aoSim={() => void mudarParticipacao()}
+        aoFechar={() => setPerguntaSair(false)}
+        voltarPara={entrarRef}
+      />
 
       <div className={`al3-cor-${cor}`}>
         <div role="tablist" aria-label={t.comunidade.abas} className="al3-abas" ref={abasRef}>
@@ -478,5 +528,26 @@ function MuralDaModeracao({ comunidade, lang, s, t, logado }: { comunidade: Comu
         </div>
       )}
     </>
+  );
+}
+
+/** O "Participando": um carimbo (cresce, gira um tico e assenta) em vez do pulo pequeno; parado para quem pediu menos movimento. */
+function carimbar(el: HTMLElement | null) {
+  if (!el || typeof el.animate !== "function" || semMovimento()) return;
+  el.animate(
+    [
+      { transform: "scale(1.16) rotate(-4deg)" },
+      { transform: "scale(0.97) rotate(1deg)", offset: 0.55 },
+      { transform: "none" },
+    ],
+    { duration: 560, easing: MOLA_PULO },
+  );
+}
+
+function IconeCheck() {
+  return (
+    <svg className="al3-check" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 12.5l4.5 4.5L19 7.5" />
+    </svg>
   );
 }

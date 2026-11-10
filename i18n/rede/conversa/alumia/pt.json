@@ -18,7 +18,10 @@
     "orgVerificada": "organização verificada",
     "orgRegra": "O selo diz que a conta é de quem diz ser, conferida por documento público. Não é apoio do Instituto Lúcia.",
     "previa": "Prévia com dados de exemplo: nada aqui é de verdade.",
-    "maisDoPost": "Mais ações do post de {codinome}"
+    "maisDoPost": "Mais ações do post de {codinome}",
+    "tiradoDosSalvos": "Tirado dos salvos.",
+    "desfazer": "Desfazer",
+    "comoContamos": "Como contamos"
   },
   "comunidade": {
     "mais": "Mais opções da comunidade",
@@ -65,7 +68,12 @@
     "moderadaPoucas": "Moderada por poucas pessoas, todas por codinome. Não mostramos quem: assim ninguém vira alvo por cuidar daqui.",
     "falarModeracao": "Falar com a moderação",
     "entrarNaAlumia": "Entrar na Alumia",
-    "soConvite": "Esta comunidade é só por convite: quem entra é convidado pela moderação."
+    "soConvite": "Esta comunidade é só por convite: quem entra é convidado pela moderação.",
+    "naoEncontrada": "Comunidade não encontrada",
+    "naoEncontradaTexto": "O endereço pode estar errado, ou a comunidade foi fechada pela moderação.",
+    "verComunidades": "Ver as comunidades",
+    "sairTitulo": "Sair de {nome}?",
+    "sairTexto": "Os seus posts continuam na comunidade, e você pode voltar quando quiser."
   },
   "conversa": {
     "titulo": "Conversa",
@@ -115,7 +123,8 @@
     "recolherRamo": "Recolher {n} respostas",
     "mostrarRamo": "Mostrar {n} respostas",
     "recolherUma": "Recolher 1 resposta",
-    "mostrarUma": "Mostrar 1 resposta"
+    "mostrarUma": "Mostrar 1 resposta",
+    "respondendoA": "Respondendo a {quem}"
   },
   "reacoes": {
     "rotulo": "Reações",
