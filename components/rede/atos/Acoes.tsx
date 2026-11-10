@@ -6,11 +6,13 @@
 //   Conversa           leva à conversa do ato (a conversa do post do chamado), com o número de respostas;
 //   Chegar             abre o mapa livre de fora com o ponto público do ato (sem Referer; a Alumia não vê a posição);
 //   Chamar             compartilha pelo aparelho ou copia o link (só o nome do ato, quando e onde).
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "@/components/Link";
 import { Botao, LinkBotao } from "../ui/Botao";
-import { chamarAto, hrefDoChegar, Icone } from "./partes";
-import { useVou } from "./usar";
+import { Chegar } from "./Chegar";
+import { baixarIcs, chamarAto, Icone } from "./partes";
+import { frase, useVou } from "./usar";
+import { podeMexer, MOLAS } from "@/lib/rede/atos/movimento";
 import { enderecos } from "@/lib/rede/tipos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import type { Ato } from "@/lib/rede/tipos-atos";
@@ -50,10 +52,63 @@ export function BotaoVou({ ato, t, lang, logado = true, tamanho = "m", className
       </Botao>
       {erro ? (
         <span role="alert" className="al-ato-erro">
-          {t.acoes.erroVou}
+          {frase(t, erro)}
         </span>
       ) : null}
     </>
+  );
+}
+
+/**
+ * As faíscas douradas do "Você vai": oito pedacinhos saem do botão em roda e caem (Web Animations; some sozinho). Sem movimento,
+ * nada. É o único confete da Alumia, e só para quem acabou de confirmar.
+ */
+export function soltarFaiscas(el: HTMLElement | null): void {
+  if (!el || !podeMexer()) return;
+  el.animate([{ scale: 0.82 }, { scale: 1 }], { duration: MOLAS.quique.duracao, easing: MOLAS.quique.easing });
+  for (let i = 0; i < 9; i++) {
+    const p = document.createElement("span");
+    p.className = "al-ato-faisca";
+    p.setAttribute("aria-hidden", "true");
+    el.appendChild(p);
+    const ang = (i / 9) * Math.PI * 2 + Math.random() * 0.5;
+    const r = 34 + Math.random() * 18;
+    const x = Math.cos(ang) * r;
+    const y = Math.sin(ang) * r;
+    p.animate(
+      [
+        { transform: "translate(0,0) rotate(0deg) scale(1)", opacity: 1 },
+        { transform: `translate(${x}px,${y}px) rotate(${120 + i * 40}deg) scale(0.9)`, opacity: 1, offset: 0.55 },
+        { transform: `translate(${x * 1.1}px,${y + 26}px) rotate(${220 + i * 40}deg) scale(0.4)`, opacity: 0 },
+      ],
+      { duration: 720 + Math.random() * 200, easing: "cubic-bezier(.2,.7,.3,1)" },
+    ).onfinish = () => p.remove();
+  }
+}
+
+/** "Lembrete na agenda": baixa o .ics feito no aparelho (avisos 24 h e 2 h antes, pela própria agenda). */
+export function BotaoLembrete({ ato, t, lang, tamanho = "m" }: PropsDasAcoes & { tamanho?: "p" | "m" }) {
+  const [baixado, setBaixado] = useState(false);
+  if (ato.situacao === "cancelado") return null;
+  return (
+    <span className="al-ato-lembrete">
+      <Botao
+        variante="contorno"
+        tamanho={tamanho}
+        icone={Icone.sino(18)}
+        title={t.acoes.lembreteAjuda}
+        onClick={() => {
+          baixarIcs(ato, lang);
+          setBaixado(true);
+          window.setTimeout(() => setBaixado(false), 5000);
+        }}
+      >
+        {t.acoes.lembrete}
+      </Botao>
+      <span role="status" className="al-ato-copiado">
+        {baixado ? t.acoes.baixado : ""}
+      </span>
+    </span>
   );
 }
 
@@ -102,26 +157,44 @@ export function ColunaDeAcoes({ ato, t, lang, logado = true }: PropsDasAcoes) {
   const { alternar, ocupado, erro } = useVou(ato);
   const { chamar, copiado } = useChamar(ato, lang);
   const cancelado = ato.situacao === "cancelado";
+  const botaoVou = useRef<HTMLButtonElement>(null);
+  const [aviso, setAviso] = useState("");
+  const aoVou = () => {
+    if (ocupado) return;
+    const sim = !ato.vou_eu;
+    if (sim) soltarFaiscas(botaoVou.current);
+    setAviso(sim ? t.acoes.vouFeito : t.acoes.vouDesfeito);
+    window.setTimeout(() => setAviso(""), 4000);
+    void alternar();
+  };
   return (
     <div className="al-ato-coluna">
       {cancelado ? null : logado ? (
         <div className="al-ato-acao">
           <button
+            ref={botaoVou}
             type="button"
             className={`al-ato-quadrado${ato.vou_eu ? " al-ato-quadrado-ligado" : " al-ato-quadrado-vou"}`}
             aria-pressed={ato.vou_eu}
             aria-busy={ocupado}
             aria-labelledby={`al-vou-${ato.id}`}
-            onClick={alternar}
+            aria-describedby={`al-vou-ajuda-${ato.id}`}
+            onClick={aoVou}
           >
             {Icone.visto(30)}
           </button>
           <span id={`al-vou-${ato.id}`} className="al-ato-acao-rotulo">
             {ato.vou_eu ? t.acoes.voceVai : t.acoes.euVou}
           </span>
+          <span id={`al-vou-ajuda-${ato.id}`} className="al-so-leitor">
+            {t.acoes.vouAjuda}
+          </span>
+          <span role="status" className="al-so-leitor">
+            {erro ? "" : aviso}
+          </span>
           {erro ? (
             <span role="alert" className="al-ato-erro">
-              {t.acoes.erroVou}
+              {frase(t, erro)}
             </span>
           ) : null}
         </div>
@@ -144,9 +217,15 @@ export function ColunaDeAcoes({ ato, t, lang, logado = true }: PropsDasAcoes) {
         </span>
       </div>
       <div className="al-ato-acao">
-        <a href={hrefDoChegar(ato)} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" className="al-ato-quadrado" aria-label={t.acoes.chegar} aria-describedby={`al-chegar-${ato.id}`} title={t.acoes.chegarAjuda}>
-          {Icone.pino(26)}
-        </a>
+        <Chegar
+          ato={ato}
+          t={t}
+          gatilho={(p) => (
+            <button type="button" {...p} className="al-ato-quadrado" aria-label={t.acoes.chegar} aria-describedby={`al-chegar-${ato.id}`} title={t.acoes.chegarAjuda}>
+              {Icone.pino(26)}
+            </button>
+          )}
+        />
         <span className="al-ato-acao-rotulo">{t.acoes.chegar}</span>
         <span id={`al-chegar-${ato.id}`} className="al-so-leitor">
           {t.acoes.chegarAjuda}

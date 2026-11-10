@@ -5,9 +5,12 @@ import { useState, type FormEvent } from "react";
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { BotaoLembrete } from "./Acoes";
 import { AtoAberto } from "./AtoAberto";
-import { baixarIcs, Icone } from "./partes";
-import { avisarAto, useAto, useTextosDosAtos } from "./usar";
+import { PainelDoFarol } from "./Farol";
+import { Icone } from "./partes";
+import { avisarAto, frase, useAto, useTextosDosAtos } from "./usar";
+import { codigoDoErro } from "@/lib/rede/atos/erros";
 import { linkDeApoioSeguro } from "@/lib/rede/atos/chegar";
 import { doCampoLocal, paraCampoLocal } from "@/lib/rede/atos/tempo";
 import { atos as cliente, PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
@@ -17,7 +20,7 @@ import "./atos.css";
 
 /**
  * A página de um ato (/alumia/ato/[id]; prancha celular-modo-atos): o ato aberto com Você vai, Conversa, Chegar e Chamar; embaixo,
- * Pôr na agenda (.ics feito no aparelho) e o link de apoio externo, quando houver. Quem chamou o ato vê o total exato (só ela) e
+ * o lembrete na agenda (.ics feito no aparelho, com avisos 24 h e 2 h antes), o farol da coordenação e o link de apoio externo, quando houver. Quem chamou o ato vê o total exato (só ela) e
  * pode adiar, cancelar ou confirmar de novo; quem confirmou recebe o aviso "ato_mudou" (o servidor manda).
  */
 export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPacote) {
@@ -41,7 +44,7 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
         </p>
       ) : estado.fase === "erro" ? (
         <div className="al-atos-vazio" role="alert">
-          <p>{/nao_encontrado|not.found|PGRST116/i.test(estado.erro) ? t.pagina.naoAchado : t.tela.erro}</p>
+          <p>{codigoDoErro(estado.erro) === "nao_encontrado" ? t.pagina.naoAchado : codigoDoErro(estado.erro) === "generico" ? t.tela.erro : frase(t, estado.erro)}</p>
           <Botao variante="contorno" onClick={recarregar}>
             {t.tela.tentar}
           </Botao>
@@ -56,6 +59,7 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
             nivel={1}
             depois={<MaisDoAto ato={estado.dados} t={t} lang={lang} />}
           />
+          <PainelDoFarol ato={estado.dados} t={t} />
           {estado.dados.meu ? <PainelDeQuemChamou ato={estado.dados} t={t} /> : null}
         </>
       )}
@@ -70,9 +74,7 @@ function MaisDoAto({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; lang: string 
   return (
     <div className="al-ato-pagina-mais">
       {ato.situacao !== "cancelado" ? (
-        <Botao variante="contorno" icone={Icone.agenda(18)} onClick={() => baixarIcs(ato, lang)} title={t.acoes.agendaAjuda}>
-          {t.acoes.agenda}
-        </Botao>
+        <BotaoLembrete ato={ato} t={t} lang={lang} />
       ) : null}
       {apoio ? (
         <a href={apoio} target="_blank" rel="noopener noreferrer nofollow" referrerPolicy="no-referrer" className="al-botao al-botao-m al-botao-contorno" title={t.acoes.apoioAjuda}>
@@ -103,8 +105,8 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
       avisarAto(novo);
       setModo(null);
       setMotivo("");
-    } catch {
-      setErro(t.pagina.erroMudar);
+    } catch (e) {
+      setErro(codigoDoErro(e) === "generico" ? t.pagina.erroMudar : frase(t, e));
     } finally {
       setOcupado(false);
     }

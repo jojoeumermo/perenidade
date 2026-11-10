@@ -73,7 +73,7 @@ export function CartaoDoAto({ ato, t, lang, logado = true }: PropsDoCartaoDoAto)
         {ato.inicio_anterior ? <> · <Era ato={ato} t={t} lang={lang} /></> : null}
       </p>
       {cancelado && ato.motivo ? <p className="al-ato-motivo">{ato.motivo}</p> : null}
-      <MosaicoDoAto ato={ato} t={t} quebrar={largo ? undefined : 31} className="al-ato-cartao-mosaico" />
+      <MosaicoDoAto ato={ato} t={t} quebrar={largo ? undefined : 31} className="al-ato-cartao-mosaico" inclinar={largo} />
       {largo ? (
         <>
           <div className="al-ato-cartao-pe">
