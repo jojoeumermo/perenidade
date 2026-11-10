@@ -205,6 +205,8 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf-cartaz { position: static; padding: 12px 0 0; color: var(--al-texto); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf[data-layout="cartaz"] :is(.pf-nome, .pf-handle) { color: var(--al-texto); text-shadow: none; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf-capa-veu { display: none; }
+/* Sem véu, o nome do cartaz sai da capa: a capa volta à faixa baixa (a palavra fica na metade de cima e cabe inteira). */
+:root:is([data-contrast], [data-eink]) [data-al="2"] .pf[data-layout="cartaz"] .pf-capa :is(.pf-capa-mosaico, .pf-capa-imagem, .pf-capa-vazia) { aspect-ratio: 3 / 1; }
 :root[data-eink] [data-al="2"] .pf-ladrilho-brilho { fill: var(--al-cartao-apagado); }
 :root[data-eink] [data-al="2"] .pf-faixa { background-image: repeating-linear-gradient(90deg, #000 0 8px, #fff 8px 12px) !important; border-block: 1px solid #000; }
 :root[data-eink] [data-al="2"] .pf-rosto { filter: grayscale(1) contrast(1.3); }

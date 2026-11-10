@@ -262,7 +262,7 @@
 [data-al="2"] .pfe-salvar-botoes { display: flex; align-items: center; gap: 6px; }
 [data-al="2"] .pfe-botao-salvar { background: var(--pf-acento); color: var(--pf-sobre-acento); min-width: 96px; }
 [data-al="2"] .pfe-botao-salvar:disabled { opacity: 0.45; }
-:root[data-eink] [data-al="2"] .pfe-salvar { box-shadow: none; backdrop-filter: none; background: var(--al-fundo); }
+:root[data-eink] [data-al="2"] .pfe-salvar { box-shadow: none; backdrop-filter: none; background: var(--al-fundo); border: 2px solid var(--al-texto); }
 
 ::view-transition-old(pfe-painel) { animation: 0.15s ease-out both pfe-sai; }
 ::view-transition-new(pfe-painel) { animation: 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both pfe-entra; }
