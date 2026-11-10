@@ -114,7 +114,9 @@
     "citando": "Quoting: “{trecho}”",
     "tirarCitacao": "Remove quote",
     "recolherRamo": "Collapse {n} replies",
-    "mostrarRamo": "Show {n} replies"
+    "mostrarRamo": "Show {n} replies",
+    "recolherUma": "Collapse 1 reply",
+    "mostrarUma": "Show 1 reply"
   },
   "reacoes": {
     "rotulo": "Reactions",
@@ -151,5 +153,17 @@
     "avisos": "Notifications",
     "salvos": "Saved",
     "comunidades": "Communities"
+  },
+  "descoberta": {
+    "seguirTag": "Follow #{tag}",
+    "seguindoTag": "Following #{tag}",
+    "seguirTagRegra": "Only you see the #topics you follow. Following changes no order: it is a shortcut in Explore.",
+    "seguiuTag": "You are following #{tag}.",
+    "deixouTag": "You stopped following #{tag}.",
+    "suasTags": "Your #topics",
+    "buscar": "Search posts, #topics and communities",
+    "emAlta": "This week's #topics",
+    "comunidadeDe": "{n} posts this week",
+    "entrarNela": "Open"
   }
 }

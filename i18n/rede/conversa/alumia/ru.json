@@ -114,7 +114,9 @@
     "citando": "Цитата: «{trecho}»",
     "tirarCitacao": "Убрать цитату",
     "recolherRamo": "Свернуть ответы: {n}",
-    "mostrarRamo": "Показать ответы: {n}"
+    "mostrarRamo": "Показать ответы: {n}",
+    "recolherUma": "Свернуть 1 ответ",
+    "mostrarUma": "Показать 1 ответ"
   },
   "reacoes": {
     "rotulo": "Реакции",
@@ -151,5 +153,17 @@
     "avisos": "Уведомления",
     "salvos": "Сохранённое",
     "comunidades": "Сообщества"
+  },
+  "descoberta": {
+    "seguirTag": "Следить за #{tag}",
+    "seguindoTag": "Вы следите за #{tag}",
+    "seguirTagRegra": "#Темы, за которыми вы следите, видите только вы. Порядок ничего не меняется: это ярлык в «Обзоре».",
+    "seguiuTag": "Вы следите за #{tag}.",
+    "deixouTag": "Вы больше не следите за #{tag}.",
+    "suasTags": "Ваши #темы",
+    "buscar": "Искать посты, #темы и сообщества",
+    "emAlta": "#Темы недели",
+    "comunidadeDe": "Постов за неделю: {n}",
+    "entrarNela": "Открыть"
   }
 }

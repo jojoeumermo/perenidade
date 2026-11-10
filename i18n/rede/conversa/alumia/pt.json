@@ -113,7 +113,9 @@
     "citando": "Citando: “{trecho}”",
     "tirarCitacao": "Tirar a citação",
     "recolherRamo": "Recolher {n} respostas",
-    "mostrarRamo": "Mostrar {n} respostas"
+    "mostrarRamo": "Mostrar {n} respostas",
+    "recolherUma": "Recolher 1 resposta",
+    "mostrarUma": "Mostrar 1 resposta"
   },
   "reacoes": {
     "rotulo": "Reações",
@@ -150,5 +152,17 @@
     "avisos": "Avisos",
     "salvos": "Salvos",
     "comunidades": "Comunidades"
+  },
+  "descoberta": {
+    "seguirTag": "Seguir #{tag}",
+    "seguindoTag": "Seguindo #{tag}",
+    "seguirTagRegra": "Só você vê os #temas que segue. Seguir não muda a ordem de nada: é um atalho no Explorar.",
+    "seguiuTag": "Você está seguindo #{tag}.",
+    "deixouTag": "Você deixou de seguir #{tag}.",
+    "suasTags": "Seus #temas",
+    "buscar": "Buscar posts, #temas e comunidades",
+    "emAlta": "#temas da semana",
+    "comunidadeDe": "{n} posts esta semana",
+    "entrarNela": "Abrir"
   }
 }
