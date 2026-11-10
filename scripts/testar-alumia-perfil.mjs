@@ -213,6 +213,20 @@ await espera("campo com link limpo passa", () => rpc(A("ana"), "rede_perfil_extr
 await recusa("status com horas em texto", () => rpc(A("ana"), "rede_perfil_extras_editar", { p: { status: { tipo: "greve", texto: "", horas: "1; drop" } } }), "invalido:status");
 await espera("status com prazo", () => rpc(A("ana"), "rede_perfil_extras_editar", { p: { status: { tipo: "greve", texto: "com a categoria", horas: 8 } } }), (r) => r.status.tipo === "greve" && r.status.ate);
 
+// As abas Respostas, Mídia e Atos (rede_perfil_linha).
+{
+  const resp = (await sql("insert into interno.rede_posts (autor, texto, resposta_a) values ($1, 'Concordo', $2) returning id", [P.ana, pBeto])).rows[0].id;
+  const img = (await sql("insert into interno.rede_posts (autor, texto) values ($1, 'Cartaz https://exemplo.org/cartaz.webp') returning id", [P.ana])).rows[0].id;
+  const ids = (r) => (r?.itens ?? []).map((x) => x.id);
+  await espera("respostas: só o que responde a outro", () => rpc(A("beto"), "rede_perfil_linha", { p_handle: "ana_pf", p_aba: "respostas" }), (r) => ids(r).length === 1 && ids(r)[0] === resp);
+  await espera("mídia: só o que tem imagem", () => rpc(A("beto"), "rede_perfil_linha", { p_handle: "ana_pf", p_aba: "midia" }), (r) => ids(r).length === 1 && ids(r)[0] === img);
+  await espera("atos: só a convocação", () => rpc(A("beto"), "rede_perfil_linha", { p_handle: "ana_pf", p_aba: "atos" }), (r) => ids(r).includes(atoAna) && !ids(r).includes(pAna));
+  await recusa("aba desconhecida", () => rpc(A("beto"), "rede_perfil_linha", { p_handle: "ana_pf", p_aba: "seguidores" }), "invalido:aba");
+  await espera("bloqueado vê vazio", () => rpc(A("bloq"), "rede_perfil_linha", { p_handle: "ana_pf", p_aba: "respostas" }), (r) => ids(r).length === 0);
+  await espera("invisível: vazio para os outros", () => rpc(A("ana"), "rede_perfil_linha", { p_handle: "invis_pf", p_aba: "atos" }), (r) => ids(r).length === 0);
+  await recusa("cursor ruim", () => rpc(A("beto"), "rede_perfil_linha", { p_handle: "ana_pf", p_aba: "atos", p_cursor: "x|y" }), "invalido:cursor");
+}
+
 // Tear de encaminhamentos.
 const prazo = new Date(Date.now() + 7 * 86400e3).toISOString().slice(0, 10);
 await recusa("membro comum não tece fio", () => rpc(A("beto"), "rede_org_tear_fio", { p_handle: "coletivo_lume", p: { texto: "Fazer o cartaz", funcao: "comunicação", prazo } }), "sem_permissao");
