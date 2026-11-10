@@ -56,18 +56,25 @@
       "pergunta": "Question",
       "enquete": "Poll",
       "link": "Link",
-      "comunidade": "Community"
+      "comunidade": "Community",
+      "vou": "I'm going",
+      "pessoa": "@ Person",
+      "campanha": "#Campaign",
+      "resposta": "Answer",
+      "decorativa": "Decoration"
     },
     "quemVe": "Who sees it",
     "publico": {
       "seguidores": "Followers",
       "membros": "Community",
-      "proximos": "Close ones"
+      "proximos": "Circle",
+      "comunidade": "A community"
     },
     "publicoAjuda": {
       "seguidores": "Only people who follow you.",
       "membros": "Everyone in Alumia.",
-      "proximos": "Only people you follow who follow you back."
+      "proximos": "Only your trusted circle (the list only you can see).",
+      "comunidade": "Only members of the community you choose."
     },
     "regra": "Gone in 24 h. Doesn't go to the Fediverse. Nobody sees who watched.",
     "galeria": "Gallery",
@@ -232,7 +239,8 @@
     "publico": {
       "seguidores": "For my followers",
       "membros": "For the community",
-      "proximos": "For close ones"
+      "proximos": "Circle only",
+      "comunidade": "For one community"
     },
     "agora": "now",
     "min": "{n} min",
@@ -361,5 +369,274 @@
     "titulo": "Stories",
     "lede": "Stories from people you follow and from your communities. Tap a circle to watch, or “Your story” to make yours.",
     "inicio": "See the Home timeline"
+  },
+  "b1": {
+    "fileira": {
+      "post": "Post",
+      "ato": "Action",
+      "abrirPost": "Open the highlight {titulo}",
+      "arrumar": "Arrange highlights",
+      "rotulo": "{nome}'s highlights"
+    },
+    "arrumar": {
+      "titulo": "Arrange highlights",
+      "ajuda": "This order shows on your profile. Use the arrows or buttons to change it.",
+      "subir": "Move {titulo} up",
+      "descer": "Move {titulo} down",
+      "nome": "Name",
+      "capa": "Cover",
+      "capaPrimeira": "The first photo",
+      "semFoto": "No photo: the cover uses the color.",
+      "stories": "Stories in this highlight",
+      "storyN": "Story {n}",
+      "subirStory": "Move story {n} up",
+      "descerStory": "Move story {n} down",
+      "apagar": "Delete this highlight",
+      "salvar": "Save",
+      "salvo": "Highlights arranged.",
+      "erro": "Could not save. Try again.",
+      "carregando": "Loading…",
+      "escolher": "Pick a highlight to arrange"
+    },
+    "borrar": {
+      "pergunta": "This photo will stay on your profile after 24 h. Is there a face of someone who does not want to be seen?",
+      "borrar": "Blur faces",
+      "assim": "Keep as is",
+      "refazendo": "Redoing the photo on this device…",
+      "erro": "Could not redo the photo. It was not saved.",
+      "feito": "Photo blurred and saved.",
+      "noCriar": "Blur faces",
+      "noCriarAjuda": "Protect people at the action (LGPD art. 11: political opinion is sensitive data).",
+      "borradas": "{n} blurred areas",
+      "video": "Blur in the video",
+      "videoAjuda": "Mark the faces on this frame. The blur stays in the same place for the whole video: check the preview."
+    },
+    "post": {
+      "verPost": "See the post",
+      "verAto": "See the action",
+      "indisponivel": "This post is no longer available.",
+      "de": "Post by {nome}",
+      "atoDe": "Action by {nome}",
+      "situacao": {
+        "confirmado": "Confirmed",
+        "adiado": "Postponed",
+        "cancelado": "Cancelled"
+      },
+      "vaiJunto": "Goes with the story: the post card, with a link to it.",
+      "carregando": "Loading the post…",
+      "soCidade": "The story shows only the city, never the meeting point."
+    },
+    "visor": {
+      "roda": "Circle only",
+      "comunidade": "Only for {nome}",
+      "legendas": "Captions",
+      "legendasLigar": "Turn captions on",
+      "legendasDesligar": "Turn captions off",
+      "musica": "Alumia music: {nome}",
+      "respostasN": {
+        "one": "{n} reply",
+        "few": "{n} replies",
+        "many": "{n} replies",
+        "other": "{n} replies"
+      },
+      "verRespostas": "See replies",
+      "semRespostas": "No replies yet.",
+      "reacoesN": {
+        "one": "{n} reaction",
+        "few": "{n} reactions",
+        "many": "{n} reactions",
+        "other": "{n} reactions"
+      },
+      "reacoesPoucas": "Few reactions: the total shows from 3.",
+      "reacoesPor": "{punho} ✊ · {chama} 🔥 · {coracao} ❤️",
+      "soVoce": "Only you see these numbers."
+    },
+    "respostas": {
+      "titulo": "Replies",
+      "ajuda": "Whoever replied chose to talk only to you. If you publish a reply, the sender's name does not go with it.",
+      "daPergunta": "Answer to the question",
+      "publicar": "Publish in a story",
+      "conversar": "Reply in the conversation",
+      "semNome": "Account unavailable",
+      "fechar": "Close",
+      "caixa": "Replies to your stories",
+      "caixaVazia": "When someone replies to one of your stories, it shows here.",
+      "abrir": "See replies to “{texto}”",
+      "mensagensN": {
+        "one": "{n} message",
+        "few": "{n} messages",
+        "many": "{n} messages",
+        "other": "{n} messages"
+      },
+      "perguntasN": {
+        "one": "{n} to the question",
+        "few": "{n} to the question",
+        "many": "{n} to the question",
+        "other": "{n} to the question"
+      },
+      "semTexto": "Story without text",
+      "carregando": "Loading…"
+    },
+    "vou": {
+      "rotulo": "I'm going",
+      "eu": "I'm going",
+      "voce": "You're going",
+      "desfazer": "Not going anymore",
+      "totalN": {
+        "one": "{n} going",
+        "few": "{n} going",
+        "many": "{n} going",
+        "other": "{n} going"
+      },
+      "poucas": "Confirm and bring more people",
+      "encerrado": "This action is over",
+      "escolher": "Which action?",
+      "nenhum": "No upcoming action to share.",
+      "carregando": "Looking for actions…",
+      "ajuda": "Tapping confirms attendance, like on the action page. Nobody sees who goes."
+    },
+    "pessoa": {
+      "rotulo": "Mention",
+      "campo": "Person's @",
+      "ajuda": "They get a notice. Someone who blocked you cannot be mentioned.",
+      "abrir": "Open {nome}'s profile",
+      "sumiu": "Account unavailable"
+    },
+    "campanha": {
+      "rotulo": "Campaign",
+      "campo": "#campaign",
+      "corrente": "Chain: viewers can “Add yours”",
+      "adicionar": "Add yours",
+      "totalN": {
+        "one": "{n} person in the chain",
+        "few": "{n} people in the chain",
+        "many": "{n} people in the chain",
+        "other": "{n} people in the chain"
+      },
+      "ajuda": "Only plain letters, numbers and _ (2 to 40)."
+    },
+    "resposta": {
+      "rotulo": "Answer",
+      "publicada": "An answer to my question"
+    },
+    "decorativas": {
+      "titulo": "Alumia decorations",
+      "ajuda": "Up to 3 per story. Drawn here, nothing downloaded from outside.",
+      "limite": "At most 3 decorations.",
+      "tirar": "Remove {nome}",
+      "mover": "Move {nome}",
+      "nomes": {
+        "punho": "Raised fist",
+        "lampiao": "Lantern",
+        "megafone": "Megaphone",
+        "faixa": "March banner",
+        "carimbo-luta": "“The struggle goes on” stamp",
+        "carimbo-presente": "“Present!” stamp",
+        "estrela": "Star",
+        "flor": "Flower"
+      },
+      "textos": {
+        "faixa": "STRUGGLE",
+        "carimbo-luta": "THE STRUGGLE GOES ON",
+        "carimbo-presente": "PRESENT!"
+      }
+    },
+    "roda": {
+      "titulo": "Trusted circle",
+      "ajuda": "Only you see this list. Nobody is told when they join or leave, and nobody knows whose circles they are in.",
+      "campo": "@ of someone you trust",
+      "por": "Add to circle",
+      "tirar": "Remove {nome} from the circle",
+      "vazia": "Your circle is empty: a circle story reaches no one.",
+      "gerenciar": "Who is in the circle",
+      "contaN": {
+        "one": "{n} person",
+        "few": "{n} people",
+        "many": "{n} people",
+        "other": "{n} people"
+      },
+      "naoAchada": "We could not find that @ (or there is a block).",
+      "fechar": "Close"
+    },
+    "comunidade": {
+      "escolher": "Which community?",
+      "nenhuma": "You are not a member of any community yet.",
+      "faixa": "Stories about this community",
+      "abrir": "See {nome}'s stories"
+    },
+    "legendas": {
+      "titulo": "Captions",
+      "ajuda": "Write what is said. With the sound off, the caption is what people read.",
+      "nova": "Caption from {tempo}",
+      "texto": "Caption text {n}",
+      "grande": "Center of the screen",
+      "tirar": "Remove caption {n}",
+      "de": "From",
+      "ate": "To",
+      "gerar": "Generate on this device",
+      "gerando": "Listening to the video…",
+      "gerarAjuda": "Recognizes speech right here, without sending the audio out. Check each part.",
+      "semGerar": "This browser cannot recognize speech without sending the audio out: write the captions.",
+      "aprovar": "I checked the captions",
+      "falta": "Check the generated captions before publishing.",
+      "nenhumaFala": "We found no speech in the video."
+    },
+    "musica": {
+      "titulo": "Music",
+      "nenhuma": "No music",
+      "nomes": {
+        "batucada": "Batucada",
+        "marcha": "March",
+        "ciranda": "Ciranda",
+        "tambor": "Drum"
+      },
+      "ajuda": "Made right here on the device. Nothing is downloaded and nobody learns what you listened to.",
+      "ouvir": "Play {nome}",
+      "parar": "Stop"
+    },
+    "recortar": {
+      "botao": "Crop",
+      "titulo": "Crop the photo",
+      "proporcao": "Aspect ratio",
+      "livre": "Free",
+      "giro": "Rotate (degrees)",
+      "aplicar": "Apply",
+      "cancelar": "Cancel",
+      "moldura": "Crop frame. Arrows move it; Shift with arrows resizes it.",
+      "canto": "Resize the crop"
+    },
+    "desenho": {
+      "refazer": "Redo",
+      "borracha": "Eraser",
+      "borrachaAjuda": "Drag over a stroke to erase it."
+    },
+    "texto2": {
+      "botao": "One more text",
+      "rotulo": "Extra text",
+      "campo": "Extra text (up to 60 letters)",
+      "tirar": "Remove the extra text"
+    },
+    "sequencia": {
+      "varios": "Pick several",
+      "ajuda": "Up to 10 photos or videos: each becomes a story, in order.",
+      "n": "{i} of {n}",
+      "pular": "Skip this one",
+      "proximo": "Next",
+      "partes": "{s} s video: goes as {n} stories of up to 60 s.",
+      "publicandoN": "Publishing {i} of {n}…",
+      "feitoN": {
+        "one": "{n} story published.",
+        "few": "{n} stories published.",
+        "many": "{n} stories published.",
+        "other": "{n} stories published."
+      }
+    },
+    "progresso": {
+      "enviandoBytes": "Uploading… {feito} of {total}"
+    },
+    "ato": {
+      "porNoStory": "Add to story",
+      "ajuda": "Creates a story with this action's card (date and city; gone in 24 h)"
+    }
   }
 }
