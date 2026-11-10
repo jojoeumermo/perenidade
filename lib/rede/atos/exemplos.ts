@@ -175,6 +175,19 @@ const normal = (s: string) =>
     .toLowerCase()
     .trim();
 
+/**
+ * Os atos embutidos nos posts de exemplo (o chamado dentro de um post do Início ou do perfil, id "exemplo-…"): entram aqui quando o
+ * cartão aparece ou quando a página do ato é aberta direto, e o dublê passa a achá-los (a página do ato e o "Você vai" funcionam).
+ */
+const AVULSOS: { ato: Ato; confirmados: number }[] = [];
+export function registrarAtoDeExemplo(ato: Ato, confirmados = 12): void {
+  if (!ato.id.startsWith("exemplo-") || AVULSOS.some((x) => x.ato.id === ato.id)) return;
+  AVULSOS.push({ ato: { ...ato, acesos: null, total: null }, confirmados });
+}
+export function atoDeExemploRegistrado(id: string): boolean {
+  return AVULSOS.some((x) => x.ato.id === id);
+}
+
 /** As respostas do dublê às funções do contrato. Recusa o que o banco recusaria (ato desconhecido, mudar ato de outra pessoa). */
 export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo(), farois: faroisDeExemplo(), correntes: correntesDeExemplo() }) {
   const farois = (estado.farois ??= {});
@@ -196,7 +209,8 @@ export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo(), faro
     };
   };
   const achar = (id: unknown) => {
-    const x = estado.atos.find((a) => a.ato.id === id);
+    // Os avulsos (atos embutidos nos posts de exemplo) se acham pelo id, mas não entram nas listas: não são das pranchas.
+    const x = estado.atos.find((a) => a.ato.id === id) ?? AVULSOS.find((a) => a.ato.id === id);
     if (!x) throw new Error("nao_encontrado");
     return x;
   };
