@@ -169,7 +169,7 @@ igual("todo estilo novo fica dentro de [data-al=\"2\"]", soltos, []);
 const casca = ler("components/rede/publicar/alumia2/CascaDaAlumia2.tsx");
 for (const item of ["inicio", "explorar", "chamados", "comunidades", "nucleos", "avisos", "conversas", "salvos", "perfil"]) ok(`menu tem ${item}`, casca.includes(`chave: "${item}"`));
 igual("barra de baixo do celular", (casca.match(/const BARRA: Chave\[\] = \[([^\]]+)\]/) ?? [])[1], '"inicio", "explorar", "chamados", "perfil"');
-ok("Sair rápido na casca", casca.includes("sairRapidoDaRede(enderecoDoSite(lang), ENCAIXES.aoSairRapido)"));
+ok("Sair rápido na casca", casca.includes("sairRapidoDaRede(DESTINO_DA_SAIDA, ENCAIXES.aoSairRapido)"));
 const cartaoNovo = ler("components/rede/publicar/alumia2/CartaoDaAlumia2.tsx");
 for (const f of ["repostar", "acender", "salvar", "compartilhar"]) ok(`cartão: ${f} chama algo de verdade`, new RegExp(`const ${f} = \\(\\) =>`).test(cartaoNovo));
 ok("compartilhar sem rastreio", cartaoNovo.includes("enderecoParaCompartilhar(window.location.origin"));
