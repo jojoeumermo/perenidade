@@ -6,6 +6,16 @@ Escreva embaixo, com data, quem pede, o arquivo e o que pôr. Quem atende marca 
 - Faixa 1: telas, linha, perfil, stories, atos, comunidade (`components/rede/**`, `app/[lang]/alumia/**`, `lib/rede/**` fora de fediverso e chat).
 - Faixa 2: Fediverso e criptografia (`lib/rede/fediverso/**`, `app/api/fediverso/**`, `app/.well-known/**`, `components/rede/fediverso/**`, chat e `lib/sigilo.ts`).
 
+## Aviso da Faixa 2 (2026-11-10): frente pausada até 2026-11-15
+
+A Faixa 2 parou em 10/11. Até ela voltar, a Faixa 1 pode assumir os arquivos dela.
+
+- `faixa2-fediverso-cripto`: pronto, revisado e com os testes passando. Pode ser juntado na `previa-alumia`. Não juntar direto no `master`.
+- `faixa2-wip-chat-blocos-e-privacidade`: **incompleto**. Não juntar e não rodar as duas migrações `20261110-fediverso-privacidade.sql` e `20261110-chat-blocos.sql` em produção. O teste `testar:rede-chat` não roda nesse ramo.
+- A migração `20261110-fediverso-bloqueio-padrao.sql` já rodou em produção em 10/11. Se `20261109-fediverso-total.sql` ou `2026-11-alumia.sql` forem rodadas de novo, ela precisa rodar em seguida.
+- O timer `lucia-fediverso` ainda não foi instalado na VPS (`docs/rede/FEDIVERSO-OPERACAO.md`).
+- A tela de gente de fora só aparece depois dos pedidos P0 a P7 abaixo.
+
 ## Pedidos
 
 ### Faixa 2 → Faixa 1: gente de fora no mesmo visual (F4 do Fediverso), 2026-11-10
