@@ -644,6 +644,9 @@
   transition: border-color 0.2s, transform 0.2s var(--al3-pulo), background 0.2s;
 }
 [data-al="2"] .al3-ficha:hover, [data-al="2"] .al3-fichas > li > a:hover { border-color: var(--al-texto-3); transform: translateY(-2px); }
+[data-al="2"] .al3-contador { display: block; margin-top: 0.2rem; text-align: right; font-size: 0.75rem; font-variant-numeric: tabular-nums; color: var(--al-texto-3); transition: color 0.2s; }
+[data-al="2"] .al3-contador[data-falta] { color: var(--al-dourado); }
+[data-al="2"] .al3-ficha-comunidade:hover { border-color: var(--al3-cor); }
 [data-al="2"] .al3-ficha-n { font-size: 0.8rem; color: var(--al-texto-3); font-variant-numeric: tabular-nums; }
 [data-al="2"] .al3-ficha-minha { border-color: color-mix(in srgb, var(--al-dourado) 55%, transparent); background: color-mix(in srgb, var(--al-dourado) 12%, var(--al-superficie)); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-ficha, .al3-fichas > li > a) { border-color: var(--al-texto); background: var(--al-fundo); }

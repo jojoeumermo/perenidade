@@ -1,13 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "@/components/Link";
 import { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecos } from "@/lib/rede/tipos";
-import { enderecosDescoberta, normalizarTag, tagOk, type OrdemDaBusca, type PaginaOrdenada, type ResultadoDaBusca } from "@/lib/rede/tipos-descoberta";
+import { enderecosDescoberta, normalizarTag, tagOk, type Explorar, type OrdemDaBusca, type PaginaOrdenada, type ResultadoDaBusca } from "@/lib/rede/tipos-descoberta";
+import { corDaComunidadeNova } from "@/lib/rede/tipos-comunidades";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { FaixaDaPrevia, IconeBusca, previa, useTextosAlumia3 } from "../conversa/base3";
 import { ListaOrdenada } from "./ListaOrdenada";
@@ -56,7 +57,9 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
         )}
       </header>
 
-      {q.length === 0 ? null : q.length < 2 ? (
+      {q.length === 0 ? (
+        <Sugestoes lang={lang} d={d} />
+      ) : q.length < 2 ? (
         <p className="px-[18px] py-6 font-sans text-ink-soft">{b.curta}</p>
       ) : (
         <>
@@ -107,5 +110,61 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
         </>
       )}
     </section>
+  );
+}
+
+/**
+ * A busca vazia não fica em branco: os #temas em alta da semana (os mesmos do Explorar, só os usados por 3 pessoas ou mais) e as
+ * comunidades, para tocar e ir. Nada aqui depende de quem está olhando.
+ */
+function Sugestoes({ lang, d }: { lang: string; d: NonNullable<ReturnType<typeof useTextosDescoberta>> }) {
+  const [x, setX] = useState<Explorar | null>(null);
+  useEffect(() => {
+    let vivo = true;
+    (previa() ? descobertaDaPrevia : redeDescoberta)
+      .explorar()
+      .then((r) => vivo && setX(r))
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, []);
+  if (!x || (x.tags.length === 0 && x.comunidades.length === 0)) return null;
+  const e = d.explorar;
+  return (
+    <div className="al3-entra space-y-6 px-[18px] py-5 font-sans">
+      {x.tags.length > 0 && (
+        <section aria-labelledby="busca-em-alta">
+          <h2 id="busca-em-alta" className="al3-cond al3-titulo-secao">{e.tags}</h2>
+          <ul className="al3-fichas mt-2">
+            {x.tags.slice(0, 10).map((tg, i) => (
+              <li key={tg.tag} style={{ "--i": i } as CSSProperties}>
+                <Link href={enderecosDescoberta.tag(lang, tg.tag)} className="al3-ficha">
+                  <span className="font-bold">#{tg.tag}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {x.comunidades.length > 0 && (
+        <section aria-labelledby="busca-comunidades-sugeridas">
+          <h2 id="busca-comunidades-sugeridas" className="al3-cond al3-titulo-secao">{e.comunidades}</h2>
+          <ul className="al3-fichas mt-2">
+            {x.comunidades
+              .filter((c) => c.categoria !== "disciplinas")
+              .slice(0, 8)
+              .map((c, i) => (
+                <li key={c.slug} className={`al3-cor-${corDaComunidadeNova(c.slug, c.cor)}`} style={{ "--i": i } as CSSProperties}>
+                  <Link href={enderecos.comunidade(lang, c.slug)} className="al3-ficha al3-ficha-comunidade">
+                    <span className="al3-post-ficha-ponto" aria-hidden />
+                    <span className="font-bold">{c.nome}</span>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
+    </div>
   );
 }
