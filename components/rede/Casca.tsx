@@ -11,10 +11,10 @@ import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
 import { encaixeAtivo } from "@/lib/rede/rota-alumia";
-import { sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
+import { DESTINO_DA_SAIDA, sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
 import { ENCAIXES } from "./encaixes";
 import { EsqueletoDaCasca } from "./Esqueletos";
-import { enderecoDoSite, MarcaDaAlumia } from "./MolduraDaAlumia";
+import { MarcaDaAlumia } from "./MolduraDaAlumia";
 
 /** Os destinos do menu (computador) e da barra de baixo (celular). `href` nulo = a tela ainda não existe: aparece apagado. */
 export type ItemDoMenu = "inicio" | "comunidades" | "explorar" | "chamados" | "nucleos" | "avisos" | "salvos" | "conversas" | "fediverso" | "perfil";
@@ -62,10 +62,11 @@ function Icone({ children, ativo }: { children: React.ReactNode; ativo?: boolean
 
 /**
  * "Sair rápido": apaga o que a Alumia guardou neste aparelho (lib/rede/saida.ts), roda a limpeza que cada frente encaixou
- * (aoSairRapido: chaveiro do chat, modo ato…) e vai para uma página neutra do site (a página inicial do instituto).
+ * (aoSairRapido: chaveiro do chat, modo ato…) e vai para uma página neutra DE FORA (DESTINO_DA_SAIDA: a página inicial do
+ * instituto tem "Alumia" no menu e mostraria a ligação com a rede).
  */
-function sairRapido(lang: string) {
-  void sairRapidoDaRede(enderecoDoSite(lang), ENCAIXES.aoSairRapido);
+function sairRapido() {
+  void sairRapidoDaRede(DESTINO_DA_SAIDA, ENCAIXES.aoSairRapido);
 }
 
 /** Sair da conta neste endereço (a sessão da Alumia é guardada à parte da do site: docs/rede/ALUMIA-DOMINIO.md). */
@@ -192,7 +193,7 @@ export function Casca({
             <label className="sr-only" htmlFor="rede-busca-celular">{s.menu.busca}</label>
             <input id="rede-busca-celular" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4 font-sans" />
           </form>
-          <button type="button" onClick={() => sairRapido(lang)} className="min-h-11 shrink-0 cursor-pointer rounded-full border-[1.5px] border-ink px-3 font-sans text-sm font-bold" title={s.casca.sairRapidoAjuda}>
+          <button type="button" onClick={() => sairRapido()} className="min-h-11 shrink-0 cursor-pointer rounded-full border-[1.5px] border-ink px-3 font-sans text-sm font-bold" title={s.casca.sairRapidoAjuda}>
             {s.casca.sairRapido}
           </button>
         </div>
@@ -244,7 +245,7 @@ export function Casca({
               </ul>
             </nav>
           )}
-          <button type="button" onClick={() => sairRapido(lang)} className="min-h-11 w-full cursor-pointer rounded-full border-[1.5px] border-ink px-4 text-sm font-bold hover:bg-parchment-deep" title={s.casca.sairRapidoAjuda}>
+          <button type="button" onClick={() => sairRapido()} className="min-h-11 w-full cursor-pointer rounded-full border-[1.5px] border-ink px-4 text-sm font-bold hover:bg-parchment-deep" title={s.casca.sairRapidoAjuda}>
             {s.casca.sairRapido}
           </button>
           <p className="text-xs text-ink-soft">{s.casca.sairRapidoAjuda}</p>

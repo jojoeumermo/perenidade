@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
 import { rede } from "@/lib/rede/cliente";
@@ -38,6 +38,28 @@ export function faltaNoBanco(e: unknown): boolean {
  */
 let repostarForaDoBanco = false;
 
+/** Copia um texto para a área de transferência; sem a API (ou sem permissão), pelo jeito antigo. Diz se deu certo. */
+async function copiarTexto(texto: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(texto);
+    return true;
+  } catch {
+    try {
+      const campo = document.createElement("textarea");
+      campo.value = texto;
+      campo.setAttribute("readonly", "");
+      campo.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(campo);
+      campo.select();
+      const ok = document.execCommand("copy");
+      campo.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+}
+
 /** Post de exemplo da prévia (ids "exemplo-…"): as ações mudam só na tela, nada vai ao banco. */
 const deExemplo = (id: string) => id.startsWith("exemplo-");
 
@@ -71,6 +93,9 @@ export function CartaoDaAlumia2({
   const [semRepostar, setSemRepostar] = useState(repostarForaDoBanco);
   const [erro, setErro] = useState("");
   const [nota, setNota] = useState("");
+  // O "Link copiado" some sozinho; o relógio morre junto com o cartão.
+  const relogioDaNota = useRef(0);
+  useEffect(() => () => window.clearTimeout(relogioDaNota.current), []);
   const [ocupado, setOcupado] = useState(false);
   // A ação que a pessoa acabou de tocar: só ela anima (o que já vinha aceso, salvo ou repostado aparece parado).
   const [tocou, setTocou] = useState<"repostar" | "acender" | "salvar" | null>(null);
@@ -158,20 +183,27 @@ export function CartaoDaAlumia2({
         throw e;
       }
     });
-  const compartilhar = () =>
-    acao(async () => {
-      const url = enderecoParaCompartilhar(window.location.origin, caminhoDoPost);
-      if (typeof navigator.share === "function") {
-        try {
-          await navigator.share({ url });
-          return;
-        } catch {
-          // a pessoa fechou a janela de compartilhar, ou o aparelho recusou: cai na cópia do link
-        }
+  // Compartilhar SEMPRE dá retorno: no celular, a folha do aparelho; no computador (e quando a folha falha), copia o link e mostra
+  // "Link copiado" num aviso que some sozinho. Sem área de transferência (permissão negada), o próprio link aparece no aviso.
+  const compartilhar = async () => {
+    const url = enderecoParaCompartilhar(window.location.origin, caminhoDoPost);
+    const toque = window.matchMedia("(pointer: coarse)").matches;
+    if (toque && typeof navigator.share === "function") {
+      try {
+        await navigator.share({ url });
+        return;
+      } catch (e) {
+        // fechou a folha de propósito: nada a dizer; outra falha cai na cópia do link
+        if (e instanceof DOMException && e.name === "AbortError") return;
       }
-      await navigator.clipboard.writeText(url);
-      setNota(t.cartao.copiado);
-    });
+    }
+    mostrarNota((await copiarTexto(url)) ? t.cartao.copiado : url);
+  };
+  const mostrarNota = (texto: string) => {
+    window.clearTimeout(relogioDaNota.current);
+    setNota(texto);
+    relogioDaNota.current = window.setTimeout(() => setNota(""), 3200);
+  };
 
   const nome = <span className="font-extrabold text-[var(--al-texto)]">{post.autor.codinome}</span>;
 
@@ -376,7 +408,12 @@ export function CartaoDaAlumia2({
         </div>
         {post.travado && <p className="mt-1 text-xs text-[var(--al-texto-3)]">{s.post.travado}</p>}
         <div aria-live="polite">
-          {nota && <p role="status" className="mt-1 text-sm text-[var(--al-texto-2)]">{nota}</p>}
+          {nota && (
+            <p role="status" className="al2-torrada">
+              <Icone nome="visto" className="h-4 w-4 shrink-0" grosso />
+              <span className="min-w-0 break-all">{nota}</span>
+            </p>
+          )}
           {erro && (
             <p role="alert" className="mt-1 text-sm text-oxblood">
               {erro}

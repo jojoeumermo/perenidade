@@ -7,6 +7,7 @@
 // Sem "@/" de propósito (roda no Node nos testes).
 import { proporcaoDoMosaico } from "../mosaico";
 import { elosDaCorrente } from "./corrente";
+import { COMUNIDADES_DE_EXEMPLO } from "../publicar/exemplos-alumia2";
 import type { Ato, Corrente, EstadoDoFarol, FarolDoAto, FiltroDosAtos, OrgQuePosso, PaginaDeAtos, PedidoDeMudanca, RespostaDoVou } from "../tipos-atos";
 
 /**
@@ -175,6 +176,22 @@ const normal = (s: string) =>
     .toLowerCase()
     .trim();
 
+/**
+ * Os atos embutidos nos posts de exemplo (o chamado dentro de um post do Início ou do perfil, id "exemplo-…"): entram aqui quando o
+ * cartão aparece ou quando a página do ato é aberta direto, e o dublê passa a achá-los (a página do ato e o "Você vai" funcionam).
+ */
+const AVULSOS: { ato: Ato; confirmados: number }[] = [];
+export function registrarAtoDeExemplo(ato: Ato, confirmados = 12): void {
+  if (!ato.id.startsWith("exemplo-") || AVULSOS.some((x) => x.ato.id === ato.id)) return;
+  // O post traz só o slug da comunidade: o nome e a cor vêm das comunidades de exemplo (a página do ato mostra o nome, não o slug).
+  const com = ato.comunidade ? COMUNIDADES_DE_EXEMPLO[ato.comunidade.slug] : undefined;
+  const comunidade = ato.comunidade && com ? { slug: ato.comunidade.slug, nome: com.nome, cor: com.cor } : ato.comunidade;
+  AVULSOS.push({ ato: { ...ato, comunidade, acesos: null, total: null }, confirmados });
+}
+export function atoDeExemploRegistrado(id: string): boolean {
+  return AVULSOS.some((x) => x.ato.id === id);
+}
+
 /** As respostas do dublê às funções do contrato. Recusa o que o banco recusaria (ato desconhecido, mudar ato de outra pessoa). */
 export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo(), farois: faroisDeExemplo(), correntes: correntesDeExemplo() }) {
   const farois = (estado.farois ??= {});
@@ -196,7 +213,8 @@ export function criarDuble(estado: EstadoDoDuble = { atos: atosDeExemplo(), faro
     };
   };
   const achar = (id: unknown) => {
-    const x = estado.atos.find((a) => a.ato.id === id);
+    // Os avulsos (atos embutidos nos posts de exemplo) se acham pelo id, mas não entram nas listas: não são das pranchas.
+    const x = estado.atos.find((a) => a.ato.id === id) ?? AVULSOS.find((a) => a.ato.id === id);
     if (!x) throw new Error("nao_encontrado");
     return x;
   };

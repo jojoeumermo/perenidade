@@ -4,14 +4,13 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
-import { htmlLang, localeNames, localePath, locales } from "@/i18n/config";
-import { getClient, hasSession } from "@/lib/backend";
+import { localePath } from "@/i18n/config";
 import { avisos } from "@/lib/rede/cliente-avisos";
 import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecoNoFediverso } from "@/lib/rede/publicar/alumia2";
 import { encaixeAtivo } from "@/lib/rede/rota-alumia";
-import { sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
+import { DESTINO_DA_SAIDA, sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
@@ -22,12 +21,10 @@ import { encaixe as encaixeDosAtos } from "../../atos/encaixe";
 import { encaixe as encaixeDaConversa } from "../../conversa/encaixe";
 import { encaixe as encaixeDaOrg } from "../../org/encaixe";
 import { EsqueletoDaCasca } from "../../Esqueletos";
-import { enderecoDoSite } from "../../VoltarAoSite";
-import { Avatar16 } from "../../ui/Avatar16";
 import { Faixa } from "../../ui/Faixa";
 import { Lampiao } from "../../ui/Lampiao";
 import { useAlumia2 } from "./contexto";
-import { detalhesQueFecham } from "./fechar";
+import { BotaoMais, Conta, type DestinoDoMais } from "./ContaDaAlumia2";
 import { Icone, type NomeDoIcone } from "./icones";
 import { comMovimento } from "./TopoDaLinha2";
 import { AoVivoDuble, AtosPertoDuble, ComunidadesAtivasDuble } from "./previa/Dubles";
@@ -112,15 +109,6 @@ function BotoesDoSite({ t }: { t: NonNullable<ReturnType<typeof useAlumia2>>["t"
   );
 }
 
-async function sairDaConta() {
-  try {
-    if (hasSession()) await (await getClient()).auth.signOut();
-  } catch {
-    // sem serviço: não havia sessão para encerrar
-  }
-  window.location.reload();
-}
-
 /**
  * A casca da Alumia nova (flag "alumia-2"; pranchas computador-inicio e celular-inicio). Computador (≥ 1024 px): menu à esquerda
  * com a marca (lampião, ALUMIA, Instituto Lúcia), os nove destinos, Escrever, a conta com o endereço do Fediverso e Sair rápido;
@@ -178,8 +166,16 @@ export function CascaDaAlumia2({
   // atual é sempre o Início; "Comunidades" só acende em /alumia/comunidades.
   const semBarra = (x: string) => x.replace(/\/+$/, "");
   const noInicio = semBarra(caminho) === semBarra(enderecos.linha(lang));
+  // As telas de configuração (Segurança, Regras e cuidado, Silenciados…) moram na conta, não no perfil: ali o Perfil não acende
+  // (no celular, quem acende é o "Mais", onde ficam esses itens).
+  const noPerfil = /\/alumia\/(u\/|editar-perfil)/.test(caminho);
+  const naConta = ativo === "perfil" && !noPerfil;
   const atualDe = (d: Destino, href: string | null) =>
-    noInicio ? d.chave === "inicio" : ativo === d.chave || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
+    noInicio
+      ? d.chave === "inicio"
+      : d.chave === "perfil" && naConta
+        ? false
+        : ativo === d.chave || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
 
   // A casa da barra de baixo onde está a tela atual (0 Início, 1 Explorar, 2 é o "+", 3 Atos, 4 Perfil), para o traço deslizante.
   const alvoDaBarra = situacao
@@ -194,7 +190,7 @@ export function CascaDaAlumia2({
   // Cada tela monta a casca de novo: o traço nasce onde estava na tela anterior e desliza até a de agora no quadro seguinte.
   const [indicador, setIndicador] = useState<number | null>(() => barraAnterior ?? alvoDaBarra);
   useEffect(() => {
-    if (alvoDaBarra === null) return;
+    // Tela que não é de nenhum item da barra (as do "Mais"): o traço some, em vez de ficar parado no item da tela anterior.
     const id = requestAnimationFrame(() => setIndicador(alvoDaBarra));
     barraAnterior = alvoDaBarra;
     return () => cancelAnimationFrame(id);
@@ -237,9 +233,28 @@ export function CascaDaAlumia2({
     conversas: previa ? null : (doBanco?.conversas ?? null),
     chamados: previa ? 2 : (emblemaDe("chamados", lang, s, situacao) ?? doBanco?.atos ?? null),
   };
-  const sairRapido = () => void sairRapidoDaRede(enderecoDoSite(lang), ENCAIXES.aoSairRapido);
+  const sairRapido = () => void sairRapidoDaRede(DESTINO_DA_SAIDA, ENCAIXES.aoSairRapido);
   const ctx = { lang, s, situacao };
   const direitaEncaixada = ordemDaDireita(ENCAIXES.colunaDireita);
+  // O "Mais" do celular: o que não cabe na barra de baixo. Acende quando a tela atual é uma destas (ou uma das telas da conta).
+  const linha = enderecos.linha(lang);
+  const destinosDoMais: DestinoDoMais[] = [
+    ...(["comunidades", "nucleos", "conversas", "salvos"] as Chave[]).map((chave) => {
+      const d = DESTINOS.find((x) => x.chave === chave) as Destino;
+      const href = hrefDe(d, lang, s, situacao);
+      return { chave, href, rotulo: d.rotulo(t), icone: d.icone, atual: atualDe(d, href), emblema: emblemas[chave] ?? null };
+    }),
+    { chave: "calendario", href: `${linha}/calendario`, rotulo: t.menu.calendario, icone: "calendario", atual: encaixeAtivo(`${linha}/calendario`, caminho), emblema: null },
+    { chave: "organizacoes", href: `${linha}/organizacoes`, rotulo: t.menu.organizacoes, icone: "organizacao", atual: encaixeAtivo(`${linha}/organizacoes`, caminho), emblema: null },
+    { chave: "fediverso", href: `${linha}/fediverso`, rotulo: t.menu.fediverso, icone: "fediverso", atual: ativo === "fediverso", emblema: null },
+    ...ENCAIXES.menu
+      .filter((m) => !m.substitui)
+      .map((m) => {
+        const href = m.href(ctx);
+        return { chave: `encaixe-${m.chave}`, href, rotulo: m.rotulo(ctx), icone: m.icone as React.ReactNode, atual: href !== null && encaixeAtivo(href, caminho), emblema: m.emblema?.(ctx) ?? null };
+      })
+      .filter((d) => d.href !== null),
+  ];
 
   return (
     <div className="al2 min-h-screen bg-[var(--al-fundo)]">
@@ -282,7 +297,8 @@ export function CascaDaAlumia2({
                       {n !== null && n > 0 && (
                         <span className={`al2-emblema ${d.chave === "avisos" ? "al2-emblema-vermelho" : "al2-emblema-dourado"}`}>
                           <span aria-hidden>{n > 99 ? "99+" : n}</span>
-                          <span className="sr-only">{preencher(d.chave === "avisos" ? t.menu.avisosNovos : t.menu.emblema, { n })}</span>
+                          {/* Só o número com o que ele quer dizer: o nome do item já está no texto ao lado ("Avisos 5 com novidade", não "Avisos Avisos, 5 novos"). */}
+                          <span className="sr-only">{preencher(t.menu.emblema, { n })}</span>
                         </span>
                       )}
                     </>
@@ -376,24 +392,22 @@ export function CascaDaAlumia2({
                 </span>
               )}
             </Link>
-            {/* No celular, a acessibilidade fica aqui no alto (o botão redondo não cobre o "Eu vou" nem o mosaico). */}
-            <button type="button" className="al2-acao" data-alterna-acessibilidade="" onClick={alternarAcessibilidade} aria-label={t.conta.acessibilidade} title={t.conta.acessibilidade}>
-              <Icone nome="acessibilidade" className="h-6 w-6" />
-            </button>
+            {/* No celular, a acessibilidade fica aqui no alto (o botão redondo não cobre o "Eu vou" nem o mosaico). Este botão é também
+                a vaga do botão do site: quando ele aparece (lendo em voz alta), vem para cima deste, sem ocupar outro lugar. */}
+            <span ref={vaga} className="al2-vaga-flutua relative block shrink-0">
+              <button type="button" className="al2-acao" data-alterna-acessibilidade="" onClick={alternarAcessibilidade} aria-label={t.conta.acessibilidade} title={t.conta.acessibilidade}>
+                <Icone nome="acessibilidade" className="h-6 w-6" />
+              </button>
+            </span>
             <button type="button" onClick={sairRapido} className="al2-acao" aria-label={t.conta.sairRapido} title={t.conta.sairRapidoAjuda}>
               <Icone nome="sair" className="h-6 w-6" />
             </button>
-            {/* A vaga do botão de acessibilidade do site (ele vem para cá no celular, sem cobrir o conteúdo). */}
-            <span ref={vaga} aria-hidden className="al2-vaga-flutua block h-11 w-11 shrink-0" />
+            <BotaoMais lang={lang} situacao={situacao} destinos={destinosDoMais} naConta={naConta} aoSairRapido={sairRapido} />
           </header>
           <div key={caminho} className={entrando ? "al2-tela-entra" : undefined}>
             {children}
           </div>
-          {/* Celular: a conta, os cuidados e os idiomas no pé (o menu do computador não aparece aqui). */}
-          <div className="space-y-3 border-t border-[var(--al-linha)] px-4 py-5 lg:hidden">
-            <Conta lang={lang} s={s} situacao={situacao} />
-            <p className="text-xs text-[var(--al-texto-3)]">{t.direita.rodape}</p>
-          </div>
+          {/* Celular: a conta, os cuidados e os idiomas moram no painel "Mais" do alto (nada solto no fim de cada tela). */}
         </div>
 
         {/* ───── Coluna da direita (computador) ───── */}
@@ -479,60 +493,6 @@ export function CascaDaAlumia2({
   );
 }
 
-/**
- * A conta: rosto de 16 cartões, codinome e o endereço do Fediverso (só com @nome escolhido). O resto (Voltar ao site, cuidados,
- * Sair da conta, idiomas) fica num "mais opções", para nada do menu de hoje sumir.
- */
-function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; situacao: Situacao }) {
-  const al2 = useAlumia2();
-  if (!al2) return null;
-  const { t } = al2;
-  const cuidados: [string, string][] = situacao.logado && situacao.membro
-    ? [
-        ["cuidado", t.conta.regras],
-        ["denuncias", t.conta.denuncias],
-        ["silenciados", t.conta.silenciados],
-        ...(situacao.cuida ? ([["moderacao", t.conta.moderacao]] as [string, string][]) : []),
-      ]
-    : [];
-  return (
-    <details ref={detalhesQueFecham} className="al2-conta group relative rounded-xl border border-[var(--al-linha)] bg-[var(--al-superficie)]">
-      <summary className="relative flex cursor-pointer list-none items-center gap-3 rounded-xl p-3 [&::-webkit-details-marker]:hidden">
-        {situacao.logado ? (
-          <>
-            <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={36} className="shrink-0" />
-            <span className="min-w-0 flex-1 leading-tight">
-              <span className="block truncate pr-6 text-[0.9375rem] font-extrabold">{situacao.codinome ?? t.conta.visitante}</span>
-              {situacao.handle && <span className="block break-all text-[0.6875rem] text-[var(--al-texto-3)]">{enderecoNoFediverso(situacao.handle).slice(1)}</span>}
-            </span>
-          </>
-        ) : (
-          <span className="flex-1 text-[0.9375rem] font-extrabold">{t.conta.visitante}</span>
-        )}
-        <Icone nome="pontos" className={`h-5 w-5 shrink-0 text-[var(--al-texto-3)] ${situacao.logado ? "absolute right-3 top-3" : ""}`} />
-        <span className="sr-only">{t.conta.abrir}</span>
-      </summary>
-      {/* No computador abre para cima, por cima do menu (o pé do menu não cresce e o Sair rápido não sai da tela). */}
-      <div className="al2-conta-menu space-y-1 border-t border-[var(--al-linha)] p-2 text-sm">
-        <Link href={enderecoDoSite(lang)} className="al2-acao w-full justify-start">{t.conta.voltarAoSite}</Link>
-        <button type="button" className="al2-acao w-full justify-start" onClick={alternarAjuda}>
-          <Icone nome="ajuda" className="h-[18px] w-[18px]" />
-          {t.conta.ajuda}
-        </button>
-        {cuidados.map(([rota, texto]) => (
-          <Link key={rota} href={localePath(lang, `/alumia/${rota}`)} className="al2-acao w-full justify-start">{texto}</Link>
-        ))}
-        <Link href={`${enderecos.linha(lang)}/fediverso`} className="al2-acao w-full justify-start">{t.menu.fediverso}</Link>
-        {situacao.logado ? (
-          <button type="button" onClick={() => void sairDaConta()} className="al2-acao w-full justify-start">{t.conta.sairDaConta}</button>
-        ) : null}
-        <Idiomas lang={lang} rotulo={t.conta.idiomas} />
-        <p className="px-1.5 pt-1 text-xs text-[var(--al-texto-3)]">{s.casca.sairRapidoAjuda}</p>
-      </div>
-    </details>
-  );
-}
-
 /** "Você também está no Fediverso": o endereço da pessoa, ou o convite para escolher um @nome. */
 function CartaoDoFediverso({ lang, situacao }: { lang: string; situacao: Situacao }) {
   const al2 = useAlumia2();
@@ -552,27 +512,5 @@ function CartaoDoFediverso({ lang, situacao }: { lang: string; situacao: Situaca
       )}
       <Link href={`${enderecos.linha(lang)}/fediverso`} className="mt-2 inline-block text-xs font-bold underline">{t.direita.fediVer}</Link>
     </section>
-  );
-}
-
-/** Os idiomas como links de verdade, mantendo a tela aberta (como na casca de hoje). */
-function Idiomas({ lang, rotulo }: { lang: string; rotulo: string }) {
-  let partes = (usePathname() ?? "").split("/").filter(Boolean);
-  if ((locales as readonly string[]).includes(partes[0])) partes = partes.slice(1);
-  if (partes[0] === "alumia" || partes[0] === "comunidade") partes = partes.slice(1);
-  const resto = ["alumia", ...partes].join("/");
-  return (
-    <nav aria-label={rotulo} className="px-1.5 pt-1">
-      <p className="text-xs font-bold uppercase tracking-wider text-[var(--al-texto-3)]">{rotulo}</p>
-      <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
-        {locales.map((code) => (
-          <li key={code}>
-            <a href={`/${code}/${resto}`} hrefLang={htmlLang[code]} lang={htmlLang[code]} aria-current={code === lang ? "true" : undefined} className={`inline-flex min-h-9 items-center underline underline-offset-2 ${code === lang ? "font-bold" : ""}`}>
-              {localeNames[code]}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
   );
 }
