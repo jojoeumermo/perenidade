@@ -3,11 +3,32 @@
 // Os tipos do pacote avisos da Rede v2 (docs/rede/AVISOS.md). Sem "@/" de propósito (roda no Node nos testes).
 
 /** Os tipos de aviso que a pessoa pode ligar e desligar. */
-export const TIPOS_DE_AVISO = ["resposta", "mencao", "citacao", "seguidor", "chamado", "nucleo", "moderacao", "apoio"] as const;
+export const TIPOS_DE_AVISO = [
+  "resposta",
+  "mencao",
+  "citacao",
+  "seguidor",
+  "chamado",
+  "nucleo",
+  "moderacao",
+  "apoio",
+  // B1 da comunidade (20261110-alumia-b1-comunidade.sql, interno.rede_alumia_tipos_de_aviso: a mesma lista, na mesma ordem).
+  "conversa_seguida",
+  "ajudou",
+  "ato",
+  "reacao_story",
+  "lembrete",
+] as const;
 export type TipoDeAviso = (typeof TIPOS_DE_AVISO)[number];
 
 /** Os tipos que agrupam ("Ana e mais 3 responderam"); os outros trazem o próprio texto, escrito sem trecho de post. */
-export const TIPOS_AGRUPADOS = ["resposta", "mencao", "citacao", "seguidor", "apoio"] as const;
+export const TIPOS_AGRUPADOS = ["resposta", "mencao", "citacao", "seguidor", "apoio", "conversa_seguida"] as const;
+
+/** Os tipos que nunca dizem quem fez (só a quantidade): apoio, "ajudou" (quem marcou) e o lembrete (é a própria pessoa). */
+export const TIPOS_SEM_NOME = ["apoio", "ajudou", "lembrete", "reacao_story"] as const;
+
+/** Os tipos que trazem o próprio texto do servidor (escrito sem trecho de post): chamado, núcleo, moderação e ato. */
+export const TIPOS_COM_TEXTO = ["chamado", "nucleo", "moderacao", "ato"] as const;
 
 /** Um grupo de avisos como `rede_aviso_listar` devolve. Nenhum trecho de post, nenhum nome em apoio. */
 export interface ItemDeAviso {
@@ -68,13 +89,13 @@ const preencher = (texto: string, valores: Record<string, string | number>): str
   texto.replace(/\{(\w+)\}/g, (inteiro, nome: string) => (nome in valores ? String(valores[nome]) : inteiro));
 
 /**
- * A frase de um grupo de avisos ("Ana e mais 3 responderam ao seu post."). Pura: recebe as frases do idioma. Apoio nunca tem nome
- * (só a quantidade), então cai sempre nas frases sem nome.
+ * A frase de um grupo de avisos ("Ana e mais 3 responderam ao seu post."). Pura: recebe as frases do idioma. Apoio, "ajudou",
+ * lembrete e reação a story nunca têm nome (só a quantidade), então caem sempre nas frases sem nome.
  */
 export function fraseDoAviso(item: Pick<ItemDeAviso, "tipo" | "total" | "pessoas" | "atores" | "texto">, frases: Record<string, FrasesDoTipo>, reserva: string): string {
   const f = item.tipo ? frases[item.tipo] : undefined;
-  if (!f) return item.texto || reserva;
-  const nome = item.tipo === "apoio" ? null : (item.atores[0] ?? null);
+  if (!f || ((TIPOS_COM_TEXTO as readonly string[]).includes(item.tipo ?? "") && item.texto)) return item.texto || reserva;
+  const nome = (TIPOS_SEM_NOME as readonly string[]).includes(item.tipo ?? "") ? null : (item.atores[0] ?? null);
   if (nome) {
     if (item.pessoas > 1) return preencher(f.varios, { a: nome, n: item.pessoas - 1 });
     return item.total > 1 ? preencher(f.vezes, { a: nome, n: item.total }) : preencher(f.um, { a: nome });
