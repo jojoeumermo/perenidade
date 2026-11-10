@@ -978,6 +978,15 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] :is([class~="border-[#c21f16]"], [class~="border-oxblood"]) { border-color: var(--al-vermelho); }
 [data-al="2"] [class~="border-[#f4ecd8]"] { border-color: var(--al-texto-3); }
 [data-al="2"] [class~="accent-[#c21f16]"] { accent-color: var(--al-dourado); }
+[data-al="2"] [class~="text-[#1f1a14]"] { color: var(--al-sobre-papel); }
+[data-al="2"] [class~="hover:text-[#c21f16]"]:hover { color: var(--al-vermelho-sobre-escuro); }
+[data-al="2"] [class~="hover:bg-[#c21f16]"]:not(:disabled):hover { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+[data-al="2"] [class~="decoration-[#c21f16]"] { text-decoration-color: var(--al-vermelho); }
+/* Botões de escolha das telas antigas (aria-pressed): o escolhido fica claro cheio, como os chips das pranchas. */
+[data-al="2"] [class~="aria-pressed:bg-[#1f1a14]"][aria-pressed="true"] { background-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+/* Etiquetas claras ("Resolvida", "Respondida"): pílula verde-água sobre a noite. */
+[data-al="2"] [class~="bg-[#e8f0e0]"] { background-color: color-mix(in srgb, var(--al-com-1) 22%, var(--al-superficie)); color: var(--al-texto); border-radius: var(--al-raio-pilula); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] [class~="bg-[#e8f0e0]"] { background: none; border: 1px solid var(--al-texto); }
 
 /* Sombra dura deslocada (a de cartaz do site): some. */
 [data-al="2"] :is([class*="shadow-[2px_2px_0"], [class*="shadow-[3px_3px_0"], [class*="shadow-[4px_4px_0"], [class*="shadow-[5px_5px_0"], [class*="shadow-[6px_6px_0"]) { box-shadow: none; }
@@ -1000,6 +1009,8 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 
 /* Caixas de borda grossa de tinta (papel do site) e botões de borda sem canto: borda fina e cantos das pranchas. */
 :root:not([data-contrast]):not([data-eink]) [data-al="2"] [class~="border-2"][class~="border-ink"] { border-width: 1.5px; border-color: var(--al-superficie-2); }
+/* Caixas (não botões) com borda de tinta: o fio fino das pranchas, não o contorno claro. */
+:root:not([data-contrast]):not([data-eink]) [data-al="2"] :is(div, section, article, aside, form, fieldset, details, p, ol, ul, li)[class~="border-ink"]:not(.al2-conta, .al2-bloco) { border-color: var(--al-superficie-2); }
 [data-al="2"] :is(div, section, article, aside, form, fieldset, details, p, ol, ul)[class~="border-2"]:not([class*="rounded"]) { border-radius: 16px; }
 [data-al="2"] :is(button, a)[class~="border-2"]:not([class*="rounded"]) { border-radius: var(--al-raio-pilula); }
 
