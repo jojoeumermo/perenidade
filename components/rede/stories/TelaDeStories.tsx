@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { Aba } from "@/lib/rede/tipos";
 import { Linha } from "../Linha";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { DestaquesDoPerfil } from "./Destaques";
 import StoriesNoAlto from "./NoAlto";
 import { focarNoGrupo, indiceDaSeta, useTextosDosStories } from "./usar";
 
@@ -27,6 +28,8 @@ export default function TelaDeStories({ lang, s, situacao }: PropsDaTelaDoPacote
   return (
     <div>
       <StoriesNoAlto lang={lang} situacao={situacao} />
+      {/* Os meus destaques (os mesmos do perfil): aqui também, para abrir e arrumar sem sair dos stories. */}
+      <DestaquesDoPerfil lang={lang} situacao={situacao} handle={situacao.handle ?? "voce"} />
 
       <div className="al-st-abas" role="tablist" aria-label={t?.abas.rotulo ?? s.abas.rotulo}>
         {ABAS.map((a, k) => (
