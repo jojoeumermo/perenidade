@@ -187,6 +187,7 @@
     "pedir": "Pedir: {estado}",
     "novoPonto": "Nuevo punto de encuentro",
     "novoPontoExemplo": "ej.: Plaza Silva Teles, frente a la escuela",
+    "erroPonto": "Escribe el nuevo punto con al menos 3 letras.",
     "esperando": "Pediste {estado}. Falta que otra persona de la coordinación confirme (hasta las {hora}).",
     "outraPediu": "Alguien de la coordinación pidió {estado}.",
     "confirmar": "Confirmar: {estado}",
@@ -220,6 +221,10 @@
     "aberta": "Cadena abierta.",
     "barra": "Cadena: {pct}% cerrada",
     "barraVazia": "Cadena: los eslabones siguen abiertos",
-    "fechouAgora": "¡La cadena se cerró! Gracias por estar en ella."
+    "fechouAgora": "¡La cadena se cerró! Gracias por estar en ella.",
+    "erroTexto": "Escribe el pedido con al menos 10 letras (hasta 140).",
+    "erroCidade": "Escribe la ciudad (al menos 2 letras).",
+    "erroMeta": "La meta va de 3 a 5.000 personas.",
+    "erroHora": "La hora tiene que ser en el futuro."
   }
 }

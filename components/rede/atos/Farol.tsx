@@ -125,10 +125,29 @@ export function PainelDoFarol({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; la
   const [ponto, setPonto] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [pontoRuim, setPontoRuim] = useState(false);
   const relogio = useRef<number | undefined>(undefined);
+  const campoPonto = useRef<HTMLInputElement>(null);
   const idPonto = useId();
   const idAviso = useId();
+  const idErro = useId();
   useEffect(() => () => window.clearTimeout(relogio.current), []);
+  // o campo do novo ponto já abre com o foco; ao desistir (botão ou Esc), o foco volta ao botão "Ponto de encontro 2"
+  const secao = useRef<HTMLElement>(null);
+  const voltarAoBotao = useRef(false);
+  useEffect(() => {
+    if (escolha === "ponto2") campoPonto.current?.focus();
+    else if (voltarAoBotao.current) {
+      voltarAoBotao.current = false;
+      secao.current?.querySelector<HTMLElement>('.al-farol-botao[data-estado="ponto2"]')?.focus();
+    }
+  }, [escolha]);
+  const desistirDoPonto = () => {
+    voltarAoBotao.current = true;
+    setEscolha(null);
+    setPontoRuim(false);
+    setErro(null);
+  };
   if (!farol?.coordena || ato.situacao === "cancelado") return null;
   const pendente = farol.pendente;
   const meuPendente = pendente?.meu ? pendente : null;
@@ -163,6 +182,13 @@ export function PainelDoFarol({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; la
   };
   const aoPonto = (e: FormEvent) => {
     e.preventDefault();
+    if (ponto.trim().length < 3) {
+      setPontoRuim(true);
+      setErro(t.farol.erroPonto);
+      campoPonto.current?.focus();
+      return;
+    }
+    setPontoRuim(false);
     void enviar("ponto2", ponto.trim());
   };
   const hora = pendente ? new Date(pendente.expira_em).toLocaleTimeString(lang, { hour: "2-digit", minute: "2-digit" }) : "";
@@ -174,7 +200,7 @@ export function PainelDoFarol({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; la
   const idPainel = `al-farol-painel-${ato.id}`;
 
   return (
-    <section className="al-farol-painel" aria-labelledby={idPainel}>
+    <section ref={secao} className="al-farol-painel" aria-labelledby={idPainel}>
       <h2 id={idPainel} className="al-cond">
         {t.farol.coordenar}
       </h2>
@@ -223,21 +249,48 @@ export function PainelDoFarol({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; la
         {aviso}
       </p>
       {escolha === "ponto2" ? (
-        <form className="al-farol-ponto-form" onSubmit={aoPonto}>
+        <form
+          className="al-farol-ponto-form"
+          onSubmit={aoPonto}
+          noValidate
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              e.preventDefault();
+              desistirDoPonto();
+            }
+          }}
+        >
           <label htmlFor={idPonto}>{t.farol.novoPonto}</label>
-          <input id={idPonto} className="al-ato-form-campo" value={ponto} onChange={(e) => setPonto(e.target.value)} maxLength={140} minLength={3} required placeholder={t.farol.novoPontoExemplo} autoComplete="off" />
+          <input
+            ref={campoPonto}
+            id={idPonto}
+            className="al-ato-form-campo"
+            value={ponto}
+            onChange={(e) => {
+              setPonto(e.target.value);
+              if (pontoRuim) {
+                setPontoRuim(false);
+                setErro(null);
+              }
+            }}
+            maxLength={140}
+            placeholder={t.farol.novoPontoExemplo}
+            autoComplete="off"
+            aria-invalid={pontoRuim || undefined}
+            aria-describedby={pontoRuim ? idErro : undefined}
+          />
           <div className="al-ato-org-botoes">
             <Botao type="submit" variante="dourado" aria-busy={ocupado} disabled={ocupado}>
               {preencherAto(t.farol.pedir, { estado: t.farol.estado.ponto2 })}
             </Botao>
-            <Botao variante="fantasma" onClick={() => setEscolha(null)}>
+            <Botao variante="fantasma" onClick={desistirDoPonto}>
               {t.pagina.desistir}
             </Botao>
           </div>
         </form>
       ) : null}
       {erro ? (
-        <p role="alert" className="al-ato-erro">
+        <p id={idErro} role="alert" className="al-ato-erro">
           {erro}
         </p>
       ) : null}

@@ -187,6 +187,7 @@
     "pedir": "请求：{estado}",
     "novoPonto": "新的集合点",
     "novoPontoExemplo": "例如：席尔瓦·特莱斯广场，学校对面",
+    "erroPonto": "请写下新的集合点，至少 3 个字。",
     "esperando": "你请求了「{estado}」。还需要协调组的第二个人确认（{hora} 前）。",
     "outraPediu": "协调组有人请求了「{estado}」。",
     "confirmar": "确认：{estado}",
@@ -220,6 +221,10 @@
     "aberta": "接力已发起。",
     "barra": "接力：已闭合 {pct}%",
     "barraVazia": "接力：链环尚未闭合",
-    "fechouAgora": "接力已完成！谢谢你的参与。"
+    "fechouAgora": "接力已完成！谢谢你的参与。",
+    "erroTexto": "请写下请求，至少 10 个字（最多 140 个）。",
+    "erroCidade": "请写下城市（至少 2 个字）。",
+    "erroMeta": "目标人数为 3 到 5000 人。",
+    "erroHora": "时间必须在未来。"
   }
 }
