@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
 import { loadLang } from "@/i18n";
+import { arvoreDeExemplo, previaDaAlumiaLigada } from "@/lib/rede/conversa/exemplos";
 import { textosDaRede } from "@/lib/rede/textos";
 import { idDaPreviaOk, idOk } from "@/lib/rede/tipos";
 import { ligado } from "@/lib/recursos";
@@ -27,6 +28,9 @@ export default async function Pagina({ params }: { params: Promise<{ lang: strin
   const { lang } = await loadLang(params);
   const { id } = await params;
   if (!idOk(id) && !idDaPreviaOk(id)) notFound();
+  // Na prévia, conversa que não é de nenhum exemplo responde 404 (nunca cai na conversa de outro post); os posts de exemplo
+  // do Início e do perfil ("exemplo-…") abrem o próprio post.
+  if (previaDaAlumiaLigada() && !arvoreDeExemplo(id) && !id.startsWith("exemplo-")) notFound();
   return (
     <div className="pb-8">
       <Suspense>

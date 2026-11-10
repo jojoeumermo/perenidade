@@ -26,6 +26,8 @@ import {
 } from "@/lib/rede/tipos-conversa";
 import { verificarAntesDePublicar } from "../encaixes";
 import { AcoesDeCuidado } from "../moderacao/NoCartao";
+import { CartaoDaAlumia2 } from "../publicar/alumia2/CartaoDaAlumia2";
+import { useAlumia2 } from "../publicar/alumia2/contexto";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Avatar16 } from "../ui/Avatar16";
@@ -53,13 +55,25 @@ import { pular, trazerParaVista, useFlip, useRegua } from "./movimento";
  * Na prévia: o post de exemplo pelo id (o link permanente dos cartões do Início e do perfil abre o PRÓPRIO post, sem respostas
  * inventadas para ele); um id desconhecido mostra a conversa das pranchas.
  */
-async function arvoreDaPrevia(id: string) {
+async function arvoreDaPrevia(id: string): Promise<Arvore | null> {
   const base = arvoreDeExemplo(id);
   if (!id.startsWith("exemplo-")) return base;
   const { postDaPrevia } = await import("../perfil/livre/dados");
   const post = await postDaPrevia(id);
   if (!post) return base;
-  return { ...base, post: { ...post, servidor: null }, respostas: [], raiz: post.raiz || post.id, pode_aceitar: false, pode_sintese: false };
+  const raiz = post.raiz || post.id;
+  return {
+    acima: [],
+    sintese: null,
+    ordem: base?.ordem ?? "antigas",
+    mais: false,
+    ...base,
+    post: { ...post, servidor: null },
+    respostas: [],
+    raiz,
+    pode_aceitar: false,
+    pode_sintese: false,
+  };
 }
 
 const LIMITE = 500;
@@ -98,6 +112,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   const fio = useRef<HTMLOListElement>(null);
   const ordemRef = useRef<HTMLDivElement>(null);
   const tela = useRef<HTMLDivElement>(null);
+  const casca = useAlumia2();
 
   useEffect(() => {
     let vivo = true;
@@ -107,7 +122,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
       .then((dado) => {
         if (!vivo) return;
         // Na prévia a ordem é feita aqui (o banco já devolve na ordem pedida).
-        if (previa() && ordem === "novas") dado = { ...dado, respostas: [...dado.respostas].reverse().sort((a, b) => (a.nivel ?? 0) - (b.nivel ?? 0)) };
+        if (dado && previa() && ordem === "novas") dado = { ...dado, respostas: [...dado.respostas].reverse().sort((a, b) => (a.nivel ?? 0) - (b.nivel ?? 0)) };
         setEstado({ chave, dado, erro: "" });
       })
       .catch((e) => vivo && setEstado({ chave, dado: null, erro: textoDoErro(s, e) }));
@@ -237,7 +252,26 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         </p>
       )}
 
-      <PostAberto post={post} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />
+      {/* Na casca nova, o post aberto é o MESMO cartão do Início e das comunidades (mesmas ações e mesmo selo), na densidade
+          "aberta": texto maior e citável, e as reações com emoji logo antes das ações. */}
+      {casca ? (
+        <div className="al3-raiz al3-raiz-cartao">
+          <CartaoDaAlumia2
+            key={post.id}
+            post={post}
+            lang={lang}
+            s={s}
+            logado={situacao.logado}
+            completo
+            densidade="aberta"
+            semComunidade
+            aoResponder={podeResponder ? responderA : undefined}
+            antesDasAcoes={post.reacoes ? <Reacoes post={post} t={t} logado={situacao.logado} aoErro={aoErro} /> : null}
+          />
+        </div>
+      ) : (
+        <PostAberto post={post} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />
+      )}
 
       <Torradas estado={torradas} />
 
