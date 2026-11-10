@@ -615,6 +615,7 @@
 }
 .al-chegar-folha::backdrop { background: rgb(0 0 0 / 0.55); backdrop-filter: blur(3px); }
 @media (min-width: 768px) {
+  [data-al="2"] .al-chegar-folha,
   .al-chegar-folha { inset: 0; margin: auto; height: fit-content; border-radius: 22px; padding-bottom: 1.25rem; }
   .al-chegar-folha:not(:popover-open) { translate: 0 18px; opacity: 0; }
   @starting-style {
@@ -740,3 +741,5 @@
 [data-al="2"] .al-ato-lembrete { display: inline-grid; justify-items: start; gap: 0.25rem; }
 [data-al="2"] .al-ato-aberto-texto > .al-ato-lembrete { margin-top: 0.4rem; }
 .al-chegar-folha { text-align: start; }
+/* o celular faz pílula de todo button[aria-pressed] (app/celular.css): os botões do farol continuam cartões */
+:root [data-al="2"] .al-farol-botao { border-radius: 14px; }
