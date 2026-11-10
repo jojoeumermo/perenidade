@@ -2,7 +2,8 @@
 //
 // O DUBLÊ do B1 dos atos (tarefas, caronas, petição, meta e link) para a prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): as funções de
 // verdade (supabase/migracoes/20261110-alumia-b1-atos.sql) têm o mesmo contrato. Tudo na memória da aba; os codinomes são
-// ilustrativos (não são pessoas). Segue as regras do banco: codinome só para quem organiza; carona sem quem; petição sem lista e
+// ilustrativos (não são pessoas). Segue as regras do banco: codinome de quem assumiu para ninguém (quem organiza vê o número a
+// partir de 3); carona sem quem; petição sem lista e
 // total só a partir de 3. Sem "@/" de propósito.
 import { LIMITES_DO_ATO, type Ato, type CaronaDoAto, type MeioDaCarona, type PeticaoDoAto, type QuadroDeTarefas } from "../tipos-atos";
 import { pareceDadoPessoal } from "./quadros";
@@ -47,8 +48,7 @@ export function dubleDosQuadros(achar: (id: unknown) => { ato: Ato; confirmados:
         const assumidas = t.quem.length + (t.eu ? 1 : 0);
         return {
           id: t.id, item: t.item, quantos: t.quantos, completa: assumidas >= t.quantos, eu: t.eu,
-          assumidas: ato.meu ? assumidas : null,
-          quem: ato.meu ? [...t.quem, ...(t.eu ? ["Você"] : [])] : null,
+          assumidas: ato.meu && assumidas >= 3 ? assumidas : null,
         };
       }),
     };

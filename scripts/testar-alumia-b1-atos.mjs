@@ -2,7 +2,7 @@
 //
 // Prova o B1 dos atos (supabase/migracoes/20261110-alumia-b1-atos.sql) num Postgres de verdade (scripts/banco-local.mjs), com a
 // migração rodada mais duas vezes sobre o install.sql. Matriz: visitante, quem organizou, membros que confirmaram e que não,
-// bloqueado. Regras: a borda de 3 não acende na hora; tarefas mostram codinome só a quem organiza; caronas sem contato e sem quem;
+// bloqueado. Regras: a borda de 3 não acende na hora; tarefas sem codinome para ninguém (quem organiza vê o número a partir de 3); caronas sem contato e sem quem;
 // petição sem lista e total só a partir de 3; lembretes de 24 h e 2 h só a quem confirmou, sem nome; meta e link editáveis só por
 // quem organizou; nenhuma resposta traz id de pessoa.
 // Uso: npm run testar:alumia-b1-atos
@@ -14,6 +14,8 @@ import { codigoDoErro } from "../lib/rede/atos/erros.ts";
 import { conferirAto } from "../lib/rede/atos/formulario.ts";
 import { conferirCarona, lerLinkDeApoio, lerMeta, limparCaronas, limparPeticao, limparTarefas, pareceDadoPessoal } from "../lib/rede/atos/quadros.ts";
 import { criarDuble } from "../lib/rede/atos/exemplos.ts";
+import { fraseDoAviso, TEXTOS_DO_SERVIDOR } from "../lib/rede/tipos-avisos.ts";
+import { dataLongaNaFrase, horaNoDiaDoAto } from "../lib/rede/atos/tempo.ts";
 import { criarBanco } from "./banco-local.mjs";
 import { noFimDoInstall } from "./install-posteriores.mjs";
 
@@ -56,8 +58,8 @@ ok("o package.json tem a linha do teste", /"testar:alumia-b1-atos"/.test(ler("pa
 
 
 // ═══════════════════ 0. As regras puras do cliente (lib/rede/atos/quadros.ts) ═══════════════════
-ok("cliente: tarefa de quem não organiza perde quem e assumidas", (() => { const q = limparTarefas({ organiza: false, tarefas: [{ id: "t", item: "Som", quantos: 1, completa: true, eu: false, assumidas: 1, quem: ["X"] }] }); return q.tarefas[0].quem === null && q.tarefas[0].assumidas === null; })());
-ok("cliente: quem organiza mantém os codinomes", limparTarefas({ organiza: true, tarefas: [{ id: "t", item: "Som", quantos: 1, completa: true, eu: false, assumidas: 1, quem: ["X"] }] }).tarefas[0].quem?.[0] === "X");
+ok("cliente: tarefa de quem não organiza perde assumidas e nunca carrega quem", (() => { const q = limparTarefas({ organiza: false, tarefas: [{ id: "t", item: "Som", quantos: 1, completa: true, eu: false, assumidas: 5, quem: ["X"] }] }); return !("quem" in q.tarefas[0]) && q.tarefas[0].assumidas === null; })());
+ok("cliente: nem quem organiza recebe codinome; o número só a partir de 3", (() => { const q = limparTarefas({ organiza: true, tarefas: [{ id: "t", item: "Som", quantos: 4, completa: false, eu: false, assumidas: 2, quem: ["X"] }, { id: "u", item: "Faixa", quantos: 9, completa: false, eu: false, assumidas: 3 }] }); return !("quem" in q.tarefas[0]) && q.tarefas[0].assumidas === null && q.tarefas[1].assumidas === 3; })());
 ok("cliente: carona nunca carrega campo de pessoa", !("quem" in limparCaronas([{ id: "k", tipo: "oferta", meio: "carro", saida: "Metrô", vagas: 2, sai_em: null, minha: false, apagar: false, quem: "x" }])[0]));
 ok("cliente: petição com total abaixo de 3 vira nulo", limparPeticao({ id: "p", ato: "a", alvo: "x", texto: "y", prazo: null, aberta: true, total: 2, assinei: false, organiza: false })?.total === null);
 ok("cliente: telefone, e-mail e endereço com número parecem dado pessoal", ["(11) 98888-7777", "98888 7777", "a@b.org", "Rua das Flores, 12"].every(pareceDadoPessoal) && !pareceDadoPessoal("Metrô Itaquera, saída B"));
@@ -71,10 +73,24 @@ ok("formulário: meta e link vão juntos e barram o que não serve", (() => {
   return bom.pronto && bom.meta === 500 && bom.link_apoio === "https://exemplo.org" && !ruim.pronto && ruim.problemas.meta === "numero" && ruim.problemas.link_apoio === "link";
 })());
 ok("erros: cada campo do chamar tem o seu código", ["invalido:palavra", "invalido:titulo", "invalido:onde", "invalido:link_apoio", "invalido:meta", "tarefa_completa", "peticao_encerrada"].map((m) => codigoDoErro(new Error(m))).join() === "palavra,titulo,onde,link_apoio,meta,tarefa_completa,peticao_encerrada");
+ok("carona: a hora de saída é no dia do ato, no fuso do ato (e a véspera se passar do começo)", (() => {
+  const o = { timeZone: "America/Sao_Paulo" };
+  return horaNoDiaDoAto("2026-11-20T21:00:00Z", "16:30", o) === "2026-11-20T19:30:00.000Z"
+    && horaNoDiaDoAto("2026-11-20T21:00:00Z", "19:30", o) === "2026-11-19T22:30:00.000Z"
+    && horaNoDiaDoAto("2026-11-20T21:00:00Z", "16:30", { timeZone: "Asia/Tokyo" }) === "2026-11-20T07:30:00.000Z"
+    && horaNoDiaDoAto("2026-11-20T21:00:00Z", "25:00", o) === null;
+})());
+ok("petição: o prazo no meio da frase sai com minúscula (menos em inglês)", /^segunda, 30\/11/.test(dataLongaNaFrase("2026-11-30T15:00:00Z", "pt", { timeZone: "America/Sao_Paulo" })) && /^Monday/.test(dataLongaNaFrase("2026-11-30T15:00:00Z", "en", { timeZone: "America/Sao_Paulo" })));
+ok("avisos: o lembrete gravado em português aparece no idioma de quem lê", (() => {
+  const [k24, k2] = Object.keys(TEXTOS_DO_SERVIDOR);
+  const item = (texto) => ({ tipo: "chamado", total: 1, pessoas: 1, atores: [], texto });
+  return fraseDoAviso(item(k2), {}, "r", { lembrete2h: "Reminder 2h" }) === "Reminder 2h" && fraseDoAviso(item(k24), {}, "r", { lembrete24h: "R24" }) === "R24" && fraseDoAviso(item(k2), {}, "r") === k2 && fraseDoAviso(item("outro"), {}, "r", { lembrete2h: "x" }) === "outro";
+})());
+ok("avisos: as frases do servidor existem nos 6 idiomas", ["pt", "en", "es", "fr", "ru", "zh"].every((l) => { const j = JSON.parse(ler(`i18n/rede/avisos/${l}.json`)); return Object.values(TEXTOS_DO_SERVIDOR).every((c) => typeof j.servidor?.[c] === "string" && j.servidor[c].length > 5); }));
 {
   const d = criarDuble();
   const t = d.rede_ato_tarefas({ p_ato: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01" });
-  ok("dublê: tarefas de ato de outra organização não mostram quem", t.organiza === false && t.tarefas.length > 0 && t.tarefas.every((x) => x.quem === null));
+  ok("dublê: tarefas de ato de outra organização não mostram quem", t.organiza === false && t.tarefas.length > 0 && t.tarefas.every((x) => !("quem" in x) && x.assumidas === null));
   ok("dublê: caronas sem quem", d.rede_ato_caronas({ p_ato: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01" }).every((k) => !("quem" in k)));
   let barrou = false;
   try { d.rede_ato_carona_criar({ p_ato: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01", p: { tipo: "oferta", saida: "me liga 98888-7777" } }); } catch (e) { barrou = String(e.message) === "dado_pessoal"; }
@@ -169,15 +185,22 @@ let T1;
   await recusa("quantos fora do limite", () => criar("org", "Faixa", 0), "invalido:quantos");
   await recusa("item com telefone é dado pessoal", () => criar("org", "Liga (11) 98888-7777"), "dado_pessoal");
   await criar("org", "Caixa de som", 1);
-  const lista = await espera("quem organiza cria e vê as tarefas", () => criar("org", "Faixas", 2), (r) => r.organiza === true && r.tarefas.length === 2 && r.tarefas[0].assumidas === 0);
+  const lista = await espera("quem organiza cria e vê as tarefas", () => criar("org", "Faixas", 2), (r) => r.organiza === true && r.tarefas.length === 2 && r.tarefas[0].assumidas === null && !("quem" in r.tarefas[0]));
   T1 = lista?.tarefas[0].id;
   const T2 = lista?.tarefas[1].id;
-  await espera("visitante vê os itens, sem quem e sem quantas pessoas", () => tarefas(null), (r) => r.organiza === false && r.tarefas.length === 2 && r.tarefas.every((t) => t.quem === null && t.assumidas === null && t.eu === false));
-  await espera("m1 assume a caixa de som: vê que é dela, mas não o próprio codinome numa lista", () => assumir("m1", T1), (r) => r.tarefas[0].eu === true && r.tarefas[0].completa === true && r.tarefas[0].quem === null);
+  await espera("visitante vê os itens, sem quem e sem quantas pessoas", () => tarefas(null), (r) => r.organiza === false && r.tarefas.length === 2 && r.tarefas.every((t) => !("quem" in t) && t.assumidas === null && t.eu === false));
+  await espera("m1 assume a caixa de som: vê que é dela, mas não o próprio codinome numa lista", () => assumir("m1", T1), (r) => r.tarefas[0].eu === true && r.tarefas[0].completa === true && !("quem" in r.tarefas[0]));
   await recusa("a caixa de som já tem quem leve", () => assumir("m2", T1), "tarefa_completa");
   await espera("m2 e m3 levam faixas", async () => { await assumir("m2", T2); return assumir("m3", T2); }, (r) => r.tarefas[1].completa === true && r.tarefas[1].eu === true);
-  await espera("m4 vê 'já tem quem leve', sem ninguém", () => tarefas("m4"), (r) => r.tarefas.every((t) => t.completa && !t.eu && t.quem === null && t.assumidas === null));
-  await espera("quem organiza vê os codinomes de quem assumiu", () => tarefas("org"), (r) => JSON.stringify(r.tarefas[0].quem) === '["Codinome 2"]' && r.tarefas[1].assumidas === 2 && r.tarefas[1].quem.length === 2);
+  await espera("m4 vê 'já tem quem leve', sem ninguém", () => tarefas("m4"), (r) => r.tarefas.every((t) => t.completa && !t.eu && !("quem" in t) && t.assumidas === null));
+  await espera("quem organiza NÃO vê codinome; abaixo de 3, nem o número", () => tarefas("org"), (r) => r.tarefas.every((t) => !("quem" in t)) && r.tarefas[1].assumidas === null && r.tarefas[1].completa === true && !/Codinome/.test(JSON.stringify(r)));
+  const T3 = (await criar("org", "Bandeiras", 5))?.tarefas.find((t) => t.item === "Bandeiras")?.id;
+  for (const m of ["m1", "m2", "m4"]) await assumir(m, T3);
+  await espera("a partir de 3, quem organiza vê quantas (e só ela)", async () => [await tarefas("org"), await tarefas("m4")], ([o, m]) => o.tarefas.find((t) => t.id === T3)?.assumidas === 3 && m.tarefas.find((t) => t.id === T3)?.assumidas === null);
+  await espera("tirar a tarefa vai à auditoria, sem quem tinha assumido", async () => {
+    await rpc(como(P.org), "rede_ato_tarefa_apagar", { p_tarefa: T3 });
+    return um("select quem, alvo, detalhes from interno.auditoria where acao = 'ato_tarefa_tirada' order by id desc limit 1");
+  }, (r) => r.quem === P.org && r.alvo === ID && r.detalhes.tinha_quem === true && !Object.values(P).some((id) => JSON.stringify(r.detalhes).includes(id)));
   await espera("desfazer sempre pode", () => assumir("m3", T2, false), (r) => r.tarefas[1].completa === false && r.tarefas[1].eu === false);
   await recusa("bloqueado nem acha o ato", () => tarefas("bloqueado"), "nao_encontrado");
   await espera("nenhuma resposta de tarefa traz id de pessoa", async () => JSON.stringify([await tarefas("org"), await tarefas("m1"), await tarefas(null)]), semIds);
@@ -208,7 +231,18 @@ let T1;
   await recusa("outra pessoa não tira a carona", () => rpc(como(P.m4), "rede_ato_carona_apagar", { p_id: r1?.[0]?.id }), "nao_encontrado");
   await criar("m1", { tipo: "oferta", meio: "van", saida: "Praça do Forró" });
   await recusa("até 2 por pessoa por ato", () => criar("m1", { tipo: "pedido", meio: "a_pe", saida: "Largo do Rosário" }), "invalido:caronas");
-  await espera("a dona tira a carona", () => rpc(como(P.m1), "rede_ato_carona_apagar", { p_id: r1?.[0]?.id }), (r) => r.length === 2);
+  await espera("a dona tira a carona (sem ir à auditoria)", async () => { const r = await rpc(como(P.m1), "rede_ato_carona_apagar", { p_id: r1?.[0]?.id }); return { r, n: (await um("select count(*)::int as n from interno.auditoria where acao = 'ato_carona_tirada'")).n }; }, ({ r, n }) => r.length === 2 && n === 0);
+  await espera("quem organiza tira a de outra pessoa: vai à auditoria sem dizer de quem era", async () => {
+    const extra = await criar("m3", { tipo: "oferta", meio: "bicicleta", saida: "Ciclovia da Radial" });
+    await rpc(como(P.org), "rede_ato_carona_apagar", { p_id: extra.find((k) => k.minha).id });
+    return um("select quem, alvo, detalhes from interno.auditoria where acao = 'ato_carona_tirada' order by id desc limit 1");
+  }, (r) => r.quem === P.org && r.alvo === ID && r.detalhes.meio === "bicicleta" && !JSON.stringify(r.detalhes).includes(P.m3));
+  await espera("teto de 200 caronas por ato", async () => {
+    await dono("insert into interno.rede_ato_caronas (ato, tipo, saida_publica, quem) select $1, 'oferta', 'Ponto ' || g, $2 from generate_series(1, 200) g", [ID, P.m4]);
+    return caronas("m5");
+  }, (r) => r.length === 200);
+  await recusa("ato cheio não recebe carona nova", () => criar("m5", { tipo: "pedido", meio: "carro", saida: "Largo Treze" }), "invalido:caronas_do_ato");
+  await dono("delete from interno.rede_ato_caronas where ato = $1 and saida_publica like 'Ponto %'", [ID]);
   await espera("bloqueado por quem ofereceu não vê a carona", async () => {
     await dono("insert into interno.rede_bloqueios (quem, bloqueado) values ($1, $2) on conflict do nothing", [P.m2, P.m5]);
     return caronas("m5");
@@ -277,6 +311,8 @@ let T1;
   await rpc(como(P.m1), "rede_ato_vou", { p_id: C, p_sim: true });
   await rpc(como(P.org), "rede_ato_mudar", { p_id: C, p_situacao: "cancelado", p_motivo: "" });
   await espera("ato cancelado não lembra", async () => { await lembretes(); return avisos(C); }, (r) => r.length === 0);
+  await recusa("ato cancelado não abre petição", () => rpc(como(P.org), "rede_peticao_criar", { p_ato: C, p: { alvo: "Prefeitura", texto: "Pedimos que a reintegração seja suspensa até haver moradia." } }), "ato_cancelado");
+  ok("a reserva do lembrete é o texto que a tela de avisos traduz", Object.keys(TEXTOS_DO_SERVIDOR).every((k) => sql.includes(`'${k}'`)));
   ok("o aviso usa o tipo 'chamado' (o push vai sem texto)", (await um("select count(*)::int as n from interno.avisos where post = $1 and tipo = 'chamado' and texto like 'Lembrete:%'", [A])).n === 2);
 }
 
@@ -285,8 +321,8 @@ let T1;
   const chamarComo = (quem) => (funcao, argumentos = {}) => rpc(quem ? como(P[quem]) : visitante(), funcao, argumentos);
   const cOrg = criarClienteDosAtos(chamarComo("org"));
   const cM4 = criarClienteDosAtos(chamarComo("m4"));
-  await espera("cliente: tarefas de quem não organiza não trazem quem", () => cM4.tarefas(ID), (r) => r.tarefas.every((t) => t.quem === null && t.assumidas === null));
-  await espera("cliente: quem organiza vê o codinome", () => cOrg.tarefas(ID), (r) => r.tarefas.some((t) => (t.quem ?? []).length > 0));
+  await espera("cliente: tarefas de quem não organiza não trazem quem", () => cM4.tarefas(ID), (r) => r.tarefas.every((t) => !("quem" in t) && t.assumidas === null));
+  await espera("cliente: nem quem organiza recebe codinome", () => cOrg.tarefas(ID), (r) => r.organiza && !/Codinome/.test(JSON.stringify(r)));
   await espera("cliente: caronas", () => cM4.caronas(ID), (r) => Array.isArray(r) && r.every((k) => typeof k.saida === "string"));
   await espera("cliente: editar a meta", () => cOrg.editar(ID, { meta: 40 }), (a) => a.meta === 40);
   await espera("cliente: petição encerrada", () => cM4.peticao(ID), (r) => r?.aberta === false);

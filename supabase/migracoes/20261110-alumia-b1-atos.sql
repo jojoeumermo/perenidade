@@ -16,15 +16,21 @@
 --      perto da borda quando ninguém mais se mexe. O atraso tira a dedução imediata; não a torna impossível.
 --   2. META E LINK DE APOIO editáveis por quem organizou (rede_ato_editar) e devolvidos no ato (`meta`).
 --   3. QUADRO DE TAREFAS (quem leva o quê): rede_ato_tarefas + rede_ato_tarefa_quem. O público vê o item, quantas pessoas a
---      organização pediu e se "já tem quem leve"; o codinome de quem assumiu só aparece para quem organiza; quem assumiu vê só
---      que ela mesma assumiu.
+--      organização pediu e se "já tem quem leve"; quem assumiu vê só que ela mesma assumiu. NINGUÉM recebe o codinome de quem
+--      assumiu, nem quem organiza (nem quem opera a conta da organização por rede_age_como): seria uma lista de pessoas ligadas a
+--      um ato político (LGPD art. 11). Quem organiza vê, além do "já tem quem leve", quantas pessoas assumiram só a partir de 3.
 --   4. CARONAS E ÔNIBUS: rede_ato_caronas (oferta ou pedido, meio, vagas, ponto de saída PÚBLICO, hora). Nunca telefone nem
 --      endereço com número (interno.rede3_pub_dado_pessoal); o contato é só pelo chat privado (encaixe da Faixa 2,
---      docs/rede/PEDIDOS-ENTRE-FAIXAS.md). Nenhuma função devolve quem ofereceu: só "é minha".
+--      docs/rede/PEDIDOS-ENTRE-FAIXAS.md). Nenhuma função devolve quem ofereceu: só "é minha". Até 200 por ato (e 2 por pessoa).
+--      Quem organiza pode tirar a carona de outra pessoa (contra abuso): vai a interno.auditoria sem dizer de quem era.
 --   5. PETIÇÃO SEM LISTA: rede_peticoes + rede_peticao_assinaturas. Total só a partir de 3 (e pela contagem publicada); nenhum
 --      nome de quem assinou, para ninguém (nem para quem criou). A petição não está no post: nunca federa (PLANO §8 F-FED).
+--      Regra de prazo, DE PROPÓSITO: a petição vive mais que o ato (a pauta continua depois do dia). Abrir pede ato não cancelado,
+--      mas pode ser depois do dia do ato; assinar só olha a própria petição (aberta e no prazo), nunca a data do ato.
 --   6. LEMBRETES DO SERVIDOR: 24 h e 2 h antes, um aviso (tipo 'chamado', que o enviar-push leva SEM texto) a quem confirmou e
---      não desligou "lembrete". O ato guarda só a hora em que o lembrete saiu (nada por pessoa); adiar zera.
+--      não desligou "lembrete". O ato guarda só a hora em que o lembrete saiu (nada por pessoa); adiar zera. O texto guardado é
+--      a reserva em português; a tela de avisos o reconhece (lib/rede/tipos-avisos.ts, TEXTOS_DO_SERVIDOR) e mostra no idioma
+--      de quem lê. Até 5000 avisos por rodada: o ato que não coube fica para a rodada seguinte (15 min depois).
 --
 -- Privacidade (LGPD, Lei 13.709/2018, conferida no texto: art. 5º, II e art. 11 — ir a um ato, levar uma tarefa, pedir carona e
 -- assinar petição revelam opinião política, dado pessoal sensível; art. 6º, III — necessidade; art. 18, IX — revogar o
@@ -205,19 +211,20 @@ revoke all on table interno.rede_ato_tarefas, interno.rede_ato_tarefa_quem from 
 
 /**
  * As tarefas do ato. Para todo mundo: item, quantos (o número que a organização PEDIU) e se já tem quem leve (`completa`).
- * `eu`: esta pessoa assumiu. Só quem organiza recebe `assumidas` (quantas pessoas) e `quem` (os codinomes).
+ * `eu`: esta pessoa assumiu. Só quem organiza recebe `assumidas` (quantas pessoas), e só a partir de 3 (abaixo, nulo). Codinome
+ * de quem assumiu, para ninguém (LGPD art. 11 e art. 6º, III: "tem quem leve" e o número bastam para organizar).
  */
 create or replace function interno.rede_ato_tarefas_json(p_ato uuid, p_quem uuid, p_organiza boolean) returns jsonb
 language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce(jsonb_agg(jsonb_build_object(
       'id', t.id, 'item', t.item, 'quantos', t.quantos,
-      'completa', (select count(*) from rede_ato_tarefa_quem q where q.tarefa = t.id) >= t.quantos,
+      'completa', n.n >= t.quantos,
       'eu', p_quem is not null and exists (select 1 from rede_ato_tarefa_quem q where q.tarefa = t.id and q.usuario = p_quem),
-      'assumidas', case when p_organiza then (select count(*) from rede_ato_tarefa_quem q where q.tarefa = t.id) end,
-      'quem', case when p_organiza then (select coalesce(jsonb_agg(interno.rede_nome(q.usuario) order by q.criado_em), '[]'::jsonb)
-                                          from rede_ato_tarefa_quem q where q.tarefa = t.id) end
+      'assumidas', case when p_organiza and n.n >= 3 then n.n end
     ) order by t.criado_em, t.id), '[]'::jsonb)
-    from rede_ato_tarefas t where t.ato = p_ato
+    from rede_ato_tarefas t
+    cross join lateral (select count(*) as n from rede_ato_tarefa_quem q where q.tarefa = t.id) n
+   where t.ato = p_ato
 $$;
 
 /** As tarefas de um ato que a pessoa vê (visitante: só se o ato é público na internet). Devolve {organiza, tarefas}. */
@@ -251,7 +258,10 @@ begin
   return jsonb_build_object('organiza', true, 'tarefas', interno.rede_ato_tarefas_json(p_ato, v, true));
 end $$;
 
-/** Só quem organiza: tira uma tarefa (quem tinha assumido não recebe aviso nem fica registrado). */
+/**
+ * Só quem organiza: tira uma tarefa (a tarefa é da organização). Quem tinha assumido não recebe aviso; vai a interno.auditoria
+ * que quem organiza tirou a tarefa (o item e se alguém tinha assumido), sem dizer quem tinha assumido.
+ */
 create or replace function public.rede_ato_tarefa_apagar(p_tarefa uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); t rede_ato_tarefas; p rede_posts;
 begin
@@ -262,6 +272,9 @@ begin
   p := interno.rede_ato_achar(t.ato, v);
   if not interno.rede_age_como(v, p.autor) then perform interno.erro('so_quem_organizou'); end if;
   perform interno.limite('alumia_ato_tarefa', 60, 60);
+  insert into auditoria (quem, nome, acao, alvo, detalhes)
+  values (v, '', 'ato_tarefa_tirada', t.ato::text, jsonb_build_object('item', t.item,
+    'tinha_quem', exists (select 1 from rede_ato_tarefa_quem q where q.tarefa = t.id)));
   delete from rede_ato_tarefas where id = p_tarefa;
   return jsonb_build_object('organiza', true, 'tarefas', interno.rede_ato_tarefas_json(t.ato, v, true));
 end $$;
@@ -306,15 +319,19 @@ create index if not exists rede_ato_caronas_quem on interno.rede_ato_caronas (qu
 alter table interno.rede_ato_caronas enable row level security;
 revoke all on table interno.rede_ato_caronas from public;
 
-/** As caronas do ato, sem quem: `minha` diz só se é desta pessoa; `apagar` se ela pode tirar (a dona ou quem organiza). */
+/**
+ * As caronas do ato, sem quem: `minha` diz só se é desta pessoa; `apagar` se ela pode tirar (a dona ou quem organiza). No máximo
+ * 200 (o mesmo teto da criação), as da pessoa primeiro.
+ */
 create or replace function interno.rede_ato_caronas_json(p_ato uuid, p_quem uuid, p_organiza boolean) returns jsonb
 language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce(jsonb_agg(jsonb_build_object(
       'id', k.id, 'tipo', k.tipo, 'meio', k.meio, 'saida', k.saida_publica, 'vagas', k.vagas, 'sai_em', k.sai_em,
       'minha', k.quem = p_quem, 'apagar', k.quem = p_quem or p_organiza
     ) order by k.tipo, k.sai_em nulls last, k.criado_em, k.id), '[]'::jsonb)
-    from rede_ato_caronas k
-   where k.ato = p_ato and not interno.rede_bloqueado(k.quem, p_quem)
+    from (select * from rede_ato_caronas x
+           where x.ato = p_ato and not interno.rede_bloqueado(x.quem, p_quem)
+           order by (x.quem = p_quem) desc, x.criado_em, x.id limit 200) k
 $$;
 
 /** As caronas de um ato. Só membro (18+) que vê o ato: a lista de caronas não é para a internet aberta. */
@@ -357,6 +374,7 @@ begin
   if v_sai is not null and (v_sai < c.inicio - interval '24 hours' or v_sai > c.inicio or v_sai < now() - interval '1 hour') then perform interno.erro('invalido:sai_em'); end if;
   if interno.rede3_pub_dado_pessoal(v_saida) or v_saida ~ '\d{4,5}[-\s]?\d{4}' then perform interno.erro('dado_pessoal'); end if;
   if (select count(*) from rede_ato_caronas where ato = p_ato and quem = v) >= 2 then perform interno.erro('invalido:caronas'); end if;
+  if (select count(*) from rede_ato_caronas where ato = p_ato) >= 200 then perform interno.erro('invalido:caronas_do_ato'); end if;
   perform interno.limite('alumia_ato_carona', 10, 1440);
   insert into rede_ato_caronas (ato, tipo, meio, saida_publica, vagas, sai_em, quem) values (p_ato, v_tipo, v_meio, v_saida, v_vagas, v_sai, v);
   return interno.rede_ato_caronas_json(p_ato, v, interno.rede_age_como(v, x.autor));
@@ -377,7 +395,10 @@ begin
   return interno.rede_ato_caronas_json(k.ato, v, interno.rede_age_como(v, x.autor));
 end $$;
 
-/** Tirar uma carona: a dona, ou quem organiza o ato (contra abuso; a ação vai ao registro sem dizer de quem era). */
+/**
+ * Tirar uma carona: a dona, ou quem organiza o ato (contra abuso). Quando é quem organiza tirando a de outra pessoa, vai a
+ * interno.auditoria (quem tirou, o ato, o tipo e o meio), SEM dizer de quem era a carona.
+ */
 create or replace function public.rede_ato_carona_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); k rede_ato_caronas; x rede_posts; v_org boolean;
 begin
@@ -389,6 +410,10 @@ begin
   v_org := interno.rede_age_como(v, x.autor);
   if k.quem <> v and not v_org then perform interno.erro('nao_encontrado'); end if;
   perform interno.limite('alumia_ato_carona_mudar', 60, 60);
+  if k.quem <> v then
+    insert into auditoria (quem, nome, acao, alvo, detalhes)
+    values (v, '', 'ato_carona_tirada', k.ato::text, jsonb_build_object('tipo', k.tipo, 'meio', k.meio));
+  end if;
   delete from rede_ato_caronas where id = p_id;
   return interno.rede_ato_caronas_json(k.ato, v, v_org);
 end $$;
@@ -457,7 +482,10 @@ begin
   return interno.rede_peticao_json(t, v, v is not null and interno.rede_age_como(v, p.autor));
 end $$;
 
-/** Só quem organiza o ato abre a petição dele (uma por ato). p: {alvo 3–120, texto 20–1500, prazo ISO opcional até 365 dias}. */
+/**
+ * Só quem organiza o ato abre a petição dele (uma por ato). p: {alvo 3–120, texto 20–1500, prazo ISO opcional até 365 dias}.
+ * Ato cancelado não abre petição; ato que já passou abre (de propósito: a pauta continua depois do dia; cabeçalho, item 5).
+ */
 create or replace function public.rede_peticao_criar(p_ato uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); x rede_posts; t rede_peticoes; v_alvo text; v_texto text; v_prazo timestamptz; v_tri jsonb;
 begin
@@ -467,6 +495,7 @@ begin
   x := interno.rede_ato_achar(p_ato, v);
   if not interno.rede_age_como(v, x.autor) then perform interno.erro('so_quem_organizou'); end if;
   if x.oculto or x.retido or x.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+  if exists (select 1 from rede_chamados where post = p_ato and situacao = 'cancelado') then perform interno.erro('ato_cancelado'); end if;
   if exists (select 1 from rede_peticoes where post = p_ato) then perform interno.erro('peticao_existe'); end if;
   v_alvo := regexp_replace(interno.txt(p ->> 'alvo', 'alvo', 3, 120), '\s+', ' ', 'g');
   v_texto := interno.txt(p ->> 'texto', 'texto', 20, 1500);
@@ -484,7 +513,10 @@ begin
   return interno.rede_peticao_json(t, v, true);
 end $$;
 
-/** Assinar (p_sim) ou tirar a assinatura (sempre pode, LGPD art. 18, IX). Petição encerrada ou vencida não recebe assinatura nova. */
+/**
+ * Assinar (p_sim) ou tirar a assinatura (sempre pode, LGPD art. 18, IX). Petição encerrada ou vencida não recebe assinatura nova.
+ * A data do ato não conta (a petição vive mais que o ato; cabeçalho, item 5).
+ */
 create or replace function public.rede_peticao_assinar(p_peticao uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); t rede_peticoes; x rede_posts;
 begin
@@ -537,14 +569,19 @@ create trigger rede_ato_lembrete_zerar before update of inicio on interno.rede_c
  * A rodada dos lembretes (pg_cron de 15 em 15 min; só o dono do banco chama). Para cada ato não cancelado que começa nas próximas
  * 24 h: 2 h antes sai o lembrete das 2 h; antes disso, o das 24 h (só se ainda faltam 12 h ou mais: ato chamado em cima da hora
  * recebe só o das 2 h). Vai a quem confirmou, é membro, ainda vê o ato e não desligou "lembrete"; o aviso tem tipo 'chamado' (o
- * enviar-push manda SEM texto) e um texto sem nome de ninguém. Nada fica guardado por pessoa: só a hora em que o lembrete do ato saiu.
+ * enviar-push manda SEM texto) e um texto sem nome de ninguém (a reserva em português; a tela de avisos traduz). Nada fica guardado por pessoa: só a hora em que o lembrete do ato saiu.
  */
 create or replace function interno.rede_ato_lembretes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare c rede_chamados; p rede_posts; r record; v_texto text; v_qual text; v_atos integer := 0; v_avisos integer := 0;
+declare c rede_chamados; p rede_posts; r record; v_texto text; v_qual text; v_atos integer := 0; v_avisos integer := 0; v_n bigint;
 begin
   for c in select * from rede_chamados
             where situacao <> 'cancelado' and inicio > now() and inicio <= now() + interval '24 hours' and lembrete_2h_em is null
             order by inicio limit 500 for update skip locked loop
+    -- O teto da rodada: o ato que não cabe inteiro nos 5000 avisos fica para a próxima (o primeiro sempre entra).
+    if v_avisos > 0 then
+      select count(*) into v_n from rede_vou where post = c.post;
+      if v_avisos + v_n > 5000 then exit; end if;
+    end if;
     if c.inicio <= now() + interval '2 hours' then
       v_qual := '2h';
       v_texto := 'Lembrete: um ato que você confirmou começa em menos de 2 horas.';

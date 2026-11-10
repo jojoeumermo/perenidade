@@ -64,6 +64,17 @@ export interface FrasesDoTipo {
   anonimoVarios: string;
 }
 
+/**
+ * Os textos fixos que o SERVIDOR grava em português (o aviso só guarda texto) e que a tela mostra no idioma de quem lê. A chave é
+ * o texto exato gravado (a reserva para quem lê o aviso fora da Alumia); o valor, a frase em i18n/rede/avisos/*.json → "servidor".
+ * O lembrete dos atos: supabase/migracoes/20261110-alumia-b1-atos.sql (interno.rede_ato_lembretes).
+ */
+export const TEXTOS_DO_SERVIDOR = {
+  "Lembrete: um ato que você confirmou começa em menos de 24 horas.": "lembrete24h",
+  "Lembrete: um ato que você confirmou começa em menos de 2 horas.": "lembrete2h",
+} as const;
+export type FraseDoServidor = (typeof TEXTOS_DO_SERVIDOR)[keyof typeof TEXTOS_DO_SERVIDOR];
+
 const preencher = (texto: string, valores: Record<string, string | number>): string =>
   texto.replace(/\{(\w+)\}/g, (inteiro, nome: string) => (nome in valores ? String(valores[nome]) : inteiro));
 
@@ -71,9 +82,17 @@ const preencher = (texto: string, valores: Record<string, string | number>): str
  * A frase de um grupo de avisos ("Ana e mais 3 responderam ao seu post."). Pura: recebe as frases do idioma. Apoio nunca tem nome
  * (só a quantidade), então cai sempre nas frases sem nome.
  */
-export function fraseDoAviso(item: Pick<ItemDeAviso, "tipo" | "total" | "pessoas" | "atores" | "texto">, frases: Record<string, FrasesDoTipo>, reserva: string): string {
+export function fraseDoAviso(
+  item: Pick<ItemDeAviso, "tipo" | "total" | "pessoas" | "atores" | "texto">,
+  frases: Record<string, FrasesDoTipo>,
+  reserva: string,
+  doServidor?: Partial<Record<FraseDoServidor, string>>,
+): string {
   const f = item.tipo ? frases[item.tipo] : undefined;
-  if (!f) return item.texto || reserva;
+  if (!f) {
+    const chave = item.texto ? (TEXTOS_DO_SERVIDOR as Record<string, FraseDoServidor>)[item.texto] : undefined;
+    return (chave && doServidor?.[chave]) || item.texto || reserva;
+  }
   const nome = item.tipo === "apoio" ? null : (item.atores[0] ?? null);
   if (nome) {
     if (item.pessoas > 1) return preencher(f.varios, { a: nome, n: item.pessoas - 1 });

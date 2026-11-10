@@ -64,5 +64,9 @@
       "naoConfigurado": "El aviso en el celular todavía no está activado en este sitio.",
       "precisaEntrar": "Para recibir avisos en el celular, primero entra en Alumia (18 años o más, con las normas aceptadas)."
     }
+  },
+  "servidor": {
+    "lembrete24h": "Recordatorio: un acto que confirmaste empieza en menos de 24 horas.",
+    "lembrete2h": "Recordatorio: un acto que confirmaste empieza en menos de 2 horas."
   }
 }

@@ -64,5 +64,9 @@
       "naoConfigurado": "La notification sur le téléphone n'est pas encore activée sur ce site.",
       "precisaEntrar": "Pour être prévenu sur le téléphone, rejoignez d'abord Alumia (18 ans ou plus, règles acceptées)."
     }
+  },
+  "servidor": {
+    "lembrete24h": "Rappel : une action que vous avez confirmée commence dans moins de 24 heures.",
+    "lembrete2h": "Rappel : une action que vous avez confirmée commence dans moins de 2 heures."
   }
 }
