@@ -65,6 +65,7 @@ igual("Comunidades ativas da prancha, na ordem dos posts", ativas.map((c) => [c.
 ]);
 ok("amostra de visitante fica de fora", comunidadesAtivas([{ slug: "a", nome: "A", amostra: true, posts_7d: 99 }]).length === 0);
 igual("trilha bonita", trilhaDoCaminho("marxismo/o-que-e-mais-valia"), "Marxismo");
+igual("trilha do caminho gravado", trilhaDoCaminho("/trilhas/direito-a-cidade/david-harvey-a-cidade-como-negocio"), "Direito a cidade");
 ok("tempo curto: 20 min", /20/.test(tempoCurto(new Date(Date.now() - 20 * 60000).toISOString(), "pt")));
 
 // ── Exemplos = pranchas, sem lista de pessoas ──

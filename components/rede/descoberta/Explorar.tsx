@@ -15,7 +15,7 @@ import { ORDENS, enderecosDescoberta, type Explorar as DadosDoExplorar, type Ord
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
-import { FaixaDaPrevia, IconeBusca, previa, useTextosAlumia3 } from "../conversa/base3";
+import { FaixaDaPrevia, IconeBusca, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { PassoEscolhas } from "./PassoEscolhas";
 import { descobertaDaPrevia } from "./previa";
@@ -100,6 +100,7 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
   const [estado, setEstado] = useState<{ versao: number; dados: DadosDoExplorar | null; erro: string } | null>(null);
   const [editando, setEditando] = useState(false);
   const t = useTextosAlumia3(lang);
+  const torradas = useTorrada();
   // Os #temas que a própria pessoa segue (20261110-alumia-comunidade.sql): só ela vê. Banco sem a migração: a faixa não aparece.
   const [minhasTags, setMinhasTags] = useState<string[]>(() => (previa() ? ["tarifazero", "moradiadigna"] : []));
   const fonte = previa() ? descobertaDaPrevia : redeDescoberta;
@@ -143,12 +144,17 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
   const linha = x.linhas.find((l) => l.slug === linhaPedida) ?? null;
   const categorias = ["lutas", "disciplinas", "instituto"] as const;
 
+  // Ligar ou desligar "aparecer nos pacotes" muda só o botão: uma falha vira aviso flutuante e o resto do Explorar fica como está.
+  // Na prévia (sem conta), a escolha fica só nesta tela.
   async function aparecer(sim: boolean) {
+    const marcar = () =>
+      setEstado((atual) => (atual?.dados ? { ...atual, dados: { ...atual.dados, eu: { ...(atual.dados.eu ?? { passo: "pronto", regras_versao: 0 }), aparece: sim } } } : atual));
+    if (previa()) return marcar();
     try {
       await redeDescoberta.aparecer(sim);
-      setVersao((n) => n + 1);
-    } catch {
-      setEstado({ versao, dados: null, erro: d?.estados.erro ?? "" });
+      marcar();
+    } catch (erro) {
+      torradas.mostrar({ texto: textoDoErro(s, erro) || (d?.estados.erro ?? ""), erro: true });
     }
   }
 
@@ -166,7 +172,7 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
             <input id="al3-explorar-q" name="q" type="search" maxLength={200} placeholder={t.descoberta.buscar} enterKeyHint="search" />
           </span>
         </form>
-        {situacao.membro && x.eu?.passo !== "entrar" && (
+        {situacao.membro && !previa() && x.eu?.passo !== "entrar" && (
           <button type="button" onClick={() => setEditando(!editando)} aria-expanded={editando} className={`${botao} mt-3`}>
             {e.mudarEscolhas}
           </button>
@@ -335,6 +341,7 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
           </section>
         </div>
       )}
+      <Torradas estado={torradas} />
     </div>
   );
 }
