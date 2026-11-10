@@ -161,7 +161,8 @@
       "enviando": "Enviando… {pct}%",
       "publicando": "Publicando…",
       "cancelar": "Cancelar",
-      "ajuda": "O vídeo é refeito aqui, sem localização. Deixe esta tela aberta."
+      "ajuda": "O vídeo é refeito aqui, sem localização. Deixe esta tela aberta.",
+      "ajudaFoto": "A foto é refeita aqui, sem localização. Deixe esta tela aberta."
     },
     "erroMidia": {
       "video": "Não deu para ler esse vídeo. Use MP4, MOV ou WEBM.",
@@ -257,6 +258,7 @@
     "seu": "Seu story",
     "respostasChegam": "As respostas e reações chegam só para você, nos seus avisos.",
     "responder": "Responder só para {nome}…",
+    "responderCurto": "Responder…",
     "responderRotulo": "Responder só para {nome}",
     "enviar": "Enviar",
     "enviado": "Enviado só para {nome}.",
@@ -354,5 +356,10 @@
       "many": "{n} destaques",
       "other": "{n} destaques"
     }
+  },
+  "pagina": {
+    "titulo": "Stories",
+    "lede": "Os stories de quem você segue e das suas comunidades. Toque numa bolinha para ver, ou em “Seu story” para criar o seu.",
+    "inicio": "Ver a linha de Início"
   }
 }
