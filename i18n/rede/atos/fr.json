@@ -27,6 +27,7 @@
     "chamar": "Appeler",
     "chamarAjuda": "Partager l'action",
     "copiado": "Lien copié. Colle-le où tu veux appeler du monde.",
+    "naoCopiou": "Impossible de copier. L'adresse de l'action : {url}",
     "agenda": "Ajouter à l'agenda (.ics)",
     "agendaAjuda": "Le fichier naît sur cet appareil ; le rappel reste dans ton agenda.",
     "apoio": "Soutenir (lien externe)",

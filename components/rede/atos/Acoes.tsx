@@ -10,7 +10,7 @@ import { useRef, useState } from "react";
 import Link from "@/components/Link";
 import { Botao, LinkBotao } from "../ui/Botao";
 import { Chegar } from "./Chegar";
-import { baixarIcs, chamarAto, Icone } from "./partes";
+import { baixarIcs, chamarAto, enderecoDoAto, Icone } from "./partes";
 import { frase, useVou } from "./usar";
 import { podeMexer, MOLAS, vibrar } from "@/lib/rede/atos/movimento";
 import { enderecos } from "@/lib/rede/tipos";
@@ -125,26 +125,36 @@ export function BotaoConversa({ ato, t, lang, longo, tamanho = "m", className = 
 
 /** O "Chamar" com aviso de "link copiado" quando o aparelho não tem o compartilhar. */
 export function useChamar(ato: Ato, lang: string) {
-  const [copiado, setCopiado] = useState(false);
+  const [estado, setEstado] = useState<"" | "copiado" | "falhou">("");
+  const relogio = useRef<number | undefined>(undefined);
   const chamar = async () => {
     const r = await chamarAto(ato, lang);
-    if (r === "copiado") {
-      setCopiado(true);
-      setTimeout(() => setCopiado(false), 4000);
+    if (r === "copiado" || r === "falhou") {
+      setEstado(r);
+      window.clearTimeout(relogio.current);
+      // quando nem copiar deu, o endereço fica à vista mais tempo (para a pessoa copiar à mão)
+      relogio.current = window.setTimeout(() => setEstado(""), r === "falhou" ? 15000 : 4000);
     }
   };
-  return { chamar, copiado };
+  return { chamar, estado };
+}
+
+/** O aviso do Chamar: "link copiado" ou, se nem isso deu, o endereço do ato para copiar à mão. */
+function AvisoDoChamar({ ato, t, lang, estado }: { ato: Ato; t: TextosDosAtos; lang: string; estado: "" | "copiado" | "falhou" }) {
+  return (
+    <span role="status" className="al-ato-copiado" data-falhou={estado === "falhou" ? "" : undefined}>
+      {estado === "copiado" ? t.acoes.copiado : estado === "falhou" ? preencherAto(t.acoes.naoCopiou, { url: enderecoDoAto(lang, ato.id) }) : ""}
+    </span>
+  );
 }
 
 /** O botão só de ícone do Chamar (cartão do computador). */
 export function BotaoChamarIcone({ ato, t, lang }: PropsDasAcoes) {
-  const { chamar, copiado } = useChamar(ato, lang);
+  const { chamar, estado: chamado } = useChamar(ato, lang);
   return (
     <span className="al-ato-chamar-icone">
       <Botao variante="contorno" tamanho="m" aria-label={t.acoes.chamarAjuda} title={t.acoes.chamarAjuda} onClick={chamar} icone={Icone.chamar(18)} className="al-ato-quadrado-p" />
-      <span role="status" className="al-ato-copiado">
-        {copiado ? t.acoes.copiado : ""}
-      </span>
+      <AvisoDoChamar ato={ato} t={t} lang={lang} estado={chamado} />
     </span>
   );
 }
@@ -155,7 +165,7 @@ export function BotaoChamarIcone({ ato, t, lang }: PropsDasAcoes) {
  */
 export function ColunaDeAcoes({ ato, t, lang, logado = true, lembrete = false }: PropsDasAcoes & { lembrete?: boolean }) {
   const { alternar, ocupado, erro } = useVou(ato);
-  const { chamar, copiado } = useChamar(ato, lang);
+  const { chamar, estado: chamado } = useChamar(ato, lang);
   const cancelado = ato.situacao === "cancelado";
   const botaoVou = useRef<HTMLButtonElement>(null);
   const [aviso, setAviso] = useState("");
@@ -245,9 +255,7 @@ export function ColunaDeAcoes({ ato, t, lang, logado = true, lembrete = false }:
         <span id={`al-chamar-${ato.id}`} className="al-ato-acao-rotulo">
           {t.acoes.chamar}
         </span>
-        <span role="status" className="al-ato-copiado">
-          {copiado ? t.acoes.copiado : ""}
-        </span>
+        <AvisoDoChamar ato={ato} t={t} lang={lang} estado={chamado} />
       </div>
       {lembrete && !cancelado ? (
         <div className="al-ato-acao">

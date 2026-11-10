@@ -169,9 +169,10 @@ export function enderecoDoAto(lang: string, id: string): string {
 
 /**
  * "Chamar": o compartilhar do próprio aparelho (WhatsApp, Telegram…); sem ele, copia o link. Vai só o nome do ato, quando e onde;
- * nunca quem vai. Devolve "copiado" quando copiou (a tela avisa), "compartilhado" ou "nada".
+ * nunca quem vai. Devolve "copiado" quando copiou (a tela avisa), "falhou" quando nem copiar deu (a tela mostra o endereço),
+ * "compartilhado" ou "nada" (a pessoa fechou o compartilhar).
  */
-export async function chamarAto(ato: Ato, lang: string): Promise<"compartilhado" | "copiado" | "nada"> {
+export async function chamarAto(ato: Ato, lang: string): Promise<"compartilhado" | "copiado" | "falhou" | "nada"> {
   const url = enderecoDoAto(lang, ato.id);
   const texto = textoParaChamar(ato.titulo, dataCurta(ato.inicio, lang), pontoEDetalhe(ato.onde).ponto);
   try {
@@ -186,8 +187,30 @@ export async function chamarAto(ato: Ato, lang: string): Promise<"compartilhado"
     await navigator.clipboard.writeText(`${texto}\n${url}`);
     return "copiado";
   } catch {
-    return "nada";
+    // sem permissão da área de transferência (aba sem foco, navegador antigo): o jeito velho, por um campo escondido
+    return copiarPeloCampo(`${texto}\n${url}`) ? "copiado" : "falhou";
   }
+}
+
+function copiarPeloCampo(texto: string): boolean {
+  if (typeof document === "undefined") return false;
+  const ativo = document.activeElement as HTMLElement | null;
+  const campo = document.createElement("textarea");
+  campo.value = texto;
+  campo.setAttribute("readonly", "");
+  campo.setAttribute("aria-hidden", "true");
+  campo.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
+  document.body.appendChild(campo);
+  campo.select();
+  let ok = false;
+  try {
+    ok = document.execCommand("copy");
+  } catch {
+    ok = false;
+  }
+  campo.remove();
+  ativo?.focus?.({ preventScroll: true });
+  return ok;
 }
 
 /** "Pôr na agenda": monta o .ics NO APARELHO e baixa (nada vai ao servidor; ninguém fica sabendo). */

@@ -6,7 +6,7 @@ import Link from "@/components/Link";
 import type { ContextoDoEncaixe } from "../encaixes";
 import { ItemDoAto } from "./ItemDoAto";
 import { useListaDeAtos, useTextosDosAtos } from "./usar";
-import { cidadeGuardada } from "@/lib/rede/atos/aparelho";
+import { cidadeGuardada, ouvirCidade } from "@/lib/rede/atos/aparelho";
 import "./atos.css";
 
 /**
@@ -17,8 +17,10 @@ import "./atos.css";
 export function AtosPerto({ lang }: ContextoDoEncaixe) {
   const t = useTextosDosAtos(lang);
   const [cidade, setCidade] = useState<string | null | undefined>(undefined);
+  // lê a cidade guardada e acompanha a troca (na tela dos atos, ao lado, ou em outra aba): a coluna nunca fica com a cidade velha
   useEffect(() => {
     queueMicrotask(() => setCidade(cidadeGuardada()));
+    return ouvirCidade(() => setCidade(cidadeGuardada()));
   }, []);
   const { estado } = useListaDeAtos("perto", { cidade: cidade ?? null, ligado: !!cidade });
   if (!t) return null;

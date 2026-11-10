@@ -27,6 +27,7 @@
     "chamar": "Call out",
     "chamarAjuda": "Share the action",
     "copiado": "Link copied. Paste it wherever you want to call people.",
+    "naoCopiou": "Couldn't copy. The action's address: {url}",
     "agenda": "Add to calendar (.ics)",
     "agendaAjuda": "The file is created on this device; the reminder stays with your calendar.",
     "apoio": "Support (external link)",

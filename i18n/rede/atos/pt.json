@@ -27,6 +27,7 @@
     "chamar": "Chamar",
     "chamarAjuda": "Compartilhar o ato",
     "copiado": "Link copiado. Cole onde quiser chamar gente.",
+    "naoCopiou": "Não deu para copiar. O endereço do ato: {url}",
     "agenda": "Pôr na agenda (.ics)",
     "agendaAjuda": "O arquivo nasce neste aparelho; o lembrete fica com a sua agenda.",
     "apoio": "Apoiar (link externo)",
