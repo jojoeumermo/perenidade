@@ -11,6 +11,7 @@ import { APARENCIA_PADRAO, arrumarAparencia, pedidoDaAparencia, type AparenciaDo
 import type { ExtrasDoPerfil, PedidoDeExtras } from "@/lib/rede/tipos-org";
 import type { PerfilDaRede, PerfilMeu } from "@/lib/rede/tipos-perfil";
 import { lembrarRosto, ROSTOS_DA_PREVIA } from "@/lib/rede/rostos";
+import { CHAVE_DA_PREVIA_DO_PERFIL } from "@/lib/rede/codinome-da-conta";
 
 /** Uma organização que a pessoa escolheu mostrar (o banco devolve o @ e o codinome de quem tem selo). */
 export interface OrgNoPerfil {
@@ -46,7 +47,7 @@ export function lerAparencia(bruto: unknown): AparenciaLida {
 
 // ───────────────────────────── Prévia (só NEXT_PUBLIC_ALUMIA_PREVIA=sim) ─────────────────────────────
 
-const CHAVE = "alumia:previa:perfil-livre";
+const CHAVE = CHAVE_DA_PREVIA_DO_PERFIL;
 const daqui3Horas = () => new Date(Date.now() + 3 * 3600e3).toISOString();
 
 /** As aparências de exemplo (personagens inventados das pranchas, com codinome). */
