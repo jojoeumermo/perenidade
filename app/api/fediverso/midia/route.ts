@@ -8,6 +8,9 @@
 // conferido em CADA salto (um redirecionamento não leva a instância bloqueada), com tamanho máximo, e o tipo é conferido pelos
 // BYTES (JPG, PNG, WebP, GIF e AVIF; nunca SVG). O cache é curto (1 dia na borda) para imagem de instância que a mediação bloqueou
 // depois sumir logo.
+// LIMITE CONHECIDO: a rota esconde QUEM lê, não QUANDO. A imagem só é buscada na origem no momento em que o primeiro leitor a pede;
+// uma nota mandada a uma pessoa só, com um endereço de imagem único, deixa o servidor de fora saber a hora em que ela abriu.
+// O conserto (buscar e guardar a mídia quando a nota chega, e servir do nosso depósito) está em docs/rede/FEDIVERSO.md.
 import { urlDoFediverso, pedirAoFediverso } from "@/lib/rede/fediverso/http";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, midiaAssinada, modoTotal, semFederacao } from "@/lib/rede/fediverso/servidor";

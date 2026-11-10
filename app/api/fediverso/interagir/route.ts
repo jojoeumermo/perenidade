@@ -7,7 +7,7 @@
 import { after } from "next/server";
 import { processarFila } from "@/lib/rede/fediverso/entrega";
 import { conferirTeto, pessoaFederada, recusaDaFederacao } from "@/lib/rede/fediverso/rotas";
-import { modoTotal, semFederacao } from "@/lib/rede/fediverso/servidor";
+import { codigoParaATela, modoTotal, semFederacao } from "@/lib/rede/fediverso/servidor";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
 export const runtime = "nodejs";
@@ -28,12 +28,12 @@ export async function POST(pedido: Request) {
   const sim = corpo?.sim !== false;
   // Quem desligou a federação (ou tem impedimento) não manda nada para fora; quem federa ganha o par de chaves antes da fila.
   const eu = await chamarComoPessoa<{ handle?: string | null; ligado?: boolean }>(token, "rede_fed_eu", { p_acao: "interagir" });
-  if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
+  if (!eu.ok) return resposta({ erro: codigoParaATela(eu.codigo) }, statusDoCodigo(eu.codigo));
   if (!eu.dado.ligado) return resposta({ erro: "fediverso_desligado" }, 409);
   const federada = await pessoaFederada(eu.dado.handle);
   if (federada !== "ok") return recusaDaFederacao(federada);
   const r = await chamarComoPessoa<{ ok?: boolean; curti?: boolean; impulsionei?: boolean }>(token, "rede_fed_interagir", { p_post_remoto: post, p_tipo: tipo, p_sim: sim });
-  if (!r.ok) return resposta({ erro: r.codigo }, statusDoCodigo(r.codigo));
+  if (!r.ok) return resposta({ erro: codigoParaATela(r.codigo) }, statusDoCodigo(r.codigo));
   after(() => processarFila(10).then(() => undefined, () => undefined));
   // O estado de verdade depois da ação (o banco é quem sabe: um pedido repetido não muda nada).
   return resposta({ ok: true, tipo, sim, curti: r.dado?.curti === true, impulsionei: r.dado?.impulsionei === true });

@@ -36,6 +36,7 @@ const rotas = {
   interagir: await import("../app/api/fediverso/interagir/route.ts"),
   responder: await import("../app/api/fediverso/responder/route.ts"),
   remoto: await import("../app/api/fediverso/remoto/route.ts"),
+  buscar: await import("../app/api/fediverso/buscar/route.ts"),
   denunciar: await import("../app/api/fediverso/denunciar/route.ts"),
   midia: await import("../app/api/fediverso/midia/route.ts"),
   seguir: await import("../app/api/fediverso/seguir/route.ts"),
@@ -90,6 +91,10 @@ const db = {
   fios: new Map(),
   perfis: new Map(),
   denunciaDaTela: () => ({ protocolo: "FED-1", encaminhada: false, ja: false }),
+  // O que a tela mandou por último à linha mista e às respostas de um post daqui, e o que estas devolvem.
+  ultimaLinha: null,
+  ultimasRespostas: null,
+  respostasDe: () => ({ itens: [], proximo: null, total: 0 }),
 };
 const dominioDe = (u) => { try { return new URL(u).host; } catch { return ""; } };
 const bloqueado = (u) => { const h = dominioDe(u); return Boolean(h) && [...db.bloqueados].some((d) => h === d || h.endsWith(`.${d}`)); };
@@ -193,7 +198,7 @@ const acoes = {
 const funcoesDaPessoa = {
   rede_fed_eu: () => ({ perfil: `perfil-da-${db.pessoa.handle}`, handle: db.pessoa.handle, ligado: db.pessoa.ligado, total: true }),
   rede_fed_interagir: (a) => ({ ok: true, curti: a.p_tipo === "like" && a.p_sim, impulsionei: a.p_tipo === "announce" && a.p_sim }),
-  rede_fed_linha_mista: () => ({
+  rede_fed_linha_mista: (a) => (db.ultimaLinha = a) && ({
     itens: [{ id: "https://remota.teste/notes/l1", origem: "fediverso", avatar: "https://remota.teste/av.png", midia: [{ url: "https://remota.teste/m/l1.png", tipo: "image/png", alt: "x" }, { url: "javascript:alert(1)", tipo: "image/png" }] }],
     proximo: null,
   }),
@@ -201,6 +206,8 @@ const funcoesDaPessoa = {
   rede_fed_fio_remoto: (a) => db.fios.get(a.p_id) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
   rede_fed_perfil_remoto: (a) => db.perfis.get(a.p_ator) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
   rede_fed_denunciar_remoto: (a) => db.denunciaDaTela(a),
+  rede_fed_respostas_de: (a) => { db.ultimasRespostas = a; return db.respostasDe(a); },
+  rede_fed_seguindo_lista: () => [],
 };
 globalThis.fetch = async (url, init = {}) => {
   const u = String(url);
@@ -537,7 +544,7 @@ await espera("remoto ?post: sem a nota no banco, o post e os de cima são lidos 
   const filha = novaNota({ inReplyTo: pai.id, content: '<p>ao vivo <img src="https://remota.teste/x.png"></p>', attachment: [{ type: "Document", mediaType: "image/png", url: "https://remota.teste/m/v1.png", name: "foto" }] });
   rede.docs.set(pai.id, pai);
   rede.docs.set(filha.id, filha);
-  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}`, { metodo: "GET" }));
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}&buscar=1`, { metodo: "GET" }));
   const j = await r.json();
   const p = j.post ?? {};
   return [r.status, p.id === filha.id, p.origem, p.ao_vivo, p.curti, p.impulsionei, p.respostas, p.servidor, p.ator_remoto, p.handle_remoto, p.autor?.remoto, p.autor?.codinome, p.visibilidade, p.midia?.[0]?.url?.startsWith("/api/fediverso/midia?u="), /<img/.test(p.html ?? ""), j.acima?.length, j.acima?.[0]?.id === pai.id, j.acima?.[0]?.origem, Array.isArray(j.respostas) && j.respostas.length, semEnderecoDeForaParaBuscar(j)];
@@ -545,12 +552,13 @@ await espera("remoto ?post: sem a nota no banco, o post e os de cima são lidos 
 await espera("remoto ?post: o post daqui acima de uma nota lida na origem vem como { local: <id> }; nota que não existe dá 404", async () => {
   const filha = novaNota({ inReplyTo: URL_POST_LOCAL });
   rede.docs.set(filha.id, filha);
-  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}`, { metodo: "GET" }));
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(filha.id)}&buscar=1`, { metodo: "GET" }));
   const j = await r.json();
-  const nada = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent("https://remota.teste/notes/nao-existe")}`, { metodo: "GET" }));
+  const nada = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent("https://remota.teste/notes/nao-existe")}&buscar=1`, { metodo: "GET" }));
   return [r.status, JSON.stringify(j.acima), nada.status, (await nada.json()).erro];
 }, (r) => r[0] === 200 && r[1] === JSON.stringify([{ local: POST_LOCAL }]) && r[2] === 404 && r[3] === "nao_encontrado");
 await espera("remoto ?ator: o perfil junta numa lista só os posts lidos agora e os do banco (o do banco ganha), tudo em cartão; 'local' vem sem avatar nem mídia de fora", async () => {
+  servidor.esquecerOLembrado();
   const DUDA = "https://remota.teste/users/duda";
   const n1 = novaNota({ attributedTo: DUDA, cc: [`${DUDA}/followers`], published: "2026-11-03T10:00:00Z" });
   const n2 = novaNota({ attributedTo: DUDA, cc: [`${DUDA}/followers`], published: "2026-11-02T10:00:00Z" });
@@ -562,6 +570,112 @@ await espera("remoto ?ator: o perfil junta numa lista só os posts lidos agora e
   const j = await r.json();
   return [r.status, j.handle, j.avatar?.startsWith("/api/fediverso/midia?u="), j.servidor, j.posts?.map((p) => p.id).join(" ") === [n1.id, n2.id, "https://remota.teste/notes/so-seguidores"].join(" "), j.posts?.[0]?.ao_vivo, j.posts?.[0]?.nome_remoto, j.posts?.[1]?.curti, j.posts?.[1]?.ao_vivo, j.local?.seguindo, j.local?.segue_voce, "posts" in (j.local ?? {}), j.local?.avatar?.startsWith("/api/fediverso/midia?u="), semEnderecoDeForaParaBuscar(j)];
 }, (r) => r[0] === 200 && r[1] === "duda@remota.teste" && r[2] === true && r[3] === "remota.teste" && r[4] === true && r[5] === true && r[6] === "Duda" && r[7] === true && r[8] === undefined && r[9] === "sim" && r[10] === true && r[11] === false && r[12] === true && r[13].length === 0);
+await espera("ataque: abrir um link com ?post=<endereço qualquer> NÃO faz o servidor buscar lá fora (só o toque 'buscar', com buscar=1)", async () => {
+  const armada = novaNota({ id: "https://remota.teste/notes/armada-1" });
+  rede.docs.set(armada.id, armada);
+  const antes = rede.gets.length;
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(armada.id)}`, { metodo: "GET" }));
+  const j = await r.json();
+  const zero = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(armada.id)}&buscar=0`, { metodo: "GET" }));
+  const semRede = rede.gets.length - antes;
+  const comToque = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(armada.id)}&buscar=1`, { metodo: "GET" }));
+  return [r.status, j.erro, j.servidor, "post" in j, zero.status, semRede, comToque.status, rede.gets.includes(armada.id)];
+}, (r) => r[0] === 404 && r[1] === "so_na_origem" && r[2] === "remota.teste" && r[3] === false && r[4] === 404 && r[5] === 0 && r[6] === 200 && r[7] === true);
+await espera("remoto ?linha: o cursor no formato REAL do banco (data com espaço e fuso, '|', a chave) passa e chega inteiro à função", async () => {
+  const cursor = "2026-11-10 12:34:56.789+00|https://remota.teste/notes/l1#impulso-de-https://ponte.teste/users/cid";
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?linha=1&limite=20&cursor=${encodeURIComponent(cursor)}`, { metodo: "GET" }));
+  const chegou = db.ultimaLinha?.p_cursor;
+  const ruins = await Promise.all(["a\nb", "a\tb", "<script>", 'a"b', "a'b", "x".repeat(701)].map(async (c) => (await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?linha=1&cursor=${encodeURIComponent(c)}`, { metodo: "GET" }))).status));
+  const limites = await Promise.all(["0", "51", "1.5", "x"].map(async (l) => (await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?linha=1&limite=${l}`, { metodo: "GET" }))).status));
+  return [r.status, chegou === cursor, db.ultimaLinha?.p_limite, ruins.join(), limites.join()];
+}, (r) => r[0] === 200 && r[1] === true && r[2] === 20 && r[3] === "400,400,400,400,400,400" && r[4] === "400,400,400,400");
+await espera("remoto ?respostas: as respostas de fora a um post DAQUI vêm em cartão e pelo proxy, com total e cursor, sem gastar o teto de 'remoto' nem tocar a rede", async () => {
+  const cursor = "2026-11-09 08:00:00+00|https://remota.teste/notes/r2";
+  db.respostasDe = () => ({ itens: [cartaoDoBanco("https://remota.teste/notes/r1", { resposta_a: URL_POST_LOCAL }), cartaoDoBanco("https://remota.teste/notes/r2"), { id: POST_LOCAL, tipo: "post" }, null, "x"], proximo: cursor, total: 7 });
+  const eusAntes = db.rpcs.filter((f) => f === "rede_fed_eu").length;
+  const redeAntes = rede.gets.length;
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?respostas=${POST_LOCAL.toUpperCase()}`, { metodo: "GET" }));
+  const j = await r.json();
+  const primeira = { ...db.ultimasRespostas };
+  const r2 = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?respostas=${POST_LOCAL}&cursor=${encodeURIComponent(cursor)}`, { metodo: "GET" }));
+  const segunda = { ...db.ultimasRespostas };
+  db.respostasDe = () => ({ itens: [], proximo: null, total: 0 });
+  return [r.status, j.itens?.length, j.itens?.every((c) => c.origem === "fediverso"), j.proximo === cursor, j.total, semEnderecoDeForaParaBuscar(j), primeira.p_post, primeira.p_cursor, r2.status, segunda.p_cursor === cursor,
+    db.rpcs.filter((f) => f === "rede_fed_eu").length - eusAntes, rede.gets.length - redeAntes, r.headers.get("cache-control")];
+}, (r) => r[0] === 200 && r[1] === 2 && r[2] === true && r[3] === true && r[4] === 7 && r[5].length === 0 && r[6] === POST_LOCAL && r[7] === null && r[8] === 200 && r[9] === true && r[10] === 0 && r[11] === 0 && /no-store/.test(r[12]));
+await espera("remoto ?respostas: id que não é de post daqui, cursor torto e sem sessão são recusados; o erro do banco chega como código", async () => {
+  const ruins = await Promise.all(["", "1", "https://remota.teste/notes/1", `${POST_LOCAL}x`, "0a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4g"].map(async (id) => (await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?respostas=${encodeURIComponent(id)}`, { metodo: "GET" }))).status));
+  const cursorTorto = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?respostas=${POST_LOCAL}&cursor=${encodeURIComponent("a\nb")}`, { metodo: "GET" }));
+  const semSessao = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?respostas=${POST_LOCAL}`, { metodo: "GET", token: false }));
+  db.respostasDe = () => new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 });
+  const sumiu = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?respostas=${POST_LOCAL}`, { metodo: "GET" }));
+  db.respostasDe = () => ({ itens: [], proximo: null, total: 0 });
+  return [ruins.join(), cursorTorto.status, semSessao.status, sumiu.status, (await sumiu.json()).erro];
+}, (r) => r[0] === "400,400,400,400,400" && r[1] === 400 && r[2] === 401 && r[3] === 404 && r[4] === "nao_encontrado");
+await espera("ataque: erro inesperado do banco não vaza nome de tabela nem de coluna no corpo da resposta (vira 'falha')", async () => {
+  const cru = 'relation "interno.rede_fed_recebidos" does not exist';
+  db.respostasDe = () => new Response(JSON.stringify({ message: cru }), { status: 404 });
+  const guardada = funcoesDaPessoa.rede_fed_linha_mista;
+  funcoesDaPessoa.rede_fed_linha_mista = () => new Response(JSON.stringify({ message: 'column "chave_privada" does not exist' }), { status: 400 });
+  const antigaDenuncia = db.denunciaDaTela;
+  db.denunciaDaTela = () => new Response(JSON.stringify({ message: 'duplicate key value violates unique constraint "fediverso_denuncias_pkey"' }), { status: 409 });
+  const corpos = [
+    await (await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?respostas=${POST_LOCAL}`, { metodo: "GET" }))).text(),
+    await (await rotas.remoto.GET(pedidoDaTela("/api/fediverso/remoto?linha=1", { metodo: "GET" }))).text(),
+    await (await rotas.denunciar.POST(pedidoDaTela("/api/fediverso/denunciar", { corpo: { alvo: BIA, categoria: "spam" } }))).text(),
+  ];
+  db.respostasDe = () => ({ itens: [], proximo: null, total: 0 });
+  funcoesDaPessoa.rede_fed_linha_mista = guardada;
+  db.denunciaDaTela = antigaDenuncia;
+  return corpos;
+}, (r) => r.every((c) => JSON.parse(c).erro === "falha" && !/interno|relation|column|constraint|chave_privada|pkey/.test(c)));
+await espera("remoto ?ator: quem foi BLOQUEADO pela pessoa de fora (o banco recusa o perfil) não recebe posts nem 'seguir': 404", async () => {
+  servidor.esquecerOLembrado();
+  const EVA = "https://remota.teste/users/eva";
+  const n1 = novaNota({ attributedTo: EVA, cc: [`${EVA}/followers`] });
+  rede.docs.set(EVA, { ...atorDoc(EVA, chaves.bia.publica), name: "Eva", outbox: `${EVA}/outbox` });
+  rede.docs.set(`${EVA}/outbox`, { type: "OrderedCollection", orderedItems: [criar(n1, EVA)] });
+  // db.perfis não tem a Eva: rede_fed_perfil_remoto responde "nao_encontrado", como quando ela bloqueou quem pede.
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(EVA)}`, { metodo: "GET" }));
+  const j = await r.json();
+  return [r.status, j.erro, "posts" in j, "local" in j, db.remotos.has(EVA)];
+}, (r) => r[0] === 404 && r[1] === "nao_encontrado" && r[2] === false && r[3] === false && r[4] === true);
+await espera("ataque: reabrir o mesmo perfil (?ator= ou ?conta=) não bate de novo no servidor de fora: fica uns minutos na memória", async () => {
+  servidor.esquecerOLembrado();
+  const FOX = "https://remota.teste/users/fox";
+  rede.docs.set(FOX, { ...atorDoc(FOX, chaves.bia.publica), name: "Fox", outbox: `${FOX}/outbox` });
+  rede.docs.set(`${FOX}/outbox`, { type: "OrderedCollection", orderedItems: [] });
+  rede.docs.set("https://remota.teste/.well-known/webfinger?resource=acct%3Afox%40remota.teste", { subject: "acct:fox@remota.teste", links: [{ rel: "self", type: "application/activity+json", href: FOX }] });
+  db.perfis.set(FOX, { ator: FOX, handle: "fox@remota.teste", seguindo: "nao", segue_voce: false, bloqueado: false, silenciado: false, posts: [] });
+  const pedir = (q) => rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?${q}`, { metodo: "GET" }));
+  const a = await pedir(`ator=${encodeURIComponent(FOX)}`);
+  const depoisDaPrimeira = rede.gets.length;
+  const b = await pedir(`ator=${encodeURIComponent(FOX)}`);
+  const c = await pedir(`conta=${encodeURIComponent("@fox@remota.teste")}`);
+  const depoisDoWebfinger = rede.gets.length;
+  const d = await pedir(`conta=${encodeURIComponent("@Fox@remota.teste")}`);
+  const j = await d.json();
+  return [a.status, b.status, c.status, d.status, depoisDoWebfinger - depoisDaPrimeira, rede.gets.length - depoisDoWebfinger, j.handle, j.local?.seguindo, j.tipo];
+}, (r) => r[0] === 200 && r[1] === 200 && r[2] === 200 && r[3] === 200 && r[4] === 1 && r[5] === 0 && r[6] === "fox@remota.teste" && r[7] === "nao" && r[8] === "Person");
+await espera("buscar: sem conseguir conferir o bloqueio a rota NÃO busca (403), e a 'first' da caixa de saída em outro servidor não é seguida", async () => {
+  servidor.esquecerOLembrado();
+  const GIL = "https://remota.teste/users/gil";
+  const webfinger = "https://remota.teste/.well-known/webfinger?resource=acct%3Agil%40remota.teste";
+  rede.docs.set(GIL, { ...atorDoc(GIL, chaves.bia.publica), name: "Gil", outbox: `${GIL}/outbox` });
+  rede.docs.set(`${GIL}/outbox`, { type: "OrderedCollection", first: "https://ponte.teste/coletor?de=gil" });
+  rede.docs.set("https://ponte.teste/coletor?de=gil", { type: "OrderedCollectionPage", orderedItems: [] });
+  rede.docs.set(webfinger, { subject: "acct:gil@remota.teste", links: [{ rel: "self", type: "application/activity+json", href: GIL }] });
+  const pedir = () => rotas.buscar.GET(pedidoDaTela(`/api/fediverso/buscar?conta=${encodeURIComponent("@gil@remota.teste")}`, { metodo: "GET" }));
+  const conferir = acoes.bloqueado;
+  acoes.bloqueado = () => { throw new Error("banco fora do ar"); };
+  const antes = rede.gets.length;
+  const semBanco = await pedir();
+  const semRede = rede.gets.length - antes;
+  acoes.bloqueado = conferir;
+  const boa = await pedir();
+  const j = await boa.json();
+  return [semBanco.status, (await semBanco.json()).erro, semRede, boa.status, j.ator, j.posts?.length, rede.gets.includes("https://ponte.teste/coletor?de=gil")];
+}, (r) => r[0] === 403 && r[1] === "instancia_bloqueada" && r[2] === 0 && r[3] === 200 && r[4] === "https://remota.teste/users/gil" && r[5] === 0 && r[6] === false);
 await espera("interagir: a resposta traz o estado de verdade que o banco devolve (curti, impulsionei)", async () => {
   const pedir = async (corpo) => {
     const r = await rotas.interagir.POST(pedidoDaTela("/api/fediverso/interagir", { corpo })).catch(() => null);

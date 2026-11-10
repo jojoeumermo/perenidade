@@ -10,7 +10,7 @@ import { randomUUID } from "node:crypto";
 import { after } from "next/server";
 import { processarFila } from "@/lib/rede/fediverso/entrega";
 import { conferirTeto, pessoaFederada, recusaDaFederacao } from "@/lib/rede/fediverso/rotas";
-import { atorRemoto, banco, ErroDoBanco, fed, modoTotal } from "@/lib/rede/fediverso/servidor";
+import { atorRemoto, banco, codigoParaATela, ErroDoBanco, fed, modoTotal } from "@/lib/rede/fediverso/servidor";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
 export const runtime = "nodejs";
@@ -27,7 +27,7 @@ export async function POST(pedido: Request) {
   if (!ator) return resposta({ erro: "invalido:ator" }, 400);
   const sim = corpo?.sim !== false;
   const eu = await chamarComoPessoa<{ perfil: string; handle?: string | null; ligado: boolean }>(token, "rede_fed_eu", { p_acao: "seguir" });
-  if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
+  if (!eu.ok) return resposta({ erro: codigoParaATela(eu.codigo) }, statusDoCodigo(eu.codigo));
   // Desligada (por escolha da pessoa ou por impedimento): nada sai, nem no modo total.
   if (!eu.dado.ligado) return resposta({ erro: "fediverso_desligado" }, 409);
   if (modoTotal()) {
@@ -39,7 +39,7 @@ export async function POST(pedido: Request) {
     await banco("seguir", { perfil: eu.dado.perfil, ator, pedido: fed.atividade("follow", randomUUID()), sim });
   } catch (e) {
     const codigo = e instanceof ErroDoBanco ? e.message : "falha";
-    return resposta({ erro: codigo }, statusDoCodigo(codigo));
+    return resposta({ erro: codigoParaATela(codigo) }, statusDoCodigo(codigo));
   }
   after(() => processarFila(10).then(() => undefined, () => undefined));
   return resposta({ ok: true, seguindo: sim ? "pedido" : "nao" });

@@ -5,7 +5,7 @@
 // instância (ela não fica sabendo quem olhou). Só para quem entrou na Alumia, com teto por pessoa no banco (rede_fed_eu).
 import { lerConta } from "@/lib/rede/fediverso/enderecos";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
-import { atorPorConta, banco, buscarDocumento, fed } from "@/lib/rede/fediverso/servidor";
+import { atorPorConta, banco, buscarDocumento, codigoParaATela, fed } from "@/lib/rede/fediverso/servidor";
 import { htmlParaTexto, textoCurto } from "@/lib/rede/fediverso/texto";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
@@ -22,7 +22,8 @@ async function postsPublicos(atorId: string): Promise<{ id: string; url: string 
   if (!outbox || new URL(outbox).host !== new URL(atorId).host) return [];
   const colecao = await buscarDocumento(outbox);
   const primeira = colecao?.first;
-  const pagina = typeof primeira === "string" ? await buscarDocumento(primeira) : primeira && typeof primeira === "object" ? (primeira as Record<string, unknown>) : colecao;
+  // A primeira página só é seguida se mora no mesmo servidor do ator (a coleção não manda o servidor daqui buscar em outro lugar).
+  const pagina = typeof primeira === "string" ? (/^https:\/\//.test(primeira) && new URL(primeira).host === new URL(atorId).host ? await buscarDocumento(primeira) : null) : primeira && typeof primeira === "object" ? (primeira as Record<string, unknown>) : colecao;
   const itens = Array.isArray(pagina?.orderedItems) ? (pagina.orderedItems as unknown[]) : [];
   const saida = [];
   for (const item of itens.slice(0, 30)) {
@@ -49,12 +50,13 @@ export async function GET(pedido: Request) {
   const token = tokenDe(pedido);
   if (!token) return resposta({ erro: "entre_primeiro" }, 401);
   const eu = await chamarComoPessoa<{ perfil: string; handle: string | null; ligado: boolean }>(token, "rede_fed_eu", { p_acao: "buscar" });
-  if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
+  if (!eu.ok) return resposta({ erro: codigoParaATela(eu.codigo) }, statusDoCodigo(eu.codigo));
   const conta = lerConta(new URL(pedido.url).searchParams.get("conta") ?? "");
   if (!conta) return resposta({ erro: "invalido:conta" }, 400);
   // Alguém daqui: a tela leva direto ao perfil na Alumia.
   if (conta.dominio === fed.dominio) return resposta({ local: true, handle: conta.usuario.toLowerCase() });
-  if (await banco<boolean>("bloqueado", { url: `https://${conta.dominio}/` }).catch(() => false)) return resposta({ erro: "instancia_bloqueada" }, 403);
+  // Sem conseguir conferir o bloqueio, a rota não busca (na dúvida, a instância conta como bloqueada).
+  if (await banco<boolean>("bloqueado", { url: `https://${conta.dominio}/` }).catch(() => true)) return resposta({ erro: "instancia_bloqueada" }, 403);
   const ator = await atorPorConta(conta.usuario, conta.dominio).catch(() => null);
   if (!ator) return resposta({ erro: "nao_encontrado" }, 404);
   const [posts, seguindo] = await Promise.all([

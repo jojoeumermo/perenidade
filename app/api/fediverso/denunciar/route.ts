@@ -7,7 +7,7 @@
 import { after } from "next/server";
 import { processarFila } from "@/lib/rede/fediverso/entrega";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
-import { modoTotal, semFederacao } from "@/lib/rede/fediverso/servidor";
+import { codigoParaATela, modoTotal, semFederacao } from "@/lib/rede/fediverso/servidor";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
 export const runtime = "nodejs";
@@ -28,7 +28,7 @@ export async function POST(pedido: Request) {
   const texto = typeof corpo?.texto === "string" ? corpo.texto.trim().slice(0, 1000) : "";
   const encaminhar = corpo?.encaminhar === true;
   const r = await chamarComoPessoa<{ protocolo?: string; encaminhada?: boolean; ja?: boolean }>(token, "rede_fed_denunciar_remoto", { p_alvo: alvo, p_categoria: categoria, p_texto: texto, p_encaminhar: encaminhar });
-  if (!r.ok) return resposta({ erro: r.codigo }, statusDoCodigo(r.codigo));
+  if (!r.ok) return resposta({ erro: codigoParaATela(r.codigo) }, statusDoCodigo(r.codigo));
   // "encaminhada" é o que o banco FEZ (a Flag entrou na fila), não o que a tela pediu; "ja" = a pessoa já tinha denunciado isto.
   const encaminhada = r.dado?.encaminhada === true;
   const ja = r.dado?.ja === true;
