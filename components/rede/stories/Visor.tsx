@@ -827,7 +827,7 @@ export function Visor({
             )}
           </div>
         ) : null}
-        <div ref={tela} className="al-st-tela" style={atual ? estiloDaTela(atual.fundo.cor) : undefined}>
+        <div ref={tela} className="al-st-tela" data-carregando={!atual && !erro && !(vivos && vivos.length === 0) ? "sim" : undefined} style={atual ? estiloDaTela(atual.fundo.cor) : undefined}>
           {atual ? (
             <FundoDoStory
               key={`fundo-${atual.id}`}
@@ -856,7 +856,8 @@ export function Visor({
               {atual ? <Avatar16 handle={atual.autora.handle} cor={atual.autora.cor ?? undefined} tamanho={38} /> : null}
               <span className="al-st-topo-nome">
                 <strong id={idDoTitulo}>
-                  {atual ? (meu && !destaque ? t.visor.seu : nome) : t.visor.carregando}
+                  {/* Carregando: o nome vira um esqueleto (só um indicador na tela; o leitor de tela ouve o "carregando" aqui). */}
+                  {atual ? (meu && !destaque ? t.visor.seu : nome) : <><span className="sr-only">{t.visor.carregando}</span><span className="al-st-esqueleto-nome" aria-hidden /></>}
                   {quandoTexto ? <span> · {quandoTexto}</span> : null}
                 </strong>
                 {destaque ? <small>{preencherStory(t.visor.destaque, { titulo: destaque.titulo })}</small> : atual ? <small>{t.visor.publico[atual.publico]}</small> : null}
@@ -957,9 +958,11 @@ export function Visor({
               {atual.figurinhas.length > 0 && !figurinhasSoltas ? <div className="al-st-figurinhas">{atual.figurinhas.map(figurinhaNaTela)}</div> : null}
             </div>
           ) : (
-            <p className="al-st-estado" role="status">
-              {erro ? (erro === "banco" ? t.criar.erro.banco : t.visor.erro) : vivos && vivos.length === 0 ? t.visor.sumiu : t.visor.carregando}
-            </p>
+            erro || (vivos && vivos.length === 0) ? (
+              <p className="al-st-estado" role="status">
+                {erro ? (erro === "banco" ? t.criar.erro.banco : t.visor.erro) : t.visor.sumiu}
+              </p>
+            ) : null
           )}
 
           {/* As figurinhas no lugar em que a autora deixou (arrastadas, giradas, no tamanho dela). */}
@@ -1140,8 +1143,9 @@ export function Visor({
                 ref={campoResposta}
                 value={resposta}
                 maxLength={LIMITES_DO_STORY.resposta}
-                placeholder={preencherStory(t.visor.responder, { nome })}
-                title={preencherStory(t.visor.responder, { nome })}
+                // O exemplo completo ("Responder só para Rosa…") só quando cabe; nome comprido fica "Responder…" (o rótulo diz para quem).
+                placeholder={[...preencherStory(t.visor.responder, { nome })].length <= 26 ? preencherStory(t.visor.responder, { nome }) : t.visor.responderCurto}
+                title={preencherStory(t.visor.responderRotulo, { nome })}
                 disabled={ocupado}
                 autoComplete="off"
                 enterKeyHint="send"
