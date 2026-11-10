@@ -108,6 +108,7 @@ export const icones: Record<string, LucideIcon> = {
   comunidade: Flag,
   "rede-propostas": MessageSquarePlus,
   "rede-organizacoes": BadgeCheck,
+  "alumia-entrada": UserCheck,
   "rede-semeadura": Sprout,
   reforco: LifeBuoy,
   mural: ClipboardList,
