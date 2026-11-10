@@ -223,6 +223,21 @@ async function postsDaPessoaNaPrevia(handle: string): Promise<Post[]> {
   return [...proprios, ...daPrancha].sort((a, b) => b.criado_em.localeCompare(a.criado_em));
 }
 
+/**
+ * Um post de EXEMPLO pelo id (o link permanente /alumia/p/exemplo-… e o ato embutido /alumia/ato/exemplo-… na prévia): os das
+ * pranchas do Início e os de cada perfil. Fora da prévia, ou com id que não é de exemplo, nulo.
+ */
+export async function postDaPrevia(id: string): Promise<Post | null> {
+  if (!previaLigada() || !id.startsWith("exemplo-")) return null;
+  const m = await import("@/lib/rede/publicar/exemplos-alumia2");
+  const agora = Date.now();
+  const doInicio = [...m.postsDeExemplo(agora), ...m.postsNovosDeExemplo(agora)].find((p) => p.id === id);
+  if (doInicio) return doInicio;
+  const handle = Object.keys(POSTS_DA_PREVIA).find((h) => id.startsWith(`exemplo-${h}-`));
+  if (!handle) return null;
+  return (await postsDaPessoaNaPrevia(handle)).find((p) => p.id === id) ?? null;
+}
+
 // ───────────────────────────── As chamadas ─────────────────────────────
 
 /** O rosto lido vira o avatar daquele @ na rede inteira (lib/rede/rostos.ts). */

@@ -301,7 +301,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
   const pn = ler("components/rede/onda5/PaginaNova.tsx");
   ok("PaginaNova: notFound com a flag desligada", /if \(!rotaNovaLigada\(nome\)\) notFound\(\);/.test(pn));
   ok("metadados: nada com a flag desligada e sem trecho de conteúdo", /if \(!rotaNovaLigada\(nome\)\) return \{\};/.test(pn));
-  ok("o ato confere o id antes", /if \(!idOk\(id\)\) notFound\(\);/.test(ler("app/[lang]/alumia/ato/[id]/page.tsx")));
+  ok("o ato confere o id antes (o de exemplo só com a prévia)", /if \(!idOk\(id\)( && !idDaPreviaOk\(id\))?\) notFound\(\);/.test(ler("app/[lang]/alumia/ato/[id]/page.tsx")));
 }
 
 // ═══════════════════ 9. Encaixes e esboços ═══════════════════
@@ -315,7 +315,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
     ok(`o encaixe tem o tipo ${tipo}`, new RegExp(`\\b${tipo}\\?:`).test(encaixes));
   }
   const casca = ler("components/rede/Casca.tsx");
-  ok("a casca usa o Sair rápido de lib/rede/saida.ts com os encaixes", /sairRapidoDaRede\(enderecoDoSite\(lang\), ENCAIXES\.aoSairRapido\)/.test(casca));
+  ok("a casca usa o Sair rápido de lib/rede/saida.ts com os encaixes", /sairRapidoDaRede\(DESTINO_DA_SAIDA, ENCAIXES\.aoSairRapido\)/.test(casca));
   ok("a casca lê o menu dos encaixes", /ENCAIXES\.menu/.test(casca));
   // O "substitui" vale nos dois lugares: o menu do computador e a barra do celular passam pela mesma hrefDoItem.
   ok("menu do computador e barra do celular usam o mesmo destino (com o substitui)", (casca.match(/const href = hrefDoItem\(d, lang, s, situacao\);/g) ?? []).length === 2

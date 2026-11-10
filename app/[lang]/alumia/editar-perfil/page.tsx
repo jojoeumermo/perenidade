@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
 import { loadLang } from "@/i18n";
-import { textosDaRede } from "@/lib/rede/textos";
+import { textosDaRede, tituloDaTela } from "@/lib/rede/textos";
 import { ligado } from "@/lib/recursos";
 
 // A tela depende de quem a abre: nada é gerado de antemão.
@@ -14,7 +14,7 @@ export const dynamicParams = true;
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   if (!ligado("rede-v2")) return {};
   const { lang } = await loadLang(params);
-  return { title: textosDaRede(lang).marca, robots: { index: false, follow: false } };
+  return { title: tituloDaTela(lang, "editarPerfil"), robots: { index: false, follow: false } };
 }
 
 /** Editar o perfil da Rede (/alumia/editar-perfil): @nome, rosto, capa, bio, quem acha, estudando agora, selos. Com "rede-v2" desligado a rota não existe (404). */

@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
 import { loadLang } from "@/i18n";
 import { textosDaRede } from "@/lib/rede/textos";
-import { idOk } from "@/lib/rede/tipos";
+import { idDaPreviaOk, idOk } from "@/lib/rede/tipos";
 import { ligado } from "@/lib/recursos";
 
 // Conteúdo da Rede muda a cada minuto e depende de quem lê: nenhuma página aqui é gerada de antemão.
@@ -26,7 +26,7 @@ export default async function Pagina({ params }: { params: Promise<{ lang: strin
   if (!ligado("rede-v2")) notFound();
   const { lang } = await loadLang(params);
   const { id } = await params;
-  if (!idOk(id)) notFound();
+  if (!idOk(id) && !idDaPreviaOk(id)) notFound();
   return (
     <div className="pb-8">
       <Suspense>

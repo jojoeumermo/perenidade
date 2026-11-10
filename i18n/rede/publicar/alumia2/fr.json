@@ -23,7 +23,14 @@
     "buscar": "Rechercher",
     "emBreve": "bientôt",
     "entreParaUsar": "connectez-vous pour utiliser",
-    "novidade": "il y a du nouveau"
+    "novidade": "il y a du nouveau",
+    "mais": "Plus",
+    "maisTitulo": "Plus d’Alumia",
+    "maisAbrir": "Ouvrir plus d’options d’Alumia",
+    "fechar": "Fermer",
+    "organizacoes": "Organisations",
+    "calendario": "Calendrier",
+    "aqui": "vous êtes ici"
   },
   "conta": {
     "rotulo": "Votre compte",
@@ -31,7 +38,7 @@
     "visitante": "Visiteur",
     "entrar": "Entrer dans Alumia",
     "sairRapido": "Sortie rapide",
-    "sairRapidoAjuda": "Efface ce qu’Alumia a gardé sur cet appareil et ouvre une page neutre du site.",
+    "sairRapidoAjuda": "Efface ce qu’Alumia a gardé sur cet appareil et ouvre une page ordinaire extérieure (la météo), sans rien de l’Institut.",
     "sairDaConta": "Se déconnecter",
     "voltarAoSite": "Retour au site",
     "cuidados": "Précautions",
@@ -41,7 +48,9 @@
     "moderacao": "Modération",
     "idiomas": "Langues",
     "acessibilidade": "Accessibilité",
-    "ajuda": "Questions fréquentes"
+    "ajuda": "Questions fréquentes",
+    "seguranca": "Sécurité",
+    "verPerfil": "Voir votre profil"
   },
   "linha": {
     "titulo": "Accueil",
@@ -175,7 +184,9 @@
       "cidade": "ville",
       "descricao": "appel"
     },
-    "escolherQuando": "Choisir le jour et l’heure"
+    "escolherQuando": "Choisir le jour et l’heure",
+    "tipoAnuncio": "{tipo} choisi. Le bouton principal affiche maintenant « {botao} ».",
+    "textoGuardado": "Votre texte est gardé : il revient si vous passez à Post, Sondage ou Texte long."
   },
   "direita": {
     "rotulo": "Sur Alumia maintenant",

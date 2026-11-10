@@ -9,6 +9,7 @@ import { enderecosCom, LOCAIS_DE_ENCONTRO, type LocalDoEncontro } from "@/lib/re
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import { CartaoDePost } from "../CartaoDePost";
+import { codigoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { Compositor } from "./Compositor";
@@ -49,7 +50,7 @@ function TurmaDoMes({ lang, s, sc }: { lang: string; s: TextosDaRede; sc: Textos
       {!pronto ? (
         <p className="mt-2 text-sm text-ink-soft">{s.estados.carregando}</p>
       ) : !dado ? (
-        <p role="alert" className="mt-2 text-sm text-oxblood">{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>
+        <p role={codigoDoErro(erro) === "sem_servico" ? "status" : "alert"} className={`mt-2 text-sm ${codigoDoErro(erro) === "sem_servico" ? "text-ink-soft" : "text-oxblood"}`}>{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>
       ) : dado.entrou ? (
         <Link href={enderecos.comunidade(lang, dado.slug)} className="mt-2 inline-block font-bold underline">{n.turmaAbrir}</Link>
       ) : dado.inscrito ? (
@@ -249,7 +250,7 @@ export default function Nucleos({ lang, s, situacao, params, aoEscrever }: Props
         {!lista.pronto ? (
           <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={2} />
         ) : !lista.dado ? (
-          <p role="alert" className="mt-1 text-oxblood">{lista.erro ? erroCom(s, sc, lista.erro) : s.estados.erro}</p>
+          <p role={codigoDoErro(lista.erro) === "sem_servico" ? "status" : "alert"} className={`mt-1 ${codigoDoErro(lista.erro) === "sem_servico" ? "text-ink-soft" : "text-oxblood"}`}>{lista.erro ? erroCom(s, sc, lista.erro) : s.estados.erro}</p>
         ) : lista.dado.itens.length === 0 ? (
           <p className="mt-1 text-sm text-ink-soft">{n.vazio}</p>
         ) : (

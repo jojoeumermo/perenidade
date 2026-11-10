@@ -5,7 +5,8 @@
 // "Você vai". Um mesmo ato pode estar em três lugares da tela ao mesmo tempo (faixa, cartão, coluna da direita): a confirmação
 // num deles atualiza os outros pelo pequeno quadro de avisos abaixo, sem pedir de novo ao servidor.
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
-import { atos as cliente } from "@/lib/rede/cliente-atos";
+import { atos as cliente, PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
+import { atoDeExemploRegistrado, registrarAtoDeExemplo } from "@/lib/rede/atos/exemplos";
 import { fraseDoErro } from "@/lib/rede/atos/erros";
 import { vibrar, VIBRA_DO_FAROL } from "@/lib/rede/atos/movimento";
 import { carregarTextosDosAtos, type TextosDosAtos } from "@/lib/rede/textos-atos";
@@ -81,14 +82,26 @@ export function useListaDeAtos(filtro: FiltroDosAtos, opcoes: { cidade?: string 
   return { estado, recarregar: () => setVolta((v) => v + 1) };
 }
 
+/**
+ * Na prévia, a página do ato aberta direto pelo link de um ato embutido num post de exemplo (/alumia/ato/exemplo-rosa): o ato sai
+ * do post de exemplo e entra no dublê antes de pedir. Fora da prévia, nada.
+ */
+async function prepararAtoDaPrevia(id: string): Promise<void> {
+  if (!PREVIA_DOS_ATOS || !id.startsWith("exemplo-") || atoDeExemploRegistrado(id)) return;
+  const [{ postDaPrevia }, { atoDoPost }] = await Promise.all([import("../perfil/livre/dados"), import("./AnexoChamado")]);
+  const post = await postDaPrevia(id);
+  const ato = post ? atoDoPost(post) : null;
+  if (post && ato) registrarAtoDeExemplo(ato, post.vou ?? 12);
+}
+
 /** Um ato (a página do ato). */
 export function useAto(id: string) {
   const [estado, setEstado] = useState<Estado<Ato>>({ fase: "carregando" });
   const [volta, setVolta] = useState(0);
   useEffect(() => {
     let vivo = true;
-    cliente
-      .ato(id)
+    prepararAtoDaPrevia(id)
+      .then(() => cliente.ato(id))
       .then((a) => vivo && setEstado({ fase: "pronto", dados: a }))
       .catch((e) => vivo && setEstado({ fase: "erro", erro: mensagem(e) }));
     return () => {
