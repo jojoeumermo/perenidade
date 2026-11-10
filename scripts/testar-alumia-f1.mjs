@@ -152,7 +152,7 @@ ok("sem o contexto, o Escrever de hoje", /escrevendo && pode && !contexto2 && \(
 const cartao = ler("components/rede/CartaoDePost.tsx");
 ok("cartão novo só com o contexto", /al2 \? <CartaoDaAlumia2 \{\.\.\.props\} \/> : <CartaoClassico \{\.\.\.props\} \/>/.test(cartao));
 const linha = ler("components/rede/Linha.tsx");
-ok("a linha só usa exemplo na prévia", /previa\s*\?\s*import\("@\/lib\/rede\/publicar\/exemplos-alumia2"\)\.then\(\(m\) => \(\{ itens: m\.postsDeExemplo\(\)/.test(linha));
+ok("a linha só usa exemplo na prévia", /previa\s*\?\s*import\("@\/lib\/rede\/publicar\/exemplos-alumia2"\)\.then\(\(m\) => \(\{[\s\S]{0,240}?m\.postsDeExemplo\(\)/.test(linha));
 // Desligada, nada da Alumia nova vai no pacote da Rede de hoje: as peças e os exemplos chegam sob demanda.
 for (const p of ["CascaDaAlumia2", "EscreverDaAlumia2", "TopoDaLinha2"]) {
   ok(`${p} sob demanda`, redeTsx.includes(`const ${p} = dynamic(() => import("./publicar/alumia2/${p}")`) && !new RegExp(`^import \\{[^}]*\\b${p}\\b`, "m").test(redeTsx));

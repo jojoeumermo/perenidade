@@ -711,20 +711,20 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 }
 
 /* Dia e hora como as pranchas ("ter 19/11 · 6h"): o campo nativo, transparente, por cima do resumo. */
-.al-quando {
+[data-al="2"] .al-quando {
   position: relative; display: flex; align-items: center; gap: 0.5rem; min-height: 48px; padding: 0 0.85rem; cursor: pointer;
   border: 1.5px solid var(--al-superficie-2, #444); border-radius: 12px; background: var(--al-superficie, transparent); color: var(--al-texto, inherit);
   font-family: var(--al-fonte, inherit); font-weight: 700;
 }
-.al-quando:focus-within { outline: 3px solid var(--al-foco, #f0a020); outline-offset: 2px; }
-.al-quando-vazio .al-quando-texto { color: var(--al-texto-3, inherit); font-weight: 600; }
-.al-quando-icone { width: 1.15rem; height: 1.15rem; flex: none; color: var(--al-dourado, currentColor); }
-.al-quando-texto { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.al-quando-campo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; color-scheme: dark; border: 0; }
-.al-quando-campo:focus { outline: none; }
-.al-quando:has(.al-quando-campo[aria-invalid="true"]) { border-color: var(--al-vermelho, #c21f16); }
-:root[data-eink] .al-quando-campo { color-scheme: light; }
-:root:is([data-contrast], [data-eink]) .al-quando { border: 2px solid var(--al-texto, #000); }
+[data-al="2"] .al-quando:focus-within { outline: 3px solid var(--al-foco, #f0a020); outline-offset: 2px; }
+[data-al="2"] .al-quando-vazio .al-quando-texto { color: var(--al-texto-3, inherit); font-weight: 600; }
+[data-al="2"] .al-quando-icone { width: 1.15rem; height: 1.15rem; flex: none; color: var(--al-dourado, currentColor); }
+[data-al="2"] .al-quando-texto { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-al="2"] .al-quando-campo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; color-scheme: dark; border: 0; }
+[data-al="2"] .al-quando-campo:focus { outline: none; }
+[data-al="2"] .al-quando:has(.al-quando-campo[aria-invalid="true"]) { border-color: var(--al-vermelho, #c21f16); }
+:root[data-eink] [data-al="2"] .al-quando-campo { color-scheme: light; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-quando { border: 2px solid var(--al-texto, #000); }
 
 /* A cidade do ato junto do Onde: curta, numa linha embaixo do ponto. */
 [data-al="2"] .al-ato-form-cidade {
