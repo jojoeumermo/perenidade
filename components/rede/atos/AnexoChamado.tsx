@@ -7,6 +7,8 @@ import type { ContextoDoEncaixe } from "../encaixes";
 import { BotaoVou } from "./Acoes";
 import { BlocoDaData, CarimboDoAto, LinhaCurta } from "./partes";
 import { useOuvirAto, useTextosDosAtos } from "./usar";
+import { PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
+import { registrarAtoDeExemplo } from "@/lib/rede/atos/exemplos";
 import type { Post } from "@/lib/rede/tipos";
 import type { Ato } from "@/lib/rede/tipos-atos";
 import "./atos.css";
@@ -49,7 +51,10 @@ export function AnexoChamado({ lang, situacao, post }: ContextoDoEncaixe & { pos
   const t = useTextosDosAtos(lang);
   const [ato, setAto] = useState<Ato | null>(() => atoDoPost(post));
   useEffect(() => {
-    queueMicrotask(() => setAto(atoDoPost(post)));
+    const a = atoDoPost(post);
+    // Na prévia, o ato embutido no post de exemplo entra no dublê: o link para a página do ato abre (e não cai em "não encontrado").
+    if (PREVIA_DOS_ATOS && a) registrarAtoDeExemplo(a, post.vou ?? 12);
+    queueMicrotask(() => setAto(a));
   }, [post]);
   useOuvirAto(ato?.id ?? "", setAto);
   if (!t || !ato) return null;

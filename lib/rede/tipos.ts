@@ -233,3 +233,8 @@ export const enderecos = {
 export const slugOk = (s: string): boolean => /^[a-z0-9-]{2,60}$/.test(s);
 export const handleOk = (s: string): boolean => /^[a-z0-9_]{3,20}$/.test(s);
 export const idOk = (s: string): boolean => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(s);
+/**
+ * O id de um post ou ato de EXEMPLO ("exemplo-rosa", "exemplo-faisca-2", o "previa-1" de um ato publicado na prévia), aceito nas rotas só com a prévia ligada
+ * (NEXT_PUBLIC_ALUMIA_PREVIA=sim): os links dos cartões da prévia abrem, em produção continuam 404.
+ */
+export const idDaPreviaOk = (s: string): boolean => process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim" && /^(exemplo|previa)-[a-z0-9-]{1,60}$/.test(s);
