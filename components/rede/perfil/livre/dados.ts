@@ -10,6 +10,7 @@ import { previaLigada } from "@/lib/rede/org/exemplos";
 import { APARENCIA_PADRAO, arrumarAparencia, pedidoDaAparencia, type AparenciaDoPerfil } from "@/lib/rede/aparencia";
 import type { ExtrasDoPerfil, PedidoDeExtras } from "@/lib/rede/tipos-org";
 import type { PerfilDaRede, PerfilMeu } from "@/lib/rede/tipos-perfil";
+import { lembrarRosto, ROSTOS_DA_PREVIA } from "@/lib/rede/rostos";
 
 /** Uma organização que a pessoa escolheu mostrar (o banco devolve o @ e o codinome de quem tem selo). */
 export interface OrgNoPerfil {
@@ -53,13 +54,13 @@ function exemplos(): Record<string, unknown> {
   return {
     faisca: {
       acento: "dourado", tema: "brasa", layout: "classico", faixa: [0, 1, 2, 3, 4, 5, 6, 7, 8, 1, 0],
-      rosto: "0011110001222210122332211232232112222221012442100122221000111100",
+      rosto: ROSTOS_DA_PREVIA.faisca,
       capa: { tipo: "mosaico", palavra: "CATRACA", semente: 7 },
       abas: ["posts", "atos", "destaques", "respostas", "midia", "organizacoes", "escola"],
-      fixados: ["exemplo-1"], destaques: [
-        { tipo: "ato", ref: "exemplo-ato-1", titulo: "Passe Livre Já", cor: "vermelho" },
-        { tipo: "post", ref: "exemplo-2", titulo: "Como montamos o núcleo", cor: "turquesa" },
-        { tipo: "post", ref: "exemplo-3", titulo: "Leituras da semana", cor: "roxo" },
+      fixados: ["exemplo-faisca-1"], destaques: [
+        { tipo: "ato", ref: "exemplo-faisca-5", titulo: "Ato contra o aumento", cor: "vermelho" },
+        { tipo: "post", ref: "exemplo-faisca-2", titulo: "Como montamos o núcleo", cor: "turquesa" },
+        { tipo: "post", ref: "exemplo-faisca-3", titulo: "Os cartazes da oficina", cor: "roxo" },
       ],
       orgs: [{ handle: "mandatapopular", codinome: "Mandata Popular" }],
       tocando: { texto: "Canção do trabalhador (coro da ocupação)", link: "https://institutolucia.org/cancoes", ate: daqui3Horas() },
@@ -104,6 +105,13 @@ function extrasDaPrevia(handle: string): ExtrasDoPerfil | null {
   };
 }
 
+const BIOS: Record<string, string> = {
+  faisca: "Militante do **Passe Livre** na Zona Leste. Estudando _O Capital_ com o núcleo.\nCatraca livre é direito! #TarifaZero",
+  rosavermelha: "Estudante da UFPE e do DCE. Panfleto, plenária e muita _paciência_. #EducaçãoPública",
+  liaquilombo: "Entregadora de dia, estudante da Escola de noite. **Quilombo é organização.** #Antirracismo",
+  nucleocohab2: "Núcleo de bairro da Cohab 2: círculo de estudo aos sábados e roda de rima depois. #CulturaÉLuta",
+};
+
 /** O perfil de exemplo da Faísca (a pessoa logada da prévia) e de quem aparece nas pranchas. */
 export function perfilDaPrevia(handle: string): PerfilDaRede | null {
   const nomes: Record<string, string> = { faisca: "Faísca", rosavermelha: "Rosa Vermelha", liaquilombo: "Lia Quilombo", nucleocohab2: "Núcleo Cohab 2" };
@@ -114,11 +122,7 @@ export function perfilDaPrevia(handle: string): PerfilDaRede | null {
     id: `exemplo-${handle}`,
     codinome: meu?.codinome ?? codinome,
     handle,
-    bio:
-      meu?.bio ??
-      (handle === "faisca"
-        ? "Militante do **Passe Livre** na Zona Leste. Estudando _O Capital_ com o núcleo.\nCatraca livre é direito! #TarifaZero"
-        : "Na luta por moradia digna. #OcupaSP"),
+    bio: meu?.bio ?? BIOS[handle] ?? "",
     modo: "aberto",
     equipe: false,
     selos: handle === "faisca" ? ["escola:carteirinha", "escola:degrau-2", "escola:aulas-14"] : [],
@@ -154,16 +158,86 @@ export function meuDaPrevia(): PerfilMeu {
   };
 }
 
+// Os posts de exemplo de CADA personagem (só dela: o perfil nunca mostra post de outra pessoa). Ids "exemplo-<handle>-<n>".
+type PostDaPrevia = { texto: string; comunidade?: string; minutos: number; ato?: { tipo: string; dias: number; hora: number; onde: string }; imagem?: { capa: string; alt: string }; resposta?: string; respostas?: number };
+const POSTS_DA_PREVIA: Record<string, PostDaPrevia[]> = {
+  faisca: [
+    { texto: "Panfletagem na estação Itaquera no sábado, 7h. Leva panfleto, água e um casaco: a gente se encontra na saída B.", comunidade: "passe-livre-sp", minutos: 40, ato: { tipo: "Panfletagem na Itaquera", dias: 3, hora: 7, onde: "Estação Itaquera, saída B" }, respostas: 8 },
+    { texto: "Como montamos o núcleo: três pessoas, uma lista de linhas que atrasam e uma reunião por semana. Hoje somos vinte e o mapa dos atrasos já foi parar na Câmara.", comunidade: "passe-livre-sp", minutos: 180, respostas: 21 },
+    { texto: "Os cartazes da oficina de serigrafia ficaram prontos. Obrigada a quem colou e trouxe tinta!", comunidade: "passe-livre-sp", minutos: 600, imagem: { capa: "c03", alt: "Cartazes coloridos do Passe Livre secando no varal da oficina" }, respostas: 5 },
+    { texto: "Concordo: dá para juntar as duas panfletagens no mesmo dia e dividir as estações.", minutos: 15, resposta: "exemplo-rosa", respostas: 2 },
+    { texto: "Ato contra o aumento da tarifa na quinta, 17h. Concentração na praça, saída às 18h.", comunidade: "passe-livre-sp", minutos: 1500, ato: { tipo: "Ato contra o aumento", dias: 5, hora: 17, onde: "Praça do Ciclista, São Paulo" }, respostas: 34 },
+  ],
+  rosavermelha: [
+    { texto: "Resumo da assembleia do DCE: paralisação aprovada para quinta, comissão de comunicação aberta a quem quiser entrar.", comunidade: "estudantes-ufpe", minutos: 300, respostas: 19 },
+    { texto: "A faixa nova do DCE ficou assim. Pintada por doze mãos.", comunidade: "estudantes-ufpe", minutos: 900, imagem: { capa: "c05", alt: "Faixa vermelha do DCE estendida no pátio" }, respostas: 6 },
+    { texto: "Boa! Mando o roteiro da panfletagem para vocês adaptarem.", minutos: 20, resposta: "exemplo-faisca-1", respostas: 1 },
+  ],
+  liaquilombo: [
+    { texto: "Roda de conversa sobre trabalho por aplicativo no sábado, 15h, no centro cultural. Traga a sua conta de quanto fica com o app.", comunidade: "marxismo-aula", minutos: 400, ato: { tipo: "Roda sobre trabalho por app", dias: 4, hora: 15, onde: "Centro cultural do bairro" }, respostas: 12 },
+    { texto: "O mural do quilombo urbano ficou pronto.", minutos: 1200, imagem: { capa: "c07", alt: "Mural colorido pintado num muro do bairro" }, respostas: 9 },
+    { texto: "Fiz a conta aqui: em média, 38% de cada corrida fica com o app.", minutos: 50, resposta: "exemplo-lia", respostas: 4 },
+  ],
+  nucleocohab2: [
+    { texto: "A roda de rima do mês passado em uma foto.", comunidade: "cultura-hip-hop", minutos: 2000, imagem: { capa: "c02", alt: "Roda de pessoas na quadra ao entardecer" }, respostas: 7 },
+  ],
+};
+
+/** Os posts de exemplo de uma pessoa (os dela e os das pranchas que ela escreveu), do mais novo ao mais antigo. */
+async function postsDaPessoaNaPrevia(handle: string): Promise<Post[]> {
+  const m = await import("@/lib/rede/publicar/exemplos-alumia2");
+  const agora = Date.now();
+  const pranchas = m.postsDeExemplo(agora);
+  const molde = pranchas[1];
+  const autor = pranchas.find((p) => p.autor.handle === handle)?.autor ?? { id: `exemplo-${handle}`, codinome: perfilDaPrevia(handle)?.codinome ?? handle, handle, perfil: true, equipe: false };
+  const proprios = (POSTS_DA_PREVIA[handle] ?? []).map((x, i): Post => {
+    const id = `exemplo-${handle}-${i + 1}`;
+    let chamado: Post["chamado"] = null;
+    if (x.ato) {
+      const quando = new Date(agora + x.ato.dias * 86_400_000);
+      quando.setHours(x.ato.hora, 0, 0, 0);
+      chamado = { tipo: x.ato.tipo, quando: quando.toISOString(), onde: x.ato.onde, situacao: "confirmado" };
+    }
+    return {
+      ...molde,
+      id,
+      raiz: x.resposta ?? id,
+      tipo: "post",
+      texto: x.texto,
+      comunidade: x.comunidade ?? null,
+      criado_em: new Date(agora - x.minutos * 60_000).toISOString(),
+      chamado,
+      midia: x.imagem ? [{ id: `exemplo-capa-${x.imagem.capa}`, alt: x.imagem.alt, largura: 900, altura: 300, blurhash: null }] : [],
+      resposta_a: x.resposta ?? null,
+      nivel: x.resposta ? 1 : 0,
+      autor,
+      org: null,
+      meu: handle === "faisca",
+      respostas: x.respostas ?? 0,
+      apoiei: false,
+      cita: null,
+    };
+  });
+  const daPrancha = pranchas.filter((p) => p.autor.handle === handle).map((p) => ({ ...p, meu: handle === "faisca" }));
+  return [...proprios, ...daPrancha].sort((a, b) => b.criado_em.localeCompare(a.criado_em));
+}
+
 // ───────────────────────────── As chamadas ─────────────────────────────
+
+/** O rosto lido vira o avatar daquele @ na rede inteira (lib/rede/rostos.ts). */
+function comRosto(handle: string, lida: AparenciaLida): AparenciaLida {
+  lembrarRosto(handle, lida.aparencia.rosto);
+  return lida;
+}
 
 /** A aparência de um perfil (nula = não pode ver). Sem a migração no banco: o padrão (ou o exemplo, na prévia). */
 export async function aparenciaDe(handle: string): Promise<AparenciaLida> {
   if (previa()) {
     const g = guardadosDaPrevia()[`aparencia:${handle}`];
-    return lerAparencia(g ?? exemplos()[handle] ?? {});
+    return comRosto(handle, lerAparencia(g ?? exemplos()[handle] ?? {}));
   }
   try {
-    return lerAparencia(await chamar<unknown>("rede_perfil_aparencia", { p_handle: handle }));
+    return comRosto(handle, lerAparencia(await chamar<unknown>("rede_perfil_aparencia", { p_handle: handle })));
   } catch (e) {
     if (bancoSemAFuncao(e)) return { aparencia: { ...APARENCIA_PADRAO }, orgs: [] };
     throw e;
@@ -176,9 +250,9 @@ export async function salvarAparencia(handle: string, a: AparenciaDoPerfil, orgs
     const bruto = { ...pedidoDaAparencia(a), orgs: orgs.filter((o) => a.orgs.includes(o.handle)) };
     guardarNaPrevia(handle, "aparencia", bruto);
     await espera(450);
-    return lerAparencia(bruto);
+    return comRosto(handle, lerAparencia(bruto));
   }
-  return lerAparencia(await chamar<unknown>("rede_perfil_aparencia_editar", { p: pedidoDaAparencia(a) }));
+  return comRosto(handle, lerAparencia(await chamar<unknown>("rede_perfil_aparencia_editar", { p: pedidoDaAparencia(a) })));
 }
 
 /** Os extras (status, pronomes, campos). */
@@ -205,9 +279,8 @@ export async function salvarExtras(handle: string, p: PedidoDeExtras, atual: Ext
 /** As abas Respostas, Mídia e Atos (rede_perfil_linha). Sem a função no banco: página vazia. Na prévia: posts das pranchas. */
 export async function linhaDoPerfil(handle: string, aba: "respostas" | "midia" | "atos", cursor: string | null = null): Promise<PaginaDaLinha> {
   if (previa()) {
-    const m = await import("@/lib/rede/publicar/exemplos-alumia2");
-    const todos = m.postsDeExemplo();
-    const fatia = aba === "respostas" ? todos.slice(1, 3) : aba === "midia" ? todos.slice(3, 4) : todos.filter((p) => p.chamado).slice(0, 3);
+    const dela = await postsDaPessoaNaPrevia(handle);
+    const fatia = aba === "respostas" ? dela.filter((p) => p.resposta_a) : aba === "midia" ? dela.filter((p) => p.midia.length > 0) : dela.filter((p) => p.chamado && !p.resposta_a);
     return { itens: fatia, proximo: null };
   }
   try {
@@ -222,9 +295,9 @@ export async function linhaDoPerfil(handle: string, aba: "respostas" | "midia" |
 export async function postsFixados(ids: string[]): Promise<Post[]> {
   if (ids.length === 0) return [];
   if (previa()) {
-    const m = await import("@/lib/rede/publicar/exemplos-alumia2");
-    const todos = m.postsDeExemplo();
-    return ids.map((id, i) => todos.find((p) => p.id === id) ?? todos[i]).filter(Boolean).slice(0, 3);
+    // Só aparece fixado o que é da própria pessoa (o perfil nunca mostra post de outra).
+    const todos = (await Promise.all(Object.keys(POSTS_DA_PREVIA).map(postsDaPessoaNaPrevia))).flat();
+    return ids.map((id) => todos.find((p) => p.id === id)).filter((p): p is Post => Boolean(p)).slice(0, 3);
   }
   const lidos = await Promise.all(ids.map((id) => rede.post(id).then((c) => c.post).catch(() => null)));
   return lidos.filter((p): p is Post => p !== null);
@@ -232,10 +305,8 @@ export async function postsFixados(ids: string[]): Promise<Post[]> {
 
 /** Os meus posts recentes (para escolher fixados e destaques). */
 export async function meusPosts(handle: string): Promise<Post[]> {
-  if (previa()) {
-    const m = await import("@/lib/rede/publicar/exemplos-alumia2");
-    return m.postsDeExemplo().slice(0, 6);
-  }
+  // Na prévia: só os da própria pessoa, sem as respostas (fixar e destacar post alheio não existe).
+  if (previa()) return (await postsDaPessoaNaPrevia(handle)).filter((p) => !p.resposta_a);
   const r = await rede.linha(`u:${handle}`, null, 20).catch(() => ({ itens: [] as Post[] }));
   return r.itens.filter((p) => p.meu && !p.retido);
 }

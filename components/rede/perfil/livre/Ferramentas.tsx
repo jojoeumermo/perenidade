@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import {
   ABAS_DO_PERFIL, CORES_DA_FAIXA, CORES_DA_PALETA, CORES_DO_ROSTO, laudoDeContraste, LADO_DO_ROSTO, MODELOS_DE_FAIXA, PALETA_DO_PERFIL, PROPORCOES_DA_FAIXA,
-  corHexValida, hexDoAcento, pintarRosto, variaveisDoAcento, type AbaDoPerfil,
+  alternarAba, corHexValida, hexDoAcento, pintarRosto, variaveisDoAcento, type AbaDoPerfil,
 } from "@/lib/rede/aparencia";
 import { preencher } from "@/lib/rede/preencher";
 import { comTransicao } from "./PaginaDoPerfil";
@@ -20,6 +20,13 @@ function setas(e: KeyboardEvent, i: number, n: number, colunas = n): number | nu
   const d = mapa[e.key];
   if (d === undefined) return null;
   return (i + d + n) % n;
+}
+
+/** Cor escura demais para aparecer no fundo noite (o "Noite" da faixa, o carvão do rosto): ganha um anel claro. */
+function escura(hex: string): boolean {
+  if (!/^#[0-9a-f]{6}$/i.test(hex)) return false;
+  const n = parseInt(hex.slice(1), 16);
+  return 0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255) < 50;
 }
 
 // ───────────────────────────── Cor do perfil ─────────────────────────────
@@ -162,6 +169,7 @@ export function TearDaFaixa({ faixa, aoMudar, t }: { faixa: readonly number[]; a
             tabIndex={fio === i ? 0 : -1}
             aria-label={preencher(t.cores.fioEscolhido, { n: i + 1, cor: nomes[c] ?? "" })}
             className="pfe-fio"
+            data-escura={escura(CORES_DA_FAIXA[c] ?? "") ? "" : undefined}
             style={{ flexGrow: PROPORCOES_DA_FAIXA[i], background: CORES_DA_FAIXA[c] }}
             onClick={() => setFio(i)}
             onKeyDown={(e) => {
@@ -183,6 +191,7 @@ export function TearDaFaixa({ faixa, aoMudar, t }: { faixa: readonly number[]; a
             aria-checked={faixa[fio] === i}
             tabIndex={faixa[fio] === i ? 0 : -1}
             className="pfe-amostra"
+            data-escura={escura(cor) ? "" : undefined}
             style={{ ["--c" as string]: cor }}
             onClick={() => {
               const f = [...faixa];
@@ -325,6 +334,7 @@ export function EditorDePixels({ px, aoMudar, aoTracoFim, aoSortear, t }: { px: 
               aria-checked={pincel === i}
               tabIndex={pincel === i ? 0 : -1}
               className={`pfe-amostra ${i === 0 ? "pfe-amostra-borracha" : ""}`}
+              data-escura={escura(cor) ? "" : undefined}
               style={{ ["--c" as string]: cor || "transparent" }}
               title={`${nomes[i]} (${i})`}
               onClick={() => setPincel(i)}
@@ -393,7 +403,11 @@ export function OrdemDasAbas({ abas, aoMudar, t }: { abas: readonly AbaDoPerfil[
                   checked={ligada}
                   disabled={a === "posts"}
                   aria-label={preencher(t.abas.mostrar, { aba: nome })}
-                  onChange={(e) => comTransicao(() => aoMudar(e.target.checked ? [...abas, a] : abas.filter((x) => x !== a)))}
+                  onChange={(e) => {
+                    // Lido AGORA: dentro da transição o React já devolveu a caixa controlada ao valor de antes.
+                    const marcado = e.currentTarget.checked;
+                    comTransicao(() => aoMudar(alternarAba(abas, a, marcado)));
+                  }}
                 />
                 <span>{nome}</span>
                 {a === "posts" ? <small>{t.abas.sempre}</small> : null}

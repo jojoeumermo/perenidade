@@ -62,6 +62,25 @@ export function CabecalhoDoPerfil({
   const tocandoLink = a.tocando?.link ? linkLimpo(a.tocando.link) : null;
   const passarFoco = previa ? -1 : undefined;
 
+  const cartaz = a.layout === "cartaz";
+  const rosto = (
+    <div className="pf-rosto-moldura" style={{ width: tamanhoDoRosto, height: tamanhoDoRosto }}>
+      {a.rosto ? <RostoDePixels px={a.rosto} tamanho={tamanhoDoRosto} /> : <Avatar imagem={dados.avatar} codinome={dados.codinome} tamanho={tamanhoDoRosto} />}
+    </div>
+  );
+  const nomes = (
+    <div className="pf-nomes">
+      <Titulo className="al-cond pf-nome">{dados.codinome}</Titulo>
+      <p className="pf-handle">
+        <span>@{dados.handle}</span>
+        {dados.pronomes ? <span className="pf-pronomes">{dados.pronomes}</span> : null}
+      </p>
+    </div>
+  );
+  // O status vira carimbo inclinado sobre a capa (como o CONFIRMADO das pranchas); o leitor de tela ouve o status inteiro
+  // na linha "agora", logo depois do nome.
+  const temDetalheDoStatus = Boolean(dados.status && (dados.status.texto || dados.status.ate));
+
   return (
     <section
       className="pf"
@@ -80,32 +99,39 @@ export function CabecalhoDoPerfil({
         ) : (
           <div aria-hidden className="pf-capa-vazia" />
         )}
-        {a.layout === "cartaz" ? <div aria-hidden className="pf-capa-veu" /> : null}
+        {cartaz ? <div aria-hidden className="pf-capa-veu" /> : null}
+        {dados.status ? (
+          <span aria-hidden className="al-cond pf-carimbo" data-tipo={dados.status.tipo} key={dados.status.tipo}>
+            {t.agora.statusTipos[dados.status.tipo]}
+          </span>
+        ) : null}
+        {cartaz ? (
+          <div className="pf-cartaz">
+            {rosto}
+            {nomes}
+          </div>
+        ) : null}
       </div>
 
       <div className="pf-cabeca">
-        <div className="pf-identidade">
-          <div className="pf-rosto-moldura" style={{ width: tamanhoDoRosto, height: tamanhoDoRosto }}>
-            {a.rosto ? <RostoDePixels px={a.rosto} tamanho={tamanhoDoRosto} /> : <Avatar imagem={dados.avatar} codinome={dados.codinome} tamanho={tamanhoDoRosto} />}
+        {cartaz ? (
+          acoes ? <div className="pf-acoes pf-acoes-cartaz">{acoes}</div> : null
+        ) : (
+          <div className="pf-identidade">
+            {rosto}
+            {nomes}
+            {acoes ? <div className="pf-acoes">{acoes}</div> : null}
           </div>
-          <div className="pf-nomes">
-            <Titulo className="al-cond pf-nome">{dados.codinome}</Titulo>
-            <p className="pf-handle">
-              <span>@{dados.handle}</span>
-              {dados.pronomes ? <span className="pf-pronomes">{dados.pronomes}</span> : null}
-            </p>
-          </div>
-          {acoes ? <div className="pf-acoes">{acoes}</div> : null}
-        </div>
+        )}
 
         {dados.status || a.tocando ? (
           <div className="pf-agora">
             {dados.status ? (
-              <p className="pf-status">
+              <p className={temDetalheDoStatus ? "pf-status" : "sr-only"}>
                 <span aria-hidden className="pf-status-ponto" />
-                <span className="pf-status-tipo">{t.agora.statusTipos[dados.status.tipo]}</span>
-                {dados.status.texto ? <span>· {dados.status.texto}</span> : null}
-                {dados.status.ate ? <span className="pf-status-ate">· {preencher(t.perfil.ate, { data: dataCurta(dados.status.ate, lang) })}</span> : null}
+                <span className="sr-only">{t.agora.statusTipos[dados.status.tipo]}: </span>
+                {dados.status.texto ? <span className="pf-status-texto">{dados.status.texto}</span> : null}
+                {dados.status.ate ? <span className="pf-status-ate">{preencher(t.perfil.ate, { data: dataCurta(dados.status.ate, lang) })}</span> : null}
               </p>
             ) : null}
             {a.tocando ? (

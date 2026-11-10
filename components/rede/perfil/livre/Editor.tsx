@@ -5,9 +5,10 @@
 // (prévia ao vivo, o mesmo componente da página), com desfazer/refazer (Ctrl+Z, Ctrl+Shift+Z), aviso de mudança não salva e um
 // "Salvar" só. Só valores escolhidos ou conferidos saem daqui (lib/rede/aparencia.ts); o banco confere tudo de novo.
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import Link from "@/components/Link";
 import {
-  APARENCIA_PADRAO, arrumarPalavraDaCapa, DURACOES, LAYOUTS_DO_PERFIL, LIMITES_DA_APARENCIA, linkLimpo, mesmaAparencia, PALETA_DO_PERFIL, CORES_DA_PALETA,
+  APARENCIA_PADRAO, arrumarAbas, arrumarPalavraDaCapa, DURACOES, LAYOUTS_DO_PERFIL, LIMITES_DA_APARENCIA, linkLimpo, mesmaAparencia, PALETA_DO_PERFIL, CORES_DA_PALETA,
   rostoSorteado, rostoValido, TEMAS_DO_PERFIL, type AparenciaDoPerfil, type CorDaPaleta, type LayoutDoPerfil, type TemaDoPerfil,
 } from "@/lib/rede/aparencia";
 import { redePerfil } from "@/lib/rede/cliente-perfil";
@@ -23,7 +24,7 @@ import { CabecalhoDoPerfil, estiloDoAcento } from "./Cabecalho";
 import { aparenciaDe, extrasDe, meuDaPrevia, meusPosts, previa, salvarAparencia, salvarExtras, guardarMeuNaPrevia, trocarCodinome, type OrgNoPerfil } from "./dados";
 import { CartoesDeEscolha, EditorDePixels, EscolhaDeCor, OrdemDasAbas, TearDaFaixa } from "./Ferramentas";
 import { comTransicao } from "./PaginaDoPerfil";
-import { FaixaPropria, RostoDePixels } from "./Pecas";
+import { CapaDeMosaico, FaixaPropria, RostoDePixels } from "./Pecas";
 import { useTextosDoPerfilLivre, type TextosDoPerfilLivre } from "./textos";
 import "./editor.css";
 
@@ -156,9 +157,15 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
   const [secao, setSecao] = useState<Secao>("cores");
   const [salvando, setSalvando] = useState(false);
   const [aviso, setAviso] = useState<{ texto: string; erro: boolean } | null>(null);
-  const [previaAberta, setPreviaAberta] = useState(true);
+  // A prévia: "compacta" (capa, rosto e nome; o começo em telas estreitas), "inteira" ou "fechada". Lado a lado (≥ 1280 px) ela
+  // fica sempre inteira, fixa na coluna da esquerda.
+  const [modoDaPrevia, setModoDaPrevia] = useState<"compacta" | "inteira" | "fechada">("compacta");
+  const previaAberta = modoDaPrevia !== "fechada";
   const [compacta, setCompacta] = useState(false);
   const sentinela = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const dialogo = useRef<HTMLDialogElement>(null);
+  const [saida, setSaida] = useState<string | null>(null);
 
   const mudar = useCallback((f: (r: Rascunho) => Rascunho, grupo = "") => despachar({ tipo: "mudar", f, grupo }), []);
   const ap = (f: (a: AparenciaDoPerfil) => AparenciaDoPerfil, grupo = "") => mudar((x) => ({ ...x, aparencia: f(x.aparencia) }), grupo);
@@ -178,6 +185,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
     if (!codinomeValido(r.codinome)) p.push(t.sobre.erros.invalido_codinome);
     if (r.campos.some((c) => /^https?:\/\//i.test(c.valor.trim()) && !linkLimpo(c.valor.trim()))) p.push(t.sobre.linkRuim);
     if (r.aparencia.tocando?.link && !linkLimpo(r.aparencia.tocando.link)) p.push(t.sobre.linkRuim);
+    if (r.aparencia.capa && !r.aparencia.capa.palavra.trim()) p.push(t.capa.palavraVazia);
     return p;
   }, [r, t]);
 
@@ -191,6 +199,31 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
     return () => window.removeEventListener("beforeunload", f);
   }, [sujo]);
 
+  // Sair pela navegação da própria Alumia (links do menu, da barra do celular, "Ver meu perfil") com mudança não salva: em vez de
+  // perder tudo calado, um diálogo pergunta (salvar, descartar ou ficar). O clique é pego na captura, antes do roteador do Next.
+  useEffect(() => {
+    if (!sujo) return;
+    const f = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download")) return;
+      const url = new URL(a.href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+      if (url.pathname === window.location.pathname && url.search === window.location.search) return;
+      e.preventDefault();
+      e.stopPropagation();
+      setSaida(url.pathname + url.search + url.hash);
+    };
+    document.addEventListener("click", f, true);
+    return () => document.removeEventListener("click", f, true);
+  }, [sujo]);
+  useEffect(() => {
+    const d = dialogo.current;
+    if (!d) return;
+    if (saida && !d.open) d.showModal();
+    else if (!saida && d.open) d.close();
+  }, [saida]);
+
   // A barra fica com a mini prévia (rosto, nome, faixa) quando a prévia grande sai da tela.
   useEffect(() => {
     const el = sentinela.current;
@@ -200,8 +233,8 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
     return () => o.disconnect();
   }, [previaAberta]);
 
-  const salvar = useCallback(async () => {
-    if (salvando || !sujo || problemas.length) return;
+  const salvar = useCallback(async (): Promise<boolean> => {
+    if (salvando || !sujo || problemas.length) return false;
     setSalvando(true);
     setAviso(null);
     try {
@@ -235,8 +268,10 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
       setSalvo(novo);
       despachar({ tipo: "repor", r: novo });
       setAviso({ texto: t.editor.salvo, erro: false });
+      return true;
     } catch (e) {
       setAviso({ texto: preencher(t.editor.erroSalvar, { erro: textoDoErroLivre(t, s, e) }), erro: true });
+      return false;
     } finally {
       setSalvando(false);
     }
@@ -347,13 +382,13 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
                 maxLength={10}
                 autoCapitalize="characters"
                 spellCheck={false}
+                aria-invalid={!r.aparencia.capa.palavra.trim()}
                 aria-describedby="pfe-capa-ajuda"
                 onChange={(e) => {
                   const palavra = arrumarPalavraDaCapa(e.target.value);
                   ap((a) => (a.capa ? { ...a, capa: { ...a.capa, palavra } } : a), "palavra");
                 }}
               />
-              <small id="pfe-capa-ajuda">{t.capa.palavraAjuda}</small>
             </label>
             <button type="button" className="al-botao al-botao-contorno al-botao-m pfe-embaralhar" onClick={() => ap((a) => (a.capa ? { ...a, capa: { ...a.capa, semente: Math.floor(Math.random() * 10000) } } : a))}>
               <svg aria-hidden viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
@@ -361,6 +396,9 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
               </svg>
               {t.capa.embaralhar}
             </button>
+            <small id="pfe-capa-ajuda" className="pfe-campo-ajuda">
+              {r.aparencia.capa.palavra.trim() ? t.capa.palavraAjuda : <span className="pfe-erro">{t.capa.palavraVazia}</span>}
+            </small>
           </div>
         ) : (
           <p className="pfe-ajuda">{t.capa.desenhoOuFoto}</p>
@@ -368,14 +406,14 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
       </div>
     ),
     sobre: () => <Sobre r={r} mudar={mudar} t={t} />,
-    abas: () => <OrdemDasAbas abas={r.aparencia.abas} aoMudar={(abas) => ap((a) => ({ ...a, abas }))} t={t} />,
+    abas: () => <OrdemDasAbas abas={r.aparencia.abas} aoMudar={(abas) => ap((a) => ({ ...a, abas: arrumarAbas(abas) }))} t={t} />,
     vitrine: () => <Vitrine r={r} mudar={mudar} t={t} handle={handle} />,
     agora: () => <Agora r={r} mudar={mudar} t={t} />,
     conta: () => (
       <div className="pfe-bloco pfe-conta">
         <h3 className="pfe-titulo">{t.conta.titulo}</h3>
         <p className="pfe-ajuda">{t.conta.ajuda}</p>
-        {conta}
+        {conta ?? <ContaDeExemplo t={t} />}
       </div>
     ),
   };
@@ -399,63 +437,76 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
         </p>
       ) : null}
 
-      <div className="pfe-previa-moldura" data-aberta={previaAberta ? "" : undefined}>
-        <div className="pfe-previa-rotulo">
-          <span className="pfe-ao-vivo">
-            <i aria-hidden />
-            {t.editor.previa}
-          </span>
-          <button type="button" className="pfe-link" aria-expanded={previaAberta} aria-controls="pfe-previa" onClick={() => setPreviaAberta((x) => !x)}>
-            {previaAberta ? t.editor.esconderPrevia : t.editor.mostrarPrevia}
-          </button>
-        </div>
-        {previaAberta ? (
-          <div id="pfe-previa" className="pfe-previa">
-            <CabecalhoDoPerfil dados={dados} aparencia={r.aparencia} t={t} lang={lang} previa nivel={2} acoes={<span className="al-botao al-botao-primario al-botao-m">{t.perfil.editar}</span>} />
-            <div aria-hidden className="pfe-previa-abas">
-              {r.aparencia.abas.map((a, i) => (
-                <span key={a} data-atual={i === 0 ? "" : undefined} style={{ viewTransitionName: `pfe-previa-aba-${a}` }}>
-                  {t.abas.nomes[a]}
-                </span>
-              ))}
-            </div>
-          </div>
-        ) : null}
-        <div ref={sentinela} aria-hidden />
-      </div>
-
-      <div className="pfe-barra-secoes" data-compacta={compacta || !previaAberta ? "" : undefined}>
-        <div className="pfe-mini" aria-hidden>
-          {r.aparencia.rosto ? <RostoDePixels px={r.aparencia.rosto} tamanho={28} /> : <span className="pfe-mini-rosto" />}
-          <span className="pfe-mini-nome">{dados.codinome}</span>
-          <FaixaPropria faixa={r.aparencia.faixa} altura={4} className="pfe-mini-faixa" />
-        </div>
-        <nav aria-label={t.editor.secoes}>
-          <ul className="pfe-secoes">
-            {SECOES.map((x) => (
-              <li key={x}>
-                <button type="button" className="pfe-secao" aria-current={secao === x ? "true" : undefined} onClick={() => comTransicao(() => setSecao(x))}>
-                  {rotuloDaSecao(x)}
+      <div className="pfe-corpo">
+        <div className="pfe-lado-previa">
+          <div className="pfe-previa-moldura" data-modo={modoDaPrevia}>
+            <div className="pfe-previa-rotulo">
+              <span className="pfe-ao-vivo">
+                <i aria-hidden />
+                {t.editor.previa}
+              </span>
+              <span className="pfe-previa-botoes">
+                {previaAberta ? (
+                  <button type="button" className="pfe-link pfe-so-estreito" aria-expanded={modoDaPrevia === "inteira"} aria-controls="pfe-previa" onClick={() => comTransicao(() => setModoDaPrevia((m) => (m === "inteira" ? "compacta" : "inteira")))}>
+                    {modoDaPrevia === "inteira" ? t.editor.verCompacta : t.editor.verInteira}
+                  </button>
+                ) : null}
+                <button type="button" className="pfe-link" aria-expanded={previaAberta} aria-controls="pfe-previa" onClick={() => comTransicao(() => setModoDaPrevia((m) => (m === "fechada" ? "compacta" : "fechada")))}>
+                  {previaAberta ? t.editor.esconderPrevia : t.editor.mostrarPrevia}
                 </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+              </span>
+            </div>
+            {previaAberta ? (
+              <div id="pfe-previa" className="pfe-previa">
+                <CabecalhoDoPerfil dados={dados} aparencia={r.aparencia} t={t} lang={lang} previa nivel={2} acoes={<span className="al-botao al-botao-primario al-botao-m">{t.perfil.editar}</span>} />
+                <div aria-hidden className="pfe-previa-abas">
+                  {r.aparencia.abas.map((a, i) => (
+                    <span key={a} data-atual={i === 0 ? "" : undefined} style={{ viewTransitionName: `pfe-previa-aba-${a}` }}>
+                      {(t.abas.curtos as Partial<Record<string, string>>)[a] ?? t.abas.nomes[a]}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            <div ref={sentinela} aria-hidden />
+          </div>
+        </div>
 
-      <section key={secao} className="pfe-painel" aria-label={rotuloDaSecao(secao)}>
-        {painel[secao]()}
-      </section>
+        <div className="pfe-lado-controles">
+          <div className="pfe-barra-secoes" data-compacta={compacta || !previaAberta ? "" : undefined} data-secao={secao}>
+            <div className="pfe-mini" aria-hidden>
+              {r.aparencia.rosto ? <RostoDePixels px={r.aparencia.rosto} tamanho={28} /> : <span className="pfe-mini-rosto" />}
+              <span className="pfe-mini-nome">{dados.codinome}</span>
+              <FaixaPropria faixa={r.aparencia.faixa} altura={4} className="pfe-mini-faixa" />
+              {secao === "capa" && r.aparencia.capa ? <CapaDeMosaico capa={r.aparencia.capa} acento={r.aparencia.acento} className="pfe-mini-capa" /> : null}
+            </div>
+            <nav aria-label={t.editor.secoes}>
+              <ul className="pfe-secoes">
+                {SECOES.map((x) => (
+                  <li key={x}>
+                    <button type="button" className="pfe-secao" aria-current={secao === x ? "true" : undefined} onClick={() => comTransicao(() => setSecao(x))}>
+                      {rotuloDaSecao(x)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
 
-      <p className="pfe-seguro">
+          <section key={secao} className="pfe-painel" aria-label={rotuloDaSecao(secao)}>
+            {painel[secao]()}
+          </section>
+
+          <p className="pfe-seguro">
         <svg aria-hidden viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" />
         </svg>
         {t.editor.seguro}
       </p>
 
-      <div className="pfe-salvar" data-sujo={sujo ? "" : undefined} role="region" aria-label={t.editor.salvar}>
-        <p className="pfe-salvar-estado" role="status" aria-live="polite">
+          <div className="pfe-salvar" data-sujo={sujo ? "" : undefined} role="region" aria-label={t.editor.salvar}>
+        <p className="pfe-salvar-estado" role="status" aria-live="polite" data-estado={aviso?.erro || problemas.length ? "erro" : sujo ? "sujo" : "salvo"}>
+          <i aria-hidden className="pfe-salvar-ponto" />
           {aviso ? <span className={aviso.erro ? "pfe-erro" : "pfe-ok"}>{aviso.texto}</span> : problemas.length ? <span className="pfe-erro">{problemas[0]}</span> : sujo ? t.editor.mudancas : t.editor.semMudancas}
         </p>
         <div className="pfe-salvar-botoes">
@@ -476,6 +527,68 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
         </div>
         <p className="sr-only">{t.editor.atalhos}</p>
       </div>
+        </div>
+      </div>
+
+      <dialog ref={dialogo} className="pfe-dialogo" aria-labelledby="pfe-sair-titulo" aria-describedby="pfe-sair-texto" onClose={() => setSaida(null)} onCancel={() => setSaida(null)}>
+        <h2 id="pfe-sair-titulo" className="al-cond">{t.editor.sairTitulo}</h2>
+        <p id="pfe-sair-texto">{problemas.length ? problemas[0] : t.editor.sairTexto}</p>
+        <div className="pfe-dialogo-botoes">
+          <button type="button" className="al-botao al-botao-fantasma al-botao-m" autoFocus onClick={() => setSaida(null)}>
+            {t.editor.sairFicar}
+          </button>
+          <button
+            type="button"
+            className="al-botao al-botao-contorno al-botao-m"
+            onClick={() => {
+              const destino = saida;
+              despachar({ tipo: "repor", r: salvo });
+              setSaida(null);
+              if (destino) setTimeout(() => router.push(destino), 0);
+            }}
+          >
+            {t.editor.sairDescartar}
+          </button>
+          <button
+            type="button"
+            className="al-botao al-botao-primario al-botao-m pfe-botao-salvar"
+            disabled={salvando || problemas.length > 0}
+            onClick={async () => {
+              const destino = saida;
+              if (await salvar()) {
+                setSaida(null);
+                if (destino) setTimeout(() => router.push(destino), 0);
+              }
+            }}
+          >
+            {salvando ? t.editor.salvando : t.editor.sairSalvar}
+          </button>
+        </div>
+      </dialog>
+    </div>
+  );
+}
+
+/** A conta na prévia: os blocos de verdade pedem o banco; aqui eles aparecem com dados de exemplo, só de mostra. */
+function ContaDeExemplo({ t }: { t: TextosDoPerfilLivre }) {
+  return (
+    <div className="pfe-conta-exemplo">
+      <p className="pfe-nota-previa pfe-nota-conta" role="note">
+        {t.conta.previa}
+      </p>
+      <ul className="pfe-conta-lista">
+        {t.conta.exemplo.map(([rotulo, valor]) => (
+          <li key={rotulo}>
+            <span>
+              <strong>{rotulo}</strong>
+              <small>{valor}</small>
+            </span>
+            <button type="button" className="al-botao al-botao-contorno al-botao-p" disabled aria-disabled>
+              {t.conta.mudar}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -502,8 +615,10 @@ function Alternador<V extends string>({ rotulo, valor, opcoes, aoMudar }: { rotu
             if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) return;
             e.preventDefault();
             const n = opcoes[(i + (e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 1) + opcoes.length) % opcoes.length][0];
+            // O grupo é guardado ANTES do quadro seguinte: lá o React já zerou o currentTarget do evento.
+            const grupo = e.currentTarget.parentElement;
             aoMudar(n);
-            requestAnimationFrame(() => (e.currentTarget.parentElement?.querySelector<HTMLElement>("[aria-checked=true]"))?.focus());
+            requestAnimationFrame(() => grupo?.querySelector<HTMLElement>("[aria-checked=true]")?.focus());
           }}
         >
           {nome}

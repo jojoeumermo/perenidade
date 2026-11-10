@@ -21,40 +21,117 @@
     "previaExemplo": "Vista previa con datos de ejemplo: nada va a la base de datos.",
     "verPerfil": "Ver mi perfil",
     "seguro": "Solo colores, palabras y opciones verificadas: nadie puede poner código ni rastreo en tu perfil.",
-    "entrar": "Entra en Alumia para editar tu perfil."
+    "entrar": "Entra en Alumia para editar tu perfil.",
+    "sairTitulo": "¿Salir sin guardar?",
+    "sairTexto": "Cambiaste tu perfil y todavía no guardaste. ¿Qué hacemos con los cambios?",
+    "sairSalvar": "Guardar y salir",
+    "sairDescartar": "Descartar y salir",
+    "sairFicar": "Seguir editando",
+    "verInteira": "Ver la vista previa entera",
+    "verCompacta": "Vista previa compacta",
+    "estadoMudancas": "Sin guardar",
+    "estadoSalvo": "Guardado"
   },
-  "abasDoEditor": { "cores": "Colores", "rosto": "Rostro", "capa": "Portada", "sobre": "Sobre mí", "abas": "Pestañas", "vitrine": "Vitrina", "agora": "Ahora", "conta": "Cuenta" },
+  "abasDoEditor": {
+    "cores": "Colores",
+    "rosto": "Rostro",
+    "capa": "Portada",
+    "sobre": "Sobre mí",
+    "abas": "Pestañas",
+    "vitrine": "Vitrina",
+    "agora": "Ahora",
+    "conta": "Cuenta"
+  },
   "cores": {
     "titulo": "Color del perfil",
     "ajuda": "El color de los botones, del subrayado de las pestañas y de los detalles de tu perfil.",
-    "paleta": { "vermelho": "Rojo", "dourado": "Dorado", "azul": "Azul", "verde": "Verde", "rosa": "Rosa", "laranja": "Naranja", "turquesa": "Turquesa", "roxo": "Morado" },
+    "paleta": {
+      "vermelho": "Rojo",
+      "dourado": "Dorado",
+      "azul": "Azul",
+      "verde": "Verde",
+      "rosa": "Rosa",
+      "laranja": "Naranja",
+      "turquesa": "Turquesa",
+      "roxo": "Morado"
+    },
     "livre": "Color libre",
     "livreAjuda": "Cualquier color. Si cuesta leerlo, Alumia ajusta el tono hasta pasar el contraste.",
     "contraste": "Contraste {noite}:1 en oscuro y {papel}:1 en claro (mínimo 4,5:1).",
     "ajustada": "Ajustamos el tono del texto para que sea legible.",
     "passa": "Pasa el contraste sin ajuste.",
     "tema": "Ambiente de la cabecera",
-    "temas": { "brasa": "Brasa", "tingido": "Teñido", "papel": "Papel", "noite": "Noche" },
-    "temasAjuda": { "brasa": "Oscuro con un brillo de tu color.", "tingido": "Toda la cabecera en tu color, en tono profundo.", "papel": "Claro, como un cartel de papel.", "noite": "Negro liso, solo lo esencial." },
+    "temas": {
+      "brasa": "Brasa",
+      "tingido": "Teñido",
+      "papel": "Papel",
+      "noite": "Noche"
+    },
+    "temasAjuda": {
+      "brasa": "Oscuro con un brillo de tu color.",
+      "tingido": "Toda la cabecera en tu color, en tono profundo.",
+      "papel": "Claro, como un cartel de papel.",
+      "noite": "Negro liso, solo lo esencial."
+    },
     "layout": "Modelo de cabecera",
-    "layouts": { "classico": "Clásico", "centro": "Centro", "cartaz": "Cartel" },
-    "layoutsAjuda": { "classico": "Portada arriba, rostro a la izquierda.", "centro": "Todo centrado, rostro grande.", "cartaz": "Portada alta con el nombre encima, como un cartel callejero." },
+    "layouts": {
+      "classico": "Clásico",
+      "centro": "Centro",
+      "cartaz": "Cartel"
+    },
+    "layoutsAjuda": {
+      "classico": "Portada arriba, rostro a la izquierda.",
+      "centro": "Todo centrado, rostro grande.",
+      "cartaz": "Portada alta con el nombre encima, como un cartel callejero."
+    },
     "faixa": "Tu franja tejida",
     "faixaAjuda": "Once hilos, en las proporciones de la franja de la casa. Elige un hilo y luego el color.",
     "fio": "Hilo {n}",
     "fioEscolhido": "Hilo {n} elegido: {cor}",
     "modelos": "Empezar de un modelo",
-    "modelosNomes": { "casa": "De la casa", "brasa": "Brasa", "mar": "Mar", "mata": "Selva", "orgulho": "Orgullo", "luto": "Luto" },
-    "coresDaFaixa": ["Rojo", "Amarillo", "Azul", "Papel", "Verde", "Rosa", "Naranja", "Noche", "Turquesa", "Morado"]
+    "modelosNomes": {
+      "casa": "De la casa",
+      "brasa": "Brasa",
+      "mar": "Mar",
+      "mata": "Selva",
+      "orgulho": "Orgullo",
+      "luto": "Luto"
+    },
+    "coresDaFaixa": [
+      "Rojo",
+      "Amarillo",
+      "Azul",
+      "Papel",
+      "Verde",
+      "Rosa",
+      "Naranja",
+      "Noche",
+      "Turquesa",
+      "Morado"
+    ]
   },
   "rosto": {
     "titulo": "Rostro",
     "ajuda": "Dibuja tu rostro en mosaico, baldosa a baldosa, o usa un dibujo o foto (la foto pierde el EXIF en tu aparato y pasa por la mediación).",
-    "modo": { "mosaico": "Mosaico de píxeles", "sempre": "Dibujo o foto" },
+    "modo": {
+      "mosaico": "Mosaico de píxeles",
+      "sempre": "Dibujo o foto"
+    },
     "grade": "Cuadrícula del rostro, 8 por 8. Las flechas mueven, Espacio o Enter pinta.",
     "ladrilho": "Fila {l}, columna {c}: {cor}",
     "vazio": "vacío",
-    "cores": ["Goma", "Papel", "Carbón", "Rojo", "Dorado", "Azul", "Verde", "Rosa", "Naranja", "Morado"],
+    "cores": [
+      "Goma",
+      "Papel",
+      "Carbón",
+      "Rojo",
+      "Dorado",
+      "Azul",
+      "Verde",
+      "Rosa",
+      "Naranja",
+      "Morado"
+    ],
     "pincel": "Color del pincel",
     "espelhar": "Espejo (pinta los dos lados)",
     "sortear": "Rostro al azar",
@@ -66,11 +143,15 @@
   "capa": {
     "titulo": "Portada",
     "ajuda": "Una portada en mosaico con tu palabra, en tu color, o la portada de siempre (dibujo o foto).",
-    "modo": { "mosaico": "Mosaico con palabra", "sempre": "Dibujo o foto" },
+    "modo": {
+      "mosaico": "Mosaico con palabra",
+      "sempre": "Dibujo o foto"
+    },
     "palavra": "Palabra de la portada",
     "palavraAjuda": "Hasta 10 letras y números, sin tildes. Ej.: OKUPA, LUCHA VIVA.",
     "embaralhar": "Barajar las baldosas",
-    "desenhoOuFoto": "Dibujo de la galería o foto: en la pestaña Cuenta."
+    "desenhoOuFoto": "Dibujo de la galería o foto: en la pestaña Cuenta.",
+    "palavraVazia": "Escribe la palabra de la portada (o elige Dibujo o foto)."
   },
   "sobre": {
     "codinome": "Seudónimo",
@@ -104,12 +185,23 @@
   "abas": {
     "titulo": "Pestañas del perfil",
     "ajuda": "Elige qué pestañas aparecen y en qué orden. Posts siempre se queda.",
-    "nomes": { "posts": "Posts", "respostas": "Respuestas", "midia": "Multimedia", "atos": "Actos", "destaques": "Destacados", "organizacoes": "Organizaciones", "escola": "Sellos de la Escuela" },
+    "nomes": {
+      "posts": "Posts",
+      "respostas": "Respuestas",
+      "midia": "Multimedia",
+      "atos": "Actos",
+      "destaques": "Destacados",
+      "organizacoes": "Organizaciones",
+      "escola": "Sellos de la Escuela"
+    },
     "mostrar": "Mostrar la pestaña {aba}",
     "subir": "Subir {aba}",
     "descer": "Bajar {aba}",
     "sempre": "siempre aparece",
-    "arrastar": "Arrastra para cambiar el orden, o usa los botones."
+    "arrastar": "Arrastra para cambiar el orden, o usa los botones.",
+    "curtos": {
+      "escola": "Escuela"
+    }
   },
   "vitrine": {
     "fixados": "Posts fijados",
@@ -136,11 +228,24 @@
   "agora": {
     "status": "Estado con plazo",
     "statusAjuda": "Desaparece solo al final del plazo. Nunca dice dónde estás.",
-    "statusTipos": { "greve": "En huelga", "ato": "En un acto", "estudando": "Estudiando", "cuidando": "Cuidando a alguien", "ferias": "De descanso" },
+    "statusTipos": {
+      "greve": "En huelga",
+      "ato": "En un acto",
+      "estudando": "Estudiando",
+      "cuidando": "Cuidando a alguien",
+      "ferias": "De descanso"
+    },
     "semStatus": "Sin estado",
     "statusTexto": "Texto corto (opcional)",
     "duracao": "Desaparece tras",
-    "duracoes": { "1": "1 hora", "8": "8 horas", "24": "1 día", "72": "3 días", "168": "1 semana", "720": "30 días" },
+    "duracoes": {
+      "1": "1 hora",
+      "8": "8 horas",
+      "24": "1 día",
+      "72": "3 días",
+      "168": "1 semana",
+      "720": "30 días"
+    },
     "tocando": "Sonando ahora",
     "tocandoAjuda": "Solo texto y, si quieres, un enlace. Alumia no se conecta a ningún servicio de música: nada de rastreo.",
     "tocandoTexto": "Canción, pódcast, himno…",
@@ -153,14 +258,54 @@
     "ate": "hasta {data}",
     "fixado": "Fijado",
     "orgs": "Organizaciones que {codinome} eligió mostrar",
-    "vazio": { "respostas": "Aún no hay respuestas.", "midia": "Aún no hay imágenes.", "atos": "Aún no hay actos convocados.", "destaques": "Aún no hay destacados.", "organizacoes": "Ninguna organización elegida.", "escola": "Ningún sello de la Escuela a la vista." },
+    "vazio": {
+      "respostas": "Aún no hay respuestas.",
+      "midia": "Aún no hay imágenes.",
+      "atos": "Aún no hay actos convocados.",
+      "destaques": "Aún no hay destacados.",
+      "organizacoes": "Ninguna organización elegida.",
+      "escola": "Ningún sello de la Escuela a la vista."
+    },
     "linkDoCampo": "Enlace de {rotulo}: {dominio}",
     "editar": "Editar perfil",
-    "abas": "Pestañas del perfil de {codinome}"
+    "abas": "Pestañas del perfil de {codinome}",
+    "naoAchado": {
+      "titulo": "Perfil no encontrado",
+      "texto": "Nadie usa @{handle} en Alumia, o la persona no quiere ser encontrada.",
+      "voltar": "Volver al inicio"
+    }
   },
   "conta": {
     "titulo": "Cuenta y privacidad",
-    "ajuda": "@nombre, quién te encuentra, estudiando ahora, sellos, rostro y portada de dibujo o foto, y las solicitudes para seguir. Cada bloque se guarda solo."
+    "ajuda": "@nombre, quién te encuentra, estudiando ahora, sellos, rostro y portada de dibujo o foto, y las solicitudes para seguir. Cada bloque se guarda solo.",
+    "previa": "En la vista previa, la cuenta es solo de muestra: estos bloques cambian tu cuenta real y necesitan la base de datos.",
+    "exemplo": [
+      [
+        "@nombre",
+        "@faisca · se cambia cada 30 días"
+      ],
+      [
+        "Quién te encuentra",
+        "Abierto: quien está en Alumia te encuentra por el @nombre"
+      ],
+      [
+        "Estudiando ahora",
+        "Apagado (solo aparece si lo enciendes)"
+      ],
+      [
+        "Sellos de la Escuela",
+        "3 sellos a la vista"
+      ],
+      [
+        "Rostro y portada de dibujo o foto",
+        "Galería de dibujos o foto sin EXIF"
+      ],
+      [
+        "Solicitudes para seguir",
+        "Ninguna solicitud pendiente"
+      ]
+    ],
+    "mudar": "Cambiar"
   },
   "org": {
     "tear": {
@@ -187,7 +332,13 @@
       "titulo": "Enciende un farol",
       "ajuda": "Fundar un núcleo en 5 pasos. El farol empieza apagado, gana una brasa con la 1.ª persona y llama plena con la 3.ª.",
       "passo": "Paso {n} de 5",
-      "passos": ["Nombre y ciudad", "Orden del día de la 1.ª reunión", "Cartel", "Invitación", "Primera tarea"],
+      "passos": [
+        "Nombre y ciudad",
+        "Orden del día de la 1.ª reunión",
+        "Cartel",
+        "Invitación",
+        "Primera tarea"
+      ],
       "nome": "Nombre del núcleo",
       "cidade": "Ciudad (escrita, sin GPS)",
       "quando": "Cuándo se reúnen",
@@ -202,7 +353,11 @@
       "seguir": "Seguir",
       "acender": "Encender",
       "aceso": "¡Farol encendido! El núcleo entra en la vitrina cuando llegue a 3 personas.",
-      "estados": { "apagado": "Apagado: nadie aún", "brasa": "Brasa: empezó", "chama": "Llama plena: 3 o más" },
+      "estados": {
+        "apagado": "Apagado: nadie aún",
+        "brasa": "Brasa: empezó",
+        "chama": "Llama plena: 3 o más"
+      },
       "cor": "Color del núcleo"
     }
   }
