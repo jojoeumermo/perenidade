@@ -130,6 +130,15 @@
 [data-al="2"] .al-org-nucleo-quando { font-size: 0.8rem; color: var(--al-texto-3); white-space: nowrap; }
 [data-al="2"] .al-org-nucleo-onde { display: block; font-weight: 400; font-size: 0.8rem; color: var(--al-texto-3); }
 :root:is([data-eink], [data-contrast]) [data-al="2"] .al-org-anel { border-color: var(--al-texto); }
+/* Coluna estreita (a da direita no computador, o celular): o horário desce para baixo do nome e o nome não quebra no meio. */
+[data-al="2"] .al-org-nucleos { container-type: inline-size; }
+@container (max-width: 380px) {
+  [data-al="2"] .al-org-nucleo { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "anel nome acao" "anel quando acao"; column-gap: 12px; row-gap: 2px; }
+  [data-al="2"] .al-org-nucleo > .al-org-anel { grid-area: anel; }
+  [data-al="2"] .al-org-nucleo > .al-org-nucleo-nome { grid-area: nome; }
+  [data-al="2"] .al-org-nucleo > .al-org-nucleo-quando { grid-area: quando; }
+  [data-al="2"] .al-org-nucleo > :last-child:not(.al-org-nucleo-quando) { grid-area: acao; }
+}
 
 /* ───────────── Perfil de organização e de pessoa ───────────── */
 [data-al="2"] .al-perfil { font-family: var(--al-fonte); color: var(--al-texto); background: var(--al-fundo); }
@@ -260,8 +269,10 @@
 :root[data-eink] [data-al="2"] .al-selo.al-selo-papel { background: #fff; color: #000; border: 1.5px solid #000; --al-sobre-vermelho: #000; --al-vermelho: #fff; }
 
 /* ───────────── Perfil de organização: grade (computador: principal + lado; celular: uma coluna) ───────────── */
+/* Pela largura da COLUNA (container), não da janela: na casca da Alumia o meio tem 600 px e as duas colunas não cabem. */
+[data-al="2"] .al-perfil-org { container-type: inline-size; }
 [data-al="2"] .al-perfil-org-grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; max-width: 1200px; margin: 0 auto; }
-@media (min-width: 1024px) {
+@container (min-width: 900px) {
   [data-al="2"] .al-perfil-org-grade { grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; padding-inline: 24px; }
   [data-al="2"] .al-perfil-org-lado { position: sticky; top: 16px; align-self: start; padding-top: 12px; }
 }

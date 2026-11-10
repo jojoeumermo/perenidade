@@ -1,0 +1,364 @@
+{
+  "_rascunho": true,
+  "editor": {
+    "titulo": "Ton profil, à ta façon",
+    "subtitulo": "Tout change dans l’aperçu pendant que tu modifies. Rien ne part d’ici avant que tu enregistres.",
+    "previa": "Aperçu en direct",
+    "esconderPrevia": "Masquer l’aperçu",
+    "mostrarPrevia": "Afficher l’aperçu",
+    "secoes": "Parties du profil",
+    "salvar": "Enregistrer",
+    "salvando": "Enregistrement…",
+    "salvo": "Enregistré. Ton profil est déjà comme ça.",
+    "desfazer": "Annuler",
+    "refazer": "Rétablir",
+    "descartar": "Abandonner",
+    "mudancas": "Modifications non enregistrées",
+    "semMudancas": "Tout est enregistré",
+    "atalhos": "Ctrl+Z annule, Ctrl+Maj+Z rétablit, Ctrl+S enregistre.",
+    "sairSemSalvar": "Le profil a des modifications non enregistrées. Quitter quand même ?",
+    "erroSalvar": "Impossible d’enregistrer : {erro}",
+    "previaExemplo": "Aperçu avec des données d’exemple : rien ne va dans la base.",
+    "verPerfil": "Voir mon profil",
+    "seguro": "Seulement des couleurs, des mots et des choix vérifiés : personne ne peut mettre de code ni de pistage sur ton profil.",
+    "entrar": "Connecte-toi à Alumia pour modifier ton profil.",
+    "sairTitulo": "Partir sans enregistrer ?",
+    "sairTexto": "Tu as modifié ton profil sans enregistrer. Que faire des changements ?",
+    "sairSalvar": "Enregistrer et partir",
+    "sairDescartar": "Abandonner et partir",
+    "sairFicar": "Continuer à modifier",
+    "verInteira": "Voir l’aperçu entier",
+    "verCompacta": "Aperçu compact",
+    "estadoMudancas": "Non enregistré",
+    "estadoSalvo": "Enregistré"
+  },
+  "abasDoEditor": {
+    "cores": "Couleurs",
+    "rosto": "Visage",
+    "capa": "Couverture",
+    "sobre": "À propos",
+    "abas": "Onglets",
+    "vitrine": "Vitrine",
+    "agora": "Maintenant",
+    "conta": "Compte"
+  },
+  "cores": {
+    "titulo": "Couleur du profil",
+    "ajuda": "La couleur des boutons, du soulignement des onglets et des détails de ton profil.",
+    "paleta": {
+      "vermelho": "Rouge",
+      "dourado": "Doré",
+      "azul": "Bleu",
+      "verde": "Vert",
+      "rosa": "Rose",
+      "laranja": "Orange",
+      "turquesa": "Turquoise",
+      "roxo": "Violet"
+    },
+    "livre": "Couleur libre",
+    "livreAjuda": "N’importe quelle couleur. Si elle est difficile à lire, Alumia ajuste la teinte jusqu’à passer le contraste.",
+    "contraste": "Contraste {noite}:1 sur sombre et {papel}:1 sur clair (minimum 4,5:1).",
+    "ajustada": "Nous avons ajusté la teinte du texte pour qu’il reste lisible.",
+    "passa": "Passe le contraste sans ajustement.",
+    "tema": "Ambiance de l’en-tête",
+    "temas": {
+      "brasa": "Braise",
+      "tingido": "Teinté",
+      "papel": "Papier",
+      "noite": "Nuit"
+    },
+    "temasAjuda": {
+      "brasa": "Sombre avec une lueur de ta couleur.",
+      "tingido": "Tout l’en-tête dans ta couleur, en ton profond.",
+      "papel": "Clair, comme une affiche en papier.",
+      "noite": "Noir uni, l’essentiel."
+    },
+    "layout": "Modèle d’en-tête",
+    "layouts": {
+      "classico": "Classique",
+      "centro": "Centré",
+      "cartaz": "Affiche"
+    },
+    "layoutsAjuda": {
+      "classico": "Couverture en haut, visage à gauche.",
+      "centro": "Tout centré, grand visage.",
+      "cartaz": "Grande couverture avec le nom par-dessus, comme une affiche de rue."
+    },
+    "faixa": "Ta bande tissée",
+    "faixaAjuda": "Onze fils, aux proportions de la bande de la maison. Choisis un fil puis la couleur.",
+    "fio": "Fil {n}",
+    "fioEscolhido": "Fil {n} choisi : {cor}",
+    "modelos": "Partir d’un modèle",
+    "modelosNomes": {
+      "casa": "Maison",
+      "brasa": "Braise",
+      "mar": "Mer",
+      "mata": "Forêt",
+      "orgulho": "Fierté",
+      "luto": "Deuil"
+    },
+    "coresDaFaixa": [
+      "Rouge",
+      "Jaune",
+      "Bleu",
+      "Papier",
+      "Vert",
+      "Rose",
+      "Orange",
+      "Nuit",
+      "Turquoise",
+      "Violet"
+    ]
+  },
+  "rosto": {
+    "titulo": "Visage",
+    "ajuda": "Dessine ton visage en mosaïque, carreau par carreau, ou utilise un dessin ou une photo (la photo perd ses EXIF sur l’appareil et passe par la modération).",
+    "modo": {
+      "mosaico": "Mosaïque de pixels",
+      "sempre": "Dessin ou photo"
+    },
+    "grade": "Grille du visage, 8 sur 8. Les flèches déplacent, Espace ou Entrée peint.",
+    "ladrilho": "Ligne {l}, colonne {c} : {cor}",
+    "vazio": "vide",
+    "cores": [
+      "Gomme",
+      "Papier",
+      "Charbon",
+      "Rouge",
+      "Doré",
+      "Bleu",
+      "Vert",
+      "Rose",
+      "Orange",
+      "Violet"
+    ],
+    "pincel": "Couleur du pinceau",
+    "espelhar": "Miroir (peint les deux côtés)",
+    "sortear": "Visage au hasard",
+    "limpar": "Effacer",
+    "poucos": "Peins au moins 6 carreaux pour que le visage compte.",
+    "usarMosaico": "Utiliser la mosaïque",
+    "desenhoOuFoto": "Dessin de la galerie ou photo : dans l’onglet Compte."
+  },
+  "capa": {
+    "titulo": "Couverture",
+    "ajuda": "Une couverture en mosaïque avec ton mot, dans ta couleur, ou la couverture habituelle (dessin ou photo).",
+    "modo": {
+      "mosaico": "Mosaïque avec un mot",
+      "sempre": "Dessin ou photo"
+    },
+    "palavra": "Mot de la couverture",
+    "palavraAjuda": "Jusqu’à 10 lettres et chiffres, sans accents. Ex. : OCCUPE, LUTTE.",
+    "embaralhar": "Mélanger les carreaux",
+    "desenhoOuFoto": "Dessin de la galerie ou photo : dans l’onglet Compte.",
+    "palavraVazia": "Écris le mot de la couverture (ou choisis Dessin ou photo)."
+  },
+  "sobre": {
+    "codinome": "Nom de code",
+    "codinomeAjuda": "Le nom affiché sur Alumia : 3 à 30 lettres. Jamais ton nom civil.",
+    "erros": {
+      "codinome_usado": "Ce nom de code appartient déjà à quelqu’un.",
+      "codinome_civil": "Cela ressemble à ton nom civil. Choisis-en un autre, pour ta sécurité.",
+      "codinome_reservado": "Ce nom est réservé.",
+      "invalido_codinome": "Utilise 3 à 30 lettres, chiffres, espace, point, tiret ou _ (sans lien ni @)."
+    },
+    "pronomes": "Pronoms",
+    "pronomesAjuda": "Ex. : elle, il, iel. Facultatif.",
+    "bio": "Bio",
+    "bioAjuda": "Utilise **gras**, _italique_, liens https, #sujets et @personnes. Le HTML ne marche pas.",
+    "bioSalvaAparte": "La bio est enregistrée avec le reste quand tu touches Enregistrer.",
+    "negrito": "Gras",
+    "italico": "Italique",
+    "campos": "Champs",
+    "camposAjuda": "Jusqu’à 6. Un lien https montre le domaine avant le clic ; le pistage (utm, fbclid) est retiré. Ne mets ni téléphone, ni adresse, ni document.",
+    "rotulo": "Libellé",
+    "valor": "Valeur",
+    "adicionar": "Ajouter un champ",
+    "remover": "Retirer le champ {n}",
+    "subir": "Monter le champ {n}",
+    "descer": "Descendre le champ {n}",
+    "linkLimpo": "Va vers {dominio}",
+    "rastreioTirado": "Nous avons retiré {n} élément(s) de pistage du lien.",
+    "linkRuim": "Seulement des liens commençant par https://.",
+    "contador": "{n} sur {max}"
+  },
+  "abas": {
+    "titulo": "Onglets du profil",
+    "ajuda": "Choisis quels onglets apparaissent et dans quel ordre. Posts reste toujours.",
+    "nomes": {
+      "posts": "Posts",
+      "respostas": "Réponses",
+      "midia": "Médias",
+      "atos": "Actions",
+      "destaques": "À la une",
+      "organizacoes": "Organisations",
+      "escola": "Badges de l’École"
+    },
+    "mostrar": "Afficher l’onglet {aba}",
+    "subir": "Monter {aba}",
+    "descer": "Descendre {aba}",
+    "sempre": "toujours affiché",
+    "arrastar": "Fais glisser pour changer l’ordre, ou utilise les boutons.",
+    "curtos": {
+      "escola": "École"
+    }
+  },
+  "vitrine": {
+    "fixados": "Posts épinglés",
+    "fixadosAjuda": "Jusqu’à 3 de tes posts en haut du profil, dans l’ordre.",
+    "fixar": "Épingler",
+    "desafixar": "Désépingler",
+    "cheio": "Tu en as déjà 3 épinglés.",
+    "semPosts": "Tu n’as pas encore de posts à épingler.",
+    "destaques": "À la une",
+    "destaquesAjuda": "Jusqu’à 6 de tes posts ou actions, avec un titre court et une couleur.",
+    "tituloDestaque": "Titre",
+    "virarDestaque": "Mettre à la une",
+    "tirar": "Retirer",
+    "corDoDestaque": "Couleur",
+    "orgs": "Organisations sur le profil",
+    "orgsAjuda": "Seulement celles que tu écris, une par une, et seulement vérifiées. L’affiliation est une donnée sensible (LGPD art. 11) : Alumia ne déduit rien de qui tu suis.",
+    "orgHandle": "@ de l’organisation",
+    "mostrarOrg": "Afficher",
+    "orgRuim": "Écris le @ d’une organisation (3 à 20 lettres, chiffres ou _).",
+    "orgConferida": "La base vérifie le badge à l’enregistrement.",
+    "ato": "Action",
+    "post": "Post"
+  },
+  "agora": {
+    "status": "Statut avec échéance",
+    "statusAjuda": "Disparaît tout seul. Ne dit jamais où tu es.",
+    "statusTipos": {
+      "greve": "En grève",
+      "ato": "En manif",
+      "estudando": "En train d’étudier",
+      "cuidando": "Je prends soin de quelqu’un",
+      "ferias": "En pause"
+    },
+    "semStatus": "Sans statut",
+    "statusTexto": "Texte court (facultatif)",
+    "duracao": "Disparaît après",
+    "duracoes": {
+      "1": "1 heure",
+      "8": "8 heures",
+      "24": "1 jour",
+      "72": "3 jours",
+      "168": "1 semaine",
+      "720": "30 jours"
+    },
+    "tocando": "En écoute",
+    "tocandoAjuda": "Juste du texte et, si tu veux, un lien. Alumia ne se connecte à aucun service de musique : pas de pistage.",
+    "tocandoTexto": "Chanson, podcast, hymne…",
+    "tocandoLink": "Lien (facultatif, https)",
+    "tirar": "Retirer"
+  },
+  "perfil": {
+    "tocando": "En écoute",
+    "ouvirEm": "écouter sur {dominio}",
+    "ate": "jusqu’au {data}",
+    "fixado": "Épinglé",
+    "orgs": "Organisations que {codinome} a choisi de montrer",
+    "vazio": {
+      "respostas": "Pas encore de réponses.",
+      "midia": "Pas encore d’images.",
+      "atos": "Aucune action appelée pour l’instant.",
+      "destaques": "Rien à la une pour l’instant.",
+      "organizacoes": "Aucune organisation choisie.",
+      "escola": "Aucun badge de l’École affiché."
+    },
+    "linkDoCampo": "Lien {rotulo} : {dominio}",
+    "editar": "Modifier le profil",
+    "abas": "Onglets du profil de {codinome}",
+    "naoAchado": {
+      "titulo": "Profil introuvable",
+      "texto": "Personne n’utilise @{handle} sur Alumia, ou la personne ne veut pas être trouvée.",
+      "voltar": "Retour à l’accueil"
+    }
+  },
+  "conta": {
+    "titulo": "Compte et vie privée",
+    "ajuda": "@nom, qui peut te trouver, en train d’étudier, badges, visage et couverture en dessin ou photo, et demandes d’abonnement. Chaque bloc s’enregistre seul.",
+    "previa": "Dans l’aperçu, le compte est seulement montré : ces blocs modifient ton vrai compte et ont besoin de la base de données.",
+    "exemplo": [
+      [
+        "@nom",
+        "@faisca · modifiable tous les 30 jours"
+      ],
+      [
+        "Qui peut te trouver",
+        "Ouvert : les gens d’Alumia te trouvent par le @nom"
+      ],
+      [
+        "En train d’étudier",
+        "Désactivé (visible seulement si tu l’actives)"
+      ],
+      [
+        "Badges de l’École",
+        "3 badges affichés"
+      ],
+      [
+        "Visage et couverture en dessin ou photo",
+        "Galerie de dessins ou photo sans EXIF"
+      ],
+      [
+        "Demandes d’abonnement",
+        "Aucune demande en attente"
+      ]
+    ],
+    "mudar": "Modifier"
+  },
+  "org": {
+    "tear": {
+      "titulo": "Métier des suites",
+      "agregado": "Nous avons décidé {decididos}, réalisé {cumpridos}.",
+      "poucos": "Le métier affiche le score à partir de 3 décisions.",
+      "ajuda": "Chaque décision devient un fil. Réalisée, l’aiguille la tisse dans la bande ; en retard, elle pend.",
+      "funcaoSoDentro": "La fonction responsable et l’échéance ne sont visibles que pour les membres de l’organisation.",
+      "funcao": "Fonction responsable",
+      "prazo": "Échéance",
+      "vencido": "En retard",
+      "cumprido": "Réalisé",
+      "aberto": "En cours",
+      "cumprir": "Marquer comme réalisé",
+      "reabrir": "Rouvrir",
+      "retirar": "Retirer",
+      "novo": "Tisser un nouveau fil",
+      "texto": "Ce qui a été décidé",
+      "funcaoAjuda": "Le nom de la fonction (trésorerie, communication), jamais d’une personne.",
+      "tecer": "Tisser",
+      "vazio": "Aucune suite pour l’instant."
+    },
+    "lampiao": {
+      "titulo": "Allume une lanterne",
+      "ajuda": "Fonder un groupe local en 5 étapes. La lanterne commence éteinte, prend une braise avec la 1re personne et une pleine flamme avec la 3e.",
+      "passo": "Étape {n} sur 5",
+      "passos": [
+        "Nom et ville",
+        "Ordre du jour de la 1re réunion",
+        "Affiche",
+        "Invitation",
+        "Première tâche"
+      ],
+      "nome": "Nom du groupe",
+      "cidade": "Ville (écrite, sans GPS)",
+      "quando": "Quand vous vous réunissez",
+      "onde": "Où (lieu public, jamais une adresse privée)",
+      "pauta": "Ordre du jour de la première réunion",
+      "pautaModelo": "1. Qui nous sommes et pourquoi nous sommes là\n2. Le problème du quartier qui pèse le plus\n3. Une petite première action\n4. Prochaine réunion",
+      "cartaz": "L’affiche est prête avec le nom, le jour et un QR propre, sans pistage.",
+      "convite": "Invitation avec validité et limite d’utilisations : à créer ensuite dans Groupes > Invitations.",
+      "tarefa": "Première tâche",
+      "tarefaModelo": "Amener une personne de confiance de plus à la deuxième réunion.",
+      "voltar": "Retour",
+      "seguir": "Suivant",
+      "acender": "Allumer",
+      "aceso": "Lanterne allumée ! Le groupe entre dans la vitrine quand il atteint 3 personnes.",
+      "estados": {
+        "apagado": "Éteinte : personne encore",
+        "brasa": "Braise : ça commence",
+        "chama": "Pleine flamme : 3 ou plus"
+      },
+      "cor": "Couleur du groupe"
+    }
+  }
+}
