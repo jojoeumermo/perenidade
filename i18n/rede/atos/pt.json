@@ -187,6 +187,7 @@
     "pedir": "Pedir: {estado}",
     "novoPonto": "Novo ponto de encontro",
     "novoPontoExemplo": "ex.: Praça Silva Teles, em frente à escola",
+    "erroPonto": "Escreva o novo ponto com pelo menos 3 letras.",
     "esperando": "Você pediu {estado}. Falta a segunda pessoa da coordenação confirmar (até {hora}).",
     "outraPediu": "Alguém da coordenação pediu {estado}.",
     "confirmar": "Confirmar: {estado}",
@@ -220,6 +221,10 @@
     "aberta": "Corrente aberta.",
     "barra": "Corrente: {pct}% fechada",
     "barraVazia": "Corrente: os elos ainda estão abertos",
-    "fechouAgora": "A corrente fechou! Obrigado por estar nela."
+    "fechouAgora": "A corrente fechou! Obrigado por estar nela.",
+    "erroTexto": "Escreva o pedido com pelo menos 10 letras (até 140).",
+    "erroCidade": "Escreva a cidade (pelo menos 2 letras).",
+    "erroMeta": "A meta vai de 3 a 5.000 pessoas.",
+    "erroHora": "A hora precisa ser no futuro."
   }
 }
