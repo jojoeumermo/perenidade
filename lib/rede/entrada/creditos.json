@@ -1,0 +1,75 @@
+[
+  {
+    "id": "lenin",
+    "nome": "Vladimir Lenin",
+    "autor": "Unknown, presumably official",
+    "licenca": "Public domain",
+    "licencaUrl": null,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Lenin_in_1920_(3x4_cropped).jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
+    "id": "marx",
+    "nome": "Karl Marx",
+    "autor": "John Jabez Edwin Mayall",
+    "licenca": "Public domain",
+    "licencaUrl": null,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Karl_Marx_001_(3x4_cropped).jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
+    "id": "engels",
+    "nome": "Friedrich Engels",
+    "autor": "William Hall (1826–ca. 1898) (cropped and sepia tone removed)",
+    "licenca": "Public domain",
+    "licencaUrl": null,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Friedrich_Engels_portrait_(cropped).jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
+    "id": "rosa",
+    "nome": "Rosa Luxemburgo",
+    "autor": "Unknown author",
+    "licenca": "Public domain",
+    "licencaUrl": null,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Rosa_Luxemburg_Portrait_(3x4_cropped).jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
+    "id": "stalin",
+    "nome": "Josef Stalin",
+    "autor": "Unknown author",
+    "licenca": "Public domain",
+    "licencaUrl": null,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Stalin_(cropped).jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
+    "id": "gramsci",
+    "nome": "Antonio Gramsci",
+    "autor": "Unknown author",
+    "licenca": "Public domain",
+    "licencaUrl": null,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Gramsci.png",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
+    "id": "freire",
+    "nome": "Paulo Freire",
+    "autor": "Slobodan Dimitrov",
+    "licenca": "CC BY-SA 3.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fonte": "https://commons.wikimedia.org/wiki/File:Paulo_Freire_1977.jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia"
+  },
+  {
+    "id": "marielle",
+    "nome": "Marielle Franco",
+    "autor": "Mídia Ninja",
+    "licenca": "CC BY-SA 2.0",
+    "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "fonte": "https://commons.wikimedia.org/wiki/File:Marielle_Franco_(cropped).jpg",
+    "derivada": "Silhueta (cinza, contraste, escurecida, desfocada e recortada) feita pelo Instituto Lúcia",
+    "cuidado": "Imagem protegida pela família (Código Civil art. 20, parágrafo único) e cuidada pelo Instituto Marielle Franco: só como silhueta respeitosa entre as outras, sem distorção nem caricatura."
+  }
+]
