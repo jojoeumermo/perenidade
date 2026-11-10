@@ -314,7 +314,7 @@
 [data-al="2"] .pfe-conta-lista button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* O diálogo de sair sem salvar. */
-[data-al="2"] .pfe-dialogo { position: fixed; inset: 0; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); overflow: auto; width: min(440px, calc(100vw - 32px)); padding: 22px; border: 1px solid var(--al-superficie-2); border-radius: 20px; background: var(--al-superficie); color: var(--al-texto); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
+[data-al="2"] .pfe-dialogo { position: fixed; inset: 0; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); overflow: auto; width: min(520px, calc(100vw - 32px)); padding: 22px; border: 1px solid var(--al-superficie-2); border-radius: 20px; background: var(--al-superficie); color: var(--al-texto); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
 [data-al="2"] .pfe-dialogo[open] { animation: pfe-dialogo 0.4s var(--pf-mola); }
 [data-al="2"] .pfe-dialogo::backdrop { background: rgba(15, 14, 13, 0.6); backdrop-filter: blur(3px); }
 [data-al="2"] .pfe-dialogo h2 { margin: 0; font-size: 1.8rem; line-height: 1; }
