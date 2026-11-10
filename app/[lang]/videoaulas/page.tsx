@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { Suspense } from "react";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { ComoFunciona } from "@/components/ComoFunciona";
 import { VideoaulasPublicas } from "@/components/VideoaulasPublicas";
 import { loadLang } from "@/i18n";
@@ -21,9 +21,9 @@ export default async function Videoaulas({ params }: PageProps<"/[lang]/videoaul
   const { lang, t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <PageHeading eyebrow={t.videoLessons.eyebrow} title={t.videoLessons.title}>
+      <Cartaz eyebrow={t.videoLessons.eyebrow} title={t.videoLessons.title} tone="vermelho">
         {t.videoLessons.lead}
-      </PageHeading>
+      </Cartaz>
       <Suspense>
         <I18nProvider lang={lang} t={pickSections(t, ["areas"])}><VideoaulasPublicas s={t.videoLessons} /></I18nProvider>
       </Suspense>

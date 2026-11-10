@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { htmlLang } from "@/i18n/config";
@@ -46,9 +46,9 @@ export default async function Dados({ params }: PageProps<"/[lang]/dados">) {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <PageHeading eyebrow={s.eyebrow} title={s.title}>
+      <Cartaz eyebrow={s.eyebrow} title={s.title} tone="preto">
         {s.lead}
-      </PageHeading>
+      </Cartaz>
 
       {lista.length === 0 && <p className="mt-10 text-ink-soft">{s.unavailable}</p>}
       {grupos.map(([titulo, itens]) =>

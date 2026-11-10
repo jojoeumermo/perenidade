@@ -27,13 +27,18 @@ export interface OpcoesDoVisor {
    * `arrastoNoToque`, que diz quando o SVG deve pedir `touch-action: none`.
    */
   gestos?: boolean;
+  /**
+   * Roda do mouse (com ou sem Ctrl) aproxima e afasta o desenho mesmo sem `gestos`: o toque continua da página, mas quem
+   * usa mouse aproxima pela roda, como num mapa (pedido de 09/11/2026). Padrão: igual a `gestos`.
+   */
+  roda?: boolean;
 }
 
 /**
  * Estado e gestos do visor. `L` e `A` são a largura e a altura do viewBox. `ajuste` é a vista de abertura (e do botão
  * recentrar). `mexeu` fica verdadeiro depois de um arrasto ou pinça, para o clique que vem junto não escolher um nó.
  */
-export function useVisor(L: number, A: number, ajuste: Transformacao, { gestos = true }: OpcoesDoVisor = {}) {
+export function useVisor(L: number, A: number, ajuste: Transformacao, { gestos = true, roda: comRoda = gestos }: OpcoesDoVisor = {}) {
   const [t, setT] = useState(ajuste);
   const svg = useRef<SVGSVGElement>(null);
   const mexeu = useRef(false);
@@ -82,7 +87,7 @@ export function useVisor(L: number, A: number, ajuste: Transformacao, { gestos =
   // proporcional ao gesto; roda comum, 15% por passo.
   useEffect(() => {
     const el = svg.current;
-    if (!el || !gestos) return;
+    if (!el || !comRoda) return;
     const roda = (e: WheelEvent) => {
       e.preventDefault();
       const fator = Math.abs(e.deltaY) < 40 && e.deltaMode === 0 ? Math.exp(-e.deltaY * 0.01) : e.deltaY < 0 ? 1.15 : 1 / 1.15;
@@ -90,7 +95,7 @@ export function useVisor(L: number, A: number, ajuste: Transformacao, { gestos =
     };
     el.addEventListener("wheel", roda, { passive: false });
     return () => el.removeEventListener("wheel", roda);
-  }, [zoomarEm, paraDesenho, gestos]);
+  }, [zoomarEm, paraDesenho, comRoda]);
 
   const comecarPinca = () => {
     const [a, b] = [...ponteiros.current.values()];

@@ -14,10 +14,12 @@ import { L, useI18n } from "./I18n";
 import { SenhaCampo, senhaForte, type SenhaLabels } from "./SenhaCampo";
 import { EsqueciASenha } from "./rede/consertos/EsqueciASenha";
 
-const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
+/** O formulário em cartão (09/11/2026): campos e botão do mesmo tamanho, rótulos legíveis, dentro de uma moldura só. */
+const cartao = "mt-8 w-full max-w-md space-y-5 border-2 border-ink bg-folha p-6 font-sans text-[0.95rem] shadow-[6px_6px_0_var(--sombra)] sm:p-8 [&_label]:font-semibold";
+const field = "mt-1.5 w-full border-2 border-ink bg-parchment px-3 py-3 text-base font-normal";
 // No aplicativo os botões ocupam a largura toda e ficam mais altos: é o polegar que aperta.
-const primary = "cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
-const secondary = "flex cursor-pointer items-center justify-center gap-2.5 border-2 border-ink px-6 py-2.5 font-medium hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
+const primary = "w-full cursor-pointer bg-ink px-6 py-3 text-base font-bold text-parchment shadow-[4px_4px_0_var(--prelo)] hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none";
+const secondary = "flex w-full cursor-pointer items-center justify-center gap-2.5 border-2 border-ink px-6 py-3 text-base font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-60";
 
 interface Invite {
   valido: boolean;
@@ -336,7 +338,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
 
   if (factor && (state === "code" || state === "badCode" || state === "sending" || state === "blocked")) {
     return (
-      <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void confirmCode(); }}>
+      <form className={cartao} onSubmit={(e) => { e.preventDefault(); void confirmCode(); }}>
         <h2 className="font-serif text-2xl font-semibold">{s.codeTitle}</h2>
         <label className="block">
           {s.codeLabel}
@@ -357,7 +359,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
 
   if (changing) {
     return (
-      <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void change(); }}>
+      <form className={cartao} onSubmit={(e) => { e.preventDefault(); void change(); }}>
         <h2 className="font-serif text-2xl font-semibold">{s.newPasswordTitle}</h2>
         {twice}
         <button type="submit" disabled={state === "sending" || weak || !recovery} className={primary}>{s.save}</button>
@@ -371,7 +373,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     if (!invite) return <p className="mt-8 text-ink-soft">{t.common.loading}</p>;
     if (!invite.valido) return <p role="alert" className="mt-8 border-l-2 border-oxblood pl-4 text-lg">{s.inviteInvalid}</p>;
     return (
-      <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void create(); }}>
+      <form className={cartao} onSubmit={(e) => { e.preventDefault(); void create(); }}>
         <h2 className="font-serif text-2xl font-semibold">{s.inviteTitle}</h2>
         <label className="block">
           {s.email}
@@ -391,7 +393,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
 
   if (opening) {
     return (
-      <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void create(); }}>
+      <form className={cartao} onSubmit={(e) => { e.preventDefault(); void create(); }}>
         <h2 className="font-serif text-2xl font-semibold">{s.createTitle}</h2>
         <label className="block">
           {s.email}
@@ -424,7 +426,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   }
 
   return (
-    <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void enter(); }}>
+    <form className={cartao} onSubmit={(e) => { e.preventDefault(); void enter(); }}>
       {fingerprint && known && (
         <>
           {fingerprint}

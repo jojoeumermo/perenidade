@@ -13,7 +13,7 @@ O menu da esquerda tem oito espaços. No celular, a barra de baixo leva a Mesa, 
 | **Mesa** | O que espera por você hoje, em ordem: pendências, recados, avisos de segurança, saúde da casa e atalhos | todo mundo (cada função tem a sua Mesa) |
 | **Escrever e produzir** | Escrever, aulas em vídeo e ao vivo, Estúdio de design, podcast, pautas, materiais, divulgação, disciplinas e trilhas | quem produz |
 | **Revisar e publicar** | Fila de revisão, triagem, Vale o Escrito (curadoria), traduções, acervo por dentro | revisão, curadoria, coordenação |
-| **Comunidade e atendimento** | Comunidade (denúncias e fila), Rede: propostas, aula de reforço, Mural dos Trabalhadores, Gaveta Aberta, boletim, Mural de Saúde | mediação, coordenação |
+| **Comunidade e atendimento** | Alumia (denúncias e fila, com Rede: propostas e Alumia: semeadura dentro), aula de reforço, Mural dos Trabalhadores, Gaveta Aberta, boletim, Mural de Saúde | mediação, coordenação |
 | **Equipe** | Conversas, Mural da equipe, assembleias, núcleos, departamentos, voluntários e convites, supervisão, horas, termos, estatísticas, avisos à equipe | todo voluntário (parte só da coordenação) |
 | **Site e operação** | Controles do site (faixa e pausa de envios), aviso de abertura, rádio, apoio e transparência, erros relatados, estado técnico | coordenação e desenvolvimento |
 | **Segurança** | Segurança e sucessão, interdição e expurgo, registro de atividades | coordenação, coordenação pedagógica, supervisão |
@@ -28,6 +28,14 @@ Atalhos que valem em qualquer tela:
 - Tema claro, escuro e idioma do painel: Minha conta, aba Perfil. Ficam guardados só neste aparelho.
 
 Você só vê o que a sua função permite. Se falta uma seção, é porque a função não tem aquele acesso: peça à coordenação. A Mesa nunca dá acesso novo.
+
+
+**Menu mais curto (09/11/2026).** Algumas seções saíram do menu e abrem pelo "Também aqui", a linha de botões logo
+abaixo do título da seção-mãe, e pela busca do painel (Ctrl+K). Continuam com o mesmo endereço e as mesmas permissões:
+Controles do site, Controles avançados, Operação do site, Estado técnico e Aviso de abertura ficam em **Centro de
+controle**; Reuniões, em Conversas e reuniões; Rede: propostas e Alumia: semeadura, em **Alumia**; Compartilhadas comigo
+e Minhas contribuições, em Meus envios; Resumo diário e Pesquisa dos 12 eixos, em Minha conta; Termos assinados, em
+Voluntários e convites; Triagem, em Fila de revisão.
 
 ## 2. Tarefas comuns, passo a passo
 
@@ -50,11 +58,11 @@ Antes de aprovar, confira se cada afirmação importante tem fonte e se a fonte 
 
 ### Moderar a comunidade
 
-1. **Comunidade e atendimento, Comunidade** tem a fila de mensagens retidas, as denúncias, as anotações e o filtro de palavras. O número no menu é a soma do que espera.
+1. **Comunidade e atendimento, Alumia** tem a fila de mensagens retidas, as denúncias, as anotações e o filtro de palavras. O número no menu é a soma do que espera.
 2. Em cada mensagem retida, leia e decida: liberar ou recusar. Há **respostas prontas** para o recado, para não escrever tudo de novo.
 3. Denúncia que fala de menores, ameaça, dados expostos, violência ou autolesão vai na frente. Quem denuncia nunca aparece para ninguém.
 4. **Banir quem escreveu** é o último recurso, para quem insiste depois de ter mensagens recusadas. A conta banida continua lendo, mas não envia mais nada. Escreva o motivo.
-5. Num ataque coordenado, use o modo de segurança da Comunidade (tudo passa pela mediação) e a **pausa geral de envios** em Site e operação, Controles do site. Os dois se desfazem e ficam no registro.
+5. Num ataque coordenado, use o modo de segurança da Alumia (tudo passa pela mediação) e a **pausa geral de envios** em Site e operação, Centro de controle, Controles do site. Os dois se desfazem e ficam no registro.
 6. Mural dos Trabalhadores, Gaveta Aberta e Aula de reforço seguem o mesmo ritmo: abrir o item, conferir, publicar ou recusar com recado.
 
 ### Ligar um recurso novo
@@ -110,7 +118,7 @@ Também há um interruptor no painel (**Site e operação, Controles avançados*
 
 - Escrever, dar parecer, comentar, pedir ajustes, devolver com nota.
 - Liberar da triagem, recusar mensagem retida, usar resposta pronta.
-- Pausar envios, ligar o modo de segurança da Comunidade, mudar a faixa do alto. Tudo reversível e registrado.
+- Pausar envios, ligar o modo de segurança da Alumia, mudar a faixa do alto. Tudo reversível e registrado.
 - Suspender uma conta em emergência (a coordenação é avisada, e a supervisão reativa).
 - Fixar e desafixar seções, trocar de Mesa, tema, idioma.
 
@@ -140,7 +148,7 @@ Também há um interruptor no painel (**Site e operação, Controles avançados*
 - **Não consigo entrar**: use um código de recuperação (Minha conta, Segurança, mostra quantos restam). Sem eles, fale com a coordenação por outro canal.
 - **Aprovei e não apareceu**: aprovar não publica na hora. Espere a rotina diária ou use Publicar agora; depois veja Estado técnico.
 - **Fiz uma ação errada**: o **Registro de atividades** (Segurança) mostra o que foi decidido, por quem e quando. A maioria das proteções se desfaz; avise a coordenação.
-- **Parece um ataque**: pausa geral de envios, modo de segurança da Comunidade e, se for grave, um pedido de interdição. Registre o que viu.
+- **Parece um ataque**: pausa geral de envios, modo de segurança da Alumia e, se for grave, um pedido de interdição. Registre o que viu.
 - **Erro no painel**: **Site e operação, Erros relatados** e **Estado técnico**. Conte à coordenação o que você clicou e o que apareceu.
 - **Dúvida de uma palavra** (triagem, parecer, retido, passagem de bastão): Ctrl K, "Glossário do painel".
 

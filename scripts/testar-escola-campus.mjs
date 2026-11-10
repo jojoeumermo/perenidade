@@ -240,10 +240,14 @@ conferir("nenhuma notificação", !/Notification|showNotification|serviceWorker/
 // ───────────── Consertos de páginas (T01, T02, T07, T13, T22) ─────────────
 // T07: o mapa da página do campus desce em colunas de jornal no computador (sem a linha esticada pelo prédio Escola).
 conferir("campus em colunas no computador", ler("components/escola/campus/MapaDoCampus.tsx").includes("mapa-em-colunas") && /\.mapa-em-colunas\s*>\s*\.predio\s*\{[^}]*break-inside:\s*avoid/.test(ler("styles/escola-campus.css")));
-// T01: o percurso mora em /consciencia e os endereços antigos (/despertar e /consciencia-de-classe) levam para lá, para sempre.
+// 09/11/2026: a Consciência de classe foi para dentro da Escola. /consciencia, /despertar e /consciencia-de-classe levam
+// à Escola (307, temporário de propósito).
 const configNext = ler("next.config.ts");
-conferir("/despertar leva a /consciencia (308)", /source:\s*"\/:lang\([^)]*\)\/despertar",\s*destination:\s*"\/:lang\/consciencia",\s*permanent:\s*true/.test(configNext) && /source:\s*"\/despertar",\s*destination:\s*"\/pt\/consciencia",\s*permanent:\s*true/.test(configNext));
-conferir("/consciencia-de-classe leva a /consciencia (308)", /source:\s*"\/:lang\([^)]*\)\/consciencia-de-classe",\s*destination:\s*"\/:lang\/consciencia",\s*permanent:\s*true/.test(configNext) && /source:\s*"\/consciencia-de-classe",\s*destination:\s*"\/pt\/consciencia",\s*permanent:\s*true/.test(configNext));
+for (const antigo of ["consciencia", "despertar", "consciencia-de-classe"]) {
+  const comIdioma = configNext.includes(`{ source: "/:lang(pt|en|es|fr|ru|zh)/${antigo}", destination: "/:lang/escola", permanent: false }`);
+  const semIdioma = configNext.includes(`{ source: "/${antigo}", destination: "/pt/escola", permanent: false }`);
+  conferir(`/${antigo} leva à Escola (307)`, comIdioma && semIdioma);
+}
 conferir("página do percurso no endereço novo", fs.existsSync(path.join(raiz, "app/[lang]/consciencia/page.tsx")) && !fs.existsSync(path.join(raiz, "app/[lang]/consciencia-de-classe/page.tsx")) && !fs.existsSync(path.join(raiz, "app/[lang]/despertar/page.tsx")));
 // T02: o modelo do certificado recolhe com botão acessível, lembrando a escolha no aparelho.
 const recolhivel = ler("components/Recolhivel.tsx");

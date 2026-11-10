@@ -12,6 +12,8 @@ interface Educador {
   nome: string;
   bio: string;
   avatar: string;
+  /** O endereço da foto aprovada pela coordenação (/api/educador-foto/...), ou vazio. */
+  foto?: string;
   disciplinas: string[] | null;
   curriculo?: Record<string, string>;
 }
@@ -76,7 +78,12 @@ export function EducadoresDaDisciplina({ area, lang, nomes }: { area: string; la
       <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ink-soft">{s.quem}</p>
       {atual ? (
         <div className="mt-2 flex items-start gap-3">
-          <Avatar nome={atual.nome} avatar={atual.avatar} className="h-12 w-12 text-base" />
+          {atual.foto ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={atual.foto} alt="" width={360} height={360} loading="lazy" decoding="async" className={`h-12 w-12 text-base object-cover`} />
+          ) : (
+            <Avatar nome={atual.nome} avatar={atual.avatar} className="h-12 w-12 text-base" />
+          )}
           <div className="min-w-0 flex-1">
             <p className="font-serif text-lg font-semibold leading-tight">{atual.nome}</p>
             <p className="text-ink-soft">{s.de} {(atual.disciplinas ?? []).map((d) => nomes[d]?.[0] ?? d).join(", ")}</p>
@@ -125,7 +132,12 @@ export function CartaoDoEducador({ area, lang, nomes }: { area: string; lang: Lo
       </p>
       {atual ? (
         <div className="p-4">
-          <Avatar nome={atual.nome} avatar={atual.avatar} className="aspect-square h-auto w-full border-2 border-ink text-5xl" />
+          {atual.foto ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={atual.foto} alt="" width={360} height={360} loading="lazy" decoding="async" className={`aspect-square h-auto w-full border-2 border-ink text-5xl object-cover`} />
+          ) : (
+            <Avatar nome={atual.nome} avatar={atual.avatar} className="aspect-square h-auto w-full border-2 border-ink text-5xl" />
+          )}
           <p className="mt-3 font-serif text-xl font-semibold leading-tight">{atual.nome}</p>
           <p className="mt-0.5 text-ink-soft">{s.de} {(atual.disciplinas ?? []).map((d) => nomes[d]?.[0] ?? d).join(", ")}</p>
           {atual.curriculo?.formacao && <p className="mt-2 text-ink-soft">{atual.curriculo.formacao}</p>}
@@ -156,7 +168,7 @@ export function ListaDeEducadores({ lang, nomes }: { lang: Locale; nomes: Record
   const s = textos[lang] ?? textos.pt;
   const todos = useEducadores();
   // Na página da equipe só entra quem completou o cartão: foto, apresentação e pelo menos um endereço.
-  const lista = todos?.filter((e) => e.avatar && e.bio?.trim() && Object.entries(e.curriculo ?? {}).some(([k, v]) => NOMES_DOS_ENDERECOS[k] && /^https:\/\//.test(v)));
+  const lista = todos?.filter((e) => (e.avatar || e.foto) && e.bio?.trim() && Object.entries(e.curriculo ?? {}).some(([k, v]) => NOMES_DOS_ENDERECOS[k] && /^https:\/\//.test(v)));
   if (!hasBackend || !lista || lista.length === 0) return null;
   return (
     <section className="mt-10">

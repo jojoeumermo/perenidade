@@ -61,6 +61,7 @@ import { AcervoPorDentro, MinhasContribuicoes, ParaVoceHoje, Tarefas } from "../
 import { Exercicios } from "../Exercicios";
 import { Conversas } from "../Conversas";
 import { Curriculo as DisciplinasETrilhas } from "../Curriculo";
+import { ParceirosDosTerritorios } from "../ParceirosDosTerritorios";
 import { Divulgacao } from "../Divulgacao";
 import { Equipe, type Membro } from "../Equipe";
 import { Repasse } from "../Sigilo";
@@ -149,6 +150,28 @@ interface Secao {
   /** Quantas coisas esperam por alguém nesta seção. */
   conta?: number;
 }
+
+/**
+ * Menu mais curto (09/11/2026): a coordenação tinha opções demais no menu. Estas seções saem do menu e passam a abrir pelo
+ * "Também aqui" da seção-mãe (a linha de botões logo abaixo do título) e pela busca do painel (Ctrl+K). Nada foi apagado:
+ * cada uma continua com o mesmo endereço e as mesmas permissões.
+ */
+const DENTRO_DE: Record<string, string> = {
+  site: "centro",
+  "controles-avancados": "centro",
+  operacao: "centro",
+  tecnico: "centro",
+  abertura: "centro",
+  reunioes: "conversas",
+  "rede-propostas": "comunidade",
+  "rede-semeadura": "comunidade",
+  juntas: "minhas",
+  contribuicoes: "minhas",
+  previa: "conta",
+  "eixos-equipe": "conta",
+  termos: "pessoas",
+  triagem: "fila",
+};
 
 /** As seções "tela" ocupam a altura inteira, sem margem e sem cabeçalho (o nome fica na trilha). */
 const TELA = new Set(["conversas", "reunioes"]);
@@ -269,7 +292,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: produz },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design", "marketing") },
       { id: "divulgacao", nome: "Divulgação", sobre: "Calendário de posts e stories, kit da marca e acesso ao Instagram.", grupo: "Produção", mostra: can(eu, "coordenacao", "marketing"), conta: r?.divulgacao },
-      { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
+      { id: "comunidade", nome: "Alumia", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
       { id: "rede-propostas", nome: "Rede: propostas de comunidade", sobre: "Comunidade nova da Alumia só nasce por proposta: ler o objetivo e as regras, conferir os moderadores e aprovar ou recusar com o motivo.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") },
       { id: "rede-semeadura", nome: "Alumia: semeadura", sobre: "O roteiro da semeadura em números: posts reais por comunidade e se há 2 pessoas moderando. Nada aqui publica.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") },
       { id: "rede-organizacoes", nome: "Alumia: selo das organizações", sobre: "Pedidos do selo das organizações: conferir o documento público e dar o selo ou recusar com o motivo. Quem pediu não aparece.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "vice") && orgLigada() },
@@ -295,7 +318,7 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
       { id: "previa", nome: "Resumo diário e prévia", sobre: "Ligar o resumo diário por e-mail (opcional) e ver telas novas com dados de exemplo.", grupo: "Pessoas", mostra: voluntario },
       { id: "eixos-equipe", nome: "Pesquisa dos 12 eixos", sobre: "Tarefa opcional e anônima: o teste dos 12 eixos para a equipe. A coordenação vê só a média e a distribuição, nunca a resposta de alguém.", grupo: "Pessoas", mostra: voluntario },
       { id: "controles-avancados", nome: "Controles avançados", sobre: "Recursos ligados sem publicar de novo, destaques da home, aula da semana, apresentação das trilhas, conteúdo em arquivo por PR, correções aprovadas, constantes do site e limites.", grupo: "Site", mostra: can(eu, "coordenacao", "vice", "curadoria", "desenvolvimento") },
-      { id: "confirmacoes", nome: "Confirmações de segunda pessoa", sobre: "Pedidos que esperam uma segunda pessoa da coordenação: ligar a Escola, o Vale o Escrito e a Rede v2, zerar segundo fator e aparelhos, segunda avaliação externa.", grupo: "Segurança", mostra: lidera || can(eu, "vice") },
+      { id: "confirmacoes", nome: "Dupla confirmação", sobre: "Pedidos que esperam uma segunda pessoa da coordenação: ligar a Escola, o Vale o Escrito e a Rede v2, zerar segundo fator e aparelhos, segunda avaliação externa.", grupo: "Segurança", mostra: lidera || can(eu, "vice") },
       { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },
       { id: "centro", nome: "Centro de controle", sobre: "Os controles do coordenador num lugar só: canais no celular, sala da equipe, rádio, moderadores, núcleos da Rede, arquivos bloqueados e Publicar agora.", grupo: "Site", mostra: lidera },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
@@ -449,12 +472,17 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
   }, [atual.id]);
 
   const essenciais = ["mesa", "conversas", "escrever", "minhas", "fila", "caderno", "horas", "conta"];
-  const noMenu = modoFoco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes;
+  // Fora do menu: as que moram dentro de outra (DENTRO_DE), quando a mãe aparece para esta pessoa; a aberta agora fica visível.
+  const ids = new Set(secoes.map((secao) => secao.id));
+  const recolhida = (secao: Secao) => secao.id !== atual.id && Boolean(DENTRO_DE[secao.id]) && ids.has(DENTRO_DE[secao.id]);
+  const noMenu = modoFoco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes.filter((secao) => !recolhida(secao));
+  const tambemAqui = secoes.filter((secao) => DENTRO_DE[secao.id] === atual.id);
+  const mae = DENTRO_DE[atual.id] ? secoes.find((secao) => secao.id === DENTRO_DE[atual.id]) : undefined;
   // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
   const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
-  const funcao = !voluntario ? "Comunidade" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
+  const funcao = !voluntario ? "Alumia" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
   // O nome do ambiente diz de quem ele é: só a coordenação vê "Coordenação".
-  const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
+  const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Alumia";
   const fixada = atalhos.fixadas.includes(atual.id);
   const Simbolo = iconeDe(atual.id);
   const { t } = useI18n();
@@ -566,6 +594,21 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                         }
                       />
                     )}
+                    {(tambemAqui.length > 0 || mae) && (
+                      <nav aria-label="Também nesta seção" className="pn-tambem-aqui no-print">
+                        {mae && (
+                          <Botao variante="discreto" pequeno onClick={() => ir(mae.id)}>
+                            ← {mae.nome}
+                          </Botao>
+                        )}
+                        {tambemAqui.map((secao) => (
+                          <Botao key={secao.id} variante="padrao" pequeno onClick={() => ir(secao.id)}>
+                            {secao.nome}
+                            {secao.conta ? ` (${secao.conta})` : ""}
+                          </Botao>
+                        ))}
+                      </nav>
+                    )}
                     <AnimatePresence mode="popLayout" initial={false}>
                       <m.div key={atual.id} className="pn-secao-viva" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.18, ease: [0.2, 0.7, 0.2, 1] } }} exit={{ opacity: 0, transition: { duration: 0.1 } }}>
                         {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} secoes={secoes} acompanha={acompanha} />}
@@ -627,7 +670,12 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                         {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
                         {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
                         {atual.id === "registro" && <RegistroDeAtividades />}
-                        {atual.id === "departamentos" && <Departamentos me={eu} ir={ir} />}
+                        {atual.id === "departamentos" && (
+                          <>
+                            <Departamentos me={eu} ir={ir} />
+                            <ParceirosDosTerritorios me={eu} />
+                          </>
+                        )}
                         {atual.id === "assembleias" && <Assembleias me={eu} />}
                         {atual.id === "pautas" && <Pautas me={eu} ir={ir} />}
                         {atual.id === "biblioteca" && <Biblioteca ir={ir} />}
@@ -806,7 +854,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
             {voluntario && !can(me, "marketing") && <SugerirAoMarketing />}
             {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
             {!can(me, "coordenacao") && <Candidatura me={me} />}
-            <div className="grid items-start gap-4 md:grid-cols-2">
+            <div className="grid items-start gap-4">
               {voluntario && (
                 <details className="pn-cartao">
                   <summary className="cursor-pointer font-semibold">Guia de primeiros passos da sua função</summary>

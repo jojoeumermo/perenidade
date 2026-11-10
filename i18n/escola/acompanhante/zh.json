@@ -94,7 +94,10 @@
     "parteAtual": "屏幕上当前的课程部分：",
     "semTrecho": "没有找到片段。请用手指或鼠标选中课程里让你卡住的部分，再点一次“没看懂”。",
     "perguntaOpcional": "哪里卡住了？（可选）",
-    "perguntar": "就这段提问"
+    "perguntar": "就这段提问",
+    "reforcoTitulo": "还是没懂？申请一节辅导课",
+    "reforcoTexto": "团队里的人会耐心讲解，免费，用最适合你的方式。",
+    "reforcoBotao": "申请辅导课"
   },
   "outroJeito": {
     "titulo": "用我工作中的例子讲解",

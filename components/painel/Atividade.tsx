@@ -49,7 +49,7 @@ const tipo = (id: string, nome: string, tom: TomDoSelo) => ({ id, nome, tom, cor
 export const TIPOS: { id: string; nome: string; tom: TomDoSelo; cor: string }[] = [
   tipo("envio", "Envios", "bordo"),
   tipo("no_ar", "No ar", "ok"),
-  tipo("comunidade", "Comunidade", "ouro"),
+  tipo("comunidade", "Alumia", "ouro"),
   tipo("anotacao", "Anotações", "neutro"),
   tipo("mural", "Mural dos Trabalhadores", "bordo"),
   tipo("gaveta", "Gaveta Aberta", "info"),

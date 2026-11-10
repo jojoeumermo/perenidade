@@ -56,9 +56,11 @@ export function MateriaCompleta({ lang, t, article, articles, ultima = false }: 
 
       <Untranslated lang={lang} t={t} show={!article.translated} />
 
-      {/* ── O texto, numa coluna de leitura; ao lado, o destaque fixo ── */}
-      <div className="mt-8 grid gap-12 lg:grid-cols-[minmax(0,1fr)_19rem]">
-        <div className="min-w-0 max-w-[68ch]" {...originalLang(article.translated)}>
+      {/* ── O texto, numa coluna de leitura; ao lado, o destaque fixo (sem destaque, a coluna não fica reservada) ──
+          A largura é medida em rem: "68ch" contava pela letra pequena da página, e a coluna do texto (em letra de 20 px)
+          ficava espremida em ~520 px no canto. */}
+      <div className={`mt-8 grid gap-12 ${lateral ? "lg:grid-cols-[minmax(0,1fr)_19rem]" : ""}`}>
+        <div className="min-w-0 max-w-[46rem]" {...originalLang(article.translated)}>
           <div className="jornal-materia">
             <Markdown lang={lang} terms={terms}>{article.body}</Markdown>
           </div>

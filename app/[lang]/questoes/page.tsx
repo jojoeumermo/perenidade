@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { BancoDeQuestoes, type QuestaoDoBanco } from "@/components/BancoDeQuestoes";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { ProvasPublicas } from "@/components/ProvasPublicas";
 import { QuestoesAbas } from "@/components/QuestoesAbas";
 import { loadLang } from "@/i18n";
@@ -29,9 +29,9 @@ export default async function Page({ params }: PageProps<"/[lang]/questoes">) {
   );
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <PageHeading eyebrow={t.lists.bankEyebrow} title={t.lists.bankTitle}>
+      <Cartaz eyebrow={t.lists.bankEyebrow} title={t.lists.bankTitle} tone="preto">
         {t.lists.bankLead}
-      </PageHeading>
+      </Cartaz>
       <p className="mt-6 font-sans text-sm">
         <Link href={`${localePath(lang, "/contribuir")}?tipo=questao`} className="inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{t.lists.bankSend} →</Link>
       </p>

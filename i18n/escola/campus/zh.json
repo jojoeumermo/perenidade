@@ -29,7 +29,8 @@
     "nota": "每栋楼的印章只保存在这台设备上。不计分，也没有排行。",
     "secoes": "{n} 个地方",
     "abrir": "看看{nome}里有什么",
-    "verTudo": "查看全部（{n}）"
+    "verTudo": "查看全部（{n}）",
+    "verMenos": "收起"
   },
   "calendario": {
     "atual": "本学期",

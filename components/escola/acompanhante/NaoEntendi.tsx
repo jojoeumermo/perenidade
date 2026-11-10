@@ -1,6 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import Link from "@/components/Link";
+import { localePath } from "@/i18n/config";
+
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/components/I18n";
@@ -154,6 +157,17 @@ export function NaoEntendi({ aula, className = "" }: { aula: string; className?:
             ) : (
               <p className="mt-4">{s.naoEntendi.semTrecho}</p>
             )}
+            {/* A aula de reforço (09/11/2026): quando o assistente não basta, uma pessoa da equipe explica. Sempre à mão,
+                com ou sem trecho marcado. */}
+            <section className="mt-6 border-2 border-ink bg-parchment-deep p-4" aria-labelledby="nao-entendi-reforco">
+              <h3 id="nao-entendi-reforco" className="font-serif text-xl font-semibold">
+                {s.naoEntendi.reforcoTitulo}
+              </h3>
+              <p className="mt-1 text-sm text-ink-soft">{s.naoEntendi.reforcoTexto}</p>
+              <Link href={localePath(lang, "/reforco")} className="botao botao-tinta mt-3 inline-block">
+                {s.naoEntendi.reforcoBotao} →
+              </Link>
+            </section>
           </div>
         </dialog>
       )}

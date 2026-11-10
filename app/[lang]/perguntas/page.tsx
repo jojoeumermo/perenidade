@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -33,9 +33,9 @@ export default async function Perguntas({ params }: PageProps<"/[lang]/perguntas
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <div className="mx-auto max-w-3xl">
-        <PageHeading eyebrow={s.eyebrow} title={s.title}>
+        <Cartaz eyebrow={s.eyebrow} title={s.title} tone="preto">
           {s.lead}
-        </PageHeading>
+        </Cartaz>
         <Untranslated lang={lang} t={t} show={lang !== defaultLocale} />
         <nav aria-label={s.jump} className="no-print mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-2 border-y-2 border-ink py-3 font-sans text-sm">
           <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">{s.jump}</span>

@@ -20,8 +20,9 @@ export function urlDaEscolaOk(url: string): boolean {
 export const escolaComEndereco = urlDaEscolaOk(ESCOLA_URL);
 
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
-/** As páginas da Escola abertas a todos: ficam no site do instituto (lib/escola/rotas.ts, PUBLICAS_DA_ESCOLA). */
-const ABERTAS = ["militantes", "manifesto"];
+/** Páginas da Escola que ficariam no site do instituto. Desde 09/11/2026, nenhuma: o chamado, o manifesto e o entrar
+ * abrem no endereço da Escola, no desenho dela, também para quem ainda não é militante (lib/escola/rotas.ts). */
+const ABERTAS: string[] = [];
 /** Fora da Escola, o que também abre no host dela: entrar, as regras e a página de fora do ar. */
 export const PAGINAS_LIVRES_NA_ESCOLA = ["entrar", "conduta", "privacidade", "termos", "meus-dados", "fora-do-ar", "modo-seguro"] as const;
 
