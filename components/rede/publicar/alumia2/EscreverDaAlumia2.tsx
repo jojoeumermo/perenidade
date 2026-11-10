@@ -369,6 +369,14 @@ export function EscreverDaAlumia2({
       aoFechar();
     } catch (e) {
       setEnvio(null);
+      // O ato tem erros próprios (a palavra do mosaico, o ponto, o link de apoio, a meta…): a frase certa vem dos textos dos atos.
+      if (tipo === "ato" && encaixeDoAto) {
+        const [{ carregarTextosDosAtos }, erros] = await Promise.all([import("@/lib/rede/textos-atos"), import("@/lib/rede/atos/erros")]);
+        if (erros.codigoDoErro(e) !== "generico") {
+          setErro(erros.fraseDoErro((await carregarTextosDosAtos(lang)).erros, e));
+          return;
+        }
+      }
       setErro((pub.t && textoDoErroPublicar(pub.t, codigoDoErro(e))) || textoDoErro(s, e));
     } finally {
       desfeitoNoEnvio.current = false;
