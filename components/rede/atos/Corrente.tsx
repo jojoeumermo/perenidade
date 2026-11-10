@@ -323,6 +323,12 @@ function AbrirCorrente({ t, cidade, orgs, aoAbrir }: { t: TextosDosAtos; cidade:
           />
         </label>
       </div>
+      {/* a frase do erro fica logo acima dos botões, perto dos campos (e o campo com problema aponta para ela) */}
+      {erro ? (
+        <p id={`${base}-erro`} role="alert" className="al-ato-erro">
+          {erro}
+        </p>
+      ) : null}
       <div className="al-ato-org-botoes">
         <Botao type="submit" variante="primario" aria-busy={ocupado} disabled={ocupado}>
           {t.corrente.publicar}
@@ -331,11 +337,6 @@ function AbrirCorrente({ t, cidade, orgs, aoAbrir }: { t: TextosDosAtos; cidade:
           {t.corrente.deixar}
         </Botao>
       </div>
-      {erro ? (
-        <p id={`${base}-erro`} role="alert" className="al-ato-erro">
-          {erro}
-        </p>
-      ) : null}
     </form>
   );
 }
