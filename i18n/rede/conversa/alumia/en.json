@@ -19,7 +19,10 @@
     "orgVerificada": "verified organization",
     "orgRegra": "The badge says the account belongs to who it claims to be, checked against a public document. It is not an endorsement by Instituto Lúcia.",
     "previa": "Preview with sample data: nothing here is real.",
-    "maisDoPost": "More actions for {codinome}'s post"
+    "maisDoPost": "More actions for {codinome}'s post",
+    "tiradoDosSalvos": "Removed from saved.",
+    "desfazer": "Undo",
+    "comoContamos": "How we count"
   },
   "comunidade": {
     "mais": "More community options",
@@ -66,7 +69,12 @@
     "moderadaPoucas": "Moderated by a few people, all by code name. We don't show who, so nobody becomes a target for looking after this place.",
     "falarModeracao": "Talk to the moderators",
     "entrarNaAlumia": "Join Alumia",
-    "soConvite": "This community is invite only: the moderators invite who joins."
+    "soConvite": "This community is invite only: the moderators invite who joins.",
+    "naoEncontrada": "Community not found",
+    "naoEncontradaTexto": "The address may be wrong, or the community was closed by its moderators.",
+    "verComunidades": "See the communities",
+    "sairTitulo": "Leave {nome}?",
+    "sairTexto": "Your posts stay in the community, and you can come back whenever you like."
   },
   "conversa": {
     "titulo": "Conversation",
@@ -104,7 +112,20 @@
     "enviarMesmo": "Send anyway",
     "revisar": "Review",
     "voltar": "Back",
-    "reagirComo": "React with {nome}"
+    "reagirComo": "React with {nome}",
+    "seguir": "Follow the conversation",
+    "seguindo": "Following the conversation (tap to stop)",
+    "seguirRegra": "Followers get a single, grouped notice when replies arrive. Nobody sees who follows, not even the author.",
+    "seguiu": "You are following this conversation.",
+    "deixouDeSeguir": "You stopped following this conversation.",
+    "citarTrecho": "Quote excerpt",
+    "citando": "Quoting: “{trecho}”",
+    "tirarCitacao": "Remove quote",
+    "recolherRamo": "Collapse {n} replies",
+    "mostrarRamo": "Show {n} replies",
+    "recolherUma": "Collapse 1 reply",
+    "mostrarUma": "Show 1 reply",
+    "respondendoA": "Replying to {quem}"
   },
   "reacoes": {
     "rotulo": "Reactions",
@@ -141,5 +162,17 @@
     "avisos": "Notifications",
     "salvos": "Saved",
     "comunidades": "Communities"
+  },
+  "descoberta": {
+    "seguirTag": "Follow #{tag}",
+    "seguindoTag": "Following #{tag}",
+    "seguirTagRegra": "Only you see the #topics you follow. Following changes no order: it is a shortcut in Explore.",
+    "seguiuTag": "You are following #{tag}.",
+    "deixouTag": "You stopped following #{tag}.",
+    "suasTags": "Your #topics",
+    "buscar": "Search posts, #topics and communities",
+    "emAlta": "This week's #topics",
+    "comunidadeDe": "{n} posts this week",
+    "entrarNela": "Open"
   }
 }

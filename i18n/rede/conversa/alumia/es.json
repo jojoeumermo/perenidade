@@ -19,7 +19,10 @@
     "orgVerificada": "organización verificada",
     "orgRegra": "El sello dice que la cuenta es de quien dice ser, comprobada con un documento público. No es apoyo del Instituto Lúcia.",
     "previa": "Vista previa con datos de ejemplo: nada aquí es real.",
-    "maisDoPost": "Más acciones del post de {codinome}"
+    "maisDoPost": "Más acciones del post de {codinome}",
+    "tiradoDosSalvos": "Quitado de guardados.",
+    "desfazer": "Deshacer",
+    "comoContamos": "Cómo contamos"
   },
   "comunidade": {
     "mais": "Más opciones de la comunidad",
@@ -66,7 +69,12 @@
     "moderadaPoucas": "Moderada por pocas personas, todas con seudónimo. No mostramos quién: así nadie se vuelve blanco por cuidar este lugar.",
     "falarModeracao": "Hablar con la moderación",
     "entrarNaAlumia": "Entrar en Alumia",
-    "soConvite": "Esta comunidad es solo por invitación: la moderación invita a quien entra."
+    "soConvite": "Esta comunidad es solo por invitación: la moderación invita a quien entra.",
+    "naoEncontrada": "Comunidad no encontrada",
+    "naoEncontradaTexto": "La dirección puede estar equivocada, o la moderación cerró la comunidad.",
+    "verComunidades": "Ver las comunidades",
+    "sairTitulo": "¿Salir de {nome}?",
+    "sairTexto": "Tus posts siguen en la comunidad y puedes volver cuando quieras."
   },
   "conversa": {
     "titulo": "Conversación",
@@ -104,7 +112,20 @@
     "enviarMesmo": "Enviar igual",
     "revisar": "Revisar",
     "voltar": "Volver",
-    "reagirComo": "Reaccionar con {nome}"
+    "reagirComo": "Reaccionar con {nome}",
+    "seguir": "Seguir la conversación",
+    "seguindo": "Siguiendo la conversación (toca para dejar de seguir)",
+    "seguirRegra": "Quien sigue recibe un solo aviso, agrupado, cuando llegan respuestas. Nadie ve quién sigue, ni quien escribió el post.",
+    "seguiu": "Estás siguiendo esta conversación.",
+    "deixouDeSeguir": "Dejaste de seguir esta conversación.",
+    "citarTrecho": "Citar fragmento",
+    "citando": "Citando: «{trecho}»",
+    "tirarCitacao": "Quitar la cita",
+    "recolherRamo": "Ocultar {n} respuestas",
+    "mostrarRamo": "Mostrar {n} respuestas",
+    "recolherUma": "Ocultar 1 respuesta",
+    "mostrarUma": "Mostrar 1 respuesta",
+    "respondendoA": "Respondiendo a {quem}"
   },
   "reacoes": {
     "rotulo": "Reacciones",
@@ -141,5 +162,17 @@
     "avisos": "Avisos",
     "salvos": "Guardados",
     "comunidades": "Comunidades"
+  },
+  "descoberta": {
+    "seguirTag": "Seguir #{tag}",
+    "seguindoTag": "Siguiendo #{tag}",
+    "seguirTagRegra": "Solo tú ves los #temas que sigues. Seguir no cambia el orden de nada: es un atajo en Explorar.",
+    "seguiuTag": "Estás siguiendo #{tag}.",
+    "deixouTag": "Dejaste de seguir #{tag}.",
+    "suasTags": "Tus #temas",
+    "buscar": "Buscar posts, #temas y comunidades",
+    "emAlta": "#temas de la semana",
+    "comunidadeDe": "{n} posts esta semana",
+    "entrarNela": "Abrir"
   }
 }

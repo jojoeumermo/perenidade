@@ -2,7 +2,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "@/components/Link";
 import { htmlLang, localeNames, localePath, locales } from "@/i18n/config";
 import { getClient, hasSession } from "@/lib/backend";
@@ -57,6 +57,9 @@ const DESTINOS: Destino[] = [
   { chave: "salvos", icone: "salvos", rotulo: (t) => t.menu.salvos, href: (l, s) => (s.logado ? `${enderecos.linha(l)}/salvos` : null) },
   { chave: "perfil", icone: "perfil", rotulo: (t) => t.menu.perfil, href: (l, s) => (s.handle ? enderecos.perfil(l, s.handle) : s.logado ? `${enderecos.linha(l)}/editar-perfil` : null) },
 ];
+
+/** Quantos avisos não lidos a prévia tem (a mesma conta de avisosDaPrevia, components/rede/descoberta/previa.ts). */
+export const AVISOS_DA_PREVIA = 5;
 
 /** A barra de baixo do celular (prancha celular-inicio): Início, Explorar, [+], Atos, Perfil. */
 const BARRA: Chave[] = ["inicio", "explorar", "chamados", "perfil"];
@@ -136,7 +139,8 @@ export function CascaDaAlumia2({
   lang: string;
   s: TextosDaRede;
   situacao: Situacao | null;
-  ativo: ItemDoMenu;
+  /** "nenhum": a tela não é de nenhum item (a conversa aberta). */
+  ativo: ItemDoMenu | "nenhum";
   aoEscrever: (tipo?: TipoAoEscrever) => void;
   children: React.ReactNode;
 }) {
@@ -196,11 +200,37 @@ export function CascaDaAlumia2({
     return () => cancelAnimationFrame(id);
   }, [alvoDaBarra]);
 
+  // A vaga do botão de acessibilidade no alto do celular (alumia3.css põe o botão do site ali, rolando junto com o cabeçalho, em
+  // vez de flutuar por cima do conteúdo): mede onde a vaga está na página e passa para o CSS.
+  const vaga = useRef<HTMLSpanElement>(null);
+  const prontoParaVaga = Boolean(situacao && al2);
+  useEffect(() => {
+    const el = vaga.current;
+    if (!el) return;
+    const raiz = document.documentElement;
+    const medir = () => {
+      const r = el.getBoundingClientRect();
+      raiz.style.setProperty("--al2-vaga-x", `${Math.round(r.left + window.scrollX)}px`);
+      raiz.style.setProperty("--al2-vaga-y", `${Math.round(r.top + window.scrollY)}px`);
+    };
+    medir();
+    const ro = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(medir);
+    ro?.observe(document.body);
+    window.addEventListener("resize", medir);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", medir);
+      raiz.style.removeProperty("--al2-vaga-x");
+      raiz.style.removeProperty("--al2-vaga-y");
+    };
+  }, [prontoParaVaga]);
+
   if (!situacao || !al2) return <EsqueletoDaCasca rotulo={s.estados.carregando} />;
   const { t, previa } = al2;
   const pode = situacao.logado && situacao.membro;
-  // Na prévia, os números das pranchas (Avisos 5, Atos 2); de verdade, os da própria pessoa (e o dos atos vem da F2).
-  const avisosN = previa ? 5 : naoLidos;
+  // Na prévia, os números das pranchas (Avisos 5, Atos 2; os 5 avisos não lidos são os de components/rede/descoberta/previa.ts,
+  // que a tela Avisos mostra); de verdade, os da própria pessoa (e o dos atos vem da F2).
+  const avisosN = previa ? AVISOS_DA_PREVIA : naoLidos;
   // Atos: o número da F2 (encaixe) quando ela chega; até lá, os atos que a própria pessoa confirmou e ainda vão acontecer.
   const emblemas: Partial<Record<Chave, number | null>> = {
     avisos: avisosN,
@@ -323,7 +353,9 @@ export function CascaDaAlumia2({
         </div>
 
         {/* ───── Coluna do meio ───── */}
-        <main id="rede-linha" className="min-w-0 border-[var(--al-linha)] xl:border-r" aria-label={t.linha.titulo}>
+        {/* Sem <main> aqui: a página já tem o main#conteudo do site (dois main aninhados confundem o leitor de tela, e o rótulo
+            "Início" fazia toda tela se anunciar como Início). Cada tela tem o próprio h1. */}
+        <div id="rede-linha" tabIndex={-1} className="min-w-0 border-[var(--al-linha)] outline-none xl:border-r">
           {/* Celular: marca, busca, avisos e Sair rápido no alto (prancha celular-inicio). */}
           <header className="flex items-center gap-2 px-4 pb-1 pt-4 lg:hidden">
             <Link href={enderecos.linha(lang)} className="flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio}>
@@ -351,6 +383,8 @@ export function CascaDaAlumia2({
             <button type="button" onClick={sairRapido} className="al2-acao" aria-label={t.conta.sairRapido} title={t.conta.sairRapidoAjuda}>
               <Icone nome="sair" className="h-6 w-6" />
             </button>
+            {/* A vaga do botão de acessibilidade do site (ele vem para cá no celular, sem cobrir o conteúdo). */}
+            <span ref={vaga} aria-hidden className="al2-vaga-flutua block h-11 w-11 shrink-0" />
           </header>
           <div key={caminho} className={entrando ? "al2-tela-entra" : undefined}>
             {children}
@@ -360,7 +394,7 @@ export function CascaDaAlumia2({
             <Conta lang={lang} s={s} situacao={situacao} />
             <p className="text-xs text-[var(--al-texto-3)]">{t.direita.rodape}</p>
           </div>
-        </main>
+        </div>
 
         {/* ───── Coluna da direita (computador) ───── */}
         <aside className="hidden px-5 xl:block 2xl:px-7" aria-label={t.direita.rotulo}>
