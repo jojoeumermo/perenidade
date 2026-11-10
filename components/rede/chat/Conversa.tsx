@@ -359,7 +359,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
       </div>
 
       {sessao && !bloqueio && conversa.pode_escrever && !sessao.semChaveDoOutro && (
-        <form onSubmit={(e) => void enviar(e)} className="sticky bottom-0 border-t border-rule bg-parchment px-[18px] py-3">
+        <form onSubmit={(e) => void enviar(e)} className="al2-chat-escrever sticky bottom-0 border-t border-rule bg-parchment px-[18px] py-3">
           <label className="sr-only" htmlFor="alumia-chat-texto">{t.conversa.escreva}</label>
           <div className="flex items-end gap-2">
             <textarea

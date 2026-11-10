@@ -7,6 +7,7 @@
 // Sem "@/" de propósito (roda no Node nos testes).
 import { proporcaoDoMosaico } from "../mosaico";
 import { elosDaCorrente } from "./corrente";
+import { COMUNIDADES_DE_EXEMPLO } from "../publicar/exemplos-alumia2";
 import type { Ato, Corrente, EstadoDoFarol, FarolDoAto, FiltroDosAtos, OrgQuePosso, PaginaDeAtos, PedidoDeMudanca, RespostaDoVou } from "../tipos-atos";
 
 /**
@@ -182,7 +183,10 @@ const normal = (s: string) =>
 const AVULSOS: { ato: Ato; confirmados: number }[] = [];
 export function registrarAtoDeExemplo(ato: Ato, confirmados = 12): void {
   if (!ato.id.startsWith("exemplo-") || AVULSOS.some((x) => x.ato.id === ato.id)) return;
-  AVULSOS.push({ ato: { ...ato, acesos: null, total: null }, confirmados });
+  // O post traz só o slug da comunidade: o nome e a cor vêm das comunidades de exemplo (a página do ato mostra o nome, não o slug).
+  const com = ato.comunidade ? COMUNIDADES_DE_EXEMPLO[ato.comunidade.slug] : undefined;
+  const comunidade = ato.comunidade && com ? { slug: ato.comunidade.slug, nome: com.nome, cor: com.cor } : ato.comunidade;
+  AVULSOS.push({ ato: { ...ato, comunidade, acesos: null, total: null }, confirmados });
 }
 export function atoDeExemploRegistrado(id: string): boolean {
   return AVULSOS.some((x) => x.ato.id === id);

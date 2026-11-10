@@ -228,7 +228,11 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   display: flex; align-items: center; gap: 0.75rem; max-width: calc(100vw - 32px); padding: 0.35rem 0.35rem 0.35rem 1rem;
   border-radius: 999px; background: var(--al-texto); color: var(--al-fundo); font-weight: 700; box-shadow: 0 6px 24px #0008;
 }
-@media (min-width: 768px) { [data-al="2"] .al2-aviso-flutuante { bottom: 2rem; } }
+/* Celular: logo acima da barra de baixo (4,75 rem); computador: no rodapé da coluna do meio (o left vem medido da coluna). */
+[data-al="2"] .al2-aviso-flutuante { bottom: calc(4.75rem + 0.6rem + var(--recuo-baixo, 0px)); }
+@media (min-width: 1024px) { [data-al="2"] .al2-aviso-flutuante { bottom: 1.5rem; max-width: min(640px, calc(100vw - 32px)); } }
+/* Enquanto o aviso está na tela, a coluna do meio ganha folga embaixo: dá para rolar tudo para cima dele. */
+:root:has([data-al="2"] .al2-aviso-flutuante) [data-al="2"] #rede-linha { padding-bottom: 5.5rem; }
 :root[data-eink] [data-al="2"] .al2-aviso-flutuante { background: #fff; color: #000; border: 2px solid #000; box-shadow: none; }
 
 /* Barra de baixo do celular. */
@@ -900,3 +904,35 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al2-painel-mais, .al2-painel-conta, .al2-painel-destino, .al2-idioma) { border-color: var(--al-texto); box-shadow: none; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-painel-destino[aria-current="page"] { border-width: 3px; background: var(--al-fundo); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-idioma[aria-current="true"] { border-width: 3px; }
+
+/* "Link copiado" do Compartilhar do cartão: um aviso que flutua no rodapé (acima da barra de baixo no celular) e some sozinho. */
+[data-al="2"] .al2-torrada {
+  position: fixed; left: 50%; bottom: calc(4.75rem + 0.6rem + var(--recuo-baixo, 0px)); z-index: 60; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 0.5rem; max-width: min(560px, calc(100vw - 32px)); margin: 0; padding: 0.6rem 1.1rem;
+  border-radius: 999px; background: var(--al-texto); color: var(--al-fundo); font-size: 0.9375rem; font-weight: 700; box-shadow: 0 8px 28px #0009;
+  animation: al2-torrada-entra 420ms var(--al2-mola) both;
+}
+@media (min-width: 1024px) { [data-al="2"] .al2-torrada { bottom: 1.5rem; } }
+@keyframes al2-torrada-entra { from { opacity: 0; transform: translate(-50%, 14px) scale(0.96); } to { opacity: 1; transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-torrada { animation: none; } }
+:root:is([data-parado], [data-eink]) [data-al="2"] .al2-torrada { animation: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-torrada { border: 2px solid var(--al-fundo); box-shadow: none; }
+/* O "Enviando em N s" entra com a mesma mola, sem perder o translateX(-50%) que o centra (a animação antiga terminava em "none" e
+   o aviso ficava deslocado para a direita, no meio do feed). */
+[data-al="2"] .al2-aviso-flutuante { animation-name: al2-torrada-entra; }
+
+/* Escrever: o nome do botão principal entra com um pulinho quando muda ("Publicar" → "Chamar ato"); no Ato, o aviso de que o texto
+   do post ficou guardado. Os exemplos do formulário do Ato em itálico e mais claros (não parecem valores já preenchidos). */
+[data-al="2"] .al2-publicar-nome { display: inline-block; animation: al2-nome-troca 360ms var(--al2-mola) both; }
+@keyframes al2-nome-troca { from { opacity: 0; transform: translateY(6px) scale(0.92); } to { opacity: 1; transform: none; } }
+[data-al="2"] .al2-texto-guardado {
+  display: flex; align-items: flex-start; gap: 0.5rem; margin: 0; padding: 0.6rem 0.8rem; border: 1px dashed var(--al-superficie-2); border-radius: 12px;
+  color: var(--al-texto-2); font-size: 0.875rem; line-height: 1.4;
+}
+[data-al="2"] .al-ato-form :is(input, textarea)::placeholder { font-style: italic; font-weight: 400; color: var(--al-texto-3); opacity: 0.7; }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-publicar-nome { animation: none; } }
+:root:is([data-parado], [data-eink]) [data-al="2"] .al2-publicar-nome { animation: none; }
+/* No celular, o campo do chat privado gruda logo ACIMA da barra de baixo da Alumia (e não atrás dela). */
+@media (max-width: 1023px) {
+  [data-al="2"] .al2 .al2-chat-escrever { bottom: calc(4.75rem + var(--recuo-baixo, 0px)); z-index: 5; }
+}
