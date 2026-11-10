@@ -34183,5 +34183,3 @@ begin
       public.rede_org_tear(text), public.rede_org_tear_fio(text, jsonb), public.rede_perfil_linha(text, text, text) to authenticated;
   end if;
 end $$;
-
--- ═══════════════════════════ fim do perfil livre ═══════════════════════════

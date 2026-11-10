@@ -349,7 +349,8 @@ await espera("toda função nova é security definer com search_path = interno, 
 await espera("o visitante só executa as funções de leitura", async () =>
   (await sql(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
               where n.nspname = 'public' and (p.proname like 'rede_org_%' or p.proname like 'rede_perfil_extras%') and has_function_privilege('anon', p.oid, 'execute') order by 1`)).rows.map((r) => r.proname).join(),
-  (s) => s === "rede_org_ao_vivo,rede_org_perfil,rede_perfil_extras");
+  // rede_org_tear (perfil livre, 20261110-alumia-perfil.sql): o público vê o texto e o agregado, sem função nem prazo.
+  (s) => s === "rede_org_ao_vivo,rede_org_perfil,rede_org_tear,rede_perfil_extras");
 
 // ── 11. O cliente: pedir o selo chama o servidor só quando precisa de conta nova ──
 {
