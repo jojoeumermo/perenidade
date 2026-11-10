@@ -25,6 +25,7 @@ import {
   type ReacaoDoPost,
 } from "@/lib/rede/tipos-conversa";
 import { verificarAntesDePublicar } from "../encaixes";
+import { AcoesDeCuidado } from "../moderacao/NoCartao";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Avatar16 } from "../ui/Avatar16";
@@ -41,8 +42,10 @@ import {
   IconeVoltar,
   NomeDoAutor,
   previa,
+  Torradas,
   useAcenderSalvar,
   useTextosAlumia3,
+  useTorrada,
 } from "./base3";
 import { pular, trazerParaVista, useFlip, useRegua } from "./movimento";
 
@@ -72,7 +75,8 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   const [ordem, setOrdem] = useState<"antigas" | "novas">("antigas");
   const [estado, setEstado] = useState<{ chave: string; dado: Arvore | null; erro: string } | null>(null);
   const [versao, setVersao] = useState(0);
-  const [aviso, setAviso] = useState<{ texto: string; erro: boolean } | null>(null);
+  const torradas = useTorrada();
+  const avisar = torradas.mostrar;
   const [aberta, setAberta] = useState<string | null>(null);
   const [recolhidas, setRecolhidas] = useState<ReadonlySet<string>>(() => new Set());
   const [alvo, setAlvo] = useState<Post | null>(null);
@@ -99,8 +103,15 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
     };
   }, [id, ordem, chave, s]);
 
-  const aoErro = useCallback((e: unknown) => setAviso({ texto: textoDoErro(s, e), erro: true }), [s]);
+  const aoErro = useCallback((e: unknown) => avisar({ texto: textoDoErro(s, e), erro: true }), [s, avisar]);
   const dado = estado?.dado ?? null;
+  // A cascata de entrada vale só para a primeira abertura: depois disso o fio fica "assentado" e trocar a ordem usa só o FLIP.
+  const temFio = Boolean(dado && dado.respostas.length > 0);
+  useEffect(() => {
+    if (!temFio) return;
+    const id = window.setTimeout(() => fio.current?.setAttribute("data-assentado", ""), 650);
+    return () => window.clearTimeout(id);
+  }, [temFio]);
   const nos = dado ? montarArvore(dado.post.id, dado.respostas) : [];
   // A ordem dos ids (com os ramos recolhidos) é a chave do FLIP: só uma troca de ordem anima.
   const assinatura = `${ordem}|${dado?.respostas.map((r) => r.id).join(",") ?? ""}|${[...recolhidas].join(",")}`;
@@ -156,11 +167,26 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
     responderA(c.post);
   }
 
+  /** "Citar" da gaveta (o caminho pelo teclado): a seleção que estiver dentro desta resposta ou, sem seleção, o texto todo. */
+  function citarDaGaveta(p: Post) {
+    const sel = window.getSelection();
+    const el = document.querySelector<HTMLElement>(`[data-citavel="${CSS.escape(p.id)}"]`);
+    const selecionado = sel && !sel.isCollapsed && el && el.contains(sel.anchorNode) && el.contains(sel.focusNode) ? sel.toString() : "";
+    const bruto = (selecionado || p.texto).replace(/\s+/g, " ").trim();
+    citar({ post: p, trecho: bruto.length > TRECHO_MAX ? `${bruto.slice(0, TRECHO_MAX - 1)}…` : bruto });
+  }
+
   const contexto: ContextoDoFio = {
     lang,
     t,
     aberta,
+    s,
     alternar: (pid) => setAberta((a) => (a === pid ? null : pid)),
+    fechar: (pid) => {
+      setAberta(null);
+      document.querySelector<HTMLElement>(`[aria-controls="al3-acoes-${CSS.escape(pid)}"]`)?.focus();
+    },
+    aoCitar: citarDaGaveta,
     recolhidas,
     recolher: (pid) =>
       setRecolhidas((r) => {
@@ -189,7 +215,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         </Link>
         <h1 className="al3-cond">{t.conversa.titulo}</h1>
         <p className="al3-barra-conta">{total === 1 ? t.comum.respostaUma : preencher(t.comum.respostas, { n: total })}</p>
-        {situacao.logado && situacao.membro && <SeguirConversa raiz={dado.raiz} t={t} aoErro={aoErro} aoAvisar={(texto) => setAviso({ texto, erro: false })} />}
+        {situacao.logado && situacao.membro && <SeguirConversa raiz={dado.raiz} t={t} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />}
       </div>
 
       {post.id !== dado.raiz && (
@@ -198,13 +224,9 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         </p>
       )}
 
-      <PostAberto post={post} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} />
+      <PostAberto post={post} lang={lang} t={t} logado={situacao.logado} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />
 
-      {aviso && (
-        <p className="al3-aviso al3-entra" role={aviso.erro ? "alert" : "status"} key={aviso.texto}>
-          {aviso.texto}
-        </p>
-      )}
+      <Torradas estado={torradas} />
 
       <div className="al3-ordem" role="group" aria-label={t.conversa.ordem} ref={ordemRef}>
         <span className="al3-regua" aria-hidden />
@@ -243,7 +265,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
         aoEnviar={(nova) => {
           setAlvo(null);
           setCitacao(null);
-          setAviso({ texto: t.conversa.enviada, erro: false });
+          avisar({ texto: t.conversa.enviada });
           if (previa()) {
             setEstado((e) => (e && e.dado ? { ...e, dado: { ...e.dado, respostas: [...e.dado.respostas, { ...nova, servidor: null }] } } : e));
           } else setVersao((n) => n + 1);
@@ -313,10 +335,9 @@ function SeguirConversa({ raiz, t, aoErro, aoAvisar }: { raiz: string; t: Textos
 }
 
 /** O post aberto (a dúvida da Lia na prancha), com a aula citada, as reações e uma linha discreta com Acender, Salvar e Compartilhar. */
-function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lang: string; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
+function PostAberto({ post, lang, t, logado, aoErro, aoAvisar }: { post: PostDaArvore; lang: string; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void; aoAvisar: (texto: string) => void }) {
   const acoes = useAcenderSalvar(post, aoErro);
   const handle = post.org?.handle ?? post.autor.handle ?? post.id;
-  const [copiado, setCopiado] = useState(false);
   async function compartilhar() {
     const url = new URL(enderecos.post(lang, post.id), window.location.origin).toString();
     try {
@@ -326,8 +347,7 @@ function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lan
         return;
       }
       await navigator.clipboard.writeText(url);
-      setCopiado(true);
-      window.setTimeout(() => setCopiado(false), 2400);
+      aoAvisar(t.comum.copiado);
     } catch (e) {
       if (e instanceof DOMException && e.name === "AbortError") return;
       aoErro(e);
@@ -355,7 +375,6 @@ function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lan
         <BotaoAcender t={t} logado={logado} {...acoes} />
         <BotaoSalvar t={t} logado={logado} {...acoes} />
         <button type="button" className="al3-acao" onClick={() => void compartilhar()}>{t.comum.compartilhar}</button>
-        {copiado && <span className="al3-cinza al3-entra" role="status">{t.comum.copiado}</span>}
       </div>
     </article>
   );
@@ -369,6 +388,7 @@ function PostAberto({ post, lang, t, logado, aoErro }: { post: PostDaArvore; lan
 function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
   const [reacoes, setReacoes] = useState<ReacaoDoPost[]>(post.reacoes ?? []);
   const [paleta, setPaleta] = useState(false);
+  const [regra, setRegra] = useState(false);
   const [ocupado, setOcupado] = useState(false);
   const idDaRegra = useId();
   const idDaPaleta = useId();
@@ -448,6 +468,24 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
             {paleta ? t.reacoes.fechar : `+ ${t.reacoes.reagir}`}
           </button>
         )}
+        {/* A explicação das "poucas" num (i): a regra continua sendo a descrição do grupo para o leitor de tela. */}
+        <button
+          type="button"
+          className="al3-info"
+          aria-expanded={regra}
+          aria-controls={idDaRegra}
+          aria-label={t.comum.comoContamos}
+          title={t.comum.comoContamos}
+          onClick={() => setRegra((r) => !r)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape" && regra) {
+              e.preventDefault();
+              setRegra(false);
+            }
+          }}
+        >
+          <span aria-hidden>i</span>
+        </button>
       </div>
       <div
         className="al3-paleta"
@@ -476,7 +514,7 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
             </button>
           ))}
       </div>
-      <p className="al3-regra" id={idDaRegra}>{t.reacoes.regra}</p>
+      <p className="al3-regra al3-regra-pop" id={idDaRegra} hidden={!regra}>{t.reacoes.regra}</p>
     </div>
   );
 }
@@ -485,8 +523,13 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
 interface ContextoDoFio {
   lang: string;
   t: TextosDaAlumia3;
+  s: TextosDaRede;
   aberta: string | null;
   alternar: (id: string) => void;
+  /** Fecha a gaveta e devolve o foco ao "…" dela (Escape). */
+  fechar: (id: string) => void;
+  /** "Citar" da gaveta: a seleção dentro da resposta ou o texto todo. */
+  aoCitar: (p: Post) => void;
   recolhidas: ReadonlySet<string>;
   recolher: (id: string) => void;
   aceitaId: string | null;
@@ -567,6 +610,12 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
             aria-controls={idDasAcoes}
             aria-label={preencher(t.conversa.acoesDe, { codinome: p.autor.codinome })}
             onClick={() => c.alternar(p.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape" && aberta) {
+                e.preventDefault();
+                c.fechar(p.id);
+              }
+            }}
           >
             <IconeMais />
           </button>
@@ -578,12 +627,30 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
           </span>
         )}
         <p className="al3-resposta-texto" data-citavel={p.id}>{p.texto}</p>
-        <div className="al3-gaveta" data-aberta={aberta ? "sim" : "nao"} id={idDasAcoes} inert={!aberta}>
+        {/* O que se faz sempre fica à vista, discreto (como no post compacto): Responder e Acender. */}
+        <div className="al3-resposta-acoes al3-resposta-acoes-sempre">
+          {c.podeResponder && (
+            <button type="button" className="al3-acao" onClick={() => c.aoResponder(p)}>{t.comum.responder}</button>
+          )}
+          <BotaoAcender t={t} logado={c.logado} {...acoes} />
+        </div>
+        {/* O "…" guarda só o raro: citar, marcar que ajudou, continuar a conversa e as ações de cuidado. Escape fecha. */}
+        <div
+          className="al3-gaveta"
+          data-aberta={aberta ? "sim" : "nao"}
+          id={idDasAcoes}
+          inert={!aberta}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              e.preventDefault();
+              c.fechar(p.id);
+            }
+          }}
+        >
           <div className="al3-resposta-acoes">
             {c.podeResponder && (
-              <button type="button" className="al3-acao" onClick={() => c.aoResponder(p)}>{t.comum.responder}</button>
+              <button type="button" className="al3-acao" onClick={() => c.aoCitar(p)}>{t.comum.citar}</button>
             )}
-            <BotaoAcender t={t} logado={c.logado} {...acoes} />
             {c.podeAjudou && !p.meu && (
               <button type="button" className="al3-acao" aria-pressed={c.aceitaId === p.id} title={t.conversa.ajudouRegra} onClick={() => c.aoAjudou(p, c.aceitaId !== p.id)}>
                 {c.aceitaId === p.id ? t.conversa.desmarcarAjudou : t.conversa.marcarAjudou}
@@ -592,6 +659,7 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
             {p.respostas > no.filhos.length && (
               <Link href={enderecos.post(lang, p.id)} className="al3-acao">{preencher(t.conversa.continuar, { n: p.respostas })}</Link>
             )}
+            {aberta && <AcoesDeCuidado post={p} lang={lang} s={c.s} logado={c.logado} classe="al3-acao" />}
           </div>
         </div>
         {temFilhos && (
@@ -713,10 +781,27 @@ function CaixaDeResposta({
   const rotulo = handle ? preencher(t.conversa.responderPara, { handle }) : preencher(t.conversa.responderParaNome, { codinome: destino.autor.codinome });
   const cabecaDaCitacao = citacao ? `> ${citacao.trecho}\n\n` : "";
   const limite = LIMITE - cabecaDaCitacao.length;
+  const [caixa, setCaixa] = useState<HTMLElement | null>(null);
+
+  // A altura da caixa presa embaixo vai para a página (--al3-caixa-h): o botão de acessibilidade e os avisos flutuantes ficam
+  // logo acima dela, e nada fica escondido atrás.
+  useEffect(() => {
+    const el = caixa;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const raiz = document.documentElement;
+    const medir = () => raiz.style.setProperty("--al3-caixa-h", `${Math.round(el.getBoundingClientRect().height)}px`);
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    medir();
+    return () => {
+      ro.disconnect();
+      raiz.style.removeProperty("--al3-caixa-h");
+    };
+  }, [caixa]);
 
   if (!pode) {
     return (
-      <div className="al3-responder">
+      <div className="al3-responder" ref={setCaixa}>
         <p className="al3-cinza" style={{ gridColumn: "1 / -1", margin: 0 }}>{raiz.travado ? t.conversa.travada : t.conversa.entrePrimeiro}</p>
       </div>
     );
@@ -757,6 +842,7 @@ function CaixaDeResposta({
 
   return (
     <form
+      ref={setCaixa}
       className="al3-responder"
       data-enviando={enviando ? "sim" : undefined}
       onSubmit={(e) => {
@@ -764,16 +850,33 @@ function CaixaDeResposta({
         void enviar();
       }}
     >
-      {(destino.id !== raiz.id || conferir || citacao) && (
-        <div className="al3-responder-linha al3-entra">
-          {citacao && (
-            <span className="al3-citacao">
-              <IconeAspas />
-              <span className="al3-citacao-texto">{preencher(t.conversa.citando, { trecho: citacao.trecho })}</span>
-              <button type="button" onClick={aoTirarCitacao}>{t.conversa.tirarCitacao}</button>
+      {(destino.id !== raiz.id || citacao) && (
+        // Uma linha só, dentro da caixa: a citação (ou "Respondendo a @…") e um × que desfaz (a citação primeiro, depois o alvo).
+        <div className="al3-responder-alvo al3-entra">
+          <span className="al3-citacao">
+            {citacao ? <IconeAspas /> : <span aria-hidden className="al3-citacao-seta">↳</span>}
+            <span className="al3-citacao-texto">
+              {citacao ? preencher(t.conversa.citando, { trecho: citacao.trecho }) : preencher(t.conversa.respondendoA, { quem: handle ? `@${handle}` : destino.autor.codinome })}
             </span>
-          )}
-          {destino.id !== raiz.id && <button type="button" onClick={aoVoltarAoPost}>{t.conversa.voltarAoPost}</button>}
+          </span>
+          <button
+            type="button"
+            className="al3-citacao-tirar"
+            aria-label={citacao ? t.conversa.tirarCitacao : t.conversa.voltarAoPost}
+            title={citacao ? t.conversa.tirarCitacao : t.conversa.voltarAoPost}
+            onClick={() => {
+              if (citacao) aoTirarCitacao();
+              else aoVoltarAoPost();
+              // O foco volta ao campo: quem usa teclado ou leitor de tela não perde o lugar.
+              campo.current?.focus();
+            }}
+          >
+            <span aria-hidden>×</span>
+          </button>
+        </div>
+      )}
+      {conferir && (
+        <div className="al3-responder-linha al3-entra">
           {conferir && (
             <>
               <span role="alert">{preencher(t.conversa.conferirAntes, { aviso: conferir.aviso })}</span>

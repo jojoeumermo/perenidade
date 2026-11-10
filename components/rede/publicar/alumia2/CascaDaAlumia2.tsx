@@ -52,6 +52,9 @@ const DESTINOS: Destino[] = [
   { chave: "perfil", icone: "perfil", rotulo: (t) => t.menu.perfil, href: (l, s) => (s.handle ? enderecos.perfil(l, s.handle) : s.logado ? `${enderecos.linha(l)}/editar-perfil` : null) },
 ];
 
+/** Quantos avisos não lidos a prévia tem (a mesma conta de avisosDaPrevia, components/rede/descoberta/previa.ts). */
+export const AVISOS_DA_PREVIA = 5;
+
 /** A barra de baixo do celular (prancha celular-inicio): Início, Explorar, [+], Atos, Perfil. */
 const BARRA: Chave[] = ["inicio", "explorar", "chamados", "perfil"];
 
@@ -92,7 +95,8 @@ export function CascaDaAlumia2({
   lang: string;
   s: TextosDaRede;
   situacao: Situacao | null;
-  ativo: ItemDoMenu;
+  /** "nenhum": a tela não é de nenhum item (a conversa aberta). */
+  ativo: ItemDoMenu | "nenhum";
   aoEscrever: (tipo?: TipoAoEscrever) => void;
   children: React.ReactNode;
 }) {
@@ -121,11 +125,35 @@ export function CascaDaAlumia2({
     };
   }, [membroLogado, ativo, al2?.previa]);
 
+  // Rolando para baixo (lendo), os botões flutuantes do site saem da frente no celular (alumia3.css); ao rolar para cima, voltam.
+  useEffect(() => {
+    const raiz = document.documentElement;
+    let antes = window.scrollY;
+    let quadro = 0;
+    const ver = () => {
+      cancelAnimationFrame(quadro);
+      quadro = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (Math.abs(y - antes) < 10) return;
+        if (y > antes && y > 120) raiz.setAttribute("data-al-rolando", "");
+        else raiz.removeAttribute("data-al-rolando");
+        antes = y;
+      });
+    };
+    window.addEventListener("scroll", ver, { passive: true });
+    return () => {
+      cancelAnimationFrame(quadro);
+      window.removeEventListener("scroll", ver);
+      raiz.removeAttribute("data-al-rolando");
+    };
+  }, []);
+
   if (!situacao || !al2) return <EsqueletoDaCasca rotulo={s.estados.carregando} />;
   const { t, previa } = al2;
   const pode = situacao.logado && situacao.membro;
-  // Na prévia, os números das pranchas (Avisos 5, Atos 2); de verdade, os da própria pessoa (e o dos atos vem da F2).
-  const avisosN = previa ? 5 : naoLidos;
+  // Na prévia, os números das pranchas (Avisos 5, Atos 2; os 5 avisos não lidos são os de components/rede/descoberta/previa.ts,
+  // que a tela Avisos mostra); de verdade, os da própria pessoa (e o dos atos vem da F2).
+  const avisosN = previa ? AVISOS_DA_PREVIA : naoLidos;
   // Atos: o número da F2 (encaixe) quando ela chega; até lá, os atos que a própria pessoa confirmou e ainda vão acontecer.
   const emblemas: Partial<Record<Chave, number | null>> = {
     avisos: avisosN,
@@ -223,7 +251,9 @@ export function CascaDaAlumia2({
         </div>
 
         {/* ───── Coluna do meio ───── */}
-        <main id="rede-linha" className="min-w-0 border-[var(--al-linha)] lg:border-r" aria-label={t.linha.titulo}>
+        {/* Sem <main> aqui: a página já tem o main#conteudo do site (dois main aninhados confundem o leitor de tela, e o rótulo
+            "Início" fazia toda tela se anunciar como Início). Cada tela tem o próprio h1. */}
+        <div id="rede-linha" tabIndex={-1} className="min-w-0 border-[var(--al-linha)] outline-none lg:border-r">
           {/* Celular: marca, busca, avisos e Sair rápido no alto (prancha celular-inicio). */}
           <header className="flex items-center gap-2 px-4 pb-1 pt-4 lg:hidden">
             <Link href={enderecos.linha(lang)} className="flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio}>
@@ -254,7 +284,7 @@ export function CascaDaAlumia2({
             <Conta lang={lang} s={s} situacao={situacao} />
             <p className="text-xs text-[var(--al-texto-3)]">{t.direita.rodape}</p>
           </div>
-        </main>
+        </div>
 
         {/* ───── Coluna da direita (computador) ───── */}
         <aside className="hidden px-5 py-6 lg:block" aria-label={t.direita.rotulo}>
