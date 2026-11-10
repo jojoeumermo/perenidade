@@ -66,6 +66,7 @@
   cursor: pointer; border: 2px solid #0f0e0d; text-decoration: none; white-space: nowrap;
 }
 [data-al="2"] .al3-capa-acao-cheia { background: #0f0e0d; color: #f3efe6; }
+[data-al="2"] .al3 a.al3-capa-acao-cheia { color: #f3efe6; }
 [data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"] { background: transparent; color: #0f0e0d; }
 [data-al="2"] .al3-capa-acao-contorno { background: transparent; color: #0f0e0d; }
 [data-al="2"] .al3-capa-acao[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
@@ -798,8 +799,8 @@
 [data-al="2"] .al3-nao-achou-corpo { padding: 2.5rem 16px 3rem; display: grid; justify-items: start; gap: 0.6rem; }
 [data-al="2"] .al3-nao-achou-sinal { margin: 0; font-size: clamp(5rem, 28vw, 9rem); color: var(--al-superficie-2); line-height: 0.85; }
 [data-al="2"] .al3-nao-achou h1 { margin: 0; font-size: clamp(2.2rem, 10vw, 3.2rem); }
-[data-al="2"] .al3-nao-achou p:not(.al3-nao-achou-sinal) { margin: 0; color: var(--al-texto-2); max-width: 32rem; line-height: 1.5; }
-[data-al="2"] .al3-nao-achou-ir { margin-top: 0.8rem; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+[data-al="2"] .al3-nao-achou-corpo p:not(.al3-nao-achou-sinal) { margin: 0; color: var(--al-texto-2); max-width: 32rem; line-height: 1.5; }
+[data-al="2"] .al3 a.al3-nao-achou-ir { margin-top: 0.8rem; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
 
 /* O cartão único em listas misturadas (#tema, busca, Salvos): a ficha com o nome da comunidade e a borda na cor dela. */
 [data-al="2"] .al3-post-com { box-shadow: inset 3px 0 0 color-mix(in srgb, var(--al3-cor) 75%, transparent); }
