@@ -32,9 +32,9 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
   const r = achados?.q === q ? achados.r : null;
   const fonte = previa() ? descobertaDaPrevia : redeDescoberta;
   return (
-    <div className="al3-tela al3-buscar">
+    <section className="al3-tela al3-buscar" aria-labelledby="al3-buscar-titulo">
       <header className="border-b border-rule px-[18px] py-4 font-sans">
-        <h1 className="al3-cond al3-titulo-tela">{b.titulo}</h1>
+        <h1 id="al3-buscar-titulo" className="al3-cond al3-titulo-tela">{b.titulo}</h1>
         <form action={`/${lang}/alumia/buscar`} method="get" role="search" className="al3-buscar-form">
           <label className="sr-only" htmlFor="rede-buscar-q">{b.rotulo}</label>
           <span className="al3-busca">
@@ -104,6 +104,6 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
           />
         </>
       )}
-    </div>
+    </section>
   );
 }
