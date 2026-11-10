@@ -6,7 +6,15 @@
 // cada pessoa ("confiar na primeira vez, avisar quando mudar") e, só na memória enquanto a página está aberta, as chaves das
 // conversas. A cifra mora em lib/rede/chat-privado.ts; as chamadas, em lib/rede/cliente-chat.ts. Documento: docs/rede/CHAT-PRIVADO.md.
 import { abrirEmbrulho, abrirMensagem, type Autoria, certificarChave, cifrarMensagem, compararIdentidade, type Eu, type Identidade, novaChaveDoAparelho, novaIdentidadeDoChat, type ParDoAparelho, precisaDeVersaoNova, prepararNovaVersao } from "./chat-privado";
-import { chat, type ChavesDaConversa, type MensagemCifrada, type SituacaoDoChat } from "./cliente-chat";
+import { chat, PREVIA_DO_CHAT, type ChavesDaConversa, type MensagemCifrada, type SituacaoDoChat } from "./cliente-chat";
+
+/**
+ * Na prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim), o aparelho já vem "ativado" e as mensagens do dublê (lib/rede/chat-exemplos.ts) vão
+ * e voltam em texto: nada sai da aba, então não há o que cifrar, e as telas do chat ficam testáveis sem banco. Fora da prévia,
+ * nada disto existe no caminho.
+ */
+const EU_DA_PREVIA = (usuario: string, versao = 1): Eu =>
+  ({ usuario, versao, aparelho: { publica: "previa-aparelho-eu" }, identidade: { publica: "previa-identidade-eu" } }) as unknown as Eu;
 
 interface Guardado {
   usuario: string;
@@ -106,6 +114,7 @@ export type EstadoDoAparelho = { estado: "pronto"; eu: Eu } | { estado: "sem_cha
 
 /** Este aparelho é o do chat desta conta? */
 export async function estadoDoAparelho(situacao: SituacaoDoChat): Promise<EstadoDoAparelho> {
+  if (PREVIA_DO_CHAT) return { estado: "pronto", eu: EU_DA_PREVIA(situacao.eu, situacao.chave?.versao) };
   const guardado = await lerConta(situacao.eu);
   if (!situacao.chave) return { estado: "sem_chave" };
   if (!guardado || guardado.aparelho.publica !== situacao.chave.publica || guardado.identidade.publica !== situacao.chave.identidade) return { estado: "outro_aparelho" };
@@ -114,6 +123,7 @@ export async function estadoDoAparelho(situacao: SituacaoDoChat): Promise<Estado
 
 /** Ativa o chat neste aparelho (cria a chave e a identidade, publica só a parte pública). Num aparelho novo, o antigo deixa de abrir. */
 export async function ativarNesteAparelho(usuario: string): Promise<Eu> {
+  if (PREVIA_DO_CHAT) return EU_DA_PREVIA(usuario);
   const aparelho = await novaChaveDoAparelho();
   const identidade = await novaIdentidadeDoChat();
   const certificado = await certificarChave(identidade, usuario, aparelho.publica);
@@ -149,6 +159,9 @@ async function carregarChaves(sessao: Sessao, dados: ChavesDaConversa) {
 
 /** Abre a conversa: confere a identidade da outra pessoa, desembrulha as chaves e, se precisar, faz uma versão nova. */
 export async function abrirSessao(eu: Eu, conversa: string, outro: string, anterior?: Sessao | null): Promise<Sessao> {
+  if (PREVIA_DO_CHAT) {
+    return { conversa, eu, outro, versao: 1, chaves: anterior?.chaves ?? new Map(), confiadas: { [eu.usuario]: eu.identidade.publica, [outro]: `previa-identidade-${outro}` }, mudou: null, semChaveDoOutro: false, verificado: anterior?.verificado ?? false };
+  }
   const dados = await chat.chaves(conversa);
   const doOutro = dados.participantes.find((p) => p.usuario === outro) ?? null;
   const conhecida = await lerConhecida(eu.usuario, outro);
@@ -187,6 +200,7 @@ export async function abrirSessao(eu: Eu, conversa: string, outro: string, anter
 
 /** A pessoa confirmou a identidade nova da outra (trocou de aparelho). `verificado`: comparou o código de segurança pessoalmente. */
 export async function confiarNaIdentidade(sessao: Sessao, identidade: string, verificado = false) {
+  if (PREVIA_DO_CHAT) return;
   await guardarConhecida({ chave: `${sessao.eu.usuario}:${sessao.outro}`, identidade, verificado });
 }
 
@@ -201,6 +215,7 @@ export interface MensagemAberta {
 }
 
 export async function abrirMensagens(sessao: Sessao, lista: MensagemCifrada[]): Promise<MensagemAberta[]> {
+  if (PREVIA_DO_CHAT) return lista.map((m) => ({ id: m.id, autor: m.autor, criado_em: m.criado_em, expira_em: m.expira_em, texto: m.corpo, autoria: "ok" as Autoria }));
   return Promise.all(
     lista.map(async (m) => {
       const chave = sessao.chaves.get(m.versao);
@@ -212,6 +227,10 @@ export async function abrirMensagens(sessao: Sessao, lista: MensagemCifrada[]): 
 
 /** Cifra no aparelho e envia. Se a chave virou de versão no caminho, abre de novo e tenta uma vez mais. */
 export async function enviarTexto(sessao: Sessao, texto: string): Promise<Sessao> {
+  if (PREVIA_DO_CHAT) {
+    await chat.enviar(sessao.conversa, 1, texto);
+    return sessao;
+  }
   let atual = sessao;
   for (let tentativa = 0; tentativa < 2; tentativa++) {
     const chave = atual.chaves.get(atual.versao);

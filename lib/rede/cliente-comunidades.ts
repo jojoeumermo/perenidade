@@ -3,6 +3,7 @@
 // As chamadas do pacote "comunidades" ao banco (rede_com_*): uma função por rpc, nos nomes e parâmetros de
 // supabase/migracoes/2026-11-rede-comunidades.sql. Usa `chamar` da fundação. Sem "@/" de propósito.
 import { type Chamar, chamar } from "./cliente";
+import { criarDubleDosNucleos } from "./nucleos-exemplos";
 import type { PaginaDaLinha } from "./tipos";
 import type {
   ItemDaLista,
@@ -51,4 +52,20 @@ export function criarClienteComunidades(c: Chamar) {
   };
 }
 
-export const comunidades = criarClienteComunidades(chamar);
+/** A prévia com dados de exemplo está ligada? (A referência é literal para o Next gravar o valor no código do navegador.) */
+const PREVIA = process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
+
+/**
+ * Na prévia, os núcleos e a turma do mês respondem pelo dublê (lib/rede/nucleos-exemplos.ts); o resto segue o caminho de sempre
+ * (as telas de comunidade já têm os próprios exemplos).
+ */
+export function chamarComNucleosDeExemplo(duble = criarDubleDosNucleos(), resto: Chamar = chamar): Chamar {
+  return async <T,>(funcao: string, argumentos: Record<string, unknown> = {}) => {
+    const f = (duble as unknown as Record<string, ((a: Record<string, unknown>) => unknown) | undefined>)[funcao];
+    if (!f) return resto<T>(funcao, argumentos);
+    await new Promise((r) => setTimeout(r, 120));
+    return structuredClone(f(argumentos)) as T;
+  };
+}
+
+export const comunidades = criarClienteComunidades(PREVIA ? chamarComNucleosDeExemplo() : chamar);
