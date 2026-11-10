@@ -4662,7 +4662,7 @@
     },
     "publishTitle": "Publier un travail",
     "publishLead": "Vous avez fait quelque chose qui a fini dans un tiroir ? Publiez-le avec votre propre commentaire. La médiation le vérifie avant qu'il apparaisse.",
-    "signInFirst": "Pour publier, connectez-vous ou créez un compte. C'est gratuit.",
+    "signInFirst": "Sans compte, vous envoyez un lien. Pour déposer le PDF, connectez-vous ou créez un compte (c’est gratuit).",
     "signIn": "Se connecter ou créer un compte",
     "fieldTitle": "Titre du travail",
     "fieldType": "Type",
