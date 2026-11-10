@@ -140,17 +140,23 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
 
   const aberta = situacao;
   const doPacote = tela.tipo === "pacote" ? REGISTRO[tela.nome] : undefined;
-  const ativo: ItemDoMenu = doPacote ? doPacote.menu : tela.tipo === "perfil" ? "perfil" : tela.tipo === "comunidade" || (tela.tipo === "linha" && aba === "comunidades") ? "comunidades" : "inicio";
+  // Na conversa aberta (Alumia nova) nenhum item fica marcado: "Início" ativo ali dizia que a pessoa estava na linha.
+  const ativo: ItemDoMenu | "nenhum" = doPacote
+    ? doPacote.menu
+    : tela.tipo === "perfil" ? "perfil"
+    : tela.tipo === "comunidade" || (tela.tipo === "linha" && aba === "comunidades") ? "comunidades"
+    : tela.tipo === "post" && AL2 ? "nenhum"
+    : "inicio";
   const aoEscrever = (respostaA: Post | null = null) => setEscrevendo({ respostaA, comunidade: tela.tipo === "comunidade" && !respostaA ? comunidade : null });
   const aoEscrever2 = (tipo?: TipoAoEscrever) => setEscrevendo({ respostaA: null, comunidade: tela.tipo === "comunidade" ? comunidade : null, tipo });
   const pode = Boolean(aberta?.logado && aberta.membro);
   const abaAtual: Aba = aba ?? abaInicial(Boolean(aberta?.membro));
 
   // Com a flag ligada e os textos ainda a caminho, o esqueleto (nada pula quando chegam).
-  if (AL2 && !contexto2) return <Casca lang={lang} s={s} situacao={null} ativo={ativo} aoEscrever={aoEscrever}>{null}</Casca>;
+  if (AL2 && !contexto2) return <Casca lang={lang} s={s} situacao={null} ativo={ativo === "nenhum" ? "inicio" : ativo} aoEscrever={aoEscrever}>{null}</Casca>;
   const CascaDaVez = contexto2 ? CascaDaAlumia2 : Casca;
   const conteudo = (
-    <CascaDaVez lang={lang} s={s} situacao={aberta} ativo={ativo} aoEscrever={contexto2 ? aoEscrever2 : () => aoEscrever()}>
+    <CascaDaVez lang={lang} s={s} situacao={aberta} ativo={(contexto2 ? ativo : ativo === "nenhum" ? "inicio" : ativo) as ItemDoMenu /* a casca nova aceita também "nenhum" */} aoEscrever={contexto2 ? aoEscrever2 : () => aoEscrever()}>
       {aberta && (
         <>
           {falha && <p role="alert" className="px-[18px] py-3 font-sans text-oxblood">{falha}</p>}

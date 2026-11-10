@@ -722,11 +722,16 @@
 
 /* A casca nova (.al2) tem a barra de baixo até 1023 px (lg): a caixa "Responder para @…" fica presa logo ACIMA dela, nunca atrás. */
 @media (max-width: 1023px) {
-  [data-al="2"] .al2 .al3-responder { position: fixed; inset-inline: 0; bottom: calc(62px + var(--recuo-baixo, 0px)); z-index: 29; }
-  [data-al="2"] .al2 :has(> .al3-responder) { padding-bottom: 8rem; }
-  :root:has([data-al="2"] .al2 .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(15rem + var(--recuo-baixo, 0px)); }
-  :root:has([data-al="2"] .al2 .al3-responder) .assistente-flutua { bottom: calc(18.5rem + var(--recuo-baixo, 0px)); }
-  :root:has([data-al="2"] .al2 .al3-responder) .botao-da-caixa { bottom: calc(22rem + env(safe-area-inset-bottom, 0px)); }
+  /* Na conversa a tela é toda dela, como na prancha celular-conversa-fediverso: a barra de baixo sai (a seta < volta) e a caixa
+     "Responder para @…" fica no rodapé, com fundo opaco até a borda da tela (sem fresta por onde o fio aparece rolando). */
+  :root:has([data-al="2"] .al2 .al3-responder) .al2-barra-baixo { display: none; }
+  [data-al="2"] .al2 .al3-responder {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 29;
+    padding-bottom: calc(0.6rem + var(--recuo-baixo, env(safe-area-inset-bottom, 0px)));
+  }
+  [data-al="2"] .al2 :has(> .al3-responder) { padding-bottom: calc(var(--al3-caixa-h, 5rem) + 1rem); }
+  /* Os avisos flutuantes ficam logo acima da caixa. */
+  :root:has([data-al="2"] .al2 .al3-responder) [data-al="2"] .al3-torradas { bottom: calc(var(--al3-caixa-h, 5rem) + 12px); }
 }
 /* ═══ Revisão 2 da área comunidade (10/11/2026) ════════════════════════════════════════════════════════════════════════ */
 
@@ -813,3 +818,54 @@
 [data-al="2"] .al3-saindo { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.38s var(--al3-mola, ease-out), opacity 0.25s; }
 [data-al="2"] .al3-saindo > * { overflow: hidden; min-height: 0; }
 [data-al="2"] .al3-saindo[data-saindo="sim"] { grid-template-rows: 0fr; opacity: 0; }
+
+/* A linha "Citando…" / "Respondendo a @…" dentro da caixa: uma linha só, compacta, com o × que desfaz. */
+[data-al="2"] .al3-responder-alvo { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.3rem; min-width: 0; }
+[data-al="2"] .al3-responder-alvo .al3-citacao { flex: 1 1 auto; min-height: 32px; padding: 0.2rem 0.6rem; font-size: 0.88rem; }
+[data-al="2"] .al3-citacao-seta { color: var(--al-dourado); font-weight: 900; }
+[data-al="2"] .al3-citacao-tirar {
+  flex: none; width: 36px; height: 36px; display: grid; place-items: center; border: 0; border-radius: 999px; background: none;
+  color: var(--al-texto-2); font: inherit; font-size: 1.35rem; line-height: 1; cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+[data-al="2"] .al3-citacao-tirar:hover { background: var(--al-superficie); color: var(--al-texto); }
+[data-al="2"] .al3-responder { row-gap: 0.45rem; }
+
+/* As reações do post aberto mais baixas (o primeiro comentário aparece antes da dobra no celular) e o (i) da regra. */
+[data-al="2"] .al3-reacoes-bloco { margin-top: 0.7rem; position: relative; }
+[data-al="2"] .al3-reacao { min-height: 36px; padding: 0 0.7rem; font-size: 0.88rem; }
+[data-al="2"] .al3-info {
+  width: 32px; height: 32px; display: inline-grid; place-items: center; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  background: none; color: var(--al-texto-3); font: inherit; font-weight: 900; font-style: italic; font-family: Georgia, serif; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+[data-al="2"] .al3-info:hover, [data-al="2"] .al3-info[aria-expanded="true"] { color: var(--al-texto); border-color: var(--al-texto-3); }
+[data-al="2"] .al3-regra-pop:not([hidden]) {
+  position: absolute; z-index: 15; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 0.7rem 0.9rem; border-radius: 12px;
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.85rem; line-height: 1.45;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.4); animation: al3-paleta 0.26s var(--al3-mola) both; transform-origin: top left;
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-info, .al3-regra-pop) { border-color: var(--al-texto); color: var(--al-texto); box-shadow: none; }
+[data-al="2"] .al3-raiz { padding-bottom: 0.6rem; }
+[data-al="2"] .al3-raiz-acoes { margin-top: 0.15rem; }
+[data-al="2"] .al3-ordem { padding-top: 0.8rem; }
+[data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua { top: 0.8rem; }
+
+/* Responder e Acender sempre à vista em cada resposta (discretos); o "…" abre só o raro. */
+[data-al="2"] .al3-resposta-acoes-sempre { margin: 0.05rem 0 0 -0.5rem; }
+[data-al="2"] .al3-resposta-acoes-sempre .al3-acao { min-height: 40px; font-size: 0.9rem; }
+
+/*
+ * Os botões flutuantes do site (acessibilidade e assistente) no celular da Alumia: menores, um em cima do outro logo acima da barra
+ * (ou da caixa de resposta), e saem da frente enquanto a pessoa rola para baixo lendo (voltam ao rolar para cima). Quem arrastou o
+ * botão para outro lugar (style na própria caixa) fica com o lugar que escolheu.
+ */
+@media (max-width: 1023px) {
+  :root:has([data-al="2"] .al2) :is(.app-flutua, .assistente-flutua):not([style]) {
+    right: 10px; left: auto; transition: opacity 0.25s, translate 0.35s var(--al3-mola, ease-out);
+  }
+  :root:has([data-al="2"] .al2) .app-flutua:not([style]) { bottom: calc(64px + 10px + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al2) .assistente-flutua:not([style]) { bottom: calc(64px + 10px + 52px + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al2 .al3-responder) .app-flutua:not([style]) { bottom: calc(var(--al3-caixa-h, 5rem) + 10px); }
+  :root:has([data-al="2"] .al2 .al3-responder) .assistente-flutua:not([style]) { bottom: calc(var(--al3-caixa-h, 5rem) + 62px); }
+  :root:has([data-al="2"] .al2)[data-al-rolando] :is(.app-flutua, .assistente-flutua):not(:focus-within) { opacity: 0; translate: 0 12px; pointer-events: none; }
+}
