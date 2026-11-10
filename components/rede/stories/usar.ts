@@ -5,6 +5,10 @@ import { useEffect, useState, type RefObject } from "react";
 import { clienteDosStories, type ClienteDeStories } from "@/lib/rede/cliente-stories";
 import { carregarTextosDosStories, type TextosDosStories } from "@/lib/rede/textos-stories";
 
+/** Avisa às fileiras de destaques abertas que um story foi guardado ou tirado (só dentro desta aba do navegador). */
+export const EVENTO_DOS_DESTAQUES = "lucia:stories-destaques";
+export const avisarDestaques = () => window.dispatchEvent(new Event(EVENTO_DOS_DESTAQUES));
+
 /** Os textos dos stories no idioma da pessoa (baixa só aquele idioma). Nulo enquanto carrega. */
 export function useTextosDosStories(lang: string): TextosDosStories | null {
   const [t, setT] = useState<{ lang: string; t: TextosDosStories } | null>(null);
@@ -61,29 +65,109 @@ export function larguraDaTela(maximo = 440): number {
   return typeof window === "undefined" ? 390 : Math.min(window.innerWidth, maximo);
 }
 
+/** O que recebe foco pelo Tab (sem os desligados, os escondidos e os de tabindex -1). */
+const FOCAVEIS =
+  'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+
+export function focaveisEm(el: HTMLElement): HTMLElement[] {
+  return Array.from(el.querySelectorAll<HTMLElement>(FOCAVEIS)).filter((x) => {
+    if (x.tabIndex < 0 || x.closest("[inert], [hidden]")) return false;
+    if (x.getClientRects().length === 0) return false;
+    const s = getComputedStyle(x);
+    return s.visibility !== "hidden" && s.display !== "none";
+  });
+}
+
 /**
- * Prende o foco num diálogo de tela cheia (o visor e o "criar"): tudo o que está atrás dele (a linha, o menu, a barra) vira `inert`
- * enquanto ele está aberto — o Tab e o leitor de tela não saem do diálogo (WCAG 2.4.3; aria-modal sozinho não basta). Ao fechar,
- * devolve o que estava antes.
+ * Prende o foco num diálogo de tela cheia (o visor e o "criar"): tudo o que está atrás dele (a linha, o menu, a barra, os portais)
+ * vira `inert` e `aria-hidden` enquanto ele está aberto, e o Tab / Shift+Tab dão a volta entre o primeiro e o último controle do
+ * diálogo (o mais de dentro, se houver outro diálogo modal aberto nele, como a câmera). O foco que escapar (um clique fora, um
+ * portal) volta para dentro. WCAG 2.1.2 e 2.4.3; aria-modal sozinho não basta. Ao fechar, devolve tudo como estava.
  */
 export function useModalDosStories(raiz: RefObject<HTMLElement | null>): void {
   useEffect(() => {
     const el = raiz.current;
     if (!el) return;
-    const travados: HTMLElement[] = [];
+    const travados: { no: HTMLElement; escondido: string | null }[] = [];
     let no: HTMLElement | null = el;
-    while (no && no.parentElement && no !== document.body) {
+    while (no && no.parentElement) {
       for (const irmao of Array.from(no.parentElement.children)) {
-        if (irmao === no || !(irmao instanceof HTMLElement) || irmao.inert || /^(SCRIPT|STYLE|LINK)$/.test(irmao.tagName)) continue;
+        if (irmao === no || !(irmao instanceof HTMLElement) || irmao.inert || /^(SCRIPT|STYLE|LINK|TEMPLATE)$/.test(irmao.tagName)) continue;
+        travados.push({ no: irmao, escondido: irmao.getAttribute("aria-hidden") });
         irmao.inert = true;
-        travados.push(irmao);
+        irmao.setAttribute("aria-hidden", "true");
       }
+      if (no.parentElement === document.body) break;
       no = no.parentElement;
     }
+    /** O diálogo onde o foco deve ficar: o modal mais de dentro que estiver aberto (a câmera dentro do "criar"). */
+    const prisao = (): HTMLElement => {
+      const dentro = Array.from(el.querySelectorAll<HTMLElement>('[aria-modal="true"]')).filter((d) => d.getClientRects().length > 0);
+      return dentro[dentro.length - 1] ?? el;
+    };
+    const aoTeclar = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || e.defaultPrevented) return;
+      const caixa = prisao();
+      const lista = focaveisEm(caixa);
+      if (lista.length === 0) {
+        e.preventDefault();
+        caixa.focus();
+        return;
+      }
+      const ativo = document.activeElement as HTMLElement | null;
+      const k = ativo ? lista.indexOf(ativo) : -1;
+      if (e.shiftKey && (k <= 0 || !caixa.contains(ativo))) {
+        e.preventDefault();
+        lista[lista.length - 1].focus();
+      } else if (!e.shiftKey && (k === -1 || k === lista.length - 1)) {
+        e.preventDefault();
+        lista[0].focus();
+      }
+    };
+    const aoFocar = (e: FocusEvent) => {
+      const alvo = e.target as Node | null;
+      if (!alvo || el.contains(alvo)) return;
+      (focaveisEm(prisao())[0] ?? prisao()).focus({ preventScroll: true });
+    };
+    document.addEventListener("keydown", aoTeclar);
+    document.addEventListener("focusin", aoFocar);
     return () => {
-      for (const t of travados) t.inert = false;
+      document.removeEventListener("keydown", aoTeclar);
+      document.removeEventListener("focusin", aoFocar);
+      for (const t of travados) {
+        t.no.inert = false;
+        if (t.escondido === null) t.no.removeAttribute("aria-hidden");
+        else t.no.setAttribute("aria-hidden", t.escondido);
+      }
     };
   }, [raiz]);
+}
+
+/** As formas do plural nos textos (as categorias do Intl.PluralRules; "other" é a de reserva). */
+export type FormasDoPlural = { one: string; few: string; many: string; other: string };
+
+/** Escolhe a forma certa do plural para `n` no idioma (1 story / 2 stories; 1 история / 3 истории / 5 историй). */
+export function noPlural(lang: string, n: number, formas: FormasDoPlural, outros: Record<string, string | number> = {}): string {
+  let c: string = "other";
+  try {
+    c = new Intl.PluralRules(lang).select(n);
+  } catch {
+    /* idioma desconhecido: "other" */
+  }
+  const modelo = (formas as Record<string, string>)[c] || formas.other;
+  return preencherStory(modelo, { ...outros, n });
+}
+
+/**
+ * O endereço desta mesma tela com o pedido dos stories (ver, criar, destaque) trocado: as outras chaves da busca (?aba=) ficam.
+ * `pedido` nulo tira o pedido (fecha o que estava aberto).
+ */
+export function enderecoAqui(pedido: Record<string, string> | null, chaves: readonly string[]): string {
+  const busca = new URLSearchParams(window.location.search);
+  for (const k of chaves) busca.delete(k);
+  if (pedido) for (const [k, v] of Object.entries(pedido)) busca.set(k, v);
+  const q = busca.toString();
+  return `${window.location.pathname}${q ? `?${q}` : ""}`;
 }
 
 /**
