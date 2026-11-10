@@ -11,6 +11,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { criarClienteDosAtos } from "../lib/rede/cliente-atos.ts";
 import { codigoDoErro } from "../lib/rede/atos/erros.ts";
+import { conferirAto } from "../lib/rede/atos/formulario.ts";
+import { conferirCarona, lerLinkDeApoio, lerMeta, limparCaronas, limparPeticao, limparTarefas, pareceDadoPessoal } from "../lib/rede/atos/quadros.ts";
+import { criarDuble } from "../lib/rede/atos/exemplos.ts";
 import { criarBanco } from "./banco-local.mjs";
 import { noFimDoInstall } from "./install-posteriores.mjs";
 
@@ -51,6 +54,33 @@ ok("nenhuma permissão direta nas tabelas para anon/authenticated", !/grant [a-z
 ok("a migração cita a LGPD com o artigo", /art\. 11/.test(sql) && /art\. 18, IX/.test(sql));
 ok("o package.json tem a linha do teste", /"testar:alumia-b1-atos"/.test(ler("package.json")));
 
+
+// ═══════════════════ 0. As regras puras do cliente (lib/rede/atos/quadros.ts) ═══════════════════
+ok("cliente: tarefa de quem não organiza perde quem e assumidas", (() => { const q = limparTarefas({ organiza: false, tarefas: [{ id: "t", item: "Som", quantos: 1, completa: true, eu: false, assumidas: 1, quem: ["X"] }] }); return q.tarefas[0].quem === null && q.tarefas[0].assumidas === null; })());
+ok("cliente: quem organiza mantém os codinomes", limparTarefas({ organiza: true, tarefas: [{ id: "t", item: "Som", quantos: 1, completa: true, eu: false, assumidas: 1, quem: ["X"] }] }).tarefas[0].quem?.[0] === "X");
+ok("cliente: carona nunca carrega campo de pessoa", !("quem" in limparCaronas([{ id: "k", tipo: "oferta", meio: "carro", saida: "Metrô", vagas: 2, sai_em: null, minha: false, apagar: false, quem: "x" }])[0]));
+ok("cliente: petição com total abaixo de 3 vira nulo", limparPeticao({ id: "p", ato: "a", alvo: "x", texto: "y", prazo: null, aberta: true, total: 2, assinei: false, organiza: false })?.total === null);
+ok("cliente: telefone, e-mail e endereço com número parecem dado pessoal", ["(11) 98888-7777", "98888 7777", "a@b.org", "Rua das Flores, 12"].every(pareceDadoPessoal) && !pareceDadoPessoal("Metrô Itaquera, saída B"));
+ok("cliente: carona com telefone é barrada antes de mandar", conferirCarona("liga 98888-7777", 2).saida === "dado_pessoal" && !conferirCarona("Terminal Parque Dom Pedro", null).saida);
+ok("cliente: meta", lerMeta("") === null && lerMeta("1.200") === 1200 && lerMeta("2") === "numero" && lerMeta("abc") === "numero");
+ok("cliente: link de apoio", lerLinkDeApoio("") === null && lerLinkDeApoio("https://exemplo.org/123456789") === "https://exemplo.org/123456789" && lerLinkDeApoio("http://x.org") === "link");
+ok("formulário: meta e link vão juntos e barram o que não serve", (() => {
+  const base = { titulo: "Ato", quando: new Date(Date.now() + 86_400_000).toISOString(), onde: "Praça da Sé", cidade: "São Paulo", descricao: "Vem." };
+  const bom = conferirAto({ ...base, meta: "500", link_apoio: "https://exemplo.org" });
+  const ruim = conferirAto({ ...base, meta: "1", link_apoio: "ftp://x" });
+  return bom.pronto && bom.meta === 500 && bom.link_apoio === "https://exemplo.org" && !ruim.pronto && ruim.problemas.meta === "numero" && ruim.problemas.link_apoio === "link";
+})());
+ok("erros: cada campo do chamar tem o seu código", ["invalido:palavra", "invalido:titulo", "invalido:onde", "invalido:link_apoio", "invalido:meta", "tarefa_completa", "peticao_encerrada"].map((m) => codigoDoErro(new Error(m))).join() === "palavra,titulo,onde,link_apoio,meta,tarefa_completa,peticao_encerrada");
+{
+  const d = criarDuble();
+  const t = d.rede_ato_tarefas({ p_ato: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01" });
+  ok("dublê: tarefas de ato de outra organização não mostram quem", t.organiza === false && t.tarefas.length > 0 && t.tarefas.every((x) => x.quem === null));
+  ok("dublê: caronas sem quem", d.rede_ato_caronas({ p_ato: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01" }).every((k) => !("quem" in k)));
+  let barrou = false;
+  try { d.rede_ato_carona_criar({ p_ato: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01", p: { tipo: "oferta", saida: "me liga 98888-7777" } }); } catch (e) { barrou = String(e.message) === "dado_pessoal"; }
+  ok("dublê: carona com telefone é recusada", barrou);
+}
+
 const banco = await criarBanco();
 const { dono, criarUsuario, rpc } = banco;
 const um = async (texto, valores = []) => (await dono(texto, valores)).rows[0];
@@ -84,7 +114,6 @@ const chamar = (quem, extra = {}) => rpc(como(P[quem]), "rede_ato_publicar", { p
 } });
 const ato = await espera("a organização chama um ato com meta e link de apoio", () => chamar("org", { meta: 100, link_apoio: "https://exemplo.org/fundo", comunidade: "matematica", publico: "internet" }), (a) => a.meta === 100 && a.link_apoio === "https://exemplo.org/fundo");
 const ID = ato?.id;
-const ler1 = (quem) => rpc(quem ? como(P[quem]) : visitante(), "rede_ato", { p_id: ID });
 const semIds = (s) => !Object.values(P).some((id) => s.includes(id));
 // Faz o tempo andar: tudo o que entrou (e saiu) recua 20 minutos, para cair antes do último marco.
 const passarMarco = () => exec("update interno.rede_vou set criado_em = criado_em - interval '20 minutes'; update interno.rede_contagem_saidas set entrou_em = entrou_em - interval '20 minutes', saiu_em = saiu_em - interval '20 minutes'; update interno.rede_peticao_assinaturas set criado_em = criado_em - interval '20 minutes'");

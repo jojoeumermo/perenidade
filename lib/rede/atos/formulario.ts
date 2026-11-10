@@ -5,6 +5,7 @@
 // para a pessoa ver o problema antes de mandar; o servidor confere de novo. Sem "@/" de propósito (roda no Node nos testes).
 import { normalizarPalavra } from "../mosaico";
 import { LIMITES_DO_ATO, type DadosDoAto } from "../tipos-atos";
+import { lerLinkDeApoio, lerMeta } from "./quadros";
 import { dataOk } from "./tempo";
 
 /** O que a pessoa escreveu (antes de conferir). */
@@ -14,9 +15,12 @@ export interface CamposDoAto {
   onde: string;
   cidade: string;
   descricao: string;
+  /** Opcionais (B1): a meta de presença e o link de apoio, como a pessoa escreveu. */
+  meta?: string;
+  link_apoio?: string;
 }
 
-export const CAMPOS_VAZIOS: CamposDoAto = { titulo: "", quando: null, onde: "", cidade: "", descricao: "" };
+export const CAMPOS_VAZIOS: CamposDoAto = { titulo: "", quando: null, onde: "", cidade: "", descricao: "", meta: "", link_apoio: "" };
 
 const limpo = (s: string) => s.replace(/\s+/g, " ").trim();
 
@@ -57,6 +61,11 @@ export function conferirAto(c: CamposDoAto, agora: number = Date.now()): DadosDo
   if (!descricao) problemas.descricao = "vazio";
   else if (descricao.length > L.descricaoMax) problemas.descricao = "longo";
 
+  const meta = lerMeta(c.meta ?? "");
+  if (meta === "numero") problemas.meta = "numero";
+  const link = lerLinkDeApoio(c.link_apoio ?? "");
+  if (link === "link") problemas.link_apoio = "link";
+
   return {
     tipo: "ato",
     titulo,
@@ -65,6 +74,8 @@ export function conferirAto(c: CamposDoAto, agora: number = Date.now()): DadosDo
     onde,
     cidade,
     descricao,
+    meta: typeof meta === "number" ? meta : null,
+    link_apoio: typeof link === "string" ? link : null,
     pronto: Object.keys(problemas).length === 0,
     problemas,
   };

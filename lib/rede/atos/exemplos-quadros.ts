@@ -65,7 +65,7 @@ export function dubleDosQuadros(achar: (id: unknown) => { ato: Ato; confirmados:
     return caronas
       .filter((k) => k.ato === ato.id)
       .sort((a, b) => a.tipo.localeCompare(b.tipo))
-      .map(({ ato: _a, ...k }) => ({ ...k, apagar: k.minha || ato.meu }));
+      .map((k) => ({ id: k.id, tipo: k.tipo, meio: k.meio, saida: k.saida, vagas: k.vagas, sai_em: k.sai_em, minha: k.minha, apagar: k.minha || ato.meu }));
   };
   const aberto = (ato: Ato) => {
     if (ato.situacao === "cancelado") throw new Error("ato_cancelado");
