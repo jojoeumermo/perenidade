@@ -63,7 +63,8 @@ globalThis.localStorage = new Memoria();
 conferir("sem variável, só os padrões", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos(undefined)) === PADRAO.includes(r)));
 conferir("escola não é padrão", !PADRAO.includes("escola") && !ligado("escola", lerRecursos(undefined)));
 conferir("lista com espaços e maiúsculas", ligado("escola", lerRecursos(" Escola , exercicios")) && ligado("enem-curso", lerRecursos("meu-estudo,enem-curso")) && !ligado("enem-video", lerRecursos("enem-curso")));
-conferir("todos liga tudo menos o que é só pelo nome ou está em pausa", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos")) === !(SO_PELO_NOME.includes(r) || EM_PAUSA.includes(r))));
+// Os de PADRAO ligam com "todos" mesmo sendo só pelo nome (a Alumia nova, 10/11/2026); "nenhum" desliga os de PADRAO.
+conferir("todos liga tudo menos o que é só pelo nome ou está em pausa (salvo os que são padrão)", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos("todos")) === (PADRAO.includes(r) || !(SO_PELO_NOME.includes(r) || EM_PAUSA.includes(r)))));
 conferir("todos com os só pelo nome e os em pausa liga tudo", Object.keys(RECURSOS).every((r) => ligado(r, lerRecursos(`todos,${[...SO_PELO_NOME, ...EM_PAUSA].join(",")}`))));
 // T08: as turmas vêm em pausa (desligadas) e ligam pelo nome.
 conferir("turmas em pausa: todos não liga, o nome liga", !ligado("turmas", lerRecursos("todos")) && ligado("turmas", lerRecursos("todos,turmas")));
