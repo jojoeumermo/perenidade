@@ -13,9 +13,10 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { Ajustes } from "./Ajustes";
 import { Conversa } from "./Conversa";
+import { codigoDoErro } from "../erros";
 import { botaoForte, botaoLeve, erroDoChat } from "./comum";
 
-type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho" } | { estado: "erro"; texto: string };
+type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho" } | { estado: "erro"; texto: string; calmo: boolean };
 
 /**
  * Conversas da Alumia (/alumia/conversas): o chat privado, cifrado de ponta a ponta com a mesma tecnologia das conversas da
@@ -65,7 +66,7 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
           else setHandle(com);
         }
       } catch (e) {
-        if (vivo) setAparelho({ estado: "erro", texto: erroDoChat(t, s, e) });
+        if (vivo) setAparelho({ estado: "erro", texto: erroDoChat(t, s, e), calmo: codigoDoErro(e) === "sem_servico" });
       }
     })();
     return () => {
@@ -192,7 +193,12 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
       {aparelho.estado === "carregando" ? (
         <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />
       ) : aparelho.estado === "erro" ? (
-        <p role="alert" className="px-[18px] py-8 text-oxblood">{aparelho.texto}</p>
+        aparelho.calmo ? (
+          // Sem o serviço neste ambiente não é erro de quem usa: um estado vazio calmo, sem vermelho.
+          <p role="status" className="al2-vazio-calmo mx-[18px] my-8 rounded-2xl border border-rule px-5 py-6 text-center text-ink-soft">{aparelho.texto}</p>
+        ) : (
+          <p role="alert" className="px-[18px] py-8 text-oxblood">{aparelho.texto}</p>
+        )
       ) : aparelho.estado !== "pronto" ? (
         <div className="px-[18px] py-6">
           <h2 className="font-serif text-xl font-bold">{aparelho.estado === "sem_chave" ? t.ativar.titulo : t.ativar.outroTitulo}</h2>
