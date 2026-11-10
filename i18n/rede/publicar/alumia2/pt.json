@@ -1,5 +1,9 @@
 {
-  "marca": { "nome": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia, início" },
+  "marca": {
+    "nome": "Alumia",
+    "instituto": "Instituto Lúcia",
+    "inicio": "Alumia, início"
+  },
   "menu": {
     "principal": "Menu da Alumia",
     "barra": "Barra da Alumia",
@@ -35,7 +39,9 @@
     "denuncias": "Minhas denúncias",
     "silenciados": "Silenciados",
     "moderacao": "Moderação",
-    "idiomas": "Idiomas"
+    "idiomas": "Idiomas",
+    "acessibilidade": "Acessibilidade",
+    "ajuda": "Perguntas frequentes"
   },
   "linha": {
     "titulo": "Início",
@@ -48,7 +54,13 @@
     "geral": "Linha geral",
     "novosUm": "post novo",
     "novosOutros": "posts novos",
-    "mostrarNovos": "Mostrar {n} posts novos"
+    "mostrarNovos": "Mostrar {n} posts novos",
+    "erroTitulo": "A linha não carregou",
+    "fimTitulo": "Você viu tudo",
+    "fimTexto": "Não tem mais nada de quem você segue por agora. Sem rolagem sem fim: que tal ir a uma comunidade ou a um ato?",
+    "fimComunidades": "Ir às comunidades",
+    "fimAtos": "Ver os atos",
+    "fimTopo": "Voltar ao alto"
   },
   "compositor": {
     "convite": "O que está acontecendo na sua luta?",
@@ -142,7 +154,28 @@
     "semTexto": "(sem texto)",
     "semAlt": "Uma imagem está sem descrição: quem usa leitor de tela não vai saber o que tem nela. Descreva, ou toque de novo para publicar assim.",
     "naoDesfez": "Não deu para desfazer: o post já foi publicado. Se quiser, apague-o no menu do post.",
-    "rascunhosCheios": "Você já tem 20 rascunhos na conta: este fica só neste aparelho. Apague um para guardar na conta."
+    "rascunhosCheios": "Você já tem 20 rascunhos na conta: este fica só neste aparelho. Apague um para guardar na conta.",
+    "anexos": "Anexos",
+    "gravarAudio": "Gravar áudio (até 1 minuto)",
+    "ajudaInternet": "Qualquer pessoa, também no Mastodon, Lemmy, Misskey e no resto do Fediverso.",
+    "ajudaMembros": "Só quem tem conta na Alumia.",
+    "ajudaSeguidores": "Só quem segue você.",
+    "ajudaComunidade": "Só quem está nesta comunidade.",
+    "ajudaNucleo": "Só quem está neste núcleo.",
+    "ajudaEquipe": "Só a equipe do instituto.",
+    "publicoRoda": "Só a roda de confiança",
+    "rodaEmBreve": "A sua lista de confiança chega com o perfil novo. Ninguém fica sabendo quem está nela.",
+    "notaFediverso": "Também no Fediverso: o post sai para quem te segue no Mastodon, no Lemmy e no Misskey, com o seu codinome.",
+    "respostaA": "Escreva sua resposta a {nome}",
+    "falta": "Falta: {campos}",
+    "campos": {
+      "titulo": "nome do ato",
+      "quando": "quando",
+      "onde": "onde",
+      "cidade": "cidade",
+      "descricao": "chamado"
+    },
+    "escolherQuando": "Escolher dia e hora"
   },
   "direita": {
     "rotulo": "Na Alumia agora",

@@ -1,8 +1,11 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
+import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Aba, Situacao } from "@/lib/rede/tipos";
+import { TopoDoInicioEncaixado } from "../../atos/encaixe";
 import { ENCAIXES } from "../../encaixes";
 import { Avatar16 } from "../../ui/Avatar16";
 import type { TipoAoEscrever } from "./CascaDaAlumia2";
@@ -14,14 +17,41 @@ import { CartaoDoAtoDuble, FaixaProximoAtoDuble } from "./previa/Dubles";
 export const PAINEL_DA_LINHA = "al2-painel-linha";
 export const idDaAba = (a: Aba) => `al2-aba-${a}`;
 
+type DocumentoComTransicao = Document & { startViewTransition?: (mudar: () => void) => unknown };
+
+/** Quer movimento? (prefers-reduced-motion, e o modo e-ink do site, que também pede tela parada.) */
+export function comMovimento(): boolean {
+  if (typeof window === "undefined") return false;
+  if (document.documentElement.hasAttribute("data-eink")) return false;
+  return !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+}
+
 /**
- * O alto da linha na cara nova (pranchas computador-inicio e celular-inicio): "INÍCIO" e "Ordem de chegada, sem algoritmo" no
- * computador; as abas Seguindo / Minhas comunidades / Tudo (no celular, "Comunidades"); o compositor da linha (só computador:
- * imagem, enquete, Chamar ato e Publicar, cada um abre o Escrever já no tipo certo); e, na prévia, a faixa do próximo ato e o
- * cartão do ato (dublês da F2, que ainda não tem encaixe no alto da linha).
+ * Troca o que está na tela com a View Transitions API do navegador (um cruzamento suave entre o antes e o depois), quando ele tem
+ * e a pessoa não pediu menos movimento. Sem a API, só troca.
+ */
+export function trocarComTransicao(mudar: () => void, lado?: "direita" | "esquerda") {
+  const d = document as DocumentoComTransicao;
+  // Para que lado a linha desliza (o CSS lê data-al2-lado no <html>); sem lado, o cruzamento de sempre.
+  if (lado) d.documentElement.dataset.al2Lado = lado;
+  else delete d.documentElement.dataset.al2Lado;
+  if (!d.startViewTransition || !comMovimento()) {
+    mudar();
+    return;
+  }
+  d.startViewTransition(() => flushSync(mudar));
+}
+
+/**
+ * O alto da linha na cara nova (pranchas computador-inicio, celular-inicio e celular-stories-na-linha): "INÍCIO" e "Ordem de
+ * chegada, sem algoritmo" no computador; a faixa de stories (encaixe da F5, topoDaLinha); as abas Seguindo / Minhas comunidades /
+ * Tudo (no celular, "Comunidades"), fixas no alto, com o traço vermelho que desliza até a aba escolhida; o compositor da linha (só
+ * computador: imagem, enquete, Chamar ato e Publicar, cada um abre o Escrever já no tipo certo); e, na aba Seguindo, a faixa
+ * PRÓXIMO ATO + o cartão do ato (TopoDoInicio da F2; na prévia sem a F2, os dublês das pranchas).
  */
 export function TopoDaLinha2({
   lang,
+  s,
   situacao,
   abas,
   aba,
@@ -29,6 +59,7 @@ export function TopoDaLinha2({
   aoEscrever,
 }: {
   lang: string;
+  s: TextosDaRede;
   situacao: Situacao;
   abas: Aba[];
   aba: Aba;
@@ -37,12 +68,47 @@ export function TopoDaLinha2({
 }) {
   const al2 = useAlumia2();
   const botoes = useRef<(HTMLButtonElement | null)[]>([]);
+  const lista = useRef<HTMLDivElement>(null);
+  const [traco, setTraco] = useState<{ x: number; w: number } | null>(null);
+  const sentinela = useRef<HTMLDivElement>(null);
+  const [grudada, setGrudada] = useState(false);
+
+  useEffect(() => {
+    const alvo = sentinela.current;
+    if (!alvo || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(([e]) => setGrudada(!e.isIntersecting && e.boundingClientRect.top < 0));
+    obs.observe(alvo);
+    return () => obs.disconnect();
+  }, [al2]);
+
+  // O traço vermelho: mede a aba escolhida e desliza até ela (CSS faz a mola; com menos movimento, só aparece no lugar).
+  useLayoutEffect(() => {
+    const medir = () => {
+      const i = abas.indexOf(aba);
+      const b = botoes.current[i];
+      if (!b || !lista.current) return;
+      const recuo = window.matchMedia("(min-width: 1024px)").matches ? 8 : 0;
+      setTraco({ x: b.offsetLeft + recuo, w: b.offsetWidth - recuo * 2 });
+    };
+    medir();
+    const obs = typeof ResizeObserver !== "undefined" ? new ResizeObserver(medir) : null;
+    if (lista.current) obs?.observe(lista.current);
+    return () => obs?.disconnect();
+  }, [aba, abas, al2]);
+
   if (!al2) return null;
   const { t, previa } = al2;
   const pode = situacao.logado && situacao.membro;
   const temAto = previa || ENCAIXES.tiposDoCompositor.some((x) => x.tipo === "ato");
   const rotuloDaAba = (a: Aba, curto: boolean) =>
     a === "seguindo" ? t.linha.seguindo : a === "comunidades" ? (curto ? t.linha.comunidadesCurto : t.linha.comunidades) : a === "tudo" ? t.linha.tudo : t.linha.geral;
+  const ctx = { lang, s, situacao };
+
+  const escolher = (a: Aba) => {
+    if (a === aba) return;
+    // A linha desliza para o lado da aba escolhida (à direita entra da direita), para dar sentido de lugar.
+    trocarComTransicao(() => aoAba(a), abas.indexOf(a) > abas.indexOf(aba) ? "direita" : "esquerda");
+  };
 
   // Padrão de abas (WAI-ARIA APG, ativação automática): setas e Home/End trocam a aba e levam o foco; só a aba atual fica no Tab.
   function trocarPelaSeta(e: React.KeyboardEvent<HTMLButtonElement>, i: number) {
@@ -54,17 +120,34 @@ export function TopoDaLinha2({
     else if (e.key === "End") alvo = n - 1;
     if (alvo < 0) return;
     e.preventDefault();
-    aoAba(abas[alvo]);
+    escolher(abas[alvo]);
     botoes.current[alvo]?.focus();
   }
 
   return (
     <>
-      <div className="hidden items-baseline justify-between px-5 pt-6 lg:flex">
+      <div className="hidden items-baseline justify-between px-5 pt-6 lg:flex 2xl:px-7">
         <h2 className="al-cond text-[1.9rem] font-black uppercase leading-none">{t.linha.titulo}</h2>
         <p className="text-xs text-[var(--al-texto-2)]">{t.linha.ordem}</p>
       </div>
-      <div role="tablist" aria-label={t.linha.abas} className="al2-abas sticky top-0 z-10 mt-1 flex border-b border-[var(--al-linha)] bg-[var(--al-fundo)] lg:mt-3 lg:gap-2 lg:px-3">
+
+      {/* A faixa de stories (F5) no alto do Início, acima das abas (prancha celular-stories-na-linha). Cada peça confere a flag. */}
+      {ENCAIXES.topoDaLinha.length > 0 && (
+        <div className="al2-topo-stories">
+          {ENCAIXES.topoDaLinha.map((NoAlto, k) => (
+            <NoAlto key={k} {...ctx} />
+          ))}
+        </div>
+      )}
+
+      {/* Marca o ponto onde as abas grudam no alto: dali para baixo elas ganham uma sombra fina (fundo sólido, nada borrado atrás). */}
+      <div ref={sentinela} aria-hidden className="h-px" />
+      <div
+        ref={lista}
+        role="tablist"
+        aria-label={t.linha.abas}
+        className={`al2-abas sticky top-[0px] z-20 flex border-b border-[var(--al-linha)] lg:mt-3 lg:gap-2 lg:px-3 2xl:px-5 ${traco ? "al2-abas-com-traco" : ""} ${grudada ? "al2-abas-grudada" : ""}`}
+      >
         {abas.map((a, i) => (
           <button
             key={a}
@@ -77,7 +160,7 @@ export function TopoDaLinha2({
             aria-selected={aba === a}
             aria-controls={PAINEL_DA_LINHA}
             tabIndex={aba === a ? 0 : -1}
-            onClick={() => aoAba(a)}
+            onClick={() => escolher(a)}
             onKeyDown={(e) => trocarPelaSeta(e, i)}
             className="al2-aba flex-1 lg:flex-none"
           >
@@ -85,14 +168,14 @@ export function TopoDaLinha2({
             <span className="hidden lg:inline">{rotuloDaAba(a, false)}</span>
           </button>
         ))}
+        {traco && <span aria-hidden className="al2-abas-traco" style={{ transform: `translateX(${traco.x}px)`, width: traco.w }} />}
       </div>
-      <p className="px-4 pt-2 text-xs text-[var(--al-texto-3)] lg:hidden">{t.linha.ordem}</p>
 
       {pode && (
-        <div className="hidden border-b border-[var(--al-linha)] px-5 pb-3 pt-4 lg:block">
+        <div className="hidden border-b border-[var(--al-linha)] px-5 pb-3 pt-4 lg:block 2xl:px-7">
           <div className="flex items-center gap-3">
             <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={40} className="shrink-0" />
-            <button type="button" onClick={() => aoEscrever()} className="min-h-11 flex-1 cursor-text text-left text-[1.05rem] text-[var(--al-texto-3)] hover:text-[var(--al-texto-2)]">
+            <button type="button" onClick={() => aoEscrever()} className="al2-convite min-h-11 flex-1 cursor-text text-left text-[1.05rem] text-[var(--al-texto-3)]">
               {t.compositor.convite}
             </button>
           </div>
@@ -109,18 +192,25 @@ export function TopoDaLinha2({
                 {t.compositor.chamarAto}
               </button>
             )}
-            <button type="button" className="al-botao al-botao-primario al-botao-m ml-auto" onClick={() => aoEscrever()}>
+            <button type="button" className="al-botao al-botao-primario al-botao-m al2-aperta ml-auto" onClick={() => aoEscrever()}>
               {t.compositor.publicar}
             </button>
           </div>
         </div>
       )}
 
-      {previa && aba !== "comunidades" && (
-        <>
-          <FaixaProximoAtoDuble t={t} lang={lang} />
-          <CartaoDoAtoDuble t={t} lang={lang} />
-        </>
+      {/* Entre as abas e os posts: a faixa PRÓXIMO ATO e o cartão do ato (F2), só na aba Seguindo (prancha celular-inicio). */}
+      {aba === "seguindo" && (
+        <div className="al2-topo-ato">
+          {TopoDoInicioEncaixado ? (
+            <TopoDoInicioEncaixado {...ctx} />
+          ) : previa ? (
+            <>
+              <FaixaProximoAtoDuble t={t} lang={lang} />
+              <CartaoDoAtoDuble t={t} lang={lang} />
+            </>
+          ) : null}
+        </div>
       )}
     </>
   );

@@ -1,5 +1,9 @@
 {
-  "marca": { "nome": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia, home" },
+  "marca": {
+    "nome": "Alumia",
+    "instituto": "Instituto Lúcia",
+    "inicio": "Alumia, home"
+  },
   "menu": {
     "principal": "Alumia menu",
     "barra": "Alumia bar",
@@ -35,7 +39,9 @@
     "denuncias": "My reports",
     "silenciados": "Muted",
     "moderacao": "Moderation",
-    "idiomas": "Languages"
+    "idiomas": "Languages",
+    "acessibilidade": "Accessibility",
+    "ajuda": "Frequently asked questions"
   },
   "linha": {
     "titulo": "Home",
@@ -48,7 +54,13 @@
     "geral": "Public timeline",
     "novosUm": "new post",
     "novosOutros": "new posts",
-    "mostrarNovos": "Show {n} new posts"
+    "mostrarNovos": "Show {n} new posts",
+    "erroTitulo": "The timeline didn't load",
+    "fimTitulo": "You're all caught up",
+    "fimTexto": "Nothing more from the people you follow for now. No endless scrolling: how about a community or an action?",
+    "fimComunidades": "Go to communities",
+    "fimAtos": "See actions",
+    "fimTopo": "Back to top"
   },
   "compositor": {
     "convite": "What's happening in your struggle?",
@@ -142,7 +154,28 @@
     "semTexto": "(no text)",
     "semAlt": "An image has no description: screen reader users won't know what's in it. Describe it, or tap again to post as is.",
     "naoDesfez": "Could not undo: the post was already published. You can delete it from the post menu.",
-    "rascunhosCheios": "You already have 20 drafts in your account: this one stays only on this device. Delete one to save it to your account."
+    "rascunhosCheios": "You already have 20 drafts in your account: this one stays only on this device. Delete one to save it to your account.",
+    "anexos": "Attachments",
+    "gravarAudio": "Record audio (up to 1 minute)",
+    "ajudaInternet": "Anyone, also on Mastodon, Lemmy, Misskey and the rest of the Fediverse.",
+    "ajudaMembros": "Only people with an Alumia account.",
+    "ajudaSeguidores": "Only people who follow you.",
+    "ajudaComunidade": "Only people in this community.",
+    "ajudaNucleo": "Only people in this group.",
+    "ajudaEquipe": "Only the institute's team.",
+    "publicoRoda": "Only your circle of trust",
+    "rodaEmBreve": "Your trust list arrives with the new profile. Nobody learns who is on it.",
+    "notaFediverso": "Also on the Fediverse: the post goes to people who follow you on Mastodon, Lemmy and Misskey, under your codename.",
+    "respostaA": "Write your reply to {nome}",
+    "falta": "Missing: {campos}",
+    "campos": {
+      "titulo": "name of the action",
+      "quando": "when",
+      "onde": "where",
+      "cidade": "city",
+      "descricao": "call"
+    },
+    "escolherQuando": "Pick day and time"
   },
   "direita": {
     "rotulo": "On Alumia now",
