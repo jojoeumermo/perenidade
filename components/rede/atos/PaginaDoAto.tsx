@@ -6,11 +6,15 @@ import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { AtoAberto } from "./AtoAberto";
+import { Caronas } from "./Caronas";
 import { PainelDoFarol } from "./Farol";
+import { Peticao } from "./Peticao";
+import { QuadroDeTarefas } from "./QuadroDeTarefas";
 import { Icone } from "./partes";
 import { avisarAto, frase, useAto, useTextosDosAtos } from "./usar";
 import { codigoDoErro } from "@/lib/rede/atos/erros";
 import { linkDeApoioSeguro } from "@/lib/rede/atos/chegar";
+import { lerLinkDeApoio, lerMeta } from "@/lib/rede/atos/quadros";
 import { doCampoLocal, paraCampoLocal } from "@/lib/rede/atos/tempo";
 import { atos as cliente, PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
@@ -61,7 +65,11 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
             depois={<MaisDoAto ato={estado.dados} t={t} />}
           />
           <PainelDoFarol ato={estado.dados} t={t} lang={lang} />
+          <QuadroDeTarefas ato={estado.dados} t={t} logado={situacao.logado || PREVIA_DOS_ATOS} />
+          <Caronas ato={estado.dados} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />
+          <Peticao ato={estado.dados} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />
           {estado.dados.meu ? <PainelDeQuemChamou ato={estado.dados} t={t} /> : null}
+          <p className="al-ato-nota">{t.mosaico.atraso}</p>
         </>
       )}
     </div>
@@ -232,6 +240,113 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
           {erro}
         </p>
       ) : null}
+      <MetaEApoio ato={ato} t={t} />
     </section>
+  );
+}
+
+/**
+ * Só para quem chamou: a meta de presença e o link de apoio, editáveis depois de chamar (rede_ato_editar). A meta é um número da
+ * organização (o mosaico acende em relação a ela, nunca menos de 30); o link só https, sem telefone. O servidor confere de novo.
+ */
+function MetaEApoio({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
+  const [aberto, setAberto] = useState(false);
+  const [meta, setMeta] = useState(ato.meta ? String(ato.meta) : "");
+  const [link, setLink] = useState(ato.link_apoio ?? "");
+  const [ocupado, setOcupado] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
+  const [feito, setFeito] = useState("");
+  const id = useId();
+  const primeiro = useRef<HTMLInputElement>(null);
+  const botao = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (aberto) primeiro.current?.focus();
+  }, [aberto]);
+  const enviar = async (e: FormEvent) => {
+    e.preventDefault();
+    const m = lerMeta(meta);
+    const l = lerLinkDeApoio(link);
+    if (m === "numero" || l === "link") {
+      setErro(m === "numero" ? t.formulario.problemas.numero : t.formulario.problemas.link);
+      return;
+    }
+    setOcupado(true);
+    setErro(null);
+    try {
+      const novo = await cliente.editar(ato.id, { meta: m, link_apoio: l });
+      avisarAto(novo);
+      setFeito(t.pagina.editado);
+      setAberto(false);
+      requestAnimationFrame(() => botao.current?.focus());
+    } catch (e) {
+      setErro(codigoDoErro(e) === "generico" ? t.pagina.erroMudar : frase(t, e));
+    } finally {
+      setOcupado(false);
+    }
+  };
+  return (
+    <div className="al-ato-org-meta">
+      <p className="al-q-meta-atual">{ato.meta ? preencherAto(t.pagina.metaAtual, { n: ato.meta.toLocaleString() }) : t.pagina.semMeta}</p>
+      {aberto ? (
+        <form
+          className="al-ato-org-form"
+          onSubmit={(e) => void enviar(e)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape" && !ocupado) {
+              e.preventDefault();
+              setAberto(false);
+            }
+          }}
+          noValidate
+        >
+          <label>
+            {t.formulario.meta}
+            <input ref={primeiro} className="al-ato-form-campo" inputMode="numeric" value={meta} onChange={(e) => setMeta(e.target.value)} placeholder={t.formulario.metaExemplo} aria-describedby={`${id}-meta`} />
+            <small id={`${id}-meta`} className="al-ato-form-ajuda">
+              {t.formulario.metaAjuda}
+            </small>
+          </label>
+          <label>
+            {t.formulario.link}
+            <input className="al-ato-form-campo" type="url" inputMode="url" value={link} onChange={(e) => setLink(e.target.value)} placeholder={t.formulario.linkExemplo} maxLength={LIMITES_DO_ATO.linkMax} aria-describedby={`${id}-link`} />
+            <small id={`${id}-link`} className="al-ato-form-ajuda">
+              {t.formulario.linkAjuda}
+            </small>
+          </label>
+          {erro ? (
+            <p role="alert" className="al-ato-erro">
+              {erro}
+            </p>
+          ) : null}
+          <div className="al-ato-org-botoes">
+            <Botao type="submit" variante="dourado" disabled={ocupado} aria-busy={ocupado || undefined}>
+              {t.pagina.salvarEdicao}
+            </Botao>
+            <Botao variante="fantasma" onClick={() => setAberto(false)} disabled={ocupado}>
+              {t.pagina.desistir}
+            </Botao>
+          </div>
+        </form>
+      ) : (
+        <div className="al-ato-org-botoes">
+          <Botao
+            ref={botao}
+            variante="contorno"
+            onClick={() => {
+              setFeito("");
+              setErro(null);
+              setMeta(ato.meta ? String(ato.meta) : "");
+              setLink(ato.link_apoio ?? "");
+              setAberto(true);
+            }}
+          >
+            {t.pagina.editar}
+          </Botao>
+        </div>
+      )}
+      <p className="sr-only" aria-live="polite">
+        {feito}
+      </p>
+    </div>
   );
 }
