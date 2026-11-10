@@ -147,7 +147,7 @@ export function useModalDosStories(raiz: RefObject<HTMLElement | null>): void {
 export type FormasDoPlural = { one: string; few: string; many: string; other: string };
 
 /** Escolhe a forma certa do plural para `n` no idioma (1 story / 2 stories; 1 история / 3 истории / 5 историй). */
-export function noPlural(lang: string, n: number, formas: FormasDoPlural): string {
+export function noPlural(lang: string, n: number, formas: FormasDoPlural, outros: Record<string, string | number> = {}): string {
   let c: string = "other";
   try {
     c = new Intl.PluralRules(lang).select(n);
@@ -155,7 +155,7 @@ export function noPlural(lang: string, n: number, formas: FormasDoPlural): strin
     /* idioma desconhecido: "other" */
   }
   const modelo = (formas as Record<string, string>)[c] || formas.other;
-  return preencherStory(modelo, { n });
+  return preencherStory(modelo, { ...outros, n });
 }
 
 /**

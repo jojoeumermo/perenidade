@@ -3,15 +3,19 @@
 
 import "./stories.css";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { enderecosDosStories, lerPedidoDoEndereco } from "@/lib/rede/stories/enderecos";
+import { CHAVES_DOS_STORIES, enderecosDosStories, lerPedidoDoEndereco } from "@/lib/rede/stories/enderecos";
 import type { Situacao } from "@/lib/rede/tipos";
+import type { AutoraDoStory } from "@/lib/rede/tipos-stories";
 import { Criar } from "./Criar";
 import { FaixaDeStories } from "./FaixaDeStories";
 import { Visor } from "./Visor";
-import { useClienteDosStories, useTextosDosStories } from "./usar";
+import { enderecoAqui, useClienteDosStories, useTextosDosStories } from "./usar";
 
 /** O que está aberto por cima da faixa: nada, o visor de alguém ou o "criar". */
-type Aberto = { tipo: "nada" } | { tipo: "ver"; handle: string; i: number; fila: string[] } | { tipo: "criar"; post: string | null };
+type Aberto =
+  | { tipo: "nada" }
+  | { tipo: "ver"; handle: string; i: number; fila: string[]; autoras?: Record<string, AutoraDoStory> }
+  | { tipo: "criar"; post: string | null };
 
 function lerAberto(): Aberto {
   const p = lerPedidoDoEndereco(new URLSearchParams(window.location.search));
@@ -21,15 +25,15 @@ function lerAberto(): Aberto {
 }
 
 /**
- * O mesmo pedido (?ver=@nome, ?criar=1) no endereço da tela onde a faixa está: na linha de Início fica /alumia?ver=…, na tela
- * dos stories /alumia/stories?ver=… (e no host próprio, /?ver=…). As outras chaves da busca (?aba=) ficam.
+ * O mesmo pedido (?ver=nome&i=0, ?criar=1; "?ver=@nome" também é aceito ao abrir) no endereço da tela onde a faixa está: na
+ * linha de Início fica /alumia?ver=…, na tela dos stories /alumia/stories?ver=… (e no host próprio, /?ver=…). As outras chaves
+ * da busca (?aba=) ficam.
  */
 function aqui(modelo: string | null): string {
-  const busca = new URLSearchParams(window.location.search);
-  for (const k of ["ver", "i", "criar", "post"]) busca.delete(k);
-  if (modelo) new URLSearchParams(modelo.slice(modelo.indexOf("?") + 1)).forEach((v, k) => busca.set(k, v));
-  const q = busca.toString();
-  return `${window.location.pathname}${q ? `?${q}` : ""}`;
+  if (!modelo) return enderecoAqui(null, CHAVES_DOS_STORIES);
+  const pedido: Record<string, string> = {};
+  new URLSearchParams(modelo.slice(modelo.indexOf("?") + 1)).forEach((v, k) => (pedido[k] = v));
+  return enderecoAqui(pedido, CHAVES_DOS_STORIES);
 }
 
 /**
@@ -55,9 +59,9 @@ export function useStoriesAbertos(lang: string) {
 
   const ir = useCallback((novo: Aberto, modelo: string) => {
     const url = aqui(modelo);
-    if (empilhados.current > 0) window.history.replaceState(null, "", url);
+    if (empilhados.current > 0) window.history.replaceState(window.history.state, "", url);
     else {
-      window.history.pushState(null, "", url);
+      window.history.pushState(window.history.state, "", url);
       empilhados.current = 1;
     }
     setAberto(novo);
@@ -66,14 +70,28 @@ export function useStoriesAbertos(lang: string) {
     if (empilhados.current > 0) {
       empilhados.current = 0;
       window.history.back();
-    } else window.history.replaceState(null, "", aqui(null));
+    } else window.history.replaceState(window.history.state, "", aqui(null));
     setAberto({ tipo: "nada" });
     setVersao((v) => v + 1);
   }, []);
   const mudou = useCallback(() => setVersao((v) => v + 1), []);
-  const abrir = useCallback((handle: string, i: number, fila: string[]) => ir({ tipo: "ver", handle, i, fila }, enderecosDosStories.ver(lang, handle, i)), [ir, lang]);
+  const abrir = useCallback(
+    (handle: string, i: number, fila: string[], autoras?: Record<string, AutoraDoStory>) => ir({ tipo: "ver", handle, i, fila, autoras }, enderecosDosStories.ver(lang, handle, i)),
+    [ir, lang],
+  );
   const criar = useCallback(() => ir({ tipo: "criar", post: null }, enderecosDosStories.criar(lang)), [ir, lang]);
-  return { aberto, versao, abrir, criar, fechar, mudou };
+  /**
+   * O visor passou para outra pessoa (ou outro story): só o endereço muda (replaceState, sem nova entrada no histórico e sem
+   * remontar o visor), para recarregar ou compartilhar abrir em quem está na tela agora.
+   */
+  const trocou = useCallback(
+    (handle: string, i: number) => {
+      if (lerPedidoDoEndereco(new URLSearchParams(window.location.search)).ver === null) return;
+      window.history.replaceState(window.history.state, "", aqui(enderecosDosStories.ver(lang, handle, i)));
+    },
+    [lang],
+  );
+  return { aberto, versao, abrir, criar, fechar, mudou, trocou };
 }
 
 /**
@@ -83,7 +101,7 @@ export function useStoriesAbertos(lang: string) {
 export default function StoriesNoAlto({ lang, situacao }: { lang: string; situacao: Situacao }) {
   const t = useTextosDosStories(lang);
   const cliente = useClienteDosStories();
-  const { aberto, versao, abrir, criar, fechar, mudou } = useStoriesAbertos(lang);
+  const { aberto, versao, abrir, criar, fechar, mudou, trocou } = useStoriesAbertos(lang);
 
   if (!t || !cliente) return <div className="al-st-faixa" aria-busy="true" style={{ minHeight: 132 }} />;
 
@@ -96,7 +114,19 @@ export default function StoriesNoAlto({ lang, situacao }: { lang: string; situac
       {previa ? <p className="al-st-previa">{t.previa}</p> : null}
       <FaixaDeStories t={t} cliente={cliente} eu={eu} logado={logado} versao={versao} aoAbrir={abrir} aoCriar={criar} />
       {aberto.tipo === "ver" ? (
-        <Visor key={`${aberto.handle}:${aberto.i}`} t={t} cliente={cliente} lang={lang} handle={aberto.handle} inicio={aberto.i} fila={aberto.fila} aoFechar={fechar} aoMudou={mudou} />
+        <Visor
+          key={`${aberto.handle}:${aberto.i}`}
+          t={t}
+          cliente={cliente}
+          lang={lang}
+          handle={aberto.handle}
+          inicio={aberto.i}
+          fila={aberto.fila}
+          autoras={aberto.autoras}
+          aoFechar={fechar}
+          aoMudou={mudou}
+          aoTrocar={trocou}
+        />
       ) : null}
       {aberto.tipo === "criar" && logado ? (
         <Criar
