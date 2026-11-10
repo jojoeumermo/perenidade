@@ -105,7 +105,7 @@ for (const ruim of ["http://exemplo.org", "javascript:alert(1)", "https://user:s
 const banco = await criarBanco();
 const { dono: sql, criarUsuario, rpc } = banco;
 const migracao = ler("supabase/migracoes/20261110-alumia-perfil.sql");
-ok("a migração está colada no fim do install.sql", ler("supabase/install.sql").trimEnd().endsWith("fim do perfil livre ═══════════════════════════") && ler("supabase/install.sql").includes("Alumia · Perfil livre"));
+ok("a migração está colada no fim do install.sql", ler("supabase/install.sql").replace(/\r\n/g, "\n").trim().endsWith(migracao.replace(/\r\n/g, "\n").trim()));
 await espera("instala de novo sem estrago (idempotente)", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 await espera("e uma terceira vez", () => banco.exclusivo(() => banco.pg.exec(migracao)));
 
