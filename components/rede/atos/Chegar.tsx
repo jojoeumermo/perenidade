@@ -48,8 +48,9 @@ export function Chegar({ ato, t, gatilho }: { ato: Ato; t: TextosDosAtos; gatilh
   const endereco = enderecoDoMapa(ponto, ato.cidade);
   useEffect(() => () => window.clearTimeout(relogio.current), []);
 
+  // (pelo id, não pela ref: o gatilho é desenhado por quem usa, e a regra dos hooks não deixa a ref ir para ele)
   const abrir = () => {
-    const d = dialogo.current;
+    const d = document.getElementById(folha) as HTMLDialogElement | null;
     if (!d || d.open) return;
     d.showModal();
     setAberta(true);
