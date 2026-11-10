@@ -14,6 +14,9 @@ import { conferirAto, pontoEDetalhe } from "../lib/rede/atos/formulario.ts";
 import { icsDoAto, nomeDoIcs } from "../lib/rede/atos/ics.ts";
 import { linkDeApoioSeguro, linkDoMapa, textoParaChamar } from "../lib/rede/atos/chegar.ts";
 import { contarNovos, CHAVE_DOS_VISTOS } from "../lib/rede/atos/novos.ts";
+import { EVENTO_DA_CIDADE, guardarCidade, nomeDaCidade, ouvirCidade } from "../lib/rede/atos/aparelho.ts";
+import { codigoDoErro, fraseDoErro, CODIGOS_DE_ERRO } from "../lib/rede/atos/erros.ts";
+import { mola, MOLAS } from "../lib/rede/atos/movimento.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 let certos = 0;
@@ -119,7 +122,7 @@ igual("Chamar: só nome, quando e onde", textoParaChamar(" Passe Livre Já ", "s
 
 // ── O código das telas: sem GPS, sem lista, sem rastreio ──
 const ler = (p) => readFileSync(path.join(raiz, p), "utf8");
-const telas = ["Acoes", "AtoAberto", "CartaoDoAto", "FaixaProximoAto", "ItemDoAto", "TelaDosAtos", "PaginaDoAto", "FormularioDoAto", "AtosPerto", "AnexoChamado", "TopoDoInicio", "Calendario", "AbaDosAtos", "partes", "usar"].map((n) => ler(`components/rede/atos/${n}.${n === "usar" ? "ts" : "tsx"}`)).join("\n");
+const telas = ["Acoes", "AtoAberto", "CartaoDoAto", "FaixaProximoAto", "ItemDoAto", "TelaDosAtos", "PaginaDoAto", "FormularioDoAto", "AtosPerto", "AnexoChamado", "TopoDoInicio", "Calendario", "AbaDosAtos", "partes", "usar", "Chegar", "Farol", "Corrente", "FlapsDoAto", "MosaicoVivo"].map((n) => ler(`components/rede/atos/${n}.${n === "usar" ? "ts" : "tsx"}`)).join("\n");
 ok("nenhuma tela pede a posição do aparelho", !/geolocation|getCurrentPosition|watchPosition/.test(telas));
 ok("Chegar sai sem Referer", /rel="noopener noreferrer"[^>]*referrerPolicy="no-referrer"/.test(telas));
 const encaixe = ler("components/rede/atos/encaixe.tsx");
@@ -142,6 +145,86 @@ for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
   const outro = JSON.parse(ler(`i18n/rede/atos/${l}.json`));
   const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (typeof v === "object" ? chaves(v, `${p}${k}.`) : [`${p}${k}`])).sort();
   igual(`textos em ${l} com as mesmas chaves do pt`, chaves(outro), chaves(pt));
+}
+
+// ── Erros com a frase certa (não o genérico) ──
+igual("ato_cancelado vira a frase do ato cancelado", codigoDoErro(new Error("ato_cancelado")), "ato_cancelado");
+igual("muitos_pedidos vira a frase de esperar", codigoDoErro(new Error("muitos_pedidos")), "muitos_pedidos");
+igual("429 do servidor também é muitos_pedidos", codigoDoErro(new Error("HTTP 429 Too Many Requests")), "muitos_pedidos");
+igual("sem rede", codigoDoErro(new TypeError("Failed to fetch")), "sem_rede");
+igual("desconhecido vira genérico", codigoDoErro(new Error("xyz")), "generico");
+{
+  const pt = JSON.parse(ler("i18n/rede/atos/pt.json"));
+  ok("todo código de erro tem frase em pt", CODIGOS_DE_ERRO.every((c) => typeof pt.erros[c] === "string" && pt.erros[c].length > 5));
+  ok("a frase do ato cancelado não é a genérica", fraseDoErro(pt.erros, new Error("ato_cancelado")) !== pt.erros.generico);
+}
+ok("nenhuma tela mostra mais o erro genérico do Você vai", !/t\.acoes\.erroVou/.test(telas));
+// ── Movimento: a mola termina em 1 e respeita quem pediu menos movimento ──
+{
+  const m = mola(240, 13);
+  ok("mola vira linear() terminando em 1", m.easing.startsWith("linear(0") && m.easing.endsWith(", 1)") && m.duracao > 200 && m.duracao < 2500);
+  ok("mola com quique passa do fim (overshoot)", MOLAS.quique.easing.split(",").some((v) => parseFloat(v.replace("linear(", "")) > 1));
+  const mv = ler("lib/rede/atos/movimento.ts");
+  ok("pode mexer olha prefers-reduced-motion, modo parado e e-ink", /prefers-reduced-motion/.test(mv) && /data-parado/.test(mv) && /data-eink/.test(mv));
+}
+
+// ── Revisão: cidade escrita, farol na hora do idioma, Chegar modal, sem View Transition por cima das barras ──
+igual("cidade minúscula e com espaços vira nome", nomeDaCidade("  são   paulo "), "São Paulo");
+igual("preposições ficam minúsculas", nomeDaCidade("RIO DE JANEIRO"), "Rio de Janeiro");
+igual("hífen também capitaliza", nomeDaCidade("embu-guaçu"), "Embu-Guaçu");
+igual("escrita sem maiúsculas passa igual", nomeDaCidade("圣保罗"), "圣保罗");
+{
+  const farol = ler("components/rede/atos/Farol.tsx");
+  const chegar = ler("components/rede/atos/Chegar.tsx");
+  const css = ler("components/rede/atos/atos.css");
+  ok("a hora do pedido do farol usa o idioma da página", /toLocaleTimeString\(lang/.test(farol) && !/toLocaleTimeString\(\[\]/.test(telas));
+  ok("Dispersar pede dois toques", /e === "dispersar"/.test(farol));
+  ok("Chegar é um dialog modal (showModal)", /<dialog/.test(chegar) && /showModal\(\)/.test(chegar));
+  ok("a troca de ato não usa View Transition (ela pintava por cima das barras)", !/startViewTransition|viewTransitionName/.test(telas) && !/::view-transition/.test(css));
+  ok("botões do farol vencem a pílula do celular", css.includes(':root:not([data-leitor]) [data-al="2"] .al-farol-botoes .al-farol-botao[aria-pressed]'));
+  ok("flutuantes do site ancorados na vaga das telas de ato", css.includes("anchor-name: --al-flutua") && css.includes("position-anchor: --al-flutua"));
+  ok("mosaico: alto contraste e e-ink voltam aos tokens", css.includes(':root:is([data-contrast], [data-eink]) [data-al="2"] .al-mosaico-vivo {'));
+}
+// ── revisão 10/11: a coluna "Perto" segue a cidade; o Chamar tem plano B; validação com frase nossa ──
+{
+  const ouvidos = new Map();
+  const guardado = new Map();
+  const antes = { window: globalThis.window, localStorage: globalThis.localStorage };
+  globalThis.localStorage = { getItem: (k) => guardado.get(k) ?? null, setItem: (k, v) => guardado.set(k, String(v)), removeItem: (k) => guardado.delete(k) };
+  globalThis.window = {
+    addEventListener: (n, f) => ouvidos.set(n, [...(ouvidos.get(n) ?? []), f]),
+    removeEventListener: (n, f) => ouvidos.set(n, (ouvidos.get(n) ?? []).filter((x) => x !== f)),
+    dispatchEvent: (e) => (ouvidos.get(e.type) ?? []).forEach((f) => f(e)),
+  };
+  let vezes = 0;
+  const desligar = ouvirCidade(() => vezes++);
+  guardarCidade("Recife");
+  ok("guardar a cidade avisa quem ouve (a coluna Perto)", vezes === 1 && guardado.get("lucia:rede:atos:cidade") === "Recife");
+  (ouvidos.get("storage") ?? []).forEach((f) => f({ key: "lucia:rede:atos:cidade" }));
+  (ouvidos.get("storage") ?? []).forEach((f) => f({ key: "outra:chave" }));
+  ok("a cidade trocada em outra aba também avisa (e outra chave não)", vezes === 2);
+  desligar();
+  guardarCidade("Olinda");
+  ok("desligado, não ouve mais", vezes === 2 && (ouvidos.get(EVENTO_DA_CIDADE) ?? []).length === 0);
+  globalThis.window = antes.window;
+  globalThis.localStorage = antes.localStorage;
+  const partes = ler("components/rede/atos/partes.tsx");
+  ok("Chamar: sem área de transferência, copia pelo campo; se nem isso, devolve \"falhou\"", /execCommand\("copy"\)/.test(partes) && /"falhou"/.test(partes));
+  const formularios = ["components/rede/atos/Corrente.tsx", "components/rede/atos/Farol.tsx", "components/rede/atos/PaginaDoAto.tsx"].map(ler).join("\n");
+  ok("formulários dos atos sem balão do navegador (noValidate) e sem required/minLength", (formularios.match(/<form/g) ?? []).length === (formularios.match(/noValidate/g) ?? []).length && !/\bminLength=/.test(formularios));
+  const css = ler("components/rede/atos/atos.css");
+  ok("o mosaico vivo é creme como na prancha (aceso a 88 %)", css.includes("--al-mv-aceso: color-mix(in srgb, var(--al-cartao-aceso) 88%"));
+  ok("hover só em quem tem mouse (nada de fundo preso no toque)", !/^\[data-al="2"\] \.al-atos-cidade:hover/m.test(css) && css.includes("@media (hover: hover)"));
+  const tela = ler("components/rede/atos/TelaDosAtos.tsx");
+  ok("J/K seguidos durante a troca entram na fila (nada se perde)", tela.includes("fila.current") && tela.includes("irDepois.current(depois)"));
+  ok("o calendário também guarda a vaga dos flutuantes", ler("components/rede/atos/Calendario.tsx").includes("al-atos-vaga") && css.includes(".al-atos-tela, .al-ato-pagina, .al-cal"));
+}
+for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
+  const j = JSON.parse(ler(`i18n/rede/atos/${l}.json`));
+  ok(`${l}: "não deu para copiar" mostra o endereço`, j.acoes.naoCopiou.includes("{url}"));
+  ok(`${l}: frases da validação da corrente e do ponto`, !!(j.corrente.erroTexto && j.corrente.erroCidade && j.corrente.erroMeta && j.corrente.erroHora && j.farol.erroPonto));
+  ok(`${l}: o exemplo da cidade não parece valor preenchido`, j.tela.cidadeExemplo !== "São Paulo");
+  ok(`${l}: trocar pedido do farol cita os dois estados`, j.farol.trocarPedido.includes("{pendente}") && j.farol.trocarPedido.includes("{estado}"));
 }
 
 console.log(`testar-alumia-atos: ${certos} certos, ${falhas.length} falhas`);
