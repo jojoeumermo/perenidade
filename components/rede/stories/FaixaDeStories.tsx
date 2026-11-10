@@ -4,7 +4,7 @@
 import "./stories.css";
 import { useEffect, useState, type CSSProperties } from "react";
 import { armazemDoAparelho, grupoVisto, lerSilenciados, lerVistos, ordenarFaixa, primeiroNaoVisto } from "@/lib/rede/stories/aparelho";
-import { anelEmCss, nomeCurto } from "@/lib/rede/stories/visual";
+import { anelEmCss } from "@/lib/rede/stories/visual";
 import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import type { AutoraDoStory, FaixaDeStories as DadosDaFaixa, GrupoDaFaixa } from "@/lib/rede/tipos-stories";
@@ -22,7 +22,7 @@ function Bolinha({ autora, visto, rotulo, aoAbrir }: { autora: AutoraDoStory; vi
         </span>
       </span>
       <span className="al-st-nome" aria-hidden>
-        {nomeCurto(autora.nome)}
+        {autora.nome}
       </span>
     </button>
   );
@@ -49,8 +49,8 @@ export function FaixaDeStories({
   logado: boolean;
   /** Muda quando algo foi publicado/apagado/visto, para a faixa reler. */
   versao?: number;
-  /** Abre o visor numa autora ("eu" = os meus), a partir do story i. */
-  aoAbrir: (handle: string, i: number, fila: string[]) => void;
+  /** Abre o visor numa autora ("eu" = os meus), a partir do story i (com a fila e o rosto de cada uma, para o visor). */
+  aoAbrir: (handle: string, i: number, fila: string[], autoras: Record<string, AutoraDoStory>) => void;
   aoCriar: () => void;
 }) {
   const [dados, setDados] = useState<DadosDaFaixa | null>(null);
@@ -79,7 +79,8 @@ export function FaixaDeStories({
 
   const grupos = dados ? ordenarFaixa(dados.grupos, aparelho.vistos, aparelho.silenciados) : [];
   const fila = grupos.map((g) => g.autora.handle);
-  const abrir = (g: GrupoDaFaixa) => aoAbrir(g.autora.handle, primeiroNaoVisto(g, aparelho.vistos), fila);
+  const autoras = Object.fromEntries(grupos.map((g) => [g.autora.handle, g.autora]));
+  const abrir = (g: GrupoDaFaixa) => aoAbrir(g.autora.handle, primeiroNaoVisto(g, aparelho.vistos), fila, autoras);
   const meus = dados?.meus.length ?? 0;
 
   return (
@@ -93,7 +94,7 @@ export function FaixaDeStories({
               type="button"
               className="al-st-bolinha"
               aria-label={meus > 0 ? preencherStory(t.faixa.verOsSeus, { n: meus }) : t.faixa.criar}
-              onClick={() => (meus > 0 ? aoAbrir("eu", 0, fila) : aoCriar())}
+              onClick={() => (meus > 0 ? aoAbrir("eu", 0, fila, autoras) : aoCriar())}
             >
               <span className={`al-st-anel al-st-anel-seu${meus > 0 ? " al-st-no-ar" : ""}`}>
                 <span className="al-st-anel-miolo">
@@ -109,9 +110,10 @@ export function FaixaDeStories({
                 {t.faixa.seuStory}
               </span>
             </button>
+            {/* Já tem story no ar: o "+" pequeno continua ali (como no Instagram), para pôr mais um sem abrir o visor. */}
             {meus > 0 ? (
-              <button type="button" className="sr-only" onClick={aoCriar}>
-                {t.faixa.criar}
+              <button type="button" className="al-st-mais al-st-mais-solto" aria-label={t.faixa.maisUm} title={t.faixa.maisUm} onClick={aoCriar}>
+                <IconeMais />
               </button>
             ) : null}
           </li>

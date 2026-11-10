@@ -5,7 +5,8 @@
 // progresso e as regras de link e de figurinha. Sem "@/" de propósito (roda no Node nos testes).
 import { sementeDe, gerador } from "../mosaico";
 import {
-  CORES_DO_STORY, LIMITES_DO_STORY, type CorDoStory, type Figurinha, type TipoDeFigurinha,
+  CORES_DA_LETRA, CORES_DO_STORY, FONTES_DO_STORY, LIMITES_DO_STORY,
+  type Alinhamento, type CorDaLetra, type CorDoStory, type EstiloDoStory, type Figurinha, type FonteDoStory, type PosicaoDaFigurinha, type TipoDeFigurinha,
 } from "../tipos-stories";
 
 /**
@@ -140,6 +141,35 @@ export function alternarFigurinha<T extends { tipo: TipoDeFigurinha }>(lista: re
   return [...lista, nova];
 }
 
+/** Os limites do lugar da figurinha (os mesmos do banco, interno.rede5_story_pos). */
+export const LIMITES_DA_POSICAO = { borda: 0.05, giro: 45, menor: 0.5, maior: 1.6 } as const;
+
+/** O lugar da figurinha dentro da tela (x e y de 0,05 a 0,95, giro até 45°, tamanho 0,5 a 1,6). Número estranho vira o padrão. Puro. */
+export function posicaoValida(p: Partial<PosicaoDaFigurinha> | null | undefined): PosicaoDaFigurinha {
+  const n = (v: unknown, padrao: number) => (typeof v === "number" && Number.isFinite(v) ? v : padrao);
+  const entre = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+  const L = LIMITES_DA_POSICAO;
+  return {
+    x: Math.round(entre(n(p?.x, 0.5), L.borda, 1 - L.borda) * 10000) / 10000,
+    y: Math.round(entre(n(p?.y, 0.7), L.borda, 1 - L.borda) * 10000) / 10000,
+    giro: Math.round(entre(n(p?.giro, 0), -L.giro, L.giro) * 10) / 10,
+    escala: Math.round(entre(n(p?.escala, 1), L.menor, L.maior) * 1000) / 1000,
+  };
+}
+
+/**
+ * Onde uma figurinha nova aparece: a primeira um pouco abaixo do meio e levemente torta (como a prancha), as seguintes em
+ * degraus, para não nascerem uma em cima da outra. Puro.
+ */
+export function posicaoInicial(k: number): PosicaoDaFigurinha {
+  const lugares: PosicaoDaFigurinha[] = [
+    { x: 0.5, y: 0.66, giro: -3, escala: 0.84 },
+    { x: 0.5, y: 0.85, giro: 2, escala: 0.78 },
+    { x: 0.5, y: 0.47, giro: -1.5, escala: 0.78 },
+  ];
+  return lugares[Math.max(0, k) % lugares.length];
+}
+
 /**
  * A soma da enquete como a autora vê: agregada e só a partir de 3 votos (PLANO-ALUMIA §6.1). Abaixo disso, nulo ("poucas
  * pessoas"). Devolve as porcentagens inteiras (somam 100).
@@ -152,4 +182,58 @@ export function somaDaEnquete(soma: readonly [number, number] | null | undefined
   if (total < 3) return null;
   const pa = Math.round((a / total) * 100);
   return { total, pct: [pa, 100 - pa] };
+}
+
+// ── O estilo do texto grande (fonte, cor da letra, alinhamento e caixa), só valores da lista fechada ──────────────────────
+/** A família de cada fonte (as do site, que só baixam quando alguém usa): condensada da prancha, serifa, máquina e marcador. */
+export const FAMILIA_DA_FONTE: Readonly<Record<FonteDoStory, string>> = {
+  condensada: "var(--al-fonte)",
+  serifa: 'var(--font-serif-display, "EB Garamond"), Georgia, "Times New Roman", serif',
+  maquina: 'var(--font-archive, "IBM Plex Mono"), ui-monospace, "Courier New", monospace',
+  marcador: 'var(--font-hand, "Caveat"), "Segoe Print", "Bradley Hand", cursive',
+};
+
+/** A cor de cada letra possível (o papel e as 6 do fundo). */
+export function corDaLetraEmHex(c: CorDaLetra): string {
+  return c === "papel" ? "#f3efe6" : PALETA_DO_STORY[corValida(c)].fundo;
+}
+
+/** O texto escuro ou claro que contrasta mais com uma cor hex (#rrggbb). Pura. */
+export function contrasteDe(hex: string): "#0f0e0d" | "#f3efe6" {
+  const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);
+  if (!m) return "#f3efe6";
+  const [r, g, b] = [m[1], m[2], m[3]].map((x) => {
+    const v = parseInt(x, 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  });
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  // Contra o quase preto (#0f0e0d, lum ≈ 0,005) e o papel (#f3efe6, lum ≈ 0,86): fica com o de maior contraste.
+  return (lum + 0.05) / (0.005 + 0.05) >= (0.86 + 0.05) / (lum + 0.05) ? "#0f0e0d" : "#f3efe6";
+}
+
+/**
+ * O estilo do texto como a tela desenha: família, cor da letra, alinhamento e, com "caixa", o fundo sólido atrás (a letra vira a
+ * cor que contrasta com a caixa). Valor fora da lista cai no padrão da prancha. Pura.
+ */
+export function estiloDoTexto(e: EstiloDoStory | null | undefined, corDoFundo: CorDoStory): {
+  familia: string;
+  fonte: FonteDoStory;
+  cor: string;
+  caixa: string | null;
+  alinhar: Alinhamento;
+} {
+  const fonte: FonteDoStory = e?.fonte && (FONTES_DO_STORY as readonly string[]).includes(e.fonte) ? e.fonte : "condensada";
+  const alinhar: Alinhamento = e?.alinhar === "centro" || e?.alinhar === "dir" ? e.alinhar : "esq";
+  const escolhida = e?.cor_texto && (CORES_DA_LETRA as readonly string[]).includes(e.cor_texto) ? corDaLetraEmHex(e.cor_texto) : null;
+  if (e?.caixa === "caixa") {
+    const caixa = escolhida ?? "#f3efe6";
+    return { familia: FAMILIA_DA_FONTE[fonte], fonte, cor: contrasteDe(caixa), caixa, alinhar };
+  }
+  return { familia: FAMILIA_DA_FONTE[fonte], fonte, cor: escolhida ?? PALETA_DO_STORY[corValida(corDoFundo)].texto, caixa: null, alinhar };
+}
+
+/** Quanto dura o story na tela: o vídeo dura o que ele tem (até 60 s); o resto, a regra de duracaoDoStory. */
+export function duracaoNaTela(s: { fundo: { tipo: string; duracao?: number }; figurinhas: readonly Figurinha[] }): number {
+  if (s.fundo.tipo === "video" && typeof s.fundo.duracao === "number" && s.fundo.duracao > 0) return Math.min(LIMITES_DO_STORY.videoMs, s.fundo.duracao);
+  return duracaoDoStory(s.figurinhas);
 }
