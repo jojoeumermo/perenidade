@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { Tutoring } from "@/components/Tutoring";
 import { loadLang } from "@/i18n";
 import { pickSections } from "@/i18n/core";
@@ -18,9 +18,9 @@ export default async function Reforco({ params }: PageProps<"/[lang]/reforco">) 
   const s = t.tutoring;
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <PageHeading eyebrow={s.eyebrow} title={s.title}>
+      <Cartaz eyebrow={s.eyebrow} title={s.title} tone="vermelho">
         {s.lead}
-      </PageHeading>
+      </Cartaz>
       <ol className="mt-6 list-decimal space-y-1 pl-5 font-sans text-sm text-ink-soft">
         {s.how.map((step) => (
           <li key={step}>{step}</li>
