@@ -1,6 +1,6 @@
 {
   "_rascunho": true,
-  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia home" },
+  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia home", "acessibilidade": "Accessibility", "ajuda": "Frequently asked questions" },
   "tipos": { "partido": "Party", "mandato": "Elected mandate", "sindicato": "Union", "movimento": "Movement", "coletivo": "Collective", "gremio": "Student council", "dce": "University student union", "outro": "Organization" },
   "pagina": {
     "titulo": "Bring your organization",

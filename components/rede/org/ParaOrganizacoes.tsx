@@ -12,6 +12,7 @@ import { LinkBotao } from "../ui/Botao";
 import { Carimbo } from "../ui/Carimbo";
 import { Faixa } from "../ui/Faixa";
 import { Lampiao } from "../ui/Lampiao";
+import { BotoesDoSiteDaOrg } from "./BotoesDoSite";
 import { BarrasDaConsulta, CartaoAoVivo, ListaDeNucleos } from "./partes";
 import "./org.css";
 
@@ -26,13 +27,18 @@ export const enderecosDaOrg = {
 /** A cor do traço de cada passo de "Como entrar" (prancha: vermelho, dourado, papel). */
 const COR_DO_PASSO = ["var(--al-vermelho)", "var(--al-dourado)", "var(--al-texto)"];
 
-export function ConteudoParaOrganizacoes({ t, lang }: { t: TextosDaOrg; lang: string }) {
+/**
+ * `naCasca`: aberta por quem tem sessão, dentro da casca da Alumia (components/rede/org/CascaSeLogado.tsx). Aí a casca já tem a
+ * marca, a faixa, o menu e a conta: some o alto da página com Entrar e Criar conta (quem está logado não precisa deles).
+ */
+export function ConteudoParaOrganizacoes({ t, lang, naCasca = false }: { t: TextosDaOrg; lang: string; naCasca?: boolean }) {
   const p = t.pagina;
   const f = p.ferramentas;
   return (
-    <div className="al-org-pagina">
-      <Faixa />
+    <div className="al-org-pagina" data-na-casca={naCasca ? "" : undefined}>
+      {naCasca ? null : <Faixa />}
       <div className="al-org-miolo">
+        {naCasca ? null : (
         <header className="al-org-topo">
           <Link href={`/${lang}/alumia`} className="al-org-marca" aria-label={t.marca.inicio}>
             <Lampiao tamanho={28} />
@@ -48,8 +54,10 @@ export function ConteudoParaOrganizacoes({ t, lang }: { t: TextosDaOrg; lang: st
             <LinkBotao href={enderecosDaOrg.entrar(lang, true)} variante="primario" tamanho="p">
               {p.criarConta}
             </LinkBotao>
+            <BotoesDoSiteDaOrg t={t} />
           </nav>
         </header>
+        )}
 
         <section className="al-org-heroi" aria-labelledby="al-org-chamada">
           <div>

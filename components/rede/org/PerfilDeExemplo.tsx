@@ -7,8 +7,10 @@ import { atosDeExemplo, orgDeExemplo, postsDeExemplo } from "@/lib/rede/org/exem
 import { carregarTextosDaOrg, type TextosDaOrg } from "@/lib/rede/textos-org";
 import type { OrgPublica } from "@/lib/rede/tipos-org";
 import { Faixa } from "../ui/Faixa";
+import type { PropsDaTelaDoPacote } from "../registro";
 import type { AcoesDaOrg } from "./Blocos";
 import { ListaDeAtos, PerfilDaOrg, PostsDeExemplo } from "./PerfilDaOrg";
+import { BotoesDoSiteDaOrg } from "./BotoesDoSite";
 import { enderecosDaOrg } from "./ParaOrganizacoes";
 
 /** Um instante de espera, para o exemplo responder como a rede (e o botão mostrar que está ocupado). */
@@ -32,8 +34,9 @@ function acoesDeExemplo(org: OrgPublica): AcoesDaOrg {
 /**
  * O perfil de exemplo (/alumia/organizacoes/exemplo), com o aviso "Dados ilustrativos" sempre no alto: a organização, as pessoas e
  * os números são inventados (lib/rede/org/exemplos.ts). No exemplo a pessoa "é de um núcleo" para poder experimentar o voto.
+ * `naCasca`: aberto por quem tem sessão, dentro da casca da Alumia (sem a faixa, que a casca já tem).
  */
-export function PerfilDeExemplo({ lang, aba }: { lang: string; aba: string | null }) {
+export function PerfilDeExemplo({ lang, aba, naCasca = false }: { lang: string; aba: string | null; naCasca?: boolean }) {
   const [t, setT] = useState<TextosDaOrg | null>(null);
   useEffect(() => {
     let vivo = true;
@@ -50,7 +53,7 @@ export function PerfilDeExemplo({ lang, aba }: { lang: string; aba: string | nul
   if (!t) return <div aria-busy className="al-perfil" style={{ minHeight: "60vh" }} />;
   return (
     <>
-      <Faixa />
+      {naCasca ? null : <Faixa />}
       <PerfilDaOrg
         org={org}
         t={t}
@@ -66,9 +69,15 @@ export function PerfilDeExemplo({ lang, aba }: { lang: string; aba: string | nul
               <strong>{t.exemplo.aviso}</strong>
               {t.exemplo.texto} <Link href={enderecosDaOrg.pagina(lang)}>{t.exemplo.voltar}</Link>
             </div>
+            {naCasca ? null : <BotoesDoSiteDaOrg t={t} />}
           </div>
         }
       />
     </>
   );
+}
+
+/** O exemplo pelo registro de telas (dentro da casca, para quem tem sessão): a aba vem de ?aba= pelos params da tela. */
+export default function PerfilDeExemploNaCasca({ lang, params }: PropsDaTelaDoPacote) {
+  return <PerfilDeExemplo lang={lang} aba={params.aba ?? null} naCasca />;
 }
