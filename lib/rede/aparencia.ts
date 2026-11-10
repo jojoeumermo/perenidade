@@ -80,8 +80,16 @@ export function corLegivel(cor: string, fundo: string, minimo = CONTRASTE_MINIMO
   return alvo;
 }
 
-/** O texto sobre um botão cheio de `cor`: noite ou branco, o que der mais contraste (sempre 4,5:1 ou mais). */
-export const textoSobre = (cor: string): string => (contraste(cor, "#ffffff") >= contraste(cor, FUNDO_NOITE) ? "#ffffff" : FUNDO_NOITE);
+/**
+ * O texto sobre um botão cheio de `cor`: branco, noite ou (nos tons do meio, em que a noite fica a 4,4:1) preto puro. Branco ou
+ * preto sempre dão 4,58:1 ou mais com qualquer cor, então o botão nunca fica ilegível.
+ */
+export function textoSobre(cor: string): string {
+  const branco = contraste(cor, "#ffffff");
+  const noite = contraste(cor, FUNDO_NOITE);
+  if (branco >= noite) return branco >= CONTRASTE_MINIMO ? "#ffffff" : "#000000";
+  return noite >= CONTRASTE_MINIMO ? FUNDO_NOITE : "#000000";
+}
 
 /** Para a tela de edição: a cor escolhida passa sem ajuste nos dois fundos? E o contraste em cada um. */
 export function laudoDeContraste(cor: string): { noite: number; papel: number; ajustada: boolean } {
