@@ -821,7 +821,7 @@ function Escolha({
         <div ref={lista} className="al2-gaveta pb-3">
           <Pilulas
             rotulo={rotulo}
-            className={vertical ? "al2-lista-escolha" : "flex flex-wrap gap-2 pl-9"}
+            className={vertical ? "al2-lista-escolha" : "flex flex-wrap gap-2 pl-1 sm:pl-9"}
             classeItem={vertical ? "al2-opcao-linha" : "al2-tipo !min-h-10 !px-3 text-sm"}
             opcoes={opcoes.map((o) => ({
               valor: o.valor,
