@@ -1,0 +1,29 @@
+name: Arquivar no Wayback
+
+# Toda quarta-feira manda as páginas públicas do site para o Wayback Machine do Internet Archive
+# (scripts/arquivar-no-wayback.mjs): uma cópia fora das nossas mãos, se o site cair ou for derrubado. Sem chave nem
+# segredo; só Node, sem instalar dependências. Até 150 páginas (o português primeiro) por vez, pulando as que já têm cópia recente.
+on:
+  schedule:
+    - cron: "17 7 * * 3"
+  workflow_dispatch:
+    inputs:
+      limite:
+        description: "Quantas páginas mandar nesta execução (até 300)"
+        default: "150"
+
+permissions:
+  contents: read
+
+jobs:
+  arquivar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+      - run: node scripts/arquivar-no-wayback.mjs --limite "${LIMITE}"
+        env:
+          LIMITE: ${{ github.event.inputs.limite || '150' }}
