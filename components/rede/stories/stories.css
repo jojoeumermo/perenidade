@@ -661,3 +661,101 @@
 :root:not([data-leitor]) [data-al="2"] :is(.al-st-modo, .al-st-icone)[aria-pressed] { border-radius: 10px; }
 :root:not([data-leitor]) [data-al="2"] :is(.al-st-tipo, .al-fg-botao-noite)[aria-pressed] { border-radius: 14px; }
 :root:not([data-leitor]) [data-al="2"] :is(.al-st-reacao, .al-fg-opcao)[aria-pressed] { border-radius: 12px; }
+
+/* ───────────── Onda A: stories como os do Instagram (vídeo, gestos, cubo, destaques) ───────────── */
+/* As 5 figurinhas numa fileira que desliza (no computador cabem todas; no celular a 5ª aparece pela metade, convidando). */
+[data-al="2"] .al-st-tipos { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(78px, 1fr); grid-template-columns: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding-bottom: 2px; }
+[data-al="2"] .al-st-tipos::-webkit-scrollbar { display: none; }
+[data-al="2"] .al-st-tipos > li { scroll-snap-align: start; }
+[data-al="2"] .al-st-tipo { transition: transform 0.2s cubic-bezier(0.2, 1.5, 0.4, 1), border-color 0.15s; }
+[data-al="2"] .al-st-tipo:active { transform: scale(0.94); }
+[data-al="2"] .al-st-tipo[aria-pressed="true"] .al-st-tipo-icone { animation: al-st-pula 0.4s cubic-bezier(0.2, 1.6, 0.4, 1); }
+@keyframes al-st-pula { 40% { transform: scale(1.3) rotate(-6deg); } }
+
+/* O vídeo do story ocupa a tela; a foto e o vídeo não mudam com o tema (e-ink deixa em cinza). */
+[data-al="2"] .al-st-fundo video { width: 100%; height: 100%; display: block; object-fit: cover; background: #000; }
+:root[data-eink] [data-al="2"] .al-st-fundo-video video { filter: grayscale(1); }
+
+/* O texto com caixa (o "A" do Instagram): cada linha ganha o fundo, com as pontas arredondadas. */
+[data-al="2"] .al-st-texto[data-caixa="sim"] { text-shadow: none; line-height: 1.22; }
+[data-al="2"] .al-st-texto[data-caixa="sim"] > span { padding: 0.04em 0.2em; border-radius: 0.14em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* A menção de comunidade: ficha de papel com o nome. */
+[data-al="2"] .al-fg-comunidade {
+  display: inline-flex; align-items: center; gap: 8px; max-width: 100%; min-height: 44px; padding: 8px 16px 8px 12px; border-radius: 14px;
+  background: #f3efe6; color: #0f0e0d; font-weight: 800; font-size: 16px; text-decoration: none; box-shadow: 0 5px 0 rgba(0, 0, 0, 0.22);
+}
+[data-al="2"] .al-fg-comunidade svg { flex: 0 0 22px; width: 22px; height: 22px; color: #2e6b4f; }
+[data-al="2"] .al-fg-comunidade span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-al="2"] a.al-fg-comunidade:hover { background: #fff; }
+[data-al="2"] .al-fg-comunidade-escolha select { width: 100%; }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-fg-comunidade { background: #fff; border: 2px solid #000; box-shadow: none; }
+
+/* O cubo: o palco dá a perspectiva, a tela gira em volta da borda. */
+[data-al="2"] .al-st-visor { background: rgba(0, 0, 0, var(--al-st-escurece, 1)); }
+[data-al="2"] .al-st-visor-palco { perspective: 1400px; touch-action: none; }
+[data-al="2"] .al-st-visor .al-st-tela { backface-visibility: hidden; transform-style: flat; will-change: transform; }
+[data-al="2"] .al-st-visor .al-st-tela::after { content: ""; position: absolute; inset: 0; z-index: 7; pointer-events: none; background: #000; opacity: 0; transition: opacity 0.2s; }
+/* O que entra no story aparece com um respiro (o texto sobe um pouco). */
+[data-al="2"] .al-st-entra { animation: al-st-entra 0.38s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+@keyframes al-st-entra { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+/* Segurando (pausa): o resto da tela some, como no Instagram, para ver o story inteiro. */
+[data-al="2"] .al-st-visor :is(.al-st-topo, .al-st-barras, .al-st-rodape, .al-st-seta) { transition: opacity 0.2s ease 0.18s; }
+[data-al="2"] .al-st-visor[data-segurando="sim"] :is(.al-st-topo, .al-st-barras, .al-st-rodape, .al-st-seta) { opacity: 0; }
+[data-al="2"] .al-st-icone-mudo { opacity: 0.6; cursor: default; }
+[data-al="2"] .al-st-icone-mudo:hover { background: none; }
+[data-al="2"] .al-st-ouvir {
+  position: absolute; z-index: 4; top: 78px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px;
+  min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(10, 9, 8, 0.72); color: #f3efe6; font: inherit; font-weight: 800; cursor: pointer;
+  animation: al-st-entra 0.3s ease both;
+}
+[data-al="2"] .al-st-ouvir svg { width: 20px; height: 20px; }
+[data-al="2"] .al-st-girando { position: absolute; z-index: 4; left: 50%; top: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 999px; border: 4px solid rgba(243, 239, 230, 0.25); border-top-color: #f3efe6; animation: al-st-gira 0.8s linear infinite; }
+@keyframes al-st-gira { to { transform: rotate(360deg); } }
+
+/* A reação sobe em festa (só a autora fica sabendo; a festa é só na tela de quem reagiu). */
+[data-al="2"] .al-st-explosao { position: absolute; z-index: 8; left: 50%; bottom: 8px; width: 0; height: 0; pointer-events: none; }
+[data-al="2"] .al-st-explosao > span {
+  position: absolute; left: var(--x); bottom: 0; font-size: 34px; opacity: 0;
+  animation: al-st-sobe 1.15s cubic-bezier(0.2, 0.7, 0.3, 1) var(--atraso) forwards;
+}
+@keyframes al-st-sobe {
+  0% { opacity: 0; transform: translateY(0) scale(0.4) rotate(0); }
+  15% { opacity: 1; transform: translateY(-40px) scale(1.15) rotate(-8deg); }
+  100% { opacity: 0; transform: translateY(-320px) scale(0.9) rotate(14deg); }
+}
+[data-al="2"] .al-st-reacao:active > span { display: inline-block; transform: scale(1.35); transition: transform 0.12s; }
+
+/* Os destaques no perfil: bolinhas redondas (diferentes do quadrado dos stories), com a capa. */
+[data-al="2"] .al-st-destaques { padding: 10px 0 6px; }
+[data-al="2"] .al-st-destaque-capa {
+  display: block; width: 66px; height: 66px; padding: 3px; border-radius: 999px; background: var(--al-st-anel, var(--al-superficie-2));
+  overflow: hidden; transition: transform 0.25s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+[data-al="2"] .al-st-destaque-capa > :is(img, svg) { width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 999px; border: 2px solid var(--al-fundo); }
+[data-al="2"] .al-st-destaque:hover .al-st-destaque-capa { transform: scale(1.05); }
+[data-al="2"] .al-st-destaque:active .al-st-destaque-capa { transform: scale(0.95); }
+[data-al="2"] .al-st-destaque-capa-p { width: 40px; height: 40px; padding: 2px; flex: 0 0 40px; }
+[data-al="2"] .al-st-destaques-vazio { margin: 8px 16px; color: var(--al-texto-3); font-size: 13px; }
+[data-al="2"] .al-st-guardar { max-height: calc(100% - 40px); overflow-y: auto; }
+[data-al="2"] .al-st-guardar-lista { display: grid; gap: 6px; margin: 0 0 12px; padding: 0; list-style: none; }
+[data-al="2"] .al-st-guardar-item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 6px 10px; border: 1px solid #3a3430; border-radius: 12px; background: #1b1917; color: #f3efe6; font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
+[data-al="2"] .al-st-guardar-item:hover:not(:disabled) { background: #2a2622; }
+[data-al="2"] .al-st-guardar-item:disabled { opacity: 0.6; cursor: default; }
+[data-al="2"] .al-st-guardar-novo { display: grid; gap: 10px; }
+[data-al="2"] .al-st-guardar-novo legend { margin-bottom: 8px; font-weight: 800; }
+[data-al="2"] .al-st-guardar-novo input { min-height: 44px; border-radius: 10px; border: 1px solid #5c554d; background: #0f0e0d; color: #f3efe6; padding: 0 12px; font: inherit; }
+[data-al="2"] .al-st-guardar-cores { display: flex; flex-wrap: wrap; gap: 4px; }
+[data-al="2"] .al-st-guardar .al-botao svg { width: 16px; height: 16px; vertical-align: -3px; }
+
+/* A bolinha da faixa: o anel gira um instante quando abre (o Instagram faz o mesmo enquanto carrega). */
+[data-al="2"] .al-st-bolinha:active .al-st-anel { transform: scale(0.94); }
+[data-al="2"] .al-st-anel { transition: transform 0.22s cubic-bezier(0.2, 1.5, 0.4, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] :is(.al-st-entra, .al-st-explosao > span, .al-st-ouvir, .al-st-tipo-icone, .al-st-girando) { animation: none !important; }
+  [data-al="2"] .al-st-explosao { display: none; }
+  [data-al="2"] .al-st-visor :is(.al-st-topo, .al-st-barras, .al-st-rodape, .al-st-seta) { transition: none; }
+}
+:root[data-parado] [data-al="2"] :is(.al-st-entra, .al-st-explosao, .al-st-ouvir, .al-st-tipo-icone) { animation: none !important; }
+:root[data-parado] [data-al="2"] .al-st-explosao { display: none; }

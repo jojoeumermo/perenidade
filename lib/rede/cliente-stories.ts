@@ -11,7 +11,7 @@
 // para ela: ela vê só a soma, a partir de 3).
 import { chamar, type Chamar } from "./cliente";
 import type {
-  AtoParaContagem, FaixaDeStories, FigurinhaEnquete, PedidoDeStory, ReacaoDoStory, Story,
+  AtoParaContagem, ComunidadeParaMencao, CorDoStory, DestaqueDeStories, FaixaDeStories, FigurinhaEnquete, PedidoDeStory, ReacaoDoStory, Story,
 } from "./tipos-stories";
 import type { CategoriaDeDenuncia } from "./tipos-moderacao";
 
@@ -46,14 +46,24 @@ export interface ClienteDeStories {
   /** Os atos que posso pôr numa contagem (os próximos que organizo ou confirmei; F2, só pelo id). */
   atos: () => Promise<AtoParaContagem[]>;
   denunciar: (id: string, categoria: CategoriaDeDenuncia, texto?: string) => Promise<{ protocolo: string }>;
-  /** Guarda a imagem (já refeita no aparelho, sem metadado) no depósito privado e devolve o caminho. */
-  enviarImagem: (imagem: Blob) => Promise<string>;
+  /** Guarda a imagem ou o vídeo (já refeitos no aparelho, sem metadado) no depósito privado e devolve o caminho. */
+  enviarImagem: (imagem: Blob, aoProgresso?: (fracao: number) => void) => Promise<string>;
+  /** As comunidades que posso mencionar (as minhas). */
+  comunidades: () => Promise<ComunidadeParaMencao[]>;
+  /** Os destaques do perfil de alguém (só os que têm story que eu vejo; a dona vê todos). */
+  destaques: (handle: string) => Promise<DestaqueDeStories[]>;
+  /** Os stories de um destaque que eu posso ver. */
+  destaque: (id: string) => Promise<Story[]>;
+  /** Guarda um story meu num destaque (novo, sem id) e/ou renomeia o destaque. */
+  salvarDestaque: (p: { destaque: string | null; titulo: string | null; story: string | null; cor?: CorDoStory | null }) => Promise<{ id: string; titulo: string; cor: CorDoStory }>;
+  tirarDoDestaque: (destaque: string, story: string) => Promise<{ ok: boolean }>;
+  apagarDestaque: (destaque: string) => Promise<{ apagado: boolean }>;
 }
 
 /** O cliente de verdade sobre uma forma de chamar (os testes passam uma simulada). */
 export function criarClienteDeStories(
   c: Chamar,
-  enviar: (imagem: Blob) => Promise<string> = enviarAoDeposito,
+  enviar: (imagem: Blob, aoProgresso?: (fracao: number) => void) => Promise<string> = enviarAoDeposito,
   assinar: Assinar = assinarNoDeposito,
 ): ClienteDeStories {
   return {
@@ -70,7 +80,31 @@ export function criarClienteDeStories(
     atos: () => c<AtoParaContagem[]>("rede_story_atos"),
     denunciar: (id, categoria, texto = "") => c<{ protocolo: string }>("rede_story_denunciar", { p_id: id, p_categoria: categoria, p_texto: texto }),
     enviarImagem: enviar,
+    comunidades: () => c<ComunidadeParaMencao[]>("rede_story_comunidades"),
+    destaques: (handle) => c<DestaqueDeStories[]>("rede_story_destaques", { p_handle: handle }).then((l) => capasAssinadas(l, assinar)),
+    destaque: (id) => c<Story[]>("rede_story_destaque_abrir", { p_id: id }).then((l) => comEnderecos(l, assinar)),
+    salvarDestaque: (p) =>
+      c<{ id: string; titulo: string; cor: CorDoStory }>("rede_story_destaque_salvar", { p_destaque: p.destaque, p_titulo: p.titulo, p_story: p.story, p_cor: p.cor ?? null }),
+    tirarDoDestaque: (destaque, story) => c<{ ok: boolean }>("rede_story_destaque_tirar", { p_destaque: destaque, p_story: story }),
+    apagarDestaque: (destaque) => c<{ apagado: boolean }>("rede_story_destaque_apagar", { p_destaque: destaque }),
   };
+}
+
+/** As capas dos destaques: o caminho vira endereço assinado (sem endereço, a capa fica só com a cor). */
+export async function capasAssinadas(lista: DestaqueDeStories[], assinar: Assinar): Promise<DestaqueDeStories[]> {
+  if (!Array.isArray(lista)) return lista;
+  const caminhos = [...new Set(lista.flatMap((d) => (d.capa?.caminho ? [d.capa.caminho] : [])))];
+  if (caminhos.length === 0) return lista;
+  let enderecos: Record<string, string> = {};
+  try {
+    enderecos = await assinar(caminhos);
+  } catch {
+    enderecos = {};
+  }
+  return lista.map((d) => {
+    const url = d.capa?.caminho ? enderecos[d.capa.caminho] : undefined;
+    return d.capa ? { ...d, capa: url ? { ...d.capa, url } : null } : d;
+  });
 }
 
 /** Um id aleatório para o arquivo (nada do conteúdo nem da pessoa no nome além da pasta, que a regra do depósito exige). */
@@ -89,7 +123,7 @@ function idDoArquivo(): string {
  */
 export async function comEnderecos(lista: Story[], assinar: Assinar): Promise<Story[]> {
   if (!Array.isArray(lista)) return lista;
-  const caminhos = [...new Set(lista.flatMap((s) => (s.fundo?.tipo === "imagem" && s.fundo.caminho ? [s.fundo.caminho] : [])))];
+  const caminhos = [...new Set(lista.flatMap((s) => ((s.fundo?.tipo === "imagem" || s.fundo?.tipo === "video") && s.fundo.caminho ? [s.fundo.caminho] : [])))];
   if (caminhos.length === 0) return lista;
   let enderecos: Record<string, string> = {};
   try {
@@ -98,7 +132,7 @@ export async function comEnderecos(lista: Story[], assinar: Assinar): Promise<St
     enderecos = {};
   }
   return lista.map((s) => {
-    if (s.fundo?.tipo !== "imagem" || !s.fundo.caminho) return s;
+    if ((s.fundo?.tipo !== "imagem" && s.fundo?.tipo !== "video") || !s.fundo.caminho) return s;
     const url = enderecos[s.fundo.caminho];
     return url ? { ...s, fundo: { ...s.fundo, url } } : { ...s, fundo: { tipo: "listras", cor: s.fundo.cor } };
   });
@@ -114,15 +148,25 @@ async function assinarNoDeposito(caminhos: string[]): Promise<Record<string, str
   return saida;
 }
 
-/** A extensão pelo tipo que o canvas devolveu (o Safari antigo devolve PNG quando não sabe fazer WEBP). */
-export function extensaoDaImagem(tipo: string): { ext: "webp" | "png" | "jpg"; tipo: string } {
-  if (tipo === "image/png") return { ext: "png", tipo };
-  if (tipo === "image/jpeg") return { ext: "jpg", tipo };
+/**
+ * A extensão pelo tipo que o canvas ou o gravador devolveram (o Safari antigo devolve PNG quando não sabe fazer WEBP; o gravador
+ * diz "video/webm;codecs=vp9,opus" ou "video/mp4;codecs=avc1…": vale só o tipo antes do ";").
+ */
+export function extensaoDaImagem(tipo: string): { ext: "webp" | "png" | "jpg" | "mp4" | "webm"; tipo: string } {
+  const base = tipo.split(";")[0].trim().toLowerCase();
+  if (base === "image/png") return { ext: "png", tipo: base };
+  if (base === "image/jpeg") return { ext: "jpg", tipo: base };
+  if (base === "video/mp4") return { ext: "mp4", tipo: base };
+  if (base === "video/webm") return { ext: "webm", tipo: base };
   return { ext: "webp", tipo: "image/webp" };
 }
 
-/** Envia ao depósito com a sessão da própria pessoa (a regra do depósito confere a pasta = uid). */
-async function enviarAoDeposito(imagem: Blob): Promise<string> {
+/**
+ * Envia ao depósito com a sessão da própria pessoa (a regra do depósito confere a pasta = uid). O progresso do envio não vem da
+ * biblioteca: a tela mostra o envio como "quase lá" (o andamento real é o da regravação, que vem antes).
+ */
+async function enviarAoDeposito(imagem: Blob, aoProgresso?: (fracao: number) => void): Promise<string> {
+  aoProgresso?.(0.05);
   const { getClient } = await import("../backend");
   const cliente = await getClient();
   const { data } = await cliente.auth.getSession();
@@ -132,6 +176,7 @@ async function enviarAoDeposito(imagem: Blob): Promise<string> {
   const caminho = `${uid}/${idDoArquivo()}.${ext}`;
   const { error } = await cliente.storage.from(DEPOSITO_DOS_STORIES).upload(caminho, imagem, { contentType: tipo, upsert: false, cacheControl: "3600" });
   if (error) throw new Error(error.message || "falha_no_envio");
+  aoProgresso?.(1);
   return caminho;
 }
 

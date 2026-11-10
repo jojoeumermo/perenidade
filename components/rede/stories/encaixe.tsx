@@ -9,6 +9,20 @@ import { useTextosDosStories } from "./usar";
 
 // A faixa (com o visor e o "criar") só chega ao navegador quando a flag está ligada e a linha de Início a desenha.
 const StoriesNoAlto = dynamic(() => import("./NoAlto"), { ssr: false });
+// Os destaques do perfil: só baixam quando a área de perfil os desenha (encaixe abasDoPerfil, ou <DestaquesNoPerfil> acima das abas).
+const DestaquesDoPerfil = dynamic(() => import("./Destaques").then((m) => m.DestaquesDoPerfil), { ssr: false });
+
+/** O nome da aba "Destaques" nos 6 idiomas (curto, sem baixar os textos dos stories só para o rótulo). */
+const ROTULO_DOS_DESTAQUES: Record<string, string> = { pt: "Destaques", en: "Highlights", es: "Destacadas", fr: "À la une", ru: "Актуальное", zh: "精选" };
+
+/**
+ * Os destaques de stories no perfil de @handle (encaixe para a área de perfil, F4): a fileira de bolinhas que abrem o visor. Com as
+ * flags desligadas, não desenha nada nem baixa nada.
+ */
+export function DestaquesNoPerfil({ lang, situacao, handle }: ContextoDoEncaixe & { handle: string }) {
+  if (!rotaNovaLigada("stories")) return null;
+  return <DestaquesDoPerfil lang={lang} situacao={situacao} handle={handle} />;
+}
 
 /** "Pôr no story" ligado: só aqui os textos dos stories são baixados (com as flags desligadas, nada é pedido à rede). */
 function PorNoStoryLigado({ lang, post }: { lang: string; post: Post }) {
@@ -45,4 +59,5 @@ function NoAltoDaLinha({ lang, situacao }: ContextoDoEncaixe) {
 export const encaixe: Encaixe = {
   topoDaLinha: [NoAltoDaLinha],
   acoesDoCartao: [PorNoStory],
+  abasDoPerfil: [{ chave: "destaques", rotulo: ({ lang }) => ROTULO_DOS_DESTAQUES[lang] ?? ROTULO_DOS_DESTAQUES.pt, Componente: DestaquesNoPerfil }],
 };

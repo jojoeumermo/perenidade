@@ -11,7 +11,8 @@
     "tentar": "Try again",
     "entrar": "Sign in to see and create stories.",
     "anteriores": "Previous stories",
-    "seguintes": "More stories"
+    "seguintes": "More stories",
+    "abrindo": "Opening {nome}'s stories…"
   },
   "abas": {
     "rotulo": "Timelines"
@@ -40,7 +41,8 @@
       "dourado": "Gold",
       "verde": "Green",
       "rosa": "Pink",
-      "noite": "Night"
+      "noite": "Night",
+      "papel": "Paper"
     },
     "desenho": "Drawing area: drag to draw",
     "desfazer": "Undo last stroke",
@@ -52,7 +54,8 @@
       "contagem": "Countdown",
       "pergunta": "Question",
       "enquete": "Poll",
-      "link": "Link"
+      "link": "Link",
+      "comunidade": "Community"
     },
     "quemVe": "Who sees it",
     "publico": {
@@ -74,7 +77,7 @@
     "publicar": "Post story",
     "publicando": "Posting…",
     "publicado": "Story posted. Gone in 24 h.",
-    "vazio": "Write some text, draw or pick an image.",
+    "vazio": "Write some text, draw, take a photo or choose from the gallery.",
     "deUmPost": "Story from a post: the link to the post goes along.",
     "erro": {
       "grande": "Image too large (up to 3 MB once ready).",
@@ -88,6 +91,83 @@
       "limite": "You've posted many stories just now. Wait a bit.",
       "banco": "The database doesn't have stories yet (the server update is missing).",
       "falha": "Couldn't post. Try again."
+    },
+    "camera": "Camera",
+    "galeriaAjuda": "Photo or video (up to 60 s)",
+    "corDaLetra": "Text colour",
+    "corAlvo": {
+      "fundo": "Background",
+      "letra": "Text"
+    },
+    "estilo": {
+      "rotulo": "Text style",
+      "fonte": {
+        "condensada": "Poster",
+        "serifa": "Classic",
+        "maquina": "Typewriter",
+        "marcador": "Marker"
+      },
+      "alinhar": "Alignment: {lado}",
+      "alinhamento": {
+        "esq": "left",
+        "centro": "centre",
+        "dir": "right"
+      },
+      "caixa": "Background behind the text"
+    },
+    "pincel": {
+      "rotulo": "Brush",
+      "caneta": "Pen",
+      "marca": "Highlighter",
+      "espessura": "Thickness"
+    },
+    "midia": {
+      "titulo": "Photo and video",
+      "filtros": "Filters",
+      "filtro": {
+        "nenhum": "Normal",
+        "vivo": "Vivid",
+        "quente": "Warm",
+        "frio": "Cool",
+        "antigo": "Vintage",
+        "pb": "B&W",
+        "lambe": "Wheatpaste"
+      },
+      "cortar": "Trim the video",
+      "inicio": "Start of clip",
+      "fim": "End of clip",
+      "trecho": "{dur} clip ({ini} to {fim})",
+      "som": "Video sound",
+      "comSom": "Sound on",
+      "semSom": "Sound off",
+      "somAjuda": "With sound off, the audio never leaves your device.",
+      "ajustar": "Position",
+      "gestos": "Drag to move. With two fingers (or the mouse wheel), rotate and zoom.",
+      "girar": "Rotate 90°",
+      "maior": "Zoom in",
+      "menor": "Zoom out",
+      "centralizar": "Centre",
+      "tirar": "Remove the photo or video",
+      "video": "Story video",
+      "foto": "Story photo",
+      "semMetadadoVideo": "The video is rebuilt on your device at 720p: no location and no camera data.",
+      "altVideo": "Describe the video for people who can't see it (optional)",
+      "lendo": "Opening the video…"
+    },
+    "progresso": {
+      "preparando": "Preparing the video on your device… {pct}%",
+      "foto": "Preparing the photo…",
+      "enviando": "Uploading… {pct}%",
+      "publicando": "Publishing…",
+      "cancelar": "Cancel",
+      "ajuda": "The video is rebuilt here, without location. Keep this screen open."
+    },
+    "erroMidia": {
+      "video": "Couldn't read that video. Use MP4, MOV or WEBM.",
+      "videoGrande": "The video got too large (max 20 MB). Trim a shorter clip.",
+      "semGravador": "This browser can't rebuild videos. Use a photo or another browser.",
+      "comunidade": "Choose the community.",
+      "cancelado": "Upload cancelled. Nothing left your device."
     }
   },
   "figurinha": {
@@ -131,6 +211,13 @@
       "endereco": "Address (https://…)",
       "texto": "Link text (optional)",
       "abrir": "Open {dominio} (leaves Alumia)"
+    },
+    "comunidade": {
+      "rotulo": "Community",
+      "escolha": "Choose the community",
+      "nenhuma": "You're not in any community yet.",
+      "carregando": "Loading your communities…",
+      "abrir": "Open the community {nome}"
     }
   },
   "visor": {
@@ -193,11 +280,62 @@
       "spam": "Advertising or repetition",
       "outro": "Other reason"
     },
-    "erroAoEnviar": "Couldn't send. Try again."
+    "erroAoEnviar": "Couldn't send. Try again.",
+    "ajudaToque": "Touch: right side goes forward, left goes back, hold to pause, swipe sideways to change person and down to close. M key toggles sound.",
+    "som": "Turn sound on",
+    "mudo": "Turn sound off",
+    "semSomNoVideo": "This video was posted without sound",
+    "tocarParaOuvir": "Tap to hear",
+    "video": "Story video",
+    "carregandoVideo": "Loading the video…",
+    "destaque": "Highlight · {titulo}",
+    "guardar": "Save to highlight",
+    "tirarDoDestaque": "Remove from this highlight",
+    "apagarDestaque": "Delete this highlight",
+    "pessoaAnterior": "Previous person",
+    "proximaPessoa": "Next person"
   },
   "cartao": {
     "porNoStory": "Add to story",
     "porNoStoryAjuda": "Creates a story with this post's link (gone in 24 h)"
   },
-  "previa": "Preview with sample data: nothing here is sent."
+  "previa": "Preview with sample data: nothing here is sent.",
+  "camera": {
+    "titulo": "Camera",
+    "fechar": "Close the camera",
+    "modos": "Photo or video",
+    "foto": "Photo",
+    "video": "Video",
+    "disparo": "Take photo (hold to record video)",
+    "gravar": "Start recording",
+    "parar": "Stop recording",
+    "dica": "Tap for photo, hold for video",
+    "virar": "Switch camera",
+    "galeria": "Choose from gallery",
+    "abrindo": "Opening the camera…",
+    "negada": "No permission for the camera. Allow it in your browser settings, or use the gallery.",
+    "semCamera": "No camera found on this device. Use the gallery.",
+    "gravando": "Recording {tempo} of 1:00",
+    "privacidade": "Nothing leaves your device until you publish."
+  },
+  "destaques": {
+    "rotulo": "Highlights",
+    "abrir": "View the highlight {titulo} ({n} stories)",
+    "guardarTitulo": "Save to highlight",
+    "aviso": "It stays on your profile after 24 h, for the same audience as now. Remove it whenever you want. Never goes to the Fediverse.",
+    "novo": "New highlight",
+    "nome": "Highlight name",
+    "criar": "Create and save",
+    "guardar": "Save here",
+    "guardado": "Saved to {titulo}.",
+    "jaEsta": "Already in {titulo}",
+    "tirado": "Removed from the highlight.",
+    "limite": "At most 6 highlights.",
+    "apagarConfirma": "Delete the highlight {titulo}? Its stories older than 24 h will disappear.",
+    "apagado": "Highlight deleted.",
+    "vazioDono": "No highlights yet. On your story, tap ⋯ and \"Save to highlight\".",
+    "erro": "The highlights didn't load.",
+    "cor": "Cover colour",
+    "fechar": "Close"
+  }
 }

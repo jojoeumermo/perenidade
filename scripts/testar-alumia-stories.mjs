@@ -123,9 +123,12 @@ igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQue
   const contrato = ler("lib/rede/tipos-stories.ts").replace(/\/\/.*$|\/\*[\s\S]*?\*\//gm, "");
   ok("o contrato não tem campo de quem viu nem de quantos viram", !/\b(viu|visto|vistos|views?|visualiza\w*|assistiu|espectador\w*)\s*[?]?:/i.test(contrato));
   igual("reações: conjunto fechado de 3", [...REACOES_DO_STORY], ["punho", "chama", "coracao"]);
-  for (const arq of ["components/rede/stories/Visor.tsx", "components/rede/stories/FaixaDeStories.tsx", "components/rede/stories/Criar.tsx"]) {
+  const CONTRATO = ["faixa", "abrir", "meus", "publicar", "apagar", "responder", "reagir", "votar", "avisar", "atos", "denunciar", "enviarImagem",
+    "comunidades", "destaques", "destaque", "salvarDestaque", "tirarDoDestaque", "apagarDestaque"];
+  for (const arq of ["components/rede/stories/Visor.tsx", "components/rede/stories/FaixaDeStories.tsx", "components/rede/stories/Criar.tsx",
+    "components/rede/stories/Destaques.tsx", "components/rede/stories/GuardarNoDestaque.tsx"]) {
     const usados = new Set([...ler(arq).matchAll(/cliente\.(\w+)\(/g)].map((m) => m[1]));
-    ok(`${arq} só usa funções do contrato`, [...usados].every((u) => ["faixa", "abrir", "meus", "publicar", "apagar", "responder", "reagir", "votar", "avisar", "atos", "denunciar", "enviarImagem"].includes(u)));
+    ok(`${arq} só usa funções do contrato`, [...usados].every((u) => CONTRATO.includes(u)));
   }
   ok("o visor marca o visto só no aparelho", /marcarVisto\(armazemDoAparelho\(\)/.test(ler("components/rede/stories/Visor.tsx")));
   ok("o link abre sem dizer de onde veio", /noreferrer/.test(ler("components/rede/figurinhas/Link.tsx")));
@@ -219,7 +222,9 @@ igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQue
     ok("sem item próprio no menu (a faixa vive no Início: um só aria-current)", !("menu" in encaixe));
     igual("sem as flags, a faixa do alto da linha não desenha nada", encaixe.topoDaLinha.map((C) => renderToStaticMarkup(h(C, ctx))), [""]);
     igual("sem as flags, o Pôr no story não desenha nada", encaixe.acoesDoCartao.map((C) => renderToStaticMarkup(h(C, { ...ctx, post: { id: "x" } }))), [""]);
-    ok("o encaixe só pendura a faixa no alto da linha e o Pôr no story", Object.keys(encaixe).sort().join() === "acoesDoCartao,topoDaLinha");
+    ok("o encaixe só pendura a faixa no alto da linha, o Pôr no story e os destaques do perfil", Object.keys(encaixe).sort().join() === "abasDoPerfil,acoesDoCartao,topoDaLinha");
+    igual("sem as flags, os destaques do perfil não desenham nada", encaixe.abasDoPerfil.map((a) => renderToStaticMarkup(h(a.Componente, { ...ctx, handle: "rosavermelha" }))), [""]);
+    igual("a aba dos destaques tem nome nos 6 idiomas", ["pt", "en", "es", "fr", "ru", "zh"].map((l) => encaixe.abasDoPerfil[0].rotulo({ lang: l }).length > 0), [true, true, true, true, true, true]);
     const fonte = ler("components/rede/stories/encaixe.tsx");
     ok("o Pôr no story só baixa os textos depois de conferir a flag", /function PorNoStory\([^)]*\) \{\s*if \(!situacao\.logado \|\| !rotaNovaLigada\("stories"\)\) return null;/.test(fonte) && !/function PorNoStory\([^)]*\) \{[^}]*useTextosDosStories/.test(fonte));
     ok("a linha de Início desenha o topoDaLinha acima das abas", /ENCAIXES\.topoDaLinha\.map[\s\S]*role="tablist"/.test(ler("components/rede/Rede.tsx")));
