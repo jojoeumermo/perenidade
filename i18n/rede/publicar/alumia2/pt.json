@@ -184,7 +184,9 @@
       "cidade": "cidade",
       "descricao": "chamado"
     },
-    "escolherQuando": "Escolher dia e hora"
+    "escolherQuando": "Escolher dia e hora",
+    "tipoAnuncio": "{tipo} escolhido. O botão principal agora diz “{botao}”.",
+    "textoGuardado": "Seu texto fica guardado: ele volta se você trocar para Post, Enquete ou Texto longo."
   },
   "direita": {
     "rotulo": "Na Alumia agora",

@@ -184,7 +184,9 @@
       "cidade": "城市",
       "descricao": "号召"
     },
-    "escolherQuando": "选择日期和时间"
+    "escolherQuando": "选择日期和时间",
+    "tipoAnuncio": "已选择{tipo}。主按钮现在显示为“{botao}”。",
+    "textoGuardado": "你的文字已保留：切换回帖子、投票或长文时会回来。"
   },
   "direita": {
     "rotulo": "Alumia 此刻",

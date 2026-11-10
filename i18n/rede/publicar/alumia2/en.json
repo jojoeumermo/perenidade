@@ -184,7 +184,9 @@
       "cidade": "city",
       "descricao": "call"
     },
-    "escolherQuando": "Pick day and time"
+    "escolherQuando": "Pick day and time",
+    "tipoAnuncio": "{tipo} selected. The main button now says “{botao}”.",
+    "textoGuardado": "Your text is kept: it comes back if you switch to Post, Poll or Long text."
   },
   "direita": {
     "rotulo": "On Alumia now",
