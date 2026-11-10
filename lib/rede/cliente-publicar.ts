@@ -4,8 +4,9 @@
 // Sem "@/" de propósito (roda no Node nos testes).
 import { chamar, type Chamar } from "./cliente";
 import type { Post } from "./tipos";
-import type { Agendado, DetalhesDoPost, EdicaoAnterior, EnqueteDoPost, PedidoPublicar } from "./tipos-publicar";
+import type { Agendado, CorrecaoDoPost, DetalhesDoPost, EdicaoAnterior, EnqueteDoPost, MeuAto, OpcoesDeAgendar, PedidoPublicar } from "./tipos-publicar";
 import type { RascunhoDoServidor } from "./publicar/alumia2";
+import type { RascunhoCifrado } from "./publicar/b1";
 
 export function criarClientePublicar(c: Chamar) {
   return {
@@ -31,9 +32,9 @@ export function criarClientePublicar(c: Chamar) {
     /** Repostar (ou desfazer): o post aparece na linha de quem segue a pessoa. Só o próprio estado volta, nunca quem repostou. */
     repostar: (post: string, sim: boolean) => c<{ repostei: boolean }>("rede_pub_repostar", { p_post: post, p_sim: sim }),
     /** Guarda (ou atualiza) um rascunho na conta. Só texto e escolhas; até 20 por pessoa, apagados em 30 dias. */
-    salvarRascunho: (r: RascunhoDoServidor) => c<{ id: string; atualizado_em: string }>("rede_pub_rascunho_salvar", { p: r }),
-    /** Os rascunhos da própria pessoa (nunca os de outra), do mais novo ao mais antigo. */
-    rascunhos: () => c<RascunhoDoServidor[]>("rede_pub_rascunhos"),
+    salvarRascunho: (r: RascunhoDoServidor | (RascunhoCifrado & { id: string | null })) => c<{ id: string; atualizado_em: string }>("rede_pub_rascunho_salvar", { p: r }),
+    /** Os rascunhos da própria pessoa (nunca os de outra), do mais novo ao mais antigo. Da B1 em diante, só cifrados. */
+    rascunhos: () => c<(Partial<RascunhoDoServidor> & Partial<RascunhoCifrado> & { id: string; atualizado_em: string })[]>("rede_pub_rascunhos"),
     apagarRascunho: (id: string) => c<{ apagado: boolean }>("rede_pub_rascunho_apagar", { p_id: id }),
     /** Dos posts pedidos (até 50), quais a PRÓPRIA pessoa repostou. Nunca diz nada de outra pessoa. */
     repostados: (ids: string[]) => c<string[]>("rede_pub_repostados", { p_ids: ids.slice(0, 50) }),
@@ -46,6 +47,18 @@ export function criarClientePublicar(c: Chamar) {
     /** Desfaz um post que acabou de sair (até 30 s, só o autor, nunca o que a triagem segurou). */
     desfazer: (post: string) => c<{ desfeito: boolean }>("rede_pub_desfazer", { p_post: post }),
     /** Os números dos emblemas do menu, todos da própria pessoa: avisos não lidos, conversas com novidade, atos confirmados. */
+    // ───── B1 da casca (20261110-alumia-b1-casca.sql) ─────
+    /** Publicar com quem pode citar e a enquete avançada (resultado só no fim, ordem embaralhada). */
+    publicarMais: (pedido: PedidoPublicar) => c<Post>("rede_pub_publicar_mais", { p: pedido }),
+    /** Corrigir depois de publicar: aviso, texto alternativo, tirar imagem, quem pode citar. */
+    corrigir: (post: string, campos: CorrecaoDoPost) => c<{ post: Post; tirados: string[] }>("rede_pub_corrigir", { p_post: post, p: campos }),
+    /** Agendar com repetição semanal ou para quando um ato meu terminar. */
+    agendarMais: (pedido: PedidoPublicar, quando: string | null, opcoes: OpcoesDeAgendar) =>
+      c<{ id: string; quando: string }>("rede_pub_agendar_mais", { p: pedido, p_quando: quando, p_opcoes: opcoes }),
+    /** Os atos que eu chamei e ainda não acabaram. */
+    meusAtos: () => c<MeuAto[]>("rede_pub_meus_atos"),
+    /** Apaga todos os meus rascunhos da conta (ao desligar "guardar na conta"). */
+    apagarTodosRascunhos: () => c<{ apagados: number }>("rede_pub_rascunhos_apagar_todos"),
     emblemas: () => c<{ avisos: number; conversas: number; atos: number }>("rede_alumia_emblemas"),
   };
 }
