@@ -130,7 +130,7 @@ export function TopoDaLinha2({
         ref={lista}
         role="tablist"
         aria-label={t.linha.abas}
-        className={`al2-abas sticky top-0 z-20 mt-1 flex border-b border-[var(--al-linha)] lg:mt-3 lg:gap-2 lg:px-3 2xl:px-5 ${traco ? "al2-abas-com-traco" : ""}`}
+        className={`al2-abas sticky top-[0px] z-20 mt-1 flex border-b border-[var(--al-linha)] lg:mt-3 lg:gap-2 lg:px-3 2xl:px-5 ${traco ? "al2-abas-com-traco" : ""}`}
       >
         {abas.map((a, i) => (
           <button

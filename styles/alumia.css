@@ -453,15 +453,17 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 @keyframes al2-chama { 0% { transform: scale(0.6) translateY(3px); } 45% { transform: scale(1.35) translateY(-2px) rotate(-6deg); } 70% { transform: scale(0.95) rotate(3deg); } 100% { transform: scale(1); } }
 @keyframes al2-brasa { 0% { opacity: 0.9; transform: translate(-50%, 0) scale(0.4); } 100% { opacity: 0; transform: translate(-50%, -22px) scale(1.4); } }
 [data-al="2"] .al2-acao-acender { position: relative; }
-[data-al="2"] .al2-acao-acender[aria-pressed="true"] svg { animation: al2-chama 560ms var(--al2-mola) both; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--al-dourado) 70%, transparent)); }
-[data-al="2"] .al2-acao-acender[aria-pressed="true"]::after {
+[data-al="2"] .al2-acao-acender[aria-pressed="true"] svg { fill: currentColor; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--al-dourado) 70%, transparent)); }
+[data-al="2"] .al2-acao-acender[aria-pressed="true"][data-tocou] svg { animation: al2-chama 560ms var(--al2-mola) both; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--al-dourado) 70%, transparent)); }
+[data-al="2"] .al2-acao-acender[aria-pressed="true"][data-tocou]::after {
   content: ""; position: absolute; left: 1rem; top: 50%; width: 10px; height: 10px; border-radius: 999px; pointer-events: none;
   background: radial-gradient(circle, var(--al-dourado), transparent 70%); animation: al2-brasa 700ms ease-out both;
 }
 @keyframes al2-salvar { 0% { transform: scaleY(0.6); } 50% { transform: scaleY(1.25) translateY(-2px); } 100% { transform: none; } }
-[data-al="2"] .al2-acao-salvar[aria-pressed="true"] svg { animation: al2-salvar 480ms var(--al2-mola) both; fill: currentColor; transform-origin: top; }
+[data-al="2"] .al2-acao-salvar[aria-pressed="true"] svg { fill: currentColor; transform-origin: top; }
+[data-al="2"] .al2-acao-salvar[aria-pressed="true"][data-tocou] svg { animation: al2-salvar 480ms var(--al2-mola) both; }
 @keyframes al2-girar { from { transform: rotate(0); } to { transform: rotate(180deg); } }
-[data-al="2"] .al2-acao-repostar[aria-pressed="true"] svg { animation: al2-girar 520ms var(--al2-mola) both; }
+[data-al="2"] .al2-acao-repostar[aria-pressed="true"][data-tocou] svg { animation: al2-girar 520ms var(--al2-mola) both; }
 
 /* O convite do compositor da linha acende ao passar. */
 [data-al="2"] .al2-convite { border-radius: 10px; transition: color 150ms ease, background-color 150ms ease; padding-inline: 0.35rem; }
