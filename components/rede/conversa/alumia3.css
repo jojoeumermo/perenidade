@@ -540,3 +540,172 @@
 @keyframes al3-voa { 50% { transform: translate(3px, -3px); opacity: 0.6; } }
 [data-al="2"] .al3-contador-visivel { position: absolute; right: calc(12px + 56px + 0.6rem + 0.8rem); bottom: calc(0.75rem + 0.4rem + env(safe-area-inset-bottom, 0px)); font-size: 0.78rem; font-weight: 700; color: var(--al-texto-3); }
 [data-al="2"] .al3-contador-visivel[data-perto="fim"] { color: var(--al-vermelho); }
+
+/* ═══ Polimento da comunidade, do Explorar, da busca, do #tema, dos Avisos e dos Salvos (10/11/2026) ═════════════════════
+ * A mesma regra: tudo para quieto com prefers-reduced-motion, com o modo parado do site e com o e-ink (acima). */
+
+/* As abas (comunidade e Avisos): a linha colorida desliza até a aba escolhida (régua de movimento.ts). */
+[data-al="2"] :is(.al3-abas, .al3-abas-regua) { position: relative; }
+[data-al="2"] .al3-abas-linha { display: none; }
+[data-al="2"] :is(.al3-abas, .al3-abas-regua)[data-regua="sim"] .al3-abas-linha {
+  display: block; position: absolute; left: 0; bottom: -1px; height: 3px; width: var(--al3-l); transform: translateX(var(--al3-x));
+  background: var(--al3-cor, var(--al-vermelho)); border-radius: 3px 3px 0 0; transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+}
+[data-al="2"] .al3-abas[data-regua="sim"] .al3-aba[aria-selected="true"] { border-bottom-color: transparent; }
+[data-al="2"] .al3-abas-regua { background: var(--al-fundo); }
+[data-al="2"] .al3-abas-regua [role="tab"] { transition: color 0.2s, background 0.2s; }
+[data-al="2"] .al3-abas-regua [role="tab"][aria-selected="true"] { color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-abas-linha { background: var(--al-texto) !important; }
+[data-al="2"] .al3-painel:not([hidden]) { animation: al3-entra 0.38s var(--al3-mola) both; }
+[data-al="2"] .al3-aba { transition: color 0.2s; }
+
+/* A capa da comunidade: o nome, a descrição e os botões entram subindo, um depois do outro. */
+[data-al="2"] .al3-capa h1 { animation: al3-entra 0.55s var(--al3-mola) both; }
+[data-al="2"] .al3-capa-descricao { animation: al3-entra 0.55s 0.06s var(--al3-mola) both; }
+[data-al="2"] .al3-capa-acoes { animation: al3-entra 0.55s 0.12s var(--al3-mola) both; }
+[data-al="2"] .al3-capa-acao { transition: background 0.25s, color 0.25s, transform 0.18s var(--al3-pulo); }
+[data-al="2"] .al3-capa-acao:active { transform: scale(0.95); }
+[data-al="2"] .al3-capa-acao-contorno:hover { background: rgb(15 14 13 / 0.1); }
+[data-al="2"] .al3-menu:not([hidden]) { transform-origin: top right; animation: al3-paleta 0.28s var(--al3-mola); }
+/* O alfinete do fixado assenta no lugar (a moderação fixou) e o cartão ganha a cor da comunidade de leve. */
+[data-al="2"] .al3-fixado { animation: al3-entra 0.45s 0.1s var(--al3-mola) both; border-color: color-mix(in srgb, var(--al3-cor, var(--al-com-1)) 30%, var(--al-superficie-2)); }
+[data-al="2"] .al3-fixado-rotulo svg { animation: al3-alfinete 0.6s 0.35s var(--al3-pulo) both; transform-origin: 50% 100%; }
+@keyframes al3-alfinete { from { opacity: 0; transform: translateY(-10px) rotate(-25deg); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fixado { border-color: var(--al-texto); }
+[data-al="2"] .al3-post-entra { animation: al3-entra 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 50ms + 120ms); }
+[data-al="2"] .al3-post { transition: background 0.2s; }
+@media (hover: hover) { [data-al="2"] .al3-post:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); } }
+
+/* No celular estreito, "18 respostas · Acender · Salvar" cabe numa linha, como na prancha. */
+@media (max-width: 420px) {
+  [data-al="2"] .al3-post-acoes { gap: 0; flex-wrap: nowrap; }
+  [data-al="2"] .al3-post-acoes .al3-acao { padding: 0 0.42rem; font-size: 0.94rem; gap: 0.25rem; white-space: nowrap; }
+  [data-al="2"] .al3-post-acoes .al3-icone-acao { width: 16px; height: 16px; }
+}
+
+/* Títulos das telas (Explorar, Buscar, Salvos) e das seções, na Archivo condensada das pranchas. */
+[data-al="2"] .al3-tela .al3-titulo-tela { margin: 0; font-size: clamp(2.2rem, 9vw, 3rem); animation: al3-entra 0.5s var(--al3-mola) both; }
+[data-al="2"] .al3-tela .al3-titulo-secao { margin: 0 0 0.2rem; font-size: 1.55rem; }
+[data-al="2"] .al3-buscar-form { display: flex; gap: 0.5rem; margin-top: 0.9rem; }
+[data-al="2"] .al3-buscar-form .al3-busca { flex: 1; min-width: 0; }
+[data-al="2"] .al3-tela .al3-busca input { border: 0; background: none; }
+[data-al="2"] .al3-tela .al3-busca input:focus { outline: none; }
+[data-al="2"] .al3-busca { transition: border-color 0.2s, box-shadow 0.2s; }
+[data-al="2"] .al3-busca:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-foco) 25%, transparent); }
+[data-al="2"] .al3-busca svg { color: var(--al-texto-3); }
+[data-al="2"] .al3-botao-vermelho {
+  min-height: 48px; padding: 0 1.2rem; border: 0; border-radius: 12px; background: var(--al-vermelho-texto, var(--al-vermelho)); color: var(--al-sobre-vermelho);
+  font: inherit; font-weight: 800; cursor: pointer; transition: filter 0.2s, transform 0.18s var(--al3-pulo);
+}
+[data-al="2"] .al3-botao-vermelho:hover { filter: brightness(1.08); }
+[data-al="2"] .al3-botao-vermelho:active { transform: scale(0.95); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-botao-vermelho { border: 2px solid var(--al-texto); }
+
+/* Fichas de #tema: entram em cascata e sobem um tico no passar do mouse. */
+[data-al="2"] .al3-fichas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al3-fichas > li { animation: al3-entra 0.4s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 35ms); }
+[data-al="2"] .al3-ficha, [data-al="2"] .al3-fichas > li > a {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 0.95rem; border-radius: 999px; text-decoration: none;
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto);
+  transition: border-color 0.2s, transform 0.2s var(--al3-pulo), background 0.2s;
+}
+[data-al="2"] .al3-ficha:hover, [data-al="2"] .al3-fichas > li > a:hover { border-color: var(--al-texto-3); transform: translateY(-2px); }
+[data-al="2"] .al3-ficha-n { font-size: 0.8rem; color: var(--al-texto-3); font-variant-numeric: tabular-nums; }
+[data-al="2"] .al3-ficha-minha { border-color: color-mix(in srgb, var(--al-dourado) 55%, transparent); background: color-mix(in srgb, var(--al-dourado) 12%, var(--al-superficie)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-ficha, .al3-fichas > li > a) { border-color: var(--al-texto); background: var(--al-fundo); }
+
+/* Cartões (linhas temáticas e comunidades): a comunidade com o anel na cor dela; o cartão sobe e a seta anda no passar do mouse. */
+[data-al="2"] .al3-cartoes { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 640px) { [data-al="2"] .al3-cartoes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+[data-al="2"] .al3-cartoes > li { animation: al3-entra 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 45ms); }
+[data-al="2"] .al3-cartao {
+  position: relative; display: grid; grid-template-columns: 1fr; gap: 0.25rem; height: 100%; padding: 0.9rem 2.4rem 0.9rem 1rem; border-radius: var(--al-raio, 14px);
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); text-decoration: none; color: var(--al-texto);
+  transition: border-color 0.2s, transform 0.25s var(--al3-mola), box-shadow 0.25s;
+}
+[data-al="2"] .al3-cartao:hover { transform: translateY(-2px); border-color: var(--al3-cor, var(--al-texto-3)); box-shadow: 0 10px 24px rgb(0 0 0 / 0.25); }
+[data-al="2"] .al3-cartao-com { grid-template-columns: 30px 1fr; column-gap: 12px; align-items: center; padding-right: 1rem; }
+[data-al="2"] .al3-cartao-com .al3-cartao-regra { grid-column: 2; }
+[data-al="2"] .al3-cartao-com .al3-anel { grid-row: span 2; transition: transform 0.4s var(--al3-pulo), background 0.3s; }
+[data-al="2"] .al3-cartao-com:hover .al3-anel { transform: scale(1.12); background: color-mix(in srgb, var(--al3-cor) 30%, transparent); }
+[data-al="2"] .al3-cartao-titulo { font-weight: 800; font-size: 1.05rem; }
+[data-al="2"] .al3-cartao-regra { font-size: 0.88rem; color: var(--al-texto-3); line-height: 1.4; }
+[data-al="2"] .al3-cartao-membro { margin-left: 0.5rem; padding: 0.05rem 0.5rem; border-radius: 999px; font-size: 0.72rem; font-weight: 800; background: var(--al3-cor); color: #0f0e0d; vertical-align: 0.1em; }
+[data-al="2"] .al3-cartao-ir { position: absolute; right: 1rem; top: 50%; translate: 0 -50%; color: var(--al-texto-3); transition: transform 0.3s var(--al3-pulo), color 0.2s; }
+[data-al="2"] .al3-cartao:hover .al3-cartao-ir { transform: translateX(4px); color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-cartao { border-color: var(--al-texto); background: var(--al-fundo); box-shadow: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-cartao-membro { background: var(--al-texto); color: var(--al-fundo); }
+[data-al="2"] .al3-sumario-seta {
+  width: 8px; height: 8px; border-right: 2px solid var(--al-vermelho); border-bottom: 2px solid var(--al-vermelho); transform: rotate(-45deg);
+  transition: transform 0.35s var(--al3-mola);
+}
+[data-al="2"] details[open] > .al3-sumario .al3-sumario-seta { transform: rotate(45deg); }
+[data-al="2"] .al3-sumario-n { min-width: 1.6rem; padding: 0 0.45rem; border-radius: 999px; background: var(--al-superficie-2); font-size: 0.82rem; font-weight: 800; text-align: center; }
+[data-al="2"] .al3-sumario h3 { margin: 0; }
+/* "Disciplinas" abre e fecha deslizando (só onde o navegador sabe animar até a altura automática). */
+@supports (interpolate-size: allow-keywords) {
+  [data-al="2"] .al3-explorar { interpolate-size: allow-keywords; }
+  [data-al="2"] .al3-explorar details::details-content { height: 0; overflow: clip; transition: height 0.4s var(--al3-mola), content-visibility 0.4s allow-discrete; }
+  [data-al="2"] .al3-explorar details[open]::details-content { height: auto; }
+}
+
+/* "Novos · Mais úteis · Sem resposta · Em debate" (e "Relevância · Novos" na busca): a pílula clara desliza até a ordem. */
+[data-al="2"] .al3-segmento { position: relative; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+[data-al="2"] .al3-segmento > button {
+  position: relative; z-index: 1; min-height: 44px; padding: 0 1rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  background: none; color: var(--al-texto-2); font: inherit; font-size: 0.92rem; font-weight: 800; cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, transform 0.18s var(--al3-pulo);
+}
+[data-al="2"] .al3-segmento > button:hover { color: var(--al-texto); border-color: var(--al-texto-3); }
+[data-al="2"] .al3-segmento > button:active { transform: scale(0.95); }
+[data-al="2"] .al3-segmento > button[aria-checked="true"] { color: var(--al-sobre-papel); border-color: transparent; background: var(--al-cartao-aceso); }
+[data-al="2"] .al3-segmento-regua { display: none; }
+[data-al="2"] .al3-segmento[data-regua="sim"] > button[aria-checked="true"] { background: transparent; }
+[data-al="2"] .al3-segmento[data-regua="sim"] .al3-segmento-regua {
+  display: block; position: absolute; z-index: 0; left: 0; top: 0; width: var(--al3-l); height: var(--al3-a, 44px); border-radius: 999px;
+  transform: translate(var(--al3-x), var(--al3-y, 0)); background: var(--al-cartao-aceso); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento > button { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento[data-regua="sim"] .al3-segmento-regua { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento > button[aria-checked="true"] { color: var(--al-fundo); }
+[data-al="2"] .al3-porque[open] > p { animation: al3-entra 0.3s var(--al3-mola) both; }
+/* A lista que chega (trocar a ordem, abrir a página) sobe em cascata. */
+[data-al="2"] .al3-lista-entra > li { animation: al3-entra 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 50ms); }
+
+/* A página do #tema: o "#" na cor da casa, o tema grande, e "Seguir #tema" com o sino. */
+[data-al="2"] .al3-tag-capa { position: relative; padding: 0.8rem 16px 1.1rem; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .al3-tag-capa .al3-voltar { margin-left: -0.5rem; }
+[data-al="2"] .al3-tag-titulo { margin: 0.2rem 0 0; font-size: clamp(2.6rem, 12vw, 4.2rem); overflow-wrap: anywhere; animation: al3-entra 0.5s var(--al3-mola) both; }
+[data-al="2"] .al3-tag-cerquilha { color: var(--al-vermelho); display: inline-block; animation: al3-carimba 0.6s 0.15s var(--al3-pulo) both; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-tag-cerquilha { color: var(--al-texto); }
+[data-al="2"] .al3-tag-regra { margin: 0.5rem 0 0; font-size: 0.92rem; color: var(--al-texto-3); }
+[data-al="2"] .al3-tag-seguir { margin-top: 0.9rem; }
+[data-al="2"] .al3-tag-aviso { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--al-texto-2); }
+[data-al="2"] .al3-tag-aviso[role="alert"] { color: var(--al-vermelho); }
+[data-al="2"] .al3-seguir {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 1.1rem; border-radius: 12px; border: 2px solid var(--al-texto);
+  background: var(--al-texto); color: var(--al-fundo); font: inherit; font-weight: 800; cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.18s var(--al3-pulo);
+}
+[data-al="2"] .al3-seguir[aria-pressed="true"] { background: transparent; color: var(--al-texto); }
+[data-al="2"] .al3-seguir[aria-pressed="true"] .al3-icone-sino { color: var(--al-dourado); animation: al3-balanca 0.8s ease-in-out; transform-origin: 50% 12%; }
+[data-al="2"] .al3-seguir:active { transform: scale(0.95); }
+[data-al="2"] .al3-seguir .al3-icone { width: 20px; height: 20px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-seguir[aria-pressed="true"] .al3-icone-sino { color: var(--al-texto); }
+
+/* Avisos: chegam em cascata; o não lido tem a faixa vermelha à esquerda (que se desenha) e o selo "novo" carimbado. */
+[data-al="2"] .al3-avisos > li { animation: al3-entra 0.42s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 45ms); }
+[data-al="2"] .al3-aviso-item { position: relative; transition: background 0.3s; }
+[data-al="2"] .al3-aviso-item[data-lido="nao"] { background: color-mix(in srgb, var(--al-vermelho) 6%, transparent); }
+[data-al="2"] .al3-aviso-item[data-lido="nao"]::before {
+  content: ""; position: absolute; left: 0; top: 0.6rem; bottom: 0.6rem; width: 3px; border-radius: 0 3px 3px 0; background: var(--al-vermelho);
+  transform-origin: top; animation: al3-desenha 0.5s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 10) * 45ms + 0.2s);
+}
+[data-al="2"] .al3-aviso-novo {
+  flex: none; margin-top: 0.2rem; padding: 0 0.45rem; border-radius: 999px; background: var(--al-vermelho); color: var(--al-sobre-vermelho);
+  font-size: 0.72rem; font-weight: 800; line-height: 1.5; animation: al3-carimba 0.5s 0.25s var(--al3-pulo) both;
+}
+[data-al="2"] .al3-avisos a, [data-al="2"] .al3-avisos button { transition: background 0.2s; }
+[data-al="2"] .al3-avisos a:hover, [data-al="2"] .al3-avisos button:hover { background: var(--al-superficie); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-item[data-lido="nao"] { background: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-item[data-lido="nao"]::before { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-novo { background: var(--al-texto); color: var(--al-fundo); }

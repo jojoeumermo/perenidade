@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { alumia } from "@/lib/rede/cliente-alumia";
 import { carregarTextosDaAlumia, type TextosDaAlumia } from "@/lib/rede/textos-alumia";
 import type { Post } from "@/lib/rede/tipos";
@@ -9,6 +9,8 @@ import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { previa } from "../conversa/base3";
+import { salvosDaPrevia } from "../descoberta/previa";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
 
@@ -35,8 +37,7 @@ export default function Salvos({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
   useEffect(() => {
     if (!situacao.logado) return;
     let vivo = true;
-    alumia
-      .salvos(null, 20)
+    (previa() ? Promise.resolve({ itens: salvosDaPrevia(), proximo: null }) : alumia.salvos(null, 20))
       .then((r) => {
         if (!vivo) return;
         setItens(r.itens);
@@ -71,7 +72,7 @@ export default function Salvos({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
   return (
     <section aria-labelledby="alumia-salvos-titulo" className="al3-tela">
       <header className="border-b border-rule px-[18px] py-4 font-sans">
-        <h1 id="alumia-salvos-titulo" className="font-serif text-2xl font-extrabold">{t.salvos.titulo}</h1>
+        <h1 id="alumia-salvos-titulo" className="al3-cond al3-titulo-tela">{t.salvos.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{t.salvos.lead}</p>
       </header>
       {!situacao.logado ? (
@@ -84,9 +85,9 @@ export default function Salvos({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
         <p className="px-[18px] py-8 font-sans text-ink-soft">{t.salvos.vazio}</p>
       ) : (
         <>
-          <ol aria-label={t.salvos.titulo}>
-            {itens.map((p) => (
-              <li key={p.id}>
+          <ol aria-label={t.salvos.titulo} className="al3-lista-entra">
+            {itens.map((p, i) => (
+              <li key={p.id} style={{ "--i": i } as CSSProperties}>
                 <CartaoDePost post={p} lang={lang} s={s} logado={situacao.logado} aoResponder={(post) => aoEscrever(post)} />
               </li>
             ))}
