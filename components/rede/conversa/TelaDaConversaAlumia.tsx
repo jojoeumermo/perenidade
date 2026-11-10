@@ -7,6 +7,7 @@ import { rede } from "@/lib/rede/cliente";
 import { conversa } from "@/lib/rede/cliente-conversa";
 import { arvoreDeExemplo, postDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import { comReserva, faltaFuncaoNoBanco } from "@/lib/rede/reserva";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import { enderecos, type Post, type Situacao } from "@/lib/rede/tipos";
@@ -116,8 +117,9 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
 
   useEffect(() => {
     let vivo = true;
-    // Banco sem a migração da F3 ainda: a árvore de hoje (sem reações; "ajudou" pelo `aceita` da dúvida).
-    const pedir = previa() ? arvoreDaPrevia(id) : conversa.alumia(id, ordem).catch(() => conversa.arvore(id, ordem));
+    // Banco sem a migração da F3 ainda (e só nesse caso, lib/rede/reserva.ts): a árvore de hoje (sem reações; "ajudou" pelo
+    // `aceita` da dúvida). Limite, conta suspensa, sem permissão e não encontrada aparecem na tela, sem segunda chamada.
+    const pedir = previa() ? arvoreDaPrevia(id) : comReserva(() => conversa.alumia(id, ordem), () => conversa.arvore(id, ordem));
     pedir
       .then((dado) => {
         if (!vivo) return;
@@ -337,14 +339,24 @@ function SeguirConversa({ raiz, t, aoErro, aoAvisar }: { raiz: string; t: Textos
   const [seguindo, setSeguindo] = useState<boolean | null>(previa() ? false : null);
   const [ocupado, setOcupado] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
+  // O aviso de erro do carregamento, sem refazer a consulta a cada desenho.
+  const avisarErro = useRef(aoErro);
+  useEffect(() => {
+    avisarErro.current = aoErro;
+  });
   useEffect(() => {
     if (previa()) return;
     let vivo = true;
     conversa
       .seguindo(raiz)
       .then((r) => vivo && setSeguindo(r.conversa === true))
-      // Banco sem a migração ainda: o sininho não aparece (não promete o que não faz).
-      .catch(() => vivo && setSeguindo(null));
+      // Banco sem a migração ainda: o sininho não aparece (não promete o que não faz). Outro erro (limite, conta suspensa): também
+      // não aparece, mas a pessoa fica sabendo o motivo.
+      .catch((e) => {
+        if (!vivo) return;
+        setSeguindo(null);
+        if (!faltaFuncaoNoBanco(e)) avisarErro.current(e);
+      });
     return () => {
       vivo = false;
     };
