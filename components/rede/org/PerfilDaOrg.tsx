@@ -21,9 +21,13 @@ import { Abas } from "./Abas";
 import { type AcoesDaOrg, BlocoDaPlenaria, CartaoDaConsulta, ComoVotamos, NucleosDaOrg } from "./Blocos";
 import { type AcoesDeGestor, CuidarDaOrg } from "./CuidarDaOrg";
 import { SeloDaOrg, SeloPequeno } from "./partes";
+import { AcendaUmLampiao, TearDeEncaminhamentos } from "./Tear";
+import type { TextosDaRede } from "@/lib/rede/textos";
 import "./org.css";
 
 export interface PropsDoPerfilDaOrg {
+  /** Os textos da Rede (para as mensagens de erro do Tear e do Lampião). */
+  s?: TextosDaRede;
   org: OrgPublica;
   t: TextosDaOrg;
   lang: string;
@@ -44,7 +48,7 @@ export interface PropsDoPerfilDaOrg {
   aoMudar?: () => void;
 }
 
-export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar }: PropsDoPerfilDaOrg) {
+export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
   const inicial = (ABAS_DA_ORG as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDaOrg) : "posts";
@@ -180,6 +184,8 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
             </h2>
             <NucleosDaOrg nucleos={org.nucleos} t={t} acoes={acoes} podeEntrar={membro} />
           </section>
+          <TearDeEncaminhamentos handle={org.handle} lang={lang} s={s} />
+          {org.gerencio && cuidar ? <AcendaUmLampiao lang={lang} s={s} criar={(p) => cuidar.criarNucleo(p).then((r) => (aoMudar?.(), r))} /> : null}
         </aside>
       </div>
     </div>
