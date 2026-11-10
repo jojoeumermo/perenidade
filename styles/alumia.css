@@ -1112,3 +1112,10 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 :root:has([data-al="2"]) .assistente-gatilho[aria-expanded="true"] { background: var(--al-texto); color: var(--al-fundo); border-color: var(--al-texto); }
 :root:has([data-al="2"]) :is(.al-pele, .al-pele :is(a, button, input, select, textarea, summary)):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
 :root:is([data-contrast], [data-eink]):has([data-al="2"]) :is(.a11y-painel, .assistente-janela, .a11y-gatilho, .assistente-gatilho, .a11y-vlibras, .a11y-opcao, .a11y-fechar, .assistente-fechar, .assistente-campo) { border: 2px solid var(--al-texto); box-shadow: none; }
+
+/* O erro em uma linha das telas antigas (p role=alert solto no alto da coluna): vira o aviso da Alumia, em caixa de 14 px. */
+[data-al="2"] .al2 p[role="alert"][class*="px-[18px]"] {
+  margin: 0.75rem 16px; padding: 0.75rem 1rem; border: 1px solid color-mix(in srgb, var(--al-vermelho) 35%, var(--al-superficie-2));
+  border-radius: 14px; background: color-mix(in srgb, var(--al-vermelho) 12%, var(--al-superficie)); color: var(--al-texto); font-size: 0.9375rem; line-height: 1.4;
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2 p[role="alert"][class*="px-[18px]"] { border: 2px solid var(--al-texto); background: var(--al-fundo); }
