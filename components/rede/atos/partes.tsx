@@ -35,6 +35,7 @@ export const Icone = {
   fora: (t?: number) => svg(<><path d="M14 5h5v5M19 5l-8 8" /><path d="M18 14v5H5V6h5" /></>, t),
   copiar: (t?: number) => svg(<><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></>, t),
   sino: (t?: number) => svg(<><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" /><path d="M10 20a2 2 0 0 0 4 0" /></>, t),
+  corrente: (t?: number) => svg(<><path d="M9.5 14.5l5-5" /><path d="M11 6.5l1.5-1.5a3.5 3.5 0 0 1 5 5L16 11.5" /><path d="M13 17.5L11.5 19a3.5 3.5 0 0 1-5-5L8 12.5" /></>, t),
 };
 
 /** O que o leitor de tela ouve do mosaico: a palavra e a proporção (nunca um número de pessoas). */

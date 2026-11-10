@@ -44,7 +44,9 @@
     "lembreteAjuda": "下载 .ics 文件：你的日历会在开始前 24 小时和 2 小时提醒。不会发送到服务器。",
     "baixado": "日历文件已下载，打开即可保存提醒。",
     "vouFeito": "已确认。你在马赛克里了。",
-    "vouDesfeito": "已取消确认。"
+    "vouDesfeito": "已取消确认。",
+    "lembreteCurto": "提醒",
+    "copiadoCurto": "已复制"
   },
   "mosaico": {
     "voce": "你在马赛克里：那张金色卡片。",
@@ -75,14 +77,19 @@
     "vazioSeguindo": "你关注的人暂时没有发起行动。",
     "chamarUm": "发起行动",
     "cidade": "你的城市",
-    "cidadeExemplo": "São Paulo",
+    "cidadeExemplo": "例如：圣保罗",
     "cidadeAjuda": "“附近”按你填写的城市显示。Alumia 不使用设备定位，城市只保存在本设备上。",
     "cidadeVer": "查看行动",
     "trocarCidade": "更换城市（{cidade}）",
     "previa": "示例数据预览",
     "posicao": "第 {i} 个行动，共 {n} 个",
     "puxar": "松开以前往下一个行动",
-    "atalhos": "快捷键：J 前往下一个行动，K 返回上一个。"
+    "atalhos": "快捷键：J 前往下一个行动，K 返回上一个。",
+    "cidadeCurta": "请写下城市名称（至少 2 个字）。",
+    "mais": "更多",
+    "menos": "收起",
+    "correntes": "{cidade}的团结接力",
+    "trocar": "更换"
   },
   "pagina": {
     "naoAchado": "这场行动不存在，或你无权查看。",
@@ -183,7 +190,11 @@
     "outraPediu": "协调组有人请求了「{estado}」。",
     "confirmar": "确认：{estado}",
     "rotulo": "行动信号灯：{estado}",
-    "atual": "现在"
+    "atual": "现在",
+    "detalhes": "信号灯详情",
+    "esperandoCurto": "等待第二人确认",
+    "deNovo": "再点一次以请求“{estado}”",
+    "trocarPedido": "你已请求“{pendente}”。再点一次改为“{estado}”。"
   },
   "corrente": {
     "titulo": "团结接力",
@@ -207,6 +218,7 @@
     "deixar": "以后再说",
     "aberta": "接力已发起。",
     "barra": "接力：已闭合 {pct}%",
-    "barraVazia": "接力：链环尚未闭合"
+    "barraVazia": "接力：链环尚未闭合",
+    "fechouAgora": "接力已完成！谢谢你的参与。"
   }
 }
