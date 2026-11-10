@@ -16,7 +16,9 @@ import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Linha } from "../Linha";
+import { orgLigada } from "@/lib/rede/org/flag";
 import { Avatar } from "./Avatar";
+import PerfilDaAlumia2 from "./PerfilDaAlumia2";
 import { useTextosDoPerfil } from "./useTextos";
 
 /** O que a pessoa liga em "estudando agora" é lido do aparelho (a última aula aberta); só se ela ligou, e só aqui, no próprio perfil. */
@@ -30,11 +32,18 @@ function lerUltimaAula(): unknown {
 }
 
 /**
- * A página de um perfil (/comunidade/u/[handle]): capa, rosto, codinome, @nome, selos, bio, "estudando agora", post fixado e a
+ * A página de um perfil (/alumia/u/[handle]): capa, rosto, codinome, @nome, selos, bio, "estudando agora", post fixado e a
  * linha da pessoa. Seguir (ou pedir para seguir, no perfil trancado). Sem contagem de seguidores, de seguidos ou de apoios, e
  * nada do nome civil. No próprio perfil: editar, pedidos pendentes e a atualização do "estudando agora" se estiver ligado.
  */
-export default function TelaDoPerfil({ handle, lang, s, situacao, aoResponder }: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
+export default function TelaDoPerfil(props: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
+  // O perfil novo (abas, extras e o perfil de organização) é da F4: só com "rede-v2" + "alumia-2" + "alumia-org". Com qualquer
+  // uma delas desligada, a tela de hoje (a frente pode ser desligada sozinha).
+  if (orgLigada()) return <PerfilDaAlumia2 {...props} />;
+  return <TelaDoPerfilDeHoje {...props} />;
+}
+
+function TelaDoPerfilDeHoje({ handle, lang, s, situacao, aoResponder }: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
   const sp = useTextosDoPerfil(lang);
   const [estado, setEstado] = useState<{ handle: string; dado: PerfilDaRede | null; erro: string } | null>(null);
   const [ocupado, setOcupado] = useState(false);

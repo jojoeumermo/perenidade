@@ -119,7 +119,7 @@ export function TelaDoNucleo({ lang, t, kit, assembleia }: { lang: Locale; t: Te
         </p>
         <div className="en-cabeca-acoes">
           {nucleo && (
-            <Link href={localePath(lang, `/comunidade/nucleos/${nucleo.id}`)} className="en-botao-cheio">
+            <Link href={localePath(lang, `/alumia/nucleos/${nucleo.id}`)} className="en-botao-cheio">
               {t.tela.abrirAlumia}
             </Link>
           )}

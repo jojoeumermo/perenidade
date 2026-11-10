@@ -52,7 +52,7 @@ test("postar na Rede Lúcia e ver o post na linha", async ({ page }) => {
   const s = await entrarComo(page, "leitora@local");
   await rpc(s.access_token, "rede_confirmar_idade");
   const texto = `Teste de ponta a ponta ${Date.now()}`;
-  await abrir(page, "/pt/comunidade");
+  await abrir(page, "/pt/alumia");
   const postar = page.getByRole("button", { name: "Postar", exact: true });
   await expect(async () => {
     await page.getByRole("textbox", { name: "Escrever na rede" }).fill(texto);

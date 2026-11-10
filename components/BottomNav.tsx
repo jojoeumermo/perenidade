@@ -50,7 +50,7 @@ export function BottomNav() {
         ["home", t.nav.home, "/"],
         ["disciplines", t.nav.disciplines, "/trilhas"],
         ["library", t.nav.library, "/acervo"],
-        ["community", t.nav.community, "/comunidade"],
+        ["community", t.nav.community, "/alumia"],
         ["more", t.nav.more, "/explorar"],
       ];
   return (
@@ -58,7 +58,7 @@ export function BottomNav() {
       <ul className="grid grid-cols-5">
         {items.map(([icon, label, path]) => {
           // A Comunidade é a Alumia: com o endereço próprio ligado, o link vai direto para lá (lib/rede/alumia.ts).
-          const href = path === "/comunidade" ? enderecoDaAlumia(lang) : localePath(lang, path);
+          const href = path === "/alumia" ? enderecoDaAlumia(lang) : localePath(lang, path);
           const active = path === "/" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
           return (
             <li key={path}>

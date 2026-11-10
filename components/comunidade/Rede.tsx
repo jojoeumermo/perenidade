@@ -1045,7 +1045,7 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
               className={acaoClasse}
               onClick={async () => {
                 // Para levar ao grupo do núcleo: o link do post, pronto para colar.
-                const url = `${window.location.origin}/${lang}/comunidade?post=${post.id}`;
+                const url = `${window.location.origin}/${lang}/alumia?post=${post.id}`;
                 await navigator.clipboard.writeText(url).then(() => setRecado(s.levado), () => setRecado(url));
               }}
             >
@@ -1095,7 +1095,7 @@ function Denunciar({ post, s, fechar }: { post: Post; s: Textos; fechar: () => v
       onSubmit={async (e) => {
         e.preventDefault();
         try {
-          await rpc("denunciar", { p_alvo: `/comunidade?post=${post.id}`, p_motivo: urgente ? s.expondo : motivo, p_detalhes: detalhes, p_site: "", p_urgente: urgente });
+          await rpc("denunciar", { p_alvo: `/alumia?post=${post.id}`, p_motivo: urgente ? s.expondo : motivo, p_detalhes: detalhes, p_site: "", p_urgente: urgente });
           setFeito(s.denunciaFeita);
         } catch {
           setFeito(s.erro);

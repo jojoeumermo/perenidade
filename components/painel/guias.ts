@@ -177,6 +177,15 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "Nada de nome civil: a Rede só mostra codinome. Se a proposta pedir algo que mistura o instituto com campanha eleitoral ou partido, recuse e explique.",
   },
+  "rede-organizacoes": {
+    paraQue: "Dar o selo às organizações da Alumia: a conta é de quem diz ser. Não é apoio do Instituto e não dá alcance a mais.",
+    passos: [
+      { titulo: "Confira o documento", texto: "Cada pedido traz um documento público da organização (CNPJ, registro do partido no TSE, diploma do mandato ou ata). Confira na fonte oficial, não na palavra de quem pediu." },
+      { titulo: "Dê o selo ou recuse", texto: "Dar o selo mostra a data e o tipo de documento no perfil da organização. Recusar pede o motivo, que quem cuida da conta lê, e vale como orientação para pedir de novo." },
+      { titulo: "Quem cuida não aparece", texto: "O painel não mostra quem pediu nem quem cuida da conta: o vínculo fica só no banco (filiação é dado sensível, LGPD art. 11)." },
+    ],
+    dica: "Documento de pessoa (CPF, RG) nunca entra. Selo dado pode ser retirado, com motivo registrado.",
+  },
   "rede-semeadura": {
     paraQue: "Acompanhar a semeadura da Alumia (docs/rede/SEMEAR.md) sem inventar nada: ver onde já há conversa real e onde falta gente moderando.",
     passos: [

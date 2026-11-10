@@ -227,7 +227,7 @@ export function Roda({ spec, sala }: { spec: string; sala?: string }) {
       <p className="bloco-rotulo">{titulo || t.lesson.blocks.roda}</p>
       <TextoSimples texto={corpo} className="bloco-texto" />
       <p className="no-print mt-3 font-sans text-sm font-bold">
-        <L href={sala ? `/comunidade?sala=${sala}` : "/comunidade"}>{t.lesson.blocks.rodaLink} →</L>
+        <L href={sala ? `/alumia?sala=${sala}` : "/alumia"}>{t.lesson.blocks.rodaLink} →</L>
       </p>
     </aside>
   );

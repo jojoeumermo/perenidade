@@ -140,15 +140,15 @@ await espera("rede-v2 só liga pelo nome: 'todos' não liga, o nome liga, '-rede
   !ligado("rede-v2", lerRecursos("")));
 const ROTAS = ["aula/[track]/[lesson]", "avisos", "buscar", "c/[slug]", "comunidades", "cuidado", "denuncias", "editar-perfil", "explorar", "moderacao", "nucleos", "nucleos/[id]", "p/[id]", "propor", "tag/[tag]", "u/[handle]", "silenciados"];
 for (const rota of ROTAS) {
-  await espera(`rota /comunidade/${rota}: 404 com rede-v2 desligado e sem indexar`, async () => {
-    const t = lerTexto(`app/[lang]/comunidade/${rota}/page.tsx`);
+  await espera(`rota /alumia/${rota}: 404 com rede-v2 desligado e sem indexar`, async () => {
+    const t = lerTexto(`app/[lang]/alumia/${rota}/page.tsx`);
     if (!/ligado\("rede-v2"\)/.test(t) || !/notFound\(\)/.test(t)) throw new Error("sem o portão do recurso");
     if (!/index: false/.test(t)) throw new Error("sem noindex");
     return true;
   });
 }
-await espera("a página /comunidade escolhe a v2 só com o recurso ligado, e o ramo antigo continua lá", async () => {
-  const t = lerTexto("app/[lang]/comunidade/page.tsx");
+await espera("a página /alumia escolhe a v2 só com o recurso ligado, e o ramo antigo continua lá", async () => {
+  const t = lerTexto("app/[lang]/alumia/page.tsx");
   return /ligado\("rede-v2"\)/.test(t) && /ComunidadeComRede/.test(t);
 });
 await espera("o botão 'Discutir esta aula' só existe com rede-v2 ligado", async () => /ligado\("rede-v2"\)/.test(lerTexto("app/[lang]/trilhas/[track]/[lesson]/page.tsx")));
@@ -195,7 +195,7 @@ await espera("a vitrine diz a regra da ordem, tem busca, filtro e seções recol
 }, (r) => r.every(Boolean));
 await espera("o convite ao apoio não abre na Alumia, abre já na primeira página (09/11/2026); o X lembra 30 dias", async () => {
   const f = lerTexto("components/OpeningNotice.tsx");
-  return [/naAlumia/.test(f) && /comunidade\(/.test(f) && /hostDaAlumia\(window\.location\.host\)/.test(f), !/esperaOutraPagina/.test(f), /TRINTA_DIAS = 30 \* 24 \* 3600 \* 1000/.test(f)];
+  return [/naAlumia/.test(f) && /alumia\(/.test(f) && /hostDaAlumia\(window\.location\.host\)/.test(f), !/esperaOutraPagina/.test(f), /TRINTA_DIAS = 30 \* 24 \* 3600 \* 1000/.test(f)];
 }, (r) => r.every(Boolean));
 await espera("os idiomas da Alumia são links com hreflang (e o atual marcado)", async () => {
   const f = lerTexto("components/rede/Casca.tsx");

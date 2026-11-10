@@ -1,0 +1,53 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ * Tear de encaminhamentos e Acenda um lampião (Onda A, F4). Movimento some com prefers-reduced-motion (tokens da casa). */
+
+[data-al="2"] .tear-placar { display: grid; gap: 8px; margin-bottom: 8px; }
+[data-al="2"] .tear-agregado { margin: 0; font-weight: 800; font-size: 1.1rem; }
+[data-al="2"] .tear-faixa { height: 10px; border-radius: 3px; background: repeating-linear-gradient(90deg, var(--al-superficie-2) 0 6px, transparent 6px 9px); overflow: hidden; }
+[data-al="2"] .tear-faixa span { display: block; height: 100%; background: var(--al-faixa); transform-origin: left; animation: tear-tece 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes tear-tece { from { transform: scaleX(0); } }
+[data-al="2"] .tear-fios { display: grid; gap: 10px; list-style: none; margin: 12px 0 0; padding: 0; }
+[data-al="2"] .tear-fio { position: relative; display: grid; gap: 6px; padding: 10px 12px 10px 22px; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); }
+[data-al="2"] .tear-linha { position: absolute; left: 9px; top: 10px; bottom: 10px; width: 4px; border-radius: 2px; background: var(--al-texto-3); transform-origin: top; }
+[data-al="2"] .tear-fio[data-estado="cumprido"] .tear-linha { background: var(--al-faixa); }
+[data-al="2"] .tear-fio[data-tecido] .tear-linha { animation: tear-agulha 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes tear-agulha { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+[data-al="2"] .tear-fio[data-estado="vencido"] .tear-linha { background: var(--al-dourado); animation: tear-solto 2.4s ease-in-out infinite; transform-origin: top center; }
+@keyframes tear-solto { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(7deg); } }
+[data-al="2"] .tear-texto { font-weight: 700; overflow-wrap: anywhere; }
+[data-al="2"] .tear-fio[data-estado="cumprido"] .tear-texto { color: var(--al-texto-2); }
+[data-al="2"] .tear-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.8rem; color: var(--al-texto-3); }
+[data-al="2"] .tear-selo { font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.7rem; color: var(--al-texto); }
+[data-al="2"] .tear-fio[data-estado="vencido"] .tear-selo { color: var(--al-dourado); }
+[data-al="2"] .tear-acoes { display: flex; flex-wrap: wrap; gap: 6px; }
+[data-al="2"] :is(.tear-novo, .lampiao-form) :is(label, fieldset) { display: grid; gap: 4px; margin-top: 10px; font-weight: 700; font-size: 0.88rem; border: 0; padding: 0; }
+[data-al="2"] :is(.tear-novo, .lampiao-form) small { font-weight: 500; color: var(--al-texto-3); }
+[data-al="2"] :is(.tear-novo, .lampiao-form) :is(input[type="text"], input[type="date"], textarea) { min-height: 44px; padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-weight: 500; }
+[data-al="2"] .tear-novo { margin-top: 12px; }
+[data-al="2"] .tear-novo summary { cursor: pointer; font-weight: 800; min-height: 44px; display: flex; align-items: center; }
+[data-al="2"] .tear-novo button[type="submit"] { margin-top: 12px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.tear-fio[data-estado="cumprido"] .tear-linha, .tear-faixa span) { background: var(--al-texto); }
+
+[data-al="2"] .lampiao-topo { display: flex; gap: 12px; align-items: flex-start; }
+[data-al="2"] .lampiao-luz { flex: none; filter: grayscale(1) brightness(0.6); transition: filter 0.8s; }
+[data-al="2"] .lampiao[data-aceso] .lampiao-luz { filter: none; animation: lampiao-brilha 2.6s ease-in-out infinite; }
+@keyframes lampiao-brilha { 0%, 100% { filter: drop-shadow(0 0 4px var(--al-dourado)); } 50% { filter: drop-shadow(0 0 14px var(--al-dourado)); } }
+[data-al="2"] .lampiao-aceso { margin: 10px 0 0; font-weight: 800; color: var(--al-dourado); }
+[data-al="2"] .lampiao-passos { display: flex; gap: 6px; list-style: none; margin: 8px 0 0; padding: 0; }
+[data-al="2"] .lampiao-passos li { flex: 1; height: 6px; border-radius: 3px; background: var(--al-superficie-2); transition: background-color 0.4s; }
+[data-al="2"] .lampiao-passos li > span:first-child { display: none; }
+[data-al="2"] .lampiao-passos li[data-feito] { background: var(--al-dourado); }
+[data-al="2"] .lampiao-passos li[aria-current="step"] { background: linear-gradient(90deg, var(--al-dourado), var(--al-vermelho)); }
+[data-al="2"] .lampiao-passo-nome { margin: 8px 0 0; font-size: 0.85rem; color: var(--al-texto-3); }
+[data-al="2"] .lampiao-corpo { animation: lampiao-entra 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes lampiao-entra { from { opacity: 0; transform: translateX(10px); } }
+[data-al="2"] .lampiao-botoes { display: flex; gap: 8px; margin-top: 14px; }
+[data-al="2"] .lampiao-cores { display: flex !important; flex-wrap: wrap; gap: 8px; }
+[data-al="2"] .lampiao-cores legend { margin-bottom: 6px; }
+[data-al="2"] .lampiao-cores label { margin: 0 !important; width: 36px; height: 36px; border-radius: 50%; background: var(--c); cursor: pointer; position: relative; }
+[data-al="2"] .lampiao-cores input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+[data-al="2"] .lampiao-cores label:has(input:checked) { box-shadow: 0 0 0 3px var(--al-fundo), 0 0 0 5px var(--al-texto); }
+[data-al="2"] .lampiao-cores label:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 4px; }
+[data-al="2"] .lampiao-cartaz { display: grid; gap: 4px; margin-top: 10px; padding: 16px; border-radius: 12px; background: #f3efe6; color: #0f0e0d; border-top: 8px solid var(--c); }
+[data-al="2"] .lampiao-cartaz strong { font-size: 1.8rem; line-height: 1; }
+[data-al="2"] .lampiao-cartaz .al-perfil-nota { color: #5c554d; }

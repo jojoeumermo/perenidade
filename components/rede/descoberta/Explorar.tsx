@@ -1,21 +1,27 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "@/components/Link";
+import { conversa } from "@/lib/rede/cliente-conversa";
 import { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaDescoberta } from "@/lib/rede/textos-descoberta";
 import { enderecos } from "@/lib/rede/tipos";
+import { corDaComunidadeNova } from "@/lib/rede/tipos-comunidades";
 import { ORDENS, enderecosDescoberta, type Explorar as DadosDoExplorar, type Ordem, type PacoteDePessoas } from "@/lib/rede/tipos-descoberta";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { FaixaDaPrevia, IconeBusca, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { PassoEscolhas } from "./PassoEscolhas";
+import { descobertaDaPrevia } from "./previa";
 import { useTextosDescoberta } from "./textos";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 const botao = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-bold hover:bg-parchment-deep disabled:opacity-50";
 
@@ -84,7 +90,7 @@ function Pacote({ lang, slug, titulo, descricao, pessoas, d, s }: { lang: string
 }
 
 /**
- * Explorar (/comunidade/explorar): comunidades, linhas temáticas com a regra pública, pacotes de pessoas para seguir e as hashtags da
+ * Explorar (/alumia/explorar): comunidades, linhas temáticas com a regra pública, pacotes de pessoas para seguir e as hashtags da
  * semana. Com ?linha=<slug> mostra a linha temática, com a ordenação escrita. Nada aqui é "para você": é o mesmo para quem tem a mesma permissão.
  */
 export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoPacote) {
@@ -93,10 +99,27 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
   const [versao, setVersao] = useState(0);
   const [estado, setEstado] = useState<{ versao: number; dados: DadosDoExplorar | null; erro: string } | null>(null);
   const [editando, setEditando] = useState(false);
+  const t = useTextosAlumia3(lang);
+  const torradas = useTorrada();
+  // Os #temas que a própria pessoa segue (20261110-alumia-comunidade.sql): só ela vê. Banco sem a migração: a faixa não aparece.
+  const [minhasTags, setMinhasTags] = useState<string[]>(() => (previa() ? ["tarifazero", "moradiadigna"] : []));
+  const fonte = previa() ? descobertaDaPrevia : redeDescoberta;
+
+  useEffect(() => {
+    if (previa() || !situacao.logado) return;
+    let vivo = true;
+    conversa
+      .tagsSeguidas()
+      .then((r) => vivo && setMinhasTags(r.tags))
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [situacao.logado]);
 
   useEffect(() => {
     let vivo = true;
-    redeDescoberta
+    (previa() ? descobertaDaPrevia : redeDescoberta)
       .explorar()
       .then((dados) => vivo && setEstado({ versao, dados, erro: "" }))
       .catch((x) => vivo && setEstado({ versao, dados: null, erro: textoDoErro(s, x) }));
@@ -105,7 +128,7 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
     };
   }, [versao, s]);
 
-  if (!d || estado?.versao !== versao) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={4} />;
+  if (!d || !t || estado?.versao !== versao) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={4} />;
   if (!estado.dados) {
     return (
       <div className="px-[18px] py-6 font-sans" role="alert">
@@ -121,21 +144,35 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
   const linha = x.linhas.find((l) => l.slug === linhaPedida) ?? null;
   const categorias = ["lutas", "disciplinas", "instituto"] as const;
 
+  // Ligar ou desligar "aparecer nos pacotes" muda só o botão: uma falha vira aviso flutuante e o resto do Explorar fica como está.
+  // Na prévia (sem conta), a escolha fica só nesta tela.
   async function aparecer(sim: boolean) {
+    const marcar = () =>
+      setEstado((atual) => (atual?.dados ? { ...atual, dados: { ...atual.dados, eu: { ...(atual.dados.eu ?? { passo: "pronto", regras_versao: 0 }), aparece: sim } } } : atual));
+    if (previa()) return marcar();
     try {
       await redeDescoberta.aparecer(sim);
-      setVersao((n) => n + 1);
-    } catch {
-      setEstado({ versao, dados: null, erro: d?.estados.erro ?? "" });
+      marcar();
+    } catch (erro) {
+      torradas.mostrar({ texto: textoDoErro(s, erro) || (d?.estados.erro ?? ""), erro: true });
     }
   }
 
   return (
-    <div className="font-sans">
+    <div className="al3-tela al3-explorar font-sans">
+      <FaixaDaPrevia t={t} />
       <header className="border-b border-rule px-[18px] py-4">
-        <h1 className="font-serif text-2xl font-extrabold">{e.titulo}</h1>
+        <h1 className="al3-cond al3-titulo-tela">{e.titulo}</h1>
         <p className="mt-1 text-ink-soft">{e.lead}</p>
-        {situacao.membro && x.eu?.passo !== "entrar" && (
+        {/* A busca mora aqui no celular (a aba Explorar da barra de baixo) e no topo da página no computador. */}
+        <form action={enderecosDescoberta.buscar(lang)} method="get" role="search" className="al3-buscar-form">
+          <label className="sr-only" htmlFor="al3-explorar-q">{t.descoberta.buscar}</label>
+          <span className="al3-busca">
+            <IconeBusca />
+            <input id="al3-explorar-q" name="q" type="search" maxLength={200} placeholder={t.descoberta.buscar} enterKeyHint="search" />
+          </span>
+        </form>
+        {situacao.membro && !previa() && x.eu?.passo !== "entrar" && (
           <button type="button" onClick={() => setEditando(!editando)} aria-expanded={editando} className={`${botao} mt-3`}>
             {e.mudarEscolhas}
           </button>
@@ -176,43 +213,44 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
             chave={`linha:${linha.slug}`}
             ordens={ORDENS}
             ordemInicial="novos"
-            carregar={(ordem, cursor) => redeDescoberta.linha(situacao.logado ? "tudo" : "geral", ordem as Ordem, cursor, 20, { linha: linha.slug })}
+            carregar={(ordem, cursor) => fonte.linha(situacao.logado ? "tudo" : "geral", ordem as Ordem, cursor, 20, { linha: linha.slug })}
             vazio={d.tag.vazio}
             aoResponder={aoEscrever}
           />
         </section>
       ) : (
-        <div className="space-y-6 px-[18px] py-4">
-          <section aria-labelledby="explorar-linhas">
-            <h2 id="explorar-linhas" className="font-serif text-xl font-semibold">{e.linhas}</h2>
-            <p className="text-sm text-ink-soft">{e.linhasAjuda}</p>
-            <ul className="mt-2 grid gap-2 sm:grid-cols-2">
-              {x.linhas.map((l) => (
-                <li key={l.slug} className="rounded-xl border border-rule p-3">
-                  <p className="font-bold">{l.titulo}</p>
-                  <p className="text-sm text-ink-soft">
-                    {e.regra}: {l.regra}
-                  </p>
-                  <Link href={enderecosDescoberta.explorar(lang, l.slug)} className="mt-1 inline-flex min-h-11 items-center text-sm font-bold underline">
-                    {e.ver}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
+        <div className="al3-explorar-corpo space-y-7 px-[18px] py-5">
+          {minhasTags.length > 0 && (
+            <section aria-labelledby="explorar-minhas" className="al3-entra">
+              <h2 id="explorar-minhas" className="al3-cond al3-titulo-secao">{t.descoberta.suasTags}</h2>
+              <p className="text-sm text-ink-soft">{t.descoberta.seguirTagRegra}</p>
+              <ul className="al3-fichas mt-2">
+                {minhasTags.map((tag, i) => (
+                  <li key={tag} style={{ "--i": i } as CSSProperties}>
+                    <Link href={enderecosDescoberta.tag(lang, tag)} className="al3-ficha al3-ficha-minha">
+                      <span className="font-bold">#{tag}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <section aria-labelledby="explorar-tags">
-            <h2 id="explorar-tags" className="font-serif text-xl font-semibold">{e.tags}</h2>
+            <h2 id="explorar-tags" className="al3-cond al3-titulo-secao">{e.tags}</h2>
             <p className="text-sm text-ink-soft">{e.tagsAjuda}</p>
             {x.tags.length === 0 ? (
               <p className="mt-2 text-ink-soft">{e.tagsVazio}</p>
             ) : (
-              <ul className="mt-2 flex flex-wrap gap-2">
-                {x.tags.map((t) => (
-                  <li key={t.tag}>
-                    <Link href={enderecosDescoberta.tag(lang, t.tag)} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-rule px-3 hover:border-ink">
-                      <span className="font-bold">#{t.tag}</span>
-                      <span className="text-xs text-ink-soft">{preencher(e.posts, { n: t.posts })}</span>
+              // Duas ou mais por linha também no celular; a barrinha embaixo mostra o volume da semana (relativo ao #tema maior).
+              <ul className="al3-fichas al3-fichas-volume mt-2">
+                {x.tags.map((tg, i) => (
+                  <li key={tg.tag} style={{ "--i": i, "--vol": tg.posts / Math.max(1, ...x.tags.map((z) => z.posts)) } as CSSProperties}>
+                    <Link href={enderecosDescoberta.tag(lang, tg.tag)} className="al3-ficha">
+                      <span className="font-bold">#{tg.tag}</span>
+                      <span className="al3-ficha-n" aria-hidden>{tg.posts.toLocaleString(lang)}</span>
+                      <span className="sr-only">{preencher(e.posts, { n: tg.posts })}</span>
+                      <span className="al3-ficha-barra" aria-hidden />
                     </Link>
                   </li>
                 ))}
@@ -220,9 +258,27 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
             )}
           </section>
 
+          <section aria-labelledby="explorar-linhas">
+            <h2 id="explorar-linhas" className="al3-cond al3-titulo-secao">{e.linhas}</h2>
+            <p className="text-sm text-ink-soft">{e.linhasAjuda}</p>
+            <ul className="al3-cartoes mt-2">
+              {x.linhas.map((l, i) => (
+                <li key={l.slug} style={{ "--i": i } as CSSProperties}>
+                  <Link href={enderecosDescoberta.explorar(lang, l.slug)} className="al3-cartao">
+                    <span className="al3-cartao-titulo">{l.titulo}</span>
+                    <span className="al3-cartao-regra">
+                      {e.regra}: {l.regra}
+                    </span>
+                    <span className="al3-cartao-ir" aria-hidden>→</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           {situacao.logado && (
             <section aria-labelledby="explorar-pacotes">
-              <h2 id="explorar-pacotes" className="font-serif text-xl font-semibold">{e.pacotes}</h2>
+              <h2 id="explorar-pacotes" className="al3-cond al3-titulo-secao">{e.pacotes}</h2>
               <p className="text-sm text-ink-soft">{e.pacotesAjuda}</p>
               {x.pacotes.length === 0 ? (
                 <p className="mt-2 text-ink-soft">{e.pacotesVazio}</p>
@@ -246,26 +302,36 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
           )}
 
           <section aria-labelledby="explorar-comunidades">
-            <h2 id="explorar-comunidades" className="font-serif text-xl font-semibold">{e.comunidades}</h2>
+            <h2 id="explorar-comunidades" className="al3-cond al3-titulo-secao">{e.comunidades}</h2>
             {categorias.map((cat) => {
               const lista = x.comunidades.filter((c) => c.categoria === cat);
               if (lista.length === 0) return null;
               return (
                 // Seções recolhíveis (T32, item 3): as 77 disciplinas começam fechadas, para as lutas e o Instituto aparecerem.
                 <details key={cat} open={cat !== "disciplinas"} className="group mt-3">
-                  <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
-                    <span aria-hidden className="text-[#c21f16] transition-transform group-open:rotate-90">▸</span>
+                  <summary className="al3-sumario flex min-h-11 cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+                    <span aria-hidden className="al3-sumario-seta" />
                     <h3 className="font-bold">{e.categorias[cat]}</h3>
-                    <span className="rounded-full bg-parchment-deep px-2 text-sm font-bold">{lista.length}</span>
+                    <span className="al3-sumario-n">{lista.length}</span>
                   </summary>
-                  <ul className="mt-1 grid gap-2 sm:grid-cols-2">
-                    {lista.map((c) => (
-                      <li key={c.slug} className="rounded-xl border border-rule p-3">
-                        <Link href={enderecos.comunidade(lang, c.slug)} className="font-bold hover:underline">
-                          {c.nome}
+                  <ul className="al3-cartoes mt-1">
+                    {lista.map((c, i) => (
+                      <li key={c.slug} className={`al3-cor-${corDaComunidadeNova(c.slug, c.cor)}`} style={{ "--i": i } as CSSProperties}>
+                        {/* A mini-capa: a faixa na cor da comunidade com o nome na letra condensada, como a capa dela. */}
+                        <Link href={enderecos.comunidade(lang, c.slug)} className="al3-cartao al3-minicapa">
+                          <span className="al3-minicapa-faixa">
+                            <span className="al3-minicapa-nome al3-cond">{c.nome}</span>
+                          </span>
+                          <span className="al3-minicapa-pe">
+                            {c.membro && (
+                              <span className="al3-cartao-membro">
+                                <span aria-hidden>✓ </span>
+                                {e.membro}
+                              </span>
+                            )}
+                            {c.descricao && <span className="al3-cartao-regra">{c.descricao}</span>}
+                          </span>
                         </Link>
-                        {c.membro && <span className="ml-2 text-xs text-ink-soft">{e.membro}</span>}
-                        {c.descricao && <p className="text-sm text-ink-soft">{c.descricao}</p>}
                       </li>
                     ))}
                   </ul>
@@ -275,6 +341,7 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
           </section>
         </div>
       )}
+      <Torradas estado={torradas} />
     </div>
   );
 }

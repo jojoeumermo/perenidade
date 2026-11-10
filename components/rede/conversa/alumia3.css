@@ -1,0 +1,951 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * As telas da F3 na Alumia nova (PLANO-ALUMIA §8 F3): página da comunidade, conversa, "Comunidades ativas" e o visual novo de
+ * Explorar, Buscar, Avisos, Salvos, lista de comunidades e aula. Fonte da verdade: as pranchas
+ * docs/plano-2026-11/alumia-pranchas/{celular-comunidade.png, celular-conversa-fediverso.png, computador-inicio.webp}.
+ *
+ * TUDO aqui vale só dentro de [data-al="2"] (o layout só põe isso com "rede-v2" + "alumia-2" ligadas). Com a flag desligada
+ * nenhum seletor casa com nada e a rede de hoje não muda. Cores só pelos tokens de styles/alumia-tokens.css: o alto contraste e o
+ * e-ink trocam os tokens, e o que a cor dizia passa a ser dito por borda e peso.
+ */
+
+[data-al="2"] .al3 {
+  /* A mola das pranchas (a mesma de movimento.ts): sobe rápido, passa um tico e assenta. */
+  --al3-mola: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001);
+  --al3-pulo: linear(0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1);
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  font-family: var(--al-fonte);
+}
+[data-al="2"] .al3 a { color: inherit; }
+[data-al="2"] .al3-cond {
+  font-family: var(--al-fonte);
+  font-stretch: 62%;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+[data-al="2"] .al3-cinza { color: var(--al-texto-3); }
+[data-al="2"] .al3-cinza-2 { color: var(--al-texto-2); }
+[data-al="2"] .al3-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+[data-al="2"] .al3-aviso { padding: 0.6rem 16px; font-size: 0.9rem; color: var(--al-texto-2); }
+[data-al="2"] .al3-aviso[role="alert"] { color: var(--al-vermelho); }
+[data-al="2"] .al3-previa {
+  margin: 0;
+  padding: 0.35rem 16px;
+  font-size: 0.75rem;
+  color: var(--al-sobre-dourado);
+  background: var(--al-dourado);
+}
+[data-al="2"] .al3-icone { width: 24px; height: 24px; flex: none; }
+
+/* ── Página da comunidade (prancha celular-comunidade) ─────────────────────────────────────────────────────────────── */
+[data-al="2"] .al3-capa {
+  --al3-cor: var(--al-com-1);
+  background: var(--al3-cor);
+  color: #0f0e0d;
+  padding: 0.75rem 16px 1.25rem;
+}
+[data-al="2"] .al3-capa[data-cor="2"] { --al3-cor: var(--al-com-2); }
+[data-al="2"] .al3-capa[data-cor="3"] { --al3-cor: var(--al-com-3); }
+[data-al="2"] .al3-capa[data-cor="4"] { --al3-cor: var(--al-com-4); }
+[data-al="2"] .al3-capa[data-cor="5"] { --al3-cor: var(--al-com-5); }
+[data-al="2"] .al3-capa-topo { display: flex; justify-content: space-between; align-items: center; min-height: 44px; position: relative; }
+[data-al="2"] .al3-capa-botao {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; border-radius: 999px; background: transparent; color: inherit; border: 0; cursor: pointer;
+}
+[data-al="2"] .al3-capa-botao:hover { background: rgb(15 14 13 / 0.1); }
+[data-al="2"] .al3-capa h1 { margin: 0.35rem 0 0; font-size: clamp(2.6rem, 13vw, 4.4rem); overflow-wrap: anywhere; }
+[data-al="2"] .al3-capa-descricao { margin: 0.7rem 0 0; font-size: 1.05rem; line-height: 1.45; max-width: 46rem; }
+[data-al="2"] .al3-capa-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.75rem; margin-top: 1.1rem; }
+[data-al="2"] .al3-capa-acao {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0.55rem 1.3rem; border-radius: 12px; font: inherit; font-weight: 800; font-size: 1.05rem;
+  cursor: pointer; border: 2px solid #0f0e0d; text-decoration: none; white-space: nowrap;
+}
+[data-al="2"] .al3-capa-acao-cheia { background: #0f0e0d; color: #f3efe6; }
+[data-al="2"] .al3 a.al3-capa-acao-cheia { color: #f3efe6; }
+[data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"] { background: transparent; color: #0f0e0d; }
+[data-al="2"] .al3-capa-acao-contorno { background: transparent; color: #0f0e0d; }
+[data-al="2"] .al3-capa-acao[aria-disabled="true"] { opacity: 0.6; cursor: not-allowed; }
+[data-al="2"] .al3-capa-semana { flex: 1; margin: 0; text-align: right; white-space: nowrap; font-weight: 700; font-size: 0.95rem; }
+/* A regra global "main button[aria-pressed] vira pílula" não vale aqui: na prancha, Entrar e Regras são retângulos de canto 12px. */
+[data-al="2"] main .al3-capa-acao.al3-capa-acao[aria-pressed] { border-radius: 12px; }
+@media (max-width: 560px) {
+  /* "214 posts esta semana" numa linha própria desde o começo: trocar Entrar por Participando não empurra nada. */
+  [data-al="2"] .al3-capa-semana { flex: 1 0 100%; order: 3; text-align: left; }
+}
+@media (max-width: 400px) {
+  [data-al="2"] .al3-capa-acoes { gap: 0.5rem; }
+  [data-al="2"] .al3-capa-acao { padding: 0.45rem 0.8rem; font-size: 0.95rem; }
+  [data-al="2"] .al3-capa-semana { font-size: 0.8rem; }
+}
+/* E-ink: a cor da comunidade vira preto (tokens), então a capa vira papel branco com tinta preta e uma borda embaixo. */
+:root[data-eink] [data-al="2"] .al3-capa { background: #fff; color: #000; border-bottom: 2px solid #000; }
+:root[data-eink] [data-al="2"] .al3-capa-acao { border-color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al3-capa-acao-cheia { background: var(--al-texto); color: var(--al-fundo); }
+:root[data-eink] [data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"],
+:root[data-eink] [data-al="2"] .al3-capa-acao-contorno { background: var(--al-fundo); color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al3-capa-botao:hover { background: none; outline: 2px solid var(--al-texto); }
+[data-al="2"] .al3-capa-aviso { margin: 0.6rem 0 0; font-weight: 700; font-size: 0.9rem; }
+[data-al="2"] .al3-menu {
+  position: absolute; right: 0; top: 100%; z-index: 20; min-width: 15rem; display: grid; padding: 0.35rem;
+  background: var(--al-superficie); color: var(--al-texto); border: 1px solid var(--al-superficie-2); border-radius: 12px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.45);
+}
+[data-al="2"] .al3-menu > * {
+  min-height: 44px; display: flex; align-items: center; padding: 0 0.8rem; border-radius: 8px; border: 0; background: none;
+  color: inherit; font: inherit; text-align: left; cursor: pointer; text-decoration: none;
+}
+[data-al="2"] .al3-menu > *:hover { background: var(--al-superficie-2); }
+[data-al="2"] .al3-menu[hidden] { display: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-menu { border: 2px solid var(--al-texto); box-shadow: none; }
+
+[data-al="2"] .al3-abas { display: flex; border-bottom: 1px solid var(--al-linha); background: var(--al-fundo); }
+[data-al="2"] .al3-aba {
+  flex: 1; min-height: 52px; background: none; border: 0; border-bottom: 3px solid transparent; color: var(--al-texto-3);
+  font: inherit; font-weight: 700; font-size: 1.05rem; cursor: pointer;
+}
+[data-al="2"] .al3-aba[aria-selected="true"] { color: var(--al-texto); font-weight: 800; border-bottom-color: var(--al3-cor, var(--al-com-1)); }
+[data-al="2"] .al3-aba:hover { color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aba[aria-selected="true"] { border-bottom-color: var(--al-texto); }
+
+[data-al="2"] .al3-fixado {
+  margin: 1.1rem 12px; padding: 1rem 1rem 1.1rem; border-radius: var(--al-raio); background: var(--al-superficie);
+  border: 1px solid var(--al-superficie-2);
+}
+[data-al="2"] .al3-fixado-rotulo { display: flex; align-items: center; gap: 0.45rem; margin: 0; font-weight: 800; color: var(--al3-cor, var(--al-com-1)); font-size: 0.95rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fixado-rotulo { color: var(--al-texto); text-decoration: underline; }
+[data-al="2"] .al3-fixado h2 { margin: 0.55rem 0 0; font-size: 1.2rem; font-weight: 900; }
+[data-al="2"] .al3-fixado h2 a { text-decoration: none; }
+[data-al="2"] .al3-fixado h2 a:hover { text-decoration: underline; }
+[data-al="2"] .al3-fixado p.al3-fixado-texto { margin: 0.45rem 0 0; color: var(--al-texto-2); line-height: 1.55; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fixado { border-color: var(--al-texto); }
+
+/* Post compacto (a lista da comunidade e "Salvos"). */
+[data-al="2"] .al3-comunidade { padding-bottom: 2rem; }
+@media (max-width: 767px) {
+  /* Os botões flutuantes do site (ajuda e acessibilidade) ficam no canto de baixo: a página termina acima deles. */
+  [data-al="2"] .al3-comunidade { padding-bottom: 9rem; }
+}
+[data-al="2"] .al3-post { display: grid; grid-template-columns: 40px 1fr; gap: 0 12px; padding: 1rem 16px 0.6rem; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al3-post-corpo { position: relative; min-width: 0; }
+[data-al="2"] .al3-post-mais,
+[data-al="2"] .al3-resposta-mais {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; flex: none; border: 0; border-radius: 999px; background: none;
+  color: var(--al-texto-3); cursor: pointer;
+}
+[data-al="2"] .al3-post-mais { position: absolute; top: -0.55rem; right: -0.5rem; }
+[data-al="2"] :is(.al3-post-mais, .al3-resposta-mais) .al3-icone { width: 20px; height: 20px; }
+[data-al="2"] :is(.al3-post-mais, .al3-resposta-mais):hover,
+[data-al="2"] :is(.al3-post-mais, .al3-resposta-mais)[aria-expanded="true"] { color: var(--al-texto); background: var(--al-superficie); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-post-mais, .al3-resposta-mais)[aria-expanded="true"] { outline: 2px solid var(--al-texto); }
+[data-al="2"] .al3-post-cuidado { display: flex; flex-wrap: wrap; gap: 0 0.4rem; margin: 0 0 0.4rem -0.5rem; background: none; }
+[data-al="2"] .al3-post-cuidado[hidden] { display: none; }
+[data-al="2"] .al3-post-cabeca { padding-right: 2rem; }
+/* Uma linha só, como na prancha: o nome não quebra, o @ encolhe com reticências e "· 20 min" fica grudado no fim. */
+[data-al="2"] .al3-post-cabeca { margin: 0; display: flex; flex-wrap: nowrap; align-items: baseline; gap: 0 0.35rem; font-size: 0.98rem; line-height: 1.35; min-width: 0; }
+[data-al="2"] .al3-post-cabeca .al3-nome { flex: 0 0 auto; max-width: 68%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* O @ (ou "organização verificada") é o que encolhe primeiro; abaixo de 4 letras ele sai e fica nome e tempo. */
+[data-al="2"] .al3-post-quem { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-al="2"] .al3-post-tempo { flex: none; white-space: nowrap; }
+[data-al="2"] .al3-nome { font-weight: 800; color: var(--al-texto); text-decoration: none; }
+[data-al="2"] a.al3-nome:hover { text-decoration: underline; }
+[data-al="2"] .al3-post-texto { margin: 0.3rem 0 0; font-size: 1.05rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+[data-al="2"] .al3-post-texto a { text-decoration: none; }
+[data-al="2"] .al3-post-texto a:hover { text-decoration: underline; }
+[data-al="2"] .al3-post-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.4rem; margin: 0.25rem 0 0 -0.5rem; }
+[data-al="2"] .al3-acao {
+  min-height: 44px; padding: 0 0.5rem; border: 0; border-radius: 8px; background: none; color: var(--al-texto-3); font: inherit;
+  font-size: 0.98rem; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;
+}
+[data-al="2"] .al3-acao:hover { color: var(--al-texto); background: var(--al-superficie); }
+[data-al="2"] .al3-acao[aria-pressed="true"] { color: var(--al-vermelho); font-weight: 700; }
+[data-al="2"] .al3-acao:disabled { opacity: 0.55; cursor: not-allowed; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-acao[aria-pressed="true"] { color: var(--al-texto); text-decoration: underline; text-decoration-thickness: 2px; }
+[data-al="2"] .al3-mais { display: flex; justify-content: center; padding: 1rem 16px 1.5rem; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al3-vazio { padding: 1.5rem 16px; color: var(--al-texto-3); }
+
+/* Abas Aulas e Sobre. */
+[data-al="2"] .al3-secao { padding: 1.1rem 16px; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al3-secao:first-child { border-top: 0; }
+[data-al="2"] .al3-secao h2 { margin: 0 0 0.6rem; font-size: 1.6rem; }
+[data-al="2"] .al3-regras { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.75rem; counter-reset: regra; }
+[data-al="2"] .al3-regras li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.6rem; counter-increment: regra; }
+[data-al="2"] .al3-regras li::before {
+  content: counter(regra); font-stretch: 62%; font-weight: 900; font-size: 1.6rem; line-height: 1; color: var(--al3-cor, var(--al-com-1));
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-regras li::before { color: var(--al-texto); }
+[data-al="2"] .al3-etiquetas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al3-falar { margin-top: 0.8rem; color: var(--al-texto); border-color: var(--al-texto); background: transparent; }
+[data-al="2"] .al3-falar-form { margin-top: 0.8rem; }
+[data-al="2"] .al3-etiquetas li { padding: 0.15rem 0.6rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); font-size: 0.85rem; }
+
+/* Cartão de aula ("O que é mais-valia · aula do Instituto Lúcia · Marxismo"): azul da prancha. */
+[data-al="2"] .al3-aula {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.9rem; margin-top: 0.9rem; padding: 0.95rem 1rem;
+  border-radius: var(--al-raio); text-decoration: none;
+  background: color-mix(in srgb, var(--al-com-4) 22%, var(--al-fundo));
+  border: 1px solid color-mix(in srgb, var(--al-com-4) 55%, var(--al-fundo));
+}
+[data-al="2"] .al3-aula:hover { border-color: var(--al-com-4); }
+[data-al="2"] .al3-aula-icone {
+  width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; background: var(--al-com-4); color: #0f0e0d;
+}
+[data-al="2"] .al3-aula-titulo { display: block; font-weight: 900; font-size: 1.1rem; }
+[data-al="2"] .al3-aula-de { display: block; margin-top: 0.15rem; color: color-mix(in srgb, var(--al-com-4) 45%, var(--al-texto)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula { background: var(--al-fundo); border: 2px solid var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula-icone { background: var(--al-texto); color: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula-de { color: var(--al-texto); }
+[data-al="2"] .al3-aulas { display: grid; gap: 0.6rem; }
+/* Os cartões de /comunidades com a cor da comunidade: a faixa no alto, como a capa dela, e a borda acende ao passar. */
+[data-al="2"] .al3-vitrine-cartao { position: relative; overflow: hidden; padding-top: 1.35rem; transition: border-color 0.2s, transform 0.2s; }
+[data-al="2"] .al3-vitrine-cartao::before { content: ""; position: absolute; inset: 0 0 auto; height: 6px; background: var(--al3-cor); }
+[data-al="2"] .al3-vitrine-cartao:hover, [data-al="2"] .al3-vitrine-cartao:focus-within { border-color: var(--al3-cor); }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-vitrine-cartao:hover { transform: translateY(-2px); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-vitrine-cartao::before { background: var(--al-texto); }
+[data-al="2"] .al3-aulas .al3-aula { margin-top: 0; }
+/* A aula com o atalho para a conversa dela: o atalho encaixa embaixo do cartão, como uma aba presa nele. */
+[data-al="2"] .al3-aula-com-conversa .al3-aula { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+[data-al="2"] .al3-aula-discutir {
+  display: flex; align-items: center; justify-content: flex-end; gap: 0.25rem; min-height: 44px; padding: 0 1rem;
+  border: 1px solid color-mix(in srgb, var(--al-com-4) 45%, transparent); border-top: 0; border-radius: 0 0 var(--al-raio) var(--al-raio);
+  font-weight: 800; font-size: 0.95rem; color: var(--al-texto); background: color-mix(in srgb, var(--al-com-4) 10%, transparent);
+  transition: background 0.2s;
+}
+[data-al="2"] .al3-aula-discutir:hover { background: color-mix(in srgb, var(--al-com-4) 22%, transparent); }
+[data-al="2"] .al3-aula-discutir span { transition: transform 0.2s; }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-aula-discutir:hover span { transform: translateX(3px); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aula-discutir { background: var(--al-fundo); border: 2px solid var(--al-texto); border-top: 0; }
+
+/* ── Conversa (prancha celular-conversa-fediverso) ─────────────────────────────────────────────────────────────────── */
+[data-al="2"] .al3-conversa { padding-bottom: 6.5rem; }
+[data-al="2"] .al3-barra {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 16px; border-bottom: 1px solid var(--al-linha); min-height: 64px;
+}
+[data-al="2"] .al3-barra h1 { margin: 0; font-size: 2.1rem; }
+[data-al="2"] .al3-barra-conta { margin: 0 0 0 auto; color: var(--al-texto-3); font-size: 1rem; }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-barra-conta { animation: al3-entra 0.35s var(--al3-mola) backwards; } }
+[data-al="2"] .al3-voltar {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; border-radius: 999px; color: var(--al-texto);
+}
+[data-al="2"] .al3-voltar:hover { background: var(--al-superficie); }
+[data-al="2"] .al3-raiz { padding: 1.1rem 16px 1.1rem; border-bottom: 1px solid var(--al-linha); margin: 0 0; }
+[data-al="2"] .al3-raiz-autor { display: flex; align-items: center; gap: 0.75rem; }
+[data-al="2"] .al3-raiz-autor p { margin: 0; line-height: 1.3; }
+[data-al="2"] .al3-raiz-nome { font-size: 1.2rem; }
+[data-al="2"] .al3-raiz-texto { margin: 0.9rem 0 0; font-size: 1.28rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* As ações do post aberto: uma linha discreta logo abaixo (a prancha não desenha; elas existem e não empurram o fio). */
+[data-al="2"] .al3-raiz-acoes { margin-top: 0.4rem; }
+[data-al="2"] .al3-raiz-acoes .al3-acao { font-size: 0.92rem; }
+/* Reações com emoji (só o total, nunca quem): pílulas discretas abaixo do post aberto; a minha com borda dourada. */
+[data-al="2"] .al3-reacoes-bloco { margin-top: 0.9rem; }
+[data-al="2"] .al3-reacoes { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+[data-al="2"] .al3-reacao {
+  min-height: 44px; padding: 0 0.8rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie);
+  color: var(--al-texto); font: inherit; font-size: 0.92rem; cursor: pointer; display: inline-flex; gap: 0.35rem; align-items: center;
+}
+[data-al="2"] .al3-reacao[aria-pressed="true"] { border-color: var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 16%, var(--al-superficie)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-reacao { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-reacao[aria-pressed="true"] { border-width: 2px; font-weight: 800; }
+[data-al="2"] .al3-reacao:disabled { cursor: not-allowed; opacity: 0.6; }
+[data-al="2"] .al3-paleta:not([hidden]) {
+  display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.4rem; padding: 0.35rem; border-radius: 12px;
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2);
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-paleta { border-color: var(--al-texto); }
+[data-al="2"] .al3-paleta button { min-width: 44px; min-height: 44px; font-size: 1.3rem; border-radius: 10px; border: 0; background: none; cursor: pointer; }
+[data-al="2"] .al3-paleta button:hover { background: var(--al-superficie-2); }
+[data-al="2"] .al3-raiz-titulo { margin: 0.9rem 0 0; font-size: 1.4rem; font-weight: 900; }
+[data-al="2"] .al3-regra { margin: 0.4rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
+
+[data-al="2"] .al3-ordem { display: flex; gap: 0.6rem; padding: 1.1rem 16px 0.6rem; }
+[data-al="2"] .al3-ordem button {
+  min-height: 44px; padding: 0 1.1rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: transparent;
+  color: var(--al-texto-2); font: inherit; font-weight: 800; font-size: 1rem; cursor: pointer;
+}
+[data-al="2"] .al3-ordem button[aria-pressed="true"] { background: var(--al-cartao-aceso); border-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+:root[data-eink] [data-al="2"] .al3-ordem button[aria-pressed="true"] { background: #000; color: #fff; border-color: #000; }
+
+/*
+ * O fio em árvore (prancha: a linha cinza que desce do rosto de quem respondeu até as respostas a ela). Cada resposta é uma grade
+ * [rosto | corpo] e, embaixo, a lista das respostas a ela. A linha do rosto (.al3-fio-linha) estica até o fim da própria resposta;
+ * na lista de baixo, cada filha tem um cotovelo arredondado que sai do fio e chega no rosto dela, e as filhas que não são a última
+ * levam o fio adiante. As linhas se desenham de cima para baixo quando a conversa abre (mola), uma depois da outra.
+ */
+[data-al="2"] .al3-fio,
+[data-al="2"] .al3-filhos { list-style: none; margin: 0; padding: 0; }
+[data-al="2"] .al3-fio { padding: 0.4rem 16px 0.5rem; }
+[data-al="2"] .al3-resposta {
+  --al3-recuo: 42px; --al3-rosto: 32px; --al3-topo: 0.7rem;
+  position: relative; display: grid; grid-template-columns: var(--al3-rosto) minmax(0, 1fr); gap: 0 12px; padding-top: var(--al3-topo);
+}
+[data-al="2"] .al3-resposta-lado { display: flex; flex-direction: column; align-items: center; align-self: stretch; }
+[data-al="2"] .al3-fio-linha {
+  flex: 1; width: 2px; margin-top: 6px; min-height: 0.75rem; border-radius: 2px; background: var(--al-superficie-2);
+  transform-origin: top;
+}
+[data-al="2"] .al3-resposta-corpo { min-width: 0; padding-bottom: 0.55rem; }
+[data-al="2"] .al3-ramo { grid-column: 1 / -1; display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.42s var(--al3-mola), opacity 0.3s; }
+[data-al="2"] .al3-ramo > .al3-filhos { overflow: hidden; min-height: 0; }
+[data-al="2"] .al3-ramo[data-recolhido="sim"] { grid-template-rows: 0fr; opacity: 0; }
+/* As filhas ficam recuadas até o rosto delas; o fio (borda) passa no meio do rosto da mãe. */
+[data-al="2"] .al3-filhos { margin-left: calc(var(--al3-rosto) / 2 - 1px); padding-left: calc(var(--al3-recuo) - var(--al3-rosto) / 2 + 1px); }
+[data-al="2"] .al3-filhos > .al3-resposta::before {
+  /* O cotovelo: desce do fio da mãe e faz a curva até o rosto da filha. */
+  content: ""; position: absolute; left: calc(-1 * (var(--al3-recuo) - var(--al3-rosto) / 2 + 1px)); top: 0;
+  width: calc(var(--al3-recuo) - var(--al3-rosto) / 2 - 3px); height: calc(var(--al3-topo) + var(--al3-rosto) / 2);
+  border-left: 2px solid var(--al-superficie-2); border-bottom: 2px solid var(--al-superficie-2); border-bottom-left-radius: 14px;
+}
+[data-al="2"] .al3-filhos > .al3-resposta:not(:last-child)::after {
+  /* As irmãs de baixo ainda precisam do fio: ele continua por esta resposta até a próxima. */
+  content: ""; position: absolute; left: calc(-1 * (var(--al3-recuo) - var(--al3-rosto) / 2 + 1px)); top: 0; bottom: 0; width: 2px;
+  background: var(--al-superficie-2);
+}
+/* Do 4º nível em diante a conversa para de andar para a direita (no celular viraria escada): a filha fica logo abaixo, sem cotovelo. */
+[data-al="2"] .al3-filhos-raso { margin-left: 0; padding-left: 0; }
+[data-al="2"] .al3-filhos-raso > .al3-resposta::before,
+[data-al="2"] .al3-filhos-raso > .al3-resposta::after { display: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fio-linha,
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-filhos > .al3-resposta::after { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-filhos > .al3-resposta::before { border-color: var(--al-texto); }
+/* A resposta que vai receber a resposta (Responder): uma faixa dourada à esquerda e um brilho que acende e assenta. */
+[data-al="2"] .al3-resposta[data-alvo="sim"] > .al3-resposta-corpo { box-shadow: inset 3px 0 0 var(--al-dourado); padding-left: 10px; margin-left: -10px; border-radius: 4px; }
+[data-al="2"] .al3-resposta[data-alvo="sim"] > .al3-resposta-corpo { animation: al3-alvo 1.2s ease-out; }
+@keyframes al3-alvo { from { background: color-mix(in srgb, var(--al-dourado) 22%, transparent); } to { background: transparent; } }
+/* "Recolher N respostas": a seta gira; o ramo fecha e abre deslizando (grade de 1fr a 0fr), sem pulo. */
+[data-al="2"] .al3-recolher {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 36px; margin: 0 0 0 -0.4rem; padding: 0 0.4rem; border: 0; border-radius: 8px;
+  background: none; color: var(--al-texto-3); font: inherit; font-size: 0.86rem; font-weight: 700; cursor: pointer;
+}
+[data-al="2"] .al3-recolher:hover { color: var(--al-texto); background: var(--al-superficie); }
+[data-al="2"] .al3-recolher-seta {
+  width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform 0.35s var(--al3-mola);
+}
+[data-al="2"] .al3-recolher[aria-expanded="false"] .al3-recolher-seta { transform: rotate(-45deg); }
+[data-al="2"] .al3-resposta-silenciada .al3-silenciada { padding: 0.2rem 0 0.6rem; }
+[data-al="2"] .al3-resposta-topo { display: flex; align-items: flex-start; gap: 0.25rem; margin-top: -0.35rem; }
+[data-al="2"] .al3-resposta-topo .al3-resposta-mais { margin: -0.1rem -0.6rem 0 auto; }
+[data-al="2"] .al3-resposta-cabeca { flex: 1; min-width: 0; margin: 0.35rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 0.45rem; font-size: 1.02rem; }
+@media (max-width: 400px) {
+  [data-al="2"] .al3-resposta-cabeca { gap: 0.1rem 0.3rem; font-size: 0.98rem; }
+  [data-al="2"] .al3-resposta-cabeca .al3-arroba { font-size: 0.88rem; }
+  [data-al="2"] .al3-ajudou { font-size: 0.78rem; padding: 0.05rem 0.45rem; }
+  [data-al="2"] .al3-post-cabeca { gap: 0 0.3rem; }
+  [data-al="2"] .al3-post-cabeca .al3-cinza { font-size: 0.9rem; }
+}
+[data-al="2"] .al3-resposta-texto { margin: 0.3rem 0 0; font-size: 1.05rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--al-texto-2); }
+[data-al="2"] .al3-ajudou {
+  display: inline-flex; align-items: center; padding: 0.08rem 0.6rem; border-radius: 999px; background: var(--al-dourado);
+  color: var(--al-sobre-dourado); font-weight: 800; font-size: 0.85rem;
+}
+[data-al="2"] .al3-servidor {
+  display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.35rem; padding: 0.12rem 0.65rem; border-radius: 999px;
+  border: 1px solid var(--al-superficie-2); font-weight: 700; font-size: 0.85rem; color: var(--al-texto-2);
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-servidor { border-color: var(--al-texto); }
+/* A gaveta das ações da resposta: abre deslizando (grade 0fr → 1fr), sem empurrar o fio de uma vez. Fechada, fica inerte. */
+[data-al="2"] .al3-gaveta { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.38s var(--al3-mola), opacity 0.25s; }
+[data-al="2"] .al3-gaveta[data-aberta="sim"] { grid-template-rows: 1fr; opacity: 1; }
+[data-al="2"] .al3-gaveta > * { overflow: hidden; min-height: 0; }
+[data-al="2"] .al3-resposta-acoes { display: flex; flex-wrap: wrap; gap: 0 0.25rem; margin: 0.15rem 0 0 -0.5rem; }
+[data-al="2"] .al3-gaveta[data-aberta="nao"] .al3-resposta-acoes { visibility: hidden; transition: visibility 0s 0.38s; }
+[data-al="2"] .al3-silenciada { margin: 0; padding: 0.7rem 16px; color: var(--al-texto-3); font-size: 0.92rem; }
+
+/* A caixa "Responder para @…" fixa embaixo (no celular fica acima da barra da casca, que vai até 767 px). */
+[data-al="2"] .al3-responder {
+  position: sticky; bottom: 0; z-index: 10; display: grid; grid-template-columns: 1fr auto; gap: 0.6rem; align-items: end;
+  padding: 0.75rem 12px calc(0.75rem + env(safe-area-inset-bottom, 0px)); background: var(--al-fundo); border-top: 1px solid var(--al-linha);
+}
+[data-al="2"] .al3-responder textarea {
+  display: block; width: 100%; min-height: 52px; max-height: 40vh; resize: none; overflow-y: auto; field-sizing: content; padding: 0.85rem 1.1rem; border-radius: 16px;
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto); font: inherit; font-size: 1.05rem;
+}
+[data-al="2"] .al3-responder textarea::placeholder { color: var(--al-texto-3); opacity: 1; }
+[data-al="2"] .al3-enviar {
+  width: 56px; height: 52px; border-radius: 14px; border: 0; background: var(--al-vermelho); color: var(--al-sobre-vermelho);
+  display: grid; place-items: center; cursor: pointer;
+}
+@media (max-width: 767px) {
+  /* No celular a caixa fica presa embaixo da tela o tempo todo (sticky soltava no fim da página e os flutuantes cobriam o enviar);
+     o bloco que a contém ganha um respiro embaixo para a última resposta não ficar escondida atrás dela. */
+  [data-al="2"] .al3-responder { position: fixed; inset-inline: 0; }
+  [data-al="2"] :has(> .al3-responder) { padding-bottom: 7rem; }
+  /* O mesmo respiro no fim da página: o rodapé (idiomas) também não fica atrás da caixa. */
+  :root:has([data-al="2"] .al3-responder) body::after { content: ""; display: block; height: 6rem; }
+  /* Dentro da casca, a caixa fica logo acima da barra de baixo do celular (4.5rem). */
+  [data-al="2"] .rede-lucia .al3-responder { bottom: calc(4.5rem + var(--recuo-baixo, 0px)); }
+  /* A faixa entre a caixa e a barra de baixo fica com o fundo da caixa: o fio não aparece espremido ali. */
+  [data-al="2"] .rede-lucia .al3-responder::after { content: ""; position: absolute; inset-inline: 0; top: 100%; height: 1.25rem; background: inherit; }
+  /* Os botões flutuantes do site (ajuda e acessibilidade) sobem para não cobrir o enviar. */
+  :root:has([data-al="2"] .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(10.5rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al3-responder) .assistente-flutua { bottom: calc(14rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al3-responder) .botao-da-caixa { bottom: calc(17.5rem + env(safe-area-inset-bottom, 0px)); }
+  :root:has([data-al="2"] .rede-lucia .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(15rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .rede-lucia .al3-responder) .assistente-flutua { bottom: calc(18.5rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .rede-lucia .al3-responder) .botao-da-caixa { bottom: calc(22rem + env(safe-area-inset-bottom, 0px)); }
+}
+[data-al="2"] .al3-enviar:disabled { opacity: 0.55; cursor: not-allowed; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-enviar { border: 2px solid var(--al-texto); }
+[data-al="2"] .al3-responder-linha { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; align-items: center; font-size: 0.85rem; color: var(--al-texto-3); }
+[data-al="2"] .al3-responder-linha button { min-height: 32px; background: none; border: 0; color: var(--al-texto-2); text-decoration: underline; font: inherit; cursor: pointer; }
+
+/* ── Comunidades ativas (coluna direita da prancha computador-inicio) ─────────────────────────────────────────────── */
+[data-al="2"] .al3-ativas h2 { margin: 0 0 0.6rem; font-size: 1.55rem; }
+[data-al="2"] .al3-ativas ol { margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al3-ativas li + li { border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al3-ativas li a { display: grid; grid-template-columns: 30px 1fr; gap: 0 12px; align-items: center; padding: 0.7rem 0; text-decoration: none; min-height: 44px; }
+[data-al="2"] .al3-ativas li a:hover .al3-nome { text-decoration: underline; }
+[data-al="2"] .al3-anel { width: 30px; height: 30px; border-radius: 999px; border: 3px solid var(--al3-cor, var(--al-com-1)); grid-row: span 2; }
+[data-al="2"] .al3-ativas .al3-cinza { font-size: 0.85rem; }
+[data-al="2"] .al3-cor-1 { --al3-cor: var(--al-com-1); }
+[data-al="2"] .al3-cor-2 { --al3-cor: var(--al-com-2); }
+[data-al="2"] .al3-cor-3 { --al3-cor: var(--al-com-3); }
+[data-al="2"] .al3-cor-4 { --al3-cor: var(--al-com-4); }
+[data-al="2"] .al3-cor-5 { --al3-cor: var(--al-com-5); }
+
+/* Busca "na Alumia e no Fediverso" (coluna e Buscar). */
+[data-al="2"] .al3-busca { display: flex; align-items: center; gap: 0.6rem; padding: 0 0.9rem; min-height: 48px; border-radius: 12px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); }
+[data-al="2"] .al3-busca input { flex: 1; min-width: 0; min-height: 44px; background: none; border: 0; color: var(--al-texto); font: inherit; }
+[data-al="2"] .al3-busca input::placeholder { color: var(--al-texto-3); opacity: 1; }
+[data-al="2"] .al3-busca:focus-within { border-color: var(--al-foco); }
+
+/* ── O visual novo das telas que já existem (Explorar, Buscar, Avisos, Salvos, lista de comunidades, aula, propor) ────
+ * As telas guardam o HTML de hoje e ganham só a classe .al3-tela: aqui as cores de papel viram as da noite e os títulos viram
+ * a Archivo condensada das pranchas. Desligada a flag, a classe não casa com nada. */
+[data-al="2"] .al3-tela { background: var(--al-fundo); color: var(--al-texto); font-family: var(--al-fonte); }
+[data-al="2"] .al3-tela :is(.font-serif, .font-sans) { font-family: var(--al-fonte); }
+[data-al="2"] .al3-tela :is(h1, h2).font-serif {
+  font-stretch: 62%; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.95;
+}
+[data-al="2"] .al3-tela h1.font-serif { font-size: 2.1rem; }
+[data-al="2"] .al3-tela h2.font-serif { font-size: 1.5rem; }
+[data-al="2"] .al3-tela :is(.text-ink-soft, .text-ink-muted) { color: var(--al-texto-3); }
+[data-al="2"] .al3-tela :is(.text-ink, .text-black) { color: var(--al-texto); }
+[data-al="2"] .al3-tela .text-oxblood { color: var(--al-vermelho); }
+[data-al="2"] .al3-tela :is(.border-rule, .border-ink) { border-color: var(--al-linha); }
+[data-al="2"] .al3-tela :is(.bg-parchment-deep, .bg-folha, .bg-parchment, .bg-white, [class*="bg-[#f"], [class*="bg-[#e8"]) { background: var(--al-superficie); color: var(--al-texto); }
+[data-al="2"] .al3-tela :is([class*="hover:bg-parchment"]):hover { background: var(--al-superficie); }
+[data-al="2"] .al3-tela .rounded-xl.border { border-color: var(--al-superficie-2); background: var(--al-superficie); border-radius: var(--al-raio); }
+[data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"] { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); border-radius: 12px; }
+[data-al="2"] .al3-tela :is(button, a)[class*="bg-[#c21f16]"]:hover { filter: brightness(0.92); }
+[data-al="2"] .al3-tela [class*="border-b-[3px]"] { border-bottom-color: var(--al-vermelho); }
+[data-al="2"] .al3-tela :is(input, select, textarea) { background: var(--al-superficie); color: var(--al-texto); border-color: var(--al-superficie-2); }
+[data-al="2"] .al3-tela :is(input, textarea)::placeholder { color: var(--al-texto-3); opacity: 1; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-tela :is(.border-rule, .rounded-xl.border) { border-color: var(--al-texto); }
+
+/* A banca de conferência da F3 (só na prévia, /alumia/comunidades/prancha-f3): meio e coluna como na prancha do computador. */
+[data-al="2"] .al3-banca { display: grid; grid-template-columns: minmax(0, 1fr); }
+[data-al="2"] .al3-banca-coluna { display: none; }
+@media (min-width: 1024px) {
+  [data-al="2"] .al3-banca { grid-template-columns: minmax(0, 600px) 300px; justify-content: center; gap: 0 22px; }
+  [data-al="2"] .al3-banca-meio { border-inline: 1px solid var(--al-linha); }
+  [data-al="2"] .al3-banca-coluna { display: grid; align-content: start; gap: 1.6rem; padding-top: 1.2rem; }
+}
+
+/* Alto contraste e e-ink: o que era borda cinza (invisível no papel branco) vira tinta. */
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-ordem button, .al3-responder textarea, .al3-busca, .al3-etiquetas li) {
+  border-color: var(--al-texto);
+}
+[data-al="2"] .al3-regra a { text-decoration: underline; }
+
+/* ═══ Onda A · UI/UX (10/11/2026): movimento, microinterações e as funções rápidas da Onda B ═══════════════════════════════
+ * Tudo que se mexe aqui some com prefers-reduced-motion e com o modo parado do site (styles/alumia-tokens.css desliga animação e
+ * transição dentro de [data-al="2"]); o e-ink também fica parado (abaixo). As curvas são a mola de --al3-mola e --al3-pulo. */
+[data-al="2"] .al3-tela { --al3-mola: cubic-bezier(0.2, 0.9, 0.25, 1.05); --al3-pulo: cubic-bezier(0.3, 1.5, 0.5, 1); }
+@supports (transition-timing-function: linear(0, 1)) {
+  [data-al="2"] .al3-tela {
+    --al3-mola: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001);
+  }
+}
+:root[data-eink] [data-al="2"] :is(.al3, .al3-tela) *,
+:root[data-eink] [data-al="2"] :is(.al3, .al3-tela) *::before,
+:root[data-eink] [data-al="2"] :is(.al3, .al3-tela) *::after { animation: none !important; transition: none !important; }
+
+/* Entradas: o que chega sobe um pouco e aparece (aviso, linha da caixa de resposta, painel de aba). */
+@keyframes al3-entra { from { opacity: 0; transform: translateY(8px); } }
+@keyframes al3-aparece { from { opacity: 0; } }
+@keyframes al3-desenha { from { transform: scaleY(0); } }
+@keyframes al3-cotovelo { from { clip-path: inset(0 100% 100% 0); } to { clip-path: inset(0 0 0 0); } }
+[data-al="2"] .al3-entra { animation: al3-entra 0.42s var(--al3-mola) both; }
+
+/* A conversa abre em cascata: cada resposta sobe com um tico de atraso, e as linhas do fio se desenham de cima para baixo. */
+/* Só na primeira abertura (.al3-fio sem data-assentado): trocar a ordem depois usa só o FLIP, sem refazer a entrada. */
+[data-al="2"] .al3-fio:not([data-assentado]) > .al3-resposta { animation: al3-entra 0.42s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 3) * 40ms + 40ms); }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-filhos > .al3-resposta { animation: al3-entra 0.42s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 2) * 40ms + 110ms); }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-fio-linha { animation: al3-desenha 0.5s var(--al3-mola) both; animation-delay: 0.14s; }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-filhos > .al3-resposta::before { animation: al3-cotovelo 0.38s ease-out both; animation-delay: calc(min(var(--i, 0), 2) * 40ms + 0.18s); }
+[data-al="2"] .al3-fio:not([data-assentado]) .al3-filhos > .al3-resposta::after { transform-origin: top; animation: al3-desenha 0.42s var(--al3-mola) both; animation-delay: 0.2s; }
+
+/* A gaveta das ações: o recuo vai na gaveta (a lista dentro corta o que passa da borda). */
+[data-al="2"] .al3-gaveta { margin-left: -0.5rem; }
+[data-al="2"] .al3-gaveta .al3-resposta-acoes { margin-left: 0; }
+
+/* "Mais antigas / Mais novas": a pílula clara desliza até o botão escolhido (régua medida em movimento.ts). */
+[data-al="2"] .al3-ordem { position: relative; }
+[data-al="2"] .al3-ordem button { position: relative; z-index: 1; transition: color 0.25s, border-color 0.25s, transform 0.2s var(--al3-pulo); }
+[data-al="2"] .al3-ordem button:active { transform: scale(0.96); }
+[data-al="2"] .al3-regua { display: none; }
+[data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua {
+  display: block; position: absolute; z-index: 0; left: 0; top: 1.1rem; height: 44px; width: var(--al3-l); transform: translateX(var(--al3-x));
+  border-radius: 999px; background: var(--al-cartao-aceso); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+}
+[data-al="2"] .al3-ordem[data-regua="sim"] button[aria-pressed="true"] { background: transparent; border-color: transparent; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-ordem[data-regua="sim"] button[aria-pressed="true"] { color: var(--al-fundo); }
+
+/* O sininho de seguir a conversa (na barra, depois do "N respostas"): balança ao ligar. */
+[data-al="2"] .al3-sino {
+  display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; margin-right: -0.4rem; border: 0; border-radius: 999px;
+  background: none; color: var(--al-texto-3); cursor: pointer; transition: color 0.2s, background 0.2s;
+}
+[data-al="2"] .al3-sino:hover { color: var(--al-texto); background: var(--al-superficie); }
+[data-al="2"] .al3-sino[aria-pressed="true"] { color: var(--al-dourado); }
+[data-al="2"] .al3-sino[aria-pressed="true"] .al3-icone-sino { animation: al3-balanca 0.8s ease-in-out; transform-origin: 50% 12%; }
+[data-al="2"] .al3-sino-onda { animation: al3-aparece 0.4s 0.2s both; }
+@keyframes al3-balanca { 0% { transform: rotate(0); } 20% { transform: rotate(16deg); } 40% { transform: rotate(-12deg); } 60% { transform: rotate(7deg); } 80% { transform: rotate(-3deg); } 100% { transform: rotate(0); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-sino[aria-pressed="true"] { color: var(--al-texto); outline: 2px solid var(--al-texto); }
+
+/* Acender e Salvar com ícone: a chama tremula e cresce ao acender; o marcador cai no lugar ao salvar. */
+[data-al="2"] .al3-icone-acao { width: 18px; height: 18px; flex: none; }
+[data-al="2"] .al3-acao { transition: color 0.2s, background 0.2s, transform 0.18s var(--al3-pulo); }
+[data-al="2"] .al3-acao:active:not(:disabled) { transform: scale(0.94); }
+[data-al="2"] .al3-acao-acender[aria-pressed="true"] .al3-chama { animation: al3-chama 0.6s var(--al3-pulo); transform-origin: 50% 90%; }
+[data-al="2"] .al3-acao-salvar[aria-pressed="true"] { color: var(--al-dourado); }
+[data-al="2"] .al3-acao-salvar[aria-pressed="true"] .al3-marcador { animation: al3-marca 0.5s var(--al3-pulo); }
+@keyframes al3-chama { 0% { transform: scale(0.6) rotate(-8deg); } 50% { transform: scale(1.25) rotate(6deg); } 100% { transform: none; } }
+@keyframes al3-marca { from { transform: translateY(-6px) scaleY(0.6); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-acao-salvar[aria-pressed="true"] { color: var(--al-texto); }
+
+/* Reações: a pílula escolhida pula (movimento.ts), o número novo sobe no lugar do antigo e a paleta abre do botão. */
+[data-al="2"] .al3-reacao { transition: border-color 0.2s, background 0.2s, transform 0.18s var(--al3-pulo); }
+[data-al="2"] .al3-reacao:hover:not(:disabled) { border-color: var(--al-texto-3); }
+[data-al="2"] .al3-reacao:active:not(:disabled) { transform: scale(0.92); }
+[data-al="2"] .al3-reacao-emoji { font-size: 1.1rem; line-height: 1; }
+[data-al="2"] .al3-reacao-n { display: inline-block; min-width: 1ch; font-variant-numeric: tabular-nums; font-weight: 700; animation: al3-numero 0.35s var(--al3-mola); }
+@keyframes al3-numero { from { opacity: 0; transform: translateY(60%); } }
+[data-al="2"] .al3-reacao-abrir { color: var(--al-texto-2); font-weight: 700; }
+[data-al="2"] .al3-paleta:not([hidden]) { transform-origin: top left; animation: al3-paleta 0.32s var(--al3-mola); width: fit-content; box-shadow: 0 12px 30px rgb(0 0 0 / 0.35); }
+@keyframes al3-paleta { from { opacity: 0; transform: translateY(-6px) scale(0.92); } }
+[data-al="2"] .al3-paleta button { animation: al3-emoji 0.4s var(--al3-pulo) both; animation-delay: calc(var(--i, 0) * 28ms); transition: transform 0.18s var(--al3-pulo), background 0.2s; }
+[data-al="2"] .al3-paleta button:hover { transform: scale(1.25) translateY(-2px); }
+@keyframes al3-emoji { from { opacity: 0; transform: scale(0.3) translateY(6px); } }
+
+/* O selo do servidor do Fediverso: o globo gira devagar no passar do mouse (de onde a resposta veio). */
+[data-al="2"] .al3-servidor svg { transition: transform 0.8s var(--al3-mola); }
+[data-al="2"] .al3-servidor:hover svg { transform: rotate(180deg); }
+[data-al="2"] .al3-servidor { background: color-mix(in srgb, var(--al-com-4) 10%, transparent); border-color: color-mix(in srgb, var(--al-com-4) 45%, var(--al-superficie-2)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-servidor { background: none; border-color: var(--al-texto); }
+
+/* "ajudou a autora": o selo dourado entra carimbado (um pouco torto, assenta). */
+[data-al="2"] .al3-ajudou { animation: al3-carimba 0.5s var(--al3-pulo) both; }
+@keyframes al3-carimba { from { opacity: 0; transform: scale(1.6) rotate(-6deg); } }
+
+/* Citar trecho: o botão aparece logo abaixo do que foi selecionado. */
+[data-al="2"] .al3-citar-trecho {
+  position: fixed; z-index: 40; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0 1rem;
+  border: 0; border-radius: 999px; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font: inherit; font-weight: 800; cursor: pointer;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.45); animation: al3-citar 0.3s var(--al3-mola);
+}
+@keyframes al3-citar { from { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(0.9); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-citar-trecho { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); box-shadow: none; }
+[data-al="2"] .al3-citacao {
+  display: flex; align-items: center; gap: 0.45rem; flex: 1 1 100%; min-width: 0; padding: 0.35rem 0.6rem; border-radius: 10px;
+  border-left: 3px solid var(--al-dourado); background: var(--al-superficie); color: var(--al-texto-2);
+}
+[data-al="2"] .al3-citacao-texto { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-style: italic; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-citacao { border: 2px solid var(--al-texto); }
+
+/* A caixa de resposta: o enviar acende quando há texto e dá um pulo ao mandar; a contagem aparece só perto do fim. */
+[data-al="2"] .al3-responder textarea { transition: border-color 0.2s, box-shadow 0.2s; }
+[data-al="2"] .al3-responder textarea:focus { outline: none; border-color: var(--al-foco); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-foco) 25%, transparent); }
+[data-al="2"] .al3-enviar { transition: opacity 0.2s, transform 0.2s var(--al3-pulo), filter 0.2s; }
+[data-al="2"] .al3-enviar:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+[data-al="2"] .al3-enviar:not(:disabled):active { transform: scale(0.93); }
+[data-al="2"] .al3-enviar:not(:disabled) svg { animation: al3-entra 0.3s var(--al3-mola); }
+[data-al="2"] .al3-responder[data-enviando="sim"] .al3-enviar svg { animation: al3-voa 0.6s ease-in infinite; }
+@keyframes al3-voa { 50% { transform: translate(3px, -3px); opacity: 0.6; } }
+[data-al="2"] .al3-contador-visivel { position: absolute; right: calc(12px + 56px + 0.6rem + 0.8rem); bottom: calc(0.75rem + 0.4rem + env(safe-area-inset-bottom, 0px)); font-size: 0.78rem; font-weight: 700; color: var(--al-texto-3); }
+[data-al="2"] .al3-contador-visivel[data-perto="fim"] { color: var(--al-vermelho); }
+
+/* ═══ Polimento da comunidade, do Explorar, da busca, do #tema, dos Avisos e dos Salvos (10/11/2026) ═════════════════════
+ * A mesma regra: tudo para quieto com prefers-reduced-motion, com o modo parado do site e com o e-ink (acima). */
+
+/* As abas (comunidade e Avisos): a linha colorida desliza até a aba escolhida (régua de movimento.ts). */
+[data-al="2"] :is(.al3-abas, .al3-abas-regua) { position: relative; }
+[data-al="2"] .al3-abas-linha { display: none; }
+[data-al="2"] :is(.al3-abas, .al3-abas-regua)[data-regua="sim"] .al3-abas-linha {
+  display: block; position: absolute; left: 0; bottom: -1px; height: 3px; width: var(--al3-l); transform: translateX(var(--al3-x));
+  background: var(--al3-cor, var(--al-vermelho)); border-radius: 3px 3px 0 0; transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+}
+[data-al="2"] .al3-abas[data-regua="sim"] .al3-aba[aria-selected="true"] { border-bottom-color: transparent; }
+[data-al="2"] .al3-abas-regua { background: var(--al-fundo); }
+[data-al="2"] .al3-abas-regua [role="tab"] { transition: color 0.2s, background 0.2s; }
+[data-al="2"] .al3-abas-regua [role="tab"][aria-selected="true"] { color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-abas-linha { background: var(--al-texto) !important; }
+[data-al="2"] .al3-painel:not([hidden]) { animation: al3-aparece 0.22s ease-out both; }
+[data-al="2"] .al3-aba { transition: color 0.2s; }
+
+/* A capa da comunidade: o nome, a descrição e os botões entram subindo, um depois do outro. */
+/* Só na primeira visita da sessão (data-primeira, PaginaDaComunidadeAlumia): voltar à comunidade não refaz a cascata. */
+[data-al="2"] .al3-capa[data-primeira="sim"] h1 { animation: al3-entra 0.5s var(--al3-mola) both; }
+[data-al="2"] .al3-capa[data-primeira="sim"] .al3-capa-descricao { animation: al3-entra 0.5s 0.05s var(--al3-mola) both; }
+[data-al="2"] .al3-capa[data-primeira="sim"] .al3-capa-acoes { animation: al3-entra 0.5s 0.1s var(--al3-mola) both; }
+[data-al="2"] .al3-capa-acao { transition: background 0.25s, color 0.25s, transform 0.18s var(--al3-pulo); }
+[data-al="2"] .al3-capa-acao:active { transform: scale(0.95); }
+[data-al="2"] .al3-capa-acao-contorno:hover { background: rgb(15 14 13 / 0.1); }
+[data-al="2"] .al3-menu:not([hidden]) { transform-origin: top right; animation: al3-paleta 0.28s var(--al3-mola); }
+/* O alfinete do fixado assenta no lugar (a moderação fixou) e o cartão ganha a cor da comunidade de leve. */
+[data-al="2"] .al3-fixado { animation: al3-entra 0.4s var(--al3-mola) backwards; border-color: color-mix(in srgb, var(--al3-cor, var(--al-com-1)) 30%, var(--al-superficie-2)); }
+[data-al="2"] .al3-fixado-rotulo svg { animation: al3-alfinete 0.6s 0.2s var(--al3-pulo) both; transform-origin: 50% 100%; }
+@keyframes al3-alfinete { from { opacity: 0; transform: translateY(-10px) rotate(-25deg); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fixado { border-color: var(--al-texto); }
+[data-al="2"] .al3-post-entra { animation: al3-entra 0.4s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 4) * 40ms); }
+[data-al="2"] .al3-post { transition: background 0.2s; }
+[data-al="2"] .al3-post-abre { cursor: pointer; }
+[data-al="2"] .al3-post-abre :is(.al3-post-texto, .al3-post-cabeca) { cursor: auto; }
+[data-al="2"] .al3-post-abre .al3-post-texto a { cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) { [data-al="2"] .al3-post-abre:active { background: color-mix(in srgb, var(--al-superficie) 70%, transparent); } }
+@media (hover: hover) { [data-al="2"] .al3-post:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); } }
+
+/* No celular estreito, "18 respostas · Acender · Salvar" cabe numa linha, como na prancha. */
+@media (max-width: 420px) {
+  [data-al="2"] .al3-post-acoes { gap: 0; flex-wrap: nowrap; }
+  [data-al="2"] .al3-post-acoes .al3-acao { padding: 0 0.42rem; font-size: 0.94rem; gap: 0.25rem; white-space: nowrap; }
+  [data-al="2"] .al3-post-acoes .al3-icone-acao { width: 16px; height: 16px; }
+}
+
+/* Títulos das telas (Explorar, Buscar, Salvos) e das seções, na Archivo condensada das pranchas. */
+[data-al="2"] .al3-tela .al3-titulo-tela { margin: 0; font-size: clamp(2.2rem, 9vw, 3rem); animation: al3-entra 0.5s var(--al3-mola) both; }
+[data-al="2"] .al3-tela .al3-titulo-secao { margin: 0 0 0.2rem; font-size: 1.55rem; }
+[data-al="2"] .al3-buscar-form { display: flex; gap: 0.5rem; margin-top: 0.9rem; }
+[data-al="2"] .al3-buscar-form .al3-busca { flex: 1; min-width: 0; }
+[data-al="2"] .al3-tela .al3-busca input { border: 0; background: none; }
+[data-al="2"] .al3-tela .al3-busca input:focus { outline: none; }
+[data-al="2"] .al3-busca { transition: border-color 0.2s, box-shadow 0.2s; }
+[data-al="2"] .al3-busca:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-foco) 25%, transparent); }
+[data-al="2"] .al3-busca svg { color: var(--al-texto-3); }
+[data-al="2"] .al3-botao-vermelho {
+  min-height: 48px; padding: 0 1.2rem; border: 0; border-radius: 12px; background: var(--al-vermelho-texto, var(--al-vermelho)); color: var(--al-sobre-vermelho);
+  font: inherit; font-weight: 800; cursor: pointer; transition: filter 0.2s, transform 0.18s var(--al3-pulo);
+}
+[data-al="2"] .al3-botao-vermelho:hover { filter: brightness(1.08); }
+[data-al="2"] .al3-botao-vermelho:active { transform: scale(0.95); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-botao-vermelho { border: 2px solid var(--al-texto); }
+
+/* Fichas de #tema: entram em cascata e sobem um tico no passar do mouse. */
+[data-al="2"] .al3-fichas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+[data-al="2"] .al3-fichas > li { animation: al3-entra 0.36s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 5) * 30ms); }
+[data-al="2"] .al3-ficha, [data-al="2"] .al3-fichas > li > a {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 0.95rem; border-radius: 999px; text-decoration: none;
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto);
+  transition: border-color 0.2s, transform 0.2s var(--al3-pulo), background 0.2s;
+}
+[data-al="2"] .al3-ficha:hover, [data-al="2"] .al3-fichas > li > a:hover { border-color: var(--al-texto-3); transform: translateY(-2px); }
+[data-al="2"] .al3-contador { display: block; margin-top: 0.2rem; text-align: right; font-size: 0.75rem; font-variant-numeric: tabular-nums; color: var(--al-texto-3); transition: color 0.2s; }
+[data-al="2"] .al3-contador[data-falta] { color: var(--al-dourado); }
+[data-al="2"] .al3-ficha-comunidade:hover { border-color: var(--al3-cor); }
+[data-al="2"] .al3-ficha-n { font-size: 0.8rem; color: var(--al-texto-3); font-variant-numeric: tabular-nums; }
+[data-al="2"] .al3-ficha-minha { border-color: color-mix(in srgb, var(--al-dourado) 55%, transparent); background: color-mix(in srgb, var(--al-dourado) 12%, var(--al-superficie)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-ficha, .al3-fichas > li > a) { border-color: var(--al-texto); background: var(--al-fundo); }
+
+/* Cartões (linhas temáticas e comunidades): a comunidade com o anel na cor dela; o cartão sobe e a seta anda no passar do mouse. */
+[data-al="2"] .al3-cartoes { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 640px) { [data-al="2"] .al3-cartoes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+[data-al="2"] .al3-cartoes > li { animation: al3-entra 0.4s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 5) * 35ms); }
+[data-al="2"] .al3-cartao {
+  position: relative; display: grid; grid-template-columns: 1fr; gap: 0.25rem; height: 100%; padding: 0.9rem 2.4rem 0.9rem 1rem; border-radius: var(--al-raio, 14px);
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); text-decoration: none; color: var(--al-texto);
+  transition: border-color 0.2s, transform 0.25s var(--al3-mola), box-shadow 0.25s;
+}
+[data-al="2"] .al3-cartao:hover { transform: translateY(-2px); border-color: var(--al3-cor, var(--al-texto-3)); box-shadow: 0 10px 24px rgb(0 0 0 / 0.25); }
+[data-al="2"] .al3-cartao-com { grid-template-columns: 30px 1fr; column-gap: 12px; align-items: center; padding-right: 1rem; }
+[data-al="2"] .al3-cartao-com .al3-cartao-regra { grid-column: 2; }
+[data-al="2"] .al3-cartao-com .al3-anel { grid-row: span 2; transition: transform 0.4s var(--al3-pulo), background 0.3s; }
+[data-al="2"] .al3-cartao-com:hover .al3-anel { transform: scale(1.12); background: color-mix(in srgb, var(--al3-cor) 30%, transparent); }
+[data-al="2"] .al3-cartao-titulo { font-weight: 800; font-size: 1.05rem; }
+[data-al="2"] .al3-cartao-regra { font-size: 0.88rem; color: var(--al-texto-3); line-height: 1.4; }
+[data-al="2"] .al3-cartao-membro { margin-left: 0.5rem; padding: 0.05rem 0.5rem; border-radius: 999px; font-size: 0.72rem; font-weight: 800; background: var(--al3-cor); color: #0f0e0d; vertical-align: 0.1em; }
+[data-al="2"] .al3-cartao-ir { position: absolute; right: 1rem; top: 50%; translate: 0 -50%; color: var(--al-texto-3); transition: transform 0.3s var(--al3-pulo), color 0.2s; }
+[data-al="2"] .al3-cartao:hover .al3-cartao-ir { transform: translateX(4px); color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-cartao { border-color: var(--al-texto); background: var(--al-fundo); box-shadow: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-cartao-membro { background: var(--al-texto); color: var(--al-fundo); }
+[data-al="2"] .al3-sumario-seta {
+  width: 8px; height: 8px; border-right: 2px solid var(--al-vermelho); border-bottom: 2px solid var(--al-vermelho); transform: rotate(-45deg);
+  transition: transform 0.35s var(--al3-mola);
+}
+[data-al="2"] details[open] > .al3-sumario .al3-sumario-seta { transform: rotate(45deg); }
+[data-al="2"] .al3-sumario-n { min-width: 1.6rem; padding: 0 0.45rem; border-radius: 999px; background: var(--al-superficie-2); font-size: 0.82rem; font-weight: 800; text-align: center; }
+[data-al="2"] .al3-sumario h3 { margin: 0; }
+/* "Disciplinas" abre e fecha deslizando (só onde o navegador sabe animar até a altura automática). */
+@supports (interpolate-size: allow-keywords) {
+  [data-al="2"] .al3-explorar { interpolate-size: allow-keywords; }
+  [data-al="2"] .al3-explorar details::details-content { height: 0; overflow: clip; transition: height 0.4s var(--al3-mola), content-visibility 0.4s allow-discrete; }
+  [data-al="2"] .al3-explorar details[open]::details-content { height: auto; }
+}
+
+/* "Novos · Mais úteis · Sem resposta · Em debate" (e "Relevância · Novos" na busca): a pílula clara desliza até a ordem. */
+[data-al="2"] .al3-segmento { position: relative; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+[data-al="2"] .al3-segmento > button {
+  position: relative; z-index: 1; min-height: 44px; padding: 0 1rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  background: none; color: var(--al-texto-2); font: inherit; font-size: 0.92rem; font-weight: 800; cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, transform 0.18s var(--al3-pulo);
+}
+[data-al="2"] .al3-segmento > button:hover { color: var(--al-texto); border-color: var(--al-texto-3); }
+[data-al="2"] .al3-segmento > button:active { transform: scale(0.95); }
+[data-al="2"] .al3-segmento > button[aria-checked="true"] { color: var(--al-sobre-papel); border-color: transparent; background: var(--al-cartao-aceso); }
+[data-al="2"] .al3-segmento-regua { display: none; }
+[data-al="2"] .al3-segmento[data-regua="sim"] > button[aria-checked="true"] { background: transparent; }
+[data-al="2"] .al3-segmento[data-regua="sim"] .al3-segmento-regua {
+  display: block; position: absolute; z-index: 0; left: 0; top: 0; width: var(--al3-l); height: var(--al3-a, 44px); border-radius: 999px;
+  transform: translate(var(--al3-x), var(--al3-y, 0)); background: var(--al-cartao-aceso); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento > button { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento[data-regua="sim"] .al3-segmento-regua { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-segmento > button[aria-checked="true"] { color: var(--al-fundo); }
+[data-al="2"] .al3-porque[open] > p { animation: al3-entra 0.3s var(--al3-mola) both; }
+/* A lista que chega (trocar a ordem, abrir a página) sobe em cascata. */
+[data-al="2"] .al3-lista-entra > li { animation: al3-entra 0.4s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 4) * 40ms); }
+
+/* A página do #tema: o "#" na cor da casa, o tema grande, e "Seguir #tema" com o sino. */
+[data-al="2"] .al3-tag-capa { position: relative; padding: 0.8rem 16px 1.1rem; border-bottom: 1px solid var(--al-linha); }
+[data-al="2"] .al3-tag-capa .al3-voltar { margin-left: -0.5rem; }
+[data-al="2"] .al3-tag-titulo { margin: 0.2rem 0 0; font-size: clamp(2.6rem, 12vw, 4.2rem); overflow-wrap: anywhere; animation: al3-entra 0.5s var(--al3-mola) both; }
+[data-al="2"] .al3-tag-cerquilha { color: var(--al-vermelho); display: inline-block; animation: al3-carimba 0.6s 0.15s var(--al3-pulo) both; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-tag-cerquilha { color: var(--al-texto); }
+[data-al="2"] .al3-tag-regra { margin: 0.5rem 0 0; font-size: 0.92rem; color: var(--al-texto-3); }
+[data-al="2"] .al3-tag-seguir { margin-top: 0.9rem; }
+[data-al="2"] .al3-tag-aviso { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--al-texto-2); }
+[data-al="2"] .al3-tag-aviso[role="alert"] { color: var(--al-vermelho); }
+[data-al="2"] .al3-seguir {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 1.1rem; border-radius: 12px; border: 2px solid var(--al-texto);
+  background: var(--al-texto); color: var(--al-fundo); font: inherit; font-weight: 800; cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.18s var(--al3-pulo);
+}
+[data-al="2"] .al3-seguir[aria-pressed="true"] { background: transparent; color: var(--al-texto); }
+[data-al="2"] .al3-seguir[aria-pressed="true"] .al3-icone-sino { color: var(--al-dourado); animation: al3-balanca 0.8s ease-in-out; transform-origin: 50% 12%; }
+[data-al="2"] .al3-seguir:active { transform: scale(0.95); }
+[data-al="2"] .al3-seguir .al3-icone { width: 20px; height: 20px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-seguir[aria-pressed="true"] .al3-icone-sino { color: var(--al-texto); }
+
+/* Avisos: chegam em cascata; o não lido tem a faixa vermelha à esquerda (que se desenha) e o selo "novo" carimbado. */
+[data-al="2"] .al3-avisos > li { animation: al3-entra 0.38s var(--al3-mola) backwards; animation-delay: calc(min(var(--i, 0), 5) * 35ms); }
+[data-al="2"] .al3-aviso-item { position: relative; transition: background 0.3s; }
+[data-al="2"] .al3-aviso-item[data-lido="nao"] { background: color-mix(in srgb, var(--al-vermelho) 6%, transparent); }
+[data-al="2"] .al3-aviso-item[data-lido="nao"]::before {
+  content: ""; position: absolute; left: 0; top: 0.6rem; bottom: 0.6rem; width: 3px; border-radius: 0 3px 3px 0; background: var(--al-vermelho);
+  transform-origin: top; animation: al3-desenha 0.45s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 5) * 35ms + 0.12s);
+}
+[data-al="2"] .al3-aviso-novo {
+  flex: none; margin-top: 0.2rem; padding: 0 0.45rem; border-radius: 999px; background: var(--al-vermelho); color: var(--al-sobre-vermelho);
+  font-size: 0.72rem; font-weight: 800; line-height: 1.5; animation: al3-carimba 0.5s 0.25s var(--al3-pulo) both;
+}
+[data-al="2"] .al3-avisos a, [data-al="2"] .al3-avisos button { transition: background 0.2s; }
+[data-al="2"] .al3-avisos a:hover, [data-al="2"] .al3-avisos button:hover { background: var(--al-superficie); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-item[data-lido="nao"] { background: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-item[data-lido="nao"]::before { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-novo { background: var(--al-texto); color: var(--al-fundo); }
+
+/* A casca nova (.al2) tem a barra de baixo até 1023 px (lg): a caixa "Responder para @…" fica presa logo ACIMA dela, nunca atrás. */
+@media (max-width: 1023px) {
+  /* Na conversa a tela é toda dela, como na prancha celular-conversa-fediverso: a barra de baixo sai (a seta < volta) e a caixa
+     "Responder para @…" fica no rodapé, com fundo opaco até a borda da tela (sem fresta por onde o fio aparece rolando). */
+  :root:has([data-al="2"] .al2 .al3-responder) .al2-barra-baixo { display: none; }
+  [data-al="2"] .al2 .al3-responder {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 29;
+    padding-bottom: calc(0.6rem + var(--recuo-baixo, env(safe-area-inset-bottom, 0px)));
+  }
+  [data-al="2"] .al2 :has(> .al3-responder) { padding-bottom: calc(var(--al3-caixa-h, 5rem) + 1rem); }
+  /* Os avisos flutuantes ficam logo acima da caixa. */
+  :root:has([data-al="2"] .al2 .al3-responder) [data-al="2"] .al3-torradas { bottom: calc(var(--al3-caixa-h, 5rem) + 12px); }
+}
+/* ═══ Revisão 2 da área comunidade (10/11/2026) ════════════════════════════════════════════════════════════════════════ */
+
+/* Entrar / Participando: os rótulos empilhados na mesma célula (o botão já nasce com a largura do maior, nada pula). */
+[data-al="2"] .al3-rotulos { display: inline-grid; justify-items: center; }
+[data-al="2"] .al3-rotulos > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 0.4rem; visibility: hidden; }
+[data-al="2"] .al3-rotulos > span[data-vale="sim"] { visibility: visible; }
+/* Participando: papel claro com o check carimbado (a mudança se vê de longe, não só a borda). */
+[data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"] { background: #f3efe6; color: #0f0e0d; border-color: #0f0e0d; }
+[data-al="2"] .al3-check { flex: none; }
+[data-al="2"] .al3-capa-acao[aria-pressed="true"] .al3-check path { stroke-dasharray: 24; animation: al3-risca 0.45s 0.12s ease-out both; }
+@keyframes al3-risca { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
+:root[data-eink] [data-al="2"] .al3-capa-acao-cheia[aria-pressed="true"] { background: var(--al-fundo); color: var(--al-texto); }
+
+/* Avisos flutuantes (Torradas, base3.tsx): por cima de tudo, sem empurrar a página; no celular, acima da barra de baixo e da caixa. */
+[data-al="2"] .al3-torradas {
+  position: fixed; z-index: 60; left: 50%; translate: -50% 0; bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  width: max-content; max-width: min(30rem, calc(100vw - 32px)); pointer-events: none;
+}
+@media (max-width: 1023px) {
+  [data-al="2"] .al3-torradas { bottom: calc(var(--al3-baixo, 64px) + 12px + var(--recuo-baixo, 0px)); }
+}
+[data-al="2"] .al3-torrada {
+  display: flex; align-items: center; gap: 0.9rem; padding: 0.7rem 0.8rem 0.7rem 1.1rem; border-radius: 14px; pointer-events: auto;
+  background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font-weight: 700; font-size: 0.95rem;
+  box-shadow: 0 14px 34px rgb(0 0 0 / 0.45); animation: al3-torrada 0.42s var(--al3-mola, ease-out) both;
+}
+[data-al="2"] .al3-torrada[data-erro="sim"] { background: var(--al-vermelho-texto, var(--al-vermelho)); color: var(--al-sobre-vermelho); }
+[data-al="2"] .al3-torrada button {
+  min-height: 36px; padding: 0 0.7rem; border: 0; border-radius: 8px; background: rgb(0 0 0 / 0.08); color: inherit; font: inherit;
+  font-weight: 900; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+[data-al="2"] .al3-torrada button:hover { background: rgb(0 0 0 / 0.16); }
+@keyframes al3-torrada { from { opacity: 0; transform: translateY(14px) scale(0.96); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-torrada { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); box-shadow: none; }
+
+/* A pergunta antes de sair (Confirmar, base3.tsx): folha que sobe de baixo no celular, cartão no meio no computador. */
+[data-al="2"] .al3-folha {
+  margin: auto auto 0; width: 100%; max-width: 100%; padding: 0; border: 0; border-radius: 20px 20px 0 0;
+  background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte); box-shadow: 0 -12px 40px rgb(0 0 0 / 0.5);
+}
+[data-al="2"] .al3-folha[open] { animation: al3-folha 0.42s var(--al3-mola, ease-out); }
+[data-al="2"] .al3-folha::backdrop { background: rgb(0 0 0 / 0.55); animation: al3-aparece 0.25s ease-out; }
+@keyframes al3-folha { from { transform: translateY(100%); } }
+[data-al="2"] .al3-folha-corpo { padding: 1.4rem 16px calc(1.2rem + env(safe-area-inset-bottom, 0px)); }
+[data-al="2"] .al3-folha h2 { margin: 0; font-size: 2rem; }
+[data-al="2"] .al3-folha p { margin: 0.6rem 0 0; color: var(--al-texto-2); line-height: 1.5; }
+[data-al="2"] .al3-folha-botoes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1.2rem; }
+[data-al="2"] .al3-folha-botoes button { min-height: 52px; border-radius: 12px; font: inherit; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: transform 0.18s var(--al3-pulo, ease-out), filter 0.2s; }
+[data-al="2"] .al3-folha-botoes button:active { transform: scale(0.96); }
+[data-al="2"] .al3-folha-nao { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border: 2px solid var(--al-cartao-aceso); }
+[data-al="2"] .al3-folha-sim { background: transparent; color: var(--al-vermelho); border: 2px solid currentColor; }
+[data-al="2"] .al3-folha-sim:hover { filter: brightness(1.15); }
+@media (min-width: 640px) {
+  [data-al="2"] .al3-folha { margin: auto; max-width: 26rem; border-radius: 20px; }
+  [data-al="2"] .al3-folha[open] { animation: al3-paleta 0.32s var(--al3-mola, ease-out); }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-folha { border: 2px solid var(--al-texto); box-shadow: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-folha-nao { background: var(--al-texto); color: var(--al-fundo); border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-folha-sim { color: var(--al-texto); }
+
+/* Comunidade que não existe: o 404 grande, a frase e o caminho de volta. */
+[data-al="2"] .al3-nao-achou-corpo { padding: 2.5rem 16px 3rem; display: grid; justify-items: start; gap: 0.6rem; }
+[data-al="2"] .al3-nao-achou-sinal { margin: 0; font-size: clamp(5rem, 28vw, 9rem); color: var(--al-superficie-2); line-height: 0.85; }
+[data-al="2"] .al3-nao-achou h1 { margin: 0; font-size: clamp(2.2rem, 10vw, 3.2rem); }
+[data-al="2"] .al3-nao-achou-corpo p:not(.al3-nao-achou-sinal) { margin: 0; color: var(--al-texto-2); max-width: 32rem; line-height: 1.5; }
+[data-al="2"] .al3 a.al3-nao-achou-ir { margin-top: 0.8rem; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+
+/* O cartão único em listas misturadas (#tema, busca, Salvos): a ficha com o nome da comunidade e a borda na cor dela. */
+[data-al="2"] .al3-post-com { box-shadow: inset 3px 0 0 color-mix(in srgb, var(--al3-cor) 75%, transparent); }
+[data-al="2"] .al3-post-ficha {
+  display: inline-flex; align-items: center; gap: 0.4rem; max-width: calc(100% - 2.5rem); min-height: 28px; margin: -0.15rem 0 0.15rem;
+  padding: 0 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 800; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  color: color-mix(in srgb, var(--al3-cor) 70%, var(--al-texto)); background: color-mix(in srgb, var(--al3-cor) 14%, transparent);
+  transition: background 0.2s;
+}
+[data-al="2"] .al3-post-ficha:hover { background: color-mix(in srgb, var(--al3-cor) 26%, transparent); }
+[data-al="2"] .al3-post-ficha-ponto { width: 8px; height: 8px; flex: none; border-radius: 999px; background: var(--al3-cor); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-post-com { box-shadow: inset 3px 0 0 var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-post-ficha { color: var(--al-texto); background: none; border: 1px solid var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-post-ficha-ponto { background: var(--al-texto); }
+
+/* Sair da lista de Salvos: o cartão encolhe e some (grade 1fr → 0fr), sem pulo. */
+[data-al="2"] .al3-saindo { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.38s var(--al3-mola, ease-out), opacity 0.25s; }
+[data-al="2"] .al3-saindo > * { overflow: hidden; min-height: 0; }
+[data-al="2"] .al3-saindo[data-saindo="sim"] { grid-template-rows: 0fr; opacity: 0; }
+
+/* A linha "Citando…" / "Respondendo a @…" dentro da caixa: uma linha só, compacta, com o × que desfaz. */
+[data-al="2"] .al3-responder-alvo { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.3rem; min-width: 0; }
+[data-al="2"] .al3-responder-alvo .al3-citacao { flex: 1 1 auto; min-height: 32px; padding: 0.2rem 0.6rem; font-size: 0.88rem; }
+[data-al="2"] .al3-citacao-seta { color: var(--al-dourado); font-weight: 900; }
+[data-al="2"] .al3-citacao-tirar {
+  flex: none; width: 36px; height: 36px; display: grid; place-items: center; border: 0; border-radius: 999px; background: none;
+  color: var(--al-texto-2); font: inherit; font-size: 1.35rem; line-height: 1; cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+[data-al="2"] .al3-citacao-tirar:hover { background: var(--al-superficie); color: var(--al-texto); }
+[data-al="2"] .al3-responder { row-gap: 0.45rem; }
+
+/* As reações do post aberto mais baixas (o primeiro comentário aparece antes da dobra no celular) e o (i) da regra. */
+[data-al="2"] .al3-reacoes-bloco { margin-top: 0.7rem; position: relative; }
+[data-al="2"] .al3-reacao { min-height: 36px; padding: 0 0.7rem; font-size: 0.88rem; }
+[data-al="2"] .al3-info {
+  width: 32px; height: 32px; display: inline-grid; place-items: center; border-radius: 999px; border: 1.5px solid var(--al-superficie-2);
+  background: none; color: var(--al-texto-3); font: inherit; font-weight: 900; font-style: italic; font-family: Georgia, serif; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+[data-al="2"] .al3-info:hover, [data-al="2"] .al3-info[aria-expanded="true"] { color: var(--al-texto); border-color: var(--al-texto-3); }
+[data-al="2"] .al3-regra-pop:not([hidden]) {
+  position: absolute; z-index: 15; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 0.7rem 0.9rem; border-radius: 12px;
+  background: var(--al-superficie); border: 1px solid var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.85rem; line-height: 1.45;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.4); animation: al3-paleta 0.26s var(--al3-mola) both; transform-origin: top left;
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al3-info, .al3-regra-pop) { border-color: var(--al-texto); color: var(--al-texto); box-shadow: none; }
+[data-al="2"] .al3-raiz { padding-bottom: 0.6rem; }
+[data-al="2"] .al3-raiz-acoes { margin-top: 0.15rem; }
+[data-al="2"] .al3-ordem { padding-top: 0.8rem; }
+[data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua { top: 0.8rem; }
+
+/* Responder e Acender sempre à vista em cada resposta (discretos); o "…" abre só o raro. */
+[data-al="2"] .al3-resposta-acoes-sempre { margin: 0.05rem 0 0 -0.5rem; }
+[data-al="2"] .al3-resposta-acoes-sempre .al3-acao { min-height: 40px; font-size: 0.9rem; }
+
+/*
+ * Os botões flutuantes do site no celular da Alumia: não cobrem mais o conteúdo (o "…" dos posts, o fim das linhas, o enviar).
+ * O de acessibilidade vai para a vaga que a casca deixa no alto, ao lado do sino (CascaDaAlumia2: .al2-vaga-flutua, medida em
+ * --al2-vaga-x/y), e rola junto com o cabeçalho; o painel dele abre para baixo. O do assistente das aulas sai no celular da Alumia
+ * (no computador continua). Quem arrastou o botão de acessibilidade para outro lugar (style na própria caixa) fica com o lugar
+ * que escolheu.
+ */
+@media (max-width: 1023px) {
+  :root:has([data-al="2"] .al2 .al2-vaga-flutua) .app-flutua:not([style]) {
+    position: absolute; top: var(--al2-vaga-y, 64px); left: var(--al2-vaga-x, auto); right: auto; bottom: auto; opacity: 1; pointer-events: auto;
+  }
+  :root:has([data-al="2"] .al2 .al2-vaga-flutua) .app-flutua:not([style]) > button:last-child { width: 44px; height: 44px; }
+  :root:has([data-al="2"] .al2 .al2-vaga-flutua) .app-flutua:not([style]) > [role="dialog"] { top: 3.5rem; bottom: auto; right: 0; left: auto; }
+  :root:has([data-al="2"] .al2) :is(.assistente-flutua, .voltar-ao-topo) { display: none; }
+}
+[data-al="2"] .al3-reacao-abrir { min-width: 44px; justify-content: center; padding: 0 0.6rem; }
+[data-al="2"] .al3-reacao-mais { display: inline-block; font-size: 1.25rem; font-weight: 800; line-height: 1; transition: transform 0.3s var(--al3-pulo); }
+[data-al="2"] .al3-reacao-mais[data-aberta="sim"] { transform: rotate(45deg); }
+
+/* #temas da semana com a barra de volume (Explorar): fichas lado a lado também no celular, a barrinha cresce até o volume dela. */
+[data-al="2"] .al3-fichas-volume .al3-ficha { position: relative; overflow: hidden; padding-bottom: 2px; }
+[data-al="2"] .al3-ficha-barra {
+  position: absolute; left: 0.95rem; right: 0.95rem; bottom: 6px; height: 3px; border-radius: 3px; background: var(--al-superficie-2); overflow: hidden;
+}
+[data-al="2"] .al3-ficha-barra::after {
+  content: ""; position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--vol, 0)); border-radius: inherit;
+  background: var(--al-vermelho); animation: al3-volume 0.7s 0.15s var(--al3-mola) backwards;
+}
+@keyframes al3-volume { from { transform: scaleX(0); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-ficha-barra::after { background: var(--al-texto); }
+
+/* Comunidades no Explorar como mini-capas: a faixa na cor da comunidade com o nome condensado, e o selo "✓ Você participa" embaixo. */
+[data-al="2"] .al3-minicapa { padding: 0; overflow: hidden; grid-template-rows: auto 1fr; gap: 0; }
+[data-al="2"] .al3-minicapa-faixa {
+  display: flex; align-items: flex-end; min-height: 68px; padding: 0.75rem 1rem 0.6rem; background: var(--al3-cor); color: #0f0e0d;
+  transition: filter 0.25s;
+}
+[data-al="2"] .al3-minicapa:hover .al3-minicapa-faixa { filter: brightness(1.08) saturate(1.1); }
+[data-al="2"] .al3-minicapa-nome { font-size: 1.65rem; overflow-wrap: anywhere; }
+[data-al="2"] .al3-minicapa-pe { display: grid; gap: 0.35rem; align-content: start; padding: 0.7rem 1rem 0.9rem; }
+[data-al="2"] .al3-minicapa .al3-cartao-membro { justify-self: start; margin: 0; white-space: nowrap; font-size: 0.75rem; padding: 0.1rem 0.55rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-minicapa-faixa { background: var(--al-fundo); color: var(--al-texto); border-bottom: 2px solid var(--al-texto); }
+
+/* Avisos: o rosto em mosaico de quem fez com o ícone do tipo no canto (cor por tipo); sem ninguém, só o ícone. */
+[data-al="2"] .al3-aviso-linha { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 0 12px; align-items: start; }
+[data-al="2"] .al3-aviso-rosto { position: relative; width: 40px; height: 40px; margin-top: 2px; }
+[data-al="2"] .al3-aviso-rosto-vazio { display: block; width: 40px; height: 40px; border-radius: 10px; background: var(--al-superficie-2); }
+[data-al="2"] .al3-aviso-tipo {
+  --al3-tipo: var(--al-texto-3);
+  position: absolute; right: -6px; bottom: -6px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 999px;
+  background: var(--al3-tipo); color: #0f0e0d; border: 2px solid var(--al-fundo);
+}
+[data-al="2"] .al3-aviso-rosto:has(.al3-aviso-rosto-vazio) .al3-aviso-tipo { right: 9px; bottom: 9px; transform: scale(1.25); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="resposta"] .al3-aviso-tipo { --al3-tipo: var(--al-com-1); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="mencao"] .al3-aviso-tipo { --al3-tipo: var(--al-com-4); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="citacao"] .al3-aviso-tipo { --al3-tipo: var(--al-com-5); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="apoio"] .al3-aviso-tipo { --al3-tipo: var(--al-com-3); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="seguidor"] .al3-aviso-tipo { --al3-tipo: var(--al-com-2); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="chamado"] .al3-aviso-tipo { --al3-tipo: var(--al-vermelho); color: var(--al-sobre-vermelho); }
+[data-al="2"] .al3-aviso-rosto[data-tipo="moderacao"] .al3-aviso-tipo { --al3-tipo: var(--al-dourado); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-tipo { background: var(--al-fundo); color: var(--al-texto); border-color: var(--al-texto); }
+@media (max-width: 420px) {
+  /* As reações, o "+" e o (i) numa linha só no celular estreito. */
+  [data-al="2"] .al3-reacoes { gap: 0.3rem; }
+  [data-al="2"] .al3-reacao { padding: 0 0.55rem; }
+  [data-al="2"] .al3-reacao-abrir { min-width: 40px; }
+}

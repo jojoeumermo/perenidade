@@ -182,9 +182,9 @@ export const ERROS_DA_MODERACAO = ["modo_lento", "nivel_links", "nivel_imagens",
 
 /** Endereços das telas do pacote (relativos ao idioma). */
 export const enderecosModeracao = {
-  moderacao: (lang: string) => `/${lang}/comunidade/moderacao`,
-  denuncias: (lang: string) => `/${lang}/comunidade/denuncias`,
-  silenciados: (lang: string) => `/${lang}/comunidade/silenciados`,
-  cuidado: (lang: string) => `/${lang}/comunidade/cuidado`,
+  moderacao: (lang: string) => `/${lang}/alumia/moderacao`,
+  denuncias: (lang: string) => `/${lang}/alumia/denuncias`,
+  silenciados: (lang: string) => `/${lang}/alumia/silenciados`,
+  cuidado: (lang: string) => `/${lang}/alumia/cuidado`,
   checagem: (lang: string, slug: string) => `/${lang}/checagens#${slug}`,
 } as const;

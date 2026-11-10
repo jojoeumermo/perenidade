@@ -57,7 +57,7 @@ function Lideres({ s, sm }: { s: PropsDaTelaDoPacote["s"]; sm: NonNullable<Retur
 }
 
 /**
- * O painel de moderação da Rede (/comunidade/moderacao): fila de denúncias por prioridade, posts retidos, recursos, modo lento e listas
+ * O painel de moderação da Rede (/alumia/moderacao): fila de denúncias por prioridade, posts retidos, recursos, modo lento e listas
  * de bloqueio, e a designação de líderes. Só aparece o que cabe a quem entrou: equipe que cuida, moderação de comunidade, mediação de núcleo.
  */
 export default function TelaModeracao({ lang, s, situacao, params }: PropsDaTelaDoPacote) {

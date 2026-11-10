@@ -20,7 +20,7 @@ test.beforeEach(({}, info) => {
 const UA_WEBVIEW =
   "Mozilla/5.0 (Linux; Android 14; SM-S921B Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/130.0.0.0 Mobile Safari/537.36 InstitutoLuciaApp/2";
 
-const PAGINAS = ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/laboratorios", "/pt/comunidade", "/pt/meu-estudo"];
+const PAGINAS = ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/laboratorios", "/pt/alumia", "/pt/meu-estudo"];
 
 async function rolouParaOLado(page: Page) {
   return page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

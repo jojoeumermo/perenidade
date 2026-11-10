@@ -722,6 +722,7 @@ O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente*
 | `20261108-escola-aovivo.sql` | Escola de Formação: aulas ao vivo |
 | `20261109-escola-menos-metadados.sql` | Escola: menos metadados guardados (minimização, LGPD art. 6º, III) |
 | `20261109-fediverso-total.sql` | Alumia mesclada ao Fediverso (atrás de `fediverso-total`/`fediverso-grupos`): consentimento v2, o que sai, entrada de respostas, menções, curtidas, impulsos, Flag e Block, linha mista, circuito por domínio (`docs/plano-2026-11/PLANO-FEDIVERSO.md`) |
+| `20261109-alumia-f0-contrato.sql` | Alumia nova, fundação (F0): colunas de post para ato, prazo e "como" (identidade), denúncia e avisos ampliados, identidades (`interno.rede_identidades`) e o caminho `/alumia` nos e-mails (`docs/plano-2026-11/PLANO-ALUMIA.md`) |
 
 **Migrações datadas (`AAAAMMDD-*.sql`)**: a partir de 6/11/2026 cada migração nova tem a data no nome e vai inteira para o fim do `install.sql`; os testes que conferem a ordem do fim tiram essas primeiro (`scripts/install-posteriores.mjs`). Todas podem rodar mais de uma vez.
 
@@ -761,7 +762,7 @@ Rotina que depende de segredo ou variável fica **pulada** (sem gastar minutos) 
 | --- | --- | --- |
 | Jogos (`/jogos`) | `app/[lang]/jogos/page.tsx`, `components/jogos/`, `i18n/jogos/` | `docs/jogos/PAGINA.md`, `docs/JOGOS-PROPRIOS-2.md`, `docs/RUMOS-BARALHOS.md` |
 | Vale o Escrito | `app/[lang]/vale-o-escrito/`, `components/vale-o-escrito/`, `lib/vale-o-escrito/`, `content/vale-o-escrito/`, `styles/vale-o-escrito.css`, `scripts/vale-o-escrito/` | `docs/vale-o-escrito/` |
-| Alumia (Rede v2) e Fediverso | `app/[lang]/comunidade/`, `components/rede/`, `lib/rede/`, `i18n/rede/`, `app/api/rede/`, `app/api/fediverso/`, `app/.well-known/`, `proxy.ts` (endereço próprio) | `docs/rede/` (`ALUMIA-DOMINIO.md`, `FEDIVERSO.md`) |
+| Alumia (Rede v2) e Fediverso | `app/[lang]/alumia/` (o antigo `/comunidade` redireciona), `components/rede/`, `lib/rede/`, `i18n/rede/`, `app/api/rede/`, `app/api/fediverso/`, `app/.well-known/`, `proxy.ts` (endereço próprio) | `docs/rede/` (`ALUMIA-DOMINIO.md`, `FEDIVERSO.md`) |
 | Territórios | `content/territorios.json`, `components/territorios/`, `lib/territorios-identidades.ts` | `docs/TERRITORIOS.md` |
 | Imprensa | `app/[lang]/imprensa/`, caixa no painel | `docs/backend-2.md` |
 | Laboratórios abertos de fora | `content/labs-externos/catalogo.json`, `components/labs/LabsExternos.tsx`, cópias em `public/labs/` | `docs/LABS-EXTERNOS.md` |

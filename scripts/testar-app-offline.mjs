@@ -208,9 +208,9 @@ await ok("os 6 idiomas da página 'sem conexão' têm todos os campos", async ()
 });
 await ok("rede que falha (aparelho diz que está online) com cópia guardada: usa a cópia; sem cópia, a página 'sem conexão'", async () => {
   const amb = criarAmbiente();
-  await amb.navegar("/pt/comunidade");
+  await amb.navegar("/pt/alumia");
   amb.estado.redeCaiu = true;
-  assert.equal((await amb.navegar("/pt/comunidade")).status, 200);
+  assert.equal((await amb.navegar("/pt/alumia")).status, 200);
   assert.equal((await amb.navegar("/pt/mural")).status, 503);
 });
 await ok("erro 5xx do servidor com cópia guardada: usa a cópia", async () => {
@@ -246,7 +246,7 @@ await ok("curso guardado não é apagado quando as páginas passam do limite (30
 });
 await ok("urlsDaCasca: as 5 telas das abas, só nos 6 idiomas", async () => {
   const { sw } = criarAmbiente();
-  assert.deepEqual([...sw.urlsDaCasca("pt")], ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/comunidade", "/pt/meu-estudo"]);
+  assert.deepEqual([...sw.urlsDaCasca("pt")], ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/alumia", "/pt/meu-estudo"]);
   assert.deepEqual(sw.urlsDaCasca("zh")[1], "/zh/trilhas");
   assert.deepEqual([...sw.urlsDaCasca("xx")], []);
   assert.deepEqual([...sw.urlsDaCasca("../x")], []);
@@ -255,7 +255,7 @@ await ok("as telas das abas do sw são as RAIZ_DA_ABA do aplicativo (components/
   const modo = ler("components/app/modo.ts");
   const m = /RAIZ_DA_ABA[^{]*\{([^}]*)\}/.exec(modo);
   const raizes = [...m[1].matchAll(/"([^"]*)"/g)].map((x) => x[1]).map((r) => (r === "/" ? "" : r));
-  assert.deepEqual(raizes, ["", "/trilhas", "/jogos", "/comunidade", "/meu-estudo"]);
+  assert.deepEqual(raizes, ["", "/trilhas", "/jogos", "/alumia", "/meu-estudo"]);
   assert.deepEqual([...criarAmbiente().sw.urlsDaCasca("pt")], raizes.map((r) => `/pt${r}`));
 });
 await ok("caminhoPermitido: só o próprio site, num idioma, fora do privado", async () => {
@@ -281,7 +281,7 @@ await ok("mensagem 'casca' guarda as 5 telas no cache da casca (e só o que falt
   await amb.disparar("message", { data: { tipo: "casca", lang: "pt", extras: ["/pt/trilhas/comece-aqui/aula-1"] } });
   const guardadas = urls(amb, amb.sw.CASCA);
   assert.equal(guardadas.length, 6);
-  for (const t of ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/comunidade", "/pt/meu-estudo", "/pt/trilhas/comece-aqui/aula-1"]) assert.ok(guardadas.includes(`https://lucia.test${t}`), t);
+  for (const t of ["/pt", "/pt/trilhas", "/pt/jogos", "/pt/alumia", "/pt/meu-estudo", "/pt/trilhas/comece-aqui/aula-1"]) assert.ok(guardadas.includes(`https://lucia.test${t}`), t);
   const antes = amb.chamadas.buscas.length;
   await amb.disparar("message", { data: { tipo: "casca", lang: "pt", extras: [] } });
   assert.equal(amb.chamadas.buscas.length, antes, "não baixa de novo o que já tem");
@@ -299,7 +299,7 @@ await ok("'casca' com uma tela fora do ar para na primeira falha, sem quebrar", 
   await amb.disparar("message", { data: { tipo: "casca", lang: "pt" } });
   const guardadas = urls(amb, amb.sw.CASCA);
   assert.ok(!guardadas.includes("https://lucia.test/pt/jogos"), "resposta de erro não é guardada");
-  assert.ok(guardadas.includes("https://lucia.test/pt/comunidade"));
+  assert.ok(guardadas.includes("https://lucia.test/pt/alumia"));
 });
 
 // ───── Service worker: jogos e ferramentas leves, fixos e o que fica de fora ─────
@@ -342,7 +342,7 @@ const novoArmazem = () => {
   const m = new Map();
   return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => void m.set(k, v), removeItem: (k) => void m.delete(k), _m: m };
 };
-const entrada = (extra = {}) => ({ url: "/api/comunidade/recado", metodo: "POST", corpo: JSON.stringify({ texto: "oi" }), ...extra });
+const entrada = (extra = {}) => ({ url: "/api/alumia/recado", metodo: "POST", corpo: JSON.stringify({ texto: "oi" }), ...extra });
 await ok("enderecoDaFilaValido: só /api/ do próprio site", async () => {
   assert.ok(enderecoDaFilaValido("/api/rede/postar"));
   assert.ok(enderecoDaFilaValido("/api/x?a=1&b=2"));
@@ -491,7 +491,7 @@ await ok("manifesto: standalone, orientação, atalhos do aplicativo e os antigo
     assert.equal(m.id, `/${lang}`);
     assert.equal(m.start_url, `/${lang}`);
     const urls = m.shortcuts.map((s) => s.url);
-    assert.deepEqual(urls.slice(0, 4), [`/${lang}/trilhas`, `/${lang}/jogos`, `/${lang}/comunidade`, `/${lang}/meu-estudo`], "os 4 primeiros são as abas");
+    assert.deepEqual(urls.slice(0, 4), [`/${lang}/trilhas`, `/${lang}/jogos`, `/${lang}/alumia`, `/${lang}/meu-estudo`], "os 4 primeiros são as abas");
     assert.ok(urls.includes(`/${lang}/acervo`) && urls.includes(`/${lang}/radio`), "os atalhos antigos continuam");
     for (const s of m.shortcuts) {
       assert.ok(s.name.trim().length > 0 && s.icons?.[0]?.src === "/marca-96.png" && s.icons[0].sizes === "96x96");

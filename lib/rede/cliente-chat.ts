@@ -5,6 +5,10 @@
 // Sem "@/" de propósito.
 import type { ChaveDeParticipante, EmbrulhoRecebido } from "./chat-privado";
 import { chamar, type Chamar } from "./cliente";
+import { criarDubleDoChat } from "./chat-exemplos";
+
+/** A prévia com dados de exemplo está ligada? (A referência é literal para o Next gravar o valor no código do navegador.) */
+export const PREVIA_DO_CHAT = process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
 
 export type QuemPode = "pedidos" | "seguidos" | "ninguem";
 export type Prazo = 1 | 7 | 30;
@@ -81,4 +85,14 @@ export function criarClienteDoChat(c: Chamar) {
   };
 }
 
-export const chat = criarClienteDoChat(chamar);
+/** O dublê como uma forma de chamar (prévia e testes): um respiro como a rede de verdade e cópias, nunca o estado do dublê. */
+export function chamarDubleDoChat(duble = criarDubleDoChat()): Chamar {
+  return async <T,>(funcao: string, argumentos: Record<string, unknown> = {}) => {
+    const f = (duble as unknown as Record<string, (a: Record<string, unknown>) => unknown>)[funcao];
+    if (!f) throw new Error(`funcao_desconhecida:${funcao}`);
+    await new Promise((r) => setTimeout(r, 120));
+    return structuredClone(f(argumentos)) as T;
+  };
+}
+
+export const chat = criarClienteDoChat(PREVIA_DO_CHAT ? chamarDubleDoChat() : chamar);

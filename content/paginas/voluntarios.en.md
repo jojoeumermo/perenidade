@@ -55,7 +55,7 @@ The library only indexes: it keeps the title, the author, a synopsis and the lin
 
 ### Mediator
 
-The [Community](/comunidade) is open: anyone can read, and anyone who creates an account can ask and answer. The mediator facilitates this debate, makes sure the rules are followed and steps in when needed. They handle reports and situations that call for human judgement, guide participants, ask for changes when appropriate and act against attacks, improper advertising and hate speech. They also look after the ads on the [Workers' Board](/mural) and give the first reading to contributions that come from outside, before passing them on to the educators. When someone keeps crossing the line, the mediator can ban the account. Every decision is recorded and can be reviewed by the coordination.
+The [Community](/alumia) is open: anyone can read, and anyone who creates an account can ask and answer. The mediator facilitates this debate, makes sure the rules are followed and steps in when needed. They handle reports and situations that call for human judgement, guide participants, ask for changes when appropriate and act against attacks, improper advertising and hate speech. They also look after the ads on the [Workers' Board](/mural) and give the first reading to contributions that come from outside, before passing them on to the educators. When someone keeps crossing the line, the mediator can ban the account. Every decision is recorded and can be reviewed by the coordination.
 
 ### Journalist, radio host and podcaster
 

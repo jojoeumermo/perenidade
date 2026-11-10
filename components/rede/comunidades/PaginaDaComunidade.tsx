@@ -13,7 +13,9 @@ import { enderecosCom, type SituacaoNaComunidade } from "@/lib/rede/tipos-comuni
 import { CartaoDePost } from "../CartaoDePost";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Linha } from "../Linha";
+import { useAlumia2 } from "../conversa/base3";
 import { AcoesDaComunidade } from "./AcoesDaComunidade";
+import { PaginaDaComunidadeAlumia } from "./PaginaDaComunidadeAlumia";
 import { erroCom, useCarregar } from "./util";
 
 // As ferramentas da moderação só chegam ao navegador de quem modera (e só quando abre a aba Sobre).
@@ -32,7 +34,7 @@ function Falha({ texto }: { texto: string }) {
  * numeradas, etiquetas, moderação por codinome, aulas e trilhas ligadas e as ferramentas de quem modera. Entra no lugar da página
  * simples da fundação quando a rota traz os textos do pacote (lib/rede/textos-comunidades.ts).
  */
-export function PaginaDaComunidade({
+function PaginaDaComunidadeDeHoje({
   slug,
   lang,
   s,
@@ -167,4 +169,24 @@ export function PaginaDaComunidade({
       )}
     </div>
   );
+}
+
+type PropsDaPagina = {
+  slug: string;
+  lang: string;
+  s: TextosDaRede;
+  sc: TextosDeComunidades;
+  situacao: Situacao;
+  aoEscrever: () => void;
+  aoResponder: (p: Post) => void;
+  aoCarregar: (c: Comunidade) => void;
+};
+
+/**
+ * A página de uma comunidade. Com a Alumia nova ligada ("rede-v2" + "alumia-2", o layout põe [data-al="2"]) é a da prancha
+ * celular-comunidade (PaginaDaComunidadeAlumia.tsx); desligada, a de hoje, sem mudar nada.
+ */
+export function PaginaDaComunidade(props: PropsDaPagina) {
+  const nova = useAlumia2();
+  return nova ? <PaginaDaComunidadeAlumia {...props} /> : <PaginaDaComunidadeDeHoje {...props} />;
 }

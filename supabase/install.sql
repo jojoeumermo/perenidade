@@ -23340,6 +23340,7 @@ insert into interno.recursos_catalogo (nome, so_pelo_nome) values
   ('mapa-curricular', false), ('nivelamento', false), ('metas', false), ('vlibras', false), ('ajudou', false),
   ('guia-contribuir', false), ('pratica-sem-placar', false), ('enem-video', false), ('enem-curso', false),
   ('escola', true), ('vale-o-escrito', true), ('rede-v2', true),
+  ('alumia-2', true), ('alumia-stories', true), ('alumia-modo-ato', true), ('alumia-org', true), ('alumia-chat-grupo', true), -- Alumia, Onda 5 (F0)
   ('turmas', false), -- em pausa (T08): "todos" não liga (lib/recursos.ts, EM_PAUSA); ligar pelo painel vale na hora
   ('assistente-publico', false), -- T03: o assistente em todo o site, sem conta (app/api/assistente); ligado por padrão
   ('fediverso-total', true), ('fediverso-grupos', true) -- Alumia mesclada ao Fediverso (PLANO-FEDIVERSO): só pelo nome, desligadas
@@ -30894,6 +30895,4279 @@ begin
 end $$;
 
 -- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda 5 · F0 · o contrato comum (09/11/2026) ═══════════════════════════
+-- Nome do arquivo: 20261109 (a data em que a F0 foi refeita), e não 20261108 como na lista do plano (§5/§8): as migrações da
+-- Onda 5 seguem o padrão supabase/migracoes/20261109-alumia-<frente>.sql. O integrador cola na ordem F0→F9 do mesmo jeito.
+-- docs/plano-2026-11/PLANO-ALUMIA.md, seções 1, 5 (F0), 6 e 8. Idempotente: pode rodar duas vezes sem estrago (o teste
+-- scripts/testar-alumia-rota.mjs roda duas vezes no banco local). NÃO está no install.sql: o integrador cola no fim, antes das
+-- migrações F1..F9. NÃO rodar em produção sem o Jonathan.
+--
+-- O que muda:
+--   1. rede_posts ganha três colunas, só colunas (a lógica é de cada frente): expira_em (F6, posts que somem), ato (F2, a linha ao
+--      vivo de um ato) e como (F4/F6, a identidade ou organização que publicou, que é SEMPRE o próprio autor: o dono da
+--      identidade nunca fica gravado no post).
+--   2. Checks ampliados: os alvos novos de denúncia e de moderação, e os tipos novos de preferência de aviso.
+--   3. interno.rede_identidades (dono → identidade/organização) e interno.rede_age_como: o vínculo fica SÓ aqui (§6.6).
+--   4. public.rede_alumia_versao(): o número do contrato (a tela mostra "banco desatualizado" quando faltar).
+--   5. O catálogo de recursos ganha as flags da Onda 5 (todas só pelo nome).
+--   6. A rota mudou para /alumia: o link do resumo semanal e a ponte da página /denunciar (que aceita os dois caminhos).
+--
+-- Leis (conferidas no texto, leis-do-brasil): LGPD (Lei 13.709/2018) art. 5º, II e art. 11 — opinião política e filiação são
+-- dado pessoal sensível: por isso nenhuma função nova devolve lista de pessoas e o vínculo dono↔identidade não sai do banco; art.
+-- 6º, III (necessidade): rede_identidades guarda só a DATA da criação, sem hora, para não permitir cruzar o horário com a
+-- atividade do dono; art. 46 (segurança): RLS ligada e nenhuma permissão para anon/authenticated nas tabelas novas.
+
+-- ── 1. rede_posts: colunas do contrato ────────────────────────────────────────────────────────────────────────────────────
+alter table interno.rede_posts add column if not exists expira_em timestamptz;
+alter table interno.rede_posts add column if not exists ato uuid;
+alter table interno.rede_posts add column if not exists como uuid;
+do $$
+begin
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_posts'::regclass and conname = 'rede_posts_ato_fk') then
+    alter table interno.rede_posts add constraint rede_posts_ato_fk foreign key (ato) references interno.rede_posts (id) on delete set null;
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_posts'::regclass and conname = 'rede_posts_como_fk') then
+    alter table interno.rede_posts add constraint rede_posts_como_fk foreign key (como) references interno.perfis (id) on delete cascade;
+  end if;
+  -- "como" é a identidade que publicou e ela É o autor do post: gravar outra pessoa aqui revelaria o dono da identidade.
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_posts'::regclass and conname = 'rede_posts_como_autor') then
+    alter table interno.rede_posts add constraint rede_posts_como_autor check (como is null or como = autor);
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_posts'::regclass and conname = 'rede_posts_ato_nao_ele') then
+    alter table interno.rede_posts add constraint rede_posts_ato_nao_ele check (ato is null or ato <> id);
+  end if;
+end $$;
+create index if not exists rede_posts_ato on interno.rede_posts (ato, criado_em) where ato is not null;
+create index if not exists rede_posts_expira on interno.rede_posts (expira_em) where expira_em is not null;
+
+-- ── 2. Checks ampliados ───────────────────────────────────────────────────────────────────────────────────────────────────
+-- Denúncia: os alvos de antes + os das frentes novas (stories, notas, organizações, consultas, perguntas da plenária, arquivos
+-- do núcleo, wiki, figurinhas, petições). Tudo cai na mesma fila (PLANO-ALUMIA §7.1). O laço derruba só o check da LISTA de
+-- alvos (o Postgres guarda "alvo_tipo in (...)" como "alvo_tipo = ANY (ARRAY[...])"), e não outro check que só cite a coluna.
+do $$
+declare r record;
+begin
+  for r in select conname from pg_constraint where conrelid = 'interno.rede_denuncias'::regclass and contype = 'c'
+             and pg_get_constraintdef(oid) ~* '\(\(?alvo_tipo = ANY|alvo_tipo IN \(' loop
+    execute format('alter table interno.rede_denuncias drop constraint %I', r.conname);
+  end loop;
+  alter table interno.rede_denuncias add constraint rede_denuncias_alvo_tipo_v5 check (alvo_tipo in (
+    'post', 'perfil', 'comunidade',
+    'story', 'nota', 'org', 'consulta', 'pergunta', 'arquivo', 'wiki', 'figurinha', 'peticao'));
+end $$;
+-- Registro de moderação (continua só de inserção): os mesmos alvos novos.
+do $$
+declare r record;
+begin
+  for r in select conname from pg_constraint where conrelid = 'interno.rede_moderacao'::regclass and contype = 'c'
+             and pg_get_constraintdef(oid) ~* '\(\(?alvo_tipo = ANY|alvo_tipo IN \(' loop
+    execute format('alter table interno.rede_moderacao drop constraint %I', r.conname);
+  end loop;
+  alter table interno.rede_moderacao add constraint rede_moderacao_alvo_tipo_v5 check (alvo_tipo in (
+    'post', 'perfil', 'comunidade', 'nucleo',
+    'story', 'nota', 'org', 'consulta', 'pergunta', 'arquivo', 'wiki', 'figurinha', 'peticao'));
+end $$;
+-- Preferências de aviso: as de antes + os tipos novos das frentes. O que a pessoa já escolheu fica.
+do $$
+declare r record;
+begin
+  for r in select conname from pg_constraint where conrelid = 'interno.rede_avisos_prefs'::regclass and contype = 'c'
+             and pg_get_constraintdef(oid) ~* '\(\(?tipo = ANY|[^_]tipo IN \(' loop
+    execute format('alter table interno.rede_avisos_prefs drop constraint %I', r.conname);
+  end loop;
+  alter table interno.rede_avisos_prefs add constraint rede_avisos_prefs_tipo_v5 check (tipo in (
+    'resposta', 'mencao', 'citacao', 'seguidor', 'chamado', 'nucleo', 'moderacao', 'apoio', 'resumo',
+    'ato_mudou', 'consulta', 'plenaria', 'org_postou', 'story_resposta', 'estou_bem', 'detido', 'marcacao', 'lembrete', 'conversa_seguida'));
+end $$;
+
+-- ── 3. Identidades e contas de organização ────────────────────────────────────────────────────────────────────────────────
+-- Uma identidade (ou conta de organização) é OUTRO usuário em auth.users, sem senha, criado pelo servidor (lib/rede/contas-extra.ts).
+-- O único lugar que diz de quem ela é: esta tabela. Nenhuma função devolve esse vínculo a outra pessoa nem à moderação comum; só
+-- a coordenação, por "quebra de vidro" registrada em rede_moderacao e com ordem judicial (PLANO-ALUMIA §6.6). Risco que fica
+-- (documentar na tela): um vazamento do banco inteiro revela o vínculo.
+create table if not exists interno.rede_identidades (
+  dono uuid not null references interno.perfis (id) on delete cascade,
+  identidade uuid not null unique references interno.perfis (id) on delete cascade,
+  tipo text not null check (tipo in ('identidade', 'org')),
+  -- Só a data (LGPD art. 6º, III): a hora exata ajudaria a ligar a conta nova ao dono pelo horário de atividade.
+  criada_em date not null default current_date,
+  check (dono <> identidade)
+);
+create index if not exists rede_identidades_dono on interno.rede_identidades (dono);
+alter table interno.rede_identidades enable row level security;
+revoke all on table interno.rede_identidades from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on table interno.rede_identidades from anon, authenticated;
+  end if;
+end $$;
+
+/**
+ * `p_quem` pode agir como `p_como`? Sim quando é ele mesmo ou quando `p_como` é uma identidade/organização dele. As frentes
+ * (F4: gestores da organização; F6: troca de identidade) estendem esta regra com create or replace, sem mudar a assinatura.
+ */
+create or replace function interno.rede_age_como(p_quem uuid, p_como uuid) returns boolean
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_quem is not null and p_como is not null
+    and (p_quem = p_como or exists (select 1 from rede_identidades i where i.dono = p_quem and i.identidade = p_como))
+$$;
+revoke all on function interno.rede_age_como(uuid, uuid) from public;
+
+/**
+ * Liga uma conta recém-criada (sem senha) ao dono. Só o servidor (chave de serviço) chama, logo depois de criar o usuário em
+ * auth.users (lib/rede/contas-extra.ts). Regras: dono e identidade existem e são diferentes; uma identidade não tem dono duas
+ * vezes; quem já é identidade não vira dono (sem cadeia); no máximo 5 identidades e 5 organizações por dono. Devolve só "ok".
+ */
+create or replace function public.rede_identidade_ligar(p_dono uuid, p_identidade uuid, p_tipo text) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if p_dono is null or p_identidade is null or p_dono = p_identidade then perform interno.erro('invalido:identidade'); end if;
+  if p_tipo is null or p_tipo not in ('identidade', 'org') then perform interno.erro('invalido:tipo'); end if;
+  if not exists (select 1 from perfis where id = p_dono) or not exists (select 1 from perfis where id = p_identidade) then
+    perform interno.erro('nao_encontrado');
+  end if;
+  if exists (select 1 from rede_identidades where identidade = p_dono) then perform interno.erro('invalido:dono'); end if;
+  if exists (select 1 from rede_identidades where dono = p_identidade) then perform interno.erro('invalido:identidade'); end if;
+  if exists (select 1 from rede_identidades where identidade = p_identidade) then perform interno.erro('invalido:identidade'); end if;
+  if (select count(*) from rede_identidades where dono = p_dono and tipo = p_tipo) >= 5 then perform interno.erro('limite_identidades'); end if;
+  insert into rede_identidades (dono, identidade, tipo) values (p_dono, p_identidade, p_tipo);
+  return jsonb_build_object('ok', true);
+end $$;
+revoke all on function public.rede_identidade_ligar(uuid, uuid, text) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function public.rede_identidade_ligar(uuid, uuid, text) from anon, authenticated;
+    revoke all on function interno.rede_age_como(uuid, uuid) from anon, authenticated;
+    grant execute on function public.rede_identidade_ligar(uuid, uuid, text) to service_role;
+  end if;
+end $$;
+
+-- ── 4. O número do contrato ───────────────────────────────────────────────────────────────────────────────────────────────
+/** A versão do contrato da Alumia no banco (1 = F0). A tela compara com a que espera e mostra "banco desatualizado" se faltar. */
+create or replace function public.rede_alumia_versao() returns integer language sql immutable set search_path = interno, pg_temp as $$
+  select 1
+$$;
+revoke all on function public.rede_alumia_versao() from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    grant execute on function public.rede_alumia_versao() to anon, authenticated, service_role;
+  end if;
+end $$;
+
+-- ── 5. Catálogo de recursos: as flags da Onda 5 (lib/recursos.ts), todas só pelo nome ───────────────────────────────────────
+-- As mesmas linhas já estão no PRIMEIRO insert do catálogo no install.sql e em 2026-11-backend-1.sql (o teste
+-- scripts/testar-backend-1.mjs compara aquele bloco com lib/recursos.ts). Esta cópia serve ao banco que já existe.
+insert into interno.recursos_catalogo (nome, so_pelo_nome) values
+  ('alumia-2', true), ('alumia-stories', true), ('alumia-modo-ato', true), ('alumia-org', true), ('alumia-chat-grupo', true)
+on conflict (nome) do update set so_pelo_nome = excluded.so_pelo_nome;
+
+-- ── 6. A rota mudou para /alumia (lib/rede/rota-alumia.ts) ──────────────────────────────────────────────────────────────────
+-- As mesmas funções de antes, com o caminho novo: o link do resumo semanal leva a /pt/alumia/avisos, e a ponte da página
+-- /denunciar reconhece um post pelos dois caminhos (/comunidade/p/<id>, dos links antigos, e /alumia/p/<id>).
+-- Ficam DE PROPÓSITO no caminho antigo: os links '/comunidade?t=<id>' que o gatilho dos tópicos grava na linha do tempo da
+-- coordenação (interno.atividade_nova, no install.sql). São de tópicos do fórum de antes, já gravados em linhas antigas e
+-- conferidos por scripts/testar-banco.mjs; o proxy leva '/comunidade?t=' ao destino num salto só (lib/rede/alumia.ts).
+create or replace function interno.rede3_aviso_resumo(p_usuario uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  r record; v_n integer := 0; v_linhas text := ''; v_titulos text := ''; v_lista text[] := '{}'; v_t text;
+begin
+  for r in select g.tipo, sum(g.total)::integer as n from interno.rede3_aviso_grupos(p_usuario, now() - interval '7 days') g where not g.lido group by g.tipo order by 2 desc loop
+    v_n := v_n + r.n;
+    v_linhas := v_linhas || format(E'- %s %s\n', r.n, case coalesce(r.tipo, '')
+      when 'resposta' then case when r.n = 1 then 'resposta' else 'respostas' end
+      when 'mencao' then case when r.n = 1 then 'menção' else 'menções' end
+      when 'citacao' then case when r.n = 1 then 'citação' else 'citações' end
+      when 'seguidor' then case when r.n = 1 then 'novo seguidor' else 'novos seguidores' end
+      when 'apoio' then case when r.n = 1 then 'apoio' else 'apoios' end
+      when 'chamado' then case when r.n = 1 then 'novidade em chamado' else 'novidades em chamados' end
+      when 'nucleo' then case when r.n = 1 then 'novidade em núcleo' else 'novidades em núcleos' end
+      when 'moderacao' then case when r.n = 1 then 'aviso da moderação' else 'avisos da moderação' end
+      else case when r.n = 1 then 'aviso da conta' else 'avisos da conta' end end);
+  end loop;
+  if v_n = 0 then return null; end if;
+  for r in
+    select distinct on (g.post) g.post, g.titulo from interno.rede3_aviso_grupos(p_usuario, now() - interval '7 days') g
+    join rede_posts p on p.id = g.post
+    where not g.lido and g.tipo in ('resposta', 'mencao', 'citacao') and g.titulo is not null
+      and interno.rede2_publico(p) = 'internet' and not p.oculto and not p.retido and p.apagado_em is null
+    order by g.post limit 5 loop
+    v_t := left(interno.sem_link(r.titulo), 80);
+    if v_t <> '' then v_lista := v_lista || v_t; end if;
+  end loop;
+  if cardinality(v_lista) > 0 then
+    v_titulos := E'\n\nConversas públicas com novidade:\n' || (select string_agg('- ' || t, E'\n') from unnest(v_lista) t);
+  end if;
+  return jsonb_build_object('n', v_n, 'assunto', 'Seu resumo da semana na Alumia',
+    'texto', format(E'Nesta semana você teve %s %s na Alumia:\n%s%s\n\nAbrir os avisos:\n\n%s\n\nVocê recebe este resumo porque ligou, em Avisos → Preferências, a opção "Resumo semanal por e-mail". Ele leva só contagens e títulos de conversas públicas, nunca o texto de um post. Para desligar, entre em Avisos → Preferências.',
+      v_n, case when v_n = 1 then 'aviso novo' else 'avisos novos' end, v_linhas, v_titulos, interno.endereco() || '/pt/alumia/avisos'));
+end $$;
+
+create or replace function interno.rede3_aviso_resumo_semanal() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record; v_res jsonb; v_n integer := 0; v_email text;
+begin
+  for r in select f.id from perfis f
+           where not f.suspenso and interno.rede3_aviso_pref(f.id, 'resumo', 'email') and exists (select 1 from rede_avisos_prefs p where p.usuario = f.id and p.tipo = 'resumo' and p.canal = 'email' and p.ligado)
+           order by f.id limit 2000 loop
+    if not interno.rede2_membro(r.id) then continue; end if;
+    v_email := lower(coalesce(interno.email_da_conta(r.id), ''));
+    if v_email = '' or exists (select 1 from emails e where e.para = v_email and e.tipo = 'rede_resumo' and e.criado_em > now() - interval '6 days') then continue; end if;
+    v_res := interno.rede3_aviso_resumo(r.id);
+    if v_res is null then continue; end if;
+    if interno.email(v_email, 'rede_resumo', v_res ->> 'assunto', v_res ->> 'texto', interno.endereco() || '/pt/alumia/avisos', 1) then v_n := v_n + 1; end if;
+  end loop;
+  delete from avisos where categoria = 'rede' and lido and criado_em < now() - interval '120 days';
+  return v_n;
+end $$;
+
+create or replace function interno.rede3_mod_ponte_denuncia() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_id text := substring(new.alvo from '([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})'); x rede_posts; v_cat text;
+begin
+  if v_id is null or (new.alvo !~ '/(comunidade|alumia)/p/' and new.alvo !~ 'post=') then return new; end if;
+  select * into x from rede_posts where id = v_id::uuid;
+  if not found or not interno.rede_ve(x, new.autor) or x.autor is not distinct from new.autor then return new; end if;
+  v_cat := interno.rede3_mod_categoria(new.motivo);
+  if new.autor is not null and exists (select 1 from rede_denuncias d where d.quem = new.autor and d.alvo_tipo = 'post' and d.alvo = v_id and d.situacao in ('aberta', 'em_analise')) then return new; end if;
+  insert into rede_denuncias (alvo_tipo, alvo, categoria, prioridade, texto, quem) values ('post', v_id, v_cat, interno.rede2_prioridade(v_cat), left(new.detalhes, 2000), new.autor);
+  return new;
+exception when others then
+  return new;
+end $$;
+
+-- ═══════════════════════════ fim da F0 ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda 5 · F1 · o back-end mínimo da cara nova (09/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/PLANO-ALUMIA.md, seções 5 (F1), 6 e 8. Roda DEPOIS da F0 (20261109-alumia-f0-contrato.sql). Idempotente:
+-- pode rodar duas vezes sem estrago (scripts/testar-alumia-f1-banco.mjs roda duas vezes no banco local). NÃO está no install.sql:
+-- o integrador cola no fim, na ordem F0→F9. NÃO rodar em produção sem o Jonathan.
+--
+-- O que a tela da F1 precisa para cada função funcionar de verdade:
+--   1. Repostar (rede_repostagens): o post aparece na aba Seguindo de quem segue quem repostou. Só o próprio estado volta; a
+--      lista de quem repostou e o total nunca saem do banco.
+--   2. Rascunho no servidor (rede_rascunhos): só o dono lê, guarda e apaga; até 20 por pessoa; some em 30 dias.
+--   3. Desfazer envio: o atraso de 10 s é do aparelho; esta função cobre o toque em "Desfazer" que chega quando o pedido já
+--      saiu (até 30 s depois de publicado, só o autor, e nunca o que a triagem segurou).
+--   4. Emblemas do menu: quantos avisos não lidos, conversas com novidade e atos confirmados que a PRÓPRIA pessoa tem.
+--
+-- Tudo em `interno` com RLS ligada e nenhuma permissão direta para anon/authenticated: só pelas funções abaixo (security
+-- definer, search_path fixo, quem chama conferido, limites de uso por interno.limite).
+--
+-- Leis (conferidas no texto, leis-do-brasil): LGPD (Lei 13.709/2018) art. 5º, II e art. 11 — repostar é manifestação de opinião
+-- política (dado sensível): por isso nenhuma função devolve QUEM repostou nem quantas pessoas repostaram; quem segue vê o post
+-- na própria linha sem o nome de quem repostou. Art. 6º, III (necessidade) e art. 15, I (término do tratamento quando a
+-- finalidade acaba): o rascunho guarda só texto e escolhas (nada de arquivo) e é apagado em 30 dias. Art. 18, VI (eliminação a
+-- pedido): apagar rascunho e desfazer repost apagam a linha, não marcam. Art. 46 (segurança): RLS e nenhuma permissão direta.
+-- ECA (Lei 8.069/1990) art. 17 (preservação da imagem e da identidade): a Rede só aceita quem confirmou 18 anos
+-- (interno.rede2_membro); estas funções exigem a mesma regra para escrever.
+
+-- ── 1. Repostar ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+create table if not exists interno.rede_repostagens (
+  quem uuid not null references interno.perfis (id) on delete cascade,
+  post uuid not null references interno.rede_posts (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (quem, post)
+);
+create index if not exists rede_repostagens_post on interno.rede_repostagens (post);
+create index if not exists rede_repostagens_tempo on interno.rede_repostagens (quem, criado_em desc);
+alter table interno.rede_repostagens enable row level security;
+revoke all on table interno.rede_repostagens from public;
+
+/**
+ * Este post pode ser repostado por p_quem? Só post de primeiro nível, visível a quem reposta, que não é dele, que não some
+ * sozinho (F6) e cujo público é amplo (internet ou quem está na Alumia): repostar o que foi escrito para um grupo pequeno
+ * (seguidores, comunidade, núcleo, equipe) espalharia o recado para fora de onde a autora quis.
+ */
+create or replace function interno.rede_alumia_repostavel(p interno.rede_posts, p_quem uuid) returns boolean
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select p.id is not null and p_quem is not null and p.autor is distinct from p_quem
+    and p.resposta_a is null and p.expira_em is null
+    and not p.oculto and not p.retido and p.apagado_em is null
+    and interno.rede2_publico(p) in ('internet', 'membros')
+    and interno.rede_ve(p, p_quem)
+$$;
+revoke all on function interno.rede_alumia_repostavel(interno.rede_posts, uuid) from public;
+
+/** Repostar (p_sim = true) ou desfazer. Devolve só o próprio estado: { repostei }. Desfazer vale sempre, mesmo se o post sumiu. */
+create or replace function public.rede_pub_repostar(p_post uuid, p_sim boolean) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_posts;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  perform interno.limite('alumia_repostar', 120, 60);
+  if coalesce(p_sim, false) then
+    select * into x from rede_posts where id = p_post;
+    if not found or not interno.rede_ve(x, v) or x.oculto or x.retido or x.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+    if not interno.rede_alumia_repostavel(x, v) then perform interno.erro('sem_permissao'); end if;
+    insert into rede_repostagens (quem, post) values (v, p_post) on conflict do nothing;
+  else
+    delete from rede_repostagens where quem = v and post = p_post;
+  end if;
+  return jsonb_build_object('repostei', exists (select 1 from rede_repostagens r where r.quem = v and r.post = p_post));
+end $$;
+
+/** Dos posts pedidos (até 50), quais EU repostei. Visitante: lista vazia. Nunca diz nada de outra pessoa. */
+create or replace function public.rede_pub_repostados(p_ids uuid[]) returns jsonb
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  if v is null or p_ids is null then return '[]'::jsonb; end if;
+  return coalesce((select jsonb_agg(r.post order by r.post) from rede_repostagens r where r.quem = v and r.post = any (p_ids[1:50])), '[]'::jsonb);
+end $$;
+
+/**
+ * Os posts que quem eu sigo repostou, com o momento do repost mais recente em (p_desde, p_ate] (até 50, do mais novo ao mais
+ * antigo), para a tela misturar na aba Seguindo na ordem de chegada. Cada post vem uma vez, com `repostado_em`, e SEM dizer
+ * quem repostou nem quantos. Fora: o que eu mesma escrevi, o que eu não posso ver, o que silenciei, repost de quem eu bloqueei
+ * ou me bloqueou, e de conta suspensa.
+ */
+create or replace function public.rede_pub_repostes(p_ate timestamptz default null, p_desde timestamptz default null, p_limite integer default 20) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_lim integer := least(greatest(coalesce(p_limite, 20), 1), 50);
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  perform interno.limite('rede2_ler', 600, 60);
+  return coalesce((
+    select jsonb_agg(interno.rede_post_v2(p, v) || jsonb_build_object('repostado_em', z.quando) order by z.quando desc, p.id desc)
+    from (
+      select r.post, max(r.criado_em) as quando
+      from rede_repostagens r
+      join rede_seguindo s on s.quem = v and s.segue = r.quem
+      join perfis f on f.id = r.quem and not f.suspenso
+      where (p_ate is null or r.criado_em <= p_ate) and (p_desde is null or r.criado_em > p_desde)
+        and not interno.rede_bloqueado(v, r.quem)
+      group by r.post
+      order by 2 desc
+      limit v_lim * 2
+    ) z
+    join rede_posts p on p.id = z.post
+    where p.autor is distinct from v and interno.rede_alumia_repostavel(p, v) and not interno.rede_silenciado(p, v)
+  ), '[]'::jsonb);
+end $$;
+
+-- ── 2. Rascunho no servidor ─────────────────────────────────────────────────────────────────────────────────────────────────
+-- Só texto e escolhas (o "pedido" do compositor, com as chaves conferidas uma a uma); arquivo nunca.
+create table if not exists interno.rede_rascunhos (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  pedido jsonb not null,
+  atualizado_em timestamptz not null default now(),
+  check (jsonb_typeof(pedido) = 'object' and pg_column_size(pedido) <= 65536)
+);
+create index if not exists rede_rascunhos_autor on interno.rede_rascunhos (autor, atualizado_em desc);
+create index if not exists rede_rascunhos_tempo on interno.rede_rascunhos (atualizado_em);
+alter table interno.rede_rascunhos enable row level security;
+revoke all on table interno.rede_rascunhos from public;
+
+/** Apaga os rascunhos com mais de 30 dias (de todo mundo). Roda de vez em quando, dentro das funções abaixo. */
+create or replace function interno.rede_rascunhos_faxina() returns integer
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_n integer;
+begin
+  delete from rede_rascunhos where atualizado_em < now() - interval '30 days';
+  get diagnostics v_n = row_count;
+  return v_n;
+end $$;
+revoke all on function interno.rede_rascunhos_faxina() from public;
+
+/**
+ * Confere e limpa o pedido de um rascunho. Só estas chaves ficam: tipo, texto, titulo, corpo, comunidade, publico,
+ * responde_quem (qualquer outra é descartada). Tamanhos e listas como no compositor; nada escrito → 'invalido:vazio'.
+ */
+create or replace function interno.rede_rascunho_limpo(p jsonb) returns jsonb
+language plpgsql stable set search_path = interno, pg_temp as $$
+declare
+  v_tipo text; v_texto text; v_titulo text; v_corpo text; v_com text; v_publico text; v_responde text;
+begin
+  if p is null or jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:rascunho'); end if;
+  v_tipo := coalesce(nullif(p ->> 'tipo', ''), 'post');
+  v_texto := coalesce(p ->> 'texto', '');
+  v_titulo := coalesce(p ->> 'titulo', '');
+  v_corpo := coalesce(p ->> 'corpo', '');
+  v_com := nullif(p ->> 'comunidade', '');
+  v_publico := coalesce(nullif(p ->> 'publico', ''), 'membros');
+  v_responde := coalesce(nullif(p ->> 'responde_quem', ''), 'todos');
+  if v_tipo not in ('post', 'ato', 'enquete', 'longo', 'aviso') then perform interno.erro('invalido:tipo'); end if;
+  if char_length(v_texto) > 2000 or char_length(v_titulo) > 300 or char_length(v_corpo) > 20000 then perform interno.erro('invalido:tamanho'); end if;
+  if v_com is not null and v_com !~ '^[a-z0-9-]{2,60}$' then perform interno.erro('invalido:comunidade'); end if;
+  if v_publico not in ('internet', 'membros', 'seguidores', 'comunidade', 'nucleo', 'equipe') then perform interno.erro('invalido:publico'); end if;
+  if v_responde not in ('todos', 'seguindo', 'mencionados', 'ninguem') then perform interno.erro('invalido:responde_quem'); end if;
+  if btrim(v_texto) = '' and btrim(v_titulo) = '' and btrim(v_corpo) = '' then perform interno.erro('invalido:vazio'); end if;
+  return jsonb_build_object('tipo', v_tipo, 'texto', v_texto, 'titulo', v_titulo, 'corpo', v_corpo, 'comunidade', v_com,
+    'publico', v_publico, 'responde_quem', v_responde);
+end $$;
+revoke all on function interno.rede_rascunho_limpo(jsonb) from public;
+
+/**
+ * Guarda (com p.id de um rascunho MEU, atualiza; sem id ou com id que não é meu ou já sumiu, cria) e devolve { id, atualizado_em }.
+ * Novo além do 20º: 'limite_rascunhos' (a tela avisa que fica só no aparelho).
+ */
+create or replace function public.rede_pub_rascunho_salvar(p jsonb) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_pedido jsonb; v_id uuid; r rede_rascunhos;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  perform interno.limite('alumia_rascunho', 600, 60);
+  v_pedido := interno.rede_rascunho_limpo(p);
+  delete from rede_rascunhos where autor = v and atualizado_em < now() - interval '30 days';
+  if random() < 0.02 then perform interno.rede_rascunhos_faxina(); end if;
+  begin
+    v_id := nullif(p ->> 'id', '')::uuid;
+  exception when others then
+    v_id := null;
+  end;
+  if v_id is not null then
+    update rede_rascunhos set pedido = v_pedido, atualizado_em = now() where id = v_id and autor = v returning * into r;
+    if found then return jsonb_build_object('id', r.id, 'atualizado_em', r.atualizado_em); end if;
+  end if;
+  -- Um por vez por pessoa: dois salvamentos ao mesmo tempo não passam juntos do teto.
+  perform pg_advisory_xact_lock(hashtextextended('rede_rascunhos:' || v::text, 0));
+  if (select count(*) from rede_rascunhos where autor = v) >= 20 then perform interno.erro('limite_rascunhos'); end if;
+  insert into rede_rascunhos (autor, pedido) values (v, v_pedido) returning * into r;
+  return jsonb_build_object('id', r.id, 'atualizado_em', r.atualizado_em);
+end $$;
+
+/** Os MEUS rascunhos dos últimos 30 dias, do mais novo ao mais antigo (no máximo 20). Nunca os de outra pessoa. */
+create or replace function public.rede_pub_rascunhos() returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  perform interno.limite('alumia_rascunhos_ler', 240, 60);
+  delete from rede_rascunhos where autor = v and atualizado_em < now() - interval '30 days';
+  return coalesce((
+    select jsonb_agg(z.pedido || jsonb_build_object('id', z.id, 'atualizado_em', z.atualizado_em) order by z.atualizado_em desc)
+    from (select * from rede_rascunhos where autor = v order by atualizado_em desc limit 20) z
+  ), '[]'::jsonb);
+end $$;
+
+/** Apaga um rascunho MEU. O de outra pessoa (ou que não existe) dá { apagado: false }, sem dizer qual dos dois. */
+create or replace function public.rede_pub_rascunho_apagar(p_id uuid) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.limite('alumia_rascunho_apagar', 300, 60);
+  delete from rede_rascunhos where id = p_id and autor = v;
+  return jsonb_build_object('apagado', found);
+end $$;
+
+-- ── 3. Desfazer envio ───────────────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * Desfaz um post que acabou de sair: só o autor, até 30 s depois de publicado. Apaga de vez (o post, o que pendurou nele e, se
+ * já tinha ido ao Fediverso, o gatilho da federação manda o Delete). Não desfaz o que a triagem segurou para revisão ou
+ * bloqueou (a moderação precisa ver), nem o que já tem resposta de outra pessoa. Devolve { desfeito: true } ou um erro:
+ * 'nao_encontrado' (não é meu ou não existe), 'prazo_passou', 'sem_permissao'.
+ */
+create or replace function public.rede_pub_desfazer(p_post uuid) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_posts;
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('alumia_desfazer', 30, 60);
+  select * into x from rede_posts where id = p_post and autor = v for update;
+  if not found or x.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+  if x.criado_em < now() - interval '30 seconds' then perform interno.erro('prazo_passou'); end if;
+  if x.retido or x.oculto or coalesce(x.avaliacao, 'publicada') in ('revisao', 'bloqueada') then perform interno.erro('sem_permissao'); end if;
+  if exists (select 1 from rede_posts r where r.resposta_a = x.id and r.autor is distinct from v) then perform interno.erro('sem_permissao'); end if;
+  delete from rede_posts where id = x.id;
+  return jsonb_build_object('desfeito', true);
+end $$;
+
+-- ── 4. Emblemas do menu ─────────────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * Os números dos emblemas do menu, todos da PRÓPRIA pessoa (nada de outra): avisos não lidos (mesma conta de rede_aviso_contar),
+ * conversas com novidade (pedidos esperando + conversas com mensagem nova, a mesma regra de rede_dm_situacao) e atos que ela
+ * confirmou ("Eu vou") e ainda vão acontecer. Visitante ou quem não é da Rede: tudo zero.
+ */
+create or replace function public.rede_alumia_emblemas() returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_avisos integer := 0; v_conversas integer := 0; v_atos integer := 0;
+begin
+  if v is null or not interno.rede2_membro(v) or exists (select 1 from perfis where id = v and suspenso) then
+    return jsonb_build_object('avisos', 0, 'conversas', 0, 'atos', 0);
+  end if;
+  perform interno.limite('rede_avisos_n', 600, 60);
+  v_avisos := (select count(*)::integer from interno.rede3_aviso_grupos(v) g where not g.lido);
+  v_conversas := (select count(*)::integer from rede_dm_conversas c
+    where (c.a = v or c.b = v) and (
+      (c.situacao = 'pedido' and c.pediu <> v and not interno.rede_bloqueado(v, c.pediu))
+      or (c.situacao = 'aberta' and exists (select 1 from rede_dm_mensagens m where m.conversa = c.id and m.autor <> v and m.expira_em > now()
+            and m.criado_em > coalesce(case when c.a = v then c.a_leu_em else c.b_leu_em end, '-infinity'::timestamptz)))));
+  begin
+    v_atos := (select count(*)::integer from rede_vou o join rede_posts p on p.id = o.post
+      where o.usuario = v and p.chamado is not null and p.apagado_em is null and not p.oculto
+        and (p.chamado ->> 'quando') ~ '^\d{4}-\d{2}-\d{2}' and (p.chamado ->> 'quando')::timestamptz > now());
+  exception when others then
+    v_atos := 0;
+  end;
+  return jsonb_build_object('avisos', v_avisos, 'conversas', v_conversas, 'atos', v_atos);
+end $$;
+
+-- ── 5. Permissões ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function public.rede_pub_repostar(uuid, boolean), public.rede_pub_repostados(uuid[]), public.rede_pub_repostes(timestamptz, timestamptz, integer),
+  public.rede_pub_rascunho_salvar(jsonb), public.rede_pub_rascunhos(), public.rede_pub_rascunho_apagar(uuid), public.rede_pub_desfazer(uuid),
+  public.rede_alumia_emblemas() from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on table interno.rede_repostagens, interno.rede_rascunhos from anon, authenticated;
+    revoke all on function interno.rede_alumia_repostavel(interno.rede_posts, uuid), interno.rede_rascunhos_faxina(), interno.rede_rascunho_limpo(jsonb) from anon, authenticated;
+    revoke all on function public.rede_pub_repostar(uuid, boolean), public.rede_pub_repostados(uuid[]), public.rede_pub_repostes(timestamptz, timestamptz, integer),
+      public.rede_pub_rascunho_salvar(jsonb), public.rede_pub_rascunhos(), public.rede_pub_rascunho_apagar(uuid), public.rede_pub_desfazer(uuid),
+      public.rede_alumia_emblemas() from anon;
+    -- Tudo aqui é da própria conta: só quem entrou (e a chave de serviço, para o servidor).
+    grant execute on function public.rede_pub_repostar(uuid, boolean), public.rede_pub_repostados(uuid[]), public.rede_pub_repostes(timestamptz, timestamptz, integer),
+      public.rede_pub_rascunho_salvar(jsonb), public.rede_pub_rascunhos(), public.rede_pub_rascunho_apagar(uuid), public.rede_pub_desfazer(uuid),
+      public.rede_alumia_emblemas() to authenticated, service_role;
+    grant execute on function interno.rede_rascunhos_faxina() to service_role;
+  end if;
+end $$;
+
+-- ═══════════════════════════ fim da F1 ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda 5 · F2 · atos (back-end mínimo, 09/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/PLANO-ALUMIA.md, seções 5 (F2), 6 e 8. O contrato é o de lib/rede/tipos-atos.ts (as telas já usam o dublê
+-- com estes nomes). Idempotente: pode rodar duas vezes (scripts/testar-alumia-f2.mjs roda duas vezes no banco local). Vem DEPOIS
+-- da F0 (20261109-alumia-f0-contrato.sql). NÃO está no install.sql: o integrador cola. NÃO rodar em produção sem o Jonathan.
+--
+-- O que faz (só o mínimo para cada função da tela funcionar de verdade; tarefas, caronas, álbum, petição e mapa ficam para depois):
+--   1. Reaproveita o chamado que já existe: interno.rede_chamados ganha situacao (confirmado/adiado/cancelado, migrado de
+--      `cancelado`), inicio_anterior ("era 12/11"), titulo, palavra (a do mosaico, ^[A-Z ]{2,14}$), meta, link_apoio (só https),
+--      motivo e mudado_em. Os chamados da Rede de hoje (o JSON rede_posts.chamado) ganham a linha deles em rede_chamados, sem
+--      perder nada: o JSON e a coluna `cancelado` continuam lá e continuam certos. "Eu vou" é o mesmo rede_vou de sempre.
+--   2. Funções (todas security definer, search_path fixo, com a checagem de quem chama, limite de uso e a matriz de visibilidade
+--      interno.rede_ve): rede_ato_publicar, rede_atos, rede_ato, rede_ato_proximo, rede_ato_vou e rede_ato_mudar.
+--
+-- Privacidade (LGPD, Lei 13.709/2018, conferida no texto: art. 5º, II e art. 11 — ir a um ato revela opinião política, dado
+-- pessoal sensível; art. 6º, III — necessidade; art. 46 — segurança):
+--   - nenhuma função devolve quem confirmou; o mosaico recebe só a PROPORÇÃO (passos de 10 %, nula abaixo de 3 confirmações);
+--   - o número exato de confirmações sai só para quem organizou (como já era no rede_vou de hoje);
+--   - "Perto" é a cidade ESCRITA (texto), nunca posição do aparelho; o ato traz só o ponto público dele;
+--   - o aviso de mudança vai só a quem confirmou, e nunca diz a ninguém quem mais confirmou;
+--   - os limites de uso guardam a chave por conta ou pelo endereço CIFRADO (interno.origem), nunca o IP cru.
+-- ECA (Lei 8.069/1990) e ECA Digital (Lei 15.211/2025): a Alumia é só 18+ (interno.rede2_membro exige rede_18), então confirmar
+-- presença e chamar ato só existem para membro adulto; visitante só LÊ o que já é público na internet.
+
+-- ── 1. Tabela do chamado ────────────────────────────────────────────────────────────────────────────────────────────────────
+alter table interno.rede_chamados add column if not exists situacao text not null default 'confirmado';
+alter table interno.rede_chamados add column if not exists inicio_anterior timestamptz;
+alter table interno.rede_chamados add column if not exists titulo text;
+alter table interno.rede_chamados add column if not exists palavra text;
+alter table interno.rede_chamados add column if not exists meta smallint;
+alter table interno.rede_chamados add column if not exists link_apoio text;
+alter table interno.rede_chamados add column if not exists motivo text not null default '';
+alter table interno.rede_chamados add column if not exists mudado_em timestamptz;
+-- Os chamados da Rede de hoje não pediam cidade: sem ela o ato só não entra em "Perto" (o check de tamanho continua valendo).
+alter table interno.rede_chamados alter column cidade drop not null;
+do $$
+begin
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_chamados'::regclass and conname = 'rede_chamados_situacao') then
+    alter table interno.rede_chamados add constraint rede_chamados_situacao check (situacao in ('confirmado', 'adiado', 'cancelado'));
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_chamados'::regclass and conname = 'rede_chamados_palavra') then
+    alter table interno.rede_chamados add constraint rede_chamados_palavra check (palavra is null or palavra ~ '^[A-Z ]{2,14}$');
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_chamados'::regclass and conname = 'rede_chamados_titulo') then
+    alter table interno.rede_chamados add constraint rede_chamados_titulo check (titulo is null or char_length(titulo) between 2 and 60);
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_chamados'::regclass and conname = 'rede_chamados_meta') then
+    alter table interno.rede_chamados add constraint rede_chamados_meta check (meta is null or meta between 3 and 30000);
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_chamados'::regclass and conname = 'rede_chamados_link_apoio') then
+    alter table interno.rede_chamados add constraint rede_chamados_link_apoio check (link_apoio is null or (link_apoio ~ '^https://[^\s<>"'']{4,}$' and char_length(link_apoio) <= 300));
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_chamados'::regclass and conname = 'rede_chamados_motivo') then
+    alter table interno.rede_chamados add constraint rede_chamados_motivo check (char_length(motivo) <= 140);
+  end if;
+  -- Só adiado guarda a data de antes junto com uma data nova.
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_chamados'::regclass and conname = 'rede_chamados_anterior') then
+    alter table interno.rede_chamados add constraint rede_chamados_anterior check (inicio_anterior is null or inicio_anterior <> inicio);
+  end if;
+end $$;
+alter table interno.rede_chamados enable row level security;
+revoke all on table interno.rede_chamados from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on table interno.rede_chamados from anon, authenticated;
+    revoke all on table interno.rede_vou from anon, authenticated;
+  end if;
+end $$;
+create index if not exists rede_chamados_inicio on interno.rede_chamados (inicio, post);
+create index if not exists rede_vou_usuario on interno.rede_vou (usuario);
+
+-- ── 2. Regras puras ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/** A palavra do mosaico: a MESMA regra de lib/rede/mosaico.ts (normalizarPalavra): maiúsculas sem acento, só A–Z e espaço, até 14. */
+create or replace function interno.rede_ato_palavra(p_texto text) returns text language sql immutable set search_path = interno, pg_temp as $$
+  select btrim(left(btrim(regexp_replace(regexp_replace(upper(translate(coalesce(p_texto, ''),
+    'áàâãäåéèêëíìîïóòôõöúùûüçñýÿÁÀÂÃÄÅÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑÝ',
+    'aaaaaaeeeeiiiiooooouuuucnyyAAAAAAEEEEIIIIOOOOOUUUUCNY')), '[^A-Z ]', ' ', 'g'), '\s+', ' ', 'g')), 14))
+$$;
+
+/** A chave da cidade para "Perto": minúsculas, sem acento e com espaços simples ("São  Paulo" = "sao paulo"). Nada de posição. */
+create or replace function interno.rede_ato_cidade(p_texto text) returns text language sql immutable set search_path = interno, pg_temp as $$
+  select nullif(lower(btrim(regexp_replace(translate(coalesce(p_texto, ''),
+    'áàâãäåéèêëíìîïóòôõöúùûüçñýÿÁÀÂÃÄÅÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑÝ',
+    'aaaaaaeeeeiiiiooooouuuucnyyAAAAAAEEEEIIIIOOOOOUUUUCNY'), '\s+', ' ', 'g'))), '')
+$$;
+create index if not exists rede_chamados_cidade on interno.rede_chamados (interno.rede_ato_cidade(cidade), inicio);
+
+/**
+ * A proporção acesa do mosaico: a MESMA regra de lib/rede/mosaico.ts (proporcaoDoMosaico). Nula abaixo de 3 confirmações (agregado
+ * só a partir de 3, docs/rede/PRIVACIDADE.md §8); senão confirmados ÷ max(30, meta), PARA BAIXO em passos de 10 %, entre 10 % e 100 %.
+ */
+create or replace function interno.rede_ato_proporcao(p_confirmados bigint, p_meta integer) returns numeric language sql immutable set search_path = interno, pg_temp as $$
+  select case when p_confirmados is null or p_confirmados < 3 then null
+    else round(least(10, greatest(1, floor(p_confirmados::numeric * 10 / greatest(30, coalesce(p_meta, 0)))))::numeric / 10, 1) end
+$$;
+
+-- ── 3. O chamado de antes ganha a linha dele (sem perder dado) ──────────────────────────────────────────────────────────────
+-- (a) quem já estava marcado como cancelado vira situacao 'cancelado' (a coluna `cancelado` continua lá e certa);
+update interno.rede_chamados set situacao = 'cancelado' where cancelado and situacao = 'confirmado';
+-- (b) os chamados da Rede de hoje (o JSON no post) entram em rede_chamados com a data, o ponto e o tipo deles. O que não cabe nas
+--     regras (sem data, ponto curto) fica só no JSON, como sempre esteve. A cidade fica vazia (a Rede de hoje não perguntava).
+insert into interno.rede_chamados (post, inicio, ponto, tipo)
+select p.id, (p.chamado ->> 'quando')::timestamptz, left(btrim(p.chamado ->> 'onde'), 140),
+       case when p.chamado ->> 'tipo' in ('ato', 'assembleia', 'roda', 'mutirao', 'aula', 'outro') then p.chamado ->> 'tipo' else 'ato' end
+  from interno.rede_posts p
+ where p.chamado is not null and jsonb_typeof(p.chamado) = 'object'
+   and coalesce(p.chamado ->> 'quando', '') ~ '^\d{4}-\d{2}-\d{2}'
+   and char_length(btrim(coalesce(p.chamado ->> 'onde', ''))) >= 3
+   and not exists (select 1 from interno.rede_chamados c where c.post = p.id)
+on conflict (post) do nothing;
+
+-- ── 4. O ato como a tela recebe (lib/rede/tipos-atos.ts, Ato) ───────────────────────────────────────────────────────────────
+
+/**
+ * O ato em JSON para quem lê (p_quem; nulo = visitante). Quem chama JÁ conferiu que p_quem vê o post. Nunca a lista de quem
+ * confirmou: `acesos` é a proporção e `total` só sai para quem organizou (ou para quem age como a organização, interno.rede_age_como).
+ */
+create or replace function interno.rede_ato_json(p interno.rede_posts, c interno.rede_chamados, p_quem uuid) returns jsonb
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v_titulo text := coalesce(c.titulo, nullif(p.titulo, ''), left(btrim(split_part(p.texto, E'\n', 1)), 60));
+  v_palavra text := coalesce(c.palavra, nullif(interno.rede_ato_palavra(v_titulo), ''));
+  v_n bigint := (select count(*) from rede_vou v where v.post = p.id);
+  v_meu boolean := p_quem is not null and interno.rede_age_como(p_quem, p.autor);
+  f perfis;
+  k rede_comunidades;
+begin
+  select * into f from perfis where id = p.autor;
+  if p.comunidade is not null then select * into k from rede_comunidades where slug = p.comunidade; end if;
+  if v_palavra is null or char_length(replace(v_palavra, ' ', '')) < 2 then v_palavra := 'ATO'; end if;
+  return jsonb_build_object(
+    'id', p.id,
+    'titulo', coalesce(nullif(v_titulo, ''), v_palavra),
+    'palavra', v_palavra,
+    'comunidade', case when p.comunidade is null then null else jsonb_build_object('slug', p.comunidade, 'nome', coalesce(k.nome, p.comunidade), 'cor', null) end,
+    -- Só o @nome público (ou o codinome, se o perfil é invisível); nunca o nome civil.
+    'chamado_por', case when f.id is null then null
+                        when coalesce(f.rede_modo = 'invisivel' or f.rede_invisivel, false) or f.rede_handle is null then interno.rede_nome(p.autor)
+                        else f.rede_handle end,
+    'inicio', c.inicio,
+    'inicio_anterior', c.inicio_anterior,
+    'onde', c.ponto,
+    'cidade', coalesce(c.cidade, ''),
+    'descricao', p.texto,
+    'situacao', c.situacao,
+    'motivo', coalesce(c.motivo, ''),
+    'acesos', interno.rede_ato_proporcao(v_n, c.meta),
+    'total', case when v_meu then v_n end,
+    'vou_eu', p_quem is not null and exists (select 1 from rede_vou v where v.post = p.id and v.usuario = p_quem),
+    'meu', v_meu,
+    'respostas', interno.rede2_respostas_visiveis(p.id, p_quem),
+    'link_apoio', c.link_apoio);
+end $$;
+
+/** O ato, se esta pessoa pode vê-lo (matriz interno.rede_ve: bloqueio, público, comunidade fechada, retido, apagado). */
+create or replace function interno.rede_ato_achar(p_id uuid, p_quem uuid) returns interno.rede_posts
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare p rede_posts;
+begin
+  select * into p from rede_posts where id = p_id;
+  if not found or not exists (select 1 from rede_chamados c where c.post = p_id) or not interno.rede_ve(p, p_quem)
+     or (p.apagado_em is not null and p.autor is distinct from p_quem) then
+    perform interno.erro('nao_encontrado');
+  end if;
+  return p;
+end $$;
+
+-- ── 5. Chamar um ato ────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Chama um ato. Publica o post pelo rede_publicar de sempre (todas as conferências dele valem: membro 18+, consentimento, codinome,
+ * limite, dado pessoal, comunidade, público, triagem) e, na MESMA transação, grava o chamado. Campos de p: titulo (2–60), palavra
+ * (opcional; sai do título pela regra do mosaico), inicio (ISO, no futuro, até 365 dias), onde (3–140, o ponto PÚBLICO), cidade
+ * (2–80), descricao (1–500, o texto do post), comunidade, publico, tipo ('ato' padrão; 'assembleia', 'roda', 'mutirao'), meta
+ * (3–30000, opcional), link_apoio (só https, opcional). Devolve o Ato.
+ */
+create or replace function public.rede_ato_publicar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  v_titulo text; v_palavra text; v_inicio timestamptz; v_ponto text; v_cidade text; v_link text; v_meta integer;
+  v_tipo text := coalesce(nullif(btrim(p ->> 'tipo'), ''), 'ato');
+  v_post jsonb; v_tri jsonb; x rede_posts; c rede_chamados;
+begin
+  perform interno.aberta('comunidade');
+  if p is null or jsonb_typeof(p) is distinct from 'object' then perform interno.erro('invalido:ato'); end if;
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  if v_tipo not in ('ato', 'assembleia', 'roda', 'mutirao') then perform interno.erro('invalido:tipo'); end if;
+  v_titulo := regexp_replace(interno.txt(p ->> 'titulo', 'titulo', 2, 60), '\s+', ' ', 'g');
+  v_palavra := interno.rede_ato_palavra(coalesce(nullif(btrim(p ->> 'palavra'), ''), v_titulo));
+  if v_palavra !~ '^[A-Z ]{2,14}$' or char_length(replace(v_palavra, ' ', '')) < 2 then perform interno.erro('invalido:palavra'); end if;
+  begin
+    v_inicio := (p ->> 'inicio')::timestamptz;
+    v_meta := nullif(p ->> 'meta', '')::integer;
+  exception when others then perform interno.erro('invalido:inicio');
+  end;
+  if v_inicio is null or v_inicio <= now() or v_inicio > now() + interval '365 days' then perform interno.erro('invalido:inicio'); end if;
+  if v_meta is not null and v_meta not between 3 and 30000 then perform interno.erro('invalido:meta'); end if;
+  v_ponto := regexp_replace(interno.txt(p ->> 'onde', 'onde', 3, 140), '\s+', ' ', 'g');
+  v_cidade := regexp_replace(interno.txt(p ->> 'cidade', 'cidade', 2, 80), '\s+', ' ', 'g');
+  v_link := nullif(btrim(coalesce(p ->> 'link_apoio', '')), '');
+  if v_link is not null and (v_link !~ '^https://[^\s<>"'']{4,}$' or char_length(v_link) > 300) then perform interno.erro('invalido:link_apoio'); end if;
+  -- Dado pessoal no nome, no ponto e na cidade (CPF, telefone, e-mail). O ponto PODE ter número: é o endereço público do ato.
+  if interno.rede3_pub_dado_pessoal(v_titulo || ' ' || v_cidade)
+     or (v_ponto || ' ' || coalesce(v_link, '')) ~ '\d{3}\.?\d{3}\.?\d{3}-?\d{2}|\(?\d{2}\)?\s?9\d{4}[-\s]?\d{4}'
+     or v_ponto ~* '[a-z0-9._%+-]+@[a-z0-9-]+\.[a-z.]{2,}' then
+    perform interno.erro('dado_pessoal');
+  end if;
+  perform interno.limite('alumia_ato_chamar', 10, 1440);
+
+  v_post := public.rede_publicar(jsonb_strip_nulls(jsonb_build_object('tipo', 'post', 'texto', p ->> 'descricao',
+    'comunidade', nullif(btrim(coalesce(p ->> 'comunidade', '')), ''), 'publico', nullif(btrim(coalesce(p ->> 'publico', '')), ''))));
+  select * into x from rede_posts where id = (v_post ->> 'id')::uuid and autor = v;
+  if not found then perform interno.erro('invalido:ato'); end if;
+
+  -- A triagem também lê o nome e o ponto; um veredito mais duro que o do texto retém o post (nunca afrouxa o que o texto já reteve).
+  v_tri := interno.rede_triagem(v_titulo || ' ' || v_ponto || ' ' || v_cidade, v);
+  -- O JSON de antes continua sendo escrito: a Rede de hoje (flags desligadas) segue mostrando o chamado como sempre mostrou.
+  update rede_posts set tipo = 'chamado', titulo = v_titulo,
+         chamado = jsonb_build_object('tipo', v_tipo, 'quando', v_inicio, 'onde', v_ponto),
+         oculto = oculto or (v_tri ->> 'veredito') <> 'publicar',
+         retido = retido or (v_tri ->> 'veredito') = 'revisar',
+         motivo = case when not (oculto or retido) and (v_tri ->> 'veredito') <> 'publicar' then coalesce(v_tri ->> 'motivo', '') else motivo end
+   where id = x.id returning * into x;
+  insert into rede_chamados (post, inicio, cidade, ponto, tipo, link, titulo, palavra, meta, link_apoio)
+  values (x.id, v_inicio, v_cidade, v_ponto, v_tipo, null, v_titulo, v_palavra, v_meta, v_link)
+  returning * into c;
+  return interno.rede_ato_json(x, c, v);
+end $$;
+
+-- ── 6. Ler ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Uma página de atos, do mais próximo no tempo para o mais longe (só os que não acabaram: começo há menos de 6 h). Filtros:
+ * 'perto' (pela cidade ESCRITA em p_cidade; sem cidade, página vazia), 'seguindo' (de quem a pessoa segue, das comunidades em que
+ * está ou que segue, e os que ela confirmou; pede conta). p_comunidade (opcional) restringe a uma comunidade. Visitante só vê o
+ * que já é público na internet. Cursor = "<início ISO>|<id>". Devolve {itens, proximo}.
+ */
+create or replace function public.rede_atos(p_filtro text, p_cidade text default null, p_comunidade text default null, p_cursor text default null, p_limite integer default 20)
+returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := auth.uid();
+  v_lim integer := least(greatest(coalesce(p_limite, 20), 1), 40);
+  v_cidade text := interno.rede_ato_cidade(left(p_cidade, 80));
+  v_com text := nullif(btrim(coalesce(p_comunidade, '')), '');
+  v_c_inicio timestamptz; v_c_id uuid;
+  v_ids uuid[]; v_itens jsonb; u rede_chamados;
+begin
+  perform interno.aberta('comunidade');
+  if v is not null and exists (select 1 from perfis where id = v and suspenso) then perform interno.erro('conta_suspensa'); end if;
+  if p_filtro is null or p_filtro not in ('perto', 'seguindo') then perform interno.erro('invalido:filtro'); end if;
+  if p_filtro = 'seguindo' and v is null and v_com is null then perform interno.erro('entre_primeiro'); end if;
+  if v_com is not null and v_com !~ '^[a-z0-9-]{2,60}$' then perform interno.erro('invalido:comunidade'); end if;
+  perform interno.limite('alumia_atos_ler', 300, 60);
+  if nullif(p_cursor, '') is not null then
+    begin
+      v_c_inicio := split_part(p_cursor, '|', 1)::timestamptz;
+      v_c_id := split_part(p_cursor, '|', 2)::uuid;
+    exception when others then perform interno.erro('invalido:cursor');
+    end;
+  end if;
+  if p_filtro = 'perto' and v_cidade is null and v_com is null then return jsonb_build_object('itens', '[]'::jsonb, 'proximo', null); end if;
+
+  select array_agg(z.post order by z.inicio, z.post) into v_ids from (
+    select c.post, c.inicio
+      from rede_chamados c join rede_posts p on p.id = c.post
+     where c.inicio > now() - interval '6 hours'
+       and (v_c_inicio is null or (c.inicio, c.post) > (v_c_inicio, v_c_id))
+       and (v_com is null or p.comunidade = v_com)
+       and (p_filtro <> 'perto' or v_com is not null or interno.rede_ato_cidade(c.cidade) = v_cidade)
+       and (p_filtro <> 'seguindo' or v_com is not null or p.autor = v
+            or exists (select 1 from rede_seguindo s where s.quem = v and s.segue = p.autor and not s.pendente)
+            or (p.comunidade is not null and (interno.rede2_na_comunidade(p.comunidade, v)
+                or exists (select 1 from rede_comunidades_seguidas g where g.usuario = v and g.comunidade = p.comunidade)))
+            or exists (select 1 from rede_vou o where o.post = p.id and o.usuario = v))
+       and p.apagado_em is null
+       and interno.rede_ve(p, v)
+       and not interno.rede_silenciado(p, v)
+     order by c.inicio, c.post
+     limit v_lim + 1) z;
+
+  select coalesce(jsonb_agg(interno.rede_ato_json(p, c, v) order by c.inicio, c.post), '[]'::jsonb) into v_itens
+    from rede_chamados c join rede_posts p on p.id = c.post
+   where c.post = any (coalesce(v_ids[1:v_lim], '{}'::uuid[]));
+  if coalesce(cardinality(v_ids), 0) > v_lim then
+    select * into u from rede_chamados where post = v_ids[v_lim];
+    return jsonb_build_object('itens', v_itens, 'proximo', to_char(u.inicio at time zone 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"') || '|' || u.post::text);
+  end if;
+  return jsonb_build_object('itens', v_itens, 'proximo', null);
+end $$;
+
+/** Um ato (a página do ato). Visitante só se o post é público na internet. */
+create or replace function public.rede_ato(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); p rede_posts; c rede_chamados;
+begin
+  perform interno.aberta('comunidade');
+  if v is not null and exists (select 1 from perfis where id = v and suspenso) then perform interno.erro('conta_suspensa'); end if;
+  perform interno.limite('alumia_atos_ler', 300, 60);
+  p := interno.rede_ato_achar(p_id, v);
+  select * into c from rede_chamados where post = p_id;
+  return interno.rede_ato_json(p, c, v);
+end $$;
+
+/**
+ * O próximo ato da pessoa (a faixa PRÓXIMO ATO): o primeiro que ela confirmou e não foi cancelado; senão, o primeiro de quem ela
+ * segue ou das comunidades dela. Nulo para visitante e quando não há.
+ */
+create or replace function public.rede_ato_proximo() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); p rede_posts; c rede_chamados;
+begin
+  if v is null or not interno.rede2_membro(v) then return null; end if;
+  perform interno.aberta('comunidade');
+  perform interno.limite('alumia_atos_ler', 300, 60);
+  select pp.* into p from rede_chamados cc join rede_posts pp on pp.id = cc.post
+   where cc.situacao <> 'cancelado' and cc.inicio > now() - interval '2 hours' and pp.apagado_em is null
+     and exists (select 1 from rede_vou o where o.post = pp.id and o.usuario = v)
+     and interno.rede_ve(pp, v)
+   order by cc.inicio, cc.post limit 1;
+  if not found then
+    select pp.* into p from rede_chamados cc join rede_posts pp on pp.id = cc.post
+     where cc.situacao <> 'cancelado' and cc.inicio > now() and pp.apagado_em is null
+       and (pp.autor = v or exists (select 1 from rede_seguindo s where s.quem = v and s.segue = pp.autor and not s.pendente)
+            or (pp.comunidade is not null and (interno.rede2_na_comunidade(pp.comunidade, v)
+                or exists (select 1 from rede_comunidades_seguidas g where g.usuario = v and g.comunidade = pp.comunidade))))
+       and interno.rede_ve(pp, v) and not interno.rede_silenciado(pp, v)
+     order by cc.inicio, cc.post limit 1;
+    if not found then return null; end if;
+  end if;
+  select * into c from rede_chamados where post = p.id;
+  return interno.rede_ato_json(p, c, v);
+end $$;
+
+-- ── 7. "Você vai" ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Confirma (p_sim true) ou desfaz. Só membro da Rede (18+, consentimento) que vê o ato; ato cancelado ou que já passou não recebe
+ * confirmação nova (desfazer sempre pode). Devolve {vou_eu, acesos, total}: a proporção nova e, só para quem organizou, o total.
+ */
+create or replace function public.rede_ato_vou(p_id uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p rede_posts; c rede_chamados; v_n bigint;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  perform interno.rede2_limite('reagir');
+  p := interno.rede_ato_achar(p_id, v);
+  select * into c from rede_chamados where post = p_id for update;
+  if coalesce(p_sim, true) then
+    if c.situacao = 'cancelado' then perform interno.erro('ato_cancelado'); end if;
+    if c.inicio < now() - interval '6 hours' then perform interno.erro('ato_passou'); end if;
+    if p.oculto or p.retido or p.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+    insert into rede_vou (post, usuario) values (p_id, v) on conflict do nothing;
+  else
+    delete from rede_vou where post = p_id and usuario = v;
+  end if;
+  select count(*) into v_n from rede_vou where post = p_id;
+  return jsonb_build_object('vou_eu', coalesce(p_sim, true), 'acesos', interno.rede_ato_proporcao(v_n, c.meta),
+    'total', case when interno.rede_age_como(v, p.autor) then v_n end);
+end $$;
+
+-- ── 8. Adiar, cancelar, confirmar de novo ───────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Só quem organizou (ou quem age como a organização). 'adiado' pede p_inicio (no futuro, até 365 dias, diferente da data atual) e
+ * guarda a data de ANTES ("era 12/11": a primeira, se adiar duas vezes); 'cancelado' e 'confirmado' mantêm a data. p_motivo até 140
+ * (sem dado pessoal). Quando muda alguma coisa, avisa SÓ quem confirmou (tipo 'chamado' nos avisos; quem desligou "ato_mudou" no
+ * site não recebe), com um texto sem o nome de ninguém. Devolve o Ato.
+ */
+create or replace function public.rede_ato_mudar(p_id uuid, p_situacao text, p_inicio timestamptz default null, p_motivo text default '')
+returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); p rede_posts; c rede_chamados; d rede_chamados;
+  v_motivo text := regexp_replace(btrim(coalesce(p_motivo, '')), '\s+', ' ', 'g');
+  v_texto text; r record;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  p := interno.rede_ato_achar(p_id, v);
+  if not interno.rede_age_como(v, p.autor) then perform interno.erro('so_quem_organizou'); end if;
+  if p_situacao is null or p_situacao not in ('confirmado', 'adiado', 'cancelado') then perform interno.erro('invalido:situacao'); end if;
+  if char_length(v_motivo) > 140 then perform interno.erro('invalido:motivo'); end if;
+  if interno.rede3_pub_dado_pessoal(v_motivo) then perform interno.erro('dado_pessoal'); end if;
+  perform interno.limite('alumia_ato_mudar', 20, 60);
+  select * into c from rede_chamados where post = p_id for update;
+
+  if p_situacao = 'adiado' then
+    if p_inicio is null or p_inicio <= now() or p_inicio > now() + interval '365 days' or p_inicio = c.inicio then perform interno.erro('invalido:inicio'); end if;
+    update rede_chamados set situacao = 'adiado', inicio_anterior = coalesce(inicio_anterior, inicio), inicio = p_inicio,
+           cancelado = false, motivo = v_motivo, mudado_em = now()
+     where post = p_id returning * into d;
+    -- Se a data nova é a mesma "de antes", não sobra "era …" para mostrar.
+    if d.inicio_anterior = d.inicio then update rede_chamados set inicio_anterior = null where post = p_id returning * into d; end if;
+    update rede_posts set chamado = jsonb_set(coalesce(chamado, '{}'::jsonb), '{quando}', to_jsonb(p_inicio)) where id = p_id;
+  elsif p_situacao = 'cancelado' then
+    update rede_chamados set situacao = 'cancelado', cancelado = true, motivo = v_motivo, mudado_em = now() where post = p_id returning * into d;
+  else
+    update rede_chamados set situacao = 'confirmado', cancelado = false, motivo = '', mudado_em = now() where post = p_id returning * into d;
+  end if;
+
+  if d.situacao is distinct from c.situacao or d.inicio is distinct from c.inicio then
+    v_texto := case d.situacao when 'adiado' then 'Um ato que você confirmou mudou de data.'
+                               when 'cancelado' then 'Um ato que você confirmou foi cancelado.'
+                               else 'Um ato que você confirmou está confirmado de novo.' end;
+    for r in select o.usuario from rede_vou o where o.post = p_id and o.usuario <> p.autor and o.usuario <> v loop
+      if interno.rede2_membro(r.usuario) and interno.rede3_aviso_pref(r.usuario, 'ato_mudou', 'site') and interno.rede_ve(p, r.usuario) then
+        perform interno.rede3_aviso_criar(r.usuario, 'chamado', p_id, null, null, v_texto);
+      end if;
+    end loop;
+  end if;
+  select * into p from rede_posts where id = p_id;
+  return interno.rede_ato_json(p, d, v);
+end $$;
+
+-- ── 9. Permissões ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function interno.rede_ato_palavra(text), interno.rede_ato_cidade(text), interno.rede_ato_proporcao(bigint, integer),
+  interno.rede_ato_json(interno.rede_posts, interno.rede_chamados, uuid), interno.rede_ato_achar(uuid, uuid) from public;
+revoke all on function public.rede_ato_publicar(jsonb), public.rede_atos(text, text, text, text, integer), public.rede_ato(uuid),
+  public.rede_ato_proximo(), public.rede_ato_vou(uuid, boolean), public.rede_ato_mudar(uuid, text, timestamptz, text) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.rede_ato_palavra(text), interno.rede_ato_cidade(text), interno.rede_ato_proporcao(bigint, integer),
+      interno.rede_ato_json(interno.rede_posts, interno.rede_chamados, uuid), interno.rede_ato_achar(uuid, uuid) from anon, authenticated;
+    revoke all on function public.rede_ato_publicar(jsonb), public.rede_ato_vou(uuid, boolean), public.rede_ato_mudar(uuid, text, timestamptz, text) from anon;
+    -- Ler: visitante também (a função só devolve o que é público na internet para quem não entrou).
+    grant execute on function public.rede_atos(text, text, text, text, integer), public.rede_ato(uuid), public.rede_ato_proximo() to anon, authenticated, service_role;
+    grant execute on function public.rede_ato_publicar(jsonb), public.rede_ato_vou(uuid, boolean), public.rede_ato_mudar(uuid, text, timestamptz, text) to authenticated, service_role;
+  end if;
+end $$;
+
+-- ═══════════════════════════ fim da F2 (atos, back-end mínimo) ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda 5 · F3 · o back-end mínimo das telas novas (09/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/PLANO-ALUMIA.md, seções 5 (F3), 6 e 8 (F3). O que as telas da F3 (comunidade, conversa e "Comunidades
+-- ativas") precisam para funcionar de verdade, e nada além:
+--   1. "N posts esta semana" na página da comunidade (rede_alumia_com_pagina): o que rede_com_pagina já devolve (com o post
+--      "Fixado pela moderação", que só a moderação fixa por rede_com_fixar) + a contagem agregada dos últimos 7 dias.
+--   2. "Comunidades ativas" da coluna (rede_alumia_ativas): as com mais posts na semana, sem algoritmo e sem patrocínio.
+--   3. "ajudou a autora" (rede_alumia_ajudou): SÓ quem abriu a conversa marca (a moderação não; a regra antiga de "resolveu" da
+--      dúvida, rede_conv_aceitar, continua como está para a rede de hoje). Uma por conversa, em tabela própria.
+--   4. Reações com emoji (rede_alumia_reagir, rede_alumia_reacoes): lista FECHADA de 8, só o total por emoji, nunca quem.
+--   5. A conversa da tela nova (rede_alumia_conversa): rede_conv_arvore + a marca "ajudou", quem pode marcar, os pronomes de
+--      quem abriu (para o selo não errar o gênero de ninguém) e as reações do post aberto.
+--
+-- Regras (PLANO-ALUMIA §5): tabelas novas em interno com RLS e sem nenhuma permissão para anon/authenticated; acesso só pelas
+-- funções security definer abaixo (search_path = interno, pg_temp), que conferem quem chama, bloqueio, visibilidade
+-- (interno.rede_ve, a mesma matriz de toda a Rede) e limite de uso (interno.rede2_limite / interno.limite).
+--
+-- Leis (conferidas no texto, leis-do-brasil): LGPD (Lei 13.709/2018) art. 5º, II e art. 11 — opinião política e filiação são
+-- dado pessoal sensível. Por isso: nenhuma função devolve quem reagiu, quem escreveu na semana ou quem marcou; todo total de
+-- pessoas ou de posts só aparece a partir de 3 (abaixo, nulo = "poucas"/"poucos", docs/rede/PRIVACIDADE.md §8); art. 6º, III
+-- (necessidade): a reação guarda só post, pessoa, emoji e data, e some com a conta (cascata) ou com o post; art. 46 (segurança):
+-- RLS ligada e nenhuma permissão direta. ECA (Lei 8.069/1990) e ECA Digital: a Rede segue só para 18+ confirmado
+-- (interno.rede2_membro), e só membro reage ou marca.
+--
+-- Idempotente: pode rodar duas vezes sem estrago (scripts/testar-alumia-f3-banco.mjs roda duas vezes no banco local). NÃO está
+-- no install.sql: o integrador cola no fim, na ordem F0→F9. NÃO rodar em produção sem o Jonathan.
+
+-- ── 1. Tabelas ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Reação com emoji: uma linha por (post, pessoa, emoji). A lista fechada é a mesma de lib/rede/tipos-conversa.ts (REACOES), na
+ * mesma ordem: ✊ ❤️ 🔥 👏 🤔 😢 😡 📚. Nada de emoji livre (PLANO-ALUMIA §6.3 e §12).
+ */
+create table if not exists interno.rede_reacoes_emoji (
+  post uuid not null references interno.rede_posts (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  emoji text not null check (emoji in ('✊', '❤️', '🔥', '👏', '🤔', '😢', '😡', '📚')),
+  criado_em timestamptz not null default now(),
+  primary key (post, usuario, emoji)
+);
+create index if not exists rede_reacoes_emoji_usuario on interno.rede_reacoes_emoji (usuario);
+alter table interno.rede_reacoes_emoji enable row level security;
+
+/** "ajudou a autora": a resposta que quem abriu a conversa marcou. Uma por conversa (raiz). */
+create table if not exists interno.rede_ajudou (
+  raiz uuid primary key references interno.rede_posts (id) on delete cascade,
+  resposta uuid not null references interno.rede_posts (id) on delete cascade,
+  marcado_em timestamptz not null default now()
+);
+create index if not exists rede_ajudou_resposta on interno.rede_ajudou (resposta);
+alter table interno.rede_ajudou enable row level security;
+
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on table interno.rede_reacoes_emoji, interno.rede_ajudou from anon, authenticated;
+  end if;
+end $$;
+
+-- ── 2. Contas internas ────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/** A ordem da lista fechada (a tela mostra nesta ordem). */
+create or replace function interno.rede_alumia_emojis() returns text[] language sql immutable as $$
+  select array['✊', '❤️', '🔥', '👏', '🤔', '😢', '😡', '📚']::text[]
+$$;
+
+/** Total que pode sair: nulo abaixo de 3 (PLANO-ALUMIA §6.1). */
+create or replace function interno.rede_alumia_agregado(p_n integer) returns integer language sql immutable as $$
+  select case when p_n >= 3 then p_n end
+$$;
+
+/**
+ * As reações de um post como a tela mostra: [{emoji, total, minha}] na ordem da lista, só os emojis com alguém (ou a minha).
+ * total nulo abaixo de 3. NUNCA quem reagiu, nem para quem escreveu o post. Quem chama esta conta já conferiu que p_quem vê o post.
+ */
+create or replace function interno.rede_alumia_reacoes_de(p_post uuid, p_quem uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('emoji', z.emoji, 'total', interno.rede_alumia_agregado(z.n), 'minha', z.minha)
+                            order by array_position(interno.rede_alumia_emojis(), z.emoji)), '[]'::jsonb)
+  from (
+    select r.emoji, count(*)::integer as n, bool_or(p_quem is not null and r.usuario = p_quem) as minha
+    from rede_reacoes_emoji r where r.post = p_post group by r.emoji) z
+$$;
+
+/** Posts da comunidade nos últimos 7 dias (sem removido, retido nem apagado). Só a conta; quem decide se sai é quem chama. */
+create or replace function interno.rede_alumia_posts_7d(p_slug text) returns integer language sql stable security definer set search_path = interno, pg_temp as $$
+  select count(*)::integer from rede_posts p
+  where p.comunidade = p_slug and p.criado_em > now() - interval '7 days' and not p.oculto and not p.retido and p.apagado_em is null
+$$;
+
+revoke all on function interno.rede_alumia_emojis(), interno.rede_alumia_agregado(integer), interno.rede_alumia_reacoes_de(uuid, uuid),
+  interno.rede_alumia_posts_7d(text) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.rede_alumia_emojis(), interno.rede_alumia_agregado(integer), interno.rede_alumia_reacoes_de(uuid, uuid),
+      interno.rede_alumia_posts_7d(text) from anon, authenticated;
+  end if;
+end $$;
+
+-- ── 3. Comunidade: "N posts esta semana" e "Comunidades ativas" ───────────────────────────────────────────────────────────
+
+/**
+ * A página da comunidade na tela nova: tudo o que rede_com_pagina devolve (que já confere a comunidade fechada, a amostra de
+ * visitante e os fixados que a pessoa pode ver) + posts_7d, nulo abaixo de 3. Nunca quantos membros nem quem escreveu.
+ */
+create or replace function public.rede_alumia_com_pagina(p_slug text) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v_base jsonb; c rede_comunidades;
+begin
+  perform interno.limite('rede2_ler', 600, 60);
+  v_base := public.rede_com_pagina(p_slug);
+  c := interno.rede3_com_achar(p_slug);
+  return v_base || jsonb_build_object('posts_7d', interno.rede_alumia_agregado(interno.rede_alumia_posts_7d(c.slug)));
+end $$;
+
+/**
+ * "Comunidades ativas" (prancha computador-inicio): até p_quantas (1 a 10, padrão 4) com mais posts nos últimos 7 dias; no empate,
+ * o nome. Entra só comunidade que a pessoa poderia abrir e com 3 posts ou mais na semana (abaixo disso, a conta poderia apontar
+ * quem escreveu). Visitante só vê as disciplinas (das lutas e do Instituto, visitante vê só a amostra, sem contagem: T32).
+ */
+create or replace function public.rede_alumia_ativas(p_quantas integer default 4) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_n integer := least(greatest(coalesce(p_quantas, 4), 1), 10);
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede2_ler', 600, 60);
+  if v is not null and exists (select 1 from perfis f where f.id = v and f.suspenso) then perform interno.erro('conta_suspensa'); end if;
+  return jsonb_build_object('regra', 'posts_7d', 'itens', (
+    select coalesce(jsonb_agg(jsonb_build_object('slug', x.slug, 'nome', x.nome, 'descricao', x.descricao, 'categoria', x.categoria,
+             'tipo', x.tipo, 'icone', x.icone, 'cor', x.cor, 'situacao', interno.rede3_com_situacao(x.slug, v), 'posts_7d', x.n)
+             order by x.n desc, x.nome), '[]'::jsonb)
+    from (
+      select c.*, interno.rede_alumia_posts_7d(c.slug) as n
+      from rede_comunidades c
+      where c.slug not like 'fechado-%'
+        and (c.tipo <> 'fechada' or interno.rede2_na_comunidade(c.slug, v))
+        and (v is not null or c.categoria = 'disciplinas')
+      order by n desc, c.nome
+      limit v_n) x
+    where x.n >= 3));
+end $$;
+
+-- ── 4. Reações com emoji ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Reage (p_sim = true) ou tira a reação (false) com um emoji da lista fechada. Só membro da Rede (18+ e consentimento), que vê o
+ * post, sem bloqueio entre as duas pessoas (rede_ve já recusa nos dois sentidos) e que não foi banido da comunidade do post.
+ * Devolve {reacoes} do post (totais, nunca quem).
+ */
+create or replace function public.rede_alumia_reagir(p_post uuid, p_emoji text, p_sim boolean default true) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_posts;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  if p_emoji is null or not (p_emoji = any (interno.rede_alumia_emojis())) then perform interno.erro('invalido:emoji'); end if;
+  select * into x from rede_posts where id = p_post;
+  if not found or not interno.rede_ve(x, v) or x.oculto or x.retido or x.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+  if interno.rede_bloqueado(v, x.autor) then perform interno.erro('nao_encontrado'); end if;
+  if x.comunidade is not null and interno.rede3_com_situacao(x.comunidade, v) = 'banido' then perform interno.erro('sem_permissao'); end if;
+  perform interno.rede2_limite('reagir');
+  if coalesce(p_sim, true) then
+    insert into rede_reacoes_emoji (post, usuario, emoji) values (x.id, v, p_emoji) on conflict do nothing;
+  else
+    delete from rede_reacoes_emoji where post = x.id and usuario = v and emoji = p_emoji;
+  end if;
+  return jsonb_build_object('reacoes', interno.rede_alumia_reacoes_de(x.id, v));
+end $$;
+
+/**
+ * As reações de vários posts de uma vez (até 50): {itens: [{post, reacoes}]}. Post que a pessoa não pode ver não volta (nem
+ * o id). Visitante só lê o que é aberto à internet (a mesma matriz).
+ */
+create or replace function public.rede_alumia_reacoes(p_posts uuid[]) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede2_ler', 600, 60);
+  if coalesce(cardinality(p_posts), 0) > 50 then perform interno.erro('invalido:posts'); end if;
+  if v is not null and exists (select 1 from perfis f where f.id = v and f.suspenso) then perform interno.erro('conta_suspensa'); end if;
+  return jsonb_build_object('itens', (
+    select coalesce(jsonb_agg(jsonb_build_object('post', x.id, 'reacoes', interno.rede_alumia_reacoes_de(x.id, v))), '[]'::jsonb)
+    from rede_posts x
+    where x.id = any (coalesce(p_posts, '{}'::uuid[])) and interno.rede_ve(x, v) and not x.oculto and not x.retido and x.apagado_em is null));
+end $$;
+
+-- ── 5. "ajudou a autora" ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Marca (p_sim = true) ou desmarca a resposta que ajudou quem abriu a conversa. SÓ quem abriu a conversa marca: nem a moderação
+ * (a marca diz o que ajudou a autora, e só ela sabe). A resposta tem de ser da conversa, visível para ela e de outra pessoa. Uma
+ * por conversa: marcar outra troca a marca. Avisa quem escreveu a resposta (sem avisar se há bloqueio). Devolve {ajudou}.
+ */
+create or replace function public.rede_alumia_ajudou(p_resposta uuid, p_sim boolean default true) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r rede_posts; v_raiz rede_posts; v_antes uuid;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  select * into r from rede_posts where id = p_resposta;
+  if not found or r.resposta_a is null or not interno.rede_ve(r, v) or r.oculto or r.retido or r.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+  v_raiz := interno.rede3_conv_raiz(r);
+  if v_raiz.id is null or not interno.rede_ve(v_raiz, v) then perform interno.erro('nao_encontrado'); end if;
+  if v_raiz.autor is distinct from v then perform interno.erro('sem_permissao'); end if;
+  if r.autor = v then perform interno.erro('invalido:propria'); end if;
+  perform interno.rede2_limite('reagir');
+  select resposta into v_antes from rede_ajudou where rede_ajudou.raiz = v_raiz.id;
+  if coalesce(p_sim, true) then
+    insert into rede_ajudou (raiz, resposta) values (v_raiz.id, r.id)
+    on conflict (raiz) do update set resposta = excluded.resposta, marcado_em = now();
+    -- Na dúvida, a marca da autora também é a "resolveu" da rede de hoje (que a autora já podia marcar): as duas telas concordam.
+    if v_raiz.tipo = 'duvida' then update rede_posts set aceita = r.id where id = v_raiz.id; end if;
+    if v_antes is distinct from r.id and r.autor is not null and not interno.rede_bloqueado(v, r.autor) then
+      perform interno.avisar_em(r.autor, format('Sua resposta ajudou quem abriu a conversa “%s” na Alumia.', left(coalesce(v_raiz.titulo, v_raiz.texto), 80)), 'rede');
+    end if;
+    return jsonb_build_object('ajudou', r.id);
+  end if;
+  delete from rede_ajudou where rede_ajudou.raiz = v_raiz.id and resposta = r.id;
+  if v_raiz.tipo = 'duvida' and v_raiz.aceita = r.id then update rede_posts set aceita = null where id = v_raiz.id; end if;
+  return jsonb_build_object('ajudou', coalesce((select resposta from rede_ajudou where rede_ajudou.raiz = v_raiz.id),
+    (select aceita from rede_posts where id = v_raiz.id and tipo = 'duvida')));
+end $$;
+
+-- ── 6. A conversa da tela nova ────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * rede_conv_arvore (a mesma matriz, ordem e limite) + o que a tela nova usa: ajudou (a resposta marcada, só se quem lê pode vê-la;
+ * na dúvida sem marca nova, vale a "resolveu" de hoje), pode_ajudou (só quem abriu a conversa), pronomes_da_raiz (o que a pessoa
+ * escreveu no perfil, quando a coluna da F4 existir; senão nulo) e as reações do post aberto (post.reacoes).
+ */
+create or replace function public.rede_alumia_conversa(p_id uuid, p_ordem text default 'antigas') returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_arv jsonb; v_raiz rede_posts; v_ajudou uuid; v_pron text; f perfis;
+begin
+  v_arv := public.rede_conv_arvore(p_id, p_ordem);
+  select * into v_raiz from rede_posts where id = (v_arv ->> 'raiz')::uuid;
+  select a.resposta into v_ajudou from rede_ajudou a join rede_posts r on r.id = a.resposta
+  where a.raiz = v_raiz.id and interno.rede_ve(r, v) and not r.oculto and not r.retido and r.apagado_em is null;
+  if v_ajudou is null and v_raiz.tipo = 'duvida' then v_ajudou := v_raiz.aceita; end if;
+  select * into f from perfis where id = v_raiz.autor;
+  -- Pronomes: só de perfil visível (o invisível não mostra nada de si). A coluna é da F4; to_jsonb lê sem quebrar antes dela.
+  if f.id is not null and not coalesce(f.rede_modo = 'invisivel' or f.rede_invisivel, false) then
+    v_pron := nullif(btrim(left(to_jsonb(f) ->> 'rede_pronomes', 30)), '');
+  end if;
+  return jsonb_set(v_arv, '{post,reacoes}', interno.rede_alumia_reacoes_de(p_id, v))
+    || jsonb_build_object(
+      'ajudou', v_ajudou,
+      'pode_ajudou', v is not null and v_raiz.autor = v and interno.rede2_membro(v),
+      'pronomes_da_raiz', v_pron);
+end $$;
+
+-- ── 7. Permissões ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function public.rede_alumia_com_pagina(text), public.rede_alumia_ativas(integer), public.rede_alumia_reagir(uuid, text, boolean),
+  public.rede_alumia_reacoes(uuid[]), public.rede_alumia_ajudou(uuid, boolean), public.rede_alumia_conversa(uuid, text) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function public.rede_alumia_com_pagina(text), public.rede_alumia_ativas(integer), public.rede_alumia_reagir(uuid, text, boolean),
+      public.rede_alumia_reacoes(uuid[]), public.rede_alumia_ajudou(uuid, boolean), public.rede_alumia_conversa(uuid, text) from anon, authenticated;
+    -- Leitura: visitante lê o que a matriz deixa (disciplinas e posts abertos à internet). Escrita: só quem entrou.
+    grant execute on function public.rede_alumia_com_pagina(text), public.rede_alumia_ativas(integer), public.rede_alumia_reacoes(uuid[]),
+      public.rede_alumia_conversa(uuid, text) to anon, authenticated, service_role;
+    grant execute on function public.rede_alumia_reagir(uuid, text, boolean), public.rede_alumia_ajudou(uuid, boolean) to authenticated, service_role;
+  end if;
+end $$;
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda 5 · F4 · organizações e perfis (09/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/PLANO-ALUMIA.md §4.3, §5 (F4), §6, §7 e §8 (F4). O back-end MÍNIMO para cada função das telas da F4
+-- funcionar: conta de organização (criada sem senha por lib/rede/contas-extra.ts), pedido do selo e a fila no painel, gestores
+-- (o vínculo não aparece para ninguém), "Como votamos", consultas à base com voto secreto (só quem é de um núcleo da organização
+-- vota; quórum; simples ou ranqueada por segundo turno instantâneo), plenárias com fila por ordem de chegada que não reordena,
+-- núcleos da organização, o sininho e os extras do perfil de pessoa (status, pronomes, campos).
+--
+-- Idempotente: pode rodar duas vezes (scripts/testar-alumia-f4.mjs roda duas vezes no banco local). Depende da F0
+-- (20261109-alumia-f0-contrato.sql: rede_identidades e rede_age_como). NÃO está no install.sql (o integrador cola depois da F0) e
+-- NÃO rodar em produção sem o Jonathan.
+--
+-- Regras (§5): tudo em `interno` com RLS ligada e nenhuma permissão para anon/authenticated nas tabelas; acesso só por função
+-- security definer com search_path = interno, pg_temp; cada função confere quem chama (membro da Rede, bloqueio, gestor,
+-- coordenação) e o limite de uso (interno.limite).
+--
+-- Leis (conferidas no texto, leis-do-brasil):
+--  - LGPD (Lei 13.709/2018) art. 5º, II e art. 11: filiação a organização política e opinião política são dado pessoal SENSÍVEL.
+--    Por isso: nenhuma função devolve lista de quem segue, liga o sininho, votou, é de um núcleo ou está numa plenária; contagens
+--    de pessoas só a partir de 3 (nulo abaixo); o voto da consulta é secreto POR CONSTRUÇÃO (quem votou e o que votou ficam em
+--    tabelas separadas, sem chave comum nem hora); o vínculo organização↔gestor nunca sai do banco (só "eu gerencio", para mim).
+--  - LGPD art. 6º, III (necessidade): o pedido do selo guarda só documento PÚBLICO da organização (CNPJ, registro do partido,
+--    diploma, ata), nunca CPF/RG de pessoa, e não guarda quem pediu; datas de vínculo guardam só o dia.
+--  - LGPD art. 46 (segurança): RLS ligada, nenhuma permissão direta; limites de uso em toda escrita.
+--  - ECA (Lei 8.069/1990) e ECA Digital (Lei 15.211/2025) art. 9º § 1º: a Alumia é só para maiores; toda ação exige ser membro da
+--    Rede (rede_18 + consentimento), e o pedido do selo exige a declaração de 18 anos de quem cuida da conta.
+
+-- ── 1. Tabelas ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+-- A organização é um perfil (conta extra sem senha, em auth.users) com estes dados a mais.
+create table if not exists interno.rede_orgs (
+  perfil uuid primary key references interno.perfis (id) on delete cascade,
+  tipo text not null check (tipo in ('partido', 'mandato', 'sindicato', 'movimento', 'coletivo', 'gremio', 'dce', 'outro')),
+  cidade text not null default '' check (char_length(cidade) <= 60),
+  palavra text not null default 'ORG' check (palavra ~ '^[A-Z ]{2,14}$'),
+  -- O documento PÚBLICO conferido (tipo e número/link). Só aparece no perfil depois do selo.
+  documento_tipo text not null default '' check (char_length(documento_tipo) <= 60),
+  documento_publico text not null default '' check (char_length(documento_publico) <= 200),
+  verificada_em timestamptz,
+  verificada_por uuid references interno.perfis (id) on delete set null,
+  criada_em date not null default current_date
+);
+alter table interno.rede_orgs enable row level security;
+
+-- Quem age como a organização. NUNCA volta em função nenhuma a outra pessoa (só o "gerencio" de quem pergunta sobre si).
+create table if not exists interno.rede_org_gestores (
+  org uuid not null references interno.rede_orgs (perfil) on delete cascade,
+  gestor uuid not null references interno.perfis (id) on delete cascade,
+  papel text not null default 'gestor' check (papel in ('dono', 'gestor')),
+  desde date not null default current_date,
+  primary key (org, gestor),
+  check (org <> gestor)
+);
+create index if not exists rede_org_gestores_gestor on interno.rede_org_gestores (gestor);
+alter table interno.rede_org_gestores enable row level security;
+
+-- A fila do selo. Não guarda quem pediu (a organização é quem pede).
+create table if not exists interno.rede_org_pedidos (
+  id uuid primary key default gen_random_uuid(),
+  org uuid not null references interno.rede_orgs (perfil) on delete cascade,
+  documento_tipo text not null check (char_length(btrim(documento_tipo)) between 2 and 60),
+  documento text not null check (char_length(btrim(documento)) between 2 and 200),
+  sobre text not null check (char_length(btrim(sobre)) between 2 and 280),
+  situacao text not null default 'esperando' check (situacao in ('esperando', 'aceito', 'recusado')),
+  motivo text not null default '' check (char_length(motivo) <= 500),
+  criado_em timestamptz not null default now(),
+  decidido_em timestamptz,
+  decidido_por uuid references interno.perfis (id) on delete set null
+);
+create unique index if not exists rede_org_pedidos_um_esperando on interno.rede_org_pedidos (org) where situacao = 'esperando';
+alter table interno.rede_org_pedidos enable row level security;
+
+-- "Como votamos": a prestação de contas, sempre com a fonte pública.
+create table if not exists interno.rede_org_votacoes (
+  id uuid primary key default gen_random_uuid(),
+  org uuid not null references interno.rede_orgs (perfil) on delete cascade,
+  data date not null,
+  projeto text not null check (char_length(btrim(projeto)) between 2 and 200),
+  voto text not null check (voto in ('sim', 'nao', 'abstencao', 'obstrucao', 'ausente')),
+  porque text not null default '' check (char_length(porque) <= 500),
+  resultado text not null default '' check (char_length(resultado) <= 120),
+  fonte text not null check (fonte ~ '^https?://[^\s]{3,}$' and char_length(fonte) <= 500),
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_org_votacoes_org on interno.rede_org_votacoes (org, data desc);
+alter table interno.rede_org_votacoes enable row level security;
+
+-- Núcleos da organização: os núcleos de sempre, com o dono-organização, quando se encontram e a cor.
+alter table interno.rede_nucleos add column if not exists org uuid;
+alter table interno.rede_nucleos add column if not exists org_quando text not null default '';
+alter table interno.rede_nucleos add column if not exists org_cor smallint not null default 1;
+do $$
+begin
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_nucleos'::regclass and conname = 'rede_nucleos_org_fk') then
+    alter table interno.rede_nucleos add constraint rede_nucleos_org_fk foreign key (org) references interno.rede_orgs (perfil) on delete cascade;
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_nucleos'::regclass and conname = 'rede_nucleos_org_quando') then
+    alter table interno.rede_nucleos add constraint rede_nucleos_org_quando check (char_length(org_quando) <= 60);
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_nucleos'::regclass and conname = 'rede_nucleos_org_cor') then
+    alter table interno.rede_nucleos add constraint rede_nucleos_org_cor check (org_cor between 1 and 5);
+  end if;
+end $$;
+create index if not exists rede_nucleos_org on interno.rede_nucleos (org) where org is not null;
+
+-- Pedidos para entrar num núcleo da organização (só a mediação do núcleo e os gestores veem).
+create table if not exists interno.rede_org_nucleo_pedidos (
+  nucleo uuid not null references interno.rede_nucleos (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  criado_em date not null default current_date,
+  primary key (nucleo, usuario)
+);
+alter table interno.rede_org_nucleo_pedidos enable row level security;
+
+-- Consultas à base.
+create table if not exists interno.rede_consultas (
+  id uuid primary key default gen_random_uuid(),
+  org uuid not null references interno.rede_orgs (perfil) on delete cascade,
+  -- Os núcleos que votam (vazio = todos os núcleos da organização).
+  nucleos uuid[] not null default '{}',
+  pergunta text not null check (char_length(btrim(pergunta)) between 5 and 280),
+  metodo text not null check (metodo in ('simples', 'ranqueada')),
+  quorum integer check (quorum is null or quorum between 3 and 1000000),
+  prazo timestamptz not null,
+  compromisso text not null check (char_length(btrim(compromisso)) between 10 and 500),
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_consultas_org on interno.rede_consultas (org, prazo desc);
+alter table interno.rede_consultas enable row level security;
+
+create table if not exists interno.rede_consulta_opcoes (
+  id uuid primary key default gen_random_uuid(),
+  consulta uuid not null references interno.rede_consultas (id) on delete cascade,
+  ordem smallint not null,
+  texto text not null check (char_length(btrim(texto)) between 1 and 120),
+  unique (consulta, ordem)
+);
+alter table interno.rede_consulta_opcoes enable row level security;
+
+-- Voto secreto por construção: QUEM votou (para não votar duas vezes) e O QUE foi votado (a cédula) ficam em tabelas separadas,
+-- sem chave comum e sem hora. A cédula tem um id aleatório; nada nela aponta para a pessoa.
+create table if not exists interno.rede_consulta_votantes (
+  consulta uuid not null references interno.rede_consultas (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  primary key (consulta, usuario)
+);
+alter table interno.rede_consulta_votantes enable row level security;
+create table if not exists interno.rede_consulta_cedulas (
+  id uuid primary key default gen_random_uuid(),
+  consulta uuid not null references interno.rede_consultas (id) on delete cascade,
+  ranking uuid[] not null check (cardinality(ranking) between 1 and 8)
+);
+create index if not exists rede_consulta_cedulas_consulta on interno.rede_consulta_cedulas (consulta);
+alter table interno.rede_consulta_cedulas enable row level security;
+
+-- Plenárias e a fila de perguntas (ordem de chegada: `seq`, que ninguém muda).
+create table if not exists interno.rede_plenarias (
+  id uuid primary key default gen_random_uuid(),
+  org uuid not null references interno.rede_orgs (perfil) on delete cascade,
+  titulo text not null check (char_length(btrim(titulo)) between 3 and 120),
+  descricao text not null default '' check (char_length(descricao) <= 500),
+  inicio timestamptz not null,
+  sala text check (sala is null or (sala ~ '^https://[^\s]{3,}$' and char_length(sala) <= 300)),
+  situacao text not null default 'marcada' check (situacao in ('marcada', 'ao_vivo', 'encerrada')),
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_plenarias_org on interno.rede_plenarias (org, inicio desc);
+create index if not exists rede_plenarias_ao_vivo on interno.rede_plenarias (situacao) where situacao = 'ao_vivo';
+alter table interno.rede_plenarias enable row level security;
+
+create table if not exists interno.rede_plenaria_perguntas (
+  id uuid primary key default gen_random_uuid(),
+  plenaria uuid not null references interno.rede_plenarias (id) on delete cascade,
+  seq bigint generated always as identity,
+  autor uuid references interno.perfis (id) on delete set null,
+  mostrar boolean not null default false,
+  texto text not null check (char_length(btrim(texto)) between 2 and 280),
+  criado_em timestamptz not null default now(),
+  respondida_em timestamptz,
+  retirada_em timestamptz,
+  retirada_motivo text check (retirada_motivo is null or retirada_motivo in ('ofensa', 'dado_pessoal', 'fora_do_tema', 'repetida'))
+);
+create index if not exists rede_plenaria_perguntas_fila on interno.rede_plenaria_perguntas (plenaria, seq);
+alter table interno.rede_plenaria_perguntas enable row level security;
+
+/** A fila não reordena: a ordem (seq, criado_em), a plenária, o texto e quem perguntou não mudam depois de entrar. */
+create or replace function interno.alumia_fila_fixa() returns trigger language plpgsql as $$
+begin
+  if new.seq is distinct from old.seq or new.criado_em is distinct from old.criado_em or new.plenaria is distinct from old.plenaria
+     or new.texto is distinct from old.texto or (new.autor is distinct from old.autor and new.autor is not null) then
+    raise exception 'fila_fixa' using errcode = 'P0001';
+  end if;
+  return new;
+end $$;
+drop trigger if exists alumia_fila_fixa on interno.rede_plenaria_perguntas;
+create trigger alumia_fila_fixa before update on interno.rede_plenaria_perguntas for each row execute function interno.alumia_fila_fixa();
+
+-- O sininho ("avisar quando a organização postar").
+create table if not exists interno.rede_org_sinos (
+  org uuid not null references interno.rede_orgs (perfil) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  primary key (org, usuario)
+);
+create index if not exists rede_org_sinos_usuario on interno.rede_org_sinos (usuario);
+alter table interno.rede_org_sinos enable row level security;
+
+-- Extras do perfil de pessoa: status curto (com prazo), pronomes e até 4 campos.
+alter table interno.perfis add column if not exists rede_status_tipo text;
+alter table interno.perfis add column if not exists rede_status_texto text;
+alter table interno.perfis add column if not exists rede_status_ate timestamptz;
+alter table interno.perfis add column if not exists rede_pronomes text;
+do $$
+begin
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.perfis'::regclass and conname = 'perfis_rede_status_tipo') then
+    alter table interno.perfis add constraint perfis_rede_status_tipo check (rede_status_tipo is null or rede_status_tipo in ('greve', 'ato', 'estudando', 'cuidando', 'ferias'));
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.perfis'::regclass and conname = 'perfis_rede_status_texto') then
+    alter table interno.perfis add constraint perfis_rede_status_texto check (rede_status_texto is null or char_length(rede_status_texto) <= 60);
+  end if;
+  if not exists (select 1 from pg_constraint where conrelid = 'interno.perfis'::regclass and conname = 'perfis_rede_pronomes') then
+    alter table interno.perfis add constraint perfis_rede_pronomes check (rede_pronomes is null or char_length(rede_pronomes) <= 30);
+  end if;
+end $$;
+create table if not exists interno.rede_perfil_campos (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  ordem smallint not null check (ordem between 1 and 4),
+  rotulo text not null check (char_length(btrim(rotulo)) between 1 and 30),
+  valor text not null check (char_length(btrim(valor)) between 1 and 80),
+  primary key (usuario, ordem)
+);
+alter table interno.rede_perfil_campos enable row level security;
+
+-- Nenhuma permissão direta nas tabelas novas.
+do $$
+declare t text;
+begin
+  foreach t in array array['rede_orgs', 'rede_org_gestores', 'rede_org_pedidos', 'rede_org_votacoes', 'rede_org_nucleo_pedidos', 'rede_consultas',
+    'rede_consulta_opcoes', 'rede_consulta_votantes', 'rede_consulta_cedulas', 'rede_plenarias', 'rede_plenaria_perguntas', 'rede_org_sinos', 'rede_perfil_campos'] loop
+    execute format('revoke all on table interno.%I from public', t);
+    if exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on table interno.%I from anon, authenticated', t);
+    end if;
+  end loop;
+end $$;
+
+-- ── 2. Ajudas internas ────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/** A organização pelo @ (nula se o @ não é de organização, ou se a conta está suspensa). */
+create or replace function interno.alumia_org_de(p_handle text) returns uuid language sql stable security definer set search_path = interno, pg_temp as $$
+  select o.perfil from rede_orgs o join perfis f on f.id = o.perfil
+  where f.rede_handle = lower(btrim(coalesce(p_handle, ''), ' @')) and not f.suspenso
+$$;
+
+/** `p_quem` gerencia `p_org`? (dono ou gestor) */
+create or replace function interno.alumia_org_gere(p_quem uuid, p_org uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_quem is not null and p_org is not null and exists (select 1 from rede_org_gestores g where g.org = p_org and g.gestor = p_quem)
+$$;
+
+/** Contagem de PESSOAS para mostrar: nula abaixo de 3 (PLANO-ALUMIA §6.1). */
+create or replace function interno.alumia_pessoas(p_n bigint) returns integer language sql immutable as $$
+  select case when p_n >= 3 then p_n::integer end
+$$;
+
+/** A organização pelo @, para quem gerencia: confere membro, gestor e limite. Devolve o id. */
+create or replace function interno.alumia_org_gestor(p_handle text, p_acao text, p_max integer, p_min integer) returns uuid language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  v_org := interno.alumia_org_de(p_handle);
+  if v_org is null or not interno.alumia_org_gere(v, v_org) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite(p_acao, p_max, p_min);
+  return v_org;
+end $$;
+
+/** A palavra da capa (A–Z, 2 a 14) a partir do codinome. */
+create or replace function interno.alumia_palavra(p_codinome text) returns text language sql immutable as $$
+  select case when char_length(w) >= 2 then w else 'ORG' end
+  from (select btrim(left(regexp_replace(upper(translate(coalesce(p_codinome, ''), 'áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ', 'aaaaaeeeeiiiiooooouuuucnAAAAAEEEEIIIIOOOOOUUUUCN')), '[^A-Z ]', '', 'g'), 14)) as w) x
+$$;
+
+/**
+ * A F0 diz que a pessoa age como ela mesma ou como as identidades/organizações dela (rede_identidades). A F4 acrescenta: quem é
+ * gestor da organização também age como ela. Mesma assinatura (create or replace).
+ */
+create or replace function interno.rede_age_como(p_quem uuid, p_como uuid) returns boolean
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_quem is not null and p_como is not null
+    and (p_quem = p_como
+      or exists (select 1 from rede_identidades i where i.dono = p_quem and i.identidade = p_como)
+      or exists (select 1 from rede_org_gestores g where g.gestor = p_quem and g.org = p_como))
+$$;
+
+/**
+ * Apura uma consulta (as mesmas regras de lib/rede/org/apuracao.ts, que é a referência e o teste). Simples: conta a primeira
+ * opção. Ranqueada: segundo turno instantâneo; empate na eliminação olha as rodadas anteriores e, se persistir, sai a última na
+ * ordem das opções. Só entram cédulas (nunca pessoas). Devolve {cedulas, vencedora, proporcoes: {opcao: 0..1}} da última rodada.
+ */
+create or replace function interno.alumia_apurar(p_consulta uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v_metodo text; v_opcoes uuid[]; v_vivas uuid[]; v_n integer; v_votos jsonb; v_rodadas jsonb := '[]'::jsonb; v_total integer;
+  v_lider uuid; v_min integer; v_empatadas uuid[]; v_menor integer; r integer; o uuid; v_venc uuid; v_ultima jsonb;
+begin
+  select metodo into v_metodo from rede_consultas where id = p_consulta;
+  select array_agg(id order by ordem) into v_opcoes from rede_consulta_opcoes where consulta = p_consulta;
+  select count(*) into v_n from rede_consulta_cedulas where consulta = p_consulta;
+  v_vivas := coalesce(v_opcoes, '{}');
+  loop
+    -- Votos de cada opção viva: cada cédula conta para a sua opção viva mais bem colocada.
+    select coalesce(jsonb_object_agg(x.o::text, x.n), '{}'::jsonb), coalesce(sum(x.n), 0)::integer into v_votos, v_total from (
+      select vv.o, count(e.escolha)::integer as n
+      from unnest(v_vivas) vv(o)
+      left join (
+        select (select u.x from unnest(case when v_metodo = 'simples' then c.ranking[1:1] else c.ranking end) with ordinality u(x, i)
+                where u.x = any (v_vivas) order by u.i limit 1) as escolha
+        from rede_consulta_cedulas c where c.consulta = p_consulta) e on e.escolha = vv.o
+      group by vv.o) x;
+    if v_metodo = 'simples' then
+      select max((v_votos ->> k::text)::integer) into v_min from unnest(v_vivas) k;
+      select array_agg(k order by array_position(v_opcoes, k)) into v_empatadas from unnest(v_vivas) k where (v_votos ->> k::text)::integer = v_min;
+      v_venc := case when coalesce(v_min, 0) > 0 and cardinality(v_empatadas) = 1 then v_empatadas[1] end;
+      v_rodadas := v_rodadas || jsonb_build_array(v_votos);
+      exit;
+    end if;
+    if v_total = 0 then v_rodadas := v_rodadas || jsonb_build_array(v_votos); v_venc := null; exit; end if;
+    v_lider := null;
+    foreach o in array v_opcoes loop
+      if o = any (v_vivas) and (v_votos ->> o::text)::integer * 2 > v_total then v_lider := o; exit; end if;
+    end loop;
+    if v_lider is not null or cardinality(v_vivas) = 1 then
+      v_rodadas := v_rodadas || jsonb_build_array(v_votos);
+      v_venc := coalesce(v_lider, v_vivas[1]);
+      exit;
+    end if;
+    select min((v_votos ->> k::text)::integer) into v_min from unnest(v_vivas) k;
+    select array_agg(k order by array_position(v_opcoes, k)) into v_empatadas from unnest(v_vivas) k where (v_votos ->> k::text)::integer = v_min;
+    r := jsonb_array_length(v_rodadas) - 1;
+    while r >= 0 and cardinality(v_empatadas) > 1 loop
+      select min(coalesce((v_rodadas -> r ->> k::text)::integer, 0)) into v_menor from unnest(v_empatadas) k;
+      select array_agg(k order by array_position(v_opcoes, k)) into v_empatadas from unnest(v_empatadas) k where coalesce((v_rodadas -> r ->> k::text)::integer, 0) = v_menor;
+      r := r - 1;
+    end loop;
+    v_rodadas := v_rodadas || jsonb_build_array(v_votos);
+    v_vivas := array_remove(v_vivas, v_empatadas[cardinality(v_empatadas)]);
+    if cardinality(v_vivas) = 0 then v_venc := null; exit; end if;
+  end loop;
+  v_ultima := v_rodadas -> (jsonb_array_length(v_rodadas) - 1);
+  select coalesce(sum(value::integer), 0) into v_total from jsonb_each_text(v_ultima);
+  return jsonb_build_object('cedulas', v_n, 'vencedora', v_venc, 'rodadas', jsonb_array_length(v_rodadas),
+    'proporcoes', (select coalesce(jsonb_object_agg(k::text, case when v_total > 0 then coalesce((v_ultima ->> k::text)::numeric, 0) / v_total else 0 end), '{}'::jsonb)
+                   from unnest(coalesce(v_opcoes, '{}')) k));
+end $$;
+
+/** A consulta como o perfil mostra (para quem olha: p_quem nulo = visitante). */
+create or replace function interno.alumia_consulta_json(c interno.rede_consultas, p_quem uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v_fechada boolean := c.prazo <= now(); v_votantes integer; v_ap jsonb; v_mostra boolean; v_nucleos uuid[];
+  v_posso boolean; v_votei boolean;
+begin
+  v_nucleos := case when cardinality(c.nucleos) > 0 then c.nucleos else coalesce((select array_agg(id) from rede_nucleos where org = c.org), '{}') end;
+  select count(*) into v_votantes from rede_consulta_votantes where consulta = c.id;
+  v_votei := p_quem is not null and exists (select 1 from rede_consulta_votantes where consulta = c.id and usuario = p_quem);
+  v_posso := p_quem is not null and not v_fechada and not v_votei and interno.rede2_membro(p_quem) and not interno.rede_bloqueado(p_quem, c.org)
+    and exists (select 1 from rede_nucleo_membros m where m.usuario = p_quem and m.nucleo = any (v_nucleos));
+  -- O resultado só sai com a consulta fechada e com 3 votos ou mais (com 1 ou 2 daria para saber o voto de alguém).
+  v_mostra := v_fechada and v_votantes >= 3;
+  if v_mostra then v_ap := interno.alumia_apurar(c.id); end if;
+  return jsonb_build_object(
+    'id', c.id, 'pergunta', c.pergunta, 'metodo', c.metodo, 'prazo', c.prazo, 'compromisso', c.compromisso, 'quorum', c.quorum,
+    'situacao', case when v_fechada then 'fechada' else 'aberta' end,
+    'votantes', case when v_fechada then interno.alumia_pessoas(v_votantes) end,
+    'quorumAtingido', case when v_fechada then (c.quorum is null or v_votantes >= c.quorum) end,
+    'possoVotar', v_posso, 'votei', v_votei,
+    'nucleos', coalesce((select jsonb_agg(n.nome order by n.nome) from rede_nucleos n where n.id = any (v_nucleos)), '[]'::jsonb),
+    'opcoes', coalesce((select jsonb_agg(jsonb_build_object('id', o.id, 'texto', o.texto,
+                'proporcao', case when v_mostra then round((v_ap -> 'proporcoes' ->> o.id::text)::numeric, 4) end) order by o.ordem)
+              from rede_consulta_opcoes o where o.consulta = c.id), '[]'::jsonb));
+end $$;
+
+/** A plenária como o perfil mostra. Visitante não vê a fila (só quantas perguntas esperam). */
+create or replace function interno.alumia_plenaria_json(p interno.rede_plenarias, p_quem uuid, p_com_fila boolean) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', p.id, 'org', jsonb_build_object('handle', f.rede_handle, 'codinome', f.rede_codinome),
+    'titulo', p.titulo, 'descricao', p.descricao, 'inicio', p.inicio, 'aoVivo', p.situacao = 'ao_vivo',
+    'sala', case when p.situacao = 'ao_vivo' then p.sala end,
+    -- Não guardamos quem entra na sala (nenhum registro de presença): o número de pessoas na sala não existe.
+    'naSala', null,
+    'naFila', (select count(*) from rede_plenaria_perguntas q where q.plenaria = p.id and q.respondida_em is null and q.retirada_em is null),
+    'pergunteiEu', p_quem is not null and exists (select 1 from rede_plenaria_perguntas q where q.plenaria = p.id and q.autor = p_quem),
+    'fila', case when p_com_fila then coalesce((
+      select jsonb_agg(jsonb_build_object('id', q.id, 'handle', case when q.mostrar then a.rede_handle end, 'texto', q.texto,
+                                          'criadaEm', q.criado_em, 'respondida', q.respondida_em is not null) order by q.seq)
+      from (select * from rede_plenaria_perguntas where plenaria = p.id and retirada_em is null order by seq limit 30) q
+      left join perfis a on a.id = q.autor and not a.suspenso and not a.rede_invisivel and a.rede_modo <> 'invisivel'), '[]'::jsonb)
+      else '[]'::jsonb end)
+  from perfis f where f.id = p.org
+$$;
+
+revoke all on function interno.alumia_org_de(text), interno.alumia_org_gere(uuid, uuid), interno.alumia_pessoas(bigint),
+  interno.alumia_org_gestor(text, text, integer, integer), interno.alumia_palavra(text), interno.alumia_apurar(uuid),
+  interno.alumia_consulta_json(interno.rede_consultas, uuid), interno.alumia_plenaria_json(interno.rede_plenarias, uuid, boolean),
+  interno.alumia_fila_fixa(), interno.rede_age_como(uuid, uuid) from public;
+
+-- ── 3. O perfil da organização e o "Ao vivo agora" ────────────────────────────────────────────────────────────────────────
+
+/**
+ * O perfil público de uma organização pelo @ (OrgPublica, lib/rede/tipos-org.ts); nulo se o @ não é de organização, se há
+ * bloqueio entre quem olha e a organização, ou (para visitante) se a organização ainda não tem o selo. Sem contagem de
+ * seguidores, sem lista de gestores, de membros de núcleo, de quem votou ou de quem liga o sininho.
+ */
+create or replace function public.rede_org_perfil(p_handle text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_org uuid; o rede_orgs; f perfis; v_membro boolean;
+begin
+  perform interno.limite('alumia_org_ler', 300, 10);
+  v_org := interno.alumia_org_de(p_handle);
+  if v_org is null then return null; end if;
+  select * into o from rede_orgs where perfil = v_org;
+  select * into f from perfis where id = v_org;
+  if interno.rede_bloqueado(v, v_org) then return null; end if;
+  v_membro := interno.rede2_membro(v);
+  if not v_membro and o.verificada_em is null then return null; end if;
+  return jsonb_build_object(
+    'handle', f.rede_handle, 'codinome', coalesce(f.rede_codinome, ''), 'tipo', o.tipo, 'bio', coalesce(f.rede_bio, ''),
+    'cidade', nullif(o.cidade, ''), 'verificadaEm', o.verificada_em,
+    'documento', case when o.verificada_em is not null then nullif(o.documento_tipo, '') end,
+    'palavra', o.palavra,
+    'sigo', v is not null and exists (select 1 from rede_seguindo s where s.quem = v and s.segue = v_org and not s.pendente),
+    'sino', v is not null and exists (select 1 from rede_org_sinos s where s.org = v_org and s.usuario = v),
+    'gerencio', interno.alumia_org_gere(v, v_org),
+    'nucleos', coalesce((select jsonb_agg(jsonb_build_object('id', n.id, 'nome', n.nome, 'cor', n.org_cor, 'quando', n.org_quando,
+                  'onde', nullif(n.cidade, ''),
+                  'sou', v is not null and exists (select 1 from rede_nucleo_membros m where m.nucleo = n.id and m.usuario = v),
+                  'pedi', v is not null and exists (select 1 from rede_org_nucleo_pedidos q where q.nucleo = n.id and q.usuario = v)) order by n.nome)
+                from rede_nucleos n where n.org = v_org), '[]'::jsonb),
+    'votacoes', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'data', x.data, 'projeto', x.projeto, 'voto', x.voto, 'porque', x.porque,
+                  'resultado', x.resultado, 'fonte', x.fonte) order by x.data desc, x.criado_em desc)
+                from (select * from rede_org_votacoes where org = v_org order by data desc, criado_em desc limit 30) x), '[]'::jsonb),
+    'consultas', coalesce((select jsonb_agg(interno.alumia_consulta_json(c, v) order by c.prazo desc)
+                from (select * from rede_consultas where org = v_org order by prazo desc limit 10) c), '[]'::jsonb),
+    'plenarias', coalesce((select jsonb_agg(interno.alumia_plenaria_json(p, v, v_membro) order by (p.situacao = 'ao_vivo') desc, p.inicio)
+                from (select * from rede_plenarias where org = v_org and situacao <> 'encerrada' order by inicio limit 5) p), '[]'::jsonb));
+end $$;
+
+/** "Ao vivo agora": plenárias acontecendo das organizações que sigo ou com selo. Visitante: só das com selo. Até 10. */
+create or replace function public.rede_org_ao_vivo() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  perform interno.limite('alumia_org_ler', 300, 10);
+  return coalesce((
+    select jsonb_agg(interno.alumia_plenaria_json(p, v, false) - 'fila' - 'pergunteiEu' order by p.inicio desc)
+    from (
+      select p.* from rede_plenarias p join rede_orgs o on o.perfil = p.org join perfis f on f.id = p.org
+      where p.situacao = 'ao_vivo' and not f.suspenso and not interno.rede_bloqueado(v, p.org)
+        and (o.verificada_em is not null or (v is not null and exists (select 1 from rede_seguindo s where s.quem = v and s.segue = p.org and not s.pendente)))
+      order by p.inicio desc limit 10) p), '[]'::jsonb);
+end $$;
+
+-- ── 4. Ações de quem é membro da Rede ─────────────────────────────────────────────────────────────────────────────────────
+
+/** O sininho. Ninguém vê quem ligou (nem a organização). */
+create or replace function public.rede_org_sino(p_handle text, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  v_org := interno.alumia_org_de(p_handle);
+  if v_org is null or interno.rede_bloqueado(v, v_org) then perform interno.erro('nao_encontrado'); end if;
+  perform interno.limite('alumia_org_sino', 60, 60);
+  if coalesce(p_sim, false) then insert into rede_org_sinos (org, usuario) values (v_org, v) on conflict do nothing;
+  else delete from rede_org_sinos where org = v_org and usuario = v; end if;
+  return jsonb_build_object('sino', exists (select 1 from rede_org_sinos where org = v_org and usuario = v));
+end $$;
+
+/** Pedir para entrar num núcleo da organização. Quem já é do núcleo fica como está. */
+create or replace function public.rede_org_nucleo_entrar(p_nucleo uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); n rede_nucleos;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  select * into n from rede_nucleos where id = p_nucleo and org is not null;
+  if not found or interno.rede_bloqueado(v, n.org) or exists (select 1 from perfis where id = n.org and suspenso) then perform interno.erro('nao_encontrado'); end if;
+  perform interno.limite('alumia_org_nucleo_entrar', 20, 1440);
+  if not exists (select 1 from rede_nucleo_membros m where m.nucleo = n.id and m.usuario = v) then
+    insert into rede_org_nucleo_pedidos (nucleo, usuario) values (n.id, v) on conflict do nothing;
+  end if;
+  return jsonb_build_object('sou', exists (select 1 from rede_nucleo_membros m where m.nucleo = n.id and m.usuario = v),
+                            'pedi', exists (select 1 from rede_org_nucleo_pedidos q where q.nucleo = n.id and q.usuario = v));
+end $$;
+
+/**
+ * Votar numa consulta aberta. Só quem é de um dos núcleos que votam. `p_ranking`: a ordem de preferência (na simples, uma opção).
+ * O voto é secreto: grava "votou" numa tabela e a cédula noutra, sem ligação; nada volta além de "votei". Não dá para mudar.
+ */
+create or replace function public.rede_org_consulta_votar(p_consulta uuid, p_ranking uuid[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c rede_consultas; v_nucleos uuid[]; v_opcoes uuid[];
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  select * into c from rede_consultas where id = p_consulta;
+  if not found or interno.rede_bloqueado(v, c.org) then perform interno.erro('nao_encontrado'); end if;
+  if c.prazo <= now() then perform interno.erro('consulta_fechada'); end if;
+  v_nucleos := case when cardinality(c.nucleos) > 0 then c.nucleos else coalesce((select array_agg(id) from rede_nucleos where org = c.org), '{}') end;
+  if not exists (select 1 from rede_nucleo_membros m where m.usuario = v and m.nucleo = any (v_nucleos)) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('alumia_org_votar', 30, 60);
+  select array_agg(id) into v_opcoes from rede_consulta_opcoes where consulta = c.id;
+  if p_ranking is null or cardinality(p_ranking) = 0 or cardinality(p_ranking) > cardinality(v_opcoes)
+     or (c.metodo = 'simples' and cardinality(p_ranking) <> 1)
+     or exists (select 1 from unnest(p_ranking) x where x is null or not x = any (v_opcoes))
+     or (select count(distinct x) from unnest(p_ranking) x) <> cardinality(p_ranking) then
+    perform interno.erro('invalido:ranking');
+  end if;
+  insert into rede_consulta_votantes (consulta, usuario) values (c.id, v) on conflict do nothing;
+  if not found then perform interno.erro('ja_votou'); end if;
+  insert into rede_consulta_cedulas (consulta, ranking) values (c.id, p_ranking);
+  return jsonb_build_object('votei', true);
+end $$;
+
+/** Mandar pergunta para a fila (entra no fim). Uma por pessoa e plenária; `p_mostrar` decide se o @ aparece na fila. */
+create or replace function public.rede_org_plenaria_perguntar(p_plenaria uuid, p_texto text, p_mostrar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p rede_plenarias; v_texto text := btrim(coalesce(p_texto, ''));
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  select * into p from rede_plenarias where id = p_plenaria;
+  if not found or interno.rede_bloqueado(v, p.org) or exists (select 1 from perfis where id = p.org and suspenso) then perform interno.erro('nao_encontrado'); end if;
+  if p.situacao = 'encerrada' then perform interno.erro('plenaria_encerrada'); end if;
+  if char_length(v_texto) < 2 or char_length(v_texto) > 280 then perform interno.erro('invalido:texto'); end if;
+  perform interno.limite('alumia_org_perguntar', 10, 60);
+  if exists (select 1 from rede_plenaria_perguntas q where q.plenaria = p.id and q.autor = v) then perform interno.erro('ja_perguntou'); end if;
+  insert into rede_plenaria_perguntas (plenaria, autor, mostrar, texto) values (p.id, v, coalesce(p_mostrar, false), v_texto);
+  return jsonb_build_object('ok', true, 'naFila', (select count(*) from rede_plenaria_perguntas q where q.plenaria = p.id and q.respondida_em is null and q.retirada_em is null));
+end $$;
+
+-- ── 5. Conta da organização e o selo ──────────────────────────────────────────────────────────────────────────────────────
+
+/** Confere o pedido do selo (as mesmas regras de lib/rede/org/pedido.ts). Devolve o motivo ou nulo. */
+create or replace function interno.alumia_pedido_falta(p jsonb) returns text language plpgsql immutable as $$
+declare v_doc text := btrim(coalesce(p ->> 'documento', ''));
+begin
+  if char_length(btrim(coalesce(p ->> 'codinome', ''))) not between 2 and 60 then return 'codinome'; end if;
+  if coalesce(p ->> 'handle', '') !~ '^[a-z0-9_]{3,20}$' then return 'handle'; end if;
+  if coalesce(p ->> 'tipo', '') not in ('partido', 'mandato', 'sindicato', 'movimento', 'coletivo', 'gremio', 'dce', 'outro') then return 'tipo'; end if;
+  if char_length(btrim(coalesce(p ->> 'cidade', ''))) not between 1 and 60 then return 'cidade'; end if;
+  if char_length(btrim(coalesce(p ->> 'documentoTipo', ''))) not between 2 and 60 then return 'documentoTipo'; end if;
+  if char_length(v_doc) not between 2 and 200 then return 'documento'; end if;
+  -- CPF (11 dígitos) é documento de PESSOA: recusado (LGPD art. 6º, III). CNPJ tem 14 e passa.
+  if v_doc ~ '^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$' then return 'docPessoal'; end if;
+  if char_length(btrim(coalesce(p ->> 'sobre', ''))) not between 2 and 280 then return 'sobre'; end if;
+  if coalesce((p ->> 'maior')::boolean, false) is not true then return 'maior'; end if;
+  return null;
+end $$;
+revoke all on function interno.alumia_pedido_falta(jsonb) from public;
+
+/**
+ * Pedir o selo. Se o @ já é de uma organização que eu gerencio: o pedido entra na fila (um esperando por vez). Se o @ está livre:
+ * devolve {criar: true, dono} e o servidor (app/api/rede/org/selo) cria a conta sem senha e chama rede_org_criar. `dono` é o
+ * próprio id de quem chama (vem da sessão, não do pedido). Recusa @ de outra pessoa ou de organização que não é minha.
+ */
+create or replace function public.rede_org_pedir_selo(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_falta text; v_handle text; v_org uuid; v_id uuid;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  v_falta := interno.alumia_pedido_falta(p);
+  if v_falta is not null then perform interno.erro('invalido:' || lower(v_falta)); end if;
+  perform interno.limite('alumia_org_selo', 6, 1440);
+  v_handle := p ->> 'handle';
+  select perfil into v_org from rede_orgs o join perfis f on f.id = o.perfil where f.rede_handle = v_handle;
+  if v_org is not null then
+    if not interno.alumia_org_gere(v, v_org) then perform interno.erro('handle_usado'); end if;
+    if exists (select 1 from rede_org_pedidos where org = v_org and situacao = 'esperando') then perform interno.erro('ja_pedido'); end if;
+    if exists (select 1 from rede_orgs where perfil = v_org and verificada_em is not null) then perform interno.erro('ja_verificada'); end if;
+    insert into rede_org_pedidos (org, documento_tipo, documento, sobre) values (v_org, btrim(p ->> 'documentoTipo'), btrim(p ->> 'documento'), btrim(p ->> 'sobre'))
+    returning id into v_id;
+    return jsonb_build_object('id', v_id, 'situacao', 'esperando');
+  end if;
+  if not interno.rede2_handle_ok(v_handle, v) or exists (select 1 from perfis where rede_handle = v_handle) then
+    perform interno.erro(case when v_handle ~ '(instituto|lucia|equipe|coordena|modera|admin|suporte|oficial)' then 'handle_reservado' else 'handle_usado' end);
+  end if;
+  if (select count(*) from rede_org_gestores where gestor = v and papel = 'dono') >= 5 then perform interno.erro('limite_identidades'); end if;
+  return jsonb_build_object('criar', true, 'dono', v);
+end $$;
+
+/**
+ * Só o servidor (chave de serviço), logo depois de lib/rede/contas-extra.ts criar a conta sem senha e ligá-la ao dono em
+ * rede_identidades: transforma o perfil novo em organização, põe o dono como gestor e o pedido na fila. Confere tudo de novo.
+ */
+create or replace function public.rede_org_criar(p_dono uuid, p_org uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_falta text := interno.alumia_pedido_falta(p); v_handle text := p ->> 'handle'; v_id uuid;
+begin
+  if v_falta is not null then perform interno.erro('invalido:' || lower(v_falta)); end if;
+  if not exists (select 1 from rede_identidades i where i.dono = p_dono and i.identidade = p_org and i.tipo = 'org') then perform interno.erro('sem_permissao'); end if;
+  if not interno.rede2_membro(p_dono) then perform interno.erro('consentimento'); end if;
+  if exists (select 1 from rede_orgs where perfil = p_org) then perform interno.erro('ja_pedido'); end if;
+  if not interno.rede2_handle_ok(v_handle, p_org) then perform interno.erro('handle_usado'); end if;
+  update perfis set rede_handle = v_handle, rede_codinome = btrim(p ->> 'codinome'), rede_codinome_ok = true, rede_bio = btrim(p ->> 'sobre')
+  where id = p_org;
+  insert into rede_orgs (perfil, tipo, cidade, palavra) values (p_org, p ->> 'tipo', btrim(p ->> 'cidade'), interno.alumia_palavra(p ->> 'codinome'));
+  insert into rede_org_gestores (org, gestor, papel) values (p_org, p_dono, 'dono');
+  insert into rede_org_pedidos (org, documento_tipo, documento, sobre) values (p_org, btrim(p ->> 'documentoTipo'), btrim(p ->> 'documento'), btrim(p ->> 'sobre'))
+  returning id into v_id;
+  return jsonb_build_object('id', v_id, 'situacao', 'esperando');
+end $$;
+
+/** A fila do selo (painel; só a coordenação). Mostra a organização e o documento público; nunca quem pediu nem os gestores. */
+create or replace function public.rede_org_selo_fila() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((
+    select jsonb_agg(jsonb_build_object('id', x.id, 'codinome', f.rede_codinome, 'handle', f.rede_handle, 'tipo', o.tipo, 'cidade', o.cidade,
+      'documentoTipo', x.documento_tipo, 'documento', x.documento, 'sobre', x.sobre, 'maior', true, 'criadoEm', x.criado_em, 'situacao', x.situacao,
+      'motivo', x.motivo) order by (x.situacao = 'esperando') desc, x.criado_em)
+    from (select * from rede_org_pedidos where situacao = 'esperando' or criado_em > now() - interval '60 days' order by criado_em desc limit 100) x
+    join rede_orgs o on o.perfil = x.org join perfis f on f.id = x.org), '[]'::jsonb);
+end $$;
+
+/** Dar ou recusar o selo (só a coordenação; recusar pede motivo de 10 letras). Os gestores recebem o aviso. Registrado. */
+create or replace function public.rede_org_selo_decidir(p_id uuid, p_aceitar boolean, p_motivo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_org_pedidos; v_motivo text := left(btrim(coalesce(p_motivo, '')), 500); g record; v_nome text;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  select * into x from rede_org_pedidos where id = p_id for update;
+  if not found or x.situacao <> 'esperando' then perform interno.erro('nao_encontrado'); end if;
+  if not coalesce(p_aceitar, false) and char_length(v_motivo) < 10 then perform interno.erro('invalido:motivo'); end if;
+  v_nome := interno.rede_nome(x.org);
+  update rede_org_pedidos set situacao = case when p_aceitar then 'aceito' else 'recusado' end, motivo = v_motivo, decidido_em = now(), decidido_por = v where id = x.id;
+  if p_aceitar then
+    update rede_orgs set verificada_em = now(), verificada_por = v, documento_tipo = x.documento_tipo, documento_publico = x.documento where perfil = x.org;
+  end if;
+  for g in select gestor from rede_org_gestores where org = x.org loop
+    perform interno.avisar_em(g.gestor, case when p_aceitar then format('A organização “%s” recebeu o selo da Alumia.', v_nome)
+      else format('O pedido do selo de “%s” não foi aceito: %s', v_nome, v_motivo) end, 'rede');
+  end loop;
+  perform interno.registrar(case when p_aceitar then 'alumia_selo_dar' else 'alumia_selo_recusar' end, x.org::text, '{}'::jsonb);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Tirar o selo (só a coordenação, com motivo; os gestores são avisados e podem pedir de novo). Registrado (PLANO-ALUMIA §7.6). */
+create or replace function public.rede_org_selo_tirar(p_handle text, p_motivo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_org uuid; v_motivo text := left(btrim(coalesce(p_motivo, '')), 500); g record;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if char_length(v_motivo) < 10 then perform interno.erro('invalido:motivo'); end if;
+  v_org := interno.alumia_org_de(p_handle);
+  if v_org is null then perform interno.erro('nao_encontrado'); end if;
+  update rede_orgs set verificada_em = null, verificada_por = null where perfil = v_org;
+  for g in select gestor from rede_org_gestores where org = v_org loop
+    perform interno.avisar_em(g.gestor, format('O selo de “%s” foi retirado: %s', interno.rede_nome(v_org), v_motivo), 'rede');
+  end loop;
+  perform interno.registrar('alumia_selo_tirar', v_org::text, jsonb_build_object('motivo', v_motivo));
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ── 6. Gestores (o vínculo nunca volta: só "ok") ──────────────────────────────────────────────────────────────────────────
+
+/** O dono põe outra pessoa (membro da Rede) como gestora. Responde só "ok". */
+create or replace function public.rede_org_gestor_adicionar(p_org text, p_handle text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid := interno.alumia_org_de(p_org); v_quem uuid;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  if v_org is null or not exists (select 1 from rede_org_gestores where org = v_org and gestor = v and papel = 'dono') then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('alumia_org_gestor', 10, 1440);
+  select id into v_quem from perfis where rede_handle = lower(btrim(coalesce(p_handle, ''), ' @')) and not suspenso;
+  if v_quem is null or v_quem = v_org or not interno.rede2_membro(v_quem) or interno.rede_bloqueado(v, v_quem) or interno.rede_bloqueado(v_org, v_quem)
+     or exists (select 1 from rede_orgs where perfil = v_quem) or exists (select 1 from rede_identidades where identidade = v_quem) then
+    perform interno.erro('nao_encontrado');
+  end if;
+  if (select count(*) from rede_org_gestores where org = v_org) >= 10 then perform interno.erro('limite_gestores'); end if;
+  insert into rede_org_gestores (org, gestor, papel) values (v_org, v_quem, 'gestor') on conflict do nothing;
+  perform interno.avisar_em(v_quem, format('Você agora ajuda a cuidar da conta “%s” na Alumia. Se não quiser, saia pela página da organização.', interno.rede_nome(v_org)), 'rede');
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** O dono tira uma pessoa da gestão. Responde "ok" mesmo se ela não era (não serve para descobrir quem é). */
+create or replace function public.rede_org_gestor_remover(p_org text, p_handle text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid := interno.alumia_org_de(p_org);
+begin
+  if v_org is null or not exists (select 1 from rede_org_gestores where org = v_org and gestor = v and papel = 'dono') then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('alumia_org_gestor', 10, 1440);
+  delete from rede_org_gestores g using perfis f where g.org = v_org and g.papel = 'gestor' and f.id = g.gestor and f.rede_handle = lower(btrim(coalesce(p_handle, ''), ' @'));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Eu saio da gestão (o dono não sai: a conta ficaria sem ninguém). */
+create or replace function public.rede_org_gestor_sair(p_org text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid := interno.alumia_org_de(p_org);
+begin
+  delete from rede_org_gestores where org = v_org and gestor = v and papel = 'gestor';
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ── 7. O que só quem gerencia faz ─────────────────────────────────────────────────────────────────────────────────────────
+
+/** Registrar um voto em "Como votamos" (com a fonte pública obrigatória). */
+create or replace function public.rede_org_votacao_registrar(p_handle text, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_org uuid := interno.alumia_org_gestor(p_handle, 'alumia_org_votacao', 30, 1440); x rede_org_votacoes; v_data date;
+begin
+  begin v_data := (p ->> 'data')::date; exception when others then perform interno.erro('invalido:data'); end;
+  if v_data is null or v_data > current_date or v_data < date '1988-10-05' then perform interno.erro('invalido:data'); end if;
+  if coalesce(p ->> 'fonte', '') !~ '^https?://[^\s]{3,}$' then perform interno.erro('invalido:fonte'); end if;
+  begin
+    insert into rede_org_votacoes (org, data, projeto, voto, porque, resultado, fonte)
+    values (v_org, v_data, btrim(coalesce(p ->> 'projeto', '')), p ->> 'voto', btrim(coalesce(p ->> 'porque', '')), btrim(coalesce(p ->> 'resultado', '')), btrim(p ->> 'fonte'))
+    returning * into x;
+  exception when check_violation or not_null_violation then perform interno.erro('invalido:votacao');
+  end;
+  return jsonb_build_object('id', x.id, 'data', x.data, 'projeto', x.projeto, 'voto', x.voto, 'porque', x.porque, 'resultado', x.resultado, 'fonte', x.fonte);
+end $$;
+
+/** Criar um núcleo da organização. */
+create or replace function public.rede_org_nucleo_criar(p_handle text, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_org uuid := interno.alumia_org_gestor(p_handle, 'alumia_org_nucleo', 10, 1440); v_id uuid;
+begin
+  if (select count(*) from rede_nucleos where org = v_org) >= 50 then perform interno.erro('limite_nucleos'); end if;
+  begin
+    insert into rede_nucleos (nome, cidade, criado_por, org, org_quando, org_cor)
+    values (btrim(coalesce(p ->> 'nome', '')), btrim(coalesce(p ->> 'onde', '')), v_org, v_org, btrim(coalesce(p ->> 'quando', '')),
+            coalesce(nullif(p ->> 'cor', '')::smallint, 1))
+    returning id into v_id;
+  exception when check_violation or invalid_text_representation or numeric_value_out_of_range then perform interno.erro('invalido:nucleo');
+  end;
+  -- Quem cria entra como mediação (para receber e decidir pedidos). Não aparece em lista nenhuma.
+  insert into rede_nucleo_membros (nucleo, usuario, papel) values (v_id, v, 'mediacao') on conflict do nothing;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Os pedidos para entrar nos núcleos da organização (só gestores e a mediação do núcleo): codinome e @, nada mais. */
+create or replace function public.rede_org_nucleo_pedidos(p_handle text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid := interno.alumia_org_de(p_handle); v_gere boolean;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  if v_org is null then perform interno.erro('sem_permissao'); end if;
+  v_gere := interno.alumia_org_gere(v, v_org);
+  if not v_gere and not exists (select 1 from rede_nucleo_membros m join rede_nucleos n on n.id = m.nucleo where n.org = v_org and m.usuario = v and m.papel = 'mediacao') then
+    perform interno.erro('sem_permissao');
+  end if;
+  perform interno.limite('alumia_org_ler', 300, 10);
+  return coalesce((
+    select jsonb_agg(jsonb_build_object('nucleo', n.id, 'nucleoNome', n.nome, 'handle', f.rede_handle, 'codinome', f.rede_codinome) order by q.criado_em, f.rede_handle)
+    from rede_org_nucleo_pedidos q join rede_nucleos n on n.id = q.nucleo join perfis f on f.id = q.usuario
+    where n.org = v_org and not f.suspenso
+      and (v_gere or exists (select 1 from rede_nucleo_membros m where m.nucleo = n.id and m.usuario = v and m.papel = 'mediacao'))), '[]'::jsonb);
+end $$;
+
+/** Aceitar ou recusar um pedido para entrar no núcleo (gestor ou mediação do núcleo). Recusar só apaga o pedido. */
+create or replace function public.rede_org_nucleo_decidir(p_nucleo uuid, p_handle text, p_aceitar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); n rede_nucleos; v_quem uuid;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  select * into n from rede_nucleos where id = p_nucleo and org is not null;
+  if not found or not (interno.alumia_org_gere(v, n.org) or exists (select 1 from rede_nucleo_membros m where m.nucleo = n.id and m.usuario = v and m.papel = 'mediacao')) then
+    perform interno.erro('sem_permissao');
+  end if;
+  perform interno.limite('alumia_org_decidir', 200, 60);
+  select q.usuario into v_quem from rede_org_nucleo_pedidos q join perfis f on f.id = q.usuario where q.nucleo = n.id and f.rede_handle = lower(btrim(coalesce(p_handle, ''), ' @'));
+  if v_quem is null then perform interno.erro('nao_encontrado'); end if;
+  delete from rede_org_nucleo_pedidos where nucleo = n.id and usuario = v_quem;
+  if coalesce(p_aceitar, false) and interno.rede2_membro(v_quem) and not interno.rede_bloqueado(v_quem, n.org) then
+    insert into rede_nucleo_membros (nucleo, usuario, papel) values (n.id, v_quem, 'membro') on conflict do nothing;
+    perform interno.avisar_em(v_quem, format('Você entrou no núcleo “%s”.', n.nome), 'rede');
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/**
+ * Abrir uma consulta à base. A pergunta, as opções (2 a 8), o método, o quórum, os núcleos que votam e o compromisso ficam
+ * escritos ANTES e não mudam depois (ninguém troca a regra no meio). Prazo entre 1 hora e 60 dias.
+ */
+create or replace function public.rede_org_consulta_abrir(p_handle text, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v_org uuid := interno.alumia_org_gestor(p_handle, 'alumia_org_consulta', 10, 1440); v_id uuid; v_prazo timestamptz; v_nucleos uuid[] := '{}';
+  v_opcoes text[]; i integer;
+begin
+  begin v_prazo := (p ->> 'prazo')::timestamptz; exception when others then perform interno.erro('invalido:prazo'); end;
+  if v_prazo is null or v_prazo < now() + interval '1 hour' or v_prazo > now() + interval '60 days' then perform interno.erro('invalido:prazo'); end if;
+  select coalesce(array_agg(btrim(x)), '{}') into v_opcoes from jsonb_array_elements_text(coalesce(p -> 'opcoes', '[]'::jsonb)) x where btrim(x) <> '';
+  if cardinality(v_opcoes) not between 2 and 8 or (select count(distinct lower(x)) from unnest(v_opcoes) x) <> cardinality(v_opcoes) then perform interno.erro('invalido:opcoes'); end if;
+  if jsonb_typeof(p -> 'nucleos') = 'array' then
+    select coalesce(array_agg(x::uuid), '{}') into v_nucleos from jsonb_array_elements_text(p -> 'nucleos') x;
+    if exists (select 1 from unnest(v_nucleos) k where not exists (select 1 from rede_nucleos n where n.id = k and n.org = v_org)) then perform interno.erro('invalido:nucleos'); end if;
+  end if;
+  if not exists (select 1 from rede_nucleos n where n.org = v_org and (cardinality(v_nucleos) = 0 or n.id = any (v_nucleos))) then perform interno.erro('sem_nucleos'); end if;
+  begin
+    insert into rede_consultas (org, nucleos, pergunta, metodo, quorum, prazo, compromisso)
+    values (v_org, v_nucleos, btrim(coalesce(p ->> 'pergunta', '')), p ->> 'metodo', nullif(p ->> 'quorum', '')::integer, v_prazo, btrim(coalesce(p ->> 'compromisso', '')))
+    returning id into v_id;
+  exception when check_violation or not_null_violation or invalid_text_representation then perform interno.erro('invalido:consulta');
+  end;
+  for i in 1 .. cardinality(v_opcoes) loop
+    begin
+      insert into rede_consulta_opcoes (consulta, ordem, texto) values (v_id, i, v_opcoes[i]);
+    exception when check_violation then perform interno.erro('invalido:opcoes');
+    end;
+  end loop;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Marcar uma plenária. */
+create or replace function public.rede_org_plenaria_abrir(p_handle text, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_org uuid := interno.alumia_org_gestor(p_handle, 'alumia_org_plenaria', 10, 1440); v_id uuid; v_inicio timestamptz;
+begin
+  begin v_inicio := (p ->> 'inicio')::timestamptz; exception when others then perform interno.erro('invalido:inicio'); end;
+  if v_inicio is null or v_inicio < now() - interval '1 day' or v_inicio > now() + interval '180 days' then perform interno.erro('invalido:inicio'); end if;
+  begin
+    insert into rede_plenarias (org, titulo, descricao, inicio, sala)
+    values (v_org, btrim(coalesce(p ->> 'titulo', '')), btrim(coalesce(p ->> 'descricao', '')), v_inicio, nullif(btrim(coalesce(p ->> 'sala', '')), ''))
+    returning id into v_id;
+  exception when check_violation then perform interno.erro('invalido:plenaria');
+  end;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Pôr no ar, encerrar ou trocar o link da sala (só https). */
+create or replace function public.rede_org_plenaria_mudar(p_id uuid, p_situacao text, p_sala text default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_plenarias;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  select * into x from rede_plenarias where id = p_id;
+  if not found or not interno.alumia_org_gere(v, x.org) then perform interno.erro('sem_permissao'); end if;
+  if p_situacao not in ('marcada', 'ao_vivo', 'encerrada') or x.situacao = 'encerrada' then perform interno.erro('invalido:situacao'); end if;
+  perform interno.limite('alumia_org_plenaria_mudar', 60, 60);
+  begin
+    update rede_plenarias set situacao = p_situacao, sala = coalesce(nullif(btrim(coalesce(p_sala, '')), ''), sala) where id = x.id;
+  exception when check_violation then perform interno.erro('invalido:sala');
+  end;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Marcar a pergunta como respondida (a ordem da fila não muda). */
+create or replace function public.rede_org_plenaria_responder(p_pergunta uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid;
+begin
+  select p.org into v_org from rede_plenaria_perguntas q join rede_plenarias p on p.id = q.plenaria where q.id = p_pergunta;
+  if v_org is null or not interno.alumia_org_gere(v, v_org) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('alumia_org_plenaria_mudar', 60, 60);
+  update rede_plenaria_perguntas set respondida_em = coalesce(respondida_em, now()) where id = p_pergunta;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/**
+ * Tirar uma pergunta da fila só por regra escrita (ofensa, dado pessoal, fora do tema, repetida), com registro (PLANO-ALUMIA §7.4).
+ * A pergunta não é apagada nem reordenada: fica marcada, fora da lista.
+ */
+create or replace function public.rede_org_plenaria_retirar(p_pergunta uuid, p_motivo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_org uuid;
+begin
+  select p.org into v_org from rede_plenaria_perguntas q join rede_plenarias p on p.id = q.plenaria where q.id = p_pergunta;
+  if v_org is null or not interno.alumia_org_gere(v, v_org) then perform interno.erro('sem_permissao'); end if;
+  if p_motivo is null or p_motivo not in ('ofensa', 'dado_pessoal', 'fora_do_tema', 'repetida') then perform interno.erro('invalido:motivo'); end if;
+  perform interno.limite('alumia_org_plenaria_mudar', 60, 60);
+  update rede_plenaria_perguntas set retirada_em = now(), retirada_motivo = p_motivo where id = p_pergunta and retirada_em is null;
+  -- O registro leva a organização e o motivo, não quem do time tirou (o vínculo gestor↔organização não sai do banco).
+  insert into auditoria (quem, nome, acao, alvo, detalhes) values (v_org, '', 'alumia_pergunta_retirar', p_pergunta::text, jsonb_build_object('motivo', p_motivo));
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ── 8. O sininho avisa quando a organização posta ────────────────────────────────────────────────────────────────────────
+
+/** Post novo (não resposta) de uma organização: avisa quem ligou o sininho e pode ver o post (sem trecho do texto). */
+create or replace function interno.alumia_org_postou() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare s record; v_nome text;
+begin
+  if new.resposta_a is not null or new.autor is null or not exists (select 1 from rede_orgs where perfil = new.autor) then return new; end if;
+  v_nome := interno.rede_nome(new.autor);
+  for s in select usuario from rede_org_sinos where org = new.autor limit 5000 loop
+    if interno.rede2_membro(s.usuario) and not interno.rede_bloqueado(s.usuario, new.autor) and interno.rede2_pode_ver(new, s.usuario)
+       and interno.rede3_aviso_pref(s.usuario, 'org_postou', 'site') then
+      perform interno.avisar_em(s.usuario, format('“%s” publicou na Alumia.', v_nome), 'rede');
+    end if;
+  end loop;
+  return new;
+exception when others then
+  return new;
+end $$;
+revoke all on function interno.alumia_org_postou() from public;
+drop trigger if exists alumia_org_postou on interno.rede_posts;
+create trigger alumia_org_postou after insert on interno.rede_posts for each row execute function interno.alumia_org_postou();
+
+-- ── 9. Extras do perfil de pessoa ─────────────────────────────────────────────────────────────────────────────────────────
+
+/** Status (só enquanto vale), pronomes e campos de uma pessoa. Mesma regra de quem pode ver o perfil (invisível/bloqueio = nada). */
+create or replace function public.rede_perfil_extras(p_handle text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); f perfis;
+begin
+  select * into f from perfis where rede_handle = lower(btrim(coalesce(p_handle, ''), ' @'));
+  if not found or f.suspenso or ((f.rede_modo = 'invisivel' or f.rede_invisivel) and f.id is distinct from v) or interno.rede_bloqueado(v, f.id) then return null; end if;
+  if v is null and not exists (select 1 from rede_orgs where perfil = f.id and verificada_em is not null) then return null; end if;
+  return jsonb_build_object(
+    'status', case when f.rede_status_tipo is not null and (f.rede_status_ate is null or f.rede_status_ate > now())
+                then jsonb_build_object('tipo', f.rede_status_tipo, 'texto', coalesce(f.rede_status_texto, ''), 'ate', f.rede_status_ate) end,
+    'pronomes', nullif(f.rede_pronomes, ''),
+    'campos', coalesce((select jsonb_agg(jsonb_build_object('rotulo', c.rotulo, 'valor', c.valor) order by c.ordem) from rede_perfil_campos c where c.usuario = f.id), '[]'::jsonb),
+    'destaques', '[]'::jsonb);
+end $$;
+
+/** Editar os meus extras. Campos: até 4 (substitui todos). Status: some sozinho depois de `horas` (1 a 720). */
+create or replace function public.rede_perfil_extras_editar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c jsonb; i integer := 0;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  perform interno.limite('alumia_perfil_extras', 30, 60);
+  if p ? 'status' then
+    if jsonb_typeof(p -> 'status') = 'object' then
+      if coalesce(p -> 'status' ->> 'tipo', '') not in ('greve', 'ato', 'estudando', 'cuidando', 'ferias')
+         or char_length(coalesce(p -> 'status' ->> 'texto', '')) > 60
+         or coalesce((p -> 'status' ->> 'horas')::integer, 0) not between 1 and 720 then
+        perform interno.erro('invalido:status');
+      end if;
+      update perfis set rede_status_tipo = p -> 'status' ->> 'tipo', rede_status_texto = btrim(coalesce(p -> 'status' ->> 'texto', '')),
+        rede_status_ate = now() + make_interval(hours => (p -> 'status' ->> 'horas')::integer) where id = v;
+    else
+      update perfis set rede_status_tipo = null, rede_status_texto = null, rede_status_ate = null where id = v;
+    end if;
+  end if;
+  if p ? 'pronomes' then
+    if char_length(coalesce(p ->> 'pronomes', '')) > 30 then perform interno.erro('invalido:pronomes'); end if;
+    update perfis set rede_pronomes = nullif(btrim(coalesce(p ->> 'pronomes', '')), '') where id = v;
+  end if;
+  if jsonb_typeof(p -> 'campos') = 'array' then
+    if jsonb_array_length(p -> 'campos') > 4 then perform interno.erro('invalido:campos'); end if;
+    delete from rede_perfil_campos where usuario = v;
+    for c in select value from jsonb_array_elements(p -> 'campos') loop
+      i := i + 1;
+      begin
+        insert into rede_perfil_campos (usuario, ordem, rotulo, valor) values (v, i, btrim(coalesce(c ->> 'rotulo', '')), btrim(coalesce(c ->> 'valor', '')));
+      exception when check_violation then perform interno.erro('invalido:campos');
+      end;
+    end loop;
+  end if;
+  return public.rede_perfil_extras((select rede_handle from perfis where id = v));
+end $$;
+
+-- ── 10. Permissões das funções ────────────────────────────────────────────────────────────────────────────────────────────
+do $$
+declare f text;
+begin
+  foreach f in array array[
+    'public.rede_org_perfil(text)', 'public.rede_org_ao_vivo()', 'public.rede_org_sino(text, boolean)', 'public.rede_org_nucleo_entrar(uuid)',
+    'public.rede_org_consulta_votar(uuid, uuid[])', 'public.rede_org_plenaria_perguntar(uuid, text, boolean)', 'public.rede_org_pedir_selo(jsonb)',
+    'public.rede_org_criar(uuid, uuid, jsonb)', 'public.rede_org_selo_fila()', 'public.rede_org_selo_decidir(uuid, boolean, text)',
+    'public.rede_org_selo_tirar(text, text)', 'public.rede_org_gestor_adicionar(text, text)', 'public.rede_org_gestor_remover(text, text)',
+    'public.rede_org_gestor_sair(text)', 'public.rede_org_votacao_registrar(text, jsonb)', 'public.rede_org_nucleo_criar(text, jsonb)',
+    'public.rede_org_nucleo_pedidos(text)', 'public.rede_org_nucleo_decidir(uuid, text, boolean)', 'public.rede_org_consulta_abrir(text, jsonb)',
+    'public.rede_org_plenaria_abrir(text, jsonb)', 'public.rede_org_plenaria_mudar(uuid, text, text)', 'public.rede_org_plenaria_responder(uuid)',
+    'public.rede_org_plenaria_retirar(uuid, text)', 'public.rede_perfil_extras(text)', 'public.rede_perfil_extras_editar(jsonb)'] loop
+    execute format('revoke all on function %s from public', f);
+    if exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on function %s from anon, authenticated', f);
+    end if;
+  end loop;
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    -- Visitante: só o que a matriz deixa ver (perfil com selo, ao vivo das com selo, extras de organização com selo).
+    grant execute on function public.rede_org_perfil(text), public.rede_org_ao_vivo(), public.rede_perfil_extras(text) to anon;
+    grant execute on function public.rede_org_perfil(text), public.rede_org_ao_vivo(), public.rede_org_sino(text, boolean), public.rede_org_nucleo_entrar(uuid),
+      public.rede_org_consulta_votar(uuid, uuid[]), public.rede_org_plenaria_perguntar(uuid, text, boolean), public.rede_org_pedir_selo(jsonb),
+      public.rede_org_selo_fila(), public.rede_org_selo_decidir(uuid, boolean, text), public.rede_org_selo_tirar(text, text),
+      public.rede_org_gestor_adicionar(text, text), public.rede_org_gestor_remover(text, text), public.rede_org_gestor_sair(text),
+      public.rede_org_votacao_registrar(text, jsonb), public.rede_org_nucleo_criar(text, jsonb), public.rede_org_nucleo_pedidos(text),
+      public.rede_org_nucleo_decidir(uuid, text, boolean), public.rede_org_consulta_abrir(text, jsonb), public.rede_org_plenaria_abrir(text, jsonb),
+      public.rede_org_plenaria_mudar(uuid, text, text), public.rede_org_plenaria_responder(uuid), public.rede_org_plenaria_retirar(uuid, text),
+      public.rede_perfil_extras(text), public.rede_perfil_extras_editar(jsonb) to authenticated;
+    -- Só o servidor transforma a conta nova em organização.
+    grant execute on function public.rede_org_criar(uuid, uuid, jsonb) to service_role;
+  end if;
+end $$;
+
+-- ═══════════════════════════ fim da F4 ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda 5 · F5 · stories de 24 h (09/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/PLANO-ALUMIA.md, seções 5 (F5), 6.4, 7.2 e 8 (F5). O back-end mínimo para cada função da tela funcionar de
+-- verdade: publicar, a faixa, abrir, apagar, responder, reagir, votar na enquete, "me avise", os atos da contagem e denunciar; o
+-- depósito privado rede-stories; e a faxina de 15 em 15 minutos (pg_cron → Edge Function supabase/functions/faxina-stories).
+-- As funções têm os nomes que o front-end já chama (lib/rede/cliente-stories.ts).
+--
+-- Depende da F0 (20261109-alumia-f0-contrato.sql: alvo 'story' nas denúncias e na moderação, aviso 'story_resposta').
+-- Idempotente: pode rodar duas vezes (scripts/testar-alumia-f5.mjs roda duas vezes no banco local). NÃO está no install.sql (o
+-- integrador cola depois da F4) e NÃO roda em produção sem o Jonathan.
+--
+-- Regras (PLANO §5): tudo em `interno`, RLS ligada e nenhuma permissão direta para anon/authenticated; acesso só por função
+-- security definer com search_path = interno, pg_temp, que confere quem chama (interno.eu, rede2_membro, bloqueio) e limita o uso
+-- (interno.limite / rede2_limite).
+--
+-- Privacidade (leis conferidas no texto, leis-do-brasil):
+--   * LGPD (Lei 13.709/2018) art. 5º, II e art. 11: o que alguém viu, votou ou a que reagiu numa rede militante revela opinião
+--     política, dado sensível. Por isso NÃO existe tabela, coluna nem contagem de quem viu (nem "quantos viram"); o voto da enquete
+--     é secreto e a autora vê só a soma, a partir de 3 votos; a reação chega à autora sem o nome de quem reagiu.
+--   * LGPD art. 6º, III (necessidade): o voto não guarda hora; a resposta e a reação somem com o story (cascata, e o aviso que
+--     levou a resposta sai junto); o arquivo sai do depósito pela faxina; nada de GPS (o aparelho refaz a imagem sem EXIF e a
+--     faxina confere de novo no servidor, tirando EXIF/XMP/texto que tenha sobrado).
+--   * ECA (Lei 8.069/1990) e ECA Digital (Lei 15.211/2025) art. 9º § 1º: a Alumia é só 18+; só membro (rede2_membro: 18 anos
+--     declarados e consentimento em vigor) publica, vê, responde ou vota. Denúncia de "menores" retém o story na hora.
+--   * Marco Civil (Lei 12.965/2014) art. 15: nada aqui grava IP. A prova de um story denunciado fica no banco e no depósito
+--     privado até a decisão da moderação, mesmo depois das 24 h (PLANO §7.2); decidida a denúncia, a faxina apaga.
+--   * Stories nunca federam (PLANO §6.8): nada daqui entra nas tabelas rede_fed_*.
+
+-- ── 1. Tabelas ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+create table if not exists interno.rede_stories (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  -- A identidade que publicou é SEMPRE a própria autora (o dono de uma identidade nunca fica gravado aqui, PLANO §6.6).
+  como uuid references interno.perfis (id) on delete cascade,
+  publico text not null default 'seguidores' check (publico in ('seguidores', 'membros', 'proximos')),
+  fundo text not null default 'listras' check (fundo in ('listras', 'mosaico', 'imagem')),
+  cor text not null default 'azul' check (cor in ('azul', 'vermelho', 'dourado', 'verde', 'rosa', 'noite')),
+  texto text not null default '' check (char_length(texto) <= 140),
+  legenda text check (legenda is null or char_length(legenda) between 1 and 80),
+  -- "<uid>/<id>.<ext>" no depósito privado rede-stories; o arquivo só é lido por rede_story_pode (a mesma regra da tela).
+  midia_caminho text unique check (midia_caminho is null or midia_caminho ~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/[0-9a-f-]{32,36}\.(webp|png|jpg)$'),
+  alt text check (alt is null or char_length(alt) <= 200),
+  post_ref uuid references interno.rede_posts (id) on delete set null,
+  -- Retido por denúncia urgente: some para todos menos a autora e a faxina guarda a prova até a decisão.
+  retido boolean not null default false,
+  -- A faxina já conferiu o arquivo no servidor (sem EXIF/XMP). Story só de texto nasce conferido.
+  conferido boolean not null default false,
+  expira_em timestamptz not null default now() + interval '24 hours',
+  criado_em timestamptz not null default now(),
+  constraint rede_stories_como_autor check (como is null or como = autor),
+  constraint rede_stories_imagem check ((fundo = 'imagem') = (midia_caminho is not null)),
+  constraint rede_stories_24h check (expira_em <= criado_em + interval '24 hours')
+);
+create index if not exists rede_stories_autor on interno.rede_stories (autor, expira_em);
+create index if not exists rede_stories_expira on interno.rede_stories (expira_em);
+
+-- No máximo 3 figurinhas por story (ordem 0..2); os dados já vêm limpos pela função de publicar.
+create table if not exists interno.rede_story_figurinhas (
+  story uuid not null references interno.rede_stories (id) on delete cascade,
+  ordem smallint not null check (ordem between 0 and 2),
+  tipo text not null check (tipo in ('contagem', 'pergunta', 'enquete', 'link')),
+  dados jsonb not null default '{}'::jsonb check (jsonb_typeof(dados) = 'object' and pg_column_size(dados) <= 2048),
+  primary key (story, ordem)
+);
+
+-- Resposta: vai SÓ para a autora (num aviso dela) e some com o story; `aviso` liga a resposta ao aviso para os dois sumirem juntos.
+create table if not exists interno.rede_story_respostas (
+  id uuid primary key default gen_random_uuid(),
+  story uuid not null references interno.rede_stories (id) on delete cascade,
+  quem uuid not null references interno.perfis (id) on delete cascade,
+  texto text not null check (char_length(texto) between 1 and 500),
+  aviso uuid references interno.avisos (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_story_respostas_story on interno.rede_story_respostas (story);
+create index if not exists rede_story_respostas_quem on interno.rede_story_respostas (quem, criado_em);
+
+-- Reação do conjunto fechado (PLANO §6.3): uma por pessoa e story; a autora recebe "Alguém reagiu…", sem o nome.
+create table if not exists interno.rede_story_reacoes (
+  story uuid not null references interno.rede_stories (id) on delete cascade,
+  quem uuid not null references interno.perfis (id) on delete cascade,
+  reacao text not null check (reacao in ('punho', 'chama', 'coracao')),
+  aviso uuid references interno.avisos (id) on delete set null,
+  primary key (story, quem)
+);
+
+-- Voto secreto na enquete (uma por story): sem hora (LGPD art. 6º, III); ninguém lê a linha, só a soma sai, e só para a autora.
+create table if not exists interno.rede_story_votos (
+  story uuid not null references interno.rede_stories (id) on delete cascade,
+  quem uuid not null references interno.perfis (id) on delete cascade,
+  opcao smallint not null check (opcao in (0, 1)),
+  primary key (story, quem)
+);
+
+-- "Me avise quando começar": um lembrete MEU do ato (nem a autora do story nem quem organiza o ato sabe quem pediu).
+create table if not exists interno.rede_story_lembretes (
+  ato uuid not null references interno.rede_posts (id) on delete cascade,
+  quem uuid not null references interno.perfis (id) on delete cascade,
+  primary key (ato, quem)
+);
+
+do $$
+declare t text;
+begin
+  foreach t in array array['rede_stories', 'rede_story_figurinhas', 'rede_story_respostas', 'rede_story_reacoes', 'rede_story_votos', 'rede_story_lembretes'] loop
+    execute format('alter table interno.%I enable row level security', t);
+    execute format('revoke all on table interno.%I from public', t);
+    if exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on table interno.%I from anon, authenticated', t);
+    end if;
+  end loop;
+end $$;
+
+-- O aviso que levou a resposta (ou a reação) sai quando a resposta sai: apagar o story, a faxina ou a conta de quem respondeu.
+create or replace function interno.rede5_story_tirar_aviso() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if old.aviso is not null then delete from avisos where id = old.aviso; end if;
+  return null;
+end $$;
+drop trigger if exists rede5_story_tirar_aviso on interno.rede_story_respostas;
+create trigger rede5_story_tirar_aviso after delete on interno.rede_story_respostas for each row execute function interno.rede5_story_tirar_aviso();
+drop trigger if exists rede5_story_tirar_aviso on interno.rede_story_reacoes;
+create trigger rede5_story_tirar_aviso after delete on interno.rede_story_reacoes for each row execute function interno.rede5_story_tirar_aviso();
+
+-- ── 2. Regras internas ────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/** A coordenação desligou os stories pelo painel? (A flag da montagem só esconde a tela; esta trava vale também para a API.) */
+create or replace function interno.rede5_story_ligado() returns void language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if exists (select 1 from recursos_vivos where nome in ('rede-v2', 'alumia-2', 'alumia-stories') and not ligado) then
+    perform interno.erro('recurso_desligado');
+  end if;
+end $$;
+
+/**
+ * Esta pessoa pode ver este story? Uma regra só, para a tela, o depósito e cada ação (responder, reagir, votar, denunciar).
+ * A autora vê o seu enquanto está no ar (retido também). Os outros: membro da Alumia, autora ainda membro, sem bloqueio em
+ * nenhum sentido, no ar, não retido, e o público: seguidores (segue aceito), membros (quem é da Alumia) ou próximos (seguem um ao
+ * outro). Visitante nunca vê (nenhum público é "internet").
+ */
+create or replace function interno.rede5_story_ve(s interno.rede_stories, p_quem uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select s.id is not null and p_quem is not null and s.expira_em > now() and (
+    s.autor = p_quem
+    or (not s.retido
+        and interno.rede2_membro(p_quem) and interno.rede2_membro(s.autor)
+        and not interno.rede_bloqueado(p_quem, s.autor)
+        and case s.publico
+          when 'membros' then true
+          when 'seguidores' then exists (select 1 from rede_seguindo g where g.quem = p_quem and g.segue = s.autor and not g.pendente)
+          when 'proximos' then exists (select 1 from rede_seguindo g where g.quem = p_quem and g.segue = s.autor and not g.pendente)
+                           and exists (select 1 from rede_seguindo g where g.quem = s.autor and g.segue = p_quem and not g.pendente)
+          else false end))
+$$;
+
+/** A autora como aparece: @handle, codinome (nunca nome civil) e uma cor de 1 a 5 tirada do id (não diz nada sobre ela). */
+create or replace function interno.rede5_story_autora(p_autor uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('handle', f.rede_handle, 'nome', interno.rede_nome(f.id), 'cor', (abs(hashtext(f.id::text)) % 5) + 1)
+  from perfis f where f.id = p_autor
+$$;
+
+/** Uma figurinha como `p_quem` a vê (a soma da enquete só para a autora, e só a partir de 3 votos). */
+create or replace function interno.rede5_story_figurinha(f interno.rede_story_figurinhas, s interno.rede_stories, p_quem uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_ato uuid; p rede_posts; v_n0 integer; v_n1 integer;
+begin
+  if f.tipo = 'contagem' then
+    begin v_ato := (f.dados ->> 'ato')::uuid; exception when others then v_ato := null; end;
+    if v_ato is not null then
+      select * into p from rede_posts where id = v_ato;
+      if not found or not interno.rede2_pode_ver(p, p_quem) then v_ato := null; end if;
+    end if;
+    return jsonb_build_object('tipo', 'contagem', 'ato', v_ato, 'titulo', f.dados ->> 'titulo', 'inicio', f.dados ->> 'inicio',
+      'avisar', v_ato is not null and exists (select 1 from rede_story_lembretes l where l.ato = v_ato and l.quem = p_quem));
+  elsif f.tipo = 'pergunta' then
+    return jsonb_build_object('tipo', 'pergunta', 'texto', f.dados ->> 'texto');
+  elsif f.tipo = 'enquete' then
+    if s.autor = p_quem then
+      select count(*) filter (where opcao = 0)::integer, count(*) filter (where opcao = 1)::integer into v_n0, v_n1 from rede_story_votos where story = s.id;
+    end if;
+    return jsonb_build_object('tipo', 'enquete', 'pergunta', f.dados ->> 'pergunta', 'opcoes', f.dados -> 'opcoes',
+      'meu_voto', (select v.opcao from rede_story_votos v where v.story = s.id and v.quem = p_quem and s.autor <> p_quem),
+      'soma', case when s.autor = p_quem and v_n0 + v_n1 >= 3 then jsonb_build_array(v_n0, v_n1) end);
+  else
+    return jsonb_build_object('tipo', 'link', 'url', f.dados ->> 'url', 'rotulo', f.dados ->> 'rotulo');
+  end if;
+end $$;
+
+/** O story inteiro como `p_quem` o vê. O caminho da imagem volta cru: o aparelho pede o endereço assinado ao depósito. */
+create or replace function interno.rede5_story_json(s interno.rede_stories, p_quem uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', s.id, 'autora', interno.rede5_story_autora(s.autor), 'criado_em', s.criado_em, 'expira_em', s.expira_em, 'publico', s.publico,
+    'fundo', case when s.fundo = 'imagem' then jsonb_build_object('tipo', 'imagem', 'cor', s.cor, 'caminho', s.midia_caminho, 'url', '', 'alt', coalesce(s.alt, ''))
+                  else jsonb_build_object('tipo', s.fundo, 'cor', s.cor) end,
+    'texto', s.texto, 'legenda', s.legenda, 'meu', s.autor = p_quem,
+    'figurinhas', coalesce((select jsonb_agg(interno.rede5_story_figurinha(f, s, p_quem) order by f.ordem) from rede_story_figurinhas f where f.story = s.id), '[]'::jsonb))
+$$;
+
+/** O story vai ficar como prova? (há denúncia ainda aberta sobre ele: a faxina não apaga, PLANO §7.2) */
+create or replace function interno.rede5_story_em_prova(p_id uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from rede_denuncias d where d.alvo_tipo = 'story' and d.alvo = p_id::text and d.situacao in ('aberta', 'em_analise'))
+$$;
+
+/** Um story que esta pessoa vê, ou o erro "nao_encontrado" (o mesmo para "não existe" e "não pode ver": não confirma nada). */
+create or replace function interno.rede5_story_visivel(p_id uuid, p_quem uuid) returns interno.rede_stories language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare s rede_stories;
+begin
+  select * into s from rede_stories where id = p_id;
+  if not found or not interno.rede5_story_ve(s, p_quem) then perform interno.erro('nao_encontrado'); end if;
+  return s;
+end $$;
+
+/** Quem chama é membro da Alumia (18+, consentimento em vigor) e os stories estão ligados. Devolve o id. */
+create or replace function interno.rede5_story_membro() returns uuid language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.aberta('comunidade');
+  perform interno.rede5_story_ligado();
+  if not interno.rede2_membro(v) then perform interno.erro('sem_permissao'); end if;
+  return v;
+end $$;
+
+-- ── 3. Leitura ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * As bolinhas do alto da linha: os ids dos MEUS stories no ar e, de quem eu sigo, os que eu posso ver (até 60 pessoas, a mais
+ * nova primeiro). Abrir não grava nada: o "já vi" fica só no aparelho. Visitante recebe a faixa vazia.
+ */
+create or replace function public.rede_story_faixa() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  if v is null or not interno.rede2_membro(v) then return jsonb_build_object('meus', '[]'::jsonb, 'grupos', '[]'::jsonb); end if;
+  perform interno.rede5_story_ligado();
+  return jsonb_build_object(
+    'meus', coalesce((select jsonb_agg(s.id order by s.criado_em) from rede_stories s where s.autor = v and s.expira_em > now()), '[]'::jsonb),
+    'grupos', coalesce((
+      select jsonb_agg(jsonb_build_object('autora', interno.rede5_story_autora(g.autor), 'ids', g.ids, 'ultimo_em', g.ultimo) order by g.ultimo desc)
+      from (
+        select s.autor, jsonb_agg(s.id order by s.criado_em) as ids, max(s.criado_em) as ultimo
+        from rede_seguindo seg join rede_stories s on s.autor = seg.segue
+        join perfis f on f.id = s.autor and f.rede_handle is not null
+        where seg.quem = v and not seg.pendente and interno.rede5_story_ve(s, v)
+        group by s.autor order by max(s.criado_em) desc limit 60) g), '[]'::jsonb));
+end $$;
+
+/** Os stories no ar de uma pessoa (@handle), do mais antigo ao mais novo, só os que eu posso ver. Leitura pura (nada de "visto"). */
+create or replace function public.rede_story_abrir(p_handle text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_autor uuid;
+begin
+  if v is null or not interno.rede2_membro(v) then return '[]'::jsonb; end if;
+  perform interno.rede5_story_ligado();
+  if coalesce(p_handle, '') !~ '^[a-z0-9_]{3,20}$' then perform interno.erro('invalido:handle'); end if;
+  select id into v_autor from perfis where rede_handle = p_handle;
+  if not found then return '[]'::jsonb; end if;
+  return coalesce((select jsonb_agg(interno.rede5_story_json(s, v) order by s.criado_em)
+    from rede_stories s where s.autor = v_autor and interno.rede5_story_ve(s, v)), '[]'::jsonb);
+end $$;
+
+/** Os MEUS stories no ar (retido também, com a soma das enquetes a partir de 3). */
+create or replace function public.rede_story_meus() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.rede5_story_ligado();
+  return coalesce((select jsonb_agg(interno.rede5_story_json(s, v) order by s.criado_em) from rede_stories s where s.autor = v and s.expira_em > now()), '[]'::jsonb);
+end $$;
+
+/** Os próximos atos que eu organizo ou confirmei e que posso pôr numa contagem (sem número de ninguém). */
+create or replace function public.rede_story_atos() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro();
+begin
+  return coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'titulo', x.titulo, 'inicio', x.inicio) order by x.inicio)
+    from (select p.id, left(coalesce(nullif(btrim(p.titulo), ''), btrim(p.texto)), 60) as titulo, c.inicio
+          from rede_chamados c join rede_posts p on p.id = c.post
+          where c.inicio > now() and not c.cancelado and interno.rede2_pode_ver(p, v)
+            and (p.autor = v or exists (select 1 from rede_vou u where u.post = p.id and u.usuario = v))
+          order by c.inicio limit 20) x), '[]'::jsonb);
+end $$;
+
+-- ── 4. Publicar e apagar ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Publica um story (o pedido de lib/rede/tipos-stories.ts, PedidoDeStory). Confere tudo de novo: público, fundo, tamanhos, dado
+ * pessoal (CPF, telefone, e-mail, endereço: LGPD art. 6º, III), até 3 figurinhas (uma enquete e uma contagem no máximo; link só
+ * https; a contagem só com ato que eu organizo ou confirmei, e o título e a hora vêm do ato, não do pedido), a imagem só da
+ * minha pasta, já enviada, em WEBP/PNG/JPEG e até 3 MB, e o post do "Pôr no story" só se eu o vejo. 20 stories por dia.
+ */
+create or replace function public.rede_story_publicar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.rede5_story_membro();
+  v_publico text := coalesce(p ->> 'publico', 'seguidores');
+  v_fundo text := coalesce(p -> 'fundo' ->> 'tipo', 'listras');
+  v_cor text := coalesce(p -> 'fundo' ->> 'cor', 'azul');
+  v_texto text; v_legenda text; v_alt text; v_imagem text := nullif(btrim(coalesce(p ->> 'imagem', '')), '');
+  v_post uuid; pr rede_posts; v_figs jsonb := coalesce(p -> 'figurinhas', '[]'::jsonb);
+  f jsonb; v_tipo text; v_limpas jsonb := '[]'::jsonb; v_tudo text := ''; v_ato uuid; v_titulo text; v_inicio timestamptz;
+  v_url text; v_rotulo text; v_perg text; v_op0 text; v_op1 text; v_enquetes integer := 0; v_contagens integer := 0;
+  v_tam bigint; v_mime text; s rede_stories; i integer := 0;
+begin
+  if p is null or jsonb_typeof(p) is distinct from 'object' then perform interno.erro('invalido:pedido'); end if;
+  if v_publico not in ('seguidores', 'membros', 'proximos') then perform interno.erro('invalido:publico'); end if;
+  if v_fundo not in ('listras', 'mosaico', 'imagem') then perform interno.erro('invalido:fundo'); end if;
+  if v_cor not in ('azul', 'vermelho', 'dourado', 'verde', 'rosa', 'noite') then perform interno.erro('invalido:cor'); end if;
+  if not exists (select 1 from perfis where id = v and rede_handle is not null) then perform interno.erro('sem_handle'); end if;
+  v_texto := interno.txt(p ->> 'texto', 'texto', 0, 140);
+  v_legenda := nullif(interno.txt(p ->> 'legenda', 'legenda', 0, 80), '');
+  v_alt := nullif(interno.txt(p ->> 'alt', 'alt', 0, 200), '');
+  if jsonb_typeof(v_figs) is distinct from 'array' or jsonb_array_length(v_figs) > 3 then perform interno.erro('invalido:figurinhas'); end if;
+
+  -- A imagem: o fundo "imagem" exige o caminho, e o caminho só vale com fundo "imagem".
+  if (v_fundo = 'imagem') <> (v_imagem is not null) then perform interno.erro('invalido:imagem'); end if;
+  if v_imagem is not null then
+    if v_imagem !~ ('^' || v::text || '/[0-9a-f-]{32,36}\.(webp|png|jpg)$') then perform interno.erro('invalido:imagem'); end if;
+    if exists (select 1 from rede_stories where midia_caminho = v_imagem) then perform interno.erro('invalido:imagem'); end if;
+    if to_regclass('storage.objects') is not null then
+      execute 'select (metadata ->> ''size'')::bigint, metadata ->> ''mimetype'' from storage.objects where bucket_id = ''rede-stories'' and name = $1'
+        into v_tam, v_mime using v_imagem;
+      if v_mime is null then perform interno.erro('invalido:imagem'); end if;
+      if v_mime not in ('image/webp', 'image/png', 'image/jpeg') or coalesce(v_tam, 0) > 3145728 then perform interno.erro('invalido:imagem'); end if;
+    end if;
+  else
+    v_alt := null;
+  end if;
+
+  -- "Pôr no story": só um post que eu vejo.
+  if nullif(p ->> 'post_ref', '') is not null then
+    begin v_post := (p ->> 'post_ref')::uuid; exception when others then perform interno.erro('invalido:post'); end;
+    select * into pr from rede_posts where id = v_post;
+    if not found or not interno.rede2_pode_ver(pr, v) then perform interno.erro('nao_encontrado'); end if;
+  end if;
+
+  for f in select * from jsonb_array_elements(v_figs) loop
+    v_tipo := f ->> 'tipo';
+    if v_tipo = 'contagem' then
+      v_contagens := v_contagens + 1;
+      begin v_ato := (f ->> 'ato')::uuid; exception when others then v_ato := null; end;
+      if v_ato is null then perform interno.erro('invalido:contagem'); end if;
+      select left(coalesce(nullif(btrim(x.titulo), ''), btrim(x.texto)), 60), c.inicio into v_titulo, v_inicio
+      from rede_chamados c join rede_posts x on x.id = c.post
+      where c.post = v_ato and c.inicio > now() and not c.cancelado and interno.rede2_pode_ver(x, v)
+        and (x.autor = v or exists (select 1 from rede_vou u where u.post = x.id and u.usuario = v));
+      if not found then perform interno.erro('invalido:contagem'); end if;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'contagem', 'dados', jsonb_build_object('ato', v_ato, 'titulo', v_titulo, 'inicio', v_inicio));
+    elsif v_tipo = 'pergunta' then
+      v_perg := interno.txt(f ->> 'texto', 'pergunta', 1, 90);
+      v_tudo := v_tudo || E'\n' || v_perg;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'pergunta', 'dados', jsonb_build_object('texto', v_perg));
+    elsif v_tipo = 'enquete' then
+      v_enquetes := v_enquetes + 1;
+      if jsonb_typeof(f -> 'opcoes') is distinct from 'array' or jsonb_array_length(f -> 'opcoes') <> 2 then perform interno.erro('invalido:enquete'); end if;
+      v_perg := interno.txt(f ->> 'pergunta', 'pergunta', 1, 90);
+      v_op0 := interno.txt(f -> 'opcoes' ->> 0, 'opcao', 1, 24);
+      v_op1 := interno.txt(f -> 'opcoes' ->> 1, 'opcao', 1, 24);
+      if lower(v_op0) = lower(v_op1) then perform interno.erro('invalido:opcao'); end if;
+      v_tudo := v_tudo || E'\n' || v_perg || E'\n' || v_op0 || E'\n' || v_op1;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'enquete', 'dados', jsonb_build_object('pergunta', v_perg, 'opcoes', jsonb_build_array(v_op0, v_op1)));
+    elsif v_tipo = 'link' then
+      v_url := btrim(coalesce(f ->> 'url', ''));
+      if v_url !~* '^https://[a-z0-9.-]+\.[a-z]{2,}(:[0-9]{2,5})?(/[^\s<>"]*)?$' or char_length(v_url) > 300 then perform interno.erro('invalido:link'); end if;
+      v_rotulo := interno.txt(f ->> 'rotulo', 'rotulo', 1, 40);
+      v_tudo := v_tudo || E'\n' || v_rotulo;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'link', 'dados', jsonb_build_object('url', v_url, 'rotulo', v_rotulo));
+    else
+      perform interno.erro('invalido:figurinha');
+    end if;
+  end loop;
+  if v_enquetes > 1 or v_contagens > 1 then perform interno.erro('invalido:figurinhas'); end if;
+  if v_texto = '' and v_imagem is null and jsonb_array_length(v_limpas) = 0 then perform interno.erro('invalido:vazio'); end if;
+  if interno.rede3_pub_dado_pessoal(v_texto || E'\n' || coalesce(v_legenda, '') || v_tudo) then perform interno.erro('dado_pessoal'); end if;
+
+  perform interno.limite('rede5_story_publicar', 20, 1440);
+  insert into rede_stories (autor, publico, fundo, cor, texto, legenda, midia_caminho, alt, post_ref, conferido)
+  values (v, v_publico, v_fundo, v_cor, v_texto, v_legenda, v_imagem, v_alt, v_post, v_imagem is null)
+  returning * into s;
+  for f in select * from jsonb_array_elements(v_limpas) loop
+    insert into rede_story_figurinhas (story, ordem, tipo, dados) values (s.id, i, f ->> 'tipo', f -> 'dados');
+    i := i + 1;
+  end loop;
+  return jsonb_build_object('id', s.id, 'expira_em', s.expira_em);
+end $$;
+
+/**
+ * Apagar o meu story: some na hora para todo mundo, com as respostas e as reações (e os avisos que as levaram). Se há denúncia
+ * aberta sobre ele, a linha e o arquivo ficam guardados como prova até a decisão (PLANO §7.2), mas já fora do ar.
+ */
+create or replace function public.rede_story_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s rede_stories;
+begin
+  perform interno.rede5_story_ligado();
+  perform interno.limite('rede5_story_apagar', 60, 60);
+  select * into s from rede_stories where id = p_id and autor = v;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  delete from avisos a where a.id in (select r.aviso from rede_story_respostas r where r.story = s.id and r.aviso is not null
+                                      union select x.aviso from rede_story_reacoes x where x.story = s.id and x.aviso is not null);
+  if s.retido or interno.rede5_story_em_prova(s.id) then
+    update rede_stories set expira_em = least(expira_em, now()) where id = s.id;
+  else
+    -- A linha sai agora; o arquivo, sem dono, sai do depósito na próxima faxina (e ninguém mais o lê: rede_story_pode).
+    delete from rede_stories where id = s.id;
+  end if;
+  return jsonb_build_object('apagado', true);
+end $$;
+
+-- ── 5. Responder, reagir, votar, "me avise" e denunciar ──────────────────────────────────────────────────────────────────
+
+/** Resposta (texto livre ou à figurinha de pergunta): vai SÓ para a autora, num aviso dela, e some com o story. */
+create or replace function public.rede_story_responder(p_id uuid, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro(); s rede_stories; v_texto text := interno.txt(p_texto, 'texto', 1, 500); v_aviso uuid;
+begin
+  s := interno.rede5_story_visivel(p_id, v);
+  if s.autor = v then perform interno.erro('sem_permissao'); end if;
+  perform interno.rede2_limite('responder');
+  perform interno.limite('rede5_story_responder', 10, 60);
+  -- A autora desligou "respostas a stories" no site: a resposta não vira aviso nem fica guardada.
+  if not interno.rede3_aviso_pref(s.autor, 'story_resposta', 'site') then return jsonb_build_object('ok', true); end if;
+  insert into avisos (para, texto, categoria, ator)
+  values (s.autor, left('Resposta ao seu story: “' || v_texto || '”', 500), 'rede', v) returning id into v_aviso;
+  insert into rede_story_respostas (story, quem, texto, aviso) values (s.id, v, v_texto, v_aviso);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Reação do conjunto fechado: a autora recebe "Alguém reagiu…", sem o nome; reagir de novo troca a reação (sem somar avisos). */
+create or replace function public.rede_story_reagir(p_id uuid, p_reacao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro(); s rede_stories; r rede_story_reacoes; v_aviso uuid; v_texto text;
+begin
+  if p_reacao is null or p_reacao not in ('punho', 'chama', 'coracao') then perform interno.erro('invalido:reacao'); end if;
+  s := interno.rede5_story_visivel(p_id, v);
+  if s.autor = v then perform interno.erro('sem_permissao'); end if;
+  perform interno.rede2_limite('reagir');
+  v_texto := 'Alguém reagiu ao seu story com ' || case p_reacao when 'punho' then 'um punho erguido' when 'chama' then 'uma chama' else 'um coração' end || '.';
+  select * into r from rede_story_reacoes where story = s.id and quem = v;
+  if found then
+    if r.reacao <> p_reacao then
+      update rede_story_reacoes set reacao = p_reacao where story = s.id and quem = v;
+      if r.aviso is not null then update avisos set texto = v_texto, lido = false where id = r.aviso; end if;
+    end if;
+    return jsonb_build_object('ok', true);
+  end if;
+  if interno.rede3_aviso_pref(s.autor, 'story_resposta', 'site') then
+    insert into avisos (para, texto, categoria) values (s.autor, v_texto, 'rede') returning id into v_aviso;
+  end if;
+  insert into rede_story_reacoes (story, quem, reacao, aviso) values (s.id, v, p_reacao, v_aviso);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Voto secreto na enquete (um por pessoa; não muda depois). Devolve a figurinha como eu passo a ver (sem soma: só a autora vê). */
+create or replace function public.rede_story_votar(p_id uuid, p_opcao integer) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro(); s rede_stories; f rede_story_figurinhas;
+begin
+  if p_opcao is null or p_opcao not in (0, 1) then perform interno.erro('invalido:opcao'); end if;
+  s := interno.rede5_story_visivel(p_id, v);
+  if s.autor = v then perform interno.erro('sem_permissao'); end if;
+  select * into f from rede_story_figurinhas where story = s.id and tipo = 'enquete';
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.rede2_limite('votar');
+  insert into rede_story_votos (story, quem, opcao) values (s.id, v, p_opcao) on conflict (story, quem) do nothing;
+  return interno.rede5_story_figurinha(f, s, v);
+end $$;
+
+/** "Me avise quando começar": liga ou desliga o MEU lembrete do ato da figurinha de contagem. Ninguém sabe quem pediu. */
+create or replace function public.rede_story_avisar(p_id uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro(); s rede_stories; v_ato uuid; p rede_posts;
+begin
+  s := interno.rede5_story_visivel(p_id, v);
+  select (f.dados ->> 'ato')::uuid into v_ato from rede_story_figurinhas f where f.story = s.id and f.tipo = 'contagem';
+  if v_ato is null then perform interno.erro('nao_encontrado'); end if;
+  select * into p from rede_posts where id = v_ato;
+  if not found or not interno.rede2_pode_ver(p, v) then perform interno.erro('nao_encontrado'); end if;
+  perform interno.rede2_limite('salvar');
+  if coalesce(p_sim, false) then
+    if not exists (select 1 from rede_chamados c where c.post = v_ato and c.inicio > now() and not c.cancelado) then perform interno.erro('invalido:ato'); end if;
+    insert into rede_story_lembretes (ato, quem) values (v_ato, v) on conflict do nothing;
+  else
+    delete from rede_story_lembretes where ato = v_ato and quem = v;
+  end if;
+  return jsonb_build_object('avisar', exists (select 1 from rede_story_lembretes where ato = v_ato and quem = v));
+end $$;
+
+/**
+ * Denunciar um story que eu vejo. Quem denuncia nunca é revelado. Mesma pessoa e story com denúncia aberta: o mesmo protocolo.
+ * Menores, ameaça e exposição (PLANO §7.2) retêm na hora: some para todos menos a autora, que é avisada e pode recorrer; e a prova
+ * fica guardada até a decisão, mesmo depois das 24 h. O freio tem teto por conta (5 por dia), para a denúncia não virar arma.
+ */
+create or replace function public.rede_story_denunciar(p_id uuid, p_categoria text, p_texto text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.rede5_story_membro(); s rede_stories; d rede_denuncias; v_pri smallint; v_retido boolean := false;
+  v_texto text := interno.txt(coalesce(p_texto, ''), 'texto', 0, 2000);
+begin
+  if p_categoria is null or p_categoria not in ('menores', 'ameaca', 'exposicao', 'violencia', 'autolesao', 'odio', 'assedio', 'golpe', 'spam', 'outro') then
+    perform interno.erro('invalido:categoria');
+  end if;
+  -- A mesma pessoa denunciando de novo recebe o mesmo protocolo, mesmo que o story já tenha sido retido (e ela não o veja mais).
+  select * into d from rede_denuncias where quem = v and alvo_tipo = 'story' and alvo = p_id::text and situacao in ('aberta', 'em_analise') limit 1;
+  if found then return jsonb_build_object('protocolo', d.protocolo, 'retido', coalesce((select retido from rede_stories where id = p_id), false), 'ja', true); end if;
+  s := interno.rede5_story_visivel(p_id, v);
+  if s.autor = v then perform interno.erro('sem_permissao'); end if;
+  perform interno.rede2_limite('denunciar');
+  v_pri := interno.rede2_prioridade(p_categoria);
+  insert into rede_denuncias (alvo_tipo, alvo, categoria, prioridade, texto, quem) values ('story', s.id::text, p_categoria, v_pri, v_texto, v) returning * into d;
+  if p_categoria in ('menores', 'ameaca', 'exposicao') and not s.retido then
+    begin
+      perform interno.limite('rede5_story_precaucao', 5, 1440);
+      update rede_stories set retido = true where id = s.id;
+      perform interno.rede3_mod_registrar('reter', 'story', s.id::text, 'precaucao', 'Story retido por precaução até a moderação ler a denúncia ' || d.protocolo || '.', d.id, true);
+      perform interno.rede3_mod_avisar_afetado(s.autor, 'Um story seu ficou retido por precaução enquanto a moderação lê uma denúncia (decisão automática, ainda sem leitura de uma pessoa). Só você o vê. Você pode recorrer em até 30 dias, em Denúncias e recursos.');
+      v_retido := true;
+    exception when others then
+      v_retido := false;
+    end;
+  end if;
+  if v_pri = 1 then
+    insert into avisos (para, texto)
+    select distinct pa.usuario, left('Denúncia prioritária ' || d.protocolo || ' (story, ' || p_categoria || '). Abra a fila de moderação da Rede.', 500)
+    from papeis pa where pa.papel in ('coordenacao', 'vice', 'mediacao') and pa.usuario <> v;
+  end if;
+  return jsonb_build_object('protocolo', d.protocolo, 'retido', v_retido, 'ja', false);
+end $$;
+
+-- ── 6. Depósito privado rede-stories ──────────────────────────────────────────────────────────────────────────────────────
+
+/** Regra de leitura do depósito: o arquivo deste caminho é de um story que quem pede pode ver (a mesma regra da tela). */
+create or replace function public.rede_story_pode(p_caminho text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from rede_stories s where s.midia_caminho = p_caminho and interno.rede5_story_ve(s, auth.uid()))
+$$;
+
+/** Regra de envio: membro da Alumia, stories ligados, e no máximo 30 arquivos nas últimas 24 h na própria pasta. */
+create or replace function public.rede_story_pode_enviar() returns boolean language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_n integer := 0;
+begin
+  if v is null or not interno.rede2_membro(v) then return false; end if;
+  if exists (select 1 from recursos_vivos where nome in ('rede-v2', 'alumia-2', 'alumia-stories') and not ligado) then return false; end if;
+  if to_regclass('storage.objects') is not null then
+    execute 'select count(*)::integer from storage.objects where bucket_id = ''rede-stories'' and name like $1 and created_at > now() - interval ''24 hours'''
+      into v_n using v::text || '/%';
+  end if;
+  return v_n < 30;
+end $$;
+
+do $$
+begin
+  if exists (select 1 from pg_namespace where nspname = 'storage') and to_regclass('storage.buckets') is not null then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('rede-stories', 'rede-stories', false, 3145728, array['image/webp', 'image/png', 'image/jpeg'])
+    on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+    execute 'drop policy if exists "rede_stories_envio" on storage.objects';
+    execute 'create policy "rede_stories_envio" on storage.objects for insert to authenticated with check (bucket_id = ''rede-stories'' and (storage.foldername(name))[1] = auth.uid()::text and public.rede_story_pode_enviar())';
+    execute 'drop policy if exists "rede_stories_leitura" on storage.objects';
+    execute 'create policy "rede_stories_leitura" on storage.objects for select to authenticated using (bucket_id = ''rede-stories'' and ((storage.foldername(name))[1] = auth.uid()::text or public.rede_story_pode(name)))';
+    execute 'drop policy if exists "rede_stories_remocao" on storage.objects';
+    execute 'create policy "rede_stories_remocao" on storage.objects for delete to authenticated using (bucket_id = ''rede-stories'' and (storage.foldername(name))[1] = auth.uid()::text)';
+  end if;
+end $$;
+
+-- ── 7. Faxina (de 15 em 15 minutos) ───────────────────────────────────────────────────────────────────────────────────────
+-- O que o banco faz sozinho: tira da tabela os stories vencidos SEM arquivo (que não estejam em prova) e manda os lembretes de
+-- ato. O que tem arquivo precisa da Edge Function faxina-stories, que apaga o arquivo pela API do Storage e só DEPOIS a linha
+-- (apagar só a linha de storage.objects por SQL deixaria o arquivo no depósito, como a doc do Supabase avisa); ela também
+-- confere as imagens novas (tira EXIF/XMP que tenha sobrado) e leva os arquivos sem story (envio abandonado há mais de 1 hora).
+-- O endereço da função fica nas configurações, como o dos e-mails (interno.emails_disparar), definido uma vez pelo Jonathan:
+--   insert into interno.configuracoes (chave, valor) values ('stories', '{"funcao": "https://SEU-PROJETO.supabase.co/functions/v1/faxina-stories", "chave_publica": "eyJ...", "segredo": "..."}')
+--   on conflict (chave) do update set valor = excluded.valor;
+-- Sem o endereço, ou sem pg_net, as funções de leitura continuam filtrando expira_em > now(): nada vencido aparece, só fica guardado.
+
+/** Os lembretes de "me avise": ato começando em até 1 hora vira aviso (e o lembrete sai); ato cancelado ou já começado, só sai. */
+create or replace function interno.rede5_story_lembretes() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record; v_n integer := 0;
+begin
+  for r in select l.ato, l.quem from rede_story_lembretes l join rede_chamados c on c.post = l.ato
+           where c.inicio > now() and c.inicio <= now() + interval '1 hour' and not c.cancelado limit 2000 loop
+    perform interno.rede3_aviso_criar(r.quem, 'chamado', r.ato, null, null, 'Um ato que você pediu para lembrar começa em menos de 1 hora.');
+    delete from rede_story_lembretes where ato = r.ato and quem = r.quem;
+    v_n := v_n + 1;
+  end loop;
+  delete from rede_story_lembretes l using rede_chamados c where c.post = l.ato and (c.inicio <= now() or c.cancelado);
+  delete from rede_story_lembretes l where not exists (select 1 from rede_chamados c where c.post = l.ato);
+  return v_n;
+end $$;
+
+/** A rodada do banco (pg_cron): lembretes, vencidos sem arquivo e, se há trabalho com arquivo, chama a Edge Function. */
+create or replace function interno.rede5_story_faxina() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v_lembretes integer; v_texto integer;
+  v_url text := (select valor ->> 'funcao' from configuracoes where chave = 'stories');
+  v_chave text := coalesce((select valor ->> 'chave_publica' from configuracoes where chave = 'stories'), '');
+  v_segredo text := coalesce((select valor ->> 'segredo' from configuracoes where chave = 'stories'), '');
+  v_chamou boolean := false;
+begin
+  v_lembretes := interno.rede5_story_lembretes();
+  with fora as (delete from rede_stories s where s.expira_em <= now() and s.midia_caminho is null and not interno.rede5_story_em_prova(s.id) returning 1)
+  select count(*)::integer into v_texto from fora;
+  if coalesce(v_url, '') ~ '^https://[a-z0-9.-]+/functions/v1/faxina-stories$' and exists (select 1 from pg_extension where extname = 'pg_net')
+     and (exists (select 1 from rede_stories s where s.midia_caminho is not null and (not s.conferido or s.expira_em <= now())) or to_regclass('storage.objects') is not null) then
+    execute 'select net.http_post(url := $1, body := ''{}''::jsonb, headers := $2, timeout_milliseconds := 60000)'
+      using v_url, jsonb_build_object('Content-Type', 'application/json', 'Authorization', 'Bearer ' || v_chave, 'apikey', v_chave, 'x-lucia-segredo', v_segredo);
+    v_chamou := true;
+  end if;
+  return jsonb_build_object('lembretes', v_lembretes, 'apagados', v_texto, 'chamou', v_chamou);
+end $$;
+
+/**
+ * Só a Edge Function (chave de serviço): o que ela tem a fazer. `apagar`: vencidos com arquivo, fora de prova. `conferir`: imagens
+ * ainda não conferidas no servidor. `orfaos`: arquivos do depósito sem story há mais de 1 hora (envio abandonado ou story apagado).
+ */
+create or replace function public.rede_story_faxina_lista(p_limite integer default 200) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_lim integer := greatest(1, least(coalesce(p_limite, 200), 500)); v_orfaos jsonb := '[]'::jsonb;
+begin
+  if to_regclass('storage.objects') is not null then
+    execute 'select coalesce(jsonb_agg(o.name), ''[]''::jsonb) from (select name from storage.objects o where o.bucket_id = ''rede-stories''
+               and o.created_at < now() - interval ''1 hour'' and not exists (select 1 from interno.rede_stories s where s.midia_caminho = o.name)
+               order by o.created_at limit $1) o'
+      into v_orfaos using v_lim;
+  end if;
+  return jsonb_build_object(
+    'apagar', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'caminho', x.midia_caminho)) from (
+      select s.id, s.midia_caminho from rede_stories s where s.expira_em <= now() and s.midia_caminho is not null and not interno.rede5_story_em_prova(s.id)
+      order by s.expira_em limit v_lim) x), '[]'::jsonb),
+    'conferir', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'caminho', x.midia_caminho)) from (
+      select s.id, s.midia_caminho from rede_stories s where s.midia_caminho is not null and not s.conferido and s.expira_em > now()
+      order by s.criado_em limit least(v_lim, 50)) x), '[]'::jsonb),
+    'orfaos', v_orfaos);
+end $$;
+
+/**
+ * Só a Edge Function: o que ela fez. `p_apagados`: os arquivos já saíram do depósito; a linha sai agora (se ainda vencida e fora
+ * de prova). `p_conferidos`: imagem conferida (e limpa, se precisou). `p_ruins`: o arquivo não era imagem que se lê: o story sai do ar.
+ */
+create or replace function public.rede_story_faxina_feito(p_apagados uuid[], p_conferidos uuid[], p_ruins uuid[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_a integer; v_c integer; v_r integer;
+begin
+  with fora as (delete from rede_stories s where s.id = any (coalesce(p_apagados, '{}')) and s.expira_em <= now() and not interno.rede5_story_em_prova(s.id) returning 1)
+  select count(*)::integer into v_a from fora;
+  update rede_stories set conferido = true where id = any (coalesce(p_conferidos, '{}')) and not conferido;
+  get diagnostics v_c = row_count;
+  update rede_stories set expira_em = least(expira_em, now()), conferido = true where id = any (coalesce(p_ruins, '{}'));
+  get diagnostics v_r = row_count;
+  return jsonb_build_object('apagados', v_a, 'conferidos', v_c, 'ruins', v_r);
+end $$;
+
+do $$
+begin
+  create extension if not exists pg_cron;
+exception when others then null;
+end $$;
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('alumia-faxina-stories', '*/15 * * * *', 'select interno.rede5_story_faxina()');
+  end if;
+exception when others then null;
+end $$;
+
+-- ── 8. Permissões ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function interno.rede5_story_tirar_aviso(), interno.rede5_story_ligado(), interno.rede5_story_ve(interno.rede_stories, uuid),
+  interno.rede5_story_autora(uuid), interno.rede5_story_figurinha(interno.rede_story_figurinhas, interno.rede_stories, uuid),
+  interno.rede5_story_json(interno.rede_stories, uuid), interno.rede5_story_em_prova(uuid), interno.rede5_story_visivel(uuid, uuid),
+  interno.rede5_story_membro(), interno.rede5_story_lembretes(), interno.rede5_story_faxina() from public;
+revoke all on function public.rede_story_faixa(), public.rede_story_abrir(text), public.rede_story_meus(), public.rede_story_atos(),
+  public.rede_story_publicar(jsonb), public.rede_story_apagar(uuid), public.rede_story_responder(uuid, text), public.rede_story_reagir(uuid, text),
+  public.rede_story_votar(uuid, integer), public.rede_story_avisar(uuid, boolean), public.rede_story_denunciar(uuid, text, text),
+  public.rede_story_pode(text), public.rede_story_pode_enviar(), public.rede_story_faxina_lista(integer), public.rede_story_faxina_feito(uuid[], uuid[], uuid[]) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.rede5_story_tirar_aviso(), interno.rede5_story_ligado(), interno.rede5_story_ve(interno.rede_stories, uuid),
+      interno.rede5_story_autora(uuid), interno.rede5_story_figurinha(interno.rede_story_figurinhas, interno.rede_stories, uuid),
+      interno.rede5_story_json(interno.rede_stories, uuid), interno.rede5_story_em_prova(uuid), interno.rede5_story_visivel(uuid, uuid),
+      interno.rede5_story_membro(), interno.rede5_story_lembretes(), interno.rede5_story_faxina() from anon, authenticated;
+    revoke all on function public.rede_story_faixa(), public.rede_story_abrir(text), public.rede_story_meus(), public.rede_story_atos(),
+      public.rede_story_publicar(jsonb), public.rede_story_apagar(uuid), public.rede_story_responder(uuid, text), public.rede_story_reagir(uuid, text),
+      public.rede_story_votar(uuid, integer), public.rede_story_avisar(uuid, boolean), public.rede_story_denunciar(uuid, text, text),
+      public.rede_story_pode(text), public.rede_story_pode_enviar(), public.rede_story_faxina_lista(integer), public.rede_story_faxina_feito(uuid[], uuid[], uuid[]) from anon, authenticated;
+    -- Leitura que visitante pode chamar (volta vazia para ele): a faixa e abrir.
+    grant execute on function public.rede_story_faixa(), public.rede_story_abrir(text) to anon, authenticated, service_role;
+    -- Com conta.
+    grant execute on function public.rede_story_meus(), public.rede_story_atos(), public.rede_story_publicar(jsonb), public.rede_story_apagar(uuid),
+      public.rede_story_responder(uuid, text), public.rede_story_reagir(uuid, text), public.rede_story_votar(uuid, integer),
+      public.rede_story_avisar(uuid, boolean), public.rede_story_denunciar(uuid, text, text),
+      public.rede_story_pode(text), public.rede_story_pode_enviar() to authenticated, service_role;
+    -- Só a Edge Function da faxina.
+    grant execute on function public.rede_story_faxina_lista(integer), public.rede_story_faxina_feito(uuid[], uuid[], uuid[]) to service_role;
+  end if;
+end $$;
+
+-- ═══════════════════════════ fim da F5 ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda A · stories com vídeo e destaques (10/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/ALUMIA-ATE-O-FIM.md (A7: "stories como os do Instagram, com vídeo") e PLANO-ALUMIA §6.4, §7.2, §12.
+-- Por cima da F5 (20261109-alumia-f5.sql), sem tirar nada dela:
+--   1. VÍDEO: fundo "video" (até 60 s), arquivo .mp4/.webm no mesmo depósito privado rede-stories, até 20 MB; a duração e o "som"
+--      (a autora pode publicar sem som: aí o áudio nem sai do aparelho) ficam na linha. O aparelho regrava o vídeo (MediaRecorder,
+--      720p, taxa limitada), o que joga fora todo metadado do arquivo original (GPS, modelo, data); a faxina confere de novo.
+--   2. ESTILO DO TEXTO: fonte, cor da letra, alinhamento e caixa atrás do texto, só valores de uma lista fechada (nunca CSS livre).
+--   3. FIGURINHA "comunidade" (menção a uma comunidade da Alumia): o nome vem da comunidade, não do pedido; comunidade fechada só
+--      se a autora é membro ativa.
+--   4. DESTAQUES no perfil: a autora guarda stories em até 6 destaques. Story num destaque não some em 24 h (escolha dela, com aviso
+--      na tela "vai ficar no seu perfil"); continua com o MESMO público (seguidores, membros ou próximos), bloqueio vale, retido
+--      some, e nunca federa. Tirar do destaque (ou apagar o destaque) devolve o story vencido à faxina.
+-- Idempotente (scripts/testar-alumia-stories-video.mjs roda duas vezes no banco local). NÃO roda em produção sem o Jonathan.
+--
+-- Privacidade (leis conferidas no texto, leis-do-brasil):
+--   * LGPD (Lei 13.709/2018) art. 5º, II e art. 11: continua NÃO existindo tabela, coluna nem contagem de quem viu, nem nos destaques;
+--     o destaque mostra só o número de stories dele, nunca de pessoas.
+--   * LGPD art. 6º, III (necessidade): o vídeo sai do aparelho já sem metadado; sem som, o áudio nem é enviado; nada de GPS.
+--   * ECA Digital (Lei 15.211/2025) art. 9º § 1º: só membro 18+ publica ou vê (as mesmas regras da F5).
+--   * Stories e destaques nunca federam (PLANO §6.8): nada daqui entra nas tabelas rede_fed_*.
+
+-- ── 1. Colunas e regras novas em rede_stories ────────────────────────────────────────────────────────────────────────────
+alter table interno.rede_stories add column if not exists duracao_ms integer;
+alter table interno.rede_stories add column if not exists som boolean not null default false;
+alter table interno.rede_stories add column if not exists estilo jsonb not null default '{}'::jsonb;
+
+alter table interno.rede_stories drop constraint if exists rede_stories_fundo_check;
+alter table interno.rede_stories add constraint rede_stories_fundo_check check (fundo in ('listras', 'mosaico', 'imagem', 'video'));
+alter table interno.rede_stories drop constraint if exists rede_stories_midia_caminho_check;
+alter table interno.rede_stories add constraint rede_stories_midia_caminho_check check (midia_caminho is null
+  or midia_caminho ~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/[0-9a-f-]{32,36}\.(webp|png|jpg|mp4|webm)$');
+alter table interno.rede_stories drop constraint if exists rede_stories_imagem;
+alter table interno.rede_stories add constraint rede_stories_imagem check ((fundo in ('imagem', 'video')) = (midia_caminho is not null));
+alter table interno.rede_stories drop constraint if exists rede_stories_video;
+alter table interno.rede_stories add constraint rede_stories_video check (
+  ((fundo = 'video') = (duracao_ms is not null))
+  and (duracao_ms is null or duracao_ms between 300 and 60500)
+  and (fundo = 'video' or not som)
+  and (midia_caminho is null or (fundo = 'video') = (midia_caminho ~ '\.(mp4|webm)$')));
+alter table interno.rede_stories drop constraint if exists rede_stories_estilo;
+alter table interno.rede_stories add constraint rede_stories_estilo check (jsonb_typeof(estilo) = 'object' and pg_column_size(estilo) <= 512);
+
+alter table interno.rede_story_figurinhas drop constraint if exists rede_story_figurinhas_tipo_check;
+alter table interno.rede_story_figurinhas add constraint rede_story_figurinhas_tipo_check check (tipo in ('contagem', 'pergunta', 'enquete', 'link', 'comunidade'));
+
+-- ── 2. Destaques ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+create table if not exists interno.rede_story_destaques (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  titulo text not null check (char_length(titulo) between 1 and 24),
+  cor text not null default 'vermelho' check (cor in ('azul', 'vermelho', 'dourado', 'verde', 'rosa', 'noite')),
+  criado_em timestamptz not null default now()
+);
+create index if not exists rede_story_destaques_autor on interno.rede_story_destaques (autor, criado_em);
+
+create table if not exists interno.rede_story_no_destaque (
+  destaque uuid not null references interno.rede_story_destaques (id) on delete cascade,
+  story uuid not null references interno.rede_stories (id) on delete cascade,
+  posto_em timestamptz not null default now(),
+  primary key (destaque, story)
+);
+create index if not exists rede_story_no_destaque_story on interno.rede_story_no_destaque (story);
+
+do $$
+declare t text;
+begin
+  foreach t in array array['rede_story_destaques', 'rede_story_no_destaque'] loop
+    execute format('alter table interno.%I enable row level security', t);
+    execute format('revoke all on table interno.%I from public', t);
+    if exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on table interno.%I from anon, authenticated', t);
+    end if;
+  end loop;
+end $$;
+
+-- ── 3. Quem vê (a regra sem o prazo, para os destaques) ─────────────────────────────────────────────────────────────────
+/** A regra de público da F5, sem o "no ar": a mesma para o story vivo e para o story guardado num destaque. */
+create or replace function interno.rede5_story_regra(s interno.rede_stories, p_quem uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select s.id is not null and p_quem is not null and (
+    s.autor = p_quem
+    or (not s.retido
+        and interno.rede2_membro(p_quem) and interno.rede2_membro(s.autor)
+        and not interno.rede_bloqueado(p_quem, s.autor)
+        and case s.publico
+          when 'membros' then true
+          when 'seguidores' then exists (select 1 from rede_seguindo g where g.quem = p_quem and g.segue = s.autor and not g.pendente)
+          when 'proximos' then exists (select 1 from rede_seguindo g where g.quem = p_quem and g.segue = s.autor and not g.pendente)
+                           and exists (select 1 from rede_seguindo g where g.quem = s.autor and g.segue = p_quem and not g.pendente)
+          else false end))
+$$;
+
+/** O story vivo (F5): a regra e as 24 h. */
+create or replace function interno.rede5_story_ve(s interno.rede_stories, p_quem uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select s.expira_em > now() and interno.rede5_story_regra(s, p_quem)
+$$;
+
+/** Está guardado em algum destaque? */
+create or replace function interno.rede5_story_no_destaque(p_id uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from rede_story_no_destaque d where d.story = p_id)
+$$;
+
+/** O story num destaque: a mesma regra de público, sem prazo (retido continua escondido, bloqueio continua valendo). */
+create or replace function interno.rede5_story_ve_destaque(s interno.rede_stories, p_quem uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.rede5_story_no_destaque(s.id) and interno.rede5_story_regra(s, p_quem)
+$$;
+
+/** A faxina não leva: prova de denúncia aberta (F5) ou story guardado num destaque. */
+create or replace function interno.rede5_story_guardado(p_id uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.rede5_story_em_prova(p_id) or interno.rede5_story_no_destaque(p_id)
+$$;
+
+/** Um story que esta pessoa vê (vivo, ou guardado num destaque), ou "nao_encontrado" (o mesmo erro para os dois casos). */
+create or replace function interno.rede5_story_visivel(p_id uuid, p_quem uuid) returns interno.rede_stories language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare s rede_stories;
+begin
+  select * into s from rede_stories where id = p_id;
+  if not found or not (interno.rede5_story_ve(s, p_quem) or interno.rede5_story_ve_destaque(s, p_quem)) then perform interno.erro('nao_encontrado'); end if;
+  return s;
+end $$;
+
+/** Regra de leitura do depósito: o arquivo é de um story que quem pede vê, vivo ou num destaque. */
+create or replace function public.rede_story_pode(p_caminho text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from rede_stories s where s.midia_caminho = p_caminho
+                 and (interno.rede5_story_ve(s, auth.uid()) or interno.rede5_story_ve_destaque(s, auth.uid())))
+$$;
+
+-- ── 4. O story como a tela recebe ─────────────────────────────────────────────────────────────────────────────────────────
+/** Uma figurinha como `p_quem` a vê (a F5, mais a menção de comunidade com o nome atual dela). */
+create or replace function interno.rede5_story_figurinha(f interno.rede_story_figurinhas, s interno.rede_stories, p_quem uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_ato uuid; p rede_posts; v_n0 integer; v_n1 integer; c rede_comunidades;
+begin
+  if f.tipo = 'contagem' then
+    begin v_ato := (f.dados ->> 'ato')::uuid; exception when others then v_ato := null; end;
+    if v_ato is not null then
+      select * into p from rede_posts where id = v_ato;
+      if not found or not interno.rede2_pode_ver(p, p_quem) then v_ato := null; end if;
+    end if;
+    return jsonb_build_object('tipo', 'contagem', 'ato', v_ato, 'titulo', f.dados ->> 'titulo', 'inicio', f.dados ->> 'inicio',
+      'avisar', v_ato is not null and exists (select 1 from rede_story_lembretes l where l.ato = v_ato and l.quem = p_quem));
+  elsif f.tipo = 'pergunta' then
+    return jsonb_build_object('tipo', 'pergunta', 'texto', f.dados ->> 'texto');
+  elsif f.tipo = 'enquete' then
+    if s.autor = p_quem then
+      select count(*) filter (where opcao = 0)::integer, count(*) filter (where opcao = 1)::integer into v_n0, v_n1 from rede_story_votos where story = s.id;
+    end if;
+    return jsonb_build_object('tipo', 'enquete', 'pergunta', f.dados ->> 'pergunta', 'opcoes', f.dados -> 'opcoes',
+      'meu_voto', (select v.opcao from rede_story_votos v where v.story = s.id and v.quem = p_quem and s.autor <> p_quem),
+      'soma', case when s.autor = p_quem and v_n0 + v_n1 >= 3 then jsonb_build_array(v_n0, v_n1) end);
+  elsif f.tipo = 'comunidade' then
+    select * into c from rede_comunidades where slug = f.dados ->> 'slug';
+    if not found then return jsonb_build_object('tipo', 'comunidade', 'slug', null, 'nome', f.dados ->> 'nome'); end if;
+    -- Comunidade que não é aberta: quem não é membro vê o nome, sem o atalho para ela.
+    if c.tipo <> 'aberta' and not exists (select 1 from rede_comunidade_membros m where m.comunidade = c.slug and m.usuario = p_quem and m.situacao = 'ativo') then
+      return jsonb_build_object('tipo', 'comunidade', 'slug', null, 'nome', c.nome);
+    end if;
+    return jsonb_build_object('tipo', 'comunidade', 'slug', c.slug, 'nome', c.nome);
+  else
+    return jsonb_build_object('tipo', 'link', 'url', f.dados ->> 'url', 'rotulo', f.dados ->> 'rotulo');
+  end if;
+end $$;
+
+/** O story inteiro como `p_quem` o vê. Vídeo: caminho cru, duração e se tem som. A autora vê em quais destaques ele está. */
+create or replace function interno.rede5_story_json(s interno.rede_stories, p_quem uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', s.id, 'autora', interno.rede5_story_autora(s.autor), 'criado_em', s.criado_em, 'expira_em', s.expira_em, 'publico', s.publico,
+    'fundo', case
+      when s.fundo = 'imagem' then jsonb_build_object('tipo', 'imagem', 'cor', s.cor, 'caminho', s.midia_caminho, 'url', '', 'alt', coalesce(s.alt, ''))
+      when s.fundo = 'video' then jsonb_build_object('tipo', 'video', 'cor', s.cor, 'caminho', s.midia_caminho, 'url', '', 'alt', coalesce(s.alt, ''),
+                                                     'duracao', s.duracao_ms, 'som', s.som)
+      else jsonb_build_object('tipo', s.fundo, 'cor', s.cor) end,
+    'texto', s.texto, 'legenda', s.legenda, 'meu', s.autor = p_quem, 'estilo', s.estilo,
+    'destaques', case when s.autor = p_quem then coalesce((select jsonb_agg(d.destaque) from rede_story_no_destaque d where d.story = s.id), '[]'::jsonb) end,
+    'figurinhas', coalesce((select jsonb_agg(interno.rede5_story_figurinha(f, s, p_quem) || jsonb_strip_nulls(jsonb_build_object('pos', f.dados -> 'pos')) order by f.ordem) from rede_story_figurinhas f where f.story = s.id), '[]'::jsonb))
+$$;
+
+/** O estilo do texto, limpo: só chaves e valores da lista fechada (nunca CSS livre). Valor fora da lista é recusado. */
+create or replace function interno.rede5_story_estilo(p jsonb) returns jsonb language plpgsql immutable security definer set search_path = interno, pg_temp as $$
+declare
+  v_fonte text := coalesce(p ->> 'fonte', 'condensada');
+  v_cor text := nullif(p ->> 'cor_texto', '');
+  v_alinhar text := coalesce(p ->> 'alinhar', 'esq');
+  v_caixa text := coalesce(p ->> 'caixa', 'nenhuma');
+begin
+  if p is null or jsonb_typeof(p) = 'null' then return '{}'::jsonb; end if;
+  if jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:estilo'); end if;
+  if exists (select 1 from jsonb_object_keys(p) k where k not in ('fonte', 'cor_texto', 'alinhar', 'caixa')) then perform interno.erro('invalido:estilo'); end if;
+  if v_fonte not in ('condensada', 'serifa', 'maquina', 'marcador') then perform interno.erro('invalido:estilo'); end if;
+  if v_cor is not null and v_cor not in ('papel', 'azul', 'vermelho', 'dourado', 'verde', 'rosa', 'noite') then perform interno.erro('invalido:estilo'); end if;
+  if v_alinhar not in ('esq', 'centro', 'dir') then perform interno.erro('invalido:estilo'); end if;
+  if v_caixa not in ('nenhuma', 'caixa') then perform interno.erro('invalido:estilo'); end if;
+  return jsonb_strip_nulls(jsonb_build_object('fonte', v_fonte, 'cor_texto', v_cor, 'alinhar', v_alinhar, 'caixa', v_caixa));
+end $$;
+
+-- ── 5. Publicar (a F5, com vídeo, estilo e a menção de comunidade) ────────────────────────────────────────────────────────
+/**
+ * Onde a figurinha fica na tela, como a autora a deixou no "criar": x e y de 0 a 1 (o centro dela na tela do story), o giro em
+ * graus (até 45 para cada lado, para continuar legível) e o tamanho (0,5 a 1,6). Só números; fora disso, nulo (a tela escolhe).
+ */
+create or replace function interno.rede5_story_pos(p jsonb) returns jsonb language plpgsql immutable set search_path = interno, pg_temp as $$
+declare x numeric; y numeric; g numeric := 0; e numeric := 1;
+begin
+  if p is null or jsonb_typeof(p) is distinct from 'object' then return null; end if;
+  if jsonb_typeof(p -> 'x') is distinct from 'number' or jsonb_typeof(p -> 'y') is distinct from 'number' then return null; end if;
+  x := (p ->> 'x')::numeric;
+  y := (p ->> 'y')::numeric;
+  if jsonb_typeof(p -> 'giro') = 'number' then g := (p ->> 'giro')::numeric; end if;
+  if jsonb_typeof(p -> 'escala') = 'number' then e := (p ->> 'escala')::numeric; end if;
+  return jsonb_build_object('x', round(least(0.95, greatest(0.05, x)), 4), 'y', round(least(0.95, greatest(0.05, y)), 4),
+    'giro', round(least(45, greatest(-45, g)), 1), 'escala', round(least(1.6, greatest(0.5, e)), 3));
+end $$;
+
+/**
+ * Publica um story (PedidoDeStory de lib/rede/tipos-stories.ts). Tudo da F5 continua: público, fundo, tamanhos, dado pessoal,
+ * até 3 figurinhas (uma enquete e uma contagem no máximo), link só https, contagem só de ato meu ou confirmado, 20 por dia. Novo:
+ * vídeo (.mp4/.webm, até 20 MB, 0,3 a 60 s; sem som = o arquivo nem tem áudio, o aparelho garante e a tela respeita), o estilo
+ * do texto e a menção de comunidade. O texto do link passa a ser opcional (a tela mostra o domínio).
+ */
+create or replace function public.rede_story_publicar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.rede5_story_membro();
+  v_publico text := coalesce(p ->> 'publico', 'seguidores');
+  v_fundo text := coalesce(p -> 'fundo' ->> 'tipo', 'listras');
+  v_cor text := coalesce(p -> 'fundo' ->> 'cor', 'azul');
+  v_texto text; v_legenda text; v_alt text; v_imagem text := nullif(btrim(coalesce(p ->> 'imagem', '')), '');
+  v_post uuid; pr rede_posts; v_figs jsonb := coalesce(p -> 'figurinhas', '[]'::jsonb);
+  f jsonb; v_tipo text; v_limpas jsonb := '[]'::jsonb; v_tudo text := ''; v_ato uuid; v_titulo text; v_inicio timestamptz;
+  v_url text; v_rotulo text; v_perg text; v_op0 text; v_op1 text; v_enquetes integer := 0; v_contagens integer := 0; v_comunidades integer := 0;
+  v_tam bigint; v_mime text; s rede_stories; i integer := 0; v_duracao integer; v_som boolean := false; v_estilo jsonb; c rede_comunidades;
+begin
+  if p is null or jsonb_typeof(p) is distinct from 'object' then perform interno.erro('invalido:pedido'); end if;
+  if v_publico not in ('seguidores', 'membros', 'proximos') then perform interno.erro('invalido:publico'); end if;
+  if v_fundo not in ('listras', 'mosaico', 'imagem', 'video') then perform interno.erro('invalido:fundo'); end if;
+  if v_cor not in ('azul', 'vermelho', 'dourado', 'verde', 'rosa', 'noite') then perform interno.erro('invalido:cor'); end if;
+  if not exists (select 1 from perfis where id = v and rede_handle is not null) then perform interno.erro('sem_handle'); end if;
+  v_texto := interno.txt(p ->> 'texto', 'texto', 0, 140);
+  v_legenda := nullif(interno.txt(p ->> 'legenda', 'legenda', 0, 80), '');
+  v_alt := nullif(interno.txt(p ->> 'alt', 'alt', 0, 200), '');
+  v_estilo := interno.rede5_story_estilo(p -> 'estilo');
+  if jsonb_typeof(v_figs) is distinct from 'array' or jsonb_array_length(v_figs) > 3 then perform interno.erro('invalido:figurinhas'); end if;
+
+  -- A mídia: imagem ou vídeo exigem o caminho, e o caminho só vale com um dos dois.
+  if (v_fundo in ('imagem', 'video')) <> (v_imagem is not null) then perform interno.erro('invalido:imagem'); end if;
+  if v_fundo = 'video' then
+    begin v_duracao := round((p -> 'video' ->> 'duracao_ms')::numeric)::integer; exception when others then v_duracao := null; end;
+    if v_duracao is null or v_duracao not between 300 and 60500 then perform interno.erro('invalido:video'); end if;
+    v_som := coalesce((p -> 'video' ->> 'som')::boolean, false);
+  end if;
+  if v_imagem is not null then
+    if v_fundo = 'imagem' and v_imagem !~ ('^' || v::text || '/[0-9a-f-]{32,36}\.(webp|png|jpg)$') then perform interno.erro('invalido:imagem'); end if;
+    if v_fundo = 'video' and v_imagem !~ ('^' || v::text || '/[0-9a-f-]{32,36}\.(mp4|webm)$') then perform interno.erro('invalido:video'); end if;
+    if exists (select 1 from rede_stories where midia_caminho = v_imagem) then perform interno.erro('invalido:imagem'); end if;
+    if to_regclass('storage.objects') is not null then
+      execute 'select (metadata ->> ''size'')::bigint, metadata ->> ''mimetype'' from storage.objects where bucket_id = ''rede-stories'' and name = $1'
+        into v_tam, v_mime using v_imagem;
+      if v_mime is null then perform interno.erro('invalido:imagem'); end if;
+      if v_fundo = 'imagem' and (v_mime not in ('image/webp', 'image/png', 'image/jpeg') or coalesce(v_tam, 0) > 3145728) then perform interno.erro('invalido:imagem'); end if;
+      if v_fundo = 'video' and (v_mime not in ('video/mp4', 'video/webm') or coalesce(v_tam, 0) > 20971520) then perform interno.erro('invalido:video'); end if;
+    end if;
+  else
+    v_alt := null;
+  end if;
+
+  -- "Pôr no story": só um post que eu vejo.
+  if nullif(p ->> 'post_ref', '') is not null then
+    begin v_post := (p ->> 'post_ref')::uuid; exception when others then perform interno.erro('invalido:post'); end;
+    select * into pr from rede_posts where id = v_post;
+    if not found or not interno.rede2_pode_ver(pr, v) then perform interno.erro('nao_encontrado'); end if;
+  end if;
+
+  for f in select * from jsonb_array_elements(v_figs) loop
+    v_tipo := f ->> 'tipo';
+    if v_tipo = 'contagem' then
+      v_contagens := v_contagens + 1;
+      begin v_ato := (f ->> 'ato')::uuid; exception when others then v_ato := null; end;
+      if v_ato is null then perform interno.erro('invalido:contagem'); end if;
+      select left(coalesce(nullif(btrim(x.titulo), ''), btrim(x.texto)), 60), ch.inicio into v_titulo, v_inicio
+      from rede_chamados ch join rede_posts x on x.id = ch.post
+      where ch.post = v_ato and ch.inicio > now() and not ch.cancelado and interno.rede2_pode_ver(x, v)
+        and (x.autor = v or exists (select 1 from rede_vou u where u.post = x.id and u.usuario = v));
+      if not found then perform interno.erro('invalido:contagem'); end if;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'contagem', 'dados', jsonb_build_object('ato', v_ato, 'titulo', v_titulo, 'inicio', v_inicio));
+    elsif v_tipo = 'pergunta' then
+      v_perg := interno.txt(f ->> 'texto', 'pergunta', 1, 90);
+      v_tudo := v_tudo || E'\n' || v_perg;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'pergunta', 'dados', jsonb_build_object('texto', v_perg));
+    elsif v_tipo = 'enquete' then
+      v_enquetes := v_enquetes + 1;
+      if jsonb_typeof(f -> 'opcoes') is distinct from 'array' or jsonb_array_length(f -> 'opcoes') <> 2 then perform interno.erro('invalido:enquete'); end if;
+      v_perg := interno.txt(f ->> 'pergunta', 'pergunta', 1, 90);
+      v_op0 := interno.txt(f -> 'opcoes' ->> 0, 'opcao', 1, 24);
+      v_op1 := interno.txt(f -> 'opcoes' ->> 1, 'opcao', 1, 24);
+      if lower(v_op0) = lower(v_op1) then perform interno.erro('invalido:opcao'); end if;
+      v_tudo := v_tudo || E'\n' || v_perg || E'\n' || v_op0 || E'\n' || v_op1;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'enquete', 'dados', jsonb_build_object('pergunta', v_perg, 'opcoes', jsonb_build_array(v_op0, v_op1)));
+    elsif v_tipo = 'link' then
+      v_url := btrim(coalesce(f ->> 'url', ''));
+      if v_url !~* '^https://[a-z0-9.-]+\.[a-z]{2,}(:[0-9]{2,5})?(/[^\s<>"]*)?$' or char_length(v_url) > 300 then perform interno.erro('invalido:link'); end if;
+      v_rotulo := interno.txt(coalesce(f ->> 'rotulo', ''), 'rotulo', 0, 40);
+      v_tudo := v_tudo || E'\n' || v_rotulo;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'link', 'dados', jsonb_build_object('url', v_url, 'rotulo', v_rotulo));
+    elsif v_tipo = 'comunidade' then
+      v_comunidades := v_comunidades + 1;
+      select * into c from rede_comunidades where slug = coalesce(f ->> 'slug', '');
+      -- Comunidade restrita ou fechada só pela autora que é membro ativa (a menção não revela que a comunidade existe para quem não pode saber).
+      if not found or (c.tipo <> 'aberta' and not exists (select 1 from rede_comunidade_membros m where m.comunidade = c.slug and m.usuario = v and m.situacao = 'ativo')) then
+        perform interno.erro('invalido:comunidade');
+      end if;
+      v_limpas := v_limpas || jsonb_build_object('tipo', 'comunidade', 'dados', jsonb_build_object('slug', c.slug, 'nome', c.nome));
+    else
+      perform interno.erro('invalido:figurinha');
+    end if;
+    -- O lugar na tela (opcional): só o que passa em rede5_story_pos.
+    if interno.rede5_story_pos(f -> 'pos') is not null then
+      v_limpas := jsonb_set(v_limpas, array[(jsonb_array_length(v_limpas) - 1)::text, 'dados', 'pos'], interno.rede5_story_pos(f -> 'pos'));
+    end if;
+  end loop;
+  if v_enquetes > 1 or v_contagens > 1 or v_comunidades > 1 then perform interno.erro('invalido:figurinhas'); end if;
+  if v_texto = '' and v_imagem is null and jsonb_array_length(v_limpas) = 0 then perform interno.erro('invalido:vazio'); end if;
+  if interno.rede3_pub_dado_pessoal(v_texto || E'\n' || coalesce(v_legenda, '') || E'\n' || coalesce(v_alt, '') || v_tudo) then perform interno.erro('dado_pessoal'); end if;
+
+  perform interno.limite('rede5_story_publicar', 20, 1440);
+  insert into rede_stories (autor, publico, fundo, cor, texto, legenda, midia_caminho, alt, post_ref, conferido, duracao_ms, som, estilo)
+  values (v, v_publico, v_fundo, v_cor, v_texto, v_legenda, v_imagem, v_alt, v_post, v_imagem is null, v_duracao, v_som, v_estilo)
+  returning * into s;
+  for f in select * from jsonb_array_elements(v_limpas) loop
+    insert into rede_story_figurinhas (story, ordem, tipo, dados) values (s.id, i, f ->> 'tipo', f -> 'dados');
+    i := i + 1;
+  end loop;
+  return jsonb_build_object('id', s.id, 'expira_em', s.expira_em);
+end $$;
+
+/** As comunidades que posso mencionar num story: as minhas (membro ativa), até 30, pelo nome. Sem número de membros. */
+create or replace function public.rede_story_comunidades() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro();
+begin
+  return coalesce((select jsonb_agg(jsonb_build_object('slug', x.slug, 'nome', x.nome) order by x.nome)
+    from (select c.slug, c.nome from rede_comunidades c join rede_comunidade_membros m on m.comunidade = c.slug
+          where m.usuario = v and m.situacao = 'ativo' order by c.nome limit 30) x), '[]'::jsonb);
+end $$;
+
+-- ── 6. Destaques ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+/**
+ * Os destaques de alguém (@handle), como eu os vejo: só os que têm algum story que eu posso ver, com quantos stories (nunca
+ * pessoas) e a capa (a cor e o caminho do primeiro story com mídia, que o aparelho troca por um endereço assinado). A dona vê
+ * todos, inclusive os vazios. Visitante e quem não é da Alumia recebem a lista vazia. Leitura pura: nada é gravado.
+ */
+create or replace function public.rede_story_destaques(p_handle text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_autor uuid;
+begin
+  if v is null or not interno.rede2_membro(v) then return '[]'::jsonb; end if;
+  perform interno.rede5_story_ligado();
+  if coalesce(p_handle, '') !~ '^[a-z0-9_]{3,20}$' then perform interno.erro('invalido:handle'); end if;
+  select id into v_autor from perfis where rede_handle = p_handle;
+  if not found then return '[]'::jsonb; end if;
+  return coalesce((
+    select jsonb_agg(jsonb_build_object('id', d.id, 'titulo', d.titulo, 'cor', d.cor, 'n', x.n,
+             'capa', case when x.capa is not null then jsonb_build_object('caminho', x.capa, 'tipo', x.capa_tipo) end) order by d.criado_em)
+    from rede_story_destaques d
+    cross join lateral (
+      select count(*)::integer as n,
+             (array_agg(s.midia_caminho order by nd.posto_em) filter (where s.midia_caminho is not null and s.fundo = 'imagem'))[1] as capa,
+             'imagem'::text as capa_tipo
+      from rede_story_no_destaque nd join rede_stories s on s.id = nd.story
+      where nd.destaque = d.id and interno.rede5_story_regra(s, v)) x
+    where d.autor = v_autor and (x.n > 0 or d.autor = v)), '[]'::jsonb);
+end $$;
+
+/** Os stories de um destaque, do mais antigo ao mais novo, só os que eu posso ver (a mesma regra de público, sem o prazo). */
+create or replace function public.rede_story_destaque_abrir(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  if v is null or not interno.rede2_membro(v) then return '[]'::jsonb; end if;
+  perform interno.rede5_story_ligado();
+  return coalesce((select jsonb_agg(interno.rede5_story_json(s, v) order by s.criado_em)
+    from rede_story_no_destaque nd join rede_stories s on s.id = nd.story
+    where nd.destaque = p_id and interno.rede5_story_ve_destaque(s, v)), '[]'::jsonb);
+end $$;
+
+/**
+ * Guardar um story meu num destaque (novo, se p_destaque é nulo; até 6 destaques e 60 stories em cada) e/ou renomear e trocar a
+ * cor de um destaque meu. O story precisa ser meu e estar no ar (ou já guardado). Título passa pela checagem de dado pessoal.
+ */
+create or replace function public.rede_story_destaque_salvar(p_destaque uuid, p_titulo text, p_story uuid, p_cor text default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro(); d rede_story_destaques; s rede_stories; v_titulo text;
+begin
+  perform interno.limite('rede5_story_destaque', 60, 60);
+  if p_cor is not null and p_cor not in ('azul', 'vermelho', 'dourado', 'verde', 'rosa', 'noite') then perform interno.erro('invalido:cor'); end if;
+  if p_titulo is not null then
+    v_titulo := interno.txt(p_titulo, 'titulo', 1, 24);
+    if interno.rede3_pub_dado_pessoal(v_titulo) then perform interno.erro('dado_pessoal'); end if;
+  end if;
+  if p_story is not null then
+    select * into s from rede_stories where id = p_story and autor = v;
+    if not found or not (s.expira_em > now() or interno.rede5_story_no_destaque(s.id)) then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  if p_destaque is null then
+    if v_titulo is null then perform interno.erro('invalido:titulo'); end if;
+    if (select count(*) from rede_story_destaques where autor = v) >= 6 then perform interno.erro('limite:destaques'); end if;
+    insert into rede_story_destaques (autor, titulo, cor) values (v, v_titulo, coalesce(p_cor, 'vermelho')) returning * into d;
+  else
+    select * into d from rede_story_destaques where id = p_destaque and autor = v;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    update rede_story_destaques set titulo = coalesce(v_titulo, titulo), cor = coalesce(p_cor, cor) where id = d.id returning * into d;
+  end if;
+  if p_story is not null then
+    if (select count(*) from rede_story_no_destaque where destaque = d.id) >= 60 then perform interno.erro('limite:destaque'); end if;
+    insert into rede_story_no_destaque (destaque, story) values (d.id, s.id) on conflict do nothing;
+  end if;
+  return jsonb_build_object('id', d.id, 'titulo', d.titulo, 'cor', d.cor);
+end $$;
+
+/** Tirar um story meu de um destaque meu. Vencido e fora de todo destaque, ele volta para a faxina. */
+create or replace function public.rede_story_destaque_tirar(p_destaque uuid, p_story uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro();
+begin
+  perform interno.limite('rede5_story_destaque', 60, 60);
+  if not exists (select 1 from rede_story_destaques where id = p_destaque and autor = v) then perform interno.erro('nao_encontrado'); end if;
+  delete from rede_story_no_destaque where destaque = p_destaque and story = p_story;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Apagar um destaque meu (os stories vencidos dele voltam para a faxina; os que estão no ar seguem até as 24 h). */
+create or replace function public.rede_story_destaque_apagar(p_destaque uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.rede5_story_membro(); v_n integer;
+begin
+  perform interno.limite('rede5_story_destaque', 60, 60);
+  delete from rede_story_destaques where id = p_destaque and autor = v;
+  get diagnostics v_n = row_count;
+  if v_n = 0 then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('apagado', true);
+end $$;
+
+-- ── 7. Faxina: não leva o que está num destaque ───────────────────────────────────────────────────────────────────────────
+create or replace function interno.rede5_story_faxina() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v_lembretes integer; v_texto integer;
+  v_url text := (select valor ->> 'funcao' from configuracoes where chave = 'stories');
+  v_chave text := coalesce((select valor ->> 'chave_publica' from configuracoes where chave = 'stories'), '');
+  v_segredo text := coalesce((select valor ->> 'segredo' from configuracoes where chave = 'stories'), '');
+  v_chamou boolean := false;
+begin
+  v_lembretes := interno.rede5_story_lembretes();
+  with fora as (delete from rede_stories s where s.expira_em <= now() and s.midia_caminho is null and not interno.rede5_story_guardado(s.id) returning 1)
+  select count(*)::integer into v_texto from fora;
+  if coalesce(v_url, '') ~ '^https://[a-z0-9.-]+/functions/v1/faxina-stories$' and exists (select 1 from pg_extension where extname = 'pg_net')
+     and (exists (select 1 from rede_stories s where s.midia_caminho is not null and (not s.conferido or s.expira_em <= now())) or to_regclass('storage.objects') is not null) then
+    execute 'select net.http_post(url := $1, body := ''{}''::jsonb, headers := $2, timeout_milliseconds := 60000)'
+      using v_url, jsonb_build_object('Content-Type', 'application/json', 'Authorization', 'Bearer ' || v_chave, 'apikey', v_chave, 'x-lucia-segredo', v_segredo);
+    v_chamou := true;
+  end if;
+  return jsonb_build_object('lembretes', v_lembretes, 'apagados', v_texto, 'chamou', v_chamou);
+end $$;
+
+create or replace function public.rede_story_faxina_lista(p_limite integer default 200) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_lim integer := greatest(1, least(coalesce(p_limite, 200), 500)); v_orfaos jsonb := '[]'::jsonb;
+begin
+  if to_regclass('storage.objects') is not null then
+    execute 'select coalesce(jsonb_agg(o.name), ''[]''::jsonb) from (select name from storage.objects o where o.bucket_id = ''rede-stories''
+               and o.created_at < now() - interval ''1 hour'' and not exists (select 1 from interno.rede_stories s where s.midia_caminho = o.name)
+               order by o.created_at limit $1) o'
+      into v_orfaos using v_lim;
+  end if;
+  return jsonb_build_object(
+    'apagar', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'caminho', x.midia_caminho)) from (
+      select s.id, s.midia_caminho from rede_stories s where s.expira_em <= now() and s.midia_caminho is not null and not interno.rede5_story_guardado(s.id)
+      order by s.expira_em limit v_lim) x), '[]'::jsonb),
+    'conferir', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'caminho', x.midia_caminho)) from (
+      select s.id, s.midia_caminho from rede_stories s where s.midia_caminho is not null and not s.conferido and (s.expira_em > now() or interno.rede5_story_no_destaque(s.id))
+      order by s.criado_em limit least(v_lim, 50)) x), '[]'::jsonb),
+    'orfaos', v_orfaos);
+end $$;
+
+create or replace function public.rede_story_faxina_feito(p_apagados uuid[], p_conferidos uuid[], p_ruins uuid[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_a integer; v_c integer; v_r integer;
+begin
+  with fora as (delete from rede_stories s where s.id = any (coalesce(p_apagados, '{}')) and s.expira_em <= now() and not interno.rede5_story_guardado(s.id) returning 1)
+  select count(*)::integer into v_a from fora;
+  update rede_stories set conferido = true where id = any (coalesce(p_conferidos, '{}')) and not conferido;
+  get diagnostics v_c = row_count;
+  -- Arquivo ruim: sai do ar E de todo destaque (senão o destaque o guardaria para sempre).
+  delete from rede_story_no_destaque where story = any (coalesce(p_ruins, '{}'));
+  update rede_stories set expira_em = least(expira_em, now()), conferido = true where id = any (coalesce(p_ruins, '{}'));
+  get diagnostics v_r = row_count;
+  return jsonb_build_object('apagados', v_a, 'conferidos', v_c, 'ruins', v_r);
+end $$;
+
+-- ── 8. O depósito aceita vídeo (até 20 MB; a função de publicar limita a imagem a 3 MB) ─────────────────────────────────────
+do $$
+begin
+  if exists (select 1 from pg_namespace where nspname = 'storage') and to_regclass('storage.buckets') is not null then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('rede-stories', 'rede-stories', false, 20971520, array['image/webp', 'image/png', 'image/jpeg', 'video/mp4', 'video/webm'])
+    on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+  end if;
+end $$;
+
+-- ── 9. Permissões (a versão da Alumia, public.rede_alumia_versao, sobe na migração final da onda, pelo integrador) ────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function interno.rede5_story_regra(interno.rede_stories, uuid), interno.rede5_story_no_destaque(uuid),
+  interno.rede5_story_ve_destaque(interno.rede_stories, uuid), interno.rede5_story_guardado(uuid), interno.rede5_story_estilo(jsonb), interno.rede5_story_pos(jsonb) from public;
+revoke all on function public.rede_story_comunidades(), public.rede_story_destaques(text), public.rede_story_destaque_abrir(uuid),
+  public.rede_story_destaque_salvar(uuid, text, uuid, text), public.rede_story_destaque_tirar(uuid, uuid), public.rede_story_destaque_apagar(uuid) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.rede5_story_regra(interno.rede_stories, uuid), interno.rede5_story_no_destaque(uuid),
+      interno.rede5_story_ve_destaque(interno.rede_stories, uuid), interno.rede5_story_guardado(uuid), interno.rede5_story_estilo(jsonb), interno.rede5_story_pos(jsonb) from anon, authenticated;
+    revoke all on function public.rede_story_comunidades(), public.rede_story_destaques(text), public.rede_story_destaque_abrir(uuid),
+      public.rede_story_destaque_salvar(uuid, text, uuid, text), public.rede_story_destaque_tirar(uuid, uuid), public.rede_story_destaque_apagar(uuid) from anon, authenticated;
+    -- Leitura só com conta (visitante não vê story nenhum: a F5 só deixa a ele a faixa e o abrir, que voltam vazios).
+    grant execute on function public.rede_story_destaques(text), public.rede_story_destaque_abrir(uuid) to authenticated, service_role;
+    -- Com conta.
+    grant execute on function public.rede_story_comunidades(), public.rede_story_destaque_salvar(uuid, text, uuid, text),
+      public.rede_story_destaque_tirar(uuid, uuid), public.rede_story_destaque_apagar(uuid) to authenticated, service_role;
+    -- As da F5 que foram refeitas aqui mantêm as permissões (create or replace não muda o grant), mas confirma:
+    grant execute on function public.rede_story_publicar(jsonb), public.rede_story_pode(text) to authenticated, service_role;
+  end if;
+end $$;
+
+-- ═══════════════════════════ fim de stories com vídeo e destaques ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Perfil livre (10/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/ALUMIA-ATE-O-FIM.md (A5) e ALUMIA-FUNCOES-E-IDEIAS.md §3.1 e §6 (Onda A, F4). "Liberdade pro usuário editar o
+-- perfil dele como quiser", com segurança: a aparência do perfil é um jsonb em perfis.rede_aparencia em que CADA chave é uma
+-- escolha entre valores conhecidos ou um valor conferido por expressão regular (cor "#rrggbb", rosto de 64 dígitos, palavra A–Z).
+-- Nunca CSS, HTML ou URL livre: o link de "tocando agora" é https, sem usuário/senha e sem parâmetro de rastreio. Também: campos
+-- do perfil até 6 (eram 4), posts fixados (até 3, só da própria pessoa), destaques (post ou ato da própria pessoa, até 6) e
+-- organizações que a pessoa ESCOLHE mostrar (só com selo). E o Tear de encaminhamentos das organizações (Onda A, F4): cada
+-- deliberação vira um fio com uma FUNÇÃO responsável (nunca uma pessoa), prazo e estado; o público vê só o agregado.
+--
+-- Idempotente: scripts/testar-alumia-perfil.mjs roda duas vezes no banco local. Depende da F4 (20261109-alumia-f4.sql). NÃO rodar
+-- em produção sem o Jonathan.
+--
+-- Leis (conferidas no texto, leis-do-brasil):
+--  - LGPD (Lei 13.709/2018) art. 5º, II e art. 11: filiação a organização política é dado SENSÍVEL. Por isso "organizações no
+--    perfil" é opt-in, a pessoa escreve uma a uma, e nada é deduzido de seguir, de núcleo ou de voto.
+--  - LGPD art. 6º, III (necessidade): a aparência não guarda nada sobre a pessoa além do que ela escolheu mostrar; "tocando agora" é
+--    só texto e um link, a Alumia não liga em serviço de música (sem rastreio) e o texto some sozinho no prazo.
+--  - LGPD art. 46 (segurança): RLS ligada, nenhuma permissão direta nas tabelas; acesso só por função security definer.
+--  - ECA Digital (Lei 15.211/2025) art. 9º § 1º: editar exige ser membro da Rede (18+ e consentimento), como o resto da F4.
+
+-- ── 1. Colunas e tabelas ──────────────────────────────────────────────────────────────────────────────────────────────────
+alter table interno.perfis add column if not exists rede_aparencia jsonb not null default '{}'::jsonb;
+do $$
+begin
+  if not exists (select 1 from pg_constraint where conname = 'perfis_rede_aparencia_tamanho') then
+    alter table interno.perfis add constraint perfis_rede_aparencia_tamanho check (pg_column_size(rede_aparencia) <= 8192);
+  end if;
+  -- Campos do perfil: até 6 (o Mastodon dá 4; aqui a pessoa pediu mais liberdade).
+  if exists (select 1 from pg_constraint where conname = 'rede_perfil_campos_ordem_check') then
+    alter table interno.rede_perfil_campos drop constraint rede_perfil_campos_ordem_check;
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'rede_perfil_campos_ordem_6') then
+    alter table interno.rede_perfil_campos add constraint rede_perfil_campos_ordem_6 check (ordem between 1 and 6);
+  end if;
+end $$;
+
+-- O Tear de encaminhamentos: um fio por deliberação. `funcao` é o NOME DA FUNÇÃO (tesouraria, comunicação), nunca uma pessoa.
+create table if not exists interno.rede_org_encaminhamentos (
+  id uuid primary key default gen_random_uuid(),
+  org uuid not null references interno.rede_orgs (perfil) on delete cascade,
+  texto text not null check (char_length(btrim(texto)) between 3 and 200),
+  funcao text not null check (char_length(btrim(funcao)) between 2 and 40),
+  prazo date not null,
+  estado text not null default 'aberto' check (estado in ('aberto', 'cumprido', 'retirado')),
+  -- Só o dia (LGPD art. 6º, III): nada de hora nem de quem marcou.
+  criado_dia date not null default current_date,
+  cumprido_dia date
+);
+create index if not exists rede_org_encaminhamentos_org on interno.rede_org_encaminhamentos (org, criado_dia desc);
+alter table interno.rede_org_encaminhamentos enable row level security;
+do $$
+begin
+  revoke all on table interno.rede_org_encaminhamentos from public;
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on table interno.rede_org_encaminhamentos from anon, authenticated;
+  end if;
+end $$;
+
+-- ── 2. A aparência: conferir e arrumar ────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Confere a aparência pedida por `p_dono` e devolve a forma guardada. Recusa (erro 'invalido:<chave>') o que não for um dos
+ * valores conhecidos; chave desconhecida também é recusada (ninguém guarda nada fora da lista). Espelho de lib/rede/aparencia.ts.
+ */
+create or replace function interno.alumia_aparencia_valida(p jsonb, p_dono uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  k text; r jsonb := '{}'::jsonb; x jsonb; v text; i integer; n integer;
+  paleta constant text[] := array['vermelho', 'dourado', 'azul', 'verde', 'rosa', 'laranja', 'turquesa', 'roxo'];
+  abas constant text[] := array['posts', 'respostas', 'midia', 'atos', 'destaques', 'organizacoes', 'escola'];
+  rastreio constant text := '(^|[?&])(utm_[a-z_]+|fbclid|gclid|dclid|gbraid|wbraid|msclkid|mc_[a-z]+|igshid|igsh|si|ref_src|ref_url|_hsenc|_hsmi|yclid|twclid|ttclid|s_cid|mkt_tok)=';
+  vistos text[];
+begin
+  if p is null or jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:aparencia'); end if;
+  for k in select jsonb_object_keys(p) loop
+    if k not in ('acento', 'tema', 'layout', 'faixa', 'rosto', 'capa', 'abas', 'fixados', 'destaques', 'orgs', 'tocando') then
+      perform interno.erro('invalido:aparencia');
+    end if;
+  end loop;
+
+  -- Cor: nome da paleta ou "#rrggbb" (o contraste é garantido na tela, que clareia ou escurece até 4,5:1 em cada fundo).
+  if p ? 'acento' then
+    v := p ->> 'acento';
+    if v is null or not (v = any (paleta) or v ~ '^#[0-9a-f]{6}$') then perform interno.erro('invalido:acento'); end if;
+    r := r || jsonb_build_object('acento', v);
+  end if;
+  if p ? 'tema' then
+    if coalesce(p ->> 'tema', '') not in ('brasa', 'tingido', 'papel', 'noite') then perform interno.erro('invalido:tema'); end if;
+    r := r || jsonb_build_object('tema', p ->> 'tema');
+  end if;
+  if p ? 'layout' then
+    if coalesce(p ->> 'layout', '') not in ('classico', 'centro', 'cartaz') then perform interno.erro('invalido:layout'); end if;
+    r := r || jsonb_build_object('layout', p ->> 'layout');
+  end if;
+  -- Faixa: 11 fios, cada um um índice de 0 a 9.
+  if p ? 'faixa' then
+    x := p -> 'faixa';
+    if jsonb_typeof(x) <> 'array' or jsonb_array_length(x) <> 11 then perform interno.erro('invalido:faixa'); end if;
+    for i in 0 .. 10 loop
+      if jsonb_typeof(x -> i) <> 'number' or (x ->> i) !~ '^[0-9]$' then perform interno.erro('invalido:faixa'); end if;
+    end loop;
+    r := r || jsonb_build_object('faixa', x);
+  end if;
+  -- Rosto de pixels: 64 dígitos, ao menos 6 cheios; ou nulo.
+  if p ? 'rosto' then
+    if jsonb_typeof(p -> 'rosto') = 'null' then r := r || jsonb_build_object('rosto', null);
+    else
+      v := p ->> 'rosto';
+      if jsonb_typeof(p -> 'rosto') <> 'string' or v !~ '^[0-9]{64}$' or char_length(replace(v, '0', '')) < 6 then perform interno.erro('invalido:rosto'); end if;
+      r := r || jsonb_build_object('rosto', v);
+    end if;
+  end if;
+  -- Capa em mosaico: palavra A–Z/0–9/espaço até 10 e semente 0..9999; ou nula.
+  if p ? 'capa' then
+    x := p -> 'capa';
+    if jsonb_typeof(x) = 'null' then r := r || jsonb_build_object('capa', null);
+    else
+      if jsonb_typeof(x) <> 'object' or (x ->> 'tipo') is distinct from 'mosaico' or coalesce(x ->> 'palavra', '~') !~ '^[A-Z0-9 ]{0,10}$'
+         or jsonb_typeof(x -> 'semente') <> 'number' or (x ->> 'semente') !~ '^[0-9]{1,4}$'
+         or (select count(*) from jsonb_object_keys(x)) <> 3 then
+        perform interno.erro('invalido:capa');
+      end if;
+      r := r || jsonb_build_object('capa', jsonb_build_object('tipo', 'mosaico', 'palavra', x ->> 'palavra', 'semente', (x ->> 'semente')::integer));
+    end if;
+  end if;
+  -- Abas: só as conhecidas, sem repetir, com "posts".
+  if p ? 'abas' then
+    x := p -> 'abas';
+    if jsonb_typeof(x) <> 'array' or jsonb_array_length(x) > 7 then perform interno.erro('invalido:abas'); end if;
+    vistos := '{}';
+    for v in select value #>> '{}' from jsonb_array_elements(x) loop
+      if v is null or not (v = any (abas)) or v = any (vistos) then perform interno.erro('invalido:abas'); end if;
+      vistos := vistos || v;
+    end loop;
+    if not ('posts' = any (vistos)) then perform interno.erro('invalido:abas'); end if;
+    r := r || jsonb_build_object('abas', to_jsonb(vistos));
+  end if;
+  -- Fixados: até 3 posts DA PRÓPRIA PESSOA, que não sejam repost nem estejam retidos/ocultos.
+  if p ? 'fixados' then
+    x := p -> 'fixados';
+    if jsonb_typeof(x) <> 'array' or jsonb_array_length(x) > 3 then perform interno.erro('invalido:fixados'); end if;
+    vistos := '{}';
+    for v in select value #>> '{}' from jsonb_array_elements(x) loop
+      if v is null or v !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' or v = any (vistos)
+         or not exists (select 1 from rede_posts where id = v::uuid and autor = p_dono and repost_de is null and not oculto and not retido) then
+        perform interno.erro('invalido:fixados');
+      end if;
+      vistos := vistos || v;
+    end loop;
+    r := r || jsonb_build_object('fixados', to_jsonb(vistos));
+  end if;
+  -- Destaques: até 6, post ou ato da própria pessoa, título 1..40, cor da paleta.
+  if p ? 'destaques' then
+    x := p -> 'destaques';
+    if jsonb_typeof(x) <> 'array' or jsonb_array_length(x) > 6 then perform interno.erro('invalido:destaques'); end if;
+    vistos := '{}';
+    for i in 0 .. jsonb_array_length(x) - 1 loop
+      if jsonb_typeof(x -> i) <> 'object' or (select count(*) from jsonb_object_keys(x -> i)) <> 4
+         or coalesce(x -> i ->> 'tipo', '') not in ('post', 'ato') or coalesce(x -> i ->> 'cor', '') <> all (paleta)
+         or char_length(btrim(coalesce(x -> i ->> 'titulo', ''))) not between 1 and 40 or (x -> i ->> 'titulo') ~ '[\x00-\x1f<>]'
+         or coalesce(x -> i ->> 'ref', '') !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' or (x -> i ->> 'ref') = any (vistos)
+         or not exists (select 1 from rede_posts where id = (x -> i ->> 'ref')::uuid and autor = p_dono and not oculto and not retido
+                        and ((x -> i ->> 'tipo') = 'post' or chamado is not null)) then
+        perform interno.erro('invalido:destaques');
+      end if;
+      vistos := vistos || (x -> i ->> 'ref');
+    end loop;
+    r := r || jsonb_build_object('destaques', (select coalesce(jsonb_agg(jsonb_build_object('tipo', e ->> 'tipo', 'ref', e ->> 'ref', 'titulo', btrim(e ->> 'titulo'), 'cor', e ->> 'cor') order by o), '[]'::jsonb) from jsonb_array_elements(x) with ordinality as t(e, o)));
+  end if;
+  -- Organizações que a pessoa escolhe mostrar: até 6 @ de organizações COM SELO (opt-in, LGPD art. 11).
+  if p ? 'orgs' then
+    x := p -> 'orgs';
+    if jsonb_typeof(x) <> 'array' or jsonb_array_length(x) > 6 then perform interno.erro('invalido:orgs'); end if;
+    vistos := '{}';
+    for v in select value #>> '{}' from jsonb_array_elements(x) loop
+      if v is null or v !~ '^[a-z0-9_]{3,20}$' or v = any (vistos)
+         or not exists (select 1 from rede_orgs o join perfis f on f.id = o.perfil where f.rede_handle = v and o.verificada_em is not null) then
+        perform interno.erro('invalido:orgs');
+      end if;
+      vistos := vistos || v;
+    end loop;
+    r := r || jsonb_build_object('orgs', to_jsonb(vistos));
+  end if;
+  -- "Tocando agora": texto até 80, link https limpo (ou nulo) e prazo entre agora e 30 dias.
+  if p ? 'tocando' then
+    x := p -> 'tocando';
+    if jsonb_typeof(x) = 'null' then r := r || jsonb_build_object('tocando', null);
+    else
+      if jsonb_typeof(x) <> 'object' or char_length(btrim(coalesce(x ->> 'texto', ''))) not between 1 and 80 or (x ->> 'texto') ~ '[\x00-\x1f<>]' then
+        perform interno.erro('invalido:tocando');
+      end if;
+      v := nullif(x ->> 'link', '');
+      if v is not null and (char_length(v) > 200 or v !~ '^https://[a-z0-9.-]+\.[a-z]{2,}(/[^\s<>"''`]*)?$' or v ~* rastreio) then
+        perform interno.erro('invalido:tocando');
+      end if;
+      begin
+        if (x ->> 'ate')::timestamptz <= now() or (x ->> 'ate')::timestamptz > now() + interval '30 days 1 minute' then perform interno.erro('invalido:tocando'); end if;
+      exception when invalid_datetime_format or datetime_field_overflow or invalid_text_representation then perform interno.erro('invalido:tocando');
+      end;
+      r := r || jsonb_build_object('tocando', jsonb_build_object('texto', btrim(x ->> 'texto'), 'link', v, 'ate', (x ->> 'ate')::timestamptz));
+    end if;
+  end if;
+  return r;
+end $$;
+
+-- ── 3. Ler e editar ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * A aparência do perfil de alguém: a mesma matriz de rede_perfil_extras (invisível, bloqueado ou suspenso = nulo; visitante só
+ * vê de organização com selo). "Tocando agora" vencido some; fixados e destaques que não servem mais (post apagado, retido,
+ * oculto) somem; organizações que perderam o selo somem. Os fixados vão só como id: o post vem por rede_post, que confere quem vê.
+ */
+create or replace function public.rede_perfil_aparencia(p_handle text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); f perfis; a jsonb;
+begin
+  select * into f from perfis where rede_handle = lower(btrim(coalesce(p_handle, ''), ' @'));
+  if not found or f.suspenso or ((f.rede_modo = 'invisivel' or f.rede_invisivel) and f.id is distinct from v) or interno.rede_bloqueado(v, f.id) then return null; end if;
+  if v is null and not exists (select 1 from rede_orgs where perfil = f.id and verificada_em is not null) then return null; end if;
+  a := coalesce(f.rede_aparencia, '{}'::jsonb);
+  if a ? 'tocando' and jsonb_typeof(a -> 'tocando') = 'object' and (a -> 'tocando' ->> 'ate')::timestamptz <= now() then
+    a := a || jsonb_build_object('tocando', null);
+  end if;
+  if jsonb_typeof(a -> 'fixados') = 'array' then
+    a := a || jsonb_build_object('fixados', (select coalesce(jsonb_agg(e order by o), '[]'::jsonb) from jsonb_array_elements_text(a -> 'fixados') with ordinality as t(e, o)
+      where exists (select 1 from rede_posts p where p.id = e::uuid and p.autor = f.id and not p.oculto and not p.retido)));
+  end if;
+  if jsonb_typeof(a -> 'destaques') = 'array' then
+    a := a || jsonb_build_object('destaques', (select coalesce(jsonb_agg(e order by o), '[]'::jsonb) from jsonb_array_elements(a -> 'destaques') with ordinality as t(e, o)
+      where exists (select 1 from rede_posts p where p.id = (e ->> 'ref')::uuid and p.autor = f.id and not p.oculto and not p.retido)));
+  end if;
+  if jsonb_typeof(a -> 'orgs') = 'array' then
+    a := a || jsonb_build_object('orgs', (select coalesce(jsonb_agg(jsonb_build_object('handle', g.rede_handle, 'codinome', coalesce(g.rede_codinome, g.rede_handle)) order by o), '[]'::jsonb)
+      from jsonb_array_elements_text(a -> 'orgs') with ordinality as t(e, o) join perfis g on g.rede_handle = e join rede_orgs ro on ro.perfil = g.id and ro.verificada_em is not null));
+  end if;
+  return a;
+end $$;
+
+/** Editar a minha aparência: só as chaves que vierem mudam (as outras ficam). Devolve a aparência inteira guardada. */
+create or replace function public.rede_perfil_aparencia_editar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r jsonb;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  perform interno.limite('alumia_perfil_aparencia', 40, 60);
+  r := interno.alumia_aparencia_valida(p, v);
+  update perfis set rede_aparencia = coalesce(rede_aparencia, '{}'::jsonb) || r where id = v;
+  return public.rede_perfil_aparencia((select rede_handle from perfis where id = v));
+end $$;
+
+/** Editar os meus extras (troca a da F4): campos até 6 (substitui todos). Status: some sozinho depois de `horas` (1 a 720). */
+create or replace function public.rede_perfil_extras_editar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c jsonb; i integer := 0;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  perform interno.limite('alumia_perfil_extras', 30, 60);
+  if p ? 'status' then
+    if jsonb_typeof(p -> 'status') = 'object' then
+      if coalesce(p -> 'status' ->> 'tipo', '') not in ('greve', 'ato', 'estudando', 'cuidando', 'ferias')
+         or char_length(coalesce(p -> 'status' ->> 'texto', '')) > 60
+         or coalesce(p -> 'status' ->> 'horas', '') !~ '^[0-9]{1,3}$' or (p -> 'status' ->> 'horas')::integer not between 1 and 720 then
+        perform interno.erro('invalido:status');
+      end if;
+      update perfis set rede_status_tipo = p -> 'status' ->> 'tipo', rede_status_texto = btrim(coalesce(p -> 'status' ->> 'texto', '')),
+        rede_status_ate = now() + make_interval(hours => (p -> 'status' ->> 'horas')::integer) where id = v;
+    else
+      update perfis set rede_status_tipo = null, rede_status_texto = null, rede_status_ate = null where id = v;
+    end if;
+  end if;
+  if p ? 'pronomes' then
+    if char_length(coalesce(p ->> 'pronomes', '')) > 30 then perform interno.erro('invalido:pronomes'); end if;
+    update perfis set rede_pronomes = nullif(btrim(coalesce(p ->> 'pronomes', '')), '') where id = v;
+  end if;
+  if jsonb_typeof(p -> 'campos') = 'array' then
+    if jsonb_array_length(p -> 'campos') > 6 then perform interno.erro('invalido:campos'); end if;
+    delete from rede_perfil_campos where usuario = v;
+    for c in select value from jsonb_array_elements(p -> 'campos') loop
+      i := i + 1;
+      -- Link no campo: só https e sem parâmetro de rastreio (o resto é texto).
+      if coalesce(c ->> 'valor', '') ~* '^https?://' and (coalesce(c ->> 'valor', '') !~ '^https://[a-z0-9.-]+\.[a-z]{2,}(/[^\s<>"''`]*)?$'
+         or (c ->> 'valor') ~* '(^|[?&])(utm_[a-z_]+|fbclid|gclid|msclkid|igshid|igsh|si|mc_[a-z]+)=') then
+        perform interno.erro('invalido:campos');
+      end if;
+      begin
+        insert into rede_perfil_campos (usuario, ordem, rotulo, valor) values (v, i, btrim(coalesce(c ->> 'rotulo', '')), btrim(coalesce(c ->> 'valor', '')));
+      exception when check_violation then perform interno.erro('invalido:campos');
+      end;
+    end loop;
+  end if;
+  return public.rede_perfil_extras((select rede_handle from perfis where id = v));
+end $$;
+
+-- ── 4. Tear de encaminhamentos (organização) ──────────────────────────────────────────────────────────────────────────────
+
+/**
+ * O tear de uma organização com selo. Todos veem o texto das deliberações e o agregado ("decidimos 12, cumprimos 9"); a FUNÇÃO
+ * responsável e o prazo só quem gerencia ou é de um núcleo da organização vê (o público vê o agregado e o texto).
+ */
+create or replace function public.rede_org_tear(p_handle text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); o uuid; dentro boolean;
+begin
+  select ro.perfil into o from rede_orgs ro join perfis f on f.id = ro.perfil where f.rede_handle = lower(btrim(coalesce(p_handle, ''), ' @')) and ro.verificada_em is not null;
+  if o is null or interno.rede_bloqueado(v, o) then return null; end if;
+  dentro := v is not null and (interno.alumia_org_gere(v, o) or exists (
+    select 1 from rede_nucleos n join rede_nucleo_membros m on m.nucleo = n.id where n.org = o and m.usuario = v));
+  return jsonb_build_object(
+    'decididos', (select count(*) from rede_org_encaminhamentos where org = o and estado <> 'retirado'),
+    'cumpridos', (select count(*) from rede_org_encaminhamentos where org = o and estado = 'cumprido'),
+    'dentro', dentro,
+    'gerencio', v is not null and interno.alumia_org_gere(v, o),
+    'fios', (select coalesce(jsonb_agg(jsonb_build_object(
+        'id', e.id, 'texto', e.texto, 'estado', e.estado, 'criado', e.criado_dia,
+        'funcao', case when dentro then e.funcao end, 'prazo', case when dentro then e.prazo end,
+        'vencido', e.estado = 'aberto' and e.prazo < current_date, 'cumprido', e.cumprido_dia) order by e.criado_dia desc, e.id), '[]'::jsonb)
+      from (select * from rede_org_encaminhamentos where org = o and estado <> 'retirado' order by criado_dia desc, id limit 60) e));
+end $$;
+
+/** Quem gerencia tece um fio novo (texto, função, prazo) ou muda o estado de um (aberto, cumprido, retirado). */
+create or replace function public.rede_org_tear_fio(p_handle text, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); o uuid;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  o := interno.alumia_org_gestor(p_handle, 'alumia_org_tear', 60, 60);
+  if p ? 'id' then
+    if coalesce(p ->> 'estado', '') not in ('aberto', 'cumprido', 'retirado') then perform interno.erro('invalido:estado'); end if;
+    update rede_org_encaminhamentos set estado = p ->> 'estado', cumprido_dia = case when p ->> 'estado' = 'cumprido' then current_date end
+      where id = (p ->> 'id')::uuid and org = o;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  else
+    begin
+      if (p ->> 'prazo')::date < current_date or (p ->> 'prazo')::date > current_date + 730 then perform interno.erro('invalido:prazo'); end if;
+    exception when invalid_datetime_format or datetime_field_overflow or invalid_text_representation then perform interno.erro('invalido:prazo');
+    end;
+    if (select count(*) from rede_org_encaminhamentos where org = o and estado = 'aberto') >= 200 then perform interno.erro('limite'); end if;
+    begin
+      insert into rede_org_encaminhamentos (org, texto, funcao, prazo) values (o, btrim(coalesce(p ->> 'texto', '')), btrim(coalesce(p ->> 'funcao', '')), (p ->> 'prazo')::date);
+    exception when check_violation then perform interno.erro('invalido:fio');
+    end;
+  end if;
+  return public.rede_org_tear(p_handle);
+end $$;
+
+-- ── 4b. As abas Respostas, Mídia e Atos do perfil ─────────────────────────────────────────────────────────────────────────
+
+/**
+ * Uma aba do perfil de pessoa (o cliente da F4 já chama esta função; faltava no banco): os posts da pessoa que respondem a outro
+ * (respostas), que trazem imagem (midia: imagem no corpo em markdown ou link direto de imagem) ou que convocam um ato (atos), na
+ * ordem de chegada, com a MESMA matriz da linha (rede_ve, silenciados) e a do perfil (invisível, bloqueado, suspenso = nada).
+ */
+create or replace function public.rede_perfil_linha(p_handle text, p_aba text, p_cursor text default null) returns jsonb
+language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := auth.uid(); f perfis; v_t timestamptz; v_id uuid; v_itens jsonb; v_n integer; v_ultimo jsonb; v_proximo text;
+begin
+  perform interno.aberta('comunidade');
+  perform interno.limite('rede2_ler', 600, 60);
+  if coalesce(p_aba, '') not in ('respostas', 'midia', 'atos') then perform interno.erro('invalido:aba'); end if;
+  select * into f from perfis where rede_handle = lower(btrim(coalesce(p_handle, ''), ' @'));
+  if not found or f.suspenso or ((f.rede_modo = 'invisivel' or f.rede_invisivel) and f.id is distinct from v) or interno.rede_bloqueado(v, f.id) then
+    return jsonb_build_object('itens', '[]'::jsonb, 'proximo', null);
+  end if;
+  if nullif(p_cursor, '') is not null then
+    begin
+      v_t := split_part(p_cursor, '|', 1)::timestamptz;
+      v_id := split_part(p_cursor, '|', 2)::uuid;
+    exception when others then perform interno.erro('invalido:cursor');
+    end;
+  end if;
+  select coalesce(jsonb_agg(interno.rede_post_v2(r, v) order by r.criado_em desc, r.id desc), '[]'::jsonb), count(*)::integer into v_itens, v_n
+  from rede_posts r where r.id in (
+    select p.id from rede_posts p
+    where p.autor = f.id and not p.oculto and p.repost_de is null
+      and (v_t is null or (p.criado_em, p.id) < (v_t, v_id))
+      and case p_aba
+        when 'respostas' then p.resposta_a is not null
+        when 'midia' then coalesce(p.corpo, '') ~ '!\[[^\]]*\]\(https://' or p.texto ~* 'https://[^[:space:]]+\.(png|jpe?g|webp|gif|avif)([?#][^[:space:]]*)?([[:space:]]|$)'
+        else (p.chamado ->> 'tipo') = 'ato' or p.ato is not null
+      end
+      and interno.rede_ve(p, v) and not interno.rede_silenciado(p, v)
+    order by p.criado_em desc, p.id desc
+    limit 21);
+  if v_n > 20 then
+    select coalesce(jsonb_agg(e.valor order by e.n), '[]'::jsonb) into v_itens from jsonb_array_elements(v_itens) with ordinality e(valor, n) where e.n <= 20;
+    v_ultimo := v_itens -> 19;
+    v_proximo := (v_ultimo ->> 'criado_em') || '|' || (v_ultimo ->> 'id');
+  end if;
+  return jsonb_build_object('itens', v_itens, 'proximo', v_proximo);
+end $$;
+
+-- ── 5. Permissões das funções ─────────────────────────────────────────────────────────────────────────────────────────────
+do $$
+declare f text;
+begin
+  revoke all on function interno.alumia_aparencia_valida(jsonb, uuid) from public;
+  foreach f in array array['public.rede_perfil_aparencia(text)', 'public.rede_perfil_aparencia_editar(jsonb)', 'public.rede_perfil_extras_editar(jsonb)',
+    'public.rede_org_tear(text)', 'public.rede_org_tear_fio(text, jsonb)', 'public.rede_perfil_linha(text, text, text)'] loop
+    execute format('revoke all on function %s from public', f);
+    if exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on function %s from anon, authenticated', f);
+    end if;
+  end loop;
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.alumia_aparencia_valida(jsonb, uuid) from anon, authenticated;
+    grant execute on function public.rede_perfil_aparencia(text), public.rede_org_tear(text), public.rede_perfil_linha(text, text, text) to anon;
+    grant execute on function public.rede_perfil_aparencia(text), public.rede_perfil_aparencia_editar(jsonb), public.rede_perfil_extras_editar(jsonb),
+      public.rede_org_tear(text), public.rede_org_tear_fio(text, jsonb), public.rede_perfil_linha(text, text, text) to authenticated;
+  end if;
+end $$;
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════════════ Alumia · Onda A · atos: Farol do ato e Corrente de solidariedade (10/11/2026) ═══════════════════════════
+-- docs/plano-2026-11/ALUMIA-FUNCOES-E-IDEIAS.md §2.1 (ideias 1 e 7) e PLANO-ALUMIA §6. Vem DEPOIS da F2
+-- (20261109-alumia-f2.sql) e da F4 (20261109-alumia-f4.sql: rede_orgs, rede_org_gestores, rede_age_como). Idempotente: o teste
+-- (scripts/testar-alumia-atos-banco.mjs) roda duas vezes no banco local. NÃO rodar em produção sem o Jonathan.
+--
+-- 1. FAROL DO ATO. Quem coordena o ato (quem age como quem chamou: a própria conta, uma identidade dela ou os gestores da
+--    organização) acende um de quatro estados: tranquilo, atencao, dispersar, ponto2 (com o texto do novo ponto). A mudança só
+--    vale quando DUAS pessoas diferentes da coordenação pedem o mesmo estado em até 15 minutos (a segunda confirma). Quem confirmou
+--    presença recebe um aviso SEM o estado no texto ("o farol mudou"); a tela busca o estado. O registro da moderação guarda cada
+--    mudança (interno.registrar), contra uso indevido. Quem recebeu não fica registrado.
+-- 2. CORRENTE DE SOLIDARIEDADE. Uma organização com selo abre "precisamos de N pessoas às 5h na ocupação X" para uma CIDADE
+--    ESCRITA (nunca posição). As pessoas respondem "vou"; a barra de elos fecha em passos de 10 %, só a partir de 3 respostas.
+--    Quando a meta é atingida, a corrente fecha e para de aparecer. Limite: 2 correntes por organização por semana.
+--
+-- Privacidade (LGPD, Lei 13.709/2018: art. 5º, II e art. 11 — ir a um ato revela opinião política, dado sensível; art. 6º, III —
+-- necessidade): nenhuma função devolve quem confirmou, quem respondeu "vou" ou quem pediu o farol; a corrente mostra só a
+-- proporção (nula abaixo de 3) e o total exato só a quem age como a organização que abriu; o vínculo pessoa↔organização nunca
+-- volta para ninguém. ECA (Lei 8.069/1990) e ECA Digital (Lei 15.211/2025): tudo exige membro 18+ (interno.rede2_membro).
+
+-- ── 1. Tabelas ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+create table if not exists interno.rede_ato_farol (
+  post uuid primary key references interno.rede_posts (id) on delete cascade,
+  estado text not null default 'tranquilo' check (estado in ('tranquilo', 'atencao', 'dispersar', 'ponto2')),
+  texto text not null default '' check (char_length(texto) <= 140),
+  mudado_em timestamptz not null default now()
+);
+-- Um pedido esperando a segunda pessoa por ato. Guarda quem pediu SÓ para impedir que a mesma pessoa confirme o próprio pedido;
+-- nenhuma função devolve esse campo (só "o pedido é seu?").
+create table if not exists interno.rede_ato_farol_pedidos (
+  post uuid primary key references interno.rede_posts (id) on delete cascade,
+  estado text not null check (estado in ('tranquilo', 'atencao', 'dispersar', 'ponto2')),
+  texto text not null default '' check (char_length(texto) <= 140),
+  pedido_por uuid not null references interno.perfis (id) on delete cascade,
+  pedido_em timestamptz not null default now()
+);
+create table if not exists interno.rede_correntes (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  texto text not null check (char_length(texto) between 10 and 140),
+  cidade text not null check (char_length(cidade) between 2 and 80),
+  meta smallint not null check (meta between 3 and 5000),
+  quando timestamptz,
+  criada_em timestamptz not null default now(),
+  expira_em timestamptz not null,
+  fechada_em timestamptz
+);
+create index if not exists rede_correntes_cidade on interno.rede_correntes (interno.rede_ato_cidade(cidade), expira_em);
+create index if not exists rede_correntes_autor on interno.rede_correntes (autor, criada_em);
+create table if not exists interno.rede_corrente_vou (
+  corrente uuid not null references interno.rede_correntes (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  primary key (corrente, usuario)
+);
+create index if not exists rede_corrente_vou_usuario on interno.rede_corrente_vou (usuario);
+alter table interno.rede_ato_farol enable row level security;
+alter table interno.rede_ato_farol_pedidos enable row level security;
+alter table interno.rede_correntes enable row level security;
+alter table interno.rede_corrente_vou enable row level security;
+revoke all on table interno.rede_ato_farol, interno.rede_ato_farol_pedidos, interno.rede_correntes, interno.rede_corrente_vou from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on table interno.rede_ato_farol, interno.rede_ato_farol_pedidos, interno.rede_correntes, interno.rede_corrente_vou from anon, authenticated;
+  end if;
+end $$;
+
+-- ── 2. Farol ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/** O farol como a tela recebe (FarolDoAto em lib/rede/tipos-atos.ts). `coordena` diz se quem lê pode pedir mudança. */
+create or replace function interno.rede_ato_farol_json(p_id uuid, p_quem uuid, p_coordena boolean) returns jsonb
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare f rede_ato_farol; q rede_ato_farol_pedidos;
+begin
+  select * into f from rede_ato_farol where post = p_id;
+  if p_coordena then
+    select * into q from rede_ato_farol_pedidos where post = p_id and pedido_em > now() - interval '15 minutes';
+  end if;
+  return jsonb_build_object(
+    'estado', coalesce(f.estado, 'tranquilo'),
+    'texto', coalesce(f.texto, ''),
+    'mudado_em', f.mudado_em,
+    'coordena', p_coordena,
+    'pendente', case when q.post is null then null else jsonb_build_object('estado', q.estado, 'texto', q.texto,
+      'meu', q.pedido_por = p_quem, 'expira_em', q.pedido_em + interval '15 minutes') end);
+end $$;
+
+/**
+ * O farol de um ato. Só para quem confirmou presença ou coordena (os outros recebem nulo: o farol é para quem está indo).
+ * Visitante: nulo.
+ */
+create or replace function public.rede_ato_farol(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); p rede_posts; v_coord boolean;
+begin
+  perform interno.aberta('comunidade');
+  if v is null or not interno.rede2_membro(v) then return null; end if;
+  p := interno.rede_ato_achar(p_id, v);
+  v_coord := interno.rede_age_como(v, p.autor);
+  if not v_coord and not exists (select 1 from rede_vou o where o.post = p_id and o.usuario = v) then return null; end if;
+  return interno.rede_ato_farol_json(p_id, v, v_coord);
+end $$;
+
+/**
+ * Pedir (ou confirmar) um estado do farol. Só quem coordena. Se já existe um pedido de OUTRA pessoa com o mesmo estado e texto,
+ * nos últimos 15 minutos, esta chamada é a confirmação: o farol muda, o pedido some, quem confirmou presença recebe o aviso sem o
+ * estado no texto e a mudança vai ao registro. Senão, este passa a ser o pedido esperando a segunda pessoa (os outros gestores da
+ * organização recebem "confirme no ato", sem o nome de quem pediu). A mesma pessoa repetir o próprio pedido não confirma nada.
+ */
+create or replace function public.rede_ato_farol_pedir(p_id uuid, p_estado text, p_texto text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); p rede_posts; c rede_chamados; q rede_ato_farol_pedidos; g record;
+  v_texto text := regexp_replace(btrim(coalesce(p_texto, '')), '\s+', ' ', 'g');
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  p := interno.rede_ato_achar(p_id, v);
+  if not interno.rede_age_como(v, p.autor) then perform interno.erro('so_coordenacao'); end if;
+  if p_estado is null or p_estado not in ('tranquilo', 'atencao', 'dispersar', 'ponto2') then perform interno.erro('invalido:estado'); end if;
+  if p_estado <> 'ponto2' then v_texto := ''; end if;
+  if p_estado = 'ponto2' and char_length(v_texto) < 3 then perform interno.erro('invalido:texto'); end if;
+  if char_length(v_texto) > 140 then perform interno.erro('invalido:texto'); end if;
+  if interno.rede3_pub_dado_pessoal(v_texto) then perform interno.erro('dado_pessoal'); end if;
+  select * into c from rede_chamados where post = p_id;
+  if c.situacao = 'cancelado' then perform interno.erro('ato_cancelado'); end if;
+  perform interno.limite('alumia_ato_farol', 20, 60);
+
+  select * into q from rede_ato_farol_pedidos where post = p_id for update;
+  if q.post is not null and q.pedido_em > now() - interval '15 minutes' and q.pedido_por <> v
+     and q.estado = p_estado and q.texto = v_texto then
+    -- A segunda pessoa confirmou: vale.
+    insert into rede_ato_farol (post, estado, texto, mudado_em) values (p_id, p_estado, v_texto, now())
+    on conflict (post) do update set estado = excluded.estado, texto = excluded.texto, mudado_em = excluded.mudado_em;
+    delete from rede_ato_farol_pedidos where post = p_id;
+    perform interno.registrar('alumia_ato_farol', p_id::text, jsonb_build_object('estado', p_estado, 'texto', v_texto));
+    for g in select o.usuario from rede_vou o where o.post = p_id and o.usuario <> v loop
+      if interno.rede2_membro(g.usuario) and interno.rede_ve(p, g.usuario) and not interno.rede_age_como(g.usuario, p.autor) then
+        perform interno.rede3_aviso_criar(g.usuario, 'chamado', p_id, null, null, 'O farol de um ato que você confirmou mudou. Abra o ato.');
+      end if;
+    end loop;
+  else
+    insert into rede_ato_farol_pedidos (post, estado, texto, pedido_por, pedido_em) values (p_id, p_estado, v_texto, v, now())
+    on conflict (post) do update set estado = excluded.estado, texto = excluded.texto, pedido_por = excluded.pedido_por, pedido_em = excluded.pedido_em;
+    for g in select gs.gestor from rede_org_gestores gs where gs.org = p.autor and gs.gestor <> v loop
+      perform interno.avisar_em(g.gestor, 'Alguém da coordenação pediu para mudar o farol de um ato. Abra o ato para confirmar.', 'rede');
+    end loop;
+  end if;
+  return interno.rede_ato_farol_json(p_id, v, true);
+end $$;
+
+-- ── 3. Corrente de solidariedade ────────────────────────────────────────────────────────────────────────────────────────────
+
+/** Elos fechados: a MESMA regra do mosaico (nula abaixo de 3; passos de 10 %, para baixo; 100 % quando bate a meta). */
+create or replace function interno.rede_corrente_elos(p_n bigint, p_meta integer) returns numeric language sql immutable set search_path = interno, pg_temp as $$
+  select case when p_n is null or p_n < 3 then null
+    else round(least(10, greatest(1, floor(p_n::numeric * 10 / greatest(3, coalesce(p_meta, 3)))))::numeric / 10, 1) end
+$$;
+
+create or replace function interno.rede_corrente_json(k interno.rede_correntes, p_quem uuid) returns jsonb
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare f perfis; v_n bigint := (select count(*) from rede_corrente_vou o where o.corrente = k.id);
+begin
+  select * into f from perfis where id = k.autor;
+  return jsonb_build_object(
+    'id', k.id, 'texto', k.texto, 'cidade', k.cidade, 'meta', k.meta, 'quando', k.quando, 'expira_em', k.expira_em,
+    'org', jsonb_build_object('handle', f.rede_handle, 'nome', interno.rede_nome(k.autor)),
+    'elos', interno.rede_corrente_elos(v_n, k.meta),
+    'fechada', k.fechada_em is not null,
+    'vou_eu', p_quem is not null and exists (select 1 from rede_corrente_vou o where o.corrente = k.id and o.usuario = p_quem),
+    'total', case when p_quem is not null and interno.rede_age_como(p_quem, k.autor) then v_n end);
+end $$;
+
+/** As organizações COM SELO que esta pessoa gerencia (para o "Abrir corrente"). Só sobre si mesma. */
+create or replace function public.rede_corrente_posso() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  if v is null or not interno.rede2_membro(v) then return '[]'::jsonb; end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', o.perfil, 'handle', f.rede_handle, 'nome', interno.rede_nome(o.perfil)) order by f.rede_handle)
+    from rede_orgs o join perfis f on f.id = o.perfil
+   where o.verificada_em is not null and interno.rede_age_como(v, o.perfil)), '[]'::jsonb);
+end $$;
+
+/**
+ * Abrir uma corrente (como uma organização com selo que a pessoa gerencia). p: org (uuid), texto (10–140), cidade (2–80), meta
+ * (3–5000), quando (ISO, opcional, até 30 dias). Some sozinha 6 h depois de `quando` (ou em 3 dias sem hora). 2 por semana.
+ */
+create or replace function public.rede_corrente_abrir(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); k rede_correntes;
+  v_org uuid; v_texto text; v_cidade text; v_meta integer; v_quando timestamptz;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  begin
+    v_org := (p ->> 'org')::uuid;
+  exception when others then
+    perform interno.erro('invalido:org');
+  end;
+  if v_org is null or not exists (select 1 from rede_orgs o where o.perfil = v_org and o.verificada_em is not null)
+     or not interno.rede_age_como(v, v_org) then perform interno.erro('so_org_verificada'); end if;
+  v_texto := interno.txt(regexp_replace(coalesce(p ->> 'texto', ''), '\s+', ' ', 'g'), 'texto', 10, 140);
+  v_cidade := interno.txt(regexp_replace(coalesce(p ->> 'cidade', ''), '\s+', ' ', 'g'), 'cidade', 2, 80);
+  if interno.rede3_pub_dado_pessoal(v_texto) then perform interno.erro('dado_pessoal'); end if;
+  begin
+    v_meta := (p ->> 'meta')::integer;
+  exception when others then
+    perform interno.erro('invalido:meta');
+  end;
+  if v_meta is null or v_meta < 3 or v_meta > 5000 then perform interno.erro('invalido:meta'); end if;
+  if coalesce(p ->> 'quando', '') <> '' then
+    begin
+      v_quando := (p ->> 'quando')::timestamptz;
+    exception when others then
+      perform interno.erro('invalido:quando');
+    end;
+    if v_quando <= now() or v_quando > now() + interval '30 days' then perform interno.erro('invalido:quando'); end if;
+  end if;
+  if (select count(*) from rede_correntes where autor = v_org and criada_em > now() - interval '7 days') >= 2 then
+    perform interno.erro('muitos_pedidos');
+  end if;
+  perform interno.limite('alumia_corrente', 6, 60);
+  insert into rede_correntes (autor, texto, cidade, meta, quando, expira_em)
+  values (v_org, v_texto, v_cidade, v_meta, v_quando, coalesce(v_quando + interval '6 hours', now() + interval '3 days'))
+  returning * into k;
+  perform interno.registrar('alumia_corrente_abrir', k.id::text, jsonb_build_object('org', v_org, 'cidade', v_cidade));
+  return interno.rede_corrente_json(k, v);
+end $$;
+
+/** As correntes abertas da cidade ESCRITA (texto; nada de posição). Só para membro (visitante recebe lista vazia). Até 10. */
+create or replace function public.rede_correntes(p_cidade text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_cidade text := interno.rede_ato_cidade(left(coalesce(p_cidade, ''), 80));
+begin
+  perform interno.aberta('comunidade');
+  if v is null or not interno.rede2_membro(v) or v_cidade is null then return '[]'::jsonb; end if;
+  return coalesce((select jsonb_agg(interno.rede_corrente_json(k, v) order by k.criada_em desc)
+    from (select * from rede_correntes k
+           where interno.rede_ato_cidade(k.cidade) = v_cidade and k.fechada_em is null and k.expira_em > now()
+             and not exists (select 1 from rede_bloqueios b where (b.quem = k.autor and b.bloqueado = v) or (b.quem = v and b.bloqueado = k.autor))
+           order by k.criada_em desc limit 10) k), '[]'::jsonb);
+end $$;
+
+/** "Vou" (ou desfazer) numa corrente aberta. Quando bate a meta, a corrente fecha (e deixa de aparecer na lista). */
+create or replace function public.rede_corrente_vou(p_id uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); k rede_correntes; v_n bigint;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  perform interno.rede2_limite('reagir');
+  select * into k from rede_correntes where id = p_id for update;
+  if not found or exists (select 1 from rede_bloqueios b where (b.quem = k.autor and b.bloqueado = v) or (b.quem = v and b.bloqueado = k.autor)) then
+    perform interno.erro('nao_encontrado');
+  end if;
+  if coalesce(p_sim, true) then
+    if k.fechada_em is not null or k.expira_em <= now() then perform interno.erro('corrente_fechada'); end if;
+    insert into rede_corrente_vou (corrente, usuario) values (p_id, v) on conflict do nothing;
+  else
+    delete from rede_corrente_vou where corrente = p_id and usuario = v;
+  end if;
+  select count(*) into v_n from rede_corrente_vou where corrente = p_id;
+  if k.fechada_em is null and v_n >= k.meta then
+    update rede_correntes set fechada_em = now() where id = p_id returning * into k;
+  else
+    select * into k from rede_correntes where id = p_id;
+  end if;
+  return interno.rede_corrente_json(k, v);
+end $$;
+
+-- ── 4. Permissões ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function interno.rede_ato_farol_json(uuid, uuid, boolean), interno.rede_corrente_elos(bigint, integer),
+  interno.rede_corrente_json(interno.rede_correntes, uuid) from public;
+revoke all on function public.rede_ato_farol(uuid), public.rede_ato_farol_pedir(uuid, text, text), public.rede_corrente_posso(),
+  public.rede_corrente_abrir(jsonb), public.rede_correntes(text), public.rede_corrente_vou(uuid, boolean) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.rede_ato_farol_json(uuid, uuid, boolean), interno.rede_corrente_elos(bigint, integer),
+      interno.rede_corrente_json(interno.rede_correntes, uuid) from anon, authenticated;
+    revoke all on function public.rede_ato_farol_pedir(uuid, text, text), public.rede_corrente_abrir(jsonb), public.rede_corrente_vou(uuid, boolean) from anon;
+    grant execute on function public.rede_ato_farol(uuid), public.rede_correntes(text), public.rede_corrente_posso() to anon, authenticated, service_role;
+    grant execute on function public.rede_ato_farol_pedir(uuid, text, text), public.rede_corrente_abrir(jsonb), public.rede_corrente_vou(uuid, boolean)
+      to authenticated, service_role;
+  end if;
+end $$;
+
+-- ═══════════════════════════ fim dos atos da Onda A (Farol e Corrente) ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+--
+-- ═══════════════════ Alumia · polimento da comunidade e da conversa · seguir conversa e #tema (10/11/2026) ═══════════════════
+-- docs/plano-2026-11/ALUMIA-FUNCOES-E-IDEIAS.md (Onda B: "seguir conversa" e "seguir hashtag") e PLANO-ALUMIA.md §6 e §12.
+--   1. Seguir a conversa (rede_alumia_seguir_conversa): o sininho na barra "CONVERSA". Quem segue recebe aviso de resposta
+--      nova na conversa inteira, AGRUPADO pela conversa (o mesmo grupo "resposta:<raiz>" de rede3_aviso_grupos), respeitando a
+--      preferência "respostas" da pessoa, o bloqueio e a matriz de visibilidade.
+--   2. Seguir um #tema (rede_alumia_seguir_tag, rede_alumia_tags_seguidas): a lista dos #temas que a PRÓPRIA pessoa segue,
+--      mostrada no Explorar e na página do #tema. Não muda ordem de nada (sem algoritmo) e não gera aviso (sem ruído).
+--   3. rede_alumia_seguindo: se a pessoa segue esta conversa e/ou este #tema (só ela pergunta sobre ela mesma).
+--
+-- Regras (PLANO-ALUMIA §5): tabelas em interno, RLS ligada e nenhuma permissão para anon/authenticated; acesso só pelas funções
+-- security definer abaixo. Nenhuma função devolve QUEM segue nem QUANTOS seguem (nem o total agregado: seguir é sinal de
+-- interesse político, e uma contagem por conversa viraria métrica de engajamento, PLANO-ALUMIA §12).
+--
+-- Leis (conferidas no texto): LGPD (Lei 13.709/2018) art. 5º, II e art. 11 — opinião política é dado sensível: o que alguém segue
+-- só ela vê; art. 6º, III (necessidade): guarda só pessoa, conversa/tema e data, e some com a conta ou com o post (cascata);
+-- art. 18, VI: deixar de seguir apaga a linha; art. 46: RLS e nenhuma permissão direta. ECA (Lei 8.069/1990) e ECA Digital (Lei
+-- 15.211/2025): só membro da Rede (18+ confirmado, interno.rede2_membro) segue.
+--
+-- Idempotente (scripts/testar-alumia-comunidade.mjs roda duas vezes no banco local). Roda depois da F0..F5 e do Fediverso.
+-- NÃO rodar em produção sem o Jonathan.
+
+-- ── 1. Tabelas ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+create table if not exists interno.rede_alumia_seguir_conversa (
+  raiz uuid not null references interno.rede_posts (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (raiz, usuario)
+);
+create index if not exists rede_alumia_seguir_conversa_usuario on interno.rede_alumia_seguir_conversa (usuario);
+alter table interno.rede_alumia_seguir_conversa enable row level security;
+
+create table if not exists interno.rede_alumia_seguir_tag (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  tag text not null check (tag ~ '^[a-z0-9_]{2,40}$' and tag ~ '[a-z_]'),
+  criado_em timestamptz not null default now(),
+  primary key (usuario, tag)
+);
+alter table interno.rede_alumia_seguir_tag enable row level security;
+
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on table interno.rede_alumia_seguir_conversa, interno.rede_alumia_seguir_tag from anon, authenticated;
+  end if;
+end $$;
+
+-- ── 2. Seguir a conversa ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Segue (p_sim = true) ou deixa de seguir a conversa do post p_post (sempre pela raiz). Só membro, que vê a raiz e o post, sem
+ * bloqueio com quem abriu a conversa e não banido da comunidade. Até 500 conversas seguidas por pessoa. Devolve {seguindo}.
+ */
+create or replace function public.rede_alumia_seguir_conversa(p_post uuid, p_sim boolean default true) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_posts; r rede_posts;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  select * into x from rede_posts where id = p_post;
+  if not found or not interno.rede_ve(x, v) or x.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+  r := interno.rede3_conv_raiz(x);
+  if r.id is null or not interno.rede_ve(r, v) or r.oculto or r.retido or r.apagado_em is not null then perform interno.erro('nao_encontrado'); end if;
+  if not coalesce(p_sim, true) then
+    delete from rede_alumia_seguir_conversa where raiz = r.id and usuario = v;
+    return jsonb_build_object('seguindo', false);
+  end if;
+  if r.autor is not null and interno.rede_bloqueado(v, r.autor) then perform interno.erro('nao_encontrado'); end if;
+  if r.comunidade is not null and interno.rede3_com_situacao(r.comunidade, v) = 'banido' then perform interno.erro('sem_permissao'); end if;
+  perform interno.rede2_limite('seguir');
+  if not exists (select 1 from rede_alumia_seguir_conversa where raiz = r.id and usuario = v)
+     and (select count(*) from rede_alumia_seguir_conversa where usuario = v) >= 500 then
+    perform interno.erro('invalido:muitas');
+  end if;
+  insert into rede_alumia_seguir_conversa (raiz, usuario) values (r.id, v) on conflict do nothing;
+  return jsonb_build_object('seguindo', true);
+end $$;
+
+-- ── 3. Seguir um #tema ────────────────────────────────────────────────────────────────────────────────────────────────────
+
+/** Segue (p_sim = true) ou deixa de seguir um #tema (com ou sem #, com ou sem acento). Até 100 por pessoa. Devolve {seguindo}. */
+create or replace function public.rede_alumia_seguir_tag(p_tag text, p_sim boolean default true) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_tag text;
+begin
+  perform interno.aberta('comunidade');
+  if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
+  v_tag := interno.rede3_desc_tag_norm(p_tag);
+  if not coalesce(p_sim, true) then
+    delete from rede_alumia_seguir_tag where usuario = v and tag = v_tag;
+    return jsonb_build_object('seguindo', false);
+  end if;
+  perform interno.rede2_limite('seguir');
+  if not exists (select 1 from rede_alumia_seguir_tag where usuario = v and tag = v_tag)
+     and (select count(*) from rede_alumia_seguir_tag where usuario = v) >= 100 then
+    perform interno.erro('invalido:muitas');
+  end if;
+  insert into rede_alumia_seguir_tag (usuario, tag) values (v, v_tag) on conflict do nothing;
+  return jsonb_build_object('seguindo', true);
+end $$;
+
+/** Os #temas que a própria pessoa segue, em ordem alfabética: {tags}. Visitante recebe a lista vazia. */
+create or replace function public.rede_alumia_tags_seguidas() returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  perform interno.aberta('comunidade');
+  if v is null then return jsonb_build_object('tags', '[]'::jsonb); end if;
+  return jsonb_build_object('tags', (select coalesce(jsonb_agg(tag order by tag), '[]'::jsonb) from rede_alumia_seguir_tag where usuario = v));
+end $$;
+
+/**
+ * Se a pessoa segue a conversa de p_post e/ou o #tema p_tag: {conversa, tag}. Nulo no que não foi perguntado; visitante recebe
+ * nulo nos dois (a tela não mostra o botão). Post que ela não vê responde como não seguido (sem confirmar que existe).
+ */
+create or replace function public.rede_alumia_seguindo(p_post uuid default null, p_tag text default null) returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); x rede_posts; v_conv boolean; v_tag boolean;
+begin
+  perform interno.aberta('comunidade');
+  if v is null then return jsonb_build_object('conversa', null, 'tag', null); end if;
+  perform interno.limite('rede2_ler', 600, 60);
+  if p_post is not null then
+    select * into x from rede_posts where id = p_post;
+    v_conv := found and interno.rede_ve(x, v) and exists (select 1 from rede_alumia_seguir_conversa s where s.raiz = coalesce(x.root_id, x.id) and s.usuario = v);
+  end if;
+  if nullif(btrim(coalesce(p_tag, '')), '') is not null then
+    v_tag := exists (select 1 from rede_alumia_seguir_tag s where s.usuario = v and s.tag = interno.rede3_desc_tag_norm(p_tag));
+  end if;
+  return jsonb_build_object('conversa', v_conv, 'tag', v_tag);
+end $$;
+
+-- ── 4. O aviso agrupado de quem segue a conversa ──────────────────────────────────────────────────────────────────────────
+
+/**
+ * Resposta nova numa conversa: avisa quem segue (menos quem escreveu e quem recebeu a resposta, que a fundação já avisa), só se
+ * essa pessoa pode ver a resposta. O aviso entra no grupo "resposta:<raiz>" (rede3_aviso_grupos): várias respostas viram UMA linha
+ * "N respostas". rede3_aviso_criar confere bloqueio, conta suspensa e a preferência "respostas" no site. Até 500 por resposta.
+ */
+create or replace function interno.rede_alumia_aviso_seguidores() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_raiz uuid := coalesce(new.root_id, new.id); v_pai uuid; s record;
+begin
+  if new.resposta_a is null or new.oculto or new.retido or new.apagado_em is not null then return null; end if;
+  if not exists (select 1 from rede_alumia_seguir_conversa where raiz = v_raiz) then return null; end if;
+  select autor into v_pai from rede_posts where id = new.resposta_a;
+  for s in
+    select usuario from rede_alumia_seguir_conversa
+     where raiz = v_raiz and usuario is distinct from new.autor and usuario is distinct from v_pai
+     order by criado_em limit 500
+  loop
+    if interno.rede_ve(new, s.usuario) then
+      perform interno.rede3_aviso_criar(s.usuario, 'resposta', v_raiz, new.id, new.autor, 'Há respostas novas numa conversa que você segue na Alumia.');
+    end if;
+  end loop;
+  return null;
+end $$;
+drop trigger if exists rede_alumia_aviso_seguidores on interno.rede_posts;
+create trigger rede_alumia_aviso_seguidores after insert on interno.rede_posts for each row execute function interno.rede_alumia_aviso_seguidores();
+
+-- ── 5. Permissões ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function interno.rede_alumia_aviso_seguidores() from public;
+revoke all on function public.rede_alumia_seguir_conversa(uuid, boolean), public.rede_alumia_seguir_tag(text, boolean),
+  public.rede_alumia_tags_seguidas(), public.rede_alumia_seguindo(uuid, text) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    revoke all on function interno.rede_alumia_aviso_seguidores() from anon, authenticated;
+    revoke all on function public.rede_alumia_seguir_conversa(uuid, boolean), public.rede_alumia_seguir_tag(text, boolean),
+      public.rede_alumia_tags_seguidas(), public.rede_alumia_seguindo(uuid, text) from anon, authenticated;
+    grant execute on function public.rede_alumia_tags_seguidas(), public.rede_alumia_seguindo(uuid, text) to anon, authenticated, service_role;
+    grant execute on function public.rede_alumia_seguir_conversa(uuid, boolean), public.rede_alumia_seguir_tag(text, boolean) to authenticated, service_role;
+  end if;
+end $$;
+
+-- ═══════════════════════════ fim da Alumia · comunidade (seguir conversa e #tema) ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 -- Gaveta Aberta sem conta (09/11/2026): qualquer pessoa envia por link; o envio cai na fila de aprovação do painel. O PDF
 -- no depósito continua pedindo conta. Quem enviou sem conta não recebe aviso (não há para quem avisar).
 
@@ -31239,5 +35513,21 @@ begin
     grant execute on function public.territorio_parceiro_definir(uuid, text, boolean), public.territorio_parceiros_listar(), public.territorio_meus(),
       public.territorio_postar(jsonb), public.territorio_post_ocultar(uuid, text), public.territorio_posts(text, integer), public.territorio_posts_recentes(integer)
       to anon, authenticated, service_role;
+  end if;
+end $$;
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+-- Alumia · Onda 5 · fim: marca no banco que a onda inteira (F0, F1–F5 e a rodada de UI/UX de 10/11) foi instalada.
+-- Pode rodar mais de uma vez. Roda por último, depois de todas as migrações 20261109-alumia-* e 20261110-alumia-*.
+-- Serve para conferir de fora, sem entrar no painel, se o SQL da onda já está em produção:
+--   POST /rest/v1/rpc/rede_alumia_versao  →  2
+create or replace function public.rede_alumia_versao() returns integer language sql immutable set search_path = interno, pg_temp as $$
+  select 2
+$$;
+revoke all on function public.rede_alumia_versao() from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    grant execute on function public.rede_alumia_versao() to anon, authenticated, service_role;
   end if;
 end $$;

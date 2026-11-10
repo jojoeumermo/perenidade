@@ -85,7 +85,7 @@ Se não houver cursinho por perto, ou se o horário não couber na sua vida, dá
 
 ## O Instituto Lúcia também é um lugar para estudar junto
 
-Este site foi feito para isso: aulas gratuitas, exercícios, ferramentas e uma comunidade. Use as trilhas desta área, as [ferramentas](/ferramentas) de estudo e a [comunidade](/comunidade) para tirar dúvidas e encontrar outras pessoas se preparando para a prova. Se você já passou no ENEM, pense em voltar como [voluntário](/voluntarios): é assim que essa corrente continua.
+Este site foi feito para isso: aulas gratuitas, exercícios, ferramentas e uma comunidade. Use as trilhas desta área, as [ferramentas](/ferramentas) de estudo e a [comunidade](/alumia) para tirar dúvidas e encontrar outras pessoas se preparando para a prova. Se você já passou no ENEM, pense em voltar como [voluntário](/voluntarios): é assim que essa corrente continua.
 
 ## Para praticar
 

@@ -23,7 +23,7 @@ export function QuemAcompanha({ lang, t, eu }: { lang: Locale; t: TextosDaFormac
         <>
           <p>{preencher(a.texto, { nome: quem.codinome ?? a.alguem })}</p>
           {quem.handle && (
-            <Link href={localePath(lang, `/comunidade/conversas?com=${encodeURIComponent(quem.handle)}`)} className="ef-botao-linha">
+            <Link href={localePath(lang, `/alumia/conversas?com=${encodeURIComponent(quem.handle)}`)} className="ef-botao-linha">
               {a.mensagem}
             </Link>
           )}

@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
+import { previaDaAlumiaLigada } from "@/lib/rede/conversa/exemplos";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import type { SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
@@ -38,7 +39,10 @@ export function AcoesDaComunidade({
     setOcupado(true);
     setErro("");
     try {
-      const r = await (acao === "entrar" ? comunidades.entrar(slug) : comunidades.sair(slug));
+      // Na prévia (dados de exemplo) nada vai ao banco: a mudança fica só na tela.
+      const r = previaDaAlumiaLigada()
+        ? { situacao: (acao === "sair" ? null : tipo === "aberta" ? "membro" : "pendente") as SituacaoNaComunidade }
+        : await (acao === "entrar" ? comunidades.entrar(slug) : comunidades.sair(slug));
       aoMudar(r.situacao);
     } catch (e) {
       setErro(erroCom(s, sc, e));

@@ -19,3 +19,12 @@ const TEXTOS: Record<string, TextosDaRede> = { pt, en, es, fr, ru, zh } as unkno
 export const textosDaRede = (lang: string): TextosDaRede => TEXTOS[lang] ?? pt;
 
 export { preencher } from "./preencher";
+
+/**
+ * O <title> de uma tela da Alumia: "Explorar · Alumia" (o layout do site completa com " — Instituto Lúcia"). Só o nome da tela,
+ * nunca um trecho de conteúdo; cada aba e cada entrada do histórico se distingue, e o leitor de tela anuncia a troca de página.
+ */
+export function tituloDaTela(lang: string, tela: keyof TextosDaRede["menu"]): string {
+  const s = textosDaRede(lang);
+  return `${s.menu[tela]} · ${s.marca}`;
+}
