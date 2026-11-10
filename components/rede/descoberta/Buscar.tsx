@@ -9,7 +9,7 @@ import { preencher } from "@/lib/rede/preencher";
 import { enderecos } from "@/lib/rede/tipos";
 import { enderecosDescoberta, normalizarTag, tagOk, type OrdemDaBusca, type PaginaOrdenada, type ResultadoDaBusca } from "@/lib/rede/tipos-descoberta";
 import type { PropsDaTelaDoPacote } from "../registro";
-import { IconeBusca, previa } from "../conversa/base3";
+import { FaixaDaPrevia, IconeBusca, previa, useTextosAlumia3 } from "../conversa/base3";
 import { ListaOrdenada } from "./ListaOrdenada";
 import { descobertaDaPrevia } from "./previa";
 import { useTextosDescoberta } from "./textos";
@@ -22,6 +22,7 @@ import "../conversa/alumia3.css";
  */
 export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoPacote) {
   const d = useTextosDescoberta(lang);
+  const t3 = useTextosAlumia3(lang);
   const pesquisa = useSearchParams();
   const q = (pesquisa.get("q") ?? "").trim().slice(0, 200);
   const ordemPedida = pesquisa.get("ordem") === "novos" ? "novos" : "relevancia";
@@ -33,6 +34,7 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
   const fonte = previa() ? descobertaDaPrevia : redeDescoberta;
   return (
     <section className="al3-tela al3-buscar" aria-labelledby="al3-buscar-titulo">
+      {t3 && <FaixaDaPrevia t={t3} />}
       <header className="border-b border-rule px-[18px] py-4 font-sans">
         <h1 id="al3-buscar-titulo" className="al3-cond al3-titulo-tela">{b.titulo}</h1>
         <form action={`/${lang}/alumia/buscar`} method="get" role="search" className="al3-buscar-form">
