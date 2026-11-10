@@ -156,7 +156,9 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
   const r = h.atual;
   const [secao, setSecao] = useState<Secao>("cores");
   const [salvando, setSalvando] = useState(false);
-  const [aviso, setAviso] = useState<{ texto: string; erro: boolean } | null>(null);
+  // O aviso (salvo / erro) vale só para o rascunho em que nasceu: mexeu de novo, volta o estado de sempre.
+  const [avisoGuardado, setAviso] = useState<{ texto: string; erro: boolean; de: Rascunho } | null>(null);
+  const aviso = avisoGuardado && avisoGuardado.de === r ? avisoGuardado : null;
   // A prévia: "compacta" (capa, rosto e nome; o começo em telas estreitas), "inteira" ou "fechada". Lado a lado (≥ 1280 px) ela
   // fica sempre inteira, fixa na coluna da esquerda.
   const [modoDaPrevia, setModoDaPrevia] = useState<"compacta" | "inteira" | "fechada">("compacta");
@@ -166,6 +168,22 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
   const router = useRouter();
   const dialogo = useRef<HTMLDialogElement>(null);
   const [saida, setSaida] = useState<string | null>(null);
+
+  // Sair para outra tela depois de salvar ou descartar. Se a navegação do roteador se perder (acontece quando ela cruza com a
+  // renderização do salvar), tenta de novo e, por fim, pelo navegador: a pessoa nunca fica presa no editor depois de escolher.
+  const irPara = useCallback(
+    (destino: string) => {
+      const daqui = window.location.pathname;
+      setTimeout(() => router.push(destino), 0);
+      setTimeout(() => {
+        if (window.location.pathname === daqui) router.push(destino);
+      }, 1200);
+      setTimeout(() => {
+        if (window.location.pathname === daqui) window.location.assign(destino);
+      }, 3500);
+    },
+    [router],
+  );
 
   const mudar = useCallback((f: (r: Rascunho) => Rascunho, grupo = "") => despachar({ tipo: "mudar", f, grupo }), []);
   const ap = (f: (a: AparenciaDoPerfil) => AparenciaDoPerfil, grupo = "") => mudar((x) => ({ ...x, aparencia: f(x.aparencia) }), grupo);
@@ -267,10 +285,10 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
       }
       setSalvo(novo);
       despachar({ tipo: "repor", r: novo });
-      setAviso({ texto: t.editor.salvo, erro: false });
+      setAviso({ texto: t.editor.salvo, erro: false, de: novo });
       return true;
     } catch (e) {
-      setAviso({ texto: preencher(t.editor.erroSalvar, { erro: textoDoErroLivre(t, s, e) }), erro: true });
+      setAviso({ texto: preencher(t.editor.erroSalvar, { erro: textoDoErroLivre(t, s, e) }), erro: true, de: r });
       return false;
     } finally {
       setSalvando(false);
@@ -544,7 +562,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
               const destino = saida;
               despachar({ tipo: "repor", r: salvo });
               setSaida(null);
-              if (destino) setTimeout(() => router.push(destino), 0);
+              if (destino) irPara(destino);
             }}
           >
             {t.editor.sairDescartar}
@@ -557,7 +575,7 @@ function Editor({ meu, inicial, t, lang, s, conta }: { meu: PerfilMeu; inicial: 
               const destino = saida;
               if (await salvar()) {
                 setSaida(null);
-                if (destino) setTimeout(() => router.push(destino), 0);
+                if (destino) irPara(destino);
               }
             }}
           >
@@ -746,7 +764,10 @@ function Vitrine({ r, mudar, t, handle }: { r: Rascunho; mudar: (f: (r: Rascunho
     };
   }, [handle]);
   const a = r.aparencia;
-  const resumo = (p: Post) => (p.titulo ?? p.texto).replace(/\s+/g, " ").slice(0, 110);
+  const resumo = (p: Post) => {
+    const x = (p.titulo ?? p.texto).replace(/\s+/g, " ").trim();
+    return x.length > 110 ? `${x.slice(0, 109).trimEnd()}…` : x;
+  };
   const ap = (f: (a: AparenciaDoPerfil) => AparenciaDoPerfil, grupo = "") => mudar((x) => ({ ...x, aparencia: f(x.aparencia) }), grupo);
   const orgLimpa = org.trim().replace(/^@/, "").toLowerCase();
   const orgOk = /^[a-z0-9_]{3,20}$/.test(orgLimpa);
@@ -788,7 +809,7 @@ function Vitrine({ r, mudar, t, handle }: { r: Rascunho; mudar: (f: (r: Rascunho
                         onClick={() =>
                           ap((x) => ({
                             ...x,
-                            destaques: [...x.destaques, { tipo: p.chamado?.tipo === "ato" ? "ato" : "post", ref: p.id, titulo: resumo(p).slice(0, LIMITES_DA_APARENCIA.tituloDestaque).trim(), cor: CORES_DA_PALETA[x.destaques.length % CORES_DA_PALETA.length] }],
+                            destaques: [...x.destaques, { tipo: p.chamado ? "ato" : "post", ref: p.id, titulo: (p.chamado?.tipo ?? resumo(p)).slice(0, LIMITES_DA_APARENCIA.tituloDestaque).trim(), cor: CORES_DA_PALETA[x.destaques.length % CORES_DA_PALETA.length] }],
                           }))
                         }
                       >
@@ -848,12 +869,14 @@ function Vitrine({ r, mudar, t, handle }: { r: Rascunho; mudar: (f: (r: Rascunho
         >
           <label className="pfe-campo pfe-campo-largo">
             <span>{t.vitrine.orgHandle}</span>
-            <input type="text" value={org} maxLength={21} autoCapitalize="none" spellCheck={false} aria-invalid={org !== "" && !orgOk} onChange={(e) => setOrg(e.target.value)} />
-            <small>{org !== "" && !orgOk ? t.vitrine.orgRuim : t.vitrine.orgConferida}</small>
+            <input type="text" value={org} maxLength={21} autoCapitalize="none" spellCheck={false} placeholder="@" aria-invalid={org !== "" && !orgOk} aria-describedby="pfe-org-ajuda" onChange={(e) => setOrg(e.target.value)} />
           </label>
-          <button type="submit" className="al-botao al-botao-contorno al-botao-m" disabled={!orgOk || a.orgs.length >= LIMITES_DA_APARENCIA.orgs}>
+          <button type="submit" className="al-botao al-botao-contorno al-botao-m pfe-embaralhar" disabled={!orgOk || a.orgs.length >= LIMITES_DA_APARENCIA.orgs}>
             {t.vitrine.mostrarOrg}
           </button>
+          <small id="pfe-org-ajuda" className="pfe-campo-ajuda">
+            {org !== "" && !orgOk ? <span className="pfe-erro">{t.vitrine.orgRuim}</span> : t.vitrine.orgConferida}
+          </small>
         </form>
         <ul className="pfe-chips">
           {a.orgs.map((o) => (
@@ -956,10 +979,10 @@ function Agora({ r, mudar, t }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascu
                 maxLength={200}
                 placeholder="https://"
                 aria-invalid={Boolean(tocando.link) && !link}
+                aria-describedby={tocando.link ? "pfe-tocando-ajuda" : undefined}
                 onChange={(e) => mudar((x) => ({ ...x, aparencia: { ...x.aparencia, tocando: x.aparencia.tocando ? { ...x.aparencia.tocando, link: e.target.value.trim() || null } : null } }), "tocando-link")}
                 onBlur={() => link && link.tirados > 0 && mudar((x) => ({ ...x, aparencia: { ...x.aparencia, tocando: x.aparencia.tocando ? { ...x.aparencia.tocando, link: link.href } : null } }))}
               />
-              {tocando.link ? <small className={link ? "pfe-ok" : "pfe-erro"}>{link ? `${preencher(t.sobre.linkLimpo, { dominio: link.dominio })}${link.tirados ? ` · ${preencher(t.sobre.rastreioTirado, { n: link.tirados })}` : ""}` : t.sobre.linkRuim}</small> : null}
             </label>
             <label className="pfe-campo">
               <span>{t.agora.duracao}</span>
@@ -977,6 +1000,11 @@ function Agora({ r, mudar, t }: { r: Rascunho; mudar: (f: (r: Rascunho) => Rascu
                 ))}
               </select>
             </label>
+            {tocando.link ? (
+              <small id="pfe-tocando-ajuda" className={`pfe-campo-ajuda ${link ? "pfe-ok" : "pfe-erro"}`}>
+                {link ? `${preencher(t.sobre.linkLimpo, { dominio: link.dominio })}${link.tirados ? ` · ${preencher(t.sobre.rastreioTirado, { n: link.tirados })}` : ""}` : t.sobre.linkRuim}
+              </small>
+            ) : null}
           </div>
         ) : null}
       </div>
