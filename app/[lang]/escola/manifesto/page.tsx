@@ -2,12 +2,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
-import { CartazDaFrente } from "@/components/escola/frente/CartazDaFrente";
 import Link from "@/components/Link";
 import { Markdown } from "@/components/Markdown";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
+import { textosDaBiblioteca } from "@/i18n/escola/biblioteca";
+import { textosDaFormacaoBase } from "@/i18n/escola/formacao-base";
 import { textosDaFrente } from "@/i18n/escola/frente";
+import "@/components/escola/biblioteca/escola-f6.css";
 import { parseFrontmatter } from "@/lib/frontmatter";
 import { paginaMeta } from "@/lib/seo";
 
@@ -23,48 +25,53 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/escola/man
 }
 
 /**
- * O manifesto da Frente Revolucionária Lúcia (T15): versão inicial, em discussão, marcada assim no alto e no próprio
- * texto. Página pública (PUBLICAS_DA_ESCOLA). O texto é o mesmo nos 6 idiomas (só a moldura é traduzida), e termina
- * no chamado de voluntários militantes.
+ * O manifesto único do Instituto Lúcia e da Frente Revolucionária Lúcia (o mesmo texto de /sobre, antes de "O
+ * combinado"), no desenho da Escola (09/11/2026): o cartaz vermelho arredondado das telas novas (o mesmo da tela A
+ * Frente), o texto no escuro com as letras da Escola e o chamado no fim. O cartaz quadrado com a estrela saiu.
+ * Página pública (PUBLICAS_DA_ESCOLA): quem não é militante a lê na moldura da porta; o texto é o mesmo nos 6 idiomas.
  */
 export default async function Manifesto({ params }: PageProps<"/[lang]/escola/manifesto">) {
   const { lang } = await loadLang(params);
-  const f = textosDaFrente(lang);
-  const m = f.manifesto;
+  const m = textosDaFrente(lang).manifesto;
+  const base = textosDaFormacaoBase(lang);
+  const quemFoi = textosDaBiblioteca(lang).frente.quemFoi;
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-12 pt-4" data-manifesto="">
-      <p className="mt-2 font-sans text-sm">
-        <Link href={localePath(lang, "/escola")} className="text-ink-soft hover:text-oxblood">
-          ← {m.voltar}
-        </Link>
+    <div className="ef6-tela ef-manifesto" data-escola-escura="" data-manifesto="">
+      <section aria-labelledby="ef-manifesto-titulo" className="ef6-cartaz">
+        <div className="ef6-cartaz-texto">
+          <span className="ef-t ef6-cartaz-olho">{m.olho}</span>
+          <h1 id="ef-manifesto-titulo" className="ef-t">
+            {m.titulo}
+          </h1>
+          <p className="ef-manifesto-lema">{base.porta.lema}</p>
+        </div>
+        <div className="ef6-cartaz-acoes">
+          <Link href={localePath(lang, "/escola/militantes")} className="ef6-cheio">
+            {m.chamadoBotao}
+          </Link>
+          <Link href={localePath(lang, "/escola/quem-foi-lucia-maria")} className="ef6-vazado">
+            {quemFoi}
+          </Link>
+        </div>
+      </section>
+      <p className="ef-manifesto-situacao" data-versao-inicial="">
+        {m.situacao}
+        {lang !== "pt" && ` · ${m.emPortugues}`}
       </p>
-      <CartazDaFrente
-        lang={lang}
-        s={f.cartaz}
-        olho={m.olho}
-        titulo={m.titulo}
-        chamado={false}
-        linha={
-          <p className="frente-selo" data-versao-inicial="">
-            {m.situacao}
-          </p>
-        }
-      />
-      {lang !== "pt" && <p className="mt-6 font-sans text-sm text-ink-soft">{m.emPortugues}</p>}
-      <article lang="pt-BR" className="frente-manifesto mt-6 text-lg leading-relaxed">
+      <article lang="pt-BR" className="ef-manifesto-texto">
         <Markdown lang="pt">{lerManifesto()}</Markdown>
       </article>
-      <section className="frente-cartaz frente-fecho mt-10" aria-labelledby="manifesto-chamado">
-        <div className="frente-corpo">
-          <h2 id="manifesto-chamado" className="frente-titulo frente-titulo-menor">
+      <section aria-labelledby="ef-manifesto-chamado" className="ef6-cartaz ef-manifesto-fim">
+        <div className="ef6-cartaz-texto">
+          <h2 id="ef-manifesto-chamado" className="ef-t">
             {m.chamadoTitulo}
           </h2>
-          <p className="frente-linha">{m.chamadoTexto}</p>
-          <p className="frente-botoes">
-            <Link href={localePath(lang, "/escola/militantes")} className="frente-botao frente-botao-amarelo">
-              {m.chamadoBotao} →
-            </Link>
-          </p>
+          <p className="ef-manifesto-lema">{m.chamadoTexto}</p>
+        </div>
+        <div className="ef6-cartaz-acoes">
+          <Link href={localePath(lang, "/escola/militantes")} className="ef6-cheio">
+            {m.chamadoBotao} →
+          </Link>
         </div>
       </section>
     </div>

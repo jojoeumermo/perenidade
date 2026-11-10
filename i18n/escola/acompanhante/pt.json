@@ -93,7 +93,10 @@
     "parteAtual": "O pedaço da aula que está na tela:",
     "semTrecho": "Não achamos o trecho. Marque com o dedo ou o mouse a parte da aula que travou e toque de novo em “Não entendi”.",
     "perguntaOpcional": "O que travou? (opcional)",
-    "perguntar": "Perguntar sobre este trecho"
+    "perguntar": "Perguntar sobre este trecho",
+    "reforcoTitulo": "Ainda travou? Peça uma aula de reforço",
+    "reforcoTexto": "Uma pessoa da equipe explica com calma, de graça, pelo jeito que for melhor para você.",
+    "reforcoBotao": "Pedir aula de reforço"
   },
   "outroJeito": {
     "titulo": "Explique com exemplo do meu trabalho",

@@ -94,7 +94,10 @@
     "parteAtual": "La partie de la leçon affichée à l'écran :",
     "semTrecho": "Nous n'avons pas trouvé le passage. Sélectionnez du doigt ou à la souris la partie de la leçon qui vous bloque, puis touchez à nouveau « Je n'ai pas compris ».",
     "perguntaOpcional": "Qu'est-ce qui vous bloque ? (facultatif)",
-    "perguntar": "Poser une question sur ce passage"
+    "perguntar": "Poser une question sur ce passage",
+    "reforcoTitulo": "Toujours bloqué ? Demandez un cours de soutien",
+    "reforcoTexto": "Une personne de l’équipe vous explique avec calme, gratuitement, de la façon qui vous convient le mieux.",
+    "reforcoBotao": "Demander un cours de soutien"
   },
   "outroJeito": {
     "titulo": "Expliquer avec un exemple de mon métier",

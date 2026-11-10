@@ -94,7 +94,10 @@
     "parteAtual": "The part of the lesson on the screen:",
     "semTrecho": "We could not find the excerpt. Mark the part of the lesson where you got stuck with your finger or the mouse and tap “I don't get it” again.",
     "perguntaOpcional": "What got you stuck? (optional)",
-    "perguntar": "Ask about this part"
+    "perguntar": "Ask about this part",
+    "reforcoTitulo": "Still stuck? Ask for a tutoring class",
+    "reforcoTexto": "Someone from the team explains it calmly, for free, in the way that works best for you.",
+    "reforcoBotao": "Ask for tutoring"
   },
   "outroJeito": {
     "titulo": "Explain it with an example from my job",

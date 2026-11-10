@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import { CartazDaFrente } from "@/components/escola/frente/CartazDaFrente";
+import "@/components/escola/biblioteca/escola-f6.css";
 import { I18nProvider } from "@/components/I18n";
 import Link from "@/components/Link";
 import { VolunteerForm } from "@/components/VolunteerForm";
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/escola/mil
 
 /**
  * O chamado de voluntários militantes da Frente Revolucionária Lúcia (T15), dentro da Escola Revolucionária Lúcia
- * Maria. Página pública (a porta deixa passar: PUBLICAS_DA_ESCOLA, em lib/escola/rotas.ts), como o voluntariado.
+ * Maria, no desenho das telas da Escola (09/11/2026: o cartaz quadrado com a estrela saiu). Página pública (a porta deixa passar: PUBLICAS_DA_ESCOLA, em lib/escola/rotas.ts), como o voluntariado.
  *
  * O formulário é o MESMO do voluntariado (components/VolunteerForm.tsx), no modo militante: vai para a mesma fila
  * (public.voluntariar, tabela interno.inscricoes) com o tipo "militante", e chega no mesmo lugar do painel interno
@@ -39,67 +39,66 @@ export default async function Militantes({ params }: PageProps<"/[lang]/escola/m
   // Os textos do formulário: os do voluntariado, com o que muda no chamado militante.
   const s = { ...t.volunteer, title: m.formTitulo, lead: m.formLead, role: m.formFuncao, message: m.formMensagem, send: m.formEnviar, sent: m.formEnviado, privacy: m.formPrivacidade };
   return (
-    <div className="mx-auto max-w-4xl px-4 pb-12 pt-4" data-militantes="">
-      <p className="mt-2 font-sans text-sm">
-        <Link href={localePath(lang, "/escola")} className="text-ink-soft hover:text-oxblood">
-          ← {m.voltar}
-        </Link>
-      </p>
-      <CartazDaFrente lang={lang} s={f.cartaz} olho={base.entrada.titulo} titulo={m.titulo} linha={m.lead} chamado={false} />
+    <div className="ef6-tela ef-manifesto" data-escola-escura="" data-militantes="">
+      <section aria-labelledby="ef-militantes-titulo" className="ef6-cartaz">
+        <div className="ef6-cartaz-texto">
+          <span className="ef-t ef6-cartaz-olho">{base.entrada.titulo}</span>
+          <h1 id="ef-militantes-titulo" className="ef-t">
+            {m.titulo}
+          </h1>
+          <p className="ef-manifesto-lema">{m.lead}</p>
+        </div>
+        <div className="ef6-cartaz-acoes">
+          <a href="#inscricao-militante" className="ef6-cheio">
+            {m.formTitulo}
+          </a>
+          <Link href={localePath(lang, "/escola/manifesto")} className="ef6-vazado">
+            {m.manifestoTitulo}
+          </Link>
+        </div>
+      </section>
 
-      <section className="frente-secao" aria-labelledby="porque-militar">
-        <h2 id="porque-militar" className="frente-secao-titulo">
-          {m.porqueTitulo}
-        </h2>
-        <ul className="frente-lista font-serif">
+      <div className="ef-manifesto-texto">
+        <h2 id="porque-militar">{m.porqueTitulo}</h2>
+        <ul>
           {m.porque.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
-      </section>
 
-      <section className="frente-secao" aria-labelledby="como-militar">
-        <h2 id="como-militar" className="frente-secao-titulo">
-          {m.comoTitulo}
-        </h2>
-        <ol className="frente-passos">
+        <h2 id="como-militar">{m.comoTitulo}</h2>
+        <ol className="ef-passos-militantes">
           {m.passos.map((passo) => (
             <li key={passo.titulo}>
-              <span className="block font-serif text-xl font-semibold">{passo.titulo}</span>
-              <span className="mt-1 block text-sm text-ink-soft">{passo.texto}</span>
+              <strong>{passo.titulo}</strong>
+              <span>{passo.texto}</span>
             </li>
           ))}
         </ol>
-      </section>
 
-      <section className="frente-secao" aria-labelledby="frentes-de-trabalho">
-        <h2 id="frentes-de-trabalho" className="frente-secao-titulo">
-          {m.frentesTitulo}
-        </h2>
-        <p className="mt-3 max-w-2xl text-lg leading-relaxed">{m.frentesTexto}</p>
-        <p className="mt-3 font-sans">
-          <Link href={localePath(lang, "/escola/manifesto")} className="font-semibold underline hover:text-oxblood">
-            {m.manifestoTitulo} →
-          </Link>{" "}
-          <span className="text-ink-soft">{m.manifestoTexto}</span>
+        <h2 id="frentes-de-trabalho">{m.frentesTitulo}</h2>
+        <p>{m.frentesTexto}</p>
+        <p>
+          <Link href={localePath(lang, "/escola/manifesto")}>{m.manifestoTitulo} →</Link> {m.manifestoTexto}
         </p>
-      </section>
+      </div>
 
-      <aside className="frente-cuidado" aria-labelledby="cuidado-dados">
-        <h2 id="cuidado-dados" className="font-serif text-xl font-semibold">
+      <aside className="ef6-cartao ef6-cartao-borda ef-militantes-cuidado" aria-labelledby="cuidado-dados">
+        <h2 id="cuidado-dados" className="ef-t">
           {m.cuidadoTitulo}
         </h2>
-        <p className="mt-2 text-sm">{m.cuidadoTexto}</p>
-        <p className="mt-2 text-sm">
-          <Link href={localePath(lang, "/privacidade")} className="underline hover:text-oxblood">
-            {base.porta.privacidade}
-          </Link>
+        <p>{m.cuidadoTexto}</p>
+        <p>
+          <Link href={localePath(lang, "/privacidade")}>{base.porta.privacidade}</Link>
         </p>
       </aside>
 
-      <I18nProvider lang={lang} t={pickSections(t, ["areas"])}>
-        <VolunteerForm s={s} id="inscricao-militante" militante={{ consentimento: m.consentimento, maiorIdade: m.maiorIdade, menor: m.menor, cuidado: m.cuidadoCaixa }} />
-      </I18nProvider>
+      {/* O formulário é o do voluntariado (desenho do site): as cores do site trocadas pelas da Escola só aqui dentro. */}
+      <div className="ef-tons-escuros ef-militantes-form">
+        <I18nProvider lang={lang} t={pickSections(t, ["areas"])}>
+          <VolunteerForm s={s} id="inscricao-militante" militante={{ consentimento: m.consentimento, maiorIdade: m.maiorIdade, menor: m.menor, cuidado: m.cuidadoCaixa }} />
+        </I18nProvider>
+      </div>
     </div>
   );
 }

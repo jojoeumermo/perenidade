@@ -94,7 +94,10 @@
     "parteAtual": "La parte de la clase que está en pantalla:",
     "semTrecho": "No encontramos el fragmento. Marca con el dedo o el ratón la parte de la clase donde te trabaste y toca de nuevo “No entendí”.",
     "perguntaOpcional": "¿Qué te trabó? (opcional)",
-    "perguntar": "Preguntar sobre este fragmento"
+    "perguntar": "Preguntar sobre este fragmento",
+    "reforcoTitulo": "¿Sigues trabado? Pide una clase de refuerzo",
+    "reforcoTexto": "Una persona del equipo te lo explica con calma, gratis, de la forma que mejor te sirva.",
+    "reforcoBotao": "Pedir clase de refuerzo"
   },
   "outroJeito": {
     "titulo": "Explícalo con un ejemplo de mi trabajo",
