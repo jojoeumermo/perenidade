@@ -2257,7 +2257,9 @@ const trabalho = (extra = {}) => ({
   link: "https://repositorio.exemplo.br/handle/123", licenca: "CC BY 4.0", credito: "Edu Estudante", termo: true, termo_versao: "1", termo_nome: "Eduardo Estudante da Silva", ...extra,
 });
 const pdfDe = (dono) => `${dono}/0f8fad5b-d9cb-469f-a165-70867728950e.pdf`;
-await recusa("anônimo não publica na Gaveta", () => rpc(anon, "gaveta_enviar", { p: trabalho() }), "entre_primeiro");
+// Desde 09/11/2026, sem conta também se envia à Gaveta, só por link (o PDF no depósito pede conta); vai para a fila.
+await espera("sem conta, envia por link para a fila da Gaveta", () => rpc(anon, "gaveta_enviar", { p: trabalho() }), (r) => typeof r?.id === "string");
+await recusa("sem conta, não envia PDF do depósito", () => rpc(anon, "gaveta_enviar", { p: trabalho({ link: "", arquivo: "00000000-0000-0000-0000-000000000000/11111111-1111-1111-1111-111111111111.pdf" }) }), "entre_primeiro");
 await recusa("sem aceitar o termo, não publica", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo: false }) }), "falta_termo");
 await recusa("termo de outra versão não vale", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo_versao: "0" }) }), "falta_termo");
 await recusa("o termo pede o nome completo", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo_nome: "Edu" }) }), "invalido:termo_nome");
@@ -2276,7 +2278,7 @@ await espera("estudante publica com link; fica esperando a mediação", async ()
   return [await rpc(anon, "gaveta_listar", { p: {} }), await rpc(EST, "gaveta_minhas")];
 }, (r) => !r[0].some((g) => g.id === gav.id) && r[1][0].id === gav.id && r[1][0].status === "pendente" && r[1][0].termo_nome === undefined);
 await espera("PDF da própria pasta é aceito (o banco de teste não tem depósito)", () => rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Apostila de cartografia social", tipo: "apostila", link: "", arquivo: pdfDe(ids.estudante) }) }), (r) => Boolean(r.id));
-await espera("a Mesa da mediação conta a Gaveta", () => rpc(MED, "painel_resumo"), (r) => r.gaveta === 2);
+await espera("a Mesa da mediação conta a Gaveta (com o envio sem conta)", () => rpc(MED, "painel_resumo"), (r) => r.gaveta === 3);
 await recusa("revisor não vê a fila da Gaveta", () => rpc(como(ids.alvo), "gaveta_fila"), "sem_permissao");
 await recusa("supervisão não decide a Gaveta (é cargo interno)", () => rpc(SUP, "gaveta_fila"), "sem_permissao");
 await espera("quem decide vê o nome do termo e a versão aceita", () => rpc(MED, "gaveta_fila"), (r) => r.find((g) => g.id === gav.id)?.termo_nome === "Eduardo Estudante da Silva" && r.find((g) => g.id === gav.id)?.termo_versao === "1");

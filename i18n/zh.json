@@ -4585,7 +4585,7 @@
     },
     "publishTitle": "发布作品",
     "publishLead": "你有一份作品一直放在抽屉里吗？附上你的评语发布出来。内容会先经过审核再显示。",
-    "signInFirst": "发布前，请登录或注册账号。完全免费。",
+    "signInFirst": "没有账号也可以发送链接。要上传 PDF，请登录或创建账号（免费）。",
     "signIn": "登录或注册",
     "fieldTitle": "作品标题",
     "fieldType": "类型",
