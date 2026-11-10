@@ -135,10 +135,58 @@ export function limparMetadados(entrada) {
   return null;
 }
 
-/** O tipo que o arquivo deve ter pelo nome (o banco só aceita .webp, .png e .jpg). */
+/** O tipo que o arquivo deve ter pelo nome (o banco só aceita .webp, .png, .jpg, .mp4 e .webm). */
 export function formatoDoCaminho(caminho) {
-  const m = /\.(webp|png|jpg)$/.exec(caminho);
+  const m = /\.(webp|png|jpg|mp4|webm)$/.exec(caminho);
   return m ? (m[1] === "jpg" ? "jpeg" : m[1]) : null;
+}
+
+/** As caixas de MP4/MOV que levam lugar ou dono: GPS da Apple (©xyz), "loci" (3GPP), metadado livre (udta/meta com texto, XMP). */
+const CAIXAS_DE_LUGAR = ["\u00a9xyz", "loci", "XMP_"];
+/** A caixa "uuid" do XMP (Adobe): BE7ACFCB-97A9-42E8-9C71-999491E3AFAC. */
+const UUID_DO_XMP = "be7acfcb97a942e89c71999491e3afac";
+
+/** Percorre as caixas de um MP4 (e as de dentro de moov/trak/udta/meta) e diz se alguma leva lugar ou XMP. */
+function mp4TemLugar(b) {
+  const pilha = [[0, b.length, 0]];
+  const CONTEINERES = new Set(["moov", "trak", "udta", "mdia", "minf", "stbl", "edts", "moof", "traf", "meta", "ilst"]);
+  let caixas = 0;
+  while (pilha.length > 0) {
+    const [ini, fim, fundo] = pilha.pop();
+    let i = ini;
+    while (i + 8 <= fim) {
+      let tamanho = be32(b, i);
+      const tipo = String.fromCharCode(b[i + 4], b[i + 5], b[i + 6], b[i + 7]);
+      let cab = 8;
+      if (tamanho === 1 && i + 16 <= fim) {
+        tamanho = be32(b, i + 8) * 2 ** 32 + be32(b, i + 12);
+        cab = 16;
+      } else if (tamanho === 0) tamanho = fim - i;
+      if (tamanho < cab || i + tamanho > fim) return true; // estrutura estranha: não confia
+      if (++caixas > 20000) return true;
+      if (CAIXAS_DE_LUGAR.includes(tipo)) return true;
+      if (tipo === "uuid" && i + cab + 16 <= fim && Array.from(b.subarray(i + cab, i + cab + 16), (x) => x.toString(16).padStart(2, "0")).join("") === UUID_DO_XMP) return true;
+      if (CONTEINERES.has(tipo) && fundo < 8) pilha.push([i + cab + (tipo === "meta" ? 4 : 0), i + tamanho, fundo + 1]);
+      i += tamanho;
+    }
+  }
+  return false;
+}
+
+/**
+ * Confere um vídeo: precisa ser MP4 (caixa ftyp no começo) ou WEBM (EBML) de verdade e, no MP4, sem caixa de lugar. O aparelho
+ * regrava o vídeo num gravador (que não escreve lugar nenhum); se algo assim aparecer, o arquivo não veio da tela: sai do ar.
+ * Devolve "mp4", "webm" ou nulo (ruim).
+ */
+export function conferirVideo(entrada) {
+  const b = entrada instanceof Uint8Array ? entrada : new Uint8Array(entrada);
+  if (b.length >= 4 && b[0] === 0x1a && b[1] === 0x45 && b[2] === 0xdf && b[3] === 0xa3) {
+    // WEBM: o gravador do navegador escreve só EBML, Segment, Info, Tracks e Clusters; "Tags" com lugar não sai dele.
+    const texto = String.fromCharCode(...b.subarray(0, Math.min(b.length, 4096)));
+    return /webm/.test(texto) && !/GPS|location|\u00a9xyz/i.test(texto) ? "webm" : null;
+  }
+  if (b.length >= 12 && ascii(b, 4, 4) === "ftyp") return mp4TemLugar(b) ? null : "mp4";
+  return null;
 }
 
 /**
@@ -154,6 +202,12 @@ export async function rodada({ chamar, baixar, subir, remover, limite = 200 }) {
   for (const { id, caminho } of lista.conferir ?? []) {
     try {
       const bytes = await baixar(caminho);
+      const esperado = formatoDoCaminho(caminho);
+      if (esperado === "mp4" || esperado === "webm") {
+        if (conferirVideo(bytes) !== esperado) ruins.push(id);
+        else conferidos.push(id);
+        continue;
+      }
       const r = limparMetadados(bytes);
       if (!r || r.formato !== formatoDoCaminho(caminho)) {
         ruins.push(id);
