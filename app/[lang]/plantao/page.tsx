@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { localePath } from "@/i18n/config";
 import { loadLang } from "@/i18n";
 import { textosDoPlantao } from "@/i18n/plantao";
@@ -37,9 +37,9 @@ export default async function Plantao({ params }: PageProps<"/[lang]/plantao">) 
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <PageHeading eyebrow={p.eyebrow} title={p.titulo}>
+      <Cartaz eyebrow={p.eyebrow} title={p.titulo} tone="vermelho">
         {p.lead}
-      </PageHeading>
+      </Cartaz>
 
       <p className="mt-6 border-l-4 border-gold pl-4 font-sans text-sm text-ink-soft" data-plantao-sem-horario="">
         {p.semHorario}

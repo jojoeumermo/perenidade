@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { Suspense } from "react";
 import { ContributeForm } from "@/components/ContributeForm";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
 import { pickSections } from "@/i18n/core";
 import { I18nProvider } from "@/components/I18n";
@@ -34,9 +34,9 @@ export default async function Contribuir({ params }: PageProps<"/[lang]/contribu
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <PageHeading eyebrow={c.eyebrow} title={c.title}>
+      <Cartaz eyebrow={c.eyebrow} title={c.title} tone="raios">
         {c.lead}
-      </PageHeading>
+      </Cartaz>
       {/* Recurso "guia-contribuir" (lib/recursos.ts): desligado, a página fica como era. */}
       {ligado("guia-contribuir") && (
         <p className="mt-4 font-sans text-sm">
