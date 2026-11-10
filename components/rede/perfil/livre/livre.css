@@ -181,6 +181,7 @@
   --pf-cor-capa: var(--al-texto) !important;
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf { background: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.pf-capa-mosaico, .pf-destaque) { --pf-cor-capa: var(--al-texto) !important; --pf-cor-destaque: var(--al-texto) !important; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.pf-status, .pf-tocando, .pf-campo) { background: transparent; border: 1.5px solid currentColor; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.pf-bio-link, .pf-bio-tema, .pf-campo a) { text-decoration: underline; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf-capa-veu { background: linear-gradient(180deg, transparent 30%, var(--al-fundo) 75%); }
