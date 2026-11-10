@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
 import { loadLang } from "@/i18n";
-import { textosDaRede } from "@/lib/rede/textos";
+import { textosDaRede, tituloDaTela } from "@/lib/rede/textos";
 import { ligado } from "@/lib/recursos";
 
 // Os avisos são de cada pessoa: nenhuma página aqui é gerada de antemão, e nenhuma é indexada.
@@ -14,7 +14,7 @@ export const dynamicParams = true;
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   if (!ligado("rede-v2")) return {};
   const { lang } = await loadLang(params);
-  return { title: textosDaRede(lang).marca, robots: { index: false, follow: false } };
+  return { title: tituloDaTela(lang, "avisos"), robots: { index: false, follow: false } };
 }
 
 /** Os avisos da Rede (/alumia/avisos): agrupados, com as preferências de site, resumo semanal por e-mail e aviso no celular. Com o recurso "rede-v2" desligado a rota não existe (404). */

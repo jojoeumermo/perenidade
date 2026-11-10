@@ -15,7 +15,8 @@
     "escrever": "Write",
     "busca": "Search",
     "explorar": "Explore",
-    "fediverso": "Fediverse"
+    "fediverso": "Fediverse",
+    "editarPerfil": "Edit profile"
   },
   "abas": {
     "rotulo": "Network timelines",
@@ -86,7 +87,7 @@
     "comunidade": "Community (optional)",
     "saltarParaConteudo": "Skip to the timeline",
     "sairRapido": "Quick exit",
-    "sairRapidoAjuda": "Opens a neutral page and clears the network's data on this device.",
+    "sairRapidoAjuda": "Erases what Alumia stored on this device and opens an ordinary outside page (the weather forecast), with nothing from the Institute.",
     "cartaoSeguranca": "Safety first: never post a home address, phone number or ID. If something worries you, report it.",
     "cuidados": {
       "titulo": "Care",
@@ -169,7 +170,7 @@
     "limite_de_niveis": "The conversation reached the nesting limit: continue from a reply higher up.",
     "muitos_pedidos": "Slow down: too many requests in a row. Try again shortly.",
     "banco_desatualizado": "The database hasn't received the network update yet.",
-    "sem_servico": "The accounts service isn't enabled in this environment.",
+    "sem_servico": "This part of Alumia isn't available here yet. Please try again later.",
     "sem_conexao": "No connection. Check your internet and try again.",
     "falha": "Something went wrong. Try again.",
     "invalido": "Check the field: {campo}.",
