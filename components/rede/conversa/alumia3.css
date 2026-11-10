@@ -916,3 +916,9 @@
 [data-al="2"] .al3-aviso-rosto[data-tipo="chamado"] .al3-aviso-tipo { --al3-tipo: var(--al-vermelho); color: var(--al-sobre-vermelho); }
 [data-al="2"] .al3-aviso-rosto[data-tipo="moderacao"] .al3-aviso-tipo { --al3-tipo: var(--al-dourado); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-tipo { background: var(--al-fundo); color: var(--al-texto); border-color: var(--al-texto); }
+@media (max-width: 420px) {
+  /* As reações, o "+" e o (i) numa linha só no celular estreito. */
+  [data-al="2"] .al3-reacoes { gap: 0.3rem; }
+  [data-al="2"] .al3-reacao { padding: 0 0.55rem; }
+  [data-al="2"] .al3-reacao-abrir { min-width: 40px; }
+}
