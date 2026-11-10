@@ -10,6 +10,9 @@
  */
 
 [data-al="2"] .al3 {
+  /* A mola das pranchas (a mesma de movimento.ts): sobe rápido, passa um tico e assenta. */
+  --al3-mola: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001);
+  --al3-pulo: linear(0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%, 0.997 69.8%, 1.003 76.9%, 1);
   background: var(--al-fundo);
   color: var(--al-texto);
   font-family: var(--al-fonte);
@@ -237,23 +240,64 @@
 [data-al="2"] .al3-ordem button[aria-pressed="true"] { background: var(--al-cartao-aceso); border-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
 :root[data-eink] [data-al="2"] .al3-ordem button[aria-pressed="true"] { background: #000; color: #fff; border-color: #000; }
 
-[data-al="2"] .al3-fio { list-style: none; margin: 0; padding: 0.4rem 0 0.5rem; }
-[data-al="2"] .al3-resposta { position: relative; display: grid; grid-template-columns: 32px 1fr; gap: 0 12px; padding: 0.7rem 16px 0.55rem; }
-[data-al="2"] .al3-resposta[data-nivel="2"] { margin-left: 42px; }
-[data-al="2"] .al3-resposta[data-nivel="3"] { margin-left: 84px; }
-[data-al="2"] .al3-resposta[data-nivel="4"],
-[data-al="2"] .al3-resposta[data-nivel="5"] { margin-left: 120px; }
-@media (max-width: 380px) {
-  [data-al="2"] .al3-resposta[data-nivel="3"],
-  [data-al="2"] .al3-resposta[data-nivel="4"],
-  [data-al="2"] .al3-resposta[data-nivel="5"] { margin-left: 84px; }
+/*
+ * O fio em árvore (prancha: a linha cinza que desce do rosto de quem respondeu até as respostas a ela). Cada resposta é uma grade
+ * [rosto | corpo] e, embaixo, a lista das respostas a ela. A linha do rosto (.al3-fio-linha) estica até o fim da própria resposta;
+ * na lista de baixo, cada filha tem um cotovelo arredondado que sai do fio e chega no rosto dela, e as filhas que não são a última
+ * levam o fio adiante. As linhas se desenham de cima para baixo quando a conversa abre (mola), uma depois da outra.
+ */
+[data-al="2"] .al3-fio,
+[data-al="2"] .al3-filhos { list-style: none; margin: 0; padding: 0; }
+[data-al="2"] .al3-fio { padding: 0.4rem 16px 0.5rem; }
+[data-al="2"] .al3-resposta {
+  --al3-recuo: 42px; --al3-rosto: 32px; --al3-topo: 0.7rem;
+  position: relative; display: grid; grid-template-columns: var(--al3-rosto) minmax(0, 1fr); gap: 0 12px; padding-top: var(--al3-topo);
 }
-/* A linha do fio: desce do rosto de quem respondeu até o fim das respostas a ela (prancha: a linha cinza à esquerda). */
-[data-al="2"] .al3-resposta[data-tem-filhos="sim"]::before {
-  content: ""; position: absolute; left: calc(16px + 15px); top: calc(0.7rem + 38px); bottom: -0.2rem; width: 2px;
+[data-al="2"] .al3-resposta-lado { display: flex; flex-direction: column; align-items: center; align-self: stretch; }
+[data-al="2"] .al3-fio-linha {
+  flex: 1; width: 2px; margin-top: 6px; min-height: 0.75rem; border-radius: 2px; background: var(--al-superficie-2);
+  transform-origin: top;
+}
+[data-al="2"] .al3-resposta-corpo { min-width: 0; padding-bottom: 0.55rem; }
+[data-al="2"] .al3-ramo { grid-column: 1 / -1; display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.42s var(--al3-mola), opacity 0.3s; }
+[data-al="2"] .al3-ramo > .al3-filhos { overflow: hidden; min-height: 0; }
+[data-al="2"] .al3-ramo[data-recolhido="sim"] { grid-template-rows: 0fr; opacity: 0; }
+/* As filhas ficam recuadas até o rosto delas; o fio (borda) passa no meio do rosto da mãe. */
+[data-al="2"] .al3-filhos { margin-left: calc(var(--al3-rosto) / 2 - 1px); padding-left: calc(var(--al3-recuo) - var(--al3-rosto) / 2 + 1px); }
+[data-al="2"] .al3-filhos > .al3-resposta::before {
+  /* O cotovelo: desce do fio da mãe e faz a curva até o rosto da filha. */
+  content: ""; position: absolute; left: calc(-1 * (var(--al3-recuo) - var(--al3-rosto) / 2 + 1px)); top: 0;
+  width: calc(var(--al3-recuo) - var(--al3-rosto) / 2 - 3px); height: calc(var(--al3-topo) + var(--al3-rosto) / 2);
+  border-left: 2px solid var(--al-superficie-2); border-bottom: 2px solid var(--al-superficie-2); border-bottom-left-radius: 14px;
+}
+[data-al="2"] .al3-filhos > .al3-resposta:not(:last-child)::after {
+  /* As irmãs de baixo ainda precisam do fio: ele continua por esta resposta até a próxima. */
+  content: ""; position: absolute; left: calc(-1 * (var(--al3-recuo) - var(--al3-rosto) / 2 + 1px)); top: 0; bottom: 0; width: 2px;
   background: var(--al-superficie-2);
 }
-:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-resposta[data-tem-filhos="sim"]::before { background: var(--al-texto); }
+/* Do 4º nível em diante a conversa para de andar para a direita (no celular viraria escada): a filha fica logo abaixo, sem cotovelo. */
+[data-al="2"] .al3-filhos-raso { margin-left: 0; padding-left: 0; }
+[data-al="2"] .al3-filhos-raso > .al3-resposta::before,
+[data-al="2"] .al3-filhos-raso > .al3-resposta::after { display: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-fio-linha,
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-filhos > .al3-resposta::after { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-filhos > .al3-resposta::before { border-color: var(--al-texto); }
+/* A resposta que vai receber a resposta (Responder): uma faixa dourada à esquerda e um brilho que acende e assenta. */
+[data-al="2"] .al3-resposta[data-alvo="sim"] > .al3-resposta-corpo { box-shadow: inset 3px 0 0 var(--al-dourado); padding-left: 10px; margin-left: -10px; border-radius: 4px; }
+[data-al="2"] .al3-resposta[data-alvo="sim"] > .al3-resposta-corpo { animation: al3-alvo 1.2s ease-out; }
+@keyframes al3-alvo { from { background: color-mix(in srgb, var(--al-dourado) 22%, transparent); } to { background: transparent; } }
+/* "Recolher N respostas": a seta gira; o ramo fecha e abre deslizando (grade de 1fr a 0fr), sem pulo. */
+[data-al="2"] .al3-recolher {
+  display: inline-flex; align-items: center; gap: 0.45rem; min-height: 36px; margin: 0 0 0 -0.4rem; padding: 0 0.4rem; border: 0; border-radius: 8px;
+  background: none; color: var(--al-texto-3); font: inherit; font-size: 0.86rem; font-weight: 700; cursor: pointer;
+}
+[data-al="2"] .al3-recolher:hover { color: var(--al-texto); background: var(--al-superficie); }
+[data-al="2"] .al3-recolher-seta {
+  width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform 0.35s var(--al3-mola);
+}
+[data-al="2"] .al3-recolher[aria-expanded="false"] .al3-recolher-seta { transform: rotate(-45deg); }
+[data-al="2"] .al3-resposta-silenciada .al3-silenciada { padding: 0.2rem 0 0.6rem; }
 [data-al="2"] .al3-resposta-topo { display: flex; align-items: flex-start; gap: 0.25rem; margin-top: -0.35rem; }
 [data-al="2"] .al3-resposta-topo .al3-resposta-mais { margin: -0.1rem -0.6rem 0 auto; }
 [data-al="2"] .al3-resposta-cabeca { flex: 1; min-width: 0; margin: 0.35rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 0.45rem; font-size: 1.02rem; }
@@ -274,8 +318,12 @@
   border: 1px solid var(--al-superficie-2); font-weight: 700; font-size: 0.85rem; color: var(--al-texto-2);
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-servidor { border-color: var(--al-texto); }
-[data-al="2"] .al3-resposta-acoes[hidden] { display: none; }
+/* A gaveta das ações da resposta: abre deslizando (grade 0fr → 1fr), sem empurrar o fio de uma vez. Fechada, fica inerte. */
+[data-al="2"] .al3-gaveta { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.38s var(--al3-mola), opacity 0.25s; }
+[data-al="2"] .al3-gaveta[data-aberta="sim"] { grid-template-rows: 1fr; opacity: 1; }
+[data-al="2"] .al3-gaveta > * { overflow: hidden; min-height: 0; }
 [data-al="2"] .al3-resposta-acoes { display: flex; flex-wrap: wrap; gap: 0 0.25rem; margin: 0.15rem 0 0 -0.5rem; }
+[data-al="2"] .al3-gaveta[data-aberta="nao"] .al3-resposta-acoes { visibility: hidden; transition: visibility 0s 0.38s; }
 [data-al="2"] .al3-silenciada { margin: 0; padding: 0.7rem 16px; color: var(--al-texto-3); font-size: 0.92rem; }
 
 /* A caixa "Responder para @…" fixa embaixo (no celular fica acima da barra da casca, que vai até 767 px). */
@@ -374,3 +422,121 @@
   border-color: var(--al-texto);
 }
 [data-al="2"] .al3-regra a { text-decoration: underline; }
+
+/* ═══ Onda A · UI/UX (10/11/2026): movimento, microinterações e as funções rápidas da Onda B ═══════════════════════════════
+ * Tudo que se mexe aqui some com prefers-reduced-motion e com o modo parado do site (styles/alumia-tokens.css desliga animação e
+ * transição dentro de [data-al="2"]); o e-ink também fica parado (abaixo). As curvas são a mola de --al3-mola e --al3-pulo. */
+[data-al="2"] .al3-tela { --al3-mola: cubic-bezier(0.2, 0.9, 0.25, 1.05); --al3-pulo: cubic-bezier(0.3, 1.5, 0.5, 1); }
+@supports (transition-timing-function: linear(0, 1)) {
+  [data-al="2"] .al3-tela {
+    --al3-mola: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001);
+  }
+}
+:root[data-eink] [data-al="2"] :is(.al3, .al3-tela) *,
+:root[data-eink] [data-al="2"] :is(.al3, .al3-tela) *::before,
+:root[data-eink] [data-al="2"] :is(.al3, .al3-tela) *::after { animation: none !important; transition: none !important; }
+
+/* Entradas: o que chega sobe um pouco e aparece (aviso, linha da caixa de resposta, painel de aba). */
+@keyframes al3-entra { from { opacity: 0; transform: translateY(8px); } }
+@keyframes al3-aparece { from { opacity: 0; } }
+@keyframes al3-desenha { from { transform: scaleY(0); } }
+@keyframes al3-cotovelo { from { clip-path: inset(0 100% 100% 0); } to { clip-path: inset(0 0 0 0); } }
+[data-al="2"] .al3-entra { animation: al3-entra 0.42s var(--al3-mola) both; }
+
+/* A conversa abre em cascata: cada resposta sobe com um tico de atraso, e as linhas do fio se desenham de cima para baixo. */
+[data-al="2"] .al3-fio > .al3-resposta { animation: al3-entra 0.5s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 55ms + 80ms); }
+[data-al="2"] .al3-filhos > .al3-resposta { animation: al3-entra 0.5s var(--al3-mola) both; animation-delay: calc(min(var(--i, 0), 8) * 55ms + 220ms); }
+[data-al="2"] .al3-fio-linha { animation: al3-desenha 0.6s var(--al3-mola) both; animation-delay: 0.35s; }
+[data-al="2"] .al3-filhos > .al3-resposta::before { animation: al3-cotovelo 0.45s ease-out both; animation-delay: calc(min(var(--i, 0), 8) * 55ms + 0.5s); }
+[data-al="2"] .al3-filhos > .al3-resposta::after { transform-origin: top; animation: al3-desenha 0.5s var(--al3-mola) both; animation-delay: 0.55s; }
+
+/* A gaveta das ações: o recuo vai na gaveta (a lista dentro corta o que passa da borda). */
+[data-al="2"] .al3-gaveta { margin-left: -0.5rem; }
+[data-al="2"] .al3-gaveta .al3-resposta-acoes { margin-left: 0; }
+
+/* "Mais antigas / Mais novas": a pílula clara desliza até o botão escolhido (régua medida em movimento.ts). */
+[data-al="2"] .al3-ordem { position: relative; }
+[data-al="2"] .al3-ordem button { position: relative; z-index: 1; transition: color 0.25s, border-color 0.25s, transform 0.2s var(--al3-pulo); }
+[data-al="2"] .al3-ordem button:active { transform: scale(0.96); }
+[data-al="2"] .al3-regua { display: none; }
+[data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua {
+  display: block; position: absolute; z-index: 0; left: 0; top: 1.1rem; height: 44px; width: var(--al3-l); transform: translateX(var(--al3-x));
+  border-radius: 999px; background: var(--al-cartao-aceso); transition: transform 0.5s var(--al3-mola), width 0.5s var(--al3-mola);
+}
+[data-al="2"] .al3-ordem[data-regua="sim"] button[aria-pressed="true"] { background: transparent; border-color: transparent; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-ordem[data-regua="sim"] .al3-regua { background: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-ordem[data-regua="sim"] button[aria-pressed="true"] { color: var(--al-fundo); }
+
+/* O sininho de seguir a conversa (na barra, depois do "N respostas"): balança ao ligar. */
+[data-al="2"] .al3-sino {
+  display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; margin-right: -0.4rem; border: 0; border-radius: 999px;
+  background: none; color: var(--al-texto-3); cursor: pointer; transition: color 0.2s, background 0.2s;
+}
+[data-al="2"] .al3-sino:hover { color: var(--al-texto); background: var(--al-superficie); }
+[data-al="2"] .al3-sino[aria-pressed="true"] { color: var(--al-dourado); }
+[data-al="2"] .al3-sino[aria-pressed="true"] .al3-icone-sino { animation: al3-balanca 0.8s ease-in-out; transform-origin: 50% 12%; }
+[data-al="2"] .al3-sino-onda { animation: al3-aparece 0.4s 0.2s both; }
+@keyframes al3-balanca { 0% { transform: rotate(0); } 20% { transform: rotate(16deg); } 40% { transform: rotate(-12deg); } 60% { transform: rotate(7deg); } 80% { transform: rotate(-3deg); } 100% { transform: rotate(0); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-sino[aria-pressed="true"] { color: var(--al-texto); outline: 2px solid var(--al-texto); }
+
+/* Acender e Salvar com ícone: a chama tremula e cresce ao acender; o marcador cai no lugar ao salvar. */
+[data-al="2"] .al3-icone-acao { width: 18px; height: 18px; flex: none; }
+[data-al="2"] .al3-acao { transition: color 0.2s, background 0.2s, transform 0.18s var(--al3-pulo); }
+[data-al="2"] .al3-acao:active:not(:disabled) { transform: scale(0.94); }
+[data-al="2"] .al3-acao-acender[aria-pressed="true"] .al3-chama { animation: al3-chama 0.6s var(--al3-pulo); transform-origin: 50% 90%; }
+[data-al="2"] .al3-acao-salvar[aria-pressed="true"] { color: var(--al-dourado); }
+[data-al="2"] .al3-acao-salvar[aria-pressed="true"] .al3-marcador { animation: al3-marca 0.5s var(--al3-pulo); }
+@keyframes al3-chama { 0% { transform: scale(0.6) rotate(-8deg); } 50% { transform: scale(1.25) rotate(6deg); } 100% { transform: none; } }
+@keyframes al3-marca { from { transform: translateY(-6px) scaleY(0.6); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-acao-salvar[aria-pressed="true"] { color: var(--al-texto); }
+
+/* Reações: a pílula escolhida pula (movimento.ts), o número novo sobe no lugar do antigo e a paleta abre do botão. */
+[data-al="2"] .al3-reacao { transition: border-color 0.2s, background 0.2s, transform 0.18s var(--al3-pulo); }
+[data-al="2"] .al3-reacao:hover:not(:disabled) { border-color: var(--al-texto-3); }
+[data-al="2"] .al3-reacao:active:not(:disabled) { transform: scale(0.92); }
+[data-al="2"] .al3-reacao-emoji { font-size: 1.1rem; line-height: 1; }
+[data-al="2"] .al3-reacao-n { display: inline-block; min-width: 1ch; font-variant-numeric: tabular-nums; font-weight: 700; animation: al3-numero 0.35s var(--al3-mola); }
+@keyframes al3-numero { from { opacity: 0; transform: translateY(60%); } }
+[data-al="2"] .al3-reacao-abrir { color: var(--al-texto-2); font-weight: 700; }
+[data-al="2"] .al3-paleta:not([hidden]) { transform-origin: top left; animation: al3-paleta 0.32s var(--al3-mola); width: fit-content; box-shadow: 0 12px 30px rgb(0 0 0 / 0.35); }
+@keyframes al3-paleta { from { opacity: 0; transform: translateY(-6px) scale(0.92); } }
+[data-al="2"] .al3-paleta button { animation: al3-emoji 0.4s var(--al3-pulo) both; animation-delay: calc(var(--i, 0) * 28ms); transition: transform 0.18s var(--al3-pulo), background 0.2s; }
+[data-al="2"] .al3-paleta button:hover { transform: scale(1.25) translateY(-2px); }
+@keyframes al3-emoji { from { opacity: 0; transform: scale(0.3) translateY(6px); } }
+
+/* O selo do servidor do Fediverso: o globo gira devagar no passar do mouse (de onde a resposta veio). */
+[data-al="2"] .al3-servidor svg { transition: transform 0.8s var(--al3-mola); }
+[data-al="2"] .al3-servidor:hover svg { transform: rotate(180deg); }
+[data-al="2"] .al3-servidor { background: color-mix(in srgb, var(--al-com-4) 10%, transparent); border-color: color-mix(in srgb, var(--al-com-4) 45%, var(--al-superficie-2)); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-servidor { background: none; border-color: var(--al-texto); }
+
+/* "ajudou a autora": o selo dourado entra carimbado (um pouco torto, assenta). */
+[data-al="2"] .al3-ajudou { animation: al3-carimba 0.5s var(--al3-pulo) both; }
+@keyframes al3-carimba { from { opacity: 0; transform: scale(1.6) rotate(-6deg); } }
+
+/* Citar trecho: o botão aparece logo abaixo do que foi selecionado. */
+[data-al="2"] .al3-citar-trecho {
+  position: fixed; z-index: 40; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 0.45rem; min-height: 44px; padding: 0 1rem;
+  border: 0; border-radius: 999px; background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font: inherit; font-weight: 800; cursor: pointer;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.45); animation: al3-citar 0.3s var(--al3-mola);
+}
+@keyframes al3-citar { from { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(0.9); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-citar-trecho { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); box-shadow: none; }
+[data-al="2"] .al3-citacao {
+  display: flex; align-items: center; gap: 0.45rem; flex: 1 1 100%; min-width: 0; padding: 0.35rem 0.6rem; border-radius: 10px;
+  border-left: 3px solid var(--al-dourado); background: var(--al-superficie); color: var(--al-texto-2);
+}
+[data-al="2"] .al3-citacao-texto { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-style: italic; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al3-citacao { border: 2px solid var(--al-texto); }
+
+/* A caixa de resposta: o enviar acende quando há texto e dá um pulo ao mandar; a contagem aparece só perto do fim. */
+[data-al="2"] .al3-responder textarea { transition: border-color 0.2s, box-shadow 0.2s; }
+[data-al="2"] .al3-responder textarea:focus { outline: none; border-color: var(--al-foco); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-foco) 25%, transparent); }
+[data-al="2"] .al3-enviar { transition: opacity 0.2s, transform 0.2s var(--al3-pulo), filter 0.2s; }
+[data-al="2"] .al3-enviar:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+[data-al="2"] .al3-enviar:not(:disabled):active { transform: scale(0.93); }
+[data-al="2"] .al3-enviar:not(:disabled) svg { animation: al3-entra 0.3s var(--al3-mola); }
+[data-al="2"] .al3-responder[data-enviando="sim"] .al3-enviar svg { animation: al3-voa 0.6s ease-in infinite; }
+@keyframes al3-voa { 50% { transform: translate(3px, -3px); opacity: 0.6; } }
+[data-al="2"] .al3-contador-visivel { position: absolute; right: calc(12px + 56px + 0.6rem + 0.8rem); bottom: calc(0.75rem + 0.4rem + env(safe-area-inset-bottom, 0px)); font-size: 0.78rem; font-weight: 700; color: var(--al-texto-3); }
+[data-al="2"] .al3-contador-visivel[data-perto="fim"] { color: var(--al-vermelho); }

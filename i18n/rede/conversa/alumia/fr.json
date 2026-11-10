@@ -104,7 +104,17 @@
     "enviarMesmo": "Envoyer quand même",
     "revisar": "Relire",
     "voltar": "Retour",
-    "reagirComo": "Réagir avec {nome}"
+    "reagirComo": "Réagir avec {nome}",
+    "seguir": "Suivre la conversation",
+    "seguindo": "Conversation suivie (touchez pour arrêter)",
+    "seguirRegra": "Vous recevez une seule notification groupée quand des réponses arrivent. Personne ne voit qui suit, pas même l’auteur.",
+    "seguiu": "Vous suivez cette conversation.",
+    "deixouDeSeguir": "Vous ne suivez plus cette conversation.",
+    "citarTrecho": "Citer l’extrait",
+    "citando": "Citation : « {trecho} »",
+    "tirarCitacao": "Retirer la citation",
+    "recolherRamo": "Replier {n} réponses",
+    "mostrarRamo": "Afficher {n} réponses"
   },
   "reacoes": {
     "rotulo": "Réactions",

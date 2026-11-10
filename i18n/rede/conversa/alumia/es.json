@@ -104,7 +104,17 @@
     "enviarMesmo": "Enviar igual",
     "revisar": "Revisar",
     "voltar": "Volver",
-    "reagirComo": "Reaccionar con {nome}"
+    "reagirComo": "Reaccionar con {nome}",
+    "seguir": "Seguir la conversación",
+    "seguindo": "Siguiendo la conversación (toca para dejar de seguir)",
+    "seguirRegra": "Quien sigue recibe un solo aviso, agrupado, cuando llegan respuestas. Nadie ve quién sigue, ni quien escribió el post.",
+    "seguiu": "Estás siguiendo esta conversación.",
+    "deixouDeSeguir": "Dejaste de seguir esta conversación.",
+    "citarTrecho": "Citar fragmento",
+    "citando": "Citando: «{trecho}»",
+    "tirarCitacao": "Quitar la cita",
+    "recolherRamo": "Ocultar {n} respuestas",
+    "mostrarRamo": "Mostrar {n} respuestas"
   },
   "reacoes": {
     "rotulo": "Reacciones",

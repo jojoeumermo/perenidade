@@ -104,7 +104,17 @@
     "enviarMesmo": "Send anyway",
     "revisar": "Review",
     "voltar": "Back",
-    "reagirComo": "React with {nome}"
+    "reagirComo": "React with {nome}",
+    "seguir": "Follow the conversation",
+    "seguindo": "Following the conversation (tap to stop)",
+    "seguirRegra": "Followers get a single, grouped notice when replies arrive. Nobody sees who follows, not even the author.",
+    "seguiu": "You are following this conversation.",
+    "deixouDeSeguir": "You stopped following this conversation.",
+    "citarTrecho": "Quote excerpt",
+    "citando": "Quoting: “{trecho}”",
+    "tirarCitacao": "Remove quote",
+    "recolherRamo": "Collapse {n} replies",
+    "mostrarRamo": "Show {n} replies"
   },
   "reacoes": {
     "rotulo": "Reactions",
