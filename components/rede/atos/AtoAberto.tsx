@@ -58,8 +58,10 @@ export function AtoAberto({ ato, t, lang, logado = true, nivel = 2, depois }: { 
   return (
     <article className="al-ato-aberto" aria-labelledby={`al-ato-aberto-${ato.id}`} data-situacao={ato.situacao}>
       <MosaicoDoAto ato={ato} t={t} quebrar={31} className="al-ato-aberto-mosaico" inclinar />
+      {/* Ordem de leitura e de Tab: o topo (marcas, nome, quando, onde), as ações, e o resto. No computador as ações ficam numa
+          coluna à direita das duas partes; no celular, numa linha logo abaixo do nome (nunca sob a barra de baixo da casca). */}
       <div className="al-ato-aberto-corpo">
-        <div className="al-ato-aberto-texto">
+        <div className="al-ato-aberto-texto al-ato-aberto-topo">
           <div className="al-ato-aberto-marcas">
             {ato.comunidade ? <Pilula texto={ato.comunidade.nome} slug={ato.comunidade.slug} cor={corValida(ato.comunidade.cor)} href={enderecos.comunidade(lang, ato.comunidade.slug)} tamanho="m" /> : null}
             <CarimboDoAto ato={ato} t={t} tamanho="g" />
@@ -75,13 +77,15 @@ export function AtoAberto({ ato, t, lang, logado = true, nivel = 2, depois }: { 
             {ponto}, {ato.cidade}
             {detalhe ? <> · {detalhe}</> : null}
           </p>
+        </div>
+        <ColunaDeAcoes ato={ato} t={t} lang={lang} logado={logado} lembrete />
+        <div className="al-ato-aberto-texto al-ato-aberto-resto">
           {ato.motivo && ato.situacao !== "confirmado" ? <p className="al-ato-motivo">{ato.motivo}</p> : null}
           <FaixaDoFarol ato={ato} t={t} />
           <Chamado ato={ato} t={t} />
           <FraseDoMosaico ato={ato} t={t} />
           {depois}
         </div>
-        <ColunaDeAcoes ato={ato} t={t} lang={lang} logado={logado} lembrete />
       </div>
     </article>
   );
