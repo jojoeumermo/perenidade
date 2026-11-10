@@ -70,6 +70,35 @@ const reporting = /^https:\/\/[a-z0-9.-]+(:\d+)?(\/[^\s"';]*)?$/i.test(reportUrl
 // (tradução em português do Bruno Lemos), NetLogo Web (modelos oficiais, sem cópia) e GeoGebra (calculadora, sem cópia).
 const labsExternos = "https://brunolemos.github.io https://netlogoweb.org https://www.geogebra.org";
 
+// A ponte de sessão (login único, lib/sessao/ponte.ts e app/api/sessao/ponte): a Alumia e a Escola, nos endereços próprios,
+// abrem um quadro escondido do site do instituto (/api/sessao/ponte) para trazer a entrada sem pedir a senha de novo. Por isso o
+// site do instituto entra no frame-src das páginas, e o quadro da ponte só pode ser embutido pelos dois subdomínios.
+const origemDoSiteParaPonte = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_SITE_URL || (dev ? "http://localhost:3000" : "https://institutolucia.org")).origin;
+  } catch {
+    return "";
+  }
+})();
+const quadroDaPonte = dev ? "http://localhost:*" : origemDoSiteParaPonte;
+const quemEmbuteAPonte = (() => {
+  if (dev) return "http://alumia.localhost:* http://escola.localhost:*";
+  try {
+    const host = new URL(origemDoSiteParaPonte).host;
+    return `https://alumia.${host} https://escola.${host}`;
+  } catch {
+    return "'none'";
+  }
+})();
+const politicaDaPonte = [
+  "default-src 'none'",
+  "script-src 'self'",
+  `connect-src 'self' ${service}`.trim(),
+  `frame-ancestors ${quemEmbuteAPonte}`,
+  "base-uri 'none'",
+  "form-action 'none'",
+].join("; ");
+
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>
   [
@@ -90,7 +119,7 @@ const policy = (script: string) =>
     // 'self': os laboratórios e editores do próprio site abertos dentro da Sala livre e da caixa das aulas (sem ele, o
     // navegador recusava o quadro e mostrava "este conteúdo está bloqueado"). blob: é a prévia, no próprio aparelho, de um
     // PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src 'self' blob: ${captcha} ${jitsi} ${galene} https://phet.colorado.edu ${labsExternos} ${videos} ${instagram} ${estudio}${vlibrasCodigo}`.trim(),
+    `frame-src 'self' blob: ${captcha} ${jitsi} ${galene} https://phet.colorado.edu ${labsExternos} ${videos} ${instagram} ${estudio}${vlibrasCodigo} ${quadroDaPonte}`.trim(),
     // Só o próprio site embute as páginas dele (os laboratórios abrem dentro da caixa das aulas); ninguém de fora.
     "frame-ancestors 'self'",
     "base-uri 'self'",
@@ -193,6 +222,8 @@ const nextConfig: NextConfig = {
     return [
       { source: "/((?!workers/).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },
       { source: "/workers/:path*", headers: [{ key: "Content-Security-Policy", value: workers }, ...common] },
+      // O quadro da ponte de sessão: só os subdomínios embutem, só o próprio script roda, nada vai para o cache.
+      { source: "/api/sessao/ponte/:resto*", headers: [{ key: "Content-Security-Policy", value: politicaDaPonte }, { key: "Cache-Control", value: "private, no-store" }] },
       // Os interpretadores são grandes e mudam raramente: o navegador pode guardá-los por uma semana.
       { source: "/(pyodide|php|typescript|lua|ruby|jscpp)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=604800" }] },
       // Vozes naturais do "Ouvir a aula" (npm run vozes:baixar): a versão está no nome da pasta (kokoro-1939ad2/,

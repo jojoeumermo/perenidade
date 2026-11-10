@@ -1,10 +1,16 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { Archivo, EB_Garamond } from "next/font/google";
 import { MolduraDaAlumia } from "@/components/rede/MolduraDaAlumia";
+import { PortaoDaAlumia } from "@/components/rede/entrada/PortaoDaAlumia";
 import { ComAlumia2 } from "@/components/rede/conversa/Alumia2";
 import { loadLang } from "@/i18n";
 import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import { textosDaRede } from "@/lib/rede/textos";
+import { figurasDaEntrada } from "@/lib/rede/entrada/figuras";
+import { textosDaEntrada } from "@/lib/rede/entrada/textos";
+import { alumiaComEndereco } from "@/lib/rede/alumia";
+import { ligado } from "@/lib/recursos";
+import { site } from "@/lib/site";
 // Os tokens da Alumia nova (Onda 5): só valem dentro de [data-al="2"], que só aparece com "rede-v2" + "alumia-2" ligadas.
 import "@/styles/alumia-tokens.css";
 
@@ -24,9 +30,18 @@ const garamond = EB_Garamond({ subsets: ["latin", "latin-ext"], style: ["italic"
  */
 export default async function LayoutDaAlumia({ children, params }: LayoutProps<"/[lang]/alumia">) {
   const { lang } = await loadLang(params);
+  // Recurso "alumia-entrada" (só pelo nome): sem conta aprovada e sem o segundo fator, a Alumia mostra só a entrada (o portão
+  // decide no navegador, onde mora a sessão; o banco confere de novo). Desligado, nada muda.
+  const conteudo = ligado("alumia-entrada") ? (
+    <PortaoDaAlumia lang={lang} t={textosDaEntrada(lang)} figuras={figurasDaEntrada()} site={alumiaComEndereco ? `${site.url}/${lang}` : `/${lang}`}>
+      {children}
+    </PortaoDaAlumia>
+  ) : (
+    children
+  );
   const moldura = (
     <MolduraDaAlumia lang={lang} s={textosDaRede(lang)}>
-      {children}
+      {conteudo}
     </MolduraDaAlumia>
   );
   if (!alumia2Ligada()) return moldura;
