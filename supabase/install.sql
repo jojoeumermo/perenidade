@@ -33950,7 +33950,7 @@ create or replace function interno.rede5_story_json(s interno.rede_stories, p_qu
       else jsonb_build_object('tipo', s.fundo, 'cor', s.cor) end,
     'texto', s.texto, 'legenda', s.legenda, 'meu', s.autor = p_quem, 'estilo', s.estilo,
     'destaques', case when s.autor = p_quem then coalesce((select jsonb_agg(d.destaque) from rede_story_no_destaque d where d.story = s.id), '[]'::jsonb) end,
-    'figurinhas', coalesce((select jsonb_agg(interno.rede5_story_figurinha(f, s, p_quem) order by f.ordem) from rede_story_figurinhas f where f.story = s.id), '[]'::jsonb))
+    'figurinhas', coalesce((select jsonb_agg(interno.rede5_story_figurinha(f, s, p_quem) || jsonb_strip_nulls(jsonb_build_object('pos', f.dados -> 'pos')) order by f.ordem) from rede_story_figurinhas f where f.story = s.id), '[]'::jsonb))
 $$;
 
 /** O estilo do texto, limpo: só chaves e valores da lista fechada (nunca CSS livre). Valor fora da lista é recusado. */
@@ -33972,6 +33972,23 @@ begin
 end $$;
 
 -- ── 5. Publicar (a F5, com vídeo, estilo e a menção de comunidade) ────────────────────────────────────────────────────────
+/**
+ * Onde a figurinha fica na tela, como a autora a deixou no "criar": x e y de 0 a 1 (o centro dela na tela do story), o giro em
+ * graus (até 45 para cada lado, para continuar legível) e o tamanho (0,5 a 1,6). Só números; fora disso, nulo (a tela escolhe).
+ */
+create or replace function interno.rede5_story_pos(p jsonb) returns jsonb language plpgsql immutable set search_path = interno, pg_temp as $$
+declare x numeric; y numeric; g numeric := 0; e numeric := 1;
+begin
+  if p is null or jsonb_typeof(p) is distinct from 'object' then return null; end if;
+  if jsonb_typeof(p -> 'x') is distinct from 'number' or jsonb_typeof(p -> 'y') is distinct from 'number' then return null; end if;
+  x := (p ->> 'x')::numeric;
+  y := (p ->> 'y')::numeric;
+  if jsonb_typeof(p -> 'giro') = 'number' then g := (p ->> 'giro')::numeric; end if;
+  if jsonb_typeof(p -> 'escala') = 'number' then e := (p ->> 'escala')::numeric; end if;
+  return jsonb_build_object('x', round(least(0.95, greatest(0.05, x)), 4), 'y', round(least(0.95, greatest(0.05, y)), 4),
+    'giro', round(least(45, greatest(-45, g)), 1), 'escala', round(least(1.6, greatest(0.5, e)), 3));
+end $$;
+
 /**
  * Publica um story (PedidoDeStory de lib/rede/tipos-stories.ts). Tudo da F5 continua: público, fundo, tamanhos, dado pessoal,
  * até 3 figurinhas (uma enquete e uma contagem no máximo), link só https, contagem só de ato meu ou confirmado, 20 por dia. Novo:
@@ -34071,6 +34088,10 @@ begin
       v_limpas := v_limpas || jsonb_build_object('tipo', 'comunidade', 'dados', jsonb_build_object('slug', c.slug, 'nome', c.nome));
     else
       perform interno.erro('invalido:figurinha');
+    end if;
+    -- O lugar na tela (opcional): só o que passa em rede5_story_pos.
+    if interno.rede5_story_pos(f -> 'pos') is not null then
+      v_limpas := jsonb_set(v_limpas, array[(jsonb_array_length(v_limpas) - 1)::text, 'dados', 'pos'], interno.rede5_story_pos(f -> 'pos'));
     end if;
   end loop;
   if v_enquetes > 1 or v_contagens > 1 or v_comunidades > 1 then perform interno.erro('invalido:figurinhas'); end if;
@@ -34255,14 +34276,14 @@ end $$;
 
 -- ── 9. Permissões (a versão da Alumia, public.rede_alumia_versao, sobe na migração final da onda, pelo integrador) ────────────────────────────────────────────────────────────────────────────────────────────────────────
 revoke all on function interno.rede5_story_regra(interno.rede_stories, uuid), interno.rede5_story_no_destaque(uuid),
-  interno.rede5_story_ve_destaque(interno.rede_stories, uuid), interno.rede5_story_guardado(uuid), interno.rede5_story_estilo(jsonb) from public;
+  interno.rede5_story_ve_destaque(interno.rede_stories, uuid), interno.rede5_story_guardado(uuid), interno.rede5_story_estilo(jsonb), interno.rede5_story_pos(jsonb) from public;
 revoke all on function public.rede_story_comunidades(), public.rede_story_destaques(text), public.rede_story_destaque_abrir(uuid),
   public.rede_story_destaque_salvar(uuid, text, uuid, text), public.rede_story_destaque_tirar(uuid, uuid), public.rede_story_destaque_apagar(uuid) from public;
 do $$
 begin
   if exists (select 1 from pg_roles where rolname = 'anon') then
     revoke all on function interno.rede5_story_regra(interno.rede_stories, uuid), interno.rede5_story_no_destaque(uuid),
-      interno.rede5_story_ve_destaque(interno.rede_stories, uuid), interno.rede5_story_guardado(uuid), interno.rede5_story_estilo(jsonb) from anon, authenticated;
+      interno.rede5_story_ve_destaque(interno.rede_stories, uuid), interno.rede5_story_guardado(uuid), interno.rede5_story_estilo(jsonb), interno.rede5_story_pos(jsonb) from anon, authenticated;
     revoke all on function public.rede_story_comunidades(), public.rede_story_destaques(text), public.rede_story_destaque_abrir(uuid),
       public.rede_story_destaque_salvar(uuid, text, uuid, text), public.rede_story_destaque_tirar(uuid, uuid), public.rede_story_destaque_apagar(uuid) from anon, authenticated;
     -- Leitura só com conta (visitante não vê story nenhum: a F5 só deixa a ele a faixa e o abrir, que voltam vazios).
