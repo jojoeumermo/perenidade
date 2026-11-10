@@ -23,7 +23,7 @@ import type { AcoesDeGestor } from "../org/CuidarDaOrg";
 import { PerfilDaOrg } from "../org/PerfilDaOrg";
 import { useTextosDoPerfil } from "./useTextos";
 import { aparenciaDe, extrasDe, perfilDaPrevia, previa, type AparenciaLida } from "./livre/dados";
-import { PaginaDoPerfil, PostsDaPrevia } from "./livre/PaginaDoPerfil";
+import { PaginaDoPerfil, PerfilNaoAchado, PostsDaPrevia } from "./livre/PaginaDoPerfil";
 import { useTextosDoPerfilLivre } from "./livre/textos";
 import "../org/org.css";
 
@@ -95,6 +95,8 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
         const org = orgLigada() ? await redeOrg.org(handle).catch(() => null) : null;
         if (org) return vivo && setEstado({ handle, org, pessoa: null, extras: null, erro: "" });
         const daPrevia = previa() ? perfilDaPrevia(handle) : null;
+        // Na prévia, um @ que não está nos exemplos é "não encontrado" (não há serviço de contas para perguntar).
+        if (previa() && !daPrevia) return vivo && setEstado({ handle, org: null, pessoa: null, extras: null, erro: "" });
         const [pessoa, extras, lida] = await Promise.all([
           daPrevia ?? redePerfil.perfil(handle),
           previa() ? extrasDe(handle) : redeOrg.extras(handle).catch(() => null),
@@ -127,11 +129,14 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
     );
   }
   if (!estado.pessoa) {
-    return (
-      <div className="al-perfil al-painel" role="alert">
-        <p className="al-painel-vazio">{estado.erro || s.estados.naoEncontrado}</p>
-      </div>
-    );
+    if (estado.erro) {
+      return (
+        <div className="al-perfil al-painel" role="alert">
+          <p className="al-painel-vazio">{estado.erro}</p>
+        </div>
+      );
+    }
+    return <PerfilNaoAchado handle={handle} lang={lang} t={tl} />;
   }
   return <PaginaDoPerfil dado={estado.pessoa} extras={estado.extras} lida={estado.lida ?? { aparencia: { ...APARENCIA_PADRAO }, orgs: [] }} t={tl} sp={sp} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} />;
 }

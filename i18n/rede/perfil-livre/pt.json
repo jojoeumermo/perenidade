@@ -20,7 +20,16 @@
     "previaExemplo": "Prévia com dados de exemplo: nada vai ao banco.",
     "verPerfil": "Ver meu perfil",
     "seguro": "Só cores, palavras e escolhas conferidas: ninguém consegue pôr código ou rastreio no seu perfil.",
-    "entrar": "Entre na Alumia para editar o seu perfil."
+    "entrar": "Entre na Alumia para editar o seu perfil.",
+    "sairTitulo": "Sair sem salvar?",
+    "sairTexto": "Você mexeu no perfil e ainda não salvou. O que fazer com as mudanças?",
+    "sairSalvar": "Salvar e sair",
+    "sairDescartar": "Descartar e sair",
+    "sairFicar": "Continuar editando",
+    "verInteira": "Ver a prévia inteira",
+    "verCompacta": "Prévia compacta",
+    "estadoMudancas": "Não salvo",
+    "estadoSalvo": "Salvo"
   },
   "abasDoEditor": {
     "cores": "Cores",
@@ -51,7 +60,12 @@
     "ajustada": "Ajustamos o tom do texto para ficar legível.",
     "passa": "Passa no contraste sem ajuste.",
     "tema": "Clima do cabeçalho",
-    "temas": { "brasa": "Brasa", "tingido": "Tingido", "papel": "Papel", "noite": "Noite" },
+    "temas": {
+      "brasa": "Brasa",
+      "tingido": "Tingido",
+      "papel": "Papel",
+      "noite": "Noite"
+    },
     "temasAjuda": {
       "brasa": "Escuro com um brilho da sua cor.",
       "tingido": "O cabeçalho inteiro na sua cor, em tom fechado.",
@@ -59,7 +73,11 @@
       "noite": "Preto liso, só o essencial."
     },
     "layout": "Modelo do cabeçalho",
-    "layouts": { "classico": "Clássico", "centro": "Centro", "cartaz": "Cartaz" },
+    "layouts": {
+      "classico": "Clássico",
+      "centro": "Centro",
+      "cartaz": "Cartaz"
+    },
     "layoutsAjuda": {
       "classico": "Capa no alto, rosto à esquerda.",
       "centro": "Tudo centrado, rosto grande.",
@@ -70,17 +88,49 @@
     "fio": "Fio {n}",
     "fioEscolhido": "Fio {n} escolhido: {cor}",
     "modelos": "Começar de um modelo",
-    "modelosNomes": { "casa": "Da casa", "brasa": "Brasa", "mar": "Mar", "mata": "Mata", "orgulho": "Orgulho", "luto": "Luto" },
-    "coresDaFaixa": ["Vermelho", "Amarelo", "Azul", "Papel", "Verde", "Rosa", "Laranja", "Noite", "Turquesa", "Roxo"]
+    "modelosNomes": {
+      "casa": "Da casa",
+      "brasa": "Brasa",
+      "mar": "Mar",
+      "mata": "Mata",
+      "orgulho": "Orgulho",
+      "luto": "Luto"
+    },
+    "coresDaFaixa": [
+      "Vermelho",
+      "Amarelo",
+      "Azul",
+      "Papel",
+      "Verde",
+      "Rosa",
+      "Laranja",
+      "Noite",
+      "Turquesa",
+      "Roxo"
+    ]
   },
   "rosto": {
     "titulo": "Rosto",
     "ajuda": "Desenhe o seu rosto em mosaico, ladrilho a ladrilho, ou use um desenho ou foto (a foto perde o EXIF no aparelho e passa pela mediação).",
-    "modo": { "mosaico": "Mosaico de pixels", "sempre": "Desenho ou foto" },
+    "modo": {
+      "mosaico": "Mosaico de pixels",
+      "sempre": "Desenho ou foto"
+    },
     "grade": "Grade do rosto, 8 por 8. Setas andam, Espaço ou Enter pinta.",
     "ladrilho": "Linha {l}, coluna {c}: {cor}",
     "vazio": "vazio",
-    "cores": ["Borracha", "Papel", "Carvão", "Vermelho", "Dourado", "Azul", "Verde", "Rosa", "Laranja", "Roxo"],
+    "cores": [
+      "Borracha",
+      "Papel",
+      "Carvão",
+      "Vermelho",
+      "Dourado",
+      "Azul",
+      "Verde",
+      "Rosa",
+      "Laranja",
+      "Roxo"
+    ],
     "pincel": "Cor do pincel",
     "espelhar": "Espelhar (pinta os dois lados)",
     "sortear": "Sortear um rosto",
@@ -92,11 +142,15 @@
   "capa": {
     "titulo": "Capa",
     "ajuda": "Uma capa em mosaico com a sua palavra, na sua cor, ou a capa de sempre (desenho ou foto).",
-    "modo": { "mosaico": "Mosaico com palavra", "sempre": "Desenho ou foto" },
+    "modo": {
+      "mosaico": "Mosaico com palavra",
+      "sempre": "Desenho ou foto"
+    },
     "palavra": "Palavra da capa",
     "palavraAjuda": "Até 10 letras e números, sem acento. Ex.: OCUPA, LUTA VIVA.",
     "embaralhar": "Embaralhar os ladrilhos",
-    "desenhoOuFoto": "Desenho da galeria ou foto: na aba Conta."
+    "desenhoOuFoto": "Desenho da galeria ou foto: na aba Conta.",
+    "palavraVazia": "Escreva a palavra da capa (ou escolha Desenho ou foto)."
   },
   "sobre": {
     "codinome": "Codinome",
@@ -143,7 +197,10 @@
     "subir": "Subir {aba}",
     "descer": "Descer {aba}",
     "sempre": "sempre aparece",
-    "arrastar": "Arraste para mudar a ordem, ou use os botões."
+    "arrastar": "Arraste para mudar a ordem, ou use os botões.",
+    "curtos": {
+      "escola": "Escola"
+    }
   },
   "vitrine": {
     "fixados": "Posts fixados",
@@ -170,11 +227,24 @@
   "agora": {
     "status": "Status com prazo",
     "statusAjuda": "Some sozinho no prazo. Nunca diz onde você está.",
-    "statusTipos": { "greve": "Em greve", "ato": "Em ato", "estudando": "Estudando", "cuidando": "Cuidando de alguém", "ferias": "De folga" },
+    "statusTipos": {
+      "greve": "Em greve",
+      "ato": "Em ato",
+      "estudando": "Estudando",
+      "cuidando": "Cuidando de alguém",
+      "ferias": "De folga"
+    },
     "semStatus": "Sem status",
     "statusTexto": "Texto curto (opcional)",
     "duracao": "Some depois de",
-    "duracoes": { "1": "1 hora", "8": "8 horas", "24": "1 dia", "72": "3 dias", "168": "1 semana", "720": "30 dias" },
+    "duracoes": {
+      "1": "1 hora",
+      "8": "8 horas",
+      "24": "1 dia",
+      "72": "3 dias",
+      "168": "1 semana",
+      "720": "30 dias"
+    },
     "tocando": "Tocando agora",
     "tocandoAjuda": "Só texto e, se quiser, um link. A Alumia não se liga a serviço de música nenhum: nada de rastreio.",
     "tocandoTexto": "Música, podcast, hino…",
@@ -197,11 +267,44 @@
     },
     "linkDoCampo": "Link de {rotulo}: {dominio}",
     "editar": "Editar perfil",
-    "abas": "Abas do perfil de {codinome}"
+    "abas": "Abas do perfil de {codinome}",
+    "naoAchado": {
+      "titulo": "Perfil não encontrado",
+      "texto": "Ninguém usa @{handle} na Alumia, ou a pessoa não quer ser achada.",
+      "voltar": "Voltar ao início"
+    }
   },
   "conta": {
     "titulo": "Conta e privacidade",
-    "ajuda": "@nome, quem acha você, estudando agora, selos, rosto e capa de desenho ou foto, e os pedidos para seguir. Cada bloco salva sozinho."
+    "ajuda": "@nome, quem acha você, estudando agora, selos, rosto e capa de desenho ou foto, e os pedidos para seguir. Cada bloco salva sozinho.",
+    "previa": "Na prévia, a conta fica só de mostra: estes blocos mexem na conta de verdade e pedem o banco.",
+    "exemplo": [
+      [
+        "@nome",
+        "@faisca · troca a cada 30 dias"
+      ],
+      [
+        "Quem acha você",
+        "Aberto: quem é da Alumia acha pelo @nome"
+      ],
+      [
+        "Estudando agora",
+        "Desligado (só aparece se você ligar)"
+      ],
+      [
+        "Selos da Escola",
+        "3 selos à mostra"
+      ],
+      [
+        "Rosto e capa de desenho ou foto",
+        "Galeria de desenhos ou foto sem EXIF"
+      ],
+      [
+        "Pedidos para seguir",
+        "Nenhum pedido esperando"
+      ]
+    ],
+    "mudar": "Mudar"
   },
   "org": {
     "tear": {
@@ -228,7 +331,13 @@
       "titulo": "Acenda um lampião",
       "ajuda": "Fundar um núcleo em 5 passos. O lampião começa apagado, ganha brasa com a 1ª pessoa e chama plena com a 3ª.",
       "passo": "Passo {n} de 5",
-      "passos": ["Nome e cidade", "Pauta da 1ª reunião", "Cartaz", "Convite", "Primeira tarefa"],
+      "passos": [
+        "Nome e cidade",
+        "Pauta da 1ª reunião",
+        "Cartaz",
+        "Convite",
+        "Primeira tarefa"
+      ],
       "nome": "Nome do núcleo",
       "cidade": "Cidade (escrita, sem GPS)",
       "quando": "Quando se reúnem",
@@ -243,7 +352,11 @@
       "seguir": "Seguir",
       "acender": "Acender",
       "aceso": "Lampião aceso! O núcleo entra na vitrine quando chegar a 3 pessoas.",
-      "estados": { "apagado": "Apagado: ninguém ainda", "brasa": "Brasa: começou", "chama": "Chama plena: 3 ou mais" },
+      "estados": {
+        "apagado": "Apagado: ninguém ainda",
+        "brasa": "Brasa: começou",
+        "chama": "Chama plena: 3 ou mais"
+      },
       "cor": "Cor do núcleo"
     }
   }

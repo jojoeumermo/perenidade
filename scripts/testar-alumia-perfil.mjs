@@ -9,7 +9,7 @@
 import fs from "node:fs";
 import { criarBanco } from "./banco-local.mjs";
 import {
-  APARENCIA_PADRAO, arrumarAbas, arrumarAparencia, arrumarPalavraDaCapa, CORES_DA_PALETA, contraste, corLegivel, FUNDO_NOITE, FUNDO_PAPEL, gradienteDaFaixa,
+  alternarAba, APARENCIA_PADRAO, arrumarAbas, arrumarAparencia, arrumarPalavraDaCapa, CORES_DA_PALETA, contraste, corLegivel, FUNDO_NOITE, FUNDO_PAPEL, gradienteDaFaixa,
   hexDoAcento, laudoDeContraste, linkLimpo, pedacosDaBio, pedidoDaAparencia, pintarRosto, rostoSorteado, rostoValido, textoSobre, variaveisDoAcento,
 } from "../lib/rede/aparencia.ts";
 
@@ -65,6 +65,16 @@ ok("pintar com espelho pinta os dois lados", pintarRosto("0".repeat(64), 0, 3, t
 ok("pintar fora da grade não muda nada", pintarRosto("0".repeat(64), 64, 3) === "0".repeat(64));
 ok("palavra da capa sem acento e só A–Z", arrumarPalavraDaCapa("Ação <b>já</b>!") === "ACAOBJAB" || arrumarPalavraDaCapa("Ação já!") === "ACAO JA");
 ok("abas: posts sempre, sem repetir, sem desconhecida", JSON.stringify(arrumarAbas(["midia", "midia", "x", "atos"])) === JSON.stringify(["posts", "midia", "atos"]));
+{
+  // O editor: desmarcar uma aba a ESCONDE (some da lista, sem duplicar); marcar de novo põe no fim, uma vez só; "posts" não sai.
+  const comeco = ["posts", "atos", "destaques", "respostas"];
+  const sem = alternarAba(comeco, "atos", false);
+  ok("abas: desmarcar esconde a aba (sem duplicar)", JSON.stringify(sem) === JSON.stringify(["posts", "destaques", "respostas"]));
+  ok("abas: marcar põe no fim uma vez só", JSON.stringify(alternarAba(sem, "atos", true)) === JSON.stringify(["posts", "destaques", "respostas", "atos"]) && JSON.stringify(alternarAba(comeco, "atos", true)) === JSON.stringify(["posts", "destaques", "respostas", "atos"]));
+  ok("abas: posts não sai", alternarAba(comeco, "posts", false).includes("posts"));
+  const ferramentas = ler("components/rede/perfil/livre/Ferramentas.tsx");
+  ok("abas: a caixa é lida antes da transição (o React devolve a caixa controlada dentro dela)", /const marcado = e\.currentTarget\.checked;\s*comTransicao\(\(\) => aoMudar\(alternarAba\(abas, a, marcado\)\)\)/.test(ferramentas));
+}
 ok("link: tira utm e fbclid e mostra o domínio", (() => {
   const l = linkLimpo("https://www.exemplo.org/a?utm_source=x&id=3&fbclid=abc");
   return l && l.href === "https://www.exemplo.org/a?id=3" && l.dominio === "exemplo.org" && l.tirados === 2;
