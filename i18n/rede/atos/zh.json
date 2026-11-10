@@ -27,6 +27,7 @@
     "chamar": "召集",
     "chamarAjuda": "分享这场行动",
     "copiado": "链接已复制。贴到你想召集人的地方。",
+    "naoCopiou": "无法复制。行动的链接：{url}",
     "agenda": "加入日历（.ics）",
     "agendaAjuda": "文件在本设备上生成；提醒由你的日历负责。",
     "apoio": "支持（外部链接）",

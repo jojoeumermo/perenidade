@@ -216,7 +216,9 @@
   cursor: pointer;
   text-decoration: none;
 }
-[data-al="2"] .al-ato-coluna .al-ato-quadrado:hover { filter: brightness(1.15); }
+@media (hover: hover) {
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado:hover { filter: brightness(1.15); }
+}
 /* o "Você vai" é o maior da coluna (prancha celular-modo-atos); o :root vence a regra do celular que faz pílula de todo
    button[aria-pressed] (app/celular.css), para ele continuar quadrado arredondado como os outros três */
 :root [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 64px; height: 64px; border-radius: 18px; }
@@ -539,7 +541,9 @@
   transition: border-color 0.2s ease, transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
 }
 [data-al="2"] .al-farol-botao .al-farol-lampada { grid-row: span 2; width: 2.1rem; height: 2.1rem; }
-[data-al="2"] .al-farol-botao:hover:not(:disabled) { border-color: var(--al-farol-cor); }
+@media (hover: hover) {
+  [data-al="2"] .al-farol-botao:hover:not(:disabled) { border-color: var(--al-farol-cor); }
+}
 [data-al="2"] .al-farol-botao:active:not(:disabled) { transform: scale(0.97); }
 [data-al="2"] .al-farol-botao[aria-pressed="true"] { border-color: var(--al-farol-cor); background: color-mix(in srgb, var(--al-farol-cor) 14%, var(--al-fundo)); }
 [data-al="2"] .al-farol-botao-atual { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--al-texto-3); }
@@ -648,7 +652,9 @@
   cursor: pointer;
   transition: background-color 0.15s ease, transform 0.2s cubic-bezier(0.3, 1.6, 0.5, 1);
 }
-.al-chegar-opcao:hover { background: var(--al-superficie-2, #2a2622); }
+@media (hover: hover) {
+  .al-chegar-opcao:hover { background: var(--al-superficie-2, #2a2622); }
+}
 .al-chegar-opcao:active { transform: scale(0.98); }
 .al-chegar-explica { margin: 0.9rem 0 0; color: var(--al-texto-3, #a9a29a); font-size: 0.85rem; line-height: 1.45; }
 :root:is([data-contrast], [data-eink]) .al-chegar-folha,
@@ -694,7 +700,7 @@
 [data-al="2"] .al-atos-pontos li { width: 6px; height: 6px; border-radius: 99px; background: var(--al-superficie-2); transition: width 0.35s cubic-bezier(0.3, 1.5, 0.5, 1), background-color 0.3s ease; }
 [data-al="2"] .al-atos-pontos li[aria-current="true"] { width: 20px; background: var(--al-dourado); }
 [data-al="2"] .al-atos-atalhos { margin: 0; text-align: center; color: var(--al-texto-3); font-size: 0.78rem; }
-@media (pointer: coarse) {
+@media (pointer: coarse), (hover: none) {
   [data-al="2"] .al-atos-atalhos { display: none; }
 }
 [data-al="2"] .al-atos-filtro-botao { transition: background-color 0.3s ease, color 0.3s ease; }
@@ -749,7 +755,9 @@
   font-size: 0.9rem;
   cursor: pointer;
 }
-[data-al="2"] .al-atos-cidade:hover { background: var(--al-superficie); }
+@media (hover: hover) {
+  [data-al="2"] .al-atos-cidade:hover { background: var(--al-superficie); }
+}
 [data-al="2"] .al-atos-cidade-pino { display: inline-flex; color: var(--al-vermelho); }
 [data-al="2"] .al-atos-cidade-nome { font-weight: 700; color: var(--al-texto); }
 [data-al="2"] .al-atos-cidade-trocar { color: var(--al-texto-3); text-decoration: underline; text-underline-offset: 3px; }
@@ -958,10 +966,11 @@
 @keyframes al-chegar-visto { from { scale: 0.4; rotate: -20deg; } }
 
 /* ───── mosaico: a palavra lê de longe ─────
-   O fundo aceso fica a ~55 % do creme (não compete com a letra), o apagado some no fundo, a letra acesa é o vermelho cheio e a
-   letra apagada é um vermelho médio (bem acima do fundo): a palavra é sempre a figura. Alto contraste e e-ink: os tokens de sempre. */
+   Como na prancha (celular-modo-atos e computador-inicio): o fundo aceso é creme (só um pouco abaixo do creme cheio, para a
+   letra ganhar), o apagado some no fundo, a letra acesa é o vermelho cheio e a letra apagada é um vermelho médio (bem acima do
+   fundo): a palavra é sempre a figura. Alto contraste e e-ink: os tokens de sempre. */
 [data-al="2"] .al-mosaico-vivo {
-  --al-mv-aceso: color-mix(in srgb, var(--al-cartao-aceso) 60%, var(--al-mosaico-fundo));
+  --al-mv-aceso: color-mix(in srgb, var(--al-cartao-aceso) 88%, var(--al-mosaico-fundo));
   --al-mv-apagado: color-mix(in srgb, var(--al-cartao-apagado) 60%, var(--al-mosaico-fundo));
   --al-mv-letra: #ff3a1f;
   --al-mv-letra-apagada: color-mix(in srgb, var(--al-letra-acesa) 58%, var(--al-mosaico-fundo));
@@ -985,9 +994,9 @@
 @media (max-width: 767px) {
   [data-al="2"] .al-atos-vaga { display: block; flex: none; width: 6rem; height: 2.75rem; margin-inline-start: auto; anchor-name: --al-flutua; }
   [data-al="2"] .al-atos-meta .al-atos-pontos { margin-inline-start: 0; }
-  :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .assistente-flutua .assistente-janela { top: 3.5rem; bottom: auto; left: auto; right: 0; }
+  :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .assistente-flutua .assistente-janela { top: 3.5rem; bottom: auto; left: auto; right: 0; }
   @supports (anchor-name: --a) {
-    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .app-flutua {
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .app-flutua {
       position-anchor: --al-flutua;
       top: anchor(top);
       left: calc(anchor(left) + 3.25rem);
@@ -995,7 +1004,7 @@
       right: auto;
       position-visibility: anchors-visible;
     }
-    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .assistente-flutua {
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .assistente-flutua {
       position-anchor: --al-flutua;
       top: anchor(top);
       left: anchor(left);
@@ -1005,13 +1014,68 @@
     }
   }
   @supports not (anchor-name: --a) {
-    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .app-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: 1.5rem; left: auto; }
-    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .assistente-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: calc(1.5rem + 2.75rem + 0.5rem); left: auto; }
-    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) :is(.app-flutua, .assistente-flutua) { transition: opacity 0.2s ease-out; }
-    :root[data-lendo]:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) :is(.app-flutua, .assistente-flutua):not(:focus-within) { opacity: 0; pointer-events: none; }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .app-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: 1.5rem; left: auto; }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) .assistente-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: calc(1.5rem + 2.75rem + 0.5rem); left: auto; }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) :is(.app-flutua, .assistente-flutua) { transition: opacity 0.2s ease-out; }
+    :root[data-lendo]:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina, .al-cal)) :is(.app-flutua, .assistente-flutua):not(:focus-within) { opacity: 0; pointer-events: none; }
   }
 }
 /* o título recebe o foco por programa (troca de ato, cidade escrita): é um título, não um controle; não ganha anel de foco */
 [data-al="2"] .al-ato-aberto-titulo[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; }
 /* e-ink: o farol é preto no branco (o estado vai escrito; a cor não é a única pista) */
 :root[data-eink] [data-al="2"] :is(.al-farol, .al-farol-botao, .al-farol-pedido) { --al-farol-cor: #000; }
+/* ───── o aviso do Chamar ("link copiado" ou o endereço para copiar à mão) ─────
+   Na coluna de ações (estreita), vira um aviso flutuante embaixo, acima da barra do celular, que entra com mola e some sozinho.
+   O endereço quebra em qualquer ponto (nunca estoura a tela). */
+[data-al="2"] .al-ato-copiado { overflow-wrap: anywhere; }
+[data-al="2"] .al-ato-copiado[data-falhou] { color: var(--al-texto); }
+[data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0;
+  width: max-content;
+  max-width: min(calc(100vw - 32px), 28rem);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--al-superficie-2);
+  background: var(--al-superficie);
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.8);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: start;
+  user-select: text;
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) { bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) { animation: al-copiado-entra 0.42s cubic-bezier(0.3, 1.5, 0.5, 1); }
+}
+@keyframes al-copiado-entra { from { opacity: 0; translate: -50% 18px; scale: 0.96; } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-coluna .al-ato-copiado:not(:empty) { border: 2px solid var(--al-texto); box-shadow: none; }
+/* ───── calendário: o "Pôr na agenda" de cada linha (alvo de 44 px; vira um visto dourado quando baixou) ───── */
+[data-al="2"] .al-cal-agenda { flex: none; display: inline-flex; }
+[data-al="2"] .al-cal-agenda-botao {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--al-texto-2);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.2s ease, border-color 0.2s ease, transform 0.3s cubic-bezier(0.3, 1.7, 0.5, 1);
+}
+@media (hover: hover) {
+  [data-al="2"] .al-cal-agenda-botao:hover { background: var(--al-superficie); color: var(--al-texto); }
+}
+[data-al="2"] .al-cal-agenda-botao:active { transform: scale(0.9); }
+[data-al="2"] .al-cal-agenda-botao:focus-visible { outline: 2px solid var(--al-foco); outline-offset: 2px; }
+[data-al="2"] .al-cal-agenda-botao[data-feito] { color: var(--al-ato-dourado-texto); border-color: var(--al-dourado); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-cal-agenda-botao[data-feito] svg { animation: al-chegar-visto 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-cal-agenda-botao { border-color: var(--al-texto); color: var(--al-texto); }

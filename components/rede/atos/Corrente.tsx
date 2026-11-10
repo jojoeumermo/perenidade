@@ -11,7 +11,7 @@ import { Icone } from "./partes";
 import { frase, useCorrentes } from "./usar";
 import { elosFechados } from "@/lib/rede/atos/corrente";
 import { MOLAS, podeMexer, vibrar } from "@/lib/rede/atos/movimento";
-import { doCampoLocal } from "@/lib/rede/atos/tempo";
+import { dataCurta, dataOk, doCampoLocal } from "@/lib/rede/atos/tempo";
 import { atos as cliente } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import type { Corrente, OrgQuePosso } from "@/lib/rede/tipos-atos";
@@ -104,7 +104,8 @@ function CartaoDaCorrente({ k, t, lang, aoMudar }: { k: Corrente; t: TextosDosAt
       setOcupado(false);
     }
   };
-  const quando = k.quando ? new Date(k.quando).toLocaleString(lang, { weekday: "short", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : null;
+  // a mesma escrita de data dos atos ("qua 11/11, 5h")
+  const quando = dataOk(k.quando) ? dataCurta(k.quando, lang) : null;
   return (
     <article ref={cartao} className="al-corrente" data-fechada={k.fechada ? "" : undefined} aria-labelledby={`al-corrente-${k.id}`}>
       <p className="al-corrente-cabeca">

@@ -53,6 +53,24 @@ export function cidadeGuardada(): string | null {
 export function guardarCidade(cidade: string | null): void {
   const c = cidade?.replace(/\s+/g, " ").trim().slice(0, 80) || null;
   gravar(CHAVE_DA_CIDADE, c);
+  if (typeof window !== "undefined" && typeof window.dispatchEvent === "function") window.dispatchEvent(new Event(EVENTO_DA_CIDADE));
+}
+
+/** O aviso, nesta aba, de que a cidade mudou (a coluna "Atos perto de você" escuta; outras abas ouvem o evento "storage"). */
+export const EVENTO_DA_CIDADE = "lucia:rede:atos:cidade";
+
+/** Chama `aoMudar` quando a cidade muda nesta aba ou em outra. Devolve o desligar. */
+export function ouvirCidade(aoMudar: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  const naOutraAba = (e: StorageEvent) => {
+    if (e.key === null || e.key === CHAVE_DA_CIDADE) aoMudar();
+  };
+  window.addEventListener(EVENTO_DA_CIDADE, aoMudar);
+  window.addEventListener("storage", naOutraAba);
+  return () => {
+    window.removeEventListener(EVENTO_DA_CIDADE, aoMudar);
+    window.removeEventListener("storage", naOutraAba);
+  };
 }
 
 // Palavras que ficam minúsculas no meio do nome de uma cidade ("Rio de Janeiro", "São João del-Rei", "Vila do Conde").
