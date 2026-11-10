@@ -3628,6 +3628,26 @@ await espera("nenhuma tabela interna dá permissão direta a anon ou authenticat
 // mesmo nome num esquema que vem antes no caminho poderia fazer a função usar o objeto dele.
 await espera("toda função pública com poder de dono fixa o search_path", async () => (await dono("select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.prosecdef and not exists (select 1 from unnest(coalesce(p.proconfig, '{}'::text[])) c where c like 'search_path=%')")).rows.map((r) => r.proname), (r) => r.length === 0);
 // O esquema público só tem funções: tabelas e visões moram em interno, longe da API.
+// ── O cartão público do educador com aprovação (20261109-cartao-publico.sql) ──
+{
+  const PROF = como(ids.prof);
+  const FOTO = "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
+  ids.semFuncao = await criarUsuario("sem-funcao@teste.local", "Sem Função");
+  await recusa("quem não é educador não pede cartão público", () => rpc(como(ids.semFuncao), "cartao_publico_pedir", { p: { bio: "Oi" } }), "sem_permissao");
+  await recusa("foto que não é WebP em base64 é recusada", () => rpc(PROF, "cartao_publico_pedir", { p: { bio: "Oi", foto: "data:image/png;base64,AAAA" } }), "invalido:foto");
+  await recusa("rede que não é https é recusada", () => rpc(PROF, "cartao_publico_pedir", { p: { bio: "Oi", curriculo: { site: "http://x.org" } } }), "invalido:site");
+  let pedido;
+  await espera("educador pede o cartão (foto, bio e rede)", async () => (pedido = await rpc(PROF, "cartao_publico_pedir", { p: { bio: "Professora de matemática na rede pública.", foto: FOTO, curriculo: { site: "https://exemplo.org" } } })), (r) => typeof r.id === "string");
+  await espera("antes de aprovar, o cartão no ar não muda", () => rpc(anon, "educadores"), (r) => r.every((e) => e.foto === "" && e.bio !== "Professora de matemática na rede pública."));
+  await recusa("só a coordenação vê a fila", () => rpc(PROF, "cartao_publico_fila"), "sem_permissao");
+  await espera("a coordenação vê o pedido na fila", () => rpc(COORD, "cartao_publico_fila"), (r) => r.some((x) => x.id === pedido.id));
+  await recusa("recusar pede motivo", () => rpc(COORD, "cartao_publico_decidir", { p_id: pedido.id, p_aprovar: false, p_nota: "" }), "invalido:nota");
+  await espera("a coordenação aprova", () => rpc(COORD, "cartao_publico_decidir", { p_id: pedido.id, p_aprovar: true, p_nota: "" }), (r) => r.ok === true);
+  await espera("aprovado, o cartão no ar leva a bio e o endereço da foto", () => rpc(anon, "educadores"), (r) => r.some((e) => e.id === ids.prof && e.bio === "Professora de matemática na rede pública." && e.foto.startsWith(`/api/educador-foto/${ids.prof}`)));
+  await espera("a foto aprovada sai pela função pública", () => rpc(anon, "educador_foto", { p_id: ids.prof }), (r) => r === FOTO);
+  await espera("o próprio educador vê o pedido aprovado", () => rpc(PROF, "cartao_publico_meu"), (r) => r.pedido?.status === "aprovado" && r.no_ar.foto === FOTO);
+}
+
 await espera("nenhuma tabela, visão ou sequência no esquema público", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind in ('r', 'v', 'm', 'p', 'f', 'S')")).rows.map((r) => r.relname), (r) => r.length === 0);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
