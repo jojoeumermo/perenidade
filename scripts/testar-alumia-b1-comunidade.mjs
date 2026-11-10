@@ -191,11 +191,213 @@ await espera("story: desligar 'reacao_story' para de gravar", async () => {
 }, (r) => r.n === 1);
 await espera("push: os tipos novos têm preferência no celular (desligada até ligar)", () => rpc(como(P.membro), "rede_aviso_prefs_ver", {}), (r) => r.push.conversa_seguida === false && r.push.ato === false && r.push.lembrete === false);
 
-// @@MAIS_TESTES@@
+// ── Níveis do teste: quem tem 60 dias de conta é nível 2; a conta nova é nível 0 ──
+await dono("update interno.rede_niveis set dias = 2, participacoes = 0, posts = 0, sem_procedente = 0 where nivel = 1");
+await dono("update interno.rede_niveis set dias = 30, participacoes = 0, posts = 0, sem_procedente = 0 where nivel = 2");
+await dono("update interno.rede_niveis set dias = 9999 where nivel = 3");
 
-const FUNCOES_NOVAS = ["rede_alumia_com_pagina", "rede_alumia_ajudou", "rede_aviso_prefs_ver", "rede_aviso_prefs_salvar"];
-const TABELAS_NOVAS = [];
-const INTERNAS_NOVAS = ["rede_alumia_com_ver", "rede_alumia_tipos_de_aviso", "rede_alumia_aviso_seguidores", "rede_alumia_reacoes_de"];
+// ── 4. Notas de contexto ──
+const fonte = "https://www.gov.br/fonte-oficial";
+const nota = (quem, post, texto, f = fonte) => rpc(como(quem), "rede_alumia_nota_propor", { p_post: post, p_texto: texto, p_fonte: f });
+const avaliar = (quem, id, ajuda) => rpc(como(quem), "rede_alumia_nota_avaliar", { p_nota: id, p_ajuda: ajuda });
+const notasDe = (ator, post) => rpc(ator, "rede_alumia_notas", { p_post: post });
+const avisosAntes = (await um("select count(*)::int as n from interno.avisos where para = $1", [P.membro])).n;
+await recusa("nota: nível 0 não propõe", () => nota(P.nova, doPost, "O valor citado está errado segundo a tabela oficial."), "nivel");
+await recusa("nota: ninguém propõe no próprio post", () => nota(P.membro, doPost, "O valor citado está errado segundo a tabela oficial."), "invalido:propria");
+await recusa("nota: sem fonte http(s) é recusada", () => nota(P.outra, doPost, "O valor citado está errado segundo a tabela oficial.", "ouvi dizer"), "invalido:fonte");
+await recusa("nota: com dado pessoal é recusada", () => nota(P.outra, doPost, "Liga para (11) 98765-4321 que ela confirma o valor."), "dado_pessoal");
+await recusa("nota: quem não entrou na Alumia não propõe", () => nota(P.fora, doPost, "O valor citado está errado segundo a tabela oficial."), "consentimento");
+const n0 = (await nota(P.outra, doPost, "O valor citado está errado segundo a tabela oficial de 2026.")).id;
+await espera("nota: proposta não aparece para visitante", () => notasDe(visitante(), doPost), (r) => r.mostradas.length === 0 && r.para_avaliar.length === 0 && r.pode_propor === false);
+await espera("nota: quem tem nível avalia sem ver total nem autora", () => notasDe(como(P.autora), doPost), (r) => r.para_avaliar.length === 1 && r.para_avaliar[0].minha === null && !("votos" in r.para_avaliar[0]) && semNomes(r));
+await espera("nota: a autora vê a própria em 'minha'", () => notasDe(como(P.outra), doPost), (r) => r.minha?.id === n0 && r.para_avaliar.length === 0);
+// Histórico: terceira e autora discordam em duas notas; quarta e moderadora concordam com a terceira.
+const pA = await postar({ comunidade: "matematica", publico: "internet" }, P.membro, "Outro post A");
+const pB = await postar({ comunidade: "matematica", publico: "internet" }, P.membro, "Outro post B");
+const nA = (await nota(P.outra, pA, "Contexto que falta neste post A, segundo a fonte.")).id;
+const nB = (await nota(P.outra, pB, "Contexto que falta neste post B, segundo a fonte.")).id;
+for (const id of [nA, nB]) {
+  await avaliar(P.terceira, id, true);
+  await avaliar(P.autora, id, false);
+  await avaliar(P.quarta, id, true);
+  await avaliar(P.moderadora, id, true);
+}
+await recusa("nota: nível 0 não avalia", () => avaliar(P.nova, n0, true), "nivel");
+await recusa("nota: ninguém avalia a própria", () => avaliar(P.outra, n0, true), "invalido:propria");
+await avaliar(P.quarta, n0, true);
+await avaliar(P.moderadora, n0, true);
+await espera("nota: 3 'ajuda' de quem sempre concorda não bastam", () => avaliar(P.terceira, n0, true), (r) => r.mostrada === false && r.minha === true);
+await espera("nota: aparece quando quem costuma discordar também aprova", () => avaliar(P.autora, n0, true), (r) => r.mostrada === true);
+await espera("nota: a que aparece vem para o visitante, sem quem propôs nem quem avaliou", () => notasDe(visitante(), doPost), (r) => r.mostradas.length === 1 && r.mostradas[0].fonte === fonte && semNomes(r) && Object.keys(r.mostradas[0]).sort().join() === "criado_em,fonte,id,texto");
+await espera("nota: nenhum aviso para quem escreveu o post (nem DM)", () => um("select count(*)::int as n from interno.avisos where para = $1", [P.membro]), (r) => r.n === avisosAntes);
+await recusa("nota: quem não modera não oculta", () => rpc(como(P.terceira), "rede_alumia_nota_ocultar", { p_nota: n0, p_sim: true }), "sem_permissao");
+await espera("nota: a moderação da comunidade oculta", () => rpc(como(P.moderadora), "rede_alumia_nota_ocultar", { p_nota: n0, p_sim: true }), (r) => r.situacao === "oculta");
+await espera("nota: oculta some para o visitante", () => notasDe(visitante(), doPost), (r) => r.mostradas.length === 0);
+await espera("nota: devolver recalcula pela regra", () => rpc(como(P.moderadora), "rede_alumia_nota_ocultar", { p_nota: n0, p_sim: false }), (r) => r.situacao === "mostrada");
+await espera("nota: reescrever zera os votos", async () => {
+  await nota(P.outra, doPost, "Texto novo da nota, com outra explicação e a mesma fonte.");
+  return um("select count(*)::int as n, (select situacao from interno.rede_alumia_notas where id = $1) as s from interno.rede_alumia_nota_votos where nota = $1", [n0]);
+}, (r) => r.n === 0 && r.s === "proposta");
+await espera("nota: retirar apaga (LGPD art. 18)", async () => {
+  await rpc(como(P.outra), "rede_alumia_nota_retirar", { p_nota: n0 });
+  return um("select count(*)::int as n from interno.rede_alumia_notas where id = $1", [n0]);
+}, (r) => r.n === 0);
+
+// ── 5. Wiki ──
+const wiki = (ator, slug, pagina = null) => rpc(ator, "rede_alumia_wiki", { p_slug: slug, p_pagina: pagina });
+const salvarWiki = (quem, pagina, corpo, base = null, titulo = "Cartilha de direitos") =>
+  rpc(como(quem), "rede_alumia_wiki_salvar", { p_slug: "moradia", p_pagina: pagina, p_titulo: titulo, p_corpo: corpo, p_resumo: "teste", p_base: base });
+await espera("wiki: visitante lê a das disciplinas (vazia), sem editar", () => wiki(visitante(), "matematica"), (r) => r.paginas.length === 0 && r.pode_editar === false);
+await recusa("wiki: visitante, luta → entre_primeiro", () => wiki(visitante(), "moradia"), "entre_primeiro");
+await recusa("wiki: fechada para quem é de fora → nao_encontrado", () => wiki(como(P.outra), "segredo"), "nao_encontrado");
+await recusa("wiki: quem não é da comunidade não edita", () => salvarWiki(P.nova, null, "Texto"), "sem_permissao");
+await espera("wiki: quem é da comunidade cria a página", () => salvarWiki(P.membro, null, "Seus direitos num despejo: 1. Peça a ordem judicial."), (r) => r.pagina === "cartilha-de-direitos" && r.versao === 1);
+await espera("wiki: outra pessoa edita na versão certa", () => salvarWiki(P.outra, "cartilha-de-direitos", "Seus direitos num despejo: 1. Peça a ordem judicial. 2. Chame a defensoria.", 1), (r) => r.versao === 2);
+await recusa("wiki: editar em cima de versão velha → conflito", () => salvarWiki(P.terceira, "cartilha-de-direitos", "Outro texto", 1), "conflito");
+await recusa("wiki: CPF nunca entra", () => salvarWiki(P.terceira, "cartilha-de-direitos", "Fale com 123.456.789-00", 2), "dado_pessoal");
+await espera("wiki: o histórico não diz quem editou (para quem não modera)", () => rpc(como(P.terceira), "rede_alumia_wiki_historico", { p_slug: "moradia", p_pagina: "cartilha-de-direitos" }),
+  (r) => r.versoes.length === 2 && r.versoes.every((x) => x.editou === null) && !JSON.stringify(r).includes("Codinome"));
+await espera("wiki: a moderação vê quem editou", () => rpc(como(P.moderadora), "rede_alumia_wiki_historico", { p_slug: "moradia", p_pagina: "cartilha-de-direitos" }),
+  (r) => r.versoes[0].editou === "Codinome 3" && r.versoes[1].editou === "Codinome 2");
+await rpc(como(P.moderadora), "rede_alumia_wiki_travar", { p_slug: "moradia", p_pagina: "cartilha-de-direitos", p_sim: true });
+await recusa("wiki: travada, só a moderação edita", () => salvarWiki(P.outra, "cartilha-de-direitos", "Mudança", 2), "travado");
+await espera("wiki: a moderação volta a versão 1 (vira a 3)", () => rpc(como(P.moderadora), "rede_alumia_wiki_restaurar", { p_slug: "moradia", p_pagina: "cartilha-de-direitos", p_versao: 1 }), (r) => r.versao === 3);
+await espera("wiki: quem é da comunidade lê a página e vê que está travada", () => wiki(como(P.terceira), "moradia"), (r) => r.pagina.versao === 3 && r.pagina.travada === true && r.pode_editar === false && r.pode_criar === true && /ordem judicial\.$/.test(r.pagina.corpo));
+
+// ── 6. Conversas que sigo ──
+await espera("seguidas: a pessoa vê as conversas que segue", () => rpc(como(P.membro), "rede_alumia_conversas_seguidas", {}), (r) => r.itens.length === 1 && r.itens[0].raiz === raiz && r.itens[0].disponivel && r.itens[0].titulo === "Assembleia da ocupação" && r.total === 1);
+await dono("update interno.rede_posts set oculto = true where id = $1", [raiz]);
+await espera("seguidas: a oculta vem indisponível, sem título", () => rpc(como(P.membro), "rede_alumia_conversas_seguidas", {}), (r) => r.itens[0].disponivel === false && r.itens[0].titulo === null);
+await espera("seguidas: deixa de seguir mesmo indisponível", () => rpc(como(P.membro), "rede_alumia_deixar_conversas", { p_raizes: [raiz] }), (r) => r.removidas === 1);
+await dono("update interno.rede_posts set oculto = false where id = $1", [raiz]);
+
+// ── 7. A linha dos #temas seguidos ──
+const comTag = await postar({ comunidade: "moradia" }, P.autora, "Reunião hoje #moradia na praça");
+await rpc(como(P.membro), "rede_alumia_seguir_tag", { p_tag: "moradia", p_sim: true });
+await rpc(como(P.bloqueado), "rede_alumia_seguir_tag", { p_tag: "moradia", p_sim: true });
+await espera("linha dos temas: os seguidos, do mais novo", () => rpc(como(P.membro), "rede_alumia_linha_tags", {}), (r) => r.itens.some((x) => x.id === comTag) && r.tags.includes("moradia"));
+await espera("linha dos temas: a aba de um #tema", () => rpc(como(P.membro), "rede_alumia_linha_tags", { p_tag: "#Moradia" }), (r) => r.itens[0]?.id === comTag);
+await espera("linha dos temas: quem foi bloqueado não vê o post", () => rpc(como(P.bloqueado), "rede_alumia_linha_tags", {}), (r) => !r.itens.some((x) => x.id === comTag));
+await espera("linha dos temas: visitante só vê o que é da internet", () => rpc(visitante(), "rede_alumia_linha_tags", { p_tag: "moradia" }), (r) => r.itens.length === 0);
+await recusa("linha dos temas: visitante não tem 'seguidos'", () => rpc(visitante(), "rede_alumia_linha_tags", {}), "entre_primeiro");
+
+// ── 8. Busca com operadores ──
+const buscar = (ator, q) => rpc(ator, "rede_alumia_buscar", { p_q: q });
+await espera("busca: lê os operadores", () => um("select interno.rede_alumia_busca_ler($1) as o", ["greve tag:moradia de:@autora_b1c desde:2026-01-01 c:moradia tipo:duvida"]),
+  (r) => r.o.texto === "greve" && r.o.tag === "moradia" && r.o.de === "@autora_b1c" && r.o.desde === "2026-01-01" && r.o.c === "moradia" && r.o.tipo === "duvida");
+await espera("busca: tag: acha", () => buscar(como(P.membro), "tag:moradia"), (r) => r.itens.some((x) => x.id === comTag));
+await espera("busca: de: com c: acha", () => buscar(como(P.membro), "de:@autora_b1c c:moradia reunião"), (r) => r.itens.some((x) => x.id === comTag));
+await espera("busca: de: com bloqueio volta vazia, sem erro", () => buscar(como(P.bloqueado), "de:@autora_b1c"), (r) => r.itens.length === 0);
+await dono("update interno.perfis set rede_modo = 'invisivel' where id = $1", [P.autora]);
+await espera("busca: de: com perfil invisível volta vazia", () => buscar(como(P.membro), "de:@autora_b1c"), (r) => r.itens.length === 0);
+await dono("update interno.perfis set rede_modo = 'aberto' where id = $1", [P.autora]);
+await recusa("busca: desde: no futuro é recusado", () => buscar(como(P.membro), "desde:2099-01-01"), "invalido:desde");
+await recusa("busca: tipo: desconhecido é recusado", () => buscar(como(P.membro), "tipo:xyz"), "invalido:tipo");
+await espera("busca: sem operador é a busca de sempre", () => buscar(como(P.membro), "reunião"), (r) => Array.isArray(r.pessoas) && r.itens.some((x) => x.id === comTag));
+const salva = await rpc(como(P.membro), "rede_alumia_busca_salvar", { p_nome: "Moradia", p_q: "tag:moradia" });
+await espera("busca salva: aparece na lista da pessoa", () => rpc(como(P.membro), "rede_alumia_buscas_salvas", {}), (r) => r.itens.length === 1 && r.itens[0].q === "tag:moradia");
+await espera("busca salva: só a dona vê", () => rpc(como(P.outra), "rede_alumia_buscas_salvas", {}), (r) => r.itens.length === 0);
+await recusa("busca salva: outra pessoa não apaga", () => rpc(como(P.outra), "rede_alumia_busca_apagar", { p_id: salva.id }), "nao_encontrado");
+await espera("busca salva: a dona apaga", () => rpc(como(P.membro), "rede_alumia_busca_apagar", { p_id: salva.id }), (r) => r.apagada);
+
+// ── 9. Salvos em pastas ──
+const pasta1 = (await rpc(como(P.membro), "rede_alumia_pasta_criar", { p_nome: "Leituras" })).id;
+const pasta2 = (await rpc(como(P.membro), "rede_alumia_pasta_criar", { p_nome: "Para a assembleia" })).id;
+await recusa("pastas: nome repetido é recusado", () => rpc(como(P.membro), "rede_alumia_pasta_criar", { p_nome: "leituras" }), "invalido:nome");
+await espera("pastas: pôr na pasta também salva", async () => {
+  await rpc(como(P.membro), "rede_alumia_pasta_por", { p_pasta: pasta1, p_post: doPost });
+  return um("select count(*)::int as n from interno.rede_salvos where usuario = $1 and post = $2", [P.membro, doPost]);
+}, (r) => r.n === 1);
+await espera("pastas: pôr em outra pasta privada move", async () => {
+  await rpc(como(P.membro), "rede_alumia_pasta_por", { p_pasta: pasta2, p_post: doPost });
+  return rpc(como(P.membro), "rede_alumia_pastas", { p_post: doPost });
+}, (r) => r.itens.find((x) => x.id === pasta1).posts === 0 && r.itens.find((x) => x.id === pasta2).tem === true);
+await recusa("pastas: outra pessoa não abre a pasta privada", () => rpc(como(P.outra), "rede_alumia_pasta_posts", { p_pasta: pasta2 }), "nao_encontrado");
+await espera("pastas: renomear", () => rpc(como(P.membro), "rede_alumia_pasta_mudar", { p_id: pasta2, p_nome: "Assembleia" }), (r) => r.nome === "Assembleia");
+await espera("pastas: tirar dos salvos tira da pasta privada", async () => {
+  await dono("delete from interno.rede_salvos where usuario = $1 and post = $2", [P.membro, doPost]);
+  return rpc(como(P.membro), "rede_alumia_pasta_posts", { p_pasta: pasta2 });
+}, (r) => r.itens.length === 0);
+const nuc = (await um("insert into interno.rede_nucleos (nome, cidade) values ('Núcleo B1', 'São Paulo') returning id")).id;
+await dono("insert into interno.rede_nucleo_membros (nucleo, usuario, papel) values ($1, $2, 'mediacao'), ($1, $3, 'membro')", [nuc, P.membro, P.outra]);
+const pastaN = (await rpc(como(P.outra), "rede_alumia_pasta_criar", { p_nome: "Clipping", p_nucleo: nuc })).id;
+await rpc(como(P.outra), "rede_alumia_pasta_por", { p_pasta: pastaN, p_post: doPost });
+await espera("pasta do núcleo: quem é do núcleo vê, sem saber quem pôs", () => rpc(como(P.membro), "rede_alumia_pasta_posts", { p_pasta: pastaN }), (r) => r.itens.length === 1 && r.pasta.nucleo === true && semNomes(r.pasta));
+await recusa("pasta do núcleo: quem não é do núcleo não vê", () => rpc(como(P.terceira), "rede_alumia_pasta_posts", { p_pasta: pastaN }), "nao_encontrado");
+await recusa("pasta do núcleo: só a mediação apaga", () => rpc(como(P.outra), "rede_alumia_pasta_mudar", { p_id: pastaN, p_nome: null }), "sem_permissao");
+await espera("pasta do núcleo: a mediação apaga", () => rpc(como(P.membro), "rede_alumia_pasta_mudar", { p_id: pastaN, p_nome: null }), (r) => r.apagada);
+await espera("pastas: a tabela de itens não guarda quem pôs", () => um("select count(*)::int as n from information_schema.columns where table_schema = 'interno' and table_name = 'rede_alumia_pasta_itens' and column_name in ('usuario', 'quem')"), (r) => r.n === 0);
+
+// ── 10. "Pergunte a…" ──
+await rpc(como(P.autora), "rede_alumia_caixa_ajustar", { p_aberta: true, p_anonimas: true, p_chamada: "Pergunte sobre a ocupação" });
+const perguntar = (quem, texto, extra = {}) => rpc(como(quem), "rede_alumia_perguntar", { p_handle: "autora_b1c", p_slug: null, p_texto: texto, ...extra });
+await perguntar(P.membro, "Quando é a próxima assembleia?");
+await perguntar(P.outra, "Posso levar a minha filha?", { p_mostrar_nome: true });
+await recusa("pergunta: anônima exige nível 1", () => perguntar(P.nova, "Pergunta anônima de quem chegou agora", { p_anonima: true }), "nivel");
+await recusa("pergunta: com dado pessoal é recusada", () => perguntar(P.terceira, "Meu e-mail é ana@exemplo.com.br, me responde"), "dado_pessoal");
+await recusa("pergunta: quem foi bloqueado não acha a caixa", () => perguntar(P.bloqueado, "Pergunta de quem foi bloqueado"), "nao_encontrado");
+await recusa("pergunta: ninguém pergunta à própria caixa", () => perguntar(P.autora, "Pergunta para mim mesma"), "invalido:propria");
+await perguntar(P.terceira, "Pergunta anônima de quem tem nível", { p_anonima: true, p_mostrar_nome: true });
+let fila;
+await espera("pergunta: a fila em ordem de chegada; nome só de quem quis", async () => (fila = (await rpc(como(P.autora), "rede_alumia_caixa", { p_handle: "autora_b1c" })).fila),
+  (f) => f.length === 3 && f[0].texto.startsWith("Quando") && f[0].quem === null && f[1].quem === "Codinome 3" && f[2].anonima === true && f[2].quem === null);
+await espera("pergunta: quem não cuida não vê a fila", () => rpc(como(P.quarta), "rede_alumia_caixa", { p_handle: "autora_b1c" }), (r) => r.fila === null && r.pode_perguntar === true && r.respondidas.length === 0);
+await rpc(como(P.autora), "rede_alumia_pergunta_tratar", { p_id: fila[1].id, p_resposta: "Pode sim, terá roda de crianças." });
+await espera("pergunta: a respondida aparece para todos, com o nome só se quis", () => rpc(como(P.quarta), "rede_alumia_caixa", { p_handle: "autora_b1c" }), (r) => r.respondidas.length === 1 && r.respondidas[0].quem === "Codinome 3");
+await recusa("pergunta: outra pessoa não responde", () => rpc(como(P.quarta), "rede_alumia_pergunta_tratar", { p_id: fila[0].id, p_resposta: "Eu respondo" }), "nao_encontrado");
+await espera("pergunta: quem perguntou retira", () => rpc(como(P.membro), "rede_alumia_pergunta_tratar", { p_id: fila[0].id, p_retirar: true }), (r) => r.retirada);
+await rpc(como(P.moderadora), "rede_alumia_caixa_ajustar", { p_slug: "moradia", p_aberta: true, p_anonimas: false });
+await rpc(como(P.membro), "rede_alumia_perguntar", { p_handle: null, p_slug: "moradia", p_texto: "Como entrar na comissão de moradia?" });
+await espera("pergunta: na comunidade, a moderação responde sem aparecer", async () => {
+  const f = (await rpc(como(P.moderadora), "rede_alumia_caixa", { p_slug: "moradia" })).fila;
+  await rpc(como(P.moderadora), "rede_alumia_pergunta_tratar", { p_id: f[0].id, p_resposta: "Na assembleia de terça." });
+  return rpc(como(P.outra), "rede_alumia_caixa", { p_slug: "moradia" });
+}, (r) => r.respondidas.length === 1 && r.respondidas[0].quem === null && !JSON.stringify(r).includes("Codinome 9"));
+
+// ── 11. Posts recorrentes ──
+await espera("recorrente: agenda a série", async () => {
+  const quando = new Date(Date.now() + 3600e3).toISOString();
+  return rpc(como(P.autora), "rede_alumia_agendar_serie", { p: { texto: "Assembleia toda terça", comunidade: "moradia" }, p_quando: quando, p_repetir: "semanal" });
+}, (r) => r.serie && r.repetir === "semanal");
+await recusa("recorrente: repetição desconhecida é recusada", () => rpc(como(P.autora), "rede_alumia_agendar_serie", { p: { texto: "x" }, p_quando: new Date(Date.now() + 3600e3).toISOString(), p_repetir: "diaria" }), "invalido:repetir");
+await espera("recorrente: quando sai um, o próximo entra na fila uma semana depois", async () => {
+  await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where autor = $1 and serie is not null and estado = 'pendente'", [P.autora]);
+  await dono("select interno.rede3_pub_rodar($1)", [P.autora]);
+  return um("select count(*) filter (where estado = 'publicado')::int as pub, count(*) filter (where estado = 'pendente' and vez = 2 and quando > now() + interval '6 days')::int as prox from interno.rede_agendados where autor = $1 and serie is not null", [P.autora]);
+}, (r) => r.pub === 1 && r.prox === 1);
+let serie;
+await espera("recorrente: a lista das séries", async () => (serie = (await rpc(como(P.autora), "rede_alumia_series", {})).itens), (s) => s.length === 1 && s[0].vez === 2);
+await espera("recorrente: parar a série cancela a fila", async () => {
+  await rpc(como(P.autora), "rede_alumia_serie_parar", { p_serie: serie[0].serie });
+  return rpc(como(P.autora), "rede_alumia_series", {});
+}, (r) => r.itens.length === 0);
+
+// ── 12. Lembrar mais tarde ──
+await recusa("lembrete: menos de 5 minutos é recusado", () => rpc(como(P.membro), "rede_alumia_lembrar", { p_post: doPost, p_quando: new Date(Date.now() + 60e3).toISOString() }), "invalido:quando");
+await rpc(como(P.membro), "rede_alumia_lembrar", { p_post: doPost, p_quando: new Date(Date.now() + 600e3).toISOString() });
+await rpc(como(P.membro), "rede_alumia_lembrar", { p_post: comTag, p_quando: new Date(Date.now() + 600e3).toISOString() });
+await espera("lembrete: só a pessoa vê os dela", () => rpc(como(P.outra), "rede_alumia_lembretes", {}), (r) => r.itens.length === 0);
+await dono("update interno.rede_alumia_lembretes set quando = now() - interval '1 minute' where usuario = $1", [P.membro]);
+await dono("update interno.rede_posts set retido = true where id = $1", [comTag]);
+await espera("lembrete: na hora, vira aviso do tipo 'lembrete' (o do post retido some calado)", async () => {
+  const n = (await um("select interno.rede_alumia_lembretes_rodar(null) as n")).n;
+  const a = await um("select count(*)::int as n from interno.avisos where para = $1 and tipo = 'lembrete'", [P.membro]);
+  const sobra = await um("select count(*)::int as n from interno.rede_alumia_lembretes where usuario = $1", [P.membro]);
+  return { n, a: a.n, sobra: sobra.n };
+}, (r) => r.n === 1 && r.a === 1 && r.sobra === 0);
+await dono("update interno.rede_posts set retido = false where id = $1", [comTag]);
+
+const FUNCOES_NOVAS = ["rede_alumia_com_pagina", "rede_alumia_ajudou", "rede_aviso_prefs_ver", "rede_aviso_prefs_salvar", "rede_alumia_notas", "rede_alumia_nota_propor",
+  "rede_alumia_nota_retirar", "rede_alumia_nota_avaliar", "rede_alumia_nota_ocultar", "rede_alumia_wiki", "rede_alumia_wiki_salvar", "rede_alumia_wiki_historico",
+  "rede_alumia_wiki_restaurar", "rede_alumia_wiki_travar", "rede_alumia_conversas_seguidas", "rede_alumia_deixar_conversas", "rede_alumia_linha_tags", "rede_alumia_buscar",
+  "rede_alumia_buscas_salvas", "rede_alumia_busca_salvar", "rede_alumia_busca_apagar", "rede_alumia_pastas", "rede_alumia_pasta_criar", "rede_alumia_pasta_mudar",
+  "rede_alumia_pasta_por", "rede_alumia_pasta_posts", "rede_alumia_caixa", "rede_alumia_caixa_ajustar", "rede_alumia_perguntar", "rede_alumia_pergunta_tratar",
+  "rede_alumia_agendar_serie", "rede_alumia_series", "rede_alumia_serie_parar", "rede_alumia_lembrar", "rede_alumia_lembretes", "rede_alumia_lembretes_disparar"];
+const TABELAS_NOVAS = ["rede_alumia_notas", "rede_alumia_nota_votos", "rede_alumia_wiki", "rede_alumia_wiki_versoes", "rede_alumia_buscas_salvas", "rede_alumia_pastas",
+  "rede_alumia_pasta_itens", "rede_alumia_caixas", "rede_alumia_perguntas", "rede_alumia_lembretes"];
+const INTERNAS_NOVAS = ["rede_alumia_com_ver", "rede_alumia_tipos_de_aviso", "rede_alumia_aviso_seguidores", "rede_alumia_reacoes_de", "rede_alumia_discordam",
+  "rede_alumia_nota_recalcular", "rede_alumia_nota_post", "rede_alumia_wiki_edita", "rede_alumia_busca_ler", "rede_alumia_pasta", "rede_alumia_caixa_de",
+  "rede_alumia_caixa_cuida", "rede_alumia_serie_seguir", "rede_alumia_lembretes_rodar"];
 
 // ── Permissões das funções novas ──
 await espera("funções públicas novas: security definer com search_path = interno, pg_temp", () => um(`select count(*)::int as n, bool_and(p.prosecdef) as def,
