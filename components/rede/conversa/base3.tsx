@@ -96,6 +96,59 @@ export function IconeBusca() {
   );
 }
 
+/** O sino de seguir (conversa, #tema): contorno quando não segue, cheio e com as ondinhas quando segue. */
+export function IconeSino({ aceso }: { aceso: boolean }) {
+  return (
+    <svg className="al3-icone al3-icone-sino" viewBox="0 0 24 24" fill={aceso ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z" />
+      <path d="M10 20.5a2.2 2.2 0 0 0 4 0" fill="none" />
+      {aceso && <path className="al3-sino-onda" d="M3 8.5C3.6 6.6 4.6 5 6 3.8M21 8.5c-.6-1.9-1.6-3.5-3-4.7" fill="none" />}
+    </svg>
+  );
+}
+export function IconeAspas() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M4 17.5c0-4.6 1.7-8.4 5.6-11l1.2 1.5C8.4 9.9 7.4 11.8 7.3 13H10v5.5H4zM13.5 17.5c0-4.6 1.7-8.4 5.6-11l1.2 1.5c-2.4 1.9-3.4 3.8-3.5 5H19.5v5.5h-6z" />
+    </svg>
+  );
+}
+/** A chama de Acender: contorno quando apagada, cheia quando acesa (o CSS faz ela tremer ao acender). */
+export function IconeChama({ acesa }: { acesa: boolean }) {
+  return (
+    <svg className="al3-icone-acao al3-chama" viewBox="0 0 24 24" fill={acesa ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinejoin="round" aria-hidden>
+      <path d="M12 3c.6 3 3.2 4.6 4.6 7.2 1.6 3 .6 7.3-3.2 8.6.9-1.5.6-3.5-1.4-5-.2 1.9-1.3 2.9-2.4 3.7-1 .8-1.4 2-.9 3.3C5.2 19 4.4 14.6 6.3 11.6c.5 1 1.3 1.6 2.2 1.8C8 9.9 9.9 6 12 3z" />
+    </svg>
+  );
+}
+/** O marcador de Salvar: contorno quando não salvo, cheio quando salvo. */
+export function IconeMarcador({ salvo }: { salvo: boolean }) {
+  return (
+    <svg className="al3-icone-acao al3-marcador" viewBox="0 0 24 24" fill={salvo ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinejoin="round" aria-hidden>
+      <path d="M6.5 3.5h11v17L12 16.5l-5.5 4z" />
+    </svg>
+  );
+}
+
+/** "Acender" com a chama: o estado muda na hora, a chama acende com um pulo e o banco confirma depois (ou desfaz). */
+export function BotaoAcender({ t, logado, apoiei, ocupado, acender }: { t: TextosDaAlumia3; logado: boolean; apoiei: boolean; ocupado: boolean; acender: () => Promise<void> }) {
+  return (
+    <button type="button" className="al3-acao al3-acao-acender" aria-pressed={apoiei} disabled={!logado || ocupado} onClick={() => void acender()}>
+      <IconeChama acesa={apoiei} />
+      {apoiei ? t.comum.aceso : t.comum.acender}
+    </button>
+  );
+}
+/** "Salvar" com o marcador (os salvos são só seus: ninguém vê quem salvou). */
+export function BotaoSalvar({ t, logado, salvei, ocupado, salvar }: { t: TextosDaAlumia3; logado: boolean; salvei: boolean; ocupado: boolean; salvar: () => Promise<void> }) {
+  return (
+    <button type="button" className="al3-acao al3-acao-salvar" aria-pressed={salvei} disabled={!logado || ocupado} onClick={() => void salvar()}>
+      <IconeMarcador salvo={salvei} />
+      {salvei ? t.comum.salvo : t.comum.salvar}
+    </button>
+  );
+}
+
 /** O link da aula citada (cartão azul das pranchas): "O que é mais-valia · aula do Instituto Lúcia · Marxismo". */
 export function CartaoDeAula({ lang, cita, t }: { lang: string; cita: NonNullable<Post["cita"]>; t: TextosDaAlumia3 }) {
   const de = cita.tipo === "aula" ? preencher(t.conversa.aula, { trilha: trilhaDoCaminho(cita.caminho) }) : cita.tipo === "obra" ? t.conversa.obra : t.conversa.materia;
@@ -173,7 +226,7 @@ export function NomeDoAutor({ lang, post, className = "" }: { lang: string; post
  * nova não pode ficar sem como denunciar um post.
  */
 export function PostCompacto({ post, lang, s, t, logado, aoErro }: { post: Post; lang: string; s: TextosDaRede; t: TextosDaAlumia3; logado: boolean; aoErro: (e: unknown) => void }) {
-  const { apoiei, salvei, ocupado, acender, salvar } = useAcenderSalvar(post, aoErro);
+  const acoes = useAcenderSalvar(post, aoErro);
   const [cuidado, setCuidado] = useState(false);
   const idDoCuidado = useId();
   const handle = post.org?.handle ?? post.autor.handle ?? "";
@@ -209,12 +262,8 @@ export function PostCompacto({ post, lang, s, t, logado, aoErro }: { post: Post;
         {post.cita && <CartaoDeAula lang={lang} cita={post.cita} t={t} />}
         <div className="al3-post-acoes">
           <Link href={enderecos.post(lang, post.id)} className="al3-acao">{respostas}</Link>
-          <button type="button" className="al3-acao" aria-pressed={apoiei} disabled={!logado || ocupado} onClick={() => void acender()}>
-            {apoiei ? t.comum.aceso : t.comum.acender}
-          </button>
-          <button type="button" className="al3-acao" aria-pressed={salvei} disabled={!logado || ocupado} onClick={() => void salvar()}>
-            {salvei ? t.comum.salvo : t.comum.salvar}
-          </button>
+          <BotaoAcender t={t} logado={logado} {...acoes} />
+          <BotaoSalvar t={t} logado={logado} {...acoes} />
         </div>
         <div className="al3-post-cuidado" id={idDoCuidado} hidden={!cuidado}>
           {cuidado && <AcoesDeCuidado post={post} lang={lang} s={s} logado={logado} classe="al3-acao" />}

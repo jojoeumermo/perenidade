@@ -104,7 +104,17 @@
     "enviarMesmo": "仍然发送",
     "revisar": "修改",
     "voltar": "返回",
-    "reagirComo": "用{nome}回应"
+    "reagirComo": "用{nome}回应",
+    "seguir": "关注这场对话",
+    "seguindo": "已关注这场对话（点按取消）",
+    "seguirRegra": "有新回复时，关注者只会收到一条合并的通知。没有人能看到谁在关注，作者也看不到。",
+    "seguiu": "你已关注这场对话。",
+    "deixouDeSeguir": "你已取消关注这场对话。",
+    "citarTrecho": "引用片段",
+    "citando": "引用：“{trecho}”",
+    "tirarCitacao": "移除引用",
+    "recolherRamo": "收起 {n} 条回复",
+    "mostrarRamo": "展开 {n} 条回复"
   },
   "reacoes": {
     "rotulo": "表情回应",
