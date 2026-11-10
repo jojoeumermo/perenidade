@@ -171,6 +171,8 @@
     "testar:jogos-em-grupo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-jogos-em-grupo.mjs",
     "pontilhar": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/pontilhar.mjs",
     "vale-o-escrito:importar-novos-casos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/vale-o-escrito/importar-novos-casos.mjs",
+    "testar:alumia-entrada": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-entrada.mjs",
+    "alumia:silhuetas": "node scripts/alumia-silhuetas.mjs",
     "testar:alumia-atos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-atos.mjs",
     "testar:alumia-atos-banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-atos-banco.mjs",
     "testar:alumia-f1-banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-f1-banco.mjs",
