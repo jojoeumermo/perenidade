@@ -233,6 +233,12 @@ export function arrumarAbas(abas: unknown): AbaDoPerfil[] {
   return [...vistas];
 }
 
+/** Ligar (no fim) ou desligar uma aba, sem nunca repetir e sem tirar "posts". */
+export function alternarAba(abas: readonly AbaDoPerfil[], aba: AbaDoPerfil, ligar: boolean): AbaDoPerfil[] {
+  const sem = abas.filter((x) => x !== aba);
+  return arrumarAbas(ligar || aba === "posts" ? [...sem, aba] : sem);
+}
+
 // ───────────────────────────── Links limpos ─────────────────────────────
 
 /** Parâmetros de rastreio que saem de todo link do perfil (regra da casa: nada de UTM nem identificador de clique). */

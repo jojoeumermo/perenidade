@@ -21,40 +21,117 @@
     "previaExemplo": "使用示例数据的预览：不会写入数据库。",
     "verPerfil": "查看我的主页",
     "seguro": "只有经过检查的颜色、文字和选项：任何人都无法在你的主页放入代码或追踪。",
-    "entrar": "登录 Alumia 以编辑你的主页。"
+    "entrar": "登录 Alumia 以编辑你的主页。",
+    "sairTitulo": "不保存就离开？",
+    "sairTexto": "你修改了个人主页但还没有保存。这些修改怎么处理？",
+    "sairSalvar": "保存并离开",
+    "sairDescartar": "放弃并离开",
+    "sairFicar": "继续编辑",
+    "verInteira": "查看完整预览",
+    "verCompacta": "紧凑预览",
+    "estadoMudancas": "未保存",
+    "estadoSalvo": "已保存"
   },
-  "abasDoEditor": { "cores": "颜色", "rosto": "头像", "capa": "封面", "sobre": "关于", "abas": "标签页", "vitrine": "展示", "agora": "此刻", "conta": "账户" },
+  "abasDoEditor": {
+    "cores": "颜色",
+    "rosto": "头像",
+    "capa": "封面",
+    "sobre": "关于",
+    "abas": "标签页",
+    "vitrine": "展示",
+    "agora": "此刻",
+    "conta": "账户"
+  },
   "cores": {
     "titulo": "主页颜色",
     "ajuda": "按钮、标签下划线和主页细节的颜色。",
-    "paleta": { "vermelho": "红", "dourado": "金", "azul": "蓝", "verde": "绿", "rosa": "粉", "laranja": "橙", "turquesa": "青绿", "roxo": "紫" },
+    "paleta": {
+      "vermelho": "红",
+      "dourado": "金",
+      "azul": "蓝",
+      "verde": "绿",
+      "rosa": "粉",
+      "laranja": "橙",
+      "turquesa": "青绿",
+      "roxo": "紫"
+    },
     "livre": "自选颜色",
     "livreAjuda": "任何颜色都可以。如果难以阅读，Alumia 会调整色调直到对比度达标。",
     "contraste": "深色背景对比度 {noite}:1，浅色背景 {papel}:1（最低 4.5:1）。",
     "ajustada": "我们调整了文字色调以保证可读。",
     "passa": "无需调整即达到对比度要求。",
     "tema": "页头氛围",
-    "temas": { "brasa": "余烬", "tingido": "染色", "papel": "纸张", "noite": "夜色" },
-    "temasAjuda": { "brasa": "深色，带一点你的颜色的光。", "tingido": "整个页头用你的颜色，深色调。", "papel": "浅色，像纸质海报。", "noite": "纯黑，只留要点。" },
+    "temas": {
+      "brasa": "余烬",
+      "tingido": "染色",
+      "papel": "纸张",
+      "noite": "夜色"
+    },
+    "temasAjuda": {
+      "brasa": "深色，带一点你的颜色的光。",
+      "tingido": "整个页头用你的颜色，深色调。",
+      "papel": "浅色，像纸质海报。",
+      "noite": "纯黑，只留要点。"
+    },
     "layout": "页头样式",
-    "layouts": { "classico": "经典", "centro": "居中", "cartaz": "海报" },
-    "layoutsAjuda": { "classico": "封面在上，头像在左。", "centro": "全部居中，大头像。", "cartaz": "高封面，名字压在上面，像街头海报。" },
+    "layouts": {
+      "classico": "经典",
+      "centro": "居中",
+      "cartaz": "海报"
+    },
+    "layoutsAjuda": {
+      "classico": "封面在上，头像在左。",
+      "centro": "全部居中，大头像。",
+      "cartaz": "高封面，名字压在上面，像街头海报。"
+    },
     "faixa": "你的织带",
     "faixaAjuda": "十一根线，比例与本站织带相同。先选一根线，再选颜色。",
     "fio": "第 {n} 根线",
     "fioEscolhido": "已选第 {n} 根线：{cor}",
     "modelos": "从样式开始",
-    "modelosNomes": { "casa": "本站", "brasa": "余烬", "mar": "海", "mata": "林", "orgulho": "骄傲", "luto": "哀悼" },
-    "coresDaFaixa": ["红", "黄", "蓝", "纸色", "绿", "粉", "橙", "夜色", "青绿", "紫"]
+    "modelosNomes": {
+      "casa": "本站",
+      "brasa": "余烬",
+      "mar": "海",
+      "mata": "林",
+      "orgulho": "骄傲",
+      "luto": "哀悼"
+    },
+    "coresDaFaixa": [
+      "红",
+      "黄",
+      "蓝",
+      "纸色",
+      "绿",
+      "粉",
+      "橙",
+      "夜色",
+      "青绿",
+      "紫"
+    ]
   },
   "rosto": {
     "titulo": "头像",
     "ajuda": "用马赛克一格一格画出你的头像，或使用插画或照片（照片会在设备上去除 EXIF 并经过审核）。",
-    "modo": { "mosaico": "像素马赛克", "sempre": "插画或照片" },
+    "modo": {
+      "mosaico": "像素马赛克",
+      "sempre": "插画或照片"
+    },
     "grade": "头像网格，8×8。方向键移动，空格或回车上色。",
     "ladrilho": "第 {l} 行，第 {c} 列：{cor}",
     "vazio": "空",
-    "cores": ["橡皮", "纸色", "炭黑", "红", "金", "蓝", "绿", "粉", "橙", "紫"],
+    "cores": [
+      "橡皮",
+      "纸色",
+      "炭黑",
+      "红",
+      "金",
+      "蓝",
+      "绿",
+      "粉",
+      "橙",
+      "紫"
+    ],
     "pincel": "画笔颜色",
     "espelhar": "镜像（两边同时画）",
     "sortear": "随机头像",
@@ -66,11 +143,15 @@
   "capa": {
     "titulo": "封面",
     "ajuda": "用你的文字和颜色生成马赛克封面，或使用原来的封面（插画或照片）。",
-    "modo": { "mosaico": "文字马赛克", "sempre": "插画或照片" },
+    "modo": {
+      "mosaico": "文字马赛克",
+      "sempre": "插画或照片"
+    },
     "palavra": "封面文字",
     "palavraAjuda": "最多 10 个拉丁字母和数字，不带重音。例如：OCUPA、LUTA VIVA。",
     "embaralhar": "打乱方块",
-    "desenhoOuFoto": "图库插画或照片：在“账户”标签页。"
+    "desenhoOuFoto": "图库插画或照片：在“账户”标签页。",
+    "palavraVazia": "请填写封面文字（或选择“插画或照片”）。"
   },
   "sobre": {
     "codinome": "代号",
@@ -104,12 +185,23 @@
   "abas": {
     "titulo": "主页标签页",
     "ajuda": "选择显示哪些标签页及其顺序。“帖子”始终保留。",
-    "nomes": { "posts": "帖子", "respostas": "回复", "midia": "媒体", "atos": "行动", "destaques": "精选", "organizacoes": "组织", "escola": "学校徽章" },
+    "nomes": {
+      "posts": "帖子",
+      "respostas": "回复",
+      "midia": "媒体",
+      "atos": "行动",
+      "destaques": "精选",
+      "organizacoes": "组织",
+      "escola": "学校徽章"
+    },
     "mostrar": "显示“{aba}”标签页",
     "subir": "上移 {aba}",
     "descer": "下移 {aba}",
     "sempre": "始终显示",
-    "arrastar": "拖动改变顺序，或使用按钮。"
+    "arrastar": "拖动改变顺序，或使用按钮。",
+    "curtos": {
+      "escola": "学校"
+    }
   },
   "vitrine": {
     "fixados": "置顶帖子",
@@ -136,11 +228,24 @@
   "agora": {
     "status": "有期限的状态",
     "statusAjuda": "到期自动消失。绝不显示你在哪里。",
-    "statusTipos": { "greve": "罢工中", "ato": "在行动现场", "estudando": "学习中", "cuidando": "在照顾他人", "ferias": "休息中" },
+    "statusTipos": {
+      "greve": "罢工中",
+      "ato": "在行动现场",
+      "estudando": "学习中",
+      "cuidando": "在照顾他人",
+      "ferias": "休息中"
+    },
     "semStatus": "无状态",
     "statusTexto": "短文字（可选）",
     "duracao": "多久后消失",
-    "duracoes": { "1": "1 小时", "8": "8 小时", "24": "1 天", "72": "3 天", "168": "1 周", "720": "30 天" },
+    "duracoes": {
+      "1": "1 小时",
+      "8": "8 小时",
+      "24": "1 天",
+      "72": "3 天",
+      "168": "1 周",
+      "720": "30 天"
+    },
     "tocando": "正在播放",
     "tocandoAjuda": "只有文字，可选一个链接。Alumia 不连接任何音乐服务：没有追踪。",
     "tocandoTexto": "歌曲、播客、歌谣…",
@@ -153,14 +258,54 @@
     "ate": "至 {data}",
     "fixado": "置顶",
     "orgs": "{codinome} 选择展示的组织",
-    "vazio": { "respostas": "还没有回复。", "midia": "还没有图片。", "atos": "还没有发起的行动。", "destaques": "还没有精选。", "organizacoes": "没有选择组织。", "escola": "没有展示学校徽章。" },
+    "vazio": {
+      "respostas": "还没有回复。",
+      "midia": "还没有图片。",
+      "atos": "还没有发起的行动。",
+      "destaques": "还没有精选。",
+      "organizacoes": "没有选择组织。",
+      "escola": "没有展示学校徽章。"
+    },
     "linkDoCampo": "{rotulo} 链接：{dominio}",
     "editar": "编辑主页",
-    "abas": "{codinome} 的主页标签页"
+    "abas": "{codinome} 的主页标签页",
+    "naoAchado": {
+      "titulo": "找不到这个主页",
+      "texto": "Alumia 上没有人使用 @{handle}，或者对方不想被找到。",
+      "voltar": "回到首页"
+    }
   },
   "conta": {
     "titulo": "账户与隐私",
-    "ajuda": "@用户名、谁能找到你、正在学习、徽章、插画或照片头像与封面，以及关注请求。每个区块单独保存。"
+    "ajuda": "@用户名、谁能找到你、正在学习、徽章、插画或照片头像与封面，以及关注请求。每个区块单独保存。",
+    "previa": "预览中的账户仅供展示：这些区块会修改真实账户，需要数据库。",
+    "exemplo": [
+      [
+        "@用户名",
+        "@faisca · 每 30 天可改一次"
+      ],
+      [
+        "谁能找到你",
+        "公开：Alumia 的成员可以通过 @用户名 找到你"
+      ],
+      [
+        "正在学习",
+        "关闭（只有你打开才显示）"
+      ],
+      [
+        "学校徽章",
+        "展示 3 枚徽章"
+      ],
+      [
+        "插画或照片头像与封面",
+        "插画图库或无 EXIF 的照片"
+      ],
+      [
+        "关注请求",
+        "没有待处理的请求"
+      ]
+    ],
+    "mudar": "修改"
   },
   "org": {
     "tear": {
@@ -187,7 +332,13 @@
       "titulo": "点亮一盏灯",
       "ajuda": "分 5 步成立一个小组。灯一开始是熄的，第 1 人加入有火星，第 3 人加入火焰全亮。",
       "passo": "第 {n} 步，共 5 步",
-      "passos": ["名称与城市", "第一次会议议程", "海报", "邀请", "第一项任务"],
+      "passos": [
+        "名称与城市",
+        "第一次会议议程",
+        "海报",
+        "邀请",
+        "第一项任务"
+      ],
       "nome": "小组名称",
       "cidade": "城市（手动填写，不用 GPS）",
       "quando": "何时聚会",
@@ -202,7 +353,11 @@
       "seguir": "下一步",
       "acender": "点亮",
       "aceso": "灯已点亮！小组满 3 人时进入展示。",
-      "estados": { "apagado": "熄灭：还没有人", "brasa": "火星：已开始", "chama": "火焰全亮：3 人及以上" },
+      "estados": {
+        "apagado": "熄灭：还没有人",
+        "brasa": "火星：已开始",
+        "chama": "火焰全亮：3 人及以上"
+      },
       "cor": "小组颜色"
     }
   }

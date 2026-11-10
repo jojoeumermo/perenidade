@@ -68,6 +68,13 @@ export function PaginaDoPerfil({
   async function seguir(sim: boolean) {
     setOcupado(true);
     setErro("");
+    if (previa()) {
+      // Na prévia não há serviço de contas: o seguir só muda aqui (perfil trancado vira "pedido enviado").
+      await new Promise((r) => setTimeout(r, 220));
+      setDado((d) => ({ ...d, sigo: sim && d.modo !== "trancado", pendente: sim && d.modo === "trancado" }));
+      setOcupado(false);
+      return;
+    }
     try {
       const r = await redePerfil.seguir(dado.handle, sim);
       setDado((d) => ({ ...d, sigo: r.sigo, pendente: r.pendente }));
@@ -99,13 +106,15 @@ export function PaginaDoPerfil({
     </>
   );
 
-  const nomesDasAbas = Object.fromEntries(abas.map((x) => [x, t.abas.nomes[x]])) as Record<AbaDoPerfil, string>;
+  // Na faixa, o nome curto quando há um ("Escola"): as sete abas cabem na coluna sem cortar.
+  const curtos = t.abas.curtos as Partial<Record<AbaDoPerfil, string>>;
+  const nomesDasAbas = Object.fromEntries(abas.map((x) => [x, curtos[x] ?? t.abas.nomes[x]])) as Record<AbaDoPerfil, string>;
 
   const painel: Record<AbaDoPerfil, () => ReactNode> = {
     posts: () => (
       <>
         <Fixados ids={a.fixados} t={t} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} legado={dado.fixado} />
-        {previa() ? <PostsDaPrevia handle={dado.handle} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} /> : <Linha aba={`u:${dado.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
+        {previa() ? <PostsDaPrevia handle={dado.handle} fora={a.fixados} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} /> : <Linha aba={`u:${dado.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
       </>
     ),
     respostas: () => <LinhaDaAba handle={dado.handle} aba="respostas" vazio={t.perfil.vazio.respostas} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} />,
@@ -279,15 +288,17 @@ function LinhaDaAba({ handle, aba, vazio, lang, s, situacao, aoResponder }: { ha
 }
 
 /** Na prévia, os posts das pranchas (a linha de verdade pede o banco). */
-export function PostsDaPrevia({ handle, lang, s, situacao, aoResponder }: { handle: string; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
+export function PostsDaPrevia({ handle, fora = [], lang, s, situacao, aoResponder }: { handle: string; fora?: string[]; lang: string; s: TextosDaRede; situacao: Situacao; aoResponder: (p: Post) => void }) {
   const [posts, setPosts] = useState<Post[] | null>(null);
+  const chave = fora.join(",");
   useEffect(() => {
     let vivo = true;
-    meusPosts(handle).then((l) => vivo && setPosts(l.slice(1, 5)));
+    // Só os posts da própria pessoa; os fixados já aparecem no alto.
+    meusPosts(handle).then((l) => vivo && setPosts(l.filter((p) => !chave.split(",").includes(p.id))));
     return () => {
       vivo = false;
     };
-  }, [handle]);
+  }, [handle, chave]);
   if (!posts) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={2} />;
   return (
     <>
@@ -295,5 +306,23 @@ export function PostsDaPrevia({ handle, lang, s, situacao, aoResponder }: { hand
         <CartaoDePost key={p.id} post={p} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />
       ))}
     </>
+  );
+}
+/** O @ que não existe (ou não quer ser achado): um estado próprio, nunca a mensagem de erro de serviço. */
+export function PerfilNaoAchado({ handle, lang, t }: { handle: string; lang: string; t: TextosDoPerfilLivre }) {
+  return (
+    <div className="al-perfil pf-pagina">
+      <div className="pf-nao-achado" role="status">
+        <svg aria-hidden viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+          <circle cx="21" cy="21" r="12" />
+          <path d="M30 30l10 10M16 21h10" />
+        </svg>
+        <h1 className="al-cond">{t.perfil.naoAchado.titulo}</h1>
+        <p>{preencher(t.perfil.naoAchado.texto, { handle })}</p>
+        <LinkBotao href={enderecos.linha(lang)} variante="contorno">
+          {t.perfil.naoAchado.voltar}
+        </LinkBotao>
+      </div>
+    </div>
   );
 }
