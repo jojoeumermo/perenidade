@@ -243,7 +243,8 @@ export function tempoCurto(iso: string, lang: string, agora: number = Date.now()
 
 /** O nome bonito de uma trilha a partir do caminho da aula ("marxismo/mais-valia" → "Marxismo"). */
 export function trilhaDoCaminho(caminho: string): string {
-  const trilha = caminho.split("/")[0] ?? "";
+  // O caminho gravado é "/trilhas/<trilha>/<aula>" (2026-11-rede-consertos.sql); os antigos vinham sem o "/trilhas/".
+  const trilha = caminho.replace(/^\/+/, "").replace(/^trilhas\//, "").split("/")[0] ?? "";
   const nome = trilha.replace(/-/g, " ").trim();
   return nome ? nome.charAt(0).toLocaleUpperCase("pt-BR") + nome.slice(1) : "";
 }

@@ -45,19 +45,25 @@ function Interruptor({ id, rotulo, ligado, desabilitado, aoMudar, nota }: { id: 
   );
 }
 
+/** As preferências da prévia: tudo ligado no site, nada no celular nem por e-mail. */
+function prefsDaPrevia(): PreferenciasDeAviso {
+  const tudo = (v: boolean) => Object.fromEntries(TIPOS_DE_AVISO.map((x) => [x, v])) as Record<TipoDeAviso, boolean>;
+  return { site: tudo(true), push: tudo(false), resumo: false, push_aparelhos: 0, membro: true };
+}
+
 function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: string; s: PropsDaTelaDoPacote["s"]; situacao: PropsDaTelaDoPacote["situacao"] }) {
   const [prefs, setPrefs] = useState<PreferenciasDeAviso | null>(null);
   const [push, setPush] = useState<EstadoDoPush>("carregando");
   const [aviso, setAviso] = useState("");
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
-  const [previa, setPrevia] = useState<ResumoDeAviso | null>(null);
+  const [resumoVisto, setResumoVisto] = useState<ResumoDeAviso | null>(null);
   const p = t.prefs;
 
   useEffect(() => {
     let vivo = true;
-    avisos
-      .prefs()
+    // Na prévia não há conta: as escolhas ficam só nesta tela (nada sai do aparelho).
+    (previa() ? Promise.resolve(prefsDaPrevia()) : avisos.prefs())
       .then((r) => vivo && setPrefs(r))
       .catch((e) => vivo && setErro(textoDoErro(s, e)));
     estadoDoPush()
@@ -72,6 +78,11 @@ function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: strin
     async (tipo: TipoDeAviso | "resumo", canal: "site" | "push" | "email", ligado: boolean) => {
       setErro("");
       setAviso("");
+      if (previa()) {
+        setPrefs((atual) => (atual ? (tipo === "resumo" ? { ...atual, resumo: ligado } : { ...atual, [canal]: { ...atual[canal as "site" | "push"], [tipo]: ligado } }) : atual));
+        setAviso(p.salvo);
+        return;
+      }
       try {
         setPrefs(await avisos.salvarPref(tipo, canal, ligado));
         setAviso(p.salvo);
@@ -85,6 +96,7 @@ function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: strin
   async function trocarPush(ligar: boolean) {
     setErro("");
     setAviso("");
+    if (previa()) return;
     setOcupado(true);
     try {
       const novo = ligar ? await ligarPush(lang) : await desligarPush();
@@ -100,8 +112,9 @@ function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: strin
 
   async function verResumo() {
     setErro("");
+    if (previa()) return setResumoVisto({ n: 0 });
     try {
-      setPrevia(await avisos.resumoVer());
+      setResumoVisto(await avisos.resumoVer());
     } catch (e) {
       setErro(textoDoErro(s, e) || p.falha);
     }
@@ -141,10 +154,10 @@ function Preferencias({ t, lang, s, situacao }: { t: TextosDeAvisos; lang: strin
         <button type="button" onClick={() => void verResumo()} className="min-h-11 cursor-pointer rounded-full border-2 border-ink px-4 font-bold hover:bg-parchment-deep">
           {p.resumo.ver}
         </button>
-        {previa && (
-          <div className="mt-3 rounded border border-rule bg-parchment-deep p-3" role="region" aria-label={p.resumo.ver}>
-            {previa.n === 0 ? <p>{p.resumo.nada}</p> : <pre className="whitespace-pre-wrap font-sans text-sm">{previa.texto}</pre>}
-            <button type="button" onClick={() => setPrevia(null)} className="mt-2 min-h-11 cursor-pointer font-bold underline">
+        {resumoVisto && (
+          <div className="al3-entra mt-3 rounded border border-rule bg-parchment-deep p-3" role="region" aria-label={p.resumo.ver}>
+            {resumoVisto.n === 0 ? <p>{p.resumo.nada}</p> : <pre className="whitespace-pre-wrap font-sans text-sm">{resumoVisto.texto}</pre>}
+            <button type="button" onClick={() => setResumoVisto(null)} className="mt-2 min-h-11 cursor-pointer font-bold underline">
               {p.resumo.fechar}
             </button>
           </div>

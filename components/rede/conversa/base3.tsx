@@ -4,7 +4,8 @@
 // O que as telas novas da F3 (PLANO-ALUMIA §8 F3) usam juntas: saber se a Alumia nova está ligada, os textos dela, o post
 // compacto das pranchas (comunidade e Salvos) e os ícones de traço. Tudo aqui só muda a tela com "rede-v2" + "alumia-2".
 import "./alumia3.css";
-import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type RefObject } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties, type MouseEvent as EventoDeMouse, type RefObject } from "react";
+import { useRouter } from "next/navigation";
 import Link from "@/components/Link";
 import { rede } from "@/lib/rede/cliente";
 import { listaDeExemplo, previaDaAlumiaLigada } from "@/lib/rede/conversa/exemplos";
@@ -14,6 +15,7 @@ import { carregarTextosDaAlumia3, type TextosDaAlumia3 } from "@/lib/rede/textos
 import { enderecos, type Post } from "@/lib/rede/tipos";
 import { corDaComunidadeNova } from "@/lib/rede/tipos-comunidades";
 import { tempoCurto, trilhaDoCaminho } from "@/lib/rede/tipos-conversa";
+import { useIndice } from "@/components/estudo/indice";
 import { AcoesDeCuidado } from "../moderacao/NoCartao";
 import { useAlumia2 as useCascaNova } from "../publicar/alumia2/contexto";
 import { Avatar16 } from "../ui/Avatar16";
@@ -297,7 +299,15 @@ export function BotaoSalvar({ t, logado, salvei, ocupado, salvar }: { t: TextosD
 
 /** O link da aula citada (cartão azul das pranchas): "O que é mais-valia · aula do Instituto Lúcia · Marxismo". */
 export function CartaoDeAula({ lang, cita, t }: { lang: string; cita: NonNullable<Post["cita"]>; t: TextosDaAlumia3 }) {
-  const de = cita.tipo === "aula" ? preencher(t.conversa.aula, { trilha: trilhaDoCaminho(cita.caminho) }) : cita.tipo === "obra" ? t.conversa.obra : t.conversa.materia;
+  // O nome da aula e da disciplina vêm do índice das trilhas do site (o mesmo do Meu estudo, guardado uma vez por visita), no
+  // idioma da página; sem o índice, o título gravado e o nome tirado do endereço.
+  const indice = useIndice(lang);
+  const partes = cita.caminho.replace(/^\/+/, "").replace(/^trilhas\//, "").split("/");
+  const daAula = partes.length >= 2 ? indice?.aulas.get(`${partes[0]}/${partes[1]}`) : undefined;
+  const daTrilha = indice?.trilhas.find((x) => x[0] === partes[0]);
+  const titulo = (cita.tipo === "materia" ? daTrilha?.[1] : undefined) ?? (cita.titulo || daAula?.titulo || trilhaDoCaminho(cita.caminho));
+  const area = daAula?.nomeDaArea ?? daTrilha?.[3] ?? trilhaDoCaminho(cita.caminho);
+  const de = cita.tipo === "aula" ? preencher(t.conversa.aula, { trilha: area }) : cita.tipo === "obra" ? t.conversa.obra : t.conversa.materia;
   const href = `/${lang}/${cita.caminho.replace(/^\/+/, "")}`;
   return (
     <Link href={href} className="al3-aula">
@@ -305,7 +315,7 @@ export function CartaoDeAula({ lang, cita, t }: { lang: string; cita: NonNullabl
         <IconeLivro />
       </span>
       <span>
-        <span className="al3-aula-titulo">{cita.titulo || cita.caminho}</span>
+        <span className="al3-aula-titulo">{titulo}</span>
         <span className="al3-aula-de">{de}</span>
       </span>
     </Link>
@@ -403,8 +413,17 @@ export function PostCompacto({
     await acoes.salvar();
     aoSalvar?.(quer);
   };
+  const router = useRouter();
+  // O cartão inteiro abre a conversa (como nas outras redes), menos nos botões, links e quando a pessoa seleciona texto. No
+  // teclado e no leitor de tela, quem abre é o link do texto: o clique no cartão é só um atalho para o dedo e o mouse.
+  const abrir = (e: EventoDeMouse<HTMLElement>) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if ((e.target as HTMLElement).closest("a, button, input, textarea, select, label, summary, [role=button], .al3-post-cuidado")) return;
+    if (window.getSelection()?.toString()) return;
+    router.push(enderecos.post(lang, post.id));
+  };
   return (
-    <article className={`al3-post${com ? ` al3-post-com al3-cor-${com.cor}` : ""}`} aria-labelledby={`al3-p-${post.id}`}>
+    <article className={`al3-post al3-post-abre${com ? ` al3-post-com al3-cor-${com.cor}` : ""}`} aria-labelledby={`al3-p-${post.id}`} onClick={abrir}>
       <Avatar16 handle={handle || post.id} tamanho={40} />
       <div className="al3-post-corpo">
         <button
