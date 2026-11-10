@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { RedeSobDemanda } from "@/components/rede/RedeSobDemanda";
 import { loadLang } from "@/i18n";
-import { textosDaRede, tituloDaTela } from "@/lib/rede/textos";
+import { tituloDaTela } from "@/lib/rede/textos";
 import { comTextos } from "@/lib/rede/textos-comunidades";
 import { ligado } from "@/lib/recursos";
 

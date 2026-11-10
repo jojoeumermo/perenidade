@@ -14,7 +14,7 @@ import { encaixeAtivo } from "@/lib/rede/rota-alumia";
 import { DESTINO_DA_SAIDA, sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
 import { ENCAIXES } from "./encaixes";
 import { EsqueletoDaCasca } from "./Esqueletos";
-import { enderecoDoSite, MarcaDaAlumia } from "./MolduraDaAlumia";
+import { MarcaDaAlumia } from "./MolduraDaAlumia";
 
 /** Os destinos do menu (computador) e da barra de baixo (celular). `href` nulo = a tela ainda não existe: aparece apagado. */
 export type ItemDoMenu = "inicio" | "comunidades" | "explorar" | "chamados" | "nucleos" | "avisos" | "salvos" | "conversas" | "fediverso" | "perfil";
