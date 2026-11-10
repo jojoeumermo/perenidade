@@ -56,7 +56,7 @@ const SEIS_HORAS = 6 * 3600 * 1000;
  * O quadro que abre junto com o site. O texto vem dos arquivos do site; se a coordenação guardou
  * outro pelo painel, vale o do painel (conferido no máximo uma vez a cada seis horas por navegador).
  * Quem fecha não vê de novo até o aviso mudar. Só aparece em português.
- * T32, item 5a: nada disso abre por cima da Alumia (a rede social, em /comunidade ou no endereço alumia.*). Desde 09/11/2026 o
+ * T32, item 5a: nada disso abre por cima da Alumia (a rede social, em /alumia ou no endereço alumia.*). Desde 09/11/2026 o
  * convite ao apoio abre já na primeira página, como o aviso (antes esperava a pessoa ir para outra página, e quem entrava e
  * saía nunca o via). O X fecha com um clique e o convite volta só depois de trinta dias, lembrado neste aparelho.
  */
@@ -91,8 +91,8 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
   const today = hydrated ? new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" }) : "";
   // No Mural de Saúde não entra aviso nem convite do instituto: o mural é independente das posições dele.
   const inside = /\/(painel|entrar|apoie|saude|escola)(\/|$)/.test(pathname);
-  // Na Alumia, nunca: nem pelo caminho (/pt/comunidade/...) nem pelo endereço próprio (alumia.institutolucia.org).
-  const naAlumia = /^\/[a-z]{2}\/comunidade(\/|$)/.test(pathname) || (hydrated && hostDaAlumia(window.location.host));
+  // Na Alumia, nunca: nem pelo caminho (/pt/alumia/...) nem pelo endereço próprio (alumia.institutolucia.org).
+  const naAlumia = /^\/[a-z]{2}\/alumia(\/|$)/.test(pathname) || (hydrated && hostDaAlumia(window.location.host));
   const avisoVale = Boolean(aviso?.ativo && aviso.titulo && (!aviso.ate || today <= aviso.ate));
   // Sem aviso em vigor, entra o convite ao apoio, uma vez a cada trinta dias.
   const notice = avisoVale ? aviso : CONVITE;

@@ -1,0 +1,364 @@
+{
+  "_rascunho": true,
+  "editor": {
+    "titulo": "Your profile, your way",
+    "subtitulo": "Everything changes in the preview as you edit. Nothing leaves here until you save.",
+    "previa": "Live preview",
+    "esconderPrevia": "Hide preview",
+    "mostrarPrevia": "Show preview",
+    "secoes": "Profile sections",
+    "salvar": "Save",
+    "salvando": "Saving…",
+    "salvo": "Saved. Your profile looks like this now.",
+    "desfazer": "Undo",
+    "refazer": "Redo",
+    "descartar": "Discard",
+    "mudancas": "Unsaved changes",
+    "semMudancas": "All saved",
+    "atalhos": "Ctrl+Z undoes, Ctrl+Shift+Z redoes, Ctrl+S saves.",
+    "sairSemSalvar": "Your profile has unsaved changes. Leave anyway?",
+    "erroSalvar": "Could not save: {erro}",
+    "previaExemplo": "Preview with sample data: nothing goes to the database.",
+    "verPerfil": "View my profile",
+    "seguro": "Only checked colors, words and choices: nobody can put code or tracking on your profile.",
+    "entrar": "Sign in to Alumia to edit your profile.",
+    "sairTitulo": "Leave without saving?",
+    "sairTexto": "You changed your profile and haven't saved yet. What should happen to the changes?",
+    "sairSalvar": "Save and leave",
+    "sairDescartar": "Discard and leave",
+    "sairFicar": "Keep editing",
+    "verInteira": "See the full preview",
+    "verCompacta": "Compact preview",
+    "estadoMudancas": "Not saved",
+    "estadoSalvo": "Saved"
+  },
+  "abasDoEditor": {
+    "cores": "Colors",
+    "rosto": "Face",
+    "capa": "Cover",
+    "sobre": "About",
+    "abas": "Tabs",
+    "vitrine": "Showcase",
+    "agora": "Now",
+    "conta": "Account"
+  },
+  "cores": {
+    "titulo": "Profile color",
+    "ajuda": "The color of buttons, the tab underline and the details of your profile.",
+    "paleta": {
+      "vermelho": "Red",
+      "dourado": "Gold",
+      "azul": "Blue",
+      "verde": "Green",
+      "rosa": "Pink",
+      "laranja": "Orange",
+      "turquesa": "Turquoise",
+      "roxo": "Purple"
+    },
+    "livre": "Free color",
+    "livreAjuda": "Any color. If it is hard to read, Alumia adjusts the shade until it passes the contrast check.",
+    "contraste": "Contrast {noite}:1 on dark and {papel}:1 on light (minimum 4.5:1).",
+    "ajustada": "We adjusted the text shade so it stays readable.",
+    "passa": "Passes the contrast check without adjustment.",
+    "tema": "Header mood",
+    "temas": {
+      "brasa": "Ember",
+      "tingido": "Tinted",
+      "papel": "Paper",
+      "noite": "Night"
+    },
+    "temasAjuda": {
+      "brasa": "Dark with a glow of your color.",
+      "tingido": "The whole header in your color, in a deep shade.",
+      "papel": "Light, like a paper poster.",
+      "noite": "Plain black, just the essentials."
+    },
+    "layout": "Header layout",
+    "layouts": {
+      "classico": "Classic",
+      "centro": "Center",
+      "cartaz": "Poster"
+    },
+    "layoutsAjuda": {
+      "classico": "Cover on top, face on the left.",
+      "centro": "Everything centered, big face.",
+      "cartaz": "Tall cover with the name on top, like a street poster."
+    },
+    "faixa": "Your woven stripe",
+    "faixaAjuda": "Eleven threads, in the proportions of the house stripe. Pick a thread, then a color.",
+    "fio": "Thread {n}",
+    "fioEscolhido": "Thread {n} selected: {cor}",
+    "modelos": "Start from a pattern",
+    "modelosNomes": {
+      "casa": "House",
+      "brasa": "Ember",
+      "mar": "Sea",
+      "mata": "Forest",
+      "orgulho": "Pride",
+      "luto": "Mourning"
+    },
+    "coresDaFaixa": [
+      "Red",
+      "Yellow",
+      "Blue",
+      "Paper",
+      "Green",
+      "Pink",
+      "Orange",
+      "Night",
+      "Turquoise",
+      "Purple"
+    ]
+  },
+  "rosto": {
+    "titulo": "Face",
+    "ajuda": "Draw your face as a mosaic, tile by tile, or use a drawing or photo (the photo loses its EXIF on your device and goes through moderation).",
+    "modo": {
+      "mosaico": "Pixel mosaic",
+      "sempre": "Drawing or photo"
+    },
+    "grade": "Face grid, 8 by 8. Arrows move, Space or Enter paints.",
+    "ladrilho": "Row {l}, column {c}: {cor}",
+    "vazio": "empty",
+    "cores": [
+      "Eraser",
+      "Paper",
+      "Charcoal",
+      "Red",
+      "Gold",
+      "Blue",
+      "Green",
+      "Pink",
+      "Orange",
+      "Purple"
+    ],
+    "pincel": "Brush color",
+    "espelhar": "Mirror (paints both sides)",
+    "sortear": "Random face",
+    "limpar": "Clear",
+    "poucos": "Paint at least 6 tiles for the face to count.",
+    "usarMosaico": "Use the mosaic",
+    "desenhoOuFoto": "Gallery drawing or photo: in the Account tab."
+  },
+  "capa": {
+    "titulo": "Cover",
+    "ajuda": "A mosaic cover with your word, in your color, or the usual cover (drawing or photo).",
+    "modo": {
+      "mosaico": "Mosaic with a word",
+      "sempre": "Drawing or photo"
+    },
+    "palavra": "Cover word",
+    "palavraAjuda": "Up to 10 letters and numbers, no accents. E.g.: OCCUPY, FIGHT ON.",
+    "embaralhar": "Shuffle the tiles",
+    "desenhoOuFoto": "Gallery drawing or photo: in the Account tab.",
+    "palavraVazia": "Write the cover word (or choose Drawing or photo)."
+  },
+  "sobre": {
+    "codinome": "Code name",
+    "codinomeAjuda": "The name shown on Alumia: 3 to 30 letters. Never your legal name.",
+    "erros": {
+      "codinome_usado": "That code name already belongs to someone else.",
+      "codinome_civil": "It looks like your legal name. Pick another one, for your safety.",
+      "codinome_reservado": "That name is reserved.",
+      "invalido_codinome": "Use 3 to 30 letters, numbers, space, dot, hyphen or _ (no links and no @)."
+    },
+    "pronomes": "Pronouns",
+    "pronomesAjuda": "E.g.: she/her, he/him, they/them. Optional.",
+    "bio": "Bio",
+    "bioAjuda": "Use **bold**, _italic_, https links, #topics and @people. HTML does not work.",
+    "bioSalvaAparte": "The bio is saved with everything else when you tap Save.",
+    "negrito": "Bold",
+    "italico": "Italic",
+    "campos": "Fields",
+    "camposAjuda": "Up to 6. An https link shows its domain before the click; tracking (utm, fbclid) is removed. Do not add phone, address or documents.",
+    "rotulo": "Label",
+    "valor": "Value",
+    "adicionar": "Add field",
+    "remover": "Remove field {n}",
+    "subir": "Move field {n} up",
+    "descer": "Move field {n} down",
+    "linkLimpo": "Goes to {dominio}",
+    "rastreioTirado": "We removed {n} tracking bit(s) from the link.",
+    "linkRuim": "Only links starting with https://.",
+    "contador": "{n} of {max}"
+  },
+  "abas": {
+    "titulo": "Profile tabs",
+    "ajuda": "Choose which tabs appear and in what order. Posts always stays.",
+    "nomes": {
+      "posts": "Posts",
+      "respostas": "Replies",
+      "midia": "Media",
+      "atos": "Actions",
+      "destaques": "Highlights",
+      "organizacoes": "Organizations",
+      "escola": "School badges"
+    },
+    "mostrar": "Show the {aba} tab",
+    "subir": "Move {aba} up",
+    "descer": "Move {aba} down",
+    "sempre": "always shown",
+    "arrastar": "Drag to reorder, or use the buttons.",
+    "curtos": {
+      "escola": "School"
+    }
+  },
+  "vitrine": {
+    "fixados": "Pinned posts",
+    "fixadosAjuda": "Up to 3 of your posts at the top of your profile, in order.",
+    "fixar": "Pin",
+    "desafixar": "Unpin",
+    "cheio": "You already have 3 pinned.",
+    "semPosts": "You have no posts to pin yet.",
+    "destaques": "Highlights",
+    "destaquesAjuda": "Up to 6 of your posts or actions, with a short title and a color.",
+    "tituloDestaque": "Highlight title",
+    "virarDestaque": "Highlight",
+    "tirar": "Remove",
+    "corDoDestaque": "Highlight color",
+    "orgs": "Organizations on your profile",
+    "orgsAjuda": "Only the ones you type, one by one, and only verified ones. Membership is sensitive data (LGPD art. 11): Alumia infers nothing from who you follow.",
+    "orgHandle": "Organization @",
+    "mostrarOrg": "Show",
+    "orgRuim": "Type an organization @ (3 to 20 letters, numbers or _).",
+    "orgConferida": "The database checks the badge when you save.",
+    "ato": "Action",
+    "post": "Post"
+  },
+  "agora": {
+    "status": "Status with an end time",
+    "statusAjuda": "Disappears on its own. Never says where you are.",
+    "statusTipos": {
+      "greve": "On strike",
+      "ato": "At a protest",
+      "estudando": "Studying",
+      "cuidando": "Caring for someone",
+      "ferias": "Off"
+    },
+    "semStatus": "No status",
+    "statusTexto": "Short text (optional)",
+    "duracao": "Disappears after",
+    "duracoes": {
+      "1": "1 hour",
+      "8": "8 hours",
+      "24": "1 day",
+      "72": "3 days",
+      "168": "1 week",
+      "720": "30 days"
+    },
+    "tocando": "Now playing",
+    "tocandoAjuda": "Just text and, if you want, a link. Alumia connects to no music service: no tracking.",
+    "tocandoTexto": "Song, podcast, anthem…",
+    "tocandoLink": "Link (optional, https)",
+    "tirar": "Remove"
+  },
+  "perfil": {
+    "tocando": "Now playing",
+    "ouvirEm": "listen on {dominio}",
+    "ate": "until {data}",
+    "fixado": "Pinned",
+    "orgs": "Organizations {codinome} chose to show",
+    "vazio": {
+      "respostas": "No replies yet.",
+      "midia": "No images yet.",
+      "atos": "No actions called yet.",
+      "destaques": "No highlights yet.",
+      "organizacoes": "No organization chosen.",
+      "escola": "No School badges shown."
+    },
+    "linkDoCampo": "{rotulo} link: {dominio}",
+    "editar": "Edit profile",
+    "abas": "{codinome}'s profile tabs",
+    "naoAchado": {
+      "titulo": "Profile not found",
+      "texto": "Nobody uses @{handle} on Alumia, or the person doesn't want to be found.",
+      "voltar": "Back to home"
+    }
+  },
+  "conta": {
+    "titulo": "Account and privacy",
+    "ajuda": "@name, who can find you, studying now, badges, drawing or photo face and cover, and follow requests. Each block saves on its own.",
+    "previa": "In the preview, the account is for show only: these blocks change your real account and need the database.",
+    "exemplo": [
+      [
+        "@name",
+        "@faisca · can change every 30 days"
+      ],
+      [
+        "Who can find you",
+        "Open: people on Alumia find you by @name"
+      ],
+      [
+        "Studying now",
+        "Off (only shows if you turn it on)"
+      ],
+      [
+        "School badges",
+        "3 badges on display"
+      ],
+      [
+        "Drawing or photo face and cover",
+        "Drawing gallery or photo without EXIF"
+      ],
+      [
+        "Follow requests",
+        "No pending requests"
+      ]
+    ],
+    "mudar": "Change"
+  },
+  "org": {
+    "tear": {
+      "titulo": "Loom of follow-ups",
+      "agregado": "We decided {decididos}, we delivered {cumpridos}.",
+      "poucos": "The loom shows the score from 3 decisions on.",
+      "ajuda": "Each decision becomes a thread. Once delivered, the needle weaves it into the stripe; when overdue, it hangs loose.",
+      "funcaoSoDentro": "The responsible role and the deadline are shown only to the organization's members.",
+      "funcao": "Responsible role",
+      "prazo": "Deadline",
+      "vencido": "Overdue",
+      "cumprido": "Delivered",
+      "aberto": "Open",
+      "cumprir": "Mark as delivered",
+      "reabrir": "Reopen",
+      "retirar": "Withdraw",
+      "novo": "Weave a new thread",
+      "texto": "What was decided",
+      "funcaoAjuda": "The name of the role (treasury, communication), never a person.",
+      "tecer": "Weave",
+      "vazio": "No follow-ups yet."
+    },
+    "lampiao": {
+      "titulo": "Light a lantern",
+      "ajuda": "Found a local group in 5 steps. The lantern starts dark, gets an ember with the 1st person and a full flame with the 3rd.",
+      "passo": "Step {n} of 5",
+      "passos": [
+        "Name and city",
+        "First meeting agenda",
+        "Poster",
+        "Invite",
+        "First task"
+      ],
+      "nome": "Group name",
+      "cidade": "City (typed, no GPS)",
+      "quando": "When you meet",
+      "onde": "Where (public place, never a home address)",
+      "pauta": "First meeting agenda",
+      "pautaModelo": "1. Who we are and why we are here\n2. The neighborhood problem that hurts most\n3. A small first action\n4. Next meeting",
+      "cartaz": "The poster is ready with the name, the day and a clean QR code, no tracking.",
+      "convite": "Invite with an expiry and a use limit: create it later in Groups > Invites.",
+      "tarefa": "First task",
+      "tarefaModelo": "Bring one more trusted person to the second meeting.",
+      "voltar": "Back",
+      "seguir": "Next",
+      "acender": "Light it",
+      "aceso": "Lantern lit! The group joins the showcase when it reaches 3 people.",
+      "estados": {
+        "apagado": "Dark: nobody yet",
+        "brasa": "Ember: it started",
+        "chama": "Full flame: 3 or more"
+      },
+      "cor": "Group color"
+    }
+  }
+}

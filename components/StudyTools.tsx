@@ -164,7 +164,7 @@ export function StudyTools({ id, path, s, titulo = "", sala = "" }: { id: string
             <blockquote className="mt-2 border-l-2 border-rule pl-3 font-serif text-base">“{confuso}”</blockquote>
             <p className="mt-1 text-xs text-ink-soft">{titulo}</p>
             <div className="mt-3 flex flex-wrap gap-3">
-              <L href={`/comunidade?nova=1&alvo=${encodeURIComponent(path)}&titulo=${encodeURIComponent(titulo)}&sala=${encodeURIComponent(sala)}&trecho=${encodeURIComponent(confuso)}`} className="bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood">{s.toCommunity}</L>
+              <L href={`/alumia?nova=1&alvo=${encodeURIComponent(path)}&titulo=${encodeURIComponent(titulo)}&sala=${encodeURIComponent(sala)}&trecho=${encodeURIComponent(confuso)}`} className="bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood">{s.toCommunity}</L>
               <L href={`/reforco?disciplina=${encodeURIComponent(sala)}&assunto=${encodeURIComponent(titulo)}&aula=${encodeURIComponent(path)}&trecho=${encodeURIComponent(confuso)}`} className="border-2 border-ink px-4 py-2 font-medium hover:border-oxblood hover:text-oxblood">{s.toTutoring}</L>
               <button type="button" className={link} onClick={() => setConfuso(null)}>{s.cancel}</button>
             </div>

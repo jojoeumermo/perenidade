@@ -3,6 +3,7 @@
 // As chamadas do pacote "comunidades" ao banco (rede_com_*): uma função por rpc, nos nomes e parâmetros de
 // supabase/migracoes/2026-11-rede-comunidades.sql. Usa `chamar` da fundação. Sem "@/" de propósito.
 import { type Chamar, chamar } from "./cliente";
+import { criarDubleDosNucleos } from "./nucleos-exemplos";
 import type { PaginaDaLinha } from "./tipos";
 import type {
   ItemDaLista,
@@ -41,9 +42,30 @@ export function criarClienteComunidades(c: Chamar) {
     sairDoNucleo: (id: string) => c<{ ok: boolean }>("rede_com_nucleo_sair", { p_id: id }),
     salvarEncontro: (p: { nucleo: string; quando: string; local_tipo: string; local_texto: string }) => c<{ id: string }>("rede_com_encontro_salvar", { p }),
     removerEncontro: (id: string) => c<{ ok: boolean }>("rede_com_encontro_remover", { p_id: id }),
+    // Onda 5 (PLANO-ALUMIA F3): supabase/migracoes/20261109-alumia-f3.sql. Só as telas novas (rede-v2 + alumia-2) chamam.
+    /** A página da tela nova: a de rede_com_pagina + "N posts esta semana" (agregado; nulo abaixo de 3). */
+    paginaAlumia: (slug: string) => c<PaginaDaComunidade>("rede_alumia_com_pagina", { p_slug: slug }),
+    /** "Comunidades ativas": as com mais posts nos últimos 7 dias (só as com 3 ou mais), sem algoritmo e sem patrocínio. */
+    ativas: (quantas = 4) => c<{ itens: ItemDaLista[] }>("rede_alumia_ativas", { p_quantas: quantas }),
     turma: (mes: string) => c<SituacaoDaTurma>("rede_com_turma", { p_mes: mes }),
     entrarNaTurma: (mes: string) => c<{ slug: string }>("rede_com_turma_entrar", { p_mes: mes }),
   };
 }
 
-export const comunidades = criarClienteComunidades(chamar);
+/** A prévia com dados de exemplo está ligada? (A referência é literal para o Next gravar o valor no código do navegador.) */
+const PREVIA = process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
+
+/**
+ * Na prévia, os núcleos e a turma do mês respondem pelo dublê (lib/rede/nucleos-exemplos.ts); o resto segue o caminho de sempre
+ * (as telas de comunidade já têm os próprios exemplos).
+ */
+export function chamarComNucleosDeExemplo(duble = criarDubleDosNucleos(), resto: Chamar = chamar): Chamar {
+  return async <T,>(funcao: string, argumentos: Record<string, unknown> = {}) => {
+    const f = (duble as unknown as Record<string, ((a: Record<string, unknown>) => unknown) | undefined>)[funcao];
+    if (!f) return resto<T>(funcao, argumentos);
+    await new Promise((r) => setTimeout(r, 120));
+    return structuredClone(f(argumentos)) as T;
+  };
+}
+
+export const comunidades = criarClienteComunidades(PREVIA ? chamarComNucleosDeExemplo() : chamar);

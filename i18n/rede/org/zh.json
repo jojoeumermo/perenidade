@@ -1,0 +1,240 @@
+{
+  "_rascunho": true,
+  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia 首页", "acessibilidade": "无障碍", "ajuda": "常见问题" },
+  "tipos": { "partido": "政党", "mandato": "议员团队", "sindicato": "工会", "movimento": "社会运动", "coletivo": "集体", "gremio": "学生会", "dce": "大学生联合会", "outro": "组织" },
+  "pagina": {
+    "titulo": "带上你的组织",
+    "entrar": "登录",
+    "criarConta": "创建账户",
+    "chamada": "你的群众基础装不进亿万富翁的算法",
+    "lead": "Alumia 是 Instituto Lúcia 的社运社交网络：自由、无广告、无算法，并连接联邦宇宙。带上你的组织，把你的群众召集到这里。",
+    "pedirSelo": "申请组织认证标志",
+    "verExemplo": "查看示例主页",
+    "para": "适用于政党、议员团队、工会、社会运动、集体、学生会和大学生联合会。",
+    "mosaicoPalavra": "VEM",
+    "mosaicoRotulo": "行动马赛克示例，词语为 VEM，几乎全部点亮；金色卡片就是你。",
+    "mosaicoLegenda": "每张卡片代表一位确认参加的人。在 Alumia，行动就是这样显示的。",
+    "porQue": {
+      "titulo": "为什么用 Alumia 替代 X",
+      "tema": "主题",
+      "noX": "在 X",
+      "naAlumia": "在 Alumia",
+      "linhas": [
+        { "tema": "谁决定群众看到什么", "x": "公司的算法，随时变化且不通知。", "alumia": "没有人。按到达顺序：关注你的人能看到一切。" },
+        { "tema": "触达", "x": "可以花钱买，也会随算法下跌。", "alumia": "买不到，也没人削减：你的帖子按顺序送达关注者。" },
+        { "tema": "所有者", "x": "一位亿万富翁的公司。", "alumia": "Instituto Lúcia 的自由软件，连接联邦宇宙。" },
+        { "tema": "组织", "x": "发帖、点赞，仅此而已。", "alumia": "行动、小组、群众咨询、全体会议和公开问责。" },
+        { "tema": "你的数据", "x": "用于广告。", "alumia": "无广告、无追踪。始终使用化名。" },
+        { "tema": "学习", "x": "没有。", "alumia": "每次讨论都能变成课程，每门课程都能变成讨论。" }
+      ]
+    },
+    "ferramentas": {
+      "titulo": "用来组织的工具，而不只是发帖",
+      "verNoExemplo": "在示例主页中查看",
+      "atos": {
+        "titulo": "发起行动，看着群众被点亮",
+        "texto": "行动有日期、地点、讨论和马赛克：每一次确认点亮一张卡片。组织能看到有多少人参加；其他人看到词语逐渐清晰。延期或取消？印章会保留，没人会措手不及。",
+        "carimbos": { "confirmado": "已确认", "adiado": "已延期", "cancelado": "已取消" }
+      },
+      "consulta": {
+        "titulo": "决定之前先咨询群众",
+        "texto": "只有小组成员才能投票的咨询，有截止时间和公开结果。议员团队事先说明是否遵从结果。",
+        "rotulo": "群众咨询结果示例",
+        "opcoes": [ { "texto": "投反对票", "p": 71 }, { "texto": "附修正案赞成", "p": 18 }, { "texto": "弃权", "p": 11 } ]
+      },
+      "plenaria": {
+        "titulo": "公开全体会议与问责",
+        "texto": "群众提问，组织按到达顺序现场回答。每一次投票都记入表格并附上理由，供任何人核查。",
+        "rotulo": "全体会议提问队列示例",
+        "naFila": 214,
+        "perguntas": [
+          { "handle": "ritadazl", "texto": "为什么议员团队投票反对公园特许经营？" },
+          { "handle": "joaocobrador", "texto": "周日免费乘车的讨论什么时候恢复？" }
+        ]
+      },
+      "nucleos": {
+        "titulo": "小组、培训与联邦宇宙",
+        "texto": "按街区、行业或学校划分群众。把每次讨论与 Instituto Lúcia 的课程相连。不用离开这里，也能与 Mastodon、Lemmy 和 Misskey 上的人交流。",
+        "rotulo": "组织的小组示例",
+        "lista": [ { "nome": "东区小组", "quando": "每周二 19:00", "cor": 3 }, { "nome": "市中心小组", "quando": "每周六 10:00", "cor": 1 }, { "nome": "学生小组", "quando": "每周三 18:00", "cor": 2 } ]
+      }
+    },
+    "comoEntrar": {
+      "titulo": "如何加入",
+      "passos": [
+        { "titulo": "创建组织账户", "texto": "化名、简介，以及谁来管理账户。" },
+        { "titulo": "申请认证标志", "texto": "团队核查一份公开文件：企业登记号（CNPJ）、政党登记或议员当选证书。" },
+        { "titulo": "召集你的群众", "texto": "一个加入小组的邀请链接，第一次行动已经安排好。" }
+      ]
+    },
+    "regra": "人人规则相同：认证标志只说明账户属于其所声称的组织，并非 Instituto Lúcia 的支持。已认证组织不会获得额外触达，遵守与全网相同的关怀规则。",
+    "pedirOSelo": "申请认证"
+  },
+  "selo": {
+    "texto": "已认证组织",
+    "desde": "自 {data}",
+    "regra": "认证标志只说明账户属于其所声称的组织，并非 Instituto Lúcia 的支持。",
+    "conferido": "已核查公开文件：{documento}。",
+    "semSelo": "尚未认证：团队还未核查该组织的文件。"
+  },
+  "perfil": {
+    "seguir": "关注",
+    "seguindo": "已关注",
+    "sino": "发帖时提醒我",
+    "sinoAjuda": "提醒不包含帖子内容。",
+    "entrarNucleo": "加入小组",
+    "gerencio": "你在管理这个账户。其他人看不到是你。",
+    "capa": "{codinome} 的封面：马赛克拼出的 {palavra}",
+    "semContagens": "不显示关注者数量，也没有关注者名单。",
+    "entreParaSeguir": "登录 Alumia 后即可关注。",
+    "abas": { "rotulo": "{codinome} 主页的栏目", "posts": "帖子", "atos": "行动", "contas": "公开问责", "consultas": "群众咨询", "plenarias": "全体会议" },
+    "vazioAtos": "该组织尚未发起行动。",
+    "nucleos": {
+      "titulo": "小组",
+      "entrar": "加入",
+      "entrarNo": "申请加入 {nome}",
+      "pedido": "申请已发送",
+      "sou": "你是成员",
+      "ajuda": "由小组协调人接受申请。没人能看到小组成员名单。",
+      "vazio": "该组织还没有小组。"
+    }
+  },
+  "contas": {
+    "titulo": "我们如何投票",
+    "intro": "每一次投票，附理由和公开来源，供任何人核查。",
+    "data": "日期",
+    "projeto": "议案",
+    "voto": "投票",
+    "porque": "理由",
+    "resultado": "结果",
+    "fonte": "来源",
+    "abrirFonte": "核查",
+    "semFonte": "无来源",
+    "votos": { "sim": "赞成", "nao": "反对", "abstencao": "弃权", "obstrucao": "阻挠", "ausente": "缺席" },
+    "vazio": "暂无投票记录。",
+    "registrar": { "titulo": "记录投票", "fonteAjuda": "议会网站、会议纪要或政府公报（https 地址）。没有来源，投票不予记录。", "enviar": "记录", "feito": "投票已记录。" }
+  },
+  "consulta": {
+    "aberta": "咨询进行中",
+    "fechada": "咨询已结束",
+    "fechaEm": "{tempo} 后结束",
+    "fechou": "于 {data} 结束",
+    "dias": "{d} 天 {h} 小时",
+    "horas": "{h} 小时",
+    "compromisso": "开放前写下的承诺",
+    "quemVota": "只有小组成员投票：{nucleos}。",
+    "quorum": "法定人数：{n} 人。",
+    "quorumOk": "已达法定人数。",
+    "quorumNao": "未达法定人数：结果不具约束力。",
+    "votantes": "{pessoas}投了票。",
+    "pessoas": { "exato": "{n} 人", "maisDe": "超过 {n} 人", "poucas": "少数人" },
+    "ranqueada": "排序投票：按你的顺序排列选项（1 为最想要的）。以即时决选计票。",
+    "simples": "选择一个选项。",
+    "subir": "上移 {opcao}",
+    "descer": "下移 {opcao}",
+    "votar": "投票",
+    "secreto": "投票是秘密的：连组织也看不到你投了什么。投票后不能更改。",
+    "votei": "你的投票已记录。它是秘密的：咨询结束后只显示总数。",
+    "naoPosso": "只有该组织小组的成员才能投票。",
+    "verNucleos": "查看小组",
+    "resultadoDepois": "咨询结束后，结果向所有人公开。",
+    "resultado": "结果",
+    "barra": "{opcao}：{p}%",
+    "vazio": "暂无咨询。"
+  },
+  "plenaria": {
+    "aoVivo": "正在直播",
+    "marcada": "定于 {data}",
+    "naSala": { "exato": "{n} 人在场", "maisDe": "超过 {n} 人在场", "poucas": "少数人在场" },
+    "naFila": "队列中有 {n} 个问题",
+    "entrarNaSala": "进入会场",
+    "salaDepois": "开始后会显示会场链接。",
+    "salaFora": "在 Alumia 之外打开",
+    "mandarPergunta": "提交问题",
+    "pergunta": "你的问题",
+    "perguntaAjuda": "最多 280 个字符。按到达顺序排到队尾：没人能插队。",
+    "mostrar": "在队列中显示我的 @",
+    "mostrarAjuda": "关闭时，问题不显示你的 @。",
+    "enviar": "提交",
+    "enviada": "你的问题已进入队列。",
+    "jaPergunte": "你已向本次全体会议提过问题。",
+    "fila": "提问队列",
+    "anonimo": "匿名",
+    "respondida": "已回答",
+    "ordem": "按到达顺序，不经助理筛选",
+    "vazio": "暂无安排的全体会议。",
+    "vazioFila": "还没有人提问。",
+    "comA": "与 {org}",
+    "eu": "你"
+  },
+  "pedir": {
+    "titulo": "申请认证标志",
+    "intro": "创建组织账户，并提交一份公开文件供团队核查。认证标志只说明账户属于其所声称的组织。",
+    "entre": "登录 Alumia 以申请认证。组织账户与你的账户分开。",
+    "entrar": "登录",
+    "codinome": "组织名称",
+    "codinomeAjuda": "公开名称（\"Mandata Popular\"）。不得使用个人的真实姓名。",
+    "handle": "组织的 @",
+    "handleAjuda": "3 到 20 个不带重音的小写字母、数字或 _。",
+    "tipo": "类型",
+    "cidade": "城市",
+    "cidadeAjuda": "只填写城市，由你输入。Alumia 不使用设备定位。",
+    "docTipo": "公开文件",
+    "docTipos": { "cnpj": "企业登记号（CNPJ）", "tse": "选举法院的政党登记", "diploma": "议员当选证书", "ata": "成立或选举会议纪要（学生会、联合会、集体）" },
+    "documento": "文件编号或链接",
+    "documentoAjuda": "只提交组织的公开文件。绝不提交个人证件。",
+    "sobre": "用一句话介绍组织",
+    "maior": "管理此账户的人年满 18 岁。",
+    "regras": "我明白：认证标志不是 Instituto Lúcia 的支持，也不带来额外触达。组织遵守与所有人相同的规则。",
+    "privacidade": "管理账户的人不会向任何人显示：关联单独保存，只有法院命令才能公开。政治归属属于敏感数据（LGPD 第 11 条）。",
+    "enviar": "提交申请",
+    "enviado": "申请已排队。团队核查文件后会在你的通知中回复。",
+    "faltou": "请填写{campo}。",
+    "docPessoal": "这看起来像个人证件（CPF）。请只提交组织的公开文件。"
+  },
+  "exemplo": {
+    "aviso": "示意数据",
+    "texto": "这是示例主页：组织、人物和数字都是虚构的，你在这里的任何操作都不会被保存。",
+    "voltar": "返回“带上你的组织”"
+  },
+  "pessoa": {
+    "abas": { "rotulo": "{codinome} 主页的栏目", "posts": "帖子", "respostas": "回复", "midia": "媒体" },
+    "status": { "greve": "罢工中", "ato": "行动中", "estudando": "学习中", "cuidando": "照顾他人中", "ferias": "休假中" },
+    "ate": "至 {data}",
+    "pronomes": "代词",
+    "campos": "关于 {codinome}",
+    "destaques": "精选",
+    "destaqueTipos": { "post": "帖子", "ato": "行动" },
+    "editar": {
+      "titulo": "状态、代词和字段",
+      "ajuda": "显示在你的主页上，能看到主页的人都能看到。链接只能用 https。不要填写个人信息（电话、地址、证件号）。",
+      "status": "状态",
+      "semStatus": "无状态",
+      "statusTexto": "简短文字（可选）",
+      "statusHoras": "持续多久",
+      "horas": { "24": "1 天", "72": "3 天", "168": "1 周" },
+      "pronomes": "代词",
+      "campos": "字段（最多 4 个）",
+      "rotulo": "标签",
+      "valor": "内容",
+      "adicionar": "添加字段",
+      "remover": "删除字段 {n}",
+      "salvar": "保存",
+      "salvo": "已保存。"
+    },
+    "vazio": { "respostas": "这里还没有回复。", "midia": "这里还没有图片。" }
+  },
+  "coluna": { "entrarNaSala": "进入会场", "mandarPergunta": "提交问题" },
+  "erros": { "semBanco": "这部分尚未上线。", "falha": "没有成功，请再试一次。" },
+  "cuidar": {
+    "titulo": "管理此账号",
+    "ajuda": "只有管理此账号的人能看到这一部分。你在这里做的事以组织的名义发出；没有人能看到是你。",
+    "feito": "已完成。页面已更新。",
+    "voto": {"titulo": "记录一次投票（我们如何投票）", "data": "投票日期", "projeto": "议案", "voto": "投票", "porque": "理由", "resultado": "议会结果", "fonte": "公开来源链接", "fonteAjuda": "议会网站、会议记录或政府公报：任何人都可以核对。", "mandar": "记录", "votos": {"sim": "赞成", "nao": "反对", "abstencao": "弃权", "obstrucao": "阻挠", "ausente": "缺席"}},
+    "nucleo": {"titulo": "新的小组", "nome": "小组名称", "quando": "聚会时间", "onde": "街区或城市", "cor": "颜色", "mandar": "创建小组"},
+    "pedidos": {"titulo": "加入小组的申请", "ver": "查看申请", "vazio": "没有待处理的申请。", "aceitar": "接受", "recusar": "拒绝", "ajuda": "只显示申请人的代号和 @。拒绝不会通知对方。", "de": "{codinome}（@{handle}）想加入{nucleo}"},
+    "consulta": {"titulo": "发起基层征询", "pergunta": "问题", "metodo": "方式", "simples": "简单（选一项）", "ranqueada": "排序（按偏好顺序）", "opcoes": "选项（每行一个，2 到 8 个）", "prazo": "截止时间", "quorum": "法定人数（可选，3 人以上）", "compromisso": "组织将如何对待结果", "ajuda": "组织小组的成员可以投票。发起后一切不变：问题、选项和期限都不变。", "mandar": "发起征询"},
+    "plenaria": {"titulo": "安排全体会议", "nome": "标题", "descricao": "说明", "inicio": "开始时间", "sala": "会议室链接（https）", "mandar": "安排全体会议", "noAr": "开始直播", "encerrar": "结束", "fila": "{titulo} 的提问队列", "filaVazia": "队列中没有问题。", "respondida": "已回答", "tirar": "移出队列", "motivo": "移出理由", "ajudaFila": "顺序按到达先后，不会改变。问题只会因以下理由之一移出队列，并会被记录。", "motivos": {"ofensa": "冒犯", "dado_pessoal": "个人信息", "fora_do_tema": "离题", "repetida": "重复"}},
+    "gestores": {"titulo": "谁在管理此账号", "handle": "此人的 @", "adicionar": "加入管理", "remover": "移除", "sair": "退出此账号", "ajuda": "只有创建账号的人可以添加或移除人员。管理者名单不会出现在任何地方，这里也不会。"}
+  }
+}

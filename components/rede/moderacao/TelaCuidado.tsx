@@ -22,7 +22,7 @@ function faltam(m: MeuNivel, sm: NonNullable<ReturnType<typeof useTextosMod>>): 
 }
 
 /**
- * "Como a Rede cuida" (/comunidade/cuidado): página pública com as regras escritas: denúncia com protocolo, prioridade da fila,
+ * "Como a Rede cuida" (/alumia/cuidado): página pública com as regras escritas: denúncia com protocolo, prioridade da fila,
  * registro, recurso de 30 dias, modo lento, silenciar, rótulo de desinformação, a lei e a tabela dos níveis de confiança (lida do banco,
  * então é sempre a que vale). Quem entrou vê também o próprio nível e o que falta para o próximo.
  */

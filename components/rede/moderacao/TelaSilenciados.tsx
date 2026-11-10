@@ -17,7 +17,7 @@ function armazem(): Storage | null {
   }
 }
 
-/** "O que eu silenciei" (/comunidade/silenciados): a lista da conta (no servidor) e a deste aparelho; dá para desfazer e para silenciar uma palavra. */
+/** "O que eu silenciei" (/alumia/silenciados): a lista da conta (no servidor) e a deste aparelho; dá para desfazer e para silenciar uma palavra. */
 export default function TelaSilenciados({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const sm = useTextosMod(lang);
   const [conta, setConta] = useState<Silenciado[] | null>(null);

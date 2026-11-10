@@ -65,7 +65,7 @@ export function PortaVermelha({ lang, t, situacao, aoTentar }: { lang: Locale; t
           </div>
           <p className="ef-porta-resto">
             {t.resto} <Link href={localePath(lang, "/trilhas")}>{t.aulas}</Link>, <Link href={localePath(lang, "/acervo")}>{t.acervo}</Link>,{" "}
-            <Link href={localePath(lang, "/jornal")}>{t.jornal}</Link>, <Link href={localePath(lang, "/comunidade")}>{t.alumia}</Link>.
+            <Link href={localePath(lang, "/jornal")}>{t.jornal}</Link>, <Link href={localePath(lang, "/alumia")}>{t.alumia}</Link>.
           </p>
         </section>
 

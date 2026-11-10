@@ -62,6 +62,12 @@ igual("só a comunidade: ela fecha", fechado("/pt/comunidade", comunidade), "com
 igual("só a comunidade: uma conversa fecha", fechado("/en/comunidade/123", comunidade), "comunidade");
 igual("só a comunidade: o resto abre", ["/pt", "/pt/trilhas", "/pt/mural", "/pt/acervo"].map((c) => fechado(c, comunidade)), [null, null, null, null]);
 igual("prefixo parecido não conta", fechado("/pt/comunidades-tradicionais", comunidade), null);
+// A Alumia mudou de /comunidade para /alumia (PLANO-ALUMIA, F0): o caminho novo e o antigo fecham com a mesma área.
+igual("Alumia: o caminho novo fecha com a área comunidade", fechado("/pt/alumia", comunidade), "comunidade");
+igual("Alumia: uma tela nova fecha junto", fechado("/en/alumia/atos", comunidade), "comunidade");
+igual("Alumia: o caminho antigo também fecha", fechado("/pt/comunidade/p/x", comunidade), "comunidade");
+igual("Alumia: prefixo parecido não conta", fechado("/pt/alumiar", comunidade), null);
+igual("Alumia: área do caminho", areaDoCaminho("/alumia/organizacoes"), "comunidade");
 igual("contribuir fecha a denúncia junto", fechado("/pt/denunciar", { geral: false, areas: ["contribuir"], mensagem: "" }), "contribuir");
 
 igual("estado lido do site()", lerEstado({ faixa: "", interdicao: { geral: true, areas: ["mural", 3], mensagem: "x" } }), { geral: true, areas: ["mural"], mensagem: "x" });

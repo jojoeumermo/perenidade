@@ -233,7 +233,7 @@ await confere("mensagem com endereço de site fica retida para a mediação", as
   return fila.ok && JSON.stringify(fila.dados).includes(r.dados.id) ? "" : "não apareceu na fila da mediação";
 });
 await confere("visitante denuncia uma mensagem", async () => {
-  const r = await chamar(CHAVE_ANON, "denunciar", { p_alvo: `/pt/comunidade?t=${topico?.id}`, p_motivo: "ofensa", p_detalhes: "Teste de fumaça: denúncia com detalhes suficientes." });
+  const r = await chamar(CHAVE_ANON, "denunciar", { p_alvo: `/pt/alumia?t=${topico?.id}`, p_motivo: "ofensa", p_detalhes: "Teste de fumaça: denúncia com detalhes suficientes." });
   return r.ok ? "" : r.codigo;
 });
 await barrado("leitora não oculta mensagem alheia", "leitora", "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico?.id, p_acao: "ocultar" });
@@ -274,7 +274,7 @@ if (site) {
     ["/pt/acervo", "<h1"],
     ["/pt/busca", "<h1"],
     ["/pt/trilhas", "<h1"],
-    ["/pt/comunidade", "<h1"],
+    ["/pt/alumia", "<h1"],
     ["/pt/entrar", "<html"],
     ["/pt/painel", "<html"],
     ["/pt/noticias", "<h1"],

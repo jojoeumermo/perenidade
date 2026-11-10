@@ -50,7 +50,8 @@ const lerRascunho = (): RascunhoGuardado | null => {
     return null;
   }
 };
-const escreverRascunho = (r: RascunhoGuardado | null) => {
+/** Guarda (ou apaga, com null) o rascunho do aparelho na hora; o Escrever novo usa ao fechar, para não perder o que ainda não foi guardado. */
+export const escreverRascunho = (r: RascunhoGuardado | null) => {
   try {
     if (r) window.localStorage.setItem(CHAVE_RASCUNHO, JSON.stringify(r));
     else window.localStorage.removeItem(CHAVE_RASCUNHO);
@@ -249,7 +250,8 @@ export function useEscreverPub({
 }
 export type PubDoEscrever = ReturnType<typeof useEscreverPub>;
 
-function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: AudioGravado | null; aoGravar: (a: AudioGravado) => void; aoTirar: () => void }) {
+/** O gravador de áudio (até 1 minuto). `classeBotao` troca a cara dos botões (o Escrever novo usa os da Alumia); `comecarJa` grava ao abrir. */
+export function Gravador({ t, aoGravar, audio, aoTirar, classeBotao, comecarJa = false }: { t: TextosPublicar; audio: AudioGravado | null; aoGravar: (a: AudioGravado) => void; aoTirar: () => void; classeBotao?: string; comecarJa?: boolean }) {
   const [gravando, setGravando] = useState(false);
   const [segundos, setSegundos] = useState(0);
   const [erro, setErro] = useState("");
@@ -296,7 +298,17 @@ function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: A
     }, 250);
   }
 
-  const botao = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-sans text-sm font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
+  // "Gravar áudio" do Escrever novo: o toque no ícone já começa a gravar (o navegador pede o microfone na hora).
+  const jaComecou = useRef(false);
+  useEffect(() => {
+    if (!comecarJa || jaComecou.current || !suporta || audio) return;
+    jaComecou.current = true;
+    void comecar();
+    // só na abertura
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const botao = classeBotao ?? "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-sans text-sm font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
   if (!suporta) return <p className="text-sm text-ink-soft">{t.audio.semSuporte}</p>;
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -305,7 +317,7 @@ function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: A
           <button type="button" className={botao} onClick={() => gravador.current?.stop()}>
             {t.audio.parar}
           </button>
-          <span role="status" className="text-sm">
+          <span role="status" className="al2-gravando text-sm">
             {preencher(t.audio.gravando, { s: segundos })}
           </span>
         </>
@@ -329,7 +341,8 @@ function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: A
   );
 }
 
-function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
+/** As publicações agendadas (abre a lista ao abrir). */
+export function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
   const [lista, setLista] = useState<Agendado[] | null>(null);
   const carregar = useCallback(() => void redePub.agendados().then(setLista, () => setLista([])), []);
   const quando = (iso: string) => {
@@ -360,7 +373,7 @@ function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
 }
 
 /** Os campos do pacote publicar dentro do Escrever (enquete, imagens, áudio, prévia, quem responde, fio, agendamento, avisos). */
-export function ExtrasDoEscrever({ pub, resposta, lang }: { pub: PubDoEscrever; resposta: boolean; lang: string }) {
+export function ExtrasDoEscrever({ pub, resposta, lang, semQuemResponde = false }: { pub: PubDoEscrever; resposta: boolean; lang: string; /** A casca nova (alumia-2) mostra "Quem responde" como linha de escolha própria. */ semQuemResponde?: boolean }) {
   const { t } = pub;
   const [borrando, setBorrando] = useState<string | null>(null);
   const [erroImagem, setErroImagem] = useState("");
@@ -502,7 +515,7 @@ export function ExtrasDoEscrever({ pub, resposta, lang }: { pub: PubDoEscrever; 
         </div>
       )}
 
-      {!resposta && (
+      {!resposta && !semQuemResponde && (
         <label className="block text-sm">
           <span className="font-bold">{t.quem.rotulo}</span>
           <select className={`${campo} mt-1 min-h-11`} value={pub.respondeQuem} onChange={(e) => pub.setRespondeQuem(e.target.value as RespondeQuem)}>
@@ -526,7 +539,7 @@ export function ExtrasDoEscrever({ pub, resposta, lang }: { pub: PubDoEscrever; 
         <div className="space-y-1">
           <label className="block text-sm">
             <span className="font-bold">{t.agendar.rotulo}</span>
-            <input type="datetime-local" className={`${campo} mt-1 min-h-11`} min={minimo} max={maximo} value={pub.agendar} onChange={(e) => pub.setAgendar(e.target.value)} />
+            <input type="datetime-local" lang={lang} className={`${campo} mt-1 min-h-11`} min={minimo} max={maximo} value={pub.agendar} onChange={(e) => pub.setAgendar(e.target.value)} />
           </label>
           {pub.agendar && !pub.agendaOk && <p role="alert" className="text-sm text-oxblood">{t.agendar.cedo}</p>}
           <Agendados t={t} lang={lang} />

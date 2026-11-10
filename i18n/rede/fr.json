@@ -15,7 +15,8 @@
     "escrever": "Écrire",
     "busca": "Rechercher",
     "explorar": "Explorer",
-    "fediverso": "Fédivers"
+    "fediverso": "Fédivers",
+    "editarPerfil": "Modifier le profil"
   },
   "abas": {
     "rotulo": "Fils du réseau",
@@ -86,7 +87,7 @@
     "comunidade": "Communauté (facultatif)",
     "saltarParaConteudo": "Aller au fil",
     "sairRapido": "Sortie rapide",
-    "sairRapidoAjuda": "Ouvre une page neutre et efface les données du réseau sur cet appareil.",
+    "sairRapidoAjuda": "Efface ce qu’Alumia a gardé sur cet appareil et ouvre une page ordinaire extérieure (la météo), sans rien de l’Institut.",
     "cartaoSeguranca": "La sécurité d'abord : ne publiez jamais une adresse, un téléphone ou un document. Au moindre doute, signalez.",
     "cuidados": {
       "titulo": "Vigilance",
@@ -169,7 +170,7 @@
     "limite_de_niveis": "La conversation a atteint la limite de niveaux : continuez depuis une réponse plus haute.",
     "muitos_pedidos": "Doucement : trop de demandes d'affilée. Réessayez dans un instant.",
     "banco_desatualizado": "La base de données n'a pas encore reçu la mise à jour du réseau.",
-    "sem_servico": "Le service de comptes n'est pas activé dans cet environnement.",
+    "sem_servico": "Cette partie d’Alumia n’est pas encore disponible ici. Réessayez plus tard.",
     "sem_conexao": "Pas de connexion. Vérifiez internet et réessayez.",
     "falha": "Un problème est survenu. Réessayez.",
     "invalido": "Vérifiez le champ : {campo}.",
@@ -177,6 +178,7 @@
     "nivel_links": "Votre niveau ne permet pas encore autant de liens dans un message. Voyez les limites dans Comment Alumia veille.",
     "nivel_imagens": "Votre niveau ne permet pas encore autant d'images dans un message. Voyez les limites dans Comment Alumia veille.",
     "limite_diario": "Vous avez atteint la limite de messages d'aujourd'hui pour votre niveau.",
+    "limite_identidades": "Vous avez déjà le maximum de 5 comptes de ce type (identités ou organisations).",
     "lista_bloqueio": "La médiation de ce lieu n'autorise pas vos messages ici."
   },
   "alumia": {

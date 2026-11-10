@@ -20,6 +20,9 @@ import type { PropsDaTelaDoPacote } from "../registro";
 import { Avatar } from "./Avatar";
 import { prepararImagem } from "./imagem";
 import { useTextosDoPerfil } from "./useTextos";
+import { orgLigada } from "@/lib/rede/org/flag";
+import { previa } from "./livre/dados";
+import EditorDoPerfil from "./livre/Editor";
 
 /** O erro de uma chamada em texto: primeiro os do pacote (@nome, imagem…), depois os gerais da Rede. */
 function textoDoErroDoPerfil(sp: TextosDoPerfil, s: TextosDaRede, e: unknown): string {
@@ -45,11 +48,19 @@ const botaoCheio = "min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-
 const botaoVazado = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
 
 /**
- * Editar o perfil da Rede (/comunidade/editar-perfil): @nome, bio, rosto (galeria de desenhos ou foto enviada), capa, quem pode achar
+ * Editar o perfil da Rede (/alumia/editar-perfil): @nome, bio, rosto (galeria de desenhos ou foto enviada), capa, quem pode achar
  * (aberto, trancado, invisível), "estudando agora" (opt-in), selos de trilha, post fixado e os pedidos para seguir. Cada bloco salva
  * sozinho e diz o que aconteceu dentro da página. Quem cuida da Rede também vê aqui a fila de imagens enviadas.
  */
-export default function EditarPerfil({ lang, s, situacao }: PropsDaTelaDoPacote) {
+export default function EditarPerfil(props: PropsDaTelaDoPacote) {
+  // A Alumia nova (rede-v2 + alumia-2 + alumia-org): o editor do perfil livre, com a prévia ao vivo; os blocos de hoje ficam na
+  // aba "Conta" dele. Com a frente desligada, a tela de hoje.
+  if (orgLigada()) return <EditorDoPerfil {...props} conta={previa() ? null : <ContaDoPerfil {...props} embutido />} />;
+  return <ContaDoPerfil {...props} />;
+}
+
+/** Os blocos de hoje (@nome, rosto e capa de desenho ou foto, quem acha, estudando, selos, pedidos, fila). `embutido`: dentro do editor novo. */
+export function ContaDoPerfil({ lang, s, situacao, embutido = false }: PropsDaTelaDoPacote & { embutido?: boolean }) {
   const sp = useTextosDoPerfil(lang);
   const [meu, setMeu] = useState<PerfilMeu | null>(null);
   const [falha, setFalha] = useState("");
@@ -100,8 +111,8 @@ export default function EditarPerfil({ lang, s, situacao }: PropsDaTelaDoPacote)
     ) : null;
 
   return (
-    <div className="px-[18px] py-5 font-sans">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+    <div className={embutido ? "font-sans" : "px-[18px] py-5 font-sans"}>
+      <div className={embutido ? "hidden" : "flex flex-wrap items-center justify-between gap-2"}>
         <h1 className="font-serif text-2xl font-extrabold">{sp.editar.titulo}</h1>
         {meu.handle && (
           <Link href={enderecos.perfil(lang, meu.handle)} className="text-sm underline">
@@ -109,7 +120,7 @@ export default function EditarPerfil({ lang, s, situacao }: PropsDaTelaDoPacote)
           </Link>
         )}
       </div>
-      <p className="mt-1 flex items-center gap-2 text-sm text-ink-soft">
+      <p className={embutido ? "hidden" : "mt-1 flex items-center gap-2 text-sm text-ink-soft"}>
         <Avatar imagem={meu.avatar} codinome={meu.codinome ?? "?"} tamanho={28} />
         {preencher(s.postando, { codinome: meu.codinome ?? "" })}
       </p>
@@ -171,7 +182,7 @@ export default function EditarPerfil({ lang, s, situacao }: PropsDaTelaDoPacote)
         </p>
       )}
 
-      <BlocoFixado sp={sp} s={s} meu={meu} aoFixar={(id) => rodar("fixar", () => redePerfil.fixar(id), () => carregar())} ocupado={ocupado === "fixar"} aviso={mensagem("fixar")} />
+      {!embutido && <BlocoFixado sp={sp} s={s} meu={meu} aoFixar={(id) => rodar("fixar", () => redePerfil.fixar(id), () => carregar())} ocupado={ocupado === "fixar"} aviso={mensagem("fixar")} />}
 
       <BlocoPedidos sp={sp} s={s} pedidos={meu.pedidos} aoMudou={carregar} />
 
