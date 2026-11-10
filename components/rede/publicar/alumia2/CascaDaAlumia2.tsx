@@ -230,7 +230,7 @@ export function CascaDaAlumia2({
         <div className="hidden border-r border-[var(--al-linha)] lg:block">
           {/* Do tamanho da tela, preso no alto: a marca e o menu rolam por dentro quando a tela é baixa; a conta e o Sair rápido ficam
               num pé que não encolhe, sempre à vista (o Sair rápido é a saída de segurança). */}
-          <div className="al2-menu-lateral sticky top-0 flex h-[100dvh] flex-col">
+          <div className="al2-menu-lateral sticky top-0 flex flex-col">
           <div className="al2-menu-rola min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pt-6 xl:px-5 2xl:px-6">
             <Link href={enderecos.linha(lang)} className="flex items-center gap-3 px-2" aria-label={t.marca.inicio}>
               <Lampiao tamanho={34} />
