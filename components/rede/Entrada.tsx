@@ -8,6 +8,9 @@ import { chamar, rede } from "@/lib/rede/cliente";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Situacao } from "@/lib/rede/tipos";
 import { textoDoErro } from "./erros";
+import { useAlumia2 } from "./publicar/alumia2/contexto";
+import { Icone } from "./publicar/alumia2/icones";
+import { Botao, LinkBotao } from "./ui/Botao";
 
 /**
  * A primeira entrada: regras, idade (18+), consentimento destacado para dado sensível (LGPD art. 11, I) e o codinome. Quem
@@ -23,6 +26,32 @@ export function Entrada({ s, lang, situacao, aoEntrar }: { s: TextosDaRede; lang
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const e = s.entrada;
+  const al2 = useAlumia2();
+
+  if (!situacao.logado && al2) {
+    // Na Alumia nova, o convite das pranchas: cartão de superfície, título condensado, "Criar conta" vermelho cheio e "Já tenho
+    // conta" claro, em pílula; sem faixa listrada (a faixa tecida já está no alto da página) e sem sombra dura.
+    return (
+      <section className="al2-convite-entrar" aria-labelledby="rede-entrada">
+        <h2 id="rede-entrada" className="al-cond">{e.titulo}</h2>
+        <ul>
+          {e.pitch.map((linha) => (
+            <li key={linha}>{linha}</li>
+          ))}
+        </ul>
+        <div className="al2-convite-entrar-acoes">
+          <LinkBotao href={`${localePath(lang, "/entrar")}?criar&volta=/alumia`} variante="primario" pilula className="al2-aperta">
+            {e.criarConta}
+          </LinkBotao>
+          <LinkBotao href={`${localePath(lang, "/entrar")}?volta=/alumia`} variante="claro" pilula className="al2-aperta">
+            {e.jaTenhoConta}
+          </LinkBotao>
+        </div>
+        <p className="al2-convite-entrar-nota">{e.lerSemConta}</p>
+        <span className="sr-only">{e.entreNaConta}</span>
+      </section>
+    );
+  }
 
   if (!situacao.logado) {
     return (
@@ -74,6 +103,62 @@ export function Entrada({ s, lang, situacao, aoEntrar }: { s: TextosDaRede; lang
   }
 
   const precisaCodinome = !situacao.codinome_ok;
+  const bloqueado = !maior || !consente || ocupado || (precisaCodinome && nome.trim().length < 3);
+  if (al2) {
+    // Na Alumia nova: título condensado, campo e caixinhas da casa, "Entrar" vermelho em pílula e a saída honesta em contorno.
+    return (
+      <section className="al2-convite-entrar" aria-labelledby="rede-entrada">
+        <h2 id="rede-entrada" className="al-cond">{e.titulo}</h2>
+        <p className="mt-3 text-[var(--al-texto-2)]">{e.texto}</p>
+        <p className="mt-2 text-sm text-[var(--al-texto-3)]">{s.codinome.aviso}</p>
+        <Link href={localePath(lang, "/conduta")} className="mt-2 inline-block text-sm font-bold underline underline-offset-2">{e.regras}</Link>
+        {menor ? (
+          <div role="status" className="al2-aviso-erro mt-4">
+            <Icone nome="alerta" />
+            <p>{e.idadeNegada}</p>
+          </div>
+        ) : (
+          <form
+            className="mt-4 space-y-3"
+            onSubmit={(ev) => {
+              ev.preventDefault();
+              void entrar();
+            }}
+          >
+            <label className="flex items-start gap-2.5">
+              <input type="checkbox" checked={maior} onChange={(x) => setMaior(x.target.checked)} className="al2-caixinha mt-1 h-5 w-5" />
+              <span>{e.maior}</span>
+            </label>
+            <label className="flex items-start gap-2.5">
+              <input type="checkbox" checked={consente} onChange={(x) => setConsente(x.target.checked)} className="al2-caixinha mt-1 h-5 w-5" />
+              <span className="text-sm text-[var(--al-texto-2)]">{e.consentimento}</span>
+            </label>
+            {precisaCodinome && (
+              <label className="block">
+                <span className="al2-rotulo">{e.codinome}</span>
+                <input value={nome} onChange={(x) => setNome(x.target.value)} maxLength={30} className="al2-campo" />
+              </label>
+            )}
+            <div className="al2-convite-entrar-acoes">
+              <Botao type="submit" variante="primario" pilula className="al2-aperta" disabled={bloqueado}>
+                {e.aderir}
+              </Botao>
+              {/* Quem não tem 18 anos precisa de uma saída honesta: nada é gravado, e o resto do site fica aberto. */}
+              <Botao variante="contorno" pilula className="al2-aperta" onClick={() => setMenor(true)}>
+                {e.menor}
+              </Botao>
+            </div>
+          </form>
+        )}
+        {erro && (
+          <div role="alert" className="al2-aviso-erro mt-3">
+            <Icone nome="alerta" />
+            <p>{erro}</p>
+          </div>
+        )}
+      </section>
+    );
+  }
   return (
     <section className="px-[18px] py-6 font-sans" aria-labelledby="rede-entrada">
       <h2 id="rede-entrada" className="font-serif text-2xl font-semibold">{e.titulo}</h2>
@@ -106,7 +191,7 @@ export function Entrada({ s, lang, situacao, aoEntrar }: { s: TextosDaRede; lang
             </label>
           )}
           <div className="flex flex-wrap gap-3">
-            <button type="submit" disabled={!maior || !consente || ocupado || (precisaCodinome && nome.trim().length < 3)} className="min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14] disabled:cursor-not-allowed disabled:opacity-50">
+            <button type="submit" disabled={bloqueado} className="min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14] disabled:cursor-not-allowed disabled:opacity-50">
               {e.aderir}
             </button>
             {/* Quem não tem 18 anos precisa de uma saída honesta: nada é gravado, e o resto do site fica aberto. */}
