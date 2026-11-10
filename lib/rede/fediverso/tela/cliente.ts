@@ -11,7 +11,7 @@ import { BackendError, getClient } from "../../../backend";
 import { chamar } from "../../cliente";
 import { previaLigada } from "../../publicar/alumia2";
 import { fioDeExemplo, linhaDeExemplo, perfilDeExemplo, respostaDeExemplo, situacaoDeExemplo } from "./exemplos";
-import { eDeFora, type AchadoNaBusca, type CategoriaDeDenuncia, type ContaDaqui, type FioDeFora, type LinhaDeFora, type PerfilDeFora, type RespostasDeForaDoPost, type SituacaoDeFora } from "./tipos";
+import { eDeFora, type AchadoNaBusca, type CategoriaDeDenuncia, type ContaDaqui, type FioDeFora, type LinhaDeFora, type MaisPostsDoPerfil, type PerfilDeFora, type RespostasDeForaDoPost, type SituacaoDeFora } from "./tipos";
 
 export type Resultado<T> = { ok: true; dado: T } | { ok: false; erro: string };
 
@@ -68,6 +68,13 @@ export const deFora = {
   /** O perfil de alguém de fora, por "@nome@servidor" ou pelo endereço https do ator. Conta daqui volta como { local: true, handle }. */
   perfil: (contaOuAtor: string): Promise<Resultado<PerfilDeFora | ContaDaqui>> =>
     previa() ? Promise.resolve(certo(perfilDeExemplo())) : pedirRota(`/api/fediverso/remoto?${/^https:\/\//i.test(contaOuAtor.trim()) ? "ator" : "conta"}=${q(contaOuAtor.trim())}`),
+  /** Mais posts guardados de um perfil de fora. `ator` é o endereço https da conta; `cursor` é o `proximo` da página anterior. */
+  maisDoPerfil: async (ator: string, cursor: string): Promise<Resultado<MaisPostsDoPerfil>> => {
+    if (previa()) return certo({ posts: [], proximo: null });
+    const r = await pedirRota<Partial<MaisPostsDoPerfil>>(`/api/fediverso/remoto?ator=${q(ator)}&cursor=${q(cursor)}`);
+    if (!r.ok) return r;
+    return certo({ posts: Array.isArray(r.dado.posts) ? r.dado.posts.filter(eDeFora) : [], proximo: typeof r.dado.proximo === "string" && r.dado.proximo ? r.dado.proximo : null });
+  },
   /**
    * O fio de uma nota de fora (o `id` do cartão). Se a Alumia não guarda a nota, volta o erro "so_na_origem" sem buscar nada lá
    * fora; `buscarLa` (o toque da pessoa em "buscar este post em <servidor>") é o que manda o servidor daqui ir até a origem.

@@ -57,7 +57,8 @@ await espera("nenhuma tabela nova em public; as novas em interno, com RLS e sem 
   if (/create table (if not exists )?public\./i.test(migracao)) throw new Error("tabela em public");
   const r = await dono(`select c.relname, c.relrowsecurity, exists (select 1 from information_schema.role_table_grants g where g.table_schema = 'interno' and g.table_name = c.relname and g.grantee in ('anon', 'authenticated', 'PUBLIC')) as aberta
     from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and c.relname like 'fediverso\\_%'`);
-  return r.rows.length === 8 && r.rows.every((x) => x.relrowsecurity && !x.aberta);
+  // Oito do modo total; a nona (fediverso_consentimentos) vem com a migração da privacidade.
+  return r.rows.length >= 8 && r.rows.length <= 9 && r.rows.every((x) => x.relrowsecurity && !x.aberta);
 });
 await espera("as funções públicas da federação são security definer com search_path = interno, pg_temp", async () => {
   const r = await dono(`select p.proname, p.prosecdef, array_to_string(p.proconfig, ',') as cfg from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and (p.proname like 'rede_fed_%' or p.proname = 'rede_aderir')`);
@@ -576,7 +577,7 @@ await espera("o painel (recursos_vivos) manda mais que a configuração: desliga
 // (supabase/migracoes/20261110-fediverso-bloqueio-padrao.sql). A migração do modo total foi rodada de novo lá em cima e trouxe a
 // função antiga de bloquear; por isso esta roda aqui, duas vezes, como rodaria no banco de verdade depois daquela.
 const padrao = lerTexto("supabase/migracoes/20261110-fediverso-bloqueio-padrao.sql");
-await espera("o install.sql termina com a migração do bloqueio padrão, idêntica ao arquivo e depois da do modo total", async () => install.endsWith(padrao) && install.indexOf(padrao) > install.indexOf(migracao));
+await espera("o install.sql traz a migração do bloqueio padrão, idêntica ao arquivo e depois da do modo total", async () => install.includes(padrao) && install.indexOf(padrao) > install.indexOf(migracao));
 await espera("a migração do bloqueio padrão roda de novo sem erro", () => banco.exclusivo(() => banco.pg.exec(padrao)));
 await espera("e mais uma vez também (idempotente)", () => banco.exclusivo(() => banco.pg.exec(padrao)));
 const fixos = async () => (await dono("select dominio from interno.rede_fed_bloqueados where fixo order by dominio")).rows.map((x) => x.dominio).join();
@@ -648,6 +649,351 @@ await espera("as funções novas seguem o padrão (security definer, search_path
     and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))`)).rows.length;
   return [pub.prosecdef && /search_path=interno, pg_temp/.test(pub.cfg), abertas];
 }, ([ok, n]) => ok && n === 0);
+
+// ═══════════════════ Privacidade: sem lista de pessoas, piso de 3 e a prova do consentimento ═══════════════════
+// (supabase/migracoes/20261110-fediverso-privacidade.sql). Roda aqui, duas vezes, DEPOIS da do bloqueio padrão, como no banco de
+// verdade. O mesmo bloco, idêntico, está no install.sql, depois do bloco do bloqueio padrão.
+const privacidade = lerTexto("supabase/migracoes/20261110-fediverso-privacidade.sql");
+await espera("o install.sql traz a migração da privacidade idêntica ao arquivo, depois da do bloqueio padrão", async () => install.includes(privacidade) && install.indexOf(privacidade) > install.indexOf(padrao) + padrao.length - 1);
+await espera("no install.sql, nada depois do bloqueio padrão redefine a função de bloquear nem a que diz se está bloqueada", async () => /create or replace function (public\.rede_fed_bloquear|interno\.rede_fed_bloqueado)\s*\(/.test(install.slice(install.indexOf(padrao) + padrao.length)), (tem) => tem === false);
+await espera("a migração da privacidade roda depois da do bloqueio padrão sem erro", () => banco.exclusivo(() => banco.pg.exec(privacidade)));
+await espera("e roda de novo (idempotente)", () => banco.exclusivo(() => banco.pg.exec(privacidade)));
+await espera("ela não redefine a função de bloquear instância nem a que diz se está bloqueada", async () => /create or replace function (public\.rede_fed_bloquear|interno\.rede_fed_bloqueado)\s*\(/.test(privacidade), (tem) => tem === false);
+await espera("a trava do bloqueio fixo continua na função depois desta migração", async () => (await um("select prosrc like '%bloqueio_fixo%' as tem from pg_proc where oid = 'public.rede_fed_bloquear(text, boolean, text)'::regprocedure")).tem, (tem) => tem === true);
+await recusa("mediador comum continua sem desbloquear o Threads", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "threads.net", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await recusa("nem a coordenação desbloqueia o Bridgy Fed", () => rpc(coordena(pessoas.ana), "rede_fed_bloquear", { p_dominio: "brid.gy", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await espera("os três continuam fixos e o domínio escrito de outro jeito continua bloqueado", async () => [await fixos(), await bloqueado("https://x@threads.net./ap/users/1/")], ([d, b]) => d === "brid.gy,threads.com,threads.net" && b === true);
+await espera("as funções novas e as redefinidas seguem o padrão (security definer, search_path fixo)", async () => {
+  const r = await dono(`select p.proname, p.prosecdef, array_to_string(p.proconfig, ',') as cfg from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+    where (n.nspname = 'public' and p.proname in ('rede_fed_ligar', 'rede_fed_perfil_remoto', 'rede_fed_fio_remoto', 'rede_fed_respostas_de', 'rede_fed_bloquear_pessoa', 'rede_fed_silenciar_pessoa', 'rede_fed_situacao', 'rede_fed_servidor'))
+       or (n.nspname = 'interno' and p.proname in ('rede_fed_dominio_da_conta', 'rede_fed_aviso_remoto', 'rede_fed_consentimento_historico', 'rede_fed_cartao'))`);
+  return [r.rows.length, r.rows.filter((x) => !x.prosecdef || !/search_path=interno, pg_temp/.test(x.cfg)).map((x) => x.proname)];
+}, ([n, ruins]) => n === 13 && ruins.length === 0);
+await espera("visitante não chama o perfil de fora (nenhuma das duas formas); quem entrou chama", async () => um(`select
+  has_function_privilege('anon', 'public.rede_fed_perfil_remoto(text)', 'execute') as a1, has_function_privilege('anon', 'public.rede_fed_perfil_remoto(text, text, integer)', 'execute') as a3,
+  has_function_privilege('authenticated', 'public.rede_fed_perfil_remoto(text, text, integer)', 'execute') as p3, has_function_privilege('anon', 'public.rede_fed_ligar(boolean, integer)', 'execute') as al`),
+  (r) => r.a1 === false && r.a3 === false && r.p3 === true && r.al === false);
+await espera("nenhuma função interna da federação abre para anon ou authenticated", async () => (await dono(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+  where n.nspname = 'interno' and p.proname like 'rede_fed_%' and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))`)).rows.map((x) => x.proname), (l) => l.length === 0);
+await espera("a tabela do histórico: só perfil, versão, ligado e quando (nada de IP), com RLS, sem política e sem permissão direta", async () => {
+  const colunas = (await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'fediverso_consentimentos' order by column_name")).rows.map((x) => x.column_name).join();
+  const t = await um(`select c.relrowsecurity as rls, (select count(*)::int from pg_policy where polrelid = c.oid) as politicas,
+    exists (select 1 from information_schema.role_table_grants g where g.table_schema = 'interno' and g.table_name = 'fediverso_consentimentos' and g.grantee in ('anon', 'authenticated', 'PUBLIC')) as aberta
+    from pg_class c where c.oid = 'interno.fediverso_consentimentos'::regclass`);
+  return [colunas, t.rls, t.politicas, t.aberta];
+}, ([c, rls, pol, aberta]) => c === "id,ligado,perfil,quando,versao" && rls === true && pol === 0 && aberta === false);
+
+// O cenário: pessoas novas daqui (eva, fabio, gil; hugo não adere) e gente de fora em longe.teste (nada do que veio antes entra na conta).
+const URL_DE_ENTREGA = "https://alumia.teste/api/fediverso/entregar";
+const porEndereco = (url) => dono("update interno.configuracoes set valor = valor || jsonb_build_object('url_entrega', $1::text) where chave = 'fediverso'", [url]);
+await ligarTotal(true);
+await ligarGrupos(true);
+await porEndereco(URL_DE_ENTREGA);
+for (const nome of ["eva", "fabio", "gil", "hugo"]) {
+  pessoas[nome] = await criarUsuario(`${nome}@fedbanco.local`, nome);
+  await rpc(como(pessoas[nome]), "eu");
+  await dono("update interno.perfis set rede_codinome = $2, rede_codinome_ok = true, rede_handle = $3, rede_modo = 'aberto', rede_avatar = 'a07' where id = $1", [pessoas[nome], `Pessoa ${nome}`, nome]);
+}
+for (const nome of ["eva", "fabio", "gil"]) await rpc(como(pessoas[nome]), "rede_aderir", { p_maior: true, p_versao: vigente, p_fediverso: true });
+await dono("update interno.rede_fed_atores set ligado_em = now() - interval '1 minute' where ligado");
+const LONGE = "https://longe.teste";
+const LIA = `${LONGE}/users/lia`;
+const TEO = `${LONGE}/users/teo`;
+const gente = (n) => `${LONGE}/users/k${n}`;
+const conhecer = (ator, handle, nome) => srv("remoto_salvar", { ator, chave_id: `${ator}#main-key`, chave_publica: "-----BEGIN PUBLIC KEY-----x", inbox: `${ator}/inbox`, compartilhada: `${LONGE}/inbox`, handle: `${handle}@longe.teste`, nome, resumo: "", url: `${LONGE}/@${handle}`, avatar: `${LONGE}/rostos/${handle}.png`, tipo: "Person" });
+await conhecer(LIA, "lia", "Lia");
+await conhecer(TEO, "teo", "Teo");
+for (let i = 1; i <= 4; i++) await conhecer(gente(i), `k${i}`, `K${i}`);
+const seguirDaqui = async (quem, ator) => {
+  const pedido = `${BASE}/f/${quem}-${ator.split("/").pop()}`;
+  await srv("seguir", { perfil: pessoas[quem], ator, pedido, sim: true });
+  await srv("resposta_follow", { ator, aceito: true, pedido });
+};
+await seguirDaqui("eva", LIA);
+// A nota "x5" é mais nova que a "x1" (o número no nome dá a ordem).
+const notaDe = (ator, n, extra = {}) => ({ id: `${LONGE}/notes/${n}`, ator, url: `${LONGE}/n/${n}`, texto: `Nota ${n}`, aviso: "", sensivel: false, publicado: new Date(Date.now() - 60_000 * (50 - Number(n.replace(/\D/g, "") || 0))).toISOString(), visibilidade: "publico", mencoes_locais: [], midia: [], ...extra });
+const postEva = await postar(pessoas.eva, "Post público da Eva para o Fediverso.");
+const enderecoDoPost = (id) => `${BASE}/api/fediverso/p/${id}`;
+const avisosDe = async (quem, tipo) => (await rpc(como(pessoas[quem]), "rede_aviso_listar", { p_cursor: null, p_limite: 50 })).itens.filter((x) => x.tipo === tipo);
+const curtir = (n) => srv("interacao", { tipo: "like", ator: gente(n), atividade_id: `${LONGE}/likes/${n}`, post_local: enderecoDoPost(postEva), sim: true });
+
+// 1. Avisos sem lista de pessoas ─────────────────────────────────────────────────────────────────────────────────────────
+await espera("o post da Eva saiu para o Fediverso (o cenário vale)", async () => (await um("select count(*)::int as n from interno.rede_fed_enviados where post = $1 and apagado_em is null", [postEva])).n, (n) => n === 1);
+await espera("curtida de fora: o aviso não diz quem foi (ator nulo, lista vazia) e diz só 'alguém' (1)", async () => {
+  const r = await curtir(1);
+  return [r.ok, await avisosDe("eva", "fed_curtida")];
+}, ([ok, a]) => ok && a.length === 1 && a[0].ator_remoto === null && Array.isArray(a[0].atores_remotos) && a[0].atores_remotos.length === 0 && a[0].total === 1 && a[0].pessoas === 1 && !JSON.stringify(a[0]).includes("longe.teste"));
+await espera("duas curtidas ainda são 'alguém': o número não sai abaixo de 3", async () => { await curtir(2); return avisosDe("eva", "fed_curtida"); },
+  (a) => a.length === 1 && a[0].total === 1 && a[0].pessoas === 1 && a[0].ator_remoto === null);
+await espera("três curtidas: sai o total (3), e continua sem dizer quem", async () => { await curtir(3); return avisosDe("eva", "fed_curtida"); },
+  (a) => a.length === 1 && a[0].total === 3 && a[0].pessoas === 3 && a[0].ator_remoto === null && a[0].atores_remotos.length === 0 && !JSON.stringify(a[0]).includes("longe.teste"));
+await espera("impulso de fora num post daqui: também sem dizer quem", async () => {
+  await srv("interacao", { tipo: "announce", ator: gente(1), atividade_id: `${LONGE}/a/1`, post_local: enderecoDoPost(postEva), sim: true });
+  return avisosDe("eva", "fed_impulso");
+}, (a) => a.length === 1 && a[0].ator_remoto === null && a[0].atores_remotos.length === 0 && a[0].total === 1 && !JSON.stringify(a[0]).includes("longe.teste"));
+await espera("seguidor de fora continua dizendo quem é, sem o endereço cru do avatar", async () => {
+  await srv("seguidor", { handle: "eva", ator: gente(1), inbox: `${gente(1)}/inbox`, compartilhada: `${LONGE}/inbox`, pedido: `${LONGE}/f/eva-k1`, sim: true });
+  return avisosDe("eva", "fed_seguidor");
+}, (a) => a.length === 1 && a[0].ator_remoto?.ator === gente(1) && a[0].ator_remoto.handle === "k1@longe.teste" && !("avatar" in a[0].ator_remoto) && !JSON.stringify(a[0]).includes("rostos"));
+await espera("resposta de fora continua dizendo quem respondeu e qual nota", async () => {
+  await srv("nota_recebida", notaDe(gente(2), "resp1", { em_resposta_a: enderecoDoPost(postEva) }));
+  return avisosDe("eva", "fed_resposta");
+}, (a) => a.length === 1 && a[0].ator_remoto?.ator === gente(2) && a[0].objeto_remoto === `${LONGE}/notes/resp1` && !("avatar" in a[0].ator_remoto));
+await espera("menção de fora continua dizendo quem mencionou", async () => {
+  await srv("nota_recebida", notaDe(gente(3), "menc1", { mencoes_locais: ["@fabio@alumia.teste"] }));
+  return avisosDe("fabio", "fed_mencao");
+}, (a) => a.length === 1 && a[0].ator_remoto?.ator === gente(3));
+await espera("o remendo do total está em rede_aviso_listar, junto com o de quem é de fora", async () => (await um("select pg_get_functiondef('public.rede_aviso_listar(text, integer)'::regprocedure) as d")).d,
+  (d) => d.includes("rede_fed_aviso_total") && d.includes("ator_remoto") && d.includes("atores_remotos") && d.includes("objeto_remoto"));
+await espera("o piso do aviso só vale para curtida e impulso de fora (o resto não muda)", async () => um("select interno.rede_fed_aviso_total('fed_curtida', 2) as a, interno.rede_fed_aviso_total('fed_impulso', 3) as b, interno.rede_fed_aviso_total('resposta', 2) as c, interno.rede_fed_aviso_total('fed_seguidor', 1) as d, interno.rede_fed_aviso_total(null, 2) as e"),
+  (r) => r.a === 1 && r.b === 3 && r.c === 2 && r.d === 1 && r.e === 2);
+
+// 2. Piso de 3 nas contagens ─────────────────────────────────────────────────────────────────────────────────────────────
+await espera("a função do piso: 0, 2 e nulo viram 0; 3 em diante passa", async () => um("select interno.rede_fed_piso(0) as a, interno.rede_fed_piso(2) as b, interno.rede_fed_piso(3) as c, interno.rede_fed_piso(null) as d, interno.rede_fed_piso(40) as e"),
+  (r) => r.a === 0 && r.b === 0 && r.c === 3 && r.d === 0 && r.e === 40);
+const seguidorDeFora = (handle, n) => srv("seguidor", { handle, ator: gente(n), inbox: `${gente(n)}/inbox`, compartilhada: `${LONGE}/inbox`, pedido: `${LONGE}/f/${handle}-k${n}`, sim: true });
+await espera("seguidores: com 1 ou 2 sai 0; com 3 sai 3 (inteiro, como a coleção pede)", async () => {
+  const um1 = (await srv("seguidores", { handle: "eva" })).total;
+  await seguidorDeFora("eva", 2);
+  const dois = (await srv("seguidores", { handle: "eva" })).total;
+  await seguidorDeFora("eva", 3);
+  return [um1, dois, (await srv("seguidores", { handle: "eva" })).total];
+}, ([a, b, c]) => a === 0 && b === 0 && c === 3 && Number.isInteger(c));
+await espera("quem a pessoa segue lá fora: com 1 sai 0; com 3 sai 3", async () => {
+  const antes = (await srv("seguindo_publico", { handle: "eva" })).total;
+  await seguirDaqui("eva", gente(1));
+  await seguirDaqui("eva", gente(2));
+  const depois = (await srv("seguindo_publico", { handle: "eva" })).total;
+  for (const n of [1, 2]) await srv("seguir", { perfil: pessoas.eva, ator: gente(n), sim: false });
+  return [antes, depois];
+}, ([a, d]) => a === 0 && d === 3);
+await espera("a situação da própria pessoa continua com o número dela (só ela vê)", async () => rpc(como(pessoas.eva), "rede_fed_situacao"), (s) => s.seguidores === 3 && s.seguindo === 1);
+await espera("NodeInfo: pessoas e ativos passam pelo piso (posts não: não conta pessoas)", async () => {
+  const real = await um(`select (select count(*)::int from interno.rede_fed_atores where ligado) as u, (select count(*)::int from interno.rede_fed_enviados where apagado_em is null) as p,
+    (select count(distinct e.perfil)::int from interno.rede_fed_enviados e join interno.rede_fed_atores t on t.perfil = e.perfil and t.ligado where e.enviado_em > now() - interval '30 days') as m,
+    (select count(distinct e.perfil)::int from interno.rede_fed_enviados e join interno.rede_fed_atores t on t.perfil = e.perfil and t.ligado where e.enviado_em > now() - interval '180 days') as s`);
+  return [real, await srv("contagem"), await srv("contagem_ativos")];
+}, ([real, c, a]) => real.u >= 3 && c.usuarios === real.u && c.posts === real.p && a.mes === (real.m >= 3 ? real.m : 0) && a.semestre === (real.s >= 3 ? real.s : 0));
+await espera("NodeInfo com só duas pessoas ligadas: sai 0 nas pessoas e nos ativos", async () =>
+  // Dentro de uma transação desfeita no fim: todo mundo menos duas pessoas fica desligado só para a conta.
+  banco.exclusivo(async () => {
+    await banco.pg.exec("begin");
+    try {
+      await banco.pg.query("update interno.rede_fed_atores set ligado = false where perfil not in ($1, $2)", [pessoas.eva, pessoas.fabio]);
+      const real = (await banco.pg.query("select count(*)::int as n from interno.rede_fed_atores where ligado")).rows[0].n;
+      const c = (await banco.pg.query("select public.rede_fed_servidor($1, 'contagem', '{}'::jsonb) as r", [SEGREDO])).rows[0].r;
+      const a = (await banco.pg.query("select public.rede_fed_servidor($1, 'contagem_ativos', '{}'::jsonb) as r", [SEGREDO])).rows[0].r;
+      return [real, c.usuarios, a.mes, a.semestre];
+    } finally {
+      await banco.pg.exec("rollback");
+    }
+  }), (r) => r.join() === "2,0,0,0");
+await espera("Group: seguidores da comunidade com 1 ou 2 sai 0 (no ator e na coleção); com 3 sai 3", async () => {
+  const seguirGrupo = (n) => srv("comunidade_seguidor", { slug: disciplina, ator: gente(n), inbox: `${gente(n)}/inbox`, compartilhada: `${LONGE}/inbox`, pedido: `${LONGE}/gf/${n}`, sim: true });
+  await dono("delete from interno.fediverso_grupo_seguidores where comunidade = $1", [disciplina]);
+  await seguirGrupo(1);
+  await seguirGrupo(2);
+  const antes = [(await srv("comunidade", { slug: disciplina })).seguidores, (await srv("comunidade_seguidores", { slug: disciplina })).total];
+  await seguirGrupo(3);
+  return [...antes, (await srv("comunidade", { slug: disciplina })).seguidores, (await srv("comunidade_seguidores", { slug: disciplina })).total];
+}, (r) => r.join() === "0,0,3,3");
+await espera("respostas de fora a um post daqui: a lista vem inteira, o total só a partir de 3", async () => {
+  await srv("nota_recebida", notaDe(gente(3), "resp2", { em_resposta_a: enderecoDoPost(postEva) }));
+  const dois = await rpc(como(pessoas.eva), "rede_fed_respostas_de", { p_post: postEva, p_cursor: null, p_limite: 50 });
+  await srv("nota_recebida", notaDe(gente(4), "resp3", { em_resposta_a: enderecoDoPost(postEva) }));
+  const tres = await rpc(como(pessoas.eva), "rede_fed_respostas_de", { p_post: postEva, p_cursor: null, p_limite: 50 });
+  return [dois.itens.length, dois.total, tres.itens.length, tres.total];
+}, (r) => r.join() === "2,0,3,3");
+for (let i = 1; i <= 5; i++) await srv("nota_recebida", notaDe(LIA, `lia${i}`));
+const LIA1 = `${LONGE}/notes/lia1`;
+await espera("o cartão: respostas só a partir de 3", async () => {
+  for (const n of [1, 2]) await srv("nota_recebida", notaDe(gente(n), `rl${n}`, { em_resposta_a: LIA1 }));
+  const dois = await rpc(como(pessoas.eva), "rede_fed_fio_remoto", { p_id: LIA1 });
+  await srv("nota_recebida", notaDe(gente(3), "rl3", { em_resposta_a: LIA1 }));
+  const tres = await rpc(como(pessoas.eva), "rede_fed_fio_remoto", { p_id: LIA1 });
+  return [dois.respostas.length, dois.post.respostas, tres.respostas.length, tres.post.respostas];
+}, (r) => r.join() === "2,0,3,3");
+
+// 3. Moderadores do Group ────────────────────────────────────────────────────────────────────────────────────────────────
+await espera("Group: quem modera não sai para fora (a coleção vem vazia, mesmo com moderador que federa)", async () => {
+  await dono("insert into interno.rede_comunidade_membros (comunidade, usuario, papel, situacao) values ($1, $2, 'moderacao', 'ativo') on conflict (comunidade, usuario) do update set papel = 'moderacao', situacao = 'ativo'", [disciplina, pessoas.eva]);
+  const g = await srv("comunidade", { slug: disciplina });
+  await dono("delete from interno.rede_comunidade_membros where comunidade = $1 and usuario = $2", [disciplina, pessoas.eva]);
+  return [g.estado, g.moderadores, JSON.stringify(g).includes("eva")];
+}, ([e, m, vazou]) => e === "ligado" && Array.isArray(m) && m.length === 0 && vazou === false);
+
+// 4. O nome do ator ──────────────────────────────────────────────────────────────────────────────────────────────────────
+await espera("ator: com o codinome conferido sai o nome; sem a conferência sai só o @nome (e a bio vazia)", async () => {
+  await dono("update interno.perfis set rede_bio = 'Bio da Eva' where id = $1", [pessoas.eva]);
+  const com = await srv("ator", { handle: "eva" });
+  await dono("update interno.perfis set rede_codinome_ok = false where id = $1", [pessoas.eva]);
+  const sem = await srv("ator", { handle: "eva" });
+  await dono("update interno.perfis set rede_codinome_ok = true where id = $1", [pessoas.eva]);
+  return [com.nome, com.bio, sem.estado, sem.nome, sem.bio];
+}, (r) => r.join("|") === "Pessoa eva|Bio da Eva|ligado|eva|");
+
+// 5. A relação no cartão e no perfil ─────────────────────────────────────────────────────────────────────────────────────
+const cartaoDireto = async (quem, id) => (await um("select interno.rede_fed_cartao(c, $1) as j from interno.rede_fed_recebidos c where c.id = $2", [pessoas[quem], id])).j;
+await espera("o cartão traz a relação de quem lê: tudo falso para quem não fez nada", async () => (await rpc(como(pessoas.eva), "rede_fed_fio_remoto", { p_id: LIA1 })).post,
+  (c) => c.silenciado === false && c.bloqueado === false && c.bloqueou_voce === false);
+await espera("silenciar aparece no cartão e no perfil de quem silenciou, e só para essa pessoa", async () => {
+  await rpc(como(pessoas.eva), "rede_fed_silenciar_pessoa", { p_ator: LIA, p_sim: true });
+  const eva = (await rpc(como(pessoas.eva), "rede_fed_fio_remoto", { p_id: LIA1 })).post.silenciado;
+  const perfilEva = (await rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA })).silenciado;
+  const fabio = (await rpc(como(pessoas.fabio), "rede_fed_fio_remoto", { p_id: LIA1 })).post.silenciado;
+  await rpc(como(pessoas.eva), "rede_fed_silenciar_pessoa", { p_ator: LIA, p_sim: false });
+  return [eva, perfilEva, fabio, (await cartaoDireto("eva", LIA1)).silenciado];
+}, (r) => r.join() === "true,true,false,false");
+await espera("bloquear aparece no cartão de quem bloqueou, e só para essa pessoa", async () => {
+  await rpc(como(pessoas.gil), "rede_fed_bloquear_pessoa", { p_ator: LIA, p_sim: true });
+  const gil = await cartaoDireto("gil", LIA1);
+  const eva = await cartaoDireto("eva", LIA1);
+  const perfil = await rpc(como(pessoas.gil), "rede_fed_perfil_remoto", { p_ator: LIA });
+  await rpc(como(pessoas.gil), "rede_fed_bloquear_pessoa", { p_ator: LIA, p_sim: false });
+  return [gil.bloqueado, eva.bloqueado, perfil.bloqueado, perfil.posts.length];
+}, (r) => r.join() === "true,false,true,0");
+await espera("sem sessão o cartão não diz relação nenhuma", async () => (await um("select interno.rede_fed_cartao(c, null) as j from interno.rede_fed_recebidos c where c.id = $1", [LIA1])).j,
+  (c) => c.silenciado === false && c.bloqueado === false && c.bloqueou_voce === false);
+await espera("quem foi bloqueado lá fora vê bloqueou_voce no perfil, sem posts; os outros não ficam sabendo", async () => {
+  await srv("bloqueio_recebido", { ator: LIA, alvo_handle: "fabio", sim: true });
+  const fabio = await rpc(como(pessoas.fabio), "rede_fed_perfil_remoto", { p_ator: LIA });
+  const eva = await rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA });
+  return [fabio.bloqueou_voce, fabio.posts.length, fabio.proximo, fabio.seguindo, fabio.handle, eva.bloqueou_voce, eva.posts.length > 0, (await cartaoDireto("fabio", LIA1)).bloqueou_voce, (await cartaoDireto("eva", LIA1)).bloqueou_voce];
+}, (r) => r.join() === "true,0,,nao,lia@longe.teste,false,true,true,false");
+await espera("quem foi bloqueado continua sem ver o fio de quem bloqueou", async () => rpc(como(pessoas.fabio), "rede_fed_fio_remoto", { p_id: LIA1 }).then(() => "viu", (e) => e.message), (r) => r.includes("nao_encontrado"));
+await recusa("e o pedido de seguir de quem foi bloqueado não sai", () => srv("seguir", { perfil: pessoas.fabio, ator: LIA, pedido: `${BASE}/f/fabio-lia`, sim: true }), "sem_permissao");
+await espera("nada foi para a fila em nome de quem foi bloqueado", async () => (await um("select count(*)::int as n from interno.rede_fed_fila where perfil = $1 and tipo = 'follow' and objeto = $2", [pessoas.fabio, LIA])).n, (n) => n === 0);
+
+// 6. Impulso de nota cujo autor ninguém segue ────────────────────────────────────────────────────────────────────────────
+const impulsoDaLia = (n) => ({ ator: LIA, atividade_id: `${LONGE}/a/lia-${n}` });
+await espera("nota de quem ninguém segue, sem impulso: continua recusada (sem_ligacao)", async () => srv("nota_recebida", notaDe(TEO, "teo0")), (r) => r.guardado === false && r.motivo === "sem_ligacao");
+await espera("impulso de quem alguém daqui segue: a nota impulsionada fica guardada (motivo impulso)", async () => {
+  const i = await srv("interacao", { tipo: "announce", ...impulsoDaLia("teo1"), objeto_remoto: `${LONGE}/notes/teo1`, sim: true });
+  const n = await srv("nota_recebida", { ...notaDe(TEO, "teo1"), impulso: impulsoDaLia("teo1") });
+  return [i.ok, n.guardado, n.motivo];
+}, (r) => r.join() === "true,true,impulso");
+await espera("ela aparece na linha de quem segue quem impulsionou, com quem impulsionou", async () => rpc(como(pessoas.eva), "rede_fed_linha_mista", { p_cursor: null, p_limite: 50 }),
+  (l) => l.itens.some((x) => x.id === `${LONGE}/notes/teo1` && x.impulsionado_por?.ator === LIA && x.ator_remoto === TEO));
+await espera("e não aparece na linha de quem não segue ninguém ali", async () => rpc(como(pessoas.gil), "rede_fed_linha_mista", { p_cursor: null, p_limite: 50 }), (l) => !l.itens.some((x) => x.id === `${LONGE}/notes/teo1`));
+await espera("depois da faxina o impulso continua lá (a nota existe)", async () => {
+  await dono("select interno.rede_fed_limpar()");
+  return (await um("select count(*)::int as n from interno.fediverso_interacoes where direcao = 'entrada' and tipo = 'announce' and objeto_remoto = $1", [`${LONGE}/notes/teo1`])).n;
+}, (n) => n === 1);
+await espera("impulso de quem ninguém segue: nem o impulso nem a nota ficam", async () => {
+  const i = await srv("interacao", { tipo: "announce", ator: gente(4), atividade_id: `${LONGE}/a/k4-teo2`, objeto_remoto: `${LONGE}/notes/teo2`, sim: true });
+  const n = await srv("nota_recebida", { ...notaDe(TEO, "teo2"), impulso: { ator: gente(4), atividade_id: `${LONGE}/a/k4-teo2` } });
+  return [i.ok, i.motivo, n.guardado, n.motivo];
+}, (r) => r.join() === "false,sem_ligacao,false,sem_ligacao");
+await espera("dizer que houve impulso sem o banco ter o impulso não guarda nada", async () => srv("nota_recebida", { ...notaDe(TEO, "teo3"), impulso: impulsoDaLia("inventado") }), (r) => r.guardado === false && r.motivo === "sem_ligacao");
+await espera("nota só para seguidores não entra por impulso", async () => {
+  await srv("interacao", { tipo: "announce", ...impulsoDaLia("teo4"), objeto_remoto: `${LONGE}/notes/teo4`, sim: true });
+  return srv("nota_recebida", { ...notaDe(TEO, "teo4", { visibilidade: "seguidores" }), impulso: impulsoDaLia("teo4") });
+}, (r) => r.guardado === false && r.motivo === "sem_seguidor");
+await espera("nem a direta", async () => srv("nota_recebida", { ...notaDe(TEO, "teo4", { visibilidade: "direto" }), impulso: impulsoDaLia("teo4") }), (r) => r.guardado === false && r.motivo === "direto");
+await espera("com a flag desligada o impulso não guarda nota de quem ninguém segue", async () => {
+  await ligarTotal(false);
+  try {
+    return await srv("nota_recebida", { ...notaDe(TEO, "teo4"), impulso: impulsoDaLia("teo4") });
+  } finally {
+    await ligarTotal(true);
+  }
+}, (r) => r.guardado === false);
+
+// 7. A prova do consentimento ────────────────────────────────────────────────────────────────────────────────────────────
+const historico = async (quem) => (await dono("select versao, ligado from interno.fediverso_consentimentos where perfil = $1 order by id", [pessoas[quem]])).rows.map((x) => `${x.versao}:${x.ligado}`).join();
+const itemDoConsentimento = async (quem) => um("select fediverso, fediverso_versao from interno.rede_consentimentos where usuario = $1 and revogado_em is null order by criado_em desc limit 1", [pessoas[quem]]);
+await espera("aceitar o item na entrada já deixa a prova no histórico (versão 2, ligado)", () => historico("gil"), (h) => h === "2:true");
+await espera("desligar no perfil grava no histórico e desmarca o item do consentimento de entrada", async () => {
+  const s = await rpc(como(pessoas.gil), "rede_fed_ligar", { p_sim: false, p_versao: null });
+  return [s.ligado, await historico("gil"), (await itemDoConsentimento("gil")).fediverso, s.pedir_fediverso];
+}, (r) => r.join("|") === "false|2:true,2:false|false|false");
+await espera("desligar de novo não repete a linha", async () => { await rpc(como(pessoas.gil), "rede_fed_ligar", { p_sim: false, p_versao: null }); return historico("gil"); }, (h) => h === "2:true,2:false");
+await espera("ligar de novo no perfil grava outra linha e marca o item (na versão em vigor)", async () => {
+  const s = await rpc(como(pessoas.gil), "rede_fed_ligar", { p_sim: true, p_versao: 2 });
+  const c = await itemDoConsentimento("gil");
+  return [s.ligado, s.consentimento_versao, await historico("gil"), c.fediverso, c.fediverso_versao];
+}, (r) => r.join("|") === "true|2|2:true,2:false,2:true|true|2");
+await espera("ligar de novo já estando ligado não repete a linha", async () => { await rpc(como(pessoas.gil), "rede_fed_ligar", { p_sim: true, p_versao: 2 }); return historico("gil"); }, (h) => h === "2:true,2:false,2:true");
+await espera("desmarcar o item na entrada também grava (o gatilho vale para todos os caminhos)", async () => {
+  await rpc(como(pessoas.gil), "rede_aderir", { p_maior: true, p_versao: vigente, p_fediverso: false });
+  return [await historico("gil"), (await um("select ligado from interno.rede_fed_atores where perfil = $1", [pessoas.gil])).ligado];
+}, (r) => r.join("|") === "2:true,2:false,2:true,2:false|false");
+await espera("o histórico tem data e não guarda mais nada da pessoa", async () => (await dono("select * from interno.fediverso_consentimentos where perfil = $1", [pessoas.gil])).rows,
+  (l) => l.length === 4 && l.every((x) => x.quando instanceof Date && Object.keys(x).sort().join() === "id,ligado,perfil,quando,versao"));
+await espera("suspender a conta desliga a federação e isso também fica no histórico", async () => {
+  await rpc(como(pessoas.gil), "rede_fed_ligar", { p_sim: true, p_versao: 2 });
+  await dono("update interno.perfis set suspenso = true where id = $1", [pessoas.gil]);
+  const h = await historico("gil");
+  await dono("update interno.perfis set suspenso = false where id = $1", [pessoas.gil]);
+  return h;
+}, (h) => h === "2:true,2:false,2:true,2:false,2:true,2:false");
+
+// 8. O endereço completo e o cursor do perfil ────────────────────────────────────────────────────────────────────────────
+const comEndereco = async (url, total) => {
+  await porEndereco(url);
+  await ligarTotal(total);
+  try {
+    return await rpc(como(pessoas.eva), "rede_fed_situacao");
+  } finally {
+    await porEndereco(URL_DE_ENTREGA);
+    await ligarTotal(true);
+  }
+};
+await espera("situação: o endereço completo no domínio curto, no modo total", () => comEndereco("https://alumia.exemplo.org/api/fediverso/entregar", true), (s) => s.endereco === "@eva@exemplo.org" && s.dominio === "exemplo.org" && s.handle === "eva");
+await espera("sem o modo total: o endereço no domínio da Alumia", () => comEndereco("https://alumia.exemplo.org/api/fediverso/entregar", false), (s) => s.endereco === "@eva@alumia.exemplo.org" && s.dominio === "alumia.exemplo.org");
+await espera("domínio que não dá para encurtar fica inteiro (alumia.teste, rede.exemplo.org)", async () => [(await comEndereco("https://alumia.teste/x", true)).endereco, (await comEndereco("https://rede.exemplo.org:8443/x", true)).endereco],
+  (r) => r.join() === "@eva@alumia.teste,@eva@rede.exemplo.org");
+await espera("sem o endereço do servidor configurado: endereço nulo (e nada quebra)", async () => {
+  await dono("update interno.configuracoes set valor = valor - 'url_entrega' where chave = 'fediverso'");
+  try {
+    return await rpc(como(pessoas.eva), "rede_fed_situacao");
+  } finally {
+    await porEndereco(URL_DE_ENTREGA);
+  }
+}, (s) => s.endereco === null && s.dominio === null && s.logado === true);
+await espera("quem não entrou não recebe endereço nenhum", async () => rpc(anon, "rede_fed_situacao"), (s) => s.logado === false && !("endereco" in s));
+await espera("perfil de fora em páginas: 2 por vez, sem repetir, da mais nova para a mais antiga, e o fim sem 'proximo'", async () => {
+  const p1 = await rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA, p_cursor: null, p_limite: 2 });
+  const p2 = await rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA, p_cursor: p1.proximo, p_limite: 2 });
+  const p3 = await rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA, p_cursor: p2.proximo, p_limite: 2 });
+  return [[p1, p2, p3].map((p) => p.posts.map((x) => x.id.split("/").pop()).join("+")).join(), typeof p1.proximo, typeof p2.proximo, p3.proximo, p2.handle];
+}, (r) => r.join("|") === "lia5+lia4,lia3+lia2,lia1|string|string||lia@longe.teste");
+await espera("a chamada de sempre (um argumento) continua valendo e traz a primeira página", async () => rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA }),
+  (p) => p.posts.length === 5 && p.proximo === null && p.seguindo === "sim" && p.bloqueou_voce === false && p.posts[0].id === `${LONGE}/notes/lia5`);
+await recusa("cursor torto é recusado", () => rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA, p_cursor: "ontem", p_limite: 2 }), "invalido:cursor");
+await recusa("cursor com data torta também", () => rpc(como(pessoas.eva), "rede_fed_perfil_remoto", { p_ator: LIA, p_cursor: "ontem|x", p_limite: 2 }), "invalido:cursor");
+
+// 9. As RPCs da tela conferem a adesão e a flag ──────────────────────────────────────────────────────────────────────────
+const chamadasDaTela = (quem) => [
+  () => rpc(como(pessoas[quem]), "rede_fed_perfil_remoto", { p_ator: LIA }),
+  () => rpc(como(pessoas[quem]), "rede_fed_perfil_remoto", { p_ator: LIA, p_cursor: null, p_limite: 5 }),
+  () => rpc(como(pessoas[quem]), "rede_fed_fio_remoto", { p_id: LIA1 }),
+  () => rpc(como(pessoas[quem]), "rede_fed_bloquear_pessoa", { p_ator: LIA, p_sim: true }),
+  () => rpc(como(pessoas[quem]), "rede_fed_silenciar_pessoa", { p_ator: LIA, p_sim: true }),
+];
+const motivos = async (chamadas) => Promise.all(chamadas.map((c) => c().then(() => "passou", (e) => String(e.message))));
+await espera("quem não aderiu à rede não usa perfil, fio, bloquear nem silenciar de fora", () => motivos(chamadasDaTela("hugo")), (r) => r.every((m) => m.includes("consentimento")));
+await espera("e nada ficou gravado em nome dessa pessoa", async () => (await um("select count(*)::int as n from interno.fediverso_filtros where usuario = $1", [pessoas.hugo])).n, (n) => n === 0);
+await espera("com a flag desligada, as quatro recusam (fediverso_desligado) e nada é gravado", async () => {
+  await ligarTotal(false);
+  try {
+    return [await motivos(chamadasDaTela("eva")), (await um("select count(*)::int as n from interno.fediverso_filtros where usuario = $1 and ator = $2", [pessoas.eva, LIA])).n];
+  } finally {
+    await ligarTotal(true);
+  }
+}, ([r, n]) => r.every((m) => m.includes("fediverso_desligado")) && n === 0);
+await recusa("visitante não chama nenhuma delas", () => rpc(anon, "rede_fed_fio_remoto", { p_id: LIA1 }), "permission denied");
+await espera("com a flag ligada e a adesão feita, tudo volta a valer", () => motivos(chamadasDaTela("eva").slice(0, 3)), (r) => r.every((m) => m === "passou"));
+
+// 10. No fim de tudo, a trava do bloqueio fixo segue de pé ───────────────────────────────────────────────────────────────
+await espera("rodar a privacidade mais uma vez, com dados, não muda nada do que foi gravado", async () => {
+  const conta = "select (select count(*)::int from interno.fediverso_consentimentos) as h, (select count(*)::int from interno.rede_fed_recebidos) as n, (select count(*)::int from interno.avisos) as a, (select count(*)::int from interno.rede_fed_atores where ligado) as l";
+  const antes = await um(conta);
+  await banco.exclusivo(() => banco.pg.exec(privacidade));
+  return JSON.stringify(antes) === JSON.stringify(await um(conta));
+});
+await recusa("e o Threads continua sem desbloqueio pela mediação", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "threads.com", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await espera("o interruptor do Threads continua só da coordenação", async () => rpc(como(pessoas.duda), "rede_fed_threads", { p_bloquear: null }), (r) => r.bloqueado === true && r.pode_mudar === false);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);

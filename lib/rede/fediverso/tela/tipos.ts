@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Gente de FORA na tela da Alumia: os formatos que as rotas app/api/fediverso/** devolvem (o cartão é o de
-// interno.rede_fed_cartao, supabase/migracoes/20261109-fediverso-total.sql) e as regras puras que a tela usa. Sem estado e sem
+// interno.rede_fed_cartao, supabase/migracoes/20261110-fediverso-privacidade.sql) e as regras puras que a tela usa. Sem estado e sem
 // navegador, para os testes (scripts/testar-fediverso-tela.mjs) rodarem no Node. Sem "@/" de propósito.
 //
 // Privacidade: imagem de fora só pela rota-proxy daqui (midiaSegura); número só a partir de 3 (contagemVisivel); nenhuma lista
@@ -55,6 +55,11 @@ export interface CartaoDeFora extends Omit<Post, "midia" | "autor"> {
   url: string;
   curti: boolean;
   impulsionei: boolean;
+  /** A relação de QUEM LÊ com quem escreveu (só a própria pessoa recebe). Faltando, vale "não". */
+  silenciado?: boolean;
+  bloqueado?: boolean;
+  /** Quem escreveu bloqueou quem lê. */
+  bloqueou_voce?: boolean;
   /** O post DAQUI a que a conversa pertence, quando há. */
   post_local: string | null;
   impulsionado_por: ImpulsoDeFora | null;
@@ -99,6 +104,14 @@ export interface RelacaoComQuemEDeFora {
   segue_voce: boolean;
   bloqueado: boolean;
   silenciado: boolean;
+  /** A conta de fora bloqueou quem lê: o perfil vem sem posts e sem "seguir". Só a própria pessoa fica sabendo. */
+  bloqueou_voce?: boolean;
+}
+
+/** Mais uma página dos posts guardados de um perfil de fora (GET /api/fediverso/remoto?ator=…&cursor=…). */
+export interface MaisPostsDoPerfil {
+  posts: CartaoDeFora[];
+  proximo: string | null;
 }
 
 export interface PerfilDeFora {
@@ -118,6 +131,8 @@ export interface PerfilDeFora {
   servidor: string;
   /** Os posts numa lista só, do mais novo ao mais antigo (os que o banco guarda e os lidos agora, com `ao_vivo`). */
   posts: CartaoDeFora[];
+  /** O cursor da próxima página dos posts guardados no banco; nulo quando acabou. */
+  proximo?: string | null;
   local: RelacaoComQuemEDeFora | null;
 }
 
@@ -146,6 +161,10 @@ export interface SituacaoDeFora {
   pode: boolean;
   motivo: string | null;
   handle?: string | null;
+  /** O endereço completo ("@nome@dominio"), no domínio curto quando o modo total está ligado. Nulo sem @nome ou sem o servidor configurado. */
+  endereco?: string | null;
+  /** O domínio do endereço acima. */
+  dominio?: string | null;
   desde?: string | null;
   seguidores?: number;
   seguindo?: number;

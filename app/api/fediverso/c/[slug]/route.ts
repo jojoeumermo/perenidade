@@ -10,7 +10,7 @@
 // RSA (CPU), cada slug tem no máximo uma geração em andamento neste processo: os outros pedidos esperam a mesma.
 //
 // Ações do banco pedidas à frente F3 (fora do contrato 3.1, que não tinha o Group):
-//   comunidade {slug} → {estado: 'ligado'|'inexistente'|'fechada', slug, nome, descricao, criada_em, moderadores: handle[],
+//   comunidade {slug} → {estado: 'ligado'|'inexistente'|'fechada', slug, nome, descricao, criada_em, moderadores: [] (sempre vazia: quem modera não sai para fora),
 //                         chave_publica, chave_privada, icone_url?, capa_url?}
 //   comunidade_chaves {slug, publica, privada} → {chave_publica, chave_privada} (grava só se ainda não há)
 import { gerarParDeChaves } from "@/lib/rede/fediverso/assinatura";

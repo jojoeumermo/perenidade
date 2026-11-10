@@ -31,6 +31,8 @@
     "vazio": "还没有可显示的帖子。",
     "bloqueado": "你已屏蔽这个账号。",
     "silenciado": "你已隐藏这个账号。",
+    "bloqueouVoce": "这个账号屏蔽了你。你无法查看其帖子，也无法关注。",
+    "maisPosts": "更多帖子",
     "abrirNoServidor": "在 {servidor} 打开",
     "contaDaqui": "这是 Alumia 的账号。查看主页。",
     "rostoDe": "{conta} 的头像"

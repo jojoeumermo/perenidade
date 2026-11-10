@@ -327,8 +327,8 @@ await espera("Group: comunidade fechada ou inexistente dá 404", async () => Pro
 await espera("Group: outbox com Announce(Create(Note)) e audience; só-seguidores fica de fora", async () => json(await rotaGrupoOutbox.GET(pedir("/api/fediverso/c/luta/outbox"), ctx({ slug: "luta" }))), ({ corpo: o }) =>
   o.orderedItems.length === 1 && o.orderedItems[0].type === "Announce" && o.orderedItems[0].actor === `${BASE}/api/fediverso/c/luta` && o.orderedItems[0].object.type === "Create" &&
   o.orderedItems[0].object.object.audience === `${BASE}/api/fediverso/c/luta` && o.orderedItems[0].object.object.name === "Assembleia" && o.orderedItems[0].object.object.cc.includes(`${BASE}/api/fediverso/c/luta`));
-await espera("Group: moderação só com @ válido; seguidores só o total", async () => [await json(await rotaGrupoModeradores.GET(pedir("/api/fediverso/c/luta/moderadores"), ctx({ slug: "luta" }))), await json(await rotaGrupoSeguidores.GET(pedir("/api/fediverso/c/luta/seguidores"), ctx({ slug: "luta" })))], ([m, s]) =>
-  m.corpo.orderedItems.length === 1 && m.corpo.orderedItems[0] === `${BASE}/api/fediverso/u/ana_1` && s.corpo.totalItems === 4 && !("orderedItems" in s.corpo));
+await espera("Group: a coleção de moderação sai vazia (mesmo que o banco mande nomes); seguidores só o total", async () => [await json(await rotaGrupoModeradores.GET(pedir("/api/fediverso/c/luta/moderadores"), ctx({ slug: "luta" }))), await json(await rotaGrupoSeguidores.GET(pedir("/api/fediverso/c/luta/seguidores"), ctx({ slug: "luta" })))], ([m, s]) =>
+  m.status === 200 && m.corpo.type === "OrderedCollection" && m.corpo.totalItems === 0 && m.corpo.orderedItems.length === 0 && !JSON.stringify(m.corpo).includes("ana_1") && s.corpo.totalItems === 4 && !("orderedItems" in s.corpo));
 await espera("Announce do Group: id estável e no host da Alumia, mesmo para atividade de fora", async () => [doc.atividadeAnnounceDoGrupo(fed, "luta", { id: "https://lemmy.ml/activities/create/1", type: "Create" }), doc.atividadeAnnounceDoGrupo(fed, "luta", { id: "https://lemmy.ml/activities/create/1", type: "Create" })], ([a, b]) =>
   a.id === b.id && a.id.startsWith(`${BASE}/api/fediverso/atividades/`) && a.cc[0] === `${BASE}/api/fediverso/c/luta/seguidores` && a.object.type === "Create");
 
@@ -374,8 +374,13 @@ await espera("o conferidor de esquema pega erro (campo a mais, nome fora do padr
   try { valida({ type: "string", maxLength: 3 }, "abcd"); } catch { recusou = true; }
   return { erros, minimo, recusou };
 }, ({ erros, minimo, recusou }) => erros.length >= 2 && minimo.length === 1 && recusou);
-await espera("NodeInfo 2.1 (modo total, com ativos) passa no esquema 2.1 oficial", async () => (await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo"))).json(), (n) =>
-  valida(esquema21, n).length === 0 && n.usage.users.activeMonth === 2 && n.usage.users.activeHalfyear === 3 && n.version === "2.1");
+// O banco de mentira responde 2 ativos no mês e 3 no semestre: número de pessoas abaixo de 3 sai 0 (o piso do site, além do do banco).
+await espera("NodeInfo 2.1 (modo total, com ativos) passa no esquema 2.1 oficial; ativos abaixo de 3 saem 0", async () => (await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo"))).json(), (n) =>
+  valida(esquema21, n).length === 0 && n.usage.users.activeMonth === 0 && n.usage.users.activeHalfyear === 3 && n.usage.users.total === 3 && n.usage.localPosts === 12 && n.version === "2.1");
+await espera("o piso do site: contagem de pessoas abaixo de 3 (ou que não é número inteiro) vira 0", async () => {
+  const { pisoDePessoas } = await import("../lib/rede/fediverso/rotas.ts");
+  return [0, 1, 2, 3, 40, -5, 2.5, "7", null, undefined].map(pisoDePessoas).join();
+}, (r) => r === "0,0,0,3,40,0,0,0,0,0");
 await espera("NodeInfo 2.0 (modo total) passa no esquema 2.0 oficial, com o profile certo", async () => {
   const r = await rotaNodeinfo.GET(pedir("/api/fediverso/nodeinfo?esquema=2.0"));
   return { perfil: r.headers.get("content-type"), n: await r.json() };

@@ -317,7 +317,11 @@ export function lerQrDoPedido(texto: string): { codigo: string; publica: string 
 
 const RODADAS_DA_IMPRESSAO = 5200;
 
-async function metadeDoCodigo(identidade: string): Promise<string> {
+/**
+ * A metade do código que vem de UMA identidade (trinta números, seis grupos). Quem compara o código precisa saber qual metade é
+ * a sua e qual é a da outra pessoa: só a da outra muda quando a identidade dela é trocada (lib/rede/chat/verificacao.ts).
+ */
+export async function metadeDoCodigo(identidade: string): Promise<string> {
   let bytes: Uint8Array<ArrayBuffer> = encoder.encode(`lucia:seguranca:1:${identidade}`);
   for (let i = 0; i < RODADAS_DA_IMPRESSAO; i++) bytes = new Uint8Array(await crypto.subtle.digest("SHA-512", bytes));
   let saida = "";

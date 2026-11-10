@@ -197,6 +197,40 @@ não conta), os caracteres de direção de texto somem, e o link cujo texto most
 servidor de verdade escrito ao lado, entre parênteses (`destinoQueEngana`). "Abrir no original" e "Abrir em {servidor}" só levam
 ao servidor do `id` da nota ou do ator, sem usuário e senha no endereço (`linkDaOrigem`).
 
+### Privacidade no banco (migração `20261110-fediverso-privacidade.sql`)
+
+As três regras da casa valem também no que o banco devolve: nenhuma lista de pessoas, contagem só a partir de 3, nada de IP.
+A migração roda **depois** de `20261109-fediverso-total.sql` e de `20261110-fediverso-bloqueio-padrao.sql`, pode rodar mais de
+uma vez e não mexe na função de bloquear instância (a trava do bloqueio fixo continua a mesma).
+
+- **Avisos de curtida e de impulso não dizem quem foi.** `rede_aviso_listar` devolve `ator_remoto` nulo e `atores_remotos`
+  vazio nesses dois tipos. O total só sai a partir de 3; abaixo disso sai 1, que a tela escreve como "alguém". Seguidor, resposta
+  e menção continuam dizendo quem foi (é a conversa com a própria pessoa). O endereço cru do avatar não sai em tipo nenhum.
+- **Piso de 3** nas contagens de pessoas: seguidores e "seguindo" do ator, seguidores da comunidade (Group), pessoas e ativos do
+  NodeInfo, respostas no cartão e o total das respostas de fora. Abaixo de 3 sai 0 (as coleções do ActivityPub pedem
+  `totalItems` inteiro, maior ou igual a zero). As rotas repetem a conta (`pisoDePessoas`, em `lib/rede/fediverso/rotas.ts`),
+  para o site não soltar número pequeno mesmo com o banco numa versão anterior. O número de posts não conta pessoas e sai como é.
+  Os números da própria pessoa em `rede_fed_situacao` (quantos a seguem, quantos ela segue) não têm piso: só ela os vê.
+- **Quem modera uma comunidade não sai para fora.** A coleção `moderators` do Group existe (o Lemmy a procura) e vem vazia;
+  `attributedTo` aponta para essa mesma coleção, nunca para pessoas.
+- **O nome do ator** só sai quando o codinome passou pela conferência (`rede_codinome_ok`), como a bio; senão sai o @nome.
+- **A relação no cartão.** Cada cartão de fora traz `silenciado`, `bloqueado` e `bloqueou_voce`, sempre do ponto de vista de
+  quem lê (ninguém recebe a relação dos outros). O perfil de fora devolve `bloqueou_voce`: quem foi bloqueado lá fora vê só o
+  cabeçalho, sem posts e sem "seguir", e o pedido de seguir é recusado no banco.
+- **Impulso de nota de quem ninguém segue.** Quando quem impulsiona é seguido por alguém daqui, a nota impulsionada fica guardada
+  (antes era recusada e o impulso sumia na faxina). Só nota pública ou não listada; a guarda é a de sempre (30 dias).
+- **Prova do consentimento.** `interno.fediverso_consentimentos` guarda cada vez que a federação de alguém liga, desliga ou muda
+  de versão: perfil, versão do texto, ligado ou não, e quando. Nada de IP nem de navegador. Um gatilho em
+  `interno.rede_fed_atores` grava, então vale para todos os caminhos (perfil, consentimento de entrada, suspensão). Ligar ou
+  desligar no perfil passa a marcar ou desmarcar também o item do consentimento de entrada (`rede_consentimentos.fediverso`).
+  LGPD art. 8º, § 2º (cabe a quem trata provar o consentimento) e § 5º (revogar a qualquer momento). A linha some com a conta.
+- **Endereço completo.** `rede_fed_situacao` devolve `endereco` ("@nome@dominio") e `dominio`: o domínio curto no modo total,
+  o da Alumia sem ele (a mesma regra de `enderecos.ts`; sai de `url_entrega` na configuração).
+- **Perfil de fora em páginas.** `rede_fed_perfil_remoto(ator, cursor, limite)` devolve `proximo`; a tela tem "Mais posts".
+- **Adesão e flag.** Perfil, fio, bloquear e silenciar gente de fora só respondem a quem aderiu à rede e com o modo total ligado.
+
+Teste: `npm run testar:fediverso-banco` (seção "Privacidade").
+
 ### Limites conhecidos de privacidade
 
 - **A rota-proxy de mídia esconde quem lê, não quando.** A imagem só é buscada na origem quando o primeiro leitor a pede (depois
@@ -206,7 +240,9 @@ ao servidor do `id` da nota ou do ator, sem usuário e senha no endereço (`link
 - **Perfil de conta que a Alumia nunca viu.** `?conta=` e `?ator=` leem o perfil na origem na primeira visita (depois, 5 minutos
   de memória). Um link armado para um servidor do atacante ainda revela a hora do primeiro clique (nunca o IP nem quem foi). O
   fio (`?nota=`) não tem esse limite: sem a nota no banco, nada é buscado até a pessoa tocar em "buscar".
-- **Quem curtiu ou impulsionou vai no JSON dos avisos** (a tela não mostra): P11.
+- **Quem bloqueou a pessoa lá fora fica visível para ela** (`bloqueou_voce`), e só para ela: o Block chegou endereçado a ela, e
+  sem isso a tela mostraria "seguir" num perfil que vai recusar.
+- **Sotaques por software** (Lemmy, Misskey, Pleroma) ainda não são tratados à parte: o que sai segue o formato do Mastodon.
 
 Arquivos: `lib/rede/fediverso/tela/{tipos,cliente,exemplos,textos,html,linha}.ts`, `components/rede/fediverso/`, `i18n/rede/fediverso/*.json`.
 Teste: `npm run testar:fediverso-tela` (bateria de XSS, `href` escondido em outro atributo, caracteres de direção, link que
@@ -267,11 +303,11 @@ Pendências desta etapa:
 
 - **Nada foi visto no navegador.** As peças passaram por `tsc`, `eslint` e pelos testes de regra; falta conferir em 375 px, no
   tema escuro e no teclado, contra as pranchas.
-- **Encaixes da Faixa 1** (P0 a P10) e os três registros novos (P11 avisos sem quem curtiu, P12 mídia guardada na chegada, P13
-  mensagem crua do banco).
+- **Encaixes da Faixa 1** (P0 a P10) e os registros P12 (mídia guardada na chegada, aberto) e P13 (mensagem crua do banco). O
+  P11 (avisos sem quem curtiu) ficou resolvido do nosso lado em `20261110-fediverso-privacidade.sql`.
 - **Vídeo e áudio de fora** não tocam aqui (só "Abrir no original").
-- **Silenciar e bloquear fora do perfil.** O cartão na linha e no fio não sabe a relação com quem escreveu (o cartão do banco não
-  traz): os dois botões começam em "não". No perfil de fora o cartão recebe a relação e avisa o cabeçalho quando ela muda. Para
-  a linha saber, `rede_fed_cartao` precisaria devolver `silenciado` (SQL, próxima migração).
-- **Bloqueio recebido.** A rota trata `nao_encontrado` de `rede_fed_perfil_remoto` como "a pessoa de fora bloqueou quem pede" e
-  responde 404 ("Não achamos isto"). Um campo `bloqueou_voce` na função permitiria uma mensagem própria (SQL, próxima migração).
+- **Silenciar e bloquear fora do perfil: resolvido.** O cartão do banco traz `silenciado` e `bloqueado` (migração da
+  privacidade) e o cartão na linha e no fio começa por eles. No perfil de fora o cartão recebe a relação e avisa o cabeçalho
+  quando ela muda. Na prática quem está bloqueado nem chega à linha; o campo serve ao perfil e aos posts lidos na hora.
+- **Bloqueio recebido: resolvido.** `rede_fed_perfil_remoto` devolve `bloqueou_voce`; a tela mostra o cabeçalho com "Esta conta
+  bloqueou você", sem posts e sem "seguir". O fio de quem bloqueou continua respondendo "Não achamos isto".

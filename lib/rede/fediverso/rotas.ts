@@ -9,6 +9,13 @@ import { receber, type DestinoDaCaixa } from "./caixa";
 import { processarFila } from "./entrega";
 import { atorComChaves, federacaoLigada, muitosPedidos, origemDe, permitir, semFederacao } from "./servidor";
 
+/**
+ * Uma contagem de pessoas que sai para outros servidores: só a partir de 3; abaixo disso (ou sem número) sai 0. O banco já faz
+ * esta conta (interno.rede_fed_piso, 20261110-fediverso-privacidade.sql); aqui é a segunda tranca, para o site nunca soltar um
+ * número pequeno mesmo que o banco esteja numa versão anterior.
+ */
+export const pisoDePessoas = (n: unknown): number => (typeof n === "number" && Number.isInteger(n) && n >= 3 ? n : 0);
+
 /** Quem pede quer HTML (um navegador), e não o documento ActivityPub? */
 export function querHtml(pedido: Request): boolean {
   const aceita = pedido.headers.get("accept") ?? "";

@@ -371,6 +371,16 @@ Se não atender (se o item for removido): os ajustes da federação ficam sem en
 
 #### P11 · 2026-11-10 · Faixa 2 pede · SQL (próxima migração): avisos de curtida e impulso sem dizer quem foi
 
+**Situação (10/11/2026): resolvido do lado da Faixa 2**, em `supabase/migracoes/20261110-fediverso-privacidade.sql`.
+`interno.rede_fed_aviso_remoto` não devolve ninguém em `fed_curtida` e `fed_impulso` (`ator_remoto` nulo, `atores_remotos`
+`[]`) e a chave `avatar` saiu de todos os tipos. O total e as pessoas desses dois tipos só saem a partir de 3 (abaixo disso, 1:
+"alguém"): para isso `public.rede_aviso_listar` é remendada no lugar, trocando `'total', n.total, 'pessoas', n.pessoas,` por
+`interno.rede_fed_aviso_total(n.tipo, …)`. O que fica com a Faixa 1: quem recriar `rede_aviso_listar` precisa levar esse trecho
+(ou rodar a migração da privacidade de novo em seguida); o teste do banco do Fediverso acusa se o remendo sumir. Falta só o bloco
+entrar no `install.sql` (quem junta as frentes).
+
+O pedido original:
+
 Arquivo: `supabase/migracoes/` (função `interno.rede_fed_aviso_remoto` e o remendo de `public.rede_aviso_listar`, em
 `20261109-fediverso-total.sql:366-394`). Nesta etapa não houve SQL novo; fica para a próxima migração.
 
@@ -389,6 +399,11 @@ O avatar cru fica a um `<img>` de vazar o IP de quem lê.
 Se não atender: nada muda na tela; o dado continua indo no JSON.
 
 #### P12 · 2026-11-10 · Faixa 2 pede · SQL e depósito (próxima migração): guardar a mídia de fora quando a nota chega
+
+**Situação (10/11/2026): continua aberto.** A migração `20261110-fediverso-privacidade.sql` não trata disto (ficou de fora de
+propósito). O que ela já deixa pronto para este pedido: a nota impulsionada por quem alguém daqui segue passa a ficar guardada,
+então a mídia dela entra na mesma conta quando o depósito existir. Continua faltando o lugar no depósito, a coluna com o caminho
+guardado e a faxina.
 
 Arquivos: `supabase/migracoes/` (uma tabela ou coluna para o caminho guardado e a regra do depósito) e a faxina que apaga o que
 venceu. O código que busca e serve é da Faixa 2 (`lib/rede/fediverso/entrada/**`, `app/api/fediverso/midia/route.ts`).
@@ -412,3 +427,33 @@ inesperado (tabela ou coluna que não existe, restrição violada) ela traz nome
 a filtrar com `codigoParaATela` (`lib/rede/fediverso/servidor.ts`): só sai o que tem a forma de código da casa
 (`nao_encontrado`, `invalido:post`); o resto vira `falha`. As rotas `app/api/rede/**` que repassam `r.codigo` direto têm o mesmo
 vazamento; se a Faixa 1 quiser, a mesma função serve lá.
+
+### Faixa 2 → Faixa 1: chat privado em blocos (formato "c3"), 2026-11-10
+
+Nenhum destes pedidos segura o chat: as peças da Faixa 2 já funcionam sem eles (`docs/rede/CHAT-PRIVADO.md`).
+
+#### P14 · 2026-11-10 · Faixa 2 pede · o texto de ajuda do "Sair rápido" dizer que a chave do chat também é apagada
+
+Arquivo: `i18n/rede/{pt,en,es,fr,ru,zh}.json`, chave `sairRapidoAjuda` (linha ~89 no pt).
+
+```json
+"sairRapidoAjuda": "Apaga o que a Alumia guardou neste aparelho, inclusive a chave do chat privado, e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto."
+```
+
+Por quê: o chat passou a pendurar a limpeza dele no `aoSairRapido` (`components/rede/chat/encaixe.tsx`): o banco IndexedDB do
+chat inteiro some, e depois é preciso ativar o chat de novo neste aparelho (a chave nova muda o código de segurança). A tela de
+Ajustes do chat já avisa; o texto do botão é o outro lugar onde a pessoa lê isso antes de tocar.
+
+Se não atender: nada quebra. O aviso fica só nos Ajustes do chat.
+
+#### P15 · 2026-11-10 · Faixa 2 pede · registrar no NOTICE o uso de `jsqr` e `qrcode` no chat
+
+Arquivo: `docs/NOTICE.md`, linha ~19 (a linha do "Progresso por QR").
+
+Acrescentar ao fim da linha, ou numa linha nova: "O chat privado da Alumia (`components/rede/chat/Qr.tsx`, conferido em
+10/11/2026) usa as mesmas duas bibliotecas, do mesmo jeito (baixadas só quando a pessoa abre o código de segurança, rodando no
+aparelho; a imagem da câmera não sai dele), para mostrar e ler o QR do código de segurança."
+
+Por quê: nenhuma dependência nova entrou, mas as duas passaram a ser usadas em mais um lugar, e o NOTICE lista os usos.
+
+Se não atender: nada quebra; o registro fica incompleto.

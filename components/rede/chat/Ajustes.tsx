@@ -76,6 +76,7 @@ export function Ajustes({ t, s, situacao, aoMudar, aoApagarTudo }: { t: TextosDo
       <div className="border-t border-rule pt-5">
         <p className="text-ink-soft">{t.ajustes.apagarTudoExplica}</p>
         <button type="button" disabled={ocupado} onClick={() => void apagarTudo()} className={`${botaoPerigo} mt-3`}>{t.ajustes.apagarTudo}</button>
+        <p className="mt-4 text-ink-soft">{t.ajustes.sairRapido}</p>
       </div>
     </div>
   );

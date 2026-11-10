@@ -128,7 +128,8 @@ export function perfilDeExemplo(agora: number = Date.now()): PerfilDeFora {
       cartaoDeExemplo(agora),
       cartao({ id: "113400000000000003", usuario: "tiao", nome: "Tião do Morro", texto: "Mutirão de sábado: levantamos a cozinha coletiva em um dia. Quem tem panela grande sobrando?", minutos: 60 * 26, respostas: 4 }, agora),
     ],
-    local: { seguindo: "sim", segue_voce: false, bloqueado: false, silenciado: false },
+    proximo: null,
+    local: { seguindo: "sim", segue_voce: false, bloqueado: false, silenciado: false, bloqueou_voce: false },
   };
 }
 
@@ -137,5 +138,5 @@ export function fioDeExemplo(agora: number = Date.now()): FioDeFora {
 }
 
 export function situacaoDeExemplo(): SituacaoDeFora {
-  return { logado: true, ligado: true, pode: true, motivo: null, handle: "voce", desde: null, seguidores: 0, seguindo: 1, versao: 2, total: true, consentimento_versao: 2, descobrivel: false, pedir_fediverso: false };
+  return { logado: true, ligado: true, pode: true, motivo: null, handle: "voce", endereco: "@voce@institutolucia.org", dominio: "institutolucia.org", desde: null, seguidores: 0, seguindo: 1, versao: 2, total: true, consentimento_versao: 2, descobrivel: false, pedir_fediverso: false };
 }

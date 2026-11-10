@@ -10,7 +10,10 @@
     "botao": "Turn on messages here",
     "outroTitulo": "Your messages are active on another device",
     "outroTexto": "If you turn them on here, this becomes your messaging device: conversations get a new key, and the other device stops opening what arrives from now on. What was already written stays readable only there.",
-    "outroBotao": "Use this device"
+    "outroBotao": "Use this device",
+    "outroTinha": "Warning: this device already had your chat key, but the server now shows a different one. If you turned on messages on another device, that is why. If it was not you, someone may have got into your account: change your password before going on.",
+    "outroRisco": "Creating a new key here changes your safety key. People you talk to get a warning, verified conversations lose the mark and you have to compare the code again. What was written before will not open on this device.",
+    "outroEntendi": "I understand the risk and want to create a new key on this device"
   },
   "nova": {
     "rotulo": "Message @",
@@ -47,7 +50,14 @@
     "apagarMensagem": "Delete",
     "apagarMensagemConfirma": "Delete this message for both of you?",
     "bloqueada": "Conversation closed: there is a block between you.",
-    "voce": "You"
+    "voce": "You",
+    "faltam": "A message may be missing here: deleted by the writer, expired or held back on the way.",
+    "repetida": "Repeated message: this device had already received this same message. It is not shown again.",
+    "mudouVerificada": "{nome}'s safety key changed, and this conversation was verified. The verified mark was removed. It may be a new device, or someone trying to pass as this person. Nothing is sent until you compare the code again.",
+    "grupoPedido": "Ask {nome}, in person or through a channel where you recognise each other, for group {n} of the code on their screen. Type it here:",
+    "grupoRotulo": "Group {n} of the code",
+    "grupoConferir": "Check",
+    "grupoErrado": "It does not match. Do not go on: someone may be in the middle. Talk to the person through another channel."
   },
   "acoes": {
     "rotulo": "Conversation options",
@@ -64,7 +74,16 @@
     "bloquearConfirma": "Block this person? They will no longer be able to reach you, here or on Alumia.",
     "denunciar": "Report",
     "apagar": "Delete the conversation",
-    "apagarConfirma": "Remove this conversation from your list? It disappears for you. The other person keeps the messages until their time limit ends."
+    "apagarConfirma": "Remove this conversation from your list? It disappears for you. The other person keeps the messages until their time limit ends.",
+    "qrRotulo": "Safety code as a QR, for the other person to scan with the camera",
+    "qrLer": "Scan the other person's QR",
+    "qrFechar": "Close the camera",
+    "qrAponte": "Point at the QR on the other person's screen. The camera image does not leave this device.",
+    "qrSemCamera": "Could not open the camera. Compare the numbers.",
+    "qrConfere": "The codes match: conversation verified on this device.",
+    "qrNaoConfere": "The codes do NOT match. Do not mark as verified: someone may be in the middle.",
+    "qrOutro": "This QR is not an Alumia safety code.",
+    "negavel": "Messages carry no signature. Only the two of you have the key to this conversation: the receiver knows it came from the other person, but no message works as proof, to anyone else, of who wrote it."
   },
   "denuncia": {
     "titulo": "Report",
@@ -87,7 +106,8 @@
     "enviar": "Send report",
     "cancelar": "Cancel",
     "feito": "Report received. Reference {protocolo}. Follow it in My reports.",
-    "emergencia": "In danger right now? In Brazil, call 190. Child or teenager at risk: dial 100."
+    "emergencia": "In danger right now? In Brazil, call 190. Child or teenager at risk: dial 100.",
+    "aberto": "Warning: the messages you tick leave the encryption and go in plain text to the moderation team. The rest of the conversation stays encrypted."
   },
   "ajustes": {
     "titulo": "Message settings",
@@ -101,7 +121,8 @@
     "apagarTudo": "Delete all my messages",
     "apagarTudoExplica": "Removes all conversations from your list and deletes your key and your settings. The other person in each conversation keeps the messages until their time limit ends. Your account stays. Brazil's LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Remove ALL conversations from your list and delete your messaging key? This cannot be undone.",
-    "apagado": "All your messages were deleted."
+    "apagado": "All your messages were deleted.",
+    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device. After that you have to turn messages on again, and what was written before will no longer open here."
   },
   "erros": {
     "dm_fechada": "You cannot message this person right now.",
@@ -111,6 +132,7 @@
     "consentimento": "Private messages are only for people who have joined Alumia (18 or older).",
     "nao_encontrado": "This conversation no longer exists.",
     "texto_grande": "The message is too long.",
-    "sem_indexeddb": "This browser does not keep the key (private mode?). Messages work only while the tab stays open."
+    "sem_indexeddb": "This browser does not keep the key (private mode?). Messages work only while the tab stays open.",
+    "dm_exige_comparar": "Compare the safety code again before sending."
   }
 }

@@ -10,7 +10,10 @@
     "botao": "Activer le chat ici",
     "outroTitulo": "Votre chat est actif sur un autre appareil",
     "outroTexto": "Si vous l'activez ici, celui-ci devient votre appareil de chat : les conversations reçoivent une nouvelle clé, et l'autre appareil n'ouvre plus ce qui arrive à partir de maintenant. Ce qui a déjà été écrit reste lisible seulement là-bas.",
-    "outroBotao": "Utiliser cet appareil"
+    "outroBotao": "Utiliser cet appareil",
+    "outroTinha": "Attention : cet appareil avait déjà la clé de votre messagerie, mais le serveur en montre maintenant une autre. Si vous avez activé la messagerie sur un autre appareil, c'est cela. Si ce n'était pas vous, quelqu'un est peut-être entré dans votre compte : changez le mot de passe avant de continuer.",
+    "outroRisco": "Créer une nouvelle clé ici change votre clé de sécurité. Les personnes avec qui vous parlez reçoivent un avertissement, les conversations vérifiées perdent la marque et vous devez comparer le code à nouveau. Ce qui a été écrit avant ne s'ouvre pas sur cet appareil.",
+    "outroEntendi": "J'ai compris le risque et je veux créer une nouvelle clé sur cet appareil"
   },
   "nova": {
     "rotulo": "Écrire à @",
@@ -47,7 +50,14 @@
     "apagarMensagem": "Supprimer",
     "apagarMensagemConfirma": "Supprimer ce message pour les deux personnes ?",
     "bloqueada": "Conversation fermée : il y a un blocage entre vous.",
-    "voce": "Vous"
+    "voce": "Vous",
+    "faltam": "Il manque peut-être un message ici : supprimé par son auteur, expiré ou retenu en chemin.",
+    "repetida": "Message répété : cet appareil avait déjà reçu ce même message. Il n'est pas affiché à nouveau.",
+    "mudouVerificada": "La clé de sécurité de {nome} a changé, et cette conversation était vérifiée. La marque de vérification est tombée. C'est peut-être un nouvel appareil, ou quelqu'un qui tente de se faire passer pour la personne. Rien n'est envoyé tant que vous n'avez pas comparé le code à nouveau.",
+    "grupoPedido": "Demandez à {nome}, en personne ou par un canal où vous vous reconnaissez, le groupe {n} du code affiché sur son écran. Saisissez-le ici :",
+    "grupoRotulo": "Groupe {n} du code",
+    "grupoConferir": "Vérifier",
+    "grupoErrado": "Cela ne correspond pas. N'allez pas plus loin : quelqu'un est peut-être au milieu. Parlez à la personne par un autre canal."
   },
   "acoes": {
     "rotulo": "Options de la conversation",
@@ -64,7 +74,16 @@
     "bloquearConfirma": "Bloquer cette personne ? Elle ne pourra plus vous contacter, ici ni sur Alumia.",
     "denunciar": "Signaler",
     "apagar": "Supprimer la conversation",
-    "apagarConfirma": "Retirer cette conversation de votre liste ? Elle disparaît pour vous. L'autre personne garde les messages jusqu'à la fin de leur délai."
+    "apagarConfirma": "Retirer cette conversation de votre liste ? Elle disparaît pour vous. L'autre personne garde les messages jusqu'à la fin de leur délai.",
+    "qrRotulo": "Code de sécurité en QR, à lire par l'autre personne avec la caméra",
+    "qrLer": "Lire le QR de l'autre personne",
+    "qrFechar": "Fermer la caméra",
+    "qrAponte": "Visez le QR sur l'écran de l'autre personne. L'image de la caméra ne quitte pas cet appareil.",
+    "qrSemCamera": "Impossible d'ouvrir la caméra. Comparez les chiffres.",
+    "qrConfere": "Les codes correspondent : conversation vérifiée sur cet appareil.",
+    "qrNaoConfere": "Les codes ne correspondent PAS. Ne marquez pas comme vérifié : quelqu'un est peut-être au milieu.",
+    "qrOutro": "Ce QR n'est pas un code de sécurité d'Alumia.",
+    "negavel": "Les messages ne portent pas de signature. Vous seuls avez la clé de cette conversation : la personne qui reçoit sait que le message vient de l'autre, mais aucun message ne sert de preuve, pour un tiers, de qui l'a écrit."
   },
   "denuncia": {
     "titulo": "Signaler",
@@ -87,7 +106,8 @@
     "enviar": "Envoyer le signalement",
     "cancelar": "Annuler",
     "feito": "Signalement reçu. Référence {protocolo}. Suivez-le dans Mes signalements.",
-    "emergencia": "En danger maintenant ? Au Brésil, appelez le 190. Enfant ou adolescent en danger : composez le 100."
+    "emergencia": "En danger maintenant ? Au Brésil, appelez le 190. Enfant ou adolescent en danger : composez le 100.",
+    "aberto": "Attention : les messages que vous cochez sortent du chiffrement et partent en clair à l'équipe de modération. Le reste de la conversation reste chiffré."
   },
   "ajustes": {
     "titulo": "Réglages du chat",
@@ -101,7 +121,8 @@
     "apagarTudo": "Tout supprimer du chat",
     "apagarTudoExplica": "Retire toutes les conversations de votre liste et supprime votre clé et vos réglages. L'autre personne de chaque conversation garde les messages jusqu'à la fin de leur délai. Le compte reste. LGPD brésilienne, art. 18, VI.",
     "apagarTudoConfirma": "Retirer TOUTES les conversations de votre liste et supprimer votre clé de chat ? C'est définitif.",
-    "apagado": "Tout le chat a été supprimé."
+    "apagado": "Tout le chat a été supprimé.",
+    "sairRapido": "Le bouton Sortie rapide d'Alumia efface aussi la clé de la messagerie sur cet appareil. Ensuite, il faut réactiver la messagerie, et ce qui a été écrit avant ne s'ouvre plus ici."
   },
   "erros": {
     "dm_fechada": "Impossible de discuter avec cette personne pour le moment.",
@@ -111,6 +132,7 @@
     "consentimento": "Le chat privé est réservé aux personnes déjà entrées dans Alumia (18 ans ou plus).",
     "nao_encontrado": "Cette conversation n'existe plus.",
     "texto_grande": "Le message est trop long.",
-    "sem_indexeddb": "Ce navigateur ne garde pas la clé (mode privé ?). Le chat ne fonctionne que tant que l'onglet reste ouvert."
+    "sem_indexeddb": "Ce navigateur ne garde pas la clé (mode privé ?). Le chat ne fonctionne que tant que l'onglet reste ouvert.",
+    "dm_exige_comparar": "Comparez à nouveau le code de sécurité avant d'envoyer."
   }
 }

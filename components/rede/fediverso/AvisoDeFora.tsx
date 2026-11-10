@@ -11,7 +11,10 @@ import { SeloDoServidor } from "./SeloDoServidor";
 export const TIPOS_DE_AVISO_DE_FORA = ["fed_seguidor", "fed_resposta", "fed_mencao", "fed_curtida", "fed_impulso"] as const;
 export type TipoDeAvisoDeFora = (typeof TIPOS_DE_AVISO_DE_FORA)[number];
 
-/** Quem é de fora num grupo de avisos, como `rede_aviso_listar` devolve em `ator_remoto` (o `avatar` de lá nunca é usado na tela). */
+/**
+ * Quem é de fora num grupo de avisos, como `rede_aviso_listar` devolve em `ator_remoto`. Só em seguidor, resposta e menção: em
+ * curtida e impulso o banco manda nulo (ninguém é dito). O endereço do avatar não vem em tipo nenhum.
+ */
 export interface AtorDoAvisoDeFora {
   ator: string;
   handle: string | null;
@@ -57,6 +60,7 @@ const limpo = (v: unknown, teto = 60): string => (typeof v === "string" ? v.repl
 export function fraseDoAvisoDeFora(item: Pick<ItemDeAvisoDeFora, "tipo" | "pessoas" | "ator_remoto">, t: TextosDoFediverso["avisos"]): string {
   if (!eTipo(item.tipo)) return "";
   const f = t[SECAO[item.tipo]];
+  // O banco já manda 1 ("alguém") abaixo de 3 nesses dois tipos; a conferência daqui continua, por garantia.
   if (item.tipo === "fed_curtida" || item.tipo === "fed_impulso") {
     const n = contagemVisivel(item.pessoas);
     return n === null ? f.um : preencher(f.varios, { n });

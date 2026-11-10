@@ -31,6 +31,8 @@
     "vazio": "Pas encore de publications à afficher.",
     "bloqueado": "Vous avez bloqué ce compte.",
     "silenciado": "Vous avez masqué ce compte.",
+    "bloqueouVoce": "Ce compte vous a bloqué. Vous ne pouvez ni voir ses publications ni le suivre.",
+    "maisPosts": "Plus de publications",
     "abrirNoServidor": "Ouvrir sur {servidor}",
     "contaDaqui": "Ce compte est sur Alumia. Voir le profil.",
     "rostoDe": "Visage de {conta}"

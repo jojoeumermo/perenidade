@@ -629,17 +629,55 @@ await espera("ataque: erro inesperado do banco não vaza nome de tabela nem de c
   db.denunciaDaTela = antigaDenuncia;
   return corpos;
 }, (r) => r.every((c) => JSON.parse(c).erro === "falha" && !/interno|relation|column|constraint|chave_privada|pkey/.test(c)));
-await espera("remoto ?ator: quem foi BLOQUEADO pela pessoa de fora (o banco recusa o perfil) não recebe posts nem 'seguir': 404", async () => {
+await espera("remoto ?ator: quando o banco recusa o perfil (federação desligada, sem adesão), a rota recusa junto, sem posts nem 'seguir': 404", async () => {
   servidor.esquecerOLembrado();
   const EVA = "https://remota.teste/users/eva";
   const n1 = novaNota({ attributedTo: EVA, cc: [`${EVA}/followers`] });
   rede.docs.set(EVA, { ...atorDoc(EVA, chaves.bia.publica), name: "Eva", outbox: `${EVA}/outbox` });
   rede.docs.set(`${EVA}/outbox`, { type: "OrderedCollection", orderedItems: [criar(n1, EVA)] });
-  // db.perfis não tem a Eva: rede_fed_perfil_remoto responde "nao_encontrado", como quando ela bloqueou quem pede.
+  // db.perfis não tem a Eva: rede_fed_perfil_remoto responde "nao_encontrado" (o banco recusou).
   const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(EVA)}`, { metodo: "GET" }));
   const j = await r.json();
   return [r.status, j.erro, "posts" in j, "local" in j, db.remotos.has(EVA)];
 }, (r) => r[0] === 404 && r[1] === "nao_encontrado" && r[2] === false && r[3] === false && r[4] === true);
+await espera("remoto ?ator: quando o banco diz que a pessoa de fora BLOQUEOU quem pede, vai só o cabeçalho: nenhum post (nem os lidos agora) e sem página seguinte", async () => {
+  servidor.esquecerOLembrado();
+  const GIL = "https://remota.teste/users/gil";
+  const n1 = novaNota({ attributedTo: GIL });
+  rede.docs.set(GIL, { ...atorDoc(GIL, chaves.bia.publica), name: "Gil", outbox: `${GIL}/outbox` });
+  rede.docs.set(`${GIL}/outbox`, { type: "OrderedCollection", orderedItems: [criar(n1, GIL)] });
+  db.perfis.set(GIL, { ator: GIL, handle: "gil@remota.teste", seguindo: "nao", segue_voce: false, bloqueado: false, silenciado: false, bloqueou_voce: true, posts: [], proximo: null });
+  const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(GIL)}`, { metodo: "GET" }));
+  const j = await r.json();
+  // Outra pessoa (o banco não diz bloqueou_voce) recebe os posts do mesmo perfil: o que fica na memória do servidor não leva o bloqueio junto.
+  db.perfis.set(GIL, { ator: GIL, handle: "gil@remota.teste", seguindo: "nao", segue_voce: false, bloqueado: false, silenciado: true, bloqueou_voce: false, posts: [], proximo: null });
+  const j2 = await (await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(GIL)}`, { metodo: "GET" }))).json();
+  return [r.status, j.nome, j.posts?.length, j.proximo, j.local?.bloqueou_voce, j2.posts?.length, j2.local?.bloqueou_voce, j2.posts?.[0]?.silenciado, j2.posts?.[0]?.bloqueado, j2.posts?.[0]?.bloqueou_voce];
+}, (r) => r[0] === 200 && r[1] === "Gil" && r[2] === 0 && r[3] === null && r[4] === true && r[5] === 1 && r[6] === false && r[7] === true && r[8] === false && r[9] === false);
+await espera("remoto ?ator&cursor: a página seguinte vem só do banco (nada é lido lá fora), pelo proxy; cursor torto é 400 e quem foi bloqueado não recebe nada", async () => {
+  servidor.esquecerOLembrado();
+  const HUGO = "https://remota.teste/users/hugo";
+  const cursor = "2026-11-10 12:34:56.789+00|https://remota.teste/notes/h2";
+  const guardada = funcoesDaPessoa.rede_fed_perfil_remoto;
+  let pedido = null;
+  let bloqueou = false;
+  funcoesDaPessoa.rede_fed_perfil_remoto = (a) => {
+    pedido = a;
+    return { ator: HUGO, handle: "hugo@remota.teste", bloqueou_voce: bloqueou, proximo: "2026-11-09 10:00:00+00|https://remota.teste/notes/h0",
+      posts: [{ id: "https://remota.teste/notes/h1", origem: "fediverso", avatar: "https://remota.teste/av.png", midia: [{ url: "https://remota.teste/m/h1.png", tipo: "image/png", alt: "x" }] }, { id: "nao-e-cartao" }, "lixo"] };
+  };
+  const redeAntes = rede.gets.length;
+  try {
+    const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(HUGO)}&cursor=${encodeURIComponent(cursor)}`, { metodo: "GET" }));
+    const j = await r.json();
+    const torto = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(HUGO)}&cursor=${encodeURIComponent("a\nb")}`, { metodo: "GET" }));
+    bloqueou = true;
+    const jb = await (await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?ator=${encodeURIComponent(HUGO)}&cursor=${encodeURIComponent(cursor)}`, { metodo: "GET" }))).json();
+    return [r.status, Object.keys(j).sort().join(), j.posts.length, j.posts[0]?.id, semEnderecoDeForaParaBuscar(j).length, j.proximo, pedido.p_cursor === cursor, pedido.p_limite, rede.gets.length - redeAntes, torto.status, jb.posts.length];
+  } finally {
+    funcoesDaPessoa.rede_fed_perfil_remoto = guardada;
+  }
+}, (r) => r[0] === 200 && r[1] === "posts,proximo" && r[2] === 1 && r[3] === "https://remota.teste/notes/h1" && r[4] === 0 && r[5] === "2026-11-09 10:00:00+00|https://remota.teste/notes/h0" && r[6] === true && r[7] === 20 && r[8] === 0 && r[9] === 400 && r[10] === 0);
 await espera("ataque: reabrir o mesmo perfil (?ator= ou ?conta=) não bate de novo no servidor de fora: fica uns minutos na memória", async () => {
   servidor.esquecerOLembrado();
   const FOX = "https://remota.teste/users/fox";

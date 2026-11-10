@@ -36,7 +36,7 @@ const CLASSES_DO_HTML =
  * Só aparece com "fediverso-total" ligado (ou na prévia, com dados de exemplo e sem chamar rota nenhuma) e dentro da casca nova.
  *
  * `silenciado` e `bloqueado` são a relação com quem escreveu, quando quem desenha o cartão a conhece (o perfil de fora); sem
- * eles o cartão começa em "não". `aoMudarRelacao` avisa quem desenha quando a pessoa silencia ou bloqueia pelo cartão.
+ * eles o cartão começa pelo que o banco mandou no próprio post (`post.silenciado`, `post.bloqueado`), ou em "não". `aoMudarRelacao` avisa quem desenha quando a pessoa silencia ou bloqueia pelo cartão.
  */
 export default function CartaoRemoto({
   post: inicial,
@@ -63,12 +63,15 @@ export default function CartaoRemoto({
   const [post, setPost] = useState(inicial);
   // O cartão acompanha o que chega de novo (o fio relido depois de uma resposta traz a contagem nova).
   const [recebido, setRecebido] = useState(inicial);
+  // A relação com quem escreveu começa pelo que o banco mandou no cartão e segue o que a pessoa fizer aqui.
+  const [silenciadoAqui, setSilenciadoAqui] = useState(inicial.silenciado === true);
+  const [bloqueadoAqui, setBloqueadoAqui] = useState(inicial.bloqueado === true);
   if (recebido !== inicial) {
     setRecebido(inicial);
     setPost(inicial);
+    setSilenciadoAqui(inicial.silenciado === true);
+    setBloqueadoAqui(inicial.bloqueado === true);
   }
-  const [silenciadoAqui, setSilenciadoAqui] = useState(false);
-  const [bloqueadoAqui, setBloqueadoAqui] = useState(false);
   const silenciado = silenciadoDeFora ?? silenciadoAqui;
   const bloqueado = bloqueadoDeFora ?? bloqueadoAqui;
   const [ocupado, setOcupado] = useState(false);

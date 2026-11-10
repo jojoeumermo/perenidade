@@ -5,8 +5,11 @@
 //   ?ator=<url> ou ?conta=@nome@instancia  → o perfil (nome, @, bio em texto, avatar pela rota-proxy) e os últimos posts públicos
 //                                            (HTML limpo por lista permitida, mídia pela rota-proxy), mais o que o banco sabe
 //                                            (rede_fed_perfil_remoto: se a pessoa segue, se bloqueou). O que é lido lá fora fica
-//                                            5 minutos na memória do servidor. Se o banco recusa (a pessoa de fora bloqueou quem
-//                                            pede), a rota recusa também: nada de posts nem de "seguir";
+//                                            5 minutos na memória do servidor. Se a pessoa de fora bloqueou quem pede, o banco
+//                                            devolve "bloqueou_voce" e a rota manda só o cabeçalho: nada de posts (nem os lidos
+//                                            agora) e a tela não mostra "seguir". Se o banco recusa, a rota recusa também.
+//                                            Com &cursor=<proximo>: só a página seguinte dos posts GUARDADOS ({ posts, proximo }),
+//                                            sem ler nada lá fora;
 //   ?post=<url>[&buscar=1]                 → o fio {post, acima, respostas}. Se o banco guarda a nota, vem tudo dele
 //                                            (rede_fed_fio_remoto, que só devolve o que a pessoa pode ver). Senão a rota responde
 //                                            "so_na_origem" e NÃO busca nada: só com buscar=1 (um toque da pessoa na tela) o post
@@ -66,6 +69,7 @@ function cartaoAoVivo(n: NotaRecebida, autor: Autor): Cartao {
     servidor, url: n.url ?? n.id,
     respostas: 0, na_conversa: null, util: 0, util_eu: false, apoios: null,
     curti: false, impulsionei: false, apoiei: false, salvei: false, vou: null, vou_eu: false,
+    silenciado: false, bloqueado: false, bloqueou_voce: false,
     midia: n.midia.map((m) => ({ url: urlDaMidia(m.url), tipo: m.tipo, alt: m.alt, largura: m.largura, altura: m.altura, blurhash: m.blurhash })).filter((m) => m.url),
     citado: null, post_local: null, impulsionado_por: null, ao_vivo: true,
   };
@@ -117,6 +121,16 @@ async function lerPerfil(atorId: string): Promise<PerfilLido | null> {
   return { ator, tipo, posts };
 }
 
+/** A página seguinte dos posts que o banco guarda de um perfil de fora (nada é lido lá fora). */
+async function maisDoPerfil(token: string, atorId: string, cursor: string) {
+  if (await bloqueado(atorId)) return resposta({ erro: "instancia_bloqueada" }, 403);
+  const r = await chamarComoPessoa<Cartao>(token, "rede_fed_perfil_remoto", { p_ator: atorId, p_cursor: cursor, p_limite: 20 });
+  if (!r.ok || !eCartao(r.dado)) return recusa(r.ok ? "falha" : r.codigo);
+  const pagina = assinarCartao(r.dado);
+  const posts = pagina.bloqueou_voce === true || !Array.isArray(pagina.posts) ? [] : pagina.posts.filter((c): c is Cartao => eCartao(c) && deFora(c));
+  return resposta({ posts, proximo: typeof pagina.proximo === "string" && pagina.proximo ? pagina.proximo : null });
+}
+
 async function perfil(token: string, atorId: string) {
   if (await bloqueado(atorId)) return resposta({ erro: "instancia_bloqueada" }, 403);
   // O que vem de fora fica uns minutos na memória: reabrir o perfil não vira um pedido novo lá a cada visita.
@@ -124,18 +138,22 @@ async function perfil(token: string, atorId: string) {
   if (!lido) return resposta({ erro: "nao_encontrado" }, 404);
   const { ator, posts: aoVivo } = lido;
   const guardado = await chamarComoPessoa<Cartao>(token, "rede_fed_perfil_remoto", { p_ator: ator.ator });
-  // O banco já conhece o ator; se mesmo assim recusa, é porque a pessoa de fora bloqueou quem pede (ou o banco falhou). Na dúvida
-  // a rota recusa junto: sem posts e sem "seguir" para quem foi bloqueado.
+  // O banco já conhece o ator; se mesmo assim recusa (federação desligada, sem adesão, o banco falhou), a rota recusa junto.
   if (!guardado.ok || !eCartao(guardado.dado)) return recusa(guardado.ok ? "falha" : guardado.codigo);
   // O que o banco sabe (se a pessoa segue, se bloqueou) e os posts que ele guarda, tudo já pelo proxy. Os posts saem numa lista só:
   // o cartão do banco (com "curti" e as contagens) ganha do lido agora; o que só o banco tem (só-seguidores de quem se segue) entra.
-  const { posts: doBanco, ...local } = assinarCartao(guardado.dado);
+  const { posts: doBanco, proximo, ...local } = assinarCartao(guardado.dado);
+  // A pessoa de fora bloqueou quem pede: só o cabeçalho. Os posts lidos agora na origem NÃO vão (a memória do servidor é de
+  // todos, o bloqueio é de cada um).
+  const bloqueouVoce = local.bloqueou_voce === true;
+  // A relação de quem lê vale também para os posts lidos agora (o banco não os guarda, então não os marcou).
+  const relacao = { silenciado: local.silenciado === true, bloqueado: local.bloqueado === true, bloqueou_voce: false };
   const porId = new Map<string, Cartao>();
   for (const c of Array.isArray(doBanco) ? doBanco.filter(eCartao) : []) if (typeof c.id === "string") porId.set(c.id, c);
   const vistos = new Set<string>();
   const posts = aoVivo.map((c) => {
     vistos.add(String(c.id));
-    return porId.get(String(c.id)) ?? c;
+    return porId.get(String(c.id)) ?? { ...c, ...relacao };
   });
   for (const [id, c] of porId) if (!vistos.has(id)) posts.push(c);
   posts.sort((a, b) => Date.parse(String(b.criado_em)) - Date.parse(String(a.criado_em)) || 0);
@@ -148,7 +166,8 @@ async function perfil(token: string, atorId: string) {
     avatar: urlDaMidia(ator.avatar),
     tipo: lido.tipo,
     servidor: dominio(ator.ator),
-    posts: posts.slice(0, 40),
+    posts: bloqueouVoce ? [] : posts.slice(0, 40),
+    proximo: !bloqueouVoce && typeof proximo === "string" && proximo ? proximo : null,
     local,
   });
 }
@@ -229,7 +248,11 @@ export async function GET(pedido: Request) {
   const post = urlOk(p.get("post"));
   if (post) return fio(token, post, p.get("buscar") === "1");
   const ator = urlOk(p.get("ator"));
-  if (ator) return perfil(token, ator);
+  if (ator) {
+    const cursor = p.get("cursor");
+    if (cursor && !CURSOR.test(cursor)) return resposta({ erro: "invalido:pedido" }, 400);
+    return cursor ? maisDoPerfil(token, ator, cursor) : perfil(token, ator);
+  }
   const conta = lerConta(p.get("conta") ?? "");
   if (conta) {
     if (conta.dominio === fed.dominio) return resposta({ local: true, handle: conta.usuario.toLowerCase() });

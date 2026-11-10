@@ -13,6 +13,7 @@ const CATEGORIAS: CategoriaDeDenuncia[] = ["assedio", "ameaca", "menores", "expo
 /**
  * Denunciar a outra pessoa da conversa. Vão junto só os trechos que quem denuncia marcou (já decifrados no aparelho dela): a
  * moderação nunca recebe a chave da conversa. A denúncia entra na mesma fila da Alumia, e quem denuncia nunca é revelado.
+ * A tela diz com todas as letras que os trechos marcados SAEM do cifrado e vão em texto aberto para a moderação.
  */
 export function Denuncia({ t, s, conversa, trechos, aoFechar }: { t: TextosDoChat; s: TextosDaRede; conversa: string; trechos: string[]; aoFechar: (bloqueou: boolean) => void }) {
   const [categoria, setCategoria] = useState<CategoriaDeDenuncia>("assedio");
@@ -50,6 +51,7 @@ export function Denuncia({ t, s, conversa, trechos, aoFechar }: { t: TextosDoCha
     <form onSubmit={(e) => void enviar(e)} className="space-y-3 border-b border-rule bg-parchment-deep px-[18px] py-4 text-sm">
       <h2 className="font-serif text-lg font-bold">{t.denuncia.titulo}</h2>
       <p className="text-ink-soft">{t.denuncia.explica}</p>
+      <p role="note" className="rounded-md border border-oxblood px-3 py-2 font-semibold">{t.denuncia.aberto}</p>
       <p className="font-semibold">{preencher(t.denuncia.marcadas, { n: trechos.length })}</p>
       <fieldset>
         <legend className="font-semibold">{t.denuncia.categoria}</legend>

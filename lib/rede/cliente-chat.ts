@@ -1,7 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// As chamadas do chat privado da Alumia ao banco (supabase/migracoes/20261106-t19-rede-chat-privado.sql). Tudo o que passa aqui
-// já vai cifrado (lib/rede/chat-privado.ts): o banco só vê chaves públicas, embrulhos e "c2.…". Documento: docs/rede/CHAT-PRIVADO.md.
+// As chamadas do chat privado da Alumia ao banco (supabase/migracoes/20261106-t19-rede-chat-privado.sql e
+// 20261110-chat-blocos.sql). Tudo o que passa aqui já vai cifrado (lib/rede/chat-privado.ts): o banco só vê chaves públicas,
+// embrulhos e "c3.…" em blocos de tamanho fixo (e o "c2.…" antigo, só para leitura). Documento: docs/rede/CHAT-PRIVADO.md.
 // Sem "@/" de propósito.
 import type { ChaveDeParticipante, EmbrulhoRecebido } from "./chat-privado";
 import { chamar, type Chamar } from "./cliente";

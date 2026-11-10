@@ -31,6 +31,8 @@
     "vazio": "No posts to show yet.",
     "bloqueado": "You blocked this account.",
     "silenciado": "You muted this account.",
+    "bloqueouVoce": "This account has blocked you. You can't see its posts or follow it.",
+    "maisPosts": "More posts",
     "abrirNoServidor": "Open on {servidor}",
     "contaDaqui": "This account is on Alumia. See the profile.",
     "rostoDe": "Avatar of {conta}"

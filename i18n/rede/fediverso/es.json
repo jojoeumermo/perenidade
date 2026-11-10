@@ -31,6 +31,8 @@
     "vazio": "Todavía no hay publicaciones para mostrar.",
     "bloqueado": "Bloqueaste esta cuenta.",
     "silenciado": "Silenciaste esta cuenta.",
+    "bloqueouVoce": "Esta cuenta te bloqueó. No puedes ver sus publicaciones ni seguirla.",
+    "maisPosts": "Más publicaciones",
     "abrirNoServidor": "Abrir en {servidor}",
     "contaDaqui": "Esta cuenta es de Alumia. Ver el perfil.",
     "rostoDe": "Rostro de {conta}"

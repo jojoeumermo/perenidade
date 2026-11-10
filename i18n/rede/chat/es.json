@@ -10,7 +10,10 @@
     "botao": "Activar el chat aquí",
     "outroTitulo": "Tu chat está activo en otro dispositivo",
     "outroTexto": "Si lo activas aquí, este pasa a ser tu dispositivo del chat: las conversaciones reciben una clave nueva y el otro dispositivo deja de abrir lo que llegue de ahora en adelante. Lo ya escrito sigue legible solo allí.",
-    "outroBotao": "Usar este dispositivo"
+    "outroBotao": "Usar este dispositivo",
+    "outroTinha": "Atención: este dispositivo ya tenía la clave de tu chat, pero el servidor ahora muestra otra. Si activaste el chat en otro dispositivo, es eso. Si no fuiste tú, alguien puede haber entrado en tu cuenta: cambia la contraseña antes de continuar.",
+    "outroRisco": "Crear una clave nueva aquí cambia tu clave de seguridad. Quien conversa contigo recibe un aviso, las conversaciones verificadas pierden la marca y tienen que comparar el código de nuevo. Lo escrito antes no se abre en este dispositivo.",
+    "outroEntendi": "Entendí el riesgo y quiero crear una clave nueva en este dispositivo"
   },
   "nova": {
     "rotulo": "Conversar con @",
@@ -47,7 +50,14 @@
     "apagarMensagem": "Borrar",
     "apagarMensagemConfirma": "¿Borrar este mensaje para las dos personas?",
     "bloqueada": "Conversación cerrada: hay un bloqueo entre ustedes.",
-    "voce": "Tú"
+    "voce": "Tú",
+    "faltam": "Puede faltar un mensaje aquí: borrado por quien lo escribió, vencido o retenido en el camino.",
+    "repetida": "Mensaje repetido: este dispositivo ya había recibido este mismo mensaje. No se muestra de nuevo.",
+    "mudouVerificada": "La clave de seguridad de {nome} cambió, y esta conversación estaba verificada. La marca de verificado cayó. Puede ser un dispositivo nuevo, o alguien intentando hacerse pasar por la persona. No se envía nada hasta que comparen el código de nuevo.",
+    "grupoPedido": "Pide a {nome}, en persona o por un canal en el que se reconozcan, el grupo {n} del código que aparece en su pantalla. Escríbelo aquí:",
+    "grupoRotulo": "Grupo {n} del código",
+    "grupoConferir": "Comprobar",
+    "grupoErrado": "No coincide. No sigas: puede haber alguien en medio. Habla con la persona por otro canal."
   },
   "acoes": {
     "rotulo": "Opciones de la conversación",
@@ -64,7 +74,16 @@
     "bloquearConfirma": "¿Bloquear a esta persona? Ya no podrá hablar contigo, ni aquí ni en Alumia.",
     "denunciar": "Denunciar",
     "apagar": "Borrar la conversación",
-    "apagarConfirma": "¿Quitar esta conversación de tu lista? Desaparece para ti. La otra persona conserva los mensajes hasta que venza su plazo."
+    "apagarConfirma": "¿Quitar esta conversación de tu lista? Desaparece para ti. La otra persona conserva los mensajes hasta que venza su plazo.",
+    "qrRotulo": "Código de seguridad en QR, para que la otra persona lo lea con la cámara",
+    "qrLer": "Leer el QR de la otra persona",
+    "qrFechar": "Cerrar la cámara",
+    "qrAponte": "Apunta al QR en la pantalla de la otra persona. La imagen de la cámara no sale de este dispositivo.",
+    "qrSemCamera": "No se pudo abrir la cámara. Compara los números.",
+    "qrConfere": "Los códigos coinciden: conversación verificada en este dispositivo.",
+    "qrNaoConfere": "Los códigos NO coinciden. No marques como verificado: puede haber alguien en medio.",
+    "qrOutro": "Este QR no es un código de seguridad de Alumia.",
+    "negavel": "Los mensajes no llevan firma. Solo ustedes dos tienen la clave de esta conversación: quien recibe sabe que vino de la otra persona, pero ningún mensaje sirve de prueba, ante terceros, de quién lo escribió."
   },
   "denuncia": {
     "titulo": "Denunciar",
@@ -87,7 +106,8 @@
     "enviar": "Enviar denuncia",
     "cancelar": "Cancelar",
     "feito": "Denuncia recibida. Protocolo {protocolo}. Síguela en Mis denuncias.",
-    "emergencia": "¿En peligro ahora? En Brasil, llama al 190. Niño, niña o adolescente en riesgo: marca 100."
+    "emergencia": "¿En peligro ahora? En Brasil, llama al 190. Niño, niña o adolescente en riesgo: marca 100.",
+    "aberto": "Atención: los mensajes que marques salen del cifrado y van en texto abierto al equipo de moderación. El resto de la conversación sigue cifrado."
   },
   "ajustes": {
     "titulo": "Ajustes del chat",
@@ -101,7 +121,8 @@
     "apagarTudo": "Borrar todo el chat",
     "apagarTudoExplica": "Quita todas las conversaciones de tu lista y borra tu clave y tus ajustes. La otra persona de cada conversación conserva los mensajes hasta que venza su plazo. La cuenta sigue. LGPD de Brasil, art. 18, VI.",
     "apagarTudoConfirma": "¿Quitar TODAS las conversaciones de tu lista y borrar tu clave del chat? No tiene vuelta atrás.",
-    "apagado": "Todo el chat fue borrado."
+    "apagado": "Todo el chat fue borrado.",
+    "sairRapido": "El botón Salir rápido de Alumia borra también la clave del chat de este dispositivo. Después hay que activar el chat de nuevo, y lo escrito antes ya no se abre aquí."
   },
   "erros": {
     "dm_fechada": "No se puede conversar con esta persona ahora.",
@@ -111,6 +132,7 @@
     "consentimento": "El chat privado es solo para quien ya entró en Alumia (18 años o más).",
     "nao_encontrado": "Esta conversación ya no existe.",
     "texto_grande": "El mensaje es demasiado largo.",
-    "sem_indexeddb": "Este navegador no guarda la clave (¿modo privado?). El chat funciona solo mientras la pestaña esté abierta."
+    "sem_indexeddb": "Este navegador no guarda la clave (¿modo privado?). El chat funciona solo mientras la pestaña esté abierta.",
+    "dm_exige_comparar": "Compara el código de seguridad de nuevo antes de enviar."
   }
 }

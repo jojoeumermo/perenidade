@@ -490,7 +490,7 @@ export function atividadeAnnounceDoGrupo(e: EnderecosDaFederacao, slug: string, 
   };
 }
 
-/** Os moderadores da comunidade: só quem federa (quem não ligou a federação nunca aparece aqui). */
+/** A coleção de moderação da comunidade. As rotas passam a lista vazia: quem modera não é exposto para fora (regra da casa). */
 export function colecaoDeModeradores(e: EnderecosDaFederacao, slug: string, handles: readonly string[]) {
   const itens = [...new Set(handles.filter((h) => /^[a-z0-9_]{3,20}$/.test(h)))].map((h) => e.ator(h));
   return { "@context": CONTEXTO_TOTAL, id: e.moderadoresDaComunidade(slug), type: "OrderedCollection", totalItems: itens.length, orderedItems: itens };

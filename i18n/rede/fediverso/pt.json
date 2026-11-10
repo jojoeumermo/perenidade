@@ -30,6 +30,8 @@
     "vazio": "Ainda não há posts para mostrar.",
     "bloqueado": "Você bloqueou esta conta.",
     "silenciado": "Você silenciou esta conta.",
+    "bloqueouVoce": "Esta conta bloqueou você. Não dá para ver os posts dela nem seguir.",
+    "maisPosts": "Mais posts",
     "abrirNoServidor": "Abrir em {servidor}",
     "contaDaqui": "Esta conta é da Alumia. Ver o perfil.",
     "rostoDe": "Rosto de {conta}"

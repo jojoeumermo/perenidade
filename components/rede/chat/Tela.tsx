@@ -16,7 +16,7 @@ import { Conversa } from "./Conversa";
 import { codigoDoErro } from "../erros";
 import { botaoForte, botaoLeve, erroDoChat } from "./comum";
 
-type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho" } | { estado: "erro"; texto: string; calmo: boolean };
+type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean } | { estado: "erro"; texto: string; calmo: boolean };
 
 /**
  * Conversas da Alumia (/alumia/conversas): o chat privado, cifrado de ponta a ponta com a mesma tecnologia das conversas da
@@ -32,6 +32,7 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [ajustes, setAjustes] = useState(false);
+  const [entendi, setEntendi] = useState(false);
 
   useEffect(() => {
     let vivo = true;
@@ -203,7 +204,18 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         <div className="px-[18px] py-6">
           <h2 className="font-serif text-xl font-bold">{aparelho.estado === "sem_chave" ? t.ativar.titulo : t.ativar.outroTitulo}</h2>
           <p className="mt-2 max-w-prose text-ink-soft">{aparelho.estado === "sem_chave" ? t.ativar.texto : t.ativar.outroTexto}</p>
-          <button type="button" disabled={ocupado} onClick={() => void ativar()} className={`${botaoForte} mt-4`}>
+          {aparelho.estado === "outro_aparelho" && (
+            // Outra chave no servidor para a PRÓPRIA conta: criar uma nova aqui não é um clique. Primeiro o risco, depois o "entendi".
+            <div className="mt-3 max-w-prose space-y-3">
+              {aparelho.tinhaChaveAqui && <p role="alert" className="rounded-md border border-oxblood px-3 py-2 font-semibold">{t.ativar.outroTinha}</p>}
+              <p>{t.ativar.outroRisco}</p>
+              <label className="flex min-h-11 items-start gap-2">
+                <input type="checkbox" className="mt-1 h-5 w-5 shrink-0" checked={entendi} onChange={(e) => setEntendi(e.target.checked)} />
+                <span>{t.ativar.outroEntendi}</span>
+              </label>
+            </div>
+          )}
+          <button type="button" disabled={ocupado || (aparelho.estado === "outro_aparelho" && !entendi)} onClick={() => void ativar()} className={`${botaoForte} mt-4`}>
             {aparelho.estado === "sem_chave" ? t.ativar.botao : t.ativar.outroBotao}
           </button>
         </div>

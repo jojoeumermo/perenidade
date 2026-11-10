@@ -350,7 +350,7 @@ const CHAVES = chavesDe(PT).sort();
 espera("textos: o português tem todas as seções e chaves combinadas", () => {
   const precisa = {
     cartao: ["doFediverso", "curtir", "curtido", "impulsionar", "impulsionado", "responder", "abrirOriginal", "denunciar", "bloquear", "silenciar", "impulsionadoPor", "avisoDeConteudo", "mostrar", "midiaSensivel", "semAlt", "soSeguidores", "naoListado", "editado", "soNoOriginal"],
-    perfil: ["seguir", "seguindo", "pedido", "deixarDeSeguir", "segueVoce", "postsRecentes", "vazio", "bloqueado", "silenciado", "abrirNoServidor", "contaDaqui", "rostoDe"],
+    perfil: ["seguir", "seguindo", "pedido", "deixarDeSeguir", "segueVoce", "postsRecentes", "vazio", "bloqueado", "silenciado", "bloqueouVoce", "maisPosts", "abrirNoServidor", "contaDaqui", "rostoDe"],
     fio: ["titulo", "voltar", "acima", "respostas", "semRespostas", "responderPara", "enviar", "postDaqui", "respostaPublica", "enviada", "semResposta", "semRespostaSeguidores", "contador", "respostasDeFora", "respostasDeForaN", "maisRespostas", "buscarLa", "buscarLaAjuda"],
     denuncia: ["titulo", "categorias", "texto", "encaminhar", "enviar", "enviada", "jaEnviada", "fechar", "naoEncaminhada"],
     avisos: ["seguidor", "resposta", "mencao", "curtida", "impulso", "alguem"],

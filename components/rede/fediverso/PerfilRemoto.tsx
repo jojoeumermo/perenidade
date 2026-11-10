@@ -3,8 +3,8 @@
 
 // O perfil de alguém de FORA (Mastodon e parecidos) no mesmo desenho do perfil da Alumia nova (classes pf-* de
 // ../perfil/livre/livre.css). O rosto é o mosaico pelo endereço, nunca a foto de lá: o navegador de quem lê não busca nada em
-// outro servidor. Sem contagem de seguidores e sem lista de quem segue (regra da casa); "segue você" só aparece para a própria
-// pessoa. Quem lê lá fora é o servidor daqui (lib/rede/fediverso/tela/cliente.ts).
+// outro servidor. Sem contagem de seguidores e sem lista de quem segue (regra da casa); "segue você" e "esta conta bloqueou
+// você" só aparecem para a própria pessoa. Quem foi bloqueado vê o cabeçalho, sem posts e sem "seguir". Quem lê lá fora é o servidor daqui (lib/rede/fediverso/tela/cliente.ts).
 import dynamic from "next/dynamic";
 import { useEffect, useState, type CSSProperties } from "react";
 import Link from "@/components/Link";
@@ -26,7 +26,7 @@ import "../org/org.css";
 
 const CartaoRemoto = dynamic(() => import("./CartaoRemoto"), { ssr: false });
 
-const SEM_RELACAO: RelacaoComQuemEDeFora = { seguindo: "nao", segue_voce: false, bloqueado: false, silenciado: false };
+const SEM_RELACAO: RelacaoComQuemEDeFora = { seguindo: "nao", segue_voce: false, bloqueado: false, silenciado: false, bloqueou_voce: false };
 
 // A cor dos botões e do aro do rosto (o perfil de fora não escolhe cor aqui): o vermelho da casa.
 const ACENTO = { "--pf-acento": "var(--al-vermelho-texto, var(--al-vermelho))", "--pf-sobre-acento": "var(--al-sobre-vermelho)" } as CSSProperties;
@@ -44,6 +44,7 @@ export default function PerfilRemoto({ conta, lang, logado = true }: { conta: st
   const [volta, setVolta] = useState(0);
   const [ocupado, setOcupado] = useState(false);
   const [erroDaAcao, setErroDaAcao] = useState("");
+  const [buscandoMais, setBuscandoMais] = useState(false);
   const vale = casca !== null && deForaVale(casca.previa);
 
   useEffect(() => {
@@ -117,6 +118,20 @@ export default function PerfilRemoto({ conta, lang, logado = true }: { conta: st
       const r = await deFora.silenciarPessoa(p.ator, sim);
       return r.ok ? { ok: true, parte: { silenciado: r.dado.silenciado } } : r;
     });
+  // A página seguinte dos posts guardados (o cursor é o "proximo" que veio com o perfil). O que já está na tela não repete.
+  async function maisPosts() {
+    if (buscandoMais || !p.proximo || !t) return;
+    setBuscandoMais(true);
+    setErroDaAcao("");
+    const r = await deFora.maisDoPerfil(p.ator, p.proximo);
+    setBuscandoMais(false);
+    if (!r.ok) return setErroDaAcao(textoDoErroDeFora(t, r.erro));
+    setEstado((e) => {
+      if (!e || !e.dado || eContaDaqui(e.dado) || e.dado.ator !== p.ator) return e;
+      const vistos = new Set(e.dado.posts.map((c) => c.id));
+      return { ...e, dado: { ...e.dado, posts: [...e.dado.posts, ...r.dado.posts.filter((c) => !vistos.has(c.id))], proximo: r.dado.proximo } };
+    });
+  }
   const bloquear = (sim: boolean) =>
     agir(async () => {
       const r = await deFora.bloquearPessoa(p.ator, sim);
@@ -144,7 +159,7 @@ export default function PerfilRemoto({ conta, lang, logado = true }: { conta: st
               </p>
             </div>
             <div className="pf-acoes">
-              {logado && !relacao.bloqueado ? (
+              {logado && !relacao.bloqueado && !relacao.bloqueou_voce ? (
                 relacao.seguindo === "nao" ? (
                   <Botao disabled={ocupado} onClick={() => void seguir(true)}>{t.perfil.seguir}</Botao>
                 ) : (
@@ -175,14 +190,15 @@ export default function PerfilRemoto({ conta, lang, logado = true }: { conta: st
 
           <div aria-live="polite">
             {erroDaAcao && <p role="alert" className="al-perfil-erro">{erroDaAcao}</p>}
+            {relacao.bloqueou_voce && <p className="al-perfil-nota">{t.perfil.bloqueouVoce}</p>}
             {relacao.bloqueado && <p className="al-perfil-nota">{t.perfil.bloqueado}</p>}
             {relacao.silenciado && !relacao.bloqueado && <p className="al-perfil-nota">{t.perfil.silenciado}</p>}
           </div>
         </div>
       </section>
 
-      {/* Os posts recentes, cada um no mesmo cartão de gente de fora da linha. Conta bloqueada não mostra posts. */}
-      {!relacao.bloqueado && (
+      {/* Os posts recentes, cada um no mesmo cartão de gente de fora da linha. Conta bloqueada (ou que bloqueou quem lê) não mostra posts. */}
+      {!relacao.bloqueado && !relacao.bloqueou_voce && (
         <section aria-labelledby="fed-perfil-posts" className="pf-painel">
           <h2 id="fed-perfil-posts" className="al-cond px-4 pb-2 pt-4 text-[1.5rem] text-[var(--al-texto)]">{t.perfil.postsRecentes}</h2>
           {p.posts.length === 0 ? (
@@ -192,6 +208,13 @@ export default function PerfilRemoto({ conta, lang, logado = true }: { conta: st
             p.posts.map((post) => (
               <CartaoRemoto key={post.chave ?? post.id} post={post} lang={lang} logado={logado} densidade="lista" silenciado={relacao.silenciado} bloqueado={relacao.bloqueado} aoMudarRelacao={mudarRelacao} />
             ))
+          )}
+          {p.proximo && (
+            <div className="px-4 py-3 text-center">
+              <Botao variante="contorno" disabled={buscandoMais} aria-busy={buscandoMais} onClick={() => void maisPosts()}>
+                {t.perfil.maisPosts}
+              </Botao>
+            </div>
           )}
         </section>
       )}
