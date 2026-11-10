@@ -194,6 +194,11 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
             <input ref={modo === "cancelado" ? primeiro : undefined} className="al-ato-form-campo" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={140} placeholder={t.pagina.motivoExemplo} />
           </label>
           <p>{t.pagina.aviso}</p>
+          {erro ? (
+            <p id={idErro} role="alert" className="al-ato-erro">
+              {erro}
+            </p>
+          ) : null}
           <div className="al-ato-org-botoes">
             <Botao type="submit" variante={modo === "cancelado" ? "primario" : "dourado"} aria-busy={ocupado} disabled={ocupado}>
               {modo === "adiado" ? t.pagina.salvarAdiar : t.pagina.salvarCancelar}
@@ -222,7 +227,7 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
           ) : null}
         </div>
       )}
-      {erro ? (
+      {erro && !modo ? (
         <p id={idErro} role="alert" className="al-ato-erro">
           {erro}
         </p>
