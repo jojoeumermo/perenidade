@@ -4,6 +4,7 @@
 // quem desenvolve e fotos de conferência). Em produção a variável não existe e as telas falam com o banco. Só codinomes
 // inventados; nenhuma lista de pessoas (nem em pacote, nem em aviso: o aviso diz "Bruno Catraca e mais 2", nunca a lista).
 import { listaDeExemplo, postDeExemplo, postsDeExemplo } from "@/lib/rede/conversa/exemplos";
+import type { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import type { Post } from "@/lib/rede/tipos";
 import type { ItemDeAviso, PaginaDeAvisos } from "@/lib/rede/tipos-avisos";
 import type { Explorar, PaginaDaTag, PaginaOrdenada, ResultadoDaBusca } from "@/lib/rede/tipos-descoberta";
@@ -51,7 +52,7 @@ const ordenar = (itens: Post[], ordem: string) =>
   : itens;
 
 /** O que a prévia responde no lugar de redeDescoberta (mesmas assinaturas das partes que as telas usam). */
-export const descobertaDaPrevia = {
+export const descobertaDaPrevia: Pick<typeof redeDescoberta, "explorar" | "tag" | "linha" | "buscar"> = {
   async explorar(): Promise<Explorar> {
     const cores = Object.fromEntries(listaDeExemplo().map((c) => [c.slug, c.cor]));
     const com = (slug: string, nome: string, descricao: string, categoria: "lutas" | "disciplinas" | "instituto", membro = false) => ({
@@ -82,13 +83,13 @@ export const descobertaDaPrevia = {
       eu: null,
     };
   },
-  async tag(tag: string, ordem: string, _cursor?: string | null): Promise<PaginaDaTag> {
+  async tag(tag: string, ordem: string = "novos"): Promise<PaginaDaTag> {
     return { ...pagina(ordenar(comTag(tag), ordem), ordem), tag, linha: tag === "tarifazero" ? { slug: "transporte", titulo: "Transporte e tarifa", regra: "Posts com #TarifaZero ou #PasseLivre." } : null };
   },
-  async linha(_escopo: string, ordem: string, ..._resto: unknown[]): Promise<PaginaOrdenada> {
+  async linha(...[, ordem = "novos"]: Parameters<typeof redeDescoberta.linha>): Promise<PaginaOrdenada> {
     return pagina(ordenar(postsComTemas(), ordem), ordem);
   },
-  async buscar(q: string, ordem: string, _cursor?: string | null): Promise<ResultadoDaBusca> {
+  async buscar(q: string, ordem: string = "relevancia"): Promise<ResultadoDaBusca> {
     const termo = q.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
     const sem = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
     const itens = postsComTemas().filter((p) => sem(p.texto).includes(termo));
