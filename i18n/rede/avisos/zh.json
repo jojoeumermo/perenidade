@@ -64,5 +64,9 @@
       "naoConfigurado": "此网站尚未开启手机通知。",
       "precisaEntrar": "要接收手机通知，请先加入 Alumia（年满 18 岁并接受规则）。"
     }
+  },
+  "servidor": {
+    "lembrete24h": "提醒：你确认参加的行动将在 24 小时内开始。",
+    "lembrete2h": "提醒：你确认参加的行动将在 2 小时内开始。"
   }
 }

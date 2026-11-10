@@ -63,5 +63,9 @@
       "naoConfigurado": "O aviso no celular ainda não foi ligado neste site.",
       "precisaEntrar": "Para avisar no celular, entre primeiro na Alumia (18 anos ou mais, com as normas aceitas)."
     }
+  },
+  "servidor": {
+    "lembrete24h": "Lembrete: um ato que você confirmou começa em menos de 24 horas.",
+    "lembrete2h": "Lembrete: um ato que você confirmou começa em menos de 2 horas."
   }
 }

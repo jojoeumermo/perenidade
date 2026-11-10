@@ -187,7 +187,10 @@ export interface PedidoDeCorrente {
 
 // ───── B1 · quadro de tarefas, caronas e petição (supabase/migracoes/20261110-alumia-b1-atos.sql) ─────
 
-/** Uma tarefa do ato ("caixa de som", 1). `quem` (codinomes) e `assumidas` só vêm para quem organiza; para os outros, nulos. */
+/**
+ * Uma tarefa do ato ("caixa de som", 1). Nunca vem quem assumiu, para ninguém (nem para quem organiza: LGPD art. 11). `assumidas`
+ * só vem para quem organiza e só a partir de 3; para os outros (e abaixo de 3), nulo.
+ */
 export interface TarefaDoAto {
   id: string;
   item: string;
@@ -198,11 +201,10 @@ export interface TarefaDoAto {
   /** Esta pessoa assumiu. */
   eu: boolean;
   assumidas: number | null;
-  quem: string[] | null;
 }
 
 export interface QuadroDeTarefas {
-  /** Quem lê organiza o ato (pode pôr e tirar tarefas, vê os codinomes). */
+  /** Quem lê organiza o ato (pode pôr e tirar tarefas; vê quantas pessoas assumiram, a partir de 3). */
   organiza: boolean;
   tarefas: TarefaDoAto[];
 }

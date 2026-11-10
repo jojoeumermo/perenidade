@@ -284,7 +284,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
         <ol aria-label={l.rotulo} className="al3-avisos">
           {itens.map((item, i) => {
             const href = destino(lang, item);
-            const frase = fraseDoAviso(item, frases, l.reserva);
+            const frase = fraseDoAviso(item, frases, l.reserva, t.servidor);
             // O rosto em mosaico de quem fez (só o primeiro codinome do grupo, que a frase já diz; nunca a lista) com o ícone do tipo
             // no canto; sem ninguém (apoio, moderação, ato), só o ícone.
             const quem = item.tipo === "apoio" ? null : (item.atores[0] ?? null);

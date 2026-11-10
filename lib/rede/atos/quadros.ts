@@ -8,7 +8,7 @@ import { LIMITES_DO_ATO, MEIOS_DA_CARONA, type CaronaDoAto, type MeioDaCarona, t
 const inteiro = (n: unknown, min: number, max: number): number | null =>
   typeof n === "number" && Number.isInteger(n) && n >= min && n <= max ? n : null;
 
-/** As tarefas como a tela pode mostrar: `quem` e `assumidas` só sobram para quem organiza. */
+/** As tarefas como a tela pode mostrar: nunca quem assumiu; `assumidas` só para quem organiza e só a partir de 3. */
 export function limparTarefas(q: QuadroDeTarefas | null | undefined): QuadroDeTarefas {
   const organiza = q?.organiza === true;
   const tarefas = Array.isArray(q?.tarefas) ? q.tarefas : [];
@@ -22,8 +22,7 @@ export function limparTarefas(q: QuadroDeTarefas | null | undefined): QuadroDeTa
         quantos: inteiro(t.quantos, 1, LIMITES_DO_ATO.tarefaQuantosMax) ?? 1,
         completa: t.completa === true,
         eu: t.eu === true,
-        assumidas: organiza ? inteiro(t.assumidas, 0, 10_000) : null,
-        quem: organiza && Array.isArray(t.quem) ? t.quem.filter((x): x is string => typeof x === "string").slice(0, 50) : null,
+        assumidas: organiza ? inteiro(t.assumidas, 3, 10_000) : null,
       })),
   };
 }

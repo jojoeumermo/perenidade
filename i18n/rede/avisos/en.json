@@ -64,5 +64,9 @@
       "naoConfigurado": "Phone notifications are not turned on for this site yet.",
       "precisaEntrar": "To get phone notifications, join Alumia first (18 or older, rules accepted)."
     }
+  },
+  "servidor": {
+    "lembrete24h": "Reminder: an act you confirmed starts in less than 24 hours.",
+    "lembrete2h": "Reminder: an act you confirmed starts in less than 2 hours."
   }
 }
