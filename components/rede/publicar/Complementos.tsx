@@ -14,6 +14,7 @@ import { enderecoDaMidia } from "./api";
 import { detalhesDe, invalidar, publicarVencidosUmaVez } from "./detalhes";
 import { textoDoErroPublicar, useTextosPublicar } from "./textos";
 import { useAlumia2 } from "./alumia2/contexto";
+import { CorrigirDoPost } from "./alumia2/CorrigirDoPost";
 import { EnqueteDaAlumia2 } from "./alumia2/EnqueteDaAlumia2";
 
 const codigoDe = (e: unknown) => (typeof e === "object" && e !== null && "code" in e ? String((e as { code: unknown }).code) : "falha");
@@ -26,10 +27,21 @@ const quando = (iso: string, lang: string) => {
 };
 const botao = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-sans text-sm font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
 
-/** Uma imagem do post: o endereço assinado é pedido só quando o cartão aparece; sem ele, o texto alternativo fica no lugar. */
-function ImagemDoPost({ m, n, total, t }: { m: MidiaDoPost; n: number; total: number; t: TextosPublicar }) {
+/** Os textos do selo ALT (só na casca nova). */
+interface TextosDoSelo {
+  alt: string;
+  altVer: string;
+  altFechar: string;
+}
+
+/**
+ * Uma imagem do post: o endereço assinado é pedido só quando o cartão aparece; sem ele, o texto alternativo fica no lugar. Na casca
+ * nova, o selo ALT abre a descrição por cima da imagem para quem enxerga (o leitor de tela já lê o alt pela própria imagem).
+ */
+function ImagemDoPost({ m, n, total, t, selo }: { m: MidiaDoPost; n: number; total: number; t: TextosPublicar; selo?: TextosDoSelo }) {
   const [url, setUrl] = useState("");
   const [falhou, setFalhou] = useState(false);
+  const [verAlt, setVerAlt] = useState(false);
   useEffect(() => {
     let vivo = true;
     enderecoDaMidia(m.id).then(
@@ -41,14 +53,35 @@ function ImagemDoPost({ m, n, total, t }: { m: MidiaDoPost; n: number; total: nu
     };
   }, [m.id]);
   const proporcao = m.largura && m.altura ? { aspectRatio: `${m.largura} / ${m.altura}` } : { aspectRatio: "4 / 3" };
+  const idDoAlt = `alt-${m.id}`;
   return (
-    <figure className="m-0 overflow-hidden rounded-lg border border-rule bg-parchment-deep" style={proporcao}>
+    <figure className={`relative m-0 overflow-hidden rounded-lg ${selo ? "border border-[var(--al-superficie-2)] bg-[var(--al-superficie)]" : "border border-rule bg-parchment-deep"}`} style={proporcao}>
       {url ? (
         // Imagem do depósito privado (endereço assinado): o next/image não otimiza esse endereço.
         // eslint-disable-next-line @next/next/no-img-element
         <img src={url} alt={m.alt || preencher(t.imagens.ver, { n: n + 1, total })} loading="lazy" decoding="async" width={m.largura ?? undefined} height={m.altura ?? undefined} className="h-full w-full object-cover" onError={() => setFalhou(true)} />
       ) : (
-        <figcaption className="flex h-full items-center justify-center p-2 text-center text-sm text-ink-soft">{falhou ? m.alt || t.imagens.semAcesso : m.alt || t.audio.carregando}</figcaption>
+        <figcaption className={`flex h-full items-center justify-center p-2 text-center text-sm ${selo ? "text-[var(--al-texto-3)]" : "text-ink-soft"}`}>{falhou ? m.alt || t.imagens.semAcesso : m.alt || t.audio.carregando}</figcaption>
+      )}
+      {selo && url && m.alt.trim() && (
+        <>
+          {verAlt && (
+            <p id={idDoAlt} className="al2-alt-texto" aria-hidden>
+              {m.alt}
+            </p>
+          )}
+          <button
+            type="button"
+            className="al2-selo-alt"
+            aria-expanded={verAlt}
+            aria-controls={verAlt ? idDoAlt : undefined}
+            aria-label={verAlt ? selo.altFechar : preencher(selo.altVer, { n: n + 1 })}
+            title={verAlt ? selo.altFechar : preencher(selo.altVer, { n: n + 1 })}
+            onClick={() => setVerAlt((x) => !x)}
+          >
+            {selo.alt}
+          </button>
+        </>
       )}
     </figure>
   );
@@ -281,6 +314,7 @@ export function Complementos({
   const al2 = useAlumia2();
   const [det, setDet] = useState<DetalhesDoPost | null>(detalhesIniciais ?? null);
   const [editando, setEditando] = useState(false);
+  const [corrigindo, setCorrigindo] = useState(false);
 
   useEffect(() => {
     if (detalhesIniciais) return;
@@ -295,7 +329,9 @@ export function Complementos({
   }, [logado]);
 
   const podeEditar = post.meu && !post.retido && !post.travado && post.tipo !== "aviso" && post.tipo !== "enquete" && post.tipo !== "chamado";
-  const temAlgo = post.midia.length > 0 || det || podeEditar;
+  // B1: corrigir o aviso, a descrição e tirar imagem vale para todo post da própria pessoa (enquete e chamado também), menos aviso da equipe.
+  const podeCorrigir = Boolean(al2) && post.meu && !post.retido && post.tipo !== "aviso";
+  const temAlgo = post.midia.length > 0 || det || podeEditar || podeCorrigir;
   if (!t || !temAlgo) return null;
 
   return (
@@ -303,7 +339,7 @@ export function Complementos({
       {post.midia.length > 0 && (
         <div className={`mt-2 grid gap-1.5 ${post.midia.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
           {post.midia.map((m, n) => (
-            <ImagemDoPost key={m.id} m={m} n={n} total={post.midia.length} t={t} />
+            <ImagemDoPost key={m.id} m={m} n={n} total={post.midia.length} t={t} selo={al2?.t.b1} />
           ))}
         </div>
       )}
@@ -336,7 +372,25 @@ export function Complementos({
             {t.editar.botao}
           </button>
         )}
+        {podeCorrigir && al2 && !corrigindo && (
+          <button type="button" className="min-h-11 cursor-pointer font-bold underline" onClick={() => setCorrigindo(true)}>
+            {al2.t.b1.corrigir}
+          </button>
+        )}
       </div>
+      {corrigindo && al2 && (
+        <CorrigirDoPost
+          post={post}
+          t={al2.t}
+          s={s}
+          citarQuem={det?.citar_quem}
+          aoSalvar={(p) => {
+            aoAtualizar?.(p);
+            setDet((d) => d && { ...d, editado: Boolean(p.editado_em) });
+          }}
+          aoFechar={() => setCorrigindo(false)}
+        />
+      )}
       {editando && <Editor post={post} t={t} s={s} janela={Boolean(det?.janela_livre)} aoSalvar={(p) => aoAtualizar?.(p)} aoFechar={() => setEditando(false)} />}
       {(det?.historico || (completo && post.editado_em)) && <HistoricoDoPost id={post.id} t={t} lang={lang} />}
     </div>

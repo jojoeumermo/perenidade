@@ -403,7 +403,7 @@ export function AnexosDoEscrever({
           </label>
           {(pub.imagens.length > 0 || Boolean(pub.audio)) && <p className="mt-1 text-xs text-[var(--al-texto-3)]">{t.b1.repetirSemArquivo}</p>}
           <div className="al2-agendados mt-2 text-[var(--al-texto-2)] empty:hidden">
-            <Agendados t={tp} lang={lang} />
+            <Agendados t={tp} lang={lang} b1={t.b1} />
           </div>
         </div>
       )}

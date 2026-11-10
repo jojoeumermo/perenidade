@@ -10,6 +10,7 @@ import { redePub } from "@/lib/rede/cliente-publicar";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecoParaCompartilhar, podeRepostar, servidorDoFediverso, tempoCurto } from "@/lib/rede/publicar/alumia2";
 import { jaRepostei } from "@/lib/rede/publicar/repostados";
+import { avisoAbreSozinho, marcarAvisoQueAbre } from "@/lib/rede/publicar/b1";
 import { enqueteDeExemplo } from "@/lib/rede/publicar/exemplos-alumia2";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Post } from "@/lib/rede/tipos";
@@ -22,6 +23,8 @@ import { Avatar16 } from "../../ui/Avatar16";
 import { Pilula } from "../../ui/Pilula";
 import { Selo } from "../../ui/Selo";
 import { Complementos } from "../Complementos";
+import { detalhesDe } from "../detalhes";
+import { CitarNoCartao } from "./CitarNoCartao";
 import { useAlumia2 } from "./contexto";
 import { Icone } from "./icones";
 import { detalhesQueFecham } from "./fechar";
@@ -118,6 +121,31 @@ export function CartaoDaAlumia2({
   const [ocupado, setOcupado] = useState(false);
   // A ação que a pessoa acabou de tocar: só ela anima (o que já vinha aceso, salvo ou repostado aparece parado).
   const [tocou, setTocou] = useState<"repostar" | "acender" | "salvar" | null>(null);
+  // B1: o aviso de conteúdo cobre o texto e as imagens até a pessoa tocar ("sempre abrir avisos de X" fica neste aparelho).
+  const [cwAberto, setCwAberto] = useState(false);
+  const [cwSempre, setCwSempre] = useState(false);
+  useEffect(() => {
+    const a = (inicial.aviso ?? "").trim();
+    if (!a || !avisoAbreSozinho(a)) return;
+    // Lido depois de montar (o servidor não sabe o que este aparelho guardou): evita desencontro na hidratação.
+    const id = window.setTimeout(() => {
+      setCwAberto(true);
+      setCwSempre(true);
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, [inicial.aviso]);
+  // B1: repostar com comentário (citar). O banco diz se ESTA pessoa pode citar (quem escreveu escolhe: ninguém, quem segue, todos).
+  const [citando, setCitando] = useState(false);
+  const [podeCitar, setPodeCitar] = useState<boolean | null>(null);
+  const buscarCitar = logado && !post.resposta_a && !deExemplo(post.id) && !al2?.previa;
+  useEffect(() => {
+    if (!buscarCitar) return;
+    let vivo = true;
+    detalhesDe(post.id).then((d) => vivo && setPodeCitar(d?.citar ?? null));
+    return () => {
+      vivo = false;
+    };
+  }, [buscarCitar, post.id]);
   const repostavel = podeRepostar(post);
   // O estado do Repostar vem do banco (um pedido por página, rede_pub_repostados): só o da própria pessoa.
   const buscarRepost = logado && repostavel && !deExemplo(post.id) && !al2?.previa && !repostarForaDoBanco;
@@ -297,16 +325,34 @@ export function CartaoDaAlumia2({
         </h3>
       )}
 
-      {aviso ? (
-        <details className="mt-2">
-          <summary className="cursor-pointer text-sm font-bold">
+      {aviso && (
+        <div className="al2-cw" role="group" aria-label={`${s.post.avisoConteudo}: ${aviso}`}>
+          <Icone nome="alerta" className="h-4 w-4 shrink-0 text-[var(--al-dourado)]" />
+          <span className="min-w-0 flex-1 font-bold">
             {s.post.avisoConteudo}: {aviso}
-          </summary>
-          <p className={`mt-1 whitespace-pre-line break-words leading-relaxed ${tamanhoDoTexto}`} data-citavel={aberta ? post.id : undefined}><TextoComTags texto={longoTexto} lang={lang} Resto={TextoComMencoes} /></p>
-        </details>
-      ) : (
-        <p className={`mt-2 whitespace-pre-line break-words leading-relaxed ${tamanhoDoTexto}`} data-citavel={aberta ? post.id : undefined}><TextoComTags texto={longoTexto} lang={lang} Resto={TextoComMencoes} /></p>
+          </span>
+          <button type="button" className="al-botao al-botao-contorno al-botao-p" aria-expanded={cwAberto} aria-controls={`cw-${post.id}`} onClick={() => setCwAberto((x) => !x)}>
+            {cwAberto ? t.b1.esconder : t.b1.mostrar}
+          </button>
+        </div>
       )}
+      <div id={`cw-${post.id}`} className={aviso && cwAberto ? "al2-cw-revela" : undefined} hidden={Boolean(aviso) && !cwAberto}>
+        <p className={`mt-2 whitespace-pre-line break-words leading-relaxed ${tamanhoDoTexto}`} data-citavel={aberta ? post.id : undefined}><TextoComTags texto={longoTexto} lang={lang} Resto={TextoComMencoes} /></p>
+        {aviso && cwAberto && (
+          <label className="mt-1 flex min-h-11 cursor-pointer items-center gap-2 text-xs text-[var(--al-texto-3)]">
+            <input
+              type="checkbox"
+              className="al2-caixinha"
+              checked={cwSempre}
+              onChange={(e) => {
+                marcarAvisoQueAbre(aviso, e.target.checked);
+                setCwSempre(e.target.checked);
+              }}
+            />
+            {preencher(t.b1.sempreAbrir, { aviso })}
+          </label>
+        )}
+      </div>
       {!completo && post.longo && (
         <Link href={caminhoDoPost} className="mt-1 inline-block text-sm underline">
           {s.post.verMais}
@@ -340,7 +386,9 @@ export function CartaoDaAlumia2({
         ))}
 
       {/* Imagens, áudio, enquete com barras, prévia de link, fio, editar e histórico (pacote publicar). */}
+      <div className={aviso && !cwAberto ? "al2-cw-coberto" : undefined} aria-label={aviso && !cwAberto && post.midia.length ? t.b1.imagemCoberta : undefined} role={aviso && !cwAberto && post.midia.length ? "group" : undefined}>
       <Complementos post={post} lang={lang} s={s} logado={logado} completo={completo} aoAtualizar={setPost} detalhesIniciais={exemplo && post.tipo === "enquete" ? { enquete: enqueteDeExemplo(), responde_quem: "todos", fio: false, editado: false, historico: false } : undefined} />
+      </div>
 
       {!exemplo && <RotuloDoPost post={post} lang={lang} />}
 
@@ -375,6 +423,20 @@ export function CartaoDaAlumia2({
             {/* Nome fixo para o leitor de tela (o estado já vai no aria-pressed); "Repostado" é só para quem vê. */}
             <span className="sr-only">{t.cartao.repostar}</span>
             <span aria-hidden className="max-[420px]:hidden">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
+          </button>
+        )}
+        {logado && !post.resposta_a && (exemplo || podeCitar !== null) && (
+          <button
+            type="button"
+            className="al2-acao"
+            aria-expanded={citando}
+            disabled={!exemplo && podeCitar === false}
+            title={!exemplo && podeCitar === false ? t.b1.citarFechado : t.b1.citar}
+            aria-label={t.b1.citar}
+            onClick={() => setCitando((x) => !x)}
+          >
+            <Icone nome="escrever" className="h-[18px] w-[18px]" />
+            <span aria-hidden className="max-[520px]:hidden">{t.b1.citarCurto}</span>
           </button>
         )}
         {logado && !post.meu && (
@@ -430,6 +492,7 @@ export function CartaoDaAlumia2({
           </div>
         </details>
       </div>
+      {citando && <CitarNoCartao post={post} lang={lang} s={s} t={t} previa={exemplo} aoFechar={() => setCitando(false)} />}
       {post.travado && <p className="mt-1 text-xs text-[var(--al-texto-3)]">{s.post.travado}</p>}
       <div aria-live="polite">
         {nota && (
