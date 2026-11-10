@@ -218,7 +218,8 @@ export function listaDeExemplo(): ItemDaLista[] {
     cor,
     situacao: null,
     posts_7d: posts,
-    pessoas_7d: null,
+    // Pessoas diferentes na semana: só o total e só a partir de 3 (abaixo disso, "poucas"), como no banco.
+    pessoas_7d: posts >= 12 ? Math.max(3, Math.round(posts / 4)) : null,
   });
   return [
     item("passe-livre-sp", "Passe Livre SP", "#1fc2b5", 214, "Pela tarifa zero no transporte de São Paulo."),
