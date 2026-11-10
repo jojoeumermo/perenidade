@@ -10,7 +10,7 @@ import { Botao } from "../ui/Botao";
 import { Icone } from "./partes";
 import { frase, useCorrentes } from "./usar";
 import { elosFechados } from "@/lib/rede/atos/corrente";
-import { MOLAS, podeMexer } from "@/lib/rede/atos/movimento";
+import { MOLAS, podeMexer, vibrar } from "@/lib/rede/atos/movimento";
 import { doCampoLocal } from "@/lib/rede/atos/tempo";
 import { atos as cliente } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
@@ -68,10 +68,32 @@ export function BarraDeElos({ elos, fechada, t }: { elos: number | null; fechada
 function CartaoDaCorrente({ k, t, lang, aoMudar }: { k: Corrente; t: TextosDosAtos; lang: string; aoMudar: (k: Corrente) => void }) {
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [fechouAgora, setFechouAgora] = useState(false);
+  const cartao = useRef<HTMLElement>(null);
+  const antes = useRef(k.fechada);
+  // fechou agora (a meta foi atingida com esta tela aberta): um clarão dourado varre o cartão, e o aviso diz que fechou
+  useEffect(() => {
+    const era = antes.current;
+    antes.current = k.fechada;
+    if (era || !k.fechada) return;
+    queueMicrotask(() => setFechouAgora(true));
+    vibrar([10, 40, 10]);
+    if (podeMexer()) {
+      cartao.current?.animate(
+        [
+          { boxShadow: "0 0 0 0 transparent, inset 0 0 0 0 transparent" },
+          { boxShadow: "0 0 0 3px var(--al-dourado), inset 0 0 60px color-mix(in srgb, var(--al-dourado) 45%, transparent)", offset: 0.3 },
+          { boxShadow: "0 0 0 0 transparent, inset 0 0 0 0 transparent" },
+        ],
+        { duration: 1300, easing: "cubic-bezier(.2,.7,.3,1)", delay: 300 },
+      );
+    }
+  }, [k.fechada]);
   const alternar = async () => {
     setOcupado(true);
     setErro(null);
     const sim = !k.vou_eu;
+    if (sim) vibrar([10]);
     aoMudar({ ...k, vou_eu: sim });
     try {
       aoMudar(await cliente.correnteVou(k.id, sim));
@@ -84,7 +106,7 @@ function CartaoDaCorrente({ k, t, lang, aoMudar }: { k: Corrente; t: TextosDosAt
   };
   const quando = k.quando ? new Date(k.quando).toLocaleString(lang, { weekday: "short", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : null;
   return (
-    <article className="al-corrente" data-fechada={k.fechada ? "" : undefined} aria-labelledby={`al-corrente-${k.id}`}>
+    <article ref={cartao} className="al-corrente" data-fechada={k.fechada ? "" : undefined} aria-labelledby={`al-corrente-${k.id}`}>
       <p className="al-corrente-cabeca">
         <span className="al-cond al-corrente-rotulo">{t.corrente.titulo}</span>
         {k.org.handle ? <span className="al-corrente-org">{preencherAto(t.corrente.chama, { handle: k.org.handle })}</span> : null}
@@ -106,6 +128,9 @@ function CartaoDaCorrente({ k, t, lang, aoMudar }: { k: Corrente; t: TextosDosAt
           {k.vou_eu ? t.corrente.voceVai : t.corrente.vou}
         </Botao>
       )}
+      <p role="status" className="al-ato-aviso al-corrente-fechou">
+        {fechouAgora ? t.corrente.fechouAgora : ""}
+      </p>
       {erro ? (
         <p role="alert" className="al-ato-erro">
           {erro}
@@ -207,7 +232,11 @@ function AbrirCorrente({ t, cidade, orgs, aoAbrir }: { t: TextosDosAtos; cidade:
 }
 
 /** As correntes abertas da cidade escrita (tela dos atos e coluna da direita). Sem corrente e sem poder abrir: nada aparece. */
-export function Correntes({ t, lang, cidade, logado, podeAbrir = true, compacta = false }: { t: TextosDosAtos; lang: string; cidade: string | null; logado: boolean; podeAbrir?: boolean; compacta?: boolean }) {
+/**
+ * `dobra`: o título de um cartão recolhível (a tela dos atos põe as correntes dobradas embaixo do próximo ato, para o fim da tela
+ * continuar sendo o próximo ato e o gesto de passar não brigar com elas). A contagem é de correntes, nunca de pessoas.
+ */
+export function Correntes({ t, lang, cidade, logado, podeAbrir = true, compacta = false, dobra }: { t: TextosDosAtos; lang: string; cidade: string | null; logado: boolean; podeAbrir?: boolean; compacta?: boolean; dobra?: string }) {
   const { lista, trocar, juntar } = useCorrentes(cidade, logado);
   const [orgs, setOrgs] = useState<OrgQuePosso[]>([]);
   useEffect(() => {
@@ -223,12 +252,25 @@ export function Correntes({ t, lang, cidade, logado, podeAbrir = true, compacta 
   }, [logado, podeAbrir]);
   const visiveis = (lista ?? []).filter((k) => !k.fechada || k.vou_eu);
   if (!cidade || (!visiveis.length && !orgs.length)) return null;
-  return (
+  const secao = (
     <section className={`al-correntes${compacta ? " al-correntes-compacta" : ""}`} aria-label={t.corrente.titulo}>
       {visiveis.map((k) => (
         <CartaoDaCorrente key={k.id} k={k} t={t} lang={lang} aoMudar={trocar} />
       ))}
       {orgs.length && !compacta ? <AbrirCorrente t={t} cidade={cidade} orgs={orgs} aoAbrir={juntar} /> : null}
     </section>
+  );
+  if (!dobra) return secao;
+  return (
+    <details className="al-correntes-dobra">
+      <summary>
+        <span className="al-correntes-dobra-elo" aria-hidden>
+          {Icone.corrente(20)}
+        </span>
+        <span className="al-correntes-dobra-titulo">{dobra}</span>
+        {visiveis.length ? <span className="al-correntes-dobra-n">{visiveis.length}</span> : null}
+      </summary>
+      {secao}
+    </details>
   );
 }

@@ -10,7 +10,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { Botao } from "../ui/Botao";
 import { frase, useFarol } from "./usar";
-import { MOLAS, podeMexer } from "@/lib/rede/atos/movimento";
+import { MOLAS, podeMexer, vibrar } from "@/lib/rede/atos/movimento";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import { ESTADOS_DO_FAROL, type Ato, type EstadoDoFarol } from "@/lib/rede/tipos-atos";
 import "./atos.css";
@@ -49,28 +49,38 @@ function CarimboDaCoordenacao({ texto }: { texto: string }) {
     });
   }, [texto]);
   return (
-    <span ref={ref} className="al-cond al-farol-carimbo">
+    <span ref={ref} className="al-farol-carimbo">
       {texto}
     </span>
   );
 }
 
-/** O farol para quem vai: estado, explicação, novo ponto e quando mudou. Nada aparece para quem não confirmou. */
+/**
+ * O farol para quem vai: estado, quando mudou, o carimbo da coordenação (numa linha só dele), o novo ponto e a explicação. No
+ * celular fica compacto (lâmpada, estado e "há X min"; a explicação abre ao tocar na seta), mas o novo ponto de encontro aparece
+ * sempre e o leitor de tela ouve tudo. Nada aparece para quem não confirmou.
+ */
 export function FaixaDoFarol({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
   const { farol, novo, visto } = useFarol(ato);
   const caixa = useRef<HTMLDivElement>(null);
+  const [aberto, setAberto] = useState(false);
   const [, setTique] = useState(0);
+  const idExplica = useId();
   // o "há 3 min" anda sozinho
   useEffect(() => {
     const r = window.setInterval(() => setTique((x) => x + 1), 60_000);
     return () => window.clearInterval(r);
   }, []);
-  // mudou desde a última vez que este aparelho viu: pulsa três vezes e marca como visto
+  // mudou desde a última vez que este aparelho viu: pulsa três vezes POR DENTRO (nada vaza da caixa) e marca como visto
   useEffect(() => {
     if (!novo || !farol) return;
     if (podeMexer()) {
       caixa.current?.animate(
-        [{ boxShadow: "0 0 0 0 var(--al-farol-cor)" }, { boxShadow: "0 0 0 14px transparent" }],
+        [
+          { boxShadow: "inset 0 0 0 0 var(--al-farol-cor)" },
+          { boxShadow: "inset 0 0 0 5px var(--al-farol-cor)", offset: 0.35 },
+          { boxShadow: "inset 0 0 0 0 transparent" },
+        ],
         { duration: 900, iterations: 3, easing: "ease-out" },
       );
     }
@@ -80,38 +90,53 @@ export function FaixaDoFarol({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
   if (!farol || ato.situacao === "cancelado") return null;
   const nome = t.farol.estado[farol.estado];
   return (
-    <div ref={caixa} className="al-farol" data-estado={farol.estado} role="status" aria-live="polite" aria-atomic="true">
+    <div ref={caixa} className="al-farol" data-estado={farol.estado} data-aberto={aberto ? "" : undefined} role="status" aria-live="polite" aria-atomic="true">
       <Lampada estado={farol.estado} />
       <div className="al-farol-texto">
         <p className="al-farol-linha">
           <span className="al-so-leitor">{t.farol.titulo}: </span>
           <strong className="al-cond al-farol-estado">{nome}</strong>
-          {farol.mudado_em ? <CarimboDaCoordenacao texto={t.farol.confirmadoPor} /> : null}
+          <span className="al-farol-quando">{haQuanto(t, farol.mudado_em)}</span>
         </p>
-        <p className="al-farol-explica">
+        {farol.mudado_em ? <CarimboDaCoordenacao texto={t.farol.confirmadoPor} /> : null}
+        {farol.estado === "ponto2" && farol.texto ? <strong className="al-farol-ponto">{farol.texto}</strong> : null}
+        <p id={idExplica} className="al-farol-explica">
           {t.farol.explica[farol.estado]}
-          {farol.estado === "ponto2" && farol.texto ? <strong className="al-farol-ponto"> {farol.texto}</strong> : null}
         </p>
-        <p className="al-farol-quando">{haQuanto(t, farol.mudado_em)}</p>
       </div>
+      <button type="button" className="al-farol-mais" aria-expanded={aberto} aria-controls={idExplica} aria-label={t.farol.detalhes} onClick={() => setAberto((a) => !a)}>
+        <svg aria-hidden width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
     </div>
   );
 }
 
-/** A coordenação mexe no farol: pedir um estado; a segunda pessoa confirma o mesmo. */
-export function PainelDoFarol({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
+/**
+ * A coordenação mexe no farol: pedir um estado; a segunda pessoa confirma o mesmo. O pedido que espera a segunda pessoa fica
+ * marcado no próprio botão (borda tracejada, "esperando"). Dispersar pede dois toques (é o estado crítico), e trocar um pedido que
+ * ainda espera também (para ninguém trocar sem querer).
+ */
+export function PainelDoFarol({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; lang: string }) {
   const { farol, pedir } = useFarol(ato);
   const [escolha, setEscolha] = useState<EstadoDoFarol | null>(null);
+  const [armado, setArmado] = useState<EstadoDoFarol | null>(null);
   const [ponto, setPonto] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const relogio = useRef<number | undefined>(undefined);
   const idPonto = useId();
+  const idAviso = useId();
+  useEffect(() => () => window.clearTimeout(relogio.current), []);
   if (!farol?.coordena || ato.situacao === "cancelado") return null;
   const pendente = farol.pendente;
+  const meuPendente = pendente?.meu ? pendente : null;
 
   const enviar = async (estado: EstadoDoFarol, texto: string) => {
     setOcupado(true);
     setErro(null);
+    setArmado(null);
     try {
       await pedir(estado, texto);
       setEscolha(null);
@@ -121,7 +146,18 @@ export function PainelDoFarol({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
       setOcupado(false);
     }
   };
+  // o primeiro toque só "arma" (e avisa); o segundo, em até 5 s, pede
+  const precisaDeNovo = (e: EstadoDoFarol) => e === "dispersar" || (!!meuPendente && meuPendente.estado !== e);
   const aoEscolher = (e: EstadoDoFarol) => {
+    if (meuPendente?.estado === e) return;
+    if (precisaDeNovo(e) && armado !== e) {
+      setArmado(e);
+      vibrar([10]);
+      window.clearTimeout(relogio.current);
+      relogio.current = window.setTimeout(() => setArmado(null), 5000);
+      return;
+    }
+    setArmado(null);
     if (e === "ponto2") setEscolha("ponto2");
     else void enviar(e, "");
   };
@@ -129,11 +165,17 @@ export function PainelDoFarol({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
     e.preventDefault();
     void enviar("ponto2", ponto.trim());
   };
-  const hora = pendente ? new Date(pendente.expira_em).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
+  const hora = pendente ? new Date(pendente.expira_em).toLocaleTimeString(lang, { hour: "2-digit", minute: "2-digit" }) : "";
+  const aviso = armado
+    ? meuPendente && meuPendente.estado !== armado
+      ? preencherAto(t.farol.trocarPedido, { pendente: t.farol.estado[meuPendente.estado], estado: t.farol.estado[armado] })
+      : preencherAto(t.farol.deNovo, { estado: t.farol.estado[armado] })
+    : "";
+  const idPainel = `al-farol-painel-${ato.id}`;
 
   return (
-    <section className="al-farol-painel" aria-labelledby={`al-farol-painel-${ato.id}`}>
-      <h2 id={`al-farol-painel-${ato.id}`} className="al-cond">
+    <section className="al-farol-painel" aria-labelledby={idPainel}>
+      <h2 id={idPainel} className="al-cond">
         {t.farol.coordenar}
       </h2>
       <p className="al-farol-ajuda">{t.farol.coordenarAjuda}</p>
@@ -148,28 +190,38 @@ export function PainelDoFarol({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
           </Botao>
         </div>
       ) : null}
-      {pendente?.meu ? (
-        <p className="al-farol-pedido al-farol-esperando" data-estado={pendente.estado} role="status">
-          {preencherAto(t.farol.esperando, { estado: t.farol.estado[pendente.estado], hora })}
+      {meuPendente ? (
+        <p className="al-farol-pedido al-farol-esperando" data-estado={meuPendente.estado} role="status">
+          {preencherAto(t.farol.esperando, { estado: t.farol.estado[meuPendente.estado], hora })}
         </p>
       ) : null}
-      <div className="al-farol-botoes" role="group" aria-label={t.farol.coordenar}>
-        {ESTADOS_DO_FAROL.map((e) => (
-          <button
-            key={e}
-            type="button"
-            className="al-farol-botao"
-            data-estado={e}
-            aria-pressed={farol.estado === e}
-            disabled={ocupado}
-            onClick={() => aoEscolher(e)}
-          >
-            <Lampada estado={e} />
-            <span>{t.farol.estado[e]}</span>
-            {farol.estado === e ? <span className="al-farol-botao-atual">{t.farol.atual}</span> : null}
-          </button>
-        ))}
+      <div className="al-farol-botoes" role="group" aria-label={t.farol.coordenar} aria-describedby={idAviso}>
+        {ESTADOS_DO_FAROL.map((e) => {
+          const esperando = meuPendente?.estado === e;
+          return (
+            <button
+              key={e}
+              type="button"
+              className="al-farol-botao"
+              data-estado={e}
+              data-esperando={esperando ? "" : undefined}
+              data-armado={armado === e ? "" : undefined}
+              aria-pressed={farol.estado === e}
+              aria-disabled={esperando || undefined}
+              disabled={ocupado}
+              onClick={() => aoEscolher(e)}
+            >
+              <Lampada estado={e} />
+              <span className="al-farol-botao-nome">{t.farol.estado[e]}</span>
+              {farol.estado === e ? <span className="al-farol-botao-atual">{t.farol.atual}</span> : null}
+              {esperando ? <span className="al-farol-botao-atual al-farol-botao-espera">{t.farol.esperandoCurto}</span> : null}
+            </button>
+          );
+        })}
       </div>
+      <p id={idAviso} className="al-farol-armado" role="status">
+        {aviso}
+      </p>
       {escolha === "ponto2" ? (
         <form className="al-farol-ponto-form" onSubmit={aoPonto}>
           <label htmlFor={idPonto}>{t.farol.novoPonto}</label>

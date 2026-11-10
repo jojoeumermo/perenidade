@@ -5,7 +5,6 @@ import { useState, type FormEvent } from "react";
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
 import type { PropsDaTelaDoPacote } from "../registro";
-import { BotaoLembrete } from "./Acoes";
 import { AtoAberto } from "./AtoAberto";
 import { PainelDoFarol } from "./Farol";
 import { Icone } from "./partes";
@@ -36,6 +35,8 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
         <Link href={`/${lang}/alumia/atos`} className="al-cond al-atos-titulo" style={{ color: "inherit", textDecoration: "none" }}>
           {t.tela.titulo}
         </Link>
+        {/* no celular, o lugar dos botões flutuantes do site (veja .al-atos-vaga em atos.css) */}
+        <span className="al-atos-vaga" aria-hidden />
       </header>
       {PREVIA_DOS_ATOS ? <p className="al-atos-previa">{t.tela.previa}</p> : null}
       {estado.fase === "carregando" ? (
@@ -57,9 +58,9 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
             lang={lang}
             logado={situacao.logado || PREVIA_DOS_ATOS}
             nivel={1}
-            depois={<MaisDoAto ato={estado.dados} t={t} lang={lang} />}
+            depois={<MaisDoAto ato={estado.dados} t={t} />}
           />
-          <PainelDoFarol ato={estado.dados} t={t} />
+          <PainelDoFarol ato={estado.dados} t={t} lang={lang} />
           {estado.dados.meu ? <PainelDeQuemChamou ato={estado.dados} t={t} /> : null}
         </>
       )}
@@ -67,21 +68,16 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
   );
 }
 
-/** Pôr na agenda e o link de apoio externo (só https; nada de pagamento aqui). */
-function MaisDoAto({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; lang: string }) {
+/** O link de apoio externo (só https; nada de pagamento aqui). O lembrete na agenda fica na coluna de ações. */
+function MaisDoAto({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
   const apoio = linkDeApoioSeguro(ato.link_apoio);
-  if (ato.situacao === "cancelado" && !apoio) return null;
+  if (!apoio) return null;
   return (
     <div className="al-ato-pagina-mais">
-      {ato.situacao !== "cancelado" ? (
-        <BotaoLembrete ato={ato} t={t} lang={lang} />
-      ) : null}
-      {apoio ? (
-        <a href={apoio} target="_blank" rel="noopener noreferrer nofollow" referrerPolicy="no-referrer" className="al-botao al-botao-m al-botao-contorno" title={t.acoes.apoioAjuda}>
-          <span className="al-botao-icone">{Icone.fora(18)}</span>
-          {t.acoes.apoio}
-        </a>
-      ) : null}
+      <a href={apoio} target="_blank" rel="noopener noreferrer nofollow" referrerPolicy="no-referrer" className="al-botao al-botao-m al-botao-contorno" title={t.acoes.apoioAjuda}>
+        <span className="al-botao-icone">{Icone.fora(18)}</span>
+        {t.acoes.apoio}
+      </a>
     </div>
   );
 }

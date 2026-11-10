@@ -44,7 +44,9 @@
     "lembreteAjuda": "Downloads an .ics file: your calendar reminds you 24 h and 2 h before. Nothing goes to the server.",
     "baixado": "Calendar file downloaded. Open it to save the reminder.",
     "vouFeito": "Confirmed. You are in the mosaic.",
-    "vouDesfeito": "Confirmation undone."
+    "vouDesfeito": "Confirmation undone.",
+    "lembreteCurto": "Reminder",
+    "copiadoCurto": "Copied"
   },
   "mosaico": {
     "voce": "You're in the mosaic: the golden card.",
@@ -75,14 +77,19 @@
     "vazioSeguindo": "Nobody you follow has called an action yet.",
     "chamarUm": "Call an action",
     "cidade": "Your city",
-    "cidadeExemplo": "São Paulo",
+    "cidadeExemplo": "e.g. São Paulo",
     "cidadeAjuda": "\"Nearby\" uses the city you type. Alumia never uses your device's location, and the city stays only on this device.",
     "cidadeVer": "See actions",
     "trocarCidade": "change city ({cidade})",
     "previa": "Preview with sample data",
     "posicao": "Action {i} of {n}",
     "puxar": "release to go to the next action",
-    "atalhos": "Shortcuts: J goes to the next action and K back to the previous one."
+    "atalhos": "Shortcuts: J goes to the next action and K back to the previous one.",
+    "cidadeCurta": "Type the name of the city (at least 2 letters).",
+    "mais": "more",
+    "menos": "less",
+    "correntes": "Solidarity chains in {cidade}",
+    "trocar": "change"
   },
   "pagina": {
     "naoAchado": "This action doesn't exist or you can't see it.",
@@ -183,7 +190,11 @@
     "outraPediu": "Someone from the coordination requested {estado}.",
     "confirmar": "Confirm: {estado}",
     "rotulo": "Action beacon: {estado}",
-    "atual": "now"
+    "atual": "now",
+    "detalhes": "Beacon details",
+    "esperandoCurto": "waiting for the 2nd person",
+    "deNovo": "Tap again to request {estado}",
+    "trocarPedido": "You already requested {pendente}. Tap again to switch to {estado}."
   },
   "corrente": {
     "titulo": "Solidarity chain",
@@ -207,6 +218,7 @@
     "deixar": "Leave it for later",
     "aberta": "Chain opened.",
     "barra": "Chain: {pct}% closed",
-    "barraVazia": "Chain: the links are still open"
+    "barraVazia": "Chain: the links are still open",
+    "fechouAgora": "The chain is closed! Thank you for being part of it."
   }
 }
