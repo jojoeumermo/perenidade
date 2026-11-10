@@ -92,7 +92,7 @@ export function CabecalhoDoPerfil({
     >
       <div className="pf-capa">
         {a.capa ? (
-          <CapaDeMosaico capa={a.capa} acento={a.acento} />
+          <CapaDeMosaico capa={a.capa} acento={a.acento} alta={cartaz} />
         ) : capaImagem ? (
           // eslint-disable-next-line @next/next/no-img-element -- desenho do projeto ou WebP já reencodado (sem EXIF).
           <img src={capaImagem} alt="" aria-hidden width={900} height={300} decoding="async" className="pf-capa-imagem" />
