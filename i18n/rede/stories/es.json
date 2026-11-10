@@ -161,7 +161,8 @@
       "enviando": "Enviando… {pct}%",
       "publicando": "Publicando…",
       "cancelar": "Cancelar",
-      "ajuda": "El video se rehace aquí, sin ubicación. Deja esta pantalla abierta."
+      "ajuda": "El video se rehace aquí, sin ubicación. Deja esta pantalla abierta.",
+      "ajudaFoto": "La foto se rehace aquí, sin ubicación. Deja esta pantalla abierta."
     },
     "erroMidia": {
       "video": "No se pudo leer ese video. Usa MP4, MOV o WEBM.",
@@ -257,6 +258,7 @@
     "seu": "Tu historia",
     "respostasChegam": "Las respuestas y reacciones llegan solo a ti, en tus avisos.",
     "responder": "Responder solo a {nome}…",
+    "responderCurto": "Responder…",
     "responderRotulo": "Responder solo a {nome}",
     "enviar": "Enviar",
     "enviado": "Enviado solo a {nome}.",
@@ -354,5 +356,10 @@
       "many": "{n} destacadas",
       "other": "{n} destacadas"
     }
+  },
+  "pagina": {
+    "titulo": "Historias",
+    "lede": "Las historias de quien sigues y de tus comunidades. Toca un círculo para ver, o “Tu historia” para crear la tuya.",
+    "inicio": "Ver la línea de Inicio"
   }
 }

@@ -161,7 +161,8 @@
       "enviando": "Uploading… {pct}%",
       "publicando": "Publishing…",
       "cancelar": "Cancel",
-      "ajuda": "The video is rebuilt here, without location. Keep this screen open."
+      "ajuda": "The video is rebuilt here, without location. Keep this screen open.",
+      "ajudaFoto": "The photo is rebuilt here, without location. Keep this screen open."
     },
     "erroMidia": {
       "video": "Couldn't read that video. Use MP4, MOV or WEBM.",
@@ -257,6 +258,7 @@
     "seu": "Your story",
     "respostasChegam": "Replies and reactions reach only you, in your notifications.",
     "responder": "Reply only to {nome}…",
+    "responderCurto": "Reply…",
     "responderRotulo": "Reply only to {nome}",
     "enviar": "Send",
     "enviado": "Sent only to {nome}.",
@@ -354,5 +356,10 @@
       "many": "{n} highlights",
       "other": "{n} highlights"
     }
+  },
+  "pagina": {
+    "titulo": "Stories",
+    "lede": "Stories from people you follow and from your communities. Tap a circle to watch, or “Your story” to make yours.",
+    "inicio": "See the Home timeline"
   }
 }

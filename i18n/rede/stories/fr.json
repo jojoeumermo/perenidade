@@ -161,7 +161,8 @@
       "enviando": "Envoi… {pct} %",
       "publicando": "Publication…",
       "cancelar": "Annuler",
-      "ajuda": "La vidéo est refaite ici, sans localisation. Gardez cet écran ouvert."
+      "ajuda": "La vidéo est refaite ici, sans localisation. Gardez cet écran ouvert.",
+      "ajudaFoto": "La photo est refaite ici, sans localisation. Gardez cet écran ouvert."
     },
     "erroMidia": {
       "video": "Impossible de lire cette vidéo. Utilisez MP4, MOV ou WEBM.",
@@ -257,6 +258,7 @@
     "seu": "Votre story",
     "respostasChegam": "Les réponses et réactions n'arrivent qu'à vous, dans vos notifications.",
     "responder": "Répondre seulement à {nome}…",
+    "responderCurto": "Répondre…",
     "responderRotulo": "Répondre seulement à {nome}",
     "enviar": "Envoyer",
     "enviado": "Envoyé seulement à {nome}.",
@@ -354,5 +356,10 @@
       "many": "{n} à la une",
       "other": "{n} à la une"
     }
+  },
+  "pagina": {
+    "titulo": "Stories",
+    "lede": "Les stories des personnes que vous suivez et de vos communautés. Touchez un cercle pour voir, ou « Votre story » pour créer la vôtre.",
+    "inicio": "Voir le fil d’Accueil"
   }
 }
