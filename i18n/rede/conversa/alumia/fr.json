@@ -19,7 +19,10 @@
     "orgVerificada": "organisation vérifiée",
     "orgRegra": "Le badge dit que le compte appartient à qui il prétend être, vérifié par un document public. Ce n'est pas un soutien de l'Instituto Lúcia.",
     "previa": "Aperçu avec des données d'exemple : rien n'est réel ici.",
-    "maisDoPost": "Plus d’actions pour le post de {codinome}"
+    "maisDoPost": "Plus d’actions pour le post de {codinome}",
+    "tiradoDosSalvos": "Retiré des enregistrements.",
+    "desfazer": "Annuler",
+    "comoContamos": "Comment nous comptons"
   },
   "comunidade": {
     "mais": "Plus d'options de la communauté",
@@ -66,7 +69,12 @@
     "moderadaPoucas": "Modérée par peu de personnes, toutes sous pseudonyme. Nous ne montrons pas qui : personne ne devient une cible pour avoir pris soin de ce lieu.",
     "falarModeracao": "Écrire à la modération",
     "entrarNaAlumia": "Rejoindre Alumia",
-    "soConvite": "Cette communauté est sur invitation : la modération invite qui entre."
+    "soConvite": "Cette communauté est sur invitation : la modération invite qui entre.",
+    "naoEncontrada": "Communauté introuvable",
+    "naoEncontradaTexto": "L’adresse est peut-être erronée, ou la modération a fermé la communauté.",
+    "verComunidades": "Voir les communautés",
+    "sairTitulo": "Quitter {nome} ?",
+    "sairTexto": "Vos publications restent dans la communauté, et vous pouvez revenir quand vous voulez."
   },
   "conversa": {
     "titulo": "Conversation",
@@ -116,7 +124,8 @@
     "recolherRamo": "Replier {n} réponses",
     "mostrarRamo": "Afficher {n} réponses",
     "recolherUma": "Replier 1 réponse",
-    "mostrarUma": "Afficher 1 réponse"
+    "mostrarUma": "Afficher 1 réponse",
+    "respondendoA": "En réponse à {quem}"
   },
   "reacoes": {
     "rotulo": "Réactions",
