@@ -297,7 +297,8 @@ export function CascaDaAlumia2({
                       {n !== null && n > 0 && (
                         <span className={`al2-emblema ${d.chave === "avisos" ? "al2-emblema-vermelho" : "al2-emblema-dourado"}`}>
                           <span aria-hidden>{n > 99 ? "99+" : n}</span>
-                          <span className="sr-only">{preencher(d.chave === "avisos" ? t.menu.avisosNovos : t.menu.emblema, { n })}</span>
+                          {/* Só o número com o que ele quer dizer: o nome do item já está no texto ao lado ("Avisos 5 com novidade", não "Avisos Avisos, 5 novos"). */}
+                          <span className="sr-only">{preencher(t.menu.emblema, { n })}</span>
                         </span>
                       )}
                     </>
