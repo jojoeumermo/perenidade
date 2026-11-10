@@ -4,12 +4,14 @@
 import { useMemo, useState } from "react";
 import Link from "@/components/Link";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
+import { listaDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
 import { enderecos } from "@/lib/rede/tipos";
 import { enderecosCom, type ItemDaLista, type SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { FaixaDaPrevia, previa, useTextosAlumia3 } from "../conversa/base3";
 import { AcoesDaComunidade } from "./AcoesDaComunidade";
 import { erroCom, textosDe, useCarregar } from "./util";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
@@ -32,7 +34,12 @@ const pelaRegra = (a: ItemDaLista, b: ItemDaLista) => (b.posts_7d ?? 0) - (a.pos
  */
 export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const sc = textosDe(s);
-  const { dado, erro, pronto } = useCarregar(() => comunidades.lista(), "lista");
+  const t3 = useTextosAlumia3(lang);
+  // Na prévia, as comunidades de exemplo (as mesmas de Explorar e de "Comunidades ativas"); a Passe Livre já tem a Faísca dentro.
+  const { dado, erro, pronto } = useCarregar(
+    () => (previa() ? Promise.resolve({ itens: listaDeExemplo().map((c) => (c.slug === "passe-livre-sp" ? { ...c, situacao: "membro" as const } : c)) }) : comunidades.lista()),
+    "lista",
+  );
   const [mudancas, setMudancas] = useState<Record<string, SituacaoNaComunidade>>({});
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState<ItemDaLista["categoria"] | "todas">("todas");
@@ -48,7 +55,17 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
 
   if (!sc) return <p className="px-[18px] py-8 font-sans text-ink-soft">{s.estados.emBreve}</p>;
   if (!pronto) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={4} />;
-  if (!dado) return <p role="alert" className="px-[18px] py-8 font-sans text-ink-soft">{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>;
+  // Mesmo com erro a tela tem o título (quem chega pelo "voltar" da comunidade sabe onde está) e o caminho para tentar de novo.
+  if (!dado) {
+    return (
+      <div className="al3-tela font-sans">
+        <header className="border-b border-rule px-[18px] py-4">
+          <h1 className="al3-cond al3-titulo-tela">{sc.lista.titulo}</h1>
+        </header>
+        <p role="alert" className="px-[18px] py-8 text-ink-soft">{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>
+      </div>
+    );
+  }
   const pode = situacao.logado && situacao.membro;
   const l = sc.lista;
   const nomes = l as unknown as Record<string, string>;
@@ -57,8 +74,9 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
 
   return (
     <div className="al3-tela font-sans">
+      {t3 && <FaixaDaPrevia t={t3} />}
       <header className="border-b border-rule px-[18px] py-4">
-        <h1 className="font-serif text-2xl font-extrabold">{l.titulo}</h1>
+        <h1 className="al3-cond al3-titulo-tela">{l.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{l.intro}</p>
         {(pode || !situacao.logado) && (
           <p className="mt-3 flex flex-wrap gap-4 text-sm">
