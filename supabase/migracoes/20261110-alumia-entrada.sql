@@ -46,6 +46,14 @@ end $$;
 
 insert into interno.configuracoes (chave, valor) values ('alumia_entrada', '{"exigir": false}'::jsonb) on conflict (chave) do nothing;
 
+-- A chave do site (lib/recursos.ts): "alumia-entrada", só pelo nome, como as outras da Alumia.
+do $$
+begin
+  if to_regclass('interno.recursos_catalogo') is not null then
+    insert into interno.recursos_catalogo (nome, so_pelo_nome) values ('alumia-entrada', true) on conflict (nome) do update set so_pelo_nome = true;
+  end if;
+end $$;
+
 -- 2. Quem está dentro ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 /** A trava da entrada está ligada? (Só a coordenação liga, por interno.alumia_entrada_ligar.) */
