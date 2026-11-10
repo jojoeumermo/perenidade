@@ -733,6 +733,7 @@ O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente*
 | `20261110-alumia-atos.sql` | Alumia: Farol do ato e Corrente de solidariedade |
 | `20261110-alumia-comunidade.sql` | Alumia: comunidade e conversa (seguir conversa e hashtag, citar trecho) |
 | `20261110-alumia-onda5-fim.sql` | Alumia: fim da Onda 5 (`public.rede_alumia_versao()` = 2, para conferir de fora se o SQL da onda rodou) |
+| `20261110-alumia-b1-atos.sql` | Alumia B1, atos: quem leva o quê (tarefas), caronas com teto, abaixo-assinado sem lista de nomes, lembretes, meta editável e a borda de 3 que só anda de 15 em 15 minutos |
 | `20261109-cartao-publico.sql` | Cartão de educador com aprovação da coordenação (foto por `/api/educador-foto`) |
 | `20261109-gaveta-sem-conta.sql` | Gaveta Aberta: envio sem conta, por link, para a fila de aprovação |
 | `20261109-territorios-parceiros.sql` | Territórios: os coletivos parceiros postam as novidades do território |
