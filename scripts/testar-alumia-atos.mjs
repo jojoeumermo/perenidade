@@ -215,6 +215,8 @@ igual("escrita sem maiúsculas passa igual", nomeDaCidade("圣保罗"), "圣保�
   const css = ler("components/rede/atos/atos.css");
   ok("o mosaico vivo é creme como na prancha (aceso a 88 %)", css.includes("--al-mv-aceso: color-mix(in srgb, var(--al-cartao-aceso) 88%"));
   ok("hover só em quem tem mouse (nada de fundo preso no toque)", !/^\[data-al="2"\] \.al-atos-cidade:hover/m.test(css) && css.includes("@media (hover: hover)"));
+  const tela = ler("components/rede/atos/TelaDosAtos.tsx");
+  ok("J/K seguidos durante a troca entram na fila (nada se perde)", tela.includes("fila.current") && tela.includes("irDepois.current(depois)"));
   ok("o calendário também guarda a vaga dos flutuantes", ler("components/rede/atos/Calendario.tsx").includes("al-atos-vaga") && css.includes(".al-atos-tela, .al-ato-pagina, .al-cal"));
 }
 for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
