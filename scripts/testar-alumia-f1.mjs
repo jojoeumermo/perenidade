@@ -171,7 +171,7 @@ for (const item of ["inicio", "explorar", "chamados", "comunidades", "nucleos", 
 igual("barra de baixo do celular", (casca.match(/const BARRA: Chave\[\] = \[([^\]]+)\]/) ?? [])[1], '"inicio", "explorar", "chamados", "perfil"');
 ok("Sair rápido na casca", casca.includes("sairRapidoDaRede(DESTINO_DA_SAIDA, ENCAIXES.aoSairRapido)"));
 const cartaoNovo = ler("components/rede/publicar/alumia2/CartaoDaAlumia2.tsx");
-for (const f of ["repostar", "acender", "salvar", "compartilhar"]) ok(`cartão: ${f} chama algo de verdade`, new RegExp(`const ${f} = \\(\\) =>`).test(cartaoNovo));
+for (const f of ["repostar", "acender", "salvar", "compartilhar"]) ok(`cartão: ${f} chama algo de verdade`, new RegExp(`const ${f} = (async )?\\(\\) =>`).test(cartaoNovo));
 ok("compartilhar sem rastreio", cartaoNovo.includes("enderecoParaCompartilhar(window.location.origin"));
 const escrever = ler("components/rede/publicar/alumia2/EscreverDaAlumia2.tsx");
 ok("escrever: desfazer em 10 s", escrever.includes("segundosQueFaltam(envio.desde") && escrever.includes("function desfazer()"));

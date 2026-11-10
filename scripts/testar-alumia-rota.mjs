@@ -301,7 +301,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
   const pn = ler("components/rede/onda5/PaginaNova.tsx");
   ok("PaginaNova: notFound com a flag desligada", /if \(!rotaNovaLigada\(nome\)\) notFound\(\);/.test(pn));
   ok("metadados: nada com a flag desligada e sem trecho de conteúdo", /if \(!rotaNovaLigada\(nome\)\) return \{\};/.test(pn));
-  ok("o ato confere o id antes", /if \(!idOk\(id\)\) notFound\(\);/.test(ler("app/[lang]/alumia/ato/[id]/page.tsx")));
+  ok("o ato confere o id antes (o de exemplo só com a prévia)", /if \(!idOk\(id\)( && !idDaPreviaOk\(id\))?\) notFound\(\);/.test(ler("app/[lang]/alumia/ato/[id]/page.tsx")));
 }
 
 // ═══════════════════ 9. Encaixes e esboços ═══════════════════
