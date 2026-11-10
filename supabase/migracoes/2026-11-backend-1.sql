@@ -32,7 +32,7 @@ insert into interno.recursos_catalogo (nome, so_pelo_nome) values
   ('mapa-curricular', false), ('nivelamento', false), ('metas', false), ('vlibras', false), ('ajudou', false),
   ('guia-contribuir', false), ('pratica-sem-placar', false), ('enem-video', false), ('enem-curso', false),
   ('escola', true), ('vale-o-escrito', true), ('rede-v2', true),
-  ('alumia-2', true), ('alumia-stories', true), ('alumia-modo-ato', true), ('alumia-org', true), ('alumia-chat-grupo', true), ('alumia-proximas', true), -- Alumia, Onda 5 (F0)
+  ('alumia-2', true), ('alumia-stories', true), ('alumia-modo-ato', true), ('alumia-org', true), ('alumia-chat-grupo', true), ('alumia-proximas', true), ('alumia-entrada', true), -- Alumia, Onda 5 (F0) e a entrada com triagem (20261110-alumia-entrada.sql)
   ('turmas', false), -- em pausa (T08): "todos" não liga (lib/recursos.ts, EM_PAUSA); ligar pelo painel vale na hora
   ('assistente-publico', false), -- T03: o assistente em todo o site, sem conta (app/api/assistente); ligado por padrão
   ('fediverso-total', true), ('fediverso-grupos', true) -- Alumia mesclada ao Fediverso (PLANO-FEDIVERSO): só pelo nome, desligadas
