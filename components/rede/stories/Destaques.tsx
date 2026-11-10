@@ -7,7 +7,7 @@ import { PALETA_DO_STORY } from "@/lib/rede/stories/visual";
 import type { Situacao } from "@/lib/rede/tipos";
 import type { DestaqueDeStories } from "@/lib/rede/tipos-stories";
 import { CapaDoDestaque } from "./CapaDoDestaque";
-import { preencherStory, useClienteDosStories, useTextosDosStories } from "./usar";
+import { EVENTO_DOS_DESTAQUES, preencherStory, useClienteDosStories, useTextosDosStories } from "./usar";
 import { Visor } from "./Visor";
 
 /**
@@ -25,18 +25,27 @@ export function DestaquesDoPerfil({ lang, handle, situacao }: { lang: string; ha
   const [versao, setVersao] = useState(0);
   const dono = situacao.handle === handle || (!!cliente?.previa && (handle === "voce" || handle === "eu"));
   const logado = situacao.logado || !!cliente?.previa;
+  // Na prévia, "eu" é sempre a "voce" dos exemplos (o dublê não conhece o @ de quem está olhando).
+  const de = cliente?.previa && dono ? "voce" : handle;
 
   useEffect(() => {
     if (!cliente || !logado) return;
     let vivo = true;
     cliente
-      .destaques(handle)
+      .destaques(de)
       .then((l) => vivo && (setLista(l), setErro(false)))
       .catch(() => vivo && setErro(true));
     return () => {
       vivo = false;
     };
-  }, [cliente, handle, logado, versao]);
+  }, [cliente, de, logado, versao]);
+
+  // Guardou ou tirou um story num visor de outro lugar (a faixa): relê.
+  useEffect(() => {
+    const reler = () => setVersao((v) => v + 1);
+    window.addEventListener(EVENTO_DOS_DESTAQUES, reler);
+    return () => window.removeEventListener(EVENTO_DOS_DESTAQUES, reler);
+  }, []);
 
   if (!t || !cliente || !logado) return null;
   if (erro) return <p className="al-st-erro">{t.destaques.erro}</p>;
