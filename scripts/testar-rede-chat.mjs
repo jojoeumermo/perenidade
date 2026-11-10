@@ -287,6 +287,8 @@ await espera("a tabela aceita os sete tamanhos de bloco, e só eles", async () =
   return aceitos.join(",");
 }, (t) => t === TAMANHOS_DO_CIFRADO.join(","));
 
+// Uma data em que o aparelho ainda abre c2 (o teste não depende do dia em que roda).
+const DENTRO_DO_PRAZO_DO_C2 = Date.parse("2026-11-15T00:00:00Z");
 // O formato antigo: uma mensagem c2 como as que já estavam no banco antes (assinada, cifrada com lib/sigilo.ts).
 const lugarAntigo = contextoDaMensagem(conversaAB.id, P.ana);
 const corpoC2 = await cifrar(chaveV2DaAna, 2, await assinarTexto(aparelhos.ana.identidade, "mensagem antiga, assinada", lugarAntigo, 2), lugarAntigo);
@@ -294,9 +296,9 @@ await recusa("o banco recusa c2 novo: o formato antigo é só para leitura", () 
 const antiga = (await dono("insert into interno.rede_dm_mensagens (conversa, autor, versao, corpo, expira_em) values ($1, $2, 2, $3, now() + interval '7 days') returning id", [conversaAB.id, P.ana, corpoC2])).rows[0].id;
 await espera("o c2 que já estava no banco continua saindo nas leituras, abrindo e conferindo a assinatura", async () => {
   const lida = (await rpc(como(P.bia), "rede_dm_mensagens", { p_conversa: conversaAB.id })).find((m) => m.id === antiga);
-  return [formatoDe(lida.corpo), await abrirMensagem(chaveV2DaBia, lida.corpo, conversaAB.id, lida.autor, aparelhos.ana.identidade.publica)];
+  return [formatoDe(lida.corpo), await abrirMensagem(chaveV2DaBia, lida.corpo, conversaAB.id, lida.autor, aparelhos.ana.identidade.publica, DENTRO_DO_PRAZO_DO_C2)];
 }, (r) => r[0] === "c2" && r[1]?.texto === "mensagem antiga, assinada" && r[1].formato === "c2" && r[1].autoria === "ok" && r[1].contador === null);
-await espera("no c2 antigo, assinatura de outra pessoa não passa como da Ana", async () => abrirMensagem(chaveV2DaBia, corpoC2, conversaAB.id, P.ana, aparelhos.intrusa.identidade.publica), (r) => r?.autoria === "invalida");
+await espera("no c2 antigo, assinatura de outra pessoa não passa como da Ana", async () => abrirMensagem(chaveV2DaBia, corpoC2, conversaAB.id, P.ana, aparelhos.intrusa.identidade.publica, DENTRO_DO_PRAZO_DO_C2), (r) => r?.autoria === "invalida");
 await espera("um c3 com o rótulo trocado para c2 não abre, nem um c2 com rótulo de c3 (a amarra leva o formato)", async () => [
   await abrirMensagem(chaveV2DaBia, corpoV2.replace(/^c3\./, "c2."), conversaAB.id, P.ana, aparelhos.ana.identidade.publica),
   await abrirMensagem(chaveV2DaBia, corpoC2.replace(/^c2\./, "c3."), conversaAB.id, P.ana, aparelhos.ana.identidade.publica),
@@ -827,6 +829,221 @@ await espera("a tela das conversas e a da conversa aberta se limpam no pânico d
 await espera("o encaixe do chat pendura o apagar tudo no Sair rápido, o chaveiro o exporta, e a gaveta não importa nada", async () => [ler("components/rede/chat/encaixe.tsx"), ler("lib/rede/chat-chaveiro.ts"), ler("lib/rede/chat/gaveta.ts")],
   (r) => /aoSairRapido:\s*\[\(\) => apagarTudoDoChat\(\)\]/.test(r[0]) && /export async function apagarTudoDoChat\(\): Promise<void>/.test(r[1]) && /aoApagarTudoDoChat\(esquecerSessoes\)/.test(r[1]) && !/^import /m.test(r[2]));
 await espera("mensagem aberta, rascunho e chave de conversa nunca vão para o armazenamento do navegador", async () => [...telas, ...pecas, "lib/rede/chat-chaveiro.ts", "lib/rede/chat-privado.ts"].filter((f) => /localStorage|sessionStorage/.test(ler(f))), (l) => l.length === 0);
+
+// ── O chaveiro de verdade (lib/rede/chat-chaveiro.ts) contra um servidor que mente ──
+// O chaveiro fala com o banco local; cada chamada passa por `servidor`, que o teste troca para mentir do jeito de cada ataque.
+const chaveiro = await import("../lib/rede/chat-chaveiro.ts");
+const { chat: clienteDoChat, criarClienteDoChat } = await import("../lib/rede/cliente-chat.ts");
+const { anotarVersao, chaveDasVersoes, ordemDaTela, podeFechar, relogioConfiavel, versaoVelhaAqui, julgarAntiga } = await import("../lib/rede/chat/ordem.ts");
+const { C2_ABRE_ATE } = await import("../lib/rede/chat-privado.ts");
+const { mudarNaGaveta } = await import("../lib/rede/chat/gaveta.ts");
+for (const nome of ["rui", "sol"]) {
+  P[nome] = await criarUsuario(`${nome}@chat.local`, `Nome do painel ${nome}`);
+  await rpc(como(P[nome]), "eu");
+  await dono("update interno.perfis set rede_codinome = $2, rede_codinome_ok = true, rede_handle = $3, rede_18 = true, rede_consentimento = 1 where id = $1", [P[nome], `Pessoa ${nome}`, `${nome}_dm`]);
+  await dono("insert into interno.rede_consentimentos (usuario, versao) values ($1, 1) on conflict do nothing", [P[nome]]);
+  await dono("update auth.users set created_at = now() - interval '30 days' where id = $1", [P[nome]]);
+}
+await dono("insert into interno.rede_seguindo (quem, segue) values ($1, $2), ($2, $1)", [P.rui, P.sol]);
+let quem = "rui";
+const mentiras = {};
+const chamadas = [];
+const doBanco = async (funcao, argumentos = {}) => {
+  try {
+    return await rpc(como(P[quem]), funcao, argumentos);
+  } catch (erro) {
+    const codigo = String(erro.message).match(/^[a-z_]+(?::[a-z_]+)?/)?.[0] ?? String(erro.message);
+    throw Object.assign(new Error(codigo), { code: codigo });
+  }
+};
+const servidor = async (funcao, argumentos = {}) => {
+  chamadas.push(funcao);
+  return mentiras[funcao] ? mentiras[funcao](argumentos, () => doBanco(funcao, argumentos)) : doBanco(funcao, argumentos);
+};
+Object.assign(clienteDoChat, criarClienteDoChat(servidor));
+const semMentiras = () => {
+  for (const k of Object.keys(mentiras)) delete mentiras[k];
+};
+const tentarCodigo = (promessa) => promessa.then(() => "passou", (e) => e.code ?? e.message);
+const situacaoDe = async (nome) => {
+  quem = nome;
+  return servidor("rede_dm_situacao");
+};
+reabrirDepoisDeApagar();
+porIndexedDB(falso);
+falso.modo = "normal";
+quem = "rui";
+const euRui = await chaveiro.ativarNesteAparelho(P.rui);
+quem = "sol";
+const euSol = await chaveiro.ativarNesteAparelho(P.sol);
+await espera("o chaveiro ativa o aparelho e o reconhece pela situação do servidor", async () => [(await chaveiro.estadoDoAparelho(await situacaoDe("rui"))).estado, (await chaveiro.estadoDoAparelho(await situacaoDe("sol"))).estado], (r) => r.join(",") === "pronto,pronto");
+quem = "rui";
+const conversaRS = (await servidor("rede_dm_abrir", { p_handle: "sol_dm" })).id;
+const abrirComo = async (nome, anterior, opcoes) => {
+  quem = nome;
+  return nome === "rui" ? chaveiro.abrirSessao(euRui, conversaRS, P.sol, anterior, opcoes) : chaveiro.abrirSessao(euSol, conversaRS, P.rui, anterior, opcoes);
+};
+const lerComo = async (nome, sessao, mexer = (l) => l) => {
+  quem = nome;
+  return chaveiro.abrirMensagens(sessao, mexer(await servidor("rede_dm_mensagens", { p_conversa: conversaRS })));
+};
+let sessaoRui = await abrirComo("rui");
+let sessaoSol = await abrirComo("sol");
+quem = "rui";
+sessaoRui = await chaveiro.enviarTexto(sessaoRui, "primeira do Rui");
+await espera("o chaveiro de verdade: versão 1, envio em c3 e leitura do outro lado", async () => {
+  const lidas = await lerComo("sol", sessaoSol);
+  return [sessaoRui.versao, sessaoSol.versao, lidas.map((m) => m.texto).join("|"), lidas[0]?.contador];
+}, (r) => r.join(",") === "1,1,primeira do Rui,1");
+quem = "sol";
+await chaveiro.confiarNaIdentidade(sessaoSol, euRui.identidade.publica, true);
+sessaoSol = await abrirComo("sol", sessaoSol);
+await espera("a Sol compara o código e a conversa fica verificada neste aparelho", async () => sessaoSol.verificado, (v) => v === true);
+
+// Repetição e linha duplicada, com o chaveiro de verdade.
+await espera("ATAQUE (servidor repete): a mesma linha duas vezes sai uma vez só; o mesmo c3 sob outro id sai como repetida, sem texto", async () => {
+  const lista = await (async () => {
+    quem = "sol";
+    return servidor("rede_dm_mensagens", { p_conversa: conversaRS });
+  })();
+  const dobrada = await chaveiro.abrirMensagens(sessaoSol, [...lista, { ...lista[0], criado_em: new Date(Date.now() + 1000).toISOString() }]);
+  const outraLinha = await chaveiro.abrirMensagens(sessaoSol, [...lista, { ...lista[0], id: crypto.randomUUID(), criado_em: new Date(Date.now() + 2000).toISOString() }]);
+  return [dobrada.length, outraLinha.length, outraLinha.filter((m) => m.repetida).length, outraLinha.find((m) => m.repetida)?.texto ?? "sem-texto"];
+}, (r) => JSON.stringify(r) === '[1,2,1,"sem-texto"]');
+
+// Identidade trocada de quem estava VERIFICADO.
+const falsa = await novaIdentidadeDoChat();
+const aparelhoFalso = await novaChaveDoAparelho();
+const certificadoFalso = await certificarChave(falsa, P.rui, aparelhoFalso.publica);
+const trocarRui = (participante) => (dados) => ({ ...dados, participantes: dados.participantes.map((p) => (p.usuario === P.rui ? { ...p, ...participante } : p)) });
+await espera("ATAQUE (servidor troca a identidade de quem estava verificado): a marca cai, nada sai, um clique não passa, outra identidade não passa", async () => {
+  mentiras.rede_dm_chaves_da_conversa = async (_a, real) => trocarRui({ identidade: falsa.publica, publica: aparelhoFalso.publica, certificado: certificadoFalso })(await real());
+  const s = await abrirComo("sol", sessaoSol);
+  const antesDeEnviar = chamadas.filter((c) => c === "rede_dm_enviar").length;
+  const r = [
+    s.mudou === falsa.publica, s.exigeComparar, s.verificado,
+    await tentarCodigo(chaveiro.enviarTexto(s, "não pode sair")),
+    await tentarCodigo(chaveiro.confiarNaIdentidade(s, falsa.publica, false)),
+    await tentarCodigo(chaveiro.confiarNaIdentidade(s, (await novaIdentidadeDoChat()).publica, true)),
+    chamadas.filter((c) => c === "rede_dm_enviar").length - antesDeEnviar,
+  ];
+  // Recarregar a página não tira a exigência: o que está guardado ainda é a identidade verdadeira, verificada.
+  const deNovo = await abrirComo("sol", null);
+  semMentiras();
+  return [...r, deNovo.exigeComparar];
+}, (r) => JSON.stringify(r) === '[true,true,false,"dm_exige_comparar","dm_exige_comparar","dm_identidade_mudou",0,true]');
+
+// A mesma identidade assinando a chave de outro aparelho (o que um script na página do Rui conseguiria fazer UMA vez).
+const aparelhoDoAtacante = await novaChaveDoAparelho();
+const certificadoRoubado = await certificarChave(euRui.identidade, P.rui, aparelhoDoAtacante.publica);
+await espera("ATAQUE (XSS no aparelho do Rui assina a chave do atacante com a identidade dele): a Sol nota a chave estranha, não envia, não aceita e não abre embrulho dela", async () => {
+  const embrulhoDoAtacante = (await prepararNovaVersao(conversaRS, 99, { usuario: P.rui, aparelho: aparelhoDoAtacante, identidade: euRui.identidade, versao: 1 },
+    [{ usuario: P.rui, identidade: euRui.identidade.publica, publica: aparelhoDoAtacante.publica, certificado: certificadoRoubado, versao: 1 },
+      { usuario: P.sol, identidade: euSol.identidade.publica, publica: euSol.aparelho.publica, certificado: await certificarChave(euSol.identidade, P.sol, euSol.aparelho.publica), versao: euSol.versao }],
+    { [P.rui]: euRui.identidade.publica, [P.sol]: euSol.identidade.publica })).embrulhos.find((e) => e.para === P.sol);
+  mentiras.rede_dm_chaves_da_conversa = async (_a, real) => {
+    const dados = trocarRui({ publica: aparelhoDoAtacante.publica, certificado: certificadoRoubado })(await real());
+    return { ...dados, embrulhos: [...dados.embrulhos, { versao: 99, chave_versao: embrulhoDoAtacante.chave_versao, embrulho: embrulhoDoAtacante.embrulho, de: P.rui, de_publica: aparelhoDoAtacante.publica, de_certificado: certificadoRoubado }] };
+  };
+  const s = await abrirComo("sol", null);
+  const r = [s.chaveEstranha, s.mudou !== null, s.verificado, s.chaves.has(99), await tentarCodigo(chaveiro.enviarTexto(s, "não pode sair")), await tentarCodigo(chaveiro.confiarNaIdentidade(s, euRui.identidade.publica, true))];
+  semMentiras();
+  return r;
+}, (r) => JSON.stringify(r) === '[true,true,false,false,"dm_chave_estranha","dm_chave_estranha"]');
+
+// Versão da chave: o servidor não faz o aparelho voltar nem ficar preso.
+await dono("update interno.rede_dm_conversas set versao_em = now() - interval '7 days 1 hour' where id = $1", [conversaRS]);
+sessaoRui = await abrirComo("rui", sessaoRui);
+await espera("passados 7 dias, o aparelho faz a versão 2 sozinho", async () => sessaoRui.versao, (v) => v === 2);
+await espera("ATAQUE (servidor volta a versão): a Sol já viu a 2; o servidor diz que a atual é a 1; a conversa não abre e nada é enviado", async () => {
+  await abrirComo("sol", null);
+  mentiras.rede_dm_chaves_da_conversa = async (_a, real) => ({ ...(await real()), versao: 1, versao_em: new Date().toISOString(), atual_ok: true });
+  const r = await tentarCodigo(abrirComo("sol", null));
+  semMentiras();
+  return r;
+}, (r) => r === "dm_versao_voltou");
+await espera("ATAQUE (servidor prende a chave): mente a idade da versão e recusa a nova; pela conta do aparelho ela passou de 7 dias, e nada é enviado", async () => {
+  // Este aparelho viu a versão 2 há 8 dias (a hora da última leitura é de agora: o relógio é de confiança).
+  const chave = chaveDasVersoes(P.rui, conversaRS);
+  await mudarNaGaveta(ORDEM, chave, (m) => ({ ...m, desde: Date.now() - 8 * 86_400_000, lida: Date.now() }));
+  await dono("update interno.rede_dm_conversas set versao_em = now() - interval '1 hour' where id = $1", [conversaRS]);
+  mentiras.rede_dm_chaves_da_conversa = async (_a, real) => ({ ...(await real()), versao_em: new Date().toISOString(), atual_ok: true });
+  mentiras.rede_dm_nova_versao = async () => {
+    throw Object.assign(new Error("versao_desatualizada"), { code: "versao_desatualizada" });
+  };
+  // A página é recarregada: a sessão nova lê do aparelho quando a versão foi vista.
+  sessaoRui = await abrirComo("rui", sessaoRui);
+  const antes = chamadas.filter((c) => c === "rede_dm_enviar").length;
+  quem = "rui";
+  const r = [await tentarCodigo(chaveiro.enviarTexto(sessaoRui, "na chave presa")), chamadas.filter((c) => c === "rede_dm_enviar").length - antes];
+  // O servidor deixa trocar: a versão nova sai e o envio vai.
+  delete mentiras.rede_dm_nova_versao;
+  quem = "rui";
+  sessaoRui = await chaveiro.enviarTexto(sessaoRui, "na chave nova");
+  semMentiras();
+  return [...r, sessaoRui.versao];
+}, (r) => JSON.stringify(r) === '["dm_versao_presa",0,3]');
+await espera("relógio do aparelho atrasado (o banco recusa a versão por velha): o aparelho força a versão nova e o envio vai", async () => {
+  await dono("update interno.rede_dm_conversas set versao_em = now() - interval '9 days' where id = $1", [conversaRS]);
+  // O aparelho acha a versão nova (o servidor, ou o relógio atrasado, diz que é de agora).
+  mentiras.rede_dm_chaves_da_conversa = async (_a, real) => ({ ...(await real()), versao_em: new Date().toISOString() });
+  quem = "rui";
+  sessaoRui = await abrirComo("rui", sessaoRui);
+  const antes = sessaoRui.versao;
+  sessaoRui = await chaveiro.enviarTexto(sessaoRui, "com o relógio atrasado");
+  semMentiras();
+  return [antes, sessaoRui.versao];
+}, (r) => r[1] === r[0] + 1);
+await espera("e a Sol lê tudo o que foi enviado, sem buraco nem repetida", async () => {
+  // A Sol confere de novo a identidade verdadeira (o teste do atacante deixou a sessão antiga para trás).
+  sessaoSol = await abrirComo("sol", null);
+  const lidas = await lerComo("sol", sessaoSol);
+  const naTela = chaveiro.ordemDaConversa(lidas, P.sol).ordenadas;
+  return [naTela.filter((m) => m.texto).map((m) => m.texto).join("|"), lidas.some((m) => m.repetida), chaveiro.depoisDeBuraco(lidas).size];
+}, (r) => r[0] === "primeira do Rui|na chave nova|com o relógio atrasado" && r[1] === false && r[2] === 0);
+
+// Formato antigo regravado pelo servidor.
+await espera("ATAQUE (servidor regrava c2 antigo): a mesma c2 sob outro id é repetida; c2 depois de c3 do mesmo autor e versão sai com aviso; depois do prazo, c2 não abre", async () => {
+  const k = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+  const lugar = contextoDaMensagem(conversaRS, P.rui);
+  const velha = await cifrar(k, 5, await assinarTexto(euRui.identidade, "c2 antiga", lugar, 5), lugar);
+  const resumo = "a".repeat(64);
+  const chave = chaveDaOrdem(P.sol, conversaRS, P.rui, 5);
+  const a = julgarAntiga(null, 0, chave, { servidor: "s1", versao: 5, resumo });
+  const b = julgarAntiga(a.registro, 0, chave, { servidor: "s2", versao: 5, resumo });
+  const c = julgarAntiga(a.registro, 0, chave, { servidor: "s1", versao: 5, resumo });
+  const comC3 = julgar(null, 0, chave, { servidor: "s3", autor: P.rui, versao: 5, id: "id-c3", contador: 1 }).registro;
+  const d = julgarAntiga(comC3, 0, chave, { servidor: "s4", versao: 5, resumo: "b".repeat(64) });
+  return [a.juizo, b.juizo, c.juizo, d.juizo, (await abrirMensagem(k, velha, conversaRS, P.rui, euRui.identidade.publica, C2_ABRE_ATE - 1))?.autoria, await abrirMensagem(k, velha, conversaRS, P.rui, euRui.identidade.publica, C2_ABRE_ATE + 1)];
+}, (r) => JSON.stringify(r) === '["nova","repetida","vista","duvidosa","ok",null]');
+
+// Ordem e relógio (lib/rede/chat/ordem.ts).
+await espera("ATAQUE (servidor reordena): dentro de cada pessoa vale o contador; a troca é avisada; resposta antes da pergunta é avisada; o que a outra ainda não tinha recebido é marcado", async () => {
+  const m = (id, autor, contador, minuto, visto = null) => ({ id, autor, versao: 1, contador, criado_em: `2026-11-10T10:${String(minuto).padStart(2, "0")}:00Z`, visto });
+  // O servidor pôs a 2 da Sol antes da 1; e a resposta do Rui (que já tinha visto a 2 da Sol) antes dela.
+  const r = ordemDaTela([m("s2", "sol", 2, 1), m("s1", "sol", 1, 2), m("r1", "rui", 1, 3, { versao: 1, contador: 2 }), m("s3", "sol", 3, 4, { versao: 1, contador: 0 })], "rui");
+  const r2 = ordemDaTela([m("r1", "rui", 1, 1, { versao: 1, contador: 2 }), m("s1", "sol", 1, 2), m("s2", "sol", 2, 3)], "rui");
+  const r3 = ordemDaTela([m("r1", "rui", 1, 1), m("r2", "rui", 2, 2), m("s1", "sol", 1, 3, { versao: 1, contador: 1 })], "rui");
+  return [r.ordenadas.map((x) => x.id).join(","), [...r.foraDeOrdem].sort().join(","), [...r2.foraDeOrdem].join(","), [...r3.semConfirmar].join(",")];
+}, (r) => JSON.stringify(r) === '["s1,s2,r1,s3","s1,s2","r1","r2"]');
+await espera("ATAQUE (relógio do aparelho mexido): a versão atual nunca fecha; nada vence se o relógio voltou ou saltou dias; a versão antiga vence com relógio de confiança", async () => {
+  const DIA = 86_400_000;
+  const agora = Date.now();
+  const velho = { chave: "x", desde: agora - 50 * DIA, maior: 3, vistas: {} };
+  return [
+    podeFechar(velho, 4, 4, agora - 60_000, agora), podeFechar(velho, 3, 4, agora + DIA, agora), podeFechar(velho, 3, 4, agora - 10 * DIA, agora), podeFechar(velho, 3, 4, null, agora), podeFechar(velho, 3, 4, agora - 60_000, agora),
+    relogioConfiavel(agora - DIA, agora), anotarVersao({ chave: "v", topo: 4, desde: 1, lida: 1 }, "v", 3).voltou, anotarVersao({ chave: "v", topo: 4, desde: 1, lida: 1 }, "v", 5, 99).marca.desde, versaoVelhaAqui(agora - 8 * DIA, 7, agora), versaoVelhaAqui(agora - 6 * DIA, 7, agora),
+  ];
+}, (r) => JSON.stringify(r) === "[false,false,false,false,true,true,true,99,true,false]");
+await espera("o c3 leva dentro 'até onde eu já tinha recebido' e o chaveiro preenche com o que chegou da outra pessoa", async () => {
+  const k = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+  const corpoVisto = await cifrarMensagem(k, 2, { usuario: P.ana }, conversaLivre, "resposta", 4, { versao: 2, contador: 7 });
+  const aberta = await abrirMensagem(k, corpoVisto, conversaLivre, P.ana, null);
+  return [aberta.visto.versao, aberta.visto.contador, /cifrarMensagem\(chave, usada\.versao, usada\.eu, usada\.conversa, texto, contador, await vistoDaOutra\(usada\)\)/.test(ler("lib/rede/chat-chaveiro.ts"))];
+}, (r) => JSON.stringify(r) === "[2,7,true]");
+Object.assign(clienteDoChat, criarClienteDoChat(async () => {
+  throw new Error("fora_do_teste");
+}));
 
 // ── Código de segurança: QR e comparar de novo (lib/rede/chat/verificacao.ts) ──
 const codigoAB = await codigoDeSeguranca(aparelhos.ana.identidade.publica, aparelhos.bia.identidade.publica);
