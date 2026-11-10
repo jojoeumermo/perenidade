@@ -2257,7 +2257,9 @@ const trabalho = (extra = {}) => ({
   link: "https://repositorio.exemplo.br/handle/123", licenca: "CC BY 4.0", credito: "Edu Estudante", termo: true, termo_versao: "1", termo_nome: "Eduardo Estudante da Silva", ...extra,
 });
 const pdfDe = (dono) => `${dono}/0f8fad5b-d9cb-469f-a165-70867728950e.pdf`;
-await recusa("anônimo não publica na Gaveta", () => rpc(anon, "gaveta_enviar", { p: trabalho() }), "entre_primeiro");
+// Desde 09/11/2026, sem conta também se envia à Gaveta, só por link (o PDF no depósito pede conta); vai para a fila.
+await espera("sem conta, envia por link para a fila da Gaveta", () => rpc(anon, "gaveta_enviar", { p: trabalho() }), (r) => typeof r?.id === "string");
+await recusa("sem conta, não envia PDF do depósito", () => rpc(anon, "gaveta_enviar", { p: trabalho({ link: "", arquivo: "00000000-0000-0000-0000-000000000000/11111111-1111-1111-1111-111111111111.pdf" }) }), "entre_primeiro");
 await recusa("sem aceitar o termo, não publica", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo: false }) }), "falta_termo");
 await recusa("termo de outra versão não vale", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo_versao: "0" }) }), "falta_termo");
 await recusa("o termo pede o nome completo", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo_nome: "Edu" }) }), "invalido:termo_nome");
@@ -2276,7 +2278,7 @@ await espera("estudante publica com link; fica esperando a mediação", async ()
   return [await rpc(anon, "gaveta_listar", { p: {} }), await rpc(EST, "gaveta_minhas")];
 }, (r) => !r[0].some((g) => g.id === gav.id) && r[1][0].id === gav.id && r[1][0].status === "pendente" && r[1][0].termo_nome === undefined);
 await espera("PDF da própria pasta é aceito (o banco de teste não tem depósito)", () => rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Apostila de cartografia social", tipo: "apostila", link: "", arquivo: pdfDe(ids.estudante) }) }), (r) => Boolean(r.id));
-await espera("a Mesa da mediação conta a Gaveta", () => rpc(MED, "painel_resumo"), (r) => r.gaveta === 2);
+await espera("a Mesa da mediação conta a Gaveta (com o envio sem conta)", () => rpc(MED, "painel_resumo"), (r) => r.gaveta === 3);
 await recusa("revisor não vê a fila da Gaveta", () => rpc(como(ids.alvo), "gaveta_fila"), "sem_permissao");
 await recusa("supervisão não decide a Gaveta (é cargo interno)", () => rpc(SUP, "gaveta_fila"), "sem_permissao");
 await espera("quem decide vê o nome do termo e a versão aceita", () => rpc(MED, "gaveta_fila"), (r) => r.find((g) => g.id === gav.id)?.termo_nome === "Eduardo Estudante da Silva" && r.find((g) => g.id === gav.id)?.termo_versao === "1");
@@ -3626,6 +3628,45 @@ await espera("nenhuma tabela interna dá permissão direta a anon ou authenticat
 // mesmo nome num esquema que vem antes no caminho poderia fazer a função usar o objeto dele.
 await espera("toda função pública com poder de dono fixa o search_path", async () => (await dono("select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.prosecdef and not exists (select 1 from unnest(coalesce(p.proconfig, '{}'::text[])) c where c like 'search_path=%')")).rows.map((r) => r.proname), (r) => r.length === 0);
 // O esquema público só tem funções: tabelas e visões moram em interno, longe da API.
+// ── O cartão público do educador com aprovação (20261109-cartao-publico.sql) ──
+{
+  const PROF = como(ids.prof);
+  const FOTO = "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
+  ids.semFuncao = await criarUsuario("sem-funcao@teste.local", "Sem Função");
+  await recusa("quem não é educador não pede cartão público", () => rpc(como(ids.semFuncao), "cartao_publico_pedir", { p: { bio: "Oi" } }), "sem_permissao");
+  await recusa("foto que não é WebP em base64 é recusada", () => rpc(PROF, "cartao_publico_pedir", { p: { bio: "Oi", foto: "data:image/png;base64,AAAA" } }), "invalido:foto");
+  await recusa("rede que não é https é recusada", () => rpc(PROF, "cartao_publico_pedir", { p: { bio: "Oi", curriculo: { site: "http://x.org" } } }), "invalido:site");
+  let pedido;
+  await espera("educador pede o cartão (foto, bio e rede)", async () => (pedido = await rpc(PROF, "cartao_publico_pedir", { p: { bio: "Professora de matemática na rede pública.", foto: FOTO, curriculo: { site: "https://exemplo.org" } } })), (r) => typeof r.id === "string");
+  await espera("antes de aprovar, o cartão no ar não muda", () => rpc(anon, "educadores"), (r) => r.every((e) => e.foto === "" && e.bio !== "Professora de matemática na rede pública."));
+  await recusa("só a coordenação vê a fila", () => rpc(PROF, "cartao_publico_fila"), "sem_permissao");
+  await espera("a coordenação vê o pedido na fila", () => rpc(COORD, "cartao_publico_fila"), (r) => r.some((x) => x.id === pedido.id));
+  await recusa("recusar pede motivo", () => rpc(COORD, "cartao_publico_decidir", { p_id: pedido.id, p_aprovar: false, p_nota: "" }), "invalido:nota");
+  await espera("a coordenação aprova", () => rpc(COORD, "cartao_publico_decidir", { p_id: pedido.id, p_aprovar: true, p_nota: "" }), (r) => r.ok === true);
+  await espera("aprovado, o cartão no ar leva a bio e o endereço da foto", () => rpc(anon, "educadores"), (r) => r.some((e) => e.id === ids.prof && e.bio === "Professora de matemática na rede pública." && e.foto.startsWith(`/api/educador-foto/${ids.prof}`)));
+  await espera("a foto aprovada sai pela função pública", () => rpc(anon, "educador_foto", { p_id: ids.prof }), (r) => r === FOTO);
+  await espera("o próprio educador vê o pedido aprovado", () => rpc(PROF, "cartao_publico_meu"), (r) => r.pedido?.status === "aprovado" && r.no_ar.foto === FOTO);
+}
+
+// ── Os parceiros nos territórios (20261109-territorios-parceiros.sql) ──
+{
+  ids.parceira = await criarUsuario("parceira@teste.local", "Parceira do Coletivo");
+  const PARC = como(ids.parceira);
+  const post = { territorio: "na-atividade", titulo: "Sarau no sábado", texto: "Sarau aberto na praça, das 16h às 20h, com microfone livre." };
+  await recusa("quem não é parceiro não posta no território", () => rpc(PARC, "territorio_postar", { p: post }), "sem_permissao");
+  await recusa("só a coordenação liga um parceiro ao território", () => rpc(PARC, "territorio_parceiro_definir", { p_usuario: ids.parceira, p_territorio: "na-atividade" }), "sem_permissao");
+  await espera("a coordenação liga a parceira ao território", () => rpc(COORD, "territorio_parceiro_definir", { p_usuario: ids.parceira, p_territorio: "na-atividade" }), (r) => r.ok === true);
+  await espera("a parceira vê o próprio território", () => rpc(PARC, "territorio_meus"), (r) => r.includes("na-atividade"));
+  await recusa("a parceira não posta em outro território", () => rpc(PARC, "territorio_postar", { p: { ...post, territorio: "noizocupa" } }), "sem_permissao");
+  let novo;
+  await espera("a parceira posta no território dela", async () => (novo = await rpc(PARC, "territorio_postar", { p: post })), (r) => typeof r.id === "string");
+  await espera("a postagem aparece na página do território", () => rpc(anon, "territorio_posts", { p_territorio: "na-atividade" }), (r) => r.some((x) => x.id === novo.id && !("autor" in x)));
+  await espera("e na seção do Jornal", () => rpc(anon, "territorio_posts_recentes"), (r) => r.some((x) => x.id === novo.id));
+  await recusa("outra pessoa não tira a postagem do ar", () => rpc(como(ids.semFuncao), "territorio_post_ocultar", { p_id: novo.id }), "sem_permissao");
+  await espera("a coordenação tira do ar", () => rpc(COORD, "territorio_post_ocultar", { p_id: novo.id, p_motivo: "teste" }), (r) => r.ok === true);
+  await espera("fora do ar, some da página", () => rpc(anon, "territorio_posts", { p_territorio: "na-atividade" }), (r) => !r.some((x) => x.id === novo.id));
+}
+
 await espera("nenhuma tabela, visão ou sequência no esquema público", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind in ('r', 'v', 'm', 'p', 'f', 'S')")).rows.map((r) => r.relname), (r) => r.length === 0);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);

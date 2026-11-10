@@ -165,15 +165,18 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
     dangerouslyAllowSVG: false,
   },
-  // O percurso mudou de nome (Despertar virou Consciência de classe) e o endereço encurtou: a página mora em
-  // /consciencia. Os endereços antigos (/despertar e /consciencia-de-classe), já espalhados em materiais e conversas,
-  // levam ao novo para sempre (308), direto e sem escala, levando junto a âncora da etapa (#etapa) que o navegador mantém.
+  // O percurso Consciência de classe (antes Despertar, em /consciencia) saiu do site aberto e foi para dentro da Escola
+  // (09/11/2026): os cadernos da Formação são o mesmo percurso. Os endereços antigos (/consciencia, /despertar e
+  // /consciencia-de-classe), já espalhados em materiais e conversas, levam à Escola. Temporário (307) de propósito: dá
+  // para voltar atrás sem os navegadores guardarem o desvio.
   async redirects() {
     return [
-      { source: "/:lang(pt|en|es|fr|ru|zh)/despertar", destination: "/:lang/consciencia", permanent: true },
-      { source: "/despertar", destination: "/pt/consciencia", permanent: true },
-      { source: "/:lang(pt|en|es|fr|ru|zh)/consciencia-de-classe", destination: "/:lang/consciencia", permanent: true },
-      { source: "/consciencia-de-classe", destination: "/pt/consciencia", permanent: true },
+      { source: "/:lang(pt|en|es|fr|ru|zh)/consciencia", destination: "/:lang/escola", permanent: false },
+      { source: "/consciencia", destination: "/pt/escola", permanent: false },
+      { source: "/:lang(pt|en|es|fr|ru|zh)/despertar", destination: "/:lang/escola", permanent: false },
+      { source: "/despertar", destination: "/pt/escola", permanent: false },
+      { source: "/:lang(pt|en|es|fr|ru|zh)/consciencia-de-classe", destination: "/:lang/escola", permanent: false },
+      { source: "/consciencia-de-classe", destination: "/pt/escola", permanent: false },
       // Os jogos saíram de Laboratórios e ganharam página própria (Etapa 5): o endereço antigo leva ao novo, para sempre (308).
       { source: "/:lang(pt|en|es|fr|ru|zh)/laboratorios/jogos", destination: "/:lang/jogos", permanent: true },
       { source: "/laboratorios/jogos", destination: "/pt/jogos", permanent: true },

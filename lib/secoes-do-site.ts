@@ -36,7 +36,6 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
       title: t.lists.study,
       items: itens([
         [n.disciplines, "/trilhas", t.tracks.lead],
-        [n.despertar, "/consciencia", d.despertar],
         [n.start, "/comecar", d.start],
         [n.questions, "/perguntas", d.questions],
         [n.library, "/acervo", t.library.lead],

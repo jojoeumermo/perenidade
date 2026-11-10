@@ -13,7 +13,7 @@
 const ESCOLA = "escola.institutolucia.org";
 const SITE = "https://institutolucia.org";
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
-const ABERTAS = ["militantes", "manifesto"];
+const ABERTAS = [];
 const LIVRES = ["entrar", "conduta", "privacidade", "termos", "meus-dados", "fora-do-ar", "modo-seguro"];
 
 /** "seguir" (repassar ao site com a marca), {escola} (outro caminho na própria Escola) ou o caminho do site. */

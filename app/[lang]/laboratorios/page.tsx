@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { ancoraDoLab, CartaoDoLab, nomeDoLab } from "@/components/labs/MapaDosLaboratorios";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -32,9 +32,9 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
   return (
     <>
       <div className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8">
-        <PageHeading eyebrow={s.eyebrow} title={s.title}>
+        <Cartaz eyebrow={s.eyebrow} title={s.title} tone="raios">
           {s.lead}
-        </PageHeading>
+        </Cartaz>
 
         <p className="max-w-[48rem] font-sans text-base leading-relaxed text-ink-soft">{m.comoAchar}</p>
         <nav aria-label={m.porFinalidade} className="no-print mt-5 font-sans text-sm">

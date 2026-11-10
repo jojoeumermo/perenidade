@@ -369,24 +369,6 @@ export default async function LessonPage({ params }: Props) {
         />
         {sa && cursosDestaAula.length === 0 && <ProximoPasso proxima={next && { caminho: path(next.slug), titulo: next.title }} s={sa.proximo} />}
         {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} />}
-        {/* Rede v2 (só com o recurso ligado pelo nome): a conversa desta aula, na comunidade da disciplina. */}
-        {ligado("rede-v2") && (
-          <p className="no-print mt-6 font-sans text-sm">
-            <Link href={enderecoDiscutirAula(lang, track.slug, lesson.slug, track.area) ?? to("/alumia")} className="font-bold underline hover:text-oxblood">
-              {rotuloDiscutirAula(lang)}
-            </Link>
-          </p>
-        )}
-        <Compartilhar
-          url={`${site.url}${to(path(lesson.slug))}`}
-          texto={`${t.compartilhar.aula} ${lesson.title}`}
-          imagem={ogDe(lang, lesson.title, `${track.title} · ${t.areas[track.area][0]}`, t.nav.disciplines)[0].url}
-          mensagem={aulaEmUmMinuto({ titulo: lesson.title, trilha: `${track.title} · ${t.areas[track.area][0]}`, resumo: lesson.summary, termos: lesson.terms, pergunta: lesson.quiz[0]?.question, url: `${site.url}${to(path(lesson.slug))}`, s: t.compartilhar })}
-          s={t.compartilhar}
-        />
-        {/* Etapa 3 (B17): a aula num .html único, sem internet, para mandar no WhatsApp. */}
-        <BaixarArquivoUnico titulo={lesson.title} url={`${site.url}${to(path(lesson.slug))}`} lang={lang} seletor="article.folha-da-aula" s={t.compartilhar} />
-
         <nav aria-label={t.lesson.neighbors} data-vizinhas className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
           {prev ? (
             comIcones ? (
@@ -410,21 +392,67 @@ export default async function LessonPage({ params }: Props) {
           ) : <span />}
         </nav>
 
-        <StudyTools id={id} path={path(lesson.slug)} s={t.study} titulo={lesson.title} sala={track.area} />
-
-        <ExerciciosDaAula aula={path(lesson.slug)} s={t.practiceStudio.exercises} />
-
-        {simsDaAula.length > 0 && (
-          <section className="no-print no-leve no-pacote mt-10">
-            <h2 className="font-serif text-2xl font-semibold">{t.labs.simulacoes}</h2>
-            <PhetLista ids={simsDaAula} compacto />
-            <p className="mt-3 font-sans text-sm">
-              <Link href={localePath(lang, "/laboratorios/simulacoes")} className="underline underline-offset-4 hover:text-oxblood">{t.labs.simulacoes} →</Link>
-            </p>
-          </section>
-        )}
-        {/* NOVAS TAREFAS T21: os laboratórios que ajudam nesta aula (os que a citam e os da disciplina), com ida e volta. */}
-        <LabsDaAula trilha={track.slug} aula={lesson.slug} area={track.area} t={t} lang={lang} />
+        {/* O fim da aula em três gavetas (09/11/2026): antes, compartilhar, baixar, imprimir, ferramentas de estudo,
+            laboratórios, sugerir correção e denunciar vinham soltos, um embaixo do outro. */}
+        <section className="fim-da-aula no-print mt-10" aria-labelledby="fim-da-aula-titulo">
+          <h2 id="fim-da-aula-titulo" className="font-serif text-2xl font-semibold">{estudo.fimDaAula.titulo}</h2>
+          <details className="fim-da-aula-gaveta" open>
+            <summary>{estudo.fimDaAula.estudar}</summary>
+            <div className="fim-da-aula-dentro">
+            <StudyTools id={id} path={path(lesson.slug)} s={t.study} titulo={lesson.title} sala={track.area} />
+            <ExerciciosDaAula aula={path(lesson.slug)} s={t.practiceStudio.exercises} />
+            {simsDaAula.length > 0 && (
+              <section className="no-print no-leve no-pacote mt-10">
+                <h2 className="font-serif text-2xl font-semibold">{t.labs.simulacoes}</h2>
+                <PhetLista ids={simsDaAula} compacto />
+                <p className="mt-3 font-sans text-sm">
+                  <Link href={localePath(lang, "/laboratorios/simulacoes")} className="underline underline-offset-4 hover:text-oxblood">{t.labs.simulacoes} →</Link>
+                </p>
+              </section>
+            )}
+            {/* NOVAS TAREFAS T21: os laboratórios que ajudam nesta aula (os que a citam e os da disciplina), com ida e volta. */}
+            <LabsDaAula trilha={track.slug} aula={lesson.slug} area={track.area} t={t} lang={lang} />
+            {/* Rede v2 (só com o recurso ligado pelo nome): a conversa desta aula, na comunidade da disciplina. */}
+            {ligado("rede-v2") && (
+              <p className="no-print mt-6 font-sans text-sm">
+                <Link href={enderecoDiscutirAula(lang, track.slug, lesson.slug, track.area) ?? to("/alumia")} className="font-bold underline hover:text-oxblood">
+                  {rotuloDiscutirAula(lang)}
+                </Link>
+              </p>
+            )}
+            </div>
+          </details>
+          <details className="fim-da-aula-gaveta">
+            <summary>{estudo.fimDaAula.compartilhar}</summary>
+            <div className="fim-da-aula-dentro">
+            <Compartilhar
+              url={`${site.url}${to(path(lesson.slug))}`}
+              texto={`${t.compartilhar.aula} ${lesson.title}`}
+              imagem={ogDe(lang, lesson.title, `${track.title} · ${t.areas[track.area][0]}`, t.nav.disciplines)[0].url}
+              mensagem={aulaEmUmMinuto({ titulo: lesson.title, trilha: `${track.title} · ${t.areas[track.area][0]}`, resumo: lesson.summary, termos: lesson.terms, pergunta: lesson.quiz[0]?.question, url: `${site.url}${to(path(lesson.slug))}`, s: t.compartilhar })}
+              s={t.compartilhar}
+            />
+            <BaixarArquivoUnico titulo={lesson.title} url={`${site.url}${to(path(lesson.slug))}`} lang={lang} seletor="article.folha-da-aula" s={t.compartilhar} />
+              <p className="flex flex-wrap gap-x-5 gap-y-2 font-sans text-sm">
+                <a href={to(`${path(lesson.slug)}/texto`)} className="underline hover:text-oxblood">{t.lesson.plainText}</a>
+                <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}`} className="underline hover:text-oxblood">{t.lesson.studyInNotebook}</Link>
+                <CiteButton citation={`${lesson.authors.join(", ") || site.name}. “${lesson.title}”. ${track.title}. ${site.name}.`} />
+              </p>
+            </div>
+          </details>
+          <details className="fim-da-aula-gaveta">
+            <summary>{estudo.fimDaAula.melhorar}</summary>
+            <div className="fim-da-aula-dentro">
+              <p className="flex flex-wrap gap-x-5 gap-y-2 font-sans text-sm">
+                <Link href={fix} className="underline hover:text-oxblood">{t.common.suggestFix}</Link>
+                <Link href={`${to("/alumia")}?nova=1&alvo=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}&sala=${track.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>
+                <Link href={to(`/denunciar?item=${encodeURIComponent(path(lesson.slug))}`)} className="underline hover:text-oxblood">
+              {t.common.report}
+            </Link>
+              </p>
+            </div>
+          </details>
+        </section>
         <div className="no-leve xl:hidden">
           <EducadoresDaDisciplina area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
         </div>
@@ -437,16 +465,6 @@ export default async function LessonPage({ params }: Props) {
               ? `${fill(t.lesson.lastChange, { date: updated })} · ${plural(lang, history.revisions, t.lesson.saved)}`
               : t.lesson.noHistory}{" "}
             · {t.lesson.license}
-          </p>
-          <p className="no-print flex flex-wrap gap-x-5 gap-y-1">
-            <Link href={fix} className="underline hover:text-oxblood">{t.common.suggestFix}</Link>
-            <Link href={`${to("/alumia")}?nova=1&alvo=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}&sala=${track.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>{" · "}
-            <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}`} className="underline hover:text-oxblood">{t.lesson.studyInNotebook}</Link>
-            <a href={to(`${path(lesson.slug)}/texto`)} className="underline hover:text-oxblood">{t.lesson.plainText}</a>
-            <CiteButton citation={`${lesson.authors.join(", ") || site.name}. “${lesson.title}”. ${track.title}. ${site.name}.`} />
-            <Link href={to(`/denunciar?item=${encodeURIComponent(path(lesson.slug))}`)} className="underline hover:text-oxblood">
-              {t.common.report}
-            </Link>
           </p>
           <p className="no-print hidden md:block">{t.lesson.keys}</p>
         </footer>

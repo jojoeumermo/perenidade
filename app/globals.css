@@ -3248,17 +3248,6 @@ a.busca-campo:focus-visible {
   .busca-aberta { animation: none; }
 }
 
-/* O caquinho de azulejo: um quadradinho azul no canto da etiqueta do caderno estudado por último (um só por estante). */
-.caquinho-de-azulejo {
-  position: absolute;
-  top: -1.5px;
-  right: -1.5px;
-  width: 1rem;
-  height: 1rem;
-  border: 1.5px solid #1f1a14;
-  background: radial-gradient(circle at 0 100%, #23408e 0 0.5rem, #f7f3ea 0.53rem);
-}
-
 /* A faixa da rádio: lambe-lambe preto colado torto na parede pontilhada, com a borda de baixo rasgada. */
 .lambe-colado {
   transform: rotate(-0.6deg);
@@ -4563,4 +4552,43 @@ a.busca-campo:focus-visible {
   .grupo-pulsa {
     animation: none !important;
   }
+}
+
+/* O fim da aula em gavetas (app/[lang]/trilhas/[track]/[lesson]/page.tsx). */
+.fim-da-aula-gaveta {
+  margin-top: 0.75rem;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+}
+.fim-da-aula-gaveta > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fim-da-aula-gaveta > summary::-webkit-details-marker {
+  display: none;
+}
+.fim-da-aula-gaveta > summary::after {
+  content: "+";
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--prelo-texto);
+}
+.fim-da-aula-gaveta[open] > summary::after {
+  content: "−";
+}
+.fim-da-aula-gaveta[open] > summary {
+  border-bottom: 1.5px solid var(--rule);
+}
+.fim-da-aula-dentro {
+  padding: 0.25rem 1rem 1rem;
+}
+.fim-da-aula-dentro > :first-child {
+  margin-top: 0.75rem;
 }

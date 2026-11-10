@@ -50,7 +50,7 @@ export function Comunidade({ me }: { me: Me }) {
   return (
     <div className="pn-tela">
       <Abas<AbaDaComunidade>
-        rotulo="Comunidade"
+        rotulo="Alumia"
         valor={aba}
         aoMudar={setAba}
         opcoes={(
@@ -89,7 +89,7 @@ export function Comunidade({ me }: { me: Me }) {
           </>
         )}
       />
-      <p className="pn-ajuda">Para ocultar ou trancar uma conversa que já está no ar, abra o tópico na página Comunidade: os botões aparecem para quem cuida.</p>
+      <p className="pn-ajuda">Para ocultar ou trancar uma conversa que já está no ar, abra o tópico na Alumia: os botões aparecem para quem cuida.</p>
     </div>
   );
 }

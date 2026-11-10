@@ -68,28 +68,24 @@ function Itens({ itens, aoAbrir, compacto }: { itens: PredioDoMapa["itens"]; aoA
   ));
 }
 
-function Lista({ predio, s, aoAbrir, compacta, limite }: { predio: PredioDoMapa; s: S; aoAbrir?: (path: string) => void; compacta?: boolean; limite?: number }) {
-  // No compacto, corta sempre que passa do limite: todos os cartões ficam com a mesma altura e a grade alinha.
+function Lista({ predio, s, aoAbrir, compacta, limite, tudo, aoVerTudo }: { predio: PredioDoMapa; s: S; aoAbrir?: (path: string) => void; compacta?: boolean; limite?: number; tudo?: boolean; aoVerTudo?: () => void }) {
+  // No compacto, corta sempre que passa do limite: todos os cartões ficam com a mesma altura e a grade alinha. O "Ver
+  // tudo" abre e fecha TODOS os prédios juntos (tudo/aoVerTudo vêm do mapa): abrir um só esticava a linha inteira da
+  // grade, e parecia que o clique tinha aberto o prédio de outra fileira.
   const corta = limite !== undefined && predio.itens.length > limite;
-  const vistos = corta ? predio.itens.slice(0, limite) : predio.itens;
-  const resto = corta ? predio.itens.slice(limite) : [];
+  const vistos = corta && !tudo ? predio.itens.slice(0, limite) : predio.itens;
   return (
     <>
       <ul className={compacta ? "mt-2 border-t border-rule" : "mt-3 border-t border-rule"}>
         <Itens itens={vistos} aoAbrir={aoAbrir} compacto={limite !== undefined} />
       </ul>
-      {resto.length > 0 && (
-        <details className="predio-resto group/resto">
-          <summary className="predio-link cursor-pointer gap-1.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-prelo-texto hover:underline">
-            <svg aria-hidden viewBox="0 0 24 24" className="h-3.5 w-3.5 transition-transform group-open/resto:rotate-90 motion-reduce:transition-none" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 5l7 7-7 7" />
-            </svg>
-            {fill(s.verTudo, { n: predio.itens.length })}
-          </summary>
-          <ul className="border-t border-rule">
-            <Itens itens={resto} aoAbrir={aoAbrir} compacto />
-          </ul>
-        </details>
+      {corta && aoVerTudo && (
+        <button type="button" onClick={aoVerTudo} aria-expanded={Boolean(tudo)} className="predio-link w-full cursor-pointer gap-1.5 text-left font-mono text-[0.7rem] uppercase tracking-[0.12em] text-prelo-texto hover:underline">
+          <svg aria-hidden viewBox="0 0 24 24" className={`h-3.5 w-3.5 transition-transform motion-reduce:transition-none ${tudo ? "rotate-90" : ""}`} fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+          {tudo ? s.verMenos : fill(s.verTudo, { n: predio.itens.length })}
+        </button>
       )}
     </>
   );
@@ -101,7 +97,7 @@ function Lista({ predio, s, aoAbrir, compacta, limite }: { predio: PredioDoMapa;
  * `compacto` (o mapa dentro do "Mais", 05/11/2026): o cartão do computador fica mais baixo (desenho menor, frase em até
  * duas linhas) e mostra as primeiras seções, com o resto num "Ver tudo"; com busca, tudo aberto.
  */
-export function Predio({ predio, s, carimbo, aoAbrir, aberto, compacto }: { predio: PredioDoMapa; s: S; carimbo?: string; aoAbrir?: (path: string) => void; aberto?: boolean; compacto?: boolean }) {
+export function Predio({ predio, s, carimbo, aoAbrir, aberto, compacto, tudo, aoVerTudo }: { predio: PredioDoMapa; s: S; carimbo?: string; aoAbrir?: (path: string) => void; aberto?: boolean; compacto?: boolean; tudo?: boolean; aoVerTudo?: () => void }) {
   return (
     <li className="predio" data-predio={predio.id} data-visitado={carimbo ? "" : undefined}>
       <details className="campus-celular h-full border-[1.5px] border-ink bg-folha p-3" open={aberto}>
@@ -113,7 +109,7 @@ export function Predio({ predio, s, carimbo, aoAbrir, aberto, compacto }: { pred
       </details>
       <div className={`campus-computador h-full flex-col border-2 border-ink bg-folha ${compacto ? "p-3" : "p-4"}`}>
         <Cabeca predio={predio} s={s} carimbo={carimbo} compacta={compacto} comFrase={!compacto} />
-        <Lista predio={predio} s={s} aoAbrir={aoAbrir} compacta={compacto} limite={compacto && !aberto ? NO_COMPACTO : undefined} />
+        <Lista predio={predio} s={s} aoAbrir={aoAbrir} compacta={compacto} limite={compacto && !aberto ? NO_COMPACTO : undefined} tudo={tudo} aoVerTudo={aoVerTudo} />
       </div>
     </li>
   );

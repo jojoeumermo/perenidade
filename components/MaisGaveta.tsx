@@ -15,13 +15,15 @@ import { KEYS, setItem, useStored } from "@/lib/storage";
 import { abrirAcessibilidade } from "./A11yWidget";
 import { useI18n } from "./I18n";
 import { useTelaDaVez, useTravaDeRolagem } from "./app/telas";
-import { Ladrilhos } from "./celular/Atalhos";
+import { ATALHOS, Ladrilhos } from "./celular/Atalhos";
 import { ABRIR_MAIS, LanguageSwitcher, MAIS_NO_MENU, SAIR_MAIS } from "./NavLinks";
 
 const USADOS = "lucia:mais-usados";
 
-// O mapa do campus (E4-09) só é baixado quando a Escola está ligada e a janela abre: sem a flag, o "Mais" não pesa nada a mais.
+// O mapa do campus em gavetas (celular) só é baixado quando a Escola está ligada e a janela abre.
 const MapaDoCampus = dynamic(() => import("@/components/escola/campus/MapaDoCampus").then((m) => m.MapaDoCampus));
+
+// O mapa do campus (E4-09) só é baixado quando a Escola está ligada e a janela abre: sem a flag, o "Mais" não pesa nada a mais.
 
 /** Quem somos, as regras e os dados da pessoa: no computador vão para a linha miúda do pé da janela, não para as colunas. */
 const NO_RODAPE = ["/sobre", "/quem-somos", "/dedicatoria", "/conduta", "/uso", "/direitos-autorais", "/privacidade", "/termos", "/meus-dados"];
@@ -115,6 +117,49 @@ function TemaNoMais() {
 export interface CampusDoMais {
   predios: PredioDoMapa[];
   s: TextosDoCampus["mapa"];
+}
+
+/**
+ * O índice do campus no "Mais" do computador (09/11/2026): como o índice de um jornal, os prédios descem em colunas,
+ * cada um com a faixa da cor dele, o desenho, o nome e TODAS as seções à vista. Sem "Ver tudo" (que abria a fileira
+ * errada) e sem cartões da mesma altura com espaço morto embaixo.
+ */
+function IndiceDoCampus({ predios, aoAbrir }: { predios: PredioDoMapa[]; aoAbrir: (path: string) => void }) {
+  const { lang } = useI18n();
+  return (
+    <div className="indice-do-campus gap-x-8 md:columns-2 lg:columns-4">
+      {predios.map((predio) => {
+        const atalho = ATALHOS[predio.desenho];
+        return (
+          <nav key={predio.id} aria-label={predio.nome} className="indice-predio mb-6 break-inside-avoid border-t-[5px] pt-2.5" style={{ borderTopColor: atalho.fundo }}>
+            <p className="flex items-center gap-2.5">
+              <span aria-hidden className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.6rem] border-[1.5px] border-[#1f1a14]" style={{ background: atalho.fundo, color: atalho.tinta }}>
+                <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  {atalho.desenho}
+                </svg>
+              </span>
+              <span className="font-serif text-[1.25rem] font-semibold leading-tight">{predio.nome}</span>
+            </p>
+            <ul className="mt-1.5">
+              {predio.itens.map((item) => (
+                <li key={item.path}>
+                  <Link
+                    href={localePath(lang, item.path)}
+                    onClick={() => aoAbrir(item.path)}
+                    title={item.description}
+                    className="flex items-baseline justify-between gap-2 border-b border-dashed border-rule py-[0.35rem] font-sans text-[0.93rem] font-medium text-ink underline-offset-4 hover:text-prelo-texto hover:underline"
+                  >
+                    <span className="min-w-0">{item.label}</span>
+                    <span aria-hidden className="text-ink-soft">›</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        );
+      })}
+    </div>
+  );
 }
 
 export function MaisGaveta({ secoes, textos, campus }: { secoes: SecaoDoSite[]; textos: TextosDoMais; campus?: CampusDoMais }) {
@@ -244,7 +289,11 @@ export function MaisGaveta({ secoes, textos, campus }: { secoes: SecaoDoSite[]; 
         onPointerLeave={(e) => peloMouse && e.pointerType === "mouse" && fecharLogo()}
         className={`mais-janela flex h-full w-full ${campus ? "max-w-[min(72rem,100%)]" : "max-w-[78rem]"} flex-col border-ink bg-folha text-ink md:h-auto md:max-h-[calc(100dvh-var(--fim-do-topo)-1.5rem)] md:border-2 md:shadow-[8px_8px_0_var(--prelo)]`}
       >
-        <div className="flex items-center gap-3 border-b-2 border-ink px-4 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] pb-3 md:px-7 md:pt-5 md:pb-4">
+        <div className="flex items-center gap-3 border-b-2 border-ink px-4 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] pb-3 md:gap-6 md:px-7 md:pt-5 md:pb-4">
+          <p className="hidden shrink-0 md:block">
+            <span className="block font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">{site.name}</span>
+            <span className="block font-serif text-[1.9rem] font-semibold leading-none">{textos.titulo}</span>
+          </p>
           <label className="flex min-w-0 flex-1 items-center gap-2.5 border-2 border-ink bg-parchment px-3">
             <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px] shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
               <circle cx="10.5" cy="10.5" r="6.5" />
@@ -285,7 +334,7 @@ export function MaisGaveta({ secoes, textos, campus }: { secoes: SecaoDoSite[]; 
               </p>
             )}
             {campus && mapa ? (
-              mapa.length > 0 && <MapaDoCampus predios={mapa} s={campus.s} termo={termo} aoAbrir={ir} compacto />
+              mapa.length > 0 && <IndiceDoCampus predios={mapa} aoAbrir={ir} />
             ) : (
             <div className="gap-x-9 md:columns-3 lg:columns-4">
               {colunas.map((secao, i) => (

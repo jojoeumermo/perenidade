@@ -29,7 +29,8 @@
     "nota": "El sello de cada edificio queda solo en este aparato. No vale puntos ni entra en ningún ranking.",
     "secoes": "{n} lugares",
     "abrir": "Ver lo que hay en el edificio {nome}",
-    "verTudo": "Ver todo ({n})"
+    "verTudo": "Ver todo ({n})",
+    "verMenos": "Ver menos"
   },
   "calendario": {
     "atual": "Este semestre",

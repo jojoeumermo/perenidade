@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "@/components/Link";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
@@ -38,9 +38,9 @@ export default async function Ferramentas({ params }: PageProps<"/[lang]/ferrame
   const laboratorios = (Object.keys(LABS) as (keyof typeof LABS)[]).map((id) => ({ nome: labs[id] ?? id, href: localePath(lang, LABS[id]) }));
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <PageHeading eyebrow={t.tools.eyebrow} title={t.tools.title}>
+      <Cartaz eyebrow={t.tools.eyebrow} title={t.tools.title} tone="vermelho">
         {t.tools.lead}
-      </PageHeading>
+      </Cartaz>
       <p className="mt-6 rounded-md border-2 border-ink bg-parchment-deep p-4 font-sans">
         <Link href={localePath(lang, "/estudio-de-pratica")} className="font-serif text-xl font-semibold hover:text-oxblood">{t.practiceStudio.title} →</Link>
         <span className="mt-1 block text-sm text-ink-soft">{t.practiceStudio.lead}</span>

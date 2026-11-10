@@ -50,14 +50,19 @@ export function MapaDoCampus({
   const termo = termoDeFora ?? normalize(digitado.trim());
   const filtrados = filtrarCampus(predios, termo, normalize);
   const n = visitados(passaporte);
+  // Com os 8 prédios carimbados, o passaporte está completo: os carimbos e o convite saem de cena.
+  const completo = n >= TOTAL_DE_PREDIOS;
+  const [tudo, setTudo] = useState(false);
   return (
     <div className="mapa-do-campus" data-mapa-do-campus="">
       {!semTitulo && (
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <p className="rotulo">{s.titulo}</p>
-          <p className="font-sans text-sm text-ink-soft" data-convite-do-campus={n}>
-            {fill(s.convite, { n, total: TOTAL_DE_PREDIOS })}
-          </p>
+          {!completo && (
+            <p className="font-sans text-sm text-ink-soft" data-convite-do-campus={n}>
+              {fill(s.convite, { n, total: TOTAL_DE_PREDIOS })}
+            </p>
+          )}
         </div>
       )}
       {comBusca && (
@@ -71,7 +76,7 @@ export function MapaDoCampus({
       ) : (
         <ul aria-label={s.rotulo} className={compacto ? "mapa-compacto grid grid-cols-2 gap-2.5 md:grid-cols-4 md:auto-rows-fr md:gap-3" : "mapa-em-colunas grid grid-cols-2 gap-2.5"}>
           {filtrados.map((p) => (
-            <Predio key={p.id} predio={p} s={s} carimbo={passaporte[p.id]} aoAbrir={aoAbrir} aberto={Boolean(termo)} compacto={compacto} />
+            <Predio key={p.id} predio={p} s={s} carimbo={completo ? undefined : passaporte[p.id]} aoAbrir={aoAbrir} aberto={Boolean(termo)} compacto={compacto} tudo={tudo} aoVerTudo={() => setTudo((v) => !v)} />
           ))}
         </ul>
       )}

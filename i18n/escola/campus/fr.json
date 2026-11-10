@@ -29,7 +29,8 @@
     "nota": "Le tampon de chaque bâtiment reste seulement sur cet appareil. Il ne donne pas de points et il n’y a pas de classement.",
     "secoes": "{n} lieux",
     "abrir": "Voir ce qu’il y a dans le bâtiment {nome}",
-    "verTudo": "Tout voir ({n})"
+    "verTudo": "Tout voir ({n})",
+    "verMenos": "Voir moins"
   },
   "calendario": {
     "atual": "Ce semestre",
