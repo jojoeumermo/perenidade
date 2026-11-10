@@ -326,6 +326,14 @@
       "invalido:repetir": "Repetition goes from 2 to 12 times.",
       "repetir_sem_arquivo": "A repeating post can't carry images or audio.",
       "ato_cancelado": "the action was cancelled"
-    }
+    },
+    "citarDica": "Say something about this post…",
+    "citarEnviar": "Quote",
+    "citado": "Quote posted.",
+    "verCitacao": "See the quote",
+    "citarOnde": "The quote stays where the quoted post is; anyone who can't see the original sees only “restricted content”.",
+    "repetirNao": "Just once",
+    "desfazerAto": "The action is going out now and can no longer be undone here. If needed, cancel the action on its page.",
+    "pausaFechar": "Close the reminder"
   }
 }

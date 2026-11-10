@@ -326,6 +326,14 @@
       "invalido:repetir": "A repetição vai de 2 a 12 vezes.",
       "repetir_sem_arquivo": "Post que se repete não leva imagem nem áudio.",
       "ato_cancelado": "o ato foi cancelado"
-    }
+    },
+    "citarDica": "Diga algo sobre este post…",
+    "citarEnviar": "Citar",
+    "citado": "Citação publicada.",
+    "verCitacao": "Ver a citação",
+    "citarOnde": "A citação fica no mesmo lugar do post citado; quem não pode ver o original vê só “conteúdo restrito”.",
+    "repetirNao": "Uma vez só",
+    "desfazerAto": "O ato está saindo agora e não dá mais para desfazer aqui. Se precisar, cancele o ato na página dele.",
+    "pausaFechar": "Fechar o lembrete"
   }
 }

@@ -326,6 +326,14 @@
       "invalido:repetir": "La repetición va de 2 a 12 veces.",
       "repetir_sem_arquivo": "Una publicación que se repite no lleva imagen ni audio.",
       "ato_cancelado": "la acción fue cancelada"
-    }
+    },
+    "citarDica": "Di algo sobre esta publicación…",
+    "citarEnviar": "Citar",
+    "citado": "Cita publicada.",
+    "verCitacao": "Ver la cita",
+    "citarOnde": "La cita queda en el mismo lugar que la publicación citada; quien no puede ver el original ve solo “contenido restringido”.",
+    "repetirNao": "Solo una vez",
+    "desfazerAto": "El acto está saliendo ahora y ya no se puede deshacer aquí. Si hace falta, cancela el acto en su página.",
+    "pausaFechar": "Cerrar el recordatorio"
   }
 }

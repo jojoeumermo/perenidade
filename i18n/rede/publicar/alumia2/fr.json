@@ -326,6 +326,14 @@
       "invalido:repetir": "La répétition va de 2 à 12 fois.",
       "repetir_sem_arquivo": "Un post qui se répète ne porte ni image ni audio.",
       "ato_cancelado": "l’action a été annulée"
-    }
+    },
+    "citarDica": "Dites quelque chose sur ce post…",
+    "citarEnviar": "Citer",
+    "citado": "Citation publiée.",
+    "verCitacao": "Voir la citation",
+    "citarOnde": "La citation reste au même endroit que le post cité ; qui ne peut pas voir l’original ne voit que « contenu restreint ».",
+    "repetirNao": "Une seule fois",
+    "desfazerAto": "L’action part maintenant et ne peut plus être annulée ici. Si besoin, annulez l’action sur sa page.",
+    "pausaFechar": "Fermer le rappel"
   }
 }
