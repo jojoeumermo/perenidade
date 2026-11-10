@@ -354,6 +354,14 @@ await espera("a faxina da conversa não depende de sorteio (a função não cham
   const corpoDa = async (nome) => (await um("select pg_get_functiondef(p.oid) as t from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = $1 and p.proname = $2", [nome.split(".")[0], nome.split(".")[1]])).t;
   return [/random\s*\(/.test(await corpoDa("interno.rede_dm_faxina_da_conversa")), ...(await Promise.all(["public.rede_dm_enviar", "public.rede_dm_nova_versao", "public.rede_dm_mensagens"].map(corpoDa))).map((t) => t.includes("rede_dm_faxina_da_conversa"))];
 }, (r) => r[0] === false && r.slice(1).every(Boolean));
+// A corrida (achado baixo): envio confere a versão N, versão nova confirma N+1 e a faxina leva os embrulhos de N, envio grava em
+// N. O PGlite tem uma conexão só e não reproduz a corrida: o teste confere que o envio trava a mesma linha que a versão nova trava.
+await espera("o envio trava a linha da conversa (for update), como a versão nova: a faxina de uma versão nova não corre no meio de um envio", async () => {
+  const corpoDa = async (nome) => (await um("select pg_get_functiondef(p.oid) as t from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname = $1", [nome])).t;
+  const trava = /select \* into c from rede_dm_conversas where id = p_conversa and \(a = v or b = v\) for update;/;
+  const enviar = await corpoDa("rede_dm_enviar");
+  return [trava.test(enviar), trava.test(await corpoDa("rede_dm_nova_versao")), enviar.indexOf("for update") < enviar.indexOf("versao_desatualizada")];
+}, (r) => r.every((x) => x === true));
 await espera("as funções novas do chat não têm privilégio para visitante nem para quem entrou (só as da API, para quem entrou)", async () => (await dono("select p.proname, has_function_privilege('anon', p.oid, 'execute') as anon, has_function_privilege('authenticated', p.oid, 'execute') as entrou from pg_proc p join pg_namespace n on n.oid = p.pronamespace where (n.nspname = 'interno' and p.proname in ('rede_dm_corpo_c3', 'rede_dm_faxina_da_conversa')) or (n.nspname = 'public' and p.proname in ('rede_dm_enviar', 'rede_dm_nova_versao', 'rede_dm_mensagens')) order by p.proname")).rows,
   (l) => l.length === 5 && l.every((f) => f.anon === false && f.entrou === !["rede_dm_corpo_c3", "rede_dm_faxina_da_conversa"].includes(f.proname)));
 

@@ -36760,16 +36760,20 @@ end $$;
 -- ── 3. Enviar: só "c3", só em versão com menos de 8 dias ────────────────────────────────────────────────────────────────
 
 /**
- * Envia uma mensagem já cifrada no aparelho, na versão atual da chave. Igual a antes, com três diferenças: só aceita o
+ * Envia uma mensagem já cifrada no aparelho, na versão atual da chave. Igual a antes, com quatro diferenças: só aceita o
  * formato "c3" num dos tamanhos fixos (texto aberto e "c2" novo são recusados), recusa versão com mais de 8 dias (o aparelho
- * faz uma versão nova e tenta de novo) e faz a faxina da conversa.
+ * faz uma versão nova e tenta de novo), trava a linha da conversa durante o envio e faz a faxina da conversa.
  */
 create or replace function public.rede_dm_enviar(p_conversa uuid, p_versao integer, p_corpo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); c rede_dm_conversas; o uuid; m rede_dm_mensagens;
 begin
   perform interno.aberta('comunidade');
   if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
-  c := interno.rede_dm_minha(p_conversa, v);
+  -- A linha da conversa fica travada até o fim do envio (como na versão nova): uma versão nova não confirma, nem apaga os
+  -- embrulhos da versão conferida aqui, no meio deste envio. Sem a trava, a mensagem podia ser gravada numa versão cujos
+  -- embrulhos a faxina já tinha levado, e quem ainda não tinha aberto aquela chave nunca a abriria.
+  select * into c from rede_dm_conversas where id = p_conversa and (a = v or b = v) for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
   o := interno.rede_dm_outro(c, v);
   if c.situacao <> 'aberta' or interno.rede_bloqueado(v, o) or not interno.rede2_membro(o) then perform interno.erro('dm_fechada'); end if;
   if c.versao < 1 or p_versao is distinct from c.versao then perform interno.erro('versao_desatualizada'); end if;
