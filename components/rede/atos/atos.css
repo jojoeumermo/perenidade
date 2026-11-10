@@ -1013,3 +1013,5 @@
 }
 /* o título recebe o foco por programa (troca de ato, cidade escrita): é um título, não um controle; não ganha anel de foco */
 [data-al="2"] .al-ato-aberto-titulo[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; }
+/* e-ink: o farol é preto no branco (o estado vai escrito; a cor não é a única pista) */
+:root[data-eink] [data-al="2"] :is(.al-farol, .al-farol-botao, .al-farol-pedido) { --al-farol-cor: #000; }
