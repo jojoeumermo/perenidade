@@ -9,7 +9,7 @@ import { ConteudoParaOrganizacoes } from "./ParaOrganizacoes";
 /**
  * A página para organizações (prancha traga-sua-organizacao) quando aberta pelo registro de telas (dentro da casca). A rota
  * /alumia/organizacoes desenha a mesma página direto do servidor (app/[lang]/alumia/organizacoes/page.tsx), sem a casca, como na
- * prancha; esta é a mesma página carregada no navegador.
+ * prancha, para quem não tem sessão; quem tem sessão vê esta, dentro da casca (CascaSeLogado.tsx), sem Entrar e Criar conta.
  */
 export default function PaginaParaOrganizacoes({ lang }: PropsDaTelaDoPacote) {
   const [t, setT] = useState<TextosDaOrg | null>(null);
@@ -21,5 +21,5 @@ export default function PaginaParaOrganizacoes({ lang }: PropsDaTelaDoPacote) {
     };
   }, [lang]);
   if (!t) return <div aria-busy className="al-org-pagina" style={{ minHeight: "60vh" }} />;
-  return <ConteudoParaOrganizacoes t={t} lang={lang} />;
+  return <ConteudoParaOrganizacoes t={t} lang={lang} naCasca />;
 }

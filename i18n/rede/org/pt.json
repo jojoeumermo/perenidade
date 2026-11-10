@@ -2,7 +2,9 @@
   "marca": {
     "alumia": "Alumia",
     "instituto": "Instituto Lúcia",
-    "inicio": "Início da Alumia"
+    "inicio": "Início da Alumia",
+    "acessibilidade": "Acessibilidade",
+    "ajuda": "Perguntas frequentes"
   },
   "tipos": {
     "partido": "Partido",
