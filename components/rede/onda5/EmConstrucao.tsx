@@ -6,8 +6,6 @@ import { carregarTextosDaOnda5, textosDaTela, type TextosDaOnda5 } from "@/lib/r
 import { enderecos } from "@/lib/rede/tipos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { LinkBotao } from "../ui/Botao";
-import { Faixa } from "../ui/Faixa";
-import { Lampiao } from "../ui/Lampiao";
 
 /**
  * A tela "em construção" das rotas novas da Onda 5 (F0): cada frente troca a sua pela de verdade. Só aparece com as flags ligadas
@@ -26,15 +24,8 @@ export function EmConstrucao({ lang, nome }: PropsDaTelaDoPacote & { nome: strin
   const tela = t ? textosDaTela(t, nome) : null;
   return (
     <section aria-labelledby="al-em-construcao" aria-busy={!t} className="al-em-construcao">
-      <Faixa />
+      {/* Sem faixa e sem marca próprias: a tela mora dentro da casca da Alumia, que já mostra as duas. */}
       <div className="al-em-construcao-miolo">
-        <p className="al-em-construcao-marca">
-          <Lampiao tamanho={28} />
-          <span>
-            <span className="al-cond al-em-construcao-nome">Alumia</span>
-            <span className="al-marca-instituto">{t?.emConstrucao.marca ?? "Instituto Lúcia"}</span>
-          </span>
-        </p>
         <p className="al-em-construcao-selo al-cond">{t?.emConstrucao.selo ?? ""}</p>
         <h1 id="al-em-construcao" className="al-cond al-em-construcao-titulo">
           {tela?.titulo ?? ""}
