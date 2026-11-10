@@ -17,6 +17,7 @@ import { corDaComunidadeNova } from "@/lib/rede/tipos-comunidades";
 import { tempoCurto, trilhaDoCaminho } from "@/lib/rede/tipos-conversa";
 import { useIndice } from "@/components/estudo/indice";
 import { AcoesDeCuidado } from "../moderacao/NoCartao";
+import { CartaoDaAlumia2 } from "../publicar/alumia2/CartaoDaAlumia2";
 import { useAlumia2 as useCascaNova } from "../publicar/alumia2/contexto";
 import { Avatar16 } from "../ui/Avatar16";
 
@@ -403,6 +404,7 @@ export function PostCompacto({
   aoSalvar?: (salvo: boolean) => void;
 }) {
   const acoes = useAcenderSalvar(post, aoErro);
+  const casca = useCascaNova();
   const [cuidado, setCuidado] = useState(false);
   const idDoCuidado = useId();
   const com = useComunidadeDoPost(comComunidade ? post.comunidade : null);
@@ -422,6 +424,10 @@ export function PostCompacto({
     if (window.getSelection()?.toString()) return;
     router.push(enderecos.post(lang, post.id));
   };
+  // Na casca nova, o cartão é o MESMO do Início (mesmas ações, mesmo selo de verificação), só mais denso.
+  if (casca) {
+    return <CartaoDaAlumia2 post={post} lang={lang} s={s} logado={logado} densidade="compacta" semComunidade={!comComunidade} aoSalvar={aoSalvar} />;
+  }
   return (
     <article className={`al3-post al3-post-abre${com ? ` al3-post-com al3-cor-${com.cor}` : ""}`} aria-labelledby={`al3-p-${post.id}`} onClick={abrir}>
       <Avatar16 handle={handle || post.id} tamanho={40} />

@@ -15,6 +15,8 @@ import {
 } from "../lib/rede/tipos-conversa.ts";
 import { comunidadesAtivas, corDaComunidadeNova, postsDaSemana } from "../lib/rede/tipos-comunidades.ts";
 import { arvoreDeExemplo, listaDeExemplo, paginaDeExemplo, postsDeExemplo, previaDaAlumiaLigada } from "../lib/rede/conversa/exemplos.ts";
+import { atosDeExemplo } from "../lib/rede/atos/exemplos.ts";
+import { COMUNIDADES_DE_EXEMPLO, postsDeExemplo as postsDoInicio } from "../lib/rede/publicar/exemplos-alumia2.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ler = (f) => fs.readFileSync(path.join(raiz, f), "utf8");
@@ -77,6 +79,19 @@ const nos = montarArvore(arv.post.id, arv.respostas);
 igual("fio da prancha: Bruno (com a Lia dentro) e o Porto", nos.map((n) => [n.post.autor.codinome, n.filhos.map((f) => f.post.autor.codinome)]), [["Bruno Catraca", ["Lia Quilombo"]], ["Entregador do Porto", []]]);
 igual("a que ajudou é a do Bruno", arv.post.aceita, arv.respostas[0].id);
 igual("31 respostas na barra", arv.post.na_conversa, 31);
+// A "Conversa do ato · 48" leva à conversa do próprio ato (mesmo id, 48 respostas), nunca à da Lia; id desconhecido: nada.
+const PASSE = "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01";
+const doAto = arvoreDeExemplo(PASSE);
+igual("conversa do ato: o post do chamado com o número do cartão", [doAto?.post.id, doAto?.post.tipo, doAto?.post.titulo, doAto?.post.na_conversa], [PASSE, "chamado", "Passe Livre Já", 48]);
+ok("conversa do ato não é a da Lia", doAto && doAto.post.autor.codinome !== "Lia Quilombo" && doAto.respostas.every((r) => r.raiz === PASSE));
+for (const { ato } of atosDeExemplo()) ok(`todo ato tem a sua conversa (${ato.titulo})`, arvoreDeExemplo(ato.id)?.post.na_conversa === ato.respostas);
+igual("conversa que não existe: nula", arvoreDeExemplo("00000000-0000-4000-8000-00000000ffff"), null);
+ok("post de comunidade abre a própria conversa", arvoreDeExemplo(postsDeExemplo("passe-livre-sp")[0].id)?.post.texto === postsDeExemplo("passe-livre-sp")[0].texto);
+// Um endereço só por comunidade: o que os exemplos do Início e dos atos apontam existe na prévia.
+const slugs = new Set(listaDeExemplo().map((c) => c.slug));
+const apontados = [...Object.keys(COMUNIDADES_DE_EXEMPLO), ...postsDoInicio().map((p) => p.comunidade).filter(Boolean), ...atosDeExemplo().map((a) => a.ato.comunidade?.slug).filter(Boolean)];
+igual("toda comunidade dos exemplos tem página", apontados.filter((c) => !slugs.has(c) || !paginaDeExemplo(c)), []);
+igual("comunidade que não existe: nula", paginaDeExemplo("marxismo-aula"), null);
 const textoDosExemplos = JSON.stringify([pagina, postsDeExemplo("x"), arv, listaDeExemplo()]);
 ok("exemplos não têm lista de quem reagiu/confirmou/votou", !/"(quem|pessoas|reagiram|votantes|membros_lista|ip|lat|lng|gps)"\s*:/.test(textoDosExemplos));
 ok("prévia desligada sem a variável", (delete process.env.NEXT_PUBLIC_ALUMIA_PREVIA, previaDaAlumiaLigada() === false));
@@ -158,6 +173,17 @@ for (const f of ["components/rede/conversa/base3.tsx", "components/rede/conversa
 const todas = new Set(chaves(pt));
 const faltam = [...usados].filter((k) => !todas.has(k) && !k.startsWith("reacoes.nomes"));
 igual("toda chave usada nas telas existe no pt", faltam, []);
+
+// ── Um cartão só: comunidade e conversa usam o cartão do Início (mesmas ações, mesmo selo), variando só a densidade ──
+const b3 = ler("components/rede/conversa/base3.tsx");
+ok("o post compacto usa o cartão do Início na casca nova", /<CartaoDaAlumia2 [^>]*densidade="compacta"/.test(b3));
+const tc = ler("components/rede/conversa/TelaDaConversaAlumia.tsx");
+ok("o post aberto da conversa usa o cartão do Início", /<CartaoDaAlumia2[\s\S]{0,400}densidade="aberta"/.test(tc));
+const ca2 = ler("components/rede/publicar/alumia2/CartaoDaAlumia2.tsx");
+ok("o cartão tem as três densidades", /"lista" \| "compacta" \| "aberta"/.test(ca2));
+// ── 404 de verdade na prévia ──
+ok("comunidade que não existe responde 404 na prévia", /previaDaAlumiaLigada\(\) && !paginaDeExemplo\(slug\)\) notFound\(\)/.test(ler("app/[lang]/alumia/c/[slug]/page.tsx")));
+ok("conversa que não existe responde 404 na prévia", /previaDaAlumiaLigada\(\) && !arvoreDeExemplo\(id\)\) notFound\(\)/.test(ler("app/[lang]/alumia/p/[id]/page.tsx")));
 
 // ── A banca só existe na prévia ──
 const banca = ler("app/[lang]/alumia/comunidades/prancha-f3/page.tsx");
