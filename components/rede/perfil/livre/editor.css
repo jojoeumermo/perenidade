@@ -261,7 +261,13 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pfe-salvar-ponto { background: var(--al-texto) !important; }
 [data-al="2"] .pfe-salvar-botoes { display: flex; align-items: center; gap: 6px; }
 [data-al="2"] .pfe-botao-salvar { background: var(--pf-acento); color: var(--pf-sobre-acento); min-width: 96px; }
-[data-al="2"] .pfe-botao-salvar:disabled { opacity: 0.45; }
+/* Desligado (nada a salvar): sem a cor da pessoa, que apagada virava um mostarda escuro ilegível; superfície e texto da casa. */
+[data-al="2"] .pfe-botao-salvar:disabled { opacity: 1; background: var(--al-superficie-2); color: var(--al-texto-2); box-shadow: none; filter: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .pfe-botao-salvar:disabled { background: var(--al-fundo) !important; color: var(--al-texto) !important; border: 2px dashed var(--al-texto); }
+/* A barra de salvar e a das seções grudam (embaixo e no alto): o campo que recebe o foco (Tab, erro) rola para o vão entre as
+   duas, nunca para baixo delas. */
+html:has([data-al="2"] .pfe-salvar) { scroll-padding-top: 140px; scroll-padding-bottom: calc(12px + 76px + 16px + var(--recuo-baixo, 0px)); }
+@media (max-width: 1023px) { html:has([data-al="2"] .pfe-salvar) { scroll-padding-bottom: calc(5.25rem + 76px + 16px + var(--recuo-baixo, 0px)); } }
 :root[data-eink] [data-al="2"] .pfe-salvar { box-shadow: none; backdrop-filter: none; background: var(--al-fundo); border: 2px solid var(--al-texto); }
 
 ::view-transition-old(pfe-painel) { animation: 0.15s ease-out both pfe-sai; }
@@ -281,11 +287,12 @@
   [data-al="2"] .pfe-previa-moldura[data-modo="compacta"] .pfe-previa-abas { display: none; }
 }
 
-/* Computador largo (≥ 1280 px): prévia e controles lado a lado. A coluna da direita da casca (busca, atos perto) não serve a
-   esta tela e cede o lugar; a prévia fica fixa à esquerda enquanto a pessoa mexe nos controles à direita. */
+/* Computador largo (≥ 1280 px): prévia e controles lado a lado. A grade da casca é a MESMA das outras telas (a lateral não muda
+   de largura e o menu não sai do lugar); só a coluna da direita (busca, atos perto), que não serve a esta tela, cede a vaga: o
+   editor ocupa o meio e a direita juntos. A prévia fica fixa à esquerda enquanto a pessoa mexe nos controles à direita. */
 @media (min-width: 1280px) {
-  .al2:has(.pfe-corpo) > .grid { grid-template-columns: 290px minmax(0, 990px); }
-  .al2:has(.pfe-corpo) > .grid > aside { display: none !important; }
+  .al2:has(.pfe-corpo) > .al2-grade > aside { display: none !important; }
+  .al2:has(.pfe-corpo) > .al2-grade > #rede-linha { grid-column: 2 / -1; border-right: 0; }
   [data-al="2"] .pfe-corpo { display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 0 20px; align-items: start; padding: 0 16px 0 12px; }
   [data-al="2"] .pfe-corpo:has(.pfe-previa-moldura[data-modo="fechada"]) { grid-template-columns: minmax(0, 1fr); }
   [data-al="2"] .pfe-lado-previa { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; scrollbar-width: thin; border-radius: 18px; }

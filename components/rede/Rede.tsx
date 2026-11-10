@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { rede } from "@/lib/rede/cliente";
 import { comunidades as clienteComunidades } from "@/lib/rede/cliente-comunidades";
+import { codinomeDaPrevia, EVENTO_DO_CODINOME } from "@/lib/rede/codinome-da-conta";
 import { previaLigada, type CorDaComunidadeNum } from "@/lib/rede/publicar/alumia2";
 import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import type { TextosDaRede } from "@/lib/rede/textos";
@@ -101,7 +102,9 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
     import("@/lib/rede/publicar/exemplos-alumia2").then(
       (m) => {
         if (!vivo) return;
-        setSituacao(m.SITUACAO_DE_EXEMPLO);
+        // O codinome que a pessoa trocou no editor (guardado só na aba, como o resto da prévia) vale também na casca.
+        const codinome = codinomeDaPrevia(m.SITUACAO_DE_EXEMPLO.handle);
+        setSituacao(codinome ? { ...m.SITUACAO_DE_EXEMPLO, codinome } : m.SITUACAO_DE_EXEMPLO);
         setNomesDasComunidades(Object.fromEntries(Object.entries(m.COMUNIDADES_DE_EXEMPLO).map(([k, c]) => [k, { nome: c.nome, cor: c.cor }])));
       },
       () => undefined,
@@ -139,6 +142,16 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
       vivo = false;
     };
   }, [s, setSituacao]);
+
+  // O editor do perfil trocou o codinome: o cartão da conta (e a barra do celular) mostram o novo na hora.
+  useEffect(() => {
+    const aoTrocar = (e: Event) => {
+      const codinome = (e as CustomEvent<string>).detail;
+      if (typeof codinome === "string" && codinome && memoria.situacao) setSituacao({ ...memoria.situacao, codinome });
+    };
+    window.addEventListener(EVENTO_DO_CODINOME, aoTrocar);
+    return () => window.removeEventListener(EVENTO_DO_CODINOME, aoTrocar);
+  }, [setSituacao]);
 
   // Endereços antigos do Fórum: o servidor já redireciona (301); isto só pega o que passou por fora dele.
   useEffect(() => {
