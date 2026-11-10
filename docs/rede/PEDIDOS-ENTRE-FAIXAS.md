@@ -457,3 +457,58 @@ aparelho; a imagem da câmera não sai dele), para mostrar e ler o QR do código
 Por quê: nenhuma dependência nova entrou, mas as duas passaram a ser usadas em mais um lugar, e o NOTICE lista os usos.
 
 Se não atender: nada quebra; o registro fica incompleto.
+
+#### P16 · 2026-11-10 · Faixa 2 pede · a saída do site (três Esc) rodar também a limpeza do chat
+
+Arquivo: `lib/modo-seguro.ts`, função `sairRapido` (linha ~157), antes de `apagarBases()`.
+
+```ts
+// O chat privado da Alumia: liga a trava do chat e avisa as outras abas antes de o banco dele sumir (lib/rede/chat/gaveta.ts).
+await import("@/lib/rede/chat/gaveta").then((m) => m.apagarTudoDoChat(300)).catch(() => undefined);
+```
+
+(ou rodar as limpezas de `ENCAIXES.aoSairRapido`, com o mesmo teto de tempo da saída da Alumia, `rodarLimpezas` de `lib/rede/saida.ts`).
+
+Por quê: a saída do site apaga o banco `lucia-alumia-chat` direto. Desde 10/11/2026 o chat se defende sozinho (a aba que já
+tinha visto o banco se limpa quando nota que ele sumiu, e nada recria o banco fora da ativação: testado em
+`scripts/testar-rede-chat.mjs`), mas a memória das outras abas (chaves de conversa, mensagens abertas) só é limpa quando cada
+uma toca no banco de novo, em até 8 s. Com a limpeza do chat na saída do site, todas as abas se limpam na hora.
+
+Se não atender: nada quebra; fica a janela de até 8 s descrita acima (`docs/rede/CHAT-PRIVADO.md`).
+
+#### P17 · 2026-11-10 · Faixa 2 pede · o "Sair rápido" da Alumia encerrar a sessão da conta
+
+Arquivo: `lib/rede/saida.ts` (linha ~17, `PREFIXO_DA_REDE`, e `sairRapido`, linha ~66).
+
+O "Sair rápido" da Alumia apaga só as chaves que começam com `lucia:rede`; a sessão mora em `lucia:sessao`. A saída do site
+revoga a sessão (`revogarSessao` em `lib/modo-seguro.ts`); a da Alumia, não. Pedido: a da Alumia encerrar a sessão do mesmo
+jeito (ou chamar a mesma função).
+
+Por quê: quem pega o aparelho depois do "Sair rápido" abre a Alumia já dentro da conta, vê a lista de conversas do chat (com
+quem a pessoa fala, vinda do servidor) e pode ativar o chat com chave nova e escrever em nome dela; quem não tinha verificado
+aceita a chave nova num clique. O texto dos Ajustes do chat já diz que a sessão continua aberta (`i18n/rede/chat/*.json`,
+`ajustes.sairRapido`); quando este pedido for atendido, tirar essa frase de lá.
+
+Se não atender: o limite fica escrito em `docs/rede/CHAT-PRIVADO.md` e nos Ajustes do chat.
+
+### Faixa 2 → Faixa 1: privacidade do Fediverso no banco, 2026-11-10
+
+#### P18 · 2026-11-10 · Faixa 2 avisa · `conta_meus_dados` e os avisos de curtida e impulso de fora
+
+**Situação: resolvido do lado da Faixa 2**, sem mexer em `conta_meus_dados`. Desde `20261110-fediverso-privacidade.sql` a linha
+de `interno.avisos` dos tipos `fed_curtida` e `fed_impulso` guarda só um apelido ("anon:" + 64 hex) em `ator_remoto`, nunca o
+endereço de quem curtiu. O que fica com a Faixa 1: quem mexer em `conta_meus_dados` não precisa fazer nada; quem recriar
+`interno.avisos` precisa manter a regra `avisos_ator_remoto_formato` (endereço https ou apelido).
+
+#### P19 · 2026-11-10 · Faixa 2 pede · `rede_avisos` e `avisos_meus` sem o número exato de curtidas de fora abaixo de 3
+
+Arquivos: `supabase/install.sql`, `public.rede_avisos` (linha ~2072) e `public.avisos_meus` (linha ~26890); e o resumo semanal
+`interno.rede3_aviso_resumo`.
+
+As duas funções antigas de avisos (que respondem só à própria pessoa) devolvem uma linha por curtida e por impulso de fora, com
+a hora de cada uma. Com 2 curtidas, `rede_aviso_listar` diz "alguém" (total 1); `rede_avisos` e `avisos_meus` dão 2 linhas.
+Nunca sai quem foi, só o número exato e as horas. Pedido: deixar de fora os tipos `fed_curtida` e `fed_impulso` nessas duas
+(a tela nova usa `rede_aviso_listar`), ou juntá-los numa linha só por post; no resumo semanal, contar esses dois tipos com
+`interno.rede_fed_aviso_total`.
+
+Se não atender: fica como está (o número exato só para a própria pessoa), e `docs/rede/FEDIVERSO.md` diz isso.

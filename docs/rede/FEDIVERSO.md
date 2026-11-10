@@ -203,9 +203,17 @@ As três regras da casa valem também no que o banco devolve: nenhuma lista de p
 A migração roda **depois** de `20261109-fediverso-total.sql` e de `20261110-fediverso-bloqueio-padrao.sql`, pode rodar mais de
 uma vez e não mexe na função de bloquear instância (a trava do bloqueio fixo continua a mesma).
 
-- **Avisos de curtida e de impulso não dizem quem foi.** `rede_aviso_listar` devolve `ator_remoto` nulo e `atores_remotos`
-  vazio nesses dois tipos. O total só sai a partir de 3; abaixo disso sai 1, que a tela escreve como "alguém". Seguidor, resposta
-  e menção continuam dizendo quem foi (é a conversa com a própria pessoa). O endereço cru do avatar não sai em tipo nenhum.
+- **Avisos de curtida e de impulso não dizem quem foi, e o banco nem guarda.** `rede_aviso_listar` devolve `ator_remoto` nulo e
+  `atores_remotos` vazio nesses dois tipos. A linha do aviso guarda só um apelido de quem foi (`interno.rede_fed_apelido`:
+  "anon:" e o SHA-256 de um segredo deste banco, de quem recebe e de quem curtiu), nunca o endereço: assim o "baixar meus
+  dados" (`conta_meus_dados`) não entrega quem curtiu, e bloquear alguém não apaga esses avisos (antes, bloquear candidatos
+  um a um revelava quem tinha curtido). O apelido de uma pessoa de fora é outro em cada conta daqui. O total só sai a partir
+  de 3; abaixo disso sai 1, que a tela escreve como "alguém". Seguidor, resposta e menção continuam dizendo quem foi (é a
+  conversa com a própria pessoa). O endereço cru do avatar não sai em tipo nenhum.
+  **O que ainda sai:** as duas funções antigas de avisos da Faixa 1 (`rede_avisos` e `avisos_meus`), que respondem só à própria
+  pessoa, devolvem uma linha por curtida, com a hora de cada uma: abaixo de 3, a pessoa vê o número exato (nunca quem foi). O
+  resumo semanal por e-mail soma esse total cru. Pedido P19 em `PEDIDOS-ENTRE-FAIXAS.md`. Curtida de servidor que depois foi
+  bloqueado pela mediação continua contada (o apelido não diz de que servidor veio).
 - **Piso de 3** nas contagens de pessoas: seguidores e "seguindo" do ator, seguidores da comunidade (Group), pessoas e ativos do
   NodeInfo, respostas no cartão e o total das respostas de fora. Abaixo de 3 sai 0 (as coleções do ActivityPub pedem
   `totalItems` inteiro, maior ou igual a zero). As rotas repetem a conta (`pisoDePessoas`, em `lib/rede/fediverso/rotas.ts`),
@@ -220,12 +228,16 @@ uma vez e não mexe na função de bloquear instância (a trava do bloqueio fixo
 - **Impulso de nota de quem ninguém segue.** Quando quem impulsiona é seguido por alguém daqui, a nota impulsionada fica guardada
   (antes era recusada e o impulso sumia na faxina). Só nota pública ou não listada; a guarda é a de sempre (30 dias).
 - **Prova do consentimento.** `interno.fediverso_consentimentos` guarda cada vez que a federação de alguém liga, desliga ou muda
-  de versão: perfil, versão do texto, ligado ou não, e quando. Nada de IP nem de navegador. Um gatilho em
+  de versão: a pessoa (coluna `usuario`), versão do texto, ligado ou não, e quando. Nada de IP nem de navegador. Um gatilho em
   `interno.rede_fed_atores` grava, então vale para todos os caminhos (perfil, consentimento de entrada, suspensão). Ligar ou
   desligar no perfil passa a marcar ou desmarcar também o item do consentimento de entrada (`rede_consentimentos.fediverso`).
   LGPD art. 8º, § 2º (cabe a quem trata provar o consentimento) e § 5º (revogar a qualquer momento). A linha some com a conta.
-- **Endereço completo.** `rede_fed_situacao` devolve `endereco` ("@nome@dominio") e `dominio`: o domínio curto no modo total,
-  o da Alumia sem ele (a mesma regra de `enderecos.ts`; sai de `url_entrega` na configuração).
+  Quem já estava ligado antes da migração ganha a linha do "liga" com a data em que ligou (carga inicial). O histórico entra no
+  "baixar meus dados" da pessoa (LGPD art. 18, II) e tem teto: a primeira linha e as 99 mais novas de cada pessoa.
+- **Endereço completo.** `rede_fed_situacao` devolve `endereco` ("@nome@dominio"), só para quem está com a federação ligada,
+  e `dominio`: o domínio curto no modo total, o da Alumia sem ele (a mesma regra de `enderecos.ts`: minúsculo, com a porta se
+  houver, sem o ponto final do nome; sai de `url_entrega` na configuração). **`url_entrega` precisa ter o mesmo host do site**
+  (`NEXT_PUBLIC_ALUMIA_URL`): senão a tela mostra um @ que o WebFinger não responde.
 - **Perfil de fora em páginas.** `rede_fed_perfil_remoto(ator, cursor, limite)` devolve `proximo`; a tela tem "Mais posts".
 - **Adesão e flag.** Perfil, fio, bloquear e silenciar gente de fora só respondem a quem aderiu à rede e com o modo total ligado.
 
