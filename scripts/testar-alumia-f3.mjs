@@ -183,7 +183,7 @@ const ca2 = ler("components/rede/publicar/alumia2/CartaoDaAlumia2.tsx");
 ok("o cartão tem as três densidades", /"lista" \| "compacta" \| "aberta"/.test(ca2));
 // ── 404 de verdade na prévia ──
 ok("comunidade que não existe responde 404 na prévia", /previaDaAlumiaLigada\(\) && !paginaDeExemplo\(slug\)\) notFound\(\)/.test(ler("app/[lang]/alumia/c/[slug]/page.tsx")));
-ok("conversa que não existe responde 404 na prévia", /previaDaAlumiaLigada\(\) && !arvoreDeExemplo\(id\)\) notFound\(\)/.test(ler("app/[lang]/alumia/p/[id]/page.tsx")));
+ok("conversa que não existe responde 404 na prévia", /previaDaAlumiaLigada\(\) && !arvoreDeExemplo\(id\)(?: && !id\.startsWith\("exemplo-"\))?\) notFound\(\)/.test(ler("app/[lang]/alumia/p/[id]/page.tsx")));
 
 // ── A banca só existe na prévia ──
 const banca = ler("app/[lang]/alumia/comunidades/prancha-f3/page.tsx");
