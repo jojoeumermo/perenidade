@@ -14,7 +14,7 @@ import { conferirAto, pontoEDetalhe } from "../lib/rede/atos/formulario.ts";
 import { icsDoAto, nomeDoIcs } from "../lib/rede/atos/ics.ts";
 import { linkDeApoioSeguro, linkDoMapa, textoParaChamar } from "../lib/rede/atos/chegar.ts";
 import { contarNovos, CHAVE_DOS_VISTOS } from "../lib/rede/atos/novos.ts";
-import { nomeDaCidade } from "../lib/rede/atos/aparelho.ts";
+import { EVENTO_DA_CIDADE, guardarCidade, nomeDaCidade, ouvirCidade } from "../lib/rede/atos/aparelho.ts";
 import { codigoDoErro, fraseDoErro, CODIGOS_DE_ERRO } from "../lib/rede/atos/erros.ts";
 import { mola, MOLAS } from "../lib/rede/atos/movimento.ts";
 
@@ -185,8 +185,42 @@ igual("escrita sem maiúsculas passa igual", nomeDaCidade("圣保罗"), "圣保�
   ok("flutuantes do site ancorados na vaga das telas de ato", css.includes("anchor-name: --al-flutua") && css.includes("position-anchor: --al-flutua"));
   ok("mosaico: alto contraste e e-ink voltam aos tokens", css.includes(':root:is([data-contrast], [data-eink]) [data-al="2"] .al-mosaico-vivo {'));
 }
+// ── revisão 10/11: a coluna "Perto" segue a cidade; o Chamar tem plano B; validação com frase nossa ──
+{
+  const ouvidos = new Map();
+  const guardado = new Map();
+  const antes = { window: globalThis.window, localStorage: globalThis.localStorage };
+  globalThis.localStorage = { getItem: (k) => guardado.get(k) ?? null, setItem: (k, v) => guardado.set(k, String(v)), removeItem: (k) => guardado.delete(k) };
+  globalThis.window = {
+    addEventListener: (n, f) => ouvidos.set(n, [...(ouvidos.get(n) ?? []), f]),
+    removeEventListener: (n, f) => ouvidos.set(n, (ouvidos.get(n) ?? []).filter((x) => x !== f)),
+    dispatchEvent: (e) => (ouvidos.get(e.type) ?? []).forEach((f) => f(e)),
+  };
+  let vezes = 0;
+  const desligar = ouvirCidade(() => vezes++);
+  guardarCidade("Recife");
+  ok("guardar a cidade avisa quem ouve (a coluna Perto)", vezes === 1 && guardado.get("lucia:rede:atos:cidade") === "Recife");
+  (ouvidos.get("storage") ?? []).forEach((f) => f({ key: "lucia:rede:atos:cidade" }));
+  (ouvidos.get("storage") ?? []).forEach((f) => f({ key: "outra:chave" }));
+  ok("a cidade trocada em outra aba também avisa (e outra chave não)", vezes === 2);
+  desligar();
+  guardarCidade("Olinda");
+  ok("desligado, não ouve mais", vezes === 2 && (ouvidos.get(EVENTO_DA_CIDADE) ?? []).length === 0);
+  globalThis.window = antes.window;
+  globalThis.localStorage = antes.localStorage;
+  const partes = ler("components/rede/atos/partes.tsx");
+  ok("Chamar: sem área de transferência, copia pelo campo; se nem isso, devolve \"falhou\"", /execCommand\("copy"\)/.test(partes) && /"falhou"/.test(partes));
+  const formularios = ["components/rede/atos/Corrente.tsx", "components/rede/atos/Farol.tsx", "components/rede/atos/PaginaDoAto.tsx"].map(ler).join("\n");
+  ok("formulários dos atos sem balão do navegador (noValidate) e sem required/minLength", (formularios.match(/<form/g) ?? []).length === (formularios.match(/noValidate/g) ?? []).length && !/\bminLength=/.test(formularios));
+  const css = ler("components/rede/atos/atos.css");
+  ok("o mosaico vivo é creme como na prancha (aceso a 88 %)", css.includes("--al-mv-aceso: color-mix(in srgb, var(--al-cartao-aceso) 88%"));
+  ok("hover só em quem tem mouse (nada de fundo preso no toque)", !/^\[data-al="2"\] \.al-atos-cidade:hover/m.test(css) && css.includes("@media (hover: hover)"));
+  ok("o calendário também guarda a vaga dos flutuantes", ler("components/rede/atos/Calendario.tsx").includes("al-atos-vaga") && css.includes(".al-atos-tela, .al-ato-pagina, .al-cal"));
+}
 for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
   const j = JSON.parse(ler(`i18n/rede/atos/${l}.json`));
+  ok(`${l}: "não deu para copiar" mostra o endereço`, j.acoes.naoCopiou.includes("{url}"));
+  ok(`${l}: frases da validação da corrente e do ponto`, !!(j.corrente.erroTexto && j.corrente.erroCidade && j.corrente.erroMeta && j.corrente.erroHora && j.farol.erroPonto));
   ok(`${l}: o exemplo da cidade não parece valor preenchido`, j.tela.cidadeExemplo !== "São Paulo");
   ok(`${l}: trocar pedido do farol cita os dois estados`, j.farol.trocarPedido.includes("{pendente}") && j.farol.trocarPedido.includes("{estado}"));
 }

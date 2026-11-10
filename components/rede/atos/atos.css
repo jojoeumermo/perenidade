@@ -1079,3 +1079,12 @@
   :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-cal-agenda-botao[data-feito] svg { animation: al-chegar-visto 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
 }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-cal-agenda-botao { border-color: var(--al-texto); color: var(--al-texto); }
+/* ───── painel de quem chamou: o título recebe o foco por programa (sem anel); o formulário entra deslizando ───── */
+[data-al="2"] .al-ato-org-titulo[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-ato-org-form { animation: al-org-abre 0.35s cubic-bezier(0.2, 0.9, 0.3, 1); }
+}
+@keyframes al-org-abre { from { opacity: 0; translate: 0 -8px; } }
+[data-al="2"] .al-ato-org-form .al-ato-form-campo[aria-invalid="true"] { border-color: var(--al-vermelho); box-shadow: 0 0 0 1px var(--al-vermelho); }
+/* campos com problema (validação nossa, frase ao lado): a borda acende em vermelho */
+[data-al="2"] :is(.al-corrente-form, .al-farol-ponto-form) .al-ato-form-campo[aria-invalid="true"] { border-color: var(--al-vermelho); box-shadow: 0 0 0 1px var(--al-vermelho); }

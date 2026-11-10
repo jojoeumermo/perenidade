@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
 import type { PropsDaTelaDoPacote } from "../registro";
@@ -92,6 +92,42 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
   const [motivo, setMotivo] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const [dataRuim, setDataRuim] = useState(false);
+  const idErro = useId();
+  // O foco acompanha: abrir "Adiar" ou "Cancelar" leva ao primeiro campo; fechar (desistir, Esc ou depois de salvar) devolve
+  // ao botão que abriu (ou, se ele sumiu com a mudança, ao título do painel). Nada de foco perdido no corpo da página.
+  const primeiro = useRef<HTMLInputElement>(null);
+  const titulo = useRef<HTMLHeadingElement>(null);
+  const botoes = useRef<HTMLDivElement>(null);
+  const voltarPara = useRef<"adiado" | "cancelado" | null>(null);
+  useEffect(() => {
+    if (modo) {
+      primeiro.current?.focus();
+      return;
+    }
+    const de = voltarPara.current;
+    if (!de) return;
+    voltarPara.current = null;
+    const botao = botoes.current?.querySelector<HTMLElement>(`[data-modo="${de}"]`);
+    (botao ?? titulo.current)?.focus();
+  }, [modo]);
+  const abrir = (m: "adiado" | "cancelado") => {
+    setErro(null);
+    setDataRuim(false);
+    voltarPara.current = m;
+    setModo(m);
+  };
+  const fechar = () => {
+    setErro(null);
+    setDataRuim(false);
+    setModo(null);
+  };
+  const aoTecla = (e: KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Escape" && !ocupado) {
+      e.preventDefault();
+      fechar();
+    }
+  };
 
   const mudar = async (situacao: SituacaoDoAto, inicio?: string | null) => {
     setOcupado(true);
@@ -99,6 +135,7 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
     try {
       const novo = await cliente.mudar(ato.id, { situacao, inicio, motivo: motivo.trim() });
       avisarAto(novo);
+      if (!voltarPara.current) voltarPara.current = situacao === "confirmado" ? "adiado" : null;
       setModo(null);
       setMotivo("");
     } catch (e) {
@@ -115,6 +152,8 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
       const ms = iso ? new Date(iso).getTime() : NaN;
       if (!iso || !(ms > Date.now()) || ms > Date.now() + LIMITES_DO_ATO.diasMax * 86_400_000) {
         setErro(t.pagina.dataRuim);
+        setDataRuim(true);
+        primeiro.current?.focus();
         return;
       }
       void mudar("adiado", iso);
@@ -123,40 +162,55 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
 
   return (
     <section className="al-ato-org" aria-labelledby={`al-ato-org-${ato.id}`}>
-      <h2 id={`al-ato-org-${ato.id}`} className="al-cond">
+      <h2 id={`al-ato-org-${ato.id}`} ref={titulo} tabIndex={-1} className="al-cond al-ato-org-titulo">
         {t.pagina.organizou}
       </h2>
       <p>{ato.total !== null && ato.total >= 3 ? preencherAto(t.pagina.total, { n: ato.total }) : t.pagina.totalPoucas}</p>
       {modo ? (
-        <form className="al-ato-org-form" onSubmit={enviar}>
+        <form className="al-ato-org-form" onSubmit={enviar} onKeyDown={aoTecla} noValidate>
           {modo === "adiado" ? (
             <label>
               {t.pagina.novaData}
-              <input type="datetime-local" className="al-ato-form-campo" value={data} onChange={(e) => setData(e.target.value)} required />
+              <input
+                ref={primeiro}
+                type="datetime-local"
+                className="al-ato-form-campo"
+                value={data}
+                onChange={(e) => {
+                  setData(e.target.value);
+                  if (dataRuim) {
+                    setDataRuim(false);
+                    setErro(null);
+                  }
+                }}
+                required
+                aria-invalid={dataRuim || undefined}
+                aria-describedby={dataRuim ? idErro : undefined}
+              />
             </label>
           ) : null}
           <label>
             {t.pagina.motivo}
-            <input className="al-ato-form-campo" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={140} placeholder={t.pagina.motivoExemplo} />
+            <input ref={modo === "cancelado" ? primeiro : undefined} className="al-ato-form-campo" value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={140} placeholder={t.pagina.motivoExemplo} />
           </label>
           <p>{t.pagina.aviso}</p>
           <div className="al-ato-org-botoes">
             <Botao type="submit" variante={modo === "cancelado" ? "primario" : "dourado"} aria-busy={ocupado} disabled={ocupado}>
               {modo === "adiado" ? t.pagina.salvarAdiar : t.pagina.salvarCancelar}
             </Botao>
-            <Botao variante="fantasma" onClick={() => setModo(null)}>
+            <Botao variante="fantasma" onClick={fechar} disabled={ocupado}>
               {t.pagina.desistir}
             </Botao>
           </div>
         </form>
       ) : (
-        <div className="al-ato-org-botoes">
+        <div ref={botoes} className="al-ato-org-botoes">
           {ato.situacao !== "cancelado" ? (
             <>
-              <Botao variante="contorno" onClick={() => setModo("adiado")}>
+              <Botao variante="contorno" data-modo="adiado" onClick={() => abrir("adiado")}>
                 {t.pagina.adiar}
               </Botao>
-              <Botao variante="contorno" onClick={() => setModo("cancelado")}>
+              <Botao variante="contorno" data-modo="cancelado" onClick={() => abrir("cancelado")}>
                 {t.pagina.cancelar}
               </Botao>
             </>
@@ -169,7 +223,7 @@ function PainelDeQuemChamou({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
         </div>
       )}
       {erro ? (
-        <p role="alert" className="al-ato-erro">
+        <p id={idErro} role="alert" className="al-ato-erro">
           {erro}
         </p>
       ) : null}

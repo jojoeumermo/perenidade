@@ -187,6 +187,7 @@
     "pedir": "Request: {estado}",
     "novoPonto": "New meeting point",
     "novoPontoExemplo": "e.g. Silva Teles Square, in front of the school",
+    "erroPonto": "Write the new meeting point with at least 3 characters.",
     "esperando": "You requested {estado}. A second person from the coordination still has to confirm (until {hora}).",
     "outraPediu": "Someone from the coordination requested {estado}.",
     "confirmar": "Confirm: {estado}",
@@ -220,6 +221,10 @@
     "aberta": "Chain opened.",
     "barra": "Chain: {pct}% closed",
     "barraVazia": "Chain: the links are still open",
-    "fechouAgora": "The chain is closed! Thank you for being part of it."
+    "fechouAgora": "The chain is closed! Thank you for being part of it.",
+    "erroTexto": "Write the request with at least 10 characters (up to 140).",
+    "erroCidade": "Write the city (at least 2 characters).",
+    "erroMeta": "The goal goes from 3 to 5,000 people.",
+    "erroHora": "The time must be in the future."
   }
 }

@@ -187,6 +187,7 @@
     "pedir": "Demander : {estado}",
     "novoPonto": "Nouveau point de rendez-vous",
     "novoPontoExemplo": "ex. : place Silva Teles, devant l'école",
+    "erroPonto": "Écris le nouveau point avec au moins 3 caractères.",
     "esperando": "Vous avez demandé {estado}. Une deuxième personne de la coordination doit confirmer (jusqu'à {hora}).",
     "outraPediu": "Quelqu'un de la coordination a demandé {estado}.",
     "confirmar": "Confirmer : {estado}",
@@ -220,6 +221,10 @@
     "aberta": "Chaîne ouverte.",
     "barra": "Chaîne : {pct} % fermée",
     "barraVazia": "Chaîne : les maillons sont encore ouverts",
-    "fechouAgora": "La chaîne est fermée ! Merci d’en faire partie."
+    "fechouAgora": "La chaîne est fermée ! Merci d’en faire partie.",
+    "erroTexto": "Écris la demande avec au moins 10 caractères (jusqu'à 140).",
+    "erroCidade": "Écris la ville (au moins 2 caractères).",
+    "erroMeta": "L'objectif va de 3 à 5 000 personnes.",
+    "erroHora": "L'heure doit être dans le futur."
   }
 }

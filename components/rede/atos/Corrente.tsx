@@ -142,6 +142,7 @@ function CartaoDaCorrente({ k, t, lang, aoMudar }: { k: Corrente; t: TextosDosAt
 }
 
 /** O formulário de abrir corrente (só para quem gerencia uma organização com selo). */
+type CampoDaCorrente = "texto" | "cidade" | "meta" | "hora";
 function AbrirCorrente({ t, cidade, orgs, aoAbrir }: { t: TextosDosAtos; cidade: string; orgs: OrgQuePosso[]; aoAbrir: (k: Corrente) => void }) {
   const [aberto, setAberto] = useState(false);
   const [org, setOrg] = useState(orgs[0]?.id ?? "");
@@ -151,36 +152,101 @@ function AbrirCorrente({ t, cidade, orgs, aoAbrir }: { t: TextosDosAtos; cidade:
   const [hora, setHora] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  // a validação é nossa (frases nos 6 idiomas, ao lado do campo), não o balão do navegador
+  const [ruim, setRuim] = useState<CampoDaCorrente | null>(null);
   const [ok, setOk] = useState(false);
   const base = useId();
+  const forma = useRef<HTMLFormElement>(null);
+  const botaoAbrir = useRef<HTMLButtonElement>(null);
+  const voltar = useRef(false);
+  // abrir leva o foco ao primeiro campo; fechar (deixar para depois, Esc ou depois de abrir a corrente) devolve ao botão
+  useEffect(() => {
+    if (aberto) forma.current?.querySelector<HTMLElement>("select, textarea")?.focus();
+    else if (voltar.current) {
+      voltar.current = false;
+      botaoAbrir.current?.focus();
+    }
+  }, [aberto]);
+  const fechar = () => {
+    voltar.current = true;
+    setErro(null);
+    setRuim(null);
+    setAberto(false);
+  };
   if (!aberto) {
     return (
       <div className="al-corrente-abrir">
-        <Botao variante="contorno" onClick={() => setAberto(true)} aria-expanded={false}>
+        <Botao ref={botaoAbrir} variante="contorno" onClick={() => setAberto(true)} aria-expanded={false}>
           {t.corrente.abrir}
         </Botao>
-        {ok ? <span role="status" className="al-ato-copiado">{t.corrente.aberta}</span> : null}
+        <span role="status" className="al-ato-copiado">
+          {ok ? t.corrente.aberta : ""}
+        </span>
       </div>
     );
   }
+  const conferir = (): [CampoDaCorrente, string] | null => {
+    const n = Number(meta);
+    if (texto.trim().length < 10) return ["texto", t.corrente.erroTexto];
+    if (onde.trim().length < 2) return ["cidade", t.corrente.erroCidade];
+    if (!Number.isInteger(n) || n < 3 || n > 5000) return ["meta", t.corrente.erroMeta];
+    if (hora) {
+      const iso = doCampoLocal(hora);
+      if (!iso || new Date(iso).getTime() <= Date.now()) return ["hora", t.corrente.erroHora];
+    }
+    return null;
+  };
   const enviar = async (e: FormEvent) => {
     e.preventDefault();
+    const problema = conferir();
+    if (problema) {
+      setRuim(problema[0]);
+      setErro(problema[1]);
+      forma.current?.querySelector<HTMLElement>(`[data-campo="${problema[0]}"]`)?.focus();
+      return;
+    }
     setOcupado(true);
     setErro(null);
+    setRuim(null);
     try {
       const k = await cliente.correnteAbrir({ org, texto: texto.trim(), cidade: onde.trim(), meta: Number(meta), quando: hora ? doCampoLocal(hora) : null });
       aoAbrir(k);
-      setAberto(false);
       setTexto("");
       setOk(true);
+      window.setTimeout(() => setOk(false), 5000);
+      fechar();
     } catch (e2) {
       setErro(frase(t, e2));
     } finally {
       setOcupado(false);
     }
   };
+  // cada campo diz se está com problema e aponta para a frase do erro
+  const marca = (c: CampoDaCorrente) => ({
+    "data-campo": c,
+    "aria-invalid": ruim === c || undefined,
+    "aria-describedby": ruim === c ? `${base}-erro` : undefined,
+  });
+  const mudou = (c: CampoDaCorrente) => {
+    if (ruim === c) {
+      setRuim(null);
+      setErro(null);
+    }
+  };
   return (
-    <form className="al-corrente-form" onSubmit={enviar} aria-labelledby={`${base}-t`}>
+    <form
+      ref={forma}
+      className="al-corrente-form"
+      onSubmit={enviar}
+      noValidate
+      aria-labelledby={`${base}-t`}
+      onKeyDown={(e) => {
+        if (e.key === "Escape" && !ocupado) {
+          e.preventDefault();
+          fechar();
+        }
+      }}
+    >
       <h3 id={`${base}-t`} className="al-cond">
         {t.corrente.abrir}
       </h3>
@@ -199,32 +265,74 @@ function AbrirCorrente({ t, cidade, orgs, aoAbrir }: { t: TextosDosAtos; cidade:
       ) : null}
       <label>
         {t.corrente.texto}
-        <textarea className="al-ato-form-campo" value={texto} onChange={(e) => setTexto(e.target.value)} minLength={10} maxLength={140} required rows={2} placeholder={t.corrente.textoExemplo} />
+        <textarea
+          className="al-ato-form-campo"
+          value={texto}
+          onChange={(e) => {
+            setTexto(e.target.value);
+            mudou("texto");
+          }}
+          maxLength={140}
+          rows={2}
+          placeholder={t.corrente.textoExemplo}
+          {...marca("texto")}
+        />
       </label>
       <div className="al-corrente-form-linha">
         <label>
           {t.corrente.cidade}
-          <input className="al-ato-form-campo" value={onde} onChange={(e) => setOnde(e.target.value)} minLength={2} maxLength={80} required autoComplete="address-level2" />
+          <input
+            className="al-ato-form-campo"
+            value={onde}
+            onChange={(e) => {
+              setOnde(e.target.value);
+              mudou("cidade");
+            }}
+            maxLength={80}
+            autoComplete="address-level2"
+            {...marca("cidade")}
+          />
         </label>
         <label>
           {t.corrente.metaRotulo}
-          <input className="al-ato-form-campo" type="number" inputMode="numeric" min={3} max={5000} value={meta} onChange={(e) => setMeta(e.target.value)} required />
+          <input
+            className="al-ato-form-campo"
+            type="number"
+            inputMode="numeric"
+            min={3}
+            max={5000}
+            value={meta}
+            onChange={(e) => {
+              setMeta(e.target.value);
+              mudou("meta");
+            }}
+            {...marca("meta")}
+          />
         </label>
         <label>
           {t.corrente.horaRotulo}
-          <input className="al-ato-form-campo" type="datetime-local" value={hora} onChange={(e) => setHora(e.target.value)} />
+          <input
+            className="al-ato-form-campo"
+            type="datetime-local"
+            value={hora}
+            onChange={(e) => {
+              setHora(e.target.value);
+              mudou("hora");
+            }}
+            {...marca("hora")}
+          />
         </label>
       </div>
       <div className="al-ato-org-botoes">
         <Botao type="submit" variante="primario" aria-busy={ocupado} disabled={ocupado}>
           {t.corrente.publicar}
         </Botao>
-        <Botao variante="fantasma" onClick={() => setAberto(false)}>
+        <Botao variante="fantasma" onClick={fechar} disabled={ocupado}>
           {t.corrente.deixar}
         </Botao>
       </div>
       {erro ? (
-        <p role="alert" className="al-ato-erro">
+        <p id={`${base}-erro`} role="alert" className="al-ato-erro">
           {erro}
         </p>
       ) : null}
