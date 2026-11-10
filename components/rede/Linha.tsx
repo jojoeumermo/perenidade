@@ -91,8 +91,9 @@ export function Linha({
   const [atualizando, setAtualizando] = useState(false);
   const desde = useRef(lembrada?.desde ?? new Date().toISOString());
   const [versao, setVersao] = useState(0);
-  // Os cartões que já estavam na tela não entram com animação de novo (só os que chegam agora).
-  const jaMostrados = useRef<Set<string>>(new Set(lembrada?.itens.map((p) => p.id) ?? []));
+  // Os cartões que já estavam na tela (linha lembrada) não entram com animação de novo. Os demais animam só ao serem inseridos
+  // (a chave é o id: um cartão que já está na lista não é montado de novo, então não anima outra vez).
+  const [jaMostrados] = useState<Set<string>>(() => new Set(lembrada?.itens.map((p) => p.id) ?? []));
   const lista = useRef<HTMLDivElement>(null);
   const sentinela = useRef<HTMLDivElement>(null);
   // Na aba Seguindo da Alumia nova, os reposts de quem a pessoa segue entram na ordem de chegada (só com a flag "alumia-2").
@@ -215,10 +216,6 @@ export function Linha({
     return () => obs.disconnect();
   }, [proximo, maisPosts, erroDoMais]);
 
-  // Depois de pintar, os cartões desta vez passam a "já mostrados" (não animam de novo numa nova página).
-  useEffect(() => {
-    for (const p of itens) jaMostrados.current.add(p.id);
-  }, [itens]);
 
   if (estado === "carregando") return <EsqueletoDaLinha rotulo={s.estados.carregando} />;
   if (estado === "erro") {
@@ -248,7 +245,6 @@ export function Linha({
   }
 
   const visiveis = silencios.length ? itens.filter((p) => !silenciadoNoAparelho(p, silencios)) : itens;
-  let novosNaVez = 0;
   return (
     <div ref={lista} className="al2-linha">
       {al2 && (
@@ -307,9 +303,10 @@ export function Linha({
         )
       ) : (
         <ol aria-label={s.abas.rotulo} className="alumia-lista">
-          {visiveis.map((p) => {
-            const novo = Boolean(al2) && !jaMostrados.current.has(p.id);
-            const i = novo ? novosNaVez++ : 0;
+          {visiveis.map((p, k) => {
+            const novo = Boolean(al2) && !jaMostrados.has(p.id);
+            // Escada dentro de cada página de 20 (no máximo 10 passos de atraso).
+            const i = Math.min(k % 20, 10);
             return (
               <li key={p.id} className={novo ? "al2-entra" : undefined} style={novo ? ({ "--i": Math.min(i, 10) } as React.CSSProperties) : undefined}>
                 <CartaoDePost post={p} lang={lang} s={s} logado={logado} aoResponder={aoResponder} />
