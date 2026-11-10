@@ -71,7 +71,7 @@ export function Abas<A extends string>({
               else e.currentTarget.scrollIntoView({ block: "nearest", inline: "nearest" });
             }}
             onKeyDown={(e) => {
-              const n = abaDaTecla(e.key, abas, atual);
+              const n = abaDaTecla(e.key, abas, a);
               if (n === null) return;
               e.preventDefault();
               aoMudar(n);
