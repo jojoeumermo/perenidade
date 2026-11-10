@@ -531,7 +531,7 @@ export function EscreverDaAlumia2({
       >
         {/* No computador a janela tem altura fixa e fica alinhada no alto: trocar de tipo (Post, Ato, Enquete) não faz a janela pular
             nem tira o Cancelar e o Publicar de baixo do cursor; o que cresce rola por dentro. */}
-        <div ref={dialogo} tabIndex={-1} className="al2-escrever flex h-full w-full flex-col bg-[var(--al-fundo)] md:h-[min(88vh,820px)] md:max-w-[640px] md:rounded-2xl md:border md:border-[var(--al-superficie-2)]">
+        <div ref={dialogo} tabIndex={-1} className={`al2-escrever flex h-full w-full flex-col bg-[var(--al-fundo)] ${resposta ? "md:h-auto md:max-h-[min(88vh,820px)]" : "md:h-[min(88vh,820px)]"} md:max-w-[640px] md:rounded-2xl md:border md:border-[var(--al-superficie-2)]`}>
           <div className="al-faixa" aria-hidden />
           <div className="flex items-center justify-between gap-3 px-4 py-3">
             <button type="button" onClick={fechar} className="al2-acao !text-[1.05rem] !text-[var(--al-texto-2)]">
@@ -550,7 +550,7 @@ export function EscreverDaAlumia2({
             </p>
           )}
 
-          <div className="al2-escrever-corpo flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 pb-6">
+          <div className="al2-escrever-corpo min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 pb-6">
             {resposta && respostaA && (
               // O post respondido inteiro, cortado em 3 linhas pelo CSS (nada de frase partida no meio sem reticências).
               <p className="line-clamp-3 rounded-xl border-l-4 border-[var(--al-vermelho)] bg-[var(--al-superficie)] px-3 py-2 text-sm text-[var(--al-texto-2)]">

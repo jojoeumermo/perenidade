@@ -224,7 +224,7 @@ export function CascaDaAlumia2({
       {/* Uma coluna no celular; de 1024 a 1279, menu + meio; de 1280 em diante, as três colunas da prancha computador-inicio. O meio
           tem uma medida só (até 680 px: texto, ato, aula e mosaico alinhados, nada de bloco estreito com caixa larguíssima embaixo) e
           as três ficam centradas; o que sobra nas telas grandes vira margem dos dois lados, e não um meio esticado. */}
-      <div className="al2-grade grid grid-cols-[minmax(0,1fr)] pb-[calc(4.75rem+var(--recuo-baixo,0px))] lg:justify-center lg:grid-cols-[clamp(220px,21vw,260px)_minmax(0,720px)] lg:pb-0 xl:grid-cols-[clamp(240px,18vw,290px)_minmax(0,680px)_clamp(340px,24vw,380px)]">
+      <div className="al2-grade grid grid-cols-[minmax(0,1fr)] pb-[calc(4.75rem+var(--recuo-baixo,0px))] lg:justify-center lg:grid-cols-[clamp(220px,21vw,260px)_minmax(0,720px)] lg:pb-0 xl:grid-cols-[clamp(240px,18vw,290px)_minmax(0,680px)_clamp(340px,24vw,380px)] 2xl:grid-cols-[clamp(260px,16vw,320px)_minmax(0,720px)_clamp(360px,21vw,420px)]">
         {/* ───── Menu (computador) ───── */}
         {/* Sem rótulo próprio: o ponto de referência é o <nav> dentro (dois rótulos iguais confundem o leitor de tela). */}
         <div className="hidden border-r border-[var(--al-linha)] lg:block">
