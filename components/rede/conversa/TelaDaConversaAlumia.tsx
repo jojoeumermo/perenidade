@@ -214,7 +214,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
           <IconeVoltar />
         </Link>
         <h1 className="al3-cond">{t.conversa.titulo}</h1>
-        <p className="al3-barra-conta">{total === 1 ? t.comum.respostaUma : preencher(t.comum.respostas, { n: total })}</p>
+        <p className="al3-barra-conta" key={total}>{total === 1 ? t.comum.respostaUma : preencher(t.comum.respostas, { n: total })}</p>
         {situacao.logado && situacao.membro && <SeguirConversa raiz={dado.raiz} t={t} aoErro={aoErro} aoAvisar={(texto) => avisar({ texto })} />}
       </div>
 
@@ -267,7 +267,13 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
           setCitacao(null);
           avisar({ texto: t.conversa.enviada });
           if (previa()) {
-            setEstado((e) => (e && e.dado ? { ...e, dado: { ...e.dado, respostas: [...e.dado.respostas, { ...nova, servidor: null }] } } : e));
+            // A contagem do alto ("31 respostas") sobe junto com a resposta nova no fio.
+            setEstado((e) => {
+              if (!e?.dado) return e;
+              const p = e.dado.post;
+              const post = { ...p, respostas: p.respostas + 1, na_conversa: typeof p.na_conversa === "number" ? p.na_conversa + 1 : p.na_conversa };
+              return { ...e, dado: { ...e.dado, post, respostas: [...e.dado.respostas, { ...nova, servidor: null }] } };
+            });
           } else setVersao((n) => n + 1);
         }}
         aoErro={aoErro}
@@ -421,6 +427,8 @@ function Reacoes({ post, t, logado, aoErro }: { post: Post; t: TextosDaAlumia3; 
       setReacoes((lista) => {
         const achada = lista.find((r) => r.emoji === emoji);
         if (!achada) return [...lista, { emoji, total: null, minha: true }];
+        // A que só eu pus (não vinha no post): tirar a minha tira o emoji da fila, em vez de ficar "poucas" sem ninguém.
+        if (minha && !(post.reacoes ?? []).some((r) => r.emoji === emoji)) return lista.filter((r) => r.emoji !== emoji);
         return lista.map((r) => (r.emoji === emoji ? { ...r, minha: !minha, total: r.total === null ? null : r.total + (minha ? -1 : 1) } : r));
       });
       return;
