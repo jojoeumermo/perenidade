@@ -6,6 +6,7 @@
     "adiado": "已延期",
     "cancelado": "已取消"
   },
+  "situacaoQuem": "由组织方决定",
   "era": "原为 {data}",
   "chamadoPor": "由 @{handle} 发起",
   "faixa": {
@@ -47,7 +48,10 @@
     "vouFeito": "已确认。你在马赛克里了。",
     "vouDesfeito": "已取消确认。",
     "lembreteCurto": "提醒",
-    "copiadoCurto": "已复制"
+    "copiadoCurto": "已复制",
+    "desfazer": "撤销",
+    "vouDesfeitoLeitor": "已取消确认。你有 {s} 秒可以撤销。",
+    "vouRefeito": "已恢复确认。你在马赛克里了。"
   },
   "mosaico": {
     "voce": "你在马赛克里：那张金色卡片。",

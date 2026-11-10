@@ -6,6 +6,7 @@
     "adiado": "Reporté",
     "cancelado": "Annulé"
   },
+  "situacaoQuem": "par la coordination",
   "era": "était le {data}",
   "chamadoPor": "appel de @{handle}",
   "faixa": {
@@ -47,7 +48,10 @@
     "vouFeito": "Confirmé. Vous êtes dans la mosaïque.",
     "vouDesfeito": "Confirmation annulée.",
     "lembreteCurto": "Rappel",
-    "copiadoCurto": "Copié"
+    "copiadoCurto": "Copié",
+    "desfazer": "Annuler",
+    "vouDesfeitoLeitor": "Confirmation annulée. Vous avez {s} secondes pour revenir en arrière.",
+    "vouRefeito": "Confirmation rétablie. Vous êtes dans la mosaïque."
   },
   "mosaico": {
     "voce": "Tu es dans la mosaïque : la carte dorée.",

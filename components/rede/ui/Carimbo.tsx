@@ -11,6 +11,8 @@ export interface PropsDoCarimbo {
   /** O texto no idioma da tela (a frente passa o seu; o padrão é o português). */
   texto?: string;
   tamanho?: "p" | "m" | "g";
+  /** De quem é a decisão, numa linha miúda embaixo ("pela coordenação"): separa a situação do ato do "você confirmou". */
+  quem?: string;
   ref?: Ref<HTMLSpanElement>;
   className?: string;
 }
@@ -20,11 +22,12 @@ export interface PropsDoCarimbo {
  * situação do ato em uma palavra que não se confunde: por isso o texto é sempre escrito (a cor é só reforço, WCAG 1.4.1) e o
  * cancelado também vem riscado. "Ninguém é pego de surpresa" (Traga sua organização).
  */
-export function Carimbo({ situacao, texto, tamanho = "m", ref, className = "" }: PropsDoCarimbo) {
+export function Carimbo({ situacao, texto, tamanho = "m", quem, ref, className = "" }: PropsDoCarimbo) {
   const escrito = texto ?? PADRAO[situacao];
   return (
-    <span ref={ref} data-situacao={situacao} className={`al-carimbo al-cond al-carimbo-${situacao} al-carimbo-${tamanho} ${className}`.trim()}>
+    <span ref={ref} data-situacao={situacao} className={`al-carimbo al-cond al-carimbo-${situacao} al-carimbo-${tamanho}${quem ? " al-carimbo-com-quem" : ""} ${className}`.trim()}>
       <span className={situacao === "cancelado" ? "al-riscado" : undefined}>{escrito}</span>
+      {quem ? <span className="al-carimbo-quem"> {quem}</span> : null}
     </span>
   );
 }

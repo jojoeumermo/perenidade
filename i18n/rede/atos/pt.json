@@ -6,6 +6,7 @@
     "adiado": "Adiado",
     "cancelado": "Cancelado"
   },
+  "situacaoQuem": "pela coordenação",
   "era": "era {data}",
   "chamadoPor": "chamado por @{handle}",
   "faixa": {
@@ -47,7 +48,10 @@
     "vouFeito": "Confirmado. Você está no mosaico.",
     "vouDesfeito": "Confirmação desfeita.",
     "lembreteCurto": "Lembrete",
-    "copiadoCurto": "Copiado"
+    "copiadoCurto": "Copiado",
+    "desfazer": "Desfazer",
+    "vouDesfeitoLeitor": "Confirmação desfeita. Você tem {s} segundos para desfazer.",
+    "vouRefeito": "Confirmação refeita. Você está no mosaico."
   },
   "mosaico": {
     "voce": "Você está no mosaico: o cartão dourado.",
