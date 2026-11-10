@@ -597,7 +597,9 @@ function Resposta({ no, indice, c }: { no: NoDaArvore; indice: number; c: Contex
         {temFilhos && (
           <button type="button" className="al3-recolher" aria-expanded={!recolhida} aria-controls={idDosFilhos} onClick={() => c.recolher(p.id)}>
             <span className="al3-recolher-seta" aria-hidden />
-            {preencher(recolhida ? t.conversa.mostrarRamo : t.conversa.recolherRamo, { n: contarNos(no.filhos) })}
+            {contarNos(no.filhos) === 1
+              ? recolhida ? t.conversa.mostrarUma : t.conversa.recolherUma
+              : preencher(recolhida ? t.conversa.mostrarRamo : t.conversa.recolherRamo, { n: contarNos(no.filhos) })}
           </button>
         )}
       </div>

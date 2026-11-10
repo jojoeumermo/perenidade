@@ -9,7 +9,9 @@ import { preencher } from "@/lib/rede/preencher";
 import { enderecos } from "@/lib/rede/tipos";
 import { enderecosDescoberta, normalizarTag, tagOk, type OrdemDaBusca, type PaginaOrdenada, type ResultadoDaBusca } from "@/lib/rede/tipos-descoberta";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { IconeBusca, previa } from "../conversa/base3";
 import { ListaOrdenada } from "./ListaOrdenada";
+import { descobertaDaPrevia } from "./previa";
 import { useTextosDescoberta } from "./textos";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
@@ -28,14 +30,18 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
   const b = d.buscar;
   const tag = q.startsWith("#") ? normalizarTag(q) : "";
   const r = achados?.q === q ? achados.r : null;
+  const fonte = previa() ? descobertaDaPrevia : redeDescoberta;
   return (
-    <div className="al3-tela">
+    <div className="al3-tela al3-buscar">
       <header className="border-b border-rule px-[18px] py-4 font-sans">
-        <h1 className="font-serif text-2xl font-extrabold">{b.titulo}</h1>
-        <form action={`/${lang}/alumia/buscar`} method="get" role="search" className="mt-3 flex gap-2">
+        <h1 className="al3-cond al3-titulo-tela">{b.titulo}</h1>
+        <form action={`/${lang}/alumia/buscar`} method="get" role="search" className="al3-buscar-form">
           <label className="sr-only" htmlFor="rede-buscar-q">{b.rotulo}</label>
-          <input id="rede-buscar-q" name="q" type="search" defaultValue={q} maxLength={200} placeholder={b.rotulo} className="min-h-11 min-w-0 flex-1 rounded-full border border-rule bg-folha px-4" />
-          <button type="submit" className="min-h-11 cursor-pointer rounded-full bg-[#c21f16] px-5 font-bold text-white hover:bg-[#1f1a14]">
+          <span className="al3-busca">
+            <IconeBusca />
+            <input id="rede-buscar-q" name="q" type="search" defaultValue={q} maxLength={200} placeholder={b.rotulo} enterKeyHint="search" />
+          </span>
+          <button type="submit" className="al3-botao-vermelho">
             {b.botao}
           </button>
         </form>
@@ -56,7 +62,7 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
           {r && r.pessoas.length > 0 && (
             <section className="border-b border-rule px-[18px] py-3 font-sans" aria-labelledby="busca-pessoas">
               <h2 id="busca-pessoas" className="font-serif text-lg font-semibold">{b.pessoas}</h2>
-              <ul className="mt-1 flex flex-wrap gap-2">
+              <ul className="al3-fichas mt-1 flex flex-wrap gap-2">
                 {r.pessoas.map((p) => (
                   <li key={p.handle}>
                     <Link href={enderecos.perfil(lang, p.handle)} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-rule px-3 hover:border-ink">
@@ -71,7 +77,7 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
           {r && r.comunidades.length > 0 && (
             <section className="border-b border-rule px-[18px] py-3 font-sans" aria-labelledby="busca-comunidades">
               <h2 id="busca-comunidades" className="font-serif text-lg font-semibold">{b.comunidades}</h2>
-              <ul className="mt-1 flex flex-wrap gap-2">
+              <ul className="al3-fichas mt-1 flex flex-wrap gap-2">
                 {r.comunidades.map((c) => (
                   <li key={c.slug}>
                     <Link href={enderecos.comunidade(lang, c.slug)} className="inline-flex min-h-11 items-center rounded-full border border-rule px-3 font-bold hover:border-ink">
@@ -91,7 +97,7 @@ export default function Buscar({ lang, s, situacao, aoEscrever }: PropsDaTelaDoP
             chave={`busca:${q}`}
             ordens={["relevancia", "novos"]}
             ordemInicial={ordemPedida}
-            carregar={(ordem, cursor) => redeDescoberta.buscar(q, ordem as OrdemDaBusca, cursor)}
+            carregar={(ordem, cursor) => fonte.buscar(q, ordem as OrdemDaBusca, cursor)}
             aoPagina={(p: PaginaOrdenada) => setAchados({ q, r: p as ResultadoDaBusca })}
             vazio={b.vazio}
             aoResponder={aoEscrever}

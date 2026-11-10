@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
 import { avisos } from "@/lib/rede/cliente-avisos";
@@ -12,6 +12,9 @@ import { fraseDoAviso, TIPOS_DE_AVISO, type FrasesDoTipo, type ItemDeAviso, type
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { previa } from "../conversa/base3";
+import { useRegua } from "../conversa/movimento";
+import { avisosDaPrevia } from "../descoberta/previa";
 import { desligarPush, estadoDoPush, ligarPush, type EstadoDoPush } from "./push";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
@@ -194,8 +197,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
 
   useEffect(() => {
     let vivo = true;
-    avisos
-      .listar()
+    (previa() ? Promise.resolve(avisosDaPrevia()) : avisos.listar())
       .then((r) => {
         if (!vivo) return;
         setItens(r.itens);
@@ -231,6 +233,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
   async function ler(item: ItemDeAviso | null) {
     if (item?.lido) return;
     setItens((atuais) => atuais.map((x) => (item === null || x.id === item.id ? { ...x, lido: true } : x)));
+    if (previa()) return setNaoLidos((n) => (item === null ? 0 : Math.max(0, n - 1)));
     try {
       const r = await avisos.ler(item?.id ?? null);
       setNaoLidos(r.nao_lidos);
@@ -262,15 +265,15 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
       {itens.length === 0 ? (
         <p className="px-[18px] py-8 text-ink-soft">{l.vazio}</p>
       ) : (
-        <ol aria-label={l.rotulo}>
-          {itens.map((item) => {
+        <ol aria-label={l.rotulo} className="al3-avisos">
+          {itens.map((item, i) => {
             const href = destino(lang, item);
             const frase = fraseDoAviso(item, frases, l.reserva);
             const conteudo = (
               <>
                 <span className="flex items-start gap-2">
                   {!item.lido && (
-                    <span className="mt-1 shrink-0 rounded bg-[#c21f16] px-1.5 text-xs font-bold text-white">{l.novo}</span>
+                    <span className="al3-aviso-novo">{l.novo}</span>
                   )}
                   <span className={item.lido ? "" : "font-bold"}>{frase}</span>
                 </span>
@@ -281,7 +284,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
               </>
             );
             return (
-              <li key={item.id} className="border-b border-rule">
+              <li key={item.id} className="al3-aviso-item border-b border-rule" data-lido={item.lido ? "sim" : "nao"} data-tipo={item.tipo ?? "conta"} style={{ "--i": i } as CSSProperties}>
                 {href ? (
                   <Link href={href} onClick={() => void ler(item)} className="block min-h-11 px-[18px] py-3 hover:bg-parchment-deep">
                     {conteudo}
@@ -311,6 +314,8 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
 export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [t, setT] = useState<TextosDeAvisos | null>(null);
   const [aba, setAba] = useState<Aba>("avisos");
+  const abas = useRef<HTMLDivElement>(null);
+  useRegua(abas, `${aba}:${t ? "t" : ""}`);
 
   useEffect(() => {
     let vivo = true;
@@ -335,7 +340,8 @@ export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote)
   return (
     <div className="al3-tela">
       <h1 className="sr-only">{t.titulo}</h1>
-      <div role="tablist" aria-label={t.abas.rotulo} className="sticky top-[var(--altura-topo,0px)] z-10 flex border-b border-rule bg-parchment">
+      <div role="tablist" aria-label={t.abas.rotulo} ref={abas} className="al3-abas-regua sticky top-[var(--altura-topo,0px)] z-10 flex border-b border-rule bg-parchment">
+        <span className="al3-abas-linha" aria-hidden />
         {(["avisos", "preferencias"] as Aba[]).map((a) => (
           <button
             key={a}
@@ -345,13 +351,13 @@ export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote)
             aria-selected={aba === a}
             aria-controls={`av-painel-${a}`}
             onClick={() => setAba(a)}
-            className={`min-h-11 flex-1 cursor-pointer px-1 font-sans text-sm font-bold sm:text-base ${aba === a ? "border-b-[3px] border-[#c21f16]" : "text-ink-soft hover:bg-parchment-deep"}`}
+            className={`min-h-11 flex-1 cursor-pointer px-1 font-sans text-sm font-bold sm:text-base ${aba === a ? "" : "text-ink-soft hover:bg-parchment-deep"}`}
           >
             {t.abas[a]}
           </button>
         ))}
       </div>
-      <div role="tabpanel" id={`av-painel-${aba}`} aria-labelledby={`av-aba-${aba}`}>
+      <div role="tabpanel" id={`av-painel-${aba}`} aria-labelledby={`av-aba-${aba}`} className="al3-entra" key={aba}>
         {aba === "avisos" ? <ListaDeAvisos t={t} lang={lang} s={s} /> : <Preferencias t={t} lang={lang} s={s} situacao={situacao} />}
       </div>
     </div>

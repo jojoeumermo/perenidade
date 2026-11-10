@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { TextosDaDescoberta } from "@/lib/rede/textos-descoberta";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Post } from "@/lib/rede/tipos";
@@ -9,6 +9,7 @@ import type { PaginaOrdenada } from "@/lib/rede/tipos-descoberta";
 import { CartaoDePost } from "../CartaoDePost";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
+import { useRegua } from "../conversa/movimento";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
 import "../conversa/alumia3.css";
 
@@ -51,6 +52,8 @@ export function ListaOrdenada({
   const [maisCarregando, setMaisCarregando] = useState(false);
   const [versao, setVersao] = useState(0);
   const pedido = `${chave}|${ordem}|${versao}`;
+  const grupo = useRef<HTMLDivElement>(null);
+  useRegua(grupo, ordem);
 
   useEffect(() => {
     let vivo = true;
@@ -94,21 +97,31 @@ export function ListaOrdenada({
   return (
     <div className="al3-tela">
       <div className="border-b border-rule px-[18px] py-3 font-sans">
-        <div role="radiogroup" aria-label={d.ordens.rotulo} className="flex flex-wrap gap-2">
-          {ordens.map((x) => (
+        {/* A pílula clara desliza até a ordem escolhida (régua de movimento.ts); setas do teclado trocam, como num grupo de rádio. */}
+        <div role="radiogroup" aria-label={d.ordens.rotulo} className="al3-segmento" ref={grupo}>
+          <span className="al3-segmento-regua" aria-hidden />
+          {ordens.map((x, i) => (
             <button
               key={x}
               type="button"
               role="radio"
               aria-checked={ordem === x}
+              tabIndex={ordem === x ? 0 : -1}
               onClick={() => setOrdem(x)}
-              className={`min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 text-sm font-bold ${ordem === x ? "bg-[#1f1a14] text-[#f4ecd8]" : "hover:bg-parchment-deep"}`}
+              onKeyDown={(e) => {
+                const passo = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+                if (!passo) return;
+                e.preventDefault();
+                const prox = ordens[(i + passo + ordens.length) % ordens.length];
+                setOrdem(prox);
+                (e.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>("button")[(i + passo + ordens.length) % ordens.length])?.focus();
+              }}
             >
               {o[x]?.nome ?? x}
             </button>
           ))}
         </div>
-        <details className="mt-2 text-sm">
+        <details className="al3-porque mt-2 text-sm">
           <summary className="min-h-11 cursor-pointer py-2 font-bold underline">{d.ordens.porQue}</summary>
           <p className="mt-1">{o[ordem]?.formula}</p>
           <p className="mt-2 text-ink-soft">{d.ordens.semAlgoritmo}</p>
@@ -130,9 +143,9 @@ export function ListaOrdenada({
           {itens.length === 0 ? (
             <p className="px-[18px] py-8 font-sans text-ink-soft">{vazio}</p>
           ) : (
-            <ol aria-label={o[ordem]?.nome}>
-              {itens.map((p) => (
-                <li key={p.id}>
+            <ol aria-label={o[ordem]?.nome} className="al3-lista-entra" key={pedido}>
+              {itens.map((p, i) => (
+                <li key={p.id} style={{ "--i": i } as CSSProperties}>
                   <CartaoDePost post={p} lang={lang} s={s} logado={logado} aoResponder={aoResponder} />
                 </li>
               ))}

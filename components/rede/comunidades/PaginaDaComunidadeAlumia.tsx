@@ -2,7 +2,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import Link from "@/components/Link";
 import { localePath } from "@/i18n/config";
 import { rede } from "@/lib/rede/cliente";
@@ -21,6 +21,7 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
 import { CartaoDeAula, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, useTextosAlumia3 } from "../conversa/base3";
+import { pular, useRegua } from "../conversa/movimento";
 
 // As ferramentas da moderação só chegam ao navegador de quem modera (e só quando abre a aba Sobre).
 const Moderar = dynamic(() => import("./Moderar"), { ssr: false });
@@ -64,6 +65,9 @@ export function PaginaDaComunidadeAlumia({
   const menuRef = useRef<HTMLDivElement>(null);
   const idDoMenu = useId();
   const idDoMotivo = useId();
+  const abasRef = useRef<HTMLDivElement>(null);
+  const entrarRef = useRef<HTMLButtonElement>(null);
+  useRegua(abasRef, `${aba}:${t ? "t" : ""}:${estado?.dado ? "d" : ""}`);
 
   // O "…" é um disclosure (lista de botões, sem os papéis de menu): ao abrir, o foco vai para o primeiro item; Escape e clique
   // fora fecham e devolvem o foco a "Mais".
@@ -136,6 +140,7 @@ export function PaginaDaComunidadeAlumia({
         ? { situacao: (sair ? null : comunidade!.tipo === "aberta" ? "membro" : "pendente") as SituacaoNaComunidade }
         : await (sair ? comunidades.sair(slug) : comunidades.entrar(slug));
       setMinha({ slug, valor: r.situacao });
+      pular(entrarRef.current, 1.1);
       setAviso({ texto: r.situacao === "membro" ? t.comunidade.entrou : r.situacao === "pendente" ? t.comunidade.pediu : t.comunidade.saiu, erro: false });
     } catch (e) {
       aoErro(e);
@@ -223,6 +228,7 @@ export function PaginaDaComunidadeAlumia({
             </Link>
           ) : (
             <button
+              ref={entrarRef}
               type="button"
               className="al3-capa-acao al3-capa-acao-cheia"
               aria-pressed={situacaoAqui === "membro" || situacaoAqui === "pendente"}
@@ -247,13 +253,14 @@ export function PaginaDaComunidadeAlumia({
         {dado.modero && Boolean(dado.pedidos) && <p className="al3-capa-aviso">{preencher(t.comunidade.pedidos, { n: dado.pedidos ?? 0 })}</p>}
       </header>
       {aviso && (
-        <p className="al3-aviso" role={aviso.erro ? "alert" : "status"}>
+        <p className="al3-aviso al3-entra" role={aviso.erro ? "alert" : "status"} key={aviso.texto}>
           {aviso.texto}
         </p>
       )}
 
       <div className={`al3-cor-${cor}`}>
-        <div role="tablist" aria-label={t.comunidade.abas} className="al3-abas">
+        <div role="tablist" aria-label={t.comunidade.abas} className="al3-abas" ref={abasRef}>
+          <span className="al3-abas-linha" aria-hidden />
           {abas.map(([chave, rotulo]) => (
             <button
               key={chave}
@@ -285,7 +292,7 @@ export function PaginaDaComunidadeAlumia({
           ))}
         </div>
 
-        <div role="tabpanel" id="al3-painel-posts" aria-labelledby="al3-aba-posts" hidden={aba !== "posts"}>
+        <div role="tabpanel" id="al3-painel-posts" aria-labelledby="al3-aba-posts" hidden={aba !== "posts"} className="al3-painel">
           {aba === "posts" && (
             <>
               {dado.fixados.map((p) => (
@@ -304,7 +311,7 @@ export function PaginaDaComunidadeAlumia({
             </>
           )}
         </div>
-        <div role="tabpanel" id="al3-painel-atos" aria-labelledby="al3-aba-atos" hidden={aba !== "atos"}>
+        <div role="tabpanel" id="al3-painel-atos" aria-labelledby="al3-aba-atos" hidden={aba !== "atos"} className="al3-painel">
           {aba === "atos" &&
             (abaDosAtos ? (
               <abaDosAtos.Componente lang={lang} s={s} situacao={situacao} slug={slug} />
@@ -315,7 +322,7 @@ export function PaginaDaComunidadeAlumia({
               </div>
             ))}
         </div>
-        <div role="tabpanel" id="al3-painel-aulas" aria-labelledby="al3-aba-aulas" hidden={aba !== "aulas"}>
+        <div role="tabpanel" id="al3-painel-aulas" aria-labelledby="al3-aba-aulas" hidden={aba !== "aulas"} className="al3-painel">
           {aba === "aulas" &&
             (comunidade.aulas.length + comunidade.trilhas.length === 0 ? (
               <p className="al3-vazio">{t.comunidade.aulasVazio}</p>
@@ -336,7 +343,7 @@ export function PaginaDaComunidadeAlumia({
               </div>
             ))}
         </div>
-        <div role="tabpanel" id="al3-painel-sobre" aria-labelledby="al3-aba-sobre" hidden={aba !== "sobre"}>
+        <div role="tabpanel" id="al3-painel-sobre" aria-labelledby="al3-aba-sobre" hidden={aba !== "sobre"} className="al3-painel">
           {aba === "sobre" && (
             <div>
               <section className="al3-secao" ref={regrasRef} tabIndex={-1} aria-labelledby="al3-regras">
@@ -428,7 +435,11 @@ function PostsDaComunidade({ slug, lang, t, s, logado, aoErro }: { slug: string;
         </p>
       )}
       {posts && posts.length === 0 && <p className="al3-vazio">{t.comunidade.vazio}</p>}
-      {posts?.map((p) => <PostCompacto key={p.id} post={p} lang={lang} s={s} t={t} logado={logado} aoErro={aoErro} />)}
+      {posts?.map((p, i) => (
+        <div key={p.id} className="al3-post-entra" style={{ "--i": i } as CSSProperties}>
+          <PostCompacto post={p} lang={lang} s={s} t={t} logado={logado} aoErro={aoErro} />
+        </div>
+      ))}
       {cursor && (
         <div className="al3-mais">
           <button type="button" className="al-botao al-botao-contorno al-botao-m" disabled={buscando} onClick={() => void buscar(cursor)}>

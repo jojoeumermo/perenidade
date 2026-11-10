@@ -114,7 +114,9 @@
     "citando": "引用：“{trecho}”",
     "tirarCitacao": "移除引用",
     "recolherRamo": "收起 {n} 条回复",
-    "mostrarRamo": "展开 {n} 条回复"
+    "mostrarRamo": "展开 {n} 条回复",
+    "recolherUma": "收起 1 条回复",
+    "mostrarUma": "展开 1 条回复"
   },
   "reacoes": {
     "rotulo": "表情回应",
@@ -151,5 +153,17 @@
     "avisos": "通知",
     "salvos": "收藏",
     "comunidades": "社区"
+  },
+  "descoberta": {
+    "seguirTag": "关注 #{tag}",
+    "seguindoTag": "已关注 #{tag}",
+    "seguirTagRegra": "只有你能看到你关注的 #话题。关注不会改变任何排序：它只是“探索”里的快捷方式。",
+    "seguiuTag": "你已关注 #{tag}。",
+    "deixouTag": "你已取消关注 #{tag}。",
+    "suasTags": "你的 #话题",
+    "buscar": "搜索帖子、#话题和社区",
+    "emAlta": "本周 #话题",
+    "comunidadeDe": "本周 {n} 条帖子",
+    "entrarNela": "打开"
   }
 }

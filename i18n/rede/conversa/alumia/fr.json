@@ -114,7 +114,9 @@
     "citando": "Citation : « {trecho} »",
     "tirarCitacao": "Retirer la citation",
     "recolherRamo": "Replier {n} réponses",
-    "mostrarRamo": "Afficher {n} réponses"
+    "mostrarRamo": "Afficher {n} réponses",
+    "recolherUma": "Replier 1 réponse",
+    "mostrarUma": "Afficher 1 réponse"
   },
   "reacoes": {
     "rotulo": "Réactions",
@@ -151,5 +153,17 @@
     "avisos": "Notifications",
     "salvos": "Enregistrés",
     "comunidades": "Communautés"
+  },
+  "descoberta": {
+    "seguirTag": "Suivre #{tag}",
+    "seguindoTag": "#{tag} suivi",
+    "seguirTagRegra": "Vous seul·e voyez les #sujets que vous suivez. Suivre ne change aucun ordre : c'est un raccourci dans Explorer.",
+    "seguiuTag": "Vous suivez #{tag}.",
+    "deixouTag": "Vous ne suivez plus #{tag}.",
+    "suasTags": "Vos #sujets",
+    "buscar": "Chercher des posts, #sujets et communautés",
+    "emAlta": "#sujets de la semaine",
+    "comunidadeDe": "{n} posts cette semaine",
+    "entrarNela": "Ouvrir"
   }
 }

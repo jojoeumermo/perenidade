@@ -78,10 +78,13 @@ export function useRegua(raiz: RefObject<HTMLElement | null>, chave: string) {
     const el = raiz.current;
     if (!el) return;
     const medir = () => {
-      const escolhido = el.querySelector<HTMLElement>('[aria-selected="true"], [aria-pressed="true"]');
+      const escolhido = el.querySelector<HTMLElement>(':scope > [aria-selected="true"], :scope > [aria-pressed="true"], :scope > [aria-checked="true"]');
       if (!escolhido) return;
       el.style.setProperty("--al3-x", `${escolhido.offsetLeft}px`);
       el.style.setProperty("--al3-l", `${escolhido.offsetWidth}px`);
+      // A linha de baixo (quando os botões quebram em duas linhas no celular) e a altura do botão.
+      el.style.setProperty("--al3-y", `${escolhido.offsetTop}px`);
+      el.style.setProperty("--al3-a", `${escolhido.offsetHeight}px`);
       el.dataset.regua = "sim";
     };
     medir();
