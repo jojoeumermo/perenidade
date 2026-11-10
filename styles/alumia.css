@@ -368,8 +368,8 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 
 /* Troca de aba com View Transitions: a linha cruza suave (o resto da tela fica parado). */
 [data-al="2"] .al2-linha { view-transition-name: al2-linha; }
-::view-transition-old(al2-linha) { animation: 140ms ease-in both al2-some; }
-::view-transition-new(al2-linha) { animation: 260ms ease-out both al2-tela-entra; }
+:root:has([data-al="2"])::view-transition-old(al2-linha) { animation: 140ms ease-in both al2-some; }
+:root:has([data-al="2"])::view-transition-new(al2-linha) { animation: 260ms ease-out both al2-tela-entra; }
 @keyframes al2-some { to { opacity: 0; transform: translateY(-4px); } }
 
 /* "N posts novos": logo abaixo das abas (nunca por cima delas), fixa enquanto a pessoa rola, entra com mola. */
@@ -595,7 +595,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   [data-al="2"] .al-esq { animation: none; background: var(--al-superficie-2); }
   [data-al="2"] :is(.al2-abas-traco, .al2-menu-item, .al2-novos-lugar, .al2-contador-arco) { transition: none; }
   [data-al="2"] .al2-menu-item:hover { transform: none; }
-  ::view-transition-old(al2-linha), ::view-transition-new(al2-linha) { animation: none; }
+  :root:has([data-al="2"])::view-transition-old(al2-linha), :root:has([data-al="2"])::view-transition-new(al2-linha) { animation: none; }
   [data-al="2"] .al2-aviso-barra { animation: none; transform: scaleX(0.5); }
 }
 :root[data-eink] [data-al="2"] :is(.al2-tela-entra, .al2-entra, .al-esq-post, .al2-novos, .al2-fim-carimbo-caiu, .al-carimbo, .al2-escrever, .al2-escrever-fundo, .al2-troca-tipo, .al2-anexo, .al2-miniatura, .al2-gaveta, .al2-aviso-flutuante, .al2-publicar, .al2-tipo) { animation: none !important; }
