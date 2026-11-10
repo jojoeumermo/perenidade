@@ -34,10 +34,10 @@ export const ROTAS_NOVAS: readonly RotaNova[] = [
   { nome: "seguranca", caminho: "/seguranca", flag: "alumia-modo-ato", frente: "F6", indexar: false },
   { nome: "identidades", caminho: "/identidades", flag: "alumia-modo-ato", frente: "F6", indexar: false },
   { nome: "aparelhos", caminho: "/aparelhos", flag: "alumia-modo-ato", frente: "F6", indexar: false },
-  { nome: "o-que-guardamos", caminho: "/o-que-guardamos", flag: "alumia-2", frente: "F6", indexar: true },
-  { nome: "transparencia", caminho: "/transparencia", flag: "alumia-2", frente: "F8", indexar: true },
-  { nome: "listas", caminho: "/listas", flag: "alumia-2", frente: "F9", indexar: false },
-  { nome: "leve", caminho: "/leve", flag: "alumia-2", frente: "F9", indexar: true },
+  { nome: "o-que-guardamos", caminho: "/o-que-guardamos", flag: "alumia-proximas", frente: "F6", indexar: true },
+  { nome: "transparencia", caminho: "/transparencia", flag: "alumia-proximas", frente: "F8", indexar: true },
+  { nome: "listas", caminho: "/listas", flag: "alumia-proximas", frente: "F9", indexar: false },
+  { nome: "leve", caminho: "/leve", flag: "alumia-proximas", frente: "F9", indexar: true },
 ];
 
 /** A rota nova pelo nome. */
