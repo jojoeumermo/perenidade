@@ -49,6 +49,19 @@ import {
 } from "./base3";
 import { pular, trazerParaVista, useFlip, useRegua } from "./movimento";
 
+/**
+ * Na prévia: o post de exemplo pelo id (o link permanente dos cartões do Início e do perfil abre o PRÓPRIO post, sem respostas
+ * inventadas para ele); um id desconhecido mostra a conversa das pranchas.
+ */
+async function arvoreDaPrevia(id: string) {
+  const base = arvoreDeExemplo(id);
+  if (!id.startsWith("exemplo-")) return base;
+  const { postDaPrevia } = await import("../perfil/livre/dados");
+  const post = await postDaPrevia(id);
+  if (!post) return base;
+  return { ...base, post: { ...post, servidor: null }, respostas: [], raiz: post.raiz || post.id, pode_aceitar: false, pode_sintese: false };
+}
+
 const LIMITE = 500;
 /** O trecho citado cabe numa linha de citação: o resto da resposta é da pessoa. */
 const TRECHO_MAX = 200;
@@ -89,7 +102,7 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
   useEffect(() => {
     let vivo = true;
     // Banco sem a migração da F3 ainda: a árvore de hoje (sem reações; "ajudou" pelo `aceita` da dúvida).
-    const pedir = previa() ? Promise.resolve(arvoreDeExemplo(id)) : conversa.alumia(id, ordem).catch(() => conversa.arvore(id, ordem));
+    const pedir = previa() ? arvoreDaPrevia(id) : conversa.alumia(id, ordem).catch(() => conversa.arvore(id, ordem));
     pedir
       .then((dado) => {
         if (!vivo) return;
