@@ -61,6 +61,7 @@ import { AcervoPorDentro, MinhasContribuicoes, ParaVoceHoje, Tarefas } from "../
 import { Exercicios } from "../Exercicios";
 import { Conversas } from "../Conversas";
 import { Curriculo as DisciplinasETrilhas } from "../Curriculo";
+import { ParceirosDosTerritorios } from "../ParceirosDosTerritorios";
 import { Divulgacao } from "../Divulgacao";
 import { Equipe, type Membro } from "../Equipe";
 import { Repasse } from "../Sigilo";
@@ -665,7 +666,12 @@ export function Dentro({ eu: euReal, recarregar, sair, aba }: { eu: Me; recarreg
                         {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
                         {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
                         {atual.id === "registro" && <RegistroDeAtividades />}
-                        {atual.id === "departamentos" && <Departamentos me={eu} ir={ir} />}
+                        {atual.id === "departamentos" && (
+                          <>
+                            <Departamentos me={eu} ir={ir} />
+                            <ParceirosDosTerritorios me={eu} />
+                          </>
+                        )}
                         {atual.id === "assembleias" && <Assembleias me={eu} />}
                         {atual.id === "pautas" && <Pautas me={eu} ir={ir} />}
                         {atual.id === "biblioteca" && <Biblioteca ir={ir} />}
