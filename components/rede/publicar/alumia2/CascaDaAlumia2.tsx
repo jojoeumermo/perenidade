@@ -173,7 +173,7 @@ export function CascaDaAlumia2({
         {/* ───── Menu (computador) ───── */}
         {/* Sem rótulo próprio: o ponto de referência é o <nav> dentro (dois rótulos iguais confundem o leitor de tela). */}
         <div className="hidden border-r border-[var(--al-linha)] px-4 lg:block xl:px-5 2xl:px-7">
-          <div className="sticky top-0 flex min-h-[calc(100vh-6px)] flex-col py-6">
+          <div className="sticky top-[0px] flex min-h-[calc(100vh-6px)] flex-col py-6">
             <Link href={enderecos.linha(lang)} className="flex items-center gap-3 px-2" aria-label={t.marca.inicio}>
               <Lampiao tamanho={34} />
               <span className="leading-none">
@@ -295,7 +295,7 @@ export function CascaDaAlumia2({
 
         {/* ───── Coluna da direita (computador) ───── */}
         <aside className="hidden px-5 xl:block 2xl:px-7" aria-label={t.direita.rotulo}>
-          <div className="al2-direita sticky top-0 max-h-screen space-y-6 overflow-y-auto overscroll-contain py-6">
+          <div className="al2-direita sticky top-[0px] max-h-screen space-y-6 overflow-y-auto overscroll-contain py-6">
             <form action={localePath(lang, "/alumia/buscar")} method="get" role="search" className="al2-busca">
               <label className="sr-only" htmlFor="al2-busca">{t.direita.buscar}</label>
               <span className="relative block">

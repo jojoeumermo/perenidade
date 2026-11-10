@@ -71,6 +71,8 @@ export function CartaoDaAlumia2({
   const [erro, setErro] = useState("");
   const [nota, setNota] = useState("");
   const [ocupado, setOcupado] = useState(false);
+  // A ação que a pessoa acabou de tocar: só ela anima (o que já vinha aceso, salvo ou repostado aparece parado).
+  const [tocou, setTocou] = useState<"repostar" | "acender" | "salvar" | null>(null);
   const repostavel = podeRepostar(post);
   // O estado do Repostar vem do banco (um pedido por página, rede_pub_repostados): só o da própria pessoa.
   const buscarRepost = logado && repostavel && !deExemplo(post.id) && !repostarForaDoBanco;
@@ -302,18 +304,25 @@ export function CartaoDaAlumia2({
           {logado && (
             <button
               type="button"
-              className="al2-acao"
+              className="al2-acao al2-acao-repostar"
               aria-pressed={repostei}
+              data-tocou={tocou === "repostar" ? "" : undefined}
               disabled={ocupado || (!exemplo && (semRepostar || (!repostavel && !repostei)))}
               title={exemplo ? undefined : semRepostar ? t.cartao.indisponivel : !repostavel && !repostei ? t.cartao.naoRepostavel : undefined}
-              onClick={() => void repostar()}
+              onClick={() => {
+                setTocou("repostar");
+                void repostar();
+              }}
             >
               <Icone nome="repostar" className="h-[18px] w-[18px]" />
               <span className="max-[420px]:sr-only">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
             </button>
           )}
           {logado && !post.meu && (
-            <button type="button" className="al2-acao al2-acao-acender" aria-pressed={post.apoiei} disabled={ocupado} onClick={() => void acender()}>
+            <button type="button" className="al2-acao al2-acao-acender" aria-pressed={post.apoiei} data-tocou={tocou === "acender" ? "" : undefined} disabled={ocupado} onClick={() => {
+                setTocou("acender");
+                void acender();
+              }}>
               <Icone nome="acender" className="h-[18px] w-[18px]" />
               <span className="max-[420px]:sr-only">{post.apoiei ? t.cartao.aceso : t.cartao.acender}</span>
             </button>
@@ -333,7 +342,10 @@ export function CartaoDaAlumia2({
             </button>
           )}
           {logado && (
-            <button type="button" className="al2-acao" aria-pressed={post.salvei} aria-label={post.salvei ? t.cartao.salvo : t.cartao.salvar} title={post.salvei ? t.cartao.salvo : t.cartao.salvar} disabled={ocupado} onClick={() => void salvar()}>
+            <button type="button" className="al2-acao al2-acao-salvar" aria-pressed={post.salvei} data-tocou={tocou === "salvar" ? "" : undefined} aria-label={post.salvei ? t.cartao.salvo : t.cartao.salvar} title={post.salvei ? t.cartao.salvo : t.cartao.salvar} disabled={ocupado} onClick={() => {
+              setTocou("salvar");
+              void salvar();
+            }}>
               <Icone nome="salvos" className="h-[18px] w-[18px]" />
             </button>
           )}
