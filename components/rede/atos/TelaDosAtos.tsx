@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type FormEvent, type TouchEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { flushSync } from "react-dom";
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
@@ -136,35 +136,48 @@ export default function TelaDosAtos({ lang, situacao, aoEscrever }: PropsDaTelaD
     el.style.removeProperty("--al-arraste");
     el.style.removeProperty("--al-arraste-p");
   };
-  const aoComecarToque = (e: TouchEvent) => {
-    const y = e.touches[0]?.clientY;
-    if (y === undefined || e.touches.length > 1) return;
-    toque.current = { y, d: 0, noFim: window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4, noTopo: window.scrollY <= 0 };
-  };
-  const aoMoverToque = (e: TouchEvent) => {
-    const tq = toque.current;
-    const y = e.touches[0]?.clientY;
-    if (!tq || y === undefined) return;
-    tq.d = tq.y - y;
-    const vale = (tq.d > 0 && tq.noFim && !!proximo) || (tq.d < 0 && tq.noTopo && indice > 0);
-    if (!vale || !podeMexer()) return;
-    palco.current?.setAttribute("data-arrastando", "");
-    pintarArraste(tq.d);
-  };
-  const aoSoltarToque = () => {
-    const tq = toque.current;
-    toque.current = null;
-    limparArraste();
-    if (!tq) return;
-    // só um gesto claro troca de ato
-    if (tq.d > PUXAR && tq.noFim) ir(indice + 1);
-    else if (tq.d < -PUXAR && tq.noTopo) ir(indice - 1);
-  };
+  // O gesto vale na página inteira (também no rodapé e nas correntes): os ouvintes ficam na janela, passivos.
+  useEffect(() => {
+    const aoComecarToque = (e: TouchEvent) => {
+      const y = e.touches[0]?.clientY;
+      if (y === undefined || e.touches.length > 1) return;
+      toque.current = { y, d: 0, noFim: window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4, noTopo: window.scrollY <= 0 };
+    };
+    const aoMoverToque = (e: TouchEvent) => {
+      const tq = toque.current;
+      const y = e.touches[0]?.clientY;
+      if (!tq || y === undefined) return;
+      tq.d = tq.y - y;
+      const vale = (tq.d > 0 && tq.noFim && !!proximo) || (tq.d < 0 && tq.noTopo && indice > 0);
+      if (!vale || !podeMexer()) return;
+      palco.current?.setAttribute("data-arrastando", "");
+      pintarArraste(tq.d);
+    };
+    const aoSoltarToque = () => {
+      const tq = toque.current;
+      toque.current = null;
+      limparArraste();
+      if (!tq) return;
+      // só um gesto claro troca de ato
+      if (tq.d > PUXAR && tq.noFim) ir(indice + 1);
+      else if (tq.d < -PUXAR && tq.noTopo) ir(indice - 1);
+    };
+    window.addEventListener("touchstart", aoComecarToque, { passive: true });
+    window.addEventListener("touchmove", aoMoverToque, { passive: true });
+    window.addEventListener("touchend", aoSoltarToque);
+    window.addEventListener("touchcancel", aoSoltarToque);
+    return () => {
+      window.removeEventListener("touchstart", aoComecarToque);
+      window.removeEventListener("touchmove", aoMoverToque);
+      window.removeEventListener("touchend", aoSoltarToque);
+      window.removeEventListener("touchcancel", aoSoltarToque);
+    };
+  }, [ir, indice, proximo]);
 
   if (!t) return <div className="al-atos-tela" aria-busy="true" />;
 
   return (
-    <section className="al-atos-tela" aria-labelledby="al-atos-titulo" onTouchStart={aoComecarToque} onTouchMove={aoMoverToque} onTouchEnd={aoSoltarToque} onTouchCancel={aoSoltarToque}>
+    <section className="al-atos-tela" aria-labelledby="al-atos-titulo">
       <header className="al-atos-cabeca">
         <Link href={enderecos.linha(lang)} className="al-atos-voltar" aria-label={t.tela.voltar}>
           {Icone.voltar(26)}
