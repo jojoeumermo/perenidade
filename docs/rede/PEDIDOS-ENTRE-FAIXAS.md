@@ -10,6 +10,9 @@ Escreva embaixo, com data, quem pede, o arquivo e o que pôr. Quem atende marca 
 
 "Caso você termine primeiro que a outra faixa, eu quero que vocês ajudem uma à outra, cooperando."
 
+**Regra principal:** "as faixas vão se ajudar entre si, mas caso uma finalize todo o trabalho dela primeiro, a outra faixa vai dividir o serviço da faixa que ainda falta com ela."
+Ou seja: quando uma faixa terminar, a faixa que ainda tem trabalho **divide o que falta** com ela (metade cada, sem arquivo em comum), escreve a divisão aqui e dá push. Até lá, ajudam uma à outra quando puderem.
+
 - Quem terminar a própria lista primeiro escreve aqui "Faixa N terminou" e passa a ajudar a outra.
 - Para não fazerem a mesma coisa: antes de pegar um item da outra faixa, escreva aqui "Faixa N assume: <item>" e dê push;
   só comece depois que o push entrar. A faixa dona pode responder "não, já estou nisso" e aí a ajudante pega outro item.
