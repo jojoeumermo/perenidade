@@ -31,6 +31,17 @@ export function criarClienteDaConversa(c: Chamar) {
     reagirEmoji: (post: string, emoji: string, sim: boolean) => c<{ reacoes: ReacaoDoPost[] }>("rede_alumia_reagir", { p_post: post, p_emoji: emoji, p_sim: sim }),
     /** As reações de até 50 posts de uma vez (post que a pessoa não pode ver não volta). */
     reacoes: (posts: string[]) => c<{ itens: { post: string; reacoes: ReacaoDoPost[] }[] }>("rede_alumia_reacoes", { p_posts: posts }),
+
+    // Onda A/B (20261110-alumia-comunidade.sql): seguir a conversa e o #tema. Ninguém vê quem segue; o aviso chega agrupado.
+    /** Segue (ou deixa de seguir) a conversa inteira (pela raiz). */
+    seguir: (raiz: string, sim: boolean) => c<{ seguindo: boolean }>("rede_alumia_seguir_conversa", { p_post: raiz, p_sim: sim }),
+    /** Se a pessoa segue esta conversa e/ou este #tema (nulo quando não foi perguntado). */
+    seguindo: (raiz: string | null, tag: string | null = null) =>
+      c<{ conversa: boolean | null; tag: boolean | null }>("rede_alumia_seguindo", { p_post: raiz, p_tag: tag }),
+    /** Segue (ou deixa de seguir) um #tema. */
+    seguirTag: (tag: string, sim: boolean) => c<{ seguindo: boolean }>("rede_alumia_seguir_tag", { p_tag: tag, p_sim: sim }),
+    /** Os #temas que a própria pessoa segue (só ela vê a lista dela). */
+    tagsSeguidas: () => c<{ tags: string[] }>("rede_alumia_tags_seguidas", {}),
   };
 }
 

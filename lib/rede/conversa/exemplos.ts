@@ -70,8 +70,46 @@ const ID = {
 } as const;
 export const IDS_DE_EXEMPLO = ID;
 
-/** A página da comunidade "Passe Livre SP" da prancha celular-comunidade. */
-export function paginaDeExemplo(slug: string, agora: number = Date.now()): PaginaDaComunidade {
+/** As regras de exemplo das comunidades que não são a da prancha (as mesmas quatro da casa, em linguagem curta). */
+const REGRAS_DA_CASA = [
+  { numero: 1, titulo: "Codinome sempre", texto: "Nada de nome civil, endereço, placa ou rosto de quem não pediu." },
+  { numero: 2, titulo: "Fonte no que afirma", texto: "Número e notícia vêm com a fonte." },
+  { numero: 3, titulo: "Sem ataque a pessoa", texto: "Critique a ideia e quem decide, não quem comenta." },
+];
+
+/**
+ * A página de exemplo de uma comunidade da prévia, pelo slug: a "Passe Livre SP" da prancha celular-comunidade, ou uma das outras
+ * de listaDeExemplo() com o nome, a cor e a descrição dela. Slug que não está na lista: nulo (a tela mostra "não encontrada").
+ */
+export function paginaDeExemplo(slug: string, agora: number = Date.now()): PaginaDaComunidade | null {
+  const item = listaDeExemplo().find((c) => c.slug === slug);
+  if (!item) return null;
+  if (slug !== "passe-livre-sp") {
+    return {
+      comunidade: {
+        slug,
+        nome: item.nome,
+        descricao: item.descricao,
+        categoria: item.categoria,
+        tipo: item.tipo,
+        publico_padrao: "membros",
+        icone: "",
+        cor: item.cor,
+        aulas: item.categoria === "disciplinas" ? ["introducao-ao-marxismo/mais-valia"] : [],
+        trilhas: item.categoria === "disciplinas" ? ["introducao-ao-marxismo"] : [],
+        regras: REGRAS_DA_CASA,
+        etiquetas: [],
+        moderacao: ["Uma", "Duas", "Três"],
+        membro: false,
+        banido: false,
+      },
+      situacao: null,
+      modero: false,
+      pedidos: null,
+      posts_7d: item.posts_7d ?? null,
+      fixados: [],
+    };
+  }
   return {
     comunidade: {
       slug,
@@ -82,8 +120,8 @@ export function paginaDeExemplo(slug: string, agora: number = Date.now()): Pagin
       publico_padrao: "membros",
       icone: "",
       cor: "#1fc2b5",
-      aulas: ["economia-politica/quem-paga-a-tarifa"],
-      trilhas: ["economia-politica"],
+      aulas: ["direito-a-cidade/david-harvey-a-cidade-como-negocio", "economia-fundamental/preco-salario-e-inflacao"],
+      trilhas: ["direito-a-cidade"],
       regras: [
         { numero: 1, titulo: "Codinome sempre", texto: "Nada de nome civil, endereço, placa ou rosto de quem não pediu." },
         { numero: 2, titulo: "Fonte nas contas", texto: "Número de tarifa vem com a fonte (planilha, lei, diário oficial)." },
@@ -117,8 +155,30 @@ export function paginaDeExemplo(slug: string, agora: number = Date.now()): Pagin
   };
 }
 
+/** Um post de exemplo de cada comunidade que não é a da prancha (codinomes inventados). */
+const OUTROS_POSTS: Record<string, { id: string; texto: string; codinome: string; handle: string; minutos: number; respostas: number }[]> = {
+  "estudantes-ufpe": [
+    { id: "00000000-0000-4000-8000-0000000000e1", texto: "O RU fechou de novo no sábado. Quem mora na casa do estudante ficou sem almoço. Vamos levar isso pro conselho na terça.", codinome: "Maré Alta", handle: "marealta", minutos: 15, respostas: 23 },
+    { id: "00000000-0000-4000-8000-0000000000e2", texto: "Resumo da assembleia: a bolsa permanência atrasou para 312 estudantes. A planilha com os números está no núcleo.", codinome: "Frevo Vermelho", handle: "frevovermelho", minutos: 140, respostas: 8 },
+  ],
+  "moradia-zona-leste": [
+    { id: "00000000-0000-4000-8000-0000000000e3", texto: "Mutirão de cadastro da ocupação sábado de manhã. Traga caneta e paciência.", codinome: "Moradia ZL", handle: "moradiazl", minutos: 400, respostas: 4 },
+  ],
+  marxismo: [
+    { id: "00000000-0000-4000-8000-0000000000c1", texto: "Fiz a aula de mais-valia e fiquei pensando no meu turno de entrega. Alguém já calculou quanto do valor da corrida fica com o app?", codinome: "Lia Quilombo", handle: "liaquilombo", minutos: 60, respostas: 31 },
+  ],
+  "cultura-hip-hop": [
+    { id: "00000000-0000-4000-8000-0000000000e4", texto: "Sarau na laje da Dona Cida, sexta, 20h. Microfone aberto, quem quiser recitar chega cedo.", codinome: "Rima Firme", handle: "rimafirme", minutos: 300, respostas: 6 },
+  ],
+};
+
 /** Os posts da comunidade (a linha "c:<slug>") da prancha. */
 export function postsDeExemplo(slug: string, agora: number = Date.now()): Post[] {
+  if (slug !== "passe-livre-sp") {
+    return (OUTROS_POSTS[slug] ?? []).map((p) =>
+      postDeExemplo({ id: p.id, texto: p.texto, comunidade: slug, autor: { id: null, codinome: p.codinome, handle: p.handle, perfil: true, equipe: false }, criado_em: antes(p.minutos, agora), respostas: p.respostas }, agora),
+    );
+  }
   return [
     postDeExemplo(
       {
@@ -148,25 +208,26 @@ export function postsDeExemplo(slug: string, agora: number = Date.now()): Post[]
 
 /** "214 posts esta semana" e as outras da coluna (prancha computador-inicio, "Comunidades ativas"). */
 export function listaDeExemplo(): ItemDaLista[] {
-  const item = (slug: string, nome: string, cor: string, posts: number, categoria: ItemDaLista["categoria"] = "lutas"): ItemDaLista => ({
+  const item = (slug: string, nome: string, cor: string, posts: number, descricao: string, categoria: ItemDaLista["categoria"] = "lutas"): ItemDaLista => ({
     slug,
     nome,
-    descricao: "",
+    descricao,
     categoria,
     tipo: "aberta",
     icone: "",
     cor,
     situacao: null,
     posts_7d: posts,
-    pessoas_7d: null,
+    // Pessoas diferentes na semana: só o total e só a partir de 3 (abaixo disso, "poucas"), como no banco.
+    pessoas_7d: posts >= 12 ? Math.max(3, Math.round(posts / 4)) : null,
   });
   return [
-    item("passe-livre-sp", "Passe Livre SP", "#1fc2b5", 214),
-    item("estudantes-ufpe", "Estudantes UFPE", "#ff5c8a", 168),
-    item("moradia-zona-leste", "Moradia Zona Leste", "#ff8a1f", 121),
-    item("marxismo", "Marxismo · aula em debate", "#5b8cff", 97, "disciplinas"),
-    item("cultura-hip-hop", "Cultura e hip-hop", "#a27bff", 40),
-    item("quieta", "Comunidade quieta", "", 2),
+    item("passe-livre-sp", "Passe Livre SP", "#1fc2b5", 214, "Pela tarifa zero no transporte de São Paulo."),
+    item("estudantes-ufpe", "Estudantes UFPE", "#ff5c8a", 168, "Assistência estudantil, RU e moradia na UFPE."),
+    item("moradia-zona-leste", "Moradia Zona Leste", "#ff8a1f", 121, "Ocupações, despejos e mutirões da Zona Leste."),
+    item("marxismo", "Marxismo · aula em debate", "#5b8cff", 97, "As aulas do Instituto discutidas em grupo.", "disciplinas"),
+    item("cultura-hip-hop", "Cultura e hip-hop", "#a27bff", 40, "Saraus, batalhas e quem faz cultura na quebrada."),
+    item("quieta", "Comunidade quieta", "", 2, "Uma comunidade com pouco movimento esta semana."),
   ];
 }
 
@@ -179,7 +240,7 @@ export function arvoreDeExemplo(id: string, agora: number = Date.now()): Arvore 
         "Fiz a aula de mais-valia e fiquei pensando no meu turno de entrega: 9 horas na rua, e a taxa de cada corrida cai toda semana. Alguém já calculou quanto do valor da corrida fica com o app?",
       comunidade: "marxismo",
       autor: { id: null, codinome: "Lia Quilombo", handle: "liaquilombo", perfil: true, equipe: false },
-      cita: { tipo: "aula", caminho: "marxismo/o-que-e-mais-valia", titulo: "O que é mais-valia" },
+      cita: { tipo: "aula", caminho: "/trilhas/introducao-ao-marxismo/mais-valia", titulo: "O que é mais-valia" },
       criado_em: antes(60, agora),
       respostas: 2,
       na_conversa: 31,
