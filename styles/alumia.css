@@ -614,12 +614,25 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-botao-site { border-color: var(--al-texto); }
 
 /* O aviso da prévia: uma linha só, colada na faixa colorida, acima de tudo. */
-[data-al="2"] .al2-aviso-previa { margin: 0; padding: 0.3rem 1rem; background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.75rem; font-weight: 800; text-align: center; }
+[data-al="2"] .al2-aviso-previa {
+  margin: 0; height: 28px; padding: 0 1rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; line-height: 28px;
+  background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.75rem; font-weight: 800; text-align: center;
+}
 [data-al="2"] .al2 .al2-topo-stories .al-st-previa { display: none; }
 
 /* O menu da esquerda do tamanho da tela: a parte de cima rola por dentro, o pé (conta e Sair rápido) fica sempre à vista. */
 [data-al="2"] .al2-menu-rola { scrollbar-width: thin; scrollbar-color: var(--al-superficie-2) transparent; }
 [data-al="2"] .al2-menu-pe { background: var(--al-fundo); }
+/* A altura do menu: a tela menos o que está acima dele (a faixa de 6 px e, na prévia, o aviso de 28 px), para o Sair rápido nunca
+   ficar abaixo da dobra na tela parada; ao rolar, o menu cresce junto com a rolagem até a tela inteira (animação ligada à rolagem;
+   sem ela, sobra só uma fresta embaixo). */
+[data-al="2"] .al2 { --al2-topo: 6px; }
+[data-al="2"] .al2:has(> .al2-aviso-previa) { --al2-topo: 34px; }
+[data-al="2"] .al2-menu-lateral { height: calc(100dvh - var(--al2-topo)); }
+@keyframes al2-menu-cresce { from { height: calc(100dvh - var(--al2-topo)); } to { height: 100dvh; } }
+@supports (animation-timeline: scroll()) {
+  [data-al="2"] .al2-menu-lateral { animation: al2-menu-cresce linear both; animation-timeline: scroll(root block); animation-range: 0 var(--al2-topo); }
+}
 @media (max-height: 820px) {
   [data-al="2"] .al2-menu-rola { padding-top: 1rem; }
   [data-al="2"] .al2-menu-nav { margin-top: 0.75rem; }
@@ -689,7 +702,13 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2 .al-ato-cartao-mosaico, [data-al="2"] .al2 .al-ato-topo .al-mosaico { max-width: 640px; }
 
 /* A faixa PRÓXIMO ATO no celular: uma linha só ("Passe Livre Já · qua 18h · Praça da Sé"), com reticências se não couber. */
-[data-al="2"] .al2 .al-faixa-ato-curto { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 1023px) {
+  [data-al="2"] .al2 .al-faixa-ato-curto { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.8rem; letter-spacing: -0.01em; }
+}
+@media (max-width: 419px) {
+  [data-al="2"] .al2 .al-faixa-ato { gap: 0.55rem; padding-inline: 0.85rem; }
+  [data-al="2"] .al2 .al-faixa-ato-rotulo { font-size: 1.15rem; }
+}
 
 /* Dia e hora como as pranchas ("ter 19/11 · 6h"): o campo nativo, transparente, por cima do resumo. */
 .al-quando {
@@ -721,6 +740,12 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-form-cidade { border: 2px solid var(--al-texto); }
 /* No Escrever, Quando e Onde lado a lado também no celular (como na prancha): o resumo da data é curto. */
 [data-al="2"] .al2-escrever .al-ato-form-dupla { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: start; }
+[data-al="2"] .al2-escrever .al-ato-form-dupla > *, [data-al="2"] .al2-escrever .al-ato-form-dupla input { min-width: 0; }
+[data-al="2"] .al2-escrever .al-ato-form-grupo { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 479px) {
+  [data-al="2"] .al2-escrever .al-ato-form-dupla { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.5rem; }
+  [data-al="2"] .al2-escrever .al-quando { padding-inline: 0.6rem; gap: 0.35rem; font-size: 0.9375rem; }
+}
 
 /* "Publicar mais tarde": o campo da hora na sua própria linha, com a largura toda. */
 [data-al="2"] .al2-agenda .al-quando { width: 100%; }
