@@ -91,7 +91,8 @@ const lay = ler("app/[lang]/alumia/layout.tsx");
 ok("useAlumia2 vem do layout por contexto, só com a Alumia nova", /if \(!alumia2Ligada\(\)\) return moldura;/.test(lay) && /<ComAlumia2>\{moldura\}<\/ComAlumia2>/.test(lay));
 ok("sem o provedor, useAlumia2 é false", /createContext\(false\)/.test(ler("components/rede/conversa/Alumia2.tsx")));
 const enc = ler("components/rede/conversa/encaixe.tsx");
-ok("o encaixe pendura a busca e Comunidades ativas na coluna", /colunaDireita: \[BuscaDaColuna, ComunidadesAtivas\]/.test(enc));
+// A busca da coluna saiu (a casca já tem a busca no topo da coluna: duas buscas iguais lado a lado confundiam).
+ok("o encaixe pendura Comunidades ativas na coluna (sem a segunda busca)", /colunaDireita: \[ComunidadesAtivas\]/.test(enc));
 
 // ── Correções da revisão: sem lista de quem modera, sem contornar bloqueio, denúncia no post compacto, sem enfeite quebrado ──
 const pagNova = ler("components/rede/comunidades/PaginaDaComunidadeAlumia.tsx");
@@ -111,7 +112,10 @@ ok("a regra de 'ajudou' não diz mais que a moderação marca", !/moderação\)/
 ok("o post compacto tem Denunciar/Silenciar/Moderar", /<AcoesDeCuidado post=\{post\}/.test(ler("components/rede/conversa/base3.tsx")));
 
 // ── A folha só vale dentro de [data-al="2"] ──
-const css = ler("components/rede/conversa/alumia3.css").replace(/\/\*[\s\S]*?\*\//g, "");
+// Sem os comentários e sem os @keyframes (o "from"/"to"/"50%" de dentro não é seletor de elemento).
+const css = ler("components/rede/conversa/alumia3.css")
+  .replace(/\/\*[\s\S]*?\*\//g, "")
+  .replace(/@keyframes[^{]+\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, "");
 const seletores = [];
 for (const m of css.matchAll(/([^{}]+)\{/g)) {
   const sel = m[1].trim();

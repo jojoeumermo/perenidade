@@ -709,3 +709,12 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-item[data-lido="nao"] { background: none; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-item[data-lido="nao"]::before { background: var(--al-texto); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al3-aviso-novo { background: var(--al-texto); color: var(--al-fundo); }
+
+/* A casca nova (.al2) tem a barra de baixo até 1023 px (lg): a caixa "Responder para @…" fica presa logo ACIMA dela, nunca atrás. */
+@media (max-width: 1023px) {
+  [data-al="2"] .al2 .al3-responder { position: fixed; inset-inline: 0; bottom: calc(62px + var(--recuo-baixo, 0px)); z-index: 29; }
+  [data-al="2"] .al2 :has(> .al3-responder) { padding-bottom: 8rem; }
+  :root:has([data-al="2"] .al2 .al3-responder) :is(.app-flutua, .voltar-ao-topo) { bottom: calc(15rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al2 .al3-responder) .assistente-flutua { bottom: calc(18.5rem + var(--recuo-baixo, 0px)); }
+  :root:has([data-al="2"] .al2 .al3-responder) .botao-da-caixa { bottom: calc(22rem + env(safe-area-inset-bottom, 0px)); }
+}

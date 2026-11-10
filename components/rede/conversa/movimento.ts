@@ -77,22 +77,25 @@ export function useRegua(raiz: RefObject<HTMLElement | null>, chave: string) {
   useLayoutEffect(() => {
     const el = raiz.current;
     if (!el) return;
-    const medir = () => {
-      const escolhido = el.querySelector<HTMLElement>(':scope > [aria-selected="true"], :scope > [aria-pressed="true"], :scope > [aria-checked="true"]');
-      if (!escolhido) return;
-      el.style.setProperty("--al3-x", `${escolhido.offsetLeft}px`);
-      el.style.setProperty("--al3-l", `${escolhido.offsetWidth}px`);
-      // A linha de baixo (quando os botões quebram em duas linhas no celular) e a altura do botão.
-      el.style.setProperty("--al3-y", `${escolhido.offsetTop}px`);
-      el.style.setProperty("--al3-a", `${escolhido.offsetHeight}px`);
-      el.dataset.regua = "sim";
-    };
+    const medir = () => medirRegua(el);
     medir();
     // A fonte chega depois e o celular gira: mede de novo quando o tamanho muda.
     const obs = typeof ResizeObserver !== "undefined" ? new ResizeObserver(medir) : null;
     obs?.observe(el);
     return () => obs?.disconnect();
   }, [raiz, chave]);
+}
+
+/** Mede o botão escolhido (filho direto) e põe a posição e o tamanho dele no contêiner, para o CSS desenhar a régua. */
+function medirRegua(el: HTMLElement) {
+  const escolhido = el.querySelector<HTMLElement>(':scope > [aria-selected="true"], :scope > [aria-pressed="true"], :scope > [aria-checked="true"]');
+  if (!escolhido) return;
+  el.style.setProperty("--al3-x", `${escolhido.offsetLeft}px`);
+  el.style.setProperty("--al3-l", `${escolhido.offsetWidth}px`);
+  // A linha de baixo (quando os botões quebram em duas linhas no celular) e a altura do botão.
+  el.style.setProperty("--al3-y", `${escolhido.offsetTop}px`);
+  el.style.setProperty("--al3-a", `${escolhido.offsetHeight}px`);
+  el.dataset.regua = "sim";
 }
 
 /** Leva o elemento para a vista sem pulo seco (suave quando pode; direto para quem pediu a tela parada). */
