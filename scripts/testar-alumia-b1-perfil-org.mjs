@@ -14,7 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { criarBanco } from "./banco-local.mjs";
 import { noFimDoInstall } from "./install-posteriores.mjs";
-import { centavosDe, conferirLancamento, mosaicoDosSinais, ordinalDaFila, tremeOLampiao } from "../lib/rede/org/b1.ts";
+import { centavosDe, conferirLancamento, conviteDoFragmento, linkDoConvite, mosaicoDosSinais, ordinalDaFila, tremeOLampiao } from "../lib/rede/org/b1.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ler = (c) => fs.readFileSync(path.join(raiz, c), "utf8");
@@ -60,6 +60,13 @@ ok("cliente: o lampião treme nos últimos 15 s (e não antes, nem depois do tem
 ok("cliente: o ordinal da fila", ordinalDaFila(1, "pt") === "1ª" && ordinalDaFila(4, "pt") === "4ª" && ordinalDaFila(2, "en") === "2nd" && ordinalDaFila(3, "en") === "3rd" && ordinalDaFila(11, "en") === "11th");
 ok("cliente: o valor do caixa", centavosDe("12,50") === 1250 && centavosDe("1.234,5") === 123450 && centavosDe("10") === 1000 && centavosDe("abc") === null && centavosDe("0") === null && centavosDe("12.5") === 1250);
 ok("cliente: o lançamento com CPF, telefone ou e-mail na descrição é barrado antes de mandar", conferirLancamento({ descricao: "Doação de Maria, CPF 123.456.789-09", valor: "10" }).descricao === "dado_pessoal" && conferirLancamento({ descricao: "Pix 98888-7777", valor: "10" }).descricao === "dado_pessoal" && !conferirLancamento({ descricao: "Rifa do fundo de greve", valor: "10" }).descricao);
+
+ok("textos: os 6 idiomas têm as mesmas chaves (os 5 de fora marcados como rascunho)", (() => {
+  const chaves = (o, p = "") => Object.entries(o).flatMap(([k, v]) => (k === "_rascunho" ? [] : v && typeof v === "object" ? chaves(v, `${p}${k}.`) : [`${p}${k}`]));
+  const base = chaves(JSON.parse(ler("i18n/rede/org-b1/pt.json"))).sort().join();
+  return ["en", "es", "fr", "ru", "zh"].every((l) => { const j = JSON.parse(ler(`i18n/rede/org-b1/${l}.json`)); return j._rascunho === true && chaves(j).sort().join() === base; });
+})());
+ok("cliente: o convite vai no fragmento (#), que não chega a servidor nenhum", linkDoConvite("https://x.org", "pt", "lume", "0123456789abcdef0123456789abcdef").includes("#convite=") && conviteDoFragmento("#convite=0123456789ABCDEF0123456789abcdef") === "0123456789abcdef0123456789abcdef" && conviteDoFragmento("#convite=curto") === null);
 
 const banco = await criarBanco();
 const { dono, criarUsuario, rpc } = banco;
