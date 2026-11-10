@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
 import type { PropsDaTelaDoPacote } from "../registro";
@@ -8,6 +9,7 @@ import { ItemDoAto } from "./ItemDoAto";
 import { baixarIcs, Icone } from "./partes";
 import { useListaDeAtos, useTextosDosAtos } from "./usar";
 import { PREVIA_DOS_ATOS } from "@/lib/rede/cliente-atos";
+import type { TextosDosAtos } from "@/lib/rede/textos-atos";
 import type { Ato } from "@/lib/rede/tipos-atos";
 import "./atos.css";
 
@@ -19,6 +21,34 @@ function porMes(itens: Ato[], lang: string): [string, Ato[]][] {
     grupos.set(mes, [...(grupos.get(mes) ?? []), a]);
   }
   return [...grupos];
+}
+
+/** "Pôr na agenda" de uma linha: baixa o .ics e o ícone vira um visto por alguns segundos (e o leitor de tela ouve o aviso). */
+function BotaoAgenda({ ato, t, lang }: { ato: Ato; t: TextosDosAtos; lang: string }) {
+  const [feito, setFeito] = useState(false);
+  const relogio = useRef<number | undefined>(undefined);
+  return (
+    <span className="al-cal-agenda">
+      <button
+        type="button"
+        className="al-cal-agenda-botao"
+        data-feito={feito ? "" : undefined}
+        aria-label={`${t.acoes.agenda}: ${ato.titulo}`}
+        title={t.acoes.agendaAjuda}
+        onClick={() => {
+          baixarIcs(ato, lang);
+          setFeito(true);
+          window.clearTimeout(relogio.current);
+          relogio.current = window.setTimeout(() => setFeito(false), 4000);
+        }}
+      >
+        {feito ? Icone.visto(20) : Icone.agenda(20)}
+      </button>
+      <span role="status" className="al-so-leitor">
+        {feito ? t.acoes.baixado : ""}
+      </span>
+    </span>
+  );
 }
 
 /**
@@ -39,6 +69,8 @@ export default function Calendario({ lang, params }: PropsDaTelaDoPacote) {
         <h1 id="al-cal-titulo" className="al-cond al-atos-titulo">
           {t.calendario.titulo}
         </h1>
+        {/* no celular, a vaga dos botões flutuantes do site (ajuda e acessibilidade): longe dos botões de agenda das linhas */}
+        <span className="al-atos-vaga" aria-hidden />
       </header>
       {PREVIA_DOS_ATOS ? <p className="al-atos-previa">{t.tela.previa}</p> : null}
       {estado.fase === "carregando" ? (
@@ -60,9 +92,7 @@ export default function Calendario({ lang, params }: PropsDaTelaDoPacote) {
               {atos.map((a) => (
                 <li key={a.id} className="al-cal-item">
                   <ItemDoAto ato={a} t={t} lang={lang} />
-                  {a.situacao !== "cancelado" ? (
-                    <Botao variante="fantasma" tamanho="p" aria-label={`${t.acoes.agenda}: ${a.titulo}`} title={t.acoes.agendaAjuda} icone={Icone.agenda(18)} onClick={() => baixarIcs(a, lang)} />
-                  ) : null}
+                  {a.situacao !== "cancelado" ? <BotaoAgenda ato={a} t={t} lang={lang} /> : null}
                 </li>
               ))}
             </ul>

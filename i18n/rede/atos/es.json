@@ -27,6 +27,7 @@
     "chamar": "Convocar",
     "chamarAjuda": "Compartir el acto",
     "copiado": "Enlace copiado. Pégalo donde quieras convocar gente.",
+    "naoCopiou": "No se pudo copiar. La dirección del acto: {url}",
     "agenda": "Añadir a la agenda (.ics)",
     "agendaAjuda": "El archivo se crea en este dispositivo; el recordatorio queda en tu agenda.",
     "apoio": "Apoyar (enlace externo)",
