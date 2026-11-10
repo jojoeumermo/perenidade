@@ -717,7 +717,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   font-family: var(--al-fonte, inherit); font-weight: 700;
 }
 [data-al="2"] .al-quando:focus-within { outline: 3px solid var(--al-foco, #f0a020); outline-offset: 2px; }
-[data-al="2"] .al-quando-vazio .al-quando-texto { color: var(--al-texto-3, inherit); font-weight: 600; }
+[data-al="2"] .al-quando-vazio .al-quando-texto { color: color-mix(in srgb, var(--al-texto, currentColor) 55%, transparent); font-weight: 500; }
 [data-al="2"] .al-quando-icone { width: 1.15rem; height: 1.15rem; flex: none; color: var(--al-dourado, currentColor); }
 [data-al="2"] .al-quando-texto { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 [data-al="2"] .al-quando-campo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; color-scheme: dark; border: 0; }
@@ -761,3 +761,30 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 }
 :root[data-eink] [data-al="2"] :is(.al2-conta-menu, .al2-mais-acoes[open] > div, .al2-falta) { animation: none !important; }
 :root[data-eink] [data-al="2"] .al2-barra-indicador { transition: none; }
+/* Revisão da casca (10/11): o menu "…" de um cartão por cima do cartão de baixo (cada cartão que entrou animado é uma camada
+   própria, e o de baixo pintava por cima do menu aberto). */
+[data-al="2"] .alumia-lista > li:has(details[open]) { position: relative; z-index: 6; }
+/* O primeiro post que chegou com "N posts novos" recebe o foco: um contorno discreto por dentro do cartão. */
+[data-al="2"] .al2 article.al2-cartao:focus { outline: none; }
+[data-al="2"] .al2 article.al2-cartao:focus-visible { outline: 3px solid var(--al-foco, var(--al-dourado)); outline-offset: -3px; border-radius: 12px; }
+/* Os exemplos do Ato (cidade) com cara de exemplo, não de valor já escrito. */
+[data-al="2"] .al-ato-form-cidade-campo::placeholder { color: var(--al-texto-3); font-weight: 500; opacity: 0.75; }
+/* No celular estreito, o convite "Escolher dia e hora" quebra em duas linhas em vez de virar "Escolher dia e …". */
+@media (max-width: 479px) {
+  [data-al="2"] .al2-escrever .al-quando-vazio .al-quando-texto { white-space: normal; line-height: 1.15; padding-block: 0.35rem; }
+}
+/* O Escrever rola por dentro: uma sombra suave em cima e embaixo avisa que há mais (some quando chega ao fim). */
+@supports (animation-timeline: scroll()) {
+  @keyframes al2-corpo-sombra {
+    from { -webkit-mask-image: linear-gradient(#000 calc(100% - 36px), transparent); mask-image: linear-gradient(#000 calc(100% - 36px), transparent); }
+    50% { -webkit-mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(transparent, #000 20px, #000 calc(100% - 36px), transparent); }
+    to { -webkit-mask-image: linear-gradient(transparent, #000 20px); mask-image: linear-gradient(transparent, #000 20px); }
+  }
+  [data-al="2"] .al2-escrever-corpo { animation: al2-corpo-sombra linear both; animation-timeline: scroll(self block); }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-escrever-corpo { animation: none; -webkit-mask-image: none; mask-image: none; }
+/* No computador, o menu da conta mais justo (cabe inteiro numa tela de 900 px sem rolar). */
+@media (min-width: 1024px) and (pointer: fine) {
+  [data-al="2"] .al2-menu-pe .al2-conta-menu .al2-acao { min-height: 38px; }
+  [data-al="2"] .al2-menu-pe .al2-conta-menu { max-height: calc(100dvh - 12rem); }
+}

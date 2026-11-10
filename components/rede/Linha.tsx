@@ -89,6 +89,8 @@ export function Linha({
   const [erroDoMais, setErroDoMais] = useState("");
   const [novos, setNovos] = useState(0);
   const [atualizando, setAtualizando] = useState(false);
+  // Depois de "N posts novos", o foco vai para o primeiro post que chegou (quem usa teclado ou leitor de tela não fica perdido).
+  const focarNovo = useRef(false);
   const desde = useRef(lembrada?.desde ?? new Date().toISOString());
   const [versao, setVersao] = useState(0);
   // Os cartões que já estavam na tela (linha lembrada) não entram com animação de novo. Os demais animam só ao serem inseridos
@@ -145,6 +147,15 @@ export function Linha({
         setNovos(previa && versao === 0 ? 3 : 0);
         setEstado("ok");
         setAtualizando(false);
+        if (focarNovo.current) {
+          focarNovo.current = false;
+          requestAnimationFrame(() => {
+            const primeiro = lista.current?.querySelector<HTMLElement>("ol > li article");
+            if (!primeiro) return;
+            primeiro.tabIndex = -1;
+            primeiro.focus({ preventScroll: true });
+          });
+        }
       })
       .catch((e) => {
         if (!vivo) return;
@@ -167,6 +178,7 @@ export function Linha({
   const mostrarNovos = () => {
     setNovos(0);
     setAtualizando(true);
+    focarNovo.current = true;
     const alvo = lista.current;
     if (alvo) {
       const topo = alvo.getBoundingClientRect().top + window.scrollY - 120;
