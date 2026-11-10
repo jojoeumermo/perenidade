@@ -207,7 +207,8 @@ async function postsDaPessoaNaPrevia(handle: string): Promise<Post[]> {
       comunidade: x.comunidade ?? null,
       criado_em: new Date(agora - x.minutos * 60_000).toISOString(),
       chamado,
-      midia: x.imagem ? [{ id: `exemplo-capa-${x.imagem.capa}`, alt: x.imagem.alt, largura: 900, altura: 300, blurhash: null }] : [],
+      // Sem banco não há depósito de mídia: os posts de exemplo com foto saem só com o texto (a foto real chega pelo cartão).
+      midia: [],
       resposta_a: x.resposta ?? null,
       nivel: x.resposta ? 1 : 0,
       autor,
