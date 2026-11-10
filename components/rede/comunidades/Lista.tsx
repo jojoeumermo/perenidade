@@ -13,7 +13,7 @@ import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { FaixaDaPrevia, previa, useTextosAlumia3 } from "../conversa/base3";
 import { Icone } from "../publicar/alumia2/icones";
-import { LinkBotao } from "../ui/Botao";
+import { Botao, LinkBotao } from "../ui/Botao";
 import { AcoesDaComunidade } from "./AcoesDaComunidade";
 import { erroCom, textosDe, useCarregar } from "./util";
 // O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
@@ -38,7 +38,7 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const sc = textosDe(s);
   const t3 = useTextosAlumia3(lang);
   // Na prévia, as comunidades de exemplo (as mesmas de Explorar e de "Comunidades ativas"); a Passe Livre já tem a Faísca dentro.
-  const { dado, erro, pronto } = useCarregar(
+  const { dado, erro, pronto, recarregar } = useCarregar(
     () => (previa() ? Promise.resolve({ itens: listaDeExemplo().map((c) => (c.slug === "passe-livre-sp" ? { ...c, situacao: "membro" as const } : c)) }) : comunidades.lista()),
     "lista",
   );
@@ -64,7 +64,13 @@ export default function Lista({ lang, s, situacao }: PropsDaTelaDoPacote) {
         <header className="border-b border-rule px-[18px] py-4">
           <h1 className="al3-cond al3-titulo-tela">{sc.lista.titulo}</h1>
         </header>
-        <p role="alert" className="px-[18px] py-8 text-ink-soft">{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>
+        <div role="alert" className="al2-aviso-erro mx-4 my-6">
+          <Icone nome="alerta" />
+          <p>{erro ? erroCom(s, sc, erro) : s.estados.erro}</p>
+          <Botao variante="claro" tamanho="p" pilula icone={<Icone nome="desfazer" />} onClick={recarregar}>
+            {s.estados.tentar}
+          </Botao>
+        </div>
       </div>
     );
   }
