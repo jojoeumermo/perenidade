@@ -315,7 +315,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
     ok(`o encaixe tem o tipo ${tipo}`, new RegExp(`\\b${tipo}\\?:`).test(encaixes));
   }
   const casca = ler("components/rede/Casca.tsx");
-  ok("a casca usa o Sair rápido de lib/rede/saida.ts com os encaixes", /sairRapidoDaRede\(enderecoDoSite\(lang\), ENCAIXES\.aoSairRapido\)/.test(casca));
+  ok("a casca usa o Sair rápido de lib/rede/saida.ts com os encaixes", /sairRapidoDaRede\(DESTINO_DA_SAIDA, ENCAIXES\.aoSairRapido\)/.test(casca));
   ok("a casca lê o menu dos encaixes", /ENCAIXES\.menu/.test(casca));
   // O "substitui" vale nos dois lugares: o menu do computador e a barra do celular passam pela mesma hrefDoItem.
   ok("menu do computador e barra do celular usam o mesmo destino (com o substitui)", (casca.match(/const href = hrefDoItem\(d, lang, s, situacao\);/g) ?? []).length === 2
