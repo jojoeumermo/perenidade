@@ -39,6 +39,7 @@ export function NoSvg({
   apagado,
   mostrarRotulo,
   escala = 1,
+  semHalo = false,
   aoSelecionar,
 }: {
   no: NoDaTeia;
@@ -49,6 +50,8 @@ export function NoSvg({
   apagado?: boolean;
   mostrarRotulo: boolean;
   escala?: number;
+  /** Verdadeiro quando o halo já vem pintado no canvas por trás (a Teia): o SVG desenha só o núcleo e o rótulo. */
+  semHalo?: boolean;
   aoSelecionar: (chave: string) => void;
 }) {
   const r = raioDoNo(no) / Math.sqrt(escala);
@@ -78,8 +81,10 @@ export function NoSvg({
       data-chave={no.chave}
     >
       <title>{nomeDoNo(no, s)}</title>
-      <circle className="ve-halo" r={halo} fill={`url(#ve-halo-${no.tipo})`} style={{ opacity: 0.45 + forca * 0.55 }} aria-hidden="true" />
+      {!semHalo && <circle className="ve-halo" r={halo} fill={`url(#ve-halo-${no.tipo})`} style={{ opacity: 0.45 + forca * 0.55 }} aria-hidden="true" />}
       {selecionado && <circle className="ve-anel-pulso" r={r + 4} aria-hidden="true" />}
+      {/* Alvo invisível um pouco maior que o núcleo: ponto pequeno continua fácil de acertar com o mouse e o dedo. */}
+      <circle className="ve-alvo" r={r + 6} fill="transparent" aria-hidden="true" />
       <circle className="ve-nucleo" r={r} />
       {mostrarRotulo && (
         <text x={r + 4} y={3} style={{ fontSize: 9.5 / Math.sqrt(escala) }}>

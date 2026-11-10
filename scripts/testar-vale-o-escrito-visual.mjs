@@ -425,12 +425,13 @@ caso("T09: ligação em curva (quadrática), sempre a mesma para o mesmo id, mei
   assert.ok(Math.abs(a.mx - 50) < 1e-6);
 });
 caso("T09: nenhuma visão de grafo desenha <line> reta; todo nó tem halo neon por tipo", () => {
-  for (const f of ["Teia.tsx", "VisoesLeves.tsx"]) {
-    const t = ler("components", "vale-o-escrito", f);
-    assert.ok(t.includes("<ArestaSvg") && t.includes("<DefsNeon"), f);
-  }
+  const leves = ler("components", "vale-o-escrito", "VisoesLeves.tsx");
+  assert.ok(leves.includes("<ArestaSvg") && leves.includes("<DefsNeon"), "VisoesLeves.tsx");
+  // A Teia (09/11/2026) pinta fios e halos num canvas por trás (FundoDaTeia), com a mesma curva com semente (fioDaTeia)
+  // e um halo de gradiente radial por tipo; o SVG por cima fica com os núcleos (semHalo).
   const teia = ler("components", "vale-o-escrito", "Teia.tsx");
   assert.ok(!/<line\b/.test(teia));
+  assert.ok(teia.includes("fioDaTeia") && teia.includes("createRadialGradient") && teia.includes("semHalo") && teia.includes("<FundoDaTeia"));
   const prim = ler("components", "vale-o-escrito", "Primitivas.tsx");
   assert.ok(prim.includes("ve-halo") && prim.includes("radialGradient") && prim.includes("ve-anel-pulso"));
   for (const t of ["entrada", "pessoa", "organizacao", "lugar"]) assert.ok(prim.includes(t + ":"), t);
