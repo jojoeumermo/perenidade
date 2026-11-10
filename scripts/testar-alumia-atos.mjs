@@ -14,6 +14,7 @@ import { conferirAto, pontoEDetalhe } from "../lib/rede/atos/formulario.ts";
 import { icsDoAto, nomeDoIcs } from "../lib/rede/atos/ics.ts";
 import { linkDeApoioSeguro, linkDoMapa, textoParaChamar } from "../lib/rede/atos/chegar.ts";
 import { contarNovos, CHAVE_DOS_VISTOS } from "../lib/rede/atos/novos.ts";
+import { nomeDaCidade } from "../lib/rede/atos/aparelho.ts";
 import { codigoDoErro, fraseDoErro, CODIGOS_DE_ERRO } from "../lib/rede/atos/erros.ts";
 import { mola, MOLAS } from "../lib/rede/atos/movimento.ts";
 
@@ -165,6 +166,29 @@ ok("nenhuma tela mostra mais o erro genérico do Você vai", !/t\.acoes\.erroVou
   ok("mola com quique passa do fim (overshoot)", MOLAS.quique.easing.split(",").some((v) => parseFloat(v.replace("linear(", "")) > 1));
   const mv = ler("lib/rede/atos/movimento.ts");
   ok("pode mexer olha prefers-reduced-motion, modo parado e e-ink", /prefers-reduced-motion/.test(mv) && /data-parado/.test(mv) && /data-eink/.test(mv));
+}
+
+// ── Revisão: cidade escrita, farol na hora do idioma, Chegar modal, sem View Transition por cima das barras ──
+igual("cidade minúscula e com espaços vira nome", nomeDaCidade("  são   paulo "), "São Paulo");
+igual("preposições ficam minúsculas", nomeDaCidade("RIO DE JANEIRO"), "Rio de Janeiro");
+igual("hífen também capitaliza", nomeDaCidade("embu-guaçu"), "Embu-Guaçu");
+igual("escrita sem maiúsculas passa igual", nomeDaCidade("圣保罗"), "圣保罗");
+{
+  const farol = ler("components/rede/atos/Farol.tsx");
+  const chegar = ler("components/rede/atos/Chegar.tsx");
+  const css = ler("components/rede/atos/atos.css");
+  ok("a hora do pedido do farol usa o idioma da página", /toLocaleTimeString\(lang/.test(farol) && !/toLocaleTimeString\(\[\]/.test(telas));
+  ok("Dispersar pede dois toques", /e === "dispersar"/.test(farol));
+  ok("Chegar é um dialog modal (showModal)", /<dialog/.test(chegar) && /showModal\(\)/.test(chegar));
+  ok("a troca de ato não usa View Transition (ela pintava por cima das barras)", !/startViewTransition|viewTransitionName/.test(telas) && !/::view-transition/.test(css));
+  ok("botões do farol vencem a pílula do celular", css.includes(':root:not([data-leitor]) [data-al="2"] .al-farol-botoes .al-farol-botao[aria-pressed]'));
+  ok("flutuantes do site ancorados na vaga das telas de ato", css.includes("anchor-name: --al-flutua") && css.includes("position-anchor: --al-flutua"));
+  ok("mosaico: alto contraste e e-ink voltam aos tokens", css.includes(':root:is([data-contrast], [data-eink]) [data-al="2"] .al-mosaico-vivo {'));
+}
+for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
+  const j = JSON.parse(ler(`i18n/rede/atos/${l}.json`));
+  ok(`${l}: o exemplo da cidade não parece valor preenchido`, j.tela.cidadeExemplo !== "São Paulo");
+  ok(`${l}: trocar pedido do farol cita os dois estados`, j.farol.trocarPedido.includes("{pendente}") && j.farol.trocarPedido.includes("{estado}"));
 }
 
 console.log(`testar-alumia-atos: ${certos} certos, ${falhas.length} falhas`);
