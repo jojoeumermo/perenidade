@@ -12,7 +12,9 @@ import { fraseDoAviso, TIPOS_DE_AVISO, type FrasesDoTipo, type ItemDeAviso, type
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
-import { previa } from "../conversa/base3";
+import { tempoCurto } from "@/lib/rede/tipos-conversa";
+import { FaixaDaPrevia, previa, useTextosAlumia3 } from "../conversa/base3";
+import { Avatar16 } from "../ui/Avatar16";
 import { useRegua } from "../conversa/movimento";
 import { avisosDaPrevia } from "../descoberta/previa";
 import { desligarPush, estadoDoPush, ligarPush, type EstadoDoPush } from "./push";
@@ -193,6 +195,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
   const [maisCarregando, setMaisCarregando] = useState(false);
   const l = t.lista;
   const frases = t.frases as unknown as Record<string, FrasesDoTipo>;
+  // A data inteira fica no title; na linha, o tempo curto do resto da Alumia ("20 min", "3 h").
   const quando = useMemo(() => new Intl.DateTimeFormat(lang, { dateStyle: "short", timeStyle: "short" }), [lang]);
 
   useEffect(() => {
@@ -269,19 +272,28 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
           {itens.map((item, i) => {
             const href = destino(lang, item);
             const frase = fraseDoAviso(item, frases, l.reserva);
+            // O rosto em mosaico de quem fez (só o primeiro codinome do grupo, que a frase já diz; nunca a lista) com o ícone do tipo
+            // no canto; sem ninguém (apoio, moderação, ato), só o ícone.
+            const quem = item.tipo === "apoio" ? null : (item.atores[0] ?? null);
             const conteudo = (
-              <>
-                <span className="flex items-start gap-2">
-                  {!item.lido && (
-                    <span className="al3-aviso-novo">{l.novo}</span>
-                  )}
-                  <span className={item.lido ? "" : "font-bold"}>{frase}</span>
+              <span className="al3-aviso-linha">
+                <span className="al3-aviso-rosto" aria-hidden data-tipo={item.tipo ?? "conta"}>
+                  {quem ? <Avatar16 handle={quem} tamanho={40} /> : <span className="al3-aviso-rosto-vazio" />}
+                  <span className="al3-aviso-tipo">
+                    <IconeDoAviso tipo={item.tipo} />
+                  </span>
                 </span>
-                {item.titulo && <span className="mt-0.5 block text-sm text-ink-soft">{preencher(l.emTitulo, { titulo: item.titulo })}</span>}
-                <time dateTime={item.criado_em} className="mt-0.5 block text-xs text-ink-soft">
-                  {quando.format(new Date(item.criado_em))}
-                </time>
-              </>
+                <span className="min-w-0">
+                  <span className="flex items-start gap-2">
+                    {!item.lido && <span className="al3-aviso-novo">{l.novo}</span>}
+                    <span className={item.lido ? "" : "font-bold"}>{frase}</span>
+                  </span>
+                  {item.titulo && <span className="mt-0.5 block text-sm text-ink-soft">{preencher(l.emTitulo, { titulo: item.titulo })}</span>}
+                  <time dateTime={item.criado_em} title={quando.format(new Date(item.criado_em))} className="mt-0.5 block text-xs text-ink-soft">
+                    {tempoCurto(item.criado_em, lang)}
+                  </time>
+                </span>
+              </span>
             );
             return (
               <li key={item.id} className="al3-aviso-item border-b border-rule" data-lido={item.lido ? "sim" : "nao"} data-tipo={item.tipo ?? "conta"} style={{ "--i": i } as CSSProperties}>
@@ -314,6 +326,7 @@ function ListaDeAvisos({ t, lang, s }: { t: TextosDeAvisos; lang: string; s: Pro
 export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [t, setT] = useState<TextosDeAvisos | null>(null);
   const [aba, setAba] = useState<Aba>("avisos");
+  const t3 = useTextosAlumia3(lang);
   const abas = useRef<HTMLDivElement>(null);
   useRegua(abas, `${aba}:${t ? "t" : ""}`);
 
@@ -339,7 +352,10 @@ export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote)
 
   return (
     <div className="al3-tela">
-      <h1 className="sr-only">{t.titulo}</h1>
+      {t3 && <FaixaDaPrevia t={t3} />}
+      <header className="px-[18px] pb-1 pt-4">
+        <h1 className="al3-cond al3-titulo-tela">{t.titulo}</h1>
+      </header>
       <div role="tablist" aria-label={t.abas.rotulo} ref={abas} className="al3-abas-regua sticky top-[var(--altura-topo,0px)] z-10 flex border-b border-rule bg-parchment">
         <span className="al3-abas-linha" aria-hidden />
         {(["avisos", "preferencias"] as Aba[]).map((a) => (
@@ -361,5 +377,25 @@ export default function TelaDeAvisos({ lang, s, situacao }: PropsDaTelaDoPacote)
         {aba === "avisos" ? <ListaDeAvisos t={t} lang={lang} s={s} /> : <Preferencias t={t} lang={lang} s={s} situacao={situacao} />}
       </div>
     </div>
+  );
+}
+
+/** Um ícone de traço por tipo de aviso (resposta, menção, citação, apoio, seguidor, ato, núcleo, moderação). */
+const CAMINHO_DO_AVISO: Record<TipoDeAviso | "conta", string> = {
+  resposta: "M4 5h16v10H9l-5 4z",
+  mencao: "M16 12a4 4 0 1 1-1.2-2.9M16 8v5a2 2 0 0 0 4 0v-1a8 8 0 1 0-3.1 6.3",
+  citacao: "M5 17c0-4 1.5-7 5-9l1 1.4C9 11 8.4 12.4 8.3 13.5H11V18H5zM13 17c0-4 1.5-7 5-9l1 1.4c-2 1.6-2.6 3-2.7 4.1H19V18h-6z",
+  apoio: "M12 3c.6 3 3.2 4.6 4.6 7.2 1.6 3 .6 7.3-3.2 8.6.9-1.5.6-3.5-1.4-5-.2 1.9-1.3 2.9-2.4 3.7-1 .8-1.4 2-.9 3.3C5.2 19 4.4 14.6 6.3 11.6c.5 1 1.3 1.6 2.2 1.8C8 9.9 9.9 6 12 3z",
+  seguidor: "M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5M19 8v6M16 11h6",
+  chamado: "M5 21V4M5 4h11l-2 4 2 4H5",
+  nucleo: "M12 3l9 5-9 5-9-5zM3 13l9 5 9-5",
+  moderacao: "M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z",
+  conta: "M12 8v5M12 16.5v.5M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
+};
+function IconeDoAviso({ tipo }: { tipo: TipoDeAviso | null }) {
+  return (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d={CAMINHO_DO_AVISO[tipo ?? "conta"]} />
+    </svg>
   );
 }

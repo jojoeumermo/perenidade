@@ -236,12 +236,15 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
             {x.tags.length === 0 ? (
               <p className="mt-2 text-ink-soft">{e.tagsVazio}</p>
             ) : (
-              <ul className="al3-fichas mt-2">
+              // Duas ou mais por linha também no celular; a barrinha embaixo mostra o volume da semana (relativo ao #tema maior).
+              <ul className="al3-fichas al3-fichas-volume mt-2">
                 {x.tags.map((tg, i) => (
-                  <li key={tg.tag} style={{ "--i": i } as CSSProperties}>
+                  <li key={tg.tag} style={{ "--i": i, "--vol": tg.posts / Math.max(1, ...x.tags.map((z) => z.posts)) } as CSSProperties}>
                     <Link href={enderecosDescoberta.tag(lang, tg.tag)} className="al3-ficha">
                       <span className="font-bold">#{tg.tag}</span>
-                      <span className="al3-ficha-n">{preencher(e.posts, { n: tg.posts })}</span>
+                      <span className="al3-ficha-n" aria-hidden>{tg.posts.toLocaleString(lang)}</span>
+                      <span className="sr-only">{preencher(e.posts, { n: tg.posts })}</span>
+                      <span className="al3-ficha-barra" aria-hidden />
                     </Link>
                   </li>
                 ))}
@@ -308,13 +311,20 @@ export default function Explorar({ lang, s, situacao, aoEscrever }: PropsDaTelaD
                   <ul className="al3-cartoes mt-1">
                     {lista.map((c, i) => (
                       <li key={c.slug} className={`al3-cor-${corDaComunidadeNova(c.slug, c.cor)}`} style={{ "--i": i } as CSSProperties}>
-                        <Link href={enderecos.comunidade(lang, c.slug)} className="al3-cartao al3-cartao-com">
-                          <span className="al3-anel" aria-hidden />
-                          <span className="al3-cartao-titulo">
-                            {c.nome}
-                            {c.membro && <span className="al3-cartao-membro">{e.membro}</span>}
+                        {/* A mini-capa: a faixa na cor da comunidade com o nome na letra condensada, como a capa dela. */}
+                        <Link href={enderecos.comunidade(lang, c.slug)} className="al3-cartao al3-minicapa">
+                          <span className="al3-minicapa-faixa">
+                            <span className="al3-minicapa-nome al3-cond">{c.nome}</span>
                           </span>
-                          {c.descricao && <span className="al3-cartao-regra">{c.descricao}</span>}
+                          <span className="al3-minicapa-pe">
+                            {c.membro && (
+                              <span className="al3-cartao-membro">
+                                <span aria-hidden>✓ </span>
+                                {e.membro}
+                              </span>
+                            )}
+                            {c.descricao && <span className="al3-cartao-regra">{c.descricao}</span>}
+                          </span>
                         </Link>
                       </li>
                     ))}
