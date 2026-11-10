@@ -7,6 +7,7 @@ import { rede } from "@/lib/rede/cliente";
 import { comunidades as clienteComunidades } from "@/lib/rede/cliente-comunidades";
 import { codinomeDaPrevia, EVENTO_DO_CODINOME } from "@/lib/rede/codinome-da-conta";
 import { previaLigada, type CorDaComunidadeNum } from "@/lib/rede/publicar/alumia2";
+import { abaPreferida } from "@/lib/rede/publicar/b1";
 import { alumia2Ligada } from "@/lib/rede/rotas-novas";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { Aba, Comunidade, Post, Situacao, Tela } from "@/lib/rede/tipos";
@@ -20,6 +21,7 @@ import { Linha } from "./Linha";
 import { REGISTRO } from "./registro";
 import { TelaDaComunidade, TelaDoPerfil } from "./Telas";
 import { EsqueletoDaLinha } from "./Esqueletos";
+import { EsqueletoDoEscrever } from "./EsqueletosDaAlumia2";
 import type { TipoAoEscrever } from "./publicar/alumia2/CascaDaAlumia2";
 import { ProvedorAlumia2, type ContextoAlumia2 } from "./publicar/alumia2/contexto";
 import { useTextosAlumia2 } from "./publicar/alumia2/textos";
@@ -31,8 +33,17 @@ const PREVIA = AL2 && previaLigada();
 
 // As peças da Alumia nova só chegam ao navegador com a flag ligada (sob demanda): desligada, o pacote da Rede de hoje não muda.
 const CascaDaAlumia2 = dynamic(() => import("./publicar/alumia2/CascaDaAlumia2").then((m) => m.CascaDaAlumia2));
-const EscreverDaAlumia2 = dynamic(() => import("./publicar/alumia2/EscreverDaAlumia2").then((m) => m.EscreverDaAlumia2), { ssr: false });
+// Enquanto o Escrever chega (primeiro toque), o esqueleto dele no lugar, e não uma tela parada.
+const EscreverDaAlumia2 = dynamic(() => import("./publicar/alumia2/EscreverDaAlumia2").then((m) => m.EscreverDaAlumia2), {
+  ssr: false,
+  loading: () => (
+    <div className="al2 fixed inset-0 z-50 bg-[var(--al-fundo)] md:mx-auto md:my-[6vh] md:max-w-[640px] md:rounded-2xl" aria-busy="true">
+      <EsqueletoDoEscrever />
+    </div>
+  ),
+});
 const TopoDaLinha2 = dynamic(() => import("./publicar/alumia2/TopoDaLinha2").then((m) => m.TopoDaLinha2));
+const AbaInicialDaAlumia2 = dynamic(() => import("./publicar/alumia2/AbaInicial").then((m) => m.AbaInicialDaAlumia2), { ssr: false });
 
 // Com a flag ligada, os pedaços começam a descer já, junto com os textos (sem esperar a primeira pintura).
 if (AL2 && typeof window !== "undefined") {
@@ -61,6 +72,9 @@ function abaInicial(membro: boolean): Aba {
   } catch {
     // sem endereço legível: vale o padrão
   }
+  // A aba que a pessoa escolheu para abrir (só neste aparelho; B1).
+  const preferida = membro && AL2 ? abaPreferida() : null;
+  if (preferida) return preferida;
   // Na cara nova (alumia-2), a aba das pranchas é "Seguindo"; na de hoje, "Tudo".
   return membro ? (AL2 ? "seguindo" : "tudo") : "geral";
 }
@@ -202,6 +216,7 @@ export default function Rede({ lang, s, tela }: { lang: string; s: TextosDaRede;
           {tela.tipo === "linha" && contexto2 && (
             <>
               <TopoDaLinha2 lang={lang} s={s} situacao={aberta} abas={pode ? ABAS_DO_MEMBRO.filter((a) => a !== "geral") : ["geral"]} aba={abaAtual === "geral" && pode ? "tudo" : abaAtual} aoAba={setAba} aoEscrever={aoEscrever2} />
+              {pode && <AbaInicialDaAlumia2 aba={abaAtual} />}
               <div role="tabpanel" id="al2-painel-linha" aria-labelledby={`al2-aba-${abaAtual === "geral" && pode ? "tudo" : abaAtual}`}>
               <Linha
                 key={`${abaAtual}:${recarregar}`}
