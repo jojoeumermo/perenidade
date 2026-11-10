@@ -318,6 +318,9 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
 }
 @media (min-width: 1024px) { [data-al="2"] { --al2-abas-h: 47px; } }
 html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12px); }
+/* Abaixo de 1024 px a barra de baixo é fixa (61 px + o recuo do aparelho): o foco pelo teclado e o scrollIntoView param acima dela,
+   nunca debaixo (a grade já tem o mesmo respiro embaixo, pb-[4.75rem] em CascaDaAlumia2). */
+@media (max-width: 1023px) { html:has([data-al="2"]) { scroll-padding-bottom: calc(4.75rem + var(--recuo-baixo, 0px)); } }
 
 /* Foco sempre visível e no tom da casa (teclado). */
 [data-al="2"] .al2 :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {

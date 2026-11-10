@@ -2,11 +2,13 @@
 "use client";
 
 // As ações do ato, cada uma com a sua função (prancha celular-modo-atos e computador-inicio):
-//   Você vai / Eu vou  confirma ou desfaz (o mosaico acende na hora; ninguém vê quem confirmou);
-//   Conversa           leva à conversa do ato (a conversa do post do chamado), com o número de respostas;
+//   Você vai / Eu vou  confirma ou desfaz (o mosaico acende na hora; ninguém vê quem confirmou); desfazer abre um aviso com
+//                      "Desfazer" por 8 s (um toque sem querer não tira ninguém do mosaico sem volta);
+//   Conversa         leva à conversa do ato (a conversa do post do chamado), com o número de respostas;
 //   Chegar             abre o mapa livre de fora com o ponto público do ato (sem Referer; a Alumia não vê a posição);
 //   Chamar             compartilha pelo aparelho ou copia o link (só o nome do ato, quando e onde).
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import Link from "@/components/Link";
 import { Botao, LinkBotao } from "../ui/Botao";
 import { Chegar } from "./Chegar";
@@ -25,9 +27,119 @@ export interface PropsDasAcoes {
   logado?: boolean;
 }
 
+/** Quanto tempo o aviso "Confirmação desfeita · Desfazer" fica na tela (o mesmo respiro do "Enviando em 8 s" do Escrever). */
+export const SEGUNDOS_PARA_DESFAZER_O_VOU = 8;
+
+type Desfeito = { desde: number; teclado: boolean; raiz: HTMLElement; volta: HTMLElement | null };
+
+/**
+ * O "Você vai" com Desfazer: tirar a presença acontece na hora (o servidor e o mosaico já sabem), mas abre um aviso flutuante com
+ * "Desfazer" e um relógio de 8 s; o Desfazer confirma de novo. Quem chegou pelo teclado ganha o foco no Desfazer e, quando o aviso
+ * some, o foco volta ao botão. Esc fecha o aviso. `tocar` devolve true quando o toque confirmou (para as faíscas).
+ */
+export function useVouComDesfazer(ato: Ato, t: TextosDosAtos) {
+  const { alternar, ocupado, erro } = useVou(ato);
+  const [desfeito, setDesfeito] = useState<Desfeito | null>(null);
+  const [agora, setAgora] = useState(0);
+  const [refeito, setRefeito] = useState(false);
+  const botaoDesfazer = useRef<HTMLButtonElement>(null);
+  const caixa = useRef<HTMLDivElement>(null);
+  const atual = useRef<Desfeito | null>(null);
+
+  const fechar = useCallback(() => {
+    const d = atual.current;
+    // o foco estava no aviso: volta para o botão de onde saiu
+    if (d?.volta?.isConnected && caixa.current?.contains(document.activeElement)) d.volta.focus();
+    atual.current = null;
+    setDesfeito(null);
+  }, []);
+
+  const tocar = (e: MouseEvent<HTMLElement>): boolean => {
+    if (ocupado) return false;
+    const sim = !ato.vou_eu;
+    setRefeito(false);
+    void alternar();
+    if (sim) {
+      atual.current = null;
+      setDesfeito(null);
+      return true;
+    }
+    const de = e.currentTarget;
+    const n = Date.now();
+    // e.detail === 0: veio do teclado (Enter/Espaço), não do dedo nem do mouse
+    const d: Desfeito = { desde: n, teclado: e.detail === 0, raiz: de.closest<HTMLElement>('[data-al="2"]') ?? document.body, volta: de };
+    atual.current = d;
+    setAgora(n);
+    setDesfeito(d);
+    return false;
+  };
+
+  const desfazer = () => {
+    if (!ato.vou_eu) void alternar();
+    setRefeito(true);
+    window.setTimeout(() => setRefeito(false), 4000);
+    fechar();
+  };
+
+  // o relógio: ao chegar a zero, o aviso some (a presença já foi tirada)
+  useEffect(() => {
+    if (!desfeito) return;
+    const id = window.setInterval(() => {
+      const n = Date.now();
+      setAgora(n);
+      if (n - desfeito.desde >= SEGUNDOS_PARA_DESFAZER_O_VOU * 1000) fechar();
+    }, 250);
+    return () => window.clearInterval(id);
+  }, [desfeito, fechar]);
+
+  useEffect(() => {
+    if (desfeito?.teclado) botaoDesfazer.current?.focus();
+  }, [desfeito]);
+
+  // deu erro no servidor, ou a pessoa confirmou de novo por outro caminho: o aviso não tem mais o que desfazer
+  useEffect(() => {
+    if (desfeito && (erro || ato.vou_eu) && !ocupado) queueMicrotask(fechar);
+  }, [desfeito, erro, ato.vou_eu, ocupado, fechar]);
+
+  const faltam = desfeito ? Math.max(0, Math.ceil((SEGUNDOS_PARA_DESFAZER_O_VOU * 1000 - (agora - desfeito.desde)) / 1000)) : 0;
+  const aviso: ReactNode = desfeito
+    ? createPortal(
+        <div
+          ref={caixa}
+          className="al-vou-desfeito"
+          role="group"
+          aria-label={t.acoes.vouDesfeito}
+          style={{ ["--al-vou-espera" as string]: `${SEGUNDOS_PARA_DESFAZER_O_VOU}s` }}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              e.stopPropagation();
+              fechar();
+            }
+          }}
+        >
+          <span className="al-vou-desfeito-relogio" aria-hidden>
+            {faltam}
+          </span>
+          <span className="al-vou-desfeito-texto" aria-hidden>
+            {t.acoes.vouDesfeito}
+          </span>
+          <button ref={botaoDesfazer} type="button" className="al-vou-desfeito-botao" onClick={desfazer}>
+            {Icone.desfazer(18)}
+            {t.acoes.desfazer}
+          </button>
+          <span className="al-vou-desfeito-barra" aria-hidden />
+        </div>,
+        desfeito.raiz,
+      )
+    : null;
+  // o leitor de tela ouve uma vez (não a cada segundo do relógio)
+  const anuncio = desfeito ? preencherAto(t.acoes.vouDesfeitoLeitor, { s: SEGUNDOS_PARA_DESFAZER_O_VOU }) : refeito ? t.acoes.vouRefeito : "";
+  return { tocar, ocupado, erro, aviso, anuncio };
+}
+
 /** O botão "Você vai" / "Eu vou" dos cartões (largo). */
 export function BotaoVou({ ato, t, lang, logado = true, tamanho = "m", className = "" }: PropsDasAcoes & { tamanho?: "m" | "g"; className?: string }) {
-  const { alternar, ocupado, erro } = useVou(ato);
+  const { tocar, ocupado, erro, aviso, anuncio } = useVouComDesfazer(ato, t);
   if (ato.situacao === "cancelado") return null;
   if (!logado) {
     return (
@@ -44,12 +156,18 @@ export function BotaoVou({ ato, t, lang, logado = true, tamanho = "m", className
         pressionado={ato.vou_eu}
         aria-busy={ocupado}
         icone={ato.vou_eu ? Icone.visto(20) : undefined}
-        onClick={alternar}
+        onClick={(e: MouseEvent<HTMLButtonElement>) => {
+          tocar(e);
+        }}
         title={ato.vou_eu ? t.acoes.vouAjuda : undefined}
         className={className}
       >
         {ato.vou_eu ? t.acoes.voceVai : t.acoes.euVou}
       </Botao>
+      <span role="status" className="al-so-leitor">
+        {erro ? "" : anuncio}
+      </span>
+      {aviso}
       {erro ? (
         <span role="alert" className="al-ato-erro">
           {frase(t, erro)}
@@ -164,23 +282,21 @@ export function BotaoChamarIcone({ ato, t, lang }: PropsDasAcoes) {
  * (papel) quando confirmado; a conversa mostra o número de respostas embaixo, como na prancha.
  */
 export function ColunaDeAcoes({ ato, t, lang, logado = true, lembrete = false }: PropsDasAcoes & { lembrete?: boolean }) {
-  const { alternar, ocupado, erro } = useVou(ato);
+  const { tocar, ocupado, erro, aviso: avisoDesfazer, anuncio } = useVouComDesfazer(ato, t);
   const { chamar, estado: chamado } = useChamar(ato, lang);
   const cancelado = ato.situacao === "cancelado";
   const botaoVou = useRef<HTMLButtonElement>(null);
   const [aviso, setAviso] = useState("");
   const [baixado, setBaixado] = useState(false);
-  const aoVou = () => {
+  const aoVou = (e: MouseEvent<HTMLButtonElement>) => {
     if (ocupado) return;
-    const sim = !ato.vou_eu;
-    if (sim) {
+    if (tocar(e)) {
       soltarFaiscas(botaoVou.current);
       vibrar([10]);
       mostrarMosaico(botaoVou.current);
-    }
-    setAviso(sim ? t.acoes.vouFeito : t.acoes.vouDesfeito);
-    window.setTimeout(() => setAviso(""), 4000);
-    void alternar();
+      setAviso(t.acoes.vouFeito);
+      window.setTimeout(() => setAviso(""), 4000);
+    } else setAviso("");
   };
   return (
     <div className="al-ato-coluna">
@@ -205,8 +321,9 @@ export function ColunaDeAcoes({ ato, t, lang, logado = true, lembrete = false }:
             {t.acoes.vouAjuda}
           </span>
           <span role="status" className="al-so-leitor">
-            {erro ? "" : aviso}
+            {erro ? "" : aviso || anuncio}
           </span>
+          {avisoDesfazer}
           {erro ? (
             <span role="alert" className="al-ato-erro">
               {frase(t, erro)}

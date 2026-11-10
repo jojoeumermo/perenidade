@@ -6,6 +6,7 @@
     "adiado": "Postponed",
     "cancelado": "Cancelled"
   },
+  "situacaoQuem": "by the organizers",
   "era": "was {data}",
   "chamadoPor": "called by @{handle}",
   "faixa": {
@@ -47,7 +48,10 @@
     "vouFeito": "Confirmed. You are in the mosaic.",
     "vouDesfeito": "Confirmation undone.",
     "lembreteCurto": "Reminder",
-    "copiadoCurto": "Copied"
+    "copiadoCurto": "Copied",
+    "desfazer": "Undo",
+    "vouDesfeitoLeitor": "Confirmation undone. You have {s} seconds to undo.",
+    "vouRefeito": "Confirmation restored. You are in the mosaic."
   },
   "mosaico": {
     "voce": "You're in the mosaic: the golden card.",

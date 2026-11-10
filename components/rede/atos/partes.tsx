@@ -34,6 +34,7 @@ export const Icone = {
   bandeira: (t?: number) => svg(<path d="M5 21V4M5 5h13l-2.5 4 2.5 4H5" />, t),
   fora: (t?: number) => svg(<><path d="M14 5h5v5M19 5l-8 8" /><path d="M18 14v5H5V6h5" /></>, t),
   copiar: (t?: number) => svg(<><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></>, t),
+  desfazer: (t?: number) => svg(<><path d="M9 7L4.5 11.5 9 16" /><path d="M5 11.5h9.5a4.5 4.5 0 0 1 0 9H11" /></>, t),
   sino: (t?: number) => svg(<><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" /><path d="M10 20a2 2 0 0 0 4 0" /></>, t),
   corrente: (t?: number) => svg(<><path d="M9.5 14.5l5-5" /><path d="M11 6.5l1.5-1.5a3.5 3.5 0 0 1 5 5L16 11.5" /><path d="M13 17.5L11.5 19a3.5 3.5 0 0 1-5-5L8 12.5" /></>, t),
 };
@@ -97,7 +98,8 @@ export function baterCarimbo(el: HTMLElement, forte = false, atraso = 0): void {
 
 /**
  * O carimbo da situação, no idioma da tela, com física: bate quando aparece na tela pela primeira vez e bate de novo, mais forte,
- * quando a situação muda. Carimbo nunca é enfeite: só aparece por decisão humana registrada (a situação do ato).
+ * quando a situação muda. Carimbo nunca é enfeite: só aparece por decisão humana registrada (a situação do ato). Nos tamanhos médio e
+ * grande, uma linha miúda diz de quem é a decisão ("pela coordenação"), para o "Confirmado" do ato não se confundir com o "Você vai".
  */
 export function CarimboDoAto({ ato, t, tamanho = "m", className = "", bater = true }: { ato: Pick<Ato, "situacao">; t: TextosDosAtos; tamanho?: "p" | "m" | "g"; className?: string; bater?: boolean }) {
   const caixa = useRef<HTMLSpanElement>(null);
@@ -126,7 +128,7 @@ export function CarimboDoAto({ ato, t, tamanho = "m", className = "", bater = tr
   return (
     <span ref={caixa} className={`al-carimbo-vivo ${className}`.trim()}>
       <span className="al-carimbo-tinta" aria-hidden data-situacao={ato.situacao} />
-      <Carimbo situacao={ato.situacao} texto={t.situacao[ato.situacao]} tamanho={tamanho} />
+      <Carimbo situacao={ato.situacao} texto={t.situacao[ato.situacao]} quem={tamanho === "p" ? undefined : t.situacaoQuem} tamanho={tamanho} />
     </span>
   );
 }
