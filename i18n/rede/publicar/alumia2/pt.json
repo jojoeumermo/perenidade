@@ -23,7 +23,14 @@
     "buscar": "Buscar",
     "emBreve": "em breve",
     "entreParaUsar": "entre para usar",
-    "novidade": "tem novidade"
+    "novidade": "tem novidade",
+    "mais": "Mais",
+    "maisTitulo": "Mais da Alumia",
+    "maisAbrir": "Abrir mais opções da Alumia",
+    "fechar": "Fechar",
+    "organizacoes": "Organizações",
+    "calendario": "Calendário",
+    "aqui": "você está aqui"
   },
   "conta": {
     "rotulo": "Sua conta",
@@ -41,7 +48,9 @@
     "moderacao": "Moderação",
     "idiomas": "Idiomas",
     "acessibilidade": "Acessibilidade",
-    "ajuda": "Perguntas frequentes"
+    "ajuda": "Perguntas frequentes",
+    "seguranca": "Segurança",
+    "verPerfil": "Ver seu perfil"
   },
   "linha": {
     "titulo": "Início",

@@ -23,7 +23,14 @@
     "buscar": "Rechercher",
     "emBreve": "bientôt",
     "entreParaUsar": "connectez-vous pour utiliser",
-    "novidade": "il y a du nouveau"
+    "novidade": "il y a du nouveau",
+    "mais": "Plus",
+    "maisTitulo": "Plus d’Alumia",
+    "maisAbrir": "Ouvrir plus d’options d’Alumia",
+    "fechar": "Fermer",
+    "organizacoes": "Organisations",
+    "calendario": "Calendrier",
+    "aqui": "vous êtes ici"
   },
   "conta": {
     "rotulo": "Votre compte",
@@ -41,7 +48,9 @@
     "moderacao": "Modération",
     "idiomas": "Langues",
     "acessibilidade": "Accessibilité",
-    "ajuda": "Questions fréquentes"
+    "ajuda": "Questions fréquentes",
+    "seguranca": "Sécurité",
+    "verPerfil": "Voir votre profil"
   },
   "linha": {
     "titulo": "Accueil",
