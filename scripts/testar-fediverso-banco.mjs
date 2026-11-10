@@ -572,6 +572,83 @@ await espera("o painel (recursos_vivos) manda mais que a configuração: desliga
   return v === false;
 });
 
+// ═══════════════════ O que já nasce bloqueado: Threads e Bridgy Fed ═══════════════════
+// (supabase/migracoes/20261110-fediverso-bloqueio-padrao.sql). A migração do modo total foi rodada de novo lá em cima e trouxe a
+// função antiga de bloquear; por isso esta roda aqui, duas vezes, como rodaria no banco de verdade depois daquela.
+const padrao = lerTexto("supabase/migracoes/20261110-fediverso-bloqueio-padrao.sql");
+await espera("o install.sql termina com a migração do bloqueio padrão, idêntica ao arquivo e depois da do modo total", async () => install.endsWith(padrao) && install.indexOf(padrao) > install.indexOf(migracao));
+await espera("a migração do bloqueio padrão roda de novo sem erro", () => banco.exclusivo(() => banco.pg.exec(padrao)));
+await espera("e mais uma vez também (idempotente)", () => banco.exclusivo(() => banco.pg.exec(padrao)));
+const fixos = async () => (await dono("select dominio from interno.rede_fed_bloqueados where fixo order by dominio")).rows.map((x) => x.dominio).join();
+const bloqueado = async (url) => (await um("select interno.rede_fed_bloqueado($1) as b", [url])).b;
+const coordena = (sub) => ({ ...como(sub), aal: "aal2" });
+await dono("insert into interno.papeis (usuario, papel) values ($1, 'coordenacao') on conflict do nothing", [pessoas.ana]);
+await espera("a semente: threads.net, threads.com e brid.gy bloqueados e fixos, com motivo e sem autor", async () => {
+  const r = (await dono("select dominio, motivo, por from interno.rede_fed_bloqueados where fixo order by dominio")).rows;
+  return [r.map((x) => x.dominio).join(), r.every((x) => x.motivo.length > 10 && x.por === null)];
+}, ([d, ok]) => d === "brid.gy,threads.com,threads.net" && ok);
+await espera("rodar de novo não repete nem mexe na semente", async () => (await um("select count(*)::int as n from interno.rede_fed_bloqueados where dominio in ('brid.gy', 'threads.net', 'threads.com')")).n, (n) => n === 3);
+await espera("o bloqueio vale para os subdomínios (www.threads.net, bsky.brid.gy, web.brid.gy, fed.brid.gy)", async () => Promise.all(
+  ["https://www.threads.net/ap/users/1/", "https://threads.net/ap/users/1/", "https://www.threads.com/@x", "https://bsky.brid.gy/ap/did:plc:x", "https://web.brid.gy/site.teste", "https://fed.brid.gy/fed.brid.gy"].map(bloqueado)),
+  (r) => r.every((b) => b === true));
+await espera("e não pega domínio parecido (outrothreads.net, brid.gy.teste)", async () => Promise.all(["https://outrothreads.net/u/a", "https://brid.gy.teste/u/a"].map(bloqueado)), (r) => r.every((b) => b === false));
+await espera("nem deixa passar o mesmo domínio escrito de outro jeito (ponto no fim, usuário na frente, porta, maiúsculas)", async () => Promise.all(
+  ["https://threads.net./ap/users/1/", "https://www.threads.net./ap/users/1/", "https://x@threads.net/ap/users/1/", "https://x:y@bsky.brid.gy/ap/x", "https://threads.net:443/ap/users/1/", "https://WWW.Threads.NET/ap/users/1/", "https://brid.gy./x"].map(bloqueado)),
+  (r) => r.every((b) => b === true));
+await recusa("alguém com o papel educacao também não desbloqueia o Bridgy Fed", async () => {
+  await dono("insert into interno.papeis (usuario, papel) values ($1, 'educacao') on conflict do nothing", [pessoas.beto]);
+  try {
+    return await rpc({ ...como(pessoas.beto), aal: "aal2" }, "rede_fed_bloquear", { p_dominio: " BRID.GY ", p_sim: false, p_motivo: "" });
+  } finally {
+    await dono("delete from interno.papeis where usuario = $1 and papel = 'educacao'", [pessoas.beto]);
+  }
+}, "bloqueio_fixo");
+await espera("nada do Threads é guardado: seguidor de lá é recusado", async () => srv("seguidor", { handle: "beto", ator: "https://www.threads.net/ap/users/1/", inbox: "https://www.threads.net/ap/users/1/inbox/", pedido: "https://www.threads.net/f/1", sim: true }), (r) => r.ok === false);
+await espera("a lista da mediação diz quais bloqueios são fixos", async () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "", p_sim: null, p_motivo: "" }),
+  (l) => l.find((x) => x.dominio === "threads.net")?.fixo === true && l.find((x) => x.dominio === "brid.gy")?.fixo === true && l.find((x) => x.dominio === "outra.teste")?.fixo === false);
+await recusa("mediador comum não desbloqueia o Threads", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "threads.net", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await recusa("nem troca o motivo de um bloqueio fixo", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "Threads.net", p_sim: true, p_motivo: "outro" }), "bloqueio_fixo");
+await recusa("mediador comum não desbloqueia o Bridgy Fed", () => rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "brid.gy", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await recusa("nem a coordenação desbloqueia o Bridgy Fed pela função da mediação", () => rpc(coordena(pessoas.ana), "rede_fed_bloquear", { p_dominio: "brid.gy", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await recusa("nem o Threads por ela: o caminho é o interruptor", () => rpc(coordena(pessoas.ana), "rede_fed_bloquear", { p_dominio: "threads.com", p_sim: false, p_motivo: "" }), "bloqueio_fixo");
+await espera("depois das recusas, os três continuam fixos", fixos, (d) => d === "brid.gy,threads.com,threads.net");
+await espera("a mediação vê o interruptor do Threads, mas não pode mudar", async () => rpc(como(pessoas.duda), "rede_fed_threads", { p_bloquear: null }), (r) => r.bloqueado === true && r.pode_mudar === false);
+await recusa("mediador comum não liga o Threads pelo interruptor", () => rpc(como(pessoas.duda), "rede_fed_threads", { p_bloquear: false }), "sem_permissao");
+await recusa("quem não é da equipe nem vê o interruptor", () => rpc(como(pessoas.beto), "rede_fed_threads", { p_bloquear: null }), "sem_permissao");
+await espera("visitante não chama o interruptor", async () => (await um("select has_function_privilege('anon', 'public.rede_fed_threads(boolean)', 'execute') as p")).p, (p) => p === false);
+await espera("a coordenação libera o Threads: saem os dois domínios, o Bridgy Fed fica", async () => {
+  const r = await rpc(coordena(pessoas.ana), "rede_fed_threads", { p_bloquear: false });
+  return [r.bloqueado, r.pode_mudar, await fixos(), await bloqueado("https://www.threads.net/ap/users/1/"), await bloqueado("https://bsky.brid.gy/ap/x")];
+}, ([b, p, d, t, g]) => b === false && p === true && d === "brid.gy" && t === false && g === true);
+await espera("com o Threads liberado, rodar a migração de novo não bloqueia de volta", async () => {
+  await banco.exclusivo(() => banco.pg.exec(padrao));
+  return [await bloqueado("https://threads.net/ap/users/1/"), await fixos()];
+}, ([t, d]) => t === false && d === "brid.gy");
+await espera("a coordenação bloqueia o Threads de novo: volta fixo e some o que entrou dele", async () => {
+  await dono("insert into interno.rede_fed_seguidores (perfil, ator, inbox, inbox_compartilhada, pedido) values ($1, 'https://www.threads.net/ap/users/2/', 'https://www.threads.net/ap/users/2/inbox/', null, 'x')", [pessoas.beto]);
+  const r = await rpc(coordena(pessoas.ana), "rede_fed_threads", { p_bloquear: true });
+  const seg = (await um("select count(*)::int as n from interno.rede_fed_seguidores where ator like 'https://www.threads.net/%'")).n;
+  const cfg = (await um("select valor ? 'threads_liberado' as tem from interno.configuracoes where chave = 'fediverso'")).tem;
+  return [r.bloqueado, await fixos(), seg, cfg];
+}, ([b, d, s, c]) => b === true && d === "brid.gy,threads.com,threads.net" && s === 0 && c === false);
+await espera("o Bridgy Fed não tem interruptor: nenhuma função pública o desbloqueia", async () => {
+  const r = await dono(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+    where n.nspname = 'public' and p.prosrc ~ 'delete from (interno\\.)?rede_fed_bloqueados' order by 1`);
+  return r.rows.map((x) => x.proname).join();
+}, (f) => f === "rede_fed_bloquear,rede_fed_threads");
+await espera("bloquear, desbloquear e o interruptor ficam no registro de atividades, só com o domínio", async () => {
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "ruim.teste", p_sim: true, p_motivo: "motivo que não vai para o registro" });
+  await rpc(como(pessoas.duda), "rede_fed_bloquear", { p_dominio: "ruim.teste", p_sim: false, p_motivo: "" });
+  const r = (await dono("select acao, alvo, detalhes::text as d from interno.auditoria where acao like 'rede_fed_instancia_%' or acao like 'rede_fed_threads_%' order by acao")).rows;
+  return [[...new Set(r.map((x) => x.acao))].join(), r.every((x) => x.d === "{}" && /^[a-z0-9.-]+$/.test(x.alvo))];
+}, ([a, limpo]) => a === "rede_fed_instancia_bloqueada,rede_fed_instancia_desbloqueada,rede_fed_threads_bloqueado,rede_fed_threads_liberado" && limpo);
+await espera("as funções novas seguem o padrão (security definer, search_path) e as internas não abrem para ninguém", async () => {
+  const pub = await um("select prosecdef, array_to_string(proconfig, ',') as cfg from pg_proc where oid = 'public.rede_fed_threads(boolean)'::regprocedure");
+  const abertas = (await dono(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'interno' and p.proname in ('rede_fed_threads_dominios', 'rede_fed_bloqueio_faxina')
+    and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))`)).rows.length;
+  return [pub.prosecdef && /search_path=interno, pg_temp/.test(pub.cfg), abertas];
+}, ([ok, n]) => ok && n === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
 process.exit(falhas.length ? 1 : 0);
