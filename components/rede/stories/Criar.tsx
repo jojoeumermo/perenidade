@@ -520,7 +520,7 @@ export function Criar({
               maxLength={LIMITES_DO_STORY.texto}
               placeholder={t.criar.textoVazio}
               aria-describedby={`${id}-restam`}
-              style={{ fontFamily: est.familia, color: est.cor, textAlign: est.alinhar === "esq" ? "left" : est.alinhar === "dir" ? "right" : "center", background: est.caixa ?? undefined }}
+              style={{ fontFamily: est.familia, "--st-letra": est.cor, "--st-caixa": est.caixa ?? "transparent", textAlign: est.alinhar === "esq" ? "left" : est.alinhar === "dir" ? "right" : "center" } as CSSProperties}
               onChange={(e) => setTexto(e.target.value)}
             />
             <span id={`${id}-restam`} className="al-st-restam" aria-live="polite">

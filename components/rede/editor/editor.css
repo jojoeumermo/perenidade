@@ -182,6 +182,7 @@
 }
 :root[data-parado] [data-al="2"] :is(.al-ed-figurinha-entra, .al-ed-camera, .al-ed-progresso, .al-ed-progresso-anel) { animation: none !important; }
 :root:is([data-eink], [data-contrast]) [data-al="2"] :is(.al-ed-fonte, .al-ed-estilo-botao, .al-ed-alvo, .al-ed-redondo, .al-ed-som-na-tela) { background: var(--al-fundo); color: var(--al-texto); border: 2px solid var(--al-texto); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-ed-alvo-op { color: var(--al-texto); }
 :root:is([data-eink], [data-contrast]) [data-al="2"] :is(.al-ed-fonte[aria-checked="true"], .al-ed-alvo-op[aria-checked="true"]) { background: var(--al-texto); color: var(--al-fundo); }
 :root:is([data-eink], [data-contrast]) [data-al="2"] .al-ed-tira-janela { border-color: var(--al-texto); }
 :root:is([data-eink], [data-contrast]) [data-al="2"] .al-ed-alca { background: var(--al-texto); }

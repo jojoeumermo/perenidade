@@ -679,8 +679,16 @@
 :root[data-eink] [data-al="2"] .al-st-fundo-video video { filter: grayscale(1); }
 
 /* O texto com caixa (o "A" do Instagram): cada linha ganha o fundo, com as pontas arredondadas. */
+[data-al="2"] .al-st-texto[data-fonte] { color: var(--st-letra, var(--st-texto)); }
 [data-al="2"] .al-st-texto[data-caixa="sim"] { text-shadow: none; line-height: 1.22; }
-[data-al="2"] .al-st-texto[data-caixa="sim"] > span { padding: 0.04em 0.2em; border-radius: 0.14em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+[data-al="2"] .al-st-texto[data-caixa="sim"] > span { padding: 0.04em 0.2em; border-radius: 0.14em; background: var(--st-caixa); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+[data-al="2"] textarea.al-st-texto[data-caixa="sim"] { background: var(--st-caixa); }
+/* E-ink e alto contraste: a letra volta à tinta do modo (preto no papel, branco no preto) e a caixa sai, qualquer que seja a escolha. */
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-texto[data-fonte] { --st-letra: var(--st-texto) !important; --st-caixa: transparent !important; }
+/* Sobre foto ou vídeo, nesses modos, o texto e o alto ganham o fundo do modo (a tinta não some no meio da imagem). */
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-tela:has(.al-st-fundo-imagem) .al-st-miolo .al-st-texto { width: fit-content; max-width: 100%; padding: 0.04em 0.16em; background: var(--st-fundo); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-visor .al-st-tela:has(.al-st-fundo-imagem) .al-st-topo { padding: 4px 4px 4px 8px; border-radius: 12px; background: var(--st-fundo); }
+:root:is([data-eink], [data-contrast]) [data-al="2"] .al-st-quem-op[aria-checked="true"] { background: var(--al-texto); color: var(--al-fundo); border-color: var(--al-texto); }
 
 /* A menção de comunidade: ficha de papel com o nome. */
 [data-al="2"] .al-fg-comunidade {
