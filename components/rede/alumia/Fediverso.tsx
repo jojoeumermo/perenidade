@@ -1,16 +1,32 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import Link from "@/components/Link";
 import { BackendError, getClient } from "@/lib/backend";
 import { alumia, type InstanciaBloqueada, type PerfilDeFora, type PostDeFora, type SeguidoDeFora, type SituacaoDaFederacao } from "@/lib/rede/cliente-alumia";
+import { deFora } from "@/lib/rede/fediverso/tela/cliente";
+import { perfilDeExemplo } from "@/lib/rede/fediverso/tela/exemplos";
+import { linkDaOrigem } from "@/lib/rede/fediverso/tela/html";
+import { deForaVale } from "@/lib/rede/fediverso/tela/linha";
+import { textoDoErroDeFora, useTextosDoFediverso } from "@/lib/rede/fediverso/tela/textos";
+import { contaDoHandle, contaValida, enderecoDoPerfilRemoto } from "@/lib/rede/fediverso/tela/tipos";
 import { preencher } from "@/lib/rede/preencher";
+import { previaLigada } from "@/lib/rede/publicar/alumia2";
 import { carregarTextosDaAlumia, type TextosDaAlumia } from "@/lib/rede/textos-alumia";
 import { enderecos } from "@/lib/rede/tipos";
 import { codigoDoErro, textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
+import { useAlumia2 } from "../publicar/alumia2/contexto";
 import type { PropsDaTelaDoPacote } from "../registro";
+// O visual novo (a folha só vale dentro de [data-al="2"]; fora dele a tela fica como sempre foi).
+import "../conversa/alumia3.css";
+
+// Gente de fora no visual novo: só chegam ao navegador quando o endereço pede (?conta= ou ?nota=).
+const PerfilRemoto = dynamic(() => import("../fediverso/PerfilRemoto"), { ssr: false });
+const FioRemoto = dynamic(() => import("../fediverso/FioRemoto"), { ssr: false });
 
 /** O token da sessão: as rotas do servidor repassam ao banco, que confere tudo como a própria pessoa. */
 async function token(): Promise<string> {
@@ -46,6 +62,8 @@ function dataCurta(lang: string, iso: string | null | undefined): string {
 /** Um post de fora: só texto, com o aviso de conteúdo fechando o texto quando há. */
 function PostDeForaCartao({ p, t, lang }: { p: PostDeFora; t: TextosDaAlumia; lang: string }) {
   const texto = <p className="mt-1 whitespace-pre-line break-words">{p.texto}</p>;
+  // O link só leva ao servidor de onde o post veio (o do id dele).
+  const original = linkDaOrigem(p.url, p.id);
   return (
     <article className="border-b border-rule px-[18px] py-3 font-sans">
       <p className="text-sm text-ink-soft">
@@ -61,8 +79,8 @@ function PostDeForaCartao({ p, t, lang }: { p: PostDeFora; t: TextosDaAlumia; la
       ) : (
         texto
       )}
-      {p.url && (
-        <a href={p.url} rel="noopener noreferrer nofollow ugc" target="_blank" className="mt-1 inline-flex min-h-11 items-center text-sm underline">
+      {original && (
+        <a href={original} rel="noopener noreferrer nofollow ugc" target="_blank" className="mt-1 inline-flex min-h-11 items-center text-sm underline">
           {t.fed.buscar.abrirLa}
         </a>
       )}
@@ -74,10 +92,14 @@ function PostDeForaCartao({ p, t, lang }: { p: PostDeFora; t: TextosDaAlumia; la
  * A Alumia no Fediverso (/alumia/fediverso): ligar ou desligar a federação do próprio perfil (desligada por padrão, com
  * consentimento específico e destacado: LGPD arts. 7º, I, 8º, 11, I, e 33, VIII), achar e seguir alguém de outra instância e ler
  * os posts públicos de quem se segue lá. `params.federacao` diz se o servidor está com a federação ligada (lib/rede/fediverso/servidor.ts).
+ *
+ * Com "fediverso-total" e dentro da casca nova, o endereço escolhe a tela: ?conta=@nome@servidor desenha só o perfil de fora,
+ * ?nota=<endereço da nota> só o fio dela; sem nada, esta tela, com o controle de descoberta e a busca levando ao perfil de fora.
+ * Na prévia tudo vem dos exemplos: nenhuma rota e nenhuma função do banco é chamada.
  */
 export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPacote) {
   const [t, setT] = useState<TextosDaAlumia | null>(null);
-  const [fed, setFed] = useState<SituacaoDaFederacao | null>(null);
+  const [fed, setFed] = useState<(SituacaoDaFederacao & { descobrivel?: boolean }) | null>(null);
   const [aceito, setAceito] = useState(false);
   const [ocupado, setOcupado] = useState(false);
   const [recado, setRecado] = useState("");
@@ -91,7 +113,21 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
   const [dominio, setDominio] = useState("");
   const [motivo, setMotivo] = useState("");
   const [bloqueadas, setBloqueadas] = useState<InstanciaBloqueada[] | null>(null);
-  const ligadaNoServidor = params.federacao === "1";
+  const tf = useTextosDoFediverso(lang);
+  const casca = useAlumia2();
+  const pesquisa = useSearchParams();
+  const router = useRouter();
+  // O que é novo só aparece dentro da casca nova, com "fediverso-total" ou na prévia (que usa os exemplos): a regra de todas as peças.
+  const previa = casca !== null && (casca.previa === true || previaLigada());
+  const novo = casca !== null && deForaVale(previa);
+  const contaPedida = novo ? (pesquisa.get("conta") ?? "").trim() : "";
+  const notaPedida = novo ? (pesquisa.get("nota") ?? "").trim() : "";
+  const perfilDeFora = contaDoHandle(contaPedida) ?? (/^https:\/\/\S+$/i.test(contaPedida) && contaPedida.length <= 2000 ? contaPedida : null);
+  const fioDeFora = !perfilDeFora && /^https:\/\/\S+$/i.test(notaPedida) && notaPedida.length <= 2000 ? notaPedida : null;
+  const outraTela = Boolean(perfilDeFora || fioDeFora);
+  const ligadaNoServidor = params.federacao === "1" || previa;
+  // O domínio do endereço completo (@nome@dominio); na prévia, sem endereço próprio, o da página.
+  const dominioDaqui = params.dominio || (previa && typeof window !== "undefined" ? window.location.host : "");
 
   const erroDe = useCallback((e: unknown) => {
     const codigo = codigoDoErro(e);
@@ -107,18 +143,29 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
   }, [lang]);
 
   const recarregar = useCallback(() => {
+    if (previa) {
+      // Prévia: a situação e quem se segue vêm dos exemplos.
+      void deFora.situacao().then((r) => {
+        if (r.ok) setFed(r.dado);
+        const p = perfilDeExemplo();
+        setSeguidos([{ ator: p.ator, aceito: true, handle: p.handle, nome: p.nome, url: p.url, desde: new Date().toISOString() }]);
+        setLinha([]);
+      });
+      return;
+    }
     alumia.situacao().then(setFed).catch((e) => setErro(textoDoErro(s, e)));
     // A mediação abre já vendo as instâncias bloqueadas (antes, a lista só aparecia depois de bloquear uma).
     if (situacao.cuida) alumia.bloqueadas().then(setBloqueadas).catch(() => undefined);
     if (!situacao.logado || !situacao.membro) return;
     alumia.seguindo().then(setSeguidos).catch(() => undefined);
     alumia.linha().then(setLinha).catch(() => setLinha([]));
-  }, [s, situacao.logado, situacao.membro, situacao.cuida]);
+  }, [s, situacao.logado, situacao.membro, situacao.cuida, previa]);
 
   useEffect(() => {
-    if (!ligadaNoServidor) return;
+    // Com o perfil ou o fio de fora na tela, nada daqui é pedido.
+    if (!ligadaNoServidor || outraTela) return;
     recarregar();
-  }, [ligadaNoServidor, recarregar]);
+  }, [ligadaNoServidor, outraTela, recarregar]);
 
   async function ligar(sim: boolean) {
     if (!t || !fed) return;
@@ -127,7 +174,8 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
     setErro("");
     setRecado("");
     try {
-      setFed(await alumia.ligar(sim, sim ? fed.versao : null));
+      if (previa) setFed({ ...fed, ligado: sim });
+      else setFed(await alumia.ligar(sim, sim ? fed.versao : null));
       setRecado(sim ? t.fed.consentimento.ligou : t.fed.consentimento.desligou);
       setAceito(false);
       if (!sim) setSeguidos([]);
@@ -138,11 +186,29 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
     }
   }
 
+  /** Aparecer (ou não) em buscas e diretórios de outros servidores: o banco devolve a situação nova. */
+  async function descoberta(sim: boolean) {
+    if (!tf) return;
+    setOcupado(true);
+    setErro("");
+    const r = await deFora.descoberta(sim);
+    setOcupado(false);
+    if (r.ok) setFed((atual) => (atual ? { ...atual, descobrivel: r.dado.descobrivel === true } : atual));
+    else setErro(textoDoErroDeFora(tf, r.erro));
+  }
+
   async function buscar(e: React.FormEvent) {
     e.preventDefault();
     if (!t) return;
     setErroBusca("");
     setAchado(null);
+    if (novo) {
+      // No visual novo, a conta achada abre no perfil de fora (é ele que busca, pelo servidor daqui).
+      const lida = contaValida(conta);
+      if (!lida) return setErroBusca(t.fed.buscar.invalido);
+      router.push(enderecoDoPerfilRemoto(lang, `@${lida.nome}@${lida.servidor}`));
+      return;
+    }
     if (!/^@?[^@\s]+@[^@\s]+\.[^@\s]+$/.test(conta.trim())) {
       setErroBusca(t.fed.buscar.invalido);
       return;
@@ -158,6 +224,10 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
   }
 
   async function seguir(ator: string, sim: boolean) {
+    if (previa) {
+      if (!sim) setSeguidos((lista) => lista.filter((x) => x.ator !== ator));
+      return;
+    }
     setOcupado(true);
     setErroBusca("");
     try {
@@ -172,7 +242,7 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
   }
 
   async function bloquear(sim: boolean, alvo = dominio) {
-    if (!t) return;
+    if (!t || previa) return;
     setOcupado(true);
     setErro("");
     setRecado("");
@@ -192,17 +262,21 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
 
   async function maisDaLinha() {
     const ultimo = linha?.at(-1);
-    if (!ultimo) return;
+    if (!ultimo || previa) return;
     const r = await alumia.linha(ultimo.publicado).catch(() => []);
     setLinha((atual) => [...(atual ?? []), ...r.filter((p) => !(atual ?? []).some((x) => x.id === p.id))]);
   }
 
+  // Gente de fora no visual novo: o endereço pede o perfil ou o fio, e só ele é desenhado.
+  if (perfilDeFora) return <PerfilRemoto conta={perfilDeFora} lang={lang} logado={situacao.logado || previa} />;
+  if (fioDeFora) return <FioRemoto nota={fioDeFora} lang={lang} logado={situacao.logado || previa} />;
+
   if (!t) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   const f = t.fed;
-  const membro = situacao.logado && situacao.membro;
+  const membro = (situacao.logado && situacao.membro) || previa;
 
   return (
-    <div className="font-sans">
+    <div className="al3-tela font-sans">
       <header className="border-b border-rule px-[18px] py-4">
         <h1 className="font-serif text-2xl font-extrabold">{f.titulo}</h1>
         <p className="mt-1 text-ink-soft">{f.lead}</p>
@@ -224,9 +298,27 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
               <p className="mt-2 text-ink-soft">{s.estados.carregando}</p>
             ) : fed.ligado ? (
               <>
-                <p className="mt-2 break-all text-lg font-bold">@{fed.handle}@{params.dominio}</p>
+                <p className="mt-2 break-all text-lg font-bold">@{fed.handle}{dominioDaqui ? `@${dominioDaqui}` : ""}</p>
                 <p className="mt-1 text-sm text-ink-soft">{preencher(f.ligadaDesde, { quando: dataCurta(lang, fed.desde) })}</p>
                 <p className="mt-1 text-sm text-ink-soft">{preencher(f.numeros, { seguidores: fed.seguidores ?? 0, seguindo: fed.seguindo ?? 0 })}</p>
+                {novo && tf && (
+                  // Descoberta: desligada até a pessoa ligar; vale para buscas e diretórios de outros servidores.
+                  <div className="mt-3 flex items-start gap-3">
+                    <input
+                      id="fed-descoberta"
+                      type="checkbox"
+                      checked={fed.descobrivel === true}
+                      disabled={ocupado}
+                      aria-describedby="fed-descoberta-ajuda"
+                      onChange={(e) => void descoberta(e.target.checked)}
+                      className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-[#c21f16]"
+                    />
+                    <div className="min-w-0">
+                      <label htmlFor="fed-descoberta" className="cursor-pointer font-bold">{tf.ajuste.descoberta}</label>
+                      <p id="fed-descoberta-ajuda" className="text-sm text-ink-soft">{tf.ajuste.descobertaAjuda}</p>
+                    </div>
+                  </div>
+                )}
                 <button type="button" disabled={ocupado} onClick={() => void ligar(false)} className={`${botaoVazado} mt-3`}>
                   {f.consentimento.desligar}
                 </button>
@@ -321,7 +413,11 @@ export default function Fediverso({ lang, s, situacao, params }: PropsDaTelaDoPa
                     {seguidos.map((x) => (
                       <li key={x.ator} className="flex flex-wrap items-center gap-2">
                         <span className="min-w-0 flex-1 break-all">
-                          <strong>{x.nome || x.handle || x.ator}</strong>
+                          {novo && contaDoHandle(x.handle) ? (
+                            <Link href={enderecoDoPerfilRemoto(lang, x.handle as string)} className="font-bold underline">{x.nome || x.handle}</Link>
+                          ) : (
+                            <strong>{x.nome || x.handle || x.ator}</strong>
+                          )}
                           {x.handle && <span className="text-sm text-ink-soft"> @{x.handle}</span>}
                           {!x.aceito && <span className="text-sm text-ink-soft"> · {f.seguindo.esperando}</span>}
                         </span>
