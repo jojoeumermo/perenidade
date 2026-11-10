@@ -620,5 +620,11 @@
       "feitas": "Exámenes y simulacros hechos",
       "linhaProva": "{titulo} ({data}): {a} de {b}"
     }
+  },
+  "fimDaAula": {
+    "titulo": "Para después de la clase",
+    "compartilhar": "Compartir y guardar",
+    "estudar": "Estudiar más",
+    "melhorar": "Ayudar a mejorar la clase"
   }
 }
