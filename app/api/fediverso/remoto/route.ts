@@ -4,12 +4,18 @@
 // "fediverso-total" (desligado por padrão: 404) e só para quem entrou (token da sessão; teto por pessoa no banco, rede_fed_eu):
 //   ?ator=<url> ou ?conta=@nome@instancia  → o perfil (nome, @, bio em texto, avatar pela rota-proxy) e os últimos posts públicos
 //                                            (HTML limpo por lista permitida, mídia pela rota-proxy), mais o que o banco sabe
-//                                            (rede_fed_perfil_remoto: se a pessoa segue, se bloqueou);
-//   ?post=<url>                            → o fio {post, acima, respostas}. Se o banco guarda a nota, vem tudo dele
-//                                            (rede_fed_fio_remoto, que só devolve o que a pessoa pode ver); senão o post (só
-//                                            público ou não listado) e até 5 acima são lidos na origem agora, sem respostas;
+//                                            (rede_fed_perfil_remoto: se a pessoa segue, se bloqueou). O que é lido lá fora fica
+//                                            5 minutos na memória do servidor. Se o banco recusa (a pessoa de fora bloqueou quem
+//                                            pede), a rota recusa também: nada de posts nem de "seguir";
+//   ?post=<url>[&buscar=1]                 → o fio {post, acima, respostas}. Se o banco guarda a nota, vem tudo dele
+//                                            (rede_fed_fio_remoto, que só devolve o que a pessoa pode ver). Senão a rota responde
+//                                            "so_na_origem" e NÃO busca nada: só com buscar=1 (um toque da pessoa na tela) o post
+//                                            (só público ou não listado) e até 5 acima são lidos na origem, sem respostas. Assim
+//                                            um link armado não faz o servidor bater num endereço qualquer só por ser aberto;
 //   ?linha=1[&cursor=…&limite=…]           → a linha mista (rede_fed_linha_mista, COMO a pessoa: só o que ela pode ver) com o avatar
-//                                            e a mídia já pela rota-proxy assinada.
+//                                            e a mídia já pela rota-proxy assinada;
+//   ?respostas=<id do post daqui>[&cursor=…] → as respostas de fora a um post DAQUI (rede_fed_respostas_de, COMO a pessoa), cada
+//                                            uma em cartão e pelo proxy: { itens, proximo, total }.
 // Todo post de fora sai no MESMO formato de cartão do banco (interno.rede_fed_cartao); o lido agora na origem leva "ao_vivo": true
 // e os campos que não se sabe, neutros. Post DAQUI no meio do fio sai como { local: <id>, post: <cartão daqui> }.
 // Nada de só-seguidores nem de mensagem direta é lido aqui (a linha mista só traz só-seguidores a quem segue o autor, regra do banco).
@@ -19,7 +25,7 @@ import { lerConta } from "@/lib/rede/fediverso/enderecos";
 import { dominio, idDe, lerNota, postLocal, type NotaRecebida } from "@/lib/rede/fediverso/entrada/nota";
 import { buscarNaOrigem } from "@/lib/rede/fediverso/entrada/repasse";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
-import { assinarCartao, atorPorConta, atorRemoto, banco, buscarDocumento, fed, lerAtorRemoto, modoTotal, semFederacao, urlDaMidia, type AtorRemoto } from "@/lib/rede/fediverso/servidor";
+import { assinarCartao, atorPorConta, atorRemoto, banco, buscarDocumento, codigoParaATela, fed, lembrar, lerAtorRemoto, modoTotal, semFederacao, urlDaMidia, type AtorRemoto } from "@/lib/rede/fediverso/servidor";
 import { chamarComoPessoa, statusDoCodigo, tokenDe } from "@/lib/rede/publicar/servidor";
 
 export const runtime = "nodejs";
@@ -27,6 +33,13 @@ export const runtime = "nodejs";
 const resposta = (corpo: unknown, status = 200) => Response.json(corpo, { status, headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex" } });
 const urlOk = (v: string | null) => (v && /^https:\/\/[^\s<>"']{1,490}$/.test(v) ? v : null);
 const bloqueado = (url: string) => banco<boolean>("bloqueado", { url }).catch(() => true);
+/** A recusa que vai para a tela: só o código da casa (a mensagem crua do banco vira "falha"). */
+const recusa = (codigo: string) => resposta({ erro: codigoParaATela(codigo) }, codigo === "nao_encontrado" ? 404 : statusDoCodigo(codigo));
+// O cursor é o que o banco devolveu em "proximo": "<data e hora>|<chave>". A data vem como texto do banco, COM espaço
+// ("2026-11-10 12:34:56.789+00|https://…"); só ficam de fora os caracteres de controle e os de marcação.
+const CURSOR = /^[^<>"'\u0000-\u001f\u007f]{1,700}$/;
+const ID_DAQUI = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const MEMORIA_MS = 5 * 60_000;
 
 type Cartao = Record<string, unknown>;
 type Autor = Pick<AtorRemoto, "handle" | "nome" | "avatar"> | null;
@@ -85,18 +98,38 @@ async function postsDoAtor(atorId: string, doc: Record<string, unknown>, autor: 
   return saida;
 }
 
-async function perfil(token: string, atorId: string) {
-  if (await bloqueado(atorId)) return resposta({ erro: "instancia_bloqueada" }, 403);
+interface PerfilLido {
+  ator: AtorRemoto;
+  tipo: string;
+  posts: Cartao[];
+}
+
+/** O perfil e os últimos posts, lidos agora na origem. O banco passa a conhecer o ator (é o que rede_fed_perfil_remoto consulta). */
+async function lerPerfil(atorId: string): Promise<PerfilLido | null> {
   const doc = await buscarDocumento(atorId);
   const ator = doc ? lerAtorRemoto(doc, atorId) : null;
-  if (!doc || !ator) return resposta({ erro: "nao_encontrado" }, 404);
-  const [aoVivo, guardado] = await Promise.all([
+  if (!doc || !ator) return null;
+  const tipo = String(doc.type);
+  const [posts] = await Promise.all([
     postsDoAtor(ator.ator, doc, ator).catch(() => [] as Cartao[]),
-    chamarComoPessoa<Cartao>(token, "rede_fed_perfil_remoto", { p_ator: ator.ator }),
+    banco("remoto_salvar", { ator: ator.ator, chave_id: ator.chave_id, chave_publica: ator.chave_publica, inbox: ator.inbox, compartilhada: ator.inbox_compartilhada, handle: ator.handle, nome: ator.nome, resumo: ator.resumo, url: ator.url, avatar: ator.avatar ?? null, tipo }).catch(() => undefined),
   ]);
+  return { ator, tipo, posts };
+}
+
+async function perfil(token: string, atorId: string) {
+  if (await bloqueado(atorId)) return resposta({ erro: "instancia_bloqueada" }, 403);
+  // O que vem de fora fica uns minutos na memória: reabrir o perfil não vira um pedido novo lá a cada visita.
+  const lido = await lembrar(`perfil:${atorId}`, MEMORIA_MS, () => lerPerfil(atorId));
+  if (!lido) return resposta({ erro: "nao_encontrado" }, 404);
+  const { ator, posts: aoVivo } = lido;
+  const guardado = await chamarComoPessoa<Cartao>(token, "rede_fed_perfil_remoto", { p_ator: ator.ator });
+  // O banco já conhece o ator; se mesmo assim recusa, é porque a pessoa de fora bloqueou quem pede (ou o banco falhou). Na dúvida
+  // a rota recusa junto: sem posts e sem "seguir" para quem foi bloqueado.
+  if (!guardado.ok || !eCartao(guardado.dado)) return recusa(guardado.ok ? "falha" : guardado.codigo);
   // O que o banco sabe (se a pessoa segue, se bloqueou) e os posts que ele guarda, tudo já pelo proxy. Os posts saem numa lista só:
   // o cartão do banco (com "curti" e as contagens) ganha do lido agora; o que só o banco tem (só-seguidores de quem se segue) entra.
-  const { posts: doBanco, ...local } = guardado.ok && eCartao(guardado.dado) ? assinarCartao(guardado.dado) : ({} as Cartao);
+  const { posts: doBanco, ...local } = assinarCartao(guardado.dado);
   const porId = new Map<string, Cartao>();
   for (const c of Array.isArray(doBanco) ? doBanco.filter(eCartao) : []) if (typeof c.id === "string") porId.set(c.id, c);
   const vistos = new Set<string>();
@@ -113,10 +146,10 @@ async function perfil(token: string, atorId: string) {
     resumo: ator.resumo,
     url: ator.url,
     avatar: urlDaMidia(ator.avatar),
-    tipo: String(doc.type),
+    tipo: lido.tipo,
     servidor: dominio(ator.ator),
     posts: posts.slice(0, 40),
-    local: guardado.ok && eCartao(guardado.dado) ? local : null,
+    local,
   });
 }
 
@@ -127,10 +160,13 @@ async function fioDoBanco(token: string, id: string) {
   return { post: assinarCartao(r.dado.post), acima: itensDoFio(r.dado.acima), respostas: itensDoFio(r.dado.respostas) };
 }
 
-async function fio(token: string, postId: string) {
+async function fio(token: string, postId: string, buscarLa: boolean) {
   if (await bloqueado(postId)) return resposta({ erro: "instancia_bloqueada" }, 403);
   const guardado = await fioDoBanco(token, postId);
   if (guardado) return resposta(guardado);
+  // O banco não guarda a nota. Só o toque da pessoa em "buscar este post em <servidor>" faz o servidor ir lá fora: abrir um link
+  // não basta (senão quem arma o link fica sabendo a hora em que cada pessoa o abriu).
+  if (!buscarLa) return resposta({ erro: "so_na_origem", servidor: dominio(postId) }, 404);
   const lerPublica = async (id: string) => {
     const { doc } = await buscarNaOrigem(id);
     const autor = doc ? (Array.isArray(doc.attributedTo) ? idDe(doc.attributedTo[0]) : idDe(doc.attributedTo)) : null;
@@ -169,27 +205,39 @@ export async function GET(pedido: Request) {
   if (p.has("linha")) {
     const cursor = p.get("cursor");
     const limite = Number(p.get("limite") ?? 20);
-    if ((cursor && !/^[^\s<>"']{1,700}$/.test(cursor)) || !Number.isInteger(limite) || limite < 1 || limite > 50) return resposta({ erro: "invalido:pedido" }, 400);
+    if ((cursor && !CURSOR.test(cursor)) || !Number.isInteger(limite) || limite < 1 || limite > 50) return resposta({ erro: "invalido:pedido" }, 400);
     const linha = await chamarComoPessoa<{ itens?: unknown[]; proximo?: string | null }>(token, "rede_fed_linha_mista", { p_cursor: cursor || null, p_limite: limite });
-    if (!linha.ok) return resposta({ erro: linha.codigo }, statusDoCodigo(linha.codigo));
+    if (!linha.ok) return recusa(linha.codigo);
     return resposta({ itens: Array.isArray(linha.dado?.itens) ? linha.dado.itens.map(assinarCartao) : [], proximo: linha.dado?.proximo ?? null });
+  }
+
+  // As respostas de fora a um post DAQUI: só o banco é lido (o teto e a regra de quem vê são os da função, que roda como a pessoa).
+  if (p.has("respostas")) {
+    const id = p.get("respostas") ?? "";
+    const cursor = p.get("cursor");
+    if (!ID_DAQUI.test(id) || (cursor && !CURSOR.test(cursor))) return resposta({ erro: "invalido:pedido" }, 400);
+    const r = await chamarComoPessoa<{ itens?: unknown[]; proximo?: string | null; total?: number }>(token, "rede_fed_respostas_de", { p_post: id.toLowerCase(), p_cursor: cursor || null, p_limite: 50 });
+    if (!r.ok) return recusa(r.codigo);
+    const itens = Array.isArray(r.dado?.itens) ? r.dado.itens.filter((c): c is Cartao => eCartao(c) && deFora(c)).map(assinarCartao) : [];
+    return resposta({ itens, proximo: typeof r.dado?.proximo === "string" ? r.dado.proximo : null, total: typeof r.dado?.total === "number" ? r.dado.total : itens.length });
   }
 
   // A sessão é conferida no banco ANTES de buscar qualquer coisa lá fora (com o teto por pessoa de rede_fed_eu).
   const eu = await chamarComoPessoa<{ perfil: string }>(token, "rede_fed_eu", { p_acao: "remoto" });
-  if (!eu.ok) return resposta({ erro: eu.codigo }, statusDoCodigo(eu.codigo));
+  if (!eu.ok) return recusa(eu.codigo);
 
   const post = urlOk(p.get("post"));
-  if (post) return fio(token, post);
+  if (post) return fio(token, post, p.get("buscar") === "1");
   const ator = urlOk(p.get("ator"));
   if (ator) return perfil(token, ator);
   const conta = lerConta(p.get("conta") ?? "");
   if (conta) {
     if (conta.dominio === fed.dominio) return resposta({ local: true, handle: conta.usuario.toLowerCase() });
     if (await bloqueado(`https://${conta.dominio}/`)) return resposta({ erro: "instancia_bloqueada" }, 403);
-    const achado = await atorPorConta(conta.usuario, conta.dominio).catch(() => null);
+    // O WebFinger também fica uns minutos na memória (o mesmo @ aberto de novo não pergunta de novo lá fora).
+    const achado = await lembrar(`conta:${conta.usuario.toLowerCase()}@${conta.dominio}`, MEMORIA_MS, () => atorPorConta(conta.usuario, conta.dominio).then((a) => a?.ator ?? null));
     if (!achado) return resposta({ erro: "nao_encontrado" }, 404);
-    return perfil(token, achado.ator);
+    return perfil(token, achado);
   }
   return resposta({ erro: "invalido:pedido" }, 400);
 }
