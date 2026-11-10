@@ -42,6 +42,7 @@ export const RECURSOS = {
   // Alumia, Onda 5 (docs/plano-2026-11/PLANO-ALUMIA.md): tudo só pelo nome e só junto com "rede-v2". Desligadas, a Alumia de hoje
   // não muda nada; as rotas novas (/alumia/atos, /alumia/organizacoes…) respondem 404.
   "alumia-2": "Alumia nova (Mosaico da Arquibancada): fundo noite, Archivo, faixa tecida, mosaico do ato e as telas novas de atos, calendário, listas, versão leve, transparência e segurança. Precisa de rede-v2",
+  "alumia-proximas": "Alumia: telas que ainda estão em construção (o que guardamos, transparência, listas, versão leve). Só ligam quando ficarem prontas",
   "alumia-stories": "Alumia: stories de 24 h, sem registro de quem viu, que nunca federam. Precisa de rede-v2 e alumia-2",
   "alumia-modo-ato": "Alumia: modo ato, Fui detido, Estou bem e as telas de segurança pessoal (aparelhos, identidades). Precisa de rede-v2 e alumia-2",
   "alumia-org": "Alumia: organizações com selo (não é apoio do Instituto), consultas à base, plenárias e prestação de contas. Precisa de rede-v2 e alumia-2",
@@ -72,10 +73,14 @@ export const PADRAO: readonly Recurso[] = [
   "pratica-sem-placar",
   // T03 (06/11/2026): a coordenação pediu o assistente ligado em todo o site. Desliga com "-assistente-publico" ou pelo painel.
   "assistente-publico",
+  // Alumia nova (10/11/2026): a coordenação pediu a cara nova no ar, com stories e organizações. O SQL da onda já rodou (rede_alumia_versao = 2).
+  "alumia-2",
+  "alumia-stories",
+  "alumia-org",
 ];
 
 /** Recursos que "todos" não liga: só ligam com o nome na lista. */
-export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2", "fediverso-total", "fediverso-grupos", "alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo"];
+export const SO_PELO_NOME: readonly Recurso[] = ["escola", "vale-o-escrito", "rede-v2", "fediverso-total", "fediverso-grupos", "alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas"];
 
 /**
  * Recursos EM PAUSA: prontos e testados, mas desligados por decisão da coordenação (T08, 06/11/2026: "deixa desativado pelo

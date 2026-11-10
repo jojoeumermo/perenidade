@@ -254,15 +254,19 @@ ok("o sitemap anuncia /alumia e não /comunidade", /"\/alumia"/.test(ler("app/si
 }
 
 // ═══════════════════ 7. Flags: só pelo nome, desligadas, e o visual novo só com as duas ═══════════════════
-const FLAGS = ["alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo"];
+const FLAGS = ["alumia-2", "alumia-stories", "alumia-modo-ato", "alumia-org", "alumia-chat-grupo", "alumia-proximas"];
+// 10/11/2026: o SQL da onda rodou em produção (rede_alumia_versao = 2) e a coordenação pediu a cara nova no ar: alumia-2,
+// alumia-stories e alumia-org passam a ligar por padrão (PADRAO); as outras continuam só pelo nome, desligadas.
+const NO_AR = ["alumia-2", "alumia-stories", "alumia-org"];
 for (const f of FLAGS) {
   ok(`a flag ${f} existe`, f in RECURSOS);
-  ok(`a flag ${f} é só pelo nome`, SO_PELO_NOME.includes(f));
-  igual(`"todos" não liga ${f}`, ligado(f, lerRecursos("todos")), false);
+  ok(`a flag ${f} é só pelo nome (o "todos" sozinho não decide)`, SO_PELO_NOME.includes(f));
+  igual(`"todos" ${NO_AR.includes(f) ? "liga (padrão)" : "não liga"} ${f}`, ligado(f, lerRecursos("todos")), NO_AR.includes(f));
+  igual(`"nenhum" desliga ${f}`, ligado(f, lerRecursos("nenhum")), false);
+  igual(`"-${f}" desliga ${f}`, ligado(f, lerRecursos(`todos,-${f}`)), false);
   igual(`o nome liga ${f}`, ligado(f, lerRecursos(`todos,${f}`)), true);
 }
-ok("sem a variável de montagem, a Alumia nova está desligada", !process.env.NEXT_PUBLIC_RECURSOS?.includes("alumia-2") ? alumia2Ligada() === false : true);
-ok("rota nova desligada por padrão", ROTAS_NOVAS.every((r) => (process.env.NEXT_PUBLIC_RECURSOS ?? "").includes(r.flag) || rotaNovaLigada(r.nome) === false));
+ok("as telas ainda em construção ficam desligadas por padrão", ROTAS_NOVAS.filter((r) => !NO_AR.includes(r.flag)).every((r) => (process.env.NEXT_PUBLIC_RECURSOS ?? "").includes(r.flag) || rotaNovaLigada(r.nome) === false));
 {
   const layout = ler("app/[lang]/alumia/layout.tsx");
   ok("desligada, o layout devolve a moldura de antes, sem data-al", /if \(!alumia2Ligada\(\)\) return moldura;/.test(layout));
@@ -449,7 +453,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
       await banco.pg.exec("reset role");
     }
   }), "permission denied");
-  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-chat-grupo,alumia-modo-ato,alumia-org,alumia-stories");
+  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-chat-grupo,alumia-modo-ato,alumia-org,alumia-proximas,alumia-stories");
   await espera("o resumo semanal leva a /pt/alumia/avisos", async () => (await um("select pg_get_functiondef('interno.rede3_aviso_resumo(uuid)'::regprocedure) as f, pg_get_functiondef('interno.rede3_aviso_resumo_semanal()'::regprocedure) as g")), (r) => r.f.includes("/pt/alumia/avisos") && r.g.includes("/pt/alumia/avisos") && !r.f.includes("/comunidade/avisos"));
   await espera("a ponte da página /denunciar reconhece /alumia/p/ e /comunidade/p/", async () => (await um("select pg_get_functiondef('interno.rede3_mod_ponte_denuncia()'::regprocedure) as f")).f, (f) => f.includes("'/(comunidade|alumia)/p/'"));
   await banco.pg.close?.();
