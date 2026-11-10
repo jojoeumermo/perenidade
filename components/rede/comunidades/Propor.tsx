@@ -7,10 +7,32 @@ import { preencher } from "@/lib/rede/preencher";
 import { quandoFoi } from "../CartaoDePost";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { FaixaDaPrevia, previa, useTextosAlumia3 } from "../conversa/base3";
 import { botao, campo, erroCom, textosDe, useCarregar } from "./util";
+// O visual novo (só com "rede-v2" + "alumia-2": a folha só vale dentro de [data-al="2"]).
+import "../conversa/alumia3.css";
 
 /** @nomes de uma lista escrita livre (uma por linha, ou separados por vírgula ou espaço). */
 const nomesDe = (texto: string): string[] => texto.split(/[\s,;]+/).map((x) => x.replace(/^@+/, "").trim().toLowerCase()).filter(Boolean);
+
+/** O endereço sugerido a partir do nome ("Moradia Zona Leste" → "moradia-zona-leste"), até a pessoa escrever o dela. */
+const enderecoDe = (nome: string): string =>
+  nome
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+
+/** "123/1000" embaixo do campo: sem palavra, vale nos 6 idiomas. */
+function Contador({ n, max, min, lang }: { n: number; max: number; min?: number; lang: string }) {
+  return (
+    <span className="al3-contador" data-falta={min && n > 0 && n < min ? "sim" : undefined} aria-hidden>
+      {n.toLocaleString(lang)}/{max.toLocaleString(lang)}
+    </span>
+  );
+}
 
 /**
  * Propor uma comunidade (R4, item 37, decisão 4 da ESPEC): endereço, nome, objetivo, regras (uma por linha) e ao menos dois moderadores
@@ -20,6 +42,8 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const sc = textosDe(s);
   const minhas = useCarregar(() => (situacao.logado ? comunidades.minhasPropostas() : Promise.resolve({ itens: [] })), `minhas:${situacao.logado}`);
   const [slug, setSlug] = useState("");
+  const [slugMexido, setSlugMexido] = useState(false);
+  const t3 = useTextosAlumia3(lang);
   const [nome, setNome] = useState("");
   const [objetivo, setObjetivo] = useState("");
   const [regras, setRegras] = useState("");
@@ -36,14 +60,16 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
     setOcupado(true);
     setMensagem(null);
     try {
-      await comunidades.propor({ slug: slug.trim().toLowerCase(), nome: nome.trim(), objetivo: objetivo.trim(), regras: regras.trim(), moderadores: nomesDe(moderadores) });
+      // Na prévia (sem conta), a proposta não sai do aparelho: só mostra como fica.
+      if (!previa()) await comunidades.propor({ slug: slug.trim().toLowerCase(), nome: nome.trim(), objetivo: objetivo.trim(), regras: regras.trim(), moderadores: nomesDe(moderadores) });
       setMensagem({ texto: sc.propor.enviada, erro: false });
       setSlug("");
+      setSlugMexido(false);
       setNome("");
       setObjetivo("");
       setRegras("");
       setModeradores("");
-      minhas.recarregar();
+      if (!previa()) minhas.recarregar();
     } catch (erro) {
       setMensagem({ texto: erroCom(s, sc, erro), erro: true });
     } finally {
@@ -52,9 +78,10 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
   }
 
   return (
-    <div className="font-sans">
+    <div className="al3-tela font-sans">
+      {t3 && <FaixaDaPrevia t={t3} />}
       <header className="border-b border-rule px-[18px] py-4">
-        <h1 className="font-serif text-2xl font-extrabold">{p.titulo}</h1>
+        <h1 className="al3-cond al3-titulo-tela">{p.titulo}</h1>
         <p className="mt-1 text-sm text-ink-soft">{p.intro}</p>
       </header>
       {!pode ? (
@@ -63,19 +90,43 @@ export default function Propor({ lang, s, situacao }: PropsDaTelaDoPacote) {
         <form onSubmit={enviar} className="space-y-3 border-b border-rule px-[18px] py-4">
           <label className="block text-sm text-ink-soft">
             {p.nome}
-            <input value={nome} onChange={(e) => setNome(e.target.value)} minLength={3} maxLength={60} required className={campo} />
+            <input
+              value={nome}
+              onChange={(e) => {
+                setNome(e.target.value);
+                if (!slugMexido) setSlug(enderecoDe(e.target.value));
+              }}
+              minLength={3}
+              maxLength={60}
+              required
+              className={campo}
+            />
           </label>
           <label className="block text-sm text-ink-soft">
             {p.slug}
-            <input value={slug} onChange={(e) => setSlug(e.target.value)} pattern="[a-z0-9-]{2,60}" maxLength={60} required className={campo} />
+            <input
+              value={slug}
+              onChange={(e) => {
+                setSlug(e.target.value.toLowerCase());
+                setSlugMexido(e.target.value !== "");
+              }}
+              pattern="[a-z0-9\-]{2,60}"
+              maxLength={60}
+              required
+              autoCapitalize="none"
+              spellCheck={false}
+              className={`${campo} font-mono`}
+            />
           </label>
           <label className="block text-sm text-ink-soft">
             {p.objetivo}
             <textarea value={objetivo} onChange={(e) => setObjetivo(e.target.value)} minLength={20} maxLength={1000} rows={4} required className={campo} />
+            <Contador n={objetivo.length} max={1000} min={20} lang={lang} />
           </label>
           <label className="block text-sm text-ink-soft">
             {p.regras}
             <textarea value={regras} onChange={(e) => setRegras(e.target.value)} minLength={20} maxLength={2000} rows={5} required className={campo} />
+            <Contador n={regras.length} max={2000} min={20} lang={lang} />
           </label>
           <label className="block text-sm text-ink-soft">
             {p.moderadores}

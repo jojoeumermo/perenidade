@@ -175,7 +175,7 @@ RASCUNHO, REVISÃO JURÍDICA PENDENTE. No [Cantinho da Lua](/criancas), nada é 
 
 ## Avaliação automática na Comunidade
 
-Tudo o que é escrito na [Comunidade](/comunidade) passa por uma avaliação automática antes de aparecer. Ela existe para manter a convivência respeitosa, segura e voltada ao estudo: ajuda a barrar spam, assédio, ameaças, discurso de ódio e outras violações das regras da página.
+Tudo o que é escrito na [Comunidade](/alumia) passa por uma avaliação automática antes de aparecer. Ela existe para manter a convivência respeitosa, segura e voltada ao estudo: ajuda a barrar spam, assédio, ameaças, discurso de ódio e outras violações das regras da página.
 
 Essa avaliação tem duas partes. A primeira roda dentro do próprio sistema do instituto e olha sinais simples, como palavras de uma lista, endereços de sites e texto repetido. A segunda usa uma ferramenta de inteligência artificial de uma empresa de fora, com servidores fora do Brasil: o texto da sua mensagem (o título e o corpo, e nada além disso) é enviado a esse serviço, que devolve uma classificação.
 

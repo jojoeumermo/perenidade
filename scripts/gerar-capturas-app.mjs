@@ -20,7 +20,7 @@ const CAPTURAS = [
   { aba: "inicio", caminho: "/pt", forma: "narrow", largura: 390, altura: 844 },
   { aba: "estudar", caminho: "/pt/trilhas", forma: "narrow", largura: 390, altura: 844 },
   { aba: "jogos", caminho: "/pt/jogos", forma: "narrow", largura: 390, altura: 844 },
-  { aba: "comunidade", caminho: "/pt/comunidade", forma: "narrow", largura: 390, altura: 844 },
+  { aba: "comunidade", caminho: "/pt/alumia", forma: "narrow", largura: 390, altura: 844 },
   { aba: "inicio", caminho: "/pt", forma: "wide", largura: 1280, altura: 720 },
 ];
 

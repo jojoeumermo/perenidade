@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/acervo",
     "/jornal",
     "/noticias",
-    "/comunidade",
+    "/alumia",
     "/memorial",
     "/dedicatoria",
     "/contribuir",

@@ -14,7 +14,8 @@
     "escrever": "Escrever",
     "busca": "Buscar",
     "explorar": "Explorar",
-    "fediverso": "Fediverso"
+    "fediverso": "Fediverso",
+    "editarPerfil": "Editar perfil"
   },
   "abas": {
     "rotulo": "Linhas da Alumia",
@@ -85,7 +86,7 @@
     "comunidade": "Comunidade (opcional)",
     "saltarParaConteudo": "Ir para a linha",
     "sairRapido": "Sair rápido",
-    "sairRapidoAjuda": "Abre uma página neutra e apaga os dados da Alumia neste aparelho.",
+    "sairRapidoAjuda": "Apaga o que a Alumia guardou neste aparelho e abre uma página comum de fora (a previsão do tempo), sem nada do Instituto.",
     "cartaoSeguranca": "Segurança primeiro: nunca poste endereço de casa, telefone ou documento. Se algo preocupar, denuncie.",
     "cuidados": {
       "titulo": "Cuidado",
@@ -168,7 +169,7 @@
     "limite_de_niveis": "A conversa chegou ao limite de níveis: continue em uma resposta mais acima.",
     "muitos_pedidos": "Calma: muitos pedidos seguidos. Tente de novo daqui a pouco.",
     "banco_desatualizado": "O banco ainda não recebeu a atualização da Alumia.",
-    "sem_servico": "O serviço de contas não está ligado neste ambiente.",
+    "sem_servico": "Esta parte da Alumia ainda não está disponível aqui. Tente de novo mais tarde.",
     "sem_conexao": "Sem conexão. Confira a internet e tente de novo.",
     "falha": "Algo deu errado. Tente de novo.",
     "invalido": "Confira o campo: {campo}.",
@@ -176,6 +177,7 @@
     "nivel_links": "Seu nível ainda não permite tantos links num post. Veja os limites em Como a Alumia cuida.",
     "nivel_imagens": "Seu nível ainda não permite tantas imagens num post. Veja os limites em Como a Alumia cuida.",
     "limite_diario": "Você chegou ao limite de posts de hoje para o seu nível.",
+    "limite_identidades": "Você já tem o máximo de 5 contas desse tipo (identidades ou organizações).",
     "lista_bloqueio": "A mediação deste lugar não permite posts seus aqui."
   },
   "alumia": {

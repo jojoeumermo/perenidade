@@ -1,0 +1,240 @@
+{
+  "_rascunho": true,
+  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Accueil d'Alumia", "acessibilidade": "Accessibilité", "ajuda": "Questions fréquentes" },
+  "tipos": { "partido": "Parti", "mandato": "Mandat", "sindicato": "Syndicat", "movimento": "Mouvement", "coletivo": "Collectif", "gremio": "Conseil des élèves", "dce": "Union étudiante", "outro": "Organisation" },
+  "pagina": {
+    "titulo": "Amenez votre organisation",
+    "entrar": "Se connecter",
+    "criarConta": "Créer un compte",
+    "chamada": "Votre base ne tient pas dans l'algorithme d'un milliardaire",
+    "lead": "Alumia est le réseau social militant de l'Instituto Lúcia : libre, sans publicité, sans algorithme et relié au Fédivers. Amenez votre organisation et appelez votre base ici.",
+    "pedirSelo": "Demander le badge de l'organisation",
+    "verExemplo": "Voir un profil d'exemple",
+    "para": "Pour partis, mandats, syndicats, mouvements, collectifs, conseils des élèves et unions étudiantes.",
+    "mosaicoPalavra": "VEM",
+    "mosaicoRotulo": "Exemple de mosaïque d'action avec le mot VEM, presque entièrement allumée ; la carte dorée, c'est vous.",
+    "mosaicoLegenda": "Chaque carte est une personne qui a confirmé sa présence. Sur Alumia, l'action apparaît ainsi.",
+    "porQue": {
+      "titulo": "Pourquoi quitter X pour Alumia",
+      "tema": "Thème",
+      "noX": "Sur X",
+      "naAlumia": "Sur Alumia",
+      "linhas": [
+        { "tema": "Qui décide ce que voit votre base", "x": "L'algorithme de l'entreprise, qui change sans prévenir.", "alumia": "Personne. Ordre d'arrivée : qui vous suit voit tout." },
+        { "tema": "Portée", "x": "Peut s'acheter, et chute quand l'algorithme le veut.", "alumia": "Ne s'achète pas et personne ne la coupe : votre post atteint vos abonnés, dans l'ordre." },
+        { "tema": "Propriétaire", "x": "L'entreprise d'un milliardaire.", "alumia": "Logiciel libre de l'Instituto Lúcia, relié au Fédivers." },
+        { "tema": "S'organiser", "x": "Post, like et c'est tout.", "alumia": "Actions, cellules, consultations de la base, assemblées et reddition de comptes." },
+        { "tema": "Vos données", "x": "Utilisées pour la publicité.", "alumia": "Sans publicité ni pistage. Toujours un pseudonyme." },
+        { "tema": "Étude", "x": "Rien.", "alumia": "Chaque débat peut devenir un cours, chaque cours peut devenir un débat." }
+      ]
+    },
+    "ferramentas": {
+      "titulo": "Des outils pour s'organiser, pas seulement pour poster",
+      "verNoExemplo": "Voir dans le profil d'exemple",
+      "atos": {
+        "titulo": "Appelez des actions et voyez votre base s'allumer",
+        "texto": "L'action a une date, un lieu, une conversation et la mosaïque : chaque confirmation allume une carte. L'organisation voit combien viennent ; les autres voient le mot devenir net. Reportée ou annulée ? Le tampon reste, personne n'est pris par surprise.",
+        "carimbos": { "confirmado": "Confirmé", "adiado": "Reporté", "cancelado": "Annulé" }
+      },
+      "consulta": {
+        "titulo": "Consultez la base avant de décider",
+        "texto": "Des consultations où seuls les membres d'une cellule votent, avec délai et résultat public. Le mandat dit d'avance s'il suivra le résultat.",
+        "rotulo": "Exemple de résultat d'une consultation de la base",
+        "opcoes": [ { "texto": "Voter contre", "p": 71 }, { "texto": "Pour avec amendements", "p": 18 }, { "texto": "S'abstenir", "p": 11 } ]
+      },
+      "plenaria": {
+        "titulo": "Assemblée ouverte et reddition de comptes",
+        "texto": "La base envoie des questions, l'organisation répond en direct, dans l'ordre d'arrivée. Chaque vote va dans un tableau avec le pourquoi, pour qui veut vérifier.",
+        "rotulo": "Exemple de file de questions d'une assemblée",
+        "naFila": 214,
+        "perguntas": [
+          { "handle": "ritadazl", "texto": "Pourquoi le mandat a-t-il voté contre la concession des parcs ?" },
+          { "handle": "joaocobrador", "texto": "Quand revient le débat sur la gratuité des transports le dimanche ?" }
+        ]
+      },
+      "nucleos": {
+        "titulo": "Cellules, formation et Fédivers",
+        "texto": "Divisez la base par quartier, catégorie ou école. Reliez chaque débat aux cours de l'Instituto Lúcia. Et parlez avec Mastodon, Lemmy et Misskey sans quitter Alumia.",
+        "rotulo": "Exemple de cellules d'une organisation",
+        "lista": [ { "nome": "Cellule Zone Est", "quando": "mardis, 19 h", "cor": 3 }, { "nome": "Cellule Centre", "quando": "samedis, 10 h", "cor": 1 }, { "nome": "Cellule Étudiants", "quando": "mercredis, 18 h", "cor": 2 } ]
+      }
+    },
+    "comoEntrar": {
+      "titulo": "Comment entrer",
+      "passos": [
+        { "titulo": "Créez le compte de l'organisation", "texto": "Pseudonyme, description et qui s'occupe du compte." },
+        { "titulo": "Demandez le badge", "texto": "L'équipe vérifie un document public : numéro d'entreprise (CNPJ), enregistrement du parti ou certificat d'élection." },
+        { "titulo": "Appelez votre base", "texto": "Un lien d'invitation aux cellules, avec la première action déjà fixée." }
+      ]
+    },
+    "regra": "Mêmes règles pour tous : le badge dit que le compte est bien celui qu'il prétend être, ce n'est pas un soutien de l'Instituto Lúcia. Une organisation vérifiée ne gagne pas plus de portée et suit les mêmes règles de soin du réseau.",
+    "pedirOSelo": "Demander le badge"
+  },
+  "selo": {
+    "texto": "Organisation vérifiée",
+    "desde": "depuis le {data}",
+    "regra": "Le badge dit que le compte est bien celui qu'il prétend être, ce n'est pas un soutien de l'Instituto Lúcia.",
+    "conferido": "Document public vérifié : {documento}.",
+    "semSelo": "Pas encore de badge : l'équipe n'a pas vérifié le document de cette organisation."
+  },
+  "perfil": {
+    "seguir": "Suivre",
+    "seguindo": "Abonné·e",
+    "sino": "M'avertir quand elle publie",
+    "sinoAjuda": "L'avis arrive sans le texte du post.",
+    "entrarNucleo": "Rejoindre une cellule",
+    "gerencio": "Vous gérez ce compte. Personne d'autre ne voit que c'est vous.",
+    "capa": "Couverture de {codinome} : le mot {palavra} en mosaïque",
+    "semContagens": "Pas de nombre d'abonnés ni de liste d'abonnés.",
+    "entreParaSeguir": "Connectez-vous à Alumia pour suivre.",
+    "abas": { "rotulo": "Sections du profil de {codinome}", "posts": "Posts", "atos": "Actions", "contas": "Reddition de comptes", "consultas": "Consultations de la base", "plenarias": "Assemblées" },
+    "vazioAtos": "Aucune action appelée par cette organisation.",
+    "nucleos": {
+      "titulo": "Cellules",
+      "entrar": "Rejoindre",
+      "entrarNo": "Demander à rejoindre {nome}",
+      "pedido": "Demande envoyée",
+      "sou": "Vous en faites partie",
+      "ajuda": "La personne qui anime la cellule accepte la demande. Personne ne voit la liste des membres d'une cellule.",
+      "vazio": "Cette organisation n'a pas encore de cellules."
+    }
+  },
+  "contas": {
+    "titulo": "Comment nous avons voté",
+    "intro": "Chaque vote, avec le pourquoi et la source publique, pour qui veut vérifier.",
+    "data": "Date",
+    "projeto": "Projet",
+    "voto": "Vote",
+    "porque": "Pourquoi",
+    "resultado": "Résultat",
+    "fonte": "Source",
+    "abrirFonte": "Vérifier",
+    "semFonte": "sans source",
+    "votos": { "sim": "Oui", "nao": "Non", "abstencao": "Abstention", "obstrucao": "Obstruction", "ausente": "Absent" },
+    "vazio": "Aucun vote enregistré pour l'instant.",
+    "registrar": { "titulo": "Enregistrer un vote", "fonteAjuda": "Site du conseil, procès-verbal ou journal officiel (adresse https). Sans source, le vote n'est pas enregistré.", "enviar": "Enregistrer", "feito": "Vote enregistré." }
+  },
+  "consulta": {
+    "aberta": "Consultation ouverte",
+    "fechada": "Consultation close",
+    "fechaEm": "ferme dans {tempo}",
+    "fechou": "fermée le {data}",
+    "dias": "{d} j {h} h",
+    "horas": "{h} h",
+    "compromisso": "Engagement écrit avant l'ouverture",
+    "quemVota": "Seuls les membres d'une cellule votent : {nucleos}.",
+    "quorum": "Quorum : {n} personnes.",
+    "quorumOk": "Quorum atteint.",
+    "quorumNao": "Quorum non atteint : le résultat n'engage pas.",
+    "votantes": "{pessoas} ont voté.",
+    "pessoas": { "exato": "{n} personnes", "maisDe": "plus de {n} personnes", "poucas": "Peu de personnes" },
+    "ranqueada": "Vote par classement : mettez les options dans votre ordre (1 est la préférée). Dépouillement par second tour instantané.",
+    "simples": "Choisissez une option.",
+    "subir": "Monter {opcao}",
+    "descer": "Descendre {opcao}",
+    "votar": "Voter",
+    "secreto": "Le vote est secret : même l'organisation ne voit pas ce que vous avez voté. Après le vote, on ne peut plus changer.",
+    "votei": "Votre vote est enregistré. Il est secret : seul le total apparaît à la clôture.",
+    "naoPosso": "Seuls les membres d'une cellule de cette organisation votent.",
+    "verNucleos": "Voir les cellules",
+    "resultadoDepois": "Le résultat est publié pour tous à la clôture de la consultation.",
+    "resultado": "Résultat",
+    "barra": "{opcao} : {p} %",
+    "vazio": "Aucune consultation pour l'instant."
+  },
+  "plenaria": {
+    "aoVivo": "En direct",
+    "marcada": "Prévue le {data}",
+    "naSala": { "exato": "{n} dans la salle", "maisDe": "plus de {n} dans la salle", "poucas": "peu de personnes dans la salle" },
+    "naFila": "{n} questions dans la file",
+    "entrarNaSala": "Entrer dans la salle",
+    "salaDepois": "Le lien de la salle apparaît au début.",
+    "salaFora": "s'ouvre hors d'Alumia",
+    "mandarPergunta": "Envoyer une question",
+    "pergunta": "Votre question",
+    "perguntaAjuda": "Jusqu'à 280 caractères. Elle entre en fin de file, par ordre d'arrivée : personne ne passe devant.",
+    "mostrar": "Afficher mon @ dans la file",
+    "mostrarAjuda": "Désactivé, la question apparaît sans votre @.",
+    "enviar": "Envoyer",
+    "enviada": "Votre question est dans la file.",
+    "jaPergunte": "Vous avez déjà envoyé une question à cette assemblée.",
+    "fila": "File de questions",
+    "anonimo": "Anonyme",
+    "respondida": "répondue",
+    "ordem": "par ordre d'arrivée, sans filtre des collaborateurs",
+    "vazio": "Aucune assemblée prévue.",
+    "vazioFila": "Personne n'a encore posé de question.",
+    "comA": "avec {org}",
+    "eu": "vous"
+  },
+  "pedir": {
+    "titulo": "Demander le badge",
+    "intro": "Créez le compte de l'organisation et envoyez un document public à vérifier par l'équipe. Le badge dit seulement que le compte est bien celui qu'il prétend être.",
+    "entre": "Connectez-vous à Alumia pour demander le badge. Le compte de l'organisation reste séparé du vôtre.",
+    "entrar": "Se connecter",
+    "codinome": "Nom de l'organisation",
+    "codinomeAjuda": "Le nom public (« Mandata Popular »). Jamais le nom civil d'une personne.",
+    "handle": "@ de l'organisation",
+    "handleAjuda": "De 3 à 20 lettres minuscules sans accent, chiffres ou _.",
+    "tipo": "Type",
+    "cidade": "Ville",
+    "cidadeAjuda": "Seulement la ville, écrite par vous. Alumia n'utilise pas la localisation de l'appareil.",
+    "docTipo": "Document public",
+    "docTipos": { "cnpj": "Numéro d'entreprise (CNPJ)", "tse": "Enregistrement du parti au tribunal électoral", "diploma": "Certificat d'élection", "ata": "Procès-verbal de fondation ou d'élection (conseil des élèves, union, collectif)" },
+    "documento": "Numéro ou lien du document",
+    "documentoAjuda": "Seulement un document PUBLIC de l'organisation. Jamais la pièce d'identité d'une personne.",
+    "sobre": "Une phrase sur l'organisation",
+    "maior": "La personne qui gère ce compte a 18 ans ou plus.",
+    "regras": "Compris : le badge n'est pas un soutien de l'Instituto Lúcia et ne donne pas plus de portée. L'organisation suit les mêmes règles que tout le monde.",
+    "privacidade": "La personne qui gère le compte n'apparaît pour personne : le lien est gardé à part et ne sort que sur décision de justice. L'affiliation politique est une donnée sensible (LGPD, art. 11).",
+    "enviar": "Envoyer la demande",
+    "enviado": "Demande en file. L'équipe vérifie le document et répond dans vos avis.",
+    "faltou": "Remplissez {campo}.",
+    "docPessoal": "Cela ressemble au document d'une personne (CPF). Envoyez seulement le document public de l'organisation."
+  },
+  "exemplo": {
+    "aviso": "Données fictives",
+    "texto": "Ceci est un profil d'exemple : l'organisation, les personnes et les chiffres sont inventés, et rien de ce que vous faites ici n'est gardé.",
+    "voltar": "Retour à Amenez votre organisation"
+  },
+  "pessoa": {
+    "abas": { "rotulo": "Sections du profil de {codinome}", "posts": "Posts", "respostas": "Réponses", "midia": "Médias" },
+    "status": { "greve": "En grève", "ato": "En action", "estudando": "En train d'étudier", "cuidando": "Prend soin de quelqu'un", "ferias": "En vacances" },
+    "ate": "jusqu'au {data}",
+    "pronomes": "Pronoms",
+    "campos": "À propos de {codinome}",
+    "destaques": "À la une",
+    "destaqueTipos": { "post": "Post", "ato": "Action" },
+    "editar": {
+      "titulo": "Statut, pronoms et champs",
+      "ajuda": "Apparaît sur votre profil pour qui peut voir le profil. Liens uniquement en https. Aucune donnée personnelle (téléphone, adresse, numéro fiscal).",
+      "status": "Statut",
+      "semStatus": "Sans statut",
+      "statusTexto": "Texte court (facultatif)",
+      "statusHoras": "Pour combien de temps",
+      "horas": { "24": "1 jour", "72": "3 jours", "168": "1 semaine" },
+      "pronomes": "Pronoms",
+      "campos": "Champs (jusqu'à 4)",
+      "rotulo": "Intitulé",
+      "valor": "Valeur",
+      "adicionar": "Ajouter un champ",
+      "remover": "Retirer le champ {n}",
+      "salvar": "Enregistrer",
+      "salvo": "Enregistré."
+    },
+    "vazio": { "respostas": "Aucune réponse ici.", "midia": "Aucune image ici." }
+  },
+  "coluna": { "entrarNaSala": "Entrer dans la salle", "mandarPergunta": "Envoyer une question" },
+  "erros": { "semBanco": "Cette partie n'est pas encore en ligne.", "falha": "Ça n'a pas marché. Réessayez." },
+  "cuidar": {
+    "titulo": "Gérer le compte",
+    "ajuda": "Seules les personnes qui gèrent le compte voient cette partie. Ce que vous faites ici sort au nom de l'organisation ; personne ne voit que c'était vous.",
+    "feito": "Fait. La page a été mise à jour.",
+    "voto": {"titulo": "Enregistrer un vote (Comment nous avons voté)", "data": "Date du vote", "projeto": "Projet", "voto": "Vote", "porque": "Pourquoi", "resultado": "Résultat à l'assemblée", "fonte": "Lien de la source publique", "fonteAjuda": "Site de l'assemblée, procès-verbal ou journal officiel : chacun peut vérifier.", "mandar": "Enregistrer", "votos": {"sim": "Pour", "nao": "Contre", "abstencao": "Abstention", "obstrucao": "Obstruction", "ausente": "Absent"}},
+    "nucleo": {"titulo": "Nouveau noyau", "nome": "Nom du noyau", "quando": "Quand il se réunit", "onde": "Quartier ou ville", "cor": "Couleur", "mandar": "Créer le noyau"},
+    "pedidos": {"titulo": "Demandes pour rejoindre les noyaux", "ver": "Voir les demandes", "vazio": "Aucune demande en attente.", "aceitar": "Accepter", "recusar": "Refuser", "ajuda": "Seulement le pseudonyme et l'@ de la personne. Refuser ne la prévient pas.", "de": "{codinome} (@{handle}) veut rejoindre {nucleo}"},
+    "consulta": {"titulo": "Ouvrir une consultation de la base", "pergunta": "Question", "metodo": "Méthode", "simples": "Simple (une option)", "ranqueada": "Par ordre de préférence", "opcoes": "Options (une par ligne, de 2 à 8)", "prazo": "Ferme le", "quorum": "Quorum en personnes (facultatif, 3 ou plus)", "compromisso": "Ce que l'organisation fera du résultat", "ajuda": "Votent les membres d'un noyau de l'organisation. Une fois ouverte, rien ne change : ni la question, ni les options, ni le délai.", "mandar": "Ouvrir la consultation"},
+    "plenaria": {"titulo": "Programmer une plénière", "nome": "Titre", "descricao": "Description", "inicio": "Commence le", "sala": "Lien de la salle (https)", "mandar": "Programmer la plénière", "noAr": "Passer en direct", "encerrar": "Terminer", "fila": "File de {titulo}", "filaVazia": "Aucune question dans la file.", "respondida": "Répondue", "tirar": "Retirer de la file", "motivo": "Motif du retrait", "ajudaFila": "L'ordre est celui d'arrivée et ne change pas. Une question ne sort de la file que pour l'un de ces motifs, et c'est enregistré.", "motivos": {"ofensa": "Offense", "dado_pessoal": "Donnée personnelle", "fora_do_tema": "Hors sujet", "repetida": "Répétée"}},
+    "gestores": {"titulo": "Qui gère le compte", "handle": "@ de la personne", "adicionar": "Ajouter à la gestion", "remover": "Retirer", "sair": "Quitter ce compte", "ajuda": "Seule la personne qui a créé le compte ajoute ou retire des gens. La liste des gestionnaires n'apparaît nulle part, pas même ici."}
+  }
+}

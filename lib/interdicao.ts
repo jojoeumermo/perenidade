@@ -6,7 +6,9 @@
 
 /** Cada área e os caminhos (depois do idioma) que ela fecha. Área nova: acrescente aqui, no banco e no painel. */
 export const areasPublicas = [
-  { id: "comunidade", nome: "Alumia", caminhos: ["/comunidade"] },
+  // A Alumia (rede social) mudou de /comunidade para /alumia: o id continua "comunidade" para não perder o estado gravado no
+  // banco, e o caminho antigo continua fechando junto (ele só redireciona, mas nunca abre por fora da interdição).
+  { id: "comunidade", nome: "Alumia (rede social)", caminhos: ["/alumia", "/comunidade"] },
   { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/mural", "/saude"] },
   { id: "reforco", nome: "Aula de reforço", caminhos: ["/reforco"] },
   { id: "contribuir", nome: "Contribuir, denunciar e relatar erros", caminhos: ["/contribuir", "/denunciar", "/relatar-erro"] },

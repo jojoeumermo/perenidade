@@ -1,0 +1,392 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+/*
+ * Os tokens da Alumia nova (Onda 5, PLANO-ALUMIA seção 3, "Mosaico da Arquibancada"; as pranchas em
+ * docs/plano-2026-11/alumia-pranchas são a fonte da verdade). Importado só pelo layout da Alumia (app/[lang]/alumia/layout.tsx).
+ *
+ * TUDO aqui vale só dentro de [data-al="2"], que o layout põe quando as flags "rede-v2" E "alumia-2" estão ligadas. Com a flag
+ * desligada nenhum seletor desta folha casa com nada: a Alumia de hoje (styles/alumia.css) não muda um pixel.
+ *
+ * Variantes: escuro é o padrão (as pranchas); [data-al-tema="claro"] é a variante clara; o alto contraste e o e-ink do site
+ * (:root[data-contrast], :root[data-eink]) trocam os tokens por versões sem cor de enfeite, e o movimento some com
+ * prefers-reduced-motion e com o modo parado do site (:root[data-parado]).
+ */
+
+[data-al="2"] {
+  /* Fundo noite e superfícies. */
+  --al-fundo: #0f0e0d;
+  --al-superficie: #1b1917;
+  --al-superficie-2: #2a2622;
+  --al-linha: #2a2622;
+  /* Texto: papel, e dois cinzas de apoio. */
+  --al-texto: #f3efe6;
+  --al-texto-2: #d9d3c9;
+  --al-texto-3: #a9a29a;
+  /* As duas cores da casa. */
+  --al-vermelho: #e8321f;
+  --al-vermelho-escuro: #4d1a14;
+  /* O vermelho escuro da chama do lampião (components/rede/ui/Lampiao.tsx). Só enfeite da marca. */
+  --al-vermelho-chama: #b8261a;
+  /* O vermelho de FUNDO onde vai texto pequeno (selo, botão primário p e m): branco sobre #D42A18 dá 5,1:1 (WCAG 1.4.3, AA).
+     O #E8321F das pranchas (branco em cima dá 4,3:1) fica só onde é enfeite ou texto grande (botão g: negrito de 19 px). */
+  --al-vermelho-texto: #d42a18;
+  --al-dourado: #ffc21a;
+  /* O que vai escrito em cima de cada cor. No alto contraste do site o vermelho clareia e o texto vira preto (mais de 7:1).
+     Noite sobre dourado dá 12:1. */
+  --al-sobre-vermelho: #ffffff;
+  --al-sobre-dourado: #0f0e0d;
+  --al-sobre-papel: #0f0e0d;
+  /* Cores por comunidade (a pílula e a faixa do cartão). */
+  --al-com-1: #1fc2b5;
+  --al-com-2: #ff5c8a;
+  --al-com-3: #ff8a1f;
+  --al-com-4: #5b8cff;
+  --al-com-5: #a27bff;
+  /* O mosaico do ato: cartão aceso (papel), apagado, letra acesa (vermelho), letra apagada, e o "você" (dourado com anel). */
+  --al-mosaico-fundo: #0b0a09;
+  --al-cartao-aceso: #f3efe6;
+  --al-cartao-apagado: #2a2622;
+  --al-letra-acesa: #e8321f;
+  /* Um pouco mais clara que o vermelho-noite, para a palavra se ler apagada como na prancha (cartão do ato). */
+  --al-letra-apagada: #7a281d;
+  --al-voce: #ffc21a;
+  --al-cartao-borda: transparent;
+  /* Foco visível: dourado, 2 px, sempre (WCAG 2.4.7). */
+  --al-foco: #ffc21a;
+  /* A faixa tecida: 11 listras nas proporções 5-2-3-1-4-2-3-1-3-2-4 (soma 30), 6 px no alto de cada tela. */
+  --al-faixa-altura: 6px;
+  --al-faixa: linear-gradient(
+    to right,
+    #c21f16 0 16.667%,
+    #f0b323 16.667% 23.333%,
+    #23408e 23.333% 33.333%,
+    #f3efe6 33.333% 36.667%,
+    #2e6b4f 36.667% 50%,
+    #e4577f 50% 56.667%,
+    #ea7a24 56.667% 66.667%,
+    #0f0e0d 66.667% 70%,
+    #1f8a85 70% 80%,
+    #f0b323 80% 86.667%,
+    #c21f16 86.667% 100%
+  );
+  /* Letras: Archivo variável (eixo de largura 62–125) e EB Garamond itálica só no "Instituto Lúcia" da marca. */
+  --al-fonte: var(--al-fonte-archivo, "Archivo"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --al-fonte-marca: var(--al-fonte-garamond, "EB Garamond"), Georgia, "Times New Roman", serif;
+  --al-raio: 14px;
+  --al-raio-pilula: 999px;
+
+  color-scheme: dark;
+  background: var(--al-fundo);
+  color: var(--al-texto);
+  font-family: var(--al-fonte);
+}
+
+/* Variante clara (opção da pessoa; o padrão das pranchas é o escuro). */
+[data-al="2"][data-al-tema="claro"] {
+  --al-fundo: #f3efe6;
+  --al-superficie: #ffffff;
+  --al-superficie-2: #e7e1d6;
+  --al-linha: #d9d3c9;
+  --al-texto: #0f0e0d;
+  --al-texto-2: #2a2622;
+  --al-texto-3: #5c554d;
+  --al-vermelho: #c8261a;
+  --al-vermelho-texto: #c8261a;
+  --al-vermelho-chama: #9e1f15;
+  --al-dourado: #b98600;
+  --al-sobre-dourado: #ffffff;
+  --al-mosaico-fundo: #0f0e0d;
+  color-scheme: light;
+}
+
+/* Alto contraste do site: preto e branco puros, cores mais fortes, bordas visíveis nos cartões. */
+:root[data-contrast] [data-al="2"] {
+  --al-fundo: #000000;
+  --al-superficie: #000000;
+  --al-superficie-2: #1a1a1a;
+  --al-linha: #ffffff;
+  --al-texto: #ffffff;
+  --al-texto-2: #ffffff;
+  --al-texto-3: #e6e6e6;
+  --al-vermelho: #ff5a45;
+  --al-vermelho-texto: #ff5a45;
+  --al-vermelho-chama: #c43a2a;
+  --al-dourado: #ffd400;
+  --al-sobre-vermelho: #000000;
+  --al-sobre-dourado: #000000;
+  --al-mosaico-fundo: #000000;
+  --al-cartao-aceso: #ffffff;
+  --al-cartao-apagado: #000000;
+  --al-letra-acesa: #ff5a45;
+  /* A letra apagada continua à vista no alto contraste: 3,3:1 sobre o preto (WCAG 1.4.11, componente gráfico) e ainda distinta
+     da letra acesa, para a palavra se ler antes de acender. */
+  --al-letra-apagada: #a8382a;
+  --al-cartao-borda: #ffffff;
+  --al-foco: #ffd400;
+}
+
+/* E-ink: papel branco, tinta preta, nada de cor; o que a cor dizia passa a ser dito por borda, peso e texto. */
+:root[data-eink] [data-al="2"] {
+  --al-fundo: #ffffff;
+  --al-superficie: #ffffff;
+  --al-superficie-2: #ffffff;
+  --al-linha: #000000;
+  --al-texto: #000000;
+  --al-texto-2: #000000;
+  --al-texto-3: #000000;
+  --al-vermelho: #000000;
+  --al-vermelho-escuro: #ffffff;
+  --al-vermelho-texto: #000000;
+  --al-vermelho-chama: #000000;
+  --al-dourado: #000000;
+  --al-sobre-vermelho: #ffffff;
+  --al-sobre-dourado: #ffffff;
+  --al-sobre-papel: #ffffff;
+  --al-com-1: #000000;
+  --al-com-2: #000000;
+  --al-com-3: #000000;
+  --al-com-4: #000000;
+  --al-com-5: #000000;
+  /* No e-ink a cor some, então o mosaico fala em tons de cinza (as telas de tinta mostram 16): letra acesa preta, letra apagada
+     cinza escuro, fundo aceso cinza claro, apagado branco com borda; o "você" é preto com anel. */
+  --al-mosaico-fundo: #ffffff;
+  --al-cartao-aceso: #c8c8c8;
+  --al-cartao-apagado: #ffffff;
+  --al-letra-acesa: #000000;
+  --al-letra-apagada: #7a7a7a;
+  --al-voce: #000000;
+  --al-cartao-borda: #000000;
+  --al-foco: #000000;
+  --al-faixa: repeating-linear-gradient(to right, #000 0 6px, #fff 6px 9px);
+  color-scheme: light;
+}
+
+/* Foco visível dourado em tudo que se toca dentro da Alumia nova. */
+[data-al="2"] :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--al-foco);
+  outline-offset: 2px;
+}
+
+/* Archivo condensada (títulos, carimbos, flaps). */
+[data-al="2"] .al-cond {
+  font-family: var(--al-fonte);
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+/* A marca "Instituto Lúcia" (EB Garamond itálica). */
+[data-al="2"] .al-marca-instituto {
+  font-family: var(--al-fonte-marca);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* A faixa tecida (components/rede/ui/Faixa.tsx). */
+[data-al="2"] .al-faixa {
+  display: block;
+  height: var(--al-faixa-altura);
+  background: var(--al-faixa);
+}
+
+/* Carimbo (components/rede/ui/Carimbo.tsx): borda dupla de tinta, levemente torto; o cancelado vem riscado. */
+[data-al="2"] .al-carimbo {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  padding: 0.15em 0.55em;
+  transform: rotate(-4deg);
+  box-shadow: inset 0 0 0 1px var(--al-fundo), inset 0 0 0 2px currentColor;
+}
+[data-al="2"] .al-riscado {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+/* Movimento: nada se mexe para quem pediu menos movimento ou ligou o modo parado do site. */
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] *,
+  [data-al="2"] *::before,
+  [data-al="2"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root[data-parado] [data-al="2"] * {
+  animation: none !important;
+  transition: none !important;
+}
+:root[data-eink] [data-al="2"] .al-carimbo {
+  transform: none;
+}
+
+/* ───────────── Componentes base (components/rede/ui) ───────────── */
+
+/* Botão: alvo de toque de no mínimo 44 px, texto em negrito, cantos das pranchas. */
+[data-al="2"] .al-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 44px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  font-family: var(--al-fonte);
+  font-weight: 700;
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.12s ease, background-color 0.12s ease;
+}
+[data-al="2"] .al-botao:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+[data-al="2"] .al-botao-p { padding: 0.35rem 0.8rem; font-size: 0.875rem; }
+[data-al="2"] .al-botao-m { padding: 0.5rem 1.1rem; font-size: 1rem; }
+[data-al="2"] .al-botao-g { padding: 0.7rem 1.4rem; font-size: 1.1875rem; min-height: 52px; border-radius: 14px; }
+[data-al="2"] .al-botao-icone { display: inline-flex; }
+[data-al="2"] .al-botao-icone svg { width: 1.15em; height: 1.15em; }
+[data-al="2"] .al-botao-primario { background: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+/* Só o botão grande (negrito de 19 px = texto grande) leva o vermelho das pranchas: ali 4,3:1 passa (WCAG 1.4.3). */
+[data-al="2"] .al-botao-primario.al-botao-g { background: var(--al-vermelho); }
+[data-al="2"] .al-botao-claro { background: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+[data-al="2"] .al-botao-contorno { background: transparent; color: var(--al-texto); border-color: var(--al-superficie-2); }
+[data-al="2"] .al-botao-dourado { background: var(--al-dourado); color: var(--al-sobre-dourado); }
+[data-al="2"] .al-botao-fantasma { background: transparent; color: var(--al-texto-2); padding-inline: 0.4rem; }
+[data-al="2"] .al-botao:not(:disabled):hover { filter: brightness(1.08); }
+/* Clarear o primário de texto pequeno derrubaria o contraste abaixo de 4,5:1: ele escurece. */
+[data-al="2"] .al-botao-primario:not(.al-botao-g):not(:disabled):hover { filter: brightness(0.92); }
+[data-al="2"] .al-botao-contorno:not(:disabled):hover,
+[data-al="2"] .al-botao-fantasma:not(:disabled):hover { background: var(--al-superficie); filter: none; }
+[data-al="2"] .al-botao[aria-pressed="true"].al-botao-fantasma { color: var(--al-vermelho); }
+/* No e-ink (e no alto contraste) a cor do ligado some ou some quase: o ligado vira fundo invertido, além do aria-pressed
+   (WCAG 1.4.1, a cor não é o único meio). */
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-botao[aria-pressed="true"].al-botao-fantasma { background: var(--al-texto); color: var(--al-fundo); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-botao { border-color: var(--al-texto); }
+:root[data-eink] [data-al="2"] .al-botao-claro { background: #fff; color: #000; }
+
+/* Pílula da comunidade. */
+[data-al="2"] .al-pilula {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border-radius: var(--al-raio-pilula);
+  background: color-mix(in srgb, var(--al-cor, var(--al-com-1)) 16%, transparent);
+  color: var(--al-cor, var(--al-com-1));
+  font-family: var(--al-fonte);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+[data-al="2"] .al-pilula-p { padding: 0.12rem 0.55rem; font-size: 0.75rem; }
+[data-al="2"] .al-pilula-m { padding: 0.3rem 0.85rem; font-size: 1.05rem; }
+[data-al="2"] .al-pilula-ponto { width: 0.6em; height: 0.6em; border-radius: 2px; background: currentColor; }
+[data-al="2"] a.al-pilula:hover { text-decoration: underline; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-pilula { background: transparent; border: 1px solid currentColor; }
+
+/* Carimbo: cores por situação; tamanhos. */
+[data-al="2"] .al-carimbo-confirmado { color: var(--al-vermelho); }
+[data-al="2"] .al-carimbo-adiado { color: var(--al-dourado); }
+[data-al="2"] .al-carimbo-cancelado { color: var(--al-texto-3); }
+[data-al="2"] .al-carimbo-p { font-size: 0.7rem; }
+[data-al="2"] .al-carimbo-m { font-size: 1rem; }
+[data-al="2"] .al-carimbo-g { font-size: 1.4rem; }
+
+/* Selo de organização verificada. */
+[data-al="2"] .al-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  border-radius: 6px;
+  padding: 0.1rem 0.45rem 0.1rem 0.2rem;
+  background: var(--al-vermelho-texto);
+  color: var(--al-sobre-vermelho);
+  font-family: var(--al-fonte);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+[data-al="2"] .al-selo-visto { width: 1.1em; height: 1.1em; }
+[data-al="2"] .al-selo-desde { font-weight: 400; opacity: 0.9; }
+
+/* Plaquinhas da contagem regressiva. */
+[data-al="2"] .al-flaps { display: inline-flex; gap: 0.5rem; align-items: center; }
+[data-al="2"] .al-flaps-grupo { display: inline-flex; gap: 2px; }
+[data-al="2"] .al-flap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15em;
+  padding: 0.12em 0.18em;
+  border-radius: 4px;
+  background: var(--al-fundo);
+  color: var(--al-dourado);
+  font-size: 1.35rem;
+  line-height: 1;
+  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--al-texto) 12%, transparent);
+}
+[data-al="2"] .al-flap-texto { padding-inline: 0.5em; }
+/* As pranchas escrevem "2d 04h" em minúsculas: a Archivo condensada aqui não passa para maiúsculas. */
+[data-al="2"] .al-flap.al-cond { text-transform: none; }
+:root[data-eink] [data-al="2"] .al-flap { background: #000; color: #fff; }
+
+/* Tela "em construção" das rotas novas (components/rede/onda5/EmConstrucao.tsx). */
+[data-al="2"] .al-em-construcao { background: var(--al-fundo); color: var(--al-texto); min-height: 70vh; }
+[data-al="2"] .al-em-construcao-miolo { max-width: 40rem; margin: 0 auto; padding: 2rem 16px 3rem; display: grid; gap: 1rem; justify-items: start; }
+[data-al="2"] .al-em-construcao-marca { display: flex; align-items: center; gap: 0.6rem; margin: 0; }
+[data-al="2"] .al-em-construcao-marca > span { display: grid; line-height: 1; }
+[data-al="2"] .al-em-construcao-nome { font-size: 1.6rem; }
+[data-al="2"] .al-em-construcao-selo { margin: 1rem 0 0; color: var(--al-dourado); font-size: 1rem; letter-spacing: 0.04em; }
+[data-al="2"] .al-em-construcao-titulo { margin: 0; font-size: clamp(3rem, 14vw, 5.5rem); overflow-wrap: anywhere; }
+[data-al="2"] .al-em-construcao-texto { margin: 0; font-size: 1.15rem; line-height: 1.45; color: var(--al-texto-2); }
+[data-al="2"] .al-em-construcao-aviso { margin: 0; font-size: 0.95rem; color: var(--al-texto-3); }
+[data-al="2"] .al-em-construcao-rodape { margin: 1.5rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
+
+/*
+ * A Alumia é sempre escura (as pranchas; a variante clara é só [data-al-tema="claro"]): o tema claro salvo no site
+ * (data-theme="light") não vale aqui dentro. As telas que ainda usam os tokens do site (ink, parchment, rule...) recebem os
+ * valores do escuro, e o texto sem cor própria sai claro sobre o fundo noite (e não tinta escura sobre escuro). O alto contraste
+ * e o e-ink continuam mandando (têm os próprios tokens).
+ */
+:root:not([data-contrast]):not([data-eink]) [data-al="2"]:not([data-al-tema="claro"]) {
+  --parchment: #141310;
+  --parchment-deep: #23211c;
+  --paper: #1b1917;
+  --ink: #ece6da;
+  --ink-soft: #a9a196;
+  --gold: #f0b323;
+  --oxblood: #e2584d;
+  --rule: #3a352d;
+  --folha: #1d1b17;
+  --borda-forte: #6a6255;
+  --texto-meio: #cfc7b9;
+  color: var(--al-texto);
+}
+
+/* O vermelho do TEXTO sobre o escuro (carimbo "CONFIRMADO" de 16 px): #FF4F3A dá 5,4:1 sobre o cartão (#1B1917). O #E8321F das
+   pranchas (4,1:1) fica para os fundos e o que é grande. */
+[data-al="2"] { --al-vermelho-sobre-escuro: #ff4f3a; }
+[data-al="2"][data-al-tema="claro"] { --al-vermelho-sobre-escuro: #c8261a; }
+[data-al="2"] .al-carimbo-confirmado { color: var(--al-vermelho-sobre-escuro); }
+/* O selo "Novo" dos avisos (11,5 px): branco sobre o vermelho de texto pequeno (#D42A18, 5,1:1). */
+[data-al="2"] .al3-aviso-novo { background: var(--al-vermelho-texto); }
+
+/* Alto contraste: só preto, branco e amarelo puros no botão "+", nos carimbos e no aviso da prévia (nada de salmão nem dourado). */
+:root[data-contrast] [data-al="2"] .al2-mais { background: #ffd400; color: #000000; box-shadow: none; }
+:root[data-contrast] [data-al="2"] .al-carimbo-confirmado { color: #ffffff; }
+:root[data-contrast] [data-al="2"] .al-carimbo-adiado { color: #ffd400; }
+:root[data-contrast] [data-al="2"] .al-carimbo-cancelado { color: #ffffff; }
+:root[data-contrast] [data-al="2"] .al2-aviso-previa { background: #000000; color: #ffd400; border-bottom: 2px solid #ffd400; }
+:root[data-eink] [data-al="2"] .al2-aviso-previa { background: #ffffff; color: #000000; border-bottom: 2px solid #000000; }
+
+/*
+ * Prévia: um aviso só, o da casca (a faixa amarela do alto). Os avisos de prévia de cada área (conversa, explorar, buscar,
+ * avisos, salvos, stories, atos, editar perfil) somem quando a faixa da casca está na tela; sem ela, continuam.
+ */
+[data-al="2"] .al2:has(> .al2-aviso-previa) :is(.al3-previa, .al-atos-previa, .al-st-previa, .pfe-nota-previa:not(.pfe-nota-conta)) { display: none !important; }

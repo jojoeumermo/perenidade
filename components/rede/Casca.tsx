@@ -10,8 +10,11 @@ import { avisos } from "@/lib/rede/cliente-avisos";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
+import { encaixeAtivo } from "@/lib/rede/rota-alumia";
+import { DESTINO_DA_SAIDA, sairRapido as sairRapidoDaRede } from "@/lib/rede/saida";
+import { ENCAIXES } from "./encaixes";
 import { EsqueletoDaCasca } from "./Esqueletos";
-import { enderecoDoSite, MarcaDaAlumia } from "./MolduraDaAlumia";
+import { MarcaDaAlumia } from "./MolduraDaAlumia";
 
 /** Os destinos do menu (computador) e da barra de baixo (celular). `href` nulo = a tela ainda não existe: aparece apagado. */
 export type ItemDoMenu = "inicio" | "comunidades" | "explorar" | "chamados" | "nucleos" | "avisos" | "salvos" | "conversas" | "fediverso" | "perfil";
@@ -40,6 +43,15 @@ const DESTINOS: Destino[] = [
 /** A barra de baixo do celular: Início, Comunidades, Escrever (no meio), Avisos, Perfil. */
 const BARRA: ItemDoMenu[] = ["inicio", "comunidades", "avisos", "perfil"];
 
+/**
+ * O destino de um item, no menu do computador E na barra do celular: se uma frente encaixou um "substitui" para ele
+ * (components/rede/encaixes.tsx, ex.: "chamados" → /alumia/atos), vale o do encaixe; senão, o de DESTINOS.
+ */
+function hrefDoItem(d: Destino, lang: string, s: TextosDaRede, situacao: Situacao): string | null {
+  const troca = ENCAIXES.menu.find((m) => m.substitui === d.chave);
+  return troca ? troca.href({ lang, s, situacao }) : d.href(lang, situacao);
+}
+
 function Icone({ children, ativo }: { children: React.ReactNode; ativo?: boolean }) {
   return (
     <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={ativo ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
@@ -48,16 +60,13 @@ function Icone({ children, ativo }: { children: React.ReactNode; ativo?: boolean
   );
 }
 
-/** "Sair rápido": apaga o que a Alumia guardou neste aparelho e vai para uma página neutra do site (a página inicial do instituto). */
-function sairRapido(lang: string) {
-  try {
-    for (const armazem of [window.localStorage, window.sessionStorage]) {
-      for (const chave of Object.keys(armazem)) if (chave.startsWith("lucia:rede")) armazem.removeItem(chave);
-    }
-  } catch {
-    // sem armazenamento: nada para apagar
-  }
-  window.location.replace(enderecoDoSite(lang));
+/**
+ * "Sair rápido": apaga o que a Alumia guardou neste aparelho (lib/rede/saida.ts), roda a limpeza que cada frente encaixou
+ * (aoSairRapido: chaveiro do chat, modo ato…) e vai para uma página neutra DE FORA (DESTINO_DA_SAIDA: a página inicial do
+ * instituto tem "Alumia" no menu e mostraria a ligação com a rede).
+ */
+function sairRapido() {
+  void sairRapidoDaRede(DESTINO_DA_SAIDA, ENCAIXES.aoSairRapido);
 }
 
 /** Sair da conta neste endereço (a sessão da Alumia é guardada à parte da do site: docs/rede/ALUMIA-DOMINIO.md). */
@@ -91,6 +100,8 @@ export function Casca({
   aoEscrever: () => void;
   children: React.ReactNode;
 }) {
+  // O caminho aberto: marca como atual (aria-current) os itens que as frentes encaixam, que não têm chave em ItemDoMenu.
+  const caminho = usePathname() ?? "";
   // O número de avisos não lidos (grupos) no menu e na barra de baixo; sem a migração de avisos no banco, fica sem número.
   const membroLogado = Boolean(situacao?.logado && situacao?.membro);
   const [naoLidos, setNaoLidos] = useState(0);
@@ -118,13 +129,16 @@ export function Casca({
           <nav className="mt-4" aria-label={s.menu.principal}>
             <ul className="space-y-1">
               {DESTINOS.map((d) => {
-                const href = d.href(lang, situacao);
-                const classes = `flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${ativo === d.chave ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`;
+                // Uma frente pode dar destino a um item que já existe (ex.: "chamados" → /alumia/atos) pelo encaixe do menu.
+                const trocado = ENCAIXES.menu.some((m) => m.substitui === d.chave);
+                const href = hrefDoItem(d, lang, s, situacao);
+                const atual = ativo === d.chave || (trocado && href !== null && encaixeAtivo(href, caminho));
+                const classes = `flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${atual ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`;
                 return (
                   <li key={d.chave}>
                     {href ? (
-                      <Link href={href} className={classes} aria-current={ativo === d.chave ? "page" : undefined}>
-                        <Icone ativo={ativo === d.chave}>{d.icone}</Icone>
+                      <Link href={href} className={classes} aria-current={atual ? "page" : undefined}>
+                        <Icone ativo={atual}>{d.icone}</Icone>
                         {s.menu[d.chave]}
                         {d.chave === "avisos" && naoLidos > 0 && <Emblema n={naoLidos} />}
                       </Link>
@@ -138,6 +152,29 @@ export function Casca({
                   </li>
                 );
               })}
+              {/* Os itens novos que as frentes encaixam (components/rede/encaixes.tsx); sem encaixe, nada aparece aqui. */}
+              {ENCAIXES.menu
+                .filter((m) => !m.substitui)
+                .map((m) => {
+                  const ctx = { lang, s, situacao };
+                  const href = m.href(ctx);
+                  if (!href) return null;
+                  const n = m.emblema?.(ctx) ?? null;
+                  const atual = encaixeAtivo(href, caminho);
+                  return (
+                    <li key={m.chave}>
+                      <Link
+                        href={href}
+                        aria-current={atual ? "page" : undefined}
+                        className={`flex min-h-11 items-center gap-3 rounded-full px-3 font-sans text-lg ${atual ? "alumia-menu-ativo bg-[#1f1a14] font-bold text-[#f4ecd8]" : "hover:bg-parchment-deep"}`}
+                      >
+                        <Icone ativo={atual}>{m.icone}</Icone>
+                        {m.rotulo(ctx)}
+                        {n !== null && n > 0 && <Emblema n={n} />}
+                      </Link>
+                    </li>
+                  );
+                })}
             </ul>
           </nav>
           {pode && (
@@ -152,11 +189,11 @@ export function Casca({
         {/* No celular: a marca, a busca e o "sair rápido" ficam no alto, no lugar das colunas dos lados. */}
         <div className="flex items-center gap-2 border-b border-rule px-4 py-2 xl:hidden">
           <p className="flex items-center gap-1.5 font-serif text-lg font-extrabold"><MarcaDaAlumia className="h-5 w-5" />{s.marca}</p>
-          <form action={localePath(lang, "/comunidade/buscar")} method="get" role="search" className="ml-auto min-w-0 flex-1">
+          <form action={localePath(lang, "/alumia/buscar")} method="get" role="search" className="ml-auto min-w-0 flex-1">
             <label className="sr-only" htmlFor="rede-busca-celular">{s.menu.busca}</label>
             <input id="rede-busca-celular" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4 font-sans" />
           </form>
-          <button type="button" onClick={() => sairRapido(lang)} className="min-h-11 shrink-0 cursor-pointer rounded-full border-[1.5px] border-ink px-3 font-sans text-sm font-bold" title={s.casca.sairRapidoAjuda}>
+          <button type="button" onClick={() => sairRapido()} className="min-h-11 shrink-0 cursor-pointer rounded-full border-[1.5px] border-ink px-3 font-sans text-sm font-bold" title={s.casca.sairRapidoAjuda}>
             {s.casca.sairRapido}
           </button>
         </div>
@@ -169,7 +206,7 @@ export function Casca({
 
       <aside className="hidden px-5 py-6 xl:block" aria-label={s.menu.busca}>
         <div className="sticky top-[calc(var(--altura-topo,0px)+1rem)] space-y-4 font-sans">
-          <form action={localePath(lang, "/comunidade/buscar")} method="get" role="search">
+          <form action={localePath(lang, "/alumia/buscar")} method="get" role="search">
             <label className="sr-only" htmlFor="rede-busca">{s.menu.busca}</label>
             <input id="rede-busca" name="q" type="search" placeholder={s.menu.busca} className="min-h-11 w-full rounded-full border border-rule bg-folha px-4" />
           </form>
@@ -202,13 +239,13 @@ export function Casca({
                   ...(situacao.cuida ? [["moderacao", s.casca.cuidados.moderacao]] : []),
                 ].map(([rota, texto]) => (
                   <li key={rota}>
-                    <Link href={localePath(lang, `/comunidade/${rota}`)} className="inline-flex min-h-11 items-center underline">{texto}</Link>
+                    <Link href={localePath(lang, `/alumia/${rota}`)} className="inline-flex min-h-11 items-center underline">{texto}</Link>
                   </li>
                 ))}
               </ul>
             </nav>
           )}
-          <button type="button" onClick={() => sairRapido(lang)} className="min-h-11 w-full cursor-pointer rounded-full border-[1.5px] border-ink px-4 text-sm font-bold hover:bg-parchment-deep" title={s.casca.sairRapidoAjuda}>
+          <button type="button" onClick={() => sairRapido()} className="min-h-11 w-full cursor-pointer rounded-full border-[1.5px] border-ink px-4 text-sm font-bold hover:bg-parchment-deep" title={s.casca.sairRapidoAjuda}>
             {s.casca.sairRapido}
           </button>
           <p className="text-xs text-ink-soft">{s.casca.sairRapidoAjuda}</p>
@@ -225,7 +262,7 @@ export function Casca({
       <nav aria-label={s.menu.barra} className="no-print fixed inset-x-0 bottom-0 z-30 border-t-[3px] border-[#c21f16] bg-[#1f1a14] pb-[var(--recuo-baixo,0px)] md:hidden">
         <ul className="grid grid-cols-5">
           {BARRA.slice(0, 2).map((chave) => (
-            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} />
+            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} caminho={caminho} />
           ))}
           <li>
             <button
@@ -241,7 +278,7 @@ export function Casca({
             </button>
           </li>
           {BARRA.slice(2).map((chave) => (
-            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} />
+            <ItemDaBarra key={chave} chave={chave} lang={lang} s={s} situacao={situacao} ativo={ativo} naoLidos={naoLidos} caminho={caminho} />
           ))}
         </ul>
       </nav>
@@ -254,14 +291,17 @@ function Emblema({ n }: { n: number }) {
   return <span className="ml-auto grid min-w-6 place-items-center rounded-full bg-[#c21f16] px-1.5 text-xs font-bold leading-6 text-white">{n > 99 ? "99+" : n}</span>;
 }
 
-function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: ItemDoMenu; lang: string; s: TextosDaRede; situacao: Situacao; ativo: ItemDoMenu; naoLidos: number }) {
+function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos, caminho }: { chave: ItemDoMenu; lang: string; s: TextosDaRede; situacao: Situacao; ativo: ItemDoMenu; naoLidos: number; caminho: string }) {
   const d = DESTINOS.find((x) => x.chave === chave);
   if (!d) return null;
-  const href = d.href(lang, situacao);
-  const classes = `flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${ativo === chave ? "bg-[#c21f16] font-bold text-white" : "text-[#f4ecd8]"}`;
+  // O mesmo destino do menu do computador, com o "substitui" dos encaixes (o celular não fica com o destino antigo).
+  const href = hrefDoItem(d, lang, s, situacao);
+  const trocado = ENCAIXES.menu.some((m) => m.substitui === chave);
+  const atual = ativo === chave || (trocado && href !== null && encaixeAtivo(href, caminho));
+  const classes = `flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${atual ? "bg-[#c21f16] font-bold text-white" : "text-[#f4ecd8]"}`;
   const conteudo = (
     <>
-      <Icone ativo={ativo === chave}>{d.icone}</Icone>
+      <Icone ativo={atual}>{d.icone}</Icone>
       <span className="max-w-full truncate">
         {s.menu[chave]}
         {chave === "avisos" && naoLidos > 0 && <span className="ml-1 font-bold text-[#f0a79f]">({naoLidos > 99 ? "99+" : naoLidos})</span>}
@@ -271,7 +311,7 @@ function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: Ite
   return (
     <li>
       {href ? (
-        <Link href={href} className={classes} aria-current={ativo === chave ? "page" : undefined}>
+        <Link href={href} className={classes} aria-current={atual ? "page" : undefined}>
           {conteudo}
         </Link>
       ) : (
@@ -289,12 +329,12 @@ function ItemDaBarra({ chave, lang, s, situacao, ativo, naoLidos }: { chave: Ite
  * atual marcado: o leitor de tela anuncia "link" e a pessoa vê que dá para tocar. Mantém a tela em que ela está.
  */
 function Idiomas({ lang, rotulo }: { lang: string; rotulo: string }) {
-  // O endereço completo (/xx/comunidade/...) vale nos dois endereços (o do site e alumia.*): tira o idioma e o "comunidade" do
+  // O endereço completo (/xx/alumia/...) vale nos dois endereços (o do site e alumia.*): tira o idioma e o "comunidade" do
   // caminho atual, venha ele como vier, e monta de novo com o idioma escolhido.
   let partes = (usePathname() ?? "").split("/").filter(Boolean);
   if ((locales as readonly string[]).includes(partes[0])) partes = partes.slice(1);
-  if (partes[0] === "comunidade") partes = partes.slice(1);
-  const resto = ["comunidade", ...partes].join("/");
+  if (partes[0] === "alumia" || partes[0] === "comunidade") partes = partes.slice(1);
+  const resto = ["alumia", ...partes].join("/");
   return (
     <nav aria-label={rotulo} className="font-sans text-sm">
       <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">{rotulo}</p>

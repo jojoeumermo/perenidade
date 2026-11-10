@@ -14,9 +14,12 @@ export interface PedidoAntigo {
   antigo: string;
 }
 
-/** O pedido antigo contido no endereço da linha (/<idioma>/comunidade?t=…), ou nulo se o endereço não é de um. */
+/**
+ * O pedido antigo contido no endereço da linha (/<idioma>/alumia?t=…, ou o de antes da mudança de rota, /<idioma>/comunidade?t=…),
+ * ou nulo se o endereço não é de um. Os dois dão o mesmo destino novo, num salto só (lib/rede/rota-alumia.ts).
+ */
 export function pedidoAntigo(pathname: string, search: string): PedidoAntigo | null {
-  const m = /^\/([a-z]{2})\/comunidade\/?$/.exec(pathname);
+  const m = /^\/([a-z]{2})\/(?:alumia|comunidade)\/?$/.exec(pathname);
   if (!m || !IDIOMAS.includes(m[1])) return null;
   const q = new URLSearchParams(search);
   const t = q.get("t");
