@@ -5,6 +5,7 @@
 // computador-inicio.webp). Só valem com NEXT_PUBLIC_ALUMIA_PREVIA=sim (máquina de quem desenvolve e fotos de conferência): em
 // produção a variável não existe e as telas falam com o banco. Todos os nomes são codinomes inventados; nenhuma pessoa real.
 // Sem "@/" de propósito (roda no Node nos testes).
+import { atosDeExemplo } from "../atos/exemplos";
 import type { Post } from "../tipos";
 import type { Arvore, PostDaArvore } from "../tipos-conversa";
 import type { ItemDaLista, PaginaDaComunidade } from "../tipos-comunidades";
@@ -231,8 +232,133 @@ export function listaDeExemplo(): ItemDaLista[] {
   ];
 }
 
+/** Os três posts da semana com #temas (Explorar, Buscar e #tema na prévia: components/rede/descoberta/previa.ts). */
+export function postsDaSemanaDeExemplo(agora: number = Date.now()): Post[] {
+  const autor = (codinome: string, handle: string) => ({ id: null, codinome, handle, perfil: true, equipe: false });
+  return [
+    postDeExemplo({
+      id: "00000000-0000-4000-8000-0000000000d1",
+      texto: "Assembleia da #TarifaZero na quinta, 19h, no DCE. Quem vem de longe: tem carona saindo da Zona Leste. #PasseLivre",
+      comunidade: "passe-livre-sp",
+      autor: autor("Rosa Vermelha", "rosavermelha"),
+      criado_em: antes(35, agora),
+      respostas: 9,
+    }, agora),
+    postDeExemplo({
+      id: "00000000-0000-4000-8000-0000000000d2",
+      texto: "Juntamos as contas de 40 entregadores: o app fica, em média, com 38% de cada corrida. Planilha aberta no núcleo. #MaisValia #TarifaZero",
+      comunidade: "marxismo",
+      autor: autor("Entregador do Porto", "porto@mastodon.social"),
+      criado_em: antes(180, agora),
+      respostas: 27,
+    }, agora),
+    postDeExemplo({
+      id: "00000000-0000-4000-8000-0000000000d3",
+      texto: "Mutirão de cadastro da ocupação sábado de manhã. Traga caneta e paciência. #MoradiaDigna",
+      comunidade: "moradia-zona-leste",
+      autor: autor("Moradia ZL", "moradiazl"),
+      criado_em: antes(400, agora),
+      respostas: 4,
+    }, agora),
+  ];
+}
+
+/** As respostas de exemplo da conversa de cada ato (codinomes inventados). Sem lista de quem vai: só o que se diz na conversa. */
+const RESPOSTAS_DOS_ATOS: Record<string, { texto: string; codinome: string; handle: string; minutos: number; a?: number }[]> = {
+  "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d01": [
+    { texto: "Vou com a faixa do grêmio. Alguém sabe se a escadaria da catedral vai estar livre às 18h ou é melhor concentrar na lateral?", codinome: "Catraca Livre", handle: "catracalivre", minutos: 50 },
+    { texto: "A coordenação confirmou a escadaria. Equipe de cuidado de colete amarelo, ponto de água ao lado da banca de jornal.", codinome: "Passe Livre SP", handle: "passelivre_sp", minutos: 44, a: 0 },
+    { texto: "Levo a planilha impressa de quanto a tarifa pesa no mês. Dá pra distribuir na concentração.", codinome: "Bruno Catraca", handle: "brunocatraca", minutos: 31 },
+    { texto: "Quem vem da Zona Leste: a gente sai junto da estação Itaquera às 16h30.", codinome: "Marta Sé", handle: "martase", minutos: 18 },
+  ],
+};
+
+/** A conversa de um ato de exemplo (o post do chamado, com o mesmo id do ato), com o número de respostas do cartão do ato. */
+function arvoreDoAto(id: string, agora: number): Arvore | null {
+  const achado = atosDeExemplo(agora).find((a) => a.ato.id === id);
+  if (!achado) return null;
+  const { ato } = achado;
+  const raiz = postDeExemplo(
+    {
+      id,
+      tipo: "chamado",
+      titulo: ato.titulo,
+      texto: ato.descricao,
+      comunidade: ato.comunidade?.slug ?? null,
+      autor: { id: null, codinome: ato.comunidade?.nome ?? ato.chamado_por ?? "", handle: ato.chamado_por, perfil: true, equipe: false },
+      chamado: { tipo: "ato", quando: ato.inicio, onde: ato.onde, situacao: ato.situacao, inicio_anterior: ato.inicio_anterior, palavra: ato.palavra, acesos: ato.acesos },
+      criado_em: antes(60 * 20, agora),
+      respostas: ato.respostas,
+      na_conversa: ato.respostas,
+      vou_eu: ato.vou_eu,
+    },
+    agora,
+  );
+  const lista = RESPOSTAS_DOS_ATOS[id] ?? [
+    { texto: "Conta comigo. Vou avisar o pessoal do núcleo.", codinome: "Maré Alta", handle: "marealta", minutos: 40 },
+    { texto: "Alguém leva água a mais? Eu levo a faixa.", codinome: "Rima Firme", handle: "rimafirme", minutos: 22 },
+  ];
+  const ids = lista.map((_, i) => `${id.slice(0, -2)}${(0xa0 + i).toString(16)}`);
+  const respostas: PostDaArvore[] = lista.map((r, i) => ({
+    ...postDeExemplo(
+      {
+        id: ids[i],
+        texto: r.texto,
+        raiz: id,
+        comunidade: raiz.comunidade,
+        resposta_a: r.a === undefined ? id : ids[r.a],
+        nivel: r.a === undefined ? 1 : 2,
+        autor: { id: null, codinome: r.codinome, handle: r.handle, perfil: true, equipe: false },
+        criado_em: antes(r.minutos, agora),
+        respostas: lista.filter((o) => o.a === i).length,
+      },
+      agora,
+    ),
+    servidor: null,
+  }));
+  return { post: raiz, acima: [], respostas, sintese: null, ordem: "antigas", raiz: id, pode_aceitar: false, pode_sintese: false, mais: false, pronomes_da_raiz: null };
+}
+
+/** A conversa de um post de comunidade da prévia (o fixado e os da linha de cada comunidade), com duas respostas de exemplo. */
+function arvoreDoPostDeComunidade(id: string, agora: number): Arvore | null {
+  const posts = listaDeExemplo().flatMap((c) => [...(paginaDeExemplo(c.slug, agora)?.fixados ?? []), ...postsDeExemplo(c.slug, agora)]).concat(postsDaSemanaDeExemplo(agora));
+  const post = posts.find((p) => p.id === id);
+  if (!post) return null;
+  const raiz = { ...post, na_conversa: post.respostas };
+  const respostas: PostDaArvore[] = [
+    { texto: "Concordo. Dá pra levar isso pra próxima reunião da comunidade?", codinome: "Faísca", handle: "faisca", minutos: 12 },
+    { texto: "Tenho os números da última vez, posto aqui à noite com a fonte.", codinome: "Frevo Vermelho", handle: "frevovermelho", minutos: 6 },
+  ].map((r, i) => ({
+    ...postDeExemplo(
+      {
+        id: `${id.slice(0, -2)}${(0xd0 + i).toString(16)}`,
+        texto: r.texto,
+        raiz: id,
+        comunidade: post.comunidade,
+        resposta_a: id,
+        nivel: 1,
+        autor: { id: null, codinome: r.codinome, handle: r.handle, perfil: true, equipe: false },
+        criado_em: antes(r.minutos, agora),
+      },
+      agora,
+    ),
+    servidor: null,
+  }));
+  return { post: raiz, acima: [], respostas, sintese: null, ordem: "antigas", raiz: id, pode_aceitar: false, pode_sintese: false, mais: false, pronomes_da_raiz: null };
+}
+
+/**
+ * A conversa de exemplo pelo id: a da Lia (prancha celular-conversa-fediverso), a de um ato (o mesmo id do ato, com o número do
+ * botão "Conversa do ato") ou a de um post de comunidade da prévia. Id que não é de nenhum exemplo: nulo ("não encontrada"),
+ * nunca a conversa de outro post.
+ */
+export function arvoreDeExemplo(id: string, agora: number = Date.now()): Arvore | null {
+  if (id === ID.lia) return arvoreDaLia(id, agora);
+  return arvoreDoAto(id, agora) ?? arvoreDoPostDeComunidade(id, agora);
+}
+
 /** A conversa da prancha celular-conversa-fediverso: a dúvida da Lia, a resposta que ajudou e a que veio do Fediverso. */
-export function arvoreDeExemplo(id: string, agora: number = Date.now()): Arvore {
+function arvoreDaLia(id: string, agora: number): Arvore {
   const raiz = postDeExemplo(
     {
       id,

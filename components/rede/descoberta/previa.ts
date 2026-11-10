@@ -3,7 +3,7 @@
 // Os dados de EXEMPLO de Explorar, Buscar, #tema, Avisos e Salvos na prévia da Alumia (NEXT_PUBLIC_ALUMIA_PREVIA=sim: máquina de
 // quem desenvolve e fotos de conferência). Em produção a variável não existe e as telas falam com o banco. Só codinomes
 // inventados; nenhuma lista de pessoas (nem em pacote, nem em aviso: o aviso diz "Bruno Catraca e mais 2", nunca a lista).
-import { listaDeExemplo, postDeExemplo, postsDeExemplo } from "@/lib/rede/conversa/exemplos";
+import { listaDeExemplo, postsDaSemanaDeExemplo, postsDeExemplo } from "@/lib/rede/conversa/exemplos";
 import type { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import type { Post } from "@/lib/rede/tipos";
 import type { ItemDeAviso, PaginaDeAvisos } from "@/lib/rede/tipos-avisos";
@@ -11,37 +11,11 @@ import type { Explorar, PaginaDaTag, PaginaOrdenada, ResultadoDaBusca } from "@/
 
 const MIN = 60_000;
 const antes = (minutos: number) => new Date(Date.now() - minutos * MIN).toISOString();
-const autor = (codinome: string, handle: string) => ({ id: null, codinome, handle, perfil: true, equipe: false });
 
 /** Os posts de exemplo com #temas (os da comunidade da prancha + três da semana). */
 export function postsComTemas(): Post[] {
-  return [
-    postDeExemplo({
-      id: "00000000-0000-4000-8000-0000000000d1",
-      texto: "Assembleia da #TarifaZero na quinta, 19h, no DCE. Quem vem de longe: tem carona saindo da Zona Leste. #PasseLivre",
-      comunidade: "passe-livre-sp",
-      autor: autor("Rosa Vermelha", "rosavermelha"),
-      criado_em: antes(35),
-      respostas: 9,
-    }),
-    ...postsDeExemplo("passe-livre-sp"),
-    postDeExemplo({
-      id: "00000000-0000-4000-8000-0000000000d2",
-      texto: "Juntamos as contas de 40 entregadores: o app fica, em média, com 38% de cada corrida. Planilha aberta no núcleo. #MaisValia #TarifaZero",
-      comunidade: "marxismo",
-      autor: autor("Entregador do Porto", "porto@mastodon.social"),
-      criado_em: antes(180),
-      respostas: 27,
-    }),
-    postDeExemplo({
-      id: "00000000-0000-4000-8000-0000000000d3",
-      texto: "Mutirão de cadastro da ocupação sábado de manhã. Traga caneta e paciência. #MoradiaDigna",
-      comunidade: "moradia-zona-leste",
-      autor: autor("Moradia ZL", "moradiazl"),
-      criado_em: antes(400),
-      respostas: 4,
-    }),
-  ];
+  const [rosa, entregador, mutirao] = postsDaSemanaDeExemplo();
+  return [rosa, ...postsDeExemplo("passe-livre-sp"), entregador, mutirao];
 }
 
 const pagina = (itens: Post[], ordem: string): PaginaOrdenada => ({ itens, proximo: null, ordem, fim_por_teto: false });
