@@ -739,3 +739,4 @@
 [data-al="2"] .al-ato-aberto .al-farol { margin-top: 0.3rem; }
 [data-al="2"] .al-ato-lembrete { display: inline-grid; justify-items: start; gap: 0.25rem; }
 [data-al="2"] .al-ato-aberto-texto > .al-ato-lembrete { margin-top: 0.4rem; }
+.al-chegar-folha { text-align: start; }

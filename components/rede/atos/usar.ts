@@ -237,9 +237,10 @@ export function useFarol(ato: Pick<Ato, "id" | "inicio" | "vou_eu" | "meu" | "si
   }, [id, aoVivo]);
   const farol = id ? (farois.get(id)?.farol ?? null) : null;
   const novo = !!id && !!farol?.mudado_em && lerVisto(id) !== farol.mudado_em;
+  const mudado = farol?.mudado_em ?? null;
   const visto = useCallback(() => {
-    if (id && farol?.mudado_em) gravarVisto(id, farol.mudado_em);
-  }, [id, farol?.mudado_em]);
+    if (id && mudado) gravarVisto(id, mudado);
+  }, [id, mudado]);
   const pedir = useCallback(
     async (estado: EstadoDoFarol, texto = "") => {
       if (!id) return null;
