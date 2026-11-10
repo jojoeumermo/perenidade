@@ -57,6 +57,11 @@ function tearDeExemplo(): TearDaOrg {
   };
 }
 
+/** Um fio novo, só na prévia (o de verdade nasce no banco). */
+function fioDaPrevia(p: Record<string, unknown>): FioDoTear {
+  return { id: `f${Date.now()}`, texto: String(p.texto), estado: "aberto", criado: new Date().toISOString().slice(0, 10), funcao: String(p.funcao), prazo: String(p.prazo), vencido: false, cumprido: null };
+}
+
 async function lerTear(handle: string): Promise<TearDaOrg | null> {
   if (previaLigada()) return tearDeExemplo();
   try {
@@ -100,7 +105,7 @@ export function TearDeEncaminhamentos({ handle, lang, s }: { handle: string; lan
           const fios = atual.fios.map((f) => (f.id === p.id ? { ...f, estado: p.estado as FioDoTear["estado"], vencido: false, cumprido: p.estado === "cumprido" ? new Date().toISOString().slice(0, 10) : null } : f)).filter((f) => f.estado !== "retirado");
           r = { ...atual, fios, cumpridos: fios.filter((f) => f.estado === "cumprido").length + 7, decididos: fios.length + 8 };
         } else {
-          const f: FioDoTear = { id: `f${Date.now()}`, texto: String(p.texto), estado: "aberto", criado: new Date().toISOString().slice(0, 10), funcao: String(p.funcao), prazo: String(p.prazo), vencido: false, cumprido: null };
+          const f = fioDaPrevia(p);
           r = { ...atual, fios: [f, ...atual.fios], decididos: atual.decididos + 1 };
         }
       } else {
