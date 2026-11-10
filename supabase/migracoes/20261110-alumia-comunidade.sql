@@ -169,3 +169,5 @@ begin
     grant execute on function public.rede_alumia_seguir_conversa(uuid, boolean), public.rede_alumia_seguir_tag(text, boolean) to authenticated, service_role;
   end if;
 end $$;
+
+-- ═══════════════════════════ fim da Alumia · comunidade (seguir conversa e #tema) ═══════════════════════════

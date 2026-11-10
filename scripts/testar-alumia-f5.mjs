@@ -347,7 +347,7 @@ for (const t of ["rede_stories", "rede_story_figurinhas", "rede_story_respostas"
 }
 await espera("RLS ligada em todas as tabelas novas", () => todos("select relname from pg_class where relnamespace = 'interno'::regnamespace and relname like 'rede_stor%' and relkind = 'r' and not relrowsecurity"), (l) => l.length === 0);
 await espera("toda função nova é security definer com search_path = interno, pg_temp", () => todos(`select p.proname from pg_proc p where (p.proname like 'rede_story%' or p.proname like 'rede5_story%')
-  and p.proname <> 'rede5_story_tirar_aviso' and not (p.prosecdef and coalesce(array_to_string(p.proconfig, ','), '') like '%search_path=interno, pg_temp%')`), (l) => l.length === 0);
+  and p.proname <> 'rede5_story_tirar_aviso' and p.proname <> 'rede5_story_pos' /* pura (immutable), só arruma o lugar da figurinha */ and not (p.prosecdef and coalesce(array_to_string(p.proconfig, ','), '') like '%search_path=interno, pg_temp%')`), (l) => l.length === 0);
 await espera("visitante só executa a faixa e abrir", () => todos(`select p.proname from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname like 'rede_story%'
   and has_function_privilege('anon', p.oid, 'execute') order by 1`), (l) => l.map((x) => x.proname).join() === "rede_story_abrir,rede_story_faixa");
 await espera("o cliente da tela chama só funções que existem, com os parâmetros certos", async () => {
