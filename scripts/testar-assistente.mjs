@@ -458,7 +458,7 @@ const okAberto = { status: 200, corpo: { choices: [{ message: { content: "Respos
   const layout = readFileSync(new URL("../app/[lang]/layout.tsx", import.meta.url), "utf8");
   confere("layout: o botão está em todas as páginas (fora do painel e da área infantil)", /<OutsidePanel>[\s\S]*BotaoDoAssistente[\s\S]*<\/OutsidePanel>\s*<OutsidePanel mostrarNasCriancas>/.test(layout));
   const recursos = readFileSync(new URL("../lib/recursos.ts", import.meta.url), "utf8");
-  confere("recurso assistente-publico nasce ligado", /PADRAO[\s\S]*"assistente-publico",\s*\n\];/.test(recursos));
+  confere("recurso assistente-publico nasce ligado", /export const PADRAO[^=]*=\s*\[[^\]]*"assistente-publico",/.test(recursos));
   const idiomas = ["pt", "en", "es", "fr", "zh", "ru"].map((l) => JSON.parse(readFileSync(new URL(`../i18n/assistente/${l}.json`, import.meta.url), "utf8")));
   confere("textos da janela nos 6 idiomas, com as mesmas chaves", idiomas.every((j) => JSON.stringify(Object.keys(j).sort()) === JSON.stringify(Object.keys(idiomas[0]).sort())));
   confere("textos: nunca 'universidade' nem 'diploma'", !idiomas.some((j) => /universidade|diploma/i.test(JSON.stringify(j))));
