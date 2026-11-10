@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useId, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { Botao } from "../ui/Botao";
 import { Icone } from "./partes";
 import { frase } from "./usar";
@@ -15,17 +15,45 @@ import "./quadros.css";
 
 /**
  * "Quem leva o quê" (PLANO-ALUMIA §4.2): cada tarefa é um ladrilho que vira dourado quando já tem quem leve. O público vê só o item,
- * quantas pessoas a organização pediu e se falta gente; o codinome de quem assumiu aparece SÓ para quem organiza (o servidor nem
- * manda para os outros; lib/rede/atos/quadros.ts confere de novo). Quem assume vê só que ela mesma leva.
+ * quantas pessoas a organização pediu e se falta gente. O codinome de quem assumiu não aparece para NINGUÉM, nem para quem organiza
+ * (seria uma lista de pessoas ligadas a um ato político, LGPD art. 11): ela vê só quantas assumiram, a partir de 3 (o servidor nem
+ * manda; lib/rede/atos/quadros.ts confere de novo). Quem assume vê só que ela mesma leva. Tirar uma tarefa pede confirmação e vai
+ * ao registro (interno.auditoria) sem dizer quem tinha assumido; depois, o foco vai à tarefa seguinte (ou ao título do quadro).
  */
 export function QuadroDeTarefas({ ato, t, logado }: { ato: Ato; t: TextosDosAtos; logado: boolean }) {
   const carregar = useCallback(() => cliente.tarefas(ato.id), [ato.id]);
   const { estado, trocar } = useQuadro<Quadro>(carregar, ato.id);
   const [ocupado, setOcupado] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [confirmando, setConfirmando] = useState<string | null>(null);
   const [anuncio, anunciar] = useAnuncio();
   const idTitulo = useId();
+  const titulo = useRef<HTMLHeadingElement>(null);
+  const lista = useRef<HTMLUListElement>(null);
+  // Depois de tirar: o índice do ladrilho que sumiu (o foco vai ao que ficou no lugar dele, ou ao título).
+  const focarDepois = useRef<number | null>(null);
+  // Ao pedir confirmação, o foco vai ao "Tirar mesmo"; ao desistir, volta ao "×" daquela tarefa.
+  const voltarAoX = useRef<string | null>(null);
   const fechado = ato.situacao === "cancelado";
+  const tarefasAgora = estado.fase === "pronto" ? estado.dados.tarefas : null;
+  useEffect(() => {
+    const i = focarDepois.current;
+    if (i === null || !tarefasAgora) return;
+    focarDepois.current = null;
+    const itens = lista.current?.querySelectorAll<HTMLElement>("[data-foco-tarefa]");
+    const alvo = itens && itens.length ? itens[Math.min(i, itens.length - 1)] : null;
+    (alvo ?? titulo.current)?.focus();
+  }, [tarefasAgora]);
+  useEffect(() => {
+    if (confirmando) {
+      lista.current?.querySelector<HTMLElement>(`[data-confirma="${confirmando}"]`)?.focus();
+      return;
+    }
+    const id = voltarAoX.current;
+    if (!id) return;
+    voltarAoX.current = null;
+    lista.current?.querySelector<HTMLElement>(`[data-x="${id}"]`)?.focus();
+  }, [confirmando]);
 
   if (estado.fase === "desligado") return null;
   const q = estado.fase === "pronto" ? estado.dados : null;
@@ -46,12 +74,15 @@ export function QuadroDeTarefas({ ato, t, logado }: { ato: Ato; t: TextosDosAtos
       setOcupado(null);
     }
   };
-  const apagar = async (tarefa: TarefaDoAto) => {
+  const apagar = async (tarefa: TarefaDoAto, indice: number) => {
     if (ocupado) return;
     setOcupado(tarefa.id);
     setErro(null);
     try {
-      trocar(await cliente.tarefaApagar(tarefa.id));
+      const novo = await cliente.tarefaApagar(tarefa.id);
+      focarDepois.current = indice;
+      setConfirmando(null);
+      trocar(novo);
       anunciar(t.tarefas.tirado);
     } catch (e) {
       setErro(frase(t, e));
@@ -63,7 +94,7 @@ export function QuadroDeTarefas({ ato, t, logado }: { ato: Ato; t: TextosDosAtos
   return (
     <section className="al-q al-q-tarefas" aria-labelledby={idTitulo} aria-busy={estado.fase === "carregando" || undefined}>
       <header className="al-q-cabeca">
-        <h2 id={idTitulo} className="al-cond al-q-titulo">
+        <h2 id={idTitulo} ref={titulo} tabIndex={-1} className="al-cond al-q-titulo">
           {t.tarefas.titulo}
         </h2>
         <p className="al-q-explica">{t.tarefas.explica}</p>
@@ -78,7 +109,7 @@ export function QuadroDeTarefas({ ato, t, logado }: { ato: Ato; t: TextosDosAtos
         q.tarefas.length === 0 ? (
           <p className="al-q-ajuda">{q.organiza ? t.tarefas.vazioOrg : t.tarefas.vazio}</p>
         ) : (
-          <ul className="al-q-ladrilhos" role="list">
+          <ul ref={lista} className="al-q-ladrilhos" role="list">
             {q.tarefas.map((tarefa, i) => {
               const estadoTexto = tarefa.completa ? t.tarefas.completa : t.tarefas.falta;
               const pedido = tarefa.quantos === 1 ? t.tarefas.pedidoUm : preencherAto(t.tarefas.pedido, { n: tarefa.quantos });
@@ -89,18 +120,17 @@ export function QuadroDeTarefas({ ato, t, logado }: { ato: Ato; t: TextosDosAtos
                     {tarefa.completa || tarefa.eu ? Icone.visto(20) : null}
                   </span>
                   <div className="al-q-corpo">
-                    <p className="al-q-item">{tarefa.item}</p>
+                    <p className="al-q-item" tabIndex={-1} data-foco-tarefa="">
+                      {tarefa.item}
+                    </p>
                     <p className="al-q-linha">
                       <span>{pedido}</span>
                       <span aria-hidden> · </span>
                       <span className="al-q-estado">{estadoTexto}</span>
                     </p>
-                    {q.organiza ? (
-                      <p className="al-q-org">
-                        {preencherAto(t.tarefas.assumidas, { a: tarefa.assumidas ?? 0, q: tarefa.quantos })}
-                        {" · "}
-                        {tarefa.quem && tarefa.quem.length ? preencherAto(t.tarefas.quem, { nomes: tarefa.quem.join(", ") }) : t.tarefas.ninguem}
-                      </p>
+                    {/* Pedindo 1 ou 2, "falta gente" já diz tudo; a partir de 3, a linha diz quantas (ou que ainda são menos de 3). */}
+                    {q.organiza && (tarefa.assumidas !== null || (!tarefa.completa && tarefa.quantos >= 3)) ? (
+                      <p className="al-q-org">{tarefa.assumidas !== null ? preencherAto(t.tarefas.assumidas, { a: tarefa.assumidas, q: tarefa.quantos }) : t.tarefas.poucas}</p>
                     ) : null}
                   </div>
                   <div className="al-q-botoes">
@@ -116,12 +146,50 @@ export function QuadroDeTarefas({ ato, t, logado }: { ato: Ato; t: TextosDosAtos
                     >
                       {tarefa.eu ? t.tarefas.euLevo : t.tarefas.eu}
                     </Botao>
-                    {q.organiza ? (
-                      <button type="button" className="al-q-tirar" aria-label={preencherAto(t.tarefas.tirar, { item: tarefa.item })} disabled={ocupado === tarefa.id} onClick={() => void apagar(tarefa)}>
+                    {q.organiza && confirmando !== tarefa.id ? (
+                      <button
+                        type="button"
+                        className="al-q-tirar"
+                        data-x={tarefa.id}
+                        aria-label={preencherAto(t.tarefas.tirar, { item: tarefa.item })}
+                        title={preencherAto(t.tarefas.tirar, { item: tarefa.item })}
+                        disabled={ocupado === tarefa.id}
+                        onClick={() => setConfirmando(tarefa.id)}
+                      >
                         <span aria-hidden>×</span>
                       </button>
                     ) : null}
                   </div>
+                  {q.organiza && confirmando === tarefa.id ? (
+                    <div
+                      className="al-q-confirma"
+                      role="group"
+                      aria-label={preencherAto(t.tarefas.tirar, { item: tarefa.item })}
+                      onKeyDown={(e) => {
+                        if (e.key === "Escape" && !ocupado) {
+                          e.preventDefault();
+                          voltarAoX.current = tarefa.id;
+                          setConfirmando(null);
+                        }
+                      }}
+                    >
+                      <p className="al-q-confirma-texto">{preencherAto(t.tarefas.tirarPergunta, { item: tarefa.item })}</p>
+                      <Botao tamanho="p" variante="contorno" data-confirma={tarefa.id} disabled={ocupado === tarefa.id} aria-busy={ocupado === tarefa.id || undefined} onClick={() => void apagar(tarefa, i)}>
+                        {t.tarefas.tirarCerto}
+                      </Botao>
+                      <Botao
+                        tamanho="p"
+                        variante="fantasma"
+                        disabled={ocupado === tarefa.id}
+                        onClick={() => {
+                          voltarAoX.current = tarefa.id;
+                          setConfirmando(null);
+                        }}
+                      >
+                        {t.tarefas.manter}
+                      </Botao>
+                    </div>
+                  ) : null}
                 </li>
               );
             })}

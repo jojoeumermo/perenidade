@@ -33,5 +33,7 @@ Ou seja: quando uma faixa terminar, a faixa que ainda tem trabalho **divide o qu
   SERVIDOR numa função da Faixa 2 (security definer, `search_path = interno, pg_temp`, membro 18+, quem chama vê o ato por
   `interno.rede_ato_achar`, não bloqueado, limite de uso). Nenhuma resposta devolve o id nem o codinome de quem ofereceu antes de
   a conversa existir; nenhuma lista de quem combinou.
-- **Enquanto não houver:** o botão "Combinar pelo chat" aparece desligado com a frase "O chat das caronas chega em breve" (já
-  nos 6 idiomas, `i18n/rede/atos/*.json` → `caronas.combinarEmBreve`). Quem atender marca "feito <hash>" aqui.
+- **Enquanto não houver:** o quadro de caronas inteiro fica escondido atrás de `alumia-proximas` (sem o chat, a única saída
+  seria combinar em público, e a conversa do ato mostra quem vai com quem). Com a flag ligada, o botão aparece desligado com a
+  frase `caronas.combinarEmBreve` (6 idiomas), que avisa para NÃO combinar na conversa pública. Assim que o encaixe for
+  registrado, o quadro aparece sozinho, sem flag. Quem atender marca "feito <hash>" aqui.

@@ -172,3 +172,22 @@
   [data-al="2"] :is(.al-q, .al-q-ladrilho, .al-q-carona, .al-q-selo, .al-q-opcao span) { border: 1px solid CanvasText; }
   [data-al="2"] .al-q-opcao input:checked + span { background: Highlight; color: HighlightText; }
 }
+
+/* ── confirmar antes de tirar (tarefa ou carona de outra pessoa): a pergunta ocupa a linha inteira do ladrilho ── */
+[data-al="2"] .al-q-confirma {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--al-superficie-2);
+}
+[data-al="2"] .al-q-confirma-texto { margin: 0; flex: 1 1 14rem; font-size: 0.88rem; font-weight: 600; color: var(--al-texto); }
+[data-al="2"] :is(.al-q-titulo, .al-q-item, .al-q-meta-atual):focus { outline: none; }
+[data-al="2"] :is(.al-q-titulo, .al-q-item, .al-q-meta-atual):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 3px; border-radius: 6px; }
+[data-al="2"] .al-q-feito { margin: 0; font-size: 0.88rem; font-weight: 700; color: var(--al-texto-2); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-q-confirma { border-top: 2px solid var(--al-texto); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] :is(.al-q-confirma, .al-q-feito) { animation: al-q-chega 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+}

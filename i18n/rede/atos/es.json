@@ -259,7 +259,7 @@
   },
   "tarefas": {
     "titulo": "Quién lleva qué",
-    "explica": "Cada persona elige qué lleva. Nadie ve quién lo asumió, solo quien organiza.",
+    "explica": "Cada persona elige qué lleva. Nadie ve quién lo asumió, ni quien organiza.",
     "vazio": "Todavía no hay tareas en este acto.",
     "vazioOrg": "Pon lo que el acto necesita: equipo de sonido, pancartas, agua, primeros auxilios.",
     "eu": "Yo lo llevo",
@@ -270,8 +270,6 @@
     "pedido": "pedimos {n}",
     "pedidoUm": "pedimos 1",
     "assumidas": "{a} de {q} lo asumieron",
-    "quem": "Quién lo asumió (solo tú lo ves): {nomes}",
-    "ninguem": "Nadie lo asumió todavía.",
     "item": "Lo que falta",
     "itemExemplo": "ej.: equipo de sonido",
     "quantos": "Cuántas personas",
@@ -282,7 +280,11 @@
     "assumido": "Anotado: tú llevas {item}.",
     "desfeito": "Listo: ya no llevas {item}.",
     "entrar": "Entra en Alumia para asumir una tarea.",
-    "rotulo": "{item}: {estado}"
+    "rotulo": "{item}: {estado}",
+    "poucas": "Menos de 3 personas lo asumieron (el número aparece a partir de 3).",
+    "tirarPergunta": "¿Quitar “{item}” del tablero? Quien lo había asumido no recibe aviso.",
+    "tirarCerto": "Quitar de verdad",
+    "manter": "Mantener"
   },
   "caronas": {
     "titulo": "Aventones y autobuses",
@@ -324,12 +326,22 @@
     "tirar": "Quitar",
     "combinar": "Combinar por el chat",
     "combinarAjuda": "Abre una conversación privada y cifrada con quien publicó. Nadie más la ve.",
-    "combinarEmBreve": "El chat de los aventones llega pronto. Mientras tanto, combina en la conversación del acto sin poner contacto.",
+    "combinarEmBreve": "El chat privado de los aventones llega pronto. No combines aventón en la conversación pública del acto: ahí todo el mundo ve quién va con quién.",
     "publicada": "Aventón publicado.",
     "tirada": "Aventón quitado.",
     "entrar": "Entra en Alumia para ver y ofrecer aventones.",
     "limite": "Ya tienes 2 aventones en este acto.",
-    "dado": "Quita el teléfono, el correo o el número de la casa: el contacto es solo por el chat."
+    "dado": "Quita el teléfono, el correo o el número de la casa: el contacto es solo por el chat.",
+    "lugares": "Lugares que necesita",
+    "lugaresN": "necesita {n} lugares",
+    "lugaresUm": "necesita 1 lugar",
+    "lugaresSem": "lugares a combinar",
+    "menosLugar": "Un lugar menos",
+    "maisLugar": "Un lugar más",
+    "horaAjuda": "En el mismo horario en que aparece el acto aquí (empieza a las {hora}).",
+    "tirarPergunta": "¿Quitar este aventón del tablero? No se puede deshacer.",
+    "tirarCerto": "Quitar de verdad",
+    "manter": "Mantener"
   },
   "peticao": {
     "titulo": "Petición",

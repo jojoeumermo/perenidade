@@ -39,6 +39,15 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
   useEffect(() => {
     aoMudarRef.current({ ...conferirAto(c) });
   }, [c]);
+  // Meta ou link com problema não ficam escondidos no "mais" fechado (o ato não sai enquanto não arrumar): o bloco abre sozinho e
+  // o aviso aparece. Só abre; quem fecha é a pessoa.
+  const mais = useRef<HTMLDetailsElement>(null);
+  const maisComProblema = !!(dados.problemas.meta || dados.problemas.link_apoio);
+  useEffect(() => {
+    if (!maisComProblema || !mais.current) return;
+    if (!mais.current.open) mais.current.open = true;
+    setTocado((x) => (x.meta && x.link_apoio ? x : { ...x, meta: true, link_apoio: true }));
+  }, [maisComProblema]);
 
   if (!t) return <div className="al-ato-form" aria-busy="true" />;
 
@@ -177,7 +186,10 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
       </div>
 
       {/* Meta e link de apoio: opcionais, guardados num "mais" para não pesar o formulário. */}
-      <details className="al-ato-form-mais">
+      <details ref={mais} className="al-ato-form-mais" onToggle={(e) => {
+          // fechar com problema reabre (o aviso precisa ficar à vista)
+          if (maisComProblema && !e.currentTarget.open) e.currentTarget.open = true;
+        }}>
         <summary>{t.formulario.mais}</summary>
         <div className="al-ato-form-grupo">
           <label htmlFor={`${id}-meta`} className="al-ato-form-rotulo">

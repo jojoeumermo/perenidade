@@ -255,23 +255,37 @@ function MetaEApoio({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
   const [link, setLink] = useState(ato.link_apoio ?? "");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  // Qual campo está errado (aria-invalid, aria-describedby para a mensagem e o foco nele).
+  const [ruim, setRuim] = useState<"meta" | "link" | null>(null);
   const [feito, setFeito] = useState("");
   const id = useId();
+  const idErro = `${id}-erro`;
   const primeiro = useRef<HTMLInputElement>(null);
+  const campoLink = useRef<HTMLInputElement>(null);
   const botao = useRef<HTMLButtonElement>(null);
+  // Abrir leva ao primeiro campo; fechar (Desistir, Esc ou depois de salvar) devolve ao "Editar".
+  const estavaAberto = useRef(false);
   useEffect(() => {
     if (aberto) primeiro.current?.focus();
+    else if (estavaAberto.current) botao.current?.focus();
+    estavaAberto.current = aberto;
   }, [aberto]);
+  const marcar = (campo: "meta" | "link" | null, mensagem: string) => {
+    setErro(mensagem);
+    setRuim(campo);
+    (campo === "link" ? campoLink.current : primeiro.current)?.focus();
+  };
   const enviar = async (e: FormEvent) => {
     e.preventDefault();
     const m = lerMeta(meta);
     const l = lerLinkDeApoio(link);
     if (m === "numero" || l === "link") {
-      setErro(m === "numero" ? t.formulario.problemas.numero : t.formulario.problemas.link);
+      marcar(m === "numero" ? "meta" : "link", m === "numero" ? t.formulario.problemas.numero : t.formulario.problemas.link);
       return;
     }
     setOcupado(true);
     setErro(null);
+    setRuim(null);
     try {
       const novo = await cliente.editar(ato.id, { meta: m, link_apoio: l });
       avisarAto(novo);
@@ -279,7 +293,8 @@ function MetaEApoio({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
       setAberto(false);
       requestAnimationFrame(() => botao.current?.focus());
     } catch (e) {
-      setErro(codigoDoErro(e) === "generico" ? t.pagina.erroMudar : frase(t, e));
+      const c = codigoDoErro(e);
+      marcar(c === "meta" ? "meta" : c === "link_apoio" || c === "dado_pessoal" ? "link" : null, c === "generico" ? t.pagina.erroMudar : frase(t, e));
     } finally {
       setOcupado(false);
     }
@@ -301,20 +316,40 @@ function MetaEApoio({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
         >
           <label>
             {t.formulario.meta}
-            <input ref={primeiro} className="al-ato-form-campo" inputMode="numeric" value={meta} onChange={(e) => setMeta(e.target.value)} placeholder={t.formulario.metaExemplo} aria-describedby={`${id}-meta`} />
+            <input
+              ref={primeiro}
+              className="al-ato-form-campo"
+              inputMode="numeric"
+              value={meta}
+              onChange={(e) => setMeta(e.target.value)}
+              placeholder={t.formulario.metaExemplo}
+              aria-invalid={ruim === "meta" || undefined}
+              aria-describedby={`${id}-meta${ruim === "meta" ? ` ${idErro}` : ""}`}
+            />
             <small id={`${id}-meta`} className="al-ato-form-ajuda">
               {t.formulario.metaAjuda}
             </small>
           </label>
           <label>
             {t.formulario.link}
-            <input className="al-ato-form-campo" type="url" inputMode="url" value={link} onChange={(e) => setLink(e.target.value)} placeholder={t.formulario.linkExemplo} maxLength={LIMITES_DO_ATO.linkMax} aria-describedby={`${id}-link`} />
+            <input
+              ref={campoLink}
+              className="al-ato-form-campo"
+              type="url"
+              inputMode="url"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+              placeholder={t.formulario.linkExemplo}
+              maxLength={LIMITES_DO_ATO.linkMax}
+              aria-invalid={ruim === "link" || undefined}
+              aria-describedby={`${id}-link${ruim === "link" ? ` ${idErro}` : ""}`}
+            />
             <small id={`${id}-link`} className="al-ato-form-ajuda">
               {t.formulario.linkAjuda}
             </small>
           </label>
           {erro ? (
-            <p role="alert" className="al-ato-erro">
+            <p id={idErro} role="alert" className="al-ato-erro">
               {erro}
             </p>
           ) : null}
@@ -335,6 +370,7 @@ function MetaEApoio({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
             onClick={() => {
               setFeito("");
               setErro(null);
+              setRuim(null);
               setMeta(ato.meta ? String(ato.meta) : "");
               setLink(ato.link_apoio ?? "");
               setAberto(true);
@@ -344,7 +380,8 @@ function MetaEApoio({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
           </Botao>
         </div>
       )}
-      <p className="sr-only" aria-live="polite">
+      {/* A confirmação é visível e é a mesma frase que o leitor de tela ouve (role="status" já anuncia). */}
+      <p className={feito ? "al-q-feito" : "sr-only"} role="status">
         {feito}
       </p>
     </div>
