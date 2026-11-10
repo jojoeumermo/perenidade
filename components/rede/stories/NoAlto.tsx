@@ -3,7 +3,7 @@
 
 import "./stories.css";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CHAVES_DOS_STORIES, enderecosDosStories, lerPedidoDoEndereco } from "@/lib/rede/stories/enderecos";
+import { CHAVES_DOS_STORIES, enderecosDosStories, lerExtrasDoCriar, lerPedidoDoEndereco } from "@/lib/rede/stories/enderecos";
 import type { Situacao } from "@/lib/rede/tipos";
 import type { AutoraDoStory } from "@/lib/rede/tipos-stories";
 import { Criar } from "./Criar";
@@ -15,11 +15,11 @@ import { enderecoAqui, useClienteDosStories, useTextosDosStories } from "./usar"
 type Aberto =
   | { tipo: "nada" }
   | { tipo: "ver"; handle: string; i: number; fila: string[]; autoras?: Record<string, AutoraDoStory> }
-  | { tipo: "criar"; post: string | null };
+  | { tipo: "criar"; post: string | null; extras?: ReturnType<typeof lerExtrasDoCriar> };
 
 function lerAberto(): Aberto {
   const p = lerPedidoDoEndereco(new URLSearchParams(window.location.search));
-  if (p.criar) return { tipo: "criar", post: p.post };
+  if (p.criar) return { tipo: "criar", post: p.post, extras: lerExtrasDoCriar(new URLSearchParams(window.location.search)) };
   if (p.ver) return { tipo: "ver", handle: p.ver, i: p.i, fila: [] };
   return { tipo: "nada" };
 }
@@ -133,6 +133,8 @@ export default function StoriesNoAlto({ lang, situacao }: { lang: string; situac
           t={t}
           cliente={cliente}
           postRef={aberto.post}
+          extras={aberto.extras}
+          lang={lang}
           aoFechar={fechar}
           aoPublicar={() => {
             mudou();

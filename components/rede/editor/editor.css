@@ -208,3 +208,58 @@
 :root:is([data-eink], [data-contrast]) [data-al="2"] .al-ed-tira-janela { border-color: var(--al-texto); }
 :root:is([data-eink], [data-contrast]) [data-al="2"] .al-ed-alca { background: var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-ed-midia { filter: grayscale(1) !important; }
+
+/* ═════════════ B1: música, legendas, borrar e recortar no editor do story ═════════════ */
+[data-al="2"] .al-ed-musica { border: 0; margin: 0 0 18px; padding: 0; }
+[data-al="2"] .al-ed-musica-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+[data-al="2"] .al-ed-musica-item { display: flex; align-items: stretch; border: 1px solid var(--al-linha); border-radius: 12px; overflow: hidden; }
+[data-al="2"] .al-ed-musica-item[data-escolhida="sim"] { border-color: var(--al-dourado, #ffc21a); box-shadow: inset 0 0 0 1px var(--al-dourado, #ffc21a); }
+[data-al="2"] .al-ed-musica-nome { flex: 1; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; font-weight: 800; cursor: pointer; }
+[data-al="2"] .al-ed-musica-nome:has(input:focus-visible) { outline: 3px solid var(--al-dourado, #ffc21a); outline-offset: -3px; }
+[data-al="2"] .al-ed-musica-ouvir { width: 44px; border: 0; border-left: 1px solid var(--al-linha); background: transparent; color: inherit; cursor: pointer; }
+[data-al="2"] .al-ed-musica-ondas { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+[data-al="2"] .al-ed-musica-ondas i { width: 3px; height: 40%; background: currentColor; border-radius: 2px; }
+[data-al="2"] .al-ed-musica-ondas[data-tocando="sim"] i { animation: al-ed-onda 0.6s ease-in-out infinite alternate; }
+[data-al="2"] .al-ed-musica-ondas i:nth-child(2) { animation-delay: 0.15s; }
+[data-al="2"] .al-ed-musica-ondas i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes al-ed-onda { from { height: 25%; } to { height: 100%; } }
+
+[data-al="2"] .al-ed-legendas { margin: 0 0 18px; }
+[data-al="2"] .al-ed-legendas-lista { display: grid; gap: 8px; margin: 0 0 10px; padding: 0; list-style: none; }
+[data-al="2"] .al-ed-legenda { display: grid; grid-template-columns: auto 1fr auto; gap: 6px 8px; align-items: center; padding: 8px; border-radius: 12px; border: 1px solid var(--al-linha); }
+[data-al="2"] .al-ed-legenda-tempo { font-variant-numeric: tabular-nums; font-size: 12px; font-weight: 800; color: var(--al-texto-3); }
+[data-al="2"] .al-ed-legenda-texto { min-width: 0; min-height: 40px; border-radius: 10px; border: 1px solid var(--al-linha); background: transparent; color: inherit; padding: 0 10px; font: inherit; }
+[data-al="2"] .al-ed-legenda-tirar { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--al-linha); background: transparent; color: inherit; font-size: 18px; cursor: pointer; }
+[data-al="2"] .al-ed-legenda-num { grid-column: 1 / -1; display: flex; gap: 10px; font-size: 12px; }
+[data-al="2"] .al-ed-legenda-num label { display: flex; align-items: center; gap: 4px; }
+[data-al="2"] .al-ed-legenda-num input { width: 64px; min-height: 34px; border-radius: 8px; border: 1px solid var(--al-linha); background: transparent; color: inherit; padding: 0 6px; font: inherit; }
+[data-al="2"] .al-ed-legenda-grande { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; font-size: 13px; }
+[data-al="2"] .al-ed-legendas-acoes { display: flex; flex-wrap: wrap; gap: 8px; }
+[data-al="2"] .al-ed-legendas-aprovar { display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 800; }
+[data-al="2"] .al-ed-borrar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 14px; }
+[data-al="2"] .al-ed-borrar .al-st-dica { flex-basis: 100%; margin: 0; }
+
+[data-al="2"] .al-ed-recortar { position: fixed; inset: 0; z-index: 96; display: grid; place-items: center; padding: 12px; background: rgba(0, 0, 0, 0.78); }
+[data-al="2"] .al-ed-recortar-caixa { width: min(100%, 560px); max-height: calc(100vh - 24px); overflow-y: auto; display: grid; gap: 12px; padding: 16px; border-radius: 20px; background: var(--al-fundo); color: var(--al-texto); }
+[data-al="2"] .al-ed-recortar-caixa h2 { margin: 0; font-size: 24px; }
+[data-al="2"] .al-ed-recortar-palco { position: relative; touch-action: none; user-select: none; overflow: hidden; border-radius: 10px; background: #000; }
+[data-al="2"] .al-ed-recortar-palco img { display: block; width: 100%; max-height: 60vh; object-fit: contain; transition: transform 0.15s; }
+[data-al="2"] .al-ed-moldura { position: absolute; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55); outline: 2px solid #ffc21a; cursor: move; }
+[data-al="2"] .al-ed-moldura:focus-visible { outline: 3px solid #fff; }
+[data-al="2"] .al-ed-moldura-grade {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+  background-size: 33.333% 33.333%;
+}
+[data-al="2"] .al-ed-moldura-canto { position: absolute; right: -10px; bottom: -10px; width: 24px; height: 24px; border-radius: 6px; background: #ffc21a; border: 2px solid #0f0e0d; cursor: nwse-resize; }
+[data-al="2"] .al-ed-recortar-proporcoes { display: flex; flex-wrap: wrap; gap: 6px; border: 0; margin: 0; padding: 0; }
+[data-al="2"] .al-ed-recortar-proporcoes legend { width: 100%; margin-bottom: 4px; font-weight: 800; }
+[data-al="2"] .al-ed-recortar-op { min-height: 40px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; border: 1px solid var(--al-linha); font-weight: 800; cursor: pointer; }
+[data-al="2"] .al-ed-recortar-op[data-escolhida="sim"] { background: var(--al-texto); color: var(--al-fundo); }
+[data-al="2"] .al-ed-recortar-op:has(input:focus-visible) { outline: 3px solid var(--al-dourado, #ffc21a); outline-offset: 2px; }
+[data-al="2"] .al-ed-recortar-giro { display: grid; gap: 6px; font-weight: 800; }
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] .al-ed-musica-ondas[data-tocando="sim"] i { animation: none; height: 100%; }
+  [data-al="2"] .al-ed-recortar-palco img { transition: none; }
+}
+:root[data-parado] [data-al="2"] .al-ed-musica-ondas[data-tocando="sim"] i { animation: none; height: 100%; }

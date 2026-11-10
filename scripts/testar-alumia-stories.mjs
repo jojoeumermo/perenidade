@@ -129,7 +129,9 @@ igual("cabe em 1080 × 1920 sem aumentar", [medidaQueCabe(4000, 3000), medidaQue
   ok("o contrato não tem campo de quem viu nem de quantos viram", !/\b(viu|visto|vistos|views?|visualiza\w*|assistiu|espectador\w*)\s*[?]?:/i.test(contrato));
   igual("reações: conjunto fechado de 3", [...REACOES_DO_STORY], ["punho", "chama", "coracao"]);
   const CONTRATO = ["faixa", "abrir", "meus", "publicar", "apagar", "responder", "reagir", "votar", "avisar", "atos", "denunciar", "enviarImagem",
-    "comunidades", "destaques", "destaque", "salvarDestaque", "tirarDoDestaque", "apagarDestaque"];
+    "comunidades", "destaques", "destaque", "salvarDestaque", "tirarDoDestaque", "apagarDestaque",
+    // B1 (20261110-alumia-b1-stories.sql): arrumar destaques, borrar de novo, o cartão do post, respostas, "vou", roda e comunidade.
+    "ordenarDestaques", "ordenarNoDestaque", "capaDoDestaque", "trocarMidia", "post", "responderPergunta", "respostas", "caixa", "vou", "roda", "mudarRoda", "daComunidade"];
   for (const arq of ["components/rede/stories/Visor.tsx", "components/rede/stories/FaixaDeStories.tsx", "components/rede/stories/Criar.tsx",
     "components/rede/stories/Destaques.tsx", "components/rede/stories/GuardarNoDestaque.tsx"]) {
     const usados = new Set([...ler(arq).matchAll(/cliente\.(\w+)\(/g)].map((m) => m[1]));

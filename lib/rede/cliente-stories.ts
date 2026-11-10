@@ -210,10 +210,39 @@ async function enviarAoDeposito(imagem: Blob, aoProgresso?: (fracao: number) => 
   if (!uid) throw new Error("sem_sessao");
   const { ext, tipo } = extensaoDaImagem(imagem.type);
   const caminho = `${uid}/${idDoArquivo()}.${ext}`;
-  const { error } = await cliente.storage.from(DEPOSITO_DOS_STORIES).upload(caminho, imagem, { contentType: tipo, upsert: false, cacheControl: "3600" });
+  // Com andamento de verdade: um endereço de envio assinado (o mesmo RLS do envio comum) e um PUT pelo XMLHttpRequest, que
+  // conta os bytes que já saíram. Sem ele (navegador antigo, ou o endereço falhou), o envio comum, sem andamento no meio.
+  const deposito = cliente.storage.from(DEPOSITO_DOS_STORIES);
+  if (aoProgresso && typeof XMLHttpRequest !== "undefined") {
+    const { data: assinado } = await deposito.createSignedUploadUrl(caminho).catch(() => ({ data: null }));
+    if (assinado?.signedUrl) {
+      await enviarComAndamento(assinado.signedUrl, imagem, tipo, (f) => aoProgresso(0.05 + 0.95 * f));
+      aoProgresso(1);
+      return caminho;
+    }
+  }
+  const { error } = await deposito.upload(caminho, imagem, { contentType: tipo, upsert: false, cacheControl: "3600" });
   if (error) throw new Error(error.message || "falha_no_envio");
   aoProgresso?.(1);
   return caminho;
+}
+
+/** PUT do arquivo no endereço assinado, contando o andamento (0 a 1). Erro "falha_no_envio" se o depósito recusar. */
+export function enviarComAndamento(url: string, corpo: Blob, tipo: string, aoProgresso: (fracao: number) => void): Promise<void> {
+  return new Promise((pronto, falhou) => {
+    const x = new XMLHttpRequest();
+    x.open("PUT", url);
+    x.setRequestHeader("content-type", tipo);
+    x.setRequestHeader("cache-control", "max-age=3600");
+    x.setRequestHeader("x-upsert", "false");
+    x.upload.onprogress = (e) => {
+      if (e.lengthComputable && e.total > 0) aoProgresso(Math.min(1, e.loaded / e.total));
+    };
+    x.onload = () => (x.status >= 200 && x.status < 300 ? pronto() : falhou(new Error("falha_no_envio")));
+    x.onerror = () => falhou(new Error("falha_no_envio"));
+    x.onabort = () => falhou(new Error("cancelado"));
+    x.send(corpo);
+  });
 }
 
 /** A prévia com dados de exemplo está ligada? (só no desenvolvimento e nas fotos; a referência é literal para o Next gravar) */
