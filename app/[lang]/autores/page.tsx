@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { ListaComIndice } from "@/components/ListaComIndice";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -21,9 +21,9 @@ export default async function Autores({ params }: PageProps<"/[lang]/autores">) 
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <PageHeading eyebrow={t.authors.eyebrow} title={t.authors.title}>
+      <Cartaz eyebrow={t.authors.eyebrow} title={t.authors.title} tone="preto">
         {t.authors.lead}
-      </PageHeading>
+      </Cartaz>
       <Untranslated lang={lang} t={t} show={authors.some((author) => !author.translated)} />
 
       <ListaComIndice
