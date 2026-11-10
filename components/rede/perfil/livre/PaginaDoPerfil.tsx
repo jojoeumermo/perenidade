@@ -118,7 +118,7 @@ export function PaginaDoPerfil({
         <ul className="pf-grade-destaques">
           {a.destaques.map((d) => (
             <li key={d.ref}>
-              <Link href={d.tipo === "ato" ? `${enderecos.linha(lang)}/ato/${d.ref}` : enderecos.post(lang, d.ref)} className="pf-destaque" style={{ ["--pf-cor-destaque" as string]: PALETA_DO_PERFIL[d.cor] }}>
+              <Link href={enderecos.post(lang, d.ref)} className="pf-destaque" style={{ ["--pf-cor-destaque" as string]: PALETA_DO_PERFIL[d.cor] }}>
                 <span className="pf-destaque-tipo">{d.tipo === "ato" ? t.vitrine.ato : t.vitrine.post}</span>
                 <span className="pf-destaque-titulo">{d.titulo}</span>
               </Link>

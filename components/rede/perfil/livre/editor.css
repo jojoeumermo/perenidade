@@ -211,7 +211,7 @@
 }
 @media (max-width: 1023px) { [data-al="2"] .pfe-salvar { bottom: calc(5.25rem + var(--recuo-baixo, 0px)); } }
 @media (max-width: 559px) {
-  [data-al="2"] .pfe-salvar { flex-wrap: nowrap; padding: 6px 6px 6px 12px; margin-inline: 8px; gap: 6px; }
+  [data-al="2"] .pfe-salvar { flex-wrap: nowrap; padding: 6px 6px 6px 12px; margin-inline: 8px 60px; gap: 6px; }
   [data-al="2"] .pfe-salvar-estado { flex: 1 1 0; min-width: 0; font-size: 0.78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   [data-al="2"] .pfe-salvar .pfe-icone { width: 36px; height: 36px; }
   [data-al="2"] .pfe-salvar .al-botao-fantasma { display: none; }
