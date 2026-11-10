@@ -4662,7 +4662,7 @@
     },
     "publishTitle": "Publish a work",
     "publishLead": "Did you make something that ended up in a drawer? Publish it with your own comment. Moderators check it before it appears.",
-    "signInFirst": "To publish, sign in or create an account. It is free.",
+    "signInFirst": "Without an account, you send a link. To upload the PDF, sign in or create an account (it is free).",
     "signIn": "Sign in or create an account",
     "fieldTitle": "Title of the work",
     "fieldType": "Type",

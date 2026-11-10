@@ -105,13 +105,8 @@ function Publicar({ s, termo, depois }: { s: S; termo: React.ReactNode; depois: 
   const mudar = (campo: keyof typeof vazio) => (e: { target: { value: string } }) => setRascunho({ ...rascunho, [campo]: e.target.value });
 
   if (me.status === "loading") return null;
-  if (me.status === "out") {
-    return (
-      <p className="mt-4 font-sans">
-        {s.signInFirst} <L href="/entrar" className={link}>{s.signIn}</L>
-      </p>
-    );
-  }
+  // Sem conta também se envia (09/11/2026), só por link: o PDF vai para a pasta da pessoa no depósito, que pede conta.
+  const semConta = me.status === "out";
   if (estado === "enviado") return <p role="status" className="mt-4 border-l-2 border-ok pl-4 font-sans">{s.sent}</p>;
 
   const pronto =
@@ -202,11 +197,18 @@ function Publicar({ s, termo, depois }: { s: S; termo: React.ReactNode; depois: 
             <input type="radio" name="como" checked={rascunho.como === "link"} onChange={() => setRascunho({ ...rascunho, como: "link" })} className="h-4 w-4" />
             {s.howLink}
           </label>
-          <label className="flex items-center gap-2">
-            <input type="radio" name="como" checked={rascunho.como === "arquivo"} onChange={() => setRascunho({ ...rascunho, como: "arquivo" })} className="h-4 w-4" />
-            {s.howFile}
-          </label>
+          {!semConta && (
+            <label className="flex items-center gap-2">
+              <input type="radio" name="como" checked={rascunho.como === "arquivo"} onChange={() => setRascunho({ ...rascunho, como: "arquivo" })} className="h-4 w-4" />
+              {s.howFile}
+            </label>
+          )}
         </div>
+        {semConta && (
+          <p className="mt-2 text-sm text-ink-soft">
+            {s.signInFirst} <L href="/entrar" className={link}>{s.signIn}</L>
+          </p>
+        )}
         {rascunho.como === "link" ? (
           <label className="mt-3 block">
             {s.fieldLink}
