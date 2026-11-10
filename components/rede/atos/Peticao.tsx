@@ -7,7 +7,7 @@ import { frase } from "./usar";
 import { useAnuncio, useQuadro } from "./usarQuadro";
 import { codigoDoErro } from "@/lib/rede/atos/erros";
 import { conferirPeticao } from "@/lib/rede/atos/quadros";
-import { dataLonga, doCampoLocal } from "@/lib/rede/atos/tempo";
+import { dataLongaNaFrase, doCampoLocal } from "@/lib/rede/atos/tempo";
 import { atos as cliente } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import { LIMITES_DO_ATO, type Ato, type PeticaoDoAto } from "@/lib/rede/tipos-atos";
@@ -28,6 +28,17 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
   const [anuncio, anunciar] = useAnuncio();
   const idTitulo = useId();
   const idExplica = useId();
+  // Fechar o formulário (Deixar ou Esc) volta ao "Abrir um abaixo-assinado"; abrir a petição leva ao título dela.
+  const criar = useRef<HTMLButtonElement>(null);
+  const titulo = useRef<HTMLHeadingElement>(null);
+  const depoisDeCriar = useRef<"criar" | "titulo" | null>(null);
+  useEffect(() => {
+    if (criando) return;
+    const para = depoisDeCriar.current;
+    if (!para) return;
+    depoisDeCriar.current = null;
+    requestAnimationFrame(() => (para === "criar" ? criar.current : titulo.current)?.focus());
+  }, [criando]);
 
   if (estado.fase !== "pronto") return null;
   const p = estado.dados;
@@ -75,15 +86,20 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
         {criando ? (
           <NovaPeticao
             t={t}
-            aoFechar={() => setCriando(false)}
+            aoFechar={() => {
+              depoisDeCriar.current = "criar";
+              setCriando(false);
+            }}
             aoAbrir={async (pedido) => {
-              trocar(await cliente.peticaoCriar(ato.id, pedido));
+              const nova = await cliente.peticaoCriar(ato.id, pedido);
+              depoisDeCriar.current = "titulo";
+              trocar(nova);
               setCriando(false);
             }}
           />
         ) : ato.situacao !== "cancelado" ? (
           <div className="al-q-acoes">
-            <Botao variante="contorno" onClick={() => setCriando(true)}>
+            <Botao ref={criar} variante="contorno" onClick={() => setCriando(true)}>
               {t.peticao.criar}
             </Botao>
           </div>
@@ -95,7 +111,7 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
   return (
     <section className="al-q al-q-peticao" aria-labelledby={idTitulo} aria-describedby={idExplica} data-aberta={p.aberta ? "sim" : undefined}>
       <header className="al-q-cabeca">
-        <h2 id={idTitulo} className="al-cond al-q-titulo">
+        <h2 id={idTitulo} ref={titulo} tabIndex={-1} className="al-cond al-q-titulo">
           {t.peticao.titulo}
           {!p.aberta ? <span className="al-q-carimbo">{t.peticao.encerrada}</span> : null}
         </h2>
@@ -120,7 +136,7 @@ export function Peticao({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
         </p>
         {p.prazo ? (
           <p className="al-q-linha">
-            <time dateTime={p.prazo}>{preencherAto(t.peticao.prazo, { data: dataLonga(p.prazo, lang) })}</time>
+            <time dateTime={p.prazo}>{preencherAto(t.peticao.prazo, { data: dataLongaNaFrase(p.prazo, lang) })}</time>
           </p>
         ) : null}
       </div>
@@ -181,29 +197,45 @@ function NovaPeticao({ t, aoFechar, aoAbrir }: { t: TextosDosAtos; aoFechar: () 
   const [prazo, setPrazo] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  // Qual campo está errado: ganha aria-invalid, aponta para a mensagem (aria-describedby) e recebe o foco.
+  const [ruim, setRuim] = useState<"alvo" | "texto" | "prazo" | null>(null);
   const primeiro = useRef<HTMLInputElement>(null);
+  const campoTexto = useRef<HTMLTextAreaElement>(null);
+  const campoPrazo = useRef<HTMLInputElement>(null);
   const id = useId();
+  const idErro = `${id}-erro`;
   useEffect(() => {
     primeiro.current?.focus();
   }, []);
+  const marcar = (campo: "alvo" | "texto" | "prazo" | null, mensagem: string) => {
+    setErro(mensagem);
+    setRuim(campo);
+    (campo === "texto" ? campoTexto.current : campo === "prazo" ? campoPrazo.current : primeiro.current)?.focus();
+  };
   const enviar = async (e: FormEvent) => {
     e.preventDefault();
     const prazoIso = prazo ? doCampoLocal(prazo) : null;
     const p = conferirPeticao(alvo, texto, prazoIso);
     if (p.alvo || p.texto || p.prazo) {
-      setErro(p.alvo === "dado_pessoal" || p.texto === "dado_pessoal" ? t.erros.dado_pessoal : p.prazo ? t.erros.data : t.erros.texto);
+      const campo = p.alvo ? "alvo" : p.texto ? "texto" : "prazo";
+      const dado = (campo === "alvo" ? p.alvo : p.texto) === "dado_pessoal";
+      marcar(campo, dado ? t.erros.dado_pessoal : campo === "prazo" ? t.erros.data : t.erros.texto);
       return;
     }
     setOcupado(true);
     setErro(null);
+    setRuim(null);
     try {
       await aoAbrir({ alvo: alvo.replace(/\s+/g, " ").trim(), texto: texto.trim(), prazo: prazoIso });
     } catch (e) {
-      setErro(codigoDoErro(e) === "generico" ? t.tela.erro : frase(t, e));
+      const c = codigoDoErro(e);
+      const campo = c === "data" ? "prazo" : c === "texto" || c === "dado_pessoal" ? (/alvo/.test(String((e as Error)?.message)) ? "alvo" : "texto") : null;
+      marcar(campo, c === "generico" ? t.tela.erro : frase(t, e));
     } finally {
       setOcupado(false);
     }
   };
+  const invalido = (campo: "alvo" | "texto" | "prazo") => (ruim === campo ? { "aria-invalid": true as const } : {});
   return (
     <form
       className="al-q-form"
@@ -218,21 +250,40 @@ function NovaPeticao({ t, aoFechar, aoAbrir }: { t: TextosDosAtos; aoFechar: () 
     >
       <label className="al-q-campo">
         <span>{t.peticao.alvo}</span>
-        <input ref={primeiro} className="al-ato-form-campo" value={alvo} onChange={(e) => setAlvo(e.target.value)} placeholder={t.peticao.alvoExemplo} maxLength={LIMITES_DO_ATO.alvoMax} autoComplete="off" />
+        <input
+          ref={primeiro}
+          className="al-ato-form-campo"
+          value={alvo}
+          onChange={(e) => setAlvo(e.target.value)}
+          placeholder={t.peticao.alvoExemplo}
+          maxLength={LIMITES_DO_ATO.alvoMax}
+          autoComplete="off"
+          {...invalido("alvo")}
+          aria-describedby={ruim === "alvo" ? idErro : undefined}
+        />
       </label>
       <label className="al-q-campo">
         <span>{t.peticao.texto}</span>
-        <textarea className="al-ato-form-campo al-ato-form-chamado" value={texto} onChange={(e) => setTexto(e.target.value)} placeholder={t.peticao.textoExemplo} maxLength={LIMITES_DO_ATO.peticaoMax} aria-describedby={`${id}-conta`} />
+        <textarea
+          ref={campoTexto}
+          className="al-ato-form-campo al-ato-form-chamado"
+          value={texto}
+          onChange={(e) => setTexto(e.target.value)}
+          placeholder={t.peticao.textoExemplo}
+          maxLength={LIMITES_DO_ATO.peticaoMax}
+          {...invalido("texto")}
+          aria-describedby={`${id}-conta${ruim === "texto" ? ` ${idErro}` : ""}`}
+        />
         <small id={`${id}-conta`} className="al-q-ajuda" aria-live="polite">
           {texto.length > LIMITES_DO_ATO.peticaoMax - 150 ? preencherAto(t.peticao.restam, { n: LIMITES_DO_ATO.peticaoMax - texto.length }) : ""}
         </small>
       </label>
       <label className="al-q-campo">
         <span>{t.peticao.prazoRotulo}</span>
-        <input className="al-ato-form-campo" type="datetime-local" value={prazo} onChange={(e) => setPrazo(e.target.value)} />
+        <input ref={campoPrazo} className="al-ato-form-campo" type="datetime-local" value={prazo} onChange={(e) => setPrazo(e.target.value)} {...invalido("prazo")} aria-describedby={ruim === "prazo" ? idErro : undefined} />
       </label>
       {erro ? (
-        <p role="alert" className="al-ato-erro">
+        <p id={idErro} role="alert" className="al-ato-erro">
           {erro}
         </p>
       ) : null}

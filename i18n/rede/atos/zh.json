@@ -259,7 +259,7 @@
   },
   "tarefas": {
     "titulo": "谁带什么",
-    "explica": "每个人自己选择带什么。只有组织者能看到谁认领了哪项。",
+    "explica": "每个人自己选择带什么。没有人能看到谁认领了任务，组织者也看不到。",
     "vazio": "这个行动还没有任务。",
     "vazioOrg": "添加行动需要的东西：音响、横幅、饮用水、急救包。",
     "eu": "我来带",
@@ -270,8 +270,6 @@
     "pedido": "需要 {n} 人",
     "pedidoUm": "需要 1 人",
     "assumidas": "{q} 人中已认领 {a} 人",
-    "quem": "认领的人（只有你能看到）：{nomes}",
-    "ninguem": "还没有人认领。",
     "item": "还缺什么",
     "itemExemplo": "例如：音响",
     "quantos": "需要几个人",
@@ -282,7 +280,11 @@
     "assumido": "已记下：由你来带{item}。",
     "desfeito": "好的：你不再带{item}。",
     "entrar": "登录 Alumia 才能认领任务。",
-    "rotulo": "{item}：{estado}"
+    "rotulo": "{item}：{estado}",
+    "poucas": "认领人数少于 3 人（满 3 人才显示人数）。",
+    "tirarPergunta": "从看板上移除“{item}”？认领的人不会收到通知。",
+    "tirarCerto": "确定移除",
+    "manter": "保留"
   },
   "caronas": {
     "titulo": "拼车和大巴",
@@ -324,12 +326,22 @@
     "tirar": "移除",
     "combinar": "通过聊天商量",
     "combinarAjuda": "与发布者开启一段加密的私密对话。其他人看不到。",
-    "combinarEmBreve": "拼车聊天即将推出。在此之前，请在行动讨论里商量，不要留联系方式。",
+    "combinarEmBreve": "拼车私聊即将上线。请不要在行动的公开讨论里约拼车：那里所有人都能看到谁和谁同行。",
     "publicada": "搭车信息已发布。",
     "tirada": "搭车信息已移除。",
     "entrar": "登录 Alumia 才能查看和提供搭车。",
     "limite": "你在这个行动里已经有 2 条搭车信息了。",
-    "dado": "请删除电话、邮箱或门牌号：只能通过聊天联系。"
+    "dado": "请删除电话、邮箱或门牌号：只能通过聊天联系。",
+    "lugares": "需要的座位",
+    "lugaresN": "需要 {n} 个座位",
+    "lugaresUm": "需要 1 个座位",
+    "lugaresSem": "座位待定",
+    "menosLugar": "少一个座位",
+    "maisLugar": "多一个座位",
+    "horaAjuda": "与这里显示的行动时间相同（{hora} 开始）。",
+    "tirarPergunta": "从看板上移除这条拼车？此操作无法撤销。",
+    "tirarCerto": "确定移除",
+    "manter": "保留"
   },
   "peticao": {
     "titulo": "联署请愿",

@@ -259,7 +259,7 @@
   },
   "tarefas": {
     "titulo": "Who brings what",
-    "explica": "Each person picks what to bring. Only the organizers see who took each task.",
+    "explica": "Each person picks what to bring. Nobody sees who took a task, not even the organizers.",
     "vazio": "No tasks for this action yet.",
     "vazioOrg": "Add what the action needs: sound system, banners, water, first aid.",
     "eu": "I'll bring it",
@@ -270,8 +270,6 @@
     "pedido": "we need {n}",
     "pedidoUm": "we need 1",
     "assumidas": "{a} of {q} taken",
-    "quem": "Who took it (only you see this): {nomes}",
-    "ninguem": "Nobody has taken it yet.",
     "item": "What's needed",
     "itemExemplo": "e.g. sound system",
     "quantos": "How many people",
@@ -282,7 +280,11 @@
     "assumido": "Noted: you're bringing {item}.",
     "desfeito": "Done: you're no longer bringing {item}.",
     "entrar": "Sign in to Alumia to take a task.",
-    "rotulo": "{item}: {estado}"
+    "rotulo": "{item}: {estado}",
+    "poucas": "Fewer than 3 people took it (the number shows from 3 on).",
+    "tirarPergunta": "Remove “{item}” from the board? Whoever took it won't be notified.",
+    "tirarCerto": "Remove it",
+    "manter": "Keep"
   },
   "caronas": {
     "titulo": "Rides and buses",
@@ -324,12 +326,22 @@
     "tirar": "Remove",
     "combinar": "Arrange in chat",
     "combinarAjuda": "Opens a private, encrypted conversation with whoever posted it. Nobody else sees it.",
-    "combinarEmBreve": "Ride chat is coming soon. Until then, arrange it in the action's conversation without sharing contact details.",
+    "combinarEmBreve": "Private ride chat is coming soon. Don't arrange rides in the action's public conversation: everyone there can see who rides with whom.",
     "publicada": "Ride published.",
     "tirada": "Ride removed.",
     "entrar": "Sign in to Alumia to see and offer rides.",
     "limite": "You already have 2 rides for this action.",
-    "dado": "Remove the phone, email or house number: contact happens only in chat."
+    "dado": "Remove the phone, email or house number: contact happens only in chat.",
+    "lugares": "Seats needed",
+    "lugaresN": "needs {n} seats",
+    "lugaresUm": "needs 1 seat",
+    "lugaresSem": "seats to be arranged",
+    "menosLugar": "One seat fewer",
+    "maisLugar": "One seat more",
+    "horaAjuda": "Use the same clock as the action shown here (it starts at {hora}).",
+    "tirarPergunta": "Remove this ride from the board? This can't be undone.",
+    "tirarCerto": "Remove it",
+    "manter": "Keep"
   },
   "peticao": {
     "titulo": "Petition",

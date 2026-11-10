@@ -259,7 +259,7 @@
   },
   "tarefas": {
     "titulo": "Quem leva o quê",
-    "explica": "Cada pessoa escolhe o que leva. Ninguém vê quem assumiu, só quem organiza.",
+    "explica": "Cada pessoa escolhe o que leva. Ninguém vê quem assumiu, nem quem organiza.",
     "vazio": "Ainda não há tarefas neste ato.",
     "vazioOrg": "Ponha o que o ato precisa: caixa de som, faixas, água, primeiros socorros.",
     "eu": "Eu levo",
@@ -270,8 +270,6 @@
     "pedido": "pedimos {n}",
     "pedidoUm": "pedimos 1",
     "assumidas": "{a} de {q} assumiram",
-    "quem": "Quem assumiu (só você vê): {nomes}",
-    "ninguem": "Ninguém assumiu ainda.",
     "item": "O que falta",
     "itemExemplo": "ex.: caixa de som",
     "quantos": "Quantas pessoas",
@@ -282,7 +280,11 @@
     "assumido": "Anotado: você leva {item}.",
     "desfeito": "Pronto: você não leva mais {item}.",
     "entrar": "Entre na Alumia para assumir uma tarefa.",
-    "rotulo": "{item}: {estado}"
+    "rotulo": "{item}: {estado}",
+    "poucas": "Menos de 3 pessoas assumiram (o número aparece a partir de 3).",
+    "tirarPergunta": "Tirar “{item}” do quadro? Quem tinha assumido não recebe aviso.",
+    "tirarCerto": "Tirar mesmo",
+    "manter": "Manter"
   },
   "caronas": {
     "titulo": "Caronas e ônibus",
@@ -324,12 +326,22 @@
     "tirar": "Tirar",
     "combinar": "Combinar pelo chat",
     "combinarAjuda": "Abre uma conversa privada e cifrada com quem publicou. Ninguém mais vê.",
-    "combinarEmBreve": "O chat das caronas chega em breve. Até lá, combine na conversa do ato sem pôr contato.",
+    "combinarEmBreve": "O chat privado das caronas chega em breve. Não combine carona na conversa pública do ato: lá todo mundo vê quem vai com quem.",
     "publicada": "Carona publicada.",
     "tirada": "Carona tirada.",
     "entrar": "Entre na Alumia para ver e oferecer caronas.",
     "limite": "Você já tem 2 caronas neste ato.",
-    "dado": "Tire o telefone, o e-mail ou o número da casa: o contato é só pelo chat."
+    "dado": "Tire o telefone, o e-mail ou o número da casa: o contato é só pelo chat.",
+    "lugares": "Lugares que precisa",
+    "lugaresN": "precisa de {n} lugares",
+    "lugaresUm": "precisa de 1 lugar",
+    "lugaresSem": "lugares a combinar",
+    "menosLugar": "Um lugar a menos",
+    "maisLugar": "Um lugar a mais",
+    "horaAjuda": "No mesmo horário em que o ato aparece aqui (começa às {hora}).",
+    "tirarPergunta": "Tirar esta carona do quadro? Não dá para desfazer.",
+    "tirarCerto": "Tirar mesmo",
+    "manter": "Manter"
   },
   "peticao": {
     "titulo": "Abaixo-assinado",

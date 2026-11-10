@@ -8,9 +8,10 @@ import { useAnuncio, useQuadro } from "./usarQuadro";
 import { codigoDoErro } from "@/lib/rede/atos/erros";
 import { combinarCarona, conversaDaCaronaPronta, ouvirConversaDaCarona } from "@/lib/rede/atos/combinar";
 import { conferirCarona } from "@/lib/rede/atos/quadros";
-import { diaEHora, hora } from "@/lib/rede/atos/tempo";
+import { diaEHora, hora, horaNoDiaDoAto } from "@/lib/rede/atos/tempo";
 import { atos as cliente } from "@/lib/rede/cliente-atos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
+import { useRecurso } from "@/lib/use-recursos-vivos";
 import { LIMITES_DO_ATO, MEIOS_DA_CARONA, type Ato, type CaronaDoAto, type MeioDaCarona, type TipoDeCarona } from "@/lib/rede/tipos-atos";
 import "./quadros.css";
 
@@ -32,40 +33,78 @@ function DesenhoDoMeio({ meio }: { meio: MeioDaCarona }) {
   );
 }
 
-/** A hora de saída: a hora escolhida no dia do ato; se passar do começo do ato, é a véspera (o servidor aceita até 24 h antes). */
-function saidaDoAto(inicio: string, hhmm: string): string | null {
-  if (!/^\d{2}:\d{2}$/.test(hhmm)) return null;
-  const d = new Date(inicio);
-  const [h, m] = hhmm.split(":").map(Number);
-  d.setHours(h, m, 0, 0);
-  if (d.getTime() > Date.parse(inicio)) d.setDate(d.getDate() - 1);
-  return d.toISOString();
-}
-
 /**
  * Caronas e ônibus para o ato (PLANO-ALUMIA §4.2): ofertas e pedidos com o meio, o ponto de saída PÚBLICO, a hora e as vagas.
  * Nunca quem publicou (o servidor não manda), nunca telefone nem endereço com número (o servidor recusa, e a tela avisa antes).
  * O contato é só pelo chat privado: "Combinar pelo chat" usa o encaixe da Faixa 2 (lib/rede/atos/combinar.ts). Só para quem
  * entrou na Alumia: a lista de caronas não é para a internet aberta.
+ *
+ * Enquanto a Faixa 2 não registra o chat das caronas, o quadro fica atrás de "alumia-proximas" (telas em construção): sem o chat,
+ * a única saída seria combinar em público, e a conversa do ato mostra a todo mundo quem vai com quem. A tela também avisa para não
+ * fazer isso. Quando o chat chega (registrarConversaDaCarona), o quadro aparece sozinho.
  */
 export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; lang: string; logado: boolean }) {
   const carregar = useCallback(() => cliente.caronas(ato.id), [ato.id]);
-  const { estado, trocar } = useQuadro<CaronaDoAto[]>(carregar, ato.id, logado);
+  const chatPronto = useSyncExternalStore(ouvirConversaDaCarona, conversaDaCaronaPronta, () => false);
+  const emConstrucao = useRecurso("alumia-proximas");
+  const mostrar = chatPronto || emConstrucao;
+  // Escondido, nem pergunta ao servidor.
+  const { estado, trocar } = useQuadro<CaronaDoAto[]>(carregar, ato.id, logado && mostrar);
   const [ocupado, setOcupado] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const [form, setForm] = useState<TipoDeCarona | null>(null);
   const [anuncio, anunciar] = useAnuncio();
-  const chatPronto = useSyncExternalStore(ouvirConversaDaCarona, conversaDaCaronaPronta, () => false);
+  const [confirmando, setConfirmando] = useState<string | null>(null);
   const idTitulo = useId();
   const idEmBreve = useId();
   const fechado = ato.situacao === "cancelado";
+  const titulo = useRef<HTMLHeadingElement>(null);
+  const corpo = useRef<HTMLDivElement>(null);
+  const acoes = useRef<HTMLDivElement>(null);
+  // O foco nunca cai no corpo da página: fechar o formulário volta ao botão que abriu; tirar uma carona vai à seguinte (ou ao título).
+  const voltarAoBotao = useRef<TipoDeCarona | null>(null);
+  const focarDepois = useRef<number | null>(null);
+  const voltarAoTirar = useRef<string | null>(null);
+  const lista = estado.fase === "pronto" ? estado.dados : [];
+  useEffect(() => {
+    if (form) return;
+    const de = voltarAoBotao.current;
+    if (!de) return;
+    voltarAoBotao.current = null;
+    (acoes.current?.querySelector<HTMLElement>(`[data-abre="${de}"]`) ?? titulo.current)?.focus();
+  }, [form]);
+  useEffect(() => {
+    const i = focarDepois.current;
+    if (i === null || estado.fase !== "pronto") return;
+    focarDepois.current = null;
+    const itens = corpo.current?.querySelectorAll<HTMLElement>("[data-foco-carona]");
+    (itens && itens.length ? itens[Math.min(i, itens.length - 1)] : titulo.current)?.focus();
+  }, [estado]);
+  useEffect(() => {
+    if (confirmando) {
+      corpo.current?.querySelector<HTMLElement>(`[data-confirma="${confirmando}"]`)?.focus();
+      return;
+    }
+    const id = voltarAoTirar.current;
+    if (!id) return;
+    voltarAoTirar.current = null;
+    corpo.current?.querySelector<HTMLElement>(`[data-tirar="${id}"]`)?.focus();
+  }, [confirmando]);
+  const fecharForm = () => {
+    voltarAoBotao.current = form;
+    setForm(null);
+  };
 
-  const agir = async (k: CaronaDoAto, f: () => Promise<CaronaDoAto[]>, frasePronta: string) => {
+  if (!mostrar) return null;
+
+  const agir = async (k: CaronaDoAto, f: () => Promise<CaronaDoAto[]>, frasePronta: string, depois?: () => void) => {
     if (ocupado) return;
     setOcupado(k.id);
     setErro(null);
     try {
-      trocar(await f());
+      const nova = await f();
+      depois?.();
+      trocar(nova);
       anunciar(frasePronta);
     } catch (e) {
       setErro(frase(t, e));
@@ -82,7 +121,6 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
     }
   };
 
-  const lista = estado.fase === "pronto" ? estado.dados : [];
   const grupos: { tipo: TipoDeCarona; titulo: string; vazio: string }[] = [
     { tipo: "oferta", titulo: t.caronas.ofertas, vazio: t.caronas.vazioOfertas },
     { tipo: "pedido", titulo: t.caronas.pedidos, vazio: t.caronas.vazioPedidos },
@@ -92,7 +130,7 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
   return (
     <section className="al-q al-q-caronas" aria-labelledby={idTitulo} aria-busy={estado.fase === "carregando" || undefined}>
       <header className="al-q-cabeca">
-        <h2 id={idTitulo} className="al-cond al-q-titulo">
+        <h2 id={idTitulo} ref={titulo} tabIndex={-1} className="al-cond al-q-titulo">
           {t.caronas.titulo}
         </h2>
         <p className="al-q-explica">{t.caronas.explica}</p>
@@ -105,7 +143,7 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
         </p>
       ) : null}
       {estado.fase === "pronto" ? (
-        <div className="al-q-colunas">
+        <div className="al-q-colunas" ref={corpo}>
           {grupos.map((g) => {
             const daqui = lista.filter((k) => k.tipo === g.tipo);
             return (
@@ -116,15 +154,33 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
                 ) : (
                   <ul className="al-q-caronas-lista" role="list">
                     {daqui.map((k, i) => {
-                      const vagas = k.vagas === null ? t.caronas.semVagas : k.vagas === 0 ? t.caronas.lotada : k.vagas === 1 ? t.caronas.vagasUma : preencherAto(t.caronas.vagasN, { n: k.vagas });
+                      // Na oferta, o número é de vagas (0 = lotada); no pedido, de lugares que a pessoa precisa (no mínimo 1).
+                      const pedido = k.tipo === "pedido";
+                      const vagas = pedido
+                        ? k.vagas === null
+                          ? t.caronas.lugaresSem
+                          : k.vagas <= 1
+                            ? t.caronas.lugaresUm
+                            : preencherAto(t.caronas.lugaresN, { n: k.vagas })
+                        : k.vagas === null
+                          ? t.caronas.semVagas
+                          : k.vagas === 0
+                            ? t.caronas.lotada
+                            : k.vagas === 1
+                              ? t.caronas.vagasUma
+                              : preencherAto(t.caronas.vagasN, { n: k.vagas });
+                      const minimo = pedido ? 1 : 0;
+                      const indice = lista.indexOf(k);
                       return (
-                        <li key={k.id} className="al-q-carona" data-lotada={k.vagas === 0 ? "sim" : undefined} data-minha={k.minha ? "sim" : undefined} style={{ ["--al-q-i" as string]: i }}>
+                        <li key={k.id} className="al-q-carona" data-lotada={!pedido && k.vagas === 0 ? "sim" : undefined} data-minha={k.minha ? "sim" : undefined} style={{ ["--al-q-i" as string]: i }}>
                           <span className="al-q-meio" title={t.caronas.meios[k.meio]}>
                             <DesenhoDoMeio meio={k.meio} />
                             <span className="sr-only">{t.caronas.meios[k.meio]}</span>
                           </span>
                           <div className="al-q-corpo">
-                            <p className="al-q-item">{k.saida}</p>
+                            <p className="al-q-item" tabIndex={-1} data-foco-carona="">
+                              {k.saida}
+                            </p>
                             <p className="al-q-linha">
                               <span aria-hidden>{t.caronas.meios[k.meio]} · </span>
                               {k.sai_em ? (
@@ -153,32 +209,78 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
                               </Botao>
                             ) : (
                               <>
+                                {/* Sem número (null) o "−" não tem de onde tirar: só o "+" começa a contar. */}
                                 <button
                                   type="button"
                                   className="al-q-passo"
-                                  aria-label={t.caronas.menos}
-                                  disabled={ocupado === k.id || k.vagas === 0}
-                                  onClick={() => void agir(k, () => cliente.caronaVagas(k.id, Math.max(0, (k.vagas ?? 1) - 1)), t.caronas.menos)}
+                                  aria-label={pedido ? t.caronas.menosLugar : t.caronas.menos}
+                                  disabled={ocupado === k.id || k.vagas === null || k.vagas <= minimo}
+                                  onClick={() => {
+                                    const n = k.vagas;
+                                    if (n !== null) void agir(k, () => cliente.caronaVagas(k.id, Math.max(minimo, n - 1)), pedido ? t.caronas.menosLugar : t.caronas.menos);
+                                  }}
                                 >
                                   <span aria-hidden>−</span>
                                 </button>
                                 <button
                                   type="button"
                                   className="al-q-passo"
-                                  aria-label={t.caronas.mais}
+                                  aria-label={pedido ? t.caronas.maisLugar : t.caronas.mais}
                                   disabled={ocupado === k.id || (k.vagas ?? 0) >= LIMITES_DO_ATO.vagasMax}
-                                  onClick={() => void agir(k, () => cliente.caronaVagas(k.id, (k.vagas ?? 0) + 1), t.caronas.mais)}
+                                  onClick={() => void agir(k, () => cliente.caronaVagas(k.id, Math.max(minimo, (k.vagas ?? 0) + 1)), pedido ? t.caronas.maisLugar : t.caronas.mais)}
                                 >
                                   <span aria-hidden>+</span>
                                 </button>
                               </>
                             )}
-                            {k.apagar ? (
-                              <Botao tamanho="p" variante="fantasma" disabled={ocupado === k.id} onClick={() => void agir(k, () => cliente.caronaApagar(k.id), t.caronas.tirada)}>
+                            {k.apagar && confirmando !== k.id ? (
+                              <Botao tamanho="p" variante="fantasma" data-tirar={k.id} disabled={ocupado === k.id} onClick={() => setConfirmando(k.id)}>
                                 {t.caronas.tirar}
                               </Botao>
                             ) : null}
                           </div>
+                          {k.apagar && confirmando === k.id ? (
+                            <div
+                              className="al-q-confirma"
+                              role="group"
+                              aria-label={t.caronas.tirar}
+                              onKeyDown={(e) => {
+                                if (e.key === "Escape" && !ocupado) {
+                                  e.preventDefault();
+                                  voltarAoTirar.current = k.id;
+                                  setConfirmando(null);
+                                }
+                              }}
+                            >
+                              <p className="al-q-confirma-texto">{t.caronas.tirarPergunta}</p>
+                              <Botao
+                                tamanho="p"
+                                variante="contorno"
+                                data-confirma={k.id}
+                                disabled={ocupado === k.id}
+                                aria-busy={ocupado === k.id || undefined}
+                                onClick={() =>
+                                  void agir(k, () => cliente.caronaApagar(k.id), t.caronas.tirada, () => {
+                                    focarDepois.current = indice;
+                                    setConfirmando(null);
+                                  })
+                                }
+                              >
+                                {t.caronas.tirarCerto}
+                              </Botao>
+                              <Botao
+                                tamanho="p"
+                                variante="fantasma"
+                                disabled={ocupado === k.id}
+                                onClick={() => {
+                                  voltarAoTirar.current = k.id;
+                                  setConfirmando(null);
+                                }}
+                              >
+                                {t.caronas.manter}
+                              </Botao>
+                            </div>
+                          ) : null}
                         </li>
                       );
                     })}
@@ -200,19 +302,20 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
             ato={ato}
             t={t}
             tipo={form}
-            aoFechar={() => setForm(null)}
+            lang={lang}
+            aoFechar={fecharForm}
             aoPublicar={async (p) => {
               trocar(await cliente.caronaCriar(ato.id, p));
               anunciar(t.caronas.publicada);
-              setForm(null);
+              fecharForm();
             }}
           />
         ) : minhas < 2 ? (
-          <div className="al-q-acoes">
-            <Botao variante="contorno" onClick={() => setForm("oferta")}>
+          <div className="al-q-acoes" ref={acoes}>
+            <Botao variante="contorno" data-abre="oferta" onClick={() => setForm("oferta")}>
               {t.caronas.oferecer}
             </Botao>
-            <Botao variante="contorno" onClick={() => setForm("pedido")}>
+            <Botao variante="contorno" data-abre="pedido" onClick={() => setForm("pedido")}>
               {t.caronas.pedir}
             </Botao>
           </div>
@@ -235,12 +338,14 @@ export function Caronas({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; 
 function NovaCarona({
   ato,
   t,
+  lang,
   tipo: tipoInicial,
   aoFechar,
   aoPublicar,
 }: {
   ato: Ato;
   t: TextosDosAtos;
+  lang: string;
   tipo: TipoDeCarona;
   aoFechar: () => void;
   aoPublicar: (p: { tipo: TipoDeCarona; meio: MeioDaCarona; saida: string; vagas: number | null; sai_em: string | null }) => Promise<void>;
@@ -269,9 +374,10 @@ function NovaCarona({
     setOcupado(true);
     setErro(null);
     try {
-      await aoPublicar({ tipo, meio, saida: saida.replace(/\s+/g, " ").trim(), vagas: n, sai_em: horaSaida ? saidaDoAto(ato.inicio, horaSaida) : null });
+      await aoPublicar({ tipo, meio, saida: saida.replace(/\s+/g, " ").trim(), vagas: n, sai_em: horaSaida ? horaNoDiaDoAto(ato.inicio, horaSaida) : null });
     } catch (e) {
-      setErro(codigoDoErro(e) === "dado_pessoal" ? t.caronas.dado : codigoDoErro(e) === "limite_do_quadro" ? t.caronas.limite : frase(t, e));
+      const cheio = String((e as Error)?.message ?? "").includes("caronas_do_ato");
+      setErro(codigoDoErro(e) === "dado_pessoal" ? t.caronas.dado : cheio ? t.erros.limite_do_quadro : codigoDoErro(e) === "limite_do_quadro" ? t.caronas.limite : frase(t, e));
     } finally {
       setOcupado(false);
     }
@@ -331,12 +437,15 @@ function NovaCarona({
       </label>
       <div className="al-q-form-linha">
         <label className="al-q-campo al-q-campo-numero">
-          <span>{t.caronas.vagas}</span>
+          <span>{tipo === "pedido" ? t.caronas.lugares : t.caronas.vagas}</span>
           <input className="al-ato-form-campo" type="number" inputMode="numeric" min={1} max={LIMITES_DO_ATO.vagasMax} value={vagas} onChange={(e) => setVagas(e.target.value)} />
         </label>
         <label className="al-q-campo">
           <span>{t.caronas.hora}</span>
-          <input className="al-ato-form-campo" type="time" value={horaSaida} onChange={(e) => setHoraSaida(e.target.value)} />
+          <input className="al-ato-form-campo" type="time" value={horaSaida} onChange={(e) => setHoraSaida(e.target.value)} aria-describedby={`${id}-hora`} />
+          <small id={`${id}-hora`} className="al-q-ajuda">
+            {preencherAto(t.caronas.horaAjuda, { hora: hora(ato.inicio, lang) })}
+          </small>
         </label>
       </div>
       {erro ? (
