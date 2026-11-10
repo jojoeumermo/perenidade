@@ -78,7 +78,7 @@ export function atosDeExemplo(agora: number = Date.now()): { ato: Ato; confirmad
         id: "0e1b6c1a-5d1f-4c3e-9a51-6f3a2b1c0d03",
         titulo: "Aula pública no vão do MASP",
         palavra: "AULA PUBLICA",
-        comunidade: { slug: "marxismo-aula-em-debate", nome: "Marxismo · aula em debate", cor: 4 },
+        comunidade: { slug: "marxismo", nome: "Marxismo · aula em debate", cor: 4 },
         chamado_por: "liaquilombo",
         // depois da Vigília: na prancha celular-modo-atos o "próximo ato" do Passe Livre é a Vigília adiada
         inicio: dia(12, 15),

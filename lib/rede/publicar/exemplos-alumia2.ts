@@ -27,7 +27,7 @@ export const COMUNIDADES_DE_EXEMPLO: Record<string, { nome: string; cor: CorDaCo
   "passe-livre-sp": { nome: "Passe Livre SP", cor: 1, posts_7d: 214 },
   "estudantes-ufpe": { nome: "Estudantes UFPE", cor: 2, posts_7d: 168 },
   "moradia-zona-leste": { nome: "Moradia Zona Leste", cor: 3, posts_7d: 121 },
-  "marxismo-aula": { nome: "Marxismo · aula em debate", cor: 4, posts_7d: 97 },
+  marxismo: { nome: "Marxismo · aula em debate", cor: 4, posts_7d: 97 },
   "cultura-hip-hop": { nome: "Cultura e hip-hop", cor: 5, posts_7d: 64 },
 };
 
@@ -110,7 +110,7 @@ export function postsDeExemplo(agora: number = Date.now()): Post[] {
     },
     {
       ...base("exemplo-lia", agora, 60),
-      comunidade: "marxismo-aula",
+      comunidade: "marxismo",
       texto:
         "Fiz a aula de mais-valia e fiquei pensando no meu turno de entrega: 9 horas na rua, e a taxa de cada corrida cai toda semana. Alguém já calculou quanto do valor da corrida fica com o app?",
       autor: { id: "exemplo-lia", codinome: "Lia Quilombo", handle: "liaquilombo", perfil: true, equipe: false },
