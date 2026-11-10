@@ -723,12 +723,25 @@ O banco inteiro continua num arquivo só, `supabase/install.sql`, **idempotente*
 | `20261109-escola-menos-metadados.sql` | Escola: menos metadados guardados (minimização, LGPD art. 6º, III) |
 | `20261109-fediverso-total.sql` | Alumia mesclada ao Fediverso (atrás de `fediverso-total`/`fediverso-grupos`): consentimento v2, o que sai, entrada de respostas, menções, curtidas, impulsos, Flag e Block, linha mista, circuito por domínio (`docs/plano-2026-11/PLANO-FEDIVERSO.md`) |
 | `20261109-alumia-f0-contrato.sql` | Alumia nova, fundação (F0): colunas de post para ato, prazo e "como" (identidade), denúncia e avisos ampliados, identidades (`interno.rede_identidades`) e o caminho `/alumia` nos e-mails (`docs/plano-2026-11/PLANO-ALUMIA.md`) |
+| `20261109-alumia-f1.sql` | Alumia F1: repostar e rascunhos no servidor (até 20 por pessoa, 30 dias, só a dona) |
+| `20261109-alumia-f2.sql` | Alumia F2: atos (situação confirmado/adiado/cancelado, "era", palavra do mosaico, proporção só a partir de 3, aviso só a quem confirmou) |
+| `20261109-alumia-f3.sql` | Alumia F3: reações com emoji de lista fechada (só totais, a partir de 3), "ajudou a autora", fixado pela moderação, posts da semana |
+| `20261109-alumia-f4.sql` | Alumia F4: organizações (conta extra, gestores sem vínculo visível), pedido e fila do selo, consultas com voto secreto, plenária em ordem de chegada |
+| `20261109-alumia-f5.sql` | Alumia F5: stories de 24 h, figurinhas, respostas só ao autor, depósito privado, faxina, nenhum registro de quem viu |
+| `20261110-alumia-stories-video.sql` | Alumia: stories com vídeo (até 60 s, comprimido no aparelho, depósito privado), destaques |
+| `20261110-alumia-perfil.sql` | Alumia: perfil livre (tema, capa, faixa, avatar em mosaico, campos, ordem das abas; só valores validados, nunca CSS/HTML) |
+| `20261110-alumia-atos.sql` | Alumia: Farol do ato e Corrente de solidariedade |
+| `20261110-alumia-comunidade.sql` | Alumia: comunidade e conversa (seguir conversa e hashtag, citar trecho) |
+| `20261110-alumia-onda5-fim.sql` | Alumia: fim da Onda 5 (`public.rede_alumia_versao()` = 2, para conferir de fora se o SQL da onda rodou) |
+| `20261109-cartao-publico.sql` | Cartão de educador com aprovação da coordenação (foto por `/api/educador-foto`) |
+| `20261109-gaveta-sem-conta.sql` | Gaveta Aberta: envio sem conta, por link, para a fila de aprovação |
+| `20261109-territorios-parceiros.sql` | Territórios: os coletivos parceiros postam as novidades do território |
 
 **Migrações datadas (`AAAAMMDD-*.sql`)**: a partir de 6/11/2026 cada migração nova tem a data no nome e vai inteira para o fim do `install.sql`; os testes que conferem a ordem do fim tiram essas primeiro (`scripts/install-posteriores.mjs`). Todas podem rodar mais de uma vez.
 
 **Para rodar no Supabase:** SQL Editor, colar o `install.sql` inteiro e executar (ou, só para a Rede, as dez migrações `rede-*` em ordem). **Antes de produção, rode num projeto Supabase de teste**: o banco local (PGlite) não cobre `auth.mfa_factors`, `auth.sessions`, `pg_cron` nem `pg_net`, e nenhuma das migrações novas foi provada num Supabase de verdade. Crie índice grande (GIN da busca e das hashtags da Rede) em horário calmo.
 
-**Funções do Supabase** (`supabase/functions/`: `assistente`, `avaliar-comunidade`, `enviar-emails`, `enviar-push`, `transcrever-audio`, `transcrever-podcast`, `youtube`): quem publica é a rotina `funcoes.yml`, só com a variável `FUNCOES=sim` e o segredo `SUPABASE_ACCESS_TOKEN`. Mudou o SQL que uma função chama? Publique a função de novo (a `avaliar-comunidade` precisa aceitar o tipo `rede` antes de ligar a avaliação externa; a `enviar-push` é nova).
+**Funções do Supabase** (`supabase/functions/`: `faxina-stories` (apaga do depósito os stories da Alumia com mais de 24 h; o pg_cron chama a cada 15 min), `assistente`, `avaliar-comunidade`, `enviar-emails`, `enviar-push`, `transcrever-audio`, `transcrever-podcast`, `youtube`): quem publica é a rotina `funcoes.yml`, só com a variável `FUNCOES=sim` e o segredo `SUPABASE_ACCESS_TOKEN`. Mudou o SQL que uma função chama? Publique a função de novo (a `avaliar-comunidade` precisa aceitar o tipo `rede` antes de ligar a avaliação externa; a `enviar-push` é nova).
 
 **Mudou uma regra do Mural de Saúde?** Edite `content/saude/regras.json` e rode `npm run mural:sincronizar` (ele regrava o bloco do `install.sql`); `npm run testar:mural` confere. As funções `interno.saude_conferir`, `interno.saude_categoria_ligada` e `interno.limite` são redefinidas pelos blocos `backend-1` e `backend-2`, que **ficam por último** de propósito: não mude a ordem.
 
@@ -751,6 +764,7 @@ Rotina que depende de segredo ou variável fica **pulada** (sem gastar minutos) 
 | `questoes.yml` | segunda 06h40: provas públicas novas | nada |
 | `links.yml` | segunda 09h: confere se as fontes citadas respondem | nada (falha manda e-mail) |
 | `espelho.yml` | dia 1 de cada mês: espelho estático das aulas e do acervo | opcionais `CLOUDFLARE_*`, `ESPELHO_PROJETO` |
+| `arquivar.yml` | semanal (quarta): manda até 150 páginas públicas para o Wayback Machine do Internet Archive (`scripts/arquivar-no-wayback.mjs`), português primeiro, pulando as que têm cópia recente | nenhum segredo |
 | `backup.yml` e `copia-do-banco.yml` | semanais: cópia cifrada do banco | `BACKUP_DB_URL` e `BACKUP_SENHA`, ou `SUPABASE_DB_URL` e `COPIA_SENHA`; **não rodam com o repositório público** |
 | `seguranca.yml` | quando o código muda e toda semana no histórico inteiro (gitleaks e dependências) | nada |
 
