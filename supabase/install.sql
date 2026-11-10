@@ -35166,3 +35166,352 @@ begin
 end $$;
 
 -- ═══════════════════════════ fim da Alumia · comunidade (seguir conversa e #tema) ═══════════════════════════
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+-- Gaveta Aberta sem conta (09/11/2026): qualquer pessoa envia por link; o envio cai na fila de aprovação do painel. O PDF
+-- no depósito continua pedindo conta. Quem enviou sem conta não recebe aviso (não há para quem avisar).
+
+alter table interno.gaveta alter column autor drop not null;
+
+create or replace function public.gaveta_enviar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid; v_id uuid; v_tipo text := coalesce(p ->> 'tipo', ''); v_licenca text := coalesce(nullif(p ->> 'licenca', ''), 'CC BY 4.0');
+  v_link text := btrim(coalesce(p ->> 'link', '')); v_arquivo text := btrim(coalesce(p ->> 'arquivo', '')); v_ano smallint;
+  v_titulo text; v_comentario text; v_curso text; v_instituicao text; v_credito text; v_termo_nome text; v_disciplina text;
+  v_exercicio uuid;
+begin
+  perform interno.aberta('gaveta');
+  -- Sem conta também se envia (09/11/2026), só por link: o PDF no depósito continua pedindo conta (a pasta é da pessoa).
+  -- Sem conta, o limite é por origem e menor; tudo cai na mesma fila de aprovação do painel.
+  if auth.uid() is null then
+    if btrim(coalesce(p ->> 'arquivo', '')) <> '' then perform interno.erro('entre_primeiro'); end if;
+    perform interno.limite('gaveta_sem_conta', 2, 1440);
+  else
+    v := interno.eu();
+    perform interno.limite('gaveta', 5, 1440);
+  end if;
+  if not coalesce((p ->> 'termo')::boolean, false) or coalesce(p ->> 'termo_versao', '') <> interno.gaveta_termo_versao() then perform interno.erro('falta_termo'); end if;
+  if v_tipo not in ('tcc', 'monografia', 'dissertacao', 'artigo', 'projeto', 'relatorio', 'apostila', 'codigo', 'apresentacao', 'outro') then perform interno.erro('invalido:tipo'); end if;
+  if v_licenca not in ('CC BY 4.0', 'CC BY-SA 4.0', 'CC0 1.0') then perform interno.erro('invalido:licenca'); end if;
+  v_disciplina := interno.disciplina_ok(p ->> 'disciplina');
+  if v_disciplina is null then perform interno.erro('invalido:disciplina'); end if;
+  v_titulo := interno.txt(p ->> 'titulo', 'titulo', 5, 160);
+  v_comentario := interno.txt(p ->> 'comentario', 'comentario', 40, 2000);
+  v_curso := interno.txt(p ->> 'curso', 'curso', 0, 120);
+  v_instituicao := interno.txt(p ->> 'instituicao', 'instituicao', 0, 160);
+  v_credito := interno.txt(p ->> 'credito', 'credito', 2, 120);
+  v_termo_nome := interno.txt(p ->> 'termo_nome', 'termo_nome', 5, 160);
+  if coalesce(p ->> 'ano', '') <> '' then
+    if (p ->> 'ano') !~ '^[0-9]{4}$' or (p ->> 'ano')::int < 1950 or (p ->> 'ano')::int > extract(year from now())::int then perform interno.erro('invalido:ano'); end if;
+    v_ano := (p ->> 'ano')::smallint;
+  end if;
+  if (v_link = '') = (v_arquivo = '') then perform interno.erro('invalido:arquivo'); end if;
+  if v_link <> '' and (v_link !~ '^https://[^[:space:]]+$' or char_length(v_link) > 500) then perform interno.erro('invalido:link'); end if;
+  -- O PDF tem de estar na pasta da própria pessoa; onde o depósito existe, confere que o arquivo chegou mesmo.
+  if v_arquivo <> '' then
+    if v_arquivo !~ ('^' || v::text || '/[0-9a-f-]{36}[.]pdf$') then perform interno.erro('invalido:arquivo'); end if;
+    if to_regclass('storage.objects') is not null then
+      if not exists (select 1 from storage.objects where bucket_id = 'gaveta' and name = v_arquivo) then perform interno.erro('invalido:arquivo'); end if;
+    end if;
+  end if;
+  if interno.vetado(v_titulo || ' ' || v_comentario || ' ' || v_curso || ' ' || v_instituicao || ' ' || v_credito) then perform interno.erro('conteudo_recusado'); end if;
+  -- Entrega de um exercício de prática: o exercício tem de existir, estar ativo e ser da mesma disciplina.
+  if coalesce(p ->> 'exercicio', '') <> '' then
+    if (p ->> 'exercicio') !~ '^[0-9a-f-]{36}$' then perform interno.erro('invalido:exercicio'); end if;
+    v_exercicio := (p ->> 'exercicio')::uuid;
+    if not exists (select 1 from exercicios_pratica where id = v_exercicio and ativo and disciplina = v_disciplina) then perform interno.erro('invalido:exercicio'); end if;
+  end if;
+  insert into gaveta (autor, titulo, tipo, disciplina, curso, instituicao, ano, comentario, link, arquivo, licenca, credito, termo_nome, termo_versao, exercicio)
+  values (v, v_titulo, v_tipo, v_disciplina, v_curso, v_instituicao, v_ano, v_comentario, v_link, v_arquivo, v_licenca, v_credito, v_termo_nome, interno.gaveta_termo_versao(), v_exercicio)
+  returning id into v_id;
+  if v_exercicio is not null then
+    perform interno.avisar(p2.usuario, 'Chegou uma entrega do exercício "' || left(x.titulo, 80) || '". Veja em Exercícios de prática.')
+    from exercicios_pratica x join papeis p2 on p2.papel in ('educacao', 'educacao_secundaria') and p2.disciplina = x.disciplina
+    where x.id = v_exercicio;
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.gaveta_decidir(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); g gaveta; v_nota text := interno.txt(p_nota, 'nota', 0, 1000); v_aprovar boolean := coalesce(p_aprovar, false);
+begin
+  if not interno.media() then perform interno.erro('sem_permissao'); end if;
+  select * into g from gaveta where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if g.status not in ('pendente', 'aprovado', 'recusado') then perform interno.erro('ja_decidida'); end if;
+  if not v_aprovar and char_length(v_nota) < 5 then perform interno.erro('invalido:nota'); end if;
+  update gaveta set status = case when v_aprovar then 'aprovado' else 'recusado' end, nota = v_nota, decidido_por = v, decidido_em = now() where id = p_id;
+  perform interno.registrar(case when v_aprovar then 'gaveta_aprovada' else 'gaveta_recusada' end, g.titulo);
+  if g.autor is not null then perform interno.avisar(g.autor, case when v_aprovar then 'Seu trabalho "' || left(g.titulo, 80) || '" foi publicado na Gaveta Aberta.'
+    else 'Seu trabalho "' || left(g.titulo, 80) || '" não foi publicado na Gaveta Aberta: ' || left(v_nota, 300) end); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+-- O cartão público do educador com aprovação (09/11/2026). No painel (Minha conta, Faixa de e-mail, "Visão pública"),
+-- o voluntário pede a foto, a biografia e as redes do cartão que aparece no fim das aulas; a coordenação aprova ou
+-- recusa com motivo. Só depois da aprovação o cartão muda. A foto vem já reduzida pelo navegador (WebP, até 150 KB),
+-- fica no banco e sai para o site por /api/educador-foto/<id>, com cache; a lista de educadores leva só o endereço.
+
+-- 1. A foto aprovada e os pedidos ─────────────────────────────────────────────────────────────────────────────────────────
+alter table interno.perfis add column if not exists foto_publica text not null default '';
+-- A bio e as redes APROVADAS do cartão ficam em colunas próprias: a bio do perfil (que a pessoa muda quando quiser, na
+-- Alumia e em Minha conta) não vai mais para o cartão sem passar pela coordenação. Quem ainda não pediu cartão novo
+-- continua com o que já estava no ar (a bio e as redes do perfil) até o primeiro pedido aprovado.
+alter table interno.perfis add column if not exists cartao_bio text check (cartao_bio is null or char_length(cartao_bio) <= 500);
+alter table interno.perfis add column if not exists cartao_curriculo jsonb check (cartao_curriculo is null or jsonb_typeof(cartao_curriculo) = 'object');
+do $$
+begin
+  if not exists (select 1 from pg_constraint where conname = 'perfis_foto_publica_formato') then
+    alter table interno.perfis add constraint perfis_foto_publica_formato
+      check (foto_publica = '' or (foto_publica ~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' and char_length(foto_publica) <= 210000));
+  end if;
+end $$;
+
+create table if not exists interno.cartao_publico_pedidos (
+  id uuid primary key default gen_random_uuid(),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  bio text not null default '' check (char_length(bio) <= 500),
+  curriculo jsonb not null default '{}'::jsonb check (jsonb_typeof(curriculo) = 'object'),
+  foto text not null default '' check (foto = '' or (foto ~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' and char_length(foto) <= 210000)),
+  tirar_foto boolean not null default false,
+  status text not null default 'pendente' check (status in ('pendente', 'aprovado', 'recusado', 'substituido')),
+  nota text not null default '' check (char_length(nota) <= 1000),
+  criado_em timestamptz not null default now(),
+  decidido_por uuid references interno.perfis (id) on delete set null,
+  decidido_em timestamptz
+);
+create index if not exists cartao_publico_pendentes on interno.cartao_publico_pedidos (criado_em) where status = 'pendente';
+alter table interno.cartao_publico_pedidos enable row level security;
+revoke all on interno.cartao_publico_pedidos from public;
+
+-- 2. As redes, conferidas como em perfil_curriculo ────────────────────────────────────────────────────────────────────────
+create or replace function interno.cartao_redes(p jsonb) returns jsonb language plpgsql immutable set search_path = interno, pg_temp as $$
+declare k text; u text; v_novo jsonb := '{}'::jsonb;
+begin
+  if jsonb_typeof(coalesce(p, '{}'::jsonb)) <> 'object' then perform interno.erro('invalido:curriculo'); end if;
+  foreach k in array array['portfolio', 'lattes', 'site', 'instagram', 'youtube', 'linkedin', 'github'] loop
+    u := btrim(coalesce(p ->> k, ''));
+    if u <> '' then
+      if char_length(u) > 300 or u !~ '^https://[^\s]{3,}$' then perform interno.erro('invalido:' || k); end if;
+      v_novo := v_novo || jsonb_build_object(k, u);
+    end if;
+  end loop;
+  u := btrim(coalesce(p ->> 'formacao', ''));
+  if u <> '' then v_novo := v_novo || jsonb_build_object('formacao', left(u, 160)); end if;
+  return v_novo;
+end $$;
+
+-- 3. Pedir, ver o próprio, a fila e decidir ───────────────────────────────────────────────────────────────────────────────
+/** O educador pede o cartão novo (foto opcional; "tirar_foto" volta ao cartão sem foto). O pedido anterior pendente é substituído. */
+create or replace function public.cartao_publico_pedir(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_foto text := btrim(coalesce(p ->> 'foto', '')); v_id uuid;
+begin
+  if not exists (select 1 from papeis where usuario = v and papel in ('educacao', 'educacao_secundaria')) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('cartao_publico', 10, 1440);
+  if v_foto <> '' and (v_foto !~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' or char_length(v_foto) > 210000) then perform interno.erro('invalido:foto'); end if;
+  update cartao_publico_pedidos set status = 'substituido' where usuario = v and status = 'pendente';
+  insert into cartao_publico_pedidos (usuario, bio, curriculo, foto, tirar_foto)
+  values (v, interno.txt(p ->> 'bio', 'bio', 0, 500), interno.cartao_redes(p -> 'curriculo'), v_foto, coalesce((p ->> 'tirar_foto')::boolean, false))
+  returning id into v_id;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** O cartão no ar e o último pedido da própria pessoa (com a nota da coordenação, se recusado). */
+create or replace function public.cartao_publico_meu() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); f perfis; c cartao_publico_pedidos;
+begin
+  select * into f from perfis where id = v;
+  select * into c from cartao_publico_pedidos where usuario = v and status <> 'substituido' order by criado_em desc limit 1;
+  return jsonb_build_object(
+    'no_ar', jsonb_build_object('bio', coalesce(f.cartao_bio, f.bio, ''), 'curriculo', coalesce(f.cartao_curriculo, f.curriculo, '{}'::jsonb), 'foto', f.foto_publica),
+    'pedido', case when c.id is null then null else jsonb_build_object('id', c.id, 'status', c.status, 'nota', c.nota, 'criado_em', c.criado_em,
+      'bio', c.bio, 'curriculo', c.curriculo, 'foto', c.foto, 'tirar_foto', c.tirar_foto) end);
+end $$;
+
+/** A fila da coordenação: os pedidos pendentes, com o nome de quem pediu e o cartão que está no ar hoje. */
+create or replace function public.cartao_publico_fila() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', c.id, 'nome', f.nome, 'criado_em', c.criado_em, 'bio', c.bio, 'curriculo', c.curriculo,
+      'foto', c.foto, 'tirar_foto', c.tirar_foto, 'bio_atual', coalesce(f.cartao_bio, f.bio, ''), 'foto_atual', f.foto_publica) order by c.criado_em)
+    from cartao_publico_pedidos c join perfis f on f.id = c.usuario where c.status = 'pendente'), '[]'::jsonb);
+end $$;
+
+/** Aprovar copia o pedido para o cartão no ar; recusar pede um motivo de pelo menos 5 letras. Quem pediu é avisado. */
+create or replace function public.cartao_publico_decidir(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c cartao_publico_pedidos; v_nota text := interno.txt(p_nota, 'nota', 0, 1000); v_aprovar boolean := coalesce(p_aprovar, false);
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  select * into c from cartao_publico_pedidos where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if c.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
+  if not v_aprovar and char_length(v_nota) < 5 then perform interno.erro('invalido:nota'); end if;
+  update cartao_publico_pedidos set status = case when v_aprovar then 'aprovado' else 'recusado' end, nota = v_nota, decidido_por = v, decidido_em = now() where id = p_id;
+  if v_aprovar then
+    update perfis set cartao_bio = c.bio, cartao_curriculo = c.curriculo,
+      foto_publica = case when c.tirar_foto then '' when c.foto <> '' then c.foto else foto_publica end
+    where id = c.usuario;
+  end if;
+  perform interno.registrar(case when v_aprovar then 'cartao_publico_aprovado' else 'cartao_publico_recusado' end, c.usuario::text);
+  perform interno.avisar(c.usuario, case when v_aprovar then 'Seu cartão de educador foi aprovado e já aparece no site.'
+    else 'Seu cartão de educador não foi aprovado: ' || left(v_nota, 300) end);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A foto aprovada de um educador (só de quem ensina e não está suspenso), para a rota /api/educador-foto/<id>. */
+create or replace function public.educador_foto(p_id uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select nullif(f.foto_publica, '') from perfis f
+  where f.id = p_id and not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('educacao', 'educacao_secundaria'))
+$$;
+
+/** A lista de educadores, agora com o endereço da foto aprovada (a foto em si vai pela rota, com cache). */
+create or replace function public.educadores() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'bio', coalesce(f.cartao_bio, f.bio), 'avatar', f.avatar,
+           'curriculo', coalesce(f.cartao_curriculo, f.curriculo, '{}'::jsonb),
+           'foto', case when f.foto_publica <> '' then '/api/educador-foto/' || f.id::text || '?v=' || substr(md5(f.foto_publica), 1, 8) else '' end,
+           'disciplinas', (select jsonb_agg(distinct p.disciplina) from papeis p where p.usuario = f.id and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina is not null))
+           order by f.nome), '[]'::jsonb)
+  from perfis f
+  where not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('educacao', 'educacao_secundaria'))
+$$;
+
+-- 4. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function interno.cartao_redes(jsonb) from public;
+revoke all on function public.cartao_publico_pedir(jsonb), public.cartao_publico_meu(), public.cartao_publico_fila(),
+  public.cartao_publico_decidir(uuid, boolean, text), public.educador_foto(uuid) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    grant execute on function public.cartao_publico_pedir(jsonb), public.cartao_publico_meu(), public.cartao_publico_fila(),
+      public.cartao_publico_decidir(uuid, boolean, text), public.educador_foto(uuid), public.educadores() to anon, authenticated, service_role;
+  end if;
+end $$;
+
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+-- Os parceiros nos seus territórios (09/11/2026). Os coletivos parceiros já têm o departamento de participação
+-- "parcerias"; aqui cada pessoa parceira fica ligada ao território do seu coletivo (o slug de content/territorios.json),
+-- e quem está ligado posta as novidades do território. As postagens aparecem na página do território e na seção
+-- "Dos territórios" do Jornal. Vão ao ar na hora (a coordenação confiou o vínculo) e a coordenação, ou quem postou,
+-- tira do ar com motivo; o filtro de palavras do site vale também aqui.
+
+-- 1. Quem é parceiro de qual território ──────────────────────────────────────────────────────────────────────────────────
+create table if not exists interno.territorio_parceiros (
+  territorio text not null check (territorio ~ '^[a-z0-9-]{2,60}$'),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  incluido_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  primary key (territorio, usuario)
+);
+alter table interno.territorio_parceiros enable row level security;
+revoke all on interno.territorio_parceiros from public;
+
+-- 2. As postagens ────────────────────────────────────────────────────────────────────────────────────────────────────────
+create table if not exists interno.territorio_posts (
+  id uuid primary key default gen_random_uuid(),
+  territorio text not null check (territorio ~ '^[a-z0-9-]{2,60}$'),
+  autor uuid references interno.perfis (id) on delete set null,
+  titulo text not null check (char_length(titulo) between 5 and 140),
+  texto text not null check (char_length(texto) between 20 and 4000),
+  link text not null default '' check (link = '' or (link ~ '^https://[^[:space:]]+$' and char_length(link) <= 500)),
+  criado_em timestamptz not null default now(),
+  oculto boolean not null default false,
+  oculto_por uuid references interno.perfis (id) on delete set null,
+  oculto_motivo text not null default '' check (char_length(oculto_motivo) <= 300)
+);
+create index if not exists territorio_posts_no_ar on interno.territorio_posts (territorio, criado_em desc) where not oculto;
+alter table interno.territorio_posts enable row level security;
+revoke all on interno.territorio_posts from public;
+
+create or replace function interno.territorio_post_json(x interno.territorio_posts) returns jsonb language sql stable as $$
+  select jsonb_build_object('id', x.id, 'territorio', x.territorio, 'titulo', x.titulo, 'texto', x.texto, 'link', x.link, 'criado_em', x.criado_em)
+$$;
+
+-- 3. Funções ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+/** Ligar (ou desligar, com p_ligar false) uma pessoa a um território. Só a coordenação. Ligar põe a pessoa em Parcerias. */
+create or replace function public.territorio_parceiro_definir(p_usuario uuid, p_territorio text, p_ligar boolean default true) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_territorio, '') !~ '^[a-z0-9-]{2,60}$' then perform interno.erro('invalido:territorio'); end if;
+  if not exists (select 1 from perfis where id = p_usuario) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_ligar, true) then
+    insert into territorio_parceiros (territorio, usuario, incluido_por) values (p_territorio, p_usuario, v) on conflict do nothing;
+    insert into departamento_membros (departamento, usuario, incluido_por) values ('parcerias', p_usuario, v) on conflict do nothing;
+    perform interno.avisar(p_usuario, 'Você agora posta as novidades do seu território no site. Abra a página do território para escrever.');
+  else
+    delete from territorio_parceiros where territorio = p_territorio and usuario = p_usuario;
+  end if;
+  perform interno.registrar(case when coalesce(p_ligar, true) then 'territorio_parceiro_ligado' else 'territorio_parceiro_desligado' end, p_usuario::text, jsonb_build_object('territorio', p_territorio));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Os vínculos (coordenação): quem posta em cada território. */
+create or replace function public.territorio_parceiros_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('territorio', t.territorio, 'usuario', t.usuario, 'nome', f.nome, 'criado_em', t.criado_em) order by t.territorio, f.nome)
+    from territorio_parceiros t join perfis f on f.id = t.usuario), '[]'::jsonb);
+end $$;
+
+/** Os territórios em que a própria pessoa posta (vazio para quem não é parceiro). */
+create or replace function public.territorio_meus() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  if v is null then return '[]'::jsonb; end if;
+  return coalesce((select jsonb_agg(territorio order by territorio) from territorio_parceiros where usuario = v), '[]'::jsonb);
+end $$;
+
+/** Postar uma novidade do território (só quem está ligado a ele). */
+create or replace function public.territorio_postar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_t text := coalesce(p ->> 'territorio', ''); v_titulo text; v_texto text; v_link text := btrim(coalesce(p ->> 'link', '')); v_id uuid;
+begin
+  if not exists (select 1 from territorio_parceiros where territorio = v_t and usuario = v) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('territorio_postar', 20, 1440);
+  v_titulo := interno.txt(p ->> 'titulo', 'titulo', 5, 140);
+  v_texto := interno.txt(p ->> 'texto', 'texto', 20, 4000);
+  if v_link <> '' and (v_link !~ '^https://[^[:space:]]+$' or char_length(v_link) > 500) then perform interno.erro('invalido:link'); end if;
+  if interno.vetado(v_titulo || ' ' || v_texto) then perform interno.erro('conteudo_recusado'); end if;
+  insert into territorio_posts (territorio, autor, titulo, texto, link) values (v_t, v, v_titulo, v_texto, v_link) returning id into v_id;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Tirar uma postagem do ar: a coordenação ou quem postou. */
+create or replace function public.territorio_post_ocultar(p_id uuid, p_motivo text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x territorio_posts;
+begin
+  select * into x from territorio_posts where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (interno.coord() or x.autor = v) then perform interno.erro('sem_permissao'); end if;
+  update territorio_posts set oculto = true, oculto_por = v, oculto_motivo = interno.txt(p_motivo, 'motivo', 0, 300) where id = p_id;
+  perform interno.registrar('territorio_post_oculto', x.territorio, jsonb_build_object('post', p_id));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** As postagens de um território (público). Quem é parceiro dele vê também o botão de tirar do ar (campo "minha"). */
+create or replace function public.territorio_posts(p_territorio text, p_limite integer default 20) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.territorio_post_json(x) || jsonb_build_object('minha', x.autor is not null and x.autor = auth.uid()) order by x.criado_em desc), '[]'::jsonb)
+  from (select * from territorio_posts where territorio = p_territorio and not oculto order by criado_em desc limit least(greatest(coalesce(p_limite, 20), 1), 50)) x
+$$;
+
+/** As últimas postagens de todos os territórios, para a seção "Dos territórios" do Jornal (público). */
+create or replace function public.territorio_posts_recentes(p_limite integer default 6) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.territorio_post_json(x) order by x.criado_em desc), '[]'::jsonb)
+  from (select * from territorio_posts where not oculto order by criado_em desc limit least(greatest(coalesce(p_limite, 6), 1), 24)) x
+$$;
+
+-- 4. Permissões ──────────────────────────────────────────────────────────────────────────────────────────────────────────
+revoke all on function interno.territorio_post_json(interno.territorio_posts) from public;
+revoke all on function public.territorio_parceiro_definir(uuid, text, boolean), public.territorio_parceiros_listar(), public.territorio_meus(),
+  public.territorio_postar(jsonb), public.territorio_post_ocultar(uuid, text), public.territorio_posts(text, integer), public.territorio_posts_recentes(integer) from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then
+    grant execute on function public.territorio_parceiro_definir(uuid, text, boolean), public.territorio_parceiros_listar(), public.territorio_meus(),
+      public.territorio_postar(jsonb), public.territorio_post_ocultar(uuid, text), public.territorio_posts(text, integer), public.territorio_posts_recentes(integer)
+      to anon, authenticated, service_role;
+  end if;
+end $$;

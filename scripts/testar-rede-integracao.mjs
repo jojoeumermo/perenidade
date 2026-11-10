@@ -193,9 +193,9 @@ await espera("a vitrine diz a regra da ordem, tem busca, filtro e seções recol
   const textos = IDIOMAS_DA_REDE.map((l) => JSON.parse(lerTexto(`i18n/rede/comunidades/${l}.json`)).lista);
   return [/l\.regraOrdem/.test(f), /type="search"/.test(f), /<details/.test(f), !/entrePrimeiro/.test(f), textos.every((t) => ["regraOrdem", "buscar", "semana", "semanaPoucas", "conviteTitulo", "verRegras"].every((k) => typeof t[k] === "string") && ["aberta", "restrita", "fechada"].every((k) => typeof t.tipoCurto?.[k] === "string"))];
 }, (r) => r.every(Boolean));
-await espera("o convite ao apoio não abre na Alumia nem na primeira página da visita; o X lembra 30 dias", async () => {
+await espera("o convite ao apoio não abre na Alumia, abre já na primeira página (09/11/2026); o X lembra 30 dias", async () => {
   const f = lerTexto("components/OpeningNotice.tsx");
-  return [/naAlumia/.test(f) && /alumia\(/.test(f) && /hostDaAlumia\(window\.location\.host\)/.test(f), /esperaOutraPagina = notice === CONVITE && pathname === chegada/.test(f), /TRINTA_DIAS = 30 \* 24 \* 3600 \* 1000/.test(f)];
+  return [/naAlumia/.test(f) && /alumia\(/.test(f) && /hostDaAlumia\(window\.location\.host\)/.test(f), !/esperaOutraPagina/.test(f), /TRINTA_DIAS = 30 \* 24 \* 3600 \* 1000/.test(f)];
 }, (r) => r.every(Boolean));
 await espera("os idiomas da Alumia são links com hreflang (e o atual marcado)", async () => {
   const f = lerTexto("components/rede/Casca.tsx");

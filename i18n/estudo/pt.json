@@ -714,5 +714,11 @@
       "feitas": "Provas e simulados feitos",
       "linhaProva": "{titulo} ({data}): {a} de {b}"
     }
+  },
+  "fimDaAula": {
+    "titulo": "Para depois da aula",
+    "compartilhar": "Compartilhar e guardar",
+    "estudar": "Estudar mais",
+    "melhorar": "Ajudar a melhorar a aula"
   }
 }

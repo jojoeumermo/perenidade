@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
+import { NoticiasDoTerritorio } from "@/components/territorios/NoticiasDoTerritorio";
 import Image from "next/image";
 import Link from "@/components/Link";
 import { notFound } from "next/navigation";
@@ -246,7 +247,9 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
             )}
           </section>
         )}
-        {territorio.credito && <p className="pb-8 font-sans text-xs text-ink-soft">{territorio.credito}</p>}
+        {/* As novidades postadas pelo próprio coletivo (supabase/migracoes/20261109-territorios-parceiros.sql). */}
+        <NoticiasDoTerritorio slug={territorio.slug} />
+        {territorio.credito && <p className="pb-8 pt-8 font-sans text-xs text-ink-soft">{territorio.credito}</p>}
       </div>
 
       {/* O convite: o próximo território pode ser o seu. */}

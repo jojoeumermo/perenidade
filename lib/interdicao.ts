@@ -31,7 +31,7 @@ export type AreaPublica = (typeof areasPublicas)[number]["id"];
 
 /** O que o expurgo pode limpar: só o que o público escreve (igual a interno.areas_expurgo). */
 export const areasDeExpurgo = [
-  { id: "comunidade", nome: "Comunidade: conversas, respostas e votos" },
+  { id: "comunidade", nome: "Alumia: conversas, respostas e votos" },
   { id: "mural", nome: "Mural dos Trabalhadores: anúncios" },
   { id: "anotacoes", nome: "Anotações públicas das aulas" },
   { id: "reforco", nome: "Pedidos de reforço não concluídos" },

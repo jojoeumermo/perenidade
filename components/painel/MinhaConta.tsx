@@ -13,6 +13,7 @@ import { ArrowRight, Check, ChevronDown, ChevronRight, Circle, Download, EyeOff,
 import { Aviso, dataHora, oQueFaz, papeis, textoDoErro, useAcao, useLista } from "./comum";
 import { IdiomaDoPainel } from "./Idioma";
 import { minutosOcioso, OPCOES_OCIOSO } from "./ocioso";
+import { FilaDeCartoes, VisaoPublica } from "./CartaoPublico";
 import { FaixaDeEmail } from "./FaixaDeEmail";
 import { CuidadoNaConta } from "./Cuidado";
 import { Oficios } from "./Biblioteca";
@@ -108,7 +109,13 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
           <div className="grid gap-6">
             {aba === "perfil" && <Perfil me={me} recarregar={recarregar} curriculo={curriculo} />}
             {aba === "perfil" && me.papeis.length > 0 && <Oficios />}
-            {aba === "assinatura" && <FaixaDeEmail me={me} />}
+            {aba === "assinatura" && (
+              <>
+                <FaixaDeEmail me={me} />
+                <VisaoPublica me={me} />
+                <FilaDeCartoes me={me} />
+              </>
+            )}
             {aba === "seguranca" && <SegurancaDaConta me={me} protecao={p ?? null} recarregar={recarregarTudo} />}
             {aba === "privacidade" && <Privacidade me={me} recarregar={recarregar} sair={sair} avisosETrava={avisosETrava} />}
             {aba === "aparelhos" && <AparelhosDaConta dias={p?.sessao_dias ?? 60} />}

@@ -2,6 +2,8 @@
   "_rascunho": true,
   "indice": {
     "grupo": "Páginas",
+    "todos": "Todo",
+    "verTodos": "Ver todos ({n})",
     "contexto": "Escuela Revolucionaria Lúcia Maria",
     "entrada": "Escuela Revolucionaria Lúcia Maria",
     "entradaTexto": "Escuela popular y gratuita, para quien tiene cuenta en el sitio: camino, grupo y registro de lo que estudiaste.",

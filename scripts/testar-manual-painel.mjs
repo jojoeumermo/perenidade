@@ -36,7 +36,7 @@ for (const e of ESPACOS) conferir(`espaço "${e.nome}" no manual`, md.includes(`
 
 // 3. Seções citadas existem no registro do painel.
 const nomesDoRegistro = [...painel.matchAll(/\{ id: "[a-z-]+", nome: (?:cuidaDaSaude \? )?"([^"]+)"/g)].map((m) => m[1]);
-for (const s of ["Fila de revisão", "Triagem", "Comunidade", "Rede: propostas de comunidade", "Vale o Escrito: curadoria", "Disciplinas e trilhas", "Controles do site", "Estado técnico", "Erros relatados", "Segurança e sucessão", "Interdição e expurgo", "Registro de atividades", "Termos assinados", "Departamentos", "Avisos à equipe", "Pesquisa dos 12 eixos", "Voluntários e convites", "Mural dos Trabalhadores", "Gaveta Aberta", "Aula de reforço"]) {
+for (const s of ["Fila de revisão", "Triagem", "Alumia", "Rede: propostas de comunidade", "Vale o Escrito: curadoria", "Disciplinas e trilhas", "Controles do site", "Estado técnico", "Erros relatados", "Segurança e sucessão", "Interdição e expurgo", "Registro de atividades", "Termos assinados", "Departamentos", "Avisos à equipe", "Pesquisa dos 12 eixos", "Voluntários e convites", "Mural dos Trabalhadores", "Gaveta Aberta", "Aula de reforço"]) {
   conferir(`seção "${s}" existe no painel`, nomesDoRegistro.includes(s), s);
   conferir(`seção "${s}" aparece no manual`, md.includes(s), s);
 }

@@ -110,7 +110,7 @@ conferir("nada some: todo recado está num grupo", grupos.reduce((n, g) => n + g
 const seguranca = ler("components", "painel", "Seguranca.tsx");
 conferir("Recados com naMesa: sem título próprio, em grupos, marcar tudo como lido", seguranca.includes("naMesa = false") && seguranca.includes("function RecadosNaMesa") && seguranca.includes("agruparRecados(dados)") && /RecadosNaMesa[\s\S]*Marcar tudo como lido/.test(seguranca));
 conferir("a Mesa pede os recados com naMesa", ler("components", "painel", "casca", "Dentro.tsx").includes("<Recados recarregar={recarregar} naMesa />"));
-conferir("a Mesa leva recados para a lateral direita só quando cabe", tela.includes("LARGURA_DA_LATERAL") && tela.includes("ResizeObserver") && tela.includes('className="pn-mesa-lateral"') && tela.includes('.filter((p) => p !== "recados")'));
+conferir("a Mesa leva recados para a lateral direita só quando cabe", tela.includes("LARGURA_DA_LATERAL") && tela.includes("ResizeObserver") && tela.includes('className="pn-mesa-lateral"') && tela.includes('.filter((p) => p !== "recados" && p !== "atalhos")'));
 const temaDoPainel = ler("styles", "painel-tema.css");
 conferir("o tema tem a grade da Mesa com lateral", /\.pn-mesa-grade\s*\{[^}]*grid-template-columns/.test(temaDoPainel) && temaDoPainel.includes(".pn-mesa-lateral"));
 conferir("migração dos recados com a categoria", ler("supabase", "migracoes", "20261106-painel-recados.sql").includes("'categoria', a.categoria") && /avisos_meus\(\)[^$]*\$\$\s*select[^\n]*'categoria', a\.categoria/.test(ler("supabase", "install.sql")));

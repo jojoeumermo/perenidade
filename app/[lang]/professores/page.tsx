@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/Markdown";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -46,9 +46,9 @@ export default async function Page({ params }: PageProps<"/[lang]/professores">)
   const { abertura, secoes } = secoesDoGuia(guia.corpo);
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <PageHeading eyebrow={s.professores.olho} title={guia.titulo}>
+      <Cartaz eyebrow={s.professores.olho} title={guia.titulo} tone="preto">
         {guia.resumo}
-      </PageHeading>
+      </Cartaz>
       {/* O guia e os planos são escritos em português; nos outros idiomas aparecem assim, com o aviso. */}
       <Untranslated lang={lang} t={t} show={lang !== "pt"} />
       <nav aria-label={s.professores.atalhos} className="mt-8 flex flex-wrap gap-3 font-sans text-sm">

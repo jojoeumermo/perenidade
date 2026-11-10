@@ -12,7 +12,7 @@ const CORES_DOS_DEGRAUS = ["#F2C94C", "#E8604C", "#EA7A24"];
 /**
  * A porta vermelha da Escola (prancha Porta): o que a Escola é, como entrar em 4 passos e os 3 degraus. É o que todo
  * mundo que NÃO é militante vê em /escola (e em qualquer página fechada da Escola). Não tem nada de militante: só texto
- * público. "Já sou militante: entrar" leva a /entrar e volta para cá; quem já entrou e ainda não é militante vê o aviso
+ * público. "Já sou militante: entrar" leva ao entrar da própria Escola (/escola/entrar) e volta para cá; quem já entrou e ainda não é militante vê o aviso
  * de que a inscrição está com a coordenação.
  */
 export function PortaVermelha({ lang, t, situacao, aoTentar }: { lang: Locale; t: TextosDaFormacaoBase["porta"]; situacao: SituacaoNaPorta; aoTentar?: () => void }) {
@@ -28,7 +28,7 @@ export function PortaVermelha({ lang, t, situacao, aoTentar }: { lang: Locale; t
         </span>
         <span className="ef-porta-escola">{t.escola}</span>
         {situacao === "sem-conta" && (
-          <Link href={localePath(lang, "/entrar?volta=/escola")} className="ef-porta-entrar" data-porta-entrar="">
+          <Link href={localePath(lang, "/escola/entrar?volta=/escola")} className="ef-porta-entrar" data-porta-entrar="">
             {t.entrar}
           </Link>
         )}

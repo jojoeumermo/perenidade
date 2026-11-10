@@ -19,14 +19,15 @@ igual("só o idioma vai para a Escola", rotaNaEscola("/en"), { tipo: "redirecion
 igual("a Escola segue", rotaNaEscola("/pt/escola/nucleo"), { tipo: "seguir" });
 igual("a Escola sem idioma ganha o pt", rotaNaEscola("/escola/nucleo"), { tipo: "redirecionar", destino: "/pt/escola/nucleo" });
 igual("entrar abre no host da Escola", rotaNaEscola("/pt/entrar"), { tipo: "seguir" });
-igual("o manifesto (aberto) volta ao site", rotaNaEscola("/pt/escola/manifesto"), { tipo: "site", destino: "/pt/escola/manifesto" });
+igual("o manifesto abre na Escola", rotaNaEscola("/pt/escola/manifesto"), { tipo: "seguir" });
+igual("o entrar da Escola abre na Escola", rotaNaEscola("/pt/escola/entrar"), { tipo: "seguir" });
 igual("o resto do site volta ao site", rotaNaEscola("/pt/trilhas/x"), { tipo: "site", destino: "/pt/trilhas/x" });
 igual("o painel volta ao site", rotaNaEscola("/painel"), { tipo: "site", destino: "/pt/painel" });
 
 igual("sem a variável, o site não manda para lá", caminhoDoSiteParaEscola("/pt/escola", "", ""), null);
 igual("com a variável, a Escola vai para lá", caminhoDoSiteParaEscola("/pt/escola/nucleo", "?a=1", BASE), `${BASE}/pt/escola/nucleo?a=1`);
-igual("o chamado de militantes fica no site", caminhoDoSiteParaEscola("/pt/escola/militantes", "", BASE), null);
-igual("o manifesto fica no site", caminhoDoSiteParaEscola("/pt/escola/manifesto", "", BASE), null);
+igual("o chamado de militantes vai para a Escola", caminhoDoSiteParaEscola("/pt/escola/militantes", "", BASE), `${BASE}/pt/escola/militantes`);
+igual("o manifesto vai para a Escola", caminhoDoSiteParaEscola("/pt/escola/manifesto", "", BASE), `${BASE}/pt/escola/manifesto`);
 igual("outra página fica no site", caminhoDoSiteParaEscola("/pt/escolas", "", BASE), null);
 
 igual("o site visto da Escola", siteVistoDaEscola("https:", "escola.institutolucia.org", new URL("https://x.org")).href, "https://institutolucia.org/");
