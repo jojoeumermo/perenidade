@@ -4,7 +4,9 @@
 import { useEffect, useRef, useState } from "react";
 import { CampoDeQuando } from "../../ui/CampoDeQuando";
 import { preencher } from "@/lib/rede/preencher";
-import { LIMITES_PUBLICAR } from "@/lib/rede/tipos-publicar";
+import { redePub } from "@/lib/rede/cliente-publicar";
+import { chaveDoAviso, LIMITE_DO_AVISO, SUGESTOES_DE_AVISO, VEZES_DA_REPETICAO } from "@/lib/rede/publicar/b1";
+import { LIMITES_PUBLICAR, type MeuAto } from "@/lib/rede/tipos-publicar";
 import { BorrarRostos } from "../BorrarRostos";
 import { Agendados, Gravador, type PubDoEscrever } from "../ExtrasDoEscrever";
 import type { TextosAlumia2 } from "./textos";
@@ -27,6 +29,7 @@ export function AnexosDoEscrever({
   maximo,
   enquete,
   aoEnquete,
+  semAgenda = false,
 }: {
   pub: PubDoEscrever;
   t: TextosAlumia2;
@@ -37,8 +40,32 @@ export function AnexosDoEscrever({
   /** A enquete é um tipo do compositor: o ícone liga e desliga o tipo. */
   enquete: boolean;
   aoEnquete?: (ligar: boolean) => void;
+  /** Sem "mais tarde" (o ato, que sai na hora). */
+  semAgenda?: boolean;
 }) {
   const tp = pub.t;
+  const [avisoAberto, setAvisoAberto] = useState(Boolean(pub.aviso));
+  const comAviso = avisoAberto || Boolean(pub.aviso);
+  const cartaoAviso = useRef<HTMLDivElement>(null);
+  const iconeAviso = useRef<HTMLButtonElement>(null);
+  const [escolhendoAto, setEscolhendoAto] = useState(false);
+  const [meusAtos, setMeusAtos] = useState<MeuAto[] | null>(null);
+  const atoEscolhido = meusAtos?.find((a) => a.id === pub.aposAto) ?? null;
+  const carregarAtos = () => {
+    if (meusAtos) return;
+    redePub.meusAtos().then(
+      (l) => setMeusAtos(Array.isArray(l) ? l : []),
+      () => setMeusAtos([]),
+    );
+  };
+  // O cartão do aviso abre com o foco no campo; fecha devolvendo o foco ao ícone CW.
+  const avisoAntes = useRef(comAviso);
+  useEffect(() => {
+    const antes = avisoAntes.current;
+    avisoAntes.current = comAviso;
+    if (!antes && comAviso) window.setTimeout(() => cartaoAviso.current?.querySelector<HTMLElement>("input")?.focus(), 30);
+    else if (antes && !comAviso && (document.activeElement === document.body || !document.activeElement?.isConnected)) iconeAviso.current?.focus();
+  }, [comAviso]);
   const entrada = useRef<HTMLInputElement>(null);
   const [erroImagem, setErroImagem] = useState("");
   const [borrando, setBorrando] = useState<string | null>(null);
@@ -132,11 +159,75 @@ export function AnexosDoEscrever({
               {tp.enquete.multipla}
             </label>
           </div>
+          {/* Enquete avançada (B1): resultado só no fim e ordem embaralhada; o voto já é único e não se troca. */}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            <label className="al2-opcao-b1">
+              <input type="checkbox" className="al2-caixinha" checked={pub.soNoFim} onChange={(e) => pub.setSoNoFim(e.target.checked)} aria-describedby="al2-so-no-fim-ajuda" />
+              <span className="min-w-0">
+                <span className="block font-bold">{t.b1.soNoFim}</span>
+                <span id="al2-so-no-fim-ajuda" className="block text-xs text-[var(--al-texto-3)]">{t.b1.soNoFimAjuda}</span>
+              </span>
+            </label>
+            <label className="al2-opcao-b1">
+              <input type="checkbox" className="al2-caixinha" checked={pub.embaralhar} onChange={(e) => pub.setEmbaralhar(e.target.checked)} aria-describedby="al2-embaralhar-ajuda" />
+              <span className="min-w-0">
+                <span className="block font-bold">{t.b1.embaralhar}</span>
+                <span id="al2-embaralhar-ajuda" className="block text-xs text-[var(--al-texto-3)]">{t.b1.embaralharAjuda}</span>
+              </span>
+            </label>
+          </div>
           <p className="al2-nota mt-2">
             <Icone nome="cadeado" className="h-4 w-4" />
             {tp.enquete.secreto}
           </p>
         </fieldset>
+      )}
+
+      {/* Aviso de conteúdo (CW): o que quem lê vê antes do texto; as imagens ficam cobertas até a pessoa tocar. */}
+      {comAviso && (
+        <div ref={cartaoAviso} className="al2-anexo al2-anexo-aviso">
+          <div className="flex items-center gap-2">
+            <Icone nome="alerta" className="h-5 w-5 shrink-0 text-[var(--al-dourado)]" />
+            <label htmlFor="al2-aviso-campo" className="min-w-0 flex-1 text-sm font-bold">
+              {t.b1.aviso}
+            </label>
+            <button
+              type="button"
+              className="al2-acao"
+              aria-label={t.b1.avisoTirar}
+              title={t.b1.avisoTirar}
+              onClick={() => {
+                pub.setAviso("");
+                setAvisoAberto(false);
+              }}
+            >
+              <Icone nome="fechar" className="h-4 w-4" />
+            </button>
+          </div>
+          <input
+            id="al2-aviso-campo"
+            className="al2-campo mt-2 min-h-11"
+            placeholder={t.b1.avisoCampo}
+            maxLength={LIMITE_DO_AVISO}
+            value={pub.aviso}
+            aria-describedby="al2-aviso-ajuda"
+            onChange={(e) => pub.setAviso(e.target.value)}
+          />
+          <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label={t.b1.aviso}>
+            {SUGESTOES_DE_AVISO.map((k) => {
+              const texto = t.b1.sugestoes[k];
+              const escolhida = chaveDoAviso(pub.aviso) === chaveDoAviso(texto);
+              return (
+                <button key={k} type="button" className="al2-chip" aria-pressed={escolhida} onClick={() => pub.setAviso(escolhida ? "" : texto)}>
+                  {texto}
+                </button>
+              );
+            })}
+          </div>
+          <p id="al2-aviso-ajuda" className="mt-2 text-xs text-[var(--al-texto-3)]">
+            {t.b1.avisoAjuda}
+          </p>
+        </div>
       )}
 
       {/* Imagens: miniaturas com a descrição logo embaixo (o lembrete de alt é suave, não bloqueia). */}
@@ -160,13 +251,36 @@ export function AnexosDoEscrever({
               </div>
               <label className="mt-1.5 block">
                 <span className="sr-only">{tp.imagens.alt}</span>
-                <input className={`al2-alt ${i.alt.trim() ? "" : "al2-alt-falta"}`} placeholder={tp.imagens.altDica} value={i.alt} maxLength={LIMITES_PUBLICAR.textoAlt} onChange={(e) => pub.mudarAlt(i.id, e.target.value)} />
+                <input id={`al2-alt-${i.id}`} className={`al2-alt ${i.alt.trim() ? "" : "al2-alt-falta"}`} placeholder={tp.imagens.altDica} value={i.alt} maxLength={LIMITES_PUBLICAR.textoAlt} onChange={(e) => pub.mudarAlt(i.id, e.target.value)} />
               </label>
+              {/* Começos prontos (sem IA: a imagem não sai do aparelho para "adivinhar" o que mostra). Tocar põe o começo e leva o foco ao campo. */}
+              {!i.alt.trim() && (
+                <div className="mt-1 flex flex-wrap gap-1" role="group" aria-label={t.b1.altComecos}>
+                  {(Object.keys(t.b1.altInicios) as (keyof typeof t.b1.altInicios)[]).map((k) => (
+                    <button
+                      key={k}
+                      type="button"
+                      className="al2-chip al2-chip-p"
+                      onClick={() => {
+                        pub.mudarAlt(i.id, t.b1.altInicios[k]);
+                        window.setTimeout(() => {
+                          const campo = document.getElementById(`al2-alt-${i.id}`) as HTMLInputElement | null;
+                          campo?.focus();
+                          campo?.setSelectionRange(campo.value.length, campo.value.length);
+                        }, 0);
+                      }}
+                    >
+                      {t.b1.altInicios[k].trim().replace(/[:\s]+$/, "")}…
+                    </button>
+                  ))}
+                </div>
+              )}
             </li>
           ))}
         </ul>
       )}
       {pub.imagens.length > 0 && <p className="al2-nota">{pub.imagens.some((i) => !i.alt.trim()) ? tp.imagens.altFalta : tp.imagens.limpa}</p>}
+      {pub.imagens.some((i) => !i.alt.trim()) && <p className="text-xs text-[var(--al-texto-3)]">{t.b1.altSemModelo}</p>}
       {noBorrado && (
         <BorrarRostos
           t={tp}
@@ -221,14 +335,73 @@ export function AnexosDoEscrever({
               title={tp.agendar.cancelar}
               onClick={() => {
                 pub.setAgendar("");
+                pub.setAposAto("");
+                pub.setRepetir(0);
+                setEscolhendoAto(false);
                 setAgenda(false);
               }}
             >
               <Icone nome="fechar" className="h-4 w-4" />
             </button>
           </div>
-          <CampoDeQuando id="al2-agenda-quando" className="mt-2 w-full" valor={pub.agendar} aoMudar={pub.setAgendar} lang={lang} vazio={t.escrever.escolherQuando} min={minimo} max={maxAgenda} />
-          {pub.agendar && !pub.agendaOk && <p role="alert" className="mt-2 text-sm text-[var(--oxblood)]">{tp.agendar.cedo}</p>}
+          {/* "Quando o ato terminar": a hora é a do fim de um ato que a própria pessoa chamou (se ele for adiado, o post espera). */}
+          <label className="al2-opcao-b1 mt-2">
+            <input
+              type="checkbox"
+              className="al2-caixinha"
+              checked={Boolean(pub.aposAto) || escolhendoAto}
+              onChange={(e) => {
+                setEscolhendoAto(e.target.checked);
+                if (!e.target.checked) pub.setAposAto("");
+                else carregarAtos();
+              }}
+            />
+            <span className="font-bold">{t.b1.aposAto}</span>
+          </label>
+          {(escolhendoAto || pub.aposAto) && (
+            <div className="mt-2 pl-1">
+              {meusAtos === null ? (
+                <p className="text-sm text-[var(--al-texto-3)]">{t.b1.carregando}</p>
+              ) : meusAtos.length === 0 ? (
+                <p className="text-sm text-[var(--al-texto-3)]">{t.b1.aposAtoNenhum}</p>
+              ) : (
+                <label className="block">
+                  <span className="sr-only">{t.b1.aposAtoEscolher}</span>
+                  <select className="al2-campo min-h-11" value={pub.aposAto} onChange={(e) => pub.setAposAto(e.target.value)}>
+                    <option value="">{t.b1.aposAtoEscolher}</option>
+                    {meusAtos.map((a) => (
+                      <option key={a.id} value={a.id}>
+                        {a.nome}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              {atoEscolhido && (
+                <p className="mt-1 text-xs text-[var(--al-texto-3)]" role="status">
+                  {preencher(t.b1.aposAtoQuando, { ato: atoEscolhido.nome, quando: new Date(atoEscolhido.fim).toLocaleString(lang, { dateStyle: "short", timeStyle: "short" }) })}
+                </p>
+              )}
+            </div>
+          )}
+          {!pub.aposAto && !escolhendoAto && (
+            <CampoDeQuando id="al2-agenda-quando" className="mt-2 w-full" valor={pub.agendar} aoMudar={pub.setAgendar} lang={lang} vazio={t.escrever.escolherQuando} min={minimo} max={maxAgenda} />
+          )}
+          {pub.agendar && !pub.aposAto && !pub.agendaOk && <p role="alert" className="mt-2 text-sm text-[var(--oxblood)]">{tp.agendar.cedo}</p>}
+          {/* Repetir toda semana ("assembleia toda terça"): de 2 a 12 vezes; sem imagem nem áudio (o arquivo só nasce uma vez). */}
+          <label className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+            <Icone nome="repostar" className="h-4 w-4 shrink-0" />
+            <span className="font-bold">{t.b1.repetir}</span>
+            <select className="al2-chip-select al2-chip" value={pub.repetir} onChange={(e) => pub.setRepetir(Number(e.target.value))} disabled={pub.imagens.length > 0 || Boolean(pub.audio)}>
+              <option value={0}>{t.b1.repetirNao}</option>
+              {VEZES_DA_REPETICAO.map((n) => (
+                <option key={n} value={n}>
+                  {preencher(t.b1.vezes, { n })}
+                </option>
+              ))}
+            </select>
+          </label>
+          {(pub.imagens.length > 0 || Boolean(pub.audio)) && <p className="mt-1 text-xs text-[var(--al-texto-3)]">{t.b1.repetirSemArquivo}</p>}
           <div className="al2-agendados mt-2 text-[var(--al-texto-2)] empty:hidden">
             <Agendados t={tp} lang={lang} />
           </div>
@@ -293,11 +466,25 @@ export function AnexosDoEscrever({
             <Icone nome="enquete" className="h-[22px] w-[22px]" />
           </button>
         )}
-        {!resposta && (
+        {!resposta && semAgenda !== true && (
           <button ref={iconeAgenda} type="button" className="al2-ferramenta" onClick={() => setAgenda((x) => !x)} aria-pressed={agenda} aria-label={tp.agendar.rotulo} title={tp.agendar.rotulo}>
             <Icone nome="relogio" className="h-[22px] w-[22px]" />
           </button>
         )}
+        <button
+          ref={iconeAviso}
+          type="button"
+          className="al2-ferramenta al2-ferramenta-cw"
+          onClick={() => {
+            if (comAviso) pub.setAviso("");
+            setAvisoAberto(!comAviso);
+          }}
+          aria-pressed={comAviso}
+          aria-label={t.b1.aviso}
+          title={t.b1.aviso}
+        >
+          <span aria-hidden className="text-[0.8rem] font-black tracking-wide">CW</span>
+        </button>
         <Contador n={tamanho} max={maximo} rotulo={preencher(t.escrever.contador, { n: tamanho, max: maximo })} />
       </div>
 

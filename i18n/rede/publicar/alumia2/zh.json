@@ -326,6 +326,14 @@
       "invalido:repetir": "可以重复 2 到 12 次。",
       "repetir_sem_arquivo": "重复的帖子不能带图片或音频。",
       "ato_cancelado": "行动已取消"
-    }
+    },
+    "citarDica": "对这条帖子说点什么…",
+    "citarEnviar": "引用",
+    "citado": "引用已发布。",
+    "verCitacao": "查看引用",
+    "citarOnde": "引用会留在被引用帖子所在的地方；看不到原帖的人只会看到“受限内容”。",
+    "repetirNao": "只一次",
+    "desfazerAto": "行动正在发出，这里已无法撤销。如有需要，请在行动页面取消。",
+    "pausaFechar": "关闭提醒"
   }
 }
