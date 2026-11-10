@@ -353,7 +353,7 @@ export function Gravador({ t, aoGravar, audio, aoTirar, classeBotao, comecarJa =
 }
 
 /** As publicações agendadas (abre a lista ao abrir). */
-export function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
+export function Agendados({ t, lang, b1 }: { t: TextosPublicar; lang: string; /** B1: os rótulos de "toda semana" e "quando o ato terminar". */ b1?: { naFilaRepetir: string; naFilaAto: string } }) {
   const [lista, setLista] = useState<Agendado[] | null>(null);
   const carregar = useCallback(() => void redePub.agendados().then(setLista, () => setLista([])), []);
   const quando = (iso: string) => {
@@ -371,6 +371,8 @@ export function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
           <li key={a.id} className="flex flex-wrap items-center gap-2 rounded-md border border-rule bg-folha px-2 py-1">
             <span className="min-w-0 flex-1 break-words">
               {quando(a.quando)}: {a.texto}
+              {b1 && a.repetir === "semana" && <span className="block text-xs opacity-80">{preencher(b1.naFilaRepetir, { n: a.vezes ?? 1, total: a.repetir_vezes ?? 1 })}</span>}
+              {b1 && a.apos_ato && <span className="block text-xs opacity-80">{b1.naFilaAto}</span>}
               {a.estado === "falhou" && <span className="block text-oxblood">{preencher(t.agendar.falhou, { erro: a.erro })}</span>}
             </span>
             <button type="button" className="min-h-11 cursor-pointer font-bold underline" onClick={() => void redePub.cancelarAgendado(a.id).then(carregar, carregar)}>
