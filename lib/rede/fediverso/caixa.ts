@@ -54,7 +54,10 @@ export async function receber(metodo: string, caminho: string, ler: (nome: strin
   }
   const autor = idDe(atividade.actor);
   if (!autor || !/^https:\/\//.test(autor)) return { status: 400, motivo: "sem_ator" };
-  if (await banco<boolean>("bloqueado", { url: autor }).catch(() => false)) return { status: 403, motivo: "instancia_bloqueada" };
+  // Se o banco não responde, não dá para saber se a instância está bloqueada: recusa e quem mandou tenta de novo depois.
+  const barrado = await banco<boolean>("bloqueado", { url: autor }).catch(() => null);
+  if (barrado === null) return { status: 503, motivo: "sem_servico" };
+  if (barrado) return { status: 403, motivo: "instancia_bloqueada" };
   const total = modoTotal();
 
   // A assinatura: a chave vem do ator (cache de até 1 dia; se não confere, busca de novo, porque a chave pode ter mudado).

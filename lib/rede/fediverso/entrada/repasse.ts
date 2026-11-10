@@ -40,7 +40,8 @@ export async function conferirRepassador({
   ler: (nome: string) => string | null;
   corpo: Uint8Array;
 }): Promise<ResultadoDoRepasse> {
-  if (await banco<boolean>("bloqueado", { url: chaveId }).catch(() => false)) return { ok: false, status: 403, motivo: "instancia_bloqueada" };
+  // Banco fora do ar conta como bloqueado: na dúvida, o repasse não entra.
+  if (await banco<boolean>("bloqueado", { url: chaveId }).catch(() => true)) return { ok: false, status: 403, motivo: "instancia_bloqueada" };
   const repassador = await donoDaChave(chaveId);
   if (!repassador?.chave_publica) return { ok: false, status: 401, motivo: "chave_desconhecida" };
   const r = conferirAssinatura({ metodo, caminho, ler, corpo, chavePublica: repassador.chave_publica });
