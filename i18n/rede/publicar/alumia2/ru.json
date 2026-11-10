@@ -39,7 +39,9 @@
     "denuncias": "Мои жалобы",
     "silenciados": "Скрытые",
     "moderacao": "Модерация",
-    "idiomas": "Языки"
+    "idiomas": "Языки",
+    "acessibilidade": "Доступность",
+    "ajuda": "Частые вопросы"
   },
   "linha": {
     "titulo": "Главная",
@@ -163,7 +165,17 @@
     "ajudaEquipe": "Только команда института.",
     "publicoRoda": "Только круг доверия",
     "rodaEmBreve": "Список доверия появится вместе с новым профилем. Никто не узнает, кто в нём.",
-    "notaFediverso": "Также в Федиверсе: пост уйдёт вашим подписчикам в Mastodon, Lemmy и Misskey под вашим псевдонимом."
+    "notaFediverso": "Также в Федиверсе: пост уйдёт вашим подписчикам в Mastodon, Lemmy и Misskey под вашим псевдонимом.",
+    "respostaA": "Напишите ответ для {nome}",
+    "falta": "Не хватает: {campos}",
+    "campos": {
+      "titulo": "название акции",
+      "quando": "когда",
+      "onde": "где",
+      "cidade": "город",
+      "descricao": "призыв"
+    },
+    "escolherQuando": "Выбрать день и время"
   },
   "direita": {
     "rotulo": "Сейчас в Alumia",

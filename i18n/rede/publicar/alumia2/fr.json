@@ -39,7 +39,9 @@
     "denuncias": "Mes signalements",
     "silenciados": "Masqués",
     "moderacao": "Modération",
-    "idiomas": "Langues"
+    "idiomas": "Langues",
+    "acessibilidade": "Accessibilité",
+    "ajuda": "Questions fréquentes"
   },
   "linha": {
     "titulo": "Accueil",
@@ -163,7 +165,17 @@
     "ajudaEquipe": "Seulement l'équipe de l'institut.",
     "publicoRoda": "Seulement votre cercle de confiance",
     "rodaEmBreve": "Votre liste de confiance arrive avec le nouveau profil. Personne ne sait qui en fait partie.",
-    "notaFediverso": "Aussi sur le Fédivers : le post part vers les personnes qui vous suivent sur Mastodon, Lemmy et Misskey, sous votre pseudonyme."
+    "notaFediverso": "Aussi sur le Fédivers : le post part vers les personnes qui vous suivent sur Mastodon, Lemmy et Misskey, sous votre pseudonyme.",
+    "respostaA": "Écrivez votre réponse à {nome}",
+    "falta": "Il manque : {campos}",
+    "campos": {
+      "titulo": "nom de l’action",
+      "quando": "quand",
+      "onde": "où",
+      "cidade": "ville",
+      "descricao": "appel"
+    },
+    "escolherQuando": "Choisir le jour et l’heure"
   },
   "direita": {
     "rotulo": "Sur Alumia maintenant",

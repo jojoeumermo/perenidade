@@ -114,7 +114,9 @@
       "passado": "Cette date est passée.",
       "longe": "Jusqu'à un an.",
       "palavra": "Utilise des lettres : le nom devient le mot de la mosaïque."
-    }
+    },
+    "escolherQuando": "Choisir le jour et l’heure",
+    "cidadeCurta": "Ville"
   },
   "aba": {
     "titulo": "Actions",

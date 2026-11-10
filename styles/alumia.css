@@ -146,7 +146,7 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   display: flex; align-items: center; gap: 0.85rem; min-height: 46px; padding: 0 0.85rem; border-radius: 10px;
   color: var(--al-texto-2); font-size: 1.0625rem; text-decoration: none;
 }
-[data-al="2"] .al2-menu-item:hover { background: var(--al-superficie); color: var(--al-texto); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-menu-item:hover { background: var(--al-superficie); color: var(--al-texto); } }
 [data-al="2"] .al2-menu-item[aria-current="page"] { background: var(--al-superficie); color: var(--al-texto); font-weight: 700; }
 [data-al="2"] .al2-menu-item[aria-current="page"] svg { color: var(--al-vermelho); }
 [data-al="2"] .al2-menu-item[aria-disabled="true"] { opacity: 0.55; }
@@ -176,7 +176,7 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   background: none; border: 0; border-radius: 8px; cursor: pointer; color: var(--al-texto-3);
   font-family: var(--al-fonte); font-size: 0.8125rem; font-weight: 600; text-decoration: none;
 }
-[data-al="2"] .al2-acao:hover { color: var(--al-texto); background: var(--al-superficie); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-acao:hover { color: var(--al-texto); background: var(--al-superficie); } }
 [data-al="2"] .al2-acao:disabled { cursor: not-allowed; opacity: 0.55; }
 [data-al="2"] .al2-acao[aria-pressed="true"] { color: var(--al-vermelho); }
 [data-al="2"] .al2-acao-acender[aria-pressed="true"] svg { fill: currentColor; }
@@ -285,7 +285,7 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
 /* A linha nova não tem caixa por post (pranchas): o cartão é separado por fio. */
 [data-al="2"] .al2 .alumia-lista { display: block; gap: 0; padding: 0; }
 [data-al="2"] .al2 .alumia-lista > li > article { border: 0; border-bottom: 1px solid var(--al-linha); border-radius: 0; background: transparent; transition: none; }
-[data-al="2"] .al2 .alumia-lista > li > article:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2 .alumia-lista > li > article:hover { background: color-mix(in srgb, var(--al-superficie) 45%, transparent); } }
 
 /* No celular estreito as quatro pílulas de tipo cabem numa linha (prancha celular-escrever-ato). */
 @media (max-width: 399px) {
@@ -333,15 +333,15 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 
 /* Menu: o item escorrega um pouco no hover e o ícone do atual dá um pulinho. */
 [data-al="2"] .al2-menu-item { transition: background-color 160ms ease, color 160ms ease, transform 220ms var(--al2-mola); }
-[data-al="2"] .al2-menu-item:hover { transform: translateX(3px); }
-[data-al="2"] .al2-menu-item:active { transform: translateX(3px) scale(0.98); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-menu-item:not([aria-current="page"]):hover { transform: translateX(3px); } }
+[data-al="2"] .al2-menu-item:active { transform: scale(0.98); }
 @keyframes al2-pulinho { 0% { transform: scale(0.7); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
 [data-al="2"] .al2-menu-item[aria-current="page"] svg { animation: al2-pulinho 420ms var(--al2-mola) both; }
 [data-al="2"] .al2-barra-item[aria-current="page"] svg { animation: al2-pulinho 420ms var(--al2-mola) both; }
 [data-al="2"] .al2-barra-item { transition: transform 200ms var(--al2-mola); }
 [data-al="2"] .al2-barra-item:active { transform: scale(0.92); }
 [data-al="2"] .al2-mais { transition: transform 220ms var(--al2-mola), box-shadow 200ms ease; box-shadow: 0 6px 18px color-mix(in srgb, var(--al-vermelho) 40%, transparent); }
-[data-al="2"] .al2-mais:not(:disabled):hover { transform: translateY(-2px) rotate(-4deg); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-mais:not(:disabled):hover { transform: translateY(-2px) rotate(-4deg); } }
 [data-al="2"] .al2-mais:not(:disabled):active { transform: scale(0.92); }
 [data-al="2"] .al2-barra-baixo {
   background: color-mix(in srgb, var(--al-fundo) 88%, transparent);
@@ -363,7 +363,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   transition: transform 420ms var(--al2-mola), width 420ms var(--al2-mola); pointer-events: none;
 }
 [data-al="2"] .al2-aba { transition: color 160ms ease; }
-[data-al="2"] .al2-aba:hover { color: var(--al-texto-2); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-aba:hover { color: var(--al-texto-2); } }
 :root[data-eink] [data-al="2"] .al2-abas-traco { background: #000; }
 
 /* Troca de aba com View Transitions: a linha cruza suave (o resto da tela fica parado). */
@@ -381,7 +381,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-novos-lugar > .al2-novos { pointer-events: auto; margin-top: 12px; }
 @keyframes al2-novos-entra { from { opacity: 0; transform: translateY(-14px) scale(0.85); } to { opacity: 1; transform: none; } }
 [data-al="2"] .al2-novos { animation: al2-novos-entra 520ms var(--al2-mola) both; transition: transform 200ms var(--al2-mola), background-color 150ms ease; }
-[data-al="2"] .al2-novos:hover { transform: translateY(-1px); background: var(--al-superficie-2); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-novos:hover { transform: translateY(-1px); background: var(--al-superficie-2); } }
 [data-al="2"] .al2-novos:active { transform: scale(0.95); }
 [data-al="2"] .al2-novos-n { animation: al2-pulinho 520ms var(--al2-mola) 120ms both; }
 
@@ -449,7 +449,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-acao { transition: color 150ms ease, background-color 150ms ease, transform 220ms var(--al2-mola); }
 [data-al="2"] .al2-acao:not(:disabled):active { transform: scale(0.9); }
 [data-al="2"] .al2-acao svg { transition: transform 260ms var(--al2-mola); }
-[data-al="2"] .al2-acao:not(:disabled):hover svg { transform: scale(1.12); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-acao:not(:disabled):hover svg { transform: scale(1.12); } }
 @keyframes al2-chama { 0% { transform: scale(0.6) translateY(3px); } 45% { transform: scale(1.35) translateY(-2px) rotate(-6deg); } 70% { transform: scale(0.95) rotate(3deg); } 100% { transform: scale(1); } }
 @keyframes al2-brasa { 0% { opacity: 0.9; transform: translate(-50%, 0) scale(0.4); } 100% { opacity: 0; transform: translate(-50%, -22px) scale(1.4); } }
 [data-al="2"] .al2-acao-acender { position: relative; }
@@ -467,7 +467,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 
 /* O convite do compositor da linha acende ao passar. */
 [data-al="2"] .al2-convite { border-radius: 10px; transition: color 150ms ease, background-color 150ms ease; padding-inline: 0.35rem; }
-[data-al="2"] .al2-convite:hover { color: var(--al-texto-2); background: var(--al-superficie); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-convite:hover { color: var(--al-texto-2); background: var(--al-superficie); } }
 
 /* Stories e o próximo ato no alto do Início. */
 [data-al="2"] .al2-topo-stories { padding-top: 0.25rem; }
@@ -504,7 +504,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-publicar { transition: background-color 200ms ease, color 200ms ease, transform 240ms var(--al2-mola), box-shadow 240ms ease; }
 [data-al="2"] .al2-publicar:disabled { background: var(--al-superficie-2); color: var(--al-texto-3); opacity: 1; }
 [data-al="2"] .al2-publicar[data-pronto] { box-shadow: 0 6px 22px color-mix(in srgb, var(--al-vermelho) 45%, transparent); animation: al2-pulinho 420ms var(--al2-mola) both; }
-[data-al="2"] .al2-publicar[data-pronto]:hover { transform: translateY(-1px); filter: brightness(1.08); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-publicar[data-pronto]:hover { transform: translateY(-1px); filter: brightness(1.08); } }
 [data-al="2"] .al2-publicar[data-pronto]:active { transform: scale(0.95); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-publicar:disabled { border: 2px dashed var(--al-texto); background: transparent; color: var(--al-texto); }
 
@@ -515,7 +515,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 0; background: none; cursor: pointer;
   color: var(--al-dourado); transition: background-color 150ms ease, transform 220ms var(--al2-mola), color 150ms ease;
 }
-[data-al="2"] .al2-ferramenta:not(:disabled):hover { background: var(--al-superficie); transform: translateY(-1px); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-ferramenta:not(:disabled):hover { background: var(--al-superficie); transform: translateY(-1px); } }
 [data-al="2"] .al2-ferramenta:not(:disabled):active { transform: scale(0.88); }
 [data-al="2"] .al2-ferramenta:disabled { color: var(--al-texto-3); opacity: 0.45; cursor: not-allowed; }
 [data-al="2"] .al2-ferramenta[aria-pressed="true"] { background: color-mix(in srgb, var(--al-dourado) 16%, transparent); }
@@ -547,7 +547,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   border: 1px solid var(--al-superficie-2); background: transparent; color: var(--al-texto-2); font-size: 0.8125rem; font-weight: 700;
   transition: background-color 150ms ease, transform 200ms var(--al2-mola);
 }
-[data-al="2"] .al2-chip:hover { background: var(--al-superficie-2); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-chip:hover { background: var(--al-superficie-2); } }
 [data-al="2"] .al2-chip:active { transform: scale(0.95); }
 [data-al="2"] .al2-chip-select { background: transparent; color: inherit; border: 0; font: inherit; cursor: pointer; color-scheme: dark; }
 [data-al="2"] .al2-chip-data { min-height: 40px; padding: 0 0.7rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: var(--al-fundo); color: var(--al-texto); color-scheme: dark; }
@@ -563,7 +563,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 
 /* Onde publicar, Quem vê, Quem responde: a lista desliza; "Quem vê" em linhas com ícone, ajuda e o visto. */
 [data-al="2"] .al2-escolha { transition: color 150ms ease; }
-[data-al="2"] .al2-escolha:hover { color: var(--al-texto-2); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-escolha:hover { color: var(--al-texto-2); } }
 [data-al="2"] .al2-gaveta { animation: al2-gaveta 300ms var(--al2-mola-suave) both; }
 @keyframes al2-gaveta { from { opacity: 0; transform: translateY(-8px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
 [data-al="2"] .al2-lista-escolha { display: grid; gap: 0.35rem; }
@@ -572,7 +572,7 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
   border: 1.5px solid transparent; background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte); text-align: left;
   transition: border-color 150ms ease, background-color 150ms ease, transform 200ms var(--al2-mola);
 }
-[data-al="2"] .al2-opcao-linha:hover { background: var(--al-superficie-2); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-opcao-linha:hover { background: var(--al-superficie-2); } }
 [data-al="2"] .al2-opcao-linha:active { transform: scale(0.98); }
 [data-al="2"] .al2-opcao-linha[aria-checked="true"] { border-color: var(--al-dourado); }
 [data-al="2"] .al2-opcao-marca { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2); color: transparent; flex-shrink: 0; }
@@ -603,3 +603,136 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 :root[data-eink] [data-al="2"] .al-esq { animation: none; background: #ddd; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al2-abas, .al2-barra-baixo, .al2-escrever-fundo) { -webkit-backdrop-filter: none; backdrop-filter: none; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al2-publicar, .al2-mais, .al2-escrever) { box-shadow: none; }
+
+/* ───────────── Alumia nova · segunda rodada da casca (revisão) ───────────── */
+
+/* Os botões redondos do site (acessibilidade, perguntas frequentes, voltar ao topo) não flutuam por cima da Alumia: cobriam a conta,
+   o Sair rápido, o "Eu vou" e o mosaico. Eles moram no pé do menu (computador) e no alto (celular); o painel de cada um continua
+   abrindo do canto de sempre. Enquanto a leitura em voz alta está ligada, o redondo da acessibilidade volta (é o "parar"). */
+:root:has([data-al="2"] .al2-grade) :is(.a11y-gatilho:not([data-falando]), .assistente-gatilho, .voltar-ao-topo) { display: none !important; }
+[data-al="2"] .al2-botao-site { flex: none; width: 44px; border: 1px solid var(--al-linha); border-radius: 12px; justify-content: center; padding: 0; color: var(--al-texto-2); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-botao-site { border-color: var(--al-texto); }
+
+/* O aviso da prévia: uma linha só, colada na faixa colorida, acima de tudo. */
+[data-al="2"] .al2-aviso-previa { margin: 0; padding: 0.3rem 1rem; background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.75rem; font-weight: 800; text-align: center; }
+[data-al="2"] .al2 .al2-topo-stories .al-st-previa { display: none; }
+
+/* O menu da esquerda do tamanho da tela: a parte de cima rola por dentro, o pé (conta e Sair rápido) fica sempre à vista. */
+[data-al="2"] .al2-menu-rola { scrollbar-width: thin; scrollbar-color: var(--al-superficie-2) transparent; }
+[data-al="2"] .al2-menu-pe { background: var(--al-fundo); }
+@media (max-height: 820px) {
+  [data-al="2"] .al2-menu-rola { padding-top: 1rem; }
+  [data-al="2"] .al2-menu-nav { margin-top: 0.75rem; }
+  [data-al="2"] .al2-menu-lateral .al2-menu-item { min-height: 40px; font-size: 1rem; }
+  [data-al="2"] .al2-menu-escrever { margin-top: 0.85rem; min-height: 46px; }
+  [data-al="2"] .al2-menu-pe { padding-bottom: 0.85rem; padding-top: 0.6rem; }
+  [data-al="2"] .al2-menu-pe .al2-conta > summary { padding-block: 0.5rem; }
+}
+@media (max-height: 680px) {
+  [data-al="2"] .al2-menu-lateral .al2-menu-item { min-height: 36px; }
+}
+
+/* A conta: no computador o menu dela abre para CIMA, por cima do menu da esquerda (o pé não cresce, o Sair rápido não sai da tela). */
+@media (min-width: 1024px) {
+  [data-al="2"] .al2-menu-pe .al2-conta-menu {
+    position: absolute; left: 0; right: 0; bottom: calc(100% + 8px); z-index: 30; max-height: min(70vh, 520px); overflow-y: auto;
+    border: 1px solid var(--al-superficie-2); border-radius: 14px; background: var(--al-superficie); box-shadow: 0 -12px 40px #0009;
+    animation: al2-conta-abre 260ms var(--al2-mola) both; transform-origin: bottom center;
+  }
+}
+@keyframes al2-conta-abre { from { opacity: 0; transform: translateY(8px) scale(0.97); } to { opacity: 1; transform: none; } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-conta-menu { box-shadow: none; border-color: var(--al-texto); }
+
+/* O "…" do cartão: o menu entra com mola. */
+[data-al="2"] .al2-mais-acoes[open] > div { animation: al2-conta-abre 220ms var(--al2-mola) both; transform-origin: top right; }
+
+/* Coluna da direita: AO VIVO numa linha só e os dois botões lado a lado (prancha computador-inicio). */
+[data-al="2"] .al2-direita .al-org-aovivo-selo { white-space: nowrap; }
+[data-al="2"] .al2-direita .al-org-aovivo-conta { font-size: 0.75rem; }
+[data-al="2"] .al2-direita .al-org-aovivo-acoes { flex-wrap: nowrap; }
+[data-al="2"] .al2-direita .al-org-aovivo-acoes > * { flex: 1 1 0; min-width: 0; font-size: 0.8125rem; padding-inline: 0.5rem; }
+[data-al="2"] .al2-direita .al2-bloco h2.al-cond { white-space: nowrap; }
+
+/* Abas fixas com fundo sólido (nada do post de baixo aparece borrado atrás) e uma sombra fina só depois de grudar no alto. O anel de
+   foco fica dentro da aba (não é cortado na borda da tela). */
+[data-al="2"] .al2-abas { background: color-mix(in srgb, var(--al-fundo) 96%, transparent); transition: box-shadow 200ms ease; }
+[data-al="2"] .al2-abas-grudada { box-shadow: 0 8px 18px -10px #000c; }
+[data-al="2"] .al2 .al2-aba:focus-visible { outline-offset: -3px; border-radius: 10px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-abas { background: var(--al-fundo); box-shadow: none; }
+
+/* "N posts novos": fundo opaco e sombra marcada (passa por cima dos posts enquanto a pessoa rola). */
+[data-al="2"] .al2-novos { background: var(--al-superficie-2); border-color: var(--al-texto-3); box-shadow: 0 10px 28px #000b, 0 0 0 4px var(--al-fundo); }
+
+/* Troca de aba: a linha desliza curto para o lado da aba escolhida (sentido de lugar), em vez de só acender. */
+@keyframes al2-entra-da-direita { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+@keyframes al2-entra-da-esquerda { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+@keyframes al2-sai-para-esquerda { to { opacity: 0; transform: translateX(-16px); } }
+@keyframes al2-sai-para-direita { to { opacity: 0; transform: translateX(16px); } }
+:root[data-al2-lado="direita"]:has([data-al="2"])::view-transition-old(al2-linha) { animation: 150ms var(--al2-sai, ease-in) both al2-sai-para-esquerda; }
+:root[data-al2-lado="direita"]:has([data-al="2"])::view-transition-new(al2-linha) { animation: 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both al2-entra-da-direita; }
+:root[data-al2-lado="esquerda"]:has([data-al="2"])::view-transition-old(al2-linha) { animation: 150ms var(--al2-sai, ease-in) both al2-sai-para-direita; }
+:root[data-al2-lado="esquerda"]:has([data-al="2"])::view-transition-new(al2-linha) { animation: 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both al2-entra-da-esquerda; }
+
+/* A barra de baixo do celular: o traço da tela atual desliza com a mesma mola das abas. */
+[data-al="2"] .al2-barra-indicador {
+  position: absolute; top: 0; left: 0; width: 20%; height: 3px; pointer-events: none; list-style: none;
+  transform: translateX(calc(var(--i, 0) * 100%)); transition: transform 460ms var(--al2-mola);
+}
+[data-al="2"] .al2-barra-indicador::before { content: ""; position: absolute; left: 50%; top: 0; width: 28px; height: 3px; margin-left: -14px; border-radius: 0 0 3px 3px; background: var(--al-vermelho); }
+:root[data-eink] [data-al="2"] .al2-barra-indicador::before { background: #000; }
+
+/* Cartão: Acender, Salvar e Repostar também respondem ao desligar (encolhem e apagam), não só ao ligar. */
+@keyframes al2-apagar { 0% { transform: scale(1); } 35% { transform: scale(0.72); opacity: 0.55; } 100% { transform: scale(1); opacity: 1; } }
+[data-al="2"] .al2-acao[aria-pressed="false"][data-tocou] svg { animation: al2-apagar 320ms var(--al2-mola) both; }
+
+/* O ato, a aula e o mosaico na mesma medida do texto: nada de caixa larguíssima com o texto estreito em cima. */
+[data-al="2"] .al2 .al-ato-cartao-mosaico, [data-al="2"] .al2 .al-ato-topo .al-mosaico { max-width: 640px; }
+
+/* A faixa PRÓXIMO ATO no celular: uma linha só ("Passe Livre Já · qua 18h · Praça da Sé"), com reticências se não couber. */
+[data-al="2"] .al2 .al-faixa-ato-curto { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Dia e hora como as pranchas ("ter 19/11 · 6h"): o campo nativo, transparente, por cima do resumo. */
+.al-quando {
+  position: relative; display: flex; align-items: center; gap: 0.5rem; min-height: 48px; padding: 0 0.85rem; cursor: pointer;
+  border: 1.5px solid var(--al-superficie-2, #444); border-radius: 12px; background: var(--al-superficie, transparent); color: var(--al-texto, inherit);
+  font-family: var(--al-fonte, inherit); font-weight: 700;
+}
+.al-quando:focus-within { outline: 3px solid var(--al-foco, #f0a020); outline-offset: 2px; }
+.al-quando-vazio .al-quando-texto { color: var(--al-texto-3, inherit); font-weight: 600; }
+.al-quando-icone { width: 1.15rem; height: 1.15rem; flex: none; color: var(--al-dourado, currentColor); }
+.al-quando-texto { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.al-quando-campo { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; color-scheme: dark; border: 0; }
+.al-quando-campo:focus { outline: none; }
+.al-quando:has(.al-quando-campo[aria-invalid="true"]) { border-color: var(--al-vermelho, #c21f16); }
+:root[data-eink] .al-quando-campo { color-scheme: light; }
+:root:is([data-contrast], [data-eink]) .al-quando { border: 2px solid var(--al-texto, #000); }
+
+/* A cidade do ato junto do Onde: curta, numa linha embaixo do ponto. */
+[data-al="2"] .al-ato-form-cidade {
+  display: flex; align-items: center; gap: 0.4rem; min-height: 40px; padding: 0 0.7rem; border-radius: 10px;
+  border: 1px dashed var(--al-superficie-2); color: var(--al-texto-3); font-size: 0.875rem;
+}
+[data-al="2"] .al-ato-form-cidade:focus-within { border-style: solid; border-color: var(--al-dourado); }
+[data-al="2"] .al-ato-form-cidade > svg { width: 1rem; height: 1rem; flex: none; color: var(--al-dourado); }
+[data-al="2"] .al-ato-form-cidade-rotulo { flex: none; font-weight: 700; }
+[data-al="2"] .al-ato-form-cidade-campo { min-width: 0; flex: 1; border: 0; background: none; color: var(--al-texto); font: inherit; font-weight: 700; padding: 0.35rem 0; }
+[data-al="2"] .al-ato-form-cidade-campo:focus { outline: none; }
+[data-al="2"] .al-ato-form-cidade-campo[aria-invalid="true"] { color: var(--al-vermelho); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-ato-form-cidade { border: 2px solid var(--al-texto); }
+/* No Escrever, Quando e Onde lado a lado também no celular (como na prancha): o resumo da data é curto. */
+[data-al="2"] .al2-escrever .al-ato-form-dupla { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: start; }
+
+/* "Publicar mais tarde": o campo da hora na sua própria linha, com a largura toda. */
+[data-al="2"] .al2-agenda .al-quando { width: 100%; }
+
+/* O que falta para o Ato, embaixo do botão desligado. */
+[data-al="2"] .al2-falta { animation: al2-tela-entra 220ms ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] :is(.al2-conta-menu, .al2-mais-acoes[open] > div, .al2-falta) { animation: none !important; }
+  [data-al="2"] .al2-acao[aria-pressed="false"][data-tocou] svg { animation: none !important; }
+  [data-al="2"] .al2-barra-indicador { transition: none; }
+  :root:has([data-al="2"])::view-transition-old(al2-linha), :root:has([data-al="2"])::view-transition-new(al2-linha) { animation: none !important; }
+}
+:root[data-eink] [data-al="2"] :is(.al2-conta-menu, .al2-mais-acoes[open] > div, .al2-falta) { animation: none !important; }
+:root[data-eink] [data-al="2"] .al2-barra-indicador { transition: none; }

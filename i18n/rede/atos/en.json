@@ -114,7 +114,9 @@
       "passado": "That date has passed.",
       "longe": "Up to one year ahead.",
       "palavra": "Use letters: the name becomes the mosaic word."
-    }
+    },
+    "escolherQuando": "Pick day and time",
+    "cidadeCurta": "City"
   },
   "aba": {
     "titulo": "Actions",

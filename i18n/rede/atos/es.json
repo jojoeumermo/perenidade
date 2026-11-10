@@ -114,7 +114,9 @@
       "passado": "La fecha ya pasó.",
       "longe": "Hasta un año adelante.",
       "palavra": "Usa letras: el nombre se vuelve la palabra del mosaico."
-    }
+    },
+    "escolherQuando": "Elegir día y hora",
+    "cidadeCurta": "Ciudad"
   },
   "aba": {
     "titulo": "Actos",

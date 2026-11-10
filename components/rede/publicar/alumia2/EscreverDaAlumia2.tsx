@@ -259,9 +259,12 @@ export function EscreverDaAlumia2({
   const nomeDoAto = typeof dadosDoAto.nome === "string" ? dadosDoAto.nome : "";
   const tamanho = longo ? corpo.length : texto.length;
   const maximo = longo ? LIMITE_CORPO : LIMITE_POST;
+  // O formulário do ato da F2 entrega o que conferiu ({ pronto, problemas }); o dublê da prévia só tem o nome.
+  const problemasDoAto = typeof dadosDoAto.problemas === "object" && dadosDoAto.problemas ? Object.keys(dadosDoAto.problemas as Record<string, unknown>) : null;
+  const atoPronto = typeof dadosDoAto.pronto === "boolean" ? dadosDoAto.pronto : nomeDoAto.trim().length >= 2;
   const pronto =
     tipo === "ato"
-      ? nomeDoAto.trim().length >= 2
+      ? atoPronto
       : (longo ? titulo.trim().length >= 5 && corpo.trim().length >= 10 : texto.trim().length >= 1) && pub.podeEnviar && (!pub.agendar || pub.agendaOk);
 
   const montarPedido = useCallback(async (): Promise<PedidoPublicar> => {
@@ -282,6 +285,18 @@ export function EscreverDaAlumia2({
       if (previa) {
         setAviso(al2?.t.previa.aviso ?? "");
         setEnvio(null);
+        return;
+      }
+      if (tipo === "ato" && encaixeDoAto && typeof dadosDoAto.pronto === "boolean") {
+        // O ato é da F2: rede_ato_publicar (que chama o rede_publicar por dentro, com o nome, a palavra, a data, o ponto e a cidade).
+        const { atos } = await import("@/lib/rede/cliente-atos");
+        await atos.publicar(dadosDoAto as unknown as Parameters<typeof atos.publicar>[0], { publico, comunidade: onde });
+        if (desfeitoNoEnvio.current) {
+          setErro(al2?.t.escrever.naoDesfez ?? "");
+          return;
+        }
+        setEnvio(null);
+        aoFechar();
         return;
       }
       const pedido = await montarPedido();
@@ -335,7 +350,7 @@ export function EscreverDaAlumia2({
       desfeitoNoEnvio.current = false;
       setOcupado(false);
     }
-  }, [previa, al2, montarPedido, resposta, pub, tipo, lang, rascunhoId, aoPublicar, s, aoFechar]);
+  }, [previa, al2, montarPedido, resposta, pub, tipo, lang, rascunhoId, aoPublicar, s, aoFechar, encaixeDoAto, dadosDoAto, publico, onde]);
 
   // O relógio do "Enviando em N s": ao chegar a zero, envia.
   useEffect(() => {
@@ -485,7 +500,17 @@ export function EscreverDaAlumia2({
   const { t } = al2;
   const faltam = envio ? segundosQueFaltam(envio.desde, agora || envio.desde) : SEGUNDOS_PARA_DESFAZER;
   const principal = tipo === "ato" ? t.escrever.chamarAto : resposta ? t.escrever.resposta : t.escrever.publicar;
-  const placeholder = tipo === "enquete" ? t.escrever.pergunta : longo ? t.escrever.corpo : t.escrever.texto;
+  const placeholder =
+    resposta && respostaA
+      ? preencher(t.escrever.respostaA, { nome: respostaA.autor.codinome })
+      : tipo === "enquete"
+        ? t.escrever.pergunta
+        : longo
+          ? t.escrever.corpo
+          : t.escrever.texto;
+  // Debaixo do botão desligado do Ato, o que falta (só os campos que já dá para nomear; o resto o formulário mostra).
+  const camposDoAto = t.escrever.campos as Record<string, string>;
+  const falta = tipo === "ato" && !pronto && problemasDoAto?.length ? preencher(t.escrever.falta, { campos: problemasDoAto.map((c) => camposDoAto[c] ?? c).join(", ") }) : "";
   const responde: RespondeQuem[] = ["todos", "seguindo", "mencionados", "ninguem"];
   const rotuloResponde = (q: RespondeQuem) => ({ todos: t.escrever.respondeTodos, seguindo: t.escrever.respondeSeguindo, mencionados: t.escrever.respondeMencionados, ninguem: t.escrever.respondeNinguem })[q];
   const ajudaDoPublico = (p: Publico) =>
@@ -504,7 +529,9 @@ export function EscreverDaAlumia2({
           if (e.target === e.currentTarget) fechar();
         }}
       >
-        <div ref={dialogo} tabIndex={-1} className="al2-escrever flex h-full w-full flex-col bg-[var(--al-fundo)] md:h-auto md:max-h-[92vh] md:max-w-[640px] md:rounded-2xl md:border md:border-[var(--al-superficie-2)]">
+        {/* No computador a janela tem altura fixa e fica alinhada no alto: trocar de tipo (Post, Ato, Enquete) não faz a janela pular
+            nem tira o Cancelar e o Publicar de baixo do cursor; o que cresce rola por dentro. */}
+        <div ref={dialogo} tabIndex={-1} className="al2-escrever flex h-full w-full flex-col bg-[var(--al-fundo)] md:h-[min(88vh,820px)] md:max-w-[640px] md:rounded-2xl md:border md:border-[var(--al-superficie-2)]">
           <div className="al-faixa" aria-hidden />
           <div className="flex items-center justify-between gap-3 px-4 py-3">
             <button type="button" onClick={fechar} className="al2-acao !text-[1.05rem] !text-[var(--al-texto-2)]">
@@ -513,15 +540,21 @@ export function EscreverDaAlumia2({
             <h2 id="al2-escrever-titulo" className="al-cond hidden text-lg font-black uppercase tracking-wide text-[var(--al-texto-2)] md:block">
               {resposta ? t.escrever.resposta : t.escrever.titulo}
             </h2>
-            <button ref={botaoPrincipal} type="button" onClick={() => void publicar()} disabled={!pronto || ocupado} data-pronto={pronto && !ocupado ? "sim" : undefined} className="al-botao al-botao-primario al-botao-g al2-publicar">
+            <button ref={botaoPrincipal} type="button" onClick={() => void publicar()} disabled={!pronto || ocupado} data-pronto={pronto && !ocupado ? "sim" : undefined} aria-describedby={falta ? "al2-escrever-falta" : undefined} className="al-botao al-botao-primario al-botao-g al2-publicar">
               {ocupado ? t.escrever.publicando : principal}
             </button>
           </div>
+          {falta && (
+            <p id="al2-escrever-falta" className="al2-falta -mt-1 px-4 pb-2 text-right text-xs font-semibold text-[var(--al-texto-3)]">
+              {falta}
+            </p>
+          )}
 
           <div className="al2-escrever-corpo flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 pb-6">
             {resposta && respostaA && (
-              <p className="rounded-xl border-l-4 border-[var(--al-vermelho)] bg-[var(--al-superficie)] px-3 py-2 text-sm text-[var(--al-texto-2)]">
-                <strong>{respostaA.autor.codinome}</strong>: {respostaA.texto.slice(0, 160)}
+              // O post respondido inteiro, cortado em 3 linhas pelo CSS (nada de frase partida no meio sem reticências).
+              <p className="line-clamp-3 rounded-xl border-l-4 border-[var(--al-vermelho)] bg-[var(--al-superficie)] px-3 py-2 text-sm text-[var(--al-texto-2)]">
+                <strong>{respostaA.autor.codinome}</strong>: {respostaA.texto}
               </p>
             )}
 
@@ -764,7 +797,13 @@ function Escolha({
   const linha = useRef<HTMLButtonElement>(null);
   const lista = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (aberta) lista.current?.querySelector<HTMLElement>('[tabindex="0"]')?.focus();
+    if (!aberta) return;
+    const l = lista.current;
+    // preventScroll: quem rola é o scrollIntoView logo abaixo (a gaveta inteira à vista, e não só a opção escolhida).
+    l?.querySelector<HTMLElement>('[tabindex="0"]')?.focus({ preventScroll: true });
+    // A gaveta abre para baixo da dobra: rola o corpo do Escrever até ela caber (depois da animação começar a abrir).
+    const id = window.setTimeout(() => l?.scrollIntoView({ block: "nearest", behavior: comMovimento() ? "smooth" : "auto" }), 60);
+    return () => window.clearTimeout(id);
   }, [aberta]);
   const fecharLista = () => {
     aoFecharLista();

@@ -39,7 +39,9 @@
     "denuncias": "My reports",
     "silenciados": "Muted",
     "moderacao": "Moderation",
-    "idiomas": "Languages"
+    "idiomas": "Languages",
+    "acessibilidade": "Accessibility",
+    "ajuda": "Frequently asked questions"
   },
   "linha": {
     "titulo": "Home",
@@ -163,7 +165,17 @@
     "ajudaEquipe": "Only the institute's team.",
     "publicoRoda": "Only your circle of trust",
     "rodaEmBreve": "Your trust list arrives with the new profile. Nobody learns who is on it.",
-    "notaFediverso": "Also on the Fediverse: the post goes to people who follow you on Mastodon, Lemmy and Misskey, under your codename."
+    "notaFediverso": "Also on the Fediverse: the post goes to people who follow you on Mastodon, Lemmy and Misskey, under your codename.",
+    "respostaA": "Write your reply to {nome}",
+    "falta": "Missing: {campos}",
+    "campos": {
+      "titulo": "name of the action",
+      "quando": "when",
+      "onde": "where",
+      "cidade": "city",
+      "descricao": "call"
+    },
+    "escolherQuando": "Pick day and time"
   },
   "direita": {
     "rotulo": "On Alumia now",

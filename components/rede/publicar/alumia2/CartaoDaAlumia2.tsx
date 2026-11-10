@@ -23,6 +23,7 @@ import { Selo } from "../../ui/Selo";
 import { Complementos } from "../Complementos";
 import { useAlumia2 } from "./contexto";
 import { Icone } from "./icones";
+import { detalhesQueFecham } from "./fechar";
 import { AnexoDoChamadoDuble } from "./previa/Dubles";
 
 /** A chamada caiu porque o banco ainda não tem a função nova (a etapa de back-end da F1 cria)? */
@@ -315,7 +316,9 @@ export function CartaoDaAlumia2({
               }}
             >
               <Icone nome="repostar" className="h-[18px] w-[18px]" />
-              <span className="max-[420px]:sr-only">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
+              {/* Nome fixo para o leitor de tela (o estado já vai no aria-pressed); "Repostado" é só para quem vê. */}
+              <span className="sr-only">{t.cartao.repostar}</span>
+              <span aria-hidden className="max-[420px]:hidden">{repostei ? t.cartao.repostado : t.cartao.repostar}</span>
             </button>
           )}
           {logado && !post.meu && (
@@ -324,7 +327,8 @@ export function CartaoDaAlumia2({
                 void acender();
               }}>
               <Icone nome="acender" className="h-[18px] w-[18px]" />
-              <span className="max-[420px]:sr-only">{post.apoiei ? t.cartao.aceso : t.cartao.acender}</span>
+              <span className="sr-only">{t.cartao.acender}</span>
+              <span aria-hidden className="max-[420px]:hidden">{post.apoiei ? t.cartao.aceso : t.cartao.acender}</span>
             </button>
           )}
           {/* O total do Acender só chega para quem escreveu (decisão 3 da ESPEC). */}
@@ -342,7 +346,7 @@ export function CartaoDaAlumia2({
             </button>
           )}
           {logado && (
-            <button type="button" className="al2-acao al2-acao-salvar" aria-pressed={post.salvei} data-tocou={tocou === "salvar" ? "" : undefined} aria-label={post.salvei ? t.cartao.salvo : t.cartao.salvar} title={post.salvei ? t.cartao.salvo : t.cartao.salvar} disabled={ocupado} onClick={() => {
+            <button type="button" className="al2-acao al2-acao-salvar" aria-pressed={post.salvei} data-tocou={tocou === "salvar" ? "" : undefined} aria-label={t.cartao.salvar} title={post.salvei ? t.cartao.salvo : t.cartao.salvar} disabled={ocupado} onClick={() => {
               setTocou("salvar");
               void salvar();
             }}>
@@ -353,7 +357,7 @@ export function CartaoDaAlumia2({
             <Icone nome="compartilhar" className="h-[18px] w-[18px]" />
           </button>
           {/* Denunciar, silenciar, moderar e o que as frentes encaixam ficam num menu, para a linha de ações ser a da prancha. */}
-          <details className="relative">
+          <details ref={detalhesQueFecham} className="al2-mais-acoes relative">
             <summary className="al2-acao list-none [&::-webkit-details-marker]:hidden" aria-label={t.cartao.mais} title={t.cartao.mais}>
               <Icone nome="pontos" className="h-[18px] w-[18px]" />
             </summary>

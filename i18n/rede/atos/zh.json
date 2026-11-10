@@ -114,7 +114,9 @@
       "passado": "日期已过。",
       "longe": "最多一年以内。",
       "palavra": "请使用拉丁字母：名称会成为马赛克上的字。"
-    }
+    },
+    "escolherQuando": "选择日期和时间",
+    "cidadeCurta": "城市"
   },
   "aba": {
     "titulo": "行动",

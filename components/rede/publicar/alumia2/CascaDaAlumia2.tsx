@@ -27,7 +27,9 @@ import { Avatar16 } from "../../ui/Avatar16";
 import { Faixa } from "../../ui/Faixa";
 import { Lampiao } from "../../ui/Lampiao";
 import { useAlumia2 } from "./contexto";
+import { detalhesQueFecham } from "./fechar";
 import { Icone, type NomeDoIcone } from "./icones";
+import { comMovimento } from "./TopoDaLinha2";
 import { AoVivoDuble, AtosPertoDuble, ComunidadesAtivasDuble } from "./previa/Dubles";
 
 /** O que a casca nova sabe abrir no compositor: o tipo já escolhido (o "Chamar ato" do compositor da linha abre no Ato). */
@@ -85,6 +87,27 @@ function ordemDaDireita(pecas: readonly React.ComponentType<ContextoDoEncaixe>[]
 
 /** A última tela aberta (para a próxima entrar com movimento, e a primeira da visita entrar parada). */
 let telaAnterior: string | null = null;
+/** A casa da barra de baixo da tela anterior (o traço sai dela). */
+let barraAnterior: number | null = null;
+
+// Os painéis do site (components/A11yWidget.tsx e assistente/BotaoDoAssistente.tsx) escutam estes eventos. Pelo nome, sem importar
+// os módulos deles: o pacote da Alumia não leva o código dos painéis.
+const alternarAcessibilidade = () => window.dispatchEvent(new Event("lucia:alternar-acessibilidade"));
+const alternarAjuda = () => window.dispatchEvent(new Event("lucia:alternar-assistente"));
+
+/** Acessibilidade e perguntas frequentes como botões da casa, no pé do menu (no lugar dos redondos flutuantes do site). */
+function BotoesDoSite({ t }: { t: NonNullable<ReturnType<typeof useAlumia2>>["t"] }) {
+  return (
+    <>
+      <button type="button" className="al2-acao al2-botao-site" data-alterna-acessibilidade="" onClick={alternarAcessibilidade} aria-label={t.conta.acessibilidade} title={t.conta.acessibilidade}>
+        <Icone nome="acessibilidade" className="h-[22px] w-[22px]" />
+      </button>
+      <button type="button" className="al2-acao al2-botao-site" onClick={alternarAjuda} aria-label={t.conta.ajuda} title={t.conta.ajuda}>
+        <Icone nome="ajuda" className="h-[22px] w-[22px]" />
+      </button>
+    </>
+  );
+}
 
 async function sairDaConta() {
   try {
@@ -147,6 +170,32 @@ export function CascaDaAlumia2({
     };
   }, [membroLogado, ativo, al2?.previa]);
 
+  // O item atual sai do CAMINHO, não da aba da linha: no Início (/alumia), em qualquer aba (Seguindo, Minhas comunidades, Tudo), o
+  // atual é sempre o Início; "Comunidades" só acende em /alumia/comunidades.
+  const semBarra = (x: string) => x.replace(/\/+$/, "");
+  const noInicio = semBarra(caminho) === semBarra(enderecos.linha(lang));
+  const atualDe = (d: Destino, href: string | null) =>
+    noInicio ? d.chave === "inicio" : ativo === d.chave || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
+
+  // A casa da barra de baixo onde está a tela atual (0 Início, 1 Explorar, 2 é o "+", 3 Atos, 4 Perfil), para o traço deslizante.
+  const alvoDaBarra = situacao
+    ? (() => {
+        const i = BARRA.findIndex((chave) => {
+          const d = DESTINOS.find((x) => x.chave === chave) as Destino;
+          return atualDe(d, hrefDe(d, lang, s, situacao));
+        });
+        return i < 0 ? null : i >= 2 ? i + 1 : i;
+      })()
+    : null;
+  // Cada tela monta a casca de novo: o traço nasce onde estava na tela anterior e desliza até a de agora no quadro seguinte.
+  const [indicador, setIndicador] = useState<number | null>(() => barraAnterior ?? alvoDaBarra);
+  useEffect(() => {
+    if (alvoDaBarra === null) return;
+    const id = requestAnimationFrame(() => setIndicador(alvoDaBarra));
+    barraAnterior = alvoDaBarra;
+    return () => cancelAnimationFrame(id);
+  }, [alvoDaBarra]);
+
   if (!situacao || !al2) return <EsqueletoDaCasca rotulo={s.estados.carregando} />;
   const { t, previa } = al2;
   const pode = situacao.logado && situacao.membro;
@@ -159,21 +208,30 @@ export function CascaDaAlumia2({
     chamados: previa ? 2 : (emblemaDe("chamados", lang, s, situacao) ?? doBanco?.atos ?? null),
   };
   const sairRapido = () => void sairRapidoDaRede(enderecoDoSite(lang), ENCAIXES.aoSairRapido);
-  const atualDe = (d: Destino, href: string | null) => ativo === d.chave || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
   const ctx = { lang, s, situacao };
   const direitaEncaixada = ordemDaDireita(ENCAIXES.colunaDireita);
 
   return (
     <div className="al2 min-h-screen bg-[var(--al-fundo)]">
       <Faixa />
+      {/* A prévia avisa uma vez só, colada na faixa, acima de tudo (e não no meio do Início, entre o título e os stories). */}
+      {previa && (
+        <p className="al2-aviso-previa" role="note">
+          {t.previa.aviso}
+        </p>
+      )}
       <a href="#rede-linha" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-[var(--al-fundo)] focus:p-2">{s.casca.saltarParaConteudo}</a>
-      {/* Layout fluido (pedido do Jonathan: nada apertado no meio): uma coluna no celular; de 1024 a 1279, menu + meio; de 1280 em
-          diante, as três colunas, que crescem com a tela até 1920 e além (o meio fica com o que sobra). */}
-      <div className="al2-grade grid grid-cols-[minmax(0,1fr)] pb-[calc(4.75rem+var(--recuo-baixo,0px))] lg:grid-cols-[clamp(220px,21vw,260px)_minmax(0,1fr)] lg:pb-0 xl:grid-cols-[clamp(240px,16.5vw,320px)_minmax(0,1fr)_clamp(320px,22vw,440px)]">
+      {/* Uma coluna no celular; de 1024 a 1279, menu + meio; de 1280 em diante, as três colunas da prancha computador-inicio. O meio
+          tem uma medida só (até 680 px: texto, ato, aula e mosaico alinhados, nada de bloco estreito com caixa larguíssima embaixo) e
+          as três ficam centradas; o que sobra nas telas grandes vira margem dos dois lados, e não um meio esticado. */}
+      <div className="al2-grade grid grid-cols-[minmax(0,1fr)] pb-[calc(4.75rem+var(--recuo-baixo,0px))] lg:justify-center lg:grid-cols-[clamp(220px,21vw,260px)_minmax(0,720px)] lg:pb-0 xl:grid-cols-[clamp(240px,18vw,290px)_minmax(0,680px)_clamp(340px,24vw,380px)]">
         {/* ───── Menu (computador) ───── */}
         {/* Sem rótulo próprio: o ponto de referência é o <nav> dentro (dois rótulos iguais confundem o leitor de tela). */}
-        <div className="hidden border-r border-[var(--al-linha)] px-4 lg:block xl:px-5 2xl:px-7">
-          <div className="sticky top-[0px] flex min-h-[calc(100vh-6px)] flex-col py-6">
+        <div className="hidden border-r border-[var(--al-linha)] lg:block">
+          {/* Do tamanho da tela, preso no alto: a marca e o menu rolam por dentro quando a tela é baixa; a conta e o Sair rápido ficam
+              num pé que não encolhe, sempre à vista (o Sair rápido é a saída de segurança). */}
+          <div className="al2-menu-lateral sticky top-0 flex h-[100dvh] flex-col">
+          <div className="al2-menu-rola min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pt-6 xl:px-5 2xl:px-6">
             <Link href={enderecos.linha(lang)} className="flex items-center gap-3 px-2" aria-label={t.marca.inicio}>
               <Lampiao tamanho={34} />
               <span className="leading-none">
@@ -181,7 +239,7 @@ export function CascaDaAlumia2({
                 <span className="block font-[family-name:var(--al-fonte-marca)] text-[0.95rem] italic text-[var(--al-texto-2)]">{t.marca.instituto}</span>
               </span>
             </Link>
-            <nav className="mt-6" aria-label={t.menu.principal}>
+            <nav className="al2-menu-nav mt-6" aria-label={t.menu.principal}>
               <ul className="space-y-0.5">
                 {DESTINOS.map((d) => {
                   const href = hrefDe(d, lang, s, situacao);
@@ -243,16 +301,23 @@ export function CascaDaAlumia2({
               </ul>
             </nav>
             {pode && (
-              <button type="button" onClick={() => aoEscrever()} className="al-botao al-botao-primario al-botao-g mt-6 w-full">
+              <button type="button" onClick={() => aoEscrever()} className="al2-menu-escrever al-botao al-botao-primario al-botao-g al2-aperta mt-6 w-full">
                 <Icone nome="escrever" className="h-5 w-5" />
                 {t.menu.escrever}
               </button>
             )}
-            <div className="mt-auto space-y-3 pt-8">
+            <div aria-hidden className="h-4" />
+          </div>
+            <div className="al2-menu-pe shrink-0 space-y-2.5 border-t border-[var(--al-linha)] px-4 pb-5 pt-3 xl:px-5 2xl:px-6">
               <Conta lang={lang} s={s} situacao={situacao} />
-              <button type="button" onClick={sairRapido} className="al-botao al-botao-contorno al-botao-m w-full" title={t.conta.sairRapidoAjuda}>
-                {t.conta.sairRapido}
-              </button>
+              {/* Sair rápido sempre à vista; ao lado, a acessibilidade e as perguntas frequentes, que na Alumia moram aqui (os botões
+                  redondos do site não flutuam por cima do menu nem dos posts). */}
+              <div className="flex items-center gap-1.5">
+                <button type="button" onClick={sairRapido} className="al-botao al-botao-contorno al-botao-m al2-aperta min-w-0 flex-1 !px-2 whitespace-nowrap" title={t.conta.sairRapidoAjuda}>
+                  {t.conta.sairRapido}
+                </button>
+                <BotoesDoSite t={t} />
+              </div>
             </div>
           </div>
         </div>
@@ -279,6 +344,10 @@ export function CascaDaAlumia2({
                 </span>
               )}
             </Link>
+            {/* No celular, a acessibilidade fica aqui no alto (o botão redondo não cobre o "Eu vou" nem o mosaico). */}
+            <button type="button" className="al2-acao" data-alterna-acessibilidade="" onClick={alternarAcessibilidade} aria-label={t.conta.acessibilidade} title={t.conta.acessibilidade}>
+              <Icone nome="acessibilidade" className="h-6 w-6" />
+            </button>
             <button type="button" onClick={sairRapido} className="al2-acao" aria-label={t.conta.sairRapido} title={t.conta.sairRapidoAjuda}>
               <Icone nome="sair" className="h-6 w-6" />
             </button>
@@ -322,7 +391,9 @@ export function CascaDaAlumia2({
 
       {/* ───── Barra de baixo (celular) ───── */}
       <nav aria-label={t.menu.barra} className="al2-barra-baixo no-print fixed inset-x-0 bottom-0 z-30 pb-[var(--recuo-baixo,0px)] lg:hidden">
-        <ul className="mx-auto grid max-w-[600px] grid-cols-5 items-center">
+        <ul className="relative mx-auto grid max-w-[600px] grid-cols-5 items-center">
+          {/* O traço da tela atual desliza (a mesma mola do traço das abas) do item de antes até o de agora. */}
+          {indicador !== null && <li aria-hidden className="al2-barra-indicador" style={{ ["--i" as string]: indicador }} />}
           {BARRA.map((chave, i) => {
             const d = DESTINOS.find((x) => x.chave === chave) as Destino;
             const href = hrefDe(d, lang, s, situacao);
@@ -331,7 +402,17 @@ export function CascaDaAlumia2({
             const item = (
               <li key={chave}>
                 {href ? (
-                  <Link href={href} className="al2-barra-item" aria-current={atual ? "page" : undefined}>
+                  <Link
+                    href={href}
+                    className="al2-barra-item"
+                    aria-current={atual ? "page" : undefined}
+                    onClick={(e) => {
+                      // Tocar de novo no item da tela aberta sobe ao alto (como nos aplicativos), em vez de recarregar.
+                      if (!atual || window.scrollY < 4) return;
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: comMovimento() ? "smooth" : "auto" });
+                    }}
+                  >
                     <span className="relative">
                       <Icone nome={d.icone} className="h-7 w-7" grosso={atual} />
                       {n !== null && n > 0 && <span aria-hidden className="absolute -right-1 -top-0.5 h-2.5 w-2.5 rounded-full bg-[var(--al-dourado)]" />}
@@ -381,8 +462,8 @@ function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; situacao:
       ]
     : [];
   return (
-    <details className="al2-conta group rounded-xl border border-[var(--al-linha)] bg-[var(--al-superficie)]">
-      <summary className="relative flex cursor-pointer list-none items-center gap-3 p-3 [&::-webkit-details-marker]:hidden">
+    <details ref={detalhesQueFecham} className="al2-conta group relative rounded-xl border border-[var(--al-linha)] bg-[var(--al-superficie)]">
+      <summary className="relative flex cursor-pointer list-none items-center gap-3 rounded-xl p-3 [&::-webkit-details-marker]:hidden">
         {situacao.logado ? (
           <>
             <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={36} className="shrink-0" />
@@ -397,8 +478,13 @@ function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; situacao:
         <Icone nome="pontos" className={`h-5 w-5 shrink-0 text-[var(--al-texto-3)] ${situacao.logado ? "absolute right-3 top-3" : ""}`} />
         <span className="sr-only">{t.conta.abrir}</span>
       </summary>
-      <div className="space-y-1 border-t border-[var(--al-linha)] p-2 text-sm">
+      {/* No computador abre para cima, por cima do menu (o pé do menu não cresce e o Sair rápido não sai da tela). */}
+      <div className="al2-conta-menu space-y-1 border-t border-[var(--al-linha)] p-2 text-sm">
         <Link href={enderecoDoSite(lang)} className="al2-acao w-full justify-start">{t.conta.voltarAoSite}</Link>
+        <button type="button" className="al2-acao w-full justify-start" onClick={alternarAjuda}>
+          <Icone nome="ajuda" className="h-[18px] w-[18px]" />
+          {t.conta.ajuda}
+        </button>
         {cuidados.map(([rota, texto]) => (
           <Link key={rota} href={localePath(lang, `/alumia/${rota}`)} className="al2-acao w-full justify-start">{texto}</Link>
         ))}

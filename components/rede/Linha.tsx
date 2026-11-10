@@ -125,7 +125,11 @@ export function Linha({
     // Prévia (NEXT_PUBLIC_ALUMIA_PREVIA=sim): os posts das pranchas, nunca misturados com os de verdade; "3 posts novos".
     // Os exemplos só são baixados na prévia (import sob demanda): fora dela, não pesam no pacote da Rede de hoje.
     const pedido = previa
-      ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({ itens: m.postsDeExemplo(), proximo: null }))
+      ? import("@/lib/rede/publicar/exemplos-alumia2").then((m) => ({
+          // Depois de tocar em "3 posts novos", os três chegam no alto (e entram animados, como os novos de verdade).
+          itens: versao > 0 ? [...m.postsNovosDeExemplo(), ...m.postsDeExemplo()] : m.postsDeExemplo(),
+          proximo: null,
+        }))
       : rede.linha(aba, null, 20).then(async (r) => {
           if (!comReposts) return r;
           const m = await comRepostes(r.itens, r.proximo, null);
