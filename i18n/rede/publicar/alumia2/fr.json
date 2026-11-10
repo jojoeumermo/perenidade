@@ -228,5 +228,11 @@
     "onde": "Où",
     "chamado": "Appel",
     "mosaicoApagado": "La mosaïque commence éteinte et s’allume à chaque personne qui confirme."
+  },
+  "naoEncontrada": {
+    "titulo": "Introuvable",
+    "texto": "Cette adresse n'existe pas sur Alumia, ou la publication a été retirée. Votre fil est toujours au même endroit.",
+    "voltar": "Retour à l'accueil d'Alumia",
+    "buscar": "Rechercher"
   }
 }

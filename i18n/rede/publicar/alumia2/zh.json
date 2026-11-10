@@ -228,5 +228,11 @@
     "onde": "地点",
     "chamado": "号召",
     "mosaicoApagado": "马赛克一开始是暗的，每有一人确认就点亮一张。"
+  },
+  "naoEncontrada": {
+    "titulo": "没有找到",
+    "texto": "Alumia 上没有这个地址，或者这条帖子已经撤下。你的时间线还在原处。",
+    "voltar": "回到 Alumia 首页",
+    "buscar": "搜索"
   }
 }

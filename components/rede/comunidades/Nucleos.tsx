@@ -254,11 +254,15 @@ export default function Nucleos({ lang, s, situacao, params, aoEscrever }: Props
         ) : lista.dado.itens.length === 0 ? (
           <p className="mt-1 text-sm text-ink-soft">{n.vazio}</p>
         ) : (
-          <ul className="mt-2 divide-y divide-rule">
-            {lista.dado.itens.map((x) => (
-              <li key={x.id} className="py-3">
-                <Link href={enderecosCom.nucleo(lang, x.id)} className="font-bold underline">{x.nome}</Link>
-                <p className="text-sm text-ink-soft">{x.cidade}{x.trilha ? ` · ${x.trilha.replace(/-/g, " ")}` : ""}</p>
+          // Cada núcleo num cartão com o anel colorido (prancha traga-sua-organizacao: a lista de núcleos).
+          <ul className="mt-3 grid gap-2.5">
+            {lista.dado.itens.map((x, i) => (
+              <li key={x.id} className={`al2-cartao-com al3-cor-${(i % 5) + 1} flex items-center gap-3 px-4 py-3`}>
+                <span aria-hidden className="al3-anel" />
+                <span className="min-w-0 flex-1">
+                  <Link href={enderecosCom.nucleo(lang, x.id)} className="al2-nome-link block font-extrabold">{x.nome}</Link>
+                  <span className="block text-sm text-ink-soft">{x.cidade}{x.trilha ? ` · ${x.trilha.replace(/-/g, " ")}` : ""}</span>
+                </span>
               </li>
             ))}
           </ul>

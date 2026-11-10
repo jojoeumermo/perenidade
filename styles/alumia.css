@@ -967,9 +967,9 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 /* A paleta velha do site (tinta, papel, bordô, chama) escrita em hex nas telas antigas: vira os tokens das pranchas. Só o nome
    exato da classe (~=): "hover:bg-[#1f1a14]" não pinta o botão parado. */
 [data-al="2"] [class~="bg-[#c21f16]"] { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
-[data-al="2"] [class~="bg-[#c21f16]"]:not(:disabled):hover { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); filter: brightness(0.92); }
 [data-al="2"] :is([class~="bg-[#1f1a14]"], [class~="bg-[#6e1f1a]"]) { background-color: var(--al-superficie); }
 [data-al="2"] [class~="hover:bg-[#1f1a14]"]:not(:disabled):hover { background-color: var(--al-superficie-2); }
+[data-al="2"] [class~="bg-[#c21f16]"]:not(:disabled):hover { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); filter: brightness(0.92); }
 [data-al="2"] [class~="bg-[#f0a020]"] { background-color: var(--al-dourado); }
 [data-al="2"] [class~="text-[#f4ecd8]"] { color: var(--al-texto); }
 [data-al="2"] [class~="text-[#e9dcbc]"] { color: var(--al-texto-2); }
@@ -1022,6 +1022,27 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 [data-al="2"] .al2-convite-entrar-acoes { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.1rem; }
 [data-al="2"] .al2-convite-entrar-nota { margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--al-texto-3); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-convite-entrar { border: 2px solid var(--al-texto); }
+
+/* Chip de filtro com rádio ou caixinha por dentro: o escolhido fica claro cheio; o foco do teclado aparece no chip. */
+[data-al="2"] .al2-chip:has(input:checked) { background: var(--al-cartao-aceso); border-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+[data-al="2"] .al2-chip:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-chip { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-chip:has(input:checked) { background: var(--al-texto); color: var(--al-fundo); border-width: 3px; }
+
+/* Nome que é link (comunidade, núcleo): sem o sublinhado do site; sublinha no passar e no foco. */
+[data-al="2"] .al2-nome-link { text-decoration: none; color: inherit; }
+[data-al="2"] .al2-nome-link:is(:hover, :focus-visible) { text-decoration: underline; text-underline-offset: 3px; }
+:root[data-eink] [data-al="2"] .al2-nome-link, :root[data-leitor] [data-al="2"] .al2-nome-link { text-decoration: underline; }
+
+/* Cartão de comunidade ou núcleo (prancha "Comunidades ativas"): superfície, cantos de 18 px, anel da cor da comunidade. */
+[data-al="2"] .al2-cartao-com { border: 1px solid var(--al-linha); border-radius: 18px; background: var(--al-superficie); transition: border-color 160ms ease; }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-cartao-com:hover { border-color: var(--al3-cor, var(--al-superficie-2)); } }
+[data-al="2"] .al2-cartao-com:focus-within { border-color: var(--al3-cor, var(--al-superficie-2)); }
+[data-al="2"] .al2-cartao-com .al3-anel { flex: none; width: 26px; height: 26px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-cartao-com { border: 2px solid var(--al-texto); }
+
+/* O estado com título de página (components/rede/ui/Estado.tsx): o título grande e condensado. */
+[data-al="2"] .al2-estado h1.al2-estado-titulo { margin-top: 1.25rem; font-size: clamp(2.4rem, 8vw, 3.4rem); }
 
 /* Botão em pílula (variante dos componentes ui: <Botao pilula> e <LinkBotao pilula>, components/rede/ui/Botao.tsx). */
 [data-al="2"] .al-botao.al-botao-pilula { border-radius: var(--al-raio-pilula); }

@@ -228,5 +228,11 @@
     "onde": "Onde",
     "chamado": "Chamado",
     "mosaicoApagado": "O mosaico começa apagado e acende a cada pessoa que confirmar."
+  },
+  "naoEncontrada": {
+    "titulo": "Não achamos isso",
+    "texto": "Este endereço não existe na Alumia, ou o post saiu do ar. A sua linha continua no mesmo lugar.",
+    "voltar": "Voltar ao início da Alumia",
+    "buscar": "Buscar"
   }
 }

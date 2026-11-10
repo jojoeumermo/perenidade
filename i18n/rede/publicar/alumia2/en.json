@@ -228,5 +228,11 @@
     "onde": "Where",
     "chamado": "Call",
     "mosaicoApagado": "The mosaic starts dark and lights up with each person who confirms."
+  },
+  "naoEncontrada": {
+    "titulo": "We couldn't find that",
+    "texto": "This address doesn't exist on Alumia, or the post was taken down. Your timeline is right where you left it.",
+    "voltar": "Back to the Alumia home",
+    "buscar": "Search"
   }
 }
