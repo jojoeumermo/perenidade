@@ -1,0 +1,130 @@
+{
+  "_rascunho": true,
+  "cartao": {
+    "doFediverso": "del Fediverso · {servidor}",
+    "curtir": "Me gusta",
+    "curtido": "Te gusta",
+    "impulsionar": "Impulsar",
+    "impulsionado": "Impulsado",
+    "responder": "Responder",
+    "abrirOriginal": "Abrir en el original",
+    "denunciar": "Denunciar",
+    "bloquear": "Bloquear",
+    "silenciar": "Silenciar",
+    "impulsionadoPor": "{nome} impulsó",
+    "avisoDeConteudo": "Aviso de contenido",
+    "mostrar": "Mostrar",
+    "midiaSensivel": "Imagen sensible",
+    "semAlt": "Imagen sin descripción",
+    "soSeguidores": "Solo para seguidores",
+    "naoListado": "No listado",
+    "editado": "editado",
+    "soNoOriginal": "Para interactuar con esta publicación, ábrela en el original."
+  },
+  "perfil": {
+    "seguir": "Seguir",
+    "seguindo": "Siguiendo",
+    "pedido": "Solicitud enviada",
+    "deixarDeSeguir": "Dejar de seguir",
+    "segueVoce": "Te sigue",
+    "postsRecentes": "Publicaciones recientes",
+    "vazio": "Todavía no hay publicaciones para mostrar.",
+    "bloqueado": "Bloqueaste esta cuenta.",
+    "silenciado": "Silenciaste esta cuenta.",
+    "abrirNoServidor": "Abrir en {servidor}",
+    "contaDaqui": "Esta cuenta es de Alumia. Ver el perfil.",
+    "rostoDe": "Rostro de {conta}"
+  },
+  "fio": {
+    "titulo": "Conversación",
+    "voltar": "Volver",
+    "acima": "Antes en este hilo",
+    "respostas": "Respuestas",
+    "semRespostas": "Todavía sin respuestas por aquí.",
+    "responderPara": "Responder a {conta}",
+    "enviar": "Enviar",
+    "postDaqui": "Publicación de Alumia. Abrir la conversación.",
+    "respostaPublica": "Tu respuesta es pública, también en el Fediverso.",
+    "enviada": "Respuesta enviada.",
+    "semResposta": "Esta publicación todavía no puede recibir respuesta desde aquí. Ábrela en el original para responder allí.",
+    "semRespostaSeguidores": "Esta publicación es solo para seguidores. No se puede responder desde aquí, porque la respuesta sería pública.",
+    "contador": "{n} de {max} letras",
+    "respostasDeFora": "Respuestas de otros servidores",
+    "respostasDeForaN": "{n} respuestas de otros servidores",
+    "maisRespostas": "Más respuestas",
+    "buscarLa": "Buscar esta publicación en {servidor}",
+    "buscarLaAjuda": "Alumia todavía no guarda esta publicación. Si la buscas, {servidor} sabrá que alguien de Alumia la pidió ahora. No sabrá quién."
+  },
+  "denuncia": {
+    "titulo": "Denunciar",
+    "categorias": {
+      "menores": "Riesgo para niño o adolescente",
+      "ameaca": "Amenaza",
+      "exposicao": "Exposición de datos personales",
+      "violencia": "Violencia",
+      "autolesao": "Autolesión o suicidio",
+      "odio": "Discurso de odio",
+      "assedio": "Acoso",
+      "golpe": "Estafa o fraude",
+      "spam": "Spam",
+      "outro": "Otro motivo"
+    },
+    "texto": "Cuenta lo que pasó (opcional)",
+    "encaminhar": "Avisar también al servidor de origen",
+    "enviar": "Enviar denuncia",
+    "enviada": "Denuncia registrada. Protocolo {protocolo}",
+    "jaEnviada": "Ya denunciaste esto. Protocolo {protocolo}",
+    "fechar": "Cerrar",
+    "naoEncaminhada": "No se avisó al servidor de origen."
+  },
+  "ajuste": {
+    "endereco": "Tu dirección en el Fediverso",
+    "descoberta": "Aparecer en búsquedas de otros servidores",
+    "descobertaAjuda": "Activado, otros servidores pueden sugerir tu perfil. Puedes desactivarlo cuando quieras.",
+    "desligar": "Salir del Fediverso"
+  },
+  "erros": {
+    "entre_primeiro": "Entra en tu cuenta para continuar.",
+    "consentimento": "Entra en Alumia antes de usar el Fediverso.",
+    "fediverso_desligado": "Activa el Fediverso en tu perfil para hacer esto.",
+    "instancia_bloqueada": "Este servidor está bloqueado en Alumia.",
+    "nao_encontrado": "No encontramos esto. Puede haber sido borrado.",
+    "sem_permissao": "No puedes hacer esto en esta publicación.",
+    "muitos_pedidos": "Demasiados pedidos seguidos. Espera un minuto e inténtalo de nuevo.",
+    "sem_conexao": "Sin conexión. Inténtalo de nuevo.",
+    "falha": "No funcionó. Inténtalo de nuevo."
+  },
+  "busca": {
+    "titulo": "Encontrar a alguien del Fediverso",
+    "dica": "Escribe la dirección completa, como @nombre@servidor.org",
+    "procurar": "Buscar",
+    "naoAchou": "No encontramos esta cuenta. Revisa la dirección."
+  },
+  "avisos": {
+    "seguidor": {
+      "um": "{nome} empezó a seguirte.",
+      "varios": "{nome} y más gente del Fediverso empezaron a seguirte."
+    },
+    "resposta": {
+      "um": "{nome} respondió a tu publicación.",
+      "varios": "{nome} y más gente del Fediverso respondieron a tu publicación."
+    },
+    "mencao": {
+      "um": "{nome} te mencionó.",
+      "varios": "{nome} y más gente del Fediverso te mencionaron."
+    },
+    "curtida": {
+      "um": "A alguien del Fediverso le gustó tu publicación.",
+      "varios": "A {n} personas del Fediverso les gustó tu publicación."
+    },
+    "impulso": {
+      "um": "Alguien del Fediverso impulsó tu publicación.",
+      "varios": "{n} personas del Fediverso impulsaron tu publicación."
+    },
+    "alguem": "Alguien del Fediverso"
+  },
+  "comum": {
+    "carregando": "Cargando…",
+    "tentarDeNovo": "Intentar de nuevo"
+  }
+}

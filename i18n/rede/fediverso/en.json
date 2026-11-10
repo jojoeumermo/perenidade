@@ -1,0 +1,130 @@
+{
+  "_rascunho": true,
+  "cartao": {
+    "doFediverso": "from the Fediverse · {servidor}",
+    "curtir": "Like",
+    "curtido": "Liked",
+    "impulsionar": "Boost",
+    "impulsionado": "Boosted",
+    "responder": "Reply",
+    "abrirOriginal": "Open original",
+    "denunciar": "Report",
+    "bloquear": "Block",
+    "silenciar": "Mute",
+    "impulsionadoPor": "{nome} boosted",
+    "avisoDeConteudo": "Content warning",
+    "mostrar": "Show",
+    "midiaSensivel": "Sensitive image",
+    "semAlt": "Image without description",
+    "soSeguidores": "Followers only",
+    "naoListado": "Unlisted",
+    "editado": "edited",
+    "soNoOriginal": "To interact with this post, open the original."
+  },
+  "perfil": {
+    "seguir": "Follow",
+    "seguindo": "Following",
+    "pedido": "Request sent",
+    "deixarDeSeguir": "Unfollow",
+    "segueVoce": "Follows you",
+    "postsRecentes": "Recent posts",
+    "vazio": "No posts to show yet.",
+    "bloqueado": "You blocked this account.",
+    "silenciado": "You muted this account.",
+    "abrirNoServidor": "Open on {servidor}",
+    "contaDaqui": "This account is on Alumia. See the profile.",
+    "rostoDe": "Avatar of {conta}"
+  },
+  "fio": {
+    "titulo": "Conversation",
+    "voltar": "Back",
+    "acima": "Earlier in this thread",
+    "respostas": "Replies",
+    "semRespostas": "No replies here yet.",
+    "responderPara": "Reply to {conta}",
+    "enviar": "Send",
+    "postDaqui": "Post from Alumia. Open the conversation.",
+    "respostaPublica": "Your reply is public, on the Fediverse too.",
+    "enviada": "Reply sent.",
+    "semResposta": "This post can't get a reply from here yet. Open the original to reply there.",
+    "semRespostaSeguidores": "This post is for followers only. You can't reply from here, because the reply would be public.",
+    "contador": "{n} of {max} characters",
+    "respostasDeFora": "Replies from other servers",
+    "respostasDeForaN": "{n} replies from other servers",
+    "maisRespostas": "More replies",
+    "buscarLa": "Fetch this post from {servidor}",
+    "buscarLaAjuda": "Alumia doesn't keep this post yet. If you fetch it, {servidor} learns that someone from Alumia asked for the post now. It doesn't learn who."
+  },
+  "denuncia": {
+    "titulo": "Report",
+    "categorias": {
+      "menores": "Risk to a child or teenager",
+      "ameaca": "Threat",
+      "exposicao": "Exposure of personal data",
+      "violencia": "Violence",
+      "autolesao": "Self-harm or suicide",
+      "odio": "Hate speech",
+      "assedio": "Harassment",
+      "golpe": "Scam or fraud",
+      "spam": "Spam",
+      "outro": "Other reason"
+    },
+    "texto": "Tell us what happened (optional)",
+    "encaminhar": "Also notify the original server",
+    "enviar": "Send report",
+    "enviada": "Report registered. Reference {protocolo}",
+    "jaEnviada": "You already reported this. Reference {protocolo}",
+    "fechar": "Close",
+    "naoEncaminhada": "The origin server was not notified."
+  },
+  "ajuste": {
+    "endereco": "Your Fediverse address",
+    "descoberta": "Appear in searches on other servers",
+    "descobertaAjuda": "When on, other servers may suggest your profile. You can turn it off at any time.",
+    "desligar": "Leave the Fediverse"
+  },
+  "erros": {
+    "entre_primeiro": "Sign in to continue.",
+    "consentimento": "Join Alumia before using the Fediverse.",
+    "fediverso_desligado": "Turn on the Fediverse in your profile to do this.",
+    "instancia_bloqueada": "This server is blocked on Alumia.",
+    "nao_encontrado": "We could not find this. It may have been deleted.",
+    "sem_permissao": "You cannot do this on this post.",
+    "muitos_pedidos": "Too many requests in a row. Wait a minute and try again.",
+    "sem_conexao": "No connection. Try again.",
+    "falha": "That did not work. Try again."
+  },
+  "busca": {
+    "titulo": "Find someone on the Fediverse",
+    "dica": "Type the full address, like @name@server.org",
+    "procurar": "Search",
+    "naoAchou": "We could not find this account. Check the address."
+  },
+  "avisos": {
+    "seguidor": {
+      "um": "{nome} started following you.",
+      "varios": "{nome} and more people from the Fediverse started following you."
+    },
+    "resposta": {
+      "um": "{nome} replied to your post.",
+      "varios": "{nome} and more people from the Fediverse replied to your post."
+    },
+    "mencao": {
+      "um": "{nome} mentioned you.",
+      "varios": "{nome} and more people from the Fediverse mentioned you."
+    },
+    "curtida": {
+      "um": "Someone from the Fediverse liked your post.",
+      "varios": "{n} people from the Fediverse liked your post."
+    },
+    "impulso": {
+      "um": "Someone from the Fediverse boosted your post.",
+      "varios": "{n} people from the Fediverse boosted your post."
+    },
+    "alguem": "Someone from the Fediverse"
+  },
+  "comum": {
+    "carregando": "Loading…",
+    "tentarDeNovo": "Try again"
+  }
+}

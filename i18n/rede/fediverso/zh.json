@@ -1,0 +1,130 @@
+{
+  "_rascunho": true,
+  "cartao": {
+    "doFediverso": "来自联邦宇宙 · {servidor}",
+    "curtir": "喜欢",
+    "curtido": "已喜欢",
+    "impulsionar": "转发",
+    "impulsionado": "已转发",
+    "responder": "回复",
+    "abrirOriginal": "打开原文",
+    "denunciar": "举报",
+    "bloquear": "屏蔽",
+    "silenciar": "隐藏",
+    "impulsionadoPor": "{nome} 转发了",
+    "avisoDeConteudo": "内容提醒",
+    "mostrar": "显示",
+    "midiaSensivel": "敏感图片",
+    "semAlt": "图片没有描述",
+    "soSeguidores": "仅关注者可见",
+    "naoListado": "不公开列出",
+    "editado": "已编辑",
+    "soNoOriginal": "要和这条帖子互动，请打开原文。"
+  },
+  "perfil": {
+    "seguir": "关注",
+    "seguindo": "已关注",
+    "pedido": "请求已发送",
+    "deixarDeSeguir": "取消关注",
+    "segueVoce": "关注了你",
+    "postsRecentes": "最近的帖子",
+    "vazio": "还没有可显示的帖子。",
+    "bloqueado": "你已屏蔽这个账号。",
+    "silenciado": "你已隐藏这个账号。",
+    "abrirNoServidor": "在 {servidor} 打开",
+    "contaDaqui": "这是 Alumia 的账号。查看主页。",
+    "rostoDe": "{conta} 的头像"
+  },
+  "fio": {
+    "titulo": "对话",
+    "voltar": "返回",
+    "acima": "这条对话的前文",
+    "respostas": "回复",
+    "semRespostas": "这里还没有回复。",
+    "responderPara": "回复 {conta}",
+    "enviar": "发送",
+    "postDaqui": "Alumia 的帖子。打开对话。",
+    "respostaPublica": "你的回复是公开的，联邦宇宙也能看到。",
+    "enviada": "回复已发送。",
+    "semResposta": "这条帖子暂时不能从这里回复。请打开原文，在那边回复。",
+    "semRespostaSeguidores": "这条帖子仅关注者可见。不能从这里回复，因为回复会是公开的。",
+    "contador": "{n} / {max} 字",
+    "respostasDeFora": "来自其他服务器的回复",
+    "respostasDeForaN": "{n} 条来自其他服务器的回复",
+    "maisRespostas": "更多回复",
+    "buscarLa": "到 {servidor} 获取这条帖子",
+    "buscarLaAjuda": "Alumia 还没有保存这条帖子。如果你去获取，{servidor} 会知道 Alumia 有人现在请求了它，但不会知道是谁。"
+  },
+  "denuncia": {
+    "titulo": "举报",
+    "categorias": {
+      "menores": "危害儿童或青少年",
+      "ameaca": "威胁",
+      "exposicao": "泄露个人信息",
+      "violencia": "暴力",
+      "autolesao": "自伤或自杀",
+      "odio": "仇恨言论",
+      "assedio": "骚扰",
+      "golpe": "诈骗",
+      "spam": "垃圾信息",
+      "outro": "其他原因"
+    },
+    "texto": "说说发生了什么（可不填）",
+    "encaminhar": "同时通知原服务器",
+    "enviar": "发送举报",
+    "enviada": "举报已登记。编号 {protocolo}",
+    "jaEnviada": "你已经举报过了。编号 {protocolo}",
+    "fechar": "关闭",
+    "naoEncaminhada": "没有通知原服务器。"
+  },
+  "ajuste": {
+    "endereco": "你在联邦宇宙的地址",
+    "descoberta": "出现在其他服务器的搜索中",
+    "descobertaAjuda": "打开后，其他服务器可以推荐你的主页。可以随时关闭。",
+    "desligar": "退出联邦宇宙"
+  },
+  "erros": {
+    "entre_primeiro": "请先登录。",
+    "consentimento": "请先加入 Alumia。",
+    "fediverso_desligado": "请先在你的主页打开联邦宇宙。",
+    "instancia_bloqueada": "这个服务器在 Alumia 被屏蔽了。",
+    "nao_encontrado": "没有找到。可能已被删除。",
+    "sem_permissao": "你不能对这条帖子这样做。",
+    "muitos_pedidos": "请求太频繁。请等一分钟再试。",
+    "sem_conexao": "没有网络。请再试一次。",
+    "falha": "没有成功。请再试一次。"
+  },
+  "busca": {
+    "titulo": "查找联邦宇宙的人",
+    "dica": "请输入完整地址，例如 @名字@服务器.org",
+    "procurar": "查找",
+    "naoAchou": "没有找到这个账号。请检查地址。"
+  },
+  "avisos": {
+    "seguidor": {
+      "um": "{nome} 开始关注你。",
+      "varios": "{nome} 和联邦宇宙的其他人开始关注你。"
+    },
+    "resposta": {
+      "um": "{nome} 回复了你的帖子。",
+      "varios": "{nome} 和联邦宇宙的其他人回复了你的帖子。"
+    },
+    "mencao": {
+      "um": "{nome} 提到了你。",
+      "varios": "{nome} 和联邦宇宙的其他人提到了你。"
+    },
+    "curtida": {
+      "um": "联邦宇宙有人喜欢了你的帖子。",
+      "varios": "联邦宇宙有 {n} 人喜欢了你的帖子。"
+    },
+    "impulso": {
+      "um": "联邦宇宙有人转发了你的帖子。",
+      "varios": "联邦宇宙有 {n} 人转发了你的帖子。"
+    },
+    "alguem": "联邦宇宙的某个人"
+  },
+  "comum": {
+    "carregando": "加载中…",
+    "tentarDeNovo": "再试一次"
+  }
+}

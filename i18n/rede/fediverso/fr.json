@@ -1,0 +1,130 @@
+{
+  "_rascunho": true,
+  "cartao": {
+    "doFediverso": "du Fédivers · {servidor}",
+    "curtir": "Aimer",
+    "curtido": "Aimé",
+    "impulsionar": "Partager",
+    "impulsionado": "Partagé",
+    "responder": "Répondre",
+    "abrirOriginal": "Ouvrir l’original",
+    "denunciar": "Signaler",
+    "bloquear": "Bloquer",
+    "silenciar": "Masquer",
+    "impulsionadoPor": "{nome} a partagé",
+    "avisoDeConteudo": "Avertissement de contenu",
+    "mostrar": "Afficher",
+    "midiaSensivel": "Image sensible",
+    "semAlt": "Image sans description",
+    "soSeguidores": "Abonnés seulement",
+    "naoListado": "Non listé",
+    "editado": "modifié",
+    "soNoOriginal": "Pour interagir avec cette publication, ouvrez l’original."
+  },
+  "perfil": {
+    "seguir": "Suivre",
+    "seguindo": "Abonné",
+    "pedido": "Demande envoyée",
+    "deixarDeSeguir": "Ne plus suivre",
+    "segueVoce": "Vous suit",
+    "postsRecentes": "Publications récentes",
+    "vazio": "Pas encore de publications à afficher.",
+    "bloqueado": "Vous avez bloqué ce compte.",
+    "silenciado": "Vous avez masqué ce compte.",
+    "abrirNoServidor": "Ouvrir sur {servidor}",
+    "contaDaqui": "Ce compte est sur Alumia. Voir le profil.",
+    "rostoDe": "Visage de {conta}"
+  },
+  "fio": {
+    "titulo": "Conversation",
+    "voltar": "Retour",
+    "acima": "Plus haut dans ce fil",
+    "respostas": "Réponses",
+    "semRespostas": "Pas encore de réponses ici.",
+    "responderPara": "Répondre à {conta}",
+    "enviar": "Envoyer",
+    "postDaqui": "Publication d’Alumia. Ouvrir la conversation.",
+    "respostaPublica": "Votre réponse est publique, sur le Fédivers aussi.",
+    "enviada": "Réponse envoyée.",
+    "semResposta": "Cette publication ne peut pas encore recevoir de réponse d’ici. Ouvrez l’original pour répondre là-bas.",
+    "semRespostaSeguidores": "Cette publication est réservée aux abonnés. On ne peut pas répondre d’ici, car la réponse serait publique.",
+    "contador": "{n} sur {max} caractères",
+    "respostasDeFora": "Réponses d’autres serveurs",
+    "respostasDeForaN": "{n} réponses d’autres serveurs",
+    "maisRespostas": "Plus de réponses",
+    "buscarLa": "Chercher cette publication sur {servidor}",
+    "buscarLaAjuda": "Alumia ne garde pas encore cette publication. Si vous la cherchez, {servidor} saura que quelqu’un d’Alumia l’a demandée maintenant. Il ne saura pas qui."
+  },
+  "denuncia": {
+    "titulo": "Signaler",
+    "categorias": {
+      "menores": "Risque pour un enfant ou un adolescent",
+      "ameaca": "Menace",
+      "exposicao": "Exposition de données personnelles",
+      "violencia": "Violence",
+      "autolesao": "Automutilation ou suicide",
+      "odio": "Discours de haine",
+      "assedio": "Harcèlement",
+      "golpe": "Arnaque ou fraude",
+      "spam": "Spam",
+      "outro": "Autre raison"
+    },
+    "texto": "Racontez ce qui s’est passé (facultatif)",
+    "encaminhar": "Prévenir aussi le serveur d’origine",
+    "enviar": "Envoyer le signalement",
+    "enviada": "Signalement enregistré. Référence {protocolo}",
+    "jaEnviada": "Vous avez déjà signalé ceci. Référence {protocolo}",
+    "fechar": "Fermer",
+    "naoEncaminhada": "Le serveur d’origine n’a pas été prévenu."
+  },
+  "ajuste": {
+    "endereco": "Votre adresse sur le Fédivers",
+    "descoberta": "Apparaître dans les recherches d’autres serveurs",
+    "descobertaAjuda": "Activé, d’autres serveurs peuvent suggérer votre profil. Vous pouvez le désactiver quand vous voulez.",
+    "desligar": "Quitter le Fédivers"
+  },
+  "erros": {
+    "entre_primeiro": "Connectez-vous pour continuer.",
+    "consentimento": "Rejoignez Alumia avant d’utiliser le Fédivers.",
+    "fediverso_desligado": "Activez le Fédivers dans votre profil pour faire ceci.",
+    "instancia_bloqueada": "Ce serveur est bloqué sur Alumia.",
+    "nao_encontrado": "Introuvable. Cela a peut-être été supprimé.",
+    "sem_permissao": "Vous ne pouvez pas faire ceci sur cette publication.",
+    "muitos_pedidos": "Trop de demandes à la suite. Attendez une minute et réessayez.",
+    "sem_conexao": "Pas de connexion. Réessayez.",
+    "falha": "Cela n’a pas marché. Réessayez."
+  },
+  "busca": {
+    "titulo": "Trouver quelqu’un sur le Fédivers",
+    "dica": "Écrivez l’adresse complète, comme @nom@serveur.org",
+    "procurar": "Chercher",
+    "naoAchou": "Compte introuvable. Vérifiez l’adresse."
+  },
+  "avisos": {
+    "seguidor": {
+      "um": "{nome} a commencé à vous suivre.",
+      "varios": "{nome} et d’autres personnes du Fédivers ont commencé à vous suivre."
+    },
+    "resposta": {
+      "um": "{nome} a répondu à votre publication.",
+      "varios": "{nome} et d’autres personnes du Fédivers ont répondu à votre publication."
+    },
+    "mencao": {
+      "um": "{nome} vous a mentionné.",
+      "varios": "{nome} et d’autres personnes du Fédivers vous ont mentionné."
+    },
+    "curtida": {
+      "um": "Quelqu’un du Fédivers a aimé votre publication.",
+      "varios": "{n} personnes du Fédivers ont aimé votre publication."
+    },
+    "impulso": {
+      "um": "Quelqu’un du Fédivers a partagé votre publication.",
+      "varios": "{n} personnes du Fédivers ont partagé votre publication."
+    },
+    "alguem": "Quelqu’un du Fédivers"
+  },
+  "comum": {
+    "carregando": "Chargement…",
+    "tentarDeNovo": "Réessayer"
+  }
+}
