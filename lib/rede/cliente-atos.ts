@@ -12,7 +12,27 @@ import { chamar, type Chamar } from "./cliente";
 import { linkDeApoioSeguro } from "./atos/chegar";
 import { limparCorrente, limparFarol } from "./atos/corrente";
 import { criarDuble } from "./atos/exemplos";
-import { corValida, type Ato, type Corrente, type DadosDoAto, type EstadoDoFarol, type FarolDoAto, type FiltroDosAtos, type OrgQuePosso, type PaginaDeAtos, type PedidoDeCorrente, type PedidoDeMudanca, type RespostaDoVou } from "./tipos-atos";
+import { limparCaronas, limparPeticao, limparTarefas } from "./atos/quadros";
+import {
+  corValida,
+  type Ato,
+  type CaronaDoAto,
+  type Corrente,
+  type DadosDoAto,
+  type EdicaoDoAto,
+  type EstadoDoFarol,
+  type FarolDoAto,
+  type FiltroDosAtos,
+  type OrgQuePosso,
+  type PaginaDeAtos,
+  type PedidoDeCarona,
+  type PedidoDeCorrente,
+  type PedidoDeMudanca,
+  type PedidoDePeticao,
+  type PeticaoDoAto,
+  type QuadroDeTarefas,
+  type RespostaDoVou,
+} from "./tipos-atos";
 
 /** A prévia com dados de exemplo está ligada? (A referência é literal para o Next gravar o valor no código do navegador.) */
 export const PREVIA_DOS_ATOS = process.env.NEXT_PUBLIC_ALUMIA_PREVIA === "sim";
@@ -27,6 +47,7 @@ export function limparAto(a: Ato): Ato {
     acesos: proporcaoValida(a.acesos),
     total: a.meu && typeof a.total === "number" ? a.total : null,
     link_apoio: linkDeApoioSeguro(a.link_apoio),
+    meta: typeof a.meta === "number" && Number.isInteger(a.meta) && a.meta >= 3 && a.meta <= 30000 ? a.meta : null,
     respostas: Number.isFinite(a.respostas) && a.respostas > 0 ? Math.floor(a.respostas) : 0,
     comunidade: a.comunidade ? { slug: a.comunidade.slug, nome: a.comunidade.nome, cor: corValida(a.comunidade.cor) ?? null } : null,
   };
@@ -77,6 +98,28 @@ export function criarClienteDosAtos(c: Chamar) {
     correntePosso: async (): Promise<OrgQuePosso[]> => (await c<OrgQuePosso[]>("rede_corrente_posso")) ?? [],
     /** Abrir uma corrente como uma organização com selo. */
     correnteAbrir: async (p: PedidoDeCorrente): Promise<Corrente> => limparCorrente(await c<Corrente>("rede_corrente_abrir", { p })),
+
+    // ── B1: meta e link, tarefas, caronas e petição (supabase/migracoes/20261110-alumia-b1-atos.sql) ──
+    /** Só quem organizou: muda a meta e/ou o link de apoio (só as chaves passadas). */
+    editar: async (id: string, e: EdicaoDoAto) => limparAto(await c<Ato>("rede_ato_editar", { p_id: id, p: e })),
+    /** O quadro de tarefas (quem leva o quê). Codinomes só para quem organiza. */
+    tarefas: async (ato: string): Promise<QuadroDeTarefas> => limparTarefas(await c<QuadroDeTarefas>("rede_ato_tarefas", { p_ato: ato })),
+    tarefaCriar: async (ato: string, item: string, quantos: number): Promise<QuadroDeTarefas> =>
+      limparTarefas(await c<QuadroDeTarefas>("rede_ato_tarefa_criar", { p_ato: ato, p_item: item, p_quantos: quantos })),
+    tarefaApagar: async (tarefa: string): Promise<QuadroDeTarefas> => limparTarefas(await c<QuadroDeTarefas>("rede_ato_tarefa_apagar", { p_tarefa: tarefa })),
+    /** "Eu levo" ou desfazer. */
+    tarefaAssumir: async (tarefa: string, sim: boolean): Promise<QuadroDeTarefas> =>
+      limparTarefas(await c<QuadroDeTarefas>("rede_ato_tarefa_assumir", { p_tarefa: tarefa, p_sim: sim })),
+    /** As caronas do ato (só membro). Nunca quem ofereceu. */
+    caronas: async (ato: string): Promise<CaronaDoAto[]> => limparCaronas(await c<CaronaDoAto[]>("rede_ato_caronas", { p_ato: ato })),
+    caronaCriar: async (ato: string, p: PedidoDeCarona): Promise<CaronaDoAto[]> => limparCaronas(await c<CaronaDoAto[]>("rede_ato_carona_criar", { p_ato: ato, p })),
+    caronaVagas: async (id: string, vagas: number | null): Promise<CaronaDoAto[]> => limparCaronas(await c<CaronaDoAto[]>("rede_ato_carona_vagas", { p_id: id, p_vagas: vagas })),
+    caronaApagar: async (id: string): Promise<CaronaDoAto[]> => limparCaronas(await c<CaronaDoAto[]>("rede_ato_carona_apagar", { p_id: id })),
+    /** A petição do ato (nula se não há). Total só a partir de 3; nunca quem assinou. */
+    peticao: async (ato: string): Promise<PeticaoDoAto | null> => limparPeticao(await c<PeticaoDoAto | null>("rede_peticao", { p_ato: ato })),
+    peticaoCriar: async (ato: string, p: PedidoDePeticao): Promise<PeticaoDoAto | null> => limparPeticao(await c<PeticaoDoAto>("rede_peticao_criar", { p_ato: ato, p })),
+    peticaoAssinar: async (id: string, sim: boolean): Promise<PeticaoDoAto | null> => limparPeticao(await c<PeticaoDoAto>("rede_peticao_assinar", { p_peticao: id, p_sim: sim })),
+    peticaoEncerrar: async (id: string): Promise<PeticaoDoAto | null> => limparPeticao(await c<PeticaoDoAto>("rede_peticao_encerrar", { p_peticao: id })),
   };
 }
 
@@ -103,6 +146,9 @@ export function pedidoDoAto(d: DadosDoAto, comum: { publico?: string; comunidade
     onde: d.onde,
     cidade: d.cidade,
     descricao: d.descricao,
+    // Meta e link de apoio são opcionais: só vão quando a pessoa preencheu (o banco recusa o que não serve).
+    ...(typeof d.meta === "number" ? { meta: d.meta } : {}),
+    ...(d.link_apoio ? { link_apoio: d.link_apoio } : {}),
     publico: comum.publico,
     comunidade: comum.comunidade ?? null,
   };

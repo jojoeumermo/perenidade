@@ -58,6 +58,8 @@ export interface Ato {
   respostas: number;
   /** Link externo de apoio (vaquinha, fundo de greve): só https; nada de pagamento aqui. */
   link_apoio: string | null;
+  /** A meta de presença que a organização publicou (3–30000; é um número dela, não uma contagem). O mosaico divide por max(30, meta). */
+  meta?: number | null;
 }
 
 /** Uma página de atos (40 por vez no máximo). `proximo` é o cursor da próxima, nulo quando acabou. */
@@ -91,10 +93,14 @@ export interface DadosDoAto {
   onde: string;
   cidade: string;
   descricao: string;
+  /** A meta de presença (opcional, 3–30000). */
+  meta?: number | null;
+  /** O link externo de apoio (opcional, só https). */
+  link_apoio?: string | null;
   /** O formulário está pronto para publicar? (o servidor confere de novo). */
   pronto: boolean;
   /** Os problemas, por campo, para o compositor mostrar. */
-  problemas: Partial<Record<"titulo" | "quando" | "onde" | "cidade" | "descricao", "vazio" | "curto" | "longo" | "passado" | "longe" | "palavra">>;
+  problemas: Partial<Record<"titulo" | "quando" | "onde" | "cidade" | "descricao" | "meta" | "link_apoio", "vazio" | "curto" | "longo" | "passado" | "longe" | "palavra" | "numero" | "link">>;
 }
 
 /** Os limites do formulário (os mesmos do banco: rede_chamados e rede_publicar). */
@@ -108,6 +114,19 @@ export const LIMITES_DO_ATO = {
   descricaoMax: 500,
   /** Até um ano à frente (rede_publicar: quando > now() + 365 days é inválido). */
   diasMax: 365,
+  metaMin: 3,
+  metaMax: 30000,
+  linkMax: 300,
+  tarefaMin: 2,
+  tarefaMax: 80,
+  tarefaQuantosMax: 50,
+  saidaMin: 3,
+  saidaMax: 100,
+  vagasMax: 60,
+  alvoMin: 3,
+  alvoMax: 120,
+  peticaoMin: 20,
+  peticaoMax: 1500,
 } as const;
 
 // ───── Farol do ato (ALUMIA-FUNCOES-E-IDEIAS §2.1, ideia 1; supabase/migracoes/20261110-alumia-atos.sql) ─────
@@ -164,6 +183,80 @@ export interface PedidoDeCorrente {
   cidade: string;
   meta: number;
   quando: string | null;
+}
+
+// ───── B1 · quadro de tarefas, caronas e petição (supabase/migracoes/20261110-alumia-b1-atos.sql) ─────
+
+/** Uma tarefa do ato ("caixa de som", 1). `quem` (codinomes) e `assumidas` só vêm para quem organiza; para os outros, nulos. */
+export interface TarefaDoAto {
+  id: string;
+  item: string;
+  /** Quantas pessoas a organização pediu (o número é dela, não uma contagem de quem assumiu). */
+  quantos: number;
+  /** Já tem quem leve (o público vê só isto: nunca quantas pessoas nem quem). */
+  completa: boolean;
+  /** Esta pessoa assumiu. */
+  eu: boolean;
+  assumidas: number | null;
+  quem: string[] | null;
+}
+
+export interface QuadroDeTarefas {
+  /** Quem lê organiza o ato (pode pôr e tirar tarefas, vê os codinomes). */
+  organiza: boolean;
+  tarefas: TarefaDoAto[];
+}
+
+export type TipoDeCarona = "oferta" | "pedido";
+export type MeioDaCarona = "carro" | "onibus" | "van" | "bicicleta" | "a_pe" | "outro";
+export const MEIOS_DA_CARONA: readonly MeioDaCarona[] = ["carro", "onibus", "van", "bicicleta", "a_pe", "outro"];
+
+/** Uma carona (ou pedido de carona). Nunca vem quem ofereceu: só se é desta pessoa. O contato é só pelo chat privado. */
+export interface CaronaDoAto {
+  id: string;
+  tipo: TipoDeCarona;
+  meio: MeioDaCarona;
+  /** O ponto PÚBLICO de saída ("Metrô Itaquera, saída B"): nada de endereço com número nem telefone. */
+  saida: string;
+  /** Vagas (0 = lotada; nulo = não disse). */
+  vagas: number | null;
+  sai_em: string | null;
+  minha: boolean;
+  /** Esta pessoa pode tirar (a dona, ou quem organiza o ato). */
+  apagar: boolean;
+}
+
+export interface PedidoDeCarona {
+  tipo: TipoDeCarona;
+  meio: MeioDaCarona;
+  saida: string;
+  vagas?: number | null;
+  sai_em?: string | null;
+}
+
+/** A petição do ato: total só a partir de 3 (e do último marco de 15 min); nunca quem assinou, para ninguém. Nunca federa. */
+export interface PeticaoDoAto {
+  id: string;
+  ato: string;
+  alvo: string;
+  texto: string;
+  prazo: string | null;
+  aberta: boolean;
+  total: number | null;
+  assinei: boolean;
+  organiza: boolean;
+}
+
+export interface PedidoDePeticao {
+  alvo: string;
+  texto: string;
+  prazo?: string | null;
+}
+
+/** O que quem organizou pode editar depois de chamar. Só as chaves presentes mudam; nulo ou vazio tira. */
+export interface EdicaoDoAto {
+  meta?: number | null;
+  link_apoio?: string | null;
 }
 
 /** A cor guardada da comunidade, se for uma das 5 (o resto vira indefinido e a pílula usa a cor pelo slug). */
