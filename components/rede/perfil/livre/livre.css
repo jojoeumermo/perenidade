@@ -187,6 +187,10 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf-capa-veu { background: linear-gradient(180deg, transparent 30%, var(--al-fundo) 75%); }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .pf[data-layout="cartaz"] :is(.pf-identidade, .pf-nome, .pf-handle) { color: var(--al-texto); text-shadow: none; }
 :root[data-eink] [data-al="2"] .pf-ladrilho-brilho { fill: var(--al-cartao-apagado); }
+:root[data-eink] [data-al="2"] .pf-faixa { background-image: repeating-linear-gradient(90deg, #000 0 8px, #fff 8px 12px) !important; border-block: 1px solid #000; }
+:root[data-eink] [data-al="2"] .pf-rosto { filter: grayscale(1) contrast(1.3); }
+:root[data-eink] [data-al="2"] .pf-rosto-fundo { fill: #000; }
+:root[data-eink] [data-al="2"] .pf-rosto-moldura { box-shadow: 0 0 0 2px #000; }
 :root[data-eink] [data-al="2"] :is(.pf-equalizador, .pf-status-ponto) { display: none; }
 
 /* ───────────── A página do perfil (abas e painéis) ───────────── */
