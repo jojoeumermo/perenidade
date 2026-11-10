@@ -18,13 +18,18 @@ const PASSO = 22;
 const CARTAO = 19;
 const RAIO = 4;
 
+// As cores vêm de atos.css (.al-mosaico-vivo): o fundo aceso fica mais baixo que a palavra, para a palavra ler de longe; no alto
+// contraste e no e-ink valem os tokens de sempre.
 const COR: Record<TipoDoCartao, string> = {
-  aceso: "var(--al-cartao-aceso, #f3efe6)",
-  apagado: "var(--al-cartao-apagado, #2a2622)",
-  "letra-acesa": "var(--al-letra-acesa, #e8321f)",
-  "letra-apagada": "var(--al-letra-apagada, #7a281d)",
+  aceso: "var(--al-mv-aceso, #f3efe6)",
+  apagado: "var(--al-mv-apagado, #2a2622)",
+  "letra-acesa": "var(--al-mv-letra, #e8321f)",
+  "letra-apagada": "var(--al-mv-letra-apagada, #7a281d)",
   voce: "var(--al-voce, #ffc21a)",
 };
+const daPalavra = (t: TipoDoCartao) => t === "letra-acesa" || t === "letra-apagada";
+// Os cartões da palavra crescem até quase encostar no vizinho: a letra vira traço cheio, não pontilhado.
+const CRESCE = 2;
 const aceso = (t: TipoDoCartao | undefined) => t === "aceso" || t === "letra-acesa" || t === "voce";
 
 export interface PropsDoMosaicoVivo {
@@ -90,7 +95,10 @@ export function MosaicoVivo({ palavra, semente, proporcao, quebrar, voce, sement
         const idx = m.cartoes.map((t, i) => (aceso(t) ? i : -1)).filter((i) => i >= 0);
         const voceI = m.cartoes.indexOf("voce");
         const centro = Math.floor(m.linhas / 2) * m.colunas + Math.floor(m.colunas / 2);
-        virar(idx, (i) => (m.cartoes[i] === "letra-acesa" ? "letra-apagada" : "apagado"), voceI >= 0 ? voceI : centro, 80, 9);
+        // logo depois de trocar de ato (a tela dos atos marca :root[data-al-ir]) a onda espera o ato novo assentar, para não virar
+        // no meio da entrada
+        const espera = document.documentElement.hasAttribute("data-al-ir") ? 380 : 0;
+        virar(idx, (i) => (m.cartoes[i] === "letra-acesa" ? "letra-apagada" : "apagado"), voceI >= 0 ? voceI : centro, 80 + espera, 9);
       },
       { threshold: 0.35 },
     );
@@ -111,17 +119,40 @@ export function MosaicoVivo({ palavra, semente, proporcao, quebrar, voce, sement
     const voceAntes = velho.indexOf("voce");
     const origem = voceI >= 0 ? voceI : voceAntes >= 0 ? voceAntes : mudaram[0];
     virar(mudaram.filter((i) => i !== voceI), (i) => velho[i], origem, voceI >= 0 ? 140 : 0, 22);
-    // o seu cartão cai com mola e solta um anel
+    // o seu cartão cai com mola e solta um anel; se o mosaico está fora da tela (no celular a coluna fica embaixo dele), o cartão
+    // espera a tela chegar nele (a coluna sobe até o mosaico) para cair à vista
     if (voceI >= 0 && voceAntes < 0 && svg.current) {
-      const g = svg.current.querySelector<SVGGElement>(`[data-i="${voceI}"]`);
-      g?.querySelector("rect:last-child")?.animate(
-        [{ transform: "scale(2.2)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }],
-        { duration: MOLAS.quique.duracao, easing: MOLAS.quique.easing },
-      );
-      g?.querySelector(".al-mv-anel")?.animate(
-        [{ transform: "scale(1)", opacity: 0.9, strokeWidth: 3 }, { transform: "scale(3.2)", opacity: 0, strokeWidth: 0.5 }],
-        { duration: 900, easing: "cubic-bezier(.2,.7,.3,1)", delay: 120 },
-      );
+      const raiz = svg.current;
+      const g = raiz.querySelector<SVGGElement>(`[data-i="${voceI}"]`);
+      const cartao = g?.querySelector<SVGRectElement>("rect:last-child");
+      const cair = (atraso: number) => {
+        cartao?.animate([{ transform: "scale(2.2)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }], {
+          duration: MOLAS.quique.duracao,
+          easing: MOLAS.quique.easing,
+          delay: atraso,
+          fill: "backwards",
+        });
+        g?.querySelector(".al-mv-anel")?.animate(
+          [{ transform: "scale(1)", opacity: 0.9, strokeWidth: 3 }, { transform: "scale(3.2)", opacity: 0, strokeWidth: 0.5 }],
+          { duration: 900, easing: "cubic-bezier(.2,.7,.3,1)", delay: atraso + 120 },
+        );
+      };
+      const r = raiz.getBoundingClientRect();
+      if ((r.bottom > 0 && r.top < window.innerHeight) || typeof IntersectionObserver === "undefined") cair(0);
+      else {
+        const esconder = cartao?.animate([{ opacity: 0 }, { opacity: 0 }], { duration: 4000 });
+        const olho = new IntersectionObserver(
+          (entradas) => {
+            if (!entradas.some((e) => e.isIntersecting)) return;
+            olho.disconnect();
+            esconder?.cancel();
+            cair(80);
+          },
+          { threshold: 0.5 },
+        );
+        olho.observe(raiz);
+        window.setTimeout(() => olho.disconnect(), 4000);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [m]);
@@ -166,7 +197,11 @@ export function MosaicoVivo({ palavra, semente, proporcao, quebrar, voce, sement
               {tipo === "voce" ? (
                 <rect className="al-mv-anel" x={x - 3} y={y - 3} width={CARTAO + 6} height={CARTAO + 6} rx={RAIO + 2} fill="none" stroke="var(--al-voce, #ffc21a)" strokeWidth={2} />
               ) : null}
-              <rect className="al-mv-cartao" x={x} y={y} width={CARTAO} height={CARTAO} rx={RAIO} fill={COR[tipo]} stroke={tipo === "voce" ? undefined : "var(--al-cartao-borda, transparent)"} strokeWidth={1} />
+              {daPalavra(tipo) ? (
+                <rect className="al-mv-cartao al-mv-letra" x={x - CRESCE / 2} y={y - CRESCE / 2} width={CARTAO + CRESCE} height={CARTAO + CRESCE} rx={RAIO - 1} fill={COR[tipo]} stroke="var(--al-cartao-borda, transparent)" strokeWidth={1} />
+              ) : (
+                <rect className="al-mv-cartao" x={x} y={y} width={CARTAO} height={CARTAO} rx={RAIO} fill={COR[tipo]} stroke={tipo === "voce" ? undefined : "var(--al-cartao-borda, transparent)"} strokeWidth={1} />
+              )}
             </g>
           );
         })}

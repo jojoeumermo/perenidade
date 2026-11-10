@@ -44,7 +44,9 @@
     "lembreteAjuda": "Baixa um arquivo .ics: a sua agenda avisa 24 h e 2 h antes. Nada vai ao servidor.",
     "baixado": "Arquivo da agenda baixado. Abra para guardar o lembrete.",
     "vouFeito": "Confirmado. Você está no mosaico.",
-    "vouDesfeito": "Confirmação desfeita."
+    "vouDesfeito": "Confirmação desfeita.",
+    "lembreteCurto": "Lembrete",
+    "copiadoCurto": "Copiado"
   },
   "mosaico": {
     "voce": "Você está no mosaico: o cartão dourado.",
@@ -75,14 +77,19 @@
     "vazioSeguindo": "Quem você segue não chamou nenhum ato por enquanto.",
     "chamarUm": "Chamar um ato",
     "cidade": "Sua cidade",
-    "cidadeExemplo": "São Paulo",
+    "cidadeExemplo": "ex.: São Paulo",
     "cidadeAjuda": "\"Perto\" é pela cidade que você escreve. A Alumia não usa a localização do aparelho, e a cidade fica só neste aparelho.",
     "cidadeVer": "Ver atos",
     "trocarCidade": "trocar cidade ({cidade})",
     "previa": "Prévia com dados de exemplo",
     "posicao": "Ato {i} de {n}",
     "puxar": "solte para ir ao próximo ato",
-    "atalhos": "Atalhos: J vai ao próximo ato e K volta ao anterior."
+    "atalhos": "Atalhos: J vai ao próximo ato e K volta ao anterior.",
+    "cidadeCurta": "Escreva o nome da cidade (pelo menos 2 letras).",
+    "mais": "mais",
+    "menos": "menos",
+    "correntes": "Correntes de solidariedade em {cidade}",
+    "trocar": "trocar"
   },
   "pagina": {
     "naoAchado": "Este ato não existe ou você não pode vê-lo.",
@@ -183,7 +190,11 @@
     "outraPediu": "Alguém da coordenação pediu {estado}.",
     "confirmar": "Confirmar: {estado}",
     "rotulo": "Farol do ato: {estado}",
-    "atual": "agora"
+    "atual": "agora",
+    "detalhes": "Detalhes do farol",
+    "esperandoCurto": "esperando a 2ª pessoa",
+    "deNovo": "Toque de novo para pedir {estado}",
+    "trocarPedido": "Você já pediu {pendente}. Toque de novo para trocar por {estado}."
   },
   "corrente": {
     "titulo": "Corrente de solidariedade",
@@ -207,6 +218,7 @@
     "deixar": "Deixar para depois",
     "aberta": "Corrente aberta.",
     "barra": "Corrente: {pct}% fechada",
-    "barraVazia": "Corrente: os elos ainda estão abertos"
+    "barraVazia": "Corrente: os elos ainda estão abertos",
+    "fechouAgora": "A corrente fechou! Obrigado por estar nela."
   }
 }

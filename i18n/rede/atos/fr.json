@@ -44,7 +44,9 @@
     "lembreteAjuda": "Télécharge un fichier .ics : votre agenda prévient 24 h et 2 h avant. Rien ne part au serveur.",
     "baixado": "Fichier d'agenda téléchargé. Ouvrez-le pour garder le rappel.",
     "vouFeito": "Confirmé. Vous êtes dans la mosaïque.",
-    "vouDesfeito": "Confirmation annulée."
+    "vouDesfeito": "Confirmation annulée.",
+    "lembreteCurto": "Rappel",
+    "copiadoCurto": "Copié"
   },
   "mosaico": {
     "voce": "Tu es dans la mosaïque : la carte dorée.",
@@ -75,14 +77,19 @@
     "vazioSeguindo": "Personne que tu suis n'a appelé d'action pour l'instant.",
     "chamarUm": "Appeler une action",
     "cidade": "Ta ville",
-    "cidadeExemplo": "São Paulo",
+    "cidadeExemplo": "ex. : São Paulo",
     "cidadeAjuda": "« Près » utilise la ville que tu écris. Alumia n'utilise pas la position de l'appareil, et la ville reste sur cet appareil.",
     "cidadeVer": "Voir les actions",
     "trocarCidade": "changer de ville ({cidade})",
     "previa": "Aperçu avec des données d'exemple",
     "posicao": "Action {i} sur {n}",
     "puxar": "relâchez pour passer à l'action suivante",
-    "atalhos": "Raccourcis : J passe à l'action suivante et K revient à la précédente."
+    "atalhos": "Raccourcis : J passe à l'action suivante et K revient à la précédente.",
+    "cidadeCurta": "Écrivez le nom de la ville (au moins 2 lettres).",
+    "mais": "plus",
+    "menos": "moins",
+    "correntes": "Chaînes de solidarité à {cidade}",
+    "trocar": "changer"
   },
   "pagina": {
     "naoAchado": "Cette action n'existe pas ou tu ne peux pas la voir.",
@@ -183,7 +190,11 @@
     "outraPediu": "Quelqu'un de la coordination a demandé {estado}.",
     "confirmar": "Confirmer : {estado}",
     "rotulo": "Phare de l'action : {estado}",
-    "atual": "maintenant"
+    "atual": "maintenant",
+    "detalhes": "Détails du phare",
+    "esperandoCurto": "en attente de la 2e personne",
+    "deNovo": "Touchez encore pour demander {estado}",
+    "trocarPedido": "Vous avez déjà demandé {pendente}. Touchez encore pour passer à {estado}."
   },
   "corrente": {
     "titulo": "Chaîne de solidarité",
@@ -207,6 +218,7 @@
     "deixar": "Plus tard",
     "aberta": "Chaîne ouverte.",
     "barra": "Chaîne : {pct} % fermée",
-    "barraVazia": "Chaîne : les maillons sont encore ouverts"
+    "barraVazia": "Chaîne : les maillons sont encore ouverts",
+    "fechouAgora": "La chaîne est fermée ! Merci d’en faire partie."
   }
 }

@@ -158,8 +158,6 @@
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al-atos-filtro { border: 1px solid var(--al-texto); }
 :root[data-eink] [data-al="2"] .al-atos-filtro-botao[aria-pressed="true"] { background: #000; color: #fff; }
 [data-al="2"] .al-atos-previa { margin: 0 0 0.6rem; font-size: 0.75rem; color: var(--al-ato-dourado-texto); text-transform: uppercase; letter-spacing: 0.06em; }
-[data-al="2"] .al-atos-cidade { margin: 0 0 0.6rem; }
-[data-al="2"] .al-atos-link { background: none; border: 0; padding: 0; color: var(--al-texto-3); font: inherit; font-size: 0.85rem; text-decoration: underline; cursor: pointer; }
 [data-al="2"] .al-atos-miolo { display: grid; gap: 1rem; outline: none; }
 [data-al="2"] .al-atos-cidade-form { display: grid; gap: 0.5rem; padding: 1.25rem; border-radius: 18px; background: var(--al-superficie); border: 1px solid var(--al-linha); }
 [data-al="2"] .al-atos-rotulo { font-weight: 700; color: var(--al-texto-2); }
@@ -609,17 +607,17 @@
   translate: 0 0;
   transition: translate 0.38s cubic-bezier(0.2, 0.9, 0.25, 1.05), opacity 0.25s ease, overlay 0.38s allow-discrete, display 0.38s allow-discrete;
 }
-.al-chegar-folha:not(:popover-open) { translate: 0 100%; opacity: 0; }
+.al-chegar-folha:not([open]) { translate: 0 100%; opacity: 0; }
 @starting-style {
-  .al-chegar-folha:popover-open { translate: 0 100%; opacity: 0; }
+  .al-chegar-folha[open] { translate: 0 100%; opacity: 0; }
 }
 .al-chegar-folha::backdrop { background: rgb(0 0 0 / 0.55); backdrop-filter: blur(3px); }
 @media (min-width: 768px) {
   [data-al="2"] .al-chegar-folha,
   .al-chegar-folha { inset: 0; margin: auto; height: fit-content; border-radius: 22px; padding-bottom: 1.25rem; }
-  .al-chegar-folha:not(:popover-open) { translate: 0 18px; opacity: 0; }
+  .al-chegar-folha:not([open]) { translate: 0 18px; opacity: 0; }
   @starting-style {
-    .al-chegar-folha:popover-open { translate: 0 18px; opacity: 0; }
+    .al-chegar-folha[open] { translate: 0 18px; opacity: 0; }
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -701,18 +699,6 @@
 }
 [data-al="2"] .al-atos-filtro-botao { transition: background-color 0.3s ease, color 0.3s ease; }
 
-/* a transição de vista entre um ato e outro (View Transitions): o velho sobe e some, o novo sobe de baixo */
-::view-transition-old(al-ato),
-::view-transition-new(al-ato) { animation-duration: 0.42s; animation-timing-function: cubic-bezier(0.2, 0.85, 0.25, 1); }
-:root[data-al-ir="frente"]::view-transition-old(al-ato) { animation-name: al-ato-sai-cima; }
-:root[data-al-ir="frente"]::view-transition-new(al-ato) { animation-name: al-ato-entra-baixo; }
-:root[data-al-ir="tras"]::view-transition-old(al-ato) { animation-name: al-ato-sai-baixo; }
-:root[data-al-ir="tras"]::view-transition-new(al-ato) { animation-name: al-ato-entra-cima; }
-@keyframes al-ato-sai-cima { to { translate: 0 -14%; opacity: 0; scale: 0.96; } }
-@keyframes al-ato-entra-baixo { from { translate: 0 22%; opacity: 0; } }
-@keyframes al-ato-sai-baixo { to { translate: 0 14%; opacity: 0; scale: 0.96; } }
-@keyframes al-ato-entra-cima { from { translate: 0 -22%; opacity: 0; } }
-
 /* ───── avisos curtos (confirmado, lembrete baixado) ───── */
 [data-al="2"] .al-ato-aviso {
   margin: 0;
@@ -741,5 +727,289 @@
 [data-al="2"] .al-ato-lembrete { display: inline-grid; justify-items: start; gap: 0.25rem; }
 [data-al="2"] .al-ato-aberto-texto > .al-ato-lembrete { margin-top: 0.4rem; }
 .al-chegar-folha { text-align: start; }
-/* o celular faz pílula de todo button[aria-pressed] (app/celular.css): os botões do farol continuam cartões */
-:root [data-al="2"] .al-farol-botao { border-radius: 14px; }
+
+/* ════════════════════════ revisão: celular, farol, gesto, chegar, mosaico ════════════════════════ */
+
+/* ───── cabeça e linha da cidade: alvos de 44 px; a cidade é um chip ("São Paulo · trocar") na mesma linha dos pontos ───── */
+[data-al="2"] .al-atos-voltar { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+[data-al="2"] .al-atos-meta { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0 0 0.6rem; min-height: 44px; }
+[data-al="2"] .al-atos-meta .al-atos-pontos { margin-inline-start: auto; }
+[data-al="2"] .al-atos-cidade {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  margin: 0 0 0 -0.5rem;
+  padding: 0 0.6rem;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--al-texto-2);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+[data-al="2"] .al-atos-cidade:hover { background: var(--al-superficie); }
+[data-al="2"] .al-atos-cidade-pino { display: inline-flex; color: var(--al-vermelho); }
+[data-al="2"] .al-atos-cidade-nome { font-weight: 700; color: var(--al-texto); }
+[data-al="2"] .al-atos-cidade-trocar { color: var(--al-texto-3); text-decoration: underline; text-underline-offset: 3px; }
+/* o exemplo do campo não pode parecer valor preenchido: itálico e mais apagado */
+[data-al="2"] :is(.al-atos-campo, .al-ato-form-campo)::placeholder { color: var(--al-texto-3); opacity: 0.7; font-style: italic; font-weight: 400; }
+[data-al="2"] .al-atos-campo[aria-invalid="true"] { border-color: var(--al-vermelho); }
+
+/* "era 15/11" riscado não se separa */
+[data-al="2"] .al-ato-era { white-space: nowrap; }
+
+/* ───── o chamado: 3 linhas com "mais" no celular ───── */
+[data-al="2"] .al-ato-chamado { display: grid; gap: 0.35rem; justify-items: start; }
+[data-al="2"] .al-ato-chamado .al-ato-aberto-chamado { margin: 0.2rem 0 0; }
+[data-al="2"] .al-ato-chamado-mais {
+  display: none;
+  min-height: 44px;
+  margin-top: -0.5rem;
+  padding: 0 0.6rem 0 0;
+  border: 0;
+  background: none;
+  color: var(--al-texto);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-ato-chamado:not([data-aberto]) .al-ato-aberto-chamado { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  [data-al="2"] .al-ato-chamado:not([data-aberto]) .al-ato-chamado-por { display: none; }
+  [data-al="2"] .al-ato-chamado-mais { display: inline-flex; align-items: center; }
+}
+
+/* ───── farol: carimbo numa linha só dele, legível; no celular, compacto ───── */
+[data-al="2"] .al-farol { grid-template-columns: auto 1fr auto; align-items: center; }
+[data-al="2"] .al-farol-linha { align-items: baseline; gap: 0.15rem 0.6rem; }
+[data-al="2"] .al-farol-estado { white-space: nowrap; }
+[data-al="2"] .al-farol-quando { white-space: nowrap; }
+[data-al="2"] .al-farol-carimbo {
+  justify-self: start;
+  margin-top: 0.15rem;
+  padding: 0.18rem 0.5rem;
+  border: 2.5px solid var(--al-farol-cor);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  rotate: -1.5deg;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--al-farol-cor) 10%, transparent);
+}
+[data-al="2"] .al-farol-ponto { display: block; font-size: 1.05rem; color: var(--al-texto); }
+[data-al="2"] .al-farol-mais { display: none; }
+[data-al="2"] .al-farol-explica { margin-top: 0.1rem; }
+@media (max-width: 767px) {
+  /* compacto: lâmpada, estado e quando numa linha; o carimbo, o novo ponto e a explicação usam a largura toda embaixo */
+  [data-al="2"] .al-farol { padding: 0.55rem 0.3rem 0.6rem 0.6rem; gap: 0.35rem 0.6rem; border-inline-start-width: 5px; }
+  [data-al="2"] .al-farol-texto { display: contents; }
+  [data-al="2"] .al-farol-linha { grid-column: 2; }
+  [data-al="2"] .al-farol-mais { grid-column: 3; grid-row: 1; }
+  [data-al="2"] :is(.al-farol-carimbo, .al-farol-ponto, .al-farol-explica) { grid-column: 1 / -1; }
+  [data-al="2"] .al-farol-carimbo { font-size: 0.75rem; letter-spacing: 0; padding: 0.15rem 0.4rem; margin-top: 0; }
+  [data-al="2"] .al-farol-quando { font-size: 0.78rem; }
+  [data-al="2"] .al-farol .al-farol-lampada { width: 2.1rem; height: 2.1rem; }
+  [data-al="2"] .al-farol-estado { font-size: 1.35rem; }
+  [data-al="2"] .al-farol-mais {
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: var(--al-texto-2);
+    cursor: pointer;
+  }
+  /* o alvo de toque continua com 44 px (WCAG 2.5.8), sem engordar a linha */
+  [data-al="2"] .al-farol-mais::before { content: ""; position: absolute; inset: -4px; }
+  [data-al="2"] .al-farol-mais svg { transition: rotate 0.3s cubic-bezier(0.3, 1.5, 0.5, 1); }
+  [data-al="2"] .al-farol[data-aberto] .al-farol-mais svg { rotate: 180deg; }
+  /* fechado, a explicação sai da vista mas o leitor de tela continua ouvindo (a caixa é role=status) */
+  [data-al="2"] .al-farol:not([data-aberto]) .al-farol-explica {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-farol-carimbo { border-color: var(--al-texto); background: none; }
+
+/* ───── painel do farol: cartões iguais, nunca pílulas (vence o button[aria-pressed] do app/celular.css, que é 0,4,2) ───── */
+:root:not([data-leitor]) [data-al="2"] .al-farol-botoes .al-farol-botao[aria-pressed] { border-radius: 14px; }
+[data-al="2"] .al-farol-botao { align-content: center; min-height: 64px; }
+[data-al="2"] .al-farol-botao-nome { line-height: 1.2; }
+[data-al="2"] .al-farol-botao-espera { color: var(--al-texto-2); }
+[data-al="2"] .al-farol-botao[data-esperando] { border-style: dashed; border-width: 2px; border-color: var(--al-farol-cor); cursor: default; }
+[data-al="2"] .al-farol-botao[data-armado] { border-color: var(--al-farol-cor); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-farol-cor) 35%, transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-parado]):not([data-eink]) [data-al="2"] .al-farol-botao[data-armado] { animation: al-farol-armado 0.9s ease-in-out infinite; }
+}
+@keyframes al-farol-armado {
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--al-farol-cor) 20%, transparent); }
+}
+[data-al="2"] .al-farol-armado { margin: 0; color: var(--al-texto); font-weight: 700; font-size: 0.9rem; }
+[data-al="2"] .al-farol-armado:empty { display: none; }
+@media (max-width: 479px) {
+  /* celular estreito: a lâmpada em cima e o nome embaixo, centrados; os quatro do mesmo tamanho */
+  [data-al="2"] .al-farol-botao { grid-template-columns: 1fr; justify-items: center; text-align: center; min-height: 104px; padding: 0.6rem 0.4rem; gap: 0.3rem; }
+  [data-al="2"] .al-farol-botao .al-farol-lampada { grid-row: auto; }
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-farol-botao[data-esperando] { border: 3px dashed var(--al-texto); }
+
+/* ───── coluna de ações: o lembrete é o quinto quadrado (menor); no celular a coluna encolhe para o próximo ato aparecer ───── */
+[data-al="2"] .al-ato-coluna .al-ato-quadrado-menor { width: 48px; height: 48px; border-radius: 14px; }
+[data-al="2"] .al-ato-coluna .al-ato-quadrado[data-feito] { border-color: var(--al-dourado); color: var(--al-ato-dourado-texto); }
+@media (min-width: 420px) {
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado-menor { width: 52px; height: 52px; }
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-ato-aberto { gap: 0.9rem; }
+  [data-al="2"] .al-ato-aberto-corpo { gap: 0.75rem; }
+  [data-al="2"] .al-ato-coluna { gap: 0.55rem; }
+  [data-al="2"] .al-ato-acao { gap: 0.2rem; }
+  [data-al="2"] .al-ato-acao-rotulo { font-size: 0.8rem; }
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado:not(.al-ato-quadrado-menor) { width: 52px; height: 52px; border-radius: 15px; }
+  :root [data-al="2"] .al-ato-coluna .al-ato-quadrado:is(.al-ato-quadrado-vou, .al-ato-quadrado-ligado) { width: 60px; height: 60px; border-radius: 17px; }
+  [data-al="2"] .al-ato-coluna .al-ato-quadrado-menor { width: 44px; height: 44px; }
+  [data-al="2"] .al-ato-aberto-texto { gap: 0.45rem; }
+  [data-al="2"] .al-ato-aberto-marcas { flex-wrap: nowrap; gap: 0.6rem; }
+  [data-al="2"] .al-ato-aberto-marcas .al-pilula { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.95rem; }
+  [data-al="2"] .al-ato-aberto-marcas .al-carimbo { flex: none; font-size: 0.95rem; }
+  [data-al="2"] .al-ato-aberto-titulo { font-size: clamp(2.8rem, 14vw, 4.4rem); margin: 0; }
+  [data-al="2"] .al-ato-aberto-quando { font-size: 1.05rem; }
+  [data-al="2"] .al-ato-aberto-onde { font-size: 0.98rem; }
+  [data-al="2"] .al-ato-aberto-chamado { font-size: 1rem; }
+  [data-al="2"] .al-ato-aberto .al-ato-frase { font-size: 0.95rem; }
+  [data-al="2"] .al-ato-aberto-mosaico { padding: 8px; }
+  [data-al="2"] .al-atos-proximo { margin-top: 0.4rem; gap: 0.5rem; }
+  [data-al="2"] .al-atos-cabeca { padding: 0.6rem 0 0.4rem; }
+  [data-al="2"] .al-atos-titulo { font-size: 2.3rem; }
+  [data-al="2"] .al-atos-filtro-botao { padding: 0.5rem 0.9rem; font-size: 1rem; min-height: 44px; }
+  [data-al="2"] .al-atos-meta { margin-bottom: 0.3rem; }
+  [data-al="2"] .al-atos-previa { margin-bottom: 0.1rem; }
+}
+
+/* ───── gesto: para a frente, o cartão do próximo sobe com o dedo; para trás, o ato aberto desce ───── */
+[data-al="2"] .al-atos-palco .al-ato-aberto { translate: none; opacity: 1; }
+[data-al="2"] .al-atos-palco[data-arrastando="tras"] .al-ato-aberto { translate: 0 var(--al-arraste, 0px); opacity: calc(1 - var(--al-arraste-p, 0) * 0.35); transition: none; }
+[data-al="2"] .al-atos-proximo .al-ato-item { transition: translate 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.1), transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1), border-color 0.2s ease, box-shadow 0.25s ease; }
+[data-al="2"] .al-atos-palco[data-arrastando="frente"] .al-atos-proximo .al-ato-item { translate: 0 var(--al-arraste, 0px); transition: transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1), border-color 0.2s ease, box-shadow 0.25s ease; }
+[data-al="2"] .al-atos-palco[data-puxou] .al-atos-proximo .al-ato-item { transform: scale(1.02); border-color: var(--al-dourado); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-dourado) 35%, transparent); }
+[data-al="2"] .al-atos-palco[data-arrastando="frente"] .al-atos-deslize { opacity: calc(1 - var(--al-arraste-p, 0)); }
+[data-al="2"] .al-atos-deslize-solte { display: none; color: var(--al-ato-dourado-texto); font-weight: 700; }
+[data-al="2"] .al-atos-palco[data-puxou][data-arrastando="frente"] .al-atos-deslize { opacity: 1; }
+[data-al="2"] .al-atos-palco[data-puxou][data-arrastando="frente"] .al-atos-deslize-texto { display: none; }
+[data-al="2"] .al-atos-palco[data-puxou][data-arrastando="frente"] .al-atos-deslize-solte { display: inline; }
+[data-al="2"] .al-atos-anterior { min-height: 44px; }
+
+/* ───── correntes dobradas embaixo do próximo ato ───── */
+[data-al="2"] .al-correntes-dobra { border: 1.5px solid color-mix(in srgb, var(--al-dourado) 45%, transparent); border-radius: 18px; background: var(--al-superficie); }
+[data-al="2"] .al-correntes-dobra > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+}
+[data-al="2"] .al-correntes-dobra > summary::-webkit-details-marker { display: none; }
+[data-al="2"] .al-correntes-dobra > summary::after { content: ""; flex: none; width: 0.55rem; height: 0.55rem; margin-inline-start: auto; border: solid var(--al-texto-2); border-width: 0 2px 2px 0; rotate: 45deg; translate: 0 -2px; transition: rotate 0.3s ease; }
+[data-al="2"] .al-correntes-dobra[open] > summary::after { rotate: -135deg; translate: 0 2px; }
+[data-al="2"] .al-correntes-dobra-elo { display: inline-flex; color: var(--al-ato-dourado-texto); }
+[data-al="2"] .al-correntes-dobra-titulo { min-width: 0; }
+[data-al="2"] .al-correntes-dobra-n { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; padding: 0 0.35rem; border-radius: 99px; background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.85rem; }
+[data-al="2"] .al-correntes-dobra > .al-correntes { padding: 0 0.6rem 0.7rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-correntes-dobra { border: 2px solid var(--al-texto); }
+/* o "Quando" da corrente ocupa a linha inteira (data e hora não cabem em 9 rem) */
+[data-al="2"] .al-corrente-form-linha > label:has(input[type="datetime-local"]) { grid-column: 1 / -1; }
+[data-al="2"] .al-corrente-fechou:empty { display: none; }
+
+/* ───── Chegar: agora um <dialog> modal ───── */
+[data-al="2"] .al-chegar-folha,
+.al-chegar-folha { max-width: none; transition: translate 0.38s cubic-bezier(0.2, 0.9, 0.25, 1.05), opacity 0.25s ease, overlay 0.38s allow-discrete, display 0.38s allow-discrete; }
+.al-chegar-folha::backdrop { transition: opacity 0.3s ease, overlay 0.38s allow-discrete, display 0.38s allow-discrete; opacity: 1; }
+.al-chegar-folha:not([open])::backdrop { opacity: 0; }
+@starting-style {
+  .al-chegar-folha[open]::backdrop { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .al-chegar-folha,
+  .al-chegar-folha::backdrop { transition: none; }
+}
+.al-chegar-icone { display: inline-flex; }
+.al-chegar-opcao[data-feito] { border-color: var(--al-dourado, #ffc21a); color: var(--al-ato-dourado-texto, #ffc21a); }
+@media (prefers-reduced-motion: no-preference) {
+  .al-chegar-opcao[data-feito] .al-chegar-icone { animation: al-chegar-visto 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
+}
+@keyframes al-chegar-visto { from { scale: 0.4; rotate: -20deg; } }
+
+/* ───── mosaico: a palavra lê de longe ─────
+   O fundo aceso fica a ~55 % do creme (não compete com a letra), o apagado some no fundo, a letra acesa é o vermelho cheio e a
+   letra apagada é um vermelho médio (bem acima do fundo): a palavra é sempre a figura. Alto contraste e e-ink: os tokens de sempre. */
+[data-al="2"] .al-mosaico-vivo {
+  --al-mv-aceso: color-mix(in srgb, var(--al-cartao-aceso) 60%, var(--al-mosaico-fundo));
+  --al-mv-apagado: color-mix(in srgb, var(--al-cartao-apagado) 60%, var(--al-mosaico-fundo));
+  --al-mv-letra: #ff3a1f;
+  --al-mv-letra-apagada: color-mix(in srgb, var(--al-letra-acesa) 58%, var(--al-mosaico-fundo));
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-mosaico-vivo {
+  --al-mv-aceso: var(--al-cartao-aceso);
+  --al-mv-apagado: var(--al-cartao-apagado);
+  --al-mv-letra: var(--al-letra-acesa);
+  --al-mv-letra-apagada: var(--al-letra-apagada);
+}
+
+/* ───── os botões flutuantes do site (ajuda e acessibilidade) não tapam a coluna de ações nem o farol ─────
+   No celular, as telas de ato guardam uma vaga vazia na linha da cidade (tela) ou na cabeça (página): os dois botões se ancoram
+   nela (CSS anchor positioning) e rolam junto com ela, como se fossem parte da página; somem quando a vaga sai da tela. Sem anchor
+   positioning, eles ficam no canto de cima do mosaico e somem ao rolar. Quem escolheu outra posição para o botão de acessibilidade
+   continua com a sua (o estilo em linha vence). */
+[data-al="2"] .al-atos-vaga { display: none; }
+@media (min-width: 768px) {
+  [data-al="2"] .al-atos-meta:not(:has(.al-atos-cidade, .al-atos-pontos)) { display: none; }
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al-atos-vaga { display: block; flex: none; width: 6rem; height: 2.75rem; margin-inline-start: auto; anchor-name: --al-flutua; }
+  [data-al="2"] .al-atos-meta .al-atos-pontos { margin-inline-start: 0; }
+  :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .assistente-flutua .assistente-janela { top: 3.5rem; bottom: auto; left: auto; right: 0; }
+  @supports (anchor-name: --a) {
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .app-flutua {
+      position-anchor: --al-flutua;
+      top: anchor(top);
+      left: calc(anchor(left) + 3.25rem);
+      bottom: auto;
+      right: auto;
+      position-visibility: anchors-visible;
+    }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .assistente-flutua {
+      position-anchor: --al-flutua;
+      top: anchor(top);
+      left: anchor(left);
+      bottom: auto;
+      right: auto;
+      position-visibility: anchors-visible;
+    }
+  }
+  @supports not (anchor-name: --a) {
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .app-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: 1.5rem; left: auto; }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) .assistente-flutua { top: calc(13.5rem + env(safe-area-inset-top, 0px)); bottom: auto; right: calc(1.5rem + 2.75rem + 0.5rem); left: auto; }
+    :root:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) :is(.app-flutua, .assistente-flutua) { transition: opacity 0.2s ease-out; }
+    :root[data-lendo]:has([data-al="2"] :is(.al-atos-tela, .al-ato-pagina)) :is(.app-flutua, .assistente-flutua):not(:focus-within) { opacity: 0; pointer-events: none; }
+  }
+}
+/* o título recebe o foco por programa (troca de ato, cidade escrita): é um título, não um controle; não ganha anel de foco */
+[data-al="2"] .al-ato-aberto-titulo[tabindex="-1"]:is(:focus, :focus-visible) { outline: none; }

@@ -12,7 +12,7 @@ import { Botao, LinkBotao } from "../ui/Botao";
 import { Chegar } from "./Chegar";
 import { baixarIcs, chamarAto, Icone } from "./partes";
 import { frase, useVou } from "./usar";
-import { podeMexer, MOLAS } from "@/lib/rede/atos/movimento";
+import { podeMexer, MOLAS, vibrar } from "@/lib/rede/atos/movimento";
 import { enderecos } from "@/lib/rede/tipos";
 import { preencherAto, type TextosDosAtos } from "@/lib/rede/textos-atos";
 import type { Ato } from "@/lib/rede/tipos-atos";
@@ -153,16 +153,21 @@ export function BotaoChamarIcone({ ato, t, lang }: PropsDasAcoes) {
  * A coluna de ações da tela dos atos (prancha celular-modo-atos): quadrados com o rótulo embaixo. "Você vai" fica claro
  * (papel) quando confirmado; a conversa mostra o número de respostas embaixo, como na prancha.
  */
-export function ColunaDeAcoes({ ato, t, lang, logado = true }: PropsDasAcoes) {
+export function ColunaDeAcoes({ ato, t, lang, logado = true, lembrete = false }: PropsDasAcoes & { lembrete?: boolean }) {
   const { alternar, ocupado, erro } = useVou(ato);
   const { chamar, copiado } = useChamar(ato, lang);
   const cancelado = ato.situacao === "cancelado";
   const botaoVou = useRef<HTMLButtonElement>(null);
   const [aviso, setAviso] = useState("");
+  const [baixado, setBaixado] = useState(false);
   const aoVou = () => {
     if (ocupado) return;
     const sim = !ato.vou_eu;
-    if (sim) soltarFaiscas(botaoVou.current);
+    if (sim) {
+      soltarFaiscas(botaoVou.current);
+      vibrar([10]);
+      mostrarMosaico(botaoVou.current);
+    }
     setAviso(sim ? t.acoes.vouFeito : t.acoes.vouDesfeito);
     window.setTimeout(() => setAviso(""), 4000);
     void alternar();
@@ -221,12 +226,14 @@ export function ColunaDeAcoes({ ato, t, lang, logado = true }: PropsDasAcoes) {
           ato={ato}
           t={t}
           gatilho={(p) => (
-            <button type="button" {...p} className="al-ato-quadrado" aria-label={t.acoes.chegar} aria-describedby={`al-chegar-${ato.id}`} title={t.acoes.chegarAjuda}>
+            <button type="button" {...p} className="al-ato-quadrado" aria-labelledby={`al-chegar-r-${ato.id}`} aria-describedby={`al-chegar-${ato.id}`} title={t.acoes.chegarAjuda}>
               {Icone.pino(26)}
             </button>
           )}
         />
-        <span className="al-ato-acao-rotulo">{t.acoes.chegar}</span>
+        <span id={`al-chegar-r-${ato.id}`} className="al-ato-acao-rotulo">
+          {t.acoes.chegar}
+        </span>
         <span id={`al-chegar-${ato.id}`} className="al-so-leitor">
           {t.acoes.chegarAjuda}
         </span>
@@ -242,6 +249,46 @@ export function ColunaDeAcoes({ ato, t, lang, logado = true }: PropsDasAcoes) {
           {copiado ? t.acoes.copiado : ""}
         </span>
       </div>
+      {lembrete && !cancelado ? (
+        <div className="al-ato-acao">
+          <button
+            type="button"
+            className="al-ato-quadrado al-ato-quadrado-menor"
+            data-feito={baixado ? "" : undefined}
+            aria-labelledby={`al-lembrete-${ato.id}`}
+            aria-describedby={`al-lembrete-ajuda-${ato.id}`}
+            title={t.acoes.lembreteAjuda}
+            onClick={() => {
+              baixarIcs(ato, lang);
+              setBaixado(true);
+              window.setTimeout(() => setBaixado(false), 5000);
+            }}
+          >
+            {baixado ? Icone.visto(22) : Icone.sino(22)}
+          </button>
+          <span id={`al-lembrete-${ato.id}`} className="al-ato-acao-rotulo">
+            {t.acoes.lembreteCurto}
+          </span>
+          <span id={`al-lembrete-ajuda-${ato.id}`} className="al-so-leitor">
+            {t.acoes.lembreteAjuda}
+          </span>
+          <span role="status" className="al-so-leitor">
+            {baixado ? t.acoes.baixado : ""}
+          </span>
+        </div>
+      ) : null}
     </div>
   );
+}
+
+/**
+ * Quem acabou de confirmar vê o próprio cartão dourado cair no mosaico: se o mosaico do ato rolou para fora da tela (no celular a
+ * coluna fica embaixo dele), a tela sobe até ele, suave. O mosaico espera aparecer na tela para soltar o cartão (MosaicoVivo).
+ */
+function mostrarMosaico(de: HTMLElement | null): void {
+  const mosaico = de?.closest(".al-ato-aberto")?.querySelector<HTMLElement>(".al-ato-aberto-mosaico");
+  if (!mosaico) return;
+  const r = mosaico.getBoundingClientRect();
+  if (r.bottom > 90 && r.top < window.innerHeight - 90) return;
+  mosaico.scrollIntoView({ behavior: podeMexer() ? "smooth" : "auto", block: "center" });
 }

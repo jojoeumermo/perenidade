@@ -44,7 +44,9 @@
     "lembreteAjuda": "Descarga un archivo .ics: tu agenda avisa 24 h y 2 h antes. Nada va al servidor.",
     "baixado": "Archivo de agenda descargado. Ábrelo para guardar el recordatorio.",
     "vouFeito": "Confirmado. Estás en el mosaico.",
-    "vouDesfeito": "Confirmación deshecha."
+    "vouDesfeito": "Confirmación deshecha.",
+    "lembreteCurto": "Recordatorio",
+    "copiadoCurto": "Copiado"
   },
   "mosaico": {
     "voce": "Estás en el mosaico: la tarjeta dorada.",
@@ -75,14 +77,19 @@
     "vazioSeguindo": "Nadie a quien sigues convocó un acto por ahora.",
     "chamarUm": "Convocar un acto",
     "cidade": "Tu ciudad",
-    "cidadeExemplo": "São Paulo",
+    "cidadeExemplo": "ej.: São Paulo",
     "cidadeAjuda": "\"Cerca\" usa la ciudad que escribes. Alumia no usa la ubicación del dispositivo, y la ciudad queda solo en este dispositivo.",
     "cidadeVer": "Ver actos",
     "trocarCidade": "cambiar ciudad ({cidade})",
     "previa": "Vista previa con datos de ejemplo",
     "posicao": "Acto {i} de {n}",
     "puxar": "suelta para ir al siguiente acto",
-    "atalhos": "Atajos: J va al siguiente acto y K vuelve al anterior."
+    "atalhos": "Atajos: J va al siguiente acto y K vuelve al anterior.",
+    "cidadeCurta": "Escribe el nombre de la ciudad (al menos 2 letras).",
+    "mais": "más",
+    "menos": "menos",
+    "correntes": "Cadenas de solidaridad en {cidade}",
+    "trocar": "cambiar"
   },
   "pagina": {
     "naoAchado": "Este acto no existe o no puedes verlo.",
@@ -183,7 +190,11 @@
     "outraPediu": "Alguien de la coordinación pidió {estado}.",
     "confirmar": "Confirmar: {estado}",
     "rotulo": "Faro del acto: {estado}",
-    "atual": "ahora"
+    "atual": "ahora",
+    "detalhes": "Detalles del faro",
+    "esperandoCurto": "esperando a la 2.ª persona",
+    "deNovo": "Toca de nuevo para pedir {estado}",
+    "trocarPedido": "Ya pediste {pendente}. Toca de nuevo para cambiar a {estado}."
   },
   "corrente": {
     "titulo": "Cadena de solidaridad",
@@ -207,6 +218,7 @@
     "deixar": "Dejar para después",
     "aberta": "Cadena abierta.",
     "barra": "Cadena: {pct}% cerrada",
-    "barraVazia": "Cadena: los eslabones siguen abiertos"
+    "barraVazia": "Cadena: los eslabones siguen abiertos",
+    "fechouAgora": "¡La cadena se cerró! Gracias por estar en ella."
   }
 }
