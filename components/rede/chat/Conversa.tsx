@@ -2,16 +2,16 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { abrirMensagens, abrirSessao, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type MensagemAberta, type Sessao } from "@/lib/rede/chat-chaveiro";
+import { abrirMensagens, abrirSessao, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type MensagemAberta, ordemDaConversa, type Sessao } from "@/lib/rede/chat-chaveiro";
 import { codigoDeSeguranca, type Eu, MAX_CARACTERES, textoCabe } from "@/lib/rede/chat-privado";
 import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
-import { codigoComGrupoEscondido, conferirGrupo, conferirQr, sortearGrupo } from "@/lib/rede/chat/verificacao";
+import { codigoComMetadeEscondida, conferirMetade, conferirQr, metadeDaOutraPessoa } from "@/lib/rede/chat/verificacao";
 import { chat, type ConversaDoChat, type Prazo } from "@/lib/rede/cliente-chat";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDoChat } from "@/lib/rede/textos-chat";
 import type { ImagemDePerfil } from "@/lib/rede/tipos-perfil";
-import { codigoEmGrupos } from "@/lib/sigilo";
+import { codigoEmGrupos, metadeDoCodigo } from "@/lib/sigilo";
 import { Avatar } from "../perfil/Avatar";
 import { botaoForte, botaoLeve, botaoPerigo, erroDoChat } from "./comum";
 import { Denuncia } from "./Denuncia";
@@ -41,36 +41,44 @@ function Grupos({ grupos, rotulo }: { grupos: string[]; rotulo: string }) {
 
 /**
  * A identidade de alguém que estava VERIFICADA mudou: um clique não basta. A tela só segue se a pessoa comparar de verdade:
- * lendo o QR da outra com a câmera, ou digitando um grupo do código que só aparece inteiro na tela da outra pessoa.
+ * lendo o QR da outra com a câmera (os sessenta números), ou digitando os SEIS grupos da metade da outra pessoa, que ficam
+ * escondidos aqui e só aparecem na tela dela. A minha metade nunca é pedida: ela não muda quando o servidor troca a identidade
+ * da outra pessoa, e conferiria com qualquer identidade falsa (lib/rede/chat/verificacao.ts).
  */
-function CompararDeNovo({ t, nome, codigo, aoConferir }: { t: TextosDoChat; nome: string; codigo: string; aoConferir: () => void }) {
-  const [grupo] = useState(() => sortearGrupo());
+function CompararDeNovo({ t, nome, codigo, minhaMetade, aoConferir }: { t: TextosDoChat; nome: string; codigo: string; minhaMetade: string; aoConferir: () => void }) {
   const [digitado, setDigitado] = useState("");
   const [aviso, setAviso] = useState("");
   const [lendo, setLendo] = useState(false);
-  const id = "alumia-chat-grupo-do-codigo";
+  const daOutra = metadeDaOutraPessoa(codigo, minhaMetade);
+  const id = "alumia-chat-metade-do-codigo";
+  // Não dá para separar as metades (não deveria acontecer): só o QR serve.
+  const de = daOutra ? daOutra.inicio + 1 : 0;
   return (
     <div className="mt-3 space-y-3">
-      <Grupos grupos={codigoComGrupoEscondido(codigo, grupo)} rotulo={t.acoes.codigo} />
+      {daOutra && <Grupos grupos={codigoComMetadeEscondida(codigo, daOutra.inicio)} rotulo={t.acoes.codigo} />}
       <form
         className="flex flex-wrap items-end gap-2"
         onSubmit={(e) => {
           e.preventDefault();
-          if (conferirGrupo(codigo, grupo, digitado)) aoConferir();
+          if (conferirMetade(codigo, minhaMetade, digitado)) aoConferir();
           else setAviso(t.conversa.grupoErrado);
         }}
       >
-        <label htmlFor={id} className="w-full text-sm">{preencher(t.conversa.grupoPedido, { nome, n: grupo + 1 })}</label>
-        <input
-          id={id}
-          value={digitado}
-          onChange={(e) => setDigitado(e.target.value.replace(/[^0-9]/g, "").slice(0, 5))}
-          inputMode="numeric"
-          autoComplete="off"
-          aria-label={preencher(t.conversa.grupoRotulo, { n: grupo + 1 })}
-          className="min-h-11 w-28 rounded-md border border-rule bg-white px-3 font-mono tracking-wider text-[#1f1a14]"
-        />
-        <button type="submit" disabled={digitado.length !== 5} className={botaoLeve}>{t.conversa.grupoConferir}</button>
+        {daOutra && (
+          <>
+            <label htmlFor={id} className="w-full text-sm">{preencher(t.conversa.grupoPedido, { nome, de, ate: de + 5 })}</label>
+            <input
+              id={id}
+              value={digitado}
+              onChange={(e) => setDigitado(e.target.value.replace(/[^0-9]/g, "").slice(0, 30).replace(/(.{5})(?=.)/g, "$1 "))}
+              inputMode="numeric"
+              autoComplete="off"
+              aria-label={preencher(t.conversa.grupoRotulo, { de, ate: de + 5 })}
+              className="min-h-11 w-full max-w-[24rem] rounded-md border border-rule bg-white px-3 font-mono tracking-wider text-[#1f1a14]"
+            />
+            <button type="submit" disabled={digitado.replace(/\s/g, "").length !== 30} className={botaoLeve}>{t.conversa.grupoConferir}</button>
+          </>
+        )}
         {temCamera() && !lendo && <button type="button" onClick={() => { setAviso(""); setLendo(true); }} className={botaoLeve}>{t.acoes.qrLer}</button>}
       </form>
       {lendo && (
@@ -101,8 +109,10 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
   const [opcoes, setOpcoes] = useState(false);
   const [prazo, setPrazo] = useState<Prazo>(conversa.prazo_dias);
   const [bloqueio, setBloqueio] = useState(conversa.bloqueio);
-  const [codigo, setCodigo] = useState<string | null>(null);
+  // Cada código guarda a identidade para a qual foi calculado: é ESSA identidade que fica confiada quando a pessoa confere.
+  const [codigo, setCodigo] = useState<{ identidade: string; codigo: string } | null>(null);
   const [codigoNovo, setCodigoNovo] = useState<{ identidade: string; codigo: string } | null>(null);
+  const [minhaMetade, setMinhaMetade] = useState<string | null>(null);
   const [lendoQr, setLendoQr] = useState(false);
   const [avisoDoCodigo, setAvisoDoCodigo] = useState("");
   const [denunciando, setDenunciando] = useState(false);
@@ -179,6 +189,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
         setTexto("");
         setCodigo(null);
         setCodigoNovo(null);
+        setMinhaMetade(null);
       }),
     [],
   );
@@ -188,15 +199,23 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
   useEffect(() => {
     if (!identidadeNova) return;
     let vivo = true;
-    void codigoDeSeguranca(eu.identidade.publica, identidadeNova).then((codigo) => vivo && setCodigoNovo({ identidade: identidadeNova, codigo })).catch(() => undefined);
+    void Promise.all([codigoDeSeguranca(eu.identidade.publica, identidadeNova), metadeDoCodigo(eu.identidade.publica)])
+      .then(([codigo, minha]) => {
+        if (!vivo) return;
+        setCodigoNovo({ identidade: identidadeNova, codigo });
+        setMinhaMetade(minha);
+      })
+      .catch(() => undefined);
     return () => {
       vivo = false;
     };
   }, [identidadeNova, eu.identidade.publica]);
   // Só vale o código calculado para a identidade que está na tela agora.
-  const codigoParaComparar = identidadeNova && codigoNovo?.identidade === identidadeNova ? codigoNovo.codigo : null;
+  const paraComparar = identidadeNova && codigoNovo?.identidade === identidadeNova ? codigoNovo : null;
 
   const faltas = useMemo(() => depoisDeBuraco(mensagens), [mensagens]);
+  // Dentro de cada pessoa, a ordem em que ela escreveu (o contador de dentro do cifrado), não a hora do servidor.
+  const ordem = useMemo(() => ordemDaConversa(mensagens, eu.usuario), [mensagens, eu.usuario]);
 
   async function carregarMais() {
     const atual = sessaoRef.current;
@@ -231,12 +250,16 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
     }
   }
 
-  /** Aceita a identidade nova. `comparou`: leu o QR ou digitou o grupo certo (obrigatório se a conversa estava verificada). */
-  async function confiar(comparou: boolean) {
+  /**
+   * Aceita a identidade nova. `identidade`: a que estava na tela quando a pessoa comparou ou clicou (não a que estiver na sessão
+   * na hora: o servidor pode ter trocado no meio, e aí o chaveiro recusa). `comparou`: leu o QR ou digitou a metade certa
+   * (obrigatório se a conversa estava verificada).
+   */
+  async function confiar(identidade: string, comparou: boolean) {
     const atual = sessaoRef.current;
     if (!atual?.mudou) return;
     try {
-      await confiarNaIdentidade(atual, atual.mudou, comparou);
+      await confiarNaIdentidade(atual, identidade, comparou);
       const nova = await abrirSessao(eu, conversa.id, conversa.com.id, atual);
       sessaoRef.current = nova;
       setSessao(nova);
@@ -252,14 +275,14 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
     const outra = atual?.confiadas[conversa.com.id];
     if (!atual || !outra) return;
     setAvisoDoCodigo("");
-    setCodigo(await codigoDeSeguranca(eu.identidade.publica, outra));
+    setCodigo({ identidade: outra, codigo: await codigoDeSeguranca(eu.identidade.publica, outra) });
   }
 
-  async function marcarVerificado() {
+  /** Marca verificada a identidade para a qual o código mostrado foi calculado (o chaveiro recusa se ela não for mais a confiada). */
+  async function marcarVerificado(identidade: string) {
     const atual = sessaoRef.current;
-    const outra = atual?.confiadas[conversa.com.id];
-    if (!atual || !outra) return;
-    await confiarNaIdentidade(atual, outra, true);
+    if (!atual) return;
+    await confiarNaIdentidade(atual, identidade, true);
     const nova = { ...atual, verificado: true };
     sessaoRef.current = nova;
     setSessao(nova);
@@ -297,7 +320,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
               <path d="M6 11V8a6 6 0 1 1 12 0v3M5 11h14v10H5z" />
             </svg>
             {conversa.com.handle ? `@${conversa.com.handle}` : ""}
-            {sessao?.verificado ? ` · ${t.acoes.jaVerificado}` : ""}
+            {sessao && !sessao.semChaveDoOutro ? ` · ${sessao.verificado ? t.acoes.jaVerificado : t.acoes.naoVerificado}` : ""}
           </p>
         </div>
         <button type="button" onClick={() => setOpcoes((x) => !x)} aria-expanded={opcoes} className={botaoLeve}>
@@ -336,17 +359,18 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                 <div className="mt-2 space-y-2">
                   <p className="text-xs text-ink-soft">{t.acoes.codigoExplica}</p>
                   <div className="flex flex-wrap items-start gap-4">
-                    <QrDoCodigo codigo={codigo} rotulo={t.acoes.qrRotulo} />
-                    <Grupos grupos={codigoEmGrupos(codigo).split(" ")} rotulo={t.acoes.codigo} />
+                    <QrDoCodigo codigo={codigo.codigo} rotulo={t.acoes.qrRotulo} />
+                    <Grupos grupos={codigoEmGrupos(codigo.codigo).split(" ")} rotulo={t.acoes.codigo} />
                   </div>
+                  <p className="text-xs text-ink-soft">{t.acoes.qrSoPessoalmente}</p>
                   {lendoQr && (
                     <LeitorDeQr
                       t={t}
                       fechar={() => setLendoQr(false)}
                       aoLer={(texto) => {
                         setLendoQr(false);
-                        const r = conferirQr(texto, codigo);
-                        if (r === "confere") void marcarVerificado().then(() => setAvisoDoCodigo(t.acoes.qrConfere)).catch(() => undefined);
+                        const r = conferirQr(texto, codigo.codigo);
+                        if (r === "confere") void marcarVerificado(codigo.identidade).then(() => setAvisoDoCodigo(t.acoes.qrConfere), (e) => setErro(erroDoChat(t, s, e)));
                         else setAvisoDoCodigo(r === "nao_confere" ? t.acoes.qrNaoConfere : t.acoes.qrOutro);
                       }}
                     />
@@ -359,7 +383,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                     {sessao.verificado ? (
                       <p className="text-xs font-semibold">{t.acoes.jaVerificado}</p>
                     ) : (
-                      <button type="button" onClick={() => void marcarVerificado()} className={botaoLeve}>{t.acoes.verificado}</button>
+                      <button type="button" onClick={() => void marcarVerificado(codigo.identidade).catch((e) => setErro(erroDoChat(t, s, e)))} className={botaoLeve}>{t.acoes.verificado}</button>
                     )}
                   </div>
                   <p className="text-xs text-ink-soft">{t.acoes.negavel}</p>
@@ -408,15 +432,20 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
 
       {sessao?.mudou && (
         <div role="alert" className="border-b border-rule bg-[#fff4d6] px-[18px] py-3 text-sm text-[#1f1a14]">
-          {sessao.exigeComparar ? (
+          {sessao.chaveEstranha ? (
+            // A identidade é a de sempre e a chave do aparelho não: não há o que aceitar (só a pessoa ativando o chat de novo).
+            <p className="font-semibold">{preencher(t.conversa.chaveEstranha, { nome: conversa.com.codinome })}</p>
+          ) : sessao.exigeComparar ? (
             <>
               <p className="font-semibold">{preencher(t.conversa.mudouVerificada, { nome: conversa.com.codinome })}</p>
-              {codigoParaComparar && <CompararDeNovo t={t} nome={conversa.com.codinome} codigo={codigoParaComparar} aoConferir={() => void confiar(true)} />}
+              {paraComparar && minhaMetade && (
+                <CompararDeNovo t={t} nome={conversa.com.codinome} codigo={paraComparar.codigo} minhaMetade={minhaMetade} aoConferir={() => void confiar(paraComparar.identidade, true)} />
+              )}
             </>
           ) : (
             <>
               <p>{preencher(t.conversa.mudou, { nome: conversa.com.codinome })}</p>
-              <button type="button" onClick={() => void confiar(false)} className={`${botaoLeve} mt-2`}>{t.conversa.confirmar}</button>
+              <button type="button" onClick={() => void confiar(sessao.mudou as string, false)} className={`${botaoLeve} mt-2`}>{t.conversa.confirmar}</button>
             </>
           )}
         </div>
@@ -436,13 +465,15 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
             {sessao.semChaveDoOutro && <p className="text-sm text-ink-soft">{t.conversa.semChaveDoOutro}</p>}
             {mensagens.length === 0 && <p className="text-sm text-ink-soft">{t.conversa.vazio}</p>}
             <ul className="space-y-2">
-              {mensagens.map((m) => {
+              {ordem.ordenadas.map((m) => {
                 const minha = m.autor === eu.usuario;
                 // Repetida: este aparelho já tinha esta mesma mensagem. Fica só uma linha discreta, sem o texto.
                 if (m.repetida) return <li key={m.id} className="text-center text-[11px] italic text-ink-soft">{t.conversa.repetida}</li>;
                 return (
                   <li key={m.id} className={`flex flex-wrap items-start gap-2 ${minha ? "justify-end" : "justify-start"}`}>
                     {faltas.has(m.id) && <p className="w-full text-center text-[11px] italic text-ink-soft">{t.conversa.faltam}</p>}
+                    {ordem.foraDeOrdem.has(m.id) && <p className="w-full text-center text-[11px] italic text-ink-soft">{t.conversa.foraDeOrdem}</p>}
+                    {m.duvidosa && <p className="w-full text-center text-[11px] italic text-ink-soft">{t.conversa.duvidosa}</p>}
                     {denunciando && !minha && m.texto !== null && (
                       <input
                         type="checkbox"
@@ -467,6 +498,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                         <p className="whitespace-pre-wrap break-words">{m.texto}</p>
                       )}
                       {m.autoria === "invalida" && <p className="mt-1 text-xs font-semibold text-[#ff8a80]">{t.conversa.autoriaInvalida}</p>}
+                      {ordem.semConfirmar.has(m.id) && <p className="mt-1 text-[11px] italic opacity-80">{t.conversa.semConfirmar}</p>}
                       <p className="mt-1 flex items-center justify-end gap-2 text-[11px] opacity-70">
                         <time dateTime={m.criado_em}>{new Date(m.criado_em).toLocaleTimeString(lang, { hour: "2-digit", minute: "2-digit" })}</time>
                         <span>· {preencher(t.conversa.expira, { quando: quandoSome(lang, m.expira_em) })}</span>

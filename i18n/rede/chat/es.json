@@ -54,10 +54,14 @@
     "faltam": "Puede faltar un mensaje aquí: borrado por quien lo escribió, vencido o retenido en el camino.",
     "repetida": "Mensaje repetido: este dispositivo ya había recibido este mismo mensaje. No se muestra de nuevo.",
     "mudouVerificada": "La clave de seguridad de {nome} cambió, y esta conversación estaba verificada. La marca de verificado cayó. Puede ser un dispositivo nuevo, o alguien intentando hacerse pasar por la persona. No se envía nada hasta que comparen el código de nuevo.",
-    "grupoPedido": "Pide a {nome}, en persona o por un canal en el que se reconozcan, el grupo {n} del código que aparece en su pantalla. Escríbelo aquí:",
-    "grupoRotulo": "Grupo {n} del código",
+    "grupoPedido": "Pide a {nome}, en persona o por un canal en el que se reconozcan, los grupos {de} a {ate} del código que aparece en su pantalla (son los seis ocultos aquí). Escribe los treinta números:",
+    "grupoRotulo": "Grupos {de} a {ate} del código",
     "grupoConferir": "Comprobar",
-    "grupoErrado": "No coincide. No sigas: puede haber alguien en medio. Habla con la persona por otro canal."
+    "grupoErrado": "No coincide. No sigas: puede haber alguien en medio. Habla con la persona por otro canal.",
+    "chaveEstranha": "La clave del dispositivo de {nome} cambió sin que cambiara la clave de seguridad. Esto no ocurre en el uso normal y puede ser alguien intentando hacerse pasar por la persona. No se envía ni se abre nada con esta clave. Pide a la persona, por otro canal, que active el chat de nuevo.",
+    "foraDeOrdem": "El orden de este mensaje no coincide con la hora del servidor: se colocó donde quien lo escribió lo escribió.",
+    "duvidosa": "Este dispositivo no puede comprobar si este mensaje es nuevo o repetido (usa una clave antigua o el formato antiguo). Desconfía si parece haber llegado antes.",
+    "semConfirmar": "Cuando la otra persona escribió por última vez, aún no había recibido este mensaje."
   },
   "acoes": {
     "rotulo": "Opciones de la conversación",
@@ -83,7 +87,9 @@
     "qrConfere": "Los códigos coinciden: conversación verificada en este dispositivo.",
     "qrNaoConfere": "Los códigos NO coinciden. No marques como verificado: puede haber alguien en medio.",
     "qrOutro": "Este QR no es un código de seguridad de Alumia.",
-    "negavel": "Los mensajes no llevan firma. Solo ustedes dos tienen la clave de esta conversación: quien recibe sabe que vino de la otra persona, pero ningún mensaje sirve de prueba, ante terceros, de quién lo escribió."
+    "negavel": "Los mensajes no llevan firma. Solo ustedes dos tienen la clave de esta conversación: quien recibe sabe que vino de la otra persona, pero ningún mensaje sirve de prueba, ante terceros, de quién lo escribió.",
+    "naoVerificado": "No verificado en este dispositivo",
+    "qrSoPessoalmente": "Lee el QR solo en la pantalla de la otra persona, en persona. Un QR enviado por mensaje, foto o captura no prueba nada: quien esté en medio también puede hacer uno."
   },
   "denuncia": {
     "titulo": "Denunciar",
@@ -122,7 +128,7 @@
     "apagarTudoExplica": "Quita todas las conversaciones de tu lista y borra tu clave y tus ajustes. La otra persona de cada conversación conserva los mensajes hasta que venza su plazo. La cuenta sigue. LGPD de Brasil, art. 18, VI.",
     "apagarTudoConfirma": "¿Quitar TODAS las conversaciones de tu lista y borrar tu clave del chat? No tiene vuelta atrás.",
     "apagado": "Todo el chat fue borrado.",
-    "sairRapido": "El botón Salir rápido de Alumia borra también la clave del chat de este dispositivo. Después hay que activar el chat de nuevo, y lo escrito antes ya no se abre aquí."
+    "sairRapido": "El botón Salida rápida de Alumia también borra la clave del chat de este dispositivo y, con ella, todo lo que este dispositivo sabía de las demás personas: las claves de seguridad conocidas y las verificaciones. Después hay que activar el chat de nuevo; lo escrito antes ya no se abre aquí; y TODAS las conversaciones vuelven a quedar sin verificar: compara el código con cada persona antes de escribir algo sensible. La Salida rápida de Alumia no cierra tu sesión en la cuenta."
   },
   "erros": {
     "dm_fechada": "No se puede conversar con esta persona ahora.",
@@ -133,6 +139,11 @@
     "nao_encontrado": "Esta conversación ya no existe.",
     "texto_grande": "El mensaje es demasiado largo.",
     "sem_indexeddb": "Este navegador no guarda la clave (¿modo privado?). El chat funciona solo mientras la pestaña esté abierta.",
-    "dm_exige_comparar": "Compara el código de seguridad de nuevo antes de enviar."
+    "dm_exige_comparar": "Compara el código de seguridad de nuevo antes de enviar.",
+    "dm_chave_estranha": "La clave del dispositivo de la otra persona cambió sin que cambiara la clave de seguridad. No se envía nada.",
+    "dm_versao_voltou": "El servidor mostró una clave de la conversación más antigua que una que este dispositivo ya vio. Por seguridad, la conversación no se abre.",
+    "dm_versao_presa": "La clave de la conversación es vieja y no se pudo cambiar. No se envió nada. Inténtalo más tarde.",
+    "dm_apagado": "El chat se borró de este dispositivo. Actívalo de nuevo para continuar.",
+    "dm_identidade_mudou": "La clave de seguridad volvió a cambiar mientras comparabas. Compara otra vez."
   }
 }

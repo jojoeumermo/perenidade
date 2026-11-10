@@ -19,9 +19,9 @@ import {
 } from "../lib/rede/chat/gaveta.ts";
 import { buracos, chaveDaOrdem, comContadorUsado, julgar, proximoContador, registroVencido, VIDA_DO_REGISTRO_DIAS } from "../lib/rede/chat/ordem.ts";
 import { preencher, TAMANHOS_DO_BLOCO, TAMANHOS_DO_CIFRADO, tamanhoDoBloco, tirarPreenchimento } from "../lib/rede/chat/padding.ts";
-import { codigoComGrupoEscondido, conferirGrupo, conferirQr, grupoDoCodigo, sortearGrupo } from "../lib/rede/chat/verificacao.ts";
+import { codigoComMetadeEscondida, conferirMetade, conferirQr, GRUPOS_DA_METADE, grupoDoCodigo, metadeDaOutraPessoa } from "../lib/rede/chat/verificacao.ts";
 import { rodarLimpezas } from "../lib/rede/saida.ts";
-import { assinarTexto, cifrar, deBase64, lerQrDaSeguranca, paraBase64, qrDaSeguranca } from "../lib/sigilo.ts";
+import { assinarTexto, cifrar, deBase64, lerQrDaSeguranca, metadeDoCodigo, paraBase64, qrDaSeguranca } from "../lib/sigilo.ts";
 
 let certos = 0;
 const falhas = [];
@@ -510,18 +510,18 @@ const chaveLivre = await crypto.subtle.generateKey({ name: "AES-GCM", length: 25
 const conversaLivre = crypto.randomUUID();
 const amarraC3 = (versao) => new TextEncoder().encode(contextoC3(conversaLivre, P.ana, versao));
 await espera("todo c3 cai num dos sete tamanhos: um \"ok\" e um parágrafo curto ficam iguais no banco", async () => {
-  const textos = ["ok", "x".repeat(50), "x".repeat(200), "x".repeat(232), "x".repeat(233), "é".repeat(300), "x".repeat(1000), "x".repeat(2000), "🌱".repeat(700), "🌱".repeat(2000)];
+  const textos = ["ok", "x".repeat(50), "x".repeat(200), "x".repeat(224), "x".repeat(225), "é".repeat(300), "x".repeat(1000), "x".repeat(2000), "🌱".repeat(700), "🌱".repeat(2000)];
   const tamanhos = [];
   for (const [i, t] of textos.entries()) tamanhos.push((await cifrarMensagem(chaveLivre, 1, { usuario: P.ana }, conversaLivre, t, i + 1)).split(".")[3].length);
   return tamanhos;
-}, (l) => l.every((n) => TAMANHOS_DO_CIFRADO.includes(n)) && l.join(",") === "363,363,363,363,704,1387,1387,2752,5483,10944");
+}, (l) => l.every((n) => TAMANHOS_DO_CIFRADO.includes(n)) && l.join(",") === "363,363,363,363,704,1387,2752,2752,5483,10944");
 await espera("a mensagem c3 não leva assinatura: dentro do cifrado há só identificador, contador e texto (e cifrar nem recebe a identidade)", async () => {
   const escrito = "sem assinatura";
   const cifrado = await cifrarMensagem(chaveLivre, 3, { usuario: P.ana }, conversaLivre, escrito, 9);
   const partes = cifrado.split(".");
   const bloco = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: deBase64(partes[2]), additionalData: amarraC3(3) }, chaveLivre, deBase64(partes[3])));
   const conteudo = tirarPreenchimento(bloco);
-  return [conteudo.length === 16 + 4 + new TextEncoder().encode(escrito).length, new TextDecoder().decode(conteudo.subarray(20)) === escrito, new DataView(conteudo.buffer).getUint32(16), /s1\./.test(new TextDecoder("latin1").decode(bloco))];
+  return [conteudo.length === 16 + 4 + 8 + new TextEncoder().encode(escrito).length, new TextDecoder().decode(conteudo.subarray(28)) === escrito, new DataView(conteudo.buffer).getUint32(16), /s1\./.test(new TextDecoder("latin1").decode(bloco))];
 }, (r) => r[0] === true && r[1] === true && r[2] === 9 && r[3] === false);
 await espera("o chat não assina mensagem em lugar nenhum (a identidade só certifica a chave do aparelho)", async () => ["lib/rede/chat-privado.ts", "lib/rede/chat-chaveiro.ts", ...pecas].filter((f) => /assinarTexto/.test(ler(f))), (l) => l.length === 0);
 await espera("mesmo sem assinatura, adulteração é recusada: cifrado, marca, vetor, versão, conversa, autor, chave e tamanho", async () => {
@@ -563,12 +563,12 @@ await espera("repetição: a primeira vez é nova, ler de novo é vista, o mesmo
   const e = julgar(b.registro, 0, chaveO, recebida("s2", "i1", 1));
   return [a.juizo, b.juizo, c.juizo, d.juizo, e.juizo, b.registro.maior, Object.keys(b.registro).sort().join(","), c.registro === b.registro];
 }, (r) => r.join("|") === "nova|nova|vista|repetida|repetida|2|chave,desde,maior,vistas|true");
-await espera("versão que este aparelho já fechou (piso) não recebe mensagem nova; o registro vence em 45 dias", async () => [
+await espera("versão que este aparelho já fechou (piso) não passa como nova: sai como 'fechada' (mostrada com aviso, nunca escondida); o registro vence em 45 dias", async () => [
   julgar(null, 3, chaveDaOrdem("eu", "conv", "ela", 3), recebida("s", "i", 1, 3)).juizo,
   julgar(null, 3, chaveDaOrdem("eu", "conv", "ela", 4), recebida("s", "i", 1, 4)).juizo,
   registroVencido({ chave: chaveO, desde: 0, maior: 1, vistas: {} }, (VIDA_DO_REGISTRO_DIAS + 1) * 86_400_000),
   registroVencido({ chave: chaveO, desde: 0, maior: 1, vistas: {} }, 86_400_000),
-], (r) => r.join(",") === "repetida,nova,true,false");
+], (r) => r.join(",") === "fechada,nova,true,false");
 await espera("buraco: avisa depois do contador que falta; o começo não é buraco; cada autor e cada versão contam à parte", async () => {
   const m = (servidor, autor, versao, contador) => ({ servidor, autor, versao, contador });
   return [
@@ -585,61 +585,123 @@ await espera("contador: o próximo é sempre maior que o maior já visto ou usad
   return [r1.maior, r2.maior, proximoContador(visto)];
 }, (r) => r.join(",") === "1,2,8");
 await espera("a tela mostra o aviso discreto de buraco e a linha de repetida, e o chaveiro confere a ordem ao abrir", async () => [ler("components/rede/chat/Conversa.tsx"), ler("lib/rede/chat-chaveiro.ts")],
-  (r) => /faltas\.has\(m\.id\) && <p[^>]*>\{t\.conversa\.faltam\}/.test(r[0]) && /if \(m\.repetida\) return <li[^>]*>\{t\.conversa\.repetida\}/.test(r[0]) && /await naFilaDaOrdem\(\(\) => conferirOrdem\(sessao, abertas, ids\)\)/.test(r[1]));
+  (r) => /faltas\.has\(m\.id\) && <p[^>]*>\{t\.conversa\.faltam\}/.test(r[0]) && /if \(m\.repetida\) return <li[^>]*>\{t\.conversa\.repetida\}/.test(r[0]) && /await naFilaDaOrdem\(\(\) => conferirOrdem\(sessao, abertas, internos\)\)/.test(r[1])
+    // A tela usa a ordem do contador (não a hora do servidor) e mostra os avisos de ordem trocada, de mensagem duvidosa e de mensagem minha ainda não recebida.
+    && /ordem\.ordenadas\.map\(/.test(r[0]) && !/\{mensagens\.map\(/.test(r[0]) && /ordem\.foraDeOrdem\.has\(m\.id\) && <p[^>]*>\{t\.conversa\.foraDeOrdem\}/.test(r[0]) && /m\.duvidosa && <p[^>]*>\{t\.conversa\.duvidosa\}/.test(r[0]) && /ordem\.semConfirmar\.has\(m\.id\)/.test(r[0]));
 
 // ── O que fica no aparelho e o "apagar tudo" do Sair rápido (lib/rede/chat/gaveta.ts), com um IndexedDB de mentira ──
+// O falso segue as regras do IndexedDB que importam aqui: abrir um banco que não existe cria o banco e chama "upgradeneeded"
+// com oldVersion 0; desfazer (abort) essa transação desfaz a criação e a abertura falha com AbortError; apagar o banco avisa
+// cada conexão aberta ("versionchange", newVersion null) e, se alguma não fechar, fica "blocked" até ela fechar; conexão
+// fechada não abre transação.
 function indexedDBDeMentira() {
   const bancos = new Map();
+  const esperando = [];
+  const tarde = (fazer) => setTimeout(fazer, 0);
   const depois = (resultado) => {
     const pedido = { result: resultado };
-    setTimeout(() => pedido.onsuccess?.(), 0);
+    tarde(() => pedido.onsuccess?.({ target: pedido }));
     return pedido;
   };
   const dentro = (faixa, chave) => (typeof faixa === "object" && faixa !== null ? chave >= faixa.lower && chave <= faixa.upper : chave === faixa);
-  const conexao = (dados) => ({
-    objectStoreNames: { contains: (n) => dados.gavetas.has(n) },
-    createObjectStore: (n, { keyPath }) => void dados.gavetas.set(n, { keyPath, linhas: new Map() }),
-    transaction: (n) => ({
-      objectStore: () => {
-        const g = dados.gavetas.get(n);
+  const soltar = () => {
+    for (const item of [...esperando]) {
+      if (item.dados.conexoes.size) continue;
+      esperando.splice(esperando.indexOf(item), 1);
+      item.fim();
+    }
+  };
+  const conexao = (dados) => {
+    const c = {
+      fechada: false,
+      onversionchange: null,
+      objectStoreNames: { contains: (n) => dados.gavetas.has(n) },
+      createObjectStore: (n, { keyPath }) => void dados.gavetas.set(n, { keyPath, linhas: new Map() }),
+      transaction: (n) => {
+        if (c.fechada) throw new DOMException("conexão fechada", "InvalidStateError");
         return {
-          get: (k) => depois(structuredClone(g.linhas.get(k))),
-          getAll: (faixa) => depois([...g.linhas].filter(([k]) => dentro(faixa, k)).map(([, v]) => structuredClone(v))),
-          put: (v) => {
-            g.linhas.set(v[g.keyPath], structuredClone(v));
-            return depois(v[g.keyPath]);
-          },
-          delete: (faixa) => {
-            for (const k of [...g.linhas.keys()]) if (dentro(faixa, k)) g.linhas.delete(k);
-            return depois(undefined);
+          objectStore: () => {
+            const g = dados.gavetas.get(n);
+            return {
+              get: (k) => depois(structuredClone(g.linhas.get(k))),
+              getAll: (faixa) => depois([...g.linhas].filter(([k]) => dentro(faixa, k)).map(([, v]) => structuredClone(v))),
+              put: (v) => {
+                g.linhas.set(v[g.keyPath], structuredClone(v));
+                return depois(v[g.keyPath]);
+              },
+              delete: (faixa) => {
+                for (const k of [...g.linhas.keys()]) if (dentro(faixa, k)) g.linhas.delete(k);
+                return depois(undefined);
+              },
+            };
           },
         };
       },
-    }),
-    close: () => void dados.abertas--,
-  });
+      close: () => {
+        if (c.fechada) return;
+        c.fechada = true;
+        dados.conexoes.delete(c);
+        soltar();
+      },
+    };
+    return c;
+  };
   return {
     bancos,
+    /** Quantas vezes um banco foi CRIADO (aberto quando não existia e não desfeito). */
+    criados: 0,
     /** "normal"; "lanca": apagar o banco lança; "mudo": o pedido de apagar nunca responde. */
     modo: "normal",
     open(nome, versao) {
-      const pedido = {};
-      setTimeout(() => {
+      const pedido = { result: undefined, error: null, transaction: null };
+      tarde(() => {
         let dados = bancos.get(nome);
-        const novo = !dados || dados.versao < versao;
-        if (!dados) bancos.set(nome, (dados = { versao, gavetas: new Map(), abertas: 0 }));
-        dados.versao = versao;
-        dados.abertas++;
-        pedido.result = conexao(dados);
-        if (novo) pedido.onupgradeneeded?.();
-        pedido.onsuccess?.();
-      }, 0);
+        const criado = !dados;
+        const antiga = dados?.versao ?? 0;
+        if (!dados) bancos.set(nome, (dados = { versao: 0, gavetas: new Map(), conexoes: new Set() }));
+        const c = conexao(dados);
+        dados.conexoes.add(c);
+        pedido.result = c;
+        if (antiga < versao) {
+          let desfeita = false;
+          const gavetasAntes = new Map(dados.gavetas);
+          pedido.transaction = { abort: () => void (desfeita = true) };
+          pedido.onupgradeneeded?.({ oldVersion: antiga, newVersion: versao, target: pedido });
+          pedido.transaction = null;
+          if (desfeita) {
+            c.fechada = true;
+            dados.conexoes.delete(c);
+            if (criado) bancos.delete(nome);
+            else dados.gavetas = gavetasAntes;
+            pedido.result = undefined;
+            pedido.error = new DOMException("desfeito", "AbortError");
+            pedido.onerror?.({ target: pedido, preventDefault() {} });
+            return;
+          }
+          dados.versao = versao;
+          if (criado) this.criados++;
+        }
+        pedido.onsuccess?.({ target: pedido });
+      });
       return pedido;
     },
     deleteDatabase(nome) {
       if (this.modo === "lanca") throw new Error("o navegador não deixou");
       const pedido = {};
-      if (this.modo !== "mudo") setTimeout(() => (bancos.delete(nome), pedido.onsuccess?.()), 0);
+      if (this.modo === "mudo") return pedido;
+      tarde(() => {
+        const dados = bancos.get(nome);
+        const fim = () => {
+          if (bancos.get(nome) === dados) bancos.delete(nome);
+          pedido.onsuccess?.({});
+        };
+        if (!dados) return fim();
+        for (const c of [...dados.conexoes]) c.onversionchange?.({ oldVersion: dados.versao, newVersion: null });
+        if (dados.conexoes.size) {
+          pedido.onblocked?.({});
+          esperando.push({ dados, fim });
+        } else fim();
+      });
       return pedido;
     },
   };
@@ -650,13 +712,14 @@ porIndexedDB(falso);
 globalThis.IDBKeyRange = { bound: (lower, upper) => ({ lower, upper }) };
 const contaDeTeste = () => ({ usuario: "u1", aparelho: { publica: "p" }, identidade: { publica: "i" } });
 await espera("o aparelho guarda e lê nas três gavetas, acha por prefixo e fecha a conexão depois de cada uso", async () => {
-  await guardarNaGaveta(CONTAS, contaDeTeste());
+  // Só a ativação (criar) cria o banco; as outras gravações vão para ele depois.
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
   await guardarNaGaveta(CONHECIDAS, { chave: "u1:u2", identidade: "x", verificado: true });
   await guardarNaGaveta(ORDEM, { chave: "u1:c1:u2:1", desde: 1, maior: 3, vistas: { a: "b" } });
   await guardarNaGaveta(ORDEM, { chave: "u1:c1:u2:piso", versao: 0 });
   await guardarNaGaveta(ORDEM, { chave: "u1:c2:u2:1", desde: 1, maior: 1, vistas: {} });
   const guardado = falso.bancos.get(BANCO_DO_CHAT);
-  return [(await lerDaGaveta(CONTAS, "u1"))?.aparelho.publica, (await lerDaGaveta(CONHECIDAS, "u1:u2"))?.verificado, (await lerPrefixoDaGaveta(ORDEM, "u1:c1:")).length, [...guardado.gavetas.keys()].sort().join(","), guardado.abertas];
+  return [(await lerDaGaveta(CONTAS, "u1"))?.aparelho.publica, (await lerDaGaveta(CONHECIDAS, "u1:u2"))?.verificado, (await lerPrefixoDaGaveta(ORDEM, "u1:c1:")).length, [...guardado.gavetas.keys()].sort().join(","), guardado.conexoes.size];
 }, (r) => r.join("|") === "p|true|2|conhecidas,contas,ordem|0");
 await espera("apagar por prefixo tira só o que é daquela conversa", async () => {
   await apagarPrefixoDaGaveta(ORDEM, "u1:c2:");
@@ -693,7 +756,7 @@ await espera("o apagar tudo nunca lança e nunca segura a saída: navegador que 
   return tempos;
 }, (l) => l.length === 3 && l.every((ms) => ms < 700));
 await espera("pendurado no Sair rápido, o apagar tudo cabe com folga no teto de 0,8 s e leva o banco embora", async () => {
-  await guardarNaGaveta(CONTAS, contaDeTeste());
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
   const tinha = falso.bancos.has(BANCO_DO_CHAT);
   const inicio = performance.now();
   await rodarLimpezas([() => apagarTudoDoChat()]);
@@ -738,22 +801,53 @@ await espera("o QR desenhado (qrcode) é lido de volta (jsqr) e confere só com 
   const lido = jsQR(pontos, lado, lado)?.data ?? "";
   return [lido === qrDaSeguranca(codigoAB), conferirQr(lido, codigoAB), conferirQr(lido, codigoAI)];
 }, (r) => r[0] === true && r[1] === "confere" && r[2] === "nao_confere");
-await espera("comparar de novo: o grupo pedido fica escondido na tela, e só o grupo certo passa", async () => {
-  const i = sortearGrupo();
-  const certo = grupoDoCodigo(codigoAB, i);
-  const errado = certo === "00000" ? "00001" : "00000";
-  const naTela = codigoComGrupoEscondido(codigoAB, i);
+const metadeDaAna = await metadeDoCodigo(aparelhos.ana.identidade.publica);
+const metadeDaBia = await metadeDoCodigo(aparelhos.bia.identidade.publica);
+await espera("comparar de novo: a metade da outra pessoa é achada no código, nos dois lados, e fica escondida na tela", async () => {
+  const daBia = metadeDaOutraPessoa(codigoAB, metadeDaAna);
+  const daAna = metadeDaOutraPessoa(codigoAB, metadeDaBia);
+  const naTela = codigoComMetadeEscondida(codigoAB, daBia.inicio);
+  const escondidos = naTela.map((g, i) => (g === "•••••" ? i : -1)).filter((i) => i >= 0);
   return [
-    i >= 0 && i < 12 && naTela.length === 12 && naTela[i] !== certo && naTela.filter((_, j) => j !== i).join("") === codigoAB.slice(0, i * 5) + codigoAB.slice(i * 5 + 5),
-    conferirGrupo(codigoAB, i, certo), conferirGrupo(codigoAB, i, ` ${certo} `), conferirGrupo(codigoAB, i, errado), conferirGrupo(codigoAB, i, ""), conferirGrupo(codigoAB, i, certo.slice(0, 4)), conferirGrupo(codigoAB, i, "abcde"),
+    daBia.numeros === metadeDaBia, daAna.numeros === metadeDaAna, daBia.inicio !== daAna.inicio,
+    escondidos.length === GRUPOS_DA_METADE && escondidos[0] === daBia.inicio && escondidos.at(-1) === daBia.inicio + 5,
+    naTela.filter((g) => g !== "•••••").join("") === metadeDaAna,
+    metadeDaOutraPessoa(codigoAB, "0".repeat(30)),metadeDaOutraPessoa("1".repeat(60), "1".repeat(30)),
   ];
-}, (r) => r.join(",") === "true,true,true,false,false,false,false");
+}, (r) => r.slice(0, 5).every((x) => x === true) && r[5] === null && r[6] === null);
+await espera("comparar de novo: só os trinta números da OUTRA pessoa passam (com ou sem espaços); a minha metade, um grupo só ou errado, não", async () => {
+  const comEspacos = metadeDaBia.replace(/(.{5})/g, "$1 ");
+  const umGrupoErrado = `${metadeDaBia.slice(0, 25)}${metadeDaBia.slice(25) === "00000" ? "00001" : "00000"}`;
+  return [
+    conferirMetade(codigoAB, metadeDaAna, metadeDaBia), conferirMetade(codigoAB, metadeDaAna, ` ${comEspacos} `),
+    conferirMetade(codigoAB, metadeDaAna, metadeDaAna), conferirMetade(codigoAB, metadeDaAna, metadeDaBia.slice(0, 5)), conferirMetade(codigoAB, metadeDaAna, umGrupoErrado),
+    conferirMetade(codigoAB, metadeDaAna, ""), conferirMetade(codigoAB, metadeDaAna, `${metadeDaBia.slice(0, 29)}x`), conferirMetade(codigoAB, metadeDaAna, codigoAB),
+  ];
+}, (r) => r.join(",") === "true,true,false,false,false,false,false,false");
+await espera("ATAQUE (achado alto): o servidor troca a identidade da Bia por uma falsa; nada do que a Bia de verdade diz passa, em nenhuma posição", async () => {
+  // O código que o aparelho da Ana calcula com a identidade falsa. A Bia de verdade lê, da tela dela, a metade dela.
+  const falsas = await Promise.all([1, 2, 3].map(() => novaIdentidadeDoChat()));
+  const resultados = [];
+  for (const falsa of falsas) {
+    const codigoFalso = await codigoDeSeguranca(aparelhos.ana.identidade.publica, falsa.publica);
+    const outra = metadeDaOutraPessoa(codigoFalso, metadeDaAna);
+    // Na velha regra, metade dos grupos pedidos era da Ana e conferia com qualquer identidade falsa. Agora a tela só pede a
+    // metade da outra pessoa: nem a metade verdadeira da Bia, nem a da Ana, nem um grupo de cada passa.
+    const mistura = codigoFalso.slice(0, 30) === metadeDaAna ? `${metadeDaAna.slice(0, 15)}${metadeDaBia.slice(15)}` : `${metadeDaBia.slice(0, 15)}${metadeDaAna.slice(15)}`;
+    resultados.push(outra !== null && outra.numeros !== metadeDaBia, conferirMetade(codigoFalso, metadeDaAna, metadeDaBia), conferirMetade(codigoFalso, metadeDaAna, metadeDaAna), conferirMetade(codigoFalso, metadeDaAna, mistura),
+      conferirQr(qrDaSeguranca(codigoAB), codigoFalso));
+  }
+  return resultados.join(",");
+}, (t) => t === "true,false,false,false,nao_confere,".repeat(3).slice(0, -1));
 await espera("identidade trocada de quem estava verificado: a marca cai, o envio fica retido e um clique não basta", async () => [ler("lib/rede/chat-chaveiro.ts"), ler("components/rede/chat/Conversa.tsx")],
   (r) => /sessao\.exigeComparar = !!conhecida\?\.verificado;\s*sessao\.verificado = false;/.test(r[0])
     && /if \(sessao\.exigeComparar && !verificado\) throw erroDoChat\("dm_exige_comparar"\)/.test(r[0])
-    && /if \(atual\.mudou\) throw erroDoChat\(atual\.exigeComparar \? "dm_exige_comparar" : "dm_sem_chave"\)/.test(r[0])
-    && /sessao\.exigeComparar \? \([\s\S]{0,400}<CompararDeNovo[^>]*aoConferir=\{\(\) => void confiar\(true\)\}/.test(r[1])
-    && (r[1].match(/confiar\(false\)/g) ?? []).length === 1 && /disabled=\{ocupado \|\| !textoCabe\(texto\) \|\| !!sessao\.mudou\}/.test(r[1]));
+    && /if \(atual\.mudou\) throw erroDoChat\(retida\(atual\)\)/.test(r[0]) && /s\.exigeComparar \? "dm_exige_comparar"/.test(r[0])
+    // A tela passa a identidade do código COMPARADO (não a da sessão na hora do clique), e o chaveiro recusa se ela mudou no meio.
+    && /sessao\.exigeComparar \? \([\s\S]{0,500}<CompararDeNovo[^>]*aoConferir=\{\(\) => void confiar\(paraComparar\.identidade, true\)\}/.test(r[1])
+    && /if \(!esperada \|\| identidade !== esperada\) throw erroDoChat\("dm_identidade_mudou"\)/.test(r[0])
+    && (r[1].match(/confiar\(sessao\.mudou as string, false\)/g) ?? []).length === 1 && !/confiarNaIdentidade\(atual, atual\.mudou/.test(r[1])
+    && /disabled=\{ocupado \|\| !textoCabe\(texto\) \|\| !!sessao\.mudou\}/.test(r[1]));
 await espera("outra chave no servidor para a própria conta: a tela explica o risco e pede o \"entendi\" antes de criar chave nova", async () => [ler("components/rede/chat/Tela.tsx"), ler("lib/rede/chat-chaveiro.ts")],
   (r) => /aparelho\.estado === "outro_aparelho" && !entendi/.test(r[0]) && /aparelho\.tinhaChaveAqui && <p role="alert"[^>]*>\{t\.ativar\.outroTinha\}/.test(r[0]) && /\{t\.ativar\.outroRisco\}/.test(r[0]) && /tinhaChaveAqui: !!guardado/.test(r[1]));
 await espera("câmera: só liga com o toque da pessoa e desliga ao fechar, ao ler e quando a aba vai para o fundo", async () => [ler("components/rede/chat/Qr.tsx"), ler("components/rede/chat/Conversa.tsx")],

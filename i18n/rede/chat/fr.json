@@ -54,10 +54,14 @@
     "faltam": "Il manque peut-être un message ici : supprimé par son auteur, expiré ou retenu en chemin.",
     "repetida": "Message répété : cet appareil avait déjà reçu ce même message. Il n'est pas affiché à nouveau.",
     "mudouVerificada": "La clé de sécurité de {nome} a changé, et cette conversation était vérifiée. La marque de vérification est tombée. C'est peut-être un nouvel appareil, ou quelqu'un qui tente de se faire passer pour la personne. Rien n'est envoyé tant que vous n'avez pas comparé le code à nouveau.",
-    "grupoPedido": "Demandez à {nome}, en personne ou par un canal où vous vous reconnaissez, le groupe {n} du code affiché sur son écran. Saisissez-le ici :",
-    "grupoRotulo": "Groupe {n} du code",
+    "grupoPedido": "Demandez à {nome}, en personne ou par un canal où vous vous reconnaissez, les groupes {de} à {ate} du code affiché sur son écran (les six cachés ici). Tapez les trente chiffres :",
+    "grupoRotulo": "Groupes {de} à {ate} du code",
     "grupoConferir": "Vérifier",
-    "grupoErrado": "Cela ne correspond pas. N'allez pas plus loin : quelqu'un est peut-être au milieu. Parlez à la personne par un autre canal."
+    "grupoErrado": "Cela ne correspond pas. N'allez pas plus loin : quelqu'un est peut-être au milieu. Parlez à la personne par un autre canal.",
+    "chaveEstranha": "La clé de l'appareil de {nome} a changé sans que la clé de sécurité change. Cela n'arrive pas en usage normal et peut être quelqu'un qui tente de se faire passer pour cette personne. Rien n'est envoyé ni ouvert avec cette clé. Demandez à la personne, par un autre canal, de réactiver les messages.",
+    "foraDeOrdem": "L'ordre de ce message ne correspond pas à l'heure du serveur : il a été placé là où son auteur l'a écrit.",
+    "duvidosa": "Cet appareil ne peut pas vérifier si ce message est nouveau ou répété (il utilise une ancienne clé ou l'ancien format). Méfiez-vous s'il semble déjà être arrivé.",
+    "semConfirmar": "Quand l'autre personne a écrit pour la dernière fois, elle n'avait pas encore reçu ce message."
   },
   "acoes": {
     "rotulo": "Options de la conversation",
@@ -83,7 +87,9 @@
     "qrConfere": "Les codes correspondent : conversation vérifiée sur cet appareil.",
     "qrNaoConfere": "Les codes ne correspondent PAS. Ne marquez pas comme vérifié : quelqu'un est peut-être au milieu.",
     "qrOutro": "Ce QR n'est pas un code de sécurité d'Alumia.",
-    "negavel": "Les messages ne portent pas de signature. Vous seuls avez la clé de cette conversation : la personne qui reçoit sait que le message vient de l'autre, mais aucun message ne sert de preuve, pour un tiers, de qui l'a écrit."
+    "negavel": "Les messages ne portent pas de signature. Vous seuls avez la clé de cette conversation : la personne qui reçoit sait que le message vient de l'autre, mais aucun message ne sert de preuve, pour un tiers, de qui l'a écrit.",
+    "naoVerificado": "Non vérifié sur cet appareil",
+    "qrSoPessoalmente": "Lisez le QR uniquement sur l'écran de l'autre personne, en personne. Un QR envoyé par message, photo ou capture ne prouve rien : quelqu'un au milieu peut aussi en faire un."
   },
   "denuncia": {
     "titulo": "Signaler",
@@ -122,7 +128,7 @@
     "apagarTudoExplica": "Retire toutes les conversations de votre liste et supprime votre clé et vos réglages. L'autre personne de chaque conversation garde les messages jusqu'à la fin de leur délai. Le compte reste. LGPD brésilienne, art. 18, VI.",
     "apagarTudoConfirma": "Retirer TOUTES les conversations de votre liste et supprimer votre clé de chat ? C'est définitif.",
     "apagado": "Tout le chat a été supprimé.",
-    "sairRapido": "Le bouton Sortie rapide d'Alumia efface aussi la clé de la messagerie sur cet appareil. Ensuite, il faut réactiver la messagerie, et ce qui a été écrit avant ne s'ouvre plus ici."
+    "sairRapido": "Le bouton Sortie rapide d'Alumia efface aussi la clé des messages de cet appareil et, avec elle, tout ce que cet appareil savait des autres personnes : les clés de sécurité connues et les vérifications. Ensuite, il faut réactiver les messages ; ce qui a été écrit avant ne s'ouvre plus ici ; et TOUTES les conversations redeviennent non vérifiées : comparez le code avec chaque personne avant d'écrire quelque chose de sensible. La Sortie rapide d'Alumia ne ferme pas votre session sur le compte."
   },
   "erros": {
     "dm_fechada": "Impossible de discuter avec cette personne pour le moment.",
@@ -133,6 +139,11 @@
     "nao_encontrado": "Cette conversation n'existe plus.",
     "texto_grande": "Le message est trop long.",
     "sem_indexeddb": "Ce navigateur ne garde pas la clé (mode privé ?). Le chat ne fonctionne que tant que l'onglet reste ouvert.",
-    "dm_exige_comparar": "Comparez à nouveau le code de sécurité avant d'envoyer."
+    "dm_exige_comparar": "Comparez à nouveau le code de sécurité avant d'envoyer.",
+    "dm_chave_estranha": "La clé de l'appareil de l'autre personne a changé sans que la clé de sécurité change. Rien n'est envoyé.",
+    "dm_versao_voltou": "Le serveur a montré une clé de conversation plus ancienne qu'une clé déjà vue par cet appareil. Par sécurité, la conversation ne s'ouvre pas.",
+    "dm_versao_presa": "La clé de la conversation est ancienne et n'a pas pu être remplacée. Rien n'a été envoyé. Réessayez plus tard.",
+    "dm_apagado": "Les messages ont été effacés de cet appareil. Réactivez-les pour continuer.",
+    "dm_identidade_mudou": "La clé de sécurité a encore changé pendant la comparaison. Comparez à nouveau."
   }
 }

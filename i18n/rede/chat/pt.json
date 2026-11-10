@@ -53,10 +53,14 @@
     "faltam": "Pode faltar mensagem aqui: apagada por quem escreveu, vencida ou retida no caminho.",
     "repetida": "Mensagem repetida: este aparelho já tinha recebido esta mesma mensagem. Ela não é mostrada de novo.",
     "mudouVerificada": "A chave de segurança de {nome} mudou, e esta conversa estava verificada. A marca de verificado caiu. Pode ser um aparelho novo, ou alguém tentando se passar pela pessoa. Nada é enviado até vocês compararem o código de novo.",
-    "grupoPedido": "Peça a {nome}, pessoalmente ou por um canal em que vocês se reconheçam, o grupo {n} do código que aparece na tela dela. Digite aqui:",
-    "grupoRotulo": "Grupo {n} do código",
+    "grupoPedido": "Peça a {nome}, pessoalmente ou por um canal em que vocês se reconheçam, os grupos {de} a {ate} do código que aparece na tela dela (são os seis que estão escondidos aqui). Digite os trinta números:",
+    "grupoRotulo": "Grupos {de} a {ate} do código",
     "grupoConferir": "Conferir",
-    "grupoErrado": "Não confere. Não siga: pode haver alguém no meio. Fale com a pessoa por outro canal."
+    "grupoErrado": "Não confere. Não siga: pode haver alguém no meio. Fale com a pessoa por outro canal.",
+    "chaveEstranha": "A chave do aparelho de {nome} mudou sem a chave de segurança mudar. Isso não acontece no uso normal e pode ser alguém tentando se passar pela pessoa. Nada é enviado nem aberto com essa chave. Peça à pessoa, por outro canal, que ative o chat de novo.",
+    "foraDeOrdem": "A ordem desta mensagem não bate com a hora do servidor: ela foi posta onde quem escreveu a escreveu.",
+    "duvidosa": "Este aparelho não consegue conferir se esta mensagem é nova ou repetida (é de uma chave antiga ou do formato antigo). Desconfie se ela já pareceu ter chegado antes.",
+    "semConfirmar": "Quando a outra pessoa escreveu pela última vez, ainda não tinha recebido esta mensagem."
   },
   "acoes": {
     "rotulo": "Opções da conversa",
@@ -82,7 +86,9 @@
     "qrConfere": "Os códigos conferem: conversa verificada neste aparelho.",
     "qrNaoConfere": "Os códigos NÃO conferem. Não marque como verificado: pode haver alguém no meio.",
     "qrOutro": "Este QR não é um código de segurança da Alumia.",
-    "negavel": "As mensagens não levam assinatura. Só vocês dois têm a chave desta conversa: quem recebe sabe que veio da outra pessoa, mas nenhuma mensagem serve de prova, para terceiros, de quem escreveu."
+    "negavel": "As mensagens não levam assinatura. Só vocês dois têm a chave desta conversa: quem recebe sabe que veio da outra pessoa, mas nenhuma mensagem serve de prova, para terceiros, de quem escreveu.",
+    "naoVerificado": "Não verificado neste aparelho",
+    "qrSoPessoalmente": "Leia o QR só na tela da outra pessoa, pessoalmente. Um QR enviado por mensagem, foto ou print não prova nada: quem está no meio também consegue fazer um."
   },
   "denuncia": {
     "titulo": "Denunciar",
@@ -121,7 +127,7 @@
     "apagarTudoExplica": "Tira todas as conversas da sua lista e apaga a sua chave e os seus ajustes. A outra pessoa de cada conversa continua com as mensagens até o prazo delas acabar. A conta continua. LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Tirar TODAS as conversas da sua lista e apagar a sua chave do chat? Não tem volta.",
     "apagado": "Tudo do chat foi apagado.",
-    "sairRapido": "O botão Sair rápido da Alumia apaga também a chave do chat deste aparelho. Depois, é preciso ativar o chat de novo, e o que foi escrito antes não abre mais aqui."
+    "sairRapido": "O botão Sair rápido da Alumia apaga também a chave do chat deste aparelho, e com ela tudo o que este aparelho sabia das outras pessoas: as chaves de segurança conhecidas e as verificações. Depois, é preciso ativar o chat de novo; o que foi escrito antes não abre mais aqui; e TODAS as conversas voltam a ficar não verificadas: compare o código de novo com cada pessoa antes de escrever algo sensível. O Sair rápido da Alumia não encerra a sua sessão na conta."
   },
   "erros": {
     "dm_fechada": "Não dá para conversar com esta pessoa agora.",
@@ -132,6 +138,11 @@
     "nao_encontrado": "Esta conversa não existe mais.",
     "texto_grande": "A mensagem é longa demais.",
     "sem_indexeddb": "Este navegador não guarda a chave (modo privado?). O chat funciona só enquanto a aba estiver aberta.",
-    "dm_exige_comparar": "Compare o código de segurança de novo antes de enviar."
+    "dm_exige_comparar": "Compare o código de segurança de novo antes de enviar.",
+    "dm_chave_estranha": "A chave do aparelho da outra pessoa mudou sem a chave de segurança mudar. Nada é enviado.",
+    "dm_versao_voltou": "O servidor mostrou uma chave da conversa mais antiga do que uma que este aparelho já viu. Por segurança, a conversa não abre.",
+    "dm_versao_presa": "A chave da conversa está velha e não deu para trocar. Nada foi enviado. Tente de novo mais tarde.",
+    "dm_apagado": "O chat foi apagado deste aparelho. Ative de novo para continuar.",
+    "dm_identidade_mudou": "A chave de segurança mudou de novo enquanto você comparava. Compare outra vez."
   }
 }

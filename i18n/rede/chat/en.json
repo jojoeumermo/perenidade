@@ -54,10 +54,14 @@
     "faltam": "A message may be missing here: deleted by the writer, expired or held back on the way.",
     "repetida": "Repeated message: this device had already received this same message. It is not shown again.",
     "mudouVerificada": "{nome}'s safety key changed, and this conversation was verified. The verified mark was removed. It may be a new device, or someone trying to pass as this person. Nothing is sent until you compare the code again.",
-    "grupoPedido": "Ask {nome}, in person or through a channel where you recognise each other, for group {n} of the code on their screen. Type it here:",
-    "grupoRotulo": "Group {n} of the code",
+    "grupoPedido": "Ask {nome}, in person or through a channel where you recognise each other, for groups {de} to {ate} of the code on their screen (the six hidden here). Type the thirty digits:",
+    "grupoRotulo": "Groups {de} to {ate} of the code",
     "grupoConferir": "Check",
-    "grupoErrado": "It does not match. Do not go on: someone may be in the middle. Talk to the person through another channel."
+    "grupoErrado": "It does not match. Do not go on: someone may be in the middle. Talk to the person through another channel.",
+    "chaveEstranha": "{nome}'s device key changed without the safety key changing. This does not happen in normal use and may be someone trying to pass as this person. Nothing is sent or opened with this key. Ask the person, through another channel, to turn on messages again.",
+    "foraDeOrdem": "This message's order does not match the server's time: it was placed where the writer wrote it.",
+    "duvidosa": "This device cannot check whether this message is new or repeated (it uses an old key or the old format). Be wary if it seems to have arrived before.",
+    "semConfirmar": "When the other person last wrote, they had not yet received this message."
   },
   "acoes": {
     "rotulo": "Conversation options",
@@ -83,7 +87,9 @@
     "qrConfere": "The codes match: conversation verified on this device.",
     "qrNaoConfere": "The codes do NOT match. Do not mark as verified: someone may be in the middle.",
     "qrOutro": "This QR is not an Alumia safety code.",
-    "negavel": "Messages carry no signature. Only the two of you have the key to this conversation: the receiver knows it came from the other person, but no message works as proof, to anyone else, of who wrote it."
+    "negavel": "Messages carry no signature. Only the two of you have the key to this conversation: the receiver knows it came from the other person, but no message works as proof, to anyone else, of who wrote it.",
+    "naoVerificado": "Not verified on this device",
+    "qrSoPessoalmente": "Only scan the QR on the other person's screen, in person. A QR sent by message, photo or screenshot proves nothing: someone in the middle can make one too."
   },
   "denuncia": {
     "titulo": "Report",
@@ -122,7 +128,7 @@
     "apagarTudoExplica": "Removes all conversations from your list and deletes your key and your settings. The other person in each conversation keeps the messages until their time limit ends. Your account stays. Brazil's LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Remove ALL conversations from your list and delete your messaging key? This cannot be undone.",
     "apagado": "All your messages were deleted.",
-    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device. After that you have to turn messages on again, and what was written before will no longer open here."
+    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device, and with it everything this device knew about other people: known safety keys and verifications. After that you have to turn messages on again; what was written before will no longer open here; and ALL conversations become unverified again: compare the code with each person before writing anything sensitive. Alumia's Quick exit does not sign you out of your account."
   },
   "erros": {
     "dm_fechada": "You cannot message this person right now.",
@@ -133,6 +139,11 @@
     "nao_encontrado": "This conversation no longer exists.",
     "texto_grande": "The message is too long.",
     "sem_indexeddb": "This browser does not keep the key (private mode?). Messages work only while the tab stays open.",
-    "dm_exige_comparar": "Compare the safety code again before sending."
+    "dm_exige_comparar": "Compare the safety code again before sending.",
+    "dm_chave_estranha": "The other person's device key changed without the safety key changing. Nothing is sent.",
+    "dm_versao_voltou": "The server showed a conversation key older than one this device has already seen. For safety, the conversation does not open.",
+    "dm_versao_presa": "The conversation key is old and could not be replaced. Nothing was sent. Try again later.",
+    "dm_apagado": "Messages were erased from this device. Turn them on again to continue.",
+    "dm_identidade_mudou": "The safety key changed again while you were comparing. Compare once more."
   }
 }
