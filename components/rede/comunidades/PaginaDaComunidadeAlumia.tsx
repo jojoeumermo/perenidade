@@ -9,6 +9,7 @@ import { rede } from "@/lib/rede/cliente";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
 import { paginaDeExemplo, postsDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import { comReserva } from "@/lib/rede/reserva";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
@@ -16,7 +17,7 @@ import { enderecos, type Comunidade, type Post, type Situacao } from "@/lib/rede
 import { corDaComunidadeNova, enderecosCom, postsDaSemana, type PaginaDaComunidade, type SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
 import { totalVisivel } from "@/lib/rede/tipos-conversa";
 import { ENCAIXES } from "../encaixes";
-import { textoDoErro } from "../erros";
+import { codigoDoErro, textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
@@ -102,12 +103,16 @@ export function PaginaDaComunidadeAlumia({
   useEffect(() => {
     let vivo = true;
     // rede_alumia_com_pagina (20261109-alumia-f3.sql): a página de hoje + "N posts esta semana", agregado e nulo abaixo de 3. Banco
-    // sem a migração da F3 ainda: cai na página de hoje (sem a contagem, que aparece como "poucos").
+    // sem a migração da F3 ainda (e SÓ nesse caso): cai na página de hoje, sem a contagem. Limite, conta suspensa, sem permissão e
+    // não encontrada vão direto para a tela (lib/rede/reserva.ts), sem uma segunda chamada que gastaria a cota de novo.
     // Na prévia, a comunidade do slug (com nome, cor e descrição dela); slug que não existe: nulo, e a tela diz "não encontrada".
-    const pedir = previa() ? Promise.resolve(paginaDeExemplo(slug)) : comunidades.paginaAlumia(slug).catch(() => comunidades.pagina(slug));
+    const pedir = previa()
+      ? Promise.resolve(paginaDeExemplo(slug))
+      : comReserva(() => comunidades.paginaAlumia(slug), () => comunidades.pagina(slug));
     pedir
       .then((dado) => vivo && setEstado({ slug, dado, erro: "" }))
-      .catch((e) => vivo && setEstado({ slug, dado: null, erro: textoDoErro(s, e) }));
+      // "Não encontrada" (não existe, é fechada para a pessoa): a tela própria de 404, a mesma nos dois casos (sem dizer qual).
+      .catch((e) => vivo && setEstado({ slug, dado: null, erro: codigoDoErro(e) === "nao_encontrado" ? "" : textoDoErro(s, e) }));
     return () => {
       vivo = false;
     };
