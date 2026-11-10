@@ -1,6 +1,6 @@
 {
   "_rascunho": true,
-  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia 首页" },
+  "marca": { "alumia": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia 首页", "acessibilidade": "无障碍", "ajuda": "常见问题" },
   "tipos": { "partido": "政党", "mandato": "议员团队", "sindicato": "工会", "movimento": "社会运动", "coletivo": "集体", "gremio": "学生会", "dce": "大学生联合会", "outro": "组织" },
   "pagina": {
     "titulo": "带上你的组织",
