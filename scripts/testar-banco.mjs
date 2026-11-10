@@ -3648,6 +3648,25 @@ await espera("toda função pública com poder de dono fixa o search_path", asyn
   await espera("o próprio educador vê o pedido aprovado", () => rpc(PROF, "cartao_publico_meu"), (r) => r.pedido?.status === "aprovado" && r.no_ar.foto === FOTO);
 }
 
+// ── Os parceiros nos territórios (20261109-territorios-parceiros.sql) ──
+{
+  ids.parceira = await criarUsuario("parceira@teste.local", "Parceira do Coletivo");
+  const PARC = como(ids.parceira);
+  const post = { territorio: "na-atividade", titulo: "Sarau no sábado", texto: "Sarau aberto na praça, das 16h às 20h, com microfone livre." };
+  await recusa("quem não é parceiro não posta no território", () => rpc(PARC, "territorio_postar", { p: post }), "sem_permissao");
+  await recusa("só a coordenação liga um parceiro ao território", () => rpc(PARC, "territorio_parceiro_definir", { p_usuario: ids.parceira, p_territorio: "na-atividade" }), "sem_permissao");
+  await espera("a coordenação liga a parceira ao território", () => rpc(COORD, "territorio_parceiro_definir", { p_usuario: ids.parceira, p_territorio: "na-atividade" }), (r) => r.ok === true);
+  await espera("a parceira vê o próprio território", () => rpc(PARC, "territorio_meus"), (r) => r.includes("na-atividade"));
+  await recusa("a parceira não posta em outro território", () => rpc(PARC, "territorio_postar", { p: { ...post, territorio: "noizocupa" } }), "sem_permissao");
+  let novo;
+  await espera("a parceira posta no território dela", async () => (novo = await rpc(PARC, "territorio_postar", { p: post })), (r) => typeof r.id === "string");
+  await espera("a postagem aparece na página do território", () => rpc(anon, "territorio_posts", { p_territorio: "na-atividade" }), (r) => r.some((x) => x.id === novo.id && !("autor" in x)));
+  await espera("e na seção do Jornal", () => rpc(anon, "territorio_posts_recentes"), (r) => r.some((x) => x.id === novo.id));
+  await recusa("outra pessoa não tira a postagem do ar", () => rpc(como(ids.semFuncao), "territorio_post_ocultar", { p_id: novo.id }), "sem_permissao");
+  await espera("a coordenação tira do ar", () => rpc(COORD, "territorio_post_ocultar", { p_id: novo.id, p_motivo: "teste" }), (r) => r.ok === true);
+  await espera("fora do ar, some da página", () => rpc(anon, "territorio_posts", { p_territorio: "na-atividade" }), (r) => !r.some((x) => x.id === novo.id));
+}
+
 await espera("nenhuma tabela, visão ou sequência no esquema público", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind in ('r', 'v', 'm', 'p', 'f', 'S')")).rows.map((r) => r.relname), (r) => r.length === 0);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
