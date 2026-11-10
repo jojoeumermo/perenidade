@@ -1,5 +1,9 @@
 {
-  "marca": { "nome": "Alumia", "instituto": "Instituto Lúcia", "inicio": "Alumia 首页" },
+  "marca": {
+    "nome": "Alumia",
+    "instituto": "Instituto Lúcia",
+    "inicio": "Alumia 首页"
+  },
   "menu": {
     "principal": "Alumia 菜单",
     "barra": "Alumia 导航栏",
@@ -48,7 +52,13 @@
     "geral": "公共时间线",
     "novosUm": "条新帖子",
     "novosOutros": "条新帖子",
-    "mostrarNovos": "显示 {n} 条新帖子"
+    "mostrarNovos": "显示 {n} 条新帖子",
+    "erroTitulo": "时间线没有加载出来",
+    "fimTitulo": "你都看完了",
+    "fimTexto": "你关注的人暂时没有更多内容了。没有无尽滚动：去社区或行动看看吧？",
+    "fimComunidades": "去社区",
+    "fimAtos": "查看行动",
+    "fimTopo": "回到顶部"
   },
   "compositor": {
     "convite": "你的斗争中正在发生什么？",
@@ -142,7 +152,18 @@
     "semTexto": "（无文字）",
     "semAlt": "有一张图片没有描述：使用读屏软件的人不会知道图里有什么。请描述它，或再点一次照样发布。",
     "naoDesfez": "无法撤销：帖子已经发布。你可以在帖子菜单中删除它。",
-    "rascunhosCheios": "你的账户里已有 20 份草稿：这一份只保存在本设备上。删除一份即可保存到账户。"
+    "rascunhosCheios": "你的账户里已有 20 份草稿：这一份只保存在本设备上。删除一份即可保存到账户。",
+    "anexos": "附件",
+    "gravarAudio": "录音（最长 1 分钟）",
+    "ajudaInternet": "所有人，包括 Mastodon、Lemmy、Misskey 和联邦宇宙其他地方。",
+    "ajudaMembros": "只有 Alumia 账号的人。",
+    "ajudaSeguidores": "只有关注你的人。",
+    "ajudaComunidade": "只有这个社区的人。",
+    "ajudaNucleo": "只有这个小组的人。",
+    "ajudaEquipe": "只有研究所团队。",
+    "publicoRoda": "只给信任圈",
+    "rodaEmBreve": "你的信任名单会随新个人页一起上线。没人会知道名单里有谁。",
+    "notaFediverso": "也发到联邦宇宙：在 Mastodon、Lemmy 和 Misskey 关注你的人会以你的代号看到这条帖子。"
   },
   "direita": {
     "rotulo": "Alumia 此刻",

@@ -28,13 +28,15 @@ import { ENCAIXES, verificarAntesDePublicar } from "../../encaixes";
 import { codigoDoErro, textoDoErro } from "../../erros";
 import { Mosaico } from "../../mosaico/Mosaico";
 import { corDaComunidade } from "../../ui/Pilula";
-import { escreverRascunho, ExtrasDoEscrever, useEscreverPub } from "../ExtrasDoEscrever";
+import { escreverRascunho, useEscreverPub } from "../ExtrasDoEscrever";
 import { textoDoErroPublicar } from "../textos";
+import { AnexosDoEscrever } from "./AnexosDoEscrever";
 import { faltaNoBanco } from "./CartaoDaAlumia2";
 import type { TipoAoEscrever } from "./CascaDaAlumia2";
 import { useAlumia2 } from "./contexto";
 import { Icone, type NomeDoIcone } from "./icones";
 import { Pilulas } from "./Pilulas";
+import { comMovimento } from "./TopoDaLinha2";
 
 /** O que dá para focar com Tab dentro do diálogo (para prender o foco nele). */
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]';
@@ -112,6 +114,7 @@ export function EscreverDaAlumia2({
   const [rascunhoOnde, setRascunhoOnde] = useState<"conta" | "aparelho" | "cheio" | null>(null);
   const [rascunhos, setRascunhos] = useState<RascunhoDoServidor[]>([]);
   const [tc, setTc] = useState<TextosDaConversa | null>(null);
+  const [saindo, setSaindo] = useState(false);
   const dialogo = useRef<HTMLDivElement>(null);
   const semServidor = useRef(false);
   // "Desfazer" tocado quando o pedido já tinha saído (o relógio chegou a zero): o post volta pelo rede_pub_desfazer.
@@ -395,7 +398,18 @@ export function EscreverDaAlumia2({
         if (!semServidor.current) void redePub.salvarRascunho(rascunhoAtual).catch(() => undefined);
       }
     }
-    aoFechar();
+    sair();
+  }
+
+  /** Fecha com a animação de saída (a janela desce ou encolhe em ~180 ms); sem movimento, fecha na hora. */
+  function sair() {
+    if (saindo) return;
+    if (!comMovimento()) {
+      aoFechar();
+      return;
+    }
+    setSaindo(true);
+    window.setTimeout(aoFechar, 180);
   }
   const fecharRef = useRef(fechar);
   useEffect(() => {
@@ -474,25 +488,37 @@ export function EscreverDaAlumia2({
   const placeholder = tipo === "enquete" ? t.escrever.pergunta : longo ? t.escrever.corpo : t.escrever.texto;
   const responde: RespondeQuem[] = ["todos", "seguindo", "mencionados", "ninguem"];
   const rotuloResponde = (q: RespondeQuem) => ({ todos: t.escrever.respondeTodos, seguindo: t.escrever.respondeSeguindo, mencionados: t.escrever.respondeMencionados, ninguem: t.escrever.respondeNinguem })[q];
+  const ajudaDoPublico = (p: Publico) =>
+    ({ internet: t.escrever.ajudaInternet, membros: t.escrever.ajudaMembros, seguidores: t.escrever.ajudaSeguidores, comunidade: t.escrever.ajudaComunidade, nucleo: t.escrever.ajudaNucleo, equipe: t.escrever.ajudaEquipe })[p];
 
   return (
     <>
-      <div className={`al2 fixed inset-0 z-50 flex flex-col bg-[var(--al-fundo)] md:items-center md:justify-center md:bg-black/70 md:p-6 ${envio ? "hidden" : ""}`} role="dialog" aria-modal="true" aria-labelledby="al2-escrever-titulo" onKeyDown={prenderTab}>
-        <div ref={dialogo} tabIndex={-1} className="flex h-full w-full flex-col bg-[var(--al-fundo)] md:h-auto md:max-h-[92vh] md:max-w-xl md:rounded-2xl md:border md:border-[var(--al-superficie-2)]">
+      <div
+        className={`al2 al2-escrever-fundo fixed inset-0 z-50 flex flex-col md:items-center md:justify-center md:p-6 ${envio ? "hidden" : ""} ${saindo ? "al2-saindo" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="al2-escrever-titulo"
+        onKeyDown={prenderTab}
+        onMouseDown={(e) => {
+          // Clique no fundo escuro (computador) fecha, como o Cancelar (o rascunho fica guardado).
+          if (e.target === e.currentTarget) fechar();
+        }}
+      >
+        <div ref={dialogo} tabIndex={-1} className="al2-escrever flex h-full w-full flex-col bg-[var(--al-fundo)] md:h-auto md:max-h-[92vh] md:max-w-[640px] md:rounded-2xl md:border md:border-[var(--al-superficie-2)]">
           <div className="al-faixa" aria-hidden />
           <div className="flex items-center justify-between gap-3 px-4 py-3">
             <button type="button" onClick={fechar} className="al2-acao !text-[1.05rem] !text-[var(--al-texto-2)]">
               {t.escrever.cancelar}
             </button>
-            <h2 id="al2-escrever-titulo" className="sr-only">
+            <h2 id="al2-escrever-titulo" className="al-cond hidden text-lg font-black uppercase tracking-wide text-[var(--al-texto-2)] md:block">
               {resposta ? t.escrever.resposta : t.escrever.titulo}
             </h2>
-            <button ref={botaoPrincipal} type="button" onClick={() => void publicar()} disabled={!pronto || ocupado} className="al-botao al-botao-primario al-botao-g">
+            <button ref={botaoPrincipal} type="button" onClick={() => void publicar()} disabled={!pronto || ocupado} data-pronto={pronto && !ocupado ? "sim" : undefined} className="al-botao al-botao-primario al-botao-g al2-publicar">
               {ocupado ? t.escrever.publicando : principal}
             </button>
           </div>
 
-          <div className="flex-1 space-y-4 overflow-y-auto px-4 pb-6">
+          <div className="al2-escrever-corpo flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 pb-6">
             {resposta && respostaA && (
               <p className="rounded-xl border-l-4 border-[var(--al-vermelho)] bg-[var(--al-superficie)] px-3 py-2 text-sm text-[var(--al-texto-2)]">
                 <strong>{respostaA.autor.codinome}</strong>: {respostaA.texto.slice(0, 160)}
@@ -518,7 +544,7 @@ export function EscreverDaAlumia2({
             )}
 
             {!resposta && rascunhos.length > 0 && !rascunhoTemTexto({ texto, titulo, corpo }) && (
-              <details className="rounded-xl border border-[var(--al-superficie-2)] p-3 text-sm">
+              <details className="al2-anexo text-sm">
                 <summary className="cursor-pointer font-bold">{preencher(t.escrever.rascunhos, { n: rascunhos.length })}</summary>
                 <p className="mt-1 text-xs text-[var(--al-texto-3)]">{t.escrever.rascunhosAjuda}</p>
                 <ul className="mt-2 space-y-1">
@@ -533,61 +559,69 @@ export function EscreverDaAlumia2({
               </details>
             )}
 
-            {tipo === "ato" ? (
-              encaixeDoAto ? (
-                <encaixeDoAto.Formulario lang={lang} s={s} situacao={situacao} aoMudar={setDadosDoAto} />
+            <div key={tipo === "ato" ? "ato" : "texto"} className="al2-troca-tipo space-y-4">
+              {tipo === "ato" ? (
+                encaixeDoAto ? (
+                  <encaixeDoAto.Formulario lang={lang} s={s} situacao={situacao} aoMudar={setDadosDoAto} />
+                ) : (
+                  <FormularioDoAtoDuble aoMudar={setDadosDoAto} />
+                )
               ) : (
-                <FormularioDoAtoDuble aoMudar={setDadosDoAto} />
-              )
-            ) : (
-              <>
-                {longo && (
-                  <>
-                    <Pilulas
-                      rotulo={t.escrever.longoComo}
-                      className="flex gap-2"
-                      classeItem="al2-tipo !min-h-10 !px-3 text-sm"
-                      opcoes={(["discussao", "duvida"] as const).map((x) => ({ valor: x, conteudo: t.escrever[x] }))}
-                      escolhido={longoComo}
-                      aoMudar={setLongoComo}
-                    />
-                    <label className="block">
-                      <span className="al2-rotulo">{t.escrever.tituloDoLongo}</span>
-                      <input className="al2-campo min-h-12 text-lg font-bold" value={titulo} maxLength={140} onChange={(e) => setTitulo(e.target.value)} />
-                    </label>
-                  </>
-                )}
-                <label className="block">
-                  <span className="sr-only">{placeholder}</span>
-                  {tc ? (
-                    <CampoComMencoes
-                      valor={longo ? corpo : texto}
-                      aoMudar={longo ? setCorpo : setTexto}
-                      t={tc}
-                      rotulo={placeholder}
-                      placeholder={placeholder}
-                      maxLength={maximo}
-                      postId={respostaA?.id ?? null}
-                      className="al2-campo min-h-40 resize-y text-[1.15rem] leading-relaxed"
-                      linhas={6}
-                      autoFocus
-                    />
-                  ) : (
-                    <textarea
-                      className="al2-campo min-h-40 resize-y text-[1.15rem] leading-relaxed"
-                      placeholder={placeholder}
-                      maxLength={maximo}
-                      value={longo ? corpo : texto}
-                      onChange={(e) => (longo ? setCorpo(e.target.value) : setTexto(e.target.value))}
-                    />
+                <>
+                  {longo && (
+                    <>
+                      <Pilulas
+                        rotulo={t.escrever.longoComo}
+                        className="flex gap-2"
+                        classeItem="al2-tipo !min-h-10 !px-3 text-sm"
+                        opcoes={(["discussao", "duvida"] as const).map((x) => ({ valor: x, conteudo: t.escrever[x] }))}
+                        escolhido={longoComo}
+                        aoMudar={setLongoComo}
+                      />
+                      <label className="block">
+                        <span className="al2-rotulo">{t.escrever.tituloDoLongo}</span>
+                        <input className="al2-campo min-h-12 text-lg font-bold" value={titulo} maxLength={140} onChange={(e) => setTitulo(e.target.value)} />
+                      </label>
+                    </>
                   )}
-                  <span className="mt-1 block text-right text-xs text-[var(--al-texto-3)]">{preencher(t.escrever.contador, { n: tamanho, max: maximo })}</span>
-                </label>
-                <div className="al2-extras text-[var(--al-texto)]">
-                  <ExtrasDoEscrever pub={pub} resposta={resposta} lang={lang} semQuemResponde />
-                </div>
-              </>
-            )}
+                  <label className="block">
+                    <span className="sr-only">{placeholder}</span>
+                    {tc ? (
+                      <CampoComMencoes
+                        valor={longo ? corpo : texto}
+                        aoMudar={longo ? setCorpo : setTexto}
+                        t={tc}
+                        rotulo={placeholder}
+                        placeholder={placeholder}
+                        maxLength={maximo}
+                        postId={respostaA?.id ?? null}
+                        className="al2-campo al2-campo-texto min-h-40 resize-y text-[1.15rem] leading-relaxed"
+                        linhas={6}
+                        autoFocus
+                      />
+                    ) : (
+                      <textarea
+                        className="al2-campo al2-campo-texto min-h-40 resize-y text-[1.15rem] leading-relaxed"
+                        placeholder={placeholder}
+                        maxLength={maximo}
+                        value={longo ? corpo : texto}
+                        onChange={(e) => (longo ? setCorpo(e.target.value) : setTexto(e.target.value))}
+                      />
+                    )}
+                  </label>
+                  <AnexosDoEscrever
+                    pub={pub}
+                    t={t}
+                    lang={lang}
+                    resposta={resposta}
+                    tamanho={tamanho}
+                    maximo={maximo}
+                    enquete={tipo === "enquete"}
+                    aoEnquete={resposta ? undefined : (ligar) => setTipo(ligar ? "enquete" : "post")}
+                  />
+                </>
+              )}
+            </div>
 
             {!resposta && (
               <div className="border-b border-[var(--al-linha)]">
@@ -612,9 +646,20 @@ export function EscreverDaAlumia2({
                   aberta={aberta === "quem"}
                   aoAbrir={() => setAberta(aberta === "quem" ? null : "quem")}
                   aoFecharLista={() => setAberta(null)}
-                  opcoes={publicos.map((p) => ({ valor: p, texto: rotuloDoPublico(p) }))}
+                  vertical
+                  opcoes={publicos.map((p) => ({ valor: p, texto: rotuloDoPublico(p), ajuda: ajudaDoPublico(p), icone: iconeDoPublico(p) }))}
                   escolhido={publico}
                   aoEscolher={(v) => setPublico(v as Publico)}
+                  depois={
+                    // A roda de confiança (lista pessoal, do perfil) entra aqui quando a lista existir no banco; até lá, avisa.
+                    <p className="al2-opcao-roda" aria-disabled="true">
+                      <Icone nome="roda" className="h-5 w-5 shrink-0 text-[var(--al-com-1)]" />
+                      <span className="min-w-0 flex-1">
+                        <strong>{t.escrever.publicoRoda}</strong>
+                        <span className="block text-xs text-[var(--al-texto-3)]">{t.escrever.rodaEmBreve}</span>
+                      </span>
+                    </p>
+                  }
                 />
                 <Escolha
                   icone={<Icone nome="responder" className="h-5 w-5" />}
@@ -629,15 +674,31 @@ export function EscreverDaAlumia2({
                 />
               </div>
             )}
+            {!resposta && publico === "internet" && (
+              <p className="al2-nota">
+                <Icone nome="fediverso" className="h-4 w-4 text-[var(--al-dourado)]" />
+                {t.escrever.notaFediverso}
+              </p>
+            )}
 
             <p className="text-xs text-[var(--al-texto-3)]">{preencher(t.escrever.codinome, { codinome: situacao.codinome ?? "" })}</p>
-            {rascunhoOnde && <p className="text-xs text-[var(--al-texto-3)]" role="status">{rascunhoOnde === "conta" ? t.escrever.rascunhoNaConta : rascunhoOnde === "cheio" ? t.escrever.rascunhosCheios : t.escrever.rascunhoSoAqui}</p>}
+            {rascunhoOnde && (
+              <p className="al2-nota" role="status">
+                <Icone nome="visto" className="h-4 w-4" />
+                {rascunhoOnde === "conta" ? t.escrever.rascunhoNaConta : rascunhoOnde === "cheio" ? t.escrever.rascunhosCheios : t.escrever.rascunhoSoAqui}
+              </p>
+            )}
           </div>
 
-          <div aria-live="polite" className="px-4 pb-4">
-            {erro && <p role="alert" className="text-[var(--oxblood)]">{erro}</p>}
+          <div aria-live="polite" className="px-4 pb-4 empty:hidden">
+            {erro && (
+              <p role="alert" className="al2-nota al2-nota-alerta">
+                <Icone nome="alerta" className="h-4 w-4" />
+                {erro}
+              </p>
+            )}
             {aviso && (
-              <p role="status" className="rounded-xl border border-dashed border-[var(--al-texto-3)] px-3 py-2 text-sm">
+              <p role="status" className="al2-aviso-escrever">
                 {aviso}
               </p>
             )}
@@ -646,20 +707,34 @@ export function EscreverDaAlumia2({
       </div>
 
       {envio && (
-        <div className="al2 al2-aviso-flutuante" role="status" aria-live="polite">
+        <div className="al2 al2-aviso-flutuante" role="status" aria-live="polite" style={{ ["--al2-espera" as string]: `${SEGUNDOS_PARA_DESFAZER}s` }}>
+          <span className="al2-aviso-relogio" aria-hidden>
+            {faltam}
+          </span>
           <span>{preencher(t.escrever.enviandoEm, { s: faltam })}</span>
           <button ref={botaoDesfazer} type="button" onClick={desfazer} className="al-botao al-botao-primario al-botao-p">
+            <Icone nome="desfazer" className="h-4 w-4" />
             {t.escrever.desfazer}
           </button>
+          <span className="al2-aviso-barra" aria-hidden />
         </div>
       )}
     </>
   );
 }
 
+interface OpcaoDaEscolha {
+  valor: string;
+  texto: string;
+  ajuda?: string;
+  icone?: NomeDoIcone;
+}
+
 /**
- * Uma linha de escolha (Onde publicar, Quem vê, Quem responde): abre a lista ali mesmo, como na prancha. Aberta, o foco vai para a
- * opção escolhida; as setas trocam, Enter/Espaço/clique confirma e fecha, Esc fecha sem fechar o Escrever. O foco volta à linha.
+ * Uma linha de escolha (Onde publicar, Quem vê, Quem responde): abre a lista ali mesmo, como na prancha, numa gaveta que desliza.
+ * Aberta, o foco vai para a opção escolhida; as setas trocam, Enter/Espaço/clique confirma e fecha, Esc fecha sem fechar o
+ * Escrever. O foco volta à linha. `vertical` mostra as opções uma por linha, com ícone e uma frase de ajuda (Quem vê); `depois`
+ * vem embaixo da lista.
  */
 function Escolha({
   icone,
@@ -671,6 +746,8 @@ function Escolha({
   opcoes,
   escolhido,
   aoEscolher,
+  vertical = false,
+  depois,
 }: {
   icone: React.ReactNode;
   rotulo: string;
@@ -678,9 +755,11 @@ function Escolha({
   aberta: boolean;
   aoAbrir: () => void;
   aoFecharLista: () => void;
-  opcoes: { valor: string; texto: string }[];
+  opcoes: OpcaoDaEscolha[];
   escolhido: string;
   aoEscolher: (v: string) => void;
+  vertical?: boolean;
+  depois?: React.ReactNode;
 }) {
   const linha = useRef<HTMLButtonElement>(null);
   const lista = useRef<HTMLDivElement>(null);
@@ -697,20 +776,37 @@ function Escolha({
         <span className="grid w-6 place-items-center">{icone}</span>
         <span>{rotulo}</span>
         <strong>{valor}</strong>
-        <Icone nome="chevron" className={`h-5 w-5 shrink-0 transition-transform ${aberta ? "rotate-90" : ""}`} />
+        <Icone nome="chevron" className={`h-5 w-5 shrink-0 transition-transform duration-200 ${aberta ? "rotate-90" : ""}`} />
       </button>
       {aberta && (
-        <div ref={lista}>
+        <div ref={lista} className="al2-gaveta pb-3">
           <Pilulas
             rotulo={rotulo}
-            className="mb-3 flex flex-wrap gap-2 pl-9"
-            classeItem="al2-tipo !min-h-10 !px-3 text-sm"
-            opcoes={opcoes.map((o) => ({ valor: o.valor, conteudo: o.texto }))}
+            className={vertical ? "al2-lista-escolha" : "flex flex-wrap gap-2 pl-9"}
+            classeItem={vertical ? "al2-opcao-linha" : "al2-tipo !min-h-10 !px-3 text-sm"}
+            opcoes={opcoes.map((o) => ({
+              valor: o.valor,
+              conteudo: vertical ? (
+                <>
+                  {o.icone && <Icone nome={o.icone} className="h-5 w-5 shrink-0" />}
+                  <span className="min-w-0 flex-1 text-left">
+                    <span className="block font-bold">{o.texto}</span>
+                    {o.ajuda && <span className="block text-xs font-normal text-[var(--al-texto-3)]">{o.ajuda}</span>}
+                  </span>
+                  <span aria-hidden className="al2-opcao-marca">
+                    <Icone nome="visto" className="h-4 w-4" grosso />
+                  </span>
+                </>
+              ) : (
+                o.texto
+              ),
+            }))}
             escolhido={escolhido}
             aoMudar={aoEscolher}
             aoConfirmar={fecharLista}
             aoEsc={fecharLista}
           />
+          {depois}
         </div>
       )}
     </div>

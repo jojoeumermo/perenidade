@@ -16,7 +16,11 @@ import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecosDescoberta } from "@/lib/rede/tipos-descoberta";
 import type { ItemDoMenu } from "../../Casca";
-import { ENCAIXES } from "../../encaixes";
+import { BuscaDaColuna } from "../../comunidades/ComunidadesAtivas";
+import { ENCAIXES, type ContextoDoEncaixe } from "../../encaixes";
+import { encaixe as encaixeDosAtos } from "../../atos/encaixe";
+import { encaixe as encaixeDaConversa } from "../../conversa/encaixe";
+import { encaixe as encaixeDaOrg } from "../../org/encaixe";
 import { EsqueletoDaCasca } from "../../Esqueletos";
 import { enderecoDoSite } from "../../VoltarAoSite";
 import { Avatar16 } from "../../ui/Avatar16";
@@ -65,6 +69,23 @@ function emblemaDe(chave: Chave, lang: string, s: TextosDaRede, situacao: Situac
   return troca?.emblema?.({ lang, s, situacao }) ?? null;
 }
 
+/**
+ * A coluna da direita na ordem da prancha computador-inicio: a busca (uma só, a da casca, no alto), "Ao vivo agora" (F4), "Atos
+ * perto de você" (F2), "Comunidades ativas" (F3) e o que mais as frentes pendurarem. A busca que a F3 também pendura sai daqui
+ * (era a segunda busca da coluna).
+ */
+function ordemDaDireita(pecas: readonly React.ComponentType<ContextoDoEncaixe>[]): React.ComponentType<ContextoDoEncaixe>[] {
+  const prioridade = [...(encaixeDaOrg.colunaDireita ?? []), ...(encaixeDosAtos.colunaDireita ?? []), ...(encaixeDaConversa.colunaDireita ?? [])];
+  const peso = (p: React.ComponentType<ContextoDoEncaixe>) => {
+    const i = prioridade.indexOf(p);
+    return i < 0 ? prioridade.length : i;
+  };
+  return pecas.filter((p) => p !== BuscaDaColuna).sort((a, b) => peso(a) - peso(b));
+}
+
+/** A última tela aberta (para a próxima entrar com movimento, e a primeira da visita entrar parada). */
+let telaAnterior: string | null = null;
+
 async function sairDaConta() {
   try {
     if (hasSession()) await (await getClient()).auth.signOut();
@@ -98,6 +119,11 @@ export function CascaDaAlumia2({
 }) {
   const al2 = useAlumia2();
   const caminho = usePathname() ?? "";
+  // A tela nova entra com movimento só quando veio de outra tela da Alumia (a primeira da visita aparece parada, sem pulo).
+  const [entrando] = useState(() => telaAnterior !== null && telaAnterior !== caminho);
+  useEffect(() => {
+    telaAnterior = caminho;
+  }, [caminho]);
   const membroLogado = Boolean(situacao?.logado && situacao?.membro);
   const [naoLidos, setNaoLidos] = useState(0);
   const [doBanco, setDoBanco] = useState<{ conversas: number; atos: number } | null>(null);
@@ -135,16 +161,18 @@ export function CascaDaAlumia2({
   const sairRapido = () => void sairRapidoDaRede(enderecoDoSite(lang), ENCAIXES.aoSairRapido);
   const atualDe = (d: Destino, href: string | null) => ativo === d.chave || (href !== null && d.chave !== "inicio" && encaixeAtivo(href, caminho));
   const ctx = { lang, s, situacao };
-  const direitaEncaixada = ENCAIXES.colunaDireita;
+  const direitaEncaixada = ordemDaDireita(ENCAIXES.colunaDireita);
 
   return (
     <div className="al2 min-h-screen bg-[var(--al-fundo)]">
       <Faixa />
       <a href="#rede-linha" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-[var(--al-fundo)] focus:p-2">{s.casca.saltarParaConteudo}</a>
-      <div className="mx-auto grid max-w-[1280px] grid-cols-[minmax(0,1fr)] pb-[calc(4.75rem+var(--recuo-baixo,0px))] lg:grid-cols-[250px_minmax(0,600px)_300px] lg:justify-center lg:pb-0 xl:grid-cols-[290px_minmax(0,600px)_330px]">
+      {/* Layout fluido (pedido do Jonathan: nada apertado no meio): uma coluna no celular; de 1024 a 1279, menu + meio; de 1280 em
+          diante, as três colunas, que crescem com a tela até 1920 e além (o meio fica com o que sobra). */}
+      <div className="al2-grade grid grid-cols-[minmax(0,1fr)] pb-[calc(4.75rem+var(--recuo-baixo,0px))] lg:grid-cols-[clamp(220px,21vw,260px)_minmax(0,1fr)] lg:pb-0 xl:grid-cols-[clamp(240px,16.5vw,320px)_minmax(0,1fr)_clamp(320px,22vw,440px)]">
         {/* ───── Menu (computador) ───── */}
         {/* Sem rótulo próprio: o ponto de referência é o <nav> dentro (dois rótulos iguais confundem o leitor de tela). */}
-        <div className="hidden border-r border-[var(--al-linha)] px-5 lg:block">
+        <div className="hidden border-r border-[var(--al-linha)] px-4 lg:block xl:px-5 2xl:px-7">
           <div className="sticky top-0 flex min-h-[calc(100vh-6px)] flex-col py-6">
             <Link href={enderecos.linha(lang)} className="flex items-center gap-3 px-2" aria-label={t.marca.inicio}>
               <Lampiao tamanho={34} />
@@ -186,6 +214,13 @@ export function CascaDaAlumia2({
                     </li>
                   );
                 })}
+                {/* De 1024 a 1279 não há coluna da direita: a busca vira um item do menu (uma só busca na tela, sempre). */}
+                <li className="xl:hidden">
+                  <Link href={localePath(lang, "/alumia/buscar")} className="al2-menu-item" aria-current={caminho.endsWith("/alumia/buscar") ? "page" : undefined}>
+                    <Icone nome="lupa" className="h-[22px] w-[22px]" />
+                    <span>{t.menu.buscar}</span>
+                  </Link>
+                </li>
                 {/* Itens novos que as frentes encaixam (sem "substitui"). */}
                 {ENCAIXES.menu
                   .filter((m) => !m.substitui)
@@ -223,7 +258,7 @@ export function CascaDaAlumia2({
         </div>
 
         {/* ───── Coluna do meio ───── */}
-        <main id="rede-linha" className="min-w-0 border-[var(--al-linha)] lg:border-r" aria-label={t.linha.titulo}>
+        <main id="rede-linha" className="min-w-0 border-[var(--al-linha)] xl:border-r" aria-label={t.linha.titulo}>
           {/* Celular: marca, busca, avisos e Sair rápido no alto (prancha celular-inicio). */}
           <header className="flex items-center gap-2 px-4 pb-1 pt-4 lg:hidden">
             <Link href={enderecos.linha(lang)} className="flex min-w-0 items-center gap-2.5" aria-label={t.marca.inicio}>
@@ -248,7 +283,9 @@ export function CascaDaAlumia2({
               <Icone nome="sair" className="h-6 w-6" />
             </button>
           </header>
-          {children}
+          <div key={caminho} className={entrando ? "al2-tela-entra" : undefined}>
+            {children}
+          </div>
           {/* Celular: a conta, os cuidados e os idiomas no pé (o menu do computador não aparece aqui). */}
           <div className="space-y-3 border-t border-[var(--al-linha)] px-4 py-5 lg:hidden">
             <Conta lang={lang} s={s} situacao={situacao} />
@@ -257,13 +294,13 @@ export function CascaDaAlumia2({
         </main>
 
         {/* ───── Coluna da direita (computador) ───── */}
-        <aside className="hidden px-5 py-6 lg:block" aria-label={t.direita.rotulo}>
-          <div className="space-y-6">
-            <form action={localePath(lang, "/alumia/buscar")} method="get" role="search">
+        <aside className="hidden px-5 xl:block 2xl:px-7" aria-label={t.direita.rotulo}>
+          <div className="al2-direita sticky top-0 max-h-screen space-y-6 overflow-y-auto overscroll-contain py-6">
+            <form action={localePath(lang, "/alumia/buscar")} method="get" role="search" className="al2-busca">
               <label className="sr-only" htmlFor="al2-busca">{t.direita.buscar}</label>
               <span className="relative block">
                 <Icone nome="lupa" className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[var(--al-texto-3)]" />
-                <input id="al2-busca" name="q" type="search" placeholder={t.direita.buscar} className="al2-campo min-h-12 !rounded-xl !py-2 !pl-10 text-sm" />
+                <input id="al2-busca" name="q" type="search" placeholder={t.direita.buscar} autoComplete="off" enterKeyHint="search" maxLength={100} className="al2-campo min-h-12 !rounded-xl !py-2 !pl-10 text-sm" />
               </span>
             </form>
             {direitaEncaixada.map((Peca, i) => (

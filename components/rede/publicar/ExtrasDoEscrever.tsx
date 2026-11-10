@@ -250,7 +250,8 @@ export function useEscreverPub({
 }
 export type PubDoEscrever = ReturnType<typeof useEscreverPub>;
 
-function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: AudioGravado | null; aoGravar: (a: AudioGravado) => void; aoTirar: () => void }) {
+/** O gravador de áudio (até 1 minuto). `classeBotao` troca a cara dos botões (o Escrever novo usa os da Alumia); `comecarJa` grava ao abrir. */
+export function Gravador({ t, aoGravar, audio, aoTirar, classeBotao, comecarJa = false }: { t: TextosPublicar; audio: AudioGravado | null; aoGravar: (a: AudioGravado) => void; aoTirar: () => void; classeBotao?: string; comecarJa?: boolean }) {
   const [gravando, setGravando] = useState(false);
   const [segundos, setSegundos] = useState(0);
   const [erro, setErro] = useState("");
@@ -297,7 +298,17 @@ function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: A
     }, 250);
   }
 
-  const botao = "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-sans text-sm font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
+  // "Gravar áudio" do Escrever novo: o toque no ícone já começa a gravar (o navegador pede o microfone na hora).
+  const jaComecou = useRef(false);
+  useEffect(() => {
+    if (!comecarJa || jaComecou.current || !suporta || audio) return;
+    jaComecou.current = true;
+    void comecar();
+    // só na abertura
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const botao = classeBotao ?? "min-h-11 cursor-pointer rounded-full border-[1.5px] border-ink px-4 font-sans text-sm font-bold hover:bg-parchment-deep disabled:cursor-not-allowed disabled:opacity-50";
   if (!suporta) return <p className="text-sm text-ink-soft">{t.audio.semSuporte}</p>;
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -306,7 +317,7 @@ function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: A
           <button type="button" className={botao} onClick={() => gravador.current?.stop()}>
             {t.audio.parar}
           </button>
-          <span role="status" className="text-sm">
+          <span role="status" className="al2-gravando text-sm">
             {preencher(t.audio.gravando, { s: segundos })}
           </span>
         </>
@@ -330,7 +341,8 @@ function Gravador({ t, aoGravar, audio, aoTirar }: { t: TextosPublicar; audio: A
   );
 }
 
-function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
+/** As publicações agendadas (abre a lista ao abrir). */
+export function Agendados({ t, lang }: { t: TextosPublicar; lang: string }) {
   const [lista, setLista] = useState<Agendado[] | null>(null);
   const carregar = useCallback(() => void redePub.agendados().then(setLista, () => setLista([])), []);
   const quando = (iso: string) => {

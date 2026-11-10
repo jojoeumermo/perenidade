@@ -301,3 +301,303 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
 [data-al="2"] .al2-extras input[type="datetime-local"] { border-width: 1.5px; min-height: 48px; color-scheme: dark; }
 :root[data-eink] [data-al="2"] .al2-extras input[type="datetime-local"] { color-scheme: light; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] .al2-extras fieldset { border-color: var(--al-texto); }
+
+/* ───────────── Alumia nova · rodada de UI/UX (casca, linha e escrever) ─────────────
+ * Movimento com mola (linear() faz a curva de mola em CSS puro), View Transitions na troca de aba e entradas suaves. Toda
+ * animação some com "reduzir movimento" e no e-ink; o alto contraste fica sem sombras nem brilhos. Nada aqui muda dado.
+ */
+[data-al="2"] {
+  --al2-mola: linear(0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017 19.4%, 1.067, 1.099 24.3%, 1.108 26%, 1.1, 1.083 30.1%, 1.024 36.4%, 1.003 39.7%, 0.993 43.5%, 0.994 52.3%, 1.001 66.3%, 1);
+  --al2-mola-suave: linear(0, 0.06 3%, 0.25 8.5%, 0.6 18%, 0.85 28%, 0.98 40%, 1.012 52%, 1.004 70%, 1);
+  --al2-sai: cubic-bezier(0.4, 0, 1, 1);
+  --al2-abas-h: 53px;
+}
+@media (min-width: 1024px) { [data-al="2"] { --al2-abas-h: 47px; } }
+html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12px); }
+
+/* Foco sempre visível e no tom da casa (teclado). */
+[data-al="2"] .al2 :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--al-foco); outline-offset: 2px; border-radius: 8px;
+}
+
+/* A grade fluida: nada de margem morta. Nas telas muito largas, o texto do post não passa de ~72 letras (leitura), mas as
+   imagens, enquetes e o ato usam a largura toda do meio. */
+@media (min-width: 1600px) {
+  [data-al="2"] .al2-cartao :is(p, .al2-texto) { max-width: 72ch; }
+}
+[data-al="2"] .al2-direita { scrollbar-width: thin; scrollbar-color: var(--al-superficie-2) transparent; }
+
+/* A tela que chega (de uma rota da Alumia para outra): sobe 8 px e acende. */
+@keyframes al2-tela-entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+[data-al="2"] .al2-tela-entra { animation: al2-tela-entra 280ms var(--al2-mola-suave) both; }
+
+/* Menu: o item escorrega um pouco no hover e o ícone do atual dá um pulinho. */
+[data-al="2"] .al2-menu-item { transition: background-color 160ms ease, color 160ms ease, transform 220ms var(--al2-mola); }
+[data-al="2"] .al2-menu-item:hover { transform: translateX(3px); }
+[data-al="2"] .al2-menu-item:active { transform: translateX(3px) scale(0.98); }
+@keyframes al2-pulinho { 0% { transform: scale(0.7); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+[data-al="2"] .al2-menu-item[aria-current="page"] svg { animation: al2-pulinho 420ms var(--al2-mola) both; }
+[data-al="2"] .al2-barra-item[aria-current="page"] svg { animation: al2-pulinho 420ms var(--al2-mola) both; }
+[data-al="2"] .al2-barra-item { transition: transform 200ms var(--al2-mola); }
+[data-al="2"] .al2-barra-item:active { transform: scale(0.92); }
+[data-al="2"] .al2-mais { transition: transform 220ms var(--al2-mola), box-shadow 200ms ease; box-shadow: 0 6px 18px color-mix(in srgb, var(--al-vermelho) 40%, transparent); }
+[data-al="2"] .al2-mais:not(:disabled):hover { transform: translateY(-2px) rotate(-4deg); }
+[data-al="2"] .al2-mais:not(:disabled):active { transform: scale(0.92); }
+[data-al="2"] .al2-barra-baixo {
+  background: color-mix(in srgb, var(--al-fundo) 88%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+}
+
+/* Botões que afundam ao toque (qualquer um com al2-aperta). */
+[data-al="2"] .al2-aperta { transition: transform 200ms var(--al2-mola), filter 150ms ease, background-color 150ms ease; }
+[data-al="2"] .al2-aperta:not(:disabled):active { transform: scale(0.96); }
+
+/* Abas fixas e translúcidas, com o traço vermelho que desliza (mola) até a aba escolhida. */
+[data-al="2"] .al2-abas {
+  background: color-mix(in srgb, var(--al-fundo) 86%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+}
+[data-al="2"] .al2-abas-com-traco .al2-aba[aria-selected="true"]::after { content: none; }
+[data-al="2"] .al2-abas-traco {
+  position: absolute; left: 0; bottom: -1px; height: 3px; border-radius: 3px 3px 0 0; background: var(--al-vermelho);
+  transition: transform 420ms var(--al2-mola), width 420ms var(--al2-mola); pointer-events: none;
+}
+[data-al="2"] .al2-aba { transition: color 160ms ease; }
+[data-al="2"] .al2-aba:hover { color: var(--al-texto-2); }
+:root[data-eink] [data-al="2"] .al2-abas-traco { background: #000; }
+
+/* Troca de aba com View Transitions: a linha cruza suave (o resto da tela fica parado). */
+[data-al="2"] .al2-linha { view-transition-name: al2-linha; }
+::view-transition-old(al2-linha) { animation: 140ms ease-in both al2-some; }
+::view-transition-new(al2-linha) { animation: 260ms ease-out both al2-tela-entra; }
+@keyframes al2-some { to { opacity: 0; transform: translateY(-4px); } }
+
+/* "N posts novos": logo abaixo das abas (nunca por cima delas), fixa enquanto a pessoa rola, entra com mola. */
+[data-al="2"] .al2-novos-lugar {
+  position: sticky; top: calc(var(--al2-abas-h) + 4px); z-index: 15; display: flex; justify-content: center;
+  height: 0; pointer-events: none; transition: height 260ms var(--al2-mola-suave);
+}
+[data-al="2"] .al2-novos-lugar-aberto { height: 64px; }
+[data-al="2"] .al2-novos-lugar > .al2-novos { pointer-events: auto; margin-top: 12px; }
+@keyframes al2-novos-entra { from { opacity: 0; transform: translateY(-14px) scale(0.85); } to { opacity: 1; transform: none; } }
+[data-al="2"] .al2-novos { animation: al2-novos-entra 520ms var(--al2-mola) both; transition: transform 200ms var(--al2-mola), background-color 150ms ease; }
+[data-al="2"] .al2-novos:hover { transform: translateY(-1px); background: var(--al-superficie-2); }
+[data-al="2"] .al2-novos:active { transform: scale(0.95); }
+[data-al="2"] .al2-novos-n { animation: al2-pulinho 520ms var(--al2-mola) 120ms both; }
+
+/* Barra fina de "atualizando" no alto da linha (sem esqueleto quando a lista já está na tela). */
+@keyframes al2-progresso { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+[data-al="2"] .al2-progresso { position: sticky; top: var(--al2-abas-h); z-index: 14; height: 2px; overflow: hidden; }
+[data-al="2"] .al2-progresso::before {
+  content: ""; position: absolute; inset: 0; width: 40%; background: linear-gradient(90deg, transparent, var(--al-dourado), transparent);
+  animation: al2-progresso 900ms ease-in-out infinite;
+}
+
+/* Cartão que entra: sobe e acende, um depois do outro (no máximo 10 de atraso). */
+@keyframes al2-cartao-entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+[data-al="2"] .al2-entra { animation: al2-cartao-entra 520ms var(--al2-mola-suave) both; animation-delay: calc(var(--i, 0) * 45ms); }
+
+/* Esqueletos com brilho que atravessa (no lugar do pulso). */
+@keyframes al2-brilho { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+[data-al="2"] .al-esq {
+  animation: al2-brilho 1.4s ease-in-out infinite;
+  background: linear-gradient(100deg, var(--al-superficie) 30%, color-mix(in srgb, var(--al-superficie-2) 70%, var(--al-texto-3)) 50%, var(--al-superficie) 70%);
+  background-size: 250% 100%;
+}
+[data-al="2"] .al-esq-post { animation: al2-cartao-entra 400ms ease-out both; animation-delay: calc(var(--i, 0) * 70ms); }
+[data-al="2"] .al-esq-casca { background: var(--al-fundo); min-height: 100vh; }
+
+/* Estados (vazio, erro) bonitos: centralizados, com desenho e um passo claro. */
+[data-al="2"] .al2-estado { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 3rem 1.5rem 3.5rem; }
+[data-al="2"] .al2-estado-icone {
+  display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 16px;
+  background: color-mix(in srgb, var(--al-vermelho) 16%, transparent); color: var(--al-vermelho);
+  animation: al2-pulinho 520ms var(--al2-mola) both;
+}
+[data-al="2"] .al2-estado-titulo { margin-top: 1rem; font-size: 1.25rem; font-weight: 800; }
+[data-al="2"] .al2-estado-texto { max-width: 44ch; color: var(--al-texto-2); line-height: 1.55; }
+[data-al="2"] .al2-estado-mosaico { width: 140px; height: 100px; }
+[data-al="2"] .al2-estado-apagado { fill: var(--al-superficie-2); transform-box: fill-box; transform-origin: center; animation: al2-ladrilho 600ms ease-out both; }
+[data-al="2"] .al2-estado-voce { fill: var(--al-dourado); transform-box: fill-box; transform-origin: center; animation: al2-ladrilho 600ms var(--al2-mola) 700ms both; }
+@keyframes al2-ladrilho { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
+
+/* Linha com fim: o carimbo VOCÊ VIU TUDO cai com física (cresce, bate, quica e assenta torto), com a tinta borrando. */
+[data-al="2"] .al2-fim { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 3rem 1.25rem 4rem; }
+[data-al="2"] .al2-fim-carimbo {
+  display: inline-block; padding: 0.2em 0.7em; border: 3px solid currentColor; border-radius: 8px; color: var(--al-dourado);
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.1;
+  box-shadow: inset 0 0 0 2px var(--al-fundo), inset 0 0 0 4px currentColor; transform: rotate(-5deg); opacity: 0;
+}
+[data-al="2"] .al2-fim-carimbo-caiu { animation: al2-carimbar 760ms var(--al2-mola) both; }
+@keyframes al2-carimbar {
+  0% { opacity: 0; transform: scale(2.6) rotate(-16deg); filter: blur(3px); }
+  38% { opacity: 1; transform: scale(0.9) rotate(-3deg); filter: blur(0); }
+  55% { transform: scale(1.06) rotate(-6deg); }
+  72% { transform: scale(0.98) rotate(-4.5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-5deg); }
+}
+/* Os carimbos de situação (CONFIRMADO, ADIADO, CANCELADO…) também caem com física quando aparecem. */
+[data-al="2"] .al-carimbo { animation: al2-carimbar-curto 640ms var(--al2-mola) 180ms both; }
+@keyframes al2-carimbar-curto {
+  0% { opacity: 0; transform: scale(2.2) rotate(-14deg); filter: blur(2px); }
+  45% { opacity: 1; transform: scale(0.92) rotate(-3deg); filter: blur(0); }
+  70% { transform: scale(1.04) rotate(-4.6deg); }
+  100% { opacity: 1; transform: rotate(-4deg); }
+}
+
+/* Ações do cartão: Acender, Salvar e Repostar respondem ao toque. */
+[data-al="2"] .al2-acao { transition: color 150ms ease, background-color 150ms ease, transform 220ms var(--al2-mola); }
+[data-al="2"] .al2-acao:not(:disabled):active { transform: scale(0.9); }
+[data-al="2"] .al2-acao svg { transition: transform 260ms var(--al2-mola); }
+[data-al="2"] .al2-acao:not(:disabled):hover svg { transform: scale(1.12); }
+@keyframes al2-chama { 0% { transform: scale(0.6) translateY(3px); } 45% { transform: scale(1.35) translateY(-2px) rotate(-6deg); } 70% { transform: scale(0.95) rotate(3deg); } 100% { transform: scale(1); } }
+@keyframes al2-brasa { 0% { opacity: 0.9; transform: translate(-50%, 0) scale(0.4); } 100% { opacity: 0; transform: translate(-50%, -22px) scale(1.4); } }
+[data-al="2"] .al2-acao-acender { position: relative; }
+[data-al="2"] .al2-acao-acender[aria-pressed="true"] svg { animation: al2-chama 560ms var(--al2-mola) both; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--al-dourado) 70%, transparent)); }
+[data-al="2"] .al2-acao-acender[aria-pressed="true"]::after {
+  content: ""; position: absolute; left: 1rem; top: 50%; width: 10px; height: 10px; border-radius: 999px; pointer-events: none;
+  background: radial-gradient(circle, var(--al-dourado), transparent 70%); animation: al2-brasa 700ms ease-out both;
+}
+@keyframes al2-salvar { 0% { transform: scaleY(0.6); } 50% { transform: scaleY(1.25) translateY(-2px); } 100% { transform: none; } }
+[data-al="2"] .al2-acao-salvar[aria-pressed="true"] svg { animation: al2-salvar 480ms var(--al2-mola) both; fill: currentColor; transform-origin: top; }
+@keyframes al2-girar { from { transform: rotate(0); } to { transform: rotate(180deg); } }
+[data-al="2"] .al2-acao-repostar[aria-pressed="true"] svg { animation: al2-girar 520ms var(--al2-mola) both; }
+
+/* O convite do compositor da linha acende ao passar. */
+[data-al="2"] .al2-convite { border-radius: 10px; transition: color 150ms ease, background-color 150ms ease; padding-inline: 0.35rem; }
+[data-al="2"] .al2-convite:hover { color: var(--al-texto-2); background: var(--al-superficie); }
+
+/* Stories e o próximo ato no alto do Início. */
+[data-al="2"] .al2-topo-stories { padding-top: 0.25rem; }
+[data-al="2"] .al2-topo-ato:empty { display: none; }
+
+/* ── Escrever ── */
+@keyframes al2-fundo-entra { from { background-color: transparent; } }
+@keyframes al2-folha-sobe { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes al2-folha-cresce { from { opacity: 0; transform: translateY(16px) scale(0.96); } to { opacity: 1; transform: none; } }
+[data-al="2"] .al2-escrever-fundo { background: var(--al-fundo); }
+@media (min-width: 768px) {
+  [data-al="2"] .al2-escrever-fundo {
+    background: color-mix(in srgb, #000 66%, transparent);
+    -webkit-backdrop-filter: blur(6px) saturate(1.2); backdrop-filter: blur(6px) saturate(1.2);
+    animation: al2-fundo-entra 240ms ease-out both;
+  }
+  [data-al="2"] .al2-escrever { animation: al2-folha-cresce 380ms var(--al2-mola) both; box-shadow: 0 30px 80px #000a; }
+}
+@media (max-width: 767px) {
+  [data-al="2"] .al2-escrever { animation: al2-folha-sobe 420ms var(--al2-mola-suave) both; }
+}
+@keyframes al2-fundo-sai { to { opacity: 0; } }
+[data-al="2"] .al2-saindo { animation: al2-fundo-sai 180ms var(--al2-sai) both !important; }
+[data-al="2"] .al2-saindo .al2-escrever { animation: al2-some 180ms var(--al2-sai) both; }
+[data-al="2"] .al2-escrever-corpo { scrollbar-width: thin; scrollbar-color: var(--al-superficie-2) transparent; }
+[data-al="2"] .al2-troca-tipo { animation: al2-tela-entra 260ms var(--al2-mola-suave) both; }
+[data-al="2"] .al2-campo { transition: border-color 160ms ease, box-shadow 200ms ease; }
+[data-al="2"] .al2-campo:focus { outline: none; border-color: var(--al-dourado); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-dourado) 22%, transparent); }
+[data-al="2"] .al2-tipo { transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 220ms var(--al2-mola); }
+[data-al="2"] .al2-tipo:active { transform: scale(0.94); }
+[data-al="2"] .al2-tipo[aria-checked="true"] { animation: al2-pulinho 380ms var(--al2-mola) both; }
+
+/* O botão principal: cinza quando ainda não dá (nada de vermelho apagado que parece ligado), vermelho vivo e com brilho quando dá. */
+[data-al="2"] .al2-publicar { transition: background-color 200ms ease, color 200ms ease, transform 240ms var(--al2-mola), box-shadow 240ms ease; }
+[data-al="2"] .al2-publicar:disabled { background: var(--al-superficie-2); color: var(--al-texto-3); opacity: 1; }
+[data-al="2"] .al2-publicar[data-pronto] { box-shadow: 0 6px 22px color-mix(in srgb, var(--al-vermelho) 45%, transparent); animation: al2-pulinho 420ms var(--al2-mola) both; }
+[data-al="2"] .al2-publicar[data-pronto]:hover { transform: translateY(-1px); filter: brightness(1.08); }
+[data-al="2"] .al2-publicar[data-pronto]:active { transform: scale(0.95); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-publicar:disabled { border: 2px dashed var(--al-texto); background: transparent; color: var(--al-texto); }
+
+/* Anexos: cartões leves no lugar das caixas cinzas. */
+[data-al="2"] .al2-anexo { border-radius: 14px; background: var(--al-superficie); border: 1px solid var(--al-superficie-2); padding: 0.75rem 0.9rem; animation: al2-tela-entra 260ms var(--al2-mola-suave) both; }
+[data-al="2"] .al2-ferramentas { display: flex; align-items: center; gap: 0.15rem; padding-top: 0.25rem; border-top: 1px solid var(--al-linha); }
+[data-al="2"] .al2-ferramenta {
+  position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 0; background: none; cursor: pointer;
+  color: var(--al-dourado); transition: background-color 150ms ease, transform 220ms var(--al2-mola), color 150ms ease;
+}
+[data-al="2"] .al2-ferramenta:not(:disabled):hover { background: var(--al-superficie); transform: translateY(-1px); }
+[data-al="2"] .al2-ferramenta:not(:disabled):active { transform: scale(0.88); }
+[data-al="2"] .al2-ferramenta:disabled { color: var(--al-texto-3); opacity: 0.45; cursor: not-allowed; }
+[data-al="2"] .al2-ferramenta[aria-pressed="true"] { background: color-mix(in srgb, var(--al-dourado) 16%, transparent); }
+[data-al="2"] .al2-ferramenta-n {
+  position: absolute; right: 4px; top: 4px; display: grid; place-items: center; min-width: 16px; height: 16px; border-radius: 999px;
+  background: var(--al-dourado); color: var(--al-sobre-dourado); font-size: 0.625rem; font-weight: 800;
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-ferramenta { color: var(--al-texto); }
+[data-al="2"] .al2-contador { margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; padding-right: 0.25rem; font-size: 0.8125rem; font-weight: 700; color: var(--al-texto-3); }
+[data-al="2"] .al2-contador-arco { transition: stroke-dashoffset 260ms var(--al2-mola-suave), stroke 200ms ease; }
+[data-al="2"] .al2-contador-perto svg { animation: al2-pulinho 360ms var(--al2-mola) both; }
+[data-al="2"] .al2-miniaturas { display: grid; gap: 0.6rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+[data-al="2"] .al2-miniaturas-1 { grid-template-columns: minmax(0, 1fr); }
+[data-al="2"] .al2-miniatura { animation: al2-folha-cresce 360ms var(--al2-mola) both; }
+[data-al="2"] .al2-sobre-imagem {
+  display: inline-flex; align-items: center; min-height: 32px; min-width: 32px; justify-content: center; padding: 0 0.6rem; border: 0; border-radius: 999px; cursor: pointer;
+  background: color-mix(in srgb, #000 70%, transparent); color: #fff; font-size: 0.75rem; font-weight: 700;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+[data-al="2"] .al2-sobre-imagem-x { padding: 0; }
+[data-al="2"] .al2-alt { width: 100%; min-height: 40px; padding: 0.4rem 0.7rem; border-radius: 10px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font-size: 0.8125rem; }
+[data-al="2"] .al2-alt-falta { border-style: dashed; border-color: var(--al-dourado); }
+[data-al="2"] .al2-opcao { display: flex; align-items: center; gap: 0.5rem; }
+[data-al="2"] .al2-opcao-n { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; flex-shrink: 0; border-radius: 6px; background: color-mix(in srgb, var(--al-com-5) 40%, var(--al-superficie-2)); font-weight: 800; font-size: 0.8125rem; }
+[data-al="2"] .al2-opcao-campo { width: 100%; min-height: 42px; padding: 0 0.8rem; border-radius: 8px; border: 1px solid var(--al-superficie-2); background: var(--al-fundo); color: var(--al-texto); }
+[data-al="2"] .al2-opcao-campo:focus { outline: none; border-color: var(--al-dourado); }
+[data-al="2"] .al2-chip {
+  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 40px; padding: 0 0.85rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--al-superficie-2); background: transparent; color: var(--al-texto-2); font-size: 0.8125rem; font-weight: 700;
+  transition: background-color 150ms ease, transform 200ms var(--al2-mola);
+}
+[data-al="2"] .al2-chip:hover { background: var(--al-superficie-2); }
+[data-al="2"] .al2-chip:active { transform: scale(0.95); }
+[data-al="2"] .al2-chip-select { background: transparent; color: inherit; border: 0; font: inherit; cursor: pointer; color-scheme: dark; }
+[data-al="2"] .al2-chip-data { min-height: 40px; padding: 0 0.7rem; border-radius: 999px; border: 1px solid var(--al-superficie-2); background: var(--al-fundo); color: var(--al-texto); color-scheme: dark; }
+:root[data-eink] [data-al="2"] :is(.al2-chip-select, .al2-chip-data) { color-scheme: light; }
+[data-al="2"] .al2-caixinha { width: 1.1rem; height: 1.1rem; accent-color: var(--al-dourado); }
+[data-al="2"] .al2-nota { display: flex; align-items: flex-start; gap: 0.4rem; font-size: 0.8125rem; color: var(--al-texto-3); line-height: 1.45; }
+[data-al="2"] .al2-nota > svg { margin-top: 0.1rem; flex-shrink: 0; }
+[data-al="2"] .al2-nota-alerta { color: var(--oxblood); }
+[data-al="2"] .al2-gravando::before { content: ""; display: inline-block; width: 0.6rem; height: 0.6rem; margin-right: 0.4rem; border-radius: 999px; background: var(--al-vermelho); animation: al2-piscar 1s ease-in-out infinite; }
+@keyframes al2-piscar { 50% { opacity: 0.25; } }
+[data-al="2"] .al2-agendados summary { font-size: 0.8125rem; font-weight: 700; color: var(--al-texto-2); }
+[data-al="2"] .al2-aviso-escrever { border-radius: 12px; border: 1px dashed var(--al-texto-3); padding: 0.6rem 0.8rem; font-size: 0.875rem; animation: al2-tela-entra 240ms ease-out both; }
+
+/* Onde publicar, Quem vê, Quem responde: a lista desliza; "Quem vê" em linhas com ícone, ajuda e o visto. */
+[data-al="2"] .al2-escolha { transition: color 150ms ease; }
+[data-al="2"] .al2-escolha:hover { color: var(--al-texto-2); }
+[data-al="2"] .al2-gaveta { animation: al2-gaveta 300ms var(--al2-mola-suave) both; }
+@keyframes al2-gaveta { from { opacity: 0; transform: translateY(-8px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); } }
+[data-al="2"] .al2-lista-escolha { display: grid; gap: 0.35rem; }
+[data-al="2"] .al2-opcao-linha {
+  display: flex; align-items: center; gap: 0.75rem; width: 100%; min-height: 56px; padding: 0.5rem 0.85rem; border-radius: 12px; cursor: pointer;
+  border: 1.5px solid transparent; background: var(--al-superficie); color: var(--al-texto); font-family: var(--al-fonte); text-align: left;
+  transition: border-color 150ms ease, background-color 150ms ease, transform 200ms var(--al2-mola);
+}
+[data-al="2"] .al2-opcao-linha:hover { background: var(--al-superficie-2); }
+[data-al="2"] .al2-opcao-linha:active { transform: scale(0.98); }
+[data-al="2"] .al2-opcao-linha[aria-checked="true"] { border-color: var(--al-dourado); }
+[data-al="2"] .al2-opcao-marca { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; border: 1.5px solid var(--al-superficie-2); color: transparent; flex-shrink: 0; }
+[data-al="2"] .al2-opcao-linha[aria-checked="true"] .al2-opcao-marca { background: var(--al-dourado); border-color: var(--al-dourado); color: var(--al-sobre-dourado); animation: al2-pulinho 360ms var(--al2-mola) both; }
+[data-al="2"] .al2-opcao-roda { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.35rem; padding: 0.6rem 0.85rem; border-radius: 12px; border: 1.5px dashed var(--al-superficie-2); color: var(--al-texto-2); font-size: 0.875rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-opcao-linha { border-color: var(--al-texto); }
+
+/* Desfazer envio (10 s): o relógio, o texto e uma barra que esvazia no tempo do envio. */
+[data-al="2"] .al2-aviso-flutuante { overflow: hidden; animation: al2-novos-entra 480ms var(--al2-mola) both; }
+[data-al="2"] .al2-aviso-relogio { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 999px; background: var(--al-fundo); color: var(--al-texto); font-variant-numeric: tabular-nums; font-size: 0.8125rem; }
+[data-al="2"] .al2-aviso-barra { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--al-vermelho); transform-origin: left; animation: al2-esvaziar var(--al2-espera, 10s) linear both; }
+@keyframes al2-esvaziar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+:root[data-eink] [data-al="2"] .al2-aviso-barra { background: #000; }
+
+/* Sem movimento: tudo parado (as entradas aparecem já no lugar, o carimbo já carimbado). */
+@media (prefers-reduced-motion: reduce) {
+  [data-al="2"] :is(.al2-tela-entra, .al2-entra, .al-esq-post, .al2-novos, .al2-novos-n, .al2-fim-carimbo-caiu, .al-carimbo, .al2-escrever, .al2-escrever-fundo, .al2-troca-tipo, .al2-anexo, .al2-miniatura, .al2-gaveta, .al2-aviso-flutuante, .al2-publicar, .al2-tipo, .al2-estado-icone, .al2-estado-apagado, .al2-estado-voce, .al2-opcao-marca, .al2-aviso-escrever),
+  [data-al="2"] .al2-contador-perto svg, [data-al="2"] .al2-acao svg, [data-al="2"] .al2-menu-item svg, [data-al="2"] .al2-barra-item svg, [data-al="2"] .al2-acao-acender::after { animation: none !important; }
+  [data-al="2"] .al2-fim-carimbo { opacity: 1; }
+  [data-al="2"] .al-esq { animation: none; background: var(--al-superficie-2); }
+  [data-al="2"] :is(.al2-abas-traco, .al2-menu-item, .al2-novos-lugar, .al2-contador-arco) { transition: none; }
+  [data-al="2"] .al2-menu-item:hover { transform: none; }
+  ::view-transition-old(al2-linha), ::view-transition-new(al2-linha) { animation: none; }
+  [data-al="2"] .al2-aviso-barra { animation: none; transform: scaleX(0.5); }
+}
+:root[data-eink] [data-al="2"] :is(.al2-tela-entra, .al2-entra, .al-esq-post, .al2-novos, .al2-fim-carimbo-caiu, .al-carimbo, .al2-escrever, .al2-escrever-fundo, .al2-troca-tipo, .al2-anexo, .al2-miniatura, .al2-gaveta, .al2-aviso-flutuante, .al2-publicar, .al2-tipo) { animation: none !important; }
+:root[data-eink] [data-al="2"] .al2-fim-carimbo { opacity: 1; color: #000; }
+:root[data-eink] [data-al="2"] .al-esq { animation: none; background: #ddd; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al2-abas, .al2-barra-baixo, .al2-escrever-fundo) { -webkit-backdrop-filter: none; backdrop-filter: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(.al2-publicar, .al2-mais, .al2-escrever) { box-shadow: none; }
