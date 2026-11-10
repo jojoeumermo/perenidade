@@ -1212,3 +1212,42 @@
   letter-spacing: 0.05em;
   white-space: nowrap;
 }
+
+/* ───── PRÓXIMO ATO: cada número com a sua unidade numa caixa só ("2d" "12h"), em todos os tamanhos ─────
+   Antes, no computador, cada letra tinha a sua plaquinha ("2" "d" "1" "2" "h") e, no e-ink, os fios das dobradiças viravam
+   traços entre as letras. Agora a caixa é do grupo; as plaquinhas de dentro só giram (sem fundo nem fio próprio). */
+[data-al="2"] .al-faixa-ato-flaps { gap: 0.4rem; }
+[data-al="2"] .al-faixa-ato-flaps .al-flaps-grupo {
+  position: relative;
+  gap: 0;
+  background: var(--al-fundo);
+  color: var(--al-dourado);
+  border-radius: 6px;
+  padding: 0.1em 0.28em;
+}
+[data-al="2"] .al-faixa-ato-flaps .al-flap { background: transparent; box-shadow: none; min-width: 0; padding: 0.1em 0.02em; color: inherit; }
+[data-al="2"] .al-faixa-ato-flaps .al-flap-vivo { --al-flap-fundo: var(--al-fundo); }
+[data-al="2"] .al-faixa-ato-flaps .al-flap-vivo::after { display: none; }
+/* a dobradiça agora atravessa a caixa do grupo */
+[data-al="2"] .al-faixa-ato-flaps .al-flaps-grupo::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: calc(50% - 0.5px);
+  height: 1px;
+  background: color-mix(in srgb, #000 55%, transparent);
+  pointer-events: none;
+  z-index: 3;
+}
+@media (min-width: 768px) {
+  [data-al="2"] .al-faixa-ato-flaps { gap: 0.5rem; }
+  [data-al="2"] .al-faixa-ato-flaps .al-flap { font-size: 1.6rem; }
+}
+/* e-ink: caixa branca com borda preta e número preto, sem dobradiça e sem as metades (nada vira traço) */
+:root[data-eink] [data-al="2"] .al-faixa-ato-flaps .al-flaps-grupo { background: #fff; color: #000; border: 2px solid #000; }
+:root[data-eink] [data-al="2"] .al-faixa-ato-flaps .al-flaps-grupo::after { display: none; }
+:root[data-eink] [data-al="2"] .al-faixa-ato-flaps .al-flap { background: transparent; color: #000; }
+:root[data-eink] [data-al="2"] .al-faixa-ato-flaps .al-flap-vivo { --al-flap-fundo: #fff; }
+:root[data-eink] [data-al="2"] .al-faixa-ato-flaps .al-flap-vivo .al-flap-cima { clip-path: none; }
+:root[data-eink] [data-al="2"] .al-faixa-ato-flaps .al-flap-vivo :is(.al-flap-baixo, .al-flap-folha) { display: none; }
+:root[data-contrast] [data-al="2"] .al-faixa-ato-flaps .al-flaps-grupo { border: 2px solid var(--al-texto); }
