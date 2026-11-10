@@ -347,3 +347,46 @@
 [data-al="2"] .al-em-construcao-texto { margin: 0; font-size: 1.15rem; line-height: 1.45; color: var(--al-texto-2); }
 [data-al="2"] .al-em-construcao-aviso { margin: 0; font-size: 0.95rem; color: var(--al-texto-3); }
 [data-al="2"] .al-em-construcao-rodape { margin: 1.5rem 0 0; font-size: 0.8rem; color: var(--al-texto-3); }
+
+/*
+ * A Alumia é sempre escura (as pranchas; a variante clara é só [data-al-tema="claro"]): o tema claro salvo no site
+ * (data-theme="light") não vale aqui dentro. As telas que ainda usam os tokens do site (ink, parchment, rule...) recebem os
+ * valores do escuro, e o texto sem cor própria sai claro sobre o fundo noite (e não tinta escura sobre escuro). O alto contraste
+ * e o e-ink continuam mandando (têm os próprios tokens).
+ */
+:root:not([data-contrast]):not([data-eink]) [data-al="2"]:not([data-al-tema="claro"]) {
+  --parchment: #141310;
+  --parchment-deep: #23211c;
+  --paper: #1b1917;
+  --ink: #ece6da;
+  --ink-soft: #a9a196;
+  --gold: #f0b323;
+  --oxblood: #e2584d;
+  --rule: #3a352d;
+  --folha: #1d1b17;
+  --borda-forte: #6a6255;
+  --texto-meio: #cfc7b9;
+  color: var(--al-texto);
+}
+
+/* O vermelho do TEXTO sobre o escuro (carimbo "CONFIRMADO" de 16 px): #FF4F3A dá 5,4:1 sobre o cartão (#1B1917). O #E8321F das
+   pranchas (4,1:1) fica para os fundos e o que é grande. */
+[data-al="2"] { --al-vermelho-sobre-escuro: #ff4f3a; }
+[data-al="2"][data-al-tema="claro"] { --al-vermelho-sobre-escuro: #c8261a; }
+[data-al="2"] .al-carimbo-confirmado { color: var(--al-vermelho-sobre-escuro); }
+/* O selo "Novo" dos avisos (11,5 px): branco sobre o vermelho de texto pequeno (#D42A18, 5,1:1). */
+[data-al="2"] .al3-aviso-novo { background: var(--al-vermelho-texto); }
+
+/* Alto contraste: só preto, branco e amarelo puros no botão "+", nos carimbos e no aviso da prévia (nada de salmão nem dourado). */
+:root[data-contrast] [data-al="2"] .al2-mais { background: #ffd400; color: #000000; box-shadow: none; }
+:root[data-contrast] [data-al="2"] .al-carimbo-confirmado { color: #ffffff; }
+:root[data-contrast] [data-al="2"] .al-carimbo-adiado { color: #ffd400; }
+:root[data-contrast] [data-al="2"] .al-carimbo-cancelado { color: #ffffff; }
+:root[data-contrast] [data-al="2"] .al2-aviso-previa { background: #000000; color: #ffd400; border-bottom: 2px solid #ffd400; }
+:root[data-eink] [data-al="2"] .al2-aviso-previa { background: #ffffff; color: #000000; border-bottom: 2px solid #000000; }
+
+/*
+ * Prévia: um aviso só, o da casca (a faixa amarela do alto). Os avisos de prévia de cada área (conversa, explorar, buscar,
+ * avisos, salvos, stories, atos, editar perfil) somem quando a faixa da casca está na tela; sem ela, continuam.
+ */
+[data-al="2"] .al2:has(> .al2-aviso-previa) :is(.al3-previa, .al-atos-previa, .al-st-previa, .pfe-nota-previa:not(.pfe-nota-conta)) { display: none !important; }
