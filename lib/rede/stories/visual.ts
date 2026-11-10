@@ -6,7 +6,7 @@
 import { sementeDe, gerador } from "../mosaico";
 import {
   CORES_DA_LETRA, CORES_DO_STORY, FONTES_DO_STORY, LIMITES_DO_STORY,
-  type Alinhamento, type CorDaLetra, type CorDoStory, type EstiloDoStory, type Figurinha, type FonteDoStory, type TipoDeFigurinha,
+  type Alinhamento, type CorDaLetra, type CorDoStory, type EstiloDoStory, type Figurinha, type FonteDoStory, type PosicaoDaFigurinha, type TipoDeFigurinha,
 } from "../tipos-stories";
 
 /**
@@ -139,6 +139,35 @@ export function alternarFigurinha<T extends { tipo: TipoDeFigurinha }>(lista: re
   if (lista.some((f) => f.tipo === nova.tipo)) return lista.filter((f) => f.tipo !== nova.tipo);
   if (lista.length >= LIMITES_DO_STORY.figurinhas) return [...lista];
   return [...lista, nova];
+}
+
+/** Os limites do lugar da figurinha (os mesmos do banco, interno.rede5_story_pos). */
+export const LIMITES_DA_POSICAO = { borda: 0.05, giro: 45, menor: 0.5, maior: 1.6 } as const;
+
+/** O lugar da figurinha dentro da tela (x e y de 0,05 a 0,95, giro até 45°, tamanho 0,5 a 1,6). Número estranho vira o padrão. Puro. */
+export function posicaoValida(p: Partial<PosicaoDaFigurinha> | null | undefined): PosicaoDaFigurinha {
+  const n = (v: unknown, padrao: number) => (typeof v === "number" && Number.isFinite(v) ? v : padrao);
+  const entre = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+  const L = LIMITES_DA_POSICAO;
+  return {
+    x: Math.round(entre(n(p?.x, 0.5), L.borda, 1 - L.borda) * 10000) / 10000,
+    y: Math.round(entre(n(p?.y, 0.7), L.borda, 1 - L.borda) * 10000) / 10000,
+    giro: Math.round(entre(n(p?.giro, 0), -L.giro, L.giro) * 10) / 10,
+    escala: Math.round(entre(n(p?.escala, 1), L.menor, L.maior) * 1000) / 1000,
+  };
+}
+
+/**
+ * Onde uma figurinha nova aparece: a primeira um pouco abaixo do meio e levemente torta (como a prancha), as seguintes em
+ * degraus, para não nascerem uma em cima da outra. Puro.
+ */
+export function posicaoInicial(k: number): PosicaoDaFigurinha {
+  const lugares: PosicaoDaFigurinha[] = [
+    { x: 0.5, y: 0.66, giro: -3, escala: 0.92 },
+    { x: 0.5, y: 0.84, giro: 2, escala: 0.86 },
+    { x: 0.5, y: 0.48, giro: -1.5, escala: 0.86 },
+  ];
+  return lugares[Math.max(0, k) % lugares.length];
 }
 
 /**

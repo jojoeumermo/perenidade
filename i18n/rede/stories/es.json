@@ -12,7 +12,8 @@
     "entrar": "Entra en tu cuenta para ver y crear historias.",
     "anteriores": "Historias anteriores",
     "seguintes": "Más historias",
-    "abrindo": "Abriendo las historias de {nome}…"
+    "abrindo": "Abriendo las historias de {nome}…",
+    "maisUm": "Poner otra historia"
   },
   "abas": {
     "rotulo": "Líneas"
@@ -49,7 +50,7 @@
     "limpar": "Borrar el dibujo",
     "figurinhas": "Stickers",
     "figurinhaLigada": "{nome}: en la historia (toca para quitar)",
-    "limiteDeFigurinhas": "Como máximo 3 stickers por historia.",
+    "limiteDeFigurinhas": "Ya hay 3. Quita uno para poner otro.",
     "tipo": {
       "contagem": "Cuenta atrás",
       "pergunta": "Pregunta",
@@ -147,7 +148,7 @@
       "maior": "Agrandar",
       "menor": "Achicar",
       "centralizar": "Centrar",
-      "tirar": "Quitar la foto o el video",
+      "tirar": "Quitar foto o video",
       "video": "Video de la historia",
       "foto": "Foto de la historia",
       "semMetadadoVideo": "El video se rehace en tu dispositivo en 720p: sale sin ubicación ni datos de la cámara.",
@@ -168,7 +169,10 @@
       "semGravador": "Este navegador no rehace videos. Usa una foto u otro navegador.",
       "comunidade": "Elige la comunidad.",
       "cancelado": "Envío cancelado. Nada salió del dispositivo."
-    }
+    },
+    "contaDeFigurinhas": "{n} de {max}",
+    "figurinhaMover": "Mover el sticker {nome}",
+    "figurinhaDica": "Arrastra para mover; con dos dedos, gira y cambia el tamaño. Con el teclado: flechas mueven, + y − cambian el tamaño, [ y ] giran."
   },
   "figurinha": {
     "contagem": {
@@ -293,7 +297,8 @@
     "tirarDoDestaque": "Quitar de esta destacada",
     "apagarDestaque": "Borrar esta destacada",
     "pessoaAnterior": "Persona anterior",
-    "proximaPessoa": "Siguiente persona"
+    "proximaPessoa": "Siguiente persona",
+    "verAoLado": "Ir a las historias de {nome}"
   },
   "cartao": {
     "porNoStory": "Poner en la historia",
@@ -320,7 +325,6 @@
   },
   "destaques": {
     "rotulo": "Destacadas",
-    "abrir": "Ver la destacada {titulo} ({n} historias)",
     "guardarTitulo": "Guardar en destacadas",
     "aviso": "Queda en tu perfil después de 24 h, para el mismo público de ahora. La quitas cuando quieras. Nunca va al Fediverso.",
     "novo": "Nueva destacada",
@@ -336,6 +340,19 @@
     "vazioDono": "Aún no hay destacadas. En tu historia, toca ⋯ y \"Guardar en destacadas\".",
     "erro": "Las destacadas no cargaron.",
     "cor": "Color de la portada",
-    "fechar": "Cerrar"
+    "fechar": "Cerrar",
+    "abrirN": {
+      "one": "Ver la destacada {titulo} ({n} historia)",
+      "few": "Ver la destacada {titulo} ({n} historias)",
+      "many": "Ver la destacada {titulo} ({n} historias)",
+      "other": "Ver la destacada {titulo} ({n} historias)"
+    },
+    "seus": "Tus destacadas",
+    "contaN": {
+      "one": "{n} destacada",
+      "few": "{n} destacadas",
+      "many": "{n} destacadas",
+      "other": "{n} destacadas"
+    }
   }
 }

@@ -12,7 +12,8 @@
     "entrar": "Sign in to see and create stories.",
     "anteriores": "Previous stories",
     "seguintes": "More stories",
-    "abrindo": "Opening {nome}'s stories…"
+    "abrindo": "Opening {nome}'s stories…",
+    "maisUm": "Add another story"
   },
   "abas": {
     "rotulo": "Timelines"
@@ -49,7 +50,7 @@
     "limpar": "Clear the drawing",
     "figurinhas": "Stickers",
     "figurinhaLigada": "{nome}: on the story (tap to remove)",
-    "limiteDeFigurinhas": "At most 3 stickers per story.",
+    "limiteDeFigurinhas": "That's 3. Remove one to add another.",
     "tipo": {
       "contagem": "Countdown",
       "pergunta": "Question",
@@ -168,7 +169,10 @@
       "semGravador": "This browser can't rebuild videos. Use a photo or another browser.",
       "comunidade": "Choose the community.",
       "cancelado": "Upload cancelled. Nothing left your device."
-    }
+    },
+    "contaDeFigurinhas": "{n} of {max}",
+    "figurinhaMover": "Move the {nome} sticker",
+    "figurinhaDica": "Drag to move; with two fingers, rotate and resize. Keyboard: arrows move, + and − resize, [ and ] rotate."
   },
   "figurinha": {
     "contagem": {
@@ -293,7 +297,8 @@
     "tirarDoDestaque": "Remove from this highlight",
     "apagarDestaque": "Delete this highlight",
     "pessoaAnterior": "Previous person",
-    "proximaPessoa": "Next person"
+    "proximaPessoa": "Next person",
+    "verAoLado": "Go to {nome}'s stories"
   },
   "cartao": {
     "porNoStory": "Add to story",
@@ -320,7 +325,6 @@
   },
   "destaques": {
     "rotulo": "Highlights",
-    "abrir": "View the highlight {titulo} ({n} stories)",
     "guardarTitulo": "Save to highlight",
     "aviso": "It stays on your profile after 24 h, for the same audience as now. Remove it whenever you want. Never goes to the Fediverse.",
     "novo": "New highlight",
@@ -336,6 +340,19 @@
     "vazioDono": "No highlights yet. On your story, tap ⋯ and \"Save to highlight\".",
     "erro": "The highlights didn't load.",
     "cor": "Cover colour",
-    "fechar": "Close"
+    "fechar": "Close",
+    "abrirN": {
+      "one": "View the highlight {titulo} ({n} story)",
+      "few": "View the highlight {titulo} ({n} stories)",
+      "many": "View the highlight {titulo} ({n} stories)",
+      "other": "View the highlight {titulo} ({n} stories)"
+    },
+    "seus": "Your highlights",
+    "contaN": {
+      "one": "{n} highlight",
+      "few": "{n} highlights",
+      "many": "{n} highlights",
+      "other": "{n} highlights"
+    }
   }
 }
