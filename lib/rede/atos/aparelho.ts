@@ -53,4 +53,42 @@ export function cidadeGuardada(): string | null {
 export function guardarCidade(cidade: string | null): void {
   const c = cidade?.replace(/\s+/g, " ").trim().slice(0, 80) || null;
   gravar(CHAVE_DA_CIDADE, c);
+  if (typeof window !== "undefined" && typeof window.dispatchEvent === "function") window.dispatchEvent(new Event(EVENTO_DA_CIDADE));
+}
+
+/** O aviso, nesta aba, de que a cidade mudou (a coluna "Atos perto de você" escuta; outras abas ouvem o evento "storage"). */
+export const EVENTO_DA_CIDADE = "lucia:rede:atos:cidade";
+
+/** Chama `aoMudar` quando a cidade muda nesta aba ou em outra. Devolve o desligar. */
+export function ouvirCidade(aoMudar: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  const naOutraAba = (e: StorageEvent) => {
+    if (e.key === null || e.key === CHAVE_DA_CIDADE) aoMudar();
+  };
+  window.addEventListener(EVENTO_DA_CIDADE, aoMudar);
+  window.addEventListener("storage", naOutraAba);
+  return () => {
+    window.removeEventListener(EVENTO_DA_CIDADE, aoMudar);
+    window.removeEventListener("storage", naOutraAba);
+  };
+}
+
+// Palavras que ficam minúsculas no meio do nome de uma cidade ("Rio de Janeiro", "São João del-Rei", "Vila do Conde").
+const MIUDAS = new Set(["de", "da", "do", "das", "dos", "e", "del", "la", "le", "les", "el", "y", "di", "du", "des"]);
+
+/**
+ * O nome da cidade como se escreve ("  são   paulo " → "São Paulo"; "RIO DE JANEIRO" → "Rio de Janeiro"). Só para mostrar e
+ * guardar: o servidor compara sem caixa e sem acento de qualquer jeito. Escritas sem maiúsculas (chinês, japonês…) passam iguais.
+ */
+export function nomeDaCidade(cidade: string): string {
+  const limpa = cidade.replace(/\s+/g, " ").trim().slice(0, 80);
+  return limpa
+    .split(" ")
+    .map((palavra, i) => {
+      const baixa = palavra.toLocaleLowerCase();
+      if (i > 0 && MIUDAS.has(baixa)) return baixa;
+      // cada parte de um nome com hífen também começa maiúscula ("Sant'ana", "Embu-Guaçu")
+      return baixa.replace(/(^|[-'’])(\p{L})/gu, (_, sep: string, l: string) => sep + l.toLocaleUpperCase());
+    })
+    .join(" ");
 }
