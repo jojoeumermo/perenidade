@@ -7,7 +7,7 @@ import { preencher } from "@/lib/rede/preencher";
 import { checarTexto } from "@/lib/rede/publicar/checagem";
 import type { TextosPublicar } from "@/lib/rede/textos-publicar";
 import type { TipoDePost } from "@/lib/rede/tipos";
-import { type Agendado, LIMITES_PUBLICAR, type PedidoPublicar, type PreviaDoPost, type RespondeQuem } from "@/lib/rede/tipos-publicar";
+import { type Agendado, type CitarQuem, LIMITES_PUBLICAR, type PedidoPublicar, type PreviaDoPost, type RespondeQuem } from "@/lib/rede/tipos-publicar";
 import { enviarMidia, gerarPrevia } from "./api";
 import { BorrarRostos } from "./BorrarRostos";
 import { aplicarBorrado, type AreaBorrada, ErroDeImagem, prepararImagem } from "./imagem";
@@ -97,6 +97,14 @@ export function useEscreverPub({
   const [previaEstado, setPreviaEstado] = useState<"parada" | "buscando" | "falhou">("parada");
   const [previaTirada, setPreviaTirada] = useState<string | null>(null);
   const [respondeQuem, setRespondeQuem] = useState<RespondeQuem>("todos");
+  // B1: aviso de conteúdo (até 80, o banco corta igual), enquete avançada, quem pode citar e as opções de agendar.
+  const [aviso, setAvisoBruto] = useState("");
+  const setAviso = (v: string) => setAvisoBruto(v.slice(0, 80));
+  const [soNoFim, setSoNoFim] = useState(false);
+  const [embaralhar, setEmbaralhar] = useState(false);
+  const [citarQuem, setCitarQuem] = useState<CitarQuem>("ninguem");
+  const [repetir, setRepetir] = useState<number>(0);
+  const [aposAto, setAposAto] = useState<string>("");
   const [fio, setFio] = useState(respostaPropria);
   const [agendar, setAgendarBruto] = useState("");
   const [agendaOk, setAgendaOk] = useState(true);
@@ -227,9 +235,11 @@ export function useEscreverPub({
       }
       campos.audio = { caminho: s.caminho, duracao: Math.max(1, Math.min(LIMITES_PUBLICAR.audioSegundos, Math.round(audio.duracao))) };
     }
-    if (enquete) campos.enquete = { opcoes: opcoesValidas, horas, multipla };
+    if (enquete) campos.enquete = { opcoes: opcoesValidas, horas, multipla, ...(soNoFim ? { so_no_fim: true } : {}), ...(embaralhar ? { embaralhar: true } : {}) };
     if (previa && alvo === previa.url) campos.previa = { url: previa.url, titulo: previa.titulo, descricao: previa.descricao, imagem: previa.imagem };
     if (!resposta && respondeQuem !== "todos") campos.responde_quem = respondeQuem;
+    if (aviso.trim()) campos.aviso = aviso.trim();
+    if (!resposta) campos.citar_quem = citarQuem;
     if (respostaPropria && fio) campos.fio = true;
     return campos;
   }
@@ -244,6 +254,7 @@ export function useEscreverPub({
     t, enquete, opcoes, setOpcoes, horas, setHoras, multipla, setMultipla, imagens, adicionarImagem, tirarImagem, mudarAlt, borrar, audio, setAudio,
     previa: previa && alvo === previa.url ? previa : null, previaEstado: alvo ? previaEstado : ("parada" as const), alvo, limitesDaAgenda, agendaOk, tirarPrevia: () => { setPreviaTirada(alvo); setPrevia(null); setPreviaEstado("parada"); },
     respondeQuem, setRespondeQuem, fio, setFio, agendar, setAgendar, recuperado, achados, enqueteOk, preparar, limpar,
+    aviso, setAviso, soNoFim, setSoNoFim, embaralhar, setEmbaralhar, citarQuem, setCitarQuem, repetir, setRepetir, aposAto, setAposAto,
     /** Pode enviar? Não há dado pessoal nem endereço com número (o banco confere de novo) e a enquete está completa. */
     podeEnviar: achados.bloqueia.length === 0 && enqueteOk,
   };
