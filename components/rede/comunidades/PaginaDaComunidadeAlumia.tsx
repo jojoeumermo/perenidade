@@ -23,6 +23,7 @@ import { codigoDoErro, textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
+import { StoriesDaComunidade } from "../stories/encaixe";
 import { WikiDaComunidade } from "./WikiDaComunidade";
 import { CartaoDeAula, Confirmar, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { MOLA_PULO, pular, semMovimento, useRegua } from "../conversa/movimento";
@@ -333,6 +334,9 @@ export function PaginaDaComunidadeAlumia({
         aoFechar={() => setPerguntaSair(false)}
         voltarPara={entrarRef}
       />
+
+      {/* Os stories no ar que falam desta comunidade (só os que a pessoa pode ver); sem nenhum, não aparece nada. */}
+      <StoriesDaComunidade lang={lang} situacao={situacao} slug={comunidade.slug} />
 
       <div className={`al3-cor-${cor}`}>
         <div role="tablist" aria-label={t.comunidade.abas} className="al3-abas" ref={abasRef}>
