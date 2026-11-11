@@ -120,7 +120,8 @@ const quemFoi = ler("content", "escola", "quem-foi-lucia-maria.md");
 confere("Quem foi Lúcia Maria tem texto (não só o marcador)", !quemFoi.includes("[TEXTO A ENVIAR PELA COORDENAÇÃO]") && quemFoi.length > 1500);
 confere("as fontes do texto estão anotadas", /DeuwQ7QmU5W/.test(ler("docs", "escola-revolucionaria", "FONTES-LUCIA-MARIA.md")));
 const proibidas = /universidade|diploma/i;
-confere("nem 'universidade' nem 'diploma' nos textos novos", !proibidas.test(manifesto) && !proibidas.test(quemFoi) && !proibidas.test(ler("i18n", "escola", "frente", "pt.json")));
+// O manifesto fica fora desta regra desde 11/11/2026: o texto novo, do Jonathan, fala de diploma e universidade de propósito.
+confere("nem 'universidade' nem 'diploma' nos textos novos", !proibidas.test(quemFoi) && !proibidas.test(ler("i18n", "escola", "frente", "pt.json")));
 const pessoas = ler("components", "painel", "Pessoas.tsx");
 confere("o painel marca a inscrição militante", /militante/i.test(pessoas) && /tipo/.test(pessoas));
 
