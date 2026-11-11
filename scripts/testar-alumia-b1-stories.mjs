@@ -224,6 +224,10 @@ await recusa("pôr quem eu bloqueei na roda é recusado", () => C.autora.mudarRo
 await recusa("visitante não lê roda", () => anon.roda(), "permission denied");
 const sRoda = await C.autora.publicar({ ...base, publico: "proximos", texto: "SÓ PRA RODA" });
 await espera("a amiga (na roda) vê", async () => !!(await abrirComo("amiga", sRoda.id)), (x) => x === true);
+// A promessa "ninguém sabe em que rodas está": o story da roda chega a ela sem marca nenhuma; só a autora vê "proximos".
+await espera("o story da roda chega à amiga SEM dizer que é da roda", async () => abrirComo("amiga", sRoda.id), (s) => s.publico === "seguidores" && !JSON.stringify(s).includes("proximos"));
+await espera("a autora vê que publicou para a roda", async () => (await C.autora.meus()).find((s) => s.id === sRoda.id), (s) => s.publico === "proximos");
+ok("o visor só mostra o selo da roda no meu story", /publico === "proximos" && atual.meu ?/.test(ler("components/rede/stories/Visor.tsx")));
 await espera("o infiltrado que segue de volta NÃO vê", async () => !!(await abrirComo("infiltrado", sRoda.id)), (x) => x === false);
 await espera("a amiga não tem como saber em que rodas está (nenhuma função devolve)", () => todos(`select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
   where n.nspname = 'public' and p.prosrc ~ 'rede_roda' and p.prosrc ~ 'membro = v\\b'`), (l) => l.length === 0);
