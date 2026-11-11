@@ -1,6 +1,6 @@
 # Alumia: chat privado (mensagens diretas)
 
-**Situação em 10/11/2026:** implementado e testado no banco local (`npm run testar:rede-chat`). Fica no ar junto com a Alumia
+**Situação em 11/11/2026:** implementado e testado no banco local (`npm run testar:rede-chat`). Fica no ar junto com a Alumia
 (recurso `rede-v2`, ligado): não tem chave liga/desliga própria. Nenhuma chave nova, nenhuma variável de ambiente nova, nenhum
 serviço de fora, nenhuma biblioteca nova.
 
@@ -99,7 +99,8 @@ não sobra nenhuma legítima. O aparelho não depende de o servidor apagar: o c2
 servidor poderia regravar uma c2 antiga quantas vezes quisesse. Por isso o aparelho (a) guarda o resumo (SHA-256) de cada corpo
 c2 que já viu e trata o mesmo corpo como outra mensagem como **repetida**; (b) mostra **com aviso** a c2 que chega numa versão em
 que o mesmo autor já mandou c3; e (c) **deixa de abrir toda c2 depois de `C2_ABRE_ATE`** (`lib/rede/chat-privado.ts`, hoje
-20/12/2026: a migração mais 30 dias). Se a migração for aplicada depois de 20/11/2026, mude essa data no código (passo a passo).
+20/12/2026: a migração mais 30 dias). Se a migração for aplicada depois de 20/11/2026, mude essa data no código (o passo a
+passo diz a linha e a conta). A regra da tabela também amarra a versão escrita no corpo à coluna `versao`, nos dois formatos.
 
 ### Negabilidade: sem assinatura nas mensagens
 
@@ -132,7 +133,11 @@ não vê nenhum dos dois.
   fechada é mostrada **com aviso** ("este aparelho não consegue conferir se é nova ou repetida"), nunca escondida. A versão
   atual nunca fecha.
 - **Relógio do aparelho.** Ele não é de confiança (rede hostil, relógio sem bateria). Nenhum registro vence numa leitura em que
-  a hora andou para trás ou saltou mais de 2 dias desde a leitura anterior, e o contador de quem escreve nunca recomeça.
+  a hora andou para trás ou saltou mais de 2 dias desde a leitura anterior, **nem nas leituras seguintes**: o salto fica
+  anotado no aparelho (a "suspeita", junto da marca das versões) e só deixa de valer depois de 45 dias contados a partir dele,
+  sem outro salto. (Antes, a segunda leitura depois do salto já confiava no relógio mexido, porque a hora da primeira tinha
+  sido gravada.) O contador de quem escreve nunca recomeça. Consequência aceita: quem fica mais de 2 dias sem abrir uma
+  conversa tem a limpeza das listas antigas dela adiada em 45 dias; a lista só guarda identificadores e contadores.
 - **Buraco.** Se falta um contador entre duas mensagens que chegaram, a tela mostra, discreta, "Pode faltar mensagem aqui". O
   aparelho não sabe se a mensagem foi apagada por quem escreveu, venceu, ou foi retida no caminho: por isso é um aviso, não um
   erro. O começo da conversa (mensagens antigas já vencidas) não conta como buraco.
@@ -141,6 +146,9 @@ não vê nenhum dos dois.
   o aviso "a ordem desta mensagem não bate com a hora do servidor". Cada mensagem leva também "até onde eu já tinha recebido":
   se uma resposta aparece antes da mensagem que quem respondeu já tinha recebido, ela ganha o mesmo aviso; e as minhas
   mensagens que a outra pessoa ainda não tinha recebido quando escreveu a última dela ganham "ainda não tinha recebido esta".
+- **Limite do relógio.** Quem controla o relógio do aparelho o tempo todo e o adianta aos poucos (menos de 2 dias por
+  leitura, até somar mais de 45 dias) ainda consegue fechar uma versão antiga. O efeito é o do item acima: a
+  mensagem antiga regravada aparece **com aviso**, nunca como nova sem aviso.
 - **Os limites (o que continua SEM aviso).** O servidor ainda consegue, sem que o aparelho note: segurar as últimas mensagens
   enquanto nenhuma posterior chega; sumir com o começo de uma versão (o começo não é buraco); sumir com uma versão inteira de
   uma pessoa que não foi respondida; e atrasar a entrega. A memória é do aparelho: num aparelho novo, ou depois do "Sair
@@ -208,8 +216,8 @@ No IndexedDB do chat (`lucia-alumia-chat`) ficam: a chave do aparelho e a identi
 de cada pessoa (e se foram verificadas) e a memória de repetição e ordem (identificadores e contadores). **Mensagem aberta,
 rascunho e chave de conversa nunca são gravados**: vivem só na memória da aba. Não há fila de envio.
 
-O **"Sair rápido" da Alumia apaga tudo isso** (`apagarTudoDoChat`): o banco IndexedDB inteiro, de todas as contas deste aparelho,
-e o que estiver na memória (chaves de conversa, rascunho, mensagens abertas). Termina em menos de meio segundo, dentro do teto de
+O **"Sair rápido" da Alumia encerra a sessão da conta e apaga tudo isso** (`apagarTudoDoChat`): o banco IndexedDB inteiro, de
+todas as contas deste aparelho, e o que estiver na memória (chaves de conversa, rascunho, mensagens abertas). Termina em menos de meio segundo, dentro do teto de
 0,8 s do "Sair rápido", e nunca lança. Três cuidados para o apagar valer de verdade (`lib/rede/chat/gaveta.ts`, testados com
 duas abas sobre o mesmo IndexedDB):
 
@@ -220,6 +228,26 @@ duas abas sobre o mesmo IndexedDB):
    `lib/modo-seguro.ts`) e se limpa também. Uma busca que estava no caminho não recria o banco com ids de conversa e de pessoa.
 3. Depois de apagar, a página não grava mais nada até a pessoa ativar o chat de novo.
 
+**A sessão sai junto (P17, 11/11/2026).** O "Sair rápido" (`lib/rede/saida.ts`) revoga a sessão no servidor, com o mesmo pedido
+da saída do site (`revogarSessao`, em `lib/modo-seguro.ts`: só esta sessão, com `keepalive`), e apaga do aparelho as chaves
+dela (`lucia:sessao`, `lucia:nome`, `lucia:avatar`), antes e depois das limpezas. Quem pega o aparelho depois não abre a Alumia
+dentro da conta: não vê a lista de conversas nem consegue ativar o chat com chave nova em nome da pessoa. Limite: sem rede, o
+pedido de revogar não chega; a sessão some do aparelho do mesmo jeito, mas quem tivesse copiado o token antes ainda o usaria
+até ele vencer.
+
+**A saída do site (três Esc) roda a mesma limpeza (P16, 11/11/2026).** `sairRapido` de `lib/modo-seguro.ts` chama
+`apagarTudoDoChat(300)` antes de apagar as bases, com teto próprio de 350 ms (contando baixar o módulo) dentro dos 700 ms da
+saída: a trava liga nesta aba e as outras abas apagam a memória delas na hora, e não só quando notarem que o banco sumiu.
+
+**"Apagar tudo do chat" (Ajustes) avisa as outras abas.** Ele apaga só os registros da conta (o banco das outras contas do
+aparelho fica), e usa o mesmo aviso entre abas do pânico: uma aba esquecida aberta na conversa apaga as chaves da memória,
+fecha a conversa e para de gravar.
+
+**A tela depois do pânico.** A aba que viu o chat ser apagado volta à ativação com texto próprio ("O chat foi apagado deste
+aparelho"), e não com o de "ativo em outro aparelho". Criar a chave nova continua pedindo o "entendi" do risco. Depois de
+recarregar a página (ou de entrar de novo), o aparelho não tem como saber que houve pânico (não guarda marca nenhuma, de
+propósito): aí a tela é a de "ativo em outro aparelho", sem o alerta de "este aparelho já tinha a chave".
+
 **Consequências, ditas na tela de Ajustes:** depois do "Sair rápido" é preciso ativar o chat de novo neste aparelho; a chave nova
 muda o código de segurança (as outras pessoas recebem o aviso de chave trocada) e o que foi escrito antes não abre mais aqui.
 **E todas as verificações se perdem:** o aparelho esquece as identidades que conhecia (guardá-las seria deixar a lista de
@@ -228,16 +256,15 @@ identidade falsa de alguém que estava verificado, **não aparece aviso nenhum**
 no alto, e os Ajustes pedem para comparar o código de novo com cada pessoa antes de escrever algo sensível. É o preço de não
 deixar a chave num aparelho que pode ser tomado.
 
-**Limites que continuam (pedidos à Faixa 1, `docs/rede/PEDIDOS-ENTRE-FAIXAS.md`):**
+**Limites que continuam:**
 
-- **O "Sair rápido" da Alumia não encerra a sessão da conta** (`lib/rede/saida.ts` só apaga as chaves `lucia:rede*`; a sessão
-  mora em `lucia:sessao`). Quem pega o aparelho abre a Alumia já dentro da conta, vê a lista de conversas (vinda do servidor) e
-  pode ativar o chat com chave nova e escrever em nome da pessoa; quem não tinha verificado aceita a chave nova num clique.
-  Pedido P17. Enquanto não for atendido, o texto dos Ajustes diz que a sessão continua aberta.
-- **A saída do site** (três Esc) apaga o banco do chat direto, sem rodar as limpezas do chat: a aba que já tinha visto o banco
-  se limpa quando nota (item 2 acima), mas a memória das abas só é limpa nesse momento, não na hora. Pedido P16.
 - Apagar o IndexedDB não garante que os arquivos do navegador no disco não guardem restos até a compactação. Não é testável
   aqui.
+- O "Sair rápido" não apaga nada no servidor (as mensagens cifradas ficam lá até o prazo delas) e não mexe em outras sessões
+  da conta abertas em outros aparelhos.
+
+Os dois limites que estavam aqui (o "Sair rápido" não encerrava a sessão; a saída do site não rodava a limpeza do chat) foram
+resolvidos em 11/11/2026: pedidos P17 e P16 em `docs/rede/PEDIDOS-ENTRE-FAIXAS.md`.
 
 Diferenças de propósito em relação à equipe (menos comodidade, menos coisa que pode vazar): **um aparelho por conta**, sem cópia
 de recuperação e sem aprovação de outro aparelho.
@@ -279,8 +306,9 @@ isto é não ter XSS: a CSP do site e a revisão das telas.
 7. **RLS estrita:** as tabelas `interno.rede_dm_*` têm RLS ligada **sem política nenhuma** e nenhum privilégio para `anon` ou
    `authenticated`: ninguém lê tabela. Só as funções (`security definer`) conferem que quem chama é participante. O embrulho feito
    para a outra pessoa nunca sai.
-8. **Só cifrado, só em bloco:** a tabela recusa texto aberto, recusa "c3" fora dos sete tamanhos, e a função de enviar recusa
-   também "c2" novo e versão da chave com mais de 8 dias.
+8. **Só cifrado, só em bloco:** a tabela recusa texto aberto, recusa "c3" fora dos sete tamanhos e recusa linha em que a versão
+   escrita no corpo não é a da coluna `versao` (nos dois formatos, também para o "c2" que já estava lá); a função de enviar
+   recusa também "c2" novo e versão da chave com mais de 8 dias.
 9. **Nada em log:** as funções do chat não chamam o registro de atividades (`interno.registrar`), não mandam avisos com conteúdo e
    não fazem `raise notice`. As telas não escrevem no console e não chamam nenhum serviço de fora.
 10. **Nada federado:** mensagem privada **não vai ao Fediverso**. Nenhuma função do Fediverso no banco e nenhum código em
@@ -301,9 +329,10 @@ isto é não ter XSS: a CSP do site e a revisão das telas.
   continua com as mensagens até o prazo delas e pode denunciar; quando as duas apagam, mensagens e chaves embrulhadas somem
   de vez (T33: antes, quem assediava apagava as provas antes da denúncia).
 - **Apagar tudo do chat** (Ajustes): tira todas as conversas da lista, apaga a chave pública, as preferências e as recusas que a
-  pessoa fez, e o que o chat guardou desta conta neste aparelho. As recusas que OUTRAS pessoas fizeram contra ela ficam até
+  pessoa fez, e o que o chat guardou desta conta neste aparelho (as outras abas são avisadas e apagam a memória delas). As recusas que OUTRAS pessoas fizeram contra ela ficam até
   vencer (são delas).
-- **Sair rápido:** apaga do aparelho tudo do chat, de todas as contas (veja acima). Não apaga nada no servidor.
+- **Sair rápido:** encerra a sessão da conta e apaga do aparelho tudo do chat, de todas as contas (veja acima). Não apaga
+  nada no servidor.
 - **Apagar a conta:** chave estrangeira com `on delete cascade` em tudo (`interno.perfis`): mensagens, conversas, chaves e
   preferências somem junto.
 
@@ -357,18 +386,39 @@ perde). Para o intervalo ser de minutos: deixe a imagem nova do site pronta para
    select count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace
    where n.nspname = 'interno' and p.proname = 'rede_dm_podar';
    ```
+   E confira que nenhuma mensagem guardada tem uma versão na coluna e outra no corpo (precisa devolver 0; a regra nova da
+   tabela exige as duas iguais):
+   ```sql
+   select count(*) from interno.rede_dm_mensagens where split_part(corpo, '.', 2) <> versao::text;
+   ```
+   Se vier outro número, a migração para no começo, com erro de "check", **sem mudar nada** (a regra antiga continua de pé).
+   Linha assim não abre em aparelho nenhum (a chave da coluna não é a do corpo): não é mensagem legítima. Avise antes de
+   apagar; para seguir, apague só essas linhas e rode a migração de novo:
+   ```sql
+   delete from interno.rede_dm_mensagens where split_part(corpo, '.', 2) <> versao::text;
+   ```
 2. No SQL editor do Supabase, cole e rode o arquivo `supabase/migracoes/20261110-chat-blocos.sql` inteiro. Pode rodar de novo
    sem medo: não apaga dado nenhum e não cria coluna nem tabela.
-3. Publique o site novo em seguida. **Se a migração for aplicada depois de 20/11/2026**, antes de publicar mude
-   `C2_ABRE_ATE` em `lib/rede/chat-privado.ts` para o dia da migração mais 30 dias (depois dessa data o aparelho deixa de abrir
-   mensagem no formato antigo: nenhuma legítima existe mais).
+3. Publique o site novo em seguida. **Se a migração for aplicada depois de 20/11/2026**, antes de publicar mude a data de
+   `C2_ABRE_ATE`, que está fixa no código. É uma linha só, em `lib/rede/chat-privado.ts` (perto da linha 159):
+   ```ts
+   export const C2_ABRE_ATE = Date.parse("2026-12-20T00:00:00Z");
+   ```
+   Troque `2026-12-20` pelo **dia em que a migração rodou mais 30 dias** (por exemplo: migração em 25/11/2026, a linha fica
+   `Date.parse("2026-12-25T00:00:00Z")`). Só a data muda; grave, publique o site e rode `npm run testar:rede-chat` antes (o
+   teste não depende da data). Por que importa: depois dessa data o aparelho deixa de abrir mensagem no formato antigo. Com a
+   data de hoje e a migração atrasada, as últimas mensagens antigas (enviadas até o dia da migração, com prazo de 30 dias)
+   deixariam de abrir antes de vencer. Se a migração rodar até 20/11/2026, não mexa em nada. Data mais tarde que o necessário
+   não quebra nada: só estica o tempo em que uma mensagem antiga regravada pelo servidor ainda abriria (com os avisos de
+   repetida e de formato antigo valendo).
 4. Se algum dia a T19 ou a T33 forem rodadas de novo, rode esta de novo logo depois (ela redefine três funções daquelas duas;
    sem isso, enviar voltaria a aceitar só "c2" e o site novo pararia de enviar).
 
 **Consulta de conferência** (depois do passo 2):
 
 ```sql
--- 1) A regra nova da tabela: precisa vir UMA linha, com o nome rede_dm_mensagens_corpo_formato e os sete tamanhos.
+-- 1) A regra nova da tabela: precisa vir UMA linha, com o nome rede_dm_mensagens_corpo_formato, os sete tamanhos e a
+--    comparação da versão do corpo com a coluna (split_part(corpo, '.', 2) = versao).
 select conname, pg_get_constraintdef(oid) from pg_constraint
 where conrelid = 'interno.rede_dm_mensagens'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%c3%';
 
@@ -396,7 +446,8 @@ drop function if exists interno.rede_dm_corpo_c3(text, integer);
 drop function if exists interno.rede_dm_faxina_da_conversa(uuid);
 ```
 
-**Não mexa na regra da tabela** ao desfazer: ela aceita os dois formatos e não atrapalha o site antigo. As mensagens "c3" já
+**Não mexa na regra da tabela** ao desfazer: ela aceita os dois formatos e não atrapalha o site antigo (que sempre gravou a
+versão do corpo igual à da coluna). As mensagens "c3" já
 enviadas ficam no banco até vencerem (no máximo 30 dias); o site antigo não as abre e mostra "não dá para abrir neste aparelho".
 Nenhuma mensagem "c2" é perdida em nenhum dos dois sentidos.
 

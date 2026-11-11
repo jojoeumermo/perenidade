@@ -210,10 +210,17 @@ uma vez e não mexe na função de bloquear instância (a trava do bloqueio fixo
   um a um revelava quem tinha curtido). O apelido de uma pessoa de fora é outro em cada conta daqui. O total só sai a partir
   de 3; abaixo disso sai 1, que a tela escreve como "alguém". Seguidor, resposta e menção continuam dizendo quem foi (é a
   conversa com a própria pessoa). O endereço cru do avatar não sai em tipo nenhum.
-  **O que ainda sai:** as duas funções antigas de avisos da Faixa 1 (`rede_avisos` e `avisos_meus`), que respondem só à própria
-  pessoa, devolvem uma linha por curtida, com a hora de cada uma: abaixo de 3, a pessoa vê o número exato (nunca quem foi). O
-  resumo semanal por e-mail soma esse total cru. Pedido P19 em `PEDIDOS-ENTRE-FAIXAS.md`. Curtida de servidor que depois foi
-  bloqueado pela mediação continua contada (o apelido não diz de que servidor veio).
+  O filtro de tipo está também no próprio delete do bloqueio (`rede_fed_bloquear_pessoa` apaga só `fed_seguidor`,
+  `fed_resposta` e `fed_mencao`): não depende de a linha de curtida guardar o apelido.
+  **As funções antigas de avisos (resolvido em 11/11/2026, P19).** `rede_avisos` e `avisos_meus`, que respondem só à própria
+  pessoa, devolviam uma linha por curtida, com a hora de cada uma (abaixo de 3, o número exato). Agora leem por
+  `interno.rede_fed_avisos_de`: em curtida e impulso de fora, por post, sai uma linha só (a mais nova) abaixo de 3, e todas a
+  partir de 3. O resumo semanal por e-mail (`interno.rede3_aviso_resumo`) conta 1 por post abaixo de 3. As três são remendadas
+  no lugar pela migração da privacidade: quem recriar uma delas roda a migração de novo em seguida (o teste acusa se o remendo
+  sumir).
+  **O que ainda sai:** a partir de 3 curtidas num post, as funções antigas dão uma linha por curtida, com a hora de cada uma
+  (o número já pode sair; quem foi, nunca). Curtida de servidor que depois foi bloqueado pela mediação continua contada (o
+  apelido não diz de que servidor veio).
 - **Piso de 3** nas contagens de pessoas: seguidores e "seguindo" do ator, seguidores da comunidade (Group), pessoas e ativos do
   NodeInfo, respostas no cartão e o total das respostas de fora. Abaixo de 3 sai 0 (as coleções do ActivityPub pedem
   `totalItems` inteiro, maior ou igual a zero). As rotas repetem a conta (`pisoDePessoas`, em `lib/rede/fediverso/rotas.ts`),
@@ -234,9 +241,9 @@ uma vez e não mexe na função de bloquear instância (a trava do bloqueio fixo
   LGPD art. 8º, § 2º (cabe a quem trata provar o consentimento) e § 5º (revogar a qualquer momento). A linha some com a conta.
   Quem já estava ligado antes da migração ganha a linha do "liga" com a data em que ligou (carga inicial). O histórico entra no
   "baixar meus dados" da pessoa (LGPD art. 18, II) e tem teto: a primeira linha e as 99 mais novas de cada pessoa.
-- **Endereço completo.** `rede_fed_situacao` devolve `endereco` ("@nome@dominio"), só para quem está com a federação ligada,
-  e `dominio`: o domínio curto no modo total, o da Alumia sem ele (a mesma regra de `enderecos.ts`: minúsculo, com a porta se
-  houver, sem o ponto final do nome; sai de `url_entrega` na configuração). **`url_entrega` precisa ter o mesmo host do site**
+- **Endereço completo.** `rede_fed_situacao` devolve `endereco` ("@nome@dominio") e `dominio`, os dois só para quem está com a
+  federação ligada (nenhuma tela usa o `dominio` sozinho): o domínio curto no modo total, o da Alumia sem ele (a mesma regra
+  de `enderecos.ts`: minúsculo, com a porta se houver, sem o ponto final do nome; sai de `url_entrega` na configuração). **`url_entrega` precisa ter o mesmo host do site**
   (`NEXT_PUBLIC_ALUMIA_URL`): senão a tela mostra um @ que o WebFinger não responde.
 - **Perfil de fora em páginas.** `rede_fed_perfil_remoto(ator, cursor, limite)` devolve `proximo`; a tela tem "Mais posts".
 - **Adesão e flag.** Perfil, fio, bloquear e silenciar gente de fora só respondem a quem aderiu à rede e com o modo total ligado.
@@ -316,7 +323,8 @@ Pendências desta etapa:
 - **Nada foi visto no navegador.** As peças passaram por `tsc`, `eslint` e pelos testes de regra; falta conferir em 375 px, no
   tema escuro e no teclado, contra as pranchas.
 - **Encaixes da Faixa 1** (P0 a P10) e os registros P12 (mídia guardada na chegada, aberto) e P13 (mensagem crua do banco). O
-  P11 (avisos sem quem curtiu) ficou resolvido do nosso lado em `20261110-fediverso-privacidade.sql`.
+  P11 (avisos sem quem curtiu) e o P19 (funções antigas de avisos e resumo semanal) ficaram resolvidos em
+  `20261110-fediverso-privacidade.sql`.
 - **Vídeo e áudio de fora** não tocam aqui (só "Abrir no original").
 - **Silenciar e bloquear fora do perfil: resolvido.** O cartão do banco traz `silenciado` e `bloqueado` (migração da
   privacidade) e o cartão na linha e no fio começa por eles. No perfil de fora o cartão recebe a relação e avisa o cabeçalho

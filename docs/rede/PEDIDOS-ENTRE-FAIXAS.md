@@ -23,6 +23,8 @@ Vale para todos os pedidos abaixo:
   mídia só pela rota-proxy `/api/fediverso/midia`, HTML de fora só por `HtmlDeFora`, nenhuma lista de quem curtiu ou
   impulsionou, número só a partir de 3.
 - As linhas são aproximadas (conferidas em 2026-11-10 no ramo `faixa2-fediverso-cripto`).
+- Desde 11/11/2026 uma frente só cuida das duas faixas: os pedidos P14 a P19 foram atendidos por ela mesma, no ramo
+  `chat-wip-fim` (cada um marcado "feito", com o commit).
 
 #### P0 · 2026-11-10 · Faixa 2 pede · somar o encaixe do Fediverso
 
@@ -376,8 +378,14 @@ Se não atender (se o item for removido): os ajustes da federação ficam sem en
 `[]`) e a chave `avatar` saiu de todos os tipos. O total e as pessoas desses dois tipos só saem a partir de 3 (abaixo disso, 1:
 "alguém"): para isso `public.rede_aviso_listar` é remendada no lugar, trocando `'total', n.total, 'pessoas', n.pessoas,` por
 `interno.rede_fed_aviso_total(n.tipo, …)`. O que fica com a Faixa 1: quem recriar `rede_aviso_listar` precisa levar esse trecho
-(ou rodar a migração da privacidade de novo em seguida); o teste do banco do Fediverso acusa se o remendo sumir. Falta só o bloco
-entrar no `install.sql` (quem junta as frentes).
+(ou rodar a migração da privacidade de novo em seguida); o teste do banco do Fediverso acusa se o remendo sumir. O bloco da
+migração já está no `install.sql`, idêntico ao arquivo (conferido pelo mesmo teste).
+
+**Atualização (11/11/2026, commit `c16289f2`):** a mesma migração passou a remendar também as duas funções antigas de avisos
+(`public.rede_avisos` e `public.avisos_meus`, que agora leem por `interno.rede_fed_avisos_de`) e o resumo semanal
+(`interno.rede3_aviso_resumo`): veja o P19. Vale o mesmo cuidado: quem recriar uma dessas três roda a migração da privacidade
+de novo em seguida (ela é idempotente e recoloca o remendo; o teste prova). E o bloqueio de uma pessoa de fora
+(`rede_fed_bloquear_pessoa`) apaga só os avisos de `fed_seguidor`, `fed_resposta` e `fed_mencao`, com o filtro no próprio delete.
 
 O pedido original:
 
@@ -434,6 +442,9 @@ Nenhum destes pedidos segura o chat: as peças da Faixa 2 já funcionam sem eles
 
 #### P14 · 2026-11-10 · Faixa 2 pede · o texto de ajuda do "Sair rápido" dizer que a chave do chat também é apagada
 
+**Feito (11/11/2026, commit `f21ad34d`).** O texto diz também que a sessão é encerrada (P17), nos seis idiomas, em
+`i18n/rede/*.json` e na cópia da casca nova (`i18n/rede/publicar/alumia2/*.json`, chave `conta.sairRapidoAjuda`).
+
 Arquivo: `i18n/rede/{pt,en,es,fr,ru,zh}.json`, chave `sairRapidoAjuda` (linha ~89 no pt).
 
 ```json
@@ -448,6 +459,9 @@ Se não atender: nada quebra. O aviso fica só nos Ajustes do chat.
 
 #### P15 · 2026-11-10 · Faixa 2 pede · registrar no NOTICE o uso de `jsqr` e `qrcode` no chat
 
+**Feito (11/11/2026, commit `4cbd01c5`).** A linha do NOTICE cita `components/rede/chat/Qr.tsx`; o `THIRD_PARTY_LICENSES.md`
+ganhou a linha de `@matrix-org/matrix-sdk-crypto-wasm` 19.0.1 (Apache-2.0), dizendo que ainda não é usada.
+
 Arquivo: `docs/NOTICE.md`, linha ~19 (a linha do "Progresso por QR").
 
 Acrescentar ao fim da linha, ou numa linha nova: "O chat privado da Alumia (`components/rede/chat/Qr.tsx`, conferido em
@@ -459,6 +473,10 @@ Por quê: nenhuma dependência nova entrou, mas as duas passaram a ser usadas em
 Se não atender: nada quebra; o registro fica incompleto.
 
 #### P16 · 2026-11-10 · Faixa 2 pede · a saída do site (três Esc) rodar também a limpeza do chat
+
+**Feito (11/11/2026, commit `f21ad34d`).** `sairRapido` de `lib/modo-seguro.ts` chama `limparOChat()` (que importa a gaveta na
+hora e roda `apagarTudoDoChat(300)`) antes de `apagarBases()`, com teto próprio de 350 ms dentro dos 700 ms da saída. Teste com
+duas abas em `npm run testar:rede-chat` (a outra aba se limpa na hora, sem tocar no banco).
 
 Arquivo: `lib/modo-seguro.ts`, função `sairRapido` (linha ~157), antes de `apagarBases()`.
 
@@ -478,6 +496,11 @@ Se não atender: nada quebra; fica a janela de até 8 s descrita acima (`docs/re
 
 #### P17 · 2026-11-10 · Faixa 2 pede · o "Sair rápido" da Alumia encerrar a sessão da conta
 
+**Feito (11/11/2026, commit `f21ad34d`).** `sairRapido` de `lib/rede/saida.ts` chama o mesmo `revogarSessao` da saída do site
+(agora exportado de `lib/modo-seguro.ts`) e apaga do aparelho as chaves da sessão (`lucia:sessao`, `lucia:nome`,
+`lucia:avatar`), de novo depois das limpezas, caso uma renovação tenha regravado no meio. A frase "não encerra a sua sessão"
+saiu dos Ajustes do chat (commit `ee3d9f03`). Teste do aparelho tomado em `npm run testar:alumia-rota` (seção 10).
+
 Arquivo: `lib/rede/saida.ts` (linha ~17, `PREFIXO_DA_REDE`, e `sairRapido`, linha ~66).
 
 O "Sair rápido" da Alumia apaga só as chaves que começam com `lucia:rede`; a sessão mora em `lucia:sessao`. A saída do site
@@ -495,12 +518,20 @@ Se não atender: o limite fica escrito em `docs/rede/CHAT-PRIVADO.md` e nos Ajus
 
 #### P18 · 2026-11-10 · Faixa 2 avisa · `conta_meus_dados` e os avisos de curtida e impulso de fora
 
+**Feito (era só aviso; conferido de novo em 11/11/2026, commit `c16289f2`).** Nada a mudar em `conta_meus_dados`.
+
 **Situação: resolvido do lado da Faixa 2**, sem mexer em `conta_meus_dados`. Desde `20261110-fediverso-privacidade.sql` a linha
 de `interno.avisos` dos tipos `fed_curtida` e `fed_impulso` guarda só um apelido ("anon:" + 64 hex) em `ator_remoto`, nunca o
 endereço de quem curtiu. O que fica com a Faixa 1: quem mexer em `conta_meus_dados` não precisa fazer nada; quem recriar
 `interno.avisos` precisa manter a regra `avisos_ator_remoto_formato` (endereço https ou apelido).
 
 #### P19 · 2026-11-10 · Faixa 2 pede · `rede_avisos` e `avisos_meus` sem o número exato de curtidas de fora abaixo de 3
+
+**Feito (11/11/2026, commit `c16289f2`)**, em `supabase/migracoes/20261110-fediverso-privacidade.sql` (e na cópia do
+`install.sql`), por remendo no lugar: as duas funções leem os avisos por `interno.rede_fed_avisos_de`, que em curtida e impulso
+de fora devolve, por post, tantas linhas quantas `interno.rede_fed_aviso_total` deixa (abaixo de 3, uma só, a mais nova; a
+partir de 3, todas); o resumo semanal soma `rede_fed_aviso_total(tipo, total)`. Nada mais muda nas três. Quem recriar uma
+delas roda a migração da privacidade de novo em seguida. Teste em `npm run testar:fediverso-banco` (seção 9c).
 
 Arquivos: `supabase/install.sql`, `public.rede_avisos` (linha ~2072) e `public.avisos_meus` (linha ~26890); e o resumo semanal
 `interno.rede3_aviso_resumo`.
