@@ -1146,6 +1146,8 @@ export function Visor({
               t={t}
               cliente={cliente}
               story={atual}
+              lang={lang}
+              aoTrocarFoto={(url) => setStories((lista) => lista?.map((s) => (s.id === atual.id && s.fundo.tipo === "imagem" ? { ...s, fundo: { ...s.fundo, url } } : s)) ?? null)}
               aoFechar={() => setCaixa(null)}
               aoGuardar={(texto, d) => {
                 setStories((lista) => lista?.map((s) => (s.id === atual.id ? { ...s, destaques: [...(s.destaques ?? []), d] } : s)) ?? null);
