@@ -37452,7 +37452,7 @@ end $$;
 --      que vieram da figurinha de pergunta e pode publicar uma delas num story novo (figurinha "resposta", sem o nome de quem
 --      respondeu); vê o total das reações do story só a partir de 3 (nunca quem reagiu).
 --   3. FIGURINHAS NOVAS: decorativas da Alumia (punho, lampião, megafone, faixa, carimbos…, lista fechada), "vou" (confirmar
---      presença no ato pelo story, total só a partir de 3, arredondado e com o atraso do marco de 15 minutos), menção a pessoa (com aviso para ela, bloqueio vale),
+--      presença no ato pelo story, total só a partir de 3, arredondado e com o atraso do marco de 15 minutos), menção a pessoa (com aviso para ela, bloqueio vale; quem está invisível não é mencionada nem mostrada),
 --      #campanha e "Adicionar o seu" (corrente da campanha, total de pessoas só a partir de 3, também no marco).
 --   4. RODA DE CONFIANÇA: lista pessoal e privada (rede_roda). O público "proximos" passa a ser a roda da autora, não mais "seguir
 --      um ao outro" (um infiltrado que segue de volta não entra na roda). Ninguém sabe em que rodas está, nem quantas pessoas
@@ -37647,8 +37647,11 @@ begin
       'encerrado', v_ato is null or ch.cancelado or coalesce(ch.situacao, '') = 'cancelado' or ch.inicio < now() - interval '6 hours');
   elsif f.tipo = 'pessoa' then
     begin v_quem := (f.dados ->> 'perfil')::uuid; exception when others then v_quem := null; end;
+    -- O mesmo filtro da busca de pessoas: quem está invisível, suspensa ou sem codinome aprovado não tem o @ mostrado (também
+    -- quando ficou invisível DEPOIS de mencionada).
     if v_quem is null or interno.rede_bloqueado(p_quem, v_quem) or not interno.rede2_membro(v_quem)
-       or not exists (select 1 from perfis where id = v_quem and rede_handle is not null) then
+       or not exists (select 1 from perfis x where x.id = v_quem and x.rede_handle is not null and x.rede_codinome_ok and not x.suspenso
+                        and not coalesce(x.rede_modo = 'invisivel' or x.rede_invisivel, false)) then
       return jsonb_build_object('tipo', 'pessoa', 'handle', null, 'nome', '');
     end if;
     return jsonb_build_object('tipo', 'pessoa', 'handle', (select rede_handle from perfis where id = v_quem), 'nome', interno.rede_nome(v_quem));
@@ -37868,7 +37871,9 @@ begin
       v_limpas := v_limpas || jsonb_build_object('tipo', 'vou', 'dados', jsonb_build_object('ato', v_ato, 'titulo', v_titulo, 'inicio', v_inicio, 'cidade', v_cidade));
     elsif v_tipo = 'pessoa' then
       v_pessoas := v_pessoas + 1;
-      select id into v_quem from perfis where rede_handle = regexp_replace(lower(btrim(coalesce(f ->> 'handle', ''))), '^@', '') and rede_handle is not null;
+      -- Quem está invisível, suspensa ou sem codinome aprovado não é achada (a mesma recusa de um @ que não existe).
+      select x.id into v_quem from perfis x where x.rede_handle = regexp_replace(lower(btrim(coalesce(f ->> 'handle', ''))), '^@', '') and x.rede_handle is not null
+        and x.rede_codinome_ok and not x.suspenso and not coalesce(x.rede_modo = 'invisivel' or x.rede_invisivel, false);
       if v_quem is null or v_quem = v or not interno.rede2_membro(v_quem) or interno.rede_bloqueado(v, v_quem) then perform interno.erro('invalido:pessoa'); end if;
       v_mencionadas := v_mencionadas || v_quem;
       v_limpas := v_limpas || jsonb_build_object('tipo', 'pessoa', 'dados', jsonb_build_object('perfil', v_quem));

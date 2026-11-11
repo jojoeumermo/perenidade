@@ -182,6 +182,14 @@ const sPessoa = await espera("menção a pessoa (pelo @)", () => C.autora.public
 await espera("a pessoa mencionada recebe um aviso", () => um("select count(*)::int as n from interno.avisos where para = $1 and texto like '%mencionada num story%'", [P.amiga]), (r) => r.n === 1);
 await espera("quem vê recebe o @ e o codinome", async () => (await abrirComo("v1", sPessoa?.id))?.figurinhas[0], (f) => f.tipo === "pessoa" && f.handle === "amiga_b1" && f.nome);
 await recusa("mencionar quem eu bloqueei é recusado", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "pessoa", handle: "bloqueado_b1" }] }), "invalido:pessoa");
+// Quem está em modo invisível some da busca de pessoas; o @ dela também não pode sair pela figurinha.
+await dono("update interno.perfis set rede_invisivel = true where id = $1", [P.amiga]);
+await espera("quem ficou invisível DEPOIS da menção deixa de ter o @ mostrado", async () => (await abrirComo("v1", sPessoa?.id))?.figurinhas[0], (f) => f.tipo === "pessoa" && f.handle === null && f.nome === "");
+await recusa("mencionar quem está invisível é recusado (como um @ que não existe)", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "pessoa", handle: "amiga_b1" }] }), "invalido:pessoa");
+await dono("update interno.perfis set rede_invisivel = false, rede_modo = 'invisivel' where id = $1", [P.amiga]);
+await recusa("…e também no modo invisível novo", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "pessoa", handle: "amiga_b1" }] }), "invalido:pessoa");
+await espera("…sem o @ para quem vê", async () => (await abrirComo("v1", sPessoa?.id))?.figurinhas[0], (f) => f.handle === null);
+await dono("update interno.perfis set rede_modo = 'aberto' where id = $1", [P.amiga]);
 await recusa("mencionar a mim mesma é recusado", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "pessoa", handle: "autora_b1" }] }), "invalido:pessoa");
 
 const sCamp = await espera("#campanha com corrente", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "campanha", tag: "#PasseLivre", corrente: true }] }), (r) => r.id);
