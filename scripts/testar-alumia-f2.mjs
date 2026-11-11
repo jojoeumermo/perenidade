@@ -159,7 +159,8 @@ await espera("o próximo ato de quem não confirmou e não segue: o que for das 
 
 // ═══════════════════ 4. Adiar, cancelar, confirmar de novo ═══════════════════
 const mudar = (quem, situacao, inicio = null, motivo = "") => rpc(como(P[quem]), "rede_ato_mudar", { p_id: ID, p_situacao: situacao, p_inicio: inicio, p_motivo: motivo });
-const avisos = async () => Object.fromEntries((await dono("select para, count(*)::int as n from interno.avisos where tipo = 'chamado' and post = $1 group by para", [ID])).rows.map((r) => [r.para, r.n]));
+// Com a B1 da comunidade (20261110-alumia-b1-comunidade.sql), o aviso de ato pedido como 'chamado' fica gravado como 'ato'.
+const avisos = async () => Object.fromEntries((await dono("select para, count(*)::int as n from interno.avisos where tipo = 'ato' and post = $1 group by para", [ID])).rows.map((r) => [r.para, r.n]));
 const original = ato?.inicio;
 await recusa("membro não adia o ato de outra pessoa", () => mudar("m1", "adiado", daqui(20)), "so_quem_organizou");
 await recusa("bloqueado nem acha o ato para mudar", () => mudar("bloqueado", "cancelado"), "nao_encontrado");
@@ -173,7 +174,7 @@ await espera("adiar guarda a data de antes ('era 12/11')", () => mudar("dono", "
   a.situacao === "adiado" && Date.parse(a.inicio) === Date.parse(nova) && Date.parse(a.inicio_anterior) === Date.parse(original) && a.motivo === "chuva forte");
 await espera("o aviso vai SÓ a quem confirmou (e não a quem desligou 'ato_mudou')", avisos, (m) =>
   m[P.m1] === 1 && m[P.m2] === 1 && m[P.m3] === 1 && !m[P.calado] && !m[P.m4] && !m[P.dono] && !m[P.bloqueado]);
-await espera("o texto do aviso não leva nome de ninguém nem o nome do ato", async () => (await dono("select distinct texto from interno.avisos where tipo = 'chamado' and post = $1", [ID])).rows.map((r) => r.texto), (t) => t.length === 1 && !/Pessoa|organiza_zl|Passe/i.test(t[0]));
+await espera("o texto do aviso não leva nome de ninguém nem o nome do ato", async () => (await dono("select distinct texto from interno.avisos where tipo = 'ato' and post = $1", [ID])).rows.map((r) => r.texto), (t) => t.length === 1 && !/Pessoa|organiza_zl|Passe/i.test(t[0]));
 await espera("o JSON da Rede de hoje acompanha a data nova", () => um("select chamado ->> 'quando' as q from interno.rede_posts where id = $1", [ID]), (r) => Date.parse(r.q) === Date.parse(nova));
 await espera("adiar de novo mantém o 'era' da primeira data", () => mudar("dono", "adiado", daqui(19)), (a) => Date.parse(a.inicio_anterior) === Date.parse(original));
 await espera("cancelar", () => mudar("dono", "cancelado", null, "cancelada pela chuva · nova data em breve"), (a) => a.situacao === "cancelado" && a.motivo.startsWith("cancelada"));
