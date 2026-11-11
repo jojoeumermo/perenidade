@@ -186,7 +186,8 @@
     "testar:alumia-stories-video": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-stories-video.mjs",
     "testar:alumia-perfil": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-perfil.mjs",
     "testar:alumia-casca": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-casca.mjs",
-    "testar:alumia-b1-atos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-b1-atos.mjs"
+    "testar:alumia-b1-atos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-b1-atos.mjs",
+    "testar:alumia-b1-perfil-org": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-b1-perfil-org.mjs"
   },
   "dependencies": {
     "@diffusionstudio/piper-wasm": "1.0.0",

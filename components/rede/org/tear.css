@@ -51,3 +51,15 @@
 [data-al="2"] .lampiao-cartaz { display: grid; gap: 4px; margin-top: 10px; padding: 16px; border-radius: 12px; background: #f3efe6; color: #0f0e0d; border-top: 8px solid var(--c); }
 [data-al="2"] .lampiao-cartaz strong { font-size: 1.8rem; line-height: 1; }
 [data-al="2"] .lampiao-cartaz .al-perfil-nota { color: #5c554d; }
+
+/* B1: origem do fio, vencidos, placar ao lado do "Como votamos", cartaz com QR e a opção do mapa. */
+[data-al="2"] .tear-origem { font-size: 0.7rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--al-superficie-2); }
+[data-al="2"] .tear-origem[data-origem="ata"] { border-color: var(--al-dourado); }
+[data-al="2"] .tear-vencidos { margin: 0; font-weight: 800; color: var(--al-dourado); }
+[data-al="2"] .tear-placar-contas { margin: 0 0 16px; padding: 14px; border-radius: 12px; border: 1px solid var(--al-superficie-2); }
+[data-al="2"] .tear-placar-contas h3 { margin: 0 0 4px; }
+[data-al="2"] :is(.tear-novo, .lampiao-form) select, [data-al="2"] .lampiao-form input[type="number"] { min-height: 44px; padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-weight: 500; }
+[data-al="2"] .lampiao-form .lampiao-marcar { display: flex !important; align-items: center; gap: 8px; }
+[data-al="2"] .lampiao-form .lampiao-marcar input { width: 22px; height: 22px; }
+[data-al="2"] .lampiao-qr { width: 180px; height: 180px; background: #fff; padding: 6px; border-radius: 6px; image-rendering: pixelated; }
+[data-al="2"] .lampiao-pronto { display: grid; gap: 10px; margin-top: 10px; }

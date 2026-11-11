@@ -31,6 +31,13 @@ export interface NucleoDaOrg {
   sou: boolean;
   /** Pedi para entrar e espero resposta. */
   pedi: boolean;
+  /** A chama (B1): apagado (só quem fundou), brasa (1 ou 2 a mais), plena (3 ou mais). Nunca o número. */
+  chama?: "apagado" | "brasa" | "plena";
+  /** Só para quem gerencia: o núcleo está no mapa das cidades? (nulo para os outros) */
+  mapa?: boolean | null;
+  /** Só para quem é de dentro: a pauta da 1ª reunião e a primeira tarefa do lampião. */
+  pauta?: string | null;
+  tarefa?: string | null;
 }
 
 /** Um voto da organização no "Como votamos" (prestação de contas). */
