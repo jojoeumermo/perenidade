@@ -17,7 +17,7 @@ por quem não devia, site alterado. Quem coordena o incidente é a coordenação
 
 ## Depois
 - Corrigir a causa (com teste que falha antes e passa depois) e só então reabrir as áreas.
-- Escrever um resumo em `docs/auditoria/` (o que aconteceu, por quê, o que mudou), sem detalhes que ensinem a repetir.
+- Escrever um resumo (o que aconteceu, por quê, o que mudou) e guardar **fora deste repositório, que é público** (pasta privada da coordenação). Relatórios de auditoria e de incidente nunca entram aqui.
 - Revisar este plano.
 
 ## Contatos

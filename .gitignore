@@ -93,3 +93,7 @@ graphify-out/
 *.jks
 *.keystore
 public/versao.txt
+
+# Relatórios de auditoria e incidentes ficam fora deste repositório público.
+docs/auditoria/
+docs/AUDITORIA-*.md
