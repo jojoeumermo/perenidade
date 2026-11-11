@@ -12,6 +12,9 @@ const StoriesNoAlto = dynamic(() => import("./NoAlto"), { ssr: false });
 // Os destaques do perfil: só baixam quando a área de perfil os desenha (encaixe abasDoPerfil, ou <DestaquesNoPerfil> acima das abas).
 const DestaquesDoPerfil = dynamic(() => import("./Destaques").then((m) => m.DestaquesDoPerfil), { ssr: false });
 
+// Os stories que falam de uma comunidade: só baixam quando a página da comunidade os desenha.
+const StoriesDaComunidadeLigados = dynamic(() => import("./DaComunidade"), { ssr: false });
+
 /** O nome da aba "Destaques" nos 6 idiomas (curto, sem baixar os textos dos stories só para o rótulo). */
 const ROTULO_DOS_DESTAQUES: Record<string, string> = { pt: "Destaques", en: "Highlights", es: "Destacadas", fr: "À la une", ru: "Актуальное", zh: "精选" };
 
@@ -22,6 +25,15 @@ const ROTULO_DOS_DESTAQUES: Record<string, string> = { pt: "Destaques", en: "Hig
 export function DestaquesNoPerfil({ lang, situacao, handle }: ContextoDoEncaixe & { handle: string }) {
   if (!rotaNovaLigada("stories")) return null;
   return <DestaquesDoPerfil lang={lang} situacao={situacao} handle={handle} />;
+}
+
+/**
+ * "Stories que falam desta comunidade", para a página da comunidade (components/rede/comunidades/**): as bolinhas de quem a
+ * mencionou num story no ar (só os que eu posso ver; rede_story_da_comunidade). Atrás da flag dos stories; sem conta (fora da prévia) não pede nada.
+ */
+export function StoriesDaComunidade({ lang, situacao, slug }: { lang: string; situacao: ContextoDoEncaixe["situacao"]; slug: string }) {
+  if (!rotaNovaLigada("stories")) return null;
+  return <StoriesDaComunidadeLigados lang={lang} situacao={situacao} slug={slug} />;
 }
 
 /** "Pôr no story" ligado: só aqui os textos dos stories são baixados (com as flags desligadas, nada é pedido à rede). */
