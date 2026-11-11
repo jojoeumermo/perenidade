@@ -327,7 +327,8 @@ await espera("decidida a denúncia, a prova sai na próxima rodada", async () =>
 await espera("o lembrete vira aviso quando o ato está a menos de 1 hora, e sai", async () => {
   await dono("update interno.rede_chamados set inicio = now() + interval '30 minutes' where post = $1", [ato]);
   const n = (await um("select interno.rede5_story_lembretes() as n")).n;
-  const avisos = await todos("select para, tipo, post from interno.avisos where tipo = 'chamado' and post = $1", [ato]);
+  // Pedido como 'chamado'; com a B1 da comunidade (20261110-alumia-b1-comunidade.sql) o aviso de ato fica gravado como 'ato'.
+  const avisos = await todos("select para, tipo, post from interno.avisos where tipo = 'ato' and post = $1", [ato]);
   const sobrou = await todos("select 1 from interno.rede_story_lembretes where ato = $1", [ato]);
   return { n, avisos, sobrou };
 }, ({ n, avisos, sobrou }) => n === 1 && avisos.length === 1 && avisos[0].para === P.seguidor && sobrou.length === 0);
