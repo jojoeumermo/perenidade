@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent 
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
 import type { PropsDaTelaDoPacote } from "../registro";
+import { PorNoStoryDoAto } from "../stories/encaixe";
 import { AtoAberto } from "./AtoAberto";
 import { PainelDoFarol } from "./Farol";
 import { Icone } from "./partes";
@@ -58,7 +59,7 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
             lang={lang}
             logado={situacao.logado || PREVIA_DOS_ATOS}
             nivel={1}
-            depois={<MaisDoAto ato={estado.dados} t={t} />}
+            depois={<MaisDoAto ato={estado.dados} t={t} lang={lang} logado={situacao.logado || PREVIA_DOS_ATOS} />}
           />
           <PainelDoFarol ato={estado.dados} t={t} lang={lang} />
           {estado.dados.meu ? <PainelDeQuemChamou ato={estado.dados} t={t} /> : null}
@@ -68,12 +69,14 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
   );
 }
 
-/** O link de apoio externo (só https; nada de pagamento aqui). O lembrete na agenda fica na coluna de ações. */
-function MaisDoAto({ ato, t }: { ato: Ato; t: TextosDosAtos }) {
+/** O "Pôr no story" e o link de apoio externo (só https; nada de pagamento aqui). O lembrete na agenda fica na coluna de ações. */
+function MaisDoAto({ ato, t, lang, logado }: { ato: Ato; t: TextosDosAtos; lang: string; logado: boolean }) {
   const apoio = linkDeApoioSeguro(ato.link_apoio);
-  if (!apoio) return null;
+  const story = ato.situacao !== "cancelado" ? <PorNoStoryDoAto lang={lang} logado={logado} id={ato.id} /> : null;
+  if (!apoio) return story ? <div className="al-ato-pagina-mais">{story}</div> : null;
   return (
     <div className="al-ato-pagina-mais">
+      {story}
       <a href={apoio} target="_blank" rel="noopener noreferrer nofollow" referrerPolicy="no-referrer" className="al-botao al-botao-m al-botao-contorno" title={t.acoes.apoioAjuda}>
         <span className="al-botao-icone">{Icone.fora(18)}</span>
         {t.acoes.apoio}

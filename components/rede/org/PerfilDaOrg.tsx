@@ -40,6 +40,8 @@ export interface PropsDoPerfilDaOrg {
   atos?: ReactNode;
   /** Aba aberta de início ("nucleos" rola até os núcleos). */
   abaInicial?: string | null;
+  /** O que as frentes penduram acima das abas (a fileira de destaques dos stories, components/rede/perfil/FileiraDoPerfil.tsx). */
+  acimaDasAbas?: ReactNode;
   /** O aviso de cima (o perfil de exemplo põe "Dados ilustrativos"). */
   aviso?: ReactNode;
   /** As ações de quem gerencia (só no perfil de verdade; aparecem só quando o banco diz `gerencio`). */
@@ -48,7 +50,7 @@ export interface PropsDoPerfilDaOrg {
   aoMudar?: () => void;
 }
 
-export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s }: PropsDoPerfilDaOrg) {
+export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s, acimaDasAbas = null }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
   const inicial = (ABAS_DA_ORG as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDaOrg) : "posts";
@@ -166,6 +168,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
             </section>
           ) : null}
 
+          {acimaDasAbas}
           <Abas ref={abasRef} id={id} abas={ABAS_DA_ORG} atual={aba} aoMudar={setAba} rotulos={tp.abas} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
           <div id={`${id}-painel`} role="tabpanel" aria-labelledby={`${id}-aba-${aba}`} className="al-painel">
             {painel[aba]}

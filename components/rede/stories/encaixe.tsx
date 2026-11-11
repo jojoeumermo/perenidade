@@ -41,6 +41,26 @@ function PorNoStory({ lang, situacao, post }: ContextoDoEncaixe & { post: Post }
   return <PorNoStoryLigado lang={lang} post={post} />;
 }
 
+/** "Pôr no story" ligado na página do ato: o story leva o cartão do ato (nome, data e cidade; nunca o ponto nem quem vai). */
+function PorNoStoryDoAtoLigado({ lang, id }: { lang: string; id: string }) {
+  const t = useTextosDosStories(lang);
+  if (!t) return null;
+  return (
+    <Link href={enderecosDosStories.criar(lang, id)} className="al-botao al-botao-m al-botao-contorno" title={t.b1.ato.ajuda}>
+      {t.b1.ato.porNoStory}
+    </Link>
+  );
+}
+
+/**
+ * "Pôr no story" para as telas de ato (components/rede/atos/**): a convocação é o uso central da rede, e o story é o jeito mais
+ * rápido de espalhar. Atrás da flag dos stories e só com conta.
+ */
+export function PorNoStoryDoAto({ lang, logado, id }: { lang: string; logado: boolean; id: string }) {
+  if (!logado || !rotaNovaLigada("stories")) return null;
+  return <PorNoStoryDoAtoLigado lang={lang} id={id} />;
+}
+
 /** A faixa de stories no alto da linha de Início, acima das abas (prancha celular-stories-na-linha). */
 function NoAltoDaLinha({ lang, situacao }: ContextoDoEncaixe) {
   if (!rotaNovaLigada("stories")) return null;
