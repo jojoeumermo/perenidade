@@ -16,18 +16,21 @@ import type { TextosDeComunidades } from "@/lib/rede/textos-comunidades";
 import { enderecos, type Comunidade, type Post, type Situacao } from "@/lib/rede/tipos";
 import { corDaComunidadeNova, enderecosCom, postsDaSemana, type PaginaDaComunidade, type SituacaoNaComunidade } from "@/lib/rede/tipos-comunidades";
 import { totalVisivel } from "@/lib/rede/tipos-conversa";
+import { CaixaDePerguntas } from "../b1/CaixaDePerguntas";
+import { useTextosB1 } from "../b1/base";
 import { ENCAIXES } from "../encaixes";
 import { codigoDoErro, textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { useTextosMod } from "../moderacao/base";
 import { FormularioDeDenuncia } from "../moderacao/FormularioDeDenuncia";
+import { WikiDaComunidade } from "./WikiDaComunidade";
 import { CartaoDeAula, Confirmar, FaixaDaPrevia, IconeAlfinete, IconeMais, IconeVoltar, PostCompacto, previa, Torradas, useTextosAlumia3, useTorrada } from "../conversa/base3";
 import { MOLA_PULO, pular, semMovimento, useRegua } from "../conversa/movimento";
 
 // As ferramentas da moderação só chegam ao navegador de quem modera (e só quando abre a aba Sobre).
 const Moderar = dynamic(() => import("./Moderar"), { ssr: false });
 
-type AbaDaComunidade = "posts" | "atos" | "aulas" | "sobre";
+type AbaDaComunidade = "posts" | "atos" | "aulas" | "wiki" | "perguntas" | "sobre";
 
 /**
  * A página da comunidade na Alumia nova (prancha celular-comunidade; PLANO-ALUMIA §3 e §8 F3): capa na cor da comunidade com
@@ -56,7 +59,24 @@ export function PaginaDaComunidadeAlumia({
   const t = useTextosAlumia3(lang);
   const [estado, setEstado] = useState<{ slug: string; dado: PaginaDaComunidade | null; erro: string } | null>(null);
   const [versao, setVersao] = useState(0);
-  const [aba, setAba] = useState<AbaDaComunidade>("posts");
+  // /alumia/c/<slug>/wiki abre direto na aba Wiki (o endereço próprio da wiki, para compartilhar a cartilha).
+  const [aba, setAbaCrua] = useState<AbaDaComunidade>(() => (typeof window !== "undefined" && /\/wiki\/?$/.test(window.location.pathname) ? "wiki" : "posts"));
+  const tb = useTextosB1(lang);
+  const setAba = useCallback(
+    (nova: AbaDaComunidade) => {
+      setAbaCrua(nova);
+      // O endereço acompanha a aba Wiki (sem recarregar e sem entrar no histórico a cada toque).
+      try {
+        const base = enderecos.comunidade(lang, slug);
+        const atual = window.location.pathname;
+        if (nova === "wiki" && !/\/wiki\/?$/.test(atual)) window.history.replaceState(window.history.state, "", `${base}/wiki`);
+        else if (nova !== "wiki" && /\/wiki\/?$/.test(atual)) window.history.replaceState(window.history.state, "", base);
+      } catch {
+        // sem history (prévia em quadro): só a aba muda
+      }
+    },
+    [lang, slug],
+  );
   const [minha, setMinha] = useState<{ slug: string; valor: SituacaoNaComunidade } | null>(null);
   const torradas = useTorrada();
   const avisar = torradas.mostrar;
@@ -216,6 +236,7 @@ export function PaginaDaComunidadeAlumia({
     ["posts", t.comunidade.posts],
     ["atos", t.comunidade.atos],
     ["aulas", t.comunidade.aulas],
+    ...(tb ? ([["wiki", tb.wiki.aba], ["perguntas", tb.perguntas.aba]] as [AbaDaComunidade, string][]) : []),
     ["sobre", t.comunidade.sobre],
   ];
 
@@ -400,6 +421,14 @@ export function PaginaDaComunidadeAlumia({
                 ))}
               </div>
             ))}
+        </div>
+        <div role="tabpanel" id="al3-painel-wiki" aria-labelledby="al3-aba-wiki" hidden={aba !== "wiki"} className="al3-painel">
+          {aba === "wiki" && <WikiDaComunidade slug={comunidade.slug} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />}
+        </div>
+        <div role="tabpanel" id="al3-painel-perguntas" aria-labelledby="al3-aba-perguntas" hidden={aba !== "perguntas"} className="al3-painel">
+          {aba === "perguntas" && (
+            <CaixaDePerguntas alvo={{ slug: comunidade.slug }} nome={comunidade.nome} lang={lang} s={s} situacao={situacao} aoAvisar={(texto, erro) => avisar({ texto, erro })} />
+          )}
         </div>
         <div role="tabpanel" id="al3-painel-sobre" aria-labelledby="al3-aba-sobre" hidden={aba !== "sobre"} className="al3-painel">
           {aba === "sobre" && (
