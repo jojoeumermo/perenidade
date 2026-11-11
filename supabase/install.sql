@@ -36263,6 +36263,10 @@ create table if not exists interno.rede_org_mandatos (
 create unique index if not exists rede_org_mandatos_um on interno.rede_org_mandatos (funcao, pessoa) where encerrado_dia is null;
 create index if not exists rede_org_mandatos_pessoa on interno.rede_org_mandatos (pessoa) where encerrado_dia is null;
 alter table interno.rede_org_mandatos enable row level security;
+-- O mandato por NOMEAÇÃO nasce pendente (aceito = false): a pessoa só aparece em "quem ocupa", e a função só vale, depois que ela
+-- mesma aceitar (LGPD art. 5º, II e art. 11: ligar alguém a uma função de organização política sem ela consentir expõe filiação).
+-- O da eleição já nasce aceito: a candidatura foi dela.
+alter table interno.rede_org_mandatos add column if not exists aceito boolean not null default true;
 
 -- Eleições internas: a votação é uma consulta ranqueada (voto secreto e apuração de rede_consultas).
 create table if not exists interno.rede_org_eleicoes (
@@ -36464,11 +36468,11 @@ create or replace function interno.alumia_org_dentro(p_quem uuid, p_org uuid) re
     select 1 from rede_nucleos n join rede_nucleo_membros m on m.nucleo = n.id where n.org = p_org and m.usuario = p_quem))
 $$;
 
-/** `p_quem` ocupa hoje uma função da organização com a permissão `p_perm`. */
+/** `p_quem` ocupa hoje (mandato aceito por ela) uma função da organização com a permissão `p_perm`. */
 create or replace function interno.alumia_org_funcao_tem(p_quem uuid, p_org uuid, p_perm text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select p_quem is not null and exists (
     select 1 from rede_org_mandatos m join rede_org_funcoes f on f.id = m.funcao
-    where f.org = p_org and m.pessoa = p_quem and m.encerrado_dia is null and m.fim >= current_date and p_perm = any (f.permissoes))
+    where f.org = p_org and m.pessoa = p_quem and m.aceito and m.encerrado_dia is null and m.fim >= current_date and p_perm = any (f.permissoes))
 $$;
 
 /** Conduz a mesa (Ata Viva, plenária): gestor ou função com a permissão "mesa". */
@@ -36503,24 +36507,26 @@ $$;
 
 /**
  * As funções da organização. Quem é de fora vê só os nomes (nunca quem ocupa). Quem é de dentro vê quem ocupa (codinome e @, a
- * etiqueta ao lado do codinome) e até quando; e "minhas", as funções que eu ocupo.
+ * etiqueta ao lado do codinome) e até quando; e "minhas", as funções que eu ocupo. A indicação que a pessoa ainda NÃO aceitou só
+ * aparece para quem gerencia (que a fez) e para ela mesma, em "minhas", marcada como pendente: os outros de dentro não a veem.
  */
 create or replace function public.rede_org_funcoes(p_handle text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
-declare v uuid := auth.uid(); o uuid := interno.alumia_org_de(p_handle); v_dentro boolean;
+declare v uuid := auth.uid(); o uuid := interno.alumia_org_de(p_handle); v_dentro boolean; v_gere boolean;
 begin
   perform interno.limite('alumia_org_ler', 300, 10);
   if o is null or interno.rede_bloqueado(v, o) then return null; end if;
   if v is null and not exists (select 1 from rede_orgs where perfil = o and verificada_em is not null) then return null; end if;
   v_dentro := interno.alumia_org_dentro(v, o);
+  v_gere := coalesce(interno.alumia_org_gere(v, o), false);
   return jsonb_build_object(
     'dentro', v_dentro, 'gerencio', interno.alumia_org_gere(v, o),
     'funcoes', coalesce((select jsonb_agg(jsonb_build_object('id', f.id, 'tipo', f.tipo, 'nome', f.nome, 'permissoes', to_jsonb(f.permissoes), 'vagas', f.vagas,
         'ocupantes', case when v_dentro then coalesce((select jsonb_agg(jsonb_build_object('mandato', m.id, 'handle', p.rede_handle, 'codinome', coalesce(p.rede_codinome, ''),
-              'fim', m.fim, 'origem', m.origem, 'eu', m.pessoa = v) order by m.inicio, p.rede_handle)
+              'fim', m.fim, 'origem', m.origem, 'eu', m.pessoa = v, 'pendente', not m.aceito) order by m.inicio, p.rede_handle)
             from rede_org_mandatos m join perfis p on p.id = m.pessoa
-            where m.funcao = f.id and m.encerrado_dia is null and m.fim >= current_date and not p.suspenso), '[]'::jsonb) end)
+            where m.funcao = f.id and m.encerrado_dia is null and m.fim >= current_date and not p.suspenso and (m.aceito or v_gere)), '[]'::jsonb) end)
       order by f.tipo, lower(f.nome)) from rede_org_funcoes f where f.org = o), '[]'::jsonb),
-    'minhas', case when v is null then '[]'::jsonb else coalesce((select jsonb_agg(jsonb_build_object('funcao', f.id, 'nome', f.nome, 'fim', m.fim, 'mandato', m.id, 'permissoes', to_jsonb(f.permissoes)) order by f.nome)
+    'minhas', case when v is null then '[]'::jsonb else coalesce((select jsonb_agg(jsonb_build_object('funcao', f.id, 'nome', f.nome, 'fim', m.fim, 'mandato', m.id, 'permissoes', to_jsonb(f.permissoes), 'pendente', not m.aceito) order by f.nome)
       from rede_org_mandatos m join rede_org_funcoes f on f.id = m.funcao
       where f.org = o and m.pessoa = v and m.encerrado_dia is null and m.fim >= current_date), '[]'::jsonb) end);
 end $$;
@@ -36564,8 +36570,9 @@ begin
 end $$;
 
 /**
- * Nomear alguém para uma função até `fim` (só quem gerencia). A pessoa precisa ser de um núcleo da organização e membro da Rede;
- * respeita as vagas. Ela recebe um aviso e pode sair quando quiser.
+ * Indicar alguém para uma função até `fim` (só quem gerencia). A pessoa precisa ser de um núcleo da organização e membro da Rede;
+ * respeita as vagas (a indicação pendente segura a vaga). O mandato nasce PENDENTE: ela recebe um aviso e só passa a ocupar a
+ * função, e a aparecer para os outros de dentro, quando aceitar (rede_org_mandato_aceitar). Recusar é encerrar.
  */
 create or replace function public.rede_org_mandato_dar(p_handle text, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare o uuid := interno.alumia_org_gestor(p_handle, 'alumia_org_mandato', 60, 60); f rede_org_funcoes; v_quem uuid; v_fim date;
@@ -36583,13 +36590,26 @@ begin
     perform interno.erro('nao_encontrado');
   end if;
   if (select count(*) from rede_org_mandatos where funcao = f.id and encerrado_dia is null and fim >= current_date) >= f.vagas then perform interno.erro('sem_vaga'); end if;
-  insert into rede_org_mandatos (funcao, pessoa, fim, origem) values (f.id, v_quem, v_fim, 'nomeacao') on conflict do nothing;
+  insert into rede_org_mandatos (funcao, pessoa, fim, origem, aceito) values (f.id, v_quem, v_fim, 'nomeacao', false) on conflict do nothing;
   if not found then perform interno.erro('ja_ocupa'); end if;
-  perform interno.avisar_em(v_quem, format('Você ocupa a função “%s” em “%s” até %s. Se não quiser, saia pela página da organização.', f.nome, interno.rede_nome(o), to_char(v_fim, 'DD/MM/YYYY')), 'rede');
+  perform interno.avisar_em(v_quem, format('Você foi indicada para a função “%s” em “%s”, até %s. Ela só vale, e só aparece para as outras pessoas, se você aceitar pela página da organização.', f.nome, interno.rede_nome(o), to_char(v_fim, 'DD/MM/YYYY')), 'rede');
   return public.rede_org_funcoes(p_handle);
 end $$;
 
-/** Encerrar um mandato: quem gerencia, ou a própria pessoa (sair da função). Registrado sem dizer quem era. */
+/** Aceitar a indicação para uma função: só a própria pessoa, e só enquanto a indicação está de pé. A partir daí o mandato vale. */
+create or replace function public.rede_org_mandato_aceitar(p_mandato uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); m rede_org_mandatos; o uuid;
+begin
+  perform interno.rede3_perfil_exige_membro(v);
+  select * into m from rede_org_mandatos where id = p_mandato and pessoa = v and encerrado_dia is null and fim >= current_date;
+  if m.id is null then perform interno.erro('nao_encontrado'); end if;
+  select f.org into o from rede_org_funcoes f where f.id = m.funcao;
+  perform interno.limite('alumia_org_mandato', 60, 60);
+  update rede_org_mandatos set aceito = true where id = m.id;
+  return public.rede_org_funcoes((select rede_handle from perfis where id = o));
+end $$;
+
+/** Encerrar um mandato: quem gerencia, ou a própria pessoa (sair da função, ou recusar a indicação). Registrado sem dizer quem era. */
 create or replace function public.rede_org_mandato_encerrar(p_mandato uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); m rede_org_mandatos; o uuid;
 begin
@@ -36767,7 +36787,7 @@ begin
     'fila', case when v_mesa and a.situacao = 'aberta' and a.ponto_atual is not null then coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'posicao', x.posicao,
         'codinome', coalesce(nullif(p.rede_codinome, ''), p.rede_handle),
         'funcoes', coalesce((select jsonb_agg(fu.nome order by fu.nome) from rede_org_mandatos m join rede_org_funcoes fu on fu.id = m.funcao
-                    where fu.org = a.org and m.pessoa = x.pessoa and m.encerrado_dia is null and m.fim >= current_date), '[]'::jsonb)) order by x.seq)
+                    where fu.org = a.org and m.pessoa = x.pessoa and m.aceito and m.encerrado_dia is null and m.fim >= current_date), '[]'::jsonb)) order by x.seq)
       from (select * from rede_org_ata_falas where ponto = a.ponto_atual and falou_em is null order by seq limit 60) x join perfis p on p.id = x.pessoa), '[]'::jsonb) end,
     'sinais', case when a.situacao = 'aberta' then jsonb_build_object('abertos', a.sinais_abertos,
       'mosaico', case when v_sinais is not null then v_sinais - 'haBloqueio' end,
@@ -37379,7 +37399,7 @@ begin
   for r in select x.id, x.texto, x.org, x.funcao_id from rede_org_encaminhamentos x
            where x.estado = 'aberto' and x.prazo < current_date and x.avisado_dia is null and x.funcao_id is not null limit 500 loop
     perform interno.avisar_em(m.pessoa, format('O encaminhamento “%s” de “%s” passou do prazo. Abra o Tear para marcar como cumprido ou combinar novo prazo.', left(r.texto, 80), interno.rede_nome(r.org)), 'rede')
-    from rede_org_mandatos m where m.funcao = r.funcao_id and m.encerrado_dia is null and m.fim >= current_date;
+    from rede_org_mandatos m where m.funcao = r.funcao_id and m.aceito and m.encerrado_dia is null and m.fim >= current_date;
     update rede_org_encaminhamentos set avisado_dia = current_date where id = r.id;
     v_av := v_av + 1;
   end loop;
@@ -37407,7 +37427,7 @@ begin
     'interno.alumia_ata_json(interno.rede_org_atas, uuid)', 'interno.alumia_ata_texto(uuid)',
     'interno.alumia_caixa_json(interno.rede_org_caixas, uuid, boolean, boolean)', 'interno.alumia_org_rotina()',
     'public.rede_org_funcoes(text)', 'public.rede_org_funcao_salvar(text, jsonb)', 'public.rede_org_funcao_apagar(text, uuid)',
-    'public.rede_org_mandato_dar(text, jsonb)', 'public.rede_org_mandato_encerrar(uuid)',
+    'public.rede_org_mandato_dar(text, jsonb)', 'public.rede_org_mandato_encerrar(uuid)', 'public.rede_org_mandato_aceitar(uuid)',
     'public.rede_org_eleicoes(text)', 'public.rede_org_eleicao_abrir(text, jsonb)', 'public.rede_org_eleicao_candidatar(uuid, boolean)',
     'public.rede_org_atas(text)', 'public.rede_org_ata(uuid)', 'public.rede_org_ata_abrir(text, jsonb)', 'public.rede_org_ata_inscrever(uuid, text)',
     'public.rede_org_ata_sinal(uuid, text)', 'public.rede_org_ata_mesa(uuid, jsonb)', 'public.rede_org_ata_fechar(uuid, text)',
@@ -37427,7 +37447,7 @@ begin
     grant execute on function public.rede_org_funcoes(text), public.rede_org_atas(text), public.rede_org_ata(uuid), public.rede_org_caixa(text),
       public.rede_org_mapa(), public.rede_org_perfil(text), public.rede_org_plenaria(uuid), public.rede_org_tear(text), public.rede_org_diretorio(jsonb), public.rede_org_atos(text) to anon;
     grant execute on function public.rede_org_funcoes(text), public.rede_org_funcao_salvar(text, jsonb), public.rede_org_funcao_apagar(text, uuid),
-      public.rede_org_mandato_dar(text, jsonb), public.rede_org_mandato_encerrar(uuid),
+      public.rede_org_mandato_dar(text, jsonb), public.rede_org_mandato_encerrar(uuid), public.rede_org_mandato_aceitar(uuid),
       public.rede_org_eleicoes(text), public.rede_org_eleicao_abrir(text, jsonb), public.rede_org_eleicao_candidatar(uuid, boolean),
       public.rede_org_atas(text), public.rede_org_ata(uuid), public.rede_org_ata_abrir(text, jsonb), public.rede_org_ata_inscrever(uuid, text),
       public.rede_org_ata_sinal(uuid, text), public.rede_org_ata_mesa(uuid, jsonb), public.rede_org_ata_fechar(uuid, text),

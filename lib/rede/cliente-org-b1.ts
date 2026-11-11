@@ -32,6 +32,8 @@ export function criarClienteOrgB1(c: Chamar) {
     apagarFuncao: (handle: string, id: string) => c<FuncoesDaOrg>("rede_org_funcao_apagar", { p_handle: handle, p_id: id }),
     darMandato: (handle: string, p: { funcao: string; handle: string; fim: string }) => c<FuncoesDaOrg>("rede_org_mandato_dar", { p_handle: handle, p }),
     encerrarMandato: (mandato: string) => c<FuncoesDaOrg>("rede_org_mandato_encerrar", { p_mandato: mandato }),
+    /** Aceitar a indicação para uma função (só a própria pessoa): até lá o mandato não vale nem aparece para os outros. */
+    aceitarMandato: (mandato: string) => c<FuncoesDaOrg>("rede_org_mandato_aceitar", { p_mandato: mandato }),
 
     eleicoes: (handle: string) => c<EleicaoDaOrg[] | null>("rede_org_eleicoes", { p_handle: handle }),
     abrirEleicao: (handle: string, p: { funcao: string; inscricoesAte: string; prazo: string; mandatoFim: string; quorum: number | null }) => c<EleicaoDaOrg[]>("rede_org_eleicao_abrir", { p_handle: handle, p }),

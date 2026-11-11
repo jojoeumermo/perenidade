@@ -50,6 +50,10 @@
     "fim": "Fim do mandato",
     "darMandato": "Dar o mandato",
     "encerrar": "Encerrar mandato",
+    "aguardando": "aguardando aceite",
+    "indicada": "indicação: só vale se você aceitar",
+    "aceitar": "Aceitar",
+    "recusar": "Recusar",
     "feito": "Pronto."
   },
   "eleicoes": {

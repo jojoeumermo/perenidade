@@ -94,7 +94,7 @@ export function FuncoesDaOrganizacao({ handle, lang }: { handle: string; lang: s
                   {fn.ocupantes.map((o) => (
                     <li key={o.mandato} data-eu={o.eu ? "" : undefined}>
                       <span className="b1-etiqueta">{o.codinome || `@${o.handle}`}</span>
-                      <small>{preencher(tf.ate, { data: dataCurta(o.fim, lang) })} · {o.origem === "eleicao" ? tf.eleita : tf.nomeada}</small>
+                      <small>{preencher(tf.ate, { data: dataCurta(o.fim, lang) })} · {o.pendente ? tf.aguardando : o.origem === "eleicao" ? tf.eleita : tf.nomeada}</small>
                       {f.gerencio && !o.eu ? <Botao variante="fantasma" tamanho="p" disabled={ocupado} onClick={() => void fazer(() => cli.encerrarMandato(o.mandato), setF)}>{tf.encerrar}</Botao> : null}
                     </li>
                   ))}
@@ -115,8 +115,16 @@ export function FuncoesDaOrganizacao({ handle, lang }: { handle: string; lang: s
           <ul className="b1-lista">
             {f.minhas.map((m) => (
               <li key={m.mandato} className="b1-minha-funcao">
-                <span><strong>{m.nome}</strong> <small>{preencher(tf.ate, { data: dataCurta(m.fim, lang) })}</small></span>
+                <span><strong>{m.nome}</strong> <small>{preencher(tf.ate, { data: dataCurta(m.fim, lang) })}{m.pendente ? ` · ${tf.indicada}` : ""}</small></span>
+                {/* Indicação ainda não aceita: a função só vale (e só aparece para os outros) depois do "Aceitar". */}
+                {m.pendente ? (
+                  <>
+                    <Botao tamanho="p" disabled={ocupado} onClick={() => void fazer(() => cli.aceitarMandato(m.mandato), setF)}>{tf.aceitar}</Botao>
+                    <Botao variante="contorno" tamanho="p" disabled={ocupado} onClick={() => void fazer(() => cli.encerrarMandato(m.mandato), setF)}>{tf.recusar}</Botao>
+                  </>
+                ) : (
                 <Botao variante="contorno" tamanho="p" disabled={ocupado} onClick={() => window.confirm(preencher(tf.sairConfirma, { nome: m.nome })) && void fazer(() => cli.encerrarMandato(m.mandato), setF)}>{tf.sair}</Botao>
+                )}
               </li>
             ))}
           </ul>
