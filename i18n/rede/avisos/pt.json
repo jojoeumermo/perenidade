@@ -46,7 +46,7 @@
         "ajudou": "Quando sua resposta ajudou (nunca quem marcou)",
         "ato": "Atos que você acompanha (farol, corrente, consulta)",
         "reacao_story": "Reações aos seus stories (nunca quem reagiu)",
-        "lembrete": "Lembretes que você marcou"
+        "lembrete": "Lembretes: os que você marcou e os dos atos que você confirmou"
       }
     },
     "resumo": {

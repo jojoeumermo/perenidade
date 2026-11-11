@@ -36102,8 +36102,11 @@ create trigger rede_ato_lembrete_zerar before update of inicio on interno.rede_c
 /**
  * A rodada dos lembretes (pg_cron de 15 em 15 min; só o dono do banco chama). Para cada ato não cancelado que começa nas próximas
  * 24 h: 2 h antes sai o lembrete das 2 h; antes disso, o das 24 h (só se ainda faltam 12 h ou mais: ato chamado em cima da hora
- * recebe só o das 2 h). Vai a quem confirmou, é membro, ainda vê o ato e não desligou "lembrete"; o aviso tem tipo 'chamado' (o
- * enviar-push manda SEM texto) e um texto sem nome de ninguém (a reserva em português; a tela de avisos traduz). Nada fica guardado por pessoa: só a hora em que o lembrete do ato saiu.
+ * recebe só o das 2 h). Vai a quem confirmou, é membro, ainda vê o ato e não desligou "lembrete"; o aviso é pedido com o tipo
+ * 'chamado' (que existe desde a fundação; o enviar-push manda SEM texto) e, com a B1 da comunidade instalada
+ * (20261110-alumia-b1-comunidade.sql, interno.rede3_aviso_antes), é GRAVADO como 'lembrete': a preferência "lembrete" conferida aqui
+ * é a mesma que a pessoa liga e desliga na tela de avisos. O texto não tem nome de ninguém (a reserva em português; a tela de
+ * avisos traduz). Nada fica guardado por pessoa: só a hora em que o lembrete do ato saiu.
  */
 create or replace function interno.rede_ato_lembretes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare c rede_chamados; p rede_posts; r record; v_texto text; v_qual text; v_atos integer := 0; v_avisos integer := 0; v_n bigint;
@@ -38205,7 +38208,9 @@ end $$;
 --
 --   1. Agendador de verdade: liga o pg_cron (quando o serviço deixa) e roda rede_pub_agendados_rodar a cada minuto. Antes, um
 --      post marcado para as 7h só saía quando a própria autora abria a Rede.
---   2. Agendar com recorrência ("toda semana", até 12 vezes) e "quando o ato terminar" (um ato que a própria pessoa chamou).
+--   2. Agendar com recorrência ("toda semana", até 12 vezes) e "quando o ato terminar" (um ato que a própria pessoa chamou). A
+--      repetição tem UM mecanismo só, que mora aqui (o gatilho interno.rede_alumia_serie_seguir): serve a este agendar e às séries
+--      da comunidade (20261110-alumia-b1-comunidade.sql, rede_alumia_agendar_serie), com os mesmos valores: semanal, quinzenal, mensal.
 --   3. Enquete avançada: resultado só no fim (nem quem fez nem quem votou vê a parcial: em assembleia, a parcial puxa o voto)
 --      e ordem embaralhada por pessoa (a primeira opção não leva vantagem). O voto já é único e não se troca.
 --   4. Quem pode citar (repostar com comentário): ninguém / quem eu sigo / todos, por post; padrão "ninguém" nos posts novos. A
@@ -38235,21 +38240,31 @@ create table if not exists interno.rede_b1_enquete (
   embaralhar boolean not null default false
 );
 
+-- A repetição do agendado, num desenho só para a casca e para as séries da comunidade:
+--   repetir        'semanal' | 'quinzenal' | 'mensal' (nulo: sai uma vez só)
+--   repetir_ate    até quando a série vai (nulo: só o teto de vezes)
+--   vezes          em que vez esta linha está (1, 2, 3…; no máximo 52)
+--   repetir_vezes  quantas vezes a série sai ao todo (nulo: até repetir_ate, ou 52)
+--   serie          o número da série (o mesmo em todas as linhas dela; serve para listar e para parar)
 alter table interno.rede_agendados add column if not exists repetir text;
 alter table interno.rede_agendados add column if not exists repetir_ate timestamptz;
 alter table interno.rede_agendados add column if not exists vezes smallint not null default 1;
 alter table interno.rede_agendados add column if not exists repetir_vezes smallint;
+alter table interno.rede_agendados add column if not exists serie uuid;
 alter table interno.rede_agendados add column if not exists apos_ato uuid references interno.rede_posts (id) on delete set null;
 do $$
 begin
-  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_agendados'::regclass and conname = 'rede_agendados_repetir') then
-    alter table interno.rede_agendados add constraint rede_agendados_repetir check (repetir is null or repetir = 'semana');
-  end if;
-  if not exists (select 1 from pg_constraint where conrelid = 'interno.rede_agendados'::regclass and conname = 'rede_agendados_vezes') then
-    alter table interno.rede_agendados add constraint rede_agendados_vezes check (vezes between 1 and 12);
-  end if;
+  -- As regras são refeitas a cada vez (um banco que rodou a versão de antes tinha só 'semana' e o teto de 12): tira a regra,
+  -- acerta o que já estava gravado e põe a regra de agora. Rodar de novo não muda nada.
+  alter table interno.rede_agendados drop constraint if exists rede_agendados_repetir;
+  update interno.rede_agendados set repetir = 'semanal' where repetir = 'semana';
+  update interno.rede_agendados set serie = gen_random_uuid() where repetir is not null and serie is null;
+  alter table interno.rede_agendados add constraint rede_agendados_repetir check (repetir is null or repetir in ('semanal', 'quinzenal', 'mensal'));
+  alter table interno.rede_agendados drop constraint if exists rede_agendados_vezes;
+  alter table interno.rede_agendados add constraint rede_agendados_vezes check (vezes between 1 and 52);
 end $$;
 create index if not exists rede_agendados_apos_ato on interno.rede_agendados (apos_ato) where estado = 'pendente' and apos_ato is not null;
+create index if not exists rede_agendados_serie on interno.rede_agendados (serie) where serie is not null;
 
 alter table interno.rede_b1_post enable row level security;
 alter table interno.rede_b1_enquete enable row level security;
@@ -38473,10 +38488,11 @@ $$;
 /**
  * Publica o que venceu (de uma pessoa, ou de todas com p_autor nulo), em nome de cada autor, pelo rede_pub_publicar_mais (as mesmas
  * conferências de sempre). O que espera o fim de um ato segue a data do ato (se ele foi adiado, o post espera junto; se foi
- * cancelado, fica "falhou: ato_cancelado"). O que se repete ganha a próxima vez, 7 dias depois, até a data final ou 12 vezes.
+ * cancelado, fica "falhou: ato_cancelado"). A próxima vez do que se repete NÃO é criada aqui: quem cria é o gatilho
+ * interno.rede_alumia_serie_seguir (abaixo), o único lugar que faz isso, para o post nunca sair em dobro.
  */
 create or replace function interno.rede3_pub_rodar(p_autor uuid default null) returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
-declare a rede_agendados; v_antes text := current_setting('request.jwt.claims', true); v_antes_sub text := current_setting('request.jwt.claim.sub', true); v_post jsonb; v_n integer := 0; v_prox timestamptz;
+declare a rede_agendados; v_antes text := current_setting('request.jwt.claims', true); v_antes_sub text := current_setting('request.jwt.claim.sub', true); v_post jsonb; v_n integer := 0;
 begin
   -- O fim do ato pode ter mudado (adiado) ou o ato caiu (cancelado).
   update rede_agendados g set quando = interno.rede_b1_fim_do_ato(g.apos_ato)
@@ -38492,14 +38508,6 @@ begin
       v_post := public.rede_pub_publicar_mais(a.pedido);
       update rede_agendados set estado = 'publicado', post = (v_post ->> 'id')::uuid, erro = '' where id = a.id;
       v_n := v_n + 1;
-      if a.repetir = 'semana' and a.vezes < least(12, coalesce(a.repetir_vezes, 12)) then
-        v_prox := a.quando + interval '7 days';
-        -- Atrasou muito (o agendador ficou parado)? A próxima vez é a primeira terça (ou o dia que for) ainda no futuro.
-        while v_prox <= now() loop v_prox := v_prox + interval '7 days'; end loop;
-        if a.repetir_ate is null or v_prox <= a.repetir_ate then
-          insert into rede_agendados (autor, pedido, quando, repetir, repetir_ate, vezes, repetir_vezes) values (a.autor, a.pedido, v_prox, a.repetir, a.repetir_ate, a.vezes + 1, a.repetir_vezes);
-        end if;
-      end if;
     exception when others then
       update rede_agendados set estado = 'falhou', erro = left(sqlerrm, 120) where id = a.id;
     end;
@@ -38509,19 +38517,52 @@ begin
   return v_n;
 end $$;
 
+/** O próximo horário de uma série. */
+create or replace function interno.rede_alumia_proxima_vez(p_quando timestamptz, p_repetir text) returns timestamptz language sql immutable as $$
+  select p_quando + case p_repetir when 'semanal' then interval '7 days' when 'quinzenal' then interval '14 days' when 'mensal' then interval '1 month' end
+$$;
+
 /**
- * Agendar com as opções desta etapa. p_opcoes: { repetir: 'semana', vezes: 2..12 } e/ou { apos_ato: <id de um ato que EU chamei> }.
+ * O ÚNICO lugar que cria a próxima vez de um post que se repete (o agendar daqui e as séries da comunidade). Roda quando um
+ * agendado deixa de estar pendente porque saiu (ou falhou: uma falha de um dia não acaba com a "assembleia toda terça"); cancelar
+ * o que está na fila acaba com a série. Não cria nada se: a série chegou ao total de vezes (ou a 52), a próxima passaria da data
+ * final, ou a série JÁ tem um na fila (é o que garante uma vez só, mesmo com dois agendadores rodando juntos). Se o agendador
+ * ficou parado, a próxima é a primeira terça (ou o dia que for) ainda no futuro. Um erro aqui nunca desfaz a publicação.
+ */
+create or replace function interno.rede_alumia_serie_seguir() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_prox timestamptz; v_serie uuid := coalesce(new.serie, gen_random_uuid());
+begin
+  if new.repetir is null or old.estado <> 'pendente' or new.estado not in ('publicado', 'falhou') then return null; end if;
+  if new.vezes >= least(52, coalesce(new.repetir_vezes, 52)) then return null; end if;
+  v_prox := interno.rede_alumia_proxima_vez(new.quando, new.repetir);
+  while v_prox <= now() loop v_prox := interno.rede_alumia_proxima_vez(v_prox, new.repetir); end loop;
+  if new.repetir_ate is not null and v_prox > new.repetir_ate then return null; end if;
+  begin
+    -- Uma série por vez (dois agendadores no mesmo instante esperam um pelo outro e o segundo já vê o que o primeiro pôs na fila).
+    perform pg_advisory_xact_lock(hashtextextended('rede_serie:' || v_serie::text, 0));
+    if exists (select 1 from rede_agendados where serie = v_serie and estado = 'pendente') then return null; end if;
+    insert into rede_agendados (autor, pedido, quando, repetir, repetir_ate, vezes, repetir_vezes, serie)
+    values (new.autor, new.pedido, v_prox, new.repetir, new.repetir_ate, new.vezes + 1, new.repetir_vezes, v_serie);
+  exception when others then null;
+  end;
+  return null;
+end $$;
+drop trigger if exists rede_alumia_serie_seguir on interno.rede_agendados;
+create trigger rede_alumia_serie_seguir after update of estado on interno.rede_agendados for each row execute function interno.rede_alumia_serie_seguir();
+
+/**
+ * Agendar com as opções desta etapa. p_opcoes: { repetir: 'semanal' | 'quinzenal' | 'mensal', vezes: 2..12 } e/ou { apos_ato: <id de um ato que EU chamei> }.
  * Com apos_ato, a hora é o fim do ato (p_quando é ignorado). Repetir não aceita imagem nem áudio (cada arquivo só nasce uma vez).
  * Usa o rede_pub_agendar de sempre (ensaio do pedido, de 5 minutos a 30 dias, até 10 na fila).
  */
 create or replace function public.rede_pub_agendar_mais(p jsonb, p_quando timestamptz, p_opcoes jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_ato uuid; v_quando timestamptz := p_quando; v_r jsonb; v_id uuid; v_rep text; v_vezes integer;
+declare v uuid := interno.eu(); v_ato uuid; v_quando timestamptz := p_quando; v_r jsonb; v_id uuid; v_rep text; v_vezes integer; v_serie uuid;
 begin
   perform interno.aberta('comunidade');
   if p_opcoes is null or jsonb_typeof(p_opcoes) <> 'object' then p_opcoes := '{}'::jsonb; end if;
   perform interno.limite('alumia_agendar', 30, 60);
   v_rep := nullif(p_opcoes ->> 'repetir', '');
-  if v_rep is not null and v_rep <> 'semana' then perform interno.erro('invalido:repetir'); end if;
+  if v_rep is not null and v_rep not in ('semanal', 'quinzenal', 'mensal') then perform interno.erro('invalido:repetir'); end if;
   if v_rep is not null then
     begin
       v_vezes := coalesce((p_opcoes ->> 'vezes')::integer, 4);
@@ -38543,10 +38584,12 @@ begin
   end if;
   v_r := public.rede_pub_agendar(p, v_quando);
   v_id := (v_r ->> 'id')::uuid;
-  update rede_agendados set repetir = v_rep, vezes = 1, repetir_vezes = v_vezes, apos_ato = v_ato,
-         repetir_ate = case when v_rep is not null then v_quando + (v_vezes - 1) * interval '7 days' end
+  if v_rep is not null then v_serie := gen_random_uuid(); end if;
+  update rede_agendados set repetir = v_rep, vezes = 1, repetir_vezes = v_vezes, apos_ato = v_ato, serie = v_serie,
+         repetir_ate = case v_rep when 'semanal' then v_quando + (v_vezes - 1) * interval '7 days' when 'quinzenal' then v_quando + (v_vezes - 1) * interval '14 days'
+                                  when 'mensal' then v_quando + (v_vezes - 1) * interval '1 month' end
    where id = v_id and autor = v;
-  return v_r || jsonb_build_object('repetir', v_rep, 'vezes', v_vezes, 'apos_ato', v_ato);
+  return v_r || jsonb_build_object('repetir', v_rep, 'vezes', v_vezes, 'apos_ato', v_ato, 'serie', v_serie);
 end $$;
 
 /** Os atos que EU chamei e ainda não acabaram (para "publicar quando o ato terminar"): id, nome e quando acaba. Até 20. */
@@ -38570,7 +38613,7 @@ begin
   perform interno.rede3_pub_rodar(v);
   return coalesce((select jsonb_agg(jsonb_build_object('id', a.id, 'quando', a.quando, 'estado', a.estado, 'erro', a.erro, 'post', a.post,
            'texto', left(coalesce(a.pedido ->> 'texto', a.pedido ->> 'titulo', ''), 120),
-           'repetir', a.repetir, 'vezes', a.vezes, 'repetir_vezes', a.repetir_vezes, 'repetir_ate', a.repetir_ate, 'apos_ato', a.apos_ato is not null) order by a.quando desc)
+           'repetir', a.repetir, 'vezes', a.vezes, 'repetir_vezes', a.repetir_vezes, 'repetir_ate', a.repetir_ate, 'serie', a.serie, 'apos_ato', a.apos_ato is not null) order by a.quando desc)
          from (select * from rede_agendados where autor = v and estado <> 'cancelado' order by quando desc limit 20) a), '[]'::jsonb);
 end $$;
 
@@ -38631,14 +38674,16 @@ end $$;
 
 -- ── 8. Permissões ───────────────────────────────────────────────────────────────────────────────────────────────────────
 revoke all on function interno.rede_b1_post_nasce(), interno.rede_b1_pode_citar(uuid, uuid), interno.rede_b1_citar_confere(),
-  interno.rede_b1_fim_do_ato(uuid), interno.rede3_pub_enquete(interno.rede_posts, uuid), interno.rede3_pub_rodar(uuid), interno.rede_rascunho_limpo(jsonb) from public;
+  interno.rede_b1_fim_do_ato(uuid), interno.rede3_pub_enquete(interno.rede_posts, uuid), interno.rede3_pub_rodar(uuid), interno.rede_rascunho_limpo(jsonb),
+  interno.rede_alumia_proxima_vez(timestamptz, text), interno.rede_alumia_serie_seguir() from public;
 revoke all on function public.rede_pub_publicar_mais(jsonb), public.rede_pub_detalhes(uuid[]), public.rede_pub_corrigir(uuid, jsonb),
   public.rede_pub_agendar_mais(jsonb, timestamptz, jsonb), public.rede_pub_meus_atos(), public.rede_pub_agendados(), public.rede_pub_rascunhos_apagar_todos() from public;
 do $$
 begin
   if exists (select 1 from pg_roles where rolname = 'anon') then
     revoke all on function interno.rede_b1_post_nasce(), interno.rede_b1_pode_citar(uuid, uuid), interno.rede_b1_citar_confere(),
-      interno.rede_b1_fim_do_ato(uuid), interno.rede3_pub_enquete(interno.rede_posts, uuid), interno.rede3_pub_rodar(uuid), interno.rede_rascunho_limpo(jsonb) from anon, authenticated;
+      interno.rede_b1_fim_do_ato(uuid), interno.rede3_pub_enquete(interno.rede_posts, uuid), interno.rede3_pub_rodar(uuid), interno.rede_rascunho_limpo(jsonb),
+  interno.rede_alumia_proxima_vez(timestamptz, text), interno.rede_alumia_serie_seguir() from anon, authenticated;
     revoke all on function public.rede_pub_publicar_mais(jsonb), public.rede_pub_corrigir(uuid, jsonb), public.rede_pub_agendar_mais(jsonb, timestamptz, jsonb),
       public.rede_pub_meus_atos(), public.rede_pub_agendados(), public.rede_pub_rascunhos_apagar_todos() from anon;
     -- Leitura (a matriz decide): com ou sem conta.
@@ -38659,7 +38704,8 @@ end $$;
 --   2. Página da comunidade: área aberta → comunidade e situação → limite → página → posts da semana (só para quem vê a
 --      comunidade). Antes, o limite era gasto até por quem pedia comunidade fechada ou que não existe, e o tipo de erro sondava slug.
 --   3. Avisos dos tipos novos: conversa_seguida, ajudou, ato, reacao_story e lembrete, cada um com preferência no site e no
---      celular. A conversa seguida deixa de avisar quando a raiz fica oculta, retida ou apagada.
+--      celular. A conversa seguida deixa de avisar quando a raiz fica oculta, retida ou apagada. O lembrete do ato (B1 dos atos)
+--      passa a ser gravado como 'lembrete', junto do "lembrar mais tarde".
 --   4. Notas de contexto (notas da comunidade).  5. Wiki da comunidade com histórico.  6. Busca com operadores e busca salva.
 --   7. A linha dos #temas seguidos.  8. Salvos em pastas.  9. "Pergunte a…".  10. Posts recorrentes.  11. Citar trecho com
 --   âncora.  12. Lembrar mais tarde.  13. Conversas que sigo (ver e deixar de seguir).
@@ -38676,7 +38722,8 @@ end $$;
 -- (interno.rede2_membro); só membro escreve, avalia, pergunta ou salva.
 --
 -- Idempotente (scripts/testar-alumia-b1-comunidade.mjs roda duas vezes no banco local). Roda depois de tudo o que já está no
--- install.sql (F0..F5, Fediverso e as de 10/11). NÃO rodar em produção sem o Jonathan.
+-- install.sql (F0..F5, Fediverso e as de 10/11) e DEPOIS das outras B1: a dos atos (20261110-alumia-b1-atos.sql, o lembrete do
+-- ato) e a da casca (20261110-alumia-b1-casca.sql, dona das colunas e do gatilho dos posts que se repetem). NÃO rodar em produção sem o Jonathan.
 
 -- ══════════════════════════════════════════ 1. Reações: o total sem bloqueio nem suspensa ══════════════════════════════════════════
 
@@ -38811,8 +38858,10 @@ end $$;
 
 /**
  * Antes de gravar um aviso (o gatilho de sempre, com os tipos novos): (1) a resposta da fundação ganha estrutura, como antes;
- * (2) os avisos de ato (que as frentes de atos gravam como 'chamado') viram 'ato'; a reação a story (sem tipo) vira 'reacao_story';
- * (3) quem desligou o tipo no site não recebe (a moderação nunca é desligada).
+ * (2) os avisos de ato (que as frentes de atos gravam como 'chamado') viram 'ato'; o LEMBRETE do ato (24 h e 2 h antes,
+ * interno.rede_ato_lembretes em 20261110-alumia-b1-atos.sql, que também grava 'chamado' porque roda antes de o tipo existir) vira
+ * 'lembrete', o mesmo tipo do "lembrar mais tarde": uma preferência só ("Lembretes") liga e desliga os dois; a reação a story (sem
+ * tipo) vira 'reacao_story'; (3) quem desligou o tipo no site não recebe (a moderação nunca é desligada).
  */
 create or replace function interno.rede3_aviso_antes() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
 declare m text[]; r record;
@@ -38826,7 +38875,9 @@ begin
       if found then new.tipo := 'resposta'; new.post := r.resposta_a; new.alvo := r.id; new.ator := r.autor; end if;
     end if;
   end if;
-  if new.categoria = 'rede' and new.tipo = 'chamado' and new.texto ~ '^(Um ato que você|O farol de um ato|A corrente de um ato)' then
+  if new.categoria = 'rede' and new.tipo = 'chamado' and new.texto ~ '^Lembrete: um ato que você confirmou' then
+    new.tipo := 'lembrete';
+  elsif new.categoria = 'rede' and new.tipo = 'chamado' and new.texto ~ '^(Um ato que você|O farol de um ato|A corrente de um ato)' then
     new.tipo := 'ato';
   end if;
   if new.categoria = 'rede' and new.tipo is null and new.texto ~ '^Alguém reagiu ao seu story' then
@@ -39869,43 +39920,29 @@ begin
 end $$;
 
 -- ══════════════════════════════════════════ 11. Posts recorrentes ══════════════════════════════════════════
--- "Assembleia toda terça": o agendado ganha repetição (semanal, quinzenal, mensal) e um fim. Quando um sai (publicado ou falhou),
--- o próximo da série entra na fila com o mesmo pedido, até o fim ou 52 vezes. Parar a série cancela o que está na fila.
+-- "Assembleia toda terça": o agendado ganha repetição (semanal, quinzenal, mensal) e um fim. As colunas (repetir, repetir_ate, vezes,
+-- repetir_vezes, serie), a regra rede_agendados_repetir e o gatilho que põe o próximo na fila (interno.rede_alumia_serie_seguir, o
+-- ÚNICO mecanismo de repetição, para o post nunca sair em dobro) moram na casca (20261110-alumia-b1-casca.sql, que roda antes).
+-- Aqui ficam só as funções da série: agendar, listar e parar. Quando um sai (publicado ou falhou), o próximo entra na fila com o
+-- mesmo pedido, até o fim ou 52 vezes. Parar a série cancela o que está na fila.
 
-alter table interno.rede_agendados add column if not exists repetir text;
-alter table interno.rede_agendados add column if not exists ate timestamptz;
-alter table interno.rede_agendados add column if not exists serie uuid;
-alter table interno.rede_agendados add column if not exists vez integer not null default 1;
+-- Banco que rodou a versão de antes desta migração (colunas "ate" e "vez" próprias): passa o que havia para as colunas de agora.
 do $$
 begin
-  alter table interno.rede_agendados add constraint rede_agendados_repetir check (repetir is null or repetir in ('semanal', 'quinzenal', 'mensal'));
-exception when duplicate_object then null;
+  if exists (select 1 from information_schema.columns where table_schema = 'interno' and table_name = 'rede_agendados' and column_name = 'ate') then
+    execute 'update interno.rede_agendados set repetir_ate = coalesce(repetir_ate, ate) where ate is not null';
+    alter table interno.rede_agendados drop column ate;
+  end if;
+  if exists (select 1 from information_schema.columns where table_schema = 'interno' and table_name = 'rede_agendados' and column_name = 'vez') then
+    execute 'update interno.rede_agendados set vezes = least(52, vez) where vez > vezes';
+    alter table interno.rede_agendados drop column vez;
+  end if;
 end $$;
-create index if not exists rede_agendados_serie on interno.rede_agendados (serie) where serie is not null;
-
-/** O próximo horário de uma série. */
-create or replace function interno.rede_alumia_proxima_vez(p_quando timestamptz, p_repetir text) returns timestamptz language sql immutable as $$
-  select p_quando + case p_repetir when 'semanal' then interval '7 days' when 'quinzenal' then interval '14 days' when 'mensal' then interval '1 month' end
-$$;
-
-/** Saiu um da série: o próximo entra na fila (se não passou do fim, nem de 52 vezes, nem a série foi parada). */
-create or replace function interno.rede_alumia_serie_seguir() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_prox timestamptz;
-begin
-  if new.repetir is null or old.estado <> 'pendente' or new.estado not in ('publicado', 'falhou') or new.vez >= 52 then return null; end if;
-  v_prox := interno.rede_alumia_proxima_vez(new.quando, new.repetir);
-  while v_prox < now() loop v_prox := interno.rede_alumia_proxima_vez(v_prox, new.repetir); end loop;
-  if new.ate is not null and v_prox > new.ate then return null; end if;
-  if exists (select 1 from rede_agendados where serie = new.serie and estado = 'pendente') then return null; end if;
-  insert into rede_agendados (autor, pedido, quando, repetir, ate, serie, vez) values (new.autor, new.pedido, v_prox, new.repetir, new.ate, new.serie, new.vez + 1);
-  return null;
-end $$;
-drop trigger if exists rede_alumia_serie_seguir on interno.rede_agendados;
-create trigger rede_alumia_serie_seguir after update of estado on interno.rede_agendados for each row execute function interno.rede_alumia_serie_seguir();
 
 /**
  * Agenda um post que se repete: o primeiro passa por rede_pub_agendar (o mesmo ensaio, as mesmas regras), e a série ganha a
- * repetição e o fim (até 1 ano). Devolve {id, serie, quando, repetir, ate}.
+ * repetição e o fim (até 1 ano). Sem imagem nem áudio (cada arquivo só nasce uma vez, como no agendar da casca). Devolve
+ * {id, serie, quando, repetir, ate}.
  */
 create or replace function public.rede_alumia_agendar_serie(p jsonb, p_quando timestamptz, p_repetir text, p_ate timestamptz default null) returns jsonb
 language plpgsql volatile security definer set search_path = interno, pg_temp as $$
@@ -39913,9 +39950,11 @@ declare v uuid := interno.eu(); v_r jsonb; v_serie uuid := gen_random_uuid();
 begin
   if p_repetir is null or p_repetir not in ('semanal', 'quinzenal', 'mensal') then perform interno.erro('invalido:repetir'); end if;
   if p_ate is not null and (p_ate <= p_quando or p_ate > now() + interval '1 year') then perform interno.erro('invalido:ate'); end if;
+  if p ? 'midia' or p ? 'audio' then perform interno.erro('repetir_sem_arquivo'); end if;
   if (select count(distinct serie) from rede_agendados where autor = v and serie is not null and estado = 'pendente') >= 5 then perform interno.erro('muitos_pedidos'); end if;
   v_r := public.rede_pub_agendar(p, p_quando);
-  update rede_agendados set repetir = p_repetir, ate = coalesce(p_ate, now() + interval '1 year'), serie = v_serie where id = (v_r ->> 'id')::uuid and autor = v;
+  update rede_agendados set repetir = p_repetir, repetir_ate = coalesce(p_ate, now() + interval '1 year'), vezes = 1, repetir_vezes = null, serie = v_serie
+   where id = (v_r ->> 'id')::uuid and autor = v;
   return v_r || jsonb_build_object('serie', v_serie, 'repetir', p_repetir, 'ate', coalesce(p_ate, now() + interval '1 year'));
 end $$;
 
@@ -39925,8 +39964,8 @@ declare v uuid := interno.eu();
 begin
   perform interno.aberta('comunidade');
   perform interno.rede3_pub_rodar(v);
-  return jsonb_build_object('itens', (select coalesce(jsonb_agg(jsonb_build_object('serie', a.serie, 'id', a.id, 'quando', a.quando, 'repetir', a.repetir, 'ate', a.ate,
-      'vez', a.vez, 'texto', left(coalesce(a.pedido ->> 'titulo', a.pedido ->> 'texto', ''), 120)) order by a.quando), '[]'::jsonb)
+  return jsonb_build_object('itens', (select coalesce(jsonb_agg(jsonb_build_object('serie', a.serie, 'id', a.id, 'quando', a.quando, 'repetir', a.repetir, 'ate', a.repetir_ate,
+      'vez', a.vezes, 'total', a.repetir_vezes, 'texto', left(coalesce(a.pedido ->> 'titulo', a.pedido ->> 'texto', ''), 120)) order by a.quando), '[]'::jsonb)
     from rede_agendados a where a.autor = v and a.serie is not null and a.estado = 'pendente'));
 end $$;
 

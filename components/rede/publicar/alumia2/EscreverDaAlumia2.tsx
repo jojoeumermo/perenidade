@@ -384,7 +384,7 @@ export function EscreverDaAlumia2({
       const pedido = await montarPedido();
       if (!resposta && (pub.agendar || pub.aposAto) && tipo !== "ato") {
         // Com repetição ou "quando o ato terminar", pelo rede_pub_agendar_mais; sem a B1 no banco, a data única de antes.
-        const opcoes = { ...(pub.repetir ? { repetir: "semana" as const, vezes: pub.repetir } : {}), ...(pub.aposAto ? { apos_ato: pub.aposAto } : {}) };
+        const opcoes = { ...(pub.repetir ? { repetir: "semanal" as const, vezes: pub.repetir } : {}), ...(pub.aposAto ? { apos_ato: pub.aposAto } : {}) };
         const pedirQuando = pub.aposAto ? null : new Date(pub.agendar).toISOString();
         const agendado = await redePub.agendarMais(pedido, pedirQuando, opcoes).catch((e) => {
           if (faltaNoBanco(e) && pedirQuando && !pub.repetir && !pub.aposAto) return redePub.agendar(pedido, pedirQuando);

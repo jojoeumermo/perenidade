@@ -568,8 +568,11 @@ create trigger rede_ato_lembrete_zerar before update of inicio on interno.rede_c
 /**
  * A rodada dos lembretes (pg_cron de 15 em 15 min; só o dono do banco chama). Para cada ato não cancelado que começa nas próximas
  * 24 h: 2 h antes sai o lembrete das 2 h; antes disso, o das 24 h (só se ainda faltam 12 h ou mais: ato chamado em cima da hora
- * recebe só o das 2 h). Vai a quem confirmou, é membro, ainda vê o ato e não desligou "lembrete"; o aviso tem tipo 'chamado' (o
- * enviar-push manda SEM texto) e um texto sem nome de ninguém (a reserva em português; a tela de avisos traduz). Nada fica guardado por pessoa: só a hora em que o lembrete do ato saiu.
+ * recebe só o das 2 h). Vai a quem confirmou, é membro, ainda vê o ato e não desligou "lembrete"; o aviso é pedido com o tipo
+ * 'chamado' (que existe desde a fundação; o enviar-push manda SEM texto) e, com a B1 da comunidade instalada
+ * (20261110-alumia-b1-comunidade.sql, interno.rede3_aviso_antes), é GRAVADO como 'lembrete': a preferência "lembrete" conferida aqui
+ * é a mesma que a pessoa liga e desliga na tela de avisos. O texto não tem nome de ninguém (a reserva em português; a tela de
+ * avisos traduz). Nada fica guardado por pessoa: só a hora em que o lembrete do ato saiu.
  */
 create or replace function interno.rede_ato_lembretes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare c rede_chamados; p rede_posts; r record; v_texto text; v_qual text; v_atos integer := 0; v_avisos integer := 0; v_n bigint;

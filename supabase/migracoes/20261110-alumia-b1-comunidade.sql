@@ -7,7 +7,8 @@
 --   2. Página da comunidade: área aberta → comunidade e situação → limite → página → posts da semana (só para quem vê a
 --      comunidade). Antes, o limite era gasto até por quem pedia comunidade fechada ou que não existe, e o tipo de erro sondava slug.
 --   3. Avisos dos tipos novos: conversa_seguida, ajudou, ato, reacao_story e lembrete, cada um com preferência no site e no
---      celular. A conversa seguida deixa de avisar quando a raiz fica oculta, retida ou apagada.
+--      celular. A conversa seguida deixa de avisar quando a raiz fica oculta, retida ou apagada. O lembrete do ato (B1 dos atos)
+--      passa a ser gravado como 'lembrete', junto do "lembrar mais tarde".
 --   4. Notas de contexto (notas da comunidade).  5. Wiki da comunidade com histórico.  6. Busca com operadores e busca salva.
 --   7. A linha dos #temas seguidos.  8. Salvos em pastas.  9. "Pergunte a…".  10. Posts recorrentes.  11. Citar trecho com
 --   âncora.  12. Lembrar mais tarde.  13. Conversas que sigo (ver e deixar de seguir).
@@ -24,7 +25,8 @@
 -- (interno.rede2_membro); só membro escreve, avalia, pergunta ou salva.
 --
 -- Idempotente (scripts/testar-alumia-b1-comunidade.mjs roda duas vezes no banco local). Roda depois de tudo o que já está no
--- install.sql (F0..F5, Fediverso e as de 10/11). NÃO rodar em produção sem o Jonathan.
+-- install.sql (F0..F5, Fediverso e as de 10/11) e DEPOIS das outras B1: a dos atos (20261110-alumia-b1-atos.sql, o lembrete do
+-- ato) e a da casca (20261110-alumia-b1-casca.sql, dona das colunas e do gatilho dos posts que se repetem). NÃO rodar em produção sem o Jonathan.
 
 -- ══════════════════════════════════════════ 1. Reações: o total sem bloqueio nem suspensa ══════════════════════════════════════════
 
@@ -159,8 +161,10 @@ end $$;
 
 /**
  * Antes de gravar um aviso (o gatilho de sempre, com os tipos novos): (1) a resposta da fundação ganha estrutura, como antes;
- * (2) os avisos de ato (que as frentes de atos gravam como 'chamado') viram 'ato'; a reação a story (sem tipo) vira 'reacao_story';
- * (3) quem desligou o tipo no site não recebe (a moderação nunca é desligada).
+ * (2) os avisos de ato (que as frentes de atos gravam como 'chamado') viram 'ato'; o LEMBRETE do ato (24 h e 2 h antes,
+ * interno.rede_ato_lembretes em 20261110-alumia-b1-atos.sql, que também grava 'chamado' porque roda antes de o tipo existir) vira
+ * 'lembrete', o mesmo tipo do "lembrar mais tarde": uma preferência só ("Lembretes") liga e desliga os dois; a reação a story (sem
+ * tipo) vira 'reacao_story'; (3) quem desligou o tipo no site não recebe (a moderação nunca é desligada).
  */
 create or replace function interno.rede3_aviso_antes() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
 declare m text[]; r record;
@@ -174,7 +178,9 @@ begin
       if found then new.tipo := 'resposta'; new.post := r.resposta_a; new.alvo := r.id; new.ator := r.autor; end if;
     end if;
   end if;
-  if new.categoria = 'rede' and new.tipo = 'chamado' and new.texto ~ '^(Um ato que você|O farol de um ato|A corrente de um ato)' then
+  if new.categoria = 'rede' and new.tipo = 'chamado' and new.texto ~ '^Lembrete: um ato que você confirmou' then
+    new.tipo := 'lembrete';
+  elsif new.categoria = 'rede' and new.tipo = 'chamado' and new.texto ~ '^(Um ato que você|O farol de um ato|A corrente de um ato)' then
     new.tipo := 'ato';
   end if;
   if new.categoria = 'rede' and new.tipo is null and new.texto ~ '^Alguém reagiu ao seu story' then
@@ -1217,43 +1223,29 @@ begin
 end $$;
 
 -- ══════════════════════════════════════════ 11. Posts recorrentes ══════════════════════════════════════════
--- "Assembleia toda terça": o agendado ganha repetição (semanal, quinzenal, mensal) e um fim. Quando um sai (publicado ou falhou),
--- o próximo da série entra na fila com o mesmo pedido, até o fim ou 52 vezes. Parar a série cancela o que está na fila.
+-- "Assembleia toda terça": o agendado ganha repetição (semanal, quinzenal, mensal) e um fim. As colunas (repetir, repetir_ate, vezes,
+-- repetir_vezes, serie), a regra rede_agendados_repetir e o gatilho que põe o próximo na fila (interno.rede_alumia_serie_seguir, o
+-- ÚNICO mecanismo de repetição, para o post nunca sair em dobro) moram na casca (20261110-alumia-b1-casca.sql, que roda antes).
+-- Aqui ficam só as funções da série: agendar, listar e parar. Quando um sai (publicado ou falhou), o próximo entra na fila com o
+-- mesmo pedido, até o fim ou 52 vezes. Parar a série cancela o que está na fila.
 
-alter table interno.rede_agendados add column if not exists repetir text;
-alter table interno.rede_agendados add column if not exists ate timestamptz;
-alter table interno.rede_agendados add column if not exists serie uuid;
-alter table interno.rede_agendados add column if not exists vez integer not null default 1;
+-- Banco que rodou a versão de antes desta migração (colunas "ate" e "vez" próprias): passa o que havia para as colunas de agora.
 do $$
 begin
-  alter table interno.rede_agendados add constraint rede_agendados_repetir check (repetir is null or repetir in ('semanal', 'quinzenal', 'mensal'));
-exception when duplicate_object then null;
+  if exists (select 1 from information_schema.columns where table_schema = 'interno' and table_name = 'rede_agendados' and column_name = 'ate') then
+    execute 'update interno.rede_agendados set repetir_ate = coalesce(repetir_ate, ate) where ate is not null';
+    alter table interno.rede_agendados drop column ate;
+  end if;
+  if exists (select 1 from information_schema.columns where table_schema = 'interno' and table_name = 'rede_agendados' and column_name = 'vez') then
+    execute 'update interno.rede_agendados set vezes = least(52, vez) where vez > vezes';
+    alter table interno.rede_agendados drop column vez;
+  end if;
 end $$;
-create index if not exists rede_agendados_serie on interno.rede_agendados (serie) where serie is not null;
-
-/** O próximo horário de uma série. */
-create or replace function interno.rede_alumia_proxima_vez(p_quando timestamptz, p_repetir text) returns timestamptz language sql immutable as $$
-  select p_quando + case p_repetir when 'semanal' then interval '7 days' when 'quinzenal' then interval '14 days' when 'mensal' then interval '1 month' end
-$$;
-
-/** Saiu um da série: o próximo entra na fila (se não passou do fim, nem de 52 vezes, nem a série foi parada). */
-create or replace function interno.rede_alumia_serie_seguir() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_prox timestamptz;
-begin
-  if new.repetir is null or old.estado <> 'pendente' or new.estado not in ('publicado', 'falhou') or new.vez >= 52 then return null; end if;
-  v_prox := interno.rede_alumia_proxima_vez(new.quando, new.repetir);
-  while v_prox < now() loop v_prox := interno.rede_alumia_proxima_vez(v_prox, new.repetir); end loop;
-  if new.ate is not null and v_prox > new.ate then return null; end if;
-  if exists (select 1 from rede_agendados where serie = new.serie and estado = 'pendente') then return null; end if;
-  insert into rede_agendados (autor, pedido, quando, repetir, ate, serie, vez) values (new.autor, new.pedido, v_prox, new.repetir, new.ate, new.serie, new.vez + 1);
-  return null;
-end $$;
-drop trigger if exists rede_alumia_serie_seguir on interno.rede_agendados;
-create trigger rede_alumia_serie_seguir after update of estado on interno.rede_agendados for each row execute function interno.rede_alumia_serie_seguir();
 
 /**
  * Agenda um post que se repete: o primeiro passa por rede_pub_agendar (o mesmo ensaio, as mesmas regras), e a série ganha a
- * repetição e o fim (até 1 ano). Devolve {id, serie, quando, repetir, ate}.
+ * repetição e o fim (até 1 ano). Sem imagem nem áudio (cada arquivo só nasce uma vez, como no agendar da casca). Devolve
+ * {id, serie, quando, repetir, ate}.
  */
 create or replace function public.rede_alumia_agendar_serie(p jsonb, p_quando timestamptz, p_repetir text, p_ate timestamptz default null) returns jsonb
 language plpgsql volatile security definer set search_path = interno, pg_temp as $$
@@ -1261,9 +1253,11 @@ declare v uuid := interno.eu(); v_r jsonb; v_serie uuid := gen_random_uuid();
 begin
   if p_repetir is null or p_repetir not in ('semanal', 'quinzenal', 'mensal') then perform interno.erro('invalido:repetir'); end if;
   if p_ate is not null and (p_ate <= p_quando or p_ate > now() + interval '1 year') then perform interno.erro('invalido:ate'); end if;
+  if p ? 'midia' or p ? 'audio' then perform interno.erro('repetir_sem_arquivo'); end if;
   if (select count(distinct serie) from rede_agendados where autor = v and serie is not null and estado = 'pendente') >= 5 then perform interno.erro('muitos_pedidos'); end if;
   v_r := public.rede_pub_agendar(p, p_quando);
-  update rede_agendados set repetir = p_repetir, ate = coalesce(p_ate, now() + interval '1 year'), serie = v_serie where id = (v_r ->> 'id')::uuid and autor = v;
+  update rede_agendados set repetir = p_repetir, repetir_ate = coalesce(p_ate, now() + interval '1 year'), vezes = 1, repetir_vezes = null, serie = v_serie
+   where id = (v_r ->> 'id')::uuid and autor = v;
   return v_r || jsonb_build_object('serie', v_serie, 'repetir', p_repetir, 'ate', coalesce(p_ate, now() + interval '1 year'));
 end $$;
 
@@ -1273,8 +1267,8 @@ declare v uuid := interno.eu();
 begin
   perform interno.aberta('comunidade');
   perform interno.rede3_pub_rodar(v);
-  return jsonb_build_object('itens', (select coalesce(jsonb_agg(jsonb_build_object('serie', a.serie, 'id', a.id, 'quando', a.quando, 'repetir', a.repetir, 'ate', a.ate,
-      'vez', a.vez, 'texto', left(coalesce(a.pedido ->> 'titulo', a.pedido ->> 'texto', ''), 120)) order by a.quando), '[]'::jsonb)
+  return jsonb_build_object('itens', (select coalesce(jsonb_agg(jsonb_build_object('serie', a.serie, 'id', a.id, 'quando', a.quando, 'repetir', a.repetir, 'ate', a.repetir_ate,
+      'vez', a.vezes, 'total', a.repetir_vezes, 'texto', left(coalesce(a.pedido ->> 'titulo', a.pedido ->> 'texto', ''), 120)) order by a.quando), '[]'::jsonb)
     from rede_agendados a where a.autor = v and a.serie is not null and a.estado = 'pendente'));
 end $$;
 

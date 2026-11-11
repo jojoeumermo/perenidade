@@ -84,7 +84,11 @@ ok("petição: o prazo no meio da frase sai com minúscula (menos em inglês)", 
 ok("avisos: o lembrete gravado em português aparece no idioma de quem lê", (() => {
   const [k24, k2] = Object.keys(TEXTOS_DO_SERVIDOR);
   const item = (texto) => ({ tipo: "chamado", total: 1, pessoas: 1, atores: [], texto });
-  return fraseDoAviso(item(k2), {}, "r", { lembrete2h: "Reminder 2h" }) === "Reminder 2h" && fraseDoAviso(item(k24), {}, "r", { lembrete24h: "R24" }) === "R24" && fraseDoAviso(item(k2), {}, "r") === k2 && fraseDoAviso(item("outro"), {}, "r", { lembrete2h: "x" }) === "outro";
+  return fraseDoAviso(item(k2), {}, "r", { lembrete2h: "Reminder 2h" }) === "Reminder 2h" && fraseDoAviso(item(k24), {}, "r", { lembrete24h: "R24" }) === "R24" && fraseDoAviso(item(k2), {}, "r") === k2 && fraseDoAviso(item("outro"), {}, "r", { lembrete2h: "x" }) === "outro"
+    // Gravado como 'lembrete' (B1 da comunidade): continua saindo a frase do ATO, e não a do "lembrar mais tarde".
+    && fraseDoAviso({ ...item(k2), tipo: "lembrete" }, { lembrete: { um: "post", vezes: "post", varios: "post", anonimo: "post", anonimoVarios: "post" } }, "r", { lembrete2h: "Reminder 2h" }) === "Reminder 2h"
+    && fraseDoAviso({ ...item(k24), tipo: "lembrete" }, { lembrete: { um: "post", vezes: "post", varios: "post", anonimo: "post", anonimoVarios: "post" } }, "r") === k24
+    && fraseDoAviso({ ...item("Você pediu para lembrar de um post agora."), tipo: "lembrete" }, { lembrete: { um: "post", vezes: "post", varios: "post", anonimo: "post", anonimoVarios: "post" } }, "r", { lembrete2h: "x" }) === "post";
 })());
 ok("avisos: as frases do servidor existem nos 6 idiomas", ["pt", "en", "es", "fr", "ru", "zh"].every((l) => { const j = JSON.parse(ler(`i18n/rede/avisos/${l}.json`)); return Object.values(TEXTOS_DO_SERVIDOR).every((c) => typeof j.servidor?.[c] === "string" && j.servidor[c].length > 5); }));
 {
@@ -313,7 +317,9 @@ let T1;
   await espera("ato cancelado não lembra", async () => { await lembretes(); return avisos(C); }, (r) => r.length === 0);
   await recusa("ato cancelado não abre petição", () => rpc(como(P.org), "rede_peticao_criar", { p_ato: C, p: { alvo: "Prefeitura", texto: "Pedimos que a reintegração seja suspensa até haver moradia." } }), "ato_cancelado");
   ok("a reserva do lembrete é o texto que a tela de avisos traduz", Object.keys(TEXTOS_DO_SERVIDOR).every((k) => sql.includes(`'${k}'`)));
-  ok("o aviso usa o tipo 'chamado' (o push vai sem texto)", (await um("select count(*)::int as n from interno.avisos where post = $1 and tipo = 'chamado' and texto like 'Lembrete:%'", [A])).n === 2);
+  ok("o aviso é pedido como 'chamado' (o tipo que existe desde a fundação; o push vai sem texto)", /rede3_aviso_criar\(r\.usuario, 'chamado', c\.post, null, null, v_texto\)/.test(sql));
+  ok("com a B1 da comunidade, o lembrete do ato fica gravado como 'lembrete' (a mesma preferência que a tela liga e desliga)", (await um("select count(*)::int as n from interno.avisos where post = $1 and tipo = 'lembrete' and texto like 'Lembrete:%'", [A])).n === 2
+    && (await um("select count(*)::int as n from interno.avisos where post = $1 and tipo = 'chamado' and texto like 'Lembrete:%'", [A])).n === 0);
 }
 
 // ═══════════════════ 7. O cliente do site sobre o banco de verdade ═══════════════════

@@ -3,6 +3,7 @@
 // Os tipos do pacote publicar (Rede v2, R4 15 a 23): o que as funções rede_pub_* devolvem e o que o `rede_publicar` ampliado
 // aceita (supabase/migracoes/2026-11-rede-publicar.sql). Sem "@/" de propósito (roda no Node nos testes).
 import type { PedidoDePost } from "./tipos";
+import type { Repeticao } from "./tipos-b1";
 
 export type RespondeQuem = "todos" | "seguindo" | "mencionados" | "ninguem";
 
@@ -99,17 +100,20 @@ export interface Agendado {
   erro: string;
   post: string | null;
   texto: string;
-  /** B1: "toda semana" e em que vez está (de quantas). */
-  repetir?: "semana" | null;
+  /** B1: a repetição (toda semana, a cada 15 dias, todo mês), em que vez está e de quantas (nulo: série sem total, até a data final). */
+  repetir?: Repeticao | null;
   vezes?: number;
   repetir_vezes?: number | null;
+  repetir_ate?: string | null;
+  /** B1: o número da série (o mesmo das séries da comunidade, rede_alumia_series). */
+  serie?: string | null;
   /** B1: sai quando o ato terminar. */
   apos_ato?: boolean;
 }
 
 /** B1: as opções de agendar (rede_pub_agendar_mais). */
 export interface OpcoesDeAgendar {
-  repetir?: "semana";
+  repetir?: Repeticao;
   vezes?: number;
   apos_ato?: string;
 }
