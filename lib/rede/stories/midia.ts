@@ -7,7 +7,8 @@
 //   * a foto é redesenhada num canvas de 1080 × 1920 em WEBP (o mesmo de lib/rede/stories/imagem.ts), com o filtro e o giro/zoom.
 // As contas puras ficam no alto (os testes rodam no Node); o que precisa de navegador fica embaixo e só roda nele.
 // Sem "@/" de propósito (roda no Node nos testes).
-import { LIMITES_DO_STORY } from "../tipos-stories";
+import { LIMITES_DO_STORY, type MusicaDoStory } from "../tipos-stories";
+import { gerarMusica } from "./musica";
 
 // ── Filtros (lista fechada; viram CSS conhecido, nunca texto livre) ──────────────────────────────────────────────────────
 export const FILTROS_DO_STORY = ["nenhum", "vivo", "quente", "frio", "antigo", "pb", "lambe"] as const;
@@ -351,6 +352,10 @@ export async function regravarVideo(p: {
   filtro: FiltroDoStory;
   transformacao: Transformacao;
   tracos: readonly TracoDoStory[];
+  /** A música da Alumia, gerada aqui (lib/rede/stories/musica.ts) e misturada no áudio; vai mesmo com o som do vídeo desligado. */
+  musica?: MusicaDoStory | null;
+  /** Áreas borradas (em fração do vídeo ORIGINAL), pixelizadas em todos os quadros antes do giro/zoom. */
+  borroes?: readonly AreaBorradaDoVideo[];
   aoProgresso?: (fracao: number) => void;
   sinal?: AbortSignal;
 }): Promise<VideoPronto> {
@@ -372,16 +377,31 @@ export async function regravarVideo(p: {
 
   const fluxo = canvas.captureStream(30);
   let audio: AudioContext | null = null;
-  if (p.som) {
+  let fonteDaMusica: AudioBufferSourceNode | null = null;
+  if (p.som || p.musica) {
     try {
       audio = new AudioContext();
-      const origem = audio.createMediaElementSource(video);
       const destino = audio.createMediaStreamDestination();
-      origem.connect(destino); // só para o gravador: nada toca na caixa de som
+      if (p.som) {
+        const origem = audio.createMediaElementSource(video);
+        origem.connect(destino); // só para o gravador: nada toca na caixa de som
+        video.muted = false;
+      }
+      if (p.musica) {
+        // A música é feita aqui mesmo (nenhum arquivo de fora): o trecho inteiro, misturado por baixo do som do vídeo.
+        const amostras = gerarMusica(p.musica, audio.sampleRate, duracao / 1000 + 0.5);
+        const buffer = audio.createBuffer(1, amostras.length, audio.sampleRate);
+        buffer.copyToChannel(amostras as Float32Array<ArrayBuffer>, 0);
+        fonteDaMusica = audio.createBufferSource();
+        fonteDaMusica.buffer = buffer;
+        const volume = audio.createGain();
+        volume.gain.value = p.som ? 0.6 : 0.9;
+        fonteDaMusica.connect(volume).connect(destino);
+      }
       for (const faixa of destino.stream.getAudioTracks()) fluxo.addTrack(faixa);
-      video.muted = false;
     } catch {
       audio = null;
+      fonteDaMusica = null;
       video.muted = true;
     }
   }
@@ -398,7 +418,9 @@ export async function regravarVideo(p: {
 
   video.currentTime = trecho.inicio / 1000;
   await esperarEvento(video, "seeked");
-  const desenhar = () => desenharQuadro(ctx, L, A, { fundo: p.fundo, fonte: video, filtro: p.filtro, transformacao: p.transformacao, tracos: p.tracos });
+  // Com borrões, cada quadro passa antes por uma tela do tamanho do vídeo, onde os rostos viram blocos (não dá para desfazer).
+  const borrar = p.borroes?.length ? criarBorrador(video, p.borroes) : null;
+  const desenhar = () => desenharQuadro(ctx, L, A, { fundo: p.fundo, fonte: borrar ? borrar() : video, filtro: p.filtro, transformacao: p.transformacao, tracos: p.tracos });
   desenhar();
 
   let quadro = 0;
@@ -417,6 +439,7 @@ export async function regravarVideo(p: {
   });
 
   gravador.start(1000);
+  fonteDaMusica?.start();
   try {
     await video.play();
   } catch {
@@ -449,6 +472,86 @@ export async function regravarVideo(p: {
   if (blob.size > LIMITES_DO_STORY.videoBytes) throw new Error("grande");
   p.aoProgresso?.(1);
   return { blob, tipo: blob.type, duracao, som: comSom };
+}
+
+/** Uma área borrada no vídeo (fração do quadro original, 0 a 1), como as do BorrarRostos. */
+export interface AreaBorradaDoVideo {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/**
+ * Pixeliza as áreas num quadro: desenha o quadro numa tela do tamanho dele e troca cada área por poucos blocos (cerca de 5 por
+ * rosto, como no publicar). Devolve a função que faz isso para o quadro atual do vídeo.
+ */
+export function criarBorrador(video: HTMLVideoElement, areas: readonly AreaBorradaDoVideo[]): () => HTMLCanvasElement {
+  const tela = document.createElement("canvas");
+  const pequeno = document.createElement("canvas");
+  const ctx = tela.getContext("2d");
+  const pctx = pequeno.getContext("2d");
+  return () => {
+    const l = video.videoWidth || 720;
+    const a = video.videoHeight || 1280;
+    if (tela.width !== l || tela.height !== a) {
+      tela.width = l;
+      tela.height = a;
+    }
+    if (!ctx || !pctx) return tela;
+    ctx.drawImage(video, 0, 0, l, a);
+    for (const r of areas) {
+      const x = Math.max(0, Math.floor(r.x * l));
+      const y = Math.max(0, Math.floor(r.y * a));
+      const w = Math.min(l - x, Math.ceil(r.w * l));
+      const h = Math.min(a - y, Math.ceil(r.h * a));
+      if (w < 2 || h < 2) continue;
+      const bloco = Math.max(6, Math.round(Math.max(w, h) / 5));
+      pequeno.width = Math.max(1, Math.ceil(w / bloco));
+      pequeno.height = Math.max(1, Math.ceil(h / bloco));
+      pctx.drawImage(tela, x, y, w, h, 0, 0, pequeno.width, pequeno.height);
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(pequeno, 0, 0, pequeno.width, pequeno.height, x, y, w, h);
+      ctx.imageSmoothingEnabled = true;
+    }
+    return tela;
+  };
+}
+
+/**
+ * Recorta e gira a foto no aparelho (o recorte em frações da foto; o giro livre em graus, além dos quartos de volta do editor) e
+ * devolve uma imagem nova, sem metadado. Erro "invalida" se o navegador não abre a imagem.
+ */
+export async function recortarFoto(imagem: Blob, r: { x: number; y: number; largura: number; altura: number }, graus = 0): Promise<Blob> {
+  let bitmap: ImageBitmap;
+  try {
+    bitmap = await createImageBitmap(imagem, { imageOrientation: "from-image" });
+  } catch {
+    throw new Error("invalida");
+  }
+  const sx = Math.round(r.x * bitmap.width);
+  const sy = Math.round(r.y * bitmap.height);
+  const sl = Math.max(1, Math.round(r.largura * bitmap.width));
+  const sa = Math.max(1, Math.round(r.altura * bitmap.height));
+  const rad = (graus * Math.PI) / 180;
+  // A tela cabe a foto girada inteira (sem cortar os cantos); o fundo que sobra fica transparente → a cor do story aparece.
+  const cos = Math.abs(Math.cos(rad));
+  const sen = Math.abs(Math.sin(rad));
+  const escala = Math.min(1, 1920 / Math.max(sl, sa));
+  const l = Math.round((sl * cos + sa * sen) * escala);
+  const a = Math.round((sl * sen + sa * cos) * escala);
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, l);
+  canvas.height = Math.max(1, a);
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("invalida");
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.rotate(rad);
+  ctx.drawImage(bitmap, sx, sy, sl, sa, (-sl * escala) / 2, (-sa * escala) / 2, sl * escala, sa * escala);
+  bitmap.close();
+  const b = (await paraBlob(canvas, "image/webp", 0.92)) ?? (await paraBlob(canvas, "image/png", 1));
+  if (!b) throw new Error("invalida");
+  return b;
 }
 
 // ── Câmera ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
