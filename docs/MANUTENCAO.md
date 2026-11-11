@@ -767,6 +767,7 @@ Rotina que depende de segredo ou variável fica **pulada** (sem gastar minutos) 
 | `funcoes.yml` | envio que muda `supabase/functions/` | variável `FUNCOES=sim`, `SUPABASE_PROJECT_REF`, segredo `SUPABASE_ACCESS_TOKEN` |
 | **`vale-o-escrito.yml` Robô de coleta** | de 3 em 3 horas (`17 */3 * * *`); botão com "rodada seca" | variável `VALE_O_ESCRITO=sim`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`; chaves de IA opcionais (`GEMINI_API_KEY`, `GROQ_API_KEY`, `CEREBRAS_API_KEY`, `OPENROUTER_API_KEY`); `docs/vale-o-escrito/ROBO.md` |
 | `estudio-agendados.yml` | a cada 15 minutos | variável `AGENDA_INSTAGRAM=sim`, `ESTUDIO_CRON_SECRET` |
+| `rede-agendados.yml` Posts agendados da Alumia | a cada 5 minutos; reserva do pg_cron de `20261110-alumia-b1-casca.sql` (pede a `/api/rede/agendados` que publique o que venceu; rodar os dois juntos não publica em dobro) | variável `AGENDA_ALUMIA=sim`, segredo `ALUMIA_CRON_SECRET` igual ao `CRON_SECRET` do site |
 | `questoes.yml` | segunda 06h40: provas públicas novas | nada |
 | `links.yml` | segunda 09h: confere se as fontes citadas respondem | nada (falha manda e-mail) |
 | `espelho.yml` | dia 1 de cada mês: espelho estático das aulas e do acervo | opcionais `CLOUDFLARE_*`, `ESPELHO_PROJETO` |
