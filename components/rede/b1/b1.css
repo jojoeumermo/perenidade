@@ -1,0 +1,161 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ *
+ * As peças da B1 da comunidade (notas de contexto, wiki, perguntas, pastas, lembrar, filtros da busca, conversas que sigo).
+ * Os tokens são os da Alumia nova (styles/alumia-tokens.css). Tudo que se mexe para com prefers-reduced-motion, com o modo parado
+ * e com o e-ink; no alto contraste (forced-colors) a cor vira borda. Nada aqui é só enfeite: cada efeito diz que algo mudou. */
+
+.b1-cartao {
+  border: 1px solid var(--al-linha, #d6cfc2);
+  border-radius: var(--al-raio, 12px);
+  background: var(--al-superficie, #fbf8f2);
+  color: var(--al-texto, #1f1a14);
+  padding: 0.85rem 1rem;
+}
+.b1-cartao + .b1-cartao { margin-top: 0.6rem; }
+
+/* A nota que aparece: a faixa dourada à esquerda diz "contexto", não "aviso de erro". */
+.b1-nota {
+  border-left: 4px solid var(--al-dourado, #b7862b);
+  background: color-mix(in srgb, var(--al-dourado, #b7862b) 9%, var(--al-superficie, #fbf8f2));
+}
+.b1-nota-cabeca { display: flex; align-items: center; gap: 0.45rem; font-weight: 700; font-size: 0.95rem; }
+.b1-nota-fonte { display: inline-flex; align-items: center; gap: 0.3rem; margin-top: 0.4rem; font-size: 0.9rem; word-break: break-word; }
+.b1-nota-fonte a { text-decoration: underline; text-underline-offset: 2px; }
+
+.b1-rotulo { display: block; font-weight: 700; margin: 0.7rem 0 0.25rem; }
+.b1-campo,
+.b1-area {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--al-texto-3, #8a8072);
+  border-radius: 10px;
+  background: var(--al-fundo, #fff);
+  color: var(--al-texto, #1f1a14);
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+}
+.b1-area { min-height: 7rem; resize: vertical; line-height: 1.5; }
+.b1-campo:focus-visible,
+.b1-area:focus-visible { outline: 3px solid var(--al-foco, #c21f16); outline-offset: 1px; }
+.b1-contador { display: block; text-align: right; font-size: 0.8rem; color: var(--al-texto-3, #6b6257); }
+.b1-contador[data-perto] { color: var(--al-vermelho-texto, #a3170f); font-weight: 700; }
+
+.b1-botoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.7rem; align-items: center; }
+.b1-botao {
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  border: 2px solid var(--al-texto, #1f1a14);
+  background: transparent;
+  color: var(--al-texto, #1f1a14);
+  font-weight: 700;
+  cursor: pointer;
+}
+.b1-botao[data-cheio] { background: var(--al-vermelho, #c21f16); border-color: var(--al-vermelho, #c21f16); color: var(--al-sobre-vermelho, #fff); }
+.b1-botao[aria-pressed="true"] { background: var(--al-texto, #1f1a14); color: var(--al-fundo, #fff); }
+.b1-botao:disabled { opacity: 0.55; cursor: not-allowed; }
+.b1-botao:focus-visible,
+.b1-link:focus-visible { outline: 3px solid var(--al-foco, #c21f16); outline-offset: 2px; }
+.b1-link { background: none; border: 0; padding: 0; min-height: 44px; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; color: inherit; }
+.b1-cinza { color: var(--al-texto-2, #5b5348); font-size: 0.92rem; }
+.b1-selo {
+  display: inline-block;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* Abas e fichas (buscas salvas, pastas, páginas da wiki): rolam de lado no celular, sem quebrar a página. */
+.b1-fichas { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.2rem 0 0.4rem; scrollbar-width: thin; }
+.b1-ficha {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 40px;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--al-linha, #d6cfc2);
+  background: var(--al-superficie, #fbf8f2);
+  color: var(--al-texto, #1f1a14);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+.b1-ficha[aria-current="true"],
+.b1-ficha[aria-pressed="true"],
+.b1-ficha[aria-selected="true"] { background: var(--al-texto, #1f1a14); border-color: var(--al-texto, #1f1a14); color: var(--al-fundo, #fff); }
+.b1-ficha-x { display: inline-grid; place-items: center; width: 28px; height: 28px; margin-right: -0.4rem; border-radius: 50%; border: 0; background: transparent; color: inherit; cursor: pointer; }
+.b1-ficha-x:focus-visible { outline: 3px solid var(--al-foco, #c21f16); }
+
+/* A lista de uma coluna (conversas que sigo, fila de perguntas). */
+.b1-lista { list-style: none; margin: 0; padding: 0; }
+.b1-lista > li { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0; border-bottom: 1px solid var(--al-linha, #d6cfc2); }
+.b1-lista > li > :first-child { flex: 1; min-width: 0; }
+
+/* A citação com âncora: a linha "> trecho" vira um bloco tocável que leva ao original. */
+.b1-citacao {
+  display: block;
+  width: 100%;
+  margin: 0.2rem 0 0.5rem;
+  padding: 0.4rem 0.7rem;
+  border: 0;
+  border-left: 3px solid var(--al-texto-3, #8a8072);
+  background: color-mix(in srgb, var(--al-texto-3, #8a8072) 8%, transparent);
+  color: var(--al-texto-2, #5b5348);
+  font: inherit;
+  font-style: italic;
+  text-align: left;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+}
+.b1-citacao:focus-visible { outline: 3px solid var(--al-foco, #c21f16); outline-offset: 2px; }
+.b1-trecho-aceso { background: color-mix(in srgb, var(--al-dourado, #b7862b) 35%, transparent); border-radius: 4px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--al-dourado, #b7862b) 35%, transparent); }
+
+/* A wiki lida: títulos e listas do texto, sem HTML cru. */
+.b1-wiki-texto h3 { font-size: 1.25rem; margin: 1rem 0 0.3rem; }
+.b1-wiki-texto p { margin: 0.45rem 0; line-height: 1.6; }
+.b1-wiki-texto ul,
+.b1-wiki-texto ol { margin: 0.4rem 0 0.4rem 1.2rem; line-height: 1.6; }
+.b1-wiki-texto ul { list-style: disc; }
+.b1-wiki-texto ol { list-style: decimal; }
+
+/* O painel que abre (lembrar, filtros, escolher pasta): desce um pouco e aparece. */
+.b1-painel {
+  margin-top: 0.5rem;
+  border: 1px solid var(--al-linha, #d6cfc2);
+  border-radius: var(--al-raio, 12px);
+  background: var(--al-fundo, #fff);
+  padding: 0.75rem 0.9rem;
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.08);
+}
+
+@keyframes b1-entra { from { opacity: 0; transform: translateY(6px); } }
+@keyframes b1-acende { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--al-dourado, #b7862b) 55%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+@media (prefers-reduced-motion: no-preference) {
+  .b1-painel,
+  .b1-entra { animation: b1-entra 0.32s var(--al3-mola, ease-out) both; }
+  .b1-nota[data-nova] { animation: b1-acende 0.9s ease-out 1; }
+  .b1-trecho-aceso { animation: b1-acende 1.2s ease-out 2; }
+  .b1-ficha { transition: background-color 0.18s, color 0.18s, border-color 0.18s; }
+  .b1-lista > li { transition: opacity 0.2s; }
+}
+:root[data-eink] .b1-painel,
+:root[data-eink] .b1-entra,
+:root[data-eink] .b1-nota,
+:root[data-eink] .b1-trecho-aceso { animation: none !important; transition: none !important; box-shadow: none; }
+:root[data-eink] .b1-nota { border-left-width: 6px; background: transparent; }
+:root[data-eink] .b1-trecho-aceso { background: transparent; text-decoration: underline 3px; }
+
+@media (forced-colors: active) {
+  .b1-nota { border-left-color: CanvasText; }
+  .b1-ficha[aria-current="true"],
+  .b1-ficha[aria-pressed="true"],
+  .b1-ficha[aria-selected="true"],
+  .b1-botao[aria-pressed="true"],
+  .b1-botao[data-cheio] { forced-color-adjust: none; background: Highlight; color: HighlightText; border-color: Highlight; }
+  .b1-trecho-aceso { forced-color-adjust: none; background: Mark; color: MarkText; }
+}

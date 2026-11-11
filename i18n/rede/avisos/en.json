@@ -21,7 +21,11 @@
     "mencao": { "um": "{a} mentioned you.", "vezes": "{a} mentioned you {n} times.", "varios": "{a} and {n} more mentioned you.", "anonimo": "Someone mentioned you.", "anonimoVarios": "{n} people mentioned you." },
     "citacao": { "um": "{a} quoted your post.", "vezes": "{a} quoted your post {n} times.", "varios": "{a} and {n} more quoted your post.", "anonimo": "Someone quoted your post.", "anonimoVarios": "{n} people quoted your post." },
     "seguidor": { "um": "{a} started following you.", "vezes": "{a} started following you.", "varios": "{a} and {n} more started following you.", "anonimo": "Someone started following you.", "anonimoVarios": "{n} people started following you." },
-    "apoio": { "um": "1 person supported your post.", "vezes": "1 person supported your post.", "varios": "{n} people supported your post.", "anonimo": "1 person supported your post.", "anonimoVarios": "{n} people supported your post." }
+    "apoio": { "um": "1 person supported your post.", "vezes": "1 person supported your post.", "varios": "{n} people supported your post.", "anonimo": "1 person supported your post.", "anonimoVarios": "{n} people supported your post." },
+    "conversa_seguida": {"um": "{a} replied in a conversation you follow.", "vezes": "{a} replied {n} times in a conversation you follow.", "varios": "{a} and {n} others replied in a conversation you follow.", "anonimo": "There is a new reply in a conversation you follow.", "anonimoVarios": "{n} people replied in a conversation you follow."},
+    "ajudou": {"um": "Your reply helped the person who started the conversation.", "vezes": "Your reply helped the person who started the conversation.", "varios": "Your replies helped in {n} conversations.", "anonimo": "Your reply helped the person who started the conversation.", "anonimoVarios": "Your replies helped in {n} conversations."},
+    "reacao_story": {"um": "Someone reacted to your story.", "vezes": "Your story got {n} reactions.", "varios": "Your story got reactions.", "anonimo": "Someone reacted to your story.", "anonimoVarios": "Your story got reactions."},
+    "lembrete": {"um": "You asked to be reminded of this post now.", "vezes": "You asked to be reminded of this post now.", "varios": "You asked to be reminded of these posts now.", "anonimo": "You asked to be reminded of this post now.", "anonimoVarios": "You asked to be reminded of these posts now."}
   },
   "prefs": {
     "titulo": "How you want to be notified",
@@ -38,7 +42,12 @@
         "chamado": "Calls to action",
         "nucleo": "Local groups",
         "moderacao": "Moderation (always on)",
-        "apoio": "Support (only the number, never who)"
+        "apoio": "Support (only the number, never who)",
+        "conversa_seguida": "Replies in conversations you follow",
+        "ajudou": "When your reply helped (never who marked it)",
+        "ato": "Actions you follow (beacon, chain, consultation)",
+        "reacao_story": "Reactions to your stories (never who reacted)",
+        "lembrete": "Reminders you set"
       }
     },
     "resumo": {

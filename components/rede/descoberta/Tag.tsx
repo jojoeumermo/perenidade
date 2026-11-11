@@ -6,6 +6,7 @@ import Link from "@/components/Link";
 import { conversa } from "@/lib/rede/cliente-conversa";
 import { redeDescoberta } from "@/lib/rede/cliente-descoberta";
 import { preencher } from "@/lib/rede/preencher";
+import { faltaFuncaoNoBanco } from "@/lib/rede/reserva";
 import type { TextosDaAlumia3 } from "@/lib/rede/textos-conversa";
 import { ORDENS, enderecosDescoberta, tagOk, type Ordem, type PaginaDaTag, type PaginaOrdenada } from "@/lib/rede/tipos-descoberta";
 import { textoDoErro } from "../erros";
@@ -78,13 +79,23 @@ function SeguirTag({ tag, t, aoAvisar, erroDe }: { tag: string; t: TextosDaAlumi
   const [seguindo, setSeguindo] = useState<{ tag: string; sim: boolean | null } | null>(previa() ? { tag, sim: false } : null);
   const [ocupado, setOcupado] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
+  // O aviso de erro do carregamento, sem refazer a consulta a cada desenho (as funções chegam novas em cada um).
+  const avisarErro = useRef<(e: unknown) => void>(() => {});
+  useEffect(() => {
+    avisarErro.current = (e) => aoAvisar(erroDe(e), true);
+  });
   useEffect(() => {
     if (previa()) return;
     let vivo = true;
     conversa
       .seguindo(null, tag)
       .then((r) => vivo && setSeguindo({ tag, sim: r.tag === true }))
-      .catch(() => vivo && setSeguindo({ tag, sim: null }));
+      // Banco sem a migração: o botão não aparece, calado. Outro erro (limite, conta suspensa): não aparece, e o motivo vai para a tela.
+      .catch((e) => {
+        if (!vivo) return;
+        setSeguindo({ tag, sim: null });
+        if (!faltaFuncaoNoBanco(e)) avisarErro.current(e);
+      });
     return () => {
       vivo = false;
     };

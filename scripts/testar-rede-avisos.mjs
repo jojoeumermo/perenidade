@@ -246,7 +246,8 @@ await espera("ler um grupo marca todos os avisos dele de uma vez", async () => {
 
 // ── 5. Preferências ──
 await limpar();
-await espera("padrões: site ligado, celular e resumo desligados", () => rpc(como(pessoas.ana), "rede_aviso_prefs_ver"), (p) => TIPOS_DE_AVISO.every((t) => p.site[t] === true && p.push[t] === false) && p.resumo === false && p.push_aparelhos === 0 && p.membro === true);
+// Os tipos da B1 (conversa seguida, ajudou, ato, story, lembrete) só existem depois de 20261110-alumia-b1-comunidade.sql, que este teste não roda.
+await espera("padrões: site ligado, celular e resumo desligados", () => rpc(como(pessoas.ana), "rede_aviso_prefs_ver"), (p) => TIPOS_DE_AVISO.filter((t) => t in p.site).length >= 8 && TIPOS_DE_AVISO.filter((t) => t in p.site).every((t) => p.site[t] === true && p.push[t] === false) && p.resumo === false && p.push_aparelhos === 0 && p.membro === true);
 await espera("desligar 'apoio' no site: apoios novos não viram aviso", async () => {
   await rpc(como(pessoas.autor), "rede_aviso_prefs_salvar", { p_tipo: "apoio", p_canal: "site", p_ligado: false });
   const p = await postar({ publico: "membros" });
