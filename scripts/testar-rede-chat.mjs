@@ -15,7 +15,7 @@ import {
 } from "../lib/rede/chat-privado.ts";
 import { abrirC3, cifrarC3, contextoC3 } from "../lib/rede/chat/c3.ts";
 import {
-  aoApagarTudoDoChat, apagarPrefixoDaGaveta, apagarTudoDoChat, BANCO_DO_CHAT, CONHECIDAS, CONTAS, guardarNaGaveta, lerDaGaveta, lerPrefixoDaGaveta, ORDEM, reabrirDepoisDeApagar,
+  aoApagarTudoDoChat, apagarPrefixoDaGaveta, apagarTudoDoChat, BANCO_DO_CHAT, chatApagadoAqui, CONHECIDAS, CONTAS, guardarNaGaveta, lerDaGaveta, lerPrefixoDaGaveta, ORDEM, reabrirDepoisDeApagar,
 } from "../lib/rede/chat/gaveta.ts";
 import { buracos, chaveDaOrdem, comContadorUsado, julgar, proximoContador, registroVencido, VIDA_DO_REGISTRO_DIAS } from "../lib/rede/chat/ordem.ts";
 import { preencher, TAMANHOS_DO_BLOCO, TAMANHOS_DO_CIFRADO, tamanhoDoBloco, tirarPreenchimento } from "../lib/rede/chat/padding.ts";
@@ -867,6 +867,42 @@ await espera("depois do pânico, só a ativação (criar) recria o banco e solta
   reabrirDepoisDeApagar();
   return ok;
 }, (r) => r[0] === true && r[1] === "u1");
+// P16: a saída do site (três Esc, lib/modo-seguro.ts) roda a limpeza do chat antes de apagar as bases.
+await espera("ATAQUE (três Esc com o chat aberto em outra aba): a saída do site liga a trava e avisa as outras abas antes de apagar as bases; a outra aba apaga a memória NA HORA, sem precisar tocar no banco", async () => {
+  reabrirDepoisDeApagar();
+  const { sairRapido: sairDoSite, limparOChat, TETO_DO_CHAT_MS } = await import("../lib/modo-seguro.ts");
+  const abaG = await import("../lib/rede/chat/gaveta.ts?aba=G");
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
+  await abaG.guardarNaGaveta(ORDEM, { chave: "u1:c7:u2:1", desde: 1, maior: 1, vistas: { a: "s1" } });
+  let limpouG = 0;
+  abaG.aoApagarTudoDoChat(() => void limpouG++);
+  let limpouAqui = 0;
+  const desfazer = aoApagarTudoDoChat(() => void limpouAqui++);
+  const idas = [];
+  const antes = { document: globalThis.document, location: globalThis.location };
+  globalThis.document = { documentElement: { style: {} }, title: "Alumia", querySelectorAll: () => [], createElement: () => ({}), head: { appendChild: () => undefined } };
+  globalThis.location = { replace: (destino) => void idas.push(destino) };
+  const inicio = performance.now();
+  let escondeu = false;
+  try {
+    await sairDoSite("https://fora.exemplo/");
+    escondeu = globalThis.document.documentElement.style.visibility === "hidden";
+  } finally {
+    for (const nome of ["document", "location"]) {
+      if (antes[nome] === undefined) delete globalThis[nome];
+      else globalThis[nome] = antes[nome];
+    }
+  }
+  const ms = performance.now() - inicio;
+  await new Promise((pronto) => setTimeout(pronto, 50));
+  // A aba G não tocou no banco depois da saída: só o aviso entre abas pode tê-la limpado.
+  const r = [limpouAqui, chatApagadoAqui(), limpouG, abaG.chatApagadoAqui(), falso.bancos.has(BANCO_DO_CHAT), idas.join(), escondeu, ms < 900];
+  // A limpeza do chat nunca lança e nunca segura a saída: módulo que não carrega, e teto próprio antes das bases.
+  const semModulo = await limparOChat(() => Promise.reject(new Error("sem módulo"))).then(() => "segue", () => "lançou");
+  desfazer();
+  reabrirDepoisDeApagar();
+  return [...r, semModulo, TETO_DO_CHAT_MS < 700, /Promise\.race\(\[limparOChat\(\), new Promise\(\(resolve\) => setTimeout\(resolve, TETO_DO_CHAT_MS\)\)\]\)\.then\(apagarBases\)/.test(ler("lib/modo-seguro.ts"))];
+}, (r) => JSON.stringify(r) === '[1,true,1,true,false,"https://fora.exemplo/",true,true,"segue",true,true]');
 await espera("a tela das conversas e a da conversa aberta se limpam no pânico de qualquer aba (lista, conversa, rascunho, códigos)", async () => [ler("components/rede/chat/Tela.tsx"), ler("components/rede/chat/Conversa.tsx")],
   (r) => /aoApagarTudoDoChat\(\(\) => \{\s*setAberta\(null\);\s*setLista\(\[\]\);/.test(r[0]) && /aoApagarTudoDoChat\(\(\) => \{\s*sessaoRef\.current = null;[\s\S]{0,200}setTexto\(""\);/.test(r[1]));
 await espera("o encaixe do chat pendura o apagar tudo no Sair rápido, o chaveiro o exporta, e a gaveta não importa nada", async () => [ler("components/rede/chat/encaixe.tsx"), ler("lib/rede/chat-chaveiro.ts"), ler("lib/rede/chat/gaveta.ts")],
@@ -1084,6 +1120,117 @@ await espera("o c3 leva dentro 'até onde eu já tinha recebido' e o chaveiro pr
   const aberta = await abrirMensagem(k, corpoVisto, conversaLivre, P.ana, null);
   return [aberta.visto.versao, aberta.visto.contador, /cifrarMensagem\(chave, usada\.versao, usada\.eu, usada\.conversa, texto, contador, await vistoDaOutra\(usada\)\)/.test(ler("lib/rede/chat-chaveiro.ts"))];
 }, (r) => JSON.stringify(r) === "[2,7,true]");
+// O relógio, pelo chaveiro de verdade (não só pela função pura): o salto fica anotado e a SEGUNDA leitura também não confia.
+const { chaveDoPiso, marcaDaLeitura } = await import("../lib/rede/chat/ordem.ts");
+await espera("ATAQUE (relógio do aparelho salta 60 dias e a conversa é lida duas vezes): nenhum registro vence, nem na segunda leitura; a mensagem antiga regravada continua saindo como repetida, sem texto", async () => {
+  const DIA = 86_400_000;
+  const relogioDeVerdade = Date.now;
+  quem = "sol";
+  const lista = await servidor("rede_dm_mensagens", { p_conversa: conversaRS });
+  const primeira = lista.find((m) => m.versao === 1 && m.autor === P.rui);
+  const doRegistro = chaveDaOrdem(P.sol, conversaRS, P.rui, 1);
+  const doPiso = chaveDoPiso(P.sol, conversaRS, P.rui);
+  const daMarca = chaveDasVersoes(P.sol, conversaRS);
+  const base = relogioDeVerdade();
+  const r = [sessaoSol.versao > 1, !!primeira, !!(await lerDaGaveta(ORDEM, doRegistro))];
+  try {
+    // Primeira leitura depois do salto: a leitura anterior foi "há 60 dias".
+    Date.now = () => base + 60 * DIA;
+    await chaveiro.abrirMensagens(sessaoSol, lista);
+    r.push(!!(await lerDaGaveta(ORDEM, doRegistro)), await lerDaGaveta(ORDEM, doPiso));
+    // Segunda leitura, dois minutos depois: a hora da primeira já está gravada como "lida". Antes do conserto, vencia aqui.
+    Date.now = () => base + 60 * DIA + 120_000;
+    await chaveiro.abrirMensagens(sessaoSol, lista);
+    r.push(!!(await lerDaGaveta(ORDEM, doRegistro)), await lerDaGaveta(ORDEM, doPiso), typeof (await lerDaGaveta(ORDEM, daMarca))?.suspeita);
+    // E mais uma, com o relógio andando aos poucos (um dia): o salto anotado continua valendo.
+    Date.now = () => base + 61 * DIA;
+    await chaveiro.abrirMensagens(sessaoSol, lista);
+    // O servidor regrava a mensagem antiga do Rui como se fosse nova: o aparelho ainda sabe que é repetida.
+    const comCopia = await chaveiro.abrirMensagens(sessaoSol, [...lista, { ...primeira, id: crypto.randomUUID(), criado_em: new Date(base + 1000).toISOString() }]);
+    const copia = comCopia.find((m) => m.repetida);
+    r.push(!!(await lerDaGaveta(ORDEM, doRegistro)), comCopia.filter((m) => m.repetida).length, copia?.texto ?? "sem-texto", comCopia.filter((m) => m.duvidosa).length);
+  } finally {
+    Date.now = relogioDeVerdade;
+  }
+  return r;
+}, (r) => JSON.stringify(r) === '[true,true,true,true,null,true,null,"number",true,1,"sem-texto",0]');
+await espera("o relógio de confiança continua fechando a versão antiga pelo chaveiro (sem salto anotado), e a mensagem dela passa a sair com aviso; o salto anotado só deixa de valer depois de 45 dias sem outro salto", async () => {
+  const DIA = 86_400_000;
+  const agora = Date.now();
+  const doRegistro = chaveDaOrdem(P.sol, conversaRS, P.rui, 1);
+  await mudarNaGaveta(ORDEM, chaveDasVersoes(P.sol, conversaRS), (m) => ({ chave: m.chave, topo: m.topo, desde: m.desde, lida: agora - 120_000 }));
+  await mudarNaGaveta(ORDEM, doRegistro, (registro) => ({ ...registro, desde: agora - 50 * DIA }));
+  quem = "sol";
+  const lidas = await lerComo("sol", sessaoSol);
+  const daVersao1 = lidas.find((m) => m.versao === 1 && m.autor === P.rui);
+  const marca = { chave: "v", topo: 4, desde: 1, lida: agora - 120_000 };
+  const velho = { chave: "x", desde: agora - 50 * DIA, maior: 3, vistas: {} };
+  return [
+    await lerDaGaveta(ORDEM, doRegistro), (await lerDaGaveta(ORDEM, chaveDoPiso(P.sol, conversaRS, P.rui)))?.versao, daVersao1?.duvidosa, daVersao1?.texto,
+    relogioConfiavel(agora - 60_000, agora, agora - 10 * DIA), relogioConfiavel(agora - 60_000, agora, agora + DIA), relogioConfiavel(agora - 60_000, agora, agora - 46 * DIA), relogioConfiavel(agora - 3 * DIA, agora, agora - 46 * DIA),
+    podeFechar(velho, 3, 4, agora - 60_000, agora, agora - 10 * DIA), podeFechar(velho, 3, 4, agora - 60_000, agora, agora - 46 * DIA),
+    marcaDaLeitura(marca, agora - 60_000) === marca, marcaDaLeitura(marca, agora).lida === agora && marcaDaLeitura(marca, agora).suspeita === undefined,
+    marcaDaLeitura(marca, agora + 3 * DIA).suspeita === agora + 3 * DIA, marcaDaLeitura(marca, agora - DIA).suspeita === agora - DIA, marcaDaLeitura({ ...marca, suspeita: 5 }, agora).suspeita,
+  ];
+}, (r) => JSON.stringify(r) === '[null,1,true,"primeira do Rui",false,false,true,false,false,true,true,true,true,true,5]');
+
+// O formato antigo regravado, pelo caminho de verdade (abrirMensagens): o resumo do corpo fica guardado no aparelho.
+await espera("ATAQUE (servidor regrava c2 antigo, pelo chaveiro): a c2 abre uma vez; o mesmo corpo sob outro id sai como repetida, sem texto, mesmo sozinho; c2 depois de c3 do mesmo autor e versão sai com aviso; depois do prazo não abre", async () => {
+  const DIA = 86_400_000;
+  const relogioDeVerdade = Date.now;
+  const lugar = contextoDaMensagem(conversaRS, P.rui);
+  quem = "sol";
+  const lista = await servidor("rede_dm_mensagens", { p_conversa: conversaRS });
+  // Uma versão em que o Rui nunca escreveu c3 (a chave entra na sessão como entraria por um embrulho antigo).
+  const k50 = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+  sessaoSol.chaves.set(50, k50);
+  const corpo = await cifrar(k50, 50, await assinarTexto(euRui.identidade, "c2 de verdade", lugar, 50), lugar);
+  // E uma versão em que ele já escreveu c3: a da última mensagem dele.
+  const ultimaDoRui = lista.filter((m) => m.autor === P.rui).sort((a, b) => a.criado_em.localeCompare(b.criado_em)).at(-1);
+  const corpoTardio = await cifrar(sessaoSol.chaves.get(ultimaDoRui.versao), ultimaDoRui.versao, await assinarTexto(euRui.identidade, "c2 fora de hora", lugar, ultimaDoRui.versao), lugar);
+  const linha = (corpoDaLinha, versao, segundo) => ({ id: crypto.randomUUID(), autor: P.rui, versao, corpo: corpoDaLinha, criado_em: new Date(C2_ABRE_ATE - DIA + segundo * 1000).toISOString(), expira_em: new Date(C2_ABRE_ATE + 30 * DIA).toISOString() });
+  const original = linha(corpo, 50, 1);
+  const regravada = linha(corpo, 50, 2);
+  const tardia = linha(corpoTardio, ultimaDoRui.versao, 3);
+  const r = [formatoDe(corpo), formatoDe(ultimaDoRui.corpo)];
+  try {
+    // Um dia em que o aparelho ainda abre c2 (o teste não depende do dia em que roda).
+    Date.now = () => C2_ABRE_ATE - DIA;
+    const a = await chaveiro.abrirMensagens(sessaoSol, [original]);
+    const b = await chaveiro.abrirMensagens(sessaoSol, [original, regravada]);
+    const c = await chaveiro.abrirMensagens(sessaoSol, [regravada]);
+    const d = await chaveiro.abrirMensagens(sessaoSol, [...lista, tardia]);
+    r.push(`${a[0].texto}/${a[0].autoria}/${a[0].repetida}`, b.map((m) => `${m.texto}/${m.repetida}`).join("|"), `${c[0].texto}/${c[0].repetida}`);
+    const daTardia = d.find((m) => m.id === tardia.id);
+    r.push(`${daTardia.texto}/${daTardia.duvidosa}/${daTardia.repetida}`, d.filter((m) => m.duvidosa && m.id !== tardia.id && m.versao === ultimaDoRui.versao).length);
+    Date.now = () => C2_ABRE_ATE + 1000;
+    const e = await chaveiro.abrirMensagens(sessaoSol, [linha(corpo, 50, 4), ...lista.filter((m) => m.id === ultimaDoRui.id)]);
+    r.push(e.map((m) => m.texto).join("|"));
+  } finally {
+    Date.now = relogioDeVerdade;
+    sessaoSol.chaves.delete(50);
+  }
+  return r;
+}, (r) => JSON.stringify(r) === '["c2","c3","c2 de verdade/ok/false","c2 de verdade/false|null/true","null/true","c2 fora de hora/true/false",0,"|com o relógio atrasado"]');
+
+// "Apagar tudo do chat" dos Ajustes (uma conta só) avisa as outras abas. Fica por último: as sessões deste teste deixam de valer.
+await espera("ATAQUE (aba esquecida aberta na conversa): o 'apagar tudo do chat' dos Ajustes avisa as outras abas, que apagam a memória delas e ligam a trava; só a conta que apagou sai do banco", async () => {
+  const abaH = await import("../lib/rede/chat/gaveta.ts?aba=H");
+  let limpouH = 0;
+  abaH.aoApagarTudoDoChat(() => void limpouH++);
+  quem = "rui";
+  // (Neste teste as duas pessoas dividem a página; a sessão aberta por último nesta conversa é a da Sol: é ela que a página segura.)
+  const antes = [limpouH, abaH.chatApagadoAqui(), await tentarCodigo(chaveiro.abrirMensagens(sessaoRui, [])), sessaoSol.chaves.size > 0];
+  await chaveiro.esquecerNesteAparelho(P.rui);
+  await new Promise((pronto) => setTimeout(pronto, 50));
+  return [
+    ...antes, limpouH, abaH.chatApagadoAqui(), chatApagadoAqui(), await lerDaGaveta(CONTAS, P.rui), (await lerPrefixoDaGaveta(ORDEM, `${P.rui}:`)).length, (await lerDaGaveta(CONTAS, P.sol))?.usuario === P.sol,
+    falso.bancos.has(BANCO_DO_CHAT), await tentarCodigo(chaveiro.abrirMensagens(sessaoRui, [])), sessaoSol.chaves.size,
+    // Uma gravação que estava no caminho na outra aba não acontece mais.
+    await abaH.mudarNaGaveta(ORDEM, `${P.rui}:c:x:1`, () => ({ chave: `${P.rui}:c:x:1`, desde: 1, maior: 1, vistas: {} })),
+    /export async function esquecerNesteAparelho[\s\S]{0,120}esquecerSessoes\(\);\s*avisarAsOutrasAbas\(\);/.test(ler("lib/rede/chat-chaveiro.ts")),
+  ];
+}, (r) => JSON.stringify(r) === '[0,false,"passou",true,1,true,false,null,0,true,true,"dm_apagado",0,null,true]');
 Object.assign(clienteDoChat, criarClienteDoChat(async () => {
   throw new Error("fora_do_teste");
 }));
@@ -1169,7 +1316,11 @@ await espera("identidade trocada de quem estava verificado: a marca cai, o envio
     && (r[1].match(/confiar\(sessao\.mudou as string, false\)/g) ?? []).length === 1 && !/confiarNaIdentidade\(atual, atual\.mudou/.test(r[1])
     && /disabled=\{ocupado \|\| !textoCabe\(texto\) \|\| !!sessao\.mudou\}/.test(r[1]));
 await espera("outra chave no servidor para a própria conta: a tela explica o risco e pede o \"entendi\" antes de criar chave nova", async () => [ler("components/rede/chat/Tela.tsx"), ler("lib/rede/chat-chaveiro.ts")],
-  (r) => /aparelho\.estado === "outro_aparelho" && !entendi/.test(r[0]) && /aparelho\.tinhaChaveAqui && <p role="alert"[^>]*>\{t\.ativar\.outroTinha\}/.test(r[0]) && /\{t\.ativar\.outroRisco\}/.test(r[0]) && /tinhaChaveAqui: !!guardado/.test(r[1]));
+  (r) => /aparelho\.estado !== "sem_chave" && !entendi/.test(r[0]) && /aparelho\.tinhaChaveAqui && <p role="alert"[^>]*>\{t\.ativar\.outroTinha\}/.test(r[0]) && /\{t\.ativar\.outroRisco\}/.test(r[0]) && /tinhaChaveAqui: !!guardado/.test(r[1]));
+await espera("depois do pânico a tela de reativar tem texto próprio (não diz que o chat está ativo em outro aparelho) e continua pedindo o \"entendi\"; nos seis idiomas", async () => [ler("components/rede/chat/Tela.tsx"), ["pt", "en", "es", "fr", "ru", "zh"].map((l) => JSON.parse(ler(`i18n/rede/chat/${l}.json`)).ativar)],
+  (r) => /setAparelho\(\{ estado: "apagado" \}\);/.test(r[0]) && !/setAparelho\(\{ estado: "outro_aparelho", tinhaChaveAqui: false \}\)/.test(r[0]) && /aparelho\.estado === "apagado" \? t\.ativar\.apagadoTitulo : t\.ativar\.outroTitulo/.test(r[0])
+    && /aparelho\.estado === "apagado" \? t\.ativar\.apagadoTexto/.test(r[0]) && /aparelho\.estado === "apagado" \? t\.ativar\.apagadoBotao/.test(r[0])
+    && r[1].every((a) => a.apagadoTitulo && a.apagadoTexto && a.apagadoBotao && a.apagadoTitulo !== a.outroTitulo && a.apagadoTexto !== a.outroTexto) && new Set(r[1].map((a) => a.apagadoTexto)).size === 6);
 await espera("câmera: só liga com o toque da pessoa e desliga ao fechar, ao ler e quando a aba vai para o fundo", async () => [ler("components/rede/chat/Qr.tsx"), ler("components/rede/chat/Conversa.tsx")],
   (r) => (r[0].match(/getUserMedia\(/g) ?? []).length === 1 && (r[0].match(/getTracks\(\)\.forEach\(\(faixa\) => faixa\.stop\(\)\)/g) ?? []).length === 2 && /visibilitychange/.test(r[0])
     && /\{lendoQr && \(\s*<LeitorDeQr/.test(r[1]) && /\{lendo && \(\s*<LeitorDeQr/.test(r[1]) && (r[1].match(/setLendoQr\(true\)|setLendo\(true\)/g) ?? []).length === 2 && !/useEffect\([^)]*setLendo(Qr)?\(true\)/.test(r[1]));

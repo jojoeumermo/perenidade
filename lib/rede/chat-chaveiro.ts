@@ -16,9 +16,9 @@ import {
   novaIdentidadeDoChat, type ParDoAparelho, precisaDeVersaoNova, prepararNovaVersao, ROTACAO_DIAS, type Visto,
 } from "./chat-privado";
 import { NADA_VISTO } from "./chat/c3";
-import { aoApagarTudoDoChat, apagarDaGaveta, apagarPrefixoDaGaveta, apagarTudoDoChat as apagarTudoNoAparelho, CONHECIDAS, CONTAS, guardarNaGaveta, lerDaGaveta, lerPrefixoDaGaveta, mudarNaGaveta, ORDEM } from "./chat/gaveta";
+import { aoApagarTudoDoChat, apagarDaGaveta, apagarPrefixoDaGaveta, apagarTudoDoChat as apagarTudoNoAparelho, avisarAsOutrasAbas, CONHECIDAS, CONTAS, guardarNaGaveta, lerDaGaveta, lerPrefixoDaGaveta, mudarNaGaveta, ORDEM } from "./chat/gaveta";
 import {
-  anotarVersao, buracos, chaveDaOrdem, chaveDasVersoes, chaveDoPiso, comContadorUsado, julgar, julgarAntiga, juntarRegistros, type MarcaDeVersoes, ordemDaTela, type OrdemDaTela, type PisoDeOrdem,
+  anotarVersao, buracos, chaveDaOrdem, chaveDasVersoes, chaveDoPiso, comContadorUsado, julgar, julgarAntiga, juntarRegistros, marcaDaLeitura, type MarcaDeVersoes, ordemDaTela, type OrdemDaTela, type PisoDeOrdem,
   podeFechar, prefixoDaOrdem, proximoContador, type RegistroDeOrdem, versaoDaChave, versaoVelhaAqui,
 } from "./chat/ordem";
 import { chat, PREVIA_DO_CHAT, type ChavesDaConversa, type MensagemCifrada, type SituacaoDoChat } from "./cliente-chat";
@@ -77,9 +77,13 @@ function esquecerSessoes() {
 // O "Sair rápido" (components/rede/chat/encaixe.tsx), nesta aba ou em outra, apaga também as chaves de conversa da memória.
 aoApagarTudoDoChat(esquecerSessoes);
 
-/** Apaga deste aparelho tudo o que o chat guardou da conta (depois de "apagar tudo do chat"). */
+/**
+ * Apaga deste aparelho tudo o que o chat guardou da conta (depois de "apagar tudo do chat" nos Ajustes). As outras abas são
+ * avisadas (o mesmo aviso do pânico) e apagam a memória delas: nenhuma continua com a chave da conversa aberta.
+ */
 export async function esquecerNesteAparelho(usuario: string) {
   esquecerSessoes();
+  avisarAsOutrasAbas();
   await apagarDaGaveta(CONTAS, usuario);
   await apagarPrefixoDaGaveta(CONHECIDAS, `${usuario}:`);
   await apagarPrefixoDaGaveta(ORDEM, `${usuario}:`);
@@ -341,10 +345,11 @@ async function conferirOrdem(sessao: Sessao, abertas: MensagemAberta[], internos
     else registros.set(guardado.chave, guardado);
   }
   // Registro de versão ANTIGA que passou da vida útil vira piso. A versão atual nunca fecha, e nada vence numa leitura em que
-  // o relógio do aparelho andou para trás ou saltou dias (rede hostil, relógio sem bateria).
+  // o relógio do aparelho andou para trás ou saltou dias (rede hostil, relógio sem bateria), nem nas seguintes: o salto fica
+  // anotado na marca (logo abaixo) e vale até passar uma vida inteira de registro sem outro salto.
   for (const [chave, registro] of [...registros]) {
     const versao = versaoDaChave(chave);
-    if (versao === null || !podeFechar(registro, versao, sessao.versao, marca?.lida, agora)) continue;
+    if (versao === null || !podeFechar(registro, versao, sessao.versao, marca?.lida, agora, marca?.suspeita)) continue;
     const doPiso = `${chave.slice(0, chave.lastIndexOf(":"))}:piso`;
     if (versao > (pisos.get(doPiso) ?? 0)) {
       pisos.set(doPiso, versao);
@@ -353,9 +358,14 @@ async function conferirOrdem(sessao: Sessao, abertas: MensagemAberta[], internos
     registros.delete(chave);
     await apagarDaGaveta(ORDEM, chave);
   }
-  // A hora desta leitura, para a próxima desconfiar de salto (gravada no máximo uma vez por minuto).
-  if (marca && (agora < marca.lida || agora - marca.lida > 60_000)) {
-    await mudarNaGaveta<MarcaDeVersoes>(ORDEM, marca.chave, (guardada) => (guardada ? { ...guardada, lida: agora } : null));
+  // A hora desta leitura, para a próxima desconfiar de salto (gravada no máximo uma vez por minuto); e, se o relógio saltou
+  // AGORA, a suspeita, para as próximas leituras não confiarem nele. Decidido sobre o que está guardado, numa transação só.
+  if (marca && marcaDaLeitura(marca, agora) !== marca) {
+    await mudarNaGaveta<MarcaDeVersoes>(ORDEM, marca.chave, (guardada) => {
+      if (!guardada) return null;
+      const nova = marcaDaLeitura(guardada, agora);
+      return nova === guardada ? null : nova;
+    });
   }
   for (const m of [...abertas].sort((a, b) => a.criado_em.localeCompare(b.criado_em))) {
     const interno = internos.get(m.id);

@@ -12,7 +12,10 @@
     "outroBotao": "Usar este aparelho",
     "outroTinha": "Atenção: este aparelho já tinha a chave do seu chat, mas o servidor agora mostra outra. Se você ativou o chat em outro aparelho, é isso. Se não foi você, alguém pode ter entrado na sua conta: troque a senha antes de continuar.",
     "outroRisco": "Criar uma chave nova aqui muda a sua chave de segurança. Quem conversa com você recebe um aviso, as conversas verificadas perdem a marca e vocês precisam comparar o código de novo. O que foi escrito antes não abre neste aparelho.",
-    "outroEntendi": "Entendi o risco e quero criar uma chave nova neste aparelho"
+    "outroEntendi": "Entendi o risco e quero criar uma chave nova neste aparelho",
+    "apagadoTitulo": "O chat foi apagado deste aparelho",
+    "apagadoTexto": "A chave do chat saiu deste aparelho (pelo Sair rápido ou por \"apagar tudo do chat\", nesta aba ou em outra). Nada do chat ficou guardado aqui. Para conversar neste aparelho de novo, é preciso criar uma chave nova.",
+    "apagadoBotao": "Ativar o chat de novo aqui"
   },
   "nova": {
     "rotulo": "Conversar com @",
@@ -127,7 +130,7 @@
     "apagarTudoExplica": "Tira todas as conversas da sua lista e apaga a sua chave e os seus ajustes. A outra pessoa de cada conversa continua com as mensagens até o prazo delas acabar. A conta continua. LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Tirar TODAS as conversas da sua lista e apagar a sua chave do chat? Não tem volta.",
     "apagado": "Tudo do chat foi apagado.",
-    "sairRapido": "O botão Sair rápido da Alumia apaga também a chave do chat deste aparelho, e com ela tudo o que este aparelho sabia das outras pessoas: as chaves de segurança conhecidas e as verificações. Depois, é preciso ativar o chat de novo; o que foi escrito antes não abre mais aqui; e TODAS as conversas voltam a ficar não verificadas: compare o código de novo com cada pessoa antes de escrever algo sensível. O Sair rápido da Alumia não encerra a sua sessão na conta."
+    "sairRapido": "O botão Sair rápido da Alumia apaga também a chave do chat deste aparelho, e com ela tudo o que este aparelho sabia das outras pessoas: as chaves de segurança conhecidas e as verificações. Depois, é preciso ativar o chat de novo; o que foi escrito antes não abre mais aqui; e TODAS as conversas voltam a ficar não verificadas: compare o código de novo com cada pessoa antes de escrever algo sensível. O Sair rápido também encerra a sua sessão na conta: depois é preciso entrar de novo."
   },
   "erros": {
     "dm_fechada": "Não dá para conversar com esta pessoa agora.",

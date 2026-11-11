@@ -13,7 +13,10 @@
     "outroBotao": "Use this device",
     "outroTinha": "Warning: this device already had your chat key, but the server now shows a different one. If you turned on messages on another device, that is why. If it was not you, someone may have got into your account: change your password before going on.",
     "outroRisco": "Creating a new key here changes your safety key. People you talk to get a warning, verified conversations lose the mark and you have to compare the code again. What was written before will not open on this device.",
-    "outroEntendi": "I understand the risk and want to create a new key on this device"
+    "outroEntendi": "I understand the risk and want to create a new key on this device",
+    "apagadoTitulo": "Messages were erased from this device",
+    "apagadoTexto": "The chat key has left this device (through Quick exit or \"erase everything from chat\", in this tab or another one). Nothing from the chat is stored here. To use messages on this device again, you need to create a new key.",
+    "apagadoBotao": "Turn on messages here again"
   },
   "nova": {
     "rotulo": "Message @",
@@ -128,7 +131,7 @@
     "apagarTudoExplica": "Removes all conversations from your list and deletes your key and your settings. The other person in each conversation keeps the messages until their time limit ends. Your account stays. Brazil's LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Remove ALL conversations from your list and delete your messaging key? This cannot be undone.",
     "apagado": "All your messages were deleted.",
-    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device, and with it everything this device knew about other people: known safety keys and verifications. After that you have to turn messages on again; what was written before will no longer open here; and ALL conversations become unverified again: compare the code with each person before writing anything sensitive. Alumia's Quick exit does not sign you out of your account."
+    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device, and with it everything this device knew about other people: known safety keys and verifications. After that you have to turn messages on again; what was written before will no longer open here; and ALL conversations become unverified again: compare the code with each person before writing anything sensitive. Quick exit also signs you out of your account: you have to sign in again afterwards."
   },
   "erros": {
     "dm_fechada": "You cannot message this person right now.",

@@ -15,6 +15,7 @@
 //      criação; e, se esta página já tinha visto o banco, entende que ele foi apagado por fora (outra aba, a saída rápida do
 //      site em lib/modo-seguro.ts) e se limpa também. Um pedido que estava no caminho não recria o banco.
 //   3. Depois de apagar, a página não grava mais nada, até a pessoa ativar o chat de novo.
+// O "apagar tudo do chat" dos Ajustes (de UMA conta, lib/rede/chat-chaveiro.ts) usa o mesmo aviso entre abas.
 // Este arquivo não importa nada, de propósito: entra leve na casca da Alumia e roda no Node nos testes
 // (scripts/testar-rede-chat.mjs, com um IndexedDB de mentira).
 
@@ -287,6 +288,21 @@ export function aoApagarTudoDoChat(limpar: () => void): () => void {
   };
 }
 
+/**
+ * "Apagar tudo do chat" dos Ajustes (uma conta só): avisa as OUTRAS abas, pelo mesmo canal do pânico, para cada uma apagar a
+ * memória dela (chaves de conversa, mensagens abertas, rascunho) e ligar a trava. Sem isso, uma aba esquecida aberta na
+ * conversa continuaria lendo e escrevendo com a chave que a pessoa mandou apagar. Esta aba e o banco ficam por conta de quem
+ * chama (lib/rede/chat-chaveiro.ts apaga só os registros da conta). O aviso não leva dado nenhum. Nunca lança.
+ */
+export function avisarAsOutrasAbas(): void {
+  try {
+    escutar();
+    canal?.postMessage(AVISO_DE_APAGAR);
+  } catch {
+    // sem canal: nada a avisar
+  }
+}
+
 /** O chat foi apagado deste aparelho e esta página ainda não o ativou de novo? */
 export const chatApagadoAqui = () => apagado;
 
@@ -299,13 +315,9 @@ export const chatApagadoAqui = () => apagado;
 export async function apagarTudoDoChat(limiteMs = 400): Promise<void> {
   try {
     limparAqui();
-    // As outras abas: cada uma apaga a própria memória e solta o banco (senão o apagamento ficaria esperando por elas).
-    try {
-      escutar();
-      canal?.postMessage(AVISO_DE_APAGAR);
-    } catch {
-      // sem canal: a outra aba se limpa quando notar que o banco sumiu
-    }
+    // As outras abas: cada uma apaga a própria memória e solta o banco (senão o apagamento ficaria esperando por elas). Sem
+    // canal, a outra aba se limpa quando notar que o banco sumiu.
+    avisarAsOutrasAbas();
     if (typeof indexedDB === "undefined") return;
     await new Promise<void>((pronto) => {
       const relogio = setTimeout(pronto, limiteMs);

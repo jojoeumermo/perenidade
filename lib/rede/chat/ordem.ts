@@ -17,7 +17,8 @@
 // deixa de saber se uma mensagem dessa versão é repetida, e passa a mostrá-la com aviso. A versão atual nunca fecha.
 //
 // O relógio do aparelho não é de confiança (rede hostil, relógio sem bateria): nada vence numa leitura em que a hora andou
-// para trás ou saltou dias desde a leitura anterior.
+// para trás ou saltou dias desde a leitura anterior, NEM nas leituras seguintes: o salto fica anotado na marca ("suspeita") e
+// só deixa de valer depois de uma vida inteira de registro contada, sem outro salto, a partir dele.
 //
 // Funções puras, sem navegador: rodam no Node nos testes (scripts/testar-rede-chat.mjs).
 
@@ -50,6 +51,11 @@ export interface MarcaDeVersoes {
   desde: number;
   /** A hora do aparelho na última leitura da conversa (para desconfiar de salto no relógio). */
   lida: number;
+  /**
+   * A hora do aparelho (já a nova) na última leitura em que o relógio voltou ou saltou dias. Depois de um salto não dá para
+   * saber a idade de nenhum registro: todos contam como vistos nesta hora. Ausente: nunca houve salto.
+   */
+  suspeita?: number;
 }
 
 /** Uma mensagem c3 já aberta, com o que interessa para a ordem. */
@@ -135,18 +141,36 @@ export function juntarRegistros(guardado: RegistroDeOrdem | null, novo: Registro
 /** Este registro já passou da vida útil? (pode virar piso, se for de versão antiga e o relógio for de confiança) */
 export const registroVencido = (registro: RegistroDeOrdem, agora = Date.now()) => agora - registro.desde > VIDA_DO_REGISTRO_DIAS * DIA;
 
+/** O relógio voltou ou saltou dias entre a leitura anterior (`lida`) e esta? */
+export const relogioSaltou = (lida: number, agora = Date.now()) => agora < lida || agora - lida > SALTO_SUSPEITO_DIAS * DIA;
+
 /**
- * Dá para confiar no relógio nesta leitura? Só se a hora não andou para trás nem saltou dias desde a leitura anterior. Na
- * primeira leitura (`lida` desconhecida) não dá.
+ * Dá para confiar no relógio nesta leitura? Só se a hora não andou para trás nem saltou dias desde a leitura anterior (na
+ * primeira leitura, `lida` desconhecida, não dá) E se não há salto anotado que ainda valha: depois de um salto (`suspeita`),
+ * o relógio só volta a ser de confiança quando uma vida inteira de registro passou desde ele, sem outro salto. Sem isso, a
+ * SEGUNDA leitura depois do salto já confiaria no relógio mexido (a hora da primeira foi gravada como "lida").
  */
-export const relogioConfiavel = (lida: number | null | undefined, agora = Date.now()) => typeof lida === "number" && agora >= lida && agora - lida <= SALTO_SUSPEITO_DIAS * DIA;
+export function relogioConfiavel(lida: number | null | undefined, agora = Date.now(), suspeita?: number | null): boolean {
+  if (typeof lida !== "number" || relogioSaltou(lida, agora)) return false;
+  if (typeof suspeita !== "number") return true;
+  return agora >= suspeita && agora - suspeita > VIDA_DO_REGISTRO_DIAS * DIA;
+}
+
+/**
+ * A marca depois de uma leitura da conversa: guarda a hora dela (no máximo uma vez por minuto) e, se o relógio voltou ou
+ * saltou dias, anota a suspeita. Devolve a MESMA marca se nada muda.
+ */
+export function marcaDaLeitura(marca: MarcaDeVersoes, agora = Date.now()): MarcaDeVersoes {
+  if (relogioSaltou(marca.lida, agora)) return { ...marca, lida: agora, suspeita: agora };
+  return agora - marca.lida > 60_000 ? { ...marca, lida: agora } : marca;
+}
 
 /**
  * Este registro pode virar piso agora? Só o de versão MENOR que a atual da conversa (a atual nunca fecha, e o contador de quem
- * escreve nunca recomeça), já vencido, e numa leitura em que o relógio é de confiança.
+ * escreve nunca recomeça), já vencido, e numa leitura em que o relógio é de confiança (sem salto agora e sem salto anotado).
  */
-export function podeFechar(registro: RegistroDeOrdem, versaoDoRegistro: number, versaoAtual: number, lida: number | null | undefined, agora = Date.now()): boolean {
-  return versaoDoRegistro < versaoAtual && relogioConfiavel(lida, agora) && registroVencido(registro, agora);
+export function podeFechar(registro: RegistroDeOrdem, versaoDoRegistro: number, versaoAtual: number, lida: number | null | undefined, agora = Date.now(), suspeita?: number | null): boolean {
+  return versaoDoRegistro < versaoAtual && relogioConfiavel(lida, agora, suspeita) && registroVencido(registro, agora);
 }
 
 /** A versão de uma chave de registro ("<eu>:<conversa>:<autor>:<versão>"); null para o piso e para a marca das versões. */

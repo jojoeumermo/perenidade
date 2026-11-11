@@ -17,7 +17,7 @@ import { Conversa } from "./Conversa";
 import { codigoDoErro } from "../erros";
 import { botaoForte, botaoLeve, erroDoChat } from "./comum";
 
-type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean } | { estado: "erro"; texto: string; calmo: boolean };
+type Aparelho = { estado: "carregando" } | { estado: "pronto"; eu: Eu } | { estado: "sem_chave" } | { estado: "outro_aparelho"; tinhaChaveAqui: boolean } | { estado: "apagado" } | { estado: "erro"; texto: string; calmo: boolean };
 
 /**
  * Conversas da Alumia (/alumia/conversas): o chat privado, cifrado de ponta a ponta com a mesma tecnologia das conversas da
@@ -76,8 +76,9 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
     };
   }, [situacao.logado, situacao.membro, t, s, recarregar]);
 
-  // "Sair rápido" (nesta aba ou em OUTRA, ou a saída do site apagando o banco do chat): a tela esquece a lista de conversas,
-  // fecha a conversa aberta e volta à ativação. A lista não é buscada de novo sozinha (só com a chave ativa).
+  // "Sair rápido" ou "apagar tudo do chat" (nesta aba ou em OUTRA, ou a saída do site apagando o banco do chat): a tela esquece
+  // a lista de conversas, fecha a conversa aberta e volta à ativação, com texto próprio ("o chat foi apagado deste aparelho":
+  // não é verdade que ele esteja ativo em outro). A lista não é buscada de novo sozinha (só com a chave ativa).
   useEffect(
     () =>
       aoApagarTudoDoChat(() => {
@@ -86,7 +87,7 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         setHandle("");
         setAjustes(false);
         setEntendi(false);
-        setAparelho({ estado: "outro_aparelho", tinhaChaveAqui: false });
+        setAparelho({ estado: "apagado" });
       }),
     [],
   );
@@ -218,12 +219,13 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         )
       ) : aparelho.estado !== "pronto" ? (
         <div className="px-[18px] py-6">
-          <h2 className="font-serif text-xl font-bold">{aparelho.estado === "sem_chave" ? t.ativar.titulo : t.ativar.outroTitulo}</h2>
-          <p className="mt-2 max-w-prose text-ink-soft">{aparelho.estado === "sem_chave" ? t.ativar.texto : t.ativar.outroTexto}</p>
-          {aparelho.estado === "outro_aparelho" && (
-            // Outra chave no servidor para a PRÓPRIA conta: criar uma nova aqui não é um clique. Primeiro o risco, depois o "entendi".
+          <h2 className="font-serif text-xl font-bold">{aparelho.estado === "sem_chave" ? t.ativar.titulo : aparelho.estado === "apagado" ? t.ativar.apagadoTitulo : t.ativar.outroTitulo}</h2>
+          <p className="mt-2 max-w-prose text-ink-soft">{aparelho.estado === "sem_chave" ? t.ativar.texto : aparelho.estado === "apagado" ? t.ativar.apagadoTexto : t.ativar.outroTexto}</p>
+          {aparelho.estado !== "sem_chave" && (
+            // Outra chave no servidor para a PRÓPRIA conta, ou a chave daqui foi apagada: criar uma nova não é um clique. Primeiro o
+            // risco, depois o "entendi".
             <div className="mt-3 max-w-prose space-y-3">
-              {aparelho.tinhaChaveAqui && <p role="alert" className="rounded-md border border-oxblood px-3 py-2 font-semibold">{t.ativar.outroTinha}</p>}
+              {aparelho.estado === "outro_aparelho" && aparelho.tinhaChaveAqui && <p role="alert" className="rounded-md border border-oxblood px-3 py-2 font-semibold">{t.ativar.outroTinha}</p>}
               <p>{t.ativar.outroRisco}</p>
               <label className="flex min-h-11 items-start gap-2">
                 <input type="checkbox" className="mt-1 h-5 w-5 shrink-0" checked={entendi} onChange={(e) => setEntendi(e.target.checked)} />
@@ -231,8 +233,8 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
               </label>
             </div>
           )}
-          <button type="button" disabled={ocupado || (aparelho.estado === "outro_aparelho" && !entendi)} onClick={() => void ativar()} className={`${botaoForte} mt-4`}>
-            {aparelho.estado === "sem_chave" ? t.ativar.botao : t.ativar.outroBotao}
+          <button type="button" disabled={ocupado || (aparelho.estado !== "sem_chave" && !entendi)} onClick={() => void ativar()} className={`${botaoForte} mt-4`}>
+            {aparelho.estado === "sem_chave" ? t.ativar.botao : aparelho.estado === "apagado" ? t.ativar.apagadoBotao : t.ativar.outroBotao}
           </button>
         </div>
       ) : ajustes && sit ? (

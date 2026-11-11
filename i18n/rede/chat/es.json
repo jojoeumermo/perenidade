@@ -13,7 +13,10 @@
     "outroBotao": "Usar este dispositivo",
     "outroTinha": "Atención: este dispositivo ya tenía la clave de tu chat, pero el servidor ahora muestra otra. Si activaste el chat en otro dispositivo, es eso. Si no fuiste tú, alguien puede haber entrado en tu cuenta: cambia la contraseña antes de continuar.",
     "outroRisco": "Crear una clave nueva aquí cambia tu clave de seguridad. Quien conversa contigo recibe un aviso, las conversaciones verificadas pierden la marca y tienen que comparar el código de nuevo. Lo escrito antes no se abre en este dispositivo.",
-    "outroEntendi": "Entendí el riesgo y quiero crear una clave nueva en este dispositivo"
+    "outroEntendi": "Entendí el riesgo y quiero crear una clave nueva en este dispositivo",
+    "apagadoTitulo": "El chat se borró de este dispositivo",
+    "apagadoTexto": "La clave del chat salió de este dispositivo (por la Salida rápida o por \"borrar todo del chat\", en esta pestaña o en otra). Aquí no quedó nada guardado del chat. Para conversar de nuevo en este dispositivo hay que crear una clave nueva.",
+    "apagadoBotao": "Activar el chat de nuevo aquí"
   },
   "nova": {
     "rotulo": "Conversar con @",
@@ -128,7 +131,7 @@
     "apagarTudoExplica": "Quita todas las conversaciones de tu lista y borra tu clave y tus ajustes. La otra persona de cada conversación conserva los mensajes hasta que venza su plazo. La cuenta sigue. LGPD de Brasil, art. 18, VI.",
     "apagarTudoConfirma": "¿Quitar TODAS las conversaciones de tu lista y borrar tu clave del chat? No tiene vuelta atrás.",
     "apagado": "Todo el chat fue borrado.",
-    "sairRapido": "El botón Salida rápida de Alumia también borra la clave del chat de este dispositivo y, con ella, todo lo que este dispositivo sabía de las demás personas: las claves de seguridad conocidas y las verificaciones. Después hay que activar el chat de nuevo; lo escrito antes ya no se abre aquí; y TODAS las conversaciones vuelven a quedar sin verificar: compara el código con cada persona antes de escribir algo sensible. La Salida rápida de Alumia no cierra tu sesión en la cuenta."
+    "sairRapido": "El botón Salida rápida de Alumia también borra la clave del chat de este dispositivo y, con ella, todo lo que este dispositivo sabía de las demás personas: las claves de seguridad conocidas y las verificaciones. Después hay que activar el chat de nuevo; lo escrito antes ya no se abre aquí; y TODAS las conversaciones vuelven a quedar sin verificar: compara el código con cada persona antes de escribir algo sensible. La Salida rápida también cierra tu sesión en la cuenta: después hay que entrar de nuevo."
   },
   "erros": {
     "dm_fechada": "No se puede conversar con esta persona ahora.",

@@ -13,7 +13,10 @@
     "outroBotao": "Utiliser cet appareil",
     "outroTinha": "Attention : cet appareil avait déjà la clé de votre messagerie, mais le serveur en montre maintenant une autre. Si vous avez activé la messagerie sur un autre appareil, c'est cela. Si ce n'était pas vous, quelqu'un est peut-être entré dans votre compte : changez le mot de passe avant de continuer.",
     "outroRisco": "Créer une nouvelle clé ici change votre clé de sécurité. Les personnes avec qui vous parlez reçoivent un avertissement, les conversations vérifiées perdent la marque et vous devez comparer le code à nouveau. Ce qui a été écrit avant ne s'ouvre pas sur cet appareil.",
-    "outroEntendi": "J'ai compris le risque et je veux créer une nouvelle clé sur cet appareil"
+    "outroEntendi": "J'ai compris le risque et je veux créer une nouvelle clé sur cet appareil",
+    "apagadoTitulo": "Le chat a été effacé de cet appareil",
+    "apagadoTexto": "La clé du chat a quitté cet appareil (par la Sortie rapide ou par « tout effacer du chat », dans cet onglet ou dans un autre). Rien du chat n'est resté ici. Pour discuter à nouveau sur cet appareil, il faut créer une nouvelle clé.",
+    "apagadoBotao": "Réactiver le chat ici"
   },
   "nova": {
     "rotulo": "Écrire à @",
@@ -128,7 +131,7 @@
     "apagarTudoExplica": "Retire toutes les conversations de votre liste et supprime votre clé et vos réglages. L'autre personne de chaque conversation garde les messages jusqu'à la fin de leur délai. Le compte reste. LGPD brésilienne, art. 18, VI.",
     "apagarTudoConfirma": "Retirer TOUTES les conversations de votre liste et supprimer votre clé de chat ? C'est définitif.",
     "apagado": "Tout le chat a été supprimé.",
-    "sairRapido": "Le bouton Sortie rapide d'Alumia efface aussi la clé des messages de cet appareil et, avec elle, tout ce que cet appareil savait des autres personnes : les clés de sécurité connues et les vérifications. Ensuite, il faut réactiver les messages ; ce qui a été écrit avant ne s'ouvre plus ici ; et TOUTES les conversations redeviennent non vérifiées : comparez le code avec chaque personne avant d'écrire quelque chose de sensible. La Sortie rapide d'Alumia ne ferme pas votre session sur le compte."
+    "sairRapido": "Le bouton Sortie rapide d'Alumia efface aussi la clé des messages de cet appareil et, avec elle, tout ce que cet appareil savait des autres personnes : les clés de sécurité connues et les vérifications. Ensuite, il faut réactiver les messages ; ce qui a été écrit avant ne s'ouvre plus ici ; et TOUTES les conversations redeviennent non vérifiées : comparez le code avec chaque personne avant d'écrire quelque chose de sensible. La Sortie rapide ferme aussi votre session sur le compte : il faut ensuite se reconnecter."
   },
   "erros": {
     "dm_fechada": "Impossible de discuter avec cette personne pour le moment.",
