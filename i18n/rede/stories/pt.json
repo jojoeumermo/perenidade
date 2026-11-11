@@ -56,18 +56,25 @@
       "pergunta": "Pergunta",
       "enquete": "Enquete",
       "link": "Link",
-      "comunidade": "Comunidade"
+      "comunidade": "Comunidade",
+      "vou": "Vou",
+      "pessoa": "@ Pessoa",
+      "campanha": "#Campanha",
+      "resposta": "Resposta",
+      "decorativa": "Enfeite"
     },
     "quemVe": "Quem vê",
     "publico": {
       "seguidores": "Seguidores",
       "membros": "Comunidade",
-      "proximos": "Próximos"
+      "proximos": "Roda",
+      "comunidade": "Uma comunidade"
     },
     "publicoAjuda": {
       "seguidores": "Só quem segue você.",
       "membros": "Quem é da Alumia.",
-      "proximos": "Só quem você segue e segue você."
+      "proximos": "Só a sua roda de confiança (a lista que só você vê).",
+      "comunidade": "Só quem é membro da comunidade que você escolher."
     },
     "regra": "Some em 24 h. Não vai para o Fediverso. Ninguém vê quem assistiu.",
     "galeria": "Galeria",
@@ -232,7 +239,8 @@
     "publico": {
       "seguidores": "Para quem me segue",
       "membros": "Para a comunidade",
-      "proximos": "Para os próximos"
+      "proximos": "Só para a roda",
+      "comunidade": "Só para uma comunidade"
     },
     "agora": "agora",
     "min": "{n} min",
@@ -361,5 +369,274 @@
     "titulo": "Stories",
     "lede": "Os stories de quem você segue e das suas comunidades. Toque numa bolinha para ver, ou em “Seu story” para criar o seu.",
     "inicio": "Ver a linha de Início"
+  },
+  "b1": {
+    "fileira": {
+      "post": "Post",
+      "ato": "Ato",
+      "abrirPost": "Abrir o destaque {titulo}",
+      "arrumar": "Arrumar destaques",
+      "rotulo": "Destaques de {nome}"
+    },
+    "arrumar": {
+      "titulo": "Arrumar destaques",
+      "ajuda": "A ordem vale no seu perfil. Use as setas ou os botões para mudar.",
+      "subir": "Subir {titulo}",
+      "descer": "Descer {titulo}",
+      "nome": "Nome",
+      "capa": "Capa",
+      "capaPrimeira": "A primeira foto",
+      "semFoto": "Sem foto: a capa fica com a cor.",
+      "stories": "Stories neste destaque",
+      "storyN": "Story {n}",
+      "subirStory": "Subir o story {n}",
+      "descerStory": "Descer o story {n}",
+      "apagar": "Apagar este destaque",
+      "salvar": "Salvar",
+      "salvo": "Destaques arrumados.",
+      "erro": "Não deu para salvar. Tente de novo.",
+      "carregando": "Carregando…",
+      "escolher": "Escolha um destaque para arrumar"
+    },
+    "borrar": {
+      "pergunta": "Esta foto vai ficar no seu perfil depois das 24 h. Tem rosto de alguém que não quer aparecer?",
+      "borrar": "Borrar rostos",
+      "assim": "Guardar assim",
+      "refazendo": "Refazendo a foto no aparelho…",
+      "erro": "Não deu para refazer a foto. Ela não foi guardada.",
+      "feito": "Foto borrada e guardada.",
+      "noCriar": "Borrar rostos",
+      "noCriarAjuda": "Proteja quem aparece no ato (LGPD art. 11: opinião política é dado sensível).",
+      "borradas": "{n} áreas borradas",
+      "video": "Borrar no vídeo",
+      "videoAjuda": "Marque os rostos neste quadro. O borrão fica no mesmo lugar o vídeo inteiro: confira na prévia."
+    },
+    "post": {
+      "verPost": "Ver o post",
+      "verAto": "Ver o ato",
+      "indisponivel": "Este post não está mais disponível.",
+      "de": "Post de {nome}",
+      "atoDe": "Ato de {nome}",
+      "situacao": {
+        "confirmado": "Confirmado",
+        "adiado": "Adiado",
+        "cancelado": "Cancelado"
+      },
+      "vaiJunto": "Vai junto no story: o cartão do post, com o atalho para ele.",
+      "carregando": "Carregando o post…",
+      "soCidade": "No story vai só a cidade, nunca o ponto de encontro."
+    },
+    "visor": {
+      "roda": "Só para a roda",
+      "comunidade": "Só para {nome}",
+      "legendas": "Legendas",
+      "legendasLigar": "Ligar as legendas",
+      "legendasDesligar": "Desligar as legendas",
+      "musica": "Música da Alumia: {nome}",
+      "respostasN": {
+        "one": "{n} resposta",
+        "few": "{n} respostas",
+        "many": "{n} respostas",
+        "other": "{n} respostas"
+      },
+      "verRespostas": "Ver respostas",
+      "semRespostas": "Nenhuma resposta ainda.",
+      "reacoesN": {
+        "one": "{n} reação",
+        "few": "{n} reações",
+        "many": "{n} reações",
+        "other": "{n} reações"
+      },
+      "reacoesPoucas": "Poucas reações: o total aparece a partir de 3.",
+      "reacoesPor": "{punho} ✊ · {chama} 🔥 · {coracao} ❤️",
+      "soVoce": "Só você vê estes números."
+    },
+    "respostas": {
+      "titulo": "Respostas",
+      "ajuda": "Quem respondeu escolheu falar só com você. Ao publicar uma resposta, o nome de quem mandou não vai junto.",
+      "daPergunta": "Resposta à pergunta",
+      "publicar": "Publicar num story",
+      "conversar": "Responder na conversa",
+      "semNome": "Conta indisponível",
+      "fechar": "Fechar",
+      "caixa": "Respostas aos seus stories",
+      "caixaVazia": "Quando alguém responder a um story seu, aparece aqui.",
+      "abrir": "Ver as respostas de “{texto}”",
+      "mensagensN": {
+        "one": "{n} mensagem",
+        "few": "{n} mensagens",
+        "many": "{n} mensagens",
+        "other": "{n} mensagens"
+      },
+      "perguntasN": {
+        "one": "{n} à pergunta",
+        "few": "{n} à pergunta",
+        "many": "{n} à pergunta",
+        "other": "{n} à pergunta"
+      },
+      "semTexto": "Story sem texto",
+      "carregando": "Carregando…"
+    },
+    "vou": {
+      "rotulo": "Vou",
+      "eu": "Eu vou",
+      "voce": "Você vai",
+      "desfazer": "Não vou mais",
+      "totalN": {
+        "one": "{n} vai",
+        "few": "{n} vão",
+        "many": "{n} vão",
+        "other": "{n} vão"
+      },
+      "poucas": "Confirme e chame mais gente",
+      "encerrado": "Este ato já passou",
+      "escolher": "Qual ato?",
+      "nenhum": "Nenhum ato à vista para chamar.",
+      "carregando": "Procurando atos…",
+      "ajuda": "Quem toca confirma presença, como na página do ato. Ninguém vê quem vai."
+    },
+    "pessoa": {
+      "rotulo": "Menção",
+      "campo": "@ da pessoa",
+      "ajuda": "Ela recebe um aviso. Quem bloqueou você não pode ser mencionada.",
+      "abrir": "Abrir o perfil de {nome}",
+      "sumiu": "Conta indisponível"
+    },
+    "campanha": {
+      "rotulo": "Campanha",
+      "campo": "#campanha",
+      "corrente": "Corrente: quem vê pode “Adicionar o seu”",
+      "adicionar": "Adicionar o seu",
+      "totalN": {
+        "one": "{n} pessoa na corrente",
+        "few": "{n} pessoas na corrente",
+        "many": "{n} pessoas na corrente",
+        "other": "{n} pessoas na corrente"
+      },
+      "ajuda": "Só letras sem acento, números e _ (2 a 40)."
+    },
+    "resposta": {
+      "rotulo": "Resposta",
+      "publicada": "Uma resposta à minha pergunta"
+    },
+    "decorativas": {
+      "titulo": "Enfeites da Alumia",
+      "ajuda": "Até 3 por story. Desenhados aqui, sem nada baixado de fora.",
+      "limite": "No máximo 3 enfeites.",
+      "tirar": "Tirar {nome}",
+      "mover": "Mover {nome}",
+      "nomes": {
+        "punho": "Punho erguido",
+        "lampiao": "Lampião",
+        "megafone": "Megafone",
+        "faixa": "Faixa de passeata",
+        "carimbo-luta": "Carimbo “A luta continua”",
+        "carimbo-presente": "Carimbo “Presente!”",
+        "estrela": "Estrela",
+        "flor": "Flor"
+      },
+      "textos": {
+        "faixa": "LUTA",
+        "carimbo-luta": "A LUTA CONTINUA",
+        "carimbo-presente": "PRESENTE!"
+      }
+    },
+    "roda": {
+      "titulo": "Roda de confiança",
+      "ajuda": "Só você vê esta lista. Ninguém é avisado de entrar ou sair, e ninguém sabe em que rodas está.",
+      "campo": "@ de quem você confia",
+      "por": "Pôr na roda",
+      "tirar": "Tirar {nome} da roda",
+      "vazia": "Sua roda está vazia: um story para a roda não chega a ninguém.",
+      "gerenciar": "Quem está na roda",
+      "contaN": {
+        "one": "{n} pessoa",
+        "few": "{n} pessoas",
+        "many": "{n} pessoas",
+        "other": "{n} pessoas"
+      },
+      "naoAchada": "Não achamos esse @ (ou há bloqueio).",
+      "fechar": "Fechar"
+    },
+    "comunidade": {
+      "escolher": "Qual comunidade?",
+      "nenhuma": "Você ainda não é membro de nenhuma comunidade.",
+      "faixa": "Stories que falam desta comunidade",
+      "abrir": "Ver os stories de {nome}"
+    },
+    "legendas": {
+      "titulo": "Legendas",
+      "ajuda": "Escreva o que é falado. Com o som desligado, é a legenda que a pessoa lê.",
+      "nova": "Legenda a partir de {tempo}",
+      "texto": "Texto da legenda {n}",
+      "grande": "No meio da tela",
+      "tirar": "Tirar a legenda {n}",
+      "de": "De",
+      "ate": "Até",
+      "gerar": "Gerar no aparelho",
+      "gerando": "Ouvindo o vídeo…",
+      "gerarAjuda": "Reconhece a fala aqui mesmo, sem mandar o áudio para fora. Confira cada trecho.",
+      "semGerar": "Este navegador não reconhece a fala sem mandar o áudio para fora: escreva as legendas.",
+      "aprovar": "Conferi as legendas",
+      "falta": "Confira as legendas geradas antes de publicar.",
+      "nenhumaFala": "Não achamos fala no vídeo."
+    },
+    "musica": {
+      "titulo": "Música",
+      "nenhuma": "Sem música",
+      "nomes": {
+        "batucada": "Batucada",
+        "marcha": "Marcha",
+        "ciranda": "Ciranda",
+        "tambor": "Tambor"
+      },
+      "ajuda": "Feita aqui no aparelho. Nada é baixado e ninguém fica sabendo o que você ouviu.",
+      "ouvir": "Ouvir {nome}",
+      "parar": "Parar"
+    },
+    "recortar": {
+      "botao": "Recortar",
+      "titulo": "Recortar a foto",
+      "proporcao": "Proporção",
+      "livre": "Livre",
+      "giro": "Girar (graus)",
+      "aplicar": "Aplicar",
+      "cancelar": "Cancelar",
+      "moldura": "Moldura do recorte. Setas movem; Shift com setas muda o tamanho.",
+      "canto": "Mudar o tamanho do recorte"
+    },
+    "desenho": {
+      "refazer": "Refazer",
+      "borracha": "Borracha",
+      "borrachaAjuda": "Passe o dedo sobre um traço para apagá-lo."
+    },
+    "texto2": {
+      "botao": "Mais um texto",
+      "rotulo": "Texto extra",
+      "campo": "Texto extra (até 60 letras)",
+      "tirar": "Tirar o texto extra"
+    },
+    "sequencia": {
+      "varios": "Escolher várias",
+      "ajuda": "Até 10 fotos ou vídeos: cada um vira um story, na ordem.",
+      "n": "{i} de {n}",
+      "pular": "Pular este",
+      "proximo": "Próximo",
+      "partes": "Vídeo de {s} s: vai em {n} stories de até 60 s.",
+      "publicandoN": "Publicando {i} de {n}…",
+      "feitoN": {
+        "one": "{n} story publicado.",
+        "few": "{n} stories publicados.",
+        "many": "{n} stories publicados.",
+        "other": "{n} stories publicados."
+      }
+    },
+    "progresso": {
+      "enviandoBytes": "Enviando… {feito} de {total}"
+    },
+    "ato": {
+      "porNoStory": "Pôr no story",
+      "ajuda": "Cria um story com o cartão deste ato (data e cidade; some em 24 h)"
+    }
   }
 }

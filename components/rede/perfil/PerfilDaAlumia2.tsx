@@ -21,6 +21,7 @@ import { Linha } from "../Linha";
 import type { AcoesDaOrg } from "../org/Blocos";
 import type { AcoesDeGestor } from "../org/CuidarDaOrg";
 import { PerfilDaOrg } from "../org/PerfilDaOrg";
+import { FileiraDoPerfil, fileiraDeDestaquesLigada } from "./FileiraDoPerfil";
 import { useTextosDoPerfil } from "./useTextos";
 import { aparenciaDe, extrasDe, perfilDaPrevia, previa, type AparenciaLida } from "./livre/dados";
 import { PaginaDoPerfil, PerfilNaoAchado, PostsDaPrevia } from "./livre/PaginaDoPerfil";
@@ -125,6 +126,7 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
         vivo
         membro={situacao.membro}
         abaInicial={abaDoEndereco()}
+        acimaDasAbas={fileiraDeDestaquesLigada() ? <FileiraDoPerfil handle={estado.org.handle} lang={lang} s={s} situacao={situacao} /> : null}
         posts={previa() ? <PostsDaPrevia handle={estado.org.handle} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} /> : <Linha aba={`u:${estado.org.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
       />
     );

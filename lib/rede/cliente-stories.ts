@@ -11,7 +11,8 @@
 // para ela: ela vê só a soma, a partir de 3).
 import { chamar, type Chamar } from "./cliente";
 import type {
-  AtoParaContagem, ComunidadeParaMencao, CorDoStory, DestaqueDeStories, FaixaDeStories, FigurinhaEnquete, PedidoDeStory, ReacaoDoStory, Story,
+  AtoParaContagem, CartaoDoPost, ComunidadeParaMencao, CorDoStory, DestaqueDeStories, FaixaDeStories, FigurinhaEnquete, GrupoDaFaixa, ItemDaCaixa,
+  PedidoDeStory, PessoaDaRoda, ReacaoDoStory, RespostaDoStory, Story,
 } from "./tipos-stories";
 import type { CategoriaDeDenuncia } from "./tipos-moderacao";
 
@@ -58,6 +59,29 @@ export interface ClienteDeStories {
   salvarDestaque: (p: { destaque: string | null; titulo: string | null; story: string | null; cor?: CorDoStory | null }) => Promise<{ id: string; titulo: string; cor: CorDoStory }>;
   tirarDoDestaque: (destaque: string, story: string) => Promise<{ ok: boolean }>;
   apagarDestaque: (destaque: string) => Promise<{ apagado: boolean }>;
+  /** A ordem dos meus destaques na fileira do perfil. */
+  ordenarDestaques: (ids: string[]) => Promise<{ ok: boolean }>;
+  /** A ordem dos stories dentro de um destaque meu. */
+  ordenarNoDestaque: (destaque: string, ids: string[]) => Promise<{ ok: boolean }>;
+  /** A capa de um destaque meu (um story com foto dele; nulo = a primeira foto). */
+  capaDoDestaque: (destaque: string, story: string | null) => Promise<{ ok: boolean }>;
+  /** Troca a foto de um story meu pela versão borrada de novo (já enviada com enviarImagem). */
+  trocarMidia: (story: string, caminho: string) => Promise<{ ok: boolean }>;
+  /** O cartão do post/ato do "Pôr no story", como vai aparecer (só se eu vejo). */
+  post: (id: string) => Promise<CartaoDoPost | null>;
+  /** Resposta à figurinha de pergunta (vai só para a autora, marcada como da pergunta). */
+  responderPergunta: (id: string, texto: string) => Promise<{ ok: boolean }>;
+  /** As respostas de um story meu (quem mandou escolheu falar comigo, como numa mensagem). */
+  respostas: (id: string) => Promise<RespostaDoStory[]>;
+  /** Os meus stories que receberam resposta. */
+  caixa: () => Promise<ItemDaCaixa[]>;
+  /** "Vou" pela figurinha: a mesma confirmação da página do ato (rede_ato_vou). */
+  vou: (ato: string, sim: boolean) => Promise<{ vou_eu: boolean }>;
+  /** A minha roda de confiança (só eu vejo) e pôr/tirar alguém dela (a pessoa não é avisada). */
+  roda: () => Promise<PessoaDaRoda[]>;
+  mudarRoda: (handle: string, sim: boolean) => Promise<PessoaDaRoda[]>;
+  /** As bolinhas dos stories no ar que mencionam uma comunidade (ou são só para ela), dos que eu vejo. */
+  daComunidade: (slug: string) => Promise<GrupoDaFaixa[]>;
 }
 
 /** O cliente de verdade sobre uma forma de chamar (os testes passam uma simulada). */
@@ -87,6 +111,18 @@ export function criarClienteDeStories(
       c<{ id: string; titulo: string; cor: CorDoStory }>("rede_story_destaque_salvar", { p_destaque: p.destaque, p_titulo: p.titulo, p_story: p.story, p_cor: p.cor ?? null }),
     tirarDoDestaque: (destaque, story) => c<{ ok: boolean }>("rede_story_destaque_tirar", { p_destaque: destaque, p_story: story }),
     apagarDestaque: (destaque) => c<{ apagado: boolean }>("rede_story_destaque_apagar", { p_destaque: destaque }),
+    ordenarDestaques: (ids) => c<{ ok: boolean }>("rede_story_destaque_ordem", { p_ids: ids }),
+    ordenarNoDestaque: (destaque, ids) => c<{ ok: boolean }>("rede_story_destaque_ordenar", { p_destaque: destaque, p_ids: ids }),
+    capaDoDestaque: (destaque, story) => c<{ ok: boolean }>("rede_story_destaque_capa", { p_destaque: destaque, p_story: story }),
+    trocarMidia: (story, caminho) => c<{ ok: boolean }>("rede_story_trocar_midia", { p_story: story, p_caminho: caminho }),
+    post: (id) => c<CartaoDoPost | null>("rede_story_post", { p_id: id }),
+    responderPergunta: (id, texto) => c<{ ok: boolean }>("rede_story_responder_pergunta", { p_id: id, p_texto: texto }),
+    respostas: (id) => c<RespostaDoStory[]>("rede_story_respostas", { p_id: id }),
+    caixa: () => c<ItemDaCaixa[]>("rede_story_caixa"),
+    vou: (ato, sim) => c<{ vou_eu: boolean }>("rede_ato_vou", { p_id: ato, p_sim: sim }),
+    roda: () => c<PessoaDaRoda[]>("rede_roda"),
+    mudarRoda: (handle, sim) => c<PessoaDaRoda[]>("rede_roda_mudar", { p_handle: handle, p_sim: sim }),
+    daComunidade: (slug) => c<GrupoDaFaixa[]>("rede_story_da_comunidade", { p_slug: slug }),
   };
 }
 
@@ -174,10 +210,39 @@ async function enviarAoDeposito(imagem: Blob, aoProgresso?: (fracao: number) => 
   if (!uid) throw new Error("sem_sessao");
   const { ext, tipo } = extensaoDaImagem(imagem.type);
   const caminho = `${uid}/${idDoArquivo()}.${ext}`;
-  const { error } = await cliente.storage.from(DEPOSITO_DOS_STORIES).upload(caminho, imagem, { contentType: tipo, upsert: false, cacheControl: "3600" });
+  // Com andamento de verdade: um endereço de envio assinado (o mesmo RLS do envio comum) e um PUT pelo XMLHttpRequest, que
+  // conta os bytes que já saíram. Sem ele (navegador antigo, ou o endereço falhou), o envio comum, sem andamento no meio.
+  const deposito = cliente.storage.from(DEPOSITO_DOS_STORIES);
+  if (aoProgresso && typeof XMLHttpRequest !== "undefined") {
+    const { data: assinado } = await deposito.createSignedUploadUrl(caminho).catch(() => ({ data: null }));
+    if (assinado?.signedUrl) {
+      await enviarComAndamento(assinado.signedUrl, imagem, tipo, (f) => aoProgresso(0.05 + 0.95 * f));
+      aoProgresso(1);
+      return caminho;
+    }
+  }
+  const { error } = await deposito.upload(caminho, imagem, { contentType: tipo, upsert: false, cacheControl: "3600" });
   if (error) throw new Error(error.message || "falha_no_envio");
   aoProgresso?.(1);
   return caminho;
+}
+
+/** PUT do arquivo no endereço assinado, contando o andamento (0 a 1). Erro "falha_no_envio" se o depósito recusar. */
+export function enviarComAndamento(url: string, corpo: Blob, tipo: string, aoProgresso: (fracao: number) => void): Promise<void> {
+  return new Promise((pronto, falhou) => {
+    const x = new XMLHttpRequest();
+    x.open("PUT", url);
+    x.setRequestHeader("content-type", tipo);
+    x.setRequestHeader("cache-control", "max-age=3600");
+    x.setRequestHeader("x-upsert", "false");
+    x.upload.onprogress = (e) => {
+      if (e.lengthComputable && e.total > 0) aoProgresso(Math.min(1, e.loaded / e.total));
+    };
+    x.onload = () => (x.status >= 200 && x.status < 300 ? pronto() : falhou(new Error("falha_no_envio")));
+    x.onerror = () => falhou(new Error("falha_no_envio"));
+    x.onabort = () => falhou(new Error("cancelado"));
+    x.send(corpo);
+  });
 }
 
 /** A prévia com dados de exemplo está ligada? (só no desenvolvimento e nas fotos; a referência é literal para o Next gravar) */
