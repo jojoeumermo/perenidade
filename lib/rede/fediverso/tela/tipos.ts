@@ -163,7 +163,7 @@ export interface SituacaoDeFora {
   handle?: string | null;
   /** O endereço completo ("@nome@dominio"), no domínio curto quando o modo total está ligado. Nulo sem @nome ou sem o servidor configurado. */
   endereco?: string | null;
-  /** O domínio do endereço acima. */
+  /** O domínio do endereço acima. Como ele, só vem para quem está com a federação ligada (nenhuma tela depende dele). */
   dominio?: string | null;
   desde?: string | null;
   seguidores?: number;

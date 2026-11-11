@@ -1080,6 +1080,95 @@ await espera("e a rota do fio pergunta antes de oferecer 'buscar lá' e depois d
   (t) => /if \(await bloqueouVoce\(token, \{ nota: postId \}\)\) return resposta\(\{ erro: "nao_encontrado" \}, 404\);\s*\/\/[^\n]*\n[^\n]*\n\s*if \(!buscarLa\) return resposta\(\{ erro: "so_na_origem"/.test(t)
     && /\(await bloqueouVoce\(token, \{ ator: autor \}\)\)\) return null;/.test(t) && /return !r\.ok \|\| r\.dado !== false;/.test(t));
 
+// 9c. O que sobrou da revisão (11/11/2026), cada um com o ataque ─────────────────────────────────────────────────────────
+await espera("ATAQUE (bloquear para descobrir quem curtiu, linha de curtida com o endereço): o bloqueio apaga só os avisos que já dizem quem foi", async () => {
+  await conhecer(gente(9), "k9", "K9");
+  const postDoBloqueio = await postar(pessoas.eva, "Post da Eva para o teste do bloqueio.");
+  // Uma linha de curtida e uma de impulso que guardam o ENDEREÇO (gravadas por fora da função de avisar): o filtro do delete
+  // não pode depender de o apelido estar lá.
+  for (const tipo of ["fed_seguidor", "fed_resposta", "fed_mencao", "fed_curtida", "fed_impulso"]) {
+    await dono("insert into interno.avisos (para, texto, categoria, tipo, post, ator_remoto) values ($1, 'x', 'rede', $2, $3, $4)", [pessoas.eva, tipo, postDoBloqueio, gente(9)]);
+  }
+  const conta = async () => (await dono("select tipo from interno.avisos where para = $1 and post = $2 order by tipo", [pessoas.eva, postDoBloqueio])).rows.map((x) => x.tipo).join();
+  const antes = await conta();
+  await rpc(como(pessoas.eva), "rede_fed_bloquear_pessoa", { p_ator: gente(9), p_sim: true });
+  const depois = await conta();
+  await rpc(como(pessoas.eva), "rede_fed_bloquear_pessoa", { p_ator: gente(9), p_sim: false });
+  await dono("delete from interno.avisos where post = $1", [postDoBloqueio]);
+  return [antes, depois, /delete from avisos where para = v and ator_remoto = v_ator and tipo in \('fed_seguidor', 'fed_resposta', 'fed_mencao'\);/.test(privacidade)];
+}, (r) => JSON.stringify(r) === '["fed_curtida,fed_impulso,fed_mencao,fed_resposta,fed_seguidor","fed_curtida,fed_impulso",true]');
+
+// P19: as funções antigas de avisos e o resumo semanal não contam curtida de fora abaixo de 3.
+const apelidoDeTeste = (n) => `anon:${String(n).repeat(64).slice(0, 64)}`;
+const curtidaDireta = (post, n, tipo = "fed_curtida") => dono(
+  "insert into interno.avisos (para, texto, categoria, tipo, post, ator_remoto, criado_em) values ($1, $2, 'rede', $3, $4, $5, now() - make_interval(secs => $6))",
+  [pessoas.eva, tipo === "fed_curtida" ? "Uma pessoa de outro servidor do Fediverso curtiu o seu post." : "Uma pessoa de outro servidor do Fediverso impulsionou o seu post.", tipo, post, apelidoDeTeste(n), 10 - n]);
+const linhasAntigas = async (funcao, trecho) => (await rpc(como(pessoas.eva), funcao)).filter((x) => x.texto.includes(trecho));
+await espera("ATAQUE (P19, contar as linhas e as horas): com duas curtidas de fora num post, rede_avisos e avisos_meus dão UMA linha (a mais nova); com três, as três", async () => {
+  const post = await postar(pessoas.eva, "Post da Eva para o teste das funções antigas de avisos.");
+  const r = [];
+  const tirar = async () => [(await linhasAntigas("rede_avisos", "curtiu")).length, (await linhasAntigas("avisos_meus", "curtiu")).length, (await linhasAntigas("rede_avisos", "impulsionou")).length];
+  const base = await tirar();
+  await curtidaDireta(post, 1);
+  await curtidaDireta(post, 2);
+  await curtidaDireta(post, 1, "fed_impulso");
+  await curtidaDireta(post, 2, "fed_impulso");
+  const comDuas = await tirar();
+  // A linha que sai é a mais nova das duas (a hora da outra não aparece).
+  const maisNova = (await dono("select max(criado_em) as t from interno.avisos where post = $1 and tipo = 'fed_curtida'", [post])).rows[0].t.getTime();
+  const horas = (await linhasAntigas("rede_avisos", "curtiu")).map((x) => Date.parse(x.criado_em));
+  await curtidaDireta(post, 3);
+  const comTres = await tirar();
+  // Os outros avisos da pessoa continuam todos lá, na mesma ordem (do mais novo para o mais antigo).
+  const todas = await rpc(como(pessoas.eva), "rede_avisos");
+  const noBanco = (await um("select count(*)::int as n from interno.avisos where para = $1 and categoria in ('rede', 'conta') and (tipo is null or tipo not in ('fed_curtida', 'fed_impulso'))", [pessoas.eva])).n;
+  await dono("delete from interno.avisos where post = $1", [post]);
+  return [comDuas.map((n, i) => n - base[i]).join(), comTres.map((n, i) => n - base[i]).join(), horas.filter((h) => h === maisNova).length >= 1 && horas.length === comDuas[0],
+    todas.filter((x) => !/curtiu|impulsionou/.test(x.texto)).length === Math.min(noBanco, 40), todas.every((x, i) => i === 0 || todas[i - 1].criado_em >= x.criado_em), (await tirar()).join() === base.join()];
+}, (r) => JSON.stringify(r) === '["1,1,1","3,3,1",true,true,true,true]');
+await espera("ATAQUE (P19, resumo semanal): duas curtidas de fora não lidas num post contam 1 no resumo; três contam 3; os outros tipos somam como antes", async () => {
+  const post = await postar(pessoas.eva, "Post da Eva para o teste do resumo semanal.");
+  const n = async () => (await um("select (interno.rede3_aviso_resumo($1) ->> 'n')::int as n", [pessoas.eva])).n ?? 0;
+  const base = await n();
+  await curtidaDireta(post, 1);
+  await curtidaDireta(post, 2);
+  const comDuas = await n();
+  await curtidaDireta(post, 3);
+  const comTres = await n();
+  await dono("insert into interno.avisos (para, texto, categoria, tipo, post, ator_remoto) values ($1, 'x', 'rede', 'fed_resposta', $2, $3), ($1, 'x', 'rede', 'fed_resposta', $2, $4)", [pessoas.eva, post, gente(1), gente(2)]);
+  const comRespostas = await n();
+  await dono("delete from interno.avisos where post = $1", [post]);
+  return [comDuas - base, comTres - base, comRespostas - comTres, (await n()) - base];
+}, (r) => JSON.stringify(r) === "[1,3,2,0]");
+await espera("os remendos estão nas três funções, a auxiliar não é chamável de fora, e as duas antigas continuam só de quem entrou", async () => um(`select
+  position('rede_fed_avisos_de(auth.uid())' in pg_get_functiondef('public.rede_avisos()'::regprocedure)) > 0 as a,
+  position('rede_fed_avisos_de(auth.uid())' in pg_get_functiondef('public.avisos_meus()'::regprocedure)) > 0 as b,
+  position('rede_fed_aviso_total(g.tipo, g.total)' in pg_get_functiondef('interno.rede3_aviso_resumo(uuid)'::regprocedure)) > 0 as c,
+  has_function_privilege('authenticated', 'interno.rede_fed_avisos_de(uuid)', 'execute') as d, has_function_privilege('anon', 'interno.rede_fed_avisos_de(uuid)', 'execute') as e,
+  has_function_privilege('anon', 'public.rede_avisos()', 'execute') as f, has_function_privilege('authenticated', 'public.rede_avisos()', 'execute') as g`),
+  (r) => r.a && r.b && r.c && r.d === false && r.e === false && r.g === true);
+await espera("ATAQUE (pedir os avisos de outra pessoa): rede_avisos e avisos_meus só devolvem os da própria sessão; visitante não recebe nada", async () => {
+  const daEva = (await dono("select id from interno.avisos where para = $1", [pessoas.eva])).rows.map((x) => x.id);
+  const doFabio = [...(await rpc(como(pessoas.fabio), "rede_avisos")), ...(await rpc(como(pessoas.fabio), "avisos_meus"))].map((x) => x.id);
+  const deVisitante = await rpc(anon, "avisos_meus").then((l) => l.length, () => 0);
+  return [daEva.length > 0, doFabio.filter((id) => daEva.includes(id)).length, deVisitante];
+}, (r) => JSON.stringify(r) === "[true,0,0]");
+await espera("se uma das funções antigas for recriada sem o remendo, rodar a privacidade de novo põe o remendo de volta", async () => {
+  const def = (await um("select pg_get_functiondef('public.rede_avisos()'::regprocedure) as d")).d;
+  await dono(def.replace("from (select * from interno.rede_fed_avisos_de(auth.uid()) where para = auth.uid()", "from (select * from avisos where para = auth.uid()"));
+  const sem = (await um("select position('rede_fed_avisos_de' in pg_get_functiondef('public.rede_avisos()'::regprocedure)) as p")).p;
+  await banco.exclusivo(() => banco.pg.exec(privacidade));
+  return [sem, (await um("select position('rede_fed_avisos_de' in pg_get_functiondef('public.rede_avisos()'::regprocedure)) as p")).p > 0];
+}, (r) => r[0] === 0 && r[1] === true);
+await espera("situação: quem não está com a federação ligada não recebe endereço nem domínio da conta; ao religar, voltam os dois", async () => {
+  const antes = await rpc(como(pessoas.eva), "rede_fed_situacao");
+  await dono("update interno.rede_fed_atores set ligado = false where perfil = $1", [pessoas.eva]);
+  const desligada = await rpc(como(pessoas.eva), "rede_fed_situacao");
+  await dono("update interno.rede_fed_atores set ligado = true where perfil = $1", [pessoas.eva]);
+  const depois = await rpc(como(pessoas.eva), "rede_fed_situacao");
+  return [antes.ligado, typeof antes.dominio, desligada.ligado, desligada.dominio, desligada.endereco, depois.dominio === antes.dominio, depois.endereco === antes.endereco];
+}, (r) => JSON.stringify(r) === '[true,"string",false,null,null,true,true]');
+
 // 10. No fim de tudo, a trava do bloqueio fixo segue de pé ───────────────────────────────────────────────────────────────
 await espera("rodar a privacidade mais uma vez, com dados, não muda nada do que foi gravado", async () => {
   const conta = "select (select count(*)::int from interno.fediverso_consentimentos) as h, (select count(*)::int from interno.rede_fed_recebidos) as n, (select count(*)::int from interno.avisos) as a, (select count(*)::int from interno.rede_fed_atores where ligado) as l";

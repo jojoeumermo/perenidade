@@ -40,6 +40,11 @@
 --      ligado e tem teto por pessoa (a primeira linha e as 99 mais novas).
 --  12. public.rede_fed_bloqueou_voce: a rota do fio pergunta se quem escreveu bloqueou a pessoa, também para nota lida na origem.
 --      E o endereço da conta (rede_fed_situacao) sai só para quem está ligado, sem o ponto final do nome e com a porta, se houver.
+--  13. Bloquear alguém de fora apaga só os avisos dos tipos que dizem quem foi (fed_seguidor, fed_resposta, fed_mencao): o
+--      filtro de tipo está no próprio delete, não depende de a linha de curtida guardar o apelido.
+--  14. public.rede_avisos, public.avisos_meus (as funções antigas de avisos) e o resumo semanal (interno.rede3_aviso_resumo)
+--      deixam de contar curtida e impulso de fora abaixo de 3: uma linha só por post ("alguém"), e 1 na soma do resumo.
+--  15. O domínio da conta (rede_fed_situacao, chave "dominio") também sai só para quem está ligado, como o endereço.
 --
 -- Fica para depois (docs/rede/PEDIDOS-ENTRE-FAIXAS.md, P12): guardar a mídia de fora no depósito daqui; e os "sotaques" por
 -- software (Lemmy, Misskey, Pleroma).
@@ -171,6 +176,58 @@ begin
   v_def := replace(v_def, v_marca,
     '''total'', interno.rede_fed_aviso_total(n.tipo, n.total), ''pessoas'', interno.rede_fed_aviso_total(n.tipo, n.pessoas),');
   execute v_def;
+end $$;
+
+-- As duas funções ANTIGAS de avisos (public.rede_avisos e public.avisos_meus, que respondem só à própria pessoa) devolvem uma
+-- linha por aviso. Em curtida e impulso de fora isso contava o número exato abaixo de 3 (duas curtidas, duas linhas, cada uma
+-- com a hora). Elas passam a ler os avisos por esta função: nos dois tipos, por post, saem tantas linhas quantas
+-- interno.rede_fed_aviso_total deixa (abaixo de 3, uma só, a mais nova: "alguém"; a partir de 3, todas). O resto não muda.
+create or replace function interno.rede_fed_avisos_de(p_para uuid) returns setof interno.avisos
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select a.* from avisos a
+  where a.para = p_para and (a.tipo is null or a.tipo not in ('fed_curtida', 'fed_impulso'))
+  union all
+  select (x.a).* from (
+    select a,
+      row_number() over (partition by a.tipo, coalesce(a.post::text, a.objeto_remoto, '') order by a.criado_em desc, a.id desc) as n,
+      count(*) over (partition by a.tipo, coalesce(a.post::text, a.objeto_remoto, '')) as total
+    from avisos a where a.para = p_para and a.tipo in ('fed_curtida', 'fed_impulso')
+  ) x
+  where x.n <= interno.rede_fed_aviso_total((x.a).tipo, x.total::integer)
+$$;
+
+-- As três são de outros pacotes (o sino do site, a Rede antiga e o resumo semanal): aqui são remendadas no lugar, como
+-- rede_aviso_listar acima, só no trecho que conta. Quem recriar uma delas precisa rodar este arquivo de novo; o teste do banco
+-- do Fediverso confere que os remendos estão lá.
+do $$
+declare
+  v_def text;
+  v_f text;
+  v_marca text := 'from (select * from avisos where para = auth.uid()';
+begin
+  foreach v_f in array array['public.rede_avisos()', 'public.avisos_meus()'] loop
+    v_def := pg_get_functiondef(v_f::regprocedure);
+    if position('rede_fed_avisos_de' in v_def) > 0 then continue; end if;
+    if position(v_marca in v_def) = 0 then
+      raise exception '% mudou: o remendo do Fediverso (20261110-fediverso-privacidade.sql) precisa ser revisto', v_f;
+    end if;
+    execute replace(v_def, v_marca, 'from (select * from interno.rede_fed_avisos_de(auth.uid()) where para = auth.uid()');
+  end loop;
+end $$;
+
+-- O resumo semanal por e-mail soma os avisos não lidos por tipo: nos dois tipos de fora, cada grupo (um post) entra com o
+-- total que pode sair (abaixo de 3, conta 1).
+do $$
+declare
+  v_def text;
+  v_marca text := 'select g.tipo, sum(g.total)::integer as n';
+begin
+  v_def := pg_get_functiondef('interno.rede3_aviso_resumo(uuid)'::regprocedure);
+  if position('rede_fed_aviso_total' in v_def) > 0 then return; end if;
+  if position(v_marca in v_def) = 0 then
+    raise exception 'interno.rede3_aviso_resumo mudou: o remendo do Fediverso (20261110-fediverso-privacidade.sql) precisa ser revisto';
+  end if;
+  execute replace(v_def, v_marca, 'select g.tipo, sum(interno.rede_fed_aviso_total(g.tipo, g.total))::integer as n');
 end $$;
 
 -- ── 3. A prova do consentimento ───────────────────────────────────────────────────────────────────────────────────────────
@@ -310,7 +367,8 @@ create or replace function interno.rede_fed_cartao(c interno.rede_fed_recebidos,
 $$;
 
 /**
- * A situação da federação para quem está na sessão (a de sempre, mais o endereço completo e o domínio da conta).
+ * A situação da federação para quem está na sessão (a de sempre, mais o endereço completo e o domínio da conta, os dois só
+ * para quem está com a federação ligada).
  * "seguidores" e "seguindo" são os números da própria pessoa, só para ela.
  */
 create or replace function public.rede_fed_situacao() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
@@ -334,7 +392,7 @@ begin
     -- O endereço completo (@nome@dominio) e o domínio da conta: o curto no modo total, o da Alumia sem ele. Nulo sem @nome,
     -- enquanto o endereço do servidor não foi configurado (url_entrega) e para quem não está com a federação ligada (esse @ não
     -- existe lá fora: o WebFinger não responde por ele).
-    'dominio', interno.rede_fed_dominio_da_conta(),
+    'dominio', case when a.ligado then interno.rede_fed_dominio_da_conta() end,
     'endereco', case when a.ligado then '@' || (select rede_handle from perfis where id = v) || '@' || interno.rede_fed_dominio_da_conta() end,
     -- A tela pede o item do Fediverso (de novo) para quem pode federar e ainda não aceitou a versão 2: inclusive quem marcou o
     -- item com a flag desligada (versão 1), que não é ligado sozinho, e quem está ligado só na versão 1. Quem já respondeu o item
@@ -507,7 +565,7 @@ begin
     end if;
     -- Só os avisos que já dizem quem foi (seguidor, resposta, menção). Os de curtida e impulso guardam o apelido e ficam: se o
     -- bloqueio os apagasse, bloquear candidatos um a um revelaria quem curtiu.
-    delete from avisos where para = v and ator_remoto = v_ator;
+    delete from avisos where para = v and ator_remoto = v_ator and tipo in ('fed_seguidor', 'fed_resposta', 'fed_mencao');
     delete from rede_fed_seguidores where perfil = v and ator = v_ator;
     if v_ligado and v_inbox is not null then
       insert into rede_fed_fila (perfil, tipo, objeto, destino, extra)
@@ -1122,7 +1180,7 @@ do $$
 declare
   v_internas text[] := array['rede_fed_piso(integer)', 'rede_fed_aviso_total(text, integer)', 'rede_fed_dominio_da_conta()', 'rede_fed_aviso_remoto(uuid[])',
     'rede_fed_consentimento_historico()', 'rede_fed_cartao(interno.rede_fed_recebidos, uuid, jsonb)', 'rede_fed_apelido(uuid, text)',
-    'rede_fed_avisar(uuid, text, uuid, text, text)'];
+    'rede_fed_avisar(uuid, text, uuid, text, text)', 'rede_fed_avisos_de(uuid)'];
   v_publicas text[] := array['rede_fed_ligar(boolean, integer)', 'rede_fed_perfil_remoto(text)', 'rede_fed_perfil_remoto(text, text, integer)', 'rede_fed_fio_remoto(text)',
     'rede_fed_respostas_de(uuid, text, integer)', 'rede_fed_bloquear_pessoa(text, boolean)', 'rede_fed_silenciar_pessoa(text, boolean)',
     'rede_fed_bloqueou_voce(text, text)'];
