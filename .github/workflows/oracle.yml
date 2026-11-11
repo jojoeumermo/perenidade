@@ -8,8 +8,11 @@ name: Pegar a máquina grátis da Oracle
 # O túnel dela é separado do túnel do site: a máquina nova não recebe visita nenhuma até a mudança ser feita à mão.
 #
 # Precisa de (Settings → Secrets and variables → Actions):
-#   segredos: OCI_CHAVE_PRIVADA (chave da API da Oracle, em PEM), OCI_TUNEL_TOKEN (token do túnel "lucia-oracle")
-#   variáveis: OCI_USUARIO, OCI_TENANCIA, OCI_DIGITAL (OCIDs e impressão digital da chave)
+#   segredos: OCI_CHAVE_PRIVADA (chave da API da Oracle, em PEM), OCI_TUNEL_TOKEN (token do túnel "lucia-oracle"),
+#             OCI_USUARIO, OCI_TENANCIA, OCI_DIGITAL (OCIDs e impressão digital da chave)
+# Tudo da conta da Oracle fica em SEGREDOS, nunca em variáveis: o repositório é público e os registros das rodadas
+# também. Variáveis aparecem em texto puro no registro; segredos aparecem como ***. Nada que identifique a conta,
+# a rede ou a máquina pode ser impresso (os IDs descobertos durante a rodada são mascarados antes de qualquer uso).
 on:
   schedule:
     # De hora em hora; cada rodada tenta por 50 minutos.
@@ -28,13 +31,12 @@ concurrency:
 
 jobs:
   tentar:
-    if: vars.OCI_USUARIO != ''
     runs-on: ubuntu-24.04
     timeout-minutes: 58
     env:
-      OCI_CLI_USER: ${{ vars.OCI_USUARIO }}
-      OCI_CLI_TENANCY: ${{ vars.OCI_TENANCIA }}
-      OCI_CLI_FINGERPRINT: ${{ vars.OCI_DIGITAL }}
+      OCI_CLI_USER: ${{ secrets.OCI_USUARIO }}
+      OCI_CLI_TENANCY: ${{ secrets.OCI_TENANCIA }}
+      OCI_CLI_FINGERPRINT: ${{ secrets.OCI_DIGITAL }}
       OCI_CLI_REGION: sa-saopaulo-1
       OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CHAVE_PRIVADA }}
       OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING: "True"
@@ -42,21 +44,38 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       NOME: lucia
     steps:
+      - name: Conferir os segredos
+        id: segredos
+        run: |
+          if [ -z "$OCI_CLI_USER" ] || [ -z "$OCI_CLI_TENANCY" ] || [ -z "$OCI_CLI_FINGERPRINT" ] || [ -z "$OCI_CLI_KEY_CONTENT" ]; then
+            echo "::warning::Faltam os segredos da Oracle (OCI_USUARIO, OCI_TENANCIA, OCI_DIGITAL, OCI_CHAVE_PRIVADA). Rotina parada."
+            echo "ok=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=1" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Instalar a linha de comando da Oracle
-        run: pipx install oci-cli > /dev/null && oci --version
+        if: steps.segredos.outputs.ok == '1'
+        run: pipx install oci-cli > /dev/null && oci --version > /dev/null && echo "Linha de comando instalada."
 
       - name: Tentar até conseguir (50 minutos)
         id: tentar
+        if: steps.segredos.outputs.ok == '1'
         run: |
           set +e -uo pipefail  # o GitHub liga o "-e"; aqui cada erro é tratado à mão
           trap 'echo "Fim do passo (código $?)."' EXIT
           C="$OCI_CLI_TENANCY"
+          # Mascara tudo o que identifica a conta, mesmo que algum comando da Oracle repita esses valores.
+          esconder() { [ -n "${1:-}" ] && [ "$1" != "null" ] && echo "::add-mask::$1"; return 0; }
+          esconder "$OCI_CLI_USER"; esconder "$OCI_CLI_TENANCY"; esconder "$OCI_CLI_FINGERPRINT"
+          # Só a mensagem da Oracle vai para o registro, nunca a resposta inteira (ela traz IDs da conta).
+          mensagem() { grep -o '"message": "[^"]*"' "$1" | head -n 1 | sed -E 's/ocid1\.[A-Za-z0-9._-]+/[oculto]/g'; }
           # Quantas máquinas "lucia" vivas existem. Lista vazia volta sem texto (= 0); erro da Oracle para a rotina.
           existe() {
             local r
             if ! r=$(oci compute instance list -c "$C" --display-name "$NOME" --all \
-                  --query 'data[?"lifecycle-state"!=`TERMINATED`] | length(@)' --raw-output 2>&1); then
-              echo "::error::A Oracle recusou a consulta: $r" >&2; exit 1
+                  --query 'data[?"lifecycle-state"!=`TERMINATED`] | length(@)' --raw-output 2>/tmp/consulta.txt); then
+              echo "::error::A Oracle recusou a consulta: $(mensagem /tmp/consulta.txt)" >&2; exit 1
             fi
             r=$(printf '%s' "$r" | tr -dc '0-9'); echo "${r:-0}"
           }
@@ -73,7 +92,8 @@ jobs:
           IMAGEM=$(oci compute image list -c "$C" --operating-system "Canonical Ubuntu" --operating-system-version "24.04" \
             --shape VM.Standard.A1.Flex --sort-by TIMECREATED --sort-order DESC --all \
             --query 'data[?!contains("display-name", `Minimal`)].id | [0]' --raw-output)
-          echo "Zona: $AD"; echo "Sub-rede: $SUBREDE"; echo "Imagem: $IMAGEM"
+          esconder "$AD"; esconder "$SUBREDE"; esconder "$IMAGEM"
+          echo "Zona, sub-rede e imagem encontradas (ocultas no registro)."
           if [ -z "$SUBREDE" ] || [ "$SUBREDE" = "null" ] || [ -z "$IMAGEM" ] || [ "$IMAGEM" = "null" ]; then
             echo "::error::Não achei a sub-rede privada da rede-lucia ou a imagem do Ubuntu 24.04."; exit 1
           fi
@@ -98,15 +118,16 @@ jobs:
               codigo=$?
               saida=$(cat /tmp/saida.txt)
               id=$(grep -o 'ocid1\.instance\.[A-Za-z0-9._-]*' /tmp/saida.txt | head -n 1)
+              esconder "$id"
               if [ "$codigo" = "0" ] && [ -n "$id" ]; then
-                echo "Conseguiu na tentativa $n ($forma): $id"
+                echo "Conseguiu na tentativa $n ($forma)."
+                # A issue é pública: nada de ID da máquina nela. O ID está no painel da Oracle.
                 gh issue create -R "$GITHUB_REPOSITORY" --title "A máquina grátis da Oracle foi criada" \
-                  --body "A rotina conseguiu a vaga na tentativa $n, com $forma. Máquina: \`$id\`. Próximo passo: configurar o Coolify nela e fazer a mudança (docs/HOSPEDAGEM.md)." || true
+                  --body "A rotina conseguiu a vaga na tentativa $n, com $forma. Próximo passo: configurar o Coolify nela e fazer a mudança (docs/HOSPEDAGEM.md)." || true
                 echo "pronto=1" >> "$GITHUB_OUTPUT"
                 exit 0
               fi
-              echo "  resposta (código $codigo): $(grep -o '"message": "[^"]*"' /tmp/saida.txt | head -n 1)"
-              echo "  $(head -c 600 /tmp/saida.txt | tr '\n' ' ')"
+              echo "  resposta (código $codigo): $(mensagem /tmp/saida.txt)"
               case "$saida" in
                 *"Out of host capacity"*|*"Out of capacity"*|*TooManyRequests*|*InternalError*|*LimitExceeded*) ;;
                 *) echo "::error::Erro inesperado da Oracle (veja acima)."; exit 1 ;;
@@ -119,5 +140,5 @@ jobs:
 
       - name: Chamar a próxima rodada
         # Só quando a rodada terminou bem e sem máquina. Erro de verdade ou cancelamento param a corrente.
-        if: success() && steps.tentar.outputs.pronto != '1'
+        if: success() && steps.segredos.outputs.ok == '1' && steps.tentar.outputs.pronto != '1'
         run: gh workflow run oracle.yml -R "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME"
