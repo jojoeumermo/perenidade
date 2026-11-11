@@ -19,7 +19,8 @@ CC BY-SA 4.0 (LICENSE-CONTEUDO.md).
 | hanzi-writer | 3.7.3 | MIT |
 | hanzi-writer-data (só para gerar os dados; não vai para o navegador) | 2.0.1 | Arphic Public License |
 | dictionary-pt (só para copiar o dicionário) | 4.0.0 | LGPL-3.0 ou MPL-2.0 (dicionário), MIT (pacote) |
-| jsQR (lê o QR pela câmera do "Levar o progresso", só quando o navegador não tem leitor nativo; carregado sob demanda) | 1.4.0 | Apache-2.0 |
+| jsQR (lê o QR pela câmera do "Levar o progresso" e do código de segurança do chat privado da Alumia, só quando o navegador não tem leitor nativo; carregado sob demanda) | 1.4.0 | Apache-2.0 |
+| @matrix-org/matrix-sdk-crypto-wasm (a cifra do Matrix, para a etapa seguinte do chat privado da Alumia; **ainda não é usada**: está só na lista de dependências, em versão exata, e nenhum código do site a importa nem a serve) | 19.0.1 | Apache-2.0 |
 
 ## Vozes naturais do "Ouvir a aula" (public/vozes, fora do Git)
 
