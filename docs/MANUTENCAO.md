@@ -754,7 +754,7 @@ Rotina que depende de segredo ou variável fica **pulada** (sem gastar minutos) 
 | `ci.yml` Verificação | todo envio e pedido de junção que mexe em código (não em `content/`, `docs/`, `historico/`, `*.md`) | nada |
 | `ponta-a-ponta.yml` Testes de ponta a ponta | idem, mais pedido com a etiqueta `ponta-a-ponta` ou botão: a fumaça das telas no computador e no Galaxy S24 | nada (usa o banco local) |
 | `producao.yml` Publicar no servidor | envio no `master` que mexe no site; **fica pulada sem `COOLIFY_URL`** | variáveis `COOLIFY_URL`, `COOLIFY_APP_UUID`, as `NEXT_PUBLIC_*`; segredos `COOLIFY_TOKEN`, `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET` (`docs/HOSPEDAGEM.md`) |
-| `oracle.yml` | de minuto em minuto até a Oracle entregar a máquina grátis; abre uma issue quando conseguir | `OCI_CHAVE_PRIVADA`, `OCI_TUNEL_TOKEN`; variáveis `OCI_USUARIO`, `OCI_TENANCIA`, `OCI_DIGITAL` |
+| `oracle.yml` | de minuto em minuto até a Oracle entregar a máquina grátis; abre uma issue quando conseguir | segredos `OCI_CHAVE_PRIVADA`, `OCI_TUNEL_TOKEN`, `OCI_USUARIO`, `OCI_TENANCIA`, `OCI_DIGITAL` (tudo como **segredo**, nunca variável: o registro das rodadas é público) |
 | `limpar-cache.yml` | a cada publicação de produção na Vercel (seletiva quando só mudou conteúdo) | `CF_TOKEN_CACHE`, variável `CF_ZONE_ID` |
 | `publicar.yml` Publicar contribuições aprovadas | todo dia 06h17 (Brasília); o botão "Publicar agora" do painel dispara | variável `PUBLICAR=sim` |
 | `emails.yml` Enviar e-mails | a cada 6 horas (reserva do envio pelo banco) | variável `EMAILS=sim`, `RESEND_API_KEY`, `SUPABASE_*`, `EMAIL_REMETENTE`, `EMAIL_RESPOSTA` |
