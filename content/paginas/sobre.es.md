@@ -1,86 +1,30 @@
 ---
-titulo: "El conocimiento no es mercancía"
+titulo: "El saber no es un premio. Es una deuda."
 sobretitulo: "Manifiesto del Instituto Lúcia y de la Frente Revolucionária Lúcia"
 resumo: "Escuela popular, biblioteca libre y movimiento político: estudiar gratis, para entender el mundo y para cambiarlo."
 ---
 
-Nos levantamos temprano. Tomamos el bus lleno. Trabajamos todo el día y, cuando queda fuerza, estudiamos de noche.
+Lo pagaron quienes sembraron, construyeron y cargaron este país antes de que existiera cualquier escuela: los pueblos indígenas, que ya estaban aquí, y los africanos esclavizados, que trabajaban sin reconocimiento y sin retorno. Después nos lo cobraron de vuelta, en forma de examen, fila y diploma. Dijeron que estudiar es un lujo, que así son las cosas y que siempre serán así. No lo es. Y no lo será.
 
-Nos dijeron que estudiar es un lujo. Que la salud es una fila. Que la cultura de la favela es asunto de la policía. Que así es y así va a ser siempre.
+Cambiaron los nombres: de la senzala a la fábrica, de la fábrica a la aplicación. La lógica siguió siendo la misma. Mucho del conocimiento que la humanidad ha adquirido vino de quienes trabajaron sin recibir el debido reconocimiento, y hoy está encerrado por corporaciones y algoritmos que lucran con nuestros datos y con nuestra ignorancia. El tiempo libre para estudiar, en tantos lugares, se compró con el trabajo de quien nunca tuvo ese tiempo. Eso vale para Brasil, para Inglaterra, para cualquier lugar donde alguien madrugó para que otro se enriqueciera. La clase trabajadora no tiene fronteras, y nuestra deuda tampoco. La periferia lo sabe desde hace mucho: el funk, el rap, el slam, el sarau, el grafiti y la batalla de rimas son lenguaje, son historia, son saber, y casi siempre fueron tratados como un problema.
 
-No es así. Y no va a ser.
+Convirtieron lo que era nuestro en filtro. Un examen decide quién merece aprender, un diploma decide quién puede enseñar, una fila decide quién tiene derecho a la plaza. La pregunta que casi nadie hace es la más simple: ¿por qué esta persona no aprobó? ¿Fue falta de interés o falta de oportunidad? A quien nunca tuvo la oportunidad de aprender no se le puede acusar de no saber. Don João, el electricista que hace la instalación de tu casa, probablemente nunca pasó por una facultad de ingeniería eléctrica, pero sabe, y todo el mundo sabe que sabe. El saber se demuestra haciendo. Siempre habrá alguien que diga que todavía no tienes derecho a hablar, que te falta el sello, el título, la antigüedad. Nos parece curioso: casi siempre es quien tiene el sello.
 
-El Instituto Lúcia es una escuela popular y una biblioteca libre: clases, acervo, periódico, radio y pódcast, gratis, sin anuncios, sin rastreadores y sin candado. Y es **también** un movimiento político. La Frente Revolucionária Lúcia es la organización de quienes estudian aquí y deciden no guardarse para sí lo que aprendieron. La Escola Revolucionária Lúcia Maria es nuestra casa de formación.
+Sentimos rabia, porque las cuentas nunca cierran para quien trabaja, y asco de quien lucra con el hambre, con la fila y con el examen. Un Estado hecho para el capital, pensado para el empresario, vota contra la política pública y social a la primera oportunidad, y después espera que agradezcamos la escuela que quedó. Pero lo que el pueblo tiene, el pueblo lo arrancó. El SUS (el sistema público de salud de Brasil), las cuotas y la escuela pública que hoy abre sus puertas a quienes antes quedaban fuera no cayeron del cielo: son conquistas de lucha, hechas desde dentro y desde fuera de las instituciones. Por eso nuestra rabia no es ciega. Sabe distinguir el Estado que sirve al capital del Estado que el pueblo ocupa y transforma.
 
-Somos comunistas. No lo escondemos, y no pedimos disculpas por ello.
+Sí, somos comunistas. Bastó aprender a preguntar quién lucra, y descubrir que el saber costaba caro porque alguien lo estaba vendiendo. Creemos en la revolución, y en una revolución que no respeta fronteras, porque el trabajador de allá es nuestro igual: la frase es vieja y sigue sin fecha de caducidad, proletarios de todos los países, uníos. No somos un gobierno y no prometemos serlo. Somos un frente, la Frente Revolucionária Lúcia, y el nuestro es el frente de la educación. La revolución se hace en muchos frentes, pero no nace de un simple despertar mágico de la mente. Nace cuando el pueblo traduce su rebeldía de todos los días en comprensión del mundo, y deja de aceptar la miseria y la explotación como leyes de la naturaleza. Quien pregunta "¿por qué nos sometemos a esto?" no solo está despertando; ya empezó a organizarse. Y es justamente porque aprendimos a leer nuestra realidad que no tenemos la ilusión de que basta con gestionar el Estado del capital. Lo que nos toca es forjar la base capaz de tensionarlo hasta la ruptura, destruyendo la vieja máquina de opresión para construir, en su lugar, un verdadero poder popular. Un poder donde el Estado sirva al pueblo, y no al lucro.
 
-Llevamos el nombre de Lúcia, una mujer del pueblo que nació en un Brasil donde ser comunista era delito, y que vio en su infancia una casa de barrio pobre compartir el pan con los niños y esconder, detrás de un fondo falso, a quienes se reunían para ayudar al pueblo. Ella soñó con una escuela gratuita para quien no puede pagar una. Esa escuela existe. Ahora también lucha. Lee la [dedicatoria](/dedicatoria).
+Aprendimos con Paulo Freire que educar es leer el mundo, y no depositar contenido en la cabeza de quien escucha; que el oprimido no es salvado por nadie y se educa en diálogo, con los suyos. Por eso partimos de la vida de quien estudia. Tampoco abolimos la evaluación: cambiamos el examen de papel por la demostración de lo que la persona sabe hacer, un proyecto, un portafolio, una obra evaluada por quien es del área. Nadie es dueño del saber ni de la lucha, y aquí nadie necesita sello para ser escuchado: quien cree en la causa tiene lugar, tenga el nombre que tenga. Lo que decimos, quien lee lo puede comprobar, y no difundimos mentiras, ni contra quien nos ataca. Tenemos lado: somos de izquierda y no lo escondemos, estamos con quien trabaja, con quien lucha por tierra, techo, salario y libertad, y con todos los pueblos que resisten a la explotación y a la opresión.
 
-**Instruíos, agitaos, organizaos.**
+El Instituto Lúcia es una escuela popular y una biblioteca libre: [clases](/trilhas), [acervo](/acervo), [periódico](/jornal), [radio](/radio) y [podcast](/podcasts), gratis, sin anuncios y sin candado. Pronto tendremos también una red social propia, Alumia, y una escuela de formación, la [Escola Revolucionária Lúcia Maria](/escola). Nuestro nombre es un homenaje: [Lúcia Maria](/escola/quem-foi-lucia-maria) era la abuela de quien empezó todo esto, y aprendimos con ella que la dignidad no necesita diploma.
 
-## Lo que denunciamos
+Luchamos por la educación en primer lugar: una buena escuela pública en cada barrio, una universidad abierta a quien trabaja de día o de noche y una educación popular que enseña a leer el mundo. Luchamos por la cultura de la periferia, con dinero público, para quien crea y con quien crea siendo dueño de lo que crea; por el SUS público, gratuito y para todo el mundo; por un descanso de verdad, contra la explotación de las aplicaciones y del falso autónomo, por un salario que llegue a fin de mes y por el fin de todo trabajo esclavo; por casas para vivir y no para especular, y por un transporte bueno, barato y, en el horizonte, gratuito, porque quien estudia tiene que poder llegar. Luchamos por la demarcación y titulación de las tierras indígenas y quilombolas, contra el racismo, por la igualdad y por el fin de la violencia contra las mujeres, para que todo el mundo pueda vivir, amar y estudiar sin miedo; luchamos contra la militarización de nuestras comunidades y el genocidio del pueblo negro y periférico, promovidos por un Estado que descarga su violencia para criminalizar la pobreza, mientras protege, en sus despachos y bancos, a los verdaderos dueños del capital ilícito; por un río limpio y un bosque en pie, y por una comunicación hecha por el pueblo, con fuente, con archivo abierto y sin rastrear a nadie.
 
-**El conocimiento fue convertido en mercancía.** Todo lo que la humanidad aprendió lo produjeron generaciones de trabajadoras y trabajadores, y hoy se lo venden de vuelta, caro, quienes nunca lo produjeron.
+Sentimos miedo, porque sabemos el precio de hablar. Sentimos orgullo de una periferia que crea todos los días. Y sentimos alegría, porque aprender juntos es una de las pocas cosas que nadie nos puede quitar. De esa alegría nace la esperanza, y no es adorno: es lo que pasa cuando mucha gente se hace la misma pregunta al mismo tiempo.
 
-**La clase trabajadora es explotada todos los días.** Quien produce la riqueza no se queda con ella. El hambre, la falta de vivienda, el salario que no alcanza hasta fin de mes y el bus repleto no son accidentes: son el funcionamiento normal del capitalismo.
+Sabemos que la pantalla ayuda, pero no basta: la lucha ocurre donde está el pueblo. El capital te quiere aislado, compitiendo por una plaza, creyendo que el cansancio que sientes es culpa tuya. Pero nuestra salida es, y siempre será, colectiva. Ningún cambio profundo se hizo en singular, y el saber solitario es presa fácil para el sistema. No estamos aquí para aplaudir la superación individual de quien escapa de la miseria; estamos aquí para destruir la miseria y emancipar a nuestra clase.
 
-**Los medios tienen dueño.** Unos pocos dueños deciden lo que el pueblo ve, escucha y lee. La verdad de quien vive en la periferia, en el campo y en la aldea rara vez pasa por la televisión.
-
-**Su democracia tiene límite.** El acoso electoral contra los trabajadores y la violencia contra los pueblos que resisten muestran que los derechos del pueblo solo existen mientras el pueblo lucha por ellos.
-
-**La opresión tiene color, género y territorio.** El racismo, el machismo y la LGBTfobia no son restos del pasado: son herramientas que dividen a la clase trabajadora y abaratan la vida de una parte de ella.
-
-## En qué creemos
-
-1. **El saber es del pueblo.** Nadie debe pagar para aprender, y nadie debe lucrar con lo que es de todos.
-2. **Estudiar es resistir.** Estudiamos para entender el mundo y para cambiarlo. Teoría sin práctica es adorno; práctica sin teoría camina a oscuras.
-3. **Ningún derecho cayó del cielo.** Lo que el pueblo tiene, el pueblo lo conquistó luchando. Y lo que no se defiende, se pierde.
-4. **La salida es el socialismo, rumbo al comunismo.** Una sociedad en la que los medios para producir la vida pertenezcan a quien trabaja, en la que nadie viva del trabajo ajeno y en la que la riqueza producida por todos sirva a todos.
-5. **Nadie se libera solo.** Aprender juntos es organizar la solidaridad. Nadie ocupa un territorio solo.
-6. **La cultura de la favela también es conocimiento.** El saber de la favela, del campo, de las aldeas y de los terreiros tiene valor, y camina junto con el de los libros.
-7. **La verdad tiene fuente.** Lo que decimos, quien lee lo puede comprobar. No difundimos mentiras, ni siquiera contra quien nos combate.
-8. **Somos internacionalistas.** Estamos al lado de todos los pueblos que resisten a la explotación, a la opresión y al colonialismo.
-
-## Por qué luchamos
-
-**La educación primero.** La Constitución dice que la educación es derecho de todos y deber del Estado ([arts. 205 y 206](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). En el papel está escrito; en la vida falta escuela cerca de casa, falta profesor, falta cupo, falta tiempo. Queremos una buena escuela pública en cada barrio, una universidad pública abierta para quien trabaja de día y vive lejos, y educación popular: la que parte de la vida de quien estudia y enseña a leer el mundo, no solo a pasar el examen.
-
-**Cultura de la favela.** Funk, rap, slam, grafiti, batallas de rimas, saraos, bailes. La periferia crea todos los días y casi siempre la tratan como un problema. Queremos dinero público para la cultura en la favela y que quien crea sea dueño de lo que crea ([art. 215](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)).
-
-**El SUS es nuestro.** La salud es derecho de todos y deber del Estado ([art. 196](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Un SUS público, gratuito y para todo el mundo, con centro de salud cerca de casa, menos fila y cuidado de la salud mental.
-
-**Trabajo digno y renta.** El 16 de octubre de 2026 el Congreso promulgó la enmienda que acaba con la jornada 6x1 ([CNN Brasil](https://www.cnnbrasil.com.br/politica/congresso-promulga-pec-que-acaba-com-a-escala-6x1/)). No cayó del cielo. Ahora hay que hacerla cumplir: descanso de verdad, salario que alcance hasta fin de mes, derechos para quien trabaja por aplicación y fin de todo trabajo esclavo.
-
-**Vivienda, ciudad y transporte.** La vivienda y el transporte son derechos sociales ([art. 6](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). La casa es para vivir, no para especular. Saneamiento, urbanización sin desalojos, plazas, canchas y bibliotecas. Transporte público bueno, barato y, en el horizonte, gratuito: quien estudia tiene que poder llegar.
-
-**Pueblos indígenas y quilombolas.** Demarcación ya ([art. 231](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Titulación ya ([art. 68 de las disposiciones transitorias](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Respeto a la lengua, a la escuela y a la forma de vivir de cada pueblo.
-
-**Contra toda opresión.** Lucha antirracista en la escuela, en el trabajo, en la calle y dentro de casa. Igualdad salarial, fin de la violencia contra las mujeres y guardería para quien trabaja y estudia. Vivir, amar y estudiar sin miedo, con el nombre respetado al pasar lista.
-
-**Medio ambiente.** Ríos limpios, árboles en la calle, selva en pie y agua para todos. La cuenta de la destrucción no puede caer sobre quien menos destruyó ([art. 225](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)).
-
-## Lo que hacemos
-
-- **Enseñamos gratis.** [Clases](/trilhas) desde la primaria hasta la universidad, con prueba y con las fuentes a la vista, [clases en video](/videoaulas), un [acervo](/acervo) de obras libres y [laboratorios](/laboratorios) que funcionan en tu propio aparato.
-- **Formamos militantes.** En la [Escola Revolucionária Lúcia Maria](/escola), la formación es total: teoría revolucionaria, historia de las luchas, economía política, y también leer, escribir, hacer cuentas, hablar en público, programar y cuidar.
-- **Nos comunicamos con el pueblo.** [Periódico](/jornal), [Radio](/radio) y [pódcasts](/podcasts): trinchera contra el monopolio de los medios, denuncia con fuente y archivo abierto.
-- **Nos organizamos donde está el pueblo.** [Núcleos de estudio](/nucleos) en el barrio, en el trabajo y en la escuela, y los [Territorios](/territorios), colectivos de cultura y de lucha de la favela que caminan con nosotros.
-- **Practicamos la solidaridad.** El [Mural de los Trabajadores](/mural): quien trabaja por cuenta propia se anuncia gratis, sin comisión y sin intermediarios.
-
-Todo pasa por curaduría antes de publicarse, y el historial guarda todas las versiones. No usamos puntos, rankings ni trucos para enganchar a nadie.
-
-## Cómo militamos
-
-- **Con disciplina y con cariño.** La militancia no es sacrificio vacío ni vanidad: es trabajo colectivo, hecho con responsabilidad y con cuidado de quien está al lado.
-- **Con verdad.** Todo lo que decimos tiene fuente.
-- **Con respeto a la vida de cada camarada.** No rastreamos a nadie y no vendemos datos. Los datos de quien milita solo los ve la coordinación y solo sirven para organizar.
-- **Con medios del pueblo.** Sin patrocinadores, sin anuncios, sin venta de datos. Quien puede [ayudar](/apoie) garantiza el acceso de quien no puede.
-
-## Ven con nosotros
-
-Si eres estudiante, trabajadora o trabajador, gente de la favela, del campo o de la aldea, y no aceptas que el mundo siga como está: este lugar es tuyo.
-
-Estudia. Enseña. Escribe. Traduce. Dibuja. Programa. Organiza tu barrio. [Empieza tu formación](/escola), mira cómo sumarte al [voluntariado](/voluntarios) o [ven a militar con nosotros](/escola/militantes).
+No sabemos si tienes diploma, seguidores o nombre. Sabemos que tienes preguntas. Si eres estudiante, trabajadora o trabajador, gente de la periferia, del campo o de la aldea, y no aceptas que el mundo siga como está, este lugar es tuyo. [Estudia](/escola). [Enseña](/voluntarios). Escribe. Traduce. Dibuja. Programa. [Organiza tu barrio](/escola/militantes). El saber nunca fue un premio, y estamos aquí para cobrar la deuda.
 
 **Instruíos, agitaos, organizaos. ¡Lúcia, presente!**
 
