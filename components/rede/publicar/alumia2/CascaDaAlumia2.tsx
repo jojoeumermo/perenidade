@@ -26,6 +26,7 @@ import { Lampiao } from "../../ui/Lampiao";
 import { useAlumia2 } from "./contexto";
 import { BotaoMais, Conta, type DestinoDoMais } from "./ContaDaAlumia2";
 import { Icone, type NomeDoIcone } from "./icones";
+import { LembreteDePausa } from "./LembreteDePausa";
 import { comMovimento } from "./TopoDaLinha2";
 import { AoVivoDuble, AtosPertoDuble, ComunidadesAtivasDuble } from "./previa/Dubles";
 
@@ -407,6 +408,8 @@ export function CascaDaAlumia2({
           <div key={caminho} className={entrando ? "al2-tela-entra" : undefined}>
             {children}
           </div>
+          {/* O lembrete de pausa (B1): só neste aparelho, sem placar. */}
+          {membroLogado && !previa && <LembreteDePausa />}
           {/* Celular: a conta, os cuidados e os idiomas moram no painel "Mais" do alto (nada solto no fim de cada tela). */}
         </div>
 

@@ -48,6 +48,16 @@ export async function gerarPrevia(url: string): Promise<PreviaDoPost | null> {
   }
 }
 
+/**
+ * Apaga do depósito os arquivos que a própria pessoa tirou de um post (rede_pub_corrigir devolve os caminhos). Só funciona na pasta
+ * dela (regra rede_midia_remocao); se falhar, o arquivo fica órfão e sem post (ninguém mais consegue o endereço assinado).
+ */
+export async function apagarDoDeposito(caminhos: string[]): Promise<void> {
+  if (!caminhos.length) return;
+  const supabase = await getClient();
+  await supabase.storage.from("rede-midia").remove(caminhos.slice(0, 4));
+}
+
 /** O endereço assinado de uma imagem ou de um áudio do post (vale uma hora; só sai se a matriz deixa ver o post). */
 export async function enderecoDaMidia(id: string): Promise<string> {
   const { bucket, caminho } = await redePub.caminhoDaMidia(id);
