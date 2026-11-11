@@ -179,6 +179,7 @@
     "testar:alumia-f3-banco": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-f3-banco.mjs",
     "testar:alumia-f3": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-f3.mjs",
     "testar:alumia-comunidade": "node scripts/testar-alumia-comunidade.mjs",
+    "testar:alumia-b1-comunidade": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-b1-comunidade.mjs",
     "testar:alumia-f4": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-f4.mjs",
     "testar:alumia-f5": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-f5.mjs",
     "testar:alumia-org": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-alumia-org.mjs",
