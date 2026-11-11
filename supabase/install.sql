@@ -36844,9 +36844,14 @@ end $$;
 --
 -- Nada de novo é guardado: nenhuma coluna, nenhuma tabela, nenhum registro de quem fez o quê.
 
--- ── 1. A tabela só aceita "c3" nos tamanhos certos (e o "c2" que já estava lá) ───────────────────────────────────────────
+-- ── 1. A tabela só aceita "c3" nos tamanhos certos (e o "c2" que já estava lá), na versão da coluna ───────────────────────
 
 -- A regra antiga da coluna (só "c2") sai, com o nome que tiver; a nova entra com nome fixo. Rodando de novo, sai e entra a mesma.
+-- A versão escrita no corpo ("c3.<versão>." ou "c2.<versão>.") tem de ser a da coluna "versao", nos dois formatos: é a coluna
+-- que diz ao aparelho qual chave usar e que a faxina dos embrulhos olha, então uma linha não pode dizer uma versão na coluna e
+-- outra no corpo. A regra vale também para as linhas "c2" que já estão na tabela (o envio sempre gravou as duas iguais). Se
+-- alguma linha não bater, o comando falha sem mudar nada: o passo a passo em docs/rede/CHAT-PRIVADO.md diz o que fazer. A saída
+-- da regra antiga e a entrada da nova são UM comando só: se a nova não entrar, a antiga não sai (a tabela nunca fica sem regra).
 do $$
 declare r record;
 begin
@@ -36854,15 +36859,14 @@ begin
            where conrelid = 'interno.rede_dm_mensagens'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%c2%' loop
     execute format('alter table interno.rede_dm_mensagens drop constraint %I', r.conname);
   end loop;
+  alter table interno.rede_dm_mensagens add constraint rede_dm_mensagens_corpo_formato check (
+    char_length(corpo) <= 12000 and split_part(corpo, '.', 2) = versao::text and (
+      (corpo ~ '^c3\.[1-9][0-9]{0,6}\.[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]+$'
+        and char_length(split_part(corpo, '.', 4)) in (363, 704, 1387, 2752, 5483, 8214, 10944))
+      or corpo ~ '^c2\.[1-9][0-9]{0,6}\.[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]{23,}$'
+    )
+  );
 end $$;
-
-alter table interno.rede_dm_mensagens add constraint rede_dm_mensagens_corpo_formato check (
-  char_length(corpo) <= 12000 and (
-    (corpo ~ '^c3\.[1-9][0-9]{0,6}\.[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]+$'
-      and char_length(split_part(corpo, '.', 4)) in (363, 704, 1387, 2752, 5483, 8214, 10944))
-    or corpo ~ '^c2\.[1-9][0-9]{0,6}\.[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]{23,}$'
-  )
-);
 
 -- ── 2. Auxiliares internos ──────────────────────────────────────────────────────────────────────────────────────────────
 

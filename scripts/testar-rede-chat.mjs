@@ -294,6 +294,26 @@ const lugarAntigo = contextoDaMensagem(conversaAB.id, P.ana);
 const corpoC2 = await cifrar(chaveV2DaAna, 2, await assinarTexto(aparelhos.ana.identidade, "mensagem antiga, assinada", lugarAntigo, 2), lugarAntigo);
 await recusa("o banco recusa c2 novo: o formato antigo é só para leitura", () => enviarAB(corpoC2), "invalido:corpo");
 const antiga = (await dono("insert into interno.rede_dm_mensagens (conversa, autor, versao, corpo, expira_em) values ($1, $2, 2, $3, now() + interval '7 days') returning id", [conversaAB.id, P.ana, corpoC2])).rows[0].id;
+// A versão do corpo é a da coluna, nos dois formatos, também para o que já estava na tabela.
+const naTabela = (versao, corpoDaLinha) => dono("insert into interno.rede_dm_mensagens (conversa, autor, versao, corpo, expira_em) values ($1, $2, $3, $4, now() + interval '1 day') returning id", [conversaAB.id, P.ana, versao, corpoDaLinha]);
+await recusa("ATAQUE (linha com uma versão na coluna e outra no corpo): a tabela recusa c3 da versão 3 gravado como versão 2", () => naTabela(2, `c3.3.${"A".repeat(16)}.${"B".repeat(363)}`), "check");
+await recusa("ATAQUE (idem, formato antigo): a tabela recusa c2 da versão 2 gravado como versão 3", () => naTabela(3, corpoC2), "check");
+await recusa("ATAQUE (c2 que já estava na tabela é mudado de versão): a regra vale para as linhas existentes", () => dono("update interno.rede_dm_mensagens set versao = 1 where id = $1", [antiga]), "check");
+await recusa("ATAQUE (c3 que já estava na tabela é mudado de versão): idem", () => dono("update interno.rede_dm_mensagens set versao = 1 where id = $1", [enviadaV2.id]), "check");
+await espera("ATAQUE (linha c2 torta gravada ANTES da migração): a migração não entra por cima dela, a regra antiga não sai, e depois de tirar a linha a migração entra", async () => {
+  const regra = async () => (await dono("select pg_get_constraintdef(oid) as d from pg_constraint where conrelid = 'interno.rede_dm_mensagens'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%c2%'")).rows.map((x) => x.d);
+  // O banco de antes da migração: a regra só olhava o formato.
+  await dono("alter table interno.rede_dm_mensagens drop constraint rede_dm_mensagens_corpo_formato");
+  await dono("alter table interno.rede_dm_mensagens add constraint rede_dm_mensagens_corpo_antiga check (corpo ~ '^c2\.[1-9][0-9]{0,6}\.[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]{23,}$' or corpo ~ '^c3\.') not valid");
+  const torta = (await naTabela(3, corpoC2)).rows[0].id;
+  const falhou = await banco.exclusivo(() => banco.pg.exec(blocos)).then(() => "entrou", (e) => (/check|violat/i.test(String(e.message)) ? "recusou" : String(e.message)));
+  const depoisDaFalha = await regra();
+  await dono("delete from interno.rede_dm_mensagens where id = $1", [torta]);
+  await banco.exclusivo(() => banco.pg.exec(blocos));
+  const noFim = await regra();
+  return [falhou, depoisDaFalha.length, !/363/.test(depoisDaFalha.join()) && !/split_part\(corpo, '\.'::text, 2\) = \(versao\)::text/.test(depoisDaFalha.join()), noFim.length, /split_part\(corpo, '\.'::text, 2\) = \(versao\)::text/.test(noFim.join()),
+    (await dono("select count(*)::int as n from interno.rede_dm_mensagens where split_part(corpo, '.', 2) <> versao::text")).rows[0].n];
+}, (r) => JSON.stringify(r) === '["recusou",1,true,1,true,0]');
 await espera("o c2 que já estava no banco continua saindo nas leituras, abrindo e conferindo a assinatura", async () => {
   const lida = (await rpc(como(P.bia), "rede_dm_mensagens", { p_conversa: conversaAB.id })).find((m) => m.id === antiga);
   return [formatoDe(lida.corpo), await abrirMensagem(chaveV2DaBia, lida.corpo, conversaAB.id, lida.autor, aparelhos.ana.identidade.publica, DENTRO_DO_PRAZO_DO_C2)];
