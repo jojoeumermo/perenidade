@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// O endereço próprio da Escola (docs/auditoria/ESCOLA-2026-11-09.md, risco 1): escola.institutolucia.org, com a variável
+// O endereço próprio da Escola (auditoria da Escola de 9/11, risco 1; relatório guardado fora do repositório): escola.institutolucia.org, com a variável
 // NEXT_PUBLIC_ESCOLA_URL ligada. No navegador, cada endereço é uma "origem" separada: a sessão, o armazenamento e o
 // cofre da Escola ficam fora do alcance de qualquer página do site aberto. Uma falha de injeção numa das centenas de
 // páginas do site (editor, laboratórios, comunidade) deixa de alcançar a Escola.
