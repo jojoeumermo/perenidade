@@ -1,0 +1,30 @@
+name: Posts agendados da Alumia
+
+# Reserva do agendador: o banco roda os agendados a cada minuto pelo pg_cron (supabase/migracoes/20261110-alumia-b1-casca.sql).
+# Se o serviço não deixar ligar o pg_cron, esta rotina pede ao site, de 5 em 5 minutos, que publique o que venceu
+# (app/api/rede/agendados). Rodar os dois juntos não publica em dobro. Só roda com a variável AGENDA_ALUMIA = "sim"
+# (Settings → Secrets and variables → Actions → Variables) e o segredo ALUMIA_CRON_SECRET igual ao CRON_SECRET da Vercel.
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: rede-agendados
+  cancel-in-progress: false
+
+jobs:
+  rodar:
+    if: ${{ vars.AGENDA_ALUMIA == 'sim' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Pedir ao site que publique os posts agendados que venceram
+        env:
+          CHAVE: ${{ secrets.ALUMIA_CRON_SECRET }}
+          SITE: ${{ vars.SITE_URL || 'https://institutolucia.org' }}
+        run: |
+          if [ -z "$CHAVE" ]; then echo "Falta o segredo ALUMIA_CRON_SECRET."; exit 1; fi
+          curl --fail-with-body -sS -X POST -H "Authorization: Bearer $CHAVE" "$SITE/api/rede/agendados"

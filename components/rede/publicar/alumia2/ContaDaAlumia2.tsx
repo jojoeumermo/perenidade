@@ -15,6 +15,7 @@ import { Avatar16 } from "../../ui/Avatar16";
 import { useAlumia2 } from "./contexto";
 import { detalhesQueFecham } from "./fechar";
 import { Icone, type NomeDoIcone } from "./icones";
+import { AjusteDaPausa } from "./LembreteDePausa";
 import type { TextosAlumia2 } from "./textos";
 
 // O painel de perguntas frequentes do site escuta este evento (pelo nome, sem importar o módulo dele).
@@ -153,6 +154,7 @@ export function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; si
       <div className="al2-conta-menu" role="group" aria-label={t.conta.rotulo}>
         <ItensDaConta lang={lang} situacao={situacao} t={t} comFediverso />
         <Idiomas lang={lang} rotulo={t.conta.idiomas} />
+        <AjusteDaPausa />
         <p className="px-2 pt-2 text-xs leading-relaxed text-[var(--al-texto-3)]">{s.casca.sairRapidoAjuda}</p>
       </div>
     </details>
@@ -309,6 +311,9 @@ export function BotaoMais({ lang, situacao, destinos, naConta, aoSairRapido }: {
 
           <div className="al2-painel-bloco">
             <Idiomas lang={lang} rotulo={t.conta.idiomas} colunas={3} />
+          </div>
+          <div className="al2-painel-bloco">
+            <AjusteDaPausa />
           </div>
 
           <div className="al2-painel-bloco space-y-2">
