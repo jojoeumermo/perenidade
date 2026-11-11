@@ -124,17 +124,33 @@ async function apagarBases() {
  * Encerra a sessão da conta no servidor, não só no aparelho: quem copiou o token de renovação antes (ou quem pegar o
  * aparelho e restaurar uma cópia do armazenamento) não consegue mais usá-lo. Lê o token de acesso guardado e chama a
  * saída do Supabase só para esta sessão, com keepalive, para o pedido sair mesmo com a troca de página logo depois.
+ * Precisa rodar ANTES de apagar as chaves (é delas que sai o token). Nunca lança. O "Sair rápido" da Alumia usa a mesma
+ * função (lib/rede/saida.ts). Devolve se o pedido foi feito.
  */
-function revogarSessao() {
+export function revogarSessao(armazenamento?: Pick<Storage, "getItem"> | null): boolean {
   try {
     const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
     const chave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
-    const guardada = globalThis.localStorage?.getItem("lucia:sessao");
+    const guardada = (armazenamento ?? globalThis.localStorage)?.getItem("lucia:sessao");
     const token = guardada ? (JSON.parse(guardada) as { access_token?: unknown }).access_token : null;
-    if (!url || !chave || typeof token !== "string") return;
+    if (!url || !chave || typeof token !== "string") return false;
     void fetch(`${url}/auth/v1/logout?scope=local`, { method: "POST", keepalive: true, headers: { apikey: chave, Authorization: `Bearer ${token}` } }).catch(() => {});
+    return true;
   } catch {
     // sem sessão guardada ou sem rede: a sessão local sai do mesmo jeito
+    return false;
+  }
+}
+
+/** Quanto a saída espera pela limpeza do chat antes de seguir para as bases. */
+export const TETO_DO_CHAT_MS = 350;
+
+/** A limpeza do chat privado da Alumia (importada só na hora da saída: o resto do site não carrega nada do chat). Nunca lança. */
+export async function limparOChat(carregar: () => Promise<{ apagarTudoDoChat: (limiteMs?: number) => Promise<void> }> = () => import("./rede/chat/gaveta")): Promise<void> {
+  try {
+    await (await carregar()).apagarTudoDoChat(300);
+  } catch {
+    // sem o módulo (ou sem IndexedDB): as bases são apagadas logo depois do mesmo jeito
   }
 }
 
@@ -173,7 +189,12 @@ export async function sairRapido(destino = DESTINO_NEUTRO) {
   } catch {
     // bloqueado
   }
-  await Promise.race([Promise.all([apagarBases(), apagarCaches()]), new Promise((resolve) => setTimeout(resolve, 700))]);
+  // O chat privado da Alumia antes das bases: liga a trava do chat nesta aba e avisa as outras, que apagam a memória delas
+  // (chaves de conversa, mensagens abertas) na hora, e não só quando notarem que o banco sumiu (lib/rede/chat/gaveta.ts).
+  // A limpeza do chat tem teto próprio (350 ms, contando baixar o módulo): passou disso, as bases são apagadas do mesmo jeito.
+  // Tudo dentro do teto de 700 ms da saída: o que ficar pela metade o navegador termina sozinho.
+  const bases = Promise.race([limparOChat(), new Promise((resolve) => setTimeout(resolve, TETO_DO_CHAT_MS))]).then(apagarBases);
+  await Promise.race([Promise.all([bases, apagarCaches()]), new Promise((resolve) => setTimeout(resolve, 700))]);
   try {
     document.querySelectorAll('meta[name="referrer"]').forEach((m) => m.remove());
     const meta = document.createElement("meta");

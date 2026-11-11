@@ -38,7 +38,7 @@
     "visitante": "访客",
     "entrar": "加入 Alumia",
     "sairRapido": "快速离开",
-    "sairRapidoAjuda": "清除 Alumia 在这台设备上保存的内容，并打开一个外部的普通页面（天气预报），不显示任何与学院有关的内容。",
+    "sairRapidoAjuda": "退出你的账户登录，清除 Alumia 在这台设备上保存的内容（包括私人聊天的密钥），并打开一个外部的普通页面（天气预报），不显示任何与学院有关的内容。",
     "sairDaConta": "退出登录",
     "voltarAoSite": "返回网站",
     "cuidados": "安全",

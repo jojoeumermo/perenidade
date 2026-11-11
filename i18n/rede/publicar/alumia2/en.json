@@ -38,7 +38,7 @@
     "visitante": "Visitor",
     "entrar": "Join Alumia",
     "sairRapido": "Quick exit",
-    "sairRapidoAjuda": "Erases what Alumia stored on this device and opens an ordinary outside page (the weather forecast), with nothing from the Institute.",
+    "sairRapidoAjuda": "Signs you out, erases what Alumia stored on this device, including the private chat key, and opens an ordinary outside page (the weather forecast), with nothing from the Institute.",
     "sairDaConta": "Sign out",
     "voltarAoSite": "Back to the site",
     "cuidados": "Care",

@@ -15,7 +15,7 @@ import { enderecos, ERROS_DA_REDE } from "../lib/rede/tipos.ts";
 import { areaDoCaminho, fechado } from "../lib/interdicao.ts";
 import { ligado, lerRecursos, RECURSOS, SO_PELO_NOME } from "../lib/recursos.ts";
 import { ROTAS_NOVAS, alumia2Ligada, rotaNovaLigada } from "../lib/rede/rotas-novas.ts";
-import { apagarChavesDaRede, PREFIXO_DA_REDE, rodarLimpezas } from "../lib/rede/saida.ts";
+import { apagarChavesDaRede, apagarChavesDaSessao, PREFIXO_DA_REDE, rodarLimpezas, sairRapido as sairRapidoDaRede } from "../lib/rede/saida.ts";
 import { codinomeOk, corpoDoUsuario, criarContaExtra, emailAleatorio } from "../lib/rede/contas-extra.ts";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -353,6 +353,60 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
     await rodarLimpezas([() => new Promise((r) => setTimeout(r, 5000))], 100);
     return Date.now() - t0;
   }, (ms) => ms < 1000);
+
+  // ATAQUE: a pessoa toca em "Sair rápido" e entrega o aparelho. Quem pega abre a Alumia de novo: não pode achar sessão.
+  const armazemDeVerdade = (inicio) => {
+    const m = new Map(Object.entries(inicio));
+    return { get length() { return m.size; }, key: (i) => [...m.keys()][i] ?? null, getItem: (k) => m.get(k) ?? null, setItem: (k, v) => void m.set(k, v), removeItem: (k) => void m.delete(k), m };
+  };
+  const sessaoGuardada = JSON.stringify({ access_token: "token-de-acesso", refresh_token: "token-de-renovacao", user: { id: "u1" } });
+  const montar = () => {
+    const local = armazemDeVerdade({ "lucia:sessao": sessaoGuardada, "lucia:nome": "Ana", "lucia:avatar": "3", "sb-projeto-auth-token": sessaoGuardada, [`${PREFIXO_DA_REDE}:rascunho`]: "x", "lucia:tema": "escuro", "de-outro-site": "1" });
+    const daAba = armazemDeVerdade({ [`${PREFIXO_DA_REDE}:aba`]: "x" });
+    const idas = [];
+    return { local, daAba, idas, janela: { localStorage: local, sessionStorage: daAba, location: { replace: (d) => void idas.push(d) } } };
+  };
+  const guardados = { window: globalThis.window, fetch: globalThis.fetch, url: process.env.NEXT_PUBLIC_SUPABASE_URL, chave: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY };
+  const pedidos = [];
+  process.env.NEXT_PUBLIC_SUPABASE_URL = "https://banco.exemplo/";
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "chave-publica";
+  globalThis.fetch = async (url, init) => {
+    pedidos.push({ url, metodo: init?.method, keepalive: init?.keepalive, autorizacao: init?.headers?.Authorization, apikey: init?.headers?.apikey });
+    return new Response("{}", { status: 204 });
+  };
+  try {
+    await espera("ATAQUE (aparelho tomado depois do Sair rápido): não sobra sessão no aparelho, ela é revogada no servidor e o resto do site fica", async () => {
+      const c = montar();
+      globalThis.window = c.janela;
+      // Uma renovação da sessão que estava no caminho regrava a chave no meio das limpezas: também não pode sobrar.
+      await sairRapidoDaRede("https://fora.exemplo/", [() => void c.local.setItem("lucia:sessao", sessaoGuardada)]);
+      return { sobrou: [...c.local.m.keys()].sort(), daAba: [...c.daAba.m.keys()], idas: c.idas, pedidos: [...pedidos] };
+    }, (v) => v.sobrou.join() === "de-outro-site,lucia:tema" && v.daAba.length === 0 && v.idas.join() === "https://fora.exemplo/" && v.pedidos.length === 1
+      && v.pedidos[0].url === "https://banco.exemplo/auth/v1/logout?scope=local" && v.pedidos[0].metodo === "POST" && v.pedidos[0].keepalive === true
+      && v.pedidos[0].autorizacao === "Bearer token-de-acesso" && v.pedidos[0].apikey === "chave-publica");
+    await espera("sem rede, a revogação falha calada e a sessão sai do aparelho do mesmo jeito; sem sessão, nenhum pedido", async () => {
+      pedidos.length = 0;
+      globalThis.fetch = async () => { throw new Error("sem rede"); };
+      const c = montar();
+      globalThis.window = c.janela;
+      await sairRapidoDaRede("https://fora.exemplo/");
+      const semRede = [c.local.m.has("lucia:sessao"), c.idas.length];
+      globalThis.fetch = async (url) => { pedidos.push(url); return new Response("{}"); };
+      const vazio = montar();
+      vazio.local.m.delete("lucia:sessao");
+      globalThis.window = vazio.janela;
+      await sairRapidoDaRede("https://fora.exemplo/");
+      return [...semRede, pedidos.length, vazio.idas.length];
+    }, (r) => JSON.stringify(r) === "[false,1,0,1]");
+  } finally {
+    globalThis.window = guardados.window;
+    globalThis.fetch = guardados.fetch;
+    if (guardados.url === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_URL; else process.env.NEXT_PUBLIC_SUPABASE_URL = guardados.url;
+    if (guardados.chave === undefined) delete process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; else process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = guardados.chave;
+  }
+  igual("as chaves da sessão saem; armazenamento bloqueado não derruba", [apagarChavesDaSessao([falso(["lucia:sessao", "lucia:nome", "lucia:sessao-outra", "sb-x-auth-token.0"]), null]), apagarChavesDaSessao([quebrado])], [3, 0]);
+  const saida = ler("lib/rede/saida.ts");
+  ok("o Sair rápido revoga a sessão ANTES de apagar as chaves (o token sai delas)", saida.indexOf("revogarSessao(window.localStorage)") > 0 && saida.indexOf("revogarSessao(window.localStorage)") < saida.indexOf("apagarChavesDaSessao(armazens);"));
 }
 
 // ═══════════════════ 11. Conta extra: nada do dono em auth.users ═══════════════════
