@@ -163,7 +163,18 @@ await espera("quem vê recebe o 'vou' sem total (menos de 3)", async () => (awai
   (f) => f.tipo === "vou" && f.ato === ato && f.titulo === "PASSE LIVRE JÁ" && f.cidade === "São Paulo" && f.vou_eu === false && f.total == null && f.encerrado === false);
 await espera("'vou' pelo story é a mesma confirmação do ato", () => C.amiga.vou(ato, true), (r) => r.vou_eu === true);
 for (const n of ["v1", "v2"]) await C[n].vou(ato, true);
-await espera("com 3 pessoas o total aparece (e quem vê sabe que foi)", async () => (await abrirComo("amiga", sVou?.id))?.figurinhas[0], (f) => f.vou_eu === true && f.total === 3);
+// O ataque: quem olha o story no instante em que alguém confirma não pode ver o total mudar (o marco de 15 minutos dos atos).
+await espera("confirmar pelo story NÃO muda o total no mesmo marco (3 pessoas, total ainda nulo)", async () => (await abrirComo("amiga", sVou?.id))?.figurinhas[0], (f) => f.vou_eu === true && f.total == null);
+// Faz o tempo andar: o que entrou recua 20 minutos, para cair antes do último marco.
+const passarMarco = async () => {
+  await dono("update interno.rede_vou set criado_em = criado_em - interval '20 minutes'");
+  await dono("update interno.rede_stories set criado_em = criado_em - interval '20 minutes', expira_em = expira_em - interval '20 minutes'");
+};
+await passarMarco();
+await espera("depois do marco, com 3 pessoas, o total aparece (e quem vê sabe que foi)", async () => (await abrirComo("amiga", sVou?.id))?.figurinhas[0], (f) => f.vou_eu === true && f.total === 3);
+await C.v3.vou(ato, true);
+await espera("a 4ª confirmação não vira 4 na hora", async () => (await abrirComo("v2", sVou?.id))?.figurinhas[0], (f) => f.total === 3);
+await C.v3.vou(ato, false);
 await espera("…e nunca quem vai", async () => JSON.stringify((await abrirComo("v3", sVou?.id))?.figurinhas[0]), (t) => !t.includes("amiga_b1") && !t.includes("Lutadora"));
 await recusa("'vou' de ato que não existe é recusado", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "vou", ato: post }] }), "invalido:vou");
 
@@ -176,7 +187,9 @@ await recusa("mencionar a mim mesma é recusado", () => C.autora.publicar({ ...b
 const sCamp = await espera("#campanha com corrente", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "campanha", tag: "#PasseLivre", corrente: true }] }), (r) => r.id);
 await espera("a # vem limpa e o total da corrente só a partir de 3", async () => (await abrirComo("amiga", sCamp?.id))?.figurinhas[0], (f) => f.tag === "passelivre" && f.corrente === true && f.total == null);
 for (const n of ["amiga", "v1"]) await C[n].publicar({ ...base, publico: "membros", figurinhas: [{ tipo: "campanha", tag: "passelivre", corrente: true }] });
-await espera("três pessoas na corrente: o total aparece", async () => (await abrirComo("amiga", sCamp?.id))?.figurinhas[0], (f) => f.total === 3);
+await espera("três pessoas na corrente: no mesmo marco o total ainda não aparece", async () => (await abrirComo("amiga", sCamp?.id))?.figurinhas[0], (f) => f.total == null);
+await passarMarco();
+await espera("depois do marco, o total da corrente aparece", async () => (await abrirComo("amiga", sCamp?.id))?.figurinhas[0], (f) => f.total === 3);
 await recusa("# com espaço ou símbolo é recusada", () => C.autora.publicar({ ...base, figurinhas: [{ tipo: "campanha", tag: "passe livre!" }] }), "invalido:campanha");
 
 // ═══════════════════ 5. Respostas e reações com volta ═══════════════════

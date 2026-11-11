@@ -9,8 +9,8 @@
 --      que vieram da figurinha de pergunta e pode publicar uma delas num story novo (figurinha "resposta", sem o nome de quem
 --      respondeu); vê o total das reações do story só a partir de 3 (nunca quem reagiu).
 --   3. FIGURINHAS NOVAS: decorativas da Alumia (punho, lampião, megafone, faixa, carimbos…, lista fechada), "vou" (confirmar
---      presença no ato pelo story, total só a partir de 3 e arredondado), menção a pessoa (com aviso para ela, bloqueio vale),
---      #campanha e "Adicionar o seu" (corrente da campanha, total de pessoas só a partir de 3).
+--      presença no ato pelo story, total só a partir de 3, arredondado e com o atraso do marco de 15 minutos), menção a pessoa (com aviso para ela, bloqueio vale),
+--      #campanha e "Adicionar o seu" (corrente da campanha, total de pessoas só a partir de 3, também no marco).
 --   4. RODA DE CONFIANÇA: lista pessoal e privada (rede_roda). O público "proximos" passa a ser a roda da autora, não mais "seguir
 --      um ao outro" (um infiltrado que segue de volta não entra na roda). Ninguém sabe em que rodas está, nem quantas pessoas
 --      estão na roda de alguém.
@@ -194,7 +194,9 @@ begin
     end if;
     if v_ato is not null then
       select * into ch from rede_chamados where post = v_ato;
-      select count(*) into v_n from rede_vou where post = v_ato;
+      -- O total é o do último marco (interno.rede_vou_publicado, o mesmo atraso do mosaico do ato): quem olha o story não vê o
+      -- nulo virar 3, nem o 3 virar 4, no instante em que alguém confirma.
+      v_n := interno.rede_vou_publicado(v_ato);
     end if;
     return jsonb_build_object('tipo', 'vou', 'ato', v_ato, 'titulo', f.dados ->> 'titulo', 'inicio', coalesce(ch.inicio::text, f.dados ->> 'inicio'),
       'cidade', f.dados ->> 'cidade', 'vou_eu', v_ato is not null and exists (select 1 from rede_vou u where u.post = v_ato and u.usuario = p_quem),
@@ -209,10 +211,11 @@ begin
     return jsonb_build_object('tipo', 'pessoa', 'handle', (select rede_handle from perfis where id = v_quem), 'nome', interno.rede_nome(v_quem));
   elsif f.tipo = 'campanha' then
     if coalesce((f.dados ->> 'corrente')::boolean, false) then
-      -- Quantas PESSOAS entraram na corrente (stories no ar com a mesma #): só a partir de 3, arredondado.
+      -- Quantas PESSOAS entraram na corrente (stories no ar com a mesma #): só a partir de 3, arredondado, e só as que já estavam
+      -- no último marco (interno.rede_contagem_marco): quem olha não vê o total mudar no instante em que alguém entra.
       select count(distinct x.autor) into v_n from rede_story_figurinhas g join rede_stories x on x.id = g.story
       where g.tipo = 'campanha' and g.dados ->> 'tag' = f.dados ->> 'tag' and coalesce((g.dados ->> 'corrente')::boolean, false)
-        and x.expira_em > now() and not x.retido;
+        and x.expira_em > now() and not x.retido and x.criado_em <= interno.rede_contagem_marco();
     end if;
     return jsonb_build_object('tipo', 'campanha', 'tag', f.dados ->> 'tag', 'corrente', coalesce((f.dados ->> 'corrente')::boolean, false),
       'total', interno.rede5_story_total(v_n));
