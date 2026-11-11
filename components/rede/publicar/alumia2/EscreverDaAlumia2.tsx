@@ -67,12 +67,18 @@ async function salvarCifrado(r: RascunhoDoServidor) {
   return redePub.salvarRascunho({ id, ...cifrado });
 }
 
+/**
+ * O pedido usa o que só a B1 cumpre (enquete com resultado só no fim ou ordem embaralhada)? Um banco sem a B1 ignoraria a escolha
+ * em silêncio e mostraria a parcial que a pessoa pediu para esconder: nesse caso o pedido não cai na função de antes.
+ */
+const soComB1 = (pedido: PedidoPublicar) => Boolean(pedido.enquete?.so_no_fim || pedido.enquete?.embaralhar);
+
 /** Publica com os campos da B1 (quem pode citar, enquete avançada); um banco sem a B1 recebe o pedido de antes. */
 async function publicarComB1(pedido: PedidoPublicar): Promise<Post> {
   try {
     return await redePub.publicarMais(pedido);
   } catch (e) {
-    if (!faltaNoBanco(e)) throw e;
+    if (!faltaNoBanco(e) || soComB1(pedido)) throw e;
     const { citar_quem: _c, ...resto } = pedido;
     void _c;
     return rede.publicar(resto);
@@ -387,7 +393,7 @@ export function EscreverDaAlumia2({
         const opcoes = { ...(pub.repetir ? { repetir: "semanal" as const, vezes: pub.repetir } : {}), ...(pub.aposAto ? { apos_ato: pub.aposAto } : {}) };
         const pedirQuando = pub.aposAto ? null : new Date(pub.agendar).toISOString();
         const agendado = await redePub.agendarMais(pedido, pedirQuando, opcoes).catch((e) => {
-          if (faltaNoBanco(e) && pedirQuando && !pub.repetir && !pub.aposAto) return redePub.agendar(pedido, pedirQuando);
+          if (faltaNoBanco(e) && pedirQuando && !pub.repetir && !pub.aposAto && !soComB1(pedido)) return redePub.agendar(pedido, pedirQuando);
           throw e;
         });
         const quando = new Date(agendado.quando);
