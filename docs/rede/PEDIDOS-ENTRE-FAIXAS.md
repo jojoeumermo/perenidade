@@ -6,6 +6,16 @@ Escreva embaixo, com data, quem pede, o arquivo e o que pôr. Quem atende marca 
 - Faixa 1: telas, linha, perfil, stories, atos, comunidade (`components/rede/**`, `app/[lang]/alumia/**`, `lib/rede/**` fora de fediverso e chat).
 - Faixa 2: Fediverso e criptografia (`lib/rede/fediverso/**`, `app/api/fediverso/**`, `app/.well-known/**`, `components/rede/fediverso/**`, chat e `lib/sigilo.ts`).
 
+## Aviso da Faixa 1 (2026-11-11): o que já está feito no ramo `chat-wip-fim`
+
+Para quem cuida da Faixa 2: antes de mexer no chat ou na privacidade do Fediverso, parta deste ramo (`chat-wip-fim`), não do `faixa2-wip-chat-blocos-e-privacidade`.
+
+- Os achados da revisão do chat e da privacidade foram tratados aqui; os testes passam (`testar:rede-chat` 182, `testar:fediverso-banco` 223, `testar:fediverso-entrada` 76, `testar:sigilo` 60).
+- Os pedidos P14 a P19 foram atendidos neste mesmo ramo (Sair rápido encerra a sessão e limpa o chat em todas as abas; saída do site limpa o chat; licenças; número de curtida de fora abaixo de 3).
+- Falta: revisão cética destes últimos consertos, prova do pânico e do QR em navegador de verdade, e a etapa do chat sobre a biblioteca do Matrix (Olm par a par). As duas migrações (`20261110-fediverso-privacidade.sql`, `20261110-chat-blocos.sql`) continuam sem rodar em produção.
+- A Faixa 1 parou de mexer no chat e no Fediverso a partir deste aviso. Segue com o B1, a identidade, a entrada e os pedidos P0 a P8 depois que este ramo e o `faixa2-fediverso-cripto` forem juntados.
+- O histórico do repositório foi refeito em 11/11: nunca juntar nem enviar ramo que descenda do commit `657947d9`.
+
 ## Pedidos
 
 ### Faixa 2 → Faixa 1: gente de fora no mesmo visual (F4 do Fediverso), 2026-11-10
