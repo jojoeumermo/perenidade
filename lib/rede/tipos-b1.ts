@@ -170,14 +170,23 @@ export interface CaixaDePerguntas {
 }
 
 // ── Posts que se repetem e lembretes ──
-export type Repeticao = "semanal" | "quinzenal" | "mensal";
+/**
+ * A repetição de um post agendado. Uma lista só para o "Repetir" do Escrever (rede_pub_agendar_mais, casca) e para as séries da
+ * comunidade (rede_alumia_agendar_serie): a mesma coluna e a mesma regra no banco (interno.rede_agendados.repetir).
+ */
+export const REPETICOES = ["semanal", "quinzenal", "mensal"] as const;
+export type Repeticao = (typeof REPETICOES)[number];
 export interface SerieAgendada {
   serie: string;
   id: string;
   quando: string;
   repetir: Repeticao;
-  ate: string;
+  /** Até quando a série vai (nulo só em série com total de vezes e sem data). */
+  ate: string | null;
+  /** Em que vez está o que espera na fila. */
   vez: number;
+  /** De quantas vezes (nulo: até a data final). */
+  total?: number | null;
   texto: string;
 }
 export interface Lembrete {

@@ -88,7 +88,8 @@ export interface FrasesDoTipo {
 /**
  * Os textos fixos que o SERVIDOR grava em português (o aviso só guarda texto) e que a tela mostra no idioma de quem lê. A chave é
  * o texto exato gravado (a reserva para quem lê o aviso fora da Alumia); o valor, a frase em i18n/rede/avisos/*.json → "servidor".
- * O lembrete dos atos: supabase/migracoes/20261110-alumia-b1-atos.sql (interno.rede_ato_lembretes).
+ * O lembrete dos atos: supabase/migracoes/20261110-alumia-b1-atos.sql (interno.rede_ato_lembretes); fica gravado com o tipo
+ * 'lembrete' (o gatilho de 20261110-alumia-b1-comunidade.sql), junto do "lembrar mais tarde" de um post.
  */
 export const TEXTOS_DO_SERVIDOR = {
   "Lembrete: um ato que você confirmou começa em menos de 24 horas.": "lembrete24h",
@@ -110,9 +111,10 @@ export function fraseDoAviso(
   doServidor?: Partial<Record<FraseDoServidor, string>>,
 ): string {
   const f = item.tipo ? frases[item.tipo] : undefined;
-  // Texto fixo do servidor (o lembrete do ato): sai no idioma de quem lê, seja qual for o tipo com que o aviso foi gravado.
+  // Texto fixo do servidor (o lembrete do ato): sai no idioma de quem lê, seja qual for o tipo com que o aviso foi gravado
+  // ('chamado' antes da B1 da comunidade, 'lembrete' depois). Sem a tradução, vale o texto gravado, nunca a frase de outro lembrete.
   const chave = item.texto ? (TEXTOS_DO_SERVIDOR as Record<string, FraseDoServidor>)[item.texto] : undefined;
-  if (chave && doServidor?.[chave]) return doServidor[chave];
+  if (chave) return doServidor?.[chave] || item.texto || reserva;
   if (!f || ((TIPOS_COM_TEXTO as readonly string[]).includes(item.tipo ?? "") && item.texto)) return item.texto || reserva;
   const nome = (TIPOS_SEM_NOME as readonly string[]).includes(item.tipo ?? "") ? null : (item.atores[0] ?? null);
   if (nome) {

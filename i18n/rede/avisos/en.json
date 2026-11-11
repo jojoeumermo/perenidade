@@ -47,7 +47,7 @@
         "ajudou": "When your reply helped (never who marked it)",
         "ato": "Actions you follow (beacon, chain, consultation)",
         "reacao_story": "Reactions to your stories (never who reacted)",
-        "lembrete": "Reminders you set"
+        "lembrete": "Reminders: the ones you set and those for actions you confirmed"
       }
     },
     "resumo": {

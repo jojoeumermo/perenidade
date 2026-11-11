@@ -174,26 +174,110 @@ await espera("a autora abre a citação depois", async () => {
 await zerar();
 const em = (h) => new Date(Date.now() + h * 3600_000).toISOString();
 const agendarB1 = (quem, pedido, quando, opcoes) => rpc(como(p[quem]), "rede_pub_agendar_mais", { p: pedido, p_quando: quando, p_opcoes: opcoes });
-const semanal = await agendarB1("autora", { texto: "Assembleia hoje, 19h, no galpão.", publico: "membros" }, em(2), { repetir: "semana", vezes: 3 });
+const semanal = await agendarB1("autora", { texto: "Assembleia hoje, 19h, no galpão.", publico: "membros" }, em(2), { repetir: "semanal", vezes: 3 });
 await espera("agendar toda semana: guarda a repetição e a data final", async () => await um("select repetir, vezes, repetir_ate, quando from interno.rede_agendados where id = $1", [semanal.id]),
-  (r) => r.repetir === "semana" && r.vezes === 1 && Math.round((new Date(r.repetir_ate) - new Date(r.quando)) / 86400000) === 14);
-await recusa("repetir com imagem não pode (o arquivo só nasce uma vez)", () => agendarB1("autora", { texto: "x", midia: [{ caminho: "a/b.jpg", alt: "" }] }, em(2), { repetir: "semana", vezes: 2 }), "repetir_sem_arquivo");
-await recusa("repetir mais de 12 vezes não", () => agendarB1("autora", { texto: "x" }, em(2), { repetir: "semana", vezes: 40 }), "invalido:repetir");
+  (r) => r.repetir === "semanal" && r.vezes === 1 && Math.round((new Date(r.repetir_ate) - new Date(r.quando)) / 86400000) === 14);
+await recusa("repetir com imagem não pode (o arquivo só nasce uma vez)", () => agendarB1("autora", { texto: "x", midia: [{ caminho: "a/b.jpg", alt: "" }] }, em(2), { repetir: "semanal", vezes: 2 }), "repetir_sem_arquivo");
+await recusa("repetir mais de 12 vezes não", () => agendarB1("autora", { texto: "x" }, em(2), { repetir: "semanal", vezes: 40 }), "invalido:repetir");
 await espera("o agendador (chave de serviço) publica o que venceu e marca a próxima vez 7 dias depois", async () => {
   await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where id = $1", [semanal.id]);
   const n = await rpc(servico(), "rede_pub_agendados_rodar");
   const feito = await um("select estado, post from interno.rede_agendados where id = $1", [semanal.id]);
-  const prox = (await dono("select vezes, quando from interno.rede_agendados where autor = $1 and estado = 'pendente' and repetir = 'semana'", [p.autora])).rows;
+  const prox = (await dono("select vezes, quando from interno.rede_agendados where autor = $1 and estado = 'pendente' and repetir = 'semanal'", [p.autora])).rows;
   return { n, feito, prox };
 }, ({ n, feito, prox }) => n >= 1 && feito.estado === "publicado" && feito.post && prox.length === 1 && prox[0].vezes === 2 && new Date(prox[0].quando) > new Date(Date.now() + 6 * 86400000));
 await espera("na última vez, não marca mais nenhuma", async () => {
   for (let i = 0; i < 3; i++) {
-    await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where autor = $1 and estado = 'pendente' and repetir = 'semana'", [p.autora]);
+    await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where autor = $1 and estado = 'pendente' and repetir = 'semanal'", [p.autora]);
     await zerar();
     await rpc(servico(), "rede_pub_agendados_rodar");
   }
-  return (await dono("select vezes, estado from interno.rede_agendados where autor = $1 and repetir = 'semana' order by vezes", [p.autora])).rows;
+  return (await dono("select vezes, estado from interno.rede_agendados where autor = $1 and repetir = 'semanal' order by vezes", [p.autora])).rows;
 }, (rs) => rs.length === 3 && rs.every((r) => r.estado === "publicado") && rs.at(-1).vezes === 3);
+await espera("a série inteira tem um número só (serve para listar e para parar)", () => um("select count(distinct serie)::int as n, count(*) filter (where serie is null)::int as sem from interno.rede_agendados where autor = $1 and repetir = 'semanal'", [p.autora]),
+  (r) => r.n === 1 && r.sem === 0);
+
+// Uma vez só. O post que se repete tem UM mecanismo (o gatilho interno.rede_alumia_serie_seguir): a casca e as séries da comunidade
+// usam o mesmo, e nenhum caminho (agendador, "ao ler", lista das séries, rodar duas vezes) faz o post ou a próxima vez sair em dobro.
+await zerar();
+await dono("delete from interno.rede_agendados where autor = $1", [p.quarta]);
+const TEXTO_UNICO = "Mutirão da horta, todo sábado às 9h.";
+const unico = await agendarB1("quarta", { texto: TEXTO_UNICO, publico: "membros" }, em(2), { repetir: "semanal", vezes: 4 });
+const contar = async () => ({
+  posts: (await um("select count(*)::int as n from interno.rede_posts where autor = $1 and texto = $2", [p.quarta, TEXTO_UNICO])).n,
+  publicados: (await um("select count(*)::int as n from interno.rede_agendados where autor = $1 and estado = 'publicado'", [p.quarta])).n,
+  pendentes: (await um("select count(*)::int as n from interno.rede_agendados where autor = $1 and estado = 'pendente'", [p.quarta])).n,
+  linhas: (await um("select count(*)::int as n from interno.rede_agendados where autor = $1", [p.quarta])).n,
+});
+await espera("post repetido: na hora, sai UMA vez e fica UMA próxima na fila (agendador, 'ao ler' e séries, um atrás do outro)", async () => {
+  await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where id = $1", [unico.id]);
+  await rpc(servico(), "rede_pub_agendados_rodar");
+  await rpc(como(p.quarta), "rede_pub_agendados");
+  await rpc(como(p.quarta), "rede_alumia_series", {});
+  await rpc(servico(), "rede_pub_agendados_rodar");
+  return contar();
+}, (r) => r.posts === 1 && r.publicados === 1 && r.pendentes === 1 && r.linhas === 2);
+await espera("post repetido: a cada semana que vence, mais um post e só um, até o total (4 vezes, 4 posts, nada sobrando na fila)", async () => {
+  const passos = [];
+  for (let i = 0; i < 5; i++) {
+    await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where autor = $1 and estado = 'pendente'", [p.quarta]);
+    await zerar();
+    await rpc(servico(), "rede_pub_agendados_rodar");
+    await rpc(servico(), "rede_pub_agendados_rodar");
+    await rpc(como(p.quarta), "rede_pub_agendados");
+    passos.push(await contar());
+  }
+  return passos;
+}, (ps) => ps.map((x) => x.posts).join() === "2,3,4,4,4" && ps.every((x) => x.posts === x.publicados && x.pendentes <= 1) && ps.at(-1).pendentes === 0 && ps.at(-1).linhas === 4);
+await espera("o gatilho é o único que põe a próxima na fila (o agendador não repete por conta própria)", async () => {
+  const def = (await um("select pg_get_functiondef('interno.rede3_pub_rodar(uuid)'::regprocedure) as d")).d;
+  const gatilhos = (await um("select count(*)::int as n from pg_trigger where tgrelid = 'interno.rede_agendados'::regclass and not tgisinternal and tgfoid = 'interno.rede_alumia_serie_seguir'::regproc")).n;
+  return { insere: /insert\s+into\s+rede_agendados/i.test(def), gatilhos };
+}, (r) => r.insere === false && r.gatilhos === 1);
+await espera("a série da comunidade (rede_alumia_agendar_serie) passa pelo mesmo mecanismo: um post, uma próxima", async () => {
+  await zerar();
+  await dono("delete from interno.rede_agendados where autor = $1", [p.quinta]);
+  const s = await rpc(como(p.quinta), "rede_alumia_agendar_serie", { p: { texto: "Reunião do núcleo, quinzenal.", publico: "membros" }, p_quando: em(2), p_repetir: "quinzenal" });
+  await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where id = $1", [s.id]);
+  await rpc(servico(), "rede_pub_agendados_rodar");
+  await rpc(como(p.quinta), "rede_alumia_series", {});
+  await rpc(servico(), "rede_pub_agendados_rodar");
+  const posts = (await um("select count(*)::int as n from interno.rede_posts where autor = $1 and texto = 'Reunião do núcleo, quinzenal.'", [p.quinta])).n;
+  const fila = (await dono("select vezes, serie, quando from interno.rede_agendados where autor = $1 and estado = 'pendente'", [p.quinta])).rows;
+  return { posts, fila, serie: s.serie };
+}, (r) => r.posts === 1 && r.fila.length === 1 && r.fila[0].vezes === 2 && r.fila[0].serie === r.serie && new Date(r.fila[0].quando) > new Date(Date.now() + 13 * 86400000));
+await espera("cancelar o que está na fila acaba com a série (não nasce outro)", async () => {
+  const proximo = await um("select id from interno.rede_agendados where autor = $1 and estado = 'pendente'", [p.quinta]);
+  await rpc(como(p.quinta), "rede_pub_agendar_cancelar", { p_id: proximo.id });
+  await rpc(servico(), "rede_pub_agendados_rodar");
+  return um("select count(*)::int as n from interno.rede_agendados where autor = $1 and estado = 'pendente'", [p.quinta]);
+}, (r) => r.n === 0);
+await espera("a cada 15 dias e todo mês também valem no agendar da casca (a mesma regra das séries)", async () => {
+  await zerar();
+  await dono("delete from interno.rede_agendados where autor = $1", [p.quinta]);
+  const q = await agendarB1("quinta", { texto: "Quinzenal da casca.", publico: "membros" }, em(2), { repetir: "quinzenal", vezes: 3 });
+  const m = await agendarB1("quinta", { texto: "Mensal da casca.", publico: "membros" }, em(2), { repetir: "mensal", vezes: 2 });
+  const dias = async (id) => { const r = await um("select repetir, repetir_ate, quando from interno.rede_agendados where id = $1", [id]); return [r.repetir, Math.round((new Date(r.repetir_ate) - new Date(r.quando)) / 86400000)]; };
+  return [await dias(q.id), await dias(m.id)];
+}, ([q, m]) => q[0] === "quinzenal" && q[1] === 28 && m[0] === "mensal" && m[1] >= 28 && m[1] <= 31);
+await recusa("o valor antigo ('semana') não entra mais", () => agendarB1("quinta", { texto: "x" }, em(2), { repetir: "semana", vezes: 2 }), "invalido:repetir");
+await recusa("nem repetição desconhecida", () => agendarB1("quinta", { texto: "x" }, em(2), { repetir: "diaria", vezes: 2 }), "invalido:repetir");
+await espera("banco que rodou a versão de antes ('semana', teto de 12): a migração passa para 'semanal' e pode rodar de novo", async () => {
+  await dono("delete from interno.rede_agendados where autor = $1", [p.quinta]);
+  await dono("alter table interno.rede_agendados drop constraint rede_agendados_repetir");
+  await dono("delete from interno.rede_agendados where repetir is not null and repetir <> 'semanal'");
+  await dono("update interno.rede_agendados set repetir = 'semana' where repetir = 'semanal'");
+  await dono("alter table interno.rede_agendados add constraint rede_agendados_repetir check (repetir is null or repetir = 'semana')");
+  await dono("insert into interno.rede_agendados (autor, pedido, quando, repetir, vezes, repetir_vezes) values ($1, $2::jsonb, now() + interval '1 day', 'semana', 1, 3)", [p.quinta, JSON.stringify({ texto: "antigo", publico: "membros" })]);
+  await banco.exclusivo(() => banco.pg.exec(b1));
+  await banco.exclusivo(() => banco.pg.exec(b1));
+  const linha = await um("select repetir, serie is not null as serie from interno.rede_agendados where autor = $1", [p.quinta]);
+  const regra = (await um("select pg_get_constraintdef(oid) as d from pg_constraint where conrelid = 'interno.rede_agendados'::regclass and conname = 'rede_agendados_repetir'")).d;
+  const regras = (await um("select count(*)::int as n from pg_constraint where conrelid = 'interno.rede_agendados'::regclass and conname in ('rede_agendados_repetir', 'rede_agendados_vezes')")).n;
+  const velhas = (await um("select count(*)::int as n from interno.rede_agendados where repetir = 'semana'")).n;
+  await dono("delete from interno.rede_agendados where autor = $1", [p.quinta]);
+  return { linha, regra, regras, velhas };
+}, (r) => r.linha.repetir === "semanal" && r.linha.serie === true && r.velhas === 0 && /semanal/.test(r.regra) && /quinzenal/.test(r.regra) && /mensal/.test(r.regra) && !/'semana'/.test(r.regra) && r.regras === 2);
 
 // Um ato que a autora chamou e um de outra pessoa.
 const ato = await um("insert into interno.rede_posts (autor, tipo, texto) values ($1, 'chamado', 'Vigília na ocupação') returning id", [p.autora]);
@@ -215,7 +299,7 @@ await espera("o ato foi adiado: o post espera junto", async () => {
   const c = await um("select fim from interno.rede_chamados where post = $1", [ato.id]);
   return Math.abs(new Date(a.quando) - new Date(c.fim));
 }, (d) => d < 1000);
-await espera("a fila mostra a repetição e o depois do ato", () => rpc(como(p.autora), "rede_pub_agendados"), (l) => l.some((a) => a.apos_ato === true && a.estado === "pendente") && l.some((a) => a.repetir === "semana"));
+await espera("a fila mostra a repetição e o depois do ato", () => rpc(como(p.autora), "rede_pub_agendados"), (l) => l.some((a) => a.apos_ato === true && a.estado === "pendente") && l.some((a) => a.repetir === "semanal"));
 await espera("o ato foi cancelado: o post não sai (falhou: ato_cancelado)", async () => {
   await dono("update interno.rede_chamados set cancelado = true where post = $1", [ato.id]);
   await rpc(servico(), "rede_pub_agendados_rodar");

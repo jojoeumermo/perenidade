@@ -363,8 +363,15 @@ await recusa("recorrente: repetição desconhecida é recusada", () => rpc(como(
 await espera("recorrente: quando sai um, o próximo entra na fila uma semana depois", async () => {
   await dono("update interno.rede_agendados set quando = now() - interval '1 minute' where autor = $1 and serie is not null and estado = 'pendente'", [P.autora]);
   await dono("select interno.rede3_pub_rodar($1)", [P.autora]);
-  return um("select count(*) filter (where estado = 'publicado')::int as pub, count(*) filter (where estado = 'pendente' and vez = 2 and quando > now() + interval '6 days')::int as prox from interno.rede_agendados where autor = $1 and serie is not null", [P.autora]);
+  return um("select count(*) filter (where estado = 'publicado')::int as pub, count(*) filter (where estado = 'pendente' and vezes = 2 and quando > now() + interval '6 days')::int as prox from interno.rede_agendados where autor = $1 and serie is not null", [P.autora]);
 }, (r) => r.pub === 1 && r.prox === 1);
+await espera("recorrente: rodar de novo (agendador e 'ao ler') não põe outro na fila nem publica em dobro", async () => {
+  await dono("select interno.rede3_pub_rodar(null)");
+  await dono("select interno.rede3_pub_rodar($1)", [P.autora]);
+  return um("select count(*) filter (where estado = 'publicado')::int as pub, count(*) filter (where estado = 'pendente')::int as fila, (select count(*)::int from interno.rede_posts where autor = $1 and texto = 'Assembleia toda terça') as posts from interno.rede_agendados where autor = $1 and serie is not null", [P.autora]);
+}, (r) => r.pub === 1 && r.fila === 1 && r.posts === 1);
+await recusa("recorrente: série não leva imagem (o arquivo só nasce uma vez)", () => rpc(como(P.autora), "rede_alumia_agendar_serie", { p: { texto: "x", midia: [{ caminho: "a/b.jpg", alt: "" }] }, p_quando: new Date(Date.now() + 3600e3).toISOString(), p_repetir: "mensal" }), "repetir_sem_arquivo");
+await espera("recorrente: as colunas são as mesmas da casca (nada de coluna própria)", () => um("select count(*)::int as n from information_schema.columns where table_schema = 'interno' and table_name = 'rede_agendados' and column_name in ('ate', 'vez')"), (r) => r.n === 0);
 let serie;
 await espera("recorrente: a lista das séries", async () => (serie = (await rpc(como(P.autora), "rede_alumia_series", {})).itens), (s) => s.length === 1 && s[0].vez === 2);
 await espera("recorrente: parar a série cancela a fila", async () => {
