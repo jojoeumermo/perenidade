@@ -930,12 +930,13 @@ export function Visor({
                 </strong>
                 {destaque ? (
                   <small>{preencherStory(t.visor.destaque, { titulo: destaque.titulo })}</small>
-                ) : atual?.publico === "proximos" ? (
+                ) : atual?.publico === "proximos" && atual.meu ? (
+                  // O selo da roda só aparece no MEU story: quem está na roda não fica sabendo (o banco nem conta a ela).
                   <small className="al-st-selo-roda">{t.b1.visor.roda}</small>
                 ) : atual?.publico === "comunidade" && atual.comunidade ? (
                   <small className="al-st-selo-comunidade">{preencherStory(t.b1.visor.comunidade, { nome: atual.comunidade.nome })}</small>
                 ) : atual ? (
-                  <small>{t.visor.publico[atual.publico]}</small>
+                  <small>{t.visor.publico[atual.publico === "proximos" && !atual.meu ? "seguidores" : atual.publico]}</small>
                 ) : null}
               </span>
             </div>

@@ -13,7 +13,7 @@
 --      #campanha e "Adicionar o seu" (corrente da campanha, total de pessoas só a partir de 3, também no marco).
 --   4. RODA DE CONFIANÇA: lista pessoal e privada (rede_roda). O público "proximos" passa a ser a roda da autora, não mais "seguir
 --      um ao outro" (um infiltrado que segue de volta não entra na roda). Ninguém sabe em que rodas está, nem quantas pessoas
---      estão na roda de alguém.
+--      estão na roda de alguém: o story da roda chega a quem vê sem marca (o público "proximos" só volta para a autora).
 --   5. DESTAQUES ARRUMÁVEIS: ordem dos destaques e dos stories dentro deles, capa escolhida e trocar a foto de um story guardado
 --      pela versão borrada de novo (o "borrar de novo" de quando um story vira destaque).
 --   6. MENÇÃO A COMUNIDADE QUE LEVA A ALGUM LUGAR: a página da comunidade lista os stories que a mencionam (os que eu vejo), a
@@ -226,11 +226,15 @@ end $$;
 
 /**
  * O story inteiro como `p_quem` o vê. Novo: o cartão do post/ato ("post"), a comunidade do público, as legendas e a música do
- * vídeo; para a autora, quantas respostas chegaram (mensagens, não pessoas) e as reações só a partir de 3.
+ * vídeo; para a autora, quantas respostas chegaram (mensagens, não pessoas) e as reações só a partir de 3. O público "proximos"
+ * (a roda) só volta para a autora.
  */
 create or replace function interno.rede5_story_json(s interno.rede_stories, p_quem uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select jsonb_build_object(
-    'id', s.id, 'autora', interno.rede5_story_autora(s.autor), 'criado_em', s.criado_em, 'expira_em', s.expira_em, 'publico', s.publico,
+    'id', s.id, 'autora', interno.rede5_story_autora(s.autor), 'criado_em', s.criado_em, 'expira_em', s.expira_em,
+    -- "proximos" (a roda) só a autora fica sabendo: para quem vê, o story da roda chega como um story comum, sem marca nenhuma
+    -- (senão o selo contaria à pessoa que ela está na roda da autora).
+    'publico', case when s.publico = 'proximos' and s.autor is distinct from p_quem then 'seguidores' else s.publico end,
     'comunidade', case when s.comunidade is not null then (select jsonb_build_object('slug', c.slug, 'nome', c.nome) from rede_comunidades c where c.slug = s.comunidade) end,
     'fundo', case
       when s.fundo = 'imagem' then jsonb_build_object('tipo', 'imagem', 'cor', s.cor, 'caminho', s.midia_caminho, 'url', '', 'alt', coalesce(s.alt, ''))
