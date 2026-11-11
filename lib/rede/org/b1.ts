@@ -20,9 +20,11 @@ export const PERMISSOES_SUGERIDAS: Record<TipoDeFuncao, Permissao[]> = {
   tesouraria: ["caixa"], comunicacao: ["avisos"], seguranca: [], secretaria: ["tear"], formacao: ["arquivos"], coordenacao: ["mesa", "tear"], outra: [],
 };
 
-export interface Ocupante { mandato: string; handle: string; codinome: string; fim: string; origem: "nomeacao" | "eleicao"; eu: boolean }
+/** `pendente`: indicação que a pessoa ainda não aceitou (só vem para quem gerencia; os outros de dentro não a veem). */
+export interface Ocupante { mandato: string; handle: string; codinome: string; fim: string; origem: "nomeacao" | "eleicao"; eu: boolean; pendente?: boolean }
 export interface FuncaoDaOrg { id: string; tipo: TipoDeFuncao; nome: string; permissoes: Permissao[]; vagas: number; ocupantes: Ocupante[] | null }
-export interface MinhaFuncao { funcao: string; nome: string; fim: string; mandato: string; permissoes: Permissao[] }
+/** `pendente`: fui indicada e ainda não aceitei (a função não vale e ninguém mais de dentro me vê nela). */
+export interface MinhaFuncao { funcao: string; nome: string; fim: string; mandato: string; permissoes: Permissao[]; pendente?: boolean }
 export interface FuncoesDaOrg { dentro: boolean; gerencio: boolean; funcoes: FuncaoDaOrg[]; minhas: MinhaFuncao[] }
 
 export interface ConsultaDaEleicao {

@@ -51,6 +51,10 @@
     "fim": "End of term",
     "darMandato": "Give the term",
     "encerrar": "End term",
+    "aguardando": "awaiting acceptance",
+    "indicada": "nomination: it only counts if you accept",
+    "aceitar": "Accept",
+    "recusar": "Decline",
     "feito": "Done."
   },
   "eleicoes": {

@@ -51,6 +51,10 @@
     "fim": "Fin du mandat",
     "darMandato": "Donner le mandat",
     "encerrar": "Mettre fin au mandat",
+    "aguardando": "en attente d'acceptation",
+    "indicada": "proposition : elle ne vaut que si vous acceptez",
+    "aceitar": "Accepter",
+    "recusar": "Refuser",
     "feito": "C'est fait."
   },
   "eleicoes": {

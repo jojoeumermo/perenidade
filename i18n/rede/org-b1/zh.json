@@ -51,6 +51,10 @@
     "fim": "任期结束",
     "darMandato": "授予任期",
     "encerrar": "结束任期",
+    "aguardando": "等待接受",
+    "indicada": "提名：只有你接受才生效",
+    "aceitar": "接受",
+    "recusar": "拒绝",
     "feito": "完成。"
   },
   "eleicoes": {

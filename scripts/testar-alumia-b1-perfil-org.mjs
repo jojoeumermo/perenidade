@@ -141,6 +141,20 @@ let TES, MESA, COM;
   await rpc(A("dona"), "rede_org_mandato_dar", { p_handle: "lume", p: { funcao: TES, handle: "t2_b1o", fim } });
   await recusa("a tesouraria tem 2 vagas", () => rpc(A("dona"), "rede_org_mandato_dar", { p_handle: "lume", p: { funcao: TES, handle: "m4_b1o", fim } }), "sem_vaga");
   await espera("a pessoa nomeada recebe o aviso", () => um("select count(*)::int n from interno.avisos where para = $1 and texto like '%Tesouraria%'", [P.t1]), (x) => x.n === 1);
+  // O ataque: quem gerencia liga uma pessoa a uma função da organização sem ela aceitar. Até o aceite, ninguém de dentro a vê.
+  await espera("nomeação sem aceite NÃO aparece para os outros de dentro (nem @, nem codinome)", () => rpc(A("m1"), "rede_org_funcoes", { p_handle: "lume" }),
+    (x) => x.dentro === true && x.funcoes.find((y) => y.id === TES)?.ocupantes.length === 0 && !/t1_b1o|t2_b1o/.test(JSON.stringify(x)));
+  await espera("a outra indicada também não vê a colega pendente", () => rpc(A("t2"), "rede_org_funcoes", { p_handle: "lume" }), (x) => !/t1_b1o/.test(JSON.stringify(x)));
+  await espera("quem gerencia vê a indicação que fez, marcada como pendente", () => rpc(A("dona"), "rede_org_funcoes", { p_handle: "lume" }),
+    (x) => x.funcoes.find((y) => y.id === TES)?.ocupantes.length === 2 && x.funcoes.find((y) => y.id === TES).ocupantes.every((o) => o.pendente === true));
+  const pend = await espera("a indicada vê a própria indicação, pendente", () => rpc(A("t1"), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.minhas.length === 1 && x.minhas[0].pendente === true);
+  await recusa("antes de aceitar, a função não vale (não abre caixa)", () => rpc(A("t1"), "rede_org_caixa_criar", { p_handle: "lume", p: { nome: "Caixa antes do aceite", tipo: "geral" } }), "sem_permissao");
+  await espera("…nem no banco", () => um("select interno.alumia_org_funcao_tem($1, $2, 'caixa') as tem", [P.t1, P.org]), (x) => x.tem === false);
+  await recusa("ninguém aceita pela outra pessoa (nem quem gerencia)", () => rpc(A("dona"), "rede_org_mandato_aceitar", { p_mandato: pend?.minhas[0]?.mandato }), "nao_encontrado");
+  await recusa("visitante não aceita", () => rpc(visitante(), "rede_org_mandato_aceitar", { p_mandato: pend?.minhas[0]?.mandato }), "permission denied");
+  await espera("a pessoa aceita: a função passa a valer", () => rpc(A("t1"), "rede_org_mandato_aceitar", { p_mandato: pend?.minhas[0]?.mandato }), (x) => x.minhas[0].pendente === false);
+  await espera("…e só então aparece para os de dentro", () => rpc(A("m1"), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.funcoes.find((y) => y.id === TES)?.ocupantes.length === 1 && x.funcoes.find((y) => y.id === TES).ocupantes[0].handle === "t1_b1o");
+  await rpc(A("t2"), "rede_org_mandato_aceitar", { p_mandato: (await rpc(A("t2"), "rede_org_funcoes", { p_handle: "lume" })).minhas[0].mandato });
   await espera("quem é de dentro vê quem ocupa (codinome, @ e fim) e as minhas", () => rpc(A("t1"), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.dentro === true && x.funcoes.find((y) => y.id === TES)?.ocupantes.length === 2 && x.minhas.length === 1 && x.minhas[0].permissoes.includes("caixa") && semIds(x));
   await espera("visitante vê só os nomes das funções, nunca quem ocupa", () => rpc(visitante(), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.dentro === false && x.funcoes.length === 3 && x.funcoes.every((y) => y.ocupantes === null) && !/Codinome/.test(JSON.stringify(x)));
   await espera("membro de fora também não vê quem ocupa", () => rpc(A("fora"), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.funcoes.every((y) => y.ocupantes === null));
@@ -149,7 +163,8 @@ let TES, MESA, COM;
   await recusa("outra pessoa não encerra o mandato dos outros", () => rpc(A("m1"), "rede_org_mandato_encerrar", { p_mandato: mand }), "nao_encontrado");
   await espera("a pessoa sai da função quando quiser", () => rpc(A("t2"), "rede_org_mandato_encerrar", { p_mandato: mand }), (x) => x.minhas.length === 0);
   await rpc(A("dona"), "rede_org_mandato_dar", { p_handle: "lume", p: { funcao: TES, handle: "t2_b1o", fim } });
-  await espera("e volta nomeada", () => rpc(A("t2"), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.minhas.length === 1);
+  const volta = await espera("e volta indicada (pendente de novo)", () => rpc(A("t2"), "rede_org_funcoes", { p_handle: "lume" }), (x) => x.minhas.length === 1 && x.minhas[0].pendente === true);
+  await rpc(A("t2"), "rede_org_mandato_aceitar", { p_mandato: volta?.minhas[0]?.mandato });
 }
 
 // ═══════════════════ 3. Eleições internas ═══════════════════
@@ -197,7 +212,8 @@ let TES, MESA, COM;
   await dono("update interno.rede_org_eleicoes set prazo = now() - interval '1 minute' where id = $1", [E2]); await dono("update interno.rede_consultas set prazo = now() - interval '1 minute' where id = $1", [c2?.id]);
   await espera("sem quórum (3 de 10), ninguém é eleito", () => rpc(A("m1"), "rede_org_eleicoes", { p_handle: "lume" }), (x) => x.find((y) => y.id === E2)?.situacao === "sem_quorum" && x.find((y) => y.id === E2)?.eleita === null);
   // A Mesa vai para m4 por nomeação (para os testes da ata).
-  await rpc(A("dona"), "rede_org_mandato_dar", { p_handle: "lume", p: { funcao: MESA, handle: "m4_b1o", fim } });
+  const mesa = await rpc(A("dona"), "rede_org_mandato_dar", { p_handle: "lume", p: { funcao: MESA, handle: "m4_b1o", fim } });
+  await rpc(A("m4"), "rede_org_mandato_aceitar", { p_mandato: mesa.funcoes.find((y) => y.id === MESA).ocupantes[0].mandato });
 }
 
 // ═══════════════════ 4. Ata Viva e sinais de consenso ═══════════════════

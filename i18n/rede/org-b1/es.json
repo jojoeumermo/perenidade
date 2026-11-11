@@ -51,6 +51,10 @@
     "fim": "Fin del mandato",
     "darMandato": "Dar el mandato",
     "encerrar": "Terminar mandato",
+    "aguardando": "esperando aceptación",
+    "indicada": "nominación: solo vale si aceptas",
+    "aceitar": "Aceptar",
+    "recusar": "Rechazar",
     "feito": "Listo."
   },
   "eleicoes": {

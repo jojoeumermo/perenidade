@@ -120,7 +120,11 @@ export function chamarDubleB1(): Chamar {
       if (!f) throw erro("nao_encontrado");
       if ((f.ocupantes ?? []).length >= f.vagas) throw erro("sem_vaga");
       const h = p.handle.replace(/^@/, "").toLowerCase();
-      f.ocupantes?.push({ mandato: novoId(), handle: h, codinome: h.charAt(0).toUpperCase() + h.slice(1), fim: p.fim, origem: "nomeacao", eu: false });
+      f.ocupantes?.push({ mandato: novoId(), handle: h, codinome: h.charAt(0).toUpperCase() + h.slice(1), fim: p.fim, origem: "nomeacao", eu: false, pendente: true });
+      return fx();
+    },
+    rede_org_mandato_aceitar: (a) => {
+      for (const f of funcoes) for (const o of f.ocupantes ?? []) if (o.mandato === a.p_mandato) o.pendente = false;
       return fx();
     },
     rede_org_mandato_encerrar: (a) => {
