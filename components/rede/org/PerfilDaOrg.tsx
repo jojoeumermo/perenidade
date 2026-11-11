@@ -21,7 +21,13 @@ import { Abas } from "./Abas";
 import { type AcoesDaOrg, BlocoDaPlenaria, CartaoDaConsulta, ComoVotamos, NucleosDaOrg } from "./Blocos";
 import { type AcoesDeGestor, CuidarDaOrg } from "./CuidarDaOrg";
 import { SeloDaOrg, SeloPequeno } from "./partes";
-import { AcendaUmLampiao, TearDeEncaminhamentos } from "./Tear";
+import { AcendaUmLampiao, PlacarDoTear, TearDeEncaminhamentos } from "./Tear";
+import { AtasDaOrganizacao } from "./b1/AtaViva";
+import { AtosDaOrganizacao } from "./b1/AtosDaOrg";
+import { CaixaTransparente } from "./b1/Caixa";
+import { ConviteDoLink } from "./b1/Convite";
+import { FuncoesDaOrganizacao } from "./b1/Funcoes";
+import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import "./org.css";
 
@@ -46,9 +52,14 @@ export interface PropsDoPerfilDaOrg {
   cuidar?: AcoesDeGestor;
   /** Depois de uma ação de quem gerencia: recarregar o perfil. */
   aoMudar?: () => void;
+  /**
+   * O perfil de verdade (B1): liga as partes que leem o banco por conta própria (Ata Viva, funções e eleições, caixa, atos da
+   * organização, convite pelo link). O perfil de exemplo da página para organizações deixa desligado.
+   */
+  vivo?: boolean;
 }
 
-export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s }: PropsDoPerfilDaOrg) {
+export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s, vivo = false }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
   const inicial = (ABAS_DA_ORG as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDaOrg) : "posts";
@@ -88,25 +99,36 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
 
   const painel: Record<AbaDaOrg, ReactNode> = {
     posts,
-    atos: atos ?? <p className="al-painel-vazio">{tp.vazioAtos}</p>,
-    contas: <ComoVotamos votacoes={org.votacoes} t={t} lang={lang} />,
+    atos: atos ?? (vivo ? <AtosDaOrganizacao handle={org.handle} lang={lang} vazio={tp.vazioAtos} /> : <p className="al-painel-vazio">{tp.vazioAtos}</p>),
+    contas: (
+      <>
+        {vivo ? <PlacarDoTear handle={org.handle} lang={lang} /> : null}
+        <ComoVotamos votacoes={org.votacoes} t={t} lang={lang} />
+        {vivo ? <CaixaTransparente handle={org.handle} lang={lang} /> : null}
+      </>
+    ),
     consultas:
       org.consultas.length === 0 ? (
         <p className="al-painel-vazio">{t.consulta.vazio}</p>
       ) : (
         org.consultas.map((c) => <CartaoDaConsulta key={c.id} c={c} t={t} lang={lang} acoes={acoes} aoVerNucleos={verNucleos} />)
       ),
-    plenarias:
-      org.plenarias.length === 0 ? (
-        <p className="al-painel-vazio">{t.plenaria.vazio}</p>
-      ) : (
-        org.plenarias.map((p) => <BlocoDaPlenaria key={p.id} p={p} t={t} lang={lang} acoes={acoes} podePerguntar={membro} />)
-      ),
+    plenarias: (
+      <>
+        {org.plenarias.length === 0 ? (
+          <p className="al-painel-vazio">{t.plenaria.vazio}</p>
+        ) : (
+          org.plenarias.map((p) => <BlocoDaPlenaria key={p.id} p={p} t={t} lang={lang} acoes={acoes} podePerguntar={membro} />)
+        )}
+        {vivo ? <AtasDaOrganizacao handle={org.handle} lang={lang} plenarias={org.plenarias.map((p) => ({ id: p.id, titulo: p.titulo }))} /> : null}
+      </>
+    ),
   };
 
   return (
     <div className="al-perfil al-perfil-org">
       {aviso}
+      {vivo ? <ConviteDoLink lang={lang} membro={membro} aoEntrar={() => aoMudar?.()} /> : null}
       <div className="al-perfil-org-grade">
         <div className="al-perfil-org-principal">
           <div className="al-perfil-capa">
@@ -182,10 +204,22 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
             <h2 id={`${id}-nucleos`} className="al-cond">
               {tp.nucleos.titulo}
             </h2>
-            <NucleosDaOrg nucleos={org.nucleos} t={t} acoes={acoes} podeEntrar={membro} />
+            <NucleosDaOrg nucleos={org.nucleos} t={t} acoes={acoes} podeEntrar={membro} lang={lang} gerencio={vivo && org.gerencio} />
           </section>
-          <TearDeEncaminhamentos handle={org.handle} lang={lang} s={s} />
-          {org.gerencio && cuidar ? <AcendaUmLampiao lang={lang} s={s} criar={(p) => cuidar.criarNucleo(p).then((r) => (aoMudar?.(), r))} /> : null}
+          {vivo ? <FuncoesDaOrganizacao handle={org.handle} lang={lang} /> : null}
+          <TearDeEncaminhamentos handle={org.handle} lang={lang} s={s} consultas={org.consultas} />
+          {org.gerencio && cuidar ? (
+            <AcendaUmLampiao
+              lang={lang}
+              handle={org.handle}
+              s={s}
+              criar={(p) =>
+                vivo
+                  ? clienteOrgB1().acenderLampiao(org.handle, p).then((r) => (aoMudar?.(), r))
+                  : cuidar.criarNucleo(p).then((r) => (aoMudar?.(), { id: (r as { id?: string })?.id ?? "", convite: null }))
+              }
+            />
+          ) : null}
         </aside>
       </div>
     </div>

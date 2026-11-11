@@ -53,7 +53,7 @@ function cuidarPeloBanco(handle: string): AcoesDeGestor {
     decidirNucleo: (nucleo, quem, aceitar) => redeOrg.decidirNucleo(nucleo, quem, aceitar),
     abrirConsulta: (p) => redeOrg.abrirConsulta(handle, p),
     abrirPlenaria: (p) => redeOrg.abrirPlenaria(handle, p),
-    mudarPlenaria: (id, situacao) => redeOrg.mudarPlenaria(id, situacao),
+    mudarPlenaria: (id, situacao, sala) => redeOrg.mudarPlenaria(id, situacao, sala ?? null),
     responder: (pergunta) => redeOrg.responderPergunta(pergunta),
     retirar: (pergunta, motivo) => redeOrg.retirarPergunta(pergunta, motivo),
     adicionarGestor: (quem) => redeOrg.adicionarGestor(handle, quem),
@@ -122,6 +122,7 @@ export default function PerfilDaAlumia2({ handle, lang, s, situacao, aoResponder
         acoes={acoesDoBanco(estado.org.handle)}
         cuidar={cuidarPeloBanco(estado.org.handle)}
         aoMudar={() => setVolta((v) => v + 1)}
+        vivo
         membro={situacao.membro}
         abaInicial={abaDoEndereco()}
         posts={previa() ? <PostsDaPrevia handle={estado.org.handle} lang={lang} s={s} situacao={situacao} aoResponder={aoResponder} /> : <Linha aba={`u:${estado.org.handle}`} lang={lang} s={s} logado={situacao.logado} aoResponder={aoResponder} />}
