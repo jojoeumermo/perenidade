@@ -23,6 +23,8 @@ function paraCampo(d: Date): string {
 export function LembrarMaisTarde({ post, lang, s, aoAvisar }: { post: string; lang: string; s: TextosDaRede; aoAvisar: (texto: string, erro?: boolean) => void }) {
   const t = useTextosB1(lang);
   const [aberto, setAberto] = useState(false);
+  // Os limites do campo "outro horário" (de 6 minutos a 89 dias), medidos na hora em que a pessoa abre a caixa.
+  const [limites, setLimites] = useState<{ min: string; max: string } | null>(null);
   const [marcado, setMarcado] = useState<string | null>(null);
   const [existe, setExiste] = useState(previa());
   const [outro, setOutro] = useState("");
@@ -83,7 +85,11 @@ export function LembrarMaisTarde({ post, lang, s, aoAvisar }: { post: string; la
         aria-controls={id}
         aria-label={marcado ? preencher(l.ja, { quando: quandoCurto(lang, marcado) }) : l.acao}
         title={marcado ? preencher(l.ja, { quando: quandoCurto(lang, marcado) }) : l.acao}
-        onClick={() => setAberto((a) => !a)}
+        onClick={() => {
+          const agora = Date.now();
+          setLimites({ min: paraCampo(new Date(agora + 6 * 60e3)), max: paraCampo(new Date(agora + 89 * 86400e3)) });
+          setAberto((a) => !a);
+        }}
       >
         <svg viewBox="0 0 24 24" width="20" height="20" fill={marcado ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <circle cx="12" cy="13" r="8" fill="none" />
@@ -120,8 +126,8 @@ export function LembrarMaisTarde({ post, lang, s, aoAvisar }: { post: string; la
               className="b1-campo"
               type="datetime-local"
               value={outro}
-              min={paraCampo(new Date(Date.now() + 6 * 60e3))}
-              max={paraCampo(new Date(Date.now() + 89 * 86400e3))}
+              min={limites?.min}
+              max={limites?.max}
               onChange={(e) => setOutro(e.target.value)}
             />
             <button type="button" className="b1-botao" disabled={ocupado || !outro} onClick={() => void marcar(new Date(outro))}>
