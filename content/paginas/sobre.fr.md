@@ -1,86 +1,30 @@
 ---
-titulo: "Le savoir n’est pas une marchandise"
+titulo: "Le savoir n’est pas une récompense. C’est une dette."
 sobretitulo: "Manifeste de l’Instituto Lúcia et de la Frente Revolucionária Lúcia"
 resumo: "École populaire, bibliothèque libre et mouvement politique : étudier gratuitement, pour comprendre le monde et pour le changer."
 ---
 
-On se lève tôt. On prend le bus bondé. On travaille toute la journée et, quand il reste de la force, on étudie le soir.
+Il a été payé par celles et ceux qui ont planté, construit et porté ce pays avant qu’aucune école n’existe : les peuples autochtones, qui étaient déjà là, et les Africains réduits en esclavage, qui travaillaient sans reconnaissance et sans retour. Ensuite, on nous l’a refacturé, sous forme d’examen, de file d’attente et de diplôme. On nous a dit qu’étudier est un luxe, que c’est comme ça et que ce sera toujours comme ça. Ce n’est pas vrai. Et ça ne le sera pas.
 
-On nous a dit qu’étudier est un luxe. Que la santé, c’est la file d’attente. Que la culture de la favela est une affaire de police. Que c’est comme ça et que ce sera toujours comme ça.
+Les noms ont changé : de la senzala à l’usine, de l’usine à l’application. La logique est restée la même. Une grande partie du savoir acquis par l’humanité est venue de celles et ceux qui ont travaillé sans recevoir la reconnaissance qui leur était due, et aujourd’hui il est verrouillé par des entreprises et des algorithmes qui profitent de nos données et de notre ignorance. Le temps libre pour étudier, dans tant d’endroits, a été acheté avec le travail de celles et ceux qui n’ont jamais eu ce temps. C’est vrai au Brésil, en Angleterre, partout où quelqu’un s’est levé tôt pour qu’un autre s’enrichisse. La classe travailleuse n’a pas de frontières, et notre dette non plus. La périphérie le sait depuis longtemps : le funk, le rap, le slam, le sarau, le graffiti et les battles de rimes sont un langage, sont de l’histoire, sont du savoir, et ont presque toujours été traités comme un problème.
 
-Ce n’est pas vrai. Et ça ne le sera pas.
+Ils ont transformé ce qui était à nous en filtre. Un examen décide qui mérite d’apprendre, un diplôme décide qui peut enseigner, une file d’attente décide qui a droit à une place. La question que presque personne ne pose est la plus simple : pourquoi cette personne n’a-t-elle pas réussi ? Était-ce un manque d’intérêt ou un manque d’occasion ? On ne peut pas reprocher à quelqu’un qui n’a jamais eu la chance d’apprendre de ne pas savoir. Seu João, l’électricien qui fait l’installation de ta maison, n’est probablement jamais passé par une école d’ingénieurs en électricité, mais il sait, et tout le monde sait qu’il sait. Le savoir se prouve en faisant. Il y aura toujours quelqu’un pour dire que tu n’as pas encore le droit de parler, qu’il te manque le tampon, le titre, l’ancienneté. Nous trouvons cela curieux : c’est presque toujours quelqu’un qui a le tampon.
 
-L’Instituto Lúcia est une école populaire et une bibliothèque libre : des cours, une bibliothèque d’œuvres, un journal, une radio et un podcast, gratuits, sans publicité, sans pisteur et sans cadenas. Et c’est **aussi** un mouvement politique. La Frente Revolucionária Lúcia est l’organisation de celles et ceux qui étudient ici et décident de ne pas garder pour eux seuls ce qu’ils ont appris. L’Escola Revolucionária Lúcia Maria est notre maison de formation.
+Nous ressentons de la colère, parce que le compte n’y est jamais pour celles et ceux qui travaillent, et du dégoût pour ceux qui profitent de la faim, de la file d’attente et de l’examen. Un État fait pour le capital, pensé pour le patron, vote contre la politique publique et sociale à la première occasion, puis attend que nous le remerciions pour l’école qui reste. Mais ce que le peuple a, le peuple l’a arraché. Le SUS (le système public de santé du Brésil), les quotas et l’école publique qui ouvre aujourd’hui ses portes à celles et ceux qu’on refoulait autrefois ne sont pas tombés du ciel : ce sont des conquêtes de la lutte, obtenues de l’intérieur et de l’extérieur des institutions. C’est pourquoi notre colère n’est pas aveugle. Elle sait distinguer l’État qui sert le capital de l’État que le peuple occupe et transforme.
 
-Nous sommes communistes. Nous ne le cachons pas, et nous ne nous en excusons pas.
+Oui, nous sommes communistes. Il a suffi d’apprendre à demander à qui profite le crime, et de découvrir que le savoir coûtait cher parce que quelqu’un le vendait. Nous croyons en la révolution, et en une révolution qui ne respecte pas les frontières, parce que le travailleur de là-bas est notre égal : la formule est ancienne et n’a toujours pas de date de péremption, prolétaires de tous les pays, unissez-vous. Nous ne sommes pas un gouvernement et nous ne promettons pas de l’être. Nous sommes un front, la Frente Revolucionária Lúcia, et le nôtre est le front de l’éducation. La révolution se fait sur de nombreux fronts, mais elle ne naît pas d’un simple réveil magique de l’esprit. Elle naît quand le peuple traduit sa révolte de tous les jours en compréhension du monde, et cesse d’accepter la misère et l’exploitation comme des lois de la nature. Qui demande « pourquoi est-ce qu’on se soumet à ça ? » n’est pas seulement en train de se réveiller ; il a déjà commencé à s’organiser. Et c’est justement parce que nous avons appris à lire notre réalité que nous ne nous faisons pas l’illusion qu’il suffit de gérer l’État du capital. Ce qui nous revient, c’est de forger la base capable de le mettre sous tension jusqu’à la rupture, en détruisant la vieille machine d’oppression pour construire, à sa place, un véritable pouvoir populaire. Un pouvoir où l’État sert le peuple, et non le profit.
 
-Nous portons le nom de Lúcia, une femme du peuple née dans un Brésil où être communiste était un crime, et qui a vu, enfant, une maison d’un quartier pauvre partager le pain avec les enfants et cacher, derrière un double fond, celles et ceux qui se réunissaient pour aider le peuple. Elle a rêvé d’une école gratuite pour celles et ceux qui ne peuvent pas en payer une. Cette école existe. Maintenant, elle lutte aussi. Lisez la [dédicace](/dedicatoria).
+Nous avons appris de Paulo Freire qu’éduquer, c’est lire le monde, et non déposer du contenu dans la tête de celui qui écoute ; que l’opprimé n’est sauvé par personne et s’éduque dans le dialogue, avec les siens. C’est pourquoi nous partons de la vie de celles et ceux qui étudient. Nous n’abolissons pas non plus l’évaluation : nous remplaçons l’examen sur papier par la démonstration de ce que la personne sait faire, un projet, un portfolio, une œuvre évaluée par des gens du métier. Personne n’est propriétaire du savoir ni de la lutte, et ici personne n’a besoin d’un tampon pour être écouté : qui croit en la cause a sa place, quel que soit son nom. Ce que nous disons, qui nous lit peut le vérifier, et nous ne répandons pas de mensonges, pas même contre ceux qui nous attaquent. Nous avons un camp : nous sommes de gauche et nous ne le cachons pas, nous sommes avec celles et ceux qui travaillent, avec celles et ceux qui luttent pour la terre, le toit, le salaire et la liberté, et avec tous les peuples qui résistent à l’exploitation et à l’oppression.
 
-**Instruisez-vous, agitez-vous, organisez-vous.**
+L’Instituto Lúcia est une école populaire et une bibliothèque libre : [cours](/trilhas), [fonds documentaire](/acervo), [journal](/jornal), [radio](/radio) et [podcast](/podcasts), gratuits, sans publicité et sans cadenas. Bientôt, nous aurons aussi notre propre réseau social, Alumia, et une école de formation, l’[Escola Revolucionária Lúcia Maria](/escola). Notre nom est un hommage : [Lúcia Maria](/escola/quem-foi-lucia-maria) était la grand-mère de la personne qui a commencé tout cela, et nous avons appris d’elle que la dignité n’a pas besoin de diplôme.
 
-## Ce que nous dénonçons
+Nous luttons d’abord pour l’éducation : une bonne école publique dans chaque quartier, une université ouverte à celles et ceux qui travaillent le jour ou la nuit, et une éducation populaire qui apprend à lire le monde. Nous luttons pour la culture de la périphérie, avec de l’argent public, pour celles et ceux qui créent et avec celles et ceux qui créent propriétaires de ce qu’ils créent ; pour le SUS, public, gratuit et pour tout le monde ; pour un vrai repos, contre l’exploitation des applications et du faux auto-entrepreneuriat, pour un salaire qui tienne jusqu’à la fin du mois et pour la fin de tout travail esclave ; pour des logements où vivre et non pour spéculer, et pour des transports bons, bon marché et, à l’horizon, gratuits, parce que qui étudie doit pouvoir y arriver. Nous luttons pour la démarcation et la titularisation des terres autochtones et quilombolas, contre le racisme, pour l’égalité et pour la fin des violences contre les femmes, afin que tout le monde puisse vivre, aimer et étudier sans peur ; nous luttons contre la militarisation de nos quartiers et le génocide du peuple noir et périphérique, commis par un État qui déverse sa violence pour criminaliser la pauvreté, tandis qu’il protège, dans ses bureaux et ses banques, les véritables propriétaires du capital illicite ; pour une rivière propre et une forêt debout, et pour une communication faite par le peuple, avec des sources, avec des archives ouvertes et sans traquer personne.
 
-**Le savoir a été transformé en marchandise.** Tout ce que l’humanité a appris a été produit par des générations de travailleuses et de travailleurs, et aujourd’hui on le leur revend, cher, alors qu’on ne l’a jamais produit.
+Nous ressentons de la peur, parce que nous connaissons le prix de la parole. Nous ressentons de la fierté pour une périphérie qui crée chaque jour. Et nous ressentons de la joie, parce qu’apprendre ensemble est l’une des rares choses que personne ne peut nous enlever. C’est de cette joie que vient l’espoir, et il n’est pas un ornement : c’est ce qui arrive quand beaucoup de gens posent la même question au même moment.
 
-**La classe travailleuse est exploitée tous les jours.** Ceux qui produisent la richesse ne la gardent pas. La faim, le manque de logement, le salaire qui ne tient pas jusqu’à la fin du mois et le bus bondé ne sont pas des accidents : c’est le fonctionnement normal du capitalisme.
+Nous savons que l’écran aide, mais qu’il ne suffit pas : la lutte a lieu là où se trouve le peuple. Le capital te veut isolé, en compétition pour une place, persuadé que la fatigue que tu ressens est de ta faute. Mais notre issue est, et sera toujours, collective. Aucun changement profond ne s’est fait au singulier, et le savoir solitaire est une proie facile pour le système. Nous ne sommes pas là pour applaudir la réussite individuelle de celles et ceux qui échappent à la misère ; nous sommes là pour détruire la misère et émanciper notre classe.
 
-**Les médias ont des propriétaires.** Une poignée de propriétaires décide de ce que le peuple voit, entend et lit. La vérité de ceux qui vivent dans la périphérie, à la campagne et dans les villages passe rarement à la télévision.
-
-**Leur démocratie a des limites.** Les pressions électorales exercées sur les travailleurs et la violence contre les peuples qui résistent montrent que les droits du peuple n’existent que tant que le peuple lutte pour eux.
-
-**L’oppression a une couleur, un genre et un territoire.** Le racisme, le machisme et la LGBTphobie ne sont pas des restes du passé : ce sont des outils qui divisent la classe travailleuse et dévaluent la vie d’une partie d’entre elle.
-
-## Ce que nous croyons
-
-1. **Le savoir appartient au peuple.** Personne ne doit payer pour apprendre, et personne ne doit tirer profit de ce qui est à tous.
-2. **Étudier, c’est résister.** Nous étudions pour comprendre le monde et pour le changer. La théorie sans la pratique n’est qu’un ornement ; la pratique sans la théorie avance dans le noir.
-3. **Aucun droit n’est tombé du ciel.** Ce que le peuple a, il l’a conquis en luttant. Et ce qu’on ne défend pas, on le perd.
-4. **L’issue, c’est le socialisme, en route vers le communisme.** Une société où les moyens de produire la vie appartiennent à ceux qui travaillent, où personne ne vit du travail d’autrui et où la richesse produite par tous sert à tous.
-5. **Personne ne se libère seul.** Apprendre ensemble, c’est organiser la solidarité. Personne n’occupe un territoire seul.
-6. **La culture de la favela est aussi un savoir.** Le savoir de la favela, de la campagne, des villages et des terreiros a de la valeur, et il avance avec celui des livres.
-7. **La vérité a une source.** Ce que nous disons, le lecteur peut le vérifier. Nous ne répandons pas de mensonges, pas même contre ceux qui nous combattent.
-8. **Nous sommes internationalistes.** Nous sommes aux côtés de tous les peuples qui résistent à l’exploitation, à l’oppression et au colonialisme.
-
-## Pour quoi nous luttons
-
-**L’éducation d’abord.** La Constitution dit que l’éducation est un droit de tous et un devoir de l’État ([art. 205 et 206](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Sur le papier, c’est écrit ; dans la vie, il manque l’école près de chez soi, il manque le professeur, la place, le temps. Nous voulons une bonne école publique dans chaque quartier, une université publique ouverte à ceux qui travaillent le jour et habitent loin, et l’éducation populaire : celle qui part de la vie de celui qui étudie et apprend à lire le monde, pas seulement à réussir l’examen.
-
-**La culture de la favela.** Funk, rap, slam, graffiti, battles de rimes, scènes ouvertes de poésie, bals. La périphérie crée tous les jours et on la traite presque toujours comme un problème. Nous voulons de l’argent public pour la culture dans la favela, et que celui qui crée soit propriétaire de ce qu’il crée ([art. 215](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)).
-
-**Le SUS est à nous.** La santé est un droit de tous et un devoir de l’État ([art. 196](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Un SUS public, gratuit et pour tout le monde, avec un centre de santé près de chez soi, moins d’attente et du soin pour la santé mentale.
-
-**Un travail digne et un revenu.** Le 16 octobre 2026, le Congrès a promulgué l’amendement qui met fin au rythme 6x1 ([CNN Brasil](https://www.cnnbrasil.com.br/politica/congresso-promulga-pec-que-acaba-com-a-escala-6x1/)). Ce n’est pas tombé du ciel. Maintenant, il faut le faire respecter : un vrai repos, un salaire qui tient jusqu’à la fin du mois, des droits pour les travailleurs des plateformes et la fin de tout travail esclave.
-
-**Logement, ville et transports.** Le logement et le transport sont des droits sociaux ([art. 6](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Une maison, c’est pour y vivre, pas pour spéculer. L’assainissement, l’aménagement sans expulsions, des places, des terrains de sport et des bibliothèques. Des transports publics de qualité, bon marché et, à terme, gratuits : celui qui étudie doit pouvoir arriver.
-
-**Peuples autochtones et quilombolas.** Délimitation maintenant ([art. 231](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Titres de propriété maintenant ([art. 68 des dispositions transitoires](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)). Respect de la langue, de l’école et du mode de vie de chaque peuple.
-
-**Contre toute oppression.** La lutte antiraciste à l’école, au travail, dans la rue et à la maison. L’égalité des salaires, la fin des violences contre les femmes et des crèches pour celles et ceux qui travaillent et étudient. Vivre, aimer et étudier sans peur, avec son prénom respecté à l’appel.
-
-**Environnement.** Des rivières propres, des arbres dans les rues, des forêts debout et de l’eau pour tous. La facture de la destruction ne peut pas tomber sur ceux qui ont le moins détruit ([art. 225](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm)).
-
-## Ce que nous faisons
-
-- **Nous enseignons gratuitement.** Des [cours](/trilhas) du primaire à l’université, avec un quiz et les sources visibles, des [cours en vidéo](/videoaulas), une [bibliothèque](/acervo) d’œuvres libres et des [laboratoires](/laboratorios) qui fonctionnent sur votre propre appareil.
-- **Nous formons des militants.** À l’[Escola Revolucionária Lúcia Maria](/escola), la formation est complète : théorie révolutionnaire, histoire des luttes, économie politique, et aussi lire, écrire, compter, parler en public, programmer et prendre soin.
-- **Nous communiquons avec le peuple.** [Journal](/jornal), [Radio](/radio) et [podcasts](/podcasts) : une tranchée contre le monopole des médias, la dénonciation avec des sources et des archives ouvertes.
-- **Nous nous organisons là où est le peuple.** Des [noyaux d’étude](/nucleos) dans le quartier, au travail et à l’école, et les [Territoires](/territorios), des collectifs de culture et de lutte de la favela qui avancent avec nous.
-- **Nous pratiquons la solidarité.** Le [Mur des travailleurs](/mural) : ceux qui travaillent à leur compte s’y annoncent gratuitement, sans commission et sans intermédiaire.
-
-Tout est relu avant d’être publié, et l’historique garde toutes les versions. Nous n’utilisons ni points, ni classements, ni astuces pour retenir qui que ce soit.
-
-## Comment nous militons
-
-- **Avec discipline et avec tendresse.** Militer, ce n’est ni un sacrifice vide ni de la vanité : c’est un travail collectif, fait avec responsabilité et avec soin pour celles et ceux qui sont à nos côtés.
-- **Avec vérité.** Tout ce que nous disons a une source.
-- **Avec respect pour la vie de chaque camarade.** Nous ne pistons personne et nous ne vendons pas de données. Les données des militants ne sont vues que par la coordination et ne servent qu’à organiser.
-- **Avec les moyens du peuple.** Sans sponsor, sans publicité, sans vente de données. Ceux qui peuvent [aider](/apoie) garantissent l’accès de ceux qui ne le peuvent pas.
-
-## Venez avec nous
-
-Si vous êtes étudiant, travailleuse ou travailleur, quelqu’un de la favela, de la campagne ou du village, et que vous n’acceptez pas que le monde reste comme il est : cet endroit est à vous.
-
-Étudiez. Enseignez. Écrivez. Traduisez. Dessinez. Programmez. Organisez votre quartier. [Commencez votre formation](/escola), voyez comment participer au [bénévolat](/voluntarios) ou [venez militer avec nous](/escola/militantes).
+Nous ne savons pas si tu as un diplôme, des abonnés ou un nom. Nous savons que tu as des questions. Si tu es étudiante ou étudiant, travailleuse ou travailleur, quelqu’un de la périphérie, de la campagne ou du village, et que tu n’acceptes pas que le monde continue comme il est, cet endroit est le tien. [Étudie](/escola). [Enseigne](/voluntarios). Écris. Traduis. Dessine. Programme. [Organise ton quartier](/escola/militantes). Le savoir n’a jamais été une récompense, et nous sommes là pour réclamer la dette.
 
 **Instruisez-vous, agitez-vous, organisez-vous. Lúcia, presente !**
 
