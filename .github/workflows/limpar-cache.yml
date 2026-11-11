@@ -134,7 +134,7 @@ jobs:
       - name: Limpar o cache
         env:
           TOKEN: ${{ secrets.CF_TOKEN_CACHE }}
-          ZONA: ${{ vars.CF_ZONE_ID }}
+          ZONA: ${{ secrets.CF_ZONE_ID || vars.CF_ZONE_ID }}  # segredo: aparece como *** no registro público
           MODO: ${{ steps.lista.outputs.modo || 'tudo' }}
         run: |
           if [ -z "$TOKEN" ] || [ -z "$ZONA" ]; then
