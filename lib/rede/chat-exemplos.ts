@@ -133,6 +133,16 @@ export function criarDubleDoChat(agora: number = Date.now(), estado: Estado = es
       estado.mensagens[nova.id] = [];
       return nova;
     },
+    /**
+     * Na prévia, a carona leva a uma conversa de exemplo que já existe (aberta): a tela recarrega ao abrir a conversa e o
+     * dublê começa de novo, então uma conversa criada aqui não estaria mais lá.
+     */
+    rede_dm_abrir_carona(a: { p_carona?: string }) {
+      if (!String(a.p_carona ?? "")) throw erro("nao_encontrado");
+      const ja = estado.conversas.find((c) => c.situacao === "aberta");
+      if (!ja) throw erro("dm_fechada");
+      return ja;
+    },
     rede_dm_responder(a: { p_conversa?: string; p_aceitar?: boolean }) {
       const c = achar(a.p_conversa);
       if (!a.p_aceitar) {

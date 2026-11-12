@@ -27,6 +27,7 @@
     "pedidos": "Demandes de conversation",
     "pedidoDe": "{nome} veut discuter avec vous.",
     "pedidoEnviado": "Demande envoyée. Quand la personne acceptera, vous pourrez écrire.",
+    "conversaApagada": "Vous avez supprimé ici la conversation avec cette personne. Elle revient dans la liste quand un nouveau message arrive.",
     "aceitar": "Accepter",
     "recusar": "Refuser",
     "recusarExplica": "Refuser supprime la demande, et la personne ne peut pas redemander pendant 30 jours. Elle n'est pas prévenue.",
@@ -53,9 +54,12 @@
     "voce": "Vous",
     "faltam": "Il manque peut-être un message ici : supprimé par son auteur, expiré ou retenu en chemin.",
     "repetida": "Message répété : cet appareil avait déjà reçu ce même message. Il n'est pas affiché à nouveau.",
+    "duvidosa": "Cet appareil ne peut pas vérifier si ce message est répété (il utilise une clé déjà fermée ici). Méfiez-vous s'il n'a pas de sens maintenant.",
+    "foraDeOrdem": "Hors d'ordre : l'heure du serveur ne correspond pas à l'ordre dans lequel le message a été écrit.",
+    "semConfirmar": "Quand l'autre personne a écrit son dernier message, elle n'avait pas encore reçu celui-ci.",
     "mudouVerificada": "La clé de sécurité de {nome} a changé, et cette conversation était vérifiée. La marque de vérification est tombée. C'est peut-être un nouvel appareil, ou quelqu'un qui tente de se faire passer pour la personne. Rien n'est envoyé tant que vous n'avez pas comparé le code à nouveau.",
-    "grupoPedido": "Demandez à {nome}, en personne ou par un canal où vous vous reconnaissez, le groupe {n} du code affiché sur son écran. Saisissez-le ici :",
-    "grupoRotulo": "Groupe {n} du code",
+    "grupoPedido": "Demandez à {nome}, en personne ou par un canal où vous vous reconnaissez, les six groupes que son écran affiche comme « vos groupes » (dans Options, sous le code de sécurité). « Les groupes tant à tant » du code entier ne comptent pas. Saisissez les six groupes :",
+    "grupoRotulo": "Les six groupes de {nome}",
     "grupoConferir": "Vérifier",
     "grupoErrado": "Cela ne correspond pas. N'allez pas plus loin : quelqu'un est peut-être au milieu. Parlez à la personne par un autre canal."
   },
@@ -69,6 +73,8 @@
     "codigoExplica": "Comparez ces chiffres avec l'autre personne, en personne ou par un canal où vous vous reconnaissez. S'ils sont identiques, personne n'est au milieu.",
     "verificado": "Nous avons comparé, c'est identique",
     "jaVerificado": "Vérifié sur cet appareil.",
+    "meusGrupos": "Vos six groupes (ils viennent uniquement de votre clé). Si quelqu’un doit comparer de nouveau avec vous, dictez ceux-ci :",
+    "naoVerificado": "Non vérifiée sur cet appareil",
     "bloquear": "Bloquer",
     "desbloquear": "Débloquer",
     "bloquearConfirma": "Bloquer cette personne ? Elle ne pourra plus vous contacter, ici ni sur Alumia.",
@@ -122,7 +128,7 @@
     "apagarTudoExplica": "Retire toutes les conversations de votre liste et supprime votre clé et vos réglages. L'autre personne de chaque conversation garde les messages jusqu'à la fin de leur délai. Le compte reste. LGPD brésilienne, art. 18, VI.",
     "apagarTudoConfirma": "Retirer TOUTES les conversations de votre liste et supprimer votre clé de chat ? C'est définitif.",
     "apagado": "Tout le chat a été supprimé.",
-    "sairRapido": "Le bouton Sortie rapide d'Alumia efface aussi la clé de la messagerie sur cet appareil. Ensuite, il faut réactiver la messagerie, et ce qui a été écrit avant ne s'ouvre plus ici."
+    "sairRapido": "Le bouton Sortie rapide d'Alumia efface aussi la clé de la messagerie sur cet appareil. Ensuite, il faut réactiver la messagerie, et ce qui a été écrit avant ne s'ouvre plus ici. Toutes les vérifications sont aussi perdues : comparez à nouveau le code avec chaque personne avant d'écrire quoi que ce soit de sensible. Le compte reste connecté sur cet appareil : pour le fermer, utilisez Se déconnecter."
   },
   "erros": {
     "dm_fechada": "Impossible de discuter avec cette personne pour le moment.",

@@ -17,11 +17,11 @@ import { abrirC3, cifrarC3, contextoC3 } from "../lib/rede/chat/c3.ts";
 import {
   aoApagarTudoDoChat, apagarPrefixoDaGaveta, apagarTudoDoChat, BANCO_DO_CHAT, CONHECIDAS, CONTAS, guardarNaGaveta, lerDaGaveta, lerPrefixoDaGaveta, ORDEM, reabrirDepoisDeApagar,
 } from "../lib/rede/chat/gaveta.ts";
-import { buracos, chaveDaOrdem, comContadorUsado, julgar, proximoContador, registroVencido, VIDA_DO_REGISTRO_DIAS } from "../lib/rede/chat/ordem.ts";
+import { buracos, chaveDaOrdem, comContadorUsado, julgar, ordemDaTela, proximoContador, registroVencido, VIDA_DO_REGISTRO_DIAS } from "../lib/rede/chat/ordem.ts";
 import { preencher, TAMANHOS_DO_BLOCO, TAMANHOS_DO_CIFRADO, tamanhoDoBloco, tirarPreenchimento } from "../lib/rede/chat/padding.ts";
-import { codigoComGrupoEscondido, conferirGrupo, conferirQr, grupoDoCodigo, sortearGrupo } from "../lib/rede/chat/verificacao.ts";
+import { codigoComMetadeEscondida, conferirMetade, conferirMetadeDe, conferirQr, metadeDaOutraPessoa } from "../lib/rede/chat/verificacao.ts";
 import { rodarLimpezas } from "../lib/rede/saida.ts";
-import { assinarTexto, cifrar, deBase64, lerQrDaSeguranca, paraBase64, qrDaSeguranca } from "../lib/sigilo.ts";
+import { assinarTexto, cifrar, deBase64, lerQrDaSeguranca, metadeDoCodigo, paraBase64, qrDaSeguranca } from "../lib/sigilo.ts";
 
 let certos = 0;
 const falhas = [];
@@ -71,6 +71,8 @@ await espera("a migração dos blocos roda depois da T19 e da T33, e roda de nov
   await banco.exclusivo(() => banco.pg.exec(blocos));
   return (await dono("select count(*)::int as n from pg_constraint where conrelid = 'interno.rede_dm_mensagens'::regclass and contype = 'c' and pg_get_constraintdef(oid) like '%c2%'")).rows[0].n;
 }, (n) => n === 1);
+await espera("enviar trava a linha da conversa (for update), como a versão nova: a faxina de uma versão nova no meio não apaga a chave da mensagem que está sendo gravada", async () => (await um("select pg_get_functiondef('public.rede_dm_enviar(uuid, integer, text)'::regprocedure) as f")).f,
+  (f) => /from rede_dm_conversas where id = p_conversa and \(a = v or b = v\) for update/.test(f) && !/rede_dm_minha\(p_conversa, v\)/.test(f));
 const LISTA_DOS_TAMANHOS = "(363, 704, 1387, 2752, 5483, 8214, 10944)";
 await espera("os tamanhos do cifrado são os mesmos no aparelho e no banco (na regra da tabela e na função)", async () => [`(${TAMANHOS_DO_CIFRADO.join(", ")})`, blocos.split(LISTA_DOS_TAMANHOS).length - 1], (r) => r[0] === LISTA_DOS_TAMANHOS && r[1] === 2);
 await espera("os blocos são 256, 512, 1024, 2048 e depois de 2048 em 2048 até 8192", async () => TAMANHOS_DO_BLOCO.join(","), (t) => t === "256,512,1024,2048,4096,6144,8192");
@@ -510,19 +512,21 @@ const chaveLivre = await crypto.subtle.generateKey({ name: "AES-GCM", length: 25
 const conversaLivre = crypto.randomUUID();
 const amarraC3 = (versao) => new TextEncoder().encode(contextoC3(conversaLivre, P.ana, versao));
 await espera("todo c3 cai num dos sete tamanhos: um \"ok\" e um parágrafo curto ficam iguais no banco", async () => {
-  const textos = ["ok", "x".repeat(50), "x".repeat(200), "x".repeat(232), "x".repeat(233), "é".repeat(300), "x".repeat(1000), "x".repeat(2000), "🌱".repeat(700), "🌱".repeat(2000)];
+  // O começo do conteúdo tem 28 bytes (identificador 16, contador 4, "até onde eu já tinha recebido" 8): no bloco de 256 cabem 224.
+  const textos = ["ok", "x".repeat(50), "x".repeat(200), "x".repeat(224), "x".repeat(225), "é".repeat(300), "x".repeat(990), "x".repeat(2000), "🌱".repeat(700), "🌱".repeat(2000)];
   const tamanhos = [];
   for (const [i, t] of textos.entries()) tamanhos.push((await cifrarMensagem(chaveLivre, 1, { usuario: P.ana }, conversaLivre, t, i + 1)).split(".")[3].length);
   return tamanhos;
 }, (l) => l.every((n) => TAMANHOS_DO_CIFRADO.includes(n)) && l.join(",") === "363,363,363,363,704,1387,1387,2752,5483,10944");
-await espera("a mensagem c3 não leva assinatura: dentro do cifrado há só identificador, contador e texto (e cifrar nem recebe a identidade)", async () => {
+await espera("a mensagem c3 não leva assinatura: dentro do cifrado há só identificador, contador, até onde eu tinha recebido e texto (e cifrar nem recebe a identidade)", async () => {
   const escrito = "sem assinatura";
-  const cifrado = await cifrarMensagem(chaveLivre, 3, { usuario: P.ana }, conversaLivre, escrito, 9);
+  const cifrado = await cifrarMensagem(chaveLivre, 3, { usuario: P.ana }, conversaLivre, escrito, 9, { versao: 2, contador: 41 });
   const partes = cifrado.split(".");
   const bloco = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: deBase64(partes[2]), additionalData: amarraC3(3) }, chaveLivre, deBase64(partes[3])));
   const conteudo = tirarPreenchimento(bloco);
-  return [conteudo.length === 16 + 4 + new TextEncoder().encode(escrito).length, new TextDecoder().decode(conteudo.subarray(20)) === escrito, new DataView(conteudo.buffer).getUint32(16), /s1\./.test(new TextDecoder("latin1").decode(bloco))];
-}, (r) => r[0] === true && r[1] === true && r[2] === 9 && r[3] === false);
+  const campos = new DataView(conteudo.buffer);
+  return [conteudo.length === 16 + 4 + 8 + new TextEncoder().encode(escrito).length, new TextDecoder().decode(conteudo.subarray(28)) === escrito, campos.getUint32(16), campos.getUint32(20), campos.getUint32(24), /s1\./.test(new TextDecoder("latin1").decode(bloco))];
+}, (r) => r.join(",") === "true,true,9,2,41,false");
 await espera("o chat não assina mensagem em lugar nenhum (a identidade só certifica a chave do aparelho)", async () => ["lib/rede/chat-privado.ts", "lib/rede/chat-chaveiro.ts", ...pecas].filter((f) => /assinarTexto/.test(ler(f))), (l) => l.length === 0);
 await espera("mesmo sem assinatura, adulteração é recusada: cifrado, marca, vetor, versão, conversa, autor, chave e tamanho", async () => {
   const inteiro = await cifrarC3(chaveLivre, 3, conversaLivre, P.ana, "íntegra", 1);
@@ -563,12 +567,12 @@ await espera("repetição: a primeira vez é nova, ler de novo é vista, o mesmo
   const e = julgar(b.registro, 0, chaveO, recebida("s2", "i1", 1));
   return [a.juizo, b.juizo, c.juizo, d.juizo, e.juizo, b.registro.maior, Object.keys(b.registro).sort().join(","), c.registro === b.registro];
 }, (r) => r.join("|") === "nova|nova|vista|repetida|repetida|2|chave,desde,maior,vistas|true");
-await espera("versão que este aparelho já fechou (piso) não recebe mensagem nova; o registro vence em 45 dias", async () => [
+await espera("versão que este aparelho já fechou (piso): a mensagem fica \"fechada\" (mostrada com aviso, sem saber se é repetida); o registro vence em 45 dias", async () => [
   julgar(null, 3, chaveDaOrdem("eu", "conv", "ela", 3), recebida("s", "i", 1, 3)).juizo,
   julgar(null, 3, chaveDaOrdem("eu", "conv", "ela", 4), recebida("s", "i", 1, 4)).juizo,
   registroVencido({ chave: chaveO, desde: 0, maior: 1, vistas: {} }, (VIDA_DO_REGISTRO_DIAS + 1) * 86_400_000),
   registroVencido({ chave: chaveO, desde: 0, maior: 1, vistas: {} }, 86_400_000),
-], (r) => r.join(",") === "repetida,nova,true,false");
+], (r) => r.join(",") === "fechada,nova,true,false");
 await espera("buraco: avisa depois do contador que falta; o começo não é buraco; cada autor e cada versão contam à parte", async () => {
   const m = (servidor, autor, versao, contador) => ({ servidor, autor, versao, contador });
   return [
@@ -584,8 +588,94 @@ await espera("contador: o próximo é sempre maior que o maior já visto ou usad
   const visto = julgar(r2, 0, chaveO, recebida("s", "i", 7)).registro;
   return [r1.maior, r2.maior, proximoContador(visto)];
 }, (r) => r.join(",") === "1,2,8");
+await espera("ordem da tela: dentro de cada pessoa vale o contador (o servidor não troca a ordem), com aviso onde a hora discorda", async () => {
+  const m = (id, autor, contador, minuto, visto = null) => ({ id, autor, versao: 1, contador, criado_em: `2026-11-10T10:${String(minuto).padStart(2, "0")}:00Z`, visto });
+  // O servidor pôs a 2 da Bia antes da 1 dela; a hora só pode intercalar as duas pessoas.
+  const r = ordemDaTela([m("b2", "bia", 2, 1), m("a1", "ana", 1, 2), m("b1", "bia", 1, 3), m("sem", "bia", null, 0)], "ana");
+  return [r.ordenadas.map((x) => x.id).join(","), [...r.foraDeOrdem].sort().join(",")];
+}, (r) => r[0] === "sem,b1,a1,b2" && r[1] === "b1,b2");
+await espera("ordem da tela: resposta antes da pergunta ganha aviso; e as minhas que a outra pessoa ainda não tinha recebido também", async () => {
+  const m = (id, autor, contador, minuto, visto = null) => ({ id, autor, versao: 1, contador, criado_em: `2026-11-10T10:${String(minuto).padStart(2, "0")}:00Z`, visto });
+  // A Bia responde (b1) dizendo que já tinha a 1 da Ana, mas o servidor mostra a 1 da Ana depois.
+  const antes = ordemDaTela([m("b1", "bia", 1, 1, { versao: 1, contador: 1 }), m("a1", "ana", 1, 2)], "ana");
+  // A Ana escreveu 1, 2 e 3; a última da Bia diz que ela só tinha recebido até a 1.
+  const semVer = ordemDaTela([m("a1", "ana", 1, 1), m("a2", "ana", 2, 2), m("a3", "ana", 3, 3), m("b1", "bia", 1, 4, { versao: 1, contador: 1 }), m("a4", "ana", 4, 5)], "ana");
+  // Sem "visto" (nada recebido ainda) não há aviso nenhum.
+  const nada = ordemDaTela([m("a1", "ana", 1, 1), m("b1", "bia", 1, 2, { versao: 0, contador: 0 })], "ana");
+  return [[...antes.foraDeOrdem].join(","), [...semVer.semConfirmar].sort().join(","), semVer.foraDeOrdem.size, nada.semConfirmar.size + nada.foraDeOrdem.size];
+}, (r) => r.join("|") === "b1|a2,a3|0|0");
 await espera("a tela mostra o aviso discreto de buraco e a linha de repetida, e o chaveiro confere a ordem ao abrir", async () => [ler("components/rede/chat/Conversa.tsx"), ler("lib/rede/chat-chaveiro.ts")],
-  (r) => /faltas\.has\(m\.id\) && <p[^>]*>\{t\.conversa\.faltam\}/.test(r[0]) && /if \(m\.repetida\) return <li[^>]*>\{t\.conversa\.repetida\}/.test(r[0]) && /await naFilaDaOrdem\(\(\) => conferirOrdem\(sessao, abertas, ids\)\)/.test(r[1]));
+  (r) => /faltas\.has\(m\.id\) && <p[^>]*>\{t\.conversa\.faltam\}/.test(r[0]) && /if \(m\.repetida\) return <li[^>]*>\{t\.conversa\.repetida\}/.test(r[0]) && /await naFilaDaOrdem\(\(\) => conferirOrdem\(sessao, abertas, internos\)\)/.test(r[1])
+    && /\{ordem\.ordenadas\.map\(/.test(r[0]) && !/\{mensagens\.map\(/.test(r[0]) && /m\.duvidosa && <p[^>]*>\{t\.conversa\.duvidosa\}/.test(r[0])
+    && /ordem\.foraDeOrdem\.has\(m\.id\) && <p[^>]*>\{t\.conversa\.foraDeOrdem\}/.test(r[0]) && /minha && ordem\.semConfirmar\.has\(m\.id\) && <p[^>]*>\{t\.conversa\.semConfirmar\}/.test(r[0]));
+
+// ── "Combinar pelo chat" das caronas do ato (supabase/migracoes/20261111-chat-caronas.sql; pedido da Faixa 1) ──
+const caronas = ler("supabase/migracoes/20261111-chat-caronas.sql");
+await recusa("a migração das caronas recusa rodar sem a tabela das caronas da Faixa 1", () => banco.exclusivo(() => banco.pg.exec(caronas)), "20261110-alumia-b1-atos.sql");
+// A tabela é da Faixa 1 (supabase/migracoes/20261110-alumia-b1-atos.sql); aqui, a mesma forma, para provar a função da Faixa 2.
+await dono(`create table if not exists interno.rede_ato_caronas (
+  id uuid primary key default gen_random_uuid(),
+  ato uuid not null references interno.rede_chamados (post) on delete cascade,
+  tipo text not null check (tipo in ('oferta', 'pedido')),
+  meio text not null default 'carro' check (meio in ('carro', 'onibus', 'van', 'bicicleta', 'a_pe', 'outro')),
+  saida_publica text not null check (char_length(saida_publica) between 3 and 100),
+  vagas smallint check (vagas is null or vagas between 0 and 60),
+  sai_em timestamptz,
+  quem uuid not null references interno.perfis (id) on delete cascade,
+  criado_em timestamptz not null default now()
+)`);
+await espera("a migração das caronas roda depois da tabela, e roda de novo sem quebrar", async () => {
+  await banco.exclusivo(() => banco.pg.exec(caronas));
+  await banco.exclusivo(() => banco.pg.exec(caronas));
+  return true;
+});
+const novoAto = async (autor, apagado = false) => {
+  const post = (await um("insert into interno.rede_posts (autor, texto, apagado_em) values ($1, 'Ato pela moradia', $2) returning id", [autor, apagado ? new Date().toISOString() : null])).id;
+  await dono("insert into interno.rede_chamados (post, inicio, cidade, ponto) values ($1, now() + interval '3 days', 'São Paulo', 'Praça da Sé')", [post]);
+  return post;
+};
+const novaCarona = async (ato, quem) => (await um("insert into interno.rede_ato_caronas (ato, tipo, saida_publica, vagas, quem) values ($1, 'oferta', 'Metrô Itaquera', 3, $2) returning id", [ato, quem])).id;
+const atoDaSeletiva = await novoAto(P.seletiva);
+const caronaDaSeletiva = await novaCarona(atoDaSeletiva, P.seletiva);
+const caronaDaFechada = await novaCarona(atoDaSeletiva, P.fechada);
+const caronaDaBia = await novaCarona(atoDaSeletiva, P.bia);
+const caronaEscondida = await novaCarona(await novoAto(P.seletiva, true), P.seletiva);
+const pelaCarona = await rpc(como(P.ana), "rede_dm_abrir_carona", { p_carona: caronaDaSeletiva });
+await espera("pela carona, a conversa abre com quem a publicou (que segue de volta: aberta direto)", async () => pelaCarona, (c) => c.situacao === "aberta" && c.com.id === P.seletiva && c.com.handle === "seletiva_dm");
+const pedidoPelaCarona = await rpc(como(P.nova), "rede_dm_abrir_carona", { p_carona: caronaDaSeletiva });
+await espera("quem a dona da carona não segue faz um PEDIDO de conversa, como sempre (ninguém tem o chat aberto à força)", async () => pedidoPelaCarona, (c) => c.situacao === "pedido" && c.pedi === true && c.pode_escrever === false);
+await espera("pedir de novo pela mesma carona acha a mesma conversa (não cria outra)", async () => (await rpc(como(P.nova), "rede_dm_abrir_carona", { p_carona: caronaDaSeletiva })).id, (id) => id === pedidoPelaCarona.id);
+await espera("a resposta é a conversa de sempre: só codinome e @, nunca nome do painel, e-mail nem dado da carona", async () => JSON.stringify(pelaCarona), (t) => !t.includes("Nome do painel") && !t.includes("chat.local") && !t.includes("Itaquera") && !t.includes(caronaDaSeletiva));
+await espera("a carona de quem escolheu 'ninguém' não abre conversa (e não diz o motivo)", () => rpc(como(P.ana), "rede_dm_abrir_carona", { p_carona: caronaDaFechada }), (r) => r?.erro === "dm_fechada" && !("com" in r));
+await dono("insert into interno.rede_bloqueios (quem, bloqueado) values ($1, $2), ($1, $3)", [P.bia, P.ana, P.intrusa]);
+await espera("a carona de quem bloqueou não abre a conversa que já existia", () => rpc(como(P.ana), "rede_dm_abrir_carona", { p_carona: caronaDaBia }), (r) => r?.erro === "dm_fechada" && !("com" in r));
+await espera("a carona de quem bloqueou não abre conversa nova", () => rpc(como(P.intrusa), "rede_dm_abrir_carona", { p_carona: caronaDaBia }), (r) => r?.erro === "dm_fechada" && !("com" in r));
+await espera("e nenhuma conversa nova foi criada por isso", async () => um("select count(*)::int as n from interno.rede_dm_conversas where (a = $1 and b = $2) or (a = $2 and b = $1)", [P.bia, P.intrusa]), (r) => r.n === 0);
+await dono("delete from interno.rede_bloqueios where quem = $1 and bloqueado in ($2, $3)", [P.bia, P.ana, P.intrusa]);
+await espera("a própria carona não abre conversa", () => rpc(como(P.seletiva), "rede_dm_abrir_carona", { p_carona: caronaDaSeletiva }), (r) => r?.erro === "dm_fechada" && !("com" in r));
+await espera("a recusa por causa da pessoa gasta o limite como um acerto (não dá para testar de graça de quem é cada carona)", async () => {
+  const chave = `rede_dm_carona:${P.ana}`;
+  const antes = (await um("select coalesce(sum(total), 0)::int as n from interno.limites where chave = $1", [chave])).n;
+  const r = await rpc(como(P.ana), "rede_dm_abrir_carona", { p_carona: caronaDaFechada });
+  const depois = (await um("select coalesce(sum(total), 0)::int as n from interno.limites where chave = $1", [chave])).n;
+  return [r.erro, depois - antes];
+}, (r) => r.join() === "dm_fechada,1");
+await espera("ato cancelado ou que já passou: nenhuma carona dele abre conversa", async () => {
+  const cancelado = await novoAto(P.seletiva);
+  await dono("update interno.rede_chamados set situacao = 'cancelado' where post = $1", [cancelado]);
+  const passou = await novoAto(P.seletiva);
+  await dono("update interno.rede_chamados set inicio = now() - interval '7 hours' where post = $1", [passou]);
+  const tentar = async (ato) => rpc(como(P.ana), "rede_dm_abrir_carona", { p_carona: await novaCarona(ato, P.seletiva) }).then(() => "abriu", (e) => e.message);
+  return [await tentar(cancelado), await tentar(passou)];
+}, (r) => r[0].includes("ato_cancelado") && r[1].includes("ato_passou"));
+await recusa("carona de ato que a pessoa não vê: como se não existisse", () => rpc(como(P.ana), "rede_dm_abrir_carona", { p_carona: caronaEscondida }), "nao_encontrado");
+await recusa("carona que não existe", () => rpc(como(P.ana), "rede_dm_abrir_carona", { p_carona: crypto.randomUUID() }), "nao_encontrado");
+await recusa("quem não é membro 18+ não combina carona pelo chat", () => rpc(como(P.menor), "rede_dm_abrir_carona", { p_carona: caronaDaSeletiva }), "consentimento");
+await recusa("visitante não chama a função das caronas", () => rpc(visitante(), "rede_dm_abrir_carona", { p_carona: caronaDaSeletiva }), "permission denied");
+await espera("o encaixe do chat registra o abridor das caronas, e o abridor baixa o cliente do chat só no toque e leva o id da conversa, nunca o @", async () => [ler("components/rede/chat/encaixe.tsx"), ler("lib/rede/chat/carona.ts"), ler("components/rede/chat/Tela.tsx")],
+  (r) => /^registrarConversaDaCarona\(abrirConversaDaCarona\);$/m.test(r[0]) && !/^import .*cliente-chat/m.test(r[1]) && /await import\("\.\.\/cliente-chat"\)/.test(r[1])
+    && /alumia\/conversas\?conversa=\$\{encodeURIComponent\(conversa\.id\)\}/.test(r[1]) && !/handle|codinome/.test(r[1].replace(/^\/\/.*$/gm, "")) && /busca\.delete\("conversa"\)/.test(r[2])
+    && /ja && !ja\.pedi\) setAviso\(preencher\(t\.lista\.pedidoDe/.test(r[2]) && /else setAviso\(t\.lista\.conversaApagada\)/.test(r[2]) && /if \("erro" in conversa\) throw new Error\(conversa\.erro\)/.test(r[1]));
 
 // ── O que fica no aparelho e o "apagar tudo" do Sair rápido (lib/rede/chat/gaveta.ts), com um IndexedDB de mentira ──
 function indexedDBDeMentira() {
@@ -622,16 +712,32 @@ function indexedDBDeMentira() {
     bancos,
     /** "normal"; "lanca": apagar o banco lança; "mudo": o pedido de apagar nunca responde. */
     modo: "normal",
+    /** Como o navegador: a subida de versão recebe a versão antiga e pode ser desfeita (abort), e aí o pedido falha. */
     open(nome, versao) {
-      const pedido = {};
+      const pedido = { transaction: null, error: null };
       setTimeout(() => {
-        let dados = bancos.get(nome);
-        const novo = !dados || dados.versao < versao;
-        if (!dados) bancos.set(nome, (dados = { versao, gavetas: new Map(), abertas: 0 }));
-        dados.versao = versao;
+        const existente = bancos.get(nome);
+        const antiga = existente?.versao ?? 0;
+        const dados = existente ?? { versao: 0, gavetas: new Map(), abertas: 0 };
+        if (antiga < versao) {
+          let desfeita = false;
+          if (!existente) bancos.set(nome, dados);
+          dados.versao = versao;
+          pedido.result = conexao(dados);
+          pedido.transaction = { abort: () => void (desfeita = true) };
+          pedido.onupgradeneeded?.({ oldVersion: antiga, newVersion: versao });
+          pedido.transaction = null;
+          if (desfeita) {
+            if (!existente) bancos.delete(nome);
+            else dados.versao = antiga;
+            pedido.result = undefined;
+            pedido.error = new Error("AbortError");
+            pedido.onerror?.({ preventDefault() {} });
+            return;
+          }
+        }
         dados.abertas++;
         pedido.result = conexao(dados);
-        if (novo) pedido.onupgradeneeded?.();
         pedido.onsuccess?.();
       }, 0);
       return pedido;
@@ -649,8 +755,14 @@ const porIndexedDB = (valor) => Object.defineProperty(globalThis, "indexedDB", {
 porIndexedDB(falso);
 globalThis.IDBKeyRange = { bound: (lower, upper) => ({ lower, upper }) };
 const contaDeTeste = () => ({ usuario: "u1", aparelho: { publica: "p" }, identidade: { publica: "i" } });
+await espera("sem a ativação, ler e gravar não criam o banco (fica só na memória da aba)", async () => {
+  await guardarNaGaveta(CONHECIDAS, { chave: "u9:u8", identidade: "y", verificado: false });
+  const lido = await lerDaGaveta(CONHECIDAS, "u9:u8");
+  await apagarPrefixoDaGaveta(CONHECIDAS, "u9:");
+  return [falso.bancos.has(BANCO_DO_CHAT), lido?.identidade, await lerDaGaveta(CONHECIDAS, "u9:u8")];
+}, (r) => r[0] === false && r[1] === "y" && r[2] === null);
 await espera("o aparelho guarda e lê nas três gavetas, acha por prefixo e fecha a conexão depois de cada uso", async () => {
-  await guardarNaGaveta(CONTAS, contaDeTeste());
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
   await guardarNaGaveta(CONHECIDAS, { chave: "u1:u2", identidade: "x", verificado: true });
   await guardarNaGaveta(ORDEM, { chave: "u1:c1:u2:1", desde: 1, maior: 3, vistas: { a: "b" } });
   await guardarNaGaveta(ORDEM, { chave: "u1:c1:u2:piso", versao: 0 });
@@ -693,7 +805,7 @@ await espera("o apagar tudo nunca lança e nunca segura a saída: navegador que 
   return tempos;
 }, (l) => l.length === 3 && l.every((ms) => ms < 700));
 await espera("pendurado no Sair rápido, o apagar tudo cabe com folga no teto de 0,8 s e leva o banco embora", async () => {
-  await guardarNaGaveta(CONTAS, contaDeTeste());
+  await guardarNaGaveta(CONTAS, contaDeTeste(), { criar: true });
   const tinha = falso.bancos.has(BANCO_DO_CHAT);
   const inicio = performance.now();
   await rodarLimpezas([() => apagarTudoDoChat()]);
@@ -738,21 +850,53 @@ await espera("o QR desenhado (qrcode) é lido de volta (jsqr) e confere só com 
   const lido = jsQR(pontos, lado, lado)?.data ?? "";
   return [lido === qrDaSeguranca(codigoAB), conferirQr(lido, codigoAB), conferirQr(lido, codigoAI)];
 }, (r) => r[0] === true && r[1] === "confere" && r[2] === "nao_confere");
-await espera("comparar de novo: o grupo pedido fica escondido na tela, e só o grupo certo passa", async () => {
-  const i = sortearGrupo();
-  const certo = grupoDoCodigo(codigoAB, i);
-  const errado = certo === "00000" ? "00001" : "00000";
-  const naTela = codigoComGrupoEscondido(codigoAB, i);
+await espera("comparar de novo: pede os seis grupos da metade da OUTRA pessoa, escondidos na tela; a minha metade não passa", async () => {
+  const minha = await metadeDoCodigo(aparelhos.ana.identidade.publica);
+  const daBia = await metadeDoCodigo(aparelhos.bia.identidade.publica);
+  const daIntrusa = await metadeDoCodigo(aparelhos.intrusa.identidade.publica);
+  const outra = metadeDaOutraPessoa(codigoAB, minha);
+  const naTela = outra ? codigoComMetadeEscondida(codigoAB, outra.inicio) : [];
+  const visiveis = naTela.filter((g) => g !== "•••••").join("");
+  const errada = daBia.slice(0, 29) + (daBia[29] === "0" ? "1" : "0");
   return [
-    i >= 0 && i < 12 && naTela.length === 12 && naTela[i] !== certo && naTela.filter((_, j) => j !== i).join("") === codigoAB.slice(0, i * 5) + codigoAB.slice(i * 5 + 5),
-    conferirGrupo(codigoAB, i, certo), conferirGrupo(codigoAB, i, ` ${certo} `), conferirGrupo(codigoAB, i, errado), conferirGrupo(codigoAB, i, ""), conferirGrupo(codigoAB, i, certo.slice(0, 4)), conferirGrupo(codigoAB, i, "abcde"),
+    outra?.numeros === daBia && naTela.length === 12 && naTela.filter((g) => g === "•••••").length === 6 && visiveis === minha,
+    conferirMetade(codigoAB, minha, daBia),
+    conferirMetade(codigoAB, minha, daBia.replace(/(.{5})/g, "$1 ")),
+    conferirMetade(codigoAB, minha, minha),
+    conferirMetade(codigoAB, minha, daIntrusa),
+    conferirMetade(codigoAB, minha, errada),
+    conferirMetade(codigoAB, minha, daBia.slice(0, 25)),
+    conferirMetade(codigoAB, minha, ""),
+    conferirMetade(codigoAB, daIntrusa, daBia),
+    metadeDaOutraPessoa(codigoAB, daIntrusa) === null && metadeDaOutraPessoa(minha + minha, minha) === null,
   ];
-}, (r) => r.join(",") === "true,true,true,false,false,false,false");
+}, (r) => r.join(",") === "true,true,true,false,false,false,false,false,false,true");
+await espera("ataque simétrico: o servidor põe a MESMA identidade falsa no lugar das duas pessoas; ditar 'os seus grupos' (da própria chave) não confere com ela", async () => {
+  const mA = await metadeDoCodigo(aparelhos.ana.identidade.publica);
+  const mB = await metadeDoCodigo(aparelhos.bia.identidade.publica);
+  const mF = await metadeDoCodigo(aparelhos.intrusa.identidade.publica);
+  // A tela da Ana mostra o código com F; a da Bia, também com F. As duas têm a metade de F; "os grupos tal a tal" da tela da
+  // Bia podem ser exatamente mF. Mas o que a Bia dita são os SEUS grupos (mB), e a Ana confere contra a metade de F.
+  const telaDaBia = await codigoDeSeguranca(aparelhos.bia.identidade.publica, aparelhos.intrusa.identidade.publica);
+  return [
+    telaDaBia.includes(mF),
+    conferirMetadeDe(mF, mF),
+    conferirMetadeDe(mF, mB),
+    conferirMetadeDe(mB, mB.replace(/(.{5})/g, "$1 ")),
+    conferirMetadeDe(mB, mA),
+    conferirMetadeDe(mB, mB.slice(0, 25)),
+    conferirMetadeDe("123", mB),
+  ];
+}, (r) => r.join(",") === "true,true,false,true,false,false,false");
+await espera("a tela do comparar de novo confere contra a metade da identidade nova, e Opções mostra 'os seus grupos' da própria chave", async () => ler("components/rede/chat/Conversa.tsx"),
+  (c) => /conferirMetadeDe\(metadeDaNova, digitado\)/.test(c) && !/conferirMetade\(codigo/.test(c) && /metadeDoCodigo\(identidadeNova\)/.test(c)
+    && /setMeusGrupos\(meus\)/.test(c) && /metadeDoCodigo\(eu\.identidade\.publica\)\]\);\s*setCodigo\(doPar\);/.test(c) && /\{t\.acoes\.meusGrupos\}/.test(c));
 await espera("identidade trocada de quem estava verificado: a marca cai, o envio fica retido e um clique não basta", async () => [ler("lib/rede/chat-chaveiro.ts"), ler("components/rede/chat/Conversa.tsx")],
   (r) => /sessao\.exigeComparar = !!conhecida\?\.verificado;\s*sessao\.verificado = false;/.test(r[0])
     && /if \(sessao\.exigeComparar && !verificado\) throw erroDoChat\("dm_exige_comparar"\)/.test(r[0])
-    && /if \(atual\.mudou\) throw erroDoChat\(atual\.exigeComparar \? "dm_exige_comparar" : "dm_sem_chave"\)/.test(r[0])
-    && /sessao\.exigeComparar \? \([\s\S]{0,400}<CompararDeNovo[^>]*aoConferir=\{\(\) => void confiar\(true\)\}/.test(r[1])
+    && /if \(!esperada \|\| identidade !== esperada\) throw erroDoChat\("dm_identidade_mudou"\)/.test(r[0])
+    && /s\.exigeComparar \? "dm_exige_comparar" : "dm_sem_chave"/.test(r[0])
+    && /sessao\.exigeComparar \? \([\s\S]{0,400}<CompararDeNovo[^>]*minhaMetade=\{paraComparar\.minhaMetade\}[^>]*aoConferir=\{\(\) => void confiar\(true, paraComparar\.identidade\)\}/.test(r[1])
     && (r[1].match(/confiar\(false\)/g) ?? []).length === 1 && /disabled=\{ocupado \|\| !textoCabe\(texto\) \|\| !!sessao\.mudou\}/.test(r[1]));
 await espera("outra chave no servidor para a própria conta: a tela explica o risco e pede o \"entendi\" antes de criar chave nova", async () => [ler("components/rede/chat/Tela.tsx"), ler("lib/rede/chat-chaveiro.ts")],
   (r) => /aparelho\.estado === "outro_aparelho" && !entendi/.test(r[0]) && /aparelho\.tinhaChaveAqui && <p role="alert"[^>]*>\{t\.ativar\.outroTinha\}/.test(r[0]) && /\{t\.ativar\.outroRisco\}/.test(r[0]) && /tinhaChaveAqui: !!guardado/.test(r[1]));

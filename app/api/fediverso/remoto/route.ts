@@ -13,7 +13,8 @@
 //   ?post=<url>[&buscar=1]                 → o fio {post, acima, respostas}. Se o banco guarda a nota, vem tudo dele
 //                                            (rede_fed_fio_remoto, que só devolve o que a pessoa pode ver). Senão a rota responde
 //                                            "so_na_origem" e NÃO busca nada: só com buscar=1 (um toque da pessoa na tela) o post
-//                                            (só público ou não listado) e até 5 acima são lidos na origem, sem respostas. Assim
+//                                            (só público ou não listado) e até 5 acima são lidos na origem, sem respostas, e
+//                                            nunca de quem bloqueou a pessoa lá fora (bloqueouQuemPede). Assim
 //                                            um link armado não faz o servidor bater num endereço qualquer só por ser aberto;
 //   ?linha=1[&cursor=…&limite=…]           → a linha mista (rede_fed_linha_mista, COMO a pessoa: só o que ela pode ver) com o avatar
 //                                            e a mídia já pela rota-proxy assinada;
@@ -172,6 +173,21 @@ async function perfil(token: string, atorId: string) {
   });
 }
 
+/** O limite de pedidos estourou no meio do fio: a rota responde 429, não "não encontrado". */
+class LimiteNoFio extends Error {}
+
+/**
+ * A pessoa de fora bloqueou quem pede (um Block recebido de lá)? Vale também para o que é lido agora na origem, que o banco não
+ * guarda. Pergunta direto ao bloqueio recebido (rede_fed_me_bloqueou), que não depende de o ator ainda estar guardado. Qualquer
+ * falha conta como sim: na dúvida, não mostra. O limite estourado sobe como LimiteNoFio.
+ */
+async function bloqueouQuemPede(token: string, autor: string): Promise<boolean> {
+  const r = await chamarComoPessoa<boolean>(token, "rede_fed_me_bloqueou", { p_ator: autor });
+  if (r.ok) return r.dado !== false;
+  if (r.codigo === "muitos_pedidos") throw new LimiteNoFio();
+  return true;
+}
+
 /** O fio como o banco o guarda (nulo se o banco não tem a nota ou a pessoa não pode vê-la). */
 async function fioDoBanco(token: string, id: string) {
   const r = await chamarComoPessoa<{ post?: unknown; acima?: unknown; respostas?: unknown }>(token, "rede_fed_fio_remoto", { p_id: id });
@@ -189,11 +205,18 @@ async function fio(token: string, postId: string, buscarLa: boolean) {
   const lerPublica = async (id: string) => {
     const { doc } = await buscarNaOrigem(id);
     const autor = doc ? (Array.isArray(doc.attributedTo) ? idDe(doc.attributedTo[0]) : idDe(doc.attributedTo)) : null;
-    if (!doc || !autor || (await bloqueado(autor))) return null;
+    // Instância bloqueada, ou a pessoa de fora bloqueou quem pede: como se o post não existisse (o banco faz o mesmo no fio guardado).
+    if (!doc || !autor || (await bloqueado(autor)) || (await bloqueouQuemPede(token, autor))) return null;
     const lida = lerNota(doc, autor);
     return lida.ok && (lida.nota.visibilidade === "publico" || lida.nota.visibilidade === "nao_listado") ? lida.nota : null;
   };
-  const nota = await lerPublica(postId);
+  let nota: NotaRecebida | null;
+  try {
+    nota = await lerPublica(postId);
+  } catch (erro) {
+    if (erro instanceof LimiteNoFio) return resposta({ erro: "muitos_pedidos" }, 429);
+    throw erro;
+  }
   if (!nota) return resposta({ erro: "nao_encontrado" }, 404);
   const autorDe = (n: NotaRecebida) => atorRemoto(n.ator).catch(() => null);
   // Os posts acima (até 5). Um post daqui no meio do fio para a subida: a tela o busca pelo id.

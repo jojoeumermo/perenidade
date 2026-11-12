@@ -60,8 +60,22 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
         const estado = await estadoDoAparelho(nova);
         if (!vivo) return;
         setAparelho(estado);
-        const com = new URLSearchParams(window.location.search).get("com");
-        if (com) {
+        const busca = new URLSearchParams(window.location.search);
+        const com = busca.get("com");
+        // Veio de "Combinar pelo chat" de uma carona (lib/rede/chat/carona.ts): abre a conversa pelo id e tira o id do endereço.
+        const daCarona = busca.get("conversa");
+        if (daCarona) {
+          busca.delete("conversa");
+          const resto = busca.toString();
+          window.history.replaceState(window.history.state, "", `${window.location.pathname}${resto ? `?${resto}` : ""}${window.location.hash}`);
+          const ja = conversas.find((c) => c.id === daCarona);
+          if (ja?.situacao === "aberta") setAberta(ja);
+          // Pedido que a outra pessoa mandou: ele está na lista de pedidos, para aceitar ou recusar.
+          else if (ja && !ja.pedi) setAviso(preencher(t.lista.pedidoDe, { nome: ja.com.codinome }));
+          else if (ja) setAviso(t.lista.pedidoEnviado);
+          // A conversa existe, mas esta pessoa a apagou da lista: ela volta quando chegar mensagem nova.
+          else setAviso(t.lista.conversaApagada);
+        } else if (com) {
           const ja = conversas.find((c) => c.com.handle === com.toLowerCase());
           if (ja) setAberta(ja);
           else setHandle(com);

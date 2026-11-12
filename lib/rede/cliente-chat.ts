@@ -68,6 +68,8 @@ export function criarClienteDoChat(c: Chamar) {
     prefs: (quemPode: QuemPode, prazo: Prazo) => c<{ quem_pode: QuemPode; prazo_dias: Prazo }>("rede_dm_prefs", { p_quem_pode: quemPode, p_prazo_dias: prazo }),
     publicarChave: (identidade: string, publica: string, certificado: string) => c<{ versao: number }>("rede_dm_chave_publicar", { p_identidade: identidade, p_publica: publica, p_certificado: certificado }),
     abrir: (handle: string) => c<ConversaDoChat>("rede_dm_abrir", { p_handle: handle }),
+    /** A conversa com quem publicou a carona de um ato (a pessoa é achada no servidor; supabase/migracoes/20261111-chat-caronas.sql). */
+    abrirCarona: (carona: string) => c<ConversaDoChat | { erro: "dm_fechada" }>("rede_dm_abrir_carona", { p_carona: carona }),
     responder: (conversa: string, aceitar: boolean) => c<ConversaDoChat | { recusado: true }>("rede_dm_responder", { p_conversa: conversa, p_aceitar: aceitar }),
     conversas: () => c<ConversaDoChat[]>("rede_dm_conversas"),
     chaves: (conversa: string) => c<ChavesDaConversa>("rede_dm_chaves_da_conversa", { p_conversa: conversa }),

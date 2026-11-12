@@ -27,6 +27,7 @@
     "pedidos": "Message requests",
     "pedidoDe": "{nome} wants to talk with you.",
     "pedidoEnviado": "Request sent. Once the person accepts, you can both write.",
+    "conversaApagada": "You deleted the conversation with this person here. It comes back to the list when a new message arrives.",
     "aceitar": "Accept",
     "recusar": "Decline",
     "recusarExplica": "Declining deletes the request, and the person cannot ask again for 30 days. They are not told.",
@@ -53,9 +54,12 @@
     "voce": "You",
     "faltam": "A message may be missing here: deleted by the writer, expired or held back on the way.",
     "repetida": "Repeated message: this device had already received this same message. It is not shown again.",
+    "duvidosa": "This device cannot check whether this message is a repeat (it uses a key that has already closed here). Be wary if it does not make sense now.",
+    "foraDeOrdem": "Out of order: the server time does not match the order in which the message was written.",
+    "semConfirmar": "When the other person wrote their last message, they had not received this one yet.",
     "mudouVerificada": "{nome}'s safety key changed, and this conversation was verified. The verified mark was removed. It may be a new device, or someone trying to pass as this person. Nothing is sent until you compare the code again.",
-    "grupoPedido": "Ask {nome}, in person or through a channel where you recognise each other, for group {n} of the code on their screen. Type it here:",
-    "grupoRotulo": "Group {n} of the code",
+    "grupoPedido": "Ask {nome}, in person or through a channel where you recognise each other, for the six groups their screen shows as “your groups” (in Options, under the security code). “Groups so-and-so of the whole code” does not count. Type the six groups:",
+    "grupoRotulo": "Six groups of {nome}",
     "grupoConferir": "Check",
     "grupoErrado": "It does not match. Do not go on: someone may be in the middle. Talk to the person through another channel."
   },
@@ -69,6 +73,8 @@
     "codigoExplica": "Compare these numbers with the other person, in person or through a channel where you recognize each other. If they match, nobody is in the middle.",
     "verificado": "We compared and it matches",
     "jaVerificado": "Verified on this device.",
+    "meusGrupos": "Your six groups (they come only from your key). If someone needs to compare with you again, read out these:",
+    "naoVerificado": "Not verified on this device",
     "bloquear": "Block",
     "desbloquear": "Unblock",
     "bloquearConfirma": "Block this person? They will no longer be able to reach you, here or on Alumia.",
@@ -122,7 +128,7 @@
     "apagarTudoExplica": "Removes all conversations from your list and deletes your key and your settings. The other person in each conversation keeps the messages until their time limit ends. Your account stays. Brazil's LGPD, art. 18, VI.",
     "apagarTudoConfirma": "Remove ALL conversations from your list and delete your messaging key? This cannot be undone.",
     "apagado": "All your messages were deleted.",
-    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device. After that you have to turn messages on again, and what was written before will no longer open here."
+    "sairRapido": "Alumia's Quick exit button also erases the chat key on this device. After that you have to turn messages on again, and what was written before will no longer open here. All verifications are lost too: compare the code again with each person before writing anything sensitive. Your account stays signed in on this device: to close it, use Sign out."
   },
   "erros": {
     "dm_fechada": "You cannot message this person right now.",

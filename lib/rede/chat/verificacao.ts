@@ -11,6 +11,12 @@
 // E um grupo só (cinco algarismos) é pouco: quem fabrica identidades acerta um grupo em cerca de cem mil tentativas. Por isso
 // a tela pede os SEIS grupos da metade da outra pessoa (trinta algarismos), ou o QR, que leva os sessenta.
 //
+// POR QUE "OS SEUS GRUPOS" E NÃO "OS GRUPOS X A Y DA SUA TELA": se o servidor puser a MESMA identidade falsa F no lugar das duas
+// pessoas, a tela de cada uma mostra a metade de F, e na mesma posição se F for escolhida para isso. Quem dita "os grupos 1 a 6
+// da minha tela" diria a metade de F, e conferiria. Por isso quem dita lê os seis grupos que vêm da PRÓPRIA identidade (a tela
+// os marca como "seus", calculados da chave deste aparelho, que o servidor não troca), e quem confere compara com a metade
+// calculada da identidade que recebeu (conferirMetadeDe), em qualquer posição.
+//
 // Funções puras, sem navegador: rodam no Node nos testes (scripts/testar-rede-chat.mjs).
 import { lerQrDaSeguranca } from "../../sigilo";
 
@@ -60,6 +66,18 @@ export function conferirMetade(codigo: string, minhaMetade: string, digitado: st
   if (!daOutra || !FORMATO_DA_METADE.test(limpo)) return false;
   let diferenca = 0;
   for (let i = 0; i < 30; i++) diferenca |= daOutra.numeros.charCodeAt(i) ^ limpo.charCodeAt(i);
+  return diferenca === 0;
+}
+
+/**
+ * O que a outra pessoa ditou (os seis grupos que a tela DELA marca como "seus") é a metade da identidade que este aparelho recebeu
+ * para ela? `esperada` vem de `metadeDoCodigo(identidade recebida)`. Aceita espaços; só números, os trinta; comparação sem atalho.
+ */
+export function conferirMetadeDe(esperada: string, digitado: string): boolean {
+  const limpo = digitado.replace(/\s/g, "");
+  if (!FORMATO_DA_METADE.test(esperada) || !FORMATO_DA_METADE.test(limpo)) return false;
+  let diferenca = 0;
+  for (let i = 0; i < 30; i++) diferenca |= esperada.charCodeAt(i) ^ limpo.charCodeAt(i);
   return diferenca === 0;
 }
 

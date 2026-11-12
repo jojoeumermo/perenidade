@@ -1,6 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { registrarConversaDaCarona } from "@/lib/rede/atos/combinar";
+import { abrirConversaDaCarona } from "@/lib/rede/chat/carona";
 import { apagarTudoDoChat } from "@/lib/rede/chat/gaveta";
 import type { Encaixe } from "../encaixes";
+
+// "Combinar pelo chat" das caronas do ato (pedido da Faixa 1, docs/rede/PEDIDOS-ENTRE-FAIXAS.md): ao carregar o encaixe, o
+// quadro das caronas passa a ter a saída pelo chat privado. Leve: o cliente do chat só é baixado no toque (lib/rede/chat/carona.ts).
+registrarConversaDaCarona(abrirConversaDaCarona);
 
 /**
  * Encaixe da F7 (chat privado e núcleo cifrado): o que esta frente pendura nas telas comuns (menu, cartão, compositor, abas, coluna da direita,

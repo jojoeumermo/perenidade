@@ -27,6 +27,7 @@
     "pedidos": "Solicitudes de conversación",
     "pedidoDe": "{nome} quiere conversar contigo.",
     "pedidoEnviado": "Solicitud enviada. Cuando la persona acepte, podrán escribir.",
+    "conversaApagada": "Borraste aquí la conversación con esta persona. Vuelve a la lista cuando llegue un mensaje nuevo.",
     "aceitar": "Aceptar",
     "recusar": "Rechazar",
     "recusarExplica": "Rechazar borra la solicitud, y la persona no puede volver a pedir durante 30 días. No se le avisa.",
@@ -53,9 +54,12 @@
     "voce": "Tú",
     "faltam": "Puede faltar un mensaje aquí: borrado por quien lo escribió, vencido o retenido en el camino.",
     "repetida": "Mensaje repetido: este dispositivo ya había recibido este mismo mensaje. No se muestra de nuevo.",
+    "duvidosa": "Este dispositivo no puede comprobar si este mensaje es repetido (es de una clave que ya se cerró aquí). Desconfía si no tiene sentido ahora.",
+    "foraDeOrdem": "Fuera de orden: la hora del servidor no coincide con el orden en que se escribió el mensaje.",
+    "semConfirmar": "Cuando escribió su último mensaje, la otra persona todavía no había recibido este.",
     "mudouVerificada": "La clave de seguridad de {nome} cambió, y esta conversación estaba verificada. La marca de verificado cayó. Puede ser un dispositivo nuevo, o alguien intentando hacerse pasar por la persona. No se envía nada hasta que comparen el código de nuevo.",
-    "grupoPedido": "Pide a {nome}, en persona o por un canal en el que se reconozcan, el grupo {n} del código que aparece en su pantalla. Escríbelo aquí:",
-    "grupoRotulo": "Grupo {n} del código",
+    "grupoPedido": "Pide a {nome}, en persona o por un canal en el que se reconozcan, los seis grupos que su pantalla muestra como “tus grupos” (en Opciones, en el código de seguridad). No vale “los grupos tal a tal” del código entero. Escribe los seis grupos:",
+    "grupoRotulo": "Los seis grupos de {nome}",
     "grupoConferir": "Comprobar",
     "grupoErrado": "No coincide. No sigas: puede haber alguien en medio. Habla con la persona por otro canal."
   },
@@ -69,6 +73,8 @@
     "codigoExplica": "Compara estos números con la otra persona, en persona o por un canal en que se reconozcan. Si son iguales, nadie está en medio.",
     "verificado": "Comparamos y es igual",
     "jaVerificado": "Verificado en este dispositivo.",
+    "meusGrupos": "Tus seis grupos (salen solo de tu clave). Si alguien necesita comparar de nuevo contigo, dicta estos:",
+    "naoVerificado": "No verificada en este dispositivo",
     "bloquear": "Bloquear",
     "desbloquear": "Desbloquear",
     "bloquearConfirma": "¿Bloquear a esta persona? Ya no podrá hablar contigo, ni aquí ni en Alumia.",
@@ -122,7 +128,7 @@
     "apagarTudoExplica": "Quita todas las conversaciones de tu lista y borra tu clave y tus ajustes. La otra persona de cada conversación conserva los mensajes hasta que venza su plazo. La cuenta sigue. LGPD de Brasil, art. 18, VI.",
     "apagarTudoConfirma": "¿Quitar TODAS las conversaciones de tu lista y borrar tu clave del chat? No tiene vuelta atrás.",
     "apagado": "Todo el chat fue borrado.",
-    "sairRapido": "El botón Salir rápido de Alumia borra también la clave del chat de este dispositivo. Después hay que activar el chat de nuevo, y lo escrito antes ya no se abre aquí."
+    "sairRapido": "El botón Salir rápido de Alumia borra también la clave del chat de este dispositivo. Después hay que activar el chat de nuevo, y lo escrito antes ya no se abre aquí. También se pierden todas las verificaciones: compara el código de nuevo con cada persona antes de escribir algo delicado. La cuenta sigue abierta en este dispositivo: para cerrarla, usa Cerrar sesión."
   },
   "erros": {
     "dm_fechada": "No se puede conversar con esta persona ahora.",

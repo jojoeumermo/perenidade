@@ -203,9 +203,25 @@ As três regras da casa valem também no que o banco devolve: nenhuma lista de p
 A migração roda **depois** de `20261109-fediverso-total.sql` e de `20261110-fediverso-bloqueio-padrao.sql`, pode rodar mais de
 uma vez e não mexe na função de bloquear instância (a trava do bloqueio fixo continua a mesma).
 
-- **Avisos de curtida e de impulso não dizem quem foi.** `rede_aviso_listar` devolve `ator_remoto` nulo e `atores_remotos`
-  vazio nesses dois tipos. O total só sai a partir de 3; abaixo disso sai 1, que a tela escreve como "alguém". Seguidor, resposta
-  e menção continuam dizendo quem foi (é a conversa com a própria pessoa). O endereço cru do avatar não sai em tipo nenhum.
+- **Avisos de curtida e de impulso não dizem quem foi** na tela de avisos: `rede_aviso_listar` devolve `ator_remoto` nulo e
+  `atores_remotos` vazio nesses dois tipos. O total só sai a partir de 3; abaixo disso sai 1, que a tela escreve como "alguém".
+  Seguidor, resposta e menção continuam dizendo quem foi (é a conversa com a própria pessoa). O endereço cru do avatar não sai em
+  tipo nenhum. **Ainda não vale em três lugares da Faixa 1**, pedidos em `docs/rede/PEDIDOS-ENTRE-FAIXAS.md`: o "baixar meus
+  dados" (`conta_meus_dados`) leva o endereço de quem curtiu (P18), e as RPCs antigas `rede_avisos` e `avisos_meus` e o resumo
+  semanal dão o número exato abaixo de 3 (P19).
+- **Bloquear alguém de fora não apaga o aviso de curtida nem o de impulso** (`rede_fed_bloquear_pessoa`, e o Block recebido de
+  lá): sumir o aviso revelaria, bloqueando um candidato por vez, quem curtiu. Somem só os avisos que já dizem quem foi
+  (seguidor, resposta, menção).
+- **A prova do consentimento** (`interno.fediverso_consentimentos`, coluna `usuario`: entra sozinha no "baixar meus dados") ganha
+  na migração a linha do "liga" de quem já estava com a federação ligada, com a data em que ligou. LIGAR tem teto de 6 por hora,
+  com chave própria (`rede_fed_ligar_sim`, longe da "descoberta"); DESLIGAR não tem teto: é a retirada do consentimento e passa
+  sempre.
+- **O endereço da conta** (`rede_fed_situacao.endereco`) só sai para quem ligou a federação, e sem o ponto final do domínio. O
+  `url_entrega` precisa ter o mesmo host do site: a porta não entra no endereço da conta.
+- **Quem foi bloqueado lá fora não lê o post de quem o bloqueou** nem pelo "buscar este post em <servidor>": a rota
+  (`app/api/fediverso/remoto`, `bloqueouQuemPede`) pergunta a `public.rede_fed_me_bloqueou(p_ator)` antes de mostrar o que leu
+  na origem. A função lê direto o bloqueio recebido (vale mesmo depois de a faxina tirar o ator de `rede_fed_remotos`), não monta
+  cartão e tem limite próprio (600 por hora). Na dúvida, não mostra; limite estourado sai como 429, não como "não encontrado".
 - **Piso de 3** nas contagens de pessoas: seguidores e "seguindo" do ator, seguidores da comunidade (Group), pessoas e ativos do
   NodeInfo, respostas no cartão e o total das respostas de fora. Abaixo de 3 sai 0 (as coleções do ActivityPub pedem
   `totalItems` inteiro, maior ou igual a zero). As rotas repetem a conta (`pisoDePessoas`, em `lib/rede/fediverso/rotas.ts`),

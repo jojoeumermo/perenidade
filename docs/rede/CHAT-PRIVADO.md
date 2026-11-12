@@ -28,7 +28,7 @@ trocar de tecnologia. Uma biblioteca de sigilo para a frente (a do Matrix) fica 
 | O formato "c3" das mensagens | `lib/rede/chat/c3.ts` |
 | O preenchimento em blocos | `lib/rede/chat/padding.ts` |
 | Repetição e ordem | `lib/rede/chat/ordem.ts` |
-| Comparar o código (QR e grupo digitado) | `lib/rede/chat/verificacao.ts` |
+| Comparar o código (QR e a metade da outra pessoa, digitada) | `lib/rede/chat/verificacao.ts` |
 | O que fica guardado neste aparelho (IndexedDB próprio, `lucia-alumia-chat`) e o "apagar tudo" | `lib/rede/chat/gaveta.ts` |
 | O chaveiro deste aparelho (sessões, envio, leitura) | `lib/rede/chat-chaveiro.ts` |
 | As chamadas ao banco | `lib/rede/cliente-chat.ts` |
@@ -54,6 +54,15 @@ sem biblioteca de fora.
 - **Confiar na primeira vez, avisar quando mudar:** o aparelho guarda a identidade de cada pessoa com quem conversou. Se ela
   mudar, a conversa avisa e **não entrega chave nem envia nada** até a pessoa confirmar (veja "Identidade trocada").
 - **Contextos próprios** (`alumia-dm:…`): nada assinado ou cifrado no chat da Alumia serve nas conversas da equipe, nem o contrário.
+- **Chave do aparelho fixada:** o aparelho guarda, além da identidade, a chave do aparelho de cada pessoa. Neste chat as duas
+  nascem juntas, então chave nova com a identidade de sempre nunca é legítima: a conversa retém tudo e não oferece botão de aceitar.
+
+**O que um script na página consegue (e o "não exportável" não impede).** Se um script malicioso rodar UMA vez na página da
+Alumia (XSS), ele usa as chaves sem precisar copiá-las: tira o segredo ECDH de cada contato (`deriveBits`) e, com ele e os dados
+do banco, abre embrulhos passados e futuros sem voltar ao aparelho, até alguém reativar o chat; faz a identidade assinar um
+certificado para uma chave dele; e lê as chaves de conversa da memória da aba. "Não exportável" só impede levar a chave embora
+em bytes. A defesa contra isso é não haver script de fora na página (a CSP do site) e, adiante, o sigilo para a frente da etapa
+da biblioteca do Matrix (Olm), em que cada mensagem tem chave própria.
 
 ### O formato das mensagens: "c3"
 
@@ -61,7 +70,7 @@ sem biblioteca de fora.
 corpo     c3.<versão>.<vetor de 12 bytes>.<cifrado>            (base64url, sem "=")
 cifrado   AES-GCM-256, com a chave da conversa, sobre um BLOCO de tamanho fixo
 bloco     [4 bytes: comprimento do conteúdo][conteúdo][zeros até o fim do bloco]
-conteúdo  [16 bytes: identificador sorteado][4 bytes: contador][texto em UTF-8]
+conteúdo  [16 bytes: identificador sorteado][4 bytes: contador][8 bytes: até onde eu já tinha recebido][texto em UTF-8]
 amarra    alumia-dm:c3:<conversa>:<autor>:v<versão>            (dado autenticado do AES-GCM)
 ```
 
@@ -71,13 +80,13 @@ exatamente um destes tamanhos:
 
 | Bloco (bytes) | Cifrado (bytes) | Caracteres no banco | Cabe um texto de até |
 |---|---|---|---|
-| 256 | 272 | 363 | 232 bytes |
-| 512 | 528 | 704 | 488 bytes |
-| 1024 | 1040 | 1387 | 1000 bytes |
-| 2048 | 2064 | 2752 | 2024 bytes |
-| 4096 | 4112 | 5483 | 4072 bytes |
-| 6144 | 6160 | 8214 | 6120 bytes |
-| 8192 | 8208 | 10944 | 8168 bytes (o chat aceita até 8000) |
+| 256 | 272 | 363 | 224 bytes |
+| 512 | 528 | 704 | 480 bytes |
+| 1024 | 1040 | 1387 | 992 bytes |
+| 2048 | 2064 | 2752 | 2016 bytes |
+| 4096 | 4112 | 5483 | 4064 bytes |
+| 6144 | 6160 | 8214 | 6112 bytes |
+| 8192 | 8208 | 10944 | 8160 bytes (o chat aceita até 8000) |
 
 O banco **recusa** corpo "c3" com qualquer outro tamanho (regra na tabela e na função de enviar). O corpo inteiro tem no máximo
 10972 caracteres. Ao abrir, o aparelho confere o bloco todo: tamanho da lista, comprimento que bate, o menor bloco possível, sobra
@@ -117,10 +126,20 @@ não vê nenhum dos dois.
 - **Repetição.** O aparelho guarda, por conversa, autor e versão, quais identificadores já viu e em qual mensagem do servidor.
   Se o mesmo identificador aparecer como outra mensagem (alguém regravando uma mensagem antiga como se fosse nova), ela **não é
   mostrada de novo**: fica só a linha discreta "Mensagem repetida". Depois de 45 dias a lista de uma versão é apagada e fica só
-  um piso; mensagem que aparecer depois numa versão fechada também é tratada como repetição.
+  um piso. Mensagem que aparecer depois numa versão já fechada **é mostrada, com aviso**: o aparelho não tem mais como saber se
+  é repetida ("Este aparelho não consegue conferir se esta mensagem é repetida"). O mesmo vale para mensagem antiga ("c2") que
+  chega fora de hora.
 - **Ordem.** Se falta um contador entre duas mensagens que chegaram, a tela mostra, discreta, "Pode faltar mensagem aqui". O
   aparelho não sabe se a mensagem foi apagada por quem escreveu, venceu, ou foi retida no caminho: por isso é um aviso, não um
   erro. O começo da conversa (mensagens antigas já vencidas) não conta como buraco.
+- **Ordem da tela.** Dentro de cada pessoa, a tela usa a ordem em que ela escreveu (versão da chave e contador), que o servidor
+  não consegue mexer; a hora do servidor só decide como as duas pessoas se intercalam. Onde a hora discorda da ordem escrita, a
+  mensagem ganha o aviso "Fora de ordem".
+- **Resposta antes da pergunta.** Cada mensagem leva, dentro do cifrado, até onde quem escreveu já tinha recebido da outra
+  pessoa (versão e contador). Se a mensagem diz que já tinha recebido uma que aparece DEPOIS dela, ganha "Fora de ordem". E,
+  do lado de quem escreveu, as mensagens que a outra pessoa ainda não tinha recebido quando escreveu a última dela ganham uma
+  linha discreta ("ainda não tinha recebido esta"): é sinal de mensagem retida no caminho, e some sozinho quando ela responder
+  depois de receber.
 - **Os limites.** A memória é do aparelho: num aparelho novo, ou depois do "Sair rápido", ela começa do zero. Se o servidor
   segurar as últimas mensagens, o aparelho só nota quando chegar uma posterior. A hora mostrada em cada mensagem é a do servidor.
   Sem IndexedDB (alguns modos privados), a conferência vale só enquanto a aba está aberta.
@@ -142,7 +161,14 @@ não vê nenhum dos dois.
   ("Confio na chave nova") depois de falar com a outra por outro canal.
 - **Pessoa que estava VERIFICADA:** a marca de verificado **some na hora**, com aviso claro, e o envio fica retido. **Um clique
   não basta:** a tela só segue quando a pessoa compara o código de novo, de um destes jeitos: lendo com a câmera o QR da outra
-  pessoa, ou digitando um grupo do código (sorteado, escondido na própria tela) que ela precisa ouvir da outra. Conferiu, a
+  pessoa, ou digitando os **seis grupos que a tela da outra pessoa marca como "os seus grupos"** (em Opções, embaixo do
+  código: a metade que vem da identidade DELA, calculada da chave do aparelho dela, que o servidor não troca). A tela de quem
+  confere compara com a metade calculada da identidade que recebeu, em qualquer posição. Três portas fechadas: (1) não é um grupo
+  sorteado, porque a metade que vem da MINHA identidade não muda quando o servidor troca a da outra e conferiria com qualquer
+  identidade falsa; (2) não são cinco algarismos, que se acertam fabricando cerca de cem mil identidades, e sim trinta; (3) não é
+  "os grupos tal a tal da sua tela": se o servidor puser a MESMA identidade falsa no lugar das duas pessoas, a tela de cada uma
+  mostra a metade dela, às vezes na mesma posição, e quem ditasse por posição leria a metade falsa. O QR, com os sessenta
+  números, também serve. Conferiu, a
   conversa volta a ficar verificada. A exigência vale também depois de recarregar a página, e o chaveiro recusa a confirmação
   sem comparação mesmo que a tela tente.
 - **A PRÓPRIA conta:** se o servidor mostra para a conta uma chave que não é a deste aparelho, a tela não oferece mais "usar este
@@ -171,8 +197,38 @@ e o que estiver na memória (chaves de conversa, rascunho, mensagens abertas). T
 de novo neste aparelho; a chave nova muda o código de segurança (as outras pessoas recebem o aviso de chave trocada) e o que foi
 escrito antes não abre mais aqui. É o preço de não deixar a chave num aparelho que pode ser tomado.
 
+O "apagar tudo" vale para **todas as abas**: a aba que apertou avisa as outras (BroadcastChannel), e cada uma apaga a própria
+memória e para de gravar. O banco só é criado na ativação do chat; se uma leitura atrasada encontra o banco sumido, ela não o
+recria e a página se limpa também. Isso cobre também a saída do site (três Esc), que apaga o banco do chat por fora.
+
+**Dois limites, ditos na tela de Ajustes:**
+- **As verificações se perdem.** O aparelho não guarda a lista de contatos depois do "Sair rápido" (seria a prova de com quem
+  a pessoa conversa). Ao reativar, cada conversa volta a "confiar na primeira vez", e uma identidade falsa entregue pelo servidor
+  não daria aviso. Por isso Ajustes diz para comparar o código de novo com cada pessoa antes de escrever algo sensível, e a
+  conversa mostra "Não verificada neste aparelho" em destaque enquanto não for comparada.
+- **A conta continua aberta.** O "Sair rápido" da Alumia apaga o chat, mas a sessão da conta mora em outra chave do navegador.
+  Quem pegar o aparelho abre a Alumia já dentro da conta, vê com quem a pessoa conversa (a lista vem do servidor) e pode ativar o
+  chat de novo. Ajustes diz isso e aponta "Sair da conta". O conserto é da Faixa 1 (pedido P17 em
+  `docs/rede/PEDIDOS-ENTRE-FAIXAS.md`): o "Sair rápido" encerrar a sessão, como a saída do site faz.
+
 Diferenças de propósito em relação à equipe (menos comodidade, menos coisa que pode vazar): **um aparelho por conta**, sem cópia
 de recuperação e sem aprovação de outro aparelho.
+
+### "Combinar pelo chat" das caronas do ato
+
+O quadro de caronas de um ato (Faixa 1, `components/rede/atos/Caronas.tsx`) abre a conversa privada com quem publicou a carona
+pelo encaixe `lib/rede/atos/combinar.ts`. A Faixa 2 registra ali `abrirConversaDaCarona` (`lib/rede/chat/carona.ts`), que manda
+só o id da carona para `public.rede_dm_abrir_carona` (`supabase/migracoes/20261111-chat-caronas.sql`). **Quem publicou é achado
+no servidor:** a tela das caronas nunca recebe o id nem o codinome dessa pessoa. As regras são as de `rede_dm_abrir`, sem
+exceção (membro 18+ dos dois lados, bloqueio, perfil invisível, recusa recente, "quem pode me chamar", limite de pedidos):
+oferecer carona não abre o chat de ninguém à força. Antes, o ato precisa valer para quem pede (a regra de quem escreve no ato:
+vê o ato, não oculto, retido nem apagado, não cancelado, não passou há mais de 6 horas): depois do ato não se abre mais nada. A
+tela vai para `/alumia/conversas?conversa=<id da conversa>` (nunca o @ da pessoa no endereço), e a tela das conversas tira o id
+do endereço ao abrir; se a pessoa tinha apagado aquela conversa da lista, ou se é um pedido que a outra mandou, a tela diz isso.
+Um limite próprio (30 por dia) vale para TODA tentativa: acerto, conversa que já existia e recusa. A recusa por causa da pessoa
+vem como resposta (`{erro: "dm_fechada"}`), não como exceção, para o limite não ser desfeito junto. Assim ninguém descobre de
+graça, uma carona por vez, de quem é cada uma. Limite que continua (da lista das caronas, Faixa 1, pedido P20): bloquear alguém e
+recarregar a lista ainda mostra quais caronas eram dela.
 
 ## As regras, todas conferidas no servidor
 
@@ -258,7 +314,10 @@ Conferido em 06/11/2026.
    `supabase/migracoes/20261107-t33-seguranca.sql` (as duas acrescentáveis: podem rodar de novo). Se já foram aplicadas, não
    precisa repetir.
 2. Seguir o passo a passo abaixo para a migração dos blocos.
-3. Publicar a imagem do site como de costume (`docs/HOSPEDAGEM.md`). Nenhuma variável nova em `/opt/lucia/site.env`.
+3. **Caronas pelo chat:** depois da migração B1 dos atos da Faixa 1 (`20261110-alumia-b1-atos.sql`, que cria
+   `interno.rede_ato_caronas`), rodar `supabase/migracoes/20261111-chat-caronas.sql`. Sem a tabela das caronas, ela recusa rodar
+   e avisa qual migração falta. No `install.sql`, o bloco entra depois do bloco B1 dos atos (quem junta as frentes cola).
+4. Publicar a imagem do site como de costume (`docs/HOSPEDAGEM.md`). Nenhuma variável nova em `/opt/lucia/site.env`.
 
 ### PASSO A PASSO PARA O DONO: migração `20261110-chat-blocos.sql`
 

@@ -467,3 +467,88 @@ aparelho; a imagem da câmera não sai dele), para mostrar e ler o QR do código
 Por quê: nenhuma dependência nova entrou, mas as duas passaram a ser usadas em mais um lugar, e o NOTICE lista os usos.
 
 Se não atender: nada quebra; o registro fica incompleto.
+
+### Faixa 1 → Faixa 2: "Combinar pelo chat" das caronas do ato (pedido de 10/11/2026) — feito pela Faixa 2 em 12/11/2026
+
+O pedido está no `master` e no `b1-juntar` (seção "Pedidos" deste arquivo). **Feito** no ramo `faixa2-wip-chat-blocos-e-privacidade`:
+
+- `supabase/migracoes/20261111-chat-caronas.sql`: `public.rede_dm_abrir_carona(p_carona)`, security definer, `search_path =
+  interno, pg_temp`, membro 18+, o ato precisa valer para quem chama (a mesma regra de `interno.rede_ato_aberto`, repetida dentro
+  da função para não depender dela), as regras de `rede_dm_abrir` sem exceção (bloqueio, perfil invisível, recusa recente, "quem
+  pode me chamar", limite de pedidos) e um limite próprio de 30 por dia que vale também para a recusa. Nenhuma
+  resposta devolve o id nem o codinome de quem ofereceu antes de a conversa existir; nenhuma lista de quem combinou. Roda DEPOIS de
+  `20261110-alumia-b1-atos.sql` (sem a tabela das caronas, recusa rodar). **Quem junta as frentes:** colar o bloco no `install.sql`
+  depois do bloco B1 dos atos (neste ramo ele não entra, porque a tabela da Faixa 1 ainda não está aqui).
+- `lib/rede/chat/carona.ts` (o abridor, que baixa o cliente do chat só no toque) e o registro em `components/rede/chat/encaixe.tsx`.
+- `lib/rede/atos/combinar.ts` foi copiado do `b1-juntar` **byte a byte**, só para este ramo compilar sozinho: a junção não dá
+  conflito. O arquivo continua da Faixa 1.
+- A tela das conversas abre `?conversa=<id>` e tira o id do endereço (`components/rede/chat/Tela.tsx`).
+- Teste: `npm run testar:rede-chat` (no Postgres local, com a tabela das caronas na mesma forma da B1).
+- Recusa que a tela das caronas pode receber (como `Error.message`, pelo `combinarCarona`): `dm_fechada` (sem dizer o motivo),
+  `nao_encontrado`, `ato_cancelado`, `ato_passou`, `consentimento`, `muitos_pedidos`. O banco devolve `dm_fechada` como resposta
+  (`{erro}`), não como exceção, para o limite valer também na recusa; `lib/rede/chat/carona.ts` a transforma no erro de sempre.
+
+### Faixa 2 → Faixa 1: o que a revisão do chat e da privacidade do Fediverso achou em arquivo da Faixa 1, 2026-11-12
+
+Nenhum destes segura o chat nem o Fediverso. Do lado da Faixa 2, tudo o que dava já foi feito (`docs/rede/CHAT-PRIVADO.md`,
+`docs/rede/FEDIVERSO.md`).
+
+#### P16 · 2026-11-12 · Faixa 2 pede · a saída do site (três Esc) rodar também as limpezas do "Sair rápido" da Alumia
+
+Arquivo: `lib/modo-seguro.ts` (linhas ~157-183).
+
+Hoje existem duas saídas rápidas e só a da Alumia chama `ENCAIXES.aoSairRapido` (onde está `apagarTudoDoChat`). A do site apaga o
+banco do chat direto, sem avisar o chat. A Faixa 2 já se protege (o banco só nasce na ativação, e a página que encontra o banco
+sumido se limpa), mas o certo é a saída do site rodar as mesmas limpezas, ou pelo menos `apagarTudoDoChat` de
+`lib/rede/chat/gaveta.ts` (arquivo sem importações, leve).
+
+Se não atender: o banco some do mesmo jeito; as chaves de conversa de outra aba aberta só somem quando ela notar.
+
+#### P17 · 2026-11-12 · Faixa 2 pede · o "Sair rápido" da Alumia encerrar a sessão da conta
+
+Arquivo: `lib/rede/saida.ts` (linhas ~17 e ~66-77).
+
+Hoje ele só apaga as chaves que começam com `lucia:rede`; a sessão mora em `lucia:sessao`. Quem pega o aparelho abre a Alumia já
+dentro da conta, vê com quem a pessoa conversa e pode ativar o chat de novo em nome dela. A saída do site revoga a sessão; a da
+Alumia, não. Pedido: encerrar a sessão como a saída do site faz. Enquanto isso, o texto dos Ajustes do chat já diz que a conta
+continua aberta e aponta "Sair da conta".
+
+Se não atender: o limite continua, dito na tela.
+
+#### P18 · 2026-11-12 · Faixa 2 pede · o "baixar meus dados" não levar quem curtiu nem quem impulsionou (GRAVIDADE ALTA)
+
+Arquivo: `supabase/install.sql` (`public.conta_meus_dados`, linha ~10872).
+
+`conta_meus_dados` despeja `to_jsonb` das linhas de `interno.avisos`, inclusive `ator_remoto` dos tipos `fed_curtida` e
+`fed_impulso`: o endereço de quem curtiu, que é dado de terceiro e que a tela de avisos esconde de propósito. Pedido: nessas linhas,
+tirar `ator_remoto` (e `atores_remotos`, se aparecer). O histórico do consentimento do Fediverso já entra sozinho (a coluna passou a
+se chamar `usuario`).
+
+Se não atender: quem baixa os próprios dados vê o endereço de quem curtiu e impulsionou os posts dela.
+
+#### P19 · 2026-11-12 · Faixa 2 pede · `rede_avisos`, `avisos_meus` e o resumo semanal sem o número exato de curtidas abaixo de 3
+
+Arquivos: `supabase/install.sql` (`public.rede_avisos` ~2072, `public.avisos_meus` ~26890, `interno.rede3_aviso_resumo`).
+
+Só `rede_aviso_listar` aplica o "abaixo de 3 sai 1 (alguém)". As duas RPCs antigas devolvem uma linha por curtida de fora, com a
+hora de cada uma, e o resumo semanal soma o total cru. Pedido: deixar de fora `fed_curtida` e `fed_impulso` nessas duas RPCs (ou
+juntar numa linha só por post, com o piso) e aplicar o piso no resumo. Se o dono aceitar o número exato para a própria pessoa,
+basta dizer isso no `FEDIVERSO.md`.
+
+Se não atender: não sai nome, só o número exato e as horas, para a própria pessoa.
+
+#### P20 · 2026-11-12 · Faixa 2 pede · a lista das caronas não revelar a dona quando quem lê bloqueia alguém
+
+Arquivo: `supabase/migracoes/20261110-alumia-b1-atos.sql` (`interno.rede_ato_caronas_json`, linha ~333) e `public.rede_bloquear`.
+
+A lista tira as caronas de quem está bloqueado nos DOIS sentidos (`not interno.rede_bloqueado(x.quem, p_quem)`). Então quem lê
+consegue saber se @Y vai ao ato: bloqueia Y, recarrega a lista, vê quais caronas sumiram, desbloqueia. `rede_bloquear` não tem
+limite nem avisa ninguém; dá para testar dezenas de suspeitos por hora. Ir a um ato revela opinião política (LGPD art. 11).
+Pedido: filtrar só quando a DONA bloqueou quem lê (é essa a proteção que importa), não quando quem lê bloqueou a dona; e pôr um
+limite em bloquear e desbloquear (por exemplo, não desfazer um bloqueio antes de algumas horas). Do lado da Faixa 2,
+`rede_dm_abrir_carona` já gasta o limite também na recusa, então não serve mais de atalho.
+
+Pedido junto: apagar as caronas depois do ato (cancelado, ou passou), na faxina. Hoje elas ficam para sempre, e a ligação
+"esta pessoa ia a este ato" continua no banco sem utilidade de combinar viagem.
+
+Se não atender: a lista continua respondendo, para quem bloqueia, quais caronas eram de quem bloqueou.

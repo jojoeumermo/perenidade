@@ -85,7 +85,10 @@ declare v uuid := interno.eu(); c rede_dm_conversas; o uuid; m rede_dm_mensagens
 begin
   perform interno.aberta('comunidade');
   if not interno.rede2_membro(v) then perform interno.erro('consentimento'); end if;
-  c := interno.rede_dm_minha(p_conversa, v);
+  -- Trava a linha da conversa, como a versão nova faz: sem isso, uma versão nova confirmada no meio do envio apagaria os
+  -- embrulhos da versão em que esta mensagem ainda vai ser gravada, e ninguém mais a abriria.
+  select * into c from rede_dm_conversas where id = p_conversa and (a = v or b = v) for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
   o := interno.rede_dm_outro(c, v);
   if c.situacao <> 'aberta' or interno.rede_bloqueado(v, o) or not interno.rede2_membro(o) then perform interno.erro('dm_fechada'); end if;
   if c.versao < 1 or p_versao is distinct from c.versao then perform interno.erro('versao_desatualizada'); end if;

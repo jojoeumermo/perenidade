@@ -90,6 +90,8 @@ const db = {
   // O que rede_fed_fio_remoto e rede_fed_perfil_remoto guardam (por id da nota e por ator) e o que a denúncia responde.
   fios: new Map(),
   perfis: new Map(),
+  // Quem de fora mandou Block para a pessoa (fediverso_bloqueios_recebidos), mesmo que o ator já não esteja guardado.
+  meBloquearam: new Set(),
   denunciaDaTela: () => ({ protocolo: "FED-1", encaminhada: false, ja: false }),
   // O que a tela mandou por último à linha mista e às respostas de um post daqui, e o que estas devolvem.
   ultimaLinha: null,
@@ -205,6 +207,7 @@ const funcoesDaPessoa = {
   // rede_fed_fio_remoto devolve um OBJETO { post, acima, respostas }; o post daqui no meio vem no formato de rede_post_v2 (id em uuid).
   rede_fed_fio_remoto: (a) => db.fios.get(a.p_id) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
   rede_fed_perfil_remoto: (a) => db.perfis.get(a.p_ator) ?? new Response(JSON.stringify({ message: "nao_encontrado" }), { status: 400 }),
+  rede_fed_me_bloqueou: (a) => db.meBloquearam.has(a.p_ator),
   rede_fed_denunciar_remoto: (a) => db.denunciaDaTela(a),
   rede_fed_respostas_de: (a) => { db.ultimasRespostas = a; return db.respostasDe(a); },
   rede_fed_seguindo_lista: () => [],
@@ -581,6 +584,33 @@ await espera("ataque: abrir um link com ?post=<endereço qualquer> NÃO faz o se
   const comToque = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(armada.id)}&buscar=1`, { metodo: "GET" }));
   return [r.status, j.erro, j.servidor, "post" in j, zero.status, semRede, comToque.status, rede.gets.includes(armada.id)];
 }, (r) => r[0] === 404 && r[1] === "so_na_origem" && r[2] === "remota.teste" && r[3] === false && r[4] === 404 && r[5] === 0 && r[6] === 200 && r[7] === true);
+await espera("ataque: quem foi bloqueado lá fora não lê pelo 'buscar na origem' o post de quem o bloqueou, nem quando o ator já saiu da memória do banco; na dúvida também não; e limite estourado é 429", async () => {
+  const IVO = "https://remota.teste/users/ivo";
+  const JUCA = "https://remota.teste/users/juca";
+  const LEO = "https://remota.teste/users/leo";
+  const doIvo = novaNota({ attributedTo: IVO, cc: [`${IVO}/followers`] });
+  const doJuca = novaNota({ attributedTo: JUCA, cc: [`${JUCA}/followers`] });
+  const doLeo = novaNota({ attributedTo: LEO, cc: [`${LEO}/followers`] });
+  for (const n of [doIvo, doJuca, doLeo]) rede.docs.set(n.id, n);
+  // Ivo bloqueou a pessoa e já nem está em db.perfis (a faxina tirou o ator; o bloqueio recebido ficou).
+  db.meBloquearam.add(IVO);
+  const guardada = funcoesDaPessoa.rede_fed_me_bloqueou;
+  funcoesDaPessoa.rede_fed_me_bloqueou = (a) =>
+    a.p_ator === JUCA ? new Response(JSON.stringify({ message: "falha" }), { status: 500 })
+    : a.p_ator === LEO ? new Response(JSON.stringify({ message: "muitos_pedidos" }), { status: 400 })
+    : guardada(a);
+  const pedir = (n) => rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?post=${encodeURIComponent(n.id)}&buscar=1`, { metodo: "GET" }));
+  try {
+    const ivo = await pedir(doIvo);
+    const juca = await pedir(doJuca);
+    const leo = await pedir(doLeo);
+    db.meBloquearam.delete(IVO);
+    const semBloqueio = await pedir(doIvo);
+    return [ivo.status, (await ivo.json()).erro, juca.status, leo.status, (await leo.json()).erro, semBloqueio.status];
+  } finally {
+    funcoesDaPessoa.rede_fed_me_bloqueou = guardada;
+  }
+}, (r) => r.join() === "404,nao_encontrado,404,429,muitos_pedidos,200");
 await espera("remoto ?linha: o cursor no formato REAL do banco (data com espaço e fuso, '|', a chave) passa e chega inteiro à função", async () => {
   const cursor = "2026-11-10 12:34:56.789+00|https://remota.teste/notes/l1#impulso-de-https://ponte.teste/users/cid";
   const r = await rotas.remoto.GET(pedidoDaTela(`/api/fediverso/remoto?linha=1&limite=20&cursor=${encodeURIComponent(cursor)}`, { metodo: "GET" }));
