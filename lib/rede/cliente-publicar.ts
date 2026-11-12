@@ -50,6 +50,11 @@ export function criarClientePublicar(c: Chamar) {
     // ───── B1 da casca (20261110-alumia-b1-casca.sql) ─────
     /** Publicar com quem pode citar e a enquete avançada (resultado só no fim, ordem embaralhada). */
     publicarMais: (pedido: PedidoPublicar) => c<Post>("rede_pub_publicar_mais", { p: pedido }),
+    /**
+     * O banco cumpre "quem pode citar"? Só com a B1 no ar (rede_alumia_versao = 3). Com o banco de antes, ou sem resposta, a
+     * tela NÃO mostra a escolha: o pedido cairia na função antiga e a citação ficaria aberta, ao contrário do que a tela diria.
+     */
+    cumpreQuemCita: () => c<number>("rede_alumia_versao").then((v) => Number(v) >= 3, () => false),
     /** Corrigir depois de publicar: aviso, texto alternativo, tirar imagem, quem pode citar. */
     corrigir: (post: string, campos: CorrecaoDoPost) => c<{ post: Post; tirados: string[] }>("rede_pub_corrigir", { p_post: post, p: campos }),
     /** Agendar com repetição semanal ou para quando um ato meu terminar. */
