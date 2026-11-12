@@ -2,7 +2,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { ativarNesteAparelho, estadoDoAparelho } from "@/lib/rede/chat-chaveiro";
+import { ativarNesteAparelho, estadoDoAparelho, type OrganizacaoDaConversa, receberMensagens, resumoDasConversas } from "@/lib/rede/chat-chaveiro";
 import type { Eu } from "@/lib/rede/chat-chaveiro";
 import { chat, type ConversaDoChat, type SituacaoDoChat } from "@/lib/rede/cliente-chat";
 import { preencher } from "@/lib/rede/preencher";
@@ -33,6 +33,10 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   const [ocupado, setOcupado] = useState(false);
   const [ajustes, setAjustes] = useState(false);
   const [entendi, setEntendi] = useState(false);
+  // O que só este aparelho sabe de cada conversa: pasta, soneca, lembretes e não lidas (o banco não sabe mais quantas chegaram).
+  const [resumo, setResumo] = useState<Map<string, OrganizacaoDaConversa & { naoLidas: number }>>(new Map());
+  const [pasta, setPasta] = useState("");
+  const [agora, setAgora] = useState(() => new Date().toISOString());
 
   useEffect(() => {
     let vivo = true;
@@ -89,14 +93,29 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
     };
   }, [situacao.logado, situacao.membro, t, s, recarregar]);
 
+  // Busca a caixa selada e refaz o resumo deste aparelho (não lidas, pastas, sonecas, lembretes).
+  const eu = aparelho.estado === "pronto" ? aparelho.eu : null;
+  const resumir = useCallback(async () => {
+    if (!eu) return;
+    await receberMensagens(eu).catch(() => 0);
+    setResumo(await resumoDasConversas(eu.usuario).catch(() => new Map()));
+    setAgora(new Date().toISOString());
+  }, [eu]);
+  useEffect(() => {
+    if (!aberta) void resumir();
+  }, [aberta, resumir]);
+
   // A lista se atualiza sozinha a cada 30 s, só com a aba visível e sem conversa aberta.
   useEffect(() => {
     if (aparelho.estado !== "pronto" || aberta) return;
     const id = window.setInterval(() => {
-      if (document.visibilityState === "visible") void recarregar().catch(() => undefined);
+      if (document.visibilityState === "visible") {
+        void recarregar().catch(() => undefined);
+        void resumir();
+      }
     }, 30_000);
     return () => window.clearInterval(id);
-  }, [aparelho.estado, aberta, recarregar]);
+  }, [aparelho.estado, aberta, recarregar, resumir]);
 
   async function ativar() {
     if (!sit || ocupado || !t) return;
@@ -194,7 +213,10 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
   }
 
   const pedidos = (lista ?? []).filter((c) => c.situacao === "pedido" && !c.pedi);
-  const conversas = (lista ?? []).filter((c) => !(c.situacao === "pedido" && !c.pedi));
+  const todas = (lista ?? []).filter((c) => !(c.situacao === "pedido" && !c.pedi));
+  const pastas = [...new Set([...resumo.values()].map((o) => o.pasta).filter(Boolean))].sort();
+  const conversas = pasta ? todas.filter((c) => resumo.get(c.id)?.pasta === pasta) : todas;
+  const lembretesVencidos = todas.flatMap((c) => (resumo.get(c.id)?.lembretes ?? []).filter((l) => l.quando <= agora).map((l) => ({ ...l, conversa: c })));
 
   return (
     <section aria-labelledby="alumia-chat-titulo" className="font-sans">
@@ -283,6 +305,29 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
             </div>
           )}
 
+          {lembretesVencidos.length > 0 && (
+            <div className="border-b border-rule px-[18px] py-3 text-sm" role="status">
+              <p className="font-semibold">{t.organizar.lembretes}</p>
+              <ul className="mt-1 space-y-1">
+                {lembretesVencidos.map((l) => (
+                  <li key={l.id}>
+                    <button type="button" className="text-left underline" onClick={() => setAberta(l.conversa)}>
+                      {l.conversa.com.codinome}: “{l.trecho}”
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {pastas.length > 0 && (
+            <div className="flex flex-wrap gap-2 border-b border-rule px-[18px] py-3 text-sm" role="group" aria-label={t.organizar.pastas}>
+              {["", ...pastas].map((p) => (
+                <button key={p || "todas"} type="button" aria-pressed={pasta === p} onClick={() => setPasta(p)} className={`min-h-9 rounded-full border px-3 ${pasta === p ? "border-[#1f1a14] bg-[#1f1a14] text-[#f6efe2]" : "border-rule"}`}>
+                  {p || t.organizar.todas}
+                </button>
+              ))}
+            </div>
+          )}
           <h2 className="sr-only">{t.lista.rotulo}</h2>
           {lista === null ? (
             <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />
@@ -303,11 +348,17 @@ export default function Tela({ lang, s, situacao }: PropsDaTelaDoPacote) {
                       <span className="block truncate font-semibold">{c.com.codinome}</span>
                       <span className="block truncate text-sm text-ink-soft">
                         {c.situacao === "pedido" ? t.lista.pedidoEnviado : c.com.handle ? `@${c.com.handle}` : ""}
+                        {resumo.get(c.id)?.pasta ? ` · ${resumo.get(c.id)?.pasta}` : ""}
                       </span>
                     </span>
-                    {c.nao_lidas > 0 && (
-                      <span className="rounded-full bg-[#c21f16] px-2 py-0.5 text-xs font-bold text-white">{preencher(t.lista.naoLidas, { n: String(c.nao_lidas) })}</span>
-                    )}
+                    {(resumo.get(c.id)?.sonecaAte ?? "") > agora && <span className="text-xs text-ink-soft">{t.organizar.silenciada}</span>}
+                    {(() => {
+                      // Não lidas: contadas neste aparelho (o banco não sabe mais quantas chegaram). Silenciada: sem o número vermelho.
+                      const n = resumo.get(c.id)?.naoLidas ?? (eu?.olm ? 0 : c.nao_lidas);
+                      if (n <= 0) return null;
+                      if ((resumo.get(c.id)?.sonecaAte ?? "") > agora) return <span className="rounded-full border border-rule px-2 py-0.5 text-xs">{n}</span>;
+                      return <span className="rounded-full bg-[#c21f16] px-2 py-0.5 text-xs font-bold text-white">{preencher(t.lista.naoLidas, { n: String(n) })}</span>;
+                    })()}
                   </button>
                 </li>
               ))}

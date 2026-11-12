@@ -196,5 +196,25 @@
       "NotAllowedError": "No se permitió el micrófono.",
       "outro": "No se pudo entrar en la sala."
     }
+  },
+  "organizar": {
+    "soAqui": "Organizar (solo en este dispositivo; la otra persona nunca lo sabe):",
+    "pasta": "Carpeta",
+    "pastas": "Carpetas",
+    "todas": "Todas",
+    "nota": "Nota solo para mí",
+    "soneca": "Silenciar",
+    "escolha": "Elige",
+    "silenciada": "silenciada",
+    "silenciadaAte": "Silenciada hasta {quando}",
+    "umaHora": "1 hora",
+    "oitoHoras": "8 horas",
+    "umDia": "1 día",
+    "umaSemana": "1 semana",
+    "desligar": "No silenciar",
+    "lembrar": "Recordar en 1 h",
+    "lembretes": "Recordatorios",
+    "dispensar": "Descartar",
+    "novas": "Mensajes nuevos"
   }
 }

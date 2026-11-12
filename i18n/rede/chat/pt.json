@@ -195,5 +195,25 @@
       "NotAllowedError": "O microfone não foi liberado.",
       "outro": "Não deu para entrar na sala."
     }
+  },
+  "organizar": {
+    "soAqui": "Organizar (só neste aparelho; a outra pessoa nunca sabe):",
+    "pasta": "Pasta",
+    "pastas": "Pastas",
+    "todas": "Todas",
+    "nota": "Nota só para mim",
+    "soneca": "Silenciar",
+    "escolha": "Escolha",
+    "silenciada": "silenciada",
+    "silenciadaAte": "Silenciada até {quando}",
+    "umaHora": "1 hora",
+    "oitoHoras": "8 horas",
+    "umDia": "1 dia",
+    "umaSemana": "1 semana",
+    "desligar": "Não silenciar",
+    "lembrar": "Lembrar em 1 h",
+    "lembretes": "Lembretes",
+    "dispensar": "Dispensar",
+    "novas": "Novas mensagens"
   }
 }

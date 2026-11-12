@@ -196,5 +196,25 @@
       "NotAllowedError": "Le micro n'a pas été autorisé.",
       "outro": "Impossible d'entrer dans le salon."
     }
+  },
+  "organizar": {
+    "soAqui": "Organiser (seulement sur cet appareil ; l'autre personne ne le sait jamais) :",
+    "pasta": "Dossier",
+    "pastas": "Dossiers",
+    "todas": "Toutes",
+    "nota": "Note pour moi seul·e",
+    "soneca": "Mettre en sourdine",
+    "escolha": "Choisir",
+    "silenciada": "en sourdine",
+    "silenciadaAte": "En sourdine jusqu'à {quando}",
+    "umaHora": "1 heure",
+    "oitoHoras": "8 heures",
+    "umDia": "1 jour",
+    "umaSemana": "1 semaine",
+    "desligar": "Ne pas mettre en sourdine",
+    "lembrar": "Me le rappeler dans 1 h",
+    "lembretes": "Rappels",
+    "dispensar": "Ignorer",
+    "novas": "Nouveaux messages"
   }
 }

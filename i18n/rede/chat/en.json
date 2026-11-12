@@ -196,5 +196,25 @@
       "NotAllowedError": "The microphone wasn't allowed.",
       "outro": "Couldn't join the room."
     }
+  },
+  "organizar": {
+    "soAqui": "Organize (only on this device; the other person never knows):",
+    "pasta": "Folder",
+    "pastas": "Folders",
+    "todas": "All",
+    "nota": "Note just for me",
+    "soneca": "Mute",
+    "escolha": "Choose",
+    "silenciada": "muted",
+    "silenciadaAte": "Muted until {quando}",
+    "umaHora": "1 hour",
+    "oitoHoras": "8 hours",
+    "umDia": "1 day",
+    "umaSemana": "1 week",
+    "desligar": "Don't mute",
+    "lembrar": "Remind me in 1 h",
+    "lembretes": "Reminders",
+    "dispensar": "Dismiss",
+    "novas": "New messages"
   }
 }

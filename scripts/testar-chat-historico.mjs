@@ -6,7 +6,7 @@
 import "fake-indexeddb/auto";
 import {
   apagarConversaDoHistorico, apagarDoHistorico, destravarHistorico, esquecerChavesDoHistorico, exigirHistoricoAberto, fecharHistorico, guardarNoHistorico, historicoTravado,
-  mensagensDoHistorico, travarHistorico,
+  lerOrganizacao, mensagensDoHistorico, mudarOrganizacao, resumoDasConversas, travarHistorico,
 } from "../lib/rede/chat/historico.ts";
 
 let certos = 0;
@@ -57,6 +57,17 @@ await espera("a chave do histórico não é exportável", async () => {
 }, (e) => e === false);
 await espera("paginar: antes de um momento", () => mensagensDoHistorico(CONTA, CONVERSA, iso(agora + 500)), (l) => l.length === 1 && l[0].texto === "primeira");
 
+// ── Organização (pasta, nota, soneca, lembretes, até onde li) ──
+await mudarOrganizacao(CONTA, CONVERSA, (o) => ({ ...o, pasta: "  Núcleo da zona sul, com um nome comprido demais  ", nota: "lembrar de levar o som", lidaAte: iso(agora + 500) }));
+await espera("a organização fica guardada (pasta cortada em 30 caracteres)", () => lerOrganizacao(CONTA, CONVERSA), (o) => o.pasta === "Núcleo da zona sul, com um nom" && o.nota === "lembrar de levar o som");
+await espera("não lidas: só as da outra pessoa depois do 'até onde li'", async () => (await resumoDasConversas(CONTA)).get(CONVERSA)?.naoLidas, (n) => n === 1);
+await espera("a nota fica cifrada no IndexedDB", async () => {
+  const banco = await new Promise((r) => { const p = indexedDB.open("lucia-alumia-historico"); p.onsuccess = () => r(p.result); });
+  const todos = await new Promise((r) => { const p = banco.transaction("conversas").objectStore("conversas").getAll(); p.onsuccess = () => r(p.result); });
+  banco.close();
+  return JSON.stringify(todos.map((x) => ({ ...x, cifrado: [...new Uint8Array(x.cifrado)] })));
+}, (t) => !t.includes("levar o som") && !t.includes("zona sul"));
+
 // ── Trava ──
 await recusa("senha curta não trava", () => travarHistorico(CONTA, "1234"), "senha_curta");
 await travarHistorico(CONTA, "uma senha boa");
@@ -71,12 +82,14 @@ await destravarHistorico(CONTA, "uma senha boa");
 await espera("com a senha certa, abre o que estava antes da trava", () => mensagensDoHistorico(CONTA, CONVERSA), (l) => l.map((m) => m.texto).join("|") === "primeira|segunda");
 await guardarNoHistorico(msg("d", "depois da trava", 3000));
 await espera("e guarda as novas com a mesma chave", () => mensagensDoHistorico(CONTA, CONVERSA), (l) => l.length === 3);
+await espera("depois da trava, a organização continua abrindo", () => lerOrganizacao(CONTA, CONVERSA), (o) => o.nota === "lembrar de levar o som");
 
 // ── Apagar ──
 await apagarDoHistorico(["a"]);
 await espera("apagar uma mensagem", () => mensagensDoHistorico(CONTA, CONVERSA), (l) => !l.some((m) => m.id === "a"));
 await apagarConversaDoHistorico(CONTA);
 await espera("apagar tudo da conta leva as mensagens e a chave", async () => [await historicoTravado(CONTA), (await mensagensDoHistorico(CONTA, CONVERSA)).length], (r) => r[0] === false && r[1] === 0);
+await espera("e leva a organização", async () => (await resumoDasConversas(CONTA)).size, (n) => n === 0);
 
 console.log(`${certos} conferências certas${falhas.length ? `, ${falhas.length} com problema.` : "."}`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);

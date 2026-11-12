@@ -2,7 +2,7 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { abrirSessao, apagarConversa, apagarMensagem, confiarNaIdentidade, destravarHistorico, depoisDeBuraco, enviarTexto, type Eu, type MensagemAberta, mensagensDaConversa, ordemDaConversa, type Sessao, trocarSenhaDeEntrega } from "@/lib/rede/chat-chaveiro";
+import { abrirSessao, apagarConversa, apagarMensagem, confiarNaIdentidade, destravarHistorico, lerOrganizacao, mudarOrganizacao, ORGANIZACAO_VAZIA, type OrganizacaoDaConversa, depoisDeBuraco, enviarTexto, type Eu, type MensagemAberta, mensagensDaConversa, ordemDaConversa, type Sessao, trocarSenhaDeEntrega } from "@/lib/rede/chat-chaveiro";
 import { codigoDeSeguranca, MAX_CARACTERES, textoCabe } from "@/lib/rede/chat-privado";
 import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
 import { codigoComMetadeEscondida, conferirMetadeDe, conferirQr, metadeDaOutraPessoa } from "@/lib/rede/chat/verificacao";
@@ -125,6 +125,10 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
   // O histórico deste aparelho está travado com senha: a tela pede a senha antes de mostrar.
   const [travado, setTravado] = useState(false);
   const [senhaDaTrava, setSenhaDaTrava] = useState("");
+  // A organização desta conversa (só neste aparelho) e o "até onde eu tinha lido" quando a conversa abriu.
+  const [org, setOrg] = useState<OrganizacaoDaConversa>(ORGANIZACAO_VAZIA);
+  const [lidaAoAbrir, setLidaAoAbrir] = useState<string | null>(null);
+  const primeiraNaoLida = useRef<HTMLLIElement>(null);
   const fim = useRef<HTMLDivElement>(null);
   const sessaoRef = useRef<Sessao | null>(null);
 
@@ -167,6 +171,10 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
         if (!vivo) return;
         sessaoRef.current = nova;
         setSessao(nova);
+        const organizacao = await lerOrganizacao(eu.usuario, conversa.id).catch(() => ORGANIZACAO_VAZIA);
+        if (!vivo) return;
+        setOrg(organizacao);
+        setLidaAoAbrir(organizacao.lidaAte || "");
         await buscar(nova, true);
       } catch (e) {
         if (!vivo) return;
@@ -184,9 +192,6 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
     };
   }, [eu, conversa.id, conversa.com.id, conversa.pode_escrever, bloqueio, buscar, t, s]);
 
-  useEffect(() => {
-    if (!denunciando) fim.current?.scrollIntoView({ block: "end" });
-  }, [mensagens.length, denunciando]);
 
   // "Sair rápido": o rascunho e as mensagens abertas somem da memória desta tela na hora.
   useEffect(
@@ -216,6 +221,28 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
   }, [identidadeNova, eu.identidade.publica]);
   // Só vale o código calculado para a identidade que está na tela agora.
   const paraComparar = identidadeNova && codigoNovo?.identidade === identidadeNova ? codigoNovo : null;
+
+  // "Até onde li": avança com o que está na tela (só neste aparelho; a outra pessoa nunca sabe).
+  const ultimaDaOutra = mensagens.filter((m) => m.autor !== eu.usuario).reduce((maior, m) => (m.criado_em > maior ? m.criado_em : maior), "");
+  useEffect(() => {
+    if (!ultimaDaOutra || lidaAoAbrir === null) return;
+    void mudarOrganizacao(eu.usuario, conversa.id, (o) => (ultimaDaOutra > o.lidaAte ? { ...o, lidaAte: ultimaDaOutra } : o)).then(setOrg, () => undefined);
+  }, [ultimaDaOutra, lidaAoAbrir, eu.usuario, conversa.id]);
+  const idDaPrimeiraNaoLida = lidaAoAbrir === null ? null : (mensagens.find((m) => m.autor !== eu.usuario && m.criado_em > lidaAoAbrir)?.id ?? null);
+  useEffect(() => {
+    if (idDaPrimeiraNaoLida) primeiraNaoLida.current?.scrollIntoView({ block: "center" });
+  }, [idDaPrimeiraNaoLida]);
+  useEffect(() => {
+    if (!denunciando && !idDaPrimeiraNaoLida) fim.current?.scrollIntoView({ block: "end" });
+  }, [mensagens.length, denunciando, idDaPrimeiraNaoLida]);
+
+  async function organizar(mudar: (o: OrganizacaoDaConversa) => OrganizacaoDaConversa) {
+    try {
+      setOrg(await mudarOrganizacao(eu.usuario, conversa.id, mudar));
+    } catch (e) {
+      setErro(erroDoChat(t, s, e));
+    }
+  }
 
   const faltas = useMemo(() => depoisDeBuraco(mensagens), [mensagens]);
   // Dentro de cada pessoa, a ordem em que ela escreveu (o servidor não consegue mexer nela); a hora do servidor só intercala.
@@ -406,6 +433,48 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
             </div>
           )}
 
+          <div className="space-y-3 border-b border-rule pb-4 text-sm">
+            <p className="text-xs text-ink-soft">{t.organizar.soAqui}</p>
+            <label className="flex flex-wrap items-center gap-2">
+              <span className="font-semibold">{t.organizar.pasta}</span>
+              <input value={org.pasta} maxLength={30} onChange={(e) => setOrg({ ...org, pasta: e.target.value })} onBlur={() => void organizar((o) => ({ ...o, pasta: org.pasta }))} className="min-h-10 rounded-md border border-rule bg-parchment px-2" />
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="font-semibold">{t.organizar.nota}</span>
+              <textarea value={org.nota} maxLength={2000} rows={3} onChange={(e) => setOrg({ ...org, nota: e.target.value })} onBlur={() => void organizar((o) => ({ ...o, nota: org.nota }))} className="rounded-md border border-rule bg-parchment px-2 py-1" />
+            </label>
+            <label className="flex flex-wrap items-center gap-2">
+              <span className="font-semibold">{t.organizar.soneca}</span>
+              <select
+                value=""
+                onChange={(e) => {
+                  const horas = Number(e.target.value);
+                  void organizar((o) => ({ ...o, sonecaAte: horas > 0 ? new Date(Date.now() + horas * 3_600_000).toISOString() : "" }));
+                }}
+                className="min-h-10 rounded-md border border-rule bg-parchment px-2"
+              >
+                <option value="" disabled>{org.sonecaAte > new Date().toISOString() ? preencher(t.organizar.silenciadaAte, { quando: new Date(org.sonecaAte).toLocaleString(lang, { dateStyle: "short", timeStyle: "short" }) }) : t.organizar.escolha}</option>
+                <option value="1">{t.organizar.umaHora}</option>
+                <option value="8">{t.organizar.oitoHoras}</option>
+                <option value="24">{t.organizar.umDia}</option>
+                <option value="168">{t.organizar.umaSemana}</option>
+                <option value="0">{t.organizar.desligar}</option>
+              </select>
+            </label>
+            {org.lembretes.length > 0 && (
+              <div>
+                <p className="font-semibold">{t.organizar.lembretes}</p>
+                <ul className="mt-1 space-y-1">
+                  {org.lembretes.map((l) => (
+                    <li key={l.id} className="flex flex-wrap items-center gap-2">
+                      <span>{new Date(l.quando).toLocaleString(lang, { dateStyle: "short", timeStyle: "short" })}: “{l.trecho}”</span>
+                      <button type="button" className="underline" onClick={() => void organizar((o) => ({ ...o, lembretes: o.lembretes.filter((x) => x.id !== l.id) }))}>{t.organizar.dispensar}</button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
@@ -504,7 +573,8 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                 // Repetida: este aparelho já tinha esta mesma mensagem. Fica só uma linha discreta, sem o texto.
                 if (m.repetida) return <li key={m.id} className="text-center text-[11px] italic text-ink-soft">{t.conversa.repetida}</li>;
                 return (
-                  <li key={m.id} className={`flex flex-wrap items-start gap-2 ${minha ? "justify-end" : "justify-start"}`}>
+                  <li key={m.id} ref={m.id === idDaPrimeiraNaoLida ? primeiraNaoLida : undefined} className={`flex flex-wrap items-start gap-2 ${minha ? "justify-end" : "justify-start"}`}>
+                    {m.id === idDaPrimeiraNaoLida && <p className="w-full border-t border-oxblood pt-1 text-center text-[11px] font-semibold text-oxblood">{t.organizar.novas}</p>}
                     {faltas.has(m.id) && <p className="w-full text-center text-[11px] italic text-ink-soft">{t.conversa.faltam}</p>}
                     {denunciando && !minha && m.texto !== null && (
                       <input
@@ -554,6 +624,15 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                       <p className="mt-1 flex items-center justify-end gap-2 text-[11px] opacity-70">
                         <time dateTime={m.criado_em}>{new Date(m.criado_em).toLocaleTimeString(lang, { hour: "2-digit", minute: "2-digit" })}</time>
                         <span>· {preencher(t.conversa.expira, { quando: quandoSome(lang, m.expira_em) })}</span>
+                        {m.texto !== null && !m.umaVez && (
+                          <button
+                            type="button"
+                            className="underline"
+                            onClick={() => void organizar((o) => ({ ...o, lembretes: [...o.lembretes, { id: crypto.randomUUID(), quando: new Date(Date.now() + 3_600_000).toISOString(), trecho: (m.texto ?? "").slice(0, 140) }] }))}
+                          >
+                            {t.organizar.lembrar}
+                          </button>
+                        )}
                         {minha && (
                           <button
                             type="button"

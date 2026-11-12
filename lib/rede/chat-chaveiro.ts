@@ -30,7 +30,7 @@ import { atualizarVista, carimbo, conferir, INICIO, type TransporteDoRegistro, t
 import { chat, PREVIA_DO_CHAT, type Prazo, type SituacaoDoChat } from "./cliente-chat";
 
 /** Eu, neste aparelho: a conta, a versão da minha chave no servidor, e o aparelho da biblioteca (fora da prévia). */
-export { destravarHistorico, fecharHistorico, historicoTravado, travarHistorico } from "./chat/historico";
+export { destravarHistorico, fecharHistorico, historicoTravado, lerOrganizacao, mudarOrganizacao, ORGANIZACAO_VAZIA, type OrganizacaoDaConversa, resumoDasConversas, travarHistorico } from "./chat/historico";
 
 export interface Eu {
   usuario: string;

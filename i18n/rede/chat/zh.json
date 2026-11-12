@@ -196,5 +196,25 @@
       "NotAllowedError": "未允许使用麦克风。",
       "outro": "无法进入语音室。"
     }
+  },
+  "organizar": {
+    "soAqui": "整理（仅在此设备上；对方永远不会知道）：",
+    "pasta": "文件夹",
+    "pastas": "文件夹",
+    "todas": "全部",
+    "nota": "只给自己看的备注",
+    "soneca": "静音",
+    "escolha": "选择",
+    "silenciada": "已静音",
+    "silenciadaAte": "静音至 {quando}",
+    "umaHora": "1 小时",
+    "oitoHoras": "8 小时",
+    "umDia": "1 天",
+    "umaSemana": "1 周",
+    "desligar": "不静音",
+    "lembrar": "1 小时后提醒",
+    "lembretes": "提醒",
+    "dispensar": "忽略",
+    "novas": "新消息"
   }
 }
