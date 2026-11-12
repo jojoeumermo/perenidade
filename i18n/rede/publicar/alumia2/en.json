@@ -335,5 +335,11 @@
     "repetirNao": "Just once",
     "desfazerAto": "The action is going out now and can no longer be undone here. If needed, cancel the action on its page.",
     "pausaFechar": "Close the reminder"
+  },
+  "naoEncontrada": {
+    "titulo": "We couldn't find that",
+    "texto": "This address doesn't exist on Alumia, or the post was taken down. Your timeline is right where you left it.",
+    "voltar": "Back to the Alumia home",
+    "buscar": "Search"
   }
 }

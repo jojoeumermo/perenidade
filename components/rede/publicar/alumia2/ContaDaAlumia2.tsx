@@ -12,6 +12,7 @@ import type { TextosDaRede } from "@/lib/rede/textos";
 import { enderecos, type Situacao } from "@/lib/rede/tipos";
 import { enderecoDoSite } from "../../VoltarAoSite";
 import { Avatar16 } from "../../ui/Avatar16";
+import { LinkBotao } from "../../ui/Botao";
 import { useAlumia2 } from "./contexto";
 import { detalhesQueFecham } from "./fechar";
 import { Icone, type NomeDoIcone } from "./icones";
@@ -135,8 +136,9 @@ export function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; si
   if (!al2) return null;
   const { t } = al2;
   return (
-    <details ref={detalhesQueFecham} className="al2-conta group relative rounded-xl border border-[var(--al-linha)] bg-[var(--al-superficie)]">
-      <summary className="relative flex cursor-pointer list-none items-center gap-3 rounded-xl p-3 [&::-webkit-details-marker]:hidden">
+    <>
+    <details ref={detalhesQueFecham} className="al2-conta group relative rounded-2xl border border-[var(--al-linha)] bg-[var(--al-superficie)]">
+      <summary className="relative flex cursor-pointer list-none items-center gap-3 rounded-2xl p-3 [&::-webkit-details-marker]:hidden">
         {situacao.logado ? (
           <>
             <Avatar16 handle={situacao.handle ?? situacao.codinome ?? "?"} tamanho={36} className="shrink-0" />
@@ -146,7 +148,13 @@ export function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; si
             </span>
           </>
         ) : (
-          <span className="flex-1 text-[0.9375rem] font-extrabold">{t.conta.visitante}</span>
+          <>
+            {/* Visitante: o rosto neutro (ainda sem os 16 cartões, que nascem do @nome). */}
+            <span aria-hidden className="al2-conta-rosto-vazio">
+              <Icone nome="perfil" className="h-5 w-5" />
+            </span>
+            <span className="min-w-0 flex-1 truncate text-[0.9375rem] font-extrabold">{t.conta.visitante}</span>
+          </>
         )}
         <Icone nome="pontos" className="h-5 w-5 shrink-0 text-[var(--al-texto-3)] transition-transform duration-200 group-open:rotate-90" />
         <span className="sr-only">{t.conta.abrir}</span>
@@ -158,6 +166,13 @@ export function Conta({ lang, s, situacao }: { lang: string; s: TextosDaRede; si
         <p className="px-2 pt-2 text-xs leading-relaxed text-[var(--al-texto-3)]">{s.casca.sairRapidoAjuda}</p>
       </div>
     </details>
+    {/* Visitante: o atalho para entrar, fora do <summary> (um link dentro dele não se abre pelo teclado). */}
+    {!situacao.logado && (
+      <LinkBotao href={`${localePath(lang, "/entrar")}?volta=/alumia`} variante="claro" pilula className="al2-aperta w-full">
+        {s.entrada.jaTenhoConta}
+      </LinkBotao>
+    )}
+    </>
   );
 }
 

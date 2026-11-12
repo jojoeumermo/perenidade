@@ -335,5 +335,11 @@
     "repetirNao": "只一次",
     "desfazerAto": "行动正在发出，这里已无法撤销。如有需要，请在行动页面取消。",
     "pausaFechar": "关闭提醒"
+  },
+  "naoEncontrada": {
+    "titulo": "没有找到",
+    "texto": "Alumia 上没有这个地址，或者这条帖子已经撤下。你的时间线还在原处。",
+    "voltar": "回到 Alumia 首页",
+    "buscar": "搜索"
   }
 }

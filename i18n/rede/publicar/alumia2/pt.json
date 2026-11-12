@@ -335,5 +335,11 @@
     "repetirNao": "Uma vez só",
     "desfazerAto": "O ato está saindo agora e não dá mais para desfazer aqui. Se precisar, cancele o ato na página dele.",
     "pausaFechar": "Fechar o lembrete"
+  },
+  "naoEncontrada": {
+    "titulo": "Não achamos isso",
+    "texto": "Este endereço não existe na Alumia, ou o post saiu do ar. A sua linha continua no mesmo lugar.",
+    "voltar": "Voltar ao início da Alumia",
+    "buscar": "Buscar"
   }
 }

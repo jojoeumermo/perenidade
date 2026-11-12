@@ -335,5 +335,11 @@
     "repetirNao": "Solo una vez",
     "desfazerAto": "El acto está saliendo ahora y ya no se puede deshacer aquí. Si hace falta, cancela el acto en su página.",
     "pausaFechar": "Cerrar el recordatorio"
+  },
+  "naoEncontrada": {
+    "titulo": "No encontramos esto",
+    "texto": "Esta dirección no existe en Alumia, o la publicación ya no está. Tu línea sigue en el mismo lugar.",
+    "voltar": "Volver al inicio de Alumia",
+    "buscar": "Buscar"
   }
 }

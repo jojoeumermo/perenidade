@@ -279,7 +279,7 @@
   text-decoration: none;
   box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18);
 }
-[data-al="2"] .al-fg-link svg { flex: 0 0 18px; width: 18px; height: 18px; color: #c21f16; }
+[data-al="2"] .al-fg-link svg { flex: 0 0 18px; width: 18px; height: 18px; color: var(--al-vermelho, #e8321f); }
 [data-al="2"] .al-fg-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 [data-al="2"] .al-fg-link small { font-weight: 600; color: #5c554d; }
 [data-al="2"] .al-fg-tirar {

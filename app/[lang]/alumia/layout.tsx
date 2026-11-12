@@ -32,6 +32,9 @@ export default async function LayoutDaAlumia({ children, params }: LayoutProps<"
   if (!alumia2Ligada()) return moldura;
   return (
     <div data-al="2" className={`${archivo.variable} ${garamond.variable}`}>
+      {/* As letras também para os painéis do site que abrem por cima da Alumia (acessibilidade, perguntas): eles moram fora desta
+          caixa, e ganham a pele da Alumia pela classe .al-pele (styles/alumia-tokens.css). O React leva este <style> para o <head>. */}
+      <style href="al-letras" precedence="medium">{`:root:has([data-al="2"]){--al-fonte-archivo:${archivo.style.fontFamily};--al-fonte-garamond:${garamond.style.fontFamily}}`}</style>
       <ComAlumia2>{moldura}</ComAlumia2>
     </div>
   );
