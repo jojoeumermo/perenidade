@@ -3,11 +3,32 @@
 // Os tipos do pacote avisos da Rede v2 (docs/rede/AVISOS.md). Sem "@/" de propósito (roda no Node nos testes).
 
 /** Os tipos de aviso que a pessoa pode ligar e desligar. */
-export const TIPOS_DE_AVISO = ["resposta", "mencao", "citacao", "seguidor", "chamado", "nucleo", "moderacao", "apoio"] as const;
+export const TIPOS_DE_AVISO = [
+  "resposta",
+  "mencao",
+  "citacao",
+  "seguidor",
+  "chamado",
+  "nucleo",
+  "moderacao",
+  "apoio",
+  // B1 da comunidade (20261110-alumia-b1-comunidade.sql, interno.rede_alumia_tipos_de_aviso: a mesma lista, na mesma ordem).
+  "conversa_seguida",
+  "ajudou",
+  "ato",
+  "reacao_story",
+  "lembrete",
+] as const;
 export type TipoDeAviso = (typeof TIPOS_DE_AVISO)[number];
 
 /** Os tipos que agrupam ("Ana e mais 3 responderam"); os outros trazem o próprio texto, escrito sem trecho de post. */
-export const TIPOS_AGRUPADOS = ["resposta", "mencao", "citacao", "seguidor", "apoio"] as const;
+export const TIPOS_AGRUPADOS = ["resposta", "mencao", "citacao", "seguidor", "apoio", "conversa_seguida"] as const;
+
+/** Os tipos que nunca dizem quem fez (só a quantidade): apoio, "ajudou" (quem marcou) e o lembrete (é a própria pessoa). */
+export const TIPOS_SEM_NOME = ["apoio", "ajudou", "lembrete", "reacao_story"] as const;
+
+/** Os tipos que trazem o próprio texto do servidor (escrito sem trecho de post): chamado, núcleo, moderação e ato. */
+export const TIPOS_COM_TEXTO = ["chamado", "nucleo", "moderacao", "ato"] as const;
 
 /** Um grupo de avisos como `rede_aviso_listar` devolve. Nenhum trecho de post, nenhum nome em apoio. */
 export interface ItemDeAviso {
@@ -64,17 +85,64 @@ export interface FrasesDoTipo {
   anonimoVarios: string;
 }
 
+/**
+ * Os textos fixos que o SERVIDOR grava em português (o aviso só guarda texto) e que a tela mostra no idioma de quem lê. A chave é
+ * o texto exato gravado (a reserva para quem lê o aviso fora da Alumia); o valor, a frase em i18n/rede/avisos/*.json → "servidor".
+ * O lembrete dos atos: supabase/migracoes/20261110-alumia-b1-atos.sql (interno.rede_ato_lembretes); fica gravado com o tipo
+ * 'lembrete' (o gatilho de 20261110-alumia-b1-comunidade.sql), junto do "lembrar mais tarde" de um post.
+ */
+export const TEXTOS_DO_SERVIDOR = {
+  "Lembrete: um ato que você confirmou começa em menos de 24 horas.": "lembrete24h",
+  "Lembrete: um ato que você confirmou começa em menos de 2 horas.": "lembrete2h",
+} as const;
+/**
+ * Os avisos da B1 que o servidor grava em português SEM tipo, alguns com um nome no meio (a função, a organização, a comunidade).
+ * O padrão reconhece o texto gravado e tira dele os nomes; a frase, com {campo}, está em i18n/rede/avisos/*.json → "servidor".
+ * Quem muda o texto na migração muda o padrão aqui (scripts/testar-rede-avisos.mjs confere um contra o outro):
+ *   - menção e menções a comunidade em story: supabase/migracoes/20261110-alumia-b1-stories.sql;
+ *   - pergunta respondida: 20261110-alumia-b1-comunidade.sql;
+ *   - indicada, eleita e encaminhamento vencido: 20261110-alumia-b1-perfil-org.sql.
+ */
+export const PADROES_DO_SERVIDOR = [
+  { chave: "mencaoStory", padrao: /^Você foi mencionada num story \(some em 24 h\)\.$/, campos: [] },
+  { chave: "perguntaRespondida", padrao: /^Sua pergunta foi respondida na Alumia\.$/, campos: [] },
+  { chave: "storiesMencionaramN", padrao: /^Stories mencionaram a comunidade (.+) hoje \((\d+) stories\)\. Eles aparecem na página da comunidade enquanto estiverem no ar\.$/, campos: ["comunidade", "n"] },
+  { chave: "storiesMencionaram", padrao: /^Stories mencionaram a comunidade (.+) hoje\. Eles aparecem na página da comunidade enquanto estiverem no ar\.$/, campos: ["comunidade"] },
+  { chave: "funcaoIndicada", padrao: /^Você foi indicada para a função “(.+)” em “(.+)”, até (\d{2}\/\d{2}\/\d{4})\. Ela só vale, e só aparece para as outras pessoas, se você aceitar pela página da organização\.$/, campos: ["funcao", "org", "data"] },
+  { chave: "funcaoEleita", padrao: /^Você foi eleita para a função “(.+)” em “(.+)”, até (\d{2}\/\d{2}\/\d{4})\.$/, campos: ["funcao", "org", "data"] },
+  { chave: "encaminhamentoVencido", padrao: /^O encaminhamento “(.+)” de “(.+)” passou do prazo\. Abra o Tear para marcar como cumprido ou combinar novo prazo\.$/, campos: ["texto", "org"] },
+] as const;
+export type FraseDoServidor = (typeof TEXTOS_DO_SERVIDOR)[keyof typeof TEXTOS_DO_SERVIDOR] | (typeof PADROES_DO_SERVIDOR)[number]["chave"];
+
 const preencher = (texto: string, valores: Record<string, string | number>): string =>
   texto.replace(/\{(\w+)\}/g, (inteiro, nome: string) => (nome in valores ? String(valores[nome]) : inteiro));
 
 /**
- * A frase de um grupo de avisos ("Ana e mais 3 responderam ao seu post."). Pura: recebe as frases do idioma. Apoio nunca tem nome
- * (só a quantidade), então cai sempre nas frases sem nome.
+ * A frase de um grupo de avisos ("Ana e mais 3 responderam ao seu post."). Pura: recebe as frases do idioma. Apoio, "ajudou",
+ * lembrete e reação a story nunca têm nome (só a quantidade), então caem sempre nas frases sem nome.
  */
-export function fraseDoAviso(item: Pick<ItemDeAviso, "tipo" | "total" | "pessoas" | "atores" | "texto">, frases: Record<string, FrasesDoTipo>, reserva: string): string {
+export function fraseDoAviso(
+  item: Pick<ItemDeAviso, "tipo" | "total" | "pessoas" | "atores" | "texto">,
+  frases: Record<string, FrasesDoTipo>,
+  reserva: string,
+  doServidor?: Partial<Record<FraseDoServidor, string>>,
+): string {
   const f = item.tipo ? frases[item.tipo] : undefined;
-  if (!f) return item.texto || reserva;
-  const nome = item.tipo === "apoio" ? null : (item.atores[0] ?? null);
+  // Texto fixo do servidor (o lembrete do ato): sai no idioma de quem lê, seja qual for o tipo com que o aviso foi gravado
+  // ('chamado' antes da B1 da comunidade, 'lembrete' depois). Sem a tradução, vale o texto gravado, nunca a frase de outro lembrete.
+  const chave = item.texto ? (TEXTOS_DO_SERVIDOR as Record<string, FraseDoServidor>)[item.texto] : undefined;
+  if (chave) return doServidor?.[chave] || item.texto || reserva;
+  // Os avisos sem tipo da B1 (menção em story, função, pergunta respondida…): o padrão tira os nomes e a frase sai no idioma de
+  // quem lê. Sem a tradução, vale o texto gravado.
+  if (item.texto && !f) {
+    for (const p of PADROES_DO_SERVIDOR) {
+      const m = p.padrao.exec(item.texto);
+      const frase = m ? doServidor?.[p.chave] : undefined;
+      if (m && frase) return preencher(frase, Object.fromEntries(p.campos.map((c, i) => [c, m[i + 1]])));
+    }
+  }
+  if (!f || ((TIPOS_COM_TEXTO as readonly string[]).includes(item.tipo ?? "") && item.texto)) return item.texto || reserva;
+  const nome = (TIPOS_SEM_NOME as readonly string[]).includes(item.tipo ?? "") ? null : (item.atores[0] ?? null);
   if (nome) {
     if (item.pessoas > 1) return preencher(f.varios, { a: nome, n: item.pessoas - 1 });
     return item.total > 1 ? preencher(f.vezes, { a: nome, n: item.total }) : preencher(f.um, { a: nome });

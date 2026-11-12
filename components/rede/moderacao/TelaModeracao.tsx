@@ -2,6 +2,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { Botao } from "../ui/Botao";
+import { EstadoDaAlumia } from "../ui/Estado";
+import { Icone } from "../publicar/alumia2/icones";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { redeMod } from "@/lib/rede/cliente-moderacao";
 import type { ChecagemDisponivel, EscopoDeModeracao } from "@/lib/rede/tipos-moderacao";
@@ -76,11 +79,11 @@ export default function TelaModeracao({ lang, s, situacao, params }: PropsDaTela
     };
   }, [situacao.logado, s]);
 
-  if (!situacao.logado) return <p className="px-[18px] py-8 font-sans text-ink-soft">{sm?.entreParaVer ?? s.estados.carregando}</p>;
-  if (negado) return <p role="alert" className="px-[18px] py-8 font-sans text-oxblood">{negado}</p>;
+  if (!situacao.logado) return sm ? <EstadoDaAlumia icone="cadeado" titulo={sm.fila.titulo} texto={sm.entreParaVer} /> : <p className="px-[18px] py-8 font-sans text-ink-soft">{s.estados.carregando}</p>;
+  if (negado) return <EstadoDaAlumia erro titulo={sm?.fila.titulo} texto={negado}><Botao variante="claro" pilula icone={<Icone nome="desfazer" />} onClick={() => window.location.reload()}>{s.estados.tentar}</Botao></EstadoDaAlumia>;
   if (!sm || !escopo) return <p className="px-[18px] py-8 font-sans" role="status">{s.estados.carregando}</p>;
   const modera = escopo.cuida || escopo.comunidades.length > 0 || escopo.nucleos.length > 0;
-  if (!modera) return <p className="px-[18px] py-8 font-sans text-ink-soft">{sm.semPermissao}</p>;
+  if (!modera) return <EstadoDaAlumia icone="moderar" titulo={sm.fila.titulo} texto={sm.semPermissao} />;
   const abas: Aba[] = ["denuncias", "retidos", "recursos", "lugares", ...(escopo.coord ? (["niveis"] as const) : [])];
   return (
     <div>

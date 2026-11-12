@@ -6,12 +6,16 @@
 // as ações de fora (`AcoesDaOrg`): no perfil de verdade, o banco (lib/rede/cliente-org.ts); no perfil de exemplo, ações que só
 // mudam a tela e não guardam nada.
 import { useId, useState } from "react";
-import { dataCurta, escreverPessoas, faltaPara, linkSeguro } from "@/lib/rede/org/contagem";
+import { dataCurta, escreverPessoas, faltaPara, linkSeguro, haQuanto } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
 import { LIMITES, type ConsultaDaOrg, type NucleoDaOrg, type PlenariaDaOrg, type VotacaoDaOrg } from "@/lib/rede/tipos-org";
+import { clienteOrgB1 } from "@/lib/rede/cliente-org-b1";
+import { useTextosDaOrgB1 } from "@/lib/rede/textos-org-b1";
 import { Botao } from "../ui/Botao";
+import { useAgora, useLerDeNovo } from "./b1/usar";
 import { BarrasDaConsulta, CartaoAoVivo, ListaDeNucleos } from "./partes";
+import "./b1/b1.css";
 
 /** O que os blocos pedem a quem os usa. Cada ação devolve o novo estado (ou lança erro, que vira a mensagem de "não deu certo"). */
 export interface AcoesDaOrg {
@@ -222,15 +226,26 @@ export function ComoVotamos({ votacoes, t, lang }: { votacoes: VotacaoDaOrg[]; t
 export function BlocoDaPlenaria({ p, t, lang, acoes, podePerguntar }: { p: PlenariaDaOrg; t: TextosDaOrg; lang: string; acoes: AcoesDaOrg; podePerguntar: boolean }) {
   const tp = t.plenaria;
   const id = useId();
+  const viva = useTextosDaOrgB1(lang);
   const [aberto, setAberto] = useState(false);
   const [texto, setTexto] = useState("");
   const [mostrar, setMostrar] = useState(false);
   const [enviada, setEnviada] = useState(p.pergunteiEu);
   const [naFila, setNaFila] = useState(p.naFila);
   const [fila, setFila] = useState(p.fila);
+  const [salaViva, setSalaViva] = useState(p.sala);
   const [ocupado, setOcupado] = useState(false);
   const { erro, limpar, falhou } = useErro(t);
-  const sala = linkSeguro(p.sala);
+  const sala = linkSeguro(salaViva);
+  // A fila viva (B1): ao vivo, lê de novo a cada 5 s, só com a aba visível. A ordem continua a de chegada (o banco manda).
+  const { ultima, pausado } = useLerDeNovo(p.aoVivo ? async () => {
+    const r = await clienteOrgB1().plenaria(p.id).catch(() => null);
+    if (!r) return;
+    setFila(r.fila);
+    setNaFila(r.naFila);
+    setSalaViva(r.sala);
+  } : null, 5000);
+  const agora = useAgora(p.aoVivo);
 
   async function mandar() {
     const limpo = texto.trim();
@@ -278,7 +293,7 @@ export function BlocoDaPlenaria({ p, t, lang, acoes, podePerguntar }: { p: Plena
       />
       {enviada ? (
         <p className="al-ok" role="status">
-          {fila.some((q) => q.id.startsWith("minha-")) ? tp.enviada : tp.jaPergunte}
+          {enviada && !p.pergunteiEu ? tp.enviada : tp.jaPergunte}
         </p>
       ) : null}
       {aberto ? (
@@ -319,6 +334,13 @@ export function BlocoDaPlenaria({ p, t, lang, acoes, podePerguntar }: { p: Plena
         <h4 id={`${id}-fila`} className="al-consulta-nota" style={{ margin: "0 0 6px" }}>
           {tp.fila} · {tp.ordem}
         </h4>
+        {p.aoVivo && viva ? (
+          <p className="al-consulta-nota al-fila-viva" aria-live="off">
+            <span aria-hidden className="b1-ponto-vivo" /> {viva.plenaria.aoVivo}
+            {pausado || ultima ? " · " : null}
+            {pausado ? viva.plenaria.pausada : ultima ? haQuanto(viva.plenaria, agora - ultima) : null}
+          </p>
+        ) : null}
         {fila.length === 0 ? (
           <p className="al-painel-vazio">{tp.vazioFila}</p>
         ) : (
@@ -340,11 +362,38 @@ export function BlocoDaPlenaria({ p, t, lang, acoes, podePerguntar }: { p: Plena
 }
 
 /** Os núcleos da organização, cada um com o seu botão: Entrar (pede), Pedido enviado, ou Você é daqui. */
-export function NucleosDaOrg({ nucleos, t, acoes, podeEntrar }: { nucleos: NucleoDaOrg[]; t: TextosDaOrg; acoes: AcoesDaOrg; podeEntrar: boolean }) {
+export function NucleosDaOrg({ nucleos, t, acoes, podeEntrar, lang = "pt", gerencio = false }: { nucleos: NucleoDaOrg[]; t: TextosDaOrg; acoes: AcoesDaOrg; podeEntrar: boolean; lang?: string; gerencio?: boolean }) {
   const tn = t.perfil.nucleos;
+  const tb = useTextosDaOrgB1(lang);
   const [estado, setEstado] = useState<Record<string, { sou: boolean; pedi: boolean }>>(() => Object.fromEntries(nucleos.map((n) => [n.id, { sou: n.sou, pedi: n.pedi }])));
+  const [mapa, setMapa] = useState<Record<string, boolean>>(() => Object.fromEntries(nucleos.map((n) => [n.id, !!n.mapa])));
   const [ocupado, setOcupado] = useState<string | null>(null);
   const { erro, limpar, falhou } = useErro(t);
+  /** A chama do núcleo (B1) e, para quem gerencia, pôr ou tirar do mapa. Nunca o número de pessoas. */
+  const extra = (n: NucleoDaOrg) =>
+    tb ? (
+      <>
+        {n.chama ? <span className="b1-chama" data-chama={n.chama}>{tb.lampiao.chama[n.chama]}</span> : null}
+        {gerencio && n.mapa !== undefined && n.mapa !== null ? (
+          <Botao variante="fantasma" tamanho="p" pressionado={mapa[n.id]} disabled={ocupado === n.id} onClick={() => void alternarMapa(n.id)}>
+            {mapa[n.id] ? tb.lampiao.noMapa : tb.lampiao.foraDoMapa}
+          </Botao>
+        ) : null}
+      </>
+    ) : null;
+
+  async function alternarMapa(id: string) {
+    setOcupado(id);
+    limpar();
+    try {
+      const r = await clienteOrgB1().noMapa(id, !mapa[id]);
+      setMapa((m) => ({ ...m, [id]: r.mapa }));
+    } catch (e) {
+      falhou(e);
+    } finally {
+      setOcupado(null);
+    }
+  }
   if (nucleos.length === 0) return <p className="al-painel-vazio">{tn.vazio}</p>;
 
   async function entrar(id: string) {
@@ -367,14 +416,18 @@ export function NucleosDaOrg({ nucleos, t, acoes, podeEntrar }: { nucleos: Nucle
         rotulo={tn.titulo}
         acao={(id) => {
           const e = estado[id];
-          const nome = nucleos.find((n) => n.id === id)?.nome ?? "";
-          if (e?.sou) return <span className="al-ok">{tn.sou}</span>;
-          if (e?.pedi) return <span className="al-consulta-nota">{tn.pedido}</span>;
-          return (
+          const n = nucleos.find((x) => x.id === id);
+          const nome = n?.nome ?? "";
+          const acao = e?.sou ? (
+            <span className="al-ok">{tn.sou}</span>
+          ) : e?.pedi ? (
+            <span className="al-consulta-nota">{tn.pedido}</span>
+          ) : (
             <Botao variante="contorno" tamanho="p" disabled={!podeEntrar || ocupado === id} onClick={() => void entrar(id)} aria-label={preencher(tn.entrarNo, { nome })}>
               {tn.entrar}
             </Botao>
           );
+          return n ? <span className="b1-nucleo-acoes">{extra(n)}{acao}</span> : acao;
         }}
       />
       <p className="al-consulta-nota" style={{ marginTop: 8 }}>

@@ -43,12 +43,13 @@ function Data({ quando, lang }: { quando: string; lang: string }) {
 
 export function NoticiasDoTerritorio({ slug }: { slug: string }) {
   const { lang, s } = useTextos();
-  const [posts, setPosts] = useState<PostDoTerritorio[] | null>(null);
+  // Sem banco configurado não há o que buscar: a lista já nasce vazia.
+  const [posts, setPosts] = useState<PostDoTerritorio[] | null>(hasBackend ? null : []);
   const [meu, setMeu] = useState(false);
   const [rascunho, setRascunho] = useState({ titulo: "", texto: "", link: "" });
   const [estado, setEstado] = useState<"" | "enviando" | "ok" | "erro">("");
   const carregar = useCallback(() => {
-    if (!hasBackend) return setPosts([]);
+    if (!hasBackend) return;
     void rpc<PostDoTerritorio[]>("territorio_posts", { p_territorio: slug, p_limite: 20 })
       .then(setPosts)
       .catch(() => setPosts([]));

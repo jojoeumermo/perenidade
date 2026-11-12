@@ -92,7 +92,8 @@ for (const m of ["m1", "m2", "m3"]) await rpc(como(P[m]), "rede_ato_vou", { p_id
 // ═══════════════════ 1. Farol do ato ═══════════════════
 const farol = (quem) => rpc(quem ? como(P[quem]) : visitante(), "rede_ato_farol", { p_id: ID });
 const pedir = (quem, estado, texto = "") => rpc(como(P[quem]), "rede_ato_farol_pedir", { p_id: ID, p_estado: estado, p_texto: texto });
-const avisosDoFarol = async () => Object.fromEntries((await dono("select para, count(*)::int as n from interno.avisos where tipo = 'chamado' and post = $1 and texto like '%farol%' group by para", [ID])).rows.map((r) => [r.para, r.n]));
+// Com a B1 da comunidade (20261110-alumia-b1-comunidade.sql), o aviso de ato pedido como 'chamado' fica gravado como 'ato'.
+const avisosDoFarol = async () => Object.fromEntries((await dono("select para, count(*)::int as n from interno.avisos where tipo = 'ato' and post = $1 and texto like '%farol%' group by para", [ID])).rows.map((r) => [r.para, r.n]));
 
 await espera("visitante não vê o farol", () => farol(null), (r) => r === null);
 await espera("quem não confirmou não vê o farol", () => farol("m4"), (r) => r === null);

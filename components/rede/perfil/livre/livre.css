@@ -40,12 +40,15 @@
 [data-al="2"] .pf-cabeca { padding: 0 16px 18px; display: grid; gap: 12px; }
 [data-al="2"] .pf-identidade { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "rosto nomes" "acoes acoes"; gap: 10px 14px; align-items: end; }
 [data-al="2"] .pf-rosto-moldura {
+  /* Acima da capa: a capa é posicionada e, sem isto, cobria o rosto que sobe sobre ela (margem negativa). */
+  position: relative; z-index: 1;
   grid-area: rosto; margin-top: -40px; border-radius: 50%; padding: 4px; background: var(--al-fundo);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--pf-acento) 70%, transparent);
   transition: width 0.5s var(--pf-mola), height 0.5s var(--pf-mola), box-shadow 0.4s;
   box-sizing: content-box;
 }
 [data-al="2"] .pf-rosto-moldura > * { width: 100% !important; height: 100% !important; }
+[data-al="2"] .pf-rosto-moldura > .al-avatar16 { display: block; border-radius: 50%; }
 [data-al="2"] .pf-nomes { grid-area: nomes; min-width: 0; padding-bottom: 2px; }
 [data-al="2"] .pf-nome { margin: 0; font-size: clamp(1.9rem, 7vw, 2.6rem); line-height: 0.95; overflow-wrap: anywhere; }
 [data-al="2"] .pf-handle { margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 0.92rem; color: var(--al-texto-3); overflow-wrap: anywhere; }

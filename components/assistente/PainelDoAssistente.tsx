@@ -98,14 +98,14 @@ export function PainelDoAssistente({
         prenderFoco(e);
         andarNaLista(e);
       }}
-      className="assistente-janela absolute bottom-14 left-0 flex max-h-[max(16rem,min(calc(100dvh-19rem),40rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col border-2 border-ink bg-folha text-ink shadow-[6px_6px_0_var(--sombra)]"
+      className="assistente-janela al-pele absolute bottom-14 left-0 flex max-h-[max(16rem,min(calc(100dvh-19rem),40rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col border-2 border-ink bg-folha text-ink shadow-[6px_6px_0_var(--sombra)]"
     >
       <header className="flex items-start justify-between gap-3 border-b border-rule px-4 py-3">
         <div>
           <h2 id={tituloId} className="font-serif text-xl font-semibold">{s.titulo}</h2>
           <p id={leadId} className="mt-1 text-xs text-ink-soft">{s.lead}</p>
         </div>
-        <button type="button" onClick={fechar} aria-label={s.fechar} title={s.fechar} className="-mr-1 h-9 w-9 shrink-0 cursor-pointer text-xl leading-none hover:text-oxblood">
+        <button type="button" onClick={fechar} aria-label={s.fechar} title={s.fechar} className="assistente-fechar -mr-1 h-9 w-9 shrink-0 cursor-pointer text-xl leading-none hover:text-oxblood">
           <span aria-hidden>×</span>
         </button>
       </header>
@@ -135,7 +135,7 @@ export function PainelDoAssistente({
               }
             }
           }}
-          className="mt-1 w-full border-2 border-ink bg-parchment px-2 py-1.5 font-sans text-base"
+          className="assistente-campo mt-1 w-full border-2 border-ink bg-parchment px-2 py-1.5 font-sans text-base"
         />
         <p id={`${base}-privacidade`} className="mt-1 text-xs text-ink-soft">{s.privacidade}</p>
         <p role="status" aria-live="polite" className="mt-1 text-xs text-ink-soft">

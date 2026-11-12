@@ -56,18 +56,25 @@
       "pergunta": "提问",
       "enquete": "投票",
       "link": "链接",
-      "comunidade": "社区"
+      "comunidade": "社区",
+      "vou": "我去",
+      "pessoa": "@ 某人",
+      "campanha": "#行动",
+      "resposta": "回答",
+      "decorativa": "装饰"
     },
     "quemVe": "谁能看",
     "publico": {
       "seguidores": "关注者",
       "membros": "社区",
-      "proximos": "亲密好友"
+      "proximos": "圈子",
+      "comunidade": "一个社群"
     },
     "publicoAjuda": {
       "seguidores": "只有关注你的人。",
       "membros": "Alumia 的所有成员。",
-      "proximos": "只有你关注且也关注你的人。"
+      "proximos": "只给你的信任圈（只有你能看到的名单）。",
+      "comunidade": "只给你选择的社群成员。"
     },
     "regra": "24 小时后消失。不会发到联邦宇宙。没有人能看到谁看过。",
     "galeria": "相册",
@@ -232,7 +239,8 @@
     "publico": {
       "seguidores": "给关注我的人",
       "membros": "给社区",
-      "proximos": "给亲密好友"
+      "proximos": "仅限圈子",
+      "comunidade": "仅限一个社群"
     },
     "agora": "刚刚",
     "min": "{n} 分钟",
@@ -361,5 +369,278 @@
     "titulo": "快拍",
     "lede": "你关注的人和你所在社区的快拍。点一个圆圈观看，或点“你的快拍”来发布。",
     "inicio": "查看首页时间线"
+  },
+  "b1": {
+    "fileira": {
+      "post": "帖子",
+      "ato": "行动",
+      "abrirPost": "打开精选 {titulo}",
+      "arrumar": "整理精选",
+      "rotulo": "{nome} 的精选"
+    },
+    "arrumar": {
+      "titulo": "整理精选",
+      "ajuda": "这个顺序会显示在你的主页上。用箭头或按钮调整。",
+      "subir": "上移 {titulo}",
+      "descer": "下移 {titulo}",
+      "nome": "名称",
+      "capa": "封面",
+      "capaPrimeira": "第一张照片",
+      "capaEscolhida": "你选择的照片",
+      "vazio": "你还没有精选。把一条快拍存入精选，它就会出现在这里。",
+      "erroCarregar": "无法加载。请关闭后重试。",
+      "semFoto": "没有照片：封面使用颜色。",
+      "stories": "此精选中的快拍",
+      "storyN": "快拍 {n}",
+      "subirStory": "上移快拍 {n}",
+      "descerStory": "下移快拍 {n}",
+      "apagar": "删除这个精选",
+      "salvar": "保存",
+      "salvo": "精选已整理。",
+      "erro": "无法保存，请再试一次。",
+      "carregando": "加载中…",
+      "escolher": "选择要整理的精选"
+    },
+    "borrar": {
+      "pergunta": "这张照片会在 24 小时后留在你的主页上。有没有不想露脸的人？",
+      "borrar": "模糊人脸",
+      "assim": "直接保存",
+      "refazendo": "正在设备上重做照片…",
+      "erro": "无法重做照片，未保存。",
+      "feito": "照片已模糊并保存。",
+      "noCriar": "模糊人脸",
+      "noCriarAjuda": "保护行动中出现的人（LGPD 第 11 条：政治观点属于敏感数据）。",
+      "borradas": "已模糊 {n} 处",
+      "video": "在视频中模糊",
+      "videoAjuda": "在这一帧标出人脸。模糊会在整段视频中停在同一位置：请查看预览。"
+    },
+    "post": {
+      "verPost": "查看帖子",
+      "verAto": "查看行动",
+      "indisponivel": "这条帖子已不可用。",
+      "de": "{nome} 的帖子",
+      "atoDe": "{nome} 的行动",
+      "situacao": {
+        "confirmado": "已确认",
+        "adiado": "已延期",
+        "cancelado": "已取消"
+      },
+      "vaiJunto": "快拍会附上帖子卡片和链接。",
+      "carregando": "正在加载帖子…",
+      "soCidade": "快拍只显示城市，绝不显示集合地点。"
+    },
+    "visor": {
+      "roda": "仅限圈子",
+      "comunidade": "仅限 {nome}",
+      "legendas": "字幕",
+      "legendasLigar": "打开字幕",
+      "legendasDesligar": "关闭字幕",
+      "musica": "Alumia 音乐：{nome}",
+      "respostasN": {
+        "one": "{n} 条回复",
+        "few": "{n} 条回复",
+        "many": "{n} 条回复",
+        "other": "{n} 条回复"
+      },
+      "verRespostas": "查看回复",
+      "semRespostas": "还没有回复。",
+      "reacoesN": {
+        "one": "{n} 个反应",
+        "few": "{n} 个反应",
+        "many": "{n} 个反应",
+        "other": "{n} 个反应"
+      },
+      "reacoesPoucas": "反应很少：满 3 个才显示总数。",
+      "reacoesPor": "{punho} ✊ · {chama} 🔥 · {coracao} ❤️",
+      "soVoce": "只有你能看到这些数字。"
+    },
+    "respostas": {
+      "titulo": "回复",
+      "ajuda": "回复的人选择只和你说话。发布回复时，发送者的名字不会出现。",
+      "daPergunta": "对问题的回答",
+      "publicar": "发布到快拍",
+      "conversar": "在对话中回复",
+      "semNome": "账号不可用",
+      "fechar": "关闭",
+      "caixa": "对你快拍的回复",
+      "caixaVazia": "有人回复你的快拍时会显示在这里。",
+      "abrir": "查看对“{texto}”的回复",
+      "mensagensN": {
+        "one": "{n} 条消息",
+        "few": "{n} 条消息",
+        "many": "{n} 条消息",
+        "other": "{n} 条消息"
+      },
+      "perguntasN": {
+        "one": "{n} 条回答问题",
+        "few": "{n} 条回答问题",
+        "many": "{n} 条回答问题",
+        "other": "{n} 条回答问题"
+      },
+      "semTexto": "没有文字的快拍",
+      "carregando": "加载中…"
+    },
+    "vou": {
+      "rotulo": "我去",
+      "eu": "我去",
+      "voce": "你会去",
+      "desfazer": "不去了",
+      "totalN": {
+        "one": "{n} 人去",
+        "few": "{n} 人去",
+        "many": "{n} 人去",
+        "other": "{n} 人去"
+      },
+      "poucas": "确认并叫上更多人",
+      "encerrado": "这个行动已经结束",
+      "escolher": "哪个行动？",
+      "nenhum": "没有即将到来的行动。",
+      "carregando": "正在查找行动…",
+      "ajuda": "点一下就确认参加，和行动页面一样。没人能看到谁会去。"
+    },
+    "pessoa": {
+      "rotulo": "提及",
+      "campo": "对方的 @",
+      "ajuda": "对方会收到通知。屏蔽了你的人不能被提及。",
+      "abrir": "打开 {nome} 的主页",
+      "sumiu": "账号不可用"
+    },
+    "campanha": {
+      "rotulo": "行动",
+      "campo": "#行动",
+      "corrente": "接力：观看者可以“加上你的”",
+      "adicionar": "加上你的",
+      "totalN": {
+        "one": "接力中有 {n} 人",
+        "few": "接力中有 {n} 人",
+        "many": "接力中有 {n} 人",
+        "other": "接力中有 {n} 人"
+      },
+      "ajuda": "只能用不带重音的字母、数字和 _（2 到 40 个）。"
+    },
+    "resposta": {
+      "rotulo": "回答",
+      "publicada": "对我问题的一个回答"
+    },
+    "decorativas": {
+      "titulo": "Alumia 装饰",
+      "ajuda": "每条快拍最多 3 个。在这里绘制，不从外部下载。",
+      "limite": "最多 3 个装饰。",
+      "tirar": "移除 {nome}",
+      "mover": "移动 {nome}",
+      "nomes": {
+        "punho": "举起的拳头",
+        "lampiao": "提灯",
+        "megafone": "扩音器",
+        "faixa": "游行横幅",
+        "carimbo-luta": "“斗争继续”印章",
+        "carimbo-presente": "“在场！”印章",
+        "estrela": "星星",
+        "flor": "花"
+      },
+      "textos": {
+        "faixa": "斗争",
+        "carimbo-luta": "斗争继续",
+        "carimbo-presente": "在场！"
+      }
+    },
+    "roda": {
+      "titulo": "信任圈",
+      "ajuda": "只有你能看到这个名单。加入或离开都不会通知对方，也没人知道自己在谁的圈子里。",
+      "campo": "你信任的人的 @",
+      "por": "加入圈子",
+      "tirar": "把 {nome} 移出圈子",
+      "vazia": "你的圈子是空的：发给圈子的快拍不会送达任何人。",
+      "gerenciar": "圈子里有谁",
+      "semBanco": "服务器还没有信任圈。这条快拍没有发布。请选择其他可见范围，或稍后再试。",
+      "contaN": {
+        "one": "{n} 人",
+        "few": "{n} 人",
+        "many": "{n} 人",
+        "other": "{n} 人"
+      },
+      "naoAchada": "找不到这个 @（或存在屏蔽）。",
+      "fechar": "关闭"
+    },
+    "comunidade": {
+      "escolher": "哪个社群？",
+      "nenhuma": "你还不是任何社群的成员。",
+      "faixa": "提到这个社群的快拍",
+      "abrir": "查看 {nome} 的快拍"
+    },
+    "legendas": {
+      "titulo": "字幕",
+      "ajuda": "写下说话的内容。关掉声音时，人们看的就是字幕。",
+      "nova": "从 {tempo} 开始的字幕",
+      "texto": "字幕文字 {n}",
+      "grande": "屏幕中央",
+      "tirar": "移除字幕 {n}",
+      "de": "从",
+      "ate": "到",
+      "gerar": "在设备上生成",
+      "gerando": "正在听视频…",
+      "gerarAjuda": "就在这里识别语音，不把音频发出去。请检查每一段。",
+      "semGerar": "这个浏览器无法在不外发音频的情况下识别语音：请手写字幕。",
+      "aprovar": "我检查过字幕了",
+      "falta": "发布前请检查生成的字幕。",
+      "nenhumaFala": "视频中没有找到语音。"
+    },
+    "musica": {
+      "titulo": "音乐",
+      "nenhuma": "不加音乐",
+      "nomes": {
+        "batucada": "巴图卡达鼓",
+        "marcha": "进行曲",
+        "ciranda": "圆圈舞",
+        "tambor": "鼓"
+      },
+      "ajuda": "就在设备上生成。不下载任何东西，也没人知道你听了什么。",
+      "ouvir": "试听 {nome}",
+      "parar": "停止"
+    },
+    "recortar": {
+      "botao": "裁剪",
+      "titulo": "裁剪照片",
+      "proporcao": "比例",
+      "livre": "自由",
+      "giro": "旋转（度）",
+      "aplicar": "应用",
+      "cancelar": "取消",
+      "moldura": "裁剪框。方向键移动；Shift 加方向键调整大小。",
+      "canto": "调整裁剪框大小"
+    },
+    "desenho": {
+      "refazer": "重做",
+      "borracha": "橡皮擦",
+      "borrachaAjuda": "在线条上划过即可擦除。"
+    },
+    "texto2": {
+      "botao": "再加一段文字",
+      "rotulo": "额外文字",
+      "campo": "额外文字（最多 60 字）",
+      "tirar": "移除额外文字"
+    },
+    "sequencia": {
+      "varios": "选择多个",
+      "ajuda": "最多 10 张照片或视频：每个都会按顺序成为一条快拍。",
+      "n": "{i} / {n}",
+      "pular": "跳过这个",
+      "proximo": "下一个",
+      "partes": "{s} 秒的视频：会分成 {n} 条最长 60 秒的快拍。",
+      "publicandoN": "正在发布 {i} / {n}…",
+      "feitoN": {
+        "one": "已发布 {n} 条快拍。",
+        "few": "已发布 {n} 条快拍。",
+        "many": "已发布 {n} 条快拍。",
+        "other": "已发布 {n} 条快拍。"
+      }
+    },
+    "progresso": {
+      "enviandoBytes": "上传中… {feito} / {total}"
+    },
+    "ato": {
+      "porNoStory": "加入快拍",
+      "ajuda": "用这个行动的卡片创建快拍（日期和城市；24 小时后消失）"
+    }
   }
 }

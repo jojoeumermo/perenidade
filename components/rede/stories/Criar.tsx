@@ -5,19 +5,26 @@ import "./stories.css";
 import "../editor/editor.css";
 import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent as EventoDePonteiro } from "react";
 import { checarTexto } from "@/lib/rede/publicar/checagem";
+import { limparLegendas } from "@/lib/rede/stories/legendas";
+import type { AreaBorrada } from "../publicar/imagem";
+import { aplicarBorrado } from "../publicar/imagem";
+import { BorrarRostos } from "../publicar/BorrarRostos";
+import { carregarTextosPublicar } from "../publicar/textos";
+import type { TextosPublicar } from "@/lib/rede/textos-publicar";
 import { refazerImagem } from "@/lib/rede/stories/imagem";
 import {
-  comporFoto, filtroEmCss, lerVideo, miniaturasDoVideo, regravarVideo, SEM_TRANSFORMACAO, TIPOS_DE_VIDEO_ACEITOS, transformacaoEmCss,
+  comporFoto, filtroEmCss, fotoDoVideo, lerVideo, miniaturasDoVideo, regravarVideo, SEM_TRANSFORMACAO, TIPOS_DE_VIDEO_ACEITOS, transformacaoEmCss,
   transformacaoNeutra, transformacaoValida, VIDEO_ORIGINAL_MAXIMO, type FiltroDoStory, type TracoDoStory, type Transformacao,
 } from "@/lib/rede/stories/midia";
 import { alternarFigurinha, corDaLetraEmHex, estiloDoTexto, linkSeguro, PALETA_DO_STORY, posicaoInicial, tamanhoDoTexto } from "@/lib/rede/stories/visual";
-import type { ClienteDeStories } from "@/lib/rede/cliente-stories";
+import { RODA_SEM_BANCO, type ClienteDeStories } from "@/lib/rede/cliente-stories";
 import type { TextosDosStories } from "@/lib/rede/textos-stories";
 import {
   CORES_DA_LETRA, CORES_DO_STORY, LIMITES_DO_STORY, PUBLICOS_DO_STORY, TIPOS_DE_FIGURINHA,
-  type AtoParaContagem, type ComunidadeParaMencao, type CorDaLetra, type CorDoStory, type EstiloDoStory, type Figurinha, type PedidoDeStory,
-  type PosicaoDaFigurinha, type PublicoDoStory, type TipoDeFigurinha,
+  type AtoParaContagem, type CartaoDoPost, type ComunidadeParaMencao, type CorDaLetra, type CorDoStory, type EstiloDoStory, type Figurinha, type LegendaDoVideo,
+  type MusicaDoStory, type NomeDecorativo, type PedidoDeStory, type PosicaoDaFigurinha, type PublicoDoStory, type TipoDeFigurinha, type TipoDoBotao,
 } from "@/lib/rede/tipos-stories";
+import { handleOk } from "@/lib/rede/tipos";
 import { Camera } from "../editor/Camera";
 import { Cortar } from "../editor/Cortar";
 import { EstiloDoTexto } from "../editor/EstiloDoTexto";
@@ -28,6 +35,13 @@ import { ContagemEditar } from "../figurinhas/Contagem";
 import { EnqueteEditar } from "../figurinhas/Enquete";
 import { LinkEditar } from "../figurinhas/Link";
 import { PerguntaEditar } from "../figurinhas/Pergunta";
+import { DecorativaVer, SeletorDeDecorativas } from "../figurinhas/Decorativas";
+import { CampanhaEditar, PessoaEditar, RespostaVer, tagDaCampanha, VouEditar } from "../figurinhas/Novas";
+import { EditarLegendas } from "../editor/Legendas";
+import { EscolherMusica } from "../editor/Musica";
+import { Recortar } from "../editor/Recortar";
+import { CartaoDoPostNoStory } from "./CartaoDoPost";
+import { RodaDeConfianca } from "./Roda";
 import { FigurinhaSolta } from "./FigurinhaSolta";
 import { FundoDoStory, estiloDaTela } from "./FundoDoStory";
 import { IconeFechar } from "./icones";
@@ -40,19 +54,34 @@ type Midia =
 type Fase = "preparando" | "foto" | "enviando" | "publicando";
 
 /** O desenho de cada tipo no botão (prancha: "2D" dourado, "?" papel, "A|B" verde-água, "↗" rosa; a menção, "@" dourado-claro). */
-const ICONE_DO_TIPO: Record<TipoDeFigurinha, { texto: string; cor: string }> = {
+const ICONE_DO_TIPO: Record<TipoDoBotao, { texto: string; cor: string }> = {
   contagem: { texto: "2D", cor: "var(--al-dourado, #ffc21a)" },
   pergunta: { texto: "?", cor: "var(--al-texto, #f3efe6)" },
   enquete: { texto: "A|B", cor: "var(--al-com-1, #1fc2b5)" },
   link: { texto: "↗", cor: "var(--al-com-2, #ff5c8a)" },
   comunidade: { texto: "@", cor: "#f6c84a" },
+  vou: { texto: "✓", cor: "#7be0a6" },
+  pessoa: { texto: "@a", cor: "#9fc5ff" },
+  campanha: { texto: "#", cor: "#ff8a5c" },
 };
 
+/** Um enfeite no story (podem ser até 3, inclusive repetidos): a chave só diz qual é qual na tela. */
+interface Enfeite {
+  chave: number;
+  nome: NomeDecorativo;
+  pos: PosicaoDaFigurinha;
+}
+const LUGARES_DOS_ENFEITES: PosicaoDaFigurinha[] = [
+  { x: 0.78, y: 0.2, giro: 8, escala: 1 },
+  { x: 0.22, y: 0.3, giro: -10, escala: 0.9 },
+  { x: 0.75, y: 0.5, giro: 4, escala: 0.9 },
+];
+
 /** Uma figurinha nova, com o que a prancha já mostra preenchido, no lugar livre seguinte da tela. */
-function figurinhaNova(tipo: TipoDeFigurinha, t: TextosDosStories, k: number): Figurinha {
+function figurinhaNova(tipo: TipoDoBotao, t: TextosDosStories, k: number): Figurinha {
   return { ...conteudoNovo(tipo, t), pos: posicaoInicial(k) } as Figurinha;
 }
-function conteudoNovo(tipo: TipoDeFigurinha, t: TextosDosStories): Figurinha {
+function conteudoNovo(tipo: TipoDoBotao, t: TextosDosStories): Figurinha {
   switch (tipo) {
     case "contagem":
       return { tipo, ato: null, titulo: "", inicio: "" };
@@ -64,16 +93,26 @@ function conteudoNovo(tipo: TipoDeFigurinha, t: TextosDosStories): Figurinha {
       return { tipo, url: "", rotulo: "" };
     case "comunidade":
       return { tipo, slug: null, nome: "" };
+    case "vou":
+      return { tipo, ato: null, titulo: "", inicio: "" };
+    case "pessoa":
+      return { tipo, handle: "", nome: "" };
+    case "campanha":
+      return { tipo, tag: "", corrente: true };
   }
 }
 
 /** O que falta numa figurinha para publicar (a chave do erro), ou nulo. */
-function faltaNaFigurinha(f: Figurinha): "ato" | "pergunta" | "enquete" | "link" | "comunidade" | null {
+function faltaNaFigurinha(f: Figurinha): "ato" | "pergunta" | "enquete" | "link" | "comunidade" | "vou" | "pessoa" | "campanha" | null {
   if (f.tipo === "contagem") return f.ato ? null : "ato";
   if (f.tipo === "pergunta") return f.texto.trim() ? null : "pergunta";
   if (f.tipo === "enquete") return f.pergunta.trim() && f.opcoes.every((o) => o.trim()) ? null : "enquete";
   if (f.tipo === "comunidade") return f.slug ? null : "comunidade";
-  return linkSeguro(f.url) ? null : "link";
+  if (f.tipo === "vou") return f.ato ? null : "vou";
+  if (f.tipo === "pessoa") return f.handle && handleOk(f.handle.replace(/^@/, "").toLowerCase()) ? null : "pessoa";
+  if (f.tipo === "campanha") return tagDaCampanha(f.tag) ? null : "campanha";
+  if (f.tipo === "link") return linkSeguro(f.url) ? null : "link";
+  return null;
 }
 
 /** Movimento reduzido (o do sistema ou o "parado" do site). */
@@ -104,14 +143,19 @@ const IconeSom = ({ ligado }: { ligado: boolean }) => (
 export function Criar({
   t,
   cliente,
+  lang = "pt",
   postRef = null,
+  extras = null,
   aoFechar,
   aoPublicar,
 }: {
   t: TextosDosStories;
   cliente: ClienteDeStories;
-  /** "Pôr no story": o post de onde veio. */
+  lang?: string;
+  /** "Pôr no story": o post (ou o ato) de onde veio. */
   postRef?: string | null;
+  /** Do endereço: a resposta à minha pergunta a publicar (do story `de`) e a #campanha da corrente. */
+  extras?: { de: string | null; resposta: string | null; campanha: string | null } | null;
   aoFechar: () => void;
   aoPublicar: () => void;
 }) {
@@ -145,6 +189,22 @@ export function Criar({
   const [larguraDaPrevia, setLarguraDaPrevia] = useState(390);
   /** A figurinha tocada por último fica por cima (e vai por último no story, para o visor empilhar igual). */
   const [frente, setFrente] = useState<TipoDeFigurinha | null>(null);
+  const [enfeites, setEnfeites] = useState<Enfeite[]>([]);
+  const [cartao, setCartao] = useState<CartaoDoPost | null>(null);
+  const [comunidadeDoPublico, setComunidadeDoPublico] = useState<string | null>(null);
+  const [rodaAberta, setRodaAberta] = useState(false);
+  const [legendas, setLegendas] = useState<LegendaDoVideo[]>([]);
+  const [legendasGeradas, setLegendasGeradas] = useState(false);
+  const [legendasAprovadas, setLegendasAprovadas] = useState(false);
+  const [musica, setMusica] = useState<MusicaDoStory | null>(null);
+  /** Borrar: a foto original (para refazer o borrado) e as áreas; no vídeo, as áreas e o quadro usado para marcar. */
+  const [borrar, setBorrar] = useState<null | { tipo: "foto" | "video"; base: Blob }>(null);
+  const [fotoOriginal, setFotoOriginal] = useState<{ blob: Blob; areas: AreaBorrada[] } | null>(null);
+  const [borroesDoVideo, setBorroesDoVideo] = useState<AreaBorrada[]>([]);
+  const [tp, setTp] = useState<TextosPublicar | null>(null);
+  const [recortando, setRecortando] = useState(false);
+  const [desfeitos, setDesfeitos] = useState<TracoDoStory[]>([]);
+  const [borracha, setBorracha] = useState(false);
   const desenhando = useRef<TracoDoStory | null>(null);
   const galeria = useRef<HTMLInputElement>(null);
   const painelFigurinhas = useRef<HTMLHeadingElement>(null);
@@ -161,19 +221,64 @@ export function Criar({
   const agora = useAgora(30_000);
   const id = useId();
 
-  const mexeu = texto.trim() !== "" || legenda.trim() !== "" || figurinhas.length > 0 || tracos.length > 0 || midia !== null;
+  const mexeu = texto.trim() !== "" || legenda.trim() !== "" || figurinhas.length > 0 || enfeites.length > 0 || tracos.length > 0 || midia !== null || !!postRef;
 
   // Os atos para a contagem e as comunidades para a menção: só quando a pessoa liga a figurinha.
-  const querAtos = figurinhas.some((f) => f.tipo === "contagem");
+  const querAtos = figurinhas.some((f) => f.tipo === "contagem" || f.tipo === "vou");
   useEffect(() => {
     if (!querAtos || atos) return;
     cliente.atos().then(setAtos).catch(() => setAtos([]));
   }, [querAtos, atos, cliente]);
-  const querComunidades = figurinhas.some((f) => f.tipo === "comunidade");
+  const querComunidades = figurinhas.some((f) => f.tipo === "comunidade") || publico === "comunidade";
   useEffect(() => {
     if (!querComunidades || comunidades) return;
     cliente.comunidades().then(setComunidades).catch(() => setComunidades([]));
   }, [querComunidades, comunidades, cliente]);
+
+  // "Pôr no story": o cartão do post (ou do ato) como vai aparecer, se eu vejo.
+  useEffect(() => {
+    if (!postRef) return;
+    let vivo = true;
+    cliente
+      .post(postRef)
+      .then((c) => vivo && setCartao(c))
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [cliente, postRef]);
+
+  // Do endereço: a resposta à minha pergunta (a figurinha "resposta", sem o nome) e a #campanha da corrente.
+  const extraDe = extras?.de ?? null;
+  const extraResposta = extras?.resposta ?? null;
+  const extraCampanha = extras?.campanha ?? null;
+  useEffect(() => {
+    if (!extraDe || !extraResposta) return;
+    let vivo = true;
+    Promise.all([cliente.respostas(extraDe), cliente.meus().catch(() => [])])
+      .then(([lista, meus]) => {
+        const r = lista.find((x) => x.id === extraResposta && x.pergunta);
+        if (!vivo || !r) return;
+        const pergunta = meus.find((s) => s.id === extraDe)?.figurinhas.find((f) => f.tipo === "pergunta");
+        setFigurinhas((l) => (l.some((f) => f.tipo === "resposta") ? l : [...l, { tipo: "resposta", resposta: r.id, pergunta: pergunta?.tipo === "pergunta" ? pergunta.texto : "", texto: r.texto, pos: posicaoInicial(0) }]));
+      })
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [cliente, extraDe, extraResposta]);
+  useEffect(() => {
+    if (!extraCampanha) return;
+    // Uma vez, ao abrir pela corrente ("Adicionar o seu").
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFigurinhas((l) => (l.some((f) => f.tipo === "campanha") ? l : [...l, { tipo: "campanha", tag: extraCampanha, corrente: true, pos: posicaoInicial(1) }]));
+  }, [extraCampanha]);
+
+  // Os textos do "Borrar rostos" (os mesmos do escrever): só quando a pessoa abre o borrar.
+  useEffect(() => {
+    if (!borrar || tp) return;
+    carregarTextosPublicar(lang).then(setTp).catch(() => undefined);
+  }, [borrar, tp, lang]);
 
   useModalDosStories(raiz);
   useGestosDaMidia({ area: areaDeGestos, midia: caixaDaMidia, guias, valor: transf, ativo: !!midia && modo !== "desenhar" && estado === "editando", aoMudar: setTransf });
@@ -253,6 +358,10 @@ export function Criar({
 
   const cheio = figurinhas.length >= LIMITES_DO_STORY.figurinhas;
   function alternar(tipo: TipoDeFigurinha) {
+    if (tipo === "resposta" || tipo === "decorativa") {
+      setFigurinhas((l) => l.filter((f) => f.tipo !== tipo));
+      return;
+    }
     const ligada = figurinhas.some((f) => f.tipo === tipo);
     // Já são 3: o botão está desligado (aria-disabled) e a dica embaixo do título explica; nada de erro.
     if (!ligada && cheio) return;
@@ -264,6 +373,8 @@ export function Criar({
     if (!ligada) setFrente(tipo);
   }
 
+  const porEnfeite = (nome: NomeDecorativo) =>
+    setEnfeites((l) => (l.length >= LIMITES_DO_STORY.decorativas ? l : [...l, { chave: Date.now() + l.length, nome, pos: LUGARES_DOS_ENFEITES[l.length % LUGARES_DOS_ENFEITES.length] }]));
   const moverFigurinha = (tipo: TipoDeFigurinha, pos: PosicaoDaFigurinha) =>
     setFigurinhas((lista) => lista.map((f) => (f.tipo === tipo ? ({ ...f, pos } as Figurinha) : f)));
   const mudarFigurinha = (tipo: TipoDeFigurinha, novo: Partial<Figurinha>) =>
@@ -274,13 +385,28 @@ export function Criar({
     const r = e.currentTarget.getBoundingClientRect();
     return [Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))];
   };
+  /** A borracha apaga o traço inteiro que o dedo tocar (vai para o "refazer"). */
+  const apagarNoPonto = ([x, y]: [number, number]) =>
+    setTracos((l) => {
+      const k = l.findIndex((tr) => tr.pontos.some(([a, b]) => Math.hypot(a - x, (b - y) * 1.78) < Math.max(0.02, (tr.largura ?? 0.014) * 1.6)));
+      if (k < 0) return l;
+      setDesfeitos((d) => [...d, l[k]]);
+      return l.filter((_, j) => j !== k);
+    });
   const comecar = (e: EventoDePonteiro<SVGSVGElement>) => {
     if (modo !== "desenhar") return;
     e.currentTarget.setPointerCapture(e.pointerId);
+    if (borracha) {
+      apagarNoPonto(ponto(e));
+      desenhando.current = null;
+      return;
+    }
+    setDesfeitos([]);
     desenhando.current = { cor: corDaLetraEmHex(pincel.cor), pontos: [ponto(e)], largura: pincel.largura, marca: pincel.marca };
     setTracos((l) => [...l, desenhando.current as TracoDoStory]);
   };
   const mover = (e: EventoDePonteiro<SVGSVGElement>) => {
+    if (borracha && modo === "desenhar" && e.buttons) return apagarNoPonto(ponto(e));
     const atual = desenhando.current;
     if (!atual) return;
     atual.pontos.push(ponto(e));
@@ -296,6 +422,12 @@ export function Criar({
     setTransf(SEM_TRANSFORMACAO);
     setMiniaturas([]);
     setAlt("");
+    setFotoOriginal(null);
+    setBorroesDoVideo([]);
+    setLegendas([]);
+    setLegendasGeradas(false);
+    setLegendasAprovadas(false);
+    setMusica(null);
   }
 
   async function aoEscolherArquivo(arquivo: Blob | undefined, deOnde: "galeria" | "camera") {
@@ -345,16 +477,21 @@ export function Criar({
   async function publicar() {
     setErro(null);
     setLinkInvalido(false);
-    if (!mexeu || (!texto.trim() && tracos.length === 0 && !midia && figurinhas.length === 0)) return setErro(t.criar.vazio);
+    if (!mexeu || (!texto.trim() && tracos.length === 0 && !midia && figurinhas.length === 0 && enfeites.length === 0 && !postRef)) return setErro(t.criar.vazio);
     for (const f of figurinhas) {
       const falta = faltaNaFigurinha(f);
       if (falta) {
         if (falta === "link") setLinkInvalido(true);
+        if (falta === "vou") return setErro(t.b1.vou.escolher);
+        if (falta === "pessoa") return setErro(t.b1.pessoa.ajuda);
+        if (falta === "campanha") return setErro(t.b1.campanha.ajuda);
         return setErro(falta === "comunidade" ? t.criar.erroMidia.comunidade : t.criar.erro[falta]);
       }
     }
+    if (publico === "comunidade" && !comunidadeDoPublico) return setErro(t.b1.comunidade.escolher);
+    if (midia?.tipo === "video" && legendasGeradas && legendas.length > 0 && !legendasAprovadas) return setErro(t.b1.legendas.falta);
     // Dado pessoal no texto, na tarja, no alt ou nas figurinhas: bloqueia aqui; o banco confere de novo (LGPD art. 6º, III).
-    const tudo = [texto, legenda, alt, ...figurinhas.map((f) => (f.tipo === "pergunta" ? f.texto : f.tipo === "enquete" ? `${f.pergunta} ${f.opcoes.join(" ")}` : f.tipo === "link" ? f.rotulo : ""))].join("\n");
+    const tudo = [texto, legenda, alt, ...legendas.map((l) => l.texto), ...figurinhas.map((f) => (f.tipo === "pergunta" ? f.texto : f.tipo === "enquete" ? `${f.pergunta} ${f.opcoes.join(" ")}` : f.tipo === "link" ? f.rotulo : ""))].join("\n");
     if (checarTexto(tudo).bloqueia.length > 0) return setErro(t.criar.erro.dadoPessoal);
 
     const ctrl = new AbortController();
@@ -367,11 +504,11 @@ export function Criar({
       const fundo = PALETA_DO_STORY[cor].fundo;
       if (midia?.tipo === "video") {
         setProgresso({ fase: "preparando", pct: 0 });
-        const pronto = await regravarVideo({ url: midia.url, inicio: corte.inicio, fim: corte.fim, som, fundo, filtro, transformacao: transf, tracos, aoProgresso: andar("preparando"), sinal: ctrl.signal });
+        const pronto = await regravarVideo({ url: midia.url, inicio: corte.inicio, fim: corte.fim, som, fundo, filtro, transformacao: transf, tracos, musica, borroes: borroesDoVideo, aoProgresso: andar("preparando"), sinal: ctrl.signal });
         ultimoPct.current = -1;
         setProgresso({ fase: "enviando", pct: 0 });
         caminho = await cliente.enviarImagem(pronto.blob, andar("enviando"));
-        video = { duracao_ms: pronto.duracao, som: pronto.som };
+        video = { duracao_ms: pronto.duracao, som: pronto.som && som, musica, legendas: limparLegendas(legendas, pronto.duracao) };
       } else if (midia || tracos.length > 0) {
         setProgresso({ fase: "foto", pct: 0 });
         const blob = await comporFoto({ fundo, imagem: midia?.blob, filtro, transformacao: transf, tracos });
@@ -391,10 +528,14 @@ export function Criar({
         video,
         estilo: Object.keys(estilo).length > 0 ? estilo : undefined,
         alt: caminho ? alt.trim() || null : null,
-        figurinhas: [...figurinhas.filter((f) => f.tipo !== frente), ...figurinhas.filter((f) => f.tipo === frente)].map((f) =>
-          f.tipo === "link" ? { ...f, url: linkSeguro(f.url) ?? "" } : f,
-        ),
+        figurinhas: [
+          ...[...figurinhas.filter((f) => f.tipo !== frente), ...figurinhas.filter((f) => f.tipo === frente)].map((f) =>
+            f.tipo === "link" ? { ...f, url: linkSeguro(f.url) ?? "" } : f.tipo === "campanha" ? { ...f, tag: tagDaCampanha(f.tag) ?? "" } : f,
+          ),
+          ...enfeites.map((e): Figurinha => ({ tipo: "decorativa", nome: e.nome, pos: e.pos })),
+        ],
         post_ref: postRef,
+        comunidade: publico === "comunidade" ? comunidadeDoPublico : null,
       };
       await cliente.publicar(pedido);
       setProgresso(null);
@@ -405,6 +546,8 @@ export function Criar({
       setProgresso(null);
       const m = e instanceof Error ? e.message : "";
       if (m === "cancelado") return setErro(t.criar.erroMidia.cancelado);
+      // O banco ainda não tem a roda de confiança: nada foi publicado (o "proximos" de antes iria a todos os que se seguem).
+      if (m === RODA_SEM_BANCO) return setErro(t.b1.roda.semBanco);
       if (m === "sem_gravador") return setErro(t.criar.erroMidia.semGravador);
       if (m === "grande") return setErro(midia?.tipo === "video" ? t.criar.erroMidia.videoGrande : t.criar.erro.grande);
       if (m === "invalida") return setErro(midia?.tipo === "video" ? t.criar.erroMidia.video : t.criar.erro.invalida);
@@ -637,8 +780,33 @@ export function Criar({
                 <span className="sr-only">{t.criar.pincel.espessura}</span>
                 <input type="range" min={4} max={40} value={Math.round(pincel.largura * 1000)} onChange={(e) => setPincel((p) => ({ ...p, largura: Number(e.target.value) / 1000 }))} />
               </label>
-              <button type="button" className="al-st-modo" disabled={tracos.length === 0} onClick={() => setTracos((l) => l.slice(0, -1))}>
+              <button
+                type="button"
+                className="al-st-modo"
+                disabled={tracos.length === 0}
+                onClick={() => {
+                  const ultimo = tracos[tracos.length - 1];
+                  if (ultimo) setDesfeitos((d) => [...d, ultimo]);
+                  setTracos((l) => l.slice(0, -1));
+                }}
+              >
                 {t.criar.desfazer}
+              </button>
+              <button
+                type="button"
+                className="al-st-modo"
+                disabled={desfeitos.length === 0}
+                onClick={() => {
+                  const volta = desfeitos[desfeitos.length - 1];
+                  if (!volta) return;
+                  setDesfeitos((d) => d.slice(0, -1));
+                  setTracos((l) => [...l, volta]);
+                }}
+              >
+                {t.b1.desenho.refazer}
+              </button>
+              <button type="button" className="al-st-modo" aria-pressed={borracha} title={t.b1.desenho.borrachaAjuda} disabled={tracos.length === 0 && !borracha} onClick={() => setBorracha((b) => !b)}>
+                {t.b1.desenho.borracha}
               </button>
               <button type="button" className="al-st-modo" disabled={tracos.length === 0} onClick={() => setTracos([])}>
                 {t.criar.limpar}
@@ -668,7 +836,15 @@ export function Criar({
                         <EnqueteEditar pergunta={f.pergunta} opcoes={f.opcoes} t={t.figurinha.enquete} aoMudar={(p, o) => mudarFigurinha("enquete", { pergunta: p, opcoes: o })} />
                       ) : f.tipo === "comunidade" ? (
                         <ComunidadeEditar t={t.figurinha.comunidade} lista={comunidades} slug={f.slug} aoEscolher={(c) => mudarFigurinha("comunidade", { slug: c.slug, nome: c.nome })} />
-                      ) : (
+                      ) : f.tipo === "vou" ? (
+                        <VouEditar t={t.b1} atos={atos} ato={f.ato} lang={lang} aoEscolher={(a) => mudarFigurinha("vou", { ato: a.id, titulo: a.titulo, inicio: a.inicio })} />
+                      ) : f.tipo === "pessoa" ? (
+                        <PessoaEditar t={t.b1} handle={f.handle ?? ""} aoMudar={(h) => mudarFigurinha("pessoa", { handle: h })} />
+                      ) : f.tipo === "campanha" ? (
+                        <CampanhaEditar t={t.b1} tag={f.tag} corrente={f.corrente} aoMudar={(tag, corrente) => mudarFigurinha("campanha", { tag, corrente })} />
+                      ) : f.tipo === "resposta" ? (
+                        <RespostaVer pergunta={f.pergunta} texto={f.texto} t={t.b1} />
+                      ) : f.tipo !== "link" ? null : (
                         <LinkEditar
                           url={f.url}
                           rotulo={f.rotulo}
@@ -687,6 +863,35 @@ export function Criar({
                   </FigurinhaSolta>
                 </div>
               ))}
+            </div>
+          ) : null}
+
+          {enfeites.length > 0 ? (
+            <div className="al-st-palco-figurinhas al-st-palco-enfeites" data-guia="nao" data-ativo={modo === "desenhar" ? "nao" : "sim"}>
+              {enfeites.map((e) => (
+                <div key={e.chave} className="al-st-fig-camada">
+                  <FigurinhaSolta
+                    tipo="decorativa"
+                    pos={e.pos}
+                    ativa={modo !== "desenhar" && estado === "editando"}
+                    rotulo={preencherStory(t.b1.decorativas.mover, { nome: t.b1.decorativas.nomes[e.nome] })}
+                    idDaDica={`${id}-fig-dica`}
+                    aoMudar={(pos) => setEnfeites((l) => l.map((x) => (x.chave === e.chave ? { ...x, pos } : x)))}
+                    aoTocar={() => setEnfeites((l) => [...l.filter((x) => x.chave !== e.chave), e])}
+                  >
+                    <DecorativaVer nome={e.nome} t={t.b1.decorativas} />
+                    <button type="button" className="al-fg-tirar" aria-label={preencherStory(t.b1.decorativas.tirar, { nome: t.b1.decorativas.nomes[e.nome] })} onClick={() => setEnfeites((l) => l.filter((x) => x.chave !== e.chave))}>
+                      <IconeFechar />
+                    </button>
+                  </FigurinhaSolta>
+                </div>
+              ))}
+            </div>
+          ) : null}
+
+          {postRef ? (
+            <div className="al-st-criar-cartao" style={{ zIndex: 4 }}>
+              {cartao ? <CartaoDoPostNoStory cartao={cartao} t={t.b1.post} lang={lang} previa /> : <div className="al-st-cartao" aria-busy="true">{t.b1.post.carregando}</div>}
             </div>
           ) : null}
 
@@ -724,6 +929,57 @@ export function Criar({
                   </div>
                 </>
               ) : null}
+              {midia.tipo === "video" ? (
+                <>
+                  <EscolherMusica t={t.b1.musica} musica={musica} aoEscolher={setMusica} />
+                  <EditarLegendas
+                    t={t.b1.legendas}
+                    lang={lang}
+                    duracao={Math.max(0, corte.fim - corte.inicio)}
+                    agulha={Math.max(0, agulha - corte.inicio)}
+                    legendas={legendas}
+                    aoMudar={(l) => {
+                      setLegendas(l);
+                      setLegendasAprovadas(false);
+                    }}
+                    video={videoDaPrevia}
+                    inicio={corte.inicio}
+                    fim={corte.fim}
+                    geradas={legendasGeradas}
+                    aprovadas={legendasAprovadas}
+                    aoGerar={() => setLegendasGeradas(true)}
+                    aoAprovar={setLegendasAprovadas}
+                  />
+                </>
+              ) : null}
+              <div className="al-ed-borrar">
+                <button
+                  type="button"
+                  className="al-botao al-botao-contorno al-botao-p"
+                  onClick={async () => {
+                    if (midia.tipo === "imagem") return setBorrar({ tipo: "foto", base: fotoOriginal?.blob ?? midia.blob });
+                    const v = videoDaPrevia.current;
+                    if (!v) return;
+                    v.pause();
+                    try {
+                      setBorrar({ tipo: "video", base: await fotoDoVideo(v, false) });
+                    } catch {
+                      setErro(t.b1.borrar.erro);
+                    }
+                  }}
+                >
+                  {midia.tipo === "imagem" ? t.b1.borrar.noCriar : t.b1.borrar.video}
+                </button>
+                {midia.tipo === "imagem" ? (
+                  <button type="button" className="al-botao al-botao-contorno al-botao-p" onClick={() => setRecortando(true)}>
+                    {t.b1.recortar.botao}
+                  </button>
+                ) : null}
+                <p className="al-st-dica">
+                  {(midia.tipo === "imagem" ? fotoOriginal?.areas.length : borroesDoVideo.length) ? preencherStory(t.b1.borrar.borradas, { n: (midia.tipo === "imagem" ? fotoOriginal?.areas.length : borroesDoVideo.length) ?? 0 }) + " · " : ""}
+                  {midia.tipo === "imagem" ? t.b1.borrar.noCriarAjuda : t.b1.borrar.videoAjuda}
+                </p>
+              </div>
               <div className="al-ed-ajustar" role="group" aria-label={t.criar.midia.ajustar}>
                 <button type="button" className="al-botao al-botao-contorno al-botao-p" onClick={() => ajustar((x) => ({ giro: x.giro + Math.PI / 2 }))}>
                   {t.criar.midia.girar}
@@ -788,6 +1044,17 @@ export function Criar({
             })}
           </ul>
 
+          <div className="al-st-titulo-linha">
+            <h2 className="al-cond al-st-titulo-secao">{t.b1.decorativas.titulo}</h2>
+            <span className="al-st-conta" data-cheio={enfeites.length >= LIMITES_DO_STORY.decorativas ? "sim" : "nao"} aria-hidden>
+              {preencherStory(t.criar.contaDeFigurinhas, { n: enfeites.length, max: LIMITES_DO_STORY.decorativas })}
+            </span>
+          </div>
+          <p className="al-st-dica" aria-live="polite">
+            {enfeites.length >= LIMITES_DO_STORY.decorativas ? t.b1.decorativas.limite : t.b1.decorativas.ajuda}
+          </p>
+          <SeletorDeDecorativas t={t.b1.decorativas} usadas={enfeites.length} limite={LIMITES_DO_STORY.decorativas} aoEscolher={porEnfeite} />
+
           <fieldset className="al-st-quem" role="radiogroup" aria-describedby={`${id}-regra`}>
             <legend className="al-cond al-st-titulo-secao">{t.criar.quemVe}</legend>
             {PUBLICOS_DO_STORY.map((p, k) => (
@@ -813,10 +1080,35 @@ export function Criar({
             ))}
           </fieldset>
           <p className="al-st-dica">{t.criar.publicoAjuda[publico]}</p>
+          {publico === "comunidade" ? (
+            comunidades === null ? null : comunidades.length === 0 ? (
+              <p className="al-st-dica">{t.b1.comunidade.nenhuma}</p>
+            ) : (
+              <label className="al-st-quem-comunidade">
+                <span>{t.b1.comunidade.escolher}</span>
+                <select value={comunidadeDoPublico ?? ""} onChange={(e) => setComunidadeDoPublico(e.target.value || null)}>
+                  <option value="" disabled>
+                    {t.b1.comunidade.escolher}
+                  </option>
+                  {comunidades.map((c) => (
+                    <option key={c.slug} value={c.slug}>
+                      {c.nome}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )
+          ) : null}
+          {publico === "proximos" ? (
+            <button type="button" className="al-botao al-botao-contorno al-botao-p al-st-roda-abrir" onClick={() => setRodaAberta(true)}>
+              <span className="al-st-roda-selo" aria-hidden />
+              {t.b1.roda.gerenciar}
+            </button>
+          ) : null}
           <p id={`${id}-regra`} className="al-st-regra">
             {t.criar.regra}
           </p>
-          {postRef ? <p className="al-st-dica">{t.criar.deUmPost}</p> : null}
+          {postRef ? <p className="al-st-dica">{cartao?.tipo === "ato" ? `${t.b1.post.vaiJunto} ${t.b1.post.soCidade}` : t.b1.post.vaiJunto}</p> : null}
 
           <div className="al-st-acoes al-ed-acoes">
             {/* O erro e o "publicado" ficam na barra das ações (fixa no celular), à vista de quem tocou em Publicar. */}
@@ -893,6 +1185,46 @@ export function Criar({
           aoFechar={() => setCamera(false)}
         />
       ) : null}
+
+      {borrar && tp ? (
+        <BorrarRostos
+          t={tp}
+          base={borrar.base}
+          areasIniciais={borrar.tipo === "foto" ? (fotoOriginal?.areas ?? []) : borroesDoVideo}
+          aoCancelar={() => setBorrar(null)}
+          aoConcluir={async (areas) => {
+            const b = borrar;
+            setBorrar(null);
+            if (b.tipo === "video") return setBorroesDoVideo(areas);
+            if (!midia || midia.tipo !== "imagem") return;
+            try {
+              // A original fica guardada só aqui (para refazer o borrado); o que sai do aparelho é a borrada.
+              const nova = await aplicarBorrado(b.base, areas);
+              setFotoOriginal({ blob: b.base, areas });
+              setMidia({ tipo: "imagem", blob: nova, url: URL.createObjectURL(nova) });
+            } catch {
+              setErro(t.b1.borrar.erro);
+            }
+          }}
+        />
+      ) : null}
+
+      {recortando && midia?.tipo === "imagem" ? (
+        <Recortar
+          t={t.b1.recortar}
+          imagem={midia.blob}
+          aoCancelar={() => setRecortando(false)}
+          aoAplicar={(b) => {
+            setRecortando(false);
+            // Recortou: o borrado anterior já está queimado na foto recortada (a original não volta).
+            setFotoOriginal(null);
+            setTransf(SEM_TRANSFORMACAO);
+            setMidia({ tipo: "imagem", blob: b, url: URL.createObjectURL(b) });
+          }}
+        />
+      ) : null}
+
+      {rodaAberta ? <RodaDeConfianca t={t.b1.roda} lang={lang} cliente={cliente} aoFechar={() => setRodaAberta(false)} /> : null}
 
       {confirmarSaida ? (
         <div className="al-st-caixa" role="alertdialog" aria-labelledby={`${id}-sair`} style={{ position: "fixed", zIndex: 90 }}>

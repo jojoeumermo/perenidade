@@ -277,6 +277,12 @@
 [data-al="2"] .al-atos-perto-titulo { margin: 0; font-size: 1.6rem; }
 [data-al="2"] .al-atos-perto-todos { color: var(--al-texto); font-size: 0.8rem; font-weight: 700; text-decoration: underline; }
 [data-al="2"] .al-atos-perto .al-ato-item:last-child { border-bottom: 0; }
+[data-al="2"] .al-atos-perto-rotulo { margin: 0.6rem 0 0; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-texto-3); }
+/* Na coluna estreita o carimbo não encolhe até ficar ilegível: desce para baixo do texto, com letra de 12 px, e quem quebra
+   é o título do ato. */
+[data-al="2"] .al-atos-perto .al-ato-item { grid-template-columns: auto minmax(0, 1fr); }
+[data-al="2"] .al-atos-perto .al-ato-item-carimbo { grid-column: 2; justify-self: start; white-space: nowrap; }
+[data-al="2"] .al-atos-perto .al-ato-item-carimbo .al-carimbo-p { font-size: 0.9rem; }
 
 /* ───── chamado embutido num post ("16 NOV · Panfletagem no RU · Eu vou") ───── */
 [data-al="2"] .al-ato-anexo {

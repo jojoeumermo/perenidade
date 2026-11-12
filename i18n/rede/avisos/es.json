@@ -21,7 +21,11 @@
     "mencao": { "um": "{a} te mencionó.", "vezes": "{a} te mencionó {n} veces.", "varios": "{a} y {n} más te mencionaron.", "anonimo": "Alguien te mencionó.", "anonimoVarios": "{n} personas te mencionaron." },
     "citacao": { "um": "{a} citó tu publicación.", "vezes": "{a} citó tu publicación {n} veces.", "varios": "{a} y {n} más citaron tu publicación.", "anonimo": "Alguien citó tu publicación.", "anonimoVarios": "{n} personas citaron tu publicación." },
     "seguidor": { "um": "{a} empezó a seguirte.", "vezes": "{a} empezó a seguirte.", "varios": "{a} y {n} más empezaron a seguirte.", "anonimo": "Alguien empezó a seguirte.", "anonimoVarios": "{n} personas empezaron a seguirte." },
-    "apoio": { "um": "1 persona apoyó tu publicación.", "vezes": "1 persona apoyó tu publicación.", "varios": "{n} personas apoyaron tu publicación.", "anonimo": "1 persona apoyó tu publicación.", "anonimoVarios": "{n} personas apoyaron tu publicación." }
+    "apoio": { "um": "1 persona apoyó tu publicación.", "vezes": "1 persona apoyó tu publicación.", "varios": "{n} personas apoyaron tu publicación.", "anonimo": "1 persona apoyó tu publicación.", "anonimoVarios": "{n} personas apoyaron tu publicación." },
+    "conversa_seguida": {"um": "{a} respondió en una conversación que sigues.", "vezes": "{a} respondió {n} veces en una conversación que sigues.", "varios": "{a} y {n} más respondieron en una conversación que sigues.", "anonimo": "Hay una respuesta nueva en una conversación que sigues.", "anonimoVarios": "{n} personas respondieron en una conversación que sigues."},
+    "ajudou": {"um": "Tu respuesta ayudó a quien abrió la conversación.", "vezes": "Tu respuesta ayudó a quien abrió la conversación.", "varios": "Tus respuestas ayudaron en {n} conversaciones.", "anonimo": "Tu respuesta ayudó a quien abrió la conversación.", "anonimoVarios": "Tus respuestas ayudaron en {n} conversaciones."},
+    "reacao_story": {"um": "Alguien reaccionó a tu historia.", "vezes": "Tu historia recibió {n} reacciones.", "varios": "Tu historia recibió reacciones.", "anonimo": "Alguien reaccionó a tu historia.", "anonimoVarios": "Tu historia recibió reacciones."},
+    "lembrete": {"um": "Pediste que te recordáramos este post ahora.", "vezes": "Pediste que te recordáramos este post ahora.", "varios": "Pediste que te recordáramos estos posts ahora.", "anonimo": "Pediste que te recordáramos este post ahora.", "anonimoVarios": "Pediste que te recordáramos estos posts ahora."}
   },
   "prefs": {
     "titulo": "Cómo quieres que te avisemos",
@@ -38,7 +42,12 @@
         "chamado": "Convocatorias",
         "nucleo": "Núcleos",
         "moderacao": "Moderación (siempre activado)",
-        "apoio": "Apoyos (solo la cantidad, nunca quién)"
+        "apoio": "Apoyos (solo la cantidad, nunca quién)",
+        "conversa_seguida": "Respuestas en conversaciones que sigues",
+        "ajudou": "Cuando tu respuesta ayudó (nunca quién la marcó)",
+        "ato": "Actos que sigues (faro, cadena, consulta)",
+        "reacao_story": "Reacciones a tus historias (nunca quién reaccionó)",
+        "lembrete": "Recordatorios: los que marcaste y los de los actos que confirmaste"
       }
     },
     "resumo": {
@@ -64,5 +73,16 @@
       "naoConfigurado": "El aviso en el celular todavía no está activado en este sitio.",
       "precisaEntrar": "Para recibir avisos en el celular, primero entra en Alumia (18 años o más, con las normas aceptadas)."
     }
+  },
+  "servidor": {
+    "lembrete24h": "Recordatorio: un acto que confirmaste empieza en menos de 24 horas.",
+    "lembrete2h": "Recordatorio: un acto que confirmaste empieza en menos de 2 horas.",
+    "mencaoStory": "Te mencionaron en una historia (desaparece en 24 h).",
+    "perguntaRespondida": "Tu pregunta fue respondida en Alumia.",
+    "storiesMencionaramN": "Hay historias que mencionaron la comunidad {comunidade} hoy ({n} historias). Aparecen en la página de la comunidad mientras estén al aire.",
+    "storiesMencionaram": "Hay historias que mencionaron la comunidad {comunidade} hoy. Aparecen en la página de la comunidad mientras estén al aire.",
+    "funcaoIndicada": "Te propusieron para la función “{funcao}” en “{org}”, hasta el {data}. Solo vale, y solo aparece para las demás personas, si aceptas en la página de la organización.",
+    "funcaoEleita": "Te eligieron para la función “{funcao}” en “{org}”, hasta el {data}.",
+    "encaminhamentoVencido": "El encargo “{texto}” de “{org}” pasó del plazo. Abre el Telar para marcarlo como cumplido o acordar un nuevo plazo."
   }
 }

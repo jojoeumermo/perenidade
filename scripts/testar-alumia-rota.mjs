@@ -453,7 +453,7 @@ igual("são 12 rotas novas", ROTAS_NOVAS.length, 12);
       await banco.pg.exec("reset role");
     }
   }), "permission denied");
-  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-chat-grupo,alumia-modo-ato,alumia-org,alumia-proximas,alumia-stories");
+  await espera("as flags da Onda 5 entram no catálogo, só pelo nome", async () => (await dono("select nome from interno.recursos_catalogo where so_pelo_nome and nome like 'alumia-%' order by 1")).rows.map((r) => r.nome), (n) => n.join() === "alumia-2,alumia-chat-grupo,alumia-entrada,alumia-modo-ato,alumia-org,alumia-proximas,alumia-stories");
   await espera("o resumo semanal leva a /pt/alumia/avisos", async () => (await um("select pg_get_functiondef('interno.rede3_aviso_resumo(uuid)'::regprocedure) as f, pg_get_functiondef('interno.rede3_aviso_resumo_semanal()'::regprocedure) as g")), (r) => r.f.includes("/pt/alumia/avisos") && r.g.includes("/pt/alumia/avisos") && !r.f.includes("/comunidade/avisos"));
   await espera("a ponte da página /denunciar reconhece /alumia/p/ e /comunidade/p/", async () => (await um("select pg_get_functiondef('interno.rede3_mod_ponte_denuncia()'::regprocedure) as f")).f, (f) => f.includes("'/(comunidade|alumia)/p/'"));
   await banco.pg.close?.();

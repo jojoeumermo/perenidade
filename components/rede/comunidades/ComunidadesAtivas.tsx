@@ -6,6 +6,7 @@ import Link from "@/components/Link";
 import { comunidades } from "@/lib/rede/cliente-comunidades";
 import { listaDeExemplo } from "@/lib/rede/conversa/exemplos";
 import { preencher } from "@/lib/rede/preencher";
+import { comReserva } from "@/lib/rede/reserva";
 import { enderecos } from "@/lib/rede/tipos";
 import { comunidadesAtivas, corDaComunidadeNova, enderecosCom, postsDaSemana, type ItemDaLista } from "@/lib/rede/tipos-comunidades";
 import type { ContextoDoEncaixe } from "../encaixes";
@@ -22,8 +23,9 @@ export function ComunidadesAtivas({ lang }: ContextoDoEncaixe) {
   useEffect(() => {
     let vivo = true;
     // rede_alumia_ativas (20261109-alumia-f3.sql): o banco já ordena e só manda as com 3 posts ou mais na semana. Banco sem a
-    // migração da F3 ainda: a lista de hoje, com a mesma conta feita aqui.
-    (previa() ? Promise.resolve({ itens: listaDeExemplo() }) : comunidades.ativas(4).catch(() => comunidades.lista()))
+    // migração da F3 ainda (e só nesse caso, lib/rede/reserva.ts): a lista de hoje, com a mesma conta feita aqui. Outro erro (limite,
+    // conta suspensa, área fechada) esconde o quadro em vez de pôr no lugar das ativas a lista de todas as comunidades.
+    (previa() ? Promise.resolve({ itens: listaDeExemplo() }) : comReserva(() => comunidades.ativas(4), () => comunidades.lista()))
       .then((r) => vivo && setLista(comunidadesAtivas(r.itens)))
       .catch(() => vivo && setLista([]));
     return () => {

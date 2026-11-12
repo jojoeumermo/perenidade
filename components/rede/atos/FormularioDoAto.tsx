@@ -12,6 +12,7 @@ import { normalizarPalavra } from "@/lib/rede/mosaico";
 import { preencherAto } from "@/lib/rede/textos-atos";
 import { LIMITES_DO_ATO, type DadosDoAto } from "@/lib/rede/tipos-atos";
 import "./atos.css";
+import "./quadros.css";
 
 type Campo = keyof CamposDoAto;
 
@@ -38,6 +39,15 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
   useEffect(() => {
     aoMudarRef.current({ ...conferirAto(c) });
   }, [c]);
+  // Meta ou link com problema não ficam escondidos no "mais" fechado (o ato não sai enquanto não arrumar): o bloco abre sozinho e
+  // o aviso aparece. Só abre; quem fecha é a pessoa.
+  const mais = useRef<HTMLDetailsElement>(null);
+  const maisComProblema = !!(dados.problemas.meta || dados.problemas.link_apoio);
+  useEffect(() => {
+    if (!maisComProblema || !mais.current) return;
+    if (!mais.current.open) mais.current.open = true;
+    setTocado((x) => (x.meta && x.link_apoio ? x : { ...x, meta: true, link_apoio: true }));
+  }, [maisComProblema]);
 
   if (!t) return <div className="al-ato-form" aria-busy="true" />;
 
@@ -174,6 +184,53 @@ export function FormularioDoAto({ lang, aoMudar }: ContextoDoEncaixe & { aoMudar
           </p>
         ) : null}
       </div>
+
+      {/* Meta e link de apoio: opcionais, guardados num "mais" para não pesar o formulário. */}
+      <details ref={mais} className="al-ato-form-mais" onToggle={(e) => {
+          // fechar com problema reabre (o aviso precisa ficar à vista)
+          if (maisComProblema && !e.currentTarget.open) e.currentTarget.open = true;
+        }}>
+        <summary>{t.formulario.mais}</summary>
+        <div className="al-ato-form-grupo">
+          <label htmlFor={`${id}-meta`} className="al-ato-form-rotulo">
+            {t.formulario.meta}
+          </label>
+          <input
+            {...props("meta", `${id}-meta-ajuda`)}
+            className="al-ato-form-campo"
+            inputMode="numeric"
+            value={c.meta ?? ""}
+            onChange={(e) => mudar("meta", e.target.value)}
+            placeholder={t.formulario.metaExemplo}
+            maxLength={6}
+            autoComplete="off"
+          />
+          <p id={`${id}-meta-ajuda`} className="al-ato-form-ajuda">
+            {t.formulario.metaAjuda}
+          </p>
+          {aviso("meta")}
+        </div>
+        <div className="al-ato-form-grupo">
+          <label htmlFor={`${id}-link_apoio`} className="al-ato-form-rotulo">
+            {t.formulario.link}
+          </label>
+          <input
+            {...props("link_apoio", `${id}-link-ajuda`)}
+            className="al-ato-form-campo"
+            type="url"
+            inputMode="url"
+            value={c.link_apoio ?? ""}
+            onChange={(e) => mudar("link_apoio", e.target.value)}
+            placeholder={t.formulario.linkExemplo}
+            maxLength={LIMITES_DO_ATO.linkMax}
+            autoComplete="off"
+          />
+          <p id={`${id}-link-ajuda`} className="al-ato-form-ajuda">
+            {t.formulario.linkAjuda}
+          </p>
+          {aviso("link_apoio")}
+        </div>
+      </details>
 
       <div className="al-ato-form-previa">
         {/* No celular a palavra quebra nos espaços (31 cartões de largura, como o cartão do ato), para sair grande e legível. */}

@@ -21,7 +21,11 @@
     "mencao": { "um": "{a} 提到了你。", "vezes": "{a} 提到了你 {n} 次。", "varios": "{a} 等另外 {n} 人提到了你。", "anonimo": "有人提到了你。", "anonimoVarios": "{n} 人提到了你。" },
     "citacao": { "um": "{a} 引用了你的帖子。", "vezes": "{a} 引用了你的帖子 {n} 次。", "varios": "{a} 等另外 {n} 人引用了你的帖子。", "anonimo": "有人引用了你的帖子。", "anonimoVarios": "{n} 人引用了你的帖子。" },
     "seguidor": { "um": "{a} 开始关注你。", "vezes": "{a} 开始关注你。", "varios": "{a} 等另外 {n} 人开始关注你。", "anonimo": "有人开始关注你。", "anonimoVarios": "{n} 人开始关注你。" },
-    "apoio": { "um": "1 人支持了你的帖子。", "vezes": "1 人支持了你的帖子。", "varios": "{n} 人支持了你的帖子。", "anonimo": "1 人支持了你的帖子。", "anonimoVarios": "{n} 人支持了你的帖子。" }
+    "apoio": { "um": "1 人支持了你的帖子。", "vezes": "1 人支持了你的帖子。", "varios": "{n} 人支持了你的帖子。", "anonimo": "1 人支持了你的帖子。", "anonimoVarios": "{n} 人支持了你的帖子。" },
+    "conversa_seguida": {"um": "{a} 在你关注的对话中回复了。", "vezes": "{a} 在你关注的对话中回复了 {n} 次。", "varios": "{a} 和另外 {n} 人在你关注的对话中回复了。", "anonimo": "你关注的对话中有新回复。", "anonimoVarios": "{n} 人在你关注的对话中回复了。"},
+    "ajudou": {"um": "你的回复帮助了发起对话的人。", "vezes": "你的回复帮助了发起对话的人。", "varios": "你的回复在 {n} 个对话中帮上了忙。", "anonimo": "你的回复帮助了发起对话的人。", "anonimoVarios": "你的回复在 {n} 个对话中帮上了忙。"},
+    "reacao_story": {"um": "有人回应了你的快拍。", "vezes": "你的快拍收到了 {n} 个回应。", "varios": "你的快拍收到了回应。", "anonimo": "有人回应了你的快拍。", "anonimoVarios": "你的快拍收到了回应。"},
+    "lembrete": {"um": "你要求现在提醒你这条帖子。", "vezes": "你要求现在提醒你这条帖子。", "varios": "你要求现在提醒你这些帖子。", "anonimo": "你要求现在提醒你这条帖子。", "anonimoVarios": "你要求现在提醒你这些帖子。"}
   },
   "prefs": {
     "titulo": "你希望如何收到通知",
@@ -38,7 +42,12 @@
         "chamado": "行动号召",
         "nucleo": "本地小组",
         "moderacao": "审核（始终开启）",
-        "apoio": "支持（只显示数量，不显示是谁）"
+        "apoio": "支持（只显示数量，不显示是谁）",
+        "conversa_seguida": "你关注的对话中的回复",
+        "ajudou": "你的回复帮上忙时（从不显示是谁标记的）",
+        "ato": "你关注的行动（灯塔、接力、征询）",
+        "reacao_story": "对你快拍的回应（从不显示是谁）",
+        "lembrete": "提醒：你自己设置的，以及你已确认参加的行动"
       }
     },
     "resumo": {
@@ -64,5 +73,16 @@
       "naoConfigurado": "此网站尚未开启手机通知。",
       "precisaEntrar": "要接收手机通知，请先加入 Alumia（年满 18 岁并接受规则）。"
     }
+  },
+  "servidor": {
+    "lembrete24h": "提醒：你确认参加的行动将在 24 小时内开始。",
+    "lembrete2h": "提醒：你确认参加的行动将在 2 小时内开始。",
+    "mencaoStory": "有人在快拍中提到了你（24 小时后消失）。",
+    "perguntaRespondida": "你的提问已在 Alumia 得到回答。",
+    "storiesMencionaramN": "今天有快拍提到了社区 {comunidade}（{n} 条）。它们在线期间会显示在社区页面上。",
+    "storiesMencionaram": "今天有快拍提到了社区 {comunidade}。它们在线期间会显示在社区页面上。",
+    "funcaoIndicada": "你被提名担任“{org}”的“{funcao}”职务，任期至 {data}。只有你在组织页面接受后，它才生效并对其他人可见。",
+    "funcaoEleita": "你当选“{org}”的“{funcao}”职务，任期至 {data}。",
+    "encaminhamentoVencido": "“{org}”的待办事项“{texto}”已过期限。请打开织机，标记为已完成或商定新期限。"
   }
 }

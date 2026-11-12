@@ -35,7 +35,7 @@ function Switch({ checked, onChange, label, hint }: { checked: boolean; onChange
       <input type="checkbox" role="switch" checked={checked} onChange={(e) => onChange(e.target.checked)} className="peer sr-only" />
       <span
         aria-hidden
-        className="relative mt-0.5 h-6 w-11 shrink-0 border-2 border-ink bg-parchment after:absolute after:left-0.5 after:top-0.5 after:h-4 after:w-4 after:bg-ink-soft peer-checked:bg-ink peer-checked:after:left-[1.375rem] peer-checked:after:bg-parchment peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold"
+        className="a11y-chave relative mt-0.5 h-6 w-11 shrink-0 border-2 border-ink bg-parchment after:absolute after:left-0.5 after:top-0.5 after:h-4 after:w-4 after:bg-ink-soft peer-checked:bg-ink peer-checked:after:left-[1.375rem] peer-checked:after:bg-parchment peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold"
       />
     </label>
   );
@@ -76,7 +76,7 @@ function Opcoes<T extends string | number>({
             type="button"
             aria-pressed={atual === valor}
             onClick={() => escolher(valor)}
-            className={`min-h-10 flex-1 cursor-pointer border-2 px-2 py-1.5 text-xs font-medium ${
+            className={`a11y-opcao min-h-10 flex-1 cursor-pointer border-2 px-2 py-1.5 text-xs font-medium ${
               atual === valor ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"
             }`}
           >
@@ -98,7 +98,7 @@ function Opcoes<T extends string | number>({
 function Grupo({ titulo, children }: { titulo: string; children: ReactNode }) {
   const id = useId();
   return (
-    <section aria-labelledby={id} className="space-y-4 border-t-2 border-rule pt-4">
+    <section aria-labelledby={id} className="a11y-grupo space-y-4 border-t-2 border-rule pt-4">
       <h3 id={id} className="rotulo">
         {titulo}
       </h3>
@@ -310,7 +310,7 @@ export function A11yWidget() {
             role="dialog"
             aria-labelledby={tituloId}
             aria-describedby={introId}
-            className={`absolute ${lado.baixo ? "bottom-14" : "top-14"} ${lado.direita ? "right-0" : "left-0"} max-h-[78vh] w-[min(22rem,calc(100vw-1.5rem))] space-y-5 overflow-y-auto border-2 border-ink bg-folha p-5 text-ink shadow-[6px_6px_0_var(--sombra)]`}
+            className={`a11y-painel al-pele absolute ${lado.baixo ? "bottom-14" : "top-14"} ${lado.direita ? "right-0" : "left-0"} max-h-[78vh] w-[min(22rem,calc(100vw-1.5rem))] space-y-5 overflow-y-auto border-2 border-ink bg-folha p-5 text-ink shadow-[6px_6px_0_var(--sombra)]`}
           >
             {/* Um título só: antes o rótulo "Acessibilidade" ficava em cima do título "Acessibilidade". */}
             <div className="flex items-start justify-between gap-3 border-b-2 border-ink pb-3">
@@ -322,7 +322,7 @@ export function A11yWidget() {
                   {a.intro}
                 </p>
               </div>
-              <button type="button" onClick={fecharDevolvendoFoco} aria-label={a.close} className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center border-2 border-ink hover:bg-ink hover:text-parchment">
+              <button type="button" onClick={fecharDevolvendoFoco} aria-label={a.close} className="a11y-fechar flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center border-2 border-ink hover:bg-ink hover:text-parchment">
                 <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
                   <path d="M6 6l12 12M18 6 6 18" />
                 </svg>
@@ -331,7 +331,7 @@ export function A11yWidget() {
 
             {/* O VLibras no alto, em destaque: quem precisa de Libras não deve ter de rolar a janela para achar. */}
             {ligado("vlibras") && (
-              <div className="border-2 border-ink bg-ink p-4 text-parchment shadow-[4px_4px_0_var(--prelo)] [&_.text-ink-soft]:text-[#e9dcbc] [&_button]:border-parchment">
+              <div className="a11y-vlibras border-2 border-ink bg-ink p-4 text-parchment shadow-[4px_4px_0_var(--prelo)] [&_.text-ink-soft]:text-[#e9dcbc] [&_button]:border-parchment">
                 <AtivarVLibras />
               </div>
             )}
@@ -378,11 +378,11 @@ export function A11yWidget() {
                   <p className="mt-2 text-xs text-oxblood">{a.noSpeech}</p>
                 ) : (
                   <div className="mt-2 flex flex-wrap gap-2">
-                    <button type="button" onClick={() => startReading()} className="cursor-pointer bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood">
+                    <button type="button" onClick={() => startReading()} className="a11y-botao cursor-pointer bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood">
                       {speaking ? a.readAgain : a.readPage}
                     </button>
                     {speaking && (
-                      <button type="button" onClick={stopReading} className="cursor-pointer border-2 border-oxblood px-4 py-2 font-medium text-oxblood">
+                      <button type="button" onClick={stopReading} className="a11y-botao cursor-pointer border-2 border-oxblood px-4 py-2 font-medium text-oxblood">
                         {a.stop}
                       </button>
                     )}
@@ -433,7 +433,7 @@ export function A11yWidget() {
             </Grupo>
 
             <div className="border-t-2 border-rule pt-4">
-              <button type="button" onClick={restaurar} className="cursor-pointer border-2 border-ink px-4 py-2 font-medium hover:bg-ink hover:text-parchment">
+              <button type="button" onClick={restaurar} className="a11y-botao cursor-pointer border-2 border-ink px-4 py-2 font-medium hover:bg-ink hover:text-parchment">
                 {a.reset}
               </button>
             </div>
@@ -451,7 +451,7 @@ export function A11yWidget() {
           aria-label={speaking ? `${a.button} (${a.reading})` : a.button}
           title={a.button}
           data-falando={speaking ? "" : undefined}
-          className={`a11y-gatilho relative flex h-11 w-11 cursor-pointer touch-none items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood ${speaking || open ? "" : "app:hidden"}`}
+          className={`a11y-gatilho al-pele relative flex h-11 w-11 cursor-pointer touch-none items-center justify-center rounded-full border-2 border-parchment bg-ink text-parchment hover:bg-oxblood ${speaking || open ? "" : "app:hidden"}`}
         >
           <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="4.5" r="1.5" fill="currentColor" />

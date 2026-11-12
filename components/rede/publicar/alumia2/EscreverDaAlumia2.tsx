@@ -18,11 +18,12 @@ import {
   type RascunhoDoServidor,
   type TipoDoCompositor,
 } from "@/lib/rede/publicar/alumia2";
+import { chaveDoAparelho, chaveDoCodigo, cifrarRascunho, codigoDaChave, decifrarRascunho, guardarNaConta, marcarGuardarNaConta, trocarChaveDoAparelho } from "@/lib/rede/publicar/b1";
 import { COMUNIDADES_DE_EXEMPLO } from "@/lib/rede/publicar/exemplos-alumia2";
 import type { TextosDaRede } from "@/lib/rede/textos";
 import { carregarTextosDaConversa, type TextosDaConversa } from "@/lib/rede/textos-conversa";
 import type { Comunidade, Post, Publico, Situacao, TipoDePost } from "@/lib/rede/tipos";
-import type { PedidoPublicar, RespondeQuem } from "@/lib/rede/tipos-publicar";
+import type { CitarQuem, PedidoPublicar, RespondeQuem } from "@/lib/rede/tipos-publicar";
 import { CampoComMencoes } from "../../conversa/CampoComMencoes";
 import { ENCAIXES, verificarAntesDePublicar } from "../../encaixes";
 import { codigoDoErro, textoDoErro } from "../../erros";
@@ -36,6 +37,7 @@ import type { TipoAoEscrever } from "./CascaDaAlumia2";
 import { useAlumia2 } from "./contexto";
 import { Icone, type NomeDoIcone } from "./icones";
 import { Pilulas } from "./Pilulas";
+import type { TextosAlumia2 } from "./textos";
 import { comMovimento } from "./TopoDaLinha2";
 
 /** O que dá para focar com Tab dentro do diálogo (para prender o foco nele). */
@@ -52,6 +54,39 @@ interface Lugar {
   nome: string;
   categoria: string;
   cor: CorDaComunidadeNum;
+}
+
+/** Um rascunho da conta já aberto aqui: "ok" (decifrado), "outro" (cifrado noutro aparelho) ou "antigo" (de antes da cifra). */
+type RascunhoNaLista = RascunhoDoServidor & { estado: "ok" | "outro" | "antigo" };
+const VAZIO: Omit<RascunhoDoServidor, "id"> = { tipo: "post", texto: "", titulo: "", corpo: "", comunidade: null, publico: "membros", responde_quem: "todos" };
+
+/** Cifra no aparelho e guarda na conta: o servidor recebe só { v, iv, cifra } (rede_rascunho_limpo recusa texto claro). */
+async function salvarCifrado(r: RascunhoDoServidor) {
+  const { id, ...conteudo } = r;
+  const cifrado = await cifrarRascunho(conteudo, chaveDoAparelho());
+  return redePub.salvarRascunho({ id, ...cifrado });
+}
+
+/**
+ * O pedido usa o que só a B1 cumpre (enquete com resultado só no fim ou ordem embaralhada)? Um banco sem a B1 ignoraria a escolha
+ * em silêncio e mostraria a parcial que a pessoa pediu para esconder: nesse caso o pedido não cai na função de antes.
+ */
+const soComB1 = (pedido: PedidoPublicar) => Boolean(pedido.enquete?.so_no_fim || pedido.enquete?.embaralhar);
+
+/**
+ * Publica com os campos da B1 (quem pode citar, enquete avançada); um banco sem a B1 recebe o pedido de antes. Nesse banco a
+ * citação segue aberta a todos, e por isso a linha "quem pode citar" nem aparece (citaNoBanco): a tela não promete o que o banco
+ * não cumpre.
+ */
+async function publicarComB1(pedido: PedidoPublicar): Promise<Post> {
+  try {
+    return await redePub.publicarMais(pedido);
+  } catch (e) {
+    if (!faltaNoBanco(e) || soComB1(pedido)) throw e;
+    const { citar_quem: _c, ...resto } = pedido;
+    void _c;
+    return rede.publicar(resto);
+  }
 }
 
 const LIMITE_POST = 500;
@@ -100,7 +135,7 @@ export function EscreverDaAlumia2({
   const [anuncioDoTipo, setAnuncioDoTipo] = useState("");
   const [onde, setOnde] = useState<string | null>(comunidade?.slug ?? null);
   const [publico, setPublico] = useState<Publico>(comunidade ? (comunidade.publico_padrao === "internet" ? "internet" : comunidade.publico_padrao === "comunidade" ? "comunidade" : "membros") : "membros");
-  const [aberta, setAberta] = useState<"onde" | "quem" | "responde" | null>(null);
+  const [aberta, setAberta] = useState<"onde" | "quem" | "responde" | "cita" | null>(null);
   const [lugares, setLugares] = useState<Lugar[]>(() =>
     previa ? Object.entries(COMUNIDADES_DE_EXEMPLO).map(([slug, c]) => ({ slug, nome: c.nome, categoria: "lutas", cor: c.cor })) : [],
   );
@@ -112,8 +147,11 @@ export function EscreverDaAlumia2({
   const [agora, setAgora] = useState(0);
   const [lembrouAlt, setLembrouAlt] = useState(false);
   const [rascunhoId, setRascunhoId] = useState<string | null>(null);
-  const [rascunhoOnde, setRascunhoOnde] = useState<"conta" | "aparelho" | "cheio" | null>(null);
-  const [rascunhos, setRascunhos] = useState<RascunhoDoServidor[]>([]);
+  const [rascunhoOnde, setRascunhoOnde] = useState<"conta" | "aparelho" | "cheio" | "ato" | null>(null);
+  const [rascunhos, setRascunhos] = useState<RascunhoNaLista[]>([]);
+  // "Guardar rascunhos na conta": desligado por padrão (opt-in); a escolha fica neste aparelho.
+  const [naConta, setNaConta] = useState(() => guardarNaConta());
+  const [notaDaConta, setNotaDaConta] = useState("");
   const [tc, setTc] = useState<TextosDaConversa | null>(null);
   const [saindo, setSaindo] = useState(false);
   const dialogo = useRef<HTMLDivElement>(null);
@@ -139,6 +177,17 @@ export function EscreverDaAlumia2({
     },
   });
 
+  // "Quem pode citar" só aparece quando o banco cumpre (a B1 no ar). Na prévia, aparece (é o dublê).
+  const [citaNoBanco, setCitaNoBanco] = useState(previa);
+  useEffect(() => {
+    if (resposta || previa) return;
+    let vivo = true;
+    void redePub.cumpreQuemCita().then((sim) => vivo && setCitaNoBanco(sim));
+    return () => {
+      vivo = false;
+    };
+  }, [resposta, previa]);
+
   // As comunidades onde a pessoa pode publicar (Onde publicar). Na prévia, as das pranchas.
   useEffect(() => {
     if (resposta || previa) return;
@@ -155,12 +204,25 @@ export function EscreverDaAlumia2({
     };
   }, [resposta, previa]);
 
-  // Os rascunhos guardados na conta (só para quem abre o Escrever vazio, e nunca para resposta).
+  // Os rascunhos guardados na conta (só com "guardar na conta" ligado, para quem abre o Escrever vazio, e nunca para resposta).
+  // Cada um chega cifrado e é aberto aqui, com a chave deste aparelho; o servidor nunca viu o texto.
   useEffect(() => {
-    if (resposta || previa || textoInicial) return;
+    if (resposta || previa || textoInicial || !naConta) return;
     let vivo = true;
     redePub.rascunhos().then(
-      (lista) => vivo && setRascunhos(rascunhosValidos(Array.isArray(lista) ? lista : [], Date.now())),
+      async (lista) => {
+        const chave = chaveDoAparelho();
+        const abertos = await Promise.all(
+          (Array.isArray(lista) ? lista : []).map(async (r): Promise<RascunhoNaLista> => {
+            if (typeof r.cifra === "string") {
+              const claro = await decifrarRascunho<Omit<RascunhoDoServidor, "id">>(r, chave);
+              return claro ? { ...VAZIO, ...claro, id: r.id, atualizado_em: r.atualizado_em, estado: "ok" } : { ...VAZIO, id: r.id, atualizado_em: r.atualizado_em, estado: "outro" };
+            }
+            return { ...VAZIO, ...r, id: r.id, atualizado_em: r.atualizado_em, estado: "antigo" };
+          }),
+        );
+        if (vivo) setRascunhos(rascunhosValidos(abertos, Date.now()));
+      },
       (e) => {
         if (faltaNoBanco(e)) semServidor.current = true;
       },
@@ -168,7 +230,7 @@ export function EscreverDaAlumia2({
     return () => {
       vivo = false;
     };
-  }, [resposta, previa, textoInicial]);
+  }, [resposta, previa, textoInicial, naConta]);
 
   // Autocompletar de @ (pacote conversa), como no Escrever de hoje.
   useEffect(() => {
@@ -243,15 +305,16 @@ export function EscreverDaAlumia2({
   useEffect(() => {
     if (resposta || previa || envio) return;
     const id = window.setTimeout(() => {
-      if (semServidor.current) {
-        if (rascunhoTemTexto(rascunhoAtual)) setRascunhoOnde("aparelho");
+      // Desligado (o padrão), servidor sem a função, ou rascunho de ato: fica só no aparelho (o ato diz onde e quando: nunca sai daqui).
+      if (!naConta || semServidor.current || tipo === "ato") {
+        if (rascunhoTemTexto(rascunhoAtual)) setRascunhoOnde(tipo === "ato" ? "ato" : "aparelho");
         return;
       }
       if (!rascunhoTemTexto(rascunhoAtual)) {
         if (rascunhoAtual.id) void redePub.apagarRascunho(rascunhoAtual.id).then(() => setRascunhoId(null), () => undefined);
         return;
       }
-      redePub.salvarRascunho(rascunhoAtual).then(
+      void salvarCifrado(rascunhoAtual).then(
         (r) => {
           setRascunhoId(r.id);
           setRascunhoOnde("conta");
@@ -266,7 +329,23 @@ export function EscreverDaAlumia2({
     return () => window.clearTimeout(id);
     // rascunhoAtual.id muda só quando o servidor responde: não precisa guardar de novo por isso
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [texto, titulo, corpo, tipo, onde, publico, pub.respondeQuem, resposta, previa, envio]);
+  }, [texto, titulo, corpo, tipo, onde, publico, pub.respondeQuem, resposta, previa, envio, naConta]);
+
+  /** Liga ou desliga "guardar rascunhos na conta". Ao desligar, apaga todos os da conta (LGPD art. 18, VI: eliminação). */
+  function mudarNaConta(sim: boolean) {
+    marcarGuardarNaConta(sim);
+    setNaConta(sim);
+    setNotaDaConta("");
+    if (!sim) {
+      setRascunhos([]);
+      setRascunhoId(null);
+      setRascunhoOnde(rascunhoTemTexto(rascunhoAtual) ? "aparelho" : null);
+      void redePub.apagarTodosRascunhos().then(
+        () => setNotaDaConta(al2?.t.b1.naContaDesligou ?? ""),
+        () => undefined,
+      );
+    }
+  }
 
   const publicos: Publico[] = [
     "membros",
@@ -289,7 +368,7 @@ export function EscreverDaAlumia2({
   const pronto =
     tipo === "ato"
       ? atoPronto
-      : (longo ? titulo.trim().length >= 5 && corpo.trim().length >= 10 : texto.trim().length >= 1) && pub.podeEnviar && (!pub.agendar || pub.agendaOk);
+      : (longo ? titulo.trim().length >= 5 && corpo.trim().length >= 10 : texto.trim().length >= 1) && pub.podeEnviar && (Boolean(pub.aposAto) || !pub.agendar || pub.agendaOk);
 
   const montarPedido = useCallback(async (): Promise<PedidoPublicar> => {
     if (resposta) return { texto: texto.trim(), resposta_a: respostaA?.id, ...(await pub.preparar()) };
@@ -324,9 +403,15 @@ export function EscreverDaAlumia2({
         return;
       }
       const pedido = await montarPedido();
-      if (!resposta && pub.agendar && tipo !== "ato") {
-        const quando = new Date(pub.agendar);
-        const agendado = await redePub.agendar(pedido, quando.toISOString());
+      if (!resposta && (pub.agendar || pub.aposAto) && tipo !== "ato") {
+        // Com repetição ou "quando o ato terminar", pelo rede_pub_agendar_mais; sem a B1 no banco, a data única de antes.
+        const opcoes = { ...(pub.repetir ? { repetir: "semanal" as const, vezes: pub.repetir } : {}), ...(pub.aposAto ? { apos_ato: pub.aposAto } : {}) };
+        const pedirQuando = pub.aposAto ? null : new Date(pub.agendar).toISOString();
+        const agendado = await redePub.agendarMais(pedido, pedirQuando, opcoes).catch((e) => {
+          if (faltaNoBanco(e) && pedirQuando && !pub.repetir && !pub.aposAto && !soComB1(pedido)) return redePub.agendar(pedido, pedirQuando);
+          throw e;
+        });
+        const quando = new Date(agendado.quando);
         if (desfeitoNoEnvio.current) {
           // Desfeito no meio do caminho: o agendamento é cancelado e o texto continua na caixa.
           await redePub.cancelarAgendado(agendado.id);
@@ -337,7 +422,7 @@ export function EscreverDaAlumia2({
         setAviso(preencher(pub.t?.agendar.agendado ?? "", { quando: quando.toLocaleString(lang, { dateStyle: "short", timeStyle: "short" }) }));
         return;
       }
-      const post = await rede.publicar(pedido);
+      const post = await publicarComB1(pedido);
       if (desfeitoNoEnvio.current && post.id) {
         // Desfeito no meio do caminho: o banco apaga o post (até 30 s, só o autor) e o texto continua na caixa.
         const volta = await redePub.desfazer(post.id).then(
@@ -369,6 +454,14 @@ export function EscreverDaAlumia2({
       aoFechar();
     } catch (e) {
       setEnvio(null);
+      // O ato tem erros próprios (a palavra do mosaico, o ponto, o link de apoio, a meta…): a frase certa vem dos textos dos atos.
+      if (tipo === "ato" && encaixeDoAto) {
+        const [{ carregarTextosDosAtos }, erros] = await Promise.all([import("@/lib/rede/textos-atos"), import("@/lib/rede/atos/erros")]);
+        if (erros.codigoDoErro(e) !== "generico") {
+          setErro(erros.fraseDoErro((await carregarTextosDosAtos(lang)).erros, e));
+          return;
+        }
+      }
       setErro((pub.t && textoDoErroPublicar(pub.t, codigoDoErro(e))) || textoDoErro(s, e));
     } finally {
       desfeitoNoEnvio.current = false;
@@ -416,6 +509,8 @@ export function EscreverDaAlumia2({
   }
 
   function desfazer() {
+    // O ato não tem desfazer no banco (é da F2): se o pedido já saiu, o botão some (ver o aviso flutuante) e nada é fingido aqui.
+    if (ocupado && tipo === "ato") return;
     // O pedido já saiu? O envio termina e desfaz no banco (rede_pub_desfazer); antes disso, ele nem sai.
     if (ocupado) desfeitoNoEnvio.current = true;
     setEnvio(null);
@@ -434,7 +529,7 @@ export function EscreverDaAlumia2({
         if (!window.confirm(al2?.t.escrever.descartarResposta ?? "")) return;
       } else {
         escreverRascunho({ tipo: tipoBanco, texto, titulo, corpo });
-        if (!semServidor.current) void redePub.salvarRascunho(rascunhoAtual).catch(() => undefined);
+        if (naConta && !semServidor.current && tipo !== "ato") void salvarCifrado(rascunhoAtual).catch(() => undefined);
       }
     }
     sair();
@@ -501,7 +596,8 @@ export function EscreverDaAlumia2({
     return () => document.removeEventListener("focusin", guarda);
   }, [envio]);
 
-  function continuarRascunho(r: RascunhoDoServidor) {
+  function continuarRascunho(r: RascunhoNaLista) {
+    if (r.estado === "outro") return;
     const tp = tipoDoRascunho(r.tipo);
     setTipo(tp === "ato" && !temAto ? "post" : tp);
     setTexto(r.texto);
@@ -514,7 +610,7 @@ export function EscreverDaAlumia2({
     setRascunhos([]);
   }
 
-  function apagarRascunho(r: RascunhoDoServidor) {
+  function apagarRascunho(r: RascunhoNaLista) {
     if (!r.id) return;
     setRascunhos((l) => l.filter((x) => x.id !== r.id));
     void redePub.apagarRascunho(r.id).catch(() => undefined);
@@ -547,6 +643,8 @@ export function EscreverDaAlumia2({
   const falta = tipo === "ato" && !pronto && problemasDoAto?.length ? preencher(t.escrever.falta, { campos: problemasDoAto.map((c) => camposDoAto[c] ?? c).join(", ") }) : "";
   const responde: RespondeQuem[] = ["todos", "seguindo", "mencionados", "ninguem"];
   const rotuloResponde = (q: RespondeQuem) => ({ todos: t.escrever.respondeTodos, seguindo: t.escrever.respondeSeguindo, mencionados: t.escrever.respondeMencionados, ninguem: t.escrever.respondeNinguem })[q];
+  const rotuloCita = (q: CitarQuem) => ({ ninguem: t.b1.citaNinguem, seguindo: t.b1.citaSeguindo, todos: t.b1.citaTodos })[q];
+  const ajudaCita = (q: CitarQuem) => ({ ninguem: t.b1.citaAjudaNinguem, seguindo: t.b1.citaAjudaSeguindo, todos: t.b1.citaAjudaTodos })[q];
   const ajudaDoPublico = (p: Publico) =>
     ({ internet: t.escrever.ajudaInternet, membros: t.escrever.ajudaMembros, seguidores: t.escrever.ajudaSeguidores, comunidade: t.escrever.ajudaComunidade, nucleo: t.escrever.ajudaNucleo, equipe: t.escrever.ajudaEquipe })[p];
 
@@ -620,8 +718,11 @@ export function EscreverDaAlumia2({
                 <ul className="mt-2 space-y-1">
                   {rascunhos.map((r) => (
                     <li key={r.id ?? r.atualizado_em} className="flex items-center gap-2">
-                      <span className="min-w-0 flex-1 truncate">{(r.titulo || r.texto || r.corpo).trim() || t.escrever.semTexto}</span>
-                      <button type="button" className="al-botao al-botao-contorno al-botao-p" onClick={() => continuarRascunho(r)}>{t.escrever.continuar}</button>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate">{r.estado === "outro" ? t.b1.rascunhoOutroAparelho : (r.titulo || r.texto || r.corpo).trim() || t.escrever.semTexto}</span>
+                        {r.estado === "antigo" && <span className="block text-xs text-[var(--al-texto-3)]">{t.b1.rascunhoAntigo}</span>}
+                      </span>
+                      {r.estado !== "outro" && <button type="button" className="al-botao al-botao-contorno al-botao-p" onClick={() => continuarRascunho(r)}>{t.escrever.continuar}</button>}
                       <button type="button" className="al2-acao" onClick={() => apagarRascunho(r)}>{t.escrever.apagar}</button>
                     </li>
                   ))}
@@ -752,6 +853,22 @@ export function EscreverDaAlumia2({
                   escolhido={pub.respondeQuem}
                   aoEscolher={(v) => pub.setRespondeQuem(v as RespondeQuem)}
                 />
+                {tipo !== "ato" && citaNoBanco && (
+                  // Quem pode citar (repostar com comentário): padrão "ninguém"; o banco confere em qualquer caminho que cite.
+                  // Com o banco ainda sem a B1 a linha não aparece (lá a citação é aberta a todos).
+                  <Escolha
+                    icone={<Icone nome="repostar" className="h-5 w-5" />}
+                    rotulo={t.b1.quemCita}
+                    valor={rotuloCita(pub.citarQuem)}
+                    aberta={aberta === "cita"}
+                    aoAbrir={() => setAberta(aberta === "cita" ? null : "cita")}
+                    aoFecharLista={() => setAberta(null)}
+                    vertical
+                    opcoes={(["ninguem", "seguindo", "todos"] as CitarQuem[]).map((q) => ({ valor: q, texto: rotuloCita(q), ajuda: ajudaCita(q) }))}
+                    escolhido={pub.citarQuem}
+                    aoEscolher={(v) => pub.setCitarQuem(v as CitarQuem)}
+                  />
+                )}
               </div>
             )}
             {!resposta && publico === "internet" && (
@@ -760,14 +877,22 @@ export function EscreverDaAlumia2({
                 {t.escrever.notaFediverso}
               </p>
             )}
+            {/* Sair no Fediverso é escolha da comunidade (a trava é de propósito: um post solto nunca sai da Alumia sem querer). */}
+            {!resposta && tipo !== "ato" && !publicos.includes("internet") && aberta === "quem" && (
+              <p className="al2-nota">
+                <Icone nome="fediverso" className="h-4 w-4" />
+                {t.b1.fediverso}
+              </p>
+            )}
 
             <p className="text-xs text-[var(--al-texto-3)]">{preencher(t.escrever.codinome, { codinome: situacao.codinome ?? "" })}</p>
             {rascunhoOnde && (
               <p className="al2-nota" role="status">
                 <Icone nome="visto" className="h-4 w-4" />
-                {rascunhoOnde === "conta" ? t.escrever.rascunhoNaConta : rascunhoOnde === "cheio" ? t.escrever.rascunhosCheios : t.escrever.rascunhoSoAqui}
+                {rascunhoOnde === "conta" ? t.b1.rascunhoCifrado : rascunhoOnde === "cheio" ? t.escrever.rascunhosCheios : rascunhoOnde === "ato" ? t.b1.rascunhoDeAto : t.escrever.rascunhoSoAqui}
               </p>
             )}
+            {!resposta && !previa && <RascunhosNaConta t={t} ligado={naConta} aoMudar={mudarNaConta} nota={notaDaConta} />}
           </div>
 
           <div aria-live="polite" className="px-4 pb-4 empty:hidden">
@@ -791,11 +916,18 @@ export function EscreverDaAlumia2({
           <span className="al2-aviso-relogio" aria-hidden>
             {faltam}
           </span>
-          <span>{preencher(t.escrever.enviandoEm, { s: faltam })}</span>
-          <button ref={botaoDesfazer} type="button" onClick={desfazer} className="al-botao al-botao-primario al-botao-p">
-            <Icone nome="desfazer" className="h-4 w-4" />
-            {t.escrever.desfazer}
-          </button>
+          {ocupado && tipo === "ato" ? (
+            // O chamado já está indo ao banco da F2, que não tem desfazer: diz a verdade em vez de um Desfazer que não desfaz.
+            <span>{t.b1.desfazerAto}</span>
+          ) : (
+            <>
+              <span>{preencher(t.escrever.enviandoEm, { s: faltam })}</span>
+              <button ref={botaoDesfazer} type="button" onClick={desfazer} className="al-botao al-botao-primario al-botao-p">
+                <Icone nome="desfazer" className="h-4 w-4" />
+                {t.escrever.desfazer}
+              </button>
+            </>
+          )}
           <span className="al2-aviso-barra" aria-hidden />
         </div>
       )}
@@ -894,6 +1026,74 @@ function Escolha({
           />
           {depois}
         </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * A chave "Guardar rascunhos na conta" (desligada por padrão) e, ligada, o código para ler os rascunhos noutro aparelho. O código
+ * é a própria chave AES do aparelho: fica só com a pessoa (o servidor nunca recebe). LGPD art. 6º, III (necessidade) e art. 46
+ * (segurança): o texto de um chamado ou de uma denúncia é dado sensível (art. 11) e não precisa estar legível no servidor.
+ */
+function RascunhosNaConta({ t, ligado, aoMudar, nota }: { t: TextosAlumia2; ligado: boolean; aoMudar: (sim: boolean) => void; nota: string }) {
+  const [colado, setColado] = useState("");
+  const [msg, setMsg] = useState("");
+  const [codigo, setCodigo] = useState("");
+  return (
+    <div className="space-y-2">
+      <label className="al2-opcao-b1">
+        <input type="checkbox" role="switch" className="al2-caixinha" checked={ligado} onChange={(e) => aoMudar(e.target.checked)} aria-describedby="al2-na-conta-ajuda" />
+        <span className="min-w-0">
+          <span className="block font-bold">{t.b1.naConta}</span>
+          <span id="al2-na-conta-ajuda" className="block text-xs text-[var(--al-texto-3)]">{t.b1.naContaAjuda}</span>
+        </span>
+      </label>
+      {nota && (
+        <p role="status" className="al2-nota">
+          <Icone nome="visto" className="h-4 w-4" />
+          {nota}
+        </p>
+      )}
+      {ligado && (
+        <details className="al2-anexo text-sm" onToggle={(e) => (e.currentTarget.open && !codigo ? setCodigo(codigoDaChave(chaveDoAparelho())) : undefined)}>
+          <summary className="cursor-pointer font-bold">{t.b1.chave}</summary>
+          <p className="mt-1 text-xs text-[var(--al-texto-3)]">{t.b1.chaveAjuda}</p>
+          {codigo && (
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <code className="min-w-0 flex-1 break-all rounded-lg bg-[var(--al-fundo)] px-2 py-1 text-xs">{codigo}</code>
+              <button
+                type="button"
+                className="al-botao al-botao-contorno al-botao-p"
+                onClick={() => void navigator.clipboard?.writeText(codigo).then(() => setMsg(t.b1.chaveCopiado), () => undefined)}
+              >
+                {t.b1.chaveCopiar}
+              </button>
+            </div>
+          )}
+          <label className="mt-3 block">
+            <span className="al2-rotulo">{t.b1.chaveColar}</span>
+            <input className="al2-campo min-h-11 font-mono text-xs" value={colado} autoComplete="off" spellCheck={false} onChange={(e) => setColado(e.target.value)} />
+          </label>
+          <button
+            type="button"
+            className="al-botao al-botao-contorno al-botao-p mt-2"
+            disabled={!colado.trim()}
+            onClick={() => {
+              const chave = chaveDoCodigo(colado);
+              if (!chave) return setMsg(t.b1.chaveInvalida);
+              trocarChaveDoAparelho(chave);
+              setCodigo(codigoDaChave(chave));
+              setColado("");
+              setMsg(t.b1.chaveTrocada);
+            }}
+          >
+            {t.b1.chaveUsar}
+          </button>
+          <p role="status" className="mt-1 text-xs text-[var(--al-texto-2)]">
+            {msg}
+          </p>
+        </details>
       )}
     </div>
   );

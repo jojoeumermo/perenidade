@@ -24,6 +24,7 @@ import { EsqueletoDaLinha } from "../../Esqueletos";
 import { Linha } from "../../Linha";
 import { Abas } from "../../org/Abas";
 import { Botao, LinkBotao } from "../../ui/Botao";
+import { FileiraDoPerfil, fileiraDeDestaquesLigada } from "../FileiraDoPerfil";
 import { CabecalhoDoPerfil, estiloDoAcento } from "./Cabecalho";
 import { linhaDoPerfil, meusPosts, postsFixados, previa, type AparenciaLida } from "./dados";
 import type { TextosDoPerfilLivre } from "./textos";
@@ -60,8 +61,17 @@ export function PaginaDoPerfil({
   const id = useId();
   const a = lida.aparencia;
   const [dado, setDado] = useState(inicial);
-  const abas = a.abas;
+  // Com a fileira única (B1), os destaques de post/ato vão para a mesma linha de bolinhas dos stories, acima das abas: a aba
+  // "Destaques" sai (senão a pessoa veria os mesmos destaques em dois lugares).
+  const fileira = fileiraDeDestaquesLigada();
+  const abas = fileira ? a.abas.filter((x) => x !== "destaques") : a.abas;
   const [aba, setAba] = useState<AbaDoPerfil>(abas[0] ?? "posts");
+  const destaquesDePosts = [
+    ...a.destaques.map((d) => ({ chave: d.ref, tipo: d.tipo, titulo: d.titulo, href: d.tipo === "ato" ? `/${lang}/alumia/ato/${d.ref}` : enderecos.post(lang, d.ref), cor: PALETA_DO_PERFIL[d.cor] })),
+    ...(extras?.destaques ?? [])
+      .filter((d) => !a.destaques.some((x) => x.ref === d.id))
+      .map((d) => ({ chave: d.id, tipo: d.tipo === "ato" ? ("ato" as const) : ("post" as const), titulo: d.titulo, href: d.href, cor: hexDoAcento(a.acento) })),
+  ];
   const [ocupado, setOcupado] = useState(false);
   const [erro, setErro] = useState("");
 
@@ -86,20 +96,20 @@ export function PaginaDoPerfil({
   }
 
   const acoes = dado.meu ? (
-    <LinkBotao href={enderecoDeEditarPerfil(lang)} variante="contorno" icone={<IconeLapis />}>
+    <LinkBotao pilula href={enderecoDeEditarPerfil(lang)} variante="contorno" icone={<IconeLapis />}>
       {t.perfil.editar}
     </LinkBotao>
   ) : dado.pendente ? (
-    <Botao variante="contorno" disabled={ocupado} onClick={() => void seguir(false)}>
+    <Botao pilula variante="contorno" disabled={ocupado} onClick={() => void seguir(false)}>
       {sp?.perfil.pedidoEnviado ?? "…"}
     </Botao>
   ) : (
     <>
-      <Botao variante={dado.sigo ? "claro" : "primario"} pressionado={dado.sigo} disabled={ocupado || !situacao.membro} onClick={() => void seguir(!dado.sigo)}>
+      <Botao pilula variante={dado.sigo ? "claro" : "primario"} pressionado={dado.sigo} disabled={ocupado || !situacao.membro} onClick={() => void seguir(!dado.sigo)}>
         {dado.sigo ? (sp?.perfil.seguindo ?? "…") : dado.modo === "trancado" ? (sp?.perfil.pedirParaSeguir ?? "…") : (sp?.perfil.seguir ?? "…")}
       </Botao>
       {situacao.logado && situacao.membro ? (
-        <LinkBotao href={`${enderecos.linha(lang)}/conversas?com=${encodeURIComponent(dado.handle)}`} variante="contorno">
+        <LinkBotao pilula href={`${enderecos.linha(lang)}/conversas?com=${encodeURIComponent(dado.handle)}`} variante="contorno">
           {s.perfil.conversar}
         </LinkBotao>
       ) : null}
@@ -194,6 +204,7 @@ export function PaginaDoPerfil({
           </>
         }
       />
+      {fileira ? <FileiraDoPerfil handle={dado.handle} lang={lang} s={s} situacao={situacao} posts={destaquesDePosts} /> : null}
       {abas.length > 1 ? (
         <Abas id={id} abas={abas} atual={aba} aoMudar={(n) => comTransicao(() => setAba(n))} rotulos={nomesDasAbas} rotulo={preencher(t.perfil.abas, { codinome: dado.codinome })} />
       ) : null}

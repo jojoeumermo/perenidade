@@ -1,0 +1,15 @@
+{
+  "sobre": "As silhuetas da entrada da Alumia (components/rede/entrada/Silhuetas.tsx). Só fotos em domínio público ou com licença livre do Wikimedia Commons, sempre com crédito. Para trocar ou acrescentar: edite esta lista e rode npm run alumia:silhuetas (baixa do Commons, escurece, desfoca, recorta e grava public/alumia/entrada/<id>.webp e creditos.json). Pessoa VIVA só entra com a autorização dela por escrito, anotada em 'autorizacao' (Código Civil art. 20; LGPD art. 7º): sem isso o roteiro recusa e a tela não mostra. Pessoa falecida: só imagem de licença livre, uso digno, sem distorção nem caricatura (Código Civil art. 20, parágrafo único).",
+  "figuras": [
+    { "id": "lenin", "nome": "Vladimir Lenin", "arquivo": "File:Lenin in 1920 (3x4 cropped).jpg", "viva": false, "ligada": true },
+    { "id": "marx", "nome": "Karl Marx", "arquivo": "File:Karl Marx 001 (3x4 cropped).jpg", "viva": false, "ligada": true },
+    { "id": "engels", "nome": "Friedrich Engels", "arquivo": "File:Friedrich Engels portrait (cropped).jpg", "viva": false, "ligada": true },
+    { "id": "rosa", "nome": "Rosa Luxemburgo", "arquivo": "File:Rosa Luxemburg Portrait (3x4 cropped).jpg", "viva": false, "ligada": true },
+    { "id": "stalin", "nome": "Josef Stalin", "arquivo": "File:Stalin (cropped).jpg", "viva": false, "ligada": true },
+    { "id": "gramsci", "nome": "Antonio Gramsci", "arquivo": "File:Gramsci.png", "viva": false, "ligada": true },
+    { "id": "mariategui", "nome": "José Carlos Mariátegui", "arquivo": "File:José Carlos Mariátegui in 1929.jpg", "viva": false, "ligada": true },
+    { "id": "fanon", "nome": "Frantz Fanon", "arquivo": "File:Photograph of Frantz Fanon from Black Skin White Masks (1967) dust jacket.webp", "viva": false, "ligada": false, "motivo": "Desligada em 12/11/2026, até a coordenação decidir: a foto é da sobrecapa de um livro dos EUA de 1967, de autor desconhecido. Está em domínio público pela regra dos EUA (sem aviso de direitos), mas no Brasil obra anônima fica protegida por 70 anos a contar da publicação (Lei 9.610, arts. 43 e 44). Para voltar: outra foto com base clara, ou a decisão anotada aqui, e \"ligada\": true." },
+    { "id": "freire", "nome": "Paulo Freire", "arquivo": "File:Paulo Freire 1977.jpg", "autor": "Slobodan Dimitrov", "viva": false, "ligada": true },
+    { "id": "marielle", "nome": "Marielle Franco", "arquivo": "File:Marielle Franco (cropped).jpg", "viva": false, "ligada": true, "cuidado": "Imagem protegida pela família (Código Civil art. 20, parágrafo único) e cuidada pelo Instituto Marielle Franco: só como silhueta respeitosa entre as outras, sem distorção nem caricatura." }
+  ]
+}

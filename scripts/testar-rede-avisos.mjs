@@ -10,7 +10,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import { criarBanco } from "./banco-local.mjs";
 import { cifrar, assinarVapid, conteudoDoAviso, deBase64Url, paraBase64Url, rodada as rodadaDePush } from "../supabase/functions/_shared/push.mjs";
-import { fraseDoAviso, TIPOS_DE_AVISO } from "../lib/rede/tipos-avisos.ts";
+import { fraseDoAviso, PADROES_DO_SERVIDOR, TIPOS_DE_AVISO } from "../lib/rede/tipos-avisos.ts";
 
 let certos = 0;
 const falhas = [];
@@ -246,7 +246,8 @@ await espera("ler um grupo marca todos os avisos dele de uma vez", async () => {
 
 // ── 5. Preferências ──
 await limpar();
-await espera("padrões: site ligado, celular e resumo desligados", () => rpc(como(pessoas.ana), "rede_aviso_prefs_ver"), (p) => TIPOS_DE_AVISO.every((t) => p.site[t] === true && p.push[t] === false) && p.resumo === false && p.push_aparelhos === 0 && p.membro === true);
+// Os tipos da B1 (conversa seguida, ajudou, ato, story, lembrete) só existem depois de 20261110-alumia-b1-comunidade.sql, que este teste não roda.
+await espera("padrões: site ligado, celular e resumo desligados", () => rpc(como(pessoas.ana), "rede_aviso_prefs_ver"), (p) => TIPOS_DE_AVISO.filter((t) => t in p.site).length >= 8 && TIPOS_DE_AVISO.filter((t) => t in p.site).every((t) => p.site[t] === true && p.push[t] === false) && p.resumo === false && p.push_aparelhos === 0 && p.membro === true);
 await espera("desligar 'apoio' no site: apoios novos não viram aviso", async () => {
   await rpc(como(pessoas.autor), "rede_aviso_prefs_salvar", { p_tipo: "apoio", p_canal: "site", p_ligado: false });
   const p = await postar({ publico: "membros" });
@@ -553,6 +554,52 @@ await espera("os arquivos do pacote não usam alert, confirm nem prompt da janel
   const arquivos = ["components/rede/avisos/Tela.tsx", "components/rede/avisos/push.ts"];
   return [arquivos.some((a) => /\b(window\.)?(alert|confirm|prompt)\(/.test(lerTexto(a))), /import\("\.\.\/\.\.\/i18n\/rede\/avisos\/pt\.json"\)/.test(lerTexto("lib/rede/textos-avisos.ts")), /from "@\//.test(lerTexto("lib/rede/tipos-avisos.ts")), /from "@\//.test(lerTexto("lib/rede/cliente-avisos.ts"))];
 }, (r) => !r[0] && r[1] && !r[2] && !r[3]);
+
+// Os avisos sem tipo que a B1 grava em português (menção em story, função, pergunta respondida…) saem no idioma de quem lê: o
+// texto de cada migração casa com o padrão da tela, e a frase existe nos 6 idiomas com os mesmos campos.
+await espera("os avisos da B1 gravados em português aparecem no idioma de quem lê", async () => {
+  const stories = lerTexto("supabase/migracoes/20261110-alumia-b1-stories.sql");
+  const comunidade = lerTexto("supabase/migracoes/20261110-alumia-b1-comunidade.sql");
+  const org = lerTexto("supabase/migracoes/20261110-alumia-b1-perfil-org.sql");
+  // O molde de cada aviso como está na migração (com %s) e um exemplo preenchido.
+  const moldes = {
+    mencaoStory: [stories, "Você foi mencionada num story (some em 24 h).", []],
+    perguntaRespondida: [comunidade, "Sua pergunta foi respondida na Alumia.", []],
+    funcaoIndicada: [org, "Você foi indicada para a função “%s” em “%s”, até %s. Ela só vale, e só aparece para as outras pessoas, se você aceitar pela página da organização.", ["Tesouraria", "Coletivo “Lume”", "31/12/2026"]],
+    funcaoEleita: [org, "Você foi eleita para a função “%s” em “%s”, até %s.", ["Mesa", "Coletivo Lume", "01/02/2027"]],
+    encaminhamentoVencido: [org, "O encaminhamento “%s” de “%s” passou do prazo. Abra o Tear para marcar como cumprido ou combinar novo prazo.", ["Imprimir cartazes", "Coletivo Lume"]],
+  };
+  const problemas = [];
+  const exemplos = {};
+  for (const [chave, [sql, molde, valores]] of Object.entries(moldes)) {
+    if (!sql.includes(`'${molde}'`)) problemas.push(`a migração não tem mais o texto de ${chave}`);
+    let i = 0;
+    exemplos[chave] = [molde.replace(/%s/g, () => valores[i++]), valores];
+  }
+  // A menção a comunidade é montada por pedaços (com e sem o número).
+  for (const pedaco of ["'Stories mencionaram a comunidade ' || v_nome || ' hoje'", "' (' || r.n || ' stories).'", "' Eles aparecem na página da comunidade enquanto estiverem no ar.'"]) {
+    if (!stories.includes(pedaco)) problemas.push(`a migração dos stories não tem mais o pedaço ${pedaco}`);
+  }
+  exemplos.storiesMencionaramN = ["Stories mencionaram a comunidade Passe Livre hoje (4 stories). Eles aparecem na página da comunidade enquanto estiverem no ar.", ["Passe Livre", "4"]];
+  exemplos.storiesMencionaram = ["Stories mencionaram a comunidade Passe Livre hoje. Eles aparecem na página da comunidade enquanto estiverem no ar.", ["Passe Livre"]];
+  for (const p of PADROES_DO_SERVIDOR) if (!exemplos[p.chave]) problemas.push(`padrão sem exemplo: ${p.chave}`);
+  for (const lingua of ["pt", "en", "es", "fr", "ru", "zh"]) {
+    const servidor = JSON.parse(lerTexto(`i18n/rede/avisos/${lingua}.json`)).servidor;
+    for (const p of PADROES_DO_SERVIDOR) {
+      const [texto, valores] = exemplos[p.chave] ?? ["", []];
+      const frase = fraseDoAviso({ tipo: null, total: 1, pessoas: 1, atores: [], texto }, frases, "r", servidor);
+      if (typeof servidor[p.chave] !== "string") problemas.push(`${lingua}: falta servidor.${p.chave}`);
+      else if (p.campos.some((c) => !servidor[p.chave].includes(`{${c}}`))) problemas.push(`${lingua}: ${p.chave} sem um dos campos`);
+      else if (/\{\w+\}/.test(frase) || valores.some((v) => !frase.includes(v))) problemas.push(`${lingua}: ${p.chave} não preencheu (${frase})`);
+      else if (lingua !== "pt" && frase === texto) problemas.push(`${lingua}: ${p.chave} ficou em português`);
+      else if (lingua === "pt" && frase !== texto) problemas.push(`pt: ${p.chave} mudou o texto (${frase})`);
+    }
+  }
+  // Sem a tradução (ou texto que não é do servidor), vale o que está gravado; aviso COM tipo segue a frase do tipo.
+  if (fraseDoAviso({ tipo: null, total: 1, pessoas: 1, atores: [], texto: exemplos.funcaoEleita[0] }, frases, "r") !== exemplos.funcaoEleita[0]) problemas.push("sem tradução deveria valer o texto gravado");
+  if (fraseDoAviso({ tipo: null, total: 1, pessoas: 1, atores: [], texto: "Sua denúncia andou." }, frases, "r", { mencaoStory: "x" }) !== "Sua denúncia andou.") problemas.push("texto livre não pode ser trocado");
+  return problemas;
+}, (problemas) => problemas.length === 0);
 
 console.log(`Rede v2 (avisos): ${certos} certos, ${falhas.length} falhas.`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);

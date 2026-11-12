@@ -188,6 +188,12 @@ body:has([data-al="2"]) { background: var(--al-fundo, #0f0e0d); }
   font-family: var(--al-fonte); font-size: 0.8125rem; font-weight: 600; text-decoration: none;
 }
 @media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-acao:hover { color: var(--al-texto); background: var(--al-superficie); } }
+/* No celular a fileira de ações usa a largura toda do cartão: começa embaixo do rosto (40 px + 12 px de vão) e distribui os
+   botões de ponta a ponta. Antes ela começava depois do rosto, não cabia, e o "mais ações" caía sozinho numa segunda linha. */
+@media (max-width: 480px) {
+  [data-al="2"] .al2-acoes { justify-content: space-between; column-gap: 0; }
+  [data-al="2"] .al2-cartao[data-abre] .al2-acoes { margin-left: -58px; }
+}
 [data-al="2"] .al2-acao:disabled { cursor: not-allowed; opacity: 0.55; }
 [data-al="2"] .al2-acao[aria-pressed="true"] { color: var(--al-vermelho); }
 [data-al="2"] .al2-acao-acender[aria-pressed="true"] svg { fill: currentColor; }
@@ -950,3 +956,219 @@ html:has([data-al="2"]) { scroll-padding-top: calc(var(--al2-abas-h, 53px) + 12p
 @media (max-width: 1023px) {
   [data-al="2"] .al2 .al2-chat-escrever { bottom: calc(4.75rem + var(--recuo-baixo, 0px)); z-index: 5; }
 }
+
+/* ───── B1 da casca: aviso de conteúdo, selo ALT, citar, corrigir, pausa e esqueletos novos ───── */
+[data-al="2"] .al2-opcao-b1 { display: flex; align-items: flex-start; gap: 0.55rem; min-height: 44px; padding: 0.45rem 0.6rem; border-radius: 12px; border: 1px solid var(--al-superficie-2); cursor: pointer; font-size: 0.875rem; }
+[data-al="2"] .al2-opcao-b1 .al2-caixinha { margin-top: 0.15rem; flex-shrink: 0; }
+[data-al="2"] .al2-opcao-b1:has(input:checked) { border-color: var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 10%, transparent); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-opcao-b1 { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-opcao-b1:has(input:checked) { outline: 2px solid var(--al-texto); background: none; }
+[data-al="2"] .al2-chip[aria-pressed="true"] { border-color: var(--al-dourado); background: color-mix(in srgb, var(--al-dourado) 18%, transparent); color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-chip[aria-pressed="true"] { background: var(--al-texto); color: var(--al-fundo); }
+[data-al="2"] .al2-chip-p { min-height: 32px; padding: 0 0.6rem; font-size: 0.75rem; }
+
+/* O aviso de conteúdo no cartão: uma faixa com o motivo e o botão Mostrar; o texto e as imagens ficam cobertos até a pessoa tocar. */
+[data-al="2"] .al2-cw { margin-top: 0.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.55rem 0.75rem; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--al-dourado) 45%, transparent); background: color-mix(in srgb, var(--al-dourado) 10%, var(--al-superficie)); font-size: 0.875rem; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-cw { border: 2px solid var(--al-texto); background: none; }
+[data-al="2"] .al2-cw-coberto figure { overflow: hidden; }
+[data-al="2"] .al2-cw-coberto img { filter: blur(28px) saturate(0.6); transform: scale(1.06); }
+[data-al="2"] .al2-cw-revela { animation: al2-cw-revela 320ms var(--al2-mola-suave) both; }
+@keyframes al2-cw-revela { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-cw-revela { animation: none; } }
+:root:is([data-parado], [data-eink]) [data-al="2"] .al2-cw-revela { animation: none; }
+/* No e-ink e no alto contraste o borrado vira um bloco listrado (borrado não se lê nessas telas). */
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-cw-coberto img { filter: none; opacity: 0; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-cw-coberto figure { background: repeating-linear-gradient(45deg, var(--al-texto) 0 2px, transparent 2px 8px); }
+
+/* O selo ALT na imagem do cartão: abre a descrição para quem enxerga (o leitor de tela já lê o alt). */
+[data-al="2"] .al2-selo-alt { position: absolute; left: 0.4rem; bottom: 0.4rem; min-height: 28px; min-width: 36px; padding: 0 0.45rem; border-radius: 6px; border: 0; cursor: pointer; background: color-mix(in srgb, #000 75%, transparent); color: #fff; font-size: 0.6875rem; font-weight: 900; letter-spacing: 0.06em; }
+[data-al="2"] .al2-selo-alt[aria-expanded="true"] { background: #fff; color: #000; }
+[data-al="2"] .al2-alt-texto { position: absolute; inset: auto 0 0 0; max-height: 70%; overflow: auto; margin: 0; padding: 0.6rem 0.75rem 2.4rem; background: color-mix(in srgb, #000 82%, transparent); color: #fff; font-size: 0.875rem; line-height: 1.4; animation: al2-cw-revela 240ms var(--al2-mola-suave) both; }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-alt-texto { animation: none; } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-selo-alt { background: #fff; color: #000; border: 2px solid #000; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-alt-texto { background: #fff; color: #000; border-top: 2px solid #000; animation: none; }
+
+/* Citar e corrigir: caixas dentro do cartão, com a mesma entrada dos anexos. */
+[data-al="2"] .al2-caixa-b1 { margin-top: 0.6rem; border-radius: 14px; border: 1px solid var(--al-superficie-2); background: var(--al-superficie); padding: 0.75rem 0.9rem; animation: al2-tela-entra 260ms var(--al2-mola-suave) backwards; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-caixa-b1 { border: 2px solid var(--al-texto); animation: none; }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-caixa-b1 { animation: none; } }
+
+/* O lembrete de pausa: uma folha que sobe do pé da coluna, sem placar. */
+[data-al="2"] .al2-pausa { position: fixed; left: 50%; bottom: calc(4.75rem + 0.75rem + var(--recuo-baixo, 0px)); z-index: 55; transform: translateX(-50%); width: min(440px, calc(100vw - 32px)); padding: 1rem 1.1rem; border-radius: 18px; background: var(--al-superficie); color: var(--al-texto); border: 1px solid var(--al-superficie-2); box-shadow: 0 14px 40px #000a; animation: al2-torrada-entra 460ms var(--al2-mola) both; }
+@media (min-width: 1024px) { [data-al="2"] .al2-pausa { bottom: 1.5rem; } }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .al2-pausa { animation: none; } }
+:root:is([data-parado], [data-eink]) [data-al="2"] .al2-pausa { animation: none; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-pausa { border: 2px solid var(--al-texto); box-shadow: none; }
+
+/* Esqueletos novos (loading.tsx das rotas da Alumia): no alto contraste e no e-ink, contorno tracejado em vez de cinza que pisca. */
+[data-al="2"] .al2-esq-bola { border-radius: 999px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-esq { background: none; border: 1px dashed var(--al-texto); animation: none; }
+
+/* ───────────── A identidade da Alumia em tudo que abre dentro dela (11/11) ─────────────
+ * A Alumia tem a identidade das pranchas, não a do site: nada de papel, de faixa diagonal de obra, de sombra dura deslocada nem
+ * de botão quadrado. As telas antigas que ainda abrem dentro da casca nova e os painéis do site que abrem por cima dela
+ * (acessibilidade, perguntas frequentes) ganham aqui a pele da Alumia. Fora da Alumia nada disto casa com nada.
+ */
+
+/* As classes da Alumia antiga (T18) dentro da nova: o botão de cartaz perde a sombra dura; a faixa listrada vira a faixa tecida reta. */
+[data-al="2"] .alumia-botao,
+[data-al="2"] .alumia-botao:not(:disabled):hover,
+[data-al="2"] .alumia-botao:not(:disabled):active { box-shadow: none; transform: none; border-radius: var(--al-raio-pilula); }
+[data-al="2"] .alumia-convite-faixa { height: var(--al-faixa-altura); background: var(--al-faixa); }
+[data-al="2"] .alumia-menu-ativo { box-shadow: none; }
+
+/* A paleta velha do site (tinta, papel, bordô, chama) escrita em hex nas telas antigas: vira os tokens das pranchas. Só o nome
+   exato da classe (~=): "hover:bg-[#1f1a14]" não pinta o botão parado. */
+[data-al="2"] [class~="bg-[#c21f16]"] { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+[data-al="2"] :is([class~="bg-[#1f1a14]"], [class~="bg-[#6e1f1a]"]) { background-color: var(--al-superficie); }
+[data-al="2"] [class~="hover:bg-[#1f1a14]"]:not(:disabled):hover { background-color: var(--al-superficie-2); }
+[data-al="2"] [class~="bg-[#c21f16]"]:not(:disabled):hover { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); filter: brightness(0.92); }
+[data-al="2"] [class~="bg-[#f0a020]"] { background-color: var(--al-dourado); }
+[data-al="2"] [class~="text-[#f4ecd8]"] { color: var(--al-texto); }
+[data-al="2"] [class~="text-[#e9dcbc]"] { color: var(--al-texto-2); }
+[data-al="2"] [class~="text-[#f0a020]"] { color: var(--al-dourado); }
+[data-al="2"] :is([class~="text-[#c21f16]"], [class~="text-oxblood"]) { color: var(--al-vermelho-sobre-escuro); }
+[data-al="2"] :is([class~="border-[#c21f16]"], [class~="border-oxblood"]) { border-color: var(--al-vermelho); }
+[data-al="2"] [class~="border-[#f4ecd8]"] { border-color: var(--al-texto-3); }
+[data-al="2"] [class~="accent-[#c21f16]"] { accent-color: var(--al-dourado); }
+[data-al="2"] [class~="text-[#1f1a14]"] { color: var(--al-sobre-papel); }
+[data-al="2"] [class~="hover:text-[#c21f16]"]:hover { color: var(--al-vermelho-sobre-escuro); }
+[data-al="2"] [class~="hover:bg-[#c21f16]"]:not(:disabled):hover { background-color: var(--al-vermelho-texto); color: var(--al-sobre-vermelho); }
+[data-al="2"] [class~="decoration-[#c21f16]"] { text-decoration-color: var(--al-vermelho); }
+/* Botões de escolha das telas antigas (aria-pressed): o escolhido fica claro cheio, como os chips das pranchas. */
+[data-al="2"] [class~="aria-pressed:bg-[#1f1a14]"][aria-pressed="true"] { background-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); border-color: var(--al-cartao-aceso); }
+/* Etiquetas claras ("Resolvida", "Respondida"): pílula verde-água sobre a noite. */
+[data-al="2"] [class~="bg-[#e8f0e0]"] { background-color: color-mix(in srgb, var(--al-com-1) 22%, var(--al-superficie)); color: var(--al-texto); border-radius: var(--al-raio-pilula); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] [class~="bg-[#e8f0e0]"] { background: none; border: 1px solid var(--al-texto); }
+
+/* Sombra dura deslocada (a de cartaz do site): some. */
+[data-al="2"] :is([class*="shadow-[2px_2px_0"], [class*="shadow-[3px_3px_0"], [class*="shadow-[4px_4px_0"], [class*="shadow-[5px_5px_0"], [class*="shadow-[6px_6px_0"]) { box-shadow: none; }
+
+/* Títulos: nada de serifa. Título de tela e de seção em Archivo caixa-alta condensada (como ATOS, COMUNIDADES); o resto em Archivo. */
+[data-al="2"] .font-serif { font-family: var(--al-fonte); }
+[data-al="2"] :is(h1, h2).font-serif {
+  font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; letter-spacing: -0.01em; line-height: 0.95; text-transform: uppercase;
+}
+[data-al="2"] h1.font-serif { font-size: clamp(2.2rem, 9vw, 3rem); }
+[data-al="2"] h2.font-serif { font-size: max(1.55rem, 1em); }
+[data-al="2"] h3.font-serif { font-weight: 800; }
+
+/* Campos das telas antigas: superfície, borda fina, cantos das pranchas, foco dourado. */
+[data-al="2"] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]), select, textarea):is([class~="border-rule"], [class~="border-ink"]) {
+  border-width: 1.5px; border-color: var(--al-superficie-2); border-radius: 12px; background-color: var(--al-superficie); color: var(--al-texto);
+}
+[data-al="2"] :is(input, select, textarea):is([class~="border-rule"], [class~="border-ink"]):focus { outline: none; border-color: var(--al-dourado); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-dourado) 22%, transparent); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] :is(input, select, textarea):is([class~="border-rule"], [class~="border-ink"]) { border-color: var(--al-texto); }
+
+/* Caixas de borda grossa de tinta (papel do site) e botões de borda sem canto: borda fina e cantos das pranchas. */
+:root:not([data-contrast]):not([data-eink]) [data-al="2"] [class~="border-2"][class~="border-ink"] { border-width: 1.5px; border-color: var(--al-superficie-2); }
+/* Caixas (não botões) com borda de tinta: o fio fino das pranchas, não o contorno claro. */
+:root:not([data-contrast]):not([data-eink]) [data-al="2"] :is(div, section, article, aside, form, fieldset, details, p, ol, ul, li)[class~="border-ink"]:not(.al2-conta, .al2-bloco) { border-color: var(--al-superficie-2); }
+[data-al="2"] :is(div, section, article, aside, form, fieldset, details, p, ol, ul)[class~="border-2"]:not([class*="rounded"]) { border-radius: 16px; }
+[data-al="2"] :is(button, a)[class~="border-2"]:not([class*="rounded"]) { border-radius: var(--al-raio-pilula); }
+
+/* Aviso de erro da Alumia (no lugar do texto vermelho solto no alto da linha). */
+[data-al="2"] .al2-aviso-erro {
+  display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; padding: 0.75rem 0.75rem 0.75rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--al-vermelho) 35%, var(--al-superficie-2)); border-radius: 14px;
+  background: color-mix(in srgb, var(--al-vermelho) 12%, var(--al-superficie)); color: var(--al-texto); font-size: 0.9375rem; line-height: 1.4;
+}
+[data-al="2"] .al2-aviso-erro > svg { flex: none; width: 1.25rem; height: 1.25rem; color: var(--al-vermelho-sobre-escuro); }
+[data-al="2"] .al2-aviso-erro > p { flex: 1 1 14rem; margin: 0; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-aviso-erro { border: 2px solid var(--al-texto); background: var(--al-fundo); }
+
+/* O convite de quem chega sem conta (prancha traga-sua-organizacao: superfície, título condensado, vermelho cheio e o claro). */
+[data-al="2"] .al2-convite-entrar { margin: 1rem 16px; padding: 1.25rem 1.25rem 1.1rem; border: 1px solid var(--al-linha); border-radius: 20px; background: var(--al-superficie); color: var(--al-texto); }
+[data-al="2"] .al2-convite-entrar h2 { margin: 0; font-size: clamp(1.9rem, 6vw, 2.4rem); }
+[data-al="2"] .al2-convite-entrar ul { margin: 0.85rem 0 0; padding: 0; list-style: none; display: grid; gap: 0.4rem; color: var(--al-texto-2); }
+[data-al="2"] .al2-convite-entrar li { display: flex; gap: 0.6rem; align-items: baseline; }
+[data-al="2"] .al2-convite-entrar li::before { content: ""; flex: none; width: 0.45rem; height: 0.45rem; border-radius: 2px; background: var(--al-dourado); transform: translateY(-0.1em); }
+[data-al="2"] .al2-convite-entrar-acoes { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.1rem; }
+[data-al="2"] .al2-convite-entrar-nota { margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--al-texto-3); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-convite-entrar { border: 2px solid var(--al-texto); }
+
+/* Chip de filtro com rádio ou caixinha por dentro: o escolhido fica claro cheio; o foco do teclado aparece no chip. */
+[data-al="2"] .al2-chip:has(input:checked) { background: var(--al-cartao-aceso); border-color: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+[data-al="2"] .al2-chip:has(input:focus-visible) { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-chip { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-chip:has(input:checked) { background: var(--al-texto); color: var(--al-fundo); border-width: 3px; }
+
+/* Nome que é link (comunidade, núcleo): sem o sublinhado do site; sublinha no passar e no foco. */
+[data-al="2"] .al2-nome-link { text-decoration: none; color: inherit; }
+[data-al="2"] .al2-nome-link:is(:hover, :focus-visible) { text-decoration: underline; text-underline-offset: 3px; }
+:root[data-eink] [data-al="2"] .al2-nome-link, :root[data-leitor] [data-al="2"] .al2-nome-link { text-decoration: underline; }
+
+/* Cartão de comunidade ou núcleo (prancha "Comunidades ativas"): superfície, cantos de 18 px, anel da cor da comunidade. */
+[data-al="2"] .al2-cartao-com { border: 1px solid var(--al-linha); border-radius: 18px; background: var(--al-superficie); transition: border-color 160ms ease; }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-cartao-com:hover { border-color: var(--al3-cor, var(--al-superficie-2)); } }
+[data-al="2"] .al2-cartao-com:focus-within { border-color: var(--al3-cor, var(--al-superficie-2)); }
+[data-al="2"] .al2-cartao-com .al3-anel { flex: none; width: 26px; height: 26px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-cartao-com { border: 2px solid var(--al-texto); }
+
+/* O estado com título de página (components/rede/ui/Estado.tsx): o título grande e condensado. */
+[data-al="2"] .al2-estado h1.al2-estado-titulo { margin-top: 1.25rem; font-size: clamp(2.4rem, 8vw, 3.4rem); }
+
+/* Botão em pílula (variante dos componentes ui: <Botao pilula> e <LinkBotao pilula>, components/rede/ui/Botao.tsx). */
+[data-al="2"] .al-botao.al-botao-pilula { border-radius: var(--al-raio-pilula); }
+
+/* A conta do visitante no pé do menu: rosto neutro de mosaico apagado. */
+[data-al="2"] .al2-conta-rosto-vazio { display: grid; place-items: center; width: 36px; height: 36px; flex: none; border-radius: 8px; background: var(--al-superficie-2); color: var(--al-texto-3); }
+
+/* Acessibilidade e perguntas frequentes no pé do menu: redondos, da altura do Sair rápido (que vira pílula). */
+[data-al="2"] .al2-botao-site { height: 44px; min-height: 44px; border-radius: var(--al-raio-pilula); background: var(--al-superficie); }
+@media (hover: hover) and (pointer: fine) { [data-al="2"] .al2-botao-site:hover { background: var(--al-superficie-2); color: var(--al-texto); } }
+[data-al="2"] .al2 .al2-botao-site:focus-visible { border-radius: var(--al-raio-pilula); }
+[data-al="2"] .al2-menu-pe .al-botao-contorno { border-radius: var(--al-raio-pilula); border-width: 1px; border-color: var(--al-linha); background: var(--al-superficie); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2-menu-pe .al-botao-contorno { border-color: var(--al-texto); }
+
+/* ── Os painéis do site por cima da Alumia (acessibilidade e perguntas frequentes): a pele da Alumia (tokens via .al-pele). ── */
+:root:has([data-al="2"]) :is(.a11y-painel, .assistente-janela) {
+  border: 1px solid var(--al-superficie-2); border-radius: 20px; background: var(--al-superficie); color: var(--al-texto);
+  font-family: var(--al-fonte); box-shadow: 0 24px 60px #000b;
+}
+:root:has([data-al="2"]) :is(.a11y-painel, .assistente-janela) h2 {
+  font-family: var(--al-fonte); font-stretch: 62%; font-variation-settings: "wdth" 62; font-weight: 800; letter-spacing: -0.01em;
+  line-height: 0.95; text-transform: uppercase; font-size: 1.9rem;
+}
+:root:has([data-al="2"]) :is(.a11y-painel, .assistente-janela) .font-serif { font-family: var(--al-fonte); }
+:root:has([data-al="2"]) .a11y-painel .border-b-2 { border-bottom-width: 1px; border-color: var(--al-linha); }
+:root:has([data-al="2"]) .a11y-grupo { border-top-width: 1px; border-color: var(--al-linha); }
+:root:has([data-al="2"]) .a11y-painel .rotulo { color: var(--al-dourado); font-family: var(--al-fonte); }
+:root:has([data-al="2"]) :is(.a11y-painel, .assistente-janela) .border-rule { border-color: var(--al-linha); }
+:root:has([data-al="2"]) :is(.a11y-fechar, .assistente-fechar) {
+  display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--al-superficie-2); border-radius: var(--al-raio-pilula);
+  background: var(--al-superficie-2); color: var(--al-texto);
+}
+:root:has([data-al="2"]) :is(.a11y-fechar, .assistente-fechar):hover { background: var(--al-texto); color: var(--al-fundo); }
+:root:has([data-al="2"]) .a11y-vlibras { border: 1px solid var(--al-superficie-2); border-radius: 16px; background: var(--al-fundo); color: var(--al-texto); box-shadow: none; }
+:root:has([data-al="2"]) .a11y-vlibras button { min-height: 44px; border: 0; border-radius: var(--al-raio-pilula); background: var(--al-cartao-aceso); color: var(--al-sobre-papel); font-weight: 700; padding-inline: 1.1rem; }
+:root[data-eink]:has([data-al="2"]) .a11y-vlibras button { border: 2px solid #000; background: #fff; color: #000; }
+:root:has([data-al="2"]) .a11y-opcao { border: 1.5px solid var(--al-superficie-2); border-radius: var(--al-raio-pilula); background: transparent; color: var(--al-texto-2); font-weight: 700; }
+:root:has([data-al="2"]) .a11y-opcao:hover { border-color: var(--al-dourado); }
+:root:has([data-al="2"]) .a11y-opcao[aria-pressed="true"] { border-color: var(--al-cartao-aceso); background: var(--al-cartao-aceso); color: var(--al-sobre-papel); }
+:root:has([data-al="2"]) .a11y-chave { border: 1.5px solid var(--al-texto-3); border-radius: var(--al-raio-pilula); background: var(--al-superficie-2); }
+:root:has([data-al="2"]) .a11y-chave::after { border-radius: var(--al-raio-pilula); background: var(--al-texto-3); }
+:root:has([data-al="2"]) input:checked + .a11y-chave { border-color: var(--al-dourado); background: var(--al-dourado); }
+:root:has([data-al="2"]) input:checked + .a11y-chave::after { background: var(--al-sobre-dourado); }
+:root:has([data-al="2"]) .a11y-botao { min-height: 44px; border-radius: var(--al-raio-pilula); padding-inline: 1.1rem; font-weight: 700; }
+:root:has([data-al="2"]) :is(.a11y-painel, .assistente-janela) .text-ink-soft { color: var(--al-texto-3); }
+:root:has([data-al="2"]) .assistente-campo { min-height: 44px; border: 1.5px solid var(--al-superficie-2); border-radius: 12px; background: var(--al-fundo); color: var(--al-texto); padding-inline: 0.85rem; }
+:root:has([data-al="2"]) .assistente-campo:focus { outline: none; border-color: var(--al-dourado); box-shadow: 0 0 0 3px color-mix(in srgb, var(--al-dourado) 22%, transparent); }
+:root:has([data-al="2"]) .assistente-janela li > button { border-radius: 10px; }
+:root:has([data-al="2"]) .assistente-janela li > div { border-radius: 0 12px 12px 0; border-color: var(--al-dourado); background: var(--al-fundo); }
+:root:has([data-al="2"]) .assistente-janela header { border-color: var(--al-linha); }
+/* Os redondos do site (só aparecem onde a casca não está, ou lendo em voz alta): redondos, noite, sem sombra dura. */
+:root:has([data-al="2"]) :is(.a11y-gatilho, .assistente-gatilho) {
+  border: 1px solid var(--al-superficie-2); border-radius: var(--al-raio-pilula); background: var(--al-superficie-2); color: var(--al-texto); box-shadow: 0 6px 18px #0008;
+}
+:root:has([data-al="2"]) :is(.a11y-gatilho, .assistente-gatilho):hover,
+:root:has([data-al="2"]) .assistente-gatilho[aria-expanded="true"] { background: var(--al-texto); color: var(--al-fundo); border-color: var(--al-texto); }
+:root:has([data-al="2"]) :is(.al-pele, .al-pele :is(a, button, input, select, textarea, summary)):focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+:root:is([data-contrast], [data-eink]):has([data-al="2"]) :is(.a11y-painel, .assistente-janela, .a11y-gatilho, .assistente-gatilho, .a11y-vlibras, .a11y-opcao, .a11y-fechar, .assistente-fechar, .assistente-campo) { border: 2px solid var(--al-texto); box-shadow: none; }
+
+/* O erro em uma linha das telas antigas (p role=alert solto no alto da coluna): vira o aviso da Alumia, em caixa de 14 px. */
+[data-al="2"] .al2 p[role="alert"][class*="px-[18px]"] {
+  margin: 0.75rem 16px; padding: 0.75rem 1rem; border: 1px solid color-mix(in srgb, var(--al-vermelho) 35%, var(--al-superficie-2));
+  border-radius: 14px; background: color-mix(in srgb, var(--al-vermelho) 12%, var(--al-superficie)); color: var(--al-texto); font-size: 0.9375rem; line-height: 1.4;
+}
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al2 p[role="alert"][class*="px-[18px]"] { border: 2px solid var(--al-texto); background: var(--al-fundo); }

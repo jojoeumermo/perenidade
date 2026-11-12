@@ -7,8 +7,11 @@ import { CHAVES_DOS_STORIES, lerPedidoDoEndereco } from "@/lib/rede/stories/ende
 import { PALETA_DO_STORY } from "@/lib/rede/stories/visual";
 import type { Situacao } from "@/lib/rede/tipos";
 import type { DestaqueDeStories } from "@/lib/rede/tipos-stories";
+import Link from "@/components/Link";
+import { useDestaquesDePostsNoPerfil } from "../destaques-do-perfil";
+import { ArrumarDestaques } from "./ArrumarDestaques";
 import { CapaDoDestaque } from "./CapaDoDestaque";
-import { EVENTO_DOS_DESTAQUES, enderecoAqui, noPlural, useClienteDosStories, useTextosDosStories } from "./usar";
+import { EVENTO_DOS_DESTAQUES, enderecoAqui, noPlural, preencherStory, useClienteDosStories, useTextosDosStories } from "./usar";
 import { Visor } from "./Visor";
 
 /** Lembra, só neste aparelho, se a fileira compacta "Seus destaques" ficou aberta (conveniência; sem ela, começa fechada). */
@@ -85,6 +88,10 @@ export function DestaquesDoPerfil({ lang, handle, situacao, compacto = false }: 
   // Lido já na criação: o componente só desenha algo depois que os textos chegam (no cliente), então não há diferença com o servidor.
   const [aberta, setAberta] = useState(() => compacto && typeof window !== "undefined" && lerAberta());
   const { pedido, abrir, fechar, esquecer } = useDestaqueNoEndereco();
+  // Os destaques de post e de ato do perfil livre (A5): entram na MESMA fileira, depois dos de stories (só no perfil, não no compacto).
+  const dePosts = useDestaquesDePostsNoPerfil();
+  const posts = compacto ? [] : dePosts;
+  const [arrumando, setArrumando] = useState(false);
   const dono = situacao.handle === handle || (!!cliente?.previa && (handle === "voce" || handle === "eu"));
   const logado = situacao.logado || !!cliente?.previa;
   // Na prévia, "eu" é sempre a "voce" dos exemplos (o dublê não conhece o @ de quem está olhando).
@@ -114,14 +121,19 @@ export function DestaquesDoPerfil({ lang, handle, situacao, compacto = false }: 
     if (lista && pedido && !aberto) esquecer();
   }, [lista, pedido, aberto, esquecer]);
 
-  if (!t || !cliente || !logado) return null;
-  if (erro) return compacto ? null : <p className="al-st-erro">{t.destaques.erro}</p>;
-  if (!lista) return compacto ? null : <div className="al-st-destaques" aria-busy="true" style={{ minHeight: 104 }} />;
-  if (lista.length === 0) return dono && !compacto ? <p className="al-st-destaques-vazio">{t.destaques.vazioDono}</p> : null;
+  if (!t || !cliente) return null;
+  // Sem conta (ou sem os stories), a fileira ainda mostra os destaques de post do perfil livre (eles seguem o público do post).
+  const semStories = !logado || erro;
+  if (!semStories && !lista) return compacto ? null : <div className="al-st-destaques" aria-busy="true" style={{ minHeight: 104 }} />;
+  const dosStories = semStories ? [] : (lista ?? []);
+  if (dosStories.length === 0 && posts.length === 0) {
+    if (erro && !compacto) return <p className="al-st-erro">{t.destaques.erro}</p>;
+    return dono && !compacto && logado ? <p className="al-st-destaques-vazio">{t.destaques.vazioDono}</p> : null;
+  }
 
   const trilho = (
     <ul className="al-st-faixa-trilho">
-      {lista.map((d) => (
+      {dosStories.map((d) => (
         <li key={d.id} className="al-st-faixa-item">
           <button
             type="button"
@@ -138,8 +150,50 @@ export function DestaquesDoPerfil({ lang, handle, situacao, compacto = false }: 
           </button>
         </li>
       ))}
+      {posts.map((d) => (
+        <li key={d.chave} className="al-st-faixa-item">
+          <Link
+            href={d.href}
+            className="al-st-bolinha al-st-destaque al-st-destaque-post"
+            aria-label={`${preencherStory(t.b1.fileira.abrirPost, { titulo: d.titulo })} · ${d.tipo === "ato" ? t.b1.fileira.ato : t.b1.fileira.post}`}
+          >
+            <span className="al-st-destaque-capa" style={{ "--al-st-anel": d.cor } as CSSProperties}>
+              <span className="al-st-destaque-post-miolo">{d.tipo === "ato" ? t.b1.fileira.ato : t.b1.fileira.post}</span>
+            </span>
+            <span className="al-st-nome" aria-hidden>
+              {d.titulo}
+            </span>
+          </Link>
+        </li>
+      ))}
+      {dono && !compacto && dosStories.length > 0 ? (
+        <li className="al-st-faixa-item">
+          <button type="button" className="al-st-bolinha al-st-destaque al-st-destaque-arrumar" aria-haspopup="dialog" onClick={() => setArrumando(true)}>
+            <span className="al-st-destaque-capa">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" aria-hidden>
+                <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+                <circle cx="16" cy="7" r="2" />
+                <circle cx="8" cy="17" r="2" />
+              </svg>
+            </span>
+            <span className="al-st-nome">{t.b1.fileira.arrumar}</span>
+          </button>
+        </li>
+      ) : null}
     </ul>
   );
+
+  const arrumar = arrumando ? (
+    <ArrumarDestaques
+      t={t}
+      cliente={cliente}
+      handle={de}
+      aoFechar={() => {
+        setArrumando(false);
+        setVersao((v) => v + 1);
+      }}
+    />
+  ) : null;
 
   const visor = aberto ? (
     <Visor
@@ -169,9 +223,9 @@ export function DestaquesDoPerfil({ lang, handle, situacao, compacto = false }: 
         >
           <summary>
             <span className="al-st-destaques-titulo">{t.destaques.seus}</span>
-            <span className="al-st-destaques-conta">{noPlural(lang, lista.length, t.destaques.contaN)}</span>
+            <span className="al-st-destaques-conta">{noPlural(lang, dosStories.length, t.destaques.contaN)}</span>
             <span className="al-st-destaques-rostos" aria-hidden>
-              {lista.slice(0, 3).map((d) => (
+              {dosStories.slice(0, 3).map((d) => (
                 <span key={d.id} style={{ background: PALETA_DO_STORY[d.cor].fundo }} />
               ))}
             </span>
@@ -190,6 +244,7 @@ export function DestaquesDoPerfil({ lang, handle, situacao, compacto = false }: 
     <section className="al-st-destaques" aria-label={t.destaques.rotulo}>
       {trilho}
       {visor}
+      {arrumar}
     </section>
   );
 }

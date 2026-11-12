@@ -25,7 +25,8 @@ export interface AcoesDeGestor {
   decidirNucleo: (nucleo: string, handle: string, aceitar: boolean) => Promise<unknown>;
   abrirConsulta: (p: PedidoDeConsulta) => Promise<unknown>;
   abrirPlenaria: (p: PedidoDePlenaria) => Promise<unknown>;
-  mudarPlenaria: (id: string, situacao: "ao_vivo" | "encerrada") => Promise<unknown>;
+  /** `sala`: o link https da sala ao pôr no ar (vazio mantém o que já estava). */
+  mudarPlenaria: (id: string, situacao: "ao_vivo" | "encerrada", sala?: string | null) => Promise<unknown>;
   responder: (pergunta: string) => Promise<unknown>;
   retirar: (pergunta: string, motivo: MotivoDeTirar) => Promise<unknown>;
   adicionarGestor: (handle: string) => Promise<unknown>;
@@ -53,6 +54,7 @@ export function CuidarDaOrg({ org, t, acoes, aoMudar }: { org: OrgPublica; t: Te
   const [consulta, setConsulta] = useState({ pergunta: "", metodo: "simples" as PedidoDeConsulta["metodo"], opcoes: "", prazo: "", quorum: "", compromisso: "" });
   const [plenaria, setPlenaria] = useState({ titulo: "", descricao: "", inicio: "", sala: "" });
   const [gestor, setGestor] = useState("");
+  const [salas, setSalas] = useState<Record<string, string>>({});
 
   async function fazer(f: () => Promise<unknown>, depois?: () => void) {
     setOcupado(true);
@@ -238,11 +240,25 @@ export function CuidarDaOrg({ org, t, acoes, aoMudar }: { org: OrgPublica; t: Te
           <div key={p.id} className="al-cuidar-plenaria">
             <h3 className="al-cond">{preencher(tc.plenaria.fila, { titulo: p.titulo })}</h3>
             <span className="al-cuidar-botoes">
+              <input
+                className="al-entrada al-cuidar-sala"
+                type="url"
+                pattern="https://.+"
+                maxLength={300}
+                aria-label={tc.plenaria.sala}
+                placeholder={p.sala ?? "https://"}
+                value={salas[p.id] ?? ""}
+                onChange={(e) => setSalas((s) => ({ ...s, [p.id]: e.target.value }))}
+              />
               {!p.aoVivo ? (
-                <Botao variante="primario" tamanho="p" disabled={ocupado} onClick={() => void fazer(() => acoes.mudarPlenaria(p.id, "ao_vivo"))}>
+                <Botao variante="primario" tamanho="p" disabled={ocupado} onClick={() => void fazer(() => acoes.mudarPlenaria(p.id, "ao_vivo", salas[p.id]?.trim() || null))}>
                   {tc.plenaria.noAr}
                 </Botao>
-              ) : null}
+              ) : (
+                <Botao variante="contorno" tamanho="p" disabled={ocupado || !salas[p.id]?.trim()} onClick={() => void fazer(() => acoes.mudarPlenaria(p.id, "ao_vivo", salas[p.id]?.trim() || null))}>
+                  {tc.plenaria.sala}
+                </Botao>
+              )}
               <Botao variante="contorno" tamanho="p" disabled={ocupado} onClick={() => void fazer(() => acoes.mudarPlenaria(p.id, "encerrada"))}>
                 {tc.plenaria.encerrar}
               </Botao>

@@ -56,17 +56,18 @@ export default function TelaCuidado({ lang, s, situacao }: PropsDaTelaDoPacote) 
   const falta = meu ? faltam(meu, sm) : null;
   return (
     <div className="font-sans">
-      <h1 className="border-b border-rule px-[18px] py-3 font-serif text-2xl font-semibold">{c.titulo}</h1>
+      <h1 className="border-b border-rule px-[18px] pb-3 pt-4 font-serif text-2xl font-semibold">{c.titulo}</h1>
       <p className="px-[18px] py-3 text-ink-soft">{c.lead}</p>
       <div className="space-y-4 px-[18px] pb-4">
+        {/* Cada cuidado num cartão da casa (subtítulo em Archivo negrito), como os blocos das pranchas. */}
         {blocos.map(([titulo, texto]) => (
-          <section key={titulo}>
-            <h2 className="font-serif text-lg font-semibold">{titulo}</h2>
-            <p>{texto}</p>
+          <section key={titulo} className="al2-bloco p-4">
+            <h2 className="text-lg font-extrabold">{titulo}</h2>
+            <p className="mt-1 text-[var(--al-texto-2)]">{texto}</p>
           </section>
         ))}
         <section aria-labelledby="niveis-titulo">
-          <h2 id="niveis-titulo" className="font-serif text-lg font-semibold">{c.niveisTitulo}</h2>
+          <h2 id="niveis-titulo" className="text-lg font-extrabold">{c.niveisTitulo}</h2>
           <p>{c.niveisTexto}</p>
           <p className="mt-1 text-sm text-ink-soft">{c.niveisSemLeitura}</p>
           {meu && (
