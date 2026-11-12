@@ -21,6 +21,7 @@ CC BY-SA 4.0 (LICENSE-CONTEUDO.md).
 | dictionary-pt (só para copiar o dicionário) | 4.0.0 | LGPL-3.0 ou MPL-2.0 (dicionário), MIT (pacote) |
 | jsQR (lê o QR pela câmera do "Levar o progresso", só quando o navegador não tem leitor nativo; carregado sob demanda) | 1.4.0 | Apache-2.0 |
 | @matrix-org/matrix-sdk-crypto-wasm (a cifra do chat privado da Alumia, etapa B3: docs/rede/CHAT-PRIVADO.md; versão exata, ainda sem uso no código) | 19.0.1 | Apache-2.0 |
+| @noble/post-quantum (ML-KEM-768 dos posts restritos cifrados: docs/rede/POSTS-RESTRITOS.md; versão exata; traz @noble/curves, @noble/hashes e @noble/ciphers 2.4.0, MIT) | 0.7.1 | MIT |
 
 ## Vozes naturais do "Ouvir a aula" (public/vozes, fora do Git)
 

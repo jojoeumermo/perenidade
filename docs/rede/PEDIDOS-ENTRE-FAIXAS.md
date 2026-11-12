@@ -556,3 +556,19 @@ Pedido junto: apagar as caronas depois do ato (cancelado, ou passou), na faxina.
 "esta pessoa ia a este ato" continua no banco sem utilidade de combinar viagem.
 
 Se não atender: a lista continua respondendo, para quem bloqueia, quais caronas eram de quem bloqueou.
+
+#### P21 · 2026-11-12 · Faixa 2 pede · posts restritos cifrados nas telas (C1)
+
+A cifra, o banco das chaves e o chaveiro do aparelho estão prontos e testados (`docs/rede/POSTS-RESTRITOS.md`,
+`npm run testar:cifra-grupo`). O que falta é da Faixa 1:
+
+1. **Banco** (`rede_posts`, `rede_publicar`): uma coluna `corpo_grupo text` (o `p1.<versão>.<vetor>.<cifrado>`, até ~11 mil
+   caracteres) e uma coluna `grupo text` (`nucleo:<uuid>` ou `comunidade:<slug>`). Post com `corpo_grupo` tem `texto` vazio. Só
+   para público de núcleo ou de comunidade fechada; nunca federa (`rede_fed_federavel` já recusa esses públicos).
+2. **Compositor:** com público de núcleo ou de comunidade fechada, `criarChaveiroDeGrupo({ chamar, guarda: guardaNoNavegador() })`
+   e `cifrar(grupo, eu, texto)` antes de publicar. Erro `sem_chave`: a pessoa ainda não preparou o aparelho (`preparar(eu)`).
+3. **Cartão:** `abrir(grupo, eu, autor, corpo_grupo)`; nulo mostra "Não dá para abrir neste aparelho".
+4. **Avisos e busca:** sem prévia do texto; a busca não acha post cifrado.
+5. **Textos** dos custos, em `docs/rede/POSTS-RESTRITOS.md` ("Custos que a tela precisa dizer").
+
+Se não atender: nada muda; os posts restritos seguem em texto aberto no banco, como hoje.

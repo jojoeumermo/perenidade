@@ -2,6 +2,7 @@
 import { registrarConversaDaCarona } from "@/lib/rede/atos/combinar";
 import { abrirConversaDaCarona } from "@/lib/rede/chat/carona";
 import { apagarTudoDoChat } from "@/lib/rede/chat/gaveta";
+import { apagarParesDeGrupo } from "@/lib/rede/grupo-chaveiro";
 import type { Encaixe } from "../encaixes";
 
 // "Combinar pelo chat" das caronas do ato (pedido da Faixa 1, docs/rede/PEDIDOS-ENTRE-FAIXAS.md): ao carregar o encaixe, o
@@ -19,5 +20,6 @@ registrarConversaDaCarona(abrirConversaDaCarona);
  * a mesma limpeza que lib/rede/chat-chaveiro.ts oferece como apagarTudoDoChat.
  */
 export const encaixe: Encaixe = {
-  aoSairRapido: [() => apagarTudoDoChat()],
+  // O par dos posts restritos (lib/rede/grupo-chaveiro.ts) sai junto: nada da cifra de grupo fica no aparelho.
+  aoSairRapido: [() => apagarTudoDoChat(), () => apagarParesDeGrupo()],
 };

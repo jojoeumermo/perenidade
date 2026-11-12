@@ -814,7 +814,7 @@ await espera("pendurado no Sair rápido, o apagar tudo cabe com folga no teto de
   return [tinha, falso.bancos.size, ms < 400];
 }, (r) => r[0] === true && r[1] === 0 && r[2] === true);
 await espera("o encaixe do chat pendura o apagar tudo no Sair rápido, o chaveiro o exporta, e a gaveta não importa nada", async () => [ler("components/rede/chat/encaixe.tsx"), ler("lib/rede/chat-chaveiro.ts"), ler("lib/rede/chat/gaveta.ts")],
-  (r) => /aoSairRapido:\s*\[\(\) => apagarTudoDoChat\(\)\]/.test(r[0]) && /export async function apagarTudoDoChat\(\): Promise<void>/.test(r[1]) && /aoApagarTudoDoChat\(esquecerSessoes\)/.test(r[1]) && !/^import /m.test(r[2]));
+  (r) => /aoSairRapido:\s*\[\(\) => apagarTudoDoChat\(\), \(\) => apagarParesDeGrupo\(\)\]/.test(r[0]) && /export async function apagarTudoDoChat\(\): Promise<void>/.test(r[1]) && /aoApagarTudoDoChat\(esquecerSessoes\)/.test(r[1]) && !/^import /m.test(r[2]));
 await espera("mensagem aberta, rascunho e chave de conversa nunca vão para o armazenamento do navegador", async () => [...telas, ...pecas, "lib/rede/chat-chaveiro.ts", "lib/rede/chat-privado.ts"].filter((f) => /localStorage|sessionStorage/.test(ler(f))), (l) => l.length === 0);
 
 // ── Código de segurança: QR e comparar de novo (lib/rede/chat/verificacao.ts) ──
