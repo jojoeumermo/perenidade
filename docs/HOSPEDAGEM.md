@@ -19,9 +19,10 @@ e o plano antigo com Oracle e Coolify, que não foi usado.
 **Voltar para uma versão anterior:** na VPS, `lucia-atualizar <commit completo>` (as 3 últimas imagens ficam guardadas; as
 outras são baixadas de novo do GHCR, que guarda todas).
 
-**Entrar na VPS:** só com a chave SSH do Instituto (`~/.ssh/contabo_lucia` no computador da coordenação), porta **22222**
-(a 22 também funciona, mas algumas redes interceptam a 22 e só deixam passar senha): `ssh -p 22222 -i ~/.ssh/contabo_lucia root@<IP da VPS>`.
-Senha não entra (`PasswordAuthentication no`). Se perder a chave: painel da Contabo → Reset credentials → SSH-Key.
+**Entrar na VPS:** só com a chave SSH do Instituto (`~/.ssh/contabo_lucia` no computador da coordenação), porta alta
+(a 22 também funciona, mas algumas redes interceptam a 22 e só deixam passar senha): `ssh lucia-vps` (apelido no `~/.ssh/config` da coordenação, com o IP, a porta e a chave; o IP não vai para o repositório).
+Senha não entra (`PasswordAuthentication no`). O apelido, uma vez, no `~/.ssh/config` do computador da coordenação
+(o IP vem do painel da Contabo; nunca escreva o IP neste repositório, que é público):
 
 **Chaves do site:** `infra/contabo/segredos.ps1` pergunta cada chave e grava em `/opt/lucia/site.env` sem mostrar na tela; a
 VPS reinicia o site com as chaves novas em até 2 minutos, sem tirar do ar. O assistente em todo o site (T03) lê ali `GROQ_API_KEY`, `GEMINI_API_KEY`, `CEREBRAS_API_KEY` e `OPENROUTER_API_KEY` (planos gratuitos; basta uma, e o script já pergunta as quatro) e, opcionais, `ASSISTENTE_POR_HORA`, `ASSISTENTE_POR_DIA`, `ASSISTENTE_LIMITE_GLOBAL`, `ASSISTENTE_ORDEM` e `ASSISTENTE_PUBLICO=0` (desliga): `docs/RECURSOS.md`, seção `assistente-publico`. As variáveis públicas (`NEXT_PUBLIC_*`) ficam no
@@ -67,8 +68,8 @@ nada: só põe sugestões na fila da curadoria.
 **Instalar (uma vez).** No computador da coordenação, dentro da pasta do repositório:
 
 ```bash
-scp -P 22222 -i ~/.ssh/contabo_lucia infra/contabo/vale-o-escrito.service infra/contabo/vale-o-escrito.timer root@<IP da VPS>:/root/lucia-infra/
-ssh -p 22222 -i ~/.ssh/contabo_lucia root@<IP da VPS>
+scp infra/contabo/vale-o-escrito.service infra/contabo/vale-o-escrito.timer lucia-vps:/root/lucia-infra/
+ssh lucia-vps
 ```
 
 Já na VPS:

@@ -30,8 +30,8 @@ monta nos dois contêineres; vale a partir da próxima publicação. Ver quanto 
 **1. No computador da coordenação**, dentro da pasta do repositório, copie os três arquivos e entre na VPS:
 
 ```bash
-scp -P 22222 -i ~/.ssh/contabo_lucia infra/contabo/fediverso-entregar.sh infra/contabo/lucia-fediverso.service infra/contabo/lucia-fediverso.timer root@<IP da VPS>:/root/lucia-infra/
-ssh -p 22222 -i ~/.ssh/contabo_lucia root@<IP da VPS>
+scp infra/contabo/fediverso-entregar.sh infra/contabo/lucia-fediverso.service infra/contabo/lucia-fediverso.timer lucia-vps:/root/lucia-infra/
+ssh lucia-vps
 ```
 
 **2. Já na VPS, como root**, um comando por vez:

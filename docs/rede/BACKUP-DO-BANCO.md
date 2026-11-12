@@ -65,7 +65,7 @@ o próprio Supabase cria (`auth`, `storage` e outros) já existem no projeto nov
 ## Limites
 
 - A cópia mora na **mesma VPS** do site. Se a VPS for perdida inteira, a cópia vai junto. Para ter uma segunda cópia fora dela,
-  basta baixar de tempos em tempos a mais nova (`scp -P 22222 -i ~/.ssh/contabo_lucia root@<IP>:/var/backups/lucia/banco/<arquivo> .`)
+  basta baixar de tempos em tempos a mais nova (`scp lucia-vps:/var/backups/lucia/banco/<arquivo> .`)
   e guardar num lugar seguro: o arquivo tem dados pessoais (contas, mensagens cifradas, consentimentos) e precisa ser tratado
   como tal (LGPD, art. 46).
 - Os arquivos do Storage (fotos enviadas) não entram no `pg_dump`: só as referências a eles.
