@@ -230,7 +230,7 @@ const ABERTAS = ["alumia_entrada_eu()", "alumia_entrada_pedir(p_codinome text, p
   "alumia_triagem_contagem()", "alumia_triagem_decidir(p_id uuid, p_aprovar boolean, p_motivo text)", "alumia_triagem_fila()",
   "rede_aderir(p_maior boolean, p_versao integer)", "rede_aderir(p_maior boolean, p_versao integer, p_fediverso boolean)", "rede_alumia_versao()",
   "rede_antigo(p_tipo text, p_antigo text)", "rede_codinome_definir(p_codinome text)", "rede_confirmar_idade()", "rede_confirmar_idade(p_maior boolean)",
-  "rede_eu()", "rede_fed_situacao()", "rede_linha(p_aba text, p_cursor text, p_limite integer)", "rede_novos(p_aba text, p_desde timestamp with time zone)", "rede_situacao()"];
+  "rede_eu()", "rede_fed_servidor(p_segredo text, p_acao text, p jsonb)", "rede_fed_situacao()", "rede_linha(p_aba text, p_cursor text, p_limite integer)", "rede_novos(p_aba text, p_desde timestamp with time zone)", "rede_situacao()"];
 const SO_FALSO = ["rede_pub_midia_pode", "rede_pub_pode_enviar", "rede_story_pode"];
 const funcoesDaRede = async () => (await dono(`
   select p.proname as nome, pg_get_function_identity_arguments(p.oid) as args, p.prosrc ~ 'interno\\.alumia_(porta|passa)\\(\\)' as porta,
@@ -290,6 +290,21 @@ await espera("portas: função que a regra não consegue trancar aparece em 'abe
 }, (r) => r.abertas.join() === "rede_teste_lista()");
 await recusa("portas: e a trava não liga com porta aberta", () => dono("select interno.alumia_entrada_ligar(true)"), "sem porta");
 await exec("drop function public.rede_teste_lista(); drop function public.rede_teste_nova(); drop function public.rede_teste_sql(integer);");
+// Onda 7: as funções do servidor da federação ficam fora da porta, e o que já tinha sido trancado se destranca.
+const portasFed = ler("supabase/migracoes/20261113-alumia-o7-portas-fediverso.sql");
+ok("portas do Fediverso: a migração está colada no FIM do install.sql", noFimDoInstall(portasFed, ler("supabase/install.sql")));
+await espera("portas do Fediverso: a regra não tranca rede_fed_servidor", async () => (await dono("select prosrc ~ 'interno\.alumia_porta' as t from pg_proc where proname = 'rede_fed_servidor'")).rows.every((r) => !r.t), (r) => r === true);
+await espera("portas do Fediverso: o que tinha sido trancado (como em produção) volta ao corpo de antes", async () => {
+  await exec(`create or replace function public.rede_teste_volta() returns text language plpgsql security definer set search_path = interno, pg_temp as $f$ begin return 'aberta'; end $f$;
+    create or replace function public.rede_teste_volta_sql(p_x integer) returns integer language sql stable security definer set search_path = interno, pg_temp as $f$ select p_x + 1 $f$;
+    grant execute on function public.rede_teste_volta(), public.rede_teste_volta_sql(integer) to anon, authenticated;`);
+  await dono("select interno.alumia_trancar()");
+  const n = (await dono("select interno.alumia_destrancar('rede_teste_volta') + interno.alumia_destrancar('rede_teste_volta_sql') as n")).rows[0].n;
+  const corpo = (await dono("select string_agg(l.lanname || ':' || (p.prosrc ~ 'alumia_porta')::text, ',' order by p.proname) as c from pg_proc p join pg_language l on l.oid = p.prolang where proname in ('rede_teste_volta', 'rede_teste_volta_sql')")).rows[0].c;
+  return [n, corpo, await rpc(como(P.intrusa), "rede_teste_volta"), await rpc(visitante(), "rede_teste_volta_sql", { p_x: 1 })];
+}, ([n, corpo, a, b]) => n === 2 && corpo === "plpgsql:false,sql:false" && a === "aberta" && b === 2);
+await espera("portas do Fediverso: a migração roda duas vezes sem estrago", async () => { await exec(portasFed); await exec(portasFed); return true; });
+await exec("drop function public.rede_teste_volta(); drop function public.rede_teste_volta_sql(integer);");
 await espera("portas: o próprio banco (agendador, SQL Editor) continua passando", async () => (await dono("select public.rede_avisos() as a, public.rede_pub_agendados_rodar() as b")).rows[0], (r) => Array.isArray(r.a));
 await espera("portas: a chave de serviço passa", () => rpc(servico, "rede_mod_niveis"), (r) => Array.isArray(r));
 

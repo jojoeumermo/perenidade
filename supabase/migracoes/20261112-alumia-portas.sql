@@ -51,7 +51,9 @@ end $$;
 create or replace function interno.alumia_porta_aberta(p_nome text, p_argumentos text) returns boolean language sql immutable as $$
   select p_nome in ('alumia_entrada_eu', 'alumia_entrada_pedir', 'alumia_triagem_contagem', 'alumia_triagem_fila', 'alumia_triagem_decidir',
                     'rede_situacao', 'rede_aderir', 'rede_codinome_definir', 'rede_confirmar_idade', 'rede_eu', 'rede_alumia_versao',
-                    'rede_fed_situacao', 'rede_antigo')
+                    'rede_fed_situacao', 'rede_antigo',
+                    -- Chamadas pelo servidor do site sem sessão, com o segredo da federação (Faixa 2): com a porta, o Fediverso para.
+                    'rede_fed_servidor', 'rede_fed_midia_servidor', 'rede_fed_mudanca_servidor')
       or (p_nome in ('rede_linha', 'rede_novos') and coalesce(p_argumentos, '') like 'p_aba text%')
 $$;
 
