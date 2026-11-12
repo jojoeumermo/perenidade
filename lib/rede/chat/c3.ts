@@ -72,6 +72,46 @@ export interface AbertaC3 {
   visto: Visto;
 }
 
+/**
+ * Monta o conteúdo e preenche até o bloco de tamanho fixo (o mesmo do "c3"; o "m1" da biblioteca do Matrix cifra este bloco).
+ * Quem chama zera o bloco depois de cifrar.
+ */
+export function montarBloco(texto: string, contador: number, visto: Visto = NADA_VISTO, id = novoIdDeMensagem()): Uint8Array {
+  if (!Number.isInteger(contador) || contador < 1 || contador > MAIOR_CONTADOR) throw new Error("contador_invalido");
+  if (![visto.versao, visto.contador].every((n) => Number.isInteger(n) && n >= 0 && n <= MAIOR_CONTADOR)) throw new Error("visto_invalido");
+  const doId = deBase64(id);
+  if (doId.length !== BYTES_DO_ID) throw new Error("id_invalido");
+  const doTexto = encoder.encode(texto);
+  const conteudo = new Uint8Array(new ArrayBuffer(BYTES_DO_COMECO + doTexto.length));
+  conteudo.set(doId, 0);
+  const campos = new DataView(conteudo.buffer);
+  campos.setUint32(BYTES_DO_ID, contador);
+  campos.setUint32(BYTES_DO_ID + BYTES_DO_CONTADOR, visto.versao);
+  campos.setUint32(BYTES_DO_ID + BYTES_DO_CONTADOR + 4, visto.contador);
+  conteudo.set(doTexto, BYTES_DO_COMECO);
+  try {
+    return preencher(conteudo);
+  } finally {
+    conteudo.fill(0);
+  }
+}
+
+/** Lê um bloco aberto (o inverso de `montarBloco`). null se o bloco ou o conteúdo não conferem. */
+export function lerBloco(bloco: Uint8Array): AbertaC3 | null {
+  try {
+    const conteudo = tirarPreenchimento(bloco);
+    if (conteudo.length < BYTES_DO_COMECO) return null;
+    const campos = new DataView(conteudo.buffer, conteudo.byteOffset, conteudo.byteLength);
+    const contador = campos.getUint32(BYTES_DO_ID);
+    if (contador < 1) return null;
+    const visto = { versao: campos.getUint32(BYTES_DO_ID + BYTES_DO_CONTADOR), contador: campos.getUint32(BYTES_DO_ID + BYTES_DO_CONTADOR + 4) };
+    const texto = new TextDecoder("utf-8", { fatal: true }).decode(conteudo.subarray(BYTES_DO_COMECO));
+    return { texto, id: paraBase64(conteudo.subarray(0, BYTES_DO_ID)), contador, visto };
+  } catch {
+    return null;
+  }
+}
+
 /** Monta o conteúdo, preenche até o bloco e cifra. Lança "conteudo_grande" se não couber no maior bloco. */
 export async function cifrarC3(chave: CryptoKey, versao: number, conversa: string, autor: string, texto: string, contador: number, visto: Visto = NADA_VISTO, id = novoIdDeMensagem()): Promise<string> {
   if (!Number.isInteger(versao) || versao < 1 || versao > 9_999_999) throw new Error("versao_invalida");

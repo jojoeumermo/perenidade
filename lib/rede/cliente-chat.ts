@@ -85,6 +85,15 @@ export function criarClienteDoChat(c: Chamar) {
     apagarTudo: () => c<{ conversas: number }>("rede_dm_apagar_tudo"),
     /** O bloqueio da Alumia (o mesmo de sempre): corta o chat junto. */
     bloquear: (usuario: string, sim: boolean) => c<unknown>("rede_bloquear", { p_usuario: usuario, p_sim: sim }),
+    /** O que a biblioteca do Matrix pede ao banco (supabase/migracoes/20261113-chat-olm.sql; lib/rede/chat/olm.ts). */
+    olm: {
+      publicar: (p: Record<string, unknown>) => c<{ one_time_key_counts: Record<string, number>; versao: number }>("rede_olm_publicar", { p }),
+      consultar: (usuarios: string[]) => c<{ device_keys: Record<string, Record<string, never>> }>("rede_olm_consultar", { p_usuarios: usuarios }),
+      reivindicar: (p: Record<string, unknown>) => c<{ one_time_keys: Record<string, Record<string, Record<string, unknown>>> }>("rede_olm_reivindicar", { p }),
+      enviar: (tipo: string, mensagens: Record<string, Record<string, unknown>>) => c<{ enviados: number }>("rede_olm_enviar", { p_tipo: tipo, p_mensagens: mensagens }),
+      receber: () => c<{ eventos: { id: number; sender: string; type: string; content: unknown }[]; unicas: number; reserva_usada: boolean }>("rede_olm_receber"),
+      confirmar: (ate: number) => c<{ apagados: number }>("rede_olm_confirmar", { p_ate: ate }),
+    },
   };
 }
 

@@ -65,7 +65,10 @@ await espera("a correção T33 está no fim do install.sql e roda de novo depois
 // para provar que pode rodar de novo.
 const blocos = ler("supabase/migracoes/20261110-chat-blocos.sql");
 await espera("o bloco das mensagens em blocos está no install.sql, igual à migração e depois da T19 e da T33", async () => install.includes(blocos.trim()) && install.indexOf(blocos.trim()) > install.indexOf(t33.trim()) && install.indexOf(t33.trim()) > install.indexOf(migracao.trim()));
-await espera("no install.sql, nada depois do bloco das mensagens em blocos redefine o envio do chat", async () => /create or replace function public\.rede_dm_(enviar|mensagens|nova_versao)\s*\(/.test(install.slice(install.indexOf(blocos.trim()) + blocos.trim().length)), (tem) => tem === false);
+// A migração da biblioteca do Matrix (20261113-chat-olm.sql) redefine a versão nova de propósito (aceita a marca "olm1"); o
+// teste dela é o npm run testar:chat-olm. Fora ela, nada depois dos blocos mexe no envio.
+const olm = ler("supabase/migracoes/20261113-chat-olm.sql").trim();
+await espera("no install.sql, nada depois do bloco das mensagens em blocos redefine o envio do chat (fora a migração da biblioteca)", async () => /create or replace function public\.rede_dm_(enviar|mensagens|nova_versao)\s*\(/.test(install.slice(install.indexOf(blocos.trim()) + blocos.trim().length).replace(olm, "")), (tem) => tem === false);
 await espera("a migração dos blocos roda depois da T19 e da T33, e roda de novo sem quebrar", async () => {
   await banco.exclusivo(() => banco.pg.exec(blocos));
   await banco.exclusivo(() => banco.pg.exec(blocos));

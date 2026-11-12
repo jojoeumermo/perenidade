@@ -291,6 +291,38 @@ export function aoApagarTudoDoChat(limpar: () => void): () => void {
 export const chatApagadoAqui = () => apagado;
 
 /**
+ * As lojas da biblioteca do Matrix (lib/rede/chat/olm.ts): uma por conta, com este começo de nome. A biblioteca cria dois bancos
+ * IndexedDB para cada uma ("<nome>::matrix-sdk-crypto" e "<nome>::matrix-sdk-crypto-meta").
+ */
+export const PREFIXO_DA_LOJA_OLM = "lucia-alumia-olm-";
+/** As lojas abertas nesta página (para apagar mesmo onde o navegador não lista os bancos). */
+const lojasAbertas = new Set<string>();
+export const anotarLojaAberta = (nome: string) => void lojasAbertas.add(nome);
+
+/** Pede ao navegador para apagar as lojas da biblioteca: as abertas aqui e todas as que ele listar com o começo do nome. */
+export function apagarLojasDaBiblioteca(conhecidas: Iterable<string> = []): void {
+  if (typeof indexedDB === "undefined") return;
+  const apagar = (nome: string) => {
+    try {
+      indexedDB.deleteDatabase(nome);
+    } catch {
+      // segue com as outras
+    }
+  };
+  for (const nome of conhecidas) for (const sufixo of ["::matrix-sdk-crypto", "::matrix-sdk-crypto-meta"]) apagar(nome + sufixo);
+  try {
+    void indexedDB.databases?.().then(
+      (lista) => {
+        for (const b of lista) if (b.name?.startsWith(PREFIXO_DA_LOJA_OLM)) apagar(b.name);
+      },
+      () => undefined,
+    );
+  } catch {
+    // navegador sem a lista: ficam só as conhecidas
+  }
+}
+
+/**
  * PÂNICO: apaga deste aparelho tudo o que o chat guardou, de todas as contas: a memória (chaves, rascunho, mensagens abertas,
  * o que os componentes registraram), nesta aba e nas outras, e o banco IndexedDB inteiro. Termina em no máximo `limiteMs` (bem
  * abaixo dos 0,8 s do "Sair rápido") e NUNCA lança. Depois disso, a chave do chat não existe mais aqui: é preciso ativar o
@@ -307,6 +339,7 @@ export async function apagarTudoDoChat(limiteMs = 400): Promise<void> {
       // sem canal: a outra aba se limpa quando notar que o banco sumiu
     }
     if (typeof indexedDB === "undefined") return;
+    apagarLojasDaBiblioteca(lojasAbertas);
     await new Promise<void>((pronto) => {
       const relogio = setTimeout(pronto, limiteMs);
       const fim = () => {

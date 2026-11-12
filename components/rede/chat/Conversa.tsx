@@ -2,8 +2,8 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { abrirMensagens, abrirSessao, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type MensagemAberta, ordemDaConversa, type Sessao } from "@/lib/rede/chat-chaveiro";
-import { codigoDeSeguranca, type Eu, MAX_CARACTERES, textoCabe } from "@/lib/rede/chat-privado";
+import { abrirMensagens, abrirSessao, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type Eu, type MensagemAberta, ordemDaConversa, type Sessao } from "@/lib/rede/chat-chaveiro";
+import { codigoDeSeguranca, MAX_CARACTERES, textoCabe } from "@/lib/rede/chat-privado";
 import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
 import { codigoComMetadeEscondida, conferirMetadeDe, conferirQr, metadeDaOutraPessoa } from "@/lib/rede/chat/verificacao";
 import { chat, type ConversaDoChat, type Prazo } from "@/lib/rede/cliente-chat";
@@ -134,7 +134,7 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
       const lista = await chat.mensagens(atual.conversa);
       // Mensagem numa versão que este aparelho ainda não tem: a chave virou; abre a sessão de novo.
       let usada = atual;
-      if (lista.some((m) => !atual.chaves.has(m.versao) && m.versao > atual.versao)) {
+      if (lista.some((m) => m.versao > atual.versao)) {
         usada = await abrirSessao(eu, atual.conversa, atual.outro, atual);
         sessaoRef.current = usada;
         setSessao(usada);
@@ -494,7 +494,6 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                       ) : (
                         <p className="whitespace-pre-wrap break-words">{m.texto}</p>
                       )}
-                      {m.autoria === "invalida" && <p className="mt-1 text-xs font-semibold text-[#ff8a80]">{t.conversa.autoriaInvalida}</p>}
                       {m.duvidosa && <p className="mt-1 text-[11px] italic opacity-80">{t.conversa.duvidosa}</p>}
                       {ordem.foraDeOrdem.has(m.id) && <p className="mt-1 text-[11px] italic opacity-80">{t.conversa.foraDeOrdem}</p>}
                       {minha && ordem.semConfirmar.has(m.id) && <p className="mt-1 text-[11px] italic opacity-80">{t.conversa.semConfirmar}</p>}

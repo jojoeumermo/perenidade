@@ -64,6 +64,7 @@
     "testar:painel-confirms": "node scripts/testar-painel-confirms.mjs",
     "testar:controles": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-controles.mjs",
     "testar:rede-chat": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-rede-chat.mjs",
+    "testar:chat-olm": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-chat-olm.mjs",
     "testar:cifra-grupo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-cifra-grupo.mjs",
     "testar:sigilo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-sigilo.mjs",
     "testar:progresso-qr": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-progresso-qr.mjs",

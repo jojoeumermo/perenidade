@@ -100,8 +100,10 @@ const policy = (script: string) =>
     ...(reporting ? [`report-uri ${reporting}`, "report-to sentinela"] : []),
   ].join("; ");
 
-// 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next.
-const pages = policy(`'unsafe-inline' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}${vlibrasCodigo}`);
+// 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next. 'wasm-unsafe-eval' deixa compilar
+// WebAssembly (e só isso: não libera eval de JavaScript): é como roda a biblioteca de cifra do Matrix no chat privado da Alumia
+// (lib/rede/chat/olm.ts). Vale para todas as páginas porque a navegação do Next não recarrega a política ao trocar de página.
+const pages = policy(`'unsafe-inline' 'wasm-unsafe-eval' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}${vlibrasCodigo}`);
 // Os interpretadores de Python e PHP rodam isolados em um Worker, sem acesso à página;
 // só ali é permitido compilar WebAssembly e código gerado em tempo de execução.
 const workers = policy("'wasm-unsafe-eval' 'unsafe-eval'");

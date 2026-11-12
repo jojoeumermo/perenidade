@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { ativarNesteAparelho, estadoDoAparelho } from "@/lib/rede/chat-chaveiro";
-import type { Eu } from "@/lib/rede/chat-privado";
+import type { Eu } from "@/lib/rede/chat-chaveiro";
 import { chat, type ConversaDoChat, type SituacaoDoChat } from "@/lib/rede/cliente-chat";
 import { preencher } from "@/lib/rede/preencher";
 import { carregarTextosDoChat, type TextosDoChat } from "@/lib/rede/textos-chat";
