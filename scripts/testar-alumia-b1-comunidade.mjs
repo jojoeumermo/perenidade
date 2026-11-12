@@ -264,6 +264,20 @@ await recusa("wiki: travada, só a moderação edita", () => salvarWiki(P.outra,
 await espera("wiki: a moderação volta a versão 1 (vira a 3)", () => rpc(como(P.moderadora), "rede_alumia_wiki_restaurar", { p_slug: "moradia", p_pagina: "cartilha-de-direitos", p_versao: 1 }), (r) => r.versao === 3);
 await espera("wiki: quem é da comunidade lê a página e vê que está travada", () => wiki(como(P.terceira), "moradia"), (r) => r.pagina.versao === 3 && r.pagina.travada === true && r.pode_editar === false && r.pode_criar === true && /ordem judicial\.$/.test(r.pagina.corpo));
 
+// A tela da wiki: no conflito, a versão nova fica à vista junto do formulário (o segundo "Salvar" não cobre o que a pessoa não
+// viu); e a versão antiga aberta pelo histórico diz que é antiga e tem a volta para a atual.
+{
+  const tela = fs.readFileSync(new URL("../components/rede/comunidades/WikiDaComunidade.tsx", import.meta.url), "utf8");
+  const form = tela.slice(tela.indexOf("{editando && ("));
+  ok("wiki (tela): no conflito, a versão nova aparece dentro do formulário", form.includes("{conflito && atual && (") && form.includes("<TextoDaWiki corpo={atual.corpo} />") && form.includes("w.conflitoNova"));
+  ok("wiki (tela): o conflito só é marcado depois de a versão nova chegar", /setEstado\(\{ chave, wiki: nova, erro: "" \}\);\s+if \(nova\.pagina\) \{\s+setEditando\([^)]*\);\s+setConflito\(true\);/.test(tela));
+  ok("wiki (tela): versão antiga é dita como antiga, com a volta para a atual", tela.includes("vendo && vendo.versao !== atual.versao") && tela.includes("w.vendoAntiga") && tela.includes("{w.voltarAtual}"));
+  for (const l of ["pt", "en", "es", "fr", "ru", "zh"]) {
+    const w = JSON.parse(fs.readFileSync(new URL(`../i18n/rede/b1/${l}.json`, import.meta.url), "utf8")).wiki;
+    ok(`wiki (${l}): os textos do conflito e da versão antiga existem`, w.conflitoNova?.includes("{n}") && w.vendoAntiga?.includes("{n}") && !!w.voltarAtual);
+  }
+}
+
 // ── 6. Conversas que sigo ──
 await espera("seguidas: a pessoa vê as conversas que segue", () => rpc(como(P.membro), "rede_alumia_conversas_seguidas", {}), (r) => r.itens.length === 1 && r.itens[0].raiz === raiz && r.itens[0].disponivel && r.itens[0].titulo === "Assembleia da ocupação" && r.total === 1);
 await dono("update interno.rede_posts set oculto = true where id = $1", [raiz]);

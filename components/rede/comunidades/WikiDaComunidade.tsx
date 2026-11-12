@@ -63,6 +63,8 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
   const [ocupado, setOcupado] = useState(false);
   const [historico, setHistorico] = useState<{ versoes: VersaoDaWiki[]; modera: boolean } | null>(null);
   const [vendo, setVendo] = useState<{ versao: number; corpo: string; editou: string | null } | null>(null);
+  // Alguém salvou antes: a versão nova aparece ACIMA do formulário, para a pessoa comparar antes de salvar por cima.
+  const [conflito, setConflito] = useState(false);
   const id = useId();
   const tituloRef = useRef<HTMLInputElement>(null);
   const leitura = useRef<HTMLElement>(null);
@@ -90,6 +92,7 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
   const atual = wiki.pagina;
 
   function abrirEdicao(nova: boolean) {
+    setConflito(false);
     setHistorico(null);
     setVendo(null);
     if (nova || !atual) {
@@ -110,18 +113,23 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
     try {
       const r = previa() ? { pagina: editando.pagina ?? "nova", versao: (editando.base ?? 0) + 1 } : await b1.wikiSalvar(slug, editando.pagina, titulo, corpo, resumo, editando.base);
       aoAvisar(w.salva);
+      setConflito(false);
       setEditando(null);
       setPagina(r.pagina);
       setVersao((v) => v + 1);
       requestAnimationFrame(() => leitura.current?.focus());
     } catch (e) {
       if (codigoDoErro(e) === "conflito") {
-        // A versão nova vem para a leitura; o texto da pessoa fica na caixa (nada se perde).
+        // A versão nova aparece acima do formulário; o texto da pessoa fica na caixa (nada se perde). A base só passa para a
+        // versão nova quando ela foi lida e está na tela: o segundo "Salvar" é com a pessoa vendo o que vai cobrir.
         aoAvisar(w.conflito, true);
         try {
           const nova = await b1.wiki(slug, editando.pagina);
-          if (nova.pagina) setEditando({ pagina: nova.pagina.pagina, base: nova.pagina.versao });
           setEstado({ chave, wiki: nova, erro: "" });
+          if (nova.pagina) {
+            setEditando({ pagina: nova.pagina.pagina, base: nova.pagina.versao });
+            setConflito(true);
+          }
         } catch {
           // fica como está: a pessoa pode copiar o texto
         }
@@ -203,6 +211,15 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
                 {preencher(w.atualizada, { quando: quandoCurto(lang, atual.editado_em) })} · {preencher(w.versao, { n: atual.versao })}
                 {atual.travada && <> · {w.travada}</>}
               </p>
+              {/* Versão antiga aberta pelo histórico: dito com todas as letras, com a volta para a atual. */}
+              {vendo && vendo.versao !== atual.versao && (
+                <p role="status" className="b1-cinza font-bold">
+                  {preencher(w.vendoAntiga, { n: vendo.versao })}{" "}
+                  <button type="button" className="b1-link" onClick={() => setVendo(null)}>
+                    {w.voltarAtual}
+                  </button>
+                </p>
+              )}
               <TextoDaWiki corpo={vendo ? vendo.corpo : atual.corpo} />
             </article>
           ) : (
@@ -280,6 +297,13 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
             void salvar();
           }}
         >
+          {conflito && atual && (
+            <section className="b1-cartao" aria-labelledby={`${id}-conflito`}>
+              <h3 id={`${id}-conflito`} className="font-bold">{preencher(w.conflitoNova, { n: atual.versao })}</h3>
+              <p className="b1-cinza">{atual.titulo}</p>
+              <TextoDaWiki corpo={atual.corpo} />
+            </section>
+          )}
           <label className="b1-rotulo" htmlFor={`${id}-t`}>{w.tituloRotulo}</label>
           <input ref={tituloRef} id={`${id}-t`} className="b1-campo" maxLength={120} required minLength={2} value={titulo} onChange={(e) => setTitulo(e.target.value)} />
           <label className="b1-rotulo" htmlFor={`${id}-c`}>{w.corpoRotulo}</label>
@@ -292,7 +316,7 @@ export function WikiDaComunidade({ slug, lang, s, situacao, aoAvisar }: { slug: 
             <button type="submit" className="b1-botao" data-cheio="" disabled={ocupado || titulo.trim().length < 2 || !corpo.trim()}>
               {w.salvar}
             </button>
-            <button type="button" className="b1-botao" onClick={() => setEditando(null)}>
+            <button type="button" className="b1-botao" onClick={() => (setConflito(false), setEditando(null))}>
               {w.cancelar}
             </button>
           </div>
