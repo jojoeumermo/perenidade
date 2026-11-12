@@ -187,21 +187,72 @@ export async function processarPedidos(aparelho: AparelhoOlm): Promise<void> {
  * Busca os recados cifrados que chegaram para este aparelho (as chaves das sessões da outra pessoa) e entrega à biblioteca.
  * `mudaram`: pessoas cuja chave de aparelho pode ter mudado (a biblioteca consulta de novo).
  */
-export async function sincronizar(aparelho: AparelhoOlm, mudaram: string[] = []): Promise<void> {
-  const M = await carregarBiblioteca();
+export async function sincronizar(aparelho: AparelhoOlm, mudaram: string[] = []): Promise<RecadoAberto[]> {
   const caixa = await aparelho.transporte.receber();
-  const eventos = (caixa.eventos ?? []).filter((e) => e.type === "m.room.encrypted");
-  const listas = new M.DeviceLists(mudaram.map((u) => new M.UserId(idMatrix(u))), []);
-  const reserva = new Set<string>(caixa.reserva_usada ? [] : ["signed_curve25519"]);
-  await aparelho.maquina.receiveSyncChanges(
-    JSON.stringify(eventos.map((e) => ({ sender: e.sender, type: e.type, content: e.content }))),
-    listas,
-    new Map([["signed_curve25519", caixa.unicas ?? 0]]),
-    reserva,
-  );
+  const eventos = (caixa.eventos ?? []).filter((e) => e.type === "m.room.encrypted").map((e) => ({ sender: e.sender, type: e.type, content: e.content }));
+  const abertos = await entregarABiblioteca(aparelho, eventos, mudaram, caixa.unicas ?? 0, !caixa.reserva_usada);
   const ultimo = (caixa.eventos ?? []).reduce((maior, e) => Math.max(maior, e.id), 0);
   if (ultimo > 0) await aparelho.transporte.confirmar(ultimo);
   await processarPedidos(aparelho);
+  return abertos;
+}
+
+/** Um recado de aparelho para aparelho que a biblioteca abriu: quem mandou, a chave curve25519 do aparelho que cifrou, e o evento. */
+export interface RecadoAberto {
+  de: string;
+  curve25519: string;
+  tipo: string;
+  conteudo: Record<string, unknown>;
+}
+
+/**
+ * Entrega recados cifrados (Olm) à biblioteca e devolve os que ela abriu, fora os de chave de sala (esses ela guarda sozinha).
+ * `unicas`: quantas chaves de uso único ainda estão no banco (`null`: não sabe; a biblioteca não repõe).
+ */
+export async function entregarABiblioteca(aparelho: AparelhoOlm, eventos: { sender: string; type: string; content: unknown }[], mudaram: string[] = [], unicas: number | null = null, reservaLivre = true): Promise<RecadoAberto[]> {
+  const M = await carregarBiblioteca();
+  const listas = new M.DeviceLists(mudaram.map((u) => new M.UserId(idMatrix(u))), []);
+  const contagem = unicas === null ? new Map<string, number>() : new Map([["signed_curve25519", unicas]]);
+  const processados = await aparelho.maquina.receiveSyncChanges(JSON.stringify(eventos), listas, contagem, new Set<string>(reservaLivre ? ["signed_curve25519"] : []));
+  const abertos: RecadoAberto[] = [];
+  for (const p of processados) {
+    if (p.type !== M.ProcessedToDeviceEventType.Decrypted) continue;
+    const decifrado = p as unknown as { rawEvent: string; encryptionInfo: { senderCurve25519Key: string; sender: { toString(): string } } };
+    try {
+      const evento = JSON.parse(decifrado.rawEvent);
+      const de = usuarioDoIdMatrix(String(evento?.sender ?? decifrado.encryptionInfo.sender.toString()));
+      if (!de || typeof evento?.type !== "string" || evento.type === "m.room_key" || typeof evento.content !== "object") continue;
+      abertos.push({ de, curve25519: decifrado.encryptionInfo.senderCurve25519Key, tipo: evento.type, conteudo: evento.content });
+    } catch {
+      // recado que não é JSON: ignora
+    }
+  }
+  return abertos;
+}
+
+/**
+ * Cifra um evento só para o aparelho confiável da outra pessoa, por Olm (Double Ratchet: chave nova a cada mensagem, e o
+ * ratchet de Diffie-Hellman a cada resposta, que dá a segurança depois do comprometimento). Devolve o conteúdo cifrado
+ * ("m.room.encrypted", algoritmo Olm) e o nome do aparelho de destino.
+ */
+export async function cifrarParaAparelho(aparelho: AparelhoOlm, outro: string, tipo: string, conteudo: Record<string, unknown>): Promise<{ dispositivo: string; cifrado: Record<string, unknown> }> {
+  const confiada = await aparelho.confiavel(outro);
+  if (!confiada) throw new Error("dm_sem_chave");
+  const M = await carregarBiblioteca();
+  const pessoa = new M.UserId(idMatrix(outro));
+  await aparelho.maquina.updateTrackedUsers([pessoa.clone()]);
+  await processarPedidos(aparelho);
+  const faltam = await aparelho.maquina.getMissingSessions([pessoa.clone()]);
+  if (faltam) {
+    const resposta = await aparelho.transporte.reivindicar(JSON.parse(faltam.body).one_time_keys ?? {});
+    await aparelho.maquina.markRequestAsSent(faltam.id, faltam.type, JSON.stringify({ ...resposta, failures: {} }));
+  }
+  const aparelhos = await aparelho.maquina.getUserDevices(pessoa.clone());
+  const destino = aparelhos.devices().find((d) => d.getKey(M.DeviceKeyAlgorithmName.Ed25519)?.toBase64() === confiada);
+  if (!destino) throw new Error("dm_sem_chave");
+  const cifrado = JSON.parse(await destino.encryptToDeviceEvent(tipo, conteudo));
+  if (cifrado?.algorithm !== "m.olm.v1.curve25519-aes-sha2") throw new Error("cifra_falhou");
+  return { dispositivo: destino.deviceId.toString(), cifrado };
 }
 
 /** Garante que a sessão Megolm desta versão foi entregue (por Olm) ao aparelho confiável da outra pessoa e ao meu. */
