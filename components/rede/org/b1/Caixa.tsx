@@ -137,8 +137,9 @@ function UmCaixa({ c, t, lang, tesouraria, gerencio, dentro, ocupado, fazer }: {
       ) : null}
       {c.lancamentos.length > 0 ? (
         <table className="b1-livro">
-          <caption className="sr-only">{c.nome}</caption>
-          <thead><tr><th scope="col">{tc.dia}</th><th scope="col">{tc.descricao}</th><th scope="col">{tc.valor}</th><th scope="col"><span className="sr-only">{tc.conferido}</span></th></tr></thead>
+          {/* O cabeçalho da coluna fica curto ("Descrição"); o aviso entre parênteses ("sem nome de quem doou") desce para a legenda. */}
+          <caption className="b1-livro-legenda"><span className="sr-only">{c.nome}. </span>{notaDaDescricao(tc.descricao)}</caption>
+          <thead><tr><th scope="col">{tc.dia}</th><th scope="col">{tc.descricao.replace(/\s*[（(].*$/, "")}</th><th scope="col">{tc.valor}</th><th scope="col"><span className="sr-only">{tc.conferido}</span></th></tr></thead>
           <tbody>
             {c.lancamentos.map((l) => (
               <tr key={l.id} data-carimbos={l.carimbos}>
@@ -311,4 +312,9 @@ function pixelar(g: CanvasRenderingContext2D, r0: Retangulo, W: number, H: numbe
     g.fillStyle = `rgb(${dados.data[i]},${dados.data[i + 1]},${dados.data[i + 2]})`;
     g.fillRect(x + bx, y + by, Math.min(bloco, w - bx), Math.min(bloco, h - by));
   }
+}
+
+/** O aviso entre parênteses do rótulo da descrição ("sem nome de quem doou"), para a legenda da tabela; sem parênteses, nada. */
+function notaDaDescricao(rotulo: string): string {
+  return /[（(]\s*(.+?)\s*[)）]\s*$/.exec(rotulo)?.[1] ?? "";
 }

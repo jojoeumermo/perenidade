@@ -12,7 +12,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { clienteOrgB1, type AcaoDaMesa } from "@/lib/rede/cliente-org-b1";
 import { CARIMBOS, mosaicoDosSinais, ordinalDaFila, POSICOES, SINAIS, segundosRestantes, tremeOLampiao, type AtaViva, type AtasDaOrg, type CarimboDaAta, type Sinal } from "@/lib/rede/org/b1";
-import { dataCurta } from "@/lib/rede/org/contagem";
+import { dataCurta, haQuanto } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import { fraseDoErro, useTextosDaOrgB1, type TextosDaOrgB1 } from "@/lib/rede/textos-org-b1";
 import { Botao } from "../../ui/Botao";
@@ -249,7 +249,7 @@ function AtaAoVivo({ inicial, t, lang, aoVoltar }: { inicial: AtaViva; t: Textos
         {viva ? (
           <span className="b1-ao-vivo" aria-live="off">
             <span aria-hidden className="b1-ponto-vivo" />
-            {pausado ? t.plenaria.pausada : ultima ? preencher(t.plenaria.atualizada, { s: Math.max(0, Math.round((agora - ultima) / 1000)) }) : ta.aberta}
+            {pausado ? t.plenaria.pausada : ultima ? haQuanto(t.plenaria, agora - ultima) : ta.aberta}
           </span>
         ) : null}
       </div>

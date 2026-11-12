@@ -277,6 +277,8 @@
   [data-al="2"] .al-perfil-org-lado { position: sticky; top: 16px; align-self: start; padding-top: 12px; }
 }
 [data-al="2"] .al-perfil-org-lado .al-perfil-bloco > h2 { font-size: 1.6rem; }
+/* A coluna da direita da casca (a partir de 1280 px) já mostra "Ao vivo agora": o cartão do perfil não repete. */
+@media (min-width: 1280px) { [data-al="2"]:has(.al2-direita .al-org-aovivo-selo) .al-perfil-org-aovivo { display: none; } }
 [data-al="2"] .al-perfil-org-lado section:focus { outline: none; }
 [data-al="2"] .al-perfil-tipo { margin: 0 0 4px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--al-dourado); }
 [data-al="2"] .al-perfil-capa-mosaico { max-width: 760px; }

@@ -253,6 +253,7 @@
   "plenaria": {
     "aoVivo": "Live queue",
     "atualizada": "Updated {s} s ago",
+    "atualizadaAgora": "Updated just now",
     "pausada": "Updates paused while the tab is hidden",
     "sala": "Room link (https)",
     "salaAjuda": "Unlisted YouTube or the institute's room. Shown while the plenary is live."

@@ -18,7 +18,21 @@
 [data-al="2"] .b1-form-linha { grid-template-columns: 1fr auto; align-items: end; }
 [data-al="2"] .b1-problema { color: var(--al-vermelho-texto) !important; font-weight: 700 !important; }
 [data-al="2"] .b1-novo { margin-top: 6px; }
-[data-al="2"] .b1-novo summary { cursor: pointer; font-weight: 800; min-height: 44px; display: flex; align-items: center; }
+/* O "abrir formulário" tem cara de botão: contorno em pílula e um + que vira × ao abrir (antes era texto em negrito solto). */
+[data-al="2"] .b1-novo > summary { cursor: pointer; font-weight: 800; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px 0 12px; border: 1.5px solid var(--al-linha); border-radius: var(--al-raio-pilula); list-style: none; color: var(--al-texto); transition: background-color 0.15s; }
+[data-al="2"] .b1-novo > summary::-webkit-details-marker { display: none; }
+[data-al="2"] .b1-novo > summary::before { content: "+"; display: inline-grid; place-items: center; width: 20px; height: 20px; font-size: 1.25rem; line-height: 1; font-weight: 900; color: var(--al-dourado); transition: transform 0.2s; }
+[data-al="2"] .b1-novo[open] > summary::before { transform: rotate(45deg); }
+[data-al="2"] .b1-novo[open] > summary { margin-bottom: 8px; background: var(--al-superficie); }
+@media (hover: hover) { [data-al="2"] .b1-novo > summary:hover { background: var(--al-superficie); } }
+[data-al="2"] .b1-novo > summary:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .b1-novo > summary { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .b1-novo > summary::before { color: var(--al-texto); }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .b1-novo > summary::before { transition: none; } }
+/* Ação que desfaz (encerrar mandato, apagar função): botão pequeno de contorno, na cor de perigo, à direita. */
+[data-al="2"] .al-botao.b1-perigo { min-height: 44px; padding: 0 14px; border: 1.5px solid color-mix(in srgb, var(--al-vermelho-texto) 55%, transparent); border-radius: var(--al-raio-pilula); color: var(--al-vermelho-texto); font-weight: 800; justify-self: end; margin-left: auto; }
+@media (hover: hover) { [data-al="2"] .al-botao.b1-perigo:hover:not(:disabled) { background: color-mix(in srgb, var(--al-vermelho-texto) 12%, transparent); } }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .al-botao.b1-perigo { border-color: var(--al-texto); color: var(--al-texto); }
 [data-al="2"] .b1-marcar { display: grid; gap: 6px; border: 0; padding: 0; margin: 0; }
 [data-al="2"] .b1-marcar legend { font-weight: 700; font-size: 0.88rem; margin-bottom: 4px; }
 [data-al="2"] .b1-marcar-linha { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -35,7 +49,10 @@
 [data-al="2"] .b1-ao-vivo { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--al-texto-3); }
 [data-al="2"] .b1-ponto-vivo { width: 10px; height: 10px; border-radius: 50%; background: var(--al-vermelho); }
 [data-al="2"] .b1-ata-grade { display: grid; gap: 16px; }
-@media (min-width: 900px) { [data-al="2"] .b1-ata-grade { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } }
+/* Duas colunas só quando cada uma tem pelo menos 340 px (a largura é a da coluna central, não a da tela: a 1440 px a mesa
+   ficava com 250 px e estourava a moldura). Abaixo disso, uma embaixo da outra. */
+[data-al="2"] .b1-ata-grade { grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+[data-al="2"] .b1-ata-grade > * { min-width: 0; }
 [data-al="2"] .b1-ata-palco { display: grid; gap: 12px; align-content: start; }
 
 /* A faixa tecida: os pontos como trechos de tecido; o tecido cresce quando carimbado. */
@@ -100,10 +117,14 @@
 @media (min-width: 480px) { [data-al="2"] .b1-mosaico-grande .b1-mosaico { grid-template-columns: repeat(10, 24px); } [data-al="2"] .b1-mosaico-grande .b1-mosaico span { width: 24px; height: 24px; } }
 
 /* A mesa. */
-[data-al="2"] .b1-mesa { display: grid; gap: 10px; align-content: start; padding: 12px; border-radius: 12px; border: 2px solid var(--al-dourado); background: var(--al-fundo); }
-[data-al="2"] .b1-bloqueio { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--al-vermelho); color: var(--al-sobre-vermelho); font-weight: 900; }
+[data-al="2"] .b1-mesa > * { min-width: 0; max-width: 100%; }
+[data-al="2"] .b1-mesa :is(.al-entrada, select, textarea) { min-width: 0; max-width: 100%; box-sizing: border-box; }
+[data-al="2"] .b1-mesa .b1-form-linha { grid-template-columns: minmax(0, 1fr) auto; }
+[data-al="2"] .b1-mesa .b1-form-linha input { width: 100%; }
+[data-al="2"] .b1-mesa { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: 10px; align-content: start; padding: 12px; border-radius: 12px; border: 2px solid var(--al-dourado); background: var(--al-fundo); }
+[data-al="2"] .b1-bloqueio { margin: 0; max-width: 100%; overflow-wrap: anywhere; padding: 10px 12px; border-radius: 10px; background: var(--al-vermelho); color: var(--al-sobre-vermelho); font-weight: 900; }
 [data-al="2"] .b1-fila { display: grid; gap: 4px; list-style: none; counter-reset: fila; margin: 0; padding: 0; }
-[data-al="2"] .b1-fila li { counter-increment: fila; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; background: var(--al-superficie); }
+[data-al="2"] .b1-fila li { counter-increment: fila; display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; background: var(--al-superficie); overflow-wrap: anywhere; }
 [data-al="2"] .b1-fila li::before { content: counter(fila); font-weight: 900; min-width: 1.4em; text-align: center; }
 [data-al="2"] .b1-fila li small { color: var(--al-texto-3); }
 [data-al="2"] .b1-fila-pos { font-size: 0.75rem; font-weight: 800; }
@@ -157,6 +178,11 @@
 [data-al="2"] .b1-livro { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
 [data-al="2"] .b1-livro th { text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--al-texto-3); padding: 4px 6px; }
 [data-al="2"] .b1-livro td { padding: 8px 6px; border-top: 1px solid var(--al-superficie-2); vertical-align: middle; overflow-wrap: anywhere; }
+/* O dia nunca quebra no meio (saía "03/11/2" e "026" embaixo), e o cabeçalho também não. */
+[data-al="2"] .b1-livro td:first-child { white-space: nowrap; overflow-wrap: normal; font-variant-numeric: tabular-nums; }
+[data-al="2"] .b1-livro th { white-space: nowrap; }
+[data-al="2"] .b1-livro-legenda { caption-side: bottom; padding: 6px 6px 0; text-align: left; font-size: 0.78rem; color: var(--al-texto-3); }
+[data-al="2"] .b1-livro-legenda::first-letter { text-transform: uppercase; }
 [data-al="2"] .b1-valor { font-variant-numeric: tabular-nums; font-weight: 800; white-space: nowrap; }
 [data-al="2"] .b1-valor[data-tipo="saida"] { color: var(--al-vermelho-texto); }
 [data-al="2"] .b1-carimbos-caixa { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }

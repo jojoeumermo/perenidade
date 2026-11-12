@@ -253,6 +253,7 @@
   "plenaria": {
     "aoVivo": "File en direct",
     "atualizada": "Mise à jour il y a {s} s",
+    "atualizadaAgora": "Mise à jour à l’instant",
     "pausada": "Mise à jour en pause, onglet caché",
     "sala": "Lien de la salle (https)",
     "salaAjuda": "YouTube non répertorié ou la salle de l'institut. Visible quand la plénière est en direct."
