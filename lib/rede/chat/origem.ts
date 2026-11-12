@@ -16,7 +16,7 @@ export const CHAT_URL = (process.env.NEXT_PUBLIC_CHAT_URL ?? "").trim().replace(
 const IDIOMAS = ["pt", "en", "es", "fr", "ru", "zh"];
 
 /**
- * O endereço .onion do chat (NEXT_PUBLIC_CHAT_ONION, só o nome, sem "http://"). Com ele, as respostas do chat levam o cabeçalho
+ * O endereço .onion do chat (NEXT_PUBLIC_CHAT_ONION, só o nome, sem o protocolo). Com ele, as respostas do chat levam o cabeçalho
  * Onion-Location: o Navegador Tor oferece abrir o chat pelo serviço onion (docs/rede/ONION.md).
  */
 export const CHAT_ONION = /^[a-z2-7]{56}\.onion$/.test((process.env.NEXT_PUBLIC_CHAT_ONION ?? "").trim()) ? (process.env.NEXT_PUBLIC_CHAT_ONION ?? "").trim() : "";
