@@ -3,7 +3,8 @@
 // O script do quadro da ponte de sessão (app/api/sessao/ponte). Roda na origem do SITE, dentro de um quadro escondido que só a
 // Alumia e a Escola podem embutir. Só responde a quem a embutiu, e só se essa origem for exatamente alumia.<site> ou escola.<site>
 // (a mesma regra de lib/sessao/ponte.ts, origemPodePedir). Lê a sessão guardada pelo site (lucia:sessao); se o token está para
-// vencer, renova com o mesmo cadeado que o cliente do Supabase usa (lock:lucia:sessao), para não brigar com uma aba aberta do site.
+// vencer ou foi emitido há mais de 5 minutos, renova com o mesmo cadeado que o cliente do Supabase usa (lock:lucia:sessao), para
+// não brigar com uma aba aberta do site.
 // Pede à rota o código de uma vez e devolve SÓ a quem pediu. Nada é guardado aqui.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -25,7 +26,10 @@ export function GET() {
     } catch { return false; }
   };
   const ler = () => { try { const v = JSON.parse(localStorage.getItem(CHAVE) || "null"); return v && v.access_token ? v : null; } catch { return null; } };
-  const fresca = (s) => s && Number(s.expires_at || 0) * 1000 > Date.now() + 60000;
+  // A rota só aceita token emitido há pouco (10 min): aqui renovamos quando ele tem mais de 5 min, com o token de renovação que
+  // só este navegador tem. Quem roubou só o token de acesso não consegue fazer o mesmo.
+  const emitido = (s) => { try { return Number(JSON.parse(atob(String(s.access_token).split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))).iat || 0); } catch { return 0; } };
+  const fresca = (s) => s && Number(s.expires_at || 0) * 1000 > Date.now() + 60000 && emitido(s) * 1000 > Date.now() - 300000;
   async function renovar() {
     const s = ler();
     if (!s || !s.refresh_token || !SUPA) return null;
