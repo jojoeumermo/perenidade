@@ -142,5 +142,27 @@
     "dm_exige_comparar": "Compare the safety code again before sending.",
     "dm_aguardando": "The other person hasn't opened this conversation on their device yet. Once they do, you can write.",
     "historico_travado": "The history is locked. Enter the lock password to open it."
+  },
+  "selado": {
+    "someEm": "Disappears in",
+    "padrao": "the conversation's time limit",
+    "cincoMin": "5 minutes",
+    "umaHora": "1 hour",
+    "verUmaVez": "View once",
+    "verUmaVezExplica": "The other person sees it once and the message disappears. No copy is kept, not even by you.",
+    "abrirUmaVez": "View-once message: tap to open",
+    "fecharUmaVez": "Close (the message disappears)",
+    "marcaUmaVez": "view once",
+    "aguardando": "The other person hasn't opened this conversation on their device yet. Once they do, you can write.",
+    "travado": "The history on this device is locked.",
+    "senhaDaTrava": "Lock password",
+    "destravar": "Open",
+    "travarTitulo": "History lock",
+    "travarExplica": "Conversation history stays only on this device, encrypted. With the lock, it only opens with your password (which is not stored anywhere). If you forget the password, the history can no longer be opened, not even with help from the team.",
+    "travar": "Lock with password",
+    "travadoOk": "History locked.",
+    "senhaCurta": "Use a password of 8 characters or more.",
+    "fecharAgora": "Close the history now",
+    "trancadoAgora": "The history was closed in this tab."
   }
 }

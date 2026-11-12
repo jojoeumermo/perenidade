@@ -142,5 +142,27 @@
     "dm_exige_comparar": "发送前请重新比对安全码。",
     "dm_aguardando": "对方还没有在自己的设备上打开这个对话。对方打开后就可以发消息了。",
     "historico_travado": "历史记录已锁定。请输入锁定密码打开。"
+  },
+  "selado": {
+    "someEm": "消失时间",
+    "padrao": "对话的期限",
+    "cincoMin": "5 分钟",
+    "umaHora": "1 小时",
+    "verUmaVez": "仅查看一次",
+    "verUmaVezExplica": "对方只能看一次，之后消息消失。不留副本，你这边也不留。",
+    "abrirUmaVez": "仅查看一次的消息：点击打开",
+    "fecharUmaVez": "关闭（消息将消失）",
+    "marcaUmaVez": "仅查看一次",
+    "aguardando": "对方还没有在自己的设备上打开这个对话。对方打开后就可以发消息了。",
+    "travado": "此设备上的历史记录已锁定。",
+    "senhaDaTrava": "锁定密码",
+    "destravar": "打开",
+    "travarTitulo": "历史记录锁",
+    "travarExplica": "对话历史只保存在这台设备上，并且是加密的。上锁后，只有你的密码才能打开（密码不保存在任何地方）。忘记密码后，历史记录将无法再打开，团队也无法帮忙。",
+    "travar": "用密码上锁",
+    "travadoOk": "历史记录已锁定。",
+    "senhaCurta": "请使用至少 8 个字符的密码。",
+    "fecharAgora": "立即关闭历史记录",
+    "trancadoAgora": "历史记录已在此标签页中关闭。"
   }
 }

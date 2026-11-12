@@ -141,5 +141,27 @@
     "dm_exige_comparar": "Compare o código de segurança de novo antes de enviar.",
     "dm_aguardando": "A outra pessoa ainda não abriu esta conversa no aparelho dela. Assim que abrir, dá para escrever.",
     "historico_travado": "O histórico está travado. Digite a senha da trava para abrir."
+  },
+  "selado": {
+    "someEm": "Some em",
+    "padrao": "o prazo da conversa",
+    "cincoMin": "5 minutos",
+    "umaHora": "1 hora",
+    "verUmaVez": "Ver uma vez",
+    "verUmaVezExplica": "A outra pessoa vê uma vez e a mensagem some. Não fica cópia nem com você.",
+    "abrirUmaVez": "Mensagem para ver uma vez: tocar para abrir",
+    "fecharUmaVez": "Fechar (a mensagem some)",
+    "marcaUmaVez": "ver uma vez",
+    "aguardando": "A outra pessoa ainda não abriu esta conversa no aparelho dela. Assim que abrir, dá para escrever.",
+    "travado": "O histórico deste aparelho está travado.",
+    "senhaDaTrava": "Senha da trava",
+    "destravar": "Abrir",
+    "travarTitulo": "Trava do histórico",
+    "travarExplica": "O histórico das conversas fica só neste aparelho, cifrado. Com a trava, ele só abre com uma senha sua (que não fica guardada em lugar nenhum). Esqueceu a senha: o histórico não abre mais, nem com ajuda da equipe.",
+    "travar": "Travar com senha",
+    "travadoOk": "Histórico travado.",
+    "senhaCurta": "Use uma senha de 8 caracteres ou mais.",
+    "fecharAgora": "Fechar o histórico agora",
+    "trancadoAgora": "O histórico foi fechado nesta aba."
   }
 }

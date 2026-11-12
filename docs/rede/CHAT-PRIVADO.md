@@ -63,6 +63,45 @@ o vodozemac, auditado), em `lib/rede/chat/olm.ts`. Nada de cifra feita à mão n
 - **WebAssembly:** a biblioteca é WebAssembly; a política de segurança das páginas ganhou `'wasm-unsafe-eval'` (só compilar
   WebAssembly; não libera `eval` de JavaScript).
 
+### Remetente selado (o banco não sabe quem mandou)
+
+Desde 13/11/2026 (`supabase/migracoes/20261113-chat-selado.sql`, `lib/rede/chat/selado.ts`; teste: `npm run testar:chat-selado`):
+
+- **Cada mensagem vai por Olm** (Double Ratchet: chave nova a cada mensagem e a cada resposta, o que dá sigilo para a frente e
+  segurança depois do comprometimento) **só para o aparelho confiável da outra pessoa**.
+- **Por fora, um envelope selado:** HPKE (RFC 9180) com troca de chaves híbrida X-Wing (X25519 + ML-KEM-768, contra computador
+  quântico), pela biblioteca `@hpke`. Quem mandou vai DENTRO do envelope. O envelope é completado até um de seis tamanhos fixos.
+- **O banco guarda só: para quem, o envelope e o DIA** (sem hora). Não guarda quem mandou, nem de qual conversa é. O envelope é
+  deixado **sem a sessão da conta** (pela chave pública do serviço, sem cookie, sem referência): o banco não sabe nem qual conta
+  deixou. O site não guarda endereço de rede.
+- **Apagada ao entregar:** o aparelho de quem recebe abre, guarda no histórico dele e confirma; aí o envelope **sai do banco**.
+  Envelope que ninguém buscou some em 30 dias.
+- **Quem pode deixar envelope:** quem tem a "senha de entrega" da caixa da pessoa. Ela vai, junto com a chave do envelope, num
+  recado Olm já autenticado pelo aparelho confiável (o "aperto de mão" de cada conversa); o banco guarda só o resumo SHA-256.
+  **Bloquear troca a senha**: quem foi bloqueado não deixa mais nada; as outras conversas recebem a senha nova ao abrir.
+- **Ninguém se passa por outra pessoa:** o aparelho só aceita a mensagem se o aparelho que cifrou (pelo Olm) é o aparelho
+  confiável de quem o envelope diz ter mandado (o teste prova: a intrusa dizendo "sou a Bia" é descartada).
+
+**O que o banco ainda sabe, e por quê:** quem conversa com quem (a lista de conversas e os pedidos, para valerem as regras de
+"quem pode me chamar", bloqueio e denúncia) e quando cada caixa recebeu envelope (o dia). O Signal esconde também a lista de
+contatos; aqui ela fica, porque as regras de pedido e de bloqueio da Alumia são conferidas no servidor.
+
+### Histórico no aparelho e trava
+
+O histórico fica **só no aparelho** (`lib/rede/chat/historico.ts`, IndexedDB `lucia-alumia-historico`; teste:
+`npm run testar:chat-historico`), cada mensagem **cifrada** (AES-256-GCM). A chave é **não exportável**. Com a **trava** (em
+Ajustes), a chave passa a ficar embrulhada por uma senha da pessoa (PBKDF2-SHA-256, 600 mil rodadas, sal sorteado): sem a senha
+o histórico não abre nem neste aparelho, e a caixa não é aberta (para nenhuma mensagem se perder). A senha não fica guardada em
+lugar nenhum; esqueceu, não abre mais. O "Sair rápido" apaga o histórico inteiro.
+
+### Temporárias e ver uma vez
+
+- **Some em:** o prazo da conversa (1, 7 ou 30 dias) ou, por mensagem, **5 minutos** ou **1 hora**. O prazo vai dentro do cifrado;
+  cada aparelho apaga do próprio histórico quando vence.
+- **Ver uma vez:** a outra pessoa toca para abrir; a mensagem sai do histórico na hora e some da tela ao fechar. Quem mandou não
+  fica com cópia.
+- Limite honesto: nada impede uma foto da tela. É o mesmo em qualquer aplicativo.
+
 O texto abaixo descreve o formato "c3" anterior, que fica no banco **só para leitura** até vencer (as contas que ativarem o chat
 de novo passam para a biblioteca). As regras de bloco, ordem, repetição, rotação e identidade trocada valem iguais para o "m1".
 

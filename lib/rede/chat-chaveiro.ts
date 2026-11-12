@@ -19,7 +19,7 @@ import {
   anotarLojaAberta, aoApagarTudoDoChat, apagarDaGaveta, apagarLojasDaBiblioteca, apagarPrefixoDaGaveta, apagarTudoDoChat as apagarTudoNoAparelho, CONHECIDAS, CONTAS, guardarNaGaveta, lerDaGaveta,
   lerPrefixoDaGaveta, mudarNaGaveta, ORDEM, PREFIXO_DA_LOJA_OLM,
 } from "./chat/gaveta";
-import { apagarConversaDoHistorico, apagarDoHistorico, esquecerChavesDoHistorico, guardarNoHistorico, type MensagemGuardada, mensagensDoHistorico } from "./chat/historico";
+import { apagarConversaDoHistorico, apagarDoHistorico, esquecerChavesDoHistorico, exigirHistoricoAberto, guardarNoHistorico, type MensagemGuardada, mensagensDoHistorico } from "./chat/historico";
 import { abrirAparelho, type AparelhoOlm, cifrarParaAparelho, entregarABiblioteca, fecharAparelho, idMatrix, novoNomeDeAparelho, type RecadoAberto, sincronizar, type TransporteOlm } from "./chat/olm";
 import {
   buracos, chaveDaOrdem, chaveDoPiso, comContadorUsado, julgar, juntarRegistros, type MarcaDeVersoes, ordemDaTela, type OrdemDaTela, type PisoDeOrdem, podeFechar, prefixoDaOrdem, proximoContador,
@@ -29,6 +29,8 @@ import { abrirEnvelope, novaSenhaDeEntrega, novoParDoEnvelope, selar } from "./c
 import { chat, PREVIA_DO_CHAT, type Prazo, type SituacaoDoChat } from "./cliente-chat";
 
 /** Eu, neste aparelho: a conta, a versão da minha chave no servidor, e o aparelho da biblioteca (fora da prévia). */
+export { destravarHistorico, fecharHistorico, historicoTravado, travarHistorico } from "./chat/historico";
+
 export interface Eu {
   usuario: string;
   versao: number;
@@ -406,6 +408,8 @@ async function receberAgora(eu: Eu): Promise<number> {
   if (PREVIA_DO_CHAT || !eu.olm || !vale(eu)) return 0;
   const guardado = await lerConta(eu.usuario);
   if (!guardado?.envelope) return 0;
+  // Histórico travado: não abre nada da caixa (a mensagem Olm aberta e não guardada se perderia).
+  await exigirHistoricoAberto(eu.usuario);
   await guardarRecados(eu.usuario, await sincronizar(eu.olm));
   const caixa = await chat.sel.receber();
   let ate = 0;

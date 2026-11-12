@@ -142,5 +142,27 @@
     "dm_exige_comparar": "Comparez à nouveau le code de sécurité avant d'envoyer.",
     "dm_aguardando": "L'autre personne n'a pas encore ouvert cette conversation sur son appareil. Dès qu'elle le fera, vous pourrez écrire.",
     "historico_travado": "L'historique est verrouillé. Saisissez le mot de passe du verrou pour l'ouvrir."
+  },
+  "selado": {
+    "someEm": "Disparaît dans",
+    "padrao": "le délai de la conversation",
+    "cincoMin": "5 minutes",
+    "umaHora": "1 heure",
+    "verUmaVez": "Voir une fois",
+    "verUmaVezExplica": "L'autre personne le voit une fois et le message disparaît. Aucune copie n'est gardée, même pas par vous.",
+    "abrirUmaVez": "Message à voir une fois : touchez pour ouvrir",
+    "fecharUmaVez": "Fermer (le message disparaît)",
+    "marcaUmaVez": "voir une fois",
+    "aguardando": "L'autre personne n'a pas encore ouvert cette conversation sur son appareil. Dès qu'elle le fera, vous pourrez écrire.",
+    "travado": "L'historique de cet appareil est verrouillé.",
+    "senhaDaTrava": "Mot de passe du verrou",
+    "destravar": "Ouvrir",
+    "travarTitulo": "Verrou de l'historique",
+    "travarExplica": "L'historique des conversations reste seulement sur cet appareil, chiffré. Avec le verrou, il ne s'ouvre qu'avec votre mot de passe (qui n'est gardé nulle part). Mot de passe oublié : l'historique ne s'ouvre plus, même avec l'aide de l'équipe.",
+    "travar": "Verrouiller avec un mot de passe",
+    "travadoOk": "Historique verrouillé.",
+    "senhaCurta": "Utilisez un mot de passe de 8 caractères ou plus.",
+    "fecharAgora": "Fermer l'historique maintenant",
+    "trancadoAgora": "L'historique a été fermé dans cet onglet."
   }
 }

@@ -177,6 +177,11 @@ async function guardarComChave(m: MensagemGuardada, chave: CryptoKey) {
   await naGaveta(MENSAGENS, "readwrite", (s) => s.put(registro));
 }
 
+/** Lança "historico_travado" se o histórico desta conta está travado e não foi aberto nesta aba (antes de mexer na caixa). */
+export async function exigirHistoricoAberto(conta: string): Promise<void> {
+  await chaveDoHistorico(conta);
+}
+
 /** Guarda (ou troca) uma mensagem no histórico. */
 export async function guardarNoHistorico(m: MensagemGuardada): Promise<void> {
   await guardarComChave(m, await chaveDoHistorico(m.conta));

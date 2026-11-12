@@ -66,6 +66,7 @@
     "testar:rede-chat": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-rede-chat.mjs",
     "testar:chat-olm": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-chat-olm.mjs",
     "testar:chat-selado": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-chat-selado.mjs",
+    "testar:chat-historico": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-chat-historico.mjs",
     "testar:cifra-grupo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-cifra-grupo.mjs",
     "testar:sigilo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-sigilo.mjs",
     "testar:progresso-qr": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-progresso-qr.mjs",
@@ -267,6 +268,7 @@
     "dictionary-pt": "4.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
+    "fake-indexeddb": "6.2.6",
     "hanzi-writer-data": "2.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"

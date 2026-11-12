@@ -2,7 +2,7 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { abrirSessao, apagarConversa, apagarMensagem, confiarNaIdentidade, depoisDeBuraco, enviarTexto, type Eu, type MensagemAberta, mensagensDaConversa, ordemDaConversa, type Sessao, trocarSenhaDeEntrega } from "@/lib/rede/chat-chaveiro";
+import { abrirSessao, apagarConversa, apagarMensagem, confiarNaIdentidade, destravarHistorico, depoisDeBuraco, enviarTexto, type Eu, type MensagemAberta, mensagensDaConversa, ordemDaConversa, type Sessao, trocarSenhaDeEntrega } from "@/lib/rede/chat-chaveiro";
 import { codigoDeSeguranca, MAX_CARACTERES, textoCabe } from "@/lib/rede/chat-privado";
 import { aoApagarTudoDoChat } from "@/lib/rede/chat/gaveta";
 import { codigoComMetadeEscondida, conferirMetadeDe, conferirQr, metadeDaOutraPessoa } from "@/lib/rede/chat/verificacao";
@@ -118,6 +118,13 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
   const [avisoDoCodigo, setAvisoDoCodigo] = useState("");
   const [denunciando, setDenunciando] = useState(false);
   const [marcadas, setMarcadas] = useState<Set<string>>(new Set());
+  // Temporária (minutos; null = o prazo da conversa), "ver uma vez", e as de ver uma vez já abertas nesta tela.
+  const [temporaria, setTemporaria] = useState<number | null>(null);
+  const [umaVez, setUmaVez] = useState(false);
+  const [abertasUmaVez, setAbertasUmaVez] = useState<Set<string>>(new Set());
+  // O histórico deste aparelho está travado com senha: a tela pede a senha antes de mostrar.
+  const [travado, setTravado] = useState(false);
+  const [senhaDaTrava, setSenhaDaTrava] = useState("");
   const fim = useRef<HTMLDivElement>(null);
   const sessaoRef = useRef<Sessao | null>(null);
 
@@ -162,7 +169,9 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
         setSessao(nova);
         await buscar(nova, true);
       } catch (e) {
-        if (vivo) setErro(erroDoChat(t, s, e));
+        if (!vivo) return;
+        if ((e as { code?: string })?.code === "historico_travado") setTravado(true);
+        else setErro(erroDoChat(t, s, e));
       }
     })();
     const id = window.setInterval(() => {
@@ -231,12 +240,13 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
     setOcupado(true);
     setErro("");
     try {
-      const usada = await enviarTexto(atual, texto, { prazoDias: prazo });
+      const usada = await enviarTexto(atual, texto, { prazoDias: prazo, minutos: temporaria, umaVez });
       if (usada !== atual) {
         sessaoRef.current = usada;
         setSessao(usada);
       }
       setTexto("");
+      setUmaVez(false);
       await buscar(usada);
     } catch (erroDoEnvio) {
       setErro(erroDoChat(t, s, erroDoEnvio));
@@ -463,6 +473,28 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
               <button type="button" onClick={() => void carregarMais()} className={`${botaoLeve} mx-auto block`}>{t.conversa.carregarMais}</button>
             )}
             {sessao.semChaveDoOutro && <p className="text-sm text-ink-soft">{t.conversa.semChaveDoOutro}</p>}
+            {!sessao.semChaveDoOutro && sessao.aguardandoOutro && <p className="text-sm text-ink-soft">{t.selado.aguardando}</p>}
+            {travado && (
+              <form
+                className="flex flex-wrap items-end gap-2 rounded-xl border border-rule p-3 text-sm"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void agir(async () => {
+                    await destravarHistorico(eu.usuario, senhaDaTrava);
+                    setSenhaDaTrava("");
+                    setTravado(false);
+                    await buscar(sessao, true);
+                  });
+                }}
+              >
+                <p className="w-full font-semibold">{t.selado.travado}</p>
+                <label className="flex flex-col gap-1">
+                  <span>{t.selado.senhaDaTrava}</span>
+                  <input type="password" autoComplete="current-password" value={senhaDaTrava} onChange={(e) => setSenhaDaTrava(e.target.value)} className="min-h-11 rounded-md border border-rule bg-parchment px-2" />
+                </label>
+                <button type="submit" disabled={ocupado} className={botaoForte}>{t.selado.destravar}</button>
+              </form>
+            )}
             {mensagens.length === 0 && <p className="text-sm text-ink-soft">{t.conversa.vazio}</p>}
             <ul className="space-y-2">
               {ordem.ordenadas.map((m) => {
@@ -492,8 +524,27 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
                       <p className="sr-only">{minha ? t.conversa.voce : conversa.com.codinome}:</p>
                       {m.texto === null ? (
                         <p className="text-sm italic opacity-80">{t.conversa.semChave}</p>
+                      ) : m.umaVez && !minha && !abertasUmaVez.has(m.id) ? (
+                        <button
+                          type="button"
+                          className="underline"
+                          onClick={() => {
+                            // Abriu: já sai do histórico deste aparelho; o texto fica só nesta tela até fechar.
+                            setAbertasUmaVez((atual) => new Set(atual).add(m.id));
+                            if (sessaoRef.current) void apagarMensagem(sessaoRef.current, m.id).catch(() => undefined);
+                          }}
+                        >
+                          {t.selado.abrirUmaVez}
+                        </button>
                       ) : (
-                        <p className="whitespace-pre-wrap break-words">{m.texto}</p>
+                        <>
+                          <p className="whitespace-pre-wrap break-words">{m.texto}</p>
+                          {m.umaVez && !minha && (
+                            <button type="button" className="mt-1 text-xs underline" onClick={() => setMensagens((atual) => atual.filter((x) => x.id !== m.id))}>
+                              {t.selado.fecharUmaVez}
+                            </button>
+                          )}
+                        </>
                       )}
                       {m.duvidosa && <p className="mt-1 text-[11px] italic opacity-80">{t.conversa.duvidosa}</p>}
                       {ordem.foraDeOrdem.has(m.id) && <p className="mt-1 text-[11px] italic opacity-80">{t.conversa.foraDeOrdem}</p>}
@@ -547,6 +598,20 @@ export function Conversa({ lang, t, s, eu, conversa, aoVoltar, aoApagar }: { lan
               className="min-h-11 flex-1 resize-none rounded-xl border border-rule bg-parchment px-3 py-2"
             />
             <button type="submit" disabled={ocupado || !textoCabe(texto) || !!sessao.mudou} className={botaoForte}>{t.conversa.enviar}</button>
+          </div>
+          <div className="mt-2 flex flex-wrap items-center gap-3 text-xs">
+            <label className="flex items-center gap-1">
+              <span>{t.selado.someEm}</span>
+              <select value={temporaria ?? ""} onChange={(e) => setTemporaria(e.target.value ? Number(e.target.value) : null)} className="min-h-9 rounded-md border border-rule bg-parchment px-1">
+                <option value="">{t.selado.padrao}</option>
+                <option value="5">{t.selado.cincoMin}</option>
+                <option value="60">{t.selado.umaHora}</option>
+              </select>
+            </label>
+            <label className="flex items-center gap-1" title={t.selado.verUmaVezExplica}>
+              <input type="checkbox" checked={umaVez} onChange={(e) => setUmaVez(e.target.checked)} className="h-4 w-4" />
+              <span>{t.selado.verUmaVez}</span>
+            </label>
           </div>
           <p className={`mt-1 text-right text-xs ${restam < 0 ? "text-oxblood" : "text-ink-soft"}`}>{restam < 0 ? t.conversa.grande : preencher(t.conversa.restam, { n: restam })}</p>
         </form>

@@ -142,5 +142,27 @@
     "dm_exige_comparar": "Compara el código de seguridad de nuevo antes de enviar.",
     "dm_aguardando": "La otra persona todavía no abrió esta conversación en su dispositivo. En cuanto la abra, podrás escribir.",
     "historico_travado": "El historial está bloqueado. Escribe la contraseña del bloqueo para abrirlo."
+  },
+  "selado": {
+    "someEm": "Desaparece en",
+    "padrao": "el plazo de la conversación",
+    "cincoMin": "5 minutos",
+    "umaHora": "1 hora",
+    "verUmaVez": "Ver una vez",
+    "verUmaVezExplica": "La otra persona la ve una vez y el mensaje desaparece. No queda copia, ni siquiera contigo.",
+    "abrirUmaVez": "Mensaje para ver una vez: toca para abrir",
+    "fecharUmaVez": "Cerrar (el mensaje desaparece)",
+    "marcaUmaVez": "ver una vez",
+    "aguardando": "La otra persona todavía no abrió esta conversación en su dispositivo. En cuanto la abra, podrás escribir.",
+    "travado": "El historial de este dispositivo está bloqueado.",
+    "senhaDaTrava": "Contraseña del bloqueo",
+    "destravar": "Abrir",
+    "travarTitulo": "Bloqueo del historial",
+    "travarExplica": "El historial de las conversaciones queda solo en este dispositivo, cifrado. Con el bloqueo, solo se abre con tu contraseña (que no se guarda en ningún lugar). Si la olvidas, el historial ya no se abre, ni con ayuda del equipo.",
+    "travar": "Bloquear con contraseña",
+    "travadoOk": "Historial bloqueado.",
+    "senhaCurta": "Usa una contraseña de 8 caracteres o más.",
+    "fecharAgora": "Cerrar el historial ahora",
+    "trancadoAgora": "El historial se cerró en esta pestaña."
   }
 }
