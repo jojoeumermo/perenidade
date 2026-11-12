@@ -96,7 +96,8 @@
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Dez figuras: 5 por 2 no celular, as 10 em linha no computador. */
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 0;
   mix-blend-mode: multiply;
@@ -116,7 +117,7 @@
 }
 @media (min-width: 900px) {
   .ale-figuras {
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-template-rows: 1fr;
     inset: 0 -2% 18% -2%;
   }
