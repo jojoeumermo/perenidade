@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Uma nota de fora (Note, Article, Page ou Question) lida no formato que o banco guarda (ação nota_recebida, PLANO-FEDIVERSO 3.1):
+// Uma nota de fora (Note, Article, Page, Question ou Video) lida no formato que o banco guarda (ação nota_recebida, PLANO-FEDIVERSO 3.1):
 //   • HTML LIMPO por lista permitida (as marcas que o Mastodon 4.2+ mantém: parágrafo, quebra, link, ênfase, lista, citação e código;
 //     links só http/https, sempre com rel="nofollow noopener noreferrer"), e o texto puro ao lado;
 //   • a visibilidade vem de to/cc como no Mastodon: Public em "to" = público; Public em "cc" = não listado; a coleção de seguidores
@@ -8,13 +8,17 @@
 //   • a mídia guarda só o endereço https e os metadados (alt, tamanho, blurhash): a imagem é buscada pela rota-proxy, nunca pelo
 //     navegador de quem lê (a instância de fora não vê o IP de ninguém);
 //   • as menções a gente daqui (tag Mention ou o ator daqui em to/cc).
+// Sotaques por software (B6): PeerTube (Video, com texto em markdown, a página do vídeo e a miniatura; o autor é a pessoa, não o
+// canal), Lemmy (o link do post vem como anexo Link), WordPress/WriteFreely (o "summary" de um Article é o resumo, não aviso de
+// conteúdo), Misskey/Pleroma/Mastodon (citação em quoteUrl, _misskey_quote, quoteUri ou quote: vira um link "cita"), e
+// contentMap (o texto em vários idiomas, quando não há "content").
 // Lógica pura (menos o `fed`, que só lê variáveis), sem "@/".
 import { ID_DE_POST, HANDLE_FED } from "../enderecos";
 import { fed } from "../servidor";
 import { escaparHtml, htmlParaTexto, textoCurto } from "../texto";
 
 export const PUBLICOS = new Set(["https://www.w3.org/ns/activitystreams#Public", "as:Public", "Public"]);
-export const TIPOS_DE_NOTA = new Set(["Note", "Article", "Page", "Question"]);
+export const TIPOS_DE_NOTA = new Set(["Note", "Article", "Page", "Question", "Video"]);
 export const TIPOS_DE_ATOR = new Set(["Person", "Service", "Application", "Group", "Organization"]);
 
 export type Visibilidade = "publico" | "nao_listado" | "seguidores" | "direto";
@@ -290,14 +294,81 @@ function opcoesDaEnquete(nota: Record<string, unknown>): string[] {
     .filter(Boolean);
 }
 
-const autorDe = (nota: Record<string, unknown>): string | null => {
+/**
+ * Quem escreveu a nota. O PeerTube lista a pessoa e o canal ([Person, Group]); o Lemmy e outros mandam só o id. Numa lista, vale a
+ * primeira entrada que se declara pessoa (Person, Service, Application); sem tipo nenhum, a primeira.
+ */
+export function autorDe(nota: Record<string, unknown>): string | null {
   const a = nota.attributedTo;
   if (Array.isArray(a)) {
-    const pessoas = a.map(idDe).filter((x): x is string => Boolean(x));
-    return pessoas.length ? pessoas[0] : null;
+    const pessoa = a.find((x) => x && typeof x === "object" && ["Person", "Service", "Application"].includes(String((x as { type?: unknown }).type)));
+    const ids = (pessoa ? [pessoa] : a).map(idDe).filter((x): x is string => Boolean(x));
+    return ids.length ? ids[0] : null;
   }
   return idDe(a);
-};
+}
+
+/** O texto da nota: "content"; sem ele, o "contentMap" (português primeiro, depois inglês, depois o primeiro que houver). */
+function conteudoDe(nota: Record<string, unknown>): string {
+  if (typeof nota.content === "string" && nota.content.trim()) return nota.content;
+  const mapa = nota.contentMap;
+  if (!mapa || typeof mapa !== "object" || Array.isArray(mapa)) return "";
+  const m = mapa as Record<string, unknown>;
+  const chaves = Object.keys(m).slice(0, 50);
+  const escolhida = chaves.find((k) => /^pt\b/i.test(k)) ?? chaves.find((k) => /^en\b/i.test(k)) ?? chaves[0];
+  return escolhida && typeof m[escolhida] === "string" ? (m[escolhida] as string) : "";
+}
+
+/** Markdown (PeerTube) não vira HTML aqui: entra como texto, cada parágrafo num <p>, tudo escapado. */
+const markdownParaHtml = (md: string) =>
+  md
+    .slice(0, 20_000)
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p) => `<p>${escaparHtml(p).replace(/\n/g, "<br>")}</p>`)
+    .join("");
+
+/** Os links que vêm como anexo (tipo Link: o link do post do Lemmy). Até 2, só https. */
+function linksAnexados(nota: Record<string, unknown>): string[] {
+  const anexos = Array.isArray(nota.attachment) ? nota.attachment : nota.attachment ? [nota.attachment] : [];
+  return anexos
+    .slice(0, 20)
+    .filter((a) => a && typeof a === "object" && String((a as { type?: unknown }).type) === "Link")
+    .map((a) => urlHttps((a as { href?: unknown }).href, 1000))
+    .filter((x): x is string => Boolean(x))
+    .slice(0, 2);
+}
+
+/** A nota citada (Misskey, Pleroma/Akkoma, Mastodon 4.4+, FEP-044f). Só https. */
+export function citacaoDe(nota: Record<string, unknown>): string | null {
+  for (const campo of ["quote", "quoteUrl", "quoteUri", "_misskey_quote"]) {
+    const v = urlHttps(idDe(nota[campo]), 500);
+    if (v) return v;
+  }
+  return null;
+}
+
+/** O endereço da página: no Video do PeerTube "url" é uma lista de Links, e a página é a de mediaType text/html. */
+function urlDaPagina(nota: Record<string, unknown>): string | null {
+  const lista = Array.isArray(nota.url) ? nota.url : [nota.url];
+  const html = lista.find((u) => u && typeof u === "object" && String((u as { mediaType?: unknown }).mediaType ?? "").startsWith("text/html"));
+  const bruta: unknown = html ?? lista[0];
+  return urlHttps(bruta && typeof bruta === "object" ? ((bruta as { href?: unknown }).href ?? idDe(bruta)) : bruta, 500);
+}
+
+/** A miniatura de um vídeo (icon do PeerTube): entra como imagem, para o cartão ter o que mostrar. */
+function miniaturaDe(nota: Record<string, unknown>): MidiaRecebida | null {
+  const icones = Array.isArray(nota.icon) ? nota.icon : nota.icon ? [nota.icon] : [];
+  for (const i of icones.slice(0, 5)) {
+    if (!i || typeof i !== "object") continue;
+    const ic = i as Record<string, unknown>;
+    const url = urlHttps(ic.url, 1000);
+    const tipo = typeof ic.mediaType === "string" && /^image\/[a-z0-9.+-]{1,40}$/i.test(ic.mediaType) ? ic.mediaType.toLowerCase() : "image";
+    if (url) return { url, tipo, alt: "", largura: inteiro(ic.width), altura: inteiro(ic.height), blurhash: null };
+  }
+  return null;
+}
 
 /**
  * Lê uma nota de fora. Recusa (com o motivo) quando: não é nota; o id não é https ou mora em outro domínio que o autor; o autor
@@ -315,11 +386,12 @@ export function lerNota(
   const visibilidade = visibilidadeDe(nota, autor, seguidores);
   // Mensagem direta ou limitada: a Alumia não tem DM federada; nada é guardado, e quem mandou recebe 202 como sempre.
   if (visibilidade === "direto") return { ok: false, motivo: "direto" };
-  const conteudo = typeof nota.content === "string" ? nota.content : "";
-  const titulo = tipo === "Article" || tipo === "Page" ? textoCurto(nota.name, 300) : "";
+  const conteudo = conteudoDe(nota);
+  const titulo = tipo === "Article" || tipo === "Page" || tipo === "Video" ? textoCurto(nota.name, 300) : "";
   const opcoes = tipo === "Question" ? opcoesDaEnquete(nota) : [];
-  let texto = htmlParaTexto(conteudo, 5000);
-  let html = limparHtml(conteudo);
+  const emMarkdown = String(nota.mediaType ?? "").toLowerCase() === "text/markdown";
+  let html = emMarkdown ? markdownParaHtml(conteudo) : limparHtml(conteudo);
+  let texto = emMarkdown ? textoCurto(conteudo, 5000) : htmlParaTexto(conteudo, 5000);
   if (titulo) {
     texto = `${titulo}\n\n${texto}`.trim();
     html = `<p><strong>${escaparHtml(titulo)}</strong></p>${html}`;
@@ -328,12 +400,22 @@ export function lerNota(
     texto = `${texto}\n\n${opcoes.map((o) => `• ${o}`).join("\n")}`.trim();
     html = `${html}<ul>${opcoes.map((o) => `<li>${escaparHtml(o)}</li>`).join("")}</ul>`;
   }
+  // O link do post (Lemmy) e a citação entram no fim, como link que a pessoa toca (a mesma regra dos outros links: rel nofollow).
+  const citada = citacaoDe(nota);
+  const extras = [...linksAnexados(nota), ...(citada && !conteudo.includes(citada) ? [citada] : [])].filter((u, i, l) => l.indexOf(u) === i && !conteudo.includes(u));
+  for (const u of extras) {
+    html = `${html}<p><a href="${escaparHtml(u)}" rel="nofollow noopener noreferrer">${escaparHtml(u)}</a></p>`;
+    texto = `${texto}\n\n${u}`.trim();
+  }
   const midia = midiaDe(nota);
+  if (tipo === "Video" && midia.length < 4) {
+    const miniatura = miniaturaDe(nota);
+    if (miniatura && !midia.some((m) => m.url === miniatura.url)) midia.push(miniatura);
+  }
   if (!texto && !midia.length) return { ok: false, motivo: "vazio" };
   const publicado = typeof nota.published === "string" && Number.isFinite(Date.parse(nota.published)) ? new Date(nota.published).toISOString() : null;
-  // "url" pode ser texto, um Link ({href}) ou uma lista deles.
-  const urlBruta: unknown = Array.isArray(nota.url) ? nota.url[0] : nota.url;
-  const url = urlHttps(urlBruta && typeof urlBruta === "object" ? ((urlBruta as { href?: unknown }).href ?? idDe(urlBruta)) : urlBruta, 500);
+  // "url" pode ser texto, um Link ({href}) ou uma lista deles (no vídeo, a página é a de text/html).
+  const url = urlDaPagina(nota);
   const contexto = urlHttps(nota.context, 500) ?? urlHttps(nota.conversation, 500) ?? (typeof nota.conversation === "string" && /^tag:[^\s]{1,300}$/.test(nota.conversation) ? nota.conversation : null);
   return {
     ok: true,
@@ -343,7 +425,9 @@ export function lerNota(
       url,
       html_limpo: html,
       texto,
-      aviso: textoCurto(nota.summary, 200),
+      // No Article (WordPress, WriteFreely, Ghost) o "summary" é o resumo do texto, não aviso de conteúdo: só vale como aviso se a
+      // nota se diz sensível.
+      aviso: tipo === "Article" && nota.sensitive !== true ? "" : textoCurto(nota.summary, 200),
       sensivel: nota.sensitive === true,
       publicado,
       em_resposta_a: urlHttps(idDe(nota.inReplyTo), 500),

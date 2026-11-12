@@ -7,7 +7,7 @@
 // só seguir com o que a origem confirma. Delete repassado só vale se a origem responde 404/410. Sem "@/". Só roda no servidor.
 import { conferirAssinatura, type MotivoDaRecusa } from "../assinatura";
 import { atorRemoto, banco, buscarDocumento, buscarDocumentoComStatus, type AtorRemoto } from "../servidor";
-import { dominio, idDe, TIPOS_DE_NOTA, urlHttps } from "./nota";
+import { autorDe, dominio, idDe, TIPOS_DE_NOTA, urlHttps } from "./nota";
 
 export type ResultadoDoRepasse = { ok: true; repassador: AtorRemoto } | { ok: false; status: number; motivo: MotivoDaRecusa | "chave_desconhecida" | "instancia_bloqueada" };
 
@@ -56,7 +56,8 @@ export async function buscarNaOrigem(id: string): Promise<{ status: number; doc:
   return { status: r.status, doc: r.doc };
 }
 
-const autorDaNota = (doc: Record<string, unknown>) => (Array.isArray(doc.attributedTo) ? idDe(doc.attributedTo[0]) : idDe(doc.attributedTo));
+/** Quem escreveu a nota (a pessoa, antes do canal do PeerTube: autorDe). */
+const autorDaNota = (doc: Record<string, unknown>) => autorDe(doc);
 
 /**
  * A atividade repassada, refeita só com o que a origem confirma; nulo quando não dá para confirmar (e nada é gravado).

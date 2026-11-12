@@ -26,7 +26,7 @@
 // A rota NÃO assina URL que a tela manda: só endereço lido de um documento de fora agora mesmo ou guardado pelo banco. Assim ninguém
 // usa a rota-proxy de mídia como proxy aberto (o "?midia=" de antes deixava qualquer conta assinar qualquer URL).
 import { lerConta } from "@/lib/rede/fediverso/enderecos";
-import { dominio, idDe, lerNota, postLocal, type NotaRecebida } from "@/lib/rede/fediverso/entrada/nota";
+import { autorDe as quemEscreveu, dominio, idDe, lerNota, postLocal, type NotaRecebida } from "@/lib/rede/fediverso/entrada/nota";
 import { buscarNaOrigem } from "@/lib/rede/fediverso/entrada/repasse";
 import { conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { assinarCartao, atorPorConta, atorRemoto, banco, buscarDocumento, codigoParaATela, fed, lembrar, lerAtorRemoto, modoTotal, semFederacao, urlDaMidia, type AtorRemoto } from "@/lib/rede/fediverso/servidor";
@@ -204,7 +204,7 @@ async function fio(token: string, postId: string, buscarLa: boolean) {
   if (!buscarLa) return resposta({ erro: "so_na_origem", servidor: dominio(postId) }, 404);
   const lerPublica = async (id: string) => {
     const { doc } = await buscarNaOrigem(id);
-    const autor = doc ? (Array.isArray(doc.attributedTo) ? idDe(doc.attributedTo[0]) : idDe(doc.attributedTo)) : null;
+    const autor = doc ? quemEscreveu(doc) : null;
     // Instância bloqueada, ou a pessoa de fora bloqueou quem pede: como se o post não existisse (o banco faz o mesmo no fio guardado).
     if (!doc || !autor || (await bloqueado(autor)) || (await bloqueouQuemPede(token, autor))) return null;
     const lida = lerNota(doc, autor);

@@ -4,7 +4,7 @@
 // não é pública (privacidade de quem segue).
 import { colecaoDeSeguidores } from "@/lib/rede/fediverso/documentos";
 import { HANDLE_FED } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto, pisoDePessoas } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto, pisoDePessoas } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -12,6 +12,8 @@ export const runtime = "nodejs";
 export async function GET(pedido: Request, { params }: { params: Promise<{ handle: string }> }) {
   const barrado = conferirTeto(pedido, "seguidores", 60);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const handle = (await params).handle.toLowerCase();
   if (!HANDLE_FED.test(handle)) return new Response("Not Found", { status: 404 });
   const r = await banco<{ total: number }>("seguidores", { handle }).catch(() => null);

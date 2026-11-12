@@ -13,7 +13,7 @@
 import { conferirAssinatura } from "./assinatura";
 import { atorRemoto, banco, fed, gruposLigados, lerAtorRemoto, modoTotal } from "./servidor";
 import { htmlParaTexto, textoCurto } from "./texto";
-import { comunidadeLocal, dominio, handleLocal, idDe, lerNota, listaDeIds, TIPOS_DE_ATOR } from "./entrada/nota";
+import { autorDe, comunidadeLocal, dominio, handleLocal, idDe, lerNota, listaDeIds, TIPOS_DE_ATOR, TIPOS_DE_NOTA } from "./entrada/nota";
 import { desfazerInteracao, desfazerPeloId, receberInteracao } from "./entrada/interacao";
 import { receberBloqueio, receberDenuncia } from "./entrada/moderacao";
 import { confirmarNaOrigem, conferirRepassador } from "./entrada/repasse";
@@ -105,10 +105,10 @@ export async function receber(metodo: string, caminho: string, ler: (nome: strin
     case "Create":
     case "Update": {
       if (tipo === "Update" && TIPOS_DE_ATOR.has(objetoTipo)) return atualizarAtor(objeto, autor);
-      if (objetoTipo !== "Note" && objetoTipo !== "Article" && objetoTipo !== "Question") return { status: 202, motivo: "ignorado" };
+      if (!TIPOS_DE_NOTA.has(objetoTipo)) return { status: 202, motivo: "ignorado" };
       const nota = objeto as Record<string, unknown>;
       const id = idDe(nota);
-      if (!id || dominio(id) !== dominio(autor) || idDe(nota.attributedTo) !== autor) return { status: 202, motivo: "nota_de_outro" };
+      if (!id || dominio(id) !== dominio(autor) || autorDe(nota) !== autor) return { status: 202, motivo: "nota_de_outro" };
       // Só posts públicos (endereçados a "Public"): nada de mensagem direta ou só para seguidores entra aqui.
       const para = [...(Array.isArray(nota.to) ? nota.to : [nota.to]), ...(Array.isArray(nota.cc) ? nota.cc : [nota.cc])].map(String);
       if (!para.some((x) => x === "https://www.w3.org/ns/activitystreams#Public" || x === "as:Public" || x === "Public")) return { status: 202, motivo: "nao_publico" };

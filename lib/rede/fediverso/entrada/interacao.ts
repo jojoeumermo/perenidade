@@ -8,20 +8,39 @@
 //     (nunca se confia no corpo do impulso) e entra pela nota_recebida; só nota pública ou não listada, de instância não bloqueada.
 //   • Undo de Like/Announce: com o objeto embutido, só do mesmo ator; só com o id (Pleroma/Akkoma), do mesmo domínio do ator. O banco
 //     desfaz pela chave (atividade, ator): ninguém desfaz a curtida dos outros.
+//   • Impulso EMBRULHADO (Lemmy, Mbin, PieFed, PeerTube): a comunidade (Group) repassa Announce{Create{Page}}. A nota é a de dentro
+//     do Create/Update (buscada na origem, como sempre); Like, Dislike, Delete e o resto embrulhados são ignorados. Se o objeto vem
+//     só como id e a origem devolve um Create/Update, a nota de dentro é buscada na origem dela.
 // Sem "@/". Só roda no servidor.
 import type { ResultadoDaCaixa } from "../caixa";
 import { banco } from "../servidor";
 import { buscarNaOrigem } from "./repasse";
-import { dominio, idDe, lerNota, listaDeIds, postLocal, PUBLICOS, urlHttps } from "./nota";
+import { autorDe, dominio, idDe, lerNota, listaDeIds, postLocal, PUBLICOS, urlHttps } from "./nota";
 
 const TIPO: Record<string, "like" | "announce"> = { Like: "like", EmojiReact: "like", Announce: "announce" };
+const EMBRULHOS = new Set(["Create", "Update"]);
+const EMBRULHOS_IGNORADOS = new Set(["Like", "Dislike", "EmojiReact", "Delete", "Undo", "Remove", "Add", "Block", "Lock", "Follow", "Accept", "Reject", "Announce", "Flag"]);
+
+/**
+ * O objeto de um Announce: a nota (ou o id dela) ou uma atividade embrulhada (Lemmy: Announce{Create{Page}}). Devolve o id da nota
+ * de dentro, ou "ignorar" quando o embrulho não é de nota (curtida, apagamento, moderação...).
+ */
+function desembrulhar(objeto: unknown): { nota: string | null; ignorar: boolean } {
+  if (!objeto || typeof objeto !== "object") return { nota: null, ignorar: false };
+  const tipo = String((objeto as { type?: unknown }).type ?? "");
+  if (EMBRULHOS.has(tipo)) return { nota: urlHttps(idDe((objeto as { object?: unknown }).object), 500), ignorar: false };
+  if (EMBRULHOS_IGNORADOS.has(tipo)) return { nota: null, ignorar: true };
+  return { nota: null, ignorar: false };
+}
 
 /** Like ou Announce recebido (já com a assinatura do ator conferida). */
 export async function receberInteracao(atividade: Record<string, unknown>, autor: string): Promise<ResultadoDaCaixa> {
   const tipo = TIPO[String(atividade.type)];
   const atividadeId = urlHttps(idDe(atividade), 500);
   if (!tipo || !atividadeId || dominio(atividadeId) !== dominio(autor)) return { status: 202, motivo: "ignorado" };
-  const objetoId = idDe(atividade.object);
+  const embrulho = tipo === "announce" ? desembrulhar(atividade.object) : { nota: null, ignorar: false };
+  if (embrulho.ignorar) return { status: 202, motivo: "ignorado" };
+  const objetoId = embrulho.nota ?? idDe(atividade.object);
   const local = postLocal(objetoId);
   if (local) {
     const r = await banco<{ ok: boolean; perfil_autor?: string | null }>("interacao", { tipo, ator: autor, atividade_id: atividadeId, post_local: local, sim: true });
@@ -35,9 +54,14 @@ export async function receberInteracao(atividade: Record<string, unknown>, autor
   // ANTES de qualquer busca: alguém daqui segue quem impulsionou? (o banco confere e já guarda o impulso; na dúvida, não)
   const ligacao = await banco<{ ok: boolean; motivo?: string }>("interacao", { tipo: "announce", ator: autor, atividade_id: atividadeId, post_local: remota, sim: true }).catch(() => null);
   if (!ligacao?.ok) return { status: 202, motivo: ligacao?.motivo ?? "sem_ligacao" };
-  const { doc } = await buscarNaOrigem(remota);
+  let { doc } = await buscarNaOrigem(remota);
+  // Veio só o id de uma atividade embrulhada (o Create do Lemmy): a nota é a de dentro, buscada na origem dela (uma vez só).
+  if (doc && EMBRULHOS.has(String(doc.type))) {
+    const dentro = urlHttps(idDe(doc.object), 500);
+    doc = dentro && !(await banco<boolean>("bloqueado", { url: dentro }).catch(() => true)) ? (await buscarNaOrigem(dentro)).doc : null;
+  }
   if (!doc) return { status: 202, motivo: "impulso_nao_confirmado" };
-  const autorDaNota = Array.isArray(doc.attributedTo) ? idDe(doc.attributedTo[0]) : idDe(doc.attributedTo);
+  const autorDaNota = autorDe(doc);
   if (!autorDaNota || (await banco<boolean>("bloqueado", { url: autorDaNota }).catch(() => true))) return { status: 202, motivo: "impulso_nao_confirmado" };
   const lida = lerNota(doc, autorDaNota);
   if (!lida.ok) return { status: 202, motivo: lida.motivo };

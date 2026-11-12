@@ -4,7 +4,7 @@
 // (fediverso-total), cada host aponta o PRÓPRIO WebFinger: institutolucia.org aponta o dele, e o host da Alumia, o dela. Um host
 // que não é nenhum dos dois (cópia local, prévia) cai no endereço da Alumia, como sempre.
 import { modoTotal } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { fed } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -12,6 +12,8 @@ export const runtime = "nodejs";
 export async function GET(pedido: Request) {
   const barrado = conferirTeto(pedido, "nodeinfo", 30);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   let base = fed.base;
   if (modoTotal()) {
     const host = (pedido.headers.get("host") ?? "").toLowerCase().trim();

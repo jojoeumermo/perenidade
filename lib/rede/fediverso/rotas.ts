@@ -7,7 +7,7 @@ import { after } from "next/server";
 import { lerCorpoLimitado } from "../publicar/servidor";
 import { receber, type DestinoDaCaixa } from "./caixa";
 import { processarFila } from "./entrega";
-import { atorComChaves, federacaoLigada, muitosPedidos, origemDe, permitir, semFederacao } from "./servidor";
+import { atorComChaves, banco, federacaoLigada, muitosPedidos, origemDe, permitir, semFederacao } from "./servidor";
 
 /**
  * Uma contagem de pessoas que sai para outros servidores: só a partir de 3; abaixo disso (ou sem número) sai 0. O banco já faz
@@ -45,6 +45,41 @@ export const recusaDaFederacao = (r: "desligado" | "falha") =>
 export function conferirTeto(pedido: Request, rota: string, max = 120): Response | null {
   if (!federacaoLigada()) return semFederacao();
   return permitir(`${rota}:${origemDe(pedido)}`, max) ? null : muitosPedidos();
+}
+
+/**
+ * Os domínios que um pedido de LEITURA diz ser (GET de ator, post, coleções, WebFinger, NodeInfo): o keyId da assinatura (cavage,
+ * "keyId=" em Signature; RFC 9421, "keyid=" em Signature-Input) e o endereço que Mastodon, Misskey, Lemmy e outros põem no
+ * User-Agent ("(+https://instancia/)"). Até 3. Só serve para RECUSAR: um pedido que diz vir de um domínio bloqueado não leva nada.
+ * (Quem esconde de onde vem continua lendo o que é público, como qualquer visitante: a Alumia não exige leitura assinada de todos.)
+ */
+export function dominiosDoLeitor(pedido: Request): string[] {
+  const achados = new Set<string>();
+  const assinatura = `${pedido.headers.get("signature") ?? ""} ${pedido.headers.get("signature-input") ?? ""}`;
+  for (const m of assinatura.matchAll(/keyid="(https:\/\/[^"\s]{1,500})"/gi)) achados.add(m[1]);
+  for (const m of (pedido.headers.get("user-agent") ?? "").slice(0, 500).matchAll(/https?:\/\/[a-z0-9.-]{3,253}/gi)) achados.add(m[0].replace(/^http:/i, "https:"));
+  const dominios = new Set<string>();
+  for (const u of achados) {
+    try {
+      dominios.add(new URL(u).hostname.toLowerCase().replace(/\.$/, ""));
+    } catch {
+      // endereço estranho: não conta
+    }
+  }
+  return [...dominios].slice(0, 3);
+}
+
+/**
+ * Leitura por GET de quem a mediação bloqueou (ou do bloqueio de casa, como o Threads): 403. Antes, um servidor bloqueado não podia
+ * entregar nada aqui, mas ainda lia o perfil e os posts públicos. Na dúvida do banco, recusa (o pedido vinha de um domínio que
+ * pode estar bloqueado). Sem domínio declarado, passa.
+ */
+export async function conferirLeitor(pedido: Request): Promise<Response | null> {
+  for (const d of dominiosDoLeitor(pedido)) {
+    const bloqueado = await banco<boolean>("bloqueado", { url: `https://${d}/` }).catch(() => true);
+    if (bloqueado) return new Response("instancia_bloqueada", { status: 403, headers: { "Cache-Control": "no-store" } });
+  }
+  return null;
 }
 
 /** Uma caixa de entrada (a de uma pessoa ou a compartilhada): confere tudo e responde 202, 400, 401, 403 ou 413. */

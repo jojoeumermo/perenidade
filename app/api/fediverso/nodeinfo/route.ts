@@ -7,7 +7,7 @@
 // abaixo disso sai 0 (o de posts não conta pessoas e sai como é).
 import { documentoNodeinfo, type ContagemDoNodeinfo } from "@/lib/rede/fediverso/documentos";
 import { modoTotal } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto, pisoDePessoas } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto, pisoDePessoas } from "@/lib/rede/fediverso/rotas";
 import { banco } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -15,6 +15,8 @@ export const runtime = "nodejs";
 export async function GET(pedido: Request) {
   const barrado = conferirTeto(pedido, "nodeinfo", 30);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const total = modoTotal();
   const esquema = total && new URL(pedido.url).searchParams.get("esquema") === "2.0" ? "2.0" : "2.1";
   const [contagem, ativos] = await Promise.all([

@@ -381,6 +381,80 @@ await espera("impulso de nota de FORA, de quem alguém segue: a nota é buscada 
   return [r.motivo, g?.texto, g?.impulso?.ator];
 }, (r) => r[0] === "impulso" && r[1] === "Texto de verdade" && r[2] === BIA);
 
+// ── Sotaques por software (B6) ──
+await espera("Lemmy: Announce{Create{Page}} da comunidade, de quem alguém segue: a nota de DENTRO é buscada na origem e guardada, com o link do post", async () => {
+  const COMUNIDADE = "https://remota.teste/c/moradia";
+  rede.docs.set(COMUNIDADE, { ...atorDoc(COMUNIDADE, chaves.bia.publica), type: "Group" });
+  db.seguindo.add(COMUNIDADE);
+  const pagina = { id: "https://lemmy.teste/post/77", type: "Page", attributedTo: "https://lemmy.teste/u/rui", name: "Despejo na Zona Leste", content: "<p>Precisamos de gente.</p>", attachment: [{ type: "Link", href: "https://jornal.teste/materia/1" }], to: [COMUNIDADE, PUBLICO], audience: COMUNIDADE };
+  rede.docs.set(pagina.id, pagina);
+  const r = await enviar({ "@context": AS, id: "https://remota.teste/activities/announce/77", type: "Announce", actor: COMUNIDADE,
+    object: { id: "https://lemmy.teste/activities/create/77", type: "Create", actor: pagina.attributedTo, object: { ...pagina, content: "<p>forjado</p>" } }, to: [PUBLICO] }, { quem: COMUNIDADE, chave: chaves.bia.privada });
+  db.seguindo.delete(COMUNIDADE);
+  const g = db.notas.get(pagina.id);
+  return [r.motivo, g?.texto?.startsWith("Despejo na Zona Leste"), g?.texto?.includes("https://jornal.teste/materia/1"), g?.html_limpo?.includes('href="https://jornal.teste/materia/1"'), g?.texto?.includes("forjado")];
+}, (r) => r.join() === "impulso,true,true,true,false");
+await espera("Lemmy: Announce de curtida ou de apagamento embrulhado é ignorado (nada é buscado)", async () => {
+  const antes = rede.gets.length;
+  const a = await enviar({ "@context": AS, id: "https://remota.teste/activities/announce/78", type: "Announce", actor: BIA, object: { id: "https://lemmy.teste/activities/like/1", type: "Like", object: "https://lemmy.teste/post/77" }, to: [PUBLICO] });
+  const b = await enviar({ "@context": AS, id: "https://remota.teste/activities/announce/79", type: "Announce", actor: BIA, object: { id: "https://lemmy.teste/activities/delete/1", type: "Delete", object: "https://lemmy.teste/post/77" }, to: [PUBLICO] });
+  return [a.motivo, b.motivo, rede.gets.length === antes];
+}, (r) => r.join() === "ignorado,ignorado,true");
+await espera("PeerTube: Video entra, o autor é a PESSOA (não o canal), o markdown vira texto escapado, a página é a text/html e a miniatura vira imagem", async () => {
+  const PESSOA = "https://tube.teste/accounts/ana";
+  const r = nota.lerNota({
+    id: "https://tube.teste/videos/watch/abc", type: "Video", name: "Mutirão da horta",
+    attributedTo: [{ type: "Group", id: "https://tube.teste/video-channels/horta" }, { type: "Person", id: PESSOA }],
+    mediaType: "text/markdown", content: "Primeiro **dia**.\n\n<script>alert(1)</script>",
+    url: [{ type: "Link", mediaType: "application/x-mpegURL", href: "https://tube.teste/hls/abc.m3u8" }, { type: "Link", mediaType: "text/html", href: "https://tube.teste/w/abc" }],
+    icon: [{ type: "Image", url: "https://tube.teste/thumb/abc.jpg", mediaType: "image/jpeg", width: 280, height: 157 }],
+    to: [PUBLICO],
+  }, PESSOA);
+  return [r.ok, r.nota?.url, r.nota?.html_limpo?.includes("<script>"), r.nota?.html_limpo?.includes("&lt;script&gt;"), r.nota?.texto?.startsWith("Mutirão da horta"), r.nota?.midia?.[0]?.url, r.nota?.midia?.[0]?.tipo];
+}, (r) => r.join() === "true,https://tube.teste/w/abc,false,true,true,https://tube.teste/thumb/abc.jpg,image/jpeg");
+await espera("contentMap: sem 'content', vale o português (ou o primeiro idioma)", async () => [
+  nota.lerNota({ id: "https://remota.teste/notes/cm1", type: "Note", attributedTo: BIA, contentMap: { en: "<p>Hello</p>", pt: "<p>Olá</p>" }, to: [PUBLICO] }, BIA).nota?.texto,
+  nota.lerNota({ id: "https://remota.teste/notes/cm2", type: "Note", attributedTo: BIA, contentMap: { de: "<p>Hallo</p>" }, to: [PUBLICO] }, BIA).nota?.texto,
+], (r) => r.join() === "Olá,Hallo");
+await espera("WordPress: o 'summary' de um Article é resumo, não aviso de conteúdo (só vale como aviso se a nota se diz sensível)", async () => [
+  nota.lerNota({ id: "https://blog.teste/2026/11/x", type: "Article", attributedTo: "https://blog.teste/author/eu", name: "Título", summary: "Um resumo", content: "<p>Texto</p>", to: [PUBLICO] }, "https://blog.teste/author/eu").nota?.aviso,
+  nota.lerNota({ id: "https://blog.teste/2026/11/y", type: "Article", attributedTo: "https://blog.teste/author/eu", name: "Título", summary: "Violência", sensitive: true, content: "<p>Texto</p>", to: [PUBLICO] }, "https://blog.teste/author/eu").nota?.aviso,
+  nota.lerNota({ id: "https://remota.teste/notes/cw", type: "Note", attributedTo: BIA, summary: "CW de nota", content: "<p>x</p>", to: [PUBLICO] }, BIA).nota?.aviso,
+], (r) => r.join("|") === "|Violência|CW de nota");
+await espera("citação (Misskey, Pleroma, Mastodon 4.4): vira um link no fim, sem repetir quando o texto já traz o endereço", async () => {
+  const c = "https://outra.teste/notes/citada";
+  const a = nota.lerNota({ id: "https://remota.teste/notes/q1", type: "Note", attributedTo: BIA, content: "<p>Olha isso</p>", _misskey_quote: c, to: [PUBLICO] }, BIA).nota;
+  const b = nota.lerNota({ id: "https://remota.teste/notes/q2", type: "Note", attributedTo: BIA, content: `<p>RE: <a href="${c}">${c}</a></p>`, quoteUrl: c, to: [PUBLICO] }, BIA).nota;
+  const z = nota.lerNota({ id: "https://remota.teste/notes/q3", type: "Note", attributedTo: BIA, content: "<p>x</p>", quote: "javascript:alert(1)", to: [PUBLICO] }, BIA).nota;
+  return [a?.texto.endsWith(c), (b?.texto.match(/notes\/citada/g) ?? []).length, z?.html_limpo.includes("javascript")];
+}, (r) => r.join() === "true,1,false");
+
+await espera("leitura por GET de servidor bloqueado: a assinatura (cavage ou RFC 9421) ou o User-Agent dizem de onde vem, e vem 403", async () => {
+  const { conferirLeitor, dominiosDoLeitor } = await import("../lib/rede/fediverso/rotas.ts");
+  db.bloqueados.add("bloqueada.teste");
+  try {
+    const pedir = (cab) => new Request(`${BASE}/api/fediverso/u/autora`, { headers: cab });
+    const cavage = await conferirLeitor(pedir({ signature: 'keyId="https://bloqueada.teste/users/x#main-key",algorithm="rsa-sha256",headers="(request-target) host date",signature="x"' }));
+    const rfc9421 = await conferirLeitor(pedir({ "signature-input": 'sig1=("@method" "@target-uri");keyid="https://www.bloqueada.teste/actor#key";created=1' }));
+    const agente = await conferirLeitor(pedir({ "user-agent": "http.rb/5.1.1 (Mastodon/4.3.0; +https://BLOQUEADA.teste./)" }));
+    const outro = await conferirLeitor(pedir({ "user-agent": "Mastodon/4.3.0 (+https://remota.teste/)", signature: 'keyId="https://remota.teste/users/bia#main-key"' }));
+    const semNada = await conferirLeitor(pedir({ accept: "application/activity+json" }));
+    return [cavage?.status, rfc9421?.status, agente?.status, outro, semNada, dominiosDoLeitor(pedir({ "user-agent": "x (+https://a.teste/) (+https://b.teste/) (+https://c.teste/) (+https://d.teste/)" })).length];
+  } finally {
+    db.bloqueados.delete("bloqueada.teste");
+  }
+}, (r) => r.join() === "403,403,403,,,3");
+await espera("as rotas que servem documentos a outros servidores (ator, post, coleções, comunidade, WebFinger, NodeInfo) conferem o leitor", async () => {
+  const fs = await import("node:fs");
+  const rotasDeLeitura = ["app/api/fediverso/u/[handle]/route.ts", "app/api/fediverso/u/[handle]/outbox/route.ts", "app/api/fediverso/u/[handle]/seguidores/route.ts",
+    "app/api/fediverso/u/[handle]/seguindo/route.ts", "app/api/fediverso/u/[handle]/destaques/route.ts", "app/api/fediverso/p/[id]/route.ts",
+    "app/api/fediverso/p/[id]/respostas/route.ts", "app/api/fediverso/p/[id]/midia/[ordem]/route.ts", "app/api/fediverso/c/[slug]/route.ts",
+    "app/api/fediverso/c/[slug]/outbox/route.ts", "app/api/fediverso/c/[slug]/seguidores/route.ts", "app/api/fediverso/c/[slug]/moderadores/route.ts",
+    "app/api/fediverso/ator/route.ts", "app/api/fediverso/ator/outbox/route.ts", "app/.well-known/webfinger/route.ts", "app/.well-known/nodeinfo/route.ts",
+    "app/.well-known/host-meta/route.ts", "app/api/fediverso/nodeinfo/route.ts"];
+  return rotasDeLeitura.filter((f) => !/const recusado = await conferirLeitor\(pedido\);\s*if \(recusado\) return recusado;/.test(fs.readFileSync(new URL(`../${f}`, import.meta.url), "utf8")));
+}, (l) => l.length === 0);
+
 await espera("Flag (vinda do ator da instância): vira denúncia na mediação, só com os alvos daqui e o comentário", async () => {
   const r = await enviar({ "@context": AS, id: "https://remota.teste/flags/1", type: "Flag", actor: INST, object: [`${BASE}/api/fediverso/u/autora`, URL_POST_LOCAL, "https://outra.teste/users/x"], content: "Spam <b>repetido</b>" }, { quem: INST, chave: chaves.inst.privada });
   const d = db.denuncias.at(-1);

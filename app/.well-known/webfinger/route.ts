@@ -13,7 +13,7 @@
 // Também responde pelo ator da instância ("acct:<domínio>@<domínio>") e, com fediverso-grupos, pelas comunidades abertas (Group).
 import { documentoWebfinger, documentoWebfingerDaComunidade, documentoWebfingerDaInstancia, juntarWebfinger } from "@/lib/rede/fediverso/documentos";
 import { dominiosDaConta, gruposLigados, handleDoWebfinger, modoTotal, slugDoWebfinger, webfingerDaInstancia } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, fed } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -28,6 +28,8 @@ const jrd = (corpo: unknown) =>
 export async function GET(pedido: Request) {
   const barrado = conferirTeto(pedido, "webfinger");
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const resource = new URL(pedido.url).searchParams.get("resource") ?? "";
   if (!resource || resource.length > 300) return new Response("Bad Request", { status: 400 });
   const total = modoTotal();

@@ -12,7 +12,7 @@
 // ação "midia" {id} → {caminho, tipo, alt, largura, altura}, que confere de novo se o post pode sair.
 import { visibilidadeQueSai, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { ID_DE_POST, modoTotal } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -30,6 +30,8 @@ const indisponivel = () => new Response("Service Unavailable", { status: 503, he
 export async function GET(pedido: Request, { params }: { params: Promise<{ id: string; ordem: string }> }) {
   const barrado = conferirTeto(pedido, "midia", 120);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const { id: bruto, ordem: textoDaOrdem } = await params;
   const id = bruto.toLowerCase();
   if (!modoTotal() || !ID_DE_POST.test(id) || !/^[0-3]$/.test(textoDaOrdem)) return naoAchado();

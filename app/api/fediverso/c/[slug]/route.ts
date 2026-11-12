@@ -17,7 +17,7 @@ import { gerarParDeChaves } from "@/lib/rede/fediverso/assinatura";
 import { cifrar } from "@/lib/rede/fediverso/cifra";
 import { documentoDaComunidade } from "@/lib/rede/fediverso/documentos";
 import { gruposLigados, SLUG_DE_COMUNIDADE } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto, querHtml } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -55,6 +55,8 @@ const httpsSemSvg = (v: unknown) => (typeof v === "string" && /^https:\/\/[^\s]{
 export async function GET(pedido: Request, { params }: { params: Promise<{ slug: string }> }) {
   const barrado = conferirTeto(pedido, "comunidade");
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const slug = (await params).slug.toLowerCase();
   if (!gruposLigados() || !SLUG_DE_COMUNIDADE.test(slug)) return new Response("Not Found", { status: 404 });
   if (querHtml(pedido)) return Response.redirect(fed.paginaDaComunidade(slug), 302);

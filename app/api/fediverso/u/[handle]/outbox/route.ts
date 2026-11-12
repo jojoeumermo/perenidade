@@ -4,7 +4,7 @@
 // (interno.rede_fed_federavel confere de novo a cada leitura). Página de 20, do mais novo ao mais antigo.
 import { colecaoDaCaixaDeSaida, paginaDaCaixaDeSaida, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { HANDLE_FED } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -12,6 +12,8 @@ export const runtime = "nodejs";
 export async function GET(pedido: Request, { params }: { params: Promise<{ handle: string }> }) {
   const barrado = conferirTeto(pedido, "outbox", 60);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const handle = (await params).handle.toLowerCase();
   if (!HANDLE_FED.test(handle)) return new Response("Not Found", { status: 404 });
   const q = new URL(pedido.url).searchParams;

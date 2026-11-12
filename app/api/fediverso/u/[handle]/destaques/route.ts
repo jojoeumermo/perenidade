@@ -6,7 +6,7 @@
 // vazia e o ator NÃO a anuncia (COLECOES_DO_BANCO.destaques em lib/rede/fediverso/documentos.ts).
 import { colecaoDeDestaques, type PostFederado } from "@/lib/rede/fediverso/documentos";
 import { HANDLE_FED, modoTotal } from "@/lib/rede/fediverso/enderecos";
-import { conferirTeto } from "@/lib/rede/fediverso/rotas";
+import { conferirLeitor, conferirTeto } from "@/lib/rede/fediverso/rotas";
 import { banco, fed, respostaAP } from "@/lib/rede/fediverso/servidor";
 
 export const runtime = "nodejs";
@@ -14,6 +14,8 @@ export const runtime = "nodejs";
 export async function GET(pedido: Request, { params }: { params: Promise<{ handle: string }> }) {
   const barrado = conferirTeto(pedido, "destaques", 60);
   if (barrado) return barrado;
+  const recusado = await conferirLeitor(pedido);
+  if (recusado) return recusado;
   const handle = (await params).handle.toLowerCase();
   if (!modoTotal() || !HANDLE_FED.test(handle)) return new Response("Not Found", { status: 404 });
   const a = await banco<{ estado: string }>("ator", { handle }).catch(() => null);

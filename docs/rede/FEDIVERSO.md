@@ -265,7 +265,24 @@ Teste: `npm run testar:fediverso-banco` (seção "Privacidade").
   fio (`?nota=`) não tem esse limite: sem a nota no banco, nada é buscado até a pessoa tocar em "buscar".
 - **Quem bloqueou a pessoa lá fora fica visível para ela** (`bloqueou_voce`), e só para ela: o Block chegou endereçado a ela, e
   sem isso a tela mostraria "seguir" num perfil que vai recusar.
-- **Sotaques por software** (Lemmy, Misskey, Pleroma) ainda não são tratados à parte: o que sai segue o formato do Mastodon.
+- **Sotaques por software, na ENTRADA (B6, 12/11/2026):**
+  - **Lemmy, Mbin, PieFed:** o impulso embrulhado da comunidade (`Announce{Create{Page}}`) é desembrulhado. A nota de dentro é
+    buscada na origem, como sempre, e o link do post (anexo `Link`) entra como link no fim do texto. Curtida, apagamento e moderação
+    embrulhados são ignorados (`lib/rede/fediverso/entrada/interacao.ts`).
+  - **PeerTube:** `Video` entra, com título, texto em markdown escapado (não vira HTML), a página do vídeo (o link `text/html`) e a
+    miniatura como imagem. O autor é a pessoa, não o canal (`autorDe`, em `lib/rede/fediverso/entrada/nota.ts`).
+  - **WordPress, WriteFreely, Ghost:** o `summary` de um `Article` é o resumo e não vira aviso de conteúdo, a não ser que a nota se
+    diga sensível.
+  - **Misskey, Pleroma/Akkoma, Mastodon 4.4:** a citação (`quote`, `quoteUrl`, `quoteUri`, `_misskey_quote`) vira um link no fim,
+    sem repetir quando o texto já traz o endereço.
+  - **`contentMap`:** sem `content`, vale o português, depois o inglês, depois o primeiro idioma.
+- **Leitura por GET de servidor bloqueado** (12/11/2026): as 18 rotas que servem documentos a outros servidores (ator, post,
+  coleções, comunidade, WebFinger, NodeInfo) recusam com 403 quem diz vir de um domínio bloqueado. O domínio vem do `keyId` da
+  assinatura (cavage ou RFC 9421) ou do endereço no User-Agent (`conferirLeitor`, em `lib/rede/fediverso/rotas.ts`). Quem não
+  diz de onde vem continua lendo o que é público, como qualquer visitante: a Alumia não exige leitura assinada de todos.
+- **Ainda não tratados:** assinatura RFC 9421 na entrada (só cavage é conferida: quem mandar só 9421 recebe 401), `Move` (conta
+  que muda de servidor), `Update(Person)` saindo quando o perfil daqui muda, reação com emoji guardada como emoji (vira curtida) e
+  o que sai segue o formato do Mastodon (post como `Note`).
 
 Arquivos: `lib/rede/fediverso/tela/{tipos,cliente,exemplos,textos,html,linha}.ts`, `components/rede/fediverso/`, `i18n/rede/fediverso/*.json`.
 Teste: `npm run testar:fediverso-tela` (bateria de XSS, `href` escondido em outro atributo, caracteres de direção, link que
