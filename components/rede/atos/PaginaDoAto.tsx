@@ -4,6 +4,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import Link from "@/components/Link";
 import { Botao } from "../ui/Botao";
+import { NaoExiste } from "../ui/NaoExiste";
 import type { PropsDaTelaDoPacote } from "../registro";
 import { PorNoStoryDoAto } from "../stories/encaixe";
 import { AtoAberto } from "./AtoAberto";
@@ -48,9 +49,12 @@ export default function PaginaDoAto({ lang, params, situacao }: PropsDaTelaDoPac
         <p className="al-atos-ajuda" aria-busy="true">
           {t.tela.carregando}
         </p>
+      ) : estado.fase === "erro" && codigoDoErro(estado.erro) === "nao_encontrado" ? (
+        // Não existe (ou não pode ver): o estado da casa, com caminho de volta. "Tentar de novo" fica só para falha de rede.
+        <NaoExiste lang={lang} texto={t.pagina.naoAchado} />
       ) : estado.fase === "erro" ? (
         <div className="al-atos-vazio" role="alert">
-          <p>{codigoDoErro(estado.erro) === "nao_encontrado" ? t.pagina.naoAchado : codigoDoErro(estado.erro) === "generico" ? t.tela.erro : frase(t, estado.erro)}</p>
+          <p>{codigoDoErro(estado.erro) === "generico" ? t.tela.erro : frase(t, estado.erro)}</p>
           <Botao variante="contorno" onClick={recarregar}>
             {t.tela.tentar}
           </Botao>

@@ -35,6 +35,7 @@ import { useAlumia2 } from "../publicar/alumia2/contexto";
 import { textoDoErro } from "../erros";
 import { EsqueletoDaLinha } from "../Esqueletos";
 import { Avatar16 } from "../ui/Avatar16";
+import { NaoExiste } from "../ui/NaoExiste";
 import {
   BotaoAcender,
   BotaoSalvar,
@@ -56,8 +57,9 @@ import {
 import { pular, trazerParaVista, useFlip, useRegua } from "./movimento";
 
 /**
- * Na prévia: o post de exemplo pelo id (o link permanente dos cartões do Início e do perfil abre o PRÓPRIO post, sem respostas
- * inventadas para ele); um id desconhecido mostra a conversa das pranchas.
+ * Na prévia: o post de exemplo pelo id (o link permanente dos cartões do Início e do perfil abre o PRÓPRIO post). O cartão da Lia
+ * traz a conversa das pranchas; os outros não têm respostas escritas, então o contador deles zera aqui (a lista e o número
+ * nunca se contradizem).
  */
 async function arvoreDaPrevia(id: string): Promise<Arvore | null> {
   const base = arvoreDeExemplo(id);
@@ -72,8 +74,8 @@ async function arvoreDaPrevia(id: string): Promise<Arvore | null> {
     ordem: base?.ordem ?? "antigas",
     mais: false,
     ...base,
-    post: { ...post, servidor: null },
-    respostas: [],
+    post: { ...post, servidor: null, respostas: base ? post.respostas : 0, na_conversa: base ? (base.post.na_conversa ?? null) : null, reacoes: base?.post.reacoes ?? post.reacoes, aceita: base?.post.aceita ?? post.aceita },
+    respostas: (base?.respostas ?? []).map((r) => ({ ...r, raiz, resposta_a: r.resposta_a === base?.post.id ? post.id : r.resposta_a })),
     raiz,
     pode_aceitar: false,
     pode_sintese: false,
@@ -157,22 +159,25 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
 
   if (!t || !estado) return <EsqueletoDaLinha rotulo={s.estados.carregando} quantos={3} />;
   if (!dado) {
+    // Não existe (ou não pode ver): o estado da casa, com caminho de volta. "Tentar de novo" fica só para falha de rede.
+    if (!estado.erro || estado.erro === s.estados.naoEncontrado) return <NaoExiste lang={lang} texto={s.estados.naoEncontrado} />;
     return (
       <div className="al3 al3-vazio" role="alert">
-        <p>{estado.erro || s.estados.naoEncontrado}</p>
+        <p>{estado.erro}</p>
         <button type="button" className="al-botao al-botao-contorno al-botao-m" onClick={() => setVersao((n) => n + 1)}>
           {s.estados.tentar}
         </button>
       </div>
     );
   }
-  const post = dado.post;
+  // O número do alto ("31 respostas") e o contador do post aberto saem da mesma conta: a conversa inteira.
+  const total = dado.post.na_conversa ?? dado.post.respostas;
+  const post = dado.post.respostas === total ? dado.post : { ...dado.post, respostas: total };
   const raizPost = post.id === dado.raiz ? post : dado.acima.find((p) => p.id === dado.raiz) ?? null;
   // A marca nova (só da autora) quando o banco a manda; na prévia, o `aceita` dos exemplos.
   const aceitaId = dado.ajudou !== undefined ? dado.ajudou : raizPost?.aceita ?? null;
   const genero = generoDoAjudou(dado.pronomes_da_raiz);
   const seloAjudou = genero === "a" ? t.conversa.ajudouA : genero === "o" ? t.conversa.ajudouO : t.conversa.ajudouQuem;
-  const total = post.na_conversa ?? post.respostas;
   const podeResponder = situacao.logado && situacao.membro && !post.travado;
   const destino = alvo ?? post;
   const podeAjudou = previa() ? raizPost?.meu === true : dado.pode_ajudou === true;
@@ -295,7 +300,15 @@ export default function TelaDaConversaAlumia({ id, lang, s, situacao }: { id: st
       </div>
 
       <section aria-label={t.conversa.titulo} aria-busy={estado.chave !== chave}>
-        {nos.length === 0 ? (
+        {nos.length === 0 && total > 0 ? (
+          // O contador diz que há respostas e a lista veio vazia: é falha de carga, nunca "ninguém respondeu".
+          <div className="al3-vazio" role="status">
+            <p>{s.estados.erro}</p>
+            <button type="button" className="al-botao al-botao-contorno al-botao-m" onClick={() => setVersao((n) => n + 1)}>
+              {s.estados.tentar}
+            </button>
+          </div>
+        ) : nos.length === 0 ? (
           <p className="al3-vazio">{t.conversa.nenhuma}</p>
         ) : (
           <ol className="al3-fio" ref={fio}>
