@@ -61,11 +61,18 @@ export interface PropsDoPerfilDaOrg {
   vivo?: boolean;
 }
 
+/**
+ * As abas do perfil: as cinco da prancha e "Núcleos" (núcleos, funções, eleições e o Lampião). Antes esses blocos ficavam DEPOIS
+ * do painel de qualquer aba, e trocar de aba só mudava um trecho no meio de uma página muito longa.
+ */
+const ABAS_DO_PERFIL = [...ABAS_DA_ORG, "nucleos"] as const;
+type AbaDoPerfil = AbaDaOrg | "nucleos";
+
 export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInicial, aviso, cuidar, aoMudar, s, vivo = false, acimaDasAbas = null }: PropsDoPerfilDaOrg) {
   const tp = t.perfil;
   const id = useId();
-  const inicial = (ABAS_DA_ORG as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDaOrg) : "posts";
-  const [aba, setAba] = useState<AbaDaOrg>(inicial);
+  const inicial = (ABAS_DO_PERFIL as readonly string[]).includes(abaInicial ?? "") ? (abaInicial as AbaDoPerfil) : "posts";
+  const [aba, setAba] = useState<AbaDoPerfil>(inicial);
   const [sigo, setSigo] = useState(org.sigo);
   const [sino, setSino] = useState(org.sino);
   const [ocupado, setOcupado] = useState(false);
@@ -73,9 +80,13 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
   const nucleosRef = useRef<HTMLElement>(null);
   const abasRef = useRef<HTMLDivElement>(null);
 
+  // "Ver os núcleos" abre a aba e leva o foco ao bloco (que só existe depois de a aba trocar).
   const verNucleos = () => {
-    nucleosRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    nucleosRef.current?.focus({ preventScroll: true });
+    setAba("nucleos");
+    window.setTimeout(() => {
+      (nucleosRef.current ?? abasRef.current)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      nucleosRef.current?.focus({ preventScroll: true });
+    }, 0);
   };
 
   useEffect(() => {
@@ -99,7 +110,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
   const aoVivo = org.plenarias.find((p) => p.aoVivo) ?? null;
   const abertas = org.consultas.filter((c) => c.situacao === "aberta");
 
-  const painel: Record<AbaDaOrg, ReactNode> = {
+  const painel: Record<AbaDoPerfil, ReactNode> = {
     posts,
     atos: atos ?? (vivo ? <AtosDaOrganizacao handle={org.handle} lang={lang} vazio={tp.vazioAtos} /> : <p className="al-painel-vazio">{tp.vazioAtos}</p>),
     contas: (
@@ -107,6 +118,7 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
         {vivo ? <PlacarDoTear handle={org.handle} lang={lang} /> : null}
         <ComoVotamos votacoes={org.votacoes} t={t} lang={lang} />
         {vivo ? <CaixaTransparente handle={org.handle} lang={lang} /> : null}
+        <TearDeEncaminhamentos handle={org.handle} lang={lang} s={s} consultas={org.consultas} />
       </>
     ),
     consultas:
@@ -123,6 +135,29 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
           org.plenarias.map((p) => <BlocoDaPlenaria key={p.id} p={p} t={t} lang={lang} acoes={acoes} podePerguntar={membro} />)
         )}
         {vivo ? <AtasDaOrganizacao handle={org.handle} lang={lang} plenarias={org.plenarias.map((p) => ({ id: p.id, titulo: p.titulo }))} /> : null}
+      </>
+    ),
+    nucleos: (
+      <>
+        <section ref={nucleosRef} tabIndex={-1} className="al-perfil-bloco" aria-labelledby={`${id}-nucleos`} id="al-org-nucleos">
+          <h2 id={`${id}-nucleos`} className="al-cond">
+            {tp.nucleos.titulo}
+          </h2>
+          <NucleosDaOrg nucleos={org.nucleos} t={t} acoes={acoes} podeEntrar={membro} lang={lang} gerencio={vivo && org.gerencio} />
+        </section>
+        {vivo ? <FuncoesDaOrganizacao handle={org.handle} lang={lang} /> : null}
+        {org.gerencio && cuidar ? (
+          <AcendaUmLampiao
+            lang={lang}
+            handle={org.handle}
+            s={s}
+            criar={(p) =>
+              vivo
+                ? clienteOrgB1().acenderLampiao(org.handle, p).then((r) => (aoMudar?.(), r))
+                : cuidar.criarNucleo(p).then((r) => (aoMudar?.(), { id: (r as { id?: string })?.id ?? "", convite: null }))
+            }
+          />
+        ) : null}
       </>
     ),
   };
@@ -192,39 +227,21 @@ export function PerfilDaOrg({ org, t, lang, acoes, membro, posts, atos, abaInici
           ) : null}
 
           {acimaDasAbas}
-          <Abas ref={abasRef} id={id} abas={ABAS_DA_ORG} atual={aba} aoMudar={setAba} rotulos={tp.abas} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
+          <Abas ref={abasRef} id={id} abas={ABAS_DO_PERFIL} atual={aba} aoMudar={setAba} rotulos={{ ...tp.abas, nucleos: tp.nucleos.titulo }} rotulo={preencher(tp.abas.rotulo, { codinome: org.codinome })} />
           <div id={`${id}-painel`} role="tabpanel" aria-labelledby={`${id}-aba-${aba}`} className="al-painel">
             {painel[aba]}
           </div>
         </div>
 
-        <aside className="al-perfil-org-lado">
-          {aoVivo && aba !== "plenarias" ? (
+        {/* A plenária ao vivo acompanha as outras abas. No computador, quando a coluna da direita da casca já mostra o mesmo
+            "Ao vivo agora", este some (org.css): o cartão não aparece duas vezes. */}
+        {aoVivo && aba !== "plenarias" ? (
+          <aside className="al-perfil-org-lado al-perfil-org-aovivo">
             <section className="al-perfil-bloco" aria-label={t.plenaria.aoVivo}>
               <BlocoDaPlenaria p={aoVivo} t={t} lang={lang} acoes={acoes} podePerguntar={membro} />
             </section>
-          ) : null}
-          <section ref={nucleosRef} tabIndex={-1} className="al-perfil-bloco" aria-labelledby={`${id}-nucleos`} id="al-org-nucleos">
-            <h2 id={`${id}-nucleos`} className="al-cond">
-              {tp.nucleos.titulo}
-            </h2>
-            <NucleosDaOrg nucleos={org.nucleos} t={t} acoes={acoes} podeEntrar={membro} lang={lang} gerencio={vivo && org.gerencio} />
-          </section>
-          {vivo ? <FuncoesDaOrganizacao handle={org.handle} lang={lang} /> : null}
-          <TearDeEncaminhamentos handle={org.handle} lang={lang} s={s} consultas={org.consultas} />
-          {org.gerencio && cuidar ? (
-            <AcendaUmLampiao
-              lang={lang}
-              handle={org.handle}
-              s={s}
-              criar={(p) =>
-                vivo
-                  ? clienteOrgB1().acenderLampiao(org.handle, p).then((r) => (aoMudar?.(), r))
-                  : cuidar.criarNucleo(p).then((r) => (aoMudar?.(), { id: (r as { id?: string })?.id ?? "", convite: null }))
-              }
-            />
-          ) : null}
-        </aside>
+          </aside>
+        ) : null}
       </div>
     </div>
   );

@@ -253,6 +253,7 @@
   "plenaria": {
     "aoVivo": "Fila en vivo",
     "atualizada": "Actualizada hace {s} s",
+    "atualizadaAgora": "Actualizada ahora",
     "pausada": "Actualización en pausa con la pestaña oculta",
     "sala": "Enlace de la sala (https)",
     "salaAjuda": "YouTube no listado o la sala del instituto. Aparece cuando la plenaria está en vivo."

@@ -24,6 +24,16 @@
 [data-al="2"] :is(.tear-novo, .lampiao-form) small { font-weight: 500; color: var(--al-texto-3); }
 [data-al="2"] :is(.tear-novo, .lampiao-form) :is(input[type="text"], input[type="date"], textarea) { min-height: 44px; padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--al-superficie-2); background: var(--al-superficie); color: var(--al-texto); font: inherit; font-weight: 500; }
 [data-al="2"] .tear-novo { margin-top: 12px; }
+/* "Tecer um fio novo" com cara de botão (contorno em pílula e um + que vira × ao abrir), como os do B1. */
+[data-al="2"] .tear-novo > summary { cursor: pointer; font-weight: 800; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px 0 12px; border: 1.5px solid var(--al-linha); border-radius: var(--al-raio-pilula); list-style: none; color: var(--al-texto); }
+[data-al="2"] .tear-novo > summary::-webkit-details-marker { display: none; }
+[data-al="2"] .tear-novo > summary::before { content: "+"; display: inline-grid; place-items: center; width: 20px; height: 20px; font-size: 1.25rem; line-height: 1; font-weight: 900; color: var(--al-dourado); transition: transform 0.2s; }
+[data-al="2"] .tear-novo[open] > summary::before { transform: rotate(45deg); }
+[data-al="2"] .tear-novo[open] > summary { margin-bottom: 8px; background: var(--al-superficie); }
+[data-al="2"] .tear-novo > summary:focus-visible { outline: 3px solid var(--al-foco); outline-offset: 2px; }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .tear-novo > summary { border-color: var(--al-texto); }
+:root:is([data-contrast], [data-eink]) [data-al="2"] .tear-novo > summary::before { color: var(--al-texto); }
+@media (prefers-reduced-motion: reduce) { [data-al="2"] .tear-novo > summary::before { transition: none; } }
 [data-al="2"] .tear-novo summary { cursor: pointer; font-weight: 800; min-height: 44px; display: flex; align-items: center; }
 [data-al="2"] .tear-novo button[type="submit"] { margin-top: 12px; }
 :root:is([data-contrast], [data-eink]) [data-al="2"] :is(.tear-fio[data-estado="cumprido"] .tear-linha, .tear-faixa span) { background: var(--al-texto); }

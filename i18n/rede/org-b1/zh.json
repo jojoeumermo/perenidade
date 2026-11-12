@@ -253,6 +253,7 @@
   "plenaria": {
     "aoVivo": "实时队列",
     "atualizada": "{s} 秒前更新",
+    "atualizadaAgora": "刚刚更新",
     "pausada": "标签页隐藏时暂停更新",
     "sala": "会议室链接（https）",
     "salaAjuda": "不公开的 YouTube 或研究所的会议室。全会进行时显示。"

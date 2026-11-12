@@ -6,7 +6,7 @@
 // as ações de fora (`AcoesDaOrg`): no perfil de verdade, o banco (lib/rede/cliente-org.ts); no perfil de exemplo, ações que só
 // mudam a tela e não guardam nada.
 import { useId, useState } from "react";
-import { dataCurta, escreverPessoas, faltaPara, linkSeguro } from "@/lib/rede/org/contagem";
+import { dataCurta, escreverPessoas, faltaPara, linkSeguro, haQuanto } from "@/lib/rede/org/contagem";
 import { preencher } from "@/lib/rede/preencher";
 import type { TextosDaOrg } from "@/lib/rede/textos-org";
 import { LIMITES, type ConsultaDaOrg, type NucleoDaOrg, type PlenariaDaOrg, type VotacaoDaOrg } from "@/lib/rede/tipos-org";
@@ -337,7 +337,8 @@ export function BlocoDaPlenaria({ p, t, lang, acoes, podePerguntar }: { p: Plena
         {p.aoVivo && viva ? (
           <p className="al-consulta-nota al-fila-viva" aria-live="off">
             <span aria-hidden className="b1-ponto-vivo" /> {viva.plenaria.aoVivo}
-            {" · "}{pausado ? viva.plenaria.pausada : ultima ? preencher(viva.plenaria.atualizada, { s: Math.max(0, Math.round((agora - ultima) / 1000)) }) : ""}
+            {pausado || ultima ? " · " : null}
+            {pausado ? viva.plenaria.pausada : ultima ? haQuanto(viva.plenaria, agora - ultima) : null}
           </p>
         ) : null}
         {fila.length === 0 ? (
